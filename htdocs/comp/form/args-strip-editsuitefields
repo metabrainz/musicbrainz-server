@@ -1,0 +1,20 @@
+<%init>
+
+	my %args;
+	while (my ($k, $v) = each %ARGS)
+	{
+		defined($v) or next;
+		next if $k =~ /^mb/i;
+		next if $k =~ /^submit_/i;
+		next if $k =~ /^dummy/i;
+		next if $k =~ /^jsProxy/i;
+		next if $k =~ /^es\./i;
+		next if $k =~ /^v::/i;
+		next if $k =~ /^autoeditorpriv_enabled/i;
+		next if $k =~ /^notetext$/;
+
+		$args{$k} = $v;
+	}
+	return %args;
+
+</%init>

@@ -1,0 +1,22 @@
+<%args>
+	$name
+	$tabindex
+	$enabled
+	$value
+	$cssclass => ""
+</%args>
+<%perl>
+	# prepare tooltip depending on enabled flag.
+	my $tooltip = ($enabled
+		? "You can enter a time in the form 0:00 here"
+		: "Track time editing is disabled because of valid Disc ID(s)");
+
+	# use mason->out to compress whitespace
+	$m->out(qq!<input type="text" name="$name" class="tracklength$cssclass"!);
+	$m->out(qq!tabindex="$tabindex" title="$tooltip" !);
+	$m->out(qq!disabled="disabled" !) if (!$enabled);
+	$m->out(qq!value="$value" />\n!);
+
+	$m->comp("/comp/form/hiddenfield", $name, $value) if (!$enabled);
+
+</%perl>

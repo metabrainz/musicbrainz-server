@@ -221,16 +221,11 @@ table.artistfilter-listing tr.row0 {
 table.artistfilter-listing tr.row1 {
 }
 
-
 /* listing table */ 
 table.listing { margin: 0; padding: 0; border: none; border-collapse: collapse; }
 
 /* header rows are bold, and have some padding at the bottom */
 table.listing tr.header td { font-weight: bold; padding-bottom: 2px; }
-
-/* odd/even row coloring */
-table.listing tr.odd {}
-table.listing tr.even { background-color: #eee }
 
 /* if a row has the right class, all cells align to right per default */
 table.listing tr.right td { text-align: right; }
@@ -621,3 +616,6 @@ div.textlayout div.content {
 	text-decoration: underline;
 }
 */
+
+
+

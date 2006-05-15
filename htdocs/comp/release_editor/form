@@ -1,0 +1,756 @@
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# Render the release editor form
+	#
+	# $Id$
+	#
+</%perl>
+<%args>
+
+	$mb
+	$lookup => undef
+
+	# discid, toc for /cdi/enter.html
+	$freedb => 0
+	$noncd => 0
+	$discid => ""
+	$toc => ""
+	$search => ""
+
+	# artist
+	$artistid => ""
+	$artistname => ""
+
+	# tracks
+	$tracks
+	$hasmultipletrackartists
+	$editrelationships => 0
+
+	# releaseid for /edit/release/editall.html
+	$releaseid => ""
+	$releasename => ""
+
+	# freedb import
+	$freedbid => ""
+	$freedbcat => ""
+
+	# cdi, freedb import
+	$va_sep => ""
+	$va_a_t => ""
+	$va_t_a => ""
+
+</%args>
+<%perl>
+
+	my (%checkmacsac, %checkfields, %checkattributes, %checklanguage, %checkreleases);
+
+	%checkmacsac = %{ $ARGS{"v::macsac"} } if (ref $ARGS{"v::macsac"} eq "HASH");
+	%checkfields = %{ $ARGS{"v::fields"} } if (ref $ARGS{"v::fields"} eq "HASH");
+	%checklanguage = %{ $ARGS{"v::language"} } if (ref $ARGS{"v::language"} eq "HASH");
+	%checkattributes = %{ $ARGS{"v::attributes"} } if (ref $ARGS{"v::attributes"} eq "HASH");
+	%checkreleases = %{ $ARGS{"v::releases"} } if (ref $ARGS{"v::releases"} eq "HASH");
+
+	# write AR javascript config
+	my $viewjs = 0;
+	$m->out($viewjs ? '<pre>' : '<script type="text/javascript">');
+
+	# try to create a link type object from the types (artist-track)
+	my $linktype = MusicBrainz::Server::LinkType->newFromPackedTypes($mb->{DBH}, "artist-track");
+
+	# try to create node from the relationship-id, else skip this node
+	# (e.g. does not exist anymore)
+	my $root = $linktype->Root;
+	my $attrType = MusicBrainz::Server::LinkAttr->new($mb->{DBH});
+	my $attr_root = $attrType->Root;
+	my @children = $attr_root->Children;
+	my %seen_attrs;
+
+
+	# -------------------------------------------------------------------------
+	# RELATIONSHIP TYPES
+	# -------------------------------------------------------------------------
+
+	# include non-selectable 0 element
+	my @rel_types_ids;
+	my @rel_types;
+	push @rel_types, ("  0: { attr: '', desc: '', indent: 0, phrase: '[select a relationship type]' }");
+	push @rel_types_ids, 0;
+
+	# loop through all the types, and prepare javascript array
+	my @q = map { [$_,0] } $root;
+	while (my $l = shift @q)
+	{
+		unshift @q, map { [$_,$l->[1]+1] } $l->[0]->Children;
+		next if ($l->[0]->GetName eq 'ROOT');
+		if ($l->[0]->GetAttributes())
+		{
+			my @at = split ' ', $l->[0]->GetAttributes();
+			foreach my $a (@at)
+			{
+				my ($key, $value) = split '=', $a;
+				my ($mn, $mx) = split '-', $value;
+				$mx = -1 if (!defined $mx or $mx eq '');
+				$seen_attrs{$key} = $mx;
+			}
+		}
+		my $phrase = $l->[0]->GetLinkPhrase;
+		$phrase =~ s/\{(\w+:)/{/;
+
+		# prepare list
+		push @rel_types,
+			sprintf("%d: { attr: '%s', desc: '%s', indent: %d, phrase: '%s' }",
+				$l->[0]->GetId,
+				$l->[0]->GetAttributes(),
+				encode_entities($l->[0]->GetDescription()),
+				$l->[1],
+				encode_entities($phrase)
+			);
+		push @rel_types_ids, $l->[0]->GetId;
+	}
+
+	# include the list of toplevel types
+	push @rel_types,
+		sprintf("list: [%s]",
+			join (", ", @rel_types_ids)
+		);
+
+	$m->out("// relationship types:\n");
+	$m->out("var rel_types = {\n");
+	$m->out(join (",\n  ", @rel_types));
+	$m->out("\n};\n\n");
+
+	# -------------------------------------------------------------------------
+	# RELATIONSHIP ATTRIBUTES
+	# -------------------------------------------------------------------------
+	my @rel_attrs_ids;
+	my @rel_attrs;
+	foreach my $sec (keys %seen_attrs)
+	{
+		my $desc;
+		my $isSimple;
+		my $tree;
+		foreach my $child (@children)
+		{
+			if ($child->GetName eq $sec)
+			{
+				$desc = $child->GetDescription;
+				$isSimple = !$child->HasChildren;
+				$tree = $child;
+			}
+		}
+
+		# if we have a simple attribute type (=no children) print it
+		push @rel_attrs, sprintf("%d: { name: '%s', desc: '%s', children: null }",
+							$tree->GetId,
+							encode_entities($sec),
+							encode_entities($desc)
+						) if ($isSimple);
+
+		# else collect children, and print it
+		if (!$isSimple)
+		{
+			my @children_list;
+			my @children_ids;
+			my @q = map { [$_,0] } $tree->Children;
+			while (my $l = shift @q)
+			{
+				unshift @q, map { [$_, $l->[1]+1] } $l->[0]->Children;
+				next if ($l->[0]->GetName eq 'ROOT');
+
+				my $name = $l->[0]->GetName;
+				MusicBrainz::TrimInPlace($name);
+
+				push @children_list, sprintf("%d: { indent: %d, name: '%s' }",
+										$l->[0]->GetId,
+										$l->[1],
+										encode_entities($name));
+				push @children_ids, $l->[0]->GetId;
+			}
+			push @children_list, sprintf("list: [%s]",
+								join (", ", @children_ids));
+
+			# encode children list into children array.
+			my $children_dump = sprintf("\n    %s\n    ",
+									join(", ", @children_list)
+								);
+			push @rel_attrs, sprintf("%d: { name: '%s', desc: '%s', children: {%s} }",
+								$tree->GetId,
+								$sec,
+								$desc,
+								$children_dump);
+		}
+		push @rel_attrs_ids, $tree->GetId;
+	}
+
+	# include the list of toplevel ids
+	push @rel_attrs, sprintf(
+						'"list": [%s]',
+						join (", ", @rel_attrs_ids));
+	push @rel_attrs, sprintf(
+						'"list": [%s]',
+						join (", ", @rel_attrs_ids));
+
+	$m->out("// relationship attributes:\n");
+	$m->out("var rel_attrs = {\n");
+	$m->out(join (",\n  ", @rel_attrs));
+	$m->out("\n};\n");
+
+	$m->out($viewjs ? '</pre>' : '</script>');
+
+	my ($steps, $currstep, $boxtitle);
+	if ($ARGS{"v::action"} eq "/cdi/enter.html")
+	{
+		$steps = ["Lookup CD", "Select Artist", "Enter Information", "Finish"];
+		$currstep = 2;
+		$boxtitle = "Add Release";
+
+	} elsif ($ARGS{"v::action"} eq "/edit/album/editall.html")
+	{
+		$steps = ["Enter Information", "Finish"];
+		$currstep = 0;
+		$boxtitle = "Edit Release";
+	}
+
+	my $tabindex = 0;
+	my $dummycounter = 0;
+	my $labelfor;
+
+	# displayed artist in the field is either artist looked up from
+	# freedb or
+	# * if the form was submitted, the value in the ARGS,
+	# * or the search value entered in the previous form
+	my $artistvalue;
+	$artistvalue = (defined $search ? $search : "");
+	$artistvalue = (defined $artistname ? $artistname : "");
+	$artistvalue = (defined $lookup ? $lookup->{artist} : $artistvalue);
+
+	# Maintain a list of Artists cached by ID.
+	my $GetCachedArtist = do
+	{
+		my %cache;
+		sub
+		{
+			my ($id) = @_;
+			return $cache{$id} if (exists $cache{$id});
+			my $artist = $m->comp("/comp/loadartist", $mb, $id);
+			return ($cache{$id} = $artist);
+		};
+	};
+
+</%perl>
+
+	<form method="post" action="<% $ARGS{"v::action"} %>">
+		<& /comp/autofixmenu &>
+
+		<script type="text/javascript" src="/scripts/entervalidate.js"></script>
+		<script type="text/javascript" src="/scripts/editallconfig.js"></script>
+		<script type="text/javascript" src="/scripts/dojo.js"></script>
+
+		<& /comp/layout/editformbegin, title => $boxtitle &>
+
+			<table class="formstyle release_editor">
+				<tr class="step">
+					<td colspan="3">&nbsp;</td>
+					<td colspan="3">
+						<& /comp/form/steps, steps => $steps, curr => $currstep &>
+					</td>
+				</tr>
+
+
+<%perl>
+	# -------------------------------------------------------------------------
+	# ARTIST NAME
+	# -------------------------------------------------------------------------
+	# the checkbox which triggers the release artist to be unset if the box
+	# was checked. output the selected artist, highlight if it is an existing
+	# or new artist which will be added upon submission.
+	# $m->out('<span class="mp" title="Artist will be added upon submission">') if ($artistid eq "*");
+	# $m->out('</span>') if ($artistid eq "*");
+
+	# try to load the artist, if the artistid is given.
+	my $release_artist = undef;
+	if ($artistid ne "")
+	{
+		$release_artist = &$GetCachedArtist($ARGS{"artistid"});
+	}
+
+</%perl>
+				<tr>
+					<td class="label">
+						<& /comp/form/label, for => "id_artistname", title => "Artist" &>
+					</td>
+					<td>&nbsp;</td>
+					<td>
+						<& /comp/form/checkbox-artistchange, name => "artistedit" &>
+					</td>
+					<td colspan="2" id="release_artist::display::::">
+
+%	my $artist_edit = !defined $release_artist;
+%	if (!$artist_edit)
+%	{
+						<& /comp/linkartist, artist => $release_artist &>
+						<& /comp/form/hiddenfield, artistname => $ARGS{"artistname"} &>
+%	}
+%	else
+%	{
+						<& /comp/form/textfield,
+							name => "artistname",
+							id => "id_artistname",
+							tabindex => ++$tabindex,
+							value => $artistvalue,
+							cssclass => ($checkfields{"artistname"} ? " missing" : "") &>
+%	}
+					</td>
+					<td id="release_artist::fields::::" style="<% $artist_edit ? '' : 'display: none' %>">
+						<& /comp/form/jsbutton, id => "BTN_ARTIST::artistname" &>
+						<& /comp/form/hiddenfield, artistid => $ARGS{"artistid"} &>
+						<& /comp/form/hiddenfield, artistresolution => $ARGS{"artistresolution"} &>
+					</td>
+				</tr>
+
+<%perl>
+
+	# -------------------------------------------------------------------------
+	# RELEASE NAME
+	# -------------------------------------------------------------------------
+	$releasename = $lookup->{album}
+		if (defined $lookup);
+
+</%perl>
+
+				<tr>
+					<td class="label">
+						<& /comp/form/label, for => "id_releasename", title => "Release" &>
+					</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td colspan="2">
+						<& /comp/form/textfield,
+							name => "releasename",
+							id => "id_releasename",
+							tabindex => ++$tabindex,
+							value => $releasename,
+							cssclass => ($checkfields{"releasename"} ? " missing" : "") &>
+					</td>
+					<td>
+						<& /comp/form/jsbutton, id => "BTN_ALBUM::releasename" &>
+					</td>
+				</tr>
+
+<%perl>
+
+	# -------------------------------------------------------------------------
+	# SINGLE/MULTIPLETRACKARTISTS TOGGLE
+	# -------------------------------------------------------------------------
+
+</%perl>
+				<tr id="releaseconfig">
+					<td colspan="3">&nbsp;</td>
+					<td colspan="3">
+						<div id="releaseeditor::config">
+						<& /comp/form/buttonsubmit,
+							value => ($ARGS{"hasmultipletrackartists"}
+								? $ARGS{"SUBMIT_ARTISTS_HIDE"}
+								: $ARGS{"SUBMIT_ARTISTS_SHOW"}),
+							enabled => ($artistid != &ModDefs::VARTIST_ID),
+							title => ($artistid == &ModDefs::VARTIST_ID
+									? "Releases attached to the special-case artist Various Artists need to have multiple track artists."
+									: $ARGS{"hasmultipletrackartists"}
+										? "Click this button if you want this release to have one artist for the release and tracks."
+										: "Click this button if you want to specify track artists for the tracks other than the release artist."),
+						&>
+						</div>
+					</td>
+				</tr>
+
+<%perl>
+
+	# -------------------------------------------------------------------------
+	# MAC/SAC WARNING
+	# -------------------------------------------------------------------------
+	if (!$ARGS{"force_macsac"}
+		and keys %checkmacsac > 0)
+	{
+		if ($checkmacsac{"sac"})
+		{
+
+</%perl>
+				<tr class="spaced">
+					<td colspan="3">&nbsp;</td>
+					<td colspan="3">
+						<& /comp/form/feedbackbox, "warning", "",
+							qq!You've chosen to enter a "Various Artists" release, but
+							all the artist names are the same, so this should
+							probably be entered as a "Single Artist" release.
+							What do you want to do?! &>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="3"></td>
+					<td colspan="3">
+						<& /comp/form/buttonsubmit, value => $ARGS{"SUBMIT_IGNOREMACSAC"} &>
+						<& /comp/form/buttonsubmit, value => $ARGS{"SUBMIT_TOSAC"} &>
+						<br />&nbsp;
+					</td>
+				</tr>
+%		}
+%		if ($checkmacsac{"mac"})
+%		{
+				<tr class="spaced">
+					<td colspan="3">&nbsp;</td>
+					<td colspan="3">
+						<& /comp/form/feedbackbox, "warning", "",
+							qq!You have chosen to enter a "Single Artist" release, but
+							looking at the track names it seems that maybe this
+							should be a "Various Artists" release. (This message
+							appears because all track names contain either "-"
+							or "/"). What do you want to do?! &>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="3"></td>
+					<td colspan="3">
+						<& /comp/form/buttonsubmit, value => $ARGS{"SUBMIT_IGNOREMACSAC"} &>
+						<& /comp/form/buttonsubmit, value => $ARGS{"SUBMIT_TOMAC"} &>
+
+						<& /comp/form/checkbox,
+							name => "mac_usevartist",
+							checked => 1,
+							title => qq!The release will be attached to the special-case artist
+									 "Various Artists". If you untick this checkbox, the release
+									 artist will be attached to the current artist! &>
+
+						<div class="float">
+							Move release to <& /comp/linkartist, id => &ModDefs::VARTIST_ID,
+							name => "Various Artists" &>.
+						</div>
+						<br />&nbsp;
+					</td>
+				</tr>
+
+%		}
+%	}
+
+<%perl>
+
+	# returns the full name of the given track field
+	# in the ARGS hash.
+	sub getField {
+		my ($i, $name) = @_;
+		return sprintf("tr%d_%s", $i, $name);
+    }
+
+	# define array to collect tracktimes
+	my @tracktimes;
+	for (my $i = 0; $i < $tracks; $i++)
+	{
+		my $artistidfield = getField($i, "artistid");
+		my $artistnamefield =getField($i, "artistname");
+		my $artistresolutionfield = getField($i, "artistresolution");
+
+		my $artistvalue = $ARGS{$artistnamefield} || "";
+		my $track = $ARGS{"track$i"} || "";
+		my $trackdel = ($ARGS{"trackdel$i"} ? 1 : 0);
+		my $trackseq = $ARGS{"trackseq$i"} || ($i+1);
+
+		# TODO, get tracklength from toc
+		my $tracktime = $ARGS{"tracklength$i"} || "?:??";
+		push @tracktimes, $tracktime;
+
+		if (defined $lookup)
+		{
+			if ($hasmultipletrackartists)
+			{
+				$artistvalue = $track = $lookup->{tracks}[$i]{'track'};
+				if ($track =~ /(.*)\s*\Q$va_sep\E\s*(.*)/)
+				{
+					if (defined $1 && defined $2)
+					{
+						$artistvalue = ($va_a_t ne "") ? $1 : $2;
+						$track = ($va_a_t ne "") ? $2 : $1;
+					}
+				}
+				MusicBrainz::TrimInPlace($artistvalue, $track);
+			}
+			else
+			{
+				my $trackarr = $lookup->{tracks};
+				$track = $$trackarr[$i]->{track};
+			}
+		}
+
+</%perl>
+
+
+%		# -------------------------------------------------------------------------
+%		# TRACKNR, NAME, LENGTH
+%		# -------------------------------------------------------------------------
+
+				<tr id="tr<% $i %>_td" class="<% $i % 2 == 0 ? "even" : "odd" %>">
+					<td class="label">
+
+%		if ($hasmultipletrackartists)
+%		{
+						<% $i+1 %>: &nbsp;
+%		}
+						<& /comp/form/label, for => "id_t$i", title => "Track" &>
+					</td>
+					<td>
+						<& /comp/form/tracknumberfield,
+							name => "trackseq$i",
+							tabindex => ++$tabindex,
+							enabled => $ARGS{"v::edit_track_data"} && !$trackdel,
+							value => $trackseq,
+							cssclass => ($checkfields{"trackseq$i"} ? "-missing" : "") &>
+					</td>
+					<td>
+%						# checkbox which can be used to delete a track
+						<& /comp/form/checkbox-trackdelete,
+							name => "trackdel$i",
+							enabled => $ARGS{"v::edit_track_data"},
+							checked => $trackdel &>
+					</td>
+					<td>
+						<& /comp/form/textfield,
+							name => "track$i",
+							id => "id_t$i",
+							tabindex => ++$tabindex,
+							value => $track,
+							enabled => !$trackdel,
+							cssclass => ($checkfields{"track$i"} ? " missing" : "") &>
+					</td>
+					<td>
+						<& /comp/form/tracktimefield,
+							name => "tracklength$i",
+							tabindex => ++$tabindex,
+							value => $tracktime,
+							enabled => $ARGS{"v::edit_track_data"} && !$trackdel,
+							cssclass => ($checkfields{"tracklength$i"} ? " missing" : "") &>
+					</td>
+					<td>
+
+%		# guess case button
+%		if (!$trackdel)
+%		{
+						<& /comp/form/jsbutton, id => "BTN_TRACK::track$i" &>
+%		}
+
+						<& /comp/form/hiddenfield, "trackid$i", $ARGS{"trackid$i"} &>
+					</td>
+				</tr>
+
+%		# -------------------------------------------------------------------------
+%		# TRACK VALIDATION ERRORS
+%		# -------------------------------------------------------------------------
+%		if ($ARGS{"v::track$i"} ne "")
+%		{
+
+				<tr class="trackerror" class="<% $i % 2 == 0 ? "even" : "odd" %>">
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>
+%			my @errors = split /\|/, $ARGS{"v::track$i"};
+%			foreach my $err (@errors)
+%			{
+				<b>&middot;</b> <% $err %> <br/>
+%			}
+					</td>
+				</tr>
+%		}
+
+
+%		# -------------------------------------------------------------------------
+%		# MULTIPLETRACKARTISTS: ARTISTNAME FIELD,
+%		# -------------------------------------------------------------------------
+%
+%		my $showartist = $hasmultipletrackartists ? "" : "display: none";
+
+				<tr id="track_artist::tr::<% $i %>::" style="<% $showartist %>" class="trackartist <% $i % 2 == 0 ? "even" : "odd" %>">
+					<td class="label">
+						<& /comp/form/label, for => "id_a$i", title => "Artist" &>
+					</td>
+					<td>&nbsp;</td>
+					<td>
+						<& /comp/form/checkbox-artistchange,
+							enabled => !$trackdel,
+							name => getField($i, "artistedit") &>
+
+
+%		# check, and load artist from track artist id.
+%		my $track_artistid = $ARGS{$artistidfield};
+%		my $track_artist = &$GetCachedArtist($track_artistid)
+%			if ($track_artistid);
+
+					<td id="track_artist::display::<% $i %>::">
+
+%		# -------------------------------------------------------------------------
+%		# DIV WHICH DISPLAYS THE CURRENT SELECTED ARTIST
+%		# -------------------------------------------------------------------------
+%		$artist_edit = !defined $track_artist;
+%		if (!$artist_edit)
+%		{
+						<& /comp/linkartist, artist => $track_artist &>
+						<& /comp/form/hiddenfield, $artistnamefield => $track_artist->GetName &>
+
+%		}
+%		else
+%		{
+						<& /comp/form/textfield,
+							name => $artistnamefield,
+							id => "id_a$i",
+							tabindex => ++$tabindex,
+							value => $artistvalue,
+							enabled => !$trackdel,
+							cssclass => ($checkfields{$artistnamefield} ? " missing" : "") &>
+%		}
+					</td>
+					<td>&nbsp;</td>
+					<td>
+						<div id="track_artist::fields::<% $i %>::" style="<% $artist_edit ? '' : 'display: none' %>">
+							<& /comp/form/jsbutton, id => "BTN_ARTIST::$artistnamefield" &>
+							<& /comp/form/jsbutton, id => "BTN_GUESSBOTH::".$artistnamefield."::track$i", hidden => !$hasmultipletrackartists &>
+
+							<& /comp/form/hiddenfield, $artistidfield => $ARGS{$artistidfield} &>
+							<& /comp/form/hiddenfield, $artistresolutionfield => $ARGS{$artistresolutionfield} &>
+						</div>
+					</td>
+				</tr>
+
+%		# -------------------------------------------------------------------------
+%		# TRACK RELATIONSHIPS PLACEHOLDER
+%		# -------------------------------------------------------------------------
+				<tr style="display: none">
+					<td colspan="3">&nbsp;</td>
+					<td colspan="3" id="track::relationship::<% $i %>::" class="tr_relationships"></td>
+				</tr>
+
+%	}
+
+
+%	# -------------------------------------------------------------------------
+%	# GUESS ALL, NEXT
+%	# -------------------------------------------------------------------------
+				<tr>
+					<td colspan="3">&nbsp;</td>
+					<td colspan="2">
+						<& /comp/form/buttonsubmit,
+							value => $ARGS{"SUBMIT_NEXT"},
+							tabindex => ++$tabindex,
+							validate => 1 &>
+
+						&nbsp;&nbsp;&nbsp;
+
+						<& /comp/form/buttonsubmit,
+							value => $ARGS{"SUBMIT_STARTOVER"},
+							tabindex => ++$tabindex, &>
+
+						<& /comp/form/buttonsubmit,
+							value => $ARGS{"SUBMIT_CANCEL"},
+							tabindex => ++$tabindex, &>
+
+					</td>
+					<td>
+						<& /comp/form/jsbutton, id => "BTN_ALL" &>
+					</td>
+				</tr>
+
+
+%	# -------------------------------------------------------------------------
+%	# BAD SEQUENCE WARNING
+%	# -------------------------------------------------------------------------
+%	if ($checkfields{"badsequence"})
+%	{
+
+				<tr style="display: none">
+					<td colspan="3">&nbsp;</td>
+					<td colspan="3">
+						<& /comp/form/feedbackbox,
+							"warning", "",
+							qq!You need to enter a continuous list of
+							sequence numbers. Please correct them and re-submit the form.! &>
+					</td>
+				</tr>
+% 	}
+
+%	# -------------------------------------------------------------------------
+%	# MISSING FIELDS WARNING
+%	# -------------------------------------------------------------------------
+%	my $show = ((keys %checkattributes > 0) or
+%		  	   (keys %checkfields > 0) or
+%		       (keys %checklanguage > 0));
+
+				<tr id="validatemessages" style="<% $show ? "" : "display: none" %>">
+					<td colspan="3">&nbsp;</td>
+					<td colspan="3">
+						<& /comp/form/feedbackbox,
+							"warning", "",
+							qq!Please enter all the required elements of this release.
+							   The missing (or wrong) input fields are marked with
+							   an orange background color.! &>
+					</td>
+				</tr>
+
+
+%	# -------------------------------------------------------------------------
+%	# RELEASE ATTRIBUTES
+%	# -------------------------------------------------------------------------
+	<& /comp/release_editor/form-attributes,
+		%ARGS,
+		artistid => $artistid,
+		releasename => $releasename,
+		tracktimes => \@tracktimes,
+		checkattributes => \%checkattributes,
+		tabindex => \$tabindex,
+	&>
+
+%	# -------------------------------------------------------------------------
+%	# LANGUAGE/SCRIPT
+%	# -------------------------------------------------------------------------
+	<& /comp/release_editor/form-language-and-script,
+		%ARGS,
+		mb => $mb,
+		tabindex => \$tabindex,
+	&>
+
+%	# -------------------------------------------------------------------------
+%	# RELEASE EVENTS
+%	# -------------------------------------------------------------------------
+	<& /comp/release_editor/form-releases,
+		%ARGS,
+		checkreleases => \%checkreleases,
+		tabindex => \$tabindex,
+	&>
+
+			</table>
+
+		<& /comp/layout/editformend &>
+
+
+%		# -------------------------------------------------------------------------
+%		# HIDDEN FIELDS
+%		# -------------------------------------------------------------------------
+		<& /comp/release_editor/form-hiddenfields, %ARGS &>
+
+	</form>
+

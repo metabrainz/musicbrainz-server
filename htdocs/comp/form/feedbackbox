@@ -1,0 +1,19 @@
+<%perl>
+	my ($type, $header, $text) = @_;
+
+	# use mason->out to compress whitespace
+	$m->out('<div class="feedbackbox-'.$type.'">');
+	$m->out('<img src="/images/es/'.$type.'.gif" alt="">');
+	if ($header ne "")
+	{
+		$m->out('<span id="header">');
+		$m->out($header);
+		$m->out(' </span>');
+	}
+	$m->out('<span id="text">');
+	$m->out($text);
+	$m->out('</span>');
+	$m->out('</div>');
+	$m->out("\n");
+	$m->out("\n");
+</%perl>

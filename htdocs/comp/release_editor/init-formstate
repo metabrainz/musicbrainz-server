@@ -1,0 +1,117 @@
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# Prepare the button texts, and messages used in the release editor.
+	#
+	# $Id$
+	#
+</%perl>
+<%args>
+
+	$submitvalue => undef
+
+</%args>
+<%perl>
+
+	# default behaviour is validate, and showing the form
+	$ARGS{"v::validate"} = 1;
+	$ARGS{"v::showform"} = 1;
+
+	# button which triggers the form validation
+	$ARGS{"SUBMIT_NEXT"} = "Next »";
+
+	# /comp/release_editor/review
+	$ARGS{"SUBMIT_KEEPEDITING"} = "Keep Editing";
+	$ARGS{"SUBMIT_STARTOVER"} = "Start Over";
+	$ARGS{"SUBMIT_CANCEL"} = "Cancel";
+	$ARGS{"SUBMIT_ENTERMODERATIONS"} = "Enter Moderations";
+
+	# freedb import
+	$ARGS{"SUBMIT_FREEDB"} = "FreeDB Lookup";
+	$ARGS{"SUBMIT_SACIMPORT"} = "Import as Single Artist »";
+	$ARGS{"SUBMIT_MACIMPORT"} = "Import as Various Artists »";
+
+	# mac
+	$ARGS{"SUBMIT_IGNOREMACSAC"} = "Ignore problem »";
+	$ARGS{"SUBMIT_TOMAC"} = "Convert to Various Artists »";
+	$ARGS{"SUBMIT_TOSAC"} = "Convert to Single Artist »";
+
+	# sg5disasterrelief
+	$ARGS{"SUBMIT_ARTISTS_SHOW"} = "Show track artists »";
+	$ARGS{"SUBMIT_ARTISTS_HIDE"} = "Hide track artists »";
+
+	# sac
+	$ARGS{"SUBMIT_SACSEARCH"} = "Search for Release Artist »";
+	$ARGS{"SUBMIT_SACSELECT"} = "Select Release Artist »";
+
+	# add artist
+	$ARGS{"SUBMIT_ADDARTIST"} = "Add new Artist »";
+
+	# va-artist
+	$ARGS{"SUBMIT_ARTISTCHANGE"} = "Change »";
+	$ARGS{"SUBMIT_ARTISTSELECT"} = "Select Artist »";
+	$ARGS{"SUBMIT_ARTISTSEARCH"} = "Search for Artist »";
+	$ARGS{"SUBMIT_BACKTOFORM"} = "Back to Form";
+
+	# language/script
+	$ARGS{"SUBMIT_LANG_COMPACT"} = "Show Compact Lists";
+	$ARGS{"SUBMIT_LANG_FULL"} = "Show Full Lists";
+	$ARGS{"SUBMIT_LANG_GUESS"} = "Guess";
+
+	# attributes
+	$ARGS{"SUBMIT_ATTR_GUESS"} = "Guess Attributes";
+
+	# similar-releases
+	$ARGS{"SUBMIT_FORCESIMILAR"} = "Yes, My Release is Different »";
+
+	# we got a form submit to handle.
+	$ARGS{"v::formsubmitted"} = 0;
+	if (defined $submitvalue)
+	{
+		$ARGS{"v::formsubmitted"} = 1;
+
+		# because the submit paramter is overloaded, we
+		# need to find the right operation. if SUBMIT_NEXT
+		# was pressed, it will be skipped twice and is
+		# therefore the default if no other submit button
+		# was found. (see comment at the bottom of the
+		# form)
+		my $foundsubmit = "";
+		if (ref($submitvalue) eq "ARRAY")
+		{
+			foreach my $btn (@$submitvalue) {
+				$m->out("submitvalue: $btn<br/>");
+				next if ($btn eq $ARGS{"SUBMIT_NEXT"});
+				$foundsubmit = $btn;
+				last;
+			}
+			$ARGS{"submitvalue"} = ($foundsubmit ne "" ? $foundsubmit : $ARGS{"SUBMIT_NEXT"});
+		}
+	}
+
+	# return the modified arguments hash.
+	return %ARGS;
+
+</%perl>
+
+%# vi: set ts=4 sw=4 ft=mason :

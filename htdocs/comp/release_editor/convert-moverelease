@@ -1,0 +1,225 @@
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# Change the ReleaseArtist of this release
+	#
+	# $Id$
+	#
+</%perl>
+<%args>
+
+	# the musicbrainz object
+	$mb
+	$artist_edit
+
+	# make sure this component does not get called
+	# without the needed parameters
+	$artistid => 0
+	$dosearch => 0
+	$query => ""
+
+	# the current artistname the release is attributed to.
+	$artistname => ""
+
+</%args>
+<%perl>
+
+	# initialise search value to current value.
+	$query = $artistname
+		if (!$dosearch);
+
+	my %args = $m->comp("/comp/form/args-strip-editsuitefields", %ARGS);
+	delete $args{"submitvalue"};
+	delete $args{"artist_edit"};
+	delete $args{"query"};
+
+	# if a single item was found, set it and redirect
+	# back to the form.
+	my @r;
+	if ($dosearch)
+	{
+		my $ar = Artist->new($mb->{DBH});
+		my $ar_list = $ar->GetArtistsFromName($query);
+		if (@$ar_list == 1 and @$ar_list[0]->GetName eq $query)
+		{
+			# cleanout the ARGS array.
+			#   if the user wants to abort the move,
+			#   we need to clear the artist_edit flag.
+			delete $ARGS{"force_macsac"};
+			delete $ARGS{"artist_edit"};
+			delete $ARGS{"query"};
+
+			$ARGS{"v::showform"} = 1;
+			$ARGS{"artistid"} = @$ar_list[0]->GetId;
+			return %ARGS;
+		}
+	}
+
+	# retrieve the list of artists matching the query $query
+	if ($query ne "")
+	{
+		my $engine = SearchEngine->new($mb->{DBH}, "artist");
+		$engine->Search(
+			query => $query,
+			limit => 0,
+		);
+		my @dontshow = ( $artistid );
+		@r = do {
+			my %dontshow = map { $_=>1 } @dontshow;
+			my @r;
+			while (my $row = $engine->NextRow)
+			{
+				next if $dontshow{ $row->{'artistid'} };
+				push @r, $row;
+			}
+			@r;
+		};
+	}
+	$m->comp("/comp/form/begin", title => "Move release to another artist");
+
+	# show the artist we're looking for
+	if ($query ne "")
+	{
+		$m->comp("/comp/form/label", title => "Searching for");
+		$m->out('<div class="float">"');
+		$m->out($query);
+		$m->out('"</div>');
+		$m->out('<br/>');
+	}
+
+	# if artists were found
+	if (@r)
+	{
+		$m->out('<script type="text/javascript src="/scripts/entervalidate.js"></script>');
+		$m->out('<form action="'.$ARGS{"v::action"}.'" method="POST">');
+
+		# show the current trackname
+		$m->comp("/comp/form/label", cssclass => " hidden");
+		$m->comp("/comp/form/feedbackbox", "info", "",
+			"The following artists matched your query \"$query\". Please select
+			the artist you require or click on the Button \"Not found\" to go
+			back to the last page."
+		);
+		$m->out("<br/>");
+
+		my $checked = 1;
+		my $j = 1;
+		for my $row (@r)
+		{
+			my $labelfor = "sa_$j";
+			$m->comp("/comp/form/label", title => $j, id => $labelfor);
+
+			$m->comp("/comp/form/radiobutton",
+				name => "artistid",
+				id => $labelfor,
+				value => $row->{artistid},
+				checked => ($j == 1),
+			);
+			$m->out('<div class="float">');
+			$m->out('<a href="/showartist.html?artistid=');
+			$m->out($row->{artistid});
+			$m->out(' title="">');
+			$m->out($row->{'artistname'});
+			$m->out('</a> ');
+			if ($row->{artistresolution})
+			{
+				$m->out(' (');
+				$m->out($row->{artistresolution});
+				$m->out(')');
+			}
+			$m->out('</div><br/>');
+			++$j;
+		}
+		$m->comp("/comp/form/label", cssclass => " hidden");
+		# the hidden field is needed that the "submitvalue" argument gets transmitted
+		# in any case (e.g. if the user hits ENTER while the cursor is in the textfield)
+		$m->comp("/comp/form/hiddenfield", "submitvalue", $ARGS{"SUBMIT_SACSELECT"});
+		$m->comp("/comp/form/buttonsubmit", value => $ARGS{"SUBMIT_SACSELECT"});
+		$m->out("<br/>");
+		$m->out("<br/>");
+
+		# do NOT include old artistid.
+		my %selectargs = %args;
+		delete $selectargs{"artistid"};
+		$m->comp("/comp/args-to-hidden-fields.inc", %selectargs);
+		$m->out('</form>');
+	}
+
+	if (!@r && $dosearch)
+	{
+		$m->comp("/comp/form/label", cssclass => " hidden");
+		$m->comp("/comp/form/feedbackbox", "info", "",
+			"There were no artists found which matched your query \"$query\".
+			Please click on the Button \"Not found\" to go back to the last page
+			or search again."
+		);
+		$m->out("<br/>");
+	}
+
+	my $labelfor = "id_search";
+	$m->out('<form action="'.$ARGS{"v::action"}.'" method="POST">');
+	$m->comp("/comp/form/label", title => "Search".($dosearch ? " again" :""), id => $labelfor);
+	$m->out('<input type="text" name="query"');
+	$m->out('" id="'.$labelfor.'" size="50" value="'.$query.'" />');
+	$m->out("<br/>");
+
+	$m->comp("/comp/form/label", title => "");
+	$m->comp("/comp/form/buttonsubmit", value => $ARGS{"SUBMIT_SACSEARCH"});
+	$m->out("<br/>");
+
+	# the hidden field is needed that the "submitvalue" argument gets transmitted
+	# in any case (e.g. if the user hits ENTER while the cursor is in the textfield)
+	$m->comp("/comp/form/hiddenfield", "submitvalue", $ARGS{"SUBMIT_SACSEARCH"});
+	$m->comp("/comp/form/hiddenfield", "dosearch", 1);
+	$m->comp("/comp/form/hiddenfield", "artist_edit", 1);
+	$m->comp("/comp/args-to-hidden-fields.inc", %args);
+	$m->out('</form>');
+	$m->out("<br/>");
+
+	# not found button
+	$m->out('<form action="'.$ARGS{"v::action"}.'" method="POST">');
+	$m->comp("/comp/form/label", title => "Go back");
+	$m->comp("/comp/form/buttonsubmit", value => $ARGS{"SUBMIT_BACKTOFORM"});
+	$m->comp("/comp/args-to-hidden-fields.inc", %args);
+	$m->out('</form>');
+
+	# add artist button
+	$m->out('<form action="'.$ARGS{"v::action"}.'" method="POST">');
+	$m->comp("/comp/args-to-hidden-fields.inc", %ARGS);
+	$m->comp("/comp/form/hiddenfield", "addartist", "artistname");
+	$m->comp("/comp/form/buttonsubmit", value => $ARGS{"SUBMIT_ADDARTIST"});
+	$m->out('</form>');
+	$m->comp("/comp/form/end");
+
+	$m->comp("/comp/form/end");
+	$m->out("<br/>");
+	$m->out("<br/>");
+
+	# do not show form, we're showing the SAC-artist list.
+	$ARGS{"v::showform"} = 0;
+	$ARGS{"v::validate"} = 0;
+	return %ARGS;
+
+</%perl>
+
+%# vi: set ts=4 sw=4 ft=mason :

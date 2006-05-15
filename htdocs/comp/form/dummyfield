@@ -1,0 +1,6 @@
+<%perl>
+	my ($class, $value, $counter) = @_;
+
+	# use mason->out to compress whitespace
+	$m->out(qq(<input class="$class" value="$value" readonly="readonly" />\n));
+</%perl>

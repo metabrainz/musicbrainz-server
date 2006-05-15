@@ -1,0 +1,19 @@
+<%args>
+	$name
+	$id => undef
+	$value
+	$tabindex => undef
+</%args>
+<%perl>
+	$name = encode_entities($name);
+	$value = encode_entities($value);
+
+	# use mason->out to compress whitespace
+	$m->out(qq(<input type="radio" name="$name" ));
+	$m->out(qq(id="$id"))
+		if ($id);
+	$m->out(qq(ondblclick="this.form.submit()" value="$value" ));
+	$m->out(qq(tabindex="$tabindex"))
+		if ($tabindex);
+	$m->out(qq( />\n));
+</%perl>

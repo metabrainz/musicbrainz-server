@@ -1,0 +1,18 @@
+<%args>
+	@steps
+	$curr => 0
+</%args>
+<%perl>
+  	my $i = 0;
+	@steps = map{
+			my $nrclass = ($_ eq $steps[$curr] ? ' currnr' : '');
+			my $stepclass = ($_ eq $steps[$curr] ? ' curr' : '');
+			++$i;
+
+			qq(<div class="stepnr$nrclass">$i</div><div class="step$stepclass">$_</div>)
+		} @steps;
+
+	$m->out(join (qq(<div class="steparrow">&raquo;</div>\n), @steps));
+	$m->out(qq(<br/>\n));
+	$m->out(qq(<br/>\n));
+</%perl>

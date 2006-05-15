@@ -5,6 +5,99 @@ input.button {
 }
 
 
+/* textfield classes */
+table.formstyle input.numberfield,
+table.formstyle input.numberfield-hidden,
+table.formstyle input.numberfield-missing {
+	width: 50px;
+	background: #fff;
+	text-align: center;
+}
+table.formstyle input.numberfield-missing {
+	background: #fff5ce;
+	border-left: 2px solid #fb5;
+}
+table.formstyle input.numberfield-hidden {
+	visibility: hidden;
+}
+
+
+/* textfield classes */
+table.formstyle input.trackseq,
+table.formstyle input.trackseq-hidden,
+table.formstyle input.trackseq-missing {
+	width: 25px;
+	background: #fff;
+	text-align: center;
+}
+table.formstyle input.trackseq-missing {
+	background: #fff5ce;
+	border-left: 2px solid #fb5;
+}
+
+table.formstyle input.trackseq-hidden {
+	visibility: hidden;
+}
+
+
+/* textfield classes */
+table.formstyle input.tracklength,
+table.formstyle input.tracklength-hidden,
+table.formstyle input.tracklength-missing {
+	width: 50px;
+	background: #fff;
+	text-align: center;
+}
+table.formstyle input.tracklength-missing {
+	background: #fff5ce;
+	border-left: 2px solid #fb5;
+}
+
+table.formstyle input.tracklength-hidden {
+	visibility: hidden;
+}
+
+
+
+
+
+
+table.formstyle input.datefield {
+	width: 50px;
+	background: #fff;
+	text-align: center;
+}
+table.formstyle input.datefield.year {
+	width: 50px;
+}
+table.formstyle input.datefield.month,
+table.formstyle input.datefield.day {
+	width: 25px;
+}
+
+table.formstyle input.textfield {
+	width: 350px;
+	background: #fff;
+	padding-left: 2px;
+}
+table.formstyle input.textfield.focus {
+	background: #f0efff;
+	color: #000;
+}
+
+
+
+table.formstyle input.numberfield.missing,
+table.formstyle input.textfield.missing {
+	background: #fff5ce;
+	border-left: 2px solid #fb5;
+}
+table.formstyle select.missing {
+	background: #fff5ce;
+	border-left: 2px solid #fb5;
+}
+
+
 table.formstyle .textfield,
 table.formstyle .numberfield,
 table.formstyle .datefield {
@@ -452,4 +545,156 @@ fieldset.formstyle {
 fieldset.formstyle legend {
 	color: #000;
 	font-weight: bold;
+}
+
+
+	
+.feedbackbox,
+.feedbackbox-warning,
+.feedbackbox-info {
+	float: left;
+	width: 345px;
+}
+
+/* user feedback boxes */
+.feedbackbox,
+.feedbackbox-warning,
+.feedbackbox-info {
+	line-height: 1.2em;
+	margin-bottom: 10px;
+	padding: 4px;
+	font-size: 11px;
+}
+.feedbackbox img,
+.feedbackbox-warning img,
+.feedbackbox-info img {
+	float: left;
+	padding-top: 0px; padding-right: 4px; padding-bottom: 0px;
+}
+
+.feedbackbox-nobox {
+	margin-bottom: 0px;
+}
+.feedbackbox-warning {
+	border: 1px solid #000; background: #fff5ce;
+}
+.feedbackbox-info {
+	border: 1px solid #0099ff; background: #e1f3ff;
+}
+
+.feedbackbox #header,
+.feedbackbox-warning #header,
+.feedbackbox-info  #header {
+	font-weight: bold; margin-right: 5px;
+}
+.feedbackbox #text,
+.feedbackbox-warning #text,
+.feedbackbox-info  #text {
+}
+.feedbackbox a,
+.feedbackbox-warning a,
+.feedbackbox-info a {
+	font-style: italic;
+}
+.feedbackbox a.readmore,
+.feedbackbox-warning a.readmore,
+.feedbackbox-info a.readmore {
+	font-style: normal;
+	white-space: nowrap;
+	margin-left: 5px;
+	color: #000;
+	font-size: 10px;
+	text-decoration: underline;
+}
+.feedbackbox a.readmore:hover,
+.feedbackbox-warning a.readmore:hover,
+.feedbackbox-info a.readmore:hover {
+}
+
+
+
+div.step {
+	float: left; font-size: 11px;
+	border: 1px solid #ccc;
+	margin-top: 2px;
+	padding: 2px 4px 2px 4px;
+	background-color: #fff;
+	color: #ccc;
+}
+div.step.curr {
+	border: 1px solid #000;
+	background-color: #fff;
+	color: #000;
+}
+div.stepnr {
+	float: left; font-size: 11px;
+	border-style: solid;
+	border-color: #ccc;
+	border-width: 1px 0px 1px 1px;
+	margin-top: 2px;
+	padding: 2px;
+	background-color: #ccc;
+	color: #fff;
+}
+div.stepnr.currnr {
+	border-color: #000;
+	background-color: #000;
+	color: #fff;
+}
+div.steparrow {
+	float: left; font-size: 11px;
+	margin-top: 2px;
+	padding: 2px;
+}
+
+
+/* odd/even row coloring */
+tr.even {}
+tr.odd { background-color: #eee }
+
+/* release editor */
+table.release_editor { border-collapse: collapse; }
+table.release_editor td { padding: 2px; }
+table.release_editor tr.trackartist td { padding-bottom: 10px; }
+table.release_editor tr.step td { padding-bottom: 10px; }
+
+
+/* album editor review  */
+table.review {
+	border-collapse: collapse;
+	margin: 0px; margin-left: 40px;
+	padding: 0px;
+	background: #fff;
+}
+table.review tr {
+	vertical-align: top;
+}
+table.review tr.header {
+}
+table.review tr.header td {
+	padding-left: 2px;
+	padding-bottom: 2px;
+	font-weight: bold;
+}
+table.review tr td {
+	padding: 2px;
+}
+table.review tr td.type {
+	padding-left: 4px;
+	padding-right: 40px;
+}
+table.review tr td.newvalue {
+	white-space: nowrap;
+	padding-right: 40px;
+}
+table.review tr td.autoedit {
+	width: 100px;
+	padding-right: 4px;
+}
+table.review tr.spacer td {
+}
+table.review tr.nochanges td {
+}
+table.review tr td table.editdiff tr td {
+	padding: 1px;
 }

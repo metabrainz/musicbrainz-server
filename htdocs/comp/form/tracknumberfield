@@ -1,0 +1,24 @@
+<%args>
+	$name
+	$tabindex
+	$enabled
+	$value
+	$cssclass => ""
+	$lastseq => 99
+</%args>
+<%perl>
+
+	# prepare tooltip depending on enabled flag.
+	my $tooltip = ($enabled
+		? "You can set a new track number here, possible values are: (1-$lastseq)"
+		: "Track number editing is disabled because of valid Disc ID(s)");
+
+	# use mason->out to compress whitespace
+	$m->out(qq!<input type="text" name="$name" class="trackseq$cssclass" !);
+	$m->out(qq!tabindex="$tabindex" title="$tooltip" !);
+	$m->out(qq!disabled="disabled" !) if (!$enabled);
+	$m->out(qq!size="2" value="$value" />\n!);
+
+	$m->comp("/comp/form/hiddenfield", $name, $value) if (!$enabled);
+
+</%perl>

@@ -1,0 +1,194 @@
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# Check if all the artists have been set correctly. For all the missing
+	# present the artistfilter such that the user can choose the artist.
+	#
+	# $Id$
+	#
+</%perl>
+<%args>
+
+	$mb
+	$tracks => 0
+
+</%args>
+<%perl>
+
+	# default = not checked.
+	$ARGS{"v::checkedartists"} = 0;
+
+	# prepare lists of missing/edit artists
+	my @missing_artists;
+	my %edit_artists;
+	my $labelfor;
+	my %args;
+
+	# returns the full name of the given track field
+	# in the ARGS hash.
+	sub getField {
+		my ($i, $name) = @_;
+		return sprintf("tr%d_%s", $i, $name);
+    }
+
+	# loop through all the tracks and check their tr{t}_artistid
+	# and tr{t}_artistname.
+	my $t;
+	for $t (0 .. $tracks-1)
+	{
+		if ($ARGS{getField($t, "artistedit")})
+		{
+			# if user choose to edit the artist, delete tr{t}_artistid
+			# parameter and add the current track index $t
+			# to the missing_artists list.
+			$edit_artists{$t} = 1;
+			delete $ARGS{getField($t, "artistid")};
+		}
+		# if the tr{t}_artistid of the current track is not set,
+		# mark it as a missing artist
+		push @missing_artists, $t
+			if not $ARGS{getField($t, "artistid")};
+
+		# we don't need to carry this parameter around
+		delete $ARGS{getField($t, "artistedit")};
+	}
+
+	$m->out("edit_artists: ".join (",", keys %edit_artists)."<br/>");
+	$m->out("missing_artists: ".join (",", @missing_artists)."<br/>");
+
+	# if we have no missing artists, every field has an tr{t}_artistid
+	if (!@missing_artists)
+	{
+		$ARGS{"v::checkedartists"} = 1;
+		return %ARGS;
+	}
+
+	# loop thorugh all the missing artists, if they are
+	# a single hit, update the arguments, else show the form
+	if (@missing_artists)
+	{
+		my ($search, $currtrackname, $field_artistname, $curr_artistname, $field_artistid, $curr_artistid);
+		my @resolved_artists;
+
+		foreach $t (@missing_artists)
+		{
+			$field_artistid = getField($t, "artistid");
+			$field_artistname = getField($t, "artistname");
+
+			$curr_artistid = $ARGS{$field_artistid};
+			$curr_artistname = $ARGS{$field_artistname};
+
+			$currtrackname = $ARGS{"track$t"};
+
+			my $ar = Artist->new($mb->{DBH});
+			my @ar_list = @{ $ar->GetArtistsFromName($curr_artistname) };
+
+			# if a single item was found, set it and redirect
+			# back to the form.
+			if (@ar_list == 1 and $ar_list[0]->GetName eq $curr_artistname
+				and !$edit_artists{$t})
+			{
+				$ARGS{getField($t, "artistid")} = $ar_list[0]->GetId;
+				$ARGS{getField($t, "artistname")} = $ar_list[0]->GetName;
+				push @resolved_artists, $t;
+				next;
+			}
+
+			# retrieve the list of artists matching the query $curr_artistname
+			my $engine = SearchEngine->new($mb->{DBH}, "artist");
+			$engine->Search(
+				query => $curr_artistname,
+				limit => 0,
+			);
+
+			my @dontshow = ();
+			my @r = do {
+				my %dontshow = map { $_=>1 } @dontshow;
+				my @r;
+				while (my $row = $engine->NextRow)
+				{
+					next if $dontshow{ $row->{'artistid'} };
+					push @r, $row;
+				}
+				@r;
+			};
+
+</%perl>
+
+			<form method="post" action="<% $ARGS{"v::action"} %>" >
+
+%			# delete the current tr{t}_artistname from the arguments,
+%			# this will be the new query string.
+%			my %args = $m->comp("/comp/form/args-strip-editsuitefields", %ARGS);
+%			delete $args{getField($t, "artistname")};
+%			delete $args{"submitvalue"};
+%			$m->comp("/comp/args-to-hidden-fields.inc", %args);
+
+				<& /comp/tablebegin, title => "Select Artist for current track" &>
+
+					<table class="formstyle">
+
+						<tr>
+							<td class="label">Track:</td>
+							<td><% $currtrackname %>
+						</tr>
+						<tr>
+							<td class="label">Track #:</td>
+							<td><% $t+1 %>
+						</tr>
+
+						<& /comp/artistfilter,
+							search => $curr_artistname,
+							selectedname => $field_artistid,
+
+							engine => $engine,
+							selectbutton => $ARGS{"SUBMIT_ARTISTSELECT"},
+
+							submitvalue => $ARGS{"submitvalue"} &>
+					</table>
+					<& /comp/form/hiddenfield, "submitvalue", $ARGS{"SUBMIT_NEXT"} &>
+
+				<& /comp/tableend &>
+
+			</form>
+
+<%perl>
+
+			# we're selecting an artist, don't show main form.
+			$ARGS{"v::validate"} = 0;
+			$ARGS{"v::showform"} = 0;
+			last;
+		}
+
+		# if we have no missing aritsts, every field has an tr{t}_artistid
+		if (@missing_artists == @resolved_artists)
+		{
+			$ARGS{"v::checkedartists"} = 1;
+			return %ARGS;
+		}
+	}
+	return %ARGS;
+
+</%perl>
+
+%# vi: set ts=4 sw=4 ft=mason :

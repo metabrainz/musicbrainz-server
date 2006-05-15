@@ -1,0 +1,27 @@
+<%args>
+	$title => ""
+	$id => ""
+	$cssclass => ""
+	$modpending => undef
+</%args>
+<%perl>
+
+	# use mason->out to compress whitespace
+	$m->out(qq(<label class="label $cssclass"));
+	if ($id)
+	{
+		$m->out(qq( for="$id"));
+	}
+	$m->out(qq( title="There are pending moderations on this item!"))
+		if $modpending;
+	$m->out(">");
+
+	if ($title)
+	{
+		$m->out('<span class="mp">') if $modpending;
+		$m->out($title);
+		$m->out(":");
+		$m->out('</span>') if $modpending;
+	}
+	$m->out(qq(</label>\n));
+</%perl>

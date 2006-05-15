@@ -1,0 +1,332 @@
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# Enter the edits of the Edit Release process
+	#
+	# $Id$
+	#
+</%perl>
+<%args>
+
+	$mb
+
+	# make sure we have the needed parameters
+	$artistid
+	$releaseid
+	$releasename
+
+	# release attributes
+	$attr_type
+	$attr_status
+	$attr_language
+	$attr_script
+
+	# number of tracks
+	$tracks
+	$hasmultipletrackartists
+
+	# moderation note
+	$notetext => ""
+
+</%args>
+<%perl>
+
+	my $url = "/show/release/?releaseid=" . $releaseid;
+
+	# load the original values for review
+	my %orig;
+	$orig{"mb"} = $mb;
+	$orig{"releaseid"} = $releaseid;
+	%orig = $m->comp("/comp/release_editor/init-editall", %orig);
+
+	$m->comp(
+		"/comp/entermods",
+		DBH => $mb->{DBH},
+		sub => sub {
+			my @mods;
+
+			my $release = Album->new($mb->{DBH});
+			$release->SetId($releaseid);
+			$release->LoadFromId
+				or die "Error loading release\n";
+
+			my ($ov, $nv);
+
+			# MOD_MOVE_ALBUM
+			# if the album needs to be moved to an existing artist, or
+			# if the insert mod above was successful, continue moving the
+			# album to the newly created artist
+			$ov = $orig{"artistid"};
+			$nv = $ARGS{"artistid"};
+			if ($ov ne $nv
+				and $artistid ne "*")
+			{
+				push @mods, Moderation->InsertModeration(
+					DBH	=> $mb->{DBH},
+					uid	=> $session{uid},
+					privs => $session{privs},
+					type => &ModDefs::MOD_MOVE_ALBUM,
+					# --
+					album => $release,
+					newname => $nv,
+				);
+			}
+
+			# MOD_EDIT_ALBUMNAME
+			# Enter a moderation if the albumname was edited
+			$ov = $orig{"albumname"};
+			$nv = $ARGS{"albumname"};
+			if ($ov ne $nv)
+			{
+				push @mods, Moderation->InsertModeration(
+					DBH	=> $mb->{DBH},
+					uid	=> $session{uid},
+					privs => $session{privs},
+					type => &ModDefs::MOD_EDIT_ALBUMNAME,
+					# --
+					album => $release,
+					newname => $nv,
+				);
+			}
+
+			# MOD_EDIT_ALBUMATTRS
+			# Enter a moderation if the album attributes were changed
+			$ov = $orig{"attr_type"}.",".$orig{"attr_status"};
+			$nv = $ARGS{"attr_type"}.",".$ARGS{"attr_status"};
+			if ($ov ne $nv)
+			{
+				push @mods, Moderation->InsertModeration(
+					DBH	=> $mb->{DBH},
+					uid	=> $session{uid},
+					privs => $session{privs},
+					type => &ModDefs::MOD_EDIT_ALBUMATTRS,
+					# --
+					albums => [ $release ],
+					attr_type => $ARGS{"attr_type"},
+					attr_status => $ARGS{"attr_status"},
+				);
+			}
+
+			# MOD_EDIT_ALBUM_LANGUAGE
+			# Enter a moderation if the album language/script was changed
+			$ov = $orig{"attr_language"}.",".$orig{"attr_script"};
+			$nv = $ARGS{"attr_language"}.",".$ARGS{"attr_script"};
+			if ($ov ne $nv)
+			{
+				push @mods, Moderation->InsertModeration(
+					DBH	=> $mb->{DBH},
+					uid	=> $session{uid},
+					privs => $session{privs},
+					type => &ModDefs::MOD_EDIT_ALBUM_LANGUAGE,
+					# --
+					albums => [ $release ],
+					language => $ARGS{"attr_language"},
+					script => $ARGS{"attr_script"},
+				);
+			}
+
+			# Enter moderations for each track property that was changed.
+			for (my $t=0; $t < $tracks; $t++)
+			{
+				# get the new values
+				my $new_id = $ARGS{"trackid$t"} || "";
+				my $new_seq = $ARGS{"trackseq$t"};
+				my $new_track = $ARGS{"track$t"} || "";
+				my $new_length = $ARGS{"tracklength$t"} || "";
+				my $new_delete = $ARGS{"trackdel$t"};
+				my $new_artist = $ARGS{sprintf "tr%d_artistid", $t} || "";
+
+				# get original values
+				my $orig_id = $orig{"trackid$t"} || "";
+				my $orig_seq = $orig{"trackseq$t"};
+				my $orig_track = $orig{"track$t"} || "";
+				my $orig_length = $orig{"tracklength$t"} || "";
+				my $orig_artist = $orig{sprintf "tr%d_artistid", $t} || "";
+
+				# prepare Track object for moderations
+				my $track = Track->new($mb->{DBH});
+				$track->SetId($new_id);
+				$track->SetAlbum($releaseid);
+
+				# if the id has changed, the track has been re-ordered
+				# find the original sequence number, and
+				# enter a MOD_EDIT_TRACKNUM moderation.
+				if ($orig_id ne $new_id)
+				{
+					for my $i (0 .. $tracks-1)
+					{
+						$orig_id = $orig{"trackid$i"};
+						$orig_seq = $orig{"trackseq$i"};
+
+						# if we found the trackid
+						if ($new_id eq $orig_id)
+						{
+							# now we need to be sure that the track object
+							# exists, else fail.
+							$track->LoadFromId
+								or die "Error loading track\n";
+
+							push @mods, Moderation->InsertModeration(
+								DBH	=> $mb->{DBH},
+								uid	=> $session{uid},
+								privs => $session{privs},
+								type => &ModDefs::MOD_EDIT_TRACKNUM,
+								# --
+								track => $track,
+								newseq => $new_seq,
+							);
+
+							# update original values, to see if other
+							# things than the sequence have been changed.
+							$orig_track = $orig{"track$i"};
+							$orig_length = $orig{"tracklength$i"};
+							$orig_artist = $orig{"ar_id$i"};
+							last;
+						}
+					}
+				}
+
+				# make sure we have a valid track object
+				$track->LoadFromId
+					or die "Error loading track\n";
+
+				# MOD_CHANGE_TRACK_ARTIST
+				# if the track needs to be moved to an existing artist, or
+				# if the insert mod above was successful, continue moving the
+				# track to the newly created artist
+				if ($orig_artist ne $new_artist
+					and $new_artist ne "*")
+				{
+					my $oldartist = $m->comp("/comp/loadartist", $mb, $orig_artist);
+					my $newartist = $m->comp("/comp/loadartist", $mb, $new_artist);
+
+					push @mods, Moderation->InsertModeration(
+						DBH	=> $mb->{DBH},
+						uid	=> $session{uid},
+						privs => $session{privs},
+						type => &ModDefs::MOD_CHANGE_TRACK_ARTIST,
+						# --
+						track => $track,
+						oldartist => $oldartist,
+						artistid => $newartist->GetId,
+						artistname => $newartist->GetName,
+						artistsortname => $newartist->GetSortName,
+						# TODO depmod on $modid ?
+					);
+				}
+
+				# MOD_ADD_TRACK_KV / MOD_EDIT_TRACKNAME
+				# Insert add track name moderation if the old name was "" and the new name is not ""
+				# Insert edit track name moderation if the old name was not ""
+				if ($orig_track ne $new_track)
+				{
+					if ($orig_track eq "")
+					{
+						# make sure we don't insert empty new tracks.
+						if ($new_track ne "")
+						{
+							push @mods, Moderation->InsertModeration(
+								DBH	=> $mb->{DBH},
+								uid	=> $session{uid},
+								privs => $session{privs},
+								type => &ModDefs::MOD_ADD_TRACK_KV,
+								# --
+								album => $release,
+								trackname => $new_track,
+								tracknum => $new_seq,
+							);
+						}
+					}
+					else
+					{
+						push @mods, Moderation->InsertModeration(
+							DBH	=> $mb->{DBH},
+							uid	=> $session{uid},
+							privs => $session{privs},
+							type => &ModDefs::MOD_EDIT_TRACKNAME,
+							# --
+							track => $track,
+							newname => $new_track,
+						);
+					}
+				}
+
+				# MOD_EDIT_TRACKTIME
+				# Insert edit track length moderation if requested
+				if ($orig_length ne $new_length)
+				{
+					push @mods, Moderation->InsertModeration(
+						DBH	=> $mb->{DBH},
+						uid	=> $session{uid},
+						privs => $session{privs},
+						type => &ModDefs::MOD_EDIT_TRACKTIME,
+						# --
+						track => $track,
+						newlength => Track::UnformatTrackLength($new_length),
+					);
+				}
+
+				# MOD_REMOVE_TRACK
+				# Insert track removal mod if requested
+				if ($new_delete)
+				{
+					push @mods, Moderation->InsertModeration(
+						DBH	=> $mb->{DBH},
+						uid	=> $session{uid},
+						privs => $session{privs},
+						type => &ModDefs::MOD_REMOVE_TRACK,
+						# --
+						track => $track,
+						album => $release,
+					);
+				}
+			}
+
+			if (@mods > 1)
+			{
+				my $num = @mods;
+				$mods[0]->InsertNote(
+					&ModDefs::MODBOT_MODERATOR,
+					"The first of a set of $num moderations",
+					nosend => 1,
+				);
+				$mods[-1]->InsertNote(
+					&ModDefs::MODBOT_MODERATOR,
+					"The last of a set of $num moderations",
+					nosend => 1,
+				);
+			}
+
+			# insert the moderation note
+			$mods[0]->InsertNote($session{'uid'}, $notetext)
+				if $mods[0]
+				and $notetext =~ /\S/;
+		},
+	) or return;
+
+	$m->comp("/edit/album/sae-cancel.html", "true");
+	$m->comp("/comp/redirect", $url);
+
+</%perl>
+
+%# vi: set ts=4 sw=4 ft=mason :

@@ -1,0 +1,24 @@
+<%args>
+	$name
+	$checked
+	$enabled
+	$tabindex => undef
+</%args>
+<%perl>
+	# prepare tooltip depending on enabled flag.
+	my $title = ($enabled
+		? ($checked
+			? "This track is set to be removed, tick this box if you've changed your mind"
+			: "Tick this box to remove this track."
+		   )
+		: "Track removal is disabled because of valid Disc ID(s)");
+
+	# call the checkbox component
+	$m->comp("/comp/form/checkbox",
+		name => $name,
+		checked => $checked,
+		enabled => $enabled,
+		tabindex => $tabindex,
+		title => $title,
+	);
+</%perl>

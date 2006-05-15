@@ -1,0 +1,221 @@
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# Change the ReleaseArtist to a SingleArtistRelease
+	#
+	# $Id$
+	#
+</%perl>
+<%args>
+
+	$mb
+	$ar_name0 => ""
+	$sacartist => ""
+	$tracks => 0
+	$guessfromtrackartist => 1
+
+</%args>
+<%perl>
+
+	# start the search
+	my $search = "";
+
+	# cleanout args array
+	my %args = $m->comp("/comp/form/args-strip-editsuitefields", %ARGS);
+	delete $args{"submitvalue"};
+
+	if ($guessfromtrackartist)
+	{
+		$search = $ar_name0;
+		$search = $sacartist if $sacartist ne "";
+		delete $ARGS{"sacartist"};
+
+		# if a single item was found, set it and redirect
+		# back to the form.
+		my @dupes;
+		if ($search ne "")
+		{
+			my $ar = Artist->new($mb->{DBH});
+			my $ar_list = $ar->GetArtistsFromName($search);
+			if (@$ar_list == 1 and @$ar_list[0]->GetName eq $search)
+			{
+				# clear the VA-fields
+				delete $ARGS{"force_macsac"};
+				for (my $t = 0; $t < $tracks; $t++)
+				{
+					delete $ARGS{"ar_id$t"};
+					delete $ARGS{"ar_name$t"};
+				}
+				$ARGS{"v::showform"} = 1;
+				$ARGS{"hasmultipletrackartists"} = 0;
+				$ARGS{"artistid"} = @$ar_list[0]->GetId;
+				return %ARGS;
+			}
+
+			# get identical names artists
+			my $norm_name = MusicBrainz::NormaliseSortText($search);
+			@dupes = grep {
+				MusicBrainz::NormaliseSortText($_->GetName) eq $norm_name
+			} @$ar_list;
+		}
+
+		# retrieve the list of artists matching the query $search
+		my @r;
+		if ($search ne "")
+		{
+			my $engine = SearchEngine->new($mb->{DBH}, "artist");
+			$engine->Search(
+				query => $search,
+				limit => 0,
+			);
+
+			# exclude the various artists artist
+			# from the list of selectable artists.
+			my @dontshow = ( &ModDefs::VARTIST_ID );
+			@r = do {
+				my %dontshow = map { $_=>1 } @dontshow;
+				my @r;
+				while (my $row = $engine->NextRow)
+				{
+					next if $dontshow{ $row->{'artistid'} };
+					push @r, $row;
+				}
+				@r;
+			};
+		}
+		$m->comp("/comp/form/begin", title => "Select Artist for release");
+
+		# show the artist we're looking for
+		$m->comp("/comp/form/label", title => "Searching for");
+		$m->out('<div class="float">');
+		$m->out($search);
+		$m->out('</div>');
+		$m->out('<br/>');
+
+
+		# if artists were found
+		if (@r)
+		{
+			$m->out('<script type="text/javascript src="/scripts/entervalidate.js"></script>');
+			$m->out('<form action="'.$ARGS{"v::action"}.'" method="POST">');
+
+			# show the current trackname
+			$m->comp("/comp/form/label", cssclass => " hidden");
+			$m->comp("/comp/form/feedbackbox", "info", "",
+				"The following artists matched your query \"$search\". Please select
+				the artist you require or click on the Button \"Not found\" to go
+				back to the last page."
+			);
+			$m->out("<br/>");
+
+			my $checked = 1;
+			my $j = 1;
+			for my $row (@r)
+			{
+				my $labelfor = "sa_$j";
+				$m->comp("/comp/form/label", title => $j, id => $labelfor);
+
+				$m->comp("/comp/form/radiobutton",
+					name => "artistid",
+					id => $labelfor,
+					value => $row->{artistid},
+					checked => ($j == 1),
+				);
+				$m->out('<div class="float">');
+				$m->out('<a href="/showartist.html?artistid=');
+				$m->out($row->{artistid});
+				$m->out(' title="">');
+				$m->out($row->{'artistname'});
+				$m->out('</a> ');
+				if ($row->{artistresolution})
+				{
+					$m->out(' (');
+					$m->out($row->{artistresolution});
+					$m->out(')');
+				}
+				$m->out('</div><br/>');
+				++$j;
+			}
+			$m->comp("/comp/form/label", cssclass => " hidden");
+			# the hidden field is needed that the "submitvalue" argument gets transmitted
+			# in any case (e.g. if the user hits ENTER while the cursor is in the textfield)
+			$m->comp("/comp/form/hiddenfield", "submitvalue", $ARGS{"SUBMIT_SACSELECT"});
+			$m->comp("/comp/form/buttonsubmit", value => $ARGS{"SUBMIT_SACSELECT"});
+
+			# do NOT include old artistid, and reset the
+			# multiple trackartists flag
+			delete $args{"artistid"};
+			$args{"hasmultipletrackartists"} = 0;
+			$m->comp("/comp/args-to-hidden-fields.inc", %args);
+			$m->out('</form>');
+		}
+		else
+		{
+			$m->out('<form action="'.$ARGS{"v::action"}.'" method="POST">');
+
+			$m->comp("/comp/form/label", cssclass => " hidden");
+			$m->comp("/comp/form/feedbackbox", "info", "",
+				"There were no artists found which matched your query \"$search\".
+				Please click on the Button \"Not found\" to go back to the last page
+				or search again."
+			);
+			$m->out("<br/>");
+		}
+	}
+	$m->out("<br/>");
+	$m->out("<br/>");
+
+	my $labelfor = "id_search";
+	$m->comp("/comp/form/label", title => "Search".($search ne "" ? " again" :""), id => $labelfor);
+	$m->out('<input type="text" name="sacartist"');
+	$m->out('" id="'.$labelfor.'" size="50" value="'.$search.'" />');
+	$m->out("<br/>");
+	$m->comp("/comp/form/label", title => "");
+	$m->comp("/comp/form/buttonsubmit", value => $ARGS{"SUBMIT_SACSEARCH"});
+	$m->out("<br/>");
+
+	# the hidden field is needed that the "submitvalue" argument gets transmitted
+	# in any case (e.g. if the user hits ENTER while the cursor is in the textfield)
+	$m->comp("/comp/form/hiddenfield", "submitvalue", $ARGS{"SUBMIT_SACSEARCH"});
+	$m->comp("/comp/args-to-hidden-fields.inc", %args);
+	$m->out('</form>');
+	$m->out("<br/>");
+
+	# not found button
+	$m->out('<form action="'.$ARGS{"v::action"}.'" method="POST">');
+	$m->comp("/comp/form/label", title => "Go back");
+	$m->comp("/comp/form/buttonsubmit", value => $ARGS{"SUBMIT_BACKTOFORM"});
+	$m->comp("/comp/args-to-hidden-fields.inc", %ARGS);
+	$m->out('</form>');
+	$m->comp("/comp/form/end");
+	$m->out("<br/>");
+	$m->out("<br/>");
+
+	# do not show form, we're showing the SAC-artist list.
+	$ARGS{"v::showform"} = 0;
+	$ARGS{"v::validate"} = 0;
+	return %ARGS;
+
+</%perl>
+
+%# vi: set ts=4 sw=4 ft=mason :

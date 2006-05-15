@@ -1,0 +1,240 @@
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# Enter the edits of the Add Release process
+	#
+	# $Id$
+	#
+</%perl>
+<%args>
+
+	$mb
+
+	# artist
+	$artistid => undef
+	$artistname => undef
+	$sortname => undef
+
+	# release
+	$releasename
+	$attr_status
+	$attr_type
+	$attr_script
+	$attr_language
+
+	# tracks
+	$tracks
+	$hasmultipletrackartists
+
+	# cd lookup
+	$discid => ""
+	$toc => ""
+	$noncd => 0
+
+	# freedb
+	$freedbid => ""
+	$freedbcat => ""
+
+	# moderation note
+	$notetext => ""
+
+</%args>
+<%perl>
+
+	$m->comp("/comp/checkloggedin", 1, 1)
+		or return;
+
+	$m->comp("/comp/sidebar", title => 'Add Release');
+
+	use DebugLog;
+	if (my $d = DebugLog->open)
+	{
+		$d->stamp("cdi/done.html");
+		$d->dumper([\%ARGS], ['*ARGS']);
+		$d->dumpstring($toc, '$toc') if $toc;
+		$d->close;
+	}
+
+	# Do a bunch of error checking
+	my $error = 0;
+	$error = 1 if (!defined $artistid && $artistname eq "");
+	$error = 2 if ($discid eq "" && $freedbid eq "" && $noncd == 0);
+	$error = 3 if ($toc eq "" && $freedbid eq "" && $noncd == 0);
+	#$error = 4 if ($freedbid ne "" && $durations eq ""); not used anymore
+	$error = 5 if ($tracks eq 0);
+	$error = 6 if (!defined $artistid && $artistname =~ /various artists/i);
+	for (my $i = 0; $i < $tracks && !$error; $i++)
+	{
+		$error = 7 + $i
+			if (!exists $ARGS{"track$i"} || $ARGS{"track$i"} eq "");
+	}
+
+	if ($error > 0 && $error != 6)
+	{
+		$m->comp("/comp/form/feedbackbox",
+			"warning", sprintf("Error %d", $error),
+			"Please make sure that you fill out all the fields in the form.
+			Please press the Back button in your Browser and try again."
+		);
+	}
+	elsif ($error == 6)
+	{
+		$m->comp("/comp/form/feedbackbox",
+			"warning", "Error",
+			"You cannot insert a Various Artists releases using the single artist
+			 submission form. Please go back to the beginning of the submission
+			 process and choose a Multiple Artist CD."
+		);
+	}
+	else
+	{
+		my (@offsets);
+		if ($toc ne "")
+		{
+			@offsets = split / /, $toc;
+			shift @offsets; # first
+			shift @offsets; # last
+			my $leadout = shift @offsets;
+			push @offsets, $leadout;
+		}
+		my $new = "";
+
+		# build release sql.
+		if (!defined $artistid)
+		{
+			MusicBrainz::TrimInPlace($artistname, $sortname);
+			$new = "Artist=$artistname\nSortname=$sortname\n";
+		}
+		$new .= "AlbumName=$releasename\nNumTracks=$tracks\n";
+		$new .= "Attributes=$attr_type,$attr_status\n";
+		$new .= "Language=$attr_language,$attr_script\n";
+		$new .= "CDIndexId=$discid\n" if ($discid ne "");
+		$new .= "TOC=$toc\n" if ($toc ne "");
+		$new .= "FreedbId=$freedbid\n" if ($freedbid ne "");
+		$new .= "FreedbCat=$freedbcat\n" if ($freedbcat ne "");
+
+
+		# retrieve 1..n tracks from the arguments
+		for (my $i = 0; $i < $tracks; $i++)
+		{
+			MusicBrainz::TrimInPlace($ARGS{"track$i"});
+			$new .= "Track" . ($i + 1) . "=" . $ARGS{"track$i"} . "\n";
+			if ($toc ne "")
+			{
+				my $dur = int((($offsets[$i+1] - $offsets[$i])*1000)/75);
+				$new .= "TrackDur" . ($i + 1) . "=" . $dur . "\n";
+			}
+			else
+			{
+				my $length = Track::UnformatTrackLength($ARGS{"tracklength$i"});
+				$length = 0 if $length < 0;
+				$new .= "TrackDur" . ($i + 1) . "=" . $length . "\n";
+			}
+			if ($hasmultipletrackartists)
+			{
+				if (exists $ARGS{"ar_id$i"} && $ARGS{"ar_id$i"} != 0)
+				{
+					$new .= "ArtistID" . ($i + 1) . "=" . $ARGS{"ar_id$i"} . "\n";
+				}
+				else
+				{
+					MusicBrainz::TrimInPlace($ARGS{"ar_name$i"}, $ARGS{"ar_sortname$i"});
+					$new .= "Artist" . ($i + 1) . "=" . $ARGS{"ar_name$i"} . "\n";
+					$new .= "Sortname" . ($i + 1) . "=" . $ARGS{"ar_sortname$i"} . "\n";
+				}
+			}
+		}
+
+		# retrieve the release-dates and countries from the arguments
+		for my $j (sort map { /^rls_year-(\d+)$/ ? ($1) : () } keys %ARGS)
+		{
+			my $ry = $ARGS{"rls_year-$j"};
+			my $rm = $ARGS{"rls_month-$j"};
+			my $rd = $ARGS{"rls_day-$j"};
+			my $rc = $ARGS{"rls_country-$j"};
+
+			# Skip if all blank
+			next unless do { no warnings; "$rc $ry $rm $rd" =~ /\S/ };
+
+			# Otherwise, we insist on a valid country and a valid date
+			MusicBrainz::IsNonNegInteger($rc)
+				or return $m->comp(
+					"/comp/error",
+					"Error: invalid release country entered",
+					0, 1,
+				);
+
+			my @ymd = MusicBrainz::IsValidDate($ry, $rm, $rd)
+				or return $m->comp(
+					"/comp/error",
+					"'$ry $m $rd' is not a valid release date. "
+					. ' Please go back and try again.',
+					0, 1,
+				);
+
+			no warnings;
+			$new .= sprintf("Release%d=%d,%s-%s-%s\n", $j, $rc, @ymd);
+		}
+
+		# Insert the release moderation.
+		# -- Returns the id of the artist (if the artist was created the
+		# new artistid of this artist, the releaseid of the created release
+		# and the list of moderations that were entered.
+		my $in = Insert->new($mb->{DBH});
+		my ($newartistid, $releaseid, $mods) = $in->InsertAlbumModeration(
+			$new, $session{uid}, $session{privs}, $artistid,
+		);
+
+
+		# TODO no error checking yet on adding the mod note
+		if ($mods and @$mods and $notetext =~ /\S/)
+		{
+			my $sql = Sql->new($mb->{DBH});
+			eval {
+				$sql->Begin;
+				$mods->[0]->InsertNote($session{'uid'}, $notetext);
+				$sql->Commit;
+			};
+			eval { $sql->Rollback } if $@ ne "";
+		}
+
+		# TODO no error checking yet on adding the mod note
+		if (defined $newartistid && defined $releaseid)
+		{
+			$m->comp(
+				"/comp/redirect",
+				sprintf("/show/release/?releaseid=%s&new=1", $releaseid)
+			);
+		}
+		else
+		{
+			$m->out("An error occurred during the data insertion:<br>");
+			my $msg = $in->GetError() || "(no error message returned)";
+			$m->out("<pre>" . encode_entities($msg) . "</pre>"); # TODO: test
+		}
+	}
+</%perl>
+
+<& /comp/footer &>
+
+%# vi: set ts=4 sw=4 ft=mason :

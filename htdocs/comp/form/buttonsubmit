@@ -1,0 +1,28 @@
+<%args>
+	$value
+	$tabindex => undef
+	$validate => undef
+	$name => undef
+	$enabled => 1
+	$title => undef
+</%args>
+<%perl>
+
+	$name = $name || "submitvalue";
+	$title = encode_entities($title);
+
+	$enabled = ($enabled ? "" : qq!disabled="disabled" !);
+	$tabindex = ($tabindex ? qq!tabindex="$tabindex" ! : "");
+	$title = ($title ? qq!title="$title" ! : "");
+
+	# use mason->out to compress whitespace
+	$m->out(qq!<input type="submit" name="$name" !);
+
+	# TODO: move to unobstructive javascript
+	$m->out(qq!onclick="return validateFields(this)" !)
+		if ($validate);
+
+	$m->out(qq!class="button" value="$value" $enabled !);
+	$m->out(qq!$tabindex $title />\n!);
+
+</%perl>

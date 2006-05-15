@@ -1,0 +1,140 @@
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# Render the release events section of the release editor form.
+	#
+	# $Id$
+	#
+</%perl>
+<%args>
+
+	$tabindex
+	%checkreleases
+
+</%args>
+<%perl>
+
+	$ARGS{"SUBMIT_ADDRELEASE"} = "Add More";
+	$ARGS{"SUBMIT_REMRELEASE"} = "Remove";
+
+	my $j;
+	my $op_add = ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_ADDRELEASE"} ? 1 : 0);
+	my $op_remove = ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_REMRELEASE"} ? 1 : 0);
+
+	my $num_releases = $checkreleases{"num"} || 0;
+
+	# Add a pseudo entry at the end if either the 'More releases' button
+	# has been clicked or the list is empty.
+	if ($num_releases == 0 or $op_add)
+	{
+		$j = $num_releases++;
+		$ARGS{"rls_year-$j"} = "";
+		$ARGS{"rls_month-$j"} = "";
+		$ARGS{"rls_day-$j"} = "";
+		$ARGS{"rls_country-$j"} = "";
+	}
+
+	# Remove the last item fromt the hash
+	if ($num_releases > 0 && $op_remove)
+	{
+		$j = $num_releases-1;
+		delete $ARGS{"rls_year-$j"};
+		delete $ARGS{"rls_month-$j"};
+		delete $ARGS{"rls_day-$j"};
+		delete $ARGS{"rls_country-$j"};
+	}
+
+</%perl>
+
+				<tr class="spaced">
+					<td colspan="3" class="label">Releases:</td>
+					<td colspan="3">
+						<& /comp/form/feedbackbox, "info", "",
+							qq!Please enter release dates if you know them. If you do not know
+							   either year or country, don't enter anything.!
+						&></td>
+				</tr>
+
+<%perl>
+	for ($j=0; $j < $num_releases; ++$j)
+	{
+		my $ry = $ARGS{"rls_year-$j"};
+		my $rm = $ARGS{"rls_month-$j"};
+		my $rd = $ARGS{"rls_day-$j"};
+		my $rc = $ARGS{"rls_country-$j"};
+
+		# lets see if we have to highlight the fields
+		my $datecss = $checkreleases{"baddate$j"} ? " missing" : "";
+		my $countrycss = $checkreleases{"badcountry$j"} ? " missing" : "";
+
+		my $countries_menu = $m->comp("/edit/albumreleases/countries-menu.inc");
+		my $countries_menu_2 = [ [ "", "[select a country]" ], @$countries_menu ];
+
+		# load default country from userprefs if country is ""
+		$rc = UserPreference::get('default_country')
+			if ($rc eq "");
+</%perl>
+
+				<tr>
+					<td colspan="3" class="label"><% $j+1 %>:</td>
+					<td colspan="3">
+						<& /comp/form/numberfield, name => "rls_year-$j", cssclass => $datecss, tabindex => ++$$tabindex, value => $ry, size => 4 &>
+						<& /comp/form/numberfield, name => "rls_month-$j", cssclass => $datecss, tabindex => ++$$tabindex, value => $rm, size => 2 &>
+						<& /comp/form/numberfield, name => "rls_day-$j", cssclass => $datecss, tabindex => ++$$tabindex, value => $rd, size => 2 &>
+						<select name="rls_country-<% $j %>" tabindex="<% ++$$tabindex %>" class="<% $countrycss %>">
+							<& /comp/options, $countries_menu_2, $rc &>
+						</select>
+
+%		if ($j == 0)
+%		{
+
+						<& /comp/form/buttonsubmit, value => $ARGS{"SUBMIT_ADDRELEASE"}, tabindex => ++$$tabindex &>
+
+%		}
+%		elsif ($j == ($num_releases-1))
+%		{
+
+						<& /comp/form/buttonsubmit, value => $ARGS{"SUBMIT_REMRELEASE"}, tabindex => ++$$tabindex &>
+
+% 		}
+					</td>
+				</tr>
+% 	}
+
+%	if (keys %checkreleases > 1)
+%	{
+
+				<tr>
+					<td colspan="3">&nbsp;</td>
+					<td colspan="3">
+						<& /comp/form/feedbackbox, "info", "",
+							qq!Please enter valid release events (including the country)
+							   or remove the fields you do not want to enter.
+							   The missing/wrong date and country fields are marked
+							   with an orange background color.!
+						&></td>
+				</tr>
+
+% 	}
+
+%# vi: set ts=4 sw=4 ft=mason :

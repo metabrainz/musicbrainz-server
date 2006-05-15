@@ -1,0 +1,26 @@
+<%args>
+
+	$id => undef
+	$name
+	$value => 1
+	$enabled => 1
+	$checked => 0
+	$tabindex => undef
+	$title => ""
+
+</%args>
+<%perl>
+	$name = encode_entities($name);
+	$value = encode_entities($value);
+
+	my $cssclass = ($enabled ? "" : "-disabled");
+	$checked = ($checked ? 'checked="checked" ' : "");
+	$enabled = ($enabled ? "" : 'disabled="disabled" ');
+
+	# use mason->out to compress whitespace
+	$m->out(qq(<input type="checkbox" value="$value" ));
+	$m->out(qq(id="$id" ))
+		if (defined $id);
+	$m->out(qq(name="$name" class="checkbox$cssclass" $checked));
+	$m->out(qq($enabled title="$title" />\n));
+</%perl>
