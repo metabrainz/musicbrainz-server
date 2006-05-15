@@ -71,10 +71,6 @@
 
 				<% $timelbl %>: <% $time |n %><br/>
 
-% 	if ($mod->GetAutomod)
-%	{
-				<a href="/mod_intro.html#automod">Autoedit</a>
-% 	}
 		 	</div>
 		</td>
 

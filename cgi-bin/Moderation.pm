@@ -1176,6 +1176,10 @@ sub ShowModType
 	my $docname = $this->Name."Edit";
 	$docname =~ s/\s//g;
 	$mason->comp("/comp/linkdoc", $docname, $this->Name);
+	if ($this->GetAutomod)
+	{
+		$mason->out(qq! &nbsp; <small>(<a href="/mod_intro.html#automod">Autoedit</a>)</small>!);
+ 	}
 	$mason->out(qq!</td></tr>!);
 	
 	# output the artist this edit is listed under.
