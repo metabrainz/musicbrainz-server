@@ -29,6 +29,10 @@
 </%perl>
 <%args>
 	$search => ""
+
+	$selectedname => "selectedartist"
+	$selectbutton => "Select &raquo;"
+
 	$defaultquery => ""
 	$performsearch => 1
 
@@ -56,6 +60,7 @@
 	{
 		$searchbtn = "Search again &raquo;";
 	}
+
 </%perl>
 
 
@@ -130,8 +135,8 @@
 </%perl>
 				<tr class="row<% $i % 2 %>">
 					<td class="radio">
-						<input type="radio" name="selectedartist"
-%								$m->out(qq!id="selectedartist$i"!) if ($i == 0);
+						<input type="radio" name="<% $selectedname %>"
+%								$m->out(qq!id="$selectedname$i"!) if ($i == 0);
 							value="<% $row->{artistid} %>" <% $checked |n %>
 							  ondblclick="this.form.submit()"
 							  title="Select this artist"
@@ -148,10 +153,10 @@
 <%perl>
 					$checked = "";
 				}
-				$m->comp("/comp/movefocus", id => "selectedartist0");
+				$m->comp("/comp/movefocus", id => $selectedname."0");
 </%perl>
 				</table>
-				<input class="button" name="submitvalue" type="submit" value="Select &raquo;"
+				<input class="button" name="submitvalue" type="submit" value="<% $selectbutton |n %>"
 					title="Choose the selected artist"/>
 			</td>
 		</tr>
