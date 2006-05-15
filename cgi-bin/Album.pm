@@ -862,6 +862,16 @@ sub GetTracks
 	$self->{"_tracks"} || undef;
 }
 
+# Override the _isva flag to force the release to be displayed as VA release.
+sub SetMultipleTrackArtists
+{
+   $_[0]->{_isva} = $_[1];
+}
+
+# Fetch the tracks from the database and check
+# the track artist against each other and the
+# release artist. If any are found, the release needs
+# to be displayed as Various Artists.
 sub HasMultipleTrackArtists
 {
 	my $self = shift;
@@ -869,9 +879,9 @@ sub HasMultipleTrackArtists
 	
 	unless (defined $self->{"_isva"})
 	{
-		# use album artist for comparison, for the unlikely
+		# use release artist for comparison, for the unlikely
 		# case that all the track artists are the same but
-		# different than the album artist. we still diplay
+		# different than the release artist. we still diplay
 		# the track artists in that case.
 		
 		$ar{$self->GetArtist} = 1;
