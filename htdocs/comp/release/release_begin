@@ -24,11 +24,11 @@
 	# Render the title, editing links and if available the amazon coverart
 	# of a release.
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
 <%args>
+
 	$artist
 	$album
 	$release => undef
@@ -42,8 +42,10 @@
 
 	$showtag => 0
 	$tagchecked => 0
+
 </%args>
 <%perl>
+
 	$release ||= $album;
 
 	my $artistid = $release->GetArtist;
@@ -58,6 +60,7 @@
 		<tr class="title<% $release->GetModPending ? " mp" : "" %>">
 
 <%perl>
+
 	if ($link)
 	{
 		my $_title = ($linktype eq "expand" ? "expanded" : "collapsed");
@@ -70,12 +73,14 @@
 				$link, $_title, $_img, $_alt);
 		$m->out(qq!</td>!);
 	}
+
 </%perl>
 
 			<td class="title">
 				<a href="/release/<% $mbid %>.html" id="link::<% $releaseid %>" title="<% $name %>"><% $name %></a></td>
 
-%	if ($session{tport}) {
+%	if ($session{tport})
+%	{
 
 			<td class="tagger">
 				<a href="http://127.0.0.1:<% $session{tport} %>/openalbum?id=<% $release->GetMBId %>&amp;t=<% time %>"
@@ -84,7 +89,8 @@
 					alt="Open in tagger" /></a></td>
 %	}
 
-%	if ($session{uid} && !$nonalbum && $showtag) {
+%	if ($session{uid} && !$nonalbum && $showtag)
+%	{
 
 			<td class="batchop" id="batchop::<% $releaseid %>">
 				<form method="post" action="/edit/albumbatch/done.html">
@@ -101,10 +107,7 @@
 
 <%perl>
 
-
-
-
- 	# album link rows.
+ 	# release link rows.
  	if ($showlinks or $showmodlinks)
 	{
 		$m->out(qq!<table id="releaselinks::$releaseid" class="releaselinks"><tr>!);
@@ -223,3 +226,5 @@
 </%perl>
 
 	<table id="tracks::<% $releaseid %>" class="releasetracks">
+
+%# vi: set ts=4 sw=4 ft=mason :

@@ -28,11 +28,14 @@
 	#
 </%perl>
 <%args>
+
 	$mb
 	$track
 	$showmodlinks
+
 </%args>
 <%perl>
+
 	my $id = $track->GetId;
 	my $name => $track->GetName;
 	my $type = "track";
@@ -130,3 +133,5 @@
 		$m->out('</table>');
 	}
 </%perl>
+
+%# vi: set ts=4 sw=4 ft=mason :

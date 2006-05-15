@@ -23,11 +23,11 @@
 	# -----------------------------------------------------------------------------
 	# Render a track of a release
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
 <%args>
+
 	$artist
 	$album
 	$track
@@ -42,6 +42,7 @@
 	$trmcount => 0
 	$puidcount => 0
 	$mbtagger => $session{'mbt'}
+
 </%args>
 <%perl>
 
@@ -169,3 +170,5 @@
 	$m->out("</tr>\n");
 
 </%perl>
+
+%# vi: set ts=4 sw=4 ft=mason :

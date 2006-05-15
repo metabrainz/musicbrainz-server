@@ -24,7 +24,6 @@
 	# Render the release meta data (count of Tracks, Disc IDs, TRM Ids PUIDs),
 	# the release language and attributes.
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
@@ -64,19 +63,24 @@
 							<img src="/images/notes.gif" alt="Tracks" title="This release has <% $trackcount %> Tracks" />
 						</span>
 
-% 	if ($discids > 0) {
+% 	if ($discids > 0)
+%	{
 						<span class="discid">
 							<% $discids %>
 							<img src="/images/cd.gif" alt="CD" title="This release has <% $discids %> Disc IDs" />
 						</span>
 %	}
-%	if ($puids > 0) {
+
+%	if ($puids > 0)
+%	{
 						<span class="puid">
 							<% $puids %>
 							<img src="/images/puid.gif" alt="PUID" title="This release has <% $puids %> PUIDs" />
 						</span>
 % 	}
-%	if ($trmids > 0) {
+
+%	if ($trmids > 0)
+%	{
 						<span class="trmid">
 							<% $trmids %>
 							<img src="/images/trm.gif" alt="TRM" title="This release has <% $trmids %> TRM IDs" />
@@ -145,6 +149,7 @@
         				$release->GetId(),
         				"Edit Language and Script of this Release",);
     }
+
 </%perl>
 
 					</td>
@@ -152,3 +157,5 @@
 			</table>
 		</td>
 	</tr>
+
+%# vi: set ts=4 sw=4 ft=mason :

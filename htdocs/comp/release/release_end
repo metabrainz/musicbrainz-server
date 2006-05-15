@@ -23,11 +23,11 @@
 	# -----------------------------------------------------------------------------
 	# Render the Disc IDs, and Release Events of a release
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
 <%args>
+
 	$artist
 	$album
 
@@ -35,8 +35,10 @@
 	$showreleases => 0
 	$showmodlinks => 1
 	$showtrackartists => 0
+
 </%args>
 <%perl>
+
 	my $release = $album;
 
 	my $releaseid = $release->GetId;
@@ -154,4 +156,5 @@
 %	# add some spacing after the release.
 	<div class="release_endspacer">&nbsp;</div>
 
+%# vi: set ts=4 sw=4 ft=mason :
 
