@@ -43,6 +43,8 @@
 	$mp => undef # optional moderation type argument
 	$mp_type => ""	# optional moderation type argument (e.g. MOD_EDIT_ALBUMATTRS|MOD_EDIT_ALBUM_LANGUAGE...)
 
+	$show_coc => 1
+
 </%args>
 <%perl>
 
@@ -286,10 +288,14 @@
 							<li>
 								Yellow highlights indicate pending <% $mp_type_message |n %>.</li>
 %		}
+
+%		if ($show_coc)
+%		{
 							<li>
 								Entering edits which might fail existing pending edits is
 								considered rude according to the <& /comp/linkdoc, "CodeOfConduct",
 								"code of conduct" &>.</li>
+%		}
 							<% $mp_note |n %>
 						</ul></td>
 				</tr>
