@@ -1169,28 +1169,6 @@ sub ShowModType
 
 	use MusicBrainz qw( encode_entities );
 
-	$mason->out(qq!<table class="edittype">!);
-
-	# output edittype as wikidoc link
-	$mason->out(qq!<tr><td class="lbl">Type:</td><td>!);
-	my $docname = $this->Name."Edit";
-	$docname =~ s/\s//g;
-	$mason->comp("/comp/linkdoc", $docname, $this->Name);
-	if ($this->GetAutomod)
-	{
-		$mason->out(qq! &nbsp; <small>(<a href="/mod_intro.html#automod">Autoedit</a>)</small>!);
- 	}
-	$mason->out(qq!</td></tr>!);
-	
-	# output the artist this edit is listed under.
-	$mason->out(qq!<tr><td class="lbl">Artist:</td><td>!);
-	$mason->comp("/comp/linkartist", 
-		id => $this->GetArtist, 
-		name => $this->GetArtistName, 
-		resolution => $this->GetArtistResolution
-	);
-	$mason->out(qq!</td></tr>!);
-
 	# default exists is to check if the given name is set
 	# in the values hash.
 	($this->{"exists-album"}, $this->{"exists-track"}) =  ($this->{"albumname"}, $this->{"trackname"});
@@ -1207,6 +1185,7 @@ sub ShowModType
 		{
 			$this->{"trackid"} = $track->GetId;
 			$this->{"trackname"} = $track->GetName;
+			$this->{"trackseq"} = $track->GetSequence;
 			
 			# assume that the release needs to be loaded from
 			# the album-track core relationship, if it not
@@ -1227,6 +1206,7 @@ sub ShowModType
 		{
 			$this->{"albumid"} = $release->GetId;
 			$this->{"albumname"} = $release->GetName;
+			$this->{"trackcount"} = $release->GetTrackCount;
 		}	
 	}
 	
@@ -1237,6 +1217,39 @@ sub ShowModType
 			$this->GetType == &ModDefs::MOD_MERGE_ALBUM_MAC or
 			$this->GetType == &ModDefs::MOD_EDIT_ALBUM_LANGUAGE or
 			$this->GetType == &ModDefs::MOD_EDIT_ALBUMATTRS);
+	
+	$mason->out(qq!<table class="edittype">!);
+
+	# output edittype as wikidoc link
+	$mason->out(qq!<tr><td class="lbl">Type:</td><td>!);
+	my $docname = $this->Name."Edit";
+	$docname =~ s/\s//g;
+	$mason->comp("/comp/linkdoc", $docname, $this->Name);
+	if ($this->GetAutomod)
+	{
+		$mason->out(qq! &nbsp; <small>(<a href="/mod_intro.html#automod">Autoedit</a>)</small>!);
+ 	}
+ 	
+	# if current/total number of tracks is available, show the info
+	my $seq = ($this->{"trackseq"} 
+		? " &nbsp; <small>(Track: " . $this->{"trackseq"} 
+			  . ($this->{"trackcount"} 
+				? "/".$this->{"trackcount"}
+				: "")
+			  . ")</small>"
+		: "");	
+	$mason->out(qq!$seq</td></tr>!);
+	
+
+	# output the artist this edit is listed under.
+	$mason->out(qq!<tr class="entity"><td class="lbl">Artist:</td><td>!);
+	$mason->comp("/comp/linkartist", 
+		id => $this->GetArtist, 
+		name => $this->GetArtistName, 
+		resolution => $this->GetArtistResolution
+	);
+	$mason->out(qq!</td></tr>!);	
+	
 	
 	# output the release this edit is listed under.
 	if (defined $this->{"albumid"})
@@ -1250,7 +1263,7 @@ sub ShowModType
 			$strong = 0;
 		}
 		
-		$mason->out(qq!<tr><td class="lbl">Release:</td><td>!);	
+		$mason->out(qq!<tr class="entity"><td class="lbl">Release:</td><td>!);	
 		$mason->comp("/comp/linkrelease", id => $id, name => $name, title => $title, strong => $strong);
 		$mason->out(qq!</td></tr>!);	
 	}
@@ -1266,8 +1279,7 @@ sub ShowModType
 			$id = -1;
 			$strong = 0;
 		}
-		
-		$mason->out(qq!<tr><td class="lbl">Track:</td><td>!);	
+		$mason->out(qq!<tr class="entity"><td class="lbl">Track:</td><td>!);	
 		$mason->comp("/comp/linktrack", id => $id, name => $name, title => $title, strong => $strong);
 		$mason->out(qq!</td></tr>!);	
 	}	
