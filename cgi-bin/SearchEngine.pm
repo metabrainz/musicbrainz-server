@@ -63,7 +63,7 @@ use constant SEARCHRESULT_TIMEOUT => 3;
 
 use constant MAX_ANALYZE_WORDS => 20;
 use constant MAX_QUERY_WORDS => 8;
-use constant DEFAULT_SEARCH_TIMEOUT => 30;
+use constant DEFAULT_SEARCH_TIMEOUT => 60;
 use constant DEFAULT_SEARCH_LIMIT => 0;
 
 sub new
@@ -606,57 +606,70 @@ sub _GetQuery
     # The second column in each case must be the name,
     # which will be re-tokenized and checked.
 
-    return "
-        SELECT	t.id		AS artistid,
-		t.gid		AS artistgid,
-		t.name		AS artistname,
-		t.sortname	AS artistsortname,
+	return "
+		SELECT	
+		t.id			AS artistid,
+		t.gid			AS artistgid,
+		t.name			AS artistname,
+		t.sortname		AS artistsortname,
 		t.resolution	AS artistresolution,
+		t.modpending	AS artistmp,
 		COUNT(aa.id)	AS numartistaliases
-        FROM	$from
-	    LEFT JOIN artistalias aa ON aa.ref = t.id
-	WHERE	$where
-	GROUP BY t.id, t.name, t.sortname, t.gid, t.resolution
-    " if $table eq "artist";
+		FROM $from
+		LEFT JOIN artistalias aa ON aa.ref = t.id
+		WHERE $where
+		GROUP BY t.id, t.name, t.sortname, t.gid, t.resolution, t.modpending
+	" if $table eq "artist";
 
-    return "
-        SELECT	t.id		AS albumid,
-		t.gid		AS albumgid,
-		t.name		AS albumname,
+	return "
+		SELECT	
+		t.id			AS albumid,
+		t.gid			AS albumgid,
+		t.name			AS albumname,
 		m.tracks,
 		m.discids,
 		m.trmids,
 		m.firstreleasedate,
-		a.id		AS artistid,
-		a.gid		AS artistgid,
-		a.name		AS artistname,
-		a.sortname	AS artistsortname,
-		a.resolution	AS artistresolution
-        FROM	$from
-	    INNER JOIN artist a ON a.id = t.artist
-	    LEFT JOIN albummeta m ON m.id = t.id
-        WHERE	$where
-    " if $table eq 'album';
-
-    return "
-        SELECT	t.id		AS trackid,
-		t.gid		AS trackgid,
-		t.name		AS trackname,
-		a.id		AS artistid,
-		a.name		AS artistname,
-		a.sortname	AS artistsortname,
+		a.id			AS artistid,
+		a.gid			AS artistgid,
+		a.name			AS artistname,
+		a.sortname		AS artistsortname,
 		a.resolution	AS artistresolution,
-		al.id		AS albumid,
-		al.gid		AS albumgid,
-		al.name		AS albumname
-        FROM	$from
-	    INNER JOIN artist a ON a.id = t.artist
-	    INNER JOIN albumjoin j ON j.track = t.id
-	    INNER JOIN album al ON al.id = j.album
-        WHERE	$where
-    " if $table eq "track";
+		t.modpending	AS albummp,
+		a.modpending	AS artistmp
+		FROM $from
+		INNER JOIN artist a ON a.id = t.artist
+		LEFT JOIN albummeta m ON m.id = t.id
+		WHERE $where
+	" if $table eq 'album';
 
-    die;
+	return "
+		SELECT	
+		t.id			AS trackid,
+		t.gid			AS trackgid,
+		t.name			AS trackname,
+		t.length		AS tracklength,
+	
+		j.sequence		AS trackseq,
+		a.id			AS artistid,
+		a.name			AS artistname,
+		a.sortname		AS artistsortname,
+		a.resolution	AS artistresolution,
+		al.id			AS albumid,
+		al.gid			AS albumgid,
+		al.name			AS albumname,
+		t.modpending	AS trackmp,
+		a.modpending	AS artistmp,
+		al.modpending	AS albummp,
+		j.modpending	AS albumjoinmp
+		FROM $from
+		INNER JOIN artist a ON a.id = t.artist
+		INNER JOIN albumjoin j ON j.track = t.id
+		INNER JOIN album al ON al.id = j.album
+		WHERE $where
+	" if $table eq "track";
+
+	die;
 }
 
 sub _DecodeStringColumns

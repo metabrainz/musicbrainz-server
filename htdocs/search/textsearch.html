@@ -1,112 +1,177 @@
-%# vi: set ts=4 sw=4 ft=mason :
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# This page provides the new (lucene based) search functionality.
+	#
+	# $Id$
+	#
+</%perl>
 <%args>
-$query => ""
-$limit => 25
-$type => ""
-$tport=>$session{'tport'}
-$dur => 0
+
+	$query => ""
+	$limit => 25
+	$type => ""
+	$tport=>$session{'tport'}
+	$dur => 0
+
 </%args>
 <%perl>
 
-UserStuff::EnsureSessionOpen(), $session{tport} = $tport
-  if $tport;
+	UserStuff::EnsureSessionOpen(), $session{tport} = $tport
+	  if $tport;
 
-$m->comp("/comp/sidebar-notitle", pagetitle => "Indexed Search");
+	$m->comp("/comp/sidebar-notitle", pagetitle => "Indexed Search");
 
-if ($query ne "" && $type ne "")
-{
-	$m->comp("/comp/tablebegin", title=>"Results", gattrs => "width='100%'");
-
-    use URI::Escape qw( uri_escape );
-    my $docurl = 'http://' . &DBDefs::LUCENE_SERVER . "/ws/1/$type/?query=" .
-                 uri_escape($query) . "&type=$type";
-    $docurl .= "&max=$limit" if $limit > 0;
-    $docurl .= "&tport=$tport" if $tport > 0;
-    $docurl .= "&dur=$dur" if $dur > 0;
-
-    require LWP::UserAgent;
-    my $ua = LWP::UserAgent->new;
-    my $response = $ua->get($docurl);
-    if (!$response->is_success)
-    {
-        if ($response->code == 404)
-        {
-            </%perl>
-            <p>0 matches.<br/><br/>
-            Your query <b><% $query |h %></b> did not match any <% $type %>s. Make sure that all words
-            are spelled correctly, use fewer words or use different words. For help on writing
-            effective text search queries, please read the
-            <a href="http://wiki.musicbrainz.org/TextSearchSyntax">text search syntax</a> documentation.
-
-% if ($type eq 'artist') {
-            Alternatively, <a href="/browseartists.html">browse our list of artists</a>.
-% }
-            </p>
-            <%perl>
-        }
-        elsif ($response->code == 403)
-        {
-            </%perl>
-            <p><b>Error</b>: Your search query <b><% $query |h %></b> did not contain enough information to carry out a search.
-               If you are attempting to find an artist that contains nothing but punctuation characters
-               (e.g. !!!) then you should <a href="/browseartists.html?index=_">browse</a> for your
-               artist, rather than search for it.
-               <br/><br/>
-            For help on writing effective text search queries, please read the
-            <a href="http://wiki.musicbrainz.org/TextSearchSyntax">text search syntax</a> documentation.
-            </p>
-            <%perl>
-        }
-        elsif ($response->code == 500)
-        {
-            </%perl>
-            <p><b>Error</b>: The search server could not fulfill your request due to an internal error.
-            </p>
-            <%perl>
-        }
-        else
-        {
-            $m->comp('/comp/error',
-                 "Error: Could not execute search on search server. " .
-                 "(URL $docurl received " . $response->status_line ." )", 0, 0);
-        }
-    }
-    else
-    {
-        $m->print($response->content);
-    }
-	$m->comp("/comp/tableend");
-}
-else
-{
-	if ($query ne "" || $type ne "")
+	if ($query ne "" && $type ne "")
 	{
-		$m->comp("/comp/tablebegin", title=>"Results", gattrs => "width='100%'");
-		$m->print('<table style="margin: 0.3em"><tr><td>');
-	    $m->print("Please enter a search phrase including letters and/or numbers.");
-		$m->print('</td></tr></table>');
-		$m->comp("/comp/tableend");
-	}
-}
+		use URI::Escape qw( uri_escape );
+		my $docurl = 'http://' . &DBDefs::LUCENE_SERVER . "/ws/1/$type/?query=" .
+					 uri_escape($query) . "&type=$type";
+		$docurl .= "&max=$limit" if $limit > 0;
+		$docurl .= "&tport=$tport" if $tport > 0;
+		$docurl .= "&dur=$dur" if $dur > 0;
+
+		require LWP::UserAgent;
+		my $ua = LWP::UserAgent->new;
+		my $response = $ua->get($docurl);
+		if (!$response->is_success)
+		{
+			if ($response->code == 404)
+			{
 
 </%perl>
 
+				<& /comp/tablebegin, title => "No ".$type."s found matching your query" &>
+					<ul>
+						<li>
+							Your query <code><strong><% $query |h %></strong></code> did not match
+							any <% $type %>s. Please check if you used the correct spelling, sometimes
+							fewer or different words might help.</li>
+						<li>For help on writing effective text
+							search queries, please read the <& /comp/linkdoc, "TextSearchSyntax",
+							"text search syntax" &> document.</li>
 
-<div style="margin-top: 20px"></div>
-<& /comp/tablebegin, title=>"Search (Indexed Search)" &>
-<table>
-	<tr valign="top">
-		<td>
-			<& /comp/lucenesearch, type=>$type, limit=>$limit, query=>$query &>
-		</td>
-		<td style="padding: 0.3em 4em">
-			<b>Note:</b> Search indexes are currently updated once a day at
-			1800 GMT (10am PST). If you require up to the minute correct
-			search, please use the <a href="/search/oldsearch.html">old search</a>.
-		</td>
-	</tr>
-</table>
-<& /comp/tableend &>
+% 				if ($type eq "artist")
+%				{
 
+						<li>
+							Another possible starting point is to use the <a href="/browseartists.html"
+							>Browse Artists</a> page to find the artist you are looking for.</li>
+% 				}
+
+					</ul>
+				<& /comp/tableend &>
+
+%			}
+%			elsif ($response->code == 403)
+%			{
+
+				<& /comp/tablebegin, title => "Not enough information given" &>
+					<ul>
+						<li>
+							Your query <code><strong><% $query |h %></strong></code> does not
+							contain enough information to carry out a search. If you are
+							attempting to find an artist that contains nothing but punctuation
+							characters (e.g. !!!) then you need to use the <a href="/browseartists.html?index=_"
+							>Browse Artists</a> page to find the artist you are looking for, since
+							this search ignores punctuation characters.</li>
+						<li>For help on writing effective text
+							search queries, please read the <& /comp/linkdoc, "TextSearchSyntax",
+							"text search syntax" &> document.</li>
+					</ul>
+				<& /comp/tableend &>
+
+%			}
+%			elsif ($response->code == 500)
+%			{
+
+				<& /comp/tablebegin, title => "Internal Error" &>
+					<ul>
+						<li>
+							The search server could not fulfill your request due to an
+							internal error. Please try again later.</li>
+					</ul>
+				<& /comp/tableend &>
+
+%			}
+%			else
+%			{
+
+				<& /comp/tablebegin, title => "Error" &>
+					<ul>
+						<li>
+							Could not execute search (URL <% $docurl %> received <% $response->status_line %>)</li>
+					</ul>
+				<& /comp/tableend &>
+
+%	        }
+%	    }
+%		else
+%		{
+				<& /comp/layout/editformbegin, title => "The following ${type}s matched your query", mp => 0, show_coc => 0 &>
+
+					<% $response->content |n %>
+
+				<& /comp/layout/editformend &>
+
+%    	}
+
+
+
+%	}
+%	else
+%	{
+%		if ($query ne "" || $type ne "")
+%		{
+
+		<& /comp/tablebegin, title=>"Results" &>
+			<table style="margin: 0.3em">
+				<tr>
+					<td>
+	    				Please enter a search phrase including letters and/or numbers.
+					</td>
+				</tr>
+			</table>
+		<& /comp/tableend &>
+
+%		}
+%	}
+
+	<div style="margin-top: 20px"></div>
+
+	<& /comp/tablebegin, title=>"Search (Indexed Search)" &>
+		<table>
+			<tr valign="top">
+				<td>
+					<& /comp/lucenesearch, type=>$type, limit=>$limit, query=>$query &>
+				</td>
+				<td style="padding: 0.3em 4em">
+					<b>Note:</b> Search indexes are currently updated once a day at
+					1800 GMT (10am PST). If you require up to the minute correct
+					search, please use the <a href="/search/oldsearch.html">old search</a>.
+				</td>
+			</tr>
+		</table>
+	<& /comp/tableend &>
 
 <& /comp/footer &>

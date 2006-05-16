@@ -1,190 +1,291 @@
-%# vi: set ts=4 sw=4 ft=mason :
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# This page provides the old (direct to database) search functionality.
+	#
+	# $Id$
+	#
+</%perl>
 <%args>
+
 	$table => undef
 	$search => undef
 	$limit => 25
 	$tport => $session{'tport'}
-</%args>
 
+</%args>
 <%perl>
 
-UserStuff::EnsureSessionOpen(), $session{tport} = $tport
-	if $tport;
+	UserStuff::EnsureSessionOpen(), $session{tport} = $tport
+		if $tport;
 
-use SearchEngine qw( :constants );
+	use SearchEngine qw( :constants );
 
-$table = (
-	(defined($table) and $table =~ /\A(artist|album|track)\z/)
-	? $1 : undef
-);
+	$table = (
+		(defined($table) and $table =~ /\A(artist|album|track)\z/)
+		? $1 : undef
+	);
+	$table = lc($table);
 
-$limit = (
-	(defined($limit) and MusicBrainz::IsNonNegInteger($limit))
-	? 0+$limit : undef
-);
+	$limit = (
+		(defined($limit) and MusicBrainz::IsNonNegInteger($limit))
+		? 0+$limit : undef
+	);
 
-if (defined $table && defined $search)
-{
-	$table = lc $table;
+	# make sure we got a valid table parameter
+	MusicBrainz::IsSingleLineString($table)
+		or return $m->comp("/comp/layout/badarguments",
+			text => "The argument <strong>table</strong> is missing or has a wrong format.");
+
+	# make sure we got a valid table parameter
+	MusicBrainz::IsSingleLineString($search)
+		or return $m->comp("/comp/layout/badarguments",
+			text => "The argument <strong>search</strong> is missing or has a wrong format.");
+
+	my $type = ($table eq "album" ? "release" : $table);
+
 	my $mb = $m->comp("/comp/dblogin");
-
-        my $engine = SearchEngine->new($mb->{DBH}, $table);
-
+	my $engine = SearchEngine->new($mb->{DBH}, $table);
 	$engine->Search(
 		query => $search,
 		limit => $limit,
 	);
 
 	if ($engine->Rows == 1)
-        {
-    		my ($row, $url);
-
-	        $row = $engine->NextRow;
-	        if ($engine->Table eq 'album')
-	        {
-    			$url = "/showalbum.html?albumid=$row->{'albumid'}";
-	        }
-	        elsif ($engine->Table eq 'artist')
-	        {
-			$url = "/showartist.html?artistid=$row->{'artistid'}";
-	        }
-	        elsif ($engine->Table eq 'track')
-    		{
-			$url = "/showtrack.html?trackid=$row->{'trackid'}";
-	        }
-	        if (defined $url)
-	        {
+	{
+		my ($row, $url);
+		$row = $engine->NextRow;
+		if ($engine->Table eq "album")
+		{
+			$url = "/show/release/?releaseid=$row->{'albumid'}";
+		}
+		elsif ($engine->Table eq "artist")
+		{
+			$url = "/show/artist/?artistid=$row->{'artistid'}";
+		}
+		elsif ($engine->Table eq "track")
+		{
+			$url = "/show/track/?trackid=$row->{'trackid'}";
+		}
+		if (defined $url)
+		{
 			$r->method('GET');
 			$r->headers_in->unset('Content-length');
 			$r->content_type('text/html');
-			$r->header_out(Location=>$url);
+			$r->header_out(Location => $url);
 			$r->status(302);
 			$mb->Logout();
 			return undef;
-	        }
+		}
 	}
+
 </%perl>
 
 <& /comp/sidebar-notitle, pagetitle => ucfirst($table) . ' Search Results: '.$search &>
 
-%	if ($engine->Result == SEARCHRESULT_NOQUERY) {
+%	if ($engine->Result == SEARCHRESULT_NOQUERY)
+%	{
 
-		<& /comp/tablebegin, title=>"Nothing to search for!" &>
-		<p>
+		<& /comp/tablebegin, title => "Nothing to search for!" &>
 			Please enter a search phrase including
 			letters and/or numbers.
-		</p>
-
-%	} elsif ($engine->Result == SEARCHRESULT_TIMEOUT) {
-
-		<& /comp/tablebegin, title=>"Your search has been cancelled." &>
-		<p>
-			Your search has been cancelled because it was taking too
-			long.&nbsp; Sorry.&nbsp;
-			Please try changing your search criteria - try using just the most
-			distinctive words and leaving out the more common ones.&nbsp;
-			Or just try again later.
-		</p>
-
-%	} elsif ($engine->Rows == 0) {
-
-		<& /comp/tablebegin, title=>"No matching ${table}s found." &>
-	        <p>
-			Please consider
-    			<a href="/freedb/freedb.html?search=<% uri_escape($search) %>">importing</a>
-	    		the artist/album/track(s)
-	    		you are looking for from freedb for insertion into MusicBrainz.
-%			if ($table eq 'artist') {
-				Alternatively, <a href="/edit/artist/add.html?initial_name=<% uri_escape($search) %>">add a new artist</a>.
-%			} elsif ($table eq 'album') {
-				Alternatively, <a href="/edit/album/add.html?artistid=0">add a new album</a>.
-%			}
-	        </p>
-
-%	} else {
-
-		<& /comp/tablebegin, title=>"Found" &>
-
-		<table border="0" cellspacing="0" cellpadding="4" id="SearchResults">
-		<tr>
-%    if ($table eq 'album') {
-			<th colspan="4">Summary</th>
-			<th>Album Title</th>
-			<th>Artist</th>
-%    } elsif ($table eq 'artist') {
-			<th>Artist Name</th>
-%    } elsif ($table eq 'track') {
-			<th>Track Title</th>
-			<th>Artist Name</th>
-			<th>Album</th>
-%    }
-	        </tr>
-
-
-%   my $bgcolor= '#ffffff';
-%   while ( my $row = $engine->NextRow ) {
-        <tr style="background: <% $bgcolor = ( $bgcolor eq '#ffffff' ? '#ffe1b7' : '#ffffff' ) %>;">
-%       if ($engine->Table eq 'album') {
-% if ($row->{tracks}) {
-			<td class="trk"><% $row->{tracks} %>&nbsp;<img src="/images/notes.gif" alt="Tracks"></td>
-% } else {
-			<td></td>
-% }
-% if ($row->{discids}) {
-			<td class="did"><% $row->{discids} %>&nbsp;<img src="/images/cd.gif" alt="disc IDs"></td>
-% } else {
-			<td></td>
-% }
-% if ($row->{trmids}) {
-			<td class="trm"><% $row->{trmids} %>&nbsp;<img src="/images/trm.gif" alt="TRM IDs"></td>
-% } else {
-			<td></td>
-% }
-% if ($row->{firstreleasedate}) {
-			<td class="rdate"><& /comp/releasedate, $row->{firstreleasedate} &></td>
-% } else {
-			<td></td>
-% }
-            <td><a href="/showalbum.html?albumid=<% $row->{'albumid'} %>"><% $row->{'albumname'} %></a></td>
-            <td><a href="/showartist.html?artistid=<% $row->{'artistid'} %>"><% $row->{'artistname'} %></a>
-% if ($row->{artistresolution}) {
-				(<% $row->{artistresolution} %>)
-% }
-			</td>
-%       } elsif ($engine->Table eq 'artist') {
-            <td><a href="/showartist.html?artistid=<% $row->{'artistid'} %>"><% $row->{'artistname'} %></a>
-% if ($row->{artistresolution}) {
-				(<% $row->{artistresolution} %>)
-% }
-			</td>
-%       } elsif ($engine->Table eq 'track') {
-            <td><a href="/showtrack.html?trackid=<% $row->{'trackid'} %>"><% $row->{'trackname'} %></a></td>
-            <td><a href="/showartist.html?artistid=<% $row->{'artistid'} %>"><% $row->{'artistname'} %></a>
-% if ($row->{artistresolution}) {
-				(<% $row->{artistresolution} %>)
-% }
-			</td>
-            <td><a href="/showalbum.html?albumid=<% $row->{'albumid'} %>"><% $row->{'albumname'} %></a></td>
-%       }
-        </tr>
-%   }
-    </table>
+		<& /comp/tableend &>
 
 %	}
+%	elsif ($engine->Result == SEARCHRESULT_TIMEOUT)
+%	{
+
+		<& /comp/tablebegin, title => "Your search has been cancelled." &>
+			Your search has been cancelled because it was taking too
+			long. Please try changing your search criteria - try using
+			just the most distinctive words and leaving out the
+			more common ones. Or just try again later.
+		<& /comp/tableend &>
+
+%	}
+%	elsif ($engine->Rows == 0)
+%	{
+
+		<& /comp/tablebegin, title => "No ".$type."s found matching your query" &>
+
+			Please consider <a href="/freedb/freedb.html?search=<% uri_escape($search) %>"
+			>importing</a> the artist/release/track(s) you are looking for from freedb.
+
+%			if ($table eq "artist")
+%			{
+				Alternatively, <a href="/edit/artist/add.html?initial_name=<% uri_escape($search) %>">add a new artist</a>.
+%			}
+%			elsif ($table eq "album")
+%			{
+				Alternatively, <a href="/edit/album/add.html?artistid=0">add a new release</a>.
+%			}
+
+		<& /comp/tableend &>
+
+%	}
+%	else
+%	{
+
+		<& /comp/layout/editformbegin, title => "The following ${type}s matched your query", mp => 1, show_coc => 0 &>
+
+			<table class="searchresults">
+
+%		if ($table eq "album")
+%		{
+				<tr class="searchresultsheader">
+					<td>Artist</td>
+					<td>Release Title</td>
+					<td class="tracks">Tracks</td>
+					<td class="discid">Disc IDs</td>
+					<td class="trmid">TRM IDs</td>
+					<td class="released">Released</td>
+
+				</tr>
+				<tr class="searchresultssmall">
+					<td colspan="2"></td>
+				</tr>
+%		}
+%		elsif ($table eq "artist")
+%		{
+
+				<tr class="searchresultsheader">
+					<td>Artist Name</td>
+				</tr>
+%		}
+%		elsif ($table eq "track")
+%		{
+				<tr class="searchresultsheader">
+					<td>Artist Name</td>
+					<td>Release</th>
+					<td>Track Title</td>
+					<td class="num">Num</td>
+					<td class="length">Length</td>
+				</tr>
+%		}
 
 
-    <& /comp/tableend &>
+%  		my $i = 0;
+%   	while ( my $row = $engine->NextRow )
+%		{
+        		<tr class="<% $i++ % 2 == 0 ? "searchresultseven" : "searchresultsodd" %>">
+
+%   	    if ($engine->Table eq "album")
+%			{
+					<td>
+						<span<% $row->{'artistmp'} ? ' class="mp"' : '' |n %>>
+							<& /comp/linkartist, id => $row->{'artistid'}, name => $row->{'artistname'}, resolution => $row->{artistresolution}, strong => 0 &>
+						</span></td>
+
+					<td>
+						<span<% $row->{'releasemp'} ? ' class="mp"' : '' |n %>>
+							<& /comp/linkrelease, id => $row->{'albumid'}, name => $row->{'albumname'}, strong => 0 &>
+						</span></td>
+
+% 				if ($row->{tracks})
+%				{
+					<td class="tracks"><% $row->{tracks} %> <img src="/images/notes.gif" alt="Tracks" /></td>
+%				}
+%				else
+%				{
+					<td class="tracks">&nbsp;</td>
+% 				}
+% 				if ($row->{discids})
+%				{
+					<td class="discid"><% $row->{discids} %> <img src="/images/cd.gif" alt="Disc IDs" /></td>
+%				}
+%				else
+%				{
+					<td class="discid">&nbsp;</td>
+% 				}
+%				if ($row->{trmids})
+%				{
+					<td class="trmid"><% $row->{trmids} %> <img src="/images/trm.gif" alt="TRM IDs" /></td>
+%				}
+%				else
+%				{
+					<td class="trmid">&nbsp;</td>
+% 				}
+%				if ($row->{firstreleasedate})
+%				{
+					<td class="released"><& /comp/releasedate, $row->{firstreleasedate} &></td>
+% 				}
+%				else
+%				{
+					<td class="released">&nbsp;</td>
+% 				}
+
+%			}
+%			elsif ($engine->Table eq "artist")
+%			{
+
+            		<td>
+            			<span<% $row->{'artistmp'} ? ' class="mp"' : '' |n %>>
+            				<& /comp/linkartist, id => $row->{'artistid'}, name => $row->{'artistname'}, resolution => $row->{artistresolution}, strong => 0 &>
+            			</span></td>
 
 
-    <& /comp/tablebegin, title=>'Search Again (Direct Search)', attrs=>"align=left", gattrs=>"width='100%'" &>
-%   $mb->Logout();
-% } else {
+%			}
+%			elsif ($engine->Table eq "track")
+%			{
 
-<& /comp/sidebar, title=>'Search' &>
-    <& /comp/tablebegin, title=>'Search (Direct Search)', attrs=>"align=left", attrs=>'width="300"' &>
-% }
-    <& /comp/textsearch, default=>$table, text=>$search, limit => $limit &>
-  <& /comp/tableend &>
+					<td>
+						<span<% $row->{'artistmp'} ? ' class="mp"' : '' |n %>>
+							<& /comp/linkartist, id => $row->{'artistid'}, name => $row->{'artistname'}, resolution => $row->{artistresolution}, strong => 0 &>
+						</span></td>
+					<td>
+						<span<% $row->{'releasemp'} ? ' class="mp"' : '' |n %>>
+							<& /comp/linkrelease, id => $row->{'albumid'}, name => $row->{'albumname'}, strong => 0 &>
+						</span></td>
+					<td>
+						<span<% $row->{'trackmp'} ? ' class="mp"' : '' |n %>>
+							<& /comp/linktrack, id => $row->{'trackid'}, name => $row->{'trackname'}, strong => 0 &>
+						</span></td>
+					<td class="num">
+						<span<% $row->{'albumjoinmp'} ? ' class="mp"' : '' |n %>>
+							<% $row->{'trackseq'} %>
+						</span></td>
+					<td class="length">
+						<% Track::FormatTrackLength($row->{'tracklength'}) %></td>
 
-<& /comp/movefocus, id=>"id_search" &>
+%   	    }
+
+				</tr>
+%		}
+
+			</table>
+
+		<& /comp/tableend &>
+
+% 	}
+
+	<& /comp/tablebegin, title => "Search (Direct Search)" &>
+
+    	<& /comp/textsearch, default => $table, text => $search, limit => $limit &>
+
+  	<& /comp/tableend &>
+
+	<& /comp/movefocus, id => "id_search" &>
+
 <& /comp/footer &>
+
+%# vi: set ts=4 sw=4 ft=mason :
