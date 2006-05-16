@@ -204,13 +204,14 @@
 				<td style="text-align: right">
      				<input type="hidden" name="url" value="<% $r->uri() . "?" . $r->args() %>" />
      				<input type="submit" name="submit" value="Enter Votes" /></td>
+
+%			}
+
 			</tr>
 		</table>
 
 		<& /comp/tableend &>
 
-
-%			}
 %		}
 
 		<script type="text/javascript" src="/scripts/showedit.js"></script>
