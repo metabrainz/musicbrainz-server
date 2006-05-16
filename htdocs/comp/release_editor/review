@@ -60,25 +60,21 @@
 		return sprintf("tr%d_%s", $i, $name);
     }
 
-	# store how many artist will be added.
-	my @newartists;
+	# Maintain a list of Artists cached by ID.
+	my $GetCachedArtist = do
+	{
+		my %cache;
+		sub
+		{
+			my ($id) = @_;
+			return $cache{$id} if (exists $cache{$id});
+			my $artist = $m->comp("/comp/loadartist", $mb, $id);
+			return ($cache{$id} = $artist);
+		};
+	};
 
 	# prepare artist artist object
-	my $artist = Artist->new($mb->{DBH});
-	$artist->SetId($artistid);
-	$artist->SetName($ARGS{"artistname"});
-	$artist->SetResolution($ARGS{"ar_resolution"});
-	$artist->LoadFromId
-		or return $m->comp(
-			"/comp/error",
-			"Artist '$artistid' not found in the database.",
-			1, 1,
-		)
-		if ($artistid ne "*");
-
-	# save artist into newartists if it is new artist
-	push @newartists, $artist
-		if ($artistid eq "*");
+	my $artist = &$GetCachedArtist($artistid);
 
 	# prepare release object
 	my $release = Album->new($mb->{DBH});
@@ -165,27 +161,12 @@
 			# use release artist
 			if ($ARGS{"hasmultipletrackartists"})
 			{
-				my $ar_id = $ARGS{getField($i, "artistid")};
-				my $artist = Artist->new($mb->{DBH});
-				$artist->SetId($ar_id);
-				$artist->SetName($ARGS{getField($i, "artistname")});
-				$artist->SetResolution($ARGS{getField($i, "artistresolution")});
-				$artist->SetModPending($ar_id eq "*");
-				$artist->LoadFromId
-					or return $m->comp(
-						"/comp/error",
-						"Artist '$artistid' not found in the database.",
-						1, 1,
-					)
-					if ($ar_id ne "*" and $ar_id ne "");
-
-				# save artist into newartists if it is new artist
-				push @newartists, $artist
-					if ($ar_id eq "*");
-
 				# update track object with values from artist object.
-				$tr->SetArtist($artist->GetId);
-				$tr->SetArtistName($artist->GetName);
+				my $tr_artistid = $ARGS{getField($i, "artistid")};
+				my $tr_artist = &$GetCachedArtist($tr_artistid);
+
+				$tr->SetArtist($tr_artist->GetId);
+				$tr->SetArtistName($tr_artist->GetName);
 			}
 			else
 			{
@@ -212,49 +193,23 @@
 			curr => 3
 		&>
 
-		<table class="formstyle">
-			<tr>
-				<td colspan="2" class="instructions">
-					<ul>
-						<li>Please review the edits that will be entered into
-			 				the database before you click on "Enter Moderations"</li>
-						<li>Some <& /comp/linkdoc, "EditType", "edit types" &> are
-							applied instantly, others will need approval of other
-							MusicBrainz editors. Please see <& /comp/linkdoc,
-							"HowEditingWorks", "how editing works" &> for
-							additional information.
-						<li>You can get additional information about the specific
-							edit types if you click on their respective titles below.</li>
-			 		</ul>
-				</td>
-			</tr>
-		</table>
-
-
-%			if (@newartists)
-%			{
-
-			<table class="review">
-				<tr class="header">
-					<td class="type">Artist:</td>
-					<td class="newvalue">Change:</td>
-					<td class="autoedit">Needs&nbsp;voting:</td>
+			<table class="formstyle">
+				<tr>
+					<td colspan="2" class="instructions">
+						<ul>
+							<li>Please review the edits that will be entered into
+								the database before you click on "Enter Moderations"</li>
+							<li>Some <& /comp/linkdoc, "EditType", "edit types" &> are
+								applied instantly, others will need approval of other
+								MusicBrainz editors. Please see <& /comp/linkdoc,
+								"HowEditingWorks", "how editing works" &> for
+								additional information.
+							<li>You can get additional information about the specific
+								edit types if you click on their respective titles below.</li>
+						</ul>
+					</td>
 				</tr>
-<%perl>
-				for my $artist (@newartists)
-				{
-					$m->out('<tr><td class="type">Add</td>');
-					$m->out('<td class="newvalue">');
-					$m->comp("/comp/linkartist", artist => $artist);
-					$m->out('</td>');
-					$m->out('<td class="autoedit">');
-					$m->comp(".isAutoEdit", &ModDefs::MOD_ADD_ARTIST);
-					$m->out('</td></tr>');
-				}
-
-				$m->out('<tr class="spacer"><td colspan="3">&nbsp;</td></tr>');
-				$m->out('</table>');
-			}
+			</table>
 
 </%perl>
 
@@ -319,10 +274,10 @@
 							mb => $mb,
 							edittype => "MoveReleaseEdit",
 							edittitle => "Move Release",
-
 							title => "Change Artist",
-							orig_id => $orig_artistid,
-							new_id => $new_artistid,
+
+							orig_artist => &$GetCachedArtist($orig_artistid),
+							new_artist => &$GetCachedArtist($new_artistid),
 							new_artistname => $ARGS{"artistname"},
 							new_resolution => $ARGS{"ar_resolution"},
 							cnt => ++$releasechanges
@@ -479,7 +434,9 @@
 					my $orig_seq = $orig{"trackseq$t"};
 					my $orig_track = $orig{"track$t"};
 					my $orig_length = $orig{"tracklength$t"};
+
 					my $orig_artistid = $orig{getField($t, "artistid")};
+					my $orig_artist = &$GetCachedArtist($orig_artistid),
 
 					(MusicBrainz::IsNonNegInteger($orig_id))
 						or die("need non-negative integer \$orig_id=$orig_id");
@@ -495,8 +452,11 @@
 					my $new_seq = $ARGS{"trackseq$t"};
 					my $new_track = $ARGS{"track$t"};
 					my $new_length = $ARGS{"tracklength$t"};
-					my $new_artistid = $ARGS{getField($t, "artistid")};
 					my $new_delete = $ARGS{"trackdel$t"};
+
+					my $new_artistid = $ARGS{getField($t, "artistid")};
+					my $new_artist = &$GetCachedArtist($new_artistid),
+
 
 					# check if track was removed
 					if ($new_delete)
@@ -525,35 +485,52 @@
 					(MusicBrainz::IsNonNegInteger($new_artistid) or $new_artistid eq "*")
 						or die("need non-negative integer or * \$new_artistid=$new_artistid");
 
-					if ($orig_id ne $new_id)
+					#if ($orig_id ne $new_id)
+					#{
+					#	for my $i (0 .. $tracks-1)
+					#	{
+					#		$orig_id = $orig{"trackid$i"};
+					#		$orig_seq = $orig{"trackseq$i"};
+					#		if ($new_id eq $orig_id)
+					#		{
+					#			$m->comp(".showTrackEdit",
+					#				mb => $mb,
+					#				edittype => "EditTrackNumberEdit",
+					#				edittitle => "Edit Track Number",
+					#
+					#				new_seq => $new_seq,
+					#				new_id => $new_id,
+					#				oldvalue => $orig_seq,
+					#				newvalue => $new_seq,
+					#				modtype => &ModDefs::MOD_EDIT_TRACKNUM,
+					#				cnt => ++$trackchanges
+					#			);
+					#
+					#			# update original values for diff.
+					#			$orig_track = $orig{"track$i"};
+					#			$orig_length = $orig{"tracklength$i"};
+					#			$orig_artistid = $orig{getField($i, "artistid")};
+					#			last;
+					#		}
+					#	}
+					#}
+
+					if ($orig_seq ne $new_seq)
 					{
-						for my $i (0 .. $tracks-1)
-						{
-							$orig_id = $orig{"trackid$i"};
-							$orig_seq = $orig{"trackseq$i"};
-							if ($new_id eq $orig_id)
-							{
-								$m->comp(".showTrackEdit",
-									mb => $mb,
-									edittype => "EditTrackNumberEdit",
-									edittitle => "Edit Track Number",
+						$m->comp(".showTrackEdit",
+							mb => $mb,
+							edittype => "EditTrackNumberEdit",
+							edittitle => "Edit Track Number",
 
-									new_seq => $new_seq,
-									new_id => $new_id,
-									oldvalue => $orig_seq,
-									newvalue => $new_seq,
-									modtype => &ModDefs::MOD_EDIT_TRACKNUM,
-									cnt => ++$trackchanges
-								);
-
-								# update original values for diff.
-								$orig_track = $orig{"track$i"};
-								$orig_length = $orig{"tracklength$i"};
-								$orig_artistid = $orig{getField($i, "artistid")};
-								last;
-							}
-						}
+							new_seq => $new_seq,
+							new_id => $new_id,
+							oldvalue => $orig_seq,
+							newvalue => $new_seq,
+							modtype => &ModDefs::MOD_EDIT_TRACKNUM,
+							cnt => ++$trackchanges
+						);
 					}
+
 
 					# if tracknames differ, it's either an edited or added track
 					if ($orig_track ne $new_track)
@@ -597,8 +574,9 @@
 
 							new_seq => $new_seq,
 							new_id => $new_id,
-							oldvalue => $orig_artistid,
-							newvalue => $new_artistid,
+
+							oldvalue => $orig_artist,
+							newvalue => $new_artist,
 							new_artistname => $ARGS{getField($t, "artistname")},
 							new_resolution => $ARGS{getField($t, "artistresolution")},
 							modtype => &ModDefs::MOD_CHANGE_TRACK_ARTIST,
@@ -735,38 +713,18 @@
 
 	$mb
 	$title
-	$orig_id
-	$new_id
+	$orig_artist
+	$new_artist
 	$new_artistname => ""
 	$new_resolution => ""
 
 </%args>
 <%perl>
 
-	# prepare old artist object
-	my $orig_ar = Artist->new($mb->{DBH});
-	$orig_ar->SetId($orig_id);
-	$orig_ar->LoadFromId
-		or die("(Original) Artist '$orig_id' not found in the database.");
-
-	# prepare new artist object
-	my $new_ar = Artist->new($mb->{DBH});
-	$new_ar->SetId($new_id);
-	$new_ar->SetName($new_artistname);
-	$new_ar->SetResolution($new_resolution);
-	$new_ar->LoadFromId
-		or die("showArtistEdit :: Artist id='$new_id' not found in the database.")
-		if ($new_id ne "*");
-
 	$m->out(sprintf '<tr><td class="type">%s</td><td class="newvalue">', $title);
-	$m->out('<table class="diff"><tr><td class="diff" nowrap>');
-	$m->comp("/comp/linkartist", artist => $orig_ar);
-	$m->out('</td></tr>');
-	$m->out('<tr><td class="diff" nowrap>');
-	$m->out('<span class="mp" title="Artist will be added upon submission">') if ($new_id eq "*");
-	$m->comp("/comp/linkartist", artist => $new_ar);
-	$m->out('</span>') if ($new_id eq "*");
-	$m->out('</td></tr></table>');
+	$m->comp("/comp/linkartist", artist => $orig_artist);
+	$m->out('<br/>');
+	$m->comp("/comp/linkartist", artist => $new_artist);
 	$m->out('</td>');
 	$m->out('<td class="autoedit">');
 	$m->comp(".isAutoEdit", &ModDefs::MOD_MOVE_ALBUM);
@@ -849,34 +807,9 @@
 
 	if ($modtype == &ModDefs::MOD_CHANGE_TRACK_ARTIST)
 	{
-		# prepare old artist object
-		my $orig_ar = Artist->new($mb->{DBH});
-		$orig_ar->SetId($oldvalue);
-		$orig_ar->LoadFromId
-			or die("showTrackEdit :: Artist id='$oldvalue' for Track $new_seq not found in the database.");
-
-		# prepare new artist object
-		my $new_ar = Artist->new($mb->{DBH});
-		$new_ar->SetId($newvalue);
-		$new_ar->SetName($new_artistname);
-		$new_ar->SetResolution($new_resolution);
-		$new_ar->SetModPending($newvalue eq "*");
-		$new_ar->LoadFromId
-			or die("showTrackEdit :: Artist id='$newvalue' for Track $new_seq not found in the database.")
-			if ($newvalue ne "*" and $newvalue ne "");
-
-		$m->out('<table class="diff">');
-		$m->out('<tr>');
-		$m->out('<td class="diff" nowrap>');
-		$m->comp("/comp/linkartist", artist => $orig_ar);
-		$m->out('</td>');
-		$m->out('</tr>');
-		$m->out('<tr>');
-		$m->out('<td class="diff" nowrap>');
-		$m->comp("/comp/linkartist", artist => $new_ar);
-		$m->out('</td>');
-		$m->out('</tr>');
-		$m->out('</table>');
+		$m->comp("/comp/linkartist", artist => $oldvalue);
+		$m->out('<br/>');
+		$m->comp("/comp/linkartist", artist => $newvalue);
 	}
 	else
 	{

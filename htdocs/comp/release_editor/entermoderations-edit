@@ -59,6 +59,19 @@
 	$orig{"releaseid"} = $releaseid;
 	%orig = $m->comp("/comp/release_editor/init-editall", %orig);
 
+	# Maintain a list of Artists cached by ID.
+	my $GetCachedArtist = do
+	{
+		my %cache;
+		sub
+		{
+			my ($id) = @_;
+			return $cache{$id} if (exists $cache{$id});
+			my $artist = $m->comp("/comp/loadartist", $mb, $id);
+			return ($cache{$id} = $artist);
+		};
+	};
+
 	$m->comp(
 		"/comp/entermods",
 		DBH => $mb->{DBH},
@@ -78,9 +91,10 @@
 			# album to the newly created artist
 			$ov = $orig{"artistid"};
 			$nv = $ARGS{"artistid"};
-			if ($ov ne $nv
-				and $artistid ne "*")
+			if ($ov ne $nv)
 			{
+				my $oldartist = &$GetCachedArtist($ov);
+				my $newartist = &$GetCachedArtist($nv);
 				push @mods, Moderation->InsertModeration(
 					DBH	=> $mb->{DBH},
 					uid	=> $session{uid},
@@ -88,7 +102,10 @@
 					type => &ModDefs::MOD_MOVE_ALBUM,
 					# --
 					album => $release,
-					newname => $nv,
+					oldartist => $oldartist,
+					artistid => $newartist->GetId,
+					artistname => $newartist->GetName,
+					artistsortname => $newartist->GetSortName,
 				);
 			}
 
@@ -148,143 +165,29 @@
 			# Enter moderations for each track property that was changed.
 			for (my $t=0; $t < $tracks; $t++)
 			{
+				# get original values
+				my $orig_id = $orig{"trackid$t"} || "";
+				my $orig_seq = $orig{"trackseq$t"};
+				my $orig_track = $orig{"track$t"} || "";
+				my $orig_length = $orig{"tracklength$t"} || "";
+				my $orig_artistid = $orig{sprintf "tr%d_artistid", $t};
+				my $oldartist = &$GetCachedArtist($orig_artistid);
+
 				# get the new values
 				my $new_id = $ARGS{"trackid$t"} || "";
 				my $new_seq = $ARGS{"trackseq$t"};
 				my $new_track = $ARGS{"track$t"} || "";
 				my $new_length = $ARGS{"tracklength$t"} || "";
 				my $new_delete = $ARGS{"trackdel$t"};
-				my $new_artist = $ARGS{sprintf "tr%d_artistid", $t} || "";
+				my $new_artistid = $ARGS{sprintf "tr%d_artistid", $t};
+				my $newartist = &$GetCachedArtist($new_artistid);
 
-				# get original values
-				my $orig_id = $orig{"trackid$t"} || "";
-				my $orig_seq = $orig{"trackseq$t"};
-				my $orig_track = $orig{"track$t"} || "";
-				my $orig_length = $orig{"tracklength$t"} || "";
-				my $orig_artist = $orig{sprintf "tr%d_artistid", $t} || "";
-
-				# prepare Track object for moderations
+				# prepare Track object
 				my $track = Track->new($mb->{DBH});
 				$track->SetId($new_id);
 				$track->SetAlbum($releaseid);
-
-				# if the id has changed, the track has been re-ordered
-				# find the original sequence number, and
-				# enter a MOD_EDIT_TRACKNUM moderation.
-				if ($orig_id ne $new_id)
-				{
-					for my $i (0 .. $tracks-1)
-					{
-						$orig_id = $orig{"trackid$i"};
-						$orig_seq = $orig{"trackseq$i"};
-
-						# if we found the trackid
-						if ($new_id eq $orig_id)
-						{
-							# now we need to be sure that the track object
-							# exists, else fail.
-							$track->LoadFromId
-								or die "Error loading track\n";
-
-							push @mods, Moderation->InsertModeration(
-								DBH	=> $mb->{DBH},
-								uid	=> $session{uid},
-								privs => $session{privs},
-								type => &ModDefs::MOD_EDIT_TRACKNUM,
-								# --
-								track => $track,
-								newseq => $new_seq,
-							);
-
-							# update original values, to see if other
-							# things than the sequence have been changed.
-							$orig_track = $orig{"track$i"};
-							$orig_length = $orig{"tracklength$i"};
-							$orig_artist = $orig{"ar_id$i"};
-							last;
-						}
-					}
-				}
-
-				# make sure we have a valid track object
 				$track->LoadFromId
 					or die "Error loading track\n";
-
-				# MOD_CHANGE_TRACK_ARTIST
-				# if the track needs to be moved to an existing artist, or
-				# if the insert mod above was successful, continue moving the
-				# track to the newly created artist
-				if ($orig_artist ne $new_artist
-					and $new_artist ne "*")
-				{
-					my $oldartist = $m->comp("/comp/loadartist", $mb, $orig_artist);
-					my $newartist = $m->comp("/comp/loadartist", $mb, $new_artist);
-
-					push @mods, Moderation->InsertModeration(
-						DBH	=> $mb->{DBH},
-						uid	=> $session{uid},
-						privs => $session{privs},
-						type => &ModDefs::MOD_CHANGE_TRACK_ARTIST,
-						# --
-						track => $track,
-						oldartist => $oldartist,
-						artistid => $newartist->GetId,
-						artistname => $newartist->GetName,
-						artistsortname => $newartist->GetSortName,
-						# TODO depmod on $modid ?
-					);
-				}
-
-				# MOD_ADD_TRACK_KV / MOD_EDIT_TRACKNAME
-				# Insert add track name moderation if the old name was "" and the new name is not ""
-				# Insert edit track name moderation if the old name was not ""
-				if ($orig_track ne $new_track)
-				{
-					if ($orig_track eq "")
-					{
-						# make sure we don't insert empty new tracks.
-						if ($new_track ne "")
-						{
-							push @mods, Moderation->InsertModeration(
-								DBH	=> $mb->{DBH},
-								uid	=> $session{uid},
-								privs => $session{privs},
-								type => &ModDefs::MOD_ADD_TRACK_KV,
-								# --
-								album => $release,
-								trackname => $new_track,
-								tracknum => $new_seq,
-							);
-						}
-					}
-					else
-					{
-						push @mods, Moderation->InsertModeration(
-							DBH	=> $mb->{DBH},
-							uid	=> $session{uid},
-							privs => $session{privs},
-							type => &ModDefs::MOD_EDIT_TRACKNAME,
-							# --
-							track => $track,
-							newname => $new_track,
-						);
-					}
-				}
-
-				# MOD_EDIT_TRACKTIME
-				# Insert edit track length moderation if requested
-				if ($orig_length ne $new_length)
-				{
-					push @mods, Moderation->InsertModeration(
-						DBH	=> $mb->{DBH},
-						uid	=> $session{uid},
-						privs => $session{privs},
-						type => &ModDefs::MOD_EDIT_TRACKTIME,
-						# --
-						track => $track,
-						newlength => Track::UnformatTrackLength($new_length),
-					);
-				}
 
 				# MOD_REMOVE_TRACK
 				# Insert track removal mod if requested
@@ -297,8 +200,101 @@
 						type => &ModDefs::MOD_REMOVE_TRACK,
 						# --
 						track => $track,
-						album => $release,
+						newseq => $new_seq,
+						# TODO depmod on $modid ?
 					);
+				}
+				else
+				{
+					# MOD_EDIT_TRACKNUM
+					if ($orig_seq ne $new_seq)
+					{
+						push @mods, Moderation->InsertModeration(
+							DBH	=> $mb->{DBH},
+							uid	=> $session{uid},
+							privs => $session{privs},
+							type => &ModDefs::MOD_EDIT_TRACKNUM,
+							# --
+							track => $track,
+							newseq => $new_seq,
+							# TODO depmod on $modid ?
+						);
+					}
+
+
+					# MOD_CHANGE_TRACK_ARTIST
+					if ($orig_artistid ne $new_artistid)
+					{
+						push @mods, Moderation->InsertModeration(
+							DBH	=> $mb->{DBH},
+							uid	=> $session{uid},
+							privs => $session{privs},
+							type => &ModDefs::MOD_CHANGE_TRACK_ARTIST,
+							# --
+							track => $track,
+							oldartist => $oldartist,
+							artistid => $newartist->GetId,
+							artistname => $newartist->GetName,
+							artistsortname => $newartist->GetSortName,
+							# TODO depmod on $modid ?
+						);
+					}
+
+					# MOD_ADD_TRACK_KV / MOD_EDIT_TRACKNAME
+					# Insert add track name moderation if the old name was "" and the new name is not ""
+					# Insert edit track name moderation if the old name was not ""
+					if ($orig_track ne $new_track)
+					{
+						if ($orig_track eq "")
+						{
+							# make sure we don't insert empty new tracks.
+							if ($new_track ne "")
+							{
+								push @mods, Moderation->InsertModeration(
+									DBH	=> $mb->{DBH},
+									uid	=> $session{uid},
+									privs => $session{privs},
+									type => &ModDefs::MOD_ADD_TRACK_KV,
+									# --
+									album => $release,
+									trackname => $new_track,
+									tracknum => $new_seq,
+									tracklength => Track::UnformatTrackLength($new_length),
+									artistid => $newartist->GetId,
+									artistname => $newartist->GetName,
+									artistsortname => $newartist->GetSortName,
+								);
+							}
+						}
+						else
+						{
+							push @mods, Moderation->InsertModeration(
+								DBH	=> $mb->{DBH},
+								uid	=> $session{uid},
+								privs => $session{privs},
+								type => &ModDefs::MOD_EDIT_TRACKNAME,
+								# --
+								track => $track,
+								newname => $new_track,
+							);
+						}
+					}
+
+					# MOD_EDIT_TRACKTIME
+					# Insert edit track length moderation if requested
+					if ($orig_length ne $new_length and
+						$orig_track ne "")
+					{
+						push @mods, Moderation->InsertModeration(
+							DBH	=> $mb->{DBH},
+							uid	=> $session{uid},
+							privs => $session{privs},
+							type => &ModDefs::MOD_EDIT_TRACKTIME,
+							# --
+							track => $track,
+							newlength => Track::UnformatTrackLength($new_length),
+						);
+					}
 				}
 			}
 

@@ -108,27 +108,28 @@
 		# let's see if we have to swap some tracks
 		# only do this if we have a continous list of numbers,
 		# without duplicates
-		my %args = %ARGS;
-		if ($checkedsequence)
-		{
-			for $i (0 .. $tracks-1)
-			{
-				my $ni = $ARGS{"trackseq$i"}-1;
-				if ($ni != $i)
-				{
-					$args{"track$ni"} = $ARGS{"track$i"};
-					$args{"trackseq$ni"} = $ARGS{"trackseq$i"};
-					$args{"trackid$ni"} = $ARGS{"trackid$i"};
-					$args{"tracklength$ni"} = $ARGS{"tracklength$i"};
-
-					$args{sprintf "tr%d_artistid", $ni} = $ARGS{sprintf "tr%d_artistid", $i};
-					$args{sprintf "tr%d_artistname", $ni} = $ARGS{sprintf "tr%d_artistid", $i};
-					$args{sprintf "tr%d_artistresolution", $ni} = $ARGS{sprintf "tr%d_artistid", $i};
-					# TODO: what to do with AR's
-				}
-			}
-		}
-		%ARGS = %args;
+		# my %args = %ARGS;
+		#
+		# if ($checkedsequence)
+		# {
+		# 	for $i (0 .. $tracks-1)
+		# 	{
+		# 		my $ni = $ARGS{"trackseq$i"}-1;
+		# 		if ($ni != $i)
+		# 		{
+		# 			$args{"track$ni"} = $ARGS{"track$i"};
+		# 			$args{"trackseq$ni"} = $ARGS{"trackseq$i"};
+		# 			$args{"trackid$ni"} = $ARGS{"trackid$i"};
+		# 			$args{"tracklength$ni"} = $ARGS{"tracklength$i"};
+		#
+		# 			$args{sprintf "tr%d_artistid", $ni} = $ARGS{sprintf "tr%d_artistid", $i};
+		# 			$args{sprintf "tr%d_artistname", $ni} = $ARGS{sprintf "tr%d_artistid", $i};
+		# 			$args{sprintf "tr%d_artistresolution", $ni} = $ARGS{sprintf "tr%d_artistid", $i};
+		# 			# TODO: what to do with AR's
+		# 		}
+		# 	}
+		# }
+		#%ARGS = %args;
 	}
 
 	$h{"badsequence"} = 1

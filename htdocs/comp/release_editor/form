@@ -63,6 +63,14 @@
 </%args>
 <%perl>
 
+	# returns the full name of the given track field
+	# in the ARGS hash.
+	sub getField {
+		my ($i, $name) = @_;
+		return sprintf("tr%d_%s", $i, $name);
+    }
+
+
 	my (%checkmacsac, %checkfields, %checkattributes, %checklanguage, %checkreleases);
 
 	%checkmacsac = %{ $ARGS{"v::macsac"} } if (ref $ARGS{"v::macsac"} eq "HASH");
@@ -453,13 +461,6 @@
 %	}
 
 <%perl>
-
-	# returns the full name of the given track field
-	# in the ARGS hash.
-	sub getField {
-		my ($i, $name) = @_;
-		return sprintf("tr%d_%s", $i, $name);
-    }
 
 	# define array to collect tracktimes
 	my @tracktimes;
