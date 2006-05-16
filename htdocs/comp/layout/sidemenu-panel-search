@@ -30,8 +30,8 @@
 	<div class="sidemenu">
 		<table class="sidemenusearch">
 			<tr>
-				<td style="width: 40px">
-					<label for="id_qs_artist" title="Search for an artist">Artist</label></td>
+				<td class="label">
+					<label for="id_qs_artist" title="Search for an artist">Artist:</label></td>
 				<td>
 					<form method="get" action="/search/textsearch.html">
 
@@ -54,8 +54,8 @@
 					</form></td>
 			</tr>
 			<tr>
-				<td>
-					<label for="id_qs_release" title="Search for a release">Release</label></td>
+				<td class="label">
+					<label for="id_qs_release" title="Search for a release">Release:</label></td>
 				<td>
 					<form method="get" action="/search/textsearch.html">
 						<div>
@@ -70,8 +70,8 @@
 					</form></td>
 			</tr>
 			<tr>
-				<td>
-					<label for="id_qs_track" title="Search for a track">Track</label></td>
+				<td class="label">
+					<label for="id_qs_track" title="Search for a track">Track:</label></td>
 				<td>
 					<form method="get" action="/search/textsearch.html">
 						<div>
@@ -86,8 +86,8 @@
 					</form></td>
 			</tr>
 			<tr>
-				<td>
-					<label for="id_qs_editor" title="Search for an MusicBrainz editor">Editor</label></td>
+				<td class="label">
+					<label for="id_qs_editor" title="Search for an MusicBrainz editor">Editor:</label></td>
 				<td>
 					<form method="get" action="/show/user/">
 						<div>
