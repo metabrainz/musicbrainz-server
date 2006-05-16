@@ -9,7 +9,7 @@
 </%perl>
 
 <form method="get" action="/search/oldsearch.html" class="formstyle" id="TextSearchForm">
-<table class="formstyle">	
+<table class="formstyle">
 	<tr>
 		<td class="labelnopad"><label for="id_search">Search for:</label></td>
 		<td>
@@ -39,13 +39,13 @@
 	<tr>
 		<td></td>
 		<td>
-			<input type="submit" value="Direct Search" />
+			<input type="submit" value="Direct Search &raquo;" title="Start search..." />
 		</td>
 	</tr>
 	<tr>
 		<td></td>
 		<td>
-			[ <a href="<% $lucenesearch %>">Indexed search</a> ]
+			[ <a href="<% $lucenesearch %>" title="Search for the same query using the Indexed Search...">Indexed search</a> ]
 		</td>
 	</tr>
 </table>
