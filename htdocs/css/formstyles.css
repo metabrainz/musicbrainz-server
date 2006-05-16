@@ -473,7 +473,7 @@ table.formstyle td.padtop {
 	margin-top: 5px;
 	font-family: monospace;
 	font-size: 11px;
-	overflow-y: scroll;
+	overflow-y: auto;
 }
 .log-messages .log-scope {
 	background: #f0efff;

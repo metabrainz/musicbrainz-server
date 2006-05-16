@@ -93,6 +93,11 @@ td.modpending {
 	font-size: 10pt;
 	width: 1em;
 }
+.sidemenusearch td.label {
+	font-size: 11px;
+	text-align: right;
+	padding: 0px; padding-right: 3px;
+}
 .sidemenusearch input.checkbox {
 	margin: -2px;
 }
@@ -107,14 +112,14 @@ td.modpending {
 
 div.morelink {
 	text-align: right;
-	padding-right: 3px;
+	padding: 0px; padding-right: 3px;
 }
 div.morelink a,
 div.morelink a:visited,
 div.morelink a:active
 {
 	font-size: 10px; color: #000; 
-	padding-right: 2px;
+	padding: 0px; padding-right: 2px;
 	white-space: nowrap;
 }
 div.morelink a:hover {

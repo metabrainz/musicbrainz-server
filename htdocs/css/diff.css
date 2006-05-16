@@ -99,7 +99,7 @@ table.editfields tr td.bold {
 	font-weight: bold;
 }
 div.attrlist {
-	margin-left: 16px; font-size: 11px;
+	margin-left: 16px; 
 }
 
 
@@ -217,7 +217,7 @@ table.voteslist tr {
 }
 table.voteslist tr td.voter {
 	padding: 0px; padding-top: 1px;padding-right: 10px;
-	text-align: right; font-size: 11px;
+	text-align: right; 
 	width: 80px;
 }
 table.voteslist tr td.vote {
@@ -240,7 +240,7 @@ table.noteslist tr {
 }
 table.noteslist tr td.noter {
 	padding: 0px; padding-top: 2px; padding-right: 10px;
-	text-align: right; font-size: 11px;
+	text-align: right; 
 	width: 80px;
 }
 table.noteslist tr td.text {
@@ -314,3 +314,9 @@ table.edittype tr td.lbl {
 	white-space: nowrap; 
 	width: 65px; 
 } 
+table.edittype tr.entity td {
+	
+}
+table.edittype tr.entity a {
+	font-weight: normal;
+}

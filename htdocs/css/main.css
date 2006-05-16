@@ -10,7 +10,8 @@ body, p, td	{
 	font-style: normal;
 	font-size: 10pt;
 	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; 
-	color : #000000; 
+	color : #000; 
+	background-color: inherit;
 	text-decoration : none;
 }
 form {
@@ -19,6 +20,7 @@ form {
 
 abbr, acronym, span.abbr {
   cursor: help; color: #666;
+  background-color: inherit;
 }
 
 .bold { font-weight: bold; }
@@ -44,7 +46,7 @@ span.linkartist-icon,
 span.linkrelease-icon,
 span.linktrack-icon { 
 	padding-left: 16px;
-	background-position: left 2px;
+	background-position: 0px 2px;
 	background-repeat: no-repeat;
 }
 span.linkartist-icon { 
@@ -60,6 +62,7 @@ span.linktrack-icon {
 /* deleted entities are shown differently */
 span.deletedentity { 
 	color: #999;
+	background-color: inherit;
 	cursor: help;
 }
 
@@ -78,6 +81,7 @@ a,
 a:link,
 a:visited {
 	color: #534D8B;
+	background-color: inherit;
 	text-decoration: none;
 }
 
@@ -86,6 +90,7 @@ a:hover,
 a:focus,
 a:active {
 	color: #736DAB;
+	background-color: inherit;
 	text-decoration: underline;
 }
 
@@ -109,6 +114,7 @@ h1 {
 
 /* black text on orange gradient with orange line at the bottom. */
 h2 {
+	color: #000;
 	background: #fff url(/images/header-bg-orangefade.gif) repeat-y left;
 	border: 0 solid #ffecac;
 	border-width: 0px 0 1px 1px;
@@ -137,34 +143,35 @@ h3 {
 }
 .boxeslist h1,
 .newslist h1 {
-	margin-bottom: 20px; margin-top: 0px;
+	margin-bottom: 10px; margin-top: 0px;
 	padding: 0px;
 	border-width: 0px;
 }
 .newslist h2 {
 	margin-top: 0; margin-bottom: 10px;
-	background-color: #736DAB; /* fallback if image is not available */
+	color: #000;
+	background-color: #736DAC; /* fallback if image is not available */
 	background-image: url(/images/header-bg-lightpurplefade.gif);
-	background-position: right;
+	background-position: top right;
 	background-repeat: repeat-y;
 	border: 1px solid #736DAB;
 }
 .notice {
-	border: 3px outset #f0efff;
+	border: 3px outset #f0effe;
 	margin: 1em;
 	font-weight: bold;
 	padding: 1em;
-	background-color: #f0efff;
 	color: #000;
+	background-color: #f0efff;
 }
 .LicenseNotice {
-	border: 3px outset #f0efff;
+	border: 3px outset #f0effe;
 	margin-top: 1em;
 	margin-bottom: 1em;
 	font-weight: bold;
 	padding: 1em;
-	background-color: #f0efff;
 	color: #000;
+	background-color: #f0efff;
 }
 
 /*
@@ -188,8 +195,8 @@ ol.SpacedList li {
 	margin-bottom: 0.5em;
 }
 kbd {
-	background: #efefff;
 	color: #000;
+	background: #efefff;
 	font-family: monospace;
 }
 kbd.KbdBlock {
@@ -197,6 +204,7 @@ kbd.KbdBlock {
 	padding: 0.5em;
 	background: #efefff;
 	color: #000;
+	background-color: inherit;
 	font-family: monospace;
 	display: block;
 }
@@ -256,6 +264,7 @@ table.artisttitle {
 	padding: 5px;
 	margin-top: 1em;
 	margin-bottom: 1em;	
+	color: #000;
 	background-color: #f0efff;
 	width: 100%;
 }
@@ -270,6 +279,7 @@ table.artisttitle td.title a {
 	font-size: 20pt;
 	font-weight: normal;
 	color: #000 !important;
+	background-color: inherit;
 }
 table.artisttitle td.info {
 	padding-bottom: 4px;
@@ -279,6 +289,7 @@ table.artisttitle td.links {
 }
 table.artisttitle td.mods {
 	padding: 2px 4px;
+	color: #000;
 	background-color: #ffecd6;
 	border-top: 1px solid #000;
 }
@@ -291,13 +302,16 @@ table.releasebegin {
 	border-collapse: collapse;
 	border: 1px solid #000;
 	padding: 2px;
+	color: #000;
 	background-color: #fff;
 	width: 100%;
 }
 table.releasebegin tr.mp td {
+	color: #000;
 	background-color: #ffc;
 }	
 table.releasebegin td.title  {
+	color: #000;
 	background-color: #FFBA58; 
 	width: 100%; 
 	padding-left: 4px;
@@ -317,16 +331,19 @@ table.releasebegin td.title img.toggle {
 	padding: 0px; margin: 0px;
 }	
 table.releasebegin td.icon {
+	color: #000;
 	background-color: #FFBA58;
 	width: 10px;
 	padding-left: 2px;
 	padding-top: 2px;
 }
 table.releasebegin td.tagger {
+	color: #000;
 	background-color: #FFBA58;
 	width: 10px;
 }
 table.releasebegin td.batchop {
+	color: #000;
 	background-color: #FFBA58;
 	width: 10px;
 	text-align: center;
@@ -343,6 +360,7 @@ table.releaselinks {
 	border-collapse: collapse;
 	border: 1px solid #000;
 	border-top: none;
+	color: #000;
 	background-color: #eee;
 	width: 100%;
 }
@@ -382,11 +400,13 @@ table.releaselinks div.partnerlinks {
 
 /* info link row, lightblue */
 table.releaselinks td.info {
+	color: #000;
 	background-color: #f0efff;
 }
 
 /* editing link row, lightred */
 table.releaselinks td.edit {
+	color: #000;
 	background-color: #ffecd6;
 	border-top: 1px solid #000;
 }
@@ -401,6 +421,7 @@ table.releasetracks {
 	border: 1px solid #000;
 	border-top: none;
 	border-collapse: collapse;
+	color: #000;
 	background-color: #fff;
 	width: 100%;
 }
@@ -457,7 +478,7 @@ table.releasetracks td.links {
 
 /* Highlighting: purple background,
    render links in bold (but not the edit links) */
-table.releasetracks tr.highlight { background-color: #ffeaff; }
+table.releasetracks tr.highlight { color: #000; background-color: #ffeaff; }
 table.releasetracks tr.highlight td a { font-weight: bold; }
 table.releasetracks tr.highlight td.links a { font-weight: normal; }
 
@@ -467,6 +488,7 @@ table.releasetracks tr.highlight td.links a { font-weight: normal; }
  * ---------------------------------------------------------------------- */
 table.releasetracks tr.discid {}
 table.releasetracks tr.discid td {
+	color: #000;
 	background-color: #ffecd6;
 	padding: 2px 4px;
 	border-bottom: 1px solid #000;
@@ -492,6 +514,7 @@ table.releasetracks tr.discid td.links {
  * ---------------------------------------------------------------------- */
 table.releasetracks tr.summary td {
 	padding: 2px;
+	color: #000;
 	background-color: #f0efff;
 }
 table.releasesummary {
@@ -528,6 +551,7 @@ table.releaseevents {
 	border: 1px solid #000;
 	border-top: none;
 	border-collapse: collapse;
+	color: #000;
 	background-color: #fff;
 	width: 100%;
 }
@@ -567,9 +591,9 @@ table.relationships a  {
 /* /comp/albumtype */
 
 h2.AlbumType {
-	background: #736dab;
-	background-image: none;
 	color: #fff;
+	background-color: #736dab;
+	background-image: none;
 	border: 1px solid black;
 	font-weight: bold;
 	margin: 1em 0;
@@ -587,18 +611,12 @@ h2.AlbumType {
 /* /comp/ar/relationship_box */
 
 .RelationshipBox {
-   padding: 5px;
-   background-color: #efe8e2;
+	padding: 5px;
+	color: #000;
+	background-color: #efe8e2;
 	border-width: 1px;
-   border-style: solid;
+	border-style: solid;
 	margin-bottom: .5em;
-}
-
-/* Search Results */
-#SearchResults td,
-#SearchResults th {
-	padding-left: 0.8em;
-	padding-right: 0.8em;
 }
 
 /* Album meta, whereever it is shown */
@@ -607,61 +625,105 @@ td.trk, td.did, td.trm, td.rdate { padding: 0.3em 0.6em; text-align: right; }
 td.trk *, td.did *, td.trm *, td.rdate * { vertical-align: middle }
 
 /* "Compact" showartist page */
-
 #CompactReleaseList td.rst { padding: 0 1em; text-align: center } /* release status */
 #CompactReleaseList td.rtag { padding: 0 0.6em; text-align: center } /* tag box */
 #CompactReleaseList td.rdate { padding: 0 0.6em; text-align: center } /* date */
 #CompactReleaseList td.rname { padding: 0 0.6em } /* release name */
 #CompactReleaseList td.lang { padding: 0 0.6em; text-align: center }
-
-#CompactReleaseList tr.ev { background-color: #eee } /* 'even' rows */
-
+#CompactReleaseList tr.ev { color: #000; background-color: #eee } /* 'even' rows */
 #CompactReleaseList th h2 { margin: 1em 0 0.5em }
 
 /* Mod Pending */
-.mp { background: #ffc }
+.mp { color: #000; background-color: #ffc }
 
 /* Tag Lookup */
-
-#TagLookupTrackResults td.tlen.good { color: green; font-weight: bold }
-#TagLookupTrackResults td.tlen.ok { color: blue }
-#TagLookupTrackResults td.tlen.bad { color: red }
+#TagLookupTrackResults td.tlen.good { color: green; background-color: inherit; font-weight: bold }
+#TagLookupTrackResults td.tlen.ok { color: blue; background-color: inherit; }
+#TagLookupTrackResults td.tlen.bad { color: red; background-color: inherit; }
 
 /* Reports */
-
-#Report tr.shade { background-color: #eee; }
-#Report td.head { background-color: #eee; font-weight: bold;
-		padding-top: 0.5em; padding-bottom: 0.5em; }
+#Report tr.shade { color: #000; background-color: #eee; }
+#Report td.head { color: #000; background-color: #eee; font-weight: bold; padding-top: 0.5em; padding-bottom: 0.5em; }
 #Report td.link { text-align: center; white-space: nowrap; }
 
 /* topmods.html */
-table.topmods { border-collapse: collapse }
-table.topmods td { padding: 0.2em; border: 1px solid #999 }
-.topmodsname { text-align: left }
-.topmodsnum { text-align: right }
-.topmodseven { background-color: #eee }
-.topmodsnone { text-align: center }
+table.topmods { 
+	border-collapse: collapse 
+}
+table.topmods tr td { 
+	padding: 0.2em; 
+	border: 1px solid #999 
+}
+table.topmods tr td.topmodsname { 
+	text-align: left 
+}
+table.topmods tr td.topmodsnum { 
+	text-align: right 
+}
+table.topmods tr tr.topmodseven { 
+	color: #000; 
+	background-color: #eee 
+}
+table.topmods tr tr.topmodsnone { 
+	text-align: center 
+}
 
 /* /search/textsearch.html */
-table.searchresults { border-collapse: collapse; width: 100% }
-table.searchresults td { padding: 0.2em;  }
-tr.searchresultsheader td { font-weight: bold; }
-.searchresultseven { background-color: #ffe1b7 }
-.searchresultsnone { text-align: center }
+table.searchresults { 
+	border-collapse: collapse; 
+	width: 100% 
+}
+table.searchresults td { 
+	padding: 3px; padding-right: 20px;
+}
+table.searchresults tr.searchresultsheader td { 
+	font-weight: bold; 
+}
+table.searchresults tr.searchresultseven { 
+	color: #000; 
+	background-color: #ffe1b7 
+}
+table.searchresults tr.searchresultsnone { 
+	text-align: center 
+}
+
+table.searchresults td.tracks,
+table.searchresults td.discid,
+table.searchresults td.trmid,
+table.searchresults td.released { 
+	padding-right: 12px; white-space: nowrap;
+	text-align: right;
+}
+table.searchresults td.num,
+table.searchresults td.length {
+	text-align: right;
+}
+
+
 
 
 /* style.html */
-ol.StyleGuideList li { margin: 1em 0 }
-ol.StyleGuideList li .StyleExample { font-weight: bold }
-ol.StyleGuideList li li { list-style-type: none }
-
-ol.StyleGuideList li ul { padding-left: 1em }
-ol.StyleGuideList li blockquote { margin-left: 2em }
+ol.StyleGuideList li { 
+	margin: 1em 0 
+}
+ol.StyleGuideList li .StyleExample { 
+	font-weight: bold 
+}
+ol.StyleGuideList li li { 
+	list-style-type: none 
+}
+ol.StyleGuideList li ul { 
+	padding-left: 1em 
+}
+ol.StyleGuideList li blockquote { 
+	margin-left: 2em 
+}
 
 
 /* Annotations */
 table.annotation {
-	background: #f0efff; color: #000;
+	color: #000;
+	background: #f0efff; 
 	border: 1px solid #000;
 	border-collapse: collapse;
 	width: 100%;
@@ -683,14 +745,16 @@ table.annotation tr.header>td {
 }
 
 table.annotation tr.log {
-	background-color: #ffecd6; color: #000;
+	color: #000;
+	background-color: #ffecd6; 
 }
 table.annotation tr.log td {
 	border-bottom: 1px solid #000;
 }
 
 table.annotation tr.info {
-	background: #f0efff; color: #000;
+	color: #000;
+	background: #f0efff; 
 }
 table.annotation tr.info td.text {
 	text-align: left;
@@ -700,7 +764,8 @@ table.annotation tr.info td.links {
 }
 
 table.annotation tr.text {
-	background: #fff; color: #000;
+	color: #000;
+	background: #fff; 
 }
 table.annotation tr.text td {
 	border-top: 1px solid #000;
@@ -723,7 +788,8 @@ table.annotation ul {
 /* Related Artists */
 
 .RelatedArtists {
-	background: #f0efff;
+	color: #000;
+	background-color: #f0efff;
 	border: 1px solid black;
 	margin-top: 1em;
 	margin-bottom: 1em;
@@ -738,72 +804,60 @@ table.annotation ul {
 }
 
 .TitledBoxTitle {
-	background: #FFBA58;
 	border-bottom: 1px solid black;
 	padding: 0.2em 0.5em;
 	text-align: left;
-	font: bold 10pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+	font-weight: bold;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
 	color: #997035;
+	background-color: #FFBA58;
 	text-decoration: none;
 }
-
-
 
 #RelatedModsBox {
 	margin: 1em 0;
 	width: 100%;
 }
 
-
 form.Subs {
-  text-align: center;
+	text-align: center;
 }
-
-table.Subs  {
+table.Subs {
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 1em;
 	margin-bottom: 1em;
 	width: 40em;
 }
-
 table.Subs caption {
-  text-align: center;
+	text-align: center;
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 1em;
 	font-weight: bold;
 }
-
 table.Subs td {
 	text-align: center;
 }
-
 table.Subs td.a {
 	padding-left: 0.5em;
 	text-align: left;
 }
-
 table.Subs .c1 {
 	width: 2em;
 }
-
 table.Subs .c3 {
 	width: 6em;
 }
-
 table.Subs tr.r1 td {
+	color: #000;
 	background-color: #ffe1b7;
-
 }
-
 .red {
-  color: red;
+	color: red;
+	background-color: inherit;
 }
-
-
-
-
 
 
 
@@ -856,6 +910,7 @@ table.Subs tr.r1 td {
 }
 /* copied definition from top of the page, adjusted margin */
 .wikidocs h2 {
+	color: #000;
 	background: #fff url(/images/header-bg-orangefade.gif) repeat-y left;
 	margin-top: 20px;
 	margin-bottom: 10px;
@@ -874,7 +929,7 @@ table.Subs tr.r1 td {
 /* horizontal ruler */
 .wikidocs hr {
 	color: #000;
-	background: #000;
+	background: #000001;
 	height: 1px;
 }
 
