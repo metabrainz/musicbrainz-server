@@ -38,7 +38,7 @@
 	$href => undef
 
 	# rendering options
-	$icon => 1
+	$icon => 0
 	$strong => 0
 </%args>
 <%perl>
