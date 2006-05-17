@@ -21,17 +21,16 @@
 	#
 	# Summary:
 	# -----------------------------------------------------------------------------
-	# Renders the given title, given from the calling page and shows links to
-	# the artist object (and release object if provided) of the current
-	# annotation.
+	# Shows the differences between two versions of the same annotation
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
+
 <%args>
 	$old => undef
 	$new => undef
+
 </%args>
 <%perl>
 
@@ -87,14 +86,19 @@
 	<& /comp/tablebegin, title => "Compare Annotations" &>
 		<& /edit/annotation/subject, title => "Comparing annotations for", artist => $artist, release => $release &>
 
-% 	if (!$an_old) {
+% 	if (!$an_old)
+%	{
+
 		Can't show differences; this is the first version.
+
 % 	}
 
 	<& /comp/tableend &>
 
 
-% 	if ($an_old) {
+% 	if ($an_old)
+%	{
+
 		<table class="annotation">
 			<tr class="header">
 				<td>Differences
@@ -114,10 +118,14 @@
 
 		<& /edit/annotation/show, header => "New revision", annotation => $an_new, history_link => 1, expand => 1, show_log => 1, &>
 
-% 	} else {
+% 	}
+%	else
+%	{
 
 		<& /edit/annotation/show, annotation => $an_new, history_link => 1, &>
 
 % 	}
 
 <& /comp/footer &>
+
+%# vi: set ts=4 sw=4 ft=mason :

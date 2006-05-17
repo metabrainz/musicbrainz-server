@@ -23,19 +23,20 @@
 	# -----------------------------------------------------------------------------
 	# Edit an artist annotation.
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
 <%args>
+
 	$artistid => undef
 	$annotationid => undef
 	$annotationtext => undef
 	$changelog => ""
-
 	$submit => ""
+
 </%args>
 <%perl>
+
 	# only logged in users may see this page
 	$m->comp("/comp/checkloggedin", 1, 1)
 		or return;
@@ -128,8 +129,9 @@
 
 			# Update the annotation, but only if the annotation
 			# has not been locked by another editor.
-			if (defined $annotationtext and
-				$locked eq $sid)
+			# -- Note: this does not work. removed the check.
+			if (defined $annotationtext)
+				#and $locked eq $sid)
 			{
 				# Indicate that editing is done.
 				# Other users might still be editing this page.
@@ -239,13 +241,14 @@
 
 %	# if the annotation is locked by someone else, do not allow
 %	# editing it for a certain amount of time.
-%	my $disabled = "";
-%	$disabled = qq!disabled="disabled"! if ($locked and $locked ne $sid);
+% 	my $otherlock = ($locked and $locked ne $sid);
 
-%	print "sid: $sid, locked: $locked";
+%	# -- Note: this does not work. removed the check.
+%	my $disabled = qq!disabled="disabled"! if ($locked and $locked ne $sid);
+%	$disabled = "";
 
-
-%	if ($disabled ne "") {
+%	if ($otherlock)
+%	{
 
 						<div style="border: 1px dotted red; padding: 5px; margin-top: 15px">
 							<span style="color:red; font-weight: bold">Warning:</span>
@@ -254,7 +257,9 @@
 							</span>
 						</div>
 %	}
-%	if ($not_most_recent) {
+
+%	if ($not_most_recent)
+%	{
 						<div style="border: 1px dotted red; padding: 5px; margin-top: 15px">
 							<span style="color:red; font-weight: bold">Warning:</span>
 							You are not editing the most recent annotation for this artist.
@@ -294,3 +299,5 @@
 	</form>
 
 <& /comp/footer &>
+
+%# vi: set ts=4 sw=4 ft=mason :

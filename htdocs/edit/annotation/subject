@@ -25,14 +25,15 @@
 	# the artist object (and release object if provided) of the current
 	# annotation.
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
 <%args>
+
 	$title => ""
 	$artist
 	$release => undef
+
 </%args>
 <%perl>
 
@@ -45,3 +46,5 @@
 	}
 
 </%perl>
+
+%# vi: set ts=4 sw=4 ft=mason :

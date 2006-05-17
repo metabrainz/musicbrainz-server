@@ -24,19 +24,18 @@
 	# Renders the latest revision of the annotation, or displays links for
 	# creating one if it has not been created yet, and the user is logged in.
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
 <%args>
+
 	$album => undef
 	$artist => undef
-
 	$explain => undef
-
 	$header =>  undef
 	$show_info => 1
 	$history_link => 1
+
 </%args>
 <%perl>
 
@@ -89,3 +88,5 @@
 	}
 
 </%perl>
+
+%# vi: set ts=4 sw=4 ft=mason :

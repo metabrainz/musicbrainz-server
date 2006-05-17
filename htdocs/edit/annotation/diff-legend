@@ -25,7 +25,6 @@
 	# The layout of the html in the component needs to be exactly this way, else
 	# the added whitespace will be rendered into the box spans as well.
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
@@ -54,3 +53,5 @@
 					class="legend">Added Text</span></td>
 		</tr>
 	</table>
+
+%# vi: set ts=4 sw=4 ft=mason :

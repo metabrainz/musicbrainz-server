@@ -23,12 +23,13 @@
 	# -----------------------------------------------------------------------------
 	# Renders an edit link depending of the type of the passsed-in annotation.
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
 <%args>
+
 	$annotation
+
 </%args>
 <%perl>
 
@@ -48,3 +49,5 @@
 	}
 
 </%perl>
+
+%# vi: set ts=4 sw=4 ft=mason :

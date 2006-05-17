@@ -25,22 +25,21 @@
 	# object and returns them as list. If type is ARTIST_ANNOTATION, undef is
 	# returned for the release object.
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
 <%args>
+
 	$annotation
 	$header => undef
-
 	$expand => 1
 	$explain => 0
 	$short => 0
 	$history_link => 0
-
 	$show_diff => 0
 	$show_log => 0
 	$show_info => 0
+
 </%args>
 <%perl>
 
@@ -149,3 +148,5 @@
 	$m->out("</table>");
 
 </%perl>
+
+%# vi: set ts=4 sw=4 ft=mason :
