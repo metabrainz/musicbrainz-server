@@ -100,7 +100,7 @@
 
 		if ($language or $script)
 		{
-			$m->out(sprintf qq![ <span%s>%s, %s </span> ]!,
+			$m->out(sprintf qq!<span%s>%s, %s </span> !,
 					$release->GetLanguageModPending() ? ' class="mp"' : "",
 					$language ? $language->GetName() : "?",
 					$script ?  $script->GetName() : "?");
@@ -122,7 +122,7 @@
  	if (!$nonalbum)
 	{
 		my @attrs = $release->GetAttributes();
-	    $m->out(qq![&nbsp;<a href="/popup/ReleaseAttribute">!);
+	    $m->out(qq!<a href="/popup/ReleaseAttribute">!);
 	    if (scalar(@attrs) > 0)
 	    {
 			$m->out(sprintf qq!<span%s>!, $release->GetAttributeModPending() ? ' class="mp"' : "");
@@ -141,7 +141,7 @@
 		{
 			$m->out("None");
 		}
-	    $m->out("</a>&nbsp;]");
+	    $m->out("</a>&nbsp;");
 	}
     if ($session{uid} and $showmodlinks)
     {
