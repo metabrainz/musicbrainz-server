@@ -23,8 +23,17 @@
 		if ($pnotes{"ispopup"});
 
 	# render page header
-	my $nosidebar => UserPreference::get("nosidebar");
-	$m->comp("/comp/header", title => ($pagetitle || $title), head => $head, nosidebar => $nosidebar);
+	my $nosidebar = UserPreference::get("nosidebar");
+	my $noentityicons = UserPreference::get("css_noentityicons");
+	my $nosmallfonts = UserPreference::get("css_nosmallfonts");
+
+	$m->comp("/comp/header",
+		title => ($pagetitle || $title),
+		head => $head,
+		nosidebar => $nosidebar,
+		nosmallfonts => $nosmallfonts,
+		noentityicons => $noentityicons
+	);
 
 	# inline style _width_ is explicitly needed, because javascript toggle
 	# of the sidebar needs the decleration in the DOM (css class does not suffice!)

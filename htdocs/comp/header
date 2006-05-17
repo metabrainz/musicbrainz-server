@@ -1,11 +1,17 @@
 %# vi: set ts=4 sw=4 ft=mason :
 <%args>
+
 	$title
 	$nosidebar => 0
 	$notopbar => 0
 	$head => undef
+
+	$nosmallfonts
+	$noentityicons
+
 </%args>
 <%perl>
+
 	$r->content_type('text/html; charset=UTF-8');
 	my $brainz_css = &DBDefs::HTDOCS_ROOT . "/brainz.css";
 	my $mtime = (stat $brainz_css)[9] || 0;
@@ -27,27 +33,44 @@
 	<head>
 		<title><% $title %> - MusicBrainz</title>
 		<link rel="stylesheet" type="text/css" href="/brainz.css?t=<% $mtime %>" />
+% 	if ($nosmallfonts)
+%	{
+		<link rel="stylesheet" type="text/css" href="/css/no-smallfonts.css" />
+%	}
+% 	if ($noentityicons)
+%	{
+		<link rel="stylesheet" type="text/css" href="/css/no-entityicons.css" />
+%	}
 		<link rel="stylesheet" type="text/css" href="/css/print.css?t=<% $mtime_print %>" media="print" />
 		<link rel="shortcut icon" href="/favicon.ico" />
-		<meta http-equiv="expires" content="1" />
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-% &$head() if ref($head) eq "CODE";
-% $m->out($head) if defined $head and not ref $head;
 		<script type="text/javascript" src="/scripts/musicbrainz.js?t=<% $mtime_musicbrainzjs %>"></script>
 		<script type="text/javascript" src="/scripts/overlib.js?t=<% $mtime_overlibjs %>"></script>
+
+		<meta http-equiv="expires" content="1" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+% 	&$head() if ref($head) eq "CODE";
+% 	$m->out($head) if defined $head and not ref $head;
+
 	</head>
 	<body>
 		<div id="overDiv" style="position: absolute; visibility: hidden; z-index: 1000"></div>
 
-% 	unless ($notopbar) {
+% 	unless ($notopbar)
+%	{
 
 		<div id="pageheader">
 			<table width="100%" cellpadding="0" cellspacing="0" border="0">
 				<tr>
 					<td class="header_logo">
-% 		if (&DBDefs::DB_STAGING_SERVER) {
+
+% 		if (&DBDefs::DB_STAGING_SERVER)
+%		{
+
 						<span class="servertype"><% uc(&DBDefs::DB_STAGING_SERVER) %> SERVER</span>
+
 % 		}
+
 						<a href="/"><img src="/images/header_logo_a.gif" width="614" height="67"
 							alt="MusicBrainz" title="MusicBrainz" /></a></td>
 				</tr>
@@ -75,6 +98,7 @@
 		</div>
 
 <%perl>
+
  	}
 
 	unless ($notopbar and $nosidebar)
@@ -102,6 +126,7 @@
 			$m->out(qq!<td>&nbsp;!);
 		}
 	 }
+
 </%perl>
 				</td>
 			</tr>
