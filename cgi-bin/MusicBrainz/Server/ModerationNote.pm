@@ -29,7 +29,10 @@ package MusicBrainz::Server::ModerationNote;
 
 require Exporter;
 { our @ISA = qw( Exporter TableBase ); our @EXPORT_OK = qw( mark_up_text_as_html ) }
+
 use Carp;
+use Encode qw( encode decode );
+use Text::WikiFormat;
 
 use ModDefs qw( VOTE_ABS );
 
@@ -40,6 +43,7 @@ sub GetUserId		{ $_[0]{moderator} }
 sub SetUserId		{ $_[0]{moderator} = $_[1] }
 sub GetText			{ $_[0]{text} }
 sub SetText			{ $_[0]{text} = $_[1] }
+sub GetNoteTime		{ $_[0]{notetime} }
 sub GetUserName		{ $_[0]{user} }
 
 # Like GetText, but marks it up as HTML (e.g. adds hyperlinks)
@@ -57,7 +61,8 @@ sub mark_up_text_as_html
 	$text =~ s/(\015\012|\012\015|\012|\015)\1+/\n\n/g;
 
 	my $is_url = 1;
-
+	my $server = &DBDefs::WEB_SERVER;
+	
 	my $html = join "", map {
 	
 		# shorten url's that are longer than freedb url's (~75 chars)
@@ -89,11 +94,24 @@ sub mark_up_text_as_html
 		)
 		/six, $text, -1;
 
-	my $server = &DBDefs::WEB_SERVER;
 	$html =~ s[\b(?:mod(?:eration)? #?|edit #|change #)(\d+)\b]
-		[<a href="http://$server/show/edit/?editid=$1">edit #$1</a>]g;
+			  [<a href="http://$server/show/edit/?editid=$1">edit #$1</a>]g;
 
-	$html;
+	# apply wiki formatting to the titles. this will hopefully
+	# create links to the wiki pages.
+	$html = Text::WikiFormat::format($html, {}, 
+							{	prefix=>"http://$server/doc/",
+								extended => 1,
+								absolute_links => 0,
+								implicit_links => 1
+							});
+
+	$html =~ s/<\/?p[^>]*>//g;
+	$html =~ s/<br[^>]*\/?>//g;
+	$html =~ s/&#39;&#39;&#39;(.*)&#39;&#39;&#39;/<strong>$1<\/strong>/g;
+	$html =~ s/&#39;&#39;(.*)&#39;&#39;/<em>$1<\/em>/g;
+	
+	return $html;
 }
 
 sub Insert
@@ -144,9 +162,9 @@ sub Insert
 		next unless $mod_user->GetEmail and $mod_user->GetEmailConfirmDate;
 
 		$note_user->SendModNoteToUser(
-			mod			=> $moderation,
-			mod_user	=> $mod_user,
-			note_text	=> $text,
+			mod => $moderation,
+			mod_user => $mod_user,
+			note_text => $text,
 			revealaddress=> $opts{'revealaddress'},
 		);
 
@@ -228,7 +246,7 @@ sub newFromModerationIds
 	
 	my $list = join ",", @ids;
 	my $data = $sql->SelectListOfHashes(
-		"SELECT	n.id, n.moderation, n.moderator, n.text, u.name AS user
+		"SELECT	n.id, n.moderation, n.moderator, n.text, n.notetime, u.name AS user
 		FROM	moderation_note_all n, moderator u
 		WHERE	n.moderator = u.id
 		AND		n.moderation IN ($list)
