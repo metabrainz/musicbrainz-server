@@ -27,6 +27,8 @@
 	#
 </%perl>
 <%args>
+
+	$mb => undef
 	$album
 	$artist
 	$highlighttracks => +{}
@@ -34,7 +36,6 @@
 
 	$link => 1
 	$showlinks => 1 # TODO: link|showlinks make consistent.
-
 	$showmodlinks => 1
 	$showcollapsed => 0
 
@@ -46,8 +47,11 @@
 	$tagchecked => 0
 	$tracks => undef
 	$showtrackartists => 0
+
 </%args>
 <%perl>
+
+	$mb = $m->comp("/comp/dblogin") if (not defined $mb);
 
 	# always load multiple artist tracks
 	my @info = ($tracks ? @$tracks : $album->LoadTracks());
@@ -99,10 +103,10 @@
 		my $pcount = $puidcounts->{$track->GetId()};
 		$pcount = 0 if (not defined $pcount);
 
-
 		if (!$highlightonly || $highlighttracks->{$track->GetId})
 		{
 			$m->comp("/comp/release/release_track",
+				mb => $mb,
 				artist => $artist,
 				album => $album,
 				track => $track,
