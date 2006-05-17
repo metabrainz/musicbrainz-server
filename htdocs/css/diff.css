@@ -100,6 +100,7 @@ table.editfields tr td.bold {
 }
 div.attrlist {
 	margin-left: 16px; 
+	font-size: 11px;
 }
 
 
@@ -206,57 +207,108 @@ tr.showedit td.oldvalue .lbl {
 	width: 30px;
 }
 
+
+
 /* the list of edit votes */
 table.voteslist {
 	border: 0px; border-collapse: collapse;
 	padding: 0px;
-	margin-left: 30px;
+	width: 100%;
 }
 table.voteslist tr {
 	vertical-align: middle;
 }
 table.voteslist tr td.voter {
-	padding: 0px; padding-top: 1px;padding-right: 10px;
+	padding: 2px; padding-right: 10px;
 	text-align: right; 
-	width: 80px;
+	font-size: 11px; 
+	width: 120px;
 }
 table.voteslist tr td.vote {
 	padding: 0px; padding-right: 30px;
 	text-align: left;
+	border-top: 1p
 }
 table.voteslist tr td.date {
 	padding: 0px; padding-right: 10px;
-	text-align: left;
+	text-align: right;
+	font-size: 11px;
+	color: #999;	
 }
+table.voteslist tr td.vote,
+table.voteslist tr td.date { 
+	background-color: #fff;
+	color: #000;
+	border-top: 1px dotted #ccc;
+}
+table.voteslist span.date {
+	white-space: nowrap;
+	color: #999;
+}
+
 
 /* the list of moderation/edit notes */
 table.noteslist {
-	border: 0px; border-collapse: collapse;
+	border: 0px;  border-collapse: collapse;
 	padding: 0px;
-	margin-left: 30px;
+	margin: 0px; margin-bottom: 3px;
+	width: 100%;
 }
 table.noteslist tr {
 	vertical-align: top;
 }
+table.noteslist tr td {
+	padding: 0px; 
+}
 table.noteslist tr td.noter {
-	padding: 0px; padding-top: 2px; padding-right: 10px;
+	padding: 2px; padding-right: 10px;
 	text-align: right; 
-	width: 80px;
+	font-size: 11px;
+	width: 120px;
+	background-color: #fff;
 }
 table.noteslist tr td.text {
-	padding: 0px;
+	padding: 2px; 
+	line-height: 100%; /* force line height to 100%, else the height of the lines inside the paragraphs is too high */
+	padding-right: 30px;
+}
+table.noteslist tr td.date {
+	padding-right: 10px;
+	white-space: nowrap;
+	font-size: 11px;
+	text-align: right;
 }
 table.noteslist span.modbot {
+	color: #999;
 	padding-left: 10px;
 	background-image: url(../images/edit.gif);
-	background-position: left 4px;
+	background-position: 0px 4px;
 	background-repeat: no-repeat;
-	color: #999;
 }
 table.noteslist span.modbot a {
-	color: #999;
-	text-decoration: none;
+	color: #999;	
 }
+table.noteslist span.date {
+	white-space: nowrap;
+	color: #999;
+}
+table.noteslist tr.even td.text,
+table.noteslist tr.even td.date { 
+	background-color: #fff;
+	color: #000;
+	border-top: 1px dotted #ccc;
+}
+table.noteslist tr.odd td.text,
+table.noteslist tr.odd td.date {
+	background-color: #fff;
+	color: #000;
+	border-top: 1px dotted #ccc;
+}
+table.noteslist tr.addnote td.text { 
+	padding-top: 4px;
+	border-top: 1px dotted #ccc;
+}
+
 
 /* Voting buttons */
 table.votechoice {
@@ -284,6 +336,7 @@ table.votechoice label {
 table.votechoice label:hover {
 	border: thin dotted #999;
 }
+
 
 /* /comp/showmodetail */
 .moddetail table {
@@ -315,7 +368,6 @@ table.edittype tr td.lbl {
 	width: 65px; 
 } 
 table.edittype tr.entity td {
-	
 }
 table.edittype tr.entity a {
 	font-weight: normal;

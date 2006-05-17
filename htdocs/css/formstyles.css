@@ -658,6 +658,12 @@ table.release_editor td { padding: 2px; }
 table.release_editor tr.trackartist td { padding-bottom: 10px; }
 table.release_editor tr.step td { padding-bottom: 10px; }
 
+table.release_editor td.linkedits { 
+	font-size: 80%; 
+	text-align: right;
+	padding-left: 10px;
+}
+
 
 /* album editor review  */
 table.review {
