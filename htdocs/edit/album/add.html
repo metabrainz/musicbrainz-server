@@ -84,9 +84,7 @@
 	<& /comp/layout/editformbegin, title => "Add Release" &>
 
 
-%	my $formurl = $artistid == &ModDefs::VARTIST_ID ? "/cdi/menter.html" : "/cdi/enter.html";
-
-		<form method="post" id="AddAlbumForm" action="<% $formurl %>">
+		<form method="post" id="AddAlbumForm" action="/cdi/enter.html">
 			<table class="formstyle">
 				<tr>
 					<td colspan="2" class="instructions">
@@ -130,7 +128,8 @@
 				<input type="hidden" name="id" value="" />
 				<input type="hidden" name="toc" value="" />
 				<input type="hidden" name="noncd" value="1" />
-				<input type="hidden" name="artist" value="<% $artistid %>" />
+				<input type="hidden" name="artistid" value="<% $artistid %>" />
+				<input type="hidden" name="hasmultipletrackartists" value="<% ($artistid == &ModDefs::VARTIST_ID ? 1 : 0) %>" />
 			</div>
 		</form>
 		<& /comp/movefocus, "AddAlbumForm", "tracks" &>
