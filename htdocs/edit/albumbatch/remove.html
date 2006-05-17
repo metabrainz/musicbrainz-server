@@ -193,9 +193,9 @@
 		$m->comp("/comp/linkartist", artist => $artist);
 		$m->out(qq!</div>!);
 
-		for my $al (sort { $a->{_name_} cmp $b->{_name_} } @{ $ar->{_releases_} })
+		for my $release (sort { $a->{_name_} cmp $b->{_name_} } @{ $artist->{_releases_} })
 		{
-			$m->comp( "/comp/album", album => $al, artist => $artist, showmodlinks => 0);
+			$m->comp( "/comp/album", album => $release, artist => $artist, showmodlinks => 0);
 		}
 	}
 </%perl>
