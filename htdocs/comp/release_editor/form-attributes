@@ -32,8 +32,8 @@
 	%checkattributes
 	$tabindex
 
-	$attr_type => 0
-	$attr_status => 0
+	$attr_type => -1
+	$attr_status => -1
 	$attr_type_guessed => ""
 	$attr_status_guessed => ""
 
@@ -55,11 +55,12 @@
 					<& /comp/options,
 						do {
 							[
-								[ "", "[none]" ],
-								map {
+								[ "-1", "select type..." ],
+								(map {
 									[ $_, Album->GetAttributeName($_) ]
 								} &Album::ALBUM_ATTR_SECTION_TYPE_START
-									.. &Album::ALBUM_ATTR_SECTION_TYPE_END
+									.. &Album::ALBUM_ATTR_SECTION_TYPE_END),
+								[ "", "[unknown]" ]
 							]
 						},
 						$attr_type
@@ -70,11 +71,12 @@
 					<& /comp/options,
 						do {
 							[
-								[ "", "[none]" ],
-								map {
+								[ "-1", "select status..." ],
+								(map {
 									[ $_, Album->GetAttributeName($_) ]
 								} &Album::ALBUM_ATTR_SECTION_STATUS_START
-									.. &Album::ALBUM_ATTR_SECTION_STATUS_END
+									.. &Album::ALBUM_ATTR_SECTION_STATUS_END),
+								[ "", "[unknown]" ]
 							]
 						},
 						$attr_status

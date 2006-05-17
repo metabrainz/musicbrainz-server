@@ -80,7 +80,6 @@
 	$error = 1 if (!defined $artistid && $artistname eq "");
 	$error = 2 if ($discid eq "" && $freedbid eq "" && $noncd == 0);
 	$error = 3 if ($toc eq "" && $freedbid eq "" && $noncd == 0);
-	#$error = 4 if ($freedbid ne "" && $durations eq ""); not used anymore
 	$error = 5 if ($tracks eq 0);
 	$error = 6 if (!defined $artistid && $artistname =~ /various artists/i);
 	for (my $i = 0; $i < $tracks && !$error; $i++)
@@ -126,6 +125,7 @@
 			$new = "Artist=$artistname\nSortname=$sortname\n";
 		}
 		$new .= "AlbumName=$releasename\nNumTracks=$tracks\n";
+		$new .= "HasMultipleTrackArtists=$hasmultipletrackartists\n";
 		$new .= "Attributes=$attr_type,$attr_status\n";
 		$new .= "Language=$attr_language,$attr_script\n";
 		$new .= "CDIndexId=$discid\n" if ($discid ne "");
@@ -152,16 +152,8 @@
 			}
 			if ($hasmultipletrackartists)
 			{
-				if (exists $ARGS{"ar_id$i"} && $ARGS{"ar_id$i"} != 0)
-				{
-					$new .= "ArtistID" . ($i + 1) . "=" . $ARGS{"ar_id$i"} . "\n";
-				}
-				else
-				{
-					MusicBrainz::TrimInPlace($ARGS{"ar_name$i"}, $ARGS{"ar_sortname$i"});
-					$new .= "Artist" . ($i + 1) . "=" . $ARGS{"ar_name$i"} . "\n";
-					$new .= "Sortname" . ($i + 1) . "=" . $ARGS{"ar_sortname$i"} . "\n";
-				}
+				my $new_artistid = $ARGS{sprintf "tr%d_artistid", $i};
+				$new .= "ArtistID" . ($i + 1) . "=" . $new_artistid . "\n";
 			}
 		}
 
@@ -205,7 +197,6 @@
 			$new, $session{uid}, $session{privs}, $artistid,
 		);
 
-
 		# TODO no error checking yet on adding the mod note
 		if ($mods and @$mods and $notetext =~ /\S/)
 		{
@@ -221,8 +212,7 @@
 		# TODO no error checking yet on adding the mod note
 		if (defined $newartistid && defined $releaseid)
 		{
-			$m->comp(
-				"/comp/redirect",
+			$m->comp("/comp/redirect",
 				sprintf("/show/release/?releaseid=%s&new=1", $releaseid)
 			);
 		}
@@ -233,6 +223,7 @@
 			$m->out("<pre>" . encode_entities($msg) . "</pre>"); # TODO: test
 		}
 	}
+
 </%perl>
 
 <& /comp/footer &>

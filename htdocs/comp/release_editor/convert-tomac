@@ -28,7 +28,7 @@
 </%perl>
 <%args>
 
-	$artistid
+	$artistid => 0
 	$tracks
 
 </%args>
@@ -72,7 +72,7 @@
 		}
 
 		$ARGS{"track$i"} = $splittrackname;
-		$ARGS{"ar_name$i"} = $splitartistname;
+		$ARGS{sprintf "tr%d_artistname", $i} = $splitartistname;
 	}
 
 	# force form to display track artist

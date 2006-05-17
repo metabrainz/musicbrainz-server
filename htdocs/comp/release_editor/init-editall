@@ -132,8 +132,6 @@
 	}
 	%orig = $m->comp("/comp/release_editor/check-releases", %orig);
 
-
-
 	# either replace, or store original values
 	# into ARGS hash.
 	$ARGS{"v::orig"} = %orig;

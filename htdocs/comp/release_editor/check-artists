@@ -90,40 +90,50 @@
 		my ($search, $currtrackname, $field_artistname, $curr_artistname, $field_artistid, $curr_artistid);
 		my @resolved_artists;
 
+		my $artist = Artist->new($mb->{DBH});
+		my @artists;
+		my $last_artistname;
+
 		foreach $t (@missing_artists)
 		{
 			$field_artistid = getField($t, "artistid");
 			$field_artistname = getField($t, "artistname");
-
 			$curr_artistid = $ARGS{$field_artistid};
 			$curr_artistname = $ARGS{$field_artistname};
-
 			$currtrackname = $ARGS{"track$t"};
 
-			my $ar = Artist->new($mb->{DBH});
-			my @ar_list = @{ $ar->GetArtistsFromName($curr_artistname) };
+			# find new list of artists if the artistname has changed.
+			@artists = @{ $artist->GetArtistsFromName($curr_artistname) }
+				if ($curr_artistname ne $last_artistname);
 
 			# if a single item was found, set it and redirect
 			# back to the form.
-			if (@ar_list == 1 and $ar_list[0]->GetName eq $curr_artistname
-				and !$edit_artists{$t})
+			if (@artists == 1 and
+				$artists[0]->GetName eq $curr_artistname and
+				!$edit_artists{$t})
 			{
-				$ARGS{getField($t, "artistid")} = $ar_list[0]->GetId;
-				$ARGS{getField($t, "artistname")} = $ar_list[0]->GetName;
+				$ARGS{getField($t, "artistid")} = $artists[0]->GetId;
+				$ARGS{getField($t, "artistname")} = $artists[0]->GetName;
+				$ARGS{getField($t, "artistresolution")} = $artists[0]->GetName;
 				push @resolved_artists, $t;
+
+				$last_artistname = $curr_artistname;
 				next;
 			}
 
-			# retrieve the list of artists matching the query $curr_artistname
+			# Use the Search Engine to get a list of artists matching
+			# the query $curr_artistname. This takes the alias' into
+			# account, too.
 			my $engine = SearchEngine->new($mb->{DBH}, "artist");
 			$engine->Search(
 				query => $curr_artistname,
 				limit => 0,
 			);
 
+			# This search does not exclude any artists.
 			my @dontshow = ();
 			my @r = do {
-				my %dontshow = map { $_=>1 } @dontshow;
+				my %dontshow = map { $_ => 1 } @dontshow;
 				my @r;
 				while (my $row = $engine->NextRow)
 				{
@@ -140,8 +150,9 @@
 %			# delete the current tr{t}_artistname from the arguments,
 %			# this will be the new query string.
 %			my %args = $m->comp("/comp/form/args-strip-editsuitefields", %ARGS);
-%			delete $args{getField($t, "artistname")};
+%			delete $args{$field_artistname};
 %			delete $args{"submitvalue"};
+
 %			$m->comp("/comp/args-to-hidden-fields.inc", %args);
 
 				<& /comp/tablebegin, title => "Select Artist for current track" &>
@@ -158,13 +169,18 @@
 						</tr>
 
 						<& /comp/artistfilter,
-							search => $curr_artistname,
+							searchfieldname => $field_artistname,
+							search => $ARGS{$field_artistname},
 							selectedname => $field_artistid,
 
 							engine => $engine,
-							selectbutton => $ARGS{"SUBMIT_ARTISTSELECT"},
 
-							submitvalue => $ARGS{"submitvalue"} &>
+							selectbutton => $ARGS{"SUBMIT_ARTISTSELECT"},
+							cancelbutton => $ARGS{"SUBMIT_BACKTOFORM"},
+
+							submitvalue => $ARGS{"submitvalue"}
+						&>
+
 					</table>
 					<& /comp/form/hiddenfield, "submitvalue", $ARGS{"SUBMIT_NEXT"} &>
 
@@ -180,12 +196,9 @@
 			last;
 		}
 
-		# if we have no missing aritsts, every field has an tr{t}_artistid
-		if (@missing_artists == @resolved_artists)
-		{
-			$ARGS{"v::checkedartists"} = 1;
-			return %ARGS;
-		}
+		# if we have no missing artists, every field has an tr{t}_artistid
+		$ARGS{"v::checkedartists"} =
+			(@missing_artists == @resolved_artists ? 1 : 0)
 	}
 	return %ARGS;
 

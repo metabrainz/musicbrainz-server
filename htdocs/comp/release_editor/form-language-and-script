@@ -31,8 +31,8 @@
 	$mb
 	$tabindex
 
-	$attr_language => ""
-	$attr_script => ""
+	$attr_language => -1
+	$attr_script => -1
 	$attr_showall => 0
 
 </%args>
@@ -48,6 +48,7 @@
 		minimum_frequency => ( $attr_showall ? 0 : 4 ),
 		include => $attr_script
 	);
+	unshift @scripts, [ "-1", "Select script..." ];
 
 	# compile list of languages, be sure to include
 	# the current value (if collapsed)
@@ -55,6 +56,7 @@
 		minimum_frequency => ( $attr_showall ? 1 : 2 ),
 		include => $attr_language
 	);
+	unshift @languages, [ "-1", "select language..." ];
 
 	# configure css-style for compact/full list
 	my $dropdownstyle = ($attr_showall ? "" : "width: 200px");

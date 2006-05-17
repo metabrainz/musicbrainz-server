@@ -613,8 +613,10 @@
 			</table>
 
 			<script type="text/javascript" src="/scripts/jsdiff.js"></script>
-			<script type="text/javascript" src="/scripts/collapsereleases.js"></script>
 			<script type="text/javascript" src="/scripts/editsuite.js"></script>
+
+			<script type="text/javascript" src="/scripts/collapsereleases.js"></script>
+			<input type="hidden" id="collapsereleases::defaultcollapse" value="0" />
 
 			<form  method="post" action="<% $ARGS{"v::action"} %>">
 				<& /comp/args-to-hidden-fields.inc,

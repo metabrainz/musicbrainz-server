@@ -84,7 +84,10 @@
 		$field = "track$i"; $m->out(sprintf "<td>%s</td>", $ARGS{$field}); delete $args{$field};
 		$field = "tracklength$i"; $m->out(sprintf "<td>%s</td>", $ARGS{$field}); delete $args{$field};
 		$field = "trackdel$i"; $m->out(sprintf "<td>%s</td>", $ARGS{$field}); delete $args{$field};
-		$field = "trackmp$i"; $m->out(sprintf "<td>%s</td>", $ARGS{$field}); delete $args{$field};
+
+		$field = sprintf "tr%d_mp", $i;
+		$m->out(sprintf "<td>%s</td>", $ARGS{$field});
+		delete $args{$field};
 
 		$field = sprintf "tr%d_artistid", $i;
 		$m->out(sprintf "<td>%s</td>", $ARGS{$field});

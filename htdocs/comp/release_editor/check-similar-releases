@@ -42,27 +42,25 @@
 
 	if ($artistid)
 	{
-		my $ar = Artist->new($mb->{DBH});
-		$ar->SetId($artistid);
-		$ar->LoadFromId();
+		my $artist = Artist->new($mb->{DBH});
+		$artist->SetId($artistid);
+		$artist->LoadFromId();
 
 		# only check if releasename is set.
 		if ($releasename ne "")
 		{
-			my @releases = $ar->HasAlbum($releasename, .8);
+			my @releases = $artist->HasAlbum($releasename, .8);
 
 			for my $match (@releases)
 			{
-				my $release = Album->new($ar->{DBH});
+				my $release = Album->new($artist->{DBH});
 				$release->SetId($match->{id});
 				$release->LoadFromId
 					or next;
 				next unless $release->GetTrackCount == $tracks;
 
-				$release->{_exact_} = 1
-					if $match->{match} >= 0.999;
+				$release->{_exact_} = 1 if ($match->{match} >= 0.999);
 				$release->{_pct_match_} = $match->{match} * 100;
-
 
 				push @similar, $release;
 				$similarreleases{$release->GetId} = 1;
@@ -72,60 +70,89 @@
 		# if we found > 0 releases with great similarity
 		if (@similar)
 		{
-			$m->comp("/comp/form/begin", title => "Similar Albums Found");
-			$m->comp("/comp/form/label", class => " hidden");
-			$m->comp("/comp/form/feedbackbox", "info", "",
-				"MusicBrainz already contains one or more releases that have
-				the same amount of tracks and a similar title as the
-				release that you are about to add."
-			);
-			$m->out('<br/>');
 
-			for my $release (@similar)
-			{
-				$m->comp("/comp/form/label", title => int($release->{_pct_match_})."% match");
-				$m->out('<div class="float">');
-				$m->out('<table width="600" cellspacing="0" cellpadding="0"><tr><td>');
-				$m->comp("/comp/album",
-					artist => $ar,
-					album => $release,
-					showmodlinks => 0,
-					showids => 1
-				);
-				$m->out('</td></tr></table>');
-				$m->out('</div>');
-				$m->out('<br/>');
-			}
-			$m->out('<br/>');
+</%perl>
+			<& /comp/tablebegin, title => "Similar Albums Found" &>
 
-			$m->comp("/comp/form/label", class => " hidden");
-			$m->comp("/comp/form/feedbackbox", "warning", "",
-				"Please do <b>not</b> add releases that are already
-				present in the database! Are you sure you want to
-				continue adding this release?"
-			);
-			$m->out('<br/>');
+				<table class="formstyle">
+					<tr class="top">
+						<td class="label">Check Duplicate!</td>
+						<td>
+							<& /comp/form/feedbackbox, "warning", "",
+								qq!MusicBrainz already contains one or more releases that have
+								the same amount of tracks and a similar title as the
+								release that you are about to add.! &>
+						</td>
+					</tr>
 
-			$m->comp("/comp/form/label", class => " hidden");
+%			for my $release (@similar)
+%			{
+					<tr class="top">
+						<td class="label"><% int($release->{_pct_match_}) %>% match:</td>
+						<td>
+							<table width="600" cellspacing="0" cellpadding="0">
+								<tr>
+									<td>
+									<& /comp/album,
+										album => $release,
+										artist => $artist,
+										showlinks => 1,
+										showmodlinks => 0,
+										showreleases => 0,
+									&>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+%			}
+
+					<tr class="top">
+						<td class="label"></td>
+						<td>
+							<& /comp/form/feedbackbox, "warning", "",
+								qq!Please do <strong>not</strong> add releases that are already
+								present in the database\! Are you sure you want to
+								continue adding this release?! &>
+						</td>
+					</tr>
+					<tr class="top">
+						<td class="label"></td>
+						<td>
+%			# use un-named submit button, else it shows up in the
+%			# location of the browser
+							<table border="0" cellspacing="0" cellpadding="0">
+								<tr>
+									<td style="padding-right: 40px">
+										<form action="/index.html">
+											<input type="submit" class="button" value="Cancel" />
+										</form></td>
+									<td>
+%			# Confirm action is on the right side if 2
+%			# buttons are shown inline
+%			my %args = $m->comp("/comp/form/args-strip-editsuitefields", %ARGS);
+
+										<form action="<% $ARGS{"v::action"} %>" method="post">
+											<& /comp/form/buttonsubmit,
+												name => "force_similar",
+												value => $ARGS{"SUBMIT_FORCESIMILAR"} &>
+											<& /comp/args-to-hidden-fields.inc, %args &>
+										</form></td>
+								</tr>
+							</table></td>
+					</tr>
+					<tr>
+						<td class="label"></td>
+						<td>
 
 
-			# use un-named submit button, else it shows up in the
-			# location of the browser
-			$m->out('<form action="/index.html">');
-			$m->out('<input type="submit" class="button" value="Abort &raquo;" />');
-			$m->out('</form>');
+						</td>
+					</tr>
+				</table>
 
-			# Confirm action is on the right side if 2
-			# buttons are shown inline
-			$m->out('<form action="'.$ARGS{"v::action"}.'" method="POST">');
-			$m->comp("/comp/form/buttonsubmit",
-				name => "force_similar",
-				value => $ARGS{"SUBMIT_FORCESIMILAR"});
-			$m->comp("/comp/args-to-hidden-fields.inc", %ARGS);
-			$m->out('</form>');
+			<& /comp/tableend &>
 
-			$m->out('<br/>');
-			$m->comp("/comp/form/end");
+<%perl>
 
 			$ARGS{"v::validate"} = 0;
 			$ARGS{"v::showform"} = 0;
@@ -136,9 +163,8 @@
 			$ARGS{"v::checkedsimilar"} = 1;
 		}
 	}
-
 	return %ARGS;
 
 </%perl>
 
-v
+%# vi: set ts=4 sw=4 ft=mason :

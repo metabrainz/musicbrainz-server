@@ -33,17 +33,17 @@
 	$hasmultipletrackartists
 	$releasename
 
-	$attr_type
-	$attr_status
-	$attr_type_guessed => ""
-	$attr_status_guessed => ""
+	$attr_type => "-1"
+	$attr_status => "-1"
+	$attr_type_guessed => "-1"
+	$attr_status_guessed => "-1"
 
 </%args>
 <%init>
 
 	# if the attributes haven't been guessed before, do
 	# it now.
-	if ($attr_type_guessed eq "")
+	if ($attr_type_guessed eq "-1")
 	{
 		my $disclength = 0;
 		for my $i (0 .. $tracks-1)
@@ -54,6 +54,7 @@
 
 		# guess release attributes from most common factors
 		$ARGS{"attr_status_guessed"} = Album::ALBUM_ATTR_OFFICIAL;
+
 		$ARGS{"attr_type_guessed"} = Album::ALBUM_ATTR_ALBUM;
 		$ARGS{"attr_type_guessed"} = Album::ALBUM_ATTR_COMPILATION
 			if $hasmultipletrackartists;
@@ -73,9 +74,9 @@
 	# check if we have to highlight the fields
 	my %h;
 	$h{"attr_type"} = 1
-		if (not $ARGS{"attr_type"});
+		if ($ARGS{"attr_type"} eq "-1");
 	$h{"attr_status"} = 1
-		if (not $ARGS{"attr_status"});
+		if ($ARGS{"attr_status"} eq "-1");
 
 	# put the encountered problems into the Arguments hash.
 	$ARGS{"v::attributes"} = \%h;

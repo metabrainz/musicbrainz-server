@@ -29,8 +29,8 @@
 <%args>
 
 	$mb
-	$attr_language => ""
-	$attr_script => ""
+	$attr_language => "-1"
+	$attr_script => "-1"
 	$attr_showall => 0
 
 	$releasename => ""
@@ -50,8 +50,7 @@
 	# handle click on guess language/script button
 	# -> clear the parameters, such that the are guessed
 	#    from the text again.
-	if ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_LANG_GUESS"} or
-		($attr_script eq "" and $attr_language eq ""))
+	if ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_LANG_GUESS"})
 	{
 		# collect field values for the guess language
 		# feature
@@ -65,18 +64,18 @@
 
 		# script value is empty, guess from fieldvalues
 		my $scriptObj = MusicBrainz::Server::Script->GuessFromText($mb->{DBH}, \@fieldvalues);
-		$ARGS{"attr_script"} = ($scriptObj ? $scriptObj->GetId : 0);
+		$ARGS{"attr_script"} = ($scriptObj ? $scriptObj->GetId : "");
 
 		my $langObj = MusicBrainz::Server::Language->GuessFromTextAndScript($mb->{DBH}, \@fieldvalues, $attr_script);
-		$ARGS{"attr_language"} = ($langObj ? $langObj->GetId : 0);
+		$ARGS{"attr_language"} = ($langObj ? $langObj->GetId : "");
 	}
 
 	# check if we have to highlight the fields
 	my %h;
 	$h{"attr_script"} = 1
-		if ($ARGS{"attr_script"} eq "");
+		if ($ARGS{"attr_script"} eq "-1");
 	$h{"attr_language"} = 1
-		if ($ARGS{"attr_language"} eq "");
+		if ($ARGS{"attr_language"} eq "-1");
 
 	$ARGS{"v::language"} = \%h;
 	return %ARGS;

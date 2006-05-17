@@ -616,7 +616,6 @@
 							enabled => !$trackdel,
 							name => getField($i, "artistedit") &>
 
-
 %		# check, and load artist from track artist id.
 %		my $track_artistid = $ARGS{$artistidfield};
 %		my $track_artist = &$GetCachedArtist($track_artistid)
@@ -645,8 +644,8 @@
 							cssclass => ($checkfields{$artistnamefield} ? " missing" : "") &>
 %		}
 					</td>
-					<td>&nbsp;</td>
-					<td>
+					<td></td>
+					<td class="field">
 						<div id="track_artist::fields::<% $i %>::" style="<% $artist_edit ? '' : 'display: none' %>">
 							<& /comp/form/jsbutton, id => "BTN_ARTIST::$artistnamefield" &>
 							<& /comp/form/jsbutton, id => "BTN_GUESSBOTH::".$artistnamefield."::track$i", hidden => !$hasmultipletrackartists &>

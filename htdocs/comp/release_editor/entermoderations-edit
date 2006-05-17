@@ -221,7 +221,6 @@
 						);
 					}
 
-
 					# MOD_CHANGE_TRACK_ARTIST
 					if ($orig_artistid ne $new_artistid)
 					{
