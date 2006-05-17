@@ -27,7 +27,7 @@ use strict;
 
 package Insert;
 
-use ModDefs qw( VARTIST_ID ANON_MODERATOR MODBOT_MODERATOR MOD_ADD_ALBUM );
+use ModDefs qw( VARTIST_ID DARTIST_ID ANON_MODERATOR MODBOT_MODERATOR MOD_ADD_ALBUM );
 use MusicBrainz;
 
 sub new
@@ -86,6 +86,7 @@ sub Insert
 #				puid => $PUID
 #			}
 #		] (always exactly one track)
+#
 #	MOD_ADD_ALBUM PreInsert
 #		EITHER artist+sortname OR artistid
 #		album => name
@@ -110,6 +111,7 @@ sub Insert
 #				country => country-id (not ISO code)
 #			}
 #		]
+#
 #	MOD_ADD_ARTIST PreInsert
 #		artist => ArtistName
 #		sortname => SortName
@@ -118,6 +120,7 @@ sub Insert
 #		OPTIONAL enddate => date-str
 #		OPTIONAL resolution => str
 #		artist_only => 1
+#
 #	MOD_ADD_TRACK_KV PreInsert
 #		artistid => some id
 #		albumid => some id
@@ -448,6 +451,7 @@ TRACK:
         delete $track->{trm_insertid};
         delete $track->{puid_insertid};
         delete $track->{artist_insertid};
+        delete $track->{track_artistid};
 
         #print STDERR "name: $track->{track}\n";
         #print STDERR "num: $track->{tracknum}\n";
@@ -509,18 +513,16 @@ TRACK:
 
         # Check to see if this track has an artist that needs to get
         # looked up/inserted.
-        my $track_artistid;
+        my $track_insertartistid;
         if (exists $track->{artist} && $artistid == VARTIST_ID)
         {
-            if ($track->{artist} eq '')
+            if ($track->{artist} eq "")
             {
                 die "Track Insert failed: no artist given.\n";
             }
-            if (!exists $track->{sortname} || $track->{sortname} eq '')
-            {
-                $track->{sortname} = $track->{artist};
-            }
-        
+			$track->{sortname} = $track->{artist}
+				if (!exists $track->{sortname} || $track->{sortname} eq "");        
+           
             # Load/insert artist
             $ar->SetName($track->{artist});
             $ar->SetSortName($track->{sortname});
@@ -528,46 +530,56 @@ TRACK:
             $ar->SetResolution("");
             $ar->SetBeginDate("");
             $ar->SetEndDate("");
-            $track_artistid = $ar->Insert();
-            if (!defined $track_artistid)
+            $track_insertartistid = $ar->Insert();
+            if (!defined $track_insertartistid)
             {
                 die "Track Insert failed: Cannot insert artist.\n";
             }
             if ($ar->GetNewInsert())
             {
-                #print STDERR "Inserted artist: $track_artistid\n";
-                $track->{artist_insertid} = $track_artistid 
+                #print STDERR "Inserted artist: $track_insertartistid\n";
+                $track->{artist_insertid} = $track_insertartistid 
             }
         }
-        if (exists $track->{artistid} && $artistid == VARTIST_ID)
+        
+		my $trackid;        
+		my $track_artistid = $track->{artistid};
+		
+        # we allow releases attributed to other artists
+        # than VARTIST_ID to have different track artists. they
+        # will have a artistid != track->artistid, but 
+        # a track->artistid not IN (0,VARTIST_ID, DARTIST_ID)
+        # -- (keschte)
+        if (exists $track->{artistid} &&
+        	$track_artistid > 0 and
+        	$track_artistid != VARTIST_ID and
+        	$track_artistid != DARTIST_ID) 
         {
-            $ar->SetId($track->{artistid});
+            $ar->SetId($track_artistid);
             if (!defined $ar->LoadFromId())
             {
                 die "Track Insert failed: Could not load artist: $info->{artistid}\n";
             }
-            $track_artistid = $track->{artistid};
-        }
 
-		my $trackid;
-
-        # Now insert the track. Make sure to check what kind of track it is...
-        if ($artistid != VARTIST_ID)
-        {
-            $trackid = $tr->Insert($al, $ar);
-        }
-        else
-        {
+			# insert track using the verified track artist            
             $mar->SetId($track_artistid);
             $trackid = $tr->Insert($al, $mar);
             $track->{track_insertid} = $trackid if ($tr->GetNewInsert());
         }
+        else
+        {
+        	
+			# insert track for release artist.
+			$trackid = $tr->Insert($al, $ar);        
+       }
         if (!defined $trackid)
         {
             die "Insert failed: Cannot insert track.\n";
         }
         $track->{track_insertid} = $trackid;
-
+        
+        #print STDERR "Inserted track: $trackid, artist: $track_artistid\n";
+        
         # The track has been inserted. Now insert the TRM if there is one
         if (exists $track->{trmid} && $track->{trmid} ne '')
         {
@@ -577,6 +589,7 @@ TRACK:
                 $track->{trm_insertid} = $newtrm if ($trm->GetNewInsert());
             }
         }
+        
         # Now insert the PUID if there is one
         if (exists $track->{puid} && $track->{puid} ne '')
         {

@@ -42,44 +42,53 @@ sub PreInsert
 	
 	$self->SetTable("album");
 	$self->SetColumn("name");
+	
 	# Force a deliberately bad value to start with - this makes it obvious if
 	# we somehow fail to insert a good value later on.
 	$self->SetArtist(0);
 
 	# keys in %new:
-	# EITHER self->artist OR Artist and Sortname
-	# AlbumName
-	# EITHER both CDIndexId and TOC OR neither
-	# NonAlbum (flag)
-	# OPTIONAL Attributes (default: none)
-	# OPTIONAL Language
-	# OPTIONAL Script
-	# Then for 1..n tracks:
-	# Track/n/ - name
-	# Artist/n/ - ??? id or name ???
-	# TrackDur/n/ - duration in ms?
+	# |--- EITHER self->artist OR Artist and Sortname
+	# |--- HasMultipleTrackArtists (1|0) 
+	#        override the VA release artist
+	#        setting which directs if track artistid's are respected.
+	# |--- AlbumName
+	# |--- (CDIndexId && TOC) (EITHER BOTH OR NONE)
+	# |--- NonAlbum (flag)
+	# |--- Attributes (default: none) (OPTIONAL)
+	# |--- Language (OPTIONAL)
+	# |--- Script (OPTIONAL)
+	# \--- for tracks 1..n:
+	#      |--- Track/n/ 	- name
+	#      |--- Artist/n/ 	- ??? id or name ???
+	#      \--- TrackDur/n/ 	- duration in ms ?
+	#
 	# Then for 1..m release dates:
-	# Release/n/ - CountryId,Year-Month-Day
-
+	# \--- Release/n/ 	- , 
+	#      |--- CountryId
+	#      \--- Year-Month-Day
+	#	
 	# The following keys are added to %new after the insert:
-	# AlbumId
-	# ArtistId
-	# Discid
-	# for tracks 1..n:
-	#	Track/n/Id
-	#	Trm/n/Id
-	#	Artist/n/Id
-	# _artistid
-	# _albumid
+	#
+	# |--- AlbumId
+	# |--- ArtistId
+	# |--- Discid
+	# |--- _artistid
+	# |--- _albumid
+	# \--- for tracks 1..n:
+	#      |--- Track/n/Id
+	#      |--- Trm/n/Id
+	#      \--- Artist/n/Id
 
 	# Prepare %info - the control data for the "Insert" module.
-
 	my %info = (
 		# Prevent name clashes with existing albums
-		forcenewalbum	=> 1,
-		album			=> $new{'AlbumName'},
+		forcenewalbum => 1,
+		album => $new{'AlbumName'},
 	);
 
+	# TOD: Add a release to a non-existing artist, how is
+	# that possible?
 	if (defined $new{'artist'})
 	{
 	   	$self->SetArtist($info{'artistid'} = $new{'artist'});
@@ -90,14 +99,12 @@ sub PreInsert
 		$info{'sortname'} = $new{"Sortname"}; 
 	}
 	
+	# TODO find out if it's possible to have a CDIndexId but no TOC
 	if (exists $new{'CDIndexId'})
 	{
 	  	$info{'cdindexid'} = $new{'CDIndexId'};
-		# TODO find out if it's possible to have a CDIndexId but no TOC
 	   	$info{'toc'} = $new{'TOC'};
 	}
-
-	my ($language, $script) = split(',', $new{'Language'} || '');
 
 	if ($new{'NonAlbum'})
 	{
@@ -109,12 +116,16 @@ sub PreInsert
 		$attrs = "" unless defined $attrs;
 	 	$info{'attrs'} = [ grep { $_ } split /,/, $attrs ];
 
-		$info{'languageid'} = $language if defined $language;
-		$info{'scriptid'} = $script if defined $script;
+		my ($language, $script) = split(',', $new{'Language'} || '');
+		$self->SetLanguageId($language) if $language;
+		
+		$info{'languageid'} = $language if (defined $language);
+		$info{'scriptid'} = $script if (defined $script);
 	}
 
 	my @tracks;
-	my $is_various = ($new{'artist'} && $new{'artist'} == &ModDefs::VARTIST_ID);
+	my $isva = ($new{"HasMultipleTrackArtists"} or
+				($new{"artist"} && $new{"artist"} == &ModDefs::VARTIST_ID));
 
 	for (my $i = 1;; $i++)
 	{
@@ -122,23 +133,24 @@ sub PreInsert
 		defined($name) or last;
 		
 	   	my %tmp = (
-			track	=> $name,
-			tracknum=> $i,
+			track => $name,
+			tracknum => $i,
 		);
 		
-		if ($is_various)
+		if ($isva)
 		{
-		        if (exists $new{"ArtistID$i"} && $new{"ArtistID$i"} != 0)
+			if (exists $new{"ArtistID$i"} && $new{"ArtistID$i"} != 0)
 			{
 			    $tmp{'artistid'} = $new{"ArtistID$i"};
 			}
 			else
 			{
+				# TODO: remove me.
 			    $tmp{'artist'} = $new{"Artist$i"};
 			    $tmp{'sortname'} = $new{"Sortname$i"};
 			}
 		}
-
+		
 		if (exists $new{"TrackDur$i"})
 		{
 		   	$tmp{'duration'} = $new{"TrackDur$i"};
@@ -258,9 +270,6 @@ sub PreInsert
 
 	$new{"Dep0"} = $artistmodid
 		if $artistmodid;
-
-
-	$self->SetLanguageId($language) if $language;
 
 	# Only one thing left to do...
 	$self->SetNew($self->ConvertHashToNew(\%new));

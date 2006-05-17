@@ -322,8 +322,14 @@ sub Insert
 	}
 
     my $album = $al->GetId;
-    my $artist = ($al->GetArtist() == &ModDefs::VARTIST_ID) ?
-                $ar->GetId() : $al->GetArtist();
+    
+	# we allow releases attributed to other artists
+	# than VARTIST_ID to have different track artists.
+	# If an artist is given, we assume that this one
+	# should be used to attribute the track to.
+	# -- (keschte)    
+    my $artist = ($al->GetArtist() == &ModDefs::VARTIST_ID or
+    			  defined $ar) ? $ar->GetId() : $al->GetArtist();
 
 	if (not $artist)
 	{
@@ -347,9 +353,9 @@ sub Insert
 	return $track if $track;
 
 	my %row = (
-		gid		=> $this->CreateNewGlobalId,
-		name	=> $this->GetName,
-		artist	=> $artist,
+		gid => $this->CreateNewGlobalId,
+		name => $this->GetName,
+		artist => $artist,
 		modpending	=> 0,
 	);
 
