@@ -216,6 +216,7 @@
 			{ name => "FreeDB Import",			url => "/freedb/freedb.html" },
 			[
 				{ url => "/freedb/final.html" },
+				{ url => "/freedb/charset.html" },
 				{ url => "/freedb/import.html" },
 				{ url => "/freedb/mac-check-similar.html" },
 				{ url => "/freedb/mac-confirm.html" },
