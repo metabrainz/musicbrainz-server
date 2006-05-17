@@ -23,11 +23,11 @@
  	# -----------------------------------------------------------------------------
  	# This component allows to search for, and pick an artist in a workflow.
  	#
- 	# $URL$
  	# $Id$
  	#
 </%perl>
 <%args>
+
 	$search => ""
 
 	$selectedname => "selectedartist"
@@ -217,3 +217,4 @@
 %	}
 
 
+%# vi: set ts=4 sw=4 ft=mason :

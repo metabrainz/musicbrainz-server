@@ -22,9 +22,8 @@
 	# Summary:
 	# -----------------------------------------------------------------------------
 	# This component provides the display facilities for
-	# the MOD_ADD_ALBUM edit type.
+	# the MOD_EDIT_TRACKNAME edit type.
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
@@ -49,4 +48,4 @@
 
 </%method>
 
-%# eof
+%# vi: set ts=4 sw=4 ft=mason :

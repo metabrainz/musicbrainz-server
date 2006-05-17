@@ -29,7 +29,6 @@
 	# -----------------------------------------------------------------------------
 	# my $artist = $m->comp("/comp/loadartist", $mb, $artistid || $mbid);
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
@@ -104,3 +103,5 @@
 	exit;
 
 </%perl>
+
+%# vi: set ts=4 sw=4 ft=mason :

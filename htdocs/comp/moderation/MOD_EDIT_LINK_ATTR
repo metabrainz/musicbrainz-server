@@ -25,7 +25,6 @@
 	# the MOD_EDIT_LINK_ATTR edit type. This edit type is only available
 	# to Relationship Type Editors.
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
@@ -45,4 +44,4 @@
 
 </%method>
 
-%# eof
+%# vi: set ts=4 sw=4 ft=mason :

@@ -1,4 +1,3 @@
-%# vi: set ts=4 sw=4 ft=mason :
 
 	<div id="editsuite" class="editsuite">
 		<div id="editsuite-content" class="inner">
@@ -23,3 +22,5 @@
 		<div id="editsuite-noscript" class="noscript"></div>
 	</div>
 	<script type="text/javascript" src="/scripts/editsuite.js"></script>
+
+%# vi: set ts=4 sw=4 ft=mason :

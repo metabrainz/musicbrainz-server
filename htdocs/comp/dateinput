@@ -1,11 +1,10 @@
-%# vi: set ts=2 sw=2 ft=mason :
 <%args>
 $name_prefix
 $value => [ ]
 $id => undef
 </%args>
 
-<input type="text" name="<% $name_prefix %>_y" class="datefield" 
+<input type="text" name="<% $name_prefix %>_y" class="datefield"
 % $m->out('id="' . encode_entities($id) . '"') if defined $id;
 		size="4" maxlength="4"
 		value="<% $value->[0] %>" />
@@ -17,3 +16,5 @@ $id => undef
 <input type="text" name="<% $name_prefix %>_d" class="datefield"
 		size="2" maxlength="2"
 		value="<% $value->[2] %>" />
+
+%# vi: set ts=4 sw=4 ft=mason :

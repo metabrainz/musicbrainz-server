@@ -25,13 +25,14 @@
 	# once the editsuite is initialised. Initially (or if the user disabled
 	# javascript in his browser) the button is not displayed.
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
 <%args>
+
 	$id
 	$tabindex => undef
+
 </%args>
 <%perl>
 
@@ -48,4 +49,7 @@
 	}
 	$m->out(' />');
 	$m->out("\n");
+
 </%perl>
+
+%# vi: set ts=4 sw=4 ft=mason :

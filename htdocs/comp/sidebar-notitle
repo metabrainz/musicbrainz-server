@@ -1,5 +1,10 @@
 <%args>
+
 	$pagetitle
 	$spacing => 10
+
 </%args>
-<& /comp/sidebar, pagetitle => $pagetitle, showtitle => 0, spacing => $spacing &>
+
+	<& /comp/sidebar, pagetitle => $pagetitle, showtitle => 0, spacing => $spacing &>
+
+%# vi: set ts=4 sw=4 ft=mason :

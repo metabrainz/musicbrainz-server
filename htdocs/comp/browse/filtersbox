@@ -24,15 +24,16 @@
 	# These filters help to reduce the amount of releases displayed on the
 	# browsereleases.html page.
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
 <%args>
+
 	$index
 	$reltype
 	$relstatus
 	$artists
+
 </%args>
 <%perl>
 
@@ -48,8 +49,6 @@
 		$m->out(qq!</span>!) if $rt == $reltype;
 	}
 	$m->out(qq!</td></tr>!);
-
-
 
 	$m->out(qq!<tr><td class="left"><b>Release Status:</b></td><td class="left">!);
 	for my $rt (0, Album::ALBUM_ATTR_SECTION_STATUS_START ..  Album::ALBUM_ATTR_SECTION_STATUS_END)
@@ -77,3 +76,5 @@
 	$m->out(qq!</table>!);
 
 </%perl>
+
+%# vi: set ts=4 sw=4 ft=mason :

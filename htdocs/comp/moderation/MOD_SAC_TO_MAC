@@ -24,7 +24,6 @@
 	# This component provides the display facilities for
 	# the MOD_SAC_TO_MAC (Multiple Artists Conversion) edit type.
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
@@ -68,4 +67,4 @@
 
 </%method>
 
-%# eof
+%# vi: set ts=4 sw=4 ft=mason :

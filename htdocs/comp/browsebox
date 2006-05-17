@@ -1,4 +1,5 @@
 <%args>
+
 	$index => ""
 	$page => "/browseartists.html"
 
@@ -6,6 +7,7 @@
 	$artists => ""
 	$relstatus => ""
 	$reltype => ""
+
 </%args>
 <%perl>
 	(my $pageq = $page) .= ($page =~ /\?/ ? "&" : "?");
@@ -97,3 +99,5 @@
 	$m->out(qq!</table>!);
 
 </%perl>
+
+%# vi: set ts=4 sw=4 ft=mason :

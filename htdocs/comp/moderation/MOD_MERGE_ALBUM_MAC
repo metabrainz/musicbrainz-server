@@ -24,7 +24,6 @@
 	# This component uses the display facilities of
 	# the MOD_MERGE_ALBUM edit type.
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
@@ -32,4 +31,4 @@
 	inherit => "MOD_MERGE_ALBUM"
 </%flags>
 
-%# eof
+%# vi: set ts=4 sw=4 ft=mason :

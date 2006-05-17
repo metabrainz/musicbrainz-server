@@ -23,16 +23,17 @@
 	# -----------------------------------------------------------------------------
 	# Render the cancel link for the given target.
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
 <%args>
+
 	$targetid
 	$targettype
 	$id
 	$type
 	$isrelpage => 0
+
 </%args>
 <%perl>
 
@@ -45,3 +46,5 @@
 	$m->out(qq!<a href="$page?$idarg=$targetid&amp;remrel=$id&amp;remtype=$type">Remove</a>!);
 
 </%perl>
+
+%# vi: set ts=4 sw=4 ft=mason :

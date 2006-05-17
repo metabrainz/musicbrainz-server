@@ -1,7 +1,9 @@
-%# vi: set ts=4 sw=4 ft=mason :
 <%args>
-$artistid
+
+	$artistid
+
 </%args>
+
 % return if !$session{uid} || !$session{PREF_show_inline_mods} || !$session{has_confirmed_email};
 <script type="text/javascript" src="/scripts/iframe.js"></script>
 <div id="RelatedModsBox">
@@ -10,3 +12,5 @@ $artistid
 	>
 </iframe>
 </div>
+
+%# vi: set ts=4 sw=4 ft=mason :

@@ -1,5 +1,7 @@
 <%args>
+
 	$id => undef
+
 </%args>
 <%perl>
 	#MusicBrainz::IsSingleLineString($id) and $id =~ /\A\w+\z/
@@ -36,20 +38,49 @@
 
 	my $ua = LWP::UserAgent->new;
 	my $response = $ua->get($docurl);
+
+	my $searchlink = encode_entities("http://wiki.musicbrainz.org/?action=fullsearch&amp;context=180&amp;value=$id&titlesearch=Titles");
+
+	$m->out(qq!<div class="wikidocs">\n!);
+
 	if (!$response->is_success)
 	{
-		$m->comp("/comp/error",
-			"Could not retrieve wiki page from wiki server. "
-		   ."( get $docurl -> " . $response->status_line ." )", 0, 0);
-	}
-	else
-	{
-		$page = $response->content;
 
-		if ($page =~ /<a id="top"><\/a>\s+<a id="bottom"><\/a>/s)
-		{
-			$m->comp("/comp/error",
-					 "The wiki page $id does not exist. (404)", 0, 0);
+</%perl>
+
+		<div class="header">
+			Could not retrieve wiki page from wiki server. (Status: <% $response->status_line %>)
+		</div>
+		<div class="unofficial">
+			It is possible the page <strong><% $id %></strong> you are looking for does
+			not exist <em>yet</em>, but you might find a page which has a similar title
+			using the wiki search on the <a href="<% $searchlink %>">MusicBrainz Wiki</a>.
+			If this does not help either, and you know how to edit wiki pages, please
+			help us completing our documentation.
+		</div>
+
+%	}
+%	else
+%	{
+%		$page = $response->content;
+
+%		if ($page =~ /<a id="top"><\/a>\s+<a id="bottom"><\/a>/s)
+%		{
+
+
+		<div class="header">
+			The wiki page <% $id %> does not exist. (Status: 404)
+		</div>
+		<div class="unofficial">
+			It is possible the page <strong><% $id %></strong> you are looking for does
+			not exist <em>yet</em>, but you might find a page which has a similar title
+			using the wiki search on the <a href="<% $searchlink %>">MusicBrainz Wiki</a>.
+			If this does not help either, and you know how to edit wiki pages, please
+			help us completing our documentation.
+		</div>
+
+<%perl>
+
 		}
 		else
 		{
@@ -120,39 +151,45 @@
 			my $out = "";
 			if ($iswd)
 			{
-				$out  = 		qq!<div class="official">\n!;
-				$out .= 		$page;
-				$out .= 		qq!</div> \n!;
-				$out .= 		qq!<div class="footer">\n!;
-				$out .= 		qq!  This <a href="/doc/WikiDocsPage">WikiDocsPage</a> \n!;
-				$out .= sprintf qq!  is based on the revision <a href="%s">#%d</a> of the WikiPage !, "http://wiki.musicbrainz.org/$id?action=info", $index->{$id};
-				$out .= sprintf qq!  <a href="http://wiki.musicbrainz.org/%s">%s</a>!, $id, $id;
-				$out .= 		qq!</div>\n!;
-			}
-			else
-			{
-				$out  = qq!<div class="header">\n!;
-				$out .= qq!  This page has been copied from our Wiki. \n!;
-				$out .= qq!  The content is <em><strong>not official</strong></em> \n!;
-				$out .= qq!  but probably correct and hopefully informative. \n!;
-				$out .= qq!  If you have spotted a spelling error, or want to help \n!;
-				$out .= qq!  writing the documentation, you'll find the editable version \n!;
-				$out .= qq!  of this page on the wiki at <img src="/images/edit.gif" alt="" /><a\n!;
-				$out .= qq! href="http://wiki.musicbrainz.org/$id">$id</a> \n!;
-				$out .= qq!</div> \n!;
-				$out .= qq!<div class="unofficial"> \n!;
-				$out .= $page;
-				$out .= qq!</div> \n!;
-			}
 
-			$m->out(qq!<div class="wikidocs">\n!);
-			$m->out($out);
-			$m->out(qq!</div>\n!);
-
-
-			# Now store page in cache
-			MusicBrainz::Server::Cache->set($key, $page, &MusicBrainz::Server::WikiTransclusion::CACHE_INTERVAL);
-			$ok = 1;
-		}
-	}
 </%perl>
+				<div class="official">
+					<% $page |n %>;
+				</div>
+				<div class="footer">
+					This <a href="/doc/WikiDocsPage">WikiDocsPage</a>
+					is based on the revision <a href="http://wiki.musicbrainz.org/<% $id %>?action=info">#<% $index->{$id} %></a>
+					of the WikiPage <a href="http://wiki.musicbrainz.org/<% $id %>"><% $id %></a>
+				</div>
+
+%			}
+%			else
+%			{
+
+				<div class="header">
+					This page has been copied from our Wiki.
+					The content is <em><strong>not official</strong></em>
+					but probably correct and hopefully informative.
+					If you have spotted a spelling error, or want to help
+					writing the documentation, you'll find the editable version
+					of this page on the wiki at <img src="/images/edit.gif" alt="" /><a
+					href="http://wiki.musicbrainz.org/$id">$id</a>
+				</div>
+				<div class="unofficial">
+					<% $page |n %>;
+				</div>
+
+%			}
+
+
+%			# Now store page in cache
+%			MusicBrainz::Server::Cache->set($key, $page, &MusicBrainz::Server::WikiTransclusion::CACHE_INTERVAL);
+%			$ok = 1;
+%		}
+%	}
+
+	</div>
+
+</%perl>
+
+%# vi: set ts=4 sw=4 ft=mason :

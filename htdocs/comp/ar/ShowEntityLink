@@ -23,19 +23,18 @@
 	# -----------------------------------------------------------------------------
 	# Render the cancel link for the given target.
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
 <%args>
+
 	$id
 	$name
 	$type
-
 	$url => ""
-
 	$simple => 1
 	$linktypeid => 0
+
 </%args>
 <%perl>
 
@@ -63,3 +62,5 @@
 	}
 
 </%perl>
+
+%# vi: set ts=4 sw=4 ft=mason :

@@ -32,7 +32,6 @@
 	# -----------------------------------------------------------------------------
 	# my @relationships = $m->comp("/comp/loadrelationships", $mb, $id, $type);
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
@@ -93,4 +92,7 @@
 	}
 
 	return \@links;
+
 </%perl>
+
+%# vi: set ts=4 sw=4 ft=mason :

@@ -1,4 +1,3 @@
-%# vi: set ts=8 sw=2 ft=mason :
 <%args>
 	$text => ""
 	$site => "musicbrainz.org"
@@ -7,8 +6,8 @@
 
     <form id="GoogleSearchForm" method="get" action="http://<% $google %>/custom">
 		<div>
-			<a href="http://<% $google %>/search"><img 
-				src="http://<% $google %>/logos/Logo_40wht.gif" 
+			<a href="http://<% $google %>/search"><img
+				src="http://<% $google %>/logos/Logo_40wht.gif"
 				alt="Google" /></a>
 		</div>
 
@@ -42,3 +41,5 @@
 			<input type="hidden" name="oe" value="utf-8" />
 		</div>
     </form>
+
+%# vi: set ts=4 sw=4 ft=mason :

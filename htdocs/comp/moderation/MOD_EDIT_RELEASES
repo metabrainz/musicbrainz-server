@@ -1,50 +1,105 @@
-%# vi: set ts=4 sw=4 ft=mason :
-
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# This component provides the display facilities for
+	# the MOD_EDIT_RELEASES edit type.
+	#
+	# $Id$
+	#
+</%perl>
 <%def .ShowCountryName>
 <%perl>
-my $c = $m->comp("/edit/albumreleases/countries-menu.inc");
-my $name = "?";
-for (@$c) { $name = $_->[1], last if $_->[0] == $_[0] }
+	my $c = $m->comp("/edit/albumreleases/countries-menu.inc");
+	my $name = "?";
+	for (@$c)
+	{
+		$name = $_->[1], last if $_->[0] == $_[0]
+	}
 </%perl>
-<% $name %>
+
+	<% $name %>
+
 </%def>
 
 <%method ShowPreviousValue>
-% my $self = shift;
+% 	my $self = shift;
 
-% if (@{ $self->{"edits"} }) {
+% 	if (@{ $self->{"edits"} })
+%	{
+
 	<u>Change From</u>
-% for my $t (@{ $self->{"edits"} }) {
-	<br /><& /comp/releasedate, $t->{"d"} &> : <& .ShowCountryName, $t->{"c"} &>
-% }
-% }
 
-% if (@{ $self->{"removes"} }) {
+%		for my $t (@{ $self->{"edits"} })
+%		{
+
+		<br /><& /comp/releasedate, $t->{"d"} &> : <& .ShowCountryName, $t->{"c"} &>
+
+% 		}
+%	}
+
+%	if (@{ $self->{"removes"} })
+%	{
+
 	<u>Remove</u>
-% for my $t (@{ $self->{"removes"} }) {
-	<br /><& /comp/releasedate, $t->{"d"} &> : <& .ShowCountryName, $t->{"c"} &>
-% }
-% }
+
+%		for my $t (@{ $self->{"removes"} })
+		{
+
+		<br /><& /comp/releasedate, $t->{"d"} &> : <& .ShowCountryName, $t->{"c"} &>
+
+% 		}
+%	}
 
 </%method>
 
 <%method ShowNewValue>
-% my $self = shift;
+%	my $self = shift;
 
-% if (@{ $self->{"edits"} }) {
+%	if (@{ $self->{"edits"} })
+%	{
+
 	<u>Change To</u>
-% for my $t (@{ $self->{"edits"} }) {
-	<br /><& /comp/releasedate, $t->{"nd"} &> : <& .ShowCountryName, $t->{"nc"} &>
-% }
-% }
 
-% if (@{ $self->{"adds"} }) {
+%		for my $t (@{ $self->{"edits"} })
+%		{
+
+		<br /><& /comp/releasedate, $t->{"nd"} &> : <& .ShowCountryName, $t->{"nc"} &>
+%		}
+%	}
+
+%	if (@{ $self->{"adds"} })
+%	{
+
 	<u>Add</u>
-% for my $t (@{ $self->{"adds"} }) {
-	<br /><& /comp/releasedate, $t->{"d"} &> : <& .ShowCountryName, $t->{"c"} &>
-% }
-% }
-   
+
+% 		for my $t (@{ $self->{"adds"} })
+%		{
+
+		<br /><& /comp/releasedate, $t->{"d"} &> : <& .ShowCountryName, $t->{"c"} &>
+
+% 		}
+% 	}
+
 </%method>
 
-%# eof
+%# vi: set ts=4 sw=4 ft=mason :

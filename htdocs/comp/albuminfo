@@ -23,16 +23,16 @@
 	# -----------------------------------------------------------------------------
 	# Render an database information box about a release
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
 <%args>
+
 	$album => undef
 	$release => undef
-
 	$track => undef
 	$short => 0
+
 </%args>
 <%perl>
 
@@ -40,6 +40,7 @@
 
 	# use proper terminology.
 	$release ||= $album;
+
 </%perl>
 
 	<& /comp/tablebegin, title => "Release Information" &>
@@ -104,3 +105,5 @@
 
 
 <& /comp/tableend &>
+
+%# vi: set ts=4 sw=4 ft=mason :

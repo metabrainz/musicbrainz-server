@@ -1,4 +1,3 @@
-%# vi: set ts=2 sw=2 ft=mason :
 <%args>
 $url
 </%args>
@@ -40,3 +39,5 @@ $url
 
 </table>
 <& /comp/framedboxend &>
+
+%# vi: set ts=4 sw=4 ft=mason :

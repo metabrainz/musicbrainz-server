@@ -24,16 +24,17 @@
 	# This component lists the edits which match the given query. Open edits
 	# can be vored on, and own edits can be deleted.
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
 <%args>
+
 	$query
 	$voter_id
 	$page => undef
 	$offset => undef
 	$args
+
 </%args>
 <%perl>
 
@@ -220,3 +221,5 @@
 	</form>
 
 % 	}
+
+%# vi: set ts=4 sw=4 ft=mason :

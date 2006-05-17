@@ -1,9 +1,9 @@
 <%args>
-$artist=>""
-$album=>""
-$artistobj=>undef
-$albumobj=>undef
-$data=>undef
+	$artist=>""
+	$album=>""
+	$artistobj=>undef
+	$albumobj=>undef
+	$data=>undef
 </%args>
 
 <%perl>

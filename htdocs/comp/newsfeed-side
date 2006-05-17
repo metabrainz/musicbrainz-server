@@ -1,11 +1,13 @@
-%# vi: set ts=2 sw=2 ft=mason :
 <%args>
+
 	$url
 	$max_items 			=> undef
 	$update_interval 	=> 5*60
 	$categories 		=> [ ]
+
 </%args>
 <%perl>
+
 	my $feed = MusicBrainz::Server::NewsFeed->new(
 		url => $url,
 		update_interval => $update_interval,
@@ -14,16 +16,20 @@
 	);
 
 	$feed->Load();
+
 </%perl>
 
 
-% foreach my $item ( $feed->GetItems() ) {
+%	foreach my $item ($feed->GetItems())
+%	{
 
 					<div class="newsarticle">
-						<b><% $item->GetTitle() %></b> &mdash;  
+						<b><% $item->GetTitle() %></b> &mdash;
 						<% $item->GetDescription() %>
 						<div class="datetime">Posted: <% $item->GetDateTimeString() %></div>
 						<div class="readmore">&raquo; <a href="<% $item->GetLink() %>">read more</a></div>
 					</div>
 
-% }
+%	}
+
+%# vi: set ts=4 sw=4 ft=mason :

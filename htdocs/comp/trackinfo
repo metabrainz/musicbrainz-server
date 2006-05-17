@@ -23,14 +23,15 @@
 	# -----------------------------------------------------------------------------
 	# Render an database information box about a track
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
 <%args>
+
 	$track
 	@PUID => ()
 	@TRM => ()
+
 </%args>
 
 	<& /comp/tablebegin, title => "Track Information" &>
@@ -166,3 +167,5 @@
 		</table>
 
 	<& /comp/tableend &>
+
+%# vi: set ts=4 sw=4 ft=mason :

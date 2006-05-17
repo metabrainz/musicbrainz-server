@@ -26,7 +26,6 @@
 	#
 	# Status: deprecated. (Replaced with MOD_EDIT_ARTIST)
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
@@ -51,4 +50,4 @@
 
 </%method>
 
-%# eof
+%# vi: set ts=4 sw=4 ft=mason :

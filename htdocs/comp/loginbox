@@ -25,14 +25,15 @@
 	# login permission is given. Uses the /bare/login.html page to verify
 	# the given credentials.
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
 <%args>
+
 	$url => (join "?", grep { $_ } ($r->uri, scalar $r->args))
 	$password => ""
 	$badlogin => 0
+
 </%args>
 <%perl>
 
@@ -137,3 +138,5 @@
 	</form>
 
 <& /comp/movefocus, "LoginForm", "User" &>
+
+%# vi: set ts=4 sw=4 ft=mason :

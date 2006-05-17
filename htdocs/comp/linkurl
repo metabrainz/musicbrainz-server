@@ -24,11 +24,11 @@
 	# Link to a url. Either a url object, or id, and name arguments
 	# are used to create the url.
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
 <%args>
+
 	# preferred way of calling - provide URL object
 	$url => undef
 
@@ -40,6 +40,7 @@
 	# rendering options
 	$icon => 0
 	$strong => 0
+
 </%args>
 <%perl>
 
@@ -69,3 +70,5 @@
 		if (defined $href);
 
 </%perl>
+
+%# vi: set ts=4 sw=4 ft=mason :

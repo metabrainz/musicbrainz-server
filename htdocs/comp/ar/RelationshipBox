@@ -23,17 +23,18 @@
 	# -----------------------------------------------------------------------------
 	# Shows the box of relationships
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
 <%args>
+
 	$id
 	$type
 	$name
 	$modlinks => 0
 	$isrelpage => 0
 	$expanded => 0
+
 </%args>
 <%def .OutputEntity>
 <%perl>

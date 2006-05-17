@@ -26,13 +26,13 @@
 	# If the mp_type (one of ModDefs constant types) is given, the provided
 	# entity is queried for the respective flag. If a pending edit of the
 	# given type is flagged, the entity is highlighted using the "mp"
-	#css class.
+	# css class.
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
 <%args>
+
 	$artist => undef
 	$alias => undef
 	$release => undef
@@ -41,6 +41,7 @@
 
 	$display => undef
 	$mp_type => undef
+
 </%args>
 <%perl>
 

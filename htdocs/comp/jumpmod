@@ -1,4 +1,3 @@
-%# vi: set ts=4 sw=2 ft=mason :
 % 	my $modid = shift || "";
 
 	<form method="get" action="/showmod.html" id="JumpMod">
@@ -11,3 +10,5 @@
 			</tr>
 		</table>
 	</form>
+
+%# vi: set ts=4 sw=4 ft=mason :

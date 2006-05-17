@@ -1,4 +1,3 @@
-%# vi: set ts=4 sw=4 ft=mason :
 <%args>
 $url=>""
 $email=>""
@@ -38,7 +37,7 @@ $email=>""
 
 <%perl>
 
-if ($url eq "") 
+if ($url eq "")
 {
    $url = $r->uri();
    if (defined $r->args() && $r->args() ne '')
@@ -59,3 +58,5 @@ if ($url ne "") {
 <& /comp/movefocus, "ConfirmEMailForm", "email" &>
 
 % }
+
+%# vi: set ts=4 sw=4 ft=mason :

@@ -29,7 +29,6 @@
 	# -----------------------------------------------------------------------------
 	# my $track = $m->comp("/comp/loadtrack", $mb, $trackid || $mbid);
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
@@ -107,3 +106,5 @@
 	exit;
 
 </%perl>
+
+%# vi: set ts=4 sw=4 ft=mason :

@@ -10,3 +10,5 @@ $title .= $script->GetName() if defined $script;
 % } else {
 	-
 % }
+
+%# vi: set ts=4 sw=4 ft=mason :

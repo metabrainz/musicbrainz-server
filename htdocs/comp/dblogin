@@ -15,7 +15,7 @@ if ($mb->Login() == 0)
 
     $r->method('GET');
     $r->headers_in->unset('Content-length');
-    
+
     $r->content_type('text/html');
     $r->header_out(Location=>"/bare/dbdown.html");
     $r->status(302);
@@ -25,3 +25,5 @@ if ($mb->Login() == 0)
 return $mb;
 
 </%perl>
+
+%# vi: set ts=4 sw=4 ft=mason :

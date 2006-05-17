@@ -1,2 +1,6 @@
-<& /comp/header, nosidebar => 1, notopbar => 1, @_ &>
-<div style="margin-left: .5; margin-right: .5">
+
+	<& /comp/header, nosidebar => 1, notopbar => 1, @_ &>
+
+		<div style="margin-left: .5; margin-right: .5">
+
+%# vi: set ts=4 sw=4 ft=mason :

@@ -1,5 +1,5 @@
-%# vi: set ts=4 sw=4 ft=mason :
 <%args>
+
 	$title => ""
 	$pagetitle => ""
 
@@ -9,6 +9,7 @@
 	# the next parameters are set by /comp/sidebar-notitle
 	$showtitle => 1		# if (0), the page title is _not_ drawn
 	$spacing => 10 		# if not otherwise overriden, add 10px padding after the page title.
+
 </%args>
 <%perl>
 

@@ -23,13 +23,14 @@
 	# -----------------------------------------------------------------------------
 	# Render an database information box about an artist
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
 <%args>
+
 	$artist
 	$short => 0
+
 </%args>
 
 	<& /comp/tablebegin, title => "Artist Information" &>
@@ -99,3 +100,5 @@
 		</table>
 
 	<& /comp/tableend &>
+
+%# vi: set ts=4 sw=4 ft=mason :

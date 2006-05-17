@@ -38,6 +38,7 @@
 	# rendering options
 	$icon => 1
 	$strong => 0
+
 </%args>
 <%perl>
 

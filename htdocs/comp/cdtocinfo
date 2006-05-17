@@ -23,12 +23,13 @@
 	# -----------------------------------------------------------------------------
 	# Render an database information box about a cdtoc (Table of Contents)
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
 <%args>
+
 	$cdtoc
+
 </%args>
 
 	<& /comp/tablebegin, title => "CD TOC Information" &>
@@ -125,3 +126,5 @@
 		</table>
 
 	<& /comp/tableend &>
+
+%# vi: set ts=4 sw=4 ft=mason :

@@ -28,10 +28,12 @@
 	#
 </%perl>
 <%args>
+
 	$album
 	$artist
 	$showmodlinks => 1
 	$showtrackartists => 0
+
 </%args>
 <%perl>
 

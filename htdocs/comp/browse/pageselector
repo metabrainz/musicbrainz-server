@@ -24,7 +24,6 @@
 	# Renders the header (and footer) display for paginated lists. Used in
 	# browseartists.html, browsereleases.html and the reports.
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
@@ -126,3 +125,4 @@
 
 </td></tr></table>
 
+%# vi: set ts=4 sw=4 ft=mason :

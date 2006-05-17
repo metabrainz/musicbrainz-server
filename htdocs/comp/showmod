@@ -1,10 +1,11 @@
-%# vi: set ts=2 sw=2 ft=mason :
 <%args>
+
 	$mod
 	$voter => $session{uid}
 	$notes => []
 	$voteflag => undef
 	$inline => 0
+
 </%args>
 <%perl>
 
@@ -193,3 +194,5 @@
 	</tr>
 
 %	}
+
+%# vi: set ts=4 sw=4 ft=mason :

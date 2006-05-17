@@ -23,14 +23,15 @@
 	# -----------------------------------------------------------------------------
 	# Adds an entity to the recent_links session variable
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
 <%args>
+
 	$type => ""
 	$id => ""
 	$name => ""
+
 </%args>
 <%perl>
 

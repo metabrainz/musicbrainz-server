@@ -1,4 +1,3 @@
-%# vi: set ts=4 sw=4 ft=mason :
 <%perl>
 
 	# slurp arguments
@@ -44,3 +43,5 @@
 	return 0;
 
 </%perl>
+
+%# vi: set ts=4 sw=4 ft=mason :

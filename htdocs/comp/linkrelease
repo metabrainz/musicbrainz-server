@@ -24,11 +24,11 @@
 	# Link to a release. Either a release object, or id, and name arguments
 	# are used to create the url.
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
 <%args>
+
 	# preferred way of calling - provide Album object
 	$release => undef
 
@@ -44,6 +44,7 @@
 	# rendering options
 	$icon => 1
 	$strong => 1
+
 </%args>
 <%perl>
 
@@ -85,3 +86,5 @@
 	$m->out("</span>");
 
 </%perl>
+
+%# vi: set ts=4 sw=4 ft=mason :

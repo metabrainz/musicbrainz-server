@@ -23,13 +23,14 @@
 	# -----------------------------------------------------------------------------
 	# Remove the top element from the recent_links session variable
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
 <%args>
+
 	$type => ""
 	$id => ""
+
 </%args>
 <%perl>
 
@@ -52,3 +53,5 @@
 	}
 
 </%perl>
+
+%# vi: set ts=4 sw=4 ft=mason :

@@ -23,7 +23,6 @@
 	# -----------------------------------------------------------------------------
 	# Clears the recent_links session variable
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
@@ -35,3 +34,5 @@
 	$session{recent_links} = [];
 
 </%perl>
+
+%# vi: set ts=4 sw=4 ft=mason :

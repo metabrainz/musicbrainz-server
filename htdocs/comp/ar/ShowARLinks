@@ -24,11 +24,11 @@
 	# Renders the available relationship editing links for the current
 	# entity being displayed.
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
 <%args>
+
 	$id
 	$type
 	$name => ""
@@ -36,6 +36,7 @@
 	$isrelpage => 0
 	$expanded => 0
 	$count => 0
+
 </%args>
 <%perl>
 

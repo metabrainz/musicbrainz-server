@@ -28,7 +28,6 @@
 	# -----------------------------------------------------------------------------
 	# my $alias = $m->comp("/comp/loadartistalias", $mb, $id);
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
@@ -87,3 +86,5 @@
 	exit;
 
 </%perl>
+
+%# vi: set ts=4 sw=4 ft=mason :

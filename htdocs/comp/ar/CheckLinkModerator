@@ -24,7 +24,6 @@
 	# Check if the user has RelationshipType Editor permission, else
 	# show a notice.
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
@@ -49,3 +48,5 @@
 	return 0;
 
 </%perl>
+
+%# vi: set ts=4 sw=4 ft=mason :

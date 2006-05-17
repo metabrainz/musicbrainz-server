@@ -25,11 +25,11 @@
 	# transcluded from the official musicbrainz wiki. A help image is displayed to
 	# emphasize the purpose of the link.
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
 <%perl>
+
 	my ($pagename, $linktext, $icon) = @_;
 
 	$icon = 1 if (not defined $icon);
@@ -42,3 +42,5 @@
 	$m->out(qq!</strong>!);
 
 </%perl>
+
+%# vi: set ts=4 sw=4 ft=mason :

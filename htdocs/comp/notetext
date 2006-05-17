@@ -24,34 +24,45 @@
 	# Renders the moderation note textarea, which is always the same
 	# on all pages.
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
 <%args>
+
 	$required => 0
 	$text => ""
 	$notetext => undef
 	@buttons => ()
+
 </%args>
 %	$notetext ||= $text;
 
 	Enter moderation note
-% 	if ($required) {
+
+% 	if ($required)
+%	{
 		(<strong>required</strong>):
-% 	} else {
+% 	}
+%	else
+%	{
 		(optional):
 % 	}
+
 	<br />
 	<textarea name="notetext" id="notetext" class="textarea" rows="3" cols="52"><%
 		$text %></textarea>
 
 	<div style="margin: 5px 0px">
-%	for my $button (@buttons) {
+
+%	for my $button (@buttons)
+%	{
 %		my ($value, $id) = @$button;
 %		$id = qq!id="$id"! if (defined $id);
+
 		<input class="button" type="submit" name="submitvalue" value="<% $value %>" <% $id |n%>/>
+
 %	}
+
 	</div>
 
 	<div style="border: 1px dotted #000; padding: 5px; margin: 5px 0px; margin-left: 50px; margin-top: 10px; font-size: 10px; width: 500px">
@@ -69,7 +80,8 @@
 %	$session{"orig_privs"} = $session{"privs"}
 %		if (not exists $session{"orig_privs"});
 %
-% 	if (UserStuff->IsAutoMod($session{"orig_privs"})) {
+% 	if (UserStuff->IsAutoMod($session{"orig_privs"}))
+%	{
 
 	<div style="border: 1px dotted #000; padding: 5px; margin: 5px 0px; margin-left: 50px; font-size: 11px; width: 500px">
 		<strong>Autoeditor priviledges:</strong> If you untick this checkbox, this edit
@@ -87,4 +99,4 @@
 
 % 	}
 
-
+%# vi: set ts=4 sw=4 ft=mason :

@@ -26,11 +26,11 @@
 	# (either provided as the resolution argument or from the given artist object),
 	# it will be displayed in a smaller font on the right side of the artist link.
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
 <%args>
+
 	# preferred way of calling - provide Artist object
 	$artist => undef
 
@@ -46,8 +46,10 @@
 	$icon => 1
 	$strong => 1
 	$title => ""
+
 </%args>
 <%perl>
+
 	if (defined $artist)
 	{
 		$id = $artist->GetId;
@@ -103,4 +105,7 @@
 						$m->interp->apply_escapes($resolution, 'h'));
 		$m->out(qq! </span>!);
 	}
+
 </%perl>
+
+%# vi: set ts=4 sw=4 ft=mason :

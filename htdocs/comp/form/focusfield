@@ -25,7 +25,6 @@
 	# this mechanism is used to tell the javascript framework which field should
 	# receive the keyboard focus, if the user enabled this functionality.
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
@@ -41,4 +40,4 @@
 
 </%perl>
 
-
+%# vi: set ts=4 sw=4 ft=mason :

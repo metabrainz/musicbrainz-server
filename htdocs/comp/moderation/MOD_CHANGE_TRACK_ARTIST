@@ -24,7 +24,6 @@
 	# This component provides the display facilities for
 	# the MOD_CHANGE_TRACK_ARTIST edit type.
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
@@ -79,3 +78,5 @@
 	</table>
 
 </%method>
+
+%# vi: set ts=4 sw=4 ft=mason :

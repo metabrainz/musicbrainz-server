@@ -1,4 +1,3 @@
-%# vi: set ts=2 sw=2 ft=mason :
 <%perl>
 	my ($formurl) = @_;
 </%perl>
@@ -8,3 +7,5 @@
 		<input type="submit" class="button" value="&laquo; Back to track listing">
 	</form>
 </div>
+
+%# vi: set ts=4 sw=4 ft=mason :

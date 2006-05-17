@@ -78,3 +78,5 @@
 	$m->out(qq!</strong>!) if ($strong);
 
 </%perl>
+
+%# vi: set ts=4 sw=4 ft=mason :

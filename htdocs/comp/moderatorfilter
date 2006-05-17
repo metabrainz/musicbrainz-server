@@ -23,7 +23,6 @@
  	# -----------------------------------------------------------------------------
  	# This component allows to search for, and pick an editor in a workflow.
  	#
- 	# $URL$
  	# $Id$
  	#
 </%perl>
@@ -109,6 +108,7 @@
 		if (@r)
 		{
 </%perl>
+
 		<tr class="spaced">
 			<td>&nbsp;</td>
 			<td class="formsection">
@@ -121,12 +121,12 @@
 				<label>Found editors:</label></td>
 			<td class="field">
 				<table border="0" cellspacing="0" cellpadding="0" class="artistfilter-listing">
-<%perl>
-				my $checked = ' checked="checked" ';
-				my $i = 0;
-				for my $row (@r)
-				{
-</%perl>
+
+%				my $checked = ' checked="checked" ';
+%				my $i = 0;
+%				for my $row (@r)
+%				{
+
 				<tr class="row<% $i % 2 %>">
 					<td class="radio">
 						<input type="radio" name="selectededitor"
@@ -139,26 +139,27 @@
 					<td class="link">
 						<a href="/user/view.html?uid=<% $row->GetId %>"><% $row->GetName %></a></td>
 				</tr>
-<%perl>
-					$checked = "";
-				}
-				$m->comp("/comp/movefocus", id => "selectededitor0");
-</%perl>
+
+%					$checked = "";
+%				}
+%				$m->comp("/comp/movefocus", id => "selectededitor0");
+
 				</table>
 				<input class="button" name="submitvalue" type="submit" value="Select &raquo;"
 					title="Choose the selected editor"/>
 			</td>
 		</tr>
-<%perl>
-		}
-		else
-		{
-</%perl>
+
+%		}
+%		else
+%		{
+
 		<tr class="spaced top">
 			<td class="label">
 				No Editors found:</td>
 			<td class="formsection">
 				No editor found matching your keyword <strong><% $search %></strong>.
+
 <%perl>
 			if (scalar @editorsremoved == 1)
 			{
@@ -169,11 +170,13 @@
 				$m->out(sprintf qq!(Editors %s were not shown.)!, join(", ", @editorsremoved));
 			}
 </%perl>
+
 			</td>
 		</tr>
-<%perl>
 
- 		}
- 	}
+% 		}
+% 	}
 
 </%perl>
+
+c

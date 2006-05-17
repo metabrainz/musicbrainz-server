@@ -29,7 +29,6 @@
 	# -----------------------------------------------------------------------------
 	# my $release = $m->comp("/comp/loadrelease", $mb, $releaseid || $mbid);
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
@@ -101,3 +100,5 @@
 	exit;
 
 </%perl>
+
+%# vi: set ts=4 sw=4 ft=mason :

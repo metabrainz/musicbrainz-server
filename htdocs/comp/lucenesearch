@@ -1,10 +1,13 @@
 <%args>
+
 	$type => "artist"
 	$limit => 25
 	$query => ""
 	$tport=>$session{'tport'}
+
 </%args>
 <%perl>
+
 	$type = lc $type;
 	$limit = 25 if ($limit < 1 || $limit > 100);
 
@@ -12,6 +15,7 @@
 	  if $tport;
 
 	my $oldsearch = '/search/oldsearch.html?limit=' . $limit . '&table=' . ($type eq 'release' ? 'album' : $type) . '&search=' . uri_escape($query);
+
 </%perl>
 
 <form method="get" action="/search/textsearch.html" class="formstyle" id="TextSearchForm">
@@ -51,3 +55,5 @@
 		</tr>
 	</table>
 </form>
+
+%# vi: set ts=4 sw=4 ft=mason :

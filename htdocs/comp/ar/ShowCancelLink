@@ -23,7 +23,6 @@
 	# -----------------------------------------------------------------------------
 	# Render the cancel link for the given target.
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
@@ -42,3 +41,5 @@
 	$m->out(qq!<a href="$page?$idarg=$targetid&amp;arcancel=1">Cancel</a>!);
 
 </%perl>
+
+%# vi: set ts=4 sw=4 ft=mason :

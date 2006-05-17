@@ -1,11 +1,13 @@
-%# vi: set ts=4 sw=4 ft=mason :
 <%args>
+
 	$artist => ""
 	$release => ""
 	$track => ""
 	$tracknum => ""
 	$duration => ""
+
 </%args>
+
 %	$duration = sprintf("%d:%02d", ($duration / 1000) / 60, ($duration / 1000) % 60) if $duration;
 
 <form method="post" action="/taglookup.html" id="TagLookupForm" enctype="application/x-www-form-urlencoded" class="formstyle">
@@ -45,3 +47,5 @@
 		</tr>
 	</table>
 </form>
+
+%# vi: set ts=4 sw=4 ft=mason :
