@@ -65,7 +65,7 @@
 
 	# use given title, or use sortname
 	$title ||= "$sortname";
-	$id = -1 if ($id == &ModDefs::DARTIST_ID);
+	$id = -1 if (not $id || $id == &ModDefs::DARTIST_ID);
 
 	# enclose the value in title in proper attribute tag,
 	# if it was set.
