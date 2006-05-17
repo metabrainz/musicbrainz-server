@@ -46,9 +46,15 @@
 			show_inline_mods_random
 			subscriptions_public
 			auto_subscribe
+			css_noentityicons
+			css_nosmallfonts
 		)) {
 			$ARGS{$_} = 0 if not defined $ARGS{$_};
 		}
+
+		# added: 2006-5-17: css_noentityicons, css_nosmallfonts
+		# --- option to include css which turn off default
+		#     rendering.
 
 		for my $key (UserPreference::valid_keys())
 		{
@@ -387,45 +393,66 @@
 
 			<& /comp/tableend &>
 
-			<& /comp/tablebegin, title => "HTML Features" &>
+			<& /comp/tablebegin, title => "Display options" &>
 
 				<b>Sidebar panels:</b>
 
 				<ul style="list-style: none">
 					<li>
-						<label for="pref_sidebar_panel_sites"><input type="checkbox" name="sidebar_panel_sites" id="pref_sidebar_panel_sites"
+						<label for="pref_sidebar_panel_sites"><input type="checkbox" name="sidebar_panel_sites"
+							id="pref_sidebar_panel_sites"
 %							$m->out(UserPreference::get('sidebar_panel_sites') ? ' checked="checked" ' : "");
 							/> MusicBrainz Sites</label>
 					</li>
 					<li>
-						<label for="pref_sidebar_panel_user"><input type="checkbox" name="sidebar_panel_user" id="pref_sidebar_panel_user"
+						<label for="pref_sidebar_panel_user"><input type="checkbox" name="sidebar_panel_user"
+							id="pref_sidebar_panel_user"
 %							$m->out(UserPreference::get('sidebar_panel_user') ? ' checked="checked" ' : "");
 							/> Your Account</label>
 					</li>
 					<li>
-						<label for="pref_sidebar_panel_search"><input type="checkbox" name="sidebar_panel_search" id="pref_sidebar_panel_search"
+						<label for="pref_sidebar_panel_search"><input type="checkbox" name="sidebar_panel_search"
+							id="pref_sidebar_panel_search"
 %							$m->out(UserPreference::get('sidebar_panel_search') ? ' checked="checked" ' : "");
 							/> Quick Search</label>
 					</li>
 					<li>
-						<label for="pref_sidebar_panel_topmods"><input type="checkbox" name="sidebar_panel_topmods" id="pref_sidebar_panel_topmods"
+						<label for="pref_sidebar_panel_topmods"><input type="checkbox" name="sidebar_panel_topmods"
+							id="pref_sidebar_panel_topmods"
 %							$m->out(UserPreference::get('sidebar_panel_topmods') ? ' checked="checked" ' : "");
 							/> Top Moderators</label>
 					</li>
 					<li>
-						<label for="pref_sidebar_panel_stats"><input type="checkbox" name="sidebar_panel_stats" id="pref_sidebar_panel_stats"
+						<label for="pref_sidebar_panel_stats"><input type="checkbox" name="sidebar_panel_stats"
+							id="pref_sidebar_panel_stats"
 %							$m->out(UserPreference::get('sidebar_panel_stats') ? ' checked="checked" ' : "");
 							/> Server Stats</label>
 					</li>
 				</ul>
 
-				<p>
-					<label for="pref_nosidebar"><input type="checkbox" name="nosidebar" id="pref_nosidebar"
+					<label for="pref_nosidebar"><input type="checkbox" name="nosidebar"
+						id="pref_nosidebar"
 %						$m->out(UserPreference::get('nosidebar') ? ' checked="checked" ' : "");
 						/>
-					Don't show the sidebar at all (even faster, but it makes it
-					rather hard to navigate the site)</label>
-				</p>
+						Do not show the sidebar at all (even faster, but it makes it
+						rather hard to navigate the site)</label><br />
+
+					<label for="pref_css_noentityicons"><input type="checkbox" name="css_noentityicons"
+						id="pref_css_noentityicons"
+%						$m->out(UserPreference::get('css_noentityicons') ? ' checked="checked" ' : "");
+						/>
+						Do not show icons for links to artists <img src="/images/entity/artist_small.gif" alt="" />,
+						releases <img src="/images/entity/release_small.gif" alt="" /> and tracks
+						<img src="/images/entity/track_small.gif" alt="" />.</label><br />
+
+					<label for="pref_css_nosmallfonts"><input type="checkbox" name="css_nosmallfonts"
+						id="pref_css_nosmallfonts"
+%						$m->out(UserPreference::get('css_nosmallfonts') ? ' checked="checked" ' : "");
+						/>
+						Do not use fonts smaller than 12px.</label><br />
+
+
+
 
 			<& /comp/tableend &>
 

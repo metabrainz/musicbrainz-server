@@ -240,6 +240,8 @@ our %prefs = ();
 
 # Alphabetical order please
 addpref('autofix_open', "remember", sub { check_in([qw( remember 1 0 )], @_) });
+addpref('css_noentityicons', 0, \&check_bool);
+addpref('css_nosmallfonts', 0, \&check_bool);
 addpref('datetimeformat', $allowed_datetime_formats[0], \&check_datetimeformat);
 addpref('default_country', 0, sub { check_int(0,undef,@_) });
 addpref('google_domain', "www.google.com", \&check_google_domain);
