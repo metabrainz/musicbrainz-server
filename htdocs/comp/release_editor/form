@@ -705,7 +705,7 @@
 %	if ($checkfields{"badsequence"})
 %	{
 
-				<tr style="display: none">
+				<tr>
 					<td colspan="3">&nbsp;</td>
 					<td colspan="3">
 						<& /comp/form/feedbackbox,

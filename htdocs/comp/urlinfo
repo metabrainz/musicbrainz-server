@@ -1,43 +1,42 @@
 <%args>
-$url
+
+	$url
+
 </%args>
 
-<& /comp/framedboxbegin, width=>"100%" &>
-<table>
-	<tr>
-    <td valign="top" align="right">URL:</td>
-    <td valign="top"><a href="<% $url->GetName %>"><% $url->GetName %></a></td>
-	</tr>
-	<tr>
-		<td align="right">Description:</td>
-		<td><% $url->GetDesc %></a></td>
-	</tr>
-	<tr>
-		<td align="right">URL MB Id:</td>
-    <td><% $url->GetMBId %></td>
-	</tr>
-% if ($session{uid}) {
-	<tr>
-    <td valign="top" align="right">URL RowId:</td>
-    <td valign="top"><% $url->GetId %></td>
-	</tr>
-% }
-% my $meta = "/showurl.html?urlid=" . $url->GetId;
-	<tr>
-		<td align="right">MB Info:</td>
-		<td><a href="<% $meta %>">http://<% &DBDefs::WEB_SERVER %><% $meta %></a></td>
-	</tr>
-	<tr>
-		<td></td>
-		<td>
-			<div style="font-weight: bold; margin-top: 1em; margin-bottom: 1em">
-	<a href="<% $url->GetName %>">Click here to go to <% $url->GetName %></a>
-	</div>
-		</td>
-	</tr>
-</p>
+	<& /comp/tablebegin, title => "URL Information" &>
 
-</table>
-<& /comp/framedboxend &>
+		<table class="formstyle">
+			<tr>
+				<td class="label">
+					URL:</td>
+				<td>
+					<& /comp/linkurl, url => $url &></td>
+			</tr>
+			<tr>
+				<td class="label">
+					Description:</td>
+				<td>
+					<% $url->GetDesc %></a></td>
+			</tr>
+			<tr>
+				<td class="label">
+					<& /comp/linkdoc, "MusicBrainzIdentifier", "MBID" &>:</td>
+				<td>
+					<% $url->GetMBId %></td>
+			</tr>
+
+% 		if ($session{uid}) {
+			<tr>
+				<td class="label">
+					<& /comp/linkdoc, "UrlID" &>:</td>
+				<td>
+					<% $url->GetId %></td>
+			</tr>
+% 		}
+
+		</table>
+
+	<& /comp/tableend &>
 
 %# vi: set ts=4 sw=4 ft=mason :

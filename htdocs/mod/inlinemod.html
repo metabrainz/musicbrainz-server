@@ -1,9 +1,40 @@
-%# vi: set ts=4 sw=4 ft=mason :
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# Renders the content of the inline voting iframe.
+	#
+	# $Id$
+	#
+</%perl>
 <%args>
-$artistid
+
+	$artistid
+
 </%args>
+
 <%def .GetRelatedModeration>
 <%perl>
+
     my ($modobj, $artistid, $uid) = @_;
 	my $result;
 
@@ -30,7 +61,7 @@ $artistid
         vote_cast       => [ &ModDefs::VOTE_NOTVOTED ],
         mod_status      => [ &ModDefs::STATUS_OPEN ],
         orderby         => "desc"
-	) and return ($result, "Please vote on this moderation by the same artist:")
+	) and return ($result, "Please vote on this edit by the same artist:")
 		unless $artistid == &ModDefs::VARTIST_ID;
 
     # Now look for moderations from subscribed artists
@@ -41,7 +72,7 @@ $artistid
         moderator_type  => 5,
         artist_type     => 4, # subbed artists
         orderby         => "asc"
-	) and return ($result, "Please vote on this moderation by one of your subscribed artists:");
+	) and return ($result, "Please vote on this edit by one of your subscribed artists:");
 
     # Now look for moderations from related artists
 	$result = &$try_search(
@@ -52,93 +83,93 @@ $artistid
         vote_cast       => [ &ModDefs::VOTE_NOTVOTED ],
         mod_status      => [ &ModDefs::STATUS_OPEN ],
         orderby         => "desc"
-	) and return ($result, "Please vote on this moderation by a related artist:");
+	) and return ($result, "Please vote on this edit by a related artist:");
 
     # Return now if the user hasn't selected to show random inline mods
     return if !$session{PREF_show_inline_mods_random};
 
-    # Now look for any open moderation 	 
-	$result = &$try_search( 	 
-			moderator_type  => 5, 	 
-			voter_id        => $uid, 	 
-			vote_cast       => [ &ModDefs::VOTE_NOTVOTED ], 	 
-			mod_status      => [ &ModDefs::STATUS_OPEN ], 	 
-			orderby         => "desc" 	 
-    ) and return ($result, "Please vote on this random moderation:");
+    # Now look for any open moderation
+	$result = &$try_search(
+			moderator_type  => 5,
+			voter_id        => $uid,
+			vote_cast       => [ &ModDefs::VOTE_NOTVOTED ],
+			mod_status      => [ &ModDefs::STATUS_OPEN ],
+			orderby         => "desc"
+    ) and return ($result, "Please vote on this random edit:");
 
 	return;
+
 </%perl>
 </%def>
 <%perl>
 
-my $mb = $m->comp("/comp/dblogin");
-my $mod = Moderation->new($mb->{DBH});
+	# instantiate musicbrainz object.
+	my $mb = $m->comp("/comp/dblogin");
+	my $mod = Moderation->new($mb->{DBH});
 
-my ($relmod, $pleasevote) = $m->comp(".GetRelatedModeration", $mod, $artistid, $session{uid});
+	my ($relmod, $pleasevote) = $m->comp(".GetRelatedModeration", $mod, $artistid, $session{uid});
 
-$m->comp(
-	"/comp/header_inline",
-	title => 'Inline Moderation',
-	head => '<base target="_parent">',
-); 
-
-if ($relmod eq "timeout")
-{
-    </%perl>
-	<p>(Related moderation search timed out - sorry)</p>
-    <%perl>
-
-    $m->comp("/comp/footer_inline"); 
-    return;
-}
-
-if (not $relmod)
-{
-    </%perl>
-	<p>No open moderations found.</p>
-    <%perl>
-
-    $m->comp("/comp/footer_inline"); 
-    return;
-}
-
-my @notes = do {
-	my $notes = MusicBrainz::Server::ModerationNote->new($mb->{DBH});
-	$notes->newFromModerationIds($relmod->GetId);
-};
+	my $noentityicons = UserPreference::get("css_noentityicons");
+	my $nosmallfonts = UserPreference::get("css_nosmallfonts");
 
 </%perl>
 
-<p style="margin-top: 0"><% $pleasevote %></p>
+	<& /comp/header_inline,
+		title => 'Inline Moderation',
+		head => '<base target="_parent">',
+		nosmallfonts => $nosmallfonts,
+		noentityicons => $noentityicons &>
 
-<form method="POST" action="/bare/vote.html"
-      enctype="application/x-www-form-urlencoded" 
-      class="formstyle" target="_self">
+	<div style="margin: 5px 0px; padding: 5px; border: 1px dotted #000">
 
-<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0"
-       BGCOLOR="#000000" WIDTH="100%">
-<TR><TD width="100%">
-<TABLE WIDTH="100%" BORDER="0" CELLSPACING="1" CELLPADDING="3">
+%	if ($relmod eq "timeout")
+%	{
+		Related edits search timed out - sorry...
+%	}
+%	elsif (not $relmod)
+%	{
+		No open edits found.
+%		if (!$session{PREF_show_inline_mods_random})
+%		{
 
-<%perl>
-my $show_button = 1;
-$m->comp(
-	"/comp/showmod",
-	mod		=> $relmod,
-	notes	=> \@notes,
-	voter	=> $session{uid},
-	voteflag=> \$show_button,
-    inline  => 1,
-);
-</%perl>
+		You have chosen not to display random inline edits here. You can
+		change this setting in your <a href="/prefs.html">user preferences</a>.
 
-</table>
-</td></tr>
-</table>
+%		}
+%	}
+%	else
+%	{
+		<% $pleasevote %>
+%	}
 
-<INPUT TYPE="hidden" NAME="url" 
-       VALUE="<% $r->uri() . "?" . $r->args() %>">
+	</div>
 
-</form>
+%	if ($relmod)
+%	{
+%		my @notes = do {
+%			my $notes = MusicBrainz::Server::ModerationNote->new($mb->{DBH});
+%			$notes->newFromModerationIds($relmod->GetId);
+%		};
+
+	<form method="post" action="/bare/vote.html" target="_self">
+
+		<table class="editlist">
+
+%		my $show_button = 1;
+		<& /comp/showmod,
+			mod => $relmod,
+			notes => \@notes,
+			voter => $session{uid},
+			voteflag => \$show_button,
+			inline => 1 &>
+
+		</table>
+		<script type="text/javascript" src="/scripts/jsdiff.js"></script>
+		<input type="hidden" name="url" value="<% $r->uri() . "?" . $r->args() %>" />
+	</form>
+
+%	}
 
 <& /comp/footer_inline &>
+
+%# vi: set ts=4 sw=4 ft=mason :

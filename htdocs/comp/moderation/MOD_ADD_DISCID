@@ -37,10 +37,6 @@
 
 	<table class="editfields">
 		<tr>
-			<td class="lbl">Release:</td>
-			<td><& /comp/linkrelease, id => $new->{"AlbumId"}, name => $new->{"AlbumName"} &></td>
-		</tr>
-		<tr>
 			<td class="lbl">TOC:</td>
 			<td><a href="/show/cdtoc/?cdtocid=<% $new->{'CDTOCId'} %>"><% $new->{'FullTOC'} %></a></td>
 		</tr>

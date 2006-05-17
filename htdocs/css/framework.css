@@ -359,8 +359,8 @@ table.pageselector td.list span {
 	display: block; 
 	margin: 0px 2px; 
 	border: 1px solid #333;
-	padding: 0px 2px; 
-	font-size: 9px;
+	padding: 0px 3px; 
+	font-size: 11px;
 	color: #333;
 } 
 table.pageselector td.list a,

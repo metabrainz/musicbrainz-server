@@ -1,4 +1,4 @@
-<%perl>
+6<%perl>
 	# -----------------------------------------------------------------------------
 	#                               Musicbrainz.org
 	#                        Copyright (c) 2001 Robert Kaye
@@ -455,8 +455,7 @@
 					my $new_delete = $ARGS{"trackdel$t"};
 
 					my $new_artistid = $ARGS{getField($t, "artistid")};
-					my $new_artist = &$GetCachedArtist($new_artistid),
-
+					my $new_artist = &$GetCachedArtist($new_artistid);
 
 					# check if track was removed
 					if ($new_delete)
@@ -606,10 +605,9 @@
 				{
 </%perl>
 				<tr class="nochanges"><td colspan="3">You have not made any track changes</td></tr>
-<%perl>
-				}
-			}
-</%perl>
+
+%				}
+%			}
 
 				<tr class="spacer"><td colspan="3">&nbsp;</td></tr>
 			</table>

@@ -54,7 +54,6 @@
 
 	# If timed out, make an empty list
 	$mods ||= [];
-
 	$m->comp("/comp/redirect", "/mod/search/index.html")
 		if ($result == &Moderation::SEARCHRESULT_NOQUERY);
 

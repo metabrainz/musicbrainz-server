@@ -66,8 +66,8 @@
 %		$mp_url = sprintf($mp_url, $id);
 
 %		$m->out(qq!<span class="mp">!) if ($mp);
-		<img src="/images/edit.gif" alt="" /><a href="<% $mp_url %><% $open_status %>" title="<% $open_title %>">open</a>
-		<img src="/images/edit.gif" alt="" /><a href="<% $mp_url %>" title="<% $all_title %>">all</a>
+		<img src="/images/edit.gif" alt="" /><a href="<% $mp_url.$open_status |n %>" title="<% $open_title %>">open</a>
+		<img src="/images/edit.gif" alt="" /><a href="<% $mp_url |n %>" title="<% $all_title %>">all</a>
 %		$m->out('</span>') if ($mp);
 
 %	}

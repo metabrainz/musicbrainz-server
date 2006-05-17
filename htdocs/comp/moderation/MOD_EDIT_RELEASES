@@ -63,7 +63,7 @@
 	<u>Remove</u>
 
 %		for my $t (@{ $self->{"removes"} })
-		{
+%		{
 
 		<br /><& /comp/releasedate, $t->{"d"} &> : <& .ShowCountryName, $t->{"c"} &>
 
@@ -84,6 +84,7 @@
 %		{
 
 		<br /><& /comp/releasedate, $t->{"nd"} &> : <& .ShowCountryName, $t->{"nc"} &>
+
 %		}
 %	}
 
