@@ -1,215 +1,338 @@
-%# vi: set ts=4 sw=4 ft=mason :
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# Add Release workflow.
+	#
+	# $Id$
+	#
+</%perl>
 <%args>
-$tracks
-$id
-$toc
-$artist=>0
-$freedb=>0
-$noncd=>0
+
+	# artistid and tracks is required
+	$artistid
+	$tracks
+	$hasmultipletrackartists
+
+	# cd-toc attach /bare/cdlookup.html
+	$discid => ""
+	$toc => ""
+	$search => ""
+	$noncd => 0
+
+	# freedb lookup?
+	$freedb => 0
+
+	# copied from /freedb/final.html
+	$freedbid => ""
+	$freedbcat => ""
+	$durations => ""
+
 </%args>
 <%perl>
 
-unless (MusicBrainz::IsNonNegInteger($tracks) and $tracks > 0)
-{
-	$m->comp("/comp/redirect", '/edit/album/add.html?artistid=' . $artist . '&error=1');
-	return;
-}
+	# check if we have a valid number of tracks, else
+	# redirect to the add release page.
+	unless (MusicBrainz::IsNonNegInteger($tracks) and $tracks >= 1 and $tracks <= 99)
+	{
+		$m->comp("/comp/redirect", '/edit/album/add.html?artistid=' . $artistid . '&error=1');
+		return;
+	}
 
-my ($mb);
-my ($i, $artistname, $modpending, $ar);
-my ($dbh, $sth, $rv);
+	# instantiate MusicBrainz object.
+	my $mb = $m->comp("/comp/dblogin");
+	$ARGS{"mb"} = $mb;
+	my $i;
 
-$m->comp("/comp/sidebar", title=>'Enter Release Information');
+	# SETUP FORM STATE
+	# ---------------------------------------------------------------
+	# initialise the submit buttons, and un-muddle the "submitvalue"
+	# argument if there are more than one.
+	%ARGS = $m->comp("/comp/release_editor/init-formstate", %ARGS);
+	$ARGS{"v::action"} = "/cdi/enter.html";
+	$ARGS{"v::edit_track_data"} = !($toc ne "" or $discid ne "");
+	$ARGS{"v::isva"} = ($ARGS{"artistid"} == &ModDefs::VARTIST_ID ? 1 : 0);
 
-if ($artist > 0)
-{
-   $mb = $m->comp("/comp/dblogin");
-   $ar = Artist->new($mb->{DBH});
-   $ar->SetId($artist);
-   $ar->LoadFromId();
-   $artistname = $ar->GetName();
-   if (!defined $artistname)
-   {
-       $artistname = 'Tabasco bondage action';
-   }
-   $mb->Logout;
-}
+	# Handle CANCEL button
+	# ---------------------------------------------------------------
+	# the user has pressed "Cancel". if we have an releaseid, redirect
+	# to the release page, else to the homepage.
+	if ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_CANCEL"})
+	{
+		return $m->comp("/comp/redirect", "/index.html");
+	}
 
-$m->comp("/comp/stylemenu");
+	# Handle START OVER button
+	# ---------------------------------------------------------------
+	# the user has pressed "Cancel". if we have an releaseid, redirect
+	# to the release page, else to the homepage.
+	if ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_STARTOVER"})
+	{
+		my $url = ($freedbid ne "" and $freedbcat ne ""
+			? "/freedb/import.html?catid=$freedbcat%20/%20$freedbid"
+			: "/cdi/enter.html?artistid=$artistid&tracks=$tracks&noncd=$noncd&hasmultipletrackartists=$hasmultipletrackartists");
+		return $m->comp("/comp/redirect", $url);
+	}
 
-my $lookup;
-if ($freedb)
-{
-   my $fdb = FreeDB->new($mb->{DBH});
-   $lookup = $fdb->Lookup($id, $toc);
-   if (!$lookup)
-   {
-       $lookup = undef;
-   }
-}
+	# LOAD ORIGINAL VALUES
+	# ---------------------------------------------------------------
+	# load all values from the database and store them into the
+	# ARGS hash.
+	%ARGS = $m->comp("/comp/release_editor/init-addrelease", %ARGS);
+	$m->comp("/comp/error", $ARGS{"init-addrelease-error"}, 1,1)
+		if ($ARGS{"init-addrelease-error"});
 
+	# setup field checks.
+	$ARGS{"v::checkedmacsac"} = 1;
+	$ARGS{"v::checkedartists"} = !$ARGS{"hasmultipletrackartists"};
+
+	my $title = "Add Release".($ARGS{"hasmultipletrackartists"} ? " (Various Artists)" : "");
+	$m->comp("/comp/sidebar-notitle", pagetitle => $title);
+
+	# check if we got a form submit to handle.
+	if ($ARGS{"v::formsubmitted"})
+	{
+
+		MusicBrainz::IsNonNegInteger($ARGS{"hasmultipletrackartists"})
+			or die("missing or wrong parameter: \$hasmultipletrackartists=$ARGS{'hasmultipletrackartists'}\n");
+		MusicBrainz::IsNonNegInteger($ARGS{"tracks"})
+			or die("missing or wrong parameter: \$tracks=$ARGS{'tracks'}\n");
+
+		# we always need to check the releases, because else we don't know how
+		# many releases we need to display
+		%ARGS = $m->comp("/comp/release_editor/check-releases", %ARGS);
+
+		# check if the user clicked on Enable/Disable track artists button
+		%ARGS = $m->comp("/comp/release_editor/convert-toggle-trackartists", %ARGS);
+
+		# MOVE RELEASE?
+		# ---------------------------------------------------------------
+		# if the user has checked the release artist checkbox, present
+		# the interface for the "move release" operation.
+		if ($ARGS{"v::showform"}
+			and $ARGS{"v::validate"}
+			and $ARGS{"artist_edit"})
+		{
+			%ARGS = $m->comp("/comp/release_editor/convert-moverelease", %ARGS);
+		}
+
+		# CONVERT TO VARIOUS ARTISTS?
+		# ---------------------------------------------------------------
+		if ($ARGS{"v::showform"}
+			and $ARGS{"v::validate"}
+			and $ARGS{"submitvalue"} eq $ARGS{"SUBMIT_TOMAC"})
+		{
+			%ARGS = $m->comp("/comp/release_editor/convert-tomac", %ARGS);
+		}
+
+		# CONVERT TO SINGLE ARTIST?
+		# ---------------------------------------------------------------
+		if ($ARGS{"v::showform"}
+			and $ARGS{"v::validate"})
+		{
+			if (($ARGS{"artistid"} == 0 and defined $ARGS{"sacartist"}) or
+				($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_TOSAC"}) or
+				($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_SACSEARCH"}))
+			{
+				my $prev = $ARGS{"artistid"};
+				%ARGS = $m->comp("/comp/release_editor/convert-tosac", %ARGS);
+				if ($ARGS{"artistid"} != $prev)
+				{
+					$ARGS{"v::isva"} = ($ARGS{"artistid"} == &ModDefs::VARTIST_ID ? 1 : 0);
+					my $title = "Add Release".($ARGS{"v::isva"} ? " (Various Artists)" : "");
+					$m->comp("/comp/sidebar-notitle", pagetitle => $title);
+				}
+			}
+		}
+
+		# if the above operations did not unset the validation
+		# flag, do the validation.
+		if ($ARGS{"v::validate"})
+		{
+			# CHECK OMITTED FIELDS
+			# --------------------------------------------------------------
+			%ARGS = $m->comp("/comp/release_editor/check-fields", %ARGS);
+
+			# CHECK RELEASE LANGUAGE
+			# --------------------------------------------------------------
+			%ARGS = $m->comp("/comp/release_editor/check-language-and-script", %ARGS);
+
+			# CHECK RELEASE ATTRIBUTES
+			# --------------------------------------------------------------
+			%ARGS = $m->comp("/comp/release_editor/check-attributes", %ARGS);
+
+			# CHECK TRACK ARTISTS
+			# --------------------------------------------------------------
+			if (not keys %{$ARGS{"v::fields"}} and
+				$ARGS{"hasmultipletrackartists"} and
+				(($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_NEXT"}) or
+				 ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_ARTISTSEARCH"}) or
+				 ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_ARTISTSELECT"})))
+			{
+				%ARGS = $m->comp("/comp/release_editor/check-artists", %ARGS);
+			}
+
+			# SIMILAR RELEASES CHECK
+			# ---------------------------------------------------------------
+			# check if we have an release with the same number
+			# of tracks and a similar title in the database
+			$ARGS{"v::checkedsimilar"} = 1;
+			%ARGS = $m->comp("/comp/release_editor/check-similar-releases", %ARGS)
+				if (!defined $ARGS{"force_similar"});
+
+
+			# CHECK CHARACTERS IN FIELDS WHICH MIGHT MAC/SAC
+			# ---------------------------------------------------------------
+			# checks if the user tries to enter a multiple artists as
+			# a single artist release, and vice-versa.
+			# this check is ignored if the force_macsac flag has been set.
+			%ARGS = $m->comp("/comp/release_editor/check-macsac", %ARGS);
+
+			# show page depending on editor state.
+			# -- v::fields == 0 => all field not empty
+			# -- v::attributes == 0 => all attributes not empty
+			# -- v::releases == 1 => no invalid date/country found.
+			if (keys %{$ARGS{"v::fields"}} == 0 and
+				keys %{$ARGS{"v::attributes"}} == 0 and
+				keys %{$ARGS{"v::language"}} == 0 and
+				keys %{$ARGS{"v::releases"}} == 1)
+			{
+
+				if ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_NEXT"} and
+					$ARGS{"v::checkedmacsac"} &&
+					$ARGS{"v::checkedsimilar"} &&
+					$ARGS{"v::checkedartists"})
+				{
+					$m->comp("/comp/release_editor/review", %ARGS);
+					$ARGS{"v::showform"} = 0;
+				}
+
+				if ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_ENTERMODERATIONS"})
+				{
+					$m->comp("/comp/release_editor/entermoderations-add", %ARGS);
+					$ARGS{"v::showform"} = 0;
+				}
+			}
+		}
+	}
+
+	# if the validation process determined that the user
+	# has not filled all the fields yet.
+	if ($ARGS{"v::showform"})
+	{
+		if ($artistid > 0)
+		{
+		   my $ar = Artist->new($mb->{DBH});
+		   $ar->SetId($artistid);
+		   $ar->LoadFromId();
+		   $ARGS{"artistname"} = $ar->GetName();
+		   if (!defined $ARGS{"artistname"})
+		   {
+			   $ARGS{"artistname"} = 'Tabasco bondage action';
+		   }
+		   $mb->Logout;
+		}
+
+		$m->comp("/comp/stylemenu");
+
+		my $lookup;
+		if ($freedb)
+		{
+		   my $fdb = FreeDB->new($mb->{DBH});
+		   $lookup = $fdb->Lookup($discid, $toc);
+		   if (!$lookup)
+		   {
+			   $lookup = undef;
+		   }
+		}
+
+		# freedb import help-box.
+		if (!$noncd)
+		{
+			$m->comp("/comp/form/begin", title => "FreeDB.org Import");
+
+			# if lookup was successful, show help text.
+			if (defined $lookup)
+			{
+				$m->comp("/comp/form/feedbackbox", "info",
+					"Found release listing on FreeDB",
+					"Found CD <b>".$lookup->{album}."</b>
+					by <b>".$lookup->{artist}."</b> at
+					<a href=\"http://www.freedb.org\">FreeDB.org</a>.
+					Please check the information below for accuracy and correct any
+					mistakes you may find:");
+			}
+			else
+			{
+				# lookup was done, but no release was found.
+				if ($freedb)
+				{
+					$m->comp("/comp/form/feedbackbox", "info",
+						"", "This CD was not found at FreeDB");
+				}
+
+				# show lookup form.
+				else
+				{
+	</%perl>
+					<form method="POST" action="/cdi/enter.html"
+							enctype="application/x-www-form-urlencoded" class="formstyle">
+
+					<label class="label hidden"></label>
+					<div class="float textfield">
+						Please enter the CD information below, or
+						click on FreeDB lookup to attempt to load the data for
+						this CD from FreeDB:
+					</div>
+					<br/>
+
+					<label class="label hidden"></label>
+						<& /comp/form/buttonsubmit, value => $ARGS{"SUBMIT_FREEDB"} &>
+						<input type="hidden" name="discid" value="<% $discid %>">
+						<input type="hidden" name="toc" value="<% $toc %>">
+						<input type="hidden" name="tracks" value="<% $tracks %>">
+						<input type="hidden" name="freedb" value="1">
+%				if ($artistid > 0) {
+						<input type="hidden" name="artistid" value="<% $artistid %>">
+%				}
+						<label class="label hidden"></label>
+					</form>
+				<%perl>
+				}
+			}
+			$m->comp("/comp/form/end");
+			$m->out("<br/>");
+		}
+
+		$m->comp("/comp/release_editor/form",
+			%ARGS,
+			lookup => $lookup,
+		);
+	}
+
+	$m->comp("/comp/release_editor/dump-arguments", %ARGS);
+
+	# end page.
+	$m->comp("/comp/footer");
 </%perl>
 
-% if (defined $lookup) {
-     Found CD <font class="bold"><% $lookup->{album} %></font>
-     by <font class="bold"><% $lookup->{artist} %></font> at
-     <a href="http://www.freedb.org">FreeDB.org</a>.<p>
-     Please check the information below for accuracy and correct any
-     mistakes you may find:<p>
-
-% } else {
-%    if ($freedb) {
-         This CD was not found at FreeDB.<p>
-%    } else {
-%        if ($noncd) {
-            Please enter the album information below:
-%        } else {
-            Please enter the CD information below, or
-            click on FreeDB lookup to attempt to load the data for
-            this CD from FreeDB:<p>
-%        }
-%        if (!$freedb && !$noncd) {
-           <form method="POST" action="/cdi/enter.html"
-                 enctype="application/x-www-form-urlencoded" class="formstyle">
-           <input type="hidden" name="id" value="<% $id %>">
-           <input type="hidden" name="toc" value="<% $toc %>">
-           <input type="hidden" name="tracks" value="<% $tracks %>">
-           <input type="hidden" name="freedb" value="1">
-%        if ($artist > 0) {
-           <input type="hidden" name="artist" value="<% $artist %>">
-%        }
-           <input type="submit" value="FreeDB Lookup">
-           </form>
-%        }
-
-%    }
-% }
-
-<br/>&nbsp;
-
-<script type="text/javascript" src="/scripts/entervalidate.js"></script>
-<form method="POST" action="/cdi/selectattr.html"
-	enctype="application/x-www-form-urlencoded"
-	onsubmit="return validate(this);">
-
-	<& /comp/autofixmenu &>
-
-	<fieldset>
-		<legend>Enter Release Information</legend>
-		<table>
-			<tr>
-				<td><label for="cdi_enter_artistname">Artist:</label></td>
-				<td>
-% if ($artist <= 0) {
-%    if (!defined $lookup) {
-				<input 	type="text" name="artistname" class="textfield"
-					id="cdi_enter_artistname"
-					size="50" maxlength="255"></td>
-%    } else {
-				<input	type="text" name="artistname" class="textfield"
-					id="cdi_enter_artistname"
-					size="50" maxlength="255"
-					value="<% $lookup->{artist} %>"></td>
-%    }
-			</tr>
-			<tr>
-				<td><label for="cdi_enter_sortname">Sort Name:</label></td>
-				<td>
-%    if (!defined $lookup) {
-				<input 	type="text" name="sortname" class="textfield"
-					id="cdi_enter_sortname"
-					size="50" maxlength="255">
-%    } else {
-%        my ($sortname, $st);
-%        $st = Style->new;
-%        $sortname = $st->MakeDefaultSortname($lookup->{artist});
-				 <input type="text" name="sortname" class="textfield"
-					id="cdi_enter_sortname"
-					size="50" maxlength="255"
-					value="<% $sortname %>"></td>
-%    }
-% } else {
-			<span class="bold"><% $artistname %></span>
-			<input type="hidden" name="artist" value="<% $artist %>">
-% }
-</td></tr>
-
-% if ($noncd) {
-			<tr>
-				<td><label for="cdi_enter_title">Album Title:</label></td>
-				<td>
-% } else {
-			<tr>
-				<td><label for="cdi_enter_title">CD Title:</label></td>
-				<td>
-% }
-% if (!defined $lookup) {
-				<input  type="text" name="albumname" class="textfield"
-					id="cdi_enter_albumname"
-					size="50" maxlength="255"></td>
-% } else {
-				<input  type="text" name="albumname" class="textfield"
-					id="cdi_enter_albumname"
-					size="50" maxlength="255"
-					value="<% $lookup->{album} %>"></td>
-% }
-% if (!$toc) {
-				<td>&nbsp;</td>
-% }
-				<td>
-					<& /comp/form/jsbutton, id=>"BTN_ALBUM::albumname" &>
-					</td>
-			</tr>
-
-% for($i = 0; $i < $tracks; $i++) {
-			<tr>
-				<td><label for="cdi_enter_track<% $i %>">Track <% $i + 1 %>:</label></td>
-				<td>
-%     if (!defined $lookup) {
-					<input type="text" name="track<% $i %>" class="textfield"
-						id="cdi_enter_track<% $i %>"
-						size="50" maxlength="255"></td>
-%     } else {
-%        my $ar = $lookup->{tracks};
-					<input type="text" name="track<% $i %>" class="textfield"
-						id="cdi_enter_track<% $i %>"
-						size="50" maxlength="255"
-						value="<% $$ar[$i]->{track} %>"></td>
-%     }
-%     if (!$toc) {
-				<td>
-					<input type="text" name="tracklength<% $i %>" class="numberfield"
-						size="4" value="?:??"></td>
-%     }
-				<td>
-					<& /comp/form/jsbutton, id=>"BTN_TRACK::::track".$i &>
-					</td>
-			</tr>
-% }
-			<tr>
-% if (!$toc) {
-				<td colspan="3">&nbsp;</td>
-% } else {
-				<td colspan="2">&nbsp;</td>
-% }
-				<td>
-					<& /comp/form/jsbutton, id=>"BTN_ALL" &>
-				</td>
-			</tr>
-			<tr>
-				<td>&nbsp;</td>
-% if (!$toc) {
-				<td colspan="3"><input type="submit" class="button" value="Next &raquo;"></td>
-% } else {
-				<td colspan="2"><input type="submit" class="button" value="Next &raquo;"></td>
-% }
-			</tr>
-		</table>
-		<input type="hidden" name="id" value="<% $id %>">
-		<input type="hidden" name="toc" value="<% $toc %>">
-		<input type="hidden" name="tracks" value="<% $tracks %>">
-		<input type="hidden" name="noncd" value="<% $noncd %>">
-	</fieldset>
-</form>
-
-<& /comp/footer &>
+%# vi: set ts=4 sw=4 ft=mason :
