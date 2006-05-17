@@ -65,16 +65,18 @@ sub mark_up_text_as_html
 	
 	my $html = join "", map {
 	
-		# shorten url's that are longer than freedb url's (~75 chars)
-		# http://www.freedb.org/freedb_search_fmt.php?cat=misc&id=3a055005
-		my $disp = encode_entities((length($_) > 75
-					? substr($_, 0, 72) . "..."
-					: $_));
-	
-		my $enc = encode_entities($_);
+		# shorten url's that are longer 50 characters
+		my $encurl = encode_entities($_);
+		my $shorturl = $encurl;
+		if (length($_) > 50)
+		{
+			$shorturl = substr($_, 0, 48);
+			$shorturl = encode_entities($shorturl);
+			$shorturl .= "&#8230;";
+		}					
 		($is_url = not $is_url)
-			? qq[<a href="$enc" title="$enc">$disp</a>]
-			: $enc;
+			? qq[<a href="$encurl" title="$encurl">$shorturl</a>]
+			: $encurl;
 			
 	} split /
 		(

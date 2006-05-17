@@ -616,14 +616,19 @@ sub GetShortText
 	my $is_url = 1;	
 	$text = join "", map {
 
-		my $disp = encode_entities((length($_) > 50
-					? substr($_, 0, 47) . "..."
-					: $_));
-	
-		my $enc = encode_entities($_);
+		# shorten url's that are longer 50 characters
+		my $encurl = encode_entities($_);
+		my $shorturl = $encurl;
+		if (length($_) > 50)
+		{
+			$shorturl = substr($_, 0, 48);
+			$shorturl = encode_entities($shorturl);
+			$shorturl .= "&#8230;";
+		}					
 		($is_url = not $is_url)
-			? qq[<a href="$enc" title="$enc">$disp</a>]
-			: $enc;
+			? qq[<a href="$encurl" title="$encurl">$shorturl</a>]
+			: $encurl;
+
 	} split /
 		(
 			# Something that looks like the start of a URL
