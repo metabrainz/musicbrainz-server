@@ -627,8 +627,10 @@ sub GetShortText
 		}					
 		($is_url = not $is_url)
 			? qq[<a href="$encurl" title="$encurl">$shorturl</a>]
-			: $encurl;
-
+			: $_; # since we feed the text into the
+				  # Text::WikiFormat class, there's no need
+				  # to encode the text if it is not an url.
+			 
 	} split /
 		(
 			# Something that looks like the start of a URL

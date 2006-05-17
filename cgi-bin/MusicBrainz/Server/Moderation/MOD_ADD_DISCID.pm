@@ -76,6 +76,11 @@ sub PostLoad
 	my $self = shift;
 	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->GetNew)
 		or die;
+
+	# extract trackid, albumid from new_unpacked hash
+	my $new = $self->{'new_unpacked'};
+
+	($self->{"albumid"}, $self->{"checkexists-album"}) = ($new->{'AlbumId'}, 1);
 }
 
 # This implementation is required (instead of the default) because old rows

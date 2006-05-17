@@ -76,7 +76,9 @@ sub mark_up_text_as_html
 		}					
 		($is_url = not $is_url)
 			? qq[<a href="$encurl" title="$encurl">$shorturl</a>]
-			: $encurl;
+			: $_;# since we feed the text into the
+				  # Text::WikiFormat class, there's no need
+				  # to encode the text if it is not an url.
 			
 	} split /
 		(
