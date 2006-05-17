@@ -2,7 +2,7 @@
 <%perl>
 $session{"freedb_offer_charset"} = 0;
 </%perl>
-<& /comp/sidebar, title => 'FreeDB - Select Encoding' &>
+<& /comp/sidebar, title => "FreeDB Import: Select Encoding" &>
 
 <p>
 	No other encodings available - perhaps the data is already

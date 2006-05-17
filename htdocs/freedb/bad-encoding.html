@@ -1,9 +1,20 @@
 %# vi: set ts=4 sw=4 ft=mason :
-<& /comp/sidebar, title => 'FreeDB - Encoding Errors' &>
+<%perl>
+	$m->comp("/comp/sidebar", title => "FreeDB Import: Encoding Errors");
 
-<p>
-	Errors were encountered during the conversion process.&nbsp;
-	<a href="select-macsac.html">Continue</a>.
-</p>
+	$m->comp("/comp/form/begin", title => "Encoding Errors");
+	$m->comp("/comp/form/label", class => " hidden");
+	$m->comp("/comp/form/feedbackbox", "warning", "",
+		"Errors were encountered during the conversion process.");
+	$m->out('<br/>');
 
-<& /comp/footer &>
+	$m->comp("/comp/form/label", class => " hidden");
+	$m->out('<form method="post" action="select-macsac.html">');
+	$m->comp("/comp/form/buttonsubmit", value => "Continue");
+	$m->out('<br/>');
+	$m->out('</form>');
+
+
+	$m->comp("/comp/form/end");
+	$m->comp("/comp/footer");
+</%perl>

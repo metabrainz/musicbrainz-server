@@ -3,29 +3,34 @@
 $catid
 </%args>
 
-<& /comp/sidebar, title => "FreeDB Import - Bad ID" &>
+<& /comp/sidebar, title => "FreeDB Import: Invalid Category/ID" &>
 
-<p>
-	Invalid category and id pasted: <b><% $catid %></b>
-</p>
+	<& /comp/form/begin, title => "Ooops, something went wrong." &>
 
-<p>	
-	Please cut and paste a category (rock, blues, etc.)
-	and a freedb id (e.g. 940d8b0c) separated by <b>/</b>,
-	as shown below:
-</p>
+	<& /comp/form/label, cssclass => " hidden" &>
+	<& /comp/form/feedbackbox,
+		"warning",
+		"Invalid category and id pasted: <b>$catid</b>",
+		"Please cut and paste a category (rock, blues, etc.)
+		and a freedb id (e.g. 940d8b0c) separated by <b>/</b>,
+		as shown below and try again."
+	&>
+	<br/>
 
-<blockquote style="font-weight: bold">
-	rock / 7b0dae0a<br>
-	misc / 970d1b0c
-</blockquote>
-	
-<p>
-	Please
-	<a href="/freedb/freedb.html"
-		onclick="history.go(-1); return false"
-		>go back</a>
-	and try again.
-</p>
+	<& /comp/form/label, cssclass => " hidden" &>
+	<div class="float"><b>
+		rock / 7b0dae0a<br>
+		misc / 970d1b0c
+		</b>
+	</div>
+	<br/>
+	<br/>
+
+	<& /comp/form/label, cssclass => " hidden" &>
+	<form action="/freedb/freedb.html" method="GET">
+		<input type="submit" value="Go Back">
+	</form>
+
+	<& /comp/form/end &>
 
 <& /comp/footer &>

@@ -1,62 +1,285 @@
 %# vi: set ts=4 sw=4 ft=mason :
+<%args>
+
+	$releasename
+	$artistname
+	$tracks
+	$offer_charset => 0
+	$ready => 0
+	$freedbcat
+	$freedbid
+	$durations => ""
+
+</%args>
 <%perl>
 
-$session{"freedb_ready"}
-	or return $m->comp("/comp/redirect", "/freedb/freedb.html");
+	return $m->comp("/comp/redirect", "/freedb/freedb.html")
+		if (not $ready);
+
+	# prepare submit to cdi/enter.html
+	my $mb = $m->comp("/comp/dblogin");
+
+	# we don't need the durations anymore we have tracktimes to edit
+	my $hasdurations = $durations ne "";
+	delete $ARGS{"durations"};
+	my %args = %ARGS;
+
+	my @durations = split / /, $durations
+		if ($hasdurations);
+
+	my ($i, @t);
+	for $i (0 .. $args{"tracks"}-1)
+	{
+		my $track = Track->new($mb->{DBH});
+		$track->SetId(0);
+		$track->SetName($args{"track$i"});
+		$track->SetSequence(($i+1));
+		$track->SetLength($durations[$i])
+			if ($hasdurations);
+		push @t, $track;
+	}
+
+	my $artist = Artist->new($mb->{DBH});
+	$artist->SetId(0);
+	$artist->SetName($artistname);
+
+	my $release = Album->new($mb->{DBH});
+	$release->SetId(0);
+	$release->SetArtist(0);
+	$release->SetName($releasename);
+	$release->{trackcount} = (@t);
 
 </%perl>
-<& /comp/sidebar, title => "FreeDB Import: Select Album Type" &>
+
+<& /comp/sidebar-notitle, pagetitle => "FreeDB Import: Select Artist Type" &>
+
+	<& /comp/tablebegin, title => "Select Artist Type" &>
+
+		<table class="formstyle">
+			<tr>
+				<td class="instructions">
+					<ul>
+						<li>
+							<strong>Single Artist or Various Artists? </strong>
+							Are the tracks of this release credited to a single artist,
+							or more than one? Please note, if the release was DJ-mixed or
+							compiled by a certain artist, but features different artists
+							on the tracks, it still needs to be added as Various Artists
+							release. You can use Artist-Release Relationships to record
+							additional information about the artist who compiled/mixed it.
+						</li>
+					</ul>
+				</td>
+			</tr
+		</table>
+		<table class="formstyle">
+			<tr class="top">
+				<td class="label">Preview:</td>
+				<td>
+					<& /comp/linkartist, id => -1, name => $artistname &>
+				</td>
+			</tr>
+			<tr class="top">
+				<td class="label"></td>
+				<td>
+					<form method="post" action="/cdi/enter.html">
+
+						<table width="600" cellspacing="0" cellpadding="0">
+							<tr>
+								<td>
+								<& /comp/album,
+									mb => $mb,
+									album => $release,
+									artist => $artist,
+									showlinks => 0,
+									showmodlinks => 0,
+									showreleases => 0,
+									tracks => \@t,
+								&>
+								</td>
+							</tr>
+						</table>
+
+						<& /comp/form/buttonsubmit, value => "Import as Single Artist &raquo;" &>
+
+%						for $i (0 .. $tracks-1)
+%						{
+%							$m->comp("/comp/form/hiddenfield",
+%								"tracklength$i",
+%								Track::FormatTrackLength($durations[$i])
+%							) if ($hasdurations);
+%						}
+
+%						# make sure we do not have these flag twice,
+%						# or get rid of the freedb specific things.
+%						delete $args{"hasmultipletrackartists"};
+%						delete $args{"validate"};
+%						delete $args{"noncd"};
+%						delete $args{"artistid"};
+%						delete $args{"sacartist"};
+%						delete $args{"offer_charset"};
+%						delete $args{"ready"};
+
+						<& /comp/form/hiddenfield, "noncd", "1" &>
+						<& /comp/form/hiddenfield, "artistid", "0" &>
+						<& /comp/form/hiddenfield, "sacartist", $artistname &>
+						<& /comp/form/hiddenfield, "hasmultipletrackartists", "0" &>
+						<& /comp/args-to-hidden-fields.inc, %args &>
+					</form>
+					<br />
+					<br />
+					<br />
+				</td>
+			</tr>
+
+<%perl>
+
+ 	# try to split to multiple artists
+	%args = $m->comp("/comp/release_editor/convert-tomac", %ARGS);
+
+	# prepare submit to cdi/enter.html
+	@t = ();
+	for $i (0 .. $tracks-1)
+	{
+		my $track = Track->new($mb->{DBH});
+		$track->SetId(0);
+		$track->SetName($args{"track$i"});
+		$track->SetArtist(0);
+		$track->SetArtistName($args{sprintf "tr%d_artistname", $i});
+		$track->SetSequence(($i+1));
+		$track->SetLength($durations[$i]) if ($hasdurations);
+		push @t, $track;
+	}
+
+	$artist = Artist->new($mb->{DBH});
+	$artist->SetId(1);
+	$artist->SetName("Various Artists");
+
+	$release = Album->new($mb->{DBH});
+	$release->SetId(0);
+	$release->SetArtist(&ModDefs::VARTIST_ID);
+	$release->SetName($releasename);
+	$release->HasMultipleTrackArtists(1);
+	$release->{trackcount} = (@t);
+
+	my $btnimport = "Import as VA &raquo;";
+	if ($args{"tomac-failed"})
+	{
+		$btnimport = "Import as VA anyway &raquo;";
+	}
+
+</%perl>
+
+			<tr class="top">
+				<td class="label">Preview:</td>
+				<td>
+					<& /comp/linkartist, id => &ModDefs::VARTIST_ID, name => "Various Artists" &>
+				</td>
+			</tr>
+			<tr class="top">
+				<td class="label"></td>
+				<td>
+
+					<form method="post" action="/cdi/enter.html">
+
+						<table width="600" cellspacing="0" cellpadding="0">
+							<tr>
+								<td>
+								<& /comp/album,
+									mb => $mb,
+									album => $release,
+									artist => $artist,
+									showlinks => 0,
+									showmodlinks => 0,
+									showreleases => 0,
+									showtrackartists => 1,
+									tracks => \@t,
+								&>
+								</td>
+							</tr>
+						</table>
+
+%	if ($args{"tomac-failed"})
+%	{
+
+						<& /comp/form/feedbackbox, "warning", "",
+							qq! Did not find an useable (one of \"/\", \"-\") artist-
+								and trackname split character. You can still import the
+								release as Various Artists, but you'll have manually edit
+								the artist- and tracknames...! &>
+%	}
+
+%	# using a submit button != "submitbtn" will load cdi/enter.html without
+%	# triggering the validation
+						<& /comp/form/buttonsubmit, name => "submit", value => $btnimport &>
+
+%						for $i (0 .. $tracks-1)
+%						{
+%							$m->comp("/comp/form/hiddenfield",
+%								"tracklength$i",
+%								Track::FormatTrackLength($durations[$i])
+%							) if ($hasdurations);
+%						}
+
+%						# make sure we do not have these flag twice,
+%						# or get rid of the freedb specific things.
+%						delete $args{"hasmultipletrackartists"};
+%						delete $args{"validate"};
+%						delete $args{"noncd"};
+%						delete $args{"artistid"};
+%						delete $args{"sacartist"};
+%						delete $args{"offer_charset"};
+%						delete $args{"ready"};
 
 
+						<& /comp/form/hiddenfield, "noncd", "1" &>
+						<& /comp/form/hiddenfield, "artistid", &ModDefs::VARTIST_ID &>
+						<& /comp/form/hiddenfield, "hasmultipletrackartists", "1" &>
+						<& /comp/args-to-hidden-fields.inc, %args &>
+					</form>
+				</td>
+			</tr>
+		</table>
 
-	<fieldset>
-		<legend>Select Album Type</legend>
-		<div class="padleft">
-			Is this release by only one artist, or by more than one? <br/>
-			Please note: If it was mixed by a certain artist, it has
-			to be entered as Various Artists!
-		</div>
-		<div class="padlefttop">
-			<table>
+	<& /comp/tableend &>
+
+
+%	# offer charset
+%	if ($offer_charset)
+%	{
+
+	<& /comp/tablebegin, title => "Select Different Encoding" &>
+
+		<form method="post" action="charset.html">
+
+			<table class="formstyle">
 				<tr>
+					<td class="label"></td>
 					<td>
-						<form method="post" action="/freedb/select-artist.html">
-							<input type="submit" class="button" value="Only one artist">
-							<input type="hidden" name="search" value="<% $session{'freedb_artist'} %>">
-						</form></td>
+						<& /comp/form/feedbackbox, "info", "Does the data above look garbled?",
+							qq!If the data above looks garbled, you can click on the
+							button "Change character set" to get a list of previews
+							in different encodings. If you find an entry that looks better
+							you will be able to force using this encoding and return to this page.!
+						&>
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>
+						<input type="submit" class="button" value="Change character set" />
 
-					<td>
-						<form method="post" action="/freedb/mac-check-similar.html">
-							<input type="submit" class="button" value="More than one artist">
-						</form></td>
+%		delete $args{"enc"};
+
+						<& /comp/args-to-hidden-fields.inc, %args &>
+					</td>
 				</tr>
 			</table>
-	</fieldset>
+		</form>
 
-	<fieldset>
-		<legend>FreeDB Album</legend>
-			<div class="padleft">
-				<b><% $session{"freedb_album"} %></b>
-				by
-				<b><% $session{"freedb_artist"} %></b>
-			</div>
-			<ol style="padding-left: 30px">
-% for my $i (0 .. $session{"freedb_tracks"}-1) {
-					<li><% $session{"freedb_track$i"} %></li>
-% }
-			</ol>
+	<& /comp/tableend &>
 
-% if ($session{"freedb_offer_charset"}) {
-			<form method="post" action="charset.html">
-				<div class="padlefttop">
-					<b>Does the data above look garbled?&nbsp;</b>
-				</div>
-				<div class="padlefttop">
-					<input type="submit" class="button" value="Change character set">
-				</div>
-			</form>
-% }
-
-	</fieldset>
+% 	}
 
 <& /comp/footer &>
+
