@@ -552,7 +552,6 @@ fieldset.formstyle legend {
 .feedbackbox,
 .feedbackbox-warning,
 .feedbackbox-info {
-	float: left;
 	width: 345px;
 }
 
@@ -659,9 +658,10 @@ table.release_editor tr.trackartist td { padding-bottom: 10px; }
 table.release_editor tr.step td { padding-bottom: 10px; }
 
 table.release_editor td.linkedits { 
-	font-size: 80%; 
+	font-size: 11px; 
 	text-align: right;
 	padding-left: 10px;
+	white-space: nowrap;
 }
 
 

@@ -30,8 +30,12 @@
 
 	$search => ""
 
+	$searchfieldname => "search"
 	$selectedname => "selectedartist"
+
+	$cancelbutton => "Cancel"
 	$selectbutton => "Select &raquo;"
+
 
 	$defaultquery => ""
 	$performsearch => 1
@@ -79,11 +83,11 @@
 			<td class="label">
 				<label for="id_artistfiltersearch"><% $searchlabel %></label></td>
 			<td class="field">
-					<input type="text" name="search" id="id_artistfiltersearch" value="<% $search %>" size="40"
+					<input type="text" name="<% $searchfieldname %>" id="id_artistfiltersearch" value="<% $search %>" size="40"
 						title="Enter a search keyword here" />
 
 					<div style="margin-top: 2px">
-						<input class="button" type="submit" name="submitvalue" value="Cancel" />
+						<input class="button" type="submit" name="submitvalue" value="<% $cancelbutton |n %>" />
 						<input class="button" type="submit" name="submitvalue" value="<% $searchbtn |n %>"
 							title="Search for an artist" />
 					</div></td>

@@ -111,15 +111,6 @@
 		# check if the user clicked on Enable/Disable track artists button
 		%ARGS = $m->comp("/comp/release_editor/convert-toggle-trackartists", %ARGS);
 
-		# if the user has chosen to add a new artist, show
-		# the "Add Artist" form.
-		if ($ARGS{"v::showform"}
-			and $ARGS{"v::validate"}
-			and $ARGS{"submitvalue"} eq $ARGS{"SUBMIT_ADDARTIST"})
-		{
-	 		%ARGS = $m->comp("/comp/release_editor/form-addartist", %ARGS);
-		}
-
 		# if the user has checked the release artist checkbox, present
 		# the interface for the "move release" operation.
 		if ($ARGS{"v::showform"}
@@ -180,7 +171,6 @@
 
 			#$m->comp("/comp/release_editor/dump-arguments", %ARGS);
 			#return;
-
 
 			# checks if the user tries to enter a multiple artists as
 			# a single artist release, and vice-versa.
