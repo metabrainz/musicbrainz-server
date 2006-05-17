@@ -24,11 +24,11 @@
 	# Link to a musicbrainz user. Either a user object, or id, and name arguments
 	# are used to create the user.
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
 <%args>
+
 	# preferred way of calling - provide user object
 	$user => undef
 
@@ -40,6 +40,8 @@
 	# rendering options
 	$icon => 1
 	$strong => 1
+	$short => 0
+
 </%args>
 <%perl>
 
@@ -60,10 +62,19 @@
 		$arg = "username=$name" ;
 	}
 
+	my $dispname = $m->interp->apply_escapes($name, 'h');
+	my $shortname = $dispname;
+	if (length($name) > 11)
+	{
+		$shortname = substr($name, 0, 10);
+		$shortname = $m->interp->apply_escapes($shortname, 'h');
+		$shortname .= "&#8230;";
+	}
+
 	# render link.
 	$m->out(qq!<strong>!) if ($strong);
 	$m->out(qq!<img src="/images/entity/$usericon.gif" alt="$iconalt" class="entityicon" />!) if ($icon);
-	$m->out(qq!<a href="/show/user/?$arg">! . $m->interp->apply_escapes($name, 'h') . qq!</a>!);
+	$m->out(qq!<a href="/show/user/?$arg" title="$dispname">$shortname</a>!);
 	$m->out(qq!</strong>!) if ($strong);
 
 </%perl>
