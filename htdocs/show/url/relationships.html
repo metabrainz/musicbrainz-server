@@ -21,15 +21,14 @@
 	#
 	# Summary:
 	# -----------------------------------------------------------------------------
-	# This page forwards to the appropriate /show/entity/relationships.html page.
+	# Shows the relationships of a given url.
 	#
 	# $Id$
 	#
 </%perl>
 <%args>
 
-	$id => -1
-	$type => ""
+	$urlid => -1
 
 	$addrel => 0
 	$remrel => -1
@@ -41,26 +40,33 @@
 <%perl>
 
 	# make sure we got a valid id parameter
-	MusicBrainz::IsNonNegInteger($id) && $id
+	MusicBrainz::IsNonNegInteger($urlid) && $urlid
 		or return $m->comp("/comp/layout/badarguments",
-			text => "The argument <strong>id</strong> is missing or has a wrong format.");
+			text => "The argument <strong>urlid</strong> is missing or has a wrong format.");
 
-	$type = "release" if ($type eq "album");
-	$ARGS{$type."id"} = $id;
-	delete $ARGS{"type"};
-	delete $ARGS{"id"};
+	my $mb = $m->comp("/comp/dblogin");
+	my $url = $m->comp("/comp/loadurl", $mb, $urlid);
 
-	if ($type =~ m/artist|release|track|url/)
-	{
-		my $url = "/show/$type/relationships.html?" . $m->comp("/comp/args-to-querystring.inc", %ARGS);
-		return $m->comp("/comp/redirect", $url);
-	}
-	else
-	{
-		return $m->comp("/comp/layout/error",
-			title => "Unsupported type",
-			text => "The argument <strong>type</strong> ($type) is not a supported relationship entity.");
-	}
+
+	my $title = ("Relationships for URL: " . $url->GetName());
+	$m->comp("/comp/sidebar-notitle", pagetitle => $title);
+
+	$m->comp("/comp/urlinfo", url => $url);
+
+	$m->comp("/comp/ar/AddRelationship", id => $urlid, type => "url", name => $url->GetName)
+		if ($addrel);
+
+	$m->comp("/comp/ar/ClearRelationships")
+		if ($arcancel);
+
+	$m->comp("/comp/ar/RemoveRelationship", id => $remrel, type => $remtype)
+		if ($remrel >= 0);
+
+    $m->comp("/comp/ar/RelationshipBox", id => $url->GetId, type => "url",
+             name => $url->GetName, modlinks => 1, isrelpage => 1,
+             expanded => $expanded);
+
+	$m->comp("/comp/footer");
 
 </%perl>
 

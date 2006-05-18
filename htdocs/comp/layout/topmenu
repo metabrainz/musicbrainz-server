@@ -128,6 +128,7 @@
 			{ url => "/show/artist/details.html" },
 			{ url => "/show/artist/aliases.html" },
 
+
 			{ url => "/showcdtoc.html" },
 			{ url => "/show/cdtoc/index.html" },
 
@@ -139,6 +140,14 @@
 
 			{ url => "/showpuid.html" },
 			{ url => "/show/puid/index.html" },
+
+			{ url => "/show/url/index.html" },
+
+			{ url => "/showrel.html" },
+			{ url => "/show/release/relationships.html" },
+			{ url => "/show/artist/relationships.html" },
+			{ url => "/show/track/relationships.html" },
+			{ url => "/show/url/relationships.html" },
 
 			{ url => "/show/permlink.html" }, # permanent links rendering page
 
