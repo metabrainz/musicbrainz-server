@@ -278,7 +278,7 @@ function EsUiModule() {
 			log = [];
 
 			// handle tracktime fields
-			if (el && type == "text" && cn.match(/textfield|numberfield/)) {
+			if (el && type == "text" && cn.match(/textfield|numberfield|trackseq|tracklength/)) {
 				el.onfocus = function onfocus(event) { es.ui.handleFocus(this); };
 				el.onblur = function onblur(event) { es.ui.handleBlur(this); };
 			}
