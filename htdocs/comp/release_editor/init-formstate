@@ -53,8 +53,8 @@
 
 	# mac
 	$ARGS{"SUBMIT_IGNOREMACSAC"} = "Ignore problem »";
-	$ARGS{"SUBMIT_TOMAC"} = "Convert to VA »";
-	$ARGS{"SUBMIT_TOSAC"} = "Convert to SA »";
+	$ARGS{"SUBMIT_TOSAC"} = "Convert to Single Artist »";
+	$ARGS{"SUBMIT_TOMAC"} = "Convert to Various Artists »";
 
 	# sg5disasterrelief
 	$ARGS{"SUBMIT_ARTISTS_SHOW"} = "Show track artists »";

@@ -88,5 +88,6 @@
 	$m->out("</span>");
 
 </%perl>
-
+%# -- no empty line here, else an additional space will be
+%#    inserted before the dot at the end of sentences.
 %# vi: set ts=4 sw=4 ft=mason :

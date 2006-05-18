@@ -75,7 +75,7 @@
 					$ARGS{getField($t, "artistresolution")} = $artist->GetResolution;
 				}
 				$ARGS{"v::showform"} = 1;
-				$ARGS{"hasmultipletrackartists"} = $artist->GetId != &ModDefs::VARTIST_ID;
+				$ARGS{"hasmultipletrackartists"} = ($artist->GetId == &ModDefs::VARTIST_ID ? 1 : 0);
 				$ARGS{"artistid"} = $artist->GetId;
 				$ARGS{"artistname"} = $artist->GetName;
 				$ARGS{"artistresolution"} = $artist->GetResolution;

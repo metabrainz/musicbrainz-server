@@ -54,8 +54,9 @@
 		$ARGS{"rls_country-$j"} = "";
 	}
 
-	# Remove the last item fromt the hash
-	if ($num_releases > 0 && $op_remove)
+	if ($num_releases > 0 and
+		$op_remove and
+		!$checkreleases{"removed"})
 	{
 		$j = $num_releases-1;
 		delete $ARGS{"rls_year-$j"};
@@ -88,7 +89,7 @@
 		my $countrycss = $checkreleases{"badcountry$j"} ? " missing" : "";
 
 		my $countries_menu = $m->comp("/edit/albumreleases/countries-menu.inc");
-		my $countries_menu_2 = [ [ "", "[select a country]" ], @$countries_menu ];
+		my $countries_menu_2 = [ [ "", "select country..." ], @$countries_menu ];
 
 		# load default country from userprefs if country is ""
 		$rc = UserPreference::get('default_country')
@@ -127,7 +128,7 @@
 				<tr>
 					<td colspan="3">&nbsp;</td>
 					<td colspan="3">
-						<& /comp/form/feedbackbox, "info", "",
+						<& /comp/form/feedbackbox, "warning", "",
 							qq!Please enter valid release events (including the country)
 							   or remove the fields you do not want to enter.
 							   The missing/wrong date and country fields are marked

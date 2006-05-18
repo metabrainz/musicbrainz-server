@@ -39,7 +39,7 @@
 	my $ua = LWP::UserAgent->new;
 	my $response = $ua->get($docurl);
 
-	my $searchlink = encode_entities("http://wiki.musicbrainz.org/?action=fullsearch&amp;context=180&amp;value=$id&titlesearch=Titles");
+	my $searchlink = encode_entities("http://wiki.musicbrainz.org/?action=fullsearch&context=180&value=$id&titlesearch=Titles");
 
 	$m->out(qq!<div class="wikidocs">\n!);
 
@@ -54,7 +54,7 @@
 		<div class="unofficial">
 			It is possible the page <strong><% $id %></strong> you are looking for does
 			not exist <em>yet</em>, but you might find a page which has a similar title
-			using the wiki search on the <a href="<% $searchlink %>">MusicBrainz Wiki</a>.
+			using the wiki search on the <a href="<% $searchlink |n %>">MusicBrainz Wiki</a>.
 			If this does not help either, and you know how to edit wiki pages, please
 			help us completing our documentation.
 		</div>
@@ -74,7 +74,7 @@
 		<div class="unofficial">
 			It is possible the page <strong><% $id %></strong> you are looking for does
 			not exist <em>yet</em>, but you might find a page which has a similar title
-			using the wiki search on the <a href="<% $searchlink %>">MusicBrainz Wiki</a>.
+			using the wiki search on the <a href="<% $searchlink |n %>">MusicBrainz Wiki</a>.
 			If this does not help either, and you know how to edit wiki pages, please
 			help us completing our documentation.
 		</div>
@@ -153,9 +153,7 @@
 			{
 
 </%perl>
-				<div class="official">
-					<% $page |n %>;
-				</div>
+				<div class="official"><% $page |n %></div>
 				<div class="footer">
 					This <a href="/doc/WikiDocsPage">WikiDocsPage</a>
 					is based on the revision <a href="http://wiki.musicbrainz.org/<% $id %>?action=info">#<% $index->{$id} %></a>
@@ -173,11 +171,9 @@
 					If you have spotted a spelling error, or want to help
 					writing the documentation, you'll find the editable version
 					of this page on the wiki at <img src="/images/edit.gif" alt="" /><a
-					href="http://wiki.musicbrainz.org/$id">$id</a>
+					href="http://wiki.musicbrainz.org/<% $id %>"><% $id %></a>
 				</div>
-				<div class="unofficial">
-					<% $page |n %>;
-				</div>
+				<div class="unofficial"><% $page |n %></div>
 
 %			}
 
@@ -189,7 +185,5 @@
 %	}
 
 	</div>
-
-</%perl>
-
+%#
 %# vi: set ts=4 sw=4 ft=mason :

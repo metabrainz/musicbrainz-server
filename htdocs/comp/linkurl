@@ -66,9 +66,10 @@
 	$m->out(qq!</strong>!) if ($strong);
 
 	# show clickable link to open the url target
-	$m->out(qq! <span class="nobr">(<a href="/show/url/?urlid=$id">details</a>)</span>!)
+	$m->out(qq! <span class="nobr">[<a href="/show/url/?urlid=$id">info</a>]</span>!)
 		if (defined $href);
 
 </%perl>
-
+%# -- no empty line here, else an additional space will be
+%#    inserted before the dot at the end of sentences.
 %# vi: set ts=4 sw=4 ft=mason :

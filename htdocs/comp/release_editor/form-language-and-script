@@ -48,7 +48,7 @@
 		minimum_frequency => ( $attr_showall ? 0 : 4 ),
 		include => $attr_script
 	);
-	unshift @scripts, [ "-1", "Select script..." ];
+	unshift @scripts, [ "-1", "select script..." ];
 
 	# compile list of languages, be sure to include
 	# the current value (if collapsed)
@@ -78,7 +78,7 @@
 					</select>
 					<& /comp/form/buttonsubmit, value => $ARGS{"SUBMIT_LANG_GUESS"}, tabindex => ++$$tabindex &></td>
 				<td colspan="2">
-					[ <a href="/popup/albumlanguage.html" id="POPUP|AlbumLanguage|400|275">help</a> ]</td>
+					[ <a href="/popup/ReleaseLanguage"">help</a> ]</td>
 			</tr>
 			<tr>
 				<td class="label">

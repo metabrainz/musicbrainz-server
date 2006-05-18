@@ -36,25 +36,53 @@
 	my %badseq;
 	my %allseq;
 
-	for my $j (sort map { /^rls_year-(\d+)$/ ? ($1) : () } keys %ARGS)
+	my @items = sort map { /^rls_year-(\d+)$/ ? ($1) : () } keys %ARGS;
+	my $index = 0;
+	for my $j (@items)
 	{
+		# fetch and delete fields, we'll reinsert them if they are valid.
 		my $y = $ARGS{"rls_year-$j"};
+		delete $ARGS{"rls_year-$j"};
 		my $m = $ARGS{"rls_month-$j"};
+		delete $ARGS{"rls_month-$j"};
 		my $d = $ARGS{"rls_day-$j"};
+		delete $ARGS{"rls_day-$j"};
 		my $c = $ARGS{"rls_country-$j"};
+		delete $ARGS{"rls_country-$j"};
 
 		# Skip if all blank
+		# -- if the nth release date is empty and the
+		#    entry before it is cleared, the index number
+		#    of the following items has to be shifted down.
+		#    if this set of fields is skipped, the $index
+		# 	 will stay at the current position.
 		next unless do { no warnings; "$c $y $m $d" =~ /\S/ };
 
-		++$h{"num"};
-
-		# Otherwise, we insist on a valid country and a valid date
+		# flag a bad country if it has not been set.
 		MusicBrainz::IsNonNegInteger($c)
 			or $h{"badcountry$j"} = 1;
 
+		# flag a bad date if the validation returns false
 		my @ymd = MusicBrainz::IsValidDate($y, $m, $d)
 			or $h{"baddate$j"} = 1;
+
+		# shift the index number such that the events
+		# are continous from 0..n
+		$ARGS{"rls_year-$index"} = $y;
+		$ARGS{"rls_month-$index"} = $m;
+		$ARGS{"rls_day-$index"} = $d;
+		$ARGS{"rls_country-$index"} = $c;
+		$index += 1;
 	}
+
+	# remember the number of valid release events
+	$h{"num"} = $index;
+
+	# we set the 'some events were removed' flag
+	# this will not carry out the remove operation
+	# if the number of fields was changed by the
+	# check above.
+	$h{"removed"} = 1 if (@items != $h{"num"});
 
 	# put the encountered problems into the Arguments hash.
 	$ARGS{"v::releases"} = \%h;

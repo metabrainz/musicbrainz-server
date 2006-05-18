@@ -56,11 +56,11 @@
 						do {
 							[
 								[ "-1", "select type..." ],
+								[ ""  , "i don't know" ],
 								(map {
 									[ $_, Album->GetAttributeName($_) ]
 								} &Album::ALBUM_ATTR_SECTION_TYPE_START
-									.. &Album::ALBUM_ATTR_SECTION_TYPE_END),
-								[ "", "[unknown]" ]
+									.. &Album::ALBUM_ATTR_SECTION_TYPE_END)
 							]
 						},
 						$attr_type
@@ -72,11 +72,11 @@
 						do {
 							[
 								[ "-1", "select status..." ],
+								[ ""  , "i don't know" ],
 								(map {
 									[ $_, Album->GetAttributeName($_) ]
 								} &Album::ALBUM_ATTR_SECTION_STATUS_START
-									.. &Album::ALBUM_ATTR_SECTION_STATUS_END),
-								[ "", "[unknown]" ]
+									.. &Album::ALBUM_ATTR_SECTION_STATUS_END)
 							]
 						},
 						$attr_status
@@ -86,5 +86,5 @@
 					<& /comp/form/hiddenfield, "attr_type_guessed",  $attr_type_guessed &>
 					<& /comp/form/hiddenfield, "attr_status_guessed",  $attr_status_guessed &></td>
 				<td colspan="2">
-					[ <a href="/popup/attrguide.html" id="POPUP|AlbumAttributes|400|275">help</a> ]</td>
+					[ <a href="/popup/ReleaseAttribute">help</a> ]</td>
 			</tr>
