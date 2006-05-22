@@ -105,7 +105,7 @@ function ReleaseEditor() {
 			s.push('<table cellspacing="2" cellpadding="0" border="0">');
 
 			var artistid, hasmultipletrackartists;
-			var editrelationships = this.getFieldValue("editrelationships");
+			var editrelationships = this.getFieldValue("v::editrelationships");
 
 			// only do something if artistid and hasmultipleartists field
 			// were found.
@@ -114,7 +114,7 @@ function ReleaseEditor() {
 
 					// draw the checkbox which can be used to toggle track artists
 					s.push('<tr><td>');
-					s.push('<input name="edittrackartists" value="1" type="checkbox" class="checkbox"');
+					s.push('<input name="v::edittrackartists" value="1" type="checkbox" class="checkbox"');
 					if (artistid == 1) {
 						s.push(' disabled="disabled" ');
 						s.push('title="Various Artist releases need to have multiple track artists." ');
@@ -131,7 +131,7 @@ function ReleaseEditor() {
 
 					// draw the checkbox which can be used to toggle the relationship editors
 					s.push('<tr><td>');
-					s.push('<input name="editrelationships" value="1" type="checkbox" class="checkbox" ');
+					s.push('<input name="v::editrelationships" value="1" type="checkbox" class="checkbox" ');
 					s.push(' onclick="'+this.GID+'.onRelEditClicked(this)" ');
 					s.push(editrelationships == 1 ? ' checked="checked" ' : '');
 					s.push(mb.ua.ie ? ' style="margin-top: -3px; margin-left: -3px; margin-right: 1px;" ' : '');
@@ -160,9 +160,11 @@ function ReleaseEditor() {
 							
 							// add onclick handler
 							obj.id = this.getFieldId(field, "checkbox", index);
+							obj.checked = false;
 							obj.onclick = function onclick(event) { 
 								return ae.onEditArtistClicked(this); 
 							};
+							
 						} else {
 							alert("editcheckboxes "+i+" is null");
 						}
@@ -371,9 +373,12 @@ function ReleaseEditor() {
 
 		// get div elements containing the display/hidden form elements
 		var displayTD, displayID = this.getFieldId(field, "display", index);
-		var fieldsTD, fieldsID = this.getFieldId(field, "fields", index);;
+		var fieldsTD, fieldsID = this.getFieldId(field, "fields", index);
+		var checkbox, checkboxID = (field == "release_artist" ? "artistedit" : "tr"+index+"_artistedit");
+
 		if ((displayTD = mb.ui.get(displayID)) != null &&
-			(fieldsTD = mb.ui.get(fieldsID)) != null) {
+			(fieldsTD = mb.ui.get(fieldsID)) != null &&
+			(checkbox = es.ui.getField(checkboxID)) != null) {
 
 			// field names
 			var f_id = (field == "release_artist" ? "artistid" : "tr"+index+"_artistid");
@@ -389,8 +394,15 @@ function ReleaseEditor() {
 				s.push(ae.getArtistLink(entity.id, entity.name, entity.resolution));
 				s.push('<input type="hidden" name="'+f_name+'" value="'+entity.name+'" />');
 			}
+			
+			// update the display td with either the field, or the artist name.
 			displayTD.innerHTML = s.join("");
+			
+			// show the editing fields if we are in editing mode 
 			fieldsTD.style.display = isEditMode ? "" : "none";
+			
+			// update checkbox state isEditMode
+			checkbox.checked = isEditMode;
 			
 		} else {
 			mb.log.error("Could not get TDs! display: $, fields: $", [displayID, displayTD], [fieldsID, fieldsTD]);
@@ -409,7 +421,6 @@ function ReleaseEditor() {
 			var field = "track_artist";
 			for (var index=0; index < tracks; index++) {
 				this.setArtistDisplayFromField(false, field, index);
-				
 				id = this.getFieldId(field, "tr", index);
 				if ((obj = mb.ui.get(id)) != null) {
 					obj.style.display = isEditMode ? "" : "none";				

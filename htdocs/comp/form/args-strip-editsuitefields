@@ -41,6 +41,7 @@
 		next if $k =~ /^v::/i;
 		next if $k =~ /^autoeditorpriv_enabled/i;
 		next if $k =~ /^notetext$/;
+		next if $k =~ /^artistfilter_/;
 
 		$args{$k} = $v;
 	}

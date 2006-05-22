@@ -29,18 +29,18 @@
 <%args>
 
 	$search => ""
-
 	$searchfieldname => "search"
-	$selectedname => "selectedartist"
+
+	$artistfilter_selectedfield => "artistfilter_newartistid"
+	$artistfilter_field => "artistid"
 
 	$cancelbutton => "Cancel"
 	$selectbutton => "Select &raquo;"
-
+	$addartistbutton => "Add New Artist &raquo;"
+	$submitvalue => ""
 
 	$defaultquery => ""
 	$performsearch => 1
-
-	$submitvalue => ""
 	@dontshow => ()
 
 </%args>
@@ -139,8 +139,8 @@
 </%perl>
 				<tr class="row<% $i % 2 %>">
 					<td class="radio">
-						<input type="radio" name="<% $selectedname %>"
-%								$m->out(qq!id="$selectedname$i"!) if ($i == 0);
+						<input type="radio" name="<% $artistfilter_selectedfield %>"
+%								$m->out(qq!id="$artistfilter_selectedfield$i"!) if ($i == 0);
 							value="<% $row->{artistid} %>" <% $checked |n %>
 							  ondblclick="this.form.submit()"
 							  title="Select this artist"
@@ -157,7 +157,7 @@
 <%perl>
 					$checked = "";
 				}
-				$m->comp("/comp/movefocus", id => $selectedname."0");
+				$m->comp("/comp/movefocus", id => $artistfilter_selectedfield."0");
 </%perl>
 				</table>
 				<input class="button" name="submitvalue" type="submit" value="<% $selectbutton |n %>"
@@ -213,8 +213,9 @@
 		<tr>
 			<td>&nbsp;</td>
 			<td style="padding-bottom: 20px">
-				<input class="button" name="submitvalue" type="submit" value="Add New Artist &raquo;"
+				<input class="button" name="submitvalue" type="submit" value="<% $addartistbutton %>"
 						title="Add a new artist to MusicBrainz" />
+				<input type="hidden" name="artistfilter_field" value="<% $artistfilter_field %>" />
 			</td>
 		</tr>
 
