@@ -91,7 +91,7 @@
 						<ul>
 							<li>
 								You are about to manually add a release to the artist
-								<b><& /comp/linkartist, artist => $ar &></b>. Did you know that you can
+								<& /comp/linkartist, artist => $ar &>. Did you know that you can
 								<a href="/freedb/freedb.html?search=<% uri_escape($ar->GetName()) %>">import
 								releases from the FreeDB database</a>?</li>
 							<li>
@@ -100,6 +100,9 @@
 						</ul>
 					</td>
 				</tr>
+			</table>
+
+			<table class="formstyle">
 
 
 %	if ($error == 1) {
@@ -113,8 +116,8 @@
 				<tr>
 					<td class="label">
 						<label for="editalbum_tracks">Number of tracks:</label></td>
-					<td class="field">
-						<input 	type="text" name="tracks" class="textfield" id="editalbum_tracks"
+					<td>
+						<input 	type="text" name="tracks" id="editalbum_tracks"
 								size="3" value="<% $tracks %>" /></td>
 				</tr>
 				<tr>
