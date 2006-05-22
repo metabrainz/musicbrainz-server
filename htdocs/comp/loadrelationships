@@ -45,7 +45,8 @@
 		not defined $type)
 	{
 		$m->comp("/comp/badargs");
-		die();
+
+		$m->abort();
 	}
 
 	my @links = MusicBrainz::Server::Link->FindLinkedEntities($mb->{DBH}, $id, $type);

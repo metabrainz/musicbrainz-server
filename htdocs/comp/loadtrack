@@ -103,7 +103,7 @@
 	$m->comp("/comp/tableend");
 
 	$m->comp("/comp/footer");
-	exit;
+	$m->abort();
 
 </%perl>
 
