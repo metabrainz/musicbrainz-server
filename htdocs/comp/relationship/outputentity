@@ -24,37 +24,38 @@
 	# Renders a relationship entity. If there is a pending edit on this
 	# relationship, the output is highlighted using the "mp" css class.
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
 <%args>
+
 	$item
 	$index
 	$name
+
 </%args>
 <%perl>
 
 	my $prefix = "link" . $index . "_";
 	my $mp = $item->{modpending};
 
-	my $type = $item->{$prefix . "type"};
-	my $id = $item->{$prefix . "id"};
-	$name = $item->{$prefix . "name"};
+	my $e_id = $item->{$prefix . "id"};
+	my $e_name = $item->{$prefix . "name"} eq "" ? $name : $item->{$prefix . "name"};
+	my $e_type = $item->{$prefix . "type"};
+	my $e_inttype = ($e_type eq "album" ? "release" : $e_type);
 
 	my $url = $item->{$prefix . "name"};
 	my $asin = undef;
 
 	$m->out(qq!<span class="mp">!) if ($mp);
 
-	my $typeshow = ($type eq "album" ? "release" : $type);
-	if ($typeshow eq "artist" or
-		$typeshow eq "release" or
-		$typeshow eq "track")
+	if ($e_inttype eq "artist" or
+		$e_inttype eq "release" or
+		$e_inttype eq "track")
 	{
-		$m->comp("/comp/link$typeshow", id => $id, name => $name);
+		$m->comp("/comp/link$e_inttype", id => $e_id, name => $e_name);
 	}
-	elsif ($type eq "url")
+	elsif ($e_type eq "url")
 	{
 		if ($item->{"link_name"} eq "amazon asin" && $prefix eq "link1_")
 		{
@@ -73,7 +74,7 @@
 		$url = $decoded_url
 			if (Encode::decode_utf8($decoded_url));
 
-		$m->comp("/comp/linkurl", id => $id, name => $url, href => $url);
+		$m->comp("/comp/linkurl", id => $e_id, name => $url, href => $url);
 	}
 
 	$m->out("</span>") if ($mp);
