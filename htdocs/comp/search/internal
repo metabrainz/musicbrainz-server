@@ -4,11 +4,11 @@
 		Search MusicBrainz directly from <a href="http://www.mozilla.org/products/firefox/">FireFox</a>
 		with the <a href="/search/plugins/firefox/install.html">Firefox search plugins</a>!
 	</div>
-	
+
 
 	<table width="100%" cellspacing="0" cellpadding="0">
 		<tr valign="top">
-			<td class="boxeslist" style="width: 50%; padding-right: 20px"> 
+			<td class="boxeslist" style="width: 50%; padding-right: 20px">
 
 				<!-- search options -->
 				<div class="orangeheader">
@@ -20,26 +20,26 @@
 						<hr />
 
 						<& /comp/search/form, name=>'Disc ID / FreeDB ID Lookup',
-							scripturl=>'/showalbum.html', 
-							searchfield=>'discid', 
+							scripturl=>'/showalbum.html',
+							searchfield=>'discid',
 							method=>'get' &>
 						<hr />
-						
+
 %#						<& /comp/search/form, name=>'PUID Lookup',
-%#							scripturl=>'/showpuid.html', 
-%#							searchfield=>'puid', 
+%#							scripturl=>'/showpuid.html',
+%#							searchfield=>'puid',
 %#							method=>'get' &>
 %#						<hr />
 
 						<& /comp/search/form, name=>'TRM ID Lookup',
-							scripturl=>'/showtrm.html', 
-							searchfield=>'trm', 
+							scripturl=>'/showtrm.html',
+							searchfield=>'trm',
 							method=>'get' &>
 						<hr />
 
 						<& /comp/search/form, name=>'Moderator Lookup',
-							scripturl=>'/user/view.html', 
-							searchfield=>'modname', 
+							scripturl=>'/user/view.html',
+							searchfield=>'modname',
 							method=>'get' &>
 						<hr />
 
@@ -49,7 +49,7 @@
 					</div>
 				</div>
 
-					
+
 				<!-- advanced search -->
 				<div class="orangeheader">
 					<div class="inner"><b>Advanced Search</b></div>
@@ -58,7 +58,7 @@
 					<div class="inner" style="text-align: center">
 						<& /comp/lookup &>
 					</div>
-				</div>					
+				</div>
 
 
 				<!-- site search -->
@@ -69,10 +69,10 @@
 					<div class="inner" style="text-align: center">
 						<& /comp/google-site-search &>
 					</div>
-				</div>								
+				</div>
 			</td>
-			
-			
+
+
 			<td class="boxeslist" style="padding: 0px; margin: 0px">
 
 				<!-- browse artists -->
@@ -80,22 +80,22 @@
 					<div class="inner"><b>Browse Artists</b></div>
 				</div>
 				<div class="boxcontent">
-					<div class="inner" style="text-align: center">		
-						<& /comp/search/browsesimple, 
+					<div class="inner" style="text-align: center">
+						<& /comp/search/browsesimple,
 							page => "/browseartists.html" &>
 					</div>
-				</div>			
+				</div>
 
 				<!-- browse releases -->
 				<div class="orangeheader">
 					<div class="inner"><b>Browse Releases</b></div>
 				</div>
 				<div class="boxcontent">
-					<div class="inner" style="text-align: center">		
-						<& /comp/search/browsesimple, 
+					<div class="inner" style="text-align: center">
+						<& /comp/search/browsesimple,
 							page => "/browsevarious.html" &>
 					</div>
-				</div>							
+				</div>
 
 %	if (&DBDefs::REPLICATION_TYPE != RT_SLAVE) {
 				<!-- browse releases -->
@@ -103,23 +103,23 @@
 					<div class="inner"><b>Contribute</b></div>
 				</div>
 				<div class="boxcontent">
-					<div class="inner" style="text-align: center">		
-						<a href="/edit/artist/add.html">Add artist</a> | 
-						<a href="/edit/album/add.html?artistid=0">Add  album</a> | 
-						<a href="/edit/album/add.html?artistid=1">Add various artist album</a> | 
-						<a href="/freedb/freedb.html">FreeDB Import</a> 
+					<div class="inner" style="text-align: center">
+						<a href="/edit/artist/add.html">Add artist</a> |
+						<a href="/edit/album/add.html?artistid=0">Add  album</a> |
+						<a href="/edit/album/add.html?artistid=1">Add various artist album</a> |
+						<a href="/freedb/freedb.html">FreeDB Import</a>
 					</div>
-				</div>							
+				</div>
 
 %		if ($session{user} ne "") {
 				<div class="orangeheader">
 					<div class="inner"><b>Login</b></div>
 				</div>
 				<div class="boxcontent">
-					<div class="inner" style="text-align: center">	
-						You are logged in as <b><% $session{user} %></b>. 
-						<a href="/user/edit.html">View/update your profile</a> or your 
-						<a href="/prefs.html">preferences</a>. <a href="/logout.html">Logout</a> from MusicBrainz.
+					<div class="inner" style="text-align: center">
+						You are logged in as <b><% $session{user} %></b>.
+						<a href="/user/edit.html">View/update your profile</a> or your
+						<a href="/user/preferences.html">preferences</a>. <a href="/logout.html">Logout</a> from MusicBrainz.
 					</div>
 				</div>
 
@@ -127,7 +127,7 @@
 					<div class="inner"><b>Moderate</b></div>
 				</div>
 				<div class="boxcontent">
-					<div class="inner" style="text-align: center">	
+					<div class="inner" style="text-align: center">
 						<a href="/mod/search/pre/new.html">Vote/Moderate</a> MusicBrainz.
 					</div>
 				</div>
@@ -137,7 +137,7 @@
 					<div class="inner"><b>Login</b></div>
 				</div>
 				<div class="boxcontent">
-					<div class="inner" style="text-align: center">	
+					<div class="inner" style="text-align: center">
 						<& /comp/loginbox &>
 					</div>
 				</div>

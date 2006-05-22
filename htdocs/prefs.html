@@ -21,59 +21,14 @@
 	#
 	# Summary:
 	# -----------------------------------------------------------------------------
-	# This component renders the user options if the user logged in.
+	# Moved prefs.html to user/preferences.html
 	#
 	# $Id$
 	#
 </%perl>
+<%perl>
 
-	<div class="sidemenu">
-		<ul>
-			<li>
-				<a href="/user/view.html">Profile</a></li>
-			<li>
-				<a href="/logout.html">Logout</a></li>
-			<li>
-				<a href="/user/preferences.html">Preferences</a></li>
+	my $url = "/user/preferences.html?" . $m->comp("/comp/args-to-querystring.inc", %ARGS);
+	return $m->comp("/comp/redirect", $url);
 
-%	my $votelink = (UserPreference::get('navbar_mod_show_select_page')
-%		? "/mod/search/select-filter.html"
-%		: "/mod/search/pre/new.html");
-
-			<li>
-				<a href="<% $votelink %>">Vote on Edits</a></li>
-
-%	# Show Relationship Types Editor link if the user
-%	# has these priviledges
-%	if (UserStuff->IsLinkModerator($session{privs}))
-%	{
-
-			<li>
-				<a href="/edit/relationships/link_type_roots.html">Edit Rel. Types</a></li>
-
-%	}
-
-%	# Show Wikidocs Transclusion link if the user
-%	# has these priviledges
-%	if (UserStuff->IsWikiTranscluder($session{privs}))
-%	{
-
-			<li>
-				<a href="/edit/wikitransclusion/transclusion.html">Transclude Docs</a></li>
-
-%	}
-
-%	# Add link to the debug page if the current server
-%	# instance is a development, mirror or staging server.
-%	if (&DBDefs::DB_STAGING_SERVER)
-%	{
-
-			<li>
-				<a href="/user/debug.html">Debug</a></li>
-
-%	}
-
-		</ul>
-	</div>
-
-%# vi: set ts=4 sw=4 ft=mason :
+</%perl>

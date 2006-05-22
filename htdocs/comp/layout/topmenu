@@ -329,10 +329,14 @@
 		[
 			{ name => "Edit Account",		url => "/user/edit.html",					login => 1 },
 			{ name => "Change Password",	url => "/user/change-password.html",	 	login => 1 },
-			{ name => "Preferences",		url => "/prefs.html",						login => 1 },
-			{ name => "Moderate",			url => "/mod/search/select-filter.html", 	login => 1 },
+			{ name => "Preferences",		url => "/user/preferences.html",			login => 1 },
+			{ name => "Vote on edits",		url => "/mod/search/select-filter.html", 	login => 1 },
 			{ name => "Subscriptions",		url => "/user/subscriptions.html", 			login => 1 },
 			{ name => "Logout",				url => "/logout.html",						login => 1 },
+			[
+				{ url => "/user/mod_email.html" },
+				{ url => "/user/register-done.html" },
+			],
 
 			{ name => "Create Account",		url => "/user/register.html", 				login => 0 },
 			{ name => "Login",				url => "/login.html",						login => 0 },

@@ -102,7 +102,7 @@ function ShowEdit() {
 			s.push('  onclick="showedit.onSettingChanged(this);" ');
 			s.push('/></td>');
 			s.push('<td style="padding: 0px">Collapse release per default on <strong>add release edits</strong>');
-			s.push('<br/><small>(You need to enable the "For Add Release edits, show the whole release..." <br/>option in your <a href="/prefs.html">user preferences</a> for this setting to take effect).</small></td> ');
+			s.push('<br/><small>(You need to enable the "For Add Release edits, show the whole release..." <br/>option in your <a href="/user/preferences.html">user preferences</a> for this setting to take effect).</small></td> ');
 			s.push('</tr>');
 			s.push('</table>');
 
