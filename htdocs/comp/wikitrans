@@ -4,8 +4,9 @@
 
 </%args>
 <%perl>
-	#MusicBrainz::IsSingleLineString($id) and $id =~ /\A\w+\z/
-	#	or return $m->comp("/comp/badargs", 1, 1);
+	# not needed, since we'd like to be able to transclude Subpages, too. --Keschte
+	MusicBrainz::IsSingleLineString($id) and $id =~ /\A[\w\/]+\z/
+		or return $m->comp("/comp/badargs", 1, 1);
 
 	my $mb = $m->comp("/comp/dblogin");
 	my $wt = MusicBrainz::Server::WikiTransclusion->new($mb->{DBH});
@@ -17,140 +18,149 @@
 		return;
 	}
 
-	my $iswd = exists($index->{$id}) ? 1 : 0;
-	my $ok = 0;
+	# get names of the servers from DBDefs
+	my $server = &DBDefs::WEB_SERVER;
+	my $wdserver = &DBDefs::WIKITRANS_SERVER;
 
-	# Check to see if we have the document in the cache
-	my $key = "wikidocs-$id";
-	my $page;
-	if ($page = MusicBrainz::Server::Cache->get($key))
-	{
-		$m->print($page);
-		return undef;
-	}
+	my $isWikiDocs = exists($index->{$id}) ? 1 : 0;
+	my $cacheKey = "wikidocs-$id";
+	my $page = MusicBrainz::Server::Cache->get($cacheKey);
 
-	my $docurl = "http://" . &DBDefs::WIKITRANS_SERVER . "/"
-				. $id . "?action="
-				. ($iswd ? ("ContentRev&rev=".$index->{$id}) : "content");
-
-	# Nope, get it from the wiki, then cache it
-	require LWP::UserAgent;
-
-	my $ua = LWP::UserAgent->new;
-	my $response = $ua->get($docurl);
-
-	my $searchlink = encode_entities("http://wiki.musicbrainz.org/?action=fullsearch&context=180&value=$id&titlesearch=Titles");
-
+	# All the possible outcomes of this component are wrapped in
+	# the wikidocs css class.
 	$m->out(qq!<div class="wikidocs">\n!);
 
-	if (!$response->is_success)
+	# If we have the page in the cache, continue with flag contentOk=1.
+	my $contentOk = 0;
+	if ($page)
 	{
+		$contentOk = 1;
+	}
+	else
+	{
+		# Nope, get it from the wiki, process and cache it
+		my $docurl = "http://" . &DBDefs::WIKITRANS_SERVER . "/"
+					. $id . "?action="
+					. ($isWikiDocs ? ("ContentRev&rev=".$index->{$id}) : "content");
+
+		require LWP::UserAgent;
+		my $ua = LWP::UserAgent->new;
+		my $response = $ua->get($docurl);
+
+		# The wiki search provides a fuzzy search, so we provide a search string,
+		# which enables users to search for the page title if there is no exact match.
+		my $searchlink = encode_entities("http://wiki.musicbrainz.org/?action=fullsearch&context=180&value=$id&titlesearch=Titles");
+		if (!$response->is_success)
+		{
 
 </%perl>
 
-		<div class="header">
-			Could not retrieve wiki page from wiki server. (Status: <% $response->status_line %>)
-		</div>
-		<div class="unofficial">
-			It is possible the page <strong><% $id %></strong> you are looking for does
-			not exist <em>yet</em>, but you might find a page which has a similar title
-			using the wiki search on the <a href="<% $searchlink |n %>">MusicBrainz Wiki</a>.
-			If this does not help either, and you know how to edit wiki pages, please
-			help us completing our documentation.
-		</div>
+				<div class="header">
+					Could not retrieve wiki page from wiki server. (Status: <% $response->status_line %>)
+				</div>
+				<div class="unofficial">
+					It is possible the page <strong><% $id %></strong> you are looking for does
+					not exist <em>yet</em>, but you might find a page which has a similar title
+					using the wiki search on the <a href="<% $searchlink |n %>">MusicBrainz Wiki</a>.
+					If this does not help either, and you know how to edit wiki pages, please
+					help us completing our documentation.
+				</div>
 
-%	}
-%	else
-%	{
-%		$page = $response->content;
-
-%		if ($page =~ /<a id="top"><\/a>\s+<a id="bottom"><\/a>/s)
+%		}
+%		else
 %		{
+%			$page = $response->content;
+%			if ($page =~ /<a id="top"><\/a>\s+<a id="bottom"><\/a>/s)
+%			{
 
-
-		<div class="header">
-			The wiki page <% $id %> does not exist. (Status: 404)
-		</div>
-		<div class="unofficial">
-			It is possible the page <strong><% $id %></strong> you are looking for does
-			not exist <em>yet</em>, but you might find a page which has a similar title
-			using the wiki search on the <a href="<% $searchlink |n %>">MusicBrainz Wiki</a>.
-			If this does not help either, and you know how to edit wiki pages, please
-			help us completing our documentation.
-		</div>
+				<div class="header">
+					The wiki page <% $id %> does not exist. (Status: 404)
+				</div>
+				<div class="unofficial">
+					It is possible the page <strong><% $id %></strong> you are looking for does
+					not exist <em>yet</em>, but you might find a page which has a similar title
+					using the wiki search on the <a href="<% $searchlink |n %>">MusicBrainz Wiki</a>.
+					If this does not help either, and you know how to edit wiki pages, please
+					help us completing our documentation.
+				</div>
 
 <%perl>
 
-		}
-		else
-		{
-			# Some pages in the Wiki use URLs of the form: http:/page.html .
-			# This works in some browsers (it's taken as relative to
-			# http://www.musicbrainz.org/ ..., so resolves to
-			# http://www.musicbrainz.org/page.html).  However I can't tell
-			# for certain whether or not the RFCs define this to be correct.
-			# So for now, rewrite those URLs to their canonical form.
-			$page =~ s[href="http:/(\w)]['href="http://' . &DBDefs::WEB_SERVER . "/$1"]eg; # <-- this hack makes vim happy
-
-			# remove intertwingled links to non-existent pages.
-			$page =~ s[<a class="nonexistent" href=".+?">\?</a>][]g;
-
-			my $server = &DBDefs::WEB_SERVER;
-			my $wdserver = &DBDefs::WIKITRANS_SERVER;
-
-			my $temp = "";
-			while(1)
+			}
+			else
 			{
-				if ($page =~ s/(.*?)<a(.*?)href="\/(.*?)"(.*?)>(.*?)<\/a>//s)
-				{
-					my ($pre, $href, $rep, $post, $linktext) = ($1, $2, $3, $4, $5);
+				# Some pages in the Wiki use URLs of the form: http:/page.html .
+				# This works in some browsers (it's taken as relative to
+				# http://www.musicbrainz.org/ ..., so resolves to
+				# http://www.musicbrainz.org/page.html).  However I can't tell
+				# for certain whether or not the RFCs define this to be correct.
+				# So for now, rewrite those URLs to their canonical form.
+				$page =~ s[href="http:/(\w)]['href="http://' . $server . "/$1"]eg; # <-- this hack makes vim happy
 
-					$linktext =~ s/([a-z])([A-Z])/$1 $2/g;
-					if (exists($index->{$rep}))
+				# remove intertwingled links to non-existent pages.
+				$page =~ s[<a class="nonexistent" href=".+?">\?</a>][]g;
+
+				my $temp = "";
+				while(1)
+				{
+					if ($page =~ s/(.*?)<a(.*?)href="\/(.*?)"(.*?)>(.*?)<\/a>//s)
 					{
-						$temp .= "$pre<a$href class=\"offical\" title=\"Wiki docs link\" href=\"http://$server/doc/$rep\"$post>$linktext</a>";
+						my ($pre, $href, $rep, $post, $linktext) = ($1, $2, $3, $4, $5);
+
+						$linktext =~ s/([a-z])([A-Z])/$1 $2/g;
+						if (exists($index->{$rep}))
+						{
+							$temp .= "$pre<a$href class=\"offical\" title=\"Wiki docs link\" href=\"http://$server/doc/$rep\"$post>$linktext</a>";
+						}
+						else
+						{
+							$temp .= "$pre<a$href class=\"unofficial\" title=\"Wiki link\" href=\"http://$server/doc/$rep\"$post>$linktext</a>";
+						}
 					}
 					else
 					{
-						$temp .= "$pre<a$href class=\"unofficial\" title=\"Wiki link\" href=\"http://$server/doc/$rep\"$post>$linktext</a>";
+						 $temp .= $page;
+						 last;
 					}
 				}
-				else
-				{
-					 $temp .= $page;
-					 last;
-				}
+				$page = $temp;
+
+				# this fixes image links to point to the wiki
+				$page =~ s[src="/-/]['src="http://' . $wdserver . "/-/$1"]eg; #' <-- this hack makes vim happy
+
+				# remove external links icons from links that point to mb.org
+				$page =~ s[(<a href="http:\/\/(www\.)?musicbrainz.org.*?">)<img src="http:\/\/wiki.musicbrainz.org\/-\/musicbrainz\/img\/moin-www\.png".*?>][$1]g;
+
+				# move headers one level up
+				$page =~ s/<(\/?)h2/<$1h1/ig;
+				$page =~ s/<(\/?)h3/<$1h2/ig;
+				$page =~ s/<(\/?)h4/<$1h3/ig;
+				$page =~ s/<(\/?)h5/<$1h4/ig;
+
+				$page =~ s/&lt;code&gt;/<code>/ig;
+				$page =~ s/&lt;\/code&gt;/<\/code>/ig;
+
+
+				# Obfuscate e-mail addresses
+				$page =~ s/(\w+)\@(\w+)/$1&#x0040;$2/g;
+				$page =~ s/mailto:/mailto&#x3a;/g;
+
+				# expand placeholders which point to the current webserver [@WEB_SERVER@/someurl title]
+				$page =~ s/\[\@WEB_SERVER\@([^ ]*) ([^\]]*)\]/<img src="\/images\/edit.gif" alt="" \/><a href="$1">$2<\/a>/g;
+
+				# Now store page in cache
+				MusicBrainz::Server::Cache->set($cacheKey, $page, &MusicBrainz::Server::WikiTransclusion::CACHE_INTERVAL);
+				$contentOk = 1;
 			}
-			$page = $temp;
+		}
+	}
 
-			# this fixes image links to point to the wiki
-			$page =~ s[src="/-/]['src="http://' . &DBDefs::WIKITRANS_SERVER . "/-/$1"]eg; #' <-- this hack makes vim happy
-
-			# remove external links icons from links that point to mb.org
-			$page =~ s[(<a href="http:\/\/(www\.)?musicbrainz.org.*?">)<img src="http:\/\/wiki.musicbrainz.org\/-\/musicbrainz\/img\/moin-www\.png".*?>][$1]g;
-
-			# move headers one level up
-			$page =~ s/<(\/?)h2/<$1h1/ig;
-			$page =~ s/<(\/?)h3/<$1h2/ig;
-			$page =~ s/<(\/?)h4/<$1h3/ig;
-			$page =~ s/<(\/?)h5/<$1h4/ig;
-
-			$page =~ s/&lt;code&gt;/<code>/ig;
-			$page =~ s/&lt;\/code&gt;/<\/code>/ig;
-
-
-			# Obfuscate e-mail addresses
-			$page =~ s/(\w+)\@(\w+)/$1&#x0040;$2/g;
-			$page =~ s/mailto:/mailto&#x3a;/g;
-
-			# expand placeholders which point to the current webserver [@WEB_SERVER@/someurl title]
-			$page =~ s/\[\@WEB_SERVER\@([^ ]*) ([^\]]*)\]/<img src="\/images\/edit.gif" alt="" \/><a href="$1">$2<\/a>/g;
-
-			# wrap the content of the wiki (official|unofficial) into the
-			# corresponding css classes.
-			my $out = "";
-			if ($iswd)
-			{
+	if ($contentOk)
+	{
+		# wrap the content of the wiki (official|unofficial) into the
+		# corresponding css classes.
+		if ($isWikiDocs)
+		{
 
 </%perl>
 				<div class="official"><% $page |n %></div>
@@ -160,9 +170,9 @@
 					of the WikiPage <a href="http://wiki.musicbrainz.org/<% $id %>"><% $id %></a>
 				</div>
 
-%			}
-%			else
-%			{
+%		}
+%		else
+%		{
 
 				<div class="header">
 					This page has been copied from our Wiki.
@@ -175,15 +185,10 @@
 				</div>
 				<div class="unofficial"><% $page |n %></div>
 
-%			}
-
-
-%			# Now store page in cache
-%			MusicBrainz::Server::Cache->set($key, $page, &MusicBrainz::Server::WikiTransclusion::CACHE_INTERVAL);
-%			$ok = 1;
 %		}
 %	}
-
-	</div>
-%#
+%
+%	# close wrapper div
+%	$m->out("</div>");
+%
 %# vi: set ts=4 sw=4 ft=mason :
