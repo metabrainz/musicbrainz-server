@@ -583,8 +583,13 @@ table.relationships td  {
 	padding-left: 20px;
 	font-size: 11px;
 }
-table.relationships a  { 
+table.relationships a { 
 	font-weight: normal;
+}
+table.relationships span.linkartist-icon,
+table.relationships span.linkrelease-icon,
+table.relationships span.linktrack-icon { 
+	background-position: 0px 0px;
 }
 
 

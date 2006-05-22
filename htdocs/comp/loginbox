@@ -90,18 +90,18 @@
 				<td class="label">
 					<label for="id_user">User Name:</label></td>
 				<td class="field">
-					<input class="textfield" type="text" name="user" id="id_user" size="20" value="<% $user %>" /></td>
+					<input type="text" name="user" id="id_user" size="20" value="<% $user %>" style="width: 180px"/></td>
 			</tr>
 			<tr>
 				<td class="label">
 					<label for="id_password">Password:</label></td>
 				<td>
-					<input class="textfield" type="password" name="password" id="id_password" size="20" value="<% $password %>" /></td>
+					<input type="password" name="password" id="id_password" size="20" value="<% $password %>" style="width: 180px"/></td>
 			</tr>
 			<tr>
 				<td>&nbsp;</td>
 				<td>
-					<input type="submit" name="Login" value="Log In" /></td>
+					<input type="submit" name="Login" value="Log In &raquo;" /></td>
 			</tr>
 			<tr class="spaced">
 				<td>&nbsp;</td>
@@ -114,14 +114,14 @@
 				<td>
 					<input type="checkbox" name="PermanentCookie" id="id_PermanentCookie" />
 					<label for="id_PermanentCookie">Log in permanently</label>
-					[&nbsp;<a href="/products/server/docs/20031210-1.html" id="POPUP::Login_Permanently::400::400">help</a>&nbsp;]</td>
+					[&nbsp;<a href="/popup/LoginPermanently" title="POPUP::Login_Permanently::400::400">help</a>&nbsp;]</td>
 			</tr>
 			<tr>
 				<td>&nbsp;</td>
 				<td>
 					<input type="checkbox" name="OnlyThisIP" id="id_OnlyThisIP" />
 					<label for="id_OnlyThisIP">Only from this IP address</label>
-					[&nbsp;<a href="/products/server/docs/20031210-1.html" id="POPUP::Only_from_this_IP::400::400">help</a>&nbsp;]</td>
+					[&nbsp;<a href="/popup/LoginFromThisIpOnly" title="POPUP::Only_from_this_IP::400::400">help</a>&nbsp;]</td>
 			</tr>
 			<tr>
 				<td>&nbsp;</td>

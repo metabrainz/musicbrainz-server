@@ -51,7 +51,7 @@
 		<tr>
 			<td></td>
 			<td>
-				[ <a href="<% $oldsearch %>" title="Search for the same query using the Direct Search...">direct search</a> ]&nbsp;&nbsp;[ <a href="/doc/TextSearchSyntax" id="POPUP::TextSearchSyntax::400::400">help</a> ]</td>
+				[ <a href="<% $oldsearch %>" title="Search for the same query using the Direct Search...">direct search</a> ]&nbsp;&nbsp;[ <a href="/popup/TextSearchSyntax" title="POPUP::TextSearchSyntax::400::400">help</a> ]</td>
 		</tr>
 	</table>
 </form>

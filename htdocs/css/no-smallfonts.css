@@ -24,3 +24,6 @@ table.votechoice label {
 table.edittype tr.entity td {
 	font-size: 12px;
 }
+table.relationships td  { 
+	font-size: 12px;
+}

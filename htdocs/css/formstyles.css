@@ -658,10 +658,11 @@ table.release_editor tr.trackartist td { padding-bottom: 10px; }
 table.release_editor tr.step td { padding-bottom: 10px; }
 
 table.release_editor td.linkedits { 
-	font-size: 11px; 
 	text-align: right;
 	padding-left: 10px;
 	white-space: nowrap;
+	padding-bottom: 12px;
+	vertical-align: bottom;
 }
 
 
