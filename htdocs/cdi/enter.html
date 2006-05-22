@@ -72,34 +72,15 @@
 	$ARGS{"v::edit_track_data"} = !($toc ne "" or $discid ne "");
 	$ARGS{"v::isva"} = ($ARGS{"artistid"} == &ModDefs::VARTIST_ID ? 1 : 0);
 
-	# Handle CANCEL button
+	# PREPARE ADD RELEASE FORM VALUES
 	# ---------------------------------------------------------------
-	# the user has pressed "Cancel". if we have an releaseid, redirect
-	# to the release page, else to the homepage.
-	if ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_CANCEL"})
-	{
-		return $m->comp("/comp/redirect", "/index.html");
-	}
-
-	# Handle START OVER button
-	# ---------------------------------------------------------------
-	# the user has pressed "Cancel". if we have an releaseid, redirect
-	# to the release page, else to the homepage.
-	if ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_STARTOVER"})
-	{
-		my $url = ($freedbid ne "" and $freedbcat ne ""
-			? "/freedb/import.html?catid=$freedbcat%20/%20$freedbid"
-			: "/cdi/enter.html?artistid=$artistid&tracks=$tracks&noncd=$noncd&hasmultipletrackartists=$hasmultipletrackartists");
-		return $m->comp("/comp/redirect", $url);
-	}
-
-	# LOAD ORIGINAL VALUES
-	# ---------------------------------------------------------------
-	# load all values from the database and store them into the
-	# ARGS hash.
 	%ARGS = $m->comp("/comp/release_editor/init-addrelease", %ARGS);
 	$m->comp("/comp/error", $ARGS{"init-addrelease-error"}, 1,1)
 		if ($ARGS{"init-addrelease-error"});
+
+	# HANDLE SPECIAL SUBMIT BUTTONS
+	# ---------------------------------------------------------------
+	%ARGS = $m->comp("/comp/release_editor/init-handleredirect", %ARGS);
 
 	# setup field checks.
 	$ARGS{"v::checkedmacsac"} = 1;

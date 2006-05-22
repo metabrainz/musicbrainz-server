@@ -40,6 +40,7 @@
 	$m->out("v::formsubmitted = $ARGS{'v::formsubmitted'}<br/>");
 	$m->out("v::checkedartists = $ARGS{'v::checkedartists'}<br/>");
 	$m->out("v::checkedsimilar = $ARGS{'v::checkedsimilar'}<br/>");
+
 	$m->out("v::showform = $ARGS{'v::showform'}<br/>");
 	$m->out("v::validate = $ARGS{'v::validate'}<br/>");
 	$m->out("v::action = $ARGS{'v::action'}<br/>");
@@ -62,6 +63,11 @@
 	$m->comp(".dumpHash", "v::macsac", %ARGS);
 	$m->out("<hr>");
 
+	$m->out("<b>Artist Filter:</b><br/>");
+	$m->out("artistfilter_field = $ARGS{'artistfilter_field'}<br/>");
+	$m->out("artistfilter_newartistid = $ARGS{'artistfilter_newartistid'}<br/>");
+		$m->out("<hr>");
+
 	$m->out("<table border='1'><tr>");
 	$m->out("<th>id</th>");
 	$m->out("<th>seq</th>");
@@ -76,6 +82,7 @@
 
 	my $field;
 	my %args = $m->comp("/comp/form/args-strip-editsuitefields", %ARGS);
+
 	foreach my $i (0 .. $ARGS{"tracks"}-1) {
 		$m->out("<tr>");
 

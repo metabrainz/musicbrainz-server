@@ -67,13 +67,11 @@
 
 </%perl>
 
-				<tr class="spaced">
-					<td colspan="3" class="label">Releases:</td>
-					<td colspan="3">
-						<& /comp/form/feedbackbox, "info", "",
-							qq!Please enter release dates if you know them. If you do not know
-							   either year or country, don't enter anything.!
-						&></td>
+				<tr class="spaced top">
+					<td colspan="3" class="label"></td>
+					<td colspan="3" class="formsection">
+						Please enter release events if you know them. If you do not know <br/>
+						neither year nor country, leave the fields blank.</td>
 				</tr>
 
 <%perl>
@@ -97,7 +95,7 @@
 </%perl>
 
 				<tr>
-					<td colspan="3" class="label"><% $j+1 %>:</td>
+					<td colspan="3" class="label"><% $j == 0 ? "Release Events:" : "" %></td>
 					<td colspan="3">
 						<& /comp/form/numberfield, name => "rls_year-$j", cssclass => $datecss, tabindex => ++$$tabindex, value => $ry, size => 4 &>
 						<& /comp/form/numberfield, name => "rls_month-$j", cssclass => $datecss, tabindex => ++$$tabindex, value => $rm, size => 2 &>

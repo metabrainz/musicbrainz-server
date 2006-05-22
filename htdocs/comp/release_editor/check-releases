@@ -82,7 +82,7 @@
 	# this will not carry out the remove operation
 	# if the number of fields was changed by the
 	# check above.
-	$h{"removed"} = 1 if (@items != $h{"num"});
+	$h{"removed"} = 1 if ($h{"num"} > 0 and @items != $h{"num"});
 
 	# put the encountered problems into the Arguments hash.
 	$ARGS{"v::releases"} = \%h;

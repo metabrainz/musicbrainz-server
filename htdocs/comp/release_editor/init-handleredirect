@@ -1,0 +1,144 @@
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# Handles the special submit buttons:
+	#
+	# SUBMIT_CANCEL: 		Cancel the edit release workflow
+	# SUBMIT_STARTOVER:		Load the release from the database again and
+	#						start over.
+	# SUBMIT_ADDARTIST:		If the user wants to add a new artist, redirect to the
+	#						/edit/artist/add editor.
+	# AddArtistAdded:		Return to the release editor if the new artist
+	#						has been added (or the add artist redirect has been
+	#						cancelled).
+	#
+	# $Id$
+	#
+</%perl>
+<%args>
+
+	$mb
+
+</%args>
+<%perl>
+
+	my $url;
+	my $releaseid = $ARGS{"releaseid"};
+
+	# Handle CANCEL button
+	# ---------------------------------------------------------------
+	# the user has pressed "Cancel". if we have an releaseid, redirect
+	# to the release page, else to the homepage.
+	if ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_CANCEL"})
+	{
+		my $url = (MusicBrainz::IsNonNegInteger($releaseid)
+			? "/show/release/?releaseid=".$ARGS{"releaseid"}
+			: "/index.html"
+		);
+		return $m->comp("/comp/redirect", $url);
+	}
+
+	# Handle START OVER button
+	# ---------------------------------------------------------------
+	# the user has pressed "Cancel". if we have an releaseid, redirect
+	# to the release page, else to the homepage.
+	if ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_STARTOVER"})
+	{
+		if (MusicBrainz::IsNonNegInteger($releaseid))
+		{
+			return $m->comp("/comp/redirect", "/edit/album/editall.html?releaseid=".$releaseid);
+		}
+		else
+		{
+			my $freedbid = $ARGS{"freedbid"};
+			my $freedbcat = $ARGS{"freedbcat"};
+			my $tracks = $ARGS{"tracks"};
+			my $noncd = $ARGS{"noncd"};
+			my $artistid = $ARGS{"artistid"};
+			my $hasmultipletrackartists = $ARGS{"hasmultipletrackartists"};
+
+			$url = ($freedbid ne "" and $freedbcat ne ""
+				? "/freedb/import.html?catid=$freedbcat%20/%20$freedbid"
+				: "/cdi/enter.html?artistid=$artistid&tracks=$tracks&noncd=$noncd&hasmultipletrackartists=$hasmultipletrackartists");
+
+			return $m->comp("/comp/redirect", $url);
+		}
+	}
+
+	# Handle ADD ARTIST button
+	# ---------------------------------------------------------------
+	# the user has pressed "Add New Artist", forward to the Add
+	# Artist workflow.
+	if ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_ADDARTIST"})
+	{
+		# get ADD ARTIST fields from the arguments, they will be
+		# stripped from the HASH in the strip function below, but
+		# generally that is what we wont the function to remove.
+		my $artistfilter_field = $ARGS{"artistfilter_field"};
+
+		# must correspond to searchfieldname handed in to /comp/artistfilter.
+		my $artistfilter_search = $ARGS{"artistfilter_search"};
+
+		# strip editsuite fields.
+		my %args = $m->comp("/comp/form/args-strip-editsuitefields", %ARGS);
+		delete $args{"submitvalue"};
+
+		# re-add artistfilter_field, we'll use it when the content is posted back
+		# from the ADD ARTISt editor.
+		$args{"artistfilter_field"} = $artistfilter_field;
+
+		# prepare, and escape returnurl. artistfilter_newartistid will reference the
+		# artistid being added in the ADD ARTIST editor.
+		my $returnurl = "/edit/album/editall.html?".$m->comp("/comp/args-to-querystring.inc", %args);
+		$returnurl .= "&artistfilter_newartistid=";
+		$returnurl = uri_escape($returnurl);
+
+		# prepare add artist form url.
+		my $addartisturl = "/edit/artist/add.html?name=$artistfilter_search&returnurl=$returnurl";
+		return $m->comp("/comp/redirect", $addartisturl);
+	}
+
+	# Handle callback from ADD ARTIST page
+	# ---------------------------------------------------------------
+	# the user has added anew artist, fill in the artistfilter_field
+	# with the new id.
+	if ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_ARTISTSELECT"})
+	{
+		my $fieldid = $ARGS{"artistfilter_field"};
+		my $newartistid = $ARGS{"artistfilter_newartistid"};
+		my $newartist = $m->comp("/comp/loadartist", $mb, $newartistid);
+
+		# get stem from fieldid e.g.
+		# - tr0_artistid 	-> tr0_artist 	for TrackArtist
+		# - artistid 		-> artist		for ReleaseArtist
+		$fieldid =~ s/id$//g;
+		$ARGS{$fieldid."id"} = $newartist->GetId;
+		$ARGS{$fieldid."name"} = $newartist->GetName;
+		$ARGS{$fieldid."resolution"} = $newartist->GetResolution;
+	}
+
+	return %ARGS;
+
+</%perl>
+
+%# vi: set ts=4 sw=4 ft=mason :

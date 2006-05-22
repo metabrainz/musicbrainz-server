@@ -51,7 +51,7 @@
 	my $mb = $m->comp("/comp/dblogin");
 	$ARGS{"mb"} = $mb;
 
-	# initialise the submit buttons, and un-muddle the "submitvalue"
+	# initialise the button values, and un-muddle the "submitvalue"
 	# argument if there are more than one.
 	%ARGS = $m->comp("/comp/release_editor/init-formstate", %ARGS);
 	$ARGS{"v::action"} = "/edit/album/editall.html";
@@ -67,35 +67,17 @@
 	$m->comp("/comp/error", $ARGS{"init-editall-error"}, 1,1)
 		if ($ARGS{"init-editall-error"});
 
-	# Handle CANCEL button
+	# HANDLE SPECIAL SUBMIT BUTTONS
 	# ---------------------------------------------------------------
-	# the user has pressed "Cancel". if we have an releaseid, redirect
-	# to the release page, else to the homepage.
-	if ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_CANCEL"})
-	{
-		my $url = ($releaseid ne ""
-			? "/show/release/?releaseid=".$releaseid
-			: "/index.html"
-		);
-		return $m->comp("/comp/redirect", $url);
-	}
-
-	# Handle START OVER button
-	# ---------------------------------------------------------------
-	# the user has pressed "Cancel". if we have an releaseid, redirect
-	# to the release page, else to the homepage.
-	if ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_STARTOVER"})
-	{
-		return $m->comp("/comp/redirect", "/edit/album/editall.html?releaseid=".$releaseid);
-	}
+	%ARGS = $m->comp("/comp/release_editor/init-handleredirect", %ARGS);
 
 	# START PAGE CONTENT
 	# ---------------------------------------------------------------
 	my $title = "Edit Release".($ARGS{"v::isva"} ? " (Various Artists)" : "");
 	$m->comp("/comp/sidebar-notitle", pagetitle => $title);
 
-
-	# HANDLE SUBMIT
+	# If v::submitted is true, we have a form submission
+	# to handle. (was set in init-formstate)
 	# ---------------------------------------------------------------
 	if ($ARGS{"v::formsubmitted"})
 	{
@@ -168,9 +150,6 @@
 			{
 				%ARGS = $m->comp("/comp/release_editor/check-artists", %ARGS);
 			}
-
-			#$m->comp("/comp/release_editor/dump-arguments", %ARGS);
-			#return;
 
 			# checks if the user tries to enter a multiple artists as
 			# a single artist release, and vice-versa.

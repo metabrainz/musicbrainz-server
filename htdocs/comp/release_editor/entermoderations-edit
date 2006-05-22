@@ -200,7 +200,7 @@
 						type => &ModDefs::MOD_REMOVE_TRACK,
 						# --
 						track => $track,
-						newseq => $new_seq,
+						album => $release,
 						# TODO depmod on $modid ?
 					);
 				}

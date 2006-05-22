@@ -285,6 +285,33 @@
 					</td>
 				</tr>
 
+<%perl>
+
+	# -------------------------------------------------------------------------
+	# SINGLE/MULTIPLETRACKARTISTS TOGGLE
+	# -------------------------------------------------------------------------
+
+</%perl>
+				<tr id="releaseconfig" class="bottom">
+					<td colspan="3">&nbsp;</td>
+					<td colspan="2">
+						<div id="releaseeditor::config" style="border: 1px dotted #000; padding: 0px; margin: 0px; margin-bottom: 15px">
+						<& /comp/form/buttonsubmit,
+							value => ($ARGS{"hasmultipletrackartists"}
+								? $ARGS{"SUBMIT_ARTISTS_HIDE"}
+								: $ARGS{"SUBMIT_ARTISTS_SHOW"}),
+							enabled => ($artistid != &ModDefs::VARTIST_ID),
+							title => ($artistid == &ModDefs::VARTIST_ID
+									? "Releases attached to the special-case artist Various Artists need to have multiple track artists."
+									: $ARGS{"hasmultipletrackartists"}
+										? "Click this button if you want this release to have one artist for the release and tracks."
+										: "Click this button if you want to specify track artists for the tracks other than the release artist."),
+						&>
+						</div>
+					</td>
+					<td></td>
+					<td class="linkedits">Review edits:</td>
+				</tr>
 
 <%perl>
 	# -------------------------------------------------------------------------
@@ -304,10 +331,7 @@
 	}
 
 </%perl>
-				<tr>
-					<td colspan="6"></td>
-					<td class="linkedits">Review edits:</td>
-				</tr>
+
 				<tr>
 					<td class="label">
 						<& /comp/form/label, id => "id_artistname", title => "Artist" &>
@@ -356,6 +380,20 @@
 
 </%perl>
 
+%	if ($releaseid)
+%	{
+				<tr>
+					<td colspan="3">&nbsp;</td>
+					<td colspan="2">
+						<& /comp/linkrelease, id => $ARGS{"releaseid"}, name => $ARGS{"releasename"} &>
+					</td>
+					<td>
+					</td>
+					<td class="linkedits">
+						<& /comp/linkedits, type => "release", id => $ARGS{"releaseid"} &>
+					</td>
+				</tr>
+%	}
 				<tr>
 					<td class="label">
 						<& /comp/form/label, id => "id_releasename", title => "Release" &>
@@ -372,35 +410,6 @@
 					</td>
 					<td>
 						<& /comp/form/jsbutton, id => "BTN_ALBUM::releasename" &>
-					</td>
-					<td class="linkedits">
-						<& /comp/linkedits, type => "release", id => $ARGS{"releaseid"} &>
-					</td>
-				</tr>
-
-<%perl>
-
-	# -------------------------------------------------------------------------
-	# SINGLE/MULTIPLETRACKARTISTS TOGGLE
-	# -------------------------------------------------------------------------
-
-</%perl>
-				<tr id="releaseconfig">
-					<td colspan="3">&nbsp;</td>
-					<td colspan="4">
-						<div id="releaseeditor::config">
-						<& /comp/form/buttonsubmit,
-							value => ($ARGS{"hasmultipletrackartists"}
-								? $ARGS{"SUBMIT_ARTISTS_HIDE"}
-								: $ARGS{"SUBMIT_ARTISTS_SHOW"}),
-							enabled => ($artistid != &ModDefs::VARTIST_ID),
-							title => ($artistid == &ModDefs::VARTIST_ID
-									? "Releases attached to the special-case artist Various Artists need to have multiple track artists."
-									: $ARGS{"hasmultipletrackartists"}
-										? "Click this button if you want this release to have one artist for the release and tracks."
-										: "Click this button if you want to specify track artists for the tracks other than the release artist."),
-						&>
-						</div>
 					</td>
 				</tr>
 
@@ -471,6 +480,11 @@
 
 %		}
 %	}
+
+				<tr>
+					<td colspan="7">&nbsp;</td>
+				</tr>
+
 
 <%perl>
 
