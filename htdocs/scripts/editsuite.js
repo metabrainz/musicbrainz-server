@@ -1159,7 +1159,7 @@ name=(el.name||"noname");
 type=(el.type||"notype");
 cn=(el.className||"");
 log=[];
-if(el&&type=="text"&&cn.match(/textfield|numberfield/)){
+if(el&&type=="text"&&cn.match(/textfield|numberfield|trackseq|tracklength/)){
 el.onfocus=function onfocus(_9e){
 es.ui.handleFocus(this);
 };
