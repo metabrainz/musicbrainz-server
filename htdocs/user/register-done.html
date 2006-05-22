@@ -1,11 +1,14 @@
 %# vi: set ts=4 sw=4 ft=mason :
 <%args>
+
 	$mbt => $session{'mbt'}
 	$url => $session{'register_url'}
 	$email => $session{'register_email'}
 	$emailstatus => $session{'register_emailstatus'}
+
 </%args>
 <%perl>
+
 	$m->comp("/comp/sidebar-notitle", pagetitle => "Account created");
 
 	$m->comp("/comp/tablebegin", title => "Account created");

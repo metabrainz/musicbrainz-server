@@ -1,6 +1,7 @@
 ﻿%# vi: set ts=4 sw=4 ft=mason :
 <%args>
-	$submit => ""
+
+	$submitvalue => ""
 	$username => ""
 	$password => ""
 	$confirmpassword => ""
@@ -9,13 +10,14 @@
 
 	$url => ""
 	$mbt => $session{'mbt'}
+
 </%args>
 <%perl>
 
 	my ($createlogin, $emailstatus, $userobj);
 	@$createlogin = ();
 
-	if ($submit eq "")
+	if ($submitvalue eq "")
 	{
 		# prepare url for the "continue" link.
 		$url = $r->headers_in->{'Referer'} if ($url eq "");
@@ -24,6 +26,12 @@
 	}
 	else
 	{
+		if ($submitvalue =~ m/cancel/i)
+		{
+			return $m->comp("/comp/redirect", "/login.html");
+		}
+
+
 		if ($email eq "" && $emailconfirm eq "")
 		{
 			push @$createlogin, "Please enter an e-mail address or activate the 'No e-mail' checkbox ";
@@ -95,19 +103,19 @@
 				<td class="label">
 					<label for="id_username">User Name:</label></td>
 				<td class="field">
-					<input class="textfield" type="text" name="username" id="id_username" size="30" value="<% $username %>" /></td>
+					<input class="textfield" type="text" name="username" id="id_username" size="30" value="<% $username %>" style="width: 180px" /></td>
 			</tr>
 			<tr>
 				<td class="label">
 					<label for="id_password">Password:</label></td>
 				<td class="field">
-					<input class="textfield" type="password" name="password" id="id_password" size="30" value="<% $password %>" /></td>
+					<input class="textfield" type="password" name="password" id="id_password" size="30" value="<% $password %>" style="width: 180px" /></td>
 			</tr>
 			<tr>
 				<td class="label">
 					<label for="id_confirmpassword">Confirm Password:</label></td>
 				<td class="field">
-					<input class="textfield" type="password" name="confirmpassword" id="id_confirmpassword" size="30" value="<% $confirmpassword %>" /></td>
+					<input class="textfield" type="password" name="confirmpassword" id="id_confirmpassword" size="30" value="<% $confirmpassword %>" style="width: 180px" /></td>
 			</tr>
 			<tr>
 				<td>&nbsp;</td>
@@ -121,7 +129,7 @@
 			   <td class="label">
 					<label for="id_email">E-mail address:</label></td>
 				<td class="field">
-					<input class="textfield" type="text" name="email" id="id_email" size="30"  value="<% $email %>" /></td>
+					<input class="textfield" type="text" name="email" id="id_email" size="30"  value="<% $email %>" style="width: 180px" /></td>
 			</tr>
 			<tr>
 				<td>&nbsp;</td>
@@ -135,7 +143,8 @@
 			<tr>
 				<td>&nbsp;</td>
 				<td class="field">
-					<input type="submit" name="submit" value="Submit" />
+					<input type="submit" name="submitvalue" value="Cancel" />
+					<input type="submit" name="submitvalue" value="Register account &raquo;" />
 					<input type="hidden" name="mbt" value="<% $mbt %>" /></td>
 			</tr>
 		</table>

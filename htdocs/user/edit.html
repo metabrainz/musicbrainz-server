@@ -1,9 +1,12 @@
 ﻿%# vi: set ts=4 sw=4 ft=mason :
 <%args>
-	$update => 0
+
 	$bio => ""
 	$email => ""
 	$weburl => ""
+
+	$submitvalue => ""
+
 </%args>
 <%perl>
 
@@ -28,8 +31,12 @@
 	$sentmail = 0;
 	$removedmail = 0;
 
-	if ($update)
+	if ($submitvalue ne "")
 	{
+		if ($submitvalue =~ m/cancel/i)
+		{
+			return $m->comp("/comp/redirect", "/user/view.html");
+		}
 		if ($email =~ /\S/ and !$ui->CheckEMailAddress($email))
 		{
 			push @$messages, "The email address you entered is not a valid email address.
@@ -137,7 +144,7 @@
 				<td colspan="2" class="instructions">
 					<ul>
 						<li>
-							See also <a href="/prefs.html#privacy-settings">your preferences page</a>,
+							See also <a href="/user/preferences.html#privacy-settings">your preferences page</a>,
 							which includes your privacy settings.</li>
 						<li>
 							If you would like to delete your account, please see the FAQ entry
@@ -202,8 +209,8 @@
 			<tr>
 				<td>&nbsp;</td>
 				<td class="field">
-					<input type="hidden" name="update" value="1" />
-					<input type="submit" name="Submit" value="Save Changes" /></td>
+					<input type="submit" name="submitvalue" value="Cancel" />
+					<input type="submit" name="submitvalue" value="Save Changes &raquo;" /></td>
 			</tr>
 		</table>
 	</form>
