@@ -15,11 +15,8 @@ Disallow: /google/
 Disallow: /login.html
 Disallow: /logout.html
 Disallow: /mod/
-Disallow: /moderate.html
-Disallow: /moderator.html
 Disallow: /mrtg/
 Disallow: /newsearch.html
-Disallow: /prefs.html
 Disallow: /showalbum.html
 Disallow: /showaliases.html
 Disallow: /showartist.html
