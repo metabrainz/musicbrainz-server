@@ -244,12 +244,10 @@ function MbUI() {
 		var a,id,href,list = mb.ui.getByTag("a");
 		for (var i=0;i<list.length; i++) {
 			a = list[i];
-			id = (a.id || "");
+			title = (a.title || "");
 			href = (a.href || "");
-			if (id.match(/^POPUP/i) && href != "") {
-				var title = id.split(mb.ui.SPLITSEQ)[1];
-				var href = a.href;
-
+			if (title.match(/^POPUP/i) && href != "") {
+				
 				// add ispopup=1 to url, such that /comp/header_small is used.
 				if (href.match(/ispopup/) == null) {
 					if (href.match(/\&/) != null) {
@@ -258,16 +256,13 @@ function MbUI() {
 						href += "?ispopup=1";
 					}
 				}
-				a.id = id + mb.ui.SPLITSEQ + href + mb.ui.SPLITSEQ + i; // add running number to make this unique.
-				a.title = title;
+				a.id = title + mb.ui.SPLITSEQ + href + mb.ui.SPLITSEQ + i; // add running number to make this unique.
+				a.title = title.split(mb.ui.SPLITSEQ)[1];
 				a.onclick = function (event) {
 					mb.ui.clickPopupLink(this);
 					return false;
 				};
 				mb.log.debug("id: $, href: $, onclick: $", a.id, a.href, a.onclick);
-
-				// a.href = "javascript:; // Open "+title+" in a popup window.";
-				// a.addEventListener("click", mb.ui.clickPopupLink, false);
 			}
 		}
 		return mb.log.exit();
