@@ -68,7 +68,7 @@
 
 %				$m->out(qq!<span class="mp">!) if ($id->GetModPending);
 
-						<a href="/showcdtoc.html?id=<% $cdtoc->GetId %>"><% $discid %></a>
+						<a href="/show/cdtoc/?cdtocid=<% $cdtoc->GetId %>"><% $discid %></a>
 
 %				# print a warning if the toc has different number of tracks
 %				# than the release.
@@ -84,7 +84,7 @@
 					<td class="length"><% $duration %></td>
 
 %				# 3. Edit Links
-%				if ($session{uid} and $showmodlinks)
+%				if ($session{"uid"} and $showmodlinks)
 %				{
 %					my $tocid = $cdtoc->GetId();
 
@@ -135,7 +135,7 @@
 
 					<tr <% $rel->GetModPending ? qq! class="mp"! : "" |n %>>
 						<td><& /comp/releasedate, $rel &></td>
-						<td>&mdash;</td>
+						<td> - </td>
 						<td><% $name %></td>
 					</tr>
 %			}
@@ -143,7 +143,7 @@
 %		}
 			</td>
 
-%		if ($showmodlinks)
+%		if ($session{"uid"} and $showmodlinks)
 %		{
 			<td class="links">
 				<a href="/edit/albumreleases/index.html?releaseid=<% $releaseid %>"
