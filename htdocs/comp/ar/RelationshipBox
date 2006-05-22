@@ -149,11 +149,12 @@ else
 	$item = $links[0];
 	$m->out('<span class="mp">')
 		if ($max == 1 && $item->{modpending});
-	$m->comp("/comp/relationship/outputentity", item => $item, index => 0, name => $name);
-	# RUAOK: Why was a new hash constructed here and not $item passed in??
-	#$m->comp(".OutputEntity", { link0_id => $id, link0_type => $type, link0_name =>  $item->{link0_name} }, 0, $name);
-	$m->out(($max > 1) ? ':<table width="100%">' : ' ');
 
+	# output current entity.
+	$m->comp("/comp/relationship/outputentity", item => $item, index => 0, name => $name);
+
+	# output linked entities
+	$m->out(($max > 1) ? ':<table width="100%">' : ' ');
 	for($i = 0, $count = 0, $lines = 0; $i < $max; $i++, $lines++)
 	{
 	    my $itemsperline = 0;
