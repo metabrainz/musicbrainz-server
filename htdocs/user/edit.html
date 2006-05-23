@@ -85,6 +85,7 @@
 					else
 					{
 						$sentmail = 1;
+						$sentaddress = $email;
 					}
 
 					# Reset the email address to the old one since this one has
@@ -98,14 +99,14 @@
 					$count = $mod->OpenModCountByModerator($info->GetId);
 					if ($count)
 					{
-						push @$messages, "You have $count moderations open. You cannot remove
-										  your email address while you have open moderations.
-										  Please wait until all these moderations pass or delete
-										  them before you remove your email address.";
+						push @$messages, "You have $count open edits. You cannot remove
+										  your e-mail address while you have open edits.
+										  Please wait until all these edits pass or delete
+										  them before you remove your e-mail address.";
 					}
 					else
 					{
-						# The user wants to blank out their email address.
+						# The user wants to blank out their e-mail address.
 						$opts{email} = "";
 						$removedmail = 1;
 					}
@@ -121,24 +122,25 @@
 				bio => $bio,
 			);
 
-			$m->out(qq!Your Account Settings were updated. !);
-
 			if ($sentmail)
 			{
 				$m->out(qq!<div style="margin-top: 20px"> !);
-				$m->out(qq! The email verification mail has been sent to <b>$email</b>.&nbsp;
+				$m->out(qq! The email verification mail has been sent to <strong>$sentaddress</strong>.
 							Please check your mailbox and click on the link in the email to
 							verify the new email address.!);
 				$m->out(qq!</div>!);
 			}
-
-			if ($removedmail)
+			elsif ($removedmail)
 			{
 				$m->out(qq!<div style="margin-top: 20px"> !);
 				$m->out(qq! Your e-mail address has been removed.&nbsp;
 							Please note that if you add it in again in the future,
 							you will be asked to verify it again.!);
 				$m->out(qq!</div>!);
+			}
+			else
+			{
+				$m->out(qq!Your Account Settings were updated. !);
 			}
 
 			$m->out(qq!<div style="margin-top: 20px"> !);
@@ -155,11 +157,11 @@
 
 	if ($info->GetMemberSince eq "1970-01-01 00:00:00 UTC")
 	{
-	    $membersince = '<b>Charter Member</b>';
+	    $membersince = '<strong>Charter Member</strong>';
 	}
 	if ($info->GetName eq "rob")
 	{
-	    $membersince = '<b>The dawn of this project</b>';
+	    $membersince = '<strong>The dawn of this project</strong>';
 	}
 
 </%perl>
@@ -206,7 +208,7 @@
 				<td class="field">
 					<% $info->GetUserType | n %></td>
 			</tr>
-			<tr>
+			<tr class="spaced">
 				<td class="label">&nbsp;</td>
 				<td class="formsection">
 					Please Note: If you enter or modify your e-mail
@@ -220,7 +222,7 @@
 					<input type="text" name="email" size="40" value="<% $info->GetEmail %>" /></td>
 			</tr>
 
-			<tr>
+			<tr class="spaced">
 				<td>&nbsp;</td>
 				<td class="formsection">
 					Additional Information:</td>

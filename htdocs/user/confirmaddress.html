@@ -36,83 +36,89 @@
 </%args>
 <%perl>
 
-if (&DBDefs::DB_READ_ONLY) {
-  </%perl>
-  <table>
-  <tr>
-    <td>
-       &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-    </td>
-    <td>
-       <% &DBDefs::DB_READ_ONLY_MESSAGE %>
-    </td>
-    <td>
-    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-  </td>
-  </tr>
-  </table>
-  <%perl>
+	my $success = 0;
+	my $text = "";
 
-} else {
+	if (&DBDefs::DB_READ_ONLY)
+	{
+		$text = &DBDefs::DB_READ_ONLY_MESSAGE;
+	}
+	else
+	{
+		# make sure we got a valid uid parameter
+		MusicBrainz::IsNonNegInteger($uid) && $uid
+			or return $m->comp("/comp/layout/badarguments",
+				text => "The argument <strong>uid</strong> is missing or has a wrong format.");
 
-MusicBrainz::IsNonNegInteger($uid) && $uid
-	or return $m->comp("/comp/badargs", 1, 1);
+		# make sure we got a valid time parameter
+		MusicBrainz::IsNonNegInteger($time) && $time
+			or return $m->comp("/comp/layout/badarguments",
+				text => "The argument <strong>time</strong> is missing or has a wrong format.");
 
-MusicBrainz::IsNonNegInteger($time) && $time
-  or return $m->comp("/comp/badargs", 1, 1);
+		# make sure we got a valid email parameter
+		$email
+			or return $m->comp("/comp/layout/badarguments",
+				text => "The argument <strong>email</strong> is missing or has a wrong format.");
 
-$email or return $m->comp("/comp/badargs", 1, 1);
-$chk or return $m->comp("/comp/badargs", 1, 1);
+		# make sure we got a valid email parameter
+		$chk
+			or return $m->comp("/comp/layout/badarguments",
+				text => "The argument <strong>chk</strong> is missing or has a wrong format.");
 
-my $mb = $m->comp("/comp/dblogin");
-my $ui = UserStuff->new($mb->{DBH});
+		# Instantiate MusicBrainz object
+		my $mb = $m->comp("/comp/dblogin");
 
-$ui->GetVerifyChecksum($email, $uid, $time) eq $chk
-    or return $m->comp("/comp/badargs", 1, 1);
+		# load checksum from given parameters
+		my $ui = UserStuff->new($mb->{DBH});
+		$ui->GetVerifyChecksum($email, $uid, $time) eq $chk
+			or return $m->comp("/comp/layout/badarguments",
+				text => "The checksum does not match the given arguments.");
 
-if ($time + &DBDefs::EMAIL_VERIFICATION_TIMEOUT() < time())
-{
-    $m->comp("/comp/sidebar", title => 'Verify EMail Address');
-    </%perl>
-    This email address change verification expired. Please
-    <a href="/login.html">Log in</a> and request the
-    email change again.
-    <& /comp/footer &>
-    <%perl>
-    return undef;
-}
+		# check if the time limit has expired.
+		if ($time + &DBDefs::EMAIL_VERIFICATION_TIMEOUT() < time())
+		{
+			$text = qq!This e-mail address change verification has expired. Please
+					   <a href="/login.html">Log in</a> and request another
+					   verification e-mail be sent to your e-mail address.!;
+		}
+		else
+		{
+			my $me = $ui->newFromId($uid);
+			if (not $me)
+			{
+				$text = qq!Cannot find user with <strong>userid</strong> $uid.!;
 
-my $me = $ui->newFromId($uid);
-if (not $me)
-{
-    $m->comp("/comp/sidebar", title => 'Verify EMail Address');
-    </%perl>
-    Cannot find user with user id <% $uid %>.
-    <& /comp/footer &>
-    <%perl>
-    return undef;
-}
+			}
+			elsif ($me->SetUserInfo(email => $email))
+			{
+				$me->SetSession;
 
-if ($me->SetUserInfo(email => $email))
-{
-		$me->SetSession;
-    $m->comp("/comp/sidebar", title => 'Verify EMail Address');
-    </%perl>
-    Your new email address has been saved. Thank you!<p>
-    [ <a href="/user/view.html">View Profile</a> ]
-    <%perl>
-}
-else
-{
-    $m->comp("/comp/sidebar", title => 'Verify EMail Address');
-    </%perl>
-    Failed to update user information.
-    <%perl>
-}
+				$success = 1;
+				$text = qq!Your new e-mail address has been saved. Thank you\!
+						<p>
+						[ <a href="/user/view.html">View Profile</a> ]!;
+
+			}
+			else
+			{
+				$text = qq!Failed to update user information.!;
+			}
+ 		}
+	}
+
+	my $title = $success
+		? "E-mail address confirmed"
+		: "Cannot confirm e-mail address";
 
 </%perl>
 
-% }
+<& /comp/sidebar-notitle, pagetitle => $title &>
+
+	<& /comp/tablebegin, title => $title &>
+
+		<% $text |n %>
+
+	<& /comp/tableend &>
 
 <& /comp/footer &>
 
