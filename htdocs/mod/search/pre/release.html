@@ -21,23 +21,30 @@
 	#
 	# Summary:
 	# -----------------------------------------------------------------------------
-	# Forward to release.html
+	# Search for edits entered against a given release.
 	#
 	# $Id$
 	#
 </%perl>
 <%args>
 
-	$albumid => 0
+	$releaseid => 0
 
 </%args>
 <%perl>
 
-	$ARGS{"releaseid"} = $ARGS{"albumid"} if (defined $ARGS{"albumid"});
-	delete $ARGS{"albumid"};
+	$m->comp("/comp/checkloggedin", 1, 1)
+		or return;
 
-	my $url = "/show/release/?" . $m->comp("/comp/args-to-querystring.inc", %ARGS);
-	return $m->comp("/comp/redirect", $url);
+	my %filter = (
+		orderby => "desc",
+		object_type	=> "album",
+		object_id => $releaseid,
+	);
+
+	$m->comp("/comp/redirect",
+		"/mod/search/results.html?" . $m->comp("/comp/args-to-querystring.inc", %filter)
+	);
 
 </%perl>
 

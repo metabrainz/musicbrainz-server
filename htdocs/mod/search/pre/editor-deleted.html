@@ -21,23 +21,41 @@
 	#
 	# Summary:
 	# -----------------------------------------------------------------------------
-	# Forward to release.html
+	# Search for deleted edits of an editor
 	#
 	# $Id$
 	#
 </%perl>
 <%args>
 
-	$albumid => 0
+	$userid => $session{uid}
 
 </%args>
 <%perl>
 
-	$ARGS{"releaseid"} = $ARGS{"albumid"} if (defined $ARGS{"albumid"});
-	delete $ARGS{"albumid"};
+	$m->comp("/comp/checkloggedin", 1, 1)
+		or return;
 
-	my $url = "/show/release/?" . $m->comp("/comp/args-to-querystring.inc", %ARGS);
-	return $m->comp("/comp/redirect", $url);
+	my %filter = (
+		mod_status => [
+			&ModDefs::STATUS_DELETED,
+		],
+		(
+			($userid == $session{uid})
+			? (
+				moderator_type => 4, # Me
+			) : (
+				moderator_type => 3, # only this person ...
+				moderator_id => $userid,
+			)
+		),
+		orderby => "desc",
+	);
+
+	$m->comp("/comp/redirect",
+		"/mod/search/results.html?" . $m->comp("/comp/args-to-querystring.inc", %filter)
+		#"/user/debug.html?" . $m->comp("/comp/args-to-querystring.inc", %filter)
+	);
 
 </%perl>
 
