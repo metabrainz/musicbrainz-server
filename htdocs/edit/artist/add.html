@@ -96,7 +96,11 @@
 		if ($submitvalue =~ m/Cancel/i)
 		{
 			# if a return url was given, return to this page
-			return $m->comp("/comp/redirect", $returnurl) if ($returnurl ne "");
+			if ($returnurl ne "")
+			{
+				$returnurl .= "&amp;submitvalue=AddArtistCancelled";
+				return $m->comp("/comp/redirect", $returnurl)
+			}
 			return $m->comp("/comp/redirect", "/search.html");
 		}
 		else
@@ -161,10 +165,21 @@
 
 					# if a return url was given, append new artistid and
 					# return to the other page.
-					return $m->comp("/comp/redirect", $returnurl . $rowid) if ($returnurl ne "");
+					if ($returnurl ne "")
+					{
+						# load submit values from releas editor formstate component,
+						# and use the Select Artist button to submit the newly
+						# added artist to the editor.
+						my %cfg = $m->comp("/comp/release_editor/init-formstate", %ARGS);
+						my $submitvalue = uri_escape($cfg{"SUBMIT_ARTISTSELECT"});
+
+						# append new rowid, and submitvalue to the given returnurl.
+						$returnurl = $returnurl . $rowid . "&amp;submitvalue=" . $submitvalue;
+						return $m->comp("/comp/redirect", $returnurl);
+					}
 
 					# else show artist page of newly created artist.
-					return $m->comp("/comp/redirect", "/show/artist/?artistid=".$rowid);
+					return $m->comp("/comp/redirect", "/show/artist/?artistid=" . $rowid);
 				}
 				return $m->comp("/comp/redirect", "/search.html");
 
