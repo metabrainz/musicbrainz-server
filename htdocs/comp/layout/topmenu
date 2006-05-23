@@ -335,6 +335,7 @@
 			{ name => "Logout",				url => "/logout.html",						login => 1 },
 			[
 				{ url => "/user/mod_email.html" },
+				{ url => "/user/confirmaddress.html" },
 				{ url => "/user/register-done.html" },
 			],
 
