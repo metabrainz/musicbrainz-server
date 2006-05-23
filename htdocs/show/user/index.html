@@ -120,7 +120,7 @@
 				<td>
 					  <a href="/user/edit.html">Edit</a>
 					| <a href="/user/change-password.html">Change Password</a>
-					| <a href="/prefs.html">Preferences</a>
+					| <a href="/user/preferences.html">Preferences</a>
 
 % 		if (UserStuff->IsLinkModerator($session{privs}))
 %		{
@@ -271,11 +271,11 @@
 				<td class="label">
 					Review:</td>
 				<td>
-					<a href="/mod/search/pre/voted.html?moderator=<% $userid %>">Votes</a> |
-					<a href="/mod/search/pre/moderator.html?moderator=<% $userid %>">Edits</a> |
-					<a href="/mod/search/pre/moderator-open.html?moderator=<% $userid %>">Open edits</a> |
-					<a href="/mod/search/pre/moderator-failed.html?moderator=<% $userid %>">Failed edits</a> |
-					<a href="/mod/search/pre/moderator-deleted.html?moderator=<% $userid %>">Deleted edits</a>
+					<a href="/mod/search/pre/voted.html?userid=<% $userid %>">Votes</a> |
+					<a href="/mod/search/pre/editor.html?userid=<% $userid %>">Edits</a> |
+					<a href="/mod/search/pre/editor-open.html?userid=<% $userid %>">Open edits</a> |
+					<a href="/mod/search/pre/editor-failed.html?userid=<% $userid %>">Failed edits</a> |
+					<a href="/mod/search/pre/editor-deleted.html?userid=<% $userid %>">Deleted edits</a>
 % 	if ($subscriptions_public or $is_me)
 %	{
 					| <a href="/user/subscriptions.html?user=<% $userid %>">Subscriptions</a>
