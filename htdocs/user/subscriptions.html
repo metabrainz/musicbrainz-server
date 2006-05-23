@@ -1,58 +1,89 @@
-%# vi: set ts=4 sw=4 ft=mason :
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# This page shows the subscribed artists of a given user.
+	#
+	# $Id$
+	#
+</%perl>
 <%args>
-$user => undef
+
+	$user => undef
+
 </%args>
 <%perl>
 
-my $mb = $m->comp("/comp/dblogin");
+	my $mb = $m->comp("/comp/dblogin");
 
-if (defined $user)
-{
-	MusicBrainz::IsNonNegInteger($user)
-		or return $m->comp("/comp/badargs", 1, 1);
-} else {
-	$m->comp(
-		"/comp/checkloggedin", 1, 1,
-		"You must log in to manage your subscriptions.",
-	) or return;
-	$user = $session{uid};
-}
+	if (defined $user)
+	{
+		MusicBrainz::IsNonNegInteger($user)
+			or return $m->comp("/comp/badargs", 1, 1);
+	}
+	else
+	{
+		$m->comp("/comp/checkloggedin", 1, 1,
+			"You must log in to manage your subscriptions.",
+		) or return;
+		$user = $session{uid};
+	}
 
-my $is_me = ($user == $session{uid});
+	my $is_me = ($user == $session{uid});
+	my $them = UserStuff->newFromId($mb->{DBH}, $user)
+		or return $m->comp("/comp/error", "There is no user #$user", 1, 1);
 
-my $them = UserStuff->newFromId($mb->{DBH}, $user)
-	or return $m->comp("/comp/error", "There is no user #$user", 1, 1);
+	unless ($is_me)
+	{
+		UserPreference::get_for_user("subscriptions_public", $them)
+			or return $m->comp("subscriptions-private.inc", user => $them);
+	}
 
-unless ($is_me)
-{
-	UserPreference::get_for_user("subscriptions_public", $them)
-		or return $m->comp("subscriptions-private.inc", user => $them);
-}
+	my $subs = UserSubscription->new($mb->{DBH});
+	$subs->SetUser($user);
 
-my $subs = UserSubscription->new($mb->{DBH});
-$subs->SetUser($user);
+	my $info = $subs->GetSubscribedArtists;
+	@$info = grep { defined $_->{name} } @$info;
 
-my $info = $subs->GetSubscribedArtists;
-@$info = grep { defined $_->{name} } @$info;
-
-return $m->comp("subscriptions-public.inc", user => $them, info => $info)
-	unless $is_me;
+	return $m->comp("subscriptions-public.inc", user => $them, info => $info)
+		unless $is_me;
 
 
-$m->comp("/comp/sidebar", title => 'Artist Subscriptions');
+	$m->comp("/comp/sidebar", title => 'Artist Subscriptions');
 
 </%perl>
 
-<p class="LinksRow">
-	[
-	<a href="/user/view.html">Profile &amp; Statistics</a>
-	| <a href="/user/edit.html">Edit</a>
-	| <a href="/user/change-password.html">Change Password</a>
-	| <a href="/user/preferences.html">Preferences</a>
-	]
-</p>
+	<p class="LinksRow">
+		[
+		<a href="/user/view.html">Profile &amp; Statistics</a>
+		| <a href="/user/edit.html">Edit</a>
+		| <a href="/user/change-password.html">Change Password</a>
+		| <a href="/prefs.html">Preferences</a>
+		]
+	</p>
 
-% unless ($session{has_confirmed_email}) {
+% 	unless ($session{has_confirmed_email})
+%	{
+
 	<p class="notice">
 		<span class="red">You have not provided an e-mail address!</span>
 		<br />
@@ -61,9 +92,11 @@ $m->comp("/comp/sidebar", title => 'Artist Subscriptions');
 		<a href="/user/edit.html">edit your profile</a>
 		and provide an e-mail address.
    </p>
-% }
 
-% if (not @$info) {
+% 	}
+
+% 	if (not @$info)
+%	{
 
 	<p>
 		You are not currently subscribed to any artists.&nbsp;
@@ -71,7 +104,9 @@ $m->comp("/comp/sidebar", title => 'Artist Subscriptions');
 		on the artist's page.
 	</p>
 
-% } else {
+% 	}
+%	else
+%	{
 
 	<p>
 		You are currently subscribed to
@@ -83,8 +118,8 @@ $m->comp("/comp/sidebar", title => 'Artist Subscriptions');
 		on the artist's page.
 	</p>
 
-% my $row = 0;
-% my @colours = ('#fff', '#ffe1b7');
+% 		my $row = 0;
+% 		my @colours = ('#fff', '#ffe1b7');
 
 	<form class="Subs" method="post" action="/user/subscribe.html">
 		<table class="Subs">
@@ -92,20 +127,27 @@ $m->comp("/comp/sidebar", title => 'Artist Subscriptions');
 			<col class="c1" />
 			<col class="c2" />
 			<col class="c3" />
-% for my $artist (@$info) {
-<tr class="r<% $row++ % 2 %>">
-<td><input type="checkbox" name="artistid" value="<% $artist->{artist} %>" /></td>
-<td class="a"><a href="/showartist.html?artistid=<% $artist->{artist} %>"><% $artist->{name} %></a> <% $artist->{resolution} ? "($artist->{resolution})" : "" %></td>
-<td>[ <a href="/mod/search/pre/artist.html?artistid=<% $artist->{artist} %>">Edits</a> ]</td>
-</tr>
-% }
+
+% 		for my $artist (@$info)
+%		{
+
+			<tr class="r<% $row++ % 2 %>">
+				<td><input type="checkbox" name="artistid" value="<% $artist->{artist} %>" /></td>
+				<td class="a"><a href="/showartist.html?artistid=<% $artist->{artist} %>"><% $artist->{name} %></a> <% $artist->{resolution} ? "($artist->{resolution})" : "" %></td>
+				<td>[ <a href="/mod/search/pre/artist.html?artistid=<% $artist->{artist} %>">Edits</a> ]</td>
+			</tr>
+% 		}
 		</table>
+
 		<p>
 			<input type="hidden" name="unsubscribe" value="1" />
 			<input type="submit" value="Delete selected subscriptions" />
 		</p>
+
 	</form>
 
-% }
+% 	}
 
 <& /comp/footer &>
+
+%# vi: set ts=4 sw=4 ft=mason :

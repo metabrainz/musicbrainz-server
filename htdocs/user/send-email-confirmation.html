@@ -1,37 +1,77 @@
-%# vi: set ts=4 sw=4 ft=mason :
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# This page displays the outcome of the send confirmation e-mail workflow.
+	#
+	# $Id$
+	#
+</%perl>
 <%args>
-$email => undef
+
+	$email => undef
+
 </%args>
 <%perl>
 
-MusicBrainz::IsSingleLineString($email)
-	or return $m->comp("/comp/badargs", 1, 1);
+	MusicBrainz::IsSingleLineString($email)
+		or return $m->comp("/comp/badargs", 1, 1);
 
-$m->comp("/comp/checkloggedin", 1, 1) or return;
-my $uid = $session{uid} or return;
+	$m->comp("/comp/checkloggedin", 1, 1) or return;
+	my $uid = $session{uid} or return;
 
-my $mb = $m->comp("/comp/dblogin");
-my $ui = UserStuff->new($mb->{DBH});
+	my $mb = $m->comp("/comp/dblogin");
+	my $ui = UserStuff->new($mb->{DBH});
 
-my $info = $ui->newFromId($uid)
-	or return;
+	my $info = $ui->newFromId($uid)
+		or return;
 
-my $ret = $info->SendVerificationEmail($email);
+	my $ret = $info->SendVerificationEmail($email);
 
 </%perl>
+
 <& /comp/sidebar, title => "Confirm E-mail Address" &>
 
-% if (my $ret = $info->SendVerificationEmail($email)) {
-				<p class="error">
-					The email verification mail could not be sent: <b><% $ret %></b>.&nbsp;
-					Please check the address, or try again later.
-				</p>
-% } else {
-				<p class="notice">
-					The email verification mail has been sent to <b><% $email %></b>.&nbsp;
-					Please check your mailbox and click on the link in the email to 
-					verify this address.
-				</p>
-% }
+% 	if (my $ret = $info->SendVerificationEmail($email))
+%	{
 
-<& /comp/movefocus, "EditUser", "email" &>
+		<p class="error">
+			The email verification mail could not be sent: <b><% $ret %></b>.&nbsp;
+			Please check the address, or try again later.
+		</p>
+
+% 	}
+%	else
+%	{
+
+		<p class="notice">
+			The email verification mail has been sent to <b><% $email %></b>.&nbsp;
+			Please check your mailbox and click on the link in the email to
+			verify this address.
+		</p>
+% 	}
+
+	<& /comp/movefocus, "EditUser", "email" &>
+
+<& /comp/footer &>
+
+%# vi: set ts=4 sw=4 ft=mason :
