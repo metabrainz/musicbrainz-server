@@ -23,7 +23,6 @@
 	# -----------------------------------------------------------------------------
 	# This page provides pre-defined voting queries.
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
@@ -35,7 +34,8 @@
 			<tr>
 				<td class="instructions">
 					<ul>
-% 	if (&DBDefs::REPLICATION_TYPE == RT_SLAVE) {
+% 	if (&DBDefs::REPLICATION_TYPE == RT_SLAVE)
+%	{
 
 						<li>
 							Data editing (moderating) is only available on the
@@ -45,7 +45,9 @@
 			</tr>
 		</table>
 
-% } else {
+% 	}
+%	else
+%	{
 						<li>What type of edits do you want to view?</li>
 						<li>
 							If you do not know where to start, please <a href="/mod/search/pre/new.html"
@@ -133,3 +135,5 @@
 	<& /comp/tableend &>
 
 <& /comp/footer &>
+
+%# vi: set ts=4 sw=4 ft=mason :

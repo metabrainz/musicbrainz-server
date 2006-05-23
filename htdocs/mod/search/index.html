@@ -23,12 +23,13 @@
 	# -----------------------------------------------------------------------------
 	# The Advanced Edit Search.
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
 <%args>
+
 	$clearform => 0
+
 </%args>
 <%perl>
 
@@ -243,11 +244,14 @@
 								<% ($voter_type eq "1") ? 'checked="checked"' : "" %>
 
 							/><label for="voter_type1"
-%	if ($voter_id) {
+%	if ($voter_id)
+%	{
 							>
 							<& /comp/linkuser, id => $voter_id, name => $voter_name, title => "voter" &>'s vote</label>
 							<input type="hidden" name="voter_id" value="<% $voter_id %>" />
-%	} else {
+%	}
+%	else
+%	{
 							No voter selected</label>
 %	}
 							&nbsp; [ <a href="/mod/search/select-moderator.html?is_voter=1&<% scalar $r->args %>">Change ...</a> ] <br />
@@ -309,7 +313,9 @@
 								resolution => $artist_resolution
 							&></label>
 							<input type="hidden" name="artist_id" value="<% $artist_id %>" />
-%	} else {
+%	}
+%	else
+%	{
 							(no artist selected)</label>
 %	}
 
@@ -319,14 +325,17 @@
 								<% ($artist_id) ? "" : 'disabled="disabled"' %>
 								<% ($at eq "5") ? 'checked="checked"' : "" %>
 							/><label for="artist_type4">Artists related to:
-%	if ($artist_id) {
+%	if ($artist_id)
+%	{
 							<& /comp/linkartist,
 								id => $artist_id,
 								name => $artist_name ,
 								sortname => $artist_sortname ,
 								resolution => $artist_resolution
 							&></label>
-%	} else {
+%	}
+%	else
+%	{
 							(no artist selected)</label>
 %	}
 								&nbsp; [ <a href="/mod/search/select-artist.html?<% scalar $r->args %>">Change ...</a> ] <br />
@@ -450,3 +459,5 @@
 	<& /comp/tableend &>
 
 <& /comp/footer &>
+
+%# vi: set ts=4 sw=4 ft=mason :
