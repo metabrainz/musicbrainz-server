@@ -277,8 +277,29 @@ tr.artistrel8 { background-color: #FFE4BE; }
 tr.artistrel9 { background-color: #FFE1B7; }
 
 
+table.listing tr td.accepted,
+table.listing tr td.cancelled,
+table.listing tr td.rejected {
+	padding: 1px; padding-right: 2px;
+}
+table.listing tr td.open span,
+table.listing tr td.accepted span,
+table.listing tr td.cancelled span,
+table.listing tr td.rejected span {
+	border: 1px solid #000; 
+	padding: 0px; padding-right: 4px; font-size: 5px;
+}
 
 
+table.listing tr td.accepted span {
+	background-color: #afa;
+}
+table.listing tr td.rejected span {
+	background-color: #faa; 
+}
+table.listing tr td.cancelled span {
+	background-color: #ccc; 
+}
 
 table.browsebox {
 	width: 90%;
