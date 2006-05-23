@@ -213,7 +213,7 @@
 		<tr>
 			<td>&nbsp;</td>
 			<td style="padding-bottom: 20px">
-				<input class="button" name="submitvalue" type="submit" value="<% $addartistbutton %>"
+				<input class="button" name="submitvalue" type="submit" value="<% $addartistbutton |n %>"
 						title="Add a new artist to MusicBrainz" />
 				<input type="hidden" name="artistfilter_field" value="<% $artistfilter_field %>" />
 			</td>
