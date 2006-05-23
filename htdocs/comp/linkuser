@@ -40,7 +40,7 @@
 	# rendering options
 	$icon => 1
 	$strong => 1
-	$short => 0
+	$shorten => 1
 
 </%args>
 <%perl>
@@ -50,7 +50,7 @@
 		$id = $user->GetId;
 		$name = $user->GetName;
 	}
-	die ("$id or $name are required") if (not defined $id || not defined $name);
+	die ("\$id or \$name are required") if (not defined $id and not defined $name);
 
 	my ($arg, $usericon, $iconalt) = ("", lc($title)."_small", ucfirst($title));
 	if (defined $id)
@@ -64,7 +64,7 @@
 
 	my $dispname = $m->interp->apply_escapes($name, 'h');
 	my $shortname = $dispname;
-	if (length($name) > 11)
+	if ($shorten && length($name) > 11)
 	{
 		$shortname = substr($name, 0, 10);
 		$shortname = $m->interp->apply_escapes($shortname, 'h');
