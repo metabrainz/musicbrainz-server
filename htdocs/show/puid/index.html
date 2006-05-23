@@ -23,18 +23,20 @@
 	# -----------------------------------------------------------------------------
 	# List all releases with tracks that have the given PUID attached.
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
 <%args>
+
 	$puid => undef
 	$matchesonly => 1
+
 </%args>
 
 <& /comp/sidebar-notitle, pagetitle => "Show PUID" &>
 
 <%perl>
+
 	my $showreleases = 0;
 	my $showspecial = undef;
 
@@ -182,3 +184,5 @@
 </%perl>
 
 <& /comp/footer &>
+
+%# vi: set ts=4 sw=4 ft=mason :

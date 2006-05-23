@@ -23,11 +23,11 @@
 	# -----------------------------------------------------------------------------
 	# List a release given by the releaseid/mbid argument
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
 <%args>
+
 	$trackid => ""
 	$mbid => ""
 
@@ -40,6 +40,7 @@
 	$remrel => -1
 	$remtype => ""
 	$arcancel => 0
+
 </%args>
 <%perl>
 
@@ -164,3 +165,5 @@
 	<& /comp/trackinfo, track => $track, TRM => \@TRM, PUID => \@PUID &>
 
 <& /comp/footer &>
+
+%# vi: set ts=4 sw=4 ft=mason :

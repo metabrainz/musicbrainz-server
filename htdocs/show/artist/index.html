@@ -23,11 +23,11 @@
 	# -----------------------------------------------------------------------------
 	# List all releases of an artist given by the artistid/mbid argument
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
 <%args>
+
 	$artistid => ""
 	$mbid => ""
 
@@ -40,6 +40,7 @@
 	$remrel => -1
 	$remtype => ""
 	$arcancel => 0
+
 </%args>
 <%perl>
 
@@ -467,3 +468,5 @@
 	<input type="hidden" id="collapsereleases::showtoggleicon" value="0" />
 
 <& /comp/footer &>
+
+%# vi: set ts=4 sw=4 ft=mason :

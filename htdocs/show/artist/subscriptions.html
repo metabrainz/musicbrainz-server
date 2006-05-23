@@ -1,6 +1,8 @@
 %# vi: set ts=4 sw=4 ft=mason :
 <%args>
-$artist => undef
+
+	$artist => undef
+
 </%args>
 <%perl>
 
@@ -64,12 +66,12 @@ my $private_str = sprintf "%d anonymous subscriber%s",
 
 </%perl>
 
-	<& /comp/tablebegin, title=>'Editors subscribed to this artist', gattrs => "width='100%'" &> 
+	<& /comp/tablebegin, title=>'Editors subscribed to this artist', gattrs => "width='100%'" &>
 	<table width="100%" cellspacing="0" cellpadding="0">
 		<tr>
 			<td style="padding: 0px 4px">
 				<%perl>
-					if (@public) 
+					if (@public)
 					{
 						my $i = 0;
 						for (@public)
@@ -82,11 +84,11 @@ my $private_str = sprintf "%d anonymous subscriber%s",
 						$m->out(" plus $private_str") if $private;
 						$m->out(".");
 					}
-					elsif ($private) 
+					elsif ($private)
 					{
 						$m->out($private_str);
-					} 
-					else 
+					}
+					else
 					{
 						$m->out("none");
 					}
@@ -97,13 +99,15 @@ my $private_str = sprintf "%d anonymous subscriber%s",
 			<td align="center">
 				&nbsp;<br/>
 				<a href="/user/subscribe.html?artistid=<% $artist->GetId %>"
-					>Subscribe to this artist</a> | 
+					>Subscribe to this artist</a> |
 				<a href="/user/subscribe.html?artistid=<% $artist->GetId %>&unsubscribe=1"
 					>Unsubscribe from this artist</a>
-  
+
 			</td>
 		</tr>
 	</table>
-	<& /comp/tableend &> 
+	<& /comp/tableend &>
 
 <& /comp/footer &>
+
+%# vi: set ts=4 sw=4 ft=mason :

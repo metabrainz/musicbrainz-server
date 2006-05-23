@@ -1,7 +1,36 @@
-%# vi: set ts=4 sw=4 ft=mason :
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# Show a editor(user) profile page.
+	#
+	# $Id$
+	#
+</%perl>
 <%args>
+
 	$userid => ($session{uid} || undef)
 	$username => undef
+
 </%args>
 <%perl>
 
@@ -91,7 +120,7 @@
 				<td>
 					  <a href="/user/edit.html">Edit</a>
 					| <a href="/user/change-password.html">Change Password</a>
-					| <a href="/user/preferences.html">Preferences</a>
+					| <a href="/prefs.html">Preferences</a>
 
 % 		if (UserStuff->IsLinkModerator($session{privs}))
 %		{
@@ -164,10 +193,13 @@
 			<tr class="top">
 				<td class="label">
 					Homepage:</td>
+
 %   if (my $url = $user->GetWebURLComplete)
 %	{
 				<td><a href="<% $url %>"><% $url %></a></td>
-%   } else {
+%   }
+%	else
+%	{
 				<td>[none]</td>
 %   }
 			</tr>
@@ -178,6 +210,7 @@
 				<td>
 					<div style="border: 1px dotted #ccc; padding: 5px;">
 <%perl>
+
 	my $bio = $user->GetBio;
 
 	if ($bio)
@@ -194,6 +227,7 @@
 	}
 
 	$m->out($bio);
+
 </%perl>
 					</div></td>
 			</tr>
@@ -318,6 +352,7 @@
 							<td width="150" colspan="2">All time</td>
 						</tr>
 <%perl>
+
 	for (
 		[ "Yes", &ModDefs::VOTE_YES ],
 		[ "No", &ModDefs::VOTE_NO ],
@@ -355,8 +390,10 @@
 
 <%def .JumpForm>
 <%args>
+
 	$jump => 1
 	$error => undef
+
 </%args>
 
 	<& /comp/tablebegin, title => "Search for an".($jump?"":"other")." Editor" &>
@@ -393,8 +430,6 @@
 
 </%def>
 
-
-
 <%def .ShowError>
 % 	my $error = shift;
 
@@ -405,3 +440,5 @@
 	<& /comp/footer &>
 
 </%def>
+
+%# vi: set ts=4 sw=4 ft=mason :

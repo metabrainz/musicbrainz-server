@@ -27,12 +27,14 @@
 	#
 </%perl>
 <%args>
+
 	$urlid
 
 	$addrel => 0
 	$remrel => -1
 	$remtype => ""
 	$arcancel => 0
+
 </%args>
 <%perl>
 
@@ -48,8 +50,8 @@
 
 	<& /comp/urlinfo, url => $url &>
 
-
 <%perl>
+
 	$m->comp("/comp/ar/AddRelationship", id=>$urlid, type=>'url', name=>$url->GetName)
 		if ($addrel);
 	$m->comp("/comp/ar/ClearRelationships")

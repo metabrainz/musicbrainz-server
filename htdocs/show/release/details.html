@@ -23,18 +23,20 @@
 	# -----------------------------------------------------------------------------
 	# Show database details of a release.
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
 <%args>
+
 	$mbid => ""
 	$albumid => ""
 	$releaseid => undef
 
 	$show => ""
+
 </%args>
 <%perl>
+
 	$releaseid = $releaseid || $albumid;
 
 	if ($mbid ne "")
@@ -61,6 +63,7 @@
 	<& /comp/albuminfo, album => $release &>
 
 <%perl>
+
 	# check if we have any Disc IDs to display.
 	$release->GetDiscidCount;
 	my @ids = @{ $release->GetDiscIDs };
@@ -74,6 +77,7 @@
 		my $id = $release->GetId;
 
 		# discid detail selector area
+
 </%perl>
 
 		<a name="discid"></a>
@@ -155,6 +159,9 @@
 		$m->out("</table>");
 		$m->comp("/comp/tableend");
 	}
+
 </%perl>
 
 <& /comp/footer &>
+
+%# vi: set ts=4 sw=4 ft=mason :
