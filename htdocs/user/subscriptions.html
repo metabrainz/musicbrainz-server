@@ -37,36 +37,42 @@
 
 	if (defined $user)
 	{
+		# make sure we got a valid user parameter
 		MusicBrainz::IsNonNegInteger($user)
-			or return $m->comp("/comp/badargs", 1, 1);
+			or return $m->comp("/comp/layout/badarguments",
+				text => "The argument <strong>user</strong> is missing or has a wrong format.");
 	}
 	else
 	{
+		# only logged in users can view their own subscriptions. interesting enough :)
 		$m->comp("/comp/checkloggedin", 1, 1,
 			"You must log in to manage your subscriptions.",
 		) or return;
 		$user = $session{uid};
 	}
 
+	# load current user.
 	my $is_me = ($user == $session{uid});
 	my $them = UserStuff->newFromId($mb->{DBH}, $user)
 		or return $m->comp("/comp/error", "There is no user #$user", 1, 1);
 
+	# see if other users has their subscriptions public.
 	unless ($is_me)
 	{
 		UserPreference::get_for_user("subscriptions_public", $them)
 			or return $m->comp("subscriptions-private.inc", user => $them);
 	}
 
+	# load subscriptions
 	my $subs = UserSubscription->new($mb->{DBH});
 	$subs->SetUser($user);
-
 	my $info = $subs->GetSubscribedArtists;
 	@$info = grep { defined $_->{name} } @$info;
 
+	# show public subscriptions of another user if the user we're
+	# are displaying the subscriptions of is not the current user.
 	return $m->comp("subscriptions-public.inc", user => $them, info => $info)
 		unless $is_me;
-
 
 	$m->comp("/comp/sidebar", title => 'Artist Subscriptions');
 

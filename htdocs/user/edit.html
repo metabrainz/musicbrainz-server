@@ -42,12 +42,12 @@
 	# address, he of course can edit his account without
 	# having a confirmed e-mail address set.
 	$m->comp("/comp/checkloggedin", 1, 1, undef, 1) or return;
-	my $uid = $session{uid} or return;
+	my $userid = $session{"uid"} or return;
 
 	my $mb = $m->comp("/comp/dblogin");
 	my $ui = UserStuff->new($mb->{DBH});
 
-	my $info = $ui->newFromId($uid)
+	my $info = $ui->newFromId($userid)
 		or return;
 
 	$m->comp("/comp/sidebar-notitle", pagetitle => "Edit Account");

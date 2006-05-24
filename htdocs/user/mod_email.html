@@ -29,7 +29,10 @@
 <%args>
 
 	$uid => -1
+	$userid => undef
+
 	$modid => 0
+	$editid => undef
 
 	$revealaddress => 0
 	$subject => ""
@@ -41,25 +44,34 @@
 </%args>
 <%perl>
 
-	$m->comp("/comp/checkloggedin", 1, 1,
-		"You must be logged in to send a message to another moderator.",
-	) or return;
-
+	# do not allow to send messages if the database is readonly. why?
 	return if $m->comp("/comp/dbreadonly", 1, 1);
 
-	MusicBrainz::IsNonNegInteger($uid) && $uid
-		or return $m->comp("/comp/badargs", 1, 1);
+	# use new terminology internally.
+	$editid ||= $modid;
+	$userid ||= $uid;
 
-	MusicBrainz::IsNonNegInteger($modid) && $modid
-		or $modid = 0;
+	# only logged in users can see this page.
+	$m->comp("/comp/checkloggedin", 1, 1,
+		"You must be logged in to send a message to another editor.",
+	) or return;
+
+	# make sure we got a valid userid parameter
+	MusicBrainz::IsNonNegInteger($userid) && $userid
+		or return $m->comp("/comp/layout/badarguments",
+			text => "The argument <strong>userid</strong> is missing or has a wrong format.");
+
+	# make sure we got a valid editid parameter
+	MusicBrainz::IsNonNegInteger($editid) && $editid
+		or $editid = 0;
 
 	$m->comp("/comp/sidebar-notitle", pagetitle => "Send email to editor");
 	$m->comp("/comp/tablebegin", title => "Send email to editor");
 
 	my $mb = $m->comp("/comp/dblogin");
 	my $ui = UserStuff->new($mb->{DBH});
-	my $me = $ui->newFromId($session{uid});
-	my $you = $ui->newFromId($uid);
+	my $me = $ui->newFromId($session{"uid"});
+	my $you = $ui->newFromId($userid);
 
 	my @messages = ();
 	my $disableform = 0;
@@ -71,40 +83,45 @@
 	}
 	if (not $you)
 	{
-		push @messages, qq!Cannot find editor with <strong>userid</strong> $uid!;
+		push @messages, qq!Cannot find editor with <strong>userid</strong> $userid!;
 		$disableform = 1;
 	}
 	if ($you and !$you->CheckEMailAddress)
 	{
 		push @messages, qq!The editor !.$you->GetName.qq!has declined to give an e-mail
-							address, which means you can't mail them. :-(!;
+							address, which means you cannot send them an e-mail...!;
 		$disableform = 1;
 	}
 
 	if ($submitvalue ne "")
 	{
-		if ($subject and $text)
+		if (!$subject or !$text)
 		{
-			if ($modid)
+			push @messages, qq!Please enter a subject and a text.!;
+		}
+		if (@messages == 0)
+		{
+			if ($editid)
 			{
 				$text = "Edit: http://" . &DBDefs::WEB_SERVER .
-						"/show/edit/?editid=$modid\n\n" . $text;
+						"/show/edit/?editid=$editid\n\n" . $text;
 			}
 			my $ret = $me->SendMessageToUser(
 					to => $you,
 					revealaddress => $revealaddress,
 					subject => $subject,
 					body => $text);
+
+			# if SendMessageToUser returns anything, it is an
+			# error, display the message...
 			if ($ret)
 			{
 				push @messages, qq!Error while sending e-mail: $ret!;
 
 			}
-
 			if (@messages == 0)
 			{
-
-				$m->out(qq!E-mail has been sent to $you->GetName!);
+				$m->out(qq!E-mail has been sent to ! . $you->GetName);
 				if ($url)
 				{
 					$m->out(qq!<p>[ <a href="$url">Continue</a> ]!);
@@ -114,14 +131,10 @@
 				return undef;
 			}
 		}
-		else
-		{
-			push @messages, qq!Please enter a subject and a text.!;
-		}
 	}
 	else
 	{
-		$subject ||= "About edit #$modid" if $modid;
+		$subject ||= "About edit #$editid" if $editid;
 	}
 
 </%perl>
@@ -129,7 +142,7 @@
 		<form method="post" action="/user/mod_email.html" id="EMailForm">
 
 
-%	if ($modid)
+%	if ($editid)
 %	{
 			<div style="border: 1px solid #000; padding: 5px; margin-bottom: 15px">
 				<strong>Please note:</strong> Please use the moderation notes system
@@ -173,9 +186,9 @@
 % 	$m->out(qq! style="width: 100%" !) if ($pnotes{'ispopup'});
 
 						></textarea>
-						<input type="hidden" name="uid" value="<% $uid %>" />
+						<input type="hidden" name="userid" value="<% $userid %>" />
 						<input type="hidden" name="url" value="<% $url %>" />
-						<input type="hidden" name="modid" value="<% $modid %>" />
+						<input type="hidden" name="editid" value="<% $editid %>" />
 						<input type="hidden" name="ispopup" value="<% $pnotes{'ispopup'} %>" /></td>
 				</tr>
 %	if ($me->GetEmail)

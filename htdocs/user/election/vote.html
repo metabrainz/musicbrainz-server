@@ -50,7 +50,7 @@
 	UserStuff->IsAutoMod($session{privs})
 		or return $m->comp(
 			"/comp/error",
-			"Only existing automoderators can vote on new automoderators",
+			"Only existing autoeditors can vote on new autoeditors",
 			1, 1,
 		);
 
@@ -95,7 +95,7 @@
 
 </%perl>
 
-<& /comp/sidebar, title => "Vote on a Proposed Auto-Moderator" &>
+<& /comp/sidebar, title => "Vote on a Proposed Autoeditor" &>
 
 	<p>
 % 	if ($new_vote == &ModDefs::VOTE_YES)

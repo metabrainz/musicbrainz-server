@@ -33,44 +33,49 @@
 </%args>
 <%perl>
 
+	# make sure we got a valid email parameter
 	MusicBrainz::IsSingleLineString($email)
-		or return $m->comp("/comp/badargs", 1, 1);
+		or return $m->comp("/comp/layout/badarguments",
+			text => "The argument <strong>email</strong> is missing or has a wrong format.");
 
+	# only logged in users can see this page.
 	$m->comp("/comp/checkloggedin", 1, 1) or return;
-	my $uid = $session{uid} or return;
 
+	# load info of current user from the database, and
+	# send a new verification e-mail.
+	my $userid = $session{uid} or return;
 	my $mb = $m->comp("/comp/dblogin");
 	my $ui = UserStuff->new($mb->{DBH});
-
-	my $info = $ui->newFromId($uid)
+	my $info = $ui->newFromId($userid)
 		or return;
 
 	my $ret = $info->SendVerificationEmail($email);
 
 </%perl>
 
-<& /comp/sidebar, title => "Confirm E-mail Address" &>
+<& /comp/sidebar-notitle, pagetitle => "Confirm E-mail Address" &>
+
+	<& /comp/tablebegin, title => "Confirm E-mail Address" &>
 
 % 	if (my $ret = $info->SendVerificationEmail($email))
 %	{
 
-		<p class="error">
-			The email verification mail could not be sent: <b><% $ret %></b>.&nbsp;
-			Please check the address, or try again later.
-		</p>
+		<span style="color: #f00">
+			The verification e-mail could not be sent: <strong><% $ret %></strong>.
+			Please check the e-mail address, or try again later.
+		</span>
 
 % 	}
 %	else
 %	{
 
-		<p class="notice">
-			The email verification mail has been sent to <b><% $email %></b>.&nbsp;
-			Please check your mailbox and click on the link in the email to
-			verify this address.
-		</p>
+		The verification e-mail has been sent to <strong><% $email %></strong>.
+		Please check your mailbox and click on the link in the e-mail to
+		verify your address.
+
 % 	}
 
-	<& /comp/movefocus, "EditUser", "email" &>
+	<& /comp/tableend &>
 
 <& /comp/footer &>
 

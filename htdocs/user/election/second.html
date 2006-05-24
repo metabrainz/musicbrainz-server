@@ -39,7 +39,7 @@
 	UserStuff->IsAutoMod($session{privs})
 		or return $m->comp(
 			"/comp/error",
-			"Only existing automoderators can second new automoderators",
+			"Only existing autoeditors can second new autoeditors",
 			1, 1,
 		);
 
