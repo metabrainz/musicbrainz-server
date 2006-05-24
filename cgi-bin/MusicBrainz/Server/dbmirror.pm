@@ -123,6 +123,7 @@ sub unpack_data
 					(?:
 						\\\\	# two backslashes == \
 						| \\'	# backslash quote == '
+						| ''	# quote quote also == '
 						| [^']	# any other char == itself
 					)*
 				)
@@ -135,11 +136,14 @@ sub unpack_data
 
 		if (defined $v)
 		{
-			# Every \ is either part of a \\ or \' pair
-			# Every ' is preceded by \
-			$v =~ s/\\'/'/g;
-			# Now every \ is part of a \\ pair
-			$v =~ s/\\\\/\\/g;
+			my $t = '';
+			while (length $v)
+			{
+				$t .= "\\", next if $v =~ s/\A\\\\//;
+				$t .= "'", next if $v =~ s/\A\\'// or $v =~ s/\A''//;
+				$t .= substr($v, 0, 1, '');
+			}
+			$v = $t;
 		}
 
 		#print "Found $k = $v\n";
