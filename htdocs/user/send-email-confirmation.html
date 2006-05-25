@@ -60,18 +60,17 @@
 % 	if (my $ret = $info->SendVerificationEmail($email))
 %	{
 
-		<span style="color: #f00">
-			The verification e-mail could not be sent: <strong><% $ret %></strong>.
-			Please check the e-mail address, or try again later.
-		</span>
+		The verification e-mail could not be sent, the server
+		returned this message: <code><strong><% $ret %></strong></code>
+		Please check if the entered e-mail address is correct, or try again later.
 
 % 	}
 %	else
 %	{
 
-		The verification e-mail has been sent to <strong><% $email %></strong>.
-		Please check your mailbox and click on the link in the e-mail to
-		verify your address.
+		The verification e-mail has been sent to <code><% $email %></code>.
+		Please check your e-mails and click on the link in the e-mail
+		to verify your address.
 
 % 	}
 
