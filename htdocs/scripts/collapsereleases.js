@@ -272,7 +272,7 @@ function CollapseReleases() {
 				mb.log.debug("Element $ not found", tid);
 			}
 		} else {
-			alert("el is null");
+			// alert("el is null");
 		}
 		mb.log.exit();
 	};
