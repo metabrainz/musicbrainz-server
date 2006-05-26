@@ -51,7 +51,7 @@
 	# to the release page, else to the homepage.
 	if ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_CANCEL"})
 	{
-		my $url = (MusicBrainz::IsNonNegInteger($releaseid)
+		my $url = (MusicBrainz::IsNonNegInteger($releaseid) && $releaseid
 			? "/show/release/?releaseid=".$ARGS{"releaseid"}
 			: "/index.html"
 		);
@@ -115,7 +115,12 @@
 
 		# prepare add artist form url.
 		my $addartisturl = "/edit/artist/add.html?name=$artistfilter_search&returnurl=$returnurl";
-		return $m->comp("/comp/redirect", $addartisturl);
+
+		# /comp/redirect failed, probably because the URL was too long.
+		$r->internal_redirect($addartisturl);
+		$m->auto_send_headers(0);
+		$m->clear_buffer;
+		$m->abort;
 	}
 
 	# Handle callback from ADD ARTIST page
