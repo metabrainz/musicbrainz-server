@@ -43,9 +43,9 @@
 			qq(<div class="stepnr$nrclass">$i</div><div class="step$stepclass">$_</div>)
 		} @steps;
 
+	$m->out(qq(<div class="formsteps">\n));
 	$m->out(join (qq(<div class="steparrow">&raquo;</div>\n), @steps));
-	$m->out(qq(<br/>\n));
-	$m->out(qq(<br/>\n));
+	$m->out(qq(</div>\n));
 
 </%perl>
 
