@@ -1,74 +1,70 @@
-%# vi: set ts=2 sw=2 ft=mason :
 <%args>
-$id
-$toc
-$album
-$tracks
+
+	$discid
+	$toc
+	$tracks
+
+	$releaseid
+
 </%args>
 <%perl>
 
-my $mb = $m->comp("/comp/dblogin");
+	# Instantiate MusicBrainz object, and load release
+	my $mb = $m->comp("/comp/dblogin");
+	my $release = $m->comp("/comp/loadrelease", $mb, $releaseid);
 
-my $al = Album->new($mb->{DBH});
-$al->SetId($album);
-$al->LoadFromId
-	or return $m->comp(
-		"/comp/error",
-		"Album #$album not found in the database.",
-		1, 1,
+	# do not allow disc id to be added to NAT release. usually,
+	# this won't happen since they are not shown on the
+	# calling page
+	if ($release->IsNonAlbumTracks)
+	{
+		return $m->comp("/comp/error",
+			"Disc IDs cannot t be added to $release->{name} albums.",
+			1, 1) ;
+	}
+
+	# load release artist
+	my $artist = $m->comp("/comp/loadartist", $mb, $release->GetArtist);
+
+	# attach disc id to release.
+	my @ret = $m->comp(
+		"/comp/entermods",
+		DBH => $mb->{DBH},
+		sub => sub {
+			my @mods = Moderation->InsertModeration(
+				DBH	=> $mb->{DBH},
+				uid	=> $session{uid},
+				privs => $session{privs},
+				type => &ModDefs::MOD_ADD_DISCID,
+				# --
+				album => $release,
+				toc => $toc,
+			);
+		},
 	);
-	
-return $m->comp("/comp/error",
-	"Disc IDs can't be added to $al->{name} albums.",
-	1, 1,
-	) if $al->IsNonAlbumTracks;
-
-my $ar = Artist->new($mb->{DBH});
-$ar->SetId($al->GetArtist);
-$ar->LoadFromId
-	or return $m->comp(
-		"/comp/error",
-		"Artist #".$al->GetArtist." not found in the database.",
-		1, 1,
-	);
-
-my @ret = $m->comp(
-	"/comp/entermods",
-	DBH => $mb->{DBH},
-	sub => sub {
-		my @mods = Moderation->InsertModeration(
-			DBH	=> $mb->{DBH},
-			uid	=> $session{uid},
-			privs => $session{privs},
-			type => &ModDefs::MOD_ADD_DISCID,
-			# --
-			album => $al,
-			toc => $toc,
-		);
-	},
-);
-
-$m->comp("/comp/sidebar", title => 'CD TOC Added');
 
 </%perl>
- 
-<p>
-	Thank you for your submission.&nbsp;
-% if (@ret) {
-	A new association has been entered into the database.
-% }
-</p>
-<p>
-	You will now be able to request the information for this CD.
-</p>
 
-<& /comp/artisttitle, artist => $ar, link => 1 &>
-<& /comp/album,
-	album => $al,
-	artist => $ar,
-	showids => 1,
-	showtag => 1,
-	showreleases => 1,
-	&>
+	<& /comp/sidebar-notitle, pagetitle => "CD TOC Added" &>
+
+	<div style="border: 1px dotted #000; padding: 5px; margin-bottom: 15px">
+		<strong>CD TOC Added</strong>: Thank you for your CD TOC submission.
+
+% 	if (@ret)
+%	{
+		This information has now been associated with this release, and
+		users will be able to lookup this release with their client
+		applications.
+
+% 	}
+
+	</div>
+
+	<& /comp/artisttitle, artist => $artist, link => 1 &>
+	<& /comp/album,
+		album => $release, artist => $artist,
+		showids => 1, showtag => 1, showreleases => 1, &>
 
 <& /comp/footer &>
+
+%# vi: set ts=4 sw=4 ft=mason :
