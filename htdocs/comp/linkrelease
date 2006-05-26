@@ -64,8 +64,16 @@
 
 	# use span with the background image set to render the release icon.
 	$m->out(sprintf qq!<span class="linkrelease%s"%s>!,
-					$icon ? "-icon" : "",
+					0 && $icon ? "-icon" : "",
 					$title);
+
+	# icon was cut off sometimes, we'll rather do it the classic way.
+	if ($icon && !UserPreference::get("css_noentityicons"))
+	{
+		$m->out(qq!<img src="/images/entity/release_small.gif" alt="Release" class="entityicon" />!);
+	}
+
+
 
 	# if the id not negative, show a link, else show the name only
 	if (MusicBrainz::IsNonNegInteger($id))

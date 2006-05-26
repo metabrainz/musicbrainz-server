@@ -75,8 +75,14 @@
 
 	# use span with the background image set to render the artist icon.
 	$m->out(sprintf qq!<span class="linkartist%s"%s>!,
-					$icon ? "-icon" : "",
+					0 && $icon ? "-icon" : "",
 					$title);
+
+	# icon was cut off sometimes, we'll rather do it the classic way.
+	if ($icon && !UserPreference::get("css_noentityicons"))
+	{
+		$m->out(qq!<img src="/images/entity/artist_small.gif" alt="Artist" class="entityicon" />!);
+	}
 
 	# if the id not negative, show a link,
 	# else show the name only
