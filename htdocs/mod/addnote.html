@@ -21,122 +21,140 @@
 	#
 	# Summary:
 	# -----------------------------------------------------------------------------
-	# This page allows to add a moderation note.
+	# This page allows to add a edit note.
 	#
 	# $URL$
 	# $Id$
 	#
 </%perl>
 <%args>
+
 	$modid => undef
 	$editid => undef
 
-	$text=>""
+	$notetext => ""
+	$submitvalue => ""
+
 </%args>
 <%perl>
 
+	# backwards compability
 	$editid ||= $modid;
 
-if (not $session{uid})
-{
-	</%perl>
-	<& /comp/header_small, title => 'Add note to moderation' &>
-	<p style="color: red; font-size: 150%">Oops!&nbsp; You're not logged in.</p>
-	<p>Please log in before adding moderation notes.</p>
-	<& /comp/footer_small &>
-	<%perl>
-	return;
-}
+	# initialise messages
+	my $errormsg = "";
+	my $successmsg = "Note saved successfully.";
 
-MusicBrainz::IsNonNegInteger($editid) and $editid
-	or $editid = 0;
-
-my $mb = $m->comp("/comp/dblogin");
-my $edit = undef;
-
-if ($editid)
-{
-	$edit = Moderation->new($mb->{DBH});
-	$edit = $edit->CreateFromId($editid);
-}
-
-if (not $edit)
-{
-	</%perl>
-	<& /comp/header_small, title => 'Add note to moderation' &>
-	<p>Bad or unknown moderation id.</p>
-	<& /comp/footer_small &>
-	<%perl>
-	return;
-}
-
-if (MusicBrainz::IsSingleLineString($text)
-	and $text =~ /\S/)
-{
-	my $sql = Sql->new($mb->{DBH});
-
-	eval {
-		$sql->Begin;
-		$edit->InsertNote(
-			$session{uid}, $text,
-		);
-		$sql->Commit;
-	};
-
-	if ($@)
+	# only logged in users are able to post notes
+	if (not $session{uid})
 	{
-		my $err = $@;
-		eval { $sql->Rollback };
-		</%perl>
+		$submitvalue = "error";
+		$errormsg = qq!<strong>Oops\! You are not logged in.</strong><br/>
+				   	   Please log in before adding edit notes.!;
+	}
 
-		<& /comp/header_small, title => "Error adding moderation note" &>
+	# if no editid is provided, use 0.
+	MusicBrainz::IsNonNegInteger($editid) and $editid
+		or $editid = 0;
 
-		<p class="notice">
-			An error occurred whilst saving your moderation note.&nbsp;
-			Sorry.
-		</p>
+	# Instantiate MusicBrainz object
+	my $mb = $m->comp("/comp/dblogin");
+	my $edit;
+	if ($editid)
+	{
+		$edit = Moderation->new($mb->{DBH});
+		$edit = $edit->CreateFromId($editid);
+	}
 
-		<!-- <% $err %> -->
+	# handle form submission
+	if ($submitvalue ne "")
+	{
+		if ($submitvalue =~ m/Cancel/)
+		{
+			$errormsg = "";
+			$successmsg = "Add note cancelled...";
+		}
+		else
+		{
+			if (not $edit)
+			{
+				$errormsg = qq!<p>Bad or unknown <strong>editid</strong> $editid.</p>!;
+			}
+			elsif (MusicBrainz::IsSingleLineString($notetext)
+				   and $notetext =~ /\S/)
+			{
+				my $sql = Sql->new($mb->{DBH});
+
+				eval {
+					$sql->Begin;
+					$edit->InsertNote($session{uid}, $notetext);
+					$sql->Commit;
+				};
+
+				if ($@)
+				{
+					my $err = $@;
+					eval { $sql->Rollback };
+
+					$errormsg = qq!<p>An error occurred whilst saving your note. Sorry.</p>!;
+				}
+			}
+		}
+
+</%perl>
+
+%		if ($errormsg ne "")
+%		{
+
+		<& /comp/header_small, title => "Cannot add note to edit." &>
+
+			<& /comp/form/feedbackbox, "warning", "", $errormsg &>
 
 		<& /comp/footer_small &>
 
-		<%perl>
-		return undef;
+%		}
+%		else
+%		{
+
+		<& /comp/header_small, title => $successmsg &>
+
+			<script type="text/javascript"> window.close(); </script>
+
+			<p><% $successmsg %></p>
+			<p><a href="/show/edit/?editid=<% $editid %>">Continue</a></p>
+
+		<& /comp/footer_small &>
+
+<%perl>
+
+		}
+		return;
 	}
 
-	</%perl>
-	<& /comp/header_small, title => 'Moderation note added' &>
-	<script type="text/javascript"> window.close(); </script>
-	<p>Note saved successfully.</p>
-	<p><a href="/showmod.html?editid=<% $edit->GetId %>">Continue</a></p>
-	<& /comp/footer_small &>
-	<%perl>
-	return;
-}
-
-my $ui = UserStuff->new($mb->{DBH});
-my $me = $ui->newFromId($session{uid});
+	my $ui = UserStuff->new($mb->{DBH});
+	my $me = $ui->newFromId($session{uid});
 
 </%perl>
-<& /comp/header_small, title => 'Add note to moderation' &>
 
-<form method="post" action="/mod/addnote.html" name="ModNoteForm">
+<& /comp/header_small, title => "Add note to edit" &>
 
-	<p style="margin: 0">
-		Enter the note text below:
-	</p>
+	<form method="post" action="/mod/addnote.html" id="ModNoteForm">
 
-	<p style="margin: 0.2em; width: 100%">
-		<textarea name="text" rows="3" cols="40" style="width: 100%"
-			><% $text %></textarea>
-	</p>
+		<p style="margin: 0">
+			Enter the note text below:
+		</p>
 
-	<p style="margin: 0; text-align: right">
-		<input type="hidden" name="editid" value="<% $edit->GetId %>">
-		<input type="submit" value="Submit">
-	</p>
+		<p style="margin: 0.2em; width: 100%">
+			<textarea name="notetext" id="notetext" rows="3" cols="40"
+				style="width: 100%"><% $notetext %></textarea>
+		</p>
 
-</form>
+		<p style="margin: 0; text-align: right">
+			<input type="hidden" name="editid" value="<% $edit->GetId %>">
+			<input type="submit" name="submitvalue" value="Submit">
+		</p>
 
-<& /comp/movefocus, "ModNoteForm", "text" &>
+		<& /comp/movefocus, id => "notetext" &>
+	</form>
+
 <& /comp/footer_small &>
