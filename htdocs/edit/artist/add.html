@@ -99,7 +99,12 @@
 			if ($returnurl ne "")
 			{
 				$returnurl .= "&amp;submitvalue=AddArtistCancelled";
-				return $m->comp("/comp/redirect", $returnurl)
+
+				# /comp/redirect failed, probably because the URL was too long.
+				$r->internal_redirect($returnurl);
+				$m->auto_send_headers(0);
+				$m->clear_buffer;
+				$m->abort;
 			}
 			return $m->comp("/comp/redirect", "/search.html");
 		}
@@ -175,7 +180,12 @@
 
 						# append new rowid, and submitvalue to the given returnurl.
 						$returnurl = $returnurl . $rowid . "&amp;submitvalue=" . $submitvalue;
-						return $m->comp("/comp/redirect", $returnurl);
+
+						# /comp/redirect failed, probably because the URL was too long.
+						$r->internal_redirect($returnurl);
+						$m->auto_send_headers(0);
+						$m->clear_buffer;
+						$m->abort;
 					}
 
 					# else show artist page of newly created artist.
