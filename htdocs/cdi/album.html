@@ -1,142 +1,243 @@
 %# vi: set ts=4 sw=4 ft=mason :
 <%args>
-$id
-$toc
-$tracks
-$artist=>''
+
+	$discid => undef
+	$toc => undef
+	$tracks => undef
+	$artistid => 0
+
 </%args>
+
+	<& /comp/sidebar-notitle, pagetitle => "Select Release" &>
+
 <%perl>
 
-my ($num_tracks, $i, $mb, $ar, $al, $modpending); 
+	# make sure we got a valid toc parameter
+	MusicBrainz::IsSingleLineString($toc) && $toc ne ""
+		or return $m->comp("/comp/layout/badarguments",
+			text => "The argument <strong>toc</strong> is missing or has a wrong format.");
 
-$m->comp('/comp/sidebar', title=>'Submit CD: Select Album');
+	# make sure we got a valid releaseid parameter
+	MusicBrainz::IsSingleLineString($discid) && $discid ne ""
+		or return $m->comp("/comp/layout/badarguments",
+			text => "The argument <strong>discid</strong> is missing or has a wrong format.");
 
-if (!defined $artist || $artist eq '')
-{
-    $m->out("Please select an artist name. Click on the " . 
-          "Back button in your browser and try again.");
-}
-else
-{
-    $mb = $m->comp("/comp/dblogin");
-    $ar = Artist->new($mb->{DBH});
+	# make sure we got a valid tracks parameter
+	MusicBrainz::IsNonNegInteger($tracks) && $tracks
+		or return $m->comp("/comp/layout/badarguments",
+			text => "The argument <strong>tracks</strong> is missing or has a wrong format.");
 
-    my (%unused, $first, $found, $artistname, @ids_tracks_seqs, @albumlist);
-    
-    $first = 1;
-    $found = 0;
-   
-    $ar->SetId($artist);
-    $ar->LoadFromId();
-	$m->comp("/comp/artisttitle", artist => $ar, showmodlinks => 0);
+	# make sure we got a valid releaseid parameter
+	MusicBrainz::IsNonNegInteger($artistid) && $artistid
+		or return $m->comp("/comp/layout/badarguments",
+			text => "The argument <strong>artistid</strong> is missing or has a wrong format.");
 
-    @albumlist = sort { $a->{name} cmp $b->{name} } $ar->GetAlbums(0, 1);
-    for(;;)
-    {
-        my ($trackid, $name, $seq, $num_tracks, $albumname);
-       
-        $al = shift @albumlist;
-        last if (!defined $al);
-        next if $al->IsNonAlbumTracks;
-        $num_tracks = $al->GetTrackCount();
-        if ($num_tracks == $tracks)
-        {
-            if ($first)
-            {
-               $first = 0;
-               $found = 1;
+
+	# Instantiate MusicBrainz object
+	my $mb = $m->comp("/comp/dblogin");
+	my $artist = $m->comp("/comp/loadartist", $mb, $artistid);
+
+	# output the artist header
+	$m->comp("/comp/artisttitle", artist => $artist, showmodlinks => 1, link => 1);
+	$m->out('<br/>');
+
+	# get all releases, and sort out the unapplicable ones
+	my ( $release, @foundreleases, %unused);
+	my @releaselist = sort { $a->{name} cmp $b->{name} } $artist->GetAlbums(0, 1);
+	for(;;)
+	{
+		$release = shift @releaselist;
+		last if (!defined $release);
+		next if $release->IsNonAlbumTracks;
+		if ($release->GetTrackCount() == $tracks)
+		{
+			push @foundreleases, $release
+		}
+		else
+		{
+			my $key = $release->GetId();
+			$unused{$key} = $release;
+		}
+	}
+
+	if (@foundreleases > 0)
+	{
+		my $foundnum = @foundreleases;
+
+		my $title = "Artist has $foundnum release";
+		$title .= ($foundnum == 1 ? "" : "s");
+		$title .= " with $tracks track";
+		$title .= ($tracks == 1 ? "" : "s");
+
 </%perl>
 
-			<p>
-               Please examine the albums listed below.&nbsp; If one of
-               the track listings matches the CD that you are
-               submitting, click on <b>Select Album</b> next to
-               the matching album.&nbsp; If none of the listed albums
-               match, click on <b>Album not listed</b>.&nbsp;
-               If you're unsure as to which one to pick or you have
-               questions about this step, please check out our
-               <a href="/cd_submission.html">CD Submission</a> document
-               for more details on the submission process.&nbsp; The Disc
-			   ID for the CD you're submitting is <b><% $id %></b>.&nbsp;
-			</p>
+	<& /comp/tablebegin, title => $title &>
 
-               <form method="POST" action="/cdi/enter.html"
-                  enctype="application/x-www-form-urlencoded" class="formstyle">
-				<p style="text-align: right">
-               <input type="hidden" name="artist" value="<% $artist %>">
-               <input type="hidden" name="id" value="<% $id %>">
-               <input type="hidden" name="toc" value="<% $toc %>">
-               <input type="hidden" name="tracks" value="<% $tracks %>">
-               <input type="submit" value="Album not listed &gt;&gt;">
-			   </p>
-               </form>
-%           }    
+		<& /comp/form/steps,
+			steps => ["Lookup CD", "Select Artist", "Attach Disc ID"],
+			curr => 2 &>
 
-              <table width="100%">
-              <tr>
-                <td width="100%">
-					<& /comp/album, artist=>$ar, album=>$al, showmodlinks=>0 &>
-                </td>
-                <td align="right" valign="top">
-            <form method="POST" action="/cdi/found.html"
-                  enctype="application/x-www-form-urlencoded" class="formstyle">
-                   <input type="submit" value="Select <% $albumname %> &gt;&gt;">
-                   <input type="hidden" name="album" value="<% $al->GetId() %>">
-                   <input type="hidden" name="id" value="<% $id %>">
-                   <input type="hidden" name="toc" value="<% $toc %>">
-                   <input type="hidden" name="tracks" value="<% $tracks %>">
-            </form>
-                </td>
-              </tr>
-              </table>
+		<table class="formstyle">
+			<tr>
+				<td>
+					<ul>
+						<li>
+							Please examine the releases listed below. If one of
+							the track listings matches the release that you are submitting,
+							click on the <strong>Select Release &raquo;</strong>
+							button next to the matching release to attach the
+							table of contents information of your media to
+							this release.</li>
+						<li>
+							If none of the listed releases match, click on
+							the <strong>Enter new Release &raquo;</strong> button
+							below to enter your copy into MusicBrainz.</li>
+						<li>
+							If you are unsure as to which one to pick or you have
+							questions about this step, please check out our <& /comp/linkdoc,
+							"DiscSubmission", "CD Submission document" &> for more details
+							on the submission process. The <& /comp/linkdoc, "DiscID",
+							"Disc ID" &> for the CD you have looked up is <strong><% $discid %></strong>.</li>
+					</ul>
+				</td>
+			</tr>
+		</table>
+
+	<& /comp/tableend &>
+
+	<table cellspacing="0" cellpadding="0" border="0" width="80%">
+
+%		foreach $release (@foundreleases)
+%		{
+%			my ($name, $releasename);
+
+		<tr valign="top">
+			<td width="100%">
+				<& /comp/album,
+					artist => $artist, album => $release,
+					showmodlinks => 0 &></td>
+
+			<td>&nbsp;&nbsp;&nbsp;</td>
+			<td align="right">
+				<form method="post" action="/cdi/found.html">
+					<input type="submit" class="button" value="Select Release &raquo;" />
+					<input type="hidden" name="releaseid" value="<% $release->GetId() %>" />
+					<input type="hidden" name="discid" value="<% $discid %>" />
+					<input type="hidden" name="toc" value="<% $toc %>" />
+					<input type="hidden" name="tracks" value="<% $tracks %>" />
+				</form>
+			</td>
+		</tr>
+%		}
+
+	</table>
+
+%	}
+%	else
+%	{
+
+	<& /comp/tablebegin, title => "Artist has no releases with $tracks tracks" &>
+
+		<table class="formstyle">
+			<tr>
+				<td>
+					<ul>
+						<li>There were no releases with <% $tracks %> tracks found. </li>
+						<li>Please click on the <strong>Enter new Release &raquo;</strong>
+							button if you want to add your copy to MusicBrainz.</li>
+					</ul>
+				</td>
+			</tr>
+		</table>
+
+	<& /comp/tableend &>
+
+%	}
+
+	<& /comp/tablebegin, title => "Enter new release" &>
+
+		<& /comp/form/steps,
+			steps => ["Lookup CD", "Select Artist", "Select Release", "Enter Information", "Finish"],
+			curr => 2 &>
+
+		<table class="formstyle">
+			<tr>
+				<td class="label">&nbsp;</td>
+				<td>
+					<form method="post" action="/cdi/enter.html">
+						<input type="submit" class="button" value="Enter new Release &raquo;">
+						<input type="hidden" name="artistid" value="<% $artistid %>">
+						<input type="hidden" name="discid" value="<% $discid %>">
+						<input type="hidden" name="toc" value="<% $toc %>">
+						<input type="hidden" name="hasmultipletrackartists" value="<% $artistid == &ModDefs::VARTIST_ID ? 1 : 0 %>">
+						<input type="hidden" name="tracks" value="<% $tracks %>">
+					</form>
+				</td>
+			</tr>
+		</table>
+
+	<& /comp/tableend &>
+
+
+%	# we got releases with different number of tracks
+%	# list them, and explain why they are not applicable
+%	# for the current DiscID
+%   if (scalar(keys(%unused)) > 0)
+%	{
+
+	<& /comp/tablebegin, title => "Releases with different number of tracks" &>
+
+		<table class="formstyle">
+			<tr>
+				<td>
+					<ul>
+						<li><strong>What if my release is listed here?</strong>
+							The following releases of this artist are not applicable
+							because they have a different number of tracks than
+							the CD you are submitting. Even though there may be
+							a release listed with the same name, there sometimes are
+							different editions of the same release which have a
+							different number of tracks. (Example: International
+							vs. Japan releases / Remastered editions with bonus tracks etc.)</li>
+					</ul>
+				</td>
+			</tr>
+		</table>
+
+		<table class="searchresults">
+			<tr class="searchresultsheader">
+				<td width="40">Tracks:</td>
+				<td>Release Title:</td>
+			</tr>
 <%perl>
-        }
-        else
-        {
-            my $key = $al->GetId();
 
-            $unused{$key} = { name => $al->GetName(), tracks => $num_tracks };
-        }
-    }
+	# sort unapplicable releases by name.
+	my @sortedkeys = sort {
+
+#		($unused{$a}->GetTrackCount <=>
+#		 $unused{$b}->GetTrackCount)
+		(lc($unused{$a}->GetName) cmp
+		 lc($unused{$b}->GetName))
+
+	} keys %unused;
+
+	my $i = 0;
+	foreach my $releaseid ( @sortedkeys )
+	{
+		$release = $unused{$releaseid};
 </%perl>
-    
-    <form method="POST" action="/cdi/enter.html"
-       enctype="application/x-www-form-urlencoded" class="formstyle">
-	<p style="text-align: right">
-    <input type="hidden" name="artist" value="<% $artist %>">
-    <input type="hidden" name="id" value="<% $id %>">
-    <input type="hidden" name="toc" value="<% $toc %>">
-    <input type="hidden" name="tracks" value="<% $tracks %>">
-    <input type="submit" value="Album not listed &gt;&gt;">
-	</p>
-    </form>
-
-%   if (scalar(keys(%unused)) > 0) {
-	<p>
-        The following albums in MusicBrainz are not applicable
-        because they have a different number of tracks than
-        than the album you are submitting:</p>
-		<ul>
-%       foreach $i (keys(%unused))
-%       {
-			<li><a href="/showalbum.html?albumid=<% $i %>">
-           <% $unused{$i}->{name} %></a> has
-			<% $unused{$i}->{tracks} %> tracks.</li>
+			<tr class="searchresults<% $i++ % 2 == 0 ? "even" : "odd" %>">
+				<td width="40"><img src="/images/notes.gif" alt="" title="Tracks" /> <% $release->GetTrackCount %></td>
+				<td><& /comp/linkrelease, release => $release, strong => 0 &></td>
+			</tr>
 %       }
-		</ul>
-        <p>Even though there may be an album listed with the same 
-        name as you are submitting, there sometimes are different
-        editions of the same album that have a different number 
-		of tracks.</p>
-%   }
-    
-%   if (!$found) {
-	<p>
-        There were no albums with <% $tracks %> tracks found.&nbsp; Please click 
-		<b>Album not listed</b>.
-	</p>
+
+		</table>
+
+	<& /comp/tableend &>
+
 %   }
 
-% }
+	<script type="text/javascript" src="/scripts/collapsereleases.js"></script>
 
 <& /comp/footer &>

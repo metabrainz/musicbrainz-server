@@ -1,91 +1,133 @@
-%# vi: set ts=4 sw=4 ft=mason :
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# Search for an artist to which the release will be attributed to.
+	#
+	# $Id$
+	#
+</%perl>
 <%args>
-$id
-$toc
-$tracks
-$search
+
+	$discid => undef
+	$toc => undef
+	$tracks => undef
+	$search => ""
+	$artistid => 0
+	$submitvalue => ""
+
 </%args>
 <%perl>
 
-$m->comp("/comp/sidebar", title=>'Submit CD: Artist Search Results');
+	# make sure we got a valid toc parameter
+	MusicBrainz::IsSingleLineString($toc) && $toc ne ""
+		or return $m->comp("/comp/layout/badarguments",
+			text => "The argument <strong>toc</strong> is missing or has a wrong format.");
 
-if ($search eq '')
-{
-	$m->out("Please enter an artist name into the search field. " .
-           "Click on the Back button in your browser and try again.");
-}
-else
-{
-	my $mb = $m->comp("/comp/dblogin");
-    my $ar = Artist->new($mb->{DBH});
+	# make sure we got a valid releaseid parameter
+	MusicBrainz::IsSingleLineString($discid) && $discid ne ""
+		or return $m->comp("/comp/layout/badarguments",
+			text => "The argument <strong>discid</strong> is missing or has a wrong format.");
 
-    my $eng = SearchEngine->new($mb->{DBH}, "artist");
+	# make sure we got a valid tracks parameter
+	MusicBrainz::IsNonNegInteger($tracks) && $tracks
+		or return $m->comp("/comp/layout/badarguments",
+			text => "The argument <strong>tracks</strong> is missing or has a wrong format.");
 
-	$eng->Search(
-		query => $search,
-		limit => 0,
-	);
+	# if the submitvalue is an array, the user has
+	# clicked the "Select »" button. There is a hidden field
+	# in the form, because if the user doubleclicks on
+	# radio-button, the submitvalue of the button is not
+	# transmitted, therefore the hidden field.
+	$submitvalue = (ref($submitvalue) eq "ARRAY" ? @$submitvalue[0] : $submitvalue);
 
-    if ($eng->Rows > 0)
-    {
-        my ($artistid, $artistname, $artistsortname);
+	if ($submitvalue ne "")
+	{
+		my %args = %ARGS;
+		delete $args{"submitvalue"};
+		delete $args{"search"};
+		delete $args{"artistfilter_newartistid"};
+		delete $args{"artistfilter_field"};
+
+		if ($submitvalue =~ m/Add New Artist/)
+		{
+
+			# prepare, and escape returnurl. artistfilter_newartistid will reference the
+			# artistid being added in the ADD ARTIST editor.
+			my $returnurl = "/cdi/artist.html?".$m->comp("/comp/args-to-querystring.inc", %args);
+			$returnurl .= "&artistid=";
+			$returnurl = uri_escape($returnurl);
+
+			# prepare add artist form url.
+			my $addartisturl = "/edit/artist/add.html?name=$search&returnurl=$returnurl";
+			return $m->comp("/comp/redirect", $addartisturl);
+		}
+		elsif ($submitvalue =~ m/Search/)
+		{
+		}
+		elsif ($submitvalue =~ m/Cancel/)
+		{
+			delete $args{"discid"};
+			delete $args{"tracks"};
+			my $nexturl = "/bare/cdlookup.html?".$m->comp("/comp/args-to-querystring.inc", %args);
+
+			return $m->comp("/comp/redirect", $nexturl);
+		}
+		elsif ($submitvalue =~ m/Select/)
+		{
+			$args{"artistid"} = $ARGS{"artistfilter_newartistid"};
+			my $nexturl = "/cdi/album.html?".$m->comp("/comp/args-to-querystring.inc", %args);
+
+			return $m->comp("/comp/redirect", $nexturl);
+		}
+	}
+
 </%perl>
-        Click on the artist name to display all the albums by that artist:<p>
 
-        <form method="POST" action="/cdi/album.html"
-              enctype="application/x-www-form-urlencoded" class="formstyle">
+<& /comp/sidebar-notitle, pagetitle => "Search for Release Artist" &>
 
-%       while (my $row = $eng->NextRow)
-%       {
-            <input type="radio" name="artist" value="<% $row->{'artistid'} %>">
-				<& /comp/linkartist,
-					id			=> $row->{'artistid'},
-					name		=> $row->{'artistname'},
-					resolution	=> $row->{'artistresolution'},
-				&>
-				<br>
-%       }
+	<& /comp/tablebegin, title => "Search for Release Artist" &>
 
-        <input type="hidden" name="id" value="<% $id %>">
-        <input type="hidden" name="toc" value="<% $toc %>">
-        <input type="hidden" name="tracks" value="<% $tracks %>">
-        <input type="submit" value="Select Artist &gt;&gt;">
+        <form method="post" action="/cdi/artist.html">
+
+			<& /comp/form/steps,
+				steps => ["Lookup CD", "Select Artist", "Attach Disc ID"],
+				curr => 1
+			&>
+
+			<table class="formstyle">
+
+				<& /comp/artistfilter, search => $search &>
+
+			</table>
+
+			<input type="hidden" name="submitvalue" value="Select &raquo;" />
+			<input type="hidden" name="discid" value="<% $discid %>" />
+			<input type="hidden" name="toc" value="<% $toc %>" />
+			<input type="hidden" name="tracks" value="<% $tracks %>" />
         </form>
 
-        <p>If the artist is not listed above
-        you may either try the search again,
-        or click on 'New Artist' to enter the information for this
-        CD. Please make sure to search carefully before you go
-        through the effort to add a new CD.
-%   } else {
-        There were no artists found given the keywords
-        <b>'<% $search %>'</b>. You may either try again,
-        or click on 'New Artist' to enter the information for this
-        CD. Please make sure to search carefully before you go
-        through the effort to add a new CD.
-%   }
-
-    <form method="POST" action="/cdi/enter.html"
-          enctype="application/x-www-form-urlencoded" class="formstyle">
-    <input type="hidden" name="id" value="<% $id %>">
-    <input type="hidden" name="toc" value="<% $toc %>">
-    <input type="hidden" name="tracks" value="<% $tracks %>">
-    <input type="submit" value="New Artist &gt;&gt;">
-    </form>
-
-    <hr><b>Start another artist search:</b><p>
-
-    <form method="POST" action="/cdi/artist.html"
-          enctype="application/x-www-form-urlencoded" class="formstyle">
-
-    Artist Name:<br>
-    <input type="text" name="search" size="30">
-    <input type="hidden" name="id" value="<% $id %>">
-    <input type="hidden" name="toc" value="<% $toc %>">
-    <input type="hidden" name="tracks" value="<% $tracks %>">
-    <input type="submit" value="Search">
-    </form>
-
-% }
+	<& /comp/tableend &>
 
 <& /comp/footer &>
+
+%# vi: set ts=4 sw=4 ft=mason :
