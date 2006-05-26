@@ -43,6 +43,8 @@
 	$performsearch => 1
 	@dontshow => ()
 
+	$addartist => 1
+
 </%args>
 <%perl>
 
@@ -195,7 +197,7 @@
 	# first artist result item.
 	$m->comp("/comp/movefocus", id => "id_artistfiltersearch") if (not $searchperformed);
 
-	if ($searchperformed)
+	if ($searchperformed && $addartist)
 	{
 
 </%perl>

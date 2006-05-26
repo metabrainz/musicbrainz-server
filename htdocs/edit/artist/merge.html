@@ -28,18 +28,21 @@
  	#
 </%perl>
 <%args>
+
 	$id => ""
 	$artistid => undef
 
 	# fields set by /comp/artistfilter
-	$selectedartist => ""
+	$artistfilter_newartistid => ""
 	$newartistid => ""
 	$search => ""
 
 	$submitvalue => ""
 	$notetext => undef
+
 </%args>
 <%perl>
+
 	$artistid ||= $id;
 
 	# only logged in users can see this page
@@ -68,10 +71,10 @@
 	# form step 2/3: load selected artist from the database, and
 	# fill in the required fields
 	my $newartist = undef;
-	$selectedartist ||= $newartistid;
-	if ($selectedartist ne "")
+	$artistfilter_newartistid ||= $newartistid;
+	if ($artistfilter_newartistid ne "")
 	{
-		$newartist = $m->comp("/comp/loadartist", $mb, $selectedartist);
+		$newartist = $m->comp("/comp/loadartist", $mb, $artistfilter_newartistid);
 		$newartistid = $newartist->GetId;
 	}
 
@@ -161,7 +164,9 @@
 
 			<& /comp/movefocus, id => "btnYes" &>
 
-%	} else {
+%	}
+%	else
+%	{
 
 		<table class="formstyle">
 			<tr>
@@ -186,15 +191,8 @@
 				search => $search,
 				submitvalue => $submitvalue,
 				dontshow => [$artistid],
+				addartist => 0
 			&>
-			<tr>
-				<td class="label">&nbsp;</td>
-				<td class="field">
-					<form method="post" action="/edit/artist/merge.html" id="ConfirmForm">
-						<input type="hidden" name="artistid" value="<% $artistid %>" />
-						<input type="submit" name="submitvalue" value="Cancel" />
-					</form></td>
-			</tr>
 		</table>
 
 %	}
@@ -203,4 +201,5 @@
 		</form>
 
 	<& /comp/layout/editformend &>
+
 <& /comp/footer &>
