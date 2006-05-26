@@ -28,10 +28,12 @@
 	#
 </%perl>
 <%args>
+
 	$mod
 	$vote => undef
 	$inline => 0
 	$labelnextline => 1
+
 </%args>
 <%perl>
 
@@ -43,51 +45,60 @@
 		# Allow $vote to specify the default vote, either as a word
 		# ("yes") or a constant (VOTE_YES).
 		my %v = (
-			yes	=> &ModDefs::VOTE_YES,
-			no	=> &ModDefs::VOTE_NO,
-			'abs'	=> &ModDefs::VOTE_ABS,
+			'yes' => &ModDefs::VOTE_YES,
+			'no' => &ModDefs::VOTE_NO,
+			'abs' => &ModDefs::VOTE_ABS,
 		);
 
 		%v = (%v, reverse %v);
 
-		$default = $v{$vote} if defined $v{$vote};
+		$default = $v{$vote} if (defined $v{$vote});
 	}
 
-	my $modid = $mod->GetId;
-
-	if (!$inline)
-	{
-		my $n = ($show_novote ? 4 : 3);
-		$m->out(qq!<table class="votechoice votechoice$n"><tr>!);
-	}
-
-	for ("Yes=yes", "No=no", "Abs=abs", "No&nbsp;Vote=novote")
-	{
-		my ($display, $key) = split /=/;
-		next if ($key eq "novote" and not $show_novote);
-
-		if (!$inline)
-		{
-			my $checked = (($key eq $default) ? 'checked="checked"' : "");
-
-			$m->out(qq!<td>!);
-			$m->out(qq!<label for="rowid$modid-$key">!);
-			$m->out(qq!<input type="radio" name="rowid$modid" id="rowid$modid-$key" value="$key" $checked ondblclick="this.form.submit()" />!);
-
-			# add a <br/> if the label should be on the next line, else nothing.
-			$m->out(qq!<br />!) if ($labelnextline);
-
-			$m->out(qq!$display</label></td>!);
-		}
-		else
-		{
-			$m->out(qq!<input type="submit" name="rowid$modid" value="$key" />&nbsp;!);
-		}
-	}
-
-	if (!$inline)
-	{
-		$m->out(qq!</tr></table>!);
-	}
+	my $editid = $mod->GetId;
 
 </%perl>
+
+%	if (!$inline)
+%	{
+%		my $n = ($show_novote ? 4 : 3);
+
+		<table class="votechoice votechoice<% $n %>">
+			<tr>
+
+%	}
+
+%	for ("Yes=yes", "No=no", "Abs=abs", "No&nbsp;Vote=novote")
+%	{
+%		my ($display, $key) = split /=/;
+%		next if ($key eq "novote" and not $show_novote);
+
+%		if (!$inline)
+%		{
+%			my $checked = (($key eq $default) ? 'checked="checked"' : "");
+
+%			# add a <br/> if the radio button text should be on
+%			# the next line, else nothing.
+%			my $lbr = ($labelnextline ? qq!<br />! : "");
+%			my $ondblclick = (!$labelnextline ? qq!ondblclick="this.form.submit()"! : "");
+
+			<td>
+				<label for="rowid<% $editid %>-<% $key %>">
+					<input type="radio" name="rowid<% $editid %>"
+						id="rowid<% $editid %>-<% $key %>" value="<% $key %>"
+						<% $checked |n %> <% $ondblclick |n %>
+					/><% $lbr |n %><% $display |n %></label></td>
+%		}
+%		else
+%		{
+			<input type="submit" name="rowid<% $editid %>" value="<% $key %>" />&nbsp;
+%		}
+%	}
+
+%	if (!$inline)
+%	{
+				</tr>
+			</table>
+%	}
+
+%# vi: set ts=4 sw=4 ft=mason :
