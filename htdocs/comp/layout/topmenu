@@ -228,16 +228,13 @@
 			{ name => "Add Artist",				url => "/edit/artist/add.html" },
 			{ name => "Add Release",			url => "/edit/album/add.html?artistid=0" },
 			[
-				{ url => "/edit/album/add.html" },
-
+				{ url => "/bare/cdlookup.html" },
+				{ url => "/cdi/enter.html" },
 				{ url => "/cdi/searchartist.html" },
 				{ url => "/cdi/searchartistrelease.html" },
-				{ url => "/cdi/done.html" },
-				{ url => "/cdi/enter.html" },
-				{ url => "/cdi/found.html" },
-				{ url => "/cdi/selectattr.html" },
-				{ url => "/cdi/submit.html" },
-				{ url => "/bare/cdlookup.html" },
+				{ url => "/cdi/searchrelease.html" },
+				{ url => "/cdi/selectrelease.html" },
+				{ url => "/edit/album/add.html" },
 			],
 			{ name => "Add Release (VA)",		url => "/edit/album/add.html?artistid=1" },
 			[
@@ -252,19 +249,10 @@
 			# freedb import
 			{ name => "FreeDB Import",			url => "/freedb/freedb.html" },
 			[
-				{ url => "/freedb/final.html" },
 				{ url => "/freedb/charset.html" },
+				{ url => "/freedb/freedb.html" },
 				{ url => "/freedb/import.html" },
-				{ url => "/freedb/mac-check-similar.html" },
-				{ url => "/freedb/mac-confirm.html" },
-				{ url => "/freedb/mac-edittrack.html" },
-				{ url => "/freedb/mac-edittracks.html" },
-				{ url => "/freedb/mac-selecttrackartist.html" },
-				{ url => "/freedb/sac-check-similar.html" },
-				{ url => "/freedb/sac-confirm.html" },
-				{ url => "/freedb/sac-edittracks.html" },
-				{ url => "/freedb/select-artist.html" },
-				{ url => "/freedb/select-macsac.html" },
+				{ url => "/freedb/review.html" },
 			],
 
 			# edit relationship
