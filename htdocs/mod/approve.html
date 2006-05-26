@@ -28,129 +28,178 @@
 	#
 </%perl>
 <%args>
+
 	$modid => 0
 	$editid => undef
 
 	$notetext => ""
 	$url => ""
-	$btnNo => undef
-	$btnYes => undef
+	$submitvalue => ""
+
 </%args>
 <%perl>
 
 	$editid ||= $modid;
 
+	# only logged in users can see this page
 	$m->comp("/comp/checkloggedin", 1, 1)
 		or return;
 
+	# check if we got a bad editid argument
 	MusicBrainz::IsNonNegInteger($editid) && $editid
-		or $editid = 0;
+		or return $m->comp("/comp/layout/badarguments",
+			text => "The argument <strong>editid</strong is either missing or invalid.");
 
-	return $m->comp("/comp/badargs")
-		if ($editid == 0);
-
+	# Instantiate MusicBrainz object, and load the edit
+	# from the database.
 	my $mb = $m->comp("/comp/dblogin");
-	my $mod = Moderation->new($mb->{DBH});
-	$mod = $mod->CreateFromId($editid);
+	my $edit = Moderation->new($mb->{DBH});
+	$edit = $edit->CreateFromId($editid);
 
-	$mod->IsAutoModType($mod->GetType) or return $m->comp(
-		"/comp/error",
-		"Moderation #$editid is not an auto-moderation.",
-		1, 1,
-	);
+	# Only edits which would be autoapplied if entered by
+	# an autoeditor can be approved.
+	$edit->IsAutoModType($edit->GetType)
+		or return $m->comp("/comp/error",
+			"The edit with <strong>editid</strong> $editid cannot be approved (not an Autoedit even for Autoeditors)",
+			1, 1,);
 
-	UserStuff->IsAutoMod($session{privs}) or return $m->comp(
-		"/comp/error",
-		"You must be a auto-moderator to approve this moderation.",
-		1, 1,
-	);
+	# Check if the current user has enough permissions
+	UserStuff->IsAutoMod($session{privs})
+		or return $m->comp("/comp/error",
+			"You must be a autoeditor to approve this edit.",
+			1, 1,);
 
-	# Cancel (redirect back to the moderation page)
-	if (defined $btnNo)
+	# determine if the moderation note is required:
+	#
+	# * edits with NO-votes require a moderation note.
+	# * if only the editor attempting to approve the edit has voted NO,
+	#   they can still approve it.
+	#
+	my $vote = $edit->VoteFromUser($session{"uid"});
+	my $optionalNote = $edit->GetNoVotes == 0 ||
+					  ($edit->GetNoVotes == 1 && defined $vote && $vote->GetVote == &ModDefs::VOTE_NO);
+
+	# check if we got a form submission to handle
+	if ($submitvalue ne "")
 	{
-		$url = "/showmod.html?editid=$editid"
-			if !$url;
-		return $m->comp("/comp/redirect", $url);
-	}
-
-	MusicBrainz::TrimInPlace($notetext);
-
-	my $vote = $mod->VoteFromUser($session{uid});
-	my $optionalNote = $mod->GetNoVotes == 0 || ($mod->GetNoVotes == 1 && defined $vote && $vote->GetVote == &ModDefs::VOTE_NO);
-
-	# Approve the moderation
-	if (defined $btnYes and ($optionalNote or $notetext))
-	{
-		my $sql = Sql->new($mb->{DBH});
-
-		eval {
-			$sql->Begin;
-
-			# Insert a "yes" vote
-			my %votes = ($editid => &ModDefs::VOTE_YES);
-			my $v = MusicBrainz::Server::Vote->new($mb->{DBH});
-			$v->InsertVotes(\%votes, $session{uid});
-
-			# Approve the moderation
-			my $status = $mod->ApprovedAction;
-			my $user = UserStuff->new($mb->{DBH});
-			$mod->SetStatus($status);
-			$user->CreditModerator($mod->GetModerator, $status);
-			$mod->CloseModeration($status);
-
-			# Insert a note
-			$mod->InsertNote($session{uid}, $notetext)
-				if ($notetext);
-
-			$sql->Commit;
-		} or do {
-			my $err = $@;
-			$sql->Rollback;
-			$m->comp("/comp/sidebar", title => "Error");
-			</%perl>
-			<div style="color: red">
-				<p>Error applying moderation:</p>
-				<pre><% $err %></pre>
-			</div>
-			<%perl>
-			$m->comp("/comp/footer");
-			return undef;
-		};
-
+		# redirect to the show edit detail page if no
+		# returnurl is given.
 		$url = "/show/edit/?editid=$editid"
-			if !$url;
+			if (!$url);
+
+		# The approve button was clicked.
+		if ($submitvalue !~ m/Cancel/i)
+		{
+			MusicBrainz::TrimInPlace($notetext);
+
+			# Approve the edit
+			if ($optionalNote or $notetext)
+			{
+				my $sql = Sql->new($mb->{DBH});
+				eval {
+					$sql->Begin;
+
+					# Insert a "yes" vote
+					my %votes = ($editid => &ModDefs::VOTE_YES);
+					my $v = MusicBrainz::Server::Vote->new($mb->{DBH});
+					$v->InsertVotes(\%votes, $session{uid});
+
+					# Approve the edit
+					my $status = $edit->ApprovedAction;
+					$edit->SetStatus($status);
+					$edit->CloseModeration($status);
+
+					# update applied edits count of the user who entered the edit.
+					my $user = UserStuff->new($mb->{DBH});
+					$user->CreditModerator($edit->GetModerator, $status);
+
+					# Insert a note
+					$edit->InsertNote($session{"uid"}, $notetext)
+						if ($notetext);
+
+					$sql->Commit;
+				}
+				or do
+				{
+					my $err = $@;
+					$sql->Rollback;
+					$m->comp("/comp/sidebar", title => "Error");
+					</%perl>
+					<div style="color: red">
+						<p>Error applying edit:</p>
+						<pre><% $err %></pre>
+					</div>
+					<%perl>
+					$m->comp("/comp/footer");
+					return undef;
+				};
+			}
+		}
+
+		# redirect to calling page.
 		return $m->comp("/comp/redirect", $url);
 	}
 
 </%perl>
 
-<& /comp/sidebar, title=>'Confirm Moderation Approval', expand=>'moderate' &>
+<& /comp/sidebar-notitle, pagetitle => "Confirm Moderation Approval" &>
 
-% if (defined $btnYes) {
-%      if (!$optionalNote && !$notetext) {
-         <p class="error">You must provide a moderation note in order to approve this moderation.</p>
-%      }
-% }
+	<& /comp/tablebegin, title => "Confirm Moderation Approval" &>
 
-	<form method="POST" action="/mod/approve.html">
-		<input type="hidden" name="editid" value="<% $editid %>" />
-		<input type="hidden" name="url" value="<% $url %>" />
-		<fieldset>
-			<legend>Confirm Moderation Approval</legend>
-			<div class="padleft">
-				<p>Do you want to approve this moderation?</p>
-				<div style="padding: 1em; line-height: 1.5;">
-					<div><%perl>$mod->ShowModType($m);</%perl></div>
-					<div><%perl>$mod->ShowPreviousValue($m);</%perl></div>
-					<div><%perl>$mod->ShowNewValue($m);</%perl></div>
-				</div>
-				<p><& /comp/notetext, required => !$optionalNote &></p>
-				<p style="padding-top: 1em;">
-					<input name="btnNo" type="submit" class="button" value="&laquo; NO" />
-					<input name="btnYes" type="submit" class="button" value="YES &raquo;" />
-				</p>
-			</div>
-		</fieldset>
+	<form method="post" action="/mod/approve.html">
+
+		<table class="formstyle">
+			<tr>
+				<td colspan="2" class="instructions">
+					<ul>
+						<li>Please read the <& /comp/linkdoc, "CodeOfConduct", "Code of Conduct" &>
+							and make sure you do not violate any of the rules stated therein
+							before applying any edits.</li>
+						<li>Are you sure you want to approve (e.g. auto-apply) this edit? </li>
+					</ul></td>
+			</tr>
+
+
+% 	if ($submitvalue ne "")
+%	{
+%		if (!$optionalNote && !$notetext)
+%		{
+
+			<tr colspan="2" class="spaced">
+				<td class="error">You must provide a moderation note in order to approve this edit.</td>
+			</tr>
+
+%		}
+%	}
+
+			<tr class="top">
+				<td class="label">Type:</td>
+				<td><%perl>$edit->ShowModType($m);</%perl></td>
+			</tr>
+			<tr class="top">
+				<td class="label">Old Value:</td>
+				<td><%perl>$edit->ShowPreviousValue($m);</%perl></td>
+			</tr>
+			<tr class="top">
+				<td class="label">New Value:</td>
+				<td><%perl>$edit->ShowNewValue($m);</%perl></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>
+					<& /comp/notetext,
+						buttons => [ ["Cancel"], ["Approve Edit", "btnYes"]],
+						required => !$optionalNote &>
+
+					<input type="hidden" name="editid" value="<% $editid %>" />
+					<input type="hidden" name="url" value="<% $url %>" />
+				</td>
+			</tr>
+		</table>
+
+		<& /comp/movefocus, id => "btnYes" &>
 	</form>
+
+	<& /comp/tableend &>
 
 <& /comp/footer &>
