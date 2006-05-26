@@ -21,6 +21,6 @@
 \----------------------------------------------------------------------------*/
 
 // run diff function for the page which included this script.
-mb.registerDOMReadyAction(
+mb.registerPageLoadedAction(
 	new MbEventAction(mb.diff.GID, "runDiff", "Applying JavaScript diff")
 );
