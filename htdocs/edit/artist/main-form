@@ -144,59 +144,61 @@
 				Year-Month-Day</td>
 		</tr>
 
-<%perl>
-	if (@dupes and ($resolution eq "" or not $confirm))
-	{
-		my $many = (@dupes > 1);
+%	if (@dupes and ($resolution eq "" or not $confirm))
+%	{
+%		my $many = (@dupes > 1);
 
+		<tr>
+			<td>&nbsp;</td>
+			<td class="formsection">
+				<div class="similarartist">
+					<span class="warning">Warning:</span>
+						You are attempting to <% (defined $artist ? "edit" : "add") %>
+						the artist <% $name %>, which appears to be very similar,
+						if not exactly the same as
 
-		$m->out(qq!<tr>!);
-		$m->out(qq!<td>&nbsp;</td> !);
-		$m->out(qq!<td class="formsection"> !);
-		$m->out(qq!	 <div class="similarartist"> !);
-		$m->out(qq!  <span class="warning">Warning:</span> !);
-		$m->out(sprintf qq!You are attempting to %s the artist %s, !, (defined $artist ? "edit" : "add"), $name);
-		$m->out(qq!	 which appears to be very similar, if not exactly the same as !);
-		if ($many)
-		{
-			$m->out(qq!  these <span id="AddArtistExistingList">existing artists called !);
-			for my $i (0..$#dupes)
-			{
-				$m->out(", ") if ($i != 0 && $i < $#dupes);
-				$m->out(" and ") if ($i == $#dupes);
-				$m->comp("/comp/linkartist", artist => $dupes[$i]);
-			}
-		}
-		else
-		{
-			$m->out(qq!  the <span id="AddArtistExistingList">existing artist called !);
-			$m->comp("/comp/linkartist", artist => $dupes[0]);
- 		}
+%		if ($many)
+%		{
+						these <span id="AddArtistExistingList">existing artists:
+%		}
+%		else
+%		{
+						the <span id="AddArtistExistingList">existing artist called
+%		}
+						<table style="margin-left: 45px; border-collapse: collapse; border: 0px">
 
-		$m->out(".</span> ");
-		$m->out(sprintf "If you are certain that you want to %s this artist, then:",
-						(defined $artist ? "edit" : "add"));
+%		for my $i (0..$#dupes)
+%		{
+							<tr><td>
+								<& /comp/linkartist, artist => $dupes[$i] &>
+							</td></tr>
+%		}
+						</table>
+						</span>
 
-		$m->out(qq!  <ul style="margin-top: 5px"> !);
-		$m->out(qq!    <li>You are <strong>required</strong> to enter a comment which allows !);
-		$m->out(qq!        to distinguish this artist from !);
- 		if ($many)
- 		{
-			$m->out(qq!    the other artists with the same name!);
- 		}
- 		else
- 		{
-			$m->out(qq!    the other artist called !);
-			$m->comp("/comp/linkartist", artist => $dupes[0]);
-		}
-		$m->out(qq!    .</li> !);
-		$m->out(qq!    <li>Confirm by activating the checkbox below that you have read, !);
-		$m->out(qq!        and understood how we distinguish duplicate artists above and !);
-		$m->out(qq!         you know what you are doing.</li> !);
-		$m->out(qq!  </ul> !);
-		$m->out(qq!  </div></td></tr> !);
-	}
-</%perl>
+						If you are certain that you want to <% (defined $artist ? "edit" : "add") %>
+						this artist, then:
+
+						<ul style="margin-top: 5px">
+							<li>
+								You are <strong>required</strong> to enter a comment which allows
+								to distinguish this artist from
+% 		if ($many)
+% 		{
+								the other artists with the same name
+% 		}
+% 		else
+% 		{
+								the other artist called <% $dupes[0]->GetName %>.
+%		}
+							.</li>
+							<li>
+								Confirm by activating the checkbox below that you have read,
+								and understood how we distinguish duplicate artists above and
+								you know what you are doing.</li>
+						</ul>
+					</div></td></tr>
+%	}
 
 
 % 	if (@dupes or $resolution) {
