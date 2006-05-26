@@ -31,7 +31,6 @@
 	$bio => ""
 	$email => ""
 	$weburl => ""
-
 	$submitvalue => ""
 
 </%args>
@@ -53,9 +52,10 @@
 	$m->comp("/comp/sidebar-notitle", pagetitle => "Edit Account");
 	$m->comp("/comp/tablebegin", title => "Edit Account");
 
-	my ($messages, $sentmail, $removedmail, %opts);
+	my ($messages, $sentmail, $sentaddress, $removedmail, %opts);
 	@$messages = ();
 	$sentmail = 0;
+	$sentaddress = $email;
 	$removedmail = 0;
 
 	if ($submitvalue ne "")
@@ -85,7 +85,6 @@
 					else
 					{
 						$sentmail = 1;
-						$sentaddress = $email;
 					}
 
 					# Reset the email address to the old one since this one has

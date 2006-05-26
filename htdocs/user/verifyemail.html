@@ -21,7 +21,7 @@
 	#
 	# Summary:
 	# -----------------------------------------------------------------------------
-	# This page allows a user to confirm their e-mail address.
+	# This page allows a user to verify their e-mail address.
 	#
 	# $Id$
 	#
@@ -29,6 +29,8 @@
 <%args>
 
 	$uid => -1
+	$userid => undef
+
 	$email => ""
 	$time => -1
 	$chk => ""
@@ -36,19 +38,24 @@
 </%args>
 <%perl>
 
+	# backwards compability
+	$userid ||= $uid;
+
 	my $success = 0;
 	my $text = "";
 
+	# cannot insert verified e-mail if the database is in
+	# readonly state.
 	if (&DBDefs::DB_READ_ONLY)
 	{
 		$text = &DBDefs::DB_READ_ONLY_MESSAGE;
 	}
 	else
 	{
-		# make sure we got a valid uid parameter
-		MusicBrainz::IsNonNegInteger($uid) && $uid
+		# make sure we got a valid userid parameter
+		MusicBrainz::IsNonNegInteger($userid) && $userid
 			or return $m->comp("/comp/layout/badarguments",
-				text => "The argument <strong>uid</strong> is missing or has a wrong format.");
+				text => "The argument <strong>userid</strong> is missing or has a wrong format.");
 
 		# make sure we got a valid time parameter
 		MusicBrainz::IsNonNegInteger($time) && $time
@@ -70,23 +77,23 @@
 
 		# load checksum from given parameters
 		my $ui = UserStuff->new($mb->{DBH});
-		$ui->GetVerifyChecksum($email, $uid, $time) eq $chk
+		$ui->GetVerifyChecksum($email, $userid, $time) eq $chk
 			or return $m->comp("/comp/layout/badarguments",
 				text => "The checksum does not match the given arguments.");
 
 		# check if the time limit has expired.
 		if ($time + &DBDefs::EMAIL_VERIFICATION_TIMEOUT() < time())
 		{
-			$text = qq!This e-mail address change verification has expired. Please
+			$text = qq!This verification link has expired. Please
 					   <a href="/login.html">Log in</a> and request another
-					   verification e-mail be sent to your e-mail address.!;
+					   verification be sent to your e-mail address.!;
 		}
 		else
 		{
-			my $me = $ui->newFromId($uid);
+			my $me = $ui->newFromId($userid);
 			if (not $me)
 			{
-				$text = qq!Cannot find user with <strong>userid</strong> $uid.!;
+				$text = qq!Cannot find user with <strong>userid</strong> $userid.!;
 
 			}
 			elsif ($me->SetUserInfo(email => $email))
@@ -107,8 +114,8 @@
 	}
 
 	my $title = $success
-		? "E-mail address confirmed"
-		: "Cannot confirm e-mail address";
+		? "E-mail address verified"
+		: "Cannot verify e-mail address";
 
 </%perl>
 

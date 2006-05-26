@@ -21,7 +21,7 @@
 	#
 	# Summary:
 	# -----------------------------------------------------------------------------
-	# This page displays the outcome of the send confirmation e-mail workflow.
+	# This page displays the outcome of the send verification e-mail attempt.
 	#
 	# $Id$
 	#
@@ -53,9 +53,9 @@
 
 </%perl>
 
-<& /comp/sidebar-notitle, pagetitle => "Confirm E-mail Address" &>
+<& /comp/sidebar-notitle, pagetitle => "Verify E-mail Address" &>
 
-	<& /comp/tablebegin, title => "Confirm E-mail Address" &>
+	<& /comp/tablebegin, title => "Verify E-mail Address" &>
 
 % 	if (my $ret = $info->SendVerificationEmail($email))
 %	{
