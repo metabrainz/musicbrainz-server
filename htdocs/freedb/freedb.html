@@ -1,28 +1,68 @@
-%# vi: set ts=2 sw=2 ft=mason :
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# This page renders the frameset with the import form at the top,
+	# and the freedb page in the lower frame.
+	#
+	# $Id$
+	#
+</%perl>
 <%args>
-$search=>""
+
+	$search => ""
+
 </%args>
 <%perl>
 
-$m->comp("/comp/checkloggedin", 1, 1)
-	or return;
+	# only logged in users may see this page
+	$m->comp("/comp/checkloggedin", 1, 1)
+		or return;
 
 </%perl>
-% $m->clear_buffer;
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN"
-	"http://www.w3.org/TR/html4/frameset.dtd">
+
+% 	$m->clear_buffer;
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">
 <html>
 	<head>
-		<title>Import from FreeDB into MusicBrainz</title>
+		<title>MusicBrainz FreeDB Import</title>
 	</head>
-	<frameset rows="140,*" frameborder="1">
-	 	<frame name="mb" src="top.html">
+
+	<frameset rows="140, *" frameborder="1">
+	 	<frame name="mb" src="top.html" />
 		<frame name="freedb"
-% if ($search eq '') {
+
+% 	if ($search eq "")
+%	{
       			src="http://www.freedb.org/freedb_search.php"
-% } else {
-		    		src="http://www.freedb.org/freedb_search.php?words=<% uri_escape($search) %>&amp;allfields=NO&amp;fields=artist&amp;fields=title&amp;allcats=YES&amp;grouping=none"
-% }
-		>
+%	}
+%	else
+%	{
+	    		src="http://www.freedb.org/freedb_search.php?words=<% uri_escape($search) %>&amp;allfields=NO&amp;fields=artist&amp;fields=title&amp;allcats=YES&amp;grouping=none"
+%	}
+		/>
+
 	</frameset>
 </html>
+
+%# vi: set ts=4 sw=4 ft=mason :

@@ -29,7 +29,7 @@
 <%args>
 
 	# these first 3 parameters are required.
-	$artistid => undef
+	$artistid => 0
 	$tracks => undef
 	$hasmultipletrackartists => undef
 
@@ -59,7 +59,7 @@
 	}
 
 	# make sure we got a valid releaseid parameter
-	MusicBrainz::IsNonNegInteger($artistid) && $artistid
+	MusicBrainz::IsNonNegInteger($artistid)
 		or return $m->comp("/comp/layout/badarguments",
 			text => "The argument <strong>artistid</strong> is missing or has a wrong format.");
 

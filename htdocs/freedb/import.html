@@ -1,4 +1,35 @@
-%# vi: set ts=4 sw=4 ft=mason :
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# This page handles the value submitted from the freedb from,
+	# looks up the information from the freedb interface and
+	# redirects to the review.html page, where the user can
+	# select if he wants to import the release as singleartist
+	# or various artists.
+	#
+	# $Id$
+	#
+</%perl>
 <%args>
 
 	$catid => ""
@@ -18,16 +49,75 @@
 		\s*$				# trailing space, end of line
 		/x;
 
-	return $m->comp("id-error", catid => $catid)
-		if not defined $cat;
+	if (not defined $cat)
+	{
 
+</%perl>
+
+	<& /comp/sidebar-notitle, pagetitle => "Invalid FreeDB Category/ID" &>
+
+		<& /comp/tablebegin, title => "Invalid FreeDB Category/ID" &>
+
+			<& /comp/form/feedbackbox,
+				"warning",
+				"Invalid category and id pasted: <b>$catid</b>",
+				"Please cut and paste a category (rock, blues, etc.)
+				and a freedb id (e.g. 940d8b0c) separated by <b>/</b>,
+				as shown below and try again."
+			&>
+			<br />
+
+			<div>
+				<strong>rock / 7b0dae0a<br />
+						misc / 970d1b0c </strong>
+			</div>
+			<br/>
+			<br/>
+
+			<form method="get" action="/freedb/freedb.html">
+				<input type="submit" value="Try again &raquo;" />
+			</form>
+
+		<& /comp/tableend &>
+
+	<& /comp/footer &>
+
+<%perl>
+
+	}
+
+
+	# Instantiate MusicBrainz object, and
+	# lookup the cat/id combination on freedb.
 	my $mb = $m->comp("/comp/dblogin");
-
 	my $fdb = FreeDB->new($mb->{DBH});
 	my $lookup = $fdb->LookupByFreeDBId($id, $cat);
 
-	return $m->comp("not-found", catid => $catid)
-		if not defined $lookup;
+	if (not defined $lookup)
+	{
+
+</%perl>
+
+<& /comp/sidebar-notitle, pagetitle => "Could not load information from FreeDB" &>
+
+	<& /comp/tablebegin, title => "Could not load information from FreeDB" &>
+
+		The CD with id <strong><% $catid %></strong> could not be loaded
+		from freedb.org. Please go back and try another one.
+
+		<br/>
+		<br/>
+		<form method="get" action="/freedb/freedb.html">
+			<input type="submit" value="Try again &raquo;" />
+		</form>
+
+	<& /comp/tableend &>
+
+<& /comp/footer &>
+
+<%perl>
+
+	}
 
 	# Save the original data lookup results
 	my %args;
@@ -67,8 +157,10 @@
 		my $n1 = $i+1;
 		my $n2 = sprintf "%02d", $n1;
 		$n =~ s/^($n1|$n2)\b[\.\)]?\s*//;
+
 		$args{"track$i"} = $n;
 	}
+
 	$args{"freedbcat"} = $lookup->{"freedbcat"};
 	$args{"freedbid"} = $lookup->{"freedbid"};
 	$args{"durations"} = $lookup->{"durations"};
@@ -77,5 +169,8 @@
 	$args{"ready"} = 1;
 
 	# First question: to VA or not to VA?
-	return $m->comp("/freedb/select-macsac.html", %args);
+	return $m->comp("/freedb/review.html", %args);
+
 </%perl>
+
+%# vi: set ts=4 sw=4 ft=mason :

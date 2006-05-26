@@ -78,7 +78,7 @@
 					</select>
 					<& /comp/form/buttonsubmit, value => $ARGS{"SUBMIT_LANG_GUESS"}, tabindex => ++$$tabindex &></td>
 				<td colspan="2">
-					[ <a href="/popup/ReleaseLanguage"">help</a> ]</td>
+					[ <a href="/popup/ReleaseLanguage" title="POPUP::ReleaseLanguage::400::300">help</a> ]</td>
 			</tr>
 			<tr>
 				<td class="label">

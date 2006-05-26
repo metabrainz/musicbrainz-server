@@ -86,5 +86,5 @@
 					<& /comp/form/hiddenfield, "attr_type_guessed",  $attr_type_guessed &>
 					<& /comp/form/hiddenfield, "attr_status_guessed",  $attr_status_guessed &></td>
 				<td colspan="2">
-					[ <a href="/popup/ReleaseAttribute">help</a> ]</td>
+					[ <a href="/popup/ReleaseAttribute" title="POPUP::ReleaseAttribute::400::300">help</a> ]</td>
 			</tr>

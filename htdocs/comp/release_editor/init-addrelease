@@ -88,8 +88,12 @@
 		{
 		}
 
-		my $dur = int((($offsets[$i+1] - $offsets[$i])*1000)/75);
-		$orig{"tracklength$i"} = Track::FormatTrackLength($dur);
+		# overwrite track times from TOC if we have one
+		if ($toc ne "")
+		{
+			my $dur = int((($offsets[$i+1] - $offsets[$i])*1000)/75);
+			$orig{"tracklength$i"} = Track::FormatTrackLength($dur);
+		}
 	}
 
 	# do not allow to add/removing and tracklength editing
