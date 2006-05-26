@@ -53,7 +53,9 @@
 	   					<& /comp/linkuser,
 							id => $mod->GetModerator,
 							name => $mod->GetModeratorName,
-							title => "Editor", strong => 0 &></td>
+							title => "Editor",
+							shorten => 0,
+							strong => 0 &></td>
 				</tr>
 			</table>
 
