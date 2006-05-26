@@ -1,250 +1,410 @@
-%# vi: set ts=2 sw=2 ft=mason :
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# This page handles three types of requests:
+	#
+	# * /showalbum.html?discid=.... (CDIndexId or FreeDBId only, no TOC)
+	# * from /search.html, search by disc id (either CDIndexId or FreeDBId, no TOC)
+	# * direct request from libmusicbrainz (see GetWebSubmitURL) (has TOC; disc id ignored)
+	#
+	# $Id$
+	#
+</%perl>
 <%args>
-$id => undef
-# 'tracks' can be passed too, but we'll ignore it
-# $tracks=>""
-$toc => undef
-$tport => $session{'tport'}
+
+	$id => undef
+	$discid => undef
+	$freedbid => undef
+
+	$toc => undef
+	$tport => $session{'tport'}
+
+	# tracks can be passed too, but we'll ignore it
+	$tracks => ""
+
 </%args>
 <%perl>
 
-UserStuff::EnsureSessionOpen(), $session{tport} = $tport
-       if $tport;
+	# check session
+	UserStuff::EnsureSessionOpen(), $session{tport} = $tport
+		  if $tport;
 
-# This page handles three types of requests:
-# * /showalbum.html?discid=.... (CDIndexId or FreeDBId only, no TOC)
-# * from /search.html, search by disc id (either CDIndexId or FreeDBId, no TOC)
-# * direct request from libmusicbrainz (see GetWebSubmitURL) (has TOC; disc id ignored)
-
-my %info;
-if (defined $toc)
-{
-	# Is the passed TOC valid?
-	%info = MusicBrainz::Server::CDTOC->ParseTOC($toc);
-	keys(%info)
-		? ($id = $info{discid}) # ensure discid matches toc
-		: ($toc = undef); # discard invalid toc
-}
-
-if (not defined $id and not defined $toc)
-{
-	</%perl>
-	<& /comp/sidebar, title => "Error: Arguments missing" &>
-	<p>
-		To look up a CD you need to pass a disc ID (as "id")
-		and / or the complete CD TOC (as "toc").
-	</p>
-	<& /comp/footer &>
-	<%perl>
-	return;
-}
-
-my $mb = $m->comp("/comp/dblogin");
-
-# Here we split into two paths, depending on whether we or not we were passed
-# the TOC.
-
-if (not defined $toc)
-{
-	# If we have no TOC then we cannot add the album if it's missing.  So just
-	# look for the album (based on CDIndex ID or FreeDB ID) and show whatever we
-	# find.
-
-	# Retrieve the albums matching the given ID
+	# handle overloaded id parameter
 	use MusicBrainz::Server::CDTOC ':hashlength';
-	my $alcdtoc = MusicBrainz::Server::AlbumCDTOC->new($mb->{DBH});
+	$freedbid = $id
+		if (not defined $discid and length($id) == FREEDB_ID_LENGTH);
+	$discid = $id
+		if (not defined $freedbid and length($id) == CDINDEX_ID_LENGTH);
 
-	my $albumids = (
-		length($id) == CDINDEX_ID_LENGTH
-		? $alcdtoc->GetAlbumIDsFromDiscID($id)
-		: length($id) == FREEDB_ID_LENGTH
-		? $alcdtoc->GetAlbumIDsFromFreeDBID($id)
-		: []
-	);
-
-	if (not @$albumids)
+	# verify the TOC parameter
+	my %info;
+	if (defined $toc)
 	{
-		# No matches, and we can't add a new album.  Just show the message.
-		</%perl>
-		<& /comp/sidebar, title => "CD Not Found" &>
-		<p>
-			No CD found with the ID '<% $id %>'.
-		</p>
-		<& /comp/footer &>
-		<%perl>
-	} elsif (@$albumids == 1) {
-		# Exactly one match - redirect to it
-		$m->comp("/comp/redirect", "/showalbum.html?albumid=$albumids->[0]");
-	} else {
-		# Multiple matching albums - show them all
-		</%perl>
-		<& /comp/sidebar, title => "Multiple CDs Found" &>
-		<p>
-			The following CDs <% @$albumids == 2 ? "both" : "all" %> have
-			the ID '<% $id %>'.
-		</p>
-		<& .ShowMultipleAlbums, dbh => $mb->{DBH}, albumids => $albumids &>
-		<& /comp/footer &>
-		<%perl>
+		%info = MusicBrainz::Server::CDTOC->ParseTOC($toc);
+		keys(%info)
+			? ($discid = $info{discid}) # ensure discid matches toc
+			: ($toc = undef); # discard invalid toc
 	}
-}
-else
-{
-	# If on the other hand we have a TOC then we can add the album if it's
-	# missing.
-	
-	# First let's look for albums using this TOC (which is in any case
-	# more accurate than simply looking up based on CDIndex ID).
-	require MusicBrainz::Server::CDTOC;
-	my $albumids;
+
+	# if neither discid nor toc are provided, abort.
+	if (not defined $id and not defined $toc)
 	{
-		my $cdtoc = MusicBrainz::Server::CDTOC->newFromTOC($mb->{DBH}, $toc);
-		$albumids = [], last
-			if not $cdtoc;
-		if ($cdtoc)
+		return $m->comp("/comp/layout/badarguments",
+			text => qq!You need to pass a Disc ID <strong>discid</strong>
+					  and / or the complete CD TOC <strong>toc</strong>!);
+	}
+
+	# Instantate MusicBrainz object
+	my $mb = $m->comp("/comp/dblogin");
+
+	# Here we split into two paths, depending on whether we or not we were passed
+	# the TOC.
+	if (not defined $toc)
+	{
+		# If we have no TOC then we cannot add the release if it's missing.  So just
+		# look for the release (based on CDIndex ID or FreeDB ID) and show whatever we
+		# find. etrieve the releases matching the given ID
+		my $alcdtoc = MusicBrainz::Server::AlbumCDTOC->new($mb->{DBH});
+		my $releaseids = (
+			$discid
+				? $alcdtoc->GetAlbumIDsFromDiscID($discid)
+				: $freedbid
+					? $alcdtoc->GetAlbumIDsFromFreeDBID($freedbid)
+					: []);
+
+		# No matches, and we cant add the release since we have no toc,
+		# we can't add a new release. Just show the message.
+		if (not @$releaseids)
 		{
-			my $alcdtocs = $cdtoc->GetAlbumCDTOCs;
-			$albumids = [ map { $_->GetAlbumId } @$alcdtocs ];
-		}
-	}
-
-	if (not @$albumids)
-	{
-		# No albums.  Perhaps you'd like to add one?
-		</%perl>
-		<& /comp/sidebar, title => "CD Not Found" &>
-
-		<p>
-			No CD found with the TOC '<% $toc %>'.
-		</p>
-
-		<& .ShowSubmitForm, \%info &>
-
-		<& /comp/footer &>
-		<%perl>
-	} elsif (@$albumids == 1) {
-		# Exactly one matching album.  Again, let the user add one.
-		</%perl>
-		<& /comp/sidebar, title => "CD Found" &>
-
-		<h2>Matching CD</h2>
-		<p>
-			The following CD has
-			the TOC '<% $toc %>'.&nbsp; If the CD you have is
-			not this one, please <a href="#SubmitForm">enter the missing CD</a>.
-		</p>
-		<& .ShowMultipleAlbums, dbh => $mb->{DBH}, albumids => $albumids &>
-
-		<& .ShowSubmitForm, \%info &>
-
-		<& /comp/footer &>
-		<%perl>
-	} else {
-		# Multiple matching albums.  Show them all, or let the user add one.
-		</%perl>
-		<& /comp/sidebar, title => "Multiple CDs Found" &>
-
-		<h2>Matching CDs</h2>
-		<p>
-			The following CDs <% @$albumids == 2 ? "both" : "all" %> have
-			the TOC '<% $toc %>'.&nbsp; If the CD you have is
-			<% @$albumids == 2 ? "neither" : "none" %> of these,
-			please <a href="#SubmitForm">enter the missing CD</a>.
-		</p>
-		<& .ShowMultipleAlbums, dbh => $mb->{DBH}, albumids => $albumids &>
-
-		<& .ShowSubmitForm, \%info &>
-
-		<& /comp/footer &>
-		<%perl>
-	}
-}
 
 </%perl>
 
+		<& /comp/sidebar-notitle, pagetitle => "Lookup returned no match." &>
+		<& /comp/tablebegin, title => "Lookup returned no match." &>
+
+%		my $text = "";
+%		if ($discid)
+%		{
+			$text .= $m->scomp("/comp/linkdoc", "DiscID", "Disc ID");
+			$text .= "$discid";
+
+%		}
+%		else
+%		{
+			$text .= "<strong>FreeDB ID</strong>: $freedbid";
+
+%		}
+
+		<& /comp/form/feedbackbox, "warning", "",
+				qq!No release found with the given $text! &>
+
+<%perl>
+		}
+
+		# Exactly one match redirect to it
+		elsif (@$releaseids == 1)
+		{
+			$m->comp("/comp/redirect", "/show/release/?releaseid=".$releaseids->[0]);
+		}
+
+		# Multiple matching releases - show them all
+		else
+		{
+
+</%perl>
+			<& /comp/sidebar-notitle, pagetitle => "Multiple releases found." &>
+			<& /comp/tablebegin, title => "Multiple releases found." &>
+
+
+			The following releases <% @$releaseids == 2 ? "both" : "all" %> have
+			the
+%			if ($discid)
+%			{
+			<& /comp/linkdoc, "DiscID", "Disc ID" &>: <% $discid %>
+%			} else {
+			<strong>FreeDB ID</strong>: <% $freedbid %>
+%			}
+
+
+
+			<& .ShowMultipleAlbums, dbh => $mb->{DBH}, releaseids => $releaseids &>
+
+<%perl>
+
+		}
+	}
+	else
+	{
+		# If on the other hand we have a TOC then we can add the release if it's
+		# missing. First let's look for releases using this TOC (which is in any case
+		# more accurate than simply looking up based on CDIndex ID).
+
+		require MusicBrainz::Server::CDTOC;
+		my $releaseids;
+		{
+			my $cdtoc = MusicBrainz::Server::CDTOC->newFromTOC($mb->{DBH}, $toc);
+			$releaseids = [], last
+				if not $cdtoc;
+
+			if ($cdtoc)
+			{
+				my $alcdtocs = $cdtoc->GetAlbumCDTOCs;
+				$releaseids = [ map { $_->GetAlbumId } @$alcdtocs ];
+			}
+		}
+
+		# No releases.  Perhaps the user wants to enter one?
+		if (not @$releaseids)
+		{
+
+</%perl>
+
+		<& /comp/sidebar-notitle, pagetitle => "Lookup returned no match." &>
+		<& /comp/tablebegin, title => "Lookup returned no match." &>
+
+		<& /comp/form/feedbackbox",
+				"info", "",
+				qq!No CD found with the <strong>TOC</strong>: $toc.! &>
+
+		<& .ShowSubmitForm, \%info &>
+
+<%perl>
+
+		}
+		else
+		{
+			my $singlematch = (@$releaseids == 1);
+			my $title = $singlematch
+				? "CD TOC matched exactly one release"
+				: "CD TOC matched multiple releases";
+
+</%perl>
+
+		<& /comp/sidebar-notitle, pagetitle => $title &>
+		<& /comp/tablebegin , title => $title &>
+
+			<table class="formstyle">
+				<tr>
+					<td class="instructions">
+						<ul>
+%			if ($singlematch)
+%			{
+							<li>
+								One release found which matches your <strong>CD TOC</strong>:
+								<strong><% $toc %></strong>.</li>
+							<li>
+								If this is not the release you were looking for, please use
+								the <strong>Attach TOC to Release / Add new Release </strong>
+								form below to enter your copy into the database.
+							</li>
+%			}
+%			else
+%			{
+							<li>
+								There are multiple releases in the database which match your
+								<strong>CD TOC</strong>: <strong><% $toc %></strong>.</li>
+							<li>
+								If the release you are looking up is <% (@$releaseids == 2
+								? "neither" : "none") %> of them, please use the <strong>
+								Attach TOC to Release / Add new Telease </strong>
+								form below to enter your copy into the database.
+							</li>
+%			}
+						</ul>
+					</td>
+				</tr>
+			</table>
+
+
+
+		<& .ShowMultipleAlbums, dbh => $mb->{DBH}, releaseids => $releaseids &>
+
+		<& .ShowSubmitForm, \%info &>
+
+%		}
+%	}
+
+	<script type="text/javascript" src="/scripts/collapsereleases.js"></script>
+
+	<& /comp/tableend &>
+<& /comp/footer &>
+
+
+
+
+
+
 <%def .ShowSubmitForm>
-% my $info = shift;
-% my $url = "/bare/cdlookup.html?toc=" . uri_escape($info->{'toc'});
+% 	my $info = shift;
+% 	my $url = "/bare/cdlookup.html?toc=" . uri_escape($info->{'toc'});
 
-		<h2 id="SubmitForm">Add a CD</h2>
+	<& /comp/tableend &>
 
-% if (&DBDefs::REPLICATION_TYPE == RT_SLAVE) {
+	<& /comp/tablebegin, title => "Attach TOC to Release / Add new Release " &>
 
-		<p>
-			This is a mirror server.&nbsp; To add a CD you must
-			<a href="http://www.musicbrainz.org<% $url %>">go to the main server</a>.
-		</p>
+% 	if (&DBDefs::REPLICATION_TYPE == RT_SLAVE)
+%	{
 
-% } elsif ($session{uid}) {
+		This is a mirror server. You need to <a href="http://musicbrainz.org<% $url %>">
+		go to the main server</a> to enter a new release.
 
-		<& /cdi/submit.html,
-			id => $info->{'discid'},
-			toc => $info->{'toc'},
-			tracks => $info->{'tracks'},
-			hack => \"hack",
-			&>
+% 	}
+%	elsif ($session{uid})
+%	{
+		<table class="formstyle">
+			<tr>
+				<td class="instructions">
+					<ul>
+						<li>
+							You can either search for releases by selecting an artist first,
+							or by searching for releases directly. Please note that you have
+							to use the Release search if the release you are looking for
+							is a <& /comp/linkdoc, "VariousArtistsRelease", "Various Artists Release" &>.
+						</li>
+						<li>
+							All data submitted to MusicBrainz will be placed into
+							the public domain and released using a <a href="http://creativecommons.org">
+							Creative Commons</a> license. For more information see our
+							<& /comp/linkdoc, "MusicBrainzLicense", "licences page" &>.
 
-% } else {
+					</ul>
+				</td>
+			</tr
+		</table>
 
-		<p>
-			To add a CD, you must first log in.
-		</p>
+		<table class="formstyle">
+			<tr>
+				<td class="label">Search for Artist:</td>
+				<td>
+					Enter the name of the <strong>Artist</strong> and
+					click on the button <strong>Search&nbsp;&raquo;</strong>:
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>
+					<form method="post" action="/cdi/searchartist.html">
+						<input type="text" name="search" size="30" /> <br />
+						<input type="submit" value="Search &raquo;" />
+						<input type="hidden" name="discid" value="<% $info->{'discid'} %>" />
+						<input type="hidden" name="toc" value="<% $info->{'toc'} %>" />
+						<input type="hidden" name="tracks" value="<% $info->{'tracks'} %>" />
+					</form>
+				</td>
+			</tr>
 
-		<center>
-			<div class="TitledBox" style="width: 20em">
-				<div class="TitledBoxTitle">Login</div>
-				<& /comp/loginbox, url=> $url &>
-			</div>
-		</center>
+			<tr class="spaced">
+				<td class="label">Search for Release:</td>
+				<td>
+					Enter the name of the <strong>Release</strong> and
+					click on the button <strong>Search&nbsp;&raquo;</strong>:
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>
+					<form method="post" action="/cdi/searchrelease.html">
+						<input type="text" name="search" size="30" /> <br />
+						<input type="submit" value="Search &raquo;" />
+						<input type="hidden" name="discid" value="<% $info->{'discid'} %>" />
+						<input type="hidden" name="toc" value="<% $info->{'toc'} %>" />
+						<input type="hidden" name="tracks" value="<% $info->{'tracks'} %>" />
+					</form>
+				</td>
+			</tr>
+		</table>
 
-% }
+% 	}
+%	else
+%	{
+
+		You need to login first before you can enter a new release.
+
+		<& /comp/loginbox, url=> $url &>
+
+% 	}
+
 </%def>
+
+
 
 <%def .ShowMultipleAlbums>
 <%args>
-$dbh
-$albumids
+
+	$dbh
+	$releaseids
+
 </%args>
 <%perl>
 
-# Retrieve each album, and the artist for each one
-my %artists;
+	# Retrieve each release, and the artist for each one
+	my %artists;
 
-for my $id (@$albumids)
-{
-	my $al = Album->new($dbh);
-	$al->SetId($id);
-	$al->LoadFromId
-		or next;
-	my $ar = $artists{ $al->GetArtist } ||= do {
-		my $ar = Artist->new($dbh);
-		$ar->SetId($al->GetArtist);
-		$ar->LoadFromId ? $ar : undef;
-	};
-	$ar or next;
-	push @{ $ar->{_albums} }, $al;
-}
-
-my @artists = values %artists
-	or return;
-
-$_->{_sort} = MusicBrainz::NormaliseSortText($_->GetSortName)
-	for @artists;
-
-for my $ar (sort { $a->{_sort} cmp $b->{_sort} } @artists)
-{
-	$m->out('<div style="margin: 1em 0">&nbsp;</div>');
-	$m->comp("/comp/artisttitle", artist => $ar);
-
-	my @albums = @{ $ar->{_albums} };
-	$_->{_sort} = MusicBrainz::NormaliseSortText($_->GetName)
-		for @albums;
-
-	for my $al (sort { $a->{_sort} cmp $b->{_sort} } @albums)
+	for my $releaseid (@$releaseids)
 	{
-		$m->comp("/comp/album", artist => $ar, album => $al);
+		my $release = Album->new($dbh);
+		$release->SetId($releaseid);
+		$release->LoadFromId or next;
+
+		my $artist = $artists{ $release->GetArtist } ||= do {
+			my $artist = Artist->new($dbh);
+			$artist->SetId($release->GetArtist);
+			$artist->LoadFromId ? $artist : undef;
+		};
+		$artist or next;
+		push @{ $artist->{_releases} }, $release;
 	}
-}
+
+	my @artists = values %artists
+		or return;
+
+	$_->{_sort} = MusicBrainz::NormaliseSortText($_->GetSortName)
+		for @artists;
+
+
+	$m->out(qq!<table width="600">!);
+	$m->out(qq!<tr><td>!);
+
+	for my $artist (sort { $a->{_sort} cmp $b->{_sort} } @artists)
+	{
+		$m->out(qq!<div style="margin-bottom: 3px">Artist: !);
+		$m->comp("/comp/linkartist", artist => $artist);
+		$m->out(qq!</div>!);
+
+		my @releases = @{ $artist->{_releases} };
+		$_->{_sort} = MusicBrainz::NormaliseSortText($_->GetName)
+			for @releases;
+
+		for my $release (sort { $a->{_sort} cmp $b->{_sort} } @releases)
+		{
+			$m->comp("/comp/album", artist => $artist, album => $release);
+		}
+	}
+
+	$m->out(qq!</td></tr>!);
+	$m->out(qq!</table>!);
 
 </%perl>
 </%def>
+
+%# vi: set ts=4 sw=4 ft=mason :
