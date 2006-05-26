@@ -32,7 +32,7 @@
 
 	# use mason->out to compress whitespace
 	$m->out('<div class="feedbackbox-'.$type.'">');
-	$m->out('<img src="/images/es/'.$type.'.gif" alt="">');
+	$m->out('<img src="/images/es/'.$type.'.gif" class="boxtype" alt="">');
 	if ($header ne "")
 	{
 		$m->out('<span id="header">');
