@@ -698,6 +698,7 @@ table.searchresults td.trmid,
 table.searchresults td.released { 
 	padding-right: 12px; white-space: nowrap;
 	text-align: right;
+	font-size: 11px;
 }
 table.searchresults td.num,
 table.searchresults td.length {

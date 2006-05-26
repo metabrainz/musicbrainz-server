@@ -71,11 +71,13 @@ table.editdiff tr td.lbl {
 table.editdiff tr td.diff .ins {
 	border: 1px solid #8f8;
 	background: #efe;
+	color: #000; 
 	padding: 0px 1px;
 }
 table.editdiff tr td.diff .del {
 	border: 1px solid #f88;
 	background: #fee;
+	color: #000; 
 	padding: 0px 1px;
 }
 
@@ -115,7 +117,13 @@ table.editlist {
 table.editlist td.spacer {
 	height: 5px; width: 100%;
 	background-color: #ffba58;
+	color: #000; 
 	border: 1px solid #000;
+	
+	border-left: 0px;
+	border-right: 0px;
+	background-color: #fff;
+	height: 15px;
 }
 
 /* the header row of the edit */
@@ -124,6 +132,7 @@ tr.showedit td.type,
 tr.showedit td.votehead {
 	white-space: nowrap;
 	background: #fff;
+	color: #000; 
 	border: 1px solid #000;
 	padding: 2px;
 	vertical-align: top;
@@ -139,11 +148,13 @@ tr.showedit td.type td {
 }
 tr.showedit td.votehead {
 	text-align: center;
+	padding: 5px;
 }
 
 /* the old value of the edit */
 tr.showedit td.oldvalue {
 	background: #ffecd6;
+	color: #000; 
 	vertical-align: top;
 	border: 1px solid #000;
 }
@@ -162,6 +173,7 @@ tr.showedit td.oldvalue table.editdiff tr td {
 /* the new value of the edit */
 tr.showedit td.newvalue {
 	background: #f0efff;
+	color: #000; 
 	vertical-align: top; 
 	width: 100%;
 	border: 1px solid #000;
@@ -181,17 +193,23 @@ tr.showedit td.newvalue table.editdiff tr td {
 tr.showedit td.newvalue table.editdiff tr {
 	vertical-align: middle;
 }
+
+
+/* display of the release in the edits list */
+tr.showedit td.newvalue div.release_endspacer {
+	display: none;
+}
 tr.showedit td.newvalue table.annotation {
 	margin-top: 3px;
 }
 tr.showedit td.newvalue table.annotation tr.header td {
 	background-color: #fb5;
 }
-tr.showedit td.newvalue div.release_endspacer {
-	display: none;
-}
+
+
 tr.showedit td.vote {
 	background: #fff;
+	color: #000; 
 	text-align: center;
 	vertical-align: top;
 	white-space: nowrap;
@@ -200,14 +218,13 @@ tr.showedit td.vote {
 }
 tr.showedit td.notes {
 	background: #fff;
+	color: #000; 
 	padding: 2px;
 	border: 1px solid #000;
 }
 tr.showedit td.oldvalue .lbl {
 	width: 30px;
 }
-
-
 
 /* the list of edit votes */
 table.voteslist {
@@ -233,16 +250,18 @@ table.voteslist tr td.date {
 	padding: 0px; padding-right: 10px;
 	text-align: right;
 	font-size: 11px;
+	background-color: inherit;
 	color: #999;	
 }
 table.voteslist tr td.vote,
 table.voteslist tr td.date { 
-	background-color: #fff;
+	background-color: inherit;
 	color: #000;
 	border-top: 1px dotted #ccc;
 }
 table.voteslist span.date {
 	white-space: nowrap;
+	background-color: inherit;
 	color: #999;
 }
 
@@ -266,6 +285,7 @@ table.noteslist tr td.noter {
 	font-size: 11px;
 	width: 120px;
 	background-color: #fff;
+	color: #000;
 }
 table.noteslist tr td.text {
 	padding: 2px; 
@@ -279,7 +299,8 @@ table.noteslist tr td.date {
 	text-align: right;
 }
 table.noteslist span.modbot {
-	color: #999;
+	background-color: inherit;
+	color: #666;
 	padding-left: 10px;
 	background-image: url(../images/edit.gif);
 	background-position: 0px 4px;
@@ -290,6 +311,7 @@ table.noteslist span.modbot a {
 }
 table.noteslist span.date {
 	white-space: nowrap;
+	background-color: inherit;
 	color: #999;
 }
 table.noteslist tr.even td.text,
@@ -323,15 +345,12 @@ table.votechoice4 td {
 	width: 25%; text-align: left;
 }
 table.votechoice input {
-	margin-right: 5px;
 }
 table.votechoice label {
 	display: block;
-	padding: 3px;
-	margin-left: 5px;
+	padding: 0px 10px;
 	border: 1px solid #fff;
 	text-align: center;
-	font-size: 10px;
 }
 table.votechoice label:hover {
 	border: thin dotted #999;
@@ -371,4 +390,14 @@ table.edittype tr.entity td {
 }
 table.edittype tr.entity a {
 	font-weight: normal;
+}
+
+.showedit-jsnote {
+	font-size: 11px;
+	padding-left: 30px;
+	width: 500px;
+}
+.showedit-pendingnote {
+	background-color: #ffffcc;
+	color: #000; 
 }

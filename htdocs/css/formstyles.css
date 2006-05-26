@@ -552,7 +552,7 @@ fieldset.formstyle legend {
 .feedbackbox,
 .feedbackbox-warning,
 .feedbackbox-info {
-	width: 345px;
+	width: 545px;
 }
 
 /* user feedback boxes */
@@ -560,13 +560,13 @@ fieldset.formstyle legend {
 .feedbackbox-warning,
 .feedbackbox-info {
 	line-height: 1.2em;
-	margin-bottom: 10px;
+	margin-bottom: 15px;
 	padding: 4px;
 	font-size: 11px;
 }
-.feedbackbox img,
-.feedbackbox-warning img,
-.feedbackbox-info img {
+.feedbackbox img.boxtype,
+.feedbackbox-warning img.boxtype,
+.feedbackbox-info img.boxtype {
 	float: left;
 	padding-top: 0px; padding-right: 4px; padding-bottom: 0px;
 }
@@ -575,10 +575,10 @@ fieldset.formstyle legend {
 	margin-bottom: 0px;
 }
 .feedbackbox-warning {
-	border: 1px solid #000; background: #fff5ce;
+	border: 1px solid #000; background-color: #fff5ce; color: #000;
 }
 .feedbackbox-info {
-	border: 1px solid #0099ff; background: #e1f3ff;
+	border: 1px solid #999; background-color: #fafafa; color: #000;
 }
 
 .feedbackbox #header,
@@ -593,7 +593,6 @@ fieldset.formstyle legend {
 .feedbackbox a,
 .feedbackbox-warning a,
 .feedbackbox-info a {
-	font-style: italic;
 }
 .feedbackbox a.readmore,
 .feedbackbox-warning a.readmore,
@@ -611,6 +610,10 @@ fieldset.formstyle legend {
 }
 
 
+div.formsteps {
+	margin-left: 173px;
+	padding-bottom: 45px;
+}
 
 div.step {
 	float: left; font-size: 11px;

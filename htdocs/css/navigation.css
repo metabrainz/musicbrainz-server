@@ -113,6 +113,8 @@ td.modpending {
 div.morelink {
 	text-align: right;
 	padding: 0px; padding-right: 3px;
+	margin: 0px; 
+	line-height: 100%;
 }
 div.morelink a,
 div.morelink a:visited,
@@ -121,6 +123,7 @@ div.morelink a:active
 	font-size: 10px; color: #000; 
 	padding: 0px; padding-right: 2px;
 	white-space: nowrap;
+	line-height: 100%;
 }
 div.morelink a:hover {
 	text-decoration: underline;
