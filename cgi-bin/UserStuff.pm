@@ -416,7 +416,7 @@ sub IsNewbie
 	);
 }
 
-# Used by /login.html, /user/edit.html and /user/confirmaddress.html
+# Used by /login.html, /user/edit.html and /user/sendverification.html
 sub SetUserInfo
 {
 	my ($self, %opts) = @_;
@@ -625,13 +625,13 @@ sub GetUserType
 
 	my $type = "";
 
-	$type = '<a href="http://wiki.musicbrainz.org/AutoModerator">AutoModerator</a>'
+	$type = '<a href="/doc/AutoEditor">AutoEditor</a>'
 		if ($this->IsAutoMod($privs));
 
 	$type = "Internal/Bot User"
 		if ($this->IsBot($privs));
 
-	$type .= ', <a href="http://wiki.musicbrainz.org/RelationshipEditor">RelationshipEditor</a>'
+	$type .= ', <a href="/doc/RelationshipEditor">RelationshipEditor</a>'
 		if ($this->IsLinkModerator($privs));
 
 	$type = "Normal User"
@@ -745,8 +745,8 @@ sub GetEmailActivationLink
 	my $t = time;
 	my $chk = $self->GetVerifyChecksum($email, $self->GetId, $t);
 
-	"http://" . &DBDefs::WEB_SERVER . "/user/confirmaddress.html"
-		. "?uid=" . $self->GetId
+	"http://" . &DBDefs::WEB_SERVER . "/user/verifyemail.html"
+		. "?userid=" . $self->GetId
 		. "&email=" . uri_escape($email)
 		. "&time=$t"
 		. "&chk=" . uri_escape($chk)
@@ -797,7 +797,7 @@ EOF
 
 # Send an address verification e-mail for a user to the specified address.
 # Used by htdocs/(createlogin|login|moderator).html
-# and htdocs/user/send-email-confirmation.html
+# and htdocs/user/sendverification.html
 
 sub SendVerificationEmail
 {
@@ -806,13 +806,13 @@ sub SendVerificationEmail
 	my $url = $self->GetEmailActivationLink($email);
 
 	my $body = <<EOF;
-This is the email confirmation for your MusicBrainz account.
-Please click on the link below to verify your email address:
+This is the a verification e-mail for your MusicBrainz account.
+Please click on the link below to verify your e-mail address:
 
 $url
 
-If clicking on the link does not work, you may need to cut and paste
-the link into your web browser manually.
+If clicking the link directly does not work, you may need to manually cut and paste
+the link into the location bar of your preferred web browser.
 
 Thanks for using MusicBrainz!
 
@@ -821,11 +821,11 @@ EOF
 
 	require MusicBrainz::Server::Mail;
 	my $mail = MusicBrainz::Server::Mail->new(
-		Sender		=> 'Webserver <webserver@musicbrainz.org>',
+		Sender		=> 'MusicBrainz Server <webserver@musicbrainz.org>',
 		From		=> 'MusicBrainz <noreply@musicbrainz.org>',
 		To			=> MusicBrainz::Server::Mail->format_address_line($self->GetName, $email),
 		"Reply-To"	=> 'MusicBrainz Support <support@musicbrainz.org>',
-		Subject		=> "email address verification",
+		Subject		=> "Please verify your e-mail address",
 		Type		=> "text/plain",
 		Encoding	=> "quoted-printable",
 		Data		=> $body,
@@ -861,31 +861,40 @@ EOF
 
 	if ($opts{'revealaddress'})
 	{
+	
 		$body .= <<EOF;
-If you would like to send mail to moderator '$fromname',
+If you would like to send an e-mail to editor '$fromname',
 either reply to this e-mail, or use this link:
 http://${\ DBDefs::WEB_SERVER() }/user/mod_email.html?uid=${\ $self->GetId }
 EOF
-	} elsif ($self->GetEmail) {
+	
+	} 
+	elsif ($self->GetEmail) 
+	{
+	
 		$body .= <<EOF;
-Please do not respond to this email.
+Please do not respond to this e-mail.
 
-If you would like to send mail to moderator '$fromname',
+If you would like to send an e-mail to editor '$fromname',
 please use this link:
 http://${\ DBDefs::WEB_SERVER() }/user/mod_email.html?uid=${\ $self->GetId }
 EOF
-	} elsif ($self->GetId != &ModDefs::MODBOT_MODERATOR) {
+	
+	} 
+	elsif ($self->GetId != &ModDefs::MODBOT_MODERATOR) 
+	{
+	
 		$body .= <<EOF;
-Please do not respond to this email.
+Please do not respond to this e-mail.
 
-Unfortunately moderator '$fromname' has not supplied their e-mail address,
-so you can't reply to them.
+Unfortunately editor '$fromname' has not supplied their e-mail address,
+therefore you cannot reply to them.
 EOF
 	}
 
 	require MusicBrainz::Server::Mail;
 	my $mail = MusicBrainz::Server::Mail->new(
-		Sender		=> 'Webserver <webserver@musicbrainz.org>',
+		Sender		=> 'MusicBrainz Server <webserver@musicbrainz.org>',
 		From		=> $self->GetForwardingAddressHeader,
 		# To: $other_user (automatic)
 		"Reply-To"	=> 'Nobody <noreply@musicbrainz.org>',
@@ -905,24 +914,24 @@ EOF
 	$other_user->SendFormattedEmail(entity => $mail);
 }
 
-# User $self has added a note to $mod.  $mod_user was the original moderator.
+# User $self has added a note to $mod.  $edit_user was the original editor.
 
 sub SendModNoteToUser
 {
 	my ($self, %opts) = @_;
-	my $mod = $opts{'mod'};
-	my $mod_user = $opts{'mod_user'};
+	my $edit = $opts{'mod'};
+	my $edit_user = $opts{'mod_user'};
 	my $note_text = $opts{'note_text'};
 
-	my $modid = $mod->GetId;
+	my $editid = $edit->GetId;
 	my $fromname = $self->GetName;
 
 	my $body = <<EOF;
-Moderator '$fromname' has attached a note to your moderation #$modid:
+Editor '$fromname' has attached a note to your edit #$editid:
 
 $note_text
 
-Moderation link: http://${\ DBDefs::WEB_SERVER() }/showmod.html?modid=$modid
+Direct link to this edit: http://${\ DBDefs::WEB_SERVER() }/show/edit/?editid=$editid
 
 ------------------------------------------------------------------------
 EOF
@@ -931,35 +940,44 @@ EOF
 
 	if ($opts{'revealaddress'})
 	{
+	
 		$body .= <<EOF;
-If you would like to send mail to moderator '$fromname',
+If you would like to send an e-mail to editor '$fromname',
 either reply to this e-mail, or use this link:
 http://${\ DBDefs::WEB_SERVER() }/user/mod_email.html?uid=${\ $self->GetId }
 EOF
-	} elsif ($self->GetEmail) {
+	
+	} 
+	elsif ($self->GetEmail) 
+	{
+	
 		$body .= <<EOF;
-Please do not respond to this email.
+Please do not respond to this e-mail.
 
-If you would like to send mail to moderator '$fromname',
+If you would like to send an e-mail to editor '$fromname',
 please use this link:
 http://${\ DBDefs::WEB_SERVER() }/user/mod_email.html?uid=${\ $self->GetId }
 EOF
-	} elsif ($self->GetId != &ModDefs::MODBOT_MODERATOR) {
+	
+	} 
+	elsif ($self->GetId != &ModDefs::MODBOT_MODERATOR) 
+	{
+	
 		$body .= <<EOF;
-Please do not respond to this email.
+Please do not respond to this e-mail.
 
-Unfortunately moderator '$fromname' has not supplied their e-mail address,
-so you can't reply to them.
+Unfortunately editor '$fromname' has not supplied their e-mail address,
+so you cannot reply to them.
 EOF
 	}
 
 	require MusicBrainz::Server::Mail;
 	my $mail = MusicBrainz::Server::Mail->new(
-		Sender		=> 'Webserver <webserver@musicbrainz.org>',
+		Sender		=> 'MusicBrainz Server <webserver@musicbrainz.org>',
 		From		=> $self->GetForwardingAddressHeader,
-		# To: $mod_user (automatic)
+		# To: $edit_user (automatic)
 		"Reply-To"	=> 'Nobody <noreply@musicbrainz.org>',
-		Subject		=> "Note added to your moderation #$modid",
+		Subject		=> "Note added to your edit #$edit",
 		Type		=> "text/plain",
 		Encoding	=> "quoted-printable",
 		Data		=> $body,
@@ -972,30 +990,30 @@ EOF
 		$mail->delete("Reply-To");
 	}
 
-	$mod_user->SendFormattedEmail(entity => $mail);
+	$edit_user->SendFormattedEmail(entity => $mail);
 }
 
-# User $self has added a note to $mod.  $mod_user was the original moderator.
+# User $self has added a note to $mod.  $edit_user was the original editor.
 # $other_user is a third user, who has already added a note to $mod.
 
 sub SendModNoteToFellowNoter
 {
 	my ($self, %opts) = @_;
-	my $mod = $opts{'mod'};
-	my $mod_user = $opts{'mod_user'};
+	my $edit = $opts{'mod'};
+	my $edit_user = $opts{'mod_user'};
 	my $other_user = $opts{'other_user'};
 	my $note_text = $opts{'note_text'};
 
-	my $modid = $mod->GetId;
+	my $editid = $edit->GetId;
 	my $fromname = $self->GetName;
 
 	my $body = <<EOF;
-Moderator '$fromname' has attached a note to moderation #$modid:
+Editor '$fromname' has attached a note to edit #$edit:
 
 $note_text
 
-Moderation link: http://${\ DBDefs::WEB_SERVER() }/showmod.html?modid=$modid
-The original moderator was '${\ $mod_user->GetName }'
+Direct link to this edit: http://${\ DBDefs::WEB_SERVER() }/show/edit/?editid=$editid
+The original editor was: '${\ $edit_user->GetName }'
 
 ------------------------------------------------------------------------
 EOF
@@ -1005,34 +1023,34 @@ EOF
 	if ($opts{'revealaddress'})
 	{
 		$body .= <<EOF;
-If you would like to send mail to moderator '$fromname',
+If you would like to send an e-mail to editor '$fromname',
 either reply to this e-mail, or use this link:
 http://${\ DBDefs::WEB_SERVER() }/user/mod_email.html?uid=${\ $self->GetId }
 EOF
 	} elsif ($self->GetEmail) {
 		$body .= <<EOF;
-Please do not respond to this email.
+Please do not respond to this e-mail.
 
-If you would like to send mail to moderator '$fromname',
+If you would like to send an e-mail to editor '$fromname',
 please use this link:
 http://${\ DBDefs::WEB_SERVER() }/user/mod_email.html?uid=${\ $self->GetId }
 EOF
 	} elsif ($self->GetId != &ModDefs::MODBOT_MODERATOR) {
 		$body .= <<EOF;
-Please do not respond to this email.
+Please do not respond to this e-mail.
 
-Unfortunately moderator '$fromname' has not supplied their e-mail address,
-so you can't reply to them.
+Unfortunately editor '$fromname' has not supplied their e-mail address,
+so you cannott reply to them.
 EOF
 	}
 
 	require MusicBrainz::Server::Mail;
 	my $mail = MusicBrainz::Server::Mail->new(
-		Sender		=> 'Webserver <webserver@musicbrainz.org>',
+		Sender		=> 'MusicBrainz Server <webserver@musicbrainz.org>',
 		From		=> $self->GetForwardingAddressHeader,
 		# To: $other_user (automatic)
 		"Reply-To"	=> 'Nobody <noreply@musicbrainz.org>',
-		Subject		=> "Note added to moderation #$modid",
+		Subject		=> "Note added to edit #$edit",
 		Type		=> "text/plain",
 		Encoding	=> "quoted-printable",
 		Data		=> $body,
@@ -1067,7 +1085,7 @@ sub SendFormattedEmail
 	my $mailer = MusicBrainz::Server::Mail->open(
 		$from,
 		$to,
-	) or return "Could not send mail. Please try again later.";
+	) or return "Could not send the e-mail. Please try again later.";
 
 	if ($opts{'entity'})
 	{
@@ -1075,7 +1093,9 @@ sub SendFormattedEmail
 		print $mailer "To: " . $self->GetRealAddressHeader . "\n"
 			unless $entity->get("To");
 		$entity->print($mailer);
-	} elsif ($opts{'text'}) {
+	} 
+	elsif ($opts{'text'}) 
+	{
 		my $messagetext = $opts{'text'};
 		my $i = index($messagetext, "\n\n");
 		my $headers = substr($messagetext, 0, $i+1);
@@ -1085,7 +1105,7 @@ sub SendFormattedEmail
 	}
 
 	my $ok = close $mailer;
-	$ok ? undef : "Failed to send mail. Please try again later.";
+	$ok ? undef : "Failed to send the e-mail. Please try again later.";
 }
 
 ################################################################################
