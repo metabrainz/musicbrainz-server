@@ -73,7 +73,7 @@
 
 			# prepare, and escape returnurl. artistfilter_newartistid will reference the
 			# artistid being added in the ADD ARTIST editor.
-			my $returnurl = "/cdi/artist.html?".$m->comp("/comp/args-to-querystring.inc", %args);
+			my $returnurl = "/cdi/searchartist.html?".$m->comp("/comp/args-to-querystring.inc", %args);
 			$returnurl .= "&artistid=";
 			$returnurl = uri_escape($returnurl);
 
@@ -95,7 +95,7 @@
 		elsif ($submitvalue =~ m/Select/)
 		{
 			$args{"artistid"} = $ARGS{"artistfilter_newartistid"};
-			my $nexturl = "/cdi/album.html?".$m->comp("/comp/args-to-querystring.inc", %args);
+			my $nexturl = "/cdi/searchartistrelease.html?".$m->comp("/comp/args-to-querystring.inc", %args);
 
 			return $m->comp("/comp/redirect", $nexturl);
 		}
@@ -107,7 +107,7 @@
 
 	<& /comp/tablebegin, title => "Search for Release Artist" &>
 
-        <form method="post" action="/cdi/artist.html">
+        <form method="post" action="/cdi/searchartist.html">
 
 			<& /comp/form/steps,
 				steps => ["Lookup CD", "Select Artist", "Attach Disc ID"],

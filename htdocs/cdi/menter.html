@@ -12,7 +12,7 @@ $noncd=>0
 </%args>
 <%perl>
 
-unless (MusicBrainz::IsNonNegInteger($tracks) and $tracks > 0)
+unless (MusicBrainz::IsNonNegInteger($tracks) and $tracks >= 1 and $tracks <= 99)
 {
 	$m->comp("/comp/redirect", '/edit/album/add.html?artistid=' . $artist . '&error=1');
 	return;
@@ -135,17 +135,19 @@ if ($freedb)
 		<table>
 			<tr>
 %  if ($noncd) {
-      			<td colspan="2"><label for="cdi_menter_albumname"><b>Album Title:</label></td>
+      			<td colspan="2"><label for="cdi_menter_title"><b>Album Title:</label></td>
 %  } else {
-      			<td colspan="2"><label for="cdi_menter_albumname"><b>CD Title:</label></td>
+      			<td colspan="2"><label for="cdi_menter_title"><b>CD Title:</label></td>
 %  }
 %    if (!defined $lookup) {
-				<td><input 	type="text" name="albumname" class="textfield"
-						id="cdi_menter_albumname"
+				<td><input 	type="text" name="title" class="textfield"
+						id="cdi_menter_title"
+						onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 						size="50" maxlength="255"></td>
 %    } else {
-				<td><input 	type="text" name="albumname" class="textfield"
-						id="cdi_menter_albumname"
+				<td><input 	type="text" name="title" class="textfield"
+						id="cdi_menter_title"
+						onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 						size="50" maxlength="255"
 						value="<% $lookup->{album} %>"></td>
 %    }
@@ -153,8 +155,11 @@ if ($freedb)
 				<td>&nbsp;</td>
 %    }
 				<td>
-					<& /comp/form/jsbutton, id=>"BTN_ALBUM::albumname" &>
-					</td>
+					<script type="text/javascript">
+					<!--
+						af_writeButton(AF_BTN_ALBUM, 'title');
+					-->
+					</script></td>
 			</tr>
 
 <%perl>
@@ -188,31 +193,40 @@ for my $i ( 0 .. $tracks-1 )
 				<td>
 					<input	type="text" name="track<% $i %>" class="textfield"
 							id="cdi_menter_track<% $i %>"
+							onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 							size="50" maxlength="255"
 							value="<% $trackname %>">
 				</td>
 % if (!$toc) {
 				<td>
 					<input	type="text" name="tracklength<% $i %>" class="numberfield"
+							onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 							size="4"
 							value="?:??">
 % }
 				</td>
 				<td>
-					<& /comp/form/jsbutton, id=>"BTN_TRACK::track".$i &>
-					</td>
+					<script type="text/javascript">
+					<!--
+						af_writeButton(AF_BTN_TRACK, 'track<% $i %>');
+					-->
+					</script></td>
 			</tr>
 			<tr>
 				<td colspan="2" align="right" valign="top">Artist Name:</td>
 				<td><input	type="text" name="artistname<% $i %>" class="textfield"
+							onFocus="myOnFocus(this)" onBlur="myOnBlur(this)"
 							size="50" maxlength="255"
 							value="<% $artistname %>"></td>
 % if (!$toc) {
 				<td>&nbsp;</td>
 % }
 				<td>
-					<& /comp/form/jsbutton, id=>"BTN_ARTIST::artistname".$i &>
-					</td>
+					<script type="text/javascript">
+					<!--
+						af_writeButton(AF_BTN_ARTIST, 'artistname<% $i %>');
+					-->
+					</script></td>
 			</tr>
 % }
 			<tr>
@@ -222,8 +236,18 @@ for my $i ( 0 .. $tracks-1 )
 				<td colspan="3"></td>
 % }
 				<td>
-					<& /comp/form/jsbutton, id=>"BTN_ALL" &>
-					</td>
+					<script type="text/javascript">
+					<!--
+						function doGuessAll(theForm) {
+							doAlbumName(theForm, 'title');
+% for my $i ( 0 .. $tracks-1 ) {
+							doTrackName(theForm, 'track<% $i %>');
+							doArtistName(theForm, 'artistname<% $i %>');
+% }
+						}
+						af_writeButton(AF_BTN_ALL, AF_BTNTEXT_ALBUMARTISTANDTRACKS);
+					-->
+					</script></td>
 			</tr>
 			<tr>
 				<td colspan="2"></td>

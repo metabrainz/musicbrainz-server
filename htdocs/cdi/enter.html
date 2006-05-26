@@ -28,10 +28,10 @@
 </%perl>
 <%args>
 
-	# artistid and tracks is required
-	$artistid
-	$tracks
-	$hasmultipletrackartists
+	# these first 3 parameters are required.
+	$artistid => undef
+	$tracks => undef
+	$hasmultipletrackartists => undef
 
 	# cd-toc attach /bare/cdlookup.html
 	$discid => ""
@@ -58,10 +58,24 @@
 		return;
 	}
 
+	# make sure we got a valid releaseid parameter
+	MusicBrainz::IsNonNegInteger($artistid) && $artistid
+		or return $m->comp("/comp/layout/badarguments",
+			text => "The argument <strong>artistid</strong> is missing or has a wrong format.");
+
+	# make sure we got a valid tracks parameter
+	MusicBrainz::IsNonNegInteger($tracks) && $tracks
+		or return $m->comp("/comp/layout/badarguments",
+			text => "The argument <strong>tracks</strong> is missing or has a wrong format.");
+
+	# make sure we got a valid hasmultipletrackartists parameter
+	$hasmultipletrackartists =~ /^0|1$/
+		or return $m->comp("/comp/layout/badarguments",
+			text => "The argument <strong>hasmultipletrackartists</strong> is missing or has a wrong format.");
+
 	# instantiate MusicBrainz object.
 	my $mb = $m->comp("/comp/dblogin");
 	$ARGS{"mb"} = $mb;
-	my $i;
 
 	# SETUP FORM STATE
 	# ---------------------------------------------------------------
@@ -82,6 +96,10 @@
 	# ---------------------------------------------------------------
 	%ARGS = $m->comp("/comp/release_editor/init-handleredirect", %ARGS);
 
+	# HANDLE FREEDB LOOKUP
+	# ---------------------------------------------------------------
+	%ARGS = $m->comp("/comp/release_editor/init-freedblookup", %ARGS);
+
 	# setup field checks.
 	$ARGS{"v::checkedmacsac"} = 1;
 	$ARGS{"v::checkedartists"} = !$ARGS{"hasmultipletrackartists"};
@@ -92,12 +110,6 @@
 	# check if we got a form submit to handle.
 	if ($ARGS{"v::formsubmitted"})
 	{
-
-		MusicBrainz::IsNonNegInteger($ARGS{"hasmultipletrackartists"})
-			or die("missing or wrong parameter: \$hasmultipletrackartists=$ARGS{'hasmultipletrackartists'}\n");
-		MusicBrainz::IsNonNegInteger($ARGS{"tracks"})
-			or die("missing or wrong parameter: \$tracks=$ARGS{'tracks'}\n");
-
 		# we always need to check the releases, because else we don't know how
 		# many releases we need to display
 		%ARGS = $m->comp("/comp/release_editor/check-releases", %ARGS);
@@ -111,7 +123,7 @@
 		# the interface for the "move release" operation.
 		if ($ARGS{"v::showform"}
 			and $ARGS{"v::validate"}
-			and $ARGS{"artist_edit"})
+			and $ARGS{"artistedit"})
 		{
 			%ARGS = $m->comp("/comp/release_editor/convert-moverelease", %ARGS);
 		}
@@ -139,6 +151,7 @@
 				if ($ARGS{"artistid"} != $prev)
 				{
 					$ARGS{"v::isva"} = ($ARGS{"artistid"} == &ModDefs::VARTIST_ID ? 1 : 0);
+
 					my $title = "Add Release".($ARGS{"v::isva"} ? " (Various Artists)" : "");
 					$m->comp("/comp/sidebar-notitle", pagetitle => $title);
 				}
@@ -179,7 +192,6 @@
 			$ARGS{"v::checkedsimilar"} = 1;
 			%ARGS = $m->comp("/comp/release_editor/check-similar-releases", %ARGS)
 				if (!defined $ARGS{"force_similar"});
-
 
 			# CHECK CHARACTERS IN FIELDS WHICH MIGHT MAC/SAC
 			# ---------------------------------------------------------------
@@ -235,79 +247,7 @@
 
 		$m->comp("/comp/stylemenu");
 
-		my $lookup;
-		if ($freedb)
-		{
-		   my $fdb = FreeDB->new($mb->{DBH});
-		   $lookup = $fdb->Lookup($discid, $toc);
-		   if (!$lookup)
-		   {
-			   $lookup = undef;
-		   }
-		}
-
-		# freedb import help-box.
-		if (!$noncd)
-		{
-			$m->comp("/comp/form/begin", title => "FreeDB.org Import");
-
-			# if lookup was successful, show help text.
-			if (defined $lookup)
-			{
-				$m->comp("/comp/form/feedbackbox", "info",
-					"Found release listing on FreeDB",
-					"Found CD <b>".$lookup->{album}."</b>
-					by <b>".$lookup->{artist}."</b> at
-					<a href=\"http://www.freedb.org\">FreeDB.org</a>.
-					Please check the information below for accuracy and correct any
-					mistakes you may find:");
-			}
-			else
-			{
-				# lookup was done, but no release was found.
-				if ($freedb)
-				{
-					$m->comp("/comp/form/feedbackbox", "info",
-						"", "This CD was not found at FreeDB");
-				}
-
-				# show lookup form.
-				else
-				{
-	</%perl>
-					<form method="POST" action="/cdi/enter.html"
-							enctype="application/x-www-form-urlencoded" class="formstyle">
-
-					<label class="label hidden"></label>
-					<div class="float textfield">
-						Please enter the CD information below, or
-						click on FreeDB lookup to attempt to load the data for
-						this CD from FreeDB:
-					</div>
-					<br/>
-
-					<label class="label hidden"></label>
-						<& /comp/form/buttonsubmit, value => $ARGS{"SUBMIT_FREEDB"} &>
-						<input type="hidden" name="discid" value="<% $discid %>">
-						<input type="hidden" name="toc" value="<% $toc %>">
-						<input type="hidden" name="tracks" value="<% $tracks %>">
-						<input type="hidden" name="freedb" value="1">
-%				if ($artistid > 0) {
-						<input type="hidden" name="artistid" value="<% $artistid %>">
-%				}
-						<label class="label hidden"></label>
-					</form>
-				<%perl>
-				}
-			}
-			$m->comp("/comp/form/end");
-			$m->out("<br/>");
-		}
-
-		$m->comp("/comp/release_editor/form",
-			%ARGS,
-			lookup => $lookup,
-		);
+		$m->comp("/comp/release_editor/form", %ARGS);
 	}
 
 	$m->comp("/comp/release_editor/dump-arguments", %ARGS);

@@ -1,80 +1,98 @@
-%# vi: set ts=4 sw=4 ft=mason :
+
 <%args>
-$id => undef
-$tracks => undef
-$toc => undef
-$hack => undef
+
+	$id => undef
+	$discid => undef
+
+	$tracks => undef
+	$toc => undef
+	$hack => undef
+
 </%args>
 <%perl>
+	# use discid as argument, but leave id for backwards compatibility
+	$discid ||= $id;
 
-# Hack: this page used to be called directly (i.e. POSTed to) but now it's
-# only called as a component of another page (/bare/cdlookup.html).
-# Perhaps we should have moved the code we wanted to keep to another place,
-# but keeping it here means we can track it easier with CVS.
+	# Hack: this page used to be called directly (i.e. POSTed to) but now it's
+	# only called as a component of another page (/bare/cdlookup.html).
+	# Perhaps we should have moved the code we wanted to keep to another place,
+	# but keeping it here means we can track it easier with CVS.
 
-# $hack can dereference to "hack" if we are called as a subcomponent.
-return $m->comp("/comp/redirect", "/search.html")
-	unless ref($hack)
-	and $$hack eq "hack";
+	# $hack can dereference to "hack" if we are called as a subcomponent.
+	return $m->comp("/comp/redirect", "/search.html")
+		unless ref($hack)
+		and $$hack eq "hack";
 
 </%perl>
 
-        <p>
-        Does the CD have a single artist or multiple artists (compilation)?
-        </p>
-        <p>
-        
-        <table cellspacing=0 width="100%">
-        <tr>
-        <th bgcolor="#FFBA58" valign=top>
-        Single Artist CDs
-        </th>
-        <th bgcolor="#FFBA58" valign=top>
-        &nbsp;
-        </th>
-        <th bgcolor="#FFBA58">
-        Multiple Artists CDs (Compilations)
-        </th>
-        </tr>
-        <tr>
-        <td align=center>
-                                 
-        <form method="POST" action="/cdi/artist.html"
-			name="AddSingleArtist"
-              enctype="application/x-www-form-urlencoded" class="formstyle">
-        
-        <br>Enter the name of the <font color=red>Artist</font><br> and
-        click on <b>search</b>:<p>
-        
-        <input type="text" name="search" size="30">
-        <input type="hidden" name="id" value="<% $id %>">
-        <input type="hidden" name="toc" value="<% $toc %>">
-        <input type="hidden" name="tracks" value="<% $tracks %>">
-        <input type="submit" value="Search">
-        </form>
-        
-        </td><td bgcolor="#FFBA58">&nbsp;</td><td align=center valign=top>
-        
-        <form method="POST" action="/cdi/malbum.html"
-              enctype="application/x-www-form-urlencoded" class="formstyle">
-        
-            <br>Enter the name of the <font color=red>CD</font><br> and
-        click on <b>search</b>:<p>
-        
-        <input type="text" name="search" size="30">
-        <input type="hidden" name="id" value="<% $id %>">
-        <input type="hidden" name="toc" value="<% $toc %>">
-        <input type="hidden" name="tracks" value="<% $tracks %>">
-        <input type="submit" value="Search">
-        </form>
-        
-        </td></tr></table>
-    
+		<table class="formstyle">
+			<tr>
+				<td class="instructions">
+					<ul>
+						<li>
+							You can either search for releases by selecting an artist first,
+							or by searching for releases directly. Please note that you have
+							to use the Release search if the release you are looking for
+							is a <& /comp/linkdoc, "VariousArtistsRelease", "Multiple Artists Release" &>.
+						</li>
+						<li>
+							All data submitted to MusicBrainz will be placed into
+							the public domain and released using a <a href="http://creativecommons.org">
+							Creative Commons</a> license. For more information see our
+							<& /comp/linkdoc, "MusicBrainzLicense", "licences page" &>.
+
+					</ul>
+				</td>
+			</tr
+		</table>
+
+		<table class="formstyle">
+			<tr>
+				<td class="label">Search for Artist:</td>
+				<td>
+					Enter the name of the <strong>Artist</strong> and
+					click on the button <strong>Search&nbsp;&raquo;</strong>:
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>
+					<form method="post" action="/cdi/artist.html">
+						<input type="text" name="search" size="30" /> <br />
+						<input type="submit" value="Search &raquo;" />
+						<input type="hidden" name="discid" value="<% $discid %>" />
+						<input type="hidden" name="toc" value="<% $toc %>" />
+						<input type="hidden" name="tracks" value="<% $tracks %>" />
+					</form>
+				</td>
+			</tr>
+
+			<tr class="spaced">
+				<td class="label">Search for Release:</td>
+				<td>
+					Enter the name of the <strong>Release</strong> and
+					click on the button <strong>Search&nbsp;&raquo;</strong>:
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>
+					<form method="post" action="/cdi/malbum.html">
+						<input type="text" name="search" size="30" /> <br />
+						<input type="submit" value="Search &raquo;" />
+						<input type="hidden" name="discid" value="<% $discid %>" />
+						<input type="hidden" name="toc" value="<% $toc %>" />
+						<input type="hidden" name="tracks" value="<% $tracks %>" />
+					</form>
+				</td>
+			</tr>
+		</table>
+
+
         <center>
         <br><br>
-        All data submitted to MusicBrainz will be placed into the public domain and/or released using a 
-        <a href="http://creativecommons.org">Creative Commons</a> license.<br/> For more information see our
-		<a href="/about/licenses.html">licenses page</a>.
         </center>
 
 <& /comp/movefocus, "AddSingleArtist", "search" &>
+
+%# vi: set ts=4 sw=4 ft=mason :
