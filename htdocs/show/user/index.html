@@ -141,6 +141,41 @@
 % 	}
 
 			<tr class="top">
+% 	if (not $is_me or $can_nominate)
+%	{
+				<td class="label">
+					Contact:</td>
+				<td>
+% 		unless ($is_me)
+%		{
+					<a href="/user/mod_email.html?uid=<% $userid
+						%>&amp;url=<% uri_escape("/show/user/?userid=$userid") %>">Send e-mail</a>
+% 		}
+% 		if ($can_nominate)
+%		{
+					| <a href="/user/election/propose.html?username=<% uri_escape($user->GetName)
+						%>">Nominate for auto-editor</a> (What is an <& /comp/linkdoc, "AutoEditor", "auto-editor" &>?)
+% 		}
+			</tr>
+% 	}
+
+			<tr class="top">
+				<td class="label">
+					Review:</td>
+				<td>
+					<a href="/mod/search/pre/voted.html?userid=<% $userid %>">Votes</a> |
+					<a href="/mod/search/pre/editor.html?userid=<% $userid %>">Edits</a> |
+					<a href="/mod/search/pre/editor-open.html?userid=<% $userid %>">Open edits</a> |
+					<a href="/mod/search/pre/editor-failed.html?userid=<% $userid %>">Failed edits</a> |
+					<a href="/mod/search/pre/editor-deleted.html?userid=<% $userid %>">Deleted edits</a>
+% 	if ($subscriptions_public or $is_me)
+%	{
+					| <a href="/user/subscriptions.html?user=<% $userid %>">Subscriptions</a>
+% 	}
+				</td>
+			</tr>
+
+			<tr class="top">
 				<td class="label">
 					Name:</td>
 				<td>
@@ -164,21 +199,21 @@
 %	{
 %		# Show the e-mail address (for yourself), or "[hidden]" (for others)
 					<% $is_me ? $addr : "[hidden]" %>
-%		# Show the "confirmed" date, if there is one
+%		# Show the "verified" date, if there is one
 %		if ($date)
 %		{
-					<br />confirmed on <% $m->comp("/comp/datetime", $date) %>.
+					<br />Verified on <% $m->comp("/comp/datetime", $date) %>.
 %		}
 %		else
 %		{
-					<br />this e-mail has never been confirmed.
+					<br />this e-mail has never been verified.
 %		}
 
 %		# If you're looking at your own profile, you can send yourself a
-%		# (re-)confirmation link
+%		# (re-)verification link
 %		if ($is_me) {
-					<a href="/user/send-email-confirmation.html?email=<% uri_escape($addr) %>"
-						><% $date ? "Re-confirm" : "Confirm" %> it now!</a>
+					<a href="/user/sendverification.html?email=<% uri_escape($addr) %>"
+						><% $date ? "Re-verify" : "Verify" %> it now!</a>
 %		}
 %	}
 %
@@ -246,41 +281,6 @@
 					<div style="border-bottom: 1px dotted #ccc; padding: 5px; margin-top: 25px; margin-bottom: 5px; font-weight: bold">
 						User statistics:
 					</div></td>
-			</tr>
-
-			<tr class="top">
-% 	if (not $is_me or $can_nominate)
-%	{
-				<td class="label">
-					Contact:</td>
-				<td>
-% 		unless ($is_me)
-%		{
-					<a href="/user/mod_email.html?uid=<% $userid
-						%>&amp;url=<% uri_escape("/show/user/?userid=$userid") %>">Send e-mail</a>
-% 		}
-% 		if ($can_nominate)
-%		{
-					| <a href="/user/election/propose.html?username=<% uri_escape($user->GetName)
-						%>">Nominate for auto-editor</a> (What is an <& /comp/linkdoc, "AutoEditor", "auto-editor" &>?)
-% 		}
-			</tr>
-% 	}
-
-			<tr class="top">
-				<td class="label">
-					Review:</td>
-				<td>
-					<a href="/mod/search/pre/voted.html?userid=<% $userid %>">Votes</a> |
-					<a href="/mod/search/pre/editor.html?userid=<% $userid %>">Edits</a> |
-					<a href="/mod/search/pre/editor-open.html?userid=<% $userid %>">Open edits</a> |
-					<a href="/mod/search/pre/editor-failed.html?userid=<% $userid %>">Failed edits</a> |
-					<a href="/mod/search/pre/editor-deleted.html?userid=<% $userid %>">Deleted edits</a>
-% 	if ($subscriptions_public or $is_me)
-%	{
-					| <a href="/user/subscriptions.html?user=<% $userid %>">Subscriptions</a>
-% 	}
-				</td>
 			</tr>
 
 			<tr class="top">
