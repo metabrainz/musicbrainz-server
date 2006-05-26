@@ -42,9 +42,7 @@
 
 	if ($artistid)
 	{
-		my $artist = Artist->new($mb->{DBH});
-		$artist->SetId($artistid);
-		$artist->LoadFromId();
+		my $artist = $m->comp("/comp/loadartist", $mb, $artistid);
 
 		# only check if releasename is set.
 		if ($releasename ne "")
@@ -53,10 +51,7 @@
 
 			for my $match (@releases)
 			{
-				my $release = Album->new($artist->{DBH});
-				$release->SetId($match->{id});
-				$release->LoadFromId
-					or next;
+				my $release = $m->comp("/comp/loadrelease", $mb, $match->{id});
 				next unless $release->GetTrackCount == $tracks;
 
 				$release->{_exact_} = 1 if ($match->{match} >= 0.999);
@@ -76,7 +71,7 @@
 
 				<table class="formstyle">
 					<tr class="top">
-						<td class="label">Check Duplicate!</td>
+						<td class="label">Possible Duplicates:</td>
 						<td>
 							<& /comp/form/feedbackbox, "warning", "",
 								qq!MusicBrainz already contains one or more releases that have

@@ -21,60 +21,53 @@
 	#
 	# Summary:
 	# -----------------------------------------------------------------------------
-	# Render the hidden fields section of the release editor form.
+	# Render the form options for a freedb lookup.
 	#
 	# $Id$
 	#
 </%perl>
 <%args>
 
-	$artistid
+	$noncd => 0
+	$submitvalue => undef
 
 </%args>
-<%perl>
 
-	# compile list of hidden parameters that are not
-	# displayed as form fields
-	my %h = $m->comp("/comp/form/args-strip-editsuitefields", %ARGS);
-	my %args;
-	while (my ($k, $v) = each %h)
-	{
-		# if the form was shown, skip the release artist fields
-		# because they are handled there.
-		if ($ARGS{"v::showform"})
-		{
-			next if $k =~ /^artist(id|name|resolution|edit)$/i;
-			next if $k =~ /^tr\d+_artist(id|name|resolution)$/i;
-		}
+%	# freedb import help-box.
+%	if (!$noncd)
+%	{
 
-		# release attributes, release fields
-		next if $k =~ /^releasename/i;
-		next if $k =~ /^attr_/i;
-		next if $k =~ /^rls_/i;
+		<tr>
+			<td colspan="3"></td>
+			<td colspan="5">
+				<div id="releaseeditor::freedb" style="margin-bottom: 15px">
 
-		# stuff we don't keep.
-		next if $k =~ /^freedb_/i;
-		next if $k =~ /^artistfilter_/i;
-		next if $k =~ /^tr\d+_editartist$/i;
 
-		# track
-		next if $k =~ /^track\d+$|^trackdel\d+$|^trackid\d+$|trackseq\d+$|tracklength\d+$/i;
+%		# if lookup was successful, show help text.
+%		if ($ARGS{"freedb_performed"})
+%		{
+%			if ($ARGS{"freedb_success"})
+%			{
+			<& /comp/form/feedbackbox, "info",
+				qq!Found release listing on FreeDB!,
+				qq!Imported the data from <a href="http://www.freedb.org">FreeDB.org</a>.
+				Please check the information below for accuracy and correct any
+				mistakes you may find.! &>
+%			}
+%			else
+%			{
 
-		# else keep value as a hidden field
-		$args{$k} = $v;
-	}
+			<& /comp/form/feedbackbox, "info",
+				qq!Release not found on FreeDB!,
+				qq!Sorry, did not find any applicable releases on
+				  <a href="http://www.freedb.org">FreeDB.org</a>! &>
+%			}
+%		}
 
-	# this submit hidden field is needed, if the user submits the form
-	# with a RETURN while the cursor is in a field. It is ignored if
-	# another submit parameter was sent as well (e.g. if a button
-	# other than "Next »" was clicked.
-	$args{"submitvalue"} = $ARGS{"SUBMIT_NEXT"};
+				<& /comp/form/buttonsubmit, value => $ARGS{"SUBMIT_FREEDB"} &>
+				<input type="checkbox" name="freedb_swap" value="1" /> Swap Artist and Track fields.
+				</div>
+			</td>
+		</tr>
 
-	# edit relationships flag
-	$args{"editrelationships"} = $ARGS{"editrelationships"} || 0;
-
-	$m->comp("/comp/args-to-hidden-fields.inc", %args);
-
-</%perl>
-
-%# vi: set ts=4 sw=4 ft=mason :
+%	}

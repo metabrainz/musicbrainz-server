@@ -77,15 +77,16 @@
 		delete $ARGS{getField($t, "artistedit")};
 	}
 
-	$m->out("edit_artists: ".join (",", keys %edit_artists)."<br/>");
-	$m->out("missing_artists: ".join (",", @missing_artists)."<br/>");
-
 	# if we have no missing artists, every field has an tr{t}_artistid
 	if (!@missing_artists)
 	{
 		$ARGS{"v::checkedartists"} = 1;
 		return %ARGS;
 	}
+
+	# lets see what we got.
+	$m->out("edit_artists: ".join (",", keys %edit_artists)."<br/>");
+	$m->out("missing_artists: ".join (",", @missing_artists)."<br/>");
 
 	# loop thorugh all the missing artists, if they are
 	# a single hit, update the arguments, else show the form
@@ -140,19 +141,6 @@
 				query => $artistfilter_search || $curr_artistname,
 				limit => 0,
 			);
-
-			# This search does not exclude any artists.
-			my @dontshow = ();
-			my @r = do {
-				my %dontshow = map { $_ => 1 } @dontshow;
-				my @r;
-				while (my $row = $engine->NextRow)
-				{
-					next if $dontshow{ $row->{'artistid'} };
-					push @r, $row;
-				}
-				@r;
-			};
 
 </%perl>
 

@@ -29,7 +29,6 @@
 <%args>
 
 	$mb
-	$lookup => undef
 
 	# discid, toc for /cdi/enter.html
 	$freedb => 0
@@ -45,20 +44,10 @@
 	# tracks
 	$tracks
 	$hasmultipletrackartists
-	$editrelationships => 0
 
 	# releaseid for /edit/release/editall.html
 	$releaseid => ""
 	$releasename => ""
-
-	# freedb import
-	$freedbid => ""
-	$freedbcat => ""
-
-	# cdi, freedb import
-	$va_sep => ""
-	$va_a_t => ""
-	$va_t_a => ""
 
 </%args>
 <%perl>
@@ -229,8 +218,8 @@
 	my ($steps, $currstep, $boxtitle);
 	if ($ARGS{"v::action"} eq "/cdi/enter.html")
 	{
-		$steps = ["Lookup CD", "Select Artist", "Enter Information", "Finish"];
-		$currstep = 2;
+		$steps = ["Lookup CD", "Select Artist", "Select Release", "Enter Information", "Finish"];
+		$currstep = 3;
 		$boxtitle = "Add Release";
 
 	} elsif ($ARGS{"v::action"} eq "/edit/album/editall.html")
@@ -251,7 +240,6 @@
 	my $artistvalue;
 	$artistvalue = (defined $search ? $search : "");
 	$artistvalue = (defined $artistname ? $artistname : "");
-	$artistvalue = (defined $lookup ? $lookup->{artist} : $artistvalue);
 
 	# Maintain a list of Artists cached by ID.
 	my $GetCachedArtist = do
@@ -277,13 +265,19 @@
 
 		<& /comp/layout/editformbegin, title => $boxtitle, mp => 1 &>
 
+			<& /comp/form/steps, steps => $steps, curr => $currstep &>
+
 			<table class="formstyle release_editor">
-				<tr class="step">
-					<td colspan="3">&nbsp;</td>
-					<td colspan="4">
-						<& /comp/form/steps, steps => $steps, curr => $currstep &>
-					</td>
-				</tr>
+
+<%perl>
+
+	# -------------------------------------------------------------------------
+	# FREEDB IMPORT
+	# -------------------------------------------------------------------------
+
+</%perl>
+
+			<& /comp/release_editor/form-freedblookup, %ARGS &>
 
 <%perl>
 
@@ -295,7 +289,7 @@
 				<tr id="releaseconfig" class="bottom">
 					<td colspan="3">&nbsp;</td>
 					<td colspan="2">
-						<div id="releaseeditor::config" style="border: 1px dotted #000; padding: 0px; margin: 0px; margin-bottom: 15px">
+						<div id="releaseeditor::config" style="border: 1px dotted #000; padding: 5px; margin: 0px; margin-bottom: 15px">
 						<& /comp/form/buttonsubmit,
 							value => ($ARGS{"hasmultipletrackartists"}
 								? $ARGS{"SUBMIT_ARTISTS_HIDE"}
@@ -375,8 +369,6 @@
 	# -------------------------------------------------------------------------
 	# RELEASE NAME
 	# -------------------------------------------------------------------------
-	$releasename = $lookup->{album}
-		if (defined $lookup);
 
 </%perl>
 
@@ -506,28 +498,6 @@
 		my $artistnamefield = getField($i, "artistname");
 		my $artistresolutionfield = getField($i, "artistresolution");
 		my $artistvalue = $ARGS{$artistnamefield} || "";
-
-		if (defined $lookup)
-		{
-			if ($hasmultipletrackartists)
-			{
-				$artistvalue = $track = $lookup->{tracks}[$i]{'track'};
-				if ($track =~ /(.*)\s*\Q$va_sep\E\s*(.*)/)
-				{
-					if (defined $1 && defined $2)
-					{
-						$artistvalue = ($va_a_t ne "") ? $1 : $2;
-						$track = ($va_a_t ne "") ? $2 : $1;
-					}
-				}
-				MusicBrainz::TrimInPlace($artistvalue, $track);
-			}
-			else
-			{
-				my $trackarr = $lookup->{tracks};
-				$track = $$trackarr[$i]->{track};
-			}
-		}
 
 </%perl>
 

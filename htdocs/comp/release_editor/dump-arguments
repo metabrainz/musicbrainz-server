@@ -32,59 +32,68 @@
 	$hasmultipletrackartists => 0
 
 </%args>
+
+%	# output debug information
+	<hr>
+
+	v::formsubmitted = <% $ARGS{'v::formsubmitted'} %><br/>
+	v::checkedartists = <% $ARGS{'v::checkedartists'} %><br/>
+	v::checkedsimilar = <% $ARGS{'v::checkedsimilar'} %><br/>
+
+	v::showform = <% $ARGS{'v::showform'} %><br/>
+	v::validate = <% $ARGS{'v::validate'} %><br/>
+	v::action = <% $ARGS{'v::action'} %><br/>
+	v::isva = <% $ARGS{'v::isva'} %><br/>
+	submitvalue = <% $ARGS{'submitvalue'} %><br/>
+
+	<hr>
+	<b>Tracks:</b><br/>
+	tracks = <% $ARGS{'tracks'} %><br/>
+	v::edit_track_data = <% $ARGS{'v::edit_track_data'} %><br/>
+	<& .dumpHash, "v::fields", %ARGS &>
+	<hr>
+	<b>Release Attributes:</b><br/>
+	<& .dumpHash, "v::language", %ARGS &>
+	<& .dumpHash, "v::attributes", %ARGS &>
+	<& .dumpHash, "v::releases", %ARGS &>
+	<hr>
+	<b>MAC/SAC:</b><br/>
+	v::checkedmacsac = <% $ARGS{'v::checkedmacsac'} %><br/>
+	<& .dumpHash, "v::macsac", %ARGS &>
+	<hr>
+
+	<b>Artist Filter:</b><br/>
+	artistfilter_field = <% $ARGS{'artistfilter_field'} %><br/>
+	artistfilter_newartistid = <% $ARGS{'artistfilter_newartistid'} %><br/>
+		<hr>
+
+	<table class="listing">
+		<tr class="header left">
+			<td colspan="6">Track</td>
+			<th colspan="4">Artist</td>
+		</tr>
+		<tr class="header left">
+			<td>ID</td>
+			<td>seq</td>
+			<td>name</td>
+			<td>length</td>
+			<td>delete</td>
+			<td style="padding-right: 40px">mp</td>
+
+			<td>Edit</td>
+			<td>ID</td>
+			<td>Name</td>
+			<td>Resolution</td>
+		</tr>
+
 <%perl>
-
-	# output debug information
-	$m->out("<hr>");
-
-	$m->out("v::formsubmitted = $ARGS{'v::formsubmitted'}<br/>");
-	$m->out("v::checkedartists = $ARGS{'v::checkedartists'}<br/>");
-	$m->out("v::checkedsimilar = $ARGS{'v::checkedsimilar'}<br/>");
-
-	$m->out("v::showform = $ARGS{'v::showform'}<br/>");
-	$m->out("v::validate = $ARGS{'v::validate'}<br/>");
-	$m->out("v::action = $ARGS{'v::action'}<br/>");
-	$m->out("v::isva = $ARGS{'v::isva'}<br/>");
-	$m->out("submitvalue = $ARGS{'submitvalue'}<br/>");
-
-	$m->out("<hr>");
-	$m->out("<b>Tracks:</b><br/>");
-	$m->out("tracks = $ARGS{'tracks'}<br/>");
-	$m->out("v::edit_track_data = $ARGS{'v::edit_track_data'}<br/>");
-	$m->comp(".dumpHash", "v::fields", %ARGS);
-	$m->out("<hr>");
-	$m->out("<b>Release Attributes:</b><br/>");
-	$m->comp(".dumpHash", "v::language", %ARGS);
-	$m->comp(".dumpHash", "v::attributes", %ARGS);
-	$m->comp(".dumpHash", "v::releases", %ARGS);
-	$m->out("<hr>");
-	$m->out("<b>MAC/SAC:</b><br/>");
-	$m->out("v::checkedmacsac = $ARGS{'v::checkedmacsac'}<br/>");
-	$m->comp(".dumpHash", "v::macsac", %ARGS);
-	$m->out("<hr>");
-
-	$m->out("<b>Artist Filter:</b><br/>");
-	$m->out("artistfilter_field = $ARGS{'artistfilter_field'}<br/>");
-	$m->out("artistfilter_newartistid = $ARGS{'artistfilter_newartistid'}<br/>");
-		$m->out("<hr>");
-
-	$m->out("<table border='1'><tr>");
-	$m->out("<th>id</th>");
-	$m->out("<th>seq</th>");
-	$m->out("<th>name</th>");
-	$m->out("<th>length</th>");
-	$m->out("<th>delete</th>");
-	$m->out("<th>mp</th>");
-	$m->out("<th>artistid</th>");
-	$m->out("<th>artistname</th>");
-	$m->out("<th>artistresolution</th>");
-	$m->out("</tr>");
 
 	my $field;
 	my %args = $m->comp("/comp/form/args-strip-editsuitefields", %ARGS);
 
-	foreach my $i (0 .. $ARGS{"tracks"}-1) {
-		$m->out("<tr>");
+	foreach my $i (0 .. $ARGS{"tracks"}-1)
+	{
+		$m->out(qq!<tr class="left ! . ($i % 2 == 0 ? "even" : "odd") . qq!">!);
 
 		$field = "trackid$i"; $m->out(sprintf "<td>%s</td>", $ARGS{$field}); delete $args{$field};
 		$field = "trackseq$i"; $m->out(sprintf "<td>%s</td>", $ARGS{$field}); delete $args{$field};
@@ -93,6 +102,10 @@
 		$field = "trackdel$i"; $m->out(sprintf "<td>%s</td>", $ARGS{$field}); delete $args{$field};
 
 		$field = sprintf "tr%d_mp", $i;
+		$m->out(sprintf "<td>%s</td>", $ARGS{$field});
+		delete $args{$field};
+
+		$field = sprintf "tr%d_editartist", $i;
 		$m->out(sprintf "<td>%s</td>", $ARGS{$field});
 		delete $args{$field};
 
@@ -109,7 +122,6 @@
 		delete $args{$field};
 
 		$m->out("</tr>");
-
 
 		# -------------------------------------------------------------------------
 		# ADVANCED RELATIONSHIPS
@@ -196,18 +208,18 @@
 	$m->out($name);
 	if (not defined $args{$name})
 	{
-		$m->out(" => undef");
+		 $m->out(" => undef");
 	}
 	else
 	{
 		my %h = %{ $args{$name} };
-		$m->out(" (");
+		$m->out(" ( ");
 		$m->out(int (keys %h));
-		$m->out(") => ");
+		$m->out(" ) => ");
 		my ($k,$v);
 		while (($k, $v) = each(%h))
 		{
-			$m->out("$k=$v, ");
+			$m->out("$k=$v,");
 		}
 	}
 	$m->out("<br/>");

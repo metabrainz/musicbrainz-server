@@ -21,67 +21,79 @@
 	#
 	# Summary:
 	# -----------------------------------------------------------------------------
-	# Check the release attributes
+	# Render the form options for a freedb lookup.
 	#
 	# $Id$
 	#
 </%perl>
 <%args>
 
-	$artistid
-	$tracks
-	$hasmultipletrackartists
-	$releasename => ""
+	$mb
 
-	$attr_type => "-1"
-	$attr_status => "-1"
-	$attr_type_guessed => "-1"
-	$attr_status_guessed => "-1"
+	$hasmultipletrackartists
+	$tracks
+
+	$discid => ""
+	$toc => ""
+	$noncd => 0
+
+	# cdi, freedb import
+	$freedb_swap => 0
 
 </%args>
-<%init>
+<%perl>
 
-	# if the attributes haven't been guessed before, do
-	# it now.
-	if ($attr_type_guessed eq "-1")
+	if ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_FREEDB"})
 	{
-		my $disclength = 0;
-		for my $i (0 .. $tracks-1)
+		my $fdb = FreeDB->new($mb->{DBH});
+		my $lookup = $fdb->Lookup($discid, $toc);
+
+		$ARGS{"freedb_performed"} = 1;
+
+		# lookup.
+		if ($lookup)
 		{
-			my $length = Track::UnformatTrackLength($ARGS{"tracklength$i"});
-			$disclength += $length if $length > 0;
+			$ARGS{"freedb_success"} = 1;
+			$ARGS{"freedb_lookup"} = $lookup;
+
+			my ($artistvalue, $trackvalue);
+			for (my $i=0; $i<$tracks; $i++)
+			{
+				my $trackarr = $lookup->{tracks};
+				$artistvalue = $trackvalue = $$trackarr[$i]->{track};
+
+				if ($hasmultipletrackartists)
+				{
+					if ($trackvalue =~ /(.*)\s*[-\/]\s*(.*)/)
+					{
+						if (defined $1 && defined $2)
+						{
+							($artistvalue, $trackvalue) = ($freedb_swap ? ($2, $1) : ($1, $2));
+						}
+					}
+					MusicBrainz::TrimInPlace($artistvalue, $trackvalue);
+				}
+
+				$ARGS{"track$i"} = $trackvalue;
+				if ($hasmultipletrackartists)
+				{
+					$ARGS{sprintf "tr%d_artistname", $i} = $artistvalue;
+					$ARGS{sprintf "tr%d_editartist", $i} = 1;
+					delete $ARGS{"tr".$i."_artistid"};
+				}
+				if ($noncd)
+				{
+					$ARGS{"trackseq$i"} = $trackvalue;
+					$ARGS{"tracklength$i"} = $trackvalue;
+				}
+			}
+
+			$ARGS{"releasename"} = $lookup->{album};
+			$ARGS{"artistname"} = $lookup->{artist};
+			$ARGS{"editartist"} = 1;
 		}
-
-		# guess release attributes from most common factors
-		$ARGS{"attr_status_guessed"} = Album::ALBUM_ATTR_OFFICIAL;
-
-		$ARGS{"attr_type_guessed"} = Album::ALBUM_ATTR_ALBUM;
-		$ARGS{"attr_type_guessed"} = Album::ALBUM_ATTR_COMPILATION
-			if $hasmultipletrackartists;
-		$ARGS{"attr_type_guessed"} = Album::ALBUM_ATTR_SINGLE
-			if ($disclength ? ($disclength < 30*60*1000) : ($tracks <= 5));
-		$ARGS{"attr_type_guessed"} = Album::ALBUM_ATTR_EP
-			if $releasename =~ /\bEP\b/i;
 	}
 
-	# true if user has clicked on "guess attributes"
-	if ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_ATTR_GUESS"})
-	{
-		$ARGS{"attr_type"} = $ARGS{"attr_type_guessed"};
-		$ARGS{"attr_status"} = $ARGS{"attr_status_guessed"};
-	}
-
-	# check if we have to highlight the fields
-	my %h;
-	$h{"attr_type"} = 1
-		if ($ARGS{"attr_type"} eq "-1");
-	$h{"attr_status"} = 1
-		if ($ARGS{"attr_status"} eq "-1");
-
-	# put the encountered problems into the Arguments hash.
-	$ARGS{"v::attributes"} = \%h;
 	return %ARGS;
 
-</%init>
-
-%# vi: set ts=4 sw=4 ft=mason :
+</%perl>

@@ -36,6 +36,8 @@
 	$hasmultipletrackartists
 	$tracks
 
+	$toc => ""
+
 </%args>
 <%perl>
 
@@ -51,6 +53,19 @@
 	$orig{"artistid"} = $artistid;
 	$orig{"artistname"} = $artistname;
 	$orig{"artistresolution"} = $artistresolution;
+
+	$orig{"hasmultipletrackartists"} = ($artistid == &ModDefs::VARTIST_ID ? 1 : 0);
+
+	# get track times from toc.
+	my @offsets;
+	if ($toc ne "")
+	{
+		@offsets = split / /, $toc;
+		shift @offsets; # first
+		shift @offsets; # last
+		my $leadout = shift @offsets;
+		push @offsets, $leadout;
+	}
 
 	# load tracks, and add into @t list.
 	my $track_artist;
@@ -72,8 +87,14 @@
 		else
 		{
 		}
+
+		my $dur = int((($offsets[$i+1] - $offsets[$i])*1000)/75);
+		$orig{"tracklength$i"} = Track::FormatTrackLength($dur);
 	}
-	$orig{"v::edit_track_data"} = 1; # todo discid?
+
+	# do not allow to add/removing and tracklength editing
+	# of tracks if we have a toc.
+	$orig{"v::edit_track_data"} = ($toc eq "" ? 1 : 0);
 
 	# either replace, or store original values
 	# into ARGS hash.
