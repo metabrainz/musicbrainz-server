@@ -29,17 +29,17 @@
 <%args>
 
 	$table => undef
-	$search => undef
+	$search => ""
 	$limit => 25
 	$tport => $session{'tport'}
 
 </%args>
 <%perl>
 
+	# make sure the session is writeable, then
+	# remember the tagger port
 	UserStuff::EnsureSessionOpen(), $session{tport} = $tport
 		if $tport;
-
-	use SearchEngine qw( :constants );
 
 	$table = (
 		(defined($table) and $table =~ /\A(artist|album|track)\z/)
@@ -64,7 +64,11 @@
 
 	my $type = ($table eq "album" ? "release" : $table);
 
+	# Initialise MusicBrainz object
 	my $mb = $m->comp("/comp/dblogin");
+	use SearchEngine qw( :constants );
+
+	# Initialise Engine, then carry out the search.
 	my $engine = SearchEngine->new($mb->{DBH}, $table);
 	$engine->Search(
 		query => $search,
@@ -103,17 +107,20 @@
 
 <& /comp/sidebar-notitle, pagetitle => ucfirst($table) . ' Search Results: '.$search &>
 
-%	if ($engine->Result == SEARCHRESULT_NOQUERY)
+%	if ($search ne "")
 %	{
+
+%		if ($engine->Result == SEARCHRESULT_NOQUERY)
+%		{
 
 		<& /comp/tablebegin, title => "Nothing to search for!" &>
 			Please enter a search phrase including
 			letters and/or numbers.
 		<& /comp/tableend &>
 
-%	}
-%	elsif ($engine->Result == SEARCHRESULT_TIMEOUT)
-%	{
+%		}
+%		elsif ($engine->Result == SEARCHRESULT_TIMEOUT)
+%		{
 
 		<& /comp/tablebegin, title => "Your search has been cancelled." &>
 			Your search has been cancelled because it was taking too
@@ -122,9 +129,9 @@
 			more common ones. Or just try again later.
 		<& /comp/tableend &>
 
-%	}
-%	elsif ($engine->Rows == 0)
-%	{
+%		}
+%		elsif ($engine->Rows == 0)
+%		{
 
 		<& /comp/tablebegin, title => "No ".$type."s found matching your query" &>
 
@@ -142,55 +149,55 @@
 
 		<& /comp/tableend &>
 
-%	}
-%	else
-%	{
+%		}
+%		else
+%		{
 
 		<& /comp/layout/editformbegin, title => "The following ${type}s matched your query", mp => 1, show_coc => 0 &>
 
 			<table class="searchresults">
 
-%		if ($table eq "album")
-%		{
+%			if ($table eq "album")
+%			{
 				<tr class="searchresultsheader">
-					<td>Artist</td>
-					<td>Release Title</td>
-					<td class="tracks">Tracks</td>
-					<td class="discid">Disc IDs</td>
-					<td class="trmid">TRM IDs</td>
-					<td class="released">Released</td>
+					<td>Artist:</td>
+					<td>Release Title:</td>
+					<td class="tracks">Tracks:</td>
+					<td class="discid">Disc IDs:</td>
+					<td class="trmid">TRM IDs:</td>
+					<td class="released">Released:</td>
 
 				</tr>
 				<tr class="searchresultssmall">
 					<td colspan="2"></td>
 				</tr>
-%		}
-%		elsif ($table eq "artist")
-%		{
+%			}
+%			elsif ($table eq "artist")
+%			{
 
 				<tr class="searchresultsheader">
-					<td>Artist Name</td>
+					<td>Artist:</td>
 				</tr>
-%		}
-%		elsif ($table eq "track")
-%		{
+%			}
+%			elsif ($table eq "track")
+%			{
 				<tr class="searchresultsheader">
-					<td>Artist Name</td>
-					<td>Release</th>
-					<td>Track Title</td>
-					<td class="num">Num</td>
-					<td class="length">Length</td>
+					<td>Artist:</td>
+					<td>Release:</th>
+					<td>Track Title:</td>
+					<td class="num">Num:</td>
+					<td class="length">Length:</td>
 				</tr>
-%		}
+%			}
 
 
-%  		my $i = 0;
-%   	while ( my $row = $engine->NextRow )
-%		{
+%  			my $i = 0;
+%   		while ( my $row = $engine->NextRow )
+%			{
         		<tr class="<% $i++ % 2 == 0 ? "searchresultseven" : "searchresultsodd" %>">
 
-%   	    if ($engine->Table eq "album")
-%			{
+%   		    if ($engine->Table eq "album")
+%				{
 					<td>
 						<span<% $row->{'artistmp'} ? ' class="mp"' : '' |n %>>
 							<& /comp/linkartist, id => $row->{'artistid'}, name => $row->{'artistname'}, resolution => $row->{artistresolution}, strong => 0 &>
@@ -201,42 +208,42 @@
 							<& /comp/linkrelease, id => $row->{'albumid'}, name => $row->{'albumname'}, strong => 0 &>
 						</span></td>
 
-% 				if ($row->{tracks})
-%				{
+% 					if ($row->{tracks})
+%					{
 					<td class="tracks"><% $row->{tracks} %> <img src="/images/notes.gif" alt="Tracks" /></td>
-%				}
-%				else
-%				{
+%					}
+%					else
+%					{
 					<td class="tracks">&nbsp;</td>
-% 				}
-% 				if ($row->{discids})
-%				{
+% 					}
+% 					if ($row->{discids})
+%					{
 					<td class="discid"><% $row->{discids} %> <img src="/images/cd.gif" alt="Disc IDs" /></td>
-%				}
-%				else
-%				{
+%					}
+%					else
+%					{
 					<td class="discid">&nbsp;</td>
-% 				}
-%				if ($row->{trmids})
-%				{
+% 					}
+%					if ($row->{trmids})
+%					{
 					<td class="trmid"><% $row->{trmids} %> <img src="/images/trm.gif" alt="TRM IDs" /></td>
-%				}
-%				else
-%				{
+%					}
+%					else
+%					{
 					<td class="trmid">&nbsp;</td>
-% 				}
-%				if ($row->{firstreleasedate})
-%				{
+% 					}
+%					if ($row->{firstreleasedate})
+%					{
 					<td class="released"><& /comp/releasedate, $row->{firstreleasedate} &></td>
-% 				}
-%				else
-%				{
+% 					}
+%					else
+%					{
 					<td class="released">&nbsp;</td>
-% 				}
+% 					}
 
-%			}
-%			elsif ($engine->Table eq "artist")
-%			{
+%				}
+%				elsif ($engine->Table eq "artist")
+%				{
 
             		<td>
             			<span<% $row->{'artistmp'} ? ' class="mp"' : '' |n %>>
@@ -244,9 +251,9 @@
             			</span></td>
 
 
-%			}
-%			elsif ($engine->Table eq "track")
-%			{
+%				}
+%				elsif ($engine->Table eq "track")
+%				{
 
 					<td>
 						<span<% $row->{'artistmp'} ? ' class="mp"' : '' |n %>>
@@ -267,16 +274,18 @@
 					<td class="length">
 						<% Track::FormatTrackLength($row->{'tracklength'}) %></td>
 
-%   	    }
+%   		    }
 
 				</tr>
-%		}
+%			}
 
 			</table>
 
 		<& /comp/tableend &>
 
+% 		}
 % 	}
+
 
 	<& /comp/tablebegin, title => "Search (Direct Search)" &>
 
