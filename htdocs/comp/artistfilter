@@ -204,10 +204,11 @@
 			<td class="label">
 				Add new Artist?</td>
 			<td>
-				If you did not find the artist you were looking for,
-				you can search again with another keyword, or if you
-				are sure the artist was not yet added to the database,
-				click on the <strong>Add New Artist &raquo;</strong> button.
+				<& /comp/form/feedbackbox, "warning", "",
+					qq!If you did not find the artist you were looking for,
+					you can search again with another keyword, or if you
+					are sure the artist was not yet added to the database,
+					click on the <strong>Add New Artist &raquo;</strong> button! &>
 			</td>
 		</tr>
 		<tr>
