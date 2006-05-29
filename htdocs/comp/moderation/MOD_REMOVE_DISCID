@@ -38,7 +38,7 @@
 
 	<table class="editfields" style="width:100%">
 		<tr>
-			<td class="lbl">Remove:</td>
+			<td class="lbl">Disc ID:</td>
 
 % 	if (my $cdtocid = $new->{"CDTOCId"})
 %	{

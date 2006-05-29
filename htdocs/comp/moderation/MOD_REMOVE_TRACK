@@ -38,34 +38,27 @@
 
 	<table class="editfields">
 		<tr>
-			<td class="lbl">Remove:</td>
+			<td class="lbl">Title:</td>
 % 	if (defined $this->{'prev.trackname'})
 %	{
 			<td><% $this->{'prev.trackname'} %></td>
 % 	} else {
 			<td>n/a</td>
 %	}
+
 		</tr>
-	</table>
-
-	<div class="attrlist">
-
-% 	if (!$this->{'prev.isnonalbumtracks'} and
-%		defined $this->{'prev.trackseq'})
-%	{
-
-		Track #: <% $this->{'prev.trackseq'} %><br/>
-
-% 	}
 
 % 	if (defined $this->{'prev.tracklength'})
 %	{
 
-		Track Length: <% Track::FormatTrackLength($this->{'prev.tracklength'}) %><br/>
+		<tr>
+			<td class="lbl">Length:</td>
+			<td><% Track::FormatTrackLength($this->{'prev.tracklength'}) %></td>
+		</tr>
 
 % 	}
 
-	</div>
+	</table>
 
 </%method>
 

@@ -37,36 +37,10 @@
 
 	<table class="editfields">
 
-% 	if (defined $new->{"ArtistId"})
-%	{
-%		my ($exists, $id, $name, $sortname, $resolution) =
-%			(0, $new->{"ArtistId"}, $new->{"ArtistName"}, $new->{"SortName"},
-%			 $new->{"Resolution"});
-%
-%		my $artist = Artist->new($this->{DBH});
-%		$artist->SetId($id);
-%		$exists = $artist->LoadFromId;
-
 		<tr>
-			<td class="lbl">Artist:</td>
-			<td><& /comp/linkartist,
-				$exists
-				? (artist => $artist)
-				: (
-					id => $id,
-					name => $name,
-					sortname => $sortname,
-					resolution => $resolution
-				  ), &>
-			</td>
+			<td class="lbl">Title:</td>
+			<td><% $new->{'TrackName'} %></td>
 		</tr>
-
-% 	}
-		<tr>
-			<td class="lbl">Track:</td>
-			<td><% $new->{"TrackName"} %></td>
-		</tr>
-
 
 %# 	Dirty; really we should test the non-album bit of the album attribute.
 %# 	but that would require another fetch.
@@ -78,6 +52,12 @@
 		</tr>
 
 % 		}
+
+		<tr>
+			<td class="lbl">Length:</td>
+			<td><% Track::FormatTrackLength($new->{'TrackLength'}) %></td>
+		</tr>
+
 
 	</table>
 

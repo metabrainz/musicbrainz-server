@@ -49,18 +49,23 @@
 </%perl>
 
 	<table class="editfields">
-% 	if ($s == &ModDefs::STATUS_FAILEDVOTE or $s == &ModDefs::STATUS_FAILEDPREREQ) {
+
+% 	if ($s == &ModDefs::STATUS_FAILEDVOTE or
+%		$s == &ModDefs::STATUS_FAILEDPREREQ)
+%	{
 
 		<tr>
-			<td class="lbl">Artist:</td>
+			<td class="lbl">New:</td>
 			<td>
 				<& /comp/linkartist, id => -1, name => $name, sortname => $sortname &></td>
 		</tr>
 
-% 	} else {
+% 	}
+%	else
+%	{
 
 		<tr>
-			<td class="lbl">Artist:</td>
+			<td class="lbl">New:</td>
 			<td>
 				<& /comp/linkartist, id => $id, name => $name,
 					sortname => $sortname, resolution => $resolution &></td>

@@ -55,12 +55,6 @@
 			linktypeid => $new->{linktypeid},
 			simple => 1 &>
 
-%		if ($new->{begindate} =~ /\S/ || $new->{enddate} =~ /\S/)
-%		{
-%			$m->out(sprintf "%s%s",
-%					($new->{begindate} =~ /\S/) ? "from ".$new->{begindate} : "",
-%					($new->{enddate} =~ /\S/) ? " until ".$new->{enddate} : " to present");
-%		}
 % 	}
 %	else
 %	{
@@ -81,6 +75,13 @@
 			linktypeid => $new->{linktypeid},
 			simple => 1 &>
 
+%	}
+
+%	if ($new->{begindate} =~ /\S/ || $new->{enddate} =~ /\S/)
+%	{
+%		$m->out(sprintf "%s%s",
+%			($new->{begindate} =~ /\S/) ? "from ".$new->{begindate} : "",
+%			($new->{enddate} =~ /\S/) ? " until ".$new->{enddate} : " to present");
 %	}
 
 </%method>

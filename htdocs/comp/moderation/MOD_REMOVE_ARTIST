@@ -38,7 +38,7 @@
 
 	<table class="editfields">
 		<tr>
-			<td class="lbl">Remove:</td>
+			<td class="lbl">Name:</td>
 			<td><% $this->GetPrev %></td>
 		</tr>
 	</table>

@@ -60,12 +60,6 @@
 			linktypeid => $new->{oldlinktypeid},
 			simple => 1 &>
 
-%		if ($new->{oldbegindate} =~ /\S/ || $new->{oldenddate} =~ /\S/)
-%		{
-%			$m->out(sprintf "%s%s",
-%					($new->{oldbegindate} =~ /\S/) ? "from ".$new->{oldbegindate} : "",
-%					($new->{oldenddate} =~ /\S/) ? " until ".$new->{oldenddate} : " to present");
-%		}
 %	}
 %	else
 %	{
@@ -93,12 +87,18 @@
 			simple => 1 &>
 
 %	}
+
+
+%	if ($new->{oldbegindate} =~ /\S/ || $new->{oldenddate} =~ /\S/)
+%	{
+%		$m->out(sprintf "%s%s",
+%				($new->{oldbegindate} =~ /\S/) ? "from ".$new->{oldbegindate} : "",
+%				($new->{oldenddate} =~ /\S/) ? " until ".$new->{oldenddate} : " to present");
+%	}
 			</td>
 		</tr>
 		<tr>
 			<td>
-
-
 
 %	if ($new->{newentity1type} ne "url")
 %	{
@@ -118,13 +118,6 @@
 			name => $new->{newentity1name},
 			linktypeid => $new->{newlinktypeid},
 			simple => 1 &>
-
-%		if ($new->{newbegindate} =~ /\S/ || $new->{newenddate} =~ /\S/)
-%		{
-%			$m->out(sprintf "%s%s",
-%					($new->{newbegindate} =~ /\S/) ? "from ".$new->{newbegindate} : "",
-%					($new->{newenddate} =~ /\S/) ? " until ".$new->{newenddate} : " to present");
-%		}
 %	}
 %	else
 %	{
@@ -145,6 +138,13 @@
 			url => $new->{newentity1name},
 			simple => 1 &>
 
+%	}
+
+%	if ($new->{newbegindate} =~ /\S/ || $new->{newenddate} =~ /\S/)
+%	{
+%		$m->out(sprintf "%s%s",
+%				($new->{newbegindate} =~ /\S/) ? "from ".$new->{newbegindate} : "",
+%				($new->{newenddate} =~ /\S/) ? " until ".$new->{newenddate} : " to present");
 %	}
 
 			</td>

@@ -37,7 +37,7 @@
 
 	<table class="editfields" style="width:100%">
 		<tr>
-			<td class="lbl">Remove:</td>
+			<td class="lbl">Alias:</td>
 			<td><% $this->GetPrev %></td>
 			<td style="text-align: right">
 				<img src="/images/edit.gif" alt=""/><a
