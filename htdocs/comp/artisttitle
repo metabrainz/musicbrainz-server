@@ -1,7 +1,9 @@
 <%args>
+
 	$artist
 	$link => 1
 	$showmodlinks => 1
+
 </%args>
 <%perl>
 
@@ -112,8 +114,8 @@
 			if ($id != &ModDefs::VARTIST_ID
 				and $name !~ /^\[(unknown|data track|silence|no artist)\]$/)
 			{
-				$m->out(qq!<a href="/edit/artist/edit.html?id=$id">Edit</a>!);
-				$m->out(qq! | <a href="/edit/artist/merge.html?id=$id">Merge into ...</a>!);
+				$m->out(qq!<a href="/edit/artist/edit.html?artistid=$id">Edit</a>!);
+				$m->out(qq! | <a href="/edit/artist/merge.html?artistid=$id">Merge into ...</a>!);
 				$m->out(qq! | <a href="/user/subscribe.html?artistid=$id">Subscribe</a> | !);
 			}
 			$m->out(qq!<a href="/edit/album/add.html?artistid=$id">Add release</a> | !);
