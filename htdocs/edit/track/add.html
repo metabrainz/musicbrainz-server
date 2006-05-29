@@ -33,10 +33,10 @@
 
 	$tracknum => ""
 	$trackname => ""
-	$tracklength => 0
+	$tracklength => "?:??"
 
 	# fields set by /comp/artistfilter
-	$selectedartist => ""
+	$artistfilter_newartistid => ""
 	$newartistid => ""
 	$search => ""
 
@@ -47,11 +47,6 @@
 <%perl>
 	# backwards compability
 	$releaseid ||= $album;
-
-	$releaseid ||= $ARGS{"af_releaseid"};
-	$trackname ||= $ARGS{"af_trackname"};
-	$tracknum ||= $ARGS{"af_tracknum"};
-	$tracklength ||= $ARGS{"af_tracklength"};
 
 	# only logged in users may see this page
 	$m->comp("/comp/checkloggedin", 1, 1)
@@ -81,10 +76,10 @@
 	# form step 2/3: load selected artist from the database, and
 	# fill in the required fields
 	my $newartist = undef;
-	$selectedartist ||= $newartistid;
-	if ($selectedartist ne "")
+	$artistfilter_newartistid ||= $newartistid;
+	if ($artistfilter_newartistid ne "")
 	{
-		$newartist = $m->comp("/comp/loadartist", $mb, $selectedartist);
+		$newartist = $m->comp("/comp/loadartist", $mb, $artistfilter_newartistid);
 		$newartistid = $newartist->GetId;
 	}
 
@@ -110,9 +105,9 @@
 			if (not MusicBrainz::IsSingleLineString($trackname));
 
 		# check track length
-		$tracklength = Track::UnformatTrackLength($tracklength);
+		my $unformatted_tracklength = Track::UnformatTrackLength($tracklength);
 		push @errors, "Please enter a valid track length"
-			if (not (MusicBrainz::IsNonNegInteger($tracklength) && $tracklength >= 0));
+			if (not (MusicBrainz::IsNonNegInteger($unformatted_tracklength) && $unformatted_tracklength >= 0));
 
 		push @errors, "Please choose a track artist"
 			if ($release->HasMultipleTrackArtists and
@@ -123,6 +118,13 @@
 		if ($submitvalue =~ m/Cancel/i)
 		{
 			return $m->comp("/comp/redirect", $url);
+		}
+		elsif ($submitvalue =~ m/Search/i)
+		{
+			# disallow selection of new artist on searches, since
+			# the first entry is always preselected. (which we
+			# do not want in this case)
+			$newartist = undef;
 		}
 		elsif ($submitvalue =~ m/Enter Moderation/i and
 			   not @errors)
@@ -140,9 +142,8 @@
 						album => $release,
 						trackname => $trackname,
 						tracknum => $tracknum,
-						tracklength => $tracklength,
-						artistname => defined $newartist ? $newartist->GetName : "",
-						artistsortname => defined $newartist ? $newartist->GetSortName : "",
+						tracklength => $unformatted_tracklength,
+						artistid => defined $newartist ? $newartist->GetId : undef,
 					);
 
 					$mods[0]->InsertNote($session{'uid'}, $notetext)
@@ -185,7 +186,10 @@
 			<table>
 
 			<table class="formstyle">
-% 	if (@errors and $submitvalue =~ m/Enter Moderation/i) {
+
+% 	if (@errors and $submitvalue =~ m/Enter Moderation/i)
+%	{
+
 				<tr>
 					<td>&nbsp;</td>
 					<td class="error">
@@ -194,7 +198,9 @@
 								<%perl> $m->out(join "</li><li>", @errors), </%perl></li>
 						</ul></td>
 				</tr>
+
 % 	}
+
 				<tr>
 					<td class="label">
 						<label>Artist:</label></td>
@@ -229,11 +235,13 @@
 						<label>Track Length:</label></td>
 					<td>
 						<input type="text" name="tracklength" class="numberfield"
-							size="2" value="<% Track::FormatTrackLength($tracklength) %>" /></td>
+							size="2" value="<% $tracklength %>" /></td>
 				</tr>
 
 
-% 	if ($release->HasMultipleTrackArtists and not defined $newartist) {
+% 	if ($release->HasMultipleTrackArtists and
+%		not defined $newartist)
+%	{
 
 				<tr class="spaced">
 					<td>&nbsp;</td>
@@ -247,26 +255,25 @@
 				<& /comp/artistfilter,
 					search => $search,
 					submitvalue => $submitvalue,
-					url => "/edit/track/add.html",
-					arglist => {
-						af_releaseid => $releaseid,
-						af_trackname => $trackname,
-						af_tracknum => $tracknum,
-						af_tracklength => $tracklength,
-					},
 				&>
+
 % 	}
 
-% 	if (not $release->HasMultipleTrackArtists or defined $newartist) {
+% 	if (not $release->HasMultipleTrackArtists
+%		or defined $newartist)
+%	{
+%		if (defined $newartist)
+%		{
 
-%		if (defined $newartist) {
 				<tr>
 					<td class="label">Track Artist:</td>
 					<td>
 						<& /comp/linkartist, artist => $newartist &>
 						<input type="hidden" name="newartistid" value="<% $newartist->GetId %>" /></td>
 				</tr>
+
 %		}
+
 				<tr>
 					<td>&nbsp;</td>
 					<td class="notetext">
@@ -274,7 +281,9 @@
 							notetext => $notetext,
 							buttons => [ ["Cancel"], ["Enter Moderation"]] &></td>
 				</tr>
+
 %	}
+
 			</table>
 
 		<& /comp/layout/editformend &>
