@@ -7,55 +7,56 @@
 	</head>
 	<body>
 		<table id="testTable">
-			<tbody>
-				<tr class="header">
-					<td rowspan="1" colspan="3"><a href="/doc/EditReleaseNameEdit">EditReleaseName</a><br /></td>
-				</tr>
+			<tr class="header">
+				<td rowspan="1" colspan="3">
+					<img src="/images/icon/wikidocs.gif" /><a href="/doc/EditReleaseNameEdit">EditReleaseName</a>
+				</td>
+			</tr>
 
+			<!-- Check arguments. No releaseid given: badargs -->
+			<tr>
+				<td>open</td>
+				<td>/edit/album/edit.html</td>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td>assertTextPresent</td>
+				<td>releaseid is missing</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>open</td>
+				<td>/edit/album/edit.html?releaseid=x</td>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td>assertTextPresent</td>
+				<td>releaseid is missing</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>open</td>
+				<td>/edit/album/edit.html?releaseid=999999999</td>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td>assertTextPresent</td>
+				<td>ReleaseID #999999999 not found </td>
+				<td></td>
+			</tr>
 
-				<!-- Check arguments. No releaseid given: badargs -->
-				<tr>
-					<td>open</td>
-					<td>/edit/album/edit.html</td>
-					<td>&nbsp;</td>
-				</tr>
-				<tr>
-					<td>assertTextPresent</td>
-					<td>releaseid is missing</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td>open</td>
-					<td>/edit/album/edit.html?releaseid=x</td>
-					<td>&nbsp;</td>
-				</tr>
-				<tr>
-					<td>assertTextPresent</td>
-					<td>releaseid is missing</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td>open</td>
-					<td>/edit/album/edit.html?releaseid=999999999</td>
-					<td>&nbsp;</td>
-				</tr>
-				<tr>
-					<td>assertTextPresent</td>
-					<td>ReleaseID #999999999 not found </td>
-					<td></td>
-				</tr>
-
-				<tr>
-					<td>open</td>
-					<td>/edit/album/edit.html?releaseid=4</td>
-					<td>&nbsp;</td>
-				</tr>
-				<tr>
-					<td>assertTextPresent</td>
-					<td>Edit Release Title </td>
-					<td></td>
-				</tr>
-			</tbody>
+			<tr>
+				<td>open</td>
+				<td>/edit/album/edit.html?releaseid=4</td>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td>assertTextPresent</td>
+				<td>Edit Release Title </td>
+				<td></td>
+			</tr>
 		</table>
+
+		<script type="text/javascript" src="nice.js"></script>
 	</body>
 </html>
