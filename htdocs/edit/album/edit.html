@@ -30,7 +30,7 @@
 <%args>
 	$album => undef
 	$releaseid => undef
-	$newalbumname => ""
+	$newreleasename => ""
 
 	$submitvalue => ""
 	$notetext => ""
@@ -58,6 +58,8 @@
 	my $release = $m->comp("/comp/loadrelease", $mb, $releaseid);
 	my $artist = $m->comp("/comp/loadartist", $mb, $release->GetArtist);
 
+	my $warning = undef;
+
 	# we got a form submission to handle
 	if ($submitvalue ne "")
 	{
@@ -67,9 +69,19 @@
 		{
 			return $m->comp("/comp/redirect", $url);
 		}
-		elsif (MusicBrainz::IsSingleLineString($newalbumname)
-				and $newalbumname =~ /\S/
-				and $newalbumname ne $release->GetName)
+		elsif (!MusicBrainz::IsSingleLineString($newreleasename))
+		{
+			$warning = "The release title has an invalid format.";
+		}
+		elsif ($newreleasename eq "")
+		{
+			$warning = "The release title cannot be empty.";
+		}
+		elsif ($newreleasename eq $release->GetName)
+		{
+			$warning = "You have not made any changes.";
+		}
+		else
 		{
 			$m->comp(
 				"/comp/entermods",
@@ -82,7 +94,7 @@
 						type => &ModDefs::MOD_EDIT_ALBUMNAME,
 						# --
 						album => $release,
-						newname => $newalbumname,
+						newname => $newreleasename,
 					);
 
 					$mods[0]->InsertNote($session{'uid'}, $notetext)
@@ -119,6 +131,18 @@
 						</ul>
 					</td>
 				</tr>
+
+%	if ($warning)
+%	{
+
+				<tr>
+					<td></td>
+					<td>
+						<& /comp/form/feedbackbox, "warning", "", $warning &></td>
+				</tr>
+
+%	}
+
 				<tr>
 					<td class="label">
 						<label>Current&nbsp;Title:</label></td>
@@ -127,13 +151,13 @@
 				</tr>
 				<tr>
 					<td class="label">
-						<label for="editalbum_newalbumname">New Title:</label></td>
+						<label for="editalbum_newreleasename">New Title:</label></td>
 					<td class="field">
 						<input type="text" class="textfield" size="50"
-							id="editalbum_newalbumname" name="newalbumname"
+							id="editalbum_newreleasename" name="newreleasename"
 							value="<% $release->GetName %>" />
 
-						<& /comp/form/jsbutton, id=>"BTN_ALBUM::newalbumname" &>
+						<& /comp/form/jsbutton, id=>"BTN_ALBUM::newreleasename" &>
 					</td>
 				</tr>
 				<tr>
@@ -149,7 +173,7 @@
 
 		<& /comp/layout/editformend &>
 
-		<& /comp/form/focusfield, "newalbumname" &>
+		<& /comp/form/focusfield, "newreleasename" &>
 	</form>
 
 <& /comp/footer &>
