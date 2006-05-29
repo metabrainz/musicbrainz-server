@@ -25,7 +25,6 @@
 	# pages. The required configuration parameters are extracted from the ARGS
 	# hash using a (v::parametername) syntax.
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
@@ -81,12 +80,17 @@
 		<script type="text/javascript" src="/scripts/ar-frontend.js"></script>
 
 		<table class="formstyle">
-%	if (@errors > 0) {
+
+%	if (@errors > 0)
+%	{
+
 			<tr>
 				<td class="label">&nbsp;</td>
 				<td class="error"><ul><li><%perl> $m->out(join("</li><li>", @errors)); </%perl></li></ul></td>
 			</tr>
+
 %	}
+
 			<tr>
 				<td class="label">
 					<label><% $etype1 %>: </label></td>
@@ -153,7 +157,10 @@
 								</select>
 							</td>
 							<td>
-% 	if ($etype1 eq $etype2) {
+
+% 	if ($etype1 eq $etype2)
+%	{
+
 								<span id="arEntitiesSwap-Client" style="display: none">
 									<input type="button" class="button" onclick="arfrontend.swapElements(this)" name="swapJS" value="Change direction" />
 								</span>
@@ -162,6 +169,7 @@
 								</span>
 
 %	}
+
 							</td>
 						</tr>
 					</table>

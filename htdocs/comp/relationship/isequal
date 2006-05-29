@@ -23,7 +23,6 @@
 	# -----------------------------------------------------------------------------
 	# Returns if a given relationship is equal to the other.
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>

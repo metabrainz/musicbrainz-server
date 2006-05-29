@@ -130,7 +130,7 @@
 	if ($submitvalue ne "")
 	{
 		# prepare forward url after action.
-		my $type = ($links[0]{type} == "album" ? "release" : $links[0]{type});
+		my $type = ($links[0]{type} eq "album" ? "release" : $links[0]{type});
 		my $url = "/show/".$type."/?".$type."id=".$links[0]{id};
 
 		# handle click of Cancel button

@@ -26,7 +26,6 @@
 	# are in a valid state. (min/max attributes, required). returns a list
 	# of errors, or the list of the verified attributes.
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
