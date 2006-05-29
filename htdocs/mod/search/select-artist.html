@@ -28,7 +28,8 @@
 </%perl>
 <%args>
 
-	$selectedartist => ""
+	$artistfilter_newartistid => ""
+
 	$search => ""
 	$submitvalue => ""
 
@@ -39,24 +40,33 @@
 	$m->comp("/comp/checkloggedin", 1, 1)
 		or return;
 
+	# prepare arguments for redirect back to the
+	# edit filter page.
+	my %args = %ARGS;
+	delete $args{"search"};
+	delete $args{"artistfilter_newartistid"};
+	delete $args{"submitvalue"};
+
 	# If we got a selection, redirect to advanced edit search page.
-	if ($submitvalue =~ m/Cancel/i or
-		MusicBrainz::IsNonNegInteger($selectedartist))
+	if ($submitvalue =~ m/Cancel/i)
 	{
-		my %args = %ARGS;
-
-		my $cancel = ($submitvalue =~ m/Cancel/i);
-
-		$args{artist_id} = ($cancel ? undef : $selectedartist);
-		$args{artist_type} = ($cancel ? undef : 3);
-
-		delete $args{search};
-		delete $args{selectedartist};
-		delete $args{submitvalue};
+		$args{artist_id} = undef;
+		$args{artist_type} = undef;
 
 		my $qs = $m->comp("/comp/args-to-querystring.inc", %args);
-		$m->comp("/comp/redirect", "/mod/search/index.html?$qs");
-		return undef;
+		return $m->comp("/comp/redirect", "/mod/search/index.html?$qs");
+	}
+	elsif ($submitvalue =~ m/Search/i)
+	{
+		# another search triggered, do not redirect.
+	}
+	elsif (MusicBrainz::IsNonNegInteger($artistfilter_newartistid))
+	{
+		$args{artist_id} = $artistfilter_newartistid;
+		$args{artist_type} = 3;
+
+		my $qs = $m->comp("/comp/args-to-querystring.inc", %args);
+		return $m->comp("/comp/redirect", "/mod/search/index.html?$qs");
 	}
 
 </%perl>
@@ -66,10 +76,6 @@
 
 		<form method="post" action="/mod/search/select-artist.html">
 
-%			my %args = %ARGS;
-%			delete $args{"submitvalue"};
-%			delete $args{"search"};
-%			delete $args{"selectedartist"};
 			<& /comp/args-to-hidden-fields.inc, %args &>
 
 			<table class="formstyle">
