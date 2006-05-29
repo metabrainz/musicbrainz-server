@@ -1,0 +1,2 @@
+Version=0.7.0
+Revision=1007M

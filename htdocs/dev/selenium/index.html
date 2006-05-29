@@ -1,0 +1,57 @@
+<html>
+<head>
+<title>Selenium starting points</title>
+<script language="Javascript">
+function fixUnitTestLinks()
+{
+  baseurl = document.location + "";
+  baseurl = baseurl.replace(/[^\/]*$/, '');
+  fixUnitTestLink("seleniumUnitTests", baseurl);
+  fixUnitTestLink("jsmockUnitTests", baseurl);
+}
+function fixUnitTestLink(elementId, baseurl)
+{
+  jsunitLink = document.getElementById(elementId);
+  jsunitLink['href'] = jsunitLink['href'].replace('BASEURL', baseurl);
+}
+</script>
+<style>
+li { margin-top: 6pt; }
+</style>
+</head>
+<body onload="fixUnitTestLinks();">
+
+<h1>Selenium</h1>
+<p>
+  <a href="core/TestRunner.html">Selenium TestRunner</a> - Select a test suite to run in Selenium
+</p>
+
+<p>
+<b>Acceptance tests:</b> These test-suites demonstrate/exercise the
+functionality of Selenium.
+</p>
+
+<ul>
+  <li>
+    <a href="core/TestRunner.html?test=../tests/TestSuite.html">Selenium TestSuite</a> - functional tests for Selenium. This suite of tests should pass in any supported browser.
+  </li>
+  <li>
+    <a href="core/TestRunner.html?test=../tests/ErrorCheckingTestSuite.html">Error Checking TestSuite</a> - tests for the error verification commands
+  </li>
+</ul>
+
+<p><b>Unit-tests:</b> Use JsUnit to test Selenium internals.</p>
+
+<ul>
+
+  <li>
+    <a id="seleniumUnitTests" href="jsunit/testRunner.html?testPage=BASEURLunittest/browserbot/suite.html">Selenium BrowserBot unit-tests</a>
+  </li>
+  <li>
+    <a id="jsmockUnitTests" href="jsunit/testRunner.html?testPage=BASEURLunittest/jsmock/mock-tests.html">JsMock unit-tests</a>
+  </li>
+
+</ul>
+
+</body>
+</html>
