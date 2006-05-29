@@ -260,8 +260,6 @@
 									tracknum => $new_seq,
 									tracklength => Track::UnformatTrackLength($new_length),
 									artistid => $newartist->GetId,
-									artistname => $newartist->GetName,
-									artistsortname => $newartist->GetSortName,
 								);
 							}
 						}
