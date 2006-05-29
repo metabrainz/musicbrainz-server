@@ -64,6 +64,7 @@
 	my $mb = $m->comp("/comp/dblogin");
 	$track = $m->comp("/comp/loadtrack", $mb, $trackid);
 	my $release = $m->comp("/comp/loadrelease", $mb, $releaseid);
+	my $artist = $m->comp("/comp/loadartist", $mb, $release->GetArtist);
 
 	# we got a form submission to handle
 	if ($submitvalue ne "")
@@ -116,10 +117,25 @@
 				<td class="instructions">
 					<ul>
 						<li>
+
+%	if ($release->IsNonAlbumTracks)
+%	{
+
+							Are you sure you want to remove the track
+							<& /comp/linktrack, track => $track &> from the
+							<& /comp/linkrelease, release => $release &>
+							of artist <& /comp/linkartist, artist => $artist &>?</li>
+
+%	}
+%	else
+%	{
+
 							Are you sure you want to remove the track
 							<& /comp/linktrack, track => $track &>, which
 							appears as <strong>track number <% $track->GetSequence %></strong>
 							from  the release <& /comp/linkrelease, release => $release &>?</li>
+
+%	}
 					</ul></td>
 			</tr>
 			<tr>
