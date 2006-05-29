@@ -45,6 +45,10 @@
 
 	$artistid ||= $id;
 
+	# handle hidden field for javascript if form was
+	# submitted using the radiobutton ondblclick.
+	$submitvalue = (ref($submitvalue) eq "ARRAY" ? @$submitvalue[0] : $submitvalue);
+
 	# only logged in users can see this page
 	$m->comp("/comp/checkloggedin", 1, 1)
 		or return;
@@ -62,11 +66,9 @@
 	# check volatile preferences (like autoeditor flag)
 	$m->comp("/comp/user/check-volatile-preferences", %ARGS);
 
-
 	# Instantiate MusicBrainz object, load artist from database
 	my $mb = $m->comp("/comp/dblogin");
 	my $artist = $m->comp("/comp/loadartist", $mb, $artistid);
-
 
 	# form step 2/3: load selected artist from the database, and
 	# fill in the required fields
@@ -90,7 +92,10 @@
 			$m->comp("/comp/redirect", $url);
 			return;
 		}
-
+		elsif ($submitvalue =~ m/Search/i)
+		{
+			$newartist = undef;
+		}
 		elsif (defined $newartist and
 			   defined $notetext)
 		{
@@ -122,7 +127,7 @@
 	# preset a meaningful search value. this triggers
 	# comp/artistfilter to perform a search.
 	$search = $artist->GetName
-		unless defined $search and $search =~ /\S/;
+		unless (defined $search and $search =~ /\S/);
 
 	my $title = "Merge artist ${\ $artist->GetName } into another artist";
 
@@ -191,11 +196,12 @@
 				search => $search,
 				submitvalue => $submitvalue,
 				dontshow => [$artistid],
-				addartist => 0
+				allowcreate => 0
 			&>
 		</table>
 
 %	}
+			<input type="hidden" name="submitvalue" value="Select &raquo;" />
 			<input type="hidden" name="artistid" value="<% $artist->GetId %>" />
 
 		</form>
