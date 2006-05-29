@@ -221,6 +221,7 @@
 				[
 					{ url => "/showmod.html" },
 					{ url => "/show/edit/index.html" },
+					{ url => "/mod/automodlist.html" },
 				],
 				{ url => "/mod/search/results.html" },
 			],

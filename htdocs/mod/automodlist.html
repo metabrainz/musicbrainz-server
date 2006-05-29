@@ -23,12 +23,11 @@
 	# -----------------------------------------------------------------------------
 	# Retrieve and display the list of AutoEditors
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
 
-<& /comp/sidebar, title=>'Current Auto Editors' &>
+<& /comp/sidebar-notitle, pagetitle => "The MusicBrainz AutoEditors" &>
 
 <%perl>
 
@@ -37,40 +36,63 @@
 
 </%perl>
 
-	<p>
-	Automoderators are moderators who have made a large number of contributions
-	to MusicBrainz, and some basic moderations made by automoderators are not
-	required to be voted on by other moderators. The following moderation types
-	are automoderations:
-	</p>
+	<& /comp/tablebegin, title => "About AutoEditors" &>
 
-	<blockquote>
-		<% join ", ", @{ $mod->GetAutomoderationList } %>
-	</blockquote>
+	<& /comp/linkdoc, "AutoEditor", "AutoEditors" &> are editors who
+	have made a large number of contributions to MusicBrainz. There was
+	a time when we used to call certain edit types <em>AutoModerations</em>
+	too, but this terminology has been adjusted to <& /comp/linkdoc, "AutoEdit", "AutoEdits" &>.
+
+	<div style="margin-top: 15px">
+		The following edit types are AutoEdits:
+	</div>
+
+	<div style="margin: 5px 45px">
+
+%	my @edittypes = @{ $mod->GetAutomoderationList };
+%	while (defined(my $edittype = shift @edittypes))
+%	{
+%		my $wp = $edittype;
+%		$wp =~ s/ //g;
+%		$wp .= "Edit";
+
+		<& /comp/linkdoc, $wp , $edittype &><% (@edittypes ? ", " : "") %>
+
+%	}
+
+	</div>
+
+	<& /comp/tableend &>
+
+	<& /comp/tablebegin, title => "The AutoEditors" &>
 
 %	if (&DBDefs::REPLICATION_TYPE == RT_SLAVE)
 %	{
 
-	The list of automoderators is available on the
-	<a href="http://musicbrainz.org/mod_intro.html">main server</a>.
+	The list of AutoEditors is available on the <a
+		href="http://musicbrainz.org/mod/automodlist.html">main server</a>.
 
 % 	}
 %	else
 %	{
 
-	The following moderators are automoderators:
+	The following editors have AutoEditor priviledges:
 
-	<blockquote>
+	<div style="margin: 5px 45px">
 
 %		my @users = @{ $mod->GetAutomoderatorList };
 %		$m->out("No-one!") if not @users;
 %		while (defined(my $user = shift @users))
 %		{
-    	<a href="/user/view.html?modname=<% uri_escape($user) %>"><% $user %></a><% (@users ? ", " : "") %>
+
+    	<& /comp/linkuser, name => $user, &><% (@users ? ", " : "") %>
+
 %		}
 
-	</blockquote>
+	</div>
 
 % 	}
+
+	<& /comp/tableend &>
 
 <& /comp/footer &>
