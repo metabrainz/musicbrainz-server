@@ -30,7 +30,7 @@ package MusicBrainz::Server::Moderation::MOD_MOVE_ALBUM;
 use ModDefs qw( :modstatus MODBOT_MODERATOR );
 use base 'Moderation';
 
-sub Name { "Move Album" }
+sub Name { "Move Release" }
 (__PACKAGE__)->RegisterHandler;
 
 # PLEASE NOTE that MOD_MOVE_ALBUM is almost exactly the same as MOD_MAC_TO_SAC
