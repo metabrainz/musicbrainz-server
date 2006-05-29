@@ -28,7 +28,10 @@
 	#
 </%perl>
 <%args>
+
 	$id => ""
+	$artistid => undef
+
 	$name => ""
 	$sortname => ""
 	$type => -1
@@ -48,15 +51,18 @@
 </%args>
 <%perl>
 
+	# backwards compability.
+	$artistid ||= $id;
+
 	# only logged in users can see this page
 	$m->comp("/comp/checkloggedin", 1, 1)
 		or return;
 
-	MusicBrainz::IsNonNegInteger($id) && $id
+	MusicBrainz::IsNonNegInteger($artistid) && $artistid
 		or return $m->comp("/comp/layout/badarguments",
-			text => "Argument id has an invalid format.");
+			text => "Argument artistid has an invalid format.");
 
-	$id != &ModDefs::VARTIST_ID and $id != &ModDefs::DARTIST_ID
+	$artistid != &ModDefs::VARTIST_ID and $artistid != &ModDefs::DARTIST_ID
 		or return $m->comp("/comp/layout/badarguments",
 			text => "Editing the DELETED_ARTIST or VARIOUS_ARTISTS is not allowed.");
 
@@ -78,7 +84,7 @@
 
 	# Instantiate MusicBrainz object, load artist from database
 	my $mb = $m->comp("/comp/dblogin");
-	my $artist = $m->comp("/comp/loadartist", $mb, $id);
+	my $artist = $m->comp("/comp/loadartist", $mb, $artistid);
 
 	$name = $artist->GetName() if !$name;
 	$sortname = $artist->GetSortName() if !$sortname;
