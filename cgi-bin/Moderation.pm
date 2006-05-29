@@ -319,6 +319,16 @@ sub SetArtistName
    $_[0]->{artistname} = $_[1];
 }
 
+sub GetArtistSortName
+{
+   return $_[0]->{artistsortname};
+}
+
+sub SetArtistSortName
+{
+   $_[0]->{artistsortname} = $_[1];
+}
+
 sub GetArtistResolution
 {
    return $_[0]->{artistresolution};
@@ -453,8 +463,8 @@ sub CreateFromId
    $query = qq/select m.id, tab, col, m.rowid, 
                       m.artist, m.type, prevvalue, newvalue, 
                       ExpireTime, Moderator.name, 
-                      yesvotes, novotes, Artist.name, Artist.resolution, status, 0, depmod,
-                      Moderator.id, m.automod, m.language,
+                      yesvotes, novotes, Artist.name, Artist.sortname, Artist.resolution, 
+                      status, 0, depmod, Moderator.id, m.automod, m.language,
                       opentime, closetime,
                       ExpireTime < now(), ExpireTime + INTERVAL ? < now()
                from   moderation_all m, Moderator, Artist 
@@ -481,17 +491,18 @@ sub CreateFromId
 			$mod->SetYesVotes($row[10]);
 			$mod->SetNoVotes($row[11]);
 			$mod->SetArtistName($row[12]);
-			$mod->SetArtistResolution($row[13]);
-			$mod->SetStatus($row[14]);
+			$mod->SetArtistSortName($row[13]);
+			$mod->SetArtistResolution($row[14]);
+			$mod->SetStatus($row[15]);
 			$mod->SetVote(&ModDefs::VOTE_UNKNOWN);
-			$mod->SetDepMod($row[16]);
-			$mod->SetModerator($row[17]);
-			$mod->SetAutomod($row[18]);
-			$mod->SetLanguageId($row[19]);
-			$mod->SetOpenTime($row[20]);
-			$mod->SetCloseTime($row[21]);
-			$mod->SetExpired($row[22]);
-			$mod->SetGracePeriodExpired($row[23]);
+			$mod->SetDepMod($row[17]);
+			$mod->SetModerator($row[18]);
+			$mod->SetAutomod($row[19]);
+			$mod->SetLanguageId($row[20]);
+			$mod->SetOpenTime($row[21]);
+			$mod->SetCloseTime($row[22]);
+			$mod->SetExpired($row[23]);
+			$mod->SetGracePeriodExpired($row[24]);
 			$mod->PostLoad;
        }
    }
@@ -886,17 +897,18 @@ sub GetModerationList
 
 	$sql->Finish;
 
-	# Fetch mod name and artist name for each mod
-	my %moderator_cache;
-	my %artistname_cache;
-	my %artistresolution_cache;
+	# Fetch artists, and cache by artistid.
+	require Artist;
+	my %artist_cache;
 	
+	# Cache editors by name
 	require UserStuff;
 	my $user = UserStuff->new($this->{DBH});
-	require Artist;
-	my $artist = Artist->new($this->{DBH});
+	my %moderator_cache;
+		
 	require MusicBrainz::Server::Vote;
 	my $vote = MusicBrainz::Server::Vote->new($this->{DBH});
+
 	for my $mod (@mods)
 	{
 		# Fetch editor into cache if not loaded before.
@@ -909,18 +921,20 @@ sub GetModerationList
 
 		# Fetch artist into cache if not loaded before.
 		my $artistid = $mod->GetArtist;
-		if (not defined $artistname_cache{$artistid})
+		if (not defined $artist_cache{$artistid})
 		{
-			$artistname_cache{$artistid} = "?";
+			my $artist = Artist->new($this->{DBH});
 			$artist->SetId($artistid);
 			if ($artist->LoadFromId())
 			{
-				$artistname_cache{$artistid} = $artist->GetName;
-				$artistresolution_cache{$artistid} = $artist->GetResolution;
+				$artist_cache{$artistid} = $artist;
 			} 
 		}
-		$mod->SetArtistName($artistname_cache{$artistid});
-		$mod->SetArtistResolution($artistresolution_cache{$artistid});
+		
+		my $artist = $artist_cache{$artistid};
+		$mod->SetArtistName($artist ? $artist->GetName : "?");
+		$mod->SetArtistSortName($artist ? $artist->GetSortName : "?");
+		$mod->SetArtistResolution($artist ? $artist->GetResolution : "?");
 
 		# Find vote
 		if ($mod->GetVote == VOTE_UNKNOWN and $voter)
@@ -1207,6 +1221,7 @@ sub ShowModType
 			$this->{"albumid"} = $release->GetId;
 			$this->{"albumname"} = $release->GetName;
 			$this->{"trackcount"} = $release->GetTrackCount;
+			$this->{"isnonalbum"} = $release->IsNonAlbumTracks;
 		}	
 	}
 	
@@ -1230,14 +1245,19 @@ sub ShowModType
 		$mason->out(qq! &nbsp; <small>(<a href="/mod_intro.html#automod">Autoedit</a>)</small>!);
  	}
  	
-	# if current/total number of tracks is available, show the info
-	my $seq = ($this->{"trackseq"} 
-		? " &nbsp; <small>(Track: " . $this->{"trackseq"} 
-			  . ($this->{"trackcount"} 
-				? "/".$this->{"trackcount"}
-				: "")
-			  . ")</small>"
-		: "");	
+	# if current/total number of tracks is available, show the info...
+	# ...but do not show sequence number for non-album tracks
+	my $seq = "";
+	if (!$this->{"isnonalbum"})
+	{
+		$seq = ($this->{"trackseq"} 
+			? " &nbsp; <small>(Track: " . $this->{"trackseq"} 
+				  . ($this->{"trackcount"} 
+					? "/".$this->{"trackcount"}
+					: "")
+				  . ")</small>"
+			: "");	
+	}
 	$mason->out(qq!$seq</td></tr>!);
 	
 
@@ -1246,6 +1266,7 @@ sub ShowModType
 	$mason->comp("/comp/linkartist", 
 		id => $this->GetArtist, 
 		name => $this->GetArtistName, 
+		sortname => $this->GetArtistSortName, 
 		resolution => $this->GetArtistResolution
 	);
 	$mason->out(qq!</td></tr>!);	
