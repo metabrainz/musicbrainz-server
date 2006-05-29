@@ -38,121 +38,119 @@ sub PreInsert
 {
 	my ($self, %opts) = @_;
 
-	my $al = $opts{'album'};
-	my $ar = $opts{'artist'};
+	# Passed-in Instantiated entities
+	my $release = $opts{'album'};
+	my $artist = $opts{'artist'};
+
+	# First check if it is a non-album track release we're
+	# working on.
+	my $nonalbum = not $release;
+	if ($nonalbum)
+	{
+		$artist or die;
+
+		require Album;
+		$release = Album->new($self->{DBH});
+		$release = $release->GetOrInsertNonAlbum($artist->GetId);
+		$nonalbum = 1;
+	} 
+	else 
+	{
+		die if ($artist);
+	}
+	
+	# Track 
 	my $trackname = $opts{'trackname'};
 	my $tracknum = $opts{'tracknum'};
 	my $tracklength = $opts{'tracklength'};
-	my $artistname = $opts{'artistname'};
-	my $artistsortname = $opts{'artistsortname'};
-
-	my $nonalbum = not $al;
-	if ($nonalbum)
+	my $artistid = $opts{'artistid'};
+	
+	# TrackArtist
+	my $hastrackartist = $release->GetArtist == &ModDefs::VARTIST_ID or 
+						 $release->HasMultipleTrackArtists;
+	if (not $artistid)
 	{
-		$ar or die;
-		require Album;
-		$al = Album->new($self->{DBH});
-		$al = $al->GetOrInsertNonAlbum($ar->GetId);
-		$nonalbum = 1;
-	} else {
-		die if $ar;
+		$artistid = $artist->GetId if ($artist);
+		$artistid = $release->GetArtist if ($release);
 	}
-
+	die if ($hastrackartist and not $artistid);
+	
+	# Make sure we do not have an empty track title.
 	$trackname =~ /\S/ or die;
 
 	# Track number is set here (the passed in value is ignored) if this is a
 	# "non-album tracks" album.
-	$tracknum = $al->GetNextFreeTrackId
-		if $nonalbum;
+	$tracknum = $release->GetNextFreeTrackId if ($nonalbum);
 	$tracknum or die;
 	
 	# sanitize track length
-	$tracklength = 0+$tracklength;
-	
-	if ($al->GetArtist == &ModDefs::VARTIST_ID
-		or $al->HasMultipleTrackArtists)
-	{
-		$artistname =~ /\S/ or die;
-		$artistsortname =~ /\S/ or die;
-	}
+	$tracklength = 0 + $tracklength;
 
+	# prepare hash for the edit display.
 	my %new = (
 		TrackName => $trackname,
 		TrackNum => $tracknum,
 		TrackLength	=> $tracklength,
+		AlbumId => $release->GetId,
+		ArtistId => $artistid
 	);
 
+	# If the insert of the release is pending, add a dependency on it.
 	unless ($nonalbum)
 	{
-		# If the insert of the album is pending, add a dependency on it
-
 		my $sql = Sql->new($self->{DBH}); 
 		(my $albummodid) = $sql->SelectSingleValue(
-			"SELECT id FROM moderation_open WHERE type = " . &ModDefs::MOD_ADD_ALBUM
-			. " AND rowid = ?",
-			$self->GetRowId,
+			"SELECT id FROM moderation_open WHERE type = " 
+			. &ModDefs::MOD_ADD_ALBUM
+			. " AND rowid = ?", $self->GetRowId,
 		);
-
-		$new{'Dep0'} = $albummodid
-			if $albummodid;
+		$new{'Dep0'} = $albummodid if ($albummodid);
 	}
 
-	# Insert the track and maybe an artist
-
+	# Prepare track insert hash. this has changed:
+	# -- always pass in artistid of the track, since Insert.pm now
+	#    handles the track artists.
 	my %trackinfo = (
 		track => $trackname,
 		tracknum => $tracknum,
-		duration => $tracklength
+		duration => $tracklength,
+		artistid => $artistid
 	);
-
-	if ($al->GetArtist == &ModDefs::VARTIST_ID
-		or $al->HasMultipleTrackArtists)
-	{
-		$trackinfo{'artist'} = $artistname;
-		$trackinfo{'sortname'} = $artistsortname;
-	}
-
 	my %info = (
-		artistid=> $al->GetArtist,
-		albumid	=> $al->GetId,
+		artistid=> $artistid, 
+		albumid	=> $release->GetId,
 		tracks => [ \%trackinfo ],
 	);
 
+	# insert the track.
 	require Insert;
 	my $in = Insert->new($self->{DBH});
-
 	unless (defined $in->Insert(\%info))
 	{
 		$self->SetError($in->GetError);
 		die $self;
 	}
 
-	my $newtrack = $trackinfo{'track_insertid'};
-	my $newartist = $trackinfo{'artist_insertid'};
-	
-	if (not $newtrack)
+	# handle results of the Insert.pm call, e.g. the ID of 
+	# the inserted entities.
+	my $newtrackid = $trackinfo{'track_insertid'};
+	my $newartistid = $trackinfo{'artist_insertid'};
+	if (not $newtrackid)
 	{
 		$self->SetError("Track insert failed - possible duplicate track.");
 		die $self;
 	}
-
-	$new{"TrackId"} = $newtrack;
-	$new{"AlbumId"} = $al->GetId;
-	$new{"ArtistId"} = $newartist if $newartist;
-	if ($al->GetArtist == &ModDefs::VARTIST_ID
-		or $al->HasMultipleTrackArtists)
-	{
-		$new{'ArtistName'} = $artistname;
-		$new{'SortName'} = $artistsortname
-			if $artistsortname
-			and $artistsortname ne $artistname;
-	}
+	
+	$new{"TrackId"} = $newtrackid;
+	$new{"AlbumId"} = $release->GetId;
+	$new{"ArtistId"} = $artistid; # use track artist (or release artist if no track artist)
+	$new{"NewArtistId"} = $newartistid if ($newartistid);
 
 	$self->SetTable("track");
 	$self->SetColumn("name");
-	$self->SetArtist($al->GetArtist);
-	$self->SetRowId($newtrack);
-	$self->SetPrev($al->GetName);
+	$self->SetArtist($artistid); # use track artist (or release artist if no track artist)
+	$self->SetRowId($newtrackid);
+	$self->SetPrev($release->GetName);
 	$self->SetNew($self->ConvertHashToNew(\%new));
 }
 
@@ -179,17 +177,18 @@ sub DeniedAction
 	my $self = shift;
 	my $new = $self->{'new_unpacked'};
 
-	my $track = $new->{"TrackId"}
+	my $trackid = $new->{"TrackId"}
 		or croak "Missing TrackId";
-	my $album = $new->{"AlbumId"}
+		
+	my $releaseid = $new->{"AlbumId"}
 		or croak "Missing AlbumId";
 
 	require Track;
-	my $tr = Track->new($self->{DBH});
-	$tr->SetId($track);
-	$tr->SetAlbum($album);
+	my $track = Track->new($self->{DBH});
+	$track->SetId($trackid);
+	$track->SetAlbum($releaseid);
 
-	unless ($tr->LoadFromId)
+	unless ($track->LoadFromId)
 	{
 		$self->InsertNote(
 			&ModDefs::MODBOT_MODERATOR,
@@ -198,29 +197,29 @@ sub DeniedAction
 		return;
 	}
 
-	$tr->RemoveFromAlbum
+	$track->RemoveFromAlbum
 		or die "Failed to remove track";
 
 	# Remove the track itself (only if it's now unused)
-	$tr->Remove;
+	$track->Remove;
 
 	# Try to remove the album if it's a "non-album" album
 	require Album;
-	my $al = Album->new($self->{DBH});
-	$al->SetId($album);
-	if ($al->LoadFromId)
+	my $release = Album->new($self->{DBH});
+	$release->SetId($releaseid);
+	if ($release->LoadFromId)
 	{
-		$al->Remove
-			if $al->IsNonAlbumTracks
-			and $al->LoadTracks == 0;
+		$release->Remove
+			if ($release->IsNonAlbumTracks and 
+				$release->LoadTracks == 0);
 	}
 
-	if (my $artist = $new->{"ArtistId"})
+	if (my $artistid = $new->{"NewArtistId"})
 	{
 		require Artist;
-		my $ar = Artist->new($self->{DBH});
-		$ar->SetId($artist);
-		$ar->Remove;
+		my $artist = Artist->new($self->{DBH});
+		$artist->SetId($artistid);
+		$artist->Remove;
 	}
 }
 

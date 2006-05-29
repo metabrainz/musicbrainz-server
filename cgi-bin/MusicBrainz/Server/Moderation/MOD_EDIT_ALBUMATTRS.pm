@@ -74,7 +74,7 @@ sub PreInsert
 	my $seq = 0;
 	for my $al (@$albums)
 	{
-		die "Can't edit attributes of 'non-album tracks' album"
+		die "Cannot edit attributes of 'non-album tracks' release"
 			if $al->IsNonAlbumTracks;
 		my $prev = join ",", $al->GetAttributes;
 		next if $prev eq $new{'Attributes'};
@@ -171,10 +171,10 @@ sub AdjustModPending
 	my ($self, $adjust) = @_;
 
 	# Prior to the ModerationClasses2 branch, the "mod pending" change would
-	# only be applied to the album listed in $self->GetRowId - which, in the
-	# case of a multiple album change, would be none of them (since the row id
+	# only be applied to the releaseid listed in $self->GetRowId - which, in the
+	# case of a multiple release change, would be none of them (since the row id
 	# for them was zero).
-	# Now though we apply the modpending change to all affected albums.
+	# Now though we apply the modpending change to all affected releases.
 
 	require Album;
 	my $al = Album->new($self->{DBH});

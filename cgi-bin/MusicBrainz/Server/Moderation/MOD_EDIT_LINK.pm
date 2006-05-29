@@ -38,11 +38,11 @@ sub PreInsert
 {
 	my ($self, %opts) = @_;
 
-	my $entities = $opts{'newentities'} or die;    	  # a list of Album/Track/Artist objects, etc
-	my $oldentities = $opts{'oldentities'} or die;    	  # a list of Album/Track/Artist objects, etc
-	my $link = $opts{'node'} or die;              # a Link object
-	my $newlinktype = $opts{'newlinktype'} or die;# new LinkType 
-	my $oldlinktype = $opts{'oldlinktype'} or die;# old LinkType 
+	my $entities = $opts{'newentities'} or die;		# a list of Album/Track/Artist objects, etc
+	my $oldentities = $opts{'oldentities'} or die;	# a list of Album/Track/Artist objects, etc
+	my $link = $opts{'node'} or die;              	# a Link object
+	my $newlinktype = $opts{'newlinktype'} or die;	# new LinkType 
+	my $oldlinktype = $opts{'oldlinktype'} or die;	# old LinkType 
 	my $newattrs = $opts{'newattributes'};
 	my $oldattrs = $opts{'oldattributes'};
 

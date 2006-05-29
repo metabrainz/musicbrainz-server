@@ -108,7 +108,7 @@ sub DeniedAction
 	if ($child->InUse)
 	{
 		# TODO what to do here if the link type is in use?
-		$self->InsertNote(MODBOT_MODERATOR, "This link type cannot be deleted - it is in use");
+		$self->InsertNote(MODBOT_MODERATOR, "This relationship type cannot be deleted - it is in use");
 	} else {
 		$child->Delete;
 	}

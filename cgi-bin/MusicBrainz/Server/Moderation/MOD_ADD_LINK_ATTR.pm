@@ -47,7 +47,7 @@ sub PreInsert
 
 	if ($parent->GetNamedChild($name))
 	{
-		my $note = "There is already a link attribute called '$name' here";
+		my $note = "There is already a relationship attribute called '$name' here";
 		$self->SetError($note);
 		die $self;
 	}

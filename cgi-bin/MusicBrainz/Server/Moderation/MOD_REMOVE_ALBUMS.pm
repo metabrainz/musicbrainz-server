@@ -42,7 +42,7 @@ sub PreInsert
 	unless (@$albums)
 	{
 		require Carp;
-		Carp::cluck("MOD_REMOVE_ALBUMS called with empty albums list");
+		Carp::cluck("MOD_REMOVE_ALBUMS called with empty releases list");
 		$self->SuppressInsert;
 		return;
 	}

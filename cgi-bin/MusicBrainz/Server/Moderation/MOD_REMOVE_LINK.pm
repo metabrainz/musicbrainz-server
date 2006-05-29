@@ -88,13 +88,13 @@ sub ApprovedAction
 
 	unless ($link = $link->newFromId($new->{linkid}))
 	{
-		$self->InsertNote(MODBOT_MODERATOR, "This link has already been removed");
+		$self->InsertNote(MODBOT_MODERATOR, "This relationship has already been removed");
 		return STATUS_APPLIED;
 	}
 
 	if (not $link->Delete)
 	{
-		$self->InsertNote(MODBOT_MODERATOR, "This link could not be removed");
+		$self->InsertNote(MODBOT_MODERATOR, "This relationship could not be removed");
 		return STATUS_ERROR;
 	}
 

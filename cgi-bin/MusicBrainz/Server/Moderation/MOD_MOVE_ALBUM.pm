@@ -177,7 +177,7 @@ sub ApprovedAction
 		$this->GetRowId,
 		$this->GetArtist,
 	) or do {
-		$this->InsertNote(MODBOT_MODERATOR, "This album has already been deleted or moved");
+		$this->InsertNote(MODBOT_MODERATOR, "This release has already been deleted or moved");
 		return STATUS_FAILEDPREREQ;
 	};
 

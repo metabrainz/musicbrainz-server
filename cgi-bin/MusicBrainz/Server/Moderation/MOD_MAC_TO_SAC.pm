@@ -130,7 +130,7 @@ sub CheckPrerequisites
 	$al->SetId($rowid);
 	unless ($al->LoadFromId)
 	{
-		$self->InsertNote(MODBOT_MODERATOR, "This album has been deleted");
+		$self->InsertNote(MODBOT_MODERATOR, "This release has been deleted");
 		return STATUS_FAILEDDEP;
 	}
 
@@ -139,7 +139,7 @@ sub CheckPrerequisites
 	if ($al->GetArtist != VARTIST_ID and 
 		not $al->HasMultipleTrackArtists)
 	{
-		$self->InsertNote(MODBOT_MODERATOR, "This album has already been converted to a single artist");
+		$self->InsertNote(MODBOT_MODERATOR, "This release has already been converted to a single artist");
 		return STATUS_FAILEDPREREQ;
 	}
 

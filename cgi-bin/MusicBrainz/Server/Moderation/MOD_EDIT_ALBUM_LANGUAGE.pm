@@ -51,7 +51,7 @@ sub PreInsert
 	my $seq = 0;
 	foreach my $al ( @$albums )
 	{
-		die "Can't edit the language of 'non-album tracks' albums"
+		die "Can't edit the language of 'non-album tracks' releases"
 			if $al->IsNonAlbumTracks;
 
 		my $curr_lang = $al->GetLanguageId || 0;
@@ -162,7 +162,7 @@ sub CheckPrerequisites
 		unless ( $al->LoadFromId )
 		{
 			$self->InsertNote(MODBOT_MODERATOR,
-				"The album '" . $new->{"AlbumName$i"} . "' has been deleted. ");
+				"The release '" . $new->{"AlbumName$i"} . "' has been deleted. ");
 			$status = STATUS_FAILEDDEP unless $status == STATUS_FAILEDPREREQ;
 			next;
 		}
@@ -174,8 +174,8 @@ sub CheckPrerequisites
 		if ($curr ne $prev)
 		{
 			$self->InsertNote(MODBOT_MODERATOR,
-				"The language or script of album '" . $new->{"AlbumName$i"}
-					. "' has already been changed. ");
+				"The language or script of release '" . $new->{"AlbumName$i"}
+			  . "' has already been changed. ");
 			$status = STATUS_FAILEDPREREQ;
 			next;
 		}

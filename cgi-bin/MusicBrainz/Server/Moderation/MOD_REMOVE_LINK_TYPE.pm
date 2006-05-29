@@ -42,14 +42,14 @@ sub PreInsert
 
 	if ($node->InUse)
 	{
-		my $note = "This link type is in use and cannot be deleted.";
+		my $note = "This relationship type is in use and cannot be deleted.";
 		$self->SetError($note);
 		die $self;
 	}
 
 	if ($node->Children)
 	{
-		my $note = "This link type has child link types - you must delete those first.";
+		my $note = "This relationship type has child relationship types - you must delete those first.";
 		$self->SetError($note);
 		die $self;
 	}

@@ -49,7 +49,7 @@ sub PreInsert
 
 	for (@albums)
 	{
-		die "Album #" . ($_->GetId) . " passed twice to " . $self->Token
+		die "Release #" . ($_->GetId) . " passed twice to " . $self->Token
 			if $seen{$_->GetId}++;
 	}
 
@@ -132,7 +132,7 @@ sub ApprovedAction
 
 	unless ($al->LoadFromId)
 	{
-		$self->InsertNote(MODBOT_MODERATOR, "This album has been deleted");
+		$self->InsertNote(MODBOT_MODERATOR, "This release has been deleted");
 		return STATUS_FAILEDPREREQ;
 	}
 	

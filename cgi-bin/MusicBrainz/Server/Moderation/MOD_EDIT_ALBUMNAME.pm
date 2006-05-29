@@ -73,14 +73,14 @@ sub CheckPrerequisites
 	$release->SetId($self->GetRowId);
 	unless ($release->LoadFromId)
 	{
-		$self->InsertNote(MODBOT_MODERATOR, "This album has been deleted");
+		$self->InsertNote(MODBOT_MODERATOR, "This release has been deleted");
 		return STATUS_FAILEDDEP;
 	}
 
 	# Check that its name has not changed
 	if ($release->GetName ne $self->GetPrev)
 	{
-		$self->InsertNote(MODBOT_MODERATOR, "This album has already been renamed");
+		$self->InsertNote(MODBOT_MODERATOR, "This release has already been renamed");
 		return STATUS_FAILEDPREREQ;
 	}
 

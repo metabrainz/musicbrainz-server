@@ -63,7 +63,7 @@ sub ApprovedAction
 	
 	unless ($al->Remove)
 	{
-		$this->InsertNote(MODBOT_MODERATOR, "This album could not be removed");
+		$this->InsertNote(MODBOT_MODERATOR, "This release could not be removed");
 		# TODO should this be "STATUS_ERROR"?  Why would the Remove call fail?
 		return STATUS_FAILEDDEP;
 	}
