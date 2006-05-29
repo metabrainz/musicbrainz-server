@@ -1,13 +1,45 @@
+﻿<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# This component transcludes page for the WikiDocs feature.
+	#
+	# $Id$
+	#
+</%perl>
 <%args>
 
 	$id => undef
 
 </%args>
 <%perl>
-	# not needed, since we'd like to be able to transclude Subpages, too. --Keschte
+
+	# added forward slash "/", since we'd like to be able to transclude
+	# subpages, too. --Keschte
 	MusicBrainz::IsSingleLineString($id) and $id =~ /\A[\w\/]+\z/
 		or return $m->comp("/comp/badargs", 1, 1);
 
+	# Instantiate MusicBrainz object, and load the
+	# transclusion index.
 	my $mb = $m->comp("/comp/dblogin");
 	my $wt = MusicBrainz::Server::WikiTransclusion->new($mb->{DBH});
 	my $index = $wt->GetPageIndex();
@@ -107,15 +139,16 @@
 					{
 						my ($pre, $href, $rep, $post, $linktext) = ($1, $2, $3, $4, $5);
 
-						$linktext =~ s/([a-z])([A-Z])/$1 $2/g;
-						if (exists($index->{$rep}))
-						{
-							$temp .= "$pre<a$href class=\"offical\" title=\"Wiki docs link\" href=\"http://$server/doc/$rep\"$post>$linktext</a>";
-						}
-						else
-						{
-							$temp .= "$pre<a$href class=\"unofficial\" title=\"Wiki link\" href=\"http://$server/doc/$rep\"$post>$linktext</a>";
-						}
+						# removed this. we can use pretty linking if we want to show
+						# the camelcased words with spaces. --keschte
+						# $linktext =~ s/([a-z])([A-Z])/$1 $2/g;
+
+						# distinguish between wikidocs and normal wiki pages.
+						my $isWD = exists($index->{$rep});
+						my $css = $isWD ? "official" : "unofficial";
+						my $title = $isWD ? "Wiki docs link" : "Wiki link";
+
+						$temp .= qq!$pre<a$href class="$css" title="$title" href="http://$server/doc/$rep"$post>$linktext</a>!;
 					}
 					else
 					{
@@ -127,6 +160,10 @@
 
 				# this fixes image links to point to the wiki
 				$page =~ s[src="/-/]['src="http://' . $wdserver . "/-/$1"]eg; #' <-- this hack makes vim happy
+
+				# assume img src URLs which contain "AttachFile&amp;do=get" are attachments to the
+				# wiki page being transcluded. TODO: Does this strain the wiki server too much?
+				$page =~ s[<img src="([^"]*action=AttachFile&amp;do=get[^"]*)"][<img src="http://wiki.musicbrainz.org$1"]g;
 
 				# remove external links icons from links that point to mb.org
 				$page =~ s[(<a href="http:\/\/(www\.)?musicbrainz.org.*?">)<img src="http:\/\/wiki.musicbrainz.org\/-\/musicbrainz\/img\/moin-www\.png".*?>][$1]g;
@@ -187,8 +224,8 @@
 
 %		}
 %	}
-%
 %	# close wrapper div
-%	$m->out("</div>");
-%
+
+	</div>
+
 %# vi: set ts=4 sw=4 ft=mason :
