@@ -169,7 +169,7 @@ sub newFromURL
 
 	my $row = $sql->SelectSingleRowHash(
 		"SELECT * FROM url
-		WHERE LOWER(url) = LOWER(?)
+		WHERE url = ?
 		LIMIT 1",
 		$url,
 	) or return undef;
