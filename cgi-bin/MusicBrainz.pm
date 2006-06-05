@@ -151,7 +151,7 @@ sub IsSingleLineString
 	my $s = eval { decode("utf-8", $t, FB_CROAK) };
 	return undef if $@;
 
-	$t =~ /\A([^\x00-\x1F]*)\z/;
+	$s =~ /\A([^\x00-\x1F]*)\z/;
 }
 
 sub IsGUID
