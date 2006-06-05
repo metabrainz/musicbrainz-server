@@ -80,14 +80,13 @@
 
 
 	$m->out(qq!<div style="margin-top: 20px"> !);
-	$m->out(qq!  <a href="$url">Click here to continue</a>. !);
+	$m->out(qq!  <a href="/show/user/">Click here to continue</a>. !);
 	$m->out(qq!</div>!);
 
 	$m->comp("/comp/tableend");
 	$m->comp("/comp/footer");
 
 	# remove the fields from the session.
-	delete $session{register_url};
 	delete $session{register_email};
 	delete $session{register_emailstatus};
 
