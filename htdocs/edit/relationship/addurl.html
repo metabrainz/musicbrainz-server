@@ -1,5 +1,33 @@
-%# vi: set ts=4 sw=4 ft=mason :
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# This page allows to add an URL-relationship.
+	#
+	# $Id$
+	#
+</%perl>
 <%args>
+
 	$id => ""
 	$type => ""
 	$name => ""
@@ -9,6 +37,7 @@
 
 	$submitvalue => ""
 	$notetext => undef
+
 </%args>
 <%perl>
 
@@ -110,7 +139,11 @@
 				my $linktype = $link->newFromId($linktype);
 				if ($linktype)
 				{
-					my $success_url = "/showrel.html?id=$id&type=$type";
+					my $typeshow = $type eq "album" ? "release" : $type;
+					my $url = sprintf "/show/%s/relationships.html?%sid=%s",
+								$typeshow,
+								$typeshow,
+								$id;
 
 					# Remove the two entities being linked from recent_links
 					my $recent_links = ($session{recent_links} ||= []);
@@ -147,6 +180,7 @@
 			}
 		}
 	}
+
 </%perl>
 
 <& /comp/sidebar-notitle, pagetitle => "Create Relationship: Relate to URL" &>
@@ -177,11 +211,14 @@
 					</td>
 				</tr>
 
-%	if (@errors > 0) {
+%	if (@errors > 0)
+%	{
+
 				<tr>
 					<td class="label">&nbsp;</td>
 					<td class="error"><ul><li><%perl> $m->out(join("</li><li>", @errors)); </%perl></li></ul></td>
 				</tr>
+
 %	}
 
 				<tr class="spaced">
@@ -198,6 +235,7 @@
 					<td><select name="linktype">
 							<option value="||">[Please select a relationship type]</option>
 <%perl>
+
 	my @q = map { [$_,0] } $root;
 	while (my $l = shift @q)
 	{
@@ -216,6 +254,7 @@
 		$m->out(sprintf qq!%s$text&nbsp;&nbsp;</option>!,
 						"&nbsp;&nbsp;" x $l->[1]);
 	}
+
 </%perl>
 						</select></td>
 				</tr>
@@ -262,3 +301,4 @@
 
 <& /comp/footer &>
 
+%# vi: set ts=4 sw=4 ft=mason :
