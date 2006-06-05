@@ -748,6 +748,16 @@
 		tabindex => \$tabindex,
 	&>
 
+
+				<tr>
+					<td colspan="3">&nbsp;</td>
+					<td colspan="4">
+						<& /comp/form/buttonsubmit,
+							value => $ARGS{"SUBMIT_NEXT"},
+							tabindex => ++$tabindex,
+							validate => 1 &>
+					</td>
+				</tr>
 			</table>
 
 		<& /comp/layout/editformend &>
