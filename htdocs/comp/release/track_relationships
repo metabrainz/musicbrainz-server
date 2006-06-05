@@ -59,7 +59,7 @@
 			{
 				$m->out(qq!<tr><td colspan="3">!);
 				$m->out(($max - $count) . " relationships not shown. ");
-				$m->out(qq!<a href="/showrel.html?id=$id&amp;type=$type">View all relationships ...</a></td></tr>!);
+				$m->out(qq!<a href="/show/track/relationships.html?trackid=$id">View all relationships ...</a></td></tr>!);
 				last;
 			}
 			$item = $links[$i];
