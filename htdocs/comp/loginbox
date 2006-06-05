@@ -77,7 +77,9 @@
 
 		<table class="formstyle">
 
-%	if ($badlogin) {
+%	if ($badlogin)
+%	{
+
 			<tr>
 				<td></td>
 				<td class="error">
@@ -85,7 +87,9 @@
 						<li>Invalid Login. Please try again</li>
 					</ul></td>
 			</tr>
+
 %	}
+
 			<tr>
 				<td class="label">
 					<label for="id_user">User Name:</label></td>
@@ -127,7 +131,7 @@
 				<td>&nbsp;</td>
 				<td>
 					<ul>
-						<li><a href="/user/register.html?url=<% uri_escape($url) %>">Create a new account</a></li>
+						<li><a href="/user/register.html">Create a new account</a></li>
 						<li><a href="/user/forgot-password.html">Forgot your password?</a></li>
 					</ul></td>
 			</tr>
