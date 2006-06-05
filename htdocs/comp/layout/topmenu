@@ -153,6 +153,7 @@
 			{ url => "/show/artist/index.html" },
 			{ url => "/show/artist/details.html" },
 			{ url => "/show/artist/aliases.html" },
+			{ url => "/show/artist/similar.html" },
 
 
 			{ url => "/showcdtoc.html" },
