@@ -41,7 +41,7 @@
 <%perl>
 
 	# if user is logged in, redirect to profile page.
-	return $m->comp("/comp/redirect", "/show/user") if ($session{uid});
+	return $m->comp("/comp/redirect", "/show/user/") if ($session{uid});
 
 	my ($createlogin, $emailstatus, $userobj);
 	@$createlogin = ();
