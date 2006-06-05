@@ -1,123 +1,66 @@
-%# vi: set ts=4 sw=4 ft=mason :
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# Show the login form. Page redirects to the user profile page
+	# if a valid session exists.
+	#
+	# $Id$
+	#
+</%perl>
 <%args>
+
 	$badlogin => 0
-	$confirm => 0
-	$confirmed => 0
-	$email => ""
 	$url => ""
+
 </%args>
 <%perl>
 
-	return $m->comp("/comp/redirect", "/search.html")
-		if $session{uid};
+	# if user is logged in, redirect to profile page.
+	return $m->comp("/comp/redirect", "/show/user") if ($session{uid});
 
+	# determine next URL from referer if it was not passed in.
 	if ($url eq "")
 	{
-	   if (defined $r->headers_in->{"Referer"} &&
-		   $r->headers_in->{"Referer"} ne "")
-	   {
-		   $url = $r->headers_in->{"Referer"};
-		   $url = "/search.html" if ($url eq "/logout.html");
-	   }
-	   else
-	   {
-		   $url = "/search.html";
-	   }
+		if (defined $r->headers_in->{"Referer"} &&
+			$r->headers_in->{"Referer"} ne "")
+		{
+			$url = $r->headers_in->{"Referer"};
+			$url = "/search.html" if ($url eq "/logout.html");
+		}
+		else
+		{
+			$url = "/search.html";
+		}
 	}
-	$m->comp("/comp/sidebar-notitle", pagetitle => "Login");
-
-
-	if ($confirm)
-	{
 
 </%perl>
 
-   <p><b>You have been logged in.</b></p>
+<& /comp/sidebar-notitle, pagetitle => "Login" &>
 
-   <h2>EMail address confirmation</h2>
+	<& /comp/tablebegin, title => "Login" &>
+		<& /comp/loginbox, url => $url, badlogin => $badlogin &>
+	<& /comp/tableend &>
 
-   <p>However, we do not have a confirmed email address for you. Please
-   check to make sure the email address below is valid and click on submit.
-   If you wish to remove your email address, just leave the field below blank.
-   </p>
-
-   <p>
-   If you give a valid email address, a confirmation email will be sent to
-   the address provided. Please click on the link in the email to confirm
-   your email address:
-   </p>
-
-   <& /comp/confirmemailbox, url => $url, email => $email  &>
-
-%  } elsif ($confirmed) {
-
-   <h2>EMail address confirmation</h2>
-
-       <%perl>
-       my ($ui, $mb, $info);
-       $mb = $m->comp("/comp/dblogin");
-       my $user = UserStuff->new($mb->{DBH});
-
-       if (!$user->CheckEMailAddress($email))
-       {
-           </%perl>
-           The email address you entered is not a valid email address. Please go back
-           and enter a valid email address, or leave the email field blank for no email
-           address.
-           <& /comp/footer &>
-           <%perl>
-           $mb->Logout();
-           return undef;
-       }
-
-       my $me = $user->newFromId($session{uid});
-       if (!defined $me)
-       {
-           $m->out("User $session{uid} was not found.");
-           $m->comp("/comp/footer");
-           $mb->Logout();
-           return undef;
-       }
-
-       if ($email eq '')
-       {
-           $me->SetUserInfo(email => "");
-           </%perl>
-           <p>Your email address has been removed.</p>
-           <%perl>
-       }
-       else
-       {
-           my $ret = $me->SendVerificationEmail($email);
-           if ($ret)
-           {
-               </%perl>
-               <p>
-               The email verification mail could not be sent: <b><% $ret %></b>.
-               Your email address has not been updated.
-               </p>
-               <%perl>
-           }
-           else
-           {
-               </%perl>
-               <p>
-               The email verification mail has been sent to <b><% $email %></b>.
-               Please check your mailbox and click on the link in the email to
-               verify the new email address.
-               </p>
-               <%perl>
-           }
-       }
-
-       </%perl>
-
-       <p>[ <a href="<% $url %>">Continue</a> ]</p>
-
-%  } else {
-
-		<& /comp/tablebegin, title => "Login" &>
-			<& /comp/loginbox, url => $url, badlogin => $badlogin &>
-		<& /comp/tableend &>
-%  }
 <& /comp/footer &>
+
+%# vi: set ts=4 sw=4 ft=mason :
