@@ -97,7 +97,9 @@
 					$m->interp->apply_escapes($annotation->GetModeratorName(), 'h'));
 		}
 		$m->out(" on ");
-		$m->comp("/comp/datetime", $annotation->GetCreationTime());
+		my $created = $annotation->GetCreationTime();
+		$created = $m->comp("/comp/datetime", $created);
+		$m->out($created);
 		$m->out("</td>");
 
 		# show editing links only if user is logged in
