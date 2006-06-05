@@ -28,14 +28,17 @@
 	#
 </%perl>
 <%args>
+
 	$album => undef
 	$releaseid => undef
 	$newreleasename => ""
 
 	$submitvalue => ""
 	$notetext => ""
+
 </%args>
 <%perl>
+
 	# backwards compability
 	$releaseid ||= $album;
 
@@ -177,3 +180,5 @@
 	</form>
 
 <& /comp/footer &>
+
+%# vi: set ts=4 sw=4 ft=mason :

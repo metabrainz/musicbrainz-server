@@ -24,11 +24,11 @@
 	# This component allows to choose the release attributes of a release.
 	# It is used in editattributes, but also in the cdi/selectattr page.
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
 <%args>
+
 	$adding => 0
 
 	$disclength => 0
@@ -42,10 +42,13 @@
 
 	$focus_to => undef
 	$notetext => ""
+
 </%args>
 <%perl>
+
 	my $attrlist = Album->GetAttributeList();
 	my @indexes;
+
 </%perl>
 
 	<table class="formstyle">
@@ -117,14 +120,17 @@
 			<td colspan="2">&nbsp;</td>
 		</tr>
 
-% if ($adding != 0) {
+% 	if ($adding != 0)
+%	{
+
 		<tr>
 			<td class="label">
 				<label><b>Disc length:</b></label></td>
 			<td class="field">
 				<% $disclength %></td>
 		</tr>
-% }
+
+% 	}
 
 		<& .DoAttribute,
 			label => "Release type",
@@ -147,6 +153,7 @@
 		<tr>
 			<td>&nbsp;</td>
 			<td class="notetext">
+
 %	my @buttons = ();
 %	push @buttons, ["Cancel"] if ($adding == 0);
 %	push @buttons, ["Enter Moderations"];
@@ -162,18 +169,22 @@
 	</table>
 
 <%perl>
+
 	@$focus_to = ($type_fieldname, $indexes[0]) if $focus_to;
 	return;
+
 </%perl>
 
 <%def .DoAttribute>
 <%args>
+
 	$label
 	$value
 	$fieldname
 	@valuelist
 	$attrlist
 	$pushindex
+
 </%args>
 <%perl>
 
@@ -193,6 +204,7 @@
 	# If none are selected, pre-select "I don't know"
 	$i = 0, $value = "" unless defined $i;
 	push @$pushindex, $i;
+
 </%perl>
 		<tr>
 			<td class="label">
@@ -216,3 +228,5 @@
 			</td>
 		</tr>
 </%def>
+
+%# vi: set ts=4 sw=4 ft=mason :

@@ -24,11 +24,11 @@
 	# This page allows to convert a release to SingleArtist. It used to be
 	# very similar to move.html, but since SG5DR, this is not the case anymore.
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
 <%args>
+
 	# the album id TODO: albumid
 	$album => ""
 	$releaseid => ""
@@ -46,6 +46,8 @@
 
 </%args>
 <%perl>
+
+	# backwards compability
 	$releaseid ||= $album;
 
 	# only allow logged-in users to see this page.
@@ -156,6 +158,7 @@
 	# if an artist was selected (or added), show confirm form.
 	if (defined $newartist)
 	{
+
 </%perl>
 
 		<!-- add editsuite for modnote resizer support -->
@@ -186,11 +189,13 @@
 		</form>
 		<& /comp/movefocus, id => "btnYes" &>
 <%perl>
+
 	}
 
 	# else show /comp/artistfilter
 	else
 	{
+
 </%perl>
 		<form method="post" action="/edit/album/sac.html" id="ConfirmForm">
 
@@ -208,7 +213,8 @@
 								general <& /comp/linkdoc, "StyleGuideline", "style guidelines" &>
 								before entering this edit.</li>
 
-%	if ($release->HasMultipleTrackArtists) {
+%	if ($release->HasMultipleTrackArtists)
+%	{
 
 							<li>
 								<span style="color: red; font-weight: bold;">Warning:</span>
@@ -251,3 +257,5 @@
 
 	<& /comp/layout/editformend &>
 <& /comp/footer &>
+
+%# vi: set ts=4 sw=4 ft=mason :

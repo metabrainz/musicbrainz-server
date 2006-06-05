@@ -1,5 +1,5 @@
-%# vi: set ts=4 sw=4 ft=mason :
 <%args>
+
 	@id => ()
 	$untag => 0
 
@@ -8,8 +8,10 @@
 
 	$submitvalue => ""
 	$notetext => ""
+
 </%args>
 <%perl>
+
 	# only logged in users can see this page
 	$m->comp("/comp/checkloggedin", 1, 1)
 		or return;
@@ -122,12 +124,18 @@
 
 	<form method="post" action="/edit/album/editattributes.html" id="EditAlbumAttrsForm">
 
-%	if (@releaseobjs == 1) {
+%	if (@releaseobjs == 1)
+%	{
+
 		<& /comp/layout/editformbegin, title => "Edit Release Attributes",
 			release => $releaseobjs[0],
 			mp_type => &ModDefs::MOD_EDIT_ALBUMATTRS,
 		&>
-%	} else {
+
+%	}
+%	else
+%	{
+
 		<& /comp/layout/editformbegin, title => "Edit Release Attributes",
 			mp_type => &ModDefs::MOD_EDIT_ALBUMATTRS,
 			mp => $mp,
@@ -147,9 +155,13 @@
 			focus_to			=> \@focus_to,
 		&>
 
-% 	for (@id) {
+% 	for (@id)
+%	{
+
 		<input type="hidden" name="id" value="<% $_ %>">
+
 % 	}
+
 		<input type="hidden" name="untag" value="<% $untag %>">
 		<& /comp/layout/editformend &>
 
@@ -157,3 +169,5 @@
 
 	<& /comp/movefocus, "EditAlbumAttrsForm", $focus_to[0] &>
 <& /comp/footer &>
+
+%# vi: set ts=4 sw=4 ft=mason :

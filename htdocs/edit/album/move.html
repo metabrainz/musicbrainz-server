@@ -25,11 +25,11 @@
 	# very similar to sac.html, but since SG5DR, this is not the case anymore.
 	# This page handles single as well as batch album moves.
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
 <%args>
+
 	# the album(s) list. TODO: change to release
 	@album => ()
 	@releaseid => ()
@@ -45,6 +45,7 @@
 	# confirm, and moderation note
 	$submitvalue => ""
 	$notetext => ""
+
 </%args>
 <%perl>
 	# use new terminology, copy over entries from
@@ -385,3 +386,5 @@
 	<& /comp/layout/editformend &>
 
 <& /comp/footer &>
+
+%# vi: set ts=4 sw=4 ft=mason :

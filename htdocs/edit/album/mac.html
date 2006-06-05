@@ -23,19 +23,21 @@
 	# -----------------------------------------------------------------------------
 	# This page allows to convert a release to MultipleArtists.
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
 <%args>
+
 	$album => undef
 	$releaseid => undef
 	$movetova => 0
 
 	$submitvalue => undef
 	$notetext => ""
+
 </%args>
 <%perl>
+
 	# use new terminolgy.
 	$releaseid ||= $album;
 
@@ -196,3 +198,5 @@
 
 
 <& /comp/footer &>
+
+%# vi: set ts=4 sw=4 ft=mason :

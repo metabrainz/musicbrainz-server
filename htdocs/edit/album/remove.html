@@ -23,18 +23,20 @@
 	# -----------------------------------------------------------------------------
 	# This page allows to remove a release.
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
 <%args>
+
 	$album => undef	# TODO: change to $releaseid
 	$releaseid => undef
 
 	$submitvalue => ""
 	$notetext => ""
+
 </%args>
 <%perl>
+
 	# use new terminolgy.
 	$releaseid ||= $album;
 
@@ -114,9 +116,9 @@
 							If you <strong>added this release by mistake</strong>, please
 							follow the instructions in <& /comp/linkdoc, "HowToCancelEdits", "How to
 							cancel pending edits" &>, to cancel the pending
-							<& /comp/linkdoc, "AddReleaseEdit", "Add Release Edit" &> of this
-							release. Removing pending edits, rather than entering new
-							edits helps reducing the amount of open edits in the System.
+							<& /comp/linkdoc, "AddReleaseEdit", "Add Release Edit" &>. Removing
+							pending edits, rather than entering new edits helps
+							reducing the amount of open edits in the System.
 						</li>
 						<li>
 							The removal of pending edits is immediate, while the
@@ -144,3 +146,5 @@
 	<& /comp/layout/editformend &>
 
 <& /comp/footer &>
+
+%# vi: set ts=4 sw=4 ft=mason :
