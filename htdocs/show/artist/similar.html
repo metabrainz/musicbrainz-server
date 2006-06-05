@@ -42,9 +42,9 @@
 	my $mb = $m->comp("/comp/dblogin");
 	my $artist = $m->comp("/comp/loadartist", $mb, $artistid);
 
-	$m->comp("/comp/sidebar", title => ("Related Artists: " . $artist->GetName) );
+	$m->comp("/comp/sidebar-notitle", pagetitle => ("Similar Artists: " . $artist->GetName) );
 	$m->comp("/comp/artisttitle", artist => $artist);
-	$m->comp("/comp/tablebegin", title=>"Related Artists");
+	$m->comp("/comp/tablebegin", title => "Similar Artists");
 
 	my $relations = $artist->GetRelations();
 	if (@$relations)
@@ -55,8 +55,8 @@
 		<table cellspacing="0" cellpadding="0" class="listing">
 			<tr class="header">
 				<td class="left">Artist</td>
-				<td>Strength</td>
-				<td>Albums</td>
+				<td style="padding: 0px 40px">Similarity</td>
+				<td style="padding: 0px 40px">Releases</td>
 			</tr>
 
 
@@ -76,13 +76,13 @@
 </%perl>
 			<tr class="artistrel<% $bgweight %>">
 				<td class="left">
-					<a href="/artistrel.html?artistid=<% $id %>"><% $name %></a></td>
-				<td>
-					<% $weight %></td>
-				<td>
-					<a href="/showartist.html?artistid=<% $id %>">
-						<img src="/images/cd.png" alt="albums" title="View albums for <% $name %>" />
-					</a></td>
+					<a href="/show/artist/similar.html?artistid=<% $id %>"><% $name %></a></td>
+				<td style="padding: 0px 40px">
+					<% $weight %>0%</td>
+				<td style="padding: 0px 40px">
+					<a href="/show/artist/?artistid=<% $id %>">
+						<img src="/images/entity/release_small.gif" alt="releases"
+							title="View releases" class="entityicon" />View &raquo;</a></td>
 			</tr>
 			<tr class="spacer">
 				<td colspan="3"><img src="/images/spacer.gif" height="1" alt="" /></td></tr>
@@ -92,6 +92,7 @@
 		</table>
 
 <%perl>
+
 	}
 	else
 	{
