@@ -150,14 +150,14 @@
 		<div>
 			<input type="hidden" name="SavePrefs" value="1" />
 
-			<& /comp/tablebegin, title => "Moderation Pages" &>
+			<& /comp/tablebegin, title => "Voting/Edit Review Pages" &>
 
 				<div>
 					<input type="checkbox" name="mod_add_album_inline" id="pref_mod_add_album_inline"
 %						$m->out(UserPreference::get('mod_add_album_inline') ? ' checked="checked" ' : "");
 						onclick="this.form.mod_add_album_link.disabled = !this.checked" />
 					<label for="pref_mod_add_album_inline">
-						For "Add Album" mods, show the whole album</label> ...
+						For "Add Release" edits, show the whole release</label> ...
 
 					<br /> &nbsp; &nbsp;
 					<input type="checkbox" name="mod_add_album_link" id="pref_mod_add_album_link"
@@ -172,9 +172,9 @@
 %						$m->out(UserPreference::get('navbar_mod_show_select_page') ? ' checked="checked" ' : "");
 						/>
 					<label for="pref_navbar_mod_show_select_page">
-						Make the "Moderate" link in the navigation bar go to
+						Make the "Vote on Edits" link in the side bar go to
 						<a href="/mod/search/select-filter.html">this page</a>
-						instead of the "New Mods" list
+						instead of the "New edits" list
 					</label>
 				</div>
 
@@ -182,7 +182,7 @@
 					<label for="pref_mods_per_page">Show up to
 					<input type="text" name="mods_per_page" id="pref_mods_per_page" size="3"
 						value="<% UserPreference::get('mods_per_page') %>" />
-					mods per page (max: 25)
+					edits per page (max: 25)
 					</label>
 				</div>
 
@@ -207,7 +207,7 @@
 %						$m->out(UserPreference::get('mail_notes_if_i_noted') ? ' checked="checked" ' : "");
 						/>
 					<label for="pref_mail_notes_if_i_noted">
-						When I add a note to a moderation, mail me all future notes for that moderation</label>
+						When I add a note to an edit , mail me all future notes for that edit</label>
 				</div>
 
 				<div>
@@ -215,10 +215,10 @@
 %						$m->out(UserPreference::get('mail_notes_if_i_voted') ? ' checked="checked" ' : "");
 						/>
 					<label for="pref_mail_notes_if_i_voted">
-						When I vote on a moderation, mail me all future notes for that moderation</label>
+						When I vote on a edit, mail me all future notes for that edit</label>
 						<br />
 						&nbsp; &nbsp;
-						(Note: only takes effect when your most recent vote on a mod is either
+						(Note: only takes effect when your most recent vote on a edit is either
 						yes or no - not "abstain")
 				</div>
 
@@ -228,7 +228,7 @@
 %						$m->out(UserPreference::get('show_inline_mods') ? ' checked="checked" ' : "");
 						/>
 					<label for="pref_show_inline_mods">
-						Show <i>inline</i> moderations</label>
+						Show <i>inline</i> edits</label>
 
 %		if (UserStuff->IsAutoMod($session{orig_privs})) {
 					<br />&nbsp; &nbsp;
@@ -237,7 +237,7 @@
 %						$m->out(UserPreference::get('show_inline_mods_random') ? ' checked="checked" ' : "");
 						/>
 					<label for="pref_show_inline_mods_random">
-						Show random <i>inline</i> moderations</label>
+						Show random <i>inline</i> edits</label>
 %       }
 				</div>
 % 	}
@@ -261,7 +261,7 @@
 
 			<& /comp/tableend &>
 
-			<& /comp/tablebegin, title => "E-Mailing Other Moderators" &>
+			<& /comp/tablebegin, title => "E-Mailing Other Editors" &>
 
 				<p>
 					<label for="pref_reveal_address_when_mailing"><input type="checkbox" name="reveal_address_when_mailing" id="pref_reveal_address_when_mailing"
@@ -447,7 +447,7 @@
 						<label for="pref_sidebar_panel_topmods"><input type="checkbox" name="sidebar_panel_topmods"
 							id="pref_sidebar_panel_topmods"
 %							$m->out(UserPreference::get('sidebar_panel_topmods') ? ' checked="checked" ' : "");
-							/> Top Moderators</label>
+							/> Top Editors</label>
 					</li>
 					<li>
 						<label for="pref_sidebar_panel_stats"><input type="checkbox" name="sidebar_panel_stats"
@@ -515,7 +515,7 @@
 					<input type="checkbox" name="enable_automod_privs" id="pref_enable_automod_privs"
 %						$m->out(UserStuff->IsAutoMod($session{privs}) ? ' checked="checked" ' : "");
 						/>
-					Enable auto-moderator privileges</label>
+					Enable AutoEditor privileges</label>
 				</p>
 
 				<p>
