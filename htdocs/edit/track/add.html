@@ -23,11 +23,11 @@
 	# -----------------------------------------------------------------------------
 	# This page allows to add a track to a single/various artists release.
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
 <%args>
+
 	$album => undef
 	$releaseid => undef
 
@@ -45,6 +45,7 @@
 
 </%args>
 <%perl>
+
 	# backwards compability
 	$releaseid ||= $album;
 
@@ -294,3 +295,5 @@
 	</form>
 
 <& /comp/footer &>
+
+%# vi: set ts=4 sw=4 ft=mason :

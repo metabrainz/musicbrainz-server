@@ -23,11 +23,11 @@
 	# -----------------------------------------------------------------------------
 	# This page allows to change the track name, number and length of a track
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
 <%args>
+
 	$album => undef
 	$releaseid => undef
 
@@ -46,6 +46,7 @@
 	$defaultname => undef
 	$defaultseq => undef
 	$defaultlength => undef
+
 </%args>
 <%perl>
 
@@ -228,12 +229,21 @@
 				<tr>
 					<td class="label">
 						<label>Current:</label></td>
-% 	unless ($release->IsNonAlbumTracks) {
+
+% 	unless ($release->IsNonAlbumTracks)
+%	{
+
 					<td>
 						<div class="oldtextfield"><% $track->GetSequence  %></div></td>
-% 	}	else {
-					<td>&nbsp;</td>
+
 % 	}
+%	else
+%	{
+
+					<td>&nbsp;</td>
+
+% 	}
+
 					<td>
 						<& /comp/form/currentvalue, track => $track &></td>
 					<td>
@@ -245,7 +255,8 @@
 					<td class="label">
 						<label for="id_newtrackname">New:</label></td>
 
-% 	unless ($release->IsNonAlbumTracks) {
+% 	unless ($release->IsNonAlbumTracks)
+%	{
 
 					<td>
 						<input type="text" name="newseq" class="numberfield"
@@ -253,7 +264,9 @@
 							title="Set a new track number here, possible values are: (1-<% $last_seq %>)"
 							size="2" value="<% $defaultseq || $track->GetSequence %>" /></td>
 
-% 	}	else {
+% 	}
+%	else
+%	{
 
 					<td>&nbsp;</td>
 
@@ -271,7 +284,8 @@
 						<& /comp/form/jsbutton, id=>"BTN_TRACK::newtrackname" &></td>
 				</tr>
 
-% 	unless ($release->IsNonAlbumTracks) {
+% 	unless ($release->IsNonAlbumTracks)
+%	{
 
 				<tr>
 					<td>&nbsp;</td>
@@ -298,3 +312,5 @@
 	</form>
 
 <& /comp/footer &>
+
+%# vi: set ts=4 sw=4 ft=mason :

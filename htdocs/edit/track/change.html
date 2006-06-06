@@ -24,11 +24,11 @@
 	# This page allows to change the track name, and track artist of a
 	# track.
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
 <%args>
+
 	$album => ""
 	$releaseid => ""
 	$tindex => 0
@@ -43,6 +43,7 @@
 
 	$submitvalue => ""
 	$notetext => ""
+
 </%args>
 <%perl>
 
@@ -304,7 +305,8 @@
 
 <& /comp/sidebar-notitle, pagetitle => "Change Track Name and Artist" &>
 
-% 	unless ($solo) {
+% 	unless ($solo)
+%	{
 
 	<p>Track <% $tindex+1 %> of <% scalar @tracks %></p>
 
@@ -332,7 +334,10 @@
 							move this track.</li>
 					</ul></td>
 			</tr>
-% 	if (@errors and $submitvalue =~ m/Enter Moderation/i) {
+
+% 	if (@errors and $submitvalue =~ m/Enter Moderation/i)
+%	{
+
 			<tr>
 				<td>&nbsp;</td>
 				<td class="error">
@@ -341,7 +346,9 @@
 							<%perl> $m->out(join "</li><li>", @errors), </%perl></li>
 					</ul></td>
 			</tr>
+
 % 	}
+
 			<tr>
 				<td class="label">
 					<label>Track Name:</label></td>
@@ -369,9 +376,14 @@
 				<td>
 					<& /comp/form/jsbutton, id => "BTN_USESWAP::search::trackname::swapped" &>
 					<& /comp/form/jsbutton, id => "BTN_USECURRENT" &>
-% 	if ($did_split) {
+
+% 	if ($did_split)
+%	{
+
 					<& /comp/form/jsbutton, id => "BTN_USESPLIT" &>
+
 %	}
+
 					<& /comp/form/jsbutton, id => "BTN_GUESSBOTH::search::trackname" &>
 
 					<input type="reset" value="Use Guessed" id="BTN_USEGUESSED"  />
@@ -381,14 +393,19 @@
 					<input type="hidden" name="orig_artname" value="<% $trackartist->GetName %>" />
 					<input type="hidden" name="orig_track" value="<% $track->GetName %>" />
 
-% 	if ($did_split) {
+% 	if ($did_split)
+%	{
+
 					<input type="hidden" name="split_artname" value="<% $splitartistname %>" />
 					<input type="hidden" name="split_track" value="<% $splittrackname %>" />
+
 % 	}
+
 				</td>
 			</tr>
 
-% 	if (not defined $newartist) {
+% 	if (not defined $newartist)
+%	{
 
 			<& /comp/artistfilter,
 				search => $search,
@@ -396,7 +413,9 @@
 				submitvalue => $submitvalue,
 			&>
 
-% 	} else {
+% 	}
+%	else
+%	{
 
 			<tr class="top">
 				<td class="label">New Artist:</td>
@@ -419,7 +438,9 @@
 
 		</table>
 
-% 	if (not defined $newartist) {
+% 	if (not defined $newartist)
+%	{
+
 		<input type="hidden" name="newartistid" value="<% $trackartist->GetId %>" />
 %	}
 
@@ -428,11 +449,11 @@
 		<input type="hidden" name="modid" value="<% $modid %>" />
 		<input type="hidden" name="solo" value="<% $solo ? 1 : 0 %>" />
 
-
-
 		<& /comp/layout/editformend &>
 
 		<& /comp/movefocus, id => "id_trackname" &>
 	</form>
 
 <& /comp/footer &>
+
+%# vi: set ts=4 sw=4 ft=mason :
