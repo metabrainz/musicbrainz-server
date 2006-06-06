@@ -145,10 +145,12 @@
 			# annotations
 			{ url => "/edit/annotation/show.html" },
 
+			# release
 			{ url => "/showalbum.html" },
 			{ url => "/show/release/index.html" },
 			{ url => "/show/release/details.html" },
 
+			# artist
 			{ url => "/showartist.html" },
 			{ url => "/show/artist/index.html" },
 			{ url => "/show/artist/details.html" },
@@ -256,6 +258,9 @@
 				{ url => "/freedb/import.html" },
 				{ url => "/freedb/review.html" },
 			],
+
+			# edit wiki transclusion
+			{ url => "/edit/wikitransclusion/transclusion.html" },
 
 			# edit relationship
 			{ url => "/edit/relationship/add.html" },
