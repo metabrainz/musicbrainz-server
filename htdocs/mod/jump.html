@@ -1,21 +1,25 @@
 %# vi: set ts=4 sw=2 ft=mason :
-<& /comp/sidebar-notitle, pagetitle => "Jump to moderation ID" &>
+<& /comp/sidebar-notitle, pagetitle => "Jump to an Edit ID" &>
 
-<& /comp/tablebegin, title => "Jump to moderation ID" &>
+	<& /comp/tablebegin, title => "Jump to an Edit ID" &>
 
-% if (&DBDefs::REPLICATION_TYPE == RT_SLAVE) {
+% 	if (&DBDefs::REPLICATION_TYPE == RT_SLAVE)
+%	{
 
-	Moderations are not available on this mirror server.&nbsp;
-	To view moderations go to the
-	<img src="/images/icon/extlink.gif" alt="" />
-	<a href="http://musicbrainz.org/mod/jump.html">main server</a>.
+		Edits are not available on this mirror server.&nbsp;
+		To view edits go to the
+		<img src="/images/icon/extlink.gif" alt="" />
+		<a href="http://musicbrainz.org/mod/jump.html">main server</a>.
 
-% } else {
+% 	}
+%	else
+%	{
 
-	 <& /comp/jumpmod &>
-	 <& /comp/movefocus, "JumpMod", "modid" &>
+		 <& /comp/jumpmod &>
+		 <& /comp/movefocus, "JumpMod", "modid" &>
 
-% }
+%	}
 
-<& /comp/tableend &>
+	<& /comp/tableend &>
+
 <& /comp/footer &>
