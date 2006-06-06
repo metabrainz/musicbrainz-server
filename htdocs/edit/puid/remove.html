@@ -21,19 +21,20 @@
 	#
 	# Summary:
 	# -----------------------------------------------------------------------------
-	# This page allows to remove a PUID from the database.
+	# This page allows to sever a connection between a PUID and a track.
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
 <%args>
+
 	$trackid => ""
 	$puid => ""
 	$PUIDjoin => ""
 
 	$submitvalue => ""
 	$notetext => ""
+
 </%args>
 <%perl>
 
@@ -138,3 +139,5 @@
 	<& /comp/tableend &>
 
 <& /comp/footer &>
+
+%# vi: set ts=4 sw=4 ft=mason :
