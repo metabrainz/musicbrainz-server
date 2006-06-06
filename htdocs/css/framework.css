@@ -261,6 +261,9 @@ table.listing td.browsenr {
 table.listing td.browsename {
 	text-align: left; padding-right: 50px; 
 }
+table.listing td.padright {
+	padding-right: 30px;
+}
 
 
 
