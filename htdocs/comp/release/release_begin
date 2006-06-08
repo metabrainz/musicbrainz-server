@@ -150,7 +150,7 @@
 				$m->out(qq!<a href="/edit/album/remove.html?releaseid=$releaseid">Remove</a>!);
 				if ($nonalbum)
 				{
-					$m->out(qq! | <a href="/edit/track/addnonalbum.html?artistid=$artistid">Add&nbsp;a&nbsp;non-album&nbsp;track</a>&nbsp;]!);
+					$m->out(qq! | <a href="/edit/track/addnonalbum.html?artistid=$artistid">Add&nbsp;a&nbsp;non-album&nbsp;track</a>!);
 				}
 				else
 				{
@@ -171,14 +171,14 @@
 					{
 						$m->out(qq! | <a href="/edit/album/sac.html?releaseid=$releaseid">Convert&nbsp;to&nbsp;single&nbsp;artist</a>!);
 					}
-					$m->out(qq! | <a href="/edit/albumbatch/done.html?releaseid$releaseid=on">Merge&nbsp;with&nbsp;...</a>&nbsp;]!);
+					$m->out(qq! | <a href="/edit/albumbatch/done.html?releaseid$releaseid=on">Merge&nbsp;with&nbsp;...</a>!);
 				}
 			}
 			else
 			{
 				$m->out(qq!<a href="/login.html">Log in</a> to edit this!);
  			}
-			$m->out(qq!</td></tr>!);
+			$m->out(qq!&nbsp;]</td></tr>!);
 		}
 		$m->out(qq!</table>!);
 		$m->out(qq!</td>!);
