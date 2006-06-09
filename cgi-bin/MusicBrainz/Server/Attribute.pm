@@ -161,30 +161,47 @@ sub ReplaceAttributes
 
 		if (scalar(@{$temp{$attr}}) == 1)
 		{
-    		$rep_name = shift @{$temp{$attr}};
+    		    $rep_name = shift @{$temp{$attr}};
 		}
 		elsif (scalar(@{$temp{$attr}}) == 2)
 		{
-    		$rep_name = shift @{$temp{$attr}};
-    		$rep_name .= " and " . shift @{$temp{$attr}};
+        	    $rep_name = shift @{$temp{$attr}};
+    		    $rep_name .= " and " . shift @{$temp{$attr}};
 		}
 		else
 		{
-    		my $last = pop @{$temp{$attr}};
-    		$rep_name = join ", ", @{$temp{$attr}};
-    		$rep_name .= " and " . $last;
+    		    my $last = pop @{$temp{$attr}};
+    		    $rep_name = join ", ", @{$temp{$attr}};
+    		    $rep_name .= " and " . $last;
 		}
 		$rep_name =~ s/\s*?(.*?)\s*/$1/;
 		$rep_name =~ tr/A-Z/a-z/;
 	   
-		$phrase =~ s/\{$attr\}/$rep_name/
-			or $phrase =~ s/\{$attr:(.*?)\}/$1/;
-		$rphrase =~ s/\{$attr\}/$rep_name/
-			or $rphrase =~ s/\{$attr:(.*?)\}/$1/;
+ 		# replace simple {$attr}
+ 		$phrase =~ s/\{$attr\}/$rep_name/
+ 			and $rphrase =~ s/\{$attr\}/$rep_name/
+ 			and next;
+ 		
+ 		# replace {attr: phrase} => phrase (compile only once)
+ 		my $re_inner = qr/\{$attr:([^|}]*)(?:\|[^}]*)?\}/;
+ 		if ($phrase =~ /$re_inner/)
+ 		{
+  			my $saved = $1;
+ 			$saved =~ s/%/$rep_name/;
+ 			$phrase =~ s/$re_inner/$saved/
+ 				and $rphrase =~ s/$re_inner/$saved/;
+  		}
 	}
 
-    $phrase =~ s/\{.*?\}\s*?//g;
-    $rphrase =~ s/\{.*?\}\s*?//g;
+ 	# pattern: unset attribute with alternative
+ 	# {attr: phrase|unset-phrase} => unset-phrase
+ 	my $re_unsetalt = qr/\{[^|}]*\|([^}]*)\}/;
+ 	# pattern: any other unset attribute
+ 	my $re_unset = qr/\{[^|}]*\}\s*/;
+	$phrase =~ s/$re_unsetalt/$1/g
+ 		and $rphrase =~ s/$re_unsetalt/$1/g;
+ 	$phrase =~ s/$re_unset//g
+ 		and $rphrase =~ s/$re_unset/$1/g;
 
 	return ($phrase, $rphrase);
 }

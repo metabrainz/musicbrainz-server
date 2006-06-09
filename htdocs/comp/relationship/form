@@ -143,7 +143,10 @@
 						$l->[0]->GetId eq $linktypeid ? qq! selected="selected"! : "");
 
 		my $text = $rev ? $l->[0]->GetReverseLinkPhrase : $l->[0]->GetLinkPhrase;
-		$text =~ s/\{(\w+:)/{/;
+		# {attr:% phrase|unset-phrase} => {attr phrase|unset-phrase}
+		$text =~ s/\{(\w+):([^}]*)%/{$2$1/g;
+		# {attr:phrase} => {phrase}
+		$text =~ s/\{(\w+:)/{/g;
 		$text = encode_entities($text);
 
 		# add x times indentation like specified in the relationship type hierarchy
