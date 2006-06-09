@@ -45,6 +45,7 @@
 	my $e_inttype = ($e_type eq "album" ? "release" : $e_type);
 
 	my $url = $item->{$prefix . "name"};
+	my $title = undef;
 	my $strong = 0;
 
 	$m->out(qq!<span class="mp">!) if ($mp);
@@ -68,6 +69,7 @@
 			    $url = sprintf(qq!/misc/redirects/amazon-album-info.html?store=%s&amp;asin=%s!, $store, $asin);
 			    $name = $asin;
 			    $strong = 1;
+			    $title = sprintf("Amazon page for ASIN %s on %s", $asin, $store);
 			}
 		}
 		else
@@ -86,7 +88,7 @@
 			$name = $decoded_name if !$@;
 		}
 
-		$m->comp("/comp/linkurl", id => $e_id, name => $name, href => $url, strong => $strong);
+		$m->comp("/comp/linkurl", id => $e_id, name => $name, href => $url, strong => $strong, title => $title);
 	}
 
 	$m->out("</span>") if ($mp);
