@@ -1,4 +1,4 @@
-6<%perl>
+<%perl>
 	# -----------------------------------------------------------------------------
 	#                               Musicbrainz.org
 	#                        Copyright (c) 2001 Robert Kaye
@@ -653,7 +653,7 @@
 						showmodlinks => 0,
 						showreleases => 1,
 						tracks => \@tracks,
-						usereleases => \@relnew, &>
+						releaseevents => \@relnew, &>
 				</td>
 			</tr>
 		</table>

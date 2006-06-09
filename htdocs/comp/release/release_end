@@ -35,6 +35,7 @@
 	$showreleases => 0
 	$showmodlinks => 1
 	$showtrackartists => 0
+	$releaseevents => undef
 
 </%args>
 <%perl>
@@ -110,7 +111,7 @@
 		<tr valign="top">
 			<td class="eventslist">
 
-%		my @relevents = $release->Releases;
+%		my @relevents = $releaseevents ? @$releaseevents : $release->Releases;
 %		if (@relevents == 0)
 %		{
 			No release events

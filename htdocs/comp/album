@@ -47,6 +47,7 @@
 	$tagchecked => 0
 	$tracks => undef
 	$showtrackartists => 0
+	$releaseevents => undef
 
 </%args>
 <%perl>
@@ -129,7 +130,7 @@
 	$m->comp("/comp/release/release_end",
 		artist => $artist, album => $album, showmodlinks => $showmodlinks,
 		showids => $showids, showreleases => $showreleases,
-		showtrackartists => $showtrackartists, link => $link);
+		showtrackartists => $showtrackartists, link => $link, releaseevents => $releaseevents);
 
 </%perl>
 
