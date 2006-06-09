@@ -45,7 +45,7 @@
 	my $e_inttype = ($e_type eq "album" ? "release" : $e_type);
 
 	my $url = $item->{$prefix . "name"};
-	my $asin = undef;
+	my $strong = 0;
 
 	$m->out(qq!<span class="mp">!) if ($mp);
 
@@ -61,22 +61,32 @@
 	
 		if ($item->{"link_name"} eq "amazon asin" && $prefix eq "link1_")
 		{
-			($asin, ) = Album->ParseAmazonURL($item->{link1_name});
+			my ($asin, $coverart) = Album->ParseAmazonURL($item->{link1_name});
+			if ($asin ne "")
+			{
+			    my $store = Album->GetCoverartStore($coverart);
+			    $url = sprintf(qq!/misc/redirects/amazon-album-info.html?store=%s&amp;asin=%s!, $store, $asin);
+			    $name = $asin;
+			    $strong = 1;
+			}
 		}
-		elsif ($item->{"link_name"} eq "wikipedia" && $prefix eq "link1_")
+		else
 		{
-			$name =~ s/^http:\/\/(\w{2,})\.wikipedia\.org\/wiki\/(.*)$/$1: $2/o;
-			$name =~ tr/_/ /;
+			if ($item->{"link_name"} eq "wikipedia" && $prefix eq "link1_")
+			{
+				$name =~ s/^http:\/\/(\w{2,})\.wikipedia\.org\/wiki\/(.*)$/$1: $2/o;
+				$name =~ tr/_/ /;
+			}
+
+			# decode the URL
+			use Encode;
+			my $decoded_name = $name;
+			$decoded_name =~ s/\%([\dA-Fa-f]{2})/pack('C', hex($1))/oeg;
+			eval { Encode::decode_utf8($decoded_name, Encode::FB_CROAK); };
+			$name = $decoded_name if !$@;
 		}
 
-		# decode the URL
-		use Encode;
-		my $decoded_name = $name;
-		$decoded_name =~ s/\%([\dA-Fa-f]{2})/pack('C', hex($1))/oeg;
-		eval { Encode::decode_utf8($decoded_name, Encode::FB_CROAK); };
-		$name = $decoded_name if !$@;
-
-		$m->comp("/comp/linkurl", id => $e_id, name => $name, href => $url);
+		$m->comp("/comp/linkurl", id => $e_id, name => $name, href => $url, strong => $strong);
 	}
 
 	$m->out("</span>") if ($mp);
