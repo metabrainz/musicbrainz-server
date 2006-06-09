@@ -140,7 +140,7 @@
 				if ($linktype)
 				{
 					my $typeshow = $type eq "album" ? "release" : $type;
-					my $url = sprintf "/show/%s/relationships.html?%sid=%s",
+					my $success_url = sprintf "/show/%s/relationships.html?%sid=%s",
 								$typeshow,
 								$typeshow,
 								$id;
