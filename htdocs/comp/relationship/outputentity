@@ -57,24 +57,26 @@
 	}
 	elsif ($e_type eq "url")
 	{
+		my $name = $url;
+	
 		if ($item->{"link_name"} eq "amazon asin" && $prefix eq "link1_")
 		{
 			($asin, ) = Album->ParseAmazonURL($item->{link1_name});
 		}
 		elsif ($item->{"link_name"} eq "wikipedia" && $prefix eq "link1_")
 		{
-			$url =~ s/^http:\/\/(\w{2,})\.wikipedia\.org\/wiki\/(.*)$/$1: $2/o;
-			$url =~ tr/_/ /;
+			$name =~ s/^http:\/\/(\w{2,})\.wikipedia\.org\/wiki\/(.*)$/$1: $2/o;
+			$name =~ tr/_/ /;
 		}
 
 		# decode the URL
 		use Encode;
-		my $decoded_url = $url;
-		$decoded_url =~ s/\%([\dA-Fa-f]{2})/pack('C', hex($1))/oeg;
-		$url = $decoded_url
-			if (Encode::decode_utf8($decoded_url));
+		my $decoded_name = $name;
+		$decoded_name =~ s/\%([\dA-Fa-f]{2})/pack('C', hex($1))/oeg;
+		eval { Encode::decode_utf8($decoded_name, Encode::FB_CROAK); };
+		$name = $decoded_name if !$@;
 
-		$m->comp("/comp/linkurl", id => $e_id, name => $url, href => $url);
+		$m->comp("/comp/linkurl", id => $e_id, name => $name, href => $url);
 	}
 
 	$m->out("</span>") if ($mp);
