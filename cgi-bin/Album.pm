@@ -189,7 +189,7 @@ sub GetCoverartStore
 {
 	my $coverurl = $_[1];
 
-	if ($coverurl =~ m{http://.*?/images/P/B[0-9A-Z]{9}.(\d\d).})
+	if ($coverurl =~ m{http://.*?/images/P/[0-9B][0-9A-Z]{9}\.(\d\d)\.})
 	{
 		my $id = $1;
 		return $CoverArtStore{$id} if (exists $CoverArtStore{$id});
@@ -205,7 +205,7 @@ sub ParseAmazonURL
 	my ($self, $url) = @_;
 	my ($asin, $coverurl);
 
-	if ($url =~ m{^http://(?:www.)?(.*?)/.*/(B[0-9A-Z]{9})})
+	if ($url =~ m{^http://(?:www.)?(.*?)/.*/([0-9B][0-9A-Z]{9})(?:[^0-9A-Z]|$)})
 	{
 		$asin = $2;
 		my $cas = $1;
