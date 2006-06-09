@@ -480,7 +480,8 @@ CREATE TABLE moderation_note_closed
     id                  INTEGER NOT NULL,
     moderation          INTEGER NOT NULL, 
     moderator           INTEGER NOT NULL, 
-    text                TEXT NOT NULL
+    text                TEXT NOT NULL,
+    notetime		TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE moderation_note_open
@@ -488,7 +489,8 @@ CREATE TABLE moderation_note_open
     id                  SERIAL NOT NULL,
     moderation          INTEGER NOT NULL, 
     moderator           INTEGER NOT NULL, 
-    text                TEXT NOT NULL
+    text                TEXT NOT NULL,
+    notetime		TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE moderation_closed
