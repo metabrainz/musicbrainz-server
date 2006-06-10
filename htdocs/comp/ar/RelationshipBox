@@ -162,7 +162,12 @@ else
 		{
 			$m->out(qq!<tr><td colspan="3">!);
 			$m->out(($max - $count) . " relationships not shown. ");
-			$m->out(qq!<a href="/showrel.html?id=$id&amp;type=$type">View all relationships ...</a></td></tr>!);
+
+			my $typeshow = $type eq "album" ? "release" : $type;
+			$m->out(sprintf qq!<a href="/show/%s/relationships.html?%sid=$id">View all relationships...</a>!,
+					$typeshow,
+					$typeshow);
+			$m->out(qq!</td></tr>!);
 			last;
 		}
 		$item = $links[$i];
@@ -221,7 +226,7 @@ else
 		{
 			$m->out(($max > 1) ? '</td><td align="right" valign="top">' : '');
 			$m->out('[&nbsp;<a href="/edit/relationship/remove.html?type=' . $item->{link0_type} . '-' .
-					$item->{link1_type} . '&amp;id='.$item->{link_id}.'">Del</a>&nbsp;');
+					$item->{link1_type} . '&amp;id='.$item->{link_id}.'">Remove</a>&nbsp;');
 			$m->out('|&nbsp;<a href="/edit/relationship/edit.html?type=' . $item->{link0_type} . '-' .
 					$item->{link1_type} . '&amp;id='.$item->{link_id}.'">Edit</a>&nbsp;]');
 		}

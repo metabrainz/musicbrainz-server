@@ -48,7 +48,6 @@
 	my $link = $short ? "Add relationship" : "Use this $typename in a relationship";
 
 
-
 	my $recent_links = ($session{recent_links} ||= []);
 	my $ename = uri_escape($name);
 
@@ -57,16 +56,20 @@
 	{
 		if ($isrelpage)
 		{
-			$m->out(qq!<a href="/showrel.html?id=$id&amp;type=$type&amp;addrel=1">$link</a> !);
+			$m->out(sprintf qq! <a href="/show/%s/relationships.html?%sid=$id&amp;addrel=1">$link</a>!,
+					$typeshow,
+					$typeshow);
 			if (scalar(@$recent_links) == 0 && $name ne "")
 			{
 				$m->out(qq! | <a href="/edit/relationship/addurl.html?id=$id&amp;type=$type&amp;name=$ename">Relate to URL</a>!);
 			}
 			if ($count)
 			{
-				$m->out(sprintf qq! | <a href="/showrel.html?id=$id&amp;type=$type%s">%s</a>!,
+				$m->out(sprintf qq! | <a href="/show/%s/relationships.html?%sid=$id%s">%s</a>!,
+						$typeshow,
+						$typeshow,
 						$expanded ? "" : "&amp;expanded=1",
-						$expanded ? "Compact listing" : "Edit relationships");
+						$expanded ? "Compact listing" : "Expanded listing");
 			}
 		}
 		else
@@ -79,8 +82,14 @@
 			}
 			if ($count)
 			{
-				$m->out(qq! | <a href="/showrel.html?id=$id&amp;type=$type">View all relationships</a>!);
-				$m->out(qq! | <a href="/showrel.html?id=$id&amp;type=$type&amp;expanded=1">Edit relationships</a>!);
+				$m->out(sprintf qq! | <a href="/show/%s/relationships.html?%sid=$id">View all relationships</a>!,
+						$typeshow,
+						$typeshow);
+
+				# less clutter, but one click more to go to the edit links.
+				# $m->out(sprintf qq! | <a href="/show/%s/relationships.html?%sid=$id&amp;expanded=1">Edit relationships</a>!,
+				#		 $typeshow,
+				#		 $typeshow);
 			}
 		}
 
@@ -92,16 +101,12 @@
 	{
 		if (!$isrelpage)
 		{
-			$m->out(qq! <a href="/showrel.html?id=$id&amp;type=$type">View all relationships</a>!);
+			$m->out(sprintf qq! <a href="/show/%s/relationships.html?%sid=$id">View all relationships</a>!,
+					$typeshow,
+					$typeshow);
 		}
 	}
 
-	# show the edit relationship types link if the user
-	# has the permissions
-	if (UserStuff->IsLinkModerator($session{privs}))
-	{
-		$m->out(qq! | <a href="/edit/relationships/link_type_roots.html">Edit link types</a> !);
-	}
 	$m->out(" ]");
 
 </%perl>
