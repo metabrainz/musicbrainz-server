@@ -80,7 +80,7 @@
 		$newartistid = $newartist->GetId;
 	}
 
-	# form step 3/3: enter moderation
+	# form step 3/3: enter edit
 	if ($submitvalue ne "")
 	{
 		# next url after the operation
@@ -162,7 +162,7 @@
 					<td class="notetext">
 						<& /comp/notetext,
 							notetext => $notetext,
-							buttons => [["Cancel",""], ["Enter Moderation", "btnYes"]] &>
+							buttons => [["Cancel",""], ["Enter Edit", "btnYes"]] &>
 						<input type="hidden" name="newartistid" value="<% $newartist->GetId %>" /></td>
 				</tr>
 			</table>

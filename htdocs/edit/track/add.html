@@ -127,7 +127,7 @@
 			# do not want in this case)
 			$newartist = undef;
 		}
-		elsif ($submitvalue =~ m/Enter Moderation/i and
+		elsif ($submitvalue =~ m/Enter Edit/i and
 			   not @errors)
 		{
 			$m->comp(
@@ -188,7 +188,7 @@
 
 			<table class="formstyle">
 
-% 	if (@errors and $submitvalue =~ m/Enter Moderation/i)
+% 	if (@errors and $submitvalue =~ m/Enter Edit/i)
 %	{
 
 				<tr>
@@ -280,7 +280,7 @@
 					<td class="notetext">
 						<& /comp/notetext,
 							notetext => $notetext,
-							buttons => [ ["Cancel"], ["Enter Moderation"]] &></td>
+							buttons => [ ["Cancel"], ["Enter Edit"]] &></td>
 				</tr>
 
 %	}

@@ -71,8 +71,8 @@
 		my $showtype = ($types[0] eq "album" ? "release" : $types[0]);
 		my $url = "/show/".$showtype."/?".$showtype."id=".$ents[0]->GetId;
 
-		# handle click on enter moderation button.
-		if ($submitvalue =~ m/Enter Moderation/i)
+		# handle click on enter edit button.
+		if ($submitvalue =~ m/Enter Edit/i)
 		{
 			my $r = $m->comp(
 				"/comp/entermods",
@@ -156,7 +156,7 @@
 				<td class="notetext">
 					<& /comp/notetext,
 						notetext => $notetext,
-						buttons => [["Cancel",""], ["Enter Moderation", "btnYes"]] &>
+						buttons => [["Cancel",""], ["Enter Edit", "btnYes"]] &>
 
 					<input type="hidden" name="type" value="<% $type %>" />
 					<input type="hidden" name="id" value="<% $id %>" /></td>

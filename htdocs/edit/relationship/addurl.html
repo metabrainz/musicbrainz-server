@@ -124,7 +124,7 @@
 				sprintf "/show%s.html?%sid=$id", $type, $type);
 		}
 
-		# handle try to enter the moderation
+		# handle try to enter the edit
 		else
 		{
 			push @errors, "Please select a relationship type from the list below."
@@ -282,7 +282,7 @@
 				<tr class="spaced">
 					<td>&nbsp;</td>
 					<td class="notetext">
-						<& /comp/notetext, buttons => [["Cancel",""], ["Enter Moderation", "btnYes"]] &>
+						<& /comp/notetext, buttons => [["Cancel",""], ["Enter Edit", "btnYes"]] &>
 
 						<input type="hidden" name="id" value="<% $id %>" />
 						<input type="hidden" name="type" value="<% $type %>" />

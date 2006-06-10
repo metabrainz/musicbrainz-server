@@ -98,7 +98,7 @@
 
 			$m->comp("/comp/redirect", $url);
 		}
-		elsif ($submitvalue =~ /Enter Moderation/i
+		elsif ($submitvalue =~ /Enter Edit/i
 				and MusicBrainz::IsNonNegInteger($language_new)
 				and MusicBrainz::IsNonNegInteger($script_new))
 		{
@@ -179,7 +179,7 @@
 	my $language_curr = $language_new || (@releaseobjs ? $releaseobjs[0]->GetLanguageId : "") || "";
 	my $script_curr = $script_new || (@releaseobjs ? $releaseobjs[0]->GetScriptId : "") || "";
 
-	# see if one of the releases has a moderation pending flag.
+	# see if one of the releases has a modpending flag.
 	my $mp = grep { $_->GetLanguageModPending } @releaseobjs;
 
 </%perl>

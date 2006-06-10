@@ -250,7 +250,7 @@
 			<td class="notetext">
 				<& /comp/notetext,
 					notetext => $notetext,
-					buttons => [["Cancel",""], ["Enter Moderation", "btnYes"]] &>
+					buttons => [["Cancel",""], ["Enter Edit", "btnYes"]] &>
 % if (defined $artist) {
 				<input type="hidden" name="id" value="<% $artist->GetId() %>" />
 % }

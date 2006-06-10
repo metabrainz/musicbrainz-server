@@ -192,9 +192,9 @@
 			die "Shouldn't get here" unless $pnotes{'ispopup'};
 
 </%perl>
-			<& /comp/header_small, title => "Moderation entered" &>
+			<& /comp/header_small, title => "Edits entered" &>
 				<script type="text/javascript"> window.close(); </script>
-				<p>Moderation entered successfully.</p>
+				<p>Edits entered successfully.</p>
 				<p><a href="/">Continue</a></p>
 			<& /comp/footer_small &>
 <%perl>
@@ -299,7 +299,7 @@
 					<td class="notetext" colspan="4">
 						<& /comp/notetext,
 							notetext => $notetext,
-							buttons => [ ["Cancel"], ["Enter Moderation", "btnYes"]] &>
+							buttons => [ ["Cancel"], ["Enter Edit", "btnYes"]] &>
 						<input type="hidden" name="releaseid" value="<% $releaseid %>">
 						<input type="hidden" name="trackid" value="<% $trackid %>">
 						<input type="hidden" name="ispopup" value="<% $pnotes{'ispopup'} %>"></td>

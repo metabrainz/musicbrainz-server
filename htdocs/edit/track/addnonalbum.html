@@ -102,7 +102,7 @@
 	if ($submitvalue ne "")
 	{
 		# verify form fields
-		push @errors, "You must provide a moderation note in order to add a non-album track!"
+		push @errors, "You must provide an edit note in order to add a non-album track!"
 			if ($notetext !~ /\S/);
 
 		# find non-album tracks release, else
@@ -192,7 +192,7 @@
 								them from FreeDB</a> instead.</li>
 							<li>
 								To enter a non-album track you <strong>must</strong> provide
-								a moderation note that lets the voters know why you think
+								an edit note that lets the voters know why you think
 								this is a non-album track. You're strongly encouraged to
 								include a URL that will allow the voters to evaluate the
 								correctness of this edit.</li>
@@ -201,7 +201,7 @@
 			<table>
 
 			<table class="formstyle">
-% 	if (@errors and $submitvalue =~ m/Enter Moderation/i) {
+% 	if (@errors and $submitvalue =~ m/Enter Edit/i) {
 				<tr>
 					<td>&nbsp;</td>
 					<td class="error" colspan="2">
@@ -256,7 +256,7 @@
 						<& /comp/notetext,
 							notetext => $notetext,
 							required => 1,
-							buttons => [ ["Cancel"], ["Enter Moderation"]] &>
+							buttons => [ ["Cancel"], ["Enter Edit"]] &>
 
 						<input type="hidden" name="artistid" value="<% $artistid %>" /></td>
 				</tr>

@@ -105,7 +105,7 @@
 			<td class="notetext">
 				<& /comp/notetext,
 					notetext => $notetext,
-					buttons => [["Cancel",""], ["Enter Moderation", "btnYes"]] &></td>
+					buttons => [["Cancel",""], ["Enter Edit", "btnYes"]] &></td>
 		</tr>
 
 % 	}

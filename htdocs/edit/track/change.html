@@ -163,7 +163,7 @@
 			return $m->comp("/comp/redirect", $addartisturl);
 		}
 
-		elsif ($submitvalue =~ m/Enter Moderation/i and
+		elsif ($submitvalue =~ m/Enter Edit/i and
 			   not @errors)
 		{
 
@@ -335,7 +335,7 @@
 					</ul></td>
 			</tr>
 
-% 	if (@errors and $submitvalue =~ m/Enter Moderation/i)
+% 	if (@errors and $submitvalue =~ m/Enter Edits/i)
 %	{
 
 			<tr>
@@ -431,7 +431,7 @@
 				<td class="notetext">
 					<& /comp/notetext,
 						notetext => $notetext,
-						buttons => [ ["Cancel"], ["Enter Moderation", "btnYes"]] &></td>
+						buttons => [ ["Cancel"], ["Enter Edit", "btnYes"]] &></td>
 			</tr>
 
 %	}
