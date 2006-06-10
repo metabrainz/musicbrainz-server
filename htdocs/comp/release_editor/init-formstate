@@ -71,6 +71,7 @@
 	$ARGS{"SUBMIT_ARTISTCHANGE"} = "Change »";
 	$ARGS{"SUBMIT_ARTISTSELECT"} = "Select Artist »";
 	$ARGS{"SUBMIT_ARTISTSEARCH"} = "Search for Artist »";
+	$ARGS{"SUBMIT_ARTISTSEARCH_AGAIN"} = "Search again »";
 	$ARGS{"SUBMIT_BACKTOFORM"} = "Back to Form";
 
 	# language/script

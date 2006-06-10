@@ -32,7 +32,7 @@
 	$hasmultipletrackartists => 0
 
 </%args>
-%	return;
+%	# return;
 
 %	# output debug information
 	<hr>
