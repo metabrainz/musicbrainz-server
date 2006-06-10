@@ -100,12 +100,11 @@
 		my $created = $annotation->GetCreationTime();
 		$created = $m->comp("/comp/datetime", $created);
 		$m->out($created);
-		$m->out("</td>");
 
 		# show editing links only if user is logged in
 		if ($session{uid})
 		{
-			$m->out(qq!<td class="links"> [ !);
+			$m->out(qq!</td><td class="links"> [ !);
 
 			if ($history_link)
 			{
