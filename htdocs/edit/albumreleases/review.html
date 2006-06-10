@@ -56,16 +56,16 @@
 
 	<& /comp/artisttitle, artist => $artist &>
 
-	<& /comp/tablebegin, title => "Review Moderations" &>
+	<& /comp/tablebegin, title => "Review Edit" &>
 
 	<div class="padleft">
-		These are the moderations that will be entered into
-		the system when you click "Enter Moderations":
+		These are the edits that will be entered into
+		the system when you click "Enter Edit":
 	</div>
 	<div class="padlefttop">
 		<table class="listing">
 			<tr class="header">
-				<td class="left">Moderation</td>
+				<td class="left">Edit</td>
 				<td class="left">Old Value</td>
 				<td class="left">New Value</td>
 			</tr>
@@ -162,7 +162,7 @@
 
 % 	if ($changes) {
 
-	<& /comp/tablebegin, title => "Enter Moderations" &>
+	<& /comp/tablebegin, title => "Enter Edit" &>
 
 		<form method="post" action="enter.html">
 			<table class="formstyle">
@@ -170,7 +170,7 @@
 					<td class="notetext">
 						<& /comp/notetext,
 							notetext => $notetext,
-							buttons => [["Cancel",""], ["Enter Moderation", "btnYes"]] &>
+							buttons => [["Cancel",""], ["Enter Edit", "btnYes"]] &>
 
 						<input type="hidden" name="releaseid" value="<% $release->GetId %>" /></td>
 				</tr>

@@ -198,7 +198,7 @@
 					<td colspan="2" class="instructions">
 						<ul>
 							<li>Please review the edits that will be entered into
-								the database before you click on "Enter Moderations"</li>
+								the database before you click on "Enter Edits"</li>
 							<li>Some <& /comp/linkdoc, "EditType", "edit types" &> are
 								applied instantly, others will need approval of other
 								MusicBrainz editors. Please see <& /comp/linkdoc,

@@ -110,7 +110,7 @@
 			}
 
 			# MOD_EDIT_ALBUMNAME
-			# Enter a moderation if the albumname was edited
+			# Enter an edit if the releasename was edited
 			$ov = $orig{"albumname"};
 			$nv = $ARGS{"albumname"};
 			if ($ov ne $nv)
@@ -127,7 +127,7 @@
 			}
 
 			# MOD_EDIT_ALBUMATTRS
-			# Enter a moderation if the album attributes were changed
+			# Enter an edit if the album attributes were changed
 			$ov = $orig{"attr_type"}.",".$orig{"attr_status"};
 			$nv = $ARGS{"attr_type"}.",".$ARGS{"attr_status"};
 			if ($ov ne $nv)
@@ -145,7 +145,7 @@
 			}
 
 			# MOD_EDIT_ALBUM_LANGUAGE
-			# Enter a moderation if the album language/script was changed
+			# Enter an edit if the album language/script was changed
 			$ov = $orig{"attr_language"}.",".$orig{"attr_script"};
 			$nv = $ARGS{"attr_language"}.",".$ARGS{"attr_script"};
 			if ($ov ne $nv)
@@ -162,7 +162,7 @@
 				);
 			}
 
-			# Enter moderations for each track property that was changed.
+			# Enter edits for each track property that was changed.
 			for (my $t=0; $t < $tracks; $t++)
 			{
 				# get original values
@@ -190,7 +190,7 @@
 					or die "Error loading track\n";
 
 				# MOD_REMOVE_TRACK
-				# Insert track removal mod if requested
+				# Insert track removal edit if requested
 				if ($new_delete)
 				{
 					push @mods, Moderation->InsertModeration(
@@ -240,8 +240,8 @@
 					}
 
 					# MOD_ADD_TRACK_KV / MOD_EDIT_TRACKNAME
-					# Insert add track name moderation if the old name was "" and the new name is not ""
-					# Insert edit track name moderation if the old name was not ""
+					# Insert add track name edit if the old name was "" and the new name is not ""
+					# Insert edit track name edit if the old name was not ""
 					if ($orig_track ne $new_track)
 					{
 						if ($orig_track eq "")
@@ -278,7 +278,7 @@
 					}
 
 					# MOD_EDIT_TRACKTIME
-					# Insert edit track length moderation if requested
+					# Insert edit track length edit if requested
 					if ($orig_length ne $new_length and
 						$orig_track ne "")
 					{
@@ -300,24 +300,23 @@
 				my $num = @mods;
 				$mods[0]->InsertNote(
 					&ModDefs::MODBOT_MODERATOR,
-					"The first of a set of $num moderations",
+					"The first of a set of $num edits",
 					nosend => 1,
 				);
 				$mods[-1]->InsertNote(
 					&ModDefs::MODBOT_MODERATOR,
-					"The last of a set of $num moderations",
+					"The last of a set of $num edits",
 					nosend => 1,
 				);
 			}
 
-			# insert the moderation note
+			# insert the edit note
 			$mods[0]->InsertNote($session{'uid'}, $notetext)
 				if $mods[0]
 				and $notetext =~ /\S/;
 		},
 	) or return;
 
-	$m->comp("/edit/album/sae-cancel.html", "true");
 	$m->comp("/comp/redirect", $url);
 
 </%perl>

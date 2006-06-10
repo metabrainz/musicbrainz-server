@@ -44,7 +44,7 @@
 	$ARGS{"SUBMIT_KEEPEDITING"} = "Keep Editing";
 	$ARGS{"SUBMIT_STARTOVER"} = "Start Over";
 	$ARGS{"SUBMIT_CANCEL"} = "Cancel";
-	$ARGS{"SUBMIT_ENTERMODERATIONS"} = "Enter Moderations";
+	$ARGS{"SUBMIT_ENTERMODERATIONS"} = "Enter Edits";
 
 	# freedb import
 	$ARGS{"SUBMIT_FREEDB"} = "FreeDB Lookup";
