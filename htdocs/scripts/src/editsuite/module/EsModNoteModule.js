@@ -21,7 +21,7 @@
 \----------------------------------------------------------------------------*/
 
 /**
- * Moderation Note Resizer
+ * Edit Note Resizer
  *
  * Resize TextArea based on the amount of text (soft and hard wraps)
  * inspired by: http://tuckey.org/textareasizer
@@ -51,8 +51,8 @@ function EsModNoteModule() {
 	/** RegExp to split the text into lines **/
 	this.splitRE = /\r\n|\r|\n/g; // compile only once
 	this.whitespaceRE = /\s/g;
-	this.defaultText = "Please enter a moderation note here. Thank you";
-	this.title = "We'd like to know where you got the information from, and why you are attempting to moderate this data...\nThank you";
+	this.defaultText = "Please enter an edit note here. Thank you";
+	this.title = "We'd like to know where you got the information from, and why you are attempting to edit this data...\nThank you";
 	this.checkedText = "";
 
 	/**

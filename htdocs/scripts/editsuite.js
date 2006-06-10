@@ -2281,8 +2281,8 @@ this.minrows=3;
 this.disabled=false;
 this.splitRE=/\r\n|\r|\n/g;
 this.whitespaceRE=/\s/g;
-this.defaultText="Please enter a moderation note here. Thank you";
-this.title="We'd like to know where you got the information from, and why you are attempting to moderate this data...\nThank you";
+this.defaultText="Please enter an edit note here. Thank you";
+this.title="We'd like to know where you got the information from, and why you are attempting to edit this data...\nThank you";
 this.checkedText="";
 this.runCheck=function(){
 mb.log.enter(this.GID,"runCheck");
