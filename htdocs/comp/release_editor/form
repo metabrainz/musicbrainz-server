@@ -261,7 +261,6 @@
 
 		<script type="text/javascript" src="/scripts/entervalidate.js"></script>
 		<script type="text/javascript" src="/scripts/editallconfig.js"></script>
-		<script type="text/javascript" src="/scripts/dojo.js"></script>
 
 		<& /comp/layout/editformbegin, title => $boxtitle, mp => 1 &>
 
