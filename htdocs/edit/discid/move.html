@@ -92,7 +92,7 @@
 		{
 			return $m->comp("/comp/redirect", $url);
 		}
-		elsif ($submitvalue =~ m/Enter Moderation/i)
+		elsif ($submitvalue =~ m/Enter Edit/i)
 		{
 			# check newreleaseid argument
 			MusicBrainz::IsNonNegInteger($newreleaseid) && $newreleaseid
@@ -236,7 +236,7 @@
 				</tr>
 				<tr class="spaced">
 					<td class="notetext">
-						<& /comp/notetext, buttons => [["Cancel",""], ["Enter Moderation", "btnYes"]] &>
+						<& /comp/notetext, buttons => [["Cancel",""], ["Enter Edit", "btnYes"]] &>
 						<input type="hidden" name="tocid" value="<% $cdtoc->GetId %>" />
 						<input type="hidden" name="releaseid" value="<% $release->GetId %>" />
 						<input type="hidden" name="newreleaseid" value="<% $newrelease->GetId %>" /></td>

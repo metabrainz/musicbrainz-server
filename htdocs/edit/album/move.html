@@ -42,7 +42,7 @@
 	# default for move tracks flag
 	$movetracks => 0
 
-	# confirm, and moderation note
+	# confirm, and edit note
 	$submitvalue => ""
 	$notetext => ""
 
@@ -110,7 +110,7 @@
 		$newartistid = $newartist->GetId;
 	}
 
-	# form step 3/3: enter moderation
+	# form step 3/3: enter edit
 	if ($submitvalue ne "")
 	{
 		if ($submitvalue =~ m/Cancel/i)
@@ -122,7 +122,7 @@
 
 			$m->comp("/comp/redirect", $url);
 		}
-		elsif ($submitvalue =~ m/Enter Moderation/i and
+		elsif ($submitvalue =~ m/Enter Edit/i and
 			   defined $newartist)
 		{
 			# redirect to this URI after everything is done
@@ -188,7 +188,7 @@
 	$m->comp("/comp/sidebar-notitle", pagetitle => $title);
 
 	# if in batch mode, let's see if we have to display
-	# the pending moderations message.
+	# the pending edits message.
 	my $mp = 0;
 	if ($_isbatch)
 	{
@@ -304,7 +304,7 @@
 					<td class="notetext">
 						<& /comp/notetext,
 							notetext => $notetext,
-							buttons => [["Cancel",""], ["Enter Moderation", "btnYes"]] &></td>
+							buttons => [["Cancel",""], ["Enter Edit", "btnYes"]] &></td>
 				</tr>
 			</table>
 
