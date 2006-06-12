@@ -385,7 +385,7 @@
 				{ url => "/doc/ClassicalMusicFAQ" },
 				{ url => "/doc/AnnotationFAQ" },
 			],
-			{ name => "Editing FAQ",			url => "/doc/ModerationFAQ" },
+			{ name => "Editing FAQ",			url => "/doc/EditingFAQ" },
 			{ name => "Editing Style",			url => "/style.html" },
 			{ name => "Mailing Lists",			url => "/list.html" },
 			{ name => "Bugs / RFEs",			url => "http://musicbrainz.org/bugs" },
