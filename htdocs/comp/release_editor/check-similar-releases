@@ -123,6 +123,7 @@
 											<input type="submit" class="button" value="Cancel" />
 										</form></td>
 									<td>
+
 %			# Confirm action is on the right side if 2
 %			# buttons are shown inline
 %			my %args = $m->comp("/comp/form/args-strip-editsuitefields", %ARGS);
