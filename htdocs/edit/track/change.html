@@ -37,7 +37,7 @@
 	$trackname => ""
 
 	# fields set by /comp/artistfilter
-	$selectedartist => ""
+	$artistfilter_newartistid => ""
 	$newartistid => ""
 	$search => ""
 
@@ -102,10 +102,10 @@
 
 	# load newartist from database if it has been set by artistfilter
 	my $newartist = undef;
-	$selectedartist ||= $newartistid;
-	if ($selectedartist ne "")
+	$artistfilter_newartistid ||= $newartistid;
+	if ($artistfilter_newartistid ne "")
 	{
-		$newartist = $m->comp("/comp/loadartist", $mb, $selectedartist);
+		$newartist = $m->comp("/comp/loadartist", $mb, $artistfilter_newartistid);
 		$newartistid = $newartist->GetId;
 	}
 
@@ -155,7 +155,7 @@
 			$returnargs{"modid"} = $modid;
 			$returnargs{"solo"} = $solo;
 			$returnargs{"trackname"} = $trackname;
-			$returnurl = sprintf "$returnurl?%s&selectedartist=", $m->comp("/comp/args-to-querystring.inc", %returnargs);
+			$returnurl = sprintf "$returnurl?%s&artistfilter_newartistid=", $m->comp("/comp/args-to-querystring.inc", %returnargs);
 			$returnurl = uri_escape($returnurl);
 
 			# prepare url for redirecting to artist form
