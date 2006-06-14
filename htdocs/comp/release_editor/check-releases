@@ -43,12 +43,18 @@
 		# fetch and delete fields, we'll reinsert them if they are valid.
 		my $y = $ARGS{"rls_year-$j"};
 		delete $ARGS{"rls_year-$j"};
+
 		my $m = $ARGS{"rls_month-$j"};
 		delete $ARGS{"rls_month-$j"};
+
 		my $d = $ARGS{"rls_day-$j"};
 		delete $ARGS{"rls_day-$j"};
+
 		my $c = $ARGS{"rls_country-$j"};
 		delete $ARGS{"rls_country-$j"};
+
+		my $id = $ARGS{"rls_id-$j"};
+		delete $ARGS{"rls_id-$j"};
 
 		# Skip if all blank
 		# -- if the nth release date is empty and the
@@ -72,6 +78,7 @@
 		$ARGS{"rls_month-$index"} = $m;
 		$ARGS{"rls_day-$index"} = $d;
 		$ARGS{"rls_country-$index"} = $c;
+		$ARGS{"rls_id-$index"} = $id;
 		$index += 1;
 	}
 

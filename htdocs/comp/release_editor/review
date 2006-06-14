@@ -217,7 +217,7 @@
 				<tr class="header">
 					<td class="type">Release:</td>
 					<td class="newvalue">Change:</td>
-					<td class="autoedit">Needs voting:</td>
+%#					<td class="autoedit">Needs voting:</td>
 				</tr>
 
 %			if ($ARGS{"v::action"} eq "/cdi/enter.html")
@@ -422,7 +422,7 @@
 				<tr class="header">
 					<td class="type">Track:</td>
 					<td class="newvalue">Changed:</td>
-					<td class="autoedit">Needs&nbsp;voting:</td>
+%#					<td class="autoedit">Needs&nbsp;voting:</td>
 				</tr>
 
 			<%perl>
@@ -667,13 +667,24 @@
 %#	Edit-Type is an Automoderation for the current user.
 <%def .isAutoEdit>
 <%perl>
+	return;
 
 	my ($type) = @_;
 
-	#$m->out("1: ".Moderation->IsAutoModType($type));
-	#$m->out("2: ".UserStuff->IsAutoMod($session{privs}));
+	# my $user_is_automod = UserStuff->IsAutoMod($session{privs};
 
-	if (Moderation->IsAutoModType($type) &&
+    # my $automod = $this->IsAutoMod($user_is_automod);
+	# $automod = 0 if $ui->IsUntrusted($privs)
+	#	and ($type != &ModDefs::MOD_ADD_TRMS or $type != &ModDefs::MOD_ADD_PUIDS);
+	# $automod = 1
+	# 	if not $automod
+	# 	and $user_is_automod
+	# 	and $this->IsAutoModType($type);
+
+	# $m->out("1: ".Moderation->IsAutoModType($type));
+	# $m->out("2: ".UserStuff->IsAutoMod($session{privs}));
+
+	if (Moderation->IsAutoModType($type) ||
 		UserStuff->IsAutoMod($session{privs}))
 	{
 		$m->out('No <span style="font-size: 10px">(<a href="/mod_intro.html#automod">autoedit</a>)</span>')

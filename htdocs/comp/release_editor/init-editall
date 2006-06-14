@@ -125,9 +125,10 @@
 		my $rel = $r[$i];
 		my @ymd = $rel->GetYMD;
 
+		$orig{"rls_id-$i"} = $rel->GetId;
 		$orig{"rls_year-$i"} = $ymd[0];
-		$orig{"rls_month-$i"} = $ymd[1] ? $ymd[1] : ""; # can possibly be 0=>""
-		$orig{"rls_day-$i"} = $ymd[2] ? $ymd[2] : ""; # can possibly be 0=>""
+		$orig{"rls_month-$i"} = $ymd[1] ? $ymd[1] : ""; # can possibly be 0 => ""
+		$orig{"rls_day-$i"} = $ymd[2] ? $ymd[2] : ""; # can possibly be 0 => ""
 		$orig{"rls_country-$i"} = $rel->GetCountry;
 	}
 	%orig = $m->comp("/comp/release_editor/check-releases", %orig);

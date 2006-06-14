@@ -40,9 +40,9 @@
 	my $j;
 	my $op_add = ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_ADDRELEASE"} ? 1 : 0);
 	my $op_remove = ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_REMRELEASE"} ? 1 : 0);
-
 	my $num_releases = $checkreleases{"num"} || 0;
 
+	# TODO: this should be moved to check-releases.
 	# Add a pseudo entry at the end if either the 'More releases' button
 	# has been clicked or the list is empty.
 	if ($num_releases == 0 or $op_add)
@@ -54,6 +54,7 @@
 		$ARGS{"rls_country-$j"} = "";
 	}
 
+	# TODO: this should be moved to check-releases.
 	if ($num_releases > 0 and
 		$op_remove and
 		!$checkreleases{"removed"})
@@ -63,7 +64,11 @@
 		delete $ARGS{"rls_month-$j"};
 		delete $ARGS{"rls_day-$j"};
 		delete $ARGS{"rls_country-$j"};
+		delete $ARGS{"rls_id-$j"};
 	}
+
+	# we don't need this flag anymore, remove it.
+	delete $checkreleases{"removed"};
 
 </%perl>
 
@@ -81,6 +86,7 @@
 		my $rm = $ARGS{"rls_month-$j"};
 		my $rd = $ARGS{"rls_day-$j"};
 		my $rc = $ARGS{"rls_country-$j"};
+		my $rid = $ARGS{"rls_id-$j"};
 
 		# lets see if we have to highlight the fields
 		my $datecss = $checkreleases{"baddate$j"} ? " missing" : "";
@@ -103,6 +109,7 @@
 						<select name="rls_country-<% $j %>" tabindex="<% ++$$tabindex %>" class="<% $countrycss %>">
 							<& /comp/options, $countries_menu_2, $rc &>
 						</select>
+						<& /comp/form/hiddenfield, "rls_id-$j", $rid &>
 
 %		if ($j == 0)
 %		{
