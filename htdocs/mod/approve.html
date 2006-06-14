@@ -55,23 +55,24 @@
 	my $mb = $m->comp("/comp/dblogin");
 	my $edit = Moderation->new($mb->{DBH});
 	$edit = $edit->CreateFromId($editid);
+	$edit->PreDisplay;
 
 	# Only edits which would be autoapplied if entered by
 	# an autoeditor can be approved.
 	$edit->IsAutoModType($edit->GetType)
 		or return $m->comp("/comp/error",
-			"The edit with <strong>editid</strong> $editid cannot be approved (not an Autoedit even for Autoeditors)",
+			"The edit with <strong>editid</strong> $editid cannot be approved (not an AutoEdit even for AutoEditors)",
 			1, 1,);
 
 	# Check if the current user has enough permissions
 	UserStuff->IsAutoMod($session{privs})
 		or return $m->comp("/comp/error",
-			"You must be a autoeditor to approve this edit.",
+			"You must be a AutoEditor to approve this edit.",
 			1, 1,);
 
-	# determine if the moderation note is required:
+	# determine if the edit note is required:
 	#
-	# * edits with NO-votes require a moderation note.
+	# * edits with NO-votes require a edit note.
 	# * if only the editor attempting to approve the edit has voted NO,
 	#   they can still approve it.
 	#
@@ -142,9 +143,9 @@
 
 </%perl>
 
-<& /comp/sidebar-notitle, pagetitle => "Confirm Moderation Approval" &>
+<& /comp/sidebar-notitle, pagetitle => "Confirm Edit Approval" &>
 
-	<& /comp/tablebegin, title => "Confirm Moderation Approval" &>
+	<& /comp/tablebegin, title => "Confirm Edit Approval" &>
 
 	<form method="post" action="/mod/approve.html">
 
@@ -166,7 +167,7 @@
 %		{
 
 			<tr colspan="2" class="spaced">
-				<td class="error">You must provide a moderation note in order to approve this edit.</td>
+				<td class="error">You must provide a edit note in order to approve this edit.</td>
 			</tr>
 
 %		}
@@ -174,15 +175,15 @@
 
 			<tr class="top">
 				<td class="label">Type:</td>
-				<td><%perl>$edit->ShowModType($m);</%perl></td>
+				<td><%perl>$edit->ShowModType($m, 0);</%perl></td>
 			</tr>
 			<tr class="top">
 				<td class="label">Old Value:</td>
-				<td><%perl>$edit->ShowPreviousValue($m);</%perl></td>
+				<td><%perl>$edit->ShowPreviousValue($m, 0);</%perl></td>
 			</tr>
 			<tr class="top">
 				<td class="label">New Value:</td>
-				<td><%perl>$edit->ShowNewValue($m);</%perl></td>
+				<td><%perl>$edit->ShowNewValue($m, 0);</%perl></td>
 			</tr>
 			<tr>
 				<td></td>
