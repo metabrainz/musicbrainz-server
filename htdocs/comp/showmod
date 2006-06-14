@@ -184,6 +184,7 @@
 
 					</td>
 					<td class="date">
+
 %			if ($note->GetNoteTime ne "")
 %			{
 						<span class="date"><% $m->comp("/comp/datetime", $note->GetNoteTime) %></span>
