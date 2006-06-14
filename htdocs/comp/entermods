@@ -1,72 +1,108 @@
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# This component is used to enter edits into the databse.
+	#
+	# $Id$
+	#
+</%perl>
 <%args>
-$DBH
-$sub
-$success_url => undef
-$show_failure_message => 1
+
+	$DBH
+	$sub
+	$success_url => undef
+	$show_failure_message => 1
+
 </%args>
 <%perl>
 
-ref($DBH) or die;
-ref($sub) eq "CODE" or die;
+	ref($DBH) or die;
+	ref($sub) eq "CODE" or die;
 
-unless ($session{has_confirmed_email})
-{
-    $m->comp("/comp/sidebar", title => "Moderation Error");
-    $m->comp("/comp/stylemenu");
-	$m->comp("/comp/footer");
-	return 0;
-}
-
-my $sql = Sql->new($DBH);
-$sql->Begin;
-
-my @ret;
-
-my $ok = eval {
-	@ret = &$sub;
-	$sql->Commit;
-	1;
-};
-
-use MusicBrainz::Server::ModerationNote qw( mark_up_text_as_html );
-
-unless ($ok)
-{
-	my $err = $@;
-	$sql->Rollback;
-
-	$show_failure_message
-		or return 0;
-
-	if (ref $err)
+	unless ($session{has_confirmed_email})
 	{
-		$err = eval { $err->GetError } || $err || "(Unknown error)";
-		$m->comp("/comp/sidebar", title => "Moderation Error");
-		</%perl>
-		<p>
-			Error entering moderations:
-		</p>
-		<p class="notice"><% mark_up_text_as_html($err) |n %></p>
-		<%perl>
+		$m->comp("/comp/sidebar", title => "Editing Error");
+		$m->comp("/comp/stylemenu");
 		$m->comp("/comp/footer");
-	} else {
-		$m->comp("/comp/sidebar", title => "Server Error");
-		</%perl>
-		<p>
-			Error entering moderations:
-		</p>
-		<pre><% $err %></pre>
-		<%perl>
-		$m->comp("/comp/footer");
+		return 0;
 	}
 
-	return 0;
-}
+	my $sql = Sql->new($DBH);
+	$sql->Begin;
 
-$m->comp("/comp/redirect", $success_url)
-	if defined $success_url;
+	my @ret;
 
-return \@ret;
+	my $ok = eval {
+		@ret = &$sub;
+		$sql->Commit;
+		1;
+	};
+
+	use MusicBrainz::Server::ModerationNote qw( mark_up_text_as_html );
+
+	unless ($ok)
+	{
+		my $err = $@;
+		$sql->Rollback;
+
+		$show_failure_message
+			or return 0;
+
+		if (ref $err)
+		{
+			$err = eval { $err->GetError } || $err || "(Unknown error)";
+			$m->comp("/comp/sidebar", title => "Editing Error");
+
+</%perl>
+
+			<p>Error entering edits:</p>
+			<p class="notice"><% mark_up_text_as_html($err) |n %></p>
+
+<%perl>
+
+			$m->comp("/comp/footer");
+		}
+		else
+		{
+			$m->comp("/comp/sidebar", title => "Server Error");
+
+</%perl>
+
+			<p>Error entering edits:</p>
+			<pre><% $err %></pre>
+
+<%perl>
+
+			$m->comp("/comp/footer");
+		}
+
+		return 0;
+	}
+
+	$m->comp("/comp/redirect", $success_url)
+		if defined $success_url;
+
+	return \@ret;
 
 </%perl>
 
