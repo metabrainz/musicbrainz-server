@@ -43,8 +43,8 @@ sub PreInsert
 	my $removes = $opts{'removes'} || [];
 
 	my %new = (
-		albumid		=> $al->GetId,
-		albumname	=> $al->GetName,
+		albumid => $al->GetId,
+		albumname => $al->GetName,
 	);
 	my $i;
 
@@ -56,8 +56,7 @@ sub PreInsert
 		$new{"add".$i++} = sprintf "d=%s c=%d id=%d",
 			$row->GetSortDate,
 			$row->GetCountry,
-			$row->GetId,
-			;
+			$row->GetId;
 	}
 
 	$i=0;
@@ -69,16 +68,14 @@ sub PreInsert
 		my $old = sprintf "d=%s c=%d id=%d",
 			$obj->GetSortDate,
 			$obj->GetCountry,
-			$obj->GetId,
-			;
+			$obj->GetId;
 
 		$obj->SetCountry($row->{'country'});
 		$obj->SetYMD(@$row{qw( year month day )});
 
 		my $new = sprintf "nd=%s nc=%d",
 			$obj->GetSortDate,
-			$obj->GetCountry,
-			;
+			$obj->GetCountry;
 
 		$new{"edit".$i++} = "$old $new";
 	}
@@ -90,8 +87,7 @@ sub PreInsert
 		$new{"remove".$i++} = sprintf "d=%s c=%d id=%d",
 			$row->GetSortDate,
 			$row->GetCountry,
-			$row->GetId,
-			;
+			$row->GetId;
 	}
 
 	return $self->SuppressInsert
