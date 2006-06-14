@@ -1008,7 +1008,7 @@ sub SendModNoteToFellowNoter
 	my $fromname = $self->GetName;
 
 	my $body = <<EOF;
-Editor '$fromname' has attached a note to edit #$edit:
+Editor '$fromname' has attached a note to edit #$editid:
 
 $note_text
 
