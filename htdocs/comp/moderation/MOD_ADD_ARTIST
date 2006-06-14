@@ -70,7 +70,6 @@
 				<& /comp/linkartist, id => $id, name => $name,
 					sortname => $sortname, resolution => $resolution &></td>
 		</tr>
-	</table>
 
 %		my @misc = ();
 %		push @misc, "Sortname: $sortname" if ($sortname ne $name);
@@ -89,6 +88,8 @@
 
 %		}
 %	}
+
+	</table>
 
 
 </%method>
