@@ -28,8 +28,6 @@
 </%perl>
 <%args>
 
-	$artistid
-
 </%args>
 <%perl>
 

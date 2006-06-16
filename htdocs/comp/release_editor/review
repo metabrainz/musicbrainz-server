@@ -188,10 +188,7 @@
 
 	<& /comp/tablebegin, title => "Review Edits" &>
 
-		<& /comp/form/steps,
-			steps => ["Lookup CD", "Select Artist", "Enter Information", "Finish"],
-			curr => 3
-		&>
+		<& /comp/release_editor/steps, %ARGS, stepsleft => 1 &>
 
 			<table class="formstyle">
 				<tr>

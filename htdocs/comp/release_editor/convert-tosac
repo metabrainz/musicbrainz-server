@@ -29,9 +29,9 @@
 <%args>
 
 	$mb
-	$tr0_artistname => ""
-	$sacartist => ""
-	$tracks => 0
+
+	$artistfilter_search => ""
+	$tracks
 	$guessfromtrackartist => 1
 
 </%args>
@@ -45,7 +45,8 @@
     }
 
 	# start the search
-	my $search = "";
+	my $curr_artistname = "";
+	my $field_artistid = "artistid";
 
 	# cleanout args array
 	my %args = $m->comp("/comp/form/args-strip-editsuitefields", %ARGS);
@@ -53,18 +54,21 @@
 
 	if ($guessfromtrackartist)
 	{
-		$search = $tr0_artistname;
-		$search = $sacartist if ($sacartist ne "");
+		# use release artist, else artist of track '
+		$curr_artistname = $ARGS{"artistname"} || "";
+		$curr_artistname = $ARGS{"tr0_artistname"} || "" if ($curr_artistname eq "");
+
+		$curr_artistname = $ARGS{"sacartist"} if ($ARGS{"sacartist"} ne "");
 		delete $ARGS{"sacartist"};
 
 		# if a single item was found, set it and redirect
 		# back to the form.
 		my @dupes;
-		if ($search ne "")
+		if ($curr_artistname ne "")
 		{
 			my $artist = Artist->new($mb->{DBH});
-			my $artistlist = $artist->GetArtistsFromName($search);
-			if (@$artistlist == 1 and @$artistlist[0]->GetName eq $search)
+			my $artistlist = $artist->GetArtistsFromName($curr_artistname);
+			if (@$artistlist == 1 and @$artistlist[0]->GetName eq $curr_artistname)
 			{
 				# clear the VA-fields
 				$artist = @$artistlist[0];
@@ -85,14 +89,14 @@
 			}
 
 			# get identical names artists
-			my $norm_name = MusicBrainz::NormaliseSortText($search);
+			my $norm_name = MusicBrainz::NormaliseSortText($curr_artistname);
 			@dupes = grep {
 				MusicBrainz::NormaliseSortText($_->GetName) eq $norm_name
 			} @$artistlist;
 
 			my $engine = SearchEngine->new($mb->{DBH}, "artist");
 			$engine->Search(
-				query => $search,
+				query => $curr_artistname,
 				limit => 0,
 			);
 
@@ -110,34 +114,49 @@
 				@r;
 			};
 
-			# if artists were found
-			if (@r)
-			{
-
 </%perl>
 			<form method="post" action="<% $ARGS{"v::action"} %>" >
 
 				<& /comp/tablebegin, title => "Select Release Artist" &>
 					<table class="formstyle">
 						<& /comp/artistfilter,
-							search => $search,
-							selectedname => "artistid",
 
+							# hand-in the SearchEngine to the artistfilter.
+							# This will prevent it from carrying out an own search.
 							engine => $engine,
-							selectbutton => $ARGS{"SUBMIT_SACSELECT"},
+							search => $artistfilter_search || $curr_artistname,
+							searchfieldname => "artistfilter_search",
 
-							submitvalue => $ARGS{"submitvalue"} &>
+							# which field we're currently selecting.
+							# if the new artist is set, we'll set the
+							# field corresponding to artistfilter_field with
+							# the new value.
+							artistfilter_selectedfield => "artistfilter_newartistid",
+							artistfilter_field => $field_artistid, # artistid
+
+							# button values which drive the form handling
+							# in the page using this component.
+							selectbutton => $ARGS{"SUBMIT_SACSELECT"},
+							cancelbutton => $ARGS{"SUBMIT_BACKTOFORM"},
+							addartistbutton => $ARGS{"SUBMIT_ADDARTIST"},
+
+							submitvalue => $ARGS{"submitvalue"},
+						&>
 					</table>
 
 %				# delete the current tr{t}_artistname from the arguments,
 %				# this will be the new query string.
 %				my %args = $m->comp("/comp/form/args-strip-editsuitefields", %ARGS);
 %				$args{"hasmultipletrackartists"} = 0;
-%				$args{"submitvalue"} = $ARGS{"SUBMIT_SACSELECT"};
 
 %				delete $args{"artistid"};
-%				delete $args{"submitvalue"};
+
 %				$m->comp("/comp/args-to-hidden-fields.inc", %args);
+
+%				# add hidden field to allow selection dblclick
+%				# handler on radiobutton to submit a submitvalue
+%				# -- value of the select button is not transmitted in this case.
+				<& /comp/form/hiddenfield, "submitvalue", $ARGS{"SUBMIT_SACSELECT"} &>
 
 				<& /comp/tableend &>
 
@@ -148,49 +167,8 @@
 				# we're selecting an artist, don't show main form.
 				$ARGS{"v::validate"} = 0;
 				$ARGS{"v::showform"} = 0;
-			}
-			else
-			{
-				$m->out('<form action="'.$ARGS{"v::action"}.'" method="POST">');
-
-				$m->comp("/comp/form/label", cssclass => " hidden");
-				$m->comp("/comp/form/feedbackbox", "info", "",
-					"There were no artists found which matched your query \"$search\".
-					Please click on the Button \"Not found\" to go back to the last page
-					or search again."
-				);
-				$m->out("<br/>");
-			}
 		}
 	}
-	$m->out("<br/>");
-	$m->out("<br/>");
-
-	my $labelfor = "id_search";
-	$m->comp("/comp/form/label", title => "Search".($search ne "" ? " again" :""), id => $labelfor);
-	$m->out('<input type="text" name="sacartist"');
-	$m->out('" id="'.$labelfor.'" size="50" value="'.$search.'" />');
-	$m->out("<br/>");
-	$m->comp("/comp/form/label", title => "");
-	$m->comp("/comp/form/buttonsubmit", value => $ARGS{"SUBMIT_SACSEARCH"});
-	$m->out("<br/>");
-
-	# the hidden field is needed that the "submitvalue" argument gets transmitted
-	# in any case (e.g. if the user hits ENTER while the cursor is in the textfield)
-	$m->comp("/comp/form/hiddenfield", "submitvalue", $ARGS{"SUBMIT_SACSEARCH"});
-	$m->comp("/comp/args-to-hidden-fields.inc", %args);
-	$m->out('</form>');
-	$m->out("<br/>");
-
-	# not found button
-	$m->out('<form action="'.$ARGS{"v::action"}.'" method="POST">');
-	$m->comp("/comp/form/label", title => "Go back");
-	$m->comp("/comp/form/buttonsubmit", value => $ARGS{"SUBMIT_BACKTOFORM"});
-	$m->comp("/comp/args-to-hidden-fields.inc", %args);
-	$m->out('</form>');
-	$m->comp("/comp/tableend");
-	$m->out("<br/>");
-	$m->out("<br/>");
 
 	# do not show form, we're showing the SAC-artist list.
 	$ARGS{"v::showform"} = 0;

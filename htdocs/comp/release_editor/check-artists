@@ -190,6 +190,10 @@
 						&>
 
 					</table>
+
+%					# add hidden field to allow selection dblclick
+%					# handler on radiobutton to submit a submitvalue
+%					# -- value of the select button is not transmitted in this case.
 					<& /comp/form/hiddenfield, "submitvalue", $ARGS{"SUBMIT_ARTISTSELECT"} &>
 
 				<& /comp/tableend &>

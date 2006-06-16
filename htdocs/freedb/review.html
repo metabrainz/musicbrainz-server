@@ -84,6 +84,8 @@
 
 	<& /comp/tablebegin, title => "Select Artist Type" &>
 
+		<& /comp/release_editor/steps, %ARGS, stepsleft => 3, freedbid => "-" &>
+
 		<table class="formstyle">
 			<tr>
 				<td class="instructions">
@@ -232,10 +234,10 @@
 %	{
 
 						<& /comp/form/feedbackbox, "warning", "",
-							qq! Did not find an useable (one of \"/\", \"-\") artist-
+							qq! Did not find an usable (one of \"/\", \"-\") artist-
 								and trackname split character. You can still import the
-								release as Various Artists, but you'll have manually edit
-								the artist- and tracknames...! &>
+								release as Various Artists, but you will have to
+								manually edit the artist- and tracknames...! &>
 %	}
 
 %	# using a submit button != "submitbtn" will load cdi/enter.html without

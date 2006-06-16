@@ -31,7 +31,6 @@
 	$mb
 
 	# discid, toc for /cdi/enter.html
-	$freedb => 0
 	$noncd => 0
 	$discid => ""
 	$toc => ""
@@ -215,31 +214,12 @@
 
 	$m->out($viewjs ? '</pre>' : '</script>');
 
-	my ($steps, $currstep, $boxtitle);
-	if ($ARGS{"v::action"} eq "/cdi/enter.html")
-	{
-		$steps = ["Lookup CD", "Select Artist", "Select Release", "Enter Information", "Finish"];
-		$currstep = 3;
-		$boxtitle = "Add Release";
-
-	} elsif ($ARGS{"v::action"} eq "/edit/album/editall.html")
-	{
-		$steps = ["Enter Information", "Finish"];
-		$currstep = 0;
-		$boxtitle = "Edit Release";
-	}
+	my $editmode = $ARGS{"v::action"} ne "/cdi/enter.html";
+	my $boxtitle = $editmode ? "Edit Release" : "Add Release";
 
 	my $tabindex = 0;
 	my $dummycounter = 0;
 	my $labelfor;
-
-	# displayed artist in the field is either artist looked up from
-	# freedb or
-	# * if the form was submitted, the value in the ARGS,
-	# * or the search value entered in the previous form
-	my $artistvalue;
-	$artistvalue = (defined $search ? $search : "");
-	$artistvalue = (defined $artistname ? $artistname : "");
 
 	# Maintain a list of Artists cached by ID.
 	my $GetCachedArtist = do
@@ -262,9 +242,9 @@
 		<script type="text/javascript" src="/scripts/entervalidate.js"></script>
 		<script type="text/javascript" src="/scripts/editallconfig.js"></script>
 
-		<& /comp/layout/editformbegin, title => $boxtitle, mp => 1 &>
+		<& /comp/layout/editformbegin, title => $boxtitle, mp => $editmode &>
 
-			<& /comp/form/steps, steps => $steps, curr => $currstep &>
+			<& /comp/release_editor/steps, %ARGS, stepsleft => 2 &>
 
 			<table class="formstyle release_editor">
 
@@ -347,7 +327,7 @@
 							name => "artistname",
 							id => "id_artistname",
 							tabindex => ++$tabindex,
-							value => $artistvalue,
+							value => $ARGS{"artistname"},
 							cssclass => ($checkfields{"artistname"} ? " missing" : "") &>
 %	}
 					</td>

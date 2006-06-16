@@ -28,7 +28,6 @@
 </%perl>
 <%args>
 
-	$artistid
 	$tracks
 	$hasmultipletrackartists
 	$releasename => ""

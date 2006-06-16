@@ -29,7 +29,6 @@
 </%perl>
 <%args>
 
-	$artistid
 	$tracks
 	$hasmultipletrackartists
 

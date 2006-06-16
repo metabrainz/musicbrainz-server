@@ -113,7 +113,7 @@
 			and $ARGS{"v::validate"})
 		{
 			# convert the current listing to single artist
-			if (($ARGS{"artistid"} == 0 and defined $ARGS{"sacartist"}) or
+			if (($ARGS{"artistid"} == 0 or defined $ARGS{"sacartist"}) or
 				($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_TOSAC"}) or
 				($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_SACSEARCH"}))
 			{
