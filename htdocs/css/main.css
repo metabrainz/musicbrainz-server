@@ -729,7 +729,7 @@ ol.StyleGuideList li blockquote {
 /* Annotations */
 table.annotation {
 	color: #000;
-	background: #f0efff; 
+	background-color: #f9f9f9;
 	border: 1px solid #000;
 	border-collapse: collapse;
 	width: 100%;
@@ -743,7 +743,7 @@ table.annotation tr.header td {
 	font-weight: bold;
 	padding-bottom: 3px;
 	color: #000;
-	background: #ffecd6;
+	background-color: #f9f9f9;
 	font-size: 10px;
 }
 table.annotation tr.header>td {
@@ -752,26 +752,28 @@ table.annotation tr.header>td {
 
 table.annotation tr.log {
 	color: #000;
-	background-color: #ffecd6; 
+	background-color: #f9f9f9;
 }
 table.annotation tr.log td {
-	border-bottom: 1px solid #000;
+	border-bottom: 1px solid #000; 
+	font-size: 11px;
 }
-
 table.annotation tr.info {
 	color: #000;
-	background: #f0efff; 
+	background-color: #f9f9f9;
 }
 table.annotation tr.info td.text {
 	text-align: left;
+	font-size: 11px;
 }
 table.annotation tr.info td.links {
 	text-align: right;
+	font-size: 11px;
 }
 
 table.annotation tr.text {
 	color: #000;
-	background: #fff; 
+	background-color: #fff; 
 }
 table.annotation tr.text td {
 	border-top: 1px solid #000;

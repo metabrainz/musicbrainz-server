@@ -27,3 +27,10 @@ table.edittype tr.entity td {
 table.relationships td  { 
 	font-size: 12px;
 }
+
+
+table.annotation tr.info td.text,
+table.annotation tr.info td.links,
+table.annotation tr.log td {
+	font-size: 12px;
+}

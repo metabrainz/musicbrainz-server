@@ -26,8 +26,8 @@
 	# $Id$
 	#
 </%perl>
-
 <%args>
+
 	$old => undef
 	$new => undef
 
@@ -56,6 +56,12 @@
 	if (not defined $old)
 	{
 		$an_old = $an_new->GetPrevious;
+		if (not defined $an_old)
+		{
+			# first version of the annotation cannot be diff'ed,
+			# redirect to show annotation page instead.
+			return $m->comp("/comp/redirect", "/edit/annotation/show.html?annotationid=".$new);
+		}
 	}
 	else
 	{
@@ -63,7 +69,6 @@
 		$an_old->SetId($old);
 		$an_old->LoadFromId
 			or return $m->comp("/comp/error", "Annotation #$old not found", 1, 1);
-
 	}
 
 	# check if old and new are annotations of the same object.
