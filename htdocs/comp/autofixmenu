@@ -4,18 +4,12 @@
 			<table cellspacing="0" cellpadding="0" border="0" class="links">
 				<tr>
 					<td class="title">
-						Style guides:</td>
+						Help:</td>
 					<td class="link">
-						<& /comp/linkdoc, "StyleGuidelines", "General Style" &></td>
-					<td>|&nbsp;</td>
+						<& /comp/linkdoc, "StyleGuideline", "Style Guidelines" &></td>
+					<td>&nbsp;</td>
 					<td class="link">
-						<& /comp/linkdoc, "CapitalizationStandard ", "Capitalization" &></td>
-					<td>|&nbsp;</td>
-					<td class="link">
-						<& /comp/linkdoc, "SortNameStyle ", "Sortname" &></td>
-					<td>|&nbsp;</td>
-					<td class="link">
-						<& /comp/linkdoc, "ReleaseAttribute ", "Release attributes" &></td>
+						<& /comp/linkdoc, "CapitalizationStandard ", "Capitalization Standards" &></td>
 				</tr>
 			</table>
 		</div>
