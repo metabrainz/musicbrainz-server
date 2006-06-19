@@ -59,12 +59,14 @@
 		$op_remove and
 		!$checkreleases{"removed"})
 	{
-		$j = $num_releases-1;
+		$j = $num_releases - 1;
 		delete $ARGS{"rls_year-$j"};
 		delete $ARGS{"rls_month-$j"};
 		delete $ARGS{"rls_day-$j"};
 		delete $ARGS{"rls_country-$j"};
 		delete $ARGS{"rls_id-$j"};
+
+		$num_releases--;
 	}
 
 	# we don't need this flag anymore, remove it.
