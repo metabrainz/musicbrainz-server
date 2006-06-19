@@ -182,9 +182,11 @@
 		<& /comp/sidebar-notitle, pagetitle => "Lookup returned no match." &>
 		<& /comp/tablebegin, title => "Lookup returned no match." &>
 
-		<& /comp/form/feedbackbox",
+		<& /comp/form/feedbackbox,
 				"info", "",
 				qq!No CD found with the <strong>TOC</strong>: $toc.! &>
+
+		<& .ShowSubmitForm, \%info &>
 
 <%perl>
 
