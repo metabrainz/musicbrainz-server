@@ -350,9 +350,9 @@
 			{ name => "Forgot Password",	url => "/user/forgot-password.html",	 	login => 0 },
 		],
 
-		{ name => "Contribute",				url => "/doc/Contribute" },
+		{ name => "Contribute",				url => "/doc/HowToContribute" },
 		[
-			{ name => "How to Contribute",		url => "/doc/Contribute" },
+			{ name => "How to Contribute",		url => "/doc/HowToContribute" },
 			{ name => "Sponsors",				url => "/doc/CorporateSponsors" },
 			{ name => "Help Wanted",			url => "/doc/HelpWanted" },
 			{ name => "Development",			url => "/doc/Development" },
