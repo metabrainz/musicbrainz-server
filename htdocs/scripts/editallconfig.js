@@ -130,15 +130,15 @@ function ReleaseEditor() {
 					s.push('</td></tr>');
 
 					// draw the checkbox which can be used to toggle the relationship editors
-					s.push('<tr><td>');
-					s.push('<input name="v::editrelationships" value="1" type="checkbox" class="checkbox" ');
-					s.push(' onclick="'+this.GID+'.onRelEditClicked(this)" ');
-					s.push(editrelationships == 1 ? ' checked="checked" ' : '');
-					s.push(mb.ua.ie ? ' style="margin-top: -3px; margin-left: -3px; margin-right: 1px;" ' : '');
-					s.push('title="Click this checkbox if you want to edit relationships" />');
-					s.push('</td><td>');
-					s.push('Show relationship editors');
-					s.push('</td></tr>');
+					// s.push('<tr><td>');
+					// s.push('<input name="v::editrelationships" value="1" type="checkbox" class="checkbox" ');
+					// s.push(' onclick="'+this.GID+'.onRelEditClicked(this)" ');
+					// s.push(editrelationships == 1 ? ' checked="checked" ' : '');
+					// s.push(mb.ua.ie ? ' style="margin-top: -3px; margin-left: -3px; margin-right: 1px;" ' : '');
+					// s.push('title="Click this checkbox if you want to edit relationships" />');
+					// s.push('</td><td>');
+					// s.push('Show relationship editors');
+					// s.push('</td></tr>');
 					s.push('</table>');
 					obj.innerHTML = s.join("");
 
