@@ -32,7 +32,7 @@
 	$albumid => undef
 	$expandids => undef
 	$expand_all => undef
-	$show_mods => undef
+	$show_edits => undef
 
 </%args>
 <%perl>
@@ -41,8 +41,8 @@
 	$m->comp("/comp/checkloggedin", 1, 1)
 		or return;
 
-	# redirect to moderations listing of this annotation object.
-	if ($show_mods)
+	# redirect to edits listing of this annotation object.
+	if ($show_edits)
 	{
 		my %filter = (
 			mod_type => [ &ModDefs::MOD_ADD_ALBUM_ANNOTATION ],
@@ -57,7 +57,7 @@
 		);
 	}
 
-	# redirect to moderations listing of this annotation object.
+	# redirect to edits listing of this annotation object.
 	MusicBrainz::IsNonNegInteger($albumid) && $albumid
 		or return $m->comp("/comp/layout/badarguments", "The albumid argument is invalid.");
 
@@ -86,7 +86,7 @@
 					$expand_all ? "" : "&amp;expand_all=1",
 					$expand_all ? "Collapse list" : "Expand list");
 
-	$m->out(qq!<li><a href="/edit/annotation/album/history.html?albumid=$albumid&amp;show_mods=1">Show moderations</a></li>!);
+	$m->out(qq!<li><a href="/edit/annotation/album/history.html?albumid=$albumid&amp;show_edits=1">Show edits</a></li>!);
 
  	unless (@$annotations)
  	{
