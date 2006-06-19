@@ -68,7 +68,7 @@
 
 my $result = $m->cache->get("anyoldkey");
 
-if (!defined($result)) 
+if (!defined($result))
 {
 	$result = $m->scomp(".GetData");
 	$result = { HTML=> $result, TIME=>time() };
@@ -85,4 +85,5 @@ if (!defined($result))
 <% $result->{HTML} |n %>
 
 <& /comp/footer &>
-%# vi: set ts=2 sw=2 ft=mason :
+
+%# vi: set ts=4 sw=4 ft=mason :

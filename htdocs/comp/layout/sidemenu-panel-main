@@ -27,6 +27,7 @@
 	# $Id$
 	#
 </%perl>
+
 % 	my $ext = qq!<img src="/images/icon/extlink.gif" border="0" alt="" />!;
 % 	$ext = "";
 
@@ -35,7 +36,7 @@
 			<li>
 				<a href="http://musicbrainz.org/" title="Go to the master MusicBrainz server">Master Server</a></li>
 			<li>
-				<a href="/about/mirrors.html" title="Find a mirror site"><b>&middot;</b> Find a Mirror</a></li>
+				<a href="/doc/MirrorServer" title="Find a mirror site"><b>&middot;</b> Find a Mirror</a></li>
 			<li>
 				<a href="http://metabrainz.org/" title="The MetaBrainz Foundation">MetaBrainz</a></li>
 			<li>

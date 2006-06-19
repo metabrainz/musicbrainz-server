@@ -1,4 +1,4 @@
-﻿<%perl>
+<%perl>
 	# -----------------------------------------------------------------------------
 	#                               Musicbrainz.org
 	#                        Copyright (c) 2001 Robert Kaye
@@ -59,3 +59,4 @@
 <& /comp/footer &>
 
 %# vi: set ts=4 sw=4 ft=mason :
+ 

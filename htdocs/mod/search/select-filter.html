@@ -26,6 +26,11 @@
 	# $Id$
 	#
 </%perl>
+
+%	# only logged in users can see this page.
+%	$m->comp("/comp/checkloggedin", 1, 1)
+%		or return;
+
 <& /comp/sidebar-notitle, pagetitle => "Review and Vote on Edits" &>
 
 	<& /comp/tablebegin, title => "Review and Vote on Edits" &>

@@ -16,32 +16,50 @@
 	# the component returns true.
 	return 1 if ($session{uid} and $hasConfirmedEmail);
 
-	# start page, and box output.
-	$m->comp("/comp/sidebar-notitle", pagetitle => $title) if $fHeader;
-	$m->comp("/comp/tablebegin", title => $title);
-
-	if ($session{uid} and not $hasConfirmedEmail)
-	{
-		$m->out(qq!	 You have to add a working e-mail address to your account !);
-		$m->out(qq!	 and complete the verification process, to be able to submit your own edits. !);
-
-		$m->out(qq!  <form method="get" action="/user/edit.html" style="margin-top: 5px"> !);
-		$m->out(qq!    <input type="submit" value="Add e-mail address &raquo;" /> !);
-		$m->out(qq!  </form> !);
-
-		$m->comp("/comp/user/privacy");
-
-	}
-	else
-	{
-		$m->comp("/comp/loginbox");
-	}
-
-	# finish box, and page.
-	$m->comp("/comp/tableend");
-	$m->comp("/comp/footer") if $fFooter;
-	return 0;
-
 </%perl>
+
+%	# start page, and box output.
+
+%	if ($fHeader)
+%	{
+
+	<& /comp/sidebar-notitle, pagetitle => $title &>
+
+%	}
+
+	<& /comp/tablebegin, title => $title &>
+
+%	if ($session{uid} and not $hasConfirmedEmail)
+%	{
+
+		You have to add a working e-mail address to your account
+		and complete the verification process, to be able to review other edits,
+		and submit your own.
+
+		<form method="get" action="/user/edit.html" style="margin-top: 5px">
+			<input type="submit" value="Add e-mail address &raquo;" />
+		</form>
+
+		<& /comp/user/privacy &>
+
+%	}
+%	else
+%	{
+
+		<& /comp/loginbox &>
+
+%	}
+
+%	# finish box, and page.
+	<& /comp/tableend &>
+
+%	if ($fFooter)
+%	{
+
+	<& /comp/footer &>
+
+%	}
+
+%	return 0;
 
 %# vi: set ts=4 sw=4 ft=mason :

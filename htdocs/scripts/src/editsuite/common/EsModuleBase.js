@@ -67,7 +67,7 @@ function EsModuleBase() {
 	/**
 	 * Setup module configuration (register Buttons, etc.)
 	 *
-	 * ï¿½ Can be implemented by a subclassed Module
+	 * - Can be implemented by a subclassed Module
 	 **/
 	this.setupModuleDelegate =  function() {
 		// override me
@@ -316,7 +316,7 @@ function EsModuleBase() {
 		for (var i=0; i<this.CONFIG_LIST.length; i++) {
 			var cb = this.CONFIG_LIST[i];
 			var helpText = cb.getHelpText();
-			helpText = helpText.replace("'", "ï¿½"); // make sure overlib does not choke on single-quotes.
+			helpText = helpText.replace("'", "´"); // make sure overlib does not choke on single-quotes.
 			s.push('<input type="checkbox" name="');
 			s.push(this.CONFIG_CHECKBOX);
 			s.push('" id="');

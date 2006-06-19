@@ -23,6 +23,10 @@
 
 	use vars qw( $mainmenuHTML $staticmenuHTML $popupmenuHTML );
 
+	# prepare the menu html fragments, they are written out
+	# in /comp/header, and /comp/footer
+	$m->comp("/comp/layout/topmenu");
+
 	$m->clear_buffer;
 
 </%perl>
@@ -83,14 +87,10 @@
 						<a href="/"><img src="/images/spacer.gif" alt="" title="MusicBrainz" /></a></td>
 					<td class="header_mainmenu">
 						<div class="mainmenu">
-<%perl>
 
-	# prepare the menu html fragments, they are written out
-	# in /comp/header, and /comp/footer
-	$m->comp("/comp/layout/topmenu");
-	$m->out($mainmenuHTML);
 
-</%perl>
+							<% $mainmenuHTML |n %>
+
 						</div></td>
 				</tr>
 			</table>
