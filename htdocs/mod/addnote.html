@@ -80,8 +80,11 @@
 			{
 				$errormsg = qq!<p>Bad or unknown <strong>editid</strong> $editid.</p>!;
 			}
-			elsif (MusicBrainz::IsSingleLineString($notetext)
-				   and $notetext =~ /\S/)
+			elsif ($notetext !~ /\S/)
+			{
+				$errormsg = qq!<p>Empty message entered, not saved.</p>!;
+			}
+			else
 			{
 				my $sql = Sql->new($mb->{DBH});
 

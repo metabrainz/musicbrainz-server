@@ -108,7 +108,8 @@ sub mark_up_text_as_html
 								extended => 1,
 								absolute_links => 0,
 								implicit_links => 1
-							});
+							})
+		if ($html =~ /\S/);
 
 	$html =~ s/<\/?p[^>]*>//g;
 	$html =~ s/<br[^>]*\/?>//g;
