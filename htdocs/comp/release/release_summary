@@ -100,14 +100,14 @@
 		my $language = $release->GetLanguage;
 		my $script = $release->GetScript;
 
-		$m->out(qq!<a href="/popup/ReleaseLanguage" title="POPUP::Release_Language::400::300">!);
+		$m->out(qq![&nbsp;<a href="/popup/ReleaseLanguage" title="POPUP::Release_Language::400::300">!);
 		$m->out(sprintf qq!<span%s>%s, %s</span>!,
 				$release->GetLanguageModPending() ? ' class="mp"' : "",
 				$language ? $language->GetName() : "?",
 				$script ?  $script->GetName() : "?");
 
 		$editwhat = "";
-		$m->out("</a>");
+		$m->out("</a>&nbsp;]");
 	}
 
 	if ($session{"uid"} and $showmodlinks)
@@ -121,7 +121,7 @@
 
 
 	# 3. Release Attributes
-	$m->out(qq!<td class="attributes">!);
+	$m->out(qq!<td class="attributes">[&nbsp;!);
  	if (!$nonalbum)
 	{
 		my @attrs = $release->GetAttributes();
@@ -145,7 +145,7 @@
 		{
 			$m->out("None");
 		}
-	    $m->out("</a>");
+	    $m->out("</a>&nbsp;]");
 	}
 
     if ($session{"uid"} and $showmodlinks)
