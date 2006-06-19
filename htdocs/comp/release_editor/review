@@ -623,7 +623,7 @@
 %	push @buttons, [$ARGS{"SUBMIT_CANCEL"},""];
 %	push @buttons, [$ARGS{"SUBMIT_STARTOVER"},""] if ($releaseid);
 %	push @buttons, [$ARGS{"SUBMIT_KEEPEDITING"},""];
-%	push @buttons, [$ARGS{"SUBMIT_ENTERMODERATIONS"},""];
+%	push @buttons, [$ARGS{"SUBMIT_ENTERMODERATIONS"},""] if ($releasechanges or $trackchanges);
 
 
 				<& /comp/notetext,
