@@ -29,12 +29,13 @@
 <%args>
 
 	$noncd => 0
+	$releaseid => 0
 	$submitvalue => undef
 
 </%args>
 
 %	# freedb import help-box.
-%	if (!$noncd)
+%	if (!$noncd && !$releaseid)
 %	{
 
 		<tr>
