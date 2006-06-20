@@ -56,9 +56,13 @@
 		{
 			$steps = ["Lookup CD", "Select Artist", "Select Release", "Enter Information", "Finish"];
 		}
-		if ($freedbid ne "")
+		elsif ($freedbid ne "")
 		{
 			$steps = ["FreeDB Import", "Select Release Type", "Enter Information", "Finish"];
+		}
+		else
+		{
+			$steps = ["Enter Information", "Finish"];
 		}
 	}
 
