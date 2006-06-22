@@ -977,7 +977,7 @@ EOF
 		From		=> $self->GetForwardingAddressHeader,
 		# To: $edit_user (automatic)
 		"Reply-To"	=> 'Nobody <noreply@musicbrainz.org>',
-		Subject		=> "Note added to your edit #$edit",
+		Subject		=> "Note added to your edit #$editid",
 		Type		=> "text/plain",
 		Encoding	=> "quoted-printable",
 		Data		=> $body,
@@ -1050,7 +1050,7 @@ EOF
 		From		=> $self->GetForwardingAddressHeader,
 		# To: $other_user (automatic)
 		"Reply-To"	=> 'Nobody <noreply@musicbrainz.org>',
-		Subject		=> "Note added to edit #$edit",
+		Subject		=> "Note added to edit #$editid",
 		Type		=> "text/plain",
 		Encoding	=> "quoted-printable",
 		Data		=> $body,
