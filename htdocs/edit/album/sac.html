@@ -34,7 +34,7 @@
 	$releaseid => ""
 
 	# fields set by /comp/artistfilter
-	$selectedartist => ""
+	$artistfilter_newartistid => ""
 	$newartistid => ""
 	$search => ""
 
@@ -70,10 +70,10 @@
 	# form step 2/3: load selected artist from the database, and
 	# fill in the required fields
 	my $newartist = undef;
-	$selectedartist ||= $newartistid;
-	if ($selectedartist ne "")
+	$artistfilter_newartistid ||= $newartistid;
+	if ($artistfilter_newartistid ne "")
 	{
-		$newartist = $m->comp("/comp/loadartist", $mb, $selectedartist);
+		$newartist = $m->comp("/comp/loadartist", $mb, $artistfilter_newartistid);
 		$newartistid = $newartist->GetId;
 	}
 
@@ -97,7 +97,7 @@
 			my $returnurl = "/edit/album/sac.html";
 			my %returnargs;
 			$returnargs{"releaseid"} = $releaseid;
-			$returnurl = sprintf "$returnurl?%s&selectedartist=", $m->comp("/comp/args-to-querystring.inc", %returnargs);
+			$returnurl = sprintf "$returnurl?%s&artistfilter_newartistid=", $m->comp("/comp/args-to-querystring.inc", %returnargs);
 			$returnurl = uri_escape($returnurl);
 
 			# prepare url for redirecting to artist form
@@ -245,7 +245,8 @@
 			<table class="formstyle">
 				<& /comp/artistfilter,
 					search => $search,
-					submitvalue => $submitvalue, &>
+					submitvalue => $submitvalue,
+				&>
 			</table>
 
 			<div>

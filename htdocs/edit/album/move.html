@@ -36,7 +36,7 @@
 
 	# fields set by /comp/artistfilter
 	$search => ""
-	$selectedartist => ""
+	$artistfilter_newartistid => ""
 	$newartistid => ""
 
 	# default for move tracks flag
@@ -48,6 +48,7 @@
 
 </%args>
 <%perl>
+
 	# use new terminology, copy over entries from
 	# album list to releaseid list.
 	if (@releaseid < @album) { for (@album) { push @releaseid, $_; } }
@@ -103,10 +104,10 @@
 	# form step 2/3: load selected artist from the database, and
 	# fill in the required fields
 	my $newartist = undef;
-	$selectedartist ||= $newartistid;
-	if ($selectedartist ne "")
+	$artistfilter_newartistid ||= $newartistid;
+	if ($artistfilter_newartistid ne "")
 	{
-		$newartist = &$GetCachedArtist($selectedartist);
+		$newartist = &$GetCachedArtist($artistfilter_newartistid);
 		$newartistid = $newartist->GetId;
 	}
 
@@ -122,6 +123,34 @@
 
 			$m->comp("/comp/redirect", $url);
 		}
+
+		# The add new artist button was pressed
+		elsif ($submitvalue =~ m/Add New Artist/i)
+		{
+			# prepare returnurl for add artist form
+			my $returnurl = "/edit/album/move.html";
+			my %returnargs;
+			$returnargs{"releaseid"} = \@releaseid;
+
+			$returnurl = sprintf "$returnurl?%s&artistfilter_newartistid=", $m->comp("/comp/args-to-querystring.inc", %returnargs);
+			$returnurl = uri_escape($returnurl);
+
+			# prepare url for redirecting to artist form
+			my $addartisturl = "/edit/artist/add.html?name=$search&returnurl=$returnurl";
+			return $m->comp("/comp/redirect", $addartisturl);
+		}
+
+		# important: pressing the select other artist button or the
+		# search button has to clear the selected artist possibly
+		# selected before (or the first of the list of found artists
+		# in the search results if the search was triggered
+		# automatically).
+		elsif ($submitvalue =~ m/Select Other Artist|Search/i)
+		{
+			$newartist = undef;
+			$newartistid = undef;
+		}
+
 		elsif ($submitvalue =~ m/Enter Edit/i and
 			   defined $newartist)
 		{
