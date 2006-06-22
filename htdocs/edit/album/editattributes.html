@@ -35,10 +35,19 @@
 			or return $m->comp("/comp/badargs", 1, 1);
 
 		my $release = $m->comp("/comp/loadrelease", $mb, $releaseid);
-		push @releaseobjs, $release;
 
-		# track release artists in artisthash
-		++$artisthash{$release->GetArtist};
+		# skip [non-album tracks] release.
+		if (!$release->IsNonAlbumTracks)
+		{
+			push @releaseobjs, $release;
+			++$artisthash{$release->GetArtist};
+		}
+	}
+
+	# if no editable releases were provided
+	if (not @releaseobjs)
+	{
+		return $m->comp("/comp/layout/badarguments", text => "No editable releases provided.");
 	}
 
 	# we got a form submission

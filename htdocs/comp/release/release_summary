@@ -95,7 +95,7 @@
 	# 2. Release Language
 	my $editwhat = "&nbsp;Language";
 	my $nonalbum = $release->IsNonAlbumTracks();
- 	if (!$nonalbum)
+	if (!$nonalbum)
 	{
 		my $language = $release->GetLanguage;
 		my $script = $release->GetScript;
@@ -108,52 +108,52 @@
 
 		$editwhat = "";
 		$m->out("</a>&nbsp;]");
-	}
 
-	if ($session{"uid"} and $showmodlinks)
-	{
-		$m->out(sprintf qq!&nbsp;<a href="/edit/albumlanguage/edit.html?id=%s" title="%s">Edit%s</a>!,
-						$release->GetId(),
-						"Edit Language and Script of this Release",
-						$editwhat);
-	}
-	$m->out(qq!&nbsp;|</td>\n!);
-
-
-	# 3. Release Attributes
-	$m->out(qq!<td class="attributes">[&nbsp;!);
- 	if (!$nonalbum)
-	{
-		my @attrs = $release->GetAttributes();
-	    $m->out(qq!<a href="/popup/ReleaseAttribute" title="POPUP::Release_Attributes::400::300">!);
-	    if (scalar(@attrs) > 0)
-	    {
-			$m->out(sprintf qq!<span%s>!, $release->GetAttributeModPending() ? ' class="mp"' : "");
-
-			my $count = 0;
-			for my $attr (@attrs)
-			{
-				my $attrname = $release->GetAttributeName($attr) || "?";
-				$m->out(",&nbsp;") if ($count > 0);
-				$m->out($attrname);
-				$count++;
-			}
-
-	      	$m->out("</span>");
-		}
-		else
+		if ($session{"uid"} and $showmodlinks)
 		{
-			$m->out("None");
+			$m->out(sprintf qq!&nbsp;<a href="/edit/albumlanguage/edit.html?id=%s" title="%s">Edit%s</a>!,
+							$release->GetId(),
+							"Edit Language and Script of this Release",
+							$editwhat);
 		}
-	    $m->out("</a>&nbsp;]");
-	}
+		$m->out(qq!&nbsp;|</td>\n!);
 
-    if ($session{"uid"} and $showmodlinks)
-    {
-        $m->out(sprintf qq!&nbsp;<a href="/edit/album/editattributes.html?id=%s" title="%s">Edit</a>!,
-        				$release->GetId(),
-        				"Edit Language and Script of this Release",);
-    }
+
+		# 3. Release Attributes
+		$m->out(qq!<td class="attributes">[&nbsp;!);
+		if (!$nonalbum)
+		{
+			my @attrs = $release->GetAttributes();
+			$m->out(qq!<a href="/popup/ReleaseAttribute" title="POPUP::Release_Attributes::400::300">!);
+			if (scalar(@attrs) > 0)
+			{
+				$m->out(sprintf qq!<span%s>!, $release->GetAttributeModPending() ? ' class="mp"' : "");
+
+				my $count = 0;
+				for my $attr (@attrs)
+				{
+					my $attrname = $release->GetAttributeName($attr) || "?";
+					$m->out(",&nbsp;") if ($count > 0);
+					$m->out($attrname);
+					$count++;
+				}
+
+				$m->out("</span>");
+			}
+			else
+			{
+				$m->out("None");
+			}
+			$m->out("</a>&nbsp;]");
+		}
+
+		if ($session{"uid"} and $showmodlinks)
+		{
+			$m->out(sprintf qq!&nbsp;<a href="/edit/album/editattributes.html?id=%s" title="%s">Edit</a>!,
+							$release->GetId(),
+							"Edit Language and Script of this Release",);
+		}
+	}
 
 </%perl>
 
