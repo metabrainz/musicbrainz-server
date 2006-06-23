@@ -24,7 +24,7 @@ Quick steps:
   wget ftp://ftp.musicbrainz.org/pub/musicbrainz/data/puidjoin.dat
   cd <mb_server location>
   cvs -z9 update -r RELEASE_20060310-BRANCH -dP
-  ./upgrade
+  ./upgrade.sh
   cd admin/replication
   ./LoadReplicationChanges
   cd -
@@ -56,7 +56,7 @@ merge conflicts. Resolve the conflicts as necessary before proceeding
 to the next step.
 6. In the same directory, run the upgrade script:
 
-      ./upgrade
+      ./upgrade.sh
 
 This will load the data files downloaded to /tmp and import then into 
 the database.
