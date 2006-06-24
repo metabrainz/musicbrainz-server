@@ -884,6 +884,7 @@ table.Subs tr.r1 td {
 }
 
 /* WIKIDOCS: offical (wikidocs) pages have bold links */
+.wikidocs a,
 .wikidocs a.official {
 	font-weight: bold;
 }
@@ -978,5 +979,30 @@ table.Subs tr.r1 td {
 	padding: 0px;
 }
 
+
+/* copied from wiki css: /-/musicbrainz/css/common.css */
+.wikidocs pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+	white-space: pre;
+
+	/* begin css 3 or browser specific rules - do not remove!
+	see: http://forums.techguy.org/archive/index.php/t-249849.html */
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    /* end css 3 or browser specific rules */
+}
+
+
+/* copied from wiki css: /-/musicbrainz/css/common.css */
+.wikidocs hr,
+.wikidocs .separator {
+	color: gray
+}
 
 /* eof */
