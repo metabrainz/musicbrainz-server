@@ -137,7 +137,7 @@
 				$page =~ s[href="http:/(\w)]['href="http://' . $server . "/$1"]eg; # <-- this hack makes vim happy
 
 				# remove intertwingled links to non-existent pages.
-				$page =~ s[<a class="nonexistent" href=".+?">\?</a>][]g;
+				$page =~ s/<a class="nonexistent" [^>]+>([^<]+)<\/a>/$1/g;
 
 				my $temp = "";
 				while(1)

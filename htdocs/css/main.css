@@ -878,7 +878,7 @@ table.Subs tr.r1 td {
 
 /* WIKIDOCS: unoffical (copied) pages are visually distinct */
 .wikidocs div.unofficial {
-	border: 2px dotted #ccc;
+	border: 2px dotted #000;
 	padding: 10px;
 	/* background-image: url(/images/wikidocs/draft.png); */
 }
