@@ -1,23 +1,56 @@
-%# vi: set ts=2 sw=2 ft=mason :
-<& /comp/sidebar, title=>'Editing Suggestions' &>
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# Render the list of available reports (editing suggestions)
+	#
+	# $Id$
+	#
+</%perl>
 
-% if (&DBDefs::REPLICATION_TYPE == RT_SLAVE) {
+<& /comp/sidebar, title=>"Editing Suggestions" &>
 
-<p>
-	The moderation suggestion reports are only available on the
-	<a href="http://musicbrainz.org/reports">main server</a>.
-</p>
+% 	if (&DBDefs::REPLICATION_TYPE == RT_SLAVE)
+%	{
 
-% } else {
+	<p>
+		The editing suggestion reports are only available on the
+		<a href="http://musicbrainz.org/reports">main server</a>.
+	</p>
+
+% 	}
+%	else
+%	{
+
 	<p>
 		The following links show pages that are likely to contain data that
-		does not conform to the style guidelines.&nbsp; If you'd like to participate in
-		the moderation process, but don't know where to start, check out these
-		pages:
+		does not conform to the style guidelines. If you'd like to participate in
+		the editing process, but do not know where to start, check out these pages:
 	</p>
 
 	<ul>
-%# This is in the same order as comp/sitemenu
+
+%# This is in the same order as comp/layout/topmenu
+
 		<li><a href="/reports/generated/SuspectTrackCharacters/">Data that contains questionable characters</a></li>
 		<li><a href="/reports/generated/TooManyCapitals/">Data with too many capital letters</a></li>
 		<li><a href="/reports/generated/NoUpperCase/">Data with no capital letters</a></li>
@@ -25,21 +58,25 @@
 		<li><a href="/reports/generated/WrongCharset/">Tracks which are probably encoded using the wrong character set</a></li>
 		<li><a href="/reports/generated/DuplicateArtists/">Possibly duplicate artists</a></li>
 		<li><a href="/reports/generated/FeaturingArtists/">Tracks with broken featuring artist tags</a></li>
-		<li><a href="/reports/generated/AlbumsToConvert/">Albums which might need converting to "multiple artists"</a></li>
+		<li><a href="/reports/generated/AlbumsToConvert/">Releases which might need converting to "multiple artists"</a></li>
 		<li><a href="/reports/generated/TRMsWithManyTracks/">TRM collisions</a></li>
-		<li><a href="/reports/generated/DuplicateTRMsPerAlbum/">TRMs that appear more than once on an album</a></li>
+		<li><a href="/reports/generated/DuplicateTRMsPerAlbum/">TRMs that appear more than once on a release</a></li>
 		<li><a href="/reports/generated/TracksWithManyTRMs/">Multiple TRMs</a></li>
-		<li><a href="/reports/generated/DuplicateTRMsPerAlbum/">Duplicate TRMs per Album</a></li>
+		<li><a href="/reports/generated/DuplicateTRMsPerAlbum/">Duplicate TRMs per release</a></li>
 		<li><a href="/reports/generated/TracksNamedWithSequence/">Tracks whose names include their sequence numbers</a></li>
-		<li><a href="/reports/generated/DuplicateTrackNumbers/">Albums with duplicated track numbers</a></li>
-		<li><a href="/reports/generated/BrokenDiscIDs/">Albums with "broken" disc IDs</a></li>
+		<li><a href="/reports/generated/DuplicateTrackNumbers/">Releases with duplicated track numbers</a></li>
+		<li><a href="/reports/generated/BrokenDiscIDs/">Releases with "broken" disc IDs</a></li>
 		<li><a href="/reports/generated/BadWin32CDTOCs/">Incorrect disc IDs submitted by Windows clients</a></li>
-		<li><a href="/reports/generated/SuperfluousDataTracks/">Albums with superfluous data tracks</a></li>
-		<li><a href="/reports/generated/DuplicateAlbums/">Albums that might need merging</a></li>
+		<li><a href="/reports/generated/SuperfluousDataTracks/">Releases with superfluous data tracks</a></li>
+		<li><a href="/reports/generated/DuplicateAlbums/">Releases that might need merging</a></li>
 		<li><a href="/reports/generated/DuplicateArtists2/">More possibly duplicate artists</a></li>
-		<li><a href="/reports/generated/NoLanguage/">Albums without language but script</a></li>
-		<li><a href="/reports/generated/NoScript/">Albums without script but language</a></li>
+		<li><a href="/reports/generated/NoLanguage/">Releases without language but script</a></li>
+		<li><a href="/reports/generated/NoScript/">Releases without script but language</a></li>
+
 	</ul>
-% }
+
+% 	}
 
 <& /comp/footer &>
+
+%# vi: set ts=4 sw=4 ft=mason :
