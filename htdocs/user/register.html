@@ -56,7 +56,7 @@
 
 		if ($email eq "" && $emailconfirm eq "")
 		{
-			push @$createlogin, "Please enter an e-mail address or activate the 'No e-mail' checkbox ";
+			push @$createlogin, "Please enter an e-mail address or confirm that you do not want to provide one";
 		}
 		else
 		{
@@ -160,7 +160,7 @@
 						<%perl>
 							$m->out($emailconfirm ne "" ? qq! checked="checked" ! : "");
 						</%perl> />
-						<label for="id_emailconfirm">Yes, I do not want to enter an e-mail address.</label></td>
+						<label for="id_emailconfirm">I do not want to provide an e-mail address.</label></td>
 			</tr>
 			<tr>
 				<td>&nbsp;</td>
