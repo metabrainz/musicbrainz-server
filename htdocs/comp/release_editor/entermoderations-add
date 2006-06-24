@@ -118,7 +118,41 @@
 		}
 		my $new = "";
 
-		# build release sql.
+		# retrieve 1..n tracks from the arguments
+		my $trackdata = "";
+		my $realtracks = 0;
+		for (my $i = 0; $i < $tracks; $i++)
+		{
+			# skip deleted tracks, and use internal counter ($i) to
+			# handle track offsets.
+			if (!$ARGS{"trackdel$i"})
+			{
+				MusicBrainz::TrimInPlace($ARGS{"track$i"});
+				$trackdata .= "Track" . ($i + 1) . "=" . $ARGS{"track$i"} . "\n";
+				if ($toc ne "")
+				{
+					my $dur = int((($offsets[$i+1] - $offsets[$i])*1000)/75);
+					$trackdata .= "TrackDur" . ($i + 1) . "=" . $dur . "\n";
+				}
+				else
+				{
+					my $length = Track::UnformatTrackLength($ARGS{"tracklength$i"});
+					$length = 0 if $length < 0;
+					$trackdata .= "TrackDur" . ($i + 1) . "=" . $length . "\n";
+				}
+				if ($hasmultipletrackartists)
+				{
+					my $new_artistid = $ARGS{sprintf "tr%d_artistid", $i};
+					$trackdata .= "ArtistID" . ($i + 1) . "=" . $new_artistid . "\n";
+				}
+				$realtracks++;
+			}
+		}
+		# update $tracks variable with real number of tracks
+		# ($tracks-number of deleted tracks)
+		$tracks = $realtracks;
+
+		# build release data.
 		if (!defined $artistid)
 		{
 			MusicBrainz::TrimInPlace($artistname, $sortname);
@@ -132,30 +166,7 @@
 		$new .= "TOC=$toc\n" if ($toc ne "");
 		$new .= "FreedbId=$freedbid\n" if ($freedbid ne "");
 		$new .= "FreedbCat=$freedbcat\n" if ($freedbcat ne "");
-
-
-		# retrieve 1..n tracks from the arguments
-		for (my $i = 0; $i < $tracks; $i++)
-		{
-			MusicBrainz::TrimInPlace($ARGS{"track$i"});
-			$new .= "Track" . ($i + 1) . "=" . $ARGS{"track$i"} . "\n";
-			if ($toc ne "")
-			{
-				my $dur = int((($offsets[$i+1] - $offsets[$i])*1000)/75);
-				$new .= "TrackDur" . ($i + 1) . "=" . $dur . "\n";
-			}
-			else
-			{
-				my $length = Track::UnformatTrackLength($ARGS{"tracklength$i"});
-				$length = 0 if $length < 0;
-				$new .= "TrackDur" . ($i + 1) . "=" . $length . "\n";
-			}
-			if ($hasmultipletrackartists)
-			{
-				my $new_artistid = $ARGS{sprintf "tr%d_artistid", $i};
-				$new .= "ArtistID" . ($i + 1) . "=" . $new_artistid . "\n";
-			}
-		}
+		$new .= $trackdata;
 
 		# retrieve the release-dates and countries from the arguments
 		for my $j (sort map { /^rls_year-(\d+)$/ ? ($1) : () } keys %ARGS)

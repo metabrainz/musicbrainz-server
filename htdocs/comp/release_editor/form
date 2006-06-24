@@ -637,24 +637,7 @@
 %	# GUESS ALL, NEXT
 %	# -------------------------------------------------------------------------
 				<tr>
-					<td colspan="3">&nbsp;</td>
-					<td colspan="2">
-						<& /comp/form/buttonsubmit,
-							value => $ARGS{"SUBMIT_NEXT"},
-							tabindex => ++$tabindex,
-							validate => 1 &>
-
-						&nbsp;&nbsp;&nbsp;
-
-						<& /comp/form/buttonsubmit,
-							value => $ARGS{"SUBMIT_STARTOVER"},
-							tabindex => ++$tabindex, &>
-
-						<& /comp/form/buttonsubmit,
-							value => $ARGS{"SUBMIT_CANCEL"},
-							tabindex => ++$tabindex, &>
-
-					</td>
+					<td colspan="5">&nbsp;</td>
 					<td colspan="2">
 						<& /comp/form/jsbutton, id => "BTN_ALL" &>
 					</td>
@@ -735,6 +718,17 @@
 							value => $ARGS{"SUBMIT_NEXT"},
 							tabindex => ++$tabindex,
 							validate => 1 &>
+
+						&nbsp;&nbsp;&nbsp;
+
+						<& /comp/form/buttonsubmit,
+							value => $ARGS{"SUBMIT_STARTOVER"},
+							tabindex => ++$tabindex, &>
+
+						<& /comp/form/buttonsubmit,
+							value => $ARGS{"SUBMIT_CANCEL"},
+							tabindex => ++$tabindex, &>
+
 					</td>
 				</tr>
 			</table>

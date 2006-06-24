@@ -133,6 +133,10 @@
 		push @relorig, $rel;
 	}
 
+	# if editmode is true, we're editing a release, else
+	# we're adding one.
+	my $editmode = $ARGS{"v::action"} ne "/cdi/enter.html";
+
 	# prepare 1..n track objects
 	my @deletedtracks;
 	my @tracks;
@@ -226,6 +230,7 @@
 					<td class="autoedit"><& .isAutoEdit, &ModDefs::MOD_ADD_ALBUM &></td>
 				</tr>
 
+%				$releasechanges++;
 %			}
 %			else
 %			{
