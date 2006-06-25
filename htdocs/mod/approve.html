@@ -92,12 +92,17 @@
 			if (!$url);
 
 		# The approve button was clicked.
-		if ($submitvalue !~ m/Cancel/i)
+		if ($submitvalue =~ m/Cancel/i)
+		{
+			# redirect to calling page.
+			return $m->comp("/comp/redirect", $url);
+		}
+		else
 		{
 			MusicBrainz::TrimInPlace($notetext);
 
 			# Approve the edit
-			if ($optionalNote or $notetext)
+			if ($optionalNote or $notetext ne "")
 			{
 				my $sql = Sql->new($mb->{DBH});
 				eval {
@@ -137,11 +142,11 @@
 					$m->comp("/comp/footer");
 					return undef;
 				};
+
+				# redirect to calling page.
+				return $m->comp("/comp/redirect", $url);
 			}
 		}
-
-		# redirect to calling page.
-		return $m->comp("/comp/redirect", $url);
 	}
 
 </%perl>
@@ -164,16 +169,16 @@
 			</tr>
 
 
-% 	if ($submitvalue ne "")
+% 	if ($submitvalue ne "" && !$optionalNote && $notetext eq "")
 %	{
-%		if (!$optionalNote && !$notetext)
-%		{
 
-			<tr colspan="2" class="spaced">
-				<td class="error">You must provide a edit note in order to approve this edit.</td>
+			<tr class="spaced">
+				<td>&nbsp;</td>
+				<td>
+					<& /comp/form/feedbackbox, "warning", "Edit note required!",
+						"You must provide a edit note in order to approve this edit." &></td>
 			</tr>
 
-%		}
 %	}
 
 			<tr class="top">
@@ -188,8 +193,9 @@
 				<td class="label">New Value:</td>
 				<td><%perl>$edit->ShowNewValue($m, 0);</%perl></td>
 			</tr>
-			<tr>
-				<td></td>
+
+			<tr class="spaced">
+				<td>&nbsp;</td>
 				<td>
 					<& /comp/notetext,
 						buttons => [ ["Cancel"], ["Approve Edit", "btnYes"]],
