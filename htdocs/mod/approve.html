@@ -50,6 +50,9 @@
 		or return $m->comp("/comp/layout/badarguments",
 			text => "The argument <strong>editid</strong is either missing or invalid.");
 
+	# check volatile preferences (like autoeditor flag)
+	$m->comp("/comp/user/check-volatile-preferences", %ARGS);
+
 	# Instantiate MusicBrainz object, and load the edit
 	# from the database.
 	my $mb = $m->comp("/comp/dblogin");
@@ -190,7 +193,9 @@
 				<td>
 					<& /comp/notetext,
 						buttons => [ ["Cancel"], ["Approve Edit", "btnYes"]],
-						required => !$optionalNote &>
+						required => !$optionalNote,
+						showprivscheckbox => 0
+					&>
 
 					<input type="hidden" name="editid" value="<% $editid %>" />
 					<input type="hidden" name="url" value="<% $url %>" />
