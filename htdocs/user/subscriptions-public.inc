@@ -35,12 +35,9 @@
 </%args>
 <%perl>
 
-	# return $m->comp("/comp/error", "Public subscription lists are not released until Tue Mar 15 20:30:00 2005 UTC", 1, 1)
-	# 	unless time() >= 1110918600;
-
 	my $uid = $user->GetId;
 	my $name = $user->GetName;
-	$m->comp("/comp/sidebar", title => "Artist Subscriptions for \"$name\"");
+	$m->comp("/comp/sidebar-notitle", pagetitle => "Artist Subscriptions for \"$name\"");
 
 </%perl>
 
@@ -58,31 +55,37 @@
 % 	my $row = 0;
 % 	my @colours = ('#fff', '#ffe1b7');
 
-<center>
+	<& /comp/tablebegin, title => "Subscribed Artists for \"$name\"" &>
 
-	<table class="SpacedColumns" style="width: 30em">
-		<caption>Subscribed Artists</caption>
-		<col />
-		<col style="width: 4em" />
-
-% 	for my $artist (@$info)
+% 	if (not @$info)
 %	{
 
+		No subscribed artists found.
+
+%	}
+%	else
+%	{
+
+	<table class="SpacedColumns" style="width: 30em">
+
+% 		for my $artist (@$info)
+%		{
+
 		<tr style="background-color: <% $colours[++$row % @colours] %>">
-			<td><a href="/showartist.html?artistid=<% $artist->{artist} %>"
-				><% $artist->{name} %></a></td>
-			<td nowrap>[
-				<a href="/mod/search/pre/artist.html?artistid=<% $artist->{artist} %>">Edits</a>
-			]</td>
+			<td>
+				<& /comp/linkartist, id => $artist->{artist}, name => $artist->{name}, resolution =>  $artist->{resolution} &></td>
+			<td>
+				[&nbsp;<a href="/mod/search/pre/artist.html?artistid=<% $artist->{artist} %>">Edits</a>&nbsp;]</td>
 		</tr>
 
-% 	}
+% 		}
 
 	</table>
 
-</center>
+% 	}
+
+	<& /comp/tableend &>
 
 <& /comp/footer &>
 
 %# vi: set ts=4 sw=4 ft=mason :
- 

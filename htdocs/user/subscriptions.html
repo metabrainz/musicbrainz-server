@@ -139,7 +139,8 @@
 
 			<tr class="r<% $row++ % 2 %>">
 				<td><input type="checkbox" name="artistid" value="<% $artist->{artist} %>" /></td>
-				<td class="a"><a href="/showartist.html?artistid=<% $artist->{artist} %>"><% $artist->{name} %></a> <% $artist->{resolution} ? "($artist->{resolution})" : "" %></td>
+				<td class="a">
+					<& /comp/linkartist, id => $artist->{artist}, name => $artist->{name}, resolution =>  $artist->{resolution} &></td>
 				<td>[ <a href="/mod/search/pre/artist.html?artistid=<% $artist->{artist} %>">Edits</a> ]</td>
 			</tr>
 % 		}
