@@ -65,11 +65,6 @@ my @all = qw(
 	admin/reports/WrongCharset
 );
 
-@all = qw(
-	admin/reports/TracksWithoutTimes
-);
-
-
 # The primary purpose of this script is to be able to run the reports, saving
 # the output to a temporary file, then instantaneously switching the new
 # report into the place of the old one.  Thus there is no window during which

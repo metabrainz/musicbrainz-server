@@ -215,8 +215,8 @@ kbd.KbdBlock {
 }
 .SpacedRows td,
 .SpacedRows th {
-	padding-top: 0.2em;
-	padding-bottom: 0.2em;
+	padding-top: 1px;
+	padding-bottom: 1px;
 	empty-cells: show;
 }
 .SpacedColumns td,
@@ -648,7 +648,7 @@ td.trk *, td.did *, td.trm *, td.rdate * { vertical-align: middle }
 
 /* Reports */
 #Report tr.shade { color: #000; background-color: #eee; }
-#Report td.head { color: #000; background-color: #eee; font-weight: bold; padding-top: 0.5em; padding-bottom: 0.5em; }
+#Report td.head { color: #000; background-color: #eee; padding-top: 2px; padding-bottom: 2px; }
 #Report td.link { text-align: center; white-space: nowrap; }
 
 /* topmods.html */
