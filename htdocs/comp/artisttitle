@@ -81,10 +81,10 @@
 
 		$m->out(sprintf qq!<a href="/show/permlink.html?id=$mbid&amp;type=artist" title="Link to this artist">Copy link</a>!, uri_escape($name));
 		$m->out(qq! | <a href="/show/artist/details.html?artistid=$id" title="Artist Details">Details</a>!);
-		$m->out(qq! | <a href="/showaliases.html?artistid=$id" title="Artist Aliases">Aliases</a>!);
+		$m->out(qq! | <a href="/show/artist/aliases.html?artistid=$id" title="Artist Aliases">Aliases</a>!);
 		if ($id != &ModDefs::VARTIST_ID)
 		{
-			$m->out(qq! | <a href="/showartist.html?artistid=$id" title="Releases of this Artist">Releases</a>!);
+			$m->out(qq! | <a href="/show/artist/?artistid=$id" title="Releases of this Artist">Releases</a>!);
 		}
 		else
 		{
@@ -92,7 +92,7 @@
 		}
 		if ($id != &ModDefs::VARTIST_ID)
 		{
-			$m->out(qq! | <a href="/artistrel.html?artistid=$id" title="Related Artists">Related&nbsp;artists</a> | !);
+			$m->out(qq! | <a href="/show/artist/similar.html?artistid=$id" title="Similar Artists">Similar&nbsp;artists</a> | !);
 			$m->comp("/comp/googlelink", search => $name, text => "Search&nbsp;Google", raw => 1);
 		}
 		if ($session{uid})
@@ -129,7 +129,7 @@
 				if (my @non = $al->FindNonAlbum($id))
 				{
 					my $nonid = $non[0]->GetMBId;
-					$m->out(qq!| <a href="/showalbum.html?mbid=$nonid">Non-album tracks</a>!);
+					$m->out(qq!| <a href="/show/release/?mbid=$nonid">Non-album tracks</a>!);
 
 				} else {
 					$m->out(qq!| <a href="/edit/track/addnonalbum.html?artistid=$id">Add non-album tracks</a>!);

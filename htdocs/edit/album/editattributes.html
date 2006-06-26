@@ -75,7 +75,7 @@
 				@id == 1
 					? "/release/" . $releaseobjs[0]->GetMBId . ".html"
 					: keys(%artisthash) == 1
-						? "/showartist.html?artistid=".$releaseobjs[0]->GetArtist
+						? "/show/artist/?artistid=".$releaseobjs[0]->GetArtist
 						: "/search.html";
 
 			$m->comp(

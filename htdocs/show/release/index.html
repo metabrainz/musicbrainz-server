@@ -46,6 +46,11 @@
 </%args>
 <%perl>
 
+	# backwards compability: redirect to cdlookup page if discid is provided
+	use URI::Escape qw( uri_escape );
+	return $m->comp("/comp/redirect", "/bare/cdlookup.html?id=" . uri_escape($discid))
+		if defined $discid;
+
 	# check arguments
 	if ($mbid ne "")
 	{
@@ -61,11 +66,6 @@
 	# check tagger session stuff
 	UserStuff::EnsureSessionOpen(), $session{mbt} = 1 if $mbt;
 	UserStuff::EnsureSessionOpen(), $session{tport} = $tport if $tport;
-
-	# backwards compability: redirect to cdlookup page if discid is provided
-	use URI::Escape qw( uri_escape );
-	return $m->comp("/comp/redirect", "/bare/cdlookup.html?id=" . uri_escape($discid))
-		if defined $discid;
 
 	# Instantiate MusicBrainz object, and load release entities
 	my $mb = $m->comp("/comp/dblogin");

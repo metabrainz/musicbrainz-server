@@ -29,7 +29,9 @@
 	#
 </%perl>
 <%args>
+
 	$reset => 0
+
 </%args>
 <%perl>
 
@@ -100,7 +102,7 @@
 	# if all releases are by one artist, the "add more" link
 	# points to the artist page, else the general search.
 	my $more_releases_url = "/search.html";
-	$more_releases_url = "/showartist.html?artistid=$artistid" if $artistid;
+	$more_releases_url = "/show/artist/?artistid=$artistid" if $artistid;
 
 </%perl>
 
@@ -146,9 +148,9 @@
 							<td>
 								<form method="post" action="/edit/albumbatch/merge.html">
 									<div>
-% 	for (@releaseids) {
-										<input type="hidden" name="album" value="<% $_ %>" />
-% 	}
+
+% 	for (@releaseids) { $m->comp("/comp/form/hiddenfield", "releaseid", $_); }
+
 										<input type="hidden" name="mac" value="0" />
 										<input type="submit" value="Single Artist &raquo;" <% (@releaseObjs < 2) ? qq!disabled="disabled"! : "" |n %> />
 									</div>
@@ -157,9 +159,9 @@
 							<td>
 								<form method="post" action="/edit/albumbatch/merge.html">
 									<div>
-% 	for (@releaseids) {
-										<input type="hidden" name="album" value="<% $_ %>" />
-% 	}
+
+% 	for (@releaseids) { $m->comp("/comp/form/hiddenfield", "releaseid", $_); }
+
 										<input type="hidden" name="mac" value="1" />
 										<input type="submit" value="Various Artists &raquo;" <% (@releaseObjs < 2) ? qq!disabled="disabled"! : "" |n %> />
 									</div>
@@ -168,17 +170,25 @@
 						</tr>
 					</table>
 
-% 	if (@releaseObjs < 2) {
+% 	if (@releaseObjs < 2)
+%	{
+
 					<div style="margin: 5px 0px; border: 1px dotted red; padding: 5px">
-%		$m->out(sprintf qq!<form method="get" action="%s">!, ($artistid ? "/showartist.html" : "/search.html"));
+
+%		$m->out(sprintf qq!<form method="get" action="%s">!, ($artistid ? "/show/artist/" : "/search.html"));
+
 							<div>
+
 %		$m->out(qq!<input type="hidden" name="artistid" value="$artistid" />!) if ($artistid);
+
 								<input type="submit" value="Select More &raquo;" />
 								You have to select at least two releases for a merge edit.
 							</div>
 						</form>
 					</div>
+
 %	}
+
 				</td>
 			</tr>
 
@@ -187,9 +197,9 @@
 				<td>
 					<form method="post" action="/edit/album/move.html">
 						<div>
-% 	for (@releaseids) {
-							<input type="hidden" name="album" value="<% $_ %>" />
-% 	}
+
+% 	for (@releaseids) { $m->comp("/comp/form/hiddenfield", "releaseid", $_); }
+
 							<input type="submit" value="Move &raquo;" />
 						</div>
 					</form>
@@ -201,9 +211,9 @@
 				<td>
 					<form method="post" action="/edit/albumbatch/remove.html">
 						<div>
-% 	for (@releaseids) {
-							<input type="hidden" name="releaseid" value="<% $_ %>" />
-% 	}
+
+% 	for (@releaseids) { $m->comp("/comp/form/hiddenfield", "releaseid", $_); }
+
 							<input type="submit" value="Remove &raquo;" />
 						</div>
 					</form>
@@ -215,9 +225,9 @@
 				<td>
 					<form method="post" action="/edit/album/editattributes.html">
 						<div>
-% 	for (@releaseids) {
-							<input type="hidden" name="id" value="<% $_ %>" />
-% 	}
+
+% 	for (@releaseids) { $m->comp("/comp/form/hiddenfield", "id", $_); }
+
 							<input type="hidden" name="untag" value="1" />
 							<input type="submit" value="Edit Attributes &raquo;" />
 							Apply release attributes to all selected releases.
@@ -231,9 +241,9 @@
 				<td>
 					<form method="post" action="/edit/albumlanguage/edit.html">
 						<div>
-% 	for (@releaseids) {
-							<input type="hidden" name="id" value="<% $_ %>" />
-% 	}
+
+% 	for (@releaseids) { $m->comp("/comp/form/hiddenfield", "id", $_); }
+
 							<input type="hidden" name="untag" value="1" />
 							<input type="submit" value="Edit Language &raquo;" />
 							Change the language and/or script of all selected releases.
@@ -258,7 +268,7 @@
 		</table>
 	<& /comp/tableend &>
 
-	<& /comp/layout/editformbegin, title => "With selected Releases, do...", mp => 1 &>
+	<& /comp/layout/editformbegin, title => "With selected releases, do...", mp => 1 &>
 		<table>
 			<tr>
 				<td style="padding-right: 40px; white-space: nowrap">
@@ -271,16 +281,15 @@
 					<form method="post" action="/edit/albumbatch/done.html" id="BatchOp">
 						<div id="batchop::removereleases">
 							<input type="hidden" name="url" value="<% $referer %>" />
-							<input type="hidden" name="reset" value="1" />
 
-%  	for my $release (@releaseObjs) {
-							<input type="hidden" name="releaseid<% $release->GetId() %>" value="on" />
-%  	}
+% 	for (@releaseids) { $m->comp("/comp/form/hiddenfield", "releaseid".$_, "on"); }
+
 						</div>
 					</form>
 				</td>
 			</tr>
 		</table>
+
 		<script type="text/javascript" src="/scripts/collapsereleases.js"></script>
 	<& /comp/layout/editformend &>
 
@@ -298,7 +307,7 @@
 		{
 			$ar = $m->comp("/comp/loadartist", $mb, $release->GetArtist);
 
-			$m->out("<div>Artist: ");
+			$m->out(qq!<div style="margin-bottom: 2px">Artist: !);
 			$m->comp("/comp/linkartist", artist => $ar);
 			$m->out("</div>");
 		}

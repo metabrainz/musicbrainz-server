@@ -15,36 +15,16 @@
 					<div class="inner"><b>Search</b></div>
 				</div>
 				<div class="boxcontent">
-					<div class="inner" style="text-align: center">
-						<& /comp/lucenesearch, type=>'artist' &>
+					<div class="inner">
+						<& /comp/lucenesearch,
+							type => "artist" &>
 						<hr />
 
-						<& /comp/search/form, name=>'Disc ID / FreeDB ID Lookup',
-							scripturl=>'/showalbum.html',
-							searchfield=>'discid',
-							method=>'get' &>
-						<hr />
-
-%#						<& /comp/search/form, name=>'PUID Lookup',
-%#							scripturl=>'/showpuid.html',
-%#							searchfield=>'puid',
-%#							method=>'get' &>
-%#						<hr />
-
-						<& /comp/search/form, name=>'TRM ID Lookup',
-							scripturl=>'/showtrm.html',
-							searchfield=>'trm',
-							method=>'get' &>
-						<hr />
-
-						<& /comp/search/form, name=>'Moderator Lookup',
-							scripturl=>'/user/view.html',
-							searchfield=>'modname',
-							method=>'get' &>
+						<& /comp/google-site-search &>
 						<hr />
 
 						<div style="text-align: center">
-							<a href="/search/external.html">Search other sites</a>
+							<a href="/search/external.html">Search other sites &raquo;</a>
 						</div>
 					</div>
 				</div>
@@ -52,7 +32,7 @@
 
 				<!-- advanced search -->
 				<div class="orangeheader">
-					<div class="inner"><b>Advanced Search</b></div>
+					<div class="inner"><b>Advanced Search (Tag Lookup)</b></div>
 				</div>
 				<div class="boxcontent">
 					<div class="inner" style="text-align: center">
@@ -63,11 +43,39 @@
 
 				<!-- site search -->
 				<div class="orangeheader">
-					<div class="inner"><b>Site Search</b></div>
+					<div class="inner"><b>Lookup</b></div>
 				</div>
 				<div class="boxcontent">
-					<div class="inner" style="text-align: center">
-						<& /comp/google-site-search &>
+					<div class="inner">
+
+						<& /comp/search/form, name => "Disc ID:",
+							scripturl => "/bare/cdlookup.html",
+							searchfield => "discid",
+							method => "get" &>
+						<hr />
+
+						<& /comp/search/form, name => "FreeDB ID:",
+							scripturl => "/bare/cdlookup.html",
+							searchfield => "freedbid",
+							method => "get" &>
+						<hr />
+
+						<& /comp/search/form, name => "PUID:",
+							scripturl => "/show/puid/",
+							searchfield => "puid",
+							method => "get" &>
+						<hr />
+
+						<& /comp/search/form, name => "TRM ID:",
+							scripturl => "/show/trm/",
+							searchfield => "trm",
+							method => "get" &>
+						<hr />
+
+						<& /comp/search/form, name => "Editor:",
+							scripturl => "/show/user/",
+							searchfield => "username",
+							method => "get" &>
 					</div>
 				</div>
 			</td>
@@ -97,7 +105,9 @@
 					</div>
 				</div>
 
-%	if (&DBDefs::REPLICATION_TYPE != RT_SLAVE) {
+%	if (&DBDefs::REPLICATION_TYPE != RT_SLAVE)
+%	{
+
 				<!-- browse releases -->
 				<div class="orangeheader">
 					<div class="inner"><b>Contribute</b></div>
@@ -111,7 +121,9 @@
 					</div>
 				</div>
 
-%		if ($session{user} ne "") {
+%		if ($session{user} ne "")
+%		{
+
 				<div class="orangeheader">
 					<div class="inner"><b>Login</b></div>
 				</div>
@@ -124,14 +136,16 @@
 				</div>
 
 				<div class="orangeheader">
-					<div class="inner"><b>Moderate</b></div>
+					<div class="inner"><b>Vote on Edits</b></div>
 				</div>
 				<div class="boxcontent">
 					<div class="inner" style="text-align: center">
-						<a href="/mod/search/pre/new.html">Vote/Moderate</a> MusicBrainz.
+						<a href="/mod/search/pre/new.html">Vote on Edits</a>
 					</div>
 				</div>
-%		} else {
+%		}
+%		else
+%		{
 
 				<div class="orangeheader">
 					<div class="inner"><b>Login</b></div>

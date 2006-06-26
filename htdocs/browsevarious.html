@@ -192,7 +192,7 @@
 
 					$m->out(sprintf qq!<td class="browsenr">%d.</td>!, $i + 1 + ($row++*$rows) + $offset);
 					$m->out(sprintf qq!<td class="browsename%s">!, ($_->GetModPending ? " modpending" : ""));
-					$m->out(sprintf qq!<a href="/showalbum.html?albumid=%d" title="%s">%s</a></td>!,
+					$m->out(sprintf qq!<a href="/show/release/?releaseid=%d" title="%s">%s</a></td>!,
 						$_->GetId,
 						$albummeta,
 						encode_entities($_->GetName));

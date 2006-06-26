@@ -38,7 +38,7 @@
 <%perl>
 
 	my $trackcount = $album->GetTrackCount();
-	my $link = "/showartist.html?artistid=" . $artist->GetId() . "&ex=";
+	my $link = "/show/artist/?artistid=" . $artist->GetId() . "&ex=";
 
 	$ex .= "," . $album->GetId();
 	$ex =~ s/^,//g;

@@ -67,7 +67,9 @@
 	}
 
 	# if neither discid nor toc are provided, abort.
-	if (not defined $id and not defined $toc)
+	if (not defined $freedbid and
+		not defined $discid and
+		not defined $toc)
 	{
 		return $m->comp("/comp/layout/badarguments",
 			text => qq!You need to pass a Disc ID <strong>discid</strong>
@@ -105,18 +107,25 @@
 %		my $text = "";
 %		if ($discid)
 %		{
-			$text .= $m->scomp("/comp/linkdoc", "DiscID", "Disc ID");
-			$text .= "$discid";
+			<& /comp/form/feedbackbox, "warning", "",
+				qq!	No release found with the given !
+				  . $m->scomp("/comp/linkdoc", "DiscID", "Disc ID")
+				  . qq! <code>$discid</code> ! &>
+
+			Please try again.
 
 %		}
 %		else
 %		{
-			$text .= "<strong>FreeDB ID</strong>: $freedbid";
+
+			<& /comp/form/feedbackbox, "warning", "",
+				qq!	No release found with the given <strong>FreeDB ID
+					</strong> <code>$freedbid</code>.! &>
+
+			Please try again.
 
 %		}
 
-		<& /comp/form/feedbackbox, "warning", "",
-				qq!No release found with the given $text! &>
 
 <%perl>
 		}

@@ -61,7 +61,7 @@
 	{
 		my ($id, $url);
 
-		$url = "/showartist.html?artistid=" . $artist->GetId();
+		$url = "/show/artist/?artistid=" . $artist->GetId();
 		$id = $album->GetId();
 		$ex =~ s/(^|\D)$id(\D|$)/$1$2/g;
 		$ex =~ s/,,/,/g;

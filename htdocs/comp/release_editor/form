@@ -567,9 +567,9 @@
 %		# MULTIPLETRACKARTISTS: ARTISTNAME FIELD,
 %		# -------------------------------------------------------------------------
 %
-%		my $showartist = $hasmultipletrackartists ? "" : "display: none";
+%		my $artistcss = $hasmultipletrackartists ? "" : "display: none";
 
-				<tr id="track_artist::tr::<% $i %>::" style="<% $showartist %>" class="trackartist <% $i % 2 == 0 ? "even" : "odd" %>">
+				<tr id="track_artist::tr::<% $i %>::" style="<% $artistcss %>" class="trackartist <% $i % 2 == 0 ? "even" : "odd" %>">
 					<td class="label">
 						<& /comp/form/label, id => "id_$artistnamefield", title => "Artist" &>
 					</td>

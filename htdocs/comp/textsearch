@@ -1,54 +1,58 @@
 <%args>
-	$default => 'artist'
+
+	$default => "artist"
 	$limit => 25
-	$text => ''
+	$text => ""
+
 </%args>
 <%perl>
+
 	$default = lc $default;
 	my $lucenesearch = '/search/textsearch.html?limit=' . $limit . '&type=' . ($default eq 'album' ? 'release' : $default) . '&query=' . uri_escape($text);
+
 </%perl>
 
 <form method="get" action="/search/oldsearch.html" class="formstyle" id="TextSearchForm">
-<table class="formstyle">
-	<tr>
-		<td class="labelnopad"><label for="id_search">Search for:</label></td>
-		<td>
-			<input type="text" name="search" id="id_search" value="<% $text %>" size="30" /></td>
-	</tr>
-	<tr>
-		<td class="labelnopad"><label for="id_table">Type:</label></td>
-		<td>
-			<select name="table" id="id_table">
-				<option value="artist" <% ($default eq 'artist') ? 'selected="selected"' : '' |n %>>Artists</option>
-				<option value="album" <% ($default eq 'album') ? 'selected="selected"' : '' |n %>>Albums</option>
-				<option value="track" <% ($default eq 'track') ? 'selected="selected"' : '' |n %>>Tracks</option>
-			</select>
-		</td>
-	</tr>
-	<tr>
-		<td class="labelnopad"><label for="id_limit">Limit to:</label></td>
-		<td>
-			<select name="limit" id="id_limit">
-				<option value="25" <% ($limit eq 25) ? 'selected="selected"' : '' |n %>>Up to 25</option>
-				<option value="50" <% ($limit eq 50) ? 'selected="selected"' : '' |n %>>Up to 50</option>
-				<option value="100" <% ($limit eq 100) ? 'selected="selected"' : '' |n %>>Up to 100</option>
-				<option value="0" <% ($limit eq '0') ? 'selected="selected"' : '' |n %>>All</option>
-		  </select>
-		</td>
-	</tr>
-	<tr>
-		<td></td>
-		<td>
-			<input type="submit" value="Direct Search &raquo;" title="Start search..." />
-		</td>
-	</tr>
-	<tr>
-		<td></td>
-		<td>
-			[ <a href="<% $lucenesearch %>" title="Search for the same query using the Indexed Search...">Indexed search</a> ]
-		</td>
-	</tr>
-</table>
+	<table class="formstyle">
+		<tr>
+			<td class="labelnopad"><label for="id_search">Search for:</label></td>
+			<td>
+				<input type="text" name="search" id="id_search" value="<% $text %>" size="30" /></td>
+		</tr>
+		<tr>
+			<td class="labelnopad"><label for="id_table">Type:</label></td>
+			<td>
+				<select name="table" id="id_table">
+					<option value="artist" <% ($default eq 'artist') ? 'selected="selected"' : '' |n %>>Artists</option>
+					<option value="album" <% ($default eq 'album') ? 'selected="selected"' : '' |n %>>Albums</option>
+					<option value="track" <% ($default eq 'track') ? 'selected="selected"' : '' |n %>>Tracks</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td class="labelnopad"><label for="id_limit">Limit to:</label></td>
+			<td>
+				<select name="limit" id="id_limit">
+					<option value="25" <% ($limit eq 25) ? 'selected="selected"' : '' |n %>>Up to 25</option>
+					<option value="50" <% ($limit eq 50) ? 'selected="selected"' : '' |n %>>Up to 50</option>
+					<option value="100" <% ($limit eq 100) ? 'selected="selected"' : '' |n %>>Up to 100</option>
+					<option value="0" <% ($limit eq '0') ? 'selected="selected"' : '' |n %>>All</option>
+			  </select>
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+				<input type="submit" value="Direct Search &raquo;" title="Start search..." />
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+				[ <a href="<% $lucenesearch %>" title="Search for the same query using the Indexed Search...">Indexed search</a> ]
+			</td>
+		</tr>
+	</table>
 </form>
 
 %# vi: set ts=4 sw=4 ft=mason :
