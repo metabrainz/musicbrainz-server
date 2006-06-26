@@ -133,11 +133,13 @@
 						name => $track->{'artist_name'},
 						sortname => $track->{'artist_sortname'},
 						resolution => $track->{'artist_resolution'},
+						strong => 0
 					&></td>
 				<td>
 					<& /comp/linktrack,
 						id => $track->{'track_id'},
-						name => $track->{'track_name'}
+						name => $track->{'track_name'},
+						strong => 0
 					&></td>
 				<td>
 					<% Track::FormatTrackLength($track->{'length'}) %></td>

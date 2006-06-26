@@ -140,7 +140,7 @@
 
 		<tr>
 			<td <% ($ar->{obj}->GetModPending) ? 'class="mp"' : '' |n %>>
-				<& /comp/linkartist, artist => $ar->{obj} &>
+				<& /comp/linkartist, artist => $ar->{obj}, strong => 0 &>
 			</td>
 			<td>
 				<% $ar->{obj}->GetSortName %>

@@ -27,16 +27,16 @@
 	#
 </%perl>
 
-<& /comp/sidebar, title => "Releases with Duplicate Track Numbers" &>
+<& /comp/sidebar-notitle, pagetitle => "Releases with Duplicate Track Numbers" &>
 
 <%perl>
 
 	$ARGS{"report_title"} =
-		qq!Tracks which contain the word "unknown"!;
+		qq!Releases with Duplicate Track Numbers!;
 
 	$ARGS{"report_text"} =
-		qq!	This report identifies albums where at least one track number appears more
-			than once (e.g. there are two "track 4"s).!;
+		qq!	This report identifies releases where at least one track
+			number appears more than once (e.g. there are two "track 4"s).!;
 
 	$m->comp("/reports/show_albums.inc", %ARGS);
 

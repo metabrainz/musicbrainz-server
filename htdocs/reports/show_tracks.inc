@@ -126,6 +126,7 @@
 					name => $row->{'artist_name'},
 					sortname => $row->{'artist_sortname'},
 					resolution => $row->{'artist_resolution'},
+					strong => 0
 				&>
 
 % 				$j = 0;
@@ -141,7 +142,9 @@
 
 			<td class="left padright">
 				<span <% ($tr->GetModPending) ? 'class="mp"' : '' |n %>>
-				<& /comp/linktrack, id => $row->{track_id}, name => $row->{track_name} &>
+				<& /comp/linktrack, id => $row->{track_id}, name => $row->{track_name},
+					strong => 0
+				&>
 				</span></td>
 			<td class="left padright">
 				[

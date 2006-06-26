@@ -152,10 +152,10 @@
 
 		<tr>
 			<td <% ($ar->GetModPending) ? 'class="mp"' : '' |n %>>
-				<& /comp/linkartist, artist => $artist &>
+				<& /comp/linkartist, artist => $ar, strong => 0 &>
 
 			<td <% ($al->GetModPending) ? 'class="mp"' : '' |n %>>
-				<& /comp/linkrelease, release => $al &>
+				<& /comp/linkrelease, release => $al, strong => 0 &>
 
 			<td style="text-align: right">
 				<% $al->GetTrackCount %></td>

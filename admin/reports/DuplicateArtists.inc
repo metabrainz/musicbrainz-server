@@ -117,7 +117,7 @@
 		<tr class="<% $j++ % 2 == 0 ? "even" : "odd" %>">
 			<td class="left padright">
 				<span <% ($ar->GetModPending) ? 'class="mp"' : '' |n %>>
-				<& /comp/linkartist, artist => $ar &></td>
+				<& /comp/linkartist, artist => $ar, strong => 0 &></td>
 				</span>
 			<td class="left padright">
 				<% $ar->GetSortName %></td>

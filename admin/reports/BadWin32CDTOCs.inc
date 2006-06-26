@@ -60,80 +60,92 @@
 
 </%perl>
 
-<& /comp/sidebar, title => "Incorrect DiscIDs submitted by Windows clients " &>
+<& /comp/sidebar-notitle, pagetitle => "Incorrect DiscIDs submitted by Windows clients " &>
 
-<p>
-    This report lists pairs of CD TOCs which are identical except for the
-    leadout offset, which differs by exactly two seconds.
-</p>
+	<& /comp/tablebegin, title => "Releases with duplicate TRMs for different tracks" &>
+		<ul>
+			<li> This report lists pairs of CD TOCs which are identical except for the
+    			leadout offset, which differs by exactly two seconds.</li>
+			<li>Total Pairs found: <% $rep->Records %></li>
+			<li>Generated <% $m->comp('/comp/datetime', $rep->Time) %></li>
+		</ul>
 
-<p>Pairs found: <% $rep->Records %></p>
+% 	if ($rep->Records)
+%	{
 
-% if ($rep->Records) {
-<& /comp/framedboxbegin, width=>"100%" &>
-<& /comp/pageselector,
-	numitems	=> $rep->Records,
-  numlinks	=> 6,
-  snaptoend	=> 2,
-  pagesize	=> $pagesize,
-  offset		=> $offset,
-	url				=> $r->uri,
-	args			=> { pagesize => $pagesize },
-	&>
-<& /comp/framedboxend &>
-<br><br>
-% }
+		<& /comp/browse/pageselector,
+			numitems => $rep->Records,
+			numlinks => 6,
+			snaptoend => 2,
+			pagesize => $pagesize,
+			offset => $offset,
+			url => $r->uri,
+			args => { pagesize => $pagesize },
+		&>
 
-% if ($rep->Position < $rep->Records) {
+% 	}
 
-<table id="Report" class="SpacedRows SpacedColumns TopAlignCells">
-	<thead>
-		<tr>
-			<th></th>
-			<th colspan="2">Shorter CD TOC</th>
-			<th colspan="2">Longer CD TOC</th>
-		</tr>
-		<tr>
-			<th>Info</th>
-			<th>Artist</th>
-			<th>Album</th>
-			<th>Artist</th>
-			<th>Album</th>
-		</tr>
-	</thead>
-	<%perl>
-	my $n = 0;
-	for my $i (0 .. $pagesize-1)
-	{
-		my $row = $rep->Get or last;
+	<& /comp/tableend &>
 
-		my $summary = (
-			($row->{'album_id_1'} == $row->{'album_id_2'})
-			? "same album"
-			: ($row->{'artist_name_1'} eq $row->{'artist_name_2'}
-				and $row->{'album_name_1'} eq $row->{'album_name_2'})
-			? "same name"
-			: "other"
-		);
 
-		</%perl>
-		<tr <% (++$n%2) ? 'class="shade"' : '' |n %>>
-			<td><% $summary %></td>
-			<td><a href="/showartist.html?artistid=<% $row->{'artist_id_1'} %>"><% $row->{'artist_name_1'} %></a></td>
-			<td><a href="/albumdetail.html?albumid=<% $row->{'album_id_1'} %>&amp;disciddetail=both"><% $row->{'album_name_1'} %></a></td>
-			<td><a href="/showartist.html?artistid=<% $row->{'artist_id_2'} %>"><% $row->{'artist_name_2'} %></a></td>
-			<td><a href="/albumdetail.html?albumid=<% $row->{'album_id_2'} %>&amp;disciddetail=both"><% $row->{'album_name_2'} %></a></td>
-		</tr>
-		<%perl>
+% 	if ($rep->Position < $rep->Records)
+%	{
 
-	}
-</%perl>
+	<table id="Report" class="SpacedRows SpacedColumns TopAlignCells">
+		<thead>
+			<tr>
+				<th></th>
+				<th colspan="2">Shorter CD TOC</th>
+				<th colspan="2">Longer CD TOC</th>
+			</tr>
+			<tr>
+				<th>Info</th>
+				<th>Artist</th>
+				<th>Album</th>
+				<th>Artist</th>
+				<th>Album</th>
+			</tr>
+		</thead>
 
-</table>
+<%perl>
 
-% }
+		my $n = 0;
+		for my $i (0 .. $pagesize-1)
+		{
+			my $row = $rep->Get or last;
 
-<p>Generated <% $m->comp('/comp/datetime', $rep->Time) %></p>
+			my $summary = (
+				($row->{'album_id_1'} == $row->{'album_id_2'})
+				? "same album"
+				: ($row->{'artist_name_1'} eq $row->{'artist_name_2'}
+					and $row->{'album_name_1'} eq $row->{'album_name_2'})
+				? "same name"
+				: "other"
+			);
+
+			</%perl>
+			<tr <% (++$n%2) ? 'class="shade"' : '' |n %>>
+				<td>
+					<% $summary %></td>
+				<td>
+					<& /comp/linkartist, id => $row->{'artist_id_1'}, name => $row->{'artist_name_1'},
+						sortname => $row->{'artist_sortname_1'}, resolution => $row->{'artist_resolution_1'}
+						strong => 0 &></td>
+				<td>
+					<a href="/show/release/detail.html?releaseid=<% $row->{'album_id_1'} %>&amp;disciddetail=both"><% $row->{'album_name_1'} %></a></td>
+				<td>
+					<& /comp/linkartist, id => $row->{'artist_id_2'}, name => $row->{'artist_name_2'},
+						sortname => $row->{'artist_sortname_2'}, resolution => $row->{'artist_resolution_2'}
+						strong => 0 &></td>
+				<td>
+					<a href="/show/release/detail.html?releaseid=<% $row->{'album_id_2'} %>&amp;disciddetail=both"><% $row->{'album_name_2'} %></a></td>
+			</tr>
+
+%		}
+
+	</table>
+
+%	}
 
 <& /comp/footer &>
 

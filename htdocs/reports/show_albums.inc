@@ -108,9 +108,11 @@
 					name => $row->{'artist_name'},
 					sortname => $row->{'artist_sortname'},
 					resolution => $row->{'artist_resolution'},
+					strong => 0
 				&></td>
 			<td class="left padright">
-				<& /comp/linkrelease, id => $row->{album_id}, name => $row->{album_name} &></td>
+				<& /comp/linkrelease, id => $row->{album_id}, name => $row->{album_name},
+					strong => 0 &></td>
 		</tr>
 
 % 		}

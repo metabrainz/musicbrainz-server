@@ -107,11 +107,13 @@
 					name => $row->{'artist_name'},
 					sortname => $row->{'artist_sortname'},
 					resolution => $row->{'artist_resolution'},
+					strong => 0
 				&></td>
 			<td>
 				<& /comp/linktrack,
 					id => $row->{'track_id'},
-					name => $row->{'track_name'}
+					name => $row->{'track_name'},
+					strong => 0
 				&></td>
 			<td style="text-align: right">
 				<% $row->{trmcount} %></td>
