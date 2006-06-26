@@ -38,6 +38,9 @@
 	$m->comp("/comp/checkloggedin", 1, 1)
 		or return;
 
+	# check volatile preferences (like autoeditor flag)
+	$m->comp("/comp/user/check-volatile-preferences", %ARGS);
+
 	# check if a valid mbid/releaseid was given.
 	if ($mbid ne "") {
 		MusicBrainz::IsGUID($mbid)

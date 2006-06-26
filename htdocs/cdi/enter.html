@@ -58,6 +58,9 @@
 		return;
 	}
 
+	# check volatile preferences (like autoeditor flag)
+	$m->comp("/comp/user/check-volatile-preferences", %ARGS);
+
 	# make sure we got a valid releaseid parameter
 	MusicBrainz::IsNonNegInteger($artistid)
 		or return $m->comp("/comp/layout/badarguments",
