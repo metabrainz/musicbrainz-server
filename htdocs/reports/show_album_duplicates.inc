@@ -33,6 +33,9 @@
 	$page => undef
 	$pagesize => undef
 
+	$report_title => "Browse results"
+	$report_text => ""
+
 </%args>
 <%perl>
 
@@ -64,14 +67,18 @@
 
 </%perl>
 
-	<p>Report generated: <% $m->comp('/comp/datetime', $rep->Time) %></p>
-	<p>Duplicates found: <% $rep->Records %></p>
+	<& /comp/tablebegin, title => $report_title &>
+
+		<ul>
+			<% $report_text ? "<li>$report_text</li>" : "" |n %>
+			<li>Total duplicates found: <% $rep->Records %></li>
+			<li>Report generated: <% $m->comp('/comp/datetime', $rep->Time) %></li>
+		</ul>
 
 % 	if ($rep->Records)
 %	{
 
-	<& /comp/framedboxbegin, width=>"100%" &>
-		<& /comp/pageselector,
+		<& /comp/browse/pageselector,
 			numitems => $rep->Records,
 			numlinks => 6,
 			snaptoend => 2,
@@ -80,12 +87,11 @@
 			url => $r->uri,
 			args => { pagesize => $pagesize },
 		&>
-	<& /comp/framedboxend &>
-
-	<br />
-	<br />
 
 % 	}
+
+	<& /comp/tableend &>
+
 
 % 	if ($rep->Position < $rep->Records)
 %	{
@@ -100,47 +106,47 @@
 
 <%perl>
 
-	for my $i (0 .. $pagesize-1)
-	{
-		my $dupelist = $rep->Get or last;
-		my @section;
-
-		# read album and artist information if the album exists
-		foreach my $entry (@$dupelist)
+		for my $i (0 .. $pagesize-1)
 		{
-			my $al = Album->new($mb->{DBH});
-			$al->SetMBId($entry->{album_mbid});
-			if ($al->LoadFromId(1))
+			my $dupelist = $rep->Get or last;
+			my @section;
+
+			# read album and artist information if the album exists
+			foreach my $entry (@$dupelist)
 			{
-				my $ar = Artist->new($mb->{DBH});
-				$ar->SetId($al->GetArtist);
-				$ar->LoadFromId;
-				push @section, {
-					album_obj => $al,
-					artist_obj => $ar,
-					mac => ($al->GetArtist == &ModDefs::VARTIST_ID) ? 1 : 0
-				};
+				my $al = Album->new($mb->{DBH});
+				$al->SetMBId($entry->{album_mbid});
+				if ($al->LoadFromId(1))
+				{
+					my $ar = Artist->new($mb->{DBH});
+					$ar->SetId($al->GetArtist);
+					$ar->LoadFromId;
+					push @section, {
+						album_obj => $al,
+						artist_obj => $ar,
+						mac => ($al->GetArtist == &ModDefs::VARTIST_ID) ? 1 : 0
+					};
+				}
 			}
-		}
 
-		# this causes the section to be skipped if we don't have enough releases
-		@section = () if @section == 1;
+			# this causes the section to be skipped if we don't have enough releases
+			@section = () if @section == 1;
 
-		# Add information needed for the 'Merge into this' links.
-		foreach my $entry (@section)
-		{
-			foreach my $other (@section)
+			# Add information needed for the 'Merge into this' links.
+			foreach my $entry (@section)
 			{
-				push @{$entry->{others}}, $other->{album_obj}->GetId
-					if $entry->{album_obj}->GetId != $other->{album_obj}->GetId;
+				foreach my $other (@section)
+				{
+					push @{$entry->{others}}, $other->{album_obj}->GetId
+						if $entry->{album_obj}->GetId != $other->{album_obj}->GetId;
+				}
 			}
-		}
 
-		# All data has been gathered. Write the section.
-		foreach my $entry (@section)
-		{
-			my $al = $entry->{album_obj};
-			my $ar = $entry->{artist_obj};
+			# All data has been gathered. Write the section.
+			foreach my $entry (@section)
+			{
+				my $al = $entry->{album_obj};
+				my $ar = $entry->{artist_obj};
 
 </%perl>
 
@@ -157,19 +163,20 @@
 				<a href="/edit/albumbatch/merge.html?album=<% $al->GetId %>&amp;album=<% join('&album=', @{ $entry->{others} }) %>&amp;mac=<% $entry->{mac} %>">Merge into this</a></td>
 		</tr>
 
-%		}
+%			}
 
 		<tr><td>&nbsp;</td></tr>
 
-%	}
+%		}
 
 	</table>
 
 	<br />
 	<br />
 
-	<& /comp/framedboxbegin, width=>"100%" &>
-		<& /comp/pageselector,
+	<& /comp/tablebegin, title => $report_title &>
+
+		<& /comp/browse/pageselector,
 			numitems => $rep->Records,
 			numlinks => 6,
 			snaptoend => 2,
@@ -178,7 +185,8 @@
 			url => $r->uri,
 			args => { pagesize => $pagesize },
 		&>
-	<& /comp/framedboxend &>
+
+	<& /comp/tableend &>
 
 %	}
 

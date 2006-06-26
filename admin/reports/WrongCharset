@@ -37,13 +37,23 @@ sub GatherData
 	my $self = shift;
 
 	$self->GatherDataFromQuery(<<'EOF', [], \&filter);
-		SELECT t.id AS track_id, t.name AS track_name, j.album AS album_id,
-				t.artist AS artist_id, a.name AS artist_name
-		FROM track t, albumjoin j, artist a
-		WHERE t.name !~ '[A-Za-z0-9]'
-			AND t.name NOT IN ('.','...','---','?','???')
-			AND j.track = t.id AND t.artist = a.id
-		ORDER BY a.sortname, j.album, t.name
+		SELECT
+			t.id AS track_id,
+			t.name AS track_name,
+			j.album AS album_id,
+			t.artist AS artist_id,
+			a.name AS artist_name,
+			a.sortname AS artist_sortname,
+			a.resolution AS artist_resolution
+		FROM
+			track t, albumjoin j, artist a
+		WHERE
+			t.name !~ '[A-Za-z0-9]'
+			AND t.name NOT IN ('.', '...', '---', '?', '???')
+			AND j.track = t.id
+			AND t.artist = a.id
+		ORDER
+			BY a.sortname, j.album, t.name
 EOF
 }
 
@@ -55,7 +65,8 @@ sub filter
 	# latin-1, i.e. if it actually has proper characters (e.g. Han,
 	# Thai etc).
 
-	eval {
+	eval
+	{
 		my $t = $row->{track_name};
 		use Encode qw( from_to FB_CROAK );
 		from_to($t, "utf-8", "latin-1", FB_CROAK);

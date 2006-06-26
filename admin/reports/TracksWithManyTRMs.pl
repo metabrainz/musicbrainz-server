@@ -37,17 +37,29 @@ sub GatherData
 	my $self = shift;
 
 	$self->GatherDataFromQuery(<<EOF);
-		SELECT t.id AS track_id, t.name AS track_name, a.id AS artist_id,
-				a.name AS artist_name, trmcount
-		FROM (
-			SELECT track, COUNT(*) AS trmcount
-			FROM trmjoin
-			GROUP BY track
+		SELECT 
+			t.id AS track_id, 
+			t.name AS track_name, 
+			a.id AS artist_id, 
+			a.name AS artist_name, 
+			a.sortname AS artist_sortname, 
+			a.resolution AS artist_resolution,
+			trmcount
+		FROM 
+			(SELECT 
+				track, COUNT(*) AS trmcount
+			FROM 
+				trmjoin
+			GROUP BY 
+				track
 			HAVING COUNT(*) >= 10
-		) tmp
-		INNER JOIN track t ON t.id = tmp.track
-		INNER JOIN artist a ON a.id = t.artist
-		ORDER BY trmcount DESC
+			) tmp
+		INNER JOIN 
+			track t ON t.id = tmp.track
+		INNER JOIN 
+			artist a ON a.id = t.artist
+		ORDER BY 
+			trmcount DESC
 EOF
 }
 

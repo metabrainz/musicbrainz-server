@@ -58,7 +58,14 @@ sub GatherData
 	$self->Log("Querying database");
 	my $sql = $self->SqlObj;
 
-	$sql->Select("SELECT id, name, sortname, modpending FROM artist");
+	$sql->Select("
+		SELECT 
+			id, 
+			name, 
+			sortname, 
+			modpending 
+		FROM 
+			artist");
 
 	while (my @row = $sql->NextRow)
 	{
@@ -69,10 +76,16 @@ sub GatherData
 	$sql->Finish;
 
 	$sql->Select("
-		SELECT l.ref, l.name, '[alias for ' || r.name || ']', l.modpending
-		FROM artistalias l, artist r
-		WHERE r.id = l.ref
-		");
+		SELECT 
+			l.ref, 
+			l.name, 
+			'[alias for ' || r.name || ']', 
+			l.modpending
+		FROM 
+			artistalias l, 
+			artist r
+		WHERE 
+			r.id = l.ref");
 
 	while (my @row = $sql->NextRow)
 	{
@@ -91,15 +104,27 @@ sub GatherData
 		my $dupelist;
 		for (values %$v)
 		{
-			my $na = $sql->SelectSingleValue("SELECT COUNT(*) FROM album WHERE artist = ?", $_->[0]);
-			my $nt = $sql->SelectSingleValue("SELECT COUNT(*) FROM track WHERE artist = ?", $_->[0]);
+			my $na = $sql->SelectSingleValue("
+				SELECT 
+					COUNT(*) 
+				FROM 
+					album
+				WHERE 
+					artist = ?", $_->[0]);
+			my $nt = $sql->SelectSingleValue("
+				SELECT 
+					COUNT(*) 
+				FROM 
+					track 
+				WHERE 
+					artist = ?", $_->[0]);
 
 			push @$dupelist, {
-						artist_id		=> $_->[0],
-						artist_name		=> $_->[1],
-						artist_sortname	=> $_->[2],
-						num_albums		=> $na,
-						num_tracks		=> $nt,
+				artist_id => $_->[0],
+				artist_name => $_->[1],
+				artist_sortname => $_->[2],
+				num_albums => $na,
+				num_tracks => $nt,
 			};
 		}
 

@@ -40,29 +40,46 @@ sub GatherData
 	my $sql = $self->SqlObj;
 
 	$sql->AutoCommit;
-	
+
 	# get artist + album info for TRM dupes.
 	my $rows = $sql->SelectListOfHashes(<<'EOF');
-	SELECT
-		artist.id AS artist_id, artist.name AS artist_name,
-		album.id AS album_id, album.name AS album_name,
-		trm.trm, freq
-	FROM (SELECT album, trm, COUNT(*) AS freq
-			FROM albumjoin INNER JOIN trmjoin USING (track)
-			GROUP BY album, trm
-			HAVING COUNT(*) > 1
-		) tmp
-		INNER JOIN trm ON tmp.trm = trm.id
-		INNER JOIN album ON tmp.album = album.id
-		INNER JOIN artist ON album.artist = artist.id
-	-- order DESC to get an ASC order when pop-ing from the result array
-	ORDER BY artist.sortname DESC, album.name DESC;
-EOF
-	
+		SELECT
+			album.id AS album_id,
+			album.name AS album_name,
+			artist.id AS artist_id,
+			artist.name AS artist_name,
+			artist.sortname AS artist_sortname,
+			artist.resolution AS artist_resolution,
+			trm.trm,
+			freq
+		FROM
+			(SELECT
+				album,
+				trm,
+				COUNT(*) AS freq
+			 FROM
+			 	albumjoin
+			 INNER JOIN
+			 	trmjoin
+			 	USING (track)
+				GROUP BY album, trm
+				HAVING COUNT(*) > 1
+			) tmp
+			INNER JOIN
+				trm ON tmp.trm = trm.id
+			INNER JOIN
+				album ON tmp.album = album.id
+			INNER JOIN
+				artist ON album.artist = artist.id
+		-- order DESC to get an ASC order when pop-ing from the result array
+		ORDER BY
+			artist.sortname DESC, album.name DESC;
+	EOF
+
 	$self->Log("number of results: " . scalar @$rows);
 	my $report = $self->PagedReport;
 
-	# reorder data to save storrage and get structure for report 
+	# reorder data to save storrage and get structure for report
 	my @results;
 	my $cur; $cur->{'album_id'} = "";
 	my $row;
@@ -74,13 +91,15 @@ EOF
 			if (defined $cur) { push @results, $cur; }
 			last;
 		}
-	
+
 		if ($cur->{'album_id'} ne $row->{'album_id'})
 		{
 			push @results, $cur;
 			$cur = {
-				artist_id   => $row->{'artist_id'},
+				artist_id => $row->{'artist_id'},
 				artist_name => $row->{'artist_name'},
+				artist_sortname => $row->{'artist_sortname'},
+				artist_resolution => $row->{'artist_resolution'},
 				album_id    => $row->{'album_id'},
 				album_name  => $row->{'album_name'},
 			};

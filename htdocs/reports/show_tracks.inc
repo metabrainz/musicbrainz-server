@@ -33,6 +33,9 @@
 	$page => undef
 	$pagesize => undef
 
+	$report_title => "Browse results"
+	$report_text => ""
+
 </%args>
 <%perl>
 
@@ -61,14 +64,18 @@
 
 </%perl>
 
-	<p>Report generated: <% $m->comp('/comp/datetime', $rep->Time) %></p>
-	<p>Total tracks found: <% $rep->Records %></p>
+	<& /comp/tablebegin, title => $report_title &>
+
+		<ul>
+			<% $report_text ? "<li>$report_text</li>" : "" |n %>
+			<li>Total tracks found: <% $rep->Records %></li>
+			<li>Report generated: <% $m->comp('/comp/datetime', $rep->Time) %></li>
+		</ul>
 
 % 	if ($rep->Records)
 %	{
 
-	<& /comp/framedboxbegin, width=>"100%" &>
-		<& /comp/pageselector,
+		<& /comp/browse/pageselector,
 			numitems => $rep->Records,
 			numlinks => 6,
 			snaptoend => 2,
@@ -77,55 +84,67 @@
 			url => $r->uri,
 			args => { pagesize => $pagesize },
 		&>
-	<& /comp/framedboxend &>
-
-	<br />
-	<br />
 
 % 	}
+
+	<& /comp/tableend &>
+
 
 % 	if ($rep->Position < $rep->Records)
 %	{
 
-	<table id="Report" class="SpacedRows SpacedColumns TopAlignCells" width="100%">
-		<tr>
-			<th>Artist Name</th>
-			<th>Track Name</th>
-			<th>&nbsp;</th>
+	<table class="listing">
+		<tr class="header">
+			<td class="left padright">Artist Name</td>
+			<td class="left padright">Track Name</td>
+			<td class="left padright">&nbsp;</td>
 		</tr>
 
 %		my $lastartist = 0;
-%		my $n = 1;
+%		my $first = 1;
+%		my $j = 0;
 %		for my $i (0 .. $pagesize-1)
 %		{
 %			my $row = $rep->Get or last;
+% 			my $tr = $m->comp("/comp/loadtrack", $mb, $row->{track_id});
 
 % 			if ($row->{artist_id} != $lastartist)
 %			{
 
+%			if (!$first)
+%			{
+
 		<tr>
 			<td colspan="3">&nbsp;</td>
-		</td>
-		<tr>
-			<td colspan="3" class="head">
-				<& /comp/linkartist, id => $row->{artist_id}, name => $row->{artist_name} &>
-			</td>
 		</tr>
 
-<%perl>
+%			}
+		<tr>
+			<td class="left padright">
+				<& /comp/linkartist,
+					id => $row->{'artist_id'},
+					name => $row->{'artist_name'},
+					sortname => $row->{'artist_sortname'},
+					resolution => $row->{'artist_resolution'},
+				&>
 
- 				$n = 1;
- 			}
+% 				$j = 0;
+% 				$first = 0;
+%			}
+%			else
+%			{
 
- 			my $tr = $m->comp("/comp/loadtrack", $mb, $row->{track_id});
+		<tr class="<% ($j++ % 2) ? "even" : "odd" %>">
+			<td class="left padright">&nbsp;</td>
 
-</%perl>
+%			}
 
-		<tr <% (++$n%2) ? 'class="shade"' : '' |n %>>
-			<td></td>
-			<td <% ($tr->GetModPending) ? 'class="mp"' : '' |n %>>
-				<& /comp/linktrack, id => $row->{track_id}, name => $row->{track_name} &></td>
-			<td class="link">[
+			<td class="left padright">
+				<span <% ($tr->GetModPending) ? 'class="mp"' : '' |n %>>
+				<& /comp/linktrack, id => $row->{track_id}, name => $row->{track_name} &>
+				</span></td>
+			<td class="left padright">
+				[
 
 <%perl>
 			my $url = "/edit/track/edit.html?album=$row->{album_id}&track=$row->{track_id}";
@@ -145,7 +164,7 @@
 					return false;
 					"><% $word %></a>
 			]</td>
-	</tr>
+		</tr>
 
 %			$lastartist = $row->{artist_id};
 %		}
@@ -155,8 +174,9 @@
 	<br />
 	<br />
 
-	<& /comp/framedboxbegin, width=>"100%" &>
-		<& /comp/pageselector,
+	<& /comp/tablebegin, title => $report_title &>
+
+		<& /comp/browse/pageselector,
 			numitems => $rep->Records,
 			numlinks => 6,
 			snaptoend => 2,
@@ -165,7 +185,8 @@
 			url => $r->uri,
 			args => { pagesize => $pagesize },
 		&>
-	<& /comp/framedboxend &>
+
+	<& /comp/tableend &>
 
 % 	}
 

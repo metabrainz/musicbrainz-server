@@ -1,31 +1,33 @@
 %# vi: set ts=2 sw=2 ft=mason :
 <%args>
-$offset => undef
-$page => undef
-$pagesize => undef
+
+	$offset => undef
+	$page => undef
+	$pagesize => undef
+
 </%args>
 <%perl>
 
-use MusicBrainz::Server::PagedReport;
-use File::Basename qw( dirname );
-my $rep = MusicBrainz::Server::PagedReport->Load(
-	dirname($m->current_comp->source_file) . "/report"
-);
+	use MusicBrainz::Server::PagedReport;
+	use File::Basename qw( dirname );
+	my $rep = MusicBrainz::Server::PagedReport->Load(
+		dirname($m->current_comp->source_file) . "/report"
+	);
 
-$pagesize = 10
-	unless MusicBrainz::IsNonNegInteger($pagesize)
-	and $pagesize > 0 and $pagesize <= 100000;
+	$pagesize = 10
+		unless MusicBrainz::IsNonNegInteger($pagesize)
+		and $pagesize > 0 and $pagesize <= 100000;
 
-$offset = ($page-1) * $pagesize
-	if not defined $offset
-	and MusicBrainz::IsNonNegInteger($page)
-	and $page;
+	$offset = ($page-1) * $pagesize
+		if not defined $offset
+		and MusicBrainz::IsNonNegInteger($page)
+		and $page;
 
-$offset = 0
-	unless MusicBrainz::IsNonNegInteger($offset)
-	and $offset < $rep->Records;
+	$offset = 0
+		unless MusicBrainz::IsNonNegInteger($offset)
+		and $offset < $rep->Records;
 
-$rep->Seek($offset);
+	$rep->Seek($offset);
 
 </%perl>
 
@@ -45,7 +47,7 @@ $rep->Seek($offset);
 % if ($rep->Records) {
 <& /comp/framedboxbegin, width=>"100%" &>
 <& /comp/pageselector,
-	numitems	=> $rep->Records, 
+	numitems	=> $rep->Records,
   numlinks	=> 6,
   snaptoend	=> 2,
   pagesize	=> $pagesize,
@@ -88,7 +90,7 @@ $rep->Seek($offset);
 <br><br>
 <& /comp/framedboxbegin, width=>"100%" &>
 <& /comp/pageselector,
-	numitems	=> $rep->Records, 
+	numitems	=> $rep->Records,
   numlinks	=> 6,
   snaptoend	=> 2,
   pagesize	=> $pagesize,
@@ -101,3 +103,5 @@ $rep->Seek($offset);
 % }
 
 <& /comp/footer &>
+
+%# vi: set ts=4 sw=4 ft=mason :

@@ -38,13 +38,23 @@ sub GatherData
 	my $self = shift;
 
 	$self->GatherDataFromQuery(<<'EOF', [], \&filter);
-			SELECT tr.id AS track_id, tr.name AS track_name,
-					aj.sequence AS seq, aj.album AS album_id,
-					ar.id AS artist_id, ar.name AS artist_name
-			FROM track tr, albumjoin aj, artist ar
-			WHERE aj.track = tr.id AND tr.artist = ar.id 
-					AND tr.name !~ '[[:upper:]]' AND tr.name ~ '[[:lower:]]'
-			ORDER BY ar.sortname, aj.album, tr.name
+		SELECT
+			tr.id AS track_id,
+			tr.name AS track_name,
+			aj.sequence AS seq,
+			aj.album AS album_id,
+			ar.id AS artist_id,
+			ar.name AS artist_name,
+			ar.sortname AS artist_sortname,
+			ar.resolution AS artist_resolution
+		FROM
+			track tr, albumjoin aj, artist ar
+		WHERE
+			aj.track = tr.id
+			AND tr.artist = ar.id
+			AND tr.name !~ '[[:upper:]]' AND tr.name ~ '[[:lower:]]'
+		ORDER BY
+			ar.sortname, aj.album, tr.name
 EOF
 }
 
@@ -53,30 +63,31 @@ sub filter
 	my $row = shift;
 
 	my $seq = $row->{seq};
-	
-	# we realy need to force decoding as UTF-8 because character class
-	# recognition does not work with plain strings comming from the db
+
+	# we really need to force decoding as UTF-8 because character class
+	# recognition does not work with plain strings coming from the db
 	# Note: This might change in the future, if DBI is fixed?
-	if ($] > 5.007) {
+	if ($] > 5.007)
+	{
 		require Encode;
 		#$row->{track_name} = Encode::decode_utf8($row->{track_name});
 		Encode::_utf8_on($row->{track_name});
 		Encode::_utf8_on($row->{artist_name});
 	}
 
-	# filter out any trackname that starts with a number as those often 
+	# filter out any trackname that starts with a number as those often
 	# have no "other" capital letters
 	# also remove every title starting with ' or an ellipsis '...'
 	return undef if $row->{track_name} =~ m/^(?:[0-9'\x{2026}]|\.{3}).*/x;
 
 	# filter out any upper case caracters left
-	# postgres' regex only catches those cases where a character is an 
+	# postgres' regex only catches those cases where a character is an
 	# ASCII uppercase character with the default system encoding C,
-	# we need to take care of accented, Greek, Cyrillic etc. characters 
+	# we need to take care of accented, Greek, Cyrillic etc. characters
 	# as well
 	# Note: \p{Uppercase} is the most complete upper case class.
 	return undef if $row->{track_name} =~ m/\p{Uppercase}/;
-	
+
 	# filter out any trackname that is in brackets, either '[', '(' or '<'
 	# we catch "official" names like "[untitled]" etc. as well as some strange
 	# constructs like "(intro)" or "[speech]"
@@ -86,6 +97,7 @@ sub filter
 	# finally filter out scripts that doen't have upper case characters and
 	# other stuff we don't force to have upper case chars in titles
 	return undef if $row->{track_name} =~ m/\p{InCaseFilter}/;
+
 	# also remove tracks with artists that have "strange" names
 	return undef if $row->{artist_name} =~ m/\p{InCaseFilter}/;
 

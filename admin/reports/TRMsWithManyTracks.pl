@@ -41,18 +41,30 @@ sub GatherData
 
 	$sql->AutoCommit;
 	$sql->Do(<<'EOF');
-		SELECT	trm, COUNT(*) AS freq
-		INTO TEMPORARY TABLE tmp_trm_collisions
-		FROM	trmjoin
-		GROUP BY trm
+		SELECT	
+			trm, 
+			COUNT(*) AS freq
+		INTO TEMPORARY TABLE 
+			tmp_trm_collisions
+		FROM
+			trmjoin
+		GROUP BY 
+			trm
 		HAVING COUNT(*) >= 10
 EOF
 
 	my $rows = $sql->SelectListOfHashes(<<'EOF');
-		SELECT	trm.trm, lookupcount, trm.id, freq
-		FROM	trm, tmp_trm_collisions t
-		WHERE	t.trm = trm.id
-		ORDER BY freq desc, lookupcount desc, trm.trm
+		SELECT
+			trm.trm, 
+			lookupcount, 
+			trm.id, 
+			freq
+		FROM
+			trm, tmp_trm_collisions t
+		WHERE
+			t.trm = trm.id
+		ORDER BY 
+			freq desc, lookupcount desc, trm.trm
 EOF
 
 	$self->Log("Saving results");
@@ -61,14 +73,24 @@ EOF
 	for my $row (@$rows)
 	{
 		$row->{'tracks'} = $sql->SelectListOfHashes("
-			SELECT	t.id AS track_id, t.name AS track_name,
-					a.id AS artist_id, a.name AS artist_name,
-					a.sortname AS artist_sortname, t.length
-			FROM	trmjoin j
-				INNER JOIN track t ON t.id = j.track
-				INNER JOIN artist a ON a.id = t.artist
-			WHERE	j.trm = ?
-			ORDER BY a.sortname, t.name
+			SELECT	
+				t.id AS track_id, 
+				t.name AS track_name,
+				a.id AS artist_id, 
+				a.name AS artist_name,
+				a.sortname AS artist_sortname, 
+				a.resolution AS artist_resolution,
+				t.length
+			FROM	
+				trmjoin j
+			INNER JOIN 
+				track t ON t.id = j.track
+			INNER JOIN 
+				artist a ON a.id = t.artist
+			WHERE	
+				j.trm = ?
+			ORDER 
+				BY a.sortname, t.name
 			",
 			$row->{'id'},
 		);

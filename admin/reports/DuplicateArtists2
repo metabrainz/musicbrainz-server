@@ -30,7 +30,7 @@ use strict;
 use warnings;
 
 package DuplicateArtists2;
-use base qw( MusicBrainz::Server::ReportScript );
+use base qw(MusicBrainz::Server::ReportScript);
 
 use Artist;
 
@@ -48,7 +48,8 @@ sub GatherData
 	$self->Log("Reading file");
 
 	my @input;
-	while ( <FILE> ) {
+	while (<FILE>)
+	{
 		chomp;
 		my @mb_ids = split(' ', $_);
 
@@ -61,27 +62,36 @@ sub GatherData
 	my $sql = $self->SqlObj;
 
 	my @dupes;
-	foreach my $artists ( @input ) {
-
+	foreach my $artists (@input)
+	{
 		my @entry;
-		foreach my $artist ( @$artists ) {
-
+		foreach my $artist (@$artists)
+		{
 			my $ar = Artist->new($self->DBH);
 			$ar->SetMBId($artist->{artist_mbid});
 
 			next unless $ar->LoadFromId;
 
-			my $num_albums = $sql->SelectSingleValue(
-				'SELECT COUNT(*) FROM album WHERE artist = ?', $ar->GetId);
+			my $num_albums = $sql->SelectSingleValue("
+				SELECT
+					COUNT(*)
+				FROM
+					album
+				WHERE
+					artist = ?", $ar->GetId);
 
-			my $num_tracks = $sql->SelectSingleValue(
-				'SELECT COUNT(*) FROM track WHERE artist = ?', $ar->GetId);
+			my $num_tracks = $sql->SelectSingleValue("
+				SELECT
+					COUNT(*)
+				FROM
+					track
+				WHERE
+					artist = ?", $ar->GetId);
 
 			$artist->{id} = $ar->GetId;
 			$artist->{num_albums} = $num_albums;
 			$artist->{num_tracks} = $num_tracks;
-			$artist->{sort_name} =
-							MusicBrainz::NormaliseSortText($ar->GetSortName);
+			$artist->{sort_name} = MusicBrainz::NormaliseSortText($ar->GetSortName);
 
 			push @entry, $artist;
 		}
@@ -92,8 +102,8 @@ sub GatherData
 	$self->Log("Saving results");
 	my $report = $self->PagedReport;
 
-	foreach my $artists ( sort { $a->[0]->{sort_name}
-									cmp $b->[0]->{sort_name} } @dupes )
+	foreach my $artists (sort { $a->[0]->{sort_name}
+									cmp $b->[0]->{sort_name} } @dupes)
 	{
 		delete $_->{sort_name} foreach @$artists;
 		$report->Print($artists);

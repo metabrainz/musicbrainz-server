@@ -33,6 +33,9 @@
 	$page => undef
 	$pagesize => undef
 
+	$report_title => "Browse results"
+	$report_text => ""
+
 </%args>
 <%perl>
 
@@ -62,14 +65,18 @@
 
 </%perl>
 
-	<p>Report generated: <% $m->comp('/comp/datetime', $rep->Time) %></p>
-	<p>Duplicates found: <% $rep->Records %></p>
+	<& /comp/tablebegin, title => $report_title &>
+
+		<ul>
+			<% $report_text ? "<li>$report_text</li>" : "" |n %>
+			<li>Total duplicates found: <% $rep->Records %></li>
+			<li>Report generated: <% $m->comp('/comp/datetime', $rep->Time) %></li>
+		</ul>
 
 % 	if ($rep->Records)
 %	{
 
-	<& /comp/framedboxbegin, width=>"100%" &>
-		<& /comp/pageselector,
+		<& /comp/browse/pageselector,
 			numitems => $rep->Records,
 			numlinks => 6,
 			snaptoend => 2,
@@ -78,12 +85,11 @@
 			url => $r->uri,
 			args => { pagesize => $pagesize },
 		&>
-	<& /comp/framedboxend &>
-
-	<br />
-	<br />
 
 % 	}
+
+	<& /comp/tableend &>
+
 
 % 	if ($rep->Position < $rep->Records)
 %	{
@@ -168,20 +174,20 @@
 		</tr>
 
 
+%				}
 %			}
-%		}
 
 		<tr><td>&nbsp;</td></tr>
 
-%	}
+%		}
 
 	</table>
 
 	<br />
 	<br />
+	<& /comp/tablebegin, title => $report_title &>
 
-	<& /comp/framedboxbegin, width=>"100%" &>
-		<& /comp/pageselector,
+		<& /comp/browse/pageselector,
 			numitems => $rep->Records,
 			numlinks => 6,
 			snaptoend => 2,
@@ -190,7 +196,8 @@
 			url => $r->uri,
 			args => { pagesize => $pagesize },
 		&>
-	<& /comp/framedboxend &>
+
+	<& /comp/tableend &>
 
 % 	}
 

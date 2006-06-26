@@ -33,6 +33,9 @@
 	$page => undef
 	$pagesize => undef
 
+	$report_title => "Browse results"
+	$report_text => ""
+
 </%args>
 <%perl>
 
@@ -61,14 +64,17 @@
 
 </%perl>
 
-	<p>Report generated: <% $m->comp('/comp/datetime', $rep->Time) %></p>
-	<p>Total artists found: <% $rep->Records %></p>
+	<& /comp/tablebegin, title => $report_title &>
+		<ul>
+			<% $report_text ? "<li>$report_text</li>" : "" |n %>
+			<li>Total releases found: <% $rep->Records %></li>
+			<li>Report generated: <% $m->comp('/comp/datetime', $rep->Time) %></li>
+		</ul>
 
 % 	if ($rep->Records)
 %	{
 
-	<& /comp/framedboxbegin, width=>"100%" &>
-		<& /comp/pageselector,
+		<& /comp/browse/pageselector,
 			numitems => $rep->Records,
 			numlinks => 6,
 			snaptoend => 2,
@@ -77,49 +83,51 @@
 			url => $r->uri,
 			args => { pagesize => $pagesize },
 		&>
-	<& /comp/framedboxend &>
-
-	<br />
-	<br />
 
 % 	}
 
-% 	if ($rep->Position < $rep->Records)
-%	{
-%		my $lastartist = 0;
-% 		my $n = 0;
+	<& /comp/tableend &>
 
-%		for my $i (0 .. $pagesize-1)
-%		{
-%			my $artist = $rep->Get or last;
+<%perl>
 
-%			my $ar = Artist->new($mb->{DBH});
-%			$ar->SetId($artist->{ID});
-%			$ar->LoadFromId();
-%
-		<& /comp/artisttitle, artist => $ar, link => 1 &>
+ 	if ($rep->Position < $rep->Records)
+	{
+		my $lastartist = 0;
+ 		my $n = 0;
 
-%			for my $album ( values %{ $artist->{ALBUMS} } )
-%			{
-%				my $al = new Album($mb->{DBH});
-%				$al->SetId($album->{ID});
-%				$al->LoadFromId();
+		for my $i (0 .. $pagesize-1)
+		{
+			my $artist = $rep->Get or last;
 
-		<& /comp/album, album => $al, artist => $ar,
-			mbtagger => 0,
-			showids => 1,
-			showtag => 1,
-		&>
+			my $ar = Artist->new($mb->{DBH});
+			$ar->SetId($artist->{ID});
+			$ar->LoadFromId();
 
-%			}
+			$m->comp("/comp/artisttitle", artist => $ar, showlinks => 1);
 
-		<br />
-		<br />
-% 	}
+			for my $album ( values %{ $artist->{ALBUMS} } )
+			{
+				my $al = new Album($mb->{DBH});
+				$al->SetId($album->{ID});
+				$al->LoadFromId();
 
+				$m->comp("/comp/album",
+					album => $al, artist => $ar,
+					mbtagger => 0,
+					showids => 1,
+					showtag => 1
+				);
+			}
 
-	<& /comp/framedboxbegin, width=>"100%" &>
-		<& /comp/pageselector,
+			$m->out("<br />");
+			$m->out("<br />");
+		}
+
+</%perl>
+
+	<& /comp/tablebegin, title => $report_title &>
+
+		<& /comp/browse/pageselector,
 			numitems => $rep->Records,
 			numlinks => 6,
 			snaptoend => 2,
@@ -128,7 +136,8 @@
 			url => $r->uri,
 			args => { pagesize => $pagesize },
 		&>
-	<& /comp/framedboxend &>
+
+	<& /comp/tableend &>
 
 %	}
 

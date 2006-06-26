@@ -32,7 +32,7 @@ use strict;
 use warnings;
 
 package DuplicateAlbums;
-use base qw( MusicBrainz::Server::ReportScript );
+use base qw(MusicBrainz::Server::ReportScript);
 
 sub GatherData
 {
@@ -47,7 +47,8 @@ sub GatherData
 	$self->Log("Reading file");
 
 	my @input;
-	while ( <FILE> ) {
+	while (<FILE>)
+	{
 		chomp;
 		my @mb_ids = split(' ', $_);
 
@@ -63,10 +64,11 @@ sub GatherData
 	my %artists;
 
 	my @dupes;
-	foreach my $albums ( @input ) {
-
+	foreach my $albums (@input)
+	{
 		my @entry;
-		foreach my $album ( @$albums ) {
+		foreach my $album (@$albums)
+		{
 
 			# Load the album.  Cache them all as we go; also cache negative
 			# responses.
@@ -81,7 +83,9 @@ sub GatherData
 					next;
 				}
 				$albums{ $album->{album_mbid} } = $al;
-			} else {
+			}
+			else
+			{
 				$al = $albums{ $album->{album_mbid} }
 					or next;
 			}
@@ -101,7 +105,9 @@ sub GatherData
 					next;
 				}
 				$artists{ $al->GetArtist } = $ar;
-			} else {
+			}
+			else
+			{
 				$ar = $artists{ $al->GetArtist }
 					or next;
 			}
@@ -121,8 +127,8 @@ sub GatherData
 	$self->Log("Saving results");
 	my $report = $self->PagedReport;
 
-	foreach my $album ( sort { $a->[0]->{artist_sortname}
-									cmp $b->[0]{artist_sortname} } @dupes )
+	foreach my $album (sort { $a->[0]->{artist_sortname}
+									cmp $b->[0]{artist_sortname} } @dupes)
 	{
 		$report->Print([ map { +{ album_mbid => $_->{album_mbid} } } @$album ]);
 	}

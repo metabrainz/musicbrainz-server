@@ -42,23 +42,36 @@ sub GatherData
 	$self->Log("Querying database");
 
 	my $albums = $self->SqlObj->SelectListOfLists("
-		SELECT m.id, m.tracks, COUNT(*)
-		FROM albummeta m, albumjoin j, track t
-		WHERE j.album = m.id
-		AND j.track = t.id
-		AND t.name LIKE '%-%'
-		GROUP BY m.id, m.tracks
+		SELECT 
+			m.id, 
+			m.tracks, 
+			COUNT(*)
+		FROM 
+			albummeta m, albumjoin j, track t
+		WHERE 
+			j.album = m.id
+			AND j.track = t.id
+			AND t.name LIKE '%-%'
+		GROUP BY 
+			m.id, m.tracks
 		HAVING COUNT(*) = m.tracks
-		");
+	");
+		
 	my $albums2 = $self->SqlObj->SelectListOfLists("
-		SELECT m.id, m.tracks, COUNT(*)
-		FROM albummeta m, albumjoin j, track t
-		WHERE j.album = m.id
-		AND j.track = t.id
-		AND t.name LIKE '%/%'
-		GROUP BY m.id, m.tracks
+		SELECT 
+			m.id, 
+			m.tracks, 
+			COUNT(*)
+		FROM 
+			albummeta m, albumjoin j, track t
+		WHERE 
+			j.album = m.id
+			AND j.track = t.id
+			AND t.name LIKE '%/%'
+		GROUP BY 
+			m.id, m.tracks
 		HAVING COUNT(*) = m.tracks
-		");
+	");
 
 	my @album_ids = do {
 		my %t;
@@ -122,6 +135,7 @@ sub GatherData
 					artist_name			=> $artist->GetName,
 					artist_sortname		=> $artist->GetSortName,
 					artist_modpending	=> $artist->GetModPending,
+					artist_resolution	=> $artist->GetResolution,
 					album_id			=> $al->GetId,
 					album_mbid			=> $al->GetMBId,
 					album_name			=> $al->GetName,

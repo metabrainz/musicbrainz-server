@@ -1,17 +1,54 @@
-%# vi: set ts=2 sw=2 ft=mason :
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# This report lists possibly duplicate releases.
+	#
+	# $Id$
+	#
+</%perl>
 
-<& /comp/sidebar, title => 'Duplicate Albums' &>
+<& /comp/sidebar-notitle, pagetitle => "Possibly duplicate releases (from MusicMagic database)" &>
 
-<p>
-    This report lists albums that may be duplicates.&nbsp; The data for this
-    report has been contributed by Wendell T. Hicken from
-    <a href="http://music.predixis.com/">Predixis</a> using the MusicMagic
-    database.&nbsp; Thanks!
-</p>
+<%perl>
 
-% my $mtime = $m->comp("./TIMESTAMP");
-<p>Data last supplied: <% $m->comp('/comp/datetime', $mtime) %></p>
+	my $mtime = $m->comp("./TIMESTAMP");
+	my $supplydate = $m->scomp('/comp/datetime', $mtime);
 
-<& /reports/show_album_duplicates.inc, %ARGS &>
+	$ARGS{"report_title"} =
+		qq!Possibly duplicate releases (from MusicMagic database)!;
+
+	$ARGS{"report_text"} =
+		qq! This report lists releases that may be duplicates. The data for this
+			report has been contributed by Wendell T. Hicken from
+			<a href="http://music.predixis.com/">Predixis</a> using the MusicMagic
+			database. Thanks\!
+			<br />
+			Data last supplied: $supplydate!;
+
+	$m->comp("/reports/show_album_duplicates.inc", %ARGS);
+
+</%perl>
 
 <& /comp/footer &>
+
+%# vi: set ts=4 sw=4 ft=mason :

@@ -45,13 +45,21 @@ sub GatherData
 	my $sql = $self->SqlObj;
 
 	my $data = $sql->SelectListOfLists("
-		SELECT a.artist, j.album, t.id, j.sequence, t.name
-		FROM track t, albumjoin j, album a
-		WHERE j.track = t.id
-		AND a.id = j.album
-		AND t.name ~ '^[0-9]'
-		AND t.name ~ ('^0*' || j.sequence || '[^0-9]')
-		ORDER BY a.artist, j.album, j.sequence
+		SELECT 
+			a.artist, 
+			j.album, 
+			t.id, 
+			j.sequence, 
+			t.name
+		FROM 
+			track t, albumjoin j, album a
+		WHERE 
+			j.track = t.id
+			AND  a.id = j.album
+			AND t.name ~ '^[0-9]'
+			AND t.name ~ ('^0*' || j.sequence || '[^0-9]')
+		ORDER BY 
+			a.artist, j.album, j.sequence
 	");
 
 	# Index the tracks by album-artist, album:

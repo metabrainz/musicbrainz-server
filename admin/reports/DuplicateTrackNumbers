@@ -42,12 +42,19 @@ sub GatherData
 	$sql->Begin;
 
 	$sql->Do(<<'EOF');
-		SELECT DISTINCT album
-		INTO TEMPORARY TABLE t_badalbums
-		FROM (
-			SELECT album, sequence, COUNT(*)
-			FROM albumjoin
-			GROUP BY album, sequence
+		SELECT
+			DISTINCT album
+		INTO TEMPORARY TABLE
+			t_badalbums
+		FROM
+			(SELECT
+				album,
+				sequence,
+				COUNT(*)
+			FROM
+				albumjoin
+			GROUP BY
+				album, sequence
 			HAVING COUNT(*) > 1
 		) AS t
 EOF
@@ -58,15 +65,22 @@ EOF
 
 	$sql->Commit;
 
-	$self->GatherDataFromQuery(
-		<<'EOF',
-		SELECT	ar.id AS artist_id, ar.name AS artist_name,
-				al.id AS album_id, al.name AS album_name
-		FROM	artist ar, album al, t_badalbums t
-		WHERE	al.id = t.album
-		AND		ar.id = al.artist
-		AND		al.attributes[2] != ?
-		ORDER BY ar.sortname, al.name
+	$self->GatherDataFromQuery(<<'EOF',
+		SELECT
+			ar.id AS artist_id,
+			ar.name AS artist_name,
+			ar.sortname AS artist_sortname,
+			ar.resolution AS artist_resolution,
+			al.id AS album_id,
+			al.name AS album_name
+		FROM
+			artist ar, album al, t_badalbums t
+		WHERE
+			al.id = t.album
+			AND	ar.id = al.artist
+			AND	al.attributes[2] != ?
+		ORDER BY
+			ar.sortname, al.name
 EOF
 		[ &Album::ALBUM_ATTR_NONALBUMTRACKS ],
 	);

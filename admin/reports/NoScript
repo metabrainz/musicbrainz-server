@@ -39,11 +39,23 @@ sub GatherData
 	my $sql = $self->SqlObj;
 
 	$self->GatherDataFromQuery(<<'EOF');
-		SELECT	ar.id AS artist_id, ar.name AS artist_name,
-				al.id AS album_id, al.name AS album_name
-		FROM	artist ar JOIN album al ON al.artist = ar.id
-		WHERE	al.language NOTNULL AND al.script ISNULL
-		ORDER BY ar.sortname, al.name
+		SELECT
+			al.id AS album_id,
+			al.name AS album_name,
+			ar.id AS artist_id,
+			ar.name AS artist_name,
+			ar.sortname AS artist_sortname,
+			ar.resolution AS artist_resolution
+		FROM
+			artist ar
+		JOIN
+			album al
+			ON al.artist = ar.id
+			WHERE
+				al.language NOTNULL
+				AND al.script ISNULL
+		ORDER BY
+			ar.sortname, al.name
 EOF
 
 }

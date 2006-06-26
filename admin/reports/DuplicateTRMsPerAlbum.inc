@@ -47,7 +47,7 @@ $rep->Seek($offset);
 % if ($rep->Records) {
 <& /comp/framedboxbegin, width=>"100%" &>
 <& /comp/pageselector,
-  numitems  => $rep->Records, 
+  numitems  => $rep->Records,
   numlinks  => 6,
   snaptoend => 2,
   pagesize  => $pagesize,
@@ -92,7 +92,7 @@ $rep->Seek($offset);
     <td colspan="2" align="center"><a href="/showtrm.html?trm=<% $trm->{'trm'} %>"><% $trm->{'trm'} %></a></td>
     <td align="center"><% $trm->{'freq'} %></td>
    </tr>
-%   } 
+%   }
   <tr><td colspan="4">&nbsp;</td></tr>
 % }
 
@@ -101,3 +101,5 @@ $rep->Seek($offset);
 % }
 
 <& /comp/footer &>
+
+%# vi: set ts=4 sw=4 ft=mason :
