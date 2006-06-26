@@ -394,7 +394,7 @@
 				{ url => "/doc/AnnotationFAQ" },
 			],
 			{ name => "Editing Style",			url => "/style.html" },
-			{ name => "Mailing Lists",			url => "/list.html" },
+			{ name => "Mailing Lists",			url => "/doc/MailingList" },
 			{ name => "Bugs / RFEs",			url => "http://musicbrainz.org/bugs" },
 		],
 	);
