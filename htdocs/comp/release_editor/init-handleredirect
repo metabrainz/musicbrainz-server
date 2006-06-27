@@ -109,7 +109,6 @@
 		# from the ADD ARTISt editor.
 		$args{"artistfilter_field"} = $artistfilter_field;
 
-
 		# prepare, and escape returnurl. artistfilter_newartistid will reference the
 		# artistid being added in the ADD ARTIST editor.
 		my $returnurl = MusicBrainz::IsNonNegInteger($releaseid) && $releaseid
@@ -137,12 +136,14 @@
 		return sprintf("tr%d_%s", $i, $name);
     }
 
-	# Handle SELECT_ARTISt button
+	# Handle SELECT_ARTIST button
 	# ---------------------------------------------------------------
 	# Handle callback from ADD ARTIST page, or selection
 	# from the artist filter.
-	if ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_ARTISTSELECT"} or
-		$ARGS{"submitvalue"} eq $ARGS{"SUBMIT_SACSELECT"})
+	if ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_ADDARTIST_DONE"} or
+		$ARGS{"submitvalue"} eq $ARGS{"SUBMIT_TRACKARTIST_SELECT"} or
+		$ARGS{"submitvalue"} eq $ARGS{"SUBMIT_RELEASEARTIST_SELECT"} or
+		$ARGS{"submitvalue"} eq $ARGS{"SUBMIT_SACARTIST_SELECT"})
 	{
 		my $fieldid = $ARGS{"artistfilter_field"};
 		my $newartistid = $ARGS{"artistfilter_newartistid"};
@@ -152,25 +153,39 @@
 		# - tr0_artistid 	-> tr0_artist 	for TrackArtist
 		# - artistid 		-> artist		for ReleaseArtist
 		$fieldid =~ s/id$//g;
-		$ARGS{$fieldid."id"} = $newartist->GetId;
-		$ARGS{$fieldid."name"} = $newartist->GetName;
-		$ARGS{$fieldid."resolution"} = $newartist->GetResolution;
+		$ARGS{$fieldid . "id"} = $newartist->GetId;
+		$ARGS{$fieldid . "name"} = $newartist->GetName;
+		$ARGS{$fieldid . "resolution"} = $newartist->GetResolution;
+
+		# clear the edit track artist flag for this artist
+		delete $ARGS{$fieldid . "edit"};
 
 		# if we have to handle a single artist conversion, we'll
 		# have to set the track artists, too.
-		if ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_SACSELECT"})
+		if ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_SACARTIST_SELECT"})
 		{
 			for (my $t = 0; $t < $tracks; $t++)
 			{
+				# set track artist.
 				$ARGS{getField($t, "artistid")} = $newartist->GetId;
 				$ARGS{getField($t, "artistname")} = $newartist->GetName;
 				$ARGS{getField($t, "artistresolution")} = $newartist->GetResolution;
+
+				# clear the edit track artist flag
+				delete $ARGS{getField($t, "artistedit")};
 			}
 		}
 
 		delete $ARGS{"artistfilter_field"};
 		delete $ARGS{"artistfilter_newartistid"};
 		delete $ARGS{"artistfilter_search"};
+
+
+		if ($ARGS{"artistid"} == &ModDefs::VARTIST_ID)
+		{
+			$ARGS{"v::isva"} = 1;
+			$ARGS{"hasmultipletrackartists"} = 1;
+		}
 	}
 
 	return %ARGS;

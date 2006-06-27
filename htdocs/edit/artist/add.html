@@ -178,7 +178,7 @@
 						# and use the Select Artist button to submit the newly
 						# added artist to the editor.
 						my %cfg = $m->comp("/comp/release_editor/init-formstate", %ARGS);
-						my $submitvalue = uri_escape($cfg{"SUBMIT_ARTISTSELECT"});
+						my $submitvalue = uri_escape($cfg{"SUBMIT_ADDARTIST_DONE"});
 
 						# append new rowid, and submitvalue to the given returnurl.
 						$returnurl = $returnurl . $rowid . "&amp;submitvalue=" . $submitvalue;

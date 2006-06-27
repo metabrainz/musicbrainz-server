@@ -38,7 +38,7 @@
 	$ARGS{"v::showform"} = 1;
 
 	# button which triggers the form validation
-	$ARGS{"SUBMIT_NEXT"} = "Next »";
+	$ARGS{"SUBMIT_NEXT"} = "Continue »";
 
 	# /comp/release_editor/review
 	$ARGS{"SUBMIT_KEEPEDITING"} = "Keep Editing";
@@ -48,42 +48,45 @@
 
 	# freedb import
 	$ARGS{"SUBMIT_FREEDB"} = "FreeDB Lookup";
-	$ARGS{"SUBMIT_SACIMPORT"} = "Import as Single Artist »";
-	$ARGS{"SUBMIT_MACIMPORT"} = "Import as Various Artists »";
+	$ARGS{"SUBMIT_SACIMPORT"} = "Import as single artist »";
+	$ARGS{"SUBMIT_MACIMPORT"} = "Import as various artists »";
 
-	# mac
+	# MAC/SAC conversion
 	$ARGS{"SUBMIT_IGNOREMACSAC"} = "Ignore problem »";
-	$ARGS{"SUBMIT_TOSAC"} = "Convert to Single Artist »";
-	$ARGS{"SUBMIT_TOMAC"} = "Convert to Various Artists »";
+	$ARGS{"SUBMIT_TOSAC"} = "Convert to single artist »";
+	$ARGS{"SUBMIT_TOMAC"} = "Convert to various artists »";
 
-	# sg5disasterrelief
+	# show/hide track artists
 	$ARGS{"SUBMIT_ARTISTS_SHOW"} = "Show track artists »";
 	$ARGS{"SUBMIT_ARTISTS_HIDE"} = "Hide track artists »";
 
-	# sac
-	$ARGS{"SUBMIT_SACSEARCH"} = "Search for Release Artist »";
-	$ARGS{"SUBMIT_SACSELECT"} = "Select Release Artist »";
+	# artistfilter: General buttons
+	$ARGS{"SUBMIT_ADDARTIST"} = "Add new artist »";
+	$ARGS{"SUBMIT_ADDARTIST_DONE"} = "SUBMIT_ADDARTIST_DONE";
+	$ARGS{"SUBMIT_BACKTOFORM"} = "Back to form";
 
-	# add artist
-	$ARGS{"SUBMIT_ADDARTIST"} = "Add new Artist »";
+	# artistfilter: SAC
+	$ARGS{"SUBMIT_SACARTIST_SEARCH"} = "Search for artist »";
+	$ARGS{"SUBMIT_SACARTIST_SELECT"} = "Single artist conversion to this artist »";
 
-	# va-artist
-	$ARGS{"SUBMIT_ARTISTCHANGE"} = "Change »";
-	$ARGS{"SUBMIT_ARTISTSELECT"} = "Select Artist »";
-	$ARGS{"SUBMIT_ARTISTSEARCH"} = "Search for Artist »";
-	$ARGS{"SUBMIT_ARTISTSEARCH_AGAIN"} = "Search again »";
-	$ARGS{"SUBMIT_BACKTOFORM"} = "Back to Form";
+	# artistfilter: MOVE RELEASE
+	$ARGS{"SUBMIT_RELEASEARTIST_SEARCH"} = "Search for release artist »";
+	$ARGS{"SUBMIT_RELEASEARTIST_SELECT"} = "Select release artist »";
+
+	# artistfilter: CHANGE TRACK ARTIST
+	$ARGS{"SUBMIT_TRACKARTIST_SEARCH"} = "Search for track artist »";
+	$ARGS{"SUBMIT_TRACKARTIST_SELECT"} = "Select track artist »";
 
 	# language/script
-	$ARGS{"SUBMIT_LANG_COMPACT"} = "Show Compact Lists";
-	$ARGS{"SUBMIT_LANG_FULL"} = "Show Full Lists";
+	$ARGS{"SUBMIT_LANG_COMPACT"} = "Show compact lists";
+	$ARGS{"SUBMIT_LANG_FULL"} = "Show full lists";
 	$ARGS{"SUBMIT_LANG_GUESS"} = "Guess";
 
 	# attributes
-	$ARGS{"SUBMIT_ATTR_GUESS"} = "Guess Attributes";
+	$ARGS{"SUBMIT_ATTR_GUESS"} = "Guess attributes";
 
 	# similar-releases
-	$ARGS{"SUBMIT_FORCESIMILAR"} = "Yes, My Release is Different »";
+	$ARGS{"SUBMIT_FORCESIMILAR"} = "Yes, my release is different »";
 
 	# we got a form submit to handle.
 	$ARGS{"v::formsubmitted"} = 0;

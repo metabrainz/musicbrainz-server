@@ -37,6 +37,10 @@
 	$cancelbutton => "Cancel"
 	$selectbutton => "Select &raquo;"
 	$addartistbutton => "Add New Artist &raquo;"
+
+	$searchbutton => "Search &raquo;"
+	$searchagainbutton => "Search again &raquo;"
+
 	$submitvalue => ""
 
 	$defaultquery => ""
@@ -61,11 +65,8 @@
 
 	# label reflects if the search has been performed before.
 	my $searchlabel = "Search for Artist:";
-	my $searchbtn = "Search &raquo;";
-	if ($submitvalue ne "")
-	{
-		$searchbtn = "Search again &raquo;";
-	}
+	$searchbutton = $searchagainbutton
+		if ($submitvalue ne "");
 
 </%perl>
 
@@ -90,7 +91,7 @@
 
 					<div style="margin-top: 2px">
 						<input class="button" type="submit" name="submitvalue" value="<% $cancelbutton |n %>" />
-						<input class="button" type="submit" name="submitvalue" value="<% $searchbtn |n %>"
+						<input class="button" type="submit" name="submitvalue" value="<% $searchbutton |n %>"
 							title="Search for an artist" />
 					</div></td>
 		</tr>

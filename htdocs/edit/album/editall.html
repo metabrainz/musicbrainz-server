@@ -57,6 +57,7 @@
 	# initialise the button values, and un-muddle the "submitvalue"
 	# argument if there are more than one.
 	%ARGS = $m->comp("/comp/release_editor/init-formstate", %ARGS);
+
 	$ARGS{"v::action"} = "/edit/album/editall.html";
 	$ARGS{"v::checkedsimilar"} = 1; # no need to check for duplicates, we're editing a release.
 	$ARGS{"v::checkedartists"} = 1; # true by default.
@@ -67,7 +68,7 @@
 	# load all values from the database and store them into the
 	# ARGS hash.
 	%ARGS = $m->comp("/comp/release_editor/init-editall", %ARGS);
-	$m->comp("/comp/error", $ARGS{"init-editall-error"}, 1,1)
+	$m->comp("/comp/error", $ARGS{"init-editall-error"}, 1, 1)
 		if ($ARGS{"init-editall-error"});
 
 	# HANDLE SPECIAL SUBMIT BUTTONS
@@ -118,7 +119,7 @@
 			# convert the current listing to single artist
 			if (($ARGS{"artistid"} == 0 or defined $ARGS{"sacartist"}) or
 				($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_TOSAC"}) or
-				($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_SACSEARCH"}))
+				($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_SACARTIST_SEARCH"}))
 			{
 				my $prev = $ARGS{"artistid"};
 				%ARGS = $m->comp("/comp/release_editor/convert-tosac", %ARGS);
@@ -148,8 +149,8 @@
 			if (not keys %{$ARGS{"v::fields"}} and
 				$ARGS{"hasmultipletrackartists"} and
 				(($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_NEXT"}) or
-				 ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_ARTISTSEARCH"}) or
-				 ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_ARTISTSELECT"})))
+				 ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_TRACKARTIST_SEARCH"}) or
+				 ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_TRACKARTIST_SELECT"})))
 			{
 				%ARGS = $m->comp("/comp/release_editor/check-artists", %ARGS);
 			}

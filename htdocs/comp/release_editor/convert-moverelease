@@ -70,6 +70,7 @@
 			limit => 0,
 		);
 
+
 </%perl>
 
 		<form method="post" action="<% $ARGS{"v::action"} %>" >
@@ -95,9 +96,13 @@
 
 						# button values which drive the form handling
 						# in the page using this component.
-						selectbutton => $ARGS{"SUBMIT_ARTISTSELECT"},
+						selectbutton => $ARGS{"SUBMIT_RELEASEARTIST_SELECT"},
+						searchbutton => $ARGS{"SUBMIT_RELEASEARTIST_SEARCH"},
+						searchagainbutton => $ARGS{"SUBMIT_RELEASEARTIST_SEARCH"},
+
 						cancelbutton => $ARGS{"SUBMIT_BACKTOFORM"},
 						addartistbutton => $ARGS{"SUBMIT_ADDARTIST"},
+
 						submitvalue => $ARGS{"submitvalue"},
 					&>
 
@@ -108,11 +113,10 @@
 
 %	my %args = $m->comp("/comp/form/args-strip-editsuitefields", %ARGS);
 %	delete $args{"submitvalue"};
-%	delete $args{"artistedit"};
 
 %	$m->comp("/comp/args-to-hidden-fields.inc", %args);
 
-			<& /comp/form/hiddenfield, "submitvalue", $ARGS{"SUBMIT_ARTISTSELECT"} &>
+			<& /comp/form/hiddenfield, "submitvalue", $ARGS{"SUBMIT_RELEASEARTIST_SELECT"} &>
 
 		</form>
 

@@ -311,11 +311,15 @@
 					</td>
 					<td>&nbsp;</td>
 					<td>
-						<& /comp/form/checkbox-artistchange, name => "artistedit" &>
+
+%	my $artist_edit = !defined $release_artist || $ARGS{"artistedit"};
+
+						<& /comp/form/checkbox-artistchange,
+							name => "artistedit",
+							checked => $artist_edit &>
 					</td>
 					<td colspan="2" id="release_artist::display::::">
 
-%	my $artist_edit = !defined $release_artist;
 %	if (!$artist_edit)
 %	{
 						<& /comp/linkartist, artist => $release_artist &>
@@ -569,6 +573,13 @@
 %
 %		my $artistcss = $hasmultipletrackartists ? "" : "display: none";
 
+%		# check, and load artist from track artist id.
+%		my $track_artistid = $ARGS{$artistidfield};
+%		my $track_artist = &$GetCachedArtist($track_artistid)
+%			if ($track_artistid);
+
+%		$artist_edit = !defined $track_artist || $ARGS{getField($i, "artistedit")};
+
 				<tr id="track_artist::tr::<% $i %>::" style="<% $artistcss %>" class="trackartist <% $i % 2 == 0 ? "even" : "odd" %>">
 					<td class="label">
 						<& /comp/form/label, id => "id_$artistnamefield", title => "Artist" &>
@@ -577,19 +588,14 @@
 					<td>
 						<& /comp/form/checkbox-artistchange,
 							enabled => !$trackdel,
-							name => getField($i, "artistedit") &>
-
-%		# check, and load artist from track artist id.
-%		my $track_artistid = $ARGS{$artistidfield};
-%		my $track_artist = &$GetCachedArtist($track_artistid)
-%			if ($track_artistid);
+							name => getField($i, "artistedit"),
+							checked => $artist_edit &>
 
 					<td id="track_artist::display::<% $i %>::">
 
 %		# -------------------------------------------------------------------------
 %		# DIV WHICH DISPLAYS THE CURRENT SELECTED ARTIST
 %		# -------------------------------------------------------------------------
-%		$artist_edit = !defined $track_artist;
 %		if (!$artist_edit)
 %		{
 						<& /comp/linkartist, artist => $track_artist &>

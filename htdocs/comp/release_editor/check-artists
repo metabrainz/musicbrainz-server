@@ -72,9 +72,6 @@
 			push @missing_artists, $t
 				if not $ARGS{getField($t, "artistid")};
 		}
-
-		# we don't need to carry this parameter around
-		delete $ARGS{getField($t, "artistedit")};
 	}
 
 	# if we have no missing artists, every field has an tr{t}_artistid
@@ -183,10 +180,15 @@
 
 							# button values which drive the form handling
 							# in the page using this component.
-							selectbutton => $ARGS{"SUBMIT_ARTISTSELECT"},
 							cancelbutton => $ARGS{"SUBMIT_BACKTOFORM"},
 							addartistbutton => $ARGS{"SUBMIT_ADDARTIST"},
+
+							selectbutton => $ARGS{"SUBMIT_TRACKARTIST_SELECT"},
+							searchbutton => $ARGS{"SUBMIT_TRACKARTIST_SEARCH"},
+							searchagainbutton => $ARGS{"SUBMIT_TRACKARTIST_SEARCH"},
+
 							submitvalue => $ARGS{"submitvalue"},
+
 						&>
 
 					</table>
@@ -194,7 +196,7 @@
 %					# add hidden field to allow selection dblclick
 %					# handler on radiobutton to submit a submitvalue
 %					# -- value of the select button is not transmitted in this case.
-					<& /comp/form/hiddenfield, "submitvalue", $ARGS{"SUBMIT_ARTISTSELECT"} &>
+					<& /comp/form/hiddenfield, "submitvalue", $ARGS{"SUBMIT_TRACKARTIST_SELECT"} &>
 
 				<& /comp/tableend &>
 

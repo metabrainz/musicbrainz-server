@@ -76,7 +76,7 @@
 		or return $m->comp("/comp/layout/badarguments",
 			text => "The argument <strong>hasmultipletrackartists</strong> is missing or has a wrong format.");
 
-	# instantiate MusicBrainz object.
+	# load musicbrainz object, and make it available in the ARGS hash.
 	my $mb = $m->comp("/comp/dblogin");
 	$ARGS{"mb"} = $mb;
 
@@ -92,7 +92,7 @@
 	# PREPARE ADD RELEASE FORM VALUES
 	# ---------------------------------------------------------------
 	%ARGS = $m->comp("/comp/release_editor/init-addrelease", %ARGS);
-	$m->comp("/comp/error", $ARGS{"init-addrelease-error"}, 1,1)
+	$m->comp("/comp/error", $ARGS{"init-addrelease-error"}, 1, 1)
 		if ($ARGS{"init-addrelease-error"});
 
 	# HANDLE SPECIAL SUBMIT BUTTONS
@@ -147,7 +147,7 @@
 		{
 			if (($ARGS{"artistid"} == 0 or defined $ARGS{"sacartist"}) or
 				($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_TOSAC"}) or
-				($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_SACSEARCH"}))
+				($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_SACARTIST_SEARCH"}))
 			{
 				my $prev = $ARGS{"artistid"};
 				%ARGS = $m->comp("/comp/release_editor/convert-tosac", %ARGS);
@@ -177,17 +177,6 @@
 			# --------------------------------------------------------------
 			%ARGS = $m->comp("/comp/release_editor/check-attributes", %ARGS);
 
-			# CHECK TRACK ARTISTS
-			# --------------------------------------------------------------
-			if (not keys %{$ARGS{"v::fields"}} and
-				$ARGS{"hasmultipletrackartists"} and
-				(($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_NEXT"}) or
-				 ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_ARTISTSEARCH"}) or
-				 ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_ARTISTSELECT"})))
-			{
-				%ARGS = $m->comp("/comp/release_editor/check-artists", %ARGS);
-			}
-
 			# SIMILAR RELEASES CHECK
 			# ---------------------------------------------------------------
 			# check if we have an release with the same number
@@ -195,6 +184,17 @@
 			$ARGS{"v::checkedsimilar"} = 1;
 			%ARGS = $m->comp("/comp/release_editor/check-similar-releases", %ARGS)
 				if (!defined $ARGS{"force_similar"});
+
+			# CHECK TRACK ARTISTS
+			# --------------------------------------------------------------
+			if (not keys %{$ARGS{"v::fields"}} and
+				$ARGS{"hasmultipletrackartists"} and
+				(($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_NEXT"}) or
+				 ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_TRACKARTIST_SEARCH"}) or
+				 ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_TRACKARTIST_SELECT"})))
+			{
+				%ARGS = $m->comp("/comp/release_editor/check-artists", %ARGS);
+			}
 
 			# CHECK CHARACTERS IN FIELDS WHICH MIGHT MAC/SAC
 			# ---------------------------------------------------------------

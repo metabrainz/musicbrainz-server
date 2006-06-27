@@ -42,7 +42,7 @@
 		if ($ARGS{"v::showform"})
 		{
 			next if $k =~ /^artist(id|name|resolution|edit)$/i;
-			next if $k =~ /^tr\d+_artist(id|name|resolution)$/i;
+			next if $k =~ /^tr\d+_artist(id|name|resolution|edit)$/i;
 		}
 
 		# release attributes, release fields

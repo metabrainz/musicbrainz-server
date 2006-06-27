@@ -136,7 +136,10 @@
 
 							# button values which drive the form handling
 							# in the page using this component.
-							selectbutton => $ARGS{"SUBMIT_SACSELECT"},
+							selectbutton => $ARGS{"SUBMIT_SACARTIST_SELECT"},
+							searchbutton => $ARGS{"SUBMIT_SACARTIST_SEARCH"},
+							searchagainbutton => $ARGS{"SUBMIT_SACARTIST_SEARCH"},
+
 							cancelbutton => $ARGS{"SUBMIT_BACKTOFORM"},
 							addartistbutton => $ARGS{"SUBMIT_ADDARTIST"},
 
@@ -156,7 +159,7 @@
 %				# add hidden field to allow selection dblclick
 %				# handler on radiobutton to submit a submitvalue
 %				# -- value of the select button is not transmitted in this case.
-				<& /comp/form/hiddenfield, "submitvalue", $ARGS{"SUBMIT_SACSELECT"} &>
+				<& /comp/form/hiddenfield, "submitvalue", $ARGS{"SUBMIT_SACARTIST_SELECT"} &>
 
 				<& /comp/tableend &>
 

@@ -106,7 +106,7 @@
 		$m->out(sprintf "<td>%s</td>", $ARGS{$field});
 		delete $args{$field};
 
-		$field = sprintf "tr%d_editartist", $i;
+		$field = sprintf "tr%d_artistedit", $i;
 		$m->out(sprintf "<td>%s</td>", $ARGS{$field});
 		delete $args{$field};
 
