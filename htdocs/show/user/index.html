@@ -111,6 +111,41 @@
 					</div></td>
 			</tr>
 
+			<tr class="top">
+				<td class="label">
+					Review:</td>
+				<td>
+					<a href="/mod/search/pre/voted.html?userid=<% $userid %>">Votes</a> |
+					<a href="/mod/search/pre/editor.html?userid=<% $userid %>">Edits</a> |
+					<a href="/mod/search/pre/editor-open.html?userid=<% $userid %>">Open edits</a> |
+					<a href="/mod/search/pre/editor-failed.html?userid=<% $userid %>">Failed edits</a> |
+					<a href="/mod/search/pre/editor-deleted.html?userid=<% $userid %>">Deleted edits</a>
+% 	if ($subscriptions_public or $is_me)
+%	{
+					| <a href="/user/subscriptions.html?user=<% $userid %>">Subscriptions</a>
+% 	}
+				</td>
+			</tr>
+
+			<tr class="top">
+% 	if (not $is_me or $can_nominate)
+%	{
+				<td class="label">
+					Contact:</td>
+				<td>
+% 		unless ($is_me)
+%		{
+					<a href="/user/mod_email.html?uid=<% $userid
+						%>&amp;url=<% uri_escape("/show/user/?userid=$userid") %>">Send e-mail</a>
+% 		}
+% 		if ($can_nominate)
+%		{
+					| <a href="/user/election/propose.html?username=<% uri_escape($user->GetName)
+						%>">Nominate for AutoEditor</a>
+% 		}
+			</tr>
+% 	}
+
 % 	if ($is_me)
 %	{
 
@@ -140,40 +175,6 @@
 
 % 	}
 
-			<tr class="top">
-% 	if (not $is_me or $can_nominate)
-%	{
-				<td class="label">
-					Contact:</td>
-				<td>
-% 		unless ($is_me)
-%		{
-					<a href="/user/mod_email.html?uid=<% $userid
-						%>&amp;url=<% uri_escape("/show/user/?userid=$userid") %>">Send e-mail</a>
-% 		}
-% 		if ($can_nominate)
-%		{
-					| <a href="/user/election/propose.html?username=<% uri_escape($user->GetName)
-						%>">Nominate for AutoEditor</a>
-% 		}
-			</tr>
-% 	}
-
-			<tr class="top">
-				<td class="label">
-					Review:</td>
-				<td>
-					<a href="/mod/search/pre/voted.html?userid=<% $userid %>">Votes</a> |
-					<a href="/mod/search/pre/editor.html?userid=<% $userid %>">Edits</a> |
-					<a href="/mod/search/pre/editor-open.html?userid=<% $userid %>">Open edits</a> |
-					<a href="/mod/search/pre/editor-failed.html?userid=<% $userid %>">Failed edits</a> |
-					<a href="/mod/search/pre/editor-deleted.html?userid=<% $userid %>">Deleted edits</a>
-% 	if ($subscriptions_public or $is_me)
-%	{
-					| <a href="/user/subscriptions.html?user=<% $userid %>">Subscriptions</a>
-% 	}
-				</td>
-			</tr>
 
 			<tr class="top">
 				<td class="label">
