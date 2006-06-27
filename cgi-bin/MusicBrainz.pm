@@ -64,7 +64,7 @@ sub Login
 
 		{
 			$INC{'Apache.pm'} or last;
-			my $r = Apache->request or last;
+			my $r = eval{ Apache->request } or last;
 			$db = $r->dir_config->get("MBDatabase");
 		}
 		last if $db;
