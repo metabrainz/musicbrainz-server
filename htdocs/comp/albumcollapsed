@@ -33,6 +33,7 @@
 	$ex => ""
 	$showtag => 0
 	$showreleases => 0
+    $short=>1
 
 </%args>
 <%perl>
@@ -42,7 +43,7 @@
 
 	$ex .= "," . $album->GetId();
 	$ex =~ s/^,//g;
-	$link .= $ex . "&compact=0#al" . $album->GetId();
+	$link .= $ex . "&short=$short&compact=0#al" . $album->GetId();
 
 	$m->comp("/comp/release/release_begin",
 		album => $album, artist => $artist,

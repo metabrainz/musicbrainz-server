@@ -32,6 +32,7 @@
 	$mbid => ""
 
 	$ex => ""
+    $short=>1
 
 	$mbt => $session{'mbt'}
 	$tport => $session{'tport'}
@@ -64,6 +65,21 @@
 	my $mb = $m->comp("/comp/dblogin");
 	my $artist = $m->comp("/comp/loadartist", $mb, $mbid || $artistid);
 
+    my $fCompact = 1;
+    my @albums;
+    
+    # We will use one of the following display modes:
+    # 0 - short display mode, with albums eps single and comp shown.
+    # 1 - short mode with all SA other than the above shown
+    # 2 - short mode with all VA, no SA shown
+    # 3 - full mode -- show everything
+    my $dispmode = 0;
+    my @dispinfo = (
+        [ "album, EP, single, comp. releases", "all releases" ],
+        [ "all single artist releases", "all releases" ],
+        [ "all various artist releases", "all releases" ],
+        [ "all releases", "albums, EP, single, comp. releases" ]
+    );
 
 	# Disallow viewing the DELETED_ARTIST.
 	$artist->GetId == &ModDefs::DARTIST_ID
@@ -196,9 +212,45 @@
     }
     else
     {
-		my @albums = $artist->GetAlbums(0, 1);
+		@albums = $artist->GetAlbums($short, 1);
 
-		my $fCompact = $ARGS{compact};
+        # filter out non album, EP and single releases if in short listing
+        if ($short)
+        {
+            my @shortlist;
+
+            for my $album (@albums)
+            {
+                my ($type, $status) = $album->GetReleaseTypeAndStatus();
+                push @shortlist, $album if ($type == &Album::ALBUM_ATTR_ALBUM ||
+                                            $type == &Album::ALBUM_ATTR_EP ||
+                                            $type == &Album::ALBUM_ATTR_COMPILATION ||
+                                            $type == &Album::ALBUM_ATTR_SINGLE);
+            }
+            if (scalar(@shortlist))
+            {
+                @albums = @shortlist;
+            }
+            else
+            {
+                # no releases for our short mode. Set to all SAs, if possible.
+                $dispmode = 1;
+            }
+        }
+        else
+        {
+            # We're not in short mode, so display everything
+            $dispmode = 3;
+        }
+
+        # if we netted no albums to show, fetch everything else.
+        if (scalar(@albums) == 0)
+        {
+		    @albums = $artist->GetAlbums(0, 1) ;
+            $dispmode = 3;
+        }
+
+		$fCompact = $ARGS{compact};
 		$fCompact = (@albums >= UserPreference::get('releases_show_compact'))
 			if not defined $fCompact;
 
@@ -280,25 +332,32 @@
 
             <table width="100%">
             <tr>
-%	unless ($fCompact) {
+% unless ($fCompact) {
             <td style="padding-right: 1em">
-				<a href="/show/artist/?artistid=<% $artist->GetId() %>&amp;ex=<% $exall %>&amp;compact=0">
+				<a href="/show/artist/?artistid=<% $artist->GetId() %>&amp;ex=<% $exall %>&amp;compact=0&amp;short=<% $short %>">
 				<img src="/images/plus.gif" align="middle"
 					 alt="Expand" title="Expand All Albums"
 					 height="13" width="13" border="0"> Expand All</a>
             </td>
             <td style="padding-right: 1em">
-				<a href="/show/artist/?artistid=<% $artist->GetId() %>&amp;compact=0">
+				<a href="/show/artist/?artistid=<% $artist->GetId() %>&amp;compact=0&amp;short=<% $short %>">
 				<img src="/images/minus.gif" align="middle"
 					 alt="Collapse" title="Collapse All Albums"
 					 height="13" width="13" border="0"> Collapse All</a>
             </td>
-%	}
+% }
             <td style="padding-right: 1em">
 				<a href="/artist/<% $artist->GetMBId %>.html?compact=<%
 					$fCompact ?  0 : 1
-					%>&amp;mbt=<% $mbt?1:0 %>"
+					%>&amp;short=<% $short %>&amp;mbt=<% $mbt?1:0 %>"
 					>Change to <% $fCompact ? "full" : "compact" %> listing</a>
+			</td>
+            <td style="padding-right: 1em">
+				Showing <b><% $dispinfo[$dispmode]->[0] %></b>. Show
+				<a style="font-weight: bold;" href="/artist/<% $artist->GetMBId %>.html?short=<%
+					$short ?  0 : 1
+					%>&amp;compact=<% $fCompact %>&amp;mbt=<% $mbt?1:0 %>"
+					><% $dispinfo[$dispmode]->[1] %></a>
 			</td>
 
 %	          if ($session{uid}) {
@@ -450,7 +509,7 @@
                 {
                      $m->comp("/comp/albumcollapsed",
 						 album => $album, artist => $artist,
-						 ex => $ex, showids => 0, showtag => 1);
+						 ex => $ex, showids => 0, showtag => 1, short=>$short);
                 }
             }
 
@@ -460,8 +519,13 @@
             <%perl>
         }
     }
-
 </%perl>
+
+% if ($dispmode < 3) {
+    <p style="margin-top: 2em;">
+    Displaying <b><% $dispinfo[$dispmode]->[0] %></b>.
+    Show <a style="font-weight: bold;" href="/artist/<% $artist->GetMBId %>.html?short=0&amp;compact=<% $fCompact %>&amp;mbt=<% $mbt?1:0 %>"><% $dispinfo[$dispmode]->[1] %></a></p>
+% }
 
 	<script type="text/javascript" src="/scripts/collapsereleases.js"></script>
 	<input type="hidden" id="collapsereleases::defaultcollapse" value="0" />
