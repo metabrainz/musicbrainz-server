@@ -44,7 +44,7 @@
 				<a href="<% $votelink %>">Vote on Edits</a></li>
 
 %	# Show Relationship Types Editor link if the user
-%	# has these priviledges
+%	# has these privileges
 %	if (UserStuff->IsLinkModerator($session{privs}))
 %	{
 
@@ -54,7 +54,7 @@
 %	}
 
 %	# Show Wikidocs Transclusion link if the user
-%	# has these priviledges
+%	# has these privileges
 %	if (UserStuff->IsWikiTranscluder($session{privs}))
 %	{
 
