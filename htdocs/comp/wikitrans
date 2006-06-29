@@ -61,7 +61,7 @@
 
 	# If we have the page in the cache, continue with flag contentOk=1.
 	my $contentOk = 0;
-	if ($page)
+	if (0) #$page)
 	{
 		$contentOk = 1;
 	}
@@ -70,7 +70,7 @@
 		# Nope, get it from the wiki, process and cache it
 		my $docurl = "http://" . &DBDefs::WIKITRANS_SERVER . "/"
 					. $id . "?action="
-					. ($isWikiDocs ? ("ContentRev&rev=".$index->{$id}) : "content");
+					. ($isWikiDocs ? ("ContentRev&rev=".$index->{$id}) : "ContentRev");
 
 		require LWP::UserAgent;
 		my $ua = LWP::UserAgent->new(max_redirect => 0);
