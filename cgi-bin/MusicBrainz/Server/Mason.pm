@@ -66,13 +66,14 @@ sub preload_files
 		/bare
 		/cdi
 		/development
+		/edit
 		/freedb
 		/mod
 		/news
-		/popup
-		/products
-		/tagger
 		/user
+		/products
+		/search
+		/show
 	)) {
 		&$recurse($t,  qr/\.(html|inc)$/);
 	}
