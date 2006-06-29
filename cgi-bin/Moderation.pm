@@ -1179,10 +1179,10 @@ sub GetComponent
 # contents of the moderation type field.
 sub ShowModType
 {
-	my ($this, $mason) = splice(@_, 0, 2);
-
+	my ($this, $mason, $showeditlinks) = splice(@_, 0, 3);
+	
 	use MusicBrainz qw( encode_entities );
-
+	
 	# default exists is to check if the given name is set
 	# in the values hash.
 	($this->{"exists-album"}, $this->{"exists-track"}) =  ($this->{"albumname"}, $this->{"trackname"});
@@ -1262,14 +1262,22 @@ sub ShowModType
 	
 
 	# output the artist this edit is listed under.
-	$mason->out(qq!<tr class="entity"><td class="lbl">Artist:</td><td>!);
+	$mason->out(qq!<tr class="entity"><td class="lbl">Artist:</td>!);
+	$mason->out(qq!<td>!);
 	$mason->comp("/comp/linkartist", 
 		id => $this->GetArtist, 
 		name => $this->GetArtistName, 
 		sortname => $this->GetArtistSortName, 
 		resolution => $this->GetArtistResolution
 	);
-	$mason->out(qq!</td></tr>!);	
+	$mason->out(qq!</td>!);
+	if ($showeditlinks)
+	{
+		$mason->out(qq!<td class="editlinks">!);
+		$mason->comp("/comp/linkedits", type => "artist", id => $this->GetArtist);
+		$mason->out(qq!</td>!);
+	}
+	$mason->out(qq!</tr>!);	
 	
 	
 	# output the release this edit is listed under.
@@ -1284,9 +1292,17 @@ sub ShowModType
 			$strong = 0;
 		}
 		
-		$mason->out(qq!<tr class="entity"><td class="lbl">Release:</td><td>!);	
+		$mason->out(qq!<tr class="entity"><td class="lbl">Release:</td>!);	
+		$mason->out(qq!<td>!);
 		$mason->comp("/comp/linkrelease", id => $id, name => $name, title => $title, strong => $strong);
-		$mason->out(qq!</td></tr>!);	
+		$mason->out(qq!</td>!);
+		if ($showeditlinks)
+		{
+			$mason->out(qq!<td class="editlinks">!);
+			$mason->comp("/comp/linkedits", type => "release", id => $id);
+			$mason->out(qq!</td>!);
+		}
+		$mason->out(qq!</tr>!);	
 	}
 
 	# output the track this edit is listed under.
@@ -1300,9 +1316,17 @@ sub ShowModType
 			$id = -1;
 			$strong = 0;
 		}
-		$mason->out(qq!<tr class="entity"><td class="lbl">Track:</td><td>!);	
+		$mason->out(qq!<tr class="entity"><td class="lbl">Track:</td>!);	
+		$mason->out(qq!<td>!);
 		$mason->comp("/comp/linktrack", id => $id, name => $name, title => $title, strong => $strong);
-		$mason->out(qq!</td></tr>!);	
+		$mason->out(qq!</td>!);
+		if ($showeditlinks)
+		{
+			$mason->out(qq!<td class="editlinks">!);
+			$mason->comp("/comp/linkedits", type => "track", id => $id);
+			$mason->out(qq!</td>!);
+		}
+		$mason->out(qq!</tr>!);		
 	}	
 	
 	# call delegate method that can be overriden by the edit types

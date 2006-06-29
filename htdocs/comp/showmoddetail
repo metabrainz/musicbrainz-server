@@ -89,7 +89,7 @@
 			</tr>
 			<tr class="top">
 				<td class="label">Type:</td>
-				<td><%perl> $edit->ShowModType($m); </%perl></td>
+				<td><%perl> $edit->ShowModType($m, 1); </%perl></td>
 			</tr>
 			<tr class="top">
 				<td class="label">Old Value:</td>

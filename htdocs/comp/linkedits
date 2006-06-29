@@ -34,14 +34,20 @@
 
 	# manual override of the above parameters:
 	$type => undef # artist or release
-	$id => "" # rowid
+	$id => 0 # rowid
 	$mp => 0
 
 </%args>
 <%perl>
 
-	my $mp_url;
+	($id, $type) = ($artist->GetId, "artist") if ($artist);
+	($id, $type) = ($release->GetId, "album") if ($release);
+	($id, $type) = ($track->GetId, "track") if ($track);
 
+	# if the object does not exist, do not show anything
+	return if ($id == -1);
+
+	my $mp_url;
 	if ($type eq "artist")
 	{
 		$mp_url = "/mod/search/results.html?artist_type=3&amp;artist_id=%s";
@@ -61,16 +67,19 @@
 
 </%perl>
 
-%	if (defined $mp_url and $id ne "")
+%	if (defined $mp_url and $id)
 %	{
 %		$mp_url = sprintf($mp_url, $id);
 
 %		$m->out(qq!<span class="mp">!) if ($mp);
-		[ <a href="<% $mp_url.$open_status |n %>" title="<% $open_title %>">open</a> |
-		<a href="<% $mp_url |n %>" title="<% $all_title %>">all</a> ]
+
+		[
+			<a href="<% $mp_url.$open_status |n %>" title="<% $open_title %>">open</a> |
+			<a href="<% $mp_url |n %>" title="<% $all_title %>">all</a>
+		]
+
 %		$m->out('</span>') if ($mp);
 
 %	}
-
 
 %# vi: set ts=4 sw=4 ft=mason :

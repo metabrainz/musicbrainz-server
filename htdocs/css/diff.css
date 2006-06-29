@@ -391,6 +391,9 @@ table.edittype tr.entity td {
 table.edittype tr.entity a {
 	font-weight: normal;
 }
+table.edittype tr.entity td.editlinks {
+	padding-left: 50px;
+}
 
 .showedit-jsnote {
 	font-size: 11px;
