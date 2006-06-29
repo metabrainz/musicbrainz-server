@@ -145,13 +145,21 @@ sub IsAutoMod
 {
 	my ($self, $user_is_automod) = @_;
 	my $edits = 0;
-	for my $t (@{ $self->{"edits"} })
-	{
-		my @d = map { 0+$_ } split "-", $t->{"d"};
-	    my @nd = map { 0+$_ } split "-", $t->{"nd"};
-	    $edits++
-		if $d[0] != $nd[0] or (($d[1] or !$nd[1]) and ($d[1] != $nd[1] or $d[2] or !$nd[2]));
-	}
+	
+	# we do not auto-approve adding new release events.
+	# my $adds = @{ $self->{"adds"} }; 
+	
+	# TODO: fix code, since it has ill effects for autoeditors
+	# -- see #1623
+	
+	# for my $t (@{ $self->{"edits"} })
+	# {
+	# 	my @d = map { 0+$_ } split "-", $t->{"d"};
+	#     my @nd = map { 0+$_ } split "-", $t->{"nd"};
+	#     $edits++
+	# 	if $d[0] != $nd[0] or (($d[1] or !$nd[1]) and ($d[1] != $nd[1] or $d[2] or !$nd[2]));
+	# }
+	
 	my $removes = @{ $self->{"removes"} };
 	(not $removes and (not $edits or $user_is_automod));
 }
