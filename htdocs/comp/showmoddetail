@@ -267,20 +267,5 @@
 
 	<& /comp/tableend &>
 
-% 	if (&DBDefs::DB_STAGING_SERVER and $edit->GetStatus == &ModDefs::STATUS_OPEN)
-%	{
-
-	<& /comp/tablebegin, title => "Manually accept/reject this edit" &>
-		<form action="/show/edit/" method="post">
-			<p>
-				<input type="hidden" name="editid" value="<% $edit->GetId %>">
-				<input type="submit" name="ACCEPT" value="ACCEPT">
-				&nbsp;
-				<input type="submit" name="REJECT" value="REJECT">
-			</p>
-		</form>
-	<& /comp/tableend &>
-
-% 	}
 
 %# vi: set ts=4 sw=4 ft=mason :

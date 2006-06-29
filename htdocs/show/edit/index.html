@@ -56,7 +56,7 @@
 
 	if (&DBDefs::DB_STAGING_SERVER and $edit)
 	{
-		if ($ARGS{"ACCEPT"} or $ARGS{"REJECT"})
+		if ($ARGS{"accept"} or $ARGS{"reject"})
 		{
 			my $sql = Sql->new($mb->{DBH});
 
@@ -64,7 +64,7 @@
 				$sql->Begin;
 				my $user = UserStuff->new($mb->{DBH});
 
-				if ($ARGS{'ACCEPT'})
+				if ($ARGS{"accept"})
 				{
 					my $status = $edit->ApprovedAction;
 					$edit->SetStatus($status);
@@ -99,6 +99,45 @@
 </%perl>
 
 <& /comp/sidebar-notitle, pagetitle => $title &>
+
+
+%	# if the edit could not be loaded, show error message.
+% 	if (not $edit)
+% 	{
+
+	<& /comp/tablebegin, title => $title &>
+		Edit with <strong>Edit ID</strong> #<% $editid %> was not found in the database.
+	<& /comp/tableend &>
+
+%	}
+% 	else
+%	{
+
+	<& /comp/showmoddetail, $edit &>
+
+
+% 	if (&DBDefs::DB_STAGING_SERVER and $edit->GetStatus == &ModDefs::STATUS_OPEN)
+%	{
+
+	<& /comp/tablebegin, title => "Manually accept/reject this edit" &>
+
+		<& /comp/form/feedbackbox, "warning", "Please note",
+			qq!	This feature is only available on staging servers, and
+				allows you to accept/reject this edit immediately. Although
+				some users might like this feature to be available on the
+				main server, it is only available on test servers :) ! &>
+
+		<form action="/show/edit/" method="post">
+			<p>
+				<input type="hidden" name="editid" value="<% $edit->GetId %>">
+				<input type="submit" name="accept" value="Accept">
+				<input type="submit" name="reject" value="Reject">
+			</p>
+		</form>
+	<& /comp/tableend &>
+
+% 	}
+
 
 	<& /comp/tablebegin, title => "Show another edit" &>
 
@@ -138,20 +177,6 @@
 
 	<& /comp/tableend &>
 
-
-%	# if the edit could not be loaded, show error message.
-% 	if (not $edit)
-% 	{
-
-	<& /comp/tablebegin, title => $title &>
-		Edit with <strong>Edit ID</strong> #<% $editid %> was not found in the database.
-	<& /comp/tableend &>
-
-%	}
-% 	else
-%	{
-
-	<& /comp/showmoddetail, $edit &>
 
 	<script type="text/javascript" src="/scripts/jsdiff.js"></script>
 	<script type="text/javascript" src="/scripts/collapsereleases.js"></script>
