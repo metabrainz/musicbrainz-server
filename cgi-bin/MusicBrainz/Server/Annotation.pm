@@ -120,7 +120,7 @@ sub GetTextAsHTML
 {
 	my $self = shift;
     Text::WikiFormat::format($self->GetText, {}, 
-			                 { prefix=>"http://wiki.musicbrainz.org/",
+			                 { prefix => "http://wiki.musicbrainz.org/",
         			           extended => 1,
 					   	       absolute_links => 1,
                                implicit_links => 0
@@ -133,7 +133,7 @@ sub GetShortTextAsHTML
 
 	my ($trunc_type, $text) = $self->GetShortText;
 	$text = Text::WikiFormat::format($text, {}, 
-			                 { prefix=>"http://wiki.musicbrainz.org/",
+			                 { prefix => "http://wiki.musicbrainz.org/",
         			           extended => 1,
 					   	       absolute_links => 1,
                                implicit_links => 0
@@ -605,6 +605,9 @@ sub GetShortText
 {
 	my $self = shift;
 	my $text = $self->{text};
+	
+	# fix for ticket 1649, turn off truncating annotation texts.
+	return(TRUNC_NONE, $text);
 
 	use MusicBrainz qw( encode_entities );
 
