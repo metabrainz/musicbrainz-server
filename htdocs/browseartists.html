@@ -63,9 +63,11 @@
 
 	# render results-box
 	my $boxtitle = sprintf "Found %d Artists starting with \"%s\"", $num_artists, $index;
-	$m->out(qq!<a name="results"></a> !);
+
 	$m->comp("/comp/tablebegin",
-		title => $boxtitle, showmodnotice => 1
+		title => $boxtitle,
+		showmodnotice => 1,
+		id => "results"
 	);
 
 	# if no artists are found, suggest entering a new one.
