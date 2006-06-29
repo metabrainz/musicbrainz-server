@@ -61,7 +61,7 @@
 
 	# If we have the page in the cache, continue with flag contentOk=1.
 	my $contentOk = 0;
-	if (0) #$page)
+	if ($page)
 	{
 		$contentOk = 1;
 	}
