@@ -1242,7 +1242,7 @@ sub ShowModType
 	$mason->comp("/comp/linkdoc", $docname, $this->Name);
 	if ($this->GetAutomod)
 	{
-		$mason->out(qq! &nbsp; <small>(<a href="/mod_intro.html#automod">Autoedit</a>)</small>!);
+		$mason->out(qq! &nbsp; <small>(<a href="/doc/AutoEdit">Autoedit</a>)</small>!);
  	}
  	
 	# if current/total number of tracks is available, show the info...
