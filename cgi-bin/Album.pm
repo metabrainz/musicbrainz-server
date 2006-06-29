@@ -1432,10 +1432,10 @@ sub GetTrackSequence
 	);
 }
 
-sub RDF_URL
+sub XML_URL
 {
 	my $this = shift;
-	sprintf "http://%s/mm-2.1/album/%s",
+	sprintf "http://%s/ws/1/release/%s?type=xml&inc=artist+counts+release-events+discs+tracks",
 		&DBDefs::RDF_SERVER,
 		$this->GetMBId,
 	;

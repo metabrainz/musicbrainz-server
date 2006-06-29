@@ -1086,10 +1086,10 @@ sub GetRelations
     );
 } 
 
-sub RDF_URL
+sub XML_URL
 {
 	my $this = shift;
-	sprintf "http://%s/mm-2.1/artist/%s",
+	sprintf "http://%s/ws/1/artist/%s?type=xml&inc=aliases",
 		&DBDefs::RDF_SERVER,
 		$this->GetMBId,
 	;

@@ -74,9 +74,9 @@
 			</tr>
 			<tr>
 				<td class="label">
-					<a href="/MM/index.html">MM/RDF</a>:</td>
+					<a href="/development/mmd">XML</a>:</td>
 				<td>
-					<a href="<% $release->RDF_URL %>"><% $release->RDF_URL %></a></td>
+					<a href="<% $release->XML_URL %>"><% $release->XML_URL %></a></td>
 			</tr>
 
 % 		if ($session{uid}) {

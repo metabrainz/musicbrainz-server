@@ -63,9 +63,9 @@
 			</tr>
 			<tr>
 				<td class="label">
-					<a href="/MM/index.html">MM/RDF</a>:</td>
+					<a href="/development/mmd">XML</a>:</td>
 				<td>
-					<a href="<% $track->RDF_URL %>"><% $track->RDF_URL %></a></td>
+					<a href="<% $track->XML_URL %>"><% $track->XML_URL %></a></td>
 			</tr>
 
 %	if ($track->GetLength) {

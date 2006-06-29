@@ -539,10 +539,10 @@ sub GetAlbumInfo
    return @info;
 }
 
-sub RDF_URL
+sub XML_URL
 {
 	my $this = shift;
-	sprintf "http://%s/mm-2.1/track/%s",
+	sprintf "http://%s/ws/1/track/%s?type=xml&inc=artist+releases",
 		&DBDefs::RDF_SERVER,
 		$this->GetMBId,
 	;
