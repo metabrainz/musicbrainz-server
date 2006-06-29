@@ -32,7 +32,7 @@
 		    UserStuff->IsAutoMod($session{privs})) and
 		    $edit->IsAutoModType($edit->GetType));
 
-	push @statuslinks, qq!<a href="/mod/remove.html?editid=$id">Delete</a>!
+	push @statuslinks, qq!<a href="/mod/remove.html?editid=$id">Remove edit</a>!
 		if ($my_mod and $is_open);
 
 </%perl>

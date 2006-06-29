@@ -1,14 +1,45 @@
-%# vi: set ts=2 sw=2 ft=mason :
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# This page allows an Editor to remove/cancel a pending edit
+	#
+	# $Id$
+	#
+</%perl>
 <%args>
+
 	$modid => 0
-	$confirm => ""
+	$editid => undef
+	$submitvalue => ""
 	$url => "/mod/search/pre/moderator.html"
+
 </%args>
 <%perl>
-	# start page output.
+
+	$editid ||= $modid;
 
 	# sanitize modid argument
-	if ($modid < 1)
+	if ($editid < 1)
 	{
 		$m->comp("/comp/badargs");
 		return undef;
@@ -17,31 +48,32 @@
 	# Instantiate MusicBrainz object
 	my $mb = $m->comp("/comp/dblogin");
 
-	# load moderation from given $modid argument
-	my $mod = Moderation->new($mb->{DBH});
-	$mod = $mod->CreateFromId($modid);
-	if (not defined $mod)
+	# load moderation from given $editid argument
+	my $edit = Moderation->new($mb->{DBH});
+	$edit = $edit->CreateFromId($editid);
+	if (not defined $edit)
 	{
-		$m->comp("/comp/error", "The edit #$modid was not found.");
+		$m->comp("/comp/error", "The edit #$editid was not found.");
 		return undef;
 	}
-	if ($mod->GetStatus != &ModDefs::STATUS_OPEN)
+	if ($edit->GetStatus != &ModDefs::STATUS_OPEN)
 	{
-		$m->comp("/comp/error", "The edit #$modid is not in a status that allows removal.");
+		$m->comp("/comp/error", "The edit #$editid is not in a status that allows removal.");
 		return undef;
 	}
 
+	$edit->PreDisplay;
 
 	# form was submitted, see which button it was.
-	if ($confirm ne "")
+	if ($submitvalue ne "")
 	{
-		if ($confirm =~ m/YES/)
+		if ($submitvalue =~ m/Remove Edit/)
 		{
 		    my $sql = Sql->new($mb->{DBH});
 			eval
 			{
 				$sql->Begin;
-				$mod->RemoveModeration($session{uid});
+				$edit->RemoveModeration($session{uid});
 				$sql->Commit;
 			};
 			if ($@)
@@ -64,8 +96,8 @@
 	}
 
 
-	$m->comp("/comp/sidebar-notitle", pagetitle => "Confirm Remove Moderation");
-	$m->comp("/comp/tablebegin", title => "Confirm Moderation Removal");
+	$m->comp("/comp/sidebar-notitle", pagetitle => "Confirm Remove Edit");
+	$m->comp("/comp/tablebegin", title => "Confirm Edit Removal");
 
 </%perl>
 
@@ -75,7 +107,7 @@
 			<tr>
 				<td colspan="2" class="instructions">
 					<ul>
-						<li>Do you want to remove this moderation?</li>
+						<li>Do you want to remove this edit?</li>
 					</ul>
 				</td>
 			</tr>
@@ -85,7 +117,7 @@
 				</td>
 				<td>
 					<%perl>
-						$mod->ShowModType($m);
+						$edit->ShowModType($m);
 					</%perl></td>
 			</tr>
 			<tr class="top">
@@ -94,7 +126,7 @@
 				</td>
 				<td>
 				<%perl>
-					$mod->ShowPreviousValue($m);
+					$edit->ShowPreviousValue($m);
 				</%perl></td>
 			</tr>
 			<tr class="top">
@@ -103,21 +135,26 @@
 				</td>
 				<td>
 				<%perl>
-					$mod->ShowNewValue($m);
+					$edit->ShowNewValue($m);
 				</%perl></td>
 			</tr>
-			<tr>
-				<td class="label">Confirm:</td>
+			<tr class="spaced">
+				<td class="label">&nbsp;</td>
 				<td class="formsection">
-					<input type="submit" class="button" name="confirm" value="&laquo; NO" />
-					<input type="submit" class="button" name="confirm" value="YES &raquo;" />
+					<input type="submit" class="button" name="submitvalue" id="btn_cancel" value="Cancel" />
+					<input type="submit" class="button" name="submitvalue" value="Remove Edit &raquo;" />
 					<& /comp/args-to-hidden-fields.inc, %ARGS &>
 				</td>
 			</tr>
 		</table>
-		<& /comp/movefocus, id => "ConfirmForm" &>
+		<& /comp/movefocus, id => "btn_cancel" &>
 	</form>
 
 	<& /comp/tableend &>
 
+	<script type="text/javascript" src="/scripts/jsdiff.js"></script>
+	<script type="text/javascript" src="/scripts/collapsereleases.js"></script>
+
 <& /comp/footer &>
+
+%# vi: set ts=4 sw=4 ft=mason :

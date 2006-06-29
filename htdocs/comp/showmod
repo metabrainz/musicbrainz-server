@@ -24,7 +24,7 @@
 
 	# ======orange===bar============================================================================+
 	# By: modname   ID: ##### (am)| Type: mod type...	 |		1 yes, 1 no					  |
-	# Expire[sd]: yyyymmdd.....   | Artist: name...	   | [ Add note | Send email | Delete mod ]  |
+	# Expire[sd]: yyyymmdd.....   | Artist: name...	   | [ Add note | Send email | Remove edit ]  |
 	# ----------------------------+-----------------------+-----------------------------------------+
 	# previous value shown here   | New value shown here  |  [X] Yes [X] No [X] Abstain			 |
 	# ======orange===bar============================================================================+
@@ -98,12 +98,12 @@
 %		UserStuff->IsAutoMod($session{privs}) and
 %		$mod->IsAutoModType($mod->GetType))
 %	{
-			   | <a href="/mod/approve.html?modid=<% $mod->GetId %>&amp;url=<% $url %>">Approve</a>
+			   | <a href="/mod/approve.html?editid=<% $mod->GetId %>&amp;url=<% $url %>">Approve</a>
 %	}
 
 %	if ($is_mine and $is_open)
 %	{
-				| <a href="/mod/remove.html?modid=<% $mod->GetId %>&amp;url=<% $url %>">Delete mod</a>
+				| <a href="/mod/remove.html?editid=<% $mod->GetId %>&amp;url=<% $url %>">Remove edit</a>
 % 	}
 				]
 	   </td>
