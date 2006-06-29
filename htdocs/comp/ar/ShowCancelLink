@@ -37,8 +37,9 @@
 
 	my $typeshow = ($targettype eq "album" ? "release" : $targettype);
 
-	my $page = "/show/$typeshow/" . $isrelpage ? "relationships.html" : "";
+	my $page = "/show/$typeshow/" . ($isrelpage ? "relationships.html" : "");
 	my $idarg = $typeshow . "id";
+
 
 	$m->out(qq!<a href="$page?$idarg=$targetid&amp;arcancel=1">Cancel</a>!);
 

@@ -167,6 +167,7 @@ else
 			$m->out(sprintf qq!<a href="/show/%s/relationships.html?%sid=$id">View all relationships...</a>!,
 					$typeshow,
 					$typeshow);
+
 			$m->out(qq!</td></tr>!);
 			last;
 		}

@@ -86,10 +86,9 @@
 						$typeshow,
 						$typeshow);
 
-				# less clutter, but one click more to go to the edit links.
-				# $m->out(sprintf qq! | <a href="/show/%s/relationships.html?%sid=$id&amp;expanded=1">Edit relationships</a>!,
-				#		 $typeshow,
-				#		 $typeshow);
+				$m->out(sprintf qq! | <a href="/show/%s/relationships.html?%sid=$id&amp;expanded=1">Edit relationships</a>!,
+						 $typeshow,
+						 $typeshow);
 			}
 		}
 
@@ -102,6 +101,10 @@
 		if (!$isrelpage)
 		{
 			$m->out(sprintf qq! <a href="/show/%s/relationships.html?%sid=$id">View all relationships</a>!,
+					$typeshow,
+					$typeshow);
+
+			$m->out(sprintf qq! | <a href="/show/%s/relationships.html?%sid=$id">Edit</a>!,
 					$typeshow,
 					$typeshow);
 		}
