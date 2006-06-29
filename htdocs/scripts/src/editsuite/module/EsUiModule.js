@@ -33,9 +33,9 @@ function EsUiModule() {
 	this.BTN_GUESSBOTH = "BTN_GUESSBOTH";
 	this.BTN_CANCEL = "BTN_CANCEL";
 
-	this.BTN_TEXT_NONALBUMTRACKS = 'Guess All Track Names according to Guess Case settings';
-	this.BTN_TEXT_ALBUMANDTRACKS = 'Guess Album Name and Track Names according to Guess Case settings';
-	this.BTN_TEXT_ALBUMARTISTANDTRACKS = 'Guess Album, Artist and Track Names according to Guess Case settings';
+	this.BTN_TEXT_NONALBUMTRACKS = 'Guess all track names according to guess case settings';
+	this.BTN_TEXT_ALBUMANDTRACKS = 'Guess release name and track names according to Guess Case settings';
+	this.BTN_TEXT_ALBUMARTISTANDTRACKS = 'Guess release, artist and track names according to Guess Case settings';
 
 	// guess case mode setting
 	this.GC_MODE = null;
@@ -56,7 +56,7 @@ function EsUiModule() {
 		// names of the different field types.
 		ARTISTFIELD : /^(search|artistname|newartistname|newartistalias)/i,
 		SORTNAMEFIELD : /^(artistsortname|newartistsortname)/i,
-		ALBUMFIELD : /^(newalbumname|albumname|album|name)/i,
+		ALBUMFIELD : /^(newalbumname|albumname|newreleasename|releasename|album|release|name)/i,
 		TRACKFIELD : /^(newtrackname|trackname|track)/i,
 		TRACKLENGTHFIELD : /tracklength\d+/i,
 
@@ -80,32 +80,32 @@ function EsUiModule() {
 		this.registerButtons(
 			new EsButton(
 				this.BTN_ALIAS, def,
-				"Guess Artist Alias according to MusicBrainz Artist Name Guidelines",
+				"Guess artist alias according to MusicBrainz artist name guidelines",
 				"es.guessArtistField($);"),
 
 			new EsButton(
 				this.BTN_ARTIST, def,
-				"Guess Artist Name according to MusicBrainz Artist Name Guidelines",
+				"Guess artist name according to MusicBrainz artist name guidelines",
 				"es.guessArtistField($);"),
 
 			new EsButton(
 				this.BTN_SORTGUESS, "Guess",
-				"Guess Sort Name from Artist Name field",
+				"Guess sort name from artist name field",
 				"es.guessSortnameField($, $);"),
 
 			new EsButton(
 				this.BTN_SORTCOPY, "Copy",
-				"Copy Sort Name from Artist Name field",
+				"Copy sort name from artist name field",
 				"es.copySortnameField($, $);"),
 
 			new EsButton(
 				this.BTN_ALBUM, def,
-				"Guess Album Name according to Guess Case settings",
+				"Guess release name according to Guess Case settings",
 				"es.guessAlbumField($);"),
 
 			new EsButton(
 				this.BTN_TRACK, def,
-				"Guess Track Name according to Guess Case settings",
+				"Guess track name according to Guess Case settings",
 				"es.guessTrackField($)"),
 
 			new EsButton(
@@ -115,22 +115,22 @@ function EsUiModule() {
 
 			new EsButton(
 				this.BTN_USESWAP, "Swap",
-				"Swap Artist Name and Track Name fields",
+				"Swap artist name and track name fields",
 				"es.swapFields($,$,$)"),
 
 			new EsButton(
 				this.BTN_USECURRENT, "Use Current",
-				"Reset to current Artist Name and Track Name",
+				"Reset to current artist name and track name",
 				"es.changeartist.useCurrent()"),
 
 			new EsButton(
 				this.BTN_USESPLIT, "Split",
-				"Use Artist Name and Track Name from split function",
+				"Use artist name and track name from split function",
 				"es.changeartist.useSplit()"),
 
 			new EsButton(
 				this.BTN_GUESSBOTH, "Guess Both",
-				"Guess both Artist Name and Track Name",
+				"Guess both artist name and track name",
 				"es.changeartist.guessBoth($, $)"),
 
 			new EsButton(
