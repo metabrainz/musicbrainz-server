@@ -72,8 +72,12 @@
 
 	my $component = "MusicBrainz Server";
 	my $summary = "Could not load Artist Alias";
-	my $user = UserStuff->newFromId($mb->{DBH}, $session{"uid"}) or die("fatal");
-	my $reporter = $user->GetName;
+	my $reporter = "anonymous";
+	if ($session{"uid"})
+	{
+		my $user = UserStuff->newFromId($mb->{DBH}, $session{"uid"}) or die("fatal");
+		$reporter = $user->GetName;
+	}
 	my $description = uri_escape("Error was: $error");
 	my $ticketURL = "http://bugs.musicbrainz.org/newticket?component=$component&summary=$summary&reporter=$reporter&description=$description";
 
