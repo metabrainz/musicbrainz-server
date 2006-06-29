@@ -106,7 +106,7 @@
 	# render PUID/TRM ID icons
 	if ($puidcount > 0)
 	{
-		$m->out(qq!&nbsp;<img src="/images/puid.gif" alt="PUID" width="33" height="13" title="$puidcount PUIDs" />&nbsp;!);
+		$m->out(qq!&nbsp;<img src="/images/puid.gif" alt="PUID" width="35" height="13" title="$puidcount PUIDs" />&nbsp;!);
 	}
 	if ($trmcount > 0)
 	{

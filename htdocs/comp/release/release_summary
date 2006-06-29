@@ -77,7 +77,7 @@
 %	{
 						<span class="puid">
 							<% $puids %>
-							<img src="/images/puid.gif" alt="PUID" title="This release has <% $puids %> PUIDs" />
+							<img src="/images/puid.gif" width="35" height="13" alt="PUID" title="This release has <% $puids %> PUIDs" />
 						</span>
 % 	}
 
