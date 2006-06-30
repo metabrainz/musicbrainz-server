@@ -396,7 +396,7 @@ sub IsAutoModType
 		$type == &ModDefs::MOD_EDIT_LINK ||
 		$type == &ModDefs::MOD_EDIT_LINK_TYPE ||
 		$type == &ModDefs::MOD_EDIT_LINK_ATTR ||
-		$type == &ModDefs::MOD_EDIT_RELEASES ||
+		# $type == &ModDefs::MOD_EDIT_RELEASES ||
 		$type == &ModDefs::MOD_EDIT_TRACKNAME ||
 		$type == &ModDefs::MOD_EDIT_TRACKNUM ||
 		$type == &ModDefs::MOD_EDIT_TRACKTIME ||

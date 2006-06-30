@@ -161,6 +161,7 @@ sub IsAutoMod
 	# }
 	
 	my $removes = @{ $self->{"removes"} };
+	
 	(not $removes and (not $edits or $user_is_automod));
 }
 
