@@ -93,7 +93,8 @@ sub mark_up_text_as_html
 				\z # end of string
 				| \s # any space
 				| [,\.!\?](?:\s|\z) # punctuation then space or end
-				| [\x29"'>] # any of these characters
+				| ["'>] # any of these characters 
+						# 2006-07-01: removed \x29=closing paranthesis --keschte
 			)
 		)
 		/six, $text, -1;
