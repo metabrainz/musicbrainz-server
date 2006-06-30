@@ -67,7 +67,7 @@
 
     my $fCompact = 1;
     my @albums;
-    
+
     # We will use one of the following display modes:
     # 0 - short display mode, with albums eps single and comp shown.
     # 1 - short mode with all SA other than the above shown
@@ -203,8 +203,10 @@
     {
         </%perl>
 
-        <p>Please use the <a href="search.html">Search Page</a>
-         to look for a specific release, or browse the various artist release:<p>
+        <p>
+        Please use the <a href="search.html">Search Page</a> to look for a
+        specific release, or browse the various artist releases:
+        </p>
 
         <& /comp/browsebox, page => "/browsevarious.html" &>
 
@@ -518,14 +520,21 @@
             </%perl>
             <%perl>
         }
-    }
+
+
+	 	if ($dispmode < 3)
+		{
+
 </%perl>
 
-% if ($dispmode < 3) {
     <p style="margin-top: 2em;">
-    Displaying <b><% $dispinfo[$dispmode]->[0] %></b>.
-    Show <a style="font-weight: bold;" href="/artist/<% $artist->GetMBId %>.html?short=0&amp;compact=<% $fCompact %>&amp;mbt=<% $mbt?1:0 %>"><% $dispinfo[$dispmode]->[1] %></a></p>
-% }
+    	Displaying <b><% $dispinfo[$dispmode]->[0] %></b>.
+    	Show <a style="font-weight: bold;" href="/artist/<% $artist->GetMBId %>.html?short=0&amp;compact=<% $fCompact %>&amp;mbt=<% $mbt?1:0 %>"><% $dispinfo[$dispmode]->[1] %></a>
+    </p>
+
+
+% 		}
+%    }
 
 	<script type="text/javascript" src="/scripts/collapsereleases.js"></script>
 	<input type="hidden" id="collapsereleases::defaultcollapse" value="0" />
