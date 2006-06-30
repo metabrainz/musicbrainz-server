@@ -1,4 +1,4 @@
-#!/home/httpd/musicbrainz/mb_server/cgi-bin/perl -w
+#!/usr/bin/perl -w
 # vi: set ts=4 sw=4 :
 #____________________________________________________________________________
 #
@@ -119,12 +119,20 @@ sub GetTypeWord
 sub GetTextAsHTML
 {
 	my $self = shift;
-    Text::WikiFormat::format($self->GetText, {}, 
-			                 { prefix => "http://wiki.musicbrainz.org/",
-        			           extended => 1,
-					   	       absolute_links => 1,
-                               implicit_links => 0
-			    	         });
+	my $text = $self->GetText;
+	if ($text eq '')
+	{
+		return $text
+	}
+	else 
+	{
+    		return Text::WikiFormat::format($text, {}, 
+		    	            		    { prefix => "http://wiki.musicbrainz.org/",
+            			        	      extended => 1,
+		    				      absolute_links => 1,
+	                                	      implicit_links => 0
+			    	        	    });
+	}
 }
 
 sub GetShortTextAsHTML
@@ -132,12 +140,15 @@ sub GetShortTextAsHTML
 	my ($self, $morelink) = @_;
 
 	my ($trunc_type, $text) = $self->GetShortText;
-	$text = Text::WikiFormat::format($text, {}, 
-			                 { prefix => "http://wiki.musicbrainz.org/",
-        			           extended => 1,
-					   	       absolute_links => 1,
-                               implicit_links => 0
-			    	         });
+	if ($text ne '')
+	{
+	    $text = Text::WikiFormat::format($text, {}, 
+			                	{ prefix => "http://wiki.musicbrainz.org/",
+        			    		  extended => 1,
+						  absolute_links => 1,
+                        			  implicit_links => 0
+			    			});
+	}
 
 	$text =~ s[(?:</p>\s*)?\z][&nbsp;&hellip;]
 		if $trunc_type == TRUNC_WORD;
