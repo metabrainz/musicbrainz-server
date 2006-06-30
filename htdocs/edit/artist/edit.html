@@ -48,6 +48,7 @@
 
 	$submitvalue => ""
 	$notetext => ""
+
 </%args>
 <%perl>
 
@@ -198,6 +199,10 @@
 			unless grep { $_ } ($begindate_y, $begindate_m, $begindate_d);
 		($enddate_y, $enddate_m, $enddate_d) = $artist->GetEndDateYMD()
 			unless grep { $_ } ($enddate_y, $enddate_m, $enddate_d);
+
+		# tick confirm checkbox by default if the artist already
+		# has a resolution
+		$confirm = 1 if ($artist->GetResolution() ne "");
 	}
 
 </%perl>

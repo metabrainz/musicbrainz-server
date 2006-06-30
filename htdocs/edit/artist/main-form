@@ -28,6 +28,7 @@
 	#
 </%perl>
 <%args>
+
 	$artist => undef
 	$name => ""
 	$sortname => ""
@@ -41,6 +42,7 @@
 	@messages => ()
 	$confirm => 0
 	$resolution => ""
+
 </%args>
 
 <%perl>
@@ -228,21 +230,37 @@
 		</tr>
 % 	}
 
-% 	if (@dupes) {
+% 	if (@dupes)
+%	{
+
 		<tr>
 			<td class="label">
 				<label for="editartist_confirm">Confirm:</label></td>
 			<td>
-			<%perl>
-				$m->out(qq!<input type="checkbox" id="editartist_confirm" !);
-				$m->out(qq! checked="checked" !) if ($confirm);
-				$m->out(qq! name="confirm" value="1" /> !);
-				$m->out(qq! I <strong>really</strong> do want to !);
-				$m->out(sprintf "%s", defined $artist ? "edit" : "add");
-				$m->out(qq! this artist. !);
-			</%perl>
+				<input type="checkbox" id="editartist_confirm"
+
+%				$m->out(qq! checked="checked" !) if ($confirm);
+
+					name="confirm" value="1" />
+
+%		if (defined $artist)
+%		{
+					I <strong>really</strong> want to edit this artist
+					which has the same name as an existing artist.
+
+
+%		}
+%		else
+%		{
+					I <strong>really</strong> want to create
+					this new artist with the same name as
+					an existing artist.
+
+%		}
+
 			</td>
 		</tr>
+
 %	}
 
 		<tr>
