@@ -154,10 +154,15 @@
 				$m->out(qq! | <a href="/user/subscribe.html?artistid=$id">Subscribe</a> | !);
 			}
 			$m->out(qq!<a href="/edit/album/add.html?artistid=$id">Add release</a> | !);
-			$m->out(sprintf qq!<a href="/freedb/freedb.html?search=%s">Import release</a> !, uri_escape($name));
 
-			if ($id != &ModDefs::VARTIST_ID)
+			if ($id == &ModDefs::VARTIST_ID)
 			{
+				$m->out(qq!<a href="/freedb/freedb.html">Import release</a> !);
+			}
+			else
+			{
+				$m->out(sprintf qq!<a href="/freedb/freedb.html?search=%s">Import release</a> !, uri_escape($name));
+
 				require Album;
 				my $mb = $m->comp("/comp/dblogin");
 				my $al = Album->new($mb->{DBH});
