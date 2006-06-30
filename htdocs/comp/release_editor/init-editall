@@ -113,23 +113,24 @@
 		$orig{sprintf "tr%d_artistresolution", $i} = $artist->GetResolution;
 
 		# load the relationships for the track
-		%orig = $m->comp(".GetRelationships", %orig, id => $tr->GetId, index => $i);
+		# -- not enabled yet, since there are no relationship editors either.
+		# %orig = $m->comp(".GetRelationships", %orig, id => $tr->GetId, index => $i);
 	}
 	$orig{"tracks"} = @t;
 	$orig{"v::edit_track_data"} = ($release->CanAddTrack or $release->CanRemoveTrack);
 
 	# load releases, and add into @t list.
-	my @r = $release->Releases;
-	for $i (0 .. @r-1)
+	my @releaseEvents = $release->Releases;
+	for $i (0 .. @releaseEvents-1)
 	{
-		my $rel = $r[$i];
-		my @ymd = $rel->GetYMD;
+		my $rev = $releaseEvents[$i];
+		my @ymd = $rev->GetYMD;
 
-		$orig{"rls_id-$i"} = $rel->GetId;
-		$orig{"rls_year-$i"} = $ymd[0];
-		$orig{"rls_month-$i"} = $ymd[1] ? $ymd[1] : ""; # can possibly be 0 => ""
-		$orig{"rls_day-$i"} = $ymd[2] ? $ymd[2] : ""; # can possibly be 0 => ""
-		$orig{"rls_country-$i"} = $rel->GetCountry;
+		$orig{"rev_id-$i"} = $rev->GetId;
+		$orig{"rev_year-$i"} = $ymd[0];
+		$orig{"rev_month-$i"} = $ymd[1] ? $ymd[1] : ""; # can possibly be 0 => ""
+		$orig{"rev_day-$i"} = $ymd[2] ? $ymd[2] : ""; # can possibly be 0 => ""
+		$orig{"rev_country-$i"} = $rev->GetCountry;
 	}
 	%orig = $m->comp("/comp/release_editor/check-releases", %orig);
 

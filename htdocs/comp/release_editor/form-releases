@@ -34,43 +34,21 @@
 </%args>
 <%perl>
 
-	$ARGS{"SUBMIT_ADDRELEASE"} = "Add More";
-	$ARGS{"SUBMIT_REMRELEASE"} = "Remove";
-
 	my $j;
-	my $op_add = ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_ADDRELEASE"} ? 1 : 0);
-	my $op_remove = ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_REMRELEASE"} ? 1 : 0);
+	my $addMore = ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_ADDRELEASEEVENT"} ? 1 : 0);
 	my $num_releases = $checkreleases{"num"} || 0;
 
 	# TODO: this should be moved to check-releases.
 	# Add a pseudo entry at the end if either the 'More releases' button
 	# has been clicked or the list is empty.
-	if ($num_releases == 0 or $op_add)
+	if ($num_releases == 0 or $addMore)
 	{
 		$j = $num_releases++;
-		$ARGS{"rls_year-$j"} = "";
-		$ARGS{"rls_month-$j"} = "";
-		$ARGS{"rls_day-$j"} = "";
-		$ARGS{"rls_country-$j"} = "";
+		$ARGS{"rev_year-$j"} = "";
+		$ARGS{"rev_month-$j"} = "";
+		$ARGS{"rev_day-$j"} = "";
+		$ARGS{"rev_country-$j"} = "";
 	}
-
-	# TODO: this should be moved to check-releases.
-	if ($num_releases > 0 and
-		$op_remove and
-		!$checkreleases{"removed"})
-	{
-		$j = $num_releases - 1;
-		delete $ARGS{"rls_year-$j"};
-		delete $ARGS{"rls_month-$j"};
-		delete $ARGS{"rls_day-$j"};
-		delete $ARGS{"rls_country-$j"};
-		delete $ARGS{"rls_id-$j"};
-
-		$num_releases--;
-	}
-
-	# we don't need this flag anymore, remove it.
-	delete $checkreleases{"removed"};
 
 </%perl>
 
@@ -78,17 +56,17 @@
 					<td colspan="3" class="label"></td>
 					<td colspan="3" class="formsection">
 						Please enter release events if you know them. If you do not know <br/>
-						neither year nor country, leave the fields blank.</td>
+						neither year nor country, leave the fields like they are.</td>
 				</tr>
 
 <%perl>
 	for ($j=0; $j < $num_releases; ++$j)
 	{
-		my $ry = $ARGS{"rls_year-$j"};
-		my $rm = $ARGS{"rls_month-$j"};
-		my $rd = $ARGS{"rls_day-$j"};
-		my $rc = $ARGS{"rls_country-$j"};
-		my $rid = $ARGS{"rls_id-$j"};
+		my $ry = $ARGS{"rev_year-$j"};
+		my $rm = $ARGS{"rev_month-$j"};
+		my $rd = $ARGS{"rev_day-$j"};
+		my $rc = $ARGS{"rev_country-$j"};
+		my $rid = $ARGS{"rev_id-$j"};
 
 		# lets see if we have to highlight the fields
 		my $datecss = $checkreleases{"baddate$j"} ? " missing" : "";
@@ -103,28 +81,27 @@
 </%perl>
 
 				<tr>
-					<td colspan="3" class="label"><% $j == 0 ? "Release Events:" : "" %></td>
+					<td colspan="2" class="label">
+						<% $j == 0 ? "Release Events:" : "" %>
+					</td>
+					<td>
+						<& /comp/form/checkbox, name => "rev_clear-$j", tabindex => ++$$tabindex, checked => 0,
+							title => "Tick this box to clear this release event" &>
+					</td>
 					<td colspan="3">
-						<& /comp/form/numberfield, name => "rls_year-$j", cssclass => $datecss, tabindex => ++$$tabindex, value => $ry, size => 4 &>
-						<& /comp/form/numberfield, name => "rls_month-$j", cssclass => $datecss, tabindex => ++$$tabindex, value => $rm, size => 2 &>
-						<& /comp/form/numberfield, name => "rls_day-$j", cssclass => $datecss, tabindex => ++$$tabindex, value => $rd, size => 2 &>
-						<select name="rls_country-<% $j %>" tabindex="<% ++$$tabindex %>" class="<% $countrycss %>">
+						<& /comp/form/numberfield, name => "rev_year-$j", cssclass => $datecss, tabindex => ++$$tabindex, value => $ry, size => 4 &>
+						<& /comp/form/numberfield, name => "rev_month-$j", cssclass => $datecss, tabindex => ++$$tabindex, value => $rm, size => 2 &>
+						<& /comp/form/numberfield, name => "rev_day-$j", cssclass => $datecss, tabindex => ++$$tabindex, value => $rd, size => 2 &>
+						<select name="rev_country-<% $j %>" tabindex="<% ++$$tabindex %>" class="<% $countrycss %>">
 							<& /comp/options, $countries_menu_2, $rc &>
 						</select>
-						<& /comp/form/hiddenfield, "rls_id-$j", $rid &>
+						<& /comp/form/hiddenfield, "rev_id-$j", $rid &>
 
-%		if ($j == 0)
+%		if ($j == ($num_releases-1))
 %		{
-
-						<& /comp/form/buttonsubmit, value => $ARGS{"SUBMIT_ADDRELEASE"}, tabindex => ++$$tabindex &>
-
-%		}
-%		elsif ($j == ($num_releases-1))
-%		{
-
-						<& /comp/form/buttonsubmit, value => $ARGS{"SUBMIT_REMRELEASE"}, tabindex => ++$$tabindex &>
-
+						<& /comp/form/buttonsubmit, value => $ARGS{"SUBMIT_ADDRELEASEEVENT"}, tabindex => ++$$tabindex &>
 % 		}
+
 					</td>
 				</tr>
 % 	}

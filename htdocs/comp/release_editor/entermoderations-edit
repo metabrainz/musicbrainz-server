@@ -162,90 +162,93 @@
 				);
 			}
 
-			# MOD_EDIT_RELEASES
+			# MOD_EDIT_RELEASES (RELEASE_EVENTS)
 			# get all defined release events from the arguments hash
 			# and fill the list of new release objects
 			require MusicBrainz::Server::Release;
-			my @relnew;
-			for my $j (sort map { /^rls_year-(\d+)$/ ? ($1) : () } keys %ARGS)
+			my @relEventsNew;
+			for my $j (sort map { /^rev_year-(\d+)$/ ? ($1) : () } keys %ARGS)
 			{
-				my $ry = $ARGS{"rls_year-$j"};
-				my $rm = $ARGS{"rls_month-$j"};
-				my $rd = $ARGS{"rls_day-$j"};
-				my $rc = $ARGS{"rls_country-$j"};
-				my $rid = $ARGS{"rls_id-$j"};
+				my $rev_year = $ARGS{"rev_year-$j"};
+				my $rev_month = $ARGS{"rev_month-$j"};
+				my $rev_day = $ARGS{"rev_day-$j"};
+				my $rev_country = $ARGS{"rev_country-$j"};
+				my $rev_id = $ARGS{"rev_id-$j"};
 
-				# Skip if all blank
-				next unless do { no warnings; "$rc $ry $rm $rd" =~ /\S/ };
+				# Skip if all blank, or if dates are blank
+				# and the release country is set to the default one.
+				MusicBrainz::TrimInPlace($rev_year, $rev_month, $rev_day, $rev_country);
+				next if ($rev_year eq "" and $rev_month eq "" and $rev_day eq "" and
+						 ($rev_country eq "" or $rev_country eq UserPreference::get("default_country")));
 
 				# Otherwise, we insist on a valid country and a valid date
-				MusicBrainz::IsNonNegInteger($rc)
+				MusicBrainz::IsNonNegInteger($rev_country)
 					or return $m->comp(
 						"/comp/error",
 						"Error: invalid release country entered",
 						0, 1,
 					);
 
-				my @ymd = MusicBrainz::IsValidDate($ry, $rm, $rd)
+				my @ymd = MusicBrainz::IsValidDate($rev_year, $rev_month, $rev_day)
 					or next;
 
-				my $rel = MusicBrainz::Server::Release->new($mb->{DBH});
-				$rel->SetId($rid);
-				$rel->SetCountry($rc);
-				$rel->SetAlbum($releaseid);
-				$rel->SetYMD(@ymd);
-				push @relnew, $rel;
+				my $rev = MusicBrainz::Server::Release->new($mb->{DBH});
+				$rev->SetId($rev_id);
+				$rev->SetCountry($rev_country);
+				$rev->SetAlbum($releaseid);
+				$erv->SetYMD(@ymd);
+				push @relEventsNew, $rel;
 			}
 
 			# get all defined release events.
-			my @r = $release->Releases;
-			my %relorig;
-			for my $i (0 .. @r-1)
+			my @relEvents = $release->Releases;
+			my %relEventsOrig;
+			for my $i (0 .. @relEvents-1)
 			{
-				my $rel = $r[$i];
-				$relorig{$rel->GetId} = $rel;
+				my $rev = $relEvents[$i];
+				$relEventsOrig{$rev->GetId} = $rel;
 			}
 
 			my (@adds, @edits, @removes);
-			for my $i (0 .. @relnew-1)
+			for my $i (0 .. @relEventsNew-1)
 			{
-				my $rel = $relnew[$i];
+				my $revNew = $relEventsNew[$i];
 
 				# old value is empty, and new value is not empty.
 				# we've got an added release event
-				if (!MusicBrainz::IsNonNegInteger($rel->GetId))
+				if (!MusicBrainz::IsNonNegInteger($revNew->GetId))
 				{
-					push @adds, $rel;
+					push @adds, $revNew;
 					next;
 				}
 
 				# for remove/edits of individual events, we'll need
 				# a confirmed release event id. load object from the
 				# database.
-				my $obj = $relorig{$rel->GetId}
+				my $revOrig = $relEventsOrig{$revNew->GetId}
 					or next;
 
-				my @oymd = $obj->GetYMD;
-				my @nymd = $rel->GetYMD;
+				my @oymd = $revOrig->GetYMD;
+				my @nymd = $revNew->GetYMD;
 				if ($oymd[0] != $nymd[0] or $oymd[1] != $nymd[1] or
-					$oymd[2] != $nymd[2] or $obj->GetCountry != $rel->GetCountry)
+					$oymd[2] != $nymd[2] or $revOrig->GetCountry != $revNew->GetCountry)
 				{
 					push @edits, {
-						object => $obj,
-						country => $rel->GetCountry,
+						object => $revOrig,
+						country => $revNew->GetCountry,
 						year => $nymd[0],
 						month => $nymd[1],
 						day => $nymd[2],
 					};
 				}
-				delete $relorig{$rel->GetId};
+				delete $relEventsOrig{$revNew->GetId};
 			}
 
 			# add all edits which weren't handled above (e.g. which were deleted
 			# from the form) to the @removes list.
-			for my $relid (keys %relorig)
+			for my $revid (keys %relEventsOrig)
 			{
-				push @removes, $relorig{$relid};
+				push @removes, $relEventsOrig{$revid};
 			}
 
 			# if any of the lists is non-empty, enter the MOD_EDIT_RELEASES edit.

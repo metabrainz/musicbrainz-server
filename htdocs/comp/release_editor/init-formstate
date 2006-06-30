@@ -46,6 +46,9 @@
 	$ARGS{"SUBMIT_CANCEL"} = "Cancel";
 	$ARGS{"SUBMIT_ENTERMODERATIONS"} = "Enter Edits";
 
+	# release events
+	$ARGS{"SUBMIT_ADDRELEASEEVENT"} = "More events »";
+
 	# freedb import
 	$ARGS{"SUBMIT_FREEDB"} = "FreeDB Lookup";
 	$ARGS{"SUBMIT_SACIMPORT"} = "Import as single artist »";

@@ -91,46 +91,50 @@
 	$release->SetModPending if ($orig{"releasename"} ne $ARGS{"releasename"});
 	$release->SetMultipleTrackArtists($hasmultipletrackartists);
 
-	# compare number of orig/new releases
+	# compare number of orig/new release events
 	require MusicBrainz::Server::Release;
-	my @relnew;
-	my @relorig;
-	for my $j (sort map { /^rls_year-(\d+)$/ ? ($1) : () } keys %ARGS)
+	my @relEventsNew;
+	my @relEventsOrig;
+	for my $j (sort map { /^rev_year-(\d+)$/ ? ($1) : () } keys %ARGS)
 	{
-		my $ry = $ARGS{"rls_year-$j"};
-		my $rm = $ARGS{"rls_month-$j"};
-		my $rd = $ARGS{"rls_day-$j"};
-		my $rc = $ARGS{"rls_country-$j"};
+		my $rev_year = $ARGS{"rev_year-$j"};
+		my $rev_month = $ARGS{"rev_month-$j"};
+		my $rev_day = $ARGS{"rev_day-$j"};
+		my $rev_country = $ARGS{"rev_country-$j"};
 
-		# Skip if all blank
-		next unless do { no warnings; "$rc $ry $rm $rd" =~ /\S/ };
+		# Skip if all blank, or if dates are blank
+		# and the release country is set to the default one.
+		MusicBrainz::TrimInPlace($rev_year, $rev_month, $rev_day, $rev_country);
+		next if ($rev_year eq "" and $rev_month eq "" and $rev_day eq "" and
+				 ($rev_country eq "" or $rev_country eq UserPreference::get("default_country")));
 
 		# Otherwise, we insist on a valid country and a valid date
-		MusicBrainz::IsNonNegInteger($rc)
+		MusicBrainz::IsNonNegInteger($rev_country)
 			or return $m->comp(
 				"/comp/error",
 				"Error: invalid release country entered",
 				0, 1,
 			);
 
-		my @ymd = MusicBrainz::IsValidDate($ry, $rm, $rd)
+		my @ymd = MusicBrainz::IsValidDate($rev_year, $rev_month, $rev_day)
 			or next;
 
-		my $rel = MusicBrainz::Server::Release->new($mb->{DBH});
-		$rel->SetCountry($rc);
-		$rel->SetYMD(@ymd);
-		push @relnew, $rel;
+		my $rev = MusicBrainz::Server::Release->new($mb->{DBH});
+		$rev->SetCountry($rev_country);
+		$rev->SetYMD(@ymd);
+		push @relEventsNew, $rev;
 	}
 
-	for my $j (sort map { /^rls_year-(\d+)$/ ? ($1) : () } keys %orig)
+	for my $j (sort map { /^rev_year-(\d+)$/ ? ($1) : () } keys %orig)
 	{
 		my @ymd = MusicBrainz::IsValidDate(
-				$orig{"rls_year-$j"}, $orig{"rls_month-$j"}, $orig{"rls_day-$j"})
+				$orig{"rev_year-$j"}, $orig{"rev_month-$j"}, $orig{"rev_day-$j"})
 			or next;
-		my $rel = MusicBrainz::Server::Release->new($mb->{DBH});
-		$rel->SetCountry($orig{"rls_country-$j"});
-		$rel->SetYMD(@ymd);
-		push @relorig, $rel;
+
+		my $rev = MusicBrainz::Server::Release->new($mb->{DBH});
+		$rev->SetCountry($orig{"rev_country-$j"});
+		$rev->SetYMD(@ymd);
+		push @relEventsOrig, $rev;
 	}
 
 	# if editmode is true, we're editing a release, else
@@ -363,33 +367,34 @@
 
 				# changed releasedates?
 				my $countries_menu = $m->comp("/edit/albumreleases/countries-menu.inc");
-				my %country_name = map { $_->[0], $_->[1] } @$countries_menu;
-				my $relcount = (@relnew > @relorig ? @relnew : @relorig);
+				my %country_names = map { $_->[0], $_->[1] } @$countries_menu;
+				my $relcount = (@relEventsNew > @relEventsOrig ? @relEventsNew : @relEventsOrig);
+				my $first = 1;
 				for (my $i=0; $i < $relcount; $i++)
 				{
-					my $or = $relorig[$i];
-					my $nr = $relnew[$i];
+					my $revOrig = $relEventsOrig[$i];
+					my $revNew = $relEventsNew[$i];
 
 					$ov = "";
-					if (defined $or)
+					if (defined $revOrig)
 					{
-						my ($ry, $rm, $rd) = $or->GetYMD;
-						$ov = sprintf("%04d-%02d-%02d", $ry, $rm, $rd) if (0 + $rd);
-						$ov = sprintf("%04d-%02d", $ry, $rm) if ($rm and !$rd);
-						$ov = sprintf("%04d", $ry) if ($ry and !$rm);
+						my ($rev_year, $rev_month, $rev_day) = $revOrig->GetYMD;
+						$ov = sprintf("%04d-%02d-%02d", $rev_year, $rev_month, $rev_day) if (0 + $rev_day);
+						$ov = sprintf("%04d-%02d", $rev_year, $rev_month) if ($rev_month and !$rev_day);
+						$ov = sprintf("%04d", $rev_year) if ($rev_year and !$rev_month);
 						$ov .= " - ";
-						$ov .= ($country_name{$or->GetCountry} || "?");
+						$ov .= ($country_names{$revOrig->GetCountry} || "?");
 					}
 
 					$nv = "-";
-					if (defined $nr)
+					if (defined $revNew)
 					{
-						my ($ry, $rm, $rd) = $nr->GetYMD;
-						$nv = sprintf("%04d-%02d-%02d", $ry, $rm, $rd) if (0 + $rd);
-						$nv = sprintf("%04d-%02d", $ry, $rm) if ($rm and !$rd);
-						$nv = sprintf("%04d", $ry) if ($ry and !$rm);
+						my ($rev_year, $rev_month, $rev_day) = $revNew->GetYMD;
+						$nv = sprintf("%04d-%02d-%02d", $rev_year, $rev_month, $rev_day) if (0 + $rev_day);
+						$nv = sprintf("%04d-%02d", $rev_year, $rev_month) if ($rev_month and !$rev_day);
+						$nv = sprintf("%04d", $rev_year) if ($rev_year and !$rev_month);
 						$nv .= " - ";
-						$nv .= ($country_name{$nr->GetCountry} || "?");
+						$nv .= ($country_names{$revNew->GetCountry} || "?");
 					}
 
 					my $op = "Edit Release Events";
@@ -398,9 +403,12 @@
 
 					if ($ov ne $nv)
 					{
+						# release events are special, they are entered
+						# as one edit, therefore show only a link on the first
+						# of n release date/country tuples.
 						$m->comp(".showReleaseEdit",
 							mb => $mb,
-							edittype => "EditReleaseEventsEdit",
+							edittype => $first ? "EditReleaseEventsEdit" : undef,
 							edittitle => $op,
 
 							oldvalue => $ov,
@@ -408,6 +416,7 @@
 							modtype => &ModDefs::MOD_EDIT_RELEASES,
 							cnt => ++$releasechanges
 						);
+						$first = 0;
 					}
 				}
 
@@ -655,7 +664,7 @@
 						showmodlinks => 0,
 						showreleases => 1,
 						tracks => \@tracks,
-						releaseevents => \@relnew, &>
+						releaseevents => \@relEventsNew, &>
 				</td>
 			</tr>
 		</table>
@@ -767,7 +776,7 @@
 
 	$m->out('<tr>');
 	$m->out('<td class="type">');
-	$m->comp("/comp/linkdoc", $edittype, $edittitle);
+	$m->comp("/comp/linkdoc", $edittype, $edittitle) if ($edittype);
 	$m->out('</td>');
 	$m->out('<td class="newvalue">');
 	$m->comp(".doDiffTable", "release$cnt", $oldvalue, $newvalue)

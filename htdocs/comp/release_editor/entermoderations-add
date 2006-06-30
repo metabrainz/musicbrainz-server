@@ -169,34 +169,37 @@
 		$new .= $trackdata;
 
 		# retrieve the release-dates and countries from the arguments
-		for my $j (sort map { /^rls_year-(\d+)$/ ? ($1) : () } keys %ARGS)
+		for my $j (sort map { /^rev_year-(\d+)$/ ? ($1) : () } keys %ARGS)
 		{
-			my $ry = $ARGS{"rls_year-$j"};
-			my $rm = $ARGS{"rls_month-$j"};
-			my $rd = $ARGS{"rls_day-$j"};
-			my $rc = $ARGS{"rls_country-$j"};
+			my $rev_year = $ARGS{"rev_year-$j"};
+			my $rev_month = $ARGS{"rev_month-$j"};
+			my $rev_day = $ARGS{"rev_day-$j"};
+			my $rev_country = $ARGS{"rev_country-$j"};
 
-			# Skip if all blank
-			next unless do { no warnings; "$rc $ry $rm $rd" =~ /\S/ };
+			# Skip if all blank, or if dates are blank
+			# and the release country is set to the default one.
+			MusicBrainz::TrimInPlace($rev_year, $rev_month, $rev_day, $rev_country);
+			next if ($rev_year eq "" and $rev_month eq "" and $rev_day eq "" and
+					 ($rev_country eq "" or $rev_country eq UserPreference::get("default_country")));
 
 			# Otherwise, we insist on a valid country and a valid date
-			MusicBrainz::IsNonNegInteger($rc)
+			MusicBrainz::IsNonNegInteger($rev_country)
 				or return $m->comp(
 					"/comp/error",
 					"Error: invalid release country entered",
 					0, 1,
 				);
 
-			my @ymd = MusicBrainz::IsValidDate($ry, $rm, $rd)
+			my @ymd = MusicBrainz::IsValidDate($rev_year, $rev_month, $rev_day)
 				or return $m->comp(
 					"/comp/error",
-					"'$ry $m $rd' is not a valid release date. "
+					"'$rev_year-$rev_month-$rev_day' is not a valid release date. "
 					. ' Please go back and try again.',
 					0, 1,
 				);
 
 			no warnings;
-			$new .= sprintf("Release%d=%d,%s-%s-%s\n", $j, $rc, @ymd);
+			$new .= sprintf("Release%d=%d,%s-%s-%s\n", $j, $rev_country, @ymd);
 		}
 
 		# Insert the release moderation.

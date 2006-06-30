@@ -716,6 +716,9 @@
 		tabindex => \$tabindex,
 	&>
 
+				<tr>
+					<td colspan="7">&nbsp;</td>
+				</tr>
 
 				<tr>
 					<td colspan="3">&nbsp;</td>
