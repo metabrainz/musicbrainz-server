@@ -178,9 +178,8 @@ sub ReplaceAttributes
 		$rep_name =~ tr/A-Z/a-z/;
 	   
  		# replace simple {$attr}
- 		$phrase =~ s/\{$attr\}/$rep_name/
- 			and $rphrase =~ s/\{$attr\}/$rep_name/
- 			and next;
+ 		$phrase =~ s/\{$attr\}/$rep_name/;
+ 		$rphrase =~ s/\{$attr\}/$rep_name/;
  		
  		# replace {attr: phrase} => phrase (compile only once)
  		my $re_inner = qr/\{$attr:([^|}]*)(?:\|[^}]*)?\}/;
@@ -188,20 +187,26 @@ sub ReplaceAttributes
  		{
   			my $saved = $1;
  			$saved =~ s/%/$rep_name/;
- 			$phrase =~ s/$re_inner/$saved/
- 				and $rphrase =~ s/$re_inner/$saved/;
+ 			$phrase =~ s/$re_inner/$saved/;
+  		}
+ 		if ($rphrase =~ /$re_inner/)
+ 		{
+  			my $saved = $1;
+ 			$saved =~ s/%/$rep_name/;
+ 			$rphrase =~ s/$re_inner/$saved/;
   		}
 	}
 
  	# pattern: unset attribute with alternative
  	# {attr: phrase|unset-phrase} => unset-phrase
  	my $re_unsetalt = qr/\{[^|}]*\|([^}]*)\}/;
+	$phrase =~ s/$re_unsetalt/$1/g;
+ 	$rphrase =~ s/$re_unsetalt/$1/g;
+	
  	# pattern: any other unset attribute
  	my $re_unset = qr/\{[^|}]*\}\s*/;
-	$phrase =~ s/$re_unsetalt/$1/g
- 		and $rphrase =~ s/$re_unsetalt/$1/g;
- 	$phrase =~ s/$re_unset//g
- 		and $rphrase =~ s/$re_unset/$1/g;
+ 	$phrase =~ s/$re_unset//g;
+ 	$rphrase =~ s/$re_unset//g;
 
 	return ($phrase, $rphrase);
 }
