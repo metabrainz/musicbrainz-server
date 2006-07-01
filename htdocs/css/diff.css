@@ -130,7 +130,6 @@ table.editlist td.spacer {
 tr.showedit td.info, 
 tr.showedit td.type, 
 tr.showedit td.votehead {
-	white-space: nowrap;
 	background: #fff;
 	color: #000; 
 	border: 1px solid #000;
