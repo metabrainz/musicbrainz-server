@@ -73,10 +73,9 @@
 
 %		$m->out(qq!<span class="mp">!) if ($mp);
 
-		[
-			<a href="<% $mp_url.$open_status |n %>" title="<% $open_title %>">open</a> |
-			<a href="<% $mp_url |n %>" title="<% $all_title %>">all</a>
-		]
+		[&nbsp;<a
+			href="<% $mp_url.$open_status |n %>" title="<% $open_title %>">open</a>&nbsp;|&nbsp;<a
+			href="<% $mp_url |n %>" title="<% $all_title %>">all</a>&nbsp;]
 
 %		$m->out('</span>') if ($mp);
 
