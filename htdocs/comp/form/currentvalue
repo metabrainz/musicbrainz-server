@@ -70,7 +70,7 @@
 		$typestr = "Disc ID";
 		$object = $cdtoc;
 		$mp = $cdtoc->GetModPending;
-		$url = "/show/cdtoc/?cdtoc=".$cdtoc->GetId;
+		$url = "/show/cdtoc/?cdtocid=".$cdtoc->GetId;
 
 	}
 	elsif ($alias)
