@@ -196,8 +196,8 @@
 				$rev->SetId($rev_id);
 				$rev->SetCountry($rev_country);
 				$rev->SetAlbum($releaseid);
-				$erv->SetYMD(@ymd);
-				push @relEventsNew, $rel;
+				$rev->SetYMD(@ymd);
+				push @relEventsNew, $rev;
 			}
 
 			# get all defined release events.
@@ -206,7 +206,7 @@
 			for my $i (0 .. @relEvents-1)
 			{
 				my $rev = $relEvents[$i];
-				$relEventsOrig{$rev->GetId} = $rel;
+				$relEventsOrig{$rev->GetId} = $rev;
 			}
 
 			my (@adds, @edits, @removes);
