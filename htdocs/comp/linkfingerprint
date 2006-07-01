@@ -49,7 +49,7 @@
 
 	# render link.
 	$m->out(qq!<strong>!) if ($strong);
-	$m->out(qq!<img src="/images/entity/$typeicon" alt="$typealt" class="entityicon" />!) if ($icon);
+	$m->out(qq!<img src="/images/entity/$typeicon" alt="$typealt" class="entityicon" width="13" height="13" />!) if ($icon);
 	$m->out(sprintf qq!<a href="%s">%s</a>!,
 					$url,
 					$m->interp->apply_escapes($name, 'h'));

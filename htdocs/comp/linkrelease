@@ -70,7 +70,7 @@
 	# icon was cut off sometimes, we'll rather do it the classic way.
 	if ($icon && !UserPreference::get("css_noentityicons"))
 	{
-		$m->out(qq!<img src="/images/entity/release_small.gif" alt="Release" class="entityicon" />!);
+		$m->out(qq!<img src="/images/entity/release_small.gif" alt="Release" class="entityicon" width="13" height="13" />!);
 	}
 
 

@@ -72,7 +72,7 @@
 	# icon was cut off sometimes, we'll rather do it the classic way.
 	if ($icon && !UserPreference::get("css_noentityicons"))
 	{
-		$m->out(qq!<img src="/images/entity/track_small.gif" alt="Track" class="entityicon" />!);
+		$m->out(qq!<img src="/images/entity/track_small.gif" alt="Track" class="entityicon" width="13" height="13" />!);
 	}
 
 	# if the id not negative, show a link, else show the name only

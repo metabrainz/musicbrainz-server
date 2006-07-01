@@ -54,7 +54,7 @@
 
 	# fall back to stored name if no href is given.
 	$href ||= $name;
-	
+
 	# fall back to href if no titleis given.
 	$title ||= $href;
 	$title = encode_entities($title);
@@ -66,7 +66,7 @@
 
 	# render link to /show/url page.
 	$m->out(qq!<strong>!) if ($strong);
-	$m->out(qq!<img src="/images/entity/url_small.gif" alt="URL" class="entityicon" />!) if ($icon);
+	$m->out(qq!<img src="/images/entity/url_small.gif" alt="URL" class="entityicon" width="13" height="13" />!) if ($icon);
 	$m->out(qq!<a href="$href" rel="nofollow" title="$title">$shorturl</a>!);
 	$m->out(qq!</strong>!) if ($strong);
 
