@@ -23,7 +23,6 @@
 	# -----------------------------------------------------------------------------
 	# This page allows to merge one...many releases into one.
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
@@ -146,6 +145,7 @@
 
 <%def reOrderForm>
 	<%perl>
+
 		my ($mac, $objs, $text, $title, $thisrelease) = @_;
 
 		$m->out(qq!<td>!);
@@ -160,6 +160,7 @@
 		$m->out(qq!</div>!);
 		$m->out(qq!</form>!);
 		$m->out(qq!</td>!);
+
 	</%perl>
 </%def>
 
@@ -225,7 +226,8 @@
 						</ul></td>
 				</tr>
 
-% 	if (not $merge_ok) {
+% 	if (not $merge_ok)
+%	{
 
 				<tr>
 					<td class="label">&nbsp;</td>
@@ -247,13 +249,16 @@
 
 			<table class="formstyle">
 
-% 	if ($merge_ok) {
+% 	if ($merge_ok)
+%	{
+%			if (@errors > 0)
+%			{
 
-%			if (@errors > 0) {
 				<tr>
 					<td class="label">&nbsp;</td>
 					<td class="error"><ul><li><%perl> $m->out(join("</li><li>", @errors)); </%perl></li></ul></td>
 				</tr>
+
 %			}
 
 				<tr>
@@ -288,6 +293,7 @@
 				<tr>
 					<td>&nbsp;</td>
 					<td class="notetext">
+
 %		my @buttons = ();
 %		push @buttons, ["Cancel"];
 %		push @buttons, ["Enter Edit"] if ($merge_ok);
@@ -296,7 +302,9 @@
 							notetext => $notetext,
 							buttons => \@buttons &>
 				</tr>
-%	} else {
+%	}
+%	else
+%	{
 
 				<tr>
 					<td class="label">&nbsp;</td>
@@ -306,7 +314,8 @@
 %	}
 			</table>
 
-% 		for (@releaseid) {
+% 		for (@releaseid)
+%		{
 
 			<input type="hidden" name="releaseid" value="<% $_ %>" />
 
@@ -318,6 +327,7 @@
 	<& /comp/tableend &>
 
 <%perl>
+
 	$i = 0;
 	foreach $release (@objs)
 	{
@@ -338,12 +348,15 @@
 		}
 
 </%perl>
+
 		<table>
 			<tr id="albumrow<% $release->GetId %>" valign="top">
 				<td style="width: 420px">
 					<& /comp/album, album => $release, artist => $artist, showmodlinks => 0 &></td>
 				<td> &nbsp;</td>
+
 <%perl>
+
 			$m->comp("reOrderForm", $mac,
 				[ @objs[$i, 0..$i-1, $i+1..$#objs ] ],
 				"Top", "Move this release to the top of the list",
@@ -369,6 +382,7 @@
 			) if $i < $#objs;
 
 </%perl>
+
 		   </tr>
        </table>
 
