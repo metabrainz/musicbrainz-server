@@ -93,3 +93,4 @@
 					<input type="hidden" name="attr_showall" value="<% $attr_showall %>" /></td>
 			</tr>
 
+%# vi: set ts=4 sw=4 ft=mason :

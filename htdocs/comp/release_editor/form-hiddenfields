@@ -62,12 +62,6 @@
 		$args{$k} = $v;
 	}
 
-	# this submit hidden field is needed, if the user submits the form
-	# with a RETURN while the cursor is in a field. It is ignored if
-	# another submit parameter was sent as well (e.g. if a button
-	# other than "Next »" was clicked.
-	$args{"submitvalue"} = $ARGS{"SUBMIT_NEXT"};
-
 	# edit relationships flag
 	$args{"editrelationships"} = $ARGS{"editrelationships"} || 0;
 

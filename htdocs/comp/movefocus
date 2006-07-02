@@ -1,36 +1,46 @@
 <%args>
-$id => undef
-$index => undef
+
+	$id => undef
+	$index => undef
+
 </%args>
 <%perl>
-# vi: set ts=4 sw=4 ft=mason :
-my ($form, $field);
 
-return unless UserPreference::get('JSMoveFocus');
+	my ($form, $field);
 
-if (!defined($id))
-{
-    ($form, $field, $index) = @_;
+	return unless UserPreference::get('JSMoveFocus');
 
-    # TODO ideally we should JS-encode $form and $field here
-}
+	if (!defined($id))
+	{
+		($form, $field, $index) = @_;
 
-$index = 'null' unless defined $index;
+		# TODO ideally we should JS-encode $form and $field here
+	}
 
-# TODO find a way to just do nothing (produce no output) if we've already been
-# called for this page.
+	$index = 'null' unless defined $index;
+
+	# TODO find a way to just do nothing (produce no output) if we've already been
+	# called for this page.
 
 </%perl>
-<script type="text/javascript" src="/scripts/movefocus.js"></script>
-% if (defined($id)) {
-<script type="text/javascript">
-MoveFocusNew('<% $id %>', <% $index %>);
-</script>
-% } else {
-<script type="text/javascript">
-MoveFocus('<% $form %>', '<% $field %>', <% $index %>);
-</script>
-% }
 
+	<script type="text/javascript" src="/scripts/movefocus.js"></script>
+
+% 	if (defined($id))
+%	{
+
+	<script type="text/javascript">
+		MoveFocusNew('<% $id %>', <% $index %>);
+	</script>
+
+%	}
+%	else
+%	{
+
+	<script type="text/javascript">
+		MoveFocus('<% $form %>', '<% $field %>', <% $index %>);
+	</script>
+
+%	}
 
 %# vi: set ts=4 sw=4 ft=mason :

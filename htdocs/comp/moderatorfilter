@@ -27,6 +27,7 @@
  	#
 </%perl>
 <%args>
+
 	$search => ""
 	$submitvalue => ""
 
@@ -56,7 +57,9 @@
 
 </%perl>
 
-% 	if ($submitvalue ne "" and $search eq "") {
+% 	if ($submitvalue ne "" and $search eq "")
+%	{
+
 		<tr>
 			<td>&nbsp;</td>
 			<td class="error">
@@ -65,20 +68,21 @@
 				</ul>
 			</td>
 		</tr>
+
 %	}
 
 		<tr class="top">
 			<td class="label">
 				<label for="id_editorfiltersearch"><% $searchlabel %></label></td>
 			<td class="field">
-					<input type="text" name="search" id="id_editorfiltersearch" value="<% $search %>" size="40"
-						title="Enter a search keyword here" />
+				<input type="text" name="search" id="id_editorfiltersearch" value="<% $search %>" size="40"
+					title="Enter a search keyword here" />
 
-					<div style="margin-top: 2px">
-						<input class="button" type="submit" name="submitvalue" value="Cancel" />
-						<input class="button" type="submit" name="submitvalue" value="<% $searchbtn |n %>"
-							title="Search for an editor" />
-					</div></td>
+				<div style="margin-top: 2px">
+					<input class="button" type="submit" name="submitvalue" value="<% $searchbtn |n %>"
+						title="Search for an editor" />
+					<input class="button" type="submit" name="submitvalue" value="Cancel" />
+				</div></td>
 		</tr>
 
 <%perl>
@@ -107,6 +111,7 @@
 		# if we have search results to display.
 		if (@r)
 		{
+
 </%perl>
 
 		<tr class="spaced">
@@ -179,4 +184,4 @@
 
 </%perl>
 
-c
+%# vi: set ts=4 sw=4 ft=mason :

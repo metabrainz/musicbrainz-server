@@ -32,3 +32,5 @@
 			$a->{begindate} eq $b->{begindate} &&
 			$a->{enddate} eq $b->{enddate});
 </%perl>
+
+%# vi: set ts=4 sw=4 ft=mason :

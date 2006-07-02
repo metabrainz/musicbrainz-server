@@ -24,7 +24,6 @@
 	# This component provides the display facilities for
 	# the MOD_REMOVE_TRMID edit type.
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
@@ -59,4 +58,4 @@
 
 </%method>
 
-%# eof
+%# vi: set ts=4 sw=4 ft=mason :

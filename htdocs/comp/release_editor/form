@@ -239,6 +239,12 @@
 	<form method="post" action="<% $ARGS{"v::action"} %>">
 		<& /comp/autofixmenu &>
 
+%		# this submit hidden field is needed, if the user submits the form
+%		# with a RETURN while the cursor is in a field. It is ignored if
+%		# another submit parameter was sent as well (e.g. if a button
+%		# other than "Next »" was clicked.
+		<input type="submit" value="<% $ARGS{"SUBMIT_NEXT"} %>" style="display: none" />
+
 		<script type="text/javascript" src="/scripts/entervalidate.js"></script>
 		<script type="text/javascript" src="/scripts/editallconfig.js"></script>
 
@@ -751,4 +757,6 @@
 		<& /comp/release_editor/form-hiddenfields, %ARGS &>
 
 	</form>
+
+%# vi: set ts=4 sw=4 ft=mason :
 

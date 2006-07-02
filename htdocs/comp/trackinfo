@@ -68,25 +68,33 @@
 					<a href="<% $track->XML_URL %>"><% $track->XML_URL %></a></td>
 			</tr>
 
-%	if ($track->GetLength) {
+%	if ($track->GetLength)
+%	{
+
 			<tr>
 				<td class="label">
 					Length:</td>
 				<td>
 					<% Track::FormatTrackLength($track->GetLength) %></td>
 			</tr>
+
 %	}
 
-%	if ($session{uid}) {
+%	if ($session{uid})
+%	{
+
 			<tr>
 				<td class="label">
 					<& /comp/linkdoc, "TrackID" &></td>
 				<td>
 					<% $track->GetId %></td>
 			</tr>
+
 %	}
 
-%	if (scalar(@PUID) > 0) {
+%	if (scalar(@PUID) > 0)
+%	{
+
 			<tr class="top">
 				<td class="label">
 					<& /comp/linkdoc, "PUID", "PUIDs"  &>:</td>
@@ -99,29 +107,46 @@
 								&nbsp;</td>
 						</tr>
 
-%		foreach my $id (@PUID) {
+%		foreach my $id (@PUID)
+%		{
+
 				  		<tr>
 							<td>
 								<a href="/show/puid/?puid=<% $id->{PUID} %>"><% $id->{PUID} %></a></td>
 							<td>
-%			if (exists $session{user}) {
+
+%			if (exists $session{user})
+%			{
+
 								<form method="get" action="/edit/puid/remove.html">
 									<input type="hidden" name="trackid" value="<% $track->GetId %>" />
 									<input type="hidden" name="puid" value="<% $id->{PUID} %>" />
 									<input type="hidden" name="PUIDjoin" value="<% $id->{PUIDjoinid} %>" />
 									<input type="submit" value="Delete" />
 								</form>
-%			} else {
-								&nbsp;
+
 %			}
+%			else
+%			{
+
+								&nbsp;
+
+%			}
+
 							</td>
 						</tr>
+
 %		}
+
 					</table>
 				</td>
 			</tr>
+
 %	}
-%	if (scalar(@TRM) > 0) {
+
+%	if (scalar(@TRM) > 0)
+%	{
+
 			<tr class="top">
 				<td class="label">
 					<& /comp/linkdoc, "TRM", "TRM IDs" &>:</td>
@@ -138,7 +163,9 @@
 								&nbsp;</td>
 						</tr>
 
-%		foreach my $id (@TRM) {
+%		foreach my $id (@TRM)
+%		{
+
 				 		 <tr>
 							<td>
 								<a href="/show/trm/?trm=<% $id->{TRM} %>"><% $id->{TRM} %></a></td>
@@ -147,19 +174,29 @@
 							<td class="center">
 								<% $id->{usecount} %></td>
 							<td>
-%			if (exists $session{user}) {
+
+%			if (exists $session{user})
+%			{
+
 								<form method="get" action="/edit/trm/remove.html">
 									<input type="hidden" name="trackid" value="<% $track->GetId %>" />
 									<input type="hidden" name="trmid" value="<% $id->{TRM} %>" />
 									<input type="hidden" name="TRMjoin" value="<% $id->{TRMjoinid} %>" />
 									<input type="submit" value="Delete" />
 								</form>
-%			} else {
-								&nbsp;
 %			}
+%			else
+%			{
+
+								&nbsp;
+
+%			}
+
 							</td>
 						</tr>
+
 %		}
+
 					</table>
 				</td>
 			</tr>

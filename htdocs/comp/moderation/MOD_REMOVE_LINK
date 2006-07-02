@@ -24,7 +24,6 @@
 	# This component provides the display facilities for
 	# the MOD_REMOVE_LINK edit type.
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
@@ -66,7 +65,9 @@
 %					($new->{begindate} =~ /\S/) ? "from ".$new->{begindate} : "",
 %					($new->{enddate} =~ /\S/) ? " until ".$new->{enddate} : " to present");
 %		}
-% 	} else {
+% 	}
+%	else
+%	{
 
 		<& /comp/ar/ShowEntityLink,
 			id => $new->{entity0id},
@@ -99,4 +100,4 @@
 
 </%method>
 
-%# eof
+%# vi: set ts=4 sw=4 ft=mason :

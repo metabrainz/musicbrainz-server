@@ -1,8 +1,11 @@
 <%args>
+
 	$title
 	$bgcolor => "white"
+
 </%args>
 <%perl>
+
 	$r->content_type('text/html; charset=UTF-8');
 	my $brainz_css = &DBDefs::HTDOCS_ROOT . "/brainz.css";
 	my $mtime = (stat $brainz_css)[9] || 0;

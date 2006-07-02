@@ -120,3 +120,5 @@
 		<input type="hidden" name="artistid" value="<% $artistobj ? $artistobj->GetId : '' %>" />
 		<input type="hidden" name="trackname" value="<% $data->{track} %>" />
 	</form>
+
+%# vi: set ts=4 sw=4 ft=mason :

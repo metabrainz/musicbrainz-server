@@ -90,9 +90,9 @@
 						title="Enter a search keyword here" />
 
 					<div style="margin-top: 2px">
-						<input class="button" type="submit" name="submitvalue" value="<% $cancelbutton |n %>" />
 						<input class="button" type="submit" name="submitvalue" value="<% $searchbutton |n %>"
 							title="Search for an artist" />
+						<input class="button" type="submit" name="submitvalue" value="<% $cancelbutton |n %>" />
 					</div></td>
 		</tr>
 

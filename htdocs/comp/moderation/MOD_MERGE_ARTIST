@@ -24,7 +24,7 @@
 	# This component provides the display facilities for
 	# the MOD_MERGE_ARTIST edit type.
 	#
-	# $URL$
+	# $URL: http://svn.musicbrainz.org/mb_server/trunk/htdocs/comp/moderation/MOD_MERGE_ARTIST $
 	# $Id$
 	#
 </%perl>
@@ -84,4 +84,4 @@
 
 </%method>
 
-%# eof
+%# vi: set ts=4 sw=4 ft=mason :

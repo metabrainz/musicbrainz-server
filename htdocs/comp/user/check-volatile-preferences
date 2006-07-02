@@ -25,7 +25,6 @@
 	# submitted arguments to the page. If yes, update the volatile
 	# autoeditor privs accordingly.
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
@@ -59,3 +58,5 @@
 	}
 
 </%perl>
+
+%# vi: set ts=4 sw=4 ft=mason :

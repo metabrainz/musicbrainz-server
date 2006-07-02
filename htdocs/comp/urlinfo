@@ -26,14 +26,16 @@
 					<% $url->GetMBId %></td>
 			</tr>
 
-% 		if ($session{uid}) {
+% 	if ($session{uid})
+%	{
+
 			<tr>
 				<td class="label">
 					<& /comp/linkdoc, "UrlID" &>:</td>
 				<td>
 					<% $url->GetId %></td>
 			</tr>
-% 		}
+% 	}
 
 		</table>
 

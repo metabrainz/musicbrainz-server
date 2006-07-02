@@ -1,6 +1,8 @@
 <%args>
-$url=>""
-$email=>""
+
+	$url=>""
+	$email=>""
+
 </%args>
 
 % if (&DBDefs::DB_READ_ONLY) {

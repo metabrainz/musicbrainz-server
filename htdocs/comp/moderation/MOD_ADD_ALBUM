@@ -33,6 +33,7 @@
 
 <%method ShowNewValue>
 <%perl>
+
  	my $this = shift;
  	my $inline = shift;
 

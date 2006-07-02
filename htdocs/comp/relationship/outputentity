@@ -59,7 +59,7 @@
 	elsif ($e_type eq "url")
 	{
 		my $name = $url;
-	
+
 		if ($item->{"link_name"} eq "amazon asin" && $prefix eq "link1_")
 		{
 			my ($asin, $coverart) = Album->ParseAmazonURL($item->{link1_name});
@@ -94,3 +94,5 @@
 	$m->out("</span>") if ($mp);
 
 </%perl>
+
+%# vi: set ts=4 sw=4 ft=mason :

@@ -29,12 +29,13 @@
 	#
 </%perl>
 <%args>
+
 	$id => undef
 	$type => ""
 	$linktypeid => undef
 
 	$swapval => 0
-	$submit => ""
+	$submitvalue => ""
 	$notetext => undef
 
 </%args>
@@ -42,6 +43,7 @@
 
 	#die (keys %ARGS);
 	my $formurl = $ARGS{"v::formurl"};
+	my $editmode = ($formurl =~ /edit\.html/);
 
 	my @errors = @{ $ARGS{"v::errors"} };
 	my @links = @{ $ARGS{"v::links"} };
@@ -67,9 +69,10 @@
 	my @children = $attrRoot->Children;
 
 	# start page output.
-	my $title = ($formurl =~ /edit\.html/
+	my $title = ($editmode
 		? "Edit Relationship Details: "
 		: "Create Relationship: ")."$etype1-$etype2";
+
 </%perl>
 
 <& /comp/sidebar-notitle, pagetitle => $title &>
@@ -161,14 +164,14 @@
 							</td>
 							<td>
 
-% 	if ($etype1 eq $etype2)
+% 	if (not $editmode && $etype1 eq $etype2)
 %	{
 
 								<span id="arEntitiesSwap-Client" style="display: none">
 									<input type="button" class="button" onclick="arfrontend.swapElements(this)" name="swapJS" value="Change direction" />
 								</span>
 								<span id="arEntitiesSwap-Server" style="display: block">
-									<input type="submit" class="button" name="submit" value="Change direction" />
+									<input type="submit" class="button" name="submitvalue" value="Change direction" />
 								</span>
 
 %	}
@@ -296,11 +299,11 @@
 				<td>&nbsp;</td>
 				<td class="notetext">
 					<& /comp/notetext,
-						notetext => $notetext,
-						buttons => [["Cancel", "btnCancel"], ["Enter Edit", "btnYes"]] &>
+						notetext => $notetext, &>
 <%perl>
 
-	if ($formurl =~ /edit\.html/) {
+	if ($editmode)
+	{
 		$m->out(qq!<input type="hidden" name="id" value="$id" />!);
 		$m->out(qq!<input type="hidden" name="type" value="$type" />!);
 		$m->out(qq!<input type="hidden" name="swapval" value="$swapval" />!);
@@ -317,7 +320,7 @@
 %#					internal fields which drive how the javascript function
 %#					interacts with the form elements
 					<input type="hidden" name="int_isurlform" value="0" />
-					<input type="hidden" name="int_formsubmitted" value="<% $submit ne "" %>" />
+					<input type="hidden" name="int_formsubmitted" value="<% $submitvalue ne "" %>" />
 					<input type="hidden" name="int_seenattrs" value="<% join(",", keys %seen_attrs)  %>" />
 					<input type="hidden" name="int_typedropdown" value="linktypeid" /></td>
 			</tr>
@@ -327,3 +330,5 @@
 
 	<& /comp/tableend &>
 <& /comp/footer &>
+
+%# vi: set ts=4 sw=4 ft=mason :

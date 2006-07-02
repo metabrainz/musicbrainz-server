@@ -36,8 +36,14 @@
 	$showprivscheckbox => 1
 
 </%args>
+<%perl>
 
-%	$notetext ||= $text;
+	@buttons = ( ["Enter Edit &raquo;", "btnYes"], ["Cancel", "btnCancel"] )
+		if (not @buttons);
+
+	$notetext ||= $text;
+
+</%perl>
 
 	Enter edit note
 
@@ -61,7 +67,7 @@
 %		my ($value, $id) = @$button;
 %		$id = qq!id="$id"! if (defined $id);
 
-		<input class="button" type="submit" name="submitvalue" value="<% $value %>" <% $id |n%>/>
+		<input class="button" type="submit" name="submitvalue" value="<% $value |n %>" <% $id |n%> />
 
 %	}
 
