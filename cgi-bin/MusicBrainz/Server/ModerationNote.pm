@@ -107,8 +107,8 @@ sub mark_up_text_as_html
 	$html = Text::WikiFormat::format($html, {}, 
 							{	prefix=>"http://$server/doc/",
 								extended => 1,
-								absolute_links => 0,
-								implicit_links => 1
+								absolute_links => 1,
+								implicit_links => 0
 							})
 		if ($html =~ /\S/);
 
