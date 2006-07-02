@@ -67,18 +67,13 @@
 							Your query <code><strong><% $query |h %></strong></code> did not match
 							any <% $type %>s. Please check if you used the correct spelling, sometimes
 							fewer or different words might help.</li>
+
 						<li>For help on writing effective text
 							search queries, please read the <& /comp/linkdoc, "TextSearchSyntax",
 							"text search syntax" &> document.</li>
 
-% 				if ($type eq "artist")
-%				{
-
-						<li>
-							Another possible starting point is to use the <a href="/browseartists.html"
-							>Browse Artists</a> page to find the artist you are looking for.</li>
-% 				}
-
+						<li>Please consider <a href="/freedb/freedb.html?search=<% uri_escape($query) %>"
+							>importing</a> the artist/release/track(s) you are looking for from freedb.</li>
 					</ul>
 				<& /comp/tableend &>
 
@@ -166,9 +161,37 @@
 					<& /comp/lucenesearch, type=>$type, limit=>$limit, query=>$query &>
 				</td>
 				<td style="padding: 0.3em 4em">
-					<b>Note:</b> Search indexes are currently updated once a day at
-					1800 GMT (10am PST). If you require up to the minute correct
-					search, please use the <a href="/search/oldsearch.html">old search</a>.
+					<b>Note:</b>
+
+					<ul>
+						<li>
+							Search indexes are currently updated once a day at 1800 GMT (10am PST).
+							If you require up to the minute correct search, please use the
+							<a href="/search/oldsearch.html">old search</a>.</li>
+
+% 				if ($type eq "artist")
+%				{
+
+						<li>
+							Another possible starting point is to use the <a href="/browseartists.html"
+							>Browse Artists</a> page to find the artist you are looking for.</li>
+						<li>Alternatively, <a href="/edit/artist/add.html?initial_name=<% uri_escape($query) %>">
+							add a new artist</a>.</li>
+
+% 				}
+% 				elsif ($type eq "release")
+%				{
+
+						<li>
+							Another possible starting point is to use the <a href="/browsevarious.html"
+							>Browse Releases</a> page to find the release you are looking for.</li>
+						<li>
+							Alternatively, <a href="/edit/album/add.html?artistid=0">add a new release</a>.</li>
+
+% 				}
+
+				</ul>
+
 				</td>
 			</tr>
 		</table>

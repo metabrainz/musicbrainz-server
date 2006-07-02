@@ -24,7 +24,7 @@
 			<td>
 				<select name="table" id="id_table">
 					<option value="artist" <% ($default eq 'artist') ? 'selected="selected"' : '' |n %>>Artists</option>
-					<option value="album" <% ($default eq 'album') ? 'selected="selected"' : '' |n %>>Albums</option>
+					<option value="album" <% ($default eq 'album') ? 'selected="selected"' : '' |n %>>Releases</option>
 					<option value="track" <% ($default eq 'track') ? 'selected="selected"' : '' |n %>>Tracks</option>
 				</select>
 			</td>

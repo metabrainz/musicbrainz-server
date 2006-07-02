@@ -30,7 +30,7 @@
 			<td>
 				<select name="type" id="id_type">
 %					$m->out(qq!<option value="artist" ! . ($type eq "artist" ? 'selected="selected"' : '') . qq!>Artists</option>!);
-%					$m->out(qq!<option value="release" ! . ($type eq "release" ? 'selected="selected"' : '') . qq!>Albums</option>!);
+%					$m->out(qq!<option value="release" ! . ($type eq "release" ? 'selected="selected"' : '') . qq!>Releases</option>!);
 %					$m->out(qq!<option value="track" ! . ($type eq "track" ? 'selected="selected"' : '') . qq!>Tracks</option>!);
 				</select></td>
 		</tr>
