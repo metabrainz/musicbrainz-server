@@ -23,7 +23,6 @@
 	# -----------------------------------------------------------------------------
 	# This page allows to remove one...many releases.
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
@@ -171,11 +170,13 @@
 				<tr>
 					<td class="notetext">
 						<& /comp/notetext,
-							notetext => $notetext,
-							buttons => [["Cancel", "btnCancel"], ["Enter Edit"]] &>
+							notetext => $notetext, &>
 
-% 	for my $releaseid (@releaseid) {
+% 	for my $releaseid (@releaseid)
+%	{
+
 						<input type="hidden" name="releaseid" value="<% $releaseid %>" />
+
 % 	}
 					</td>
 				</tr>
@@ -187,6 +188,7 @@
 	<& /comp/tableend &>
 
 <%perl>
+
 	for my $artist (sort { $a->{_name_} cmp $b->{_name_} } values %artists)
 	{
 		# render artist link only, instead of comp/artisttitle
@@ -199,7 +201,9 @@
 			$m->comp( "/comp/album", album => $release, artist => $artist, showmodlinks => 0);
 		}
 	}
+
 </%perl>
 
-
 <& /comp/footer &>
+
+%# vi: set ts=4 sw=4 ft=mason :

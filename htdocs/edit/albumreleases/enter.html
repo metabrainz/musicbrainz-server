@@ -24,15 +24,16 @@
 	# Enter the release events edit into the database, unless cancel
 	# was pressed on the previous page.
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
 <%args>
+
 	$releaseid
 
 	$submitvalue => ""
 	$notetext => ""
+
 </%args>
 <%perl>
 
@@ -125,3 +126,5 @@
 	return $m->comp("/comp/redirect", $cancelurl);
 
 </%perl>
+
+%# vi: set ts=4 sw=4 ft=mason :

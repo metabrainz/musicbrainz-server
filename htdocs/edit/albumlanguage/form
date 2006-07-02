@@ -24,11 +24,11 @@
 	# This comment displays the edit release language form.
 	# Used in edit/albumlanguage/edit.html, and cdi/selectattr.html
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
 <%args>
+
 	$add_language => 0
 
 	$language_curr
@@ -39,6 +39,7 @@
 
 	$language_fieldname => "language_new"
 	$script_fieldname => "script_new"
+
 </%args>
 <%perl>
 
@@ -59,9 +60,13 @@
 
 </%perl>
 
-% 	if ($add_language) {
+% 	if ($add_language)
+%	{
+
 		<tr>
+
 % 	}
+
 		<tr class="spaced">
 
 			<td class="label">
@@ -84,30 +89,43 @@
 		<tr>
 			<td>&nbsp;</td>
 			<td>
-% 	if ($expand_lists) {
+
+% 	if ($expand_lists)
+%	{
+
 				<input class="button" type="submit" name="submitvalue" value="Show Reduced Lists" />
-% 	} else {
-				<input class="button" type="submit" name="submitvalue" value="Show Full Lists" />
+
 % 	}
+%	else
+%	{
+
+				<input class="button" type="submit" name="submitvalue" value="Show Full Lists" />
+
+% 	}
+
 				<input class="button" type="submit" name="submitvalue" value="Guess Again" /></td>
 		</tr>
 
-% 	if ($add_language == 1) {
+% 	if ($add_language == 1)
+%	{
+
 		<tr>
 			<td>&nbsp;</td>
 			<td class="padtop">
-				<input 	type="submit" class="button" name="submitvalue" value="Next &raquo;" /></td>
+				<input  class="button" 	type="submit"name="submitvalue" value="Next &raquo;" /></td>
 		</tr>
-% 	} else {
+
+% 	}
+%	else
+%	{
 
 		<tr>
 			<td>&nbsp;</td>
 			<td class="notetext">
 				<& /comp/notetext,
-					notetext => $notetext,
-					buttons => [["Cancel",""], ["Enter Edit", "btnYes"]] &></td>
+					notetext => $notetext, &></td>
 		</tr>
 
 % 	}
 
-
+%# vi: set ts=4 sw=4 ft=mason :

@@ -23,7 +23,6 @@
 	# -----------------------------------------------------------------------------
 	# Add/Edit Artist form
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
@@ -44,13 +43,16 @@
 	$resolution => ""
 
 </%args>
-
 <%perl>
+
 	my $begindate_str = Artist::GetBeginDateName($type);
 	my $enddate_str = Artist::GetEndDateName($type);
+
 </%perl>
 
-% 	if (@messages) {
+% 	if (@messages)
+%	{
+
 		<tr>
 			<td>&nbsp;</td>
 			<td class="error">
@@ -61,6 +63,7 @@
 				</ul>
 			</td>
 		</tr>
+
 % 	}
 
 		<tr>
@@ -77,7 +80,9 @@
 			<td colspan="2" />
 		</tr>
 
-% if (defined $artist) {
+% 	if (defined $artist)
+%	{
+
 		<tr>
 			<td class="label">
 				<label>Current Name:</label></td>
@@ -86,7 +91,9 @@
 					artist => $artist, display => $artist->GetName(),
 					mp_type => &ModDefs::MOD_EDIT_ARTIST &></td>
 		</tr>
-% }
+
+% 	}
+
 		<tr>
 			<td class="label">
 				<label for="editartist_name">Artist Name:</label></td>
@@ -99,7 +106,9 @@
 			<td colspan="2" />
 		</tr>
 
-% if (defined $artist) {
+% 	if (defined $artist)
+%	{
+
 		<tr>
 			<td class="label">
 				<label>Current Sort Name:</label></td>
@@ -108,7 +117,9 @@
 					artist => $artist, display => $artist->GetSortName(),
 					mp_type => &ModDefs::MOD_EDIT_ARTISTSORTNAME &></td>
 		</tr>
-% }
+
+% 	}
+
 		<tr>
 			<td class="label">
 				<label for="editartist_sortname">Sort Name:</label></td>
@@ -203,7 +214,9 @@
 %	}
 
 
-% 	if (@dupes or $resolution) {
+% 	if (@dupes or $resolution)
+%	{
+
 %#		<tr>
 %#			<td>&nbsp;</td>
 %#			<td class="formsection">
@@ -212,14 +225,18 @@
 %#				not conflict with an artist of a similar name.</td>
 %#		</tr>
 
-% 		if (defined $artist) {
+% 		if (defined $artist)
+%	{
+
 		<tr>
 			<td class="label">
 				<label>Current Comment:</label></td>
 			<td class="field">
 				<div class="oldtextfield"><% $artist->GetResolution() || "(none)" %></div></td>
 		</tr>
+
 % 		}
+
 		<tr>
 			<td class="label">
 				<label for="editartist_resolution">Comment:</label></td>
@@ -228,8 +245,8 @@
 					id="editartist_resolution" size="50" maxlength="64"
 					value="<% $resolution %>" /></td>
 		</tr>
-% 	}
 
+% 	}
 % 	if (@dupes)
 %	{
 
@@ -245,13 +262,14 @@
 
 %		if (defined $artist)
 %		{
+
 					I <strong>really</strong> want to edit this artist
 					which has the same name as an existing artist.
-
 
 %		}
 %		else
 %		{
+
 					I <strong>really</strong> want to create
 					this new artist with the same name as
 					an existing artist.
@@ -268,9 +286,16 @@
 			<td class="notetext">
 				<& /comp/notetext,
 					notetext => $notetext,
-					buttons => [["Cancel",""], ["Enter Edit", "btnYes"]] &>
-% if (defined $artist) {
+				&>
+
+% 	if (defined $artist)
+%	{
+
 				<input type="hidden" name="id" value="<% $artist->GetId() %>" />
-% }
+
+% 	}
+
 				<input type="hidden" name="returnurl" value="<% $returnurl %>" /></td>
 		</tr>
+
+%# vi: set ts=4 sw=4 ft=mason :

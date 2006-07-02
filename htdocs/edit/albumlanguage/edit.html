@@ -23,11 +23,11 @@
 	# -----------------------------------------------------------------------------
 	# This page allows to edit the language/script of a release
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
 <%args>
+
 	@id => ()
 
 	$language_new => undef
@@ -39,8 +39,10 @@
 
 	$submitvalue => ""
 	$notetext => ""
+
 </%args>
 <%perl>
+
 	# only logged in users can see this page
 	$m->comp("/comp/checkloggedin", 1, 1)
 		or return;
@@ -52,7 +54,7 @@
 	$m->comp("/comp/user/check-volatile-preferences", %ARGS);
 
 
-# Instantiate MusicBrainz object
+	# Instantiate MusicBrainz object
 	my $mb = $m->comp("/comp/dblogin");
 
 	# load 1..n releases from the database, and track
@@ -191,16 +193,23 @@
 
 	<form method="post" action="/edit/albumlanguage/edit.html" id="EditAlbumLanguageForm">
 
-%	if (@releaseobjs == 1) {
+%	if (@releaseobjs == 1)
+%	{
+
 		<& /comp/layout/editformbegin, title => "Edit Release Language/Script",
 			release => $releaseobjs[0],
 			mp_type => &ModDefs::MOD_EDIT_ALBUM_LANGUAGE,
 		&>
-%	} else {
+
+%	}
+%	else
+%	{
+
 		<& /comp/layout/editformbegin, title => "Edit Release Language/Script",
 			mp_type => &ModDefs::MOD_EDIT_ALBUM_LANGUAGE,
 			mp => $mp,
 		&>
+
 %	}
 
 		<table class="formstyle">
@@ -224,16 +233,17 @@
 						<td>Script</td>
 					</tr>
 
-					<%perl>
+<%perl>
+
 						my $n = 0;
 						foreach my $release ( @releaseobjs )
 						{
 							$m->out("<tr>");
 
-# TODO: load artist for this?
-#							$m->out(qq!<td style="padding-right: 40px">!);
-#							$m->comp("/comp/linkartist", artist => $release->GetArtist);
-#							$m->out(qq!</td><td style="padding-right: 40px">!);
+							# TODO: load artist for this?
+							# $m->out(qq!<td style="padding-right: 40px">!);
+							# $m->comp("/comp/linkartist", artist => $release->GetArtist);
+							# $m->out(qq!</td><td style="padding-right: 40px">!);
 
 							$m->out(qq!<td style="padding-right: 40px">!);
 							$m->comp("/comp/form/currentvalue", release => $release, mp_type => &ModDefs::MOD_EDIT_ALBUM_LANGUAGE);
@@ -249,7 +259,9 @@
 									: "Not Set");
 							$m->out("</td></tr>");
 						}
-					</%perl>
+
+</%perl>
+
 					</table>
 				</td>
 			</tr>
@@ -264,9 +276,13 @@
 			&>
 		</table>
 
-% 	foreach my $releaseid (@id) {
+% 	foreach my $releaseid (@id)
+%	{
+
 		<input type="hidden" name="id" value="<% $releaseid %>" />
+
 % 	}
+
 		<input type="hidden" name="untag" value="<% $untag %>" />
 		<input type="hidden" name="expand_lists" value="<% $expand_lists %>" />
 
@@ -276,3 +292,5 @@
 	</form>
 
 <& /comp/footer &>
+
+%# vi: set ts=4 sw=4 ft=mason :

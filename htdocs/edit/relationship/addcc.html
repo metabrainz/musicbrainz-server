@@ -236,9 +236,11 @@ foreach my $node (@children)
 
 		<div class="padleft">
 			<p/>
-			<& /comp/notetext, text => $notetext &>
+			<& /comp/notetext, notetext => $notetext &>
+
 			<p>Adding a license URL as part of the moderation note is <b>strongly encouraged</b>.</p>
 		</div>
+
 		<div class="padlefttop">
 			<!-- internal fields which drive how the javascript function
 				 interacts with the form elements -->
@@ -250,7 +252,6 @@ foreach my $node (@children)
 			<input type="hidden" name="type" value="<% $type %>">
 			<input type="hidden" name="name" value="<% $name %>">
 			<input type="hidden" name="submit" value="1">
-			<input type="submit" class="button" value="Submit">
 		</div>
 	</fieldset>
 </form>

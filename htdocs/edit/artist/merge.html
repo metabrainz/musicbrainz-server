@@ -23,7 +23,6 @@
  	# -----------------------------------------------------------------------------
  	# Merge an artist into another
  	#
- 	# $URL$
  	# $Id$
  	#
 </%perl>
@@ -161,8 +160,8 @@
 					<td>&nbsp;</td>
 					<td class="notetext">
 						<& /comp/notetext,
-							notetext => $notetext,
-							buttons => [["Cancel",""], ["Enter Edit", "btnYes"]] &>
+							notetext => $notetext, &>
+
 						<input type="hidden" name="newartistid" value="<% $newartist->GetId %>" /></td>
 				</tr>
 			</table>
@@ -209,3 +208,5 @@
 	<& /comp/layout/editformend &>
 
 <& /comp/footer &>
+
+%# vi: set ts=4 sw=4 ft=mason :

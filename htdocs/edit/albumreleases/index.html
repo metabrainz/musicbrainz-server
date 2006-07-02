@@ -24,13 +24,14 @@
 	# Load the current release events of this release from the
 	# database and redirect to the edit release events form.
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
 <%args>
+
 	$album => ""
 	$releaseid => ""
+
 </%args>
 <%perl>
 
@@ -100,3 +101,5 @@
 	return $m->comp("/comp/redirect", "/edit/albumreleases/editreleases.html?releaseid=".$releaseid);
 
 </%perl>
+
+%# vi: set ts=4 sw=4 ft=mason :

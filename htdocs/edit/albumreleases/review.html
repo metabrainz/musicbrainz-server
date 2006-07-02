@@ -23,15 +23,17 @@
 	# -----------------------------------------------------------------------------
 	# Review the changes made to the release events
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
 <%args>
+
 	$releaseid
 	$notetext => ""
+
 </%args>
 <%perl>
+
 	# let's see if we still got the required data in
 	# the session, else redirect to the given releaseid.
 	my $url = "/show/release/?releaseid=" . $releaseid;
@@ -50,6 +52,7 @@
 
 	my @releases = $release->Releases;
 	my @tracks = $release->LoadTracks;
+
 </%perl>
 
 <& /comp/sidebar-notitle, pagetitle => "Edit Release Events: Review Changes" &>
@@ -112,7 +115,9 @@
 		} qw( year month day country );
 
 		{
-			</%perl>
+
+</%perl>
+
 				<tr valign="top">
 					<td class="left" style="padding-right: 40px">Edit Release</td>
 					<td class="left" style="padding-right: 40px">
@@ -122,13 +127,17 @@
 						Date: <& /comp/releasedate, @$rel{qw( year month day )} &><br />
 						Country: <% $country_name{$rel->{country}} || "?" %></td>
 				</tr>
-			<%perl>
+
+<%perl>
 			++$changes;
 		}
 	}
+
 </%perl>
 
-% 	if (not $changes) {
+% 	if (not $changes)
+%	{
+
 			<tr>
 				<td colspan="3" class="left">
 					You have not made any changes!</td>
@@ -160,7 +169,8 @@
 	<& /comp/tableend &>
 
 
-% 	if ($changes) {
+% 	if ($changes)
+%	{
 
 	<& /comp/tablebegin, title => "Enter Edit" &>
 
@@ -169,8 +179,7 @@
 				<tr>
 					<td class="notetext">
 						<& /comp/notetext,
-							notetext => $notetext,
-							buttons => [["Cancel",""], ["Enter Edit", "btnYes"]] &>
+							notetext => $notetext, &>
 
 						<input type="hidden" name="releaseid" value="<% $release->GetId %>" /></td>
 				</tr>
@@ -182,3 +191,5 @@
 % 	}
 
 <& /comp/footer &>
+
+%# vi: set ts=4 sw=4 ft=mason :

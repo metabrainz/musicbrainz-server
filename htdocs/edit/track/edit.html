@@ -298,8 +298,8 @@
 					<td>&nbsp;</td>
 					<td class="notetext" colspan="4">
 						<& /comp/notetext,
-							notetext => $notetext,
-							buttons => [ ["Cancel"], ["Enter Edit", "btnYes"]] &>
+							notetext => $notetext, &>
+
 						<input type="hidden" name="releaseid" value="<% $releaseid %>">
 						<input type="hidden" name="trackid" value="<% $trackid %>">
 						<input type="hidden" name="ispopup" value="<% $pnotes{'ispopup'} %>"></td>

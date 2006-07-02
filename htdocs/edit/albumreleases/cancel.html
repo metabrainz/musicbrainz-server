@@ -24,12 +24,13 @@
 	# Cancel edting the release events of this release. The editreleases
 	# session variable for the current releaseid is cleared.
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
 <%args>
+
 	$releaseid
+
 </%args>
 <%perl>
 
@@ -38,3 +39,5 @@
 	return $m->comp("/comp/redirect", "/show/release/?releaseid=$releaseid");
 
 </%perl>
+
+%# vi: set ts=4 sw=4 ft=mason :

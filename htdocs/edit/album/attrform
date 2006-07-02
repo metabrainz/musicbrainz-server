@@ -155,8 +155,8 @@
 			<td class="notetext">
 
 %	my @buttons = ();
+%	push @buttons, ["Enter Edit &raquo;"];
 %	push @buttons, ["Cancel"] if ($adding == 0);
-%	push @buttons, ["Enter Edits"];
 
 				<& /comp/notetext,
 					notetext => $notetext,

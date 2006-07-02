@@ -23,17 +23,18 @@
 	# -----------------------------------------------------------------------------
 	# Remove an artist
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
 <%args>
+
 	$artistid => ""
 	$artist => ""
 
 	$submitvalue => ""
 	$notetext => ""
 	$btnNo => undef
+
 </%args>
 <%perl>
 
@@ -109,6 +110,7 @@
 			die "Shouldn't get here";
 		}
 	}
+
 </%perl>
 
 <& /comp/sidebar-notitle, pagetitle => "Confirm Artist Removal" &>
@@ -137,8 +139,7 @@
 			<tr>
 				<td class="notetext">
 					<& /comp/notetext,
-						notetext => $notetext,
-						buttons => [["Cancel", "btnCancel"], ["Enter Edit"]] &>
+						notetext => $notetext, &>
 
 					<input type="hidden" name="artistid" value="<% $artistid %>" />
 					<input type="hidden" name="confirm" value="1" /></td>
@@ -151,3 +152,5 @@
 	<& /comp/tableend &>
 
 <& /comp/footer &>
+
+%# vi: set ts=4 sw=4 ft=mason :

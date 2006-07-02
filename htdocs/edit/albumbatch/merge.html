@@ -295,8 +295,8 @@
 					<td class="notetext">
 
 %		my @buttons = ();
-%		push @buttons, ["Cancel"];
-%		push @buttons, ["Enter Edit"] if ($merge_ok);
+%		push @buttons, ["Enter Edit", "btnYes"] if ($merge_ok);
+%		push @buttons, ["Cancel", "btnCancel"];
 
 						<& /comp/notetext,
 							notetext => $notetext,
@@ -393,3 +393,5 @@
 	<script type="text/javascript" src="/scripts/collapsereleases.js"></script>
 
 <& /comp/footer &>
+
+%# vi: set ts=4 sw=4 ft=mason :

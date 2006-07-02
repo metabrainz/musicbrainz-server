@@ -24,7 +24,6 @@
 	# Load the countries from the database and return
 	# them as a list of id,name pairs.
 	#
-	# $URL$
 	# $Id$
 	#
 </%perl>
@@ -42,3 +41,5 @@
 	return \@countries_menu;
 
 </%perl>
+
+%# vi: set ts=4 sw=4 ft=mason :
