@@ -103,6 +103,8 @@
 
 		# check track name
 		push @errors, "Please enter a non-empty track name"
+			if ($trackname !~ /\S/);
+		push @errors, "The track name contains invalid linebreaks"
 			if (not MusicBrainz::IsSingleLineString($trackname));
 
 		# check track length
