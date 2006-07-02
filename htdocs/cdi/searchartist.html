@@ -38,6 +38,11 @@
 </%args>
 <%perl>
 
+	# only logged in users with a valid e-mail address can
+	# see this page.
+	$m->comp("/comp/checkloggedin", 1, 1)
+		or return;
+
 	# make sure we got a valid toc parameter
 	MusicBrainz::IsSingleLineString($toc) && $toc ne ""
 		or return $m->comp("/comp/layout/badarguments",

@@ -50,6 +50,12 @@
 </%args>
 <%perl>
 
+	# only logged in users with a valid e-mail address can
+	# see this page.
+	$m->comp("/comp/checkloggedin", 1, 1)
+		or return;
+
+
 	# check if we have a valid number of tracks, else
 	# redirect to the add release page.
 	unless (MusicBrainz::IsNonNegInteger($tracks) and $tracks >= 1 and $tracks <= 99)
