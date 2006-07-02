@@ -57,56 +57,63 @@
 
 <& /comp/sidebar-notitle, pagetitle => "Edit Release Events: Review Changes" &>
 
-	<& /comp/artisttitle, artist => $artist &>
-
-	<& /comp/tablebegin, title => "Review Edit" &>
+	<& /comp/tablebegin, title => "Review Changes" &>
 
 	<div class="padleft">
 		These are the edits that will be entered into
 		the system when you click "Enter Edit":
 	</div>
+
 	<div class="padlefttop">
-		<table class="listing">
+		<table class="listing" style="margin: 20px 0px">
 			<tr class="header">
-				<td class="left">Edit</td>
-				<td class="left">Old Value</td>
-				<td class="left">New Value</td>
+				<td class="left padright">Edit</td>
+				<td class="left padright">Old Value</td>
+				<td class="left padright">New Value</td>
 			</tr>
 
 <%perl>
+
+	my @relEventsNew;
 
 	my $countries_menu = $m->comp("countries-menu.inc");
 	my %country_name = map { $_->[0], $_->[1] } @$countries_menu;
 
 	for my $rel (@{ $edit->{releases} })
 	{
-		if ($rel->{"new"})
-		{
-			</%perl>
-				<tr valign="top">
-					<td class="left" style="padding-right: 40px">Add Release</td>
-					<td class="left" style="padding-right: 40px">&nbsp;</td>
-					<td class="left">
-						Date: <& /comp/releasedate, @$rel{qw( year month day )} &> <br />
-						Country: <% $country_name{$rel->{country}} || "?" %></td>
-				</tr>
-			<%perl>
-			++$changes;
-			next;
-		}
-
 		if ($rel->{'delete'})
 		{
 			</%perl>
 				<tr valign="top">
-					<td class="left" style="padding-right: 40px">Remove Release</td>
-					<td class="left" style="padding-right: 40px">
+					<td class="left padright">Remove Release</td>
+					<td class="left padright">
 						Date: <& /comp/releasedate, @$rel{qw( orig_year orig_month orig_day )} &><br />
 						Country: <% $country_name{$rel->{orig_country}} || "?" %></td>
 					<td class="left">&nbsp;</td>
 				</tr>
 			<%perl>
 			++$changes;
+			next;
+		}
+
+		if ($rel->{"new"})
+		{
+			</%perl>
+				<tr valign="top">
+					<td class="left padright">Add Release</td>
+					<td class="left padright">&nbsp;</td>
+					<td class="left">
+						Date: <& /comp/releasedate, @$rel{qw( year month day )} &> <br />
+						Country: <% $country_name{$rel->{country}} || "?" %></td>
+				</tr>
+			<%perl>
+			++$changes;
+
+			my $rev = MusicBrainz::Server::Release->new($mb->{DBH});
+			$rev->SetCountry($rel->{country});
+			$rev->SetYMD(@$rel{qw( year month day )});
+			push @relEventsNew, $rev;
+
 			next;
 		}
 
@@ -129,6 +136,11 @@
 				</tr>
 
 <%perl>
+			my $rev = MusicBrainz::Server::Release->new($mb->{DBH});
+			$rev->SetCountry($rel->{country});
+			$rev->SetYMD(@$rel{qw( year month day )});
+			push @relEventsNew, $rev;
+
 			++$changes;
 		}
 	}
@@ -172,7 +184,26 @@
 % 	if ($changes)
 %	{
 
+	<div style="margin-bottom: 3px">
+		<& /comp/linkartist, artist => $artist &>
+	</div>
+
+	<div style="margin-bottom: 20px">
+
+	<& /comp/album,
+		album => $release,
+		artist => $artist,
+		showlinks => 0,
+		showmodlinks => 0,
+		showreleases => 1,
+		tracks => \@tracks,
+		releaseevents => \@relEventsNew, &>
+
+	</div>
+
 	<& /comp/tablebegin, title => "Enter Edit" &>
+
+		<script type="text/javascript" src="/scripts/editsuite.js"></script>
 
 		<form method="post" action="enter.html">
 			<table class="formstyle">

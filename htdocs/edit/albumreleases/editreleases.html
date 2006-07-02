@@ -242,7 +242,7 @@
 							<td>Day</td>
 							<td>Country</td>
 							<td>
-								<img src="/images/remove.gif" title="Activate the checkboxes below to remove release events" alt="" /></td>
+								<span title="Activate the checkboxes below to remove release events" style="cursor: help"/>Remove</span></td>
 						</tr>
 <%perl>
 
@@ -273,7 +273,7 @@
 							<td align="center">
 								<input 	type="checkbox" name="releasedel<% $rel->{"id"} %>"
 										value="1" <% $rel->{'delete'} ? "checked" : "" %>
-										title="Remove this release event?" /></td>
+										title="Active this checkbox to remove this release event" /></td>
 						</tr>
 % 	}
 
