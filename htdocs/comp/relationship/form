@@ -164,7 +164,7 @@
 							</td>
 							<td>
 
-% 	if (not $editmode && $etype1 eq $etype2)
+% 	if ($etype1 eq $etype2)
 %	{
 
 								<span id="arEntitiesSwap-Client" style="display: none">

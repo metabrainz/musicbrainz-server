@@ -138,8 +138,9 @@ function ARFrontEnd() {
 					mb.log.error("Could not find the DropDown given by int_typedropdown $", this.typeDropDownName);
 				}
 
-				var elcs, elss;
-				if ((elcs = mb.ui.get("arEntitiesSwap-Client")) != null &&
+				var swapval, elcs, elss;
+				if ((swapval = this.form.swapval) == null &&
+					(elcs = mb.ui.get("arEntitiesSwap-Client")) != null &&
 					(elss = mb.ui.get("arEntitiesSwap-Server")) != null) {
 					elcs.style.display = "block";
 					elss.style.display = "none";
