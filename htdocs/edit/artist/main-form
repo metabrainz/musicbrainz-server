@@ -70,7 +70,7 @@
 				<select name="type" onchange="artistTypeChanged(this.value);"
 					id="editartist_type">
 					<& /comp/options,
-					[[0, 'Unknown'], [1, 'Person'], [2, 'Group']], $type &>
+					[[0, 'Unknown'], [1, 'Person'], [2, 'Group'], [3, 'Project']], $type &>
 				</select></td>
 		</tr>
 		<tr class="spaced">
