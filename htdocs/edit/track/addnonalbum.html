@@ -30,7 +30,6 @@
 
 	$artistid => undef
 	$numtracks => 1
-	@trackname => ()
 
 	$submitvalue => ""
 	$notetext => ""
@@ -82,25 +81,30 @@
 	my $artist = $m->comp("/comp/loadartist", $mb, $artistid);
 
 	# fetch array of trackname from arguments
-	if (@trackname == 0)
+	my @trackname = ();
+	my @tracklength = ();
+	my @errors = ();
+
+	for (my $i = 1; ; ++$i)
 	{
-		for (my $i = 1; ; ++$i)
-		{
-			defined(my $n = $ARGS{"trackname$i"})
-				or last;
-			push @trackname, $n;
-		}
+		defined(my $currname = $ARGS{"trackname$i"}) or last;
+		$currname =~ /\S/ or last;
+		push @trackname, $currname;
+
+		defined(my $currlength= $ARGS{"tracklength$i"}) or last;
+		my $lengthasint = Track::UnformatTrackLength($currlength);
+		push @tracklength, $lengthasint;
 	}
 
-	# clear all empty tracks from the trackname list
-	my @names = grep /\S/, @trackname;
-	$numtracks = @names if $numtracks < @names;
-
-	my @errors = ();
+	$numtracks = @trackname;
 
 	# we got a form submission to handle
 	if ($submitvalue ne "")
 	{
+		# if verification above return 0 usable titles
+		push @errors, "You have not provided any useable information to add a non-album track!"
+			if (not $numtracks);
+
 		# verify form fields
 		push @errors, "You must provide an edit note in order to add a non-album track!"
 			if ($notetext !~ /\S/);
@@ -129,7 +133,8 @@
 				"/comp/entermods",
 				DBH => $mb->{DBH},
 				sub => sub {
-					for my $name (@names)
+
+					for (my $i = 0; $i < $numtracks; $i++)
 					{
 						my @mods = Moderation->InsertModeration(
 							DBH	=> $mb->{DBH},
@@ -138,7 +143,8 @@
 							type => &ModDefs::MOD_ADD_TRACK_KV,
 							# --
 							artist => $artist,
-							trackname => $name,
+							trackname => $trackname[$i],
+							tracklength => $tracklength[$i] || 0,
 						);
 
 						$mods[0]->InsertNote($session{'uid'}, $notetext)
@@ -154,10 +160,20 @@
 		}
 	}
 
+	# show at least one track, even if the validation above
+	# did not find any useable information.
+	$numtracks ||= 1;
+
 	# replace undefined tracks with empty string "".
-	for (@names[0..$numtracks-1])
+	for (@trackname[0..$numtracks-1])
 	{
 		$_ = "" unless defined;
+	}
+
+	# replace undefined lenghts with empty length "?:??".
+	for (@tracklength[0..$numtracks-1])
+	{
+		$_ = 0 unless defined;
 	}
 
 </%perl>
@@ -201,10 +217,12 @@
 			<table>
 
 			<table class="formstyle">
-% 	if (@errors and $submitvalue =~ m/Enter Edit/i) {
+
+% 	if (@errors and $submitvalue =~ m/Enter Edit/i)
+%	{
 				<tr>
 					<td>&nbsp;</td>
-					<td class="error" colspan="2">
+					<td class="error" colspan="3">
 						<ul>
 							<li>
 								<%perl> $m->out(join "</li><li>", @errors), </%perl></li>
@@ -214,18 +232,22 @@
 				<tr>
 					<td class="label">
 						<label>Artist:</label></td>
-					<td class="field" colspan="2">
+					<td class="field" colspan="3">
 						<& /comp/linkartist, artist => $artist &></td>
 				</tr>
 
-% 	for (1 .. $numtracks) {
+% 	for (1 .. $numtracks)
+%	{
 
 				<tr>
 					<td class="label">
 						<label for="id_trackname<% $_ %>">Track Name:</label></td>
 					<td class="field">
 						<input type="text" name="trackname<% $_ %>" id="id_trackname<% $_ %>"
-							class="textfield" size="50" value="<% $names[$_-1] %>" /></td>
+							class="textfield" size="50" value="<% $trackname[$_-1] %>" /></td>
+					<td>
+						<input type="text" name="tracklength<% $_ %>" class="numberfield"
+							size="2" value="<% Track::FormatTrackLength($tracklength[$_-1]) %>" /></td>
 					<td>
 						<& /comp/form/jsbutton, id=>"BTN_TRACK::trackname".$_ &></td>
 				</tr>
@@ -237,9 +259,10 @@
 					<td>
 						<input type="hidden" name="numtracks" value="<% $numtracks %>" />
 						<input class="button" type="submit" name="submitvalue" value="Add more tracks &raquo;" /></td>
-					<td>
+					<td colspan="2">
 
-% 	if ($numtracks > 1) {
+% 	if ($numtracks > 1)
+%	{
 
 						<& /comp/form/jsbutton, id=>"BTN_ALL" &>
 
