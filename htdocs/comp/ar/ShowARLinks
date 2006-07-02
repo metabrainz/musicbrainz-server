@@ -69,7 +69,7 @@
 						$typeshow,
 						$typeshow,
 						$expanded ? "" : "&amp;expanded=1",
-						$expanded ? "Compact listing" : "Expanded listing");
+						$expanded ? "View relationships" : "Edit relationships");
 			}
 		}
 		else
@@ -82,7 +82,7 @@
 			}
 			if ($count)
 			{
-				$m->out(sprintf qq! | <a href="/show/%s/relationships.html?%sid=$id">View all relationships</a>!,
+				$m->out(sprintf qq! | <a href="/show/%s/relationships.html?%sid=$id">View relationships</a>!,
 						$typeshow,
 						$typeshow);
 
@@ -100,7 +100,7 @@
 	{
 		if (!$isrelpage)
 		{
-			$m->out(sprintf qq! <a href="/show/%s/relationships.html?%sid=$id">View all relationships</a>!,
+			$m->out(sprintf qq! <a href="/show/%s/relationships.html?%sid=$id">View relationships</a>!,
 					$typeshow,
 					$typeshow);
 
