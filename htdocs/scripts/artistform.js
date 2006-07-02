@@ -10,7 +10,9 @@ function artistChangeBeginEnd(begin, end)
 function artistTypeChanged(selection)
 {
   switch (selection) {
+  default:
   case '0':
+  case '3':
     artistChangeBeginEnd('Begin Date', 'End Date');
     break;
   case '1':
