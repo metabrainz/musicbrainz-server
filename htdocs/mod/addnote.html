@@ -153,8 +153,9 @@
 		</p>
 
 		<p style="margin: 0; text-align: right">
-			<input type="hidden" name="editid" value="<% $edit->GetId %>">
-			<input type="submit" name="submitvalue" value="Submit">
+			<input type="hidden" name="editid" value="<% $edit->GetId %>" />
+			<input type="submit" name="submitvalue" value="Add Note &raquo;" />
+			<input type="submit" name="submitvalue" value="Cancel" />
 		</p>
 
 		<& /comp/movefocus, id => "notetext" &>
