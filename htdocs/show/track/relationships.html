@@ -81,7 +81,8 @@
 			$release->{attrs} = [ $_->[4] =~ /(\d+)/g ];
 			$m->comp("/comp/albuminfo",
 				album => $release,
-				track => $_->[2],
+				track => $track,
+				trackseq => $_->[2],
 			);
 		}
 	}

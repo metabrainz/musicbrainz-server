@@ -31,6 +31,8 @@
 	$album => undef
 	$release => undef
 	$track => undef
+	$trackseq => undef
+
 	$short => 0
 
 </%args>
@@ -59,7 +61,9 @@
 					<% $release->GetMBId %></td>
 			</tr>
 
-%	if (not $short) {
+%	if (not $short)
+%	{
+
 			<tr>
 				<td class="label">
 					Permanent Link:</td>
@@ -79,7 +83,8 @@
 					<a href="<% $release->XML_URL %>"><% $release->XML_URL %></a></td>
 			</tr>
 
-% 		if ($session{uid}) {
+% 		if ($session{uid})
+%		{
 
 			<tr>
 				<td class="label">
@@ -88,15 +93,31 @@
 					<% $release->GetId %></td>
 			</tr>
 % 		}
-
 %	}
 
-% 	if ($track and not($release->IsNonAlbumTracks)) {
+% 	if ($track)
+%	{
 
 			<tr>
 				<td class="label">&nbsp;</td>
 				<td>
-					This track appears as <strong>track number <% $track %></strong> on this release.</td>
+
+%		if ($trackseq and
+%			not($release->IsNonAlbumTracks))
+%		{
+					This track appears as <strong>track number <% $trackseq %></strong> on this release. &nbsp;
+%		}
+
+					[
+						<a href="/edit/track/edit.html?trackid=<% $track->GetId %>&releaseid=<% $release->GetId %>">Edit Track</a>
+
+%		if (not($release->IsNonAlbumTracks))
+%		{
+					  | <a href="/edit/track/change.html?trackid=<% $track->GetId %>&releaseid=<% $release->GetId %>">Change Artist</a>
+%		}
+					]
+
+				</td>
 			</tr>
 
 %	}
