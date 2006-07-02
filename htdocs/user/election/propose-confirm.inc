@@ -55,8 +55,8 @@
 				<td>
 					<input type="hidden" name="username" value="<% $username %>" />
 					<input type="hidden" name="confirm" value="1" />
+					<input type="submit" name="submitvalue" value="Yes, I am sure &raquo;" />
 					<input type="submit" name="submitvalue" value="Cancel" />
-					<input type="submit" name="submitvalue" value="Yes, I am sure" />
 				</td>
 			</tr>
 		</table>
