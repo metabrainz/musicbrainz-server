@@ -34,10 +34,11 @@
 	$modid => 0
 	$editid => undef
 
-	$revealaddress => 0
 	$subject => ""
 	$text => ""
 	$url => ""
+	$revealaddress => 0
+	$sendcopy => 0
 
 	$submitvalue => ""
 
@@ -109,6 +110,7 @@
 			my $ret = $me->SendMessageToUser(
 					to => $you,
 					revealaddress => $revealaddress,
+					sendcopy => $sendcopy,
 					subject => $subject,
 					body => $text);
 
@@ -200,6 +202,16 @@
 							UserPreference::get('reveal_address_when_mailing')
 							? "checked" : "" %>
 						/> Reveal my e-mail address [&nbsp;<a href="/popup/RevealMyEmailAddress" title="POPUP::Reveal_My_Email_Address::400::400">help</a>&nbsp;]</td>
+				</tr>
+				<tr>
+					<td class="label"></td>
+					<td>
+
+						<input type="checkbox" name="sendcopy" <%
+							UserPreference::get('sendcopy_when_mailing')
+							? "checked" : "" %>
+						/> Send me a copy to my e-mail address </td>
+
 				</tr>
 %	}
 				<tr>

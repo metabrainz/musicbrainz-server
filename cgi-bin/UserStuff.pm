@@ -842,6 +842,7 @@ sub SendMessageToUser
 	my ($self, %opts) = @_;
 	my $other_user = $opts{'to'};
 	my $revealaddress = $opts{'revealaddress'};
+	my $sendcopy = $opts{'sendcopy'};
 	my $subject = $opts{'subject'};
 	my $message = $opts{'body'};
 
@@ -857,9 +858,10 @@ $message
 
 EOF
 
-	$opts{'revealaddress'} = 0 unless $self->GetEmail;
+	$revealaddress = 0 unless $self->GetEmail;
+	$sendcopy = 0 unless $self->GetEmail;
 
-	if ($opts{'revealaddress'})
+	if ($revealaddress)
 	{
 	
 		$body .= <<EOF;
@@ -905,7 +907,17 @@ EOF
 	);
     $mail->attr("content-type.charset" => "utf-8");
 
-	if ($opts{'revealaddress'})
+	# if the user requested to get a copy of this e-mail, send
+	# him the e-mail first, before setting the revealaddress
+	# options
+	if ($sendcopy)
+	{
+		$self->SendFormattedEmail(entity => $mail);
+	}
+
+	# if the user choose to reveal their e-mail address, override
+	# the Nobody default settings.
+	if ($revealaddress)
 	{
 		$mail->replace("From" => $self->GetRealAddressHeader);
 		$mail->delete("Reply-To");

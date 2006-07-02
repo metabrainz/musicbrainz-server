@@ -57,6 +57,7 @@
 			JSMoveFocus
 			JSDebug
 			reveal_address_when_mailing
+			sendcopy_when_mailing
 			show_amazon_coverart
 			sidebar_panel_search
 			sidebar_panel_sites
@@ -269,6 +270,14 @@
 						/>
 					Reveal my e-mail address</label>
 					[&nbsp;<a href="/popup/RevealMyEmailAddress" title="POPUP::Reveal_My_Email_Address::400::400">help</a>&nbsp;]
+
+				</p>
+				<p>
+					<label for="pref_sendcopy_when_mailing"><input type="checkbox" name="sendcopy_when_mailing" id="pref_sendcopy_when_mailing"
+%						$m->out(UserPreference::get('sendcopy_when_mailing') ? ' checked="checked" ' : "");
+						/>
+					Send me a copy to my e-mail address</label>
+					[&nbsp;<a href="/popup/SendCopyWhenMailing" title="POPUP::SendCopyWhenMailing::400::400">help</a>&nbsp;]
 
 				</p>
 
