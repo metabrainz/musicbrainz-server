@@ -158,22 +158,26 @@
 
 	# Re-fetch the index, just in case
 	$pages = $wt->GetPageIndex();
+	my $i = 0;
 	foreach my $page (sort keys %$pages)
 	{
+		my $rev = $pages->{$page};
+
 </%perl>
 
-			<tr>
+			<tr class="<% $i++ % 2 == 0 ? 'even' : 'odd' %>">
 				<td class="left padright">
-					<& /comp/linkdoc, $page, $page &></td>
+					<& /comp/linkdoc, $page, $page, 0, 0 &></td>
 				<td class="left padright">
-					<a href="http://wiki.musicbrainz.org/<% $page %>"><% $page %></a>&nbsp;</td>
+					[&nbsp;<a href="http://wiki.musicbrainz.org/<% $page %>">Show</a>&nbsp;|&nbsp;<a href="http://wiki.musicbrainz.org/<% $page %>?action=info">Info</a>&nbsp;]</td>
 				<td class="left padright">
-
 					<form method="post" action="/edit/wikitransclusion/transclusion.html">
 						<input type="hidden" name="page" value="<% $page %>" />
 						<input type="hidden" name="action" value="update" />
-						<input type="text" name="revision" size="2" value="<% $pages->{$page} %>" />
-						<input type="submit" name="submit" value="Update &raquo;" />
+						<input
+							type="text" name="revision" size="2" value="<% $pages->{$page} %>"
+						/>&nbsp;<input
+							type="submit" name="submit" value="Update &raquo;" />
 					</form>
 				</td>
 				<td class="left">
