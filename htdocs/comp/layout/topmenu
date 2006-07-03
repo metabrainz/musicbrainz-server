@@ -141,6 +141,7 @@
 			{ url => "/oldsearch.html" },
 			{ url => "/search/textsearch.html" },
 			{ url => "/search/oldsearch.html" },
+			{ url => "/taglookup.html" },
 
 			# annotations
 			{ url => "/edit/annotation/show.html" },

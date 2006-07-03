@@ -55,15 +55,8 @@
 				</div>
 
 
-				<!-- advanced search -->
-				<div class="orangeheader">
-					<div class="inner"><b>Advanced Search (Tag Lookup)</b></div>
-				</div>
-				<div class="boxcontent">
-					<div class="inner" style="text-align: center">
-						<& /comp/lookup &>
-					</div>
-				</div>
+				<!-- tag lookup -->
+				<& /comp/lookup &>
 
 
 				<!-- site search -->

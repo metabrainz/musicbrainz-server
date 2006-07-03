@@ -10,42 +10,42 @@
 
 %	$duration = sprintf("%d:%02d", ($duration / 1000) / 60, ($duration / 1000) % 60) if $duration;
 
-<form method="post" action="/taglookup.html" id="TagLookupForm" enctype="application/x-www-form-urlencoded" class="formstyle">
-	<table style="display: inline; text-align: center">
-		<tr>
-			<td align="right">
-				Artist:</td>
-			<td>
-				<input type="text" name="artist" size="30" value="<% $artist %>" /></td>
-		</tr>
-		<tr>
-			<td align="right">
-				Album:</td>
-			<td>
-				<input type="text" name="album" size="30" value="<% $release %>" /></td>
-		</tr>
-		<tr>
-			<td align="right">
-				Track:</td>
-			<td>
-				<input type="text" name="track" size="30" value="<% $track %>" /></td>
-		</tr>
-		<tr>
-			<td align="right">
-				Track Num:</td>
-			<td>
-				<input type="text" name="tracknum" size="2" value="<% $tracknum %>" />
+	<& /comp/tablebegin, title => "Tag Lookup" &>
 
-				Duration:
-				<input type="text" name="duration" size="5" value="<% $duration %>" /></td>
-		</tr>
-		<tr>
-			<td align="right">
-				 [&nbsp;<a href="/popup/TextSearchSyntax">help</a>&nbsp;]</td>
-			<td align="right">
-				<input type="submit" name="submit" value="Lookup" /></td>
-		</tr>
-	</table>
-</form>
+		<form method="post" action="/taglookup.html" id="TagLookupForm" enctype="application/x-www-form-urlencoded" class="formstyle">
+			<table class="formstyle">
+				<tr>
+					<td class="label">Artist:</td>
+					<td>
+						<input type="text" name="artist" size="30" value="<% $artist %>" /></td>
+				</tr>
+				<tr>
+					<td class="label">Release:</td>
+					<td>
+						<input type="text" name="album" size="30" value="<% $release %>" /></td>
+				</tr>
+				<tr>
+					<td class="label">Track:</td>
+					<td>
+						<input type="text" name="track" size="30" value="<% $track %>" /></td>
+				</tr>
+				<tr>
+					<td class="label">Track #:</td>
+					<td>
+						<input type="text" name="tracknum" size="2" value="<% $tracknum %>" />
+
+						Duration:
+						<input type="text" name="duration" size="5" value="<% $duration %>" /></td>
+				</tr>
+				<tr>
+					<td style="text-align: right">
+						[&nbsp;<a href="/popup/TextSearchSyntax">help</a>&nbsp;]</td>
+					<td>
+						<input type="submit" name="submit" value="Lookup &raquo;" /></td>
+				</tr>
+			</table>
+		</form>
+
+	<& /comp/tableend &>
 
 %# vi: set ts=4 sw=4 ft=mason :
