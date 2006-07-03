@@ -10,8 +10,7 @@ body, p, td	{
 	font-style: normal;
 	font-size: 10pt;
 	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; 
-	color : #000; 
-	background-color: inherit;
+	background-color: inherit; color: #000; 
 	text-decoration : none;
 }
 form {
@@ -19,11 +18,13 @@ form {
 }
 
 abbr, acronym, span.abbr {
-  cursor: help; color: #666;
-  background-color: inherit;
+	cursor: help; 
+	background-color: inherit; color: #666;
 }
 
-.bold { font-weight: bold; }
+.bold { 
+	font-weight: bold; 
+}
 
 /* XHTML change: globally remove borders from images inside <a> blocks */
 a img { 
@@ -42,7 +43,7 @@ img.entityicon {
 }
 
 /* use technique from wikipedia to show entity links (icon as background image
-   with left-padding.) */
+	 with left-padding.) */
 span.linkartist-icon,
 span.linkrelease-icon,
 span.linktrack-icon { 
@@ -62,27 +63,26 @@ span.linktrack-icon {
 
 /* deleted entities are shown differently */
 span.deletedentity { 
-	color: #999;
-	background-color: inherit;
+	background-color: inherit; color: #999;
 	cursor: help;
 }
 
 /* links to entities are usually rendered bold, can be turned of 
-   when calling the component. */
+	 when calling the component. */
 a.linkentity-strong { 
 	font-weight: bold;
 }
 
-
-
-label { cursor: pointer; } /* TODO: that is the default behaviour, isn't it? */
+/* TODO: that is the default behaviour, isn't it? */
+label { 
+	cursor: pointer; 
+} 
 
 /* default link color */
 a,
 a:link,
 a:visited {
-	color: #534D8B;
-	background-color: inherit;
+	background-color: inherit; color: #534D8B;
 	text-decoration: none;
 }
 
@@ -90,8 +90,7 @@ a:visited {
 a:hover,
 a:focus,
 a:active {
-	color: #736DAB;
-	background-color: inherit;
+	background-color: inherit; color: #736DAB;
 	text-decoration: underline;
 }
 
@@ -151,8 +150,7 @@ h3 {
 }
 .newslist h2 {
 	margin: 0px 0px 10px 0px; 
-	color: #000;
-	background-color: #736DAC; /* fallback if image is not available */
+	background-color: #736DAC; color: #000;
 	background-image: url(/images/header-bg-lightpurplefade.gif);
 	background-position: top right;
 	background-repeat: repeat-y;
@@ -163,8 +161,7 @@ h3 {
 	margin: 1em;
 	font-weight: bold;
 	padding: 1em;
-	color: #000;
-	background-color: #f0efff;
+	background-color: #f0efff; color: #000;
 }
 .LicenseNotice {
 	border: 3px outset #f0effe;
@@ -172,8 +169,7 @@ h3 {
 	margin-bottom: 1em;
 	font-weight: bold;
 	padding: 1em;
-	color: #000;
-	background-color: #f0efff;
+	background-color: #f0efff; color: #000;
 }
 
 /*
@@ -262,22 +258,20 @@ table.artisttitle {
 	padding: 5px;
 	margin-top: 1em;
 	margin-bottom: 1em;	
-	color: #000;
-	background-color: #f0efff;
+	background-color: #f0efff; color: #000;
 	width: 100%;
 }
 table.artisttitle td.icon {
 	padding: 3px 8px 3px 4px;
 	width: 32px;
 }
-table.artisttitle td.title  {
+table.artisttitle td.title {
 	width: 100%;
 }
 table.artisttitle td.title a {
 	font-size: 20pt;
 	font-weight: normal;
-	color: #000 !important;
-	background-color: inherit;
+	background-color: inherit; color: #000 !important;
 }
 table.artisttitle td.info {
 	padding-bottom: 4px;
@@ -287,30 +281,26 @@ table.artisttitle td.links {
 }
 table.artisttitle td.mods {
 	padding: 2px 4px;
-	color: #000;
-	background-color: #ffecd6;
+	background-color: #ffecd6; color: #000;
 	border-top: 1px solid #000;
 }
 
 /* ------------------------------------------------------------------------- 
- * /comp/albumbegin
- * The release header table.
- * ---------------------------------------------------------------------- */
+	* /comp/albumbegin
+	* The release header table.
+	* ---------------------------------------------------------------------- */
 table.releasebegin {
 	border-collapse: collapse;
 	border: 1px solid #000;
 	padding: 2px;
-	color: #000;
-	background-color: #fff;
+	background-color: #fff; color: #000;
 	width: 100%;
 }
 table.releasebegin tr.mp td {
-	color: #000;
-	background-color: #ffc;
+	background-color: #ffc; color: #000;
 }	
-table.releasebegin td.title  {
-	color: #000;
-	background-color: #FFBA58; 
+table.releasebegin td.title {
+	background-color: #ffba58; color: #000;
 	width: 100%; 
 	padding-left: 4px;
 	vertical-align: middle;
@@ -322,27 +312,24 @@ table.releasebegin td.title a {
 }
 table.releasebegin td.title a.toggle {
 	padding: 0px 3px 0px 0px;
-	margin: 0px; margin-right: 4px;
+	margin: 0px 4px 0px 0px;
 	float: left; 
 }
 table.releasebegin td.title img.toggle {
 	padding: 0px; margin: 0px;
 }	
 table.releasebegin td.icon {
-	color: #000;
-	background-color: #FFBA58;
+	background-color: #ffba58; color: #000;
 	width: 10px;
 	padding-left: 2px;
 	padding-top: 2px;
 }
 table.releasebegin td.tagger {
-	color: #000;
-	background-color: #FFBA58;
+	background-color: #ffba58; color: #000;
 	width: 10px;
 }
 table.releasebegin td.batchop {
-	color: #000;
-	background-color: #FFBA58;
+	background-color: #ffba58; color: #000;
 	width: 10px;
 	text-align: center;
 	vertical-align: top;
@@ -351,15 +338,15 @@ table.releasebegin td.batchop {
 
 
 /* ------------------------------------------------------------------------- 
- * The release header with the edit links,
- * and the amazon coverart, if available 
- * ---------------------------------------------------------------------- */
+	* The release header with the edit links,
+	* and the amazon coverart, if available 
+	* ---------------------------------------------------------------------- */
 table.releaselinks {
 	border-collapse: collapse;
-	border: 1px solid #000;
-	border-top: none;
-	color: #000;
-	background-color: #eee;
+	border-style: solid;
+	border-color: #000;
+	border-width: 0px 1px 1px 1px;
+	background-color: #eee; color: #000;
 	width: 100%;
 }
 table.releaselinks td.links {
@@ -378,19 +365,26 @@ table.releaselinks table.inner {
 	border-collapse: collapse;
 	width: 100%;
 }
+
 table.releaselinks table.inner td {
 	padding: 3px;
 	width: 100%;
 }
-table.releaselinks td.asin {  width: 130px; }
+
+table.releaselinks td.asin { 
+	width: 130px; 
+}
+
 table.releaselinks a.asin {
 	margin: 0px; padding: 0px;
 }
+
 table.releaselinks img.asin {
 	margin: 0px; padding: 0px;
 	height: 130px; width: 130px;
 	border: 1px solid #000;
 }
+
 table.releaselinks div.partnerlinks {
 	margin: 0px; padding: 1px;
 	font-size: 9px;
@@ -398,36 +392,33 @@ table.releaselinks div.partnerlinks {
 
 /* info link row, lightblue */
 table.releaselinks td.info {
-	color: #000;
-	background-color: #f0efff;
+	background-color: #f0efff; color: #000;
 }
 
 /* editing link row, lightred */
 table.releaselinks td.edit {
-	color: #000;
-	background-color: #ffecd6;
+	background-color: #ffecd6; color: #000;
 	border-top: 1px solid #000;
 }
 
 
 
 /* ------------------------------------------------------------------------- 
- * Release Tracks table
- * the list of 1..n track rows
- * ---------------------------------------------------------------------- */
+	* Release Tracks table
+	* the list of 1..n track rows
+	* ---------------------------------------------------------------------- */
 table.releasetracks {
 	border-style: solid;
 	border-color: #000;
 	border-width: 0px 1px 1px 1px;
 	border-collapse: collapse;
-	color: #000;
-	background-color: #fff;
+	background-color: #fff; color: #000;
 	width: 100%;
 }
 
 /* general formatting: add some horizontal
-   padding, to lighten things up, and add
-   border on the bottom. */
+	 padding, to lighten things up, and add
+	 border on the bottom. */
 table.releasetracks td {
 	padding: 2px 4px;
 	border-bottom: 1px solid #000;
@@ -435,7 +426,7 @@ table.releasetracks td {
 }
 
 /* track number. align center, and add sufficent
-   padding left+right that it is readable. */
+	 padding left+right that it is readable. */
 table.releasetracks td.no {
 	width: 1%; text-align: center;
 	border-right: 1px solid #ddd;
@@ -443,7 +434,7 @@ table.releasetracks td.no {
 }
 
 /* track title, if given no width it spans as much
-   of the 100% table as it can get. */
+	 of the 100% table as it can get. */
 table.releasetracks td.title {
 	width: 90%;
 	padding-right: 15px;
@@ -451,10 +442,11 @@ table.releasetracks td.title {
 }
 
 /* various artists (or multipletrackartists) album, 
-   render track titles and track artists */
+	 render track titles and track artists */
 table.releasetracks td.title.va {
 	width: 45%;
 }
+
 table.releasetracks td.artist {
 	width: 45%;
 	border-right: 1px solid #ddd;
@@ -464,7 +456,7 @@ table.releasetracks td.artist {
 /* if not logged in, this is the rightmost TD; no border */
 table.releasetracks td.length {
 	width: 75px; text-align: right;
-	padding-left: 15px;  
+	padding-left: 15px; 
 }
 
 /* if logged in, add left border to length TD */
@@ -476,19 +468,25 @@ table.releasetracks td.links {
 }
 
 /* Highlighting: purple background,
-   render links in bold (but not the edit links) */
-table.releasetracks tr.highlight { color: #000; background-color: #ffeaff; }
-table.releasetracks tr.highlight td a { font-weight: bold; }
-table.releasetracks tr.highlight td.links a { font-weight: normal; }
+	 render links in bold (but not the edit links) */
+table.releasetracks tr.highlight { 
+	background-color: #ffeaff; color: #000; 
+}
 
+table.releasetracks tr.highlight td a { 
+	font-weight: bold; 
+}
+
+table.releasetracks tr.highlight td.links a { 
+	font-weight: normal; 
+}
 
 /* ------------------------------------------------------------------------- 
- * Release DiscIDs rows
- * ---------------------------------------------------------------------- */
+	* Release DiscIDs rows
+	* ---------------------------------------------------------------------- */
 table.releasetracks tr.discid {}
 table.releasetracks tr.discid td {
-	color: #000;
-	background-color: #ffecd6;
+	background-color: #ffecd6; color: #000;
 	padding: 2px 4px;
 	border-bottom: 1px solid #000;
 }
@@ -505,85 +503,113 @@ table.releasetracks tr.discid td.links {
 }
 
 /* ------------------------------------------------------------------------- 
- * Release summary table:
- * This summary with statistics (tracks/discids/puids/trmids), release
- * langauge and attributes is nested in the releasetracks table, because 
- * the discID section which comes after this row needs to align with 
- * the columns of the tracks.
- * ---------------------------------------------------------------------- */
+	* Release summary table:
+	* This summary with statistics (tracks/discids/puids/trmids), release
+	* langauge and attributes is nested in the releasetracks table, because 
+	* the discID section which comes after this row needs to align with 
+	* the columns of the tracks.
+	* ---------------------------------------------------------------------- */
 table.releasetracks tr.summary td {
 	padding: 2px;
-	color: #000;
-	background-color: #f0efff;
+	background-color: #f0efff; color: #000;
 }
+
 table.releasesummary {
 	border-collapse: collapse; border: none;
 	width: 100%;
 }
+
 table.releasesummary td {
 	padding: 1px 3px;
 	border: none;
 }
+
 table.releasesummary img {
 	width: 13px; height: 13px;
 	vertical-align: bottom;
 	margin-bottom: 2px; border: none;
 }
-table.releasesummary span { padding-right: 15px }
-table.releasesummary span.tracks { padding-left: 1px }
-table.releasesummary span.puid img { width: 33px; height: 13px; }
-table.releasesummary span.trmid img { width: 30px; height: 11px; }
+
+table.releasesummary span { 
+	padding-right: 15px 
+}
+
+table.releasesummary span.tracks { 
+	padding-left: 1px 
+}
+
+table.releasesummary span.puid img { 
+	width: 33px; height: 13px; 
+}
+
+table.releasesummary span.trmid img { 
+	width: 30px; height: 11px; 
+}
 
 table.releasesummary td.statistics {
 	width: 90%;
 }
+
 table.releasesummary td.language {
 	width: 5%; white-space: nowrap;
 }
-table.releasesummary td.language span { padding: 0px; }
-table.releasesummary td.attributes span { padding: 0px; }
+
+table.releasesummary td.language span { 
+	padding: 0px; 
+}
+
+table.releasesummary td.attributes span { 
+	padding: 0px; 
+}
 
 /* ------------------------------------------------------------------------- 
- * Release Events table
- * ---------------------------------------------------------------------- */
+	* Release Events table
+	* ---------------------------------------------------------------------- */
 table.releaseevents {
-	border: 1px solid #000;
-	border-top: none;
+	border-style: solid;
+	border-color: #000;
+	border-width: 0px 1px 1px 1px;
 	border-collapse: collapse;
-	color: #000;
-	background-color: #fff;
+	background-color: #fff; color: #000;
 	width: 100%;
 }
+
 table.releaseevents td {
 	padding: 2px 4px;
 	border-bottom: 1px solid #000;
 }
-table.releaseevents td.eventslist  { 
+
+table.releaseevents td.eventslist { 
 	width: 90%; 
 }
-table.releaseevents td.links  { 
+
+table.releaseevents td.links { 
 	width: 10%; 
 	border: none; 
 	text-align: right; white-space: nowrap; 
 }
-table.releaseevents table.eventslist  { 
+
+table.releaseevents table.eventslist { 
 	border: none; 
 	border-collapse: collapse; 
 }
-table.releaseevents table.eventslist td  { 
+
+table.releaseevents table.eventslist td { 
 	border: none; 
 	padding: 0px 6px 0px 0px; 
 }
 
 table.relationships {}
-table.relationships td  { 
+table.relationships td { 
 	border: none; 
 	padding: 0px 0px 0px 20px;
 	font-size: 11px;
 }
+
 table.relationships a { 
 	font-weight: normal;
 }
+
 table.relationships span.linkartist-icon,
 table.relationships span.linkrelease-icon,
 table.relationships span.linktrack-icon { 
@@ -592,10 +618,8 @@ table.relationships span.linktrack-icon {
 
 
 /* /comp/albumtype */
-
 h2.AlbumType {
-	color: #fff;
-	background-color: #736dab;
+	background-color: #736dab; color: #fff;
 	background-image: none;
 	border: 1px solid black;
 	font-weight: bold;
@@ -604,7 +628,6 @@ h2.AlbumType {
 }
 
 /* [ A | list | of | links ] */
-
 .LinksRow {
 	text-align: center;
 	margin-top: 0.7em;
@@ -612,61 +635,121 @@ h2.AlbumType {
 }
 
 /* /comp/ar/relationship_box */
-
 .RelationshipBox {
 	padding: 5px;
-	color: #000;
-	background-color: #efe8e2;
+	background-color: #efe8e2; color: #000;
 	border-width: 1px;
 	border-style: solid;
 	margin-bottom: .5em;
 }
 
 /* Album meta, whereever it is shown */
-td.trk, td.did, td.trm { font-size: 11px; }
-td.trk, td.did, td.trm, td.rdate { padding: 0.3em 0.6em; text-align: right; }
-td.trk *, td.did *, td.trm *, td.rdate * { vertical-align: middle }
+td.trk, td.did, td.trm { 
+	font-size: 11px; 
+}
+
+td.trk, td.did, td.trm, td.rdate { 
+	padding: 0.3em 0.6em; 
+	text-align: right; 
+}
+
+td.trk *, td.did *, td.trm *, td.rdate * { 
+	vertical-align: middle 
+}
 
 /* "Compact" showartist page */
-#CompactReleaseList td.rst { padding: 0 1em; text-align: center } /* release status */
-#CompactReleaseList td.rtag { padding: 0 0.6em; text-align: center } /* tag box */
-#CompactReleaseList td.rdate { padding: 0 0.6em; text-align: center } /* date */
-#CompactReleaseList td.rname { padding: 0 0.6em } /* release name */
-#CompactReleaseList td.lang { padding: 0 0.6em; text-align: center }
-#CompactReleaseList tr.ev { color: #000; background-color: #eee } /* 'even' rows */
-#CompactReleaseList th h2 { margin: 1em 0 0.5em }
+
+/* release status */
+#CompactReleaseList td.rst { 
+	padding: 0 1em; 
+	text-align: center 
+} 
+
+/* tag box */
+#CompactReleaseList td.rtag { 
+	padding: 0 0.6em; 
+	text-align: center 
+} 
+
+/* date */
+#CompactReleaseList td.rdate { 
+	padding: 0 0.6em; 
+	text-align: center 
+} 
+
+/* release name */
+#CompactReleaseList td.rname { 
+	padding: 0 0.6em 
+} 
+
+#CompactReleaseList td.lang { 
+	padding: 0 0.6em; 
+	text-align: center 
+}
+
+/* 'even' rows */
+#CompactReleaseList tr.ev { 
+	background-color: #eee; color: #000; 
+} 
+
+#CompactReleaseList th h2 { 
+	margin: 1em 0 0.5em 
+}
 
 /* Mod Pending */
-.mp { color: #000; background-color: #ffc }
+.mp { background-color: #ffc; color: #000}
 
 /* Tag Lookup */
-#TagLookupTrackResults td.tlen.good { color: green; background-color: inherit; font-weight: bold }
-#TagLookupTrackResults td.tlen.ok { color: blue; background-color: inherit; }
-#TagLookupTrackResults td.tlen.bad { color: red; background-color: inherit; }
+#TagLookupTrackResults td.tlen.good { 
+	background-color: inherit; color: green; 
+	font-weight: bold 
+}
+
+#TagLookupTrackResults td.tlen.ok { 
+	background-color: inherit; color: blue; 
+}
+
+#TagLookupTrackResults td.tlen.bad { 
+	background-color: inherit; color: red; 
+}
 
 /* Reports */
-#Report tr.shade { color: #000; background-color: #eee; }
-#Report td.head { color: #000; background-color: #eee; padding-top: 2px; padding-bottom: 2px; }
-#Report td.link { text-align: center; white-space: nowrap; }
+#Report tr.shade { 
+	background-color: #eee; color: #000; 
+}
+
+#Report td.head { 
+	background-color: #eee; color: #000; 
+	padding-top: 2px; padding-bottom: 2px; 
+}
+
+#Report td.link { 
+	text-align: center; 
+	white-space: nowrap; 
+}
 
 /* topmods.html */
 table.topmods { 
 	border-collapse: collapse 
 }
+
 table.topmods tr td { 
 	padding: 0.2em; 
 	border: 1px solid #999 
 }
+
 table.topmods tr td.topmodsname { 
 	text-align: left 
 }
+
 table.topmods tr td.topmodsnum { 
 	text-align: right 
 }
+
 table.topmods tr tr.topmodseven { 
-	color: #000; 
-	background-color: #eee 
+	background-color: #eee; color: #000; 
 }
+
 table.topmods tr tr.topmodsnone { 
 	text-align: center 
 }
@@ -676,16 +759,19 @@ table.searchresults {
 	border-collapse: collapse; 
 	width: 100% 
 }
+
 table.searchresults td { 
-	padding: 3px 20px 3xp 3px;
+	padding: 3px 20px 3px 3px;
 }
+
 table.searchresults tr.searchresultsheader td { 
 	font-weight: bold; 
 }
+
 table.searchresults tr.searchresultseven { 
-	color: #000; 
-	background-color: #ffe1b7 
+	background-color: #ffe1b7; color: #000; 
 }
+
 table.searchresults tr.searchresultsnone { 
 	text-align: center 
 }
@@ -698,27 +784,30 @@ table.searchresults td.released {
 	text-align: right;
 	font-size: 11px;
 }
+
 table.searchresults td.num,
 table.searchresults td.length {
 	text-align: right;
 }
 
 
-
-
 /* style.html */
 ol.StyleGuideList li { 
 	margin: 1em 0 
 }
+
 ol.StyleGuideList li .StyleExample { 
 	font-weight: bold 
 }
+
 ol.StyleGuideList li li { 
 	list-style-type: none 
 }
+
 ol.StyleGuideList li ul { 
 	padding-left: 1em 
 }
+
 ol.StyleGuideList li blockquote { 
 	margin-left: 2em 
 }
@@ -726,8 +815,7 @@ ol.StyleGuideList li blockquote {
 
 /* Annotations */
 table.annotation {
-	color: #000;
-	background-color: #f9f9f9;
+	background-color: #f9f9f9; color: #000;
 	border: 1px solid #000;
 	border-collapse: collapse;
 	width: 100%;
@@ -740,60 +828,64 @@ table.annotation td {
 table.annotation tr.header td {
 	font-weight: bold;
 	padding-bottom: 3px;
-	color: #000;
-	background-color: #f9f9f9;
+	background-color: #f9f9f9; color: #000;
 	font-size: 10px;
 }
+
 table.annotation tr.header>td {
 	border-bottom: 1px solid #000;
 }
 
 table.annotation tr.log {
-	color: #000;
-	background-color: #f9f9f9;
+	background-color: #f9f9f9; color: #000;
 }
+
 table.annotation tr.log td {
 	border-bottom: 1px solid #000; 
 	font-size: 11px;
 }
+
 table.annotation tr.info {
-	color: #000;
-	background-color: #f9f9f9;
+	background-color: #f9f9f9; color: #000;
 }
+
 table.annotation tr.info td.text {
 	text-align: left;
 	font-size: 11px;
 }
+
 table.annotation tr.info td.links {
 	text-align: right;
 	font-size: 11px;
 }
 
 table.annotation tr.text {
-	color: #000;
-	background-color: #fff; 
+	background-color: #fff; color: #000;
 }
+
 table.annotation tr.text td {
 	border-top: 1px solid #000;
 	border-bottom: 1px solid #000;
 	margin: 4px;
 }
+
 table.annotation p {
-	margin: 0px; margin-bottom: 10px;
+	margin: 0px 0px 10px 0px;
 }
+
 .boxcontent table.annotation { 
-	margin: 20px 0px 0px 20px; width: 90%;
+	margin: 20px 0px 0px 20px; 
+	width: 90%;
 }
+
 table.annotation ul {
 	margin: 0px 0px 0px 20px; 
 	padding: 0px 0px 5px 0px;
 }
 
 /* Related Artists */
-
 .RelatedArtists {
-	color: #000;
-	background-color: #f0efff;
+	background-color: #f0efff; color: #000;
 	border: 1px solid black;
 	margin-top: 1em;
 	margin-bottom: 1em;
@@ -814,8 +906,7 @@ table.annotation ul {
 	font-size: 10pt;
 	font-weight: bold;
 	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
-	color: #997035;
-	background-color: #FFBA58;
+	background-color: #ffba58; color: #997035;
 	text-decoration: none;
 }
 
@@ -827,6 +918,7 @@ table.annotation ul {
 form.Subs {
 	text-align: center;
 }
+
 table.Subs {
 	margin-left: auto;
 	margin-right: auto;
@@ -834,6 +926,7 @@ table.Subs {
 	margin-bottom: 1em;
 	width: 40em;
 }
+
 table.Subs caption {
 	text-align: center;
 	margin-left: auto;
@@ -841,29 +934,31 @@ table.Subs caption {
 	margin-top: 1em;
 	font-weight: bold;
 }
+
 table.Subs td {
 	text-align: center;
 }
+
 table.Subs td.a {
 	padding-left: 0.5em;
 	text-align: left;
 }
+
 table.Subs .c1 {
 	width: 2em;
 }
+
 table.Subs .c3 {
 	width: 6em;
 }
+
 table.Subs tr.r1 td {
-	color: #000;
-	background-color: #ffe1b7;
+	background-color: #ffe1b7; color: #000;
 }
+
 .red {
-	color: red;
-	background-color: inherit;
+	background-color: inherit; color: red;
 }
-
-
 
 /* Links to wikidocs or wiki pages */
 .wikidocs {
@@ -884,8 +979,8 @@ table.Subs tr.r1 td {
 .wikidocs a.official {
 	font-weight: bold;
 }
-.wikidocs a.unofficial {
-}
+
+.wikidocs a.unofficial {}
 
 /* header section (used for unofficial pages) */
 .wikidocs div.header {
@@ -901,6 +996,7 @@ table.Subs tr.r1 td {
 	padding-top: 5px;
 	font-size: 11px;
 }
+
 .wikidocs div.footer * {
 	font-weight: bold;
 }
@@ -910,9 +1006,11 @@ table.Subs tr.r1 td {
 	margin-left: 0px;
 	margin-bottom: 12px;
 }
+
 /* copied definition from top of the page */
 .wikidocs h1 {
 }
+
 /* copied definition from top of the page, adjusted margin */
 .wikidocs h2 {
 	color: #000;
@@ -920,11 +1018,13 @@ table.Subs tr.r1 td {
 	margin-top: 20px;
 	margin-bottom: 10px;
 }
+
 /* copied definition from top of the page, adjusted margin */
 .wikidocs h3 {
 	margin-top: 20px;
 	margin-bottom: 3px;
 }
+
 /* copied definition from top of the page, adjusted margin */
 .wikidocs h4 {
 	margin-top: 20px;
@@ -940,8 +1040,7 @@ table.Subs tr.r1 td {
 
 /* WIKIDOCS: <code> */
 .wikidocs code {
-	color: #000;
-	background-color: #eee;
+	background-color: #eee; color: #000;
 	margin: 1px 2px;
 	padding: 0px 2px;
 }
@@ -950,6 +1049,7 @@ table.Subs tr.r1 td {
 .wikidocs ul {
 	margin-left: 30px;
 }
+
 .wikidocs ul li p {
 	margin: 0px;
 	padding: 0px;
@@ -959,6 +1059,7 @@ table.Subs tr.r1 td {
 .wikidocs ol {
 	margin-left: 30px;
 }
+
 .wikidocs ol li p {
 	margin: 0px;
 	padding: 0px;
@@ -975,7 +1076,6 @@ table.Subs tr.r1 td {
 	padding: 0px;
 }
 
-
 /* copied from wiki css: /-/musicbrainz/css/common.css */
 .wikidocs pre {
 	border: 1pt solid #AEBDCC;
@@ -984,11 +1084,10 @@ table.Subs tr.r1 td {
 	font-family: courier, monospace;
 }
 
-
 /* copied from wiki css: /-/musicbrainz/css/common.css */
 .wikidocs hr,
 .wikidocs .separator {
-	background-color: transparent; color: gray;
+	background: transparent; color: gray;
 }
 
 /* vi: set ts=4 sw=4 ft=mason : */
