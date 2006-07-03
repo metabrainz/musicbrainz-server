@@ -36,7 +36,8 @@ span.nobr {
 }
 
 img.entityicon { 
-	margin: 0px; margin-right: 3px; padding: 0px;
+	margin: 0px 3px 0px 0px; /* margin: 0; margin-right: 3px */
+	padding: 0px;
 	vertical-align: middle;
 }
 
@@ -116,7 +117,8 @@ h1 {
 h2 {
 	color: #000;
 	background: #fff url(/images/header-bg-orangefade.gif) repeat-y left;
-	border: 0 solid #ffecac;
+	border-style: solid;
+	border-color: #ffecac;
 	border-width: 0px 0 1px 1px;
 	font-size: 100%;
 	font-weight: bold;
@@ -139,16 +141,16 @@ h3 {
 }
 .newslist {
 	width: 250px;
-	padding: 0px; padding-right: 5px; padding-left: 30px; 
+	padding: 0px 5px 0px 30px; 
 }
 .boxeslist h1,
 .newslist h1 {
-	margin-bottom: 10px; margin-top: 0px;
+	margin: 0px 0px 10px 0px;
 	padding: 0px;
 	border-width: 0px;
 }
 .newslist h2 {
-	margin-top: 0; margin-bottom: 10px;
+	margin: 0px 0px 10px 0px; 
 	color: #000;
 	background-color: #736DAC; /* fallback if image is not available */
 	background-image: url(/images/header-bg-lightpurplefade.gif);
@@ -195,16 +197,12 @@ ol.SpacedList li {
 	margin-bottom: 0.5em;
 }
 kbd {
-	color: #000;
-	background: #efefff;
+	background-color: #efefff; color: #000;
 	font-family: monospace;
 }
 kbd.KbdBlock {
 	margin: 1em 2em;
 	padding: 0.5em;
-	background: #efefff;
-	color: #000;
-	background-color: inherit;
 	font-family: monospace;
 	display: block;
 }
@@ -323,7 +321,7 @@ table.releasebegin td.title a {
 	float: left;
 }
 table.releasebegin td.title a.toggle {
-	padding: 0px; padding-top: 3px;
+	padding: 0px 3px 0px 0px;
 	margin: 0px; margin-right: 4px;
 	float: left; 
 }
@@ -370,7 +368,7 @@ table.releaselinks td.links {
 	Vertical-align: top;
 }
 table.releaselinks td.cover {
-	padding: 3px; padding-right: 4px;
+	padding: 3px 4px 3px 3px;
 	width: 130px;
 	Vertical-align: top;
 }
@@ -418,8 +416,9 @@ table.releaselinks td.edit {
  * the list of 1..n track rows
  * ---------------------------------------------------------------------- */
 table.releasetracks {
-	border: 1px solid #000;
-	border-top: none;
+	border-style: solid;
+	border-color: #000;
+	border-width: 0px 1px 1px 1px;
 	border-collapse: collapse;
 	color: #000;
 	background-color: #fff;
@@ -573,14 +572,13 @@ table.releaseevents table.eventslist  {
 }
 table.releaseevents table.eventslist td  { 
 	border: none; 
-	padding: 0px; padding-right: 6px; 
+	padding: 0px 6px 0px 0px; 
 }
 
 table.relationships {}
 table.relationships td  { 
 	border: none; 
-	padding: 0px; 
-	padding-left: 20px;
+	padding: 0px 0px 0px 20px;
 	font-size: 11px;
 }
 table.relationships a { 
@@ -679,7 +677,7 @@ table.searchresults {
 	width: 100% 
 }
 table.searchresults td { 
-	padding: 3px; padding-right: 20px;
+	padding: 3px 20px 3xp 3px;
 }
 table.searchresults tr.searchresultsheader td { 
 	font-weight: bold; 
@@ -784,13 +782,11 @@ table.annotation p {
 	margin: 0px; margin-bottom: 10px;
 }
 .boxcontent table.annotation { 
-	margin-left: 20px; margin-top: 20px; width: 90%;
+	margin: 20px 0px 0px 20px; width: 90%;
 }
 table.annotation ul {
-	margin: 0px; padding: 0px;
-	margin-left: 20px;
-	padding-bottom: 5px;
-	
+	margin: 0px 0px 0px 20px; 
+	padding: 0px 0px 5px 0px;
 }
 
 /* Related Artists */
@@ -970,7 +966,7 @@ table.Subs tr.r1 td {
 
 /* WIKIDOCS: ordered lists */
 .wikidocs td {
-	padding: 0px; padding-right: 10px;
+	padding: 0px 10px 0px 0px;
 	margin: 0px;
 }
 
@@ -983,26 +979,16 @@ table.Subs tr.r1 td {
 /* copied from wiki css: /-/musicbrainz/css/common.css */
 .wikidocs pre {
 	border: 1pt solid #AEBDCC;
-	background-color: #F3F5F7;
+	background-color: #F3F5F7; color: inherit;
 	padding: 5pt;
 	font-family: courier, monospace;
-	white-space: pre;
-
-	/* begin css 3 or browser specific rules - do not remove!
-	see: http://forums.techguy.org/archive/index.php/t-249849.html */
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    white-space: -moz-pre-wrap;
-    white-space: -pre-wrap;
-    white-space: -o-pre-wrap;
-    /* end css 3 or browser specific rules */
 }
 
 
 /* copied from wiki css: /-/musicbrainz/css/common.css */
 .wikidocs hr,
 .wikidocs .separator {
-	color: gray
+	background-color: transparent; color: gray;
 }
 
 /* vi: set ts=4 sw=4 ft=mason : */

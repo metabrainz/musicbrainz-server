@@ -515,7 +515,7 @@ table.formstyle td.padtop {
 	margin-top: 5px;
 	font-family: monospace;
 	font-size: 11px;
-	overflow-y: scroll;
+	overflow: auto;
 }
 
 .log-messages .log-scope {
@@ -737,7 +737,7 @@ table.review {
 	border-collapse: collapse;
 	margin: 0px; margin-left: 40px;
 	padding: 0px;
-	background: #fff; color: #inherit;
+	background: #fff; color: inherit;
 }
 
 table.review tr {

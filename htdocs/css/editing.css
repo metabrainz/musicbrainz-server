@@ -327,7 +327,6 @@ table.noteslist tr td.text {
 	padding: 2px; 
 	line-height: 100%; /* force line height to 100%, else the height of the lines inside the paragraphs is too high */
 	padding-right: 30px;
-	word-wrap: break-word;
 }
 
 table.noteslist tr td.date {

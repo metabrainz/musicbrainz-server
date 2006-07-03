@@ -7,7 +7,7 @@ a img {
 td.header_logo
 {
 	background: #736DAB url(/images/header_BG.gif) repeat-x bottom;
-	color: transparent;
+	color: inherit;
 	height: 67px;
 }
 
@@ -148,7 +148,7 @@ td.header_logo .servertype {
 }
 
 .wikitoolbar :link:hover, .wikitoolbar :visited:hover {
-	background-color: transparent; color: inherit;
+	background-color: inherit; color: inherit;
 	border: 1px solid #ffba58;
 }
 
@@ -184,7 +184,7 @@ td.header_logo .servertype {
 	background-image: url(/images/header-bg-orangefade.gif);
 	background-position: left;
 	background-repeat: repeat-y;
-	color: transparent;
+	color: inherit;
 	margin: 0px; padding: 0px;
 	font-weight: bold;
 }
@@ -196,7 +196,7 @@ td.header_logo .servertype {
 	background-image: url(/images/header-bg-lightpurplefade.gif);
 	background-position: right;
 	background-repeat: repeat-y;
-	color: transparent;
+	color: inherit;
 	margin: 0px; padding: 0px;
 	font-weight: bold;
 }
@@ -206,7 +206,7 @@ td.header_logo .servertype {
 	background-image: url(/images/header-bg-lightpurplefade.gif);
 	background-position: left;
 	background-repeat: repeat-y;
-	color: transparent;
+	color: inherit;
 }
 
 .orangeheader .inner,
