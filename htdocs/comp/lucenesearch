@@ -95,7 +95,7 @@
 						qq!Your query includes punctuation that may be interpreted as !
 						.$m->scomp("/comp/linkdoc", "TextSearchSyntax", "query syntax")
 						.qq!. (Hint: A list of characters which trigger this warning
-							  message is <code>:?\!~[]{}()+ </code>)!,
+							  message are <code>:?\!~[]{}()+ </code>)!,
 					&>
 				</div>
 
