@@ -65,6 +65,8 @@ my @coll_list;
 # Do the same for PUIDs
 my @pcoll_list;
 @pcoll_list = $ts->LookupPUIDCollisions($puid) if $puid;
+use Data::Dumper;
+print STDERR Dumper(\@pcoll_list);
 
 if (scalar(@coll_list) > 1)
 {
@@ -153,7 +155,7 @@ elsif (scalar(@pcoll_list) > 1)
 
 	# Retrieve artist info, then sort on artist
 
-    foreach my $ref (@coll_list)
+    foreach my $ref (@pcoll_list)
     {
         my $al = Album->new($ts->{DBH});
         $al->SetId($ref->{album});
@@ -173,19 +175,19 @@ elsif (scalar(@pcoll_list) > 1)
 		}
 	}
 
-	@coll_list = grep { $_->{_name1_} } @coll_list;
-	@coll_list = sort {
+	@pcoll_list = grep { $_->{_name1_} } @pcoll_list;
+	@pcoll_list = sort {
 		$a->{_name1_} cmp $b->{_name1_}
 		or
 		$a->{_name2_} cmp $b->{_name2_}
-	} @coll_list;
+	} @pcoll_list;
 
 	# Now show albums with tracks highlighted, indicating the artist name
 	# whenever it changes.
 
 	my $last_artist = 0;
 
-	for my $ref (@coll_list)
+	for my $ref (@pcoll_list)
 	{
 		my $artist_id = $ref->{ar}->GetId;
 
