@@ -796,14 +796,26 @@ sub LoadTracks
 		);
 	}
 
-	$query = qq/select Track.id, Track.name, Track.artist, AlbumJoin.sequence, 
-					Track.length, Track.modpending, AlbumJoin.modpending, 
-					Artist.name, Track.gid 
-			from Track, AlbumJoin, Artist 
-			where AlbumJoin.track = Track.id and 
-					AlbumJoin.album = ? and 
-					Track.Artist = Artist.id
-			order by AlbumJoin.sequence/;
+	$query = qq/select 
+					Track.id, 
+					Track.name, 
+					Track.artist, 
+					AlbumJoin.sequence, 
+					Track.length, 
+					Track.modpending, 
+					AlbumJoin.modpending, 
+					Artist.name, 
+					Track.gid 
+			from 
+				Track, AlbumJoin, Artist 
+			where 
+				AlbumJoin.track = Track.id and 
+				AlbumJoin.album = ? and 
+				Track.Artist = Artist.id
+			order by /;
+	
+	$query .= $this->IsNonAlbumTracks() ? " Track.name " : " AlbumJoin.sequence ";
+
 	if ($sql->Select($query, $this->{id}))
 	{
 		for(;@row = $sql->NextRow();)
