@@ -123,7 +123,7 @@
 		$m->out(qq!<td class="attributes">[&nbsp;!);
 		if (!$nonalbum)
 		{
-			my @attrs = $release->GetAttributes();
+			my @attrs = $release->GetReleaseTypeAndStatus();
 			$m->out(qq!<a href="/popup/ReleaseAttribute" title="POPUP::Release_Attributes::400::300">!);
 			if (scalar(@attrs) > 0)
 			{
