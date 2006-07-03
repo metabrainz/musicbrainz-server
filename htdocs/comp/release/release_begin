@@ -119,7 +119,7 @@
 		{
 			$m->out(qq!<tr><td class="info">!);
 			$m->out(qq!Release: [ !);
-			$m->out(qq!   <a href="/show/permlink.html?id=$mbid&amp;type=release" title="Link to this release">Copy link</a>!);
+			$m->out(qq!   <a href="/show/permlink.html?id=$mbid&amp;type=release" title="Link to this release">Link to this</a>!);
 			$m->out(qq!	| <a href="/show/release/details.html?releaseid=$releaseid">Details</a>!);
 			$m->out(qq! | !);
 			$m->comp("/comp/googlelink", search => [ $artist->GetName, $name ], text => "Search Google");

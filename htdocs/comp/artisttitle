@@ -114,7 +114,7 @@
 #			type => "artist", style => "url");
 #		$m->out(qq!">Permanent link</a> | !);
 
-		$m->out(sprintf qq!<a href="/show/permlink.html?id=$mbid&amp;type=artist" title="Link to this artist">Copy link</a>!, uri_escape($name));
+		$m->out(sprintf qq!<a href="/show/permlink.html?id=$mbid&amp;type=artist" title="Link to this artist">Link to this</a>!, uri_escape($name));
 		$m->out(qq! | <a href="/show/artist/details.html?artistid=$id" title="Artist Details">Details</a>!);
 		$m->out(qq! | <a href="/show/artist/aliases.html?artistid=$id" title="Artist Aliases">Aliases</a>!);
 		if ($id != &ModDefs::VARTIST_ID)
