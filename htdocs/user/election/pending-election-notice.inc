@@ -44,7 +44,7 @@
 </%perl>
 
 	<p class="notice">
-		Please participate in the <a href="<% $url %>">autoeditor elections</a>. Thank you!
+		Please participate in the <a href="<% $url %>">AutoEditor elections</a>. Thank you!
 	</p>
 
 %# vi: set ts=4 sw=4 ft=mason :

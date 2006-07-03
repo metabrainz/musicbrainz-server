@@ -92,7 +92,7 @@
 
 	<div style="border: 1px dotted #000; padding: 5px; margin: 5px 0px; margin-left: 0px; font-size: 11px; width: 500px">
 		<strong>Autoeditor privileges:</strong> If you untick this checkbox, this edit
-		will be entered as if you would not have <& /comp/linkdoc, "AutoModerator", "autoeditor", 0 &>
+		will be entered as if you would not have <& /comp/linkdoc, "AutoEditor", "AutoEditor", 0 &>
 		status. You can enable them any time again.
 		<br/>
 

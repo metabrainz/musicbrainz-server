@@ -39,7 +39,7 @@
 	UserStuff->IsAutoMod($session{privs})
 		or return $m->comp(
 			"/comp/error",
-			"Only existing autoeditors can second new autoeditors",
+			"Only existing AutoEditors can second new AutoEditors",
 			1, 1,
 		);
 
@@ -78,8 +78,8 @@
 
 </%perl>
 
-<& /comp/sidebar-notitle, pagetitle => "Second a Proposed autoeditor" &>
-	<& /comp/tablebegin, title => "Second a Proposed autoeditor" &>
+<& /comp/sidebar-notitle, pagetitle => "Second a Proposed AutoEditor" &>
+	<& /comp/tablebegin, title => "Second a Proposed AutoEditor" &>
 
 	<p>
 % 	if ($error eq "ALREADY_SECONDED")

@@ -39,7 +39,7 @@
 
 	UserStuff->IsAutoMod($session{privs})
 		or return $m->comp("/comp/error",
-			"Only existing autoeditors can propose new autoeditors",
+			"Only existing AutoEditors can propose new AutoEditors",
 			1, 1,
 		);
 
@@ -73,7 +73,7 @@
 			);
 		};
 
-		my $title = "Could not create Autoeditor Election";
+		my $title = "Could not create AutoEditor Election";
 
 		return $m->comp("/comp/layout/error", title => $title, text => "Error: $@", 1, 1)
 			if $@;
@@ -84,19 +84,19 @@
 		return $m->comp("/comp/layout/error",, title => $title, text => "User '$username' was not found", 1, 1)
 			if $error eq "NO_SUCH_CANDIDATE";
 
-		return $m->comp("/comp/layout/error",, title => $title, text => "'$username' is already an autoeditor", 1, 1)
+		return $m->comp("/comp/layout/error",, title => $title, text => "'$username' is already an AutoEditor", 1, 1)
 			if $error eq "ALREADY_AN_AUTOMOD";
 
-		return $m->comp("/comp/layout/error",, title => $title, text => "'$username' is ineligible for autoeditor status", 1, 1)
+		return $m->comp("/comp/layout/error",, title => $title, text => "'$username' is ineligible for AutoEditor status", 1, 1)
 			if $error eq "INELIGIBLE";
 
 		my ($id) = $error =~ /^EXISTING_ELECTION (\d+)$/ or die;
 
 </%perl>
 
-<& /comp/sidebar-notitle, pagetitle => "Propose a Candiate for autoeditor" &>
+<& /comp/sidebar-notitle, pagetitle => "Propose a Candiate for AutoEditor" &>
 
-	<& /comp/tablebegin, title => "Propose a Candiate for autoeditor" &>
+	<& /comp/tablebegin, title => "Propose a Candiate for AutoEditor" &>
 
 		There is already an election open for this candidate.
 		<a href="show.html?id=<% $id %>">Show details</a>.
