@@ -48,7 +48,7 @@
 		my $url = "http://" . &DBDefs::WEB_SERVER . $r->uri;
 		$url .= "?$1" if ($r->args =~ /(.+)/s);
 
-		$pageurl  = qq!<div id="ShowPageURL">Location: !;
+		$pageurl  = qq!<div id="showpageurl">Location: !;
 		$pageurl .= qq!  <img src="/images/edit.gif" alt="" /><a href="$url">$url</a> !;
 		$pageurl .= qq!</div>!;
 	}
@@ -58,7 +58,7 @@
 			</tr>
 		</table>
 
-		<div id="FooterBar" style="margin-top: 10px">
+		<div id="footerbar" style="margin-top: 10px">
 			<table>
 				<tr>
 					<td class="text first">
@@ -82,7 +82,7 @@
 			</table>
 		</div>
 
-		<div id="CreditsBar">
+		<div id="creditsbar">
 			<table>
 				<tr valign="top">
 					<td class="text first">

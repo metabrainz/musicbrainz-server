@@ -13,10 +13,12 @@ table.formstyle input.numberfield-missing {
 	background: #fff;
 	text-align: center;
 }
+
 table.formstyle input.numberfield-missing {
 	background: #fff5ce;
 	border-left: 2px solid #fb5;
 }
+
 table.formstyle input.numberfield-hidden {
 	visibility: hidden;
 }
@@ -30,6 +32,7 @@ table.formstyle input.trackseq-missing {
 	background: #fff;
 	text-align: center;
 }
+
 table.formstyle input.trackseq-missing {
 	background: #fff5ce;
 	border-left: 2px solid #fb5;
@@ -48,6 +51,7 @@ table.formstyle input.tracklength-missing {
 	background: #fff;
 	text-align: center;
 }
+
 table.formstyle input.tracklength-missing {
 	background: #fff5ce;
 	border-left: 2px solid #fb5;
@@ -57,19 +61,16 @@ table.formstyle input.tracklength-hidden {
 	visibility: hidden;
 }
 
-
-
-
-
-
 table.formstyle input.datefield {
 	width: 50px;
 	background: #fff;
 	text-align: center;
 }
+
 table.formstyle input.datefield.year {
 	width: 50px;
 }
+
 table.formstyle input.datefield.month,
 table.formstyle input.datefield.day {
 	width: 25px;
@@ -80,23 +81,22 @@ table.formstyle input.textfield {
 	background: #fff;
 	padding-left: 2px;
 }
+
 table.formstyle input.textfield.focus {
 	background: #f0efff;
 	color: #000;
 }
-
-
 
 table.formstyle input.numberfield.missing,
 table.formstyle input.textfield.missing {
 	background: #fff5ce;
 	border-left: 2px solid #fb5;
 }
+
 table.formstyle select.missing {
 	background: #fff5ce;
 	border-left: 2px solid #fb5;
 }
-
 
 table.formstyle .textfield,
 table.formstyle .numberfield,
@@ -105,9 +105,11 @@ table.formstyle .datefield {
 	background: #fff;
 	padding-left: 2px;
 }
+
 table.formstyle .datefield {
   text-align: center;
 }
+
 table.formstyle .textfieldfocus,
 table.formstyle .numberfieldfocus,
 table.formstyle .datefieldfocus {
@@ -115,17 +117,21 @@ table.formstyle .datefieldfocus {
 	background: #f0efff;
 	padding-left: 2px;
 }
+
 table.formstyle .numberfield,
 table.formstyle .numberfieldfocus {
 	text-align: center;
 }
+
 table.formstyle .textarea {
 	/* width: 100%; handled with js now */
 }
+
 table.formstyle .oldtextfield,
 table.formstyle .oldtextfield-modpending {
 	padding: 2px; font-size: 9pt;
 }
+
 table.formstyle .oldtextfield-modpending {
 	background: #ffc;
 }
@@ -133,9 +139,11 @@ table.formstyle .oldtextfield-modpending {
 table.formstyle td.padleft {	
 	padding-left: 20px;
 }
+
 table.formstyle td.padlefttop {
 	padding-left: 20px;	padding-top: 10px;
 }
+
 table.formstyle td.padtop {	
 	padding-top: 10px;
 }
@@ -144,7 +152,6 @@ table.formstyle td.padtop {
 	color: red;	font-weight: bold;
 	padding: 10px 0px 0px 10px; 	
 }
-
 
 .modnotearea {
 }
@@ -158,12 +165,15 @@ table.formstyle td.padtop {
 	margin: 10px 0px 20px 0px ; 
 	padding: 5px;
 }
+
 .similarartist .warning {
 	color: red; font-weight: bold;
 }
+
 .similarartist ul {
 	margin: 0px; margin-left: 20px; margin-top: 5px;
 }
+
 .similarartist p {
 	margin: 0px; margin-top: 10px;
 }
@@ -185,6 +195,7 @@ table.formstyle td.padtop {
 	color: #000; background-color: #fff;
 	font-size: 11px;
 }
+
 .relationshipTypeError {
 	border: 1px dotted #f00;
 }
@@ -198,12 +209,12 @@ table.formstyle td.padtop {
 	font-size: 11px;
 }
 
-
 .helptext {
 	font-size: 11px;
 }
 .relationshipAttribute {
 }
+
 .relationshipAttributeDesc div {
 	margin: 5px 25px; padding: 5px; 
 	width: 400px;
@@ -221,62 +232,58 @@ table.formstyle td.padtop {
 .relationshipAttributeDropdown {
 	margin-bottom: 1px; margin-right: 5px; /* formats for the <select> dropdown element */ 
 }
+
 .relationshipAttributeField {}
 .relationshipAttributeButton {
 	padding: 0px; margin-left: 4px; margin-right: 4px;
 }
+
 .relationshipAttributeItem {
 	margin: 0px; padding: 0px;  /* is used to group multiple instrument/vocal dropdown boxes */
 }
 
-
-
-
 .autofixmenu {
 }
+
 .autofixmenu .button,
 .autofixmenu .buttondisabled {
 	 font-size: 11px;
 }
+
 .autofixmenu .buttondisabled {
 }
-
-
-
 
 /* styles for the help box. */ 
 .ar-instrument-helpbox {
 	margin-top: 5px;
 }
+
 .ar-instrument-help {
 	font-family: Arial; font-size: 12px; margin-left: 10px; margin-bottom: 10px;
 }
+
 .ar-instrument-help p {
 	margin: 0px; padding: 0px; padding-top: 5px;
 }
+
 .ar-instrument-help ul {
 	margin: 0px; margin-left: 20px; padding: 0px;
 }
+
 .ar-instrument-help li {
 	margin: 0px; padding: 0px;
 }
+
 .ar-instrument-help code {
 	margin-left: 10px; margin-right: 10px; background-color: #eee;
 }
-
-
-
-
-
-
-
-
 
 .editsuite {
 	width: 600px;
 	margin-top: 20px;
 	margin-bottom: 20px;
 }
+
 .editsuite .inner {
 	border: 1px solid #000;
 	border-bottom: 0px;
@@ -287,9 +294,12 @@ table.formstyle td.padtop {
 .editsuite .inner table.links {
 	padding-bottom: 2px;
 }
+
 .editsuite .inner table.links td.title {
-	width: 130px; font-weight: bold;
+	width: 130px; 
+	font-weight: bold;
 }
+
 .editsuite .inner table.links td.link {
 	white-space: nowrap;
 }
@@ -302,15 +312,17 @@ table.formstyle td.padtop {
 }
 
 
-/* EDITSUITE styles */
+/* editsuite styles */
 .editsuite-box-tr {
 	vertical-align: top;
 	background: url(/images/es/dotted-horiz.gif);
 }
+
 .editsuite-box-tr td {
 	padding-top: 2px;
 	padding-bottom: 3px;
 }
+
 .editsuite-box-tr td.toggle {
 	text-align: right;
 	width: 10px;
@@ -325,20 +337,24 @@ table.formstyle td.padtop {
 	font-size: 11px;
 	font-weight: normal;
 }
+
 .moduletable {
 	padding-top: 4px;
 	border-width: 0px;
 	border-collapse: collapse;
 	width: 100%;
 }
+
 .moduletable td {
 	padding: 0px;
 	padding-bottom: 1px;
 	font-size: 11px;
 }
+
 .moduletable td small {
 	font-size: 10px;
 }
+
 .moduletable .srfield {
 	color: #000;
 	background: #fff;
@@ -352,24 +368,29 @@ table.formstyle td.padtop {
 	border-collapse: collapse;
 	padding: 0px;
 }
+
 .sr-presets-fg {
 	background: #fff;
 }
+
 .sr-presets-bg td {
 	font-size: 11px;
 }
+
 .sr-presets-caption {
 	font-weight: bold;
 	padding: 2px;
 	color: #000;
 	border: 0px; border-bottom: 1px solid #000;
 }
+
 .sr-presets-close {
 	text-align: right;
 	padding: 2px;
 	color: #000;
 	border: 0px; border-bottom: 1px solid #000;
 }
+
 .sr-presets-close a,
 .sr-presets-close a:visited,
 .sr-presets-close a:active,
@@ -387,31 +408,37 @@ table.formstyle td.padtop {
 	border-collapse: collapse;
 	padding: 0px;
 }
+
 .editortoolbox .row {
 	vertical-align: middle;
 	padding-top: 2px;
 	padding-bottom: 2px;
 }
+
 .editortoolbox .row-spacer {
 	vertical-align: middle;
 	background: url(/images/es/dotted-horiz.gif);
 }
+
 .editortoolbox .label {
 	width: 95px;
 	padding-top: 2px;
 	padding-bottom: 2px;
 	font-size: 11px;
 }
+
 .editortoolbox .text {
 	width: 200px;
 	padding-top: 2px;
 	padding-bottom: 2px;
 	font-size: 11px;
 }
+
 .editortoolbox select {
 	font-size: 11px;
 	margin-bottom: 2px;
 }
+
 .editortoolbox .button {
 	font-size: 11px;
 	margin-bottom: 2px;
@@ -422,9 +449,11 @@ table.formstyle td.padtop {
 	border-collapse: collapse;
 	padding: 0px;
 }
+
 .editor-toolbox-fg {
 	background: #fff;
 }
+
 .editor-toolbox-caption {
 	font-size: 10px;
 	font-weight: bold;
@@ -432,6 +461,7 @@ table.formstyle td.padtop {
 	color: #000;
 	border: 0px; border-bottom: 1px solid #000;
 }
+
 .editor-toolbox-close {
 	font-size: 10px;
 	text-align: right;
@@ -439,6 +469,7 @@ table.formstyle td.padtop {
 	color: #000;
 	border: 0px; border-bottom: 1px solid #000;
 }
+
 .editor-toolbox-close a,
 .editor-toolbox-close a:visited,
 .editor-toolbox-close a:active,
@@ -457,16 +488,19 @@ table.formstyle td.padtop {
 	margin-top: 20px;
 	margin-right: 30px;
 }
+
 .log-messages .header {
 	margin: 5px; margin-top: 0px;
 	padding: 0px; padding-left: 2px; padding-bottom: 3px;
 	font-family: Arial; font-size: 10px;
 }
+
 .log-messages .title {
 	margin: 5px;
 	padding-left: 2px;
 	font-family: Arial; font-size: 10px;
 }
+
 .log-messages .inner {
 	margin: 0px;
 	padding: 5px;
@@ -475,6 +509,7 @@ table.formstyle td.padtop {
 	font-size: 11px;
 	overflow-y: auto;
 }
+
 .log-messages .log-scope {
 	background: #f0efff;
 	border: 1px solid #ccc;
@@ -485,6 +520,7 @@ table.formstyle td.padtop {
 	font-weight: bold;
 	font-family: Arial;
 }
+
 .log-messages .log-enter {
 	margin: 0px; margin-left: 112px;
 	padding: 0px;
@@ -492,6 +528,7 @@ table.formstyle td.padtop {
 	color: #88d;
 	font-size: 11px;
 }
+
 .log-messages .log-exit {
 	margin: 0px; margin-left: 112px;
 	padding: 0px;
@@ -499,22 +536,27 @@ table.formstyle td.padtop {
 	color: #8d8;
 	font-size: 11px;
 }
+
 .log-messages .log-level-debug {
 	margin: 0px; padding: 0px; border: 1px;
 	font-size: 11px
 }
+
 .log-messages .log-level-info {
 	margin: 0px; padding: 0px;
 	font-size: 11px
 }
+
 .log-messages .log-level-warning {
 	margin: 0px; padding: 0px; color: #ff8800; background: #fff;
 	font-size: 11px
 }
+
 .log-messages .log-level-error {
 	margin: 0px; padding: 0px; color: #ff0000; background: #fff;
 	font-size: 11px
 }
+
 .log-messages .log-highlight {
 	font-family: monospace;
 	color: #000;
@@ -546,16 +588,14 @@ fieldset.formstyle legend {
 	color: #000;
 	font-weight: bold;
 }
-
-
 	
+/* user feedback boxes */
 .feedbackbox,
 .feedbackbox-warning,
 .feedbackbox-info {
 	width: 545px;
 }
 
-/* user feedback boxes */
 .feedbackbox,
 .feedbackbox-warning,
 .feedbackbox-info {
@@ -564,6 +604,7 @@ fieldset.formstyle legend {
 	padding: 4px;
 	font-size: 11px;
 }
+
 .feedbackbox img.boxtype,
 .feedbackbox-warning img.boxtype,
 .feedbackbox-info img.boxtype {
@@ -574,9 +615,11 @@ fieldset.formstyle legend {
 .feedbackbox-nobox {
 	margin-bottom: 0px;
 }
+
 .feedbackbox-warning {
 	border: 1px solid #000; background-color: #fff5ce; color: #000;
 }
+
 .feedbackbox-info {
 	border: 1px solid #999; background-color: #fafafa; color: #000;
 }
@@ -586,14 +629,15 @@ fieldset.formstyle legend {
 .feedbackbox-info  #header {
 	font-weight: bold; margin-right: 5px;
 }
+
 .feedbackbox #text,
 .feedbackbox-warning #text,
-.feedbackbox-info  #text {
-}
+.feedbackbox-info  #text {}
+
 .feedbackbox a,
 .feedbackbox-warning a,
-.feedbackbox-info a {
-}
+.feedbackbox-info a {}
+
 .feedbackbox a.readmore,
 .feedbackbox-warning a.readmore,
 .feedbackbox-info a.readmore {
@@ -604,12 +648,12 @@ fieldset.formstyle legend {
 	font-size: 10px;
 	text-decoration: underline;
 }
+
 .feedbackbox a.readmore:hover,
 .feedbackbox-warning a.readmore:hover,
-.feedbackbox-info a.readmore:hover {
-}
+.feedbackbox-info a.readmore:hover {}
 
-
+/* workflow state indications (step x of y) */
 div.formsteps {
 	margin-left: 173px;
 	padding-bottom: 45px;
@@ -623,11 +667,13 @@ div.step {
 	background-color: #fff;
 	color: #ccc;
 }
+
 div.step.curr {
 	border: 1px solid #000;
 	background-color: #fff;
 	color: #000;
 }
+
 div.stepnr {
 	float: left; font-size: 11px;
 	border-style: solid;
@@ -638,11 +684,13 @@ div.stepnr {
 	background-color: #ccc;
 	color: #fff;
 }
+
 div.stepnr.currnr {
 	border-color: #000;
 	background-color: #000;
 	color: #fff;
 }
+
 div.steparrow {
 	float: left; font-size: 11px;
 	margin-top: 2px;
@@ -655,10 +703,18 @@ tr.even {}
 tr.odd { background-color: #eee }
 
 /* release editor */
-table.release_editor { border-collapse: collapse; }
-table.release_editor td { padding: 2px; }
-table.release_editor tr.trackartist td { padding-bottom: 10px; }
-table.release_editor tr.step td { padding-bottom: 10px; }
+table.release_editor { 
+	border-collapse: collapse; 
+}
+table.release_editor td { 
+	padding: 2px; 
+}
+table.release_editor tr.trackartist td { 
+	padding-bottom: 10px; 
+}
+table.release_editor tr.step td { 
+	padding-bottom: 10px; 
+}
 
 table.release_editor td.linkedits { 
 	text-align: right;
@@ -676,35 +732,44 @@ table.review {
 	padding: 0px;
 	background: #fff;
 }
+
 table.review tr {
 	vertical-align: top;
 }
-table.review tr.header {
-}
+
+table.review tr.header {}
+
 table.review tr.header td {
 	padding-left: 2px;
 	padding-bottom: 2px;
 	font-weight: bold;
 }
+
 table.review tr td {
 	padding: 2px;
 }
+
 table.review tr td.type {
 	padding-left: 4px;
 	padding-right: 40px;
 }
+
 table.review tr td.newvalue {
 	white-space: nowrap;
 	padding-right: 40px;
 }
+
 table.review tr td.autoedit {
 	width: 100px;
 	padding-right: 4px;
 }
-table.review tr.spacer td {
-}
-table.review tr.nochanges td {
-}
+
+table.review tr.spacer td {}
+
+table.review tr.nochanges td {}
+
 table.review tr td table.editdiff tr td {
 	padding: 1px;
 }
+
+/* vi: set ts=4 sw=4 ft=mason : */
