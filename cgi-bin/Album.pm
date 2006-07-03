@@ -187,14 +187,9 @@ sub GetCoverartURL
 # Given a cover art URL, return the store that should stock this item
 sub GetCoverartStore
 {
-	my $coverurl = $_[1];
+	my $self = $_[0];
 
-	if ($coverurl =~ m{http://.*?/images/P/[0-9B][0-9A-Z]{9}\.(\d\d)\.})
-	{
-		my $id = $1;
-		return $CoverArtStore{$id} if (exists $CoverArtStore{$id});
-	}
-
+    return $self->{amazon_store} if (exists $self->{amazon_store});
 	return "amazon.com";
 }
 
@@ -203,12 +198,16 @@ sub GetCoverartStore
 sub ParseAmazonURL
 {
 	my ($self, $url) = @_;
-	my ($asin, $coverurl);
+	my ($asin, $coverurl, $store);
+
+    # default
+    $store = "amazon.com";
 
 	if ($url =~ m{^http://(?:www.)?(.*?)/.*/([0-9B][0-9A-Z]{9})(?:[^0-9A-Z]|$)})
 	{
 		$asin = $2;
 		my $cas = $1;
+        $store = $1;
 		my $cin = $CoverArtServer{$cas}{'id'};
 		$cas = $CoverArtServer{$cas}{'server'};
 		$coverurl = sprintf("http://%s/images/P/%s.%s.MZZZZZZZ.jpg", $cas, $asin, $cin)
@@ -216,14 +215,14 @@ sub ParseAmazonURL
 	}
 	else
 	{
-		return ("", "");
+		return ("", "", "");
 	}
 	
 	# update the object data if called from an instance
-	($self->{asin}, $self->{coverarturl}) = ($asin, $coverurl)
+	($self->{asin}, $self->{coverarturl}, $self->{amazon_store}) = ($asin, $coverurl, $store)
 		if (ref $self);
-	
-	return ($asin, $coverurl);
+
+	return ($asin, $coverurl, $store);
 }
 
 # Get the current link type id for the amazon asin AR.
@@ -1232,7 +1231,7 @@ sub UpdateAmazonData
 		{
 			next unless ($item->{linktypeid} == $self->GetAsinLinkTypeId);
 			
-			($asin, $coverurl) = Album->ParseAmazonURL($item->{entity1name});
+			($asin, $coverurl,,) = Album->ParseAmazonURL($item->{entity1name});
 			next if ($asin eq $oldasin);
 
 			# change the mode and old data, to allow inserting the alternative data

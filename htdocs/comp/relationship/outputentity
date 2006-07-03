@@ -32,6 +32,7 @@
 	$item
 	$index
 	$name
+    $release => 0
 
 </%args>
 <%perl>
@@ -62,10 +63,17 @@
 
 		if ($item->{"link_name"} eq "amazon asin" && $prefix eq "link1_")
 		{
-			my ($asin, $coverart) = Album->ParseAmazonURL($item->{link1_name});
+			my ($asin, $coverart, $store);
+            if ($release)
+            {
+			    ($asin, $coverart, $store) = $release->ParseAmazonURL($item->{link1_name});
+            } 
+            else 
+            {
+			    ($asin, $coverart, $store) = Album->ParseAmazonURL($item->{link1_name});
+            } 
 			if ($asin ne "")
 			{
-			    my $store = Album->GetCoverartStore($coverart);
 			    $url = sprintf(qq!/misc/redirects/amazon-album-info.html?store=%s&amp;asin=%s!, $store, $asin);
 			    $name = $asin;
 			    $strong = 1;
