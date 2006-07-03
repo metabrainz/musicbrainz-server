@@ -662,7 +662,7 @@ sub xml_relations
             print '<relation type="' . $name . '"';
             print ' attributes="' . join(' ', @attrlist) . '"' if (scalar(@attrlist));
             print ' direction="backward" ' if (exists $rel->{backward} && $rel->{backward});
-            print ' target="' . ($rel->{type} eq 'url' ? $rel->{url} : $rel->{id}) . '"';
+            print ' target="' . ($rel->{type} eq 'url' ? xml_escape($rel->{url}) : $rel->{id}) . '"';
             print ' begin="' . MusicBrainz::MakeDisplayDateStr($rel->{begindate}) . '"' if ($rel->{begindate} ne '          ');
             print ' end="' . MusicBrainz::MakeDisplayDateStr($rel->{enddate}) . '"' if ($rel->{enddate}) ne '          ';
 
