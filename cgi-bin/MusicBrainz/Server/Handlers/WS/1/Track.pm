@@ -76,7 +76,7 @@ sub handler
         my $duration = $args{duration} or 0;
         my $tnum = $args{tracknumber} or 0;
         my $limit = $args{limit};
-        $limit = 25 if ($limit < 1 || $limit > 25);
+        $limit = 25 if ($limit < 1 || $limit > 100);
 
         my $artistid = $args{artistid};
         if ($artistid && !MusicBrainz::IsGUID($artistid))

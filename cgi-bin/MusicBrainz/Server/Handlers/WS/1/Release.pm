@@ -80,7 +80,7 @@ sub handler
         my $types = get_release_type($args{releasetypes} or "");
 
         my $limit = $args{limit};
-        $limit = 25 if ($limit < 1 || $limit > 25);
+        $limit = 25 if ($limit < 1 || $limit > 100);
 
         $artist = "" if ($artistid);
 

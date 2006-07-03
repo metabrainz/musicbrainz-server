@@ -40,6 +40,7 @@ our @EXPORT = qw(convert_inc bad_req send_response check_types
 
 use Apache::Constants qw( );
 use Apache::File ();
+use Encode;
 use Album;
 
 use constant INC_ARTIST      => 0x00001;
@@ -696,9 +697,11 @@ sub xml_relations
 
 sub normalize
 {
-    my $t = $_[0];
-    $t =~ s/[^\w\d ]/ /g;
-    $t =~ s/ +/ /g;
+    my $t = $_[0];                 # utf8-bytes
+    $t = decode "utf-8", $t;       # turn into string
+    $t =~ s/[^\p{IsAlpha}]+/ /g;   # turn non-alpha to space
+    $t =~ s/\s+/ /g;               # squish
+    $t = encode "utf-8", $t;       # turn back into utf8-bytes
     $t;
 }
 
