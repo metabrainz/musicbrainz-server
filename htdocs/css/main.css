@@ -1,18 +1,22 @@
 /* styles for common elements and element combinations */
-body {
+html, body {
 	background: #fff;
 	color: #000;
 	margin: 0px; padding: 0px;	
+	font-style: normal;
+	font-size: 10pt;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; 
 }
 
 /* default font for body, paragraph and td's */
-body, p, td	{
+p, td	{
 	font-style: normal;
 	font-size: 10pt;
 	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; 
 	background-color: inherit; color: #000; 
 	text-decoration : none;
 }
+
 form {
 	margin: 0px;
 }
@@ -51,12 +55,15 @@ span.linktrack-icon {
 	background-position: 0px 2px;
 	background-repeat: no-repeat;
 }
+
 span.linkartist-icon { 
 	background-image: url("../images/entity/artist_small.gif");
 }
+
 span.linkrelease-icon { 
 	background-image: url("../images/entity/release_small.gif");
 }
+
 span.linktrack-icon { 
 	background-image: url("../images/entity/track_small.gif"); 
 }
@@ -138,16 +145,19 @@ h3 {
 .boxeslist {
 	padding-top: 0px; 
 }
+
 .newslist {
 	width: 250px;
 	padding: 0px 5px 0px 30px; 
 }
+
 .boxeslist h1,
 .newslist h1 {
 	margin: 0px 0px 10px 0px;
 	padding: 0px;
 	border-width: 0px;
 }
+
 .newslist h2 {
 	margin: 0px 0px 10px 0px; 
 	background-color: #736DAC; color: #000;
@@ -156,6 +166,7 @@ h3 {
 	background-repeat: repeat-y;
 	border: 1px solid #736DAB;
 }
+
 .notice {
 	border: 3px outset #f0effe;
 	margin: 1em;
@@ -163,6 +174,7 @@ h3 {
 	padding: 1em;
 	background-color: #f0efff; color: #000;
 }
+
 .LicenseNotice {
 	border: 3px outset #f0effe;
 	margin-top: 1em;
@@ -187,15 +199,18 @@ ul, ol {
 	margin-left: 1em;
 	margin-right: 2em;
 }
+
 ul.SpacedList li,
 ol.SpacedList li {
 	margin-top: 0.5em;
 	margin-bottom: 0.5em;
 }
+
 kbd {
 	background-color: #efefff; color: #000;
 	font-family: monospace;
 }
+
 kbd.KbdBlock {
 	margin: 1em 2em;
 	padding: 0.5em;
@@ -207,18 +222,21 @@ kbd.KbdBlock {
 .CenterChildren * {
 	vertical-align: middle;
 }
+
 .SpacedRows td,
 .SpacedRows th {
 	padding-top: 1px;
 	padding-bottom: 1px;
 	empty-cells: show;
 }
+
 .SpacedColumns td,
 .SpacedColumns th {
 	padding-left: 0.5em;
 	padding-right: 0.5em;
 	empty-cells: show;
 }
+
 .TopAlignCells td,
 .TopAlignCells th {
 	vertical-align: top;
@@ -229,24 +247,30 @@ kbd.KbdBlock {
 	padding-top: 0.5em;
 	text-align: left;
 }
+
 .StatsTable .StatName {
 	text-align: left;
 	font-size: 10pt;
 	font-weight: normal;
 }
+
 .StatsTable .NumberCell {
 	text-align: right;
 	font-size: 10pt;
 }
+
 .DownloadLink {
 	margin-left: 2em;
 }
+
 .DownloadLink * {
 	vertical-align: middle;
 }
+
 .DownloadLink img {
 	margin-right: 1em;
 }
+
 .DownloadList {
 	list-style-image: url(/images/download.gif);
 }
@@ -261,24 +285,30 @@ table.artisttitle {
 	background-color: #f0efff; color: #000;
 	width: 100%;
 }
+
 table.artisttitle td.icon {
 	padding: 3px 8px 3px 4px;
 	width: 32px;
 }
+
 table.artisttitle td.title {
 	width: 100%;
 }
+
 table.artisttitle td.title a {
 	font-size: 20pt;
 	font-weight: normal;
 	background-color: inherit; color: #000 !important;
 }
+
 table.artisttitle td.info {
 	padding-bottom: 4px;
 }
+
 table.artisttitle td.links {
 	padding: 2px 4px;
 }
+
 table.artisttitle td.mods {
 	padding: 2px 4px;
 	background-color: #ffecd6; color: #000;
@@ -296,38 +326,46 @@ table.releasebegin {
 	background-color: #fff; color: #000;
 	width: 100%;
 }
+
 table.releasebegin tr.mp td {
 	background-color: #ffc; color: #000;
 }	
+
 table.releasebegin td.title {
 	background-color: #ffba58; color: #000;
 	width: 100%; 
 	padding-left: 4px;
 	vertical-align: middle;
 }
+
 table.releasebegin td.title a {
 	font-weight: bold;
 	padding-top: 1px;
 	float: left;
 }
+
 table.releasebegin td.title a.toggle {
 	padding: 0px 3px 0px 0px;
 	margin: 0px 4px 0px 0px;
 	float: left; 
 }
+
 table.releasebegin td.title img.toggle {
 	padding: 0px; margin: 0px;
 }	
+
 table.releasebegin td.icon {
 	background-color: #ffba58; color: #000;
 	width: 10px;
 	padding-left: 2px;
 	padding-top: 2px;
 }
+
 table.releasebegin td.tagger {
 	background-color: #ffba58; color: #000;
 	width: 10px;
 }
+
 table.releasebegin td.batchop {
 	background-color: #ffba58; color: #000;
 	width: 10px;
@@ -349,11 +387,13 @@ table.releaselinks {
 	background-color: #eee; color: #000;
 	width: 100%;
 }
+
 table.releaselinks td.links {
 	padding: 4px;
 	width: 100%;
 	Vertical-align: top;
 }
+
 table.releaselinks td.cover {
 	padding: 3px 4px 3px 3px;
 	width: 130px;
