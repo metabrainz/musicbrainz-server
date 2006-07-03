@@ -48,7 +48,7 @@ function addWikiFormattingToolbar(textarea) {
 	/**
 	 * Performs an action with the text of the textarea
 	 */
-	function encloseSelection(prefix, suffix) {
+	function encloseSelection(prefix, suffix, urlmode) {
 		textarea.focus();
 		var start, end, sel, scrollPos, subst;
 		if (typeof(document["selection"]) != "undefined") {
@@ -63,6 +63,9 @@ function addWikiFormattingToolbar(textarea) {
 			// exclude ending space char, if any
 			sel = sel.substring(0, sel.length - 1);
 			suffix = suffix + " ";
+		}
+		if (urlmode) {
+			sel = sel.replace(/ /, "|"); // replace first occurence of space with |
 		}
 		subst = prefix + sel + suffix;
 		if (typeof(document["selection"]) != "undefined") {
@@ -91,7 +94,7 @@ function addWikiFormattingToolbar(textarea) {
 		encloseSelection("\n== ", " ==\n", "Heading");
 	});
 	addButton("link", "Link: [http://www.example.com|Example]", function() {
-		encloseSelection("[", "]");
+		encloseSelection("[", "]", true);
 	});
 	addButton("hr", "Horizontal rule: ----", function() {
 		encloseSelection("\n----\n", "");
