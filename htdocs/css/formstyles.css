@@ -9,13 +9,13 @@ input.button {
 table.formstyle input.numberfield,
 table.formstyle input.numberfield-hidden,
 table.formstyle input.numberfield-missing {
-	width: 50px;
-	background: #fff;
+	width: 50px; 
+	background: #fff; color: #000;
 	text-align: center;
 }
 
 table.formstyle input.numberfield-missing {
-	background: #fff5ce;
+	background: #fff5ce; color: #000;
 	border-left: 2px solid #fb5;
 }
 
@@ -29,12 +29,12 @@ table.formstyle input.trackseq,
 table.formstyle input.trackseq-hidden,
 table.formstyle input.trackseq-missing {
 	width: 25px;
-	background: #fff;
+	background: #fff; color: #000;
 	text-align: center;
 }
 
 table.formstyle input.trackseq-missing {
-	background: #fff5ce;
+	background: #fff5ce; color: #000;
 	border-left: 2px solid #fb5;
 }
 
@@ -48,12 +48,12 @@ table.formstyle input.tracklength,
 table.formstyle input.tracklength-hidden,
 table.formstyle input.tracklength-missing {
 	width: 50px;
-	background: #fff;
+	background: #fff; color: #000;
 	text-align: center;
 }
 
 table.formstyle input.tracklength-missing {
-	background: #fff5ce;
+	background: #fff5ce; color: #000;
 	border-left: 2px solid #fb5;
 }
 
@@ -63,7 +63,7 @@ table.formstyle input.tracklength-hidden {
 
 table.formstyle input.datefield {
 	width: 50px;
-	background: #fff;
+	background: #fff; color: #000;
 	text-align: center;
 }
 
@@ -78,31 +78,29 @@ table.formstyle input.datefield.day {
 
 table.formstyle input.textfield {
 	width: 350px;
-	background: #fff;
+	background: #fff; color: #000;
 	padding-left: 2px;
 }
 
 table.formstyle input.textfield.focus {
-	background: #f0efff;
-	color: #000;
+	background: #f0efff; color: #000;
 }
 
 table.formstyle input.numberfield.missing,
 table.formstyle input.textfield.missing {
-	background: #fff5ce;
+	background: #fff5ce; color: #000;
 	border-left: 2px solid #fb5;
 }
 
 table.formstyle select.missing {
-	background: #fff5ce;
+	background: #fff5ce; color: #000;
 	border-left: 2px solid #fb5;
 }
 
 table.formstyle .textfield,
 table.formstyle .numberfield,
 table.formstyle .datefield {
-	color: #000;
-	background: #fff;
+	background: #fff; color: #000;
 	padding-left: 2px;
 }
 
@@ -113,8 +111,7 @@ table.formstyle .datefield {
 table.formstyle .textfieldfocus,
 table.formstyle .numberfieldfocus,
 table.formstyle .datefieldfocus {
-	color: #000;
-	background: #f0efff;
+	background: #f0efff; color: #000;
 	padding-left: 2px;
 }
 
@@ -133,7 +130,7 @@ table.formstyle .oldtextfield-modpending {
 }
 
 table.formstyle .oldtextfield-modpending {
-	background: #ffc;
+	background-color: #ffc; color: inherit;
 }
 
 table.formstyle td.padleft {	
@@ -149,7 +146,8 @@ table.formstyle td.padtop {
 }
 
 .discidmessage {
-	color: red;	font-weight: bold;
+	background-color: inherit; color: red;	
+	font-weight: bold;
 	padding: 10px 0px 0px 10px; 	
 }
 
@@ -167,7 +165,8 @@ table.formstyle td.padtop {
 }
 
 .similarartist .warning {
-	color: red; font-weight: bold;
+	color: red; 
+	font-weight: bold;
 }
 
 .similarartist ul {
@@ -182,7 +181,9 @@ table.formstyle td.padtop {
 /* AdvancedRelationship editor classes
  * ------------------------------------------------------------------------- */
 .linkerror {
-	font-weight: bold; color: #f00; padding-top: 4px;
+	font-weight: bold; 
+	background-color: transparent; color: #f00; 
+	padding-top: 4px;
 }
 
 .relationshipTypeDesc,
@@ -192,7 +193,7 @@ table.formstyle td.padtop {
 	padding: 5px;
 	margin-bottom: 5px;
 	border: 1px dotted #666;
-	color: #000; background-color: #fff;
+	background-color: #fff; color: #000;
 	font-size: 11px;
 }
 
@@ -205,7 +206,7 @@ table.formstyle td.padtop {
 	width: 500px; 
 	padding: 5px;
 	border: 1px dotted #00f;
-	color: #000; background-color: #fff;
+	background-color: #fff; color: #000;
 	font-size: 11px;
 }
 
@@ -219,7 +220,7 @@ table.formstyle td.padtop {
 	margin: 5px 25px; padding: 5px; 
 	width: 400px;
 	border: 1px dotted #666;
-	color: #000; background-color: #fff;
+	background-color: #fff; color: #000;
 	font-size: 11px;
 }
 
@@ -235,11 +236,13 @@ table.formstyle td.padtop {
 
 .relationshipAttributeField {}
 .relationshipAttributeButton {
-	padding: 0px; margin-left: 4px; margin-right: 4px;
+	padding: 0px; 
+	margin-left: 4px; margin-right: 4px;
 }
 
 .relationshipAttributeItem {
-	margin: 0px; padding: 0px;  /* is used to group multiple instrument/vocal dropdown boxes */
+	margin: 0px; 
+	padding: 0px;  /* is used to group multiple instrument/vocal dropdown boxes */
 }
 
 .autofixmenu {
@@ -259,23 +262,29 @@ table.formstyle td.padtop {
 }
 
 .ar-instrument-help {
-	font-family: Arial; font-size: 12px; margin-left: 10px; margin-bottom: 10px;
+	font-family: Arial; 
+	font-size: 12px; 
+	margin-left: 10px; margin-bottom: 10px;
 }
 
 .ar-instrument-help p {
-	margin: 0px; padding: 0px; padding-top: 5px;
+	margin: 0px; 
+	padding: 0px; padding-top: 5px;
 }
 
 .ar-instrument-help ul {
-	margin: 0px; margin-left: 20px; padding: 0px;
+	margin: 0px; margin-left: 20px; 
+	padding: 0px;
 }
 
 .ar-instrument-help li {
-	margin: 0px; padding: 0px;
+	margin: 0px; 
+	padding: 0px;
 }
 
 .ar-instrument-help code {
-	margin-left: 10px; margin-right: 10px; background-color: #eee;
+	margin-left: 10px; margin-right: 10px; 
+	background-color: #eee; color: inherit;
 }
 
 .editsuite {
@@ -288,7 +297,7 @@ table.formstyle td.padtop {
 	border: 1px solid #000;
 	border-bottom: 0px;
 	padding: 4px; padding-bottom: 0px;
-	background-color: #f0efff;
+	background-color: #f0efff; color: inherit;
 }
 
 .editsuite .inner table.links {
@@ -356,21 +365,20 @@ table.formstyle td.padtop {
 }
 
 .moduletable .srfield {
-	color: #000;
-	background: #fff;
+	background-color: #fff; color: #000;
 	font-size: 11px;
 }
 
 /* EDITOR TOOLBOX styles */
 .sr-presets-bg {
 	border: 1px solid #000;
-	background: #ccccff;
+	background: #ccccff; color: inherit;
 	border-collapse: collapse;
 	padding: 0px;
 }
 
 .sr-presets-fg {
-	background: #fff;
+	background-color: #fff; color: inherit;
 }
 
 .sr-presets-bg td {
@@ -380,14 +388,14 @@ table.formstyle td.padtop {
 .sr-presets-caption {
 	font-weight: bold;
 	padding: 2px;
-	color: #000;
+	background-color: transparent; color: #000;
 	border: 0px; border-bottom: 1px solid #000;
 }
 
 .sr-presets-close {
 	text-align: right;
 	padding: 2px;
-	color: #000;
+	background-color: transparent; color: #000;
 	border: 0px; border-bottom: 1px solid #000;
 }
 
@@ -395,7 +403,7 @@ table.formstyle td.padtop {
 .sr-presets-close a:visited,
 .sr-presets-close a:active,
 .sr-presets-close a:hover {
-	color: #000;
+	background-color: transparent; color: #000;
 	text-decoration: underline;
 	font-size: 11px;
 }
@@ -458,7 +466,7 @@ table.formstyle td.padtop {
 	font-size: 10px;
 	font-weight: bold;
 	padding: 2px;
-	color: #000;
+	background-color: transparent; color: #000;
 	border: 0px; border-bottom: 1px solid #000;
 }
 
@@ -466,7 +474,7 @@ table.formstyle td.padtop {
 	font-size: 10px;
 	text-align: right;
 	padding: 2px;
-	color: #000;
+	background-color: transparent; color: #000;
 	border: 0px; border-bottom: 1px solid #000;
 }
 
@@ -474,7 +482,7 @@ table.formstyle td.padtop {
 .editor-toolbox-close a:visited,
 .editor-toolbox-close a:active,
 .editor-toolbox-close a:hover {
-	color: #000;
+	background-color: transparent; color: #000;
 	text-decoration: underline;
 }
 
@@ -507,11 +515,11 @@ table.formstyle td.padtop {
 	margin-top: 5px;
 	font-family: monospace;
 	font-size: 11px;
-	overflow-y: auto;
+	overflow-y: scroll;
 }
 
 .log-messages .log-scope {
-	background: #f0efff;
+	background: #f0efff; color: inherit;
 	border: 1px solid #ccc;
 	margin: 5px; margin-left: 0px; margin-right: 10px;
 	padding-left: 0.4em;
@@ -533,7 +541,7 @@ table.formstyle td.padtop {
 	margin: 0px; margin-left: 112px;
 	padding: 0px;
 	border-left: 1px solid #ddd;
-	color: #8d8;
+	background: transparent; color: #8d8;
 	font-size: 11px;
 }
 
@@ -548,19 +556,20 @@ table.formstyle td.padtop {
 }
 
 .log-messages .log-level-warning {
-	margin: 0px; padding: 0px; color: #ff8800; background: #fff;
+	margin: 0px; padding: 0px; 
+	background: transparent; color: #ff8800; 
 	font-size: 11px
 }
 
 .log-messages .log-level-error {
-	margin: 0px; padding: 0px; color: #ff0000; background: #fff;
+	margin: 0px; padding: 0px; 
+	background: transparent; color: #ff0000; 
 	font-size: 11px
 }
 
 .log-messages .log-highlight {
 	font-family: monospace;
-	color: #000;
-	background: #f0efff;
+	background: #f0efff; color: #000;
 	padding-left: 0.2em;
 	padding-right: 0.2em;
 	font-size: 11px
@@ -585,7 +594,7 @@ fieldset.formstyle {
 }
 
 fieldset.formstyle legend {
-	color: #000;
+	background-color: transparent; color: #000;
 	font-weight: bold;
 }
 	
@@ -617,11 +626,13 @@ fieldset.formstyle legend {
 }
 
 .feedbackbox-warning {
-	border: 1px solid #000; background-color: #fff5ce; color: #000;
+	border: 1px solid #000; 
+	background-color: #fff5ce; color: #000;
 }
 
 .feedbackbox-info {
-	border: 1px solid #999; background-color: #fafafa; color: #000;
+	border: 1px solid #999; 
+	background-color: #fafafa; color: #000;
 }
 
 .feedbackbox #header,
@@ -644,7 +655,7 @@ fieldset.formstyle legend {
 	font-style: normal;
 	white-space: nowrap;
 	margin-left: 5px;
-	color: #000;
+	background-color: transparent; color: #000;
 	font-size: 10px;
 	text-decoration: underline;
 }
@@ -664,14 +675,12 @@ div.step {
 	border: 1px solid #ccc;
 	margin-top: 2px;
 	padding: 2px 4px 2px 4px;
-	background-color: #fff;
-	color: #ccc;
+	background-color: #fff; color: #ccc;
 }
 
 div.step.curr {
 	border: 1px solid #000;
-	background-color: #fff;
-	color: #000;
+	background-color: #fff; color: #000;
 }
 
 div.stepnr {
@@ -681,14 +690,12 @@ div.stepnr {
 	border-width: 1px 0px 1px 1px;
 	margin-top: 2px;
 	padding: 2px;
-	background-color: #ccc;
-	color: #fff;
+	background-color: #ccc; color: #fff;
 }
 
 div.stepnr.currnr {
 	border-color: #000;
-	background-color: #000;
-	color: #fff;
+	background-color: #000; color: #fff;
 }
 
 div.steparrow {
@@ -730,7 +737,7 @@ table.review {
 	border-collapse: collapse;
 	margin: 0px; margin-left: 40px;
 	padding: 0px;
-	background: #fff;
+	background: #fff; color: #inherit;
 }
 
 table.review tr {
