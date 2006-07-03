@@ -646,10 +646,13 @@
 
 
 %	# -------------------------------------------------------------------------
-%	# GUESS ALL, NEXT
+%	# GUESS ALL
 %	# -------------------------------------------------------------------------
+
 				<tr>
-					<td colspan="5">&nbsp;</td>
+					<td colspan="2">&nbsp;</td>
+					<td colspan="3">
+						<img src="/images/release_editor/remove-track.png" alt="Tick the checkboxes to remove individual tracks, or change track artists" /></td>
 					<td colspan="2">
 						<& /comp/form/jsbutton, id => "BTN_ALL" &>
 					</td>

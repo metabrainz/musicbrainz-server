@@ -88,7 +88,7 @@
 						<& /comp/form/checkbox, name => "rev_clear-$j", tabindex => ++$$tabindex, checked => 0,
 							title => "Tick this box to clear this release event" &>
 					</td>
-					<td colspan="3">
+					<td colspan="4">
 						<& /comp/form/numberfield, name => "rev_year-$j", cssclass => $datecss, tabindex => ++$$tabindex, value => $ry, size => 4 &>
 						<& /comp/form/numberfield, name => "rev_month-$j", cssclass => $datecss, tabindex => ++$$tabindex, value => $rm, size => 2 &>
 						<& /comp/form/numberfield, name => "rev_day-$j", cssclass => $datecss, tabindex => ++$$tabindex, value => $rd, size => 2 &>
@@ -105,6 +105,13 @@
 					</td>
 				</tr>
 % 	}
+
+				<tr>
+					<td colspan="2">&nbsp;</td>
+					<td colspan="4">
+						<img src="/images/release_editor/remove-releaseevent.png" alt="Tick the checkboxes to remove release events" /></td>
+				</tr>
+
 
 %	if (keys %checkreleases > 1)
 %	{
