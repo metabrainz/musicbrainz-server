@@ -118,7 +118,7 @@
 			</tr>
 		</table>
 		<div class="morelink" id="id_oldsearch">
-			<input type="checkbox" name="oldsearch" id="id_oldsearch_checkbox" value="1" style="display: none" />
+			<input type="checkbox" name="oldsearch" id="id_oldsearch_checkbox" value="1" style="display: none" title="Activate this checkbox to search using the direct search" />
 			<a href="/search/oldsearch.html">Direct search &raquo;</a>
 		</div>
 		<div class="morelink">
@@ -126,43 +126,6 @@
 		</div>
 	</div>
 
-	<script type="text/javascript">
-
-		function QuickSearch() {
-
-			/**
-			 * Handles a click on the old search checkbox.
-			 */
-			this.onOldSearchToggle = function(el) {
-				var types = ["artist", "release", "track"];
-				for (type in types) {
-					if ((obj = mb.ui.get("id_qs_"+types[type]+"_form")) != null) {
-						obj.action = el.checked ? "/search/oldsearch.html" : "/search/textsearch.html";
-					}
-				}
-				mb.cookie.set("id_oldsearch_checkbox", el.checked ? "1" : "0");
-			};
-
-
-			/**
-			 *
-			 */
-			this.init = function() {
-				var obj;
-				if ((obj = mb.ui.get("id_oldsearch_checkbox")) != null) {
-					var cv = mb.cookie.get("id_oldsearch_checkbox")
-					obj.checked = (cv == "1");
-					this.onOldSearchToggle(obj);
-					obj.style.display = "";
-					obj.onclick = function onclick(ev) {
-						quickSearch.onOldSearchToggle(this);
-					};
-				}
-			}
-		};
-		quickSearch = new QuickSearch();
-		quickSearch.init();
-
-	</script>
+	<script type="text/javascript" src="/scripts/search-quicksearch.js"></script>
 
 %# vi: set ts=4 sw=4 ft=mason :
