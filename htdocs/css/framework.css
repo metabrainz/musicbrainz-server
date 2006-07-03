@@ -743,16 +743,14 @@ table.modpending ul.modpending li {
 	margin: 0px; padding: 0px;
 }
 
-/* header rows are bold, and have some padding at the bottom */
-div.textlayout div {
-	vertical-align: top;
+/* advanced search page /search/textsearch.html */
+#id_querysyntax {
+	margin: 10px 0px;
 }
 
-div.textlayout div.label {
-	float: left;
-	width: 160px;
-	font-size: 11px;
-	font-weight: bold;
+#id_querysyntax .feedbackbox-warning {
+	width: 300px;
 }
+
 
 /* vi: set ts=4 sw=4 ft=mason : */

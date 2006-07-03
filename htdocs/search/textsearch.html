@@ -28,28 +28,43 @@
 </%perl>
 <%args>
 
-	$query => ""
-	$limit => 25
-	$type => ""
-	$tport=>$session{'tport'}
-	$dur => 0
+	$handlearguments => 0
 
 </%args>
 <%perl>
 
-	UserStuff::EnsureSessionOpen(), $session{tport} = $tport
-	  if $tport;
+	# catch queries which have been created before the session handling and trigger
+	# storing of these values.
+	if ($ARGS{"query"} and
+		$ARGS{"type"} and
+		not $ARGS{"handlearguments"} and
+		not $ARGS{"submitvalue"})
+	{
+		($handlearguments, $ARGS{"handlearguments"}) = (1,1);
+	}
+
+	$m->comp("/search/handle-searchsession.inc", %ARGS)
+		if ($handlearguments);
 
 	$m->comp("/comp/sidebar-notitle", pagetitle => "Indexed Search");
 
-	if ($query ne "" && $type ne "")
+	if ($session{"as_query"} ne "" && $session{"as_type"} ne "")
 	{
 		use URI::Escape qw( uri_escape );
-		my $docurl = 'http://' . &DBDefs::LUCENE_SERVER . "/ws/1/$type/?query=" .
-					 uri_escape($query) . "&type=$type";
-		$docurl .= "&max=$limit" if $limit > 0;
-		$docurl .= "&tport=$tport" if $tport > 0;
-		$docurl .= "&dur=$dur" if $dur > 0;
+		my $docurl = 	'http://'
+					  . &DBDefs::LUCENE_SERVER
+					  . "/ws/1/"
+					  . $session{"as_type"}
+					  . "/?query="
+					  . uri_escape($session{"as_query"})
+					  . "&type="
+					  . $session{"as_type"};
+		$docurl 	  .= "&max="
+					  . $session{"as_limit"} if ($session{"as_limit"} >= 0);
+		$docurl 	  .= "&tport="
+					  . $session{"tport"} if ($session{"tport"} > 0);
+		$docurl 	  .= "&dur="
+					  . $session{"as_dur"} if ($session{"as_dur"} > 0);
 
 		require LWP::UserAgent;
 		my $ua = LWP::UserAgent->new;
@@ -61,18 +76,18 @@
 
 </%perl>
 
-				<& /comp/tablebegin, title => "No ".$type."s found matching your query" &>
+				<& /comp/tablebegin, title => "No ".$session{"as_type"}."s found matching your query" &>
 					<ul>
 						<li>
-							Your query <code><strong><% $query |h %></strong></code> did not match
-							any <% $type %>s. Please check if you used the correct spelling, sometimes
+							Your query <code><strong><% $session{"as_query"} |h %></strong></code> did not match
+							any <% $session{"as_type"} %>s. Please check if you used the correct spelling, sometimes
 							fewer or different words might help.</li>
 
 						<li>For help on writing effective text
 							search queries, please read the <& /comp/linkdoc, "TextSearchSyntax",
 							"text search syntax" &> document.</li>
 
-						<li>Please consider <a href="/freedb/freedb.html?search=<% uri_escape($query) %>"
+						<li>Please consider <a href="/freedb/freedb.html?search=<% uri_escape($session{"as_query"}) %>"
 							>importing</a> the artist/release/track(s) you are looking for from freedb.</li>
 					</ul>
 				<& /comp/tableend &>
@@ -84,7 +99,7 @@
 				<& /comp/tablebegin, title => "Not enough information given" &>
 					<ul>
 						<li>
-							Your query <code><strong><% $query |h %></strong></code> does not
+							Your query <code><strong><% $session{"as_query"} |h %></strong></code> does not
 							contain enough information to carry out a search. If you are
 							attempting to find an artist that contains nothing but punctuation
 							characters (e.g. !!!) then you need to use the <a href="/browseartists.html?index=_"
@@ -123,7 +138,7 @@
 %	    }
 %		else
 %		{
-				<& /comp/layout/editformbegin, title => "The following ${type}s matched your query", mp => 0, show_coc => 0 &>
+				<& /comp/layout/editformbegin, title => "The following ${session{as_type}}s matched your query", mp => 0, show_coc => 0 &>
 
 					<% $response->content |n %>
 
@@ -131,12 +146,12 @@
 
 %    	}
 
-
+		<div style="margin-top: 20px"></div>
 
 %	}
 %	else
 %	{
-%		if ($query ne "" || $type ne "")
+%		if ($session{"as_query"} ne "" || $session{"as_type"} ne "")
 %		{
 
 		<& /comp/tablebegin, title=>"Results" &>
@@ -149,37 +164,36 @@
 			</table>
 		<& /comp/tableend &>
 
+		<div style="margin-top: 20px"></div>
+
 %		}
 %	}
-
-	<div style="margin-top: 20px"></div>
 
 	<& /comp/tablebegin, title=>"Search (Indexed Search)" &>
 		<table>
 			<tr valign="top">
-				<td>
-					<& /comp/lucenesearch, type=>$type, limit=>$limit, query=>$query &>
+				<td style="width: 50%">
+					<& /comp/lucenesearch, handlearguments => 0 &>
 				</td>
 				<td style="padding: 0.3em 4em">
-					<b>Note:</b>
-
+					<b>Please Note:</b>
 					<ul>
 						<li>
 							Search indexes are currently updated once a day at 1800 GMT (10am PST).
 							If you require up to the minute correct search, please use the
 							<a href="/search/oldsearch.html">old search</a>.</li>
 
-% 				if ($type eq "artist")
+% 				if ($session{"as_type"} eq "artist")
 %				{
 
 						<li>
 							Another possible starting point is to use the <a href="/browseartists.html"
 							>Browse Artists</a> page to find the artist you are looking for.</li>
-						<li>Alternatively, <a href="/edit/artist/add.html?initial_name=<% uri_escape($query) %>">
+						<li>Alternatively, <a href="/edit/artist/add.html?initial_name=<% uri_escape($session{"as_query"}) %>">
 							add a new artist</a>.</li>
 
 % 				}
-% 				elsif ($type eq "release")
+% 				elsif ($session{"as_type"} eq "release")
 %				{
 
 						<li>

@@ -33,12 +33,14 @@
 				<td class="label">
 					<label for="id_qs_artist" title="Search for an artist">Artist:</label></td>
 				<td>
-					<form method="get" action="/search/textsearch.html">
+					<form method="get" action="/search/textsearch.html" id="id_qs_artist_form">
 
 % 	# in xhtml-strict, <input> elements need to be contained in a block-level
 % 	# element, thus the <div> is needed inside the <form>
+
 						<div>
-							<input class="searchfield" type="text" name="query" id="id_qs_artist" value=""
+							<input class="searchfield" type="text" name="query" id="id_qs_artist"
+								value="<% ($session{"as_type"} eq "artist" ? $session{"as_query"} : "") %>"
 
 % 	# What is the official position on forms with no submit button?
 % 	# Normally they're OK, and you can press "return" and the form is submitted.
@@ -50,6 +52,12 @@
 %	}
 							/>
 							<input type="hidden" name="type" value="artist" />
+							<input type="hidden" name="limit" value="<% $session{"as_limit"} %>" />
+							<input type="hidden" name="as_on" value="<% $session{"as_on"} %>" />
+							<input type="hidden" name="as_a0" value="<% $session{"as_a0"} %>" />
+							<input type="hidden" name="as_a1" value="<% $session{"as_a1"} %>" />
+							<input type="hidden" name="as_a2" value="<% $session{"as_a2"} %>" />
+							<input type="hidden" name="handlearguments" value="1" />
 						</div>
 					</form></td>
 			</tr>
@@ -57,15 +65,19 @@
 				<td class="label">
 					<label for="id_qs_release" title="Search for a release">Release:</label></td>
 				<td>
-					<form method="get" action="/search/textsearch.html">
+					<form method="get" action="/search/textsearch.html" id="id_qs_release_form">
 						<div>
-							<input class="searchfield" type="text" name="query" id="id_qs_release" value=""
+							<input class="searchfield" type="text" name="query" id="id_qs_release"
+								value="<% ($session{"as_type"} eq "release" ? $session{"as_query"} : "") %>"
 % 	if ($session{mbt})
 %	{
 %		$m->out(qq!onkeydown="if (event.keyCode==13) this.form.submit()"!);
 %	}
 							/>
 							<input type="hidden" name="type" value="release" />
+							<input type="hidden" name="limit" value="<% $session{"as_limit"} %>" />
+							<input type="hidden" name="as_on" value="<% $session{"as_on"} %>" />
+							<input type="hidden" name="handlearguments" value="1" />
 						</div>
 					</form></td>
 			</tr>
@@ -73,15 +85,19 @@
 				<td class="label">
 					<label for="id_qs_track" title="Search for a track">Track:</label></td>
 				<td>
-					<form method="get" action="/search/textsearch.html">
+					<form method="get" action="/search/textsearch.html" id="id_qs_track_form">
 						<div>
-							<input class="searchfield" type="text" name="query" id="id_qs_track" value=""
+							<input class="searchfield" type="text" name="query" id="id_qs_track"
+								value="<% ($session{"as_type"} eq "track" ? $session{"as_query"} : "") %>"
 % 	if ($session{mbt})
 %	{
 %		$m->out(qq!onkeydown="if (event.keyCode==13) this.form.submit()"!);
 %	}
 							/>
 							<input type="hidden" name="type" value="track" />
+							<input type="hidden" name="limit" value="<% $session{"as_limit"} %>" />
+							<input type="hidden" name="as_on" value="<% $session{"as_on"} %>" />
+							<input type="hidden" name="handlearguments" value="1" />
 						</div>
 					</form></td>
 			</tr>
@@ -101,13 +117,52 @@
 					</form></td>
 			</tr>
 		</table>
-
-		<div class="morelink">
-			<a href="/search.html">more &raquo;</a>
+		<div class="morelink" id="id_oldsearch">
+			<input type="checkbox" name="oldsearch" id="id_oldsearch_checkbox" value="1" style="display: none" />
+			<a href="/search/oldsearch.html">Direct search &raquo;</a>
 		</div>
 		<div class="morelink">
-			<a href="/search/oldsearch.html">old search &raquo;</a>
+			<a href="/search.html">Advanced search &raquo;</a>
 		</div>
 	</div>
+
+	<script type="text/javascript">
+
+		function QuickSearch() {
+
+			/**
+			 * Handles a click on the old search checkbox.
+			 */
+			this.onOldSearchToggle = function(el) {
+				var types = ["artist", "release", "track"];
+				for (type in types) {
+					if ((obj = mb.ui.get("id_qs_"+types[type]+"_form")) != null) {
+						obj.action = el.checked ? "/search/oldsearch.html" : "/search/textsearch.html";
+					}
+				}
+				mb.cookie.set("id_oldsearch_checkbox", el.checked ? "1" : "0");
+			};
+
+
+			/**
+			 *
+			 */
+			this.init = function() {
+				var obj;
+				if ((obj = mb.ui.get("id_oldsearch_checkbox")) != null) {
+					var cv = mb.cookie.get("id_oldsearch_checkbox")
+					obj.checked = (cv == "1");
+					this.onOldSearchToggle(obj);
+					obj.style.display = "";
+					obj.onclick = function onclick(ev) {
+						quickSearch.onOldSearchToggle(this);
+					};
+				}
+			}
+		};
+		quickSearch = new QuickSearch();
+		quickSearch.init();
+
+	</script>
 
 %# vi: set ts=4 sw=4 ft=mason :

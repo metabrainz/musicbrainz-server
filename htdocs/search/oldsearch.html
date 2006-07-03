@@ -28,66 +28,50 @@
 </%perl>
 <%args>
 
-	$table => undef
-	$search => ""
-	$limit => 25
-	$tport => $session{'tport'}
+	$handlearguments => 0
 
 </%args>
 <%perl>
 
-	# make sure the session is writeable, then
-	# remember the tagger port
-	UserStuff::EnsureSessionOpen(), $session{tport} = $tport
-		if $tport;
+	# catch queries which have been created before the session handling and trigger
+	# storing of these values.
+	if ($ARGS{"search"} and
+		$ARGS{"table"} and
+		not $ARGS{"handlearguments"} and
+		not $ARGS{"submitvalue"})
+	{
+		($handlearguments, $ARGS{"handlearguments"}) = (1,1);
+		$ARGS{"type"} = ($ARGS{"table"} eq "album" ? "release" : $ARGS{"table"});
+		$ARGS{"query"} = $ARGS{"search"};
+	}
 
-	$table = (
-		(defined($table) and $table =~ /\A(artist|album|track)\z/)
-		? $1 : undef
-	);
-	$table = lc($table);
-
-	$limit = (
-		(defined($limit) and MusicBrainz::IsNonNegInteger($limit))
-		? 0+$limit : undef
-	);
-
-	# make sure we got a valid table parameter
-	MusicBrainz::IsSingleLineString($table)
-		or return $m->comp("/comp/layout/badarguments",
-			text => "The argument <strong>table</strong> is missing or has a wrong format.");
-
-	# make sure we got a valid table parameter
-	MusicBrainz::IsSingleLineString($search)
-		or return $m->comp("/comp/layout/badarguments",
-			text => "The argument <strong>search</strong> is missing or has a wrong format.");
-
-	my $type = ($table eq "album" ? "release" : $table);
+	$m->comp("/search/handle-searchsession.inc", %ARGS)
+		if ($handlearguments);
 
 	# Initialise MusicBrainz object
 	my $mb = $m->comp("/comp/dblogin");
 	use SearchEngine qw( :constants );
 
 	# Initialise Engine, then carry out the search.
-	my $engine = SearchEngine->new($mb->{DBH}, $table);
+	my $engine = SearchEngine->new($mb->{DBH}, $session{"as_type"} eq "release" ? "album" : $session{"as_type"});
 	$engine->Search(
-		query => $search,
-		limit => $limit,
+		query => $session{"as_query"},
+		limit => $session{"as_limit"},
 	);
 
 	if ($engine->Rows == 1)
 	{
 		my ($row, $url);
 		$row = $engine->NextRow;
-		if ($engine->Table eq "album")
+		if ($session{"as_type"} eq "release")
 		{
 			$url = "/show/release/?releaseid=$row->{'albumid'}";
 		}
-		elsif ($engine->Table eq "artist")
+		elsif ($session{"as_type"} eq "artist")
 		{
 			$url = "/show/artist/?artistid=$row->{'artistid'}";
 		}
-		elsif ($engine->Table eq "track")
+		elsif ($session{"as_type"} eq "track")
 		{
 			$url = "/show/track/?trackid=$row->{'trackid'}";
 		}
@@ -105,9 +89,9 @@
 
 </%perl>
 
-<& /comp/sidebar-notitle, pagetitle => ucfirst($table) . ' Search Results: '.$search &>
+<& /comp/sidebar-notitle, pagetitle => ucfirst($session{"as_type"}) . ' Search Results: '.$session{"as_query"} &>
 
-%	if ($search ne "")
+%	if ($session{"as_query"} ne "")
 %	{
 
 %		if ($engine->Result == SEARCHRESULT_NOQUERY)
@@ -133,16 +117,16 @@
 %		elsif ($engine->Rows == 0)
 %		{
 
-		<& /comp/tablebegin, title => "No ".$type."s found matching your query" &>
+		<& /comp/tablebegin, title => "No ".$session{"as_type"}."s found matching your query" &>
 
-			Please consider <a href="/freedb/freedb.html?search=<% uri_escape($search) %>"
+			Please consider <a href="/freedb/freedb.html?search=<% uri_escape($session{"as_query"}) %>"
 			>importing</a> the artist/release/track(s) you are looking for from freedb.
 
-%			if ($table eq "artist")
+%			if ($session{"as_type"} eq "artist")
 %			{
-				Alternatively, <a href="/edit/artist/add.html?initial_name=<% uri_escape($search) %>">add a new artist</a>.
+				Alternatively, <a href="/edit/artist/add.html?initial_name=<% uri_escape($session{"as_query"}) %>">add a new artist</a>.
 %			}
-%			elsif ($table eq "album")
+%			elsif ($session{"as_type"} eq "release")
 %			{
 				Alternatively, <a href="/edit/album/add.html?artistid=0">add a new release</a>.
 %			}
@@ -153,11 +137,11 @@
 %		else
 %		{
 
-		<& /comp/layout/editformbegin, title => "The following ${type}s matched your query", mp => 1, show_coc => 0 &>
+		<& /comp/layout/editformbegin, title => "The following ".$session{"as_type"}."s matched your query", mp => 1, show_coc => 0 &>
 
 			<table class="searchresults">
 
-%			if ($table eq "album")
+%			if ($session{"as_type"} eq "release")
 %			{
 				<tr class="searchresultsheader">
 					<td>Artist:</td>
@@ -172,14 +156,14 @@
 					<td colspan="2"></td>
 				</tr>
 %			}
-%			elsif ($table eq "artist")
+%			elsif ($session{"as_type"} eq "artist")
 %			{
 
 				<tr class="searchresultsheader">
 					<td>Artist:</td>
 				</tr>
 %			}
-%			elsif ($table eq "track")
+%			elsif ($session{"as_type"} eq "track")
 %			{
 				<tr class="searchresultsheader">
 					<td>Artist:</td>
@@ -196,7 +180,7 @@
 %			{
         		<tr class="<% $i++ % 2 == 0 ? "searchresultseven" : "searchresultsodd" %>">
 
-%   		    if ($engine->Table eq "album")
+%   		    if ($session{"as_type"} eq "release")
 %				{
 					<td>
 						<span<% $row->{'artistmp'} ? ' class="mp"' : '' |n %>>
@@ -242,7 +226,7 @@
 % 					}
 
 %				}
-%				elsif ($engine->Table eq "artist")
+%				elsif ($session{"as_type"} eq "artist")
 %				{
 
             		<td>
@@ -252,7 +236,7 @@
 
 
 %				}
-%				elsif ($engine->Table eq "track")
+%				elsif ($session{"as_type"} eq "track")
 %				{
 
 					<td>
@@ -289,7 +273,7 @@
 
 	<& /comp/tablebegin, title => "Search (Direct Search)" &>
 
-    	<& /comp/textsearch, default => $table, text => $search, limit => $limit &>
+    	<& /comp/textsearch, handlearguments => 0 &>
 
   	<& /comp/tableend &>
 

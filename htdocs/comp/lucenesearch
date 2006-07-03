@@ -1,59 +1,197 @@
 <%args>
 
-	$type => "artist"
-	$limit => 25
-	$query => ""
-	$tport=>$session{'tport'}
+	$handlearguments => 0
 
 </%args>
 <%perl>
 
-	$type = lc $type;
-	$limit = 25 if ($limit < 1 || $limit > 100);
+	$m->comp("/search/handle-searchsession.inc", %ARGS)
+		if ($handlearguments);
 
-	UserStuff::EnsureSessionOpen(), $session{tport} = $tport
-	  if $tport;
-
-	my $oldsearch = '/search/oldsearch.html?limit=' . $limit . '&table=' . ($type eq 'release' ? 'album' : $type) . '&search=' . uri_escape($query);
+	my $oldsearch = '/search/oldsearch.html';
 
 </%perl>
 
 <form method="get" action="/search/textsearch.html" class="formstyle" id="TextSearchForm">
-	<table class="formstyle">
-		<tr>
-			<td class="labelnopad"><label for="id_query">Search for:</label></td>
+	<table class="formstyle" style="width: 100%">
+		<tr class="top">
+			<td class="labelnopad">
+				<label for="id_query">Search for:</label></td>
 			<td>
-				<input type="text" name="query" id="id_query" value="<% $query %>" size="30" /></td>
+				<input type="text" name="query" id="id_query" value="<% $session{"as_query"} %>" size="30" />
+			</td>
 		</tr>
-		<tr>
+		<tr class="top">
 			<td class="labelnopad"><label for="id_type">Type:</label></td>
-			<td>
+			<td style="width: 350px">
 				<select name="type" id="id_type">
-%					$m->out(qq!<option value="artist" ! . ($type eq "artist" ? 'selected="selected"' : '') . qq!>Artists</option>!);
-%					$m->out(qq!<option value="release" ! . ($type eq "release" ? 'selected="selected"' : '') . qq!>Releases</option>!);
-%					$m->out(qq!<option value="track" ! . ($type eq "track" ? 'selected="selected"' : '') . qq!>Tracks</option>!);
-				</select></td>
+%					$m->out(qq!<option value="artist" ! . ($session{"as_type"} eq "artist" ? 'selected="selected"' : '') . qq!>Artists</option>!);
+%					$m->out(qq!<option value="release" ! . ($session{"as_type"} eq "release" ? 'selected="selected"' : '') . qq!>Releases</option>!);
+%					$m->out(qq!<option value="track" ! . ($session{"as_type"} eq "track" ? 'selected="selected"' : '') . qq!>Tracks</option>!);
+				</select>
+
+				<table cellspacing="0" cellpadding="0" border="0">
+					<tr>
+						<td colspan="2">
+							<input type="checkbox" name="as_on"
+								id="id_as_on" value="1"
+								<% $session{'as_on'} ? qq! checked="checked" ! : "" |n %>
+								/>Advanced&nbsp;search&nbsp;options</td>
+					</tr>
+					<tr id="id_type_a">
+						<td>Search for Artist in:</td>
+						<td>
+							<input type="checkbox" name="as_a0" value="1"
+								<% $session{'as_a0'} ? qq! checked="checked" ! : "" |n %>
+							/>&nbsp;Artist&nbsp;Name<br/>
+
+							<input type="checkbox" name="as_a1" value="1"
+								<% $session{'as_a1'} ? qq! checked="checked" ! : "" |n %>
+							/>&nbsp;Artist&nbsp;Sortname<br/>
+
+							<input type="checkbox" name="as_a2" value="1"
+								<% $session{'as_a2'} ? qq! checked="checked" ! : "" |n %>
+							/>&nbsp;Artist&nbsp;Aliases<br/>
+						</td>
+					</tr>
+					<tr id="id_type_r">
+						<td>Search for Release in:</td>
+						<td>Release&nbsp;Names</td>
+					</tr>
+					<tr id="id_type_t">
+						<td>Search for Track in:</td>
+						<td>Track&nbsp;Names</td>
+					</tr>
+				</table>
+			</td>
 		</tr>
 		<tr>
 			<td class="labelnopad"><label for="id_limit">Limit to:</label></td>
 			<td>
 				<select name="limit" id="id_limit">
-%					$m->out(qq!<option value="25" ! . ($limit eq 25 ? 'selected="selected"' : '') . qq!>Up to 25</option>!);
-%					$m->out(qq!<option value="50" ! . ($limit eq 50 ? 'selected="selected"' : '') . qq!>Up to 50</option>!);
-%					$m->out(qq!<option value="100" ! . ($limit eq 100 ? 'selected="selected"' : '') . qq!>Up to 100</option>!);
-			  </select></td>
+%					$m->out(qq!<option value="25" ! . ($session{"as_limit"} eq 25 ? 'selected="selected"' : '') . qq!>Up to 25</option>!);
+%					$m->out(qq!<option value="50" ! . ($session{"as_limit"} eq 50 ? 'selected="selected"' : '') . qq!>Up to 50</option>!);
+%					$m->out(qq!<option value="100" ! . ($session{"as_limit"} eq 100 or $session{"as_limit"} eq 0 ? 'selected="selected"' : '') . qq!>Up to 100</option>!);
+			  	</select></td>
 		</tr>
 		<tr>
-			<td></td>
+			<td>&nbsp;</td>
 			<td>
-				<input type="submit" value="Indexed Search &raquo;" title="Start search..."/></td>
+				<input type="submit" name="submitvalue" value="Indexed Search &raquo;" title="Start search..." />
+				<input type="submit" name="submitvalue" value="Reset" title="Reset search parameters" />
+				<input type="hidden" name="handlearguments" value="1" /></td>
 		</tr>
 		<tr>
-			<td></td>
+			<td>&nbsp;</td>
 			<td>
-				[ <a href="<% $oldsearch %>" title="Search for the same query using the Direct Search...">direct search</a> ]&nbsp;&nbsp;[ <a href="/popup/TextSearchSyntax" title="POPUP::TextSearchSyntax::400::400">help</a> ]</td>
+				[ <a href="<% $oldsearch %>" title="Search for the same query using the Direct Search...">direct search</a> ]&nbsp;&nbsp;[ <a href="/popup/TextSearchSyntax" title="POPUP::TextSearchSyntax::400::400">help</a> ]
+
+				<style type="text/css">
+
+				</style>
+
+				<div id="id_querysyntax" style="display: none">
+					<& /comp/form/feedbackbox, "warning", "Possible query syntax detected:",
+						qq!Your query includes punctuation that may be interpreted as !
+						.$m->scomp("/comp/linkdoc", "TextSearchSyntax", "query syntax")
+						.qq!. (Hint: A list of characters which trigger this warning
+							  message is <code>:?\!~[]{}()+ </code>)!,
+					&>
+				</div>
+
+			</td>
 		</tr>
 	</table>
 </form>
+
+<script type="text/javascript">
+
+	function AdvancedSearch() {
+
+		this.types = ["a", "r", "t"];
+		this.active = false;
+		this.querySyntaxRE = /[:\?\!~\[\]\{\}\(\)\+]/g;
+
+		/**
+		 * @param el	the checkbox element
+		 */
+		this.onAdvancedSearchToggled = function(el) {
+			if (el) {
+				this.active = el.checked;
+				if ((el = mb.ui.get("id_type")) != null) {
+					this.setOptionsByType(el);
+				}
+			}
+		};
+
+		/**
+		 * @param el	the dropdown element
+		 */
+		this.onTextFieldChanged = function(el) {
+			if (el) {
+				var obj, value = el.value || "";
+				if ((obj = mb.ui.get("id_querysyntax")) != null && value != "") {
+					var flag = (value.match(this.querySyntaxRE) != null);
+					obj.style.display = flag ? "" : "none";
+				}
+			}
+		};
+
+		/**
+		 * @param el	the dropdown element
+		 */
+		this.onTypeChanged = function(el) {
+			if (el) {
+				this.setOptionsByType(el);
+			}
+		};
+
+		/**
+		 * loop through all the types, and select the active one.
+		 *
+		 * @param obj	the dropdown element
+		 */
+		this.setOptionsByType = function(obj) {
+			if (obj) {
+				var type = obj.options[obj.selectedIndex].value.substr(0,1);
+				for (var i=0; i<this.types.length; i++) {
+					var currType = this.types[i];
+					if ((obj = mb.ui.get("id_type_"+currType)) != null) {
+						obj.style.display = (currType == type && this.active ? "" : "none");
+					}
+				}
+			}
+		};
+
+		/**
+		 * Initialise the Advanced Search functions.
+		 */
+		this.init = function() {
+			var obj;
+			if ((obj = mb.ui.get("id_as_on")) != null) {
+				this.active = obj.checked;
+				obj.onclick = function onclick(event) {
+					advancedSearch.onAdvancedSearchToggled(this);
+				}
+			}
+			if ((obj = mb.ui.get("id_query")) != null) {
+				obj.onkeyup = function onkeyup(event) {
+					advancedSearch.onTextFieldChanged(this);
+				}
+			}
+
+			if ((obj = mb.ui.get("id_type")) != null) {
+				obj.onchange = function onclick(event) {
+					advancedSearch.onTypeChanged(this);
+				}
+				this.setOptionsByType(obj);
+			}
+		};
+	};
+
+	var advancedSearch = new AdvancedSearch();
+	advancedSearch.init();
+
+</script>
 
 %# vi: set ts=4 sw=4 ft=mason :
