@@ -90,7 +90,7 @@ function addWikiFormattingToolbar(textarea) {
 	addButton("heading", "Heading: == Example ==", function() {
 		encloseSelection("\n== ", " ==\n", "Heading");
 	});
-	addButton("link", "Link: [http://www.example.com/ Example]", function() {
+	addButton("link", "Link: [http://www.example.com|Example]", function() {
 		encloseSelection("[", "]");
 	});
 	addButton("hr", "Horizontal rule: ----", function() {
