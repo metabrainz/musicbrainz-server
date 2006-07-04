@@ -36,7 +36,7 @@ use DBDefs;
 use MusicBrainz::Server::Cache;
 use MusicBrainz::Server::Replication ':replication_type';
 use Carp qw( carp cluck croak );
-use Encode qw( decode );
+use Encode qw( decode encode );
 use Text::Unaccent qw( unac_string );
 use Date::Calc qw( check_date Delta_YMD );
 
@@ -291,9 +291,11 @@ sub NormaliseSortText
 
 sub normalize
 {
-    my $t = $_[0];
-    $t =~ s/[^\w\d ]/ /g;
-    $t =~ s/ +/ /g;
+    my $t = $_[0];                 # utf8-bytes
+    $t = decode "utf-8", $t;       # turn into string
+    $t =~ s/[^\p{IsAlpha}]+/ /g;   # turn non-alpha to space
+    $t =~ s/\s+/ /g;               # squish
+    $t = encode "utf-8", $t;       # turn back into utf8-bytes
     $t;
 }
 

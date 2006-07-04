@@ -238,14 +238,12 @@
 	elsif ($_artist)
 	{
 		my ($query, $type);
-
-		$query = "(artist:$artist) (alias:$artist)";
-		if ($artist && $track)
+		if ($track)
 		{
-			$query .= " (track:$_track)";
 			$type = "track";
-
+			$query .= " (track:$_track)";
 			$query .= " (release:$_release)" if $_release;
+			$query .= " (artist:$_artist)" if $_artist;
 			$query .= " tnum:$_tracknum" if $_tracknum;
 			if ($_duration)
 			{
@@ -253,14 +251,16 @@
 				$query .= " qdur:$qdur qdur:" . ($qdur - 1) . " qdur:" . ($qdur + 1) if ($qdur);
 			}
 		}
-		elsif ($artist && $release)
+		elsif ($release)
 		{
-			$query .= " (release:$_release)";
 			$type = "release";
+     		$query = "(release:$_release)";
+     		$query .= " (artist:$_artist)" if ($_artist);
 		}
 		else
 		{
 			$type = "artist";
+            $query = "(artist:$_artist) (sortname:$_artist)^0.000001 (alias:$_artist)^0.000001";
 		}
 
 		use URI::Escape qw( uri_escape );
@@ -269,6 +269,7 @@
 		$docurl .= "&tport=$tport" if $tport;
 		$docurl .= "&dur=$_duration" if $_duration;
 		$docurl .= "&mbt=1" if $mbt;
+		$docurl .= "&fields=artist" if $mbt;
 
 		require LWP::UserAgent;
 		my $ua = LWP::UserAgent->new;
