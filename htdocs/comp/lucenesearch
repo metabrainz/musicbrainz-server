@@ -37,17 +37,17 @@
 				<table cellspacing="0" cellpadding="0" border="0">
 					<tr id="id_type_a">
 						<td>
-							using <input type="checkbox" name="as_an" value="1"
-								<% $session{'as_an'} ? "" : qq! checked="checked" ! |n %>
-							/>&nbsp;name
+							in <input type="checkbox" name="an" value="1"
+								<% $session{'as_an'} ? qq! checked="checked" ! : "" |n %>
+							/>&nbsp;Names
 
-							<input type="checkbox" name="as_as" value="1"
-								<% $session{'as_as'} ? "" : qq! checked="checked" ! |n %>
-							/>&nbsp;sortname
+							<input type="checkbox" name="as" value="1"
+								<% $session{'as_as'} ? qq! checked="checked" ! : "" |n %>
+							/>&nbsp;Sort names
 
-							<input type="checkbox" name="as_aa" value="1"
+							<input type="checkbox" name="aa" value="1"
 								<% $session{'as_aa'} ? qq! checked="checked" ! : "" |n %>
-							/>&nbsp;alias fields
+							/>&nbsp;Alias'
 						</td>
 					</tr>
 					<tr id="id_type_r">
@@ -71,7 +71,7 @@
 		<tr>
 			<td>&nbsp;</td>
 			<td>
-				<input type="submit" name="submitvalue" value="Indexed Search &raquo;" title="Start search..." />
+				<input type="submit" value="Indexed Search &raquo;" title="Start search..." />
 				<input type="submit" name="submitvalue" value="Reset" title="Reset search parameters" />
 				<input type="hidden" name="handlearguments" value="1" /></td>
 		</tr>
@@ -79,10 +79,6 @@
 			<td>&nbsp;</td>
 			<td>
 				[ <a href="<% $oldsearch %>" title="Search for the same query using the Direct Search...">direct search</a> ]&nbsp;&nbsp;[ <a href="/popup/TextSearchSyntax" title="POPUP::TextSearchSyntax::400::400">help</a> ]
-
-				<style type="text/css">
-
-				</style>
 
 				<div id="id_querysyntax" style="display: none">
 					<& /comp/form/feedbackbox, "warning", "Possible query syntax detected:",
@@ -98,82 +94,6 @@
 	</table>
 </form>
 
-<script type="text/javascript">
-
-	function AdvancedSearch() {
-
-		this.types = ["a", "r", "t"];
-		this.active = true;
-		this.querySyntaxRE = /[:\?\!~\[\]\{\}\(\)\+]/g;
-
-		/**
-		 * @param el	the dropdown element
-		 */
-		this.onTextFieldChanged = function(el) {
-			if (el) {
-				var obj, value = el.value || "";
-				if ((obj = mb.ui.get("id_querysyntax")) != null && value != "") {
-					var flag = (value.match(this.querySyntaxRE) != null);
-					obj.style.display = flag ? "" : "none";
-				}
-			}
-		};
-
-		/**
-		 * @param el	the dropdown element
-		 */
-		this.onTypeChanged = function(el) {
-			if (el) {
-				this.setOptionsByType(el);
-			}
-		};
-
-		/**
-		 * loop through all the types, and select the active one.
-		 *
-		 * @param obj	the dropdown element
-		 */
-		this.setOptionsByType = function(obj) {
-			if (obj) {
-				var type = obj.options[obj.selectedIndex].value.substr(0,1);
-				for (var i=0; i<this.types.length; i++) {
-					var currType = this.types[i];
-					if ((obj = mb.ui.get("id_type_"+currType)) != null) {
-						obj.style.display = (currType == type && this.active ? "" : "none");
-					}
-				}
-			}
-		};
-
-		/**
-		 * Initialise the Advanced Search functions.
-		 */
-		this.init = function() {
-			var obj;
-			if ((obj = mb.ui.get("id_as_on")) != null) {
-				this.active = obj.checked;
-				obj.onclick = function onclick(event) {
-					advancedSearch.onAdvancedSearchToggled(this);
-				}
-			}
-			if ((obj = mb.ui.get("id_query")) != null) {
-				obj.onkeyup = function onkeyup(event) {
-					advancedSearch.onTextFieldChanged(this);
-				}
-			}
-
-			if ((obj = mb.ui.get("id_type")) != null) {
-				obj.onchange = function onclick(event) {
-					advancedSearch.onTypeChanged(this);
-				}
-				this.setOptionsByType(obj);
-			}
-		};
-	};
-
-	var advancedSearch = new AdvancedSearch();
-	advancedSearch.init();
-
-</script>
+<script type="text/javascript" src="/scripts/search-lucene.js"></script>
 
 %# vi: set ts=4 sw=4 ft=mason :

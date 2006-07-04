@@ -13,11 +13,19 @@
 	$tport => undef
 
 	# advanced search parameters
-	$as_on => 0			# Advanced search enabled (0|1)
-						# |-- Artist
-	$as_a0 => undef 	#   |-- Search artist name (0|1) (on by default)
-	$as_a1 => undef 	#   |-- Search artist sortname (0|1) (on by default)
-	$as_a2 => undef 	#   \-- Search artist alias' (0|1) (off by default)
+	# Artist (ax)
+	#   |-- Search artist name (0|1) (on by default)
+	#   |-- Search artist sortname (0|1) (on by default)
+	#   \-- Search artist alias' (0|1) (off by default)
+	# Release (rx)
+	#	none yet
+	# Track (tx)
+	#	none yet
+
+	$an => undef	# Artist Name
+	$as => undef	# Artist Sortname
+	$aa => undef	# Artist Alias
+
 
 </%args>
 <%perl>
@@ -42,10 +50,6 @@
 
 	if ($handlearguments or $submitvalue ne "")
 	{
-		# if the advanced search is shown, and the parameters were
-		# not transmitted, override default values.
-		$session{"as_on"} = ($as_on ? 1 : 0);
-
 		# fill in arguments into session variables
 		$session{"as_query"} = (defined $query ? $query : "");
 		$session{"as_limit"} = (defined $limit ? $limit : 25);
@@ -54,10 +58,9 @@
 
 		if ($submitvalue =~ /Reset/i)
 		{
-			$session{"as_on"} = 0;
-			$session{"as_a0"} = 1;
-			$session{"as_a1"} = 1;
-			$session{"as_a2"} = 0;
+			$session{"as_an"} = 1;
+			$session{"as_as"} = 1;
+			$session{"as_aa"} = 0;
 
 			$session{"as_query"} = "";
 			$session{"as_limit"} = 25;
@@ -72,9 +75,9 @@
 
 			if ($session{"as_type"} eq "artist")
 			{
-				$session{"as_a0"} = (defined $as_a0 ? $as_a0 : ($as_on ? 0 : 1));
-				$session{"as_a1"} = (defined $as_a1 ? $as_a1 : ($as_on ? 0 : 1));
-				$session{"as_a2"} = (defined $as_a2 ? $as_a2 : ($as_on ? 0 : 0));
+				$session{"as_an"} = (defined $an ? 1 : 0);
+				$session{"as_as"} = (defined $as ? 1 : 0);
+				$session{"as_aa"} = (defined $aa ? 1 : 0);
 			}
 		}
 	}

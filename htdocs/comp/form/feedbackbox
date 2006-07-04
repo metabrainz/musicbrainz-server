@@ -21,7 +21,7 @@
 	#
 	# Summary:
 	# -----------------------------------------------------------------------------
-	# Renders colorful user feedback box.
+	# Renders user feedback box.
 	#
 	# $Id$
 	#
@@ -31,18 +31,14 @@
 	my ($type, $header, $text) = @_;
 
 	# use mason->out to compress whitespace
-	$m->out('<div class="feedbackbox-'.$type.'">');
-	$m->out('<img src="/images/es/'.$type.'.gif" class="boxtype" alt="">');
+	$m->out(qq!<div class="feedbackbox-$type">!);
+	$m->out(qq!<img src="/images/es/$type.gif" class="boxtype" alt="" />!);
 	if ($header ne "")
 	{
-		$m->out('<span id="header">');
-		$m->out($header);
-		$m->out(' </span>');
+		$m->out(qq!<span id="header">$header </span>!);
 	}
-	$m->out('<span id="text">');
-	$m->out($text);
-	$m->out('</span>');
-	$m->out('</div>');
+	$m->out(qq!<span id="text">$text</span>!);
+	$m->out(qq!</div>!);
 	$m->out("\n");
 	$m->out("\n");
 

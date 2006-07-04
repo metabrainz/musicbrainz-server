@@ -29,9 +29,6 @@
 <%args>
 
 	$handlearguments => 0
-    $as_an => ''
-    $as_as => ''
-    $as_aa => ''
 
 </%args>
 <%perl>
@@ -53,9 +50,9 @@
 
     # determine which fields to search on
     my $fields = "";
-	$fields .= "artist " if ($as_an ne "");
-	$fields .= "sortname " if ($as_as ne "");
-	$fields .= "alias " if ($as_aa ne "");
+	$fields .= "artist " if ($session{"as_an"} eq "1");
+	$fields .= "sortname " if ($session{"as_as"} eq "1");
+	$fields .= "alias " if ($session{"as_aa"} eq "1");
     $fields =~ s/ $//;
     $fields =~ s/ /+/g;
 
@@ -76,8 +73,8 @@
 					  . $session{"tport"} if ($session{"tport"} > 0);
 		$docurl 	  .= "&dur="
 					  . $session{"as_dur"} if ($session{"as_dur"} > 0);
-		$docurl 	  .= "&fields=$fields" if ($fields ne '');
-        $docurl       .= '&rel=1' if $session{uid}; 
+		$docurl 	  .= "&fields=$fields" if ($fields ne "");
+        $docurl       .= '&rel=1' if ($session{uid});
 
 		require LWP::UserAgent;
 		my $ua = LWP::UserAgent->new;

@@ -43,7 +43,7 @@
 		<tr>
 			<td>&nbsp;</td>
 			<td>
-				<input type="submit" name="submitvalue" value="Direct Search &raquo;" title="Start search..." />
+				<input type="submit" value="Direct Search &raquo;" title="Start search..." />
 				<input type="submit" name="submitvalue" value="Reset" title="Reset search parameters" />
 				<input type="hidden" name="handlearguments" value="1" /></td>
 		</tr>
