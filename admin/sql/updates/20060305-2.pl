@@ -77,7 +77,7 @@ for my $link (@$rows)
 
 	if (!$done{$alid} && $al->LoadFromId(1))
 	{
-		($asin, $coverurl) = $al->ParseAmazonURL($link->{url});
+		($asin, $coverurl,) = $al->ParseAmazonURL($link->{url});
 		if ($asin ne "")
 		{
 			if ($al->UpdateAmazonData(1))
