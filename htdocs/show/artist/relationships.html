@@ -40,7 +40,7 @@
 <%perl>
 
 	# make sure we got a valid artistid parameter
-	MusicBrainz::IsNonNegInteger($artistid) && $artistid
+	(MusicBrainz::IsNonNegInteger($artistid) || MusicBrainz::IsGUID($artistid)) && $artistid
 		or return $m->comp("/comp/layout/badarguments",
 			text => "The argument <strong>artistid</strong> is missing or has a wrong format.");
 
@@ -52,7 +52,7 @@
 
 	$m->comp("/comp/artisttitle", artist => $artist);
 
-	$m->comp("/comp/ar/AddRelationship", id => $artistid, type => "artist", name => $artist->GetName)
+	$m->comp("/comp/ar/AddRelationship", id => $artist->GetId, type => "artist", name => $artist->GetName)
 		if ($addrel);
 
 	$m->comp("/comp/ar/ClearRelationships")

@@ -40,7 +40,7 @@
 <%perl>
 
 	# make sure we got a valid trackid parameter
-	MusicBrainz::IsNonNegInteger($trackid) && $trackid
+    (MusicBrainz::IsNonNegInteger($trackid) || MusicBrainz::IsGUID($trackid)) && $trackid
 		or return $m->comp("/comp/layout/badarguments",
 			text => "The argument <strong>trackid</strong> is missing or has a wrong format.");
 
@@ -51,7 +51,7 @@
 	$m->comp("/comp/sidebar-notitle", pagetitle => $title);
 
 
-	$m->comp("/comp/ar/AddRelationship", id => $trackid, type => "track", name => $track->GetName)
+	$m->comp("/comp/ar/AddRelationship", id => $track->GetId, type => "track", name => $track->GetName)
 		if ($addrel);
 
 	$m->comp("/comp/ar/ClearRelationships")

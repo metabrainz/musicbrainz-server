@@ -40,7 +40,7 @@
 <%perl>
 
 	# make sure we got a valid releaseid parameter
-	MusicBrainz::IsNonNegInteger($releaseid) && $releaseid
+    (MusicBrainz::IsNonNegInteger($releaseid) || MusicBrainz::IsGUID($releaseid)) && $releaseid
 		or return $m->comp("/comp/layout/badarguments",
 			text => "The argument <strong>releaseid</strong> is missing or has a wrong format.");
 
@@ -50,7 +50,7 @@
 	my $title = ("Relationships for Release: " . $release->GetName());
 	$m->comp("/comp/sidebar-notitle", pagetitle => $title);
 
-	$m->comp("/comp/ar/AddRelationship", id => $releaseid, type => "album", name => $release->GetName)
+	$m->comp("/comp/ar/AddRelationship", id => $release->GetId, type => "album", name => $release->GetName)
 		if ($addrel);
 
 	$m->comp("/comp/ar/ClearRelationships")
