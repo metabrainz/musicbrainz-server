@@ -22,6 +22,7 @@
 			</td>
 		</tr>
 		<tr class="top">
+		<tr class="top">
 			<td class="labelnopad"><label for="id_type">Type:</label></td>
 			<td style="width: 350px">
 				<select name="type" id="id_type">
@@ -29,41 +30,34 @@
 %					$m->out(qq!<option value="release" ! . ($session{"as_type"} eq "release" ? 'selected="selected"' : '') . qq!>Releases</option>!);
 %					$m->out(qq!<option value="track" ! . ($session{"as_type"} eq "track" ? 'selected="selected"' : '') . qq!>Tracks</option>!);
 				</select>
-
+			</td>
+		</tr>
+			<td class="labelnopad"></td>
+			<td style="width: 350px">
 				<table cellspacing="0" cellpadding="0" border="0">
-					<tr>
-						<td colspan="2">
-							<input type="checkbox" name="as_on"
-								id="id_as_on" value="1"
-								<% $session{'as_on'} ? qq! checked="checked" ! : "" |n %>
-								/>Advanced&nbsp;search&nbsp;options</td>
-					</tr>
 					<tr id="id_type_a">
-						<td>Search for Artist in:</td>
 						<td>
-							<input type="checkbox" name="as_a0" value="1"
-								<% $session{'as_a0'} ? qq! checked="checked" ! : "" |n %>
-							/>&nbsp;Artist&nbsp;Name<br/>
+							using <input type="checkbox" name="as_an" value="1"
+								<% $session{'as_an'} ? "" : qq! checked="checked" ! |n %>
+							/>&nbsp;name
 
-							<input type="checkbox" name="as_a1" value="1"
-								<% $session{'as_a1'} ? qq! checked="checked" ! : "" |n %>
-							/>&nbsp;Artist&nbsp;Sortname<br/>
+							<input type="checkbox" name="as_as" value="1"
+								<% $session{'as_as'} ? "" : qq! checked="checked" ! |n %>
+							/>&nbsp;sortname
 
-							<input type="checkbox" name="as_a2" value="1"
-								<% $session{'as_a2'} ? qq! checked="checked" ! : "" |n %>
-							/>&nbsp;Artist&nbsp;Aliases<br/>
+							<input type="checkbox" name="as_aa" value="1"
+								<% $session{'as_aa'} ? qq! checked="checked" ! : "" |n %>
+							/>&nbsp;alias fields
 						</td>
 					</tr>
 					<tr id="id_type_r">
-						<td>Search for Release in:</td>
-						<td>Release&nbsp;Names</td>
+						<td colspan="2">using release&nbsp;name fields</td>
 					</tr>
 					<tr id="id_type_t">
-						<td>Search for Track in:</td>
-						<td>Track&nbsp;Names</td>
+						<td colspan="2">using track&nbsp;name fields</td>
 					</tr>
 				</table>
-			</td>
+            </td>
 		</tr>
 		<tr>
 			<td class="labelnopad"><label for="id_limit">Limit to:</label></td>
@@ -109,20 +103,8 @@
 	function AdvancedSearch() {
 
 		this.types = ["a", "r", "t"];
-		this.active = false;
+		this.active = true;
 		this.querySyntaxRE = /[:\?\!~\[\]\{\}\(\)\+]/g;
-
-		/**
-		 * @param el	the checkbox element
-		 */
-		this.onAdvancedSearchToggled = function(el) {
-			if (el) {
-				this.active = el.checked;
-				if ((el = mb.ui.get("id_type")) != null) {
-					this.setOptionsByType(el);
-				}
-			}
-		};
 
 		/**
 		 * @param el	the dropdown element
