@@ -176,19 +176,29 @@
 
 		</table>
 
-
-%		my $show_pageselector = (($total_mods - $offset > $max_items or $offset > 0) and @$mods);
-%		if ($show_pageselector or $show_button)
+% 		if ($show_button)
 %		{
 
-		<& /comp/tablebegin, title => "Vote on edits" &>
+		<div style="text-align: right; margin-bottom: 20px">
+			Click here to vote on the items on this page:
+
+			<input type="hidden" name="url" value="<% $r->uri() . "?" . $r->args() %>" />
+			<input type="submit" name="submit" value="Enter Votes &raquo;" />
+		</div>
+
+%		}
+
+	</form>
+
+
+%		my $show_pageselector = (($total_mods - $offset > $max_items or $offset > 0) and @$mods);
+%		if ($show_pageselector)
+%		{
+
+		<& /comp/tablebegin, title => "Browse edits" &>
 
 		<table style="width: 98%">
 			<tr>
-
-% 			if ($show_pageselector)
-%			{
-
 				<td>
 				<& /comp/browse/pageselector,
 				   url => "/mod/search/results.html",
@@ -197,17 +207,6 @@
 				   pagesize => $max_items,
 				   numitems => $total_mods,
 				&></td>
-
-% 			}
-% 			if ($show_button)
-%			{
-
-				<td style="text-align: right">
-     				<input type="hidden" name="url" value="<% $r->uri() . "?" . $r->args() %>" />
-     				<input type="submit" name="submit" value="Enter Votes" /></td>
-
-%			}
-
 			</tr>
 		</table>
 
@@ -218,7 +217,6 @@
 		<script type="text/javascript" src="/scripts/showedit.js"></script>
 		<script type="text/javascript" src="/scripts/jsdiff.js"></script>
 		<script type="text/javascript" src="/scripts/collapsereleases.js"></script>
-	</form>
 
 % 	}
 
