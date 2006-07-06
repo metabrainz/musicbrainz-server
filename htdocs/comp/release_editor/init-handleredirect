@@ -118,6 +118,7 @@
 		$returnurl .= $m->comp("/comp/args-to-querystring.inc", %args);
 		$returnurl .= "&artistfilter_newartistid=";
 		$returnurl = uri_escape($returnurl);
+		$artistfilter_search = uri_escape($artistfilter_search);
 
 		# prepare add artist form url.
 		my $addartisturl = "/edit/artist/add.html?name=$artistfilter_search&returnurl=$returnurl";

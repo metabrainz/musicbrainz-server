@@ -127,15 +127,14 @@
 		# The add new artist button was pressed
 		elsif ($submitvalue =~ m/Add New Artist/i)
 		{
-			# prepare returnurl for add artist form
+			# prepare redirect for add artist form
 			my $returnurl = "/edit/album/move.html";
 			my %returnargs;
 			$returnargs{"releaseid"} = \@releaseid;
-
 			$returnurl = sprintf "$returnurl?%s&artistfilter_newartistid=", $m->comp("/comp/args-to-querystring.inc", %returnargs);
 			$returnurl = uri_escape($returnurl);
+			$search = uri_escape($search);
 
-			# prepare url for redirecting to artist form
 			my $addartisturl = "/edit/artist/add.html?name=$search&returnurl=$returnurl";
 			return $m->comp("/comp/redirect", $addartisturl);
 		}
