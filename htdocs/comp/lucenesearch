@@ -43,11 +43,11 @@
 
 							<input type="checkbox" name="as" value="1"
 								<% $session{'as_as'} ? qq! checked="checked" ! : "" |n %>
-							/>&nbsp;Sort names
+							/>&nbsp;Sort Names
 
 							<input type="checkbox" name="aa" value="1"
 								<% $session{'as_aa'} ? qq! checked="checked" ! : "" |n %>
-							/>&nbsp;Alias'
+							/>&nbsp;Aliases
 						</td>
 					</tr>
 					<tr id="id_type_r">
