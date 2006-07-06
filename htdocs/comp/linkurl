@@ -66,7 +66,12 @@
 
 	# render link to /show/url page.
 	$m->out(qq!<strong>!) if ($strong);
-	$m->out(qq!<img src="/images/entity/url_small.gif" alt="URL" class="entityicon" width="13" height="13" />!) if ($icon);
+
+	if ($icon && !UserPreference::get("css_noentityicons"))
+	{
+		$m->out(qq!<img src="/images/entity/url_small.gif" alt="URL" class="entityicon" width="13" height="13" />!)
+	}
+
 	$m->out(qq!<a href="$href" rel="nofollow" title="$title">$shorturl</a>!);
 	$m->out(qq!</strong>!) if ($strong);
 
