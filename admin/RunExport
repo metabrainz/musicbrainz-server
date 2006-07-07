@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -o errexit
+
 mb_server=`dirname $0`/..
 eval `$mb_server/admin/ShowDBDefs`
 . $mb_server/admin/config.sh
@@ -8,7 +10,9 @@ cd $mb_server
 . ./admin/functions.sh
 make_temp_dir
 
+set +o errexit
 WITH_FULL_EXPORT=$1 ; shift
+set -o errexit
 
 # Make a date/time stamp for the full export
 if [ "$WITH_FULL_EXPORT" ]
@@ -64,6 +68,7 @@ then
 	chown "$FTP_USER:$FTP_GROUP" "$TEMP_DIR"/replication-*.tar.bz2
 	chmod "$FTP_FILE_MODE" "$TEMP_DIR"/replication-*.tar.bz2
 	mv "$TEMP_DIR"/replication-*.tar.bz2 "$FTP_DATA_DIR"/replication/
+	/root/backup/run
 fi
 
 if [ "$WITH_FULL_EXPORT" ]
@@ -88,6 +93,12 @@ then
 	> "$FTP_DATA_DIR"/fullexport/latest-is-"$EXPORT_STAMP"
 	chmod "$FTP_FILE_MODE" "$FTP_DATA_DIR"/fullexport/latest-is-"$EXPORT_STAMP"
 	chown "$FTP_USER:$FTP_GROUP" "$FTP_DATA_DIR"/fullexport/latest-is-"$EXPORT_STAMP"
+
+	$mb_server/bin/delete-old-fullexports -k -r "$BACKUP_DIR"/fullexport "$FTP_DATA_DIR"/fullexport
+	$mb_server/bin/rsync-fullexport-files
+	/root/backup/run
 fi
+
+$mb_server/bin/rsync-replication-files
 
 # eof

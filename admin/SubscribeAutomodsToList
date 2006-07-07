@@ -53,6 +53,34 @@ if (-f $sConfigFile)
 
 my $automods = $sql->SelectListOfLists("SELECT name, email FROM moderator
 	WHERE (privs & ?) > 0", UserStuff::AUTOMOD_FLAG);
+
+{
+	my $rsync_script = &DBDefs::MB_SERVER_ROOT . "/bin/rsync-automods-list";
+	last unless -f $rsync_script and -x _;
+	require POSIX;
+	pipe(my $r, my $w) or die $!;
+	defined(my $pid = fork) or die $!;
+	if ($pid == 0)
+	{
+		close($w);
+		POSIX::dup2(fileno($r), &POSIX::STDIN_FILENO) != -1 or die $!;
+		close($r);
+		{ exec $rsync_script };
+		die $!;
+	}
+
+	close $r;
+	for (@$automods)
+	{
+		printf $w "%s\0%s\0\0", @$_;
+	}
+	printf $w "\0";
+	close $w;
+
+	waitpid $pid, 0;
+	exit($? >> 8);
+}
+
 my %automods = map { lc($_->[1]) => $_->[0] } @$automods;
 
 my $mailmandir = "/usr/local/mailman";

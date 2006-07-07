@@ -95,8 +95,11 @@ my $threshold_mod_id = Moderation->iFindByTime($mb->{DBH}, $threshold_time);
 my ($iMin, $iMax) = Moderation->iiMinMaxID($mb->{DBH});
 print localtime() . " : min=$iMin threshold=$threshold_mod_id max=$iMax\n";
 
+my $types = join ",", &ModDefs::MOD_ADD_TRMS, &ModDefs::MOD_ADD_PUIDS;
+
 nibble(
-	"SELECT id FROM moderation_closed WHERE type = " . &ModDefs::MOD_ADD_TRMS . " AND id < $threshold_mod_id",
+	"SELECT id FROM moderation_closed WHERE type IN ($types) AND id BETWEEN ? AND ?",
+	$iMin, $threshold_mod_id,
 	[ "moderation_note_closed", "moderation" ],
 	[ "vote_closed", "moderation" ],
 	[ "moderation_closed", "id" ],
@@ -104,7 +107,7 @@ nibble(
 
 sub nibble
 {
-	my ($getidquery, @deletelist) = @_;
+	my ($getidquery, $iMin, $iMax, @deletelist) = @_;
 
 	require POSIX;
 	my $now = POSIX::strftime('%Y%m%d-%H%M%S-UTC', gmtime);
@@ -138,13 +141,22 @@ sub nibble
 		eval {
 			$sql->Begin;
 
+			my $iLocalMax = $iMin + $chunk - 1;
+
 			# Make the list of IDs that we're going to process
-			print localtime() . " : Getting ID set\n";
-			$sql->Do("CREATE TEMPORARY TABLE tmp_ids AS $getidquery LIMIT $chunk");
+			print localtime() . " : Getting ID set ($iMin - $iLocalMax)\n";
+			$sql->Do("CREATE TEMPORARY TABLE tmp_ids AS $getidquery LIMIT $chunk", $iMin, $iLocalMax);
 			my $count = $sql->SelectSingleValue("SELECT COUNT(*) FROM tmp_ids");
 			print localtime() . " : Got $count IDs\n";
 
-			$done = 1, return if $count == 0;
+			if ($count == 0)
+			{
+				$sql->Do("DROP TABLE tmp_ids");
+				$sql->Commit;
+				$iMin = $iLocalMax + 1;
+				$done = 1 if $iMin > $iMax;
+				return;
+			}
 
 			$fh->autoflush(0);
 			print $fh "BEGIN;\n" or die $!;

@@ -25,6 +25,12 @@ drop table puiddist;
 drop sequence puidjoinnew_seq;
 drop sequence puidnew_seq;
 
+\copy puid to 'puid.dat'
+\copy puidjoin to 'puidjoin.dat'
+
+drop table puid;
+drop table puidjoin;
+
 COMMIT;
 
 -- vi: set ts=4 sw=4 et :
