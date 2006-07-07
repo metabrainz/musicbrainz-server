@@ -32,7 +32,6 @@ require Exporter;
 
 use Carp;
 use Encode qw( encode decode );
-use Text::WikiFormat;
 
 use ModDefs qw( VOTE_ABS );
 
@@ -76,10 +75,7 @@ sub mark_up_text_as_html
 		}					
 		($is_url = not $is_url)
 			? qq[<a href="$encurl" title="$encurl">$shorturl</a>]
-			: $_;# since we feed the text into the
-				  # Text::WikiFormat class, there's no need
-				  # to encode the text if it is not an url.
-			
+            : $encurl;
 	} split /
 		(
 			# Something that looks like the start of a URL
@@ -101,16 +97,7 @@ sub mark_up_text_as_html
 
 	$html =~ s[\b(?:mod(?:eration)? #?|edit #|change #)(\d+)\b]
 			  [<a href="http://$server/show/edit/?editid=$1">edit #$1</a>]g;
-
-	# apply wiki formatting to the titles. this will hopefully
-	# create links to the wiki pages.
-	$html = Text::WikiFormat::format($html, {}, 
-							{	prefix=>"http://$server/doc/",
-								extended => 1,
-								absolute_links => 1,
-								implicit_links => 1
-							})
-		if ($html =~ /\S/);
+    $html =~ s/[^A-Za-z]*([A-Z][a-z]+[A-Z][a-z]+([A-Z][a-z]+)*)[^A-Za-z]*/ <a href="http:\/\/wiki.musicbrainz.org\/$1">$1<\/a> /g;
 
 	$html =~ s/<\/?p[^>]*>//g;
 	$html =~ s/<br[^>]*\/?>//g;
