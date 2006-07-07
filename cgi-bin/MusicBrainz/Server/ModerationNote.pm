@@ -108,7 +108,7 @@ sub mark_up_text_as_html
 							{	prefix=>"http://$server/doc/",
 								extended => 1,
 								absolute_links => 1,
-								implicit_links => 0
+								implicit_links => 1
 							})
 		if ($html =~ /\S/);
 
