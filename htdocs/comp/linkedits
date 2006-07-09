@@ -36,6 +36,7 @@
 	$type => undef # artist or release
 	$id => 0 # rowid
 	$mp => 0
+	$explain => ""
 
 </%args>
 <%perl>
@@ -70,12 +71,13 @@
 %	if (defined $mp_url and $id)
 %	{
 %		$mp_url = sprintf($mp_url, $id);
+%		$explain = "&nbsp;edits" if ($explain ne "");
 
 %		$m->out(qq!<span class="mp">!) if ($mp);
 
 		[&nbsp;<a
-			href="<% $mp_url.$open_status |n %>" title="<% $open_title %>">open</a>&nbsp;|&nbsp;<a
-			href="<% $mp_url |n %>" title="<% $all_title %>">all</a>&nbsp;]
+			href="<% $mp_url.$open_status |n %>" title="<% $open_title %>">open<%$explain |n%></a>&nbsp;|&nbsp;<a
+			href="<% $mp_url |n %>" title="<% $all_title %>">all<%$explain |n%></a>&nbsp;]
 
 %		$m->out('</span>') if ($mp);
 

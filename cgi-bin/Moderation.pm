@@ -1274,7 +1274,7 @@ sub ShowModType
 	if ($showeditlinks)
 	{
 		$mason->out(qq!<td class="editlinks">!);
-		$mason->comp("/comp/linkedits", type => "artist", id => $this->GetArtist);
+		$mason->comp("/comp/linkedits", type => "artist", id => $this->GetArtist, explain => 1);
 		$mason->out(qq!</td>!);
 	}
 	$mason->out(qq!</tr>!);	
@@ -1299,7 +1299,7 @@ sub ShowModType
 		if ($showeditlinks)
 		{
 			$mason->out(qq!<td class="editlinks">!);
-			$mason->comp("/comp/linkedits", type => "release", id => $id);
+			$mason->comp("/comp/linkedits", type => "release", id => $id, explain => 1);
 			$mason->out(qq!</td>!);
 		}
 		$mason->out(qq!</tr>!);	
@@ -1323,7 +1323,7 @@ sub ShowModType
 		if ($showeditlinks)
 		{
 			$mason->out(qq!<td class="editlinks">!);
-			$mason->comp("/comp/linkedits", type => "track", id => $id);
+			$mason->comp("/comp/linkedits", type => "track", id => $id, explain => 1);
 			$mason->out(qq!</td>!);
 		}
 		$mason->out(qq!</tr>!);		

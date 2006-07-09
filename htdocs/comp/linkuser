@@ -64,9 +64,9 @@
 
 	my $dispname = $m->interp->apply_escapes($name, 'h');
 	my $shortname = $dispname;
-	if ($shorten && length($name) > 11)
+	if ($shorten && length($name) > 15)
 	{
-		$shortname = substr($name, 0, 10);
+		$shortname = substr($name, 0, 14);
 		$shortname = $m->interp->apply_escapes($shortname, 'h');
 		$shortname .= "&#8230;";
 	}

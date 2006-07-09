@@ -289,7 +289,7 @@ table.voteslist tr td.vote,
 table.voteslist tr td.date { 
 	background-color: inherit;
 	color: #000;
-	border-top: 1px dotted #ccc;
+	border-top: 1px dotted #ddd;
 }
 
 table.voteslist span.date {
@@ -359,19 +359,19 @@ table.noteslist tr.even td.text,
 table.noteslist tr.even td.date { 
 	background-color: #fff;
 	color: #000;
-	border-top: 1px dotted #ccc;
+	border-top: 1px dotted #ddd;
 }
 
 table.noteslist tr.odd td.text,
 table.noteslist tr.odd td.date {
 	background-color: #fff;
 	color: #000;
-	border-top: 1px dotted #ccc;
+	border-top: 1px dotted #ddd;
 }
 
-table.noteslist tr.addnote td.text { 
+table.noteslist div.addnote { 
 	padding-top: 4px;
-	border-top: 1px dotted #ccc;
+	text-align: right;
 }
 
 
@@ -448,7 +448,7 @@ table.edittype tr.entity a {
 }
 
 table.edittype tr.entity td.editlinks {
-	padding-left: 50px;
+	padding-left: 200px;
 }
 
 .showedit-jsnote {

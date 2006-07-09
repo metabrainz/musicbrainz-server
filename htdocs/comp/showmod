@@ -172,7 +172,7 @@
 							name => $note->GetUserName,
 							strong => $strong,
 							icon => 0,
-							short => 1,
+							shorten => 1,
 							title => $title &>:</td>
 					<td class="text">
 
