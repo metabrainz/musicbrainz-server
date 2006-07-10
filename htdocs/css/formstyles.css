@@ -23,6 +23,13 @@ table.formstyle input.numberfield-hidden {
 	visibility: hidden;
 }
 
+table.formstyle input.checkbox-disabled {
+}
+
+table.formstyle input.textbox-disabled {
+	background: #eee !important;
+	border: 1px solid #aaa !important;
+}
 
 /* textfield classes */
 table.formstyle input.trackseq,

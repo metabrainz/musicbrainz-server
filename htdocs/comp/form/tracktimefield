@@ -43,6 +43,7 @@
 		: "Track time editing is disabled because of valid Disc ID(s)");
 
 	# use mason->out to compress whitespace
+	$cssclass = $cssclass . " textbox-disabled" if (!$enabled);
 	$m->out(qq!<input type="text" name="$name" class="tracklength$cssclass"!);
 	$m->out(qq!tabindex="$tabindex" title="$tooltip" !);
 	$m->out(qq!disabled="disabled" !) if (!$enabled);

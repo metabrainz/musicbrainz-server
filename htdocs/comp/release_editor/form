@@ -67,153 +67,6 @@
 	%checkattributes = %{ $ARGS{"v::attributes"} } if (ref $ARGS{"v::attributes"} eq "HASH");
 	%checkreleases = %{ $ARGS{"v::releases"} } if (ref $ARGS{"v::releases"} eq "HASH");
 
-	# write AR javascript config
-	my $viewjs = 0;
-	$m->out($viewjs ? '<pre>' : '<script type="text/javascript">');
-
-	# try to create a link type object from the types (artist-track)
-	my $linktype = MusicBrainz::Server::LinkType->newFromPackedTypes($mb->{DBH}, "artist-track");
-
-	# try to create node from the relationship-id, else skip this node
-	# (e.g. does not exist anymore)
-	my $root = $linktype->Root;
-	my $attrType = MusicBrainz::Server::LinkAttr->new($mb->{DBH});
-	my $attr_root = $attrType->Root;
-	my @children = $attr_root->Children;
-	my %seen_attrs;
-
-
-	# -------------------------------------------------------------------------
-	# RELATIONSHIP TYPES
-	# -------------------------------------------------------------------------
-
-	# include non-selectable 0 element
-	my @rel_types_ids;
-	my @rel_types;
-	push @rel_types, ("  0: { attr: '', desc: '', indent: 0, phrase: '[select a relationship type]' }");
-	push @rel_types_ids, 0;
-
-	# loop through all the types, and prepare javascript array
-	my @q = map { [$_,0] } $root;
-	while (my $l = shift @q)
-	{
-		unshift @q, map { [$_,$l->[1]+1] } $l->[0]->Children;
-		next if ($l->[0]->GetName eq 'ROOT');
-		if ($l->[0]->GetAttributes())
-		{
-			my @at = split ' ', $l->[0]->GetAttributes();
-			foreach my $a (@at)
-			{
-				my ($key, $value) = split '=', $a;
-				my ($mn, $mx) = split '-', $value;
-				$mx = -1 if (!defined $mx or $mx eq '');
-				$seen_attrs{$key} = $mx;
-			}
-		}
-		my $phrase = $l->[0]->GetLinkPhrase;
-		$phrase =~ s/\{(\w+:)/{/;
-
-		# prepare list
-		push @rel_types,
-			sprintf("%d: { attr: '%s', desc: '%s', indent: %d, phrase: '%s' }",
-				$l->[0]->GetId,
-				$l->[0]->GetAttributes(),
-				encode_entities($l->[0]->GetDescription()),
-				$l->[1],
-				encode_entities($phrase)
-			);
-		push @rel_types_ids, $l->[0]->GetId;
-	}
-
-	# include the list of toplevel types
-	push @rel_types,
-		sprintf("list: [%s]",
-			join (", ", @rel_types_ids)
-		);
-
-	$m->out("// relationship types:\n");
-	$m->out("var rel_types = {\n");
-	$m->out(join (",\n  ", @rel_types));
-	$m->out("\n};\n\n");
-
-	# -------------------------------------------------------------------------
-	# RELATIONSHIP ATTRIBUTES
-	# -------------------------------------------------------------------------
-	my @rel_attrs_ids;
-	my @rel_attrs;
-	foreach my $sec (keys %seen_attrs)
-	{
-		my $desc;
-		my $isSimple;
-		my $tree;
-		foreach my $child (@children)
-		{
-			if ($child->GetName eq $sec)
-			{
-				$desc = $child->GetDescription;
-				$isSimple = !$child->HasChildren;
-				$tree = $child;
-			}
-		}
-
-		# if we have a simple attribute type (=no children) print it
-		push @rel_attrs, sprintf("%d: { name: '%s', desc: '%s', children: null }",
-							$tree->GetId,
-							encode_entities($sec),
-							encode_entities($desc)
-						) if ($isSimple);
-
-		# else collect children, and print it
-		if (!$isSimple)
-		{
-			my @children_list;
-			my @children_ids;
-			my @q = map { [$_,0] } $tree->Children;
-			while (my $l = shift @q)
-			{
-				unshift @q, map { [$_, $l->[1]+1] } $l->[0]->Children;
-				next if ($l->[0]->GetName eq 'ROOT');
-
-				my $name = $l->[0]->GetName;
-				MusicBrainz::TrimInPlace($name);
-
-				push @children_list, sprintf("%d: { indent: %d, name: '%s' }",
-										$l->[0]->GetId,
-										$l->[1],
-										encode_entities($name));
-				push @children_ids, $l->[0]->GetId;
-			}
-			push @children_list, sprintf("list: [%s]",
-								join (", ", @children_ids));
-
-			# encode children list into children array.
-			my $children_dump = sprintf("\n    %s\n    ",
-									join(", ", @children_list)
-								);
-			push @rel_attrs, sprintf("%d: { name: '%s', desc: '%s', children: {%s} }",
-								$tree->GetId,
-								$sec,
-								$desc,
-								$children_dump);
-		}
-		push @rel_attrs_ids, $tree->GetId;
-	}
-
-	# include the list of toplevel ids
-	push @rel_attrs, sprintf(
-						'"list": [%s]',
-						join (", ", @rel_attrs_ids));
-	push @rel_attrs, sprintf(
-						'"list": [%s]',
-						join (", ", @rel_attrs_ids));
-
-	$m->out("// relationship attributes:\n");
-	$m->out("var rel_attrs = {\n");
-	$m->out(join (",\n  ", @rel_attrs));
-	$m->out("\n};\n");
-
-	$m->out($viewjs ? '</pre>' : '</script>');
-
 	my $editmode = $ARGS{"v::action"} ne "/cdi/enter.html";
 	my $boxtitle = $editmode ? "Edit Release" : "Add Release";
 
@@ -237,12 +90,13 @@
 </%perl>
 
 	<form method="post" action="<% $ARGS{"v::action"} %>">
+
 		<& /comp/autofixmenu &>
 
 %		# this submit hidden field is needed, if the user submits the form
 %		# with a RETURN while the cursor is in a field. It is ignored if
 %		# another submit parameter was sent as well (e.g. if a button
-%		# other than "Next Â»" was clicked.
+%		# other than "Next »" was clicked.
 		<input type="submit" value="<% $ARGS{"SUBMIT_NEXT"} %>" style="display: none" />
 
 		<script type="text/javascript" src="/scripts/entervalidate.js"></script>
@@ -253,6 +107,22 @@
 			<& /comp/release_editor/steps, %ARGS, stepsleft => 2 &>
 
 			<table class="formstyle release_editor">
+
+%	if (!$ARGS{"v::edit_track_data"})
+%	{
+
+				<tr>
+					<td colspan="3">&nbsp;</td>
+					<td colspan="4">
+						<& /comp/form/feedbackbox, "warning",
+							qq! This release has one or more Disc IDs.!,
+							qq!	Please note that you cannot add, remove,
+								nor renumber tracks because of
+								the attached Disc IDs. ! &>
+					</td>
+				</tr>
+
+%	}
 
 <%perl>
 
