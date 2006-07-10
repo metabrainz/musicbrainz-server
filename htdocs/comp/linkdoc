@@ -38,8 +38,8 @@
 
 	$m->out(qq!<strong>!) if ($strong);
 
-	$m->out(qq!<a href="/doc/$pagename" title="Wiki page: $pagename" >!);
 	$m->out(qq!<img src="/images/icon/wikidocs.gif" class="entityicon" alt="" width="13" height="13" />!) if ($icon);
+	$m->out(qq!<a href="/doc/$pagename" title="Wiki page: $pagename" >!);
 	$m->out(qq!$linktext</a>!);
 
 	$m->out(qq!</strong>!) if ($strong);
