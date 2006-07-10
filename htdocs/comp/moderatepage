@@ -83,10 +83,10 @@
 				<td class="label">
 					Quick links:</td>
 				<td>
-					<a href="/mod/search/select-filter.html">Predefined Edit Search</a> |
-					<a href="/mod/search/index.html?<% $m->comp('/comp/args-to-querystring.inc', %$args) %>">Advanced Edit Search</a> |
 					<a href="/mod/search/pre/new.html">New edits</a> |
 					<a href="/mod/search/pre/subscriptions.html">Subscribed</a> |
+					<a href="/mod/search/select-filter.html">Predefined Edit Search</a> |
+					<a href="/mod/search/index.html?<% $m->comp('/comp/args-to-querystring.inc', %$args) %>">Advanced Edit Search</a> |
 					<a href="/mod/jump.html">Jump to #</a></td>
 			</tr>
 			<tr>
