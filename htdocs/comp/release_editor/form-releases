@@ -109,7 +109,8 @@
 				<tr>
 					<td colspan="2">&nbsp;</td>
 					<td colspan="4">
-						<img src="/images/release_editor/remove-releaseevent.png" alt="Tick the checkboxes to remove release events" /></td>
+						<img src="/images/release_editor/remove-releaseevent.png" alt=""
+							title="Tick the checkboxes to remove release events" /></td>
 				</tr>
 
 

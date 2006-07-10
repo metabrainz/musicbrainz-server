@@ -429,14 +429,13 @@
 %		if ($ARGS{"v::track$i"} ne "")
 %		{
 
-				<tr class="trackerror" class="<% $i % 2 == 0 ? "even" : "odd" %>">
-					<td>&nbsp;</td>
-					<td>&nbsp;</td>
-					<td>
+				<tr class="trackerror <% $i % 2 == 0 ? "even" : "odd" %>">
+					<td colspan="3">&nbsp;</td>
+					<td colspan="3">
 %			my @errors = split /\|/, $ARGS{"v::track$i"};
 %			foreach my $err (@errors)
 %			{
-				<b>&middot;</b> <% $err %> <br/>
+						<b>&middot;</b> <% $err %> <br/>
 %			}
 					</td>
 				</tr>
@@ -522,7 +521,8 @@
 				<tr>
 					<td colspan="2">&nbsp;</td>
 					<td colspan="3">
-						<img src="/images/release_editor/remove-track.png" alt="Tick the checkboxes to remove individual tracks, or change track artists" /></td>
+						<img src="/images/release_editor/remove-track.png" alt=""
+							title="Tick the checkboxes to remove individual tracks, or change track artists" /></td>
 					<td colspan="2">
 						<& /comp/form/jsbutton, id => "BTN_ALL" &>
 					</td>

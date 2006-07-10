@@ -161,6 +161,7 @@
 		$n =~ s/^($n1|$n2)\b[\.\)]?\s*//;
 
 		$args{"track$i"} = $n;
+		$args{"trackseq$i"} = $i + 1;
 	}
 
 	$args{"freedbcat"} = $lookup->{"freedbcat"};
