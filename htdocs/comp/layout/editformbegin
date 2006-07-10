@@ -292,9 +292,8 @@
 %		if ($show_coc)
 %		{
 							<li>
-								Entering edits which might fail existing pending edits is
-								considered rude according to the <& /comp/linkdoc, "CodeOfConduct",
-								"code of conduct" &>.</li>
+								Please follow the <& /comp/linkdoc, "CodeOfConduct", "Code of Conduct" &>
+								and do not enter edits which might cause existing pending edits to fail. </li>
 %		}
 							<% $mp_note |n %>
 						</ul></td>
