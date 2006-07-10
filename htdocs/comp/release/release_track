@@ -170,7 +170,7 @@
 		}
 		else
 		{
-			$m->out(sprintf qq! | <acronym title="%s">Remove</acronym>!,
+			$m->out(sprintf qq! | <span class="explain" title="%s">Remove</span>!,
 							"Tracks cannot be removed from this Release because of attached Disc IDs");
 		}
 		$m->out("</td>\n");

@@ -54,8 +54,8 @@
 			$script = $s->GetName;
 		}
 		$m->out(qq!<div class="attrlist">!);
-		$m->out(qq!(<acronym title="Language">$lang</acronym>, !);
-		$m->out(qq!<acronym title="Script">$script</acronym>)</div>!);
+		$m->out(qq!(<span class="explain" title="Language">$lang</span>, !);
+		$m->out(qq!<span class="explain" title="Script">$script</span>)</div>!);
 		$m->out(qq!</td></tr>!);
 	}
 	$m->out(qq!</table>!);

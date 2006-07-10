@@ -11,7 +11,7 @@
 % 	if ( $title ne '' and defined $lang )
 %	{
 
-	<acronym title="<% $title %>"><% $lang->GetISOCode3T() %></acronym>
+	<span class="explain" title="<% $title %>"><% $lang->GetISOCode3T() %></span>
 
 % 	}
 %	else

@@ -45,8 +45,8 @@
 		$status = "Not set" if not defined($status);
 
 		$m->out(qq!<div class="attrlist">!);
-		$m->out(qq!<acronym title="Type">$type</acronym>, !);
-		$m->out(qq!<acronym title="Status">$status</acronym></div>!);
+		$m->out(qq!<span class="explain" title="Type">$type</span>, !);
+		$m->out(qq!<span class="explain" title="Status">$status</span></div>!);
 		$m->out(qq!</td></tr>!);
 	}
 	$m->out(qq!</table>!);

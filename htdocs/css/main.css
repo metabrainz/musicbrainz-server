@@ -21,7 +21,7 @@ form {
 	margin: 0px;
 }
 
-abbr, acronym, span.abbr {
+abbr, acronym, span.abbr, span.explain {
 	cursor: help; 
 	background-color: inherit; color: #666;
 }
