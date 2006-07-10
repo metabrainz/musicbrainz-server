@@ -690,7 +690,7 @@
 							"warning", "",
 							qq!Please enter all the required elements of this release.
 							   The missing (or wrong) input fields are marked with
-							   an orange background color.! &>
+							   a background color.! &>
 					</td>
 				</tr>
 
