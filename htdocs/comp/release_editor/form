@@ -251,7 +251,7 @@
 					</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
-					<td colspan="2">
+					<td colspan="2" class="field">
 						<& /comp/form/textfield,
 							name => "releasename",
 							id => "id_releasename",
@@ -391,7 +391,7 @@
 							enabled => $ARGS{"v::edit_track_data"},
 							checked => $trackdel &>
 					</td>
-					<td>
+					<td  class="field">
 						<& /comp/form/textfield,
 							name => "track$i",
 							id => "id_t$i",
