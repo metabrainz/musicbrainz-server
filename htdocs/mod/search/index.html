@@ -157,7 +157,7 @@
 					<td class="label"><& /comp/linkdoc, "EditType", "Edit type" &>:</td>
 					<td>
 						<div id="id_mod_type">
-							<select name="mod_type" multiple="multiple" size="18">
+							<select name="mod_type" multiple="multiple" size="12">
 								<%perl>
 								$m->comp(
 									"/comp/options",
@@ -203,7 +203,7 @@
 							/><label for="moderator_type3">
 %	if ($moderator_id)
 %	{
-							Only <a href="/user/view.html?uid=<% $moderator_id %>"><% $filter->{"moderator_name"} %></a></label>
+							Only <& /comp/linkuser, id => $moderator_id, name => $filter->{"moderator_name"} &></label>
 							<input type="hidden" name="moderator_id" value="<% $moderator_id %>" />
 %	} else {
 							(no editor selected)</label>
