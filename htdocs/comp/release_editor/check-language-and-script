@@ -58,8 +58,8 @@
 		push @fieldvalues, $releasename;
 		for my $i (0 .. $tracks-1)
 		{
-			push @fieldvalues, $ARGS{"tracks$i"}
-				if defined $ARGS{"tracks$i"};
+			push @fieldvalues, $ARGS{"track$i"}
+				if defined $ARGS{"track$i"};
 		}
 
 		# script value is empty, guess from fieldvalues
