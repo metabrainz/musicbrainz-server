@@ -699,7 +699,7 @@ sub normalize
 {
     my $t = $_[0];                 # utf8-bytes
     $t = decode "utf-8", $t;       # turn into string
-    $t =~ s/[^\p{IsAlpha}]+/ /g;   # turn non-alpha to space
+    $t =~ s/[^\p{IsAlnum}]+/ /g;   # turn non-alpha to space
     $t =~ s/\s+/ /g;               # squish
     $t = encode "utf-8", $t;       # turn back into utf8-bytes
     $t;
@@ -721,8 +721,7 @@ sub xml_search
         $query = normalize($args->{release});
         if ($args->{artistid})
         { 
-            $args->{artistid} =~ s/-//g;
-            $query .= " arid:" . normalize($args->{artistid});
+            $query .= " arid:" . $args->{artistid};
         }
         else
         { 
@@ -777,6 +776,8 @@ sub xml_search
     {
         die "Incorrect search type: $type\n";
     }
+
+    print STDERR "Query: $query\n";
 
     use URI::Escape qw( uri_escape );
     my $url = 'http://' . &DBDefs::LUCENE_SERVER . "/ws/1/$type/?" .
