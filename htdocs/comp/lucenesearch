@@ -37,16 +37,22 @@
 				<table cellspacing="0" cellpadding="0" border="0">
 					<tr id="id_type_a">
 						<td>
+
+%	my ($as_an, $as_as, $as_aa) = ($session{"as_an"}, $session{"as_as"}, $session{"as_aa"});
+%	$as_an = defined ($as_an) ? $as_an : 1;
+%	$as_as = defined ($as_as) ? $as_as : 1;
+%	$as_aa = defined ($as_aa) ? $as_aa : 0;
+
 							in <input type="checkbox" name="an" value="1"
-								<% $session{'as_an'} ? qq! checked="checked" ! : "" |n %>
+								<% $as_an ? qq! checked="checked" ! : "" |n %>
 							/>&nbsp;Names
 
 							<input type="checkbox" name="as" value="1"
-								<% $session{'as_as'} ? qq! checked="checked" ! : "" |n %>
+								<% $as_as ? qq! checked="checked" ! : "" |n %>
 							/>&nbsp;Sort Names
 
 							<input type="checkbox" name="aa" value="1"
-								<% $session{'as_aa'} ? qq! checked="checked" ! : "" |n %>
+								<% $as_aa ? qq! checked="checked" ! : "" |n %>
 							/>&nbsp;Aliases
 						</td>
 					</tr>
