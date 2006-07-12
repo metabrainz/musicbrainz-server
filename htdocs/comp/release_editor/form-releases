@@ -55,8 +55,11 @@
 				<tr class="spaced top">
 					<td colspan="3" class="label"></td>
 					<td colspan="3" class="formsection">
-						Please enter release events if you know them. If you do not know <br/>
-						neither year nor country, leave the fields like they are.</td>
+						The fields below allow you to add release events. The country is preset
+						to the one you can specify in the <a href="user/preferences.html">user
+						preferences</a>. A set of fields without dates and the default release
+						country is handled as if all fields were blank. If you want to delete
+						existing release events, tick the checkbox on the left of the fields.</td>
 				</tr>
 
 <%perl>
@@ -122,9 +125,9 @@
 					<td colspan="3">
 						<& /comp/form/feedbackbox, "warning", "",
 							qq!Please enter valid release events (including the country)
-							   or remove the fields you do not want to enter.
+							   or clear the fields you do not want to enter.
 							   The missing/wrong date and country fields are marked
-							   with an orange background color.!
+							   with a background color.!
 						&></td>
 				</tr>
 

@@ -124,6 +124,22 @@
 
 %	}
 
+				<tr class="top">
+					<td colspan="3" class="label"></td>
+					<td colspan="3" class="formsection">
+						The fields below allow you to enter track information, and to select
+						track artists. Unless the release has attached Disc IDs, you can
+						remove tracks by activating the checkbox on the left of the track
+						title fields. If you are editing a various artists release, or if
+						you have choosen to display the track artists, you can activate
+						the checkbox of the artists you would like to change. The page
+						will present you choices of existing track artists, once you
+						click on the button <strong>Continue</strong>. Please use the
+						<strong>Guess Case</strong> buttons (or the <strong>Guess All</strong>
+						button for all fields) to fix common style errors.
+						<br/>&nbsp;</td>
+				</tr>
+
 <%perl>
 
 	# -------------------------------------------------------------------------
