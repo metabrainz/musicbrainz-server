@@ -10,7 +10,7 @@
 
 </%args>
 <%perl>
-	(my $pageq = $page) .= ($page =~ /\?/ ? "&" : "?");
+	(my $pageq = $page) .= ($page =~ /\?/ ? "&amp;" : "?");
 	my ($i, $p, $t);
 
 
@@ -46,9 +46,9 @@
 	$m->out(qq!</td>!);
 
 	# append other arguments to page url if they are != default value.
-	$pageq .= "artists=$artists&" if ($artists ne "");
-	$pageq .= "relstatus=$relstatus&" if ($relstatus ne 0);
-	$pageq .= "reltype=$reltype&" if ($reltype ne 0);
+	$pageq .= "artists=$artists&amp;" if ($artists ne "");
+	$pageq .= "relstatus=$relstatus&amp;" if ($relstatus ne 0);
+	$pageq .= "reltype=$reltype&amp;" if ($reltype ne 0);
 
 
 	# render the list of character (+symbol, space placeholders)
@@ -58,6 +58,7 @@
 	for($i = 0; $i < 13; $i++)
 	{
 		my $addsymbol = $pageq . "index=" . $index;
+
 		if ($i == 0)
 		{
 			$m->out(qq!<td class="special">!);

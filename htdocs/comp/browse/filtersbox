@@ -39,7 +39,7 @@
 
 	$m->out(qq!<table class="listing">!);
 
-	$m->out(qq!<tr><td class="left"><b>Release Type:</b></td><td class="left">!);
+	$m->out(qq!<tr><td class="left"><b>Release&nbsp;Type:&nbsp;</b></td><td class="left">!);
 	for my $rt (0, Album::ALBUM_ATTR_SECTION_TYPE_START ..  Album::ALBUM_ATTR_SECTION_TYPE_END)
 	{
 		my $name = ($rt ? Album->GetAttributeName($rt) : "All");
@@ -50,7 +50,7 @@
 	}
 	$m->out(qq!</td></tr>!);
 
-	$m->out(qq!<tr><td class="left"><b>Release Status:</b></td><td class="left">!);
+	$m->out(qq!<tr><td class="left"><b>Release&nbsp;Status:&nbsp;</b></td><td class="left">!);
 	for my $rt (0, Album::ALBUM_ATTR_SECTION_STATUS_START ..  Album::ALBUM_ATTR_SECTION_STATUS_END)
 	{
 		my $name = ($rt ? Album->GetAttributeName($rt) : "All");
@@ -62,7 +62,7 @@
 	$m->out(qq!</td></tr>!);
 
 
-	$m->out(qq!<tr><td class="left"><b>Artist:</b></td><td class="left">!);
+	$m->out(qq!<tr><td class="left"><b>Artist:&nbsp;</b></td><td class="left">!);
 	for ("all=All Artists", "=Various Artists", "single=Single Artist")
 	{
 		my ($v, $name) = split /=/, $_;
