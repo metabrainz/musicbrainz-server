@@ -183,7 +183,7 @@
 
 
 		],
-		{ name => "Edit",					url => "/mod_intro.html" },
+		{ name => "Edit",					url => "/doc/HowEditingWorks" },
 		[
 			{ name => "About Editing",			url => "/mod_intro.html" },
 			{ name => "Editing Suggestions",	url => "/reports/index.html" },
