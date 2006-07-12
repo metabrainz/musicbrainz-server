@@ -85,6 +85,11 @@
 
 			my ($ov, $nv);
 
+			# only enter change track artist edits if either the release
+			# artist hasn't changed and there are different there are
+			# different track artists than the release artist.
+			my $movetracks = 0;
+
 			# MOD_MOVE_ALBUM
 			# if the album needs to be moved to an existing artist, or
 			# if the insert mod above was successful, continue moving the
@@ -95,6 +100,17 @@
 			{
 				my $oldartist = &$GetCachedArtist($ov);
 				my $newartist = &$GetCachedArtist($nv);
+
+				# if all tracks are set to the release artist, its a
+				# single artist conversion, else a move release edit.
+				$movetracks = 1;
+				for (my $t=0; $t < $tracks; $t++)
+				{
+					my $orig_trackartistid = $orig{getField($t, "artistid")};
+					my $new_trackartistid = $ARGS{getField($t, "artistid")};
+					$movetracks = ($movetracks && $new_trackartistid == $nv);
+				}
+
 				push @mods, Moderation->InsertModeration(
 					DBH	=> $mb->{DBH},
 					uid	=> $session{uid},
@@ -106,6 +122,7 @@
 					artistid => $newartist->GetId,
 					artistname => $newartist->GetName,
 					artistsortname => $newartist->GetSortName,
+					movetracks => $movetracks,
 				);
 			}
 
@@ -327,7 +344,8 @@
 					}
 
 					# MOD_CHANGE_TRACK_ARTIST
-					if ($orig_artistid ne $new_artistid)
+					if ($orig_artistid ne $new_artistid
+						and not $movetracks)
 					{
 						push @mods, Moderation->InsertModeration(
 							DBH	=> $mb->{DBH},

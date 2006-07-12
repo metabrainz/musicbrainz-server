@@ -249,8 +249,7 @@
 
 				# raise flags which define if we need the
 				# track-artist mods
-				my $is_sac = 0;
-				my $is_mac = 0;
+				my $movetracks = 0;
 
 				(MusicBrainz::IsNonNegInteger($orig_artistid) or $orig_artistid eq "*")
 					or die("need non-negative integer or * \$orig_artistid=$orig_artistid");
@@ -259,36 +258,28 @@
 
 				if ($orig_artistid ne $new_artistid)
 				{
-					if ($orig{"hasmultipletrackartists"} and
-						not $ARGS{"hasmultipletrackartists"})
+					# if all tracks are set to the release artist, its a
+					# single artist conversion, else a move release edit.
+					$movetracks = 1;
+					for (my $t=0; $t < $tracks; $t++)
 					{
-						$m->comp(".showReleaseEdit",
-							mb => $mb,
-							edittype => "ConvertReleaseToSingleArtistEdit",
-							edittitle => "Single Artist Conversion",
-
-							oldvalue => "",
-							newvalue => "Move Release and tracks to $new_artistname",
-							modtype => &ModDefs::MOD_MAC_TO_SAC,
-							cnt => ++$releasechanges
-						);
-						$is_sac = 1;
+						my $orig_trackartistid = $orig{getField($t, "artistid")};
+						my $new_trackartistid = $ARGS{getField($t, "artistid")};
+						$movetracks = ($movetracks && $new_trackartistid == $new_artistid);
 					}
-					else
-					{
-						$m->comp(".showArtistEdit",
-							mb => $mb,
-							edittype => "MoveReleaseEdit",
-							edittitle => "Move Release",
-							title => "Change Artist",
 
-							orig_artist => &$GetCachedArtist($orig_artistid),
-							new_artist => &$GetCachedArtist($new_artistid),
-							new_artistname => $ARGS{"artistname"},
-							new_resolution => $ARGS{"ar_resolution"},
-							cnt => ++$releasechanges
-						);
-					}
+					$m->comp(".showArtistEdit",
+						mb => $mb,
+						edittype => "MoveReleaseEdit",
+						edittitle => "Move Release",
+						title => "Change Artist" . ($movetracks ? " (Move Tracks)" : ""),
+
+						orig_artist => &$GetCachedArtist($orig_artistid),
+						new_artist => &$GetCachedArtist($new_artistid),
+						new_artistname => $ARGS{"artistname"},
+						new_resolution => $ARGS{"ar_resolution"},
+						cnt => ++$releasechanges
+					);
 				}
 
 				# changed release name?
@@ -575,7 +566,7 @@
 
 					# if tracknames differ, it's either an edited or added track
 					if ($orig_artistid ne $new_artistid
-						and not $is_sac)
+						and not $movetracks)
 					{
 						$m->comp(".showTrackEdit",
 							mb => $mb,
