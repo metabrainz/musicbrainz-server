@@ -27,12 +27,12 @@
 	#
 </%perl>
 
-<& /comp/sidebar-notitle, pagetitle => "Releases with Tracks which have no times set" &>
+<& /comp/sidebar-notitle, pagetitle => "Releases with tracks which have no times set" &>
 
 <%perl>
 
 	$ARGS{"report_title"} =
-		qq!Releases with Tracks which have no times set!;
+		qq!Releases with tracks which have no times set!;
 
 	$ARGS{"report_text"} =
 		qq! This report lists all releases which contain tracks
