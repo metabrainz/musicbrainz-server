@@ -51,12 +51,14 @@
 				<td class="label">
 					FreeDB ID:</td>
 				<td>
-					<a href="/bare/cdlookup.html?id=<% $cdtoc->GetFreeDBID %>"><% $cdtoc->GetFreeDBID %></a></td>
+					<a href="http://freedb.org/freedb_discid_check.php?discid=<% $cdtoc->GetFreeDBID %>"><% $cdtoc->GetFreeDBID %></a>
+					(<a href="/bare/cdlookup.html?id=<% $cdtoc->GetFreeDBID %>">find other releases with this FreeDB ID</a>)
+				</td>
 			</tr>
 % 	if ($session{uid}) {
 			<tr>
 				<td class="label">
-					Database row ID:</td>
+					Database Row ID:</td>
 				<td>
 					<% $cdtoc->GetId %></td>
 			</tr>

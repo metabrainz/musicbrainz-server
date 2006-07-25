@@ -27,25 +27,25 @@
 	# $Id$
 	#
 </%perl>
-<& /comp/sidebar-notitle, pagetitle => qq!Releases with "broken" Disc IDs! &>
+<& /comp/sidebar-notitle, pagetitle => qq!Releases with "Broken" Disc IDs! &>
 
 <%perl>
 
 	$ARGS{"report_title"} =
-		qq!Releases with "broken" Disc IDs!;
+		qq!Releases with "Broken" Disc IDs!;
 
 	$ARGS{"report_text"} =
-		qq! This report identifies releases with DiscIDs, where the tracks
-			on the release do not match with the DiscID.
+		qq! This report identifies releases with disc IDs, where the tracks
+			on the release do not match with the discID.
 
-			For example, if the DiscID says that there are four tracks, then
+			For example, if the disc ID says that there are four tracks, then
 			this report checks that the release has four tracks, and that the
 			first track is track 1, and the last track is track 4. Note that
-			it <i>doesn't</i> check all the intervening track numbers; for example,
+			it <em>doesn't</em> check all the intervening track numbers; for example,
 			if the tracks on the release were numbered 1, 2, 2, 4, then this
-			report would <i>not</i> detect that.  However by using both
-			this report and the <a href="DuplicateTrackNumbers">duplicate track numbers</a>
-			report it should be possible to identify and fix all track / DiscID problems.!;
+			report would <em>not</em> detect that.  However by using both
+			this report and the <a href="/reports/generated/DuplicateTrackNumbers">duplicate track numbers</a>
+			report it should be possible to identify and fix all track/disc ID problems.!;
 
 	$m->comp("/reports/show_albums.inc", %ARGS);
 
