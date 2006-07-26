@@ -88,7 +88,7 @@
 
 			<tr>
 				<td class="label">
-					<& /comp/linkdoc, "ReleaseID" &>:</td>
+					Database Row ID:</td>
 				<td>
 					<% $release->GetId %></td>
 			</tr>
@@ -109,11 +109,11 @@
 %		}
 
 					[
-						<a href="/edit/track/edit.html?trackid=<% $track->GetId %>&releaseid=<% $release->GetId %>">Edit Track</a>
+						<a href="/edit/track/edit.html?trackid=<% $track->GetId %>&amp;releaseid=<% $release->GetId %>">Edit Track</a>
 
 %		if (not($release->IsNonAlbumTracks))
 %		{
-					  | <a href="/edit/track/change.html?trackid=<% $track->GetId %>&releaseid=<% $release->GetId %>">Change Artist</a>
+					  | <a href="/edit/track/change.html?trackid=<% $track->GetId %>&amp;releaseid=<% $release->GetId %>">Change Artist</a>
 %		}
 					]
 

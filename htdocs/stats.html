@@ -46,7 +46,7 @@ my $pc = sub
 		<td class="NumberCell"><% $stats{"count.artist"} %></td>
 	</tr>
 	<tr>
-		<th class="StatName">Albums</th>
+		<th class="StatName">Releases</th>
 		<td class="NumberCell"><% $stats{"count.album"} %></td>
 	</tr>
 	<tr>
@@ -70,7 +70,7 @@ my $pc = sub
 		<td class="NumberCell"><% $stats{"count.trm"} %></td>
 	</tr>
 	<tr>
-		<th class="StatName">Moderators</th>
+		<th class="StatName">Editors</th>
 		<td class="NumberCell"><% $stats{"count.moderator"} %></td>
 	</tr>
 </table>
@@ -83,7 +83,7 @@ my $pc = sub
 	<col style="width: 6em" />
 	<col style="width: 4em" />
 	<tr>
-		<th class="StatName">Albums</th>
+		<th class="StatName">Releases</th>
 		<td class="NumberCell"><% $stats{"count.album"} %></td>
 		<td>&nbsp;</td>
 	</tr>
@@ -112,23 +112,23 @@ my $pc = sub
 		<td></td>
 	</tr>
 	<tr>
-		<th class="StatName">Albums</th>
+		<th class="StatName">Releases</th>
 		<td class="NumberCell"><% $stats{"count.album"} %></td>
 		<td></td>
 	</tr>
 	<tr>
-		<th class="StatName">Albums with no Disc ID</th>
+		<th class="StatName">Releases with no disc ID</th>
 		<td class="NumberCell"><% $stats{"count.album.0discids"} %></td>
 		<td class="NumberCell"><% &$pc(@stats{qw( count.album.0discids count.album )}) %></td>
 	</tr>
 	<tr>
-		<th class="StatName">Albums with at least one Disc ID</th>
+		<th class="StatName">Releases with at least one disc ID</th>
 		<td class="NumberCell"><% $stats{"count.album.has_discid"} %></td>
 		<td class="NumberCell"><% &$pc(@stats{qw( count.album.has_discid count.album )}) %></td>
 	</tr>
 % for (1 .. 10) {
 	<tr>
-		<th class="StatName">&nbsp; with <% $_ %> <% $_==10 ? "or more" : "" %> Disc ID<% $_==1 ? "" : "s" %></th>
+		<th class="StatName">&nbsp; with <% $_ %> <% $_==10 ? "or more" : "" %> disc ID<% $_==1 ? "" : "s" %></th>
 		<td class="NumberCell"><% $stats{"count.album.${_}discids"} %></td>
 		<td class="NumberCell"><% &$pc(@stats{"count.album.${_}discids", "count.album.has_discid"}) %></td>
 	</tr>
@@ -267,7 +267,7 @@ my $pc = sub
 	<col style="width: 6em" />
 	<col style="width: 4em" />
 	<tr>
-		<th class="StatName">Moderators</th>
+		<th class="StatName">Editors</th>
 		<td class="NumberCell"><% $stats{"count.moderator"} %></td>
 		<td>&nbsp;</td>
 	</tr>
@@ -296,7 +296,7 @@ my $pc = sub
 	<col style="width: 6em" />
 	<col style="width: 4em" />
 	<tr>
-		<th class="StatName">Moderations</th>
+		<th class="StatName">Edits</th>
 		<td class="NumberCell"><% $stats{"count.moderation"} %></td>
 		<td>&nbsp;</td>
 	</tr>
@@ -404,7 +404,7 @@ my $pc = sub
 
 	</%perl>
 	<tr>
-		<th class="StatName">Open Moderations</th>
+		<th class="StatName">Open Edits</th>
 		<td class="NumberCell"><% $open %></td>
 		<td>&nbsp;</td>
 	</tr>
@@ -511,4 +511,4 @@ else
 
 </%perl>
 
-%# vi: set ts=2 sw=2 ft=mason :
+%# vi: set ts=4 sw=4 ft=mason :

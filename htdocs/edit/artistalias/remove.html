@@ -42,8 +42,8 @@
 	# check id argument
 	MusicBrainz::IsNonNegInteger($id) && $id
 		or return $m->comp("/comp/layout/badarguments",
-			text => "Required Argument <strong>id</strong> is missing "
-				   ."or has  an invalid format.");
+			text => "Required argument <strong>id</strong> is missing "
+				   ."or has an invalid format.");
 
 	# check volatile preferences (like autoeditor flag)
 	$m->comp("/comp/user/check-volatile-preferences", %ARGS);
@@ -103,7 +103,7 @@
 					<ul>
 						<li>
 							Please review the documentation about
-							<& /comp/linkdoc, "ArtistAlias", "Artist Aliases" &>,
+							<& /comp/linkdoc, "ArtistAlias", "artist aliases" &>,
 							before entering this edit.</li>
 						<li>
 							Are you sure you want to remove the alias
@@ -113,17 +113,17 @@
 
 						<li>
 							If you <strong>added this alias by mistake</strong>, please
-							follow the instructions in <& /comp/linkdoc, "HowToCancelEdits", "How to
+							follow the instructions on <& /comp/linkdoc, "HowToCancelEdits", "how to
 							cancel pending edits" &>, to cancel the pending
-							<& /comp/linkdoc, "AddTrackEdit", "Add Track Edit" &>. Removing
+							<& /comp/linkdoc, "AddTrackEdit", "add track edit" &>. Removing
 							pending edits, rather than entering new edits helps
 							reducing the amount of open edits in the System.
 						</li>
 						<li>
 							The removal of pending edits is immediate, while the
-							the <& /comp/linkdoc, "RemoveAliasEdit", "Remove Alias Edit" &>
+							the <& /comp/linkdoc, "RemoveAliasEdit", "remove alias edit" &>
 							has to be voted on according to the
-							<& /comp/linkdoc, "EditingFAQ", "Voting Process" &>.
+							<& /comp/linkdoc, "EditingFAQ", "voting process" &>.
 						</li>
 					</ul>
 				</td>

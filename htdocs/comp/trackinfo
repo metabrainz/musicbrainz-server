@@ -85,7 +85,7 @@
 
 			<tr>
 				<td class="label">
-					<& /comp/linkdoc, "TrackID" &></td>
+					Database Row ID:</td>
 				<td>
 					<% $track->GetId %></td>
 			</tr>
@@ -102,7 +102,7 @@
 					<table class="listing">
 						<tr class="header">
 							<td>
-								PUID: <img src="/images/puid.gif" width="35" alt="" align="middle"></td>
+								PUID: <img src="/images/puid.gif" alt="" /></td>
 							<td>
 								&nbsp;</td>
 						</tr>
@@ -117,14 +117,7 @@
 
 %			if (exists $session{user})
 %			{
-
-								<form method="get" action="/edit/puid/remove.html">
-									<input type="hidden" name="trackid" value="<% $track->GetId %>" />
-									<input type="hidden" name="puid" value="<% $id->{PUID} %>" />
-									<input type="hidden" name="PUIDjoin" value="<% $id->{PUIDjoinid} %>" />
-									<input type="submit" value="Delete" />
-								</form>
-
+								[ <a href="/edit/puid/remove.html?trackid=<% $track->GetId %>&amp;puid=<% $id->{PUID} %>&amp;PUIDjoin=<% $id->{PUIDjoinid} %>">remove</a> ]
 %			}
 %			else
 %			{
@@ -154,11 +147,11 @@
 					<table class="listing">
 						<tr class="header">
 							<td>
-								TRM ID: <img src="/images/trm.gif" alt="" align="middle"></td>
+								TRM ID <img src="/images/trm.gif" alt="" /></td>
 							<td>
-								Lookup count:</td>
+								Lookup Count</td>
 							<td>
-								Use count:</td>
+								Use Count</td>
 							<td>
 								&nbsp;</td>
 						</tr>
@@ -177,14 +170,8 @@
 
 %			if (exists $session{user})
 %			{
-
-								<form method="get" action="/edit/trm/remove.html">
-									<input type="hidden" name="trackid" value="<% $track->GetId %>" />
-									<input type="hidden" name="trmid" value="<% $id->{TRM} %>" />
-									<input type="hidden" name="TRMjoin" value="<% $id->{TRMjoinid} %>" />
-									<input type="submit" value="Delete" />
-								</form>
-%			}
+								[ <a href="/edit/trm/remove.html?trackid=<% $track->GetId %>&amp;trmid=<% $id->{TRM} %>&amp;TRMjoin=<% $id->{TRMjoinid} %>">remove</a> ]
+			}
 %			else
 %			{
 

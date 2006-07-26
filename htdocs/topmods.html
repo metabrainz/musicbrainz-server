@@ -1,4 +1,4 @@
-<& /comp/sidebar, title => 'Top Moderators & Voters' &>
+<& /comp/sidebar, title => 'Top Editors & Voters' &>
 
 <%def .ShowTop>
 % my ($data, $usertitle, $numtitle) = @_;
@@ -6,7 +6,7 @@
 		<col style="width: 8em" />
 		<col style="width: 8em" />
 		<tr>
-			<th class="topmodsname"><% $usertitle || "Moderator" %></th>
+			<th class="topmodsname"><% $usertitle || "Editor" %></th>
 			<th class="topmodsnum"><% $numtitle || 'Count' %></th>
 		</tr>
 %		local $. = 0;
@@ -34,14 +34,14 @@
 		my @opts = (rowlimit => 25, namelimit => 20);
 	</%perl>
 
-	<h2>Most active moderators in the last week (open and accepted moderations)</h2>
+	<h2>Most active editors in the last week (open and accepted edits)</h2>
 	<& .ShowTop,
 		$mod->TopModerators(@opts),
 		"Moderator",
 		"Moderations",
 	&>
 
-	<h2>Most active moderators overall (accepted moderations only)</h2>
+	<h2>Most active editors overall (accepted edits only)</h2>
 	<& .ShowTop,
 		$mod->TopAcceptedModeratorsAllTime(@opts),
 		"Moderator",

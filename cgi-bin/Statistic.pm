@@ -151,7 +151,7 @@ sub TakeSnapshot
 
 my %stats = (
 	"count.album" => {
-		DESC => "Count of all albums",
+		DESC => "Count of all releases",
 		SQL => "SELECT COUNT(*) FROM album",
 	},
 	"count.artist" => {
@@ -159,15 +159,15 @@ my %stats = (
 		SQL => "SELECT COUNT(*) FROM artist",
 	},
 	"count.discid" => {
-		DESC => "Count of all discids",
+		DESC => "Count of all disc IDs",
 		SQL => "SELECT COUNT(*) FROM album_cdtoc",
 	},
 	"count.moderation" => {
-		DESC => "Count of all moderations",
+		DESC => "Count of all edits",
 		SQL => "SELECT COUNT(*) FROM moderation_all",
 	},
 	"count.moderator" => {
-		DESC => "Count of all moderators",
+		DESC => "Count of all editors",
 		SQL => "SELECT COUNT(*) FROM moderator",
 	},
 	"count.puid" => {
@@ -196,11 +196,11 @@ my %stats = (
 	},
 
 	"count.album.various" => {
-		DESC => "Count of all 'Various Artists' albums",
+		DESC => "Count of all 'Various Artists' releases",
 		SQL => "SELECT COUNT(*) FROM album WHERE artist = " . &ModDefs::VARTIST_ID,
 	},
 	"count.album.nonvarious" => {
-		DESC => "Count of all 'Various Artists' albums",
+		DESC => "Count of all 'Various Artists' releases",
 		PREREQ => [qw[ count.album count.album.various ]],
 		CALC => sub {
 			my ($self, $sql) = @_;
@@ -211,11 +211,11 @@ my %stats = (
 	},
 
 	"count.album.has_discid" => {
-		DESC => "Count of albums with at least one disc ID",
+		DESC => "Count of releases with at least one disc ID",
 		SQL => "SELECT COUNT(DISTINCT album) FROM album_cdtoc",
 	},
 	"count.album.Ndiscids" => {
-		DESC => "Distribution of Disc IDs per album (varying disc IDs)",
+		DESC => "Distribution of disc IDs per release (varying disc IDs)",
 		PREREQ => [qw[ count.album count.album.has_discid ]],
 		CALC => sub {
 			my ($self, $sql) = @_;
@@ -416,7 +416,7 @@ my %stats = (
 	},
 
 	"count.moderation.open" => {
-		DESC => "Count of open moderations",
+		DESC => "Count of open edits",
 		CALC => sub {
 			my ($self, $sql) = @_;
 
@@ -440,42 +440,42 @@ my %stats = (
 		},
 	},
 	"count.moderation.applied" => {
-		DESC => "Count of applied moderations",
+		DESC => "Count of applied edits",
 		PREREQ => [qw[ count.moderation.open ]],
 		PREREQ_ONLY => 1,
 	},
 	"count.moderation.failedvote" => {
-		DESC => "Count of moderations which were voted down",
+		DESC => "Count of edits which were voted down",
 		PREREQ => [qw[ count.moderation.open ]],
 		PREREQ_ONLY => 1,
 	},
 	"count.moderation.faileddep" => {
-		DESC => "Count of moderations which failed their dependency check",
+		DESC => "Count of edits which failed their dependency check",
 		PREREQ => [qw[ count.moderation.open ]],
 		PREREQ_ONLY => 1,
 	},
 	"count.moderation.error" => {
-		DESC => "Count of moderations which failed because of an internal error",
+		DESC => "Count of edits which failed because of an internal error",
 		PREREQ => [qw[ count.moderation.open ]],
 		PREREQ_ONLY => 1,
 	},
 	"count.moderation.failedprereq" => {
-		DESC => "Count of moderations which failed because a prerequisitite moderation failed",
+		DESC => "Count of edits which failed because a prerequisitite moderation failed",
 		PREREQ => [qw[ count.moderation.open ]],
 		PREREQ_ONLY => 1,
 	},
 	"count.moderation.evalnochange" => {
-		DESC => "Count of evalnochange moderations",
+		DESC => "Count of evalnochange edits",
 		PREREQ => [qw[ count.moderation.open ]],
 		PREREQ_ONLY => 1,
 	},
 	"count.moderation.tobedeleted" => {
-		DESC => "Count of moderations marked as 'to be deleted'",
+		DESC => "Count of edits marked as 'to be deleted'",
 		PREREQ => [qw[ count.moderation.open ]],
 		PREREQ_ONLY => 1,
 	},
 	"count.moderation.deleted" => {
-		DESC => "Count of deleted moderations",
+		DESC => "Count of deleted edits",
 		PREREQ => [qw[ count.moderation.open ]],
 		PREREQ_ONLY => 1,
 	},
@@ -513,7 +513,7 @@ my %stats = (
 	# editing / voting / overall
 
 	"count.moderator.editlastweek" => {
-		DESC => "Count of moderators who have submitted moderations during the last week",
+		DESC => "Count of editors who have submitted edits during the last week",
 		CALC => sub {
 			my ($self, $sql) = @_;
 
@@ -566,12 +566,12 @@ my %stats = (
 		},
 	},
 	"count.moderator.votelastweek" => {
-		DESC => "Count of moderators who have voted on moderations during the last week",
+		DESC => "Count of editors who have voted on edits during the last week",
 		PREREQ => [qw[ count.moderator.editlastweek ]],
 		PREREQ_ONLY => 1,
 	},
 	"count.moderator.activelastweek" => {
-		DESC => "Count of active moderators (editing or voting) during the last week",
+		DESC => "Count of active editors (editing or voting) during the last week",
 		PREREQ => [qw[ count.moderator.editlastweek ]],
 		PREREQ_ONLY => 1,
 	},
@@ -583,7 +583,7 @@ my %stats = (
 	# Top 10 voters all time
 
 	"count.ar.links" => {
-		DESC => "Count of all Advanced Relationships links",
+		DESC => "Count of all advanced relationships links",
 		CALC => sub {
 			my ($self, $sql) = @_;
 			my %r;
@@ -604,52 +604,52 @@ my %stats = (
 		},
 	},
 	"count.ar.links.l_album_album" => {
-		DESC => "Count of album-album Advanced Relationships links",
+		DESC => "Count of release-release advanced relationships links",
 		PREREQ => [qw[ count.ar.links ]],
 		PREREQ_ONLY => 1,
 	},
 	"count.ar.links.l_album_artist" => {
-		DESC => "Count of album-artist Advanced Relationships links",
+		DESC => "Count of release-artist advanced relationships links",
 		PREREQ => [qw[ count.ar.links ]],
 		PREREQ_ONLY => 1,
 	},
 	"count.ar.links.l_album_track" => {
-		DESC => "Count of album-track Advanced Relationships links",
+		DESC => "Count of release-track advanced relationships links",
 		PREREQ => [qw[ count.ar.links ]],
 		PREREQ_ONLY => 1,
 	},
 	"count.ar.links.l_album_url" => {
-		DESC => "Count of album-url Advanced Relationships links",
+		DESC => "Count of release-URL advanced relationships links",
 		PREREQ => [qw[ count.ar.links ]],
 		PREREQ_ONLY => 1,
 	},
 	"count.ar.links.l_artist_artist" => {
-		DESC => "Count of artist-artist Advanced Relationships links",
+		DESC => "Count of artist-artist advanced relationships links",
 		PREREQ => [qw[ count.ar.links ]],
 		PREREQ_ONLY => 1,
 	},
 	"count.ar.links.l_artist_track" => {
-		DESC => "Count of artist-track Advanced Relationships links",
+		DESC => "Count of artist-track advanced relationships links",
 		PREREQ => [qw[ count.ar.links ]],
 		PREREQ_ONLY => 1,
 	},
 	"count.ar.links.l_artist_url" => {
-		DESC => "Count of artist-url Advanced Relationships links",
+		DESC => "Count of artist-URL advanced relationships links",
 		PREREQ => [qw[ count.ar.links ]],
 		PREREQ_ONLY => 1,
 	},
 	"count.ar.links.l_track_track" => {
-		DESC => "Count of track-track Advanced Relationships links",
+		DESC => "Count of track-track advanced relationships links",
 		PREREQ => [qw[ count.ar.links ]],
 		PREREQ_ONLY => 1,
 	},
 	"count.ar.links.l_track_url" => {
-		DESC => "Count of track-url Advanced Relationships links",
+		DESC => "Count of track-URL advanced relationships links",
 		PREREQ => [qw[ count.ar.links ]],
 		PREREQ_ONLY => 1,
 	},
 	"count.ar.links.l_url_url" => {
-		DESC => "Count of url-url Advanced Relationships links",
+		DESC => "Count of URL-URL advanced relationships links",
 		PREREQ => [qw[ count.ar.links ]],
 		PREREQ_ONLY => 1,
 	},

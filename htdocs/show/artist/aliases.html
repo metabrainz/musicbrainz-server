@@ -75,10 +75,10 @@
 		<tr>
 			<td class="instructions">
 				<ul>
-					<li>MusicBrainz uses Artist Aliases mainly as variant names or search hints,
-					If you see a misspelled <& /comp/linkdoc, "ArtistName", "Artist Name" &> here,
-					its probably listed on purpose and should not be removed. See the documentation
-					about <& /comp/linkdoc, "ArtistAlias", "Artist Aliases" &> for details.</li>
+					<li>MusicBrainz uses artist aliases mainly as variant names or search hints,
+					If you see a misspelled <& /comp/linkdoc, "ArtistName", "artist name" &> here,
+					it is probably listed on purpose and should not be removed. See the documentation
+					about <& /comp/linkdoc, "ArtistAlias", "artist aliases" &> for details.</li>
 				</ul>
 			</td>
 		</tr>
@@ -114,7 +114,7 @@
 
 				<td>
 					[ <a href="/edit/artistalias/edit.html?id=<% $item->[0] %>">Edit</a>
-					| <a href="/edit/artistalias/remove.html?id=<% $item->[0] %>">Rem</a> ]</td>
+					| <a href="/edit/artistalias/remove.html?id=<% $item->[0] %>">Remove</a> ]</td>
 
 % 			}
 
@@ -129,12 +129,7 @@
 % 	if ($session{uid})
 %	{
 
-	<form method="get" action="/edit/artistalias/add.html">
-		<div style="margin-top: 2em">
-			<input type="hidden" name="id" value="<% $artist->GetId %>" />
-			<input type="submit" value="Add Alias &raquo;" />
-		</div>
-	</form>
+	<a href="/edit/artistalias/add.html?id=<% $artist->GetId %>Add New Alias</a>
 
 % 	}
 

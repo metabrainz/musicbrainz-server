@@ -93,16 +93,16 @@
 		$m->comp("/comp/form/feedbackbox",
 			"warning", sprintf("Error %d", $error),
 			"Please make sure that you fill out all the fields in the form.
-			Please press the Back button in your Browser and try again."
+			Please press the back button in your browser and try again."
 		);
 	}
 	elsif ($error == 6)
 	{
 		$m->comp("/comp/form/feedbackbox",
 			"warning", "Error",
-			"You cannot insert a Various Artists releases using the single artist
+			"You cannot insert a multiple artist release using the single artist
 			 submission form. Please go back to the beginning of the submission
-			 process and choose a Multiple Artist CD."
+			 process and choose a multiple artist CD."
 		);
 	}
 	else
@@ -158,6 +158,7 @@
 			MusicBrainz::TrimInPlace($artistname, $sortname);
 			$new = "Artist=$artistname\nSortname=$sortname\n";
 		}
+		MusicBrainz::TrimInPlace($releasename);
 		$new .= "AlbumName=$releasename\nNumTracks=$tracks\n";
 		$new .= "HasMultipleTrackArtists=$hasmultipletrackartists\n";
 		$new .= "Attributes=$attr_type,$attr_status\n";

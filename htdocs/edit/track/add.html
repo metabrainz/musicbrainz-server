@@ -106,6 +106,7 @@
 			if ($trackname !~ /\S/);
 		push @errors, "The track name contains invalid linebreaks"
 			if (not MusicBrainz::IsSingleLineString($trackname));
+		MusicBrainz::TrimInPlace($trackname);
 
 		# check track length
 		my $unformatted_tracklength = Track::UnformatTrackLength($tracklength);
