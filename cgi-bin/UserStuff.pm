@@ -490,10 +490,6 @@ sub MakeAutoModerator
 	$sql->AutoTransaction(
 		sub {
 			$self->SetUserInfo(privs => $self->GetPrivs | AUTOMOD_FLAG);
-
-			require MusicBrainz::Server::ModBot;
-			my $bot = MusicBrainz::Server::ModBot->new($self->{DBH});
-			$bot->UserGrantedAutoModerator($self);
 		},
 	);
 }
