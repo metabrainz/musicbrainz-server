@@ -29,17 +29,7 @@
 </%perl>
 <%method ShowPreviousValue>
 %	my $self = shift;
-
-</%method>
-
-<%method ShowNewValue>
-%	my $self = shift;
-%	my $new = $self->{'new_unpacked'};
-
-	<table class="editfields">
-		<tr>
-			<td>
-
+%   my $new = $self->{'new_unpacked'};
 
 %	if ($new->{oldentity1type} ne 'url')
 %	{
@@ -95,10 +85,13 @@
 %				($new->{oldbegindate} =~ /\S/) ? "from ".$new->{oldbegindate} : "",
 %				($new->{oldenddate} =~ /\S/) ? " until ".$new->{oldenddate} : " to present");
 %	}
-			</td>
-		</tr>
-		<tr>
-			<td>
+
+</%method>
+
+<%method ShowNewValue>
+%   my $self = shift;
+%   my $new = $self->{'new_unpacked'};
+
 
 %	if ($new->{newentity1type} ne "url")
 %	{
@@ -146,11 +139,6 @@
 %				($new->{newbegindate} =~ /\S/) ? "from ".$new->{newbegindate} : "",
 %				($new->{newenddate} =~ /\S/) ? " until ".$new->{newenddate} : " to present");
 %	}
-
-			</td>
-		</tr>
-	</table>
-
 
 </%method>
 
