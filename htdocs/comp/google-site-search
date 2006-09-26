@@ -16,7 +16,7 @@
 						Site Search:
 					</div>
 					<div style="font-size: 9px; font-weight: normal">
-						powered by google&nbsp;
+						powered by Google&nbsp;
 					</div></td>
 				<td>
 					<input type="text" name="q" size="20" maxlength="255" value="<% $text %>" />

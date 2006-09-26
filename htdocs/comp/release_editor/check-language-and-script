@@ -46,11 +46,11 @@
 	{
 		$ARGS{"attr_showall"} = abs(-1 + $ARGS{"attr_showall"}); # toggle value
 	}
-
+	
 	# handle click on guess language/script button
 	# -> clear the parameters, such that the are guessed
 	#    from the text again.
-	if ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_LANG_GUESS"})
+    if ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_LANG_GUESS"})
 	{
 		# collect field values for the guess language
 		# feature

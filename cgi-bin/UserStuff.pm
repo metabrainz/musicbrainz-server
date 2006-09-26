@@ -484,7 +484,7 @@ sub MakeAutoModerator
 {
 	my $self = shift;
 
-	return if $self->IsAutoMod($self->GetPrivs);
+	return if $self->IsAutoEditor($self->GetPrivs);
 
 	my $sql = Sql->new($self->{DBH});
 	$sql->AutoTransaction(
@@ -496,7 +496,7 @@ sub MakeAutoModerator
 
 sub CreditModerator
 {
-  	my ($this, $uid, $status, $isautomod) = @_;
+  	my ($this, $uid, $status, $isautoeditor) = @_;
 
 	my $self = $this->newFromId($uid)
 		or die;
@@ -507,7 +507,7 @@ sub CreditModerator
 		($status == STATUS_FAILEDVOTE)
 			? "modsrejected"
 			: ($status == STATUS_APPLIED)
-				? ($isautomod ? "automodsaccepted" : "modsaccepted")
+				? ($isautoeditor ? "automodsaccepted" : "modsaccepted")
 				: "modsfailed"
 	);
 
@@ -622,7 +622,7 @@ sub GetUserType
 	my $type = "";
 
 	$type = '<a href="/doc/AutoEditor">AutoEditor</a>'
-		if ($this->IsAutoMod($privs));
+		if ($this->IsAutoEditor($privs));
 
 	$type = "Internal/Bot User"
 		if ($this->IsBot($privs));
@@ -636,7 +636,7 @@ sub GetUserType
 	return $type;
 }
 
-sub IsAutoMod
+sub IsAutoEditor
 {
 	my ($this, $privs) = @_;
 

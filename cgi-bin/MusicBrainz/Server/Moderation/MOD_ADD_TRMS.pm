@@ -58,7 +58,7 @@ sub PreInsert
 	$self->SetNew($new);
 }
 
-sub IsAutoMod { 1 }
+sub IsAutoEdit { 1 }
 
 sub PostLoad
 {

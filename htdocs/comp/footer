@@ -33,9 +33,9 @@
 
 	if (UserPreference::get("JSDebug"))
 	{
-		$m->comp("/comp/tablebegin", title => "Javascript Debug");
+		$m->out("<br/>");
+		$m->out("<br/>");
 		$m->out(qq!<script type="text/javascript" src="/scripts/debug.js"></script>!);
-		$m->comp("/comp/tableend");
 	}
 
 	# create link to css URL

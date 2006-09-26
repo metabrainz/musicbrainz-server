@@ -540,4 +540,4 @@ ALTER TABLE l_url_url
 
 COMMIT;
 
--- vi: set ts=8 sw=8 et tw=0 :
+-- vi: set ts=4 sw=4 et tw=0 :

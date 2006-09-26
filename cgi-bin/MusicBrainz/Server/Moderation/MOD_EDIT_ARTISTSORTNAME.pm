@@ -52,7 +52,7 @@ sub PreInsert
 	$self->SetRowId($ar->GetId);
 }
 
-sub IsAutoMod
+sub IsAutoEdit
 {
 	my $this = shift;
 	my ($old, $new) = $this->_normalise_strings($this->GetPrev, $this->GetNew);

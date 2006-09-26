@@ -40,6 +40,9 @@
 	# button which triggers the form validation
 	$ARGS{"SUBMIT_NEXT"} = "Continue »";
 
+	# add a new track to the release
+	$ARGS{"SUBMIT_ADDTRACK"} = "Add track";
+
 	# /comp/release_editor/review
 	$ARGS{"SUBMIT_KEEPEDITING"} = "Keep Editing";
 	$ARGS{"SUBMIT_STARTOVER"} = "Start Over";
@@ -47,7 +50,7 @@
 	$ARGS{"SUBMIT_ENTERMODERATIONS"} = "Enter Edits";
 
 	# release events
-	$ARGS{"SUBMIT_ADDRELEASEEVENT"} = "More events »";
+	$ARGS{"SUBMIT_ADDRELEASEEVENT"} = "Add release event »";
 
 	# freedb import
 	$ARGS{"SUBMIT_FREEDB"} = "FreeDB Lookup";

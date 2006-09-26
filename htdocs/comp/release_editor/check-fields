@@ -33,6 +33,13 @@
 </%args>
 <%init>
 
+	# returns the full name of the given track field
+	# in the ARGS hash.
+	sub getField {
+		my ($i, $name) = @_;
+		return sprintf("tr%d_%s", $i, $name);
+    }
+
 	# Check everything's been entered which should have been.
 	# This is sort of already carried out client-side, but of course
 	# you can't rely on that.
@@ -130,6 +137,7 @@
 		# 	}
 		# }
 		#%ARGS = %args;
+
 	}
 
 	$h{"badsequence"} = 1

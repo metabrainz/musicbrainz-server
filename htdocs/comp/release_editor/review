@@ -53,6 +53,7 @@
 		%orig = $m->comp("/comp/release_editor/init-editall", %orig)
 	}
 
+
 	# returns the full name of the given track field
 	# in the ARGS hash.
 	sub getField {
@@ -91,51 +92,115 @@
 	$release->SetModPending if ($orig{"releasename"} ne $ARGS{"releasename"});
 	$release->SetMultipleTrackArtists($hasmultipletrackartists);
 
-	# compare number of orig/new release events
+
+
+	# MOD_EDIT_RELEASES (RELEASE_EVENTS)
+	# get all defined release events from the arguments hash
+	# and fill the list of new release objects
 	require MusicBrainz::Server::Release;
-	my @relEventsNew;
-	my @relEventsOrig;
+	my @revnew;
+	my %revorighash;
+	my %revremovehash;
+	my (@adds, @edits, @removes);
 	for my $j (sort map { /^rev_year-(\d+)$/ ? ($1) : () } keys %ARGS)
 	{
 		my $rev_year = $ARGS{"rev_year-$j"};
 		my $rev_month = $ARGS{"rev_month-$j"};
 		my $rev_day = $ARGS{"rev_day-$j"};
 		my $rev_country = $ARGS{"rev_country-$j"};
+		my $rev_id = $ARGS{"rev_id-$j"};
+		my $rev_clear = $ARGS{"rev_clear-$j"};
 
-		# Skip if all blank, or if dates are blank
-		# and the release country is set to the default one.
-		MusicBrainz::TrimInPlace($rev_year, $rev_month, $rev_day, $rev_country);
-		next if ($rev_year eq "" and $rev_month eq "" and $rev_day eq "" and
-				 ($rev_country eq "" or $rev_country eq UserPreference::get("default_country")));
+		if (!$rev_clear)
+		{
+			# Do not validate if all fields are blank, or the
+			# fields are blank and the release country is set to the default one.
+			MusicBrainz::TrimInPlace($rev_year, $rev_month, $rev_day, $rev_country);
+			if (!($rev_year eq "" and $rev_month eq "" and $rev_day eq "" and
+				 ($rev_country eq "" or $rev_country eq UserPreference::get("default_country"))))
+			{
+				# we insist on a valid country
+				MusicBrainz::IsNonNegInteger($rev_country)
+					or return $m->comp("/comp/error",
+						"Error: invalid release country",
+						0, 1,
+					);
 
-		# Otherwise, we insist on a valid country and a valid date
-		MusicBrainz::IsNonNegInteger($rev_country)
-			or return $m->comp(
-				"/comp/error",
-				"Error: invalid release country entered",
-				0, 1,
-			);
+				# we insist on a valid date
+				my @ymd = MusicBrainz::IsValidDate($rev_year, $rev_month, $rev_day)
+					or return $m->comp("/comp/error",
+						"Error: invalid release date",
+						0, 1,
+					);
 
-		my @ymd = MusicBrainz::IsValidDate($rev_year, $rev_month, $rev_day)
-			or next;
-
-		my $rev = MusicBrainz::Server::Release->new($mb->{DBH});
-		$rev->SetCountry($rev_country);
-		$rev->SetYMD(@ymd);
-		push @relEventsNew, $rev;
+				my $rev = MusicBrainz::Server::Release->new($mb->{DBH});
+				$rev->SetId($rev_id);
+				$rev->SetCountry($rev_country);
+				$rev->SetYMD(@ymd);
+				$rev->SetAlbum($releaseid);
+				push @revnew, $rev;
+			}
+		}
 	}
 
 	for my $j (sort map { /^rev_year-(\d+)$/ ? ($1) : () } keys %orig)
 	{
-		my @ymd = MusicBrainz::IsValidDate(
-				$orig{"rev_year-$j"}, $orig{"rev_month-$j"}, $orig{"rev_day-$j"})
+		my $rev_year = $orig{"rev_year-$j"};
+		my $rev_month = $orig{"rev_month-$j"};
+		my $rev_day = $orig{"rev_day-$j"};
+		my $rev_id = $orig{"rev_id-$j"};
+
+		# flag a bad date if the validation returns false
+		my @ymd = MusicBrainz::IsValidDate($rev_year, $rev_month, $rev_day)
 			or next;
 
 		my $rev = MusicBrainz::Server::Release->new($mb->{DBH});
 		$rev->SetCountry($orig{"rev_country-$j"});
 		$rev->SetYMD(@ymd);
-		push @relEventsOrig, $rev;
+		$rev->SetId($rev_id);
+		$revorighash{$rev->GetId} = $rev;
+		$revremovehash{$rev->GetId} = $rev;
 	}
+
+	for my $i (0 .. @revnew-1)
+	{
+		my $newrev = $revnew[$i];
+
+		# old value is empty, and new value is not empty.
+		# we've got an added release event
+		if (!MusicBrainz::IsNonNegInteger($newrev->GetId))
+		{
+			push @adds, $newrev;
+			next;
+		}
+
+		# for remove/edits of individual events, we'll need
+		# a confirmed release event id. load object from the
+		# database.
+		my $oldrev = $revorighash{$newrev->GetId}
+			or next;
+
+		my @oymd = $oldrev->GetYMD;
+		my @nymd = $newrev->GetYMD;
+		if ($oymd[0] != $nymd[0] or $oymd[1] != $nymd[1] or
+			$oymd[2] != $nymd[2] or $oldrev->GetCountry != $newrev->GetCountry)
+		{
+			push @edits, $newrev;
+		}
+		delete $revremovehash{$newrev->GetId};
+	}
+
+	# add all edits which weren't handled above (e.g. which were deleted
+	# from the form) to the @removes list.
+	for my $revid (keys %revremovehash)
+	{
+		push @removes, $revremovehash{$revid};
+	}
+
+	# $m->out("Adds:". join ",", map { $_->ToString } @adds );
+	# $m->out("<br/>Edits:". join ",", map { $_->ToString } @edits );
+	# $m->out("<br/>Removes:". join ",", map { $_->ToString } @removes );
+
 
 	# if editmode is true, we're editing a release, else
 	# we're adding one.
@@ -154,8 +219,7 @@
 			my $tr = Track->new($mb->{DBH});
 			$tr->SetId($trackid);
 			$tr->LoadFromId
-				or return $m->comp(
-					"/comp/error",
+				or return $m->comp("/comp/error",
 					"Track '$trackid' not found in the database.",
 					1, 1,
 				)
@@ -329,78 +393,102 @@
 					);
 				}
 
-				# changed language/script?
-				$ov = $orig{"attr_language"}.",".$orig{"attr_script"};
-				$nv = $ARGS{"attr_language"}.",".$ARGS{"attr_script"};
-				if ($ov ne $nv)
-				{
-					my @langvalues;
-					for ($ov, $nv)
-					{
-						my ($languageid, $scriptid) = split ',', $_;
-						$release->SetLanguageId($languageid);
-						$release->SetScriptId($scriptid);
-						my $langname = (defined $release->GetLanguage ? $release->GetLanguage->GetName : "Not_set");
-						my $scriptname = (defined $release->GetScript ? $release->GetScript->GetName : "Not_set");
-						push @langvalues, "$langname, $scriptname";
-					}
-					$m->comp(".showReleaseEdit",
-						mb => $mb,
-						edittype => "EditReleaseLanguageEdit",
-						edittitle => "Edit Language/Script",
+		# changed releasedates?
+		my $countries_menu = $m->comp("/edit/albumreleases/countries-menu.inc");
+		my %country_names = map { $_->[0], $_->[1] } @$countries_menu;
 
-						oldvalue => $langvalues[0],
-						newvalue => $langvalues[1],
-						modtype => &ModDefs::MOD_EDIT_ALBUM_LANGUAGE,
-						cnt => ++$releasechanges
-					);
-				}
+		for my $rev (@adds)
+		{
+			$ov = "";
+			$nv = $rev->GetSortDate;
+			$nv .= " - ";
+			$nv .= ($country_names{$rev->GetCountry} || "?");
 
-				# changed releasedates?
-				my $countries_menu = $m->comp("/edit/albumreleases/countries-menu.inc");
-				my %country_names = map { $_->[0], $_->[1] } @$countries_menu;
-				my $relcount = (@relEventsNew > @relEventsOrig ? @relEventsNew : @relEventsOrig);
-				my $first = 1;
-				for (my $i=0; $i < $relcount; $i++)
-				{
-					my $revOrig = $relEventsOrig[$i];
-					my $revNew = $relEventsNew[$i];
+			# release events are special, they are entered
+			# as one edit, therefore show only a link on the first
+			# of n release date/country tuples.
+			$m->comp(".showReleaseEdit",
+				mb => $mb,
+				edittype => "AddReleaseEventsEdit",
+				edittitle => "Add Release Events",
 
-					$ov = "";
-					if (defined $revOrig)
-					{
-						my ($rev_year, $rev_month, $rev_day) = $revOrig->GetYMD;
-						$ov = sprintf("%04d-%02d-%02d", $rev_year, $rev_month, $rev_day) if (0 + $rev_day);
-						$ov = sprintf("%04d-%02d", $rev_year, $rev_month) if ($rev_month and !$rev_day);
-						$ov = sprintf("%04d", $rev_year) if ($rev_year and !$rev_month);
-						$ov .= " - ";
-						$ov .= ($country_names{$revOrig->GetCountry} || "?");
-					}
+				oldvalue => $ov,
+				newvalue => $nv,
+				modtype => &ModDefs::MOD_ADD_RELEASEEVENTS,
+				cnt => ++$releasechanges
+			);
+		}
 
-					$nv = "-";
-					if (defined $revNew)
-					{
-						my ($rev_year, $rev_month, $rev_day) = $revNew->GetYMD;
-						$nv = sprintf("%04d-%02d-%02d", $rev_year, $rev_month, $rev_day) if (0 + $rev_day);
-						$nv = sprintf("%04d-%02d", $rev_year, $rev_month) if ($rev_month and !$rev_day);
-						$nv = sprintf("%04d", $rev_year) if ($rev_year and !$rev_month);
-						$nv .= " - ";
-						$nv .= ($country_names{$revNew->GetCountry} || "?");
-					}
+		if (@edits)
+		{
+			my $first = 1;
+			for my $rev (@edits)
+			{
+				my $revorig = $revorighash{$rev->GetId}
+					or die("Original release event not found: ".$rev->GetId);
 
-					my $op = "Edit Release Events";
-					$op = "Add Release Event" if ($ov eq "" and $nv ne "");
-					$op = "Remove Release Event" if ($ov ne "" and $nv eq "");
+				$ov = $revorig->GetYear;
+				$ov .= "-" . $revorig->GetMonth if ($revorig->GetMonth);
+				$ov .= "-" . $revorig->GetDay if ($revorig->GetDay);
+				$ov .= " - ";
+				$ov .= ($country_names{$revorig->GetCountry} || "?");
 
-					if ($ov ne $nv)
-					{
-						# release events are special, they are entered
-						# as one edit, therefore show only a link on the first
-						# of n release date/country tuples.
-						$m->comp(".showReleaseEdit",
-							mb => $mb,
-							edittype => $first ? "EditReleaseEventsEdit" : undef,
-							edittitle => $op,
+				$nv = $rev->GetYear;
+				$nv .= "-" . $rev->GetMonth if ($rev->GetMonth);
+				$nv .= "-" . $rev->GetDay if ($rev->GetDay);
+				$nv .= " - ";
+				$nv .= ($country_names{$rev->GetCountry} || "?");
+
+				$m->comp(".showReleaseEdit",
+					mb => $mb,
+					edittype => $first ? "EditReleaseEventsEdit" : "",
+					edittitle =>  $first ? "Edit Release Events" : "",
+
+					oldvalue => $ov,
+					newvalue => $nv,
+					modtype => &ModDefs::MOD_EDIT_RELEASEEVENTS,
+					cnt => ++$releasechanges
+				);
+				$first = 0;
+			}
+		}
+
+		if (@removes)
+		{
+			$nv = "";
+			$ov = "";
+			for my $rev (@removes)
+			{
+				my $revorig = $revorighash{$rev->GetId}
+					or die("Original release event not found: ".$rev->GetId);
+
+				$ov .= $revorig->GetYear;
+				$ov .= "-" . $revorig->GetMonth if ($revorig->GetMonth);
+				$ov .= "-" . $revorig->GetDay if ($revorig->GetDay);
+				$ov .= " - ";
+				$ov .= ($country_names{$revorig->GetCountry} || "?");
+				$ov .= "<br/>";
+			}
+
+			$m->comp(".showReleaseEdit",
+				mb => $mb,
+				edittype => "RemoveReleaseEventsEdit",
+				edittitle => "Remove Release Events",
+
+				oldvalue => $ov,
+				newvalue => $nv,
+				modtype => &ModDefs::MOD_REMOVE_RELEASEEVENTS,
+				cnt => ++$releasechanges
+			);
+		}
+
+		# if no changes were made indicate this.
+		if (not $releasechanges)
+		{
+			$m->out('<tr class="nochanges">');
+			$m->out('<td colspan="3">You have not made any release changes</td>');
+			$m->out('</tr>');
+		}
 
 							oldvalue => $ov,
 							newvalue => $nv,
@@ -636,9 +724,25 @@
 					buttons => \@buttons &>
 			</form>
 
-	<& /comp/tableend &>
+						<& "/comp/album",
+							album => $release,
+							artist => $artist,
+							showlinks => 0,
+							showmodlinks => 0,
+							showreleases => 1,
+							tracks => \@tracks,
+							releaseevents => \@revnew, &>
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align: left">
+						<script type="text/javascript" src="/scripts/editsuite.js"></script>
 
-	<& /comp/tablebegin, title => "Preview Changes" &>
+						<& /comp/js/diffcollapse, JSDiff => 1, JSCollapse => 0 &>
+
+						<form  method="post" action="<% $ARGS{"v::action"} %>">
+							<& /comp/args-to-hidden-fields.inc,
+								$m->comp("/comp/form/args-strip-editsuitefields", %ARGS) &>
 
 		<table width="600">
 			<tr>
@@ -673,21 +777,21 @@
 
 	my ($type) = @_;
 
-	# my $user_is_automod = UserStuff->IsAutoMod($session{privs};
+	# my $user_is_automod = UserStuff->IsAutoEditor($session{privs};
 
-    # my $automod = $this->IsAutoMod($user_is_automod);
+    # my $automod = $this->IsAutoEdit($user_is_automod);
 	# $automod = 0 if $ui->IsUntrusted($privs)
 	#	and ($type != &ModDefs::MOD_ADD_TRMS or $type != &ModDefs::MOD_ADD_PUIDS);
 	# $automod = 1
 	# 	if not $automod
 	# 	and $user_is_automod
-	# 	and $this->IsAutoModType($type);
+	# 	and $this->IsAutoEditType($type);
 
-	# $m->out("1: ".Moderation->IsAutoModType($type));
-	# $m->out("2: ".UserStuff->IsAutoMod($session{privs}));
+	# $m->out("1: ".Moderation->IsAutoEditType($type));
+	# $m->out("2: ".UserStuff->IsAutoEditor($session{privs}));
 
-	if (Moderation->IsAutoModType($type) ||
-		UserStuff->IsAutoMod($session{privs}))
+	if (Moderation->IsAutoEditType($type) ||
+		UserStuff->IsAutoEditor($session{privs}))
 	{
 		$m->out('No <span style="font-size: 10px">(<a href="/mod_intro.html#automod">autoedit</a>)</span>')
 	}

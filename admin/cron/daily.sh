@@ -76,10 +76,6 @@ fi
 echo `date`" : Removing unused artists"
 ./admin/cleanup/EmptyArtists.pl --remove --summary --noverbose
 
-# Vacuum and analyze the database for peak performance
-echo `date`" : Optimizing the database"
-echo "VACUUM ANALYZE;" | ./admin/psql READWRITE
-
 # Dump all the data
 # Only do this on the nominated days (0=Sun 6=Sat)
 if date +%w | grep -q [36]

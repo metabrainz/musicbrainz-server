@@ -46,38 +46,42 @@
 	my $edit = $session{"editreleases"}{$releaseid}
 		or return $m->comp("/comp/redirect", $url);
 
-	# remove current release from the session and show the release again.
-	if ($submitvalue =~ m/Cancel/i)
-	{
-		return $m->comp("/comp/redirect", $cancelurl);
-	}
+	# check volatile preferences (like autoeditor flag)
+	$m->comp("/comp/user/check-volatile-preferences", %ARGS);
 
 	# load release from database.
 	my $mb = $m->comp("/comp/dblogin");
 	my $release = $m->comp("/comp/loadrelease", $mb, $releaseid);
 
 	# find out what to do with each set of release events
+	my $debug = 0;
 	my (@adds, @edits, @removes);
 	for my $rel (@{ $edit->{"releases"} })
 	{
+		my $revnew = MusicBrainz::Server::Release->new($mb->{DBH});
+		$revnew->SetAlbum($release->GetId);
+		$revnew->SetCountry($rel->{"country"});
+		$revnew->SetYMD(@$rel{qw( year month day )});
+
 		if ($rel->{"new"})
 		{
 			next unless $rel->{"year"} and $rel->{"country"};
-			my $obj = MusicBrainz::Server::Release->new($mb->{DBH});
-			$obj->SetAlbum($release->GetId);
-			$obj->SetCountry($rel->{"country"});
-			$obj->SetYMD(@$rel{qw( year month day )});
-			push @adds, $obj;
+			push @adds, $revnew;
+
+			$m->out("Add Release Event: " . $revnew->ToString . "<br/>")
+				if ($debug);
 			next;
 		}
 
-		my $obj = MusicBrainz::Server::Release->new($mb->{DBH});
-		$obj = $obj->newFromId($rel->{"id"})
+		my $revold = MusicBrainz::Server::Release->new($mb->{DBH});
+		$revold = $revold->newFromId($rel->{"id"})
 			or next;
 
 		if ($rel->{"delete"})
 		{
-			push @removes, $obj;
+			push @removes, $revold;
+			$m->out("Remove Release Event: " . $revold->ToString . "<br/>")
+				if ($debug);
 			next;
 		}
 
@@ -91,33 +95,61 @@
 		$changed or next;
 
 		push @edits, {
-			object => $obj,
+			object => $revold,
 			country => $rel->{"country"},
 			year => $rel->{"year"},
 			month => $rel->{"month"},
 			day => $rel->{"day"},
 		};
+
+		$m->out("Edit Release Event: " . $revold->ToString . " -> " . $revnew->ToString . "<br/>")
+			if ($debug);
 	}
+
+	exit if ($debug);
+
 
 	$m->comp(
 		"/comp/entermods",
 		DBH => $mb->{DBH},
 		sub => sub {
-			my @mods = Moderation->InsertModeration(
+			my @insertededits;
+
+			push @insertededits, Moderation->InsertModeration(
 				DBH	=> $mb->{DBH},
 				uid	=> $session{uid},
 				privs => $session{privs},
-				type => &ModDefs::MOD_EDIT_RELEASES,
+				type => &ModDefs::MOD_ADD_RELEASEEVENTS,
 				# --
-				album	=> $release,
-				adds	=> \@adds,
-				edits	=> \@edits,
-				removes	=> \@removes,
-			);
+				album => $release,
+				adds => \@adds,
+			) if (@adds);
 
-			$mods[0]->InsertNote($session{"uid"}, $notetext)
-				if $mods[0]
-				and $notetext =~ /\S/;
+			push @insertededits, Moderation->InsertModeration(
+				DBH	=> $mb->{DBH},
+				uid	=> $session{uid},
+				privs => $session{privs},
+				type => &ModDefs::MOD_EDIT_RELEASEEVENTS,
+				# --
+				album => $release,
+				edits => \@edits,
+			) if (@edits);
+
+			push @insertededits, Moderation->InsertModeration(
+				DBH	=> $mb->{DBH},
+				uid	=> $session{uid},
+				privs => $session{privs},
+				type => &ModDefs::MOD_REMOVE_RELEASEEVENTS,
+				# --
+				album => $release,
+				removes => \@removes,
+			) if (@removes);
+
+			for my $edit (@insertededits)
+			{
+				$edit->InsertNote($session{"uid"}, $notetext)
+					if $notetext =~ /\S/;
+			}
 		},
 		#success_url => $url,
 	) or return;

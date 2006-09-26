@@ -90,6 +90,7 @@
 					</select>
 					<& /comp/form/buttonsubmit, value => $submit_togglelists, tabindex => ++$$tabindex &></td>
 				<td colspan="2">
+					[ <a href="/popup/ReleaseLanguage" title="POPUP::ReleaseLanguage::400::300">help</a> ]
 					<input type="hidden" name="attr_showall" value="<% $attr_showall %>" /></td>
 			</tr>
 

@@ -60,7 +60,7 @@
 	for $i (0 .. $args{"tracks"}-1)
 	{
 		my $track = Track->new($mb->{DBH});
-		$track->SetId(0);
+		$track->SetId(-1);
 		$track->SetName($args{"track$i"});
 		$track->SetSequence(($i+1));
 		$track->SetLength($durations[$i])
@@ -125,6 +125,7 @@
 									showlinks => 0,
 									showmodlinks => 0,
 									showreleases => 0,
+									showrelationships => 0,
 									tracks => \@t,
 								&>
 								</td>
@@ -224,6 +225,7 @@
 									showmodlinks => 0,
 									showreleases => 0,
 									showtrackartists => 1,
+									showrelationships => 0,
 									tracks => \@t,
 								&>
 								</td>
@@ -233,24 +235,28 @@
 %	if ($args{"tomac-failed"})
 %	{
 
-						<& /comp/form/feedbackbox, "warning", "",
-							qq! Did not find a usable (one of \"/\", \"-\") artist-
-								and trackname split character. You can still import the
-								release as Various Artists, but you will have to
-								manually edit the artist- and tracknames...! &>
+						<& /comp/form/feedbackbox, "warning",
+								"Encountered problems splitting artist and tracknames:",
+							qq! Some or all of the tracks do not contain a known artist-
+								and trackname split character (one of \"/\", \"-\").
+								You can still import the release as various artists, but
+								you will have to manually split the artist- and tracknames...! &>
 %	}
 
 %	# using a submit button != "submitbtn" will load cdi/enter.html without
 %	# triggering the validation
 						<& /comp/form/buttonsubmit, name => "submit", value => $btnimport &>
 
-%						for $i (0 .. $tracks-1)
-%						{
-%							$m->comp("/comp/form/hiddenfield",
-%								"tracklength$i",
-%								Track::FormatTrackLength($durations[$i])
-%							) if ($hasdurations);
-%						}
+						<br/>
+						<& /comp/form/checkbox, name => "swapartistandtracks", value => 1 &> Swap artist and track names
+
+%	for $i (0 .. $tracks-1)
+%	{
+%		$m->comp("/comp/form/hiddenfield",
+%			"tracklength$i",
+%			Track::FormatTrackLength($durations[$i])
+%		) if ($hasdurations);
+%	}
 
 %						# make sure we do not have these flag twice,
 %						# or get rid of the freedb specific things.

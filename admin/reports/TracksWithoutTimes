@@ -43,8 +43,10 @@ sub GatherData
 			ar.name AS artist_name,
 			ar.sortname AS artist_sortname,
 			ar.resolution AS artist_resolution,
+			ar.modpending AS artist_modpending,
 			al.id AS album_id,
-			al.name AS album_name
+			al.name AS album_name,
+			al.modpending AS album_modpending
 		FROM
 			artist ar, album al,
 			(SELECT

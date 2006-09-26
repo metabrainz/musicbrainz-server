@@ -33,6 +33,7 @@
 	$artistname => ""
 	$artistresolution => ""
 
+	$swapartistandtracks => 0
 	$hasmultipletrackartists
 	$tracks
 
@@ -67,6 +68,8 @@
 		push @offsets, $leadout;
 	}
 
+
+
 	# load tracks, and add into @t list.
 	my $track_artist;
 	my $i;
@@ -76,6 +79,16 @@
 		$orig{"trackseq$i"} = $i+1;
 		$orig{sprintf "tr%d_mp", $i} = 0;
 
+		my $f_track = "track$i";
+		my $f_artistid = sprintf "tr%d_artistid", $i;
+		my $f_artistname = sprintf "tr%d_artistname", $i;
+		my $f_artistresolution = sprintf "tr%d_artistresolution", $i;
+		if ($swapartistandtracks)
+		{
+			($orig{$f_track}, $orig{$f_artistname}) = ($orig{$f_artistname}, $orig{$f_track});
+		}
+		delete $ARGS{"swapartistandtracks"};
+
 		# load the artist object for the track
 		# object, or use the release artist
 		if (not $orig{"hasmultipletrackartists"})
@@ -84,9 +97,7 @@
 			$orig{sprintf "tr%d_artistname", $i} = $artistname;
 			$orig{sprintf "tr%d_artistresolution", $i} = $artistresolution;
 		}
-		else
-		{
-		}
+
 
 		# overwrite track times from TOC if we have one
 		if ($toc ne "")

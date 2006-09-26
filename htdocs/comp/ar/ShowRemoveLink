@@ -46,5 +46,4 @@
 	$m->out(qq!<a href="$page?$idarg=$targetid&amp;remrel=$id&amp;remtype=$type">Remove</a>!);
 
 </%perl>
-
 %# vi: set ts=4 sw=4 ft=mason :

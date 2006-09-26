@@ -86,7 +86,7 @@ my %incShortcuts =
     'tracknum'           => INC_TRACKNUM,
     'trmids'             => INC_TRMIDS,
     'releases'           => INC_RELEASES,
-    'pumids'             => INC_PUIDS,
+    'puids'              => INC_PUIDS,
     'aliases'            => INC_ALIASES,
 );
 

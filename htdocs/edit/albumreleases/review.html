@@ -29,6 +29,7 @@
 <%args>
 
 	$releaseid
+	$submitvalue => ""
 	$notetext => ""
 
 </%args>
@@ -43,6 +44,26 @@
 	# check volatile preferences (like autoeditor flag)
 	$m->comp("/comp/user/check-volatile-preferences", %ARGS);
 
+	# handle form submission
+	if ($submitvalue ne "")
+	{
+		if ($submitvalue =~ m/Cancel/i)
+		{
+			return $m->comp("/comp/redirect", "/edit/albumreleases/cancel.html?releaseid=$releaseid");
+		}
+		elsif ($submitvalue =~ m/Start over/i)
+		{
+			return $m->comp("/comp/redirect", "/edit/albumreleases/index.html?releaseid=$releaseid");
+		}
+		elsif ($submitvalue =~ m/Enter edits/i)
+		{
+			return $m->comp("/comp/redirect", "/edit/albumreleases/enter.html?releaseid=$releaseid");
+		}
+		elsif ($submitvalue =~ m/Keep editing/i)
+		{
+			return $m->comp("/comp/redirect", "/edit/albumreleases/editreleases.html?releaseid=$releaseid");
+		}
+	}
 
 	my $mb = $m->comp("/comp/dblogin");
 	my $changes = 0;
@@ -57,20 +78,17 @@
 
 <& /comp/sidebar-notitle, pagetitle => "Edit Release Events: Review Changes" &>
 
-	<& /comp/tablebegin, title => "Review Changes" &>
+	<& /comp/tablebegin, title => "Review edits" &>
 
-	<div class="padleft">
-		These are the edits that will be entered into
-		the system when you click "Enter Edit":
-	</div>
+		<div style="margin-left: 40px">
+			These are the edits that will be entered into the system when you
+			click on "Enter edits":
 
-	<div class="padlefttop">
-		<table class="listing" style="margin: 20px 0px">
-			<tr class="header">
-				<td class="left padright">Edit</td>
-				<td class="left padright">Old Value</td>
-				<td class="left padright">New Value</td>
-			</tr>
+			<table class="listing" style="margin: 20px 0px">
+				<tr class="header">
+					<td class="left padright">Edit:</td>
+					<td class="left padright">Change:</td>
+				</tr>
 
 <%perl>
 
@@ -85,11 +103,13 @@
 		{
 			</%perl>
 				<tr valign="top">
-					<td class="left padright">Remove Release</td>
+
 					<td class="left padright">
-						Date: <& /comp/releasedate, @$rel{qw( orig_year orig_month orig_day )} &><br />
-						Country: <% $country_name{$rel->{orig_country}} || "?" %></td>
-					<td class="left">&nbsp;</td>
+						<& /comp/linkdoc, "RemoveReleaseEventsEdit", "Remove release events" &>
+					</td>
+					<td class="left padright">
+						<& /comp/releasedate, @$rel{qw( orig_year orig_month orig_day )} &> - <% $country_name{$rel->{orig_country}} || "?" %>
+					</td>
 				</tr>
 			<%perl>
 			++$changes;
@@ -100,11 +120,12 @@
 		{
 			</%perl>
 				<tr valign="top">
-					<td class="left padright">Add Release</td>
-					<td class="left padright">&nbsp;</td>
+					<td class="left padright">
+						<& /comp/linkdoc, "AddReleaseEventsEdit", "Add release events" &>
+					</td>
 					<td class="left">
-						Date: <& /comp/releasedate, @$rel{qw( year month day )} &> <br />
-						Country: <% $country_name{$rel->{country}} || "?" %></td>
+						<& /comp/releasedate, @$rel{qw( year month day )} &> - <% $country_name{$rel->{country}} || "?" %>
+					</td>
 				</tr>
 			<%perl>
 			++$changes;
@@ -117,6 +138,11 @@
 			next;
 		}
 
+		my $rev = MusicBrainz::Server::Release->new($mb->{DBH});
+		$rev->SetCountry($rel->{country});
+		$rev->SetYMD(@$rel{qw( year month day )});
+		push @relEventsNew, $rev;
+
 		next unless grep {
 			$rel->{$_} != $rel->{"orig_".$_}
 		} qw( year month day country );
@@ -126,20 +152,16 @@
 </%perl>
 
 				<tr valign="top">
-					<td class="left" style="padding-right: 40px">Edit Release</td>
-					<td class="left" style="padding-right: 40px">
-						Date: <& /comp/releasedate, @$rel{qw( orig_year orig_month orig_day )} &><br />
-						Country: <% $country_name{$rel->{orig_country}} || "?" %></td>
-					<td class="left">
-						Date: <& /comp/releasedate, @$rel{qw( year month day )} &><br />
-						Country: <% $country_name{$rel->{country}} || "?" %></td>
+					<td class="left padright">
+						<& /comp/linkdoc, "EditReleaseEventsEdit", "Edit release events" &>
+					</td>
+					<td class="left padright">
+						<& /comp/releasedate, @$rel{qw( orig_year orig_month orig_day )} &> - <% $country_name{$rel->{orig_country}} || "?" %> <br/>
+						<& /comp/releasedate, @$rel{qw( year month day )} &> - <% $country_name{$rel->{country}} || "?" %>
+					</td>
 				</tr>
 
 <%perl>
-			my $rev = MusicBrainz::Server::Release->new($mb->{DBH});
-			$rev->SetCountry($rel->{country});
-			$rev->SetYMD(@$rel{qw( year month day )});
-			push @relEventsNew, $rev;
 
 			++$changes;
 		}
@@ -155,71 +177,63 @@
 					You have not made any changes!</td>
 			</tr>
 %	}
-		</table>
-	</div>
 
-	<div class="padlefttop">
-		<table>
-			<tr>
-				<td>
-					<form method="get" action="editreleases.html">
-						<div>
-							<input class="button" type="submit" value="Keep Editing" />
-							<input type="hidden" name="releaseid" value="<% $releaseid %>" />
-						</div>
-					</form></td>
-				<td>
-					<form method="get" action="index.html">
-						<div>
-							<input type="hidden" name="releaseid" value="<% $releaseid %>" />
-							<input class="button" type="submit" value="Start Over" />
-						</div>
-					</form></td>
-			</tr>
-		</table>
-	</div>
+			</table>
+		</div>
+
 	<& /comp/tableend &>
 
 
-% 	if ($changes)
-%	{
+	<& /comp/tablebegin, title => "Preview release" &>
 
-	<div style="margin-bottom: 3px">
-		<& /comp/linkartist, artist => $artist &>
-	</div>
+		<div style="margin-left: 40px">
+			<table width="600">
+				<tr>
+					<td>
 
-	<div style="margin-bottom: 20px">
+					<& /comp/artisttitle, artist => $artist, showlinks => 0, showmodlinks => 0 &>
 
-	<& /comp/album,
-		album => $release,
-		artist => $artist,
-		showlinks => 0,
-		showmodlinks => 0,
-		showreleases => 1,
-		tracks => \@tracks,
-		releaseevents => \@relEventsNew, &>
+					<& /comp/album,
+						album => $release,
+						artist => $artist,
+						showlinks => 0,
+						showmodlinks => 0,
+						showreleases => 1,
+						tracks => \@tracks,
+						releaseevents => \@relEventsNew, &>
+					</td>
+				</tr>
+			</table>
+		</div>
 
-	</div>
+	<& /comp/tableend &>
 
-	<& /comp/tablebegin, title => "Enter Edit" &>
+	<& /comp/tablebegin, title => "Enter edits" &>
 
 		<script type="text/javascript" src="/scripts/editsuite.js"></script>
 
-		<form method="post" action="enter.html">
+		<form method="post" action="review.html">
 			<table class="formstyle">
 				<tr>
 					<td class="notetext">
-						<& /comp/notetext,
-							notetext => $notetext, &>
 
-						<input type="hidden" name="releaseid" value="<% $release->GetId %>" /></td>
+%	my @buttons;
+%	push @buttons, ["Enter edits »", "btnYes", !$changes];
+%	push @buttons, ["Keep editing", ""];
+%	push @buttons, ["Start over", ""];
+%	push @buttons, ["Cancel", "btnCancel"];
+
+						<& /comp/notetext,
+							notetext => $notetext,
+							buttons => \@buttons &>
+
+						<input type="hidden" name="releaseid" value="<% $release->GetId %>" />
+					</td>
 				</tr>
 			</table>
 		</form>
 
 	<& /comp/tableend &>
-
-% 	}
 
 <& /comp/footer &>
 

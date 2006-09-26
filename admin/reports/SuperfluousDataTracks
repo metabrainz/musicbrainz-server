@@ -40,12 +40,14 @@ sub GatherData
 
 	$self->GatherDataFromQuery(<<'EOF', [ &Album::NONALBUMTRACKS_NAME ]);
 		SELECT
-			al.id AS album_id,
-			al.name AS album_name,
 			ar.id AS artist_id,
 			ar.name AS artist_name,
 			ar.sortname AS artist_sortname,
-			ar.resolution AS artist_resolution
+			ar.resolution AS artist_resolution,
+			ar.modpending AS artist_modpending,
+			al.id AS album_id,
+			al.name AS album_name,
+			al.modpending AS album_modpending
 		FROM
 			album al, artist ar, albummeta m
 		WHERE

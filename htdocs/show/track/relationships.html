@@ -48,7 +48,7 @@
 	my $track = $m->comp("/comp/loadtrack", $mb, $trackid);
 
 	my $title = ("Relationships for Track: " . $track->GetName());
-	$m->comp("/comp/sidebar-notitle", pagetitle => $title);
+	$m->comp("/comp/sidebar", pagetitle => $title);
 
 
 	$m->comp("/comp/ar/AddRelationship", id => $track->GetId, type => "track", name => $track->GetName)

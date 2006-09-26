@@ -37,64 +37,42 @@
 	my %allseq;
 
 	my @items = sort map { /^rev_year-(\d+)$/ ? ($1) : () } keys %ARGS;
-	my $index = 0;
 	for my $j (@items)
 	{
-		# fetch and delete fields, we'll reinsert them if they are valid.
-		my $year = $ARGS{"rev_year-$j"};
-		delete $ARGS{"rev_year-$j"};
+		$ARGS{"rev_year-$j"} = "" if ($ARGS{"rev_year-$j"} eq "yyyy");
+		$ARGS{"rev_month-$j"} = "" if ($ARGS{"rev_month-$j"} eq "mm");
+		$ARGS{"rev_day-$j"} = "" if ($ARGS{"rev_day-$j"} eq "dd");
 
-		my $month = $ARGS{"rev_month-$j"};
-		delete $ARGS{"rev_month-$j"};
+		my $rev_year = $ARGS{"rev_year-$j"};
+		my $rev_month = $ARGS{"rev_month-$j"};
+		my $rev_day = $ARGS{"rev_day-$j"};
+		my $rev_country = $ARGS{"rev_country-$j"};
+		my $rev_id = $ARGS{"rev_id-$j"};
+		my $rev_clear = $ARGS{"rev_clear-$j"} || 0;
 
-		my $day = $ARGS{"rev_day-$j"};
-		delete $ARGS{"rev_day-$j"};
+		if (!$rev_clear)
+		{
+			# Do not validate if all fields are blank, or the
+			# fields are blank and the release country is set to the default one.
+			MusicBrainz::TrimInPlace($rev_year, $rev_month, $rev_day, $rev_country, $rev_id);
 
-		my $country = $ARGS{"rev_country-$j"};
-		delete $ARGS{"rev_country-$j"};
+			if (!($rev_year eq "" and $rev_month eq "" and $rev_day eq "" and
+				 ($rev_country eq "" or $rev_country eq UserPreference::get("default_country"))))
+			{
 
-		my $relid = $ARGS{"rev_id-$j"};
-		delete $ARGS{"rev_id-$j"};
+				# flag a bad country if it has not been set.
+				MusicBrainz::IsNonNegInteger($rev_country)
+					or $h{"badcountry$j"} = 1;
 
-		my $relclear = $ARGS{"rev_clear-$j"};
-		delete $ARGS{"rev_clear-$j"};
-
-		# Skip if the clear release checkbox was ticked.
-		next if ($relclear);
-
-		# Skip if all blank, or if dates are blank
-		# and the release country is set to the default one.
-		# -- if the nth release date is empty and the
-		#    entry before it is cleared, the index number
-		#    of the following items has to be shifted down.
-		#    if this set of fields is skipped, the $index
-		# 	 will stay at the current position.
-		MusicBrainz::TrimInPlace($year, $month, $day, $country, $relid);
-		next if ($year eq "" and $month eq "" and $day eq "" and
-				 ($country eq "" or $country eq UserPreference::get("default_country")));
-
-		# flag a bad country if it has not been set.
-		MusicBrainz::IsNonNegInteger($country)
-			or $h{"badcountry$j"} = 1;
-
-		# flag a bad date if the validation returns false
-		my @ymd = MusicBrainz::IsValidDate($year, $month, $day)
-			or $h{"baddate$j"} = 1;
-
-		# shift the index number such that the events
-		# are continous from 0..n
-		$ARGS{"rev_year-$index"} = $year;
-		$ARGS{"rev_month-$index"} = $month;
-		$ARGS{"rev_day-$index"} = $day;
-		$ARGS{"rev_country-$index"} = $country;
-		$ARGS{"rev_id-$index"} = $relid;
-
-		$index += 1;
+				# flag a bad date if the validation returns false
+				my @ymd = MusicBrainz::IsValidDate($rev_year, $rev_month, $rev_day)
+					or $h{"baddate$j"} = 1;
+			}
+		}
 	}
 
 	# remember the number of valid release events
-	$h{"num"} = $index;
-
+	$h{"num"} = @items;
 
 	# put the encountered problems into the Arguments hash.
 	$ARGS{"v::releases"} = \%h;

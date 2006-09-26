@@ -1,5 +1,5 @@
 #!/usr/bin/perl -w
-# vi: set ts=8 sw=4 :
+# vi: set ts=4 sw=4 :
 #____________________________________________________________________________
 #
 #   MusicBrainz -- the open internet music database

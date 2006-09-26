@@ -157,7 +157,7 @@ EOF
 	print GNUPLOT "set yrange [$min:$max]\n";
 
 	print GNUPLOT <<EOF;
-set format x "%d-%b"
+set format x "%b %Y"
 set key left
 set ylabel "$title"
 
@@ -177,6 +177,7 @@ count_and_delta("count.album");
 count_and_delta("count.track");
 count_and_delta("count.ar.links");
 count_and_delta("count.trm");
+count_and_delta("count.puid");
 count_and_delta("count.discid");
 count_and_delta("count.moderator");
 count_and_delta("count.moderation");

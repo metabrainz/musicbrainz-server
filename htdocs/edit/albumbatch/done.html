@@ -290,7 +290,8 @@
 			</tr>
 		</table>
 
-		<script type="text/javascript" src="/scripts/collapsereleases.js"></script>
+		<& /comp/js/diffcollapse &>
+
 	<& /comp/layout/editformend &>
 
 <%perl>
@@ -319,6 +320,7 @@
 			showtag => 1,
 			tagchecked => 1,
 			showmodlinks => 1,
+			showrelationships => 0,
 		);
     }
 </%perl>

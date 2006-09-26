@@ -64,11 +64,13 @@
 			<tr>
 				<td colspan="2" class="instructions">
 					<ul>
-						<li>Please note that both the user name and password are case sensitive.</li>
+						<li>Please note that the password field is case sensitive.</li>
 %	if (&DBDefs::DB_STAGING_SERVER) {
 						<li>If you have trouble logging in, please note that since this
 							is a <% &DBDefs::DB_STAGING_SERVER %> server, the passwords
-							may have been reset to "mb".</li>
+							may have been reset to "mb". If you still cannot login, try
+							to clear the cookies for musicbrainz.org, and/or clearing
+							the browser cache.</li>
 % 	}
 					</ul>
 				</td>

@@ -29,7 +29,7 @@
 <%perl>
 
 	return unless $session{uid};
-	return unless UserStuff->IsAutoMod($session{privs});
+	return unless UserStuff->IsAutoEditor($session{privs});
 	my $mb = $m->comp("/comp/dblogin");
 	my $e = MusicBrainz::Server::AutomodElection->new($mb->{DBH});
 	my $pending = $e->GetPendingElections($session{uid});

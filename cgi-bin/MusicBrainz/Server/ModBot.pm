@@ -560,7 +560,7 @@ sub UserGrantedAutoModerator
 	# Which mod types get automodded?
 	require Moderation;
 	my $mod = Moderation->new($self->{DBH});
-	my @autotypes = grep { $mod->IsAutoModType($_) } values %{ ModDefs->type_as_hashref };
+	my @autotypes = grep { $mod->IsAutoEditType($_) } values %{ ModDefs->type_as_hashref };
 	my $types = join ",", @autotypes;
 
 	# Give them 100 votes each - they'll get applied when the modbot next wakes up

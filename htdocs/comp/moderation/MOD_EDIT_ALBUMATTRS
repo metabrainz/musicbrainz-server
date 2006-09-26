@@ -63,20 +63,45 @@
 		Album->GetAttributeName($_) || "#$_"
 	} split ',', $new->{Attributes};
 
-	$type = "Not set" if not defined($type);
-	$status = "Not set" if not defined($status);
-
-</%perl>
+%	$type = "?" if (not defined $type);
+%	$status = "?" if (not defined $status);
 
 	<table class="editfields">
 		<tr>
-			<td class="lbl">Type:</td>
-			<td><% $type %></td>
+			<td class="lbl">New:</td>
+			<td class="field">Type: <% $type %>, Status: <% $status %></td>
 		</tr>
 		<tr>
-			<td class="lbl">Status:</td>
-			<td><% $status %></td>
+			<td class="lbl">Was:</td>
+			<td>
+				<table class="editlisting">
+
+%	for my $release (@$releases)
+%	{
+
+					<tr>
+						<td>
+							<& /comp/linkrelease, id => $release->{'id'}, name => $release->{'name'}, strong => 0 &>
+
+%		my ($type, $status) = map {
+%			Album->GetAttributeName($_) || "#$_"
+%		} split ',', $release->{prev};
+%		$type = "?" if not defined($type);
+%		$status = "?" if not defined($status);
+
+						</td>
+						<td>
+							(<span class="explain" title="Type"><% $type %></span>,
+							 <span class="explain" title="Status"><% $status %></span>)
+						</td>
+					</tr>
+
+%	}
+
+				</table>
+			</td>
 		</tr>
+
 	</table>
 
 </%method>

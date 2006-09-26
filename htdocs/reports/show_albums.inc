@@ -108,10 +108,14 @@
 					name => $row->{'artist_name'},
 					sortname => $row->{'artist_sortname'},
 					resolution => $row->{'artist_resolution'},
+					modpending => $row->{'artist_modpending'},
 					strong => 0
 				&></td>
 			<td class="left padright">
-				<& /comp/linkrelease, id => $row->{album_id}, name => $row->{album_name},
+				<& /comp/linkrelease, 
+					id => $row->{album_id}, 
+					name => $row->{album_name},
+					modpending => $row->{'album_modpending'},
 					strong => 0 &></td>
 		</tr>
 

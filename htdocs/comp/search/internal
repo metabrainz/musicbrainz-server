@@ -133,8 +133,8 @@
 				<div class="boxcontent">
 					<div class="inner" style="text-align: center">
 						<a href="/edit/artist/add.html">Add artist</a> |
-						<a href="/edit/album/add.html?artistid=0">Add  album</a> |
-						<a href="/edit/album/add.html?artistid=1">Add various artist album</a> |
+						<a href="/edit/album/add.html?artistid=0">Add  release</a> |
+						<a href="/edit/album/add.html?artistid=1">Add various artist release</a> |
 						<a href="/freedb/freedb.html">FreeDB Import</a>
 					</div>
 				</div>

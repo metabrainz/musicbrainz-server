@@ -64,7 +64,7 @@ sub PostLoad
 	# from the albumjoin table, but it does not.
 }
 
-sub IsAutoMod
+sub IsAutoEdit
 {
 	my $self = shift;
 

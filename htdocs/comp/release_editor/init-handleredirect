@@ -189,6 +189,29 @@
 		}
 	}
 
+	# Handle ADD TRACK button
+	# ---------------------------------------------------------------
+	# the user has pressed "Add New Artist", forward to the Add
+	# Artist workflow.
+	if ($ARGS{"v::edit_track_data"} and
+		$ARGS{"submitvalue"} eq $ARGS{"SUBMIT_ADDTRACK"})
+	{
+		my $t = $ARGS{"tracks"}++;
+		$ARGS{getField($t, "artistedit")} = 1;
+		if ($ARGS{"artistid"} ne "" && $ARGS{"artistid"} != &ModDefs::VARTIST_ID)
+		{
+			$ARGS{getField($t, "artistid")} = $ARGS{"artistid"};
+			$ARGS{getField($t, "artistname")} = $ARGS{"artistname"};
+			$ARGS{getField($t, "artistresolution")} = $ARGS{"artistresolution"};
+			$ARGS{getField($t, "artistedit")} = 0;
+		}
+
+		$ARGS{"trackid$t"} = "";
+		$ARGS{"trackseq$t"} = $t+1;
+		$ARGS{"track$t"} = "";
+		$ARGS{"tracklength$t"} = "?:??";
+	}
+
 	return %ARGS;
 
 </%perl>

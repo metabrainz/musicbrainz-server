@@ -34,8 +34,13 @@
 	$release => undef
 
 	$showlinks => 1
-	$showmodlinks => 1
-	$showtrackartists => 0
+	$showeditlinks => 1
+
+	$showtrackartists => $session{"showtrackartists"}
+	$showtrackartiststoggle => 0
+
+	$showrelationships => $session{"showrelationships"}
+	$showrelationshipstoggle => 0
 
 	$link => ""
 	$linktype => ""
@@ -53,13 +58,12 @@
 	my $mbid = $release->GetMBId;
 	my $name = $release->GetName;
 	my $nonalbum = $release->IsNonAlbumTracks;
+	my $exists = MusicBrainz::IsNonNegInteger($release->GetId) && $release->GetId;
 
 </%perl>
 
 	<table id="release::<% $releaseid %>" class="releasebegin">
-		<tr class="title<% $release->GetModPending ? " mp" : "" %>">
-
-<%perl>
+		<tr class="title<% $release->GetModPending ? " mp" : "" %>"><%perl>
 
 	if ($link)
 	{
@@ -75,9 +79,22 @@
 	}
 
 </%perl>
-
+			<td class="toggle" style="display: none"></td>
 			<td class="title">
-				<a href="/release/<% $mbid %>.html" id="link::<% $releaseid %>" title="<% $name %>"><% $name %></a></td>
+
+%	# if the release has a rowid, show name as link, else text-only.
+%	if ($exists)
+%	{
+				<a href="/release/<% $mbid %>.html" id="link::<% $releaseid %>" title="<% $name %>"><% $name %></a>
+
+%	}
+%	else
+%	{
+				<span><% $release->GetName %></span>
+
+%	}
+
+			</td>
 
 %	if ($session{tport})
 %	{
@@ -89,7 +106,7 @@
 					alt="Open in tagger" /></a></td>
 %	}
 
-%	if ($session{uid} && !$nonalbum && $showtag)
+%	if ($session{"uid"} && !$nonalbum && $showtag)
 %	{
 
 			<td class="batchop" id="batchop::<% $releaseid %>">
@@ -108,13 +125,13 @@
 <%perl>
 
  	# release link rows.
- 	if ($showlinks or $showmodlinks)
+ 	if ($showlinks or $showeditlinks)
 	{
 		$m->out(qq!<table id="releaselinks::$releaseid" class="releaselinks"><tr>!);
 		$m->out(qq!<td class="links">!);
 		$m->out(qq!<table class="inner">!);
 
-		# First row: non-editing links
+		# non-editing links
  		if ($showlinks)
 		{
 			$m->out(qq!<tr><td class="info">!);
@@ -123,22 +140,63 @@
 			$m->out(qq!	| <a href="/show/release/details.html?releaseid=$releaseid">Details</a>!);
 			$m->out(qq! | !);
 			$m->comp("/comp/googlelink", search => [ $artist->GetName, $name ], text => "Search Google");
- 			if ($session{uid} and !$nonalbum)
+
+ 			if ($session{"uid"} and !$nonalbum)
  			{
-				$m->out(qq! | <a href="/mod/search/pre/album.html?releaseid=$releaseid">View Edits</a>!);
+				$m->out(qq! | <a href="/mod/search/pre/album.html?releaseid=$releaseid">View release edits</a>!);
  			}
 			$m->out(qq! ] </td></tr>!);
  		}
 
-		# Second row: editing links
- 		if ($showmodlinks)
+
+		my $editlinkprereq = ($session{uid} and $showeditlinks and $exists);
+
+		# annotation links
+ 		if ($editlinkprereq and UserPreference::get("release_show_annotationlinks"))
+ 		{
+ 			my $mb = $m->comp("/comp/dblogin");
+
+			# load the annotation from the database
+			my $annotation = MusicBrainz::Server::Annotation->new($mb->{DBH});
+			$annotation->SetAlbum($releaseid);
+			$annotation->GetLatestAnnotation() or $annotation = undef;
+
+			$m->out(qq!<tr><td class="editannotation">!);
+			$m->out(qq!Annotation: [ !);
+
+			if ($annotation)
+			{
+				$m->out(sprintf qq!<a href="/edit/annotation/album/history.html?albumid=%d&amp;expand_all=1">Show history</a> | !,
+								$release->GetId);
+				$m->comp("/edit/annotation/edit-link", annotation => $annotation);
+			}
+			else
+			{
+				$m->out("This release does not yet have an annotation. ");
+				$m->out(sprintf qq!<a href="/edit/annotation/album/edit.html?albumid=%d">Add an annotation &raquo;</a>!,
+								$release->GetId);
+			}
+			$m->out(qq! ]</td></tr>!);
+		}
+
+		# relationship links
+ 		if ($editlinkprereq and UserPreference::get("release_show_relationshipslinks") and !$nonalbum)
+ 		{
+			$m->out(qq!<tr><td class="editrelationships">!);
+			$m->out(qq!Relationships: !);
+			$m->comp("/comp/ar/ShowARLinks", id => $releaseid, type => "album", name => $release->GetName, short => 1);
+			$m->out(qq!</td></tr>!);
+		}
+
+		# editing links
+ 		if ($showeditlinks)
 		{
 			$m->out(qq!<tr><td class="edit"> Edit: [ !);
 			if ($session{uid})
 			{
 				if (!$nonalbum)
 				{
-					$m->out(qq!<a href="/edit/album/edit.html?releaseid=$releaseid">Edit</a> | !);
+					$m->out(qq!<a href="/edit/album/edit.html?releaseid=$releaseid">Edit title</a> | !);
 					$m->out(qq!<a href="/edit/album/editall.html?releaseid=$releaseid">Edit all</a> | !);
 
 					unless ($release->HasMultipleTrackArtists)
@@ -159,10 +217,26 @@
 						$m->out(qq! | <a href="/edit/track/add.html?releaseid=$releaseid">Add&nbsp;track</a>!);
 					}
 					$m->out(qq! | <a href="/edit/album/move.html?releaseid=$releaseid">Move</a>!);
-					if (!$showtrackartists and !$nonalbum)
+
+					# only show the track artists toggle function if the page using the /comp/album
+					# parameter handles the arguments
+					if ($showtrackartiststoggle && !$release->HasMultipleTrackArtists && !$nonalbum)
 					{
-						$m->out(qq! | <a href="/show/release/?releaseid=$releaseid&amp;showtrackartists=1">Show&nbsp;artists</a>!);
+						my $newtext = ($showtrackartists ? "Hide" : "Show")."&nbsp;artists";
+						my $newvalue = ($showtrackartists ? 0 : 1);
+
+						$m->out(qq! | <a href="/show/release/?releaseid=$releaseid&amp;showtrackartists=$newvalue">$newtext</a>!);
 					}
+					# only show the track relationships toggle function if the page using the /comp/album
+					# parameter handles the arguments
+					if ($showrelationshipstoggle)
+					{
+						my $newtext = ($showrelationships ? "Hide" : "Show")."&nbsp;relationships";
+						my $newvalue = ($showrelationships ? 0 : 1);
+
+						$m->out(qq! | <a href="/show/release/?releaseid=$releaseid&amp;showrelationships=$newvalue">$newtext</a>!);
+					}
+
 					if (!$release->HasMultipleTrackArtists)
 					{
 						$m->out(qq! | <a href="/edit/album/mac.html?releaseid=$releaseid">Convert&nbsp;to&nbsp;multiple&nbsp;artists</a>!);
@@ -220,7 +294,8 @@
 				$asin);
 			$m->out(qq!</div></td>!);
 		}
-		$m->out(qq!</tr></table>!);
+		$m->out(qq!</tr>!);
+		$m->out(qq!</table>!);
 	}
 
 </%perl>

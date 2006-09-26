@@ -24,27 +24,10 @@
 	# This component provides the display facilities for
 	# the MOD_MERGE_ARTIST edit type.
 	#
-	# $URL: http://svn.musicbrainz.org/mb_server/trunk/htdocs/comp/moderation/MOD_MERGE_ARTIST $
 	# $Id$
 	#
 </%perl>
 <%method ShowPreviousValue>
-% 	my $this = shift;
-
-	<table class="editfields">
-		<tr>
-			<td class="lbl">Old:</td>
-
-%	my ($id, $name, $title) = ($this->GetRowId, $this->GetPrev);
-%	if ($this->GetStatus == &ModDefs::STATUS_APPLIED)
-%	{
-%		$title = "This artist has been merged, id: $id";
-%		$id = -1;
-%	}
-
-			<td><& /comp/linkartist, id => $id, name => $name, title => $title &></td>
-		</tr>
-	</table>
 
 </%method>
 
@@ -52,34 +35,69 @@
 % 	my $this = shift;
 
 	<table class="editfields">
-
-% 	if ($this->{"new.id"})
-%	{
-
 		<tr>
-			<td class="lbl">New:</td>
-			<td><& /comp/linkartist, id => $this->{"new.id"}, name => $this->{'new.name'} &></td>
-		</tr>
+			<td class="lbl">Merge:</td>
+			<td>
 
-% 	}
-%	else
-%	{
-		<tr>
-			<td class="lbl">Name:</td>
-			<td><% $this->{'new.name'} %></td>
+<%perl>
+
+	my $artist = Artist->new($this->{DBH});
+	$artist->SetId($this->GetRowId);
+	if ($artist->LoadFromId)
+	{
+		$m->comp("/comp/linkartist", artist => $artist, strong => 0);
+	}
+	else
+	{
+		$m->comp("/comp/linkartist",
+			id => $this->GetRowId,
+			name => $this->GetPrev,
+			strong => 0);
+	}
+
+</%perl>
+
+			</td>
 		</tr>
+		<tr>
+			<td class="lbl">Into:</td>
+			<td>
+
+<%perl>
+
+ 	if ($this->{"new.id"})
+	{
+		$artist->SetId($this->{"new.id"});
+		if ($artist->LoadFromId)
+		{
+			$m->comp("/comp/linkartist", artist => $artist, strong => 0);
+		}
+		else
+		{
+			$m->comp("/comp/linkartist",
+				id => $this->{"new.id"},
+				name => $this->{'new.name'},
+				name => $this->{'new.sortname'},
+				strong => 0);
+		}
+ 	}
+	else
+	{
+
+</%perl>
+
+				Name: <% $this->{'new.name'} %>
 
 % 		if ($this->{'new.name'} ne $this->{'new.sortname'})
 %		{
 
-		<tr>
-			<td class="lbl">Sortnm.:</td>
-			<td><% $this->{'new.sortname'} %></td>
-		</tr>
+				(Sortname: <% $this->{'new.sortname'} %>)
 
-% 		}
+%		}
 % 	}
 
+			</td>
+		</tr>
 	</table>
 
 </%method>

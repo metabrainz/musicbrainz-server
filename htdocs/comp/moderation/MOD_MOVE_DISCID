@@ -42,15 +42,93 @@
 
 % 	if (my $cdtocid = $new->{"CDTOCId"})
 %	{
-			<td>DiscID <a href="/show/cdtoc/?cdtocid=<% $cdtocid %>"><% $discid %></a> to</td>
+
+			<td>Disc ID: <a href="/show/cdtoc/?cdtocid=<% $cdtocid %>"><% $discid %></a></td>
+
 % 	}
 %	else
 %	{
-			<td><% $discid %></td>
+
+			<td>Disc ID: <% $discid %></td>
+
 % 	}
+
 		<tr>
-			<td class="lbl">Release:</td>
-			<td><& /comp/linkrelease, id => $new->{'NewAlbumId'}, name => $new->{'NewAlbumName'} &></td>
+			<td class="lbl">From:</td>
+			<td>
+
+<%perl>
+
+	my ($releaseexists, $artistexists) = (0, 0);
+	my ($release, $artist) = (Album->new($this->{DBH}), Artist->new($this->{DBH}));
+	$release->SetId($this->GetPrev);
+	if ($releaseexists = $release->LoadFromId())
+	{
+		$artist->SetId($release->GetArtist);
+		$artistexists = $artist->LoadFromId();
+	}
+
+</%perl>
+
+%	if ($releaseexists)
+%	{
+
+				<& /comp/linkrelease, release => $release &>
+
+%	}
+%	else
+%	{
+
+				<& /comp/linkrelease, id => -1, name => $new->{'OldAlbumName'}, strong => 0 &>
+
+%	}
+
+%	if ($artistexists)
+%	{
+
+				(By:&nbsp;<& /comp/linkartist, artist => $artist, strong => 0 &>)
+
+%	}
+
+			</td>
+		</tr>
+		<tr>
+			<td class="lbl">To:</td>
+			<td>
+
+<%perl>
+
+	($releaseexists, $artistexists) = (0, 0);
+	$release->SetId($new->{'NewAlbumId'});
+	if ($releaseexists = $release->LoadFromId())
+	{
+		$artist->SetId($release->GetArtist);
+		$artistexists = $artist->LoadFromId();
+	}
+
+</%perl>
+
+%	if ($releaseexists)
+%	{
+
+				<& /comp/linkrelease, release => $release &>
+
+%	}
+%	else
+%	{
+
+				<& /comp/linkrelease, id => -1, name => $new->{'NewAlbumName'}, strong => 0 &>
+
+%	}
+
+%	if ($artistexists)
+%	{
+
+				(By:&nbsp;<& /comp/linkartist, artist => $artist, strong => 0 &>)
+
+%	}
+
+			</td>
 		</tr>
 	</table>
 

@@ -31,8 +31,9 @@
 
 	$album
 	$artist
-	$showmodlinks => 1
-	$showtrackartists => 0
+
+	$showeditlinks
+	$showtrackartists
 
 </%args>
 <%perl>
@@ -44,7 +45,7 @@
 	my $isva = $release->HasMultipleTrackArtists || $showtrackartists;
 
 	my $colspan = 3;
-	$colspan++ if ($showmodlinks);
+	$colspan++ if ($showeditlinks);
 	$colspan++ if ($isva);
 
 	my $trackcount = $release->GetTrackCount();
@@ -109,7 +110,7 @@
 		$editwhat = "";
 		$m->out("</a>&nbsp;]");
 
-		if ($session{"uid"} and $showmodlinks)
+		if ($session{"uid"} and $showeditlinks)
 		{
 			$m->out(sprintf qq!&nbsp;<a href="/edit/albumlanguage/edit.html?id=%s" title="%s">Edit%s</a>!,
 							$release->GetId(),
@@ -123,9 +124,12 @@
 		$m->out(qq!<td class="attributes">[&nbsp;!);
 		if (!$nonalbum)
 		{
-			my @attrs = $release->GetReleaseTypeAndStatus();
+			# get attributes, and sort such that we have type, status order.
+			my @attrs = $release->GetAttributes();
+			@attrs = sort { $a <=> $b } @attrs;
+
 			$m->out(qq!<a href="/popup/ReleaseAttribute" title="POPUP::Release_Attributes::400::300">!);
-			if (scalar(@attrs) > 0)
+			if (@attrs > 0)
 			{
 				$m->out(sprintf qq!<span%s>!, $release->GetAttributeModPending() ? ' class="mp"' : "");
 
@@ -147,7 +151,7 @@
 			$m->out("</a>&nbsp;]");
 		}
 
-		if ($session{"uid"} and $showmodlinks)
+		if ($session{"uid"} and $showeditlinks)
 		{
 			$m->out(sprintf qq!&nbsp;<a href="/edit/album/editattributes.html?id=%s" title="%s">Edit</a>!,
 							$release->GetId(),

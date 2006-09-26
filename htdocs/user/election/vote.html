@@ -47,9 +47,8 @@
 		: return $m->comp("/comp/redirect", "/user/election/")
 	);
 
-	UserStuff->IsAutoMod($session{privs})
-		or return $m->comp(
-			"/comp/error",
+	UserStuff->IsAutoEditor($session{privs})
+		or return $m->comp("/comp/error",
 			"Only existing AutoEditors can vote on new AutoEditors",
 			1, 1,
 		);

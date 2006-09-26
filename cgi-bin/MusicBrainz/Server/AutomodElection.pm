@@ -266,7 +266,7 @@ sub Propose
 	my $sql = Sql->new($self->{DBH});
 
 	$@ = "ALREADY_AN_AUTOMOD", return
-		if $candidate->IsAutoMod($candidate->GetPrivs);
+		if $candidate->IsAutoEditor($candidate->GetPrivs);
 
 	$@ = "INELIGIBLE", return
 		if $self->is_user_ineligible($candidate);

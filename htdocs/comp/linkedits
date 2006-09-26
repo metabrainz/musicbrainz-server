@@ -63,8 +63,8 @@
 	}
 
 	my $open_status = "&amp;mod_status=1&amp;mod_status=8";
-	my $open_title = "Review open edits entered against this $type";
-	my $all_title = "Review all edits entered against this $type";
+	my $open_title = "Review open $type edits";
+	my $all_title = "Review all $type edits";
 
 </%perl>
 

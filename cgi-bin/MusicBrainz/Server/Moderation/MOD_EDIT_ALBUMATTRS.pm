@@ -124,7 +124,7 @@ sub PreInsert
 	}
 }
 
-sub IsAutoMod
+sub IsAutoEdit
 {
 	my ($self, $user_is_automod) = @_;
 	$self->{"new_unpacked"}{"can_automod"} or $user_is_automod;

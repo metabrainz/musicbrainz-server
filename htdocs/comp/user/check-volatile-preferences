@@ -32,7 +32,7 @@
 
 	if (defined $session{"orig_privs"})
 	{
-		if (UserStuff->IsAutoMod($session{"orig_privs"}))
+		if (UserStuff->IsAutoEditor($session{"orig_privs"}))
 		{
 			my $flagold = $ARGS{"autoeditorpriv_enabled_old"} || "";
 			my $flagnew = $ARGS{"autoeditorpriv_enabled_new"} || "";

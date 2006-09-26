@@ -12,5 +12,5 @@ function resizeFrameAsRequired(iframe)
 	if (!h && body.offsetHeight) h = body.offsetHeight;
 	if (!h) return;
 
-	iframe.height = h;
+	iframe.height = h + 6;
 }

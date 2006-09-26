@@ -95,7 +95,7 @@ sub PreInsert
 	$self->SetLanguageId($languageid) if $languageid;
 }
 
-sub IsAutoMod
+sub IsAutoEdit
 {
 	my $self = shift;
 

@@ -138,7 +138,7 @@
 
 		<form method="post" action="/edit/albumbatch/remove.html" id="ConfirmForm">
 
-			<script type="text/javascript" src="/scripts/collapsereleases.js"></script>
+			<& /comp/js/diffcollapse &>
 			<script type="text/javascript" src="/scripts/editsuite.js"></script>
 
 			<table class="formstyle">
@@ -198,7 +198,7 @@
 
 		for my $release (sort { $a->{_name_} cmp $b->{_name_} } @{ $artist->{_releases_} })
 		{
-			$m->comp( "/comp/album", album => $release, artist => $artist, showmodlinks => 0);
+			$m->comp( "/comp/album", album => $release, artist => $artist, showmodlinks => 0, showrelationships => 0);
 		}
 	}
 

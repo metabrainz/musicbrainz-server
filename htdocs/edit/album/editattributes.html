@@ -126,7 +126,7 @@
 
 </%perl>
 
-<& /comp/sidebar-notitle, pagetitle => "Edit Album Attributes" &>
+<& /comp/sidebar-notitle, pagetitle => "Edit release attributes" &>
 
 	<!-- add editsuite for modnote resizer support -->
 	<script type="text/javascript" src="/scripts/editsuite.js"></script>
@@ -136,7 +136,7 @@
 %	if (@releaseobjs == 1)
 %	{
 
-		<& /comp/layout/editformbegin, title => "Edit Release Attributes",
+		<& /comp/layout/editformbegin, title => "Edit release attributes",
 			release => $releaseobjs[0],
 			mp_type => &ModDefs::MOD_EDIT_ALBUMATTRS,
 		&>
@@ -145,33 +145,33 @@
 %	else
 %	{
 
-		<& /comp/layout/editformbegin, title => "Edit Release Attributes",
+		<& /comp/layout/editformbegin, title => "Edit release attributes",
 			mp_type => &ModDefs::MOD_EDIT_ALBUMATTRS,
 			mp => $mp,
 		&>
 %	}
 
 		<& /edit/album/attrform,
-			adding				=> undef,
-			releaseobjs			=> \@releaseobjs,
-			#albumname			=> (@releaseobjs > 1 ? "" : $releaseobjs[0]->GetName),
-			#multi_album			=> (@releaseobjs > 1),
+			adding => undef,
+			releaseobjs => \@releaseobjs,
+			#albumname => (@releaseobjs > 1 ? "" : $releaseobjs[0]->GetName),
+			#multi_album => (@releaseobjs > 1),
 
-			type_value			=> $type,
-			status_value		=> $status,
-			type_fieldname		=> "attr_type",
-			status_fieldname	=> "attr_status",
-			focus_to			=> \@focus_to,
+			type_value => $type,
+			status_value => $status,
+			type_fieldname => "attr_type",
+			status_fieldname => "attr_status",
+			focus_to => \@focus_to,
 		&>
 
 % 	for (@id)
 %	{
-
-		<input type="hidden" name="id" value="<% $_ %>">
-
+%		$m->comp("/comp/form/hiddenfield", "id", $_);
 % 	}
 
-		<input type="hidden" name="untag" value="<% $untag %>">
+			<& /comp/form/hiddenfield, "untag", $untag &>
+			<& /comp/form/focusfield, $focus_to[0] &>
+
 		<& /comp/layout/editformend &>
 
 	</form>

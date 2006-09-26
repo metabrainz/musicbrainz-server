@@ -49,6 +49,7 @@ function EsTrackParser() {
 	this.CFG_VINYLNUMBERS = this.getModID()+".vinylnumbers";
 	this.CFG_TRACKTIMES = this.getModID()+".tracktimes";
 	this.CFG_STRIPBRACKETS = this.getModID()+".stripbrackets";
+	this.CFG_COLLAPSETEXTAREA = this.getModID()+".collapsetextarea";
 
 	this.CONFIG_LIST = [
 		new EsModuleConfig(this.CFG_ALBUMTITLE,
@@ -70,7 +71,13 @@ function EsTrackParser() {
 		new EsModuleConfig(this.CFG_STRIPBRACKETS,
 						 true,
 						 "Remove text in brackets [...]",
-						 "Text in square brackets (usually links to other pages) is removed")
+						 "If this checkbox is activated, text in square brackets "+
+						 "(usually links to other pages) is stripped from the titles."),
+		new EsModuleConfig(this.CFG_COLLAPSETEXTAREA,
+						 false,
+						 "Resize textarea automatically",
+						 "If this checkbox is activated, the textarea is enlarged "+
+						 "if it has the keyboard focus, and collapsed again when the focus is lost.")
 	];
 
 	this.TRACKSAREA = this.getModID()+".tracksarea"; // name,id of trackParser textarea
@@ -119,7 +126,9 @@ function EsTrackParser() {
 		s.push('<table cellspacing="0" cellpadding="0" class="moduletable">');
 		s.push('<tr>');
 		s.push('<td colspan="2">');
-		s.push('<textarea name="'+this.TRACKSAREA+'" rows="10" cols="90" id="'+this.TRACKSAREA+'" wrap="off" style="width: 97%; font-family: Arial,Helvetica, Verdana; font-size: 11px; overflow: auto"></textarea>');
+		s.push('<textarea name="'+this.TRACKSAREA+'" rows="8" cols="90" id="'+this.TRACKSAREA+'" ');
+		s.push('  wrap="off" style="width: 97%; font-family: Arial,Helvetica, Verdana; font-size: 11px; overflow: auto" ');
+		s.push('></textarea>');
 		s.push('</td></tr>');
 		s.push('<tr valign="top" id="'+this.WARNINGTR+'" style="display: none">');
 		s.push('<td colspan="2" style="padding: 2px; color: red; font-size: 11px" id="'+this.WARNINGTD+'"><small>');
@@ -139,6 +148,54 @@ function EsTrackParser() {
 		s.push(this.getModuleStartHtml({x: false, dt: 'Collapsed'}));
 		s.push(this.getModuleEndHtml({x: false}));
 		return s.join("");
+	};
+
+
+	/**
+	 * Setup the textarea resizing, if the user chooses to have it.
+	 **/
+	this.onModuleHtmlWrittenDelegate = function() {
+		if (this.isConfigTrue(this.CFG_COLLAPSETEXTAREA)) {
+			var	el = mb.ui.get(es.tp.TRACKSAREA);
+			el.onfocus = function onfocus(el) {
+				es.tp.handleFocus();
+			};
+			el.onblur = function onblur(el) {
+				es.tp.handleBlur();
+			};
+			el.rows = 2;
+		}
+	};
+
+
+	/**
+	 * Prepare code for this module.
+	 *
+	 * @returns raw html code
+	 **/
+	this.handleFocus = function(state) {
+		clearTimeout(this.resizeTimeout);
+		var	el = mb.ui.get(es.tp.TRACKSAREA);
+		if (state) {
+			el.rows = 20;
+		} else {
+			this.resizeTimeout = setTimeout("es.tp.handleFocus(1)", 100);
+		}
+	};
+
+	/**
+	 * Prepare code for this module.
+	 *
+	 * @returns raw html code
+	 **/
+	this.handleBlur = function(state) {
+		var	el = mb.ui.get(es.tp.TRACKSAREA);
+		clearTimeout(this.resizeTimeout);
+		if (state) {
+			el.rows = 2;
+		} else {
+			this.resizeTimeout = setTimeout("es.tp.handleBlur(1)", 100);
+		}
 	};
 
 	/**

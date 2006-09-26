@@ -46,28 +46,28 @@
 	# Instantiate MusicBrainz object, and fetch list of
 	# matching edit objects
 	my $mb = $m->comp("/comp/dblogin");
-	my $mod = Moderation->new($mb->{DBH});
-	my ($result, $mods, $total_mods) = $mod->GetModerationList(
+	my $edit = Moderation->new($mb->{DBH});
+	my ($result, $edits, $total_edits) = $edit->GetModerationList(
 		$query, $voter_id,
 		$offset, $max_items,
 	);
 
 	# If timed out, make an empty list
-	$mods ||= [];
+	$edits ||= [];
 	$m->comp("/comp/redirect", "/mod/search/index.html")
 		if ($result == &Moderation::SEARCHRESULT_NOQUERY);
 
 	# Do we show the "vote" button?
-	# XXX this is based upon $mod->GetVote, but that might be showing someone
+	# XXX this is based upon $edit->GetVote, but that might be showing someone
 	# else's votes, not ours!
 	my $show_button = 0;
 
 	my %notes;
-	if (@$mods)
+	if (@$edits)
 	{
 		my $notes = MusicBrainz::Server::ModerationNote->new($mb->{DBH});
 		my @notes = $notes->newFromModerationIds(
-			map { $_->GetId } @$mods
+			map { $_->GetId } @$edits
 		);
 		push @{ $notes{ $_->GetModerationId } }, $_
 			for @notes;
@@ -112,7 +112,7 @@
 
 
 %	}
-%	elsif (not @$mods)
+%	elsif (not @$edits)
 %	{
 
 					<strong>No edits found matching the current selection.</strong>
@@ -121,10 +121,10 @@
 					edit search</a> to find the edits you are looking for.
 
 %	}
-%	elsif (defined $total_mods)
+%	elsif (defined $total_edits)
 %	{
 
-					Found <% $total_mods %> edit<% ($total_mods == 1) ? "" : "s" %>
+					Found <% $total_edits %> edit<% ($total_edits == 1) ? "" : "s" %>
 					matching the current selection.
 
 % 	}
@@ -133,8 +133,8 @@
 			</tr>
 		</table>
 
-%	if (defined $total_mods and
-%		$total_mods-$offset > $max_items || $offset > 0)
+%	if (defined $total_edits and
+%		$total_edits-$offset > $max_items || $offset > 0)
 %	{
 
 %		# aligning the browse controls with the rest of the items.
@@ -144,7 +144,7 @@
 			   args => $args,
 			   offset => $offset,
 			   pagesize => $max_items,
-			   numitems => $total_mods,
+			   numitems => $total_edits,
 			&>
 		</div>
 
@@ -154,7 +154,7 @@
 
 	<& /comp/tableend &>
 
-% 	if (@$mods)
+% 	if (@$edits)
 %	{
 
 
@@ -163,11 +163,11 @@
 		<table class="editlist">
 
 <%perl>
-		for my $obj (@$mods)
+		for my $obj (@$edits)
 		{
 			my $n = $notes{ $obj->GetId } || [];
 			$m->comp("/comp/showmod",
-				mod	=> $obj,
+				edit => $obj,
 				notes => $n,
 				voter => $voter_id,
 				voteflag=> \$show_button);
@@ -191,7 +191,7 @@
 	</form>
 
 
-%		my $show_pageselector = (($total_mods - $offset > $max_items or $offset > 0) and @$mods);
+%		my $show_pageselector = (($total_edits - $offset > $max_items or $offset > 0) and @$edits);
 %		if ($show_pageselector)
 %		{
 
@@ -205,7 +205,7 @@
 				   args => $args,
 				   offset => $offset,
 				   pagesize => $max_items,
-				   numitems => $total_mods,
+				   numitems => $total_edits,
 				&></td>
 			</tr>
 		</table>
@@ -214,9 +214,7 @@
 
 %		}
 
-		<script type="text/javascript" src="/scripts/showedit.js"></script>
-		<script type="text/javascript" src="/scripts/jsdiff.js"></script>
-		<script type="text/javascript" src="/scripts/collapsereleases.js"></script>
+		<& /comp/js/diffcollapse &>
 
 % 	}
 

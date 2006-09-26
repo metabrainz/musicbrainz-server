@@ -92,7 +92,7 @@ mb.log.exit();
 };
 this.isConfigTrue=function(key){
 mb.log.enter(this.GID,"isConfigTrue");
-if(!this.CONFIG_VALUES[key]){
+if(this.CONFIG_VALUES[key]=="undefined"){
 this.getConfigFromUI();
 }
 var o=(this.CONFIG_VALUES[key]||false);
@@ -295,8 +295,8 @@ s.push(this.getModID());
 s.push("-tr-"+_2e+"\" ");
 s.push(_2f!=""?"style=\"display: "+_2f+"\"":"");
 s.push(">");
-s.push("<td width=\"130\" nowrap><b>"+this.getModName()+":</b></td>");
-s.push("<td width=\"100%\">");
+s.push("<td style=\"width: 130px; font-weight: bold\">"+this.getModName()+":</td>");
+s.push("<td>");
 if(!c.x){
 var t=(c.dt||"");
 if(mb.ua.ie){
@@ -376,7 +376,7 @@ this.getModName=function(){
 return "Quick functions";
 };
 this.CFG_ENABLED=this.getModID()+".enabled";
-this.CONFIG_LIST=[new EsModuleConfig(this.CFG_ENABLED,true,"Enable the Editor Toolboxes","<img src=/images/es/tools.gif> This function adds icons to the right of the edit fields, which enable quick access to the most needed functions for the current field.")];
+this.CONFIG_LIST=[new EsModuleConfig(this.CFG_ENABLED,true,"Enable the editor toolboxes","<img src=/images/es/tools.gif> This function adds icons to the right of the edit fields, which enable quick access to the most needed functions for the current field.")];
 this.OP_UPPERCASE="QO_UPPERCASE";
 this.OP_LOWERCASE="QO_LOWERCASE";
 this.OP_TITLED="QO_TILED";
@@ -395,7 +395,7 @@ this.tbFieldId=null;
 this.TB_GC_DROPDOWN="TB_GC_DROPDOWN";
 this.tbGuessCaseMode=null;
 this.setupModuleDelegate=function(){
-es.ui.registerButtons(new EsButton(this.BTN_CAPITAL,"Capital","Capitalize first character only",this.getModID()+".runOp("+this.getModID()+".OP_TITLED)"),new EsButton(this.BTN_UPPER,"UPPER","Convert characters to UPPERCASE",this.getModID()+".runOp("+this.getModID()+".OP_UPPERCASE)"),new EsButton(this.BTN_LOWER,"lower","Convert characters to lowercase",this.getModID()+".runOp("+this.getModID()+".OP_LOWERCASE)"),new EsButton(this.BTN_ADDROUNDBRACKETS,"Add ()","Add round parentheses () around selection",this.getModID()+".runOp("+this.getModID()+".OP_ADD_ROUNDBRACKETS)"),new EsButton(this.BTN_ADDSQUAREBRACKETS,"Add []","Add square brackets [] around selection",this.getModID()+".runOp("+this.getModID()+".OP_ADD_SQUAREBRACKETS)"),new EsButton(this.BTN_TB_GUESS,"Guess","Guess Case using this method",this.getModID()+".onGuessCaseClicked()"));
+es.ui.registerButtons(new EsButton(this.BTN_CAPITAL,"Capital","Capitalize first character only",this.getModID()+".runOp("+this.getModID()+".OP_TITLED)"),new EsButton(this.BTN_UPPER,"UPPER","Convert characters to UPPERCASE",this.getModID()+".runOp("+this.getModID()+".OP_UPPERCASE)"),new EsButton(this.BTN_LOWER,"lower","Convert characters to lowercase",this.getModID()+".runOp("+this.getModID()+".OP_LOWERCASE)"),new EsButton(this.BTN_ADDROUNDBRACKETS,"Add ()","Add round parentheses () around selection",this.getModID()+".runOp("+this.getModID()+".OP_ADD_ROUNDBRACKETS)"),new EsButton(this.BTN_ADDSQUAREBRACKETS,"Add []","Add square brackets [] around selection",this.getModID()+".runOp("+this.getModID()+".OP_ADD_SQUAREBRACKETS)"),new EsButton(this.BTN_TB_GUESS,"Guess","Guess case using this method",this.getModID()+".onGuessCaseClicked()"));
 };
 this.getModuleHtml=function(){
 var s=[];
@@ -474,14 +474,13 @@ s.push(_48);
 s.push("\" ");
 s.push("onClick=\"return "+this.getModID()+".onToolboxLinkClicked('");
 s.push(op);
-s.push("');\"");
-s.push("onFocus=\"this.blur()\"");
+s.push("');\" ");
 s.push("title=\""+_49+"\"");
 s.push(">"+_48+"</a>");
 return s.join("");
 };
 this.onShowToolboxClicked=function(el){
-mb.log.scopeStart("Handling click on Show toolbox icon");
+mb.log.scopeStart("Handling click on show toolbox icon");
 mb.log.enter(this.GID,"onShowToolboxClicked");
 if(o3_showingsticky){
 cClick();
@@ -504,7 +503,7 @@ ol_captionfontclass="editor-toolbox-caption";
 this.tbFieldId=el.id.split("|")[0];
 this.tbField=es.ui.getField(this.tbFieldId);
 this.tbField.focus();
-overlib(this.getToolboxHtml(),STICKY,CLOSECLICK,CAPTION,"Editor Toolbox:");
+overlib(this.getToolboxHtml(),STICKY,CLOSECLICK,CAPTION,"Editor toolbox:");
 this.tbBoxX=parseInt(over.style.left);
 this.tbBoxY=parseInt(over.style.top);
 this.tbFieldY=mb.ui.getOffsetTop(this.tbField);
@@ -716,7 +715,7 @@ this.getModID=function(){
 return "es.fr";
 };
 this.getModName=function(){
-return "Field Resizer";
+return "Field resizer";
 };
 this.CFG_REMEMBERSIZE=this.getModID()+".remembersize";
 this.CFG_AUTORESIZE=this.getModID()+".autoresize";
@@ -725,6 +724,7 @@ this.BTN_NARROWER="BTN_FR_NARROWER";
 this.BTN_WIDER="BTN_FR_WIDER";
 this.BTN_GUESSSIZE="BTN_FR_GUESSSIZE";
 this.COOKIE_SIZE=this.getModID()+".size";
+this.currentWidth=es.ui.TEXTFIELD_SIZE;
 this.setupModuleDelegate=function(){
 es.ui.registerButtons(new EsButton(this.BTN_NARROWER,"Make narrower","Make input fields 25px smaller",this.getModID()+".onSetSizeClicked(-25)"),new EsButton(this.BTN_WIDER,"Make wider","Make input fields 25px wider",this.getModID()+".onSetSizeClicked(+25)"),new EsButton(this.BTN_GUESSSIZE,"Try to fit text","Set the size of the fields to the size of the longest value",this.getModID()+".onSetSizeClicked()"));
 };
@@ -780,6 +780,7 @@ if((this.getWidth(f))!=null){
 f.style.width=_6c;
 }
 }
+this.currentWidth=nw;
 }else{
 if(mb.utils.isNumber(_6c)){
 mb.log.info((_6c>0?"Adding $ to size":"Removing $ from size"),Math.abs(_6c));
@@ -795,9 +796,9 @@ _6e=true;
 }
 }else{
 mb.log.warning("Field $ does not define width!");
-alert(f+" "+f.type);
 }
 }
+this.currentWidth=nw;
 }else{
 var _6f=0,fl=0;
 for(i=0;i<fields.length;i++){
@@ -831,6 +832,7 @@ mb.log.debug("Set field: $ to size: $ (cn: $)",(f.name||"?"),f.style.width,cn);
 mb.log.warning("Field $ does not define width!",(f.name||"?"));
 }
 }
+this.currentWidth=nw;
 }
 }
 mb.log.exit();
@@ -913,7 +915,7 @@ this.getModID=function(){
 return "es.changeartist";
 };
 this.getModName=function(){
-return "Change Artist functions";
+return "Change artist functions";
 };
 this.guessBothWarning="",this.useCurrent=function(){
 mb.log.enter(this.GID,"useCurrent");
@@ -1029,7 +1031,7 @@ this.getModID=function(){
 return "es.ui";
 };
 this.getModName=function(){
-return "User Interface";
+return "User interface";
 };
 this.BTN_ALIAS="BTN_ALIAS";
 this.BTN_ARTIST="BTN_ARTIST";
@@ -1043,22 +1045,22 @@ this.BTN_USESPLIT="BTN_USESPLIT";
 this.BTN_USECURRENT="BTN_USECURRENT";
 this.BTN_GUESSBOTH="BTN_GUESSBOTH";
 this.BTN_CANCEL="BTN_CANCEL";
-this.BTN_TEXT_NONALBUMTRACKS="Guess all track names according to guess case settings";
-this.BTN_TEXT_ALBUMANDTRACKS="Guess release name and track names according to Guess Case settings";
-this.BTN_TEXT_ALBUMARTISTANDTRACKS="Guess release, artist and track names according to Guess Case settings";
+this.BTN_TEXT_NONALBUMTRACKS="Guess all track names using the guess case settings";
+this.BTN_TEXT_ALBUMANDTRACKS="Guess release name and track names using the guess case settings";
+this.BTN_TEXT_ALBUMARTISTANDTRACKS="Guess release, artist and track names using the guess case settings";
 this.GC_MODE=null;
 this.focusField=null;
 this.focusValue=null;
 this.FORMFIELD_ID="ES_FORMFIELD_ID";
 this.formRef=null;
 this.buttonRegistry=[];
-this.re={ARTISTFIELD:/^(search|artistname|newartistname|newartistalias)/i,SORTNAMEFIELD:/^(artistsortname|newartistsortname)/i,ALBUMFIELD:/^(newalbumname|albumname|newreleasename|releasename|album|release|name)/i,TRACKFIELD:/^(newtrackname|trackname|track)/i,TRACKLENGTHFIELD:/tracklength\d+/i,TEXTFIELD:/^textfield(\sfocus|\smissing)*$/i,RESIZEABLEFIELD:/^textfield(\sfocus|\shidden|\soldvalue|\sheader)*$/i,NUMBERFIELD:/^numberfield(\sfocus|\shidden|oldvalue|header)*$/i};
+this.re={ARTISTFIELD_NAME:/(search|artistname|newartistname|newartistalias)/i,SORTNAMEFIELD_NAME:/(artistsortname|newartistsortname)/i,RELEASEFIELD_NAME:/(newreleasename|releasename|newreleasename|releasename|release|release|name)/i,TRACKFIELD_NAME:/(newtrackname|trackname|track)/i,TRACKLENGTHFIELD_NAME:/tracklength\d+/i,TEXTFIELD_CSS:/textfield(\sfocus|\smissing)*/i,RESIZEABLEFIELD_CSS:/textfield(\sfocus|\shidden|\soldvalue|\sheader)*/i,NUMBERFIELD_CSS:/numberfield(\sfocus|\shidden|oldvalue|header)*/i,TRACKLENGTH_CSS:/tracklength(\sfocus|\shidden|oldvalue|header)*/i,DATEFIELD_CSS:/(year|month|day)field(\sfocus)*/i};
 this.TEXTFIELD_SIZE=350;
-this.SIZE_PX_FACTOR=5.7;
+this.SIZE_PX_FACTOR=6.7;
 this.setupModuleDelegate=function(){
 mb.log.enter(this.GID,"setupModuleDelegate");
-var def="Guess Case";
-this.registerButtons(new EsButton(this.BTN_ALIAS,def,"Guess artist alias according to MusicBrainz artist name guidelines","es.guessArtistField($);"),new EsButton(this.BTN_ARTIST,def,"Guess artist name according to MusicBrainz artist name guidelines","es.guessArtistField($);"),new EsButton(this.BTN_SORTGUESS,"Guess","Guess sort name from artist name field","es.guessSortnameField($, $);"),new EsButton(this.BTN_SORTCOPY,"Copy","Copy sort name from artist name field","es.copySortnameField($, $);"),new EsButton(this.BTN_ALBUM,def,"Guess release name according to Guess Case settings","es.guessAlbumField($);"),new EsButton(this.BTN_TRACK,def,"Guess track name according to Guess Case settings","es.guessTrackField($)"),new EsButton(this.BTN_ALL,"Guess All","Guess all fields according to Guess Case settings","es.guessAllFields()"),new EsButton(this.BTN_USESWAP,"Swap","Swap artist name and track name fields","es.swapFields($,$,$)"),new EsButton(this.BTN_USECURRENT,"Use Current","Reset to current artist name and track name","es.changeartist.useCurrent()"),new EsButton(this.BTN_USESPLIT,"Split","Use artist name and track name from split function","es.changeartist.useSplit()"),new EsButton(this.BTN_GUESSBOTH,"Guess Both","Guess both artist name and track name","es.changeartist.guessBoth($, $)"),new EsButton(this.BTN_CANCEL,"Cancel","Return to the previous page","es.ui.cancelForm($)"));
+var def="Guess case";
+this.registerButtons(new EsButton(this.BTN_ALIAS,def,"Guess artist alias according to MusicBrainz artist name guidelines","es.guessArtistField($);"),new EsButton(this.BTN_ARTIST,def,"Guess artist name according to MusicBrainz artist name guidelines","es.guessArtistField($);"),new EsButton(this.BTN_SORTGUESS,"Guess","Guess sort name from artist name field","es.guessSortnameField($, $);"),new EsButton(this.BTN_SORTCOPY,"Copy","Copy sort name from artist name field","es.copySortnameField($, $);"),new EsButton(this.BTN_ALBUM,def,"Guess release name using the guess case settings","es.guessReleaseField($);"),new EsButton(this.BTN_TRACK,def,"Guess track name using the guess case settings","es.guessTrackField($)"),new EsButton(this.BTN_ALL,"Guess all","Guess all fields using the guess case settings","es.guessAllFields()"),new EsButton(this.BTN_USESWAP,"Swap","Swap artist name and track name fields","es.swapFields($,$,$)"),new EsButton(this.BTN_USECURRENT,"Use current","Reset to current artist name and track name","es.changeartist.useCurrent()"),new EsButton(this.BTN_USESPLIT,"Split","Use artist name and track name from split function","es.changeartist.useSplit()"),new EsButton(this.BTN_GUESSBOTH,"Guess both","Guess both artist name and track name","es.changeartist.guessBoth($, $)"),new EsButton(this.BTN_CANCEL,"Cancel","Return to the previous page","es.ui.cancelForm($)"));
 mb.registerDOMReadyAction(new MbEventAction(this.GID,"setupFormFields","Add event handlers on form elements"));
 mb.log.exit();
 };
@@ -1330,95 +1332,102 @@ this.handleBlur=function(_b2){
 mb.log.scopeStart("Handling onblur event on field: "+_b2.name);
 mb.log.enter(this.GID,"handleBlur");
 var _b3=_b2.value;
-var _b4=this.getFocusValue();
-if(_b4=="?:??"&&_b3==""){
-_b2.value=_b4;
+var _b4=_b2.name||"";
+var _b5=this.getFocusValue();
+if(_b4.match(this.re.TRACKLENGTHFIELD_NAME)){
+if(_b3.indexOf(":")==-1){
+_b3=_b3.replace(/(\d*)(\d\d)/i,"$1:$2");
+if(_b3.length==3){
+_b3="0"+_b3;
 }
-if(this.isFocusField(_b2)&&_b4!=_b2.value){
-es.ur.addUndo(es.ur.createItem(_b2,"manual",_b4,_b3));
+_b2.value=_b3==""?"?:??":_b3;
+}
+}
+if(this.isFocusField(_b2)&&_b5!=_b2.value){
+es.ur.addUndo(es.ur.createItem(_b2,"manual",_b5,_b3));
 }
 mb.log.exit();
 };
-this.isFocusField=function(_b5){
-return (this.getFocusField()==_b5);
+this.isFocusField=function(_b6){
+return (this.getFocusField()==_b6);
 };
 this.getResizableFields=function(){
 mb.log.enter(this.GID,"getResizableFields");
-var _b6=[];
-if(this.getForm()){
-_b6=this.getFieldsWalker(this.re.RESIZEABLEFIELD,null);
-}
-mb.log.exit();
-return _b6;
-};
-this.getEditTextFields=function(){
-mb.log.enter(this.GID,"getEditTextFields");
 var _b7=[];
 if(this.getForm()){
-_b7=this.getFieldsWalker(this.re.TEXTFIELD,null);
+_b7=this.getFieldsWalker(this.re.RESIZEABLEFIELD_CSS,null);
 }
 mb.log.exit();
 return _b7;
 };
-this.getArtistFields=function(){
-mb.log.enter(this.GID,"getArtistFields");
+this.getEditTextFields=function(){
+mb.log.enter(this.GID,"getEditTextFields");
 var _b8=[];
 if(this.getForm()){
-_b8=this.getFieldsWalker(this.re.TEXTFIELD,this.re.ARTISTFIELD);
+_b8=this.getFieldsWalker(this.re.TEXTFIELD_CSS,null);
 }
 mb.log.exit();
 return _b8;
 };
-this.getAlbumNameField=function(){
-mb.log.enter(this.GID,"getAlbumNameField");
+this.getArtistFields=function(){
+mb.log.enter(this.GID,"getArtistFields");
 var _b9=[];
 if(this.getForm()){
-_b9=this.getFieldsWalker(this.re.TEXTFIELD,this.re.ALBUMFIELD);
+_b9=this.getFieldsWalker(this.re.TEXTFIELD_CSS,this.re.ARTISTFIELD_NAME);
 }
-return (_b9[0]||null);
+mb.log.exit();
+return _b9;
+};
+this.getReleaseNameField=function(){
+mb.log.enter(this.GID,"getReleaseNameField");
+var _ba=[];
+if(this.getForm()){
+_ba=this.getFieldsWalker(this.re.TEXTFIELD_CSS,this.re.RELEASEFIELD_NAME);
+}
+return (_ba[0]||null);
 };
 this.getTrackNameFields=function(){
 mb.log.enter(this.GID,"getTrackNameFields");
-var _ba=[];
-if(this.getForm()){
-_ba=this.getFieldsWalker(this.re.TEXTFIELD,this.re.TRACKFIELD);
-}
-mb.log.exit();
-return _ba;
-};
-this.getTrackTimeFields=function(){
-mb.log.enter(this.GID,"getTrackTimeFields");
 var _bb=[];
 if(this.getForm()){
-_bb=this.getFieldsWalker(this.re.NUMBERFIELD,this.re.TRACKLENGTHFIELD);
+_bb=this.getFieldsWalker(this.re.TEXTFIELD_CSS,this.re.TRACKFIELD_NAME);
 }
 mb.log.exit();
 return _bb;
 };
-this.getFieldsWalker=function(_bc,_bd){
-var _be=[];
+this.getTrackTimeFields=function(){
+mb.log.enter(this.GID,"getTrackTimeFields");
+var _bc=[];
+if(this.getForm()){
+_bc=this.getFieldsWalker(this.re.TRACKLENGTH_CSS,this.re.TRACKLENGTHFIELD_NAME);
+}
+mb.log.exit();
+return _bc;
+};
+this.getFieldsWalker=function(_bd,_be){
+var _bf=[];
 var f,el;
 if((f=this.getForm())!=null){
 for(var i=0;i<f.elements.length;i++){
 if((el=f.elements[i])!=null){
 var cn=(el.className||"");
-var _c2=(el.name||"");
-var _c3=(el.type||"");
-var bCN=(_bc==null||(_bc!=null&&cn.match(_bc)));
-var _c5=(_bd==null||(_bd!=null&&_c2.match(_bd)));
-if((_c3=="text")&&bCN&&_c5){
-_be.push(el);
+var _c3=(el.name||"");
+var _c4=(el.type||"");
+var bCN=(_bd==null||(_bd!=null&&cn.match(_bd)));
+var _c6=(_be==null||(_be!=null&&_c3.match(_be)));
+if((_c4=="text")&&bCN&&_c6){
+_bf.push(el);
 }
 }
 }
 }
-return _be;
+return _bf;
 };
-this.setDisabled=function(el,_c7){
+this.setDisabled=function(el,_c8){
 var obj=null;
 if((obj=mb.ui.get(el))!=null){
 if(obj.disabled!=null){
-obj.disabled=_c7;
+obj.disabled=_c8;
 }
 }
 };
@@ -1433,11 +1442,11 @@ mb.log.error("EsUiModule: Could not register EsModuleBase prototype");
 function EsUndoItem(){
 mb.log.enter("EsUndoItem","__constructor");
 this.CN="EsUndoItem";
-var _c9=arguments[0];
-this._field=_c9[0];
-this._op=_c9[1];
-this._old=_c9[2];
-this._new=_c9[3];
+var _ca=arguments[0];
+this._field=_ca[0];
+this._op=_ca[1];
+this._old=_ca[2];
+this._new=_ca[3];
 this.getField=function(){
 return this._field;
 };
@@ -1501,7 +1510,7 @@ this.FIELD_ALLFIELDS=this.getModID()+".allfields";
 this.PRESETS_LIST=[["Remove all round parentheses ()","\\(|\\)","",1],["Remove all square brackets []","\\[|\\]","",1],["Remove all curly braces {}","\\{|\\}","",1],["Remove all bracketing punctuation ()[]{}","\\(|\\)|\\[|\\]|\\{|\\}","",1],["Replace [] with ()","\\[([^\\]]*)\\]","($1)",1],["Replace () with []","\\(([^\\)]*)\\)","[$1]",1],["Replace #1 with No. 1 for any number","#(\\d*)","No. $1",1]];
 this.COOKIE_PRESETEXPANDED="SR_COOKIE_PRESETEXPANDED";
 this.setupModuleDelegate=function(){
-es.ui.registerButtons(new EsButton(this.BTN_SEARCH,"Search","",this.getModID()+".onSearchClicked()"),new EsButton(this.BTN_REPLACE,"Replace","",this.getModID()+".onReplaceClicked()"),new EsButton(this.BTN_LOADPRESET,"Show/Hide Presets","",this.getModID()+".onShowPresetsClicked()"),new EsButton(this.BTN_SWAP,"Swap fields","",this.getModID()+".onSwapFieldsClicked()"),new EsButton(this.BTN_RESET,"Reset","",this.getModID()+".onResetFieldsClicked()"));
+es.ui.registerButtons(new EsButton(this.BTN_SEARCH,"Search","",this.getModID()+".onSearchClicked()"),new EsButton(this.BTN_REPLACE,"Replace","",this.getModID()+".onReplaceClicked()"),new EsButton(this.BTN_LOADPRESET,"Show/hide presets","",this.getModID()+".onShowPresetsClicked()"),new EsButton(this.BTN_SWAP,"Swap fields","",this.getModID()+".onSwapFieldsClicked()"),new EsButton(this.BTN_RESET,"Reset","",this.getModID()+".onResetFieldsClicked()"));
 };
 this.getModuleHtml=function(){
 var s=[];
@@ -1592,9 +1601,9 @@ this.onSwapFieldsClicked=function(){
 mb.log.enter(this.GID,"onSwapFieldsClicked");
 var fs,fr;
 if((fs=es.ui.getField(this.FIELD_SEARCH))!=null&&(fr=es.ui.getField(this.FIELD_REPLACE))!=null){
-var _d5=fs.value;
+var _d6=fs.value;
 fs.value=fr.value;
-fr.value=_d5;
+fr.value=_d6;
 }else{
 mb.log.error("One of the fields $,$ not found!",this.FIELD_SEARCH,this.FIELD_REPLACE);
 }
@@ -1611,11 +1620,11 @@ mb.log.error("One of the fields $,$ not found!",this.FIELD_SEARCH,this.FIELD_REP
 }
 mb.log.exit();
 };
-this.onSelectPresetClicked=function(_d7){
+this.onSelectPresetClicked=function(_d8){
 mb.log.enter(this.GID,"onResetFieldsClicked");
 var fs,fr,freg,faa;
 if((fs=es.ui.getField(this.FIELD_SEARCH))!=null&&(fr=es.ui.getField(this.FIELD_REPLACE))!=null&&(freg=es.ui.getField(this.FIELD_REGEX))!=null&&(faa=es.ui.getField(this.FIELD_AUTOAPPLY))!=null){
-var p=this.PRESETS_LIST[_d7];
+var p=this.PRESETS_LIST[_d8];
 if(p){
 fs.value=p[1];
 fr.value=p[2];
@@ -1630,10 +1639,10 @@ mb.log.error("One of the fields not found!");
 }
 mb.log.exit();
 };
-this.onPresetChooseApplyChanged=function(_da){
+this.onPresetChooseApplyChanged=function(_db){
 var faa;
 if((faa=es.ui.getField(this.FIELD_AUTOAPPLY))!=null){
-faa.value=(_da?"1":"0");
+faa.value=(_db?"1":"0");
 }else{
 mb.log.error("Field $ not found!",this.FIELD_AUTOAPPLY);
 }
@@ -1669,9 +1678,9 @@ return;
 }
 var f;
 if(faf.checked){
-var _e2=es.ui.getEditTextFields();
-for(var i=0;i<_e2.length;i++){
-f=_e2[i];
+var _e3=es.ui.getEditTextFields();
+for(var i=0;i<_e3.length;i++){
+f=_e3[i];
 this.handleField(f,sv,rv,fmc.checked,freg.checked,op);
 }
 }else{
@@ -1684,7 +1693,7 @@ mb.log.error("One of the fields not found!");
 }
 mb.log.exit();
 };
-this.handleField=function(f,_e5,_e6,_e7,_e8,op){
+this.handleField=function(f,_e6,_e7,_e8,_e9,op){
 mb.log.enter(this.GID,"handleField");
 if(f){
 var obj,resultElemID=f.name+"::result";
@@ -1695,69 +1704,69 @@ obj.parentNode.removeChild(obj);
 }
 catch(e){
 }
-var _eb=f.value;
-var _ec=_eb;
-var _ed=[];
-mb.log.debug("Current: $",_eb);
-mb.log.debug("Search: $, Replace: $",_e5,_e6);
-mb.log.debug("Flags: Case Sensitive: $, Regex: $",_e7,_e8);
-if(_e8){
+var _ec=f.value;
+var _ed=_ec;
+var _ee=[];
+mb.log.debug("Current: $",_ec);
+mb.log.debug("Search: $, Replace: $",_e6,_e7);
+mb.log.debug("Flags: Case Sensitive: $, Regex: $",_e8,_e9);
+if(_e9){
 try{
-var re=new RegExp(_e5,"g"+(_e7?"":"i"));
-_ec=_eb.replace(re,_e6);
+var re=new RegExp(_e6,"g"+(_e8?"":"i"));
+_ed=_ec.replace(re,_e7);
 }
 catch(e){
 mb.log.error("Caught error while trying to Match re: $, e: $",re,e);
 }
 }else{
 var pos=-1,lastpos=0;
-var _f0=new Array();
-var _f1=(_e7?_e5:_e5.toLowerCase());
-var _f2="",after="",inbetween="";
-while((pos=(_e7?_ec:_ec.toLowerCase()).indexOf(_f1,lastpos))!=-1){
-_f2=_ec.substring(0,pos);
-after=_ec.substring(pos+_e5.length,_ec.length);
-inbetween=_ec.substring(lastpos,pos);
+var _f1=new Array();
+var _f2=(_e8?_e6:_e6.toLowerCase());
+var _f3="",after="",inbetween="";
+while((pos=(_e8?_ed:_ed.toLowerCase()).indexOf(_f2,lastpos))!=-1){
+_f3=_ed.substring(0,pos);
+after=_ed.substring(pos+_e6.length,_ed.length);
+inbetween=_ed.substring(lastpos,pos);
 var s=[];
-s.push(_f2);
-s.push(_e6);
+s.push(_f3);
+s.push(_e7);
 s.push(after);
-_ec=s.join("");
-_f0.push(pos);
-_ed.push(inbetween);
-_ed.push(_e5);
-lastpos=pos+_e6.length;
+_ed=s.join("");
+_f1.push(pos);
+_ee.push(inbetween);
+_ee.push(_e6);
+lastpos=pos+_e7.length;
 }
-if(_f0.length<1){
-mb.log.debug("Search value $ was not found",_e5);
+if(_f1.length<1){
+mb.log.debug("Search value $ was not found",_e6);
 }else{
-mb.log.debug("Search value $ replaced with $ at index [$]",_e5,_e6,_f0.join(","));
-_ed.push(after);
+mb.log.debug("Search value $ replaced with $ at index [$]",_e6,_e7,_f1.join(","));
+_ee.push(after);
 }
 }
-if(_ec!=_eb){
-mb.log.debug("New value $",_ec);
+if(_ed!=_ec){
+mb.log.debug("New value $",_ed);
 if(op=="replace"){
-es.ur.addUndo(es.ur.createItem(f,"searchreplace",_eb,_ec));
-f.value=_ec;
+es.ur.addUndo(es.ur.createItem(f,"searchreplace",_ec,_ed));
+f.value=_ed;
 }else{
-var _f4=f.parentNode;
-var _f5=document.createElement("div");
-_f5.id=resultElemID;
-_f5.style.border="1px dotted #999";
-_f5.style.borderTop="none";
-_f5.style.padding="2px";
-_f5.style.marginBottom="5px";
-_f5.style.marginRight="18px";
-_f5.style.fontSize="10px";
+var _f5=f.parentNode;
+var _f6=document.createElement("div");
+_f6.id=resultElemID;
+_f6.style.border="1px dotted #999";
+_f6.style.borderTop="none";
+_f6.style.padding="2px";
+_f6.style.marginBottom="5px";
+_f6.style.marginRight="18px";
+_f6.style.fontSize="10px";
 var s=[];
-for(var i=0;i<_ed.length;i++){
-var w=_ed[i];
-s.push(w==_e5?"<span style=\"background-color: #fc5\">"+w+"</span>":w);
+for(var i=0;i<_ee.length;i++){
+var w=_ee[i];
+s.push(w==_e6?"<span style=\"background-color: #fc5\">"+w+"</span>":w);
 }
-_f5.innerHTML=s.join("");
-_f4.appendChild(_f5);
-_f4.parentNode.style.verticalAlign="top";
+_f6.innerHTML=s.join("");
+_f5.appendChild(_f6);
+_f5.parentNode.style.verticalAlign="top";
 }
 return mb.log.exit(true);
 }
@@ -1780,16 +1789,18 @@ this.getModID=function(){
 return "es.tp";
 };
 this.getModName=function(){
-return "Track Parser";
+return "Track parser";
 };
 this.CFG_ISVA=this.getModID()+".isVA";
 this.CFG_PARSETIMESONLY=this.getModID()+".timesonly";
-this.CFG_ALBUMTITLE=this.getModID()+".albumtitle";
+this.CFG_RELEASETITLE=this.getModID()+".releasetitle";
 this.CFG_TRACKNUMBER=this.getModID()+".tracknumber";
 this.CFG_VINYLNUMBERS=this.getModID()+".vinylnumbers";
 this.CFG_TRACKTIMES=this.getModID()+".tracktimes";
+this.CFG_FILLTRACKTIMES=this.getModID()+".filltracktimes";
 this.CFG_STRIPBRACKETS=this.getModID()+".stripbrackets";
-this.CONFIG_LIST=[new EsModuleConfig(this.CFG_ALBUMTITLE,false,"First line is album title","The First line is handled as the album title, which is filled into the album title field. The tracks are expected to start from line 2"),new EsModuleConfig(this.CFG_TRACKNUMBER,true,"All tracknames start with a number","Lines which do not start with a number are inspected for usable information, which is added to the previous track (this allows to import ExtraTitleInformation from discogs)"),new EsModuleConfig(this.CFG_VINYLNUMBERS,false,"Detect Vinyl track numbers","Characters which are used for numbering of the tracks may include alphanummeric characters (0-9,a-z) (A1,A2,...C,D...)"),new EsModuleConfig(this.CFG_TRACKTIMES,true,"Detect track times ?:??","The line is inspected for an occurence of numbers separated by a colon. If such a value is found the track time is read and removed from the track title. Round parentheses surrounding the time are removed as well."),new EsModuleConfig(this.CFG_STRIPBRACKETS,true,"Remove text in brackets [...]","Text in square brackets (usually links to other pages) is removed")];
+this.CFG_COLLAPSETEXTAREA=this.getModID()+".collapsetextarea";
+this.CONFIG_LIST=[new EsModuleConfig(this.CFG_RELEASETITLE,false,"Set release title from first line","The First line is handled as the release title, which is filled "+"into the release title field. The tracks are expected to start from line 2."),new EsModuleConfig(this.CFG_TRACKNUMBER,true,"Tracknames start with a number","This setting attempts to find lines between lines which have a track "+"number and parses ExtraTitleInformation, which is added to the previous track."),new EsModuleConfig(this.CFG_VINYLNUMBERS,false,"Enable vinyl track numbers","Characters which are used for numbering of the tracks may include "+"alphanummeric characters (0-9, a-z) (A1, A2, ... C, D...)."),new EsModuleConfig(this.CFG_TRACKTIMES,true,"Detect track times","The line is inspected for an occurence of numbers separated by a colon. "+"If such a value is found, the track time is read and stripped from the track "+"title. Round parentheses surrounding the time are removed as well."),new EsModuleConfig(this.CFG_FILLTRACKTIMES,true,"Fill in track times","Fill in the track times from the detected values above. If this box is "+"not activated, the track time fields will not be modified."),new EsModuleConfig(this.CFG_STRIPBRACKETS,true,"Remove text in brackets [...]","If this checkbox is activated, text in square brackets "+"(usually links to other pages) is stripped from the titles."),new EsModuleConfig(this.CFG_COLLAPSETEXTAREA,false,"Resize textarea automatically","If this checkbox is activated, the textarea is enlarged "+"if it has the keyboard focus, and collapsed again when the focus is lost.")];
 this.TRACKSAREA=this.getModID()+".tracksarea";
 this.BTN_SWAP="BTN_TP_SWAP";
 this.BTN_PARSE="BTN_TP_PARSE";
@@ -1804,9 +1815,9 @@ this.RE_StripSquareBrackets=/\[.*\]/gi;
 this.RE_StripTrailingListen=/\s\s*(listen(music)?|\s)+$/gi;
 this.RE_StripListenNow=/listen now!/gi;
 this.RE_StripAmgPick=/amg pick/gi;
-this.RE_VariousSeparator=/  |\s+-\s+|\t/gi;
+this.RE_VariousSeparator=/[\s\t]+[-\/]*[\s\t]+/gi;
 this.setupModuleDelegate=function(){
-es.ui.registerButtons(new EsButton(this.BTN_PARSE,"Parse All","Fill in the artist and track titles with values parsed from the textarea",this.getModID()+".onParseClicked()"),new EsButton(this.BTN_PARSETIMES,"Parse Times","Fill in the track times only with values parsed from the textarea",this.getModID()+".onParseClicked(true)"),new EsButton(this.BTN_SWAP,"Swap titles","If the Artist and Track titles are mixed up, click here to swap the fields",this.getModID()+".onSwapArtistTrackClicked()"));
+es.ui.registerButtons(new EsButton(this.BTN_PARSE,"Parse all","Fill in the artist and track titles with values parsed from the textarea",this.getModID()+".onParseClicked()"),new EsButton(this.BTN_PARSETIMES,"Parse times","Fill in the track times only with values parsed from the textarea",this.getModID()+".onParseClicked(true)"),new EsButton(this.BTN_SWAP,"Swap titles","If the artist and track titles are mixed up, click here to swap the fields",this.getModID()+".onSwapArtistTrackClicked()"));
 };
 this.getModuleHtml=function(){
 var s=[];
@@ -1814,7 +1825,9 @@ s.push(this.getModuleStartHtml({x:true}));
 s.push("<table cellspacing=\"0\" cellpadding=\"0\" class=\"moduletable\">");
 s.push("<tr>");
 s.push("<td colspan=\"2\">");
-s.push("<textarea name=\""+this.TRACKSAREA+"\" rows=\"10\" cols=\"90\" id=\""+this.TRACKSAREA+"\" wrap=\"off\" style=\"width: 97%; font-family: Arial,Helvetica, Verdana; font-size: 11px; overflow: auto\"></textarea>");
+s.push("<textarea name=\""+this.TRACKSAREA+"\" rows=\"8\" cols=\"90\" id=\""+this.TRACKSAREA+"\" ");
+s.push("  wrap=\"off\" style=\"width: 97%; font-family: Arial,Helvetica, Verdana; font-size: 11px; overflow: auto\" ");
+s.push("></textarea>");
 s.push("</td></tr>");
 s.push("<tr valign=\"top\" id=\""+this.WARNINGTR+"\" style=\"display: none\">");
 s.push("<td colspan=\"2\" style=\"padding: 2px; color: red; font-size: 11px\" id=\""+this.WARNINGTD+"\"><small>");
@@ -1835,10 +1848,40 @@ s.push(this.getModuleStartHtml({x:false,dt:"Collapsed"}));
 s.push(this.getModuleEndHtml({x:false}));
 return s.join("");
 };
-this.onParseClicked=function(_f9){
+this.onModuleHtmlWrittenDelegate=function(){
+if(this.isConfigTrue(this.CFG_COLLAPSETEXTAREA)){
+var el=mb.ui.get(es.tp.TRACKSAREA);
+el.onfocus=function onfocus(el){
+es.tp.handleFocus();
+};
+el.onblur=function onblur(el){
+es.tp.handleBlur();
+};
+el.rows=2;
+}
+};
+this.handleFocus=function(_fd){
+clearTimeout(this.resizeTimeout);
+var el=mb.ui.get(es.tp.TRACKSAREA);
+if(_fd){
+el.rows=20;
+}else{
+this.resizeTimeout=setTimeout("es.tp.handleFocus(1)",100);
+}
+};
+this.handleBlur=function(_ff){
+var el=mb.ui.get(es.tp.TRACKSAREA);
+clearTimeout(this.resizeTimeout);
+if(_ff){
+el.rows=2;
+}else{
+this.resizeTimeout=setTimeout("es.tp.handleBlur(1)",100);
+}
+};
+this.onParseClicked=function(_101){
 mb.log.enter(this.GID,"onParseClicked");
-_f9=(_f9||false);
-this.setConfigValue(this.CFG_PARSETIMESONLY,_f9);
+_101=(_101||false);
+this.setConfigValue(this.CFG_PARSETIMESONLY,_101);
 this.parseNow();
 es.ui.setDisabled(this.BTN_SWAP,false);
 mb.log.exit();
@@ -1847,13 +1890,13 @@ this.onSwapArtistTrackClicked=function(){
 mb.log.scopeStart("Handling click on Swap button");
 mb.log.enter(this.GID,"onSwapArtistTrackClicked");
 if(this.isConfigTrue(this.CFG_ISVA)){
-var _fa=es.ui.getArtistFields();
-var _fb=es.ui.getTrackNameFields();
-if(_fa&&_fb&&_fa.length==_fb.length){
-for(var i=0;i<_fa.length;i++){
-var _fd=_fa[i].value;
-_fa[i].value=_fb[i].value;
-_fb[i].value=_fd;
+var aArr=es.ui.getArtistFields();
+var tArr=es.ui.getTrackNameFields();
+if(aArr&&tArr&&aArr.length==tArr.length){
+for(var i=0;i<aArr.length;i++){
+var temp=aArr[i].value;
+aArr[i].value=tArr[i].value;
+tArr[i].value=temp;
 }
 }
 }
@@ -1863,7 +1906,7 @@ mb.log.scopeEnd();
 this.checkVAMode=function(){
 mb.log.enter(this.GID,"checkVAMode");
 if(this.isUIAvailable()){
-this.setVA(es.ui.getField("artistname0",true)!=null);
+this.setVA(es.ui.getField("tr0_artistname",true)!=null);
 if(!this.isConfigTrue(this.CFG_ISVA)){
 es.ui.setDisabled(this.BTN_SWAP,false);
 }else{
@@ -1873,10 +1916,10 @@ es.ui.setDisabled(this.BTN_SWAP,true);
 mb.log.exit();
 };
 mb.registerDOMReadyAction(new MbEventAction(this.GID,"checkVAMode","Setting various artists mode"));
-this.setVA=function(_fe){
+this.setVA=function(flag){
 mb.log.enter(this.GID,"setVA");
-mb.log.trace("New VA mode: $",_fe);
-this.setConfigValue(this.CFG_ISVA,_fe);
+mb.log.trace("New VA mode: $",flag);
+this.setConfigValue(this.CFG_ISVA,flag);
 mb.log.exit();
 };
 this.showWarning=function(s){
@@ -1897,52 +1940,52 @@ obj.innerHTML="";
 }
 }
 };
-this.parseNow=function(_101){
+this.parseNow=function(_109){
 mb.log.enter(this.GID,"parseNow");
-if(_101){
-this.setVA(_101);
+if(_109){
+this.setVA(_109);
 }else{
 this.checkVAMode();
 }
 var obj=null;
-var _103=new Array();
+var _10b=new Array();
 this.showWarning();
 if((obj=mb.ui.get(this.TRACKSAREA))!=null){
 var text=obj.value;
-var _105=text.split("\n");
-var _106,title,artistName;
+var _10d=text.split("\n");
+var _10e,title,artistName;
 var si=0;
-var _108="";
-if(this.isConfigTrue(this.CFG_ALBUMTITLE)){
-_108=_105[0];
-mb.log.info("Album Title: $",_108);
+var _110="";
+if(this.isConfigTrue(this.CFG_RELEASETITLE)){
+_110=_10d[0];
+mb.log.info("Release Title: $",_110);
 si++;
 }
 var s,counter=1;
-var _10a=true;
-for(var i=si;i<_105.length;i++){
-title=_105[i];
+var _112=true;
+for(var i=si;i<_10d.length;i++){
+title=_10d[i];
 title=title.replace(this.RE_StripListenNow,"");
 title=title.replace(this.RE_StripAmgPick,"");
 title=mb.utils.trim(title);
 mb.log.trace("Parsing line: $",title);
 if(title!=""){
-var _10c=false;
-var _10d=false;
+var _114=false;
+var _115=false;
 var re=this.RE_TrackNumber;
 if(this.isConfigTrue(this.CFG_VINYLNUMBERS)){
 re=this.RE_TrackNumberVinyl;
-_10d=true;
+_115=true;
 }
-_106=title.match(re);
-if(_106!=null){
-mb.log.debug("Checking number, found: $ (vinyl: $)",_106[0],_10d);
-_10c=true;
+_10e=title.match(re);
+if(_10e!=null){
+mb.log.debug("Checking number, found: $ (vinyl: $)",_10e[0],_115);
+_114=true;
 if(this.isConfigTrue(this.CFG_TRACKNUMBER)){
 title=title.replace(re,"");
 }
 }
-_106=counter;
+_10e=counter;
 var time="";
 if(this.isConfigTrue(this.CFG_TRACKTIMES)){
 time=title.match(this.RE_TrackTimes);
@@ -1967,34 +2010,34 @@ title=s;
 }
 artistName="";
 if(this.isConfigTrue(this.CFG_ISVA)){
-if(!this.isConfigTrue(this.CFG_TRACKNUMBER)||_10c){
+if(!this.isConfigTrue(this.CFG_TRACKNUMBER)||_114){
 mb.log.debug("Looking for Artist/Track split");
 if(title.match(this.RE_VariousSeparator)){
-var _110=title.split(this.RE_VariousSeparator);
-artistName=mb.utils.trim(_110[0]);
+var _118=title.split(this.RE_VariousSeparator);
+artistName=mb.utils.trim(_118[0]);
 mb.log.debug("Found artist: $",artistName);
-if(_10a&&artistName.match(/\(|\)|remix/gi)){
+if(_112&&artistName.match(/\(|\)|remix/gi)){
 this.showWarning("Track "+counter+": Possibly Artist/Tracknames swapped: Parentheses in Artist name!");
-_10a=false;
+_112=false;
 }
-_110[0]="";
-while(!_110[0].match(/\S/g)){
-_110.splice(0,1);
+_118[0]="";
+while(!_118[0].match(/\S/g)){
+_118.splice(0,1);
 }
-if(_110.length>1){
-this.showWarning("Track "+counter+": Possibly wrong split of Artist and Trackname:<br/>&nbsp; ["+_110.join(",")+"]");
+if(_118.length>1){
+this.showWarning("Track "+counter+": Possibly wrong split of Artist and Trackname:<br/>&nbsp; ["+_118.join(",")+"]");
 }
-title=_110.join(" ");
+title=_118.join(" ");
 }
 }
 }
 title=mb.utils.trim(title);
-if(!this.isConfigTrue(this.CFG_TRACKNUMBER)||_10c){
-_103[_103.length]={artist:artistName,title:title,time:time,feat:[]};
+if(!this.isConfigTrue(this.CFG_TRACKNUMBER)||_114){
+_10b[_10b.length]={artist:artistName,title:title,time:time,feat:[]};
 counter++;
 mb.log.debug("Added track: $",counter);
 }else{
-if(_103.length>0){
+if(_10b.length>0){
 mb.log.debug("Analyzing string for ExtraTitleInformation: $",title);
 var x=title.split(" - ");
 if(x[0].match(/remix|producer|mixed/i)==null){
@@ -2006,7 +2049,7 @@ title=title.replace(/^\s*/g,"");
 title=title.replace(/[ \s\r\n]*$/g,"");
 title=title.replace(/(.*), The$/i,"The $1");
 if(title!=""){
-_103[_103.length-1].feat.push(title);
+_10b[_10b.length-1].feat.push(title);
 }
 }
 }
@@ -2015,39 +2058,39 @@ _103[_103.length-1].feat.push(title);
 }
 }
 mb.log.scopeStart("Parsed the following fields");
-for(i=0;i<_103.length;i++){
-var _112=_103[i];
-if(_112.feat.length>0){
-_112.title+=" (feat. "+_112.feat.join(", ")+")";
+for(i=0;i<_10b.length;i++){
+var _11a=_10b[i];
+if(_11a.feat.length>0){
+_11a.title+=" (feat. "+_11a.feat.join(", ")+")";
 }
-mb.log.info("no: $, title: $, time: $ (artist: $)",mb.utils.leadZero(i+1),_112.title,_112.time,_112.artist);
+mb.log.info("no: $, title: $, time: $ (artist: $)",mb.utils.leadZero(i+1),_11a.title,_11a.time,_11a.artist);
 }
-this.fillFields(_108,_103);
+this.fillFields(_110,_10b);
 }
 mb.log.exit();
 };
-this.fillField=function(_113,_114){
+this.fillField=function(_11b,_11c){
 mb.log.enter(this.GID,"fillField");
-if(_113!=null&&_114!=null){
-es.ur.addUndo(es.ur.createItem(_113,"trackparser",_113.value,_114));
-_113.value=_114;
+if(_11b!=null&&_11c!=null){
+es.ur.addUndo(es.ur.createItem(_11b,"trackparser",_11b.value,_11c));
+_11b.value=_11c;
 }
 mb.log.exit();
 };
-this.fillFields=function(_115,_116){
+this.fillFields=function(_11d,_11e){
 var i,j,field,fields,newvalue;
 mb.log.enter(this.GID,"fillFields");
 if(!this.isConfigTrue(this.CFG_PARSETIMESONLY)){
-if(this.isConfigTrue(this.CFG_ALBUMTITLE)){
-field=es.ui.getAlbumNameField();
-this.fillField(field,_115);
+if(this.isConfigTrue(this.CFG_RELEASETITLE)){
+field=es.ui.getReleaseNameField();
+this.fillField(field,_11d);
 }
 i=0;
 fields=es.ui.getArtistFields();
 for(j=0;j<fields.length;j++){
 field=fields[j];
-if(_116[i]&&_116[i].artist){
-this.fillField(field,_116[i].artist);
+if(_11e[i]&&_11e[i].artist){
+this.fillField(field,_11e[i].artist);
 i++;
 }
 }
@@ -2055,19 +2098,21 @@ i=0;
 fields=es.ui.getTrackNameFields();
 for(j=0;j<fields.length;j++){
 field=fields[j];
-if(_116[i]&&_116[i].title){
-this.fillField(field,_116[i].title);
+if(_11e[i]&&_11e[i].title){
+this.fillField(field,_11e[i].title);
 i++;
 }
 }
 }
+if(this.isConfigTrue(this.CFG_PARSETIMESONLY)?true:this.isConfigTrue(this.CFG_FILLTRACKTIMES)){
 i=0;
 fields=es.ui.getTrackTimeFields();
 for(j=0;j<fields.length;j++){
 field=fields[j];
-if(_116[i]&&_116[i].time){
-this.fillField(field,_116[i].time);
+if(_11e[i]&&_11e[i].time){
+this.fillField(field,_11e[i].time);
 i++;
+}
 }
 }
 mb.log.exit();
@@ -2165,10 +2210,10 @@ s.push("</td></tr></table>");
 s.push(this.getModuleEndHtml({x:true}));
 return s.join("");
 };
-this.getLinkHtml=function(_11e,id,func,flag,sep){
+this.getLinkHtml=function(_126,id,func,flag,sep){
 var s=[];
 s.push("<a href=\"javascript:; // ");
-s.push(_11e);
+s.push(_126);
 s.push(" All\" ");
 s.push("onClick=\"return ");
 s.push(id);
@@ -2177,7 +2222,7 @@ s.push(func);
 s.push("(");
 s.push(flag);
 s.push(");\">");
-s.push(_11e);
+s.push(_126);
 s.push("</a>");
 s.push(sep);
 return s.join("");
@@ -2272,7 +2317,7 @@ this.getModID=function(){
 return "es.modnote";
 };
 this.getModName=function(){
-return "Mod Note Resizer";
+return "Edit note resizer";
 };
 this.el=null;
 this.busy=false;
@@ -2294,8 +2339,8 @@ if((el=this.el)==null){
 es.modnote.disabled=true;
 if((el=mb.ui.get("notetext"))!=null){
 mb.log.debug("Setting up event handlers...");
-var func=function(_13a){
-es.modnote.handleEvent(_13a);
+var func=function(_142){
+es.modnote.handleEvent(_142);
 };
 el.title=this.title;
 el.onblur=func;
@@ -2308,7 +2353,7 @@ el.value=this.defaultText;
 this.recalc(el);
 }
 this.el=el;
-el.form.onsubmit=function(_13b){
+el.form.onsubmit=function(_143){
 es.modnote.handleEvent("submit-check");
 return true;
 };
@@ -2330,7 +2375,7 @@ this.busy=false;
 }
 return mb.log.exit();
 };
-mb.registerDOMReadyAction(new MbEventAction(this.GID,"runCheck","Setting up modnote area resizer"));
+mb.registerDOMReadyAction(new MbEventAction(this.GID,"runCheck","Setting up editnote area resizer"));
 this.handleEvent=function(e){
 mb.log.enter(this.GID,"handleEvent");
 e=(e||window.event);
@@ -2345,12 +2390,12 @@ mb.log.warning("Event handling disabled!");
 return mb.log.exit(false);
 }
 };
-this.isSameText=function(text,_13e){
+this.isSameText=function(text,_146){
 mb.log.enter(this.GID,"isSameText");
 var el;
 if((el=this.el)!=null){
 if((el.value.replace(this.whitespaceRE,""))==(text.replace(this.whitespaceRE,""))){
-if(_13e){
+if(_146){
 this.disabled=true;
 el.value="";
 this.disabled=false;
@@ -2366,11 +2411,11 @@ mb.log.enter(this.GID,"recalc");
 if(el){
 var t=el.value,c=el.cols;
 if(t!=null&&c!=null){
-var _142=t.split(this.splitRE);
+var _14a=t.split(this.splitRE);
 var len;
-this.rows=1+_142.length;
-for(var i=0;i<_142.length;i++){
-if((len=_142[i].length)>c){
+this.rows=1+_14a.length;
+for(var i=0;i<_14a.length;i++){
+if((len=_14a[i].length)>c){
 this.rows+=Math.floor(len*parseFloat(1/c));
 }
 }
@@ -2410,19 +2455,19 @@ this.BTN_REDO_ALL="BTN_REDO_ALL";
 this.setupModuleDelegate=function(){
 this.DEFAULT_VISIBLE=true;
 this.DEFAULT_EXPANDED=true;
-es.ui.registerButtons(new EsButton(this.BTN_UNDO_ALL,"Undo All","Undo all changes","es.ur.undoAllSteps()"),new EsButton(this.BTN_UNDO_ONE,"Undo","Undo the last change","es.ur.undoStep()"),new EsButton(this.BTN_REDO_ONE,"Redo","Redo the last undid change","es.ur.redoStep()"),new EsButton(this.BTN_REDO_ALL,"Redo All","Redo all the undid changes","es.ur.redoAllSteps()"));
+es.ui.registerButtons(new EsButton(this.BTN_UNDO_ALL,"Undo all","Undo all changes","es.ur.undoAllSteps()"),new EsButton(this.BTN_UNDO_ONE,"Undo","Undo the last change","es.ur.undoStep()"),new EsButton(this.BTN_REDO_ONE,"Redo","Redo the last undid change","es.ur.redoStep()"),new EsButton(this.BTN_REDO_ALL,"Redo all","Redo all the undone changes","es.ur.redoAllSteps()"));
 };
 this.getModuleHtml=function(){
 var s=[];
-var _146="Steps 0/0";
+var _14e="Steps 0/0";
 s.push(this.getModuleStartHtml({x:true}));
 s.push(es.ui.getButtonHtml(this.BTN_UNDO_ALL));
 s.push(es.ui.getButtonHtml(this.BTN_UNDO_ONE));
 s.push(es.ui.getButtonHtml(this.BTN_REDO_ONE));
 s.push(es.ui.getButtonHtml(this.BTN_REDO_ALL));
-s.push("<small><span id=\""+this.STATUS_EXPANDED+"\">"+_146+"</span><small>");
+s.push("<small><span id=\""+this.STATUS_EXPANDED+"\">"+_14e+"</span><small>");
 s.push(this.getModuleEndHtml({x:true}));
-s.push(this.getModuleStartHtml({x:false,dt:_146}));
+s.push(this.getModuleStartHtml({x:false,dt:_14e}));
 s.push(this.getModuleEndHtml({x:false}));
 return s.join("");
 };
@@ -2438,24 +2483,24 @@ return new EsUndoItem(arguments);
 this.createItemList=function(){
 return new EsUndoItemList(arguments);
 };
-this.addUndo=function(_147){
+this.addUndo=function(_14f){
 mb.log.enter(this.GID,"addUndo");
 this.stack=this.stack.slice(0,this.index);
-this.stack.push(_147);
+this.stack.push(_14f);
 this.index=this.stack.length;
 var f=null;
 var ff=es.ui.getFocusField();
-if(_147 instanceof EsUndoItemList){
-var _14a=_147;
-for(_14a.iterate();_14a.hasNext();){
-_147=_14a.getNext();
-if(_147.getField()==ff){
-es.ui.setFocusValue(_147.getNew());
+if(_14f instanceof EsUndoItemList){
+var _152=_14f;
+for(_152.iterate();_152.hasNext();){
+_14f=_152.getNext();
+if(_14f.getField()==ff){
+es.ui.setFocusValue(_14f.getNew());
 }
 }
 }else{
-if(_147.getField()==ff){
-es.ui.setFocusValue(_147.getNew());
+if(_14f.getField()==ff){
+es.ui.setFocusValue(_14f.getNew());
 }
 }
 this.updateUI();
@@ -2465,19 +2510,19 @@ this.undoStep=function(){
 mb.log.enter(this.GID,"undoStep");
 if(this.stack.length>0){
 if(this.index>0){
-var _14b=this.stack[--this.index];
+var _153=this.stack[--this.index];
 var f,o;
-if(_14b instanceof EsUndoItemList){
+if(_153 instanceof EsUndoItemList){
 mb.log.info("Undoing combined step...");
-for(_14b.iterate();_14b.hasNext();){
-o=_14b.getNext();
+for(_153.iterate();_153.hasNext();){
+o=_153.getNext();
 f=o.getField();
 f.value=o.getOld();
 mb.log.debug("* op: $, field: $, value: $",o.getOp(),f.name,f.value);
 }
 }else{
 mb.log.info("Undoing single step...");
-o=_14b;
+o=_153;
 f=o.getField();
 f.value=o.getOld();
 mb.log.debug("* op: $, field: $, value: $",o.getOp(),f.name,f.value);
@@ -2488,22 +2533,22 @@ es.ui.resetSelection();
 }
 mb.log.exit();
 };
-this.redoStep=function(_14d){
+this.redoStep=function(_155){
 mb.log.enter(this.GID,"redoStep");
 if(this.index<this.stack.length){
-var _14e=this.stack[this.index];
+var _156=this.stack[this.index];
 var f,o;
-if(_14e instanceof EsUndoItemList){
+if(_156 instanceof EsUndoItemList){
 mb.log.info("Redoing combined step...");
-for(_14e.iterate();_14e.hasNext();){
-o=_14e.getNext();
+for(_156.iterate();_156.hasNext();){
+o=_156.getNext();
 f=o.getField();
 f.value.value=o.getNew();
 mb.log.debug("* op: $, field: $, value: $",o.getOp(),f.name,f.value);
 }
 }else{
 mb.log.info("Redoing single step...");
-o=_14e;
+o=_156;
 f=o.getField();
 f.value=o.getNew();
 mb.log.debug("* op: $, field: $, value: $",o.getOp(),f.name,f.value);
@@ -2730,13 +2775,13 @@ return f;
 this.getPos=function(){
 return this._wi;
 };
-this.setPos=function(_15d){
-if(_15d>=0&&_15d<this.getLength()){
-this._wi=_15d;
+this.setPos=function(_165){
+if(_165>=0&&_165<this.getLength()){
+this._wi=_165;
 }
 };
-this.getWordAtIndex=function(_15e){
-return (this._w[_15e]||null);
+this.getWordAtIndex=function(_166){
+return (this._w[_166]||null);
 };
 this.getNextWord=function(){
 return this.getWordAtIndex(this._wi+1);
@@ -2764,19 +2809,19 @@ mb.log.enter(this.GID,"matchCurrentWord");
 var f=(this.matchWordAtIndex(this.getPos(),re));
 return mb.log.exit(f);
 };
-this.matchWordAtIndex=function(_163,re){
+this.matchWordAtIndex=function(_16b,re){
 mb.log.enter(this.GID,"matchWordAtIndex");
-var cw=(this.getWordAtIndex(_163)||"");
+var cw=(this.getWordAtIndex(_16b)||"");
 var f;
 if(mb.utils.isString(re)){
 f=(re==cw);
 if(f){
-mb.log.debug("Matched w: $ at index: $, string: $",cw,_163,re);
+mb.log.debug("Matched w: $ at index: $, string: $",cw,_16b,re);
 }
 }else{
 f=(cw.match(re)!=null);
 if(f){
-mb.log.debug("Matched w: $ at index: $, re: $",cw,_163,re);
+mb.log.debug("Matched w: $ at index: $, re: $",cw,_16b,re);
 }
 }
 return mb.log.exit(f);
@@ -2798,13 +2843,13 @@ this._wi--;
 }
 }
 };
-this.insertWordsAtIndex=function(_167,w){
+this.insertWordsAtIndex=function(_16f,w){
 mb.log.enter(this.GID,"insertWordsAtIndex");
-var _169=this._w.slice(0,_167);
-var _16a=this._w.slice(_167,this._w.length);
-this._w=_169.concat(w).concat(_16a);
+var _171=this._w.slice(0,_16f);
+var _172=this._w.slice(_16f,this._w.length);
+this._w=_171.concat(w).concat(_172);
 this._l=this._w.length;
-mb.log.debug("Inserted $ at index $",w,_167);
+mb.log.debug("Inserted $ at index $",w,_16f);
 mb.log.exit();
 };
 this.capitalizeCurrentWord=function(){
@@ -2844,28 +2889,28 @@ mb.log.enter(this.GID,"splitWordsAndPunctuation");
 is=is.replace(/^\s\s*/,"");
 is=is.replace(/\s\s*$/,"");
 is=is.replace(/\s\s*/g," ");
-var _171=is.split("");
-var _172=[];
+var _179=is.split("");
+var _17a=[];
 var word=[];
 if(!gc.re.SPLITWORDSANDPUNCTUATION){
 gc.re.SPLITWORDSANDPUNCTUATION=/[^!\"%&'??`()\[\]\{\}\*\+,-\.\/:;<=>\?\s#]/;
 }
-for(var i=0;i<_171.length;i++){
-if(_171[i].match(gc.re.SPLITWORDSANDPUNCTUATION)){
-word.push(_171[i]);
+for(var i=0;i<_179.length;i++){
+if(_179[i].match(gc.re.SPLITWORDSANDPUNCTUATION)){
+word.push(_179[i]);
 }else{
 if(word.length>0){
-_172.push(word.join(""));
+_17a.push(word.join(""));
 }
-_172.push(_171[i]);
+_17a.push(_179[i]);
 word=[];
 }
 }
 if(word.length>0){
-_172.push(word.join(""));
+_17a.push(word.join(""));
 }
-mb.log.debug("words: $",_172);
-return mb.log.exit(_172);
+mb.log.debug("words: $",_17a);
+return mb.log.exit(_17a);
 };
 mb.log.exit();
 }
@@ -2920,16 +2965,16 @@ gc.o.appendSpace();
 }
 mb.log.exit();
 };
-this.getWordAtIndex=function(_178){
-if(this._w[_178]){
-return this._w[_178];
+this.getWordAtIndex=function(_180){
+if(this._w[_180]){
+return this._w[_180];
 }else{
 return null;
 }
 };
-this.setWordAtIndex=function(_179,word){
-if(this.getWordAtIndex(_179)){
-this._w[_179]=word;
+this.setWordAtIndex=function(_181,word){
+if(this.getWordAtIndex(_181)){
+this._w[_181]=word;
 }
 };
 this.getLastWord=function(){
@@ -2945,21 +2990,21 @@ return this._w.pop();
 }
 return null;
 };
-this.capitalizeWordAtIndex=function(_17b,_17c){
-_17c=(_17c!=null?_17c:gc.f.forceCaps);
+this.capitalizeWordAtIndex=function(_183,_184){
+_184=(_184!=null?_184:gc.f.forceCaps);
 mb.log.enter(this.GID,"capitalizeWordAtIndex");
-if((!gc.getMode().isSentenceCaps()||_17c)&&(!this.isEmpty())&&(this.getWordAtIndex(_17b)!=null)){
-var w=this.getWordAtIndex(_17b),o=w;
+if((!gc.getMode().isSentenceCaps()||_184)&&(!this.isEmpty())&&(this.getWordAtIndex(_183)!=null)){
+var w=this.getWordAtIndex(_183),o=w;
 if(w.match(/^\w\..*/)==null){
-var _17e=gc.u.trim(w.toLowerCase());
-if(!_17c&&gc.f.isInsideBrackets()&&gc.u.isLowerCaseBracketWord(_17e)){
+var _186=gc.u.trim(w.toLowerCase());
+if(!_184&&gc.f.isInsideBrackets()&&gc.u.isLowerCaseBracketWord(_186)){
 }else{
-if(!_17c&&gc.mode.isUpperCaseWord(_17e)){
+if(!_184&&gc.mode.isUpperCaseWord(_186)){
 }else{
-o=gc.u.titleString(w,_17c);
+o=gc.u.titleString(w,_184);
 if(w!=o){
-this.setWordAtIndex(_17b,o);
-mb.log.debug("index=$/$, before: $, after: $",_17b,this.getLength()-1,w,o);
+this.setWordAtIndex(_183,o);
+mb.log.debug("index=$/$, before: $, after: $",_183,this.getLength()-1,w,o);
 }
 }
 }
@@ -2967,11 +3012,11 @@ mb.log.debug("index=$/$, before: $, after: $",_17b,this.getLength()-1,w,o);
 }
 mb.log.exit();
 };
-this.capitalizeLastWord=function(_17f){
+this.capitalizeLastWord=function(_187){
 mb.log.enter(this.GID,"capitalizeLastWord");
-_17f=(_17f!=null?_17f:null);
-mb.log.debug("Capitalizing last word... index: $: overrideCaps: $",this.getLength()-1,_17f);
-this.capitalizeWordAtIndex(this.getLength()-1,_17f);
+_187=(_187!=null?_187:null);
+mb.log.debug("Capitalizing last word... index: $: overrideCaps: $",this.getLength()-1,_187);
+this.capitalizeWordAtIndex(this.getLength()-1,_187);
 mb.log.exit();
 };
 this.getOutput=function(){
@@ -2986,11 +3031,11 @@ return mb.log.exit(os);
 this.closeOpenBrackets=function(){
 mb.log.enter(this.GID,"closeOpenBrackets");
 mb.log.debug("Open brackets stack: $",gc.f.openBrackets);
-var _181=new Array();
+var _189=new Array();
 while(gc.f.isInsideBrackets()){
-_181[_181.length]=gc.f.popBracket();
+_189[_189.length]=gc.f.popBracket();
 }
-this.appendWord(_181.join(""));
+this.appendWord(_189.join(""));
 mb.log.exit();
 };
 this.appendWordPreserveWhiteSpace=function(c){
@@ -3059,7 +3104,7 @@ mb.log.debug("$=$",w,f);
 return mb.log.exit(f);
 };
 this.getLowerCaseBracketWords=function(){
-return ["acoustic","album","alternate","bonus","clean","dirty","disc","extended","instrumental","live","original","radio","single","take","demo","club","dance","edit","skit","mix","remix","version","reprise","megamix","maxi","feat","interlude","dub","dialogue","cut","karaoke","vs","vocal","alternative","disco","unplugged","video","outtake","outtakes","rehearsal","intro","outro","long","short","main","remake","clubmix","composition","reinterpreted","session","rework","reworked","remixed","reedit","airplay","a_cappella","excerpt"];
+return ["acoustic","album","alternate","bonus","clean","dirty","disc","extended","instrumental","live","original","radio","single","take","demo","club","dance","edit","skit","mix","remix","version","reprise","megamix","maxi","feat","interlude","dub","dialogue","cut","karaoke","vs","vocal","alternative","disco","unplugged","video","outtake","outtakes","rehearsal","intro","outro","long","short","main","remake","clubmix","composition","reinterpreted","session","rework","reworked","remixed","reedit","airplay","a_cappella","excerpt","medley"];
 };
 this.isLowerCaseBracketWord=function(w){
 mb.log.enter(this.GID,"isLowerCaseBracketWord");
@@ -3145,9 +3190,9 @@ is="";
 var os=(is.replace(/^\s\s*/,"").replace(/\s\s*$/,"").replace(/([\(\[])\s+/,"$1").replace(/\s+([\)\]])/,"$1").replace(/\s\s*/g," "));
 return mb.log.exit(os);
 };
-this.titleString=function(is,_1a0){
+this.titleString=function(is,_1a8){
 mb.log.enter(this.GID,"titleString");
-_1a0=(_1a0!=null?_1a0:gc.f.forceCaps);
+_1a8=(_1a8!=null?_1a8:gc.f.forceCaps);
 if(mb.utils.isNullOrEmpty(is)){
 mb.log.warning("Required parameter is was empty!",is);
 return mb.log.exit("");
@@ -3159,7 +3204,7 @@ gc.i.setPos((pos=len-1));
 }
 mb.log.debug("Titling word: $ (pos: $, length: $)",is,pos,len);
 gc.f.dumpRaisedFlags();
-var _1a3=gc.i.getWordAtIndex(pos-2);
+var _1ab=gc.i.getWordAtIndex(pos-2);
 var os;
 var LC=is.toLowerCase();
 var UC=is.toUpperCase();
@@ -3171,20 +3216,20 @@ if(LC.length==1&&gc.i.isPreviousWord("'")){
 os=LC;
 }else{
 if(gc.i.isPreviousWord("'")&&LC.match(/^(s|round|em|ve|ll|d|cha|re|til|way|all)$/i)){
-mb.log.debug("Found contraction: $",_1a3+"'"+LC);
+mb.log.debug("Found contraction: $",_1ab+"'"+LC);
 os=LC;
 }else{
-if(gc.i.isPreviousWord("'")&&_1a3=="Ev"){
-mb.log.debug("Found contraction: $",_1a3+"'"+LC);
+if(gc.i.isPreviousWord("'")&&_1ab=="Ev"){
+mb.log.debug("Found contraction: $",_1ab+"'"+LC);
 os=LC;
 }else{
 if(LC.match(/^(o|y)$/i)&&gc.i.isNextWord("'")){
 os=UC;
 }else{
-os=this.titleStringByMode(LC,_1a0);
+os=this.titleStringByMode(LC,_1a8);
 LC=os.toLowerCase();
 UC=os.toUpperCase();
-if(gc.mode.isLowerCaseWord(LC)&&!_1a0){
+if(gc.mode.isLowerCaseWord(LC)&&!_1a8){
 os=LC;
 }else{
 if(gc.mode.isUpperCaseWord(LC)){
@@ -3205,33 +3250,33 @@ os=LC;
 }
 }
 }
-mb.log.debug("forceCaps: $, in: $, out: $",_1a0,is,os);
+mb.log.debug("forceCaps: $, in: $, out: $",_1a8,is,os);
 return mb.log.exit(os);
 };
-this.titleStringByMode=function(is,_1a8){
+this.titleStringByMode=function(is,_1b0){
 mb.log.enter(this.GID,"titleStringByMode");
 if(is==null||is==""){
 return mb.log.exit("");
 }
 var os=is.toLowerCase();
 var opos=gc.o.getLength();
-var _1ab="";
+var _1b3="";
 if(opos>1){
-_1ab=gc.o.getWordAtIndex(opos-2);
+_1b3=gc.o.getWordAtIndex(opos-2);
 }
-if((!gc.f.slurpExtraTitleInformation)&&(gc.getMode().isSentenceCaps()&&!_1a8)&&(!gc.i.isFirstWord())&&(!gc.u.isSentenceStopChar(_1ab))&&(!gc.f.openingBracket)){
+if((!gc.f.slurpExtraTitleInformation)&&(gc.getMode().isSentenceCaps()&&!_1b0)&&(!gc.i.isFirstWord())&&(!gc.u.isSentenceStopChar(_1b3))&&(!gc.f.openingBracket)){
 mb.log.debug("SentenceCaps, before: $, after: $",is,os);
 }else{
-var _1ac=is.toLowerCase().split("");
-_1ac[0]=_1ac[0].toUpperCase();
+var _1b4=is.toLowerCase().split("");
+_1b4[0]=_1b4[0].toUpperCase();
 if(is.length>2&&is.substring(0,2)=="mc"){
-_1ac[2]=_1ac[2].toUpperCase();
+_1b4[2]=_1b4[2].toUpperCase();
 }else{
 if(gc.u.isMacTitledWord(is)){
-_1ac[3]=_1ac[3].toUpperCase();
+_1b4[3]=_1b4[3].toUpperCase();
 }
 }
-os=_1ac.join("");
+os=_1b4.join("");
 mb.log.debug("Capitalized, before: $, after: $",is,os);
 }
 return mb.log.exit(os);
@@ -3299,12 +3344,12 @@ return mb.log.exit(s.join(""));
 };
 mb.log.exit();
 }
-function GcFix(name,re,_1b2){
+function GcFix(name,re,_1ba){
 mb.log.enter("GcFix","__constructor");
 this.CN="GcFix";
 this._name=name;
 this._re=re;
-this._replace=_1b2;
+this._replace=_1ba;
 this.getName=function(){
 return this._name;
 };
@@ -3316,13 +3361,144 @@ return this._replace;
 };
 mb.log.exit();
 }
-function GcMode(_1b3,name,lang,desc,url){
+function GcModeClassical(_1bb){
+mb.log.enter("GcModeClassical","__constructor");
+this.CN="GcModeClassical";
+this.GID="gc.mode_xc";
+this.setConfig(_1bb,"Classical",_1bb.XC,"First word titled, lowercase for <i>most</i> of the other "+"words. Read the [url]description[/url] for more details.","/doc/GuessCaseMode/ClassicalMode");
+this.getUpperCaseWords=function(){
+return ["bwv","d","rv","j","hob","hwv","wwo","kv"];
+};
+this.preProcessTitles=function(is){
+mb.log.enter(this.GID,"preProcessTitles");
+if(!gc.re.PREPROCESS_FIXLIST_XC){
+gc.re.PREPROCESS_FIXLIST_XC=[,new GcFix("Handle -sharp.",/(\b)(\s|-)sharp(\s)/i,"-sharp"),new GcFix("Handle -flat.",/(\b)(\s|-)flat(\s)/i,"-flat"),new GcFix("Expand C# -> C-sharp",/(\s[ACDFG])#(\s)/i,"-sharp"),new GcFix("Expand Cb -> C-flat",/(\s[ABCDEG])b(\s)/i,"-flat"),new GcFix("adiago (adagio)","adiago","adagio"),new GcFix("pocco (poco)","pocco","poco"),,new GcFix("contabile (cantabile)","contabile","cantabile"),new GcFix("sherzo (scherzo)","sherzo","scherzo"),new GcFix("allergro (allegro)","allergro","allegro"),new GcFix("adante (andante)","adante","andante"),new GcFix("largetto (larghetto)","largetto","larghetto"),new GcFix("allgro (allegro)","allgro","allegro"),new GcFix("tocatta (toccata)","tocatta","toccata"),new GcFix("allegreto (allegretto)","allegreto","allegretto"),new GcFix("attaca (attacca)","attaca","attacca"),new GcFix("split worknumber combination",/(\b)(BWV|D|RV|J|Hob|HWV|WwO|KV)(\d+)(\b|$)/i,"$2 $3"),new GcFix("split op. number combination",/(\b)(Op)(\d+)(\b|$)/i,"$2 $3"),new GcFix("split no. number combination",/(\b)(No|N)(\d+)(\b|$)/i,"$2 $3")];
+}
+var os=this.runFixes(is,gc.re.PREPROCESS_FIXLIST_XC);
+mb.log.debug("After: $",os);
+return mb.log.exit(os);
+};
+this.runPostProcess=function(is){
+mb.log.enter(this.GID,"runPostProcess");
+if(!gc.re.POSTPROCESS_FIXLIST_XC){
+gc.re.POSTPROCESS_FIXLIST_XC=[,new GcFix("Handle Op.",/(\b)[\s,]+(Op|Opus|Opera)[\s\.#]+($|\b)/i,", Op. "),new GcFix("Handle No.",/(\b)[\s,]+(N|No|Num|Nr)[\s\.#]+($|\b)/i,", No. "),new GcFix("Handle K. -> KV",/(\b)[\s,]+K[\.\s]+($|\b)/i,", KV "),new GcFix("Fix whitespace and comma for work catalog",/(\b)[\s,]+(BWV|D|RV|J|Hob|HWV|WwO|KV)\s($|\b)/i,", $2 "),new GcFix("Handle -sharp.",/(\b)(\s|-)sharp(\s)/i,"-sharp"),new GcFix("Handle -flat.",/(\b)(\s|-)flat(\s)/i,"-flat")];
+}
+var os=this.runFixes(is,gc.re.POSTPROCESS_FIXLIST_XC);
+mb.log.debug("After: $",os);
+return mb.log.exit(os);
+};
+this.runFinalChecks=function(is){
+mb.log.enter(this.GID,"runFinalChecks");
+if(!gc.re.DECIMALTOROMAN){
+gc.re.DECIMALTOROMAN=/[\s,:\-]+(\d+)\.[\s]+/i;
+}
+var _1c1=null;
+var os=is;
+if((_1c1=os.match(gc.re.DECIMALTOROMAN))!=null){
+var _1c3=_1c1.index;
+var _1c4=_1c1[0].length;
+var _1c5=os.substring(0,_1c3);
+var _1c6=os.substring(_1c3+_1c4,os.length);
+var _1c7=[];
+_1c5=_1c5.replace(/[\s,:\-\/]+$/gi,"");
+_1c7.push(_1c5);
+_1c7.push(": ");
+_1c7.push(gc.u.convertToRomanNumeral(_1c1[1]));
+_1c7.push(". ");
+_1c7.push(_1c6);
+os=_1c7.join("");
+}
+if(!gc.re.ADD_COLON_TO_ROMAN){
+gc.re.ADD_COLON_TO_ROMAN=/([^:])\s+([ivx]+)[\s|\.]+/i;
+}
+if((_1c1=os.match(gc.re.ADD_COLON_TO_ROMAN))!=null){
+var _1c3=_1c1.index;
+var _1c4=_1c1[0].length;
+var _1c5=os.substring(0,_1c3);
+var _1c6=os.substring(_1c3+_1c4,os.length);
+var _1c7=[];
+_1c7.push(_1c5);
+_1c7.push(_1c1[1]);
+_1c7.push(": ");
+_1c7.push(_1c1[2]);
+_1c7.push(". ");
+_1c7.push(_1c6);
+os=_1c7.join("");
+}
+return mb.log.exit(os);
+};
+this.doWord=function(){
+mb.log.enter(this.GID,"doWord");
+var ipos=gc.i.getPos();
+var cw=gc.i.getCurrentWord();
+var pw=gc.i.getWordAtIndex(ipos-1);
+var ppw=gc.i.getPreviousWord(ipos-2);
+var opos=gc.o.getLength();
+var _1cd=false;
+if(cw.match(/flat|sharp/i)&&pw=="-"){
+opos=opos-2;
+_1cd=true;
+}else{
+if(cw.match(/minor|major|minore|maggiore|mineur/i)&&ppw.match(/flat|sharp/)==null){
+opos=opos-1;
+_1cd=true;
+}else{
+if(cw.match(/Moll|Dur/i)){
+opos=opos-2;
+gc.f.forceCaps=true;
+_1cd=true;
+}
+}
+}
+if(_1cd){
+var w=gc.o.getWordAtIndex(opos);
+mb.log.debug("Found tone indication before: $, making word: $ at pos: $ a title.",cw,w,opos);
+gc.o.capitalizeWordAtIndex(opos,true);
+}
+mb.log.exit();
+return false;
+};
+mb.log.exit();
+}
+try{
+GcModeClassical.prototype=new GcMode;
+}
+catch(e){
+mb.log.error("GcModeClassical: Could not register GcMode prototype");
+}
+function GcModeArtist(_1cf,name,lang,desc,url){
+mb.log.enter("GcModeArtist","__constructor");
+this.CN="GcModeArtist";
+this.GID="gc.mode_artist";
+this.setConfig(_1cf,"Artist mode",_1cf.EN,"","");
+mb.log.exit();
+}
+try{
+GcModeArtist.prototype=new GcMode;
+}
+catch(e){
+mb.log.error("GcModeArtist: Could not register GcMode prototype");
+}
+function GcModeDefault(_1d4,name,lang,desc,url){
+mb.log.enter("GcModeDefault","__constructor");
+this.CN="GcModeDefault";
+this.GID="gc.mode_en";
+this.setConfig(_1d4,"English",_1d4.EN,"Read the [url]description[/url] for more details.","/doc/GuessCaseMode/DefaultMode");
+mb.log.exit();
+}
+try{
+GcModeDefault.prototype=new GcMode;
+}
+catch(e){
+mb.log.error("GcModeDefault: Could not register GcMode prototype");
+}
+function GcMode(_1d9,name,lang,desc,url){
 mb.log.enter("GcMode","__constructor");
 this.CN="GcMode";
 this.GID="gc.mode";
-this.setConfig=function(_1b8,name,lang,desc,url){
+this.setConfig=function(_1de,name,lang,desc,url){
 mb.log.enter(this.GID,"setConfig");
-this._modes=_1b8;
+this._modes=_1de;
 this._name=name;
 this._lang=lang;
 this._desc=(desc||"");
@@ -3330,7 +3506,7 @@ this._url=(url||"");
 this._id=null;
 mb.log.exit();
 };
-this.setConfig(_1b3,name,lang,desc,url);
+this.setConfig(_1d9,name,lang,desc,url);
 this.getID=function(){
 mb.log.enter(this.GID,"getID");
 if(!this._id){
@@ -3409,25 +3585,25 @@ return mb.log.exit(f);
 };
 this.prepExtraTitleInfo=function(w){
 mb.log.enter(this.GID,"prepExtraTitleInfo");
-var _1c7=w.length-1,wi=_1c7;
-var _1c8=false;
-var _1c9=false;
+var _1ed=w.length-1,wi=_1ed;
+var _1ee=false;
+var _1ef=false;
 while(((w[wi]==" ")||(w[wi]=="\""&&(w[wi-1]=="7"||w[wi-1]=="12"))||((w[wi+1]||"")=="\""&&(w[wi]=="7"||w[wi]=="12"))||(gc.u.isPrepBracketWord(w[wi])))&&wi>=0){
-_1c8=true;
+_1ee=true;
 wi--;
 }
-mb.log.debug("Preprocess: $ ($<--$)",_1c8,wi,_1c7);
-if(wi<_1c7){
+mb.log.debug("Preprocess: $ ($<--$)",_1ee,wi,_1ed);
+if(wi<_1ed){
 wi++;
-while(w[wi]==" "&&wi<_1c7){
+while(w[wi]==" "&&wi<_1ed){
 wi++;
 }
-var _1ca=w[_1c7];
-if((wi==_1c7)&&(gc.u.isPrepBracketSingleWord(_1ca))){
-mb.log.debug("Word: $ which might occur inside brackets, has <strong>not been put into ()</strong>",_1ca);
-_1c8=false;
+var _1f0=w[_1ed];
+if((wi==_1ed)&&(gc.u.isPrepBracketSingleWord(_1f0))){
+mb.log.debug("Word: $ which might occur inside brackets, has <strong>not been put into ()</strong>",_1f0);
+_1ee=false;
 }
-if(_1c8&&wi>0&&wi<=_1c7){
+if(_1ee&&wi>0&&wi<=_1ed){
 var nw=w.slice(0,wi);
 if(nw[wi-1]=="("){
 nw.pop();
@@ -3456,7 +3632,7 @@ return mb.log.exit(os);
 this.preProcessTitles=function(is){
 mb.log.enter(this.GID,"preProcessTitles");
 if(!gc.re.PREPROCESS_FIXLIST){
-gc.re.PREPROCESS_FIXLIST=[new GcFix("spaces after opening brackets",/(^|\s)([\(\{\[])\s+($|\b)/i,"$2"),new GcFix("spaces before closing brackets",/(\b|^)\s+([\)\}\]])($|\b)/i,"$2"),new GcFix("re-mix -> remix",/(\b|^)re-mix(\b)/i,"remix"),new GcFix("re-mix -> remix",/(\b|^)re-mix(\b)/i,"remix"),new GcFix("remx -> remix",/(\b|^)remx(\b)/i,"remix"),new GcFix("re-mixes -> remixes",/(\b|^)re-mixes(\b)/i,"remixes"),new GcFix("re-make -> remake",/(\b|^)re-make(\b)/i,"remake"),new GcFix("re-makes -> remakes",/(\b|^)re-makes(\b)/i,"remakes"),new GcFix("re-edit variants, prepare for postprocess",/(\b|^)re-?edit(\b)/i,"re_edit"),new GcFix("RMX -> remix",/(\b|^)RMX(\b)/i,"remix"),new GcFix("alt.take -> alternate take",/(\b|^)alt[\.]? take(\b)/i,"alternate take"),new GcFix("instr. -> instrumental",/(\b|^)instr\.?(\b)/i,"instrumental"),new GcFix("altern. -> alternate",/(\b|^)altern\.?(\s|\)|$)/i,"alternate"),new GcFix("orig. -> original",/(\b|^)orig\.?(\s|\)|$)/i,"original"),new GcFix("vers. -> version",/(\b|^)vers\.(\s|\)|$)/i,"version"),new GcFix("Extendet -> extended",/(\b|^)Extendet(\b)/i,"extended"),new GcFix("extd. -> extended",/(\b|^)ext[d]?\.?(\s|\)|$)/i,"extended"),new GcFix("aka -> a.k.a.",/(\b|^)aka(\b)/i,"a.k.a."),new GcFix("/w -> ft. ",/(\s)[\/]w(\s)/i,"ft."),new GcFix("f. -> ft. ",/(\s)f\.(\s)/i,"ft."),new GcFix("12'' -> 12\"",/(\s|^|\()(\d+)''(\s|$)/i,"$2\""),new GcFix("12in -> 12\"",/(\s|^|\()(\d+)\s?in(ch)?(\s|$)/i,"$2\""),new GcFix("A Capella preprocess",/(\b|^)a\s?c+ap+el+a(\b)/i,"a_cappella"),new GcFix("OC ReMix preprocess",/(\b|^)oc\sremix(\b)/i,"oc_remix"),new GcFix("Standalone Pt. -> Part",/(^|\s)Pt\.?(\s|$)/i,"Part"),new GcFix("Standalone Pts. -> Parts",/(^|\s)Pts\.(\s|$)/i,"Parts"),new GcFix("Standalone Vol. -> Volume",/(^|\s)Vol\.(\s|$)/i,"Volume"),new GcFix("(Pt) -> , Part",/((,|\s|:|!)+)([\(\[])?\s*(Part|Pt)[\.\s#]*((\d|[ivx]|[\-,&\s])+)([\)\]])?(\s|$)/i,"Part $5"),new GcFix("(Pts) -> , Parts",/((,|\s|:|!)+)([\(\[])?\s*(Parts|Pts)[\.\s#]*((\d|[ivx]|[\-&,\s])+)([\)\]])?(\s|$)/i,"Parts $5"),new GcFix("(Vol) -> , Volume",/((,|\s|:|!)+)([\(\[])?\s*(Volume|Vol)[\.\s#]*((\d|[ivx]|[\-&,\s])+)([\)\]])?(\s|$)/i,"Volume $5")];
+gc.re.PREPROCESS_FIXLIST=[new GcFix("spaces after opening brackets",/(^|\s)([\(\{\[])\s+($|\b)/i,"$2"),new GcFix("spaces before closing brackets",/(\b|^)\s+([\)\}\]])($|\b)/i,"$2"),new GcFix("re-mix -> remix",/(\b|^)re-mix(\b)/i,"remix"),new GcFix("re-mix -> remix",/(\b|^)re-mix(\b)/i,"remix"),new GcFix("remx -> remix",/(\b|^)remx(\b)/i,"remix"),new GcFix("re-mixes -> remixes",/(\b|^)re-mixes(\b)/i,"remixes"),new GcFix("re-make -> remake",/(\b|^)re-make(\b)/i,"remake"),new GcFix("re-makes -> remakes",/(\b|^)re-makes(\b)/i,"remakes"),new GcFix("re-edit variants, prepare for postprocess",/(\b|^)re-?edit(\b)/i,"re_edit"),new GcFix("RMX -> remix",/(\b|^)RMX(\b)/i,"remix"),new GcFix("alt.take -> alternate take",/(\b|^)alt[\.]? take(\b)/i,"alternate take"),new GcFix("instr. -> instrumental",/(\b|^)instr\.?(\b)/i,"instrumental"),new GcFix("altern. -> alternate",/(\b|^)altern\.?(\s|\)|$)/i,"alternate"),new GcFix("orig. -> original",/(\b|^)orig\.?(\s|\)|$)/i,"original"),new GcFix("vers. -> version",/(\b|^)vers\.(\s|\)|$)/i,"version"),new GcFix("Extendet -> extended",/(\b|^)Extendet(\b)/i,"extended"),new GcFix("extd. -> extended",/(\b|^)ext[d]?\.?(\s|\)|$)/i,"extended"),new GcFix("aka -> a.k.a.",/(\b|^)aka(\b)/i,"a.k.a."),new GcFix("/w -> ft. ",/(\s)[\/]w(\s)/i,"ft."),new GcFix("f. -> ft. ",/(\s)f\.(\s)/i,"ft."),new GcFix("'featuring - ' -> feat",/(\s)featuring -(\s)/i,"feat"),new GcFix("12'' -> 12\"",/(\s|^|\()(\d+)''(\s|$)/i,"$2\""),new GcFix("12in -> 12\"",/(\s|^|\()(\d+)\s?in(ch)?(\s|$)/i,"$2\""),new GcFix("A Capella preprocess",/(\b|^)a\s?c+ap+el+a(\b)/i,"a_cappella"),new GcFix("OC ReMix preprocess",/(\b|^)oc\sremix(\b)/i,"oc_remix"),new GcFix("Standalone Pt. -> Part",/(^|\s)Pt\.?(\s|$)/i,"Part"),new GcFix("Standalone Pts. -> Parts",/(^|\s)Pts\.(\s|$)/i,"Parts"),new GcFix("Standalone Vol. -> Volume",/(^|\s)Vol\.(\s|$)/i,"Volume"),new GcFix("(Pt) -> , Part",/((,|\s|:|!)+)([\(\[])?\s*(Part|Pt)[\.\s#]*((\d|[ivx]|[\-,&\s])+)([\)\]])?(\s|$)/i,"Part $5"),new GcFix("(Pts) -> , Parts",/((,|\s|:|!)+)([\(\[])?\s*(Parts|Pts)[\.\s#]*((\d|[ivx]|[\-&,\s])+)([\)\]])?(\s|$)/i,"Parts $5"),new GcFix("(Vol) -> , Volume",/((,|\s|:|!)+)([\(\[])?\s*(Volume|Vol)[\.\s#]*((\d|[ivx]|[\-&,\s])+)([\)\]])?(\s|$)/i,"Volume $5"),new GcFix(": Part -> , Part",/(\b|^): Part(\b)/i,", part"),new GcFix(": Parts -> , Parts",/(\b|^): Part(\b)/i,", parts")];
 }
 var os=this.runFixes(is,gc.re.PREPROCESS_FIXLIST);
 mb.log.debug("After pre: $",os);
@@ -3465,7 +3641,7 @@ return mb.log.exit(os);
 this.runPostProcess=function(is){
 mb.log.enter(this.GID,"runPostProcess");
 if(!gc.re.POSTPROCESS_FIXLIST){
-gc.re.POSTPROCESS_FIXLIST=[new GcFix("a_cappella inside brackets",/(\b|^)a_cappella(\b)/,"a cappella"),new GcFix("a_cappella outside brackets",/(\b|^)A_cappella(\b)/,"A Cappella"),new GcFix("oc_remix",/(\b|^)oc_remix(\b)/i,"OC ReMix"),new GcFix("re_edit inside brackets",/(\b|^)Re_edit(\b)/,"re-edit"),new GcFix("whitespace in R&B",/(\b|^)R\s*&\s*B(\b)/i,"R&B"),new GcFix("[live] to (live)",/(\b|^)\[live\](\b)/i,"(live)"),new GcFix("Djs to DJs",/(\b|^)Djs(\b)/i,"DJs"),new GcFix("a.k.a. lowercase",/(\s|^)A\.K\.A\.(\s|$)/i,"a.k.a.")];
+gc.re.POSTPROCESS_FIXLIST=[new GcFix("a_cappella inside brackets",/(\b|^)a_cappella(\b)/,"a cappella"),new GcFix("a_cappella outside brackets",/(\b|^)A_cappella(\b)/,"A Cappella"),new GcFix("oc_remix",/(\b|^)oc_remix(\b)/i,"OC ReMix"),new GcFix("re_edit inside brackets",/(\b|^)Re_edit(\b)/,"re-edit"),new GcFix("whitespace in R&B",/(\b|^)R\s*&\s*B(\b)/i,"R&B"),new GcFix("[live] to (live)",/(\b|^)\[live\](\b)/i,"(live)"),new GcFix("Djs to DJs",/(\b|^)Djs(\b)/i,"DJs"),new GcFix("a.k.a. lowercase",/(\s|^)A\.K\.A\.(\s|$)/i,"a.k.a."),new GcFix("Rock 'n' Roll",/(\s|^)Rock '?n'? Roll(\s|$)/i,"Rock 'n' Roll")];
 }
 var os=this.runFixes(is,gc.re.POSTPROCESS_FIXLIST);
 if(is!=os){
@@ -3476,28 +3652,31 @@ return mb.log.exit(os);
 };
 this.runFixes=function(is,list){
 mb.log.enter(this.GID,"runFixes");
-var _1d4=null;
+var _1fa=null;
 var len=list.length;
 for(var i=0;i<len;i++){
 var f=list[i];
 if(f instanceof GcFix){
-var _1d8="Replaced "+f.getName();
+var _1fe="Replaced "+f.getName();
 var find=f.getRe();
-var _1da=f.getReplace();
-if(typeof (find)=="string"&&is.indexOf(find)!=-1){
-mb.log.debug("Applying fix: $ (replace: $)",_1d8,_1da);
-is=is.replace(find,_1da);
+var _200=f.getReplace();
+if(typeof (find)=="string"){
+var pos=0;
+while((pos=is.indexOf(find,pos))!=-1){
+mb.log.debug("Applying fix: $ (replace: $)",_1fe,_200);
+is=is.replace(find,_200);
+}
 }else{
-if((_1d4=is.match(find))!=null){
-var a=_1d4[1];
+if((_1fa=is.match(find))!=null){
+var a=_1fa[1];
 a=(mb.utils.isNullOrEmpty(a)?"":a);
-var b=_1d4[_1d4.length-1];
+var b=_1fa[_1fa.length-1];
 b=(mb.utils.isNullOrEmpty(b)?"":b);
-var rs=[a,_1da,b].join("");
+var rs=[a,_200,b].join("");
 is=is.replace(find,rs);
-mb.log.debug("Applying fix: $ ...",_1d8);
-mb.log.trace("* matcher[$]: $, replace: $, matcher[$]: $ --> $",1,a,_1da,_1d4.length-1,b,rs);
-mb.log.trace("* matcher: $",_1d4);
+mb.log.debug("Applying fix: $ ...",_1fe);
+mb.log.trace("* matcher[$]: $, replace: $, matcher[$]: $ --> $",1,a,_200,_1fa.length-1,b,rs);
+mb.log.trace("* matcher: $",_1fa);
 mb.log.trace("After fix: $",is);
 }else{
 }
@@ -3517,14 +3696,14 @@ gc.re.PREPROCESS_STRIPINFOTOOMIT=[new GcFix("Trim 'bonus (track)?'",/[\(\[]?bonu
 }
 var os=is,list=gc.re.PREPROCESS_STRIPINFOTOOMIT;
 for(var i=list.length-1;i>=0;i--){
-var _1e1=null;
-var _1e2=list[i];
-var _1e3="Replaced "+_1e2.getName();
-var find=_1e2.getRe();
-var _1e5=_1e2.getReplace();
-if((_1e1=os.match(find))!=null){
-os=os.replace(find,_1e5);
-mb.log.debug("Done fix: $",_1e3);
+var _208=null;
+var _209=list[i];
+var _20a="Replaced "+_209.getName();
+var find=_209.getRe();
+var _20c=_209.getReplace();
+if((_208=os.match(find))!=null){
+os=os.replace(find,_20c);
+mb.log.debug("Done fix: $",_20a);
 }
 }
 if(is!=os){
@@ -3537,21 +3716,21 @@ mb.log.enter(this.GID,"runFinalChecks");
 if(!gc.re.VINYL){
 gc.re.VINYL=/(\s+|\()((\d+)[\s|-]?(inch\b|in\b|'+|"))([^s]|$)/i;
 }
-var _1e7=null,os=is;
-if((_1e7=is.match(gc.re.VINYL))!=null){
-var _1e8=_1e7.index;
-var _1e9=_1e7[1].length+_1e7[2].length+_1e7[5].length;
-var _1ea=is.substring(0,_1e8);
-var _1eb=is.substring(_1e8+_1e9,is.length);
-var _1ec=[];
-_1ec.push(_1ea);
-_1ec.push(_1e7[1]);
-_1ec.push(_1e7[3]);
-_1ec.push("\"");
-_1ec.push((_1e7[5])!=" "&&_1e7[5]!=")"&&_1e7[5]!=","?" ":"");
-_1ec.push(_1e7[5]);
-_1ec.push(_1eb);
-os=_1ec.join("");
+var _20e=null,os=is;
+if((_20e=is.match(gc.re.VINYL))!=null){
+var _20f=_20e.index;
+var _210=_20e[1].length+_20e[2].length+_20e[5].length;
+var _211=is.substring(0,_20f);
+var _212=is.substring(_20f+_210,is.length);
+var _213=[];
+_213.push(_211);
+_213.push(_20e[1]);
+_213.push(_20e[3]);
+_213.push("\"");
+_213.push((_20e[5])!=" "&&_20e[5]!=")"&&_20e[5]!=","?" ":"");
+_213.push(_20e[5]);
+_213.push(_212);
+os=_213.join("");
 }
 return mb.log.exit(os);
 };
@@ -3561,136 +3740,6 @@ return false;
 mb.log.exit();
 }
 GcMode.prototype=new GcMode;
-function GcModeArtist(_1ed,name,lang,desc,url){
-mb.log.enter("GcModeArtist","__constructor");
-this.CN="GcModeArtist";
-this.GID="gc.mode_artist";
-this.setConfig(_1ed,"Artist Mode",_1ed.EN,"","");
-mb.log.exit();
-}
-try{
-GcModeArtist.prototype=new GcMode;
-}
-catch(e){
-mb.log.error("GcModeArtist: Could not register GcMode prototype");
-}
-function GcModeClassical(_1f2){
-mb.log.enter("GcModeClassical","__constructor");
-this.CN="GcModeClassical";
-this.GID="gc.mode_xc";
-this.setConfig(_1f2,"Classical Mode",_1f2.XC,"First word titled, lowercase for <i>most</i> of the other "+"words. Read the [url]description[/url] for more details.","http://wiki.musicbrainz.org/GuessCaseMode/ClassicalMode");
-this.getUpperCaseWords=function(){
-return ["bwv","d","rv","j","hob","hwv","wwo","kv"];
-};
-this.preProcessTitles=function(is){
-mb.log.enter(this.GID,"preProcessTitles");
-if(!gc.re.PREPROCESS_FIXLIST_XC){
-gc.re.PREPROCESS_FIXLIST_XC=[,new GcFix("Handle -sharp.",/(\b)(\s|-)sharp(\s)/i,"-sharp"),new GcFix("Handle -flat.",/(\b)(\s|-)flat(\s)/i,"-flat"),new GcFix("Expand C# -> C-sharp",/(\s[ACDFG])#(\s)/i,"-sharp"),new GcFix("Expand Cb -> C-flat",/(\s[ABCDEG])b(\s)/i,"-flat"),new GcFix("adiago (adagio)","adiago","adagio"),new GcFix("pocco (poco)","pocco","poco"),,new GcFix("contabile (cantabile)","contabile","cantabile"),new GcFix("sherzo (scherzo)","sherzo","scherzo"),new GcFix("allergro (allegro)","allergro","allegro"),new GcFix("adante (andante)","adante","andante"),new GcFix("largetto (larghetto)","largetto","larghetto"),new GcFix("allgro (allegro)","allgro","allegro"),new GcFix("tocatta (toccata)","tocatta","toccata"),new GcFix("allegreto (allegretto)","allegreto","allegretto"),new GcFix("attaca (attacca)","attaca","attacca")];
-}
-var os=this.runFixes(is,gc.re.PREPROCESS_FIXLIST_XC);
-mb.log.debug("After: $",os);
-return mb.log.exit(os);
-};
-this.runPostProcess=function(is){
-mb.log.enter(this.GID,"runPostProcess");
-if(!gc.re.POSTPROCESS_FIXLIST_XC){
-gc.re.POSTPROCESS_FIXLIST_XC=[,new GcFix("Handle Op.",/(\b)[\s,]+(Op|Opus|Opera)[\s\.#]+($|\b)/i,", Op. "),new GcFix("Handle No.",/(\b)[\s,]+(No|Num|Nr)[\s\.#]+($|\b)/i,", No. "),new GcFix("Handle K. -> KV",/(\b)[\s,]+K[\.\s]+($|\b)/i,", KV "),new GcFix("Fix whitespace and comma for work catalog",/(\b)[\s,]+(BWV|D|RV|J|Hob|HWV|WwO|KV)\s($|\b)/i,", $2 "),new GcFix("Handle -sharp.",/(\b)(\s|-)sharp(\s)/i,"-sharp"),new GcFix("Handle -flat.",/(\b)(\s|-)flat(\s)/i,"-flat")];
-}
-var os=this.runFixes(is,gc.re.POSTPROCESS_FIXLIST_XC);
-mb.log.debug("After: $",os);
-return mb.log.exit(os);
-};
-this.runFinalChecks=function(is){
-mb.log.enter(this.GID,"runFinalChecks");
-if(!gc.re.DECIMALTOROMAN){
-gc.re.DECIMALTOROMAN=/[\s,:\-]+(\d+)\.[\s]+/i;
-}
-var _1f8=null;
-var os=is;
-if((_1f8=os.match(gc.re.DECIMALTOROMAN))!=null){
-var _1fa=_1f8.index;
-var _1fb=_1f8[0].length;
-var _1fc=os.substring(0,_1fa);
-var _1fd=os.substring(_1fa+_1fb,os.length);
-var _1fe=[];
-_1fe.push(_1fc);
-_1fe.push(": ");
-_1fe.push(gc.u.convertToRomanNumeral(_1f8[1]));
-_1fe.push(". ");
-_1fe.push(_1fd);
-os=_1fe.join("");
-}
-if(!gc.re.ADD_COLON_TO_ROMAN){
-gc.re.ADD_COLON_TO_ROMAN=/([^:])\s+([ivx]+)[\s|\.]+/i;
-}
-if((_1f8=os.match(gc.re.ADD_COLON_TO_ROMAN))!=null){
-var _1fa=_1f8.index;
-var _1fb=_1f8[0].length;
-var _1fc=os.substring(0,_1fa);
-var _1fd=os.substring(_1fa+_1fb,os.length);
-var _1fe=[];
-_1fe.push(_1fc);
-_1fe.push(_1f8[1]);
-_1fe.push(": ");
-_1fe.push(_1f8[2]);
-_1fe.push(". ");
-_1fe.push(_1fd);
-os=_1fe.join("");
-}
-return mb.log.exit(os);
-};
-this.doWord=function(){
-mb.log.enter(this.GID,"doWord");
-var ipos=gc.i.getPos();
-var cw=gc.i.getCurrentWord();
-var pw=gc.i.getWordAtIndex(ipos-1);
-var ppw=gc.i.getPreviousWord(ipos-2);
-var opos=gc.o.getLength();
-var _204=false;
-if(cw.match(/flat|sharp/i)&&pw=="-"){
-opos=opos-2;
-_204=true;
-}else{
-if(cw.match(/minor|major|minore|maggiore|mineur/i)&&ppw.match(/flat|sharp/)==null){
-opos=opos-1;
-_204=true;
-}else{
-if(cw.match(/Moll|Dur/i)){
-opos=opos-2;
-gc.f.forceCaps=true;
-_204=true;
-}
-}
-}
-if(_204){
-var w=gc.o.getWordAtIndex(opos);
-mb.log.debug("Found tone indication before: $, making word: $ at pos: $ a title.",cw,w,opos);
-gc.o.capitalizeWordAtIndex(opos,true);
-}
-mb.log.exit();
-return false;
-};
-mb.log.exit();
-}
-try{
-GcModeClassical.prototype=new GcMode;
-}
-catch(e){
-mb.log.error("GcModeClassical: Could not register GcMode prototype");
-}
-function GcModeDefault(_206,name,lang,desc,url){
-mb.log.enter("GcModeDefault","__constructor");
-this.CN="GcModeDefault";
-this.GID="gc.mode_en";
-this.setConfig(_206,"Default (English)",_206.EN,"Read the [url]description[/url] for more details.","http://wiki.musicbrainz.org/GuessCaseMode/DefaultMode");
-mb.log.exit();
-}
-try{
-GcModeDefault.prototype=new GcMode;
-}
-catch(e){
-mb.log.error("GcModeDefault: Could not register GcMode prototype");
-}
 function GcModes(){
 mb.log.enter("GcModes","__constructor");
 this.CN="GcModes";
@@ -3702,7 +3751,7 @@ this.XX="xx";
 this.XC="XC";
 this.MODES_DROPDOWN="GC_MODES_DROPDOWN";
 this.MODES_INDEX=0;
-this.MODES_LIST=[new GcModeDefault(this),new GcModeSentence(this),new GcModeClassical(this)];
+this.MODES_LIST=[new GcModeDefault(this),new GcModeSentence(this),new GcModeFrench(this),new GcModeClassical(this)];
 this.ARTIST_MODE=new GcModeArtist(this);
 this.getDefaultMode=function(){
 mb.log.enter(this.GID,"getDefaultMode");
@@ -3715,20 +3764,20 @@ this.getArtistMode=function(){
 mb.log.enter(this.GID,"getArtistMode");
 return mb.log.exit(this.ARTIST_MODE);
 };
-this.getModeFromID=function(_20b,_20c){
+this.getModeFromID=function(_214,_215){
 mb.log.enter(this.GID,"getModeFromID");
 var mode=null;
 for(var i=0;i<this.MODES_LIST.length;i++){
 mode=this.MODES_LIST[i];
 if(mode){
-if(mode.getID()!=_20b){
+if(mode.getID()!=_214){
 mode=null;
 }else{
 break;
 }
 }
 }
-mb.log.debug("Id: $, mode: $",_20b,(mode||"not found"));
+mb.log.debug("Id: $, mode: $",_214,(mode||"not found"));
 return mb.log.exit(mode);
 };
 this.onModeChanged=function(el){
@@ -3736,13 +3785,13 @@ mb.log.scopeStart("Handle selection on the Mode Dropdown");
 mb.log.enter(this.GID,"onModeChanged");
 if((el&&el.options)&&(el.id==this.MODES_DROPDOWN)){
 var si=el.selectedIndex;
-var _211=el.options[si].value;
-if(_211!=""){
-mb.log.debug("New ModeId: $",_211);
-if(_211!=es.gc.getMode().getID()){
-es.gc.setMode(_211);
-mb.cookie.set(es.gc.COOKIE_MODE,_211,365);
-mb.log.debug("Changed mode to: $",_211);
+var _21a=el.options[si].value;
+if(_21a!=""){
+mb.log.debug("New ModeId: $",_21a);
+if(_21a!=es.gc.getMode().getID()){
+es.gc.setMode(_21a);
+mb.cookie.set(es.gc.COOKIE_MODE,_21a,365);
+mb.log.debug("Changed mode to: $",_21a);
 this.updateUI();
 }else{
 mb.log.debug("No mode change required...");
@@ -3798,9 +3847,9 @@ this.useModeFromUI=function(){
 mb.log.enter(this.GID,"useModeFromUI");
 var obj;
 if((obj=mb.ui.get(this.MODES_DROPDOWN))!=null){
-var _21c=obj.options[obj.selectedIndex].value;
-if(_21c!=""){
-es.gc.setMode(_21c);
+var _225=obj.options[obj.selectedIndex].value;
+if(_225!=""){
+es.gc.setMode(_225);
 }
 }else{
 mb.log.error("Unsupported element: $",this.MODES_DROPDOWN);
@@ -3809,11 +3858,32 @@ mb.log.exit();
 };
 mb.log.exit();
 }
-function GcModeSentence(_21d){
+function GcModeFrench(_226){
+mb.log.enter("GcModeFrench","__constructor");
+this.CN="GcModeFrench";
+this.GID="gc.mode_fr";
+this.setConfig(_226,"French",_226.FR,"First word titled, lowercase for <i>most</i> of the other "+"words. Read the [url]description[/url] for more details.","/doc/GuessCaseMode/FrenchMode");
+this.runFinalChecks=function(is){
+mb.log.enter(this.GID,"runFinalChecks");
+os=is.replace(/([!\?;:]+)/gi," $1");
+os=os.replace(/([??]+)/gi,"$1 ");
+os=os.replace(/([??]+)/gi," $1");
+mb.log.debug("After: $",os);
+return mb.log.exit(os);
+};
+mb.log.exit();
+}
+try{
+GcModeFrench.prototype=new GcMode;
+}
+catch(e){
+mb.log.error("GcModeFrench: Could not register GcMode prototype");
+}
+function GcModeSentence(_228){
 mb.log.enter("GcModeSentence","__constructor");
 this.CN="GcModeSentence";
 this.GID="gc.mode_xx";
-this.setConfig(_21d,"Sentence Mode",_21d.XX,"First word titled, lowercase for <i>most</i> of the other "+"words. Read the [url]description[/url] for more details.","http://wiki.musicbrainz.org/GuessCaseMode/SentenceMode");
+this.setConfig(_228,"Sentence",_228.XX,"First word titled, lowercase for <i>most</i> of the other "+"words. Read the [url]description[/url] for more details.","/doc/GuessCaseMode/SentenceMode");
 mb.log.exit();
 }
 try{
@@ -3874,12 +3944,12 @@ mb.log.scopeStart("Handle next word: "+gc.i.getCurrentWord()+"");
 mb.log.debug("  Index: $/$ Word: #cw",gc.i.getPos(),gc.i.getLength()-1);
 gc.f.dumpRaisedFlags();
 }
-var _223=false;
+var _22e=false;
 if(!gc.re.SPECIALCASES){
 gc.re.SPECIALCASES=/(&|\?|\!|;|:|'|"|\-|\+|,|\*|\.|#|%|\/|\(|\)|\{|\}|\[|\])/;
 }
 if(gc.i.matchCurrentWord(gc.re.SPECIALCASES)){
-_223=true;
+_22e=true;
 if(this.doDoubleQuote()){
 }else{
 if(this.doSingleQuote()){
@@ -3910,7 +3980,7 @@ if(this.doDiamond()){
 }else{
 if(this.doPercent()){
 }else{
-_223=false;
+_22e=false;
 }
 }
 }
@@ -3927,7 +3997,7 @@ _223=false;
 }
 }
 }
-if(!_223){
+if(!_22e){
 if(this.doDigits()){
 }else{
 if(this.doAcronym()){
@@ -3964,9 +4034,9 @@ gc.re.COLON=":";
 }
 if(gc.i.matchCurrentWord(gc.re.COLON)){
 mb.log.debug("Handled #cw");
-var _224=gc.o.getLength()-3;
+var _22f=gc.o.getLength()-3;
 var role;
-if(gc.f.slurpExtraTitleInformation&&_224>0&&gc.o.getWordAtIndex(_224)=="feat."&&(role=gc.o.getLastWord())!=""){
+if(gc.f.slurpExtraTitleInformation&&_22f>0&&gc.o.getWordAtIndex(_22f)=="feat."&&(role=gc.o.getLastWord())!=""){
 gc.o.setWordAtIndex(gc.o.getLength()-1,role.toLowerCase());
 }else{
 gc.o.capitalizeLastWord(true);
@@ -3975,13 +4045,13 @@ var skip=false;
 var pos=gc.i.getPos();
 var len=gc.i.getLength();
 if(pos<len-2){
-var _229=gc.i.getWordAtIndex(pos+1);
-var _22a=gc.i.getWordAtIndex(pos+2);
-if(_229.match(gc.re.OPENBRACKET)){
+var _234=gc.i.getWordAtIndex(pos+1);
+var _235=gc.i.getWordAtIndex(pos+2);
+if(_234.match(gc.re.OPENBRACKET)){
 skip=true;
 gc.f.spaceNextWord=true;
 }
-if(gc.i.isNextWord(" ")&&_22a.match(gc.re.OPENBRACKET)){
+if(gc.i.isNextWord(" ")&&_235.match(gc.re.OPENBRACKET)){
 gc.f.spaceNextWord=true;
 skip=true;
 gc.i.nextIndex();
@@ -4127,7 +4197,7 @@ if(gc.i.matchCurrentWord(gc.re.SINGLEQUOTE)){
 gc.f.forceCaps=false;
 var a=gc.i.isPreviousWord(" ");
 var b=gc.i.isNextWord(" ");
-var _22d=gc.f.openedSingleQuote;
+var _238=gc.f.openedSingleQuote;
 mb.log.debug("Consumed #cw, space before: $, after: $",a,b);
 if(a&&!b){
 mb.log.debug("Found opening singlequote.",a,b);
@@ -4136,7 +4206,7 @@ gc.f.openedSingleQuote=true;
 gc.f.forceCaps=true;
 }else{
 if(!a&&b){
-if(_22d){
+if(_238){
 mb.log.debug("Found closing singlequote.",a,b);
 gc.f.forceCaps=true;
 gc.f.openedSingleQuote=false;
@@ -4149,7 +4219,7 @@ gc.o.capitalizeLastWord();
 gc.f.spaceNextWord=b;
 gc.o.appendCurrentWord();
 gc.f.resetContext();
-if(_22d==gc.f.openedSingleQuote){
+if(_238==gc.f.openedSingleQuote){
 gc.f.forceCaps=false;
 }
 gc.f.singlequote=true;
@@ -4167,7 +4237,7 @@ mb.log.debug("Handled #cw, stack: $",gc.f.openBrackets);
 gc.o.capitalizeLastWord(!gc.getMode().isSentenceCaps());
 gc.f.pushBracket(gc.i.getCurrentWord());
 var cb=gc.f.getCurrentCloseBracket();
-var _22f=false;
+var _23a=false;
 var pos=gc.i.getPos()+1;
 for(var i=pos;i<gc.i.getLength();i++){
 var w=(gc.i.getWordAtIndex(i)||"");
@@ -4175,7 +4245,7 @@ if(w!=" "){
 if((gc.u.isLowerCaseBracketWord(w))||(w.match(/^featuring$|^ft$|^feat$/i)!=null)){
 gc.f.slurpExtraTitleInformation=true;
 if(i==pos){
-_22f=true;
+_23a=true;
 }
 }
 if(w==cb){
@@ -4187,7 +4257,7 @@ gc.o.appendSpace();
 gc.f.resetContext();
 gc.f.spaceNextWord=false;
 gc.f.openingBracket=true;
-gc.f.forceCaps=!_22f;
+gc.f.forceCaps=!_23a;
 gc.o.appendCurrentWord();
 gc.f.disc=false;
 gc.f.part=false;
@@ -4270,16 +4340,16 @@ mb.log.enter(this.GID,"doAcronym");
 if(!gc.re.ACRONYM){
 gc.re.ACRONYM=/^\w$/;
 }
-var _233,tmp=[];
+var _23e,tmp=[];
 if(gc.i.matchCurrentWord(gc.re.ACRONYM)){
 var cw=gc.i.getCurrentWord();
 tmp.push(cw.toUpperCase());
 gc.f.expectWord=false;
 gc.f.gotPeriod=false;
 acronymloop:
-for(_233=gc.i.getPos()+1;_233<gc.i.getLength();){
-cw=gc.i.getWordAtIndex(_233);
-mb.log.debug("Word: $, i: $, expectWord: $, gotPeriod: $",cw,_233,gc.f.expectWord,gc.f.gotPeriod);
+for(_23e=gc.i.getPos()+1;_23e<gc.i.getLength();){
+cw=gc.i.getWordAtIndex(_23e);
+mb.log.debug("Word: $, i: $, expectWord: $, gotPeriod: $",cw,_23e,gc.f.expectWord,gc.f.gotPeriod);
 if(gc.f.expectWord&&cw.match(gc.re.ACRONYM)){
 tmp.push(cw.toUpperCase());
 gc.f.expectWord=false;
@@ -4295,13 +4365,13 @@ gc.f.expectWord=true;
 }else{
 if(tmp[tmp.length-1]!="."){
 tmp.pop();
-_233--;
+_23e--;
 }
 break acronymloop;
 }
 }
 }
-_233++;
+_23e++;
 }
 }
 if(tmp.length>2){
@@ -4314,7 +4384,7 @@ gc.f.resetContext();
 gc.f.acronym=true;
 gc.f.spaceNextWord=true;
 gc.f.forceCaps=false;
-gc.i.setPos(_233-1);
+gc.i.setPos(_23e-1);
 return mb.log.exit(true);
 }
 return mb.log.exit(false);
@@ -4328,73 +4398,73 @@ gc.re.DIGITS_DUPLE=/^\d\d$/;
 gc.re.DIGITS_TRIPLE=/^\d\d\d$/;
 gc.re.DIGITS_NTUPLE=/^\d\d\d\d+$/;
 }
-var _236=null,tmp=[];
+var _241=null,tmp=[];
 if(gc.i.matchCurrentWord(gc.re.DIGITS)){
 tmp.push(gc.i.getCurrentWord());
 gc.f.numberSplitExpect=true;
 numberloop:
-for(_236=gc.i.getPos()+1;_236<gc.i.getLength();){
+for(_241=gc.i.getPos()+1;_241<gc.i.getLength();){
 if(gc.f.numberSplitExpect){
-if(gc.i.matchWordAtIndex(_236,gc.re.DIGITS_NUMBERSPLIT)){
-tmp.push(gc.i.getWordAtIndex(_236));
+if(gc.i.matchWordAtIndex(_241,gc.re.DIGITS_NUMBERSPLIT)){
+tmp.push(gc.i.getWordAtIndex(_241));
 gc.f.numberSplitExpect=false;
 }else{
 break numberloop;
 }
 }else{
-if(gc.i.matchWordAtIndex(_236,gc.re.DIGITS_TRIPLE)){
+if(gc.i.matchWordAtIndex(_241,gc.re.DIGITS_TRIPLE)){
 if(gc.f.numberSplitChar==null){
 gc.f.numberSplitChar=tmp[tmp.length-1];
 }
-tmp.push(gc.i.getWordAtIndex(_236));
+tmp.push(gc.i.getWordAtIndex(_241));
 gc.f.numberSplitExpect=true;
 }else{
-if(gc.i.matchWordAtIndex(_236,gc.re.DIGITS_DUPLE)){
+if(gc.i.matchWordAtIndex(_241,gc.re.DIGITS_DUPLE)){
 if(tmp.length>2&&gc.f.numberSplitChar!=tmp[tmp.length-1]){
-tmp.push(gc.i.getWordAtIndex(_236++));
+tmp.push(gc.i.getWordAtIndex(_241++));
 }else{
 tmp.pop();
-_236--;
+_241--;
 }
 }else{
-if(gc.i.matchWordAtIndex(_236,gc.re.DIGITS_NTUPLE)){
-tmp.push(gc.i.getWordAtIndex(_236++));
+if(gc.i.matchWordAtIndex(_241,gc.re.DIGITS_NTUPLE)){
+tmp.push(gc.i.getWordAtIndex(_241++));
 }else{
 tmp.pop();
-_236--;
+_241--;
 }
 }
 break numberloop;
 }
 }
-_236++;
+_241++;
 }
-gc.i.setPos(_236-1);
-var _237=tmp.join("");
+gc.i.setPos(_241-1);
+var _242=tmp.join("");
 if(gc.f.disc||gc.f.part||gc.f.volume){
-_237=_237.replace(/^0*/,"");
+_242=_242.replace(/^0*/,"");
 }
 mb.log.debug("Processed number: $",tmp.join(""));
-var _238=false;
+var _243=false;
 if(gc.f.disc||gc.f.volume){
 var pos=gc.i.getPos();
 if(pos<gc.i.getLength()-2){
-var _23a=gc.i.getWordAtIndex(pos+1);
-var _23b=gc.i.getWordAtIndex(pos+2);
-var _23c=_23a.match(/[\):\-&]/);
-var _23d=_23b.match(/[\(:\-&]/);
-if(_23c==null&&_23d==null){
-_238=true;
+var _245=gc.i.getWordAtIndex(pos+1);
+var _246=gc.i.getWordAtIndex(pos+2);
+var _247=_245.match(/[\):\-&]/);
+var _248=_246.match(/[\(:\-&]/);
+if(_247==null&&_248==null){
+_243=true;
 }
 }
 gc.f.spaceNextWord=true;
 gc.f.forceCaps=true;
 }
 gc.o.appendSpaceIfNeeded();
-gc.o.appendWord(_237);
+gc.o.appendWord(_242);
 gc.f.resetSeriesNumberStyleFlags();
 gc.f.resetContext();
-if(_238){
+if(_243){
 gc.o.appendWord(":");
 gc.f.forceCaps=true;
 gc.f.colon=true;
@@ -4457,7 +4527,7 @@ return mb.log.exit(true);
 }
 return mb.log.exit(false);
 };
-this.doSeriesNumberStyle=function(_23e){
+this.doSeriesNumberStyle=function(_249){
 mb.log.enter(this.GID,"doSeriesNumberStyle");
 var pos=gc.i.getPos();
 var len=gc.i.getLength();
@@ -4472,10 +4542,10 @@ var w=(gc.i.getWordAtIndex(wi)||"");
 mb.log.debug("Attempting to match number/roman numeral, $",w);
 if(w.match(gc.re.SERIES_NUMBER)){
 if(gc.i.getPos()>=1&&!gc.u.isPunctuationChar(gc.o.getLastWord())){
-var _243=false;
+var _24e=false;
 while(gc.o.getLength()>0&&(gc.o.getLastWord()||"").match(/ |-/i)){
 gc.o.dropLastWord();
-_243=true;
+_24e=true;
 }
 gc.o.capitalizeLastWord(true);
 gc.o.appendWord(",");
@@ -4483,26 +4553,26 @@ gc.o.appendWord(",");
 var pos=gc.o.getLength()-2;
 gc.o.capitalizeWordAtIndex(pos,true);
 }
-var _244=false;
+var _24f=false;
 if(wi<gc.i.getLength()-2){
-var _245=gc.i.getWordAtIndex(wi+1);
-var _246=gc.i.getWordAtIndex(wi+2);
-var _247=_245.match(/[\):\-&,\/]/);
-var _248=_246.match(/[\(:\-&,\/]/);
-if(_247==null&&_248==null){
-_244=true;
+var _250=gc.i.getWordAtIndex(wi+1);
+var _251=gc.i.getWordAtIndex(wi+2);
+var _252=_250.match(/[\):\-&,\/]/);
+var _253=_251.match(/[\(:\-&,\/]/);
+if(_252==null&&_253==null){
+_24f=true;
 }else{
-if(_23e.match(/part|parts/i)&&(_245.match(/,/)||_246.match(/&|-|,|\d+/))){
-_23e="Parts";
+if(_249.match(/part|parts/i)&&(_250.match(/,/)||_251.match(/&|-|,|\d+/))){
+_249="Parts";
 }
 }
 }
 gc.o.appendSpaceIfNeeded();
-gc.o.appendWord(_23e);
+gc.o.appendWord(_249);
 gc.o.appendSpace();
 gc.o.appendWord(w);
 gc.f.resetContext();
-if(_244){
+if(_24f){
 gc.o.appendWord(":");
 gc.f.forceCaps=true;
 gc.f.spaceNextWord=true;
@@ -4522,15 +4592,15 @@ mb.log.enter(this.GID,"doDiscNumberStyle");
 if(!gc.re.DISCNUMBERSTYLE){
 gc.re.DISCNUMBERSTYLE=/^(Cd|Disk|Discque|Disc)([^\s\d]*)(\s*)(\d*)/i;
 }
-var _249=null;
+var _254=null;
 var w=gc.i.getCurrentWord();
-if(!(gc.f.isInsideBrackets()&&gc.f.colon)&&!gc.i.isFirstWord()&&gc.i.hasMoreWords()&&(_249=w.match(gc.re.DISCNUMBERSTYLE))!=null){
-if(_249[2]!=""){
+if(!(gc.f.isInsideBrackets()&&gc.f.colon)&&!gc.i.isFirstWord()&&gc.i.hasMoreWords()&&(_254=w.match(gc.re.DISCNUMBERSTYLE))!=null){
+if(_254[2]!=""){
 return mb.log.exit(false);
 }
 mb.log.debug("Attempting to correct DiscNumberStyle, #cw");
-if(_249[4]!=""){
-var np=_249[4];
+if(_254[4]!=""){
+var np=_254[4];
 np=np.replace("^0","");
 mb.log.debug("Expanding #cw to disc $",np);
 gc.i.insertWordsAtIndex(gc.i.getPos()+1,[" ",np]);
@@ -4586,7 +4656,7 @@ if(gc.i.getPos()<gc.i.getLength()-2){
 if(!gc.f.openingBracket&&!gc.f.isInsideBrackets()){
 mb.log.debug("Matched feat., but previous word is not a closing bracket.");
 if(gc.f.isInsideBrackets()){
-var _250=new Array();
+var _25b=new Array();
 while(gc.f.isInsideBrackets()){
 var cb=gc.f.popBracket();
 gc.o.appendWord(cb);
@@ -4629,17 +4699,17 @@ return mb.log.exit(false);
 mb.log.exit();
 }
 GcHandler.prototype=new GcHandler;
-function GcAlbumHandler(){
-mb.log.enter("GcAlbumHandler","__constructor");
-this.CN="GcAlbumHandler";
-this.GID="gc.album";
+function GcReleaseHandler(){
+mb.log.enter("GcReleaseHandler","__constructor");
+this.CN="GcReleaseHandler";
+this.GID="gc.release";
 this.checkSpecialCase=function(is){
 mb.log.enter(this.GID,"checkSpecialCase");
 if(is){
-if(!gc.re.ALBUM_UNTITLED){
-gc.re.ALBUM_UNTITLED=/^([\(\[]?\s*untitled\s*[\)\]]?)$/i;
+if(!gc.re.RELEASE_UNTITLED){
+gc.re.RELEASE_UNTITLED=/^([\(\[]?\s*untitled\s*[\)\]]?)$/i;
 }
-if(is.match(gc.re.ALBUM_UNTITLED)){
+if(is.match(gc.re.RELEASE_UNTITLED)){
 return mb.log.exit(this.SPECIALCASE_UNTITLED);
 }
 }
@@ -4650,10 +4720,10 @@ mb.log.enter(this.GID,"process");
 is=gc.mode.stripInformationToOmit(is);
 is=gc.mode.preProcessCommons(is);
 is=gc.mode.preProcessTitles(is);
-var _257=gc.i.splitWordsAndPunctuation(is);
-_257=gc.mode.prepExtraTitleInfo(_257);
+var _262=gc.i.splitWordsAndPunctuation(is);
+_262=gc.mode.prepExtraTitleInfo(_262);
 gc.o.init();
-gc.i.init(is,_257);
+gc.i.init(is,_262);
 while(!gc.i.isIndexAtEnd()){
 this.processWord();
 mb.log.debug("Output: $",gc.o._w);
@@ -4696,7 +4766,7 @@ return mb.log.exit(null);
 };
 mb.log.exit();
 }
-GcAlbumHandler.prototype=new GcHandler;
+GcReleaseHandler.prototype=new GcHandler;
 function GcTrackHandler(){
 mb.log.enter("GcTrackHandler","__constructor");
 this.CN="GcTrackHandler";
@@ -4706,10 +4776,10 @@ mb.log.enter(this.GID,"process");
 is=gc.mode.stripInformationToOmit(is);
 is=gc.mode.preProcessCommons(is);
 is=gc.mode.preProcessTitles(is);
-var _25a=gc.i.splitWordsAndPunctuation(is);
-_25a=gc.mode.prepExtraTitleInfo(_25a);
+var _265=gc.i.splitWordsAndPunctuation(is);
+_265=gc.mode.prepExtraTitleInfo(_265);
 gc.o.init();
-gc.i.init(is,_25a);
+gc.i.init(is,_265);
 while(!gc.i.isIndexAtEnd()){
 this.processWord();
 mb.log.debug("Output: $",gc.o._w);
@@ -4889,104 +4959,104 @@ gc.i.nextIndex();
 this.guessSortName=function(is){
 mb.log.enter(this.GID,"guessSortName");
 is=gc.u.trim(is);
-var _263=" and ";
-_263=(is.indexOf(" + ")!=-1?" + ":_263);
-_263=(is.indexOf(" & ")!=-1?" & ":_263);
-var as=is.split(_263);
-for(var _265=0;_265<as.length;_265++){
-var _266=as[_265];
-if(!mb.utils.isNullOrEmpty(_266)){
-_266=gc.u.trim(_266);
-var _267="";
-mb.log.debug("Handling artist part: $",_266);
+var _26e=" and ";
+_26e=(is.indexOf(" + ")!=-1?" + ":_26e);
+_26e=(is.indexOf(" & ")!=-1?" & ":_26e);
+var as=is.split(_26e);
+for(var _270=0;_270<as.length;_270++){
+var _271=as[_270];
+if(!mb.utils.isNullOrEmpty(_271)){
+_271=gc.u.trim(_271);
+var _272="";
+mb.log.debug("Handling artist part: $",_271);
 if(!gc.re.SORTNAME_SR){
 gc.re.SORTNAME_SR=/,\s*Sr[\.]?$/i;
 gc.re.SORTNAME_JR=/,\s*Jr[\.]?$/i;
 }
-if(_266.match(gc.re.SORTNAME_SR)){
-_266=_266.replace(gc.re.SORTNAME_SR,"");
-_267=", Sr.";
+if(_271.match(gc.re.SORTNAME_SR)){
+_271=_271.replace(gc.re.SORTNAME_SR,"");
+_272=", Sr.";
 }else{
-if(_266.match(gc.re.SORTNAME_JR)){
-_266=_266.replace(gc.re.SORTNAME_JR,"");
-_267=", Jr.";
+if(_271.match(gc.re.SORTNAME_JR)){
+_271=_271.replace(gc.re.SORTNAME_JR,"");
+_272=", Jr.";
 }
 }
-var _268=_266.split(" ");
-mb.log.debug("names: $",_268);
-var _269=false;
+var _273=_271.split(" ");
+mb.log.debug("names: $",_273);
+var _274=false;
 if(!gc.re.SORTNAME_DJ){
 gc.re.SORTNAME_DJ=/^DJ$/i;
 gc.re.SORTNAME_THE=/^The$/i;
 gc.re.SORTNAME_LOS=/^Los$/i;
 gc.re.SORTNAME_DR=/^Dr\.$/i;
 }
-var _26a=_268[0];
-if(_26a.match(gc.re.SORTNAME_DJ)){
-_267=(", DJ"+_267);
-_268[0]=null;
+var _275=_273[0];
+if(_275.match(gc.re.SORTNAME_DJ)){
+_272=(", DJ"+_272);
+_273[0]=null;
 }else{
-if(_26a.match(gc.re.SORTNAME_THE)){
-_267=(", The"+_267);
-_268[0]=null;
+if(_275.match(gc.re.SORTNAME_THE)){
+_272=(", The"+_272);
+_273[0]=null;
 }else{
-if(_26a.match(gc.re.SORTNAME_LOS)){
-_267=(", Los"+_267);
-_268[0]=null;
+if(_275.match(gc.re.SORTNAME_LOS)){
+_272=(", Los"+_272);
+_273[0]=null;
 }else{
-if(_26a.match(gc.re.SORTNAME_DR)){
-_267=(", Dr."+_267);
-_268[0]=null;
-_269=true;
+if(_275.match(gc.re.SORTNAME_DR)){
+_272=(", Dr."+_272);
+_273[0]=null;
+_274=true;
 }else{
-_269=true;
+_274=true;
 }
 }
 }
 }
 var i=0;
-if(_269){
-var _26c=[];
-if(_268.length>1){
-for(i=0;i<_268.length-1;i++){
-if(i==_268.length-2&&_268[i]=="St."){
-_268[i+1]=_268[i]+" "+_268[i+1];
+if(_274){
+var _277=[];
+if(_273.length>1){
+for(i=0;i<_273.length-1;i++){
+if(i==_273.length-2&&_273[i]=="St."){
+_273[i+1]=_273[i]+" "+_273[i+1];
 }else{
-if(!mb.utils.isNullOrEmpty(_268[i])){
-_26c[i+1]=_268[i];
+if(!mb.utils.isNullOrEmpty(_273[i])){
+_277[i+1]=_273[i];
 }
 }
 }
-_26c[0]=_268[_268.length-1];
-if(_26c.length>1){
-_26c[0]+=",";
+_277[0]=_273[_273.length-1];
+if(_277.length>1){
+_277[0]+=",";
 }
-_268=_26c;
+_273=_277;
 }
 }
-mb.log.debug("Sorted names: $, append: $",_268,_267);
+mb.log.debug("Sorted names: $, append: $",_273,_272);
 var t=[];
-for(i=0;i<_268.length;i++){
-var w=_268[i];
+for(i=0;i<_273.length;i++){
+var w=_273[i];
 if(!mb.utils.isNullOrEmpty(w)){
 t.push(w);
 }
-if(i<_268.length-1){
+if(i<_273.length-1){
 t.push(" ");
 }
 }
-if(!mb.utils.isNullOrEmpty(_267)){
-t.push(_267);
+if(!mb.utils.isNullOrEmpty(_272)){
+t.push(_272);
 }
-_266=gc.u.trim(t.join(""));
+_271=gc.u.trim(t.join(""));
 }
-if(!mb.utils.isNullOrEmpty(_266)){
-as[_265]=_266;
+if(!mb.utils.isNullOrEmpty(_271)){
+as[_270]=_271;
 }else{
-delete as[_265];
+delete as[_270];
 }
 }
-var os=gc.u.trim(as.join(_263));
+var os=gc.u.trim(as.join(_26e));
 mb.log.debug("Result: $",os);
 return mb.log.exit(os);
 };
@@ -5001,7 +5071,7 @@ this.getModID=function(){
 return "es.gc";
 };
 this.getModName=function(){
-return "Guess Case";
+return "Guess case";
 };
 if(es){
 es.gc=this;
@@ -5011,7 +5081,7 @@ this.f=new GcFlags();
 this.i=new GcInput();
 this.o=new GcOutput();
 this.artistHandler=null;
-this.albumHandler=null;
+this.releaseHandler=null;
 this.trackHandler=null;
 this.re={SPACES_DOTS:/\s|\./i,SERIES_NUMBER:/^(\d+|[ivx]+)$/i};
 this.modes=new GcModes();
@@ -5021,7 +5091,7 @@ this.COOKIE_MODE=this.getModID()+".mode";
 this.CFG_AUTOFIX=this.getModID()+".autofix";
 this.CFG_UC_ROMANNUMERALS=this.getModID()+".uc_romannumerals";
 this.CFG_UC_UPPERCASED=this.getModID()+".uc_uppercased";
-this.CONFIG_LIST=[new EsModuleConfig(this.CFG_AUTOFIX,false,"Apply Guess Case after page loads","The Guess Case function is automatically applied for all the fields "+"in the form. You can press Undo All if you want to reverse the changes."),new EsModuleConfig(this.CFG_UC_ROMANNUMERALS,true,"Uppercase roman numerals","Convert roman numerals i, ii, iii, iv etc. to uppercase."),new EsModuleConfig(this.CFG_UC_UPPERCASED,true,"Keep uppercase words uppercased","If a word is all uppercase characters, it is kept that way "+"(Overrides normal behaviour).")];
+this.CONFIG_LIST=[new EsModuleConfig(this.CFG_AUTOFIX,false,"Apply guess case after page loads","The guess case function is automatically applied for all the fields "+"in the form. You can use Undo All if you want to reverse the changes."),new EsModuleConfig(this.CFG_UC_ROMANNUMERALS,true,"Uppercase roman numerals","Convert roman numerals i, ii, iii, iv etc. to uppercase."),new EsModuleConfig(this.CFG_UC_UPPERCASED,true,"Keep uppercase words uppercased","If a word is all uppercase characters, it is kept that way "+"(Overrides normal behaviour).")];
 this.setupModuleDelegate=function(){
 this.DEFAULT_EXPANDED=true;
 this.DEFAULT_VISIBLE=true;
@@ -5104,14 +5174,14 @@ mb.log.info("Result after guess: $",os);
 gc.restoreMode();
 return mb.log.exit(os);
 };
-this.guessAlbum=function(is,mode){
+this.guessRelease=function(is,mode){
 var os,handler;
 gc.init();
-mb.log.enter(this.GID,"guessAlbum");
-if(!gc.albumHandler){
-gc.albumHandler=new GcAlbumHandler();
+mb.log.enter(this.GID,"guessRelease");
+if(!gc.releaseHandler){
+gc.releaseHandler=new GcReleaseHandler();
 }
-handler=gc.albumHandler;
+handler=gc.releaseHandler;
 mb.log.info("Input: $",is);
 this.useSelectedMode(mode);
 var num=handler.checkSpecialCase(is);
@@ -5273,16 +5343,16 @@ return m;
 this.getDisplayedModules=function(){
 return this.modules;
 };
-this.guessArtistField=function(_288){
+this.guessArtistField=function(_293){
 mb.log.enter(this.GID,"guessArtistField");
-_288=(_288||"artist");
+_293=(_293||"artist");
 var f;
-if((f=es.ui.getField(_288))!=null){
+if((f=es.ui.getField(_293))!=null){
 var ov=f.value,nv=ov;
 if(!mb.utils.isNullOrEmpty(ov)){
 mb.log.info("Guessing artist field, input: $",ov);
 if((nv=es.gc.guessArtist(ov))!=ov){
-es.ur.addUndo(es.ur.createItem(f,"Guess Artist",ov,nv));
+es.ur.addUndo(es.ur.createItem(f,"Guess artist",ov,nv));
 f.value=nv;
 es.ui.resetSelection();
 }else{
@@ -5292,21 +5362,21 @@ mb.log.info("Guess yielded same result, nothing to do.");
 mb.log.info("Field value is null or empty, nothing to do.");
 }
 }else{
-mb.log.error("Did not find the field: $",_288);
+mb.log.error("Did not find the field: $",_293);
 }
 mb.log.exit();
 };
-this.guessAlbumField=function(_28b,mode){
-mb.log.enter(this.GID,"guessAlbumField");
-_28b=(_28b||"album");
+this.guessReleaseField=function(_296,mode){
+mb.log.enter(this.GID,"guessReleaseField");
+_296=(_296||"release");
 var f;
-if((f=es.ui.getField(_28b))!=null){
+if((f=es.ui.getField(_296))!=null){
 var ov=f.value,nv=ov;
 if(!mb.utils.isNullOrEmpty(ov)){
-mb.log.info("Guessing album field, input: $",ov);
+mb.log.info("Guessing release field, input: $",ov);
 mb.log.debug("* mode: $",mode);
-if((nv=es.gc.guessAlbum(ov,mode))!=ov){
-es.ur.addUndo(es.ur.createItem(f,"Guess Album ("+es.gc.getMode()+")",ov,nv));
+if((nv=es.gc.guessRelease(ov,mode))!=ov){
+es.ur.addUndo(es.ur.createItem(f,"Guess release ("+es.gc.getMode()+")",ov,nv));
 f.value=nv;
 es.ui.resetSelection();
 }else{
@@ -5316,20 +5386,20 @@ mb.log.info("Guess yielded same result, nothing to do.");
 mb.log.info("Field value is null or empty, nothing to do.");
 }
 }else{
-mb.log.error("Did not find the field: $",_28b);
+mb.log.error("Did not find the field: $",_296);
 }
 mb.log.exit();
 };
-this.guessTrackField=function(_28f,mode){
+this.guessTrackField=function(_29a,mode){
 mb.log.enter(this.GID,"guessTrackField");
 var f;
-if((f=es.ui.getField(_28f))!=null){
+if((f=es.ui.getField(_29a))!=null){
 var ov=f.value,nv=ov;
 if(!mb.utils.isNullOrEmpty(ov)){
 mb.log.info("Guessing track field, input: $",ov);
 mb.log.debug("* mode: $",mode);
 if((nv=es.gc.guessTrack(ov,mode))!=ov){
-es.ur.addUndo(es.ur.createItem(f,"Guess Track ("+es.gc.getMode()+")",ov,nv));
+es.ur.addUndo(es.ur.createItem(f,"Guess track ("+es.gc.getMode()+")",ov,nv));
 f.value=nv;
 es.ui.resetSelection();
 }else{
@@ -5339,21 +5409,21 @@ mb.log.info("Guess yielded same result, nothing to do.");
 mb.log.info("Field value is null or empty, nothing to do. $",ov);
 }
 }else{
-mb.log.error("Did not find the field: $",_28f);
+mb.log.error("Did not find the field: $",_29a);
 }
 mb.log.exit();
 };
 this.guessAllFields=function(){
 mb.log.enter(this.GID,"guessAllFields");
 var f,fields=es.ui.getEditTextFields();
-var _294,name,cn;
+var _29f,name,cn;
 for(var j=0;j<fields.length;j++){
 f=fields[j];
-_294=(f.value||"");
+_29f=(f.value||"");
 name=(f.name||"");
 cn=(f.className||"");
 if(!cn.match(/hidden/i)){
-if(!mb.utils.isNullOrEmpty(_294)){
+if(!mb.utils.isNullOrEmpty(_29f)){
 mb.log.scopeStart("Guessing next field: "+name);
 this.guessByFieldName(name);
 }else{
@@ -5365,17 +5435,17 @@ mb.log.exit();
 };
 this.guessByFieldName=function(name,mode){
 mb.log.enter(this.GID,"guessByFieldName");
-if(name.match(es.ui.re.TRACKFIELD)){
+if(name.match(es.ui.re.TRACKFIELD_NAME)){
 this.guessTrackField(name,mode);
 }else{
-if(name.match(es.ui.re.ALBUMFIELD)){
-this.guessAlbumField(name,mode);
+if(name.match(es.ui.re.RELEASEFIELD_NAME)){
+this.guessReleaseField(name,mode);
 }else{
-if(name.match(es.ui.re.ARTISTFIELD)){
+if(name.match(es.ui.re.ARTISTFIELD_NAME)){
 this.guessArtistField(name);
 }else{
-if(name.match(es.ui.re.SORTNAMEFIELD)){
-var _298=name.replace("sort","");
+if(name.match(es.ui.re.SORTNAMEFIELD_NAME)){
+var _2a3=name.replace("sort","");
 this.guessSortnameField(artistfield,name);
 }else{
 mb.log.warning("Unhandled name: $",name);
@@ -5385,10 +5455,10 @@ mb.log.warning("Unhandled name: $",name);
 }
 mb.log.exit();
 };
-this.copySortnameField=function(_299,_29a){
+this.copySortnameField=function(_2a4,_2a5){
 mb.log.enter(this.GID,"copySortnameField");
 var fa,fsn;
-if((fa=es.ui.getField(_299))!=null&&(fsn=es.ui.getField(_29a))!=null){
+if((fa=es.ui.getField(_2a4))!=null&&(fsn=es.ui.getField(_2a5))!=null){
 var ov=fsn.value;
 var nv=fa.value;
 if(nv!=ov){
@@ -5399,14 +5469,14 @@ es.ui.resetSelection();
 mb.log.info("Destination is same as source, nothing to do.");
 }
 }else{
-mb.log.error("Did not find the fields: $, $",_299,_29a);
+mb.log.error("Did not find the fields: $, $",_2a4,_2a5);
 }
 mb.log.exit();
 };
-this.guessSortnameField=function(_29e,_29f){
+this.guessSortnameField=function(_2a9,_2aa){
 mb.log.enter(this.GID,"guessSortnameField");
 var fa,fsn;
-if((fa=es.ui.getField(_29e))!=null&&(fsn=es.ui.getField(_29f))!=null){
+if((fa=es.ui.getField(_2a9))!=null&&(fsn=es.ui.getField(_2aa))!=null){
 var av=fa.value,ov=fsn.value,nv=ov;
 if(!mb.utils.isNullOrEmpty(av)){
 mb.log.info("fa: $, fsn: $, value: $",fa.name,fsn.name,fa.value);
@@ -5421,7 +5491,7 @@ mb.log.info("Guess yielded same result, nothing to do.");
 mb.log.info("Artist name is empty, nothing to do.");
 }
 }else{
-mb.log.error("Did not find the fields: $, $",_29e,_29f);
+mb.log.error("Did not find the fields: $, $",_2a9,_2aa);
 }
 mb.log.exit();
 };
@@ -5432,13 +5502,13 @@ var fn1=(arguments[0]||"search");
 var fn2=(arguments[1]||"trackname");
 var fns=(arguments[2]||"swapped");
 if(((f1=es.ui.getField(fn1))!=null)&&((f2=es.ui.getField(fn2))!=null)&&((fs=es.ui.getField(fns))!=null)){
-var _2a6=(1-fs.value);
+var _2b1=(1-fs.value);
 var f1v=f1.value;
 var f2v=f2.value;
-es.ur.addUndo(es.ur.createItemList(es.ur.createItem(f2,"swap",f2v,f1v),es.ur.createItem(f1,"swap",f1v,f2v),es.ur.createItem(fs,"swap",fs.value,_2a6)));
+es.ur.addUndo(es.ur.createItemList(es.ur.createItem(f2,"swap",f2v,f1v),es.ur.createItem(f1,"swap",f1v,f2v),es.ur.createItem(fs,"swap",fs.value,_2b1)));
 f1.value=f2v;
 f2.value=f1v;
-fs.value=_2a6;
+fs.value=_2b1;
 }else{
 mb.log.error("Did not find the fields: $,$,$",fn1,fn2,fns);
 }

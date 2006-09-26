@@ -84,6 +84,9 @@ require MusicBrainz::Server::Moderation::MOD_REMOVE_TRMID;
 require MusicBrainz::Server::Moderation::MOD_SAC_TO_MAC;
 require MusicBrainz::Server::Moderation::MOD_EDIT_TRACKTIME;
 require MusicBrainz::Server::Moderation::MOD_CHANGE_WIKIDOC;
+require MusicBrainz::Server::Moderation::MOD_ADD_RELEASEEVENTS;
+require MusicBrainz::Server::Moderation::MOD_EDIT_RELEASEEVENTS;
+require MusicBrainz::Server::Moderation::MOD_REMOVE_RELEASEEVENTS;
 
 use constant SEARCHRESULT_SUCCESS => 1;
 use constant SEARCHRESULT_NOQUERY => 2;
@@ -370,7 +373,7 @@ sub SetError
 }
 
 # TODO move this into mod handlers?
-sub IsAutoModType
+sub IsAutoEditType
 {
     my ($this, $type) = @_;
 
@@ -396,7 +399,9 @@ sub IsAutoModType
 		$type == &ModDefs::MOD_EDIT_LINK ||
 		$type == &ModDefs::MOD_EDIT_LINK_TYPE ||
 		$type == &ModDefs::MOD_EDIT_LINK_ATTR ||
-		# $type == &ModDefs::MOD_EDIT_RELEASES ||
+		$type == &ModDefs::MOD_EDIT_RELEASES ||
+		$type == &ModDefs::MOD_ADD_RELEASEEVENTS ||
+		$type == &ModDefs::MOD_EDIT_RELEASEEVENTS ||
 		$type == &ModDefs::MOD_EDIT_TRACKNAME ||
 		$type == &ModDefs::MOD_EDIT_TRACKNUM ||
 		$type == &ModDefs::MOD_EDIT_TRACKTIME ||
@@ -431,10 +436,10 @@ sub GetAutomoderationList
 
    foreach $type (values %$types)
    {
-       if ($this->IsAutoModType($type))
+       if ($this->IsAutoEditType($type))
        {
-           my $mod = $this->CreateModerationObject($type);
-           $temp{$mod->Name()} = 1;
+           my $edit = $this->CreateModerationObject($type);
+           $temp{$edit->Name()} = 1;
        }
    }
    @list = sort keys %temp;
@@ -458,7 +463,7 @@ sub GetAutomoderatorList
 sub CreateFromId
 {
    my ($this, $id) = @_;
-   my ($mod, $query, $sql, @row);
+   my ($edit, $query, $sql, @row);
 
    $query = qq/select m.id, tab, col, m.rowid, 
                       m.artist, m.type, prevvalue, newvalue, 
@@ -475,40 +480,40 @@ sub CreateFromId
    if ($sql->Select($query, &DBDefs::MOD_PERIOD_GRACE, $id))
    {
         @row = $sql->NextRow();
-        $mod = $this->CreateModerationObject($row[5]);
-        if (defined $mod)
+        $edit = $this->CreateModerationObject($row[5]);
+        if (defined $edit)
         {
-			$mod->SetId($row[0]);
-			$mod->SetTable($row[1]);
-			$mod->SetColumn($row[2]);
-			$mod->SetRowId($row[3]);
-			$mod->SetArtist($row[4]);
-			$mod->SetType($row[5]);
-			$mod->SetPrev($row[6]);
-			$mod->SetNew($row[7]);
-			$mod->SetExpireTime($row[8]);
-			$mod->SetModeratorName($row[9]);
-			$mod->SetYesVotes($row[10]);
-			$mod->SetNoVotes($row[11]);
-			$mod->SetArtistName($row[12]);
-			$mod->SetArtistSortName($row[13]);
-			$mod->SetArtistResolution($row[14]);
-			$mod->SetStatus($row[15]);
-			$mod->SetVote(&ModDefs::VOTE_UNKNOWN);
-			$mod->SetDepMod($row[17]);
-			$mod->SetModerator($row[18]);
-			$mod->SetAutomod($row[19]);
-			$mod->SetLanguageId($row[20]);
-			$mod->SetOpenTime($row[21]);
-			$mod->SetCloseTime($row[22]);
-			$mod->SetExpired($row[23]);
-			$mod->SetGracePeriodExpired($row[24]);
-			$mod->PostLoad;
+			$edit->SetId($row[0]);
+			$edit->SetTable($row[1]);
+			$edit->SetColumn($row[2]);
+			$edit->SetRowId($row[3]);
+			$edit->SetArtist($row[4]);
+			$edit->SetType($row[5]);
+			$edit->SetPrev($row[6]);
+			$edit->SetNew($row[7]);
+			$edit->SetExpireTime($row[8]);
+			$edit->SetModeratorName($row[9]);
+			$edit->SetYesVotes($row[10]);
+			$edit->SetNoVotes($row[11]);
+			$edit->SetArtistName($row[12]);
+			$edit->SetArtistSortName($row[13]);
+			$edit->SetArtistResolution($row[14]);
+			$edit->SetStatus($row[15]);
+			$edit->SetVote(&ModDefs::VOTE_UNKNOWN);
+			$edit->SetDepMod($row[17]);
+			$edit->SetModerator($row[18]);
+			$edit->SetAutomod($row[19]);
+			$edit->SetLanguageId($row[20]);
+			$edit->SetOpenTime($row[21]);
+			$edit->SetCloseTime($row[22]);
+			$edit->SetExpired($row[23]);
+			$edit->SetGracePeriodExpired($row[24]);
+			$edit->PostLoad;
        }
    }
 
    $sql->Finish();
-   return $mod;
+   return $edit;
 }
 
 sub iiMinMaxID
@@ -584,7 +589,7 @@ sub iFindByTime
 			$sMidTime = &$gettime($iMid)
 				and last;
 			++$iMid;
-			die "No mods found between $oldmid and $iMax"
+			die "No edits found between $oldmid and $iMax"
 				if $iMid == $iMax;
 		}
 
@@ -637,10 +642,10 @@ sub InsertModeration
 	my $this = do {
 		my $t = $opts{'type'}
 			or die "No type passed to Moderation->InsertModeration";
-		my $modclass = $class->ClassFromType($t)
+		my $editclass = $class->ClassFromType($t)
 			or die "No such moderation type #$t";
 
-		my $this = $modclass->new($opts{'DBH'} || die "No DBH passed");
+		my $this = $editclass->new($opts{'DBH'} || die "No DBH passed");
 		$this->SetType($this->Type);
 
 		$this->SetModerator($opts{'uid'} or die "No uid passed");
@@ -675,7 +680,7 @@ sub InsertModeration
 	$this->PostLoad;
 
 	# Now go on to insert the moderation record itself, and to
-	# deal with automods and modpending flags.
+	# deal with autoeditss and modpending flags.
 
     use DebugLog;
     if (my $d = DebugLog->open)
@@ -725,28 +730,28 @@ sub InsertModeration
 	#print STDERR "Inserted as moderation #$insertid\n";
 	$this->SetId($insertid);
 
-    # Check to see if this moderation should get automod approval
+    # Check to see if this moderation should be approved immediately 
 	require UserStuff;
 	my $ui = UserStuff->new($this->{DBH});
-	my $user_is_automod = $ui->IsAutoMod($privs);
+	my $isautoeditor = $ui->IsAutoEditor($privs);
+    my $autoedit = $this->IsAutoEdit($isautoeditor);
+    
+	$autoedit = 0 if ($ui->IsUntrusted($privs) and 
+					  ($this->GetType != &ModDefs::MOD_ADD_TRMS or 
+			 		   $this->GetType != &ModDefs::MOD_ADD_PUIDS));
+		
+	$autoedit = 1 if (not $autoedit
+					  and $isautoeditor
+					  and $this->IsAutoEditType($this->GetType));
 
-    my $automod = $this->IsAutoMod($user_is_automod);
-	$automod = 0 if $ui->IsUntrusted($privs)
-		and ($this->GetType != &ModDefs::MOD_ADD_TRMS or $this->GetType != &ModDefs::MOD_ADD_PUIDS);
-	$automod = 1
-		if not $automod
-		and $user_is_automod
-		and $this->IsAutoModType($this->GetType);
-
-    # If it is automod, then approve the mod and credit the moderator
-    if ($automod)
+    # If it is autoedit, then approve the edit and credit the editor
+    if ($autoedit)
     {
-        my $mod = $this->CreateFromId($insertid);
-        my $status = $mod->ApprovedAction;
+        my $edit = $this->CreateFromId($insertid);
+        my $status = $edit->ApprovedAction;
 
-		$sql->Do(
-			"UPDATE moderation_open SET status = ?, automod = 1 WHERE id = ?",
-			$status,
+		$sql->Do("UPDATE moderation_open SET status = ?, automod = 1 WHERE id = ?",
+			$status, 
 			$insertid,
 		);
 		MusicBrainz::Server::Cache->delete("Moderation-open-id-range");
@@ -754,7 +759,7 @@ sub InsertModeration
 
 		require UserStuff;
 		my $user = UserStuff->new($this->{DBH});
-        $user->CreditModerator($this->{moderator}, $status, $automod);
+        $user->CreditModerator($this->{moderator}, $status, $autoedit);
     }
     else
     {
@@ -808,13 +813,13 @@ sub OpenModsByType_as_hashref
 sub OpenModCountByModerator
 {
 	my $self = shift;
-	my $moderator = shift;
+	my $editor = shift;
 	my $sql = Sql->new($self->{DBH});
 
 	return $sql->SelectSingleValue(
 		"SELECT COUNT(*) FROM moderation_open
 		WHERE status = ".&ModDefs::STATUS_OPEN." and moderator = ?",
-        $moderator
+        $editor
 	);
 }
 
@@ -854,43 +859,43 @@ sub GetModerationList
 		die $err;
 	}
 
-	my @mods;
+	my @edits;
 
-	while (@mods < $num)
+	while (@edits < $num)
 	{
 		my $r = $sql->NextRowHashRef
 			or last;
-		my $mod = $this->CreateModerationObject($r->{type});
+		my $edit = $this->CreateModerationObject($r->{type});
 
-		unless ($mod)
+		unless ($edit)
 		{
 			print STDERR "Could not create moderation object for type=$r->{type}\n";
 			next;
 		}
 
-		$mod->SetId($r->{id});
-		$mod->SetArtist($r->{artist});
-		$mod->SetModerator($r->{moderator});
-		$mod->SetTable($r->{tab});
-		$mod->SetColumn($r->{col});
-		$mod->SetType($r->{type});
-		$mod->SetStatus($r->{status});
-		$mod->SetRowId($r->{rowid});
-		$mod->SetPrev($r->{prevvalue});
-		$mod->SetNew($r->{newvalue});
-		$mod->SetYesVotes($r->{yesvotes});
-		$mod->SetNoVotes($r->{novotes});
-		$mod->SetDepMod($r->{depmod});
-		$mod->SetAutomod($r->{automod});
-		$mod->SetOpenTime($r->{opentime});
-		$mod->SetCloseTime($r->{closetime});
-		$mod->SetExpireTime($r->{expiretime});
-		$mod->SetLanguageId($r->{language});
+		$edit->SetId($r->{id});
+		$edit->SetArtist($r->{artist});
+		$edit->SetModerator($r->{moderator});
+		$edit->SetTable($r->{tab});
+		$edit->SetColumn($r->{col});
+		$edit->SetType($r->{type});
+		$edit->SetStatus($r->{status});
+		$edit->SetRowId($r->{rowid});
+		$edit->SetPrev($r->{prevvalue});
+		$edit->SetNew($r->{newvalue});
+		$edit->SetYesVotes($r->{yesvotes});
+		$edit->SetNoVotes($r->{novotes});
+		$edit->SetDepMod($r->{depmod});
+		$edit->SetAutomod($r->{automod});
+		$edit->SetOpenTime($r->{opentime});
+		$edit->SetCloseTime($r->{closetime});
+		$edit->SetExpireTime($r->{expiretime});
+		$edit->SetLanguageId($r->{language});
 
-		$mod->SetExpired($r->{expired});
-		$mod->SetVote($r->{vote});
+		$edit->SetExpired($r->{expired});
+		$edit->SetVote($r->{vote});
 
-		push @mods, $mod;
+		push @edits, $edit;
 	}
 
 	my $total_rows = $sql->Rows;
@@ -904,23 +909,23 @@ sub GetModerationList
 	# Cache editors by name
 	require UserStuff;
 	my $user = UserStuff->new($this->{DBH});
-	my %moderator_cache;
+	my %editor_cache;
 		
 	require MusicBrainz::Server::Vote;
 	my $vote = MusicBrainz::Server::Vote->new($this->{DBH});
 
-	for my $mod (@mods)
+	for my $edit (@edits)
 	{
 		# Fetch editor into cache if not loaded before.
-		my $uid = $mod->GetModerator;
-		$moderator_cache{$uid} = do {
+		my $uid = $edit->GetModerator;
+		$editor_cache{$uid} = do {
 			my $u = $user->newFromId($uid);
 			$u ? $u->GetName : "?";
-		} unless defined $moderator_cache{$uid};
-		$mod->SetModeratorName($moderator_cache{$uid});
+		} unless defined $editor_cache{$uid};
+		$edit->SetModeratorName($editor_cache{$uid});
 
 		# Fetch artist into cache if not loaded before.
-		my $artistid = $mod->GetArtist;
+		my $artistid = $edit->GetArtist;
 		if (not defined $artist_cache{$artistid})
 		{
 			my $artist = Artist->new($this->{DBH});
@@ -932,24 +937,24 @@ sub GetModerationList
 		}
 		
 		my $artist = $artist_cache{$artistid};
-		$mod->SetArtistName($artist ? $artist->GetName : "?");
-		$mod->SetArtistSortName($artist ? $artist->GetSortName : "?");
-		$mod->SetArtistResolution($artist ? $artist->GetResolution : "?");
+		$edit->SetArtistName($artist ? $artist->GetName : "?");
+		$edit->SetArtistSortName($artist ? $artist->GetSortName : "?");
+		$edit->SetArtistResolution($artist ? $artist->GetResolution : "?");
 
 		# Find vote
-		if ($mod->GetVote == VOTE_UNKNOWN and $voter)
+		if ($edit->GetVote == VOTE_UNKNOWN and $voter)
 		{
-			my $thevote = $vote->GetLatestVoteFromUser($mod->GetId, $voter);
-			$mod->SetVote($thevote);
+			my $thevote = $vote->GetLatestVoteFromUser($edit->GetId, $voter);
+			$edit->SetVote($thevote);
 		}
 	}
 
-	for (@mods) {
+	for (@edits) {
 		$_->PostLoad;
 		$_->PreDisplay;
 	}
 
-	return (SEARCHRESULT_SUCCESS, \@mods, $index+$total_rows);
+	return (SEARCHRESULT_SUCCESS, \@edits, $index+$total_rows);
 }
 
 ################################################################################
@@ -1400,9 +1405,9 @@ sub PreDisplay { }
 
 # Should this moderation be automatically applied?  (Based on moderation type
 # and data, not the moderator).
-# Arguments: $user_is_automod (boolean)
+# Arguments: $isautoeditor (boolean)
 # Called in boolean context; return true to automod this moderation
-sub IsAutoMod { 0 }
+sub IsAutoEdit { 0 }
 
 # Adjust the appropriate "modpending" flags.  $adjust is guaranteed to be
 # either +1 (add one pending mod) or -1 (subtract one).
@@ -1415,12 +1420,15 @@ sub AdjustModPending
 	my ($this, $adjust) = @_;
 	my $table = lc $this->GetTable;
 
-	my $sql = Sql->new($this->{DBH});
-	$sql->Do(
-		"UPDATE $table SET modpending = modpending + ? WHERE id = ?",
-		$adjust,
-		$this->GetRowId,
-	);
+	if ($table ne 'trm')
+	{
+		my $sql = Sql->new($this->{DBH});
+		$sql->Do(
+			"UPDATE $table SET modpending = modpending + ? WHERE id = ?",
+			$adjust,
+			$this->GetRowId,
+		);
+	}
 }
 
 # Check the moderation to see if it can still be applied, e.g. that all the

@@ -54,7 +54,7 @@ sub PreInsert
     # We used to perform a duplicate artist check here, but that has been removed.
 }
 
-sub IsAutoMod
+sub IsAutoEdit
 {
 	my $this = shift;
 	my ($old, $new) = $this->_normalise_strings($this->GetPrev, $this->GetNew);

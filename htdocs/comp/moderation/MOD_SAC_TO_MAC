@@ -28,9 +28,13 @@
 	#
 </%perl>
 <%method ShowPreviousValue>
-<%perl>
- 	my $this = shift;
 
+</%method>
+
+<%method ShowNewValue>
+<%perl>
+
+	my $this = shift;
 	my ($exists, $id, $name, $resolution) = (0, $this->GetArtist, $this->GetPrev, $this->{'old.res'});
 
 	my $artist = Artist->new($this->{DBH});
@@ -49,19 +53,12 @@
 					id => $id,
 					name => $name,
 					resolution => $resolution
-				  ), &></td>
+				  ),
+				strong => 0 &></td>
 		</tr>
-	</table>
-
-</%method>
-
-<%method ShowNewValue>
-% 	my $this = shift;
-
-	<table class="editfields">
 		<tr>
 			<td class="lbl">New:</td>
-			<td><& /comp/linkartist, id => &ModDefs::VARTIST_ID, name => "Various Artists" &></td>
+			<td><& /comp/linkartist, id => &ModDefs::VARTIST_ID, name => "Various Artists", strong => 0  &></td>
 		</tr>
 	</table>
 

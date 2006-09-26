@@ -1,30 +1,30 @@
 <%perl>
-	# -----------------------------------------------------------------------------
-	#                               Musicbrainz.org
-	#                        Copyright (c) 2001 Robert Kaye
-	# -----------------------------------------------------------------------------
-	#  This software is provided "as is", without warranty of any kind, express or
-	#  implied, including  but not limited  to the warranties of  merchantability,
-	#  fitness for a particular purpose and noninfringement. In no event shall the
-	#  authors or  copyright  holders be  liable for any claim,  damages or  other
-	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
-	#  from,  out of  or in  connection with  the software or  the  use  or  other
-	#  dealings in the software.
-	#
-	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
-	#  Permits anyone the right to use and modify the software without limitations
-	#  as long as proper  credits are given  and the original  and modified source
-	#  code are included. Requires  that the final product, software derivate from
-	#  the original  source or any  software  utilizing a GPL  component, such  as
-	#  this, is also licensed under the GPL license.
-	# -----------------------------------------------------------------------------
-	#
-	# Summary:
-	# -----------------------------------------------------------------------------
-	# Render an database information box about a track
-	#
-	# $Id$
-	#
+# -----------------------------------------------------------------------------
+#                               Musicbrainz.org
+#                        Copyright (c) 2001 Robert Kaye
+# -----------------------------------------------------------------------------
+#  This software is provided "as is", without warranty of any kind, express or
+#  implied, including  but not limited  to the warranties of  merchantability,
+#  fitness for a particular purpose and noninfringement. In no event shall the
+#  authors or  copyright  holders be  liable for any claim,  damages or  other
+#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+#  from,  out of  or in  connection with  the software or  the  use  or  other
+#  dealings in the software.
+#
+#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+#  Permits anyone the right to use and modify the software without limitations
+#  as long as proper  credits are given  and the original  and modified source
+#  code are included. Requires  that the final product, software derivate from
+#  the original  source or any  software  utilizing a GPL  component, such  as
+#  this, is also licensed under the GPL license.
+# -----------------------------------------------------------------------------
+#
+# Summary:
+# -----------------------------------------------------------------------------
+# Render an database information box about a track
+#
+# $Id$
+#
 </%perl>
 <%args>
 
@@ -117,7 +117,9 @@
 
 %			if (exists $session{user})
 %			{
-								[ <a href="/edit/puid/remove.html?trackid=<% $track->GetId %>&amp;puid=<% $id->{PUID} %>&amp;PUIDjoin=<% $id->{PUIDjoinid} %>">remove</a> ]
+
+				[ <a href="/edit/puid/remove.html?trackid=<% $track->GetId %>&amp;puid=<% $id->{PUID} %>&amp;PUIDjoin=<% $id->{PUIDjoinid} %>">remove</a> ]
+
 %			}
 %			else
 %			{
@@ -149,9 +151,9 @@
 							<td>
 								TRM ID <img src="/images/trm.gif" alt="" /></td>
 							<td>
-								Lookup Count</td>
+								Lookup Count:</td>
 							<td>
-								Use Count</td>
+								Use Count:</td>
 							<td>
 								&nbsp;</td>
 						</tr>
@@ -170,8 +172,10 @@
 
 %			if (exists $session{user})
 %			{
-								[ <a href="/edit/trm/remove.html?trackid=<% $track->GetId %>&amp;trmid=<% $id->{TRM} %>&amp;TRMjoin=<% $id->{TRMjoinid} %>">remove</a> ]
-			}
+
+				[ <a href="/edit/trm/remove.html?trackid=<% $track->GetId %>&amp;trmid=<% $id->{TRM} %>&amp;TRMjoin=<% $id->{TRMjoinid} %>">remove</a> ]
+				
+%			}
 %			else
 %			{
 

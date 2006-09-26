@@ -31,11 +31,13 @@
 	$artist
 	$album
 
-	$showids => 1
-	$showreleases => 0
-	$showmodlinks => 1
-	$showtrackartists => 0
+	$showdiscids
+	$showreleaseevents
+
+	$showeditlinks
 	$releaseevents => undef
+
+	$showtrackartists
 
 </%args>
 <%perl>
@@ -45,7 +47,7 @@
 	my $releaseid = $release->GetId;
 	my $isva = $release->HasMultipleTrackArtists || $showtrackartists;
 
-	if ($showids)
+	if ($showdiscids)
 	{
 		my @ids = @{ $release->GetDiscIDs };
 
@@ -85,7 +87,7 @@
 					<td class="length"><% $duration %></td>
 
 %				# 3. Edit Links
-%				if ($session{"uid"} and $showmodlinks)
+%				if ($session{"uid"} and $showeditlinks)
 %				{
 %					my $tocid = $cdtoc->GetId();
 
@@ -104,7 +106,7 @@
 	</table>
 
 
-%	if ($showreleases and not $release->IsNonAlbumTracks)
+%	if ($showreleaseevents and not $release->IsNonAlbumTracks)
 %	{
 
 	<table id="releaseevents::<% $releaseid %>" class="releaseevents">
@@ -144,7 +146,7 @@
 %		}
 			</td>
 
-%		if ($session{"uid"} and $showmodlinks)
+%		if ($session{"uid"} and $showeditlinks)
 %		{
 			<td class="links">
 				<a href="/edit/albumreleases/index.html?releaseid=<% $releaseid %>"

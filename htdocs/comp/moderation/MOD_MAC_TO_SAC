@@ -28,7 +28,7 @@
 	#
 </%perl>
 <%method ShowPreviousValue>
-% 	my $this = shift;
+
 </%method>
 
 <%method ShowNewValue>

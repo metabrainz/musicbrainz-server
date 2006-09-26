@@ -29,7 +29,7 @@
 </%perl>
 <%args>
 
-	$mod
+	$edit
 	$vote => undef
 	$inline => 0
 	$labelnextline => 1
@@ -55,7 +55,7 @@
 		$default = $v{$vote} if (defined $v{$vote});
 	}
 
-	my $editid = $mod->GetId;
+	my $editid = $edit->GetId;
 
 </%perl>
 
@@ -91,7 +91,7 @@
 %		}
 %		else
 %		{
-			<input type="submit" name="rowid<% $editid %>" value="<% $key %>" />&nbsp;
+%			$m->out(qq!<input type="submit" name="rowid$editid" value="$key" />&nbsp;!);
 %		}
 %	}
 

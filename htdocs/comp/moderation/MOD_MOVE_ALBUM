@@ -29,17 +29,6 @@
 	#
 </%perl>
 <%method ShowPreviousValue>
-% 	my $this = shift;
-
-	<table class="editfields">
-		<tr>
-			<td class="lbl">Old:</td>
-			<td><& /comp/linkartist,
-				id => $this->GetArtist,
-				name => $this->GetPrev,
-				resolution => $this->{'old.res'} &></td>
-		</tr>
-	</table>
 
 </%method>
 
@@ -48,30 +37,64 @@
 
 	<table class="editfields">
 		<tr>
-			<td class="lbl">New:</td>
+			<td class="lbl">From:</td>
+			<td>
 
-% 	if ($this->{'new.exists'})
-%	{
+<%perl>
 
-			<td><& /comp/linkartist,
-				id => $this->{'new.artistid'},
-				name => $this->{'new.name'},
-				sortname => $this->{'new.sortname'},
-				resolution => $this->{'new.res'} &></td>
+	my $artistexists = 0;
+	my $artist = Artist->new($this->{DBH});
+	$artist->SetId($this->GetArtist);
+	if ($artist->LoadFromId)
+	{
+		$m->comp("/comp/linkartist", artist => $artist, strong => 0);
+	}
+	else
+	{
+		$m->comp("/comp/linkartist",
+			id => $this->GetArtist,
+			name => $this->GetPrev,
+			sortname => $this->{'old.sortname'},
+			resolution => $this->{'old.res'},
+			strong => 0);
+	}
 
-%	}
-%	else
-%	{
+</%perl>
 
-			<td><strong><% $this->{'new.name'} %></strong></td>
+			</td>
+		</tr>
+		<tr>
+			<td class="lbl">To:</td>
+			<td>
 
-%	}
+<%perl>
 
+	$artist->SetId($this->{'new.artistid'});
+	if ($artist->LoadFromId)
+	{
+		$m->comp("/comp/linkartist", artist => $artist, strong => 0);
+	}
+	else
+	{
+		$m->comp("/comp/linkartist",
+			id => $this->{'new.artistid'},
+			name => $this->{'new.name'},
+			sortname => $this->{'new.sortname'},
+			resolution => $this->{'new.res'},
+			strong => 0);
+	}
+
+</%perl>
+
+			</td>
+		</tr>
+		<tr>
+			<td class="lbl">&nbsp;</td>
+			<td>
+				Move&nbsp;Tracks: <% $this->{'new.movetracks'} ? "yes" : "no" %>
+			</td>
 		</tr>
 	</table>
-	<div class="attrlist">
-		Move&nbsp;Tracks: <% $this->{'new.movetracks'} ? "yes" : "no" %>
-	</div>
 
 </%method>
 

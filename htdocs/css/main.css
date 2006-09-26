@@ -279,10 +279,10 @@ kbd.KbdBlock {
 table.artisttitle {
 	border-collapse: collapse;
 	border: 1px solid #000;
-	padding: 5px;
-	margin-top: 1em;
-	margin-bottom: 1em;	
-	background-color: #f0efff; color: #000;
+	margin-top: 15px;
+	margin-bottom: 15px;	
+	background-color: #f0efff; 
+	color: #000;
 	width: 100%;
 }
 
@@ -298,7 +298,8 @@ table.artisttitle td.title {
 table.artisttitle td.title a {
 	font-size: 20pt;
 	font-weight: normal;
-	background-color: inherit; color: #000 !important;
+	background-color: inherit; 
+	color: #000 !important;
 }
 
 table.artisttitle td.info {
@@ -309,9 +310,15 @@ table.artisttitle td.links {
 	padding: 2px 4px;
 }
 
-table.artisttitle td.mods {
+table.artisttitle td.editlinks {
 	padding: 2px 4px;
 	background-color: #ffecd6; color: #000;
+	border-top: 1px solid #000;
+}
+
+table.artisttitle td.relationshiplinks {
+	padding: 2px 4px;
+	background-color: #fbf9f7; color: #000;
 	border-top: 1px solid #000;
 }
 
@@ -322,7 +329,6 @@ table.artisttitle td.mods {
 table.releasebegin {
 	border-collapse: collapse;
 	border: 1px solid #000;
-	padding: 2px;
 	background-color: #fff; color: #000;
 	width: 100%;
 }
@@ -333,24 +339,24 @@ table.releasebegin tr.mp td {
 
 table.releasebegin td.title {
 	background-color: #ffba58; color: #000;
-	width: 100%; 
-	padding-left: 4px;
+	padding: 2px 2px 2px 4px;
 	vertical-align: middle;
 }
 
-table.releasebegin td.title a {
+table.releasebegin td.title a,
+table.releasebegin td.title span {
 	font-weight: bold;
-	padding-top: 1px;
-	float: left;
 }
 
-table.releasebegin td.title a.toggle {
-	padding: 0px 3px 0px 0px;
-	margin: 0px 4px 0px 0px;
-	float: left; 
+table.releasebegin td.toggle {
+	background-color: #ffba58; color: #000;
+	padding: 2px 0px 0px 3px;
+	width: 10px;
 }
-
-table.releasebegin td.title img.toggle {
+table.releasebegin td.toggle a {
+	margin-top: 1px;
+}
+table.releasebegin td.toggle img {
 	padding: 0px; margin: 0px;
 }	
 
@@ -430,12 +436,24 @@ table.releaselinks div.partnerlinks {
 	font-size: 9px;
 }
 
-/* info link row, lightblue */
+/* info links, lightblue */
 table.releaselinks td.info {
 	background-color: #f0efff; color: #000;
 }
 
-/* editing link row, lightred */
+/* annotation links, lightblue */
+table.releaselinks td.editannotation {
+	background-color: #f0efff; color: #000;
+	border-top: 1px solid #000;
+}
+
+/* relationships links, lightgray */
+table.releaselinks td.editrelationships {
+	background-color: #fbf9f7; color: #000; 
+	border-top: 1px solid #000;
+}
+
+/* editing links, lightred */
 table.releaselinks td.edit {
 	background-color: #ffecd6; color: #000;
 	border-top: 1px solid #000;
@@ -579,7 +597,7 @@ table.releasesummary span.tracks {
 }
 
 table.releasesummary span.puid img { 
-	width: 33px; height: 13px; 
+	width: 35px; height: 13px; 
 }
 
 table.releasesummary span.trmid img { 
@@ -948,11 +966,6 @@ table.annotation ul {
 	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
 	background-color: #ffba58; color: #997035;
 	text-decoration: none;
-}
-
-#RelatedModsBox {
-	margin: 1em 0;
-	width: 100%;
 }
 
 form.Subs {

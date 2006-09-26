@@ -59,18 +59,28 @@
 	$edit = $edit->CreateFromId($editid);
 	$edit->PreDisplay;
 
-	# Only edits which would be autoapplied if entered by
-	# an autoeditor can be approved.
-	$edit->IsAutoModType($edit->GetType)
-		or return $m->comp("/comp/error",
-			"The edit with <strong>editid</strong> $editid cannot be approved (not an AutoEdit even for AutoEditors)",
-			1, 1,);
-
 	# Check if the current user has enough permissions
-	UserStuff->IsAutoMod($session{privs})
-		or return $m->comp("/comp/error",
-			"You must be a AutoEditor to approve this edit.",
-			1, 1,);
+	my $isautoeditor = (UserStuff->IsAutoEditor($session{"privs"}) or
+						UserStuff->IsAutoEditor($session{"orig_privs"}))
+		or return $m->comp("/comp/layout/error",
+			title => "Edit cannot be approved",
+			text => qq!You must be a AutoEditor to approve this edit.!);
+
+	# check if the current edittype would be auto-approved for autoeditors.
+	$edit->IsAutoEditType($edit->GetType)
+		or return $m->comp("/comp/layout/error",
+			title => "Edit cannot be approved",
+			text => qq!The edit with <strong>Edit ID</strong> #$editid cannot be approved.
+		  			   (Reason: not an autoedit even for autoeditors)!);
+
+	# Check if this specific edit would be auto-approved for autoeditors.
+	# But autoeditors may apply edits that are not auto-approved for normal users.
+	# $edit->IsAutoEdit($isautoeditor)
+	# 	or return $m->comp("/comp/layout/error",
+	# 		title => "Edit cannot be approved",
+	# 		text => qq!The edit with <strong>Edit ID</strong> #$editid cannot be approved.
+	# 	  			   (Reason: removal of data is not an autoedit,
+	# 	  			    even for autoeditors)!);
 
 	# determine if the edit note is required:
 	#
@@ -110,7 +120,7 @@
 					# Insert a "yes" vote
 					my %votes = ($editid => &ModDefs::VOTE_YES);
 					my $v = MusicBrainz::Server::Vote->new($mb->{DBH});
-					$v->InsertVotes(\%votes, $session{uid});
+					$v->InsertVotes(\%votes, $session{"uid"});
 
 					# Approve the edit
 					my $status = $edit->ApprovedAction;
@@ -131,14 +141,11 @@
 				{
 					my $err = $@;
 					$sql->Rollback;
-					$m->comp("/comp/sidebar", title => "Error");
-					</%perl>
-					<div style="color: red">
-						<p>Error applying edit:</p>
-						<pre><% $err %></pre>
-					</div>
-					<%perl>
-					$m->comp("/comp/footer");
+
+					$m->comp("/comp/layout/error",
+						title => "Error applying edit:",
+						text => "<pre>$err</pre>"
+					);
 					return undef;
 				};
 
@@ -211,5 +218,7 @@
 	</form>
 
 	<& /comp/tableend &>
+
+	<& /comp/js/diffcollapse &>
 
 <& /comp/footer &>

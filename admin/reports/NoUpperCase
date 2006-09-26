@@ -48,11 +48,15 @@ sub GatherData
 			ar.sortname AS artist_sortname,
 			ar.resolution AS artist_resolution
 		FROM
-			track tr, albumjoin aj, artist ar
+			track tr, albumjoin aj, album al, artist ar
 		WHERE
 			aj.track = tr.id
+			AND aj.album = al.id
+			AND al.language not in (198)
+			AND al.script not in (83,84,85)
 			AND tr.artist = ar.id
-			AND tr.name !~ '[[:upper:]]' AND tr.name ~ '[[:lower:]]'
+			AND tr.name !~ '[[:upper:]]'
+			AND tr.name ~ '[[:lower:]]'
 		ORDER BY
 			ar.sortname, aj.album, tr.name
 EOF

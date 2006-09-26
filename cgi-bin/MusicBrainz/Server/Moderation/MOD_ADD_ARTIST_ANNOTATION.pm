@@ -93,7 +93,7 @@ sub ApprovedAction
 	return &ModDefs::STATUS_APPLIED;
 }
 
-sub IsAutoMod
+sub IsAutoEdit
 {
 	return 1;
 }

@@ -37,12 +37,13 @@
 	$highlight
 	$highlightonly => 0
 
-	$showmodlinks
-	$showtrackartists => 0
-
 	$trmcount => 0
 	$puidcount => 0
-	$mbtagger => $session{'mbt'}
+
+	$showeditlinks
+	$mbt
+	$showtrackartists
+	$showrelationships
 
 </%args>
 <%perl>
@@ -83,7 +84,7 @@
 
 
 	# the windows-tagger works track based, show the tagger icon.
-	if ($mbtagger && $showmodlinks and $track->GetId)
+	if ($mbt && $showeditlinks and $track->GetId)
 	{
 		$m->out(qq!<a href="tag:$track->GetMBId():$album->GetMBId()">!);
 		$m->out(qq!<img src="/images/mblookup-tag.gif" alt="Tag" title="Tag the current track" !);
@@ -91,7 +92,7 @@
 	}
 
 	# if the track has a rowid, show track name as link, else text-only.
-	if ($track->GetId)
+	if (MusicBrainz::IsNonNegInteger($track->GetId) && $track->GetId)
 	{
 		$m->out(sprintf qq!<a href="/track/%s.html" title="">%s</a>!,
 						$track->GetMBId,
@@ -113,9 +114,9 @@
        $m->out(qq!&nbsp;<img src="/images/trm.gif" alt="TRM" width="30" height="11" title="$trmcount TRM IDs" />&nbsp;!);
 	}
 
-	if ($track->GetId)
+	if ($track->GetId && $showrelationships)
 	{
-		$m->comp("/comp/release/track_relationships", mb => $mb, track => $track, showmodlinks => $showmodlinks);
+		$m->comp("/comp/release/track_relationships", mb => $mb, track => $track, showeditlinks => $showeditlinks);
 	}
 
 	$m->out("</td>\n");
@@ -126,12 +127,12 @@
 	{
 		$m->out(qq!<td class="artist">!);
 
-		if ($track->GetArtist)
+		if (MusicBrainz::IsNonNegInteger($track->GetArtist) && $track->GetArtist)
 		{
 			my $artist = $m->comp("/comp/loadartist", $mb, $track->GetArtist);
 	       	$m->comp("/comp/linkartist", artist => $artist, strong => 0, icon => 0);
 
-			if (exists $session{user} and $showmodlinks)
+			if (exists $session{user} and $showeditlinks)
 			{
 				$m->out(sprintf qq! (<a href="/edit/track/change.html?releaseid=%s&amp;tindex=%s&amp;solo=1">Change</a>)!,
 								$album->GetId(),
@@ -154,7 +155,7 @@
 	$m->out("</td>\n");
 
 	# 5. links
-	if ($session{uid} and $showmodlinks)
+	if ($session{uid} and $showeditlinks)
 	{
 		$m->out(qq!<td class="links">!);
        	$m->out(sprintf qq!<a href="/edit/track/edit.html?releaseid=%s&amp;trackid=%s" title="%s">Edit</a>!,

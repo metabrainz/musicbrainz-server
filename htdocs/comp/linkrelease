@@ -44,6 +44,7 @@
 	# rendering options
 	$icon => 1
 	$strong => 1
+	$modpending => 0
 
 </%args>
 <%perl>
@@ -61,6 +62,9 @@
 	$title = defined $title
 		? ' title="' . $m->interp->apply_escapes($title, 'h').'"'
 		: "";
+
+	$m->out(qq!<span class="modpending">!) if ($modpending);
+
 
 	# use span with the background image set to render the release icon.
 	$m->out(sprintf qq!<span class="linkrelease%s"%s>!,
@@ -92,6 +96,7 @@
 	}
 
 	$m->out("</span>");
+	$m->out("</span>") if ($modpending);
 
 </%perl>
 %# -- no empty line here, else an additional space will be

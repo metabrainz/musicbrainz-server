@@ -38,19 +38,40 @@
 	$showlinks => 1 # TODO: link|showlinks make consistent.
 	$showmodlinks => 1
 	$showcollapsed => 0
-
 	$ex => ""
-	$mbtagger => $session{'mbt'}
+
 	$showids => 0
 	$showtag => 0
 	$showreleases => 0
 	$tagchecked => 0
 	$tracks => undef
-	$showtrackartists => 0
 	$releaseevents => undef
+
+	$mbt => $session{"mbt"}
+
+	# show track artists toggle is stored in the session, but
+	# allows to override setting with passed in values.
+	# (ie pages which do not want the track artists to be shown)
+	$showtrackartists => $session{"showtrackartists"}
+
+	# show track relationships toggle is stored in the session, but
+	# allows to override setting with passed in values.
+	# (ie pages which do not want the track artists to be shown)
+	$showrelationships => $session{"showrelationships"}
+
+	# the toggle function is only available on the "show release"
+	# page, because the parameters need to be handled and written
+	# to the session. any other page which wants to handle the
+	# arguments will need to provide the same funcationlity than
+	# the "show release" page.
+	$showrelationshipstoggle => 0
+	$showtrackartiststoggle => 0
 
 </%args>
 <%perl>
+
+	$showtrackartists = 0 if (not defined $showtrackartists);
+	$showrelationships = 1 if (not defined $showrelationships);
 
 	$mb = $m->comp("/comp/dblogin") if (not defined $mb);
 
@@ -72,11 +93,12 @@
 				artist => $artist,
 				album => $album,
 				showlinks => $showlinks,
-				showmodlinks => $showmodlinks,
+				showeditlinks => $showmodlinks,
 				linktype => "collapse",
 				link => $url,
 				showtag => $showtag,
-				tagchecked => $tagchecked);
+				tagchecked => $tagchecked
+			);
 	}
 	else
 	{
@@ -84,10 +106,14 @@
 				artist => $artist,
 				album => $album,
 				showlinks => $showlinks,
-				showmodlinks => $showmodlinks,
+				showeditlinks => $showmodlinks,
 				showtag => $showtag,
 				tagchecked => $tagchecked,
-				showtrackartists => $showtrackartists);
+				showtrackartists => $showtrackartists,
+				showrelationships => $showrelationships,
+				showtrackartiststoggle => $showtrackartiststoggle,
+				showrelationshipstoggle => $showrelationshipstoggle
+			);
 	}
 
 	my $trmcounts = $album->LoadTRMCount();
@@ -113,24 +139,33 @@
 				track => $track,
 				tindex => $i,
 				highlight => $highlighttracks->{$track->GetId},
-				showmodlinks => $showmodlinks,
+				showeditlinks => $showmodlinks,
 				trmcount => $tcount,
 				puidcount => $pcount,
-				mbtagger => $mbtagger,
+				mbt => $mbt,
 				showtrackartists => $showtrackartists,
-				highlightonly => $highlightonly);
+				showrelationships => $showrelationships,
+				highlightonly => $highlightonly
+			);
 		}
 	}
 
 	$m->comp("/comp/release/release_summary",
-		artist => $artist, album => $album,
-		showmodlinks => $showmodlinks,
-		showtrackartists => $showtrackartists);
+		artist => $artist,
+		album => $album,
+		showeditlinks => $showmodlinks,
+		showtrackartists => $showtrackartists
+	);
 
 	$m->comp("/comp/release/release_end",
-		artist => $artist, album => $album, showmodlinks => $showmodlinks,
-		showids => $showids, showreleases => $showreleases,
-		showtrackartists => $showtrackartists, link => $link, releaseevents => $releaseevents);
+		artist => $artist,
+		album => $album,
+		showeditlinks => $showmodlinks,
+		showdiscids => $showids,
+		showreleaseevents => $showreleases,
+		releaseevents => $releaseevents,
+		showtrackartists => $showtrackartists
+	);
 
 </%perl>
 

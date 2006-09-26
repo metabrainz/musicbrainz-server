@@ -33,14 +33,12 @@
  	my $self = shift;
  	my $prev = $self->{'prev_unpacked'};
 
-	my $name = $prev->{'ArtistName'};
-	my $sortname = $prev->{'SortName'};
-	my $resolution = $prev->{'Resolution'};
-	my $begin = $prev->{'BeginDate'};
-	my $end = $prev->{'EndDate'};
-	my $type = $prev->{'Type'};
+	return;
 
-	my $id = $self->GetId;
+</%perl>
+
+
+	<table class="editdiff">
 
 	$m->out(qq!<table class="editdiff">!);
 
@@ -117,7 +115,17 @@
 
 	my $id = $self->GetId;
 
-	$m->out(qq!<table class="editdiff">!);
+		<tr class="top">
+			<td class="lbl" rowspan="2">Name:</td>
+			<td class="diff" id="ov::artistname<% $id %>">
+				<% $prev->{'ArtistName'} %>
+			</td>
+		</tr>
+		<tr>
+			<td class="diff" id="nv::artistname<% $id %>">
+				<% $new->{"ArtistName"} %>
+			</td>
+		</tr>
 
 	if (defined $name)
 	{
@@ -133,13 +141,17 @@
 		$m->out(qq!</td></tr>!);
 	}
 
-	if (exists $new->{'Resolution'})
-	{
-		$resolution = (defined $resolution and $resolution ne "" ? $resolution : "(Unset)");
-		$m->out(qq!<tr><td class="lbl">Comment:</td><td class="diff" id="nv::artistresolution$id">!);
-		$m->out($m->interp->apply_escapes($resolution, "h"));
-		$m->out(qq!</td></tr>!);
-	}
+		<tr class="top">
+			<td class="lbl" rowspan="2">Sortname:</td>
+			<td class="diff" id="ov::artistsortname<% $id %>">
+				<% $prev->{'SortName'} %>
+			</td>
+		</tr>
+		<tr>
+			<td class="diff" id="nv::artistsortname<% $id %>">
+				<% $new->{"SortName"} %>
+			</td>
+		</tr>
 
 	if (defined $type)
 	{
@@ -150,29 +162,96 @@
 		$m->out(qq!</td></tr>!);
 	}
 
-	if (exists $new->{'BeginDate'})
-	{
-		$begin = $begin ? MusicBrainz::MakeDisplayDateStr($begin) : "(Unset)";
-		my $datestr = $m->interp->apply_escapes(Artist::GetBeginDateName($type), "h");
-		$datestr =~ s/ /&nbsp;/g;
+		<tr class="top">
+			<td class="lbl" rowspan="2">Comment:</td>
+			<td class="diff" id="ov::artistresolution<% $id %>">
+				<% $prev->{'Resolution'} %>
+			</td>
+		</tr>
+		<tr>
+			<td class="diff" id="nv::artistresolution<% $id %>">
+				<% $resolution |n %>
+			</td>
+		</tr>
 
 		$m->out(qq!<tr><td class="lbl">&nbsp;</td><td class="diff" id="nv::artistbegindate$id">$datestr: !);
 		$m->out($m->interp->apply_escapes($begin, "h"));
 		$m->out(qq!</td></tr>!);
 	}
 
-	if (exists $new->{'EndDate'})
-	{
-		$end = $end ? MusicBrainz::MakeDisplayDateStr($end) : "(Unset)";
-		my $datestr = $m->interp->apply_escapes(Artist::GetEndDateName($type), "h");
-		$datestr =~ s/ /&nbsp;/g;
+%	if ($prev->{"Type"} ne $new->{"Type"})
+%	{
+%		my $prevtype = Artist::GetTypeName($prev->{"Type"});
+%		my $newtype = Artist::GetTypeName($new->{"Type"}) || "?";
 
-		$m->out(qq!<tr><td class="lbl">&nbsp;</td><td class="diff" id="nv::artistenddate$id">$datestr: !);
-		$m->out($m->interp->apply_escapes($end, "h"));
-		$m->out(qq!</td></tr>!);
-	}
+
+		<tr class="top">
+			<td class="lbl" rowspan="2">Type:</td>
+			<td class="diff" id="ov::artisttype<% $id %>">
+				<% $prevtype |n %>
+			</td>
+		</tr>
+		<tr>
+			<td class="diff" id="nv::artisttype<% $id %>">
+				<% $newtype |n %>
+			</td>
+		</tr>
 
 	$m->out(qq!</table>!);
+
+<%perl>
+
+	if ($prev->{"BeginDate"} ne $new->{"BeginDate"})
+	{
+		my $prevbegin = MusicBrainz::MakeDisplayDateStr($prev->{'BeginDate'});
+		$prevbegin = "?" if ($prevbegin eq "");
+
+		my $newbegin = $new->{"BeginDate"};
+		$newbegin = $newbegin ? MusicBrainz::MakeDisplayDateStr($newbegin) : "?";
+
+</%perl>
+
+		<tr class="top">
+			<td class="lbl" rowspan="2">Begin:</td>
+			<td class="diff" id="ov::artistbegindate<% $id %>">
+				<% $prevbegin |n %>
+			</td>
+		</tr>
+		<tr>
+			<td class="diff" id="nv::artistbegindate<% $id %>">
+				<% $newbegin |n %>
+			</td>
+		</tr>
+
+%	}
+
+<%perl>
+
+	if ($prev->{"EndDate"} ne $new->{"EndDate"})
+	{
+		my $prevend = MusicBrainz::MakeDisplayDateStr($prev->{'EndDate'});
+		$prevend = "?" if ($prevend eq "");
+
+		my $newend = $new->{"EndDate"};
+		$newend = $newend ? MusicBrainz::MakeDisplayDateStr($newend) : "?";
+
+</%perl>
+
+		<tr class="top">
+			<td class="lbl" rowspan="2">End:</td>
+			<td class="diff" id="ov::artistenddate<% $id %>">
+				<% $prevend |n %>
+			</td>
+		</tr>
+		<tr>
+			<td class="diff" id="nv::artistenddate<% $id %>">
+				<% $newend |n %>
+			</td>
+		</tr>
+
+%	}
+
+	</table>
 
 </%perl>
 </%method>

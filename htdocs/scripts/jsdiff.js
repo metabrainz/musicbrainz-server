@@ -20,7 +20,14 @@
 | $Id$
 \----------------------------------------------------------------------------*/
 
+var defaultdiff = true;
+if ((obj = mb.ui.get("userpreference::JSDiff")) != null) {
+	defaultdiff = !(obj.value == 0);
+}
+
 // run diff function for the page which included this script.
-mb.registerPageLoadedAction(
-	new MbEventAction(mb.diff.GID, "runDiff", "Applying JavaScript diff")
-);
+if (defaultdiff) {
+	mb.registerPageLoadedAction(
+		new MbEventAction(mb.diff.GID, "runDiff", "Applying JavaScript diff")
+	);
+}

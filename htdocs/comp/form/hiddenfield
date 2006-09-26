@@ -31,7 +31,7 @@
 	my ($name, $value) = @_;
 	$name = encode_entities($name);
 	$value = encode_entities($value);
-	$m->out(qq(<input type="hidden" name="$name" value="$value" />\n));
+	$m->out(qq(<input type="hidden" name="$name" value="$value" class="hiddenfield" />\n));
 
 </%init>
 

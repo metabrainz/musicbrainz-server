@@ -47,8 +47,8 @@ function CollapseReleases() {
 	 * be defined in the page tree using the two
 	 * hidden fields:
 	 *
-	 * ~collapsereleases::defaultcollapse (0|1)
-	 * ~collapsereleases::showtoggleicon	(0|1)
+	 * ~userpreference::JSCollapse (0|1)
+	 * ~userpreference::JSCollapseToggleIcon (0|1)
 	 *
 	 */
 	this.setupReleases = function() {
@@ -56,18 +56,12 @@ function CollapseReleases() {
 		var obj,list = mb.ui.getByTag("table");
 		
 		var defaultcollapse = true;
-		if ((obj = mb.ui.get("collapsereleases::defaultcollapse")) != null) {
+		if ((obj = mb.ui.get("userpreference::JSCollapse")) != null) {
 			defaultcollapse = !(obj.value == 0);
 		}	
 
-		// if we're on the editlist, or editdetail page, there's
-		// an option to turn of the collapsing the releases.
-		if (window.showedit != undefined) {
-			defaultcollapse = showedit.isCollapseReleasesEnabled();
-		}
-		
 		var showtoggleicon = true;
-		if ((obj = mb.ui.get("collapsereleases::showtoggleicon")) != null) {
+		if ((obj = mb.ui.get("userpreference::JSCollapseToggleIcon")) != null) {
 			showtoggleicon = !(obj.value == 0);
 		}	
 		for (var i=0;i<list.length; i++) {
@@ -97,8 +91,7 @@ function CollapseReleases() {
 				if ((el = mb.ui.get(elid)) != null) {
 					var td = el.parentNode;
 					
-					if (showtoggleicon)
-					{
+					if (showtoggleicon) {
 
 						// create the toggle icon, and the link wrapping
 						// it. If the we register a click on it, we 
@@ -107,10 +100,14 @@ function CollapseReleases() {
 						// state again if it was closed before.	
 						//
 						// -- see: http://www.quirksmode.org/js/events_order.html
+						var toggletd = td.previousSibling;
+						while (toggletd != null && toggletd.tagName != "TD") {
+							toggletd = toggletd.previousSibling;
+						}
+
 						var a = document.createElement("a");
 						a.href = "javascript:; // Toggle release";
 						a.id = id.replace("tracks", "expand");
-						a.className = "toggle";
 						a.onfocus = function onfocus(event) { this.blur(); };
 						a.onclick = function onclick(event) { 
 							try {
@@ -129,14 +126,23 @@ function CollapseReleases() {
 						var img = document.createElement("img");
 
 						img.src = "/images/es/"+defaultimage+".gif";
-						img.className = "toggle";
 						img.alt = "Toggle release";
 						img.border = 0;
 						a.appendChild(img);
-						td.insertBefore(a, el);
+						toggletd.appendChild(a);
+
+						// updated for opera, such that the cells display as they
+						// are supposed to.
+						toggletd.style.display = "";
+						toggletd.style.width = "10px";
+						td.style.width = "100%";
 					}
 
-					// attach method to open the release if the 
+					td.title = "Click the arrow icon to expand/collapse the release.";
+
+					/*
+
+					// attach method to open the release if the
 					// mouse is hovered over the orange/yellow bar.
 					td.style.cursor = "pointer";
 					td.title = "Toggle release... If you hover the mouse cursor here, it opens automatically.";
@@ -155,8 +161,11 @@ function CollapseReleases() {
 						
 						collapsereleases.showRelease(id);	
 						return true;
-					};						
-					td.onmouseover = function onmouseover(event) { 
+					};
+					*/
+
+					/*
+					td.onmouseover = function onmouseover(event) {
 						var id = this.id.replace("title", "tracks");
 						collapsereleases.setHoverTimeout(id);
 					};							

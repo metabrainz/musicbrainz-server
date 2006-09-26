@@ -65,7 +65,9 @@
 						release attribute, as long as it applies to the release as a whole.</li>
 				</ul></td>
 		</tr>
+	</table>
 
+	<table class="formstyle">
 		<tr class="top">
 			<td class="label">
 				<label>Selected Releases:</label></td>
@@ -93,7 +95,7 @@
 
 						my $artist = $m->comp("/comp/loadartist", $mb, $release->GetArtist);
 						$m->out(qq!</td><td style="padding-right: 20px">!);
-						$m->comp("/comp/linkartist", artist => $artist);
+						$m->comp("/comp/linkartist", artist => $artist, strong => 0);
 
 						$m->out(qq!</td><td style="padding-right: 20px">!);
 						$m->out(
@@ -134,7 +136,7 @@
 
 		<& .DoAttribute,
 			label => "Release type",
-			value => $type_value,
+			selection => $type_value,
 			fieldname => $type_fieldname,
 			valuelist => [ &Album::ALBUM_ATTR_SECTION_TYPE_START .. &Album::ALBUM_ATTR_SECTION_TYPE_END ],
 			attrlist => $attrlist,
@@ -143,7 +145,7 @@
 
 		<& .DoAttribute,
 			label => "Release status",
-			value => $status_value,
+			selection => $status_value,
 			fieldname => $status_fieldname,
 			valuelist => [ &Album::ALBUM_ATTR_SECTION_STATUS_START .. &Album::ALBUM_ATTR_SECTION_STATUS_END ],
 			attrlist => $attrlist,
@@ -160,11 +162,11 @@
 
 				<& /comp/notetext,
 					notetext => $notetext,
-					buttons => \@buttons &></td>
+					buttons => \@buttons &>
+			</td>
 		</tr>
 		<tr>
-			<td>&nbsp;</td>
-			<td>
+			<td colspan="2">&nbsp;</td>
 		</tr>
 	</table>
 
@@ -179,7 +181,7 @@
 <%args>
 
 	$label
-	$value
+	$selection
 	$fieldname
 	@valuelist
 	$attrlist
@@ -187,6 +189,7 @@
 
 </%args>
 <%perl>
+
 
 	# Each entry is a triple of (submitted-value, short-name, description)
 	@valuelist = map {
@@ -198,11 +201,11 @@
 		;
 
 	# Which one is selected?
-	$value = "" unless defined $value;
-	(my $i) = grep { $value eq $valuelist[$_][0] } 0 .. $#valuelist;
+	$selection = "" unless defined $selection;
+	(my $i) = grep { $selection eq $valuelist[$_][0] } 0 .. $#valuelist;
 
 	# If none are selected, pre-select "I don't know"
-	$i = 0, $value = "" unless defined $i;
+	$i = 0, $selection = "" unless defined $i;
 	push @$pushindex, $i;
 
 </%perl>
@@ -215,14 +218,16 @@
 						<td>
 							<select name="<% $fieldname %>" style="width: 200px"
 								id="albumattr_<% $fieldname %>">
-%	for my $v (@valuelist)
+%	for my $item (@valuelist)
 %	{
-								<option value="<% $v->[0] %>" <% $v->[0] eq $value ? "selected" : "" %>
-								><% $v->[1] %></option>
+%		my ($val, $lbl) = ($item->[0], $item->[1]);
+%		my $sel = ($val eq $selection ? qq!selected="selected"! : "");
+
+								<option value="<% $val %>" <% $sel |n %>><% $lbl %></option>
 %	}
 							</select>&nbsp;</td>
 						<td>
-							[ <a href="popup/ReleaseAttribute">help</a> ]</td>
+							[ <a href="/popup/ReleaseAttribute" title="POPUP::Release_Attributes::400::300">help</a> ]</td>
 					</tr>
 				</table>
 			</td>

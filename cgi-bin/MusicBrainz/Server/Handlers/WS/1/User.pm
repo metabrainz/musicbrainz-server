@@ -106,10 +106,10 @@ sub print_xml
     my $us = UserStuff->new($mb->{DBH});
     $us = $us->newFromName($user) or die "Cannot load user.\n";
     my $nag = 1;
-    $nag = 0 if ($us->DontNag($us->GetPrivs) || $us->IsAutoMod($us->GetPrivs) || $us->IsLinkModerator($us->GetPrivs));
+    $nag = 0 if ($us->DontNag($us->GetPrivs) || $us->IsAutoEditor($us->GetPrivs) || $us->IsLinkModerator($us->GetPrivs));
 
     my @types;
-    push @types, "AutoEditor" if ($us->IsAutoMod($us->GetPrivs));
+    push @types, "AutoEditor" if ($us->IsAutoEditor($us->GetPrivs));
     push @types, "RelationshipEditor" if $us->IsLinkModerator($us->GetPrivs);
     push @types, "Bot" if $us->IsBot($us->GetPrivs);
     push @types, "NotNaggable" if $us->DontNag($us->GetPrivs);

@@ -1,30 +1,30 @@
 <%perl>
-	# -----------------------------------------------------------------------------
-	#                               Musicbrainz.org
-	#                        Copyright (c) 2001 Robert Kaye
-	# -----------------------------------------------------------------------------
-	#  This software is provided "as is", without warranty of any kind, express or
-	#  implied, including  but not limited  to the warranties of  merchantability,
-	#  fitness for a particular purpose and noninfringement. In no event shall the
-	#  authors or  copyright  holders be  liable for any claim,  damages or  other
-	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
-	#  from,  out of  or in  connection with  the software or  the  use  or  other
-	#  dealings in the software.
-	#
-	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
-	#  Permits anyone the right to use and modify the software without limitations
-	#  as long as proper  credits are given  and the original  and modified source
-	#  code are included. Requires  that the final product, software derivate from
-	#  the original  source or any  software  utilizing a GPL  component, such  as
-	#  this, is also licensed under the GPL license.
-	# -----------------------------------------------------------------------------
-	#
-	# Summary:
-	# -----------------------------------------------------------------------------
-	# Enter the edits of the Add Release process
-	#
-	# $Id$
-	#
+# -----------------------------------------------------------------------------
+#                               Musicbrainz.org
+#                        Copyright (c) 2001 Robert Kaye
+# -----------------------------------------------------------------------------
+#  This software is provided "as is", without warranty of any kind, express or
+#  implied, including  but not limited  to the warranties of  merchantability,
+#  fitness for a particular purpose and noninfringement. In no event shall the
+#  authors or  copyright  holders be  liable for any claim,  damages or  other
+#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+#  from,  out of  or in  connection with  the software or  the  use  or  other
+#  dealings in the software.
+#
+#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+#  Permits anyone the right to use and modify the software without limitations
+#  as long as proper  credits are given  and the original  and modified source
+#  code are included. Requires  that the final product, software derivate from
+#  the original  source or any  software  utilizing a GPL  component, such  as
+#  this, is also licensed under the GPL license.
+# -----------------------------------------------------------------------------
+#
+# Summary:
+# -----------------------------------------------------------------------------
+# Enter the edits of the Add Release process
+#
+# $Id$
+#
 </%perl>
 <%args>
 
@@ -91,10 +91,13 @@
 	if ($error > 0 && $error != 6)
 	{
 		$m->comp("/comp/form/feedbackbox",
-			"warning", sprintf("Error %d", $error),
-			"Please make sure that you fill out all the fields in the form.
-			Please press the back button in your browser and try again."
-		);
+			"warning", "Oops",
+			qq!Oops, some of the required are missing from your form submission, but they should have been
+			   checked by the review page before. Please press the Back button in your browser and try again.
+			   If that does not help, please enter a bug report on <a href="http://bugs.musicbrainz.org/newticket">
+			   our bug tracker</a>. Thanks\!<ul><li>!
+			 . join ("</li><li>", @errors)
+			 . "</li></ul>");
 	}
 	elsif ($error == 6)
 	{
@@ -152,6 +155,8 @@
 		# ($tracks-number of deleted tracks)
 		$tracks = $realtracks;
 
+		MusicBrainz::TrimInPlace($releasename);
+
 		# build release data.
 		if (!defined $artistid)
 		{
@@ -176,31 +181,34 @@
 			my $rev_month = $ARGS{"rev_month-$j"};
 			my $rev_day = $ARGS{"rev_day-$j"};
 			my $rev_country = $ARGS{"rev_country-$j"};
+			my $rev_clear = $ARGS{"rev_clear-$j"} || 0;
 
-			# Skip if all blank, or if dates are blank
-			# and the release country is set to the default one.
-			MusicBrainz::TrimInPlace($rev_year, $rev_month, $rev_day, $rev_country);
-			next if ($rev_year eq "" and $rev_month eq "" and $rev_day eq "" and
-					 ($rev_country eq "" or $rev_country eq UserPreference::get("default_country")));
+			if (!$rev_clear)
+			{
+				# Do not validate if all fields are blank, or the
+				# fields are blank and the release country is set to the default one.
+				MusicBrainz::TrimInPlace($rev_year, $rev_month, $rev_day, $rev_country);
+				if (!($rev_year eq "" and $rev_month eq "" and $rev_day eq "" and
+					 ($rev_country eq "" or $rev_country eq UserPreference::get("default_country"))))
+				{
+					# we insist on a valid country
+					MusicBrainz::IsNonNegInteger($rev_country)
+						or return $m->comp("/comp/error",
+							"Error: invalid release country entered",
+							0, 1,
+						);
 
-			# Otherwise, we insist on a valid country and a valid date
-			MusicBrainz::IsNonNegInteger($rev_country)
-				or return $m->comp(
-					"/comp/error",
-					"Error: invalid release country entered",
-					0, 1,
-				);
+					# we insist on a valid date
+					my @ymd = MusicBrainz::IsValidDate($rev_year, $rev_month, $rev_day)
+						or return $m->comp("/comp/error",
+							"Error: invalid release date",
+							0, 1,
+						);
 
-			my @ymd = MusicBrainz::IsValidDate($rev_year, $rev_month, $rev_day)
-				or return $m->comp(
-					"/comp/error",
-					"'$rev_year-$rev_month-$rev_day' is not a valid release date. "
-					. ' Please go back and try again.',
-					0, 1,
-				);
-
-			no warnings;
-			$new .= sprintf("Release%d=%d,%s-%s-%s\n", $j, $rev_country, @ymd);
+					no warnings;
+					$new .= sprintf("Release%d=%d,%s-%s-%s\n", $j, $rev_country, @ymd);
+				}
+			}
 		}
 
 		# Insert the release moderation.

@@ -66,7 +66,7 @@ sub PreInsert
 	}
 }
 
-sub IsAutoMod
+sub IsAutoEdit
 {
 	my $self = shift;
 	my ($old, $new) = $self->_normalise_strings($self->GetPrev, $self->GetNew);

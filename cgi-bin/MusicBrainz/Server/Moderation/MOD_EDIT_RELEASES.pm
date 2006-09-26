@@ -30,26 +30,27 @@ package MusicBrainz::Server::Moderation::MOD_EDIT_RELEASES;
 use ModDefs qw( :modstatus MODBOT_MODERATOR );
 use base 'Moderation';
 
-sub Name { "Edit Release Events" }
+sub Name { "Edit Release Events (old version)" }
 (__PACKAGE__)->RegisterHandler;
 
 sub PreInsert
 {
 	my ($self, %opts) = @_;
 
-	my $al = $opts{'album'} or die;
-	my $adds = $opts{'adds'} || [];
-	my $edits = $opts{'edits'} || [];
-	my $removes = $opts{'removes'} || [];
+	my $al = $opts{"album"} or die;
+	my @adds = @{ $opts{"adds"} || [] };
+	my @edits = @{ $opts{"edits"} || [] };
+	my @removes = @{ $opts{"removes"} || [] };
 
+	use Album;
 	my %new = (
 		albumid => $al->GetId,
 		albumname => $al->GetName,
-	);
-	my $i;
+	);	
 
-	$i=0;
-	for my $row (@$adds)
+	my $i;
+	$i = 0;
+	for my $row (@adds)
 	{
 		die unless $row->GetAlbum == $al->GetId;
 		$row->InsertSelf;
@@ -58,11 +59,11 @@ sub PreInsert
 			$row->GetCountry,
 			$row->GetId;
 	}
-
-	$i=0;
-	for my $row (@$edits)
-	{
-		my $obj = $row->{'object'};
+	
+	$i = 0;
+	for my $row (@edits)
+	{	
+		my $obj = $row->{"object"};
 		die unless $obj->GetAlbum == $al->GetId;
 
 		my $old = sprintf "d=%s c=%d id=%d",
@@ -70,7 +71,7 @@ sub PreInsert
 			$obj->GetCountry,
 			$obj->GetId;
 
-		$obj->SetCountry($row->{'country'});
+		$obj->SetCountry($row->{"country"});
 		$obj->SetYMD(@$row{qw( year month day )});
 
 		my $new = sprintf "nd=%s nc=%d",
@@ -79,9 +80,9 @@ sub PreInsert
 
 		$new{"edit".$i++} = "$old $new";
 	}
-
-	$i=0;
-	for my $row (@$removes)
+	
+	$i = 0;	
+	for my $row (@removes)
 	{
 		die unless $row->GetAlbum == $al->GetId;
 		$new{"remove".$i++} = sprintf "d=%s c=%d id=%d",
@@ -91,7 +92,7 @@ sub PreInsert
 	}
 
 	return $self->SuppressInsert
-		unless @$adds or @$edits or @$removes;
+		unless @adds or @edits or @removes;
 
 	$self->SetArtist($al->GetArtist);
 	$self->SetPrev($al->GetName);
@@ -141,28 +142,37 @@ sub PostLoad
 	$self->{"albumname"} = $new->{"albumname"}; 
 }
 
-sub IsAutoMod
+sub IsAutoEdit
 {
-	my ($self, $user_is_automod) = @_;
-	my $edits = 0;
-	
-	# we do not auto-approve adding new release events.
-	# my $adds = @{ $self->{"adds"} }; 
-	
-	# TODO: fix code, since it has ill effects for autoeditors
-	# -- see #1623
-	
-	# for my $t (@{ $self->{"edits"} })
-	# {
-	# 	my @d = map { 0+$_ } split "-", $t->{"d"};
-	#     my @nd = map { 0+$_ } split "-", $t->{"nd"};
-	#     $edits++
-	# 	if $d[0] != $nd[0] or (($d[1] or !$nd[1]) and ($d[1] != $nd[1] or $d[2] or !$nd[2]));
-	# }
-	
+	my ($self, $isautoeditor) = @_;
+
+	my $adds = @{ $self->{"adds"} }; 
 	my $removes = @{ $self->{"removes"} };
-	
-	(not $removes and (not $edits or $user_is_automod));
+
+	# see ticket #1623, entering more complete release events is
+	# an autoedit.
+	my $edits = 0;
+	for my $t (@{ $self->{"edits"} })
+	{
+		my ($origyear, $origmonth, $origday) = map { 0+$_ } split "-", $t->{"d"};
+		my ($newyear, $newmonth, $newday) = map { 0+$_ } split "-", $t->{"nd"};
+		my ($origcountry, $newcountry) = ($t->{"c"}, $t->{"nc"});
+		
+		# if we have a day set, which wasn't set before OR
+		# if we have a month set, which wasn't set before 
+		# -- the user is adding a more complete event, else its a 
+		#    change edit.
+		$edits++ if (!($newday && !$origday or
+					   $newmonth && !$origmonth) or
+					  $newcountry != $origcountry);
+	}
+
+	# adding of events is auto approved for autoeditors
+	# adding more complete data is auto approved for all
+	return 0 if ($adds and !$isautoeditor);
+	return 0 if ($edits and !$isautoeditor);
+	return 0 if ($removes);
+	return 1;
 }
 
 sub AdjustModPending
@@ -187,12 +197,14 @@ sub ApprovedAction
 	require MusicBrainz::Server::Release;
 	my $release = MusicBrainz::Server::Release->new($self->{DBH});
 
-	my @notes;
-	my $ok = @{ $self->{"adds"} };
-
 	require MusicBrainz::Server::Country;
 	my $country = MusicBrainz::Server::Country->new($self->{DBH});
 
+	my @notes;
+	my $ok = 0;
+	
+	$ok = @{ $self->{"adds"} };
+	
 	# Update the "edits" list
 	for my $t (@{ $self->{"edits"} })
 	{
@@ -219,7 +231,6 @@ sub ApprovedAction
 			push @notes, "Failed to update $display";
 			next;
 		}
-
 		++$ok;
 	}
 

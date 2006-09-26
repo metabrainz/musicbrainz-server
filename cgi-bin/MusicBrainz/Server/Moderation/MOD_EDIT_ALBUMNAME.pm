@@ -56,7 +56,7 @@ sub PostLoad
 	($self->{"albumid"}, $self->{"checkexists-album"}) = ($self->GetRowId, 1);
 } 
 
-sub IsAutoMod
+sub IsAutoEdit
 {
 	my $this = shift;
 	my ($old, $new) = $this->_normalise_strings($this->GetPrev, $this->GetNew);

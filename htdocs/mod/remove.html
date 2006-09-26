@@ -67,7 +67,7 @@
 	# form was submitted, see which button it was.
 	if ($submitvalue ne "")
 	{
-		if ($submitvalue =~ m/Remove Edit/)
+		if ($submitvalue =~ m/Cancel edit/)
 		{
 		    my $sql = Sql->new($mb->{DBH});
 			eval
@@ -107,7 +107,7 @@
 			<tr>
 				<td colspan="2" class="instructions">
 					<ul>
-						<li>Do you want to remove this edit?</li>
+						<li>Do you want to cancel this edit?</li>
 					</ul>
 				</td>
 			</tr>
@@ -141,8 +141,8 @@
 			<tr class="spaced">
 				<td class="label">&nbsp;</td>
 				<td class="formsection">
-					<input type="submit" class="button" name="submitvalue" value="Remove Edit &raquo;" />
-					<input type="submit" class="button" name="submitvalue" id="btn_cancel" value="Cancel" />
+					<input type="submit" class="button" name="submitvalue" value="Cancel edit &raquo;" />
+					<input type="submit" class="button" name="submitvalue" id="btn_cancel" value="No, keep it" />
 					<& /comp/args-to-hidden-fields.inc, %ARGS &>
 				</td>
 			</tr>
@@ -152,8 +152,7 @@
 
 	<& /comp/tableend &>
 
-	<script type="text/javascript" src="/scripts/jsdiff.js"></script>
-	<script type="text/javascript" src="/scripts/collapsereleases.js"></script>
+	<& /comp/js/diffcollapse &>
 
 <& /comp/footer &>
 

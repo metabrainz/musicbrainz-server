@@ -126,18 +126,19 @@
 
 				<tr class="top">
 					<td colspan="3" class="label"></td>
-					<td colspan="3" class="formsection">
-						The fields below allow you to enter track information, and to select
-						track artists. Unless the release has attached Disc IDs, you can
-						remove tracks by activating the checkbox on the left of the track
-						title fields. If you are editing a various artists release, or if
-						you have choosen to display the track artists, you can activate
-						the checkbox of the artists you would like to change. The page
-						will present you choices of existing track artists, once you
-						click on the button <strong>Continue</strong>. Please use the
-						<strong>Guess Case</strong> buttons (or the <strong>Guess All</strong>
-						button for all fields) to fix common style errors.
-						<br/>&nbsp;</td>
+					<td colspan="4" class="formsection">
+						<div style="width: 600px; margin-bottom: 10px">
+							The fields below allow you to enter track information, and to select
+							track artists. Unless the release has attached Disc IDs, you can
+							remove tracks by activating the remove button on the left of the track
+							title fields. If you are editing a various artists release, or if
+							you have choosen to display the track artists, you can activate
+							the change button of the artists you would like to change. The page
+							will present you choices of existing track artists, once you
+							click on the button <strong>Continue &raquo;</strong>. Please use the
+							<strong>Guess Case</strong> buttons (or the <strong>Guess All</strong>
+							button for all fields) to fix common style errors.
+						</div></td>
 				</tr>
 
 <%perl>
@@ -535,10 +536,8 @@
 %	# -------------------------------------------------------------------------
 
 				<tr>
-					<td colspan="2">&nbsp;</td>
-					<td colspan="3">
-						<img src="/images/release_editor/remove-track.png" alt=""
-							title="Tick the checkboxes to remove individual tracks, or change track artists" /></td>
+					<td colspan="3">&nbsp;</td>
+					<td colspan="2"></td>
 					<td colspan="2">
 						<& /comp/form/jsbutton, id => "BTN_ALL" &>
 					</td>
@@ -632,6 +631,15 @@
 						<& /comp/form/buttonsubmit,
 							value => $ARGS{"SUBMIT_CANCEL"},
 							tabindex => ++$tabindex, &>
+
+						<& /comp/form/buttonsubmit,
+							value => $ARGS{"SUBMIT_ADDTRACK"},
+							tabindex => ++$tabindex,
+							enabled => $ARGS{"v::edit_track_data"},
+							title => $ARGS{"v::edit_track_data"}
+								? "Add a new track"
+								: "Addition of new tracks disabled due to attached Disc ID(s)",
+							id => "btnAddTrack" &>
 
 					</td>
 				</tr>

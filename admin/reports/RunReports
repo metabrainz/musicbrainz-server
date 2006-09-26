@@ -88,16 +88,20 @@ for my $script (@all)
 	}
 
 	my $tempdir = tempdir(DIR => $outputdir, CLEANUP => 1);
-
 	if (not $tempdir)
 	{
 		warn "tempdir: $!\n";
 		++$errors;
 		next;
 	}
+	if (not -w "$tempdir") {
+		warn "Can't write to $tempdir!\n";
+		++$errors;
+		next;
+	}
 
 	$script = &DBDefs::MB_SERVER_ROOT . "/" . $script;
-	
+
 	print localtime() . " : Running $scriptname (in $tempdir)\n";
 	my $t0 = time;
 	system "$script --output-dir=$tempdir";

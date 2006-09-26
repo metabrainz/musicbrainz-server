@@ -74,7 +74,14 @@
 %	else
 %	{
 
-	<% $name %>
+	<table class="editfields">
+		<tr>
+			<td class="lbl">New:</td>
+			<td>
+			 	<& /comp/linkrelease, id => $exists ? $id : -1, name => $name, strong => 0 &>
+			 </td>
+		</tr>
+	</table>
 
 %	}
 

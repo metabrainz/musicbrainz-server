@@ -133,7 +133,7 @@ table.formstyle .textarea {
 
 table.formstyle .oldtextfield,
 table.formstyle .oldtextfield-modpending {
-	padding: 2px; font-size: 9pt;
+	padding: 2px; font-size: 12px;
 }
 
 table.formstyle .oldtextfield-modpending {
@@ -218,7 +218,7 @@ table.formstyle td.padtop {
 }
 
 .helptext {
-	font-size: 11px;
+	font-size: 12px;
 }
 .relationshipAttribute {
 }

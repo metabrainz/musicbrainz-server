@@ -101,7 +101,8 @@
 							<li>
 								Are you sure you want to remove	the Disc ID
 								<& /comp/form/currentvalue,
-									cdtoc => $alcdtoc, display => $cdtoc->GetDiscID &>
+									alcdtoc => $alcdtoc,
+									display => $cdtoc->GetDiscID &>
 
 								from the release <& /comp/linkrelease, release => $release &>?</li>
 							<li>

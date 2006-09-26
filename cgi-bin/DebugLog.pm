@@ -33,9 +33,11 @@ sub open
 	my $class = shift;
 	my $log = &DBDefs::DEBUG_LOG
 		or return undef;
+		
 	use IO::File;
 	my $fh = IO::File->new($log, &O_WRONLY|&O_APPEND)
 		or return undef;
+		
 	#use Fcntl qw( :flock );
 	#flock($fh, LOCK_EX);
 	$fh->autoflush(1);

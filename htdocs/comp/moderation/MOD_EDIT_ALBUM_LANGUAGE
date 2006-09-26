@@ -67,15 +67,14 @@
 <%perl>
  	my $self = shift;
 
-	my $lang = "Not set";
+	my $lang = "?";
  	if ($self->{_languageid})
 	{
 	   	$lang = MusicBrainz::Server::Language->newFromId(
 					$self->{DBH}, $self->{_languageid});
 		$lang = $lang->GetName;
 	}
-
-	my $script = "Not set";
+	my $script = "?";
  	if ($self->{_scriptid})
 	{
 	   	$script = MusicBrainz::Server::Script->newFromId(
@@ -87,13 +86,48 @@
 
 	<table class="editfields">
 		<tr>
-			<td class="lbl">Language:</td>
-			<td><% $lang %></td>
+			<td class="lbl">New:</td>
+			<td class="field">Language: <% $lang %>, Script: <% $script %></td>
 		</tr>
 		<tr>
-			<td class="lbl">Script:</td>
+			<td class="lbl">Was:</td>
+			<td>
+				<table class="editlisting">
 
-			<td><% $script %></td>
+%	for my $release (@$releases)
+%	{
+
+					<tr>
+						<td>
+							<& /comp/linkrelease, id => $release->{'id'}, name => $release->{'name'}, strong => 0 &>
+
+%		my $lang = "?";
+%		if ($release->{prev_lang})
+%		{
+%			my $l = MusicBrainz::Server::Language->newFromId(
+%						$self->{DBH}, $release->{prev_lang});
+%			$lang = $l->GetName;
+%		}
+
+%		my $script = "?";
+%		if ($release->{prev_script})
+%		{
+%			my $s = MusicBrainz::Server::Script->newFromId(
+%						$self->{DBH}, $release->{prev_script});
+%			$script = $s->GetName;
+%		}
+
+						</td>
+						<td>
+							(<span class="explain" title="Language"><% $lang %></span>,
+							 <span class="explain" title="Script"><% $script %></span>)
+						</td>
+					</tr>
+
+%	}
+
+				</table>
+			</td>
 		</tr>
 	</table>
 

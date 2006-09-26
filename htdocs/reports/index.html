@@ -1,35 +1,35 @@
 <%perl>
-	# -----------------------------------------------------------------------------
-	#                               Musicbrainz.org
-	#                        Copyright (c) 2001 Robert Kaye
-	# -----------------------------------------------------------------------------
-	#  This software is provided "as is", without warranty of any kind, express or
-	#  implied, including  but not limited  to the warranties of  merchantability,
-	#  fitness for a particular purpose and noninfringement. In no event shall the
-	#  authors or  copyright  holders be  liable for any claim,  damages or  other
-	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
-	#  from,  out of  or in  connection with  the software or  the  use  or  other
-	#  dealings in the software.
-	#
-	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
-	#  Permits anyone the right to use and modify the software without limitations
-	#  as long as proper  credits are given  and the original  and modified source
-	#  code are included. Requires  that the final product, software derivate from
-	#  the original  source or any  software  utilizing a GPL  component, such  as
-	#  this, is also licensed under the GPL license.
-	# -----------------------------------------------------------------------------
-	#
-	# Summary:
-	# -----------------------------------------------------------------------------
-	# Render the list of available reports (editing suggestions)
-	#
-	# $Id$
-	#
+# -----------------------------------------------------------------------------
+#                               Musicbrainz.org
+#                        Copyright (c) 2001 Robert Kaye
+# -----------------------------------------------------------------------------
+#  This software is provided "as is", without warranty of any kind, express or
+#  implied, including  but not limited  to the warranties of  merchantability,
+#  fitness for a particular purpose and noninfringement. In no event shall the
+#  authors or  copyright  holders be  liable for any claim,  damages or  other
+#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+#  from,  out of  or in  connection with  the software or  the  use  or  other
+#  dealings in the software.
+#
+#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+#  Permits anyone the right to use and modify the software without limitations
+#  as long as proper  credits are given  and the original  and modified source
+#  code are included. Requires  that the final product, software derivate from
+#  the original  source or any  software  utilizing a GPL  component, such  as
+#  this, is also licensed under the GPL license.
+# -----------------------------------------------------------------------------
+#
+# Summary:
+# -----------------------------------------------------------------------------
+# Render the list of available reports (editing suggestions)
+#
+# $Id$
+#
 </%perl>
 
-<& /comp/sidebar-notitle, pagetitle => "Editing Suggestions" &>
+<& /comp/sidebar-notitle, pagetitle => "Editing suggestions" &>
 
-	<& /comp/tablebegin, title => "Editing Suggestions" &>
+	<& /comp/tablebegin, title => "Editing suggestions" &>
 
 % 	if (&DBDefs::REPLICATION_TYPE == RT_SLAVE)
 %	{
@@ -49,9 +49,6 @@
 		the editing process, but do not know where to start, check out these pages:
 	</p>
 
-%# This is in the same order as comp/layout/topmenu
-
-
 	<table class="formstyle">
 		<tr class="top">
 			<td class="label">Artists:</td>
@@ -59,7 +56,8 @@
 				<ul>
 					<li><a href="/reports/generated/DuplicateArtists/">Possibly duplicate artists</a></li>
 					<!--<li><a href="/reports/generated/DuplicateArtists2/">More possibly duplicate artists</a></li>-->
-				</ul></td>
+				</ul>
+			</td>
 		</tr>
 
 		<tr class="top">
@@ -73,7 +71,8 @@
 					<li><a href="/reports/generated/TracksWithoutTimes/">Releases with tracks which have no times set</a> (<strong>New</strong>)</li>
 					<li><a href="/reports/generated/DuplicateTrackNumbers/">Releases with duplicated track numbers</a></li>
 					<li><a href="/reports/generated/SuperfluousDataTracks/">Releases with superfluous data tracks</a></li>
-				</ul></td>
+				</ul>
+			</td>
 		</tr>
 
 		<tr class="top">
@@ -82,7 +81,8 @@
 				<ul>
 					<li><a href="/reports/generated/BrokenDiscIDs/">Releases with "broken" disc IDs</a></li>
 					<li><a href="/reports/generated/BadWin32CDTOCs/">Incorrect disc IDs submitted by Windows clients</a></li>
-				</ul></td>
+				</ul>
+			</td>
 		</tr>
 
 		<tr class="top">
@@ -96,7 +96,8 @@
 					<li><a href="/reports/generated/SuspectTrackCharacters/">Tracks which contain questionable characters</a></li>
 					<li><a href="/reports/generated/TooManyCapitals/">Tracks with too many capital letters</a></li>
 					<li><a href="/reports/generated/NoUpperCase/">Tracks with no capital letters</a></li>
-				</ul></td>
+				</ul>
+			</td>
 		</tr>
 
 		<tr class="top">
@@ -106,10 +107,10 @@
 					<li><a href="/reports/generated/TRMsWithManyTracks/">TRM collisions</a></li>
 					<li><a href="/reports/generated/DuplicateTRMsPerAlbum/">TRMs that appear more than once on a release</a></li>
 					<li><a href="/reports/generated/TracksWithManyTRMs/">Multiple TRMs</a></li>
-				</ul></td>
+				</ul>
+			</td>
 		</tr>
 	</table>
-
 
 % 	}
 

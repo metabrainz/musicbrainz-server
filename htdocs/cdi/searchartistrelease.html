@@ -32,6 +32,7 @@
 	$toc => undef
 	$tracks => undef
 	$artistid => 0
+	$showallreleases => 0
 
 </%args>
 <%perl>
@@ -145,7 +146,7 @@
 			<td width="100%">
 				<& /comp/album,
 					artist => $artist, album => $release,
-					showmodlinks => 0 &></td>
+					showmodlinks => 0, showrelationships => 0 &></td>
 
 			<td>&nbsp;&nbsp;&nbsp;</td>
 			<td align="right">
@@ -239,20 +240,43 @@
 				<td width="40">Tracks:</td>
 				<td>Release Title:</td>
 			</tr>
-<%perl>
 
-	# sort unapplicable releases by name.
-	my @sortedkeys = sort {
-		(lc($unused{$a}->GetName) cmp
-		 lc($unused{$b}->GetName))
+%		# sort unapplicable releases by name.
+%		my @sortedkeys = sort {
+%			(lc($unused{$a}->GetName) cmp
+%			 lc($unused{$b}->GetName))
+%
+%		} keys %unused;
+%
+%		my $i = 0;
+%		foreach my $releaseid ( @sortedkeys )
+%		{
+%			$release = $unused{$releaseid};
+%
+%			if ($i == 10)
+%			{
+%				if (!$showallreleases)
+%				{
 
-	} keys %unused;
+			<tr>
+				<td>&nbsp;</td>
+				<td>
+					<form action="searchartistrelease.html" method="get">
+						<div>
+							<input type="submit" value="Show all releases &raquo;" />
 
-	my $i = 0;
-	foreach my $releaseid ( @sortedkeys )
-	{
-		$release = $unused{$releaseid};
-</%perl>
+							<& /comp/form/hiddenfield, "discid", $discid &>
+							<& /comp/form/hiddenfield, "toc", $toc &>
+							<& /comp/form/hiddenfield, "tracks", $tracks &>
+							<& /comp/form/hiddenfield, "artistid", $artistid &>
+							<& /comp/form/hiddenfield, "showallreleases", 1 &>
+						</div>
+					</form>
+				</td>
+			</tr>
+%					last;
+%				}
+%			}
 			<tr class="searchresults<% $i++ % 2 == 0 ? "even" : "odd" %>">
 				<td width="40"><img src="/images/notes.gif" alt="" title="Tracks" /> <% $release->GetTrackCount %></td>
 				<td><& /comp/linkrelease, release => $release, strong => 0 &></td>
@@ -265,7 +289,7 @@
 
 %   }
 
-	<script type="text/javascript" src="/scripts/collapsereleases.js"></script>
+	<& /comp/js/diffcollapse &>
 
 <& /comp/footer &>
 

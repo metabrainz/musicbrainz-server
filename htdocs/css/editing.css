@@ -59,6 +59,7 @@ table.editdiff tr {
 table.editdiff tr td {
 	padding: 0px; margin: 0px;
 	border: 1px solid #fff;
+	vertical-align: top;
 }
 
 table.editdiff tr td.lbl {
@@ -74,6 +75,7 @@ table.editdiff tr td.lbl {
 	border: 0px; margin: 0px; padding: 0px; padding-right: 4px;
 	width: 65px; 
 	white-space: nowrap;
+	text-align: right;
 }
 
 table.editdiff tr td.diff .ins {
@@ -93,25 +95,54 @@ table.editdiff tr td.diff .del {
 /* the blind tables which help to align values in the edit displays */
 table.editfields {
 	border-collapse: collapse;
-	border: 0px; margin: 0px; padding: 0px;
+	border: 0px; 
+	margin: 0px; 
+	padding: 0px;
 }
 
 table.editfields tr {
 	vertical-align: top;
 }
 
-table.editfields tr td {
-	border: 0px; margin: 0px; padding: 0px;
+/* on /comp/showmod, add 3px indent to align with values from edit header */
+table.editfields tr td.lbl {
+	border: 0px; margin: 0px; 
+	padding: 0px 8px 0px 0px;
+	width: 72px; 
+	white-space: nowrap; 
+	text-align: right;
 }
 
-table.editfields tr td.lbl {
-	border: 0px; margin: 0px; padding: 0px; padding-right: 4px;
-	width: 65px; 
+/* on /comp/showmoddetail, set indent to normal value */
+td.editchanges table.editfields tr td.lbl {
+	width: 70px;
+	text-align: right;
+}
+
+table.editfields td {
+	padding: 0px;
+}
+
+table.editfields tr td.lblinfo {
+	border: 0px;
+	margin: 0px;
+	padding: 0px 6px 0px 16px;
 	white-space: nowrap; 
+	text-align: right;
 }
 
 table.editfields tr td.bold {
 	font-weight: bold;
+}
+
+/* collapseable table inside the edits listing */
+/* used in: batch edit types, remove trm/puid */
+table.editlisting {
+	border-collapse: collapse;
+	border: 0px; 
+}
+table.editlisting td {
+	padding: 0px 30px 0px 0px;
 }
 
 div.attrlist {
@@ -188,7 +219,6 @@ tr.showedit td.oldvalue table.editdiff tr {
 tr.showedit td.oldvalue table.editfields tr td,
 tr.showedit td.oldvalue table.editdiff tr td {
 	border-color: #ffecd6;
-	padding: 0px; padding-right: 4px;
 }
 
 /* the new value of the edit */
@@ -212,7 +242,6 @@ tr.showedit td.newvalue table.editdiff tr {
 tr.showedit td.newvalue table.editfields tr td,
 tr.showedit td.newvalue table.editdiff tr td {
 	border-color: #f0efff;
-	padding: 0px; padding-right: 4px;
 }
 
 tr.showedit td.newvalue table.editdiff tr {
@@ -438,9 +467,11 @@ table.edittype tr td.lbl {
 	border: 0px; margin: 0px; padding: 0px; padding-right: 4px;
 	white-space: nowrap; 
 	width: 65px; 
+	text-align: right;
 } 
 
 table.edittype tr.entity td {
+	text-align: right;
 }
 
 table.edittype tr.entity a {

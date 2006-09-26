@@ -2,7 +2,7 @@
 
 	my $edit = shift
 		or return;
-	my $my_uid = $session{uid}
+	my $my_uid = $session{"uid"}
 		or return;
 
 	my $my_mod = ($edit->GetModerator == $my_uid);
@@ -28,11 +28,11 @@
 	my $id = $edit->GetId;
 	push @statuslinks, qq!<a href="/mod/approve.html?editid=$id">Approve</a>!
 		if ($is_open and
-			(UserStuff->IsAutoMod($session{origprivs}) or
-		    UserStuff->IsAutoMod($session{privs})) and
-		    $edit->IsAutoModType($edit->GetType));
+			(UserStuff->IsAutoEditor($session{"orig_privs"}) or
+		     UserStuff->IsAutoEditor($session{"privs"})) and
+		    $edit->IsAutoEditType($edit->GetType));
 
-	push @statuslinks, qq!<a href="/mod/remove.html?editid=$id">Remove edit</a>!
+	push @statuslinks, qq!<a href="/mod/remove.html?editid=$id">Cancel edit</a>!
 		if ($my_mod and $is_open);
 
 </%perl>
@@ -101,15 +101,22 @@
 				<td><%perl> $edit->ShowPreviousValue($m, 0); </%perl></td>
 			</tr>
 			<tr class="top">
-				<td class="label">New Value:</td>
-				<td><%perl> $edit->ShowNewValue($m, 0); </%perl></td>
+				<td class="label">Changes:</td>
+				<td class="editchanges">
+					<div>
+						<%perl> $edit->ShowPreviousValue($m, 0); </%perl>
+					</div>
+					<div>
+						<%perl> $edit->ShowNewValue($m, 0); </%perl>
+					</div>
+				</td>
 			</tr>
 
 % 	if (not $my_mod)
 %	{
 
 
-% 		if (not $edit->IsAutoMod)
+% 		if (not $edit->IsAutoEdit)
 %		{
 			<tr>
 				<td></td>
@@ -141,7 +148,7 @@
 							<tr>
 								<td>
 									<& /mod/voting-buttons.inc,
-										mod => $edit,
+										edit => $edit,
 										vote => ($my_vote ? $my_vote->GetVote : undef),
 										labelnextline => 0 &></td>
 								<td>

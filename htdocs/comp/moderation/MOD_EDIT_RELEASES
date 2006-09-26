@@ -29,12 +29,14 @@
 </%perl>
 <%def .ShowCountryName>
 <%perl>
+
 	my $c = $m->comp("/edit/albumreleases/countries-menu.inc");
 	my $name = "?";
 	for (@$c)
 	{
 		$name = $_->[1], last if $_->[0] == $_[0]
 	}
+
 </%perl>
 
 	<% $name %>
@@ -42,64 +44,76 @@
 </%def>
 
 <%method ShowPreviousValue>
-% 	my $self = shift;
-
-% 	if (@{ $self->{"edits"} })
-%	{
-
-	<u>Change From</u>
-
-%		for my $t (@{ $self->{"edits"} })
-%		{
-
-		<br /><& /comp/releasedate, $t->{"d"} &> : <& .ShowCountryName, $t->{"c"} &>
-
-% 		}
-%	}
-
-%	if (@{ $self->{"removes"} })
-%	{
-
-	<u>Remove</u>
-
-%		for my $t (@{ $self->{"removes"} })
-%		{
-
-		<br /><& /comp/releasedate, $t->{"d"} &> : <& .ShowCountryName, $t->{"c"} &>
-
-% 		}
-%	}
 
 </%method>
 
 <%method ShowNewValue>
-%	my $self = shift;
+<%perl>
 
-%	if (@{ $self->{"edits"} })
+ 	my $self = shift;
+ 	my $numedits = scalar(@{ $self->{"edits"} });
+ 	my $numremoves = scalar(@{ $self->{"removes"} });
+ 	my $numadds = scalar(@{ $self->{"adds"} });
+
+	return if ($numremoves == 0 && $numedits == 0 && $numadds == 0);
+
+</%perl>
+
+	<table class="editdiff">
+
+%	if ($numremoves)
 %	{
+%		for my $t (@{ $self->{"removes"} })
+%		{
 
-	<u>Change To</u>
+		<tr>
+			<td class="lbl">Remove:</td>
+			<td class="field">
+				<& /comp/releasedate, $t->{"d"} &> - <& .ShowCountryName, $t->{"c"} &>
+			</td>
+		</tr>
 
+% 		}
+%	}
+
+% 	if ($numedits)
+%	{
+%		my $i = 0;
 %		for my $t (@{ $self->{"edits"} })
 %		{
 
-		<br /><& /comp/releasedate, $t->{"nd"} &> : <& .ShowCountryName, $t->{"nc"} &>
-
-%		}
-%	}
-
-%	if (@{ $self->{"adds"} })
-%	{
-
-	<u>Add</u>
-
-% 		for my $t (@{ $self->{"adds"} })
-%		{
-
-		<br /><& /comp/releasedate, $t->{"d"} &> : <& .ShowCountryName, $t->{"c"} &>
+		<tr>
+			<td class="lbl">Change:</td>
+			<td class="diff" id="ov::edit<% $self->GetId %><% $i %>">
+				<& /comp/releasedate, $t->{"d"} &> - <& .ShowCountryName, $t->{"c"} &>
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td class="diff" id="nv::edit<% $self->GetId %><% $i++ %>">
+				<& /comp/releasedate, $t->{"nd"} &> - <& .ShowCountryName, $t->{"nc"} &>
+			</td>
+		</tr>
 
 % 		}
-% 	}
+%	}
+
+% 	if ($numadds)
+%	{
+%		for my $t (@{ $self->{"adds"} })
+%		{
+
+		<tr>
+			<td class="lbl">Add:</td>
+			<td class="field">
+				<& /comp/releasedate, $t->{"d"} &> - <& .ShowCountryName, $t->{"c"} &>
+			</td>
+		</tr>
+
+% 		}
+%	}
+
+	</table>
 
 </%method>
 

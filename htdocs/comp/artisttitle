@@ -132,7 +132,7 @@
 		}
 		if ($session{uid})
 		{
-			$m->out(qq! | <a href="/mod/search/pre/artist.html?artistid=$id" title="View edits made against this Artist">View Edits</a>!);
+			$m->out(qq! | <a href="/mod/search/pre/artist.html?artistid=$id" title="View edits made against this artist">View artist edits</a>!);
 		}
 		$m->out(qq! ]</td></tr>!);
 	}
@@ -142,14 +142,14 @@
 	if ($showmodlinks)
 	{
 		$m->out(qq!<tr>!);
-		$m->out(qq!<td colspan="2" class="mods">!);
+		$m->out(qq!<td colspan="2" class="editlinks">!);
 		$m->out(qq!Edit: [ !);
 		if ($session{uid})
 		{
 			if ($id != &ModDefs::VARTIST_ID
 				and $name !~ /^\[(unknown|data track|silence|no artist)\]$/)
 			{
-				$m->out(qq!<a href="/edit/artist/edit.html?artistid=$id">Edit</a>!);
+				$m->out(qq!<a href="/edit/artist/edit.html?artistid=$id">Edit artist</a>!);
 				$m->out(qq! | <a href="/edit/artist/merge.html?artistid=$id">Merge into ...</a>!);
 				$m->out(qq! | <a href="/user/subscribe.html?artistid=$id">Subscribe</a> | !);
 			}
@@ -182,8 +182,19 @@
 			$m->out(qq!<a href="/login.html">Log in</a> to edit this!);
 		}
 		$m->out(qq! ]</td></tr>!);
-
 	}
+
+	# Row 4: relationship links
+	if (0 && $showmodlinks && $session{uid})
+	{
+		$m->out(qq!<tr>!);
+		$m->out(qq!<td colspan="2" class="relationshiplinks">!);
+		$m->out(qq!Relationships: [ !);
+		$m->out(qq!<a href="/show/artist/?artistid=$id&addrel=1">Use this artist in a relationship</a>!);
+		$m->out(qq! | <a href="/edit/relationship/addurl.html?type=artist&id=$id&name=! . uri_escape($name) . qq!">Relate to URL</a>!);
+		$m->out(qq! ]</td></tr>!);
+	}
+
 	$m->out(qq!</table>!);
 
 </%perl>

@@ -502,10 +502,16 @@
                 elsif ($ex =~ /(^|\D)$id(\D|$)/)
                 {
                      $m->comp("/comp/album",
-						 album => $album, artist => $artist,
-						 showmodlinks => 0, showreleases => 1,
-						 showcollapsed => 1, showids => 0, showtag => 1,
-						 mbtagger => $mbt, ex => $ex);
+						 album => $album,
+						 artist => $artist,
+						 showmodlinks => 0,
+						 showreleases => 1,
+						 showrelationships => 0,
+						 showcollapsed => 1,
+						 showids => 0,
+						 showtag => 1,
+						 mbt => $mbt,
+						 ex => $ex);
                 }
                 else
                 {
@@ -536,9 +542,7 @@
 % 		}
 %    }
 
-	<script type="text/javascript" src="/scripts/collapsereleases.js"></script>
-	<input type="hidden" id="collapsereleases::defaultcollapse" value="0" />
-	<input type="hidden" id="collapsereleases::showtoggleicon" value="0" />
+	<& /comp/js/diffcollapse, JSCollapseToggleIcon => 0, JSCollapse => 0 &>
 
 <& /comp/footer &>
 

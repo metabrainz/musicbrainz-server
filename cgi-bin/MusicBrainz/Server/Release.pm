@@ -62,16 +62,41 @@ sub GetYMD
 	map { 0+$_ } split '-', $_[0]{'releasedate'};
 }
 
+sub GetYear
+{
+	($_[0]->GetYMD)[0];
+}
+
+sub GetMonth
+{
+	($_[0]->GetYMD)[1];
+}
+
+sub GetDay
+{
+	($_[0]->GetYMD)[2];
+}
+
 sub SetYMD
 {
 	my ($self, $y, $m, $d) = @_;
 	$self->{'releasedate'} = sprintf "%04d-%02d-%02d",
-		$y||0, $m||0, $d||0;
+		$y || 0, $m || 0, $d || 0;
 }
 
 sub GetSortDate	{ $_[0]{'releasedate'} }
 sub SetSortDate { $_[0]->SetYMD(split /-/, $_[1]) }
 # GetModPending / SetModPending - see TableBase
+
+sub ToString { 
+	my $self = shift;
+	return 	"ReleaseEvent { Id: " . $self->GetId . 
+			", Release: " . $self->GetAlbum . 
+			", Date: " . $self->{"releasedate"} . 
+			", Country: ".$self->GetCountry .
+			"}";
+}
+
 
 ################################################################################
 # Constructors

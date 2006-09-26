@@ -48,7 +48,7 @@ sub PreInsert
 	$self->SetRowId($ar->GetId);
 }
 
-sub IsAutoMod { 1 }
+sub IsAutoEdit { 1 }
 
 sub ApprovedAction
 {

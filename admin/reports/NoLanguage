@@ -42,10 +42,12 @@ sub GatherData
 		SELECT
 			al.id AS album_id,
 			al.name AS album_name,
+			al.modpending AS album_modpending,
 			ar.id AS artist_id,
 			ar.name AS artist_name,
 			ar.sortname AS artist_sortname,
-			ar.resolution AS artist_resolution
+			ar.resolution AS artist_resolution,
+			ar.modpending AS artist_modpending
 		FROM
 			artist ar
 		JOIN

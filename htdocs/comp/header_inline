@@ -42,6 +42,6 @@
 		nosmallfonts => $nosmallfonts,
 		noentityicons => $noentityicons &>
 
-		<div style="margin-left: .5; margin-right: .5">
+	<div style="margin-left: 1px">
 
 %# vi: set ts=4 sw=4 ft=mason :

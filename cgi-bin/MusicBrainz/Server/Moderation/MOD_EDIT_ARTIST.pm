@@ -142,7 +142,7 @@ sub PostLoad
 	$self->{'prev_unpacked'} = $self->ConvertNewToHash($self->GetPrev()) or die;
 }
 
-sub IsAutoMod
+sub IsAutoEdit
 {
 	my ($self, $user_is_automod) = @_;
 

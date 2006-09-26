@@ -41,7 +41,11 @@
 	$remtype => ""
 	$arcancel => 0
 
-	$showtrackartists => 0
+	$mbt => $session{"mbt"}
+	$tport => $session{"tport"}
+
+	$showtrackartists => $session{"showtrackartists"}
+	$showrelationships => $session{"showrelationships"}
 
 </%args>
 <%perl>
@@ -63,9 +67,17 @@
 				text => "You need to specify either a valid mbid or a releaseid argument");
 	}
 
-	# check tagger session stuff
-	UserStuff::EnsureSessionOpen(), $session{mbt} = 1 if $mbt;
-	UserStuff::EnsureSessionOpen(), $session{tport} = $tport if $tport;
+	# get passed in tagger settings, and write to session
+	UserStuff::EnsureSessionOpen(), $session{"mbt"} = 1 if $mbt;
+	UserStuff::EnsureSessionOpen(), $session{"tport"} = $tport if $tport;
+
+	# get passed in or default "show track artist" setting , and write to session
+	$showtrackartists = 0 if (not defined $showtrackartists);
+	UserStuff::EnsureSessionOpen(), $session{"showtrackartists"} = $showtrackartists;
+
+	# get passed in or default "show track relationships" setting , and write to session
+	$showrelationships = 1 if (not defined $showrelationships);
+	UserStuff::EnsureSessionOpen(), $session{"showrelationships"} = $showrelationships;
 
 	# Instantiate MusicBrainz object, and load release entities
 	my $mb = $m->comp("/comp/dblogin");
@@ -127,13 +139,17 @@
 	<& /edit/annotation/latest, album => $release, explain => 1 &>
 	<br />
 
-	<& /comp/album, album => $release, artist => $artist,
-		mbtagger => $mbt, showids => 1, showtag => 1, showreleases => 1,
-		showtrackartists => $showtrackartists,
+	<& /comp/album,
+		album => $release,
+		artist => $artist,
+		showids => 1,
+		showtag => 1,
+		showreleases => 1,
+		showtrackartiststoggle => 1,
+		showrelationshipstoggle => 1
 	&>
 
-	<script type="text/javascript" src="/scripts/collapsereleases.js"></script>
-	<input type="hidden" id="collapsereleases::defaultcollapse" value="0" />
+	<& /comp/js/diffcollapse, JSCollapse => 0 &>
 
 <& /comp/footer &>
 

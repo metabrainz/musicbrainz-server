@@ -253,7 +253,7 @@
 %		}
 %	}
 
-	<script type="text/javascript" src="/scripts/collapsereleases.js"></script>
+	<& /comp/js/diffcollapse &>
 
 	<& /comp/tableend &>
 <& /comp/footer &>
@@ -406,7 +406,7 @@
 
 		for my $release (sort { $a->{_sort} cmp $b->{_sort} } @releases)
 		{
-			$m->comp("/comp/album", artist => $artist, album => $release);
+			$m->comp("/comp/album", artist => $artist, album => $release, showrelationships => 0);
 		}
 	}
 

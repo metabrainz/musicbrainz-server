@@ -55,6 +55,8 @@
 			mod_add_album_link
 			navbar_mod_show_select_page
 			JSMoveFocus
+			JSDiff
+			JSCollapse
 			JSDebug
 			reveal_address_when_mailing
 			sendcopy_when_mailing
@@ -70,6 +72,8 @@
 			mail_notes_if_i_noted
 			mail_notes_if_i_voted
 			remove_recent_link_on_add
+			release_show_relationshipslinks
+			release_show_annotationlinks
 			show_inline_mods
 			show_inline_mods_random
 			subscriptions_public
@@ -101,7 +105,7 @@
 		}
 
 		# Other volatile preferences
-		if (UserStuff->IsAutoMod($session{orig_privs}))
+		if (UserStuff->IsAutoEditor($session{orig_privs}))
 		{
 			my $p = 0 + $session{privs};
 
@@ -223,7 +227,9 @@
 						yes or no - not "abstain")
 				</div>
 
-% 	unless ($ui->Current->IsNewbie) {
+% 	unless ($ui->Current->IsNewbie)
+%	{
+
 				<div>
 					<input type="checkbox" name="show_inline_mods" id="pref_show_inline_mods"
 %						$m->out(UserPreference::get('show_inline_mods') ? ' checked="checked" ' : "");
@@ -231,7 +237,9 @@
 					<label for="pref_show_inline_mods">
 						Show <i>inline</i> edits</label>
 
-%		if (UserStuff->IsAutoMod($session{orig_privs})) {
+%		if (UserStuff->IsAutoEditor($session{orig_privs}))
+%		{
+
 					<br />&nbsp; &nbsp;
 
 					<input type="checkbox" name="show_inline_mods_random" id="pref_show_inline_mods_random"
@@ -239,8 +247,11 @@
 						/>
 					<label for="pref_show_inline_mods_random">
 						Show random <i>inline</i> edits</label>
+
 %       }
+
 				</div>
+
 % 	}
 
 				<div>
@@ -283,7 +294,7 @@
 
 			<& /comp/tableend &>
 
-			<& /comp/tablebegin, title => "Artist Page (List of Releases)" &>
+			<& /comp/tablebegin, title => "Show artist" &>
 
 				<p>
 					<label for="pref_releases_show_compact">
@@ -299,16 +310,33 @@
 
 			<& /comp/tableend &>
 
-			<& /comp/tablebegin, title => "Amazon.com Cover Art" &>
 
-				<p>
+			<& /comp/tablebegin, title => "Show release" &>
+
+				<div>
+					<label for="pref_release_show_relationshipslinks">
+					<input type="checkbox" name="release_show_relationshipslinks" id="pref_release_show_relationshipslinks"
+%						$m->out(UserPreference::get('release_show_relationshipslinks') ? ' checked="checked" ' : "");
+						/>
+					Show the add/edit relationships links in the release header.
+				</div>
+
+				<div>
+					<label for="pref_release_show_annotationlinks">
+					<input type="checkbox" name="release_show_annotationlinks" id="pref_release_show_annotationlinks"
+%						$m->out(UserPreference::get('release_show_annotationlinks') ? ' checked="checked" ' : "");
+						/>
+					Show the add/edit annotation links in the release header.
+				</div>
+
+				<div>
 					<label for="pref_show_amazon_coverart"><input type="checkbox" name="show_amazon_coverart" id="pref_show_amazon_coverart"
 %						$m->out(UserPreference::get('show_amazon_coverart') ? ' checked="checked" ' : "");
 						/>
 					Show Amazon.com cover art and buy links</label>
 				</p>
 
-				<p>
+				<div style="margin-left: 25px">
 					Your preferred Amazon Store:
 					<select name="use_amazon_store">
 						<& /comp/options, [ UserPreference::allowed_amazon_stores() ],
@@ -420,6 +448,22 @@
 				</p>
 
 				<p>
+					<label for="pref_JSDiff">
+					<input type="checkbox" name="JSDiff" id="pref_JSDiff"
+%						$m->out(UserPreference::get('JSDiff') ? ' checked="checked" ' : "");
+						/>
+					Use javascript to highlight changes on title edits.</label>
+				</div>
+
+				<div>
+					<label for="pref_JSCollapse">
+					<input type="checkbox" name="JSCollapse" id="pref_JSCollapse"
+%						$m->out(UserPreference::get('JSCollapse') ? ' checked="checked" ' : "");
+						/>
+					Collapse releases per default on pages which show full releases (except the release page)</label>
+				</div>
+
+				<div>
 					<label for="pref_JSDebug">
 					<input type="checkbox" name="JSDebug" id="pref_JSDebug"
 %						$m->out(UserPreference::get('JSDebug') ? ' checked="checked" ' : "");
@@ -510,7 +554,8 @@
 			<& /comp/tableend &>
 
 
-% 	if (UserStuff->IsAutoMod($session{orig_privs})) {
+% 	if (UserStuff->IsAutoEditor($session{orig_privs}))
+%	{
 
 			<& /comp/tablebegin, title => "Temporary Preferences" &>
 
@@ -522,7 +567,7 @@
 				<p>
 					<label for="pref_enable_automod_privs">
 					<input type="checkbox" name="enable_automod_privs" id="pref_enable_automod_privs"
-%						$m->out(UserStuff->IsAutoMod($session{privs}) ? ' checked="checked" ' : "");
+%						$m->out(UserStuff->IsAutoEditor($session{privs}) ? ' checked="checked" ' : "");
 						/>
 					Enable AutoEditor privileges</label>
 				</p>

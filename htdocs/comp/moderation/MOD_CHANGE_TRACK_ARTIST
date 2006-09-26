@@ -28,36 +28,19 @@
 	#
 </%perl>
 <%method ShowPreviousValue>
-<%perl>
- 	my $this = shift;
-
-	my ($exists, $id, $name, $sortname, $resolution) =
-		($this->{"old.exists"}, $this->GetArtist,
-		 $this->GetPrev, $this->{"old.sortname"},
-		 $this->{"old.resolution"});
-
-</%perl>
-
-	<table class="editfields">
-		<tr>
-			<td class="lbl">Old:</td>
-			<td><& /comp/linkartist,
-				id => ($exists ? $id : -1),
-				name => $name,
-				sortname => $sortname,
-				title => ($exists ? undef : "Id: $id"),
-				resolution => $resolution &></td>
-		</tr>
-	</table>
 
 </%method>
-
 
 <%method ShowNewValue>
 <%perl>
  	my $this = shift;
 
-	my ($exists, $id, $name, $sortname, $resolution) =
+	my ($oldexists, $oldid, $oldname, $oldsortname, $oldresolution) =
+		($this->{"old.exists"}, $this->GetArtist,
+		 $this->GetPrev, $this->{"old.sortname"},
+		 $this->{"old.resolution"});
+
+	my ($newexists, $newid, $newname, $newsortname, $newresolution) =
 		($this->{'new.exists'},
 		 $this->{'new.exists'} ? $this->{'new.id'} : -1,
 		 $this->{'new.name'}, $this->{'new.sortname'},
@@ -67,13 +50,24 @@
 
 	<table class="editfields">
 		<tr>
+			<td class="lbl">Old:</td>
+			<td><& /comp/linkartist,
+				id => ($oldexists ? $oldid : -1),
+				name => $oldname,
+				sortname => $oldsortname,
+				title => ($oldexists ? undef : "Id: $oldid"),
+				resolution => $oldresolution,
+				strong => 0 &></td>
+		</tr>
+		<tr>
 			<td class="lbl">New:</td>
 			<td><& /comp/linkartist,
-				id => ($exists ? $id : -1),
-				name => $name,
-				sortname => $sortname,
-				title => ($exists ? undef : "Id: $id"),
-				resolution => $resolution &></td>
+				id => ($newexists ? $newid : -1),
+				name => $newname,
+				sortname => $newsortname,
+				title => ($newexists ? undef : "Id: $newid"),
+				resolution => $newresolution,
+				strong => 0 &></td>
 		</tr>
 	</table>
 

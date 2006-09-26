@@ -37,7 +37,7 @@
 	$alias => undef
 	$release => undef
 	$track => undef
-	$cdtoc =>  undef
+	$alcdtoc => undef
 
 	$display => undef
 	$mp_type => undef
@@ -64,13 +64,13 @@
 		$mp = $artist->GetModPending;
 		$url = "/artist/".$artist->GetMBId.".html";
 	}
-	elsif ($cdtoc)
+	elsif ($alcdtoc)
 	{
 		$typeicon = "release";
 		$typestr = "Disc ID";
-		$object = $cdtoc;
-		$mp = $cdtoc->GetModPending;
-		$url = "/show/cdtoc/?cdtocid=".$cdtoc->GetId;
+		$object = $alcdtoc;
+		$mp = $alcdtoc->GetModPending;
+		$url = "/show/cdtoc/?cdtocid=".$alcdtoc->GetCDTOC->GetId;
 
 	}
 	elsif ($alias)

@@ -48,7 +48,7 @@
 	my $artist = $m->comp("/comp/loadartist", $mb, $artistid);
 
 	my $title = ("Relationships for Artist: " . $artist->GetName());
-	$m->comp("/comp/sidebar-notitle", pagetitle => $title);
+	$m->comp("/comp/sidebar", pagetitle => $title);
 
 	$m->comp("/comp/artisttitle", artist => $artist);
 

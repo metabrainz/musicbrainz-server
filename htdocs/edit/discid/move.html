@@ -235,7 +235,7 @@
 
 								<strong>
 								<& /comp/form/currentvalue,
-									cdtoc => $alcdtoc,
+									alcdtoc => $alcdtoc,
 									display => $cdtoc->GetDiscID &>
 								</strong>
 
@@ -268,7 +268,8 @@
 						<li>
 							Select a release to which the Disc ID
 							<& /comp/form/currentvalue,
-								cdtoc => $alcdtoc, display => $cdtoc->GetDiscID &>
+								alcdtoc => $alcdtoc,
+								display => $cdtoc->GetDiscID &>
 
 							should be moved to.</li>
 						<li>
@@ -333,7 +334,7 @@
 					<td style="width: 420px">
 						<& /comp/album,
 							artist => $newar, album => $newrelease,
-							showlinks => 0, showmodlinks => 0
+							showlinks => 0, showmodlinks => 0, showrelationships => 0
 						&></td>
 					<td>
 						<input type="submit" name="submitvalue" value="Select &raquo;" />
@@ -364,7 +365,7 @@
 %		}
 %	}
 
-	<script type="text/javascript" src="/scripts/collapsereleases.js"></script>
+	<& /comp/js/diffcollapse &>
 
 %	}
 

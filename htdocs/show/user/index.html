@@ -88,8 +88,8 @@
 
 	my $can_nominate = (
 		not $is_me
-		and UserStuff->IsAutoMod($session{privs})
-		and not UserStuff->IsAutoMod($user->GetPrivs)
+		and UserStuff->IsAutoEditor($session{privs})
+		and not UserStuff->IsAutoEditor($user->GetPrivs)
 		and not MusicBrainz::Server::AutomodElection->is_user_ineligible($user)
 	);
 

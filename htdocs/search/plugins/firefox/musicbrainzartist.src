@@ -1,28 +1,27 @@
 # Status: Working
-# Mozilla/Netscape 6+ plugin file for musicbrainz.com by Kim Plowright (www.mildlydiverting.com or kim dot plowright at gmail dot com)
+# Mozilla/Netscape 6+ plugin file for searching on musicbrainz.org
 #
-# Created:  December 2, 2004
-# Last updated: December 2, 2004
+# Based upon a plugin, created by:
+# Kim Plowright (www.mildlydiverting.com or kim dot plowright at gmail dot com)
 #
-# Known issues:
-#  
-# 1. Well, it's my first plugin, and really basic, but I've tested it and it seems to work...
-# 2. Not tested with searcg sidebar, as using firefox which doesn't support it.
-#
-# If you like this, do consider getting involved with MusicBrainz - they're a fab organisation who are trying to put right all the damage to open source philosophies made by the Gracenote CDDB debacle...
-#
+# Last updated: August 8, 2006
+# by: Jan van Thiel (MusicBrainz user: zout)
+
 <search
  version="7.1"
- name="Musicbrainz: Artist"
- description="Musicbrainz - Search Musicbrainz music metadatabase for an artist" 
+ name="MusicBrainz: Artist"
+ description="MusicBrainz - Search MusicBrainz music metadata for an artist" 
  action="http://musicbrainz.org/search/textsearch.html"
  searchForm="http://musicbrainz.org/search.html"
  method="GET" >
 
-<!--<input name="sourceid" value="Mozilla-search">-->
-<input name="type" value="artist">
-<input name="limit" value="25">
 <input name="query" user="">
+<input name="type" value="artist">
+<input name="an" value="1">
+<input name="as" value="1">
+<input name="aa" value="1">
+<input name="limit" value="25">
+<input name="handlearguments" value="1">
 
 <interpret 
  resultListStart="<table border="0" cellspacing="0" cellpadding="4" id="SearchResults">"

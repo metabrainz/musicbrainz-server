@@ -91,7 +91,7 @@
 				{ url => "/doc/PicardDownload" },
 				{ url => "/doc/PicardTutorial" },
 				{ url => "/doc/PicardQuickStart" },
-
+			{ name => "Magic Tagger",			url => "/doc/MagicTagger" },
 			{ name => "libmusicbrainz",	url => "/doc/libmusicbrainz" },
 			[
 				{ url => "/doc/libmusicbrainzDownload" },
@@ -125,6 +125,7 @@
 			],
 			{ name => "Live Data-Feed",		url => "/doc/LiveDataFeed" },
 			{ name => "3rd Party",			url => "/doc/MusicBrainzEnabledApplications" },
+			{ name => "Web Service",		url => "/doc/XMLWebService" },
 
 		],
 		{ name => "Search",					url => "/search.html" },
@@ -343,7 +344,6 @@
 			{ name => "Edit Account",		url => "/user/edit.html",					login => 1 },
 			{ name => "Change Password",	url => "/user/change-password.html",	 	login => 1 },
 			{ name => "Preferences",		url => "/user/preferences.html",			login => 1 },
-			{ name => "Vote on edits",		url => "/mod/search/select-filter.html", 	login => 1 },
 			{ name => "Subscriptions",		url => "/user/subscriptions.html", 			login => 1 },
 			{ name => "Logout",				url => "/logout.html",						login => 1 },
 			[
@@ -608,6 +608,12 @@
 
 
 <%perl>
+
+    # This puts the original wikidocs URL back together so that the code below can find it.
+    if ($uri eq '/misc/wikitransclusion/doc.html' && $args =~ /id=([a-zA-Z0-9]+)/)
+    {
+        $uri = "/doc/$1";
+    }
 
 	# Work out which items are "selected"
 	my @sel;

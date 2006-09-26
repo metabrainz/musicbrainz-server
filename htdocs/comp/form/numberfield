@@ -45,8 +45,7 @@
 	$m->out(qq!<input type="text" name="$name" class="numberfield$cssclass" !);
 	$m->out(qq!disabled="disabled" !) if (!$enabled);
 	$m->out(qq!tabindex="$tabindex" size="$size" !);
-	$m->out(qq!maxsize="$size" value="$value" />\n!);
-
+	$m->out(qq!maxlength="$maxlength" value="$value" />!);
 	$m->comp("/comp/form/hiddenfield", $name, $value) if (!$enabled);
 
 </%perl>

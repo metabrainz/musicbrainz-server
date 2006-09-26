@@ -79,16 +79,16 @@
 		<& /comp/linkdoc, "EditNote", "edit note", 0 &>. If you do
 		so, your edit is more likely to be <& /comp/linkdoc, "EditingFAQ",
 		"voted on, and unanimously accepted", 0 &> by the other MusicBrainz
-		editors. If your edit receives 3 unanimous yes votes, it will be applied
-		instantly, even before the one week period elapses in which edits
-		usually are kept open.
+		editors. If your edit receives <% &DBDefs::NUM_UNANIMOUS_VOTES %>
+		unanimous yes votes, it will be applied instantly, even before the
+		one week period elapses in which edits usually are kept open.
 	</div>
 
 %	$session{"orig_privs"} = $session{"privs"}
 %		if (not exists $session{"orig_privs"});
 %
-% 	if ($showprivscheckbox && UserStuff->IsAutoMod($session{"orig_privs"}))
-%	{
+% 		if ($showprivscheckbox && UserStuff->IsAutoEditor($session{"orig_privs"}))
+%		{
 
 	<div style="border: 1px dotted #000; padding: 5px; margin: 5px 0px; margin-left: 0px; font-size: 11px; width: 500px">
 		<strong>Autoeditor privileges:</strong> If you untick this checkbox, this edit
@@ -96,7 +96,7 @@
 		status. You can enable them any time again.
 		<br/>
 
-%	my $ischecked = UserStuff->IsAutoMod($session{"privs"});
+%			my $ischecked = UserStuff->IsAutoEditor($session{"privs"});
 
 		<input type="hidden" name="autoeditorpriv_enabled_old" value="<% $ischecked ? "on" : "" %>" />
 		<input type="checkbox" name="autoeditorpriv_enabled_new" value="on"

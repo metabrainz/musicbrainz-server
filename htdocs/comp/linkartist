@@ -46,6 +46,7 @@
 	$icon => 1
 	$strong => 1
 	$title => ""
+	$modpending => 0
 
 </%args>
 <%perl>
@@ -72,6 +73,8 @@
 	$title = defined $title
 		? ' title="' . $m->interp->apply_escapes($title, 'h').'"'
 		: "";
+
+	$m->out(qq!<span class="modpending">!) if ($modpending);
 
 	# use span with the background image set to render the artist icon.
 	$m->out(sprintf qq!<span class="linkartist%s"%s>!,
@@ -102,6 +105,7 @@
 	}
 
 	$m->out("</span>");
+	$m->out("</span>") if ($modpending);
 
 	# render resolution?
 	if ($showresolution && $resolution ne "")

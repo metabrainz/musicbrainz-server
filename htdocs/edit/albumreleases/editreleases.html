@@ -53,9 +53,11 @@
 	# we do not handle.
 	while (my ($k, $v) = each %ARGS)
 	{
+		MusicBrainz::TrimInPlace($v);
 		delete $ARGS{$k}, next
 			unless MusicBrainz::IsNonNegInteger($v)
 			and not $k eq "releaseid"; # ignore releaseid argument
+		$ARGS{$k} = $v;
 	}
 
 	# Update releases
@@ -79,6 +81,7 @@
 			$v;
 		} qw( y m d country );
 
+
 		# Check the date
 		if ($y >= 1900 and $y<= 2100)
 		{
@@ -87,7 +90,7 @@
 				require Date::Calc;
 				unless (Date::Calc::check_date($y, $mon, $d))
 				{
-					$m->comp("/comp/sidebar", title => "Date Error");
+					$m->comp("/comp/sidebar", title => "Date error");
 					</%perl>
 					<p>
 						Sorry, <% "$y-$mon-$d" %> is not a valid date.&nbsp;
@@ -173,7 +176,7 @@
 
 </%perl>
 
-<& /comp/sidebar-notitle, pagetitle => "Edit Release Events" &>
+<& /comp/sidebar-notitle, pagetitle => "Edit release events" &>
 
 	<& /comp/stylemenu &>
 
@@ -206,7 +209,7 @@
 							event on the review page.
 						</li>
 						<li>
-							<strong>To add</strong> a release event, click the "Add a Release"
+							<strong>To add</strong> a release event, click the "Add a release event"
 							checkbox click on the button Continue - a new, empty set of
 							fields will appear, and the country will be pre-selected to the
 							country you have configured your user preferences.
@@ -237,10 +240,10 @@
 				<td>
 					<table style="formstyle" border="0" cellspacing="0" cellpadding="0">
 						<tr class="header">
-							<td>Year</td>
-							<td>Month</td>
-							<td>Day</td>
-							<td>Country</td>
+							<td>Year:</td>
+							<td>Month:</td>
+							<td>Day:</td>
+							<td>Country:</td>
 							<td>
 								<span title="Activate the checkboxes below to remove release events" style="cursor: help"/>Remove</span></td>
 						</tr>
@@ -283,7 +286,7 @@
 						<tr>
 							<td colspan="5">
 								No release information available.&nbsp;
-								Click "Add a release" and "Continue" to add a release.</td>
+								Click "Add a release event" and "Continue" to add a release.</td>
 						</tr>
 
 % 	}
@@ -298,7 +301,7 @@
 			</tr>
 			<tr class="spaced">
 				<td>&nbsp;</td>
-				<td>
+				<td class="submitbuttons">
 					<input type="submit" name="submitvalue" class="button" value="Continue &raquo;" />
 					<input type="submit" name="submitvalue" class="button" value="Cancel" />
 					<input type="hidden" name="releaseid" value="<% $releaseid %>" />

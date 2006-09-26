@@ -35,6 +35,34 @@ function ReleaseEditor() {
 
 	this._tracks = null;
 
+	this.editartist_off = new Image();
+	this.editartist_off.src = "/images/release_editor/edit-off.gif";
+	this.editartist_on = new Image();
+	this.editartist_on.src = "/images/release_editor/edit-on.gif";
+
+	this.editartist_title_on = "Track artist selected for change, click to retain old value";
+	this.editartist_title_off = "Select artist for change";
+
+	this.removetrack_off = new Image();
+	this.removetrack_off.src = "/images/release_editor/remove-off.gif";
+	this.removetrack_on = new Image();
+	this.removetrack_on.src = "/images/release_editor/remove-on.gif";
+	this.removetrack_disabled = new Image();
+	this.removetrack_disabled.src = "/images/release_editor/remove-disabled.gif";
+
+	this.removetrack_title_on = "Track selected for removal, click to keep the track.";
+	this.removetrack_title_off = "Select track for removal";
+	this.removetrack_title_disabled = "Track removal disallowed due to attached Disc ID(s).";
+
+	this.removereleaseevent_off = new Image();
+	this.removereleaseevent_off.src = "/images/release_editor/remove-off.gif";
+	this.removereleaseevent_on = new Image();
+	this.removereleaseevent_on.src = "/images/release_editor/remove-on.gif";
+
+	this.removereleaseevent_title_on = "Release event selected for removal, click to keep the event.";
+	this.removereleaseevent_title_off = "Select release event for removal";
+
+
 	// ----------------------------------------------------------------------------
 	// member functions
 	// ---------------------------------------------------------------------------
@@ -169,6 +197,40 @@ function ReleaseEditor() {
 							alert("editcheckboxes "+i+" is null");
 						}
 					}
+					// get the release events checkboxes
+					var revcheckboxes = [];
+					i = 0;
+					while ((obj = es.ui.getField("rev_clear-"+(i++))) != null) {
+						revcheckboxes.push(obj);
+					}
+
+					for (i=0; i < revcheckboxes.length; i++) {
+						if ((el = revcheckboxes[i]) != null) {
+							var field = "rev_clear-";
+							var index = i;
+
+							// get the parent node of the checkbox (table cell), and
+							// remove the checkbox.
+							var td = el.parentNode;
+							el.id = this.getFieldId(field, "checkbox", index);
+							el.style.display = "none";
+
+							var img = document.createElement("img");
+							img.id = this.getFieldId(field, "toggleicon", index);
+							img.onclick = function onclick(event) {
+								ae.onRemoveReleaseEventClicked(this);
+							};
+							img.src = el.checked ? this.removereleaseevent_on.src : this.removereleaseevent_off.src;
+							img.title = el.checked ? this.removereleaseevent_title_on : this.removereleaseevent_title_off;
+							img.style.cursor = "hand";
+							td.appendChild(img);
+
+
+						} else {
+							mb.log.error("revcheckboxes "+i+" is null");
+						}
+					}
+
 				} else {
 					mb.log.error("Did not find the 'hasmultipletrackartists' field");
 				}
@@ -178,10 +240,95 @@ function ReleaseEditor() {
 		} else {
 			mb.log.error("Did not find the 'releaseeditor::config' div");
 		}
+
+		// walk the list of fields in the current field and setup fields.
+		var value, name, el, list = es.ui.getFieldsWalker(es.ui.re.DATEFIELD_CSS, null);
+		for (var j=list.length-1; j>=0; j--) {
+			el = list[j];
+			name = (el.name || "");
+			value = (el.value || "");
+			mb.log.debug("el: $", name);
+
+			var defvalue = "";
+			var title = "";
+			if (name.match(/year-/i)) {
+
+				// preset form field with the year date mask, and clear upon
+				// receiving the focus
+				if (el.disabled) {
+					el.title = "Release event is selected for removal";
+				} else {
+					el.title = "Enter the year here. This value is required if you enter the month and day (e.g. " + new Date().getYear() + ")";
+				}
+
+			} else if (name.match(/month-/i)) {
+
+				// preset form field with the year date mask, and clear upon
+				// receiving the focus
+				if (el.disabled) {
+					el.title = "Release event is selected for removal";
+				} else {
+					el.title = "Enter the month here. This value is required if you enter the day (e.g. " + (new Date().getMonth() + 1) + ")";
+				}
+
+			} else if (name.match(/day-/i)) {
+
+				// preset form field with the year date mask, and clear upon
+				// receiving the focus
+				if (el.disabled) {
+					el.title = "Release event is selected for removal";
+				} else {
+					el.title = "Enter the day here (e.g. " + new Date().getDate() + ")";
+				}
+			}
+		}
 	};
 
 	/**
 	 *
+	 */
+	this.validateFields = function(el) {
+		mb.log.scopeStart("Handling click on submit button...");
+		var id, cn, validated = true;
+		if (el) {
+			var list = es.ui.getFieldsWalker(es.ui.re.TEXTFIELD_CSS, null);
+			for (var j=list.length-1; j>=0; j--) {
+				el = list[j];
+				id = (el.id || "");
+				cn = (el.className || "");
+
+				var label = this.getLabelFromInput(el);
+				if (el.value == "") {
+					if (!cn.match(/missing/i)) {
+						el.className += " missing";
+					}
+					if (label && label.firstChild.nodeValue.indexOf("[!]") == -1) {
+						label.firstChild.nodeValue = label.firstChild.nodeValue.replace(":", " [!]:");
+					}
+					validated = false;
+				} else {
+					el.className = cn.replace(/\s+missing/gi, "");
+					if (label) {
+						label.firstChild.nodeValue = label.firstChild.nodeValue.replace(/ \[!\]/g, "");
+					}
+				}
+				mb.log.debug("Field $, classname: $", id, el.className);
+			}
+			if (!validated) {
+				if ((el = mb.ui.get("validatemessages")) != null) {
+					el.style.display = "";
+				}
+			}
+
+		} else {
+			mb.log.error("Element el needs to be provided.");
+		}
+		mb.log.info("After check: validated=$", validated);
+		mb.log.scopeEnd();
+		return validated;
+	};
+
+	/**
 	 *
 	 */
 	this.getArtistLink = function(id, name, resolution) {
@@ -305,8 +452,6 @@ function ReleaseEditor() {
 
 	/**
 	 * Handles a click on the edit release/track artist checkbox.
-	 * Toggles the state of the editor for the entity given by
-	 * the checkboxes object id, which is passed in.
 	 *
 	 * @param	el			the checkbox
 	 * @returns	true		...allows checkbox to change its checked state
@@ -328,6 +473,65 @@ function ReleaseEditor() {
 		return true;
 	};
 	
+	/**
+	 * Handles a click on the remove track checkbox.
+	 *
+	 * @param	el			the toggle icon
+	 * @returns	true		action is always allowed
+	 *
+	 **/
+	this.onRemoveTrackClicked = function(el) {
+		var id = (el.id || "");
+
+		// lets see if we got a valid element id
+		if (id.match(/trackdel::toggleicon::\d*/)) {
+			id = id.split("::");
+			var field = id[0];
+			var index = id[2];
+
+			// find checkbox, and toggle it. then, update the toggle
+			// icon image to according to the set state.
+			var cb = mb.ui.get(this.getFieldId(field, "checkbox", index));
+			cb.checked = !cb.checked;
+			el.src = cb.checked ? this.removetrack_on.src : this.removetrack_off.src;
+			el.title = cb.checked ? this.removetrack_title_on : this.removetrack_title_off;
+
+		} else {
+			mb.log.error("Unexpected element id: $", id);
+		}
+		return true;
+	};
+
+	/**
+	 * Handles a click on the remove releaseevent checkbox.
+	 *
+	 * @param	el			the toggle icon
+	 * @returns	true		action is always allowed
+	 *
+	 **/
+	this.onRemoveReleaseEventClicked = function(el) {
+		var id = (el.id || "");
+
+		// lets see if we got a valid element id
+		if (id.match(/rev_clear-::toggleicon::\d*/)) {
+			id = id.split("::");
+			var field = id[0];
+			var index = id[2];
+
+			// find checkbox, and toggle it. then, update the toggle
+			// icon image to according to the set state.
+			var cb = mb.ui.get(this.getFieldId(field, "checkbox", index));
+			cb.checked = !cb.checked;
+			el.src = cb.checked ? this.removereleaseevent_on.src : this.removereleaseevent_off.src;
+			el.title = cb.checked ? this.removereleaseevent_title_on : this.removereleaseevent_title_off;
+
+		} else {
+			mb.log.error("Unexpected element id: $", id);
+		}
+		return true;
+	};
+
+
 	/**
 	 *
 	 */
