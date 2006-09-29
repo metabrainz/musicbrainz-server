@@ -1,2 +1,0 @@
-<% $m->call_next %>
-<& /comp/footer &>
