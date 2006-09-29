@@ -89,9 +89,9 @@
 			}
 
 			# get identical names artists
-			my $norm_name = MusicBrainz::NormaliseSortText($curr_artistname);
+			my $norm_name = MusicBrainz::Server::Validation::NormaliseSortText($curr_artistname);
 			@dupes = grep {
-				MusicBrainz::NormaliseSortText($_->GetName) eq $norm_name
+				MusicBrainz::Server::Validation::NormaliseSortText($_->GetName) eq $norm_name
 			} @$artistlist;
 
 			my $engine = SearchEngine->new($mb->{DBH}, "artist");

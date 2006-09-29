@@ -55,17 +55,17 @@
 	$releaseid ||= $album;
 
 	# make sure we got a valid releaseid parameter
-	MusicBrainz::IsNonNegInteger($releaseid) && $releaseid
+    MusicBrainz::Server::Validation::IsNonNegInteger($releaseid) && $releaseid
 		or return $m->comp("/comp/layout/badarguments",
 			text => "The argument <strong>releaseid</strong> is missing or has a wrong format.");
 
 	# make sure we got a valid tindex parameter
-	MusicBrainz::IsNonNegInteger($tindex)
+    MusicBrainz::Server::Validation::IsNonNegInteger($tindex)
 		or return $m->comp("/comp/layout/badarguments",
 			text => "The argument <strong>tindex</strong> is missing or has a wrong format.");
 
 	# make sure we got a valid modid parameter
-	MusicBrainz::IsNonNegInteger($modid)
+    MusicBrainz::Server::Validation::IsNonNegInteger($modid)
 		or return $m->comp("/comp/layout/badarguments",
 			text => "The argument <strong>modid</strong> is missing or has a wrong format.");
 
@@ -125,7 +125,7 @@
 
 		# check track name
 		push @errors, "Please enter a non-empty track name"
-			if (not MusicBrainz::IsNonEmptyString($trackname));
+			if (not MusicBrainz::Server::Validation::IsNonEmptyString($trackname));
 
 		# prepare url for redirection back to the release page
 		my $releaseurl = "/release/".$release->GetMBId.".html";

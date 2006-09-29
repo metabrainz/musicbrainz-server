@@ -46,7 +46,7 @@
 		or return;
 
 	# check id argument
-	MusicBrainz::IsNonNegInteger($artistid) && $artistid
+	MusicBrainz::Server::Validation::IsNonNegInteger($artistid) && $artistid
 		or return $m->comp("/comp/layout/badarguments",
 			text => "Required Argument <strong>artistid</strong> is missing "
 				   ."or has  an invalid format.");

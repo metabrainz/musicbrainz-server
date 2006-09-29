@@ -13,7 +13,7 @@ my $recent_links = ($session{recent_links} ||= []);
 
 if (
 	MusicBrainz::Server::LinkEntity->IsValidType($type)
-	and MusicBrainz::IsNonNegInteger($id)
+	and MusicBrainz::Server::Validation::IsNonNegInteger($id)
 	and $id
 	and $name =~ /\S/
 ) {

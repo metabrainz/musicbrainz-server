@@ -28,7 +28,6 @@ use strict;
 package Insert;
 
 use ModDefs qw( VARTIST_ID DARTIST_ID ANON_MODERATOR MODBOT_MODERATOR MOD_ADD_ALBUM );
-use MusicBrainz;
 
 sub new
 {
@@ -605,7 +604,7 @@ TRACK:
 	{
 		delete $release->{release_insertid};
 
-		my @ymd = MusicBrainz::IsValidDate(
+		my @ymd = MusicBrainz::Server::Validation::IsValidDate(
 					@$release{qw( year month day )})
 			or die "Skipped Insert: Invalid release date\n";
 

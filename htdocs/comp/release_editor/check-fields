@@ -76,7 +76,7 @@
 				my $len = $ARGS{"tracklength$i"};
 				push @seqlist, $seq;
 
-				if (not MusicBrainz::IsNonNegInteger($seq))
+				if (not MusicBrainz::Server::Validation::IsNonNegInteger($seq))
 				{
 					$h{"trackseq$i"} = 1;
 					push @error, "Enter a non-negative number";

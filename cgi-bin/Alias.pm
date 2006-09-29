@@ -150,7 +150,7 @@ sub UpdateName
 	my $rowid = $self->GetRowId
 		or croak "Missing row ID in UpdateName";
 
-    MusicBrainz::TrimInPlace($name);
+    MusicBrainz::Server::Validation::TrimInPlace($name);
 
 	my $sql = Sql->new($self->{DBH});
     my $table = lc $self->GetTable;
@@ -193,7 +193,7 @@ sub newFromName
 	$self = $self->new(shift, shift) if not ref $self;
     my $name = shift;
 
-    MusicBrainz::TrimInPlace($name) if defined $name;
+    MusicBrainz::Server::Validation::TrimInPlace($name) if defined $name;
     if (not defined $name or $name eq "")
     {
         carp "Missing name in newFromName";
@@ -218,7 +218,7 @@ sub Resolve
 {
     my ($this, $name) = @_;
 
-    MusicBrainz::TrimInPlace($name) if defined $name;
+    MusicBrainz::Server::Validation::TrimInPlace($name) if defined $name;
     if (not defined $name or $name eq "")
     {
         carp "Missing name in Resolve";

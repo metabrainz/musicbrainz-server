@@ -184,7 +184,7 @@ sub Insert
     my $sortname = $this->GetSortName;
     $sortname = $name if not defined $sortname;
 
-    MusicBrainz::TrimInPlace($name, $sortname);
+    MusicBrainz::Server::Validation::TrimInPlace($name, $sortname);
     $this->SetName($name);
     $this->SetSortName($sortname);
 
@@ -370,7 +370,7 @@ sub MergeInto
 sub UpdateName
 {
     my ($this, $name) = @_;
-    MusicBrainz::TrimInPlace($name);
+    MusicBrainz::Server::Validation::TrimInPlace($name);
 
     my $sql = Sql->new($this->{DBH});
 
@@ -392,7 +392,7 @@ sub UpdateName
 sub UpdateSortName
 {
     my ($this, $name) = @_;
-    MusicBrainz::TrimInPlace($name);
+    MusicBrainz::Server::Validation::TrimInPlace($name);
 
     my $page = $this->CalculatePageIndex($name);
     my $sql = Sql->new($this->{DBH});
@@ -583,7 +583,7 @@ sub GetArtistsFromName
 {
     my ($this, $artistname) = @_;
 
-    MusicBrainz::TrimInPlace($artistname) if defined $artistname;
+    MusicBrainz::Server::Validation::TrimInPlace($artistname) if defined $artistname;
     if (not defined $artistname or $artistname eq "")
     {
 	carp "Missing artistname in GetArtistsFromName";
@@ -677,7 +677,7 @@ sub GetArtistsFromSortname
 {
     my ($this, $sortname) = @_;
 
-    MusicBrainz::TrimInPlace($sortname) if defined $sortname;
+    MusicBrainz::Server::Validation::TrimInPlace($sortname) if defined $sortname;
     if (not defined $sortname or $sortname eq "")
     {
 	carp "Missing sortname in GetArtistsFromSortname";

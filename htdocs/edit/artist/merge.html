@@ -53,7 +53,7 @@
 		or return;
 
 	# check artistid argument
-	MusicBrainz::IsNonNegInteger($artistid) && $artistid
+	MusicBrainz::Server::Validation::IsNonNegInteger($artistid) && $artistid
 		or return $m->comp("/comp/layout/badarguments",
 			text => "Argument <strong>artistid</strong> missing or invalid format.");
 

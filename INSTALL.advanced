@@ -26,9 +26,20 @@ scenarios for non-standard install cases.
    perl -i -pwe 's[^#!/home/httpd/musicbrainz/mb_server/cgi-bin/perl]
 	[#!/usr/local/mb_server/cgi-bin/perl]' `
 		grep -rl '^#!/home/httpd/musicbrainz/mb_server/cgi-bin/perl' .
-	`
 
-2) Loading the MusicBrainz Data into MySQL
+2) PostgreSQL locale issues
+                `
+   When importing a data dump, some people report that some of the "create
+   unique index" statements fail (because of non-unique data).  This appears
+   to be locale-related, but at the time of writing the precise nature of the
+   problem is not understood.
+
+   Some people report that the installation works straight off, without
+   considering locales at all.  Others report that "initdb --locale=C"
+   is what's required.  Others report that "initdb --nolocale" is necessary.
+   Your mileage may vary.
+
+3) Loading the MusicBrainz Data into MySQL
 
    Although the MusicBrainz server is intended to run on Postgres, it is possible
    to load the MusicBrainz data into a MySQL database, and additionally it may be

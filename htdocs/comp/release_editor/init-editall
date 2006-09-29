@@ -222,7 +222,7 @@
 				my $enddate = $item->{"enddate"};
 				my $name = $item->{"link1_name"};
 				my $resolution = $item->{"link1_resolution"};
-				MusicBrainz::TrimInPlace($begindate, $enddate, $name, $resolution);
+				MusicBrainz::Server::Validation::TrimInPlace($begindate, $enddate, $name, $resolution);
 
 				# relationship parameters
 				$ARGS{sprintf "tr%d_rel%d_nodeid", $index, $subindex} = $item->{"link_id"};

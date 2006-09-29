@@ -41,10 +41,10 @@
 	$m->comp("/comp/checkloggedin", 1, 1)
 		or return;
 
-	MusicBrainz::IsNonNegInteger($albumid) && $albumid
+	MusicBrainz::Server::Validation::IsNonNegInteger($albumid) && $albumid
 		or return $m->comp("/comp/layout/badarguments", text => "Argument albumid is invalid");
 
-	MusicBrainz::IsSingleLineString($changelog)
+	MusicBrainz::Server::Validation::IsSingleLineString($changelog)
 		or return $m->comp("/comp/layout/badarguments", text => "Argument changelog is invalid");
 
 	# Instantiate MusicBrainz object, and load the release object
@@ -74,7 +74,7 @@
 	my $not_most_recent = 0;
 	my $origtext;
 
-	if (MusicBrainz::IsNonNegInteger($annotationid))
+	if (MusicBrainz::Server::Validation::IsNonNegInteger($annotationid))
 	{
 		my $old = MusicBrainz::Server::Annotation->new($mb->{DBH});
 		$old->SetId($annotationid);

@@ -247,8 +247,8 @@ sub xml_artist
     if ($b|| $e)
     {
         print '<life-span';
-        print ' begin="' . MusicBrainz::MakeDisplayDateStr($b) . '"' if ($b); 
-        print ' end="' . MusicBrainz::MakeDisplayDateStr($e) . '"' if ($e); 
+        print ' begin="' . MusicBrainz::Server::Validation::MakeDisplayDateStr($b) . '"' if ($b); 
+        print ' end="' . MusicBrainz::Server::Validation::MakeDisplayDateStr($e) . '"' if ($e); 
         print '/>';
     }
     if (defined $info)
@@ -530,7 +530,7 @@ sub load_object
         else
         {
             my $temp = Artist->new($dbh);
-            MusicBrainz::IsGUID($id) ? $temp->SetMBId($id) : $temp->SetId($id);
+            MusicBrainz::Server::Validation::IsGUID($id) ? $temp->SetMBId($id) : $temp->SetId($id);
             die "Could not load artist $id\n" if (!$temp->LoadFromId());
             $cache->{$k} = $temp;
             return $temp;
@@ -546,7 +546,7 @@ sub load_object
         else
         {
             $temp = Album->new($dbh);
-            MusicBrainz::IsGUID($id) ? $temp->SetMBId($id) : $temp->SetId($id);
+            MusicBrainz::Server::Validation::IsGUID($id) ? $temp->SetMBId($id) : $temp->SetId($id);
             die "Could not load release $id\n" if (!$temp->LoadFromId());
             $cache->{$k} = $temp;
             return $temp;
@@ -562,7 +562,7 @@ sub load_object
         else
         {
             $temp = Track->new($dbh);
-            MusicBrainz::IsGUID($id) ? $temp->SetMBId($id) : $temp->SetId($id);
+            MusicBrainz::Server::Validation::IsGUID($id) ? $temp->SetMBId($id) : $temp->SetId($id);
             die "Could not load track $id\n" if (!$temp->LoadFromId());
             $cache->{$k} = $temp;
             return $temp;
@@ -663,8 +663,8 @@ sub xml_relations
             print ' attributes="' . join(' ', @attrlist) . '"' if (scalar(@attrlist));
             print ' direction="backward" ' if (exists $rel->{backward} && $rel->{backward});
             print ' target="' . ($rel->{type} eq 'url' ? xml_escape($rel->{url}) : $rel->{id}) . '"';
-            print ' begin="' . MusicBrainz::MakeDisplayDateStr($rel->{begindate}) . '"' if ($rel->{begindate} ne '          ');
-            print ' end="' . MusicBrainz::MakeDisplayDateStr($rel->{enddate}) . '"' if ($rel->{enddate}) ne '          ';
+            print ' begin="' . MusicBrainz::Server::Validation::MakeDisplayDateStr($rel->{begindate}) . '"' if ($rel->{begindate} ne '          ');
+            print ' end="' . MusicBrainz::Server::Validation::MakeDisplayDateStr($rel->{enddate}) . '"' if ($rel->{enddate}) ne '          ';
 
             if ($rel->{type} eq 'artist')
             {

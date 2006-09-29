@@ -77,10 +77,10 @@ sub OutputArtistRDF
     $out .=   $this->Element("dc:title", $artist->GetName());
     $out .=   $this->Element("mm:sortName", $artist->GetSortName());
 
-    my $begindate = MusicBrainz::MakeDisplayDateStr($artist->GetBeginDate);
+    my $begindate = MusicBrainz::Server::Validation::MakeDisplayDateStr($artist->GetBeginDate);
     $out .= $this->Element("mm:beginDate", $begindate) if ($begindate);
 
-    my $enddate = MusicBrainz::MakeDisplayDateStr($artist->GetEndDate);
+    my $enddate = MusicBrainz::Server::Validation::MakeDisplayDateStr($artist->GetEndDate);
     $out .= $this->Element("mm:endDate", $enddate) if ($enddate);
     $out .= $this->Element("dc:comment", $artist->GetResolution) if ($artist->GetResolution);
 
@@ -684,8 +684,8 @@ sub OutputRelationships
 	$name =~ s/[^A-Za-z0-9]+([A-Za-z0-9]?)/uc $1/eg;
         $out .= $this->BeginDesc("rdf:li");
 	$out .= $this->BeginElement("ar:$name");
-	$item->{begindate} = MusicBrainz::MakeDisplayDateStr($item->{begindate});
-	$item->{enddate} = MusicBrainz::MakeDisplayDateStr($item->{enddate});
+	$item->{begindate} = MusicBrainz::Server::Validation::MakeDisplayDateStr($item->{begindate});
+	$item->{enddate} = MusicBrainz::Server::Validation::MakeDisplayDateStr($item->{enddate});
 	$out .= $this->Element("ar:beginDate", $item->{begindate}) if ($item->{begindate});
 	$out .= $this->Element("ar:endDate", $item->{enddate}) if ($item->{enddate});
 	if ($item->{type} eq 'url')

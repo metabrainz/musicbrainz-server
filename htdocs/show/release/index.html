@@ -33,9 +33,6 @@
 
 	$discid => undef
 
-	$mbt => $session{'mbt'}
-	$tport => $session{'tport'}
-
 	$addrel => 0
 	$remrel => -1
 	$remtype => ""
@@ -58,11 +55,11 @@
 	# check arguments
 	if ($mbid ne "")
 	{
-		MusicBrainz::IsGUID($mbid)
+		MusicBrainz::Server::Validation::IsGUID($mbid)
 			or return $m->comp("/comp/layout/badarguments",
 				text => "Argument mbid is not a valid MBID");
 	} else {
-		MusicBrainz::IsNonNegInteger($releaseid) && $releaseid
+		MusicBrainz::Server::Validation::IsNonNegInteger($releaseid) && $releaseid
 			or return $m->comp("/comp/layout/badarguments",
 				text => "You need to specify either a valid mbid or a releaseid argument");
 	}

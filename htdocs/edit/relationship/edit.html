@@ -56,7 +56,7 @@
 	# Instantiate MusicBrainz object
 	my $mb = $m->comp("/comp/dblogin");
 
-	if ($type eq "" or !MusicBrainz::IsNonNegInteger($id))
+	if ($type eq "" or !MusicBrainz::Server::Validation::IsNonNegInteger($id))
 	{
 		$m->comp("/comp/layout/badarguments", text => "The id, type parameters must be provided to this page.");
 		return undef;
@@ -173,11 +173,11 @@
 			push @errors, "Please select a relationship type"
 				if ($linktypeid !~ /^\d+$/);
 			push @errors, "Please enter an valid start date"
-				if (!MusicBrainz::IsValidDateOrEmpty($begindate_y, $begindate_m, $begindate_d));
+				if (!MusicBrainz::Server::Validation::IsValidDateOrEmpty($begindate_y, $begindate_m, $begindate_d));
 			push @errors, "Please enter an valid end date"
-				if (!MusicBrainz::IsValidDateOrEmpty($enddate_y, $enddate_m, $enddate_d));
+				if (!MusicBrainz::Server::Validation::IsValidDateOrEmpty($enddate_y, $enddate_m, $enddate_d));
 			push @errors, "The end date needs to be later then the begin date"
-				if (!MusicBrainz::IsDateEarlierThan($begindate_y, $begindate_m, $begindate_d, $enddate_y, $enddate_m, $enddate_d));
+				if (!MusicBrainz::Server::Validation::IsDateEarlierThan($begindate_y, $begindate_m, $begindate_d, $enddate_y, $enddate_m, $enddate_d));
 			push @errors, "Please select a subtype of the currently selected relationship type"
 				if (!$desc && $linktypeid);
 

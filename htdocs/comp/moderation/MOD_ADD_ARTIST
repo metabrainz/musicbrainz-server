@@ -74,8 +74,8 @@
 %		my @misc = ();
 %		push @misc, "Sortname: $sortname" if ($sortname ne $name);
 %		push @misc, "Type: $type_str" if ($type);
-%		push @misc, Artist::GetBeginDateName($type).": ".MusicBrainz::MakeDisplayDateStr($begin) if ($begin);
-%		push @misc, Artist::GetEndDateName($type).": ".MusicBrainz::MakeDisplayDateStr($end) if ($end);
+%		push @misc, Artist::GetBeginDateName($type).": ".MusicBrainz::Server::Validation::MakeDisplayDateStr($begin) if ($begin);
+%		push @misc, Artist::GetEndDateName($type).": ".MusicBrainz::Server::Validation::MakeDisplayDateStr($end) if ($end);
 %		if (@misc)
 %		{
 %			my $list = join "###", @misc;

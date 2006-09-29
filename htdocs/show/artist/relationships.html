@@ -40,7 +40,7 @@
 <%perl>
 
 	# make sure we got a valid artistid parameter
-	(MusicBrainz::IsNonNegInteger($artistid) || MusicBrainz::IsGUID($artistid)) && $artistid
+	(MusicBrainz::Server::Validation::IsNonNegInteger($artistid) || MusicBrainz::Server::Validation::IsGUID($artistid)) && $artistid
 		or return $m->comp("/comp/layout/badarguments",
 			text => "The argument <strong>artistid</strong> is missing or has a wrong format.");
 

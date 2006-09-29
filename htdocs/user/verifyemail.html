@@ -53,12 +53,12 @@
 	else
 	{
 		# make sure we got a valid userid parameter
-		MusicBrainz::IsNonNegInteger($userid) && $userid
+		MusicBrainz::Server::Validation::IsNonNegInteger($userid) && $userid
 			or return $m->comp("/comp/layout/badarguments",
 				text => "The argument <strong>userid</strong> is missing or has a wrong format.");
 
 		# make sure we got a valid time parameter
-		MusicBrainz::IsNonNegInteger($time) && $time
+		MusicBrainz::Server::Validation::IsNonNegInteger($time) && $time
 			or return $m->comp("/comp/layout/badarguments",
 				text => "The argument <strong>time</strong> is missing or has a wrong format.");
 

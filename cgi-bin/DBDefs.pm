@@ -225,8 +225,8 @@ sub AWS_ASSOCIATE_ID
 
 sub AWS_DEVELOPER_ID { "D1TBI5FHXK38IE" }
 
-# Neutered until we have a non-profit company
-sub AWS_USE_ASSOCIATE_IDS { 0 }
+# Always use the ids now
+sub AWS_USE_ASSOCIATE_IDS { 1 }
 
 1;
 # eof DBDefs.pm

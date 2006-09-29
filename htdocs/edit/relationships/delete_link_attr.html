@@ -13,7 +13,7 @@ my $mb = $m->comp("/comp/dblogin");
 
 my $link = MusicBrainz::Server::LinkAttr->new($mb->{DBH});
 
-if (MusicBrainz::IsGUID($id))
+if (MusicBrainz::Server::Validation::IsGUID($id))
 {
 	my $attr = $link->newFromMBId($id);
 	if ($attr)

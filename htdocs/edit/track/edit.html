@@ -59,12 +59,12 @@
 	$trackid ||= $track;
 
 	# make sure we got a valid releaseid parameter
-	MusicBrainz::IsNonNegInteger($releaseid) && $releaseid
+    MusicBrainz::Server::Validation::IsNonNegInteger($releaseid) && $releaseid
 		or return $m->comp("/comp/layout/badarguments",
 			text => "The argument <strong>releaseid</strong> is missing or has a wrong format.");
 
 	# make sure we got a valid trackid parameter
-	MusicBrainz::IsNonNegInteger($trackid)
+    MusicBrainz::Server::Validation::IsNonNegInteger($trackid)
 		or return $m->comp("/comp/layout/badarguments",
 			text => "The argument <strong>trackid</strong> is missing or has a wrong format.");
 
@@ -95,7 +95,7 @@
 	{
 		# check new track sequence
 		if (not $release->IsNonAlbumTracks and
-			MusicBrainz::IsNonNegInteger($newseq))
+			MusicBrainz::Server::Validation::IsNonNegInteger($newseq))
 		{
 			push @errors, "New track number too low (lowest allowed track number is 1)" if ($newseq == 0);
 			push @errors, "New track number too high (highest allowed track number is $last_seq)" if ($newseq > $last_seq);
@@ -103,14 +103,14 @@
 
 		# check new track name
 		push @errors, "Please enter a non-empty track name"
-			if (not MusicBrainz::IsNonEmptyString($newtrackname));
+			if (not MusicBrainz::Server::Validation::IsNonEmptyString($newtrackname));
 		push @errors, "The new track name has an invalid format (newline found)"
-			if (not MusicBrainz::IsSingleLineString($newtrackname));
+			if (not MusicBrainz::Server::Validation::IsSingleLineString($newtrackname));
 
 		# check new track length
 		$newlength = Track::UnformatTrackLength($newlength);
 		push @errors, "The new track length has an invalid format (either ?:?? or a valid length in minutes:seconds is required)"
-			if (not MusicBrainz::IsNonNegInteger($newlength));
+			if (not MusicBrainz::Server::Validation::IsNonNegInteger($newlength));
 
 		# prepare url for redirection back to the release page
 		my $releaseurl = "/release/".$release->GetMBId.".html";

@@ -26,7 +26,7 @@
 package MusicBrainz::Server::Markup;
 
 use strict;
-use MusicBrainz;
+use MusicBrainz::Server::Validation;
 
 # TODO recognise URLs in the parse stage, not in the render stage
 use constant TOKEN_SUMMARY_MARKER => chr(12);
@@ -37,7 +37,7 @@ sub parse
 	my ($class, $text) = @_;
 
 	$text =~ s/(\015\012|\012\015|\012|\015)\1+/\n\n/g;
-	MusicBrainz::TrimInPlace($text);
+	MusicBrainz::Server::Validation::TrimInPlace($text);
 
 	my @paras = split /\n\n+/, $text;
 
@@ -137,7 +137,7 @@ sub as_html
 			next;
 		}
 
-		use MusicBrainz qw( encode_entities );
+		use MusicBrainz::Server::Validation qw( encode_entities );
 		if (m"^( ?)((ftp|http|https)://.*)")
 		{
 			my $sp = $1;
@@ -242,7 +242,7 @@ sub output_tokens
 				? "----"
 				: $_ eq TOKEN_NEW_PARA 
 					? "&#xB6;<br /><br />"
-					: MusicBrainz::encode_entities($_)
+					: MusicBrainz::Server::Validation::encode_entities($_)
 		);
 	}
 

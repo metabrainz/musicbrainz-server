@@ -58,7 +58,7 @@
 		return;
 	}
 
-	MusicBrainz::IsNonNegInteger($artistid) && $artistid
+	MusicBrainz::Server::Validation::IsNonNegInteger($artistid) && $artistid
 		or return $m->comp("/comp/badargs", 0, 1);
 
 	$artistid != &ModDefs::DARTIST_ID

@@ -45,7 +45,7 @@
 		or return;
 
 	# make sure we got a valid releaseid parameter
-	MusicBrainz::IsNonNegInteger($releaseid) && $releaseid
+	MusicBrainz::Server::Validation::IsNonNegInteger($releaseid) && $releaseid
 		or return $m->comp("/comp/layout/badarguments",
 			text => "The argument <strong>releaseid</strong> is missing or has a wrong format.");
 

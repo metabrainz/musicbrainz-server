@@ -54,7 +54,7 @@
 	}
 
 	# if no editid is provided, use 0.
-	MusicBrainz::IsNonNegInteger($editid) and $editid
+	MusicBrainz::Server::Validation::IsNonNegInteger($editid) and $editid
 		or $editid = 0;
 
 	# Instantiate MusicBrainz object

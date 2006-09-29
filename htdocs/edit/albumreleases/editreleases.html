@@ -53,9 +53,9 @@
 	# we do not handle.
 	while (my ($k, $v) = each %ARGS)
 	{
-		MusicBrainz::TrimInPlace($v);
+		MusicBrainz::Server::Validation::TrimInPlace($v);
 		delete $ARGS{$k}, next
-			unless MusicBrainz::IsNonNegInteger($v)
+			unless MusicBrainz::Server::Validation::IsNonNegInteger($v)
 			and not $k eq "releaseid"; # ignore releaseid argument
 		$ARGS{$k} = $v;
 	}
@@ -77,7 +77,7 @@
 			my $v = $ARGS{$_.$rel->{id}};
 			$v = "" if not defined $v;
 			$v = "X" if $v ne ""
-				and not MusicBrainz::IsNonNegInteger($v);
+				and not MusicBrainz::Server::Validation::IsNonNegInteger($v);
 			$v;
 		} qw( y m d country );
 

@@ -62,7 +62,7 @@
 	my %artisthash;
 	foreach my $releaseid (@id)
 	{
-		MusicBrainz::IsNonNegInteger($releaseid) && $releaseid
+		MusicBrainz::Server::Validation::IsNonNegInteger($releaseid) && $releaseid
 			or return $m->comp("/comp/badargs", 1, 1);
 
 		my $release = $m->comp("/comp/loadrelease", $mb, $releaseid);
@@ -80,8 +80,8 @@
 	# we got a a form submission
 	if ($submitvalue ne "")
 	{
-		push @errors, "Please select the language of the selected releases." if (!MusicBrainz::IsNonNegInteger($language_new));
-		push @errors, "Please select the script of the selected releases." if (!MusicBrainz::IsNonNegInteger($script_new));
+		push @errors, "Please select the language of the selected releases." if (!MusicBrainz::Server::Validation::IsNonNegInteger($language_new));
+		push @errors, "Please select the script of the selected releases." if (!MusicBrainz::Server::Validation::IsNonNegInteger($script_new));
 
 		if ($submitvalue =~ /Show (reduced|full) lists/i)
 		{
@@ -106,8 +106,8 @@
 			$m->comp("/comp/redirect", $url);
 		}
 		elsif ($submitvalue =~ /Enter Edit/i
-				and MusicBrainz::IsNonNegInteger($language_new)
-				and MusicBrainz::IsNonNegInteger($script_new))
+				and MusicBrainz::Server::Validation::IsNonNegInteger($language_new)
+				and MusicBrainz::Server::Validation::IsNonNegInteger($script_new))
 		{
 			# prepare url for enter mods redirct:
 			# * only one release, redirect to the release

@@ -40,7 +40,7 @@
 <%perl>
 
 	# make sure we got a valid id parameter
-	MusicBrainz::IsNonNegInteger($urlid) && $urlid
+	MusicBrainz::Server::Validation::IsNonNegInteger($urlid) && $urlid
 		or return $m->comp("/comp/layout/badarguments",
 			text => "The argument <strong>urlid</strong> is missing or has a wrong format.");
 

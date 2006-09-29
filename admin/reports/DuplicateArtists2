@@ -91,7 +91,7 @@ sub GatherData
 			$artist->{id} = $ar->GetId;
 			$artist->{num_albums} = $num_albums;
 			$artist->{num_tracks} = $num_tracks;
-			$artist->{sort_name} = MusicBrainz::NormaliseSortText($ar->GetSortName);
+			$artist->{sort_name} = MusicBrainz::Server::Validation::NormaliseSortText($ar->GetSortName);
 
 			push @entry, $artist;
 		}

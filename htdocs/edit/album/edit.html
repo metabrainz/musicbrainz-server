@@ -50,7 +50,7 @@
 	$m->comp("/comp/user/check-volatile-preferences", %ARGS);
 
 	# make sure we got a valid releaseid parameter
-	MusicBrainz::IsNonNegInteger($releaseid) && $releaseid
+	MusicBrainz::Server::Validation::IsNonNegInteger($releaseid) && $releaseid
 		or return $m->comp("/comp/layout/badarguments",
 			text => "The argument <strong>releaseid</strong> is missing or has a wrong format.");
 
@@ -72,7 +72,7 @@
 		{
 			return $m->comp("/comp/redirect", $url);
 		}
-		elsif (!MusicBrainz::IsSingleLineString($newreleasename))
+		elsif (!MusicBrainz::Server::Validation::IsSingleLineString($newreleasename))
 		{
 			$warning = "The release title has an invalid format.";
 		}

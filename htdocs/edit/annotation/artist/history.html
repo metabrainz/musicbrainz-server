@@ -57,7 +57,7 @@
 	}
 
 	# redirect to edits listing of this annotation object.
-	MusicBrainz::IsNonNegInteger($artistid) && $artistid
+	MusicBrainz::Server::Validation::IsNonNegInteger($artistid) && $artistid
 		or return $m->comp("/comp/layout/badarguments", text => "The artistid argument is invalid.");
 
 	# Instantiate MusicBrainz object, and load the artist object

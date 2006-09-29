@@ -35,7 +35,7 @@
 
 	# added forward slash "/", since we'd like to be able to transclude
 	# subpages, too. --Keschte
-	MusicBrainz::IsSingleLineString($id) and $id =~ /\A[\w\/]+\z/
+	MusicBrainz::Server::Validation::IsSingleLineString($id) and $id =~ /\A[\w\/]+\z/
 		or return $m->comp("/comp/badargs", 1, 1);
 
 	# Instantiate MusicBrainz object, and load the

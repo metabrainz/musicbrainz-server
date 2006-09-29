@@ -115,19 +115,19 @@
 		{
 			# Do not validate if all fields are blank, or the
 			# fields are blank and the release country is set to the default one.
-			MusicBrainz::TrimInPlace($rev_year, $rev_month, $rev_day, $rev_country);
+			MusicBrainz::Server::Validation::TrimInPlace($rev_year, $rev_month, $rev_day, $rev_country);
 			if (!($rev_year eq "" and $rev_month eq "" and $rev_day eq "" and
 				 ($rev_country eq "" or $rev_country eq UserPreference::get("default_country"))))
 			{
 				# we insist on a valid country
-				MusicBrainz::IsNonNegInteger($rev_country)
+				MusicBrainz::Server::Validation::IsNonNegInteger($rev_country)
 					or return $m->comp("/comp/error",
 						"Error: invalid release country",
 						0, 1,
 					);
 
 				# we insist on a valid date
-				my @ymd = MusicBrainz::IsValidDate($rev_year, $rev_month, $rev_day)
+				my @ymd = MusicBrainz::Server::Validation::IsValidDate($rev_year, $rev_month, $rev_day)
 					or return $m->comp("/comp/error",
 						"Error: invalid release date",
 						0, 1,
@@ -151,7 +151,7 @@
 		my $rev_id = $orig{"rev_id-$j"};
 
 		# flag a bad date if the validation returns false
-		my @ymd = MusicBrainz::IsValidDate($rev_year, $rev_month, $rev_day)
+		my @ymd = MusicBrainz::Server::Validation::IsValidDate($rev_year, $rev_month, $rev_day)
 			or next;
 
 		my $rev = MusicBrainz::Server::Release->new($mb->{DBH});
@@ -168,7 +168,7 @@
 
 		# old value is empty, and new value is not empty.
 		# we've got an added release event
-		if (!MusicBrainz::IsNonNegInteger($newrev->GetId))
+		if (!MusicBrainz::Server::Validation::IsNonNegInteger($newrev->GetId))
 		{
 			push @adds, $newrev;
 			next;
@@ -315,9 +315,9 @@
 				# track-artist mods
 				my $movetracks = 0;
 
-				(MusicBrainz::IsNonNegInteger($orig_artistid) or $orig_artistid eq "*")
+				(MusicBrainz::Server::Validation::IsNonNegInteger($orig_artistid) or $orig_artistid eq "*")
 					or die("need non-negative integer or * \$orig_artistid=$orig_artistid");
-				(MusicBrainz::IsNonNegInteger($new_artistid) or $new_artistid eq "*")
+				(MusicBrainz::Server::Validation::IsNonNegInteger($new_artistid) or $new_artistid eq "*")
 					or die("need non-negative integer or * \$new_artistid=$new_artistid");
 
 				if ($orig_artistid ne $new_artistid)
@@ -528,13 +528,13 @@
 					my $orig_artistid = $orig{getField($t, "artistid")};
 					my $orig_artist = &$GetCachedArtist($orig_artistid),
 
-					(MusicBrainz::IsNonNegInteger($orig_id))
+					(MusicBrainz::Server::Validation::IsNonNegInteger($orig_id))
 						or die("need non-negative integer \$orig_id=$orig_id");
-					(MusicBrainz::IsNonNegInteger($orig_seq))
+					(MusicBrainz::Server::Validation::IsNonNegInteger($orig_seq))
 						or die("need non-negative integer \$orig_seq=$orig_seq");
 					(defined $orig_track and $orig_track ne "")
 						or die("need non-empty string \$orig_track=$orig_track");
-					(MusicBrainz::IsNonNegInteger($orig_artistid) or $orig_artistid eq "*")
+					(MusicBrainz::Server::Validation::IsNonNegInteger($orig_artistid) or $orig_artistid eq "*")
 						or die("need non-negative integer or * \$orig_artistid=$orig_artistid");
 
 					# get new values
@@ -565,13 +565,13 @@
 						next;
 					}
 
-					(MusicBrainz::IsNonNegInteger($new_id))
+					(MusicBrainz::Server::Validation::IsNonNegInteger($new_id))
 						or die("need non-negative integer \$new_id=$new_id");
-					(MusicBrainz::IsNonNegInteger($new_seq))
+					(MusicBrainz::Server::Validation::IsNonNegInteger($new_seq))
 						or die("need non-negative integer \$new_seq=$new_seq");
 					(defined $new_track and $new_track ne "")
 						or die("need non-empty string \$new_track=$new_track");
-					(MusicBrainz::IsNonNegInteger($new_artistid) or $new_artistid eq "*")
+					(MusicBrainz::Server::Validation::IsNonNegInteger($new_artistid) or $new_artistid eq "*")
 						or die("need non-negative integer or * \$new_artistid=$new_artistid");
 
 					#if ($orig_id ne $new_id)

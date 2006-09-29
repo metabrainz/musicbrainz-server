@@ -39,7 +39,7 @@
 		or return;
 
 	# parameter new is required.
-	MusicBrainz::IsNonNegInteger($new) && $new
+	MusicBrainz::Server::Validation::IsNonNegInteger($new) && $new
 		or return $m->comp("/comp/layout/badarguments", "parameter new is invalid.");
 
 	# Instantiate MusicBrainz object

@@ -233,7 +233,7 @@
 	$voter_type = 0
 		unless $voter_type =~ /^[01]$/;
 
-	if (MusicBrainz::IsNonNegInteger($voter_id) and $voter_id)
+	if (MusicBrainz::Server::Validation::IsNonNegInteger($voter_id) and $voter_id)
 	{
 		# Validate id and get name
 		my $user = UserStuff->new($dbh);
@@ -343,7 +343,7 @@
 	$moderator_type = 0
 		unless $moderator_type =~ /^[0123456]$/;
 
-	if (MusicBrainz::IsNonNegInteger($moderator_id) and $moderator_id)
+	if (MusicBrainz::Server::Validation::IsNonNegInteger($moderator_id) and $moderator_id)
 	{
 		# Validate id and get name
 		my $user = UserStuff->new($dbh);
@@ -389,7 +389,7 @@
 	$artist_type = 0
 		unless $artist_type =~ /^[012345]$/;
 
-	if (MusicBrainz::IsNonNegInteger($artist_id) and $artist_id)
+	if (MusicBrainz::Server::Validation::IsNonNegInteger($artist_id) and $artist_id)
 	{
 		# Validate id and get name
 		my $ar = Artist->new($dbh);
@@ -433,7 +433,7 @@
 	# object_type / object_id
 	################################################################################
 
-	if ($object_type =~ /^(album|track)$/ and MusicBrainz::IsNonNegInteger($object_id) and $object_id)
+	if ($object_type =~ /^(album|track)$/ and MusicBrainz::Server::Validation::IsNonNegInteger($object_id) and $object_id)
 	{
 		my $l = lc $object_type;
 		my $uf = ucfirst $l;
@@ -484,14 +484,14 @@
 	) {
 		my ($ref, $key) = @$t;
 
-		MusicBrainz::TrimInPlace($$ref);
+		MusicBrainz::Server::Validation::TrimInPlace($$ref);
 		if ($$ref eq "")
 		{
 			$filter{$key} = undef;
 			next;
 		}
 
-		if (MusicBrainz::IsNonNegInteger($$ref))
+		if (MusicBrainz::Server::Validation::IsNonNegInteger($$ref))
 		{
 			$filter{$key} = $$ref;
 			next;

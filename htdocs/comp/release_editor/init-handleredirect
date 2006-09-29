@@ -60,7 +60,7 @@
 	# to the release page, else to the homepage.
 	if ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_CANCEL"})
 	{
-		my $url = (MusicBrainz::IsNonNegInteger($releaseid) && $releaseid
+		my $url = (MusicBrainz::Server::Validation::IsNonNegInteger($releaseid) && $releaseid
 			? "/show/release/?releaseid=".$ARGS{"releaseid"}
 			: "/index.html"
 		);
@@ -73,7 +73,7 @@
 	# to the release page, else to the homepage.
 	if ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_STARTOVER"})
 	{
-		if (MusicBrainz::IsNonNegInteger($releaseid) && $releaseid)
+		if (MusicBrainz::Server::Validation::IsNonNegInteger($releaseid) && $releaseid)
 		{
 			return $m->comp("/comp/redirect", "/edit/album/editall.html?releaseid=".$releaseid);
 		}
@@ -111,7 +111,7 @@
 
 		# prepare, and escape returnurl. artistfilter_newartistid will reference the
 		# artistid being added in the ADD ARTIST editor.
-		my $returnurl = MusicBrainz::IsNonNegInteger($releaseid) && $releaseid
+		my $returnurl = MusicBrainz::Server::Validation::IsNonNegInteger($releaseid) && $releaseid
 			? "/edit/album/editall.html?"
 			: "/cdi/enter.html?";
 

@@ -55,7 +55,7 @@ sub GetTextAsHTML
 sub mark_up_text_as_html
 {
 	my $text = shift;
-	use MusicBrainz qw( encode_entities );
+	use MusicBrainz::Server::Validation qw( encode_entities );
 
 	$text =~ s/(\015\012|\012\015|\012|\015)\1+/\n\n/g;
 
@@ -63,6 +63,8 @@ sub mark_up_text_as_html
 	my $server = &DBDefs::WEB_SERVER;
 	
 	my $html = join "", map {
+
+        print STDERR "URL: $_\n";
 	
 		# shorten url's that are longer 50 characters
 		my $encurl = encode_entities($_);

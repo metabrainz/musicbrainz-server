@@ -58,7 +58,7 @@
 	my $mbid = $release->GetMBId;
 	my $name = $release->GetName;
 	my $nonalbum = $release->IsNonAlbumTracks;
-	my $exists = MusicBrainz::IsNonNegInteger($release->GetId) && $release->GetId;
+	my $exists = MusicBrainz::Server::Validation::IsNonNegInteger($release->GetId) && $release->GetId;
 
 </%perl>
 

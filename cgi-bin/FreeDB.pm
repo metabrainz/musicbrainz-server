@@ -146,7 +146,7 @@ sub _Retrieve_no_cache
     lprint "freedb", "<< $line";
 
     @response = split ' ', $line;
-    if (!MusicBrainz::IsNonNegInteger($response[0]) || $response[0] < 200 || $response[0] > 299)
+    if (!MusicBrainz::Server::Validation::IsNonNegInteger($response[0]) || $response[0] < 200 || $response[0] > 299)
     {
         lprint "freedb", "FreeDB $remote:$port does not want to talk to us: $line";
         close $sock;

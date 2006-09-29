@@ -44,17 +44,17 @@
 		or return;
 
 	# make sure we got a valid toc parameter
-	MusicBrainz::IsSingleLineString($toc) && $toc ne ""
+	MusicBrainz::Server::Validation::IsSingleLineString($toc) && $toc ne ""
 		or return $m->comp("/comp/layout/badarguments",
 			text => "The argument <strong>toc</strong> is missing or has a wrong format.");
 
 	# make sure we got a valid releaseid parameter
-	MusicBrainz::IsSingleLineString($discid) && $discid ne ""
+	MusicBrainz::Server::Validation::IsSingleLineString($discid) && $discid ne ""
 		or return $m->comp("/comp/layout/badarguments",
 			text => "The argument <strong>discid</strong> is missing or has a wrong format.");
 
 	# make sure we got a valid tracks parameter
-	MusicBrainz::IsNonNegInteger($tracks) && $tracks
+	MusicBrainz::Server::Validation::IsNonNegInteger($tracks) && $tracks
 		or return $m->comp("/comp/layout/badarguments",
 			text => "The argument <strong>tracks</strong> is missing or has a wrong format.");
 

@@ -40,7 +40,7 @@
 <%perl>
 
 	# make sure we got a valid trackid parameter
-    (MusicBrainz::IsNonNegInteger($trackid) || MusicBrainz::IsGUID($trackid)) && $trackid
+    (MusicBrainz::Server::Validation::IsNonNegInteger($trackid) || MusicBrainz::Server::Validation::IsGUID($trackid)) && $trackid
 		or return $m->comp("/comp/layout/badarguments",
 			text => "The argument <strong>trackid</strong> is missing or has a wrong format.");
 

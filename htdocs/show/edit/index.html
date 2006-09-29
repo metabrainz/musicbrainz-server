@@ -38,7 +38,7 @@
 		or return;
 
 	# accept a non-negative editid, or else 0,
-	MusicBrainz::IsNonNegInteger($editid) && $editid
+	MusicBrainz::Server::Validation::IsNonNegInteger($editid) && $editid
 		or $editid = 0;
 
 	# Instantiate MusicBrainz object, and load edit from its editid

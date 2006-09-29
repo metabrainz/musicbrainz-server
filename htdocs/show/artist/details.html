@@ -34,7 +34,7 @@
 <%perl>
 
 	# Check argument
-	MusicBrainz::IsNonNegInteger($artistid) && $artistid
+	MusicBrainz::Server::Validation::IsNonNegInteger($artistid) && $artistid
 		or return $m->comp("/comp/layout/badarguments", text => "Argument artistid is required");
 
 	# Instantiate MusicBrainz object, and load artist

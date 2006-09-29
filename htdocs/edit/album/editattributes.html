@@ -31,7 +31,7 @@
 	my %artisthash;
 	for my $releaseid (@id)
 	{
-		MusicBrainz::IsNonNegInteger($releaseid) && $releaseid
+		MusicBrainz::Server::Validation::IsNonNegInteger($releaseid) && $releaseid
 			or return $m->comp("/comp/badargs", 1, 1);
 
 		my $release = $m->comp("/comp/loadrelease", $mb, $releaseid);

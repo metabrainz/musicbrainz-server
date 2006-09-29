@@ -58,7 +58,7 @@
 	$m->comp("/comp/checkloggedin", 1, 1)
 		or return;
 
-	MusicBrainz::IsNonNegInteger($artistid) && $artistid
+	MusicBrainz::Server::Validation::IsNonNegInteger($artistid) && $artistid
 		or return $m->comp("/comp/layout/badarguments",
 			text => "Argument artistid has an invalid format.");
 
@@ -66,15 +66,15 @@
 		or return $m->comp("/comp/layout/badarguments",
 			text => "Editing the DELETED_ARTIST or VARIOUS_ARTISTS is not allowed.");
 
-	MusicBrainz::IsSingleLineString($name)
+	MusicBrainz::Server::Validation::IsSingleLineString($name)
 		or return $m->comp("/comp/layout/badarguments",
 			text => "Argument name has an invalid format.");
 
-	MusicBrainz::IsSingleLineString($sortname)
+	MusicBrainz::Server::Validation::IsSingleLineString($sortname)
 		or return $m->comp("/comp/layout/badarguments",
 			text => "Argument sortname has an invalid format.");
 
-	MusicBrainz::IsSingleLineString($resolution)
+	MusicBrainz::Server::Validation::IsSingleLineString($resolution)
 		or return $m->comp("/comp/layout/badarguments",
 			text => "Argument resolution has an invalid format.");
 
@@ -127,17 +127,17 @@
 		else
 		{
 
-			MusicBrainz::TrimInPlace($resolution, $name, $sortname);
+			MusicBrainz::Server::Validation::TrimInPlace($resolution, $name, $sortname);
 
 			push @messages, "Please Select a valid type." if (not Artist::IsValidType($type));
 			push @messages, "Please Enter the Name." if ($name eq "");
 			push @messages, "Please Enter the Sort Name." if ($sortname eq "");
 			push @messages, "Begin Date has to be either valid or empty"
-				if (not MusicBrainz::IsValidDateOrEmpty($begindate_y, $begindate_m, $begindate_d));
+				if (not MusicBrainz::Server::Validation::IsValidDateOrEmpty($begindate_y, $begindate_m, $begindate_d));
 			push @messages, "Begin Date has to be either valid or empty"
-				if (not MusicBrainz::IsValidDateOrEmpty($enddate_y, $enddate_m, $enddate_d));
+				if (not MusicBrainz::Server::Validation::IsValidDateOrEmpty($enddate_y, $enddate_m, $enddate_d));
 			push @messages, "Begin Date has to be earlier than End Date"
-				if (not MusicBrainz::IsDateEarlierThan($begindate_y, $begindate_m, $begindate_d,
+				if (not MusicBrainz::Server::Validation::IsDateEarlierThan($begindate_y, $begindate_m, $begindate_d,
 													   $enddate_y, $enddate_m, $enddate_d));
 			push @messages, "Please enter a comment and activate the confirm checkbox"
 				if (@dupes and ($resolution eq "" or not $confirm));
@@ -147,8 +147,8 @@
 					$sortname eq $artist->GetSortName and
 					$resolution eq $artist->GetResolution and
 					$type == $artist->GetType and
-					MusicBrainz::MakeDBDateStr($begindate_y, $begindate_m, $begindate_d) eq $artist->GetBeginDate and
-					MusicBrainz::MakeDBDateStr($enddate_y, $enddate_m, $enddate_d) eq $artist->GetEndDate);
+					MusicBrainz::Server::Validation::MakeDBDateStr($begindate_y, $begindate_m, $begindate_d) eq $artist->GetBeginDate and
+					MusicBrainz::Server::Validation::MakeDBDateStr($enddate_y, $enddate_m, $enddate_d) eq $artist->GetEndDate);
 
 			# no error message was raised, we can go ahead and add
 			# the new artist entry.

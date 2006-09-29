@@ -42,7 +42,7 @@
 	{
 		$error = "Parameter <strong>mb</strong> of type MusicBrainz is required";
 	}
-	if (not defined $id or not MusicBrainz::IsNonEmptyString($id))
+	if (not defined $id or not MusicBrainz::Server::Validation::IsNonEmptyString($id))
 	{
 		$error = "Parameter <strong>id</strong> of type String (mbid/TrackID) is required";
 	}
@@ -53,8 +53,8 @@
 		my ($trackid, $mbid) = ("", "");
 
 		# if the $id parameter is a GUID
-		$mbid = $id if (MusicBrainz::IsGUID($id));
-		$trackid = $id if (MusicBrainz::IsNonNegInteger($id) && $id);
+		$mbid = $id if (MusicBrainz::Server::Validation::IsGUID($id));
+		$trackid = $id if (MusicBrainz::Server::Validation::IsNonNegInteger($id) && $id);
 
 		# if the $id parameter is a GUID
 		my $track = Track->new($mb->{DBH});

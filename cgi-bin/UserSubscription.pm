@@ -82,7 +82,7 @@ sub GetSubscribedArtists
 		sort { $a->[1] cmp $b->[1] }
 		map {
 			my $row = $_;
-			my $name = MusicBrainz::NormaliseSortText($row->{'sortname'});
+			my $name = MusicBrainz::Server::Validation::NormaliseSortText($row->{'sortname'});
 			[ $row, $name ];
 		} @$rows;
 

@@ -43,10 +43,10 @@
 
 	# check if a valid mbid/releaseid was given.
 	if ($mbid ne "") {
-		MusicBrainz::IsGUID($mbid)
+		MusicBrainz::Server::Validation::IsGUID($mbid)
 			or return $m->comp("/comp/badargs", 1, 1);
 	} else {
-		MusicBrainz::IsNonNegInteger($releaseid) && $releaseid
+		MusicBrainz::Server::Validation::IsNonNegInteger($releaseid) && $releaseid
 			or return $m->comp("/comp/badargs", 1, 1);
 	}
 
@@ -85,9 +85,9 @@
 	# ---------------------------------------------------------------
 	if ($ARGS{"v::formsubmitted"})
 	{
-		MusicBrainz::IsNonNegInteger($ARGS{"hasmultipletrackartists"})
+		MusicBrainz::Server::Validation::IsNonNegInteger($ARGS{"hasmultipletrackartists"})
 			or die("missing or wrong parameter: \$hasmultipletrackartists=$ARGS{'hasmultipletrackartists'}\n");
-		MusicBrainz::IsNonNegInteger($ARGS{"tracks"})
+		MusicBrainz::Server::Validation::IsNonNegInteger($ARGS{"tracks"})
 			or die("missing or wrong parameter: \$tracks=$ARGS{'tracks'}\n");
 
 		# we always need to check the releases, because else we don't know how

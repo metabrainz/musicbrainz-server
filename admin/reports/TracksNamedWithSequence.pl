@@ -89,7 +89,7 @@ sub GatherData
 
 			$albums->{$albumid}{ID} = $albumid;
 			$albums->{$albumid}{NAME} = $al->GetName;
-			$albums->{$albumid}{_sort_} = MusicBrainz::NormaliseSortText($al->GetName);
+			$albums->{$albumid}{_sort_} = MusicBrainz::Server::Validation::NormaliseSortText($al->GetName);
 		}
 
 		# Remove the artists if we've removed all their albums
@@ -101,7 +101,7 @@ sub GatherData
 
 		$artists->{$artistid}{ID} = $artistid;
 		$artists->{$artistid}{NAME} = $ar->GetName;
-		$artists->{$artistid}{_sort_} = MusicBrainz::NormaliseSortText($ar->GetSortName);
+		$artists->{$artistid}{_sort_} = MusicBrainz::Server::Validation::NormaliseSortText($ar->GetSortName);
 	}
 
 	$self->Log("Saving results");

@@ -40,7 +40,7 @@
 
 	my $recent_links = ($session{recent_links} ||= []);
 	if (MusicBrainz::Server::LinkEntity->IsValidType($type)
-		and MusicBrainz::IsNonNegInteger($id)
+		and MusicBrainz::Server::Validation::IsNonNegInteger($id)
 		and $id)
 	{
 		# Remove ($type, $id) from the list of recently linked things

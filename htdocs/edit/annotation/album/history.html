@@ -58,7 +58,7 @@
 	}
 
 	# redirect to edits listing of this annotation object.
-	MusicBrainz::IsNonNegInteger($albumid) && $albumid
+	MusicBrainz::Server::Validation::IsNonNegInteger($albumid) && $albumid
 		or return $m->comp("/comp/layout/badarguments", "The albumid argument is invalid.");
 
 	# Instantiate MusicBrainz object

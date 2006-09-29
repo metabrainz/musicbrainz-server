@@ -61,7 +61,7 @@
 			;
 	} . "\n";
 
-	eval { MusicBrainz::SimpleLog("/tmp/amazon-click.log", $message) };
+	eval { MusicBrainz::Server::Validation::SimpleLog("/tmp/amazon-click.log", $message) };
 
 </%perl>
 

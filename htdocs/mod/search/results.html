@@ -39,10 +39,10 @@
 		or return;
 
 	not defined $offset
-		or MusicBrainz::IsNonNegInteger($offset)
+		or MusicBrainz::Server::Validation::IsNonNegInteger($offset)
 		or return $m->comp("/comp/badargs", 1, 1);
 	not defined $page
-		or MusicBrainz::IsNonNegInteger($page)
+		or MusicBrainz::Server::Validation::IsNonNegInteger($page)
 		or return $m->comp("/comp/badargs", 1, 1);
 
 	my ($query, $voter_id, $filter, $errors) = $m->comp("setquery.inc", %ARGS);

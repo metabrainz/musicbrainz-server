@@ -46,8 +46,8 @@ sub PreInsert
 	my $newattrs = $opts{'newattributes'};
 	my $oldattrs = $opts{'oldattributes'};
 
-	my $begindate = &MusicBrainz::MakeDisplayDateStr(join('-', $opts{'begindate'}->[0], $opts{'begindate'}->[1], $opts{'begindate'}->[2]));
-	my $enddate = &MusicBrainz::MakeDisplayDateStr(join('-', $opts{'enddate'}->[0], $opts{'enddate'}->[1], $opts{'enddate'}->[2]));
+	my $begindate = &MusicBrainz::Server::Validation::MakeDisplayDateStr(join('-', $opts{'begindate'}->[0], $opts{'begindate'}->[1], $opts{'begindate'}->[2]));
+	my $enddate = &MusicBrainz::Server::Validation::MakeDisplayDateStr(join('-', $opts{'enddate'}->[0], $opts{'enddate'}->[1], $opts{'enddate'}->[2]));
 
 	my $oldlinkphrase = $oldlinktype->{linkphrase};
 	my $newlinkphrase = $newlinktype->{linkphrase};

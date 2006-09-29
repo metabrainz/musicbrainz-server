@@ -73,7 +73,7 @@
 
 	if (defined $begin)
 	{
-		$begin = MusicBrainz::MakeDisplayDateStr($begin);
+		$begin = MusicBrainz::Server::Validation::MakeDisplayDateStr($begin);
 		my $datestr = $m->interp->apply_escapes(Artist::GetBeginDateName($type), "h");
 		$datestr =~ s/ /&nbsp;/g;
 
@@ -84,7 +84,7 @@
 
 	if (defined $end)
 	{
-		$begin = MusicBrainz::MakeDisplayDateStr($end);
+		$begin = MusicBrainz::Server::Validation::MakeDisplayDateStr($end);
 		my $datestr = $m->interp->apply_escapes(Artist::GetEndDateName($type), "h");
 		$datestr =~ s/ /&nbsp;/g;
 
@@ -203,11 +203,11 @@
 
 	if ($prev->{"BeginDate"} ne $new->{"BeginDate"})
 	{
-		my $prevbegin = MusicBrainz::MakeDisplayDateStr($prev->{'BeginDate'});
+		my $prevbegin = MusicBrainz::Server::Validation::MakeDisplayDateStr($prev->{'BeginDate'});
 		$prevbegin = "?" if ($prevbegin eq "");
 
 		my $newbegin = $new->{"BeginDate"};
-		$newbegin = $newbegin ? MusicBrainz::MakeDisplayDateStr($newbegin) : "?";
+		$newbegin = $newbegin ? MusicBrainz::Server::Validation::MakeDisplayDateStr($newbegin) : "?";
 
 </%perl>
 
@@ -229,11 +229,11 @@
 
 	if ($prev->{"EndDate"} ne $new->{"EndDate"})
 	{
-		my $prevend = MusicBrainz::MakeDisplayDateStr($prev->{'EndDate'});
+		my $prevend = MusicBrainz::Server::Validation::MakeDisplayDateStr($prev->{'EndDate'});
 		$prevend = "?" if ($prevend eq "");
 
 		my $newend = $new->{"EndDate"};
-		$newend = $newend ? MusicBrainz::MakeDisplayDateStr($newend) : "?";
+		$newend = $newend ? MusicBrainz::Server::Validation::MakeDisplayDateStr($newend) : "?";
 
 </%perl>
 

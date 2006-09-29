@@ -559,7 +559,6 @@ sub GetColumnRange
 package Sql::Timer;
 
 use Time::HiRes qw( gettimeofday tv_interval );
-use MusicBrainz::Server::LogFile qw( lprint lprintf );
 
 sub new
 {
@@ -599,7 +598,11 @@ sub DESTROY
 		my @c = caller($i)
 			or return warn $msg;
 		++$i, redo if $c[0] =~ /^Sql($|::Timer$)/;
-		return lprint "sql", "$msg at $c[1] line $c[2]\n";
+        # RUAOK: This used to be output with LogFile, but that forced the inclusion of 
+        # the Apache per modules wich is a bit much for installing a DB only server
+        # Besides, now postgres has better query tuning support than this function. :-)
+		print STDERR "sql: $msg at $c[1] line $c[2]\n";
+        return;
 	}
 }
 

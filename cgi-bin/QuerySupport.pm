@@ -32,7 +32,7 @@ use constant TRM_SIGSERVER_BUSY          => "c457a4a8-b342-4ec9-8f13-b6bd26c0e40
 
 use Album; # for constants
 use DBDefs;
-use MusicBrainz;
+use MusicBrainz::Server::Validation;
 use MusicBrainz::Server::LogFile qw( lprint lprintf );
 use MusicBrainz::Server::Replication ':replication_type';
 use TaggerSupport; # for constants
@@ -184,14 +184,14 @@ sub FindDistinctTRM
 {
     my ($dbh, $parser, $rdf, $name, $artist) = @_;
 
-    MusicBrainz::TrimInPlace($name) if defined $name;
+    MusicBrainz::Server::Validation::TrimInPlace($name) if defined $name;
     if (not defined $name or $name eq "")
     {
 	carp "Missing name in FindDistinctTRM";
 	return $rdf->ErrorRDF("No name or artist search criteria given.");
     }
 
-    MusicBrainz::TrimInPlace($artist) if defined $artist;
+    MusicBrainz::Server::Validation::TrimInPlace($artist) if defined $artist;
     if (not defined $artist or $artist eq "")
     {
 	carp "Missing artist in FindDistinctTRM";
@@ -511,7 +511,7 @@ sub SubmitTRMList
        {
 	   next;
        }
-       if (!MusicBrainz::IsGUID($trmid) || !MusicBrainz::IsGUID($trackid))
+       if (!MusicBrainz::Server::Validation::IsGUID($trmid) || !MusicBrainz::Server::Validation::IsGUID($trackid))
        {
            # print STDERR "Invalid track/trm combination:\n";
            # print STDERR "trackid: $trackid\n";
@@ -608,7 +608,7 @@ sub SubmitTRMFeedback
        {
 	   next;
        }
-       if (!MusicBrainz::IsGUID($trmid) || !MusicBrainz::IsGUID($trackid))
+       if (!MusicBrainz::Server::Validation::IsGUID($trmid) || !MusicBrainz::Server::Validation::IsGUID($trackid))
        {
            # print STDERR "Invalid track/trm combination:\n";
            # print STDERR "trackid: $trackid\n";

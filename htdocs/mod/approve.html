@@ -45,7 +45,7 @@
 		or return;
 
 	# check if we got a bad editid argument
-	MusicBrainz::IsNonNegInteger($editid) && $editid
+	MusicBrainz::Server::Validation::IsNonNegInteger($editid) && $editid
 		or return $m->comp("/comp/layout/badarguments",
 			text => "The argument <strong>editid</strong is either missing or invalid.");
 
@@ -108,7 +108,7 @@
 		}
 		else
 		{
-			MusicBrainz::TrimInPlace($notetext);
+			MusicBrainz::Server::Validation::TrimInPlace($notetext);
 
 			# Approve the edit
 			if ($optionalNote or $notetext ne "")

@@ -92,7 +92,7 @@
 	}
 
 	# if the track has a rowid, show track name as link, else text-only.
-	if (MusicBrainz::IsNonNegInteger($track->GetId) && $track->GetId)
+	if (MusicBrainz::Server::Validation::IsNonNegInteger($track->GetId) && $track->GetId)
 	{
 		$m->out(sprintf qq!<a href="/track/%s.html" title="">%s</a>!,
 						$track->GetMBId,
@@ -127,7 +127,7 @@
 	{
 		$m->out(qq!<td class="artist">!);
 
-		if (MusicBrainz::IsNonNegInteger($track->GetArtist) && $track->GetArtist)
+		if (MusicBrainz::Server::Validation::IsNonNegInteger($track->GetArtist) && $track->GetArtist)
 		{
 			my $artist = $m->comp("/comp/loadartist", $mb, $track->GetArtist);
 	       	$m->comp("/comp/linkartist", artist => $artist, strong => 0, icon => 0);

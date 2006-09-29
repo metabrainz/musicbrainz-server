@@ -30,7 +30,7 @@ use TableBase;
 
 use strict;
 use DBDefs;
-use MusicBrainz;
+use MusicBrainz::Server::Validation;
 use Apache;
 use URI::Escape qw( uri_escape );
 use CGI::Cookie;
@@ -371,7 +371,7 @@ sub GetUserPasswordAndId
 {
 	my ($this, $username) = @_;
 
-    MusicBrainz::TrimInPlace($username) if defined $username;
+    MusicBrainz::Server::Validation::TrimInPlace($username) if defined $username;
     if (not defined $username or $username eq "")
     {
 		carp "Missing username in GetUserPasswordAndId";
@@ -529,16 +529,16 @@ sub ChangePassword
 	my ($self, $oldpassword, $newpass1, $newpass2) = @_;
 	my (@messages);
 
-	if (!MusicBrainz::IsNonEmptyString($oldpassword) or
-		!MusicBrainz::IsNonEmptyString($newpass1) or
-		!MusicBrainz::IsNonEmptyString($newpass2))
+	if (!MusicBrainz::Server::Validation::IsNonEmptyString($oldpassword) or
+		!MusicBrainz::Server::Validation::IsNonEmptyString($newpass1) or
+		!MusicBrainz::Server::Validation::IsNonEmptyString($newpass2))
 		
 	{
 		push @messages, "Please fill-in Old password, New password, and Verify Password.";
 	}
 	else
 	{
-		MusicBrainz::TrimInPlace($oldpassword, $newpass1, $newpass2);
+		MusicBrainz::Server::Validation::TrimInPlace($oldpassword, $newpass1, $newpass2);
 		unless ($newpass1 eq $newpass2)
 		{
 			push @messages, "New Password and Verify Password do not match.";

@@ -54,18 +54,18 @@
 		{
 			# Do not validate if all fields are blank, or the
 			# fields are blank and the release country is set to the default one.
-			MusicBrainz::TrimInPlace($rev_year, $rev_month, $rev_day, $rev_country, $rev_id);
+			MusicBrainz::Server::Validation::TrimInPlace($rev_year, $rev_month, $rev_day, $rev_country, $rev_id);
 
 			if (!($rev_year eq "" and $rev_month eq "" and $rev_day eq "" and
 				 ($rev_country eq "" or $rev_country eq UserPreference::get("default_country"))))
 			{
 
 				# flag a bad country if it has not been set.
-				MusicBrainz::IsNonNegInteger($rev_country)
+				MusicBrainz::Server::Validation::IsNonNegInteger($rev_country)
 					or $h{"badcountry$j"} = 1;
 
 				# flag a bad date if the validation returns false
-				my @ymd = MusicBrainz::IsValidDate($rev_year, $rev_month, $rev_day)
+				my @ymd = MusicBrainz::Server::Validation::IsValidDate($rev_year, $rev_month, $rev_day)
 					or $h{"baddate$j"} = 1;
 			}
 		}

@@ -1,6 +1,12 @@
 Install instructions for the MusicBrainz Server:
 ------------------------------------------------
 
+TODO: 
+   - Check other docs for perl location issue
+   - review the developer install bits
+   - replace cvs bits with better instructions after yalaforge ponders
+     how to tell the user which version to check out.
+
 New (Jan 2005):
 	If you can dedicate a whole machine to use as a MusicBrainz
 	server, you might find the following helpful:
@@ -15,6 +21,47 @@ New (Jan 2005):
 These instructions are general instructions for setting up MusicBrainz server.
 If you want to set up a "slave" replication server (to use the data feed
 provided by the master server), please read htdocs/docs/Replication.
+
+Install Levels & Type
+=====================
+
+There are three different levels of a MusicBrainz Server:
+
+   - database server only -- run a standalone or replicated MusicBrainz 
+                             database without the web interface.
+   - developer install    -- run a MusicBrainz server with web interface
+                             but without all the bells and whistles like
+                             RSS feeds, TRM submission and WikiDocs
+   - full install         -- Everything needed to run all aspects of
+                             a MusicBrainz server.
+
+Choose your desired install level and then follow the instructions below. If
+you're doing a DB only or developer install there may be quite a few
+steps for you to skip, please keep this in mind!
+
+There are also different types of installations:
+
+   - RT_REPLICATED        -- This is a replicated database install. Once
+                             a data snapshot has been imported, the database
+                             can be kept up to date with running an hourly
+                             data import script.
+   - RT_STANDALONE        -- This install does not updated at all and is
+                             best suited for development installations.
+   - RT_MASTER            -- This install is if you're installing a 
+                             Master MusicBrainz server that will feed
+                             replicated servers. You would normally only
+                             install this if you're working on the replication
+                             code or are installing a new MB master server.
+                             Please read htdocs/docs/Replication for more
+                             details.
+
+The two most common combinations of level and type are:
+
+  - database server only & RT_REPLICATED -- If you want a MusicBrainz install that
+                                            is kept up to date with not web interface.
+  - developer install & RT_STANDALIONE   -- If you want to help develop the MusicBrainz
+                                            server, this is the best starting config.
+
 
 Requirements:
 =============
@@ -32,20 +79,8 @@ specific notes about a server type, the instructions apply to all server types.
 
    Locales
 
-   When importing a data dump, some people report that some of the "create
-   unique index" statements fail (because of non-unique data).  This appears
-   to be locale-related, but at the time of writing the precise nature of the
-   problem is not understood.
-
-   Some people report that the installation works straight off, without
-   considering locales at all.  Others report that "initdb --locale=C"
-   is what's required.  Others report that "initdb --nolocale" is necessary.
-   Your mileage may vary.
-
-   Replication Master
-
-   Please read htdocs/docs/Replication if you want your server to be able to
-   export replication data for use by others.
+   If you have trouble importing the data because "create unique index"
+   statements fail, please read the locales section in INSTALL.advanced.
 
    PostgreSQL authentication and Security
  
@@ -86,7 +121,7 @@ specific notes about a server type, the instructions apply to all server types.
 	   # as your MusicBrainz OS user:
 	   ./admin/InitDb.pl --import mbdump*.tar.bz2
 
-2) A database dedicated to MusicBrainz.  Of course, the scripts can help you
+2) A database dedicated to MusicBrainz.  The import scripts will help you
    create this.
 
 3) Perl 5.8 or later
@@ -98,7 +133,73 @@ specific notes about a server type, the instructions apply to all server types.
    Perl is assumed to be installed in /usr/bin/perl -- if you plan to use
    a different perl location, see INSTALL.advanced for tips on how to do that.
 
-4) Apache with mod_perl and Mason installed. You can skip this step
+4) Required perl modules:
+
+   All install levels require these modules:
+
+       DBD::Pg (version 1.32 recommended - see admin/depend.pl)
+       DBI
+       String::ShellQuote
+       LWP::UserAgent (only if you're going to set up a replicated slave)
+
+   If you're doing a database only install, you can skip the rest of the
+   modules.
+
+       Algorithm::Diff
+       Apache::Session
+       Apache::Session::File
+       Apache::AuthDigest
+       Bundle::Apache
+       HTML::Mason
+       Cache::Memcached
+       Date::Calc
+       Devel::Peek
+       Digest::SHA1
+       Digest::MD5
+       HTTP::Negotiate
+       Language::Guess (see notes below about seed data for this module)
+       MIME::Lite
+       Storable
+       String::Similarity
+       Text::Unaccent (see notes below)
+       Text::WikiFormat
+       Time::ParseDate
+       UUID (see notes below)
+
+   A full install will also need these modules:
+
+       XML::RSS
+       RDFStore (use 0.42 if 0.50 gives you install headaches)
+
+   Notes on specific perl modules:
+
+       Text::Unaccent
+
+       The latest version of Text::Unaccent on CPAN is, at the time of writing, 1.08.
+       However, for MusicBrainz you need version 1.09 which hasn't been released yet.
+       If you're installing MusicBrainz before the 1.09 version has been released,
+       install this 1.08 version that has a patch applied that makes it suitable
+       for use with MusicBrainz:
+
+       ftp://ftp.musicbrainz.org/pub/musicbrainz/misc/Text-Unaccent-1.08-mb.tar.gz
+
+       Language::Guess
+
+       Please download
+       ftp://ftp.musicbrainz.org/pub/musicbrainz/data/language-guess.tar.gz
+       and unpack it into your mb_server directory (i.e.
+       mb_server/data/language-guess/...)
+
+       UUID
+
+       The UUID module cannot be found in CPAN. Installing it by hand works:
+
+        http://search.cpan.org/CPAN/authors/id/B/BR/BRAAM/UUID-0.02.tar.gz
+
+       If it fails to compile, see if you can install module e2fsprogs-dev[el]
+       to get it to compile.
+
+5) Apache with mod_perl and Mason installed. You can skip this step
    for a database only slave. See the following sites for more details on 
 	each of these packages:
 
@@ -135,74 +236,18 @@ specific notes about a server type, the instructions apply to all server types.
               Apache can (and probably will) segfault or die silently on
               startup.
 
-
 5) Expat XML Parser library: http://sourceforge.net/projects/expat
+   Skip this step for a database only install.
 
 6) Memcached: http://www.danga.com/memcached/
    This is optional, but strongly encourged if you are going to be running
    a MusicBrainz web site as well.
+   Skip this step for a database only install.
 
-7) Required perl modules:
+9) Other dependencies
 
-   CPAN Name
-   ---------
-   Algorithm::Diff
-   Apache::Session
-   Apache::Session::File
-   Apache::AuthDigest
-   Bundle::Apache
-   Bundle::Mason
-   Cache::Memcached
-   Date::Calc
-   DBD::Pg (version 1.32 recommended - see admin/depend.pl)
-   DBI
-   Devel::Peek
-   Digest::SHA1
-   Digest::MD5
-   HTTP::Negotiate
-   Language::Guess (see notes below about seed data for this module)
-   MIME::Lite
-   Net::Amazon
-   RDFStore (use 0.42 if 0.50 gives you install headaches)
-   Storable
-   String::ShellQuote
-   String::Similarity
-   Text::Unaccent (see notes below)
-   Text::WikiFormat
-   Time::ParseDate
-   UUID (requires e2fsprogs)
-   XML::Parser
-   XML::RSS
-
-   These probably come standard with Perl:
-   Carp
-   IO::Socket
-   MIME::Base64
-   Net::SMTP
-   Time::HiRes
-   URI::Escape
-
-8) Text::Unaccent
-
-The latest version of Text::Unaccent on CPAN is, at the time of writing, 1.01.
-However, we need at least 1.05, which you can get from http://www.senga.org/
-(http://www.senga.org/download/unac/).
-   
-Additionally, we also require that the "unac_string" routine it provides be
-able to handle non-string values, like "undef".  There's a patch to achieve
-this at http://users.musicbrainz.org/~dave/Text-Unaccent-1.07-svrok.patch
-
-9) Language::Guess
-
-Please download
-ftp://ftp.musicbrainz.org/pub/musicbrainz/data/language-guess.tar.gz
-and unpack it into your mb_server directory (i.e.
-mb_server/data/language-guess/...)
-
-10) Other dependencies
-
-Run ./admin/depend.pl to check for other requirements.
-
+   Run ./admin/depend.pl to check to make sure that all the dependencies
+   have been met.
 
 
 Installation:
@@ -268,22 +313,24 @@ Installation:
 5) Assuming you want to start off with a fully-populated database, you'll
    want to download the database dump files from the FTP site:
 
-   wget --mirror ftp://ftp.musicbrainz.org/pub/musicbrainz/data/*tar*
+   ftp://ftp.musicbrainz.org/pub/musicbrainz/data/fullexport/<date>-<timestamp>
 
-   (Please use a mirror site if you can - see
-   http://musicbrainz.org/ftpmirror/pub/musicbrainz/data/ for a list).
+   The FTP site contains two snapshots -- pick the latest snapshot and then
+   download the files with:
 
-	If you are setting up a development server you will probably want to
-	import all of the database dumps. However, for a slave server, you will 
-	want to download only the following dumps:
+   wget --mirror ftp://ftp.musicbrainz.org/pub/musicbrainz/data/fullexport/<date>-<timestamp>/*tar*
 
-	   mbdump-artistrelation.tar.bz2    
-		mbdump.tar.bz2
-		mbdump-derived.tar.bz2
+   If you are setting up a development server you will probably want to
+   import all of the database dumps. However, for a slave server, you will 
+   want to download only the following dumps:
+
+      mbdump-artistrelation.tar.bz2    
+      mbdump.tar.bz2
+      mbdump-derived.tar.bz2
 
    Download the appropriate dump files, double-check your settings in 
-	DBDefs.pm, make sure Postgres is running, then run the "InitDb.pl"
-	script, passing it the names of the "dump" files you just downloaded:
+   DBDefs.pm, make sure Postgres is running, then run the "InitDb.pl"
+   script, passing it the names of the "dump" files you just downloaded:
 
 	./admin/InitDb.pl --createdb --echo --import mbdump*.tar.bz2
 
@@ -292,9 +339,6 @@ Installation:
    When run in this way, the script should do everything, including creating
    the database for you.  As a rough guide, on my Athlon 2500+ box it takes
    about 90 minutes to run this step, creating and loading a full database.
-   Recent tests suggest that on Postgres 7.4.1 it's MUCH faster - about 35
-   minutes for me.  Of course, if you don't need to import all the data (say,
-   only need the core tables), then that'll help too.
 
 NOTE: Steps 6 - 8 are optional for database only slaves!
 	
@@ -310,6 +354,9 @@ NOTE: Steps 6 - 8 are optional for database only slaves!
    directory that you specified in httpd.conf. Then copy all the files/subdirs
    from the cgi-bin dir into the ScriptAlias directory specified in httpd.conf
 
+   However, I usually point my apache configuration right into my
+   svn checked out source. If you've done this, you can skip this step.
+
 8) Now start Memcached and Apache and you should be set and ready to roll.
    Go the the selected URL and you should see a MusicBrainz site, complete
    with data.
@@ -323,7 +370,7 @@ NOTE: Steps 6 - 8 are optional for database only slaves!
    MusicBrainz server; you probably will want to modify it in some way.
 
    For slave servers, you need to add an hourly cron job (that runs 
-   about 15 - 20 minutes after each hour) that runs the admin/cron/slave.sh
+   about 10 - 12 minutes after each hour) that runs the admin/cron/slave.sh
    file to download and apply replication packets from the main server.
 
    This should be it and now you have your very own MusicBrainz server.

@@ -198,19 +198,19 @@
 				{
 					# Do not validate if all fields are blank, or the
 					# fields are blank and the release country is set to the default one.
-					MusicBrainz::TrimInPlace($rev_year, $rev_month, $rev_day, $rev_country);
+					MusicBrainz::Server::Validation::TrimInPlace($rev_year, $rev_month, $rev_day, $rev_country);
 					if (!($rev_year eq "" and $rev_month eq "" and $rev_day eq "" and
 						 ($rev_country eq "" or $rev_country eq UserPreference::get("default_country"))))
 					{
 						# we insist on a valid country
-						MusicBrainz::IsNonNegInteger($rev_country)
+						MusicBrainz::Server::Validation::IsNonNegInteger($rev_country)
 							or return $m->comp("/comp/error",
 								"Error: invalid release country",
 								0, 1,
 							);
 
 						# we insist on a valid date
-						my @ymd = MusicBrainz::IsValidDate($rev_year, $rev_month, $rev_day)
+						my @ymd = MusicBrainz::Server::Validation::IsValidDate($rev_year, $rev_month, $rev_day)
 							or return $m->comp("/comp/error",
 								"Error: invalid release date",
 								0, 1,
@@ -242,7 +242,7 @@
 
 				# old value is empty, and new value is not empty.
 				# we've got an added release event
-				if (!MusicBrainz::IsNonNegInteger($newrev->GetId))
+				if (!MusicBrainz::Server::Validation::IsNonNegInteger($newrev->GetId))
 				{
 					push @adds, $newrev;
 					next;

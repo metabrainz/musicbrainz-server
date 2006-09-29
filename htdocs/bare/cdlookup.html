@@ -387,7 +387,7 @@
 	my @artists = values %artists
 		or return;
 
-	$_->{_sort} = MusicBrainz::NormaliseSortText($_->GetSortName)
+	$_->{_sort} = MusicBrainz::Server::Validation::NormaliseSortText($_->GetSortName)
 		for @artists;
 
 
@@ -401,7 +401,7 @@
 		$m->out(qq!</div>!);
 
 		my @releases = @{ $artist->{_releases} };
-		$_->{_sort} = MusicBrainz::NormaliseSortText($_->GetName)
+		$_->{_sort} = MusicBrainz::Server::Validation::NormaliseSortText($_->GetName)
 			for @releases;
 
 		for my $release (sort { $a->{_sort} cmp $b->{_sort} } @releases)

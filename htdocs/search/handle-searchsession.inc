@@ -31,12 +31,12 @@
 <%perl>
 
 	# make sure we got a valid type parameter
-	!MusicBrainz::IsSingleLineString($type) and $type
+	!MusicBrainz::Server::Validation::IsSingleLineString($type) and $type
 		and return $m->comp("/comp/layout/badarguments",
 			text => "The argument <strong>type</strong> is missing or has a wrong format.");
 
 	# make sure we got a valid query parameter
-	!MusicBrainz::IsSingleLineString($query) and $query
+	!MusicBrainz::Server::Validation::IsSingleLineString($query) and $query
 		and return $m->comp("/comp/layout/badarguments",
 			text => "The argument <strong>query</strong> is missing or has a wrong format.");
 

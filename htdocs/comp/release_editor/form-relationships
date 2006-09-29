@@ -140,7 +140,7 @@
 				next if ($l->[0]->GetName eq 'ROOT');
 
 				my $name = $l->[0]->GetName;
-				MusicBrainz::TrimInPlace($name);
+				MusicBrainz::Server::Validation::TrimInPlace($name);
 
 				push @children_list, sprintf("%d: { indent: %d, name: '%s' }",
 										$l->[0]->GetId,

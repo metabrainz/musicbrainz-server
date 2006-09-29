@@ -71,7 +71,7 @@
 							($artistvalue, $trackvalue) = ($freedb_swap ? ($2, $1) : ($1, $2));
 						}
 					}
-					MusicBrainz::TrimInPlace($artistvalue, $trackvalue);
+					MusicBrainz::Server::Validation::TrimInPlace($artistvalue, $trackvalue);
 				}
 
 				$ARGS{"track$i"} = $trackvalue;

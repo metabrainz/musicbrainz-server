@@ -1306,7 +1306,7 @@ sub UpdateName
 	defined($name) && $name ne ""
 		or croak "Missing album name in RemoveFromAlbum";
 
-	MusicBrainz::TrimInPlace($name);
+	MusicBrainz::Server::Validation::TrimInPlace($name);
 	my $page = $self->CalculatePageIndex($name);
 
 	my $sql = Sql->new($self->{DBH});

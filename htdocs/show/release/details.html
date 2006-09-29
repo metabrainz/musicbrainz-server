@@ -41,12 +41,12 @@
 
 	if ($mbid ne "")
 	{
-		MusicBrainz::IsGUID($mbid)
+		MusicBrainz::Server::Validation::IsGUID($mbid)
 			or return $m->comp("/comp/badargs", 1, 1);
 	}
 	else
 	{
-		MusicBrainz::IsNonNegInteger($releaseid) && $releaseid
+		MusicBrainz::Server::Validation::IsNonNegInteger($releaseid) && $releaseid
 			or return $m->comp("/comp/badargs", 1, 1);
 	}
 

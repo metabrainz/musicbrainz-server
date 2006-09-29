@@ -26,7 +26,6 @@
 package TaggerSupport;
 
 use strict;
-use MusicBrainz;
 use Album; # for constants
 use String::Similarity;
 use Encode qw( encode decode );

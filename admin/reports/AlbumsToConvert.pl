@@ -97,13 +97,13 @@ sub GatherData
 			$ar->SetId($al->GetArtist);
 			$ar->LoadFromId or next;
 
-			$ar->{_sort_} = MusicBrainz::NormaliseSortText($ar->GetSortName);
+			$ar->{_sort_} = MusicBrainz::Server::Validation::NormaliseSortText($ar->GetSortName);
 			$ar->{_albums_} = [];
 
 			$artists{ $al->GetArtist } = $ar;
 		}
 
-		$al->{_sort_} = MusicBrainz::NormaliseSortText($al->GetName);
+		$al->{_sort_} = MusicBrainz::Server::Validation::NormaliseSortText($al->GetName);
 		#print STDERR "$al->{_sort_} by $ar->{_sort_}\n" if -t;
 
 		my @t = $al->LoadTracks;

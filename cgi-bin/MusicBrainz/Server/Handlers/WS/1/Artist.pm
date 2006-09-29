@@ -55,7 +55,7 @@ sub handler
     {
 		return bad_req($r, "Invalid content type. Must be set to xml.");
 	}
-	if ((!MusicBrainz::IsGUID($mbid) && $mbid ne '') || $inc eq 'error')
+	if ((!MusicBrainz::Server::Validation::IsGUID($mbid) && $mbid ne '') || $inc eq 'error')
 	{
 		return bad_req($r, "Incorrect URI. For usage, please see: http://musicbrainz.org/development/mmd");
 	}

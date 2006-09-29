@@ -86,6 +86,7 @@ require MusicBrainz::Server::URL;
 require MusicBrainz::Server::Vote;
 require MusicBrainz::Server::Handlers::WS::1::Common;
 require MusicBrainz::Server::WikiTransclusion;
+require MusicBrainz::Server::Validation;
 # Don't load MusicBrainz::Server::Moderation::* - Moderation.pm does that
 require Parser;
 require QuerySupport;

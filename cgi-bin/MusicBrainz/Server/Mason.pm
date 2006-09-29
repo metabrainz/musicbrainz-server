@@ -110,7 +110,7 @@ sub get_handler
 
 	# Install our minimal HTML encoder as the default.  This leaves
 	# top-bit-set characters alone.
-	$handler->interp->set_escape( h => \&MusicBrainz::encode_entities );
+	$handler->interp->set_escape( h => \&MusicBrainz::Server::Validation::encode_entities );
 	# Mason's handling of multiple escapes in ambiguous, so |uh and |hu are
 	# out.  And |u on its own is usually the wrong thing to do.
 	$handler->interp->remove_escape('u');
@@ -151,7 +151,7 @@ sub handler
     package MusicBrainz::Server::ComponentPackage;
 
 	# Make these available to all components:
-	use MusicBrainz qw( encode_entities );
+	use MusicBrainz::Server::Validation qw( encode_entities );
 	use URI::Escape qw( uri_escape );
 	use MusicBrainz::Server::Replication ':replication_type';
 

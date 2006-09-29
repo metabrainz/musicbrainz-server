@@ -58,7 +58,7 @@
 
 	# check if we have a valid number of tracks, else
 	# redirect to the add release page.
-	unless (MusicBrainz::IsNonNegInteger($tracks) and $tracks >= 1 and $tracks <= 99)
+	unless (MusicBrainz::Server::Validation::IsNonNegInteger($tracks) and $tracks >= 1 and $tracks <= 99)
 	{
 		$m->comp("/comp/redirect", '/edit/album/add.html?artistid=' . $artistid . '&error=1');
 		return;
@@ -68,12 +68,12 @@
 	$m->comp("/comp/user/check-volatile-preferences", %ARGS);
 
 	# make sure we got a valid releaseid parameter
-	MusicBrainz::IsNonNegInteger($artistid)
+	MusicBrainz::Server::Validation::IsNonNegInteger($artistid)
 		or return $m->comp("/comp/layout/badarguments",
 			text => "The argument <strong>artistid</strong> is missing or has a wrong format.");
 
 	# make sure we got a valid tracks parameter
-	MusicBrainz::IsNonNegInteger($tracks) && $tracks
+	MusicBrainz::Server::Validation::IsNonNegInteger($tracks) && $tracks
 		or return $m->comp("/comp/layout/badarguments",
 			text => "The argument <strong>tracks</strong> is missing or has a wrong format.");
 

@@ -11,7 +11,7 @@ $submit=>0
 </%args>
 <%perl>
 
-MusicBrainz::TrimInPlace($attrname);
+MusicBrainz::Server::Validation::TrimInPlace($attrname);
 
 $m->comp("/comp/checkloggedin", 1, 1)
 	or return;
@@ -100,7 +100,7 @@ my $new = undef;
 %      }
 % } else {
 %      $attrname = $node->GetName;
-%      MusicBrainz::TrimInPlace($attrname);
+%      MusicBrainz::Server::Validation::TrimInPlace($attrname);
 %      $desc = $node->GetDescription;
 %      $parent = $node->Parent->GetMBId;
 %      $childorder = $node->GetChildOrder;

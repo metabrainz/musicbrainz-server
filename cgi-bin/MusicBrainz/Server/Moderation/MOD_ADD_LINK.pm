@@ -44,8 +44,8 @@ sub PreInsert
 	my $url = $opts{'url'} or undef;
 	my $attrs = $opts{'attributes'};
 
-	my $begindate = &MusicBrainz::MakeDisplayDateStr(join('-', $opts{'begindate'}->[0], $opts{'begindate'}->[1], $opts{'begindate'}->[2]));
-	my $enddate = &MusicBrainz::MakeDisplayDateStr(join('-', $opts{'enddate'}->[0], $opts{'enddate'}->[1], $opts{'enddate'}->[2]));
+	my $begindate = &MusicBrainz::Server::Validation::MakeDisplayDateStr(join('-', $opts{'begindate'}->[0], $opts{'begindate'}->[1], $opts{'begindate'}->[2]));
+	my $enddate = &MusicBrainz::Server::Validation::MakeDisplayDateStr(join('-', $opts{'enddate'}->[0], $opts{'enddate'}->[1], $opts{'enddate'}->[2]));
 
 	my $link = MusicBrainz::Server::Link->new(
 		$self->{DBH},

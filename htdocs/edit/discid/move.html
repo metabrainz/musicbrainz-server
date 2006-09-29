@@ -53,13 +53,13 @@
 		or return;
 
 	# check tocid argument
-	MusicBrainz::IsNonNegInteger($tocid) && $tocid
+	MusicBrainz::Server::Validation::IsNonNegInteger($tocid) && $tocid
 		or return $m->comp("/comp/layout/badarguments",
 			text => "Required Argument <strong>tocid</strong> is missing "
 				  . "or has  an invalid format.");
 
 	# check tocid argument
-	MusicBrainz::IsNonNegInteger($releaseid) && $releaseid
+	MusicBrainz::Server::Validation::IsNonNegInteger($releaseid) && $releaseid
 		or return $m->comp("/comp/layout/badarguments",
 			text => "Required Argument <strong>releaseid</strong> is missing "
 				  . "or has  an invalid format.");
@@ -97,7 +97,7 @@
 		elsif ($submitvalue =~ m/Enter Edit/i)
 		{
 			# check newreleaseid argument
-			MusicBrainz::IsNonNegInteger($newreleaseid) && $newreleaseid
+			MusicBrainz::Server::Validation::IsNonNegInteger($newreleaseid) && $newreleaseid
 				or return $m->comp("/comp/layout/badarguments",
 					text => "Required Argument <strong>newreleaseid</strong> is missing "
 						  . "or has  an invalid format.");

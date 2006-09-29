@@ -62,12 +62,12 @@
 	$index = uc($index);
 
 	# handle release type argument
-	MusicBrainz::IsNonNegInteger($reltype) or $reltype = 0;
+	MusicBrainz::Server::Validation::IsNonNegInteger($reltype) or $reltype = 0;
 	$reltype >= Album::ALBUM_ATTR_SECTION_TYPE_START or $reltype = 0;
 	$reltype <= Album::ALBUM_ATTR_SECTION_TYPE_END or $reltype = 0;
 
 	# handle release status argument
-	MusicBrainz::IsNonNegInteger($relstatus) or $relstatus = 0;
+	MusicBrainz::Server::Validation::IsNonNegInteger($relstatus) or $relstatus = 0;
 	$relstatus >= Album::ALBUM_ATTR_SECTION_STATUS_START or $relstatus = 0;
 	$relstatus <= Album::ALBUM_ATTR_SECTION_STATUS_END or $relstatus = 0;
 

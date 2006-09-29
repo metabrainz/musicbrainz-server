@@ -314,7 +314,7 @@ sub Insert
     $this->{new_insert} = 0;
 
 	my $name = $this->GetName;
-	MusicBrainz::TrimInPlace($name) if defined $name;
+	MusicBrainz::Server::Validation::TrimInPlace($name) if defined $name;
 	if (not defined $name or $name eq "")
 	{
 		carp "Missing track name in Insert";
@@ -392,7 +392,7 @@ sub UpdateName
 	defined($name) && $name ne ""
 		or croak "Missing track name in UpdateName";
 
-    MusicBrainz::TrimInPlace($name);
+    MusicBrainz::Server::Validation::TrimInPlace($name);
 
 	my $sql = Sql->new($self->{DBH});
 	$sql->Do(

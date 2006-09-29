@@ -34,7 +34,7 @@
 <%perl>
 
 	# make sure we got a valid email parameter
-	MusicBrainz::IsSingleLineString($email)
+	MusicBrainz::Server::Validation::IsSingleLineString($email)
 		or return $m->comp("/comp/layout/badarguments",
 			text => "The argument <strong>email</strong> is missing or has a wrong format.");
 

@@ -58,12 +58,12 @@
 	) or return;
 
 	# make sure we got a valid userid parameter
-	MusicBrainz::IsNonNegInteger($userid) && $userid
+	MusicBrainz::Server::Validation::IsNonNegInteger($userid) && $userid
 		or return $m->comp("/comp/layout/badarguments",
 			text => "The argument <strong>userid</strong> is missing or has a wrong format.");
 
 	# make sure we got a valid editid parameter
-	MusicBrainz::IsNonNegInteger($editid) && $editid
+	MusicBrainz::Server::Validation::IsNonNegInteger($editid) && $editid
 		or $editid = 0;
 
 	$m->comp("/comp/sidebar-notitle", pagetitle => "Send email to editor");

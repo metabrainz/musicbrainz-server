@@ -42,7 +42,7 @@ sub PreInsert
 	my $desc = $opts{'description'} or die;
 	my $childorder = $opts{'childorder'};
 
-	MusicBrainz::TrimInPlace($name);
+	MusicBrainz::Server::Validation::TrimInPlace($name);
 	die if $name eq "";
 
 	if ($parent->GetNamedChild($name))

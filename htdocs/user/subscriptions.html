@@ -38,7 +38,7 @@
 	if (defined $user)
 	{
 		# make sure we got a valid user parameter
-		MusicBrainz::IsNonNegInteger($user)
+		MusicBrainz::Server::Validation::IsNonNegInteger($user)
 			or return $m->comp("/comp/layout/badarguments",
 				text => "The argument <strong>user</strong> is missing or has a wrong format.");
 	}

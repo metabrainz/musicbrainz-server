@@ -42,7 +42,7 @@
 		or return;
 
 	# make sure we got a valid artistid parameter
-	MusicBrainz::IsNonNegInteger($artistid) && $artistid
+	MusicBrainz::Server::Validation::IsNonNegInteger($artistid) && $artistid
 		or return $m->comp("/comp/layout/badarguments",
 			text => "The argument <strong>artistid</strong> is missing or has a wrong format.");
 
@@ -68,7 +68,7 @@
 	}
 
 	# make sure we got a valid numtracks parameter
-	MusicBrainz::IsNonNegInteger($numtracks)
+	MusicBrainz::Server::Validation::IsNonNegInteger($numtracks)
 		&& $numtracks >= 1
 		&& $numtracks <= 100
 		or return $m->comp("/comp/layout/badarguments",

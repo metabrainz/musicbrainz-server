@@ -51,7 +51,7 @@
 	}
 	for my $releaseid (@releaseid)
 	{
-		MusicBrainz::IsNonNegInteger($releaseid) && $releaseid
+		MusicBrainz::Server::Validation::IsNonNegInteger($releaseid) && $releaseid
 			or return $m->comp("/comp/layout/badarguments",
 				text => "One of the provided releaseids is invalid.");
 	}

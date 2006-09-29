@@ -126,7 +126,7 @@ sub UpdateURL
 	defined($desc) && $desc ne ""
 		or croak "Missing description in UpdateURL";
 
-	MusicBrainz::TrimInPlace($url);
+	MusicBrainz::Server::Validation::TrimInPlace($url);
 
 	my $sql = Sql->new($self->{DBH});
 
@@ -158,7 +158,7 @@ sub newFromURL
 	$self = $self->new(shift, shift) if not ref $self;
 	my $url = shift;
 
-	MusicBrainz::TrimInPlace($url) if defined $url;
+	MusicBrainz::Server::Validation::TrimInPlace($url) if defined $url;
 	if (not defined $url or $url eq "")
 	{
 		carp "Missing url in newFromURL";

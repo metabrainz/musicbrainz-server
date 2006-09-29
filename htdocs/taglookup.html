@@ -23,7 +23,7 @@
 
 	$release = $album if $album;
 
-	MusicBrainz::TrimInPlace(
+	MusicBrainz::Server::Validation::TrimInPlace(
 		$artist,
 		$release,
 		$track,
@@ -45,9 +45,9 @@
 		$tracknum = $data{tracknum} if (exists $data{tracknum} && !$tracknum);
 	}
 
-	my $_artist = MusicBrainz::normalize($artist);
-	my $_release = MusicBrainz::normalize($release);
-	my $_track = MusicBrainz::normalize($track);
+	my $_artist = MusicBrainz::Server::Validation::normalize($artist);
+	my $_release = MusicBrainz::Server::Validation::normalize($release);
+	my $_track = MusicBrainz::Server::Validation::normalize($track);
 	my $_duration = 0;
 
 	if ($duration =~ /(\d+):(\d+)/)
@@ -58,7 +58,7 @@
 	{
 		$_duration = $1;
 	}
-	my $_tracknum = MusicBrainz::normalize($tracknum);
+	my $_tracknum = MusicBrainz::Server::Validation::normalize($tracknum);
 
 
 	# If a TRM is specified, and if it resolves to multiple tracks, show the

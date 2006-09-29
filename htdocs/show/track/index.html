@@ -45,16 +45,16 @@
 <%perl>
 
 	if ($mbid ne "") {
-		MusicBrainz::IsGUID($mbid)
+		MusicBrainz::Server::Validation::IsGUID($mbid)
 			or return $m->comp("/comp/layout/badarguments",
 				text => "Argument mbid is not a valid MBID");
 	}
 	elsif ($trackid ne "") {
-		MusicBrainz::IsNonNegInteger($trackid) && $trackid
+		MusicBrainz::Server::Validation::IsNonNegInteger($trackid) && $trackid
 			or return $m->comp("/comp/layout/badarguments",
 				text => "You need to specify either a valid mbid or a trackid argument");
 	} else {
-		MusicBrainz::IsNonNegInteger($albumjoinid) && $albumjoinid
+		MusicBrainz::Server::Validation::IsNonNegInteger($albumjoinid) && $albumjoinid
 			or return $m->comp("/comp/layout/badarguments",
 				text => "Argument albumjoinid is invalid");
 	}

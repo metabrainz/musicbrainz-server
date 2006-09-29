@@ -55,7 +55,7 @@
 		or return;
 
 	# make sure we have at valid releaseid
-	MusicBrainz::IsNonNegInteger($releaseid) && $releaseid
+	MusicBrainz::Server::Validation::IsNonNegInteger($releaseid) && $releaseid
 		or return $m->comp("/comp/badargs", 1, 1);
 
 	# check volatile preferences (like autoeditor flag)

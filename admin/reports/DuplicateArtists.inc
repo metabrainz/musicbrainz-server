@@ -46,16 +46,16 @@
 	);
 
 	$pagesize = 10
-		unless MusicBrainz::IsNonNegInteger($pagesize)
+		unless MusicBrainz::Server::Validation::IsNonNegInteger($pagesize)
 		and $pagesize > 0 and $pagesize <= 100000;
 
 	$offset = ($page-1) * $pagesize
 		if not defined $offset
-		and MusicBrainz::IsNonNegInteger($page)
+		and MusicBrainz::Server::Validation::IsNonNegInteger($page)
 		and $page;
 
 	$offset = 0
-		unless MusicBrainz::IsNonNegInteger($offset)
+		unless MusicBrainz::Server::Validation::IsNonNegInteger($offset)
 		and $offset < $rep->Records;
 
 	$rep->Seek($offset);

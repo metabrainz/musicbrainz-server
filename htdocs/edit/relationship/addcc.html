@@ -77,7 +77,7 @@ if (!defined $obj)
 }
 
 	# trim leading and trailing whitespaces
-	MusicBrainz::TrimInPlace($url)
+	MusicBrainz::Server::Validation::TrimInPlace($url)
 		if defined $url;
 
 my @links;

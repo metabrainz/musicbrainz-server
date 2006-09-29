@@ -49,12 +49,12 @@
 	$trackid ||= $track;
 
 	# make sure we got a valid releaseid parameter
-	MusicBrainz::IsNonNegInteger($releaseid) && $releaseid
+	MusicBrainz::Server::Validation::IsNonNegInteger($releaseid) && $releaseid
 		or return $m->comp("/comp/layout/badarguments",
 			text => "The argument <strong>releaseid</strong> is missing or has a wrong format.");
 
 	# make sure we got a valid trackid parameter
-	MusicBrainz::IsNonNegInteger($trackid) && $trackid
+	MusicBrainz::Server::Validation::IsNonNegInteger($trackid) && $trackid
 		or return $m->comp("/comp/layout/badarguments",
 			text => "The argument <strong>trackid</strong> is missing or has a wrong format.");
 

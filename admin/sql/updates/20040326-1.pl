@@ -32,6 +32,7 @@ use lib "$FindBin::Bin/../../../cgi-bin";
 
 use DBDefs;
 use MusicBrainz;
+use MusicBrainz::Server::Validation;
 use Sql;
 use ModDefs qw( MODBOT_MODERATOR MOD_MERGE_ARTIST );
 use UserStuff;
@@ -58,7 +59,7 @@ EOF
 for (@$rows)
 {
 	my ($id, $name, $sortname) = @$_;
-	MusicBrainz::TrimInPlace($name, $sortname);
+	MusicBrainz::Server::Validation::TrimInPlace($name, $sortname);
 	next if $name eq $_->[1] and $sortname eq $_->[2];
 
 	print localtime() . " : Artist #$id '$_->[1]' ('$_->[2]') -";
@@ -133,7 +134,7 @@ EOF
 for (@$rows)
 {
 	my ($id, $name) = @$_;
-	MusicBrainz::TrimInPlace($name);
+	MusicBrainz::Server::Validation::TrimInPlace($name);
 	next if $name eq $_->[1];
 
 	print localtime() . " : Album #$id '$_->[1]' -";
@@ -174,7 +175,7 @@ EOF
 for (@$rows)
 {
 	my ($id, $name) = @$_;
-	MusicBrainz::TrimInPlace($name);
+	MusicBrainz::Server::Validation::TrimInPlace($name);
 	next if $name eq $_->[1];
 
 	print localtime() . " : Track #$id '$_->[1]' -";
@@ -215,7 +216,7 @@ EOF
 for (@$rows)
 {
 	my ($id, $name) = @$_;
-	MusicBrainz::TrimInPlace($name);
+	MusicBrainz::Server::Validation::TrimInPlace($name);
 	next if $name eq $_->[1];
 
 	print localtime() . " : Artist Alias #$id '$_->[1]' -";

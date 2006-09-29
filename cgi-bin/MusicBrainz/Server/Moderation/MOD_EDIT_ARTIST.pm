@@ -55,13 +55,13 @@ sub PreInsert
 	# clash with an existing artist.
 	if ( defined $name )
 	{
-		MusicBrainz::TrimInPlace($name);
+		MusicBrainz::Server::Validation::TrimInPlace($name);
 		$new{'ArtistName'} = $name;
 	}
 
 	if ( defined $sortname )
 	{
-		MusicBrainz::TrimInPlace($sortname);
+		MusicBrainz::Server::Validation::TrimInPlace($sortname);
 
 		die $self->SetError('Empty sort name not allowed.')
 			unless $sortname =~ m/\S/;
@@ -79,7 +79,7 @@ sub PreInsert
 
 	if ( defined $resolution )
 	{
-		MusicBrainz::TrimInPlace($resolution);
+		MusicBrainz::Server::Validation::TrimInPlace($resolution);
 
 		$new{'Resolution'} = $resolution
 				if $resolution ne $ar->GetResolution;
@@ -124,7 +124,7 @@ sub PreInsert
 	$self->SetRowId($ar->GetId);
 }
 
-# Specialized version of MusicBrainz::MakeDBDateStr:
+# Specialized version of MusicBrainz::Server::Validation::MakeDBDateStr:
 # Returns '' if year, month and day are empty.
 sub MakeDateStr
 {
@@ -132,7 +132,7 @@ sub MakeDateStr
 
 	return '' if $y eq '' and $m eq '' and $d eq '';
 
-	return MusicBrainz::MakeDBDateStr($y, $m, $d);
+	return MusicBrainz::Server::Validation::MakeDBDateStr($y, $m, $d);
 }
 
 sub PostLoad

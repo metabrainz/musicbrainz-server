@@ -7,8 +7,8 @@
 <%perl>
 
 my ($id, $mbid);
-if (MusicBrainz::IsNonNegInteger($artist)) { $id = $artist }
-elsif (MusicBrainz::IsGUID($artist)) { $mbid = $artist }
+if (MusicBrainz::Server::Validation::IsNonNegInteger($artist)) { $id = $artist }
+elsif (MusicBrainz::Server::Validation::IsGUID($artist)) { $mbid = $artist }
 else { return $m->comp("/comp/badargs", 1, 1) }
 
 return $m->comp("/comp/error", "Public subscription lists are not released until Tue Mar 15 20:30:00 2005 UTC", 1, 1)
@@ -50,7 +50,7 @@ for my $uid (@uids)
 
 	if ($is_public)
 	{
-		my $n = MusicBrainz::NormaliseSortText($user->GetName);
+		my $n = MusicBrainz::Server::Validation::NormaliseSortText($user->GetName);
 		push @public, [$user->GetId, $user->GetName, $n];
 	}
 	else

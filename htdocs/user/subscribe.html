@@ -49,7 +49,7 @@
 
 	for my $artistid (@artistid)
 	{
-		MusicBrainz::IsNonNegInteger($artistid)
+		MusicBrainz::Server::Validation::IsNonNegInteger($artistid)
 			and $artistid
 			and $artistid != &ModDefs::VARTIST_ID
 			and $artistid != &ModDefs::DARTIST_ID

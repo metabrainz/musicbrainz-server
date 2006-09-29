@@ -46,13 +46,13 @@
 		my $typeid = $ARGS{sprintf "tr%d_rel%d_typeid", $i, $j};
 		my $begindate = $ARGS{sprintf "tr%d_rel%d_begindate", $i, $j};
 		my $enddate = $ARGS{sprintf "tr%d_rel%d_enddate", $i, $j};
-		MusicBrainz::TrimInPlace($nodeid, $typeid, $begindate, $enddate, $mp);
+		MusicBrainz::Server::Validation::TrimInPlace($nodeid, $typeid, $begindate, $enddate, $mp);
 
 		# linked entity
 		my $type = $ARGS{sprintf "tr%d_rel%d_e_type", $i, $j};
 		my $id = $ARGS{sprintf "tr%d_rel%d_e_id", $i, $j};
 		my $name = $ARGS{sprintf "tr%d_rel%d_e_name", $i, $j};
-		MusicBrainz::TrimInPlace($type, $id, $name);
+		MusicBrainz::Server::Validation::TrimInPlace($type, $id, $name);
 
 		# retrieve array of attributes
 		my @relattrs = sort map { /^tr${i}_rel${j}_attr(\d+)$/ ? ($1) : () } keys %ARGS;

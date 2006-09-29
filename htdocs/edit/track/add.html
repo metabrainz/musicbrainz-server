@@ -57,7 +57,7 @@
 	$m->comp("/comp/user/check-volatile-preferences", %ARGS);
 
 	# make sure we got a valid releaseid parameter
-	MusicBrainz::IsNonNegInteger($releaseid) && $releaseid
+	MusicBrainz::Server::Validation::IsNonNegInteger($releaseid) && $releaseid
 		or return $m->comp("/comp/layout/badarguments",
 			text => "The argument <strong>releaseid</strong> is missing or has a wrong format.");
 
@@ -91,7 +91,7 @@
 	if ($submitvalue ne "")
 	{
 		# check track number
-		if (not (MusicBrainz::IsNonNegInteger($tracknum) && $tracknum >= 1))
+		if (not (MusicBrainz::Server::Validation::IsNonNegInteger($tracknum) && $tracknum >= 1))
 		{
 			push @errors, "Please enter a non-negative track number";
 		}
@@ -105,13 +105,13 @@
 		push @errors, "Please enter a non-empty track name"
 			if ($trackname !~ /\S/);
 		push @errors, "The track name contains invalid linebreaks"
-			if (not MusicBrainz::IsSingleLineString($trackname));
-		MusicBrainz::TrimInPlace($trackname);
+			if (not MusicBrainz::Server::Validation::IsSingleLineString($trackname));
+		MusicBrainz::Server::Validation::TrimInPlace($trackname);
 
 		# check track length
 		my $unformatted_tracklength = Track::UnformatTrackLength($tracklength);
 		push @errors, "Please enter a valid track length"
-			if (not (MusicBrainz::IsNonNegInteger($unformatted_tracklength) && $unformatted_tracklength >= 0));
+			if (not (MusicBrainz::Server::Validation::IsNonNegInteger($unformatted_tracklength) && $unformatted_tracklength >= 0));
 
 		push @errors, "Please choose a track artist"
 			if ($release->HasMultipleTrackArtists and

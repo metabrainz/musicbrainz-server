@@ -53,8 +53,8 @@
 	my $resolution = $artist->GetResolution;
 
 	# compile begin- and end dates
-	$begin = MusicBrainz::MakeDisplayDateStr($begin);
-	$end = MusicBrainz::MakeDisplayDateStr($end);
+	$begin = MusicBrainz::Server::Validation::MakeDisplayDateStr($begin);
+	$end = MusicBrainz::Server::Validation::MakeDisplayDateStr($end);
 	my $date_str = '';
 	if ( $begin and $end )
 	{

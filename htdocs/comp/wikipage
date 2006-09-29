@@ -5,7 +5,7 @@
 </%args>
 <%perl>
 
-	MusicBrainz::IsSingleLineString($id) and $id =~ /\A\w+\z/
+	MusicBrainz::Server::Validation::IsSingleLineString($id) and $id =~ /\A\w+\z/
 		or return $m->comp("/comp/badargs", 1, 1);
 
 	use LWP::Simple;

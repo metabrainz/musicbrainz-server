@@ -9,7 +9,7 @@
 
 	$search = [ $search ] unless ref $search;
 	$search = join " ", map { qq["$_"] } @$search;
-	$text = MusicBrainz::encode_entities($text)
+	$text = encode_entities($text)
 		unless $raw;
 
 	# See http://www.google.com/services/free.html

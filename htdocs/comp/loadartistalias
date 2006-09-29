@@ -41,7 +41,7 @@
 	{
 		$error = "Parameter <strong>mb</strong> of type MusicBrainz is required";
 	}
-	if (not MusicBrainz::IsNonEmptyString($id))
+	if (not MusicBrainz::Server::Validation::IsNonEmptyString($id))
 	{
 		$error = "Parameter <strong>id</strong> (Artist Alias ID) is required";
 	}

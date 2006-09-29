@@ -94,10 +94,6 @@ OUTPUT=`
 echo `date`" : Processing subscriptions"
 ./admin/ProcessSubscriptions
 
-# Lookup Amazon pairings
-#echo `date`" : Processing Amazon matches"
-#./admin/aws/Match.pl --daily --noverbose --summary
-
 # `date`" : Updating language frequencies"
 ./admin/SetLanguageFrequencies
 

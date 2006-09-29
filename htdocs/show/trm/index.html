@@ -46,7 +46,7 @@
 	my $gu = TRM->new($mb->{DBH});
 	my $ids;
 
-	unless (MusicBrainz::IsGUID($trm))
+	unless (MusicBrainz::Server::Validation::IsGUID($trm))
 	{
 		$showspecial = "The argument <strong>trm</strong> is missing or has an invalid format";
 	}
@@ -163,7 +163,7 @@
 				} sort {
 					$a->[1] cmp $b->[1]
 				} map {
-					my $n = MusicBrainz::NormaliseSortText($_->GetSortName);
+					my $n = MusicBrainz::Server::Validation::NormaliseSortText($_->GetSortName);
 					[ $_, $n ];
 				} @artist;
 
@@ -178,7 +178,7 @@
 					} sort {
 						$a->[1] cmp $b->[1]
 					} map {
-						my $n = MusicBrainz::NormaliseSortText($_->GetName);
+						my $n = MusicBrainz::Server::Validation::NormaliseSortText($_->GetName);
 						[ $_, $n ];
 					} @release;
 

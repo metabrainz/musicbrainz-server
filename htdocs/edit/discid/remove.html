@@ -16,13 +16,13 @@
 	$releaseid ||= $albumid;
 
 	# check releaseid
-	MusicBrainz::IsNonNegInteger($releaseid) && $releaseid
+	MusicBrainz::Server::Validation::IsNonNegInteger($releaseid) && $releaseid
 		or return $m->comp("/comp/layout/badarguments",
 			text => "Required Argument <strong>releaseid</strong> is missing "
 				   ."or has  an invalid format.");
 
 	# check tocid
-	MusicBrainz::IsNonNegInteger($tocid) && $tocid
+	MusicBrainz::Server::Validation::IsNonNegInteger($tocid) && $tocid
 		or return $m->comp("/comp/layout/badarguments",
 			text => "Required Argument <strong>tocid</strong> is missing "
 				   ."or has  an invalid format.");

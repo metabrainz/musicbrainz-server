@@ -35,7 +35,7 @@
 </%args>
 <%perl>
 
-	MusicBrainz::IsNonNegInteger($annotationid) && $annotationid
+	MusicBrainz::Server::Validation::IsNonNegInteger($annotationid) && $annotationid
 		or return $m->comp("/comp/layout/badarguments", "annotationid parameter is invalid.");
 
 	# load annotation from id.

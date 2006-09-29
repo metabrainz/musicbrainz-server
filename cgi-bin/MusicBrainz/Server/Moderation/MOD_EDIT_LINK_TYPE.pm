@@ -49,14 +49,14 @@ sub PreInsert
 	defined() or die
 		for $linkphrase, $rlinkphrase, $description, $attribute;
 
-	MusicBrainz::TrimInPlace($name);
+	MusicBrainz::Server::Validation::TrimInPlace($name);
 	die if $name eq "";
-	MusicBrainz::TrimInPlace($linkphrase);
+	MusicBrainz::Server::Validation::TrimInPlace($linkphrase);
 	die if $linkphrase eq "";
-	MusicBrainz::TrimInPlace($rlinkphrase);
+	MusicBrainz::Server::Validation::TrimInPlace($rlinkphrase);
 	die if $rlinkphrase eq "";
-	MusicBrainz::TrimInPlace($description);
-	MusicBrainz::TrimInPlace($attribute);
+	MusicBrainz::Server::Validation::TrimInPlace($description);
+	MusicBrainz::Server::Validation::TrimInPlace($attribute);
 
 	my $c = $parent->GetNamedChild($name);
 	if ($c and $c->GetId != $node->GetId)

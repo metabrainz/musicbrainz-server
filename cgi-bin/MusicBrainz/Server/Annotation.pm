@@ -620,7 +620,7 @@ sub GetShortText
 	# fix for ticket 1649, turn off truncating annotation texts.
 	return(TRUNC_NONE, $text);
 
-	use MusicBrainz qw( encode_entities );
+	use MusicBrainz::Server::Validation qw( encode_entities );
 
 	$text = decode "utf-8", $text;
 	$text =~ s/(\015\012|\012\015|\012|\015)\1+/\n\n/g;

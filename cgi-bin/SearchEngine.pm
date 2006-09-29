@@ -52,7 +52,6 @@ use vars qw(@ISA @EXPORT @EXPORT_OK %EXPORT_TAGS);
 
 use strict;
 use DBDefs;
-use MusicBrainz;
 use Sql;
 use ModDefs;
 use Text::Unaccent;

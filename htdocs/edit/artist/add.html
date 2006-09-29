@@ -54,19 +54,19 @@
 	$m->comp("/comp/checkloggedin", 1, 1)
 		or return;
 
-	MusicBrainz::IsSingleLineString($name)
+	MusicBrainz::Server::Validation::IsSingleLineString($name)
 		or return $m->comp("/comp/layout/badarguments",
 			text => "Argument name has an invalid format.");
 
-	MusicBrainz::IsSingleLineString($sortname)
+	MusicBrainz::Server::Validation::IsSingleLineString($sortname)
 		or return $m->comp("/comp/layout/badarguments",
 			text => "Argument sortname has an invalid format.");
 
-	MusicBrainz::IsSingleLineString($resolution)
+	MusicBrainz::Server::Validation::IsSingleLineString($resolution)
 		or return $m->comp("/comp/layout/badarguments",
 			text => "Argument resolution has an invalid format.");
 
-	MusicBrainz::IsNonNegInteger($type) && Artist::IsValidType($type)
+	MusicBrainz::Server::Validation::IsNonNegInteger($type) && Artist::IsValidType($type)
 		or return $m->comp("/comp/layout/badarguments",
 			text =>"Argument type is invalid.");
 
@@ -84,9 +84,9 @@
 		my $artist = Artist->new($mb->{DBH});
 		my $artists = $artist->GetArtistsFromName($name);
 
-		my $norm_name = MusicBrainz::NormaliseSortText($name);
+		my $norm_name = MusicBrainz::Server::Validation::NormaliseSortText($name);
 		@dupes = grep {
-			MusicBrainz::NormaliseSortText($_->GetName) eq $norm_name
+			MusicBrainz::Server::Validation::NormaliseSortText($_->GetName) eq $norm_name
 		} @$artists;
 	}
 
@@ -111,18 +111,18 @@
 		}
 		else
 		{
-			MusicBrainz::TrimInPlace($resolution, $name, $sortname);
+			MusicBrainz::Server::Validation::TrimInPlace($resolution, $name, $sortname);
 
 			push @messages, "Please Select a valid type." if (not Artist::IsValidType($type));
 			push @messages, "Please enter the Name." if ($name eq "");
 			push @messages, "Please enter the Sort Name." if ($sortname eq "");
 
 			push @messages, "Begin Date has to be either valid or empty"
-				if (not MusicBrainz::IsValidDateOrEmpty($begindate_y, $begindate_m, $begindate_d));
+				if (not MusicBrainz::Server::Validation::IsValidDateOrEmpty($begindate_y, $begindate_m, $begindate_d));
 			push @messages, "Begin Date has to be either valid or empty"
-				if (not MusicBrainz::IsValidDateOrEmpty($enddate_y, $enddate_m, $enddate_d));
+				if (not MusicBrainz::Server::Validation::IsValidDateOrEmpty($enddate_y, $enddate_m, $enddate_d));
 			push @messages, "Begin Date has to be earlier than End Date"
-				if (not MusicBrainz::IsDateEarlierThan($begindate_y, $begindate_m, $begindate_d,
+				if (not MusicBrainz::Server::Validation::IsDateEarlierThan($begindate_y, $begindate_m, $begindate_d,
 													   $enddate_y, $enddate_m, $enddate_d));
 			push @messages, "Please enter a comment and activate the confirm checkbox"
 				if (@dupes and ($resolution eq "" or not $confirm));

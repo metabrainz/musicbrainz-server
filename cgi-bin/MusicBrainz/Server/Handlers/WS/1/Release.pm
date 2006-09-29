@@ -68,7 +68,7 @@ sub handler
 	}
 
     my $artistid = $args{artistid};
-    if ($artistid && !MusicBrainz::IsGUID($artistid))
+    if ($artistid && !MusicBrainz::Server::Validation::IsGUID($artistid))
     {
         return bad_req($r, "Invalid artist id. For usage, please see: http://musicbrainz.org/development/mmd");
     }

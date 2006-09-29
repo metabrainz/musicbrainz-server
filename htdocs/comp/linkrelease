@@ -80,7 +80,7 @@
 
 
 	# if the id not negative, show a link, else show the name only
-	if (MusicBrainz::IsNonNegInteger($id))
+	if (MusicBrainz::Server::Validation::IsNonNegInteger($id))
 	{
 		# if the MBID is defined, use the "preferred" way of displaying release links.
 		$m->out(sprintf qq!<a href="%s" class="linkentity%s">%s</a>!,

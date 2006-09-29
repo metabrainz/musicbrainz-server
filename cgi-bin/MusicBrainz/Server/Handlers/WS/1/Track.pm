@@ -55,13 +55,13 @@ sub handler
     {
 		return bad_req($r, "Invalid content type. Must be set to xml.");
 	}
-	if ((!MusicBrainz::IsGUID($mbid) && $mbid ne '') || $inc eq 'error')
+	if ((!MusicBrainz::Server::Validation::IsGUID($mbid) && $mbid ne '') || $inc eq 'error')
 	{
 		return bad_req($r, "Incorrect URI. For usage, please see: http://musicbrainz.org/development/mmd");
 	}
 
     my $puid = $args{puid};
-	if ($puid && !MusicBrainz::IsGUID($puid))
+	if ($puid && !MusicBrainz::Server::Validation::IsGUID($puid))
 	{
 		return bad_req($r, "Invalid puid. For usage, please see: http://musicbrainz.org/development/mmd");
 	}
@@ -79,14 +79,14 @@ sub handler
         $limit = 25 if ($limit < 1 || $limit > 100);
 
         my $artistid = $args{artistid};
-        if ($artistid && !MusicBrainz::IsGUID($artistid))
+        if ($artistid && !MusicBrainz::Server::Validation::IsGUID($artistid))
         {
             return bad_req($r, "Invalid artist id. For usage, please see: http://musicbrainz.org/development/mmd");
         }
         $artist = "" if ($artistid);
 
         my $releaseid = $args{releaseid};
-        if ($releaseid && !MusicBrainz::IsGUID($releaseid))
+        if ($releaseid && !MusicBrainz::Server::Validation::IsGUID($releaseid))
         {
             return bad_req($r, "Invalid release id. For usage, please see: http://musicbrainz.org/development/mmd");
         }
@@ -193,7 +193,7 @@ sub handler_post
     foreach my $pair (@pairs)
     {
         my ($trackid, $puid) = split(' ', $pair);
-        if (!MusicBrainz::IsGUID($puid) || !MusicBrainz::IsGUID($trackid))
+        if (!MusicBrainz::Server::Validation::IsGUID($puid) || !MusicBrainz::Server::Validation::IsGUID($trackid))
         {
             $r->status(BAD_REQUEST);
             return BAD_REQUEST;

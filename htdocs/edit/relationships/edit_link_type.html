@@ -12,10 +12,10 @@ $submit=>0
 </%args>
 <%perl>
 
-MusicBrainz::TrimInPlace($linktypename);
-MusicBrainz::TrimInPlace($linkphrase);
-MusicBrainz::TrimInPlace($rlinkphrase);
-MusicBrainz::TrimInPlace($desc);
+MusicBrainz::Server::Validation::TrimInPlace($linktypename);
+MusicBrainz::Server::Validation::TrimInPlace($linkphrase);
+MusicBrainz::Server::Validation::TrimInPlace($rlinkphrase);
+MusicBrainz::Server::Validation::TrimInPlace($desc);
 
 $m->comp("/comp/checkloggedin", 1, 1)
 	or return;

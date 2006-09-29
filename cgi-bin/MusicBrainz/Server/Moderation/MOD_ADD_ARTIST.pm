@@ -44,31 +44,31 @@ sub PreInsert
 	my $begindate = $opts{'artist_begindate'};
 	my $enddate = $opts{'artist_enddate'};
 
-	MusicBrainz::TrimInPlace($name) if defined $name;
+	MusicBrainz::Server::Validation::TrimInPlace($name) if defined $name;
 	$name =~ /\S/ or die $self->SetError('Artist name not set');;
 	
-	MusicBrainz::TrimInPlace($sortname) if defined $sortname;
+	MusicBrainz::Server::Validation::TrimInPlace($sortname) if defined $sortname;
 	$sortname = $name if not defined $sortname or $sortname eq "";
 
 	# We allow a type of 0. It is mapped to NULL in the DB.
 	die $self->SetError('Artist type invalid')
 		unless Artist::IsValidType($type) or not defined $type;
 
-	MusicBrainz::TrimInPlace($resolution) if defined $resolution;
+	MusicBrainz::Server::Validation::TrimInPlace($resolution) if defined $resolution;
 
 	# undefined $begindate means: no date given
 	my $begindate_str;
 	if ( defined $begindate and $begindate->[0] ne '')
 	{
-		die 'Invalid begin date' unless MusicBrainz::IsValidDate(@$begindate);
-		$begindate_str = MusicBrainz::MakeDBDateStr(@$begindate);
+		die 'Invalid begin date' unless MusicBrainz::Server::Validation::IsValidDate(@$begindate);
+		$begindate_str = MusicBrainz::Server::Validation::MakeDBDateStr(@$begindate);
 	}
 
 	my $enddate_str;
 	if ( defined $enddate and $enddate->[0] ne '')
 	{
-		die 'Invalid end date' unless MusicBrainz::IsValidDate(@$enddate);
-		$enddate_str = MusicBrainz::MakeDBDateStr(@$enddate);
+		die 'Invalid end date' unless MusicBrainz::Server::Validation::IsValidDate(@$enddate);
+		$enddate_str = MusicBrainz::Server::Validation::MakeDBDateStr(@$enddate);
 	}
 	
 	# Prepare the data that Insert needs.

@@ -60,7 +60,7 @@
 	{
 		# another search triggered, do not redirect.
 	}
-	elsif (MusicBrainz::IsNonNegInteger($artistfilter_newartistid))
+	elsif (MusicBrainz::Server::Validation::IsNonNegInteger($artistfilter_newartistid))
 	{
 		$args{artist_id} = $artistfilter_newartistid;
 		$args{artist_type} = 3;

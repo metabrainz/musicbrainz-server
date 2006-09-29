@@ -41,7 +41,7 @@
 	# This page now just does the "view" bit.
 
 	my $user;
-	if (MusicBrainz::IsSingleLineString($username) and $username ne "")
+	if (MusicBrainz::Server::Validation::IsSingleLineString($username) and $username ne "")
 	{
 		my $mb = $m->comp("/comp/dblogin");
 		my $ui = UserStuff->new($mb->{DBH});
@@ -49,7 +49,7 @@
 		$user = $ui->newFromName($username)
 			or return $m->comp(".ShowError", qq!Editor with <strong>username</strong> "$username" not found!);
 	}
-	elsif (MusicBrainz::IsNonNegInteger($userid) and $userid)
+	elsif (MusicBrainz::Server::Validation::IsNonNegInteger($userid) and $userid)
 	{
 		my $mb = $m->comp("/comp/dblogin");
 		my $ui = UserStuff->new($mb->{DBH});

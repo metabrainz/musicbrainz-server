@@ -40,7 +40,7 @@
 		or return;
 
 	# check id argument
-	MusicBrainz::IsNonNegInteger($id) && $id
+	MusicBrainz::Server::Validation::IsNonNegInteger($id) && $id
 		or return $m->comp("/comp/layout/badarguments",
 			text => "Required argument <strong>id</strong> is missing or has  an invalid format.");
 
