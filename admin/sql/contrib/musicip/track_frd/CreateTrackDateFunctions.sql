@@ -134,7 +134,7 @@ BEGIN
 END;
 ' LANGUAGE 'plpgsql';
 
-CREATE OR REPLACE FUNCTION a_del_track_frd () RETURNS TRIGGER AS '
+CREATE OR REPLACE FUNCTION b_del_track_frd () RETURNS TRIGGER AS '
 BEGIN
     DELETE FROM track_firstreleasedate where id = OLD.id;
     RETURN NEW;

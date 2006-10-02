@@ -16,7 +16,7 @@ CREATE TRIGGER a_del_albumjoin_frd AFTER DELETE ON albumjoin
 
 CREATE TRIGGER a_ins_track_frd AFTER INSERT ON track
     FOR EACH ROW EXECUTE PROCEDURE a_ins_track_frd();
-CREATE TRIGGER a_del_track_frd AFTER DELETE ON track
+CREATE TRIGGER b_del_track_frd BEFORE DELETE ON track
     FOR EACH ROW EXECUTE PROCEDURE a_del_track_frd();
 
 -- vi: set ts=4 sw=4 et :

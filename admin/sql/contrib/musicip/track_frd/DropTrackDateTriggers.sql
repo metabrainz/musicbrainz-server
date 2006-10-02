@@ -9,6 +9,6 @@ DROP TRIGGER a_upd_albumjoin_frd ON albumjoin;
 DROP TRIGGER a_del_albumjoin_frd ON albumjoin;
 
 DROP TRIGGER a_ins_track_frd ON track;
-DROP TRIGGER a_del_track_frd ON track;
+DROP TRIGGER b_del_track_frd ON track;
 
 -- vi: set ts=4 sw=4 et :
