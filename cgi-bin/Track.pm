@@ -33,6 +33,7 @@ use strict;
 use Carp qw( carp croak );
 use DBDefs;
 use ModDefs;
+use MusicBrainz::Server::Validation qw( unaccent );
 
 sub LinkEntityName { "track" }
 
@@ -282,13 +283,13 @@ sub GetMetadataFromIdAndAlbum
          {
              if (defined $albumname)
              {
-                 $albumname = unac_string("UTF-8", $albumname);
+                 $albumname = unaccent($albumname);
                  $albumname = lc decode("utf-8", $albumname);
              }
 
              while(@row = $sql->NextRow)
              {
-                my $temp = unac_string("UTF-8", $row[0]);
+                my $temp = unaccent($row[0]);
                 $temp = lc decode("utf-8", $temp);
 
                 if (not defined $albumname || $temp eq $albumname)

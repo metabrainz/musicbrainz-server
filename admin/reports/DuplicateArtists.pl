@@ -32,14 +32,14 @@ use warnings;
 package DuplicateArtists;
 use base qw( MusicBrainz::Server::ReportScript );
 
-use Text::Unaccent qw( unac_string );
+use MusicBrainz::Server::Validation;
 use Encode qw( decode );
 
 sub addartist
 {
 	my ($artists, $row, $id, $name, $modpending) = @_;
 
-    my $n = unac_string('UTF-8', $name);
+    my $n = MusicBrainz::Server::Validation::unaccent($name);
     $n = uc decode("utf-8", $n);
     $n =~ s/[\p{Punctuation}]//g;
 	$n =~ s/\bAND\b/&/g;

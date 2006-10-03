@@ -32,7 +32,7 @@ use strict;
 use Carp qw( carp cluck croak );
 use DBDefs;
 use String::Similarity;
-use Text::Unaccent;
+use MusicBrainz::Server::Validation qw( unaccent );
 use LocaleSaver;
 use POSIX qw(:locale_h);
 use Encode qw( decode encode );
@@ -843,7 +843,7 @@ sub GetArtistDisplayList
        $max_artists = $sql->Rows();
        for(;@row = $sql->NextRow;)
        {
-           my $temp = unac_string('UTF-8', $row[1]);
+           my $temp = unaccent($row[1]);
 	   $temp = lc decode("utf-8", $temp);
 
            # Remove all non alpha characters to sort cleaner

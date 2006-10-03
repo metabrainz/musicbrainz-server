@@ -29,7 +29,7 @@ no warnings qw( portable );
 package MusicBrainz::Server::Validation;
 
 require Exporter;
-{ our @ISA = qw( Exporter ); our @EXPORT_OK = qw( encode_entities ) }
+{ our @ISA = qw( Exporter ); our @EXPORT_OK = qw( encode_entities unaccent ) }
 
 use strict;
 use Encode qw( decode encode );
@@ -203,9 +203,18 @@ sub IsDateEarlierThan
     return 1;
 }
 
+# This wrapper will prevent us from having the stupid patched version of the Text::Unaccent library
+# which in turn will make the mb_server install process simpler.
+sub unaccent($) 
+{
+    my $str = shift;
+
+    return ( defined $str ? unac_string('UTF-8', ''.$str) : '' );
+}
+
 sub NormaliseSortText
 {
-	lc decode('utf-8', unac_string('UTF-8', shift));
+	lc decode('utf-8', unaccent(shift));
 }
 *NormalizeSortText = \&NormaliseSortText;
 
@@ -218,6 +227,7 @@ sub normalize
     $t = encode "utf-8", $t;       # turn back into utf8-bytes
     $t;
 }
+
 
 # Append some data to a file.  Create the file if necessary.
 

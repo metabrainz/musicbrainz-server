@@ -30,6 +30,7 @@ use Text::Unaccent;
 use LocaleSaver;
 use POSIX qw(:locale_h);
 use Encode qw( decode );
+use MusicBrainz::Server::Validation qw( unaccent );
 
 use constant MAX_PAGE_INDEX_LEVELS => 6;
 use constant NUM_BITS_PAGE_INDEX => 5;
@@ -128,7 +129,7 @@ sub CalculatePageIndex
 	use locale;
 	my $saver = new LocaleSaver(LC_CTYPE, "en_US.UTF-8");
 
-	$string = unac_string('UTF-8', $string);
+	$string = unaccent($string);
 	$string = decode("utf-8", $string);
 	$string =~ tr/A-Za-z /_/c;
 

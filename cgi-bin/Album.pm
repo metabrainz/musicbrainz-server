@@ -36,7 +36,7 @@ use strict;
 use Carp qw( cluck croak );
 use DBDefs;
 use ModDefs qw( VARTIST_ID );
-use Text::Unaccent;
+use MusicBrainz::Server::Validation qw( unaccent );
 use LocaleSaver;
 use POSIX qw(:locale_h);
 use Encode qw( decode );
@@ -378,7 +378,7 @@ sub CombineNonAlbums
 
 	for (@tracks)
 	{
-		my $temp = unac_string('UTF-8', $_->GetName);
+		my $temp = unaccent($_->GetName);
 		$temp = lc decode("utf-8", $temp);
 		$_->{_name} = $temp;
 	}
@@ -1146,7 +1146,7 @@ sub GetVariousDisplayList
 	# Add a sortname to each row
 	for my $row (@$rows)
 	{
-		my $temp = unac_string('UTF-8', $row->[1]); # name
+		my $temp = unaccent($row->[1]); # name
 		$temp = lc decode("utf-8", $temp);
 
 		# Remove all non alpha characters to sort cleaner

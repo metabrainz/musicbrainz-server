@@ -32,7 +32,7 @@ use warnings;
 package TracksNamedWithSequence;
 use base qw( MusicBrainz::Server::ReportScript );
 
-use Text::Unaccent qw( unac_string );
+use MusicBrainz::Server::Validation;
 use Encode qw( decode );
 use Album;
 use Artist;

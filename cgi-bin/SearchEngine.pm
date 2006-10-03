@@ -54,7 +54,6 @@ use strict;
 use DBDefs;
 use Sql;
 use ModDefs;
-use Text::Unaccent;
 use Encode qw( encode decode );
 use Carp qw( croak );
 

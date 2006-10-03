@@ -30,7 +30,7 @@ use strict;
 use Carp;
 use DBDefs;
 use ModDefs ':all';
-use Text::Unaccent;
+use MusicBrainz::Server::Validation qw( unaccent );
 use Encode qw( encode decode );
 use utf8;
 
@@ -1547,7 +1547,7 @@ sub _normalise_strings
 		$t =~ tr/\x{0060}\x{00B4}"\x{00AB}\x{00BB}/'/;
 
 		# Unaccent what's left
-		$t = decode("utf-8", unac_string("utf-8", encode("utf-8", $t)));
+		$t = decode("utf-8", unaccent(encode("utf-8", $t)));
 
 		$t;
 	} @_;
