@@ -54,6 +54,7 @@ table.editdiff {
 
 table.editdiff tr {
 	border: 1px solid #fff;
+	vertical-align: top;
 }
 
 table.editdiff tr td {
@@ -62,18 +63,14 @@ table.editdiff tr td {
 	vertical-align: top;
 }
 
-table.editdiff tr td.lbl {
-	font-size: 12px;
-	padding-top: 2px;
-}
-
 table.editdiff tr td.diff * {
 	font-size: 12px;
 }
 
 table.editdiff tr td.lbl {
-	border: 0px; margin: 0px; padding: 0px; padding-right: 4px;
-	width: 65px; 
+	border: 0px; margin: 0px; 
+	padding: 0px 8px 0px 0px;
+	width: 70px; 
 	white-space: nowrap;
 	text-align: right;
 }
@@ -131,6 +128,7 @@ table.editfields tr td.lblinfo {
 	text-align: right;
 }
 
+
 table.editfields tr td.bold {
 	font-weight: bold;
 }
@@ -147,7 +145,7 @@ table.editlisting td {
 
 div.attrlist {
 	margin-left: 16px; 
-	font-size: 11px;
+	font-size: 12px;
 }
 
 
@@ -160,15 +158,11 @@ table.editlist {
 }
 
 table.editlist td.spacer {
-	height: 5px; width: 100%;
+	width: 100%;
 	background-color: #ffba58;
 	color: #000; 
 	border: 1px solid #000;
-	
-	border-left: 0px;
-	border-right: 0px;
-	background-color: #fff;
-	height: 15px;
+	height: 8px;
 }
 
 /* the header row of the edit */
@@ -178,20 +172,20 @@ tr.showedit td.votehead {
 	background: #fff;
 	color: #000; 
 	border: 1px solid #000;
-	padding: 2px;
+	padding: 2px 3px;
 	vertical-align: top;
 }
 
 /* show header row, specific settings per column */
 tr.showedit td.info {
-	padding-right: 70px;
+	padding-right: 30px;
 	white-space: nowrap;
 }
 
 tr.showedit td.type {}
 
 tr.showedit td.type td {
-	padding: 0px 2px;
+	padding: 0px 3px;
 }
 
 tr.showedit td.votehead {
@@ -206,6 +200,7 @@ tr.showedit td.oldvalue {
 	color: #000; 
 	vertical-align: top;
 	border: 1px solid #000;
+	padding: 2px 3px;	
 }
 
 tr.showedit td.oldvalue table.editdiff {
@@ -228,7 +223,7 @@ tr.showedit td.newvalue {
 	vertical-align: top; 
 	width: 100%;
 	border: 1px solid #000;
-	padding: 2px;	
+	padding: 2px 3px;	
 }
 
 tr.showedit td.newvalue table.editdiff {
@@ -255,28 +250,35 @@ tr.showedit td.newvalue div.release_endspacer {
 }
 
 tr.showedit td.newvalue table.annotation {
-	margin-top: 3px;
+	margin-top: 5px;
 }
 
 tr.showedit td.newvalue table.annotation tr.header td {
 	background-color: #fb5;
+	font-weight: normal;
+	font-size: 12px;
 }
 
+/* the voting buttons [Yes] [No] [Abs] [No Vote] */
 tr.showedit td.vote {
 	background: #fff;
 	color: #000; 
-	text-align: center;
 	vertical-align: top;
-	white-space: nowrap;
-	padding: 2px 10px;
+	text-align: center;
+	padding: 2px 4px 2px;
 	border: 1px solid #000;
 }
 
 tr.showedit td.notes {
 	background: #fff;
 	color: #000; 
-	padding: 2px;
 	border: 1px solid #000;
+	padding-left: 4px;
+	padding-right: 4px;
+}
+
+tr.showedit td.notes table {
+	width: 100%;
 }
 
 tr.showedit td.oldvalue .lbl {
@@ -290,118 +292,82 @@ table.voteslist {
 	width: 100%;
 }
 
-table.voteslist tr {
+tr.voteslist {
 	vertical-align: middle;
 }
 
-table.voteslist tr td.voter {
-	padding: 2px; padding-right: 10px;
-	text-align: right; 
-	font-size: 11px; 
-	width: 120px;
+tr.supersededvote { 
+	background: #eee 
 }
 
-table.voteslist tr td.vote {
-	padding: 0px; padding-right: 30px;
-	text-align: left;
-	border-top: 1px;
-}
-table.voteslist tr td.date {
-	padding: 0px; padding-right: 10px;
-	text-align: right;
-	font-size: 11px;
+tr.voteslist td.voter {
 	background-color: inherit;
-	color: #999;	
+	color: #000;
+	padding: 3px 13px 0px 0px;
+	text-align: right; 
+	font-size: 12px; 
+	border-top: 1px solid #fff;
+	white-space: nowrap;
 }
-
-table.voteslist tr td.vote,
-table.voteslist tr td.date { 
+tr.voteslist td.vote { 
 	background-color: inherit;
 	color: #000;
 	border-top: 1px dotted #ddd;
 }
-
-table.voteslist span.date {
-	white-space: nowrap;
+tr.voteslist span.date {
 	background-color: inherit;
-	color: #999;
+	color: #666;
+	padding: 0px 0px 0px 5px;
+	float: right;
+	white-space: nowrap;	
 }
 
 /* the list of edit notes */
-table.noteslist {
-	border: 0px;  border-collapse: collapse;
-	padding: 0px;
-	margin: 0px; margin-bottom: 3px;
-	width: 100%;
-}
-
-table.noteslist tr {
+tr.noteslist td {
+	padding: 0px; 
 	vertical-align: top;
 }
 
-table.noteslist tr td {
-	padding: 0px; 
-}
-
-table.noteslist tr td.noter {
-	padding: 2px; padding-right: 10px;
+tr.noteslist td.noter {
+	padding: 3px 13px 0px 0px;
 	text-align: right; 
-	font-size: 11px;
-	width: 120px;
+	font-size: 12px;
 	background-color: #fff;
 	color: #000;
-}
-
-table.noteslist tr td.text {
-	padding: 2px; 
-	line-height: 100%; /* force line height to 100%, else the height of the lines inside the paragraphs is too high */
-	padding-right: 30px;
-}
-
-table.noteslist tr td.date {
-	padding-right: 10px;
+	border-top: 1px solid #fff;
 	white-space: nowrap;
-	font-size: 11px;
-	text-align: right;
 }
 
-table.noteslist span.modbot {
+tr.noteslist span.date {
 	background-color: inherit;
 	color: #666;
-	padding-left: 10px;
-	background-image: url(../images/edit.gif);
-	background-position: 0px 4px;
-	background-repeat: no-repeat;
+	padding: 0px 0px 5px 5px;
+	float: right;
+	white-space: nowrap;	
 }
 
-table.noteslist span.modbot a {
+tr.noteslist td.text { 
+	background-color: #fff;
+	color: #000;
+	border-top: 1px dotted #ddd;
+	padding: 2px;	
+}
+
+tr.noteslist span.modbot {
+	background-color: inherit;
+	color: #666;
+}
+
+tr.noteslist span.modbot a {
 	color: #999;	
 }
 
-table.noteslist span.date {
-	white-space: nowrap;
-	background-color: inherit;
-	color: #999;
+tr.showedit table tr.noteslist td.noter { 
+	width: 100px;
 }
 
-table.noteslist tr.even td.text,
-table.noteslist tr.even td.date { 
-	background-color: #fff;
-	color: #000;
-	border-top: 1px dotted #ddd;
-}
 
-table.noteslist tr.odd td.text,
-table.noteslist tr.odd td.date {
-	background-color: #fff;
-	color: #000;
-	border-top: 1px dotted #ddd;
-}
 
-table.noteslist div.addnote { 
-	padding-top: 4px;
-	text-align: right;
-}
 
 
 /* Voting buttons */
@@ -444,14 +410,12 @@ td.separator {
 	border-bottom: 1px dotted #999; 
 }
 
-.SupersededVote * { 
-	background: #eee 
-}
 
 /* the blind tables which help to align values in the edit displays */
 table.edittype {
-	border-collapse: collapse;
-	border: 0px; margin: 0px; padding: 0px;
+	border-collapse: collapse; border: 0px; 
+	margin: 0px; padding: 0px;
+	width: 100%;
 }
 
 table.edittype tr {
@@ -464,22 +428,22 @@ table.edittype tr td {
 }
 
 table.edittype tr td.lbl {
-	border: 0px; margin: 0px; padding: 0px; padding-right: 4px;
+	border: 0px; margin: 0px; 
+	padding: 0px 8px 0px 0px;
 	white-space: nowrap; 
-	width: 65px; 
+	width: 70px; 
 	text-align: right;
 } 
 
-table.edittype tr.entity td {
+table.edittype tr.entity td.lbl {
 	text-align: right;
 }
 
 table.edittype tr.entity a {
-	font-weight: normal;
 }
 
 table.edittype tr.entity td.editlinks {
-	padding-left: 200px;
+	text-align: right;
 }
 
 .showedit-jsnote {
@@ -492,5 +456,40 @@ table.edittype tr.entity td.editlinks {
 	background-color: #ffffcc;
 	color: #000; 
 }
+
+/* /comp/notetext - add some vertical padding before the notetext textarea 
+*/
+table.editnote {
+	margin-top: 20px; 
+	border-collapse: collapse;
+	border-color: #fff;
+}
+table.editnote tr td {
+	padding: 0px; margin: 0px;
+}
+table.editnote tr td * {
+	margin: 0px; 
+}
+table.editnote tr td.textarea {
+}
+/* dom order hack, to allow the first button to be the one to 
+   be the rightmost in the client. See ticket #1883 */
+table.formstyle tr td.submitbuttons,
+table.editnote tr td.submitbuttons {
+	direction: rtl;
+}
+table.editnote tr td.submitbuttons {
+	padding: 5px 0px 0px 0px; 
+}
+
+/* assign ltr style on the elements inside the buttons TD, which
+   is rtl. This should fix the wrong alignment of the 
+   button texts in Opera, and does not need a hack for the button
+   texts to use mirrored special characters like &laquo; for &raquo; */
+table.formstyle tr td.submitbuttons *,
+table.editnote tr td.submitbuttons * {
+	direction: ltr;
+}
+
 
 /* vi: set ts=4 sw=4 ft=mason : */
