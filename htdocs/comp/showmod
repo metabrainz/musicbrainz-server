@@ -81,9 +81,11 @@
 %		? $edit->GetExpired ? "Expired" : "Expires"
 %		: "Closed");
 
-				<% $timelbl %>: <% $time |n %><br/>
-
-		 	</div>
+				<tr>
+					<td class="lblinfo"><% $timelbl %>: </td>
+					<td><% $time |n %></td>
+				</tr>
+		 	</table>
 		</td>
 
 		<td class="type">
@@ -154,6 +156,8 @@
 %		my $changename = $edit->GetChangeName;
 %		$changename =~ s/ /&nbsp;/g;
 
+		<% $changename |n %>
+
 %		unless ($session{"has_confirmed_email"})
 %		{
 
@@ -176,7 +180,7 @@
 
 			 Notes:<br />
 
-			 <table class="noteslist">
+			 <table class="noteslist" style="width: 100%">
 
 %		my $i = 0;
 %		for my $note (@$notes)
@@ -184,14 +188,14 @@
 %			my ($strong, $title) = (0, "Voter");
 %			($strong, $title) = (1, "Editor") if ($note->GetUserId == $edit->GetModerator);
 
-				<tr class="<% $i++ == 0 ? "first" : $i++ % 2 == 0 ? "even" : "odd" %>">
+				<tr class="noteslist <% $i++ == 0 ? "first" : $i++ % 2 == 0 ? "even" : "odd" %>">
 					<td class="noter">
 						<& /comp/linkuser,
 							id => $note->GetUserId,
 							name => $note->GetUserName,
 							strong => $strong,
 							icon => 0,
-							shorten => 1,
+							shorten => 0,
 							title => $title &>:</td>
 					<td class="text">
 
@@ -209,15 +213,10 @@
 %			$m->out(qq!</span>!) if ($note->GetUserId == &ModDefs::MODBOT_MODERATOR);
 
 					</td>
-					<td class="date">
-
-%			if ($note->GetNoteTime ne "")
-%			{
-						<span class="date"><% $m->comp("/comp/datetime", $note->GetNoteTime) %></span>
-%			}
-					</td>
 				</tr>
+
 %		}
+
 			</table>
 		</td>
 	</tr>
