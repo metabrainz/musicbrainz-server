@@ -56,6 +56,7 @@ use Sql;
 use ModDefs;
 use Encode qw( encode decode );
 use Carp qw( croak );
+use MusicBrainz::Server::Validation qw( unaccent );
 
 use constant SEARCHRESULT_SUCCESS => 1;
 use constant SEARCHRESULT_NOQUERY => 2;
@@ -102,7 +103,7 @@ sub Tokenize
     # non-number character in the middle of a word).  These can be added
     # as we understand more about the generalised problem.
 
-    $str = unac_string('UTF-8', $str);
+    $str = unaccent($str);
     # Always case insensitive
     $str = lc decode("utf-8", $str);
 
@@ -681,7 +682,7 @@ sub _DecodeStringColumns
     for my $col (@$cols)
     {
 	$eval .= "
-	\$row->{'_${col}_decoded'} = lc decode('utf-8', unac_string('UTF-8', \$row->{'$col'}));
+	\$row->{'_${col}_decoded'} = lc decode('utf-8', unaccent(\$row->{'$col'}));
 	";
     }
 
