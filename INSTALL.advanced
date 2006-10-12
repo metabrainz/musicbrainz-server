@@ -25,7 +25,7 @@ scenarios for non-standard install cases.
 
    perl -i -pwe 's[^#!/home/httpd/musicbrainz/mb_server/cgi-bin/perl]
 	[#!/usr/local/mb_server/cgi-bin/perl]' `
-		grep -rl '^#!/home/httpd/musicbrainz/mb_server/cgi-bin/perl' .
+		grep -rl '^#!/home/httpd/musicbrainz/mb_server/cgi-bin/perl' . `
 
 2) PostgreSQL locale issues
                 `

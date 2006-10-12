@@ -161,7 +161,7 @@ specific notes about a server type, the instructions apply to all server types.
        MIME::Lite
        Storable
        String::Similarity
-       Text::Unaccent (see notes below)
+       Text::Unaccent 
        Text::WikiFormat
        Time::ParseDate
        UUID (see notes below)
@@ -172,16 +172,6 @@ specific notes about a server type, the instructions apply to all server types.
        RDFStore (use 0.42 if 0.50 gives you install headaches)
 
    Notes on specific perl modules:
-
-       Text::Unaccent
-
-       The latest version of Text::Unaccent on CPAN is, at the time of writing, 1.08.
-       However, for MusicBrainz you need version 1.09 which hasn't been released yet.
-       If you're installing MusicBrainz before the 1.09 version has been released,
-       install this 1.08 version that has a patch applied that makes it suitable
-       for use with MusicBrainz:
-
-       ftp://ftp.musicbrainz.org/pub/musicbrainz/misc/Text-Unaccent-1.08-mb.tar.gz
 
        Language::Guess
 
@@ -297,6 +287,9 @@ Installation:
    the previous step:
 
    cgi-bin/DBDefs.pm
+     NOTE: You can find a default version of DBDefs.pm in DBDefs.pm.default;
+           copy this to DBDefs.pm and edit this.
+
      This just contains lots of configuration settings; read the comments
      in the file for more information.  There's at least one setting in there
      which MUST be changed for you to run a server (SMTP_SECRET_CHECKSUM);
