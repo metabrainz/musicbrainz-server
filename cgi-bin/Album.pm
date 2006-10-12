@@ -279,6 +279,22 @@ sub GetLanguageModPending
 	return $_[0]->{modpending_lang} || 0;
 }
 
+sub IsLocked
+{
+	return $_[0]->{locked} || 0;
+}
+
+sub SetLocked
+{
+	return $_[0]->{locked} = $_[1];
+}
+
+# Adding this function makes the code more readable
+sub IsUnlocked
+{
+	return !($_[0]->{locked} || 0);
+}
+
 sub GetAttributeName
 {
    return $AlbumAttributeNames{$_[1]}->[0];
@@ -718,7 +734,7 @@ sub LoadFromId
 	my $sql = Sql->new($this->{DBH});
 	my $row = $sql->SelectSingleRowArray(
 		"SELECT	a.id, name, gid, modpending, artist, attributes, "
-		. "       language, script, modpending_lang"
+		. "       language, script, modpending_lang, locked"
 		. ($loadmeta ? ", tracks, discids, trmids, firstreleasedate,coverarturl,asin,puids" : "")
 		. " FROM album a"
 		. ($loadmeta ? " INNER JOIN albummeta m ON m.id = a.id" : "")
@@ -735,19 +751,20 @@ sub LoadFromId
 	$this->{language}			= $row->[6];
 	$this->{script}				= $row->[7];
 	$this->{modpending_lang}	= $row->[8];
+	$this->{locked}	            = $row->[9];
 
 	delete @$this{qw( trackcount discidcount trmidcount firstreleasedate asin coverarturl puidcount )};
 	delete @$this{qw( _discids _tracks )};
 
 	if ($loadmeta)
 	{
-		$this->{trackcount}		= $row->[9];
-		$this->{discidcount}	= $row->[10];
-		$this->{trmidcount}		= $row->[11];
-		$this->{firstreleasedate}=$row->[12] || "";
-		$this->{coverarturl}=$row->[13] || "";
-		$this->{asin}=$row->[14] || "";
-		$this->{puidcount}		= $row->[15];
+		$this->{trackcount}		= $row->[10];
+		$this->{discidcount}	= $row->[11];
+		$this->{trmidcount}		= $row->[12];
+		$this->{firstreleasedate}=$row->[13] || "";
+		$this->{coverarturl}=$row->[14] || "";
+		$this->{asin}=$row->[15] || "";
+		$this->{puidcount}		= $row->[16];
 	}
 
 	1;
@@ -1118,7 +1135,7 @@ sub GetVariousDisplayList
 	my $query = "
 		SELECT	a.id, a.name as albumname, a.gid, a.modpending, 
 				a.artist as artistid, ar.name as artistname,
-                attributes, language, script, modpending_lang,
+                attributes, language, script, modpending_lang, locked
 				tracks, discids, trmids, firstreleasedate, coverarturl, asin, puids
    		FROM	album a, albummeta m, artist ar
 	  	WHERE	a.page BETWEEN $page_min AND $page_max
@@ -1186,14 +1203,15 @@ sub GetVariousDisplayList
 		$al->{language}			= $row->[7];
 		$al->{script}			= $row->[8];
 		$al->{modpending_lang}	= $row->[9];
+		$al->{locked}	        = $row->[10];
 
-		$al->{trackcount}		= $row->[10];
-		$al->{discidcount}		= $row->[11];
-		$al->{trmidcount}		= $row->[12];
-		$al->{firstreleasedate}	= $row->[13] || "";
-		$al->{coverarturl}		= $row->[14] || "";
-		$al->{asin}				= $row->[15] || "";
-		$al->{puidcount}		= $row->[16] || 0;
+		$al->{trackcount}		= $row->[11];
+		$al->{discidcount}		= $row->[12];
+		$al->{trmidcount}		= $row->[13];
+		$al->{firstreleasedate}	= $row->[14] || "";
+		$al->{coverarturl}		= $row->[15] || "";
+		$al->{asin}				= $row->[16] || "";
+		$al->{puidcount}		= $row->[17] || 0;
 
 		$al;
 	} @$rows;
@@ -1423,6 +1441,21 @@ sub UpdateLanguageModPending
 					= NUMERIC_LARGER(COALESCE(modpending_lang,0)+?, 0)
 		WHERE	id = ?
 EOF
+}
+
+sub UpdateLock
+{
+	my $self = shift;
+
+	my $id = $self->GetId
+		or croak "Missing album ID in RemoveFromAlbum";
+
+	my $sql = Sql->new($self->{DBH});
+	$sql->Do(
+		"UPDATE album SET locked = ? WHERE id = ?",
+		$self->{locked},
+		$id,
+	);
 }
 
 sub GetTrackSequence

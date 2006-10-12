@@ -121,8 +121,9 @@ use constant MOD_CHANGE_WIKIDOC			=> 48;
 use constant MOD_ADD_RELEASEEVENTS		=> 49;
 use constant MOD_EDIT_RELEASEEVENTS		=> 50;
 use constant MOD_REMOVE_RELEASEEVENTS	=> 51;
+use constant MOD_CHANGE_RELEASE_LOCK	=> 52;
 
-use constant MOD_LAST					=> 51;
+use constant MOD_LAST					=> 52;
 
 # The constants below define the state a moderation can have:
 

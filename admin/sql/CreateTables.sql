@@ -27,7 +27,8 @@ CREATE TABLE album
     page                INTEGER NOT NULL,
     language            INTEGER, -- references language
     script              INTEGER, -- references script
-    modpending_lang     INTEGER
+    modpending_lang     INTEGER,
+    locked              INTEGER DEFAULT 0
 );
 
 CREATE TABLE album_amazon_asin

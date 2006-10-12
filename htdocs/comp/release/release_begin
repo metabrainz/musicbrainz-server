@@ -106,6 +106,10 @@
 					alt="Open in tagger" /></a></td>
 %	}
 
+%   if ($release->IsLocked) {
+			<td class="locked">[ Locked ]</td>
+%   }
+
 %	if ($session{"uid"} && !$nonalbum && $showtag)
 %	{
 
@@ -237,15 +241,23 @@
 						$m->out(qq! | <a href="/show/release/?releaseid=$releaseid&amp;showrelationships=$newvalue">$newtext</a>!);
 					}
 
-					if (!$release->HasMultipleTrackArtists)
-					{
-						$m->out(qq! | <a href="/edit/album/mac.html?releaseid=$releaseid">Convert&nbsp;to&nbsp;multiple&nbsp;artists</a>!);
-					}
-					else
-					{
-						$m->out(qq! | <a href="/edit/album/sac.html?releaseid=$releaseid">Convert&nbsp;to&nbsp;single&nbsp;artist</a>!);
-					}
-					$m->out(qq! | <a href="/edit/albumbatch/done.html?releaseid$releaseid=on">Merge&nbsp;with&nbsp;...</a>!);
+                    if ($release->IsUnlocked)
+                    {
+                        if (!$release->HasMultipleTrackArtists)
+                        {
+                            $m->out(qq! | <a href="/edit/album/mac.html?releaseid=$releaseid">Convert&nbsp;to&nbsp;multiple&nbsp;artists</a>!);
+                        }
+                        else
+                        {
+                            $m->out(qq! | <a href="/edit/album/sac.html?releaseid=$releaseid">Convert&nbsp;to&nbsp;single&nbsp;artist</a>!);
+                        }
+					    $m->out(qq! | <a href="/edit/albumbatch/done.html?releaseid$releaseid=on">Merge&nbsp;with&nbsp;...</a>!);
+					    $m->out(qq! | <a href="/edit/album/lock.html?releaseid=$releaseid&lock=1">Lock</a>!);
+                    }
+                    else
+                    {
+					    $m->out(qq! | <a href="/edit/album/lock.html?releaseid=$releaseid&lock=0">Unlock</a>!);
+                    }
 				}
 			}
 			else
