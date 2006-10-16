@@ -30,8 +30,7 @@
 <%args>
 
 	$required => 0
-	$text => ""
-	$notetext => undef
+	$notetext => ""
 	@buttons => ()
 	$showprivscheckbox => 1
 
@@ -40,8 +39,6 @@
 
 	@buttons = ( ["Enter Edit &raquo;", "btnYes"], ["Cancel", "btnCancel"] )
 		if (not @buttons);
-
-	$notetext ||= $text;
 
 </%perl>
 
@@ -58,7 +55,7 @@
 
 	<br />
 	<textarea name="notetext" id="notetext" class="textarea" rows="3" cols="52"><%
-		$text %></textarea>
+		$notetext %></textarea>
 
 	<div style="margin: 5px 0px">
 
