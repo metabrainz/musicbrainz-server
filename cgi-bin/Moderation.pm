@@ -88,6 +88,7 @@ require MusicBrainz::Server::Moderation::MOD_CHANGE_WIKIDOC;
 require MusicBrainz::Server::Moderation::MOD_ADD_RELEASEEVENTS;
 require MusicBrainz::Server::Moderation::MOD_EDIT_RELEASEEVENTS;
 require MusicBrainz::Server::Moderation::MOD_REMOVE_RELEASEEVENTS;
+require MusicBrainz::Server::Moderation::MOD_SET_RELEASE_DURATIONS;
 
 use constant SEARCHRESULT_SUCCESS => 1;
 use constant SEARCHRESULT_NOQUERY => 2;

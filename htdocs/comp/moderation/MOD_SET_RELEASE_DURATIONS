@@ -21,62 +21,35 @@
 	#
 	# Summary:
 	# -----------------------------------------------------------------------------
-	# Show database details of a cd toc (Table of Content).
+	# This component provides the display facilities for
+	# the MOD_SET_RELEASE_DURATIONS edit type.
 	#
-	# $Id$
+	# $Id: MOD_EDIT_ALBUMNAME 8022 2006-07-02 21:17:05Z keschte $
 	#
 </%perl>
-<%args>
+<%method ShowPreviousValue>
+% 	my $this = shift;
+</%method>
 
-	$cdtocid
+<%method ShowNewValue>
+% 	my $this = shift;
+%   my $new = $this->{'new_unpacked'};
 
-</%args>
-<%perl>
+	<table class="editdiff">
+		<tr>
+			<td class="lbl">Old:</td>
+			<td class="diff" id="ov::edit<% $this->GetId %>"><% $this->GetPrev %></td>
+		</tr>
+		<tr>
+			<td class="lbl">New:</td>
+			<td class="diff" id="nv::edit<% $this->GetId %>"><% $new->{NewDurs} %>
+		</tr>
+		<tr>
+			<td class="lbl">&nbsp;</td>
+			<td class="diff"><a href="/show/cdtoc/?cdtocid=<% $new->{CDTOCId} %>">View CD TOC</a></td>
+		</tr>
+	</table>
 
-	# Instantiate MusicBrainz object, and load CDTOC from cdtocid.
-	my $mb = $m->comp("/comp/dblogin");
-	my $cdtoc = MusicBrainz::Server::CDTOC->newFromId($mb->{DBH}, $cdtocid)
-		or return $m->comp(
-			"/comp/error",
-			"No such CDTOC #$cdtocid",
-			1, 1,
-		);
-
-</%perl>
-
-<& /comp/sidebar-notitle, pagetitle => "CD TOC Details" &>
-
-	<& /comp/cdtocinfo, cdtoc => $cdtoc &>
-        
-    <& /comp/tablebegin, title => "Releases linked to this CD TOC" &>
-
-%	my $alcdtocs = $cdtoc->GetAlbumCDTOCs;
-%	if (@$alcdtocs)
-%	{
-
-        <p>This CD TOC is linked to the following releases:</p>
-
-%		for my $alcdtoc (@$alcdtocs)
-%		{
-%			my $release = $alcdtoc->GetAlbum;
-%           my $artist = $m->comp("/comp/loadartist", $mb, $release->GetArtist);
-			<& /comp/album, album => $release, artist => $artist, showmodlinks => 0, showlinks => 0  &>
-            <p style="text-align: center"><a href="/edit/album/setdurations.html?cdtocid=<% $cdtocid %>&releaseid=<% $release->GetId %>">Set track durations for the above release based on this CD TOC</a></p>
-            <hr>
-%		}
-%	}
-%	else
-%	{
-
-		<div style="border: 1px dotted #000; padding: 5px; margin-bottom: 15px">
-			This CD TOC is not linked to any releases.
-		</div>
-
-%	}
-
-    <& /comp/tableend &>
-
-
-<& /comp/footer &>
+</%method>
 
 %# vi: set ts=4 sw=4 ft=mason :
