@@ -57,7 +57,11 @@
 		}
 		elsif ($submitvalue =~ m/Enter edits/i)
 		{
-			return $m->comp("/comp/redirect", "/edit/albumreleases/enter.html?releaseid=$releaseid");
+			return $m->comp(
+				"/edit/albumreleases/enter.html",
+				releaseid => $releaseid,
+				notetext => $notetext,
+			);
 		}
 		elsif ($submitvalue =~ m/Keep editing/i)
 		{
