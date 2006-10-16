@@ -418,7 +418,8 @@ sub IsAutoEditType
 		$type == &ModDefs::MOD_REMOVE_PUID ||
 		$type == &ModDefs::MOD_REMOVE_LINK_TYPE ||
 		$type == &ModDefs::MOD_REMOVE_LINK_ATTR ||
-		$type == &ModDefs::MOD_CHANGE_WIKIDOC)
+		$type == &ModDefs::MOD_CHANGE_WIKIDOC ||
+        $type == &ModDefs::MOD_SET_RELEASE_DURATIONS)
 	{
 		return 1;
 	}
