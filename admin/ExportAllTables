@@ -86,11 +86,22 @@ usage(), exit 1 if not $fCompress and not $fKeepFiles;
 usage(), exit 1 if not $fDoFullExport and not $fDoReplication;
 usage(), exit 1 if not $fDoFullExport and @tablelist;
 
+my $erase_tmpdir_on_exit = 0;
+END
+{
+	if ($erase_tmpdir_on_exit and not $fKeepFiles and defined($dir) and -d $dir and -d "$dir/mbdump")
+	{
+		print localtime() . " : Erasing $dir\n";
+		system "/bin/rm", "-rf", $dir;
+	}
+}
+
 use File::Temp qw( tempdir );
 $SIG{'INT'} = sub { exit 3 };
-$dir = tempdir("mbexport-XXXXXX", DIR => $dir, CLEANUP => not $fKeepFiles);
+$dir = tempdir("mbexport-XXXXXX", DIR => $dir, CLEANUP => 0);
+$erase_tmpdir_on_exit = 1;
 mkdir "$dir/mbdump" or die $!;
-print localtime() . " : Exporting to $dir\n" if $fKeepFiles;
+print localtime() . " : Exporting to $dir\n";
 
 use MusicBrainz;
 my $mb = new MusicBrainz;
@@ -389,7 +400,10 @@ if ($fDoReplication)
 # Dump this /after/ we've possibly updated the current_replication_sequence
 dumptable("replication_control");
 
+# Make sure our replication data is safe before we commit its removal from the database
+system "/bin/sync"; $? == 0 or die "sync failed (rc=$?)";
 $sql->Commit;
+
 my $dumptime = tv_interval($t0);
 printf "%s : Dumped %d tables (%d rows) in %d seconds\n",
 	scalar localtime,
@@ -523,6 +537,14 @@ if ($fCompress and $fDoReplication)
 	}
 }
 
+# Tar files all created safely... we can erase the tmpdir on exit
+system "/bin/sync"; $? == 0 or die "sync failed (rc=$?)";
+$erase_tmpdir_on_exit = 1;
+
+exit;
+
+################################################################################
+
 sub make_tar
 {
 	my ($tarfile, @files) = @_;
@@ -548,7 +570,7 @@ sub make_tar
 		"--",
 		@files,
 		;
-	$? == 0 or warn "Tar returned $?";
+	$? == 0 or die "Tar returned $?";
 	printf "%s : Tar completed in %d seconds\n", scalar localtime, tv_interval($t0);
 }
 
@@ -564,6 +586,9 @@ sub empty_replication_tables
 {
 	$sql->Do("DELETE FROM \"PendingData\"");
 	$sql->Do("DELETE FROM \"Pending\"");
+	# As soon as we commit, the replication data is gone from the DB, so we must
+	# be sure that we have a safe copy.
+	$erase_tmpdir_on_exit = 0;
 }
 
 sub optimise_replication_tables
