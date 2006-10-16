@@ -71,6 +71,7 @@
 			vote_show_novote
 			mail_notes_if_i_noted
 			mail_notes_if_i_voted
+			mail_on_first_no_vote
 			remove_recent_link_on_add
 			release_show_relationshipslinks
 			release_show_annotationlinks
@@ -220,12 +221,23 @@
 %						$m->out(UserPreference::get('mail_notes_if_i_voted') ? ' checked="checked" ' : "");
 						/>
 					<label for="pref_mail_notes_if_i_voted">
-						When I vote on a edit, mail me all future notes for that edit</label>
+						When I vote on an edit, mail me all future notes for that edit.</label>
 						<br />
 						&nbsp; &nbsp;
 						(Note: only takes effect when your most recent vote on a edit is either
 						yes or no - not "abstain")
 				</div>
+				<div>
+					<input type="checkbox" name="mail_on_first_no_vote" id="pref_mail_on_first_no_vote"
+%						$m->out(UserPreference::get('mail_on_first_no_vote') ? ' checked="checked" ' : "");
+						/>
+					<label for="pref_mail_on_first_no_vote">
+						Mail me when one of my edits gets a "no" vote.</label>
+						<br />
+						&nbsp; &nbsp;
+						(Note: the email is only sent for the first "no" vote, not each one)
+				</div>
+						
 
 % 	unless ($ui->Current->IsNewbie)
 %	{

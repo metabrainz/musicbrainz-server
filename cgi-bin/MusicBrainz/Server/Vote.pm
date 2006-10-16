@@ -64,12 +64,12 @@ sub _InsertVote
 	# Lock the table so that the select-old / insert-new are atomic
 	$sql->Do("LOCK TABLE vote_open IN EXCLUSIVE MODE");
 
-	my $status = $sql->SelectSingleValue(
-		"SELECT status FROM moderation_open WHERE id = ?",
+	my $mod_row = $sql->SelectSingleRowHash(
+		"SELECT novotes, status FROM moderation_open WHERE id = ?",
 		$modid,
 	);
 
-	(defined($status) and $status == STATUS_OPEN)
+	(defined($mod_row) and $mod_row->{status} == STATUS_OPEN)
 		or return;
 
 	# Find the user's previous (most recent) vote for this mod
@@ -112,6 +112,14 @@ sub _InsertVote
 		$nodelta,
 		$modid,
 	);
+
+	if ($vote == VOTE_NO and $mod_row->{novotes} == 0)
+	{
+		require Moderation;
+		my $t = Moderation->new($self->{DBH});
+		my $edit = $t->CreateFromId($modid);
+		$edit->FirstNoVote($uid);
+	}
 }
 
 sub newFromModerationId

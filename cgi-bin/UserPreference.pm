@@ -251,6 +251,7 @@ addpref('JSDiff', '1', \&check_bool);
 addpref('JSMoveFocus', '1', \&check_bool);
 addpref('mail_notes_if_i_noted', 1, \&check_bool);
 addpref('mail_notes_if_i_voted', 1, \&check_bool);
+addpref('mail_on_first_no_vote', 1, \&check_bool);
 addpref('mod_add_album_inline', 0, \&check_bool);
 addpref('mod_add_album_link', 0, \&check_bool);
 addpref('mods_per_page', 10, sub { check_int(1,25,@_) });

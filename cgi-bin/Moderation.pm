@@ -1049,6 +1049,45 @@ sub VoteFromUser
 	$thevote;
 }
 
+sub FirstNoVote
+{
+	my ($self, $voter_uid) = @_;
+
+	require UserStuff;
+	my $editor = UserStuff->newFromId($self->{DBH}, $self->GetModerator);
+
+	require UserPreference;
+	my $send_mail = UserPreference::get_for_user('mail_on_first_no_vote', $editor);
+	$send_mail or return;
+
+	my $url = "http://" . &DBDefs::WEB_SERVER . "/show/edit/?editid=" . $self->GetId;
+
+	my $body = <<EOF;
+Someone has voted against one of your edits:
+$url
+
+This email is only sent for the first "no" vote against your edit,
+not for each one.  If you would prefer not to receive these emails,
+please log in and adjust your preferences accordingly.
+EOF
+
+	require MusicBrainz::Server::Mail;
+	my $mail = MusicBrainz::Server::Mail->new(
+		# Sender: not required
+		From		=> 'MusicBrainz <webserver@musicbrainz.org>',
+		# To: $self (automatic)
+		"Reply-To"	=> 'MusicBrainz Support <support@musicbrainz.org>',
+		Subject		=> "Someone has voted against your edit",
+		References	=> '<edit-'.$self->GetId.'@'.&DBDefs::WEB_SERVER.'>',
+		Type		=> "text/plain",
+		Encoding	=> "quoted-printable",
+		Data		=> $body,
+	);
+    $mail->attr("content-type.charset" => "utf-8");
+
+	$editor->SendFormattedEmail(entity => $mail);
+}
+
 ################################################################################
 
 sub TopModerators
