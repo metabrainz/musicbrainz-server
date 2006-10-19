@@ -1,4 +1,4 @@
-#!/home/httpd/musicbrainz/mb_server/cgi-bin/perl -w
+#!/usr/bin/perl -w
 #____________________________________________________________________________
 #
 #   MusicBrainz -- the open internet music database
