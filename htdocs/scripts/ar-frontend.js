@@ -167,14 +167,22 @@ function ARFrontEnd() {
 			if (v.match(/\.amazon\./i)) {
 				site = "amazon asin";
 
-				// try to chop off stuff from the end of the url.
-				var reUS = /(.*\/gp\/product\/[a-z0-9]*).*/i; // http://www.amazon.com/gp/product/<ASIN>
-				var reNonUS = /(.*\/exec\/obidos\/ASIN\/[a-z0-9]*).*/i; // http://www.amazon.de/exec/obidos/ASIN/<ASIN>
+				// determine tld, asin from url, and build standard format [1],
+				// if both were found. There used to be another [2], but we'll
+				// stick to the new one for now.
+				//
+				// [1] "http://www.amazon.<tld>/gp/product/<ASIN>"
+				// [2] "http://www.amazon.<tld>/exec/obidos/ASIN/<ASIN>"
 
-				if (v.match(reUS)) {
-					field.value = v.replace(reUS, "$1");
-				} else if (v.match(reNonUS)) {
-					field.value = v.replace(reNonUS, "$1");
+				var tld = "", asin = "";
+				if ((m = v.match(/amazon\.([a-z\.]+)\//)) != null) {
+					tld = m[1];
+				}
+				if ((m = v.match(/\b([A-Z0-9]{10})\b/)) != null) {
+					asin = m[1];
+				}
+				if (tld != "" && asin != "") {
+					field.value = "http://www.amazon." + tld + "/gp/product/" + asin;
 				}
 
 			} else if (v.match(/\.discogs\./i)) {
