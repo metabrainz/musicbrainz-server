@@ -112,39 +112,40 @@ sub unpack_data
 
 	while (length($packed))
 	{
-		#print "Parsing [$packed]\n";
-		my ($k, $v) = $packed =~ m/
-			\A
-			"(.*?)"		# column name
-			=
-			(?:
-				'
-				(
-					(?:
-						\\\\	# two backslashes == \
-						| \\'	# backslash quote == '
-						| ''	# quote quote also == '
-						| [^']	# any other char == itself
-					)*
-				)
-				'
-			)?			# NULL if missing
-			\x20		# always a space, even after the last column-value pair
-		/sx or warn("Failed to parse: [$packed]"), return undef;
+		# "ColumnName"=
+		my ($k) = ($packed =~ /\A"(.*?)"=/)
+			or warn("Failed to parse: expected [\"ColumnName\"=] but found [$packed]"), return undef;
+		substr($packed, 0, $+[0], '');
 
-		$packed = substr($packed, $+[0]);
-
-		if (defined $v)
+		my $v = undef;
+		# Optionally, a quoted string
+		if ($packed =~ s/\A'//)
 		{
-			my $t = '';
-			while (length $v)
+			$v = "";
+
+			for (;;)
 			{
-				$t .= "\\", next if $v =~ s/\A\\\\//;
-				$t .= "'", next if $v =~ s/\A\\'// or $v =~ s/\A''//;
-				$t .= substr($v, 0, 1, '');
+				# \\ => \
+				$v .= "\\", next if $packed =~ s/\A\\\\//;
+
+				# \' => '
+				# '' => '
+				$v .= "'", next if $packed =~ s/\A[\\']'//;
+
+				# End of string
+				last if $packed =~ s/\A'//;
+
+				$packed ne ''
+				  	or warn("Failed to parse: expected string data but found end of string"), return undef;
+
+				# any other char == itself
+				$v .= substr($packed, 0, 1, '');
 			}
-			$v = $t;
 		}
+
+		# A space
+		$packed =~ s/\A //
+			or warn("Failed to parse: expected [ ] but found [$packed]"), return undef;
 
 		#print "Found $k = $v\n";
 		$answer{$k} = $v;
