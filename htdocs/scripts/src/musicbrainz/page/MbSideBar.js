@@ -157,7 +157,7 @@ function MbSideBar() {
 			s.push(state.title);
 			s.push('</a>');
 			s.push('</td><td>');
-			s.push('<img src="/images/icon/');
+			s.push('<img src="http://musicbrainz.org/images/icon/');
 			s.push(state.icon);
 			s.push('" alt="">');
 			s.push('</td></tr></table>');

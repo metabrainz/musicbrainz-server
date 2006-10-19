@@ -105,9 +105,9 @@
 
 </%perl>
 
-<& /comp/sidebar-notitle, pagetitle => "Release Batch Operations" &>
+<& /comp/sidebar-notitle, pagetitle => "Release batch operations" &>
 
-	<& /comp/tablebegin, title => "Release Batch Operations" &>
+	<& /comp/tablebegin, title => "Release batch operations" &>
 
 %#	[ <a href="<% $referer %>">Go back</a> | <a href="/search.html">Search</a> ]
 
@@ -122,13 +122,14 @@
 						</li>
 						<li>
 							Alternatively, You can <strong>select more releases</strong> using
-							<strong><img src="/images/edit.gif" alt="" /><a href="<% $more_releases_url %>">this link</a></strong>
+							<strong><a href="<% $more_releases_url %>">this link</a></strong>
 							and return to this page to perform the action on all the other releases as well.
 						</li>
 						<li>
 							If you want to <strong>remove one or more releases</strong> from
-							this list, deactivate the checkbox in the release title
-							and click on the "Update" button at the bottom of this page.
+							this list, unselect these releases by unticking the respective checkbox
+							in the release title and click on the "Update" button in the "With
+							selected releases, do..." box.
 						</li>
 					</ul>
 				</td>
@@ -152,7 +153,7 @@
 % 	for (@releaseids) { $m->comp("/comp/form/hiddenfield", "releaseid", $_); }
 
 										<input type="hidden" name="mac" value="0" />
-										<input type="submit" value="Single Artist &raquo;" <% (@releaseObjs < 2) ? qq!disabled="disabled"! : "" |n %> />
+										<input type="submit" value="Single artist &raquo;" <% (@releaseObjs < 2) ? qq!disabled="disabled"! : "" |n %> />
 									</div>
 								</form>
 							</td>
@@ -163,7 +164,7 @@
 % 	for (@releaseids) { $m->comp("/comp/form/hiddenfield", "releaseid", $_); }
 
 										<input type="hidden" name="mac" value="1" />
-										<input type="submit" value="Various Artists &raquo;" <% (@releaseObjs < 2) ? qq!disabled="disabled"! : "" |n %> />
+										<input type="submit" value="Various artists &raquo;" <% (@releaseObjs < 2) ? qq!disabled="disabled"! : "" |n %> />
 									</div>
 								</form>
 							</td>
@@ -181,7 +182,7 @@
 
 %		$m->out(qq!<input type="hidden" name="artistid" value="$artistid" />!) if ($artistid);
 
-								<input type="submit" value="Select More &raquo;" />
+								<input type="submit" value="Select more &raquo;" />
 								You have to select at least two releases for a merge edit.
 							</div>
 						</form>
@@ -221,7 +222,7 @@
 			</tr>
 
 			<tr class="top">
-				<td class="label">Edit Attributes:</td>
+				<td class="label">Edit attributes:</td>
 				<td>
 					<form method="post" action="/edit/album/editattributes.html">
 						<div>
@@ -229,7 +230,7 @@
 % 	for (@releaseids) { $m->comp("/comp/form/hiddenfield", "id", $_); }
 
 							<input type="hidden" name="untag" value="1" />
-							<input type="submit" value="Edit Attributes &raquo;" />
+							<input type="submit" value="Edit attributes &raquo;" />
 							Apply release attributes to all selected releases.
 						</div>
 					</form>
@@ -237,7 +238,7 @@
 			</tr>
 
 			<tr class="top">
-				<td class="label">Edit Language:</td>
+				<td class="label">Edit language:</td>
 				<td>
 					<form method="post" action="/edit/albumlanguage/edit.html">
 						<div>
@@ -245,7 +246,7 @@
 % 	for (@releaseids) { $m->comp("/comp/form/hiddenfield", "id", $_); }
 
 							<input type="hidden" name="untag" value="1" />
-							<input type="submit" value="Edit Language &raquo;" />
+							<input type="submit" value="Edit language &raquo;" />
 							Change the language and/or script of all selected releases.
 						</div>
 					</form>

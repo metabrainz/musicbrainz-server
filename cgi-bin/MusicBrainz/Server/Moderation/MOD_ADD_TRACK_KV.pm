@@ -117,7 +117,7 @@ sub PreInsert
 		artistid => $artistid
 	);
 	my %info = (
-		artistid=> $artistid, 
+		artistid => $artistid, 
 		albumid	=> $release->GetId,
 		tracks => [ \%trackinfo ],
 	);

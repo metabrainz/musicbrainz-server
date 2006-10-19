@@ -79,7 +79,7 @@
 
 	if (not $me)
 	{
-		push @messages, qq!Cannot find editor with <strong>userid</strong> $session{"uid"}!;
+		push @messages, qq!Cannot find editor with <strong>userid</strong> !.$session{"uid"};
 		$disableform = 1;
 	}
 	if (not $you)
@@ -89,7 +89,7 @@
 	}
 	if ($you and !$you->CheckEMailAddress)
 	{
-		push @messages, qq!The editor !.$you->GetName.qq!has declined to give an e-mail
+		push @messages, qq!The editor ! . $you->GetName . qq!has declined to give an e-mail
 							address, which means you cannot send them an e-mail...!;
 		$disableform = 1;
 	}
@@ -147,8 +147,8 @@
 %	if ($editid)
 %	{
 			<div style="border: 1px solid #000; padding: 5px; margin-bottom: 15px">
-				<strong>Please note:</strong> Please use the moderation notes system
-				to communicate with fellow editors. others might be interested in
+				<strong>Please note:</strong> Please use the edit notes system
+				to communicate with fellow editors. Others might be interested in
 				what you have to say, too!
 			</div>
 
@@ -160,10 +160,9 @@
 %	{
 				<tr>
 					<td>&nbsp;</td>
-					<td class="error">
-						<ul>
-							<li><%perl> $m->out(join("</li><li>", @messages)); </%perl></li>
-						</ul>
+					<td>
+						<& /comp/form/feedbackbox, "warning", "Your form submission contains errors",
+							sprintf "<ul><li>%s</li></ul>", join("</li><li>", @messages) &>
 					</td>
 				</tr>
 %	}
@@ -176,14 +175,14 @@
 				<tr>
 					<td class="label">Subject:</td>
 					<td>
-						<input type="text" name="subject" size="40" value="<% $subject %>"
+						<input type="text" name="subject" size="40" value="<% $subject %>" tabindex="1"
 % 	$m->out(qq! readonly="readonly" !) if ($disableform);
 						/></td>
 				</tr>
 				<tr class="top">
 					<td class="label">Message:</td>
 					<td>
-						<textarea name="text" cols="60" rows="20"
+						<textarea name="text" cols="60" rows="20" tabindex="2"
 % 	$m->out(qq! readonly="readonly" !) if ($disableform);
 % 	$m->out(qq! style="width: 100%" !) if ($pnotes{'ispopup'});
 
@@ -216,15 +215,17 @@
 %	}
 				<tr>
 					<td></td>
-					<td>
-						<input type="submit" name="submitvalue" value="Send Message &raquo;"
+					<td class="submitbuttons">
+						<input type="submit" name="submitvalue" value="Send Message &raquo;" tabindex="2"
 % 	$m->out(qq! disabled="disabled" !) if ($disableform);
-						/></td>
+						/>
+						<input type="submit" name="submitvalue" value="Cancel" />
+
+						<& /comp/form/focusfield, $subject ? "text" : "subject" &>
+					</td>
 				</tr>
 			</table>
 		</form>
-
-		<& /comp/movefocus, "EMailForm", $subject ? "text" : "subject" &>
 
 	<& /comp/tableend &>
 

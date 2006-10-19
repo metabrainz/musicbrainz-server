@@ -79,7 +79,7 @@
 	if (MusicBrainz::Server::Validation::IsNonNegInteger($id))
 	{
 		# if the MBID is defined, use the "preferred" way of displaying release links.
-		$m->out(sprintf qq!<a href="%s" class="linkentity%s">%s</a>!,
+		$m->out(sprintf qq!<a href="%s" class="linkentity%s" title="Track">%s</a>!,
 						defined $mbid ? "/track/$mbid.html" : "/show/track/?trackid=$id",
 						$strong ? "-strong" : "",
 						$m->interp->apply_escapes($name, 'h'));

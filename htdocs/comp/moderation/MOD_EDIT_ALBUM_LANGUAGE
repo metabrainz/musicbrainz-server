@@ -28,44 +28,14 @@
 	#
 </%perl>
 <%method ShowPreviousValue>
-<%perl>
-	my $self = shift;
-	my $releases = $self->{'_new_albums'};
 
-	$m->out(qq!<table class="editfields">!);
-	for my $release (@$releases)
-	{
-		$m->out(qq!<tr><td>!);
-		$m->comp("/comp/linkrelease", id => $release->{'id'}, name => $release->{'name'});
-
-		my $lang = "Not set";
-		if ($release->{prev_lang})
-		{
-			my $l = MusicBrainz::Server::Language->newFromId(
-						$self->{DBH}, $release->{prev_lang});
-			$lang = $l->GetName;
-		}
-
-		my $script = "Not set";
-		if ($release->{prev_script})
-		{
-			my $s = MusicBrainz::Server::Script->newFromId(
-						$self->{DBH}, $release->{prev_script});
-			$script = $s->GetName;
-		}
-		$m->out(qq!<div class="attrlist">!);
-		$m->out(qq!(<span class="explain" title="Language">$lang</span>, !);
-		$m->out(qq!<span class="explain" title="Script">$script</span>)</div>!);
-		$m->out(qq!</td></tr>!);
-	}
-	$m->out(qq!</table>!);
-
-</%perl>
 </%method>
 
 <%method ShowNewValue>
 <%perl>
- 	my $self = shift;
+
+	my $self = shift;
+	my $releases = $self->{'_new_albums'};
 
 	my $lang = "?";
  	if ($self->{_languageid})
@@ -130,6 +100,7 @@
 			</td>
 		</tr>
 	</table>
+
 
 </%method>
 

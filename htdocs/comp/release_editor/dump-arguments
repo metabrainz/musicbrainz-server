@@ -30,9 +30,10 @@
 
 	$tracks => 0
 	$hasmultipletrackartists => 0
+	$override => 0
 
 </%args>
-%	return;
+%	return if (not $override);
 
 %	# output debug information
 	<hr>

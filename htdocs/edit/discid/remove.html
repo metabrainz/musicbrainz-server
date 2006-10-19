@@ -90,7 +90,7 @@
 		mp => $alcdtoc->GetModPending,
 		mp_type => &ModDefs::MOD_REMOVE_DISCID &>
 
-		<form method="POST" action="/edit/discid/remove.html" name="ConfirmForm">
+		<form method="POST" action="/edit/discid/remove.html" id="ConfirmForm">
 
 			<script type="text/javascript" src="/scripts/editsuite.js"></script>
 
@@ -123,12 +123,12 @@
 						<& /comp/notetext,
 							notetext => $notetext, &>
 
-						<input type="hidden" name="tocid" value="<% $tocid %>">
-						<input type="hidden" name="releaseid" value="<% $releaseid %>"></td>
+						<input type="hidden" name="tocid" value="<% $tocid %>" />
+						<input type="hidden" name="releaseid" value="<% $releaseid %>" /></td>
+						<& /comp/form/focusfield, "btnYes" &>
 				</tr>
 			</table>
 
-			<& /comp/movefocus, id => "btnYes" &>
 		</form>
 
 	<& /comp/layout/editformend &>

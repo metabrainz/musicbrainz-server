@@ -68,7 +68,6 @@ function ReleaseEditor() {
 	// ---------------------------------------------------------------------------
 
 	/**
-	 * Initialises the javascript parts of the Release Editor.
 	 *
 	 **/
 	this.getFieldValue = function(field) {
@@ -80,7 +79,6 @@ function ReleaseEditor() {
 	};
 
 	/**
-	 * Initialises the javascript parts of the Release Editor.
 	 *
 	 **/
 	this.setFieldValue = function(field, value) {
@@ -94,7 +92,6 @@ function ReleaseEditor() {
 
 	/**
 	 * Wraps all the items of the array into singlequotes.
-	 *
 	 */
 	this.toParamStrings = function(list) {
 		mb.log.enter(this.GID, "toParamStrings");
@@ -107,7 +104,7 @@ function ReleaseEditor() {
 
 	/**
 	 * Construct a field it from the type, index and subindex
-	 * blah|blah|blah|blah
+	 * blah::blah::blah::blah
 	 */
 	this.getFieldId = function(type, id, index, subindex) {
 		mb.log.enter(this.GID, "getFieldId");
@@ -122,12 +119,19 @@ function ReleaseEditor() {
 
 	/**
 	 * Initialises the javascript parts of the Release Editor.
-	 *
 	 **/
 	this.initialise = function() {
 		mb.log.enter(this.GID, "initialise");
 
-		var obj;
+		// register javascript validation hook on the submit button
+		if ((obj = mb.ui.get("btnContinue")) != null) {
+			obj.onclick = function onclick(event) {
+				return ae.validateFields(this);
+			};
+		}
+
+		// override default html configuration with a more dynamic javascript
+		// version.
 		if ((obj = mb.ui.get("releaseeditor::config")) != null) {
 			var s = [];
 			s.push('<table cellspacing="2" cellpadding="0" border="0">');
@@ -177,26 +181,68 @@ function ReleaseEditor() {
 					// get the release and tracks artistedit checkboxes and
 					// decorate with the javascript handler
 					var editcheckboxes = [ es.ui.getField("artistedit") ];
-					var i, obj, tracks = this.getTracks();
+					var i, el, tracks = this.getTracks();
 					for (i=0; i < tracks; i++) {
 						editcheckboxes.push(es.ui.getField("tr"+i+"_artistedit"))
 					}
+
 					for (i=0; i < editcheckboxes.length; i++) {
-						if ((obj = editcheckboxes[i]) != null) {
-							var field = (obj.name == "artistedit" ? "release_artist" : "track_artist");
-							var index = (obj.name == "artistedit" ? null : i-1);
-							
-							// add onclick handler
-							obj.id = this.getFieldId(field, "checkbox", index);
-							obj.checked = false;
-							obj.onclick = function onclick(event) { 
-								return ae.onEditArtistClicked(this); 
+						if ((el = editcheckboxes[i]) != null) {
+							var field = (el.name == "artistedit" ? "release_artist" : "track_artist");
+							var index = (el.name == "artistedit" ? null : i-1);
+
+							// get the parent node of the checkbox (table cell), and
+							// remove the checkbox.
+							var td = el.parentNode;
+							el.id = this.getFieldId(field, "checkbox", index);
+							el.style.display = "none";
+
+							var img = document.createElement("img");
+							img.id = this.getFieldId(field, "toggleicon", index);
+							img.onclick = function onclick(event) {
+								ae.onEditArtistClicked(this);
 							};
-							
+							img.src = el.checked ? this.editartist_on.src : this.editartist_off.src;
+							img.title = el.checked ? this.editartist_title_on : this.editartist_title_off;
+							img.style.cursor = "hand";
+							td.appendChild(img);
+
+
 						} else {
-							alert("editcheckboxes "+i+" is null");
+							mb.log.error("editcheckboxes "+i+" is null");
 						}
 					}
+
+					for (i=0; i < tracks; i++) {
+						if ((el = es.ui.getField("trackdel"+i)) != null) {
+
+							var field = "trackdel";
+							var index = i;
+
+							// get the parent node of the checkbox (table cell), and
+							// remove the checkbox.
+							var td = el.parentNode;
+							el.id = this.getFieldId(field, "checkbox", index);
+							el.style.display = "none";
+
+							var img = document.createElement("img");
+							img.id = this.getFieldId(field, "toggleicon", index);
+
+							if (el.disabled) {
+								img.src = this.removetrack_disabled.src;
+								img.title = this.removetrack_title_disabled;
+							} else {
+								img.onclick = function onclick(event) {
+									ae.onRemoveTrackClicked(this);
+								};
+								img.src = el.checked ? this.removetrack_on.src : this.removetrack_off.src;
+								img.title = el.checked ? this.removetrack_title_on : this.removetrack_title_off;
+								img.style.cursor = "hand";
+							}
+							td.appendChild(img);
+						}
+					}
+
 					// get the release events checkboxes
 					var revcheckboxes = [];
 					i = 0;
@@ -284,6 +330,25 @@ function ReleaseEditor() {
 		}
 	};
 
+	this.getLabelFromInput = function(el) {
+		if (el) {
+			// we're looking for the label object in the first cell of
+			// the current row. if it was found, we'll insert the character
+			// for color-blind users and/or non-css browsers to mark the rows
+			// which need further attention.
+			var found = false, td, label, tr = el.parentNode.parentNode;
+			for (var i=0; !found && i<tr.childNodes.length; i++) {
+				if ((td = tr.childNodes[i]).nodeName.toLowerCase() == "td") {
+					for (var k=0; !found && k<td.childNodes.length; k++) {
+						if ((label = td.childNodes[k]).nodeName.toLowerCase() == "label") {
+							return label;
+						}
+					}
+				}
+			}
+		}
+	};
+
 	/**
 	 *
 	 */
@@ -344,7 +409,6 @@ function ReleaseEditor() {
 	};
 
 	/**
-	 *
 	 *
 	 */
 	this.getEntityLink = function(type, id, name) {
@@ -453,26 +517,34 @@ function ReleaseEditor() {
 	/**
 	 * Handles a click on the edit release/track artist checkbox.
 	 *
-	 * @param	el			the checkbox
-	 * @returns	true		...allows checkbox to change its checked state
+	 * @param	el			the toggle icon
+	 * @returns	true		action is always allowed
 	 *
 	 **/
 	this.onEditArtistClicked = function(el) {
 		var id = (el.id || "");
 
 		// lets see if we got a valid element id
-		if (id.match(/(release|track)_artist::checkbox::\d*/)) {
+		if (id.match(/(release|track)_artist::toggleicon::\d*/)) {
 			id = id.split("::");
 			var field = id[0];
 			var index = id[2];
-			this.setArtistDisplayFromField(el.checked, field, index);
-			
+
+			// find checkbox, and toggle it. then, update the toggle
+			// icon image to according to the set state.
+			var cb = mb.ui.get(this.getFieldId(field, "checkbox", index));
+			cb.checked = !cb.checked;
+			el.src = cb.checked ? this.editartist_on.src : this.editartist_off.src;
+			el.title = cb.checked ? this.editartist_title_on : this.editartist_title_off;
+
+			this.setArtistDisplayFromField(cb.checked, field, index);
+
 		} else {
 			mb.log.error("Unexpected element id: $", id);
 		}
 		return true;
 	};
-	
+
 	/**
 	 * Handles a click on the remove track checkbox.
 	 *
@@ -536,7 +608,7 @@ function ReleaseEditor() {
 	 *
 	 */
 	this.setArtistDisplayFromField = function(isEditMode, field, index) {
-		
+
 		// depending on the field (release_artist|track_artist), find hidden input element
 		// which contains the artistid and the artistname
 		var e_id, f_id, i_id = (field == "release_artist" ? "artistid" : "tr"+index+"_artistid");
@@ -593,24 +665,27 @@ function ReleaseEditor() {
 			if (isEditMode) {
 				s.push('<input type="text" name="'+f_name+'" ');
 				s.push('  class="textfield" ');
+				s.push('  style="width:'+es.fr.currentWidth+'" ');
 				s.push('  value="' + entity.name + '" />');
+
 			} else {
 				s.push(ae.getArtistLink(entity.id, entity.name, entity.resolution));
 				s.push('<input type="hidden" name="'+f_name+'" value="'+entity.name+'" />');
 			}
-			
+
 			// update the display td with either the field, or the artist name.
 			displayTD.innerHTML = s.join("");
-			
-			// show the editing fields if we are in editing mode 
+
+			// show the editing fields if we are in editing mode
 			fieldsTD.style.display = isEditMode ? "" : "none";
-			
+
 			// update checkbox state isEditMode
 			checkbox.checked = isEditMode;
-			
+
 		} else {
 			mb.log.error("Could not get TDs! display: $, fields: $", [displayID, displayTD], [fieldsID, fieldsTD]);
 		}
+
 	};
 
 	/**
@@ -627,7 +702,7 @@ function ReleaseEditor() {
 				this.setArtistDisplayFromField(false, field, index);
 				id = this.getFieldId(field, "tr", index);
 				if ((obj = mb.ui.get(id)) != null) {
-					obj.style.display = isEditMode ? "" : "none";				
+					obj.style.display = isEditMode ? "" : "none";
 				}
 			}
 
@@ -659,7 +734,7 @@ function ReleaseEditor() {
 				}
 			}
 		} else {
-			alert("onEditArtistsClicked :: required element el not given!");
+			mb.log.error("onEditArtistsClicked :: required element el not given!");
 		}
 	};
 
@@ -672,13 +747,13 @@ function ReleaseEditor() {
 	this.updateMargins = function() {
 		var obj, tracks = this.getTracks();
 		var rseVisible = rse.isVisible();
-		
+
 		for (var index=0; index < tracks; index++) {
 			var id = this.getFieldId("track", "relationship", index);
 			if ((obj = mb.ui.get(id)) != null) {
 				obj.className = "tr_artists" + (rseVisible ? "" : "_no_relationships");
 			} else {
-				alert("obj "+id+" not found!");
+				mb.log.error("obj "+id+" not found!");
 			}
 		}
 	};
@@ -735,6 +810,8 @@ function ReleaseEditor() {
 			rse.showUI(flag);
 		}
 	};
+
+
 }
 
 

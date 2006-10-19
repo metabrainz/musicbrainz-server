@@ -31,7 +31,7 @@
 
 	<& /comp/tablebegin, title => "Forgotten Password" &>
 
-		You re already logged in! To change your password, just go to
+		You are already logged in! To change your password, just go to
 		<a href="/user/edit.html">your profile page</a> and update your
 		details.
 

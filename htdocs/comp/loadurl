@@ -81,26 +81,6 @@
 	$m->out($error);
 	$m->comp("/comp/tableend");
 
-	# add this error to our bug tracker?
-
-	my $component = "MusicBrainz Server";
-	my $summary = "Could not load url";
-	my $reporter = "anonymous";
-	if ($session{"uid"})
-	{
-		my $user = UserStuff->newFromId($mb->{DBH}, $session{"uid"}) or die("fatal");
-		$reporter = $user->GetName;
-	}
-	my $description = uri_escape("Error was: $error");
-
-	my $ticketURL = "http://bugs.musicbrainz.org/newticket?component=$component&summary=$summary&reporter=$reporter&description=$description";
-
-	$m->comp("/comp/tablebegin", title => "Found a bug?");
-	$m->out(qq!If you think this is not a feature, but a bug - Please let us know, and enter !);
-	$m->out(qq!it on <a href="$ticketURL" title="MusicBrainz Bug Tracker">our bug tracker</a>. Thanks !);
-	$m->comp("/comp/tableend");
-
-	$m->comp("/comp/footer");
 	$m->abort();
 
 </%perl>

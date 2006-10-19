@@ -82,8 +82,8 @@
 	}
 
 	# lets see what we got.
-	$m->out("edit_artists: ".join (",", keys %edit_artists)."<br/>");
-	$m->out("missing_artists: ".join (",", @missing_artists)."<br/>");
+	# $m->out("edit_artists: ".join (",", keys %edit_artists)."<br/>");
+	# $m->out("missing_artists: ".join (",", @missing_artists)."<br/>");
 
 	# loop thorugh all the missing artists, if they are
 	# a single hit, update the arguments, else show the form
@@ -117,11 +117,14 @@
 			# back to the form.
 			if (@artists == 1 and
 				$artists[0]->GetName eq $curr_artistname and
-				!$edit_artists{$t})
+				$curr_artistid eq "" and
+				not exists $edit_artists{$t})
 			{
 				$ARGS{getField($t, "artistid")} = $artists[0]->GetId;
 				$ARGS{getField($t, "artistname")} = $artists[0]->GetName;
 				$ARGS{getField($t, "artistresolution")} = $artists[0]->GetName;
+				delete $ARGS{getField($t, "artistedit")};
+
 				push @resolved_artists, $t;
 				$last_artistname = $curr_artistname;
 				next;

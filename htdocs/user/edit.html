@@ -49,8 +49,8 @@
 	my $info = $ui->newFromId($userid)
 		or return;
 
-	$m->comp("/comp/sidebar-notitle", pagetitle => "Edit Account");
-	$m->comp("/comp/tablebegin", title => "Edit Account");
+	$m->comp("/comp/sidebar-notitle", pagetitle => "Edit account");
+	$m->comp("/comp/tablebegin", title => "Edit account");
 
 	my ($messages, $sentmail, $sentaddress, $removedmail, %opts);
 	@$messages = ();
@@ -62,13 +62,13 @@
 	{
 		if ($submitvalue =~ m/cancel/i)
 		{
-			return $m->comp("/comp/redirect", "/user/view.html");
+			return $m->comp("/comp/redirect", "/show/user/");
 		}
 		if ($email =~ /\S/ and !$ui->CheckEMailAddress($email))
 		{
-			push @$messages, "The email address you entered is not a valid email address.
+			push @$messages, "The e-mail address you entered is not a valid.
 							  If you would like to remove your address from the system,
-							  just enter a blank address.";
+							  just submit a blank field.";
 		}
 		else
 		{
@@ -79,8 +79,8 @@
 					my $ret = $info->SendVerificationEmail($email);
 					if ($ret)
 					{
-						push @$messages, "The email verification mail could not be sent:
-										 <i>$ret</i>. Your email address has not been updated.";
+						push @$messages, "The email verification e-mail could not be sent:
+										 <i>$ret</i>. Your e-mail address has not been updated.";
 					}
 					else
 					{
@@ -123,28 +123,44 @@
 
 			if ($sentmail)
 			{
-				$m->out(qq!<div style="margin-top: 20px"> !);
-				$m->out(qq! The email verification mail has been sent to <strong>$sentaddress</strong>.
-							Please check your mailbox and click on the link in the email to
-							verify the new email address.!);
-				$m->out(qq!</div>!);
-			}
-			elsif ($removedmail)
-			{
-				$m->out(qq!<div style="margin-top: 20px"> !);
-				$m->out(qq! Your e-mail address has been removed.&nbsp;
-							Please note that if you add it in again in the future,
-							you will be asked to verify it again.!);
-				$m->out(qq!</div>!);
-			}
-			else
-			{
-				$m->out(qq!Your Account Settings were updated. !);
-			}
 
-			$m->out(qq!<div style="margin-top: 20px"> !);
-			$m->out(qq!  <a href="/user/view.html">Click here to continue</a>. !);
-			$m->out(qq!</div>!);
+</%perl>
+
+				<div style="margin-bottom: 20px">
+					The email verification mail has been sent to <strong>
+					<% $sentaddress %></strong>. Please check your mailbox
+					and click on the link in the e-mail to verify the new
+					address.
+				</div>
+
+%			}
+%			elsif ($removedmail)
+%			{
+
+				<div style="margin-bottom: 20px">
+					Your e-mail address has been removed.
+					Please note that if you add one in the future,
+					you will be asked to verify it again.
+				</div>
+
+%			}
+%			else
+%			{
+
+				<div style="margin-bottom: 20px">
+					Your account settings were updated.
+				</div>
+
+%			}
+
+
+			<form action="/show/user/" method="get">
+				<div>
+					<input type="submit" value="Continue &raquo;" />
+				</div>
+			</form>
+
+<%perl>
 
 			$m->comp("/comp/tableend");
 			$m->comp("/comp/footer");
@@ -153,10 +169,9 @@
 	}
 
 	my $membersince = $m->comp("/comp/datetime", $info->GetMemberSince);
-
 	if ($info->GetMemberSince eq "1970-01-01 00:00:00 UTC")
 	{
-	    $membersince = '<strong>Charter Member</strong>';
+	    $membersince = '<strong>Charter member</strong>';
 	}
 	if ($info->GetName eq "rob")
 	{
@@ -210,7 +225,7 @@
 			<tr class="spaced">
 				<td class="label">&nbsp;</td>
 				<td class="formsection">
-					Please Note: If you enter or modify your e-mail
+					Please note: If you enter or modify your e-mail
 					address, you will be required to verify it.
 				</td>
 			</tr>
@@ -218,13 +233,13 @@
 				<td class="label">
 					<label>E-mail address:</label></td>
 				<td class="field">
-					<input type="text" name="email" size="40" value="<% $info->GetEmail %>" /></td>
+					<input type="text" name="email" id="id_email" size="40" value="<% $info->GetEmail %>" /></td>
 			</tr>
 
 			<tr class="spaced">
 				<td>&nbsp;</td>
 				<td class="formsection">
-					Additional Information:</td>
+					Additional information:</td>
 			</tr>
 			<tr>
 				<td class="label">Homepage:</td>
@@ -241,15 +256,16 @@
 			</tr>
 			<tr>
 				<td>&nbsp;</td>
-				<td class="field">
-					<input type="submit" name="submitvalue" value="Save Changes &raquo;" />
+				<td class="submitbuttons">
+					<input type="submit" name="submitvalue" value="Save &raquo;" />
 					<input type="submit" name="submitvalue" value="Cancel" /></td>
 			</tr>
 		</table>
 	</form>
 
 	<& /comp/tableend &>
-	<& /comp/movefocus, "EditUser", "email" &>
+
+	<& /comp/form/focusfield, "id_email" &>
 
 <& /comp/footer &>
 

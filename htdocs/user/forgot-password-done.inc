@@ -28,10 +28,11 @@
 </%perl>
 % 	my $user = shift;
 
-<& /comp/sidebar-notitle, pagetitle => "Password Sent" &>
+<& /comp/sidebar-notitle, pagetitle => "Password sent" &>
 
-	<& /comp/tablebegin, title => "Password Sent" &>
-		Password sent to the e-mail address registered for this account.
+	<& /comp/tablebegin, title => "Password sent" &>
+		Your password has been sent to the e-mail address 
+		registered for this account.
 	<& /comp/tableend &>
 
 	<& /comp/tablebegin, title => "Login" &>

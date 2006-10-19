@@ -32,7 +32,7 @@
 
 </%args>
 
-	<& /comp/tablebegin, title => "CD TOC Information" &>
+	<& /comp/tablebegin, title => "CD TOC information" &>
 
 		<table class="formstyle">
 			<tr>
@@ -51,7 +51,8 @@
 				<td class="label">
 					FreeDB ID:</td>
 				<td>
-					<a href="http://freedb.org/freedb_discid_check.php?discid=<% $cdtoc->GetFreeDBID %>"><% $cdtoc->GetFreeDBID %></a> (<a href="/bare/cdlookup.html?id=<%$cdtoc->GetFreeDBID %>">find other releases with this FreeDB ID</a>)
+					<a href="http://freedb.org/freedb_discid_check.php?discid=<% $cdtoc->GetFreeDBID %>"><% $cdtoc->GetFreeDBID %></a>
+				   	(<a href="/bare/cdlookup.html?id=<%$cdtoc->GetFreeDBID %>">find other releases with this FreeDB ID</a>)
 				</td>
 			</tr>
 % 	if ($session{uid}) {
@@ -64,25 +65,25 @@
 % 	}
 			<tr>
 				<td class="label">
-					First Track:</td>
+					First track:</td>
 				<td>
 					<% $cdtoc->GetFirstTrack %></td>
 			</tr>
 			<tr>
 				<td class="label">
-					Last Track:</td>
+					Last track:</td>
 				<td>
 					<% $cdtoc->GetLastTrack %></td>
 			</tr>
 			<tr>
 				<td class="label">
-					Total Length:</td>
+					Total length:</td>
 				<td>
 					<% Track::FormatTrackLength($cdtoc->GetLeadoutOffset / 75 * 1000) %></td>
 			</tr>
 			<tr class="top">
 				<td class="label">
-					Track Details:</td>
+					Track details:</td>
 				<td>
 					<table class="listing">
 						<tr class="header">

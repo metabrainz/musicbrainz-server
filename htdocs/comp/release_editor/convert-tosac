@@ -117,7 +117,7 @@
 </%perl>
 			<form method="post" action="<% $ARGS{"v::action"} %>" >
 
-				<& /comp/tablebegin, title => "Select Release Artist" &>
+				<& /comp/tablebegin, title => "Select release artist" &>
 					<table class="formstyle">
 						<& /comp/artistfilter,
 

@@ -65,14 +65,16 @@
 	$sortname = $sortname || $name;
 
 	# use given title, or use sortname
-	$title ||= "$sortname";
+	my $showtitle = "Artist";
+	$showtitle .= " ($title)" if ($title);
+	$showtitle .= " (Sortname: $sortname)" if ($sortname ne $name);
+	$showtitle .= " (Comment: $resolution)" if ($resolution ne "");
+
 	$id = -1 if (not $id || $id == &ModDefs::DARTIST_ID);
 
 	# enclose the value in title in proper attribute tag,
 	# if it was set.
-	$title = defined $title
-		? ' title="' . $m->interp->apply_escapes($title, 'h').'"'
-		: "";
+	$showtitle = ' title="' . $m->interp->apply_escapes($showtitle, 'h').'"';
 
 	$m->out(qq!<span class="modpending">!) if ($modpending);
 
@@ -92,7 +94,7 @@
 	if (MusicBrainz::Server::Validation::IsNonNegInteger($id))
 	{
 		# if the MBID is defined, use the "preferred" way of displaying artist links.
-		$m->out(sprintf qq!<a href="%s" class="linkentity%s">%s</a>!,
+		$m->out(sprintf qq!<a href="%s" class="linkentity%s" $showtitle>%s</a>!,
 						defined $mbid ? "/artist/$mbid.html" : "/show/artist/?artistid=$id",
 						$strong ? "-strong" : "",
 						$m->interp->apply_escapes($name, 'h'));

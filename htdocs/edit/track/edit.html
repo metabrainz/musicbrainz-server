@@ -300,15 +300,15 @@
 						<& /comp/notetext,
 							notetext => $notetext, &>
 
-						<input type="hidden" name="releaseid" value="<% $releaseid %>">
-						<input type="hidden" name="trackid" value="<% $trackid %>">
-						<input type="hidden" name="ispopup" value="<% $pnotes{'ispopup'} %>"></td>
+						<input type="hidden" name="releaseid" value="<% $releaseid %>" />
+						<input type="hidden" name="trackid" value="<% $trackid %>" />
+						<input type="hidden" name="ispopup" value="<% $pnotes{'ispopup'} %>" />
+						<& /comp/form/focusfield, "id_newtrackname" &>	</td>
 				</tr>
 			</table>
 
 		<& /comp/layout/editformend &>
 
-		<& /comp/movefocus, id => "id_newtrackname" &>
 	</form>
 
 <& /comp/footer &>

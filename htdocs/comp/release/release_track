@@ -55,7 +55,7 @@
 	# non-album tracks do not show a tracknumber
 	# and the tracks title has to span 2 cells, because of that.
 	my $nonalbum = $album->IsNonAlbumTracks;
-	my $colspan = ($nonalbum ? 'colspan="2"' : '');
+	my $colspan = ($nonalbum ? qq!colspan="2"! : "");
 
 	# start TR
 	$m->out(sprintf qq!<tr class="track%s">\n!,
@@ -86,9 +86,9 @@
 	# the windows-tagger works track based, show the tagger icon.
 	if ($mbt && $showeditlinks and $track->GetId)
 	{
-		$m->out(qq!<a href="tag:$track->GetMBId():$album->GetMBId()">!);
+        $m->out(qq!<a href="tag:! . $track->GetMBId() . ':' . $album->GetMBId() . qq!">!);
 		$m->out(qq!<img src="/images/mblookup-tag.gif" alt="Tag" title="Tag the current track" !);
-		$m->out(qq!height="13" width="28" border="0" /></a>!);
+		$m->out(qq!height="13" width="28" border="0" /></a>&nbsp;!);
 	}
 
 	# if the track has a rowid, show track name as link, else text-only.
@@ -161,18 +161,18 @@
        	$m->out(sprintf qq!<a href="/edit/track/edit.html?releaseid=%s&amp;trackid=%s" title="%s">Edit</a>!,
 				       	$album->GetId(),
 				       	$track->GetId(),
-				       	"Edit Track Name, Number and Length");
+				       	"Edit track title, number and length");
 		if ($album->CanRemoveTrack($track->GetSequence))
 		{
 			$m->out(sprintf qq! | <a href="/edit/track/remove.html?releaseid=%s&amp;trackid=%s" title="%s">Remove</a>!,
 							$album->GetId(),
 							$track->GetId(),
-							"Remove this Track from the Release");
+							"Remove this track from the release");
 		}
 		else
 		{
 			$m->out(sprintf qq! | <span class="explain" title="%s">Remove</span>!,
-							"Tracks cannot be removed from this Release because of attached Disc IDs");
+							"Tracks cannot be removed from this release because of attached DiscIDs");
 		}
 		$m->out("</td>\n");
 	}

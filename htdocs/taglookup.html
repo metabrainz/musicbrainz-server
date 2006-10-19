@@ -13,13 +13,15 @@
 	$puid => ""
 
 	$tport => $session{'tport'}
-	$mbt => 0
+	$mbt => $session{'mbt'}
 
 </%args>
 <%perl>
 
 	UserStuff::EnsureSessionOpen(), $session{tport} = $tport
 	   if $tport;
+	UserStuff::EnsureSessionOpen(), $session{mbt} = $mbt
+	   if $mbt;
 
 	$release = $album if $album;
 

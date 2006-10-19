@@ -289,11 +289,11 @@
 
 			</table>
 
+			<& /comp/form/focusfield, "id_trackname" &>
+			<& /comp/form/hiddenfield, "releaseid", $releaseid &>
+
 		<& /comp/layout/editformend &>
 
-
-		<& /comp/movefocus, id => "id_trackname" &>
-		<input type="hidden" name="releaseid" value="<% $releaseid %>">
 	</form>
 
 <& /comp/footer &>

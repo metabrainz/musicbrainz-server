@@ -41,6 +41,7 @@
 	# rendering options
 	$icon => 0
 	$strong => 0
+	$shorten => 1
 
 </%args>
 <%perl>
@@ -59,10 +60,17 @@
 	$title ||= $href;
 	$title = encode_entities($title);
 
+
 	# shorten url's that are longer than ~75 chars
-	my $shorturl = (length($name) > 50
-			 ? encode_entities(substr($name, 0, 48)) . "&#8230;"
-			 : encode_entities($name));
+	my $shorturl = encode_entities($name);
+	if ($shorten)
+	{
+		# decode utf-8 to real unicode string so substr can handle multi-byte characters
+    	        use utf8;
+		utf8::decode($name);
+		$shorturl = encode_entities(substr($name, 0, 48)) . "&#8230;"
+			if (length($name) > 50);
+	}
 
 	# render link to /show/url page.
 	$m->out(qq!<strong>!) if ($strong);

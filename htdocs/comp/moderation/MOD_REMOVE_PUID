@@ -37,6 +37,7 @@
 
 % 	if ($new->{'TrackId'})
 %	{
+
 		<table class="editfields">
 			<tr>
 				<td class="lbl">PUID:</td>
@@ -46,11 +47,14 @@
 					name => $this->GetPrev &>
 			</tr>
 			<tr>
-				<td colspan="2">has been removed from Track.</td>
+				<td>&nbsp;</td>
+				<td>has been removed from Track.</td>
 			</tr>
 		</table>
 
-%	} else {
+%	}
+%	else
+%	{
 
 		Doh. Track ID not set!
 

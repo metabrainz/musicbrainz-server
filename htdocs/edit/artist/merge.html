@@ -162,11 +162,13 @@
 						<& /comp/notetext,
 							notetext => $notetext, &>
 
-						<input type="hidden" name="newartistid" value="<% $newartist->GetId %>" /></td>
+						<& /comp/form/hiddenfield, "newartistid", $newartist->GetId &>
+						<& /comp/form/focusfield, "btnYes" &>
+					</td>
 				</tr>
 			</table>
 
-			<& /comp/movefocus, id => "btnYes" &>
+
 
 %	}
 %	else
@@ -200,9 +202,11 @@
 		</table>
 
 %	}
-			<input type="hidden" name="submitvalue" value="Select &raquo;" />
-			<input type="hidden" name="artistid" value="<% $artist->GetId %>" />
 
+			<div>
+				<& /comp/form/hiddenfield, "submitvalue", "Select &raquo;" &>
+				<& /comp/form/hiddenfield, "artistid", $artist->GetId &>
+			</div>
 		</form>
 
 	<& /comp/layout/editformend &>

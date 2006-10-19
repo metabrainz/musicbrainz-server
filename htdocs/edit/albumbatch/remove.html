@@ -132,9 +132,9 @@
 
 </%perl>
 
-<& /comp/sidebar-notitle, pagetitle => 'Confirm Releases Removal' &>
+<& /comp/sidebar-notitle, pagetitle => "Remove releases" &>
 
-	<& /comp/tablebegin, title => "Confirm Releases Removal" &>
+	<& /comp/tablebegin, title => "Remove releases" &>
 
 		<form method="post" action="/edit/albumbatch/remove.html" id="ConfirmForm">
 
@@ -147,7 +147,7 @@
 						<ul>
 							<li>
 								Please review the documentation about the <& /comp/linkdoc,
-								"RemoveReleasesEdit", "Remove Releases Edit" &> before
+								"RemoveReleasesEdit", "remove releases edit" &> before
 								entering this edit.</li>
 							<li>
 								If you have added the releases by mistake, please note that
@@ -157,8 +157,8 @@
 							<li>
 								Please note that if two releases have the same track
 								listing and track times, you should do a <& /comp/linkdoc,
-								"MergeReleasesEdit", "Merge Releases Edit" &> instead of a
-								Remove Release Edit, following the general rule of <& /comp/linkdoc, "MergeRatherThanDelete",
+								"MergeReleasesEdit", "merge releases edit" &> instead of a
+								remove release edit, following the general rule of <& /comp/linkdoc, "MergeRatherThanDelete",
 								"merge rather than delete" &>.</li>
 							<li>
 								Are you <strong>sure you want to remove</strong> the releases below?</li>
@@ -174,15 +174,15 @@
 
 % 	for my $releaseid (@releaseid)
 %	{
-
-						<input type="hidden" name="releaseid" value="<% $releaseid %>" />
-
+%		$m->comp("/comp/form/hiddenfield", "releaseid", $releaseid);
 % 	}
+
+						<& /comp/form/focusfield, "btnCancel" &>
 					</td>
 				</tr>
 			</table>
 
-			<& /comp/movefocus, "ConfirmForm", "btnCancel" &>
+
 		</form>
 
 	<& /comp/tableend &>

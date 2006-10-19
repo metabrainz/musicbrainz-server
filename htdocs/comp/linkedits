@@ -51,15 +51,15 @@
 	my $mp_url;
 	if ($type eq "artist")
 	{
-		$mp_url = "/mod/search/results.html?artist_type=3&amp;artist_id=%s";
+		$mp_url = "/mod/search/results.html?orderby=desc&amp;artist_type=3&amp;artist_id=%s";
 	}
 	elsif ($type eq "release")
 	{
-		$mp_url = "/mod/search/results.html?object_type=album&amp;object_id=%s";
+		$mp_url = "/mod/search/results.html?orderby=desc&amp;object_type=album&amp;object_id=%s";
 	}
 	elsif ($type eq "track")
 	{
-		$mp_url = "/mod/search/results.html?object_type=track&amp;object_id=%s";
+		$mp_url = "/mod/search/results.html?orderby=desc&amp;object_type=track&amp;object_id=%s";
 	}
 
 	my $open_status = "&amp;mod_status=1&amp;mod_status=8";

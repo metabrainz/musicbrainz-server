@@ -21,7 +21,7 @@
 \----------------------------------------------------------------------------*/
 
 function CollapseReleases() {
-	
+
 	// ----------------------------------------------------------------------------
 	// register class/global id
 	// ----------------------------------------------------------------------------
@@ -32,10 +32,10 @@ function CollapseReleases() {
 	// ----------------------------------------------------------------------------
 	// member variables
 	// ----------------------------------------------------------------------------
-	this.imgplus = new Image(); 
+	this.imgplus = new Image();
 	this.imgplus.src = "/images/es/maximize.gif";
-	this.imgminus = new Image(); 
-	this.imgminus.src = "/images/es/minimize.gif"; 
+	this.imgminus = new Image();
+	this.imgminus.src = "/images/es/minimize.gif";
 
 	// ----------------------------------------------------------------------------
 	// member functions
@@ -54,25 +54,25 @@ function CollapseReleases() {
 	this.setupReleases = function() {
 		mb.log.enter(this.CN, "setupReleases");
 		var obj,list = mb.ui.getByTag("table");
-		
+
 		var defaultcollapse = true;
 		if ((obj = mb.ui.get("userpreference::JSCollapse")) != null) {
 			defaultcollapse = !(obj.value == 0);
-		}	
+		}
 
 		var showtoggleicon = true;
 		if ((obj = mb.ui.get("userpreference::JSCollapseToggleIcon")) != null) {
 			showtoggleicon = !(obj.value == 0);
-		}	
+		}
 		for (var i=0;i<list.length; i++) {
 			var t = list[i];
 			var id = (t.id || "");
 			if (id.match(/tracks::\d+/i)) {
-				
+
 				// go through all the TR's of the table
 				var defaultdisplay = (defaultcollapse ? "none" : "");
 				var defaultimage =  (defaultcollapse ? "maximize" : "minimize");
-				
+
 				var rows = mb.ui.getByTag("tr", t);
 				for (var j=0;j<rows.length; j++) {
 					if (rows[j].className.match(/track|discid/i)) {
@@ -84,20 +84,20 @@ function CollapseReleases() {
 				}
 				if ((obj = mb.ui.get(id.replace("tracks", "releaseevents"))) != null) {
 					obj.style.display = defaultdisplay;
-				}			
+				}
 
 				var elid = id.replace("tracks", "link");
 				var el;
 				if ((el = mb.ui.get(elid)) != null) {
 					var td = el.parentNode;
-					
+
 					if (showtoggleicon) {
 
 						// create the toggle icon, and the link wrapping
-						// it. If the we register a click on it, we 
+						// it. If the we register a click on it, we
 						// have to stop propagation to the TD, else
 						// the release will be toggled to the closed
-						// state again if it was closed before.	
+						// state again if it was closed before.
 						//
 						// -- see: http://www.quirksmode.org/js/events_order.html
 						var toggletd = td.previousSibling;
@@ -109,18 +109,18 @@ function CollapseReleases() {
 						a.href = "javascript:; // Toggle release";
 						a.id = id.replace("tracks", "expand");
 						a.onfocus = function onfocus(event) { this.blur(); };
-						a.onclick = function onclick(event) { 
+						a.onclick = function onclick(event) {
 							try {
 								if (window.event) {
 									window.event.cancelBubble = true;
 								} else if (event.stopPropagation) {
 									event.stopPropagation();
 								}
-							} catch (e) { 
-								mb.log.error("Could not cancel propagation: $", e); 
-							}							
+							} catch (e) {
+								mb.log.error("Could not cancel propagation: $", e);
+							}
 							var id = this.id.replace("expand", "tracks");
-							collapsereleases.showRelease(id); 
+							collapsereleases.showRelease(id);
 							return false;
 						};
 						var img = document.createElement("img");
@@ -145,21 +145,21 @@ function CollapseReleases() {
 					// attach method to open the release if the
 					// mouse is hovered over the orange/yellow bar.
 					td.style.cursor = "pointer";
-					td.title = "Toggle release... If you hover the mouse cursor here, it opens automatically.";
-					td.id = id.replace("tracks", "title");					
-					td.onclick = function onclick(event) { 
+					td.id = id.replace("tracks", "title");
+
+					td.onclick = function onclick(event) {
 						var id = this.id.replace("title", "tracks");
-						
-						// clear default hovering behaviour 
+
+						// clear default hovering behaviour
 						// after first click, else it is possibly
-						// confusing that the release gets opened/closed 
+						// confusing that the release gets opened/closed
 						// again.
 						collapsereleases.clearHoverTimeout(id);
 						this.onmouseover = null;
 						this.onmouseout = null;
 						this.title = "";
-						
-						collapsereleases.showRelease(id);	
+
+						collapsereleases.showRelease(id);
 						return true;
 					};
 					*/
@@ -168,36 +168,38 @@ function CollapseReleases() {
 					td.onmouseover = function onmouseover(event) {
 						var id = this.id.replace("title", "tracks");
 						collapsereleases.setHoverTimeout(id);
-					};							
-					td.onmouseout = function onmouseout(event) { 
+					};
+					td.onmouseout = function onmouseout(event) {
 						var id = this.id.replace("title", "tracks");
 						collapsereleases.clearHoverTimeout(id);
-					};							
+					};
 
-					// we need to cancel event propagation on the 
+					*/
+
+					// we need to cancel event propagation on the
 					// ReleaseTitle link, too. just return true, such
 					// that the link click is not cancelled.
-					el.onclick = function onclick(event) { 
+					el.onclick = function onclick(event) {
 						try {
 							if (window.event) {
 								window.event.cancelBubble = true;
 							} else if (event.stopPropagation) {
 								event.stopPropagation();
 							}
-						} catch (e) { 
-							mb.log.error("Could not cancel propagation: $", e); 
-						}							
+						} catch (e) {
+							mb.log.error("Could not cancel propagation: $", e);
+						}
 						return true;
 					};
 
 				} else {
 					mb.log.debug("Element $ not found", elid);
-				}				
+				}
 			}
 		}
 		mb.log.exit();
 	};
-	
+
 	/**
 	 * Register a hover timeout for opening a release
 	 *
@@ -215,7 +217,7 @@ function CollapseReleases() {
 	 * Un-Register a hover timeout for opening a release
 	 *
 	 * @param id	the id of the release
-	 */	
+	 */
 	this.clearHoverTimeout = function(id) {
 		if (this.timeouts == null) {
 			this.timeouts = [];
@@ -224,7 +226,7 @@ function CollapseReleases() {
 		clearTimeout(ref);
 		this.timeouts[id] = null;
 	};
-	
+
 	/**
 	 * Go through all the releases of the current page
 	 * and set their toggle status to the flag.
@@ -237,14 +239,14 @@ function CollapseReleases() {
 		for (var i=0;i<list.length; i++) {
 			var t = list[i];
 			var id = (t.id || "");
-			if (id.match(/tracks::\d+/i)) {	
+			if (id.match(/tracks::\d+/i)) {
 				this.showRelease(id, flag);
 			}
 		}
 	};
-	
-	
-	/** 
+
+
+	/**
 	 * Set the new toggle status of the release with id
 	 *
 	 * @param id	the release id
@@ -253,23 +255,23 @@ function CollapseReleases() {
 	this.showRelease = function(id, flag) {
 		mb.log.enter(this.CN, "showRelease");
 		var obj, img, t;
-		
+
 		// get reference to image object.
 		if ((obj = mb.ui.get(id.replace("tracks", "expand"))) != null) {
 			img = obj.firstChild;
-		
+
 			if (flag == null) {
 				flag = img.src.match("maximize");
 			}
 			img.src = flag ? this.imgminus.src : this.imgplus.src;
 			var display = flag ? "" : "none";
-			
+
 			if ((obj = mb.ui.get(id.replace("tracks", "releaselinks"))) != null) {
 				obj.style.display = display;
 			}
 			if ((obj = mb.ui.get(id.replace("tracks", "releaseevents"))) != null) {
 				obj.style.display = display;
-			}				
+			}
 			if ((t = mb.ui.get(id)) != null) {
 				var rows = mb.ui.getByTag("tr", t);
 				for (var j=0;j<rows.length; j++) {
@@ -281,12 +283,12 @@ function CollapseReleases() {
 				mb.log.debug("Element $ not found", tid);
 			}
 		} else {
-			// alert("el is null");
+			mb.log.error("el is null");
 		}
 		mb.log.exit();
 	};
-	
-	
+
+
 	/**
 	 * This function replaces the non-javascript variant of the
 	 * batchop selection with the checkboxes for the BatchOp form.
@@ -299,19 +301,19 @@ function CollapseReleases() {
 		for (var i=0;i<list.length; i++) {
 			var t = list[i];
 			var id = (t.id || "");
-			if (id.match(/tracks::\d+/i)) {	
-				
+			if (id.match(/tracks::\d+/i)) {
+
 				var tagchecked = false;
 				if ((obj = mb.ui.get(id.replace("tracks", "tagchecked"))) != null) {
 					tagchecked = (obj.value == 1);
 				}
 				if ((obj = mb.ui.get(id.replace("tracks", "batchop"))) != null) {
 					var releaseid = id.replace("tracks::", "");
-					
+
 					var input = document.createElement("input");
 					input.id = id.replace("tracks", "batchcheckbox");
 					input.type = "checkbox";
-					input.onclick = function onclick(event) { 
+					input.onclick = function onclick(event) {
 						var releaseid = this.id.replace("batchcheckbox::", "");
 						var fieldName = "releaseid"+releaseid;
 						var batchOpForm, obj;
@@ -321,14 +323,14 @@ function CollapseReleases() {
 								batchOpForm[fieldName].value = (value == "off" ? "on" : "off");
 							}
 						}
-					};			
+					};
 					obj.innerHTML = "";
 					obj.appendChild(input);
 					input.checked = tagchecked;
 					input.title = tagchecked ?
 						"Deactivate this checkbox and click Update to unselect this release from the Batch Operations," :
 						"Activate this checkbox and click Update to select this release for Batch Operations.";
-				}				
+				}
 			}
 		}
 
@@ -336,7 +338,7 @@ function CollapseReleases() {
 		// inside it, to add user interface.
 		if ((obj = mb.ui.get("BatchOp")) != null) {
 			if ((obj = mb.ui.getByTag("div", obj)[0]) != null) {
-			
+
 				// used in /edit/albumbatch/done.html
 				if (obj.id == "batchop::removereleases") {
 					var el = document.createElement("input");
@@ -344,10 +346,10 @@ function CollapseReleases() {
 					el.name = "submit";
 					el.value = "Update";
 					obj.appendChild(el);
-				
+
 				// used in /show/artist/ and /show/release/?
 				} else if (obj.id == "batchop::selectreleases") {
-				
+
 					var el = document.createElement("input");
 					el.type = "image";
 					el.alt = "Batch Edit";
@@ -357,17 +359,17 @@ function CollapseReleases() {
 					el.style.border = "0";
 					el.style.height = "13px";
 					el.style.width = "13px";
-									
+
 					el = document.createElement("a");
 					el.href = "#";
 					el.title = "Edit selected release(s) in a batch edit";
-					el.onclick = function onclick(event) { 
-						document.forms.BatchOp.submit(); 
+					el.onclick = function onclick(event) {
+						document.forms.BatchOp.submit();
 						return false;
 					};
 					obj.appendChild(el);
-					el.innerText = "Batch Operation"; 
-					el.style.marginLeft = "5px";				
+					el.innerText = "Batch Operation";
+					el.style.marginLeft = "5px";
 				}
 			}
 		}
@@ -386,4 +388,4 @@ mb.registerDOMReadyAction(
 mb.registerDOMReadyAction(
 	new MbEventAction(collapsereleases.GID, "setupReleaseBatch", "Setup release batch operations")
 );
- 
+

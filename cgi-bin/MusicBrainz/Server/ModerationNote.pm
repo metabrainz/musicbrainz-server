@@ -96,9 +96,8 @@ sub mark_up_text_as_html
 		)
 		/six, $text, -1;
 
-	$html =~ s[\b(?:mod(?:eration)? #?|edit #|change #)(\d+)\b]
-			  [<a href="http://$server/show/edit/?editid=$1">edit #$1</a>]g;
-    $html =~ s/[^A-Za-z]*([A-Z][a-z]+[A-Z][a-z]+([A-Z][a-z]+)*)[^A-Za-z]*/ <a href="http:\/\/wiki.musicbrainz.org\/$1">$1<\/a> /g;
+	$html =~ s[\b(?:mod(?:eration)? #?|edit[#:\s]+|edit id[#:\s]+|change[#:\s]+)(\d+)\b]
+			  [<a href="http://$server/show/edit/?editid=$1">edit #$1</a>]gi;
 
 	$html =~ s/<\/?p[^>]*>//g;
 	$html =~ s/<br[^>]*\/?>//g;

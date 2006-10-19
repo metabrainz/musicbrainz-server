@@ -88,9 +88,9 @@
 					<td class="text first">
 						Original Design|<a href="http://vacubomb.com/">vacubomb.com</a></td>
 					<td class="text">
-						<img src="/images/edit.gif" alt="" /><a href="/doc/ContactUs">Contact Details</a></td>
+						<img src="/images/edit.gif" alt="" /><a href="/doc/ContactUs">Contact details</a></td>
 					<td class="text last">
-						Server Version: <% &DBDefs::VERSION %></td>
+						Server version: <% &DBDefs::VERSION %></td>
 				</tr>
 
 % 	if (&DBDefs::DB_STAGING_SERVER)

@@ -37,7 +37,6 @@
 	$discid => ""
 	$toc => ""
 	$search => ""
-	$noncd => 0
 
 	# freedb lookup?
 	$freedb => 0
@@ -55,10 +54,9 @@
 	$m->comp("/comp/checkloggedin", 1, 1)
 		or return;
 
-
 	# check if we have a valid number of tracks, else
 	# redirect to the add release page.
-	unless (MusicBrainz::Server::Validation::IsNonNegInteger($tracks) and $tracks >= 1 and $tracks <= 99)
+	unless (MusicBrainz::Server::Validation::IsNonNegInteger($tracks) and $tracks)
 	{
 		$m->comp("/comp/redirect", '/edit/album/add.html?artistid=' . $artistid . '&error=1');
 		return;
@@ -113,7 +111,7 @@
 	$ARGS{"v::checkedmacsac"} = 1;
 	$ARGS{"v::checkedartists"} = !$ARGS{"hasmultipletrackartists"};
 
-	my $title = "Add Release".($ARGS{"hasmultipletrackartists"} ? " (Various Artists)" : "");
+	my $title = "Add release".($ARGS{"hasmultipletrackartists"} ? " (Various artists)" : "");
 	$m->comp("/comp/sidebar-notitle", pagetitle => $title);
 
 	# check if we got a form submit to handle.
@@ -193,9 +191,11 @@
 
 			# CHECK TRACK ARTISTS
 			# --------------------------------------------------------------
-			if (not keys %{$ARGS{"v::fields"}} and
+			if ($ARGS{"v::showform"} and
+				not keys %{$ARGS{"v::fields"}} and
 				$ARGS{"hasmultipletrackartists"} and
 				(($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_NEXT"}) or
+				 ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_ADDARTIST_DONE"}) or
 				 ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_TRACKARTIST_SEARCH"}) or
 				 ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_TRACKARTIST_SELECT"})))
 			{
@@ -213,7 +213,8 @@
 			# -- v::fields == 0 => all field not empty
 			# -- v::attributes == 0 => all attributes not empty
 			# -- v::releases == 1 => no invalid date/country found.
-			if (keys %{$ARGS{"v::fields"}} == 0 and
+			if ($ARGS{"v::showform"} and
+				keys %{$ARGS{"v::fields"}} == 0 and
 				keys %{$ARGS{"v::attributes"}} == 0 and
 				keys %{$ARGS{"v::language"}} == 0 and
 				keys %{$ARGS{"v::releases"}} == 1)
@@ -228,7 +229,7 @@
 					$ARGS{"v::showform"} = 0;
 				}
 
-				if ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_ENTERMODERATIONS"})
+				if ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_ADDRELEASE"})
 				{
 					$m->comp("/comp/release_editor/entermoderations-add", %ARGS);
 					$ARGS{"v::showform"} = 0;
@@ -261,8 +262,8 @@
 
 	$m->comp("/comp/release_editor/dump-arguments", %ARGS);
 
-	# end page.
 	$m->comp("/comp/footer");
+
 </%perl>
 
 %# vi: set ts=4 sw=4 ft=mason :

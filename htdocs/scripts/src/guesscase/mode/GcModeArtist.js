@@ -32,9 +32,9 @@ function GcModeArtist(modes, name, lang, desc, url) {
 	this.CN = "GcModeArtist";
 	this.GID = "gc.mode_artist";
 	this.setConfig(
-		modes, 'Artist Mode', modes.EN,
-		'', '');	
-	
+		modes, 'Artist mode', modes.EN,
+		'', '');
+
 	// ----------------------------------------------------------------------------
 	// member variables
 	// ---------------------------------------------------------------------------

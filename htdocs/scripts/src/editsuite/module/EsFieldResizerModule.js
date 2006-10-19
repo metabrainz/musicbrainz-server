@@ -38,7 +38,7 @@ function EsFieldResizer() {
 	// register module
 	// ---------------------------------------------------------------------------
 	this.getModID = function() { return "es.fr"; };
-	this.getModName = function() { return "Field Resizer"; };
+	this.getModName = function() { return "Field resizer"; };
 
 	// ----------------------------------------------------------------------------
 	// member variables
@@ -66,6 +66,8 @@ function EsFieldResizer() {
 
 	/* cookie definitions */
 	this.COOKIE_SIZE	= this.getModID()+".size";
+
+	this.currentWidth	= es.ui.TEXTFIELD_SIZE;
 
 	// ----------------------------------------------------------------------------
 	// member functions
@@ -155,6 +157,7 @@ function EsFieldResizer() {
 					f.style.width = amount;
 				}
 			}
+			this.currentWidth = nw;
 
 		} else if (mb.utils.isNumber(amount)) {
 			// value is a number (add/subtract from current size)
@@ -171,9 +174,10 @@ function EsFieldResizer() {
 					}
 				} else {
 					mb.log.warning("Field $ does not define width!");
-					alert(f+" "+f.type);
 				}
 			}
+			this.currentWidth = nw;
+
 		} else {
 			// examine the length of the fields, and set the size of
 			// the fields such that the longest text is displayed
@@ -210,6 +214,7 @@ function EsFieldResizer() {
 					mb.log.warning("Field $ does not define width!", (f.name || "?"));
 				}
 			}
+			this.currentWidth = nw;
 		}
 		mb.log.exit();
 	};
@@ -237,9 +242,9 @@ function EsFieldResizer() {
 		mb.log.enter(this.GID, "getCss");
 		var ov;
 		if (s != null) {
-			ov = parseInt(new String(s).replace(/px/ig, ""))+"px";
+			ov = parseInt(new String(s).replace(/px/ig, "")) + "px";
 		} else {
-			ov = es.ui.TEXTFIELD_SIZE+"px";
+			ov = es.ui.TEXTFIELD_SIZE + "px";
 		}
 		mb.log.debug("ov: $", ov);
 		return mb.log.exit(ov);
@@ -255,7 +260,7 @@ function EsFieldResizer() {
 		var w,nw;
 		if (el && el.style.width) {
 			w = el.style.width;
-			nw = this.getCss(this.getValue(w)+amount);
+			nw = this.getCss(this.getValue(w) + amount);
 			mb.log.debug("Field f: $, oldwidth: $, newwidth: $", el.name, w, nw);
 		}
 		return mb.log.exit(nw);

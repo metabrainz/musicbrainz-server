@@ -79,7 +79,7 @@
 		$m->out(qq!<img src="/images/entity/$usericon.gif" alt="$iconalt" class="entityicon" width="13" height="13" />!)
 	}
 
-	$m->out(qq!<a href="/show/user/?$arg" title="$dispname">$shortname</a>!);
+	$m->out(qq!<a href="/show/user/?$arg" title="User: $dispname">$shortname</a>!);
 	$m->out(qq!</strong>!) if ($strong);
 
 </%perl>

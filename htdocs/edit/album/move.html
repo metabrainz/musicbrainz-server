@@ -131,7 +131,8 @@
 			my $returnurl = "/edit/album/move.html";
 			my %returnargs;
 			$returnargs{"releaseid"} = \@releaseid;
-			$returnurl = sprintf "$returnurl?%s&artistfilter_newartistid=", $m->comp("/comp/args-to-querystring.inc", %returnargs);
+			$returnurl = sprintf "$returnurl?%s&artistfilter_newartistid=",
+							$m->comp("/comp/args-to-querystring.inc", %returnargs);
 			$returnurl = uri_escape($returnurl);
 			$search = uri_escape($search);
 
@@ -265,16 +266,20 @@
 								<td>Release Title</td>
 								<td>Artist</td>
 							</tr>
+
 %		# show all current artists and releases
 %		for (0 .. ($_last))
 %		{
+
 							<tr>
 								<td style="padding-right: 20px">
 									<& /comp/linkrelease, release => $_releases[$_] &></td>
 								<td>
 									<& /comp/linkartist, artist => $_artists[$_] &></td>
 							</tr>
+
 %		}
+
 						</table>
 					</td>
 				</tr>
@@ -282,8 +287,10 @@
 					<td class="label">
 						<label>Move Tracks:</label></td>
 					<td>
+
 %					# single release move
-%					if (!$_isbatch) {
+%					if (!$_isbatch)
+%					{
 %						my $_isma = $_releases[0]->HasMultipleTrackArtists;
 
 						<input type="radio" name="movetracks" value="0"
@@ -296,7 +303,10 @@
 					</td>
 				</tr>
 				<tr class="spaced top">
-%						if ($_isma) {
+
+%						if ($_isma)
+%						{
+
 					<td class="label">
 						<label style="color: red;">Warning:</label></td>
 					<td>
@@ -305,7 +315,10 @@
 						<strong>same</strong> artist if you choose the <em>move
 						all tracks to artist</em> option!
 
-%						} else {
+%						}
+%						else
+%						{
+
 					<td class="label">
 						<label>Note:</label></td>
 					<td>
@@ -315,7 +328,10 @@
 						keep the default selection.
 
 %						}
-%					} else {
+%					}
+%					else
+%					{
+
 						You have chosen to move more than one release to another
 						artist. In this mode the defaults for moving <& /comp/linkdoc, "TrackArtist",
 						"track artists" &> are applied. This means, for all releases
@@ -323,7 +339,9 @@
 						to the new artist, too. For releases with more than one artist,
 						only the <& /comp/linkdoc, "ReleaseArtist", "release artist" &>
 						will be changed.
+
 %					}
+
 					</td>
 				</tr>
 
@@ -336,6 +354,7 @@
 			</table>
 
 <%perl>
+
 	}
 
 	# else show /comp/artistfilter
@@ -346,6 +365,7 @@
 		my $qar = &$GetCachedRelease($releaseid[0])->GetArtist;
 
 </%perl>
+
 		<table class="formstyle">
 			<tr>
 				<td colspan="2" class="instructions">
@@ -371,16 +391,20 @@
 							<td>Release Title</td>
 							<td>Artist</td>
 						</tr>
+
 %		# show all current artists and releases
 %		for (0 .. ($_last))
 %		{
+
 						<tr>
 							<td style="padding-right: 20px">
 								<& /comp/linkrelease, release => $_releases[$_] &></td>
 							<td>
 								<& /comp/linkartist, artist => $_artists[$_] &></td>
 						</tr>
+
 %		}
+
 					</table>
 
 % # included &nbsp; for some vertical margin after the list of selected entities
@@ -400,13 +424,18 @@
 			&>
 
 		</table>
+
 %	}
 
-% 	for (@_releases) {
-			<input type="hidden" name="releaseid" value="<% $_->GetId %>">
-% 	}
-			<input type="hidden" name="newartistid" value="<% $newartistid %>" />
+			<div>
 
+% 	for (@_releases)
+%	{
+				<input type="hidden" name="releaseid" value="<% $_->GetId %>" />
+% 	}
+				<input type="hidden" name="newartistid" value="<% $newartistid %>" />
+
+			</div>
 
 		</form>
 

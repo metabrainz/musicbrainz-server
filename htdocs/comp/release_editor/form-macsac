@@ -29,58 +29,76 @@
 </%perl>
 <%args>
 
-	%checkmacsac
-	$dummycounter
-
 </%args>
+<%perl>
 
-%	if ($checkmacsac{"sac"})
-%	{
+	my %checkmacsac = %{ $ARGS{"v::macsac"} } if (ref $ARGS{"v::macsac"} eq "HASH");
 
-		<tr>
-			<td colspan="3"></td>
-			<td colspan="3">
-				<& /comp/form/feedbackbox, "warning", "",
-					qq!You have chosen to enter a "Various Artists"
-					   release, but all the artist names are the same,
-					   so this should probably be entered as a
-					   "Single Artist" release. What do you want to do?!
-				&></td>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="3"></td>
-			<td colspan="3">
-				<& /comp/form/buttonsubmit, value => $ARGS{"SUBMIT_IGNOREMACSAC"} &>
-				<& /comp/form/buttonsubmit, value => $ARGS{"SUBMIT_TOSAC"} &>
-			</td>
-		</tr>
+	if (!$ARGS{"force_macsac"}
+		and keys %checkmacsac > 0)
+	{
+		if ($checkmacsac{"sac"})
+		{
 
-%	}
+</%perl>
+				<tr class="spaced">
+					<td colspan="3">&nbsp;</td>
+					<td colspan="4" class="lessboxmargin">
+						<& /comp/form/feedbackbox, "warning", "",
+							qq!You've chosen to enter a "Various Artists" release, but
+							all the artist names are the same, so this should
+							probably be entered as a "Single Artist" release.
+							What do you want to do?! &>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="3"></td>
+					<td colspan="4">
+						<& /comp/form/buttonsubmit, value => $ARGS{"SUBMIT_IGNOREMACSAC"} &>
+						<& /comp/form/buttonsubmit, value => $ARGS{"SUBMIT_TOSAC"} &>
+						<br />&nbsp;
+					</td>
+				</tr>
 
-%	if ($checkmacsac{"mac"})
-%	{
+%		}
 
-		<tr>
-			<td colspan="3"></td>
-			<td colspan="3">
-				<& /comp/form/feedbackbox, "warning", "",
-					qq!You have chosen to enter a "Single Artist"
-					   release, but looking at the track names it
-					   seems that maybe this should be a "Various
-					   Artists" release. (This message appears
-					   because all track names contain either
-					   "-" or "/"). What do you want to do?"! &></td>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="3"></td>
-			<td colspan="3">
-				<& /comp/form/buttonsubmit, value => $ARGS{"SUBMIT_IGNOREMACSAC"} &>
-				<& /comp/form/buttonsubmit, value => $ARGS{"SUBMIT_TOMAC"} &>
-			</td>
-		</tr>
+%		if ($checkmacsac{"mac"})
+%		{
 
+				<tr class="spaced">
+					<td colspan="3">&nbsp;</td>
+					<td colspan="4" class="lessboxmargin">
+						<& /comp/form/feedbackbox, "warning", "",
+							qq!You have chosen to enter a "Single Artist" release, but
+							looking at the track names it seems that maybe this
+							should be a "Various Artists" release. (This message
+							appears because all track names contain either "-"
+							or "/"). What do you want to do?! &>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="3"></td>
+					<td colspan="4">
+						<& /comp/form/buttonsubmit, value => $ARGS{"SUBMIT_IGNOREMACSAC"} &>
+						<& /comp/form/buttonsubmit, value => $ARGS{"SUBMIT_TOMAC"} &>
+
+						<div class="float">
+
+						<& /comp/form/checkbox,
+							name => "mac_usevartist",
+							checked => 1,
+							title => qq!The release will be attached to the special-case artist
+									 "Various Artists". If you untick this checkbox, the release
+									 artist will be attached to the current artist! &>
+
+							Move release to <& /comp/linkartist, id => &ModDefs::VARTIST_ID,
+							name => "Various Artists" &>.
+						</div>
+						<br />&nbsp;
+					</td>
+				</tr>
+
+%		}
 %	}
 
 %# vi: set ts=4 sw=4 ft=mason :

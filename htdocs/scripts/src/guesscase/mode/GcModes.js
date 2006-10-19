@@ -40,8 +40,8 @@ function GcModes() {
 	// language constants
 	this.EN = "en"; // English=Default
 	this.FR = "fr"; // French
-	this.IT = "it"; // Italian	
-	
+	this.IT = "it"; // Italian
+
 	// special modes language constants
 	this.XX = "xx"; // Sentence
 	this.XC = "XC"; // Classical
@@ -54,10 +54,11 @@ function GcModes() {
 	this.MODES_LIST = [
 		  new GcModeDefault(this)
 		, new GcModeSentence(this)
+		, new GcModeFrench(this)
 		, new GcModeClassical(this)
 	];
 	this.ARTIST_MODE = new GcModeArtist(this);
-	
+
 	// ----------------------------------------------------------------------------
 	// member functions
 	// ---------------------------------------------------------------------------

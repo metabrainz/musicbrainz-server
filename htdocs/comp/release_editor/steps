@@ -48,21 +48,21 @@
 
 	if ($editmode)
 	{
-		$steps = ["Enter Information", "Finish"];
+		$steps = ["Enter information", "Finish"];
 	}
 	else
 	{
 		if ($discid ne "")
 		{
-			$steps = ["Lookup CD", "Select Artist", "Select Release", "Enter Information", "Finish"];
+			$steps = ["Lookup CD", "Select artist", "Select release", "Enter information", "Finish"];
 		}
 		elsif ($freedbid ne "")
 		{
-			$steps = ["FreeDB Import", "Select Release Type", "Enter Information", "Finish"];
+			$steps = ["FreeDB import", "Select release type", "Enter information", "Finish"];
 		}
 		else
 		{
-			$steps = ["Enter Information", "Finish"];
+			$steps = ["Enter information", "Finish"];
 		}
 	}
 

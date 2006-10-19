@@ -1,4 +1,4 @@
-<%perl>
+<<%perl>
 	# -----------------------------------------------------------------------------
 	#                               Musicbrainz.org
 	#                        Copyright (c) 2001 Robert Kaye
@@ -99,7 +99,7 @@
 
 	<& /comp/layout/editformbegin, title => "Confirm Release Removal", release => $release, &>
 
-	<form method="post" action="/edit/album/remove.html" name="ConfirmForm">
+	<form method="post" action="/edit/album/remove.html" id="ConfirmForm">
 
 		<script type="text/javascript" src="/scripts/editsuite.js"></script>
 
@@ -134,11 +134,12 @@
 					<& /comp/notetext,
 						notetext => $notetext, &>
 
- 					<input type="hidden" name="releaseid" value="<% $releaseid %>" />
+					<& /comp/form/hiddenfield, "releaseid", $releaseid &>
+					<& /comp/form/focusfield, "btnYes" &>
+				</td>
 			</tr>
 		</table>
 
-		<& /comp/movefocus, "ConfirmForm", "btnYes" &>
 	</form>
 
 	<& /comp/layout/editformend &>

@@ -123,7 +123,11 @@
 	$display = $display || $object->GetName;
 
 	# print the link.
-	$m->out(qq!<img src="/images/entity/! . $typeicon . qq!_small.gif" alt="$typestr" class="entityicon"/>!);
+	if (!UserPreference::get("css_noentityicons"))
+	{
+		$m->out(qq!<img src="/images/entity/! . $typeicon . qq!_small.gif" alt="$typestr" class="entityicon" />!);
+	}
+
 	$m->out(qq!<span class="$css">!);
 	$m->out(sprintf	qq!<a href="%s">%s</a>!,
 					$url,

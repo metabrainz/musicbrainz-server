@@ -92,7 +92,7 @@
 		$m->out($explain ? "Annotation last modified" : "Last modified");
 		if ($session{uid})
 		{
-			$m->out(sprintf qq! by <a href="/user/view.html?uid=%s">%s</a>!,
+			$m->out(sprintf qq! by <a href="/show/user/?userid=%s">%s</a>!,
 					$annotation->GetModerator(),
 					$m->interp->apply_escapes($annotation->GetModeratorName(), 'h'));
 		}

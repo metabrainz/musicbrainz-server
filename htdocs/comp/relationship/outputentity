@@ -48,12 +48,17 @@
 	my $url = $item->{$prefix . "name"};
 	my $title = undef;
 	my $strong = 0;
+	my $shorten = 1;
 
 	$m->out(qq!<span class="mp">!) if ($mp);
 
-	if ($e_inttype eq "artist" or
-		$e_inttype eq "release" or
-		$e_inttype eq "track")
+	if ($e_inttype eq "artist")
+	{
+		my ($sortname, $resolution) = ($item->{$prefix . "sortname"}, $item->{$prefix . "resolution"});
+		$m->comp("/comp/linkartist", id => $e_id, name => $e_name, sortname => $sortname, resolution => $resolution);
+	}
+	elsif ($e_inttype eq "release" or
+		   $e_inttype eq "track")
 	{
 		$m->comp("/comp/link$e_inttype", id => $e_id, name => $e_name);
 	}
@@ -67,17 +72,18 @@
             if ($release)
             {
 			    ($asin, $coverart, $store) = $release->ParseAmazonURL($item->{link1_name});
-            } 
-            else 
+            }
+            else
             {
 			    ($asin, $coverart, $store) = Album->ParseAmazonURL($item->{link1_name});
-            } 
+            }
 			if ($asin ne "")
 			{
 			    $url = sprintf(qq!/misc/redirects/amazon-album-info.html?store=%s&amp;asin=%s!, $store, $asin);
 			    $name = $asin;
 			    $strong = 1;
 			    $title = sprintf("Amazon page for ASIN %s on %s", $asin, $store);
+			    $shorten = 0;
 			}
 		}
 		else
@@ -86,6 +92,7 @@
 			{
 				$name =~ s/^http:\/\/(\w{2,})\.wikipedia\.org\/wiki\/(.*)$/$1: $2/o;
 				$name =~ tr/_/ /;
+				$shorten = 0;
 			}
 
 			# decode the URL
@@ -96,7 +103,7 @@
 			$name = $decoded_name if !$@;
 		}
 
-		$m->comp("/comp/linkurl", id => $e_id, name => $name, href => $url, strong => $strong, title => $title);
+		$m->comp("/comp/linkurl", id => $e_id, name => $name, href => $url, strong => $strong, title => $title, shorten => $shorten);
 	}
 
 	$m->out("</span>") if ($mp);

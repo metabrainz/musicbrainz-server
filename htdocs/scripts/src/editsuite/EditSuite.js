@@ -81,7 +81,7 @@ function EditSuite() {
 
 	/**
 	 * Todo:
-	 * doAlbumName, doArtistName,doTrackName,doSortNameCopy,doSortNameGuess
+	 * doReleaseName, doArtistName,doTrackName,doSortNameCopy,doSortNameGuess
 	 * doSwapFields,doUseCurrent,doUseSplit,doArtistAndTrackName
 
 	 * Guess field=fname using the guessArtist routine GuessCase object
@@ -95,7 +95,7 @@ function EditSuite() {
 			if (!mb.utils.isNullOrEmpty(ov)) {
 				mb.log.info("Guessing artist field, input: $", ov);
 				if ((nv = es.gc.guessArtist(ov)) != ov) {
-					es.ur.addUndo(es.ur.createItem(f, "Guess Artist", ov, nv));
+					es.ur.addUndo(es.ur.createItem(f, "Guess artist", ov, nv));
 					f.value = nv;
 					es.ui.resetSelection();
 				} else {
@@ -111,19 +111,19 @@ function EditSuite() {
 	};
 
 	/**
-	 * Guess field=fname using the guessAlbum routine GuessCase object
+	 * Guess field=fname using the guessRelease routine GuessCase object
 	 **/
-	this.guessAlbumField = function(fname, mode) {
-		mb.log.enter(this.GID, "guessAlbumField");
-		fname = (fname || "album");
+	this.guessReleaseField = function(fname, mode) {
+		mb.log.enter(this.GID, "guessReleaseField");
+		fname = (fname || "release");
 		var f;
 		if ((f = es.ui.getField(fname)) != null) {
 			var ov = f.value, nv = ov;
 			if (!mb.utils.isNullOrEmpty(ov)) {
-				mb.log.info("Guessing album field, input: $", ov);
+				mb.log.info("Guessing release field, input: $", ov);
 				mb.log.debug("* mode: $", mode);
-				if ((nv = es.gc.guessAlbum(ov, mode))  != ov) {
-					es.ur.addUndo(es.ur.createItem(f, "Guess Album ("+es.gc.getMode()+")", ov, nv));
+				if ((nv = es.gc.guessRelease(ov, mode))  != ov) {
+					es.ur.addUndo(es.ur.createItem(f, "Guess release ("+es.gc.getMode()+")", ov, nv));
 					f.value = nv;
 					es.ui.resetSelection();
 				} else {
@@ -151,7 +151,7 @@ function EditSuite() {
 				mb.log.info("Guessing track field, input: $", ov);
 				mb.log.debug("* mode: $", mode);
 				if ((nv = es.gc.guessTrack(ov, mode))  != ov) {
-					es.ur.addUndo(es.ur.createItem(f, "Guess Track ("+es.gc.getMode()+")", ov, nv));
+					es.ur.addUndo(es.ur.createItem(f, "Guess track ("+es.gc.getMode()+")", ov, nv));
 					f.value = nv;
 					es.ui.resetSelection();
 				} else {
@@ -196,16 +196,16 @@ function EditSuite() {
 	 **/
 	this.guessByFieldName = function(name, mode) {
 		mb.log.enter(this.GID, "guessByFieldName");
-		if (name.match(es.ui.re.TRACKFIELD)) {
+		if (name.match(es.ui.re.TRACKFIELD_NAME)) {
 			this.guessTrackField(name, mode);
 
-		} else if (name.match(es.ui.re.ALBUMFIELD)) {
-			this.guessAlbumField(name, mode);
+		} else if (name.match(es.ui.re.RELEASEFIELD_NAME)) {
+			this.guessReleaseField(name, mode);
 
-		} else if (name.match(es.ui.re.ARTISTFIELD)) {
+		} else if (name.match(es.ui.re.ARTISTFIELD_NAME)) {
 			this.guessArtistField(name);
 
-		} else if (name.match(es.ui.re.SORTNAMEFIELD)) {
+		} else if (name.match(es.ui.re.SORTNAMEFIELD_NAME)) {
 			var artistField = name.replace("sort", "");
 			this.guessSortnameField(artistfield, name);
 

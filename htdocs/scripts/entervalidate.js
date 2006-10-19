@@ -1,91 +1,4 @@
 
-
-function validateFields(el) {
-	mb.log.scopeStart("Handling click on submit button...");
-	var validated = true;
-	if (el) {
-		var cn,config,k,c,v,id = (el.id || "");
-		if (id != "") {
-			config = id.split(",");
-			mb.log.info("Config: $", config);
-			for (var i=0; i < config.length; i++) {
-				c = config[i].split("=");
-				if (c.length == 2) {
-					k = c[0], v = c[1];
-					if (k == "validate") {
-						mb.log.info("Confing: Validate=$", v);
-						if (v == "1") {
-							var list = es.ui.getFieldsWalker(/^textfield(\sfocus|\smissing)*$/i, null);
-							for (var j=list.length-1; j>=0; j--) {
-								el = list[j];
-								id = (el.id || "");
-								cn = (el.className || "");
-								if (el.value == "") {
-									if (!cn.match(/missing/i)) {
-										el.className += " missing";
-									}
-									validated = false;
-								} else {
-									el.className = cn.replace(/\s+missing/gi, "");
-								}
-								mb.log.debug("Field $, classname: $", id, el.className);
-							}
-							if (!validated) {
-								if ((el = mb.ui.get("validatemessages")) != null) {
-									el.style.display = "";
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-	mb.log.info("After check: validated=$", validated);
-	mb.log.scopeEnd();
-	return validated;
-}
-
-// walk the list of fields in the current field and setup fields.
-var value, name, el, list = es.ui.getFieldsWalker(/^numberfield(\sfocus|\smissing)*$/i, null);
-for (var j=list.length-1; j>=0; j--) {
-	el = list[j];
-	name = (el.name || "");
-	value = (el.value || "");
-
-	mb.log.debug("el: $", name);
-
-	var defvalue = "";
-	var title = "";
-	if (name.match(/year-/i)) {
-		defvalue = "YYYY";
-		title = "Enter the year here. This value is required if you enter the month and day (e.g. "+new Date().getYear()+")";
-	} else if (name.match(/month-/i)) {
-		defvalue = "MM";
-		title = "Enter the month here. This value is required if you enter the day (e.g. "+new Date().getMonth()+")";
-	} else if (name.match(/day-/i)) {
-		defvalue = "DD";
-		title = "Enter the day here (e.g. "+new Date().getDate()+")";
-	}
-	if (value == "") {
-		el.value = defvalue;
-	}
-	if (defvalue != "") {
-		el.onfocus = function onfocus(event) {
-			if (this.value == defvalue) {
-				this.value = "";
-			}
-		};
-		el.onblur = function onblur(event) {};
-	}
-	if (title != "") {
-		el.title = title;
-	}
-}
-
-
-
-
 /**
  * Relationship Object
  * capsulates all the properties for a RelationShipType instance
@@ -678,20 +591,20 @@ function RelationShipsEditor() {
 							newtr.valign = "top";
 							newtr.style.verticalAlign = "top";
 						} else {
-							alert("Unexpected parentNode, expected tbody, got: " + (tbody ? tbody.nodeName : "?"));
+							mb.log.error("Unexpected parentNode, expected tbody, got: " + (tbody ? tbody.nodeName : "?"));
 						}
 					} else {
-						alert("Unexpected parentNode, expected tr, got: " + (tr ? tr.nodeName : "?"));
+						mb.log.error("Unexpected parentNode, expected tr, got: " + (tr ? tr.nodeName : "?"));
 					}
 				} else {
-					alert("Unexpected parentNode, expected td, got: " + (td ? td.nodeName : "?"));
+					mb.log.error("Unexpected parentNode, expected td, got: " + (td ? td.nodeName : "?"));
 				}
 			} else {
-				alert("Did not find relationships for track " + index + "/" + subindex);
+				mb.log.error("Did not find relationships for track " + index + "/" + subindex);
 			}
 
 		} else {
-			alert("Elements el/index not given, aborting");
+			mb.log.error("Elements el/index not given, aborting");
 		}
 		mb.log.exit();
 		return false;

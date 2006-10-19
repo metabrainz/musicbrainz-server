@@ -24,7 +24,7 @@
  * Base class of the type specific handlers
  *
  * @see GcArtistHandler
- * @see GcAlbumHandler
+ * @see GcReleaseHandler
  * @see GcTrackHandler
  */
 function GcHandler() {
@@ -32,7 +32,7 @@ function GcHandler() {
 	// ----------------------------------------------------------------------------
 	// register class/global id
 	// ---------------------------------------------------------------------------
-	this.CN = "GcHandler"; 
+	this.CN = "GcHandler";
 	this.GID = "gc.base";
 	mb.log.enter(this.CN, "__constructor");
 
@@ -46,7 +46,7 @@ function GcHandler() {
 	// artist cases
 	this.SPECIALCASE_UNKNOWN = 10;		// [unknown]
 
-	// album cases
+	// release cases
 	this.SPECIALCASE_DATA_TRACK = 20; 	// [data track]
 
 	// track cases
@@ -172,9 +172,9 @@ function GcHandler() {
 	};
 
 	/**
-	 * Delegate function for Artist/Album/Track specific handlers
+	 * Delegate function for Artist/Release/Track specific handlers
 	 **/
-	this.doWord = function() {};	
+	this.doWord = function() {};
 
 	/**
 	 * Deal with whitespace (\t)
@@ -219,7 +219,7 @@ function GcHandler() {
 
 				gc.o.setWordAtIndex(gc.o.getLength()-1, role.toLowerCase());
 			} else {
-			
+
 				// force capitalization of the last word,
 				// because we are starting a new subtitle
 				gc.o.capitalizeLastWord(true);
@@ -337,11 +337,11 @@ function GcHandler() {
 		if (gc.i.matchCurrentWord(gc.re.LINESTOP)) {
 			mb.log.debug('Handled #cw');
 			gc.f.resetContext();
-			
-			// force caps on word before the colon, if 
+
+			// force caps on word before the colon, if
 			// the mode is not sentencecaps
 			gc.o.capitalizeLastWord(!gc.getMode().isSentenceCaps());
-			
+
 			gc.f.forceCaps = true;
 			gc.f.spaceNextWord = true;
 			gc.o.appendCurrentWord();
@@ -498,7 +498,7 @@ function GcHandler() {
 		}
 		if (gc.i.matchCurrentWord(gc.re.OPENBRACKET)) {
 			mb.log.debug('Handled #cw, stack: $', gc.f.openBrackets);
-			
+
 			// force caps on last word before the opending bracket,
 			// if the current mode is not sentence mode.
 			gc.o.capitalizeLastWord(!gc.getMode().isSentenceCaps());
@@ -549,11 +549,11 @@ function GcHandler() {
 		}
 		if (gc.i.matchCurrentWord(gc.re.CLOSEBRACKET)) {
 			mb.log.debug('Handled #cw, stack: $', gc.f.openBrackets);
-			
+
 			// capitalize the last word, if forceCaps was
 			// set, else leave it like it is.
-			gc.o.capitalizeLastWord(); 
-			
+			gc.o.capitalizeLastWord();
+
 			if (gc.f.isInsideBrackets()) {
 				gc.f.popBracket();
 				gc.f.slurpExtraTitleInformation = false;
@@ -629,10 +629,10 @@ function GcHandler() {
 			} else {
 				mb.log.debug('Handled #cw');
 				if (!gc.i.hasMoreWords() || gc.i.getNextWord() != ".") {
-				
+
 					// capitalize the last word, if forceCaps was
-					// set, else leave it like it is.				
-					gc.o.capitalizeLastWord(); 
+					// set, else leave it like it is.
+					gc.o.capitalizeLastWord();
 				}
 				gc.o.appendWord(".");
 				gc.f.resetContext();
@@ -785,8 +785,8 @@ function GcHandler() {
 			// add : after disc with number,with more words following
 			// only if there is a string which is assumed to be the
 			// disc title.
-			// e.g. Albumname cd 4 -> Albumname (disc 4)
-			// but  Albumname cd 4 the name -> Albumname (disc 4: The Name)
+			// e.g. Releasename cd 4 -> Releasename (disc 4)
+			// but  Releasename cd 4 the name -> Releasename (disc 4: The Name)
 			var addcolon = false;
 			if (gc.f.disc || gc.f.volume) {
 				var pos = gc.i.getPos();
@@ -838,11 +838,11 @@ function GcHandler() {
 		}
 		if (gc.i.matchCurrentWord(gc.re.VERSUSSTYLE)) {
 			mb.log.debug('Found VersusStyle, cw: #cw');
-			
+
 			// capitalize the last word, if forceCaps was
-			// set, else leave it like it is.			
+			// set, else leave it like it is.
 			gc.o.capitalizeLastWord();
-			
+
 			if (!gc.f.openingBracket) {
 				gc.o.appendSpace();
 			}
@@ -919,14 +919,14 @@ function GcHandler() {
 		// only do the conversion if ...,(volume|part) is followed
 		// by a digit or a roman number
 		if (w.match(gc.re.SERIES_NUMBER)) {
-			
+
 			// if no other punctuation char present
 			if (gc.i.getPos() >= 1 && !gc.u.isPunctuationChar(gc.o.getLastWord())) {
 
 				// check if there was a hypen (+whitespace) before,and drop it.
 				var droppedwords = false;
 				while (gc.o.getLength() > 0 &&
-					  (gc.o.getLastWord() || "").match(/ |-/i)) {		
+					  (gc.o.getLastWord() || "").match(/ |-/i)) {
 					gc.o.dropLastWord();
 					droppedwords = true;
 				}
@@ -934,7 +934,7 @@ function GcHandler() {
 				// force capitalization of the last word,
 				// because we are starting a new styleguideline
 				// specialcase (or sentence).
-				gc.o.capitalizeLastWord(true); 
+				gc.o.capitalizeLastWord(true);
 				gc.o.appendWord(",");
 
 			// capitalize last word before punctuation char.
@@ -970,10 +970,10 @@ function GcHandler() {
 			gc.o.appendSpace();
 			gc.o.appendWord(w);
 			gc.f.resetContext();
-			
+
 			// if there is no colon already present,add a colon
 			if (addcolon) {
-				gc.o.appendWord(":");     
+				gc.o.appendWord(":");
 				gc.f.forceCaps = true;
 				gc.f.spaceNextWord = true;
 				gc.f.colon = true;
@@ -1038,8 +1038,8 @@ function GcHandler() {
 			mb.log.debug('Attempting to match number/roman numeral $, or bonus_disc', w);
 			if (w.match(gc.re.SERIES_NUMBER) || gc.i.getWordAtIndex(pos-2) == "bonus") {
 				// delete hypen,or colon if one occurs before
-				// disc: e.g. Albumname - Disk1
-				// disc: Albumname,Volume 2: cd 1
+				// disc: e.g. Releasename - Disk1
+				// disc: Releasename,Volume 2: cd 1
 				var lw = gc.o.getLastWord();
 				if (lw == "-" || lw == ":") {
 					mb.log.debug('Dropping last word $', lw);

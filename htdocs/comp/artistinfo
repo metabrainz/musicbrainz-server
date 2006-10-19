@@ -33,7 +33,7 @@
 
 </%args>
 
-	<& /comp/tablebegin, title => "Artist Information" &>
+	<& /comp/tablebegin, title => "Artist information" &>
 
 		<table class="formstyle">
 			<tr>
@@ -49,17 +49,18 @@
 					<% $artist->GetMBId %></td>
 			</tr>
 
-%	if (not $short) {
+%	if (not $short)
+%	{
 
 			<tr>
 				<td class="label">
-					Permanent Link:</td>
+					Permanent link:</td>
 				<td>
 					<& /comp/copyable-link, "artist", $artist, "linkedurl", &></td>
 			</tr>
 			<tr>
 				<td class="label">
-					Fancy Link:</td>
+					Fancy link:</td>
 				<td>
 					<a href="/show/permlink.html?id=<% $artist->GetMBId %>&amp;type=artist"
 						>Click here for a fancy link to this artist</a></td>
@@ -68,16 +69,21 @@
 				<td class="label">
 					<a href="/development/mmd">XML</a>:</td>
 				<td>
-					<a href="<% $artist->XML_URL %>"><% $artist->XML_URL %></a></td>
+					<a href="<% $artist->XML_URL %>"><% substr($artist->XML_URL, 0, 48) . " &#8230;" |n %></a></td>
 			</tr>
-% 		if ($session{uid}) {
+
+% 		if ($session{uid})
+%		{
+
 			<tr>
 				<td class="label">
 					<& /comp/linkdoc, "ArtistID" &>:</td>
 				<td>
 					<% $artist->GetId %></td>
 			</tr>
+
 % 		}
+
 			<tr>
 				<td class="label">
 					Subscribers:</td>
@@ -85,16 +91,21 @@
 					<% scalar $artist->GetSubscribers %>
 					&nbsp;
 					[ <a href="/show/artist/subscriptions.html?artist=<% $artist->GetId %>">List</a>
+
 %		if (exists $session{user}
 %			and $artist->GetId != &ModDefs::VARTIST_ID
 %			and $artist->GetId != &ModDefs::DARTIST_ID)
 %		{
+
 						| <a href="/user/subscribe.html?artistid=<% $artist->GetId %>">Subscribe to this artist</a>
 						| <a href="/user/subscribe.html?artistid=<% $artist->GetId %>&amp;unsubscribe=1">Unsubscribe from this artist</a>
+
 % 		}
+
 					]
 				</td>
 			</tr>
+
 %	}
 
 		</table>

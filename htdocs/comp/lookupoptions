@@ -1,3 +1,31 @@
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# Renders lookup form suggestion texts.
+	#
+	# $Id$
+	#
+</%perl>
 <%args>
 
 	$artist => ""
@@ -30,9 +58,9 @@
 
 </%perl>
 
-	<strong>Can't find what you're looking for?</strong><p/>
-	If you can't find what you're looking for, it's possible that
-	<strong>your search terms didn't match our data</strong>.
+	<strong>Did you not find what you were looking for?</strong><p/>
+	If you cannot find what you are looking for, it's possible that
+	<strong>your search terms did not match our data</strong>.
 
 	Try the following:
 
@@ -43,11 +71,11 @@
 			be misspelled, remix names, featured artists, etc.<br/>
 			Your tags may differ considerably from the data in MusicBrainz,
 			as we edit data according to our <& /comp/linkdoc, "StyleGuideline",
-			"Style Guidelines" &>, so less specific searches may find what
+			"style guidelines" &>, so less specific searches may find what
 			you are looking for. This is especially true if your tags are
 			inaccurate.
 			There are more searching hints on the <& /comp/linkdoc, "HowToSearch",
-			"How to Search" &> page.</li>
+			"How to search" &> page.</li>
 
 % 	if (defined $artistobj)
 %	{
@@ -55,8 +83,8 @@
 		<li>
 			<strong>Look for the release on the artist page of
 			<& /comp/linkartist, artist => $artistobj &></strong>. You may
-			find that the release you're looking for is on the artist's page
-			even if the search doesn't find it.</li>
+			find that the release you are looking for is on the artists page
+			even if the search did not return it.</li>
 
 % 	}
 %	else
@@ -64,34 +92,35 @@
 
 		<li>
 			<strong>Search for the artist and look for the release on the artist
-			page</strong>. You may find that the release you're looking for is
-			on the artist's page even if the search doesn't find it.</li>
+			page</strong>. You may find that the release you are looking for is
+			on the artists page even if the search did not return it.</li>
 % 	}
 
     	<li>
     		<strong>Search for just the artist, release or track using the quick
     		search in the sidebar</strong>. The quick search only tries to
-    		match one piece of data, and you're therefore more likely to find
-    		what you're looking for.</li>
+    		match one piece of data, and you are therefore more likely to find
+    		what you are looking for.</li>
 	</ul>
 
-	<strong>What if I still can't find what I'm looking for?</strong>
-	If you've tried all of the above and still can't find what you're looking for,
-	maybe MusicBrainz just doesn't have the information in the database. You can:
+	<strong>What if I still cannot find what I am looking for?</strong>
+	If you have tried all of the above and still cannot find what you are looking for,
+	maybe MusicBrainz just does not have the information in the database. You can:
 
 	<ul>
 		<li>
 			<strong><a href="/freedb/freedb.html?search=<% uri_escape($search) %>">Import
 			a new release from FreeDB</a></strong>. You will need to spend some time
 			cleaning up the data according to the <& /comp/linkdoc, "StyleGuideline",
-			"Style Guidelines" &>, finding release dates, etc. before it gets
-			inserted into MusicBrainz.</li>
+			"style guidelines" &>, to add additional data like release attributes,
+			release events before inserting it into MusicBrainz.</li>
 
 % 	if (defined $artistobj)
 %	{
+
 		<li>
-			<strong><a href="/edit/album/add.html?artistid=<% $artistobj->GetId %>">Add a
-			release manually</a></strong>.</li>
+			<strong><a href="/edit/album/add.html?artistid=<% $artistobj->GetId %>">
+			Add a new release to <% $artistobj->GetName %></a></strong>.</li>
 
 % 	}
 %	else
@@ -105,13 +134,14 @@
 %	{
 
 		<li>
-			If you can't find the track you're looking for and you are <em>sure</em>
+			If you cannot find the track you are looking for and you are <em>sure</em>
 			that the track has never been released on any release or single (including bootlegs),
 			you can <a href="/edit/track/addnonalbum.html?artistid=<% $artistobj->GetId %>"
 			onclick="document.forms.AddNonAlbumTrack.submit(); return false">add a non-album track</a>
-			to the artist '<% $artist %>'. Do <strong>not</strong> use this simply because
-			you can't find which release a track is on (or haven't looked), or your changes
-			will be voted down.</li>
+			to the artist <% $artist %>. Do <strong>not</strong> use this simply because
+			you cannot find which release a track is on (or you have not looked properly),
+			or your changes will most likely be voted down.</li>
+
 % 	}
 
 	</ul>

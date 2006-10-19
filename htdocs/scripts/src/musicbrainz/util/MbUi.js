@@ -293,23 +293,14 @@ function MbUI() {
 	this.setupKeyboardFocus = function() {
 		mb.log.enter(this.GID, "setupKeyboardFocus");
 		var el,list = mb.ui.getByTag("input");
-		var focusname;
+		var focusid;
 		// lookup hidden field which defines the field to be focussed
 		if ((el = mb.ui.get("ONLOAD::focusfield")) != null) {
 			// if focusfield hidden field was found,
 			// find field and set focussed.
-			if ((focusname = el.value) != null) {
-				var elform, form = el.form;
-				for (var i=0; i<list.length; i++) {
-					el = list[i];
-					name = (el.name || "");
-					elform = el.form;
-					if ((elform == form) &&
-						(name == focusname) &&
-						(el.focus)) {
-						el.focus();
-						break;
-					}
+			if ((focusid = el.value) != null) {
+				if ((el = mb.ui.get(focusid)) != null && el.focus) {
+					el.focus();
 				}
 			} else {
 				mb.log.warning("ONLOAD::focusfield has no value!");

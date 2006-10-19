@@ -51,7 +51,7 @@ sub GatherData
 		WHERE 
 			j.album = m.id
 			AND j.track = t.id
-			AND t.name LIKE '%-%'
+			AND t.name ~* '[^\\d]-[^\\d]'
 		GROUP BY 
 			m.id, m.tracks
 		HAVING COUNT(*) = m.tracks

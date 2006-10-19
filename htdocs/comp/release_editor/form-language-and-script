@@ -48,7 +48,7 @@
 		minimum_frequency => ( $attr_showall ? 0 : 4 ),
 		include => $attr_script
 	);
-	unshift @scripts, [ "-1", "select script..." ];
+	unshift @scripts, [ "-1", "Select script..." ];
 
 	# compile list of languages, be sure to include
 	# the current value (if collapsed)
@@ -56,24 +56,30 @@
 		minimum_frequency => ( $attr_showall ? 1 : 2 ),
 		include => $attr_language
 	);
-	unshift @languages, [ "-1", "select language..." ];
+	unshift @languages, [ "-1", "Select language..." ];
 
 	# configure css-style for compact/full list
 	my $dropdownstyle = ($attr_showall ? "" : "width: 200px");
 	my $submit_togglelists = ($attr_showall ? $ARGS{"SUBMIT_LANG_COMPACT"} : $ARGS{"SUBMIT_LANG_FULL"});
 
 	# lets see if we have to highlight the fields
-	my $scriptcss = $checklanguage{"attr_script"} ? " missing" : "";
-	my $languagecss = $checklanguage{"attr_language"} ? " missing" : "";
+	my $languagecss = $checklanguage{"attr_language"} ? qq!class="missing"! : "";
+	my $scriptcss = $checklanguage{"attr_script"} ? qq!class="missing"! : "";
+
+	my $languagelabel = "Language";
+	$languagelabel .= " [!]" if ($checklanguage{"attr_language"});
+
+	my $scriptlabel = "Script";
+	$scriptlabel .= " [!]" if ($checklanguage{"attr_script"});
 
 </%perl>
 
 			<tr id="releaselanguage">
 				<td class="label">
-					<label class="label">Language:</label></td>
+					<label class="label"><% $languagelabel %>:</label></td>
 				<td colspan="2"></td>
 				<td colspan="2">
-					<select name="attr_language" style="<% $dropdownstyle %>" tabindex="<% ++$$tabindex %>" class="<% $languagecss %>">
+					<select name="attr_language" style="<% $dropdownstyle %>" tabindex="<% ++$$tabindex %>" <% $languagecss |n %>>
 						<& /comp/options, \@languages, $attr_language &>
 					</select>
 					<& /comp/form/buttonsubmit, value => $ARGS{"SUBMIT_LANG_GUESS"}, tabindex => ++$$tabindex &></td>
@@ -82,10 +88,10 @@
 			</tr>
 			<tr>
 				<td class="label">
-					<label class="label">Script:</label></td>
+					<label class="label"><% $scriptlabel %>:</label></td>
 				<td colspan="2"></td>
 				<td colspan="2">
-					<select name="attr_script" style="<% $dropdownstyle %>" tabindex="<% ++$$tabindex %>" class="<% $scriptcss %>">
+					<select name="attr_script" style="<% $dropdownstyle %>" tabindex="<% ++$$tabindex %>" <% $scriptcss |n %>>
 						<& /comp/options, \@scripts, $attr_script &>
 					</select>
 					<& /comp/form/buttonsubmit, value => $submit_togglelists, tabindex => ++$$tabindex &></td>

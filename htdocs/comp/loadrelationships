@@ -25,8 +25,12 @@
 	# with id=(rowid) from the database. Returns a list of relationship
 	# hashes, each with the following keys:
 	#
-	# link0_type, link1_type, link0_id, link1_id
-	# link0_name, link1_name, link_phrase, rlink_phrase
+	# link0_type, link1_type,
+	# link0_id, link1_id
+	# link0_name, link1_name,
+	# link0_sortname, link1_sortname,
+	# link0_resolution, link1_resolution,
+	# link_phrase, rlink_phrase
 	#
 	# Usage
 	# -----------------------------------------------------------------------------
@@ -63,15 +67,19 @@
 			if ($item->{link0_type} ne $type || $item->{link0_id} != $id)
 			{
 				@$item{qw(
-					link0_type		link1_type
-					link0_id		link1_id
-					link0_name		link1_name
-					link_phrase		rlink_phrase
+					link0_type			link1_type
+					link0_id			link1_id
+					link0_name			link1_name
+					link0_sortname		link1_sortname
+					link0_resolution	link1_resolution
+					link_phrase			rlink_phrase
 				)} = @$item{qw(
-					link1_type		link0_type
-					link1_id		link0_id
-					link1_name		link0_name
-					rlink_phrase	link_phrase
+					link1_type			link0_type
+					link1_id			link0_id
+					link1_name			link0_name
+					link1_sortname		link0_sortname
+					link1_resolution	link0_resolution
+					rlink_phrase		link_phrase
 				)};
 			}
 		}

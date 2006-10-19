@@ -36,20 +36,19 @@
 	$sortname => undef
 
 	# release
-	$releasename
-	$attr_status
-	$attr_type
-	$attr_script
-	$attr_language
+	$releasename => undef
+	$attr_status => undef
+	$attr_type => undef
+	$attr_language => undef
+	$attr_script => undef
 
 	# tracks
-	$tracks
-	$hasmultipletrackartists
+	$tracks => undef
+	$hasmultipletrackartists => undef
 
 	# cd lookup
 	$discid => ""
 	$toc => ""
-	$noncd => 0
 
 	# freedb
 	$freedbid => ""
@@ -64,7 +63,7 @@
 	$m->comp("/comp/checkloggedin", 1, 1)
 		or return;
 
-	$m->comp("/comp/sidebar", title => 'Add Release');
+	$m->comp("/comp/sidebar-notitle", pagetitle => "Add Release");
 
 	use DebugLog;
 	if (my $d = DebugLog->open)
@@ -75,20 +74,40 @@
 		$d->close;
 	}
 
-	# Do a bunch of error checking
-	my $error = 0;
-	$error = 1 if (!defined $artistid && $artistname eq "");
-	$error = 2 if ($discid eq "" && $freedbid eq "" && $noncd == 0);
-	$error = 3 if ($toc eq "" && $freedbid eq "" && $noncd == 0);
-	$error = 5 if ($tracks eq 0);
-	$error = 6 if (!defined $artistid && $artistname =~ /various artists/i);
-	for (my $i = 0; $i < $tracks && !$error; $i++)
+	# verify that the needed fields are set
+	my @errors;
+	push @errors, "Release artist not set" if (not defined $artistid or !$artistid);
+	push @errors, "Release artist cannot be set to the 'Deleted Artist'" if ($artistid == &ModDefs::DARTIST_ID);
+	push @errors, "Release title not set" if (not defined $releasename or $releasename eq "");
+	push @errors, "Number of tracks must be greater than 0" if (!$tracks);
+	push @errors, "hasmultipletrackartists is not set" if (not defined $hasmultipletrackartists);
+
+	for (my $i = 0; $i < $tracks; $i++)
 	{
-		$error = 7 + $i
-			if (!exists $ARGS{"track$i"} || $ARGS{"track$i"} eq "");
+
+		my $trackartist = $ARGS{sprintf "tr%d_artistid", $i};
+		my $trackname = $ARGS{sprintf "track%d", $i};
+		my $trackseq = $ARGS{sprintf "trackseq%d", $i};
+
+		push @errors, "Track $i: Track artist is not set" if (not defined $trackartist or !$trackartist);
+		push @errors, "Track $i: Track artist cannot be set to 'Various Artists'" if ($trackartist == &ModDefs::VARTIST_ID);
+		push @errors, "Track $i: Track artist cannot be set to 'Deleted Artist'" if ($trackartist == &ModDefs::DARTIST_ID);
+		push @errors, "Track $i: Track title is not set" if (not defined $trackname or $trackname eq "");
+		push @errors, "Track $i: Track number is not set" if (not defined $trackseq or !$trackseq);
 	}
 
-	if ($error > 0 && $error != 6)
+	push @errors, "Release status not set" if (not defined $attr_status);
+	push @errors, "Release type not set" if (not defined $attr_type);
+	push @errors, "Release language not set" if (not defined $attr_language);
+	push @errors, "Release script not set" if (not defined $attr_script);
+
+	push @errors, "Internal error: Got freedbid, but no freedbcat" if ($freedbid eq "" and $freedbcat ne "");
+	push @errors, "Internal error: Got no freedbid, but freedbcat" if ($freedbid ne "" and $freedbcat eq "");
+	push @errors, "Internal error: Got toc, but no discid" if ($toc ne "" and $discid eq "");
+	push @errors, "Internal error: Got no toc, but discid" if ($toc eq "" and $discid ne "");
+
+
+	if (@errors)
 	{
 		$m->comp("/comp/form/feedbackbox",
 			"warning", "Oops",
@@ -98,15 +117,6 @@
 			   our bug tracker</a>. Thanks\!<ul><li>!
 			 . join ("</li><li>", @errors)
 			 . "</li></ul>");
-	}
-	elsif ($error == 6)
-	{
-		$m->comp("/comp/form/feedbackbox",
-			"warning", "Error",
-			"You cannot insert a multiple artist release using the single artist
-			 submission form. Please go back to the beginning of the submission
-			 process and choose a multiple artist CD."
-		);
 	}
 	else
 	{
@@ -121,36 +131,43 @@
 		}
 		my $new = "";
 
-		# retrieve 1..n tracks from the arguments
+		# retrieve 0..n tracks from the arguments
 		my $trackdata = "";
-		my $realtracks = 0;
+
+		# skip deleted tracks, and use internal counter ($realtracks) to
+		# handle track offsets. Insert.pm expects the tracks to be
+		# numbered from a startindex of 1.
+		my $realtracks = 1;
 		for (my $i = 0; $i < $tracks; $i++)
 		{
-			# skip deleted tracks, and use internal counter ($i) to
-			# handle track offsets.
+
 			if (!$ARGS{"trackdel$i"})
 			{
 				MusicBrainz::Server::Validation::TrimInPlace($ARGS{"track$i"});
-				$trackdata .= "Track" . ($i + 1) . "=" . $ARGS{"track$i"} . "\n";
+				$trackdata .= "Track" . ($realtracks) . "=" . $ARGS{"track$i"} . "\n";
 				if ($toc ne "")
 				{
 					my $dur = int((($offsets[$i+1] - $offsets[$i])*1000)/75);
-					$trackdata .= "TrackDur" . ($i + 1) . "=" . $dur . "\n";
+					$trackdata .= "TrackDur" . ($realtracks) . "=" . $dur . "\n";
 				}
 				else
 				{
 					my $length = Track::UnformatTrackLength($ARGS{"tracklength$i"});
 					$length = 0 if $length < 0;
-					$trackdata .= "TrackDur" . ($i + 1) . "=" . $length . "\n";
+					$trackdata .= "TrackDur" . ($realtracks) . "=" . $length . "\n";
 				}
+
 				if ($hasmultipletrackartists)
 				{
 					my $new_artistid = $ARGS{sprintf "tr%d_artistid", $i};
-					$trackdata .= "ArtistID" . ($i + 1) . "=" . $new_artistid . "\n";
+					$trackdata .= "ArtistID" . ($realtracks) . "=" . $new_artistid . "\n";
 				}
+
+				# handled this track, increment non-deleted tracks counter
 				$realtracks++;
 			}
 		}
+
 		# update $tracks variable with real number of tracks
 		# ($tracks-number of deleted tracks)
 		$tracks = $realtracks;
@@ -158,12 +175,6 @@
 		MusicBrainz::Server::Validation::TrimInPlace($releasename);
 
 		# build release data.
-		if (!defined $artistid)
-		{
-			MusicBrainz::Server::Validation::TrimInPlace($artistname, $sortname);
-			$new = "Artist=$artistname\nSortname=$sortname\n";
-		}
-		MusicBrainz::Server::Validation::TrimInPlace($releasename);
 		$new .= "AlbumName=$releasename\nNumTracks=$tracks\n";
 		$new .= "HasMultipleTrackArtists=$hasmultipletrackartists\n";
 		$new .= "Attributes=$attr_type,$attr_status\n";
@@ -182,6 +193,10 @@
 			my $rev_day = $ARGS{"rev_day-$j"};
 			my $rev_country = $ARGS{"rev_country-$j"};
 			my $rev_clear = $ARGS{"rev_clear-$j"} || 0;
+
+			$rev_year = "" if ($rev_year eq "yyyy");
+			$rev_month = "" if ($rev_month eq "mm");
+			$rev_day = "" if ($rev_day eq "dd");
 
 			if (!$rev_clear)
 			{
@@ -210,6 +225,11 @@
 				}
 			}
 		}
+
+		#$m->out("<pre>");
+		#$m->out($new);
+		#$m->out("</pre>");
+		#exit;
 
 		# Insert the release moderation.
 		# -- Returns the id of the artist (if the artist was created the

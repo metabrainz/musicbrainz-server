@@ -331,7 +331,7 @@ sub _Insert
         # album does indeed go to the correct artist.
         if ($artistid != $al->GetArtist())
         {
-            die "Insert failed: Artist/Album id clash.\n";
+            #die "Insert failed: Artist/Album id clash.\n";
         }
     }
 

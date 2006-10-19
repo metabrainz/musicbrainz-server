@@ -83,8 +83,8 @@
 	my @errors = ();
 	if ($submitvalue ne "")
 	{
-		push @errors, "Select how release attributes should be merged." if ($merge_attributes !~ /\A[01]\z/);
-		push @errors, "Select how release script/language should be merged." if ($merge_langscript !~ /\A[01]\z/);
+		push @errors, "Should the release attributes be merged?" if ($merge_attributes !~ /\A[01]\z/);
+		push @errors, "Should the release script/language be merged?" if ($merge_langscript !~ /\A[01]\z/);
 
 		my $url =
 			(keys(%artists) == 1 and not $artists{&ModDefs::VARTIST_ID})
@@ -149,7 +149,7 @@
 		my ($mac, $objs, $text, $title, $thisrelease) = @_;
 
 		$m->out(qq!<td>!);
-		$m->out(qq!<form method="post" action="/edit/albumbatch/merge.html#albumrow!. $thisrelease->GetId .qq!">!);
+		$m->out(qq!<form method="post" action="/edit/albumbatch/merge.html#release!. $thisrelease->GetId .qq!">!);
 		$m->out(qq!<div>!);
 		for (@$objs)
 		{
@@ -232,16 +232,15 @@
 				<tr>
 					<td class="label">&nbsp;</td>
 					<td>
-						<div style="border: 1px dotted red; padding: 5px; margin-bottom: 15px">
-							<span style="font-weight: bold; color: red">Warning:</span>
-							These releases cannot be merged, since some of the releases
-							you have selected have a <strong>different number of tracks and
-							attached Disc IDs</strong>. The merge operation adds the additional tracks of
-							the other releases to the end of the target release, resulting
-							(for the selected releases) in a target release length of <% $final %> tracks.
-							This <strong>conflicts with the number of tracks</strong> of one or more of the
-							attached Disc IDs.</li>
-						</div></td>
+						<& /comp/form/feedbackbox, "warning", "The selected releases cannot be merged: ",
+							qq!These releases cannot be merged, since some of the releases
+							you have selected have attached Disc IDs with different lengths.
+							The merge operation adds the additional tracks of the other releases to
+							the end of the target release. If this merge was applied, all Disc IDs are
+							moved to the target release, and the resulting target release length
+							would be <strong>$final</strong> tracks, therefore invalidating some
+							of the attached Disc ID(s).!
+						&></td>
 				</tr>
 % 	}
 
@@ -249,17 +248,19 @@
 
 			<table class="formstyle">
 
-% 	if ($merge_ok)
+%	if (@errors > 0)
 %	{
-%			if (@errors > 0)
-%			{
 
 				<tr>
 					<td class="label">&nbsp;</td>
-					<td class="error"><ul><li><%perl> $m->out(join("</li><li>", @errors)); </%perl></li></ul></td>
+					<td>
+						<& /comp/form/feedbackbox, "warning", "You need to select which attributes should be merged before the merge edit can be entered.",
+							join(" ", @errors)
+						&>
+					</td>
 				</tr>
 
-%			}
+%	}
 
 				<tr>
 					<td class="label">Attributes:</td>
@@ -273,7 +274,7 @@
 						<input type="radio" name="merge_attributes" value="1" <% $merge_attributes eq "1" ? "checked" : "" %> />
 						Merge release attributes.<br/>
 						<input type="radio" name="merge_attributes" value="0" <% $merge_attributes eq "0" ? "checked" : "" %> />
-						Keep release attributes of the target release.</td>
+						Keep release attributes of the target release. </td>
 				</tr>
 
 				<tr class="spaced">
@@ -288,40 +289,33 @@
 						<input type="radio" name="merge_langscript" value="1" <% $merge_langscript eq "1" ? "checked" : "" %> />
 						Merge languages/scripts.<br/>
 						<input type="radio" name="merge_langscript" value="0" <% $merge_langscript eq "0" ? "checked" : "" %> />
-						Keep language/script of the target release.</td>
+						Keep language/script of the target release. </td>
 				</tr>
 				<tr>
 					<td>&nbsp;</td>
 					<td class="notetext">
 
 %		my @buttons = ();
-%		push @buttons, ["Enter Edit", "btnYes"] if ($merge_ok);
+%		push @buttons, ["Merge releases &raquo;", "btnYes", !$merge_ok];
 %		push @buttons, ["Cancel", "btnCancel"];
 
 						<& /comp/notetext,
 							notetext => $notetext,
 							buttons => \@buttons &>
-				</tr>
-%	}
-%	else
-%	{
 
-				<tr>
-					<td class="label">&nbsp;</td>
-					<td>
-						<input type="submit" name="submitvalue" value="Cancel" /></td>
+					</td>
 				</tr>
-%	}
 			</table>
+
+			<div>
 
 % 		for (@releaseid)
 %		{
-
-			<input type="hidden" name="releaseid" value="<% $_ %>" />
-
+%			$m->comp("/comp/form/hiddenfield", "releaseid", $_);
 % 		}
+%		$m->comp("/comp/form/hiddenfield", "mac", $mac);
 
-			<input type="hidden" name="mac" value="<% $mac %>" />
+			</div>
 		</form>
 
 	<& /comp/tableend &>
@@ -350,7 +344,7 @@
 </%perl>
 
 		<table>
-			<tr id="albumrow<% $release->GetId %>" valign="top">
+			<tr id="release<% $release->GetId %>" valign="top">
 				<td style="width: 420px">
 					<& /comp/album, album => $release, artist => $artist, showmodlinks => 0, showrelationships => 0 &></td>
 				<td> &nbsp;</td>

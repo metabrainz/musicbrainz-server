@@ -61,6 +61,16 @@
 			}
 			$item = $links[$i];
 
+#			my %h = %{ $item };
+#			$m->out(" ( ");
+#			$m->out(int (keys %h));
+#			$m->out(" ) => ");
+#			my ($k,$v);
+#			while (($k, $v) = each(%h))
+#			{
+#				$m->out("$k=$v,");
+#			}
+
 			# remove un-necessary words from phrase
 			my $phrase = $item->{link_phrase};
 			#$phrase =~ s/^[ \t]*//;

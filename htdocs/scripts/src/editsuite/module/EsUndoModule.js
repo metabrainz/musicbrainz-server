@@ -42,10 +42,10 @@ function EsUndoModule() {
 		this.DEFAULT_VISIBLE = true;
 		this.DEFAULT_EXPANDED = true;
 		es.ui.registerButtons(
-			new EsButton(this.BTN_UNDO_ALL, "Undo All", "Undo all changes", "es.ur.undoAllSteps()"),
+			new EsButton(this.BTN_UNDO_ALL, "Undo all", "Undo all changes", "es.ur.undoAllSteps()"),
 			new EsButton(this.BTN_UNDO_ONE, "Undo", "Undo the last change", "es.ur.undoStep()"),
 			new EsButton(this.BTN_REDO_ONE, "Redo", "Redo the last undid change", "es.ur.redoStep()"),
-			new EsButton(this.BTN_REDO_ALL, "Redo All", "Redo all the undid changes", "es.ur.redoAllSteps()"));
+			new EsButton(this.BTN_REDO_ALL, "Redo all", "Redo all the undone changes", "es.ur.redoAllSteps()"));
 	};
 
 	/**

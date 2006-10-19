@@ -28,40 +28,17 @@
 	#
 </%perl>
 <%method ShowPreviousValue>
-<%perl>
-	my $this = shift;
-	my $releases = $this->{'new_albums'};
 
-	$m->out(qq!<table class="editfields">!);
-	for my $release (@$releases)
-	{
-		$m->out(qq!<tr><td>!);
-		$m->comp("/comp/linkrelease", id => $release->{'id'}, name => $release->{'name'});
-
-		my ($type, $status) = map {
-			Album->GetAttributeName($_) || "#$_"
-		} split ',', $release->{prev};
-		$type = "Not set" if not defined($type);
-		$status = "Not set" if not defined($status);
-
-		$m->out(qq!<div class="attrlist">!);
-		$m->out(qq!<span class="explain" title="Type">$type</span>, !);
-		$m->out(qq!<span class="explain" title="Status">$status</span></div>!);
-		$m->out(qq!</td></tr>!);
-	}
-	$m->out(qq!</table>!);
-
-</%perl>
 </%method>
 
 <%method ShowNewValue>
-<%perl>
- 	my $this = shift;
- 	my $new = $this->{'new_unpacked'};
+% 	my $this = shift;
+% 	my $new = $this->{'new_unpacked'};
+%	my $releases = $this->{'new_albums'};
 
-	my ($type, $status) = map {
-		Album->GetAttributeName($_) || "#$_"
-	} split ',', $new->{Attributes};
+%	my ($type, $status) = map {
+%		Album->GetAttributeName($_) || "#$_"
+%	} split ',', $new->{Attributes};
 
 %	$type = "?" if (not defined $type);
 %	$status = "?" if (not defined $status);

@@ -136,31 +136,38 @@ div.morelink a:hover {
 .sidemenustats {
 	width: 100%; border-collapse: collapse;
 }
-.sidemenustats .name {
+.sidemenustats tr td.name {
 	width: 50%; 
 	font-size: 8pt; color: #000; text-align: right; font-weight: bold; 
 	padding-right: 2px;
 }
-.sidemenustats .name a,
-.sidemenustats .name a:visited {
+.sidemenustats tr td.name a,
+.sidemenustats tr td.name a:visited {
 	color: #000; font-size: 8pt; font-weight: bold;
 }
-.sidemenustats .name a:hover,
-.sidemenustats .name a:active,
-.sidemenustats .name a:focus {
+.sidemenustats tr td.name a:hover,
+.sidemenustats tr td.name a:active,
+.sidemenustats tr td.name a:focus {
 	text-decoration: underline;
 }
-.sidemenustats .count {
+.sidemenustats tr td.count {
 	width: 50%; 
 	font-size: 7pt; color: #000; text-align: left; 
 	padding-left: 2px;
 }
-.sidemenustats .sponsors {
+.sidemenustats tr.voter td.name { 
+	width: 65%; 
+}
+.sidemenustats tr.voter td.count { 
+	width: 35%; 
+}
+
+.sidemenustats td.sponsors {
 	width: 100%; text-align: left; padding: 0px;
 	padding-right: 2px; padding-top: 10px;
 }
 
-.sidemenustats .sponsors img {
+.sidemenustats td.sponsors img {
 	width: 110px; height: 35px; border: none;
 }
 

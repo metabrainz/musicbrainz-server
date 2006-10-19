@@ -30,7 +30,7 @@
 	<div class="sidemenu">
 		<ul>
 			<li>
-				<a href="/user/view.html">Profile</a></li>
+				<a href="/show/user/">My Profile</a></li>
 			<li>
 				<a href="/logout.html">Logout</a></li>
 			<li>

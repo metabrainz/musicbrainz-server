@@ -35,7 +35,6 @@
 
 	$discid => ""
 	$toc => ""
-	$noncd => 0
 
 	# cdi, freedb import
 	$freedb_swap => 0
@@ -75,15 +74,16 @@
 				}
 
 				$ARGS{"track$i"} = $trackvalue;
+				$ARGS{"trackseq$i"} = $i+1;
+
 				if ($hasmultipletrackartists)
 				{
 					$ARGS{sprintf "tr%d_artistname", $i} = $artistvalue;
 					$ARGS{sprintf "tr%d_editartist", $i} = 1;
 					delete $ARGS{"tr".$i."_artistid"};
 				}
-				if ($noncd)
+				if ($toc eq "" and $discid eq "")
 				{
-					$ARGS{"trackseq$i"} = $trackvalue;
 					$ARGS{"tracklength$i"} = $trackvalue;
 				}
 			}

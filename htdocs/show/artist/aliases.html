@@ -44,7 +44,7 @@
 	my $artist = $m->comp("/comp/loadartist", $mb, $artistid);
 
 
-	my $title = "Aliases for Artist: ".$artist->GetName;
+	my $title = "Aliases for artist: ".$artist->GetName;
 
 	$m->comp("/comp/sidebar-notitle", pagetitle => $title);
 	$m->comp("/comp/artisttitle", artist => $artist);
@@ -75,10 +75,10 @@
 		<tr>
 			<td class="instructions">
 				<ul>
-					<li>MusicBrainz uses artist aliases mainly as variant names or search hints,
-					If you see a misspelled <& /comp/linkdoc, "ArtistName", "artist name" &> here,
-					it is probably listed on purpose and should not be removed. See the documentation
-					about <& /comp/linkdoc, "ArtistAlias", "artist aliases" &> for details.</li>
+					<li>MusicBrainz uses artist aliases mainly as variant names or search hints.&nbsp;
+					If you see a misspelled alias here, it's most likely listed on purpose and should
+					not be removed.&nbsp; See the documentation
+					about <& /comp/linkdoc, "ArtistAlias", "artist aliases" &> for more details.</li>
 				</ul>
 			</td>
 		</tr>
@@ -87,10 +87,11 @@
 	<table class="listing" style="clear:both">
 		<tr class="header left">
 			<td>Alias</td>
-			<td>Times Used</td>
-			<td>Last Used</td>
+			<td>Times used</td>
+			<td>Last used</td>
 
-% 		if (exists $session{user}) {
+% 		if (exists $session{user})
+%		{
 
 			<td>&nbsp;</td>
 
@@ -110,7 +111,8 @@
 				<td><% $item->[2] %></td>
 				<td><% $time %></td>
 
-% 			if (exists $session{user}) {
+% 			if (exists $session{user})
+%			{
 
 				<td>
 					[ <a href="/edit/artistalias/edit.html?id=<% $item->[0] %>">Edit</a>

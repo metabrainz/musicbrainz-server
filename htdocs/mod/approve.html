@@ -57,6 +57,8 @@
 	my $mb = $m->comp("/comp/dblogin");
 	my $edit = Moderation->new($mb->{DBH});
 	$edit = $edit->CreateFromId($editid);
+
+	$edit->PostLoad;
 	$edit->PreDisplay;
 
 	# Check if the current user has enough permissions
@@ -157,9 +159,9 @@
 
 </%perl>
 
-<& /comp/sidebar-notitle, pagetitle => "Confirm Edit Approval" &>
+<& /comp/sidebar-notitle, pagetitle => "Approve edit" &>
 
-	<& /comp/tablebegin, title => "Confirm Edit Approval" &>
+	<& /comp/tablebegin, title => "Approve edit" &>
 
 	<form method="post" action="/mod/approve.html">
 
@@ -169,10 +171,13 @@
 					<ul>
 						<li>Please read the <& /comp/linkdoc, "CodeOfConduct", "Code of Conduct" &>
 							and make sure you do not violate any of the rules stated therein
-							before applying any edits.</li>
-						<li>Are you sure you want to approve (e.g. auto-apply) this edit? </li>
+							before approving any edits.</li>
+						<li>Are you sure you want to approve this edit? </li>
 					</ul></td>
 			</tr>
+		</table>
+
+		<table class="formstyle">
 
 
 % 	if ($submitvalue ne "" && !$optionalNote && $notetext eq "")
@@ -182,39 +187,41 @@
 				<td>&nbsp;</td>
 				<td>
 					<& /comp/form/feedbackbox, "warning", "Edit note required!",
-						"You must provide a edit note in order to approve this edit." &></td>
+						"You must provide an edit note in order to approve this edit." &></td>
 			</tr>
 
 %	}
 
 			<tr class="top">
-				<td class="label">Type:</td>
+				<td class="label">Edit:</td>
 				<td><%perl>$edit->ShowModType($m, 0);</%perl></td>
 			</tr>
-			<tr class="top">
-				<td class="label">Old Value:</td>
+			<tr class="spaced top">
+				<td class="label">Old value:</td>
 				<td><%perl>$edit->ShowPreviousValue($m, 0);</%perl></td>
 			</tr>
 			<tr class="top">
-				<td class="label">New Value:</td>
+				<td class="label">New value:</td>
 				<td><%perl>$edit->ShowNewValue($m, 0);</%perl></td>
 			</tr>
 
-			<tr class="spaced">
+			<tr>
 				<td>&nbsp;</td>
 				<td>
 					<& /comp/notetext,
 						required => !$optionalNote,
-						showprivscheckbox => 0
+						buttons => [["Approve edit &raquo;", "btnYes"], ["Cancel", "btnCancel"]],
+						showprivscheckbox => 0,
+						showeditnotetext => 0
 					&>
 
-					<input type="hidden" name="editid" value="<% $editid %>" />
-					<input type="hidden" name="url" value="<% $url %>" />
+					<& /comp/form/hiddenfield, "editid", $editid &>
+					<& /comp/form/hiddenfield, "url", $url &>
+					<& /comp/form/focusfield, "btnYes" &>
 				</td>
 			</tr>
 		</table>
 
-		<& /comp/movefocus, id => "btnYes" &>
 	</form>
 
 	<& /comp/tableend &>
@@ -222,3 +229,5 @@
 	<& /comp/js/diffcollapse &>
 
 <& /comp/footer &>
+
+%# vi: set ts=4 sw=4 ft=mason :

@@ -133,7 +133,7 @@ sub newFromId
 
 sub URLFromId
 {
-	"/showalbum.html?albumid=$_[1]";
+	"/show/release/?releaseid=$_[1]";
 }
 
 ################################################################################
@@ -156,7 +156,7 @@ sub newFromId
 
 sub URLFromId
 {
-	"/showartist.html?artistid=$_[1]";
+	"/show/artist/?artistid=$_[1]";
 }
 
 ################################################################################
@@ -179,7 +179,7 @@ sub newFromId
 
 sub URLFromId
 {
-	"/showtrack.html?trackid=$_[1]";
+	"/show/track/?trackid=$_[1]";
 }
 
 ################################################################################
@@ -200,7 +200,7 @@ sub newFromId
 
 sub URLFromId
 {
-	"/showurl.html?id=$_[1]";
+	"/show/url/?urlid=$_[1]";
 }
 
 1;

@@ -377,7 +377,7 @@ if ($fDoReplication)
 		dumptable($_) for @replication_tables;
 
 		# Dump lucene text index bits
-		dumplucene();
+		# dumplucene();
 
 		# Remove the rows we just dumped
 		empty_replication_tables();

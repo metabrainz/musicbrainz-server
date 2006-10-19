@@ -185,13 +185,14 @@ function MusicBrainz() {
 		new MbEventAction(mb.topmenu.GID, 'setupTopMenu', "Setting up topmenu events.")
 	);
 	mb.registerDOMReadyAction(
-		new MbEventAction(mb.ui.GID, 'setupKeyboardFocus', "Setting up focussed field for keyboard input.")
-	);
-	mb.registerDOMReadyAction(
 		new MbEventAction(mb.ui.GID, 'setupPopupLinks', "Setting up popup links")
 	);
 	mb.registerDOMReadyAction(
 		new MbEventAction(mb.ui.GID, 'setupFeedbackBoxes', "Setting up feedback boxes")
+	);
+
+	mb.registerPageLoadedAction(
+		new MbEventAction(mb.ui.GID, 'setupKeyboardFocus', "Setting up keyboard focus input.")
 	);
 	mb.registerPageLoadedAction(
 		new MbEventAction(mb.albumart.GID, 'setupAmazonCoverart', "Resize amazon coverart")

@@ -96,8 +96,8 @@
 	}
 
 
-	$m->comp("/comp/sidebar-notitle", pagetitle => "Confirm Remove Edit");
-	$m->comp("/comp/tablebegin", title => "Confirm Edit Removal");
+	$m->comp("/comp/sidebar-notitle", pagetitle => "Confirm edit removal");
+	$m->comp("/comp/tablebegin", title => "Confirm edit removal");
 
 </%perl>
 
@@ -113,7 +113,7 @@
 			</tr>
 			<tr class="top">
 				<td class="label">
-					<label>Edit Type:</label>
+					<label>Edit type:</label>
 				</td>
 				<td>
 					<%perl>
@@ -122,7 +122,7 @@
 			</tr>
 			<tr class="top">
 				<td class="label">
-					<label>Previous Value:</label>
+					<label>Previous value:</label>
 				</td>
 				<td>
 				<%perl>
@@ -131,7 +131,7 @@
 			</tr>
 			<tr class="top">
 				<td class="label">
-					<label>New Value:</label>
+					<label>New value:</label>
 				</td>
 				<td>
 				<%perl>
@@ -140,14 +140,16 @@
 			</tr>
 			<tr class="spaced">
 				<td class="label">&nbsp;</td>
-				<td class="formsection">
+				<td class="submitbuttons">
 					<input type="submit" class="button" name="submitvalue" value="Cancel edit &raquo;" />
 					<input type="submit" class="button" name="submitvalue" id="btn_cancel" value="No, keep it" />
+
+					<& /comp/form/focusfield, "btn_cancel" &>
 					<& /comp/args-to-hidden-fields.inc, %ARGS &>
 				</td>
 			</tr>
 		</table>
-		<& /comp/movefocus, id => "btn_cancel" &>
+
 	</form>
 
 	<& /comp/tableend &>

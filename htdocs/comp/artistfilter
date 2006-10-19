@@ -36,7 +36,7 @@
 
 	$cancelbutton => "Cancel"
 	$selectbutton => "Select &raquo;"
-	$addartistbutton => "Add New Artist &raquo;"
+	$addartistbutton => "Add new artist &raquo;"
 
 	$searchbutton => "Search &raquo;"
 	$searchagainbutton => "Search again &raquo;"
@@ -63,23 +63,27 @@
 	$engine->Search(query => $search, limit => 0)
 		if ($performsearch);
 
+	my $searchperformed = $engine->Result != &SearchEngine::SEARCHRESULT_NOQUERY;
+
 	# label reflects if the search has been performed before.
-	my $searchlabel = "Search for Artist:";
+	my $searchlabel = "Search for artist:";
 	$searchbutton = $searchagainbutton
 		if ($submitvalue ne "");
 
+
+ 	if ($submitvalue ne "" and $search eq "")
+	{
+
 </%perl>
 
-
-% 	if ($submitvalue ne "" and $search eq "") {
 		<tr>
 			<td>&nbsp;</td>
-			<td class="error">
-				<ul>
-					<li>You did not enter a search keyword.</li>
-				</ul>
+			<td>
+				<& /comp/form/feedbackbox, "warning", "Could not search for artist:",
+					"Please enter a search keyword to start the search." &>
 			</td>
 		</tr>
+
 %	}
 
 		<tr class="top">
@@ -88,17 +92,25 @@
 			<td class="field">
 					<input type="text" name="<% $searchfieldname %>" id="id_artistfiltersearch" value="<% $search %>" size="40"
 						title="Enter a search keyword here" />
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td class="submitbuttons">
+				<input class="button" type="submit" name="submitvalue"
+					value="<% $searchbutton |n %>" title="Search for artist" />
+				<input class="button" type="submit" name="submitvalue"
+					value="<% $cancelbutton |n %>" />
 
-					<div style="margin-top: 2px">
-						<input class="button" type="submit" name="submitvalue" value="<% $searchbutton |n %>"
-							title="Search for an artist" />
-						<input class="button" type="submit" name="submitvalue" value="<% $cancelbutton |n %>" />
-					</div></td>
+%	# move the keyboard focus to the search field, or the
+%	# first artist result item.
+%	$m->comp("/comp/form/focusfield", "id_artistfiltersearch") if (not $searchperformed);
+
+			</td>
 		</tr>
 
 <%perl>
 
-	my $searchperformed = $engine->Result != &SearchEngine::SEARCHRESULT_NOQUERY;
 	if ($searchperformed)
 	{
 		# Retrieve all the results and weed out the "don't show" artists
@@ -121,7 +133,9 @@
 		# if we have search results to display.
 		if (@r)
 		{
+
 </%perl>
+
 		<tr class="spaced">
 			<td>&nbsp;</td>
 			<td class="formsection">
@@ -131,15 +145,16 @@
 		</tr>
 		<tr class="top">
 			<td class="label">
-				<label>Found Artists:</label></td>
+				<label>Found artists:</label></td>
 			<td class="field">
 				<table border="0" cellspacing="0" cellpadding="0" class="artistfilter-listing">
-<%perl>
-				my $checked = ' checked="checked" ';
-				my $i = 0;
-				for my $row (@r)
-				{
-</%perl>
+
+
+%				my $checked = ' checked="checked" ';
+%				my $i = 0;
+%				for my $row (@r)
+%				{
+
 				<tr class="row<% $i % 2 %>">
 					<td class="radio">
 						<input type="radio" name="<% $artistfilter_selectedfield %>"
@@ -157,27 +172,30 @@
 							resolution => $row->{artistresolution},
 							strong => 0 &></td>
 				</tr>
-<%perl>
-					$checked = "";
-				}
-				$m->comp("/comp/movefocus", id => $artistfilter_selectedfield."0");
-</%perl>
+
+%					$checked = "";
+%				}
+
 				</table>
+
+				<& /comp/movefocus, id => $artistfilter_selectedfield."0" &>
+
 				<input class="button" name="submitvalue" type="submit" value="<% $selectbutton |n %>"
 					title="Choose the selected artist"/>
 			</td>
 		</tr>
-<%perl>
-		}
-		else
-		{
-</%perl>
+
+%		}
+%		else
+%		{
+
 		<tr class="spaced top">
 			<td class="label">
-				No Artists found:</td>
+				No artists found:</td>
 			<td class="formsection">
 				No artist found matching your keyword <strong><% $search %></strong>.
 <%perl>
+
 			if (scalar @artistsremoved == 1)
 			{
 				$m->out(sprintf qq!(Artist %s was not shown.)!, $artistsremoved[0]);
@@ -186,17 +204,17 @@
 			{
 				$m->out(sprintf qq!(Artists %s were not shown.)!, join(", ", @artistsremoved));
 			}
+
 </%perl>
+
 			</td>
 		</tr>
+
 <%perl>
 
  		}
  	}
 
-	# move the keyboard focus to the search field, or the
-	# first artist result item.
-	$m->comp("/comp/movefocus", id => "id_artistfiltersearch") if (not $searchperformed);
 
 	if ($searchperformed && $allowcreate)
 	{
@@ -205,13 +223,13 @@
 
 		<tr class="spaced top">
 			<td class="label">
-				Add new Artist?</td>
+				Add new artist?</td>
 			<td>
 				<& /comp/form/feedbackbox, "warning", "",
 					qq!If you did not find the artist you were looking for,
 					you can search again with another keyword, or if you
 					are sure the artist was not yet added to the database,
-					click on the <strong>Add New Artist &raquo;</strong> button! &>
+					click on the <strong>Add new artist &raquo;</strong> button! &>
 			</td>
 		</tr>
 		<tr>

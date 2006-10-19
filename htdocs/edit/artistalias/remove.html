@@ -42,7 +42,7 @@
 	# check id argument
 	MusicBrainz::Server::Validation::IsNonNegInteger($id) && $id
 		or return $m->comp("/comp/layout/badarguments",
-			text => "Required argument <strong>id</strong> is missing or has  an invalid format.");
+			text => "Required argument <strong>id</strong> is missing or has an invalid format.");
 
 	# check volatile preferences (like autoeditor flag)
 	$m->comp("/comp/user/check-volatile-preferences", %ARGS);

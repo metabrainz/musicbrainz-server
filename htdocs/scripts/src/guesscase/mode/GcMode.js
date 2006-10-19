@@ -36,7 +36,7 @@ function GcMode(modes, name, lang, desc, url) {
 	// member functions
 	// ---------------------------------------------------------------------------
 
-	/** 
+	/**
 	 * Set the instance variables.
 	 */
 	this.setConfig = function(modes, name, lang, desc, url) {
@@ -144,7 +144,7 @@ function GcMode(modes, name, lang, desc, url) {
 	this.getUpperCaseWords = function() {
 		return [
 			"dj", "mc", "tv", "mtv", "ep", "lp",
-			"ymca", "nyc", "ny", "ussr", "usa", "r&b", 
+			"ymca", "nyc", "ny", "ussr", "usa", "r&b",
 			"bbc", "fm", "bc", "ac", "dc", "uk", "bpm", "ok", "nba",
 			"rza", "gza", "odb", "dmx", "2xlc" // artists
 		];
@@ -198,13 +198,13 @@ function GcMode(modes, name, lang, desc, url) {
 		// trackback the skipped spaces spaces, and then slurp the
 		// next word, so see which word we found.
 		if (wi < lastword) {
-			// the word at wi broke out of the loop above, 
+			// the word at wi broke out of the loop above,
 			// is not extra title info.
-			wi++; 
-			while (w[wi] == " " && wi < lastword) { 
-				wi++; // skip whitespace 
+			wi++;
+			while (w[wi] == " " && wi < lastword) {
+				wi++; // skip whitespace
 			}
-		
+
 			// if we have a single word that needs to be put
 			// in parantheses, consult the list of words
 			// were we do not do it, else continue.
@@ -231,8 +231,8 @@ function GcMode(modes, name, lang, desc, url) {
 
 	/**
 	 * Replace unicode special characters with their ascii equivalent
-	 * Note:	this function is run before all guess types 
-	 *			(artist|album|track)
+	 * Note:	this function is run before all guess types
+	 *			(artist|release|track)
 	 *
 	 * keschte		2005-11-10		first version
 	 **/
@@ -281,7 +281,7 @@ function GcMode(modes, name, lang, desc, url) {
 	/**
 	 * Take care of mis-spellings that need to be fixed before
 	 * splitting the string into words.
-	 * Note: 	this function is run before album and track guess 
+	 * Note: 	this function is run before release and track guess
 	 *   		types (not for artist)
 	 *
 	 * keschte		2005-11-10		first version
@@ -320,11 +320,12 @@ function GcMode(modes, name, lang, desc, url) {
 				  // featuring variant
 				, new GcFix("/w -> ft. ", /(\s)[\/]w(\s)/i, "ft." )
 				, new GcFix("f. -> ft. ", /(\s)f\.(\s)/i, "ft." )
+				, new GcFix("'featuring - ' -> feat", /(\s)featuring -(\s)/i, "feat" )
 
 				  // vinyl
 				, new GcFix("12'' -> 12\"", /(\s|^|\()(\d+)''(\s|$)/i, "$2\"" )
 				, new GcFix("12in -> 12\"", /(\s|^|\()(\d+)\s?in(ch)?(\s|$)/i, "$2\"" )
-				
+
 				  // combined word hacks, e.g. replace spaces with underscores,
 				  // (e.g. "a cappella" -> a_capella), such that it can be handled
 				  // correctly in post-processing
@@ -345,6 +346,8 @@ function GcMode(modes, name, lang, desc, url) {
 				, new GcFix("(Pt) -> , Part", /((,|\s|:|!)+)([\(\[])?\s*(Part|Pt)[\.\s#]*((\d|[ivx]|[\-,&\s])+)([\)\]])?(\s|$)/i, "Part $5")
 				, new GcFix("(Pts) -> , Parts", /((,|\s|:|!)+)([\(\[])?\s*(Parts|Pts)[\.\s#]*((\d|[ivx]|[\-&,\s])+)([\)\]])?(\s|$)/i, "Parts $5")
 				, new GcFix("(Vol) -> , Volume", /((,|\s|:|!)+)([\(\[])?\s*(Volume|Vol)[\.\s#]*((\d|[ivx]|[\-&,\s])+)([\)\]])?(\s|$)/i, "Volume $5")
+				, new GcFix(": Part -> , Part", /(\b|^): Part(\b)/i, ", part" )
+				, new GcFix(": Parts -> , Parts", /(\b|^): Part(\b)/i, ", parts" )
 			];
 		}
 		var os = this.runFixes(is, gc.re.PREPROCESS_FIXLIST);
@@ -372,6 +375,7 @@ function GcMode(modes, name, lang, desc, url) {
 				, new GcFix("[live] to (live)", /(\b|^)\[live\](\b)/i, "(live)")
 				, new GcFix("Djs to DJs", /(\b|^)Djs(\b)/i, "DJs")
 				, new GcFix("a.k.a. lowercase", /(\s|^)A\.K\.A\.(\s|$)/i, "a.k.a.")
+				, new GcFix("Rock 'n' Roll", /(\s|^)Rock '?n'? Roll(\s|$)/i, "Rock 'n' Roll")
 			];
 		}
 		var os = this.runFixes(is, gc.re.POSTPROCESS_FIXLIST);
@@ -398,9 +402,15 @@ function GcMode(modes, name, lang, desc, url) {
 				var find = f.getRe(); // regular expression/string
 				var replace = f.getReplace(); // replace
 				// mb.log.debug('Fix type: $', typeof(find)=='string' ? 'string':'regexp');
-				if (typeof(find) == 'string' && is.indexOf(find) != -1) {
-					mb.log.debug('Applying fix: $ (replace: $)', fixName, replace);
-					is = is.replace(find, replace);
+				if (typeof(find) == 'string') {
+
+					// iterate through the whole string and replace. there could
+					// be multiple occurences of the search string.
+					var pos = 0;
+					while ((pos = is.indexOf(find, pos)) != -1) {
+						mb.log.debug('Applying fix: $ (replace: $)', fixName, replace);
+						is = is.replace(find, replace);
+					}
 				} else if ((matcher = is.match(find)) != null) {
 					// get reference to first set of parentheses
 					var a = matcher[1];
@@ -410,7 +420,7 @@ function GcMode(modes, name, lang, desc, url) {
 					var b = matcher[matcher.length-1];
 					b = (mb.utils.isNullOrEmpty(b) ? "" : b);
 
-					//compile replace string
+					// compile replace string
 					var rs = [a,replace,b].join("");
 					is = is.replace(find, rs);
 
@@ -426,7 +436,7 @@ function GcMode(modes, name, lang, desc, url) {
 				// if f is null, there is a wrong comma in the list
 				// of Gc objects. nothing to be concerned about.
 				if (f != null) {
-					mb.log.error("Expected GcFix object($/$), got: $", i, len, (f?f.nodeName:"null"));
+					mb.log.error("Expected GcFix object($/$), got: $", i, len, (f ? f.nodeName:"null"));
 				}
 			}
 		}
@@ -509,7 +519,7 @@ function GcMode(modes, name, lang, desc, url) {
 		}
 		return mb.log.exit(os);
 	};
-	
+
 	/**
 	 * Delegate function for Mode specific word handling.
 	 * This is mostly used for context based titling changes.
@@ -520,7 +530,7 @@ function GcMode(modes, name, lang, desc, url) {
 	 **/
 	this.doWord = function() {
 		return false;
-	};	
+	};
 
 	// exit constructor
 	mb.log.exit();

@@ -128,8 +128,8 @@
 
 			# MOD_EDIT_ALBUMNAME
 			# Enter an edit if the releasename was edited
-			$ov = $orig{"albumname"};
-			$nv = $ARGS{"albumname"};
+			$ov = $orig{"releasename"};
+			$nv = $ARGS{"releasename"};
 			if ($ov ne $nv)
 			{
 				push @insertededits, Moderation->InsertModeration(
@@ -193,6 +193,10 @@
 				my $rev_country = $ARGS{"rev_country-$j"};
 				my $rev_id = $ARGS{"rev_id-$j"};
 				my $rev_clear = $ARGS{"rev_clear-$j"};
+
+				$rev_year = "" if ($rev_year eq "yyyy");
+				$rev_month = "" if ($rev_month eq "mm");
+				$rev_day = "" if ($rev_day eq "dd");
 
 				if (!$rev_clear)
 				{

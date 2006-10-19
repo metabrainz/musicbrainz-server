@@ -46,7 +46,7 @@
 
 	# use mason->out to compress whitespace
 	$m->out(qq!<input type="text" name="$name" id="$id" class="textfield$cssclass" !);
-	$m->out(qq!tabindex="'$tabindex" title="$tooltip" size="50" !);
+	$m->out(qq!tabindex="$tabindex" title="$tooltip" size="50" !);
 	$m->out(qq!disabled="disabled" !) if (!$enabled);
 	$m->out(qq!maxlength="255" value="$value" />\n!);
 	$m->comp("/comp/form/hiddenfield", $name, $value) if (!$enabled);

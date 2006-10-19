@@ -32,6 +32,8 @@
 
  	my $self = shift;
  	my $prev = $self->{'prev_unpacked'};
+ 	my $new = $self->{'new_unpacked'};
+	my $id = $self->GetId;
 
 	return;
 
@@ -40,60 +42,89 @@
 
 	<table class="editdiff">
 
-	$m->out(qq!<table class="editdiff">!);
+%	if ($prev->{'ArtistName'} ne $new->{'ArtistName'})
+%	{
 
-	if (defined $name)
-	{
-		$m->out(qq!<tr><td class="lbl">Name:</td><td class="diff" id="ov::artistname$id">!);
-		$m->out($m->interp->apply_escapes($name, "h"));
-		$m->out(qq!</td></tr>!);
-	}
+		<tr>
+			<td class="lbl">Name:</td>
+			<td class="diff" id="ov::artistname<% $id %>">
+				<% $prev->{'ArtistName'} %>
+			</td>
+		</tr>
 
-	if (defined $sortname)
-	{
-		$m->out(qq!<tr><td class="lbl">Sortname:</td><td class="diff" id="ov::artistsortname$id">!);
-		$m->out($m->interp->apply_escapes($sortname, "h"));
-		$m->out(qq!</td></tr>!);
-	}
+%	}
 
-	if (defined $resolution)
-	{
-		$m->out(qq!<tr><td class="lbl">Comment:</td><td class="diff" id="ov::artistresolution$id">!);
-		$m->out($m->interp->apply_escapes($resolution, "h"));
-		$m->out(qq!</td></tr>!);
-	}
+%	if ($prev->{"SortName"} ne $new->{"SortName"})
+%	{
 
-	if (defined $type)
-	{
-		my $type_str = Artist::GetTypeName($type);
-		$m->out(qq!<tr><td class="lbl">Type:</td><td class="diff" id="ov::artisttype$id">!);
-		$m->out($m->interp->apply_escapes($type_str, "h"));
-		$m->out(qq!</td></tr>!);
-	}
+		<tr>
+			<td class="lbl">Sortname:</td>
+			<td class="diff" id="ov::artistsortname<% $id %>">
+				<% $prev->{"SortName"} %>
+			</td>
+		</tr>
 
-	if (defined $begin)
-	{
-		$begin = MusicBrainz::Server::Validation::MakeDisplayDateStr($begin);
-		my $datestr = $m->interp->apply_escapes(Artist::GetBeginDateName($type), "h");
-		$datestr =~ s/ /&nbsp;/g;
 
-		$m->out(qq!<tr><td class="lbl">&nbsp;</td><td class="diff" id="ov::artistbegindate$id">$datestr: !);
-		$m->out($m->interp->apply_escapes($begin, "h"));
-		$m->out(qq!</td></tr>!);
-	}
+%	if ($prev->{"Resolution"} ne $new->{"Resolution"})
+%	{
 
-	if (defined $end)
-	{
-		$begin = MusicBrainz::Server::Validation::MakeDisplayDateStr($end);
-		my $datestr = $m->interp->apply_escapes(Artist::GetEndDateName($type), "h");
-		$datestr =~ s/ /&nbsp;/g;
+		<tr>
+			<td class="lbl">Comment:</td>
+			<td class="diff" id="ov::artistresolution<% $id %>">
+				<% $prev->{"Resolution"} %>
+			</td>
+		</tr>
 
-		$m->out(qq!<tr><td class="lbl">&nbsp;</td><td id="ov::artistenddate$id">$datestr: !);
-		$m->out($m->interp->apply_escapes($end, "h"));
-		$m->out(qq!</td></tr>!);
-	}
+%	}
 
-	$m->out(qq!</table>!);
+%	if ($prev->{"Type"} ne $new->{"Type"})
+%	{
+%		my $type_str = Artist::GetTypeName($prev->{"Type"});
+
+		<tr>
+			<td class="lbl">Type:</td>
+			<td class="diff" id="ov::artisttype<% $id %>">
+				<% $type_str %>
+			</td>
+		</tr>
+
+%	}
+
+%	if ($prev->{"BeginDate"} ne $new->{"BeginDate"})
+%	{
+%		my $begin = MusicBrainz::MakeDisplayDateStr($prev->{'BeginDate'});
+%		$begin = "[Not&nbsp;set]" if ($begin eq "");
+%		my $datestr = Artist::GetBeginDateName($prev->{"Type"});
+%		$datestr =~ s/ /&nbsp;/g;
+
+		<tr>
+			<td class="lbl"><% $datestr |n %>:</td>
+			<td class="diff" id="ov::artistbegindate<% $id %>">
+				<% $begin |n %>
+			</td>
+		</tr>
+
+%	}
+
+
+%	if ($prev->{"EndDate"} ne $new->{"EndDate"})
+%	{
+%		my $end = MusicBrainz::MakeDisplayDateStr($prev->{'EndDate'});
+%		$end = "[Not&nbsp;set]" if ($end eq "");
+%		my $datestr = Artist::GetEndDateName($prev->{"Type"});
+%		$datestr =~ s/ /&nbsp;/g;
+
+		<tr>
+			<td class="lbl"><% $datestr |n %>:</td>
+			<td class="diff" id="ov::artistenddate<% $id %>">
+				<% $end |n %>
+			</td>
+		</tr>
+
+%	}
+
+
+	</table>
 
 </%perl>
 </%method>
@@ -103,17 +134,16 @@
 <%perl>
 
  	my $self = shift;
+ 	my $prev = $self->{'prev_unpacked'};
  	my $new = $self->{'new_unpacked'};
-
-	my $name = $new->{'ArtistName'};
-	my $sortname = $new->{'SortName'};
-	my $resolution = $new->{'Resolution'};
-
-	my $begin = $new->{'BeginDate'};
-	my $end = $new->{'EndDate'};
-	my $type = $new->{'Type'};
-
 	my $id = $self->GetId;
+
+</%perl>
+
+	<table class="editdiff">
+
+%	if ($prev->{"ArtistName"} ne $new->{"ArtistName"})
+%	{
 
 		<tr class="top">
 			<td class="lbl" rowspan="2">Name:</td>
@@ -127,19 +157,10 @@
 			</td>
 		</tr>
 
-	if (defined $name)
-	{
-		$m->out(qq!<tr><td class="lbl">Name:</td><td class="diff" id="nv::artistname$id">!);
-		$m->out($m->interp->apply_escapes($name, "h"));
-		$m->out(qq!</td></tr>!);
-	}
+%	}
 
-	if (defined $sortname)
-	{
-		$m->out(qq!<tr><td class="lbl">Sortname:</td><td class="diff" id="nv::artistsortname$id">!);
-		$m->out($m->interp->apply_escapes($sortname, "h"));
-		$m->out(qq!</td></tr>!);
-	}
+%	if ($prev->{"SortName"} ne $new->{"SortName"})
+%	{
 
 		<tr class="top">
 			<td class="lbl" rowspan="2">Sortname:</td>
@@ -153,14 +174,12 @@
 			</td>
 		</tr>
 
-	if (defined $type)
-	{
-		my $type_str = Artist::GetTypeName($type) || "(Unset)";
+%	}
 
-		$m->out(qq!<tr><td class="lbl">Type:</td><td class="diff" id="nv::artisttype$id">!);
-		$m->out($m->interp->apply_escapes($type_str, "h"));
-		$m->out(qq!</td></tr>!);
-	}
+%	if ($prev->{"Resolution"} ne $new->{"Resolution"})
+%	{
+%		my $resolution = $new->{"Resolution"};
+%		$resolution = (defined $resolution and $resolution ne "" ? $resolution : "[Not&nbsp;set]");
 
 		<tr class="top">
 			<td class="lbl" rowspan="2">Comment:</td>
@@ -174,10 +193,7 @@
 			</td>
 		</tr>
 
-		$m->out(qq!<tr><td class="lbl">&nbsp;</td><td class="diff" id="nv::artistbegindate$id">$datestr: !);
-		$m->out($m->interp->apply_escapes($begin, "h"));
-		$m->out(qq!</td></tr>!);
-	}
+%	}
 
 %	if ($prev->{"Type"} ne $new->{"Type"})
 %	{
@@ -197,7 +213,7 @@
 			</td>
 		</tr>
 
-	$m->out(qq!</table>!);
+%	}
 
 <%perl>
 

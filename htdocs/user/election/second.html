@@ -38,7 +38,7 @@
 
 	UserStuff->IsAutoEditor($session{privs})
 		or return $m->comp("/comp/error",
-			"Only existing AutoEditors can second new AutoEditors",
+			"Only existing autoeditors can second new autoeditors",
 			1, 1,
 		);
 
@@ -77,14 +77,15 @@
 
 </%perl>
 
-<& /comp/sidebar-notitle, pagetitle => "Second a Proposed AutoEditor" &>
-	<& /comp/tablebegin, title => "Second a Proposed AutoEditor" &>
+<& /comp/sidebar-notitle, pagetitle => "Second a proposed autoeditor" &>
+	<& /comp/tablebegin, title => "Second a proposed autoeditor" &>
 
 	<p>
+
 % 	if ($error eq "ALREADY_SECONDED")
 %	{
 
-	This candidate already has two seconders.&nbsp;
+	This candidate already has two seconders.
 
 % 	}
 %	elsif ($error eq "INELIGIBLE")
@@ -94,6 +95,7 @@
 	proposed / seconded them.
 
 % 	}
+
 	<a href="show.html?id=<% $id %>">Show details</a>.
 
 	</p>

@@ -79,9 +79,9 @@
 	# Row 1: the artist name (link) and sortname
 	$m->out(qq!<tr valign="top">!);
 	$m->out(qq!<td class="icon" rowspan="2">!);
-	$m->out(qq!  <a href="/artist/$mbid.html" title="Go to the Artist page"><img src="/images/aicon_lg.png" alt="" /></a></td>!);
+	$m->out(qq!  <a href="/artist/$mbid.html" title="Go to the artist page"><img src="/images/aicon_lg.png" alt="" /></a></td>!);
 	$m->out(qq!<td class="title">!);
-	$m->out(qq!  <a href="/artist/$mbid.html" title="Go to the Artist page">!);
+	$m->out(qq!  <a href="/artist/$mbid.html" title="Go to the artist page">!);
 	$m->out(qq!  <span class="mp">!) if ($artist->GetModPending);
 	$m->out($m->interp->apply_escapes($name, 'h'));
 	$m->out(qq!  </span>!) if ($artist->GetModPending);
@@ -115,11 +115,11 @@
 #		$m->out(qq!">Permanent link</a> | !);
 
 		$m->out(sprintf qq!<a href="/show/permlink.html?id=$mbid&amp;type=artist" title="Link to this artist">Link to this</a>!, uri_escape($name));
-		$m->out(qq! | <a href="/show/artist/details.html?artistid=$id" title="Artist Details">Details</a>!);
-		$m->out(qq! | <a href="/show/artist/aliases.html?artistid=$id" title="Artist Aliases">Aliases</a>!);
+		$m->out(qq! | <a href="/show/artist/details.html?artistid=$id" title="Artist details">Details</a>!);
+		$m->out(qq! | <a href="/show/artist/aliases.html?artistid=$id" title="Artist aliases">Aliases</a>!);
 		if ($id != &ModDefs::VARTIST_ID)
 		{
-			$m->out(qq! | <a href="/show/artist/?artistid=$id" title="Releases of this Artist">Releases</a>!);
+			$m->out(qq! | <a href="/show/artist/?artistid=$id" title="Releases of this artist">Releases</a>!);
 		}
 		else
 		{
@@ -128,7 +128,7 @@
 		if ($id != &ModDefs::VARTIST_ID)
 		{
 			$m->out(qq! | <a href="/show/artist/similar.html?artistid=$id" title="Similar Artists">Similar&nbsp;artists</a> | !);
-			$m->comp("/comp/googlelink", search => $name, text => "Search&nbsp;Google", raw => 1);
+			$m->comp("/comp/googlelink", search => $name, text => "Search&nbsp;google", raw => 1);
 		}
 		if ($session{uid})
 		{

@@ -81,12 +81,12 @@
 		my $revdel = $ARGS{"rev_clear-$j"} || 0;
 
 		# lets see if we have to highlight the fields
-		my $datecss = $checkreleases{"baddate$j"} ? " missing" : "";
-		my $countrycss = $checkreleases{"badcountry$j"} ? " missing" : "";
+		my $datecss = $checkreleases{"baddate$j"} ? "-missing" : "";
+		my $countrycss = $checkreleases{"badcountry$j"} ? qq!class="missing"! : "";
 		my $countryenabled = $revdel ? qq!disabled="disabled"! : "";
 
 		my $countries_menu = $m->comp("/edit/albumreleases/countries-menu.inc");
-		my $countries_menu_2 = [ [ "", "select country..." ], @$countries_menu ];
+		my $countries_menu_2 = [ [ "", "Select country..." ], @$countries_menu ];
 
 		# load default country from userprefs if country is ""
 		$rc = UserPreference::get('default_country')
@@ -139,12 +139,12 @@
 
 				<tr>
 					<td colspan="3">&nbsp;</td>
-					<td colspan="3">
+					<td colspan="4">
 						<& /comp/form/feedbackbox, "warning", "",
 							qq!Please enter valid release events (including the country)
 							   or clear the fields you do not want to enter.
 							   The missing/wrong date and country fields are marked
-							   with a background color.!
+							   with a background color and an exclamation mark [\!].!
 						&></td>
 				</tr>
 

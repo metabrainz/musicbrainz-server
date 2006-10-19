@@ -186,7 +186,9 @@
 				</tr>
 			</table>
 		</form>
+
 		<& /comp/movefocus, id => "btnYes" &>
+
 <%perl>
 
 	}
@@ -225,8 +227,9 @@
 								"track artists" &>, please use the <& /comp/linkdoc, "MoveReleaseEdit",
 								"move release edit" &> instead.
 								<strong><img src="/images/edit.gif" alt="" /><a
-									href="/edit/album/move.html?releaseid=<% $releaseid %>&newartistid=<% $newartistid %>"
-									title="Move Release">Use the move release edit</a></strong> to change the release artist.</a></li>
+									href="/edit/album/move.html?releaseid=<% $releaseid %>&amp;newartistid=<% $newartistid %>"
+									title="Move Release">Use the move release edit</a></strong> to change the release artist.
+								</li>
 
 %	}
 
@@ -256,6 +259,7 @@
 %	}
 
 	<& /comp/layout/editformend &>
+
 <& /comp/footer &>
 
 %# vi: set ts=4 sw=4 ft=mason :

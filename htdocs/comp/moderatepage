@@ -85,17 +85,19 @@
 				<td>
 					<a href="/mod/search/pre/new.html">New edits</a> |
 					<a href="/mod/search/pre/subscriptions.html">Subscribed</a> |
-					<a href="/mod/search/select-filter.html">Predefined Edit Search</a> |
-					<a href="/mod/search/index.html?<% $m->comp('/comp/args-to-querystring.inc', %$args) %>">Advanced Edit Search</a> |
-					<a href="/mod/jump.html">Jump to #</a></td>
+					<a href="/mod/search/select-filter.html">Predefined edit search</a> |
+					<a href="/mod/search/index.html?<% $m->comp('/comp/args-to-querystring.inc', %$args) %>">Advanced edit search</a> |
+					<a href="/mod/jump.html">Jump to #</a>
+				</td>
 			</tr>
 			<tr>
 				<td class="label">
 					Help:</td>
 				<td>
-					<& /comp/linkdoc, "EditingFAQ", "Editing FAQ" &> |
-					<& /comp/linkdoc, "StyleGuideline", "Style guidelines" &> |
-					<& /comp/linkdoc, "HowEditingWorks", "How editing works" &></td>
+					<& /comp/linkdoc, "EditingFAQ", "Editing FAQ", 0, 0 &> |
+					<& /comp/linkdoc, "StyleGuideline", "Style guidelines", 0, 0 &> |
+					<& /comp/linkdoc, "HowEditingWorks", "How editing works", 0, 0 &>
+				</td>
 			</tr>
 			<tr class="top">
 				<td class="label">
@@ -105,7 +107,7 @@
 %	if ($result == &Moderation::SEARCHRESULT_TIMEOUT)
 %	{
 
-					<strong>Your query was cancelled, because it was taking too
+					<strong>Your query was cancelled because it was taking too
 					long.</strong> Please try to <a href="/mod/search/index.html?<%
 					$m->comp('/comp/args-to-querystring.inc', %$args) %>">narrow
 					down your search</a>, or try again later.
@@ -136,8 +138,8 @@
 %	if (defined $total_edits and
 %		$total_edits-$offset > $max_items || $offset > 0)
 %	{
-
 %		# aligning the browse controls with the rest of the items.
+
 		<div style="margin-left: 169px;">
 			<& /comp/browse/pageselector,
 			   url => "/mod/search/results.html",
@@ -149,8 +151,6 @@
 		</div>
 
 %	}
-
-		<div id="showedit::insertjs"></div>
 
 	<& /comp/tableend &>
 
@@ -183,7 +183,7 @@
 			Click here to vote on the items on this page:
 
 			<input type="hidden" name="url" value="<% $r->uri() . "?" . $r->args() %>" />
-			<input type="submit" name="submit" value="Enter Votes &raquo;" />
+			<input type="submit" name="submit" value="Enter votes &raquo;" />
 		</div>
 
 %		}

@@ -211,7 +211,7 @@ function MbDiff() {
 	 **/
 	this.runDiff = function() {
 		mb.log.enter(this.GID, "runDiff");
-		
+
 		// diff is enabled per default, turn it off
 		// if showedit config says so.
 		var enabled = true;
@@ -237,7 +237,7 @@ function MbDiff() {
 						}
 						fields[name][which] = obj;
 					} else {
-						alert(c);
+						mb.log.error(c);
 					}
 				}
 			}

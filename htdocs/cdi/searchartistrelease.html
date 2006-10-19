@@ -42,7 +42,7 @@
 	$m->comp("/comp/checkloggedin", 1, 1)
 		or return;
 
-	$m->comp("/comp/sidebar-notitle", pagetitle => "Select Release");
+	$m->comp("/comp/sidebar-notitle", pagetitle => "Select release");
 
 	# make sure we got a valid toc parameter
 	MusicBrainz::Server::Validation::IsSingleLineString($toc) && $toc ne ""
@@ -105,7 +105,7 @@
 	<& /comp/tablebegin, title => $title &>
 
 		<& /comp/form/steps,
-			steps => ["Lookup CD", "Select Artist", "Attach Disc ID"],
+			steps => ["Lookup CD", "Select artist", "Attach Disc ID"],
 			curr => 2 &>
 
 		<table class="formstyle">
@@ -115,18 +115,18 @@
 						<li>
 							Please examine the releases listed below. If one of
 							the track listings matches the release that you are submitting,
-							click on the <strong>Select Release &raquo;</strong>
+							click on the <strong>Select release &raquo;</strong>
 							button next to the matching release to attach the
 							table of contents information of your media to
 							this release.</li>
 						<li>
 							If none of the listed releases match, click on
-							the <strong>Enter new Release &raquo;</strong> button
+							the <strong>Enter new release &raquo;</strong> button
 							below to enter your copy into MusicBrainz.</li>
 						<li>
 							If you are unsure as to which one to pick or you have
 							questions about this step, please check out our <& /comp/linkdoc,
-							"DiscSubmission", "CD Submission document" &> for more details
+							"DiscSubmission", "CD submission document" &> for more details
 							on the submission process. The <& /comp/linkdoc, "DiscID",
 							"Disc ID" &> for the CD you have looked up is <strong><% $discid %></strong>.</li>
 					</ul>
@@ -151,14 +151,17 @@
 			<td>&nbsp;&nbsp;&nbsp;</td>
 			<td align="right">
 				<form method="post" action="/cdi/selectrelease.html">
-					<input type="submit" class="button" value="Select Release &raquo;" />
-					<input type="hidden" name="releaseid" value="<% $release->GetId() %>" />
-					<input type="hidden" name="discid" value="<% $discid %>" />
-					<input type="hidden" name="toc" value="<% $toc %>" />
-					<input type="hidden" name="tracks" value="<% $tracks %>" />
+					<div>
+						<input type="submit" class="button" value="Select release &raquo;" />
+						<input type="hidden" name="releaseid" value="<% $release->GetId() %>" />
+						<input type="hidden" name="discid" value="<% $discid %>" />
+						<input type="hidden" name="toc" value="<% $toc %>" />
+						<input type="hidden" name="tracks" value="<% $tracks %>" />
+					</div>
 				</form>
 			</td>
 		</tr>
+
 %		}
 
 	</table>
@@ -174,7 +177,7 @@
 				<td>
 					<ul>
 						<li>There were no releases with <% $tracks %> tracks found. </li>
-						<li>Please click on the <strong>Enter new Release &raquo;</strong>
+						<li>Please click on the <strong>Enter new release &raquo;</strong>
 							button if you want to add your copy to MusicBrainz.</li>
 					</ul>
 				</td>
@@ -188,7 +191,7 @@
 	<& /comp/tablebegin, title => "Enter new release" &>
 
 		<& /comp/form/steps,
-			steps => ["Lookup CD", "Select Artist", "Select Release", "Enter Information", "Finish"],
+			steps => ["Lookup CD", "Select artist", "Select release", "Enter information", "Finish"],
 			curr => 2 &>
 
 		<table class="formstyle">
@@ -196,19 +199,20 @@
 				<td class="label">&nbsp;</td>
 				<td>
 					<form method="post" action="enter.html">
-						<input type="submit" class="button" value="Enter new Release &raquo;">
-						<input type="hidden" name="artistid" value="<% $artistid %>">
-						<input type="hidden" name="discid" value="<% $discid %>">
-						<input type="hidden" name="toc" value="<% $toc %>">
-						<input type="hidden" name="hasmultipletrackartists" value="<% $artistid == &ModDefs::VARTIST_ID ? 1 : 0 %>">
-						<input type="hidden" name="tracks" value="<% $tracks %>">
+						<div>
+							<input type="submit" class="button" value="Enter new release &raquo;" />
+							<input type="hidden" name="artistid" value="<% $artistid %>" />
+							<input type="hidden" name="discid" value="<% $discid %>" />
+							<input type="hidden" name="toc" value="<% $toc %>" />
+							<input type="hidden" name="hasmultipletrackartists" value="<% $artistid == &ModDefs::VARTIST_ID ? 1 : 0 %>" />
+							<input type="hidden" name="tracks" value="<% $tracks %>" />
+						</div>
 					</form>
 				</td>
 			</tr>
 		</table>
 
 	<& /comp/tableend &>
-
 
 %	# we got releases with different number of tracks
 %	# list them, and explain why they are not applicable
@@ -237,8 +241,8 @@
 
 		<table class="searchresults">
 			<tr class="searchresultsheader">
-				<td width="40">Tracks:</td>
-				<td>Release Title:</td>
+				<td style="width: 40px">Tracks:</td>
+				<td>Release title:</td>
 			</tr>
 
 %		# sort unapplicable releases by name.
@@ -274,13 +278,18 @@
 					</form>
 				</td>
 			</tr>
+
 %					last;
 %				}
 %			}
+
 			<tr class="searchresults<% $i++ % 2 == 0 ? "even" : "odd" %>">
-				<td width="40"><img src="/images/notes.gif" alt="" title="Tracks" /> <% $release->GetTrackCount %></td>
-				<td><& /comp/linkrelease, release => $release, strong => 0 &></td>
+				<td style="width: 40px">
+					<img src="/images/notes.gif" alt="" title="Tracks" /> <% $release->GetTrackCount %></td>
+				<td>
+					<& /comp/linkrelease, release => $release, strong => 0 &></td>
 			</tr>
+
 %       }
 
 		</table>

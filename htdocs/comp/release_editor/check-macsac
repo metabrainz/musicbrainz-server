@@ -29,6 +29,8 @@
 </%perl>
 <%args>
 
+	$artistid => 0
+
 	$tracks
 	$hasmultipletrackartists
 
@@ -52,6 +54,13 @@
 	}
 	else
 	{
+		# check if should be entered as va-release
+		my @names = map { $ARGS{"track$_"} } 0 .. $tracks-1;
+		if ((grep /-/, @names) == $tracks
+			or (grep /\//, @names) == $tracks)
+		{
+			$h{"mac"} = 1;
+		}
 
 		# We're looking for two separate errors here:
 		# releases being entered as a single artist, but which should be
@@ -60,36 +69,26 @@
 		# releases being entered as Various Artists, but which should be
 		# a single artist.  We detect this by seeing if all the artist names
 		# are the same.
-		if ($hasmultipletrackartists)
-		{
-			my %names;
-			my %ids;
-			++$names{ $ARGS{"artistname"} }
-				if $ARGS{"artistname"} ne "";
-			++$ids{ $ARGS{"artistid"} }
-				if $ARGS{"artistid"} ne "";
+		my %names;
+		my %ids;
+		++$names{ $ARGS{"artistname"} }
+			if $ARGS{"artistname"} ne "";
+		++$ids{ $ARGS{"artistid"} }
+			if $ARGS{"artistid"} ne "";
 
-			for my $i (0 .. $tracks-1)
-			{
-				++$names{ $ARGS{sprintf "tr%d_artistname", $i} }
-					if $ARGS{sprintf "tr%d_artistname", $i} ne "";
-				++$ids{ $ARGS{sprintf "tr%d_artistid", $i} }
-					if $ARGS{sprintf "tr%d_artistid", $i} ne "";
-			}
-			$h{"sac"} = 1
-				if keys(%names) == 1 and keys(%ids) == 1;
-		}
-		else
+		for my $i (0 .. $tracks-1)
 		{
-			# check if should be entered as va-release
-			my @names = map { $ARGS{"track$_"} } 0 .. $tracks-1;
-
-			if ((grep /-/, @names) == $tracks
-				or (grep /\//, @names) == $tracks)
-			{
-				$h{"mac"} = 1;
-			}
+			++$names{ $ARGS{sprintf "tr%d_artistname", $i} }
+				if $ARGS{sprintf "tr%d_artistname", $i} ne "";
+			++$ids{ $ARGS{sprintf "tr%d_artistid", $i} }
+				if $ARGS{sprintf "tr%d_artistid", $i} ne "";
 		}
+
+		# $h{"sac"} = 1
+		# 	if ($ARGS{"artistid"} != &ModDefs::VARTIST_ID and
+		# 		keys(%names) == 1 and
+		# 		keys(%ids) == 1);
+
 	}
 
 	# put the encountered problems into the Arguments hash.

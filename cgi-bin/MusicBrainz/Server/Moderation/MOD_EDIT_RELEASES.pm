@@ -158,6 +158,7 @@ sub IsAutoEdit
 		my ($newyear, $newmonth, $newday) = map { 0+$_ } split "-", $t->{"nd"};
 		my ($origcountry, $newcountry) = ($t->{"c"}, $t->{"nc"});
 		
+		
 		# if we have a day set, which wasn't set before OR
 		# if we have a month set, which wasn't set before 
 		# -- the user is adding a more complete event, else its a 

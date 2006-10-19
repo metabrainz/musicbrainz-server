@@ -39,7 +39,7 @@ function EsModNoteModule() {
 	// register module
 	// ---------------------------------------------------------------------------
 	this.getModID = function() { return "es.modnote"; };
-	this.getModName = function() { return "Mod Note Resizer"; };
+	this.getModName = function() { return "Edit note resizer"; };
 
 	/** reference of the notetext obj **/
 	this.el = null;
@@ -113,7 +113,7 @@ function EsModNoteModule() {
 		}
 		return mb.log.exit();
 	};
-	mb.registerDOMReadyAction(new MbEventAction(this.GID, "runCheck", "Setting up modnote area resizer"));
+	mb.registerDOMReadyAction(new MbEventAction(this.GID, "runCheck", "Setting up editnote area resizer"));
 
 
 	/**

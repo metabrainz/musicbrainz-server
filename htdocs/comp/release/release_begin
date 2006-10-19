@@ -101,7 +101,7 @@
 
 			<td class="tagger">
 				<a href="http://127.0.0.1:<% $session{tport} %>/openalbum?id=<% $release->GetMBId %>&amp;t=<% time %>"
-					target="hiddeniframe" title="Open in Tagger"><img
+					target="hiddeniframe" title="Open in tagger"><img
 					align="absmiddle" src="/images/mblookup-tagger.png"
 					alt="Open in tagger" /></a></td>
 %	}
@@ -143,7 +143,7 @@
 			$m->out(qq!   <a href="/show/permlink.html?id=$mbid&amp;type=release" title="Link to this release">Link to this</a>!);
 			$m->out(qq!	| <a href="/show/release/details.html?releaseid=$releaseid">Details</a>!);
 			$m->out(qq! | !);
-			$m->comp("/comp/googlelink", search => [ $artist->GetName, $name ], text => "Search Google");
+			$m->comp("/comp/googlelink", search => [ $artist->GetName, $name ], text => "Search google");
 
  			if ($session{"uid"} and !$nonalbum)
  			{
@@ -198,7 +198,11 @@
 			$m->out(qq!<tr><td class="edit"> Edit: [ !);
 			if ($session{uid})
 			{
-				if (!$nonalbum)
+				if ($nonalbum)
+				{
+					$m->out(qq!<a href="/edit/track/addnonalbum.html?artistid=$artistid">Add&nbsp;a&nbsp;non-album&nbsp;track</a>!);
+				}
+				else
 				{
 					$m->out(qq!<a href="/edit/album/edit.html?releaseid=$releaseid">Edit title</a> | !);
 					$m->out(qq!<a href="/edit/album/editall.html?releaseid=$releaseid">Edit all</a> | !);
@@ -207,15 +211,10 @@
 					{
 						$m->out(qq!<a href="/edit/relationship/showelements.html?type=album&amp;id=$releaseid&amp;name=!.uri_escape($name).qq!">Link</a> | !);
 					}
-				}
 
-				$m->out(qq!<a href="/edit/album/remove.html?releaseid=$releaseid">Remove</a>!);
-				if ($nonalbum)
-				{
-					$m->out(qq! | <a href="/edit/track/addnonalbum.html?artistid=$artistid">Add&nbsp;a&nbsp;non-album&nbsp;track</a>!);
-				}
-				else
-				{
+
+					$m->out(qq!<a href="/edit/albumbatch/done.html?releaseid$releaseid=on">Merge</a>!);
+
 					if ($release->CanAddTrack)
 					{
 						$m->out(qq! | <a href="/edit/track/add.html?releaseid=$releaseid">Add&nbsp;track</a>!);
@@ -231,6 +230,7 @@
 
 						$m->out(qq! | <a href="/show/release/?releaseid=$releaseid&amp;showtrackartists=$newvalue">$newtext</a>!);
 					}
+
 					# only show the track relationships toggle function if the page using the /comp/album
 					# parameter handles the arguments
 					if ($showrelationshipstoggle)
@@ -241,6 +241,16 @@
 						$m->out(qq! | <a href="/show/release/?releaseid=$releaseid&amp;showrelationships=$newvalue">$newtext</a>!);
 					}
 
+<<<<<<< .working
+					if (!$release->HasMultipleTrackArtists)
+					{
+						$m->out(qq! | <a href="/edit/album/mac.html?releaseid=$releaseid">Convert&nbsp;to&nbsp;multiple&nbsp;artists</a>!);
+					}
+					else
+					{
+						$m->out(qq! | <a href="/edit/album/sac.html?releaseid=$releaseid">Convert&nbsp;to&nbsp;single&nbsp;artist</a>!);
+					}
+=======
                     if ($release->IsUnlocked)
                     {
                         if (!$release->HasMultipleTrackArtists)
@@ -258,7 +268,9 @@
                     {
 					    $m->out(qq! | <a href="/edit/album/lock.html?releaseid=$releaseid&lock=0">Unlock</a>!);
                     }
+>>>>>>> .merge-right.r8543
 				}
+				$m->out(qq! | <a href="/edit/album/remove.html?releaseid=$releaseid">Remove</a>!);
 			}
 			else
 			{

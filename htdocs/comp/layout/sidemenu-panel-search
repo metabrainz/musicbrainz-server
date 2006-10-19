@@ -38,24 +38,16 @@
 % 	# in xhtml-strict, <input> elements need to be contained in a block-level
 % 	# element, thus the <div> is needed inside the <form>
 
-						<div>
-							<input class="searchfield" type="text" name="query" id="id_qs_artist"
-								value="<% ($session{"as_type"} eq "artist" ? $session{"as_query"} : "") %>"
-
-% 	# What is the official position on forms with no submit button?
-% 	# Normally they're OK, and you can press "return" and the form is submitted.
-% 	# Can we rely on this, always?
-% 	# Anyway within the Tagger this fails, so we detect "return" ourselves.
-% 	if ($session{mbt})
-%	{
-%		$m->out(qq!onkeydown="if (event.keyCode==13) this.form.submit()"!);
-%	}
 
 %	my ($an, $as, $aa) = ($session{"as_an"}, $session{"as_as"}, $session{"as_aa"});
 %	$an = defined ($an) ? $an : 1;
 %	$as = defined ($as) ? $as : 1;
 %	$aa = defined ($aa) ? $aa : 0;
-							/>
+
+
+						<div>
+							<input class="searchfield" type="text" name="query" id="id_qs_artist"
+								value="" />
 							<input type="hidden" name="type" value="artist" />
 							<input type="hidden" name="limit" value="<% $session{"as_limit"} %>" />
 %							$m->out(qq!<input type="hidden" name="an" value="1" />!) if ($an);
@@ -72,12 +64,7 @@
 					<form method="get" action="/search/textsearch.html" id="id_qs_release_form">
 						<div>
 							<input class="searchfield" type="text" name="query" id="id_qs_release"
-								value="<% ($session{"as_type"} eq "release" ? $session{"as_query"} : "") %>"
-% 	if ($session{mbt})
-%	{
-%		$m->out(qq!onkeydown="if (event.keyCode==13) this.form.submit()"!);
-%	}
-							/>
+								value="" />
 							<input type="hidden" name="type" value="release" />
 							<input type="hidden" name="limit" value="<% $session{"as_limit"} %>" />
 							<input type="hidden" name="handlearguments" value="1" />
@@ -91,12 +78,7 @@
 					<form method="get" action="/search/textsearch.html" id="id_qs_track_form">
 						<div>
 							<input class="searchfield" type="text" name="query" id="id_qs_track"
-								value="<% ($session{"as_type"} eq "track" ? $session{"as_query"} : "") %>"
-% 	if ($session{mbt})
-%	{
-%		$m->out(qq!onkeydown="if (event.keyCode==13) this.form.submit()"!);
-%	}
-							/>
+								value="" />
 							<input type="hidden" name="type" value="track" />
 							<input type="hidden" name="limit" value="<% $session{"as_limit"} %>" />
 							<input type="hidden" name="handlearguments" value="1" />
@@ -109,12 +91,8 @@
 				<td>
 					<form method="get" action="/show/user/">
 						<div>
-							<input class="searchfield" type="text" name="username" id="id_qs_editor" value=""
-% 	if ($session{mbt})
-%	{
-%		$m->out(qq!onkeydown="if (event.keyCode==13) this.form.submit()"!);
-%	}
-							/>
+							<input class="searchfield" type="text" name="username" id="id_qs_editor"
+								value="" />
 						</div>
 					</form></td>
 			</tr>

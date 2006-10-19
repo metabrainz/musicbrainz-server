@@ -102,7 +102,7 @@
 
 	<& /comp/layout/editformbegin, title => "Confirm Relationship Removal" &>
 
-	<form method="post" action="/edit/relationship/remove.html" name="ConfirmForm">
+	<form method="post" action="/edit/relationship/remove.html" id="ConfirmForm">
 
 		<script type="text/javascript" src="/scripts/editsuite.js"></script>
 
@@ -156,12 +156,13 @@
 					<& /comp/notetext,
 						notetext => $notetext, &>
 
-					<input type="hidden" name="type" value="<% $type %>" />
-					<input type="hidden" name="id" value="<% $id %>" /></td>
+					<& /comp/form/hiddenfield, "type", $type &>
+					<& /comp/form/hiddenfield, "id", $id &>
+					<& /comp/form/focusfield, "btnYes" &>
+
+				</td>
 			</tr>
 		</table>
-
-		<& /comp/movefocus, "ConfirmForm", "btnYes" &>
 	</form>
 
 	<& /comp/layout/editformend &>

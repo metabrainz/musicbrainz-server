@@ -173,71 +173,75 @@
 </%perl>
 
 
-<& /comp/sidebar-notitle, pagetitle => "Edit Artist Annotation" &>
+<& /comp/sidebar-notitle, pagetitle => "Edit artist annotation" &>
 
-% 	if ($preview) {
-
-	<& /comp/tablebegin, title => "Preview Annotation" &>
+% 	if ($preview)
+%	{
 
 % 		my $tmp = MusicBrainz::Server::Annotation->newPreview($defaulttext);
 
-		<table class="annotation">
+		<table class="annotation" style="margin-bottom: 20px">
 			<tr class="header">
 
-%		if ($no_change) {
+%		if ($no_change)
+%		{
 
 				<td>Preview (You have not made any changes!)</td>
 
-% 		} else {
+% 		}
+%		else
+%		{
 
 				<td>Preview</td>
 %		}
 
 			</tr>
 			<tr class="text">
-				<td><% $tmp->GetTextAsHTML |n %></td>
+				<td>
+					<% $tmp->GetTextAsHTML |n %>
+				</td>
 			</tr>
 		</table>
 
-		<table class="annotation">
+		<table class="annotation" style="margin-bottom: 20px">
 			<tr class="header">
-				<td>Summary Preview</td>
+				<td>Summary preview</td>
 			</tr>
 			<tr class="text">
-				<td><% $tmp->GetShortTextAsHTML(qq[(<a href="#">Read&nbsp;more&hellip;</a>)]) |n %></td>
+				<td>
+					<% $tmp->GetShortTextAsHTML(qq[(<a href="#">Read&nbsp;more&hellip;</a>)]) |n %>
+				</td>
 			</tr>
 		</table>
 
-% 		if (defined $origtext) {
+% 		if (defined $origtext)
+%		{
 
-			<table class="annotation">
-				<tr class="header">
-					<td>
-						Differences
-						<& /edit/annotation/diff-legend &></td>
-				</tr>
-				<tr class="text">
-					<td>
-						<% MusicBrainz::Server::Markup->diff_as_html($origtext, $defaulttext) |n %></td>
-				</tr>
-			</table>
+		<table class="annotation" style="margin-bottom: 20px">
+			<tr class="header">
+				<td>
+					Differences
+					<& /edit/annotation/diff-legend &></td>
+			</tr>
+			<tr class="text">
+				<td>
+					<% MusicBrainz::Server::Markup->diff_as_html($origtext, $defaulttext) |n %>
+				</td>
+			</tr>
+		</table>
+
 %		}
-
-	<& /comp/tableend &>
-
 % 	}
 
 
 	<form method="post" action="/edit/annotation/artist/edit.html" id="EditAnnotationForm">
 		<script type="text/javascript" src="/edit/annotation/wikitoolbar.js"></script>
 
-		<& /comp/tablebegin, title => "Edit Artist Annotation" &>
+		<& /comp/tablebegin, title => "Edit artist annotation" &>
 
 			<table class="formstyle">
 				<tr>
 					<td class="instructions">
-						<& /edit/annotation/wikiformat &>
-
 
 %	# if the annotation is locked by someone else, do not allow
 %	# editing it for a certain amount of time.
@@ -256,10 +260,12 @@
 							Please try again later.
 							</span>
 						</div>
+
 %	}
 
 %	if ($not_most_recent)
 %	{
+
 						<div style="border: 1px dotted red; padding: 5px; margin-top: 15px">
 							<span style="color:red; font-weight: bold">Warning:</span>
 							You are not editing the most recent annotation for this artist.
@@ -267,7 +273,9 @@
 							overwritten!
 							</span>
 						</div>
+
 %	}
+
 					</td>
 				</tr>
 			</table>
@@ -275,27 +283,41 @@
 			<table class="formstyle" style="width: 95%">
 				<tr>
 					<td>
+						<& /comp/form/feedbackbox, "warning",
+							"Do not post any copyrighted texts here!",
+							qq!Please note that any content submitted to MusicBrainz will be
+							made available to the public under !
+						  . $m->scomp("/comp/linkdoc", "MusicBrainzLicense", "open licenses") &>
+
 						<textarea name="annotationtext" rows="15" cols="60"
 							style="width: 100%" class="wikitext" <% $disabled %>><% $defaulttext %></textarea></td>
 				</tr>
 				<tr class="spaced">
 					<td>
+
 						Enter a description of your changes (optional):<br/>
 						<input name="changelog" type="text" size="60" maxlength="255" <% $disabled %> value="<% $changelog %>" /></td>
 				</tr>
 				<tr>
-					<td>
-						<input type="submit" name="submitvalue" value="Enter Edit &raquo;" <% $disabled %>/>
-						<input type="submit" name="submitvalue" value="Preview" <% $disabled %>/>&nbsp;
-						<input type="submit" name="submitvalue" value="Cancel" />&nbsp;
+					<td class="submitbuttons">
+						<input type="submit" name="submitvalue" value="Save annotation &raquo;" <% $disabled %> />
+						<input type="submit" name="submitvalue" value="Preview" <% $disabled %> />
+						<input type="submit" name="submitvalue" value="Cancel" />
 
-						<input type="hidden" name="annotationid" value="<% $annotationid %>" />
-						<input type="hidden" name="artistid" value="<% $artistid %>" /></td>
+						<& /comp/form/hiddenfield, "annotationid", $annotationid &>
+						<& /comp/form/hiddenfield, "artistid", $artistid &>
+						<& /comp/form/focusfield, "annotationtext" &>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<& /edit/annotation/wikiformat &>
+					</td>
 				</tr>
 			</table>
-			<& /comp/movefocus, "EditAnnotationForm", "annotationtext" &>
 
 		<& /comp/tableend &>
+
 	</form>
 
 <& /comp/footer &>

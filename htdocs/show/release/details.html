@@ -56,7 +56,7 @@
 
 </%perl>
 
-<& /comp/sidebar-notitle, pagetitle => "Release Details: " . $release->GetName &>
+<& /comp/sidebar-notitle, pagetitle => "Release details: " . $release->GetName &>
 
 	<& /comp/artistinfo, artist => $artist, short => 1 &>
 
@@ -80,9 +80,9 @@
 
 </%perl>
 
-		<& /comp/tablebegin, title => "Disc IDs", id => "discid" &>
+		<& /comp/tablebegin, title => "DiscIDs", id => "discid" &>
 
-		Show <& /comp/linkdoc/, "DiscID", "Disc ID" &> details: [
+		Show <& /comp/linkdoc/, "DiscID", "DiscID" &> details: [
 		<a href="?releaseid=<% $id %>&amp;show=times#discid" title="Show track times">times</a> |
 		<a href="?releaseid=<% $id %>&amp;show=sectors#discid" title="Show sector offsets">sectors</a> |
 		<a href="?releaseid=<% $id %>&amp;show=both#discid" title="Show track times and sector offsets">both</a> |
@@ -91,7 +91,7 @@
 
 		<table border="0" style="margin: 8px 0px">
 			<tr>
-				<td><b>Disc ID</b></td>
+				<td><b>DiscID</b></td>
 				<td><b>Tracks</b></td>
 
 <%perl>
@@ -100,7 +100,7 @@
 		# add additional header columns (total length/sectors, and columns for each track)
 		if ($show)
 		{
-			$m->out(qq!<td><b>Total Length</b></td>!);
+			$m->out(qq!<td><b>Total length</b></td>!);
 			for (1..$maxtracks)
 			{
 				$m->out(qq!<td style="text-align: center; padding: 0px 2px"><b> $_ </b></td>!);
@@ -116,7 +116,7 @@
 
 			my $style = (++$row % 2 ? "background-color: #eee" : "");
 			$m->out(qq!<tr style="$style">!);
-			$m->out(qq!<td style="padding: 0px 4px"><a href="/showcdtoc.html?id=!.$cdtoc->GetId);
+			$m->out(qq!<td style="padding: 0px 4px"><a href="/show/cdtoc/?cdtocid=!.$cdtoc->GetId);
 			$m->out(qq!" title="FreeDB Id: ! . $cdtoc->GetFreeDBID);
 			$m->out(qq!">! . $cdtoc->GetDiscID . qq!</a></td>!);
 			$m->out(qq!<td style="text-align: center; padding: 0px 4px">! .$cdtoc->GetTrackCount . qq!</td>!);
@@ -150,7 +150,7 @@
 				$m->out(qq!<td style="text-align: center; padding: 0px 4px">$offset</td>!);
 				for (@{ $cdtoc->GetTrackOffsets })
 				{
-					$m->out(qq!<td style="text-align: center; padding: 0px 4px">$offset</td>!);
+					$m->out(qq!<td style="text-align: center; padding: 0px 4px">$_</td>!);
 				}
 			}
 			$m->out("</tr>");

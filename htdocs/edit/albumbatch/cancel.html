@@ -36,9 +36,9 @@
 
 	delete $session{tagged_albums};
 
-	$m->comp("/comp/sidebar-notitle", pagetitle => "Unselected Releases");
+	$m->comp("/comp/sidebar-notitle", pagetitle => "Releases unselected");
 
-	$m->comp("/comp/tablebegin", title => "Unselected Releases");
+	$m->comp("/comp/tablebegin", title => "Releases unselected");
 	$m->out("All of your selected releases have been deselected.");
 
  	# TODO feeding any old URL back into the page is a security risk
@@ -52,7 +52,7 @@
 	$m->comp("/comp/tableend");
 
 
-	$m->comp("/comp/tablebegin", title => "Search for an Artist");
+	$m->comp("/comp/tablebegin", title => "Search for an artist");
 	$m->comp("/comp/lucenesearch", type => "artist");
 	$m->comp("/comp/movefocus", "TextSearchForm", "search");
 	$m->comp("/comp/tableend");

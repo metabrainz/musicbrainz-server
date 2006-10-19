@@ -128,6 +128,10 @@
 			}
 			else
 			{
+
+				# remove intertwingled links to non-existent pages.
+				$page =~ s/<a class="nonexistent" [^>]+>([^<]+)<\/a>/$1/g;
+
 				# Some pages in the Wiki use URLs of the form: http:/page.html .
 				# This works in some browsers (it's taken as relative to
 				# http://www.musicbrainz.org/ ..., so resolves to
@@ -136,7 +140,9 @@
 				# So for now, rewrite those URLs to their canonical form.
 				$page =~ s[href="http:/(\w)]['href="http://' . $server . "/$1"]eg; # <-- this hack makes vim happy
 
-				# remove intertwingled links to non-existent pages.
+				# remove intertwingled links to non-existent pages (if nonexist_qm=1)
+				$page =~ s/<a class="nonexistent" [^>]+>\?<\/a>//g;
+				# remove intertwingled links to non-existent pages (if nonexist_qm=0)
 				$page =~ s/<a class="nonexistent" [^>]+>([^<]+)<\/a>/$1/g;
 
 				my $temp = "";

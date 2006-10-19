@@ -46,17 +46,21 @@
 	# Instantiate MusicBrainz object
 	my $mb = $m->comp("/comp/dblogin");
 
-	# load the list of languages from the database
-	my @languages_menu = MusicBrainz::Server::Language->Menu($mb->{DBH},
-		minimum_frequency => ($expand_lists ? 1 : 2),
-		include => $language_curr
-	);
-
-	# load the list of scripts from the database
-	my @scripts_menu = MusicBrainz::Server::Script->Menu($mb->{DBH},
-		minimum_frequency => ($expand_lists ? 0 : 4),
+	# compile list of scripts, be sure to include
+	# the current value (if compact list is shown)
+	my @scripts = MusicBrainz::Server::Script->Menu($mb->{DBH},
+		minimum_frequency => ( $expand_lists ? 0 : 4 ),
 		include => $script_curr
 	);
+	unshift @scripts, [ "-1", "Select script..." ];
+
+	# compile list of languages, be sure to include
+	# the current value (if collapsed)
+	my @languages = MusicBrainz::Server::Language->Menu($mb->{DBH},
+		minimum_frequency => ( $expand_lists ? 1 : 2 ),
+		include => $language_curr
+	);
+	unshift @languages, [ "-1", "Select language..." ];
 
 </%perl>
 
@@ -74,7 +78,7 @@
 			<td class="field">
 				<select name="<% $language_fieldname %>" style="<% $expand_lists ? "" : "width: 200px" %>"
 					id="id_<% $language_fieldname %>">
-					<& /comp/options, \@languages_menu, $language_curr &>
+					<& /comp/options, \@languages, $language_curr &>
 				</select></td>
 		</tr>
 		<tr>
@@ -83,7 +87,7 @@
 			<td class="field">
 				<select name="<% $script_fieldname %>" style="<% $expand_lists ? "" : "width: 200px" %>"
 					id="id_<% $script_fieldname %>">
-					<& /comp/options, \@scripts_menu, $script_curr &>
+					<& /comp/options, \@scripts, $script_curr &>
 				</select></td>
 		</tr>
 		<tr>
@@ -93,17 +97,17 @@
 % 	if ($expand_lists)
 %	{
 
-				<input class="button" type="submit" name="submitvalue" value="Show Reduced Lists" />
+				<input class="button" type="submit" name="submitvalue" value="Show reduced lists" />
 
 % 	}
 %	else
 %	{
 
-				<input class="button" type="submit" name="submitvalue" value="Show Full Lists" />
+				<input class="button" type="submit" name="submitvalue" value="Show full lists" />
 
 % 	}
 
-				<input class="button" type="submit" name="submitvalue" value="Guess Again" /></td>
+				<input class="button" type="submit" name="submitvalue" value="Guess again" /></td>
 		</tr>
 
 % 	if ($add_language == 1)

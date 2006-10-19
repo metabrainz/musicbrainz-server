@@ -33,14 +33,14 @@
 	$enabled
 	$value
 	$cssclass => ""
-	$lastseq => 99
+	$lastseq => "&#8734";
 
 </%args>
 <%perl>
 
 	# prepare tooltip depending on enabled flag.
 	my $tooltip = ($enabled
-		? "You can set a new track number here, possible values are: (1-$lastseq)"
+		? "You can set a new track number here, possible values are: (1 &hellip; $lastseq)"
 		: "Track number editing is disabled because of valid Disc ID(s)");
 
 	# use mason->out to compress whitespace

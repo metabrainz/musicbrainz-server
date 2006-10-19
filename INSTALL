@@ -244,22 +244,21 @@ Installation:
 =============
 
 1) If you want to import the current live data into your database, you'll need
-   the current live copy of the server codebase, not the latest CVS copy.
+   the current live copy of the server codebase, not the latest SVN copy.
    Otherwise, the import may fail, possibly with an error like this:
      ERROR:  copy: line 1, Missing data for column "automodsaccepted" 
  
    How to get the live server code:
 
-   i) Work out what CVS tag corresponds to the live server.  It should be of
+   i) Work out what SVN tag corresponds to the live server.  It should be of
       the form "RELEASE_yyyymmdd-BRANCH".  The date (yyyymmdd) in question
       will probably match the "server version" smallprint shown at the bottom
-      of every MusicBrainz web page.  Alternatively, list the possible tags
-      ("cvs status -v INSTALL | grep RELEASE_ | sort") and pick the one with
-      the latest date.
-      (Yes, I agree, that was too complicated.  It needs to be made simpler.)
+      of every MusicBrainz web page.  Alternatively, review the possible tags
+      (http://bugs.musicbrainz.org/browser/mb_server/branches) and pick the 
+      one with the latest date. 
 
    ii) Check out that version of the mb_server source code, e.g.
-      cvs checkout -r RELEASE_20040724-BRANCH mb_server
+      svn checkout http://svn.musicbrainz.org/mb_server/branches/<BRANCH NAME> mb_server
 
 2) Make sure you have all the prerequisite pieces of software installed.
    Installing perl modules using CPAN is easier than doing it by hand.

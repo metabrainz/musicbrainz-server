@@ -93,10 +93,10 @@
 
 					<td class="links">
 						<a href="/edit/discid/move.html?tocid=<% $tocid %>&amp;releaseid=<% $releaseid %>"
-							title="Move Disc ID to another release">Move</a> |
+							title="Move DiscID to another release">Move</a> |
 
 						<a href="/edit/discid/remove.html?tocid=<% $tocid %>&amp;releaseid=<% $releaseid %>"
-							title="Remove this Disc ID from the Release">Remove</a>
+							title="Remove this DiscID from the release">Remove</a>
 					</td>
 %				}
 				</tr>
@@ -116,7 +116,9 @@
 %		my @relevents = $releaseevents ? @$releaseevents : $release->Releases;
 %		if (@relevents == 0)
 %		{
+
 			No release events
+
 %		}
 %		else
 %		{
@@ -124,6 +126,7 @@
 %			my $country_obj = MusicBrainz::Server::Country->new($release->{DBH});
 
 				<table class="eventslist">
+
 %			my $first = 1;
 %			for my $rel (@relevents)
 %			{
@@ -142,18 +145,25 @@
 						<td><% $name %></td>
 					</tr>
 %			}
+
 				</table>
+
 %		}
+
 			</td>
 
 %		if ($session{"uid"} and $showeditlinks)
 %		{
+
 			<td class="links">
 				<a href="/edit/albumreleases/index.html?releaseid=<% $releaseid %>"
-					title="Add, Edit and Remove Release Events of this Release">Edit Release Events</a></td>
+					title="Add, edit and remove release events of this release">Edit release events</a></td>
+
 %		}
+
 		</tr>
 	</table>
+
 %	}
 
 %	# add some spacing after the release.

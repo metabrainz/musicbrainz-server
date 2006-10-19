@@ -38,8 +38,6 @@
 
 	$discid => ""
 	$toc => ""
-	$noncd => ""
-	$search => ""
 
 </%args>
 <%perl>
@@ -79,11 +77,10 @@
 
 	# prepare release object
 	my $release = Album->new($mb->{DBH});
-	$release->SetId($releaseid);
-	if (!$release->LoadFromId)
-	{
-		$release->SetId(0);
-	}
+	$release->SetId(0);
+	$release = $m->comp("/comp/loadrelease", $mb, $releaseid)
+		if (defined $releaseid && MusicBrainz::IsNonNegInteger($releaseid) && $releaseid);
+
 	$release->SetArtist($artist->GetId);
 	$release->SetName($ARGS{"releasename"});
 	$release->SetLanguageId($ARGS{"attr_language"});
@@ -110,6 +107,10 @@
 		my $rev_country = $ARGS{"rev_country-$j"};
 		my $rev_id = $ARGS{"rev_id-$j"};
 		my $rev_clear = $ARGS{"rev_clear-$j"};
+
+		$rev_year = "" if ($rev_year eq "yyyy");
+		$rev_month = "" if ($rev_month eq "mm");
+		$rev_day = "" if ($rev_day eq "dd");
 
 		if (!$rev_clear)
 		{
@@ -258,29 +259,44 @@
 </%perl>
 
 
-	<& /comp/tablebegin, title => "Review Edits" &>
+	<& /comp/tablebegin, title => $editmode ? "Review edits" : "Review add release edit" &>
 
 		<& /comp/release_editor/steps, %ARGS, stepsleft => 1 &>
 
-			<table class="formstyle">
+			<table class="review" style="margin-bottom: 15px">
 				<tr>
-					<td colspan="2" class="instructions">
-						<ul>
-							<li>Please review the edits that will be entered into
-								the database before you click on "Enter Edits"</li>
-							<li>Some <& /comp/linkdoc, "EditType", "edit types" &> are
-								applied instantly, others will need approval of other
-								MusicBrainz editors. Please see <& /comp/linkdoc,
-								"HowEditingWorks", "how editing works" &> for
-								additional information.
-							<li>You can get additional information about the specific
-								edit types if you click on their respective titles below.</li>
-						</ul>
+					<td>
+						Please review the release you are about to enter into
+						the database before you click on <strong>Add release &raquo;</strong>.
+
+%	if (!$editmode)
+%	{
+
+
+%	}
+%	else
+%	{
+
+					Please review the edits that will be entered into
+					the database before you click on <strong>Enter edits &raquo;</strong>.
+
+					Some <& /comp/linkdoc, "EditType", "edit types" &> are
+					applied instantly, others will need approval of other
+					MusicBrainz editors. Please see <& /comp/linkdoc,
+					"HowEditingWorks", "how editing works" &> for
+					additional information.
+
+					You can get additional information about the specific
+					edit types if you click on their respective titles below.
+
+%	}
+
 					</td>
 				</tr>
 			</table>
 
-</%perl>
+%	if ($ARGS{"v::action"} ne "/cdi/enter.html")
+%	{
 
 			<table class="review">
 				<tr class="header">
@@ -289,109 +305,123 @@
 %#					<td class="autoedit">Needs voting:</td>
 				</tr>
 
-%			if ($ARGS{"v::action"} eq "/cdi/enter.html")
-%			{
+<%perl>
 
-				<tr>
-					<td class="type">Add</td>
-					<td class="newvalue">* new</td>
-					<td class="autoedit"><& .isAutoEdit, &ModDefs::MOD_ADD_ALBUM &></td>
-				</tr>
+		# changed release artist?
+		my $orig_artistid = $orig{"artistid"};
+		my $orig_artistidname = $orig{"artistname"};
 
-%				$releasechanges++;
-%			}
-%			else
-%			{
+		my $new_artistid = $ARGS{"artistid"};
+		my $new_artistname = $ARGS{"artistname"};
 
-			<%perl>
-				# changed release artist?
-				my $orig_artistid = $orig{"artistid"};
-				my $orig_artistidname = $orig{"artistname"};
+		# raise flags which define if we need the
+		# track-artist mods
+		my $movetracks = 0;
 
-				my $new_artistid = $ARGS{"artistid"};
-				my $new_artistname = $ARGS{"artistname"};
+		(MusicBrainz::IsNonNegInteger($orig_artistid) or $orig_artistid eq "*")
+			or die("need non-negative integer or * \$orig_artistid=$orig_artistid");
+		(MusicBrainz::IsNonNegInteger($new_artistid) or $new_artistid eq "*")
+			or die("need non-negative integer or * \$new_artistid=$new_artistid");
 
-				# raise flags which define if we need the
-				# track-artist mods
-				my $movetracks = 0;
+		if ($orig_artistid ne $new_artistid)
+		{
+			# if all tracks are set to the release artist, its a
+			# single artist conversion, else a move release edit.
+			$movetracks = 1;
+			for (my $t=0; $t < $tracks; $t++)
+			{
+				my $orig_trackartistid = $orig{getField($t, "artistid")};
+				my $new_trackartistid = $ARGS{getField($t, "artistid")};
+				$movetracks = ($movetracks && $new_trackartistid == $new_artistid);
+			}
 
-				(MusicBrainz::Server::Validation::IsNonNegInteger($orig_artistid) or $orig_artistid eq "*")
-					or die("need non-negative integer or * \$orig_artistid=$orig_artistid");
-				(MusicBrainz::Server::Validation::IsNonNegInteger($new_artistid) or $new_artistid eq "*")
-					or die("need non-negative integer or * \$new_artistid=$new_artistid");
+			$m->comp(".showArtistEdit",
+				mb => $mb,
+				edittype => "MoveReleaseEdit",
+				edittitle => "Move release",
+				title => "Change artist" . ($movetracks ? " (Move tracks)" : ""),
 
-				if ($orig_artistid ne $new_artistid)
-				{
-					# if all tracks are set to the release artist, its a
-					# single artist conversion, else a move release edit.
-					$movetracks = 1;
-					for (my $t=0; $t < $tracks; $t++)
-					{
-						my $orig_trackartistid = $orig{getField($t, "artistid")};
-						my $new_trackartistid = $ARGS{getField($t, "artistid")};
-						$movetracks = ($movetracks && $new_trackartistid == $new_artistid);
-					}
+				orig_artist => &$GetCachedArtist($orig_artistid),
+				new_artist => &$GetCachedArtist($new_artistid),
+				new_artistname => $ARGS{"artistname"},
+				new_resolution => $ARGS{"ar_resolution"},
+				cnt => ++$releasechanges
+			);
+		}
 
-					$m->comp(".showArtistEdit",
-						mb => $mb,
-						edittype => "MoveReleaseEdit",
-						edittitle => "Move Release",
-						title => "Change Artist" . ($movetracks ? " (Move Tracks)" : ""),
+		# changed release name?
+		my $orig_releasename = $orig{"releasename"};
+		my $new_releasename = $ARGS{"releasename"};
+		(defined $orig_releasename and $orig_releasename ne "")
+			or die("need non-empty string \$orig_releasename=$orig_releasename");
+		(defined $new_releasename and $new_releasename ne "")
+			or die("need non-empty string \$new_releasename=$new_releasename");
+		if ($orig_releasename ne $new_releasename)
+		{
+			$m->comp(".showReleaseEdit",
+				mb => $mb,
+				edittype => "EditReleaseNameEdit",
+				edittitle => "Edit release title",
 
-						orig_artist => &$GetCachedArtist($orig_artistid),
-						new_artist => &$GetCachedArtist($new_artistid),
-						new_artistname => $ARGS{"artistname"},
-						new_resolution => $ARGS{"ar_resolution"},
-						cnt => ++$releasechanges
-					);
-				}
+				oldvalue => $orig_releasename,
+				newvalue => $new_releasename,
+				modtype => &ModDefs::MOD_EDIT_ALBUMNAME,
+				cnt => ++$releasechanges
+			);
+		}
 
-				# changed release name?
-				my $orig_releasename = $orig{"releasename"};
-				my $new_releasename = $ARGS{"releasename"};
-				(defined $orig_releasename and $orig_releasename ne "")
-					or die("need non-empty string \$orig_releasename=$orig_releasename");
-				(defined $new_releasename and $new_releasename ne "")
-					or die("need non-empty string \$new_releasename=$new_releasename");
-				if ($orig_releasename ne $new_releasename)
-				{
-					$m->comp(".showReleaseEdit",
-						mb => $mb,
-						edittype => "EditReleaseNameEdit",
-						edittitle => "Edit Release Name",
+		# changed release attributes?
+		$ov = $orig{"attr_type"}.",".$orig{"attr_status"};
+		$nv = $ARGS{"attr_type"}.",".$ARGS{"attr_status"};
+		if ($ov ne $nv)
+		{
+			my @attrvalues;
+			for ($ov, $nv)
+			{
+				my @names = map {
+					Album->GetAttributeName($_) || "Not_set"
+				} split ',', $_;
+				my $type = ($_ eq $ov ? "Old: " : "New: ");
+				push @attrvalues, (@names ? join ", ", @names : "None");
+			}
+			$m->comp(".showReleaseEdit",
+				mb => $mb,
+				edittype => "EditReleaseAttributesEdit",
+				edittitle => "Edit release attributes",
 
-						oldvalue => $orig_releasename,
-						newvalue => $new_releasename,
-						modtype => &ModDefs::MOD_EDIT_ALBUMNAME,
-						cnt => ++$releasechanges
-					);
-				}
+				oldvalue => $attrvalues[0],
+				newvalue => $attrvalues[1],
+				modtype => &ModDefs::MOD_EDIT_ALBUMATTRS,
+				cnt => ++$releasechanges
+			);
+		}
 
-				# changed release attributes?
-				$ov = $orig{"attr_type"}.",".$orig{"attr_status"};
-				$nv = $ARGS{"attr_type"}.",".$ARGS{"attr_status"};
-				if ($ov ne $nv)
-				{
-					my @attrvalues;
-					for ($ov, $nv)
-					{
-						my @names = map {
-							Album->GetAttributeName($_) || "Not_set"
-						} split ',', $_;
-						my $type = ($_ eq $ov ? "Old: " : "New: ");
-						push @attrvalues, (@names ? join ", ", @names : "None");
-					}
-					$m->comp(".showReleaseEdit",
-						mb => $mb,
-						edittype => "EditReleaseAttributesEdit",
-						edittitle => "Edit Release Attributes",
+		# changed language/script?
+		$ov = $orig{"attr_language"}.",".$orig{"attr_script"};
+		$nv = $ARGS{"attr_language"}.",".$ARGS{"attr_script"};
+		if ($ov ne $nv)
+		{
+			my @langvalues;
+			for ($ov, $nv)
+			{
+				my ($languageid, $scriptid) = split ',', $_;
+				$release->SetLanguageId($languageid);
+				$release->SetScriptId($scriptid);
+				my $langname = (defined $release->GetLanguage ? $release->GetLanguage->GetName : "Not_set");
+				my $scriptname = (defined $release->GetScript ? $release->GetScript->GetName : "Not_set");
+				push @langvalues, "$langname, $scriptname";
+			}
+			$m->comp(".showReleaseEdit",
+				mb => $mb,
+				edittype => "EditReleaseLanguageEdit",
+				edittitle => "Edit language/script",
 
-						oldvalue => $attrvalues[0],
-						newvalue => $attrvalues[1],
-						modtype => &ModDefs::MOD_EDIT_ALBUMATTRS,
-						cnt => ++$releasechanges
-					);
-				}
+				oldvalue => $langvalues[0],
+				newvalue => $langvalues[1],
+				modtype => &ModDefs::MOD_EDIT_ALBUM_LANGUAGE,
+				cnt => ++$releasechanges
+			);
+		}
 
 		# changed releasedates?
 		my $countries_menu = $m->comp("/edit/albumreleases/countries-menu.inc");
@@ -490,22 +520,6 @@
 			$m->out('</tr>');
 		}
 
-							oldvalue => $ov,
-							newvalue => $nv,
-							modtype => &ModDefs::MOD_EDIT_RELEASES,
-							cnt => ++$releasechanges
-						);
-						$first = 0;
-					}
-				}
-
-				# if no changes were made indicate this.
-				if (not $releasechanges)
-				{
-					$m->out('<tr class="nochanges">');
-					$m->out('<td colspan="3">You have not made any release changes</td>');
-					$m->out('</tr>');
-				}
 </%perl>
 				<tr class="spacer"><td colspan="3">&nbsp;</td></tr>
 
@@ -515,214 +529,209 @@
 %#					<td class="autoedit">Needs&nbsp;voting:</td>
 				</tr>
 
-			<%perl>
+<%perl>
 
-				for (my $t=0; $t < $tracks; $t++)
-				{
-					# get original values
-					my $orig_id = $orig{"trackid$t"};
-					my $orig_seq = $orig{"trackseq$t"};
-					my $orig_track = $orig{"track$t"};
-					my $orig_length = $orig{"tracklength$t"};
+		for (my $t=0; $t < $tracks; $t++)
+		{
+			# get original values
+			my $orig_id = $orig{"trackid$t"};
+			my $orig_seq = $orig{"trackseq$t"};
+			my $orig_track = $orig{"track$t"};
+			my $orig_length = $orig{"tracklength$t"};
 
-					my $orig_artistid = $orig{getField($t, "artistid")};
-					my $orig_artist = &$GetCachedArtist($orig_artistid),
+			my $orig_artistid = $orig{getField($t, "artistid")};
+			my $orig_artist = &$GetCachedArtist($orig_artistid),
 
-					(MusicBrainz::Server::Validation::IsNonNegInteger($orig_id))
-						or die("need non-negative integer \$orig_id=$orig_id");
-					(MusicBrainz::Server::Validation::IsNonNegInteger($orig_seq))
-						or die("need non-negative integer \$orig_seq=$orig_seq");
-					(defined $orig_track and $orig_track ne "")
-						or die("need non-empty string \$orig_track=$orig_track");
-					(MusicBrainz::Server::Validation::IsNonNegInteger($orig_artistid) or $orig_artistid eq "*")
-						or die("need non-negative integer or * \$orig_artistid=$orig_artistid");
+			(MusicBrainz::Server::Validation::IsNonNegInteger($orig_id))
+				or die("need non-negative integer \$orig_id=$orig_id");
+			(MusicBrainz::Server::Validation::IsNonNegInteger($orig_seq))
+				or die("need non-negative integer \$orig_seq=$orig_seq");
+			(defined $orig_track and $orig_track ne "")
+				or die("need non-empty string \$orig_track=$orig_track");
+			(MusicBrainz::Server::Validation::IsNonNegInteger($orig_artistid) or $orig_artistid eq "*")
+				or die("need non-negative integer or * \$orig_artistid=$orig_artistid");
 
-					# get new values
-					my $new_id = $ARGS{"trackid$t"};
-					my $new_seq = $ARGS{"trackseq$t"};
-					my $new_track = $ARGS{"track$t"};
-					my $new_length = $ARGS{"tracklength$t"};
-					my $new_delete = $ARGS{"trackdel$t"};
+			# get new values
+			my $new_id = $ARGS{"trackid$t"};
+			my $new_seq = $ARGS{"trackseq$t"};
+			my $new_track = $ARGS{"track$t"};
+			my $new_length = $ARGS{"tracklength$t"};
+			my $new_delete = $ARGS{"trackdel$t"};
 
-					my $new_artistid = $ARGS{getField($t, "artistid")};
-					my $new_artist = &$GetCachedArtist($new_artistid);
+			my $new_artistid = $ARGS{getField($t, "artistid")};
+			my $new_artist = &$GetCachedArtist($new_artistid);
 
-					# check if track was removed
-					if ($new_delete)
-					{
-						$m->comp(".showTrackEdit",
-							mb => $mb,
-							edittype => "RemoveTrackEdit",
-							edittitle => "Remove Track",
+			# check if track was removed
+			if ($new_delete)
+			{
+				$m->comp(".showTrackEdit",
+					mb => $mb,
+					edittype => "RemoveTrackEdit",
+					edittitle => "Remove track",
 
-							new_seq => $new_seq,
-							new_id => $new_id,
-							oldvalue => $orig_track,
-							newvalue => "",
-							modtype => &ModDefs::MOD_REMOVE_TRACK,
-							cnt => ++$trackchanges
-						);
-						next;
-					}
+					new_seq => $new_seq,
+					new_id => $new_id,
+					oldvalue => $orig_track,
+					newvalue => "",
+					modtype => &ModDefs::MOD_REMOVE_TRACK,
+					cnt => ++$trackchanges
+				);
+				next;
+			}
 
-					(MusicBrainz::Server::Validation::IsNonNegInteger($new_id))
-						or die("need non-negative integer \$new_id=$new_id");
-					(MusicBrainz::Server::Validation::IsNonNegInteger($new_seq))
-						or die("need non-negative integer \$new_seq=$new_seq");
-					(defined $new_track and $new_track ne "")
-						or die("need non-empty string \$new_track=$new_track");
-					(MusicBrainz::Server::Validation::IsNonNegInteger($new_artistid) or $new_artistid eq "*")
-						or die("need non-negative integer or * \$new_artistid=$new_artistid");
+			(MusicBrainz::Server::Validation::IsNonNegInteger($new_id))
+				or die("need non-negative integer \$new_id=$new_id");
+			(MusicBrainz::Server::Validation::IsNonNegInteger($new_seq))
+				or die("need non-negative integer \$new_seq=$new_seq");
+			(defined $new_track and $new_track ne "")
+				or die("need non-empty string \$new_track=$new_track");
+			(MusicBrainz::Server::Validation::IsNonNegInteger($new_artistid) or $new_artistid eq "*")
+				or die("need non-negative integer or * \$new_artistid=$new_artistid");
 
-					#if ($orig_id ne $new_id)
-					#{
-					#	for my $i (0 .. $tracks-1)
-					#	{
-					#		$orig_id = $orig{"trackid$i"};
-					#		$orig_seq = $orig{"trackseq$i"};
-					#		if ($new_id eq $orig_id)
-					#		{
-					#			$m->comp(".showTrackEdit",
-					#				mb => $mb,
-					#				edittype => "EditTrackNumberEdit",
-					#				edittitle => "Edit Track Number",
-					#
-					#				new_seq => $new_seq,
-					#				new_id => $new_id,
-					#				oldvalue => $orig_seq,
-					#				newvalue => $new_seq,
-					#				modtype => &ModDefs::MOD_EDIT_TRACKNUM,
-					#				cnt => ++$trackchanges
-					#			);
-					#
-					#			# update original values for diff.
-					#			$orig_track = $orig{"track$i"};
-					#			$orig_length = $orig{"tracklength$i"};
-					#			$orig_artistid = $orig{getField($i, "artistid")};
-					#			last;
-					#		}
-					#	}
-					#}
+			#if ($orig_id ne $new_id)
+			#{
+			#	for my $i (0 .. $tracks-1)
+			#	{
+			#		$orig_id = $orig{"trackid$i"};
+			#		$orig_seq = $orig{"trackseq$i"};
+			#		if ($new_id eq $orig_id)
+			#		{
+			#			$m->comp(".showTrackEdit",
+			#				mb => $mb,
+			#				edittype => "EditTrackNumberEdit",
+			#				edittitle => "Edit Track Number",
+			#
+			#				new_seq => $new_seq,
+			#				new_id => $new_id,
+			#				oldvalue => $orig_seq,
+			#				newvalue => $new_seq,
+			#				modtype => &ModDefs::MOD_EDIT_TRACKNUM,
+			#				cnt => ++$trackchanges
+			#			);
+			#
+			#			# update original values for diff.
+			#			$orig_track = $orig{"track$i"};
+			#			$orig_length = $orig{"tracklength$i"};
+			#			$orig_artistid = $orig{getField($i, "artistid")};
+			#			last;
+			#		}
+			#	}
+			#}
 
-					if ($orig_seq ne $new_seq)
-					{
-						$m->comp(".showTrackEdit",
-							mb => $mb,
-							edittype => "EditTrackNumberEdit",
-							edittitle => "Edit Track Number",
+			if ($orig_seq ne $new_seq)
+			{
+				$m->comp(".showTrackEdit",
+					mb => $mb,
+					edittype => "EditTrackNumberEdit",
+					edittitle => "Edit track number",
 
-							new_seq => $new_seq,
-							new_id => $new_id,
-							oldvalue => $orig_seq,
-							newvalue => $new_seq,
-							modtype => &ModDefs::MOD_EDIT_TRACKNUM,
-							cnt => ++$trackchanges
-						);
-					}
+					new_seq => $new_seq,
+					new_id => $new_id,
+					oldvalue => $orig_seq,
+					newvalue => $new_seq,
+					modtype => &ModDefs::MOD_EDIT_TRACKNUM,
+					cnt => ++$trackchanges
+				);
+			}
 
 
-					# if tracknames differ, it's either an edited or added track
-					if ($orig_track ne $new_track)
-					{
-						$m->comp(".showTrackEdit",
-							mb => $mb,
-							edittype => "AddTrackNameEdit",
-							edittitle => "Add Track",
+			# if tracknames differ, it's either an edited or added track
+			if ($orig_track ne $new_track)
+			{
+				$m->comp(".showTrackEdit",
+					mb => $mb,
+					edittype => "AddTrackNameEdit",
+					edittitle => "Add Track",
 
-							new_seq => $new_seq,
-							new_id => $new_id,
-							oldvalue => "",
-							newvalue => $new_track,
-							modtype => &ModDefs::MOD_ADD_TRACK,
-							cnt => ++$trackchanges
-						) if ($orig_track eq "");
+					new_seq => $new_seq,
+					new_id => $new_id,
+					oldvalue => "",
+					newvalue => $new_track,
+					modtype => &ModDefs::MOD_ADD_TRACK,
+					cnt => ++$trackchanges
+				) if ($orig_track eq "");
 
-						$m->comp(".showTrackEdit",
-							mb => $mb,
-							edittype => "EditTrackNameEdit",
-							edittitle => "Edit Track Name",
+				$m->comp(".showTrackEdit",
+					mb => $mb,
+					edittype => "EditTrackNameEdit",
+					edittitle => "Edit track title",
 
-							title => "Edit Name",
-							new_seq => $new_seq,
-							new_id => $new_id,
-							oldvalue => $orig_track,
-							newvalue => $new_track,
-							modtype => &ModDefs::MOD_EDIT_TRACKNAME,
-							cnt => ++$trackchanges
-						) if ($orig_track ne "");
-					}
+					title => "Edit name",
+					new_seq => $new_seq,
+					new_id => $new_id,
+					oldvalue => $orig_track,
+					newvalue => $new_track,
+					modtype => &ModDefs::MOD_EDIT_TRACKNAME,
+					cnt => ++$trackchanges
+				) if ($orig_track ne "");
+			}
 
-					# if tracknames differ, it's either an edited or added track
-					if ($orig_artistid ne $new_artistid
-						and not $movetracks)
-					{
-						$m->comp(".showTrackEdit",
-							mb => $mb,
-							edittype => "ChangeTrackArtistEdit",
-							edittitle => "Change Track Artist",
+			# if tracknames differ, it's either an edited or added track
+			if ($orig_artistid ne $new_artistid
+				and not $movetracks)
+			{
+				$m->comp(".showTrackEdit",
+					mb => $mb,
+					edittype => "ChangeTrackArtistEdit",
+					edittitle => "Change track artist",
 
-							new_seq => $new_seq,
-							new_id => $new_id,
+					new_seq => $new_seq,
+					new_id => $new_id,
 
-							oldvalue => $orig_artist,
-							newvalue => $new_artist,
-							new_artistname => $ARGS{getField($t, "artistname")},
-							new_resolution => $ARGS{getField($t, "artistresolution")},
-							modtype => &ModDefs::MOD_CHANGE_TRACK_ARTIST,
-							cnt => ++$trackchanges
-						);
-					}
+					oldvalue => $orig_artist,
+					newvalue => $new_artist,
+					new_artistname => $ARGS{getField($t, "artistname")},
+					new_resolution => $ARGS{getField($t, "artistresolution")},
+					modtype => &ModDefs::MOD_CHANGE_TRACK_ARTIST,
+					cnt => ++$trackchanges
+				);
+			}
 
-					# check if edited track time
-					if ($orig_length ne $new_length)
-					{
-						$m->comp(".showTrackEdit",
-							mb => $mb,
-							edittype => "EditTrackTimeEdit",
-							edittitle => "Edit Track Time",
+			# check if edited track time
+			if ($orig_length ne $new_length)
+			{
+				$m->comp(".showTrackEdit",
+					mb => $mb,
+					edittype => "EditTrackTimeEdit",
+					edittitle => "Edit track time",
 
-							new_seq => $new_seq,
-							new_id => $new_id,
-							oldvalue => $orig_length,
-							newvalue => $new_length,
-							modtype => &ModDefs::MOD_EDIT_TRACKTIME,
-							cnt => ++$trackchanges
-						);
-					}
-				}
+					new_seq => $new_seq,
+					new_id => $new_id,
+					oldvalue => $orig_length,
+					newvalue => $new_length,
+					modtype => &ModDefs::MOD_EDIT_TRACKTIME,
+					cnt => ++$trackchanges
+				);
+			}
+		}
 
-				if (not $trackchanges)
-				{
+		if (not $trackchanges)
+		{
+
 </%perl>
 				<tr class="nochanges"><td colspan="3">You have not made any track changes</td></tr>
 
-%				}
-%			}
+%		}
 
 				<tr class="spacer"><td colspan="3">&nbsp;</td></tr>
 			</table>
 
-			<script type="text/javascript" src="/scripts/jsdiff.js"></script>
-			<script type="text/javascript" src="/scripts/editsuite.js"></script>
-
-			<script type="text/javascript" src="/scripts/collapsereleases.js"></script>
-			<input type="hidden" id="collapsereleases::defaultcollapse" value="0" />
-
-			<form  method="post" action="<% $ARGS{"v::action"} %>">
-				<& /comp/args-to-hidden-fields.inc,
-					$m->comp("/comp/form/args-strip-editsuitefields", %ARGS) &>
-
-%	my @buttons;
-%	push @buttons, [$ARGS{"SUBMIT_CANCEL"},""];
-%	push @buttons, [$ARGS{"SUBMIT_STARTOVER"},""] if ($releaseid);
-%	push @buttons, [$ARGS{"SUBMIT_KEEPEDITING"},""];
-%	push @buttons, [$ARGS{"SUBMIT_ENTERMODERATIONS"},""] if ($releasechanges or $trackchanges);
+%	}
 
 
-				<& /comp/notetext,
-					notetext => $ARGS{"notetext"},
-					buttons => \@buttons &>
-			</form>
+	<& /comp/tableend &>
+
+	<& /comp/tablebegin, title => $editmode ? "Enter edits" : "Review release" &>
+
+		<div style="margin-left: 40px">
+
+			<table width="600">
+				<tr>
+					<td>
+						<& "/comp/artisttitle",
+							artist => $artist,
+							link => 0,
+							showmodlinks => 0, &>
 
 						<& "/comp/album",
 							album => $release,
@@ -744,25 +753,25 @@
 							<& /comp/args-to-hidden-fields.inc,
 								$m->comp("/comp/form/args-strip-editsuitefields", %ARGS) &>
 
-		<table width="600">
-			<tr>
-				<td>
-					<& "/comp/artisttitle",
-						artist => $artist,
-						link => 0,
-						showmodlinks => 0, &>
+%	my @buttons;
+%	push @buttons, [$ARGS{"SUBMIT_ENTEREDITS"}, "btnYes", !$releasechanges && !$trackchanges] if ($editmode);
+%	push @buttons, [$ARGS{"SUBMIT_ADDRELEASE"}, "btnYes"] if (!$editmode);
+%	push @buttons, [$ARGS{"SUBMIT_KEEPEDITING"}, ""];
+%	push @buttons, [$ARGS{"SUBMIT_STARTOVER"}, ""] if ($releaseid);
+%	push @buttons, [$ARGS{"SUBMIT_CANCEL"}, "btnCancel"];
 
-					<& "/comp/album",
-						album => $release,
-						artist => $artist,
-						showlinks => 0,
-						showmodlinks => 0,
-						showreleases => 1,
-						tracks => \@tracks,
-						releaseevents => \@relEventsNew, &>
-				</td>
-			</tr>
-		</table>
+							<& /comp/notetext,
+								notetext => $ARGS{"notetext"},
+								buttons => \@buttons &>
+
+							<& /comp/form/focusfield, "btnYes" &>
+
+						</form>
+					</td>
+				</tr>
+			</table>
+
+		</div>
 
 	<& /comp/tableend &>
 

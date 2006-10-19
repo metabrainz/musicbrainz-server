@@ -52,7 +52,7 @@ function GcUtils() {
 
 	/**
 	 * Checks if the variable k is in the given array a
-	 * returns true,if k is in a,and a[k]=k,and k is no function 
+	 * returns true,if k is in a,and a[k]=k,and k is no function
 	 * of the array (e.g. join,pop etc.)
 	 **/
 	this.inArray = function(a,k) {
@@ -86,7 +86,7 @@ function GcUtils() {
 
 
 	/**
-	 * Words which are *not* converted if they are matched as 
+	 * Words which are *not* converted if they are matched as
 	 * a single pre-processor word at the end of the sentence.
 	 * -------------------------------------------------------
 	 * keschte		2005-05-25		first version
@@ -117,8 +117,8 @@ function GcUtils() {
 	 * keschte		2005-01-29		added dub,megamix,maxi
 	 * .various		2005-05-09		karaoke
 	 * keschte		2005-07-10		added disco,unplugged
-	 * keschte		2005-07-10		changed acappella,has its own handling now. 
-	 *								is handled as 1 word, but is expanded to "a cappella" 
+	 * keschte		2005-07-10		changed acappella,has its own handling now.
+	 *								is handled as 1 word, but is expanded to "a cappella"
 	 *								in post-processing
 	 * keschte		2005-07-21		added outtake(s),rehearsal,intro,outro
 	 **/
@@ -131,7 +131,7 @@ function GcUtils() {
 				"disco", "unplugged", "video", "outtake", "outtakes", "rehearsal", "intro",
 				"outro", "long", "short", "main", "remake", "clubmix",
 				"composition", "reinterpreted", "session", "rework", "reworked",
-				"remixed", "reedit", "airplay", "a_cappella", "excerpt"];
+				"remixed", "reedit", "airplay", "a_cappella", "excerpt", "medley"];
 	};
 	this.isLowerCaseBracketWord = function(w) {
 		mb.log.enter(this.GID, "isLowerCaseBracketWord");
@@ -272,7 +272,7 @@ function GcUtils() {
 	this.titleString = function(is, forceCaps) {
 		mb.log.enter(this.GID, "titleString");
 		forceCaps = (forceCaps != null ? forceCaps : gc.f.forceCaps);
-		
+
 		if (mb.utils.isNullOrEmpty(is)) {
 			mb.log.warning("Required parameter is was empty!", is);
 			return mb.log.exit("");
@@ -414,8 +414,8 @@ function GcUtils() {
 		}
 		return mb.log.exit(os);
 	};
-	
-	
+
+
 	/**
 	 * Convert a given number to roman notation.
 	 */
@@ -427,16 +427,16 @@ function GcUtils() {
 		} else {
 			while (i>999) { s.push("M"); i -= 1000; }
 			if (i>899) { s.push("CM"); i -= 900; }
-			if (i>499) { s.push("D"); i -= 500; }		
-			if (i>399) { s.push("CD"); i -= 400; }		
+			if (i>499) { s.push("D"); i -= 500; }
+			if (i>399) { s.push("CD"); i -= 400; }
 			while (i>99) { s.push("C"); i -= 100; }
-			if (i>89) { s.push("XC"); i -= 90; }		
-			if (i>49) { s.push("L"); i -= 50; }		
-			if (i>39) { s.push("XL"); i -= 40; }		
+			if (i>89) { s.push("XC"); i -= 90; }
+			if (i>49) { s.push("L"); i -= 50; }
+			if (i>39) { s.push("XL"); i -= 40; }
 			while (i>9) { s.push("X"); i -= 10; }
-			if (i>8) { s.push("IX"); i -= 9; }		
-			if (i>4) { s.push("V"); i -= 5; }		
-			if (i>3) { s.push("IV"); i -= 4; }		
+			if (i>8) { s.push("IX"); i -= 9; }
+			if (i>4) { s.push("V"); i -= 5; }
+			if (i>3) { s.push("IV"); i -= 4; }
 			while (i>0) { s.push("I"); i -= 1; }
 		}
 		return mb.log.exit(s.join(""));

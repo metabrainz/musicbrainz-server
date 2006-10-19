@@ -27,8 +27,8 @@
 	#
 </%perl>
 
-<& /comp/sidebar-notitle, pagetitle => "AutoEditor Elections" &>
-	<& /comp/tablebegin, title => "AutoEditor Elections" &>
+<& /comp/sidebar-notitle, pagetitle => "Autoeditor elections" &>
+	<& /comp/tablebegin, title => "Autoeditor elections" &>
 
 <%perl>
 
@@ -58,10 +58,11 @@
 	<!-- force scrollbar after ~20 entries -->
 		<table class="listing">
 			<tr class="header">
-				<td class="left">Candidate</td>
-				<td></td>
-				<td class="left">Status</td>
-				<td class="left">Proposed</td>
+				<td class="left">Candidate:</td>
+				<td>&nbsp;</td>
+				<td class="left">Status:</td>
+				<td class="left">Start date:</td>
+				<td class="left">End date:</td>
 			</tr>
 
 %		my $i = 0;
@@ -71,11 +72,12 @@
 
 
 		<tr class="<% $i++ % 2 == 0 ? "even" : "odd" %>">
-				<td class="left" style="padding-right: 40px"><% &$drawuser($election->GetCandidate) %></td>
+				<td class="left padright"><% &$drawuser($election->GetCandidate) %></td>
 				<td class="<% $status %>"><span>&nbsp;</span></td>
-				<td class="left" style="padding-right: 40px"><% $status %></td>
-				<td class="left" style="padding-right: 40px"><% $m->comp("/comp/datetime", $election->GetProposeTime) %></td>
-				<td class="left" style="padding-right: 40px">[ <a href="show.html?id=<% $election->GetId %>">View details</a> ]</td>
+				<td class="left padright"><% $status %></td>
+				<td class="left padright"><% $m->comp("/comp/datetime", $election->GetProposeTime) %></td>
+				<td class="left padright"><% $m->comp("/comp/datetime", $election->GetCloseTime) %></td>
+				<td class="left padright">[ <a href="show.html?id=<% $election->GetId %>">View details</a> ]</td>
 			</tr>
 
 % 		}
@@ -95,12 +97,12 @@
 
 	<& /comp/tableend &>
 
-	<& /comp/tablebegin, title => "Propose a Candidate" &>
+	<& /comp/tablebegin, title => "Propose a candidate" &>
 
 		<form method="post" action="propose.html">
 			<table class="formstyle">
 				<tr>
-					<td class="label">Candidate Name:</td>
+					<td class="label">Candidate name:</td>
 					<td>
 						<input type="text" name="username" />
 						<input type="submit" value="Propose" />

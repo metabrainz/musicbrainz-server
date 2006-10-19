@@ -47,7 +47,7 @@
 	my $mb = $m->comp("/comp/dblogin");
 	my $release = $m->comp("/comp/loadrelease", $mb, $releaseid);
 
-	my $title = ("Relationships for Release: " . $release->GetName());
+	my $title = ("Relationships for release: " . $release->GetName());
 	$m->comp("/comp/sidebar", pagetitle => $title);
 
 	$m->comp("/comp/ar/AddRelationship", id => $release->GetId, type => "album", name => $release->GetName)

@@ -457,7 +457,7 @@ sub _PrepareMail
 			or next;
 		$self->{$key."_user"} = $them;
 		$self->{$key."_name"} = $them->GetName;
-		$self->{$key."_link"} = sprintf "http://%s/user/view.html?uid=%d",
+		$self->{$key."_link"} = sprintf "http://%s/show/user/?userid=%d",
 			&DBDefs::WEB_SERVER, $them->GetId;
 	}
 

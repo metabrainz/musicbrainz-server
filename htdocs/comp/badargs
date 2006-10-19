@@ -2,7 +2,7 @@
 
 	my ($fHeader, $fFooter) = @_;
 
-	$m->comp("/comp/sidebar-notitle", pagetitle => "Bad Arguments")
+	$m->comp("/comp/sidebar-notitle", pagetitle => "Bad arguments")
 		if $fHeader;
 
 	$m->comp("/comp/tablebegin", title => "The arguments supplied to this page are invalid");

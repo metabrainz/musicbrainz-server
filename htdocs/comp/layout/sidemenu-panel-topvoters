@@ -61,7 +61,7 @@
 
 </%perl>
 
-			<tr>
+			<tr class="voter">
 				<td class="name"
 					<% ($name eq $nametrunc) ? "" : 'title="'.encode_entities($name).'"' |n %>
 					><a href="/show/user/?userid=<% $id %>"><% $nametrunc %></a></td>

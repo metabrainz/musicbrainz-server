@@ -29,12 +29,15 @@
 </%perl>%#
 
 <%method ShowPreviousValue>
+
+</%method>
+
+<%method ShowNewValue>
 <%perl>
  	my $this = shift;
-
- 	my $s = $this->GetStatus;
- 	my $i = 0;
+ 	my $into = $this->{'new_into'};
 	my $releases = $this->{'new_albums'};
+	my $numreleases = @$releases;
 
 </%perl>
 
@@ -55,14 +58,8 @@
 			$artist->SetId($release->GetArtist);
 			$artistexists = $artist->LoadFromId();
 		}
-		$m->out(qq!<tr><td>!);
-		$m->comp("/comp/linkrelease", id => $id, name => $name, title => $title, strong => $strong);
-		$m->out(qq!</td></tr>!);
-	}
-	$m->out(qq!</table>!);
 
 </%perl>
-</%method>
 
 		<tr>
 			<td class="lbl"><% $first ? "Merge:" : "" %></td>
@@ -140,10 +137,6 @@
 			</td>
 		</tr>
 	</table>
-	<div class="attrlist">
-		Merge attributes: <% $this->{'merge_attributes'} ? "yes" : "no" %><br />
-		Merge language/script: <% $this->{'merge_langscript'} ? "yes" : "no" %>
-	</div>
 
 </%method>
 

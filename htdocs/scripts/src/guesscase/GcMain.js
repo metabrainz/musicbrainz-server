@@ -36,7 +36,7 @@ function GuessCase() {
 	// register module
 	// ---------------------------------------------------------------------------
 	this.getModID = function() { return "es.gc"; };
-	this.getModName = function() { return "Guess Case"; };
+	this.getModName = function() { return "Guess case"; };
 	if (es) {
 		es.gc = this;
 	}
@@ -49,7 +49,7 @@ function GuessCase() {
 	this.i = new GcInput();
 	this.o = new GcOutput();
 	this.artistHandler = null;
-	this.albumHandler = null;
+	this.releaseHandler = null;
 	this.trackHandler = null;
 	this.re = {
 		// define commonly used RE's
@@ -60,7 +60,7 @@ function GuessCase() {
 	// list of possible modes, mode is initialised to English.
 	this.modes = new GcModes();
 	this.mode = this.modes.getDefaultMode(); // setup default mode.
-	this.artistmode = this.modes.getArtistMode(); // setup artist mode.	
+	this.artistmode = this.modes.getArtistMode(); // setup artist mode.
 
 	// cookie keys
 	this.COOKIE_MODE = this.getModID()+".mode";
@@ -73,9 +73,9 @@ function GuessCase() {
 	this.CONFIG_LIST = [
 
 		new EsModuleConfig(this.CFG_AUTOFIX, false,
-			 			 "Apply Guess Case after page loads",
-			 			 "The Guess Case function is automatically applied for all the fields "
-			 			 + "in the form. You can press Undo All if you want to reverse the changes.")
+			 			 "Apply guess case after page loads",
+			 			 "The guess case function is automatically applied for all the fields "
+			 			 + "in the form. You can use Undo All if you want to reverse the changes.")
 
 		, new EsModuleConfig(this.CFG_UC_ROMANNUMERALS, true,
 			 			 "Uppercase roman numerals",
@@ -218,18 +218,18 @@ function GuessCase() {
 	};
 
 	/**
-	 * Guess the capitalization of an album name
+	 * Guess the capitalization of n release name
 	 * @param	 is		the un-processed input string
 	 * @returns			the processed string
 	 **/
-	this.guessAlbum = function(is, mode) {
+	this.guessRelease = function(is, mode) {
 		var os, handler;
 		gc.init();
-		mb.log.enter(this.GID, "guessAlbum");
-		if (!gc.albumHandler) {
-			gc.albumHandler = new GcAlbumHandler();
+		mb.log.enter(this.GID, "guessRelease");
+		if (!gc.releaseHandler) {
+			gc.releaseHandler = new GcReleaseHandler();
 		}
-		handler = gc.albumHandler;
+		handler = gc.releaseHandler;
 		mb.log.info('Input: $', is);
 		this.useSelectedMode(mode);
 

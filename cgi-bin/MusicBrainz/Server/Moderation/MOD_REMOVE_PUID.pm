@@ -73,6 +73,7 @@ sub PostLoad
 		or die;
 		
 	my $new = $self->{'new_unpacked'};
+	($self->{"albumid"}, $self->{"checkexists-album"}) = (undef, 1);
 	($self->{"trackid"}, $self->{"checkexists-track"}) = ($new->{'TrackId'}, 1);	
 }
 

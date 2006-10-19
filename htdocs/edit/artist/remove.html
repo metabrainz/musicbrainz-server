@@ -141,12 +141,11 @@
 					<& /comp/notetext,
 						notetext => $notetext, &>
 
-					<input type="hidden" name="artistid" value="<% $artistid %>" />
-					<input type="hidden" name="confirm" value="1" /></td>
+					<& /comp/form/hiddenfield, "artistid", $artistid &>
+					<& /comp/form/hiddenfield, "confirm", "1" &>
+					<& /comp/form/focusfield, "btnCancel" &></td>
 			</tr>
 		</table>
-
-		<& /comp/movefocus, id => "btnCancel" &>
 	</form>
 
 	<& /comp/tableend &>

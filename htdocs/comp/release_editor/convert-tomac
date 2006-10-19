@@ -72,7 +72,12 @@
 		}
 
 		$ARGS{"track$i"} = $splittrackname;
+
+		# set track artist name, and clear id, set
+		# field editable
+		$ARGS{sprintf "tr%d_artistedit", $i} = 1;
 		$ARGS{sprintf "tr%d_artistname", $i} = $splitartistname;
+		delete $ARGS{sprintf "tr%d_artistid", $i};
 	}
 
 	# force form to display track artist

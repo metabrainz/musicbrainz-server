@@ -105,15 +105,15 @@
 
 </%perl>
 
-<& /comp/sidebar-notitle, pagetitle => "AutoEditor Election Details" &>
+<& /comp/sidebar-notitle, pagetitle => "Autoeditor election details" &>
 
 	<form action="index.html" method="get">
 		<div style="margin-bottom: 15px">
-			<input type="submit" value="Back to List of Elections" />
+			<input type="submit" value="&laquo; Back to elections" />
 		</div>
 	</form>
 
-	<& /comp/tablebegin, title => "AutoEditor Election Details" &>
+	<& /comp/tablebegin, title => "Autoeditor election details" &>
 
 		<table class="formstyle">
 			<tr>
@@ -137,15 +137,15 @@
 				</td class="label">
 			</tr>
 			<tr>
-				<td class="label">Proposal Submitted:</td>
+				<td class="label">Proposal submitted:</td>
 				<td><% $m->comp("/comp/datetime", $election->GetProposeTime) %></td>
 			</tr>
 			<tr>
-				<td class="label">1st Seconder:</td>
+				<td class="label">1st seconder:</td>
 				<td><% &$do_seconder('GetSeconder1', '1') %></td>
 			</tr>
 			<tr>
-				<td class="label">2nd Seconder:</td>
+				<td class="label">2nd seconder:</td>
 				<td><% &$do_seconder('GetSeconder2', '2') %></td>
 			</tr>
 
@@ -153,19 +153,19 @@
 %	{
 
 			<tr>
-				<td class="label">Votes For/Against:</td>
-				<td>The tally of votes cast will only be shown when the election is complete</td>
+				<td class="label">Votes for/against:</td>
+				<td>The tally of votes cast will only be shown when the election is complete.</td>
 
 % 	}
 %	elsif ($show_vote_count eq "YES")
 %	{
 
 			<tr>
-				<td class="label">Votes For:</td>
+				<td class="label">Votes for:</td>
 				<td><% $election->GetYesVotes %></td>
 			</tr>
 			<tr>
-				<td class="label">Votes Against:</td>
+				<td class="label">Votes against:</td>
 				<td><% $election->GetNoVotes %></td>
 			</tr>
 
@@ -192,13 +192,12 @@
 	<& /comp/tableend &>
 
 
-	<& /comp/tablebegin, title => "Voting Information" &>
+	<& /comp/tablebegin, title => "Voting information" &>
 
 % 	if ($election->GetStatus =~ /[12]/)
 %	{
 
-		Voting is not yet open.&nbsp;
-		If you would like to support this candidate, you can second their
+		Voting is not yet open. If you would like to support this candidate, you can second their
 		nomination. If you do not support this candidate, please note that you cannot cast a
 		"No" vote (or abstain) until two seconders have been found.
 
@@ -214,14 +213,14 @@
 	<p>You may vote for this candidate.</p>
 
 	<form method="post" action="vote.html">
-		<p>
-			<input type="hidden" name="id" value="<% $id %>">
-			<input type="submit" name="vote" value="Vote YES">
+		<div>
+			<input type="hidden" name="id" value="<% $id %>" />
+			<input type="submit" name="vote" value="Vote YES" />
 			&nbsp; &nbsp; &nbsp; &nbsp;
-			<input type="submit" name="vote" value="Vote NO">
+			<input type="submit" name="vote" value="Vote NO" />
 			&nbsp; &nbsp; &nbsp; &nbsp;
-			<input type="submit" name="vote" value="Abstain">
-		</p>
+			<input type="submit" name="vote" value="Abstain" />
+		</div>
 	</form>
 
 % 			}
@@ -241,7 +240,7 @@
 %		else
 %		{
 
-		You cannot vote for this candidate, because you are not an AutoEditor.
+		You cannot vote for this candidate, because you are not an autoeditor.
 
 % 		}
 
@@ -260,7 +259,7 @@
 %	{
 % 		my $votes = $election->GetVotes;
 
-	<& /comp/tablebegin, title => "Votes Cast" &>
+	<& /comp/tablebegin, title => "Votes cast" &>
 
 % 		if (@$votes)
 %		{

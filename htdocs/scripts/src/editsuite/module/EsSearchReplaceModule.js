@@ -82,7 +82,7 @@ function EsSearchReplace() {
 		es.ui.registerButtons(
 			new EsButton(this.BTN_SEARCH, "Search", "", this.getModID()+".onSearchClicked()"),
 			new EsButton(this.BTN_REPLACE, "Replace", "", this.getModID()+".onReplaceClicked()"),
-			new EsButton(this.BTN_LOADPRESET, "Show/Hide Presets", "", this.getModID()+".onShowPresetsClicked()"),
+			new EsButton(this.BTN_LOADPRESET, "Show/hide presets", "", this.getModID()+".onShowPresetsClicked()"),
 			new EsButton(this.BTN_SWAP, "Swap fields", "", this.getModID()+".onSwapFieldsClicked()"),
 			new EsButton(this.BTN_RESET, "Reset", "", this.getModID()+".onResetFieldsClicked()"));
 	};
@@ -285,7 +285,7 @@ function EsSearchReplace() {
 	 **/
 	this.onSearchClicked = function() {
 		mb.log.enter(this.GID, "onSearchClicked");
-		this.handleSearch("search");		
+		this.handleSearch("search");
 		mb.log.exit();
 	};
 
@@ -295,9 +295,9 @@ function EsSearchReplace() {
 	this.onReplaceClicked = function() {
 		mb.log.enter(this.GID, "onReplaceClicked");
 		this.handleSearch("replace");
-		mb.log.exit();		
+		mb.log.exit();
 	}
-	
+
 	/**
 	 * Checks if the user wants to work on all fields
 	 * or the currently focussed. Respects the configuration flags
@@ -336,7 +336,7 @@ function EsSearchReplace() {
 	};
 
 	/**
-	 * Creates a regular expression from the contents of the srSearch field, 
+	 * Creates a regular expression from the contents of the srSearch field,
 	 * and, depending of the given "op", search/replace the occurences
 	 * in the current field.
 	 **/
@@ -344,14 +344,14 @@ function EsSearchReplace() {
 		mb.log.enter(this.GID, "handleField");
 		if (f) {
 
-			// remove old search result.		
-			var obj, resultElemID = f.name+"::result";					
+			// remove old search result.
+			var obj, resultElemID = f.name+"::result";
 			try {
 				if ((obj = mb.ui.get(resultElemID)) != null) {
 					obj.parentNode.removeChild(obj);
 				}
 			} catch (e) { /* steam ahead ;) */ }
-				
+
 			var currentValue = f.value;
 			var newValue = currentValue;
 			var newList = [];
@@ -372,57 +372,57 @@ function EsSearchReplace() {
 				var needle = (useCase ? searchValue : searchValue.toLowerCase());
 				var before = "", after = "", inbetween = "";
 				while ((pos = (useCase ? newValue : newValue.toLowerCase()).indexOf(needle, lastpos)) != -1) {
-					
+
 					// replace searchValue with replaceValue.
 					before = newValue.substring(0, pos);
 					after = newValue.substring(pos + searchValue.length, newValue.length);
 					inbetween = newValue.substring(lastpos, pos);
-					
+
 					// replace substring in newValue.
 					var s = [];
 					s.push(before);
 					s.push(replaceValue);
 					s.push(after);
 					newValue = s.join("");
-						
+
 					// save position that matched.
 					replaced.push(pos);
 					newList.push(inbetween);
 					newList.push(searchValue);
-					
+
 					// prevent possible case like:
 					// S: "Test ."
 					// R: ".." will append replace a stop character
 					// at position 7, but since at 8 there will be another
-					// one this will result in an endless loop. 
-					// Skip to the end of the replaced string to search for further 
+					// one this will result in an endless loop.
+					// Skip to the end of the replaced string to search for further
 					// occurences to replace.
 					lastpos = pos + replaceValue.length;
 				}
-			
+
 				if (replaced.length < 1) {
 					mb.log.debug('Search value $ was not found', searchValue);
 				} else {
-					mb.log.debug('Search value $ replaced with $ at index [$]', 
+					mb.log.debug('Search value $ replaced with $ at index [$]',
 						searchValue, replaceValue, replaced.join(","));
-					newList.push(after);						
+					newList.push(after);
 				}
 			}
 			if (newValue != currentValue) {
 				mb.log.debug('New value $', newValue);
 				if (op == "replace") {
 					es.ur.addUndo(es.ur.createItem(f, 'searchreplace', currentValue, newValue));
-					f.value = newValue;	
+					f.value = newValue;
 				} else {
 					var parentNode = f.parentNode;
 					var result = document.createElement("div");
 					result.id = resultElemID;
 					result.style.border = "1px dotted #999";
-					result.style.borderTop = "none";					
-					result.style.padding = "2px";					
-					result.style.marginBottom = "5px";										
-					result.style.marginRight = "18px";										
-					result.style.fontSize = "10px";										
+					result.style.borderTop = "none";
+					result.style.padding = "2px";
+					result.style.marginBottom = "5px";
+					result.style.marginRight = "18px";
+					result.style.fontSize = "10px";
 					var s = [];
 					for (var i=0; i<newList.length; i++) {
 						var w = newList[i];
@@ -430,7 +430,7 @@ function EsSearchReplace() {
 					}
 					result.innerHTML = s.join("");
 					parentNode.appendChild(result);
-					
+
 					// make sure the TR aligns to top.
 					parentNode.parentNode.style.verticalAlign = "top";
 				}

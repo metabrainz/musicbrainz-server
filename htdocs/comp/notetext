@@ -33,45 +33,60 @@
 	$notetext => ""
 	@buttons => ()
 	$showprivscheckbox => 1
+	$showeditnotetext => 1
 
 </%args>
 <%perl>
 
-	@buttons = ( ["Enter Edit &raquo;", "btnYes"], ["Cancel", "btnCancel"] )
+	@buttons = ( ["Enter edit &raquo;", "btnYes"], ["Cancel", "btnCancel"] )
 		if (not @buttons);
 
 </%perl>
 
-	Enter edit note
+
+	<table class="editnote">
+		<tr>
+
 
 % 	if ($required)
 %	{
-		(<strong>required</strong>):
+			<td>Enter edit note (<strong>required</strong>):</td>
 % 	}
 %	else
 %	{
-		(optional):
+			<td>Enter edit note (optional):</td>
 % 	}
 
-	<br />
-	<textarea name="notetext" id="notetext" class="textarea" rows="3" cols="52"><%
-		$notetext %></textarea>
-
-	<div style="margin: 5px 0px">
+		</tr>
+		<tr>
+			<td class="textarea">
+				<textarea name="notetext" id="notetext" class="textarea"
+					rows="3" cols="52"><% $notetext %></textarea>
+			</td>
+		</tr>
+		<tr>
+			<td class="submitbuttons">
 
 %	for my $button (@buttons)
 %	{
-%		my ($value, $id) = @$button;
+%		my ($value, $id, $disabled) = @$button;
+%		$disabled = qq!disabled="disabled"! if ($disabled);
 %		$id = qq!id="$id"! if (defined $id);
 
-		<input class="button" type="submit" name="submitvalue" value="<% $value |n %>" <% $id |n%> />
+				<input class="button" type="submit" name="submitvalue" value="<% $value |n %>" <% $id |n%> <% $disabled |n%> />
 
 %	}
 
-	</div>
+			</td>
+		</tr>
+	</table>
+
+
+% 	if ($showeditnotetext)
+%	{
 
 	<div style="border: 1px dotted #000; padding: 5px; margin: 5px 0px; margin-left: 0px; margin-top: 10px; font-size: 11px; width: 500px">
-		<strong>About Edit Notes:</strong>
+		<strong>About edit notes:</strong>
 		Please note that it is highly recommended to enter a
 		<& /comp/linkdoc, "EditNote", "edit note", 0 &>. If you do
 		so, your edit is more likely to be <& /comp/linkdoc, "EditingFAQ",
@@ -81,14 +96,14 @@
 		one week period elapses in which edits usually are kept open.
 	</div>
 
-%	$session{"orig_privs"} = $session{"privs"}
-%		if (not exists $session{"orig_privs"});
+%		$session{"orig_privs"} = $session{"privs"}
+%			if (not exists $session{"orig_privs"});
 %
 % 		if ($showprivscheckbox && UserStuff->IsAutoEditor($session{"orig_privs"}))
 %		{
 
 	<div style="border: 1px dotted #000; padding: 5px; margin: 5px 0px; margin-left: 0px; font-size: 11px; width: 500px">
-		<strong>Autoeditor privileges:</strong> If you untick this checkbox, this edit
+		<strong>AutoEditor privileges:</strong> If you untick this checkbox, this edit
 		will be entered as if you would not have <& /comp/linkdoc, "AutoEditor", "AutoEditor", 0 &>
 		status. You can enable them any time again.
 		<br/>
@@ -98,9 +113,10 @@
 		<input type="hidden" name="autoeditorpriv_enabled_old" value="<% $ischecked ? "on" : "" %>" />
 		<input type="checkbox" name="autoeditorpriv_enabled_new" value="on"
 %			$m->out($ischecked ? ' checked="checked" ' : "");
-			/> Enable autoeditor privileges
+			/> Enable AutoEditor privileges
 	</div>
 
+% 		}
 % 	}
 
 %# vi: set ts=4 sw=4 ft=mason :

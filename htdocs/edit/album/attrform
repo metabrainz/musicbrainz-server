@@ -70,14 +70,14 @@
 	<table class="formstyle">
 		<tr class="top">
 			<td class="label">
-				<label>Selected Releases:</label></td>
+				<label>Selected releases:</label></td>
 			<td>
 				<table class="releaselist">
 					<tr class="header">
-						<td>Release Title</td>
-						<td>Artist</td>
-						<td>Type</td>
-						<td>Status</td>
+						<td>Release title:</td>
+						<td>Artist:</td>
+						<td>Type:</td>
+						<td>Status:</td>
 					</tr>
 
 				<%perl>
@@ -157,7 +157,7 @@
 			<td class="notetext">
 
 %	my @buttons = ();
-%	push @buttons, ["Enter Edit &raquo;"];
+%	push @buttons, ["Enter edit &raquo;"];
 %	push @buttons, ["Cancel"] if ($adding == 0);
 
 				<& /comp/notetext,

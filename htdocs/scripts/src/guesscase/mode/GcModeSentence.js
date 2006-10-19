@@ -32,10 +32,10 @@ function GcModeSentence(modes) {
 	this.CN = "GcModeSentence";
 	this.GID = "gc.mode_xx";
 	this.setConfig(
-		modes, 'Sentence Mode', modes.XX,
+		modes, 'Sentence', modes.XX,
 		  'First word titled, lowercase for <i>most</i> of the other '
 		+ 'words. Read the [url]description[/url] for more details.',
-		'http://wiki.musicbrainz.org/GuessCaseMode/SentenceMode');
+		  '/doc/GuessCaseMode/SentenceMode');
 
 	// ----------------------------------------------------------------------------
 	// member variables

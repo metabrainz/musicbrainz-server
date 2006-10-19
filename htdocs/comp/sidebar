@@ -62,7 +62,7 @@
 			}
 			else
 			{
-				$m->comp("/comp/layout/sidebar-section", title => $session{user}, link => "/user/view.html");
+				$m->comp("/comp/layout/sidebar-section", title => $session{user}, link => "/show/user/");
 				$m->comp("/comp/layout/sidemenu-panel-userloggedin");
 			}
 		}

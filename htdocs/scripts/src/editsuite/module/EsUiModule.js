@@ -15,7 +15,7 @@ function EsUiModule() {
 	// register module
 	// ----------------------------------------------------------------------------
 	this.getModID = function() { return "es.ui"; };
-	this.getModName = function() { return "User Interface"; };
+	this.getModName = function() { return "User interface"; };
 
 	// ----------------------------------------------------------------------------
 	// member variables
@@ -33,9 +33,9 @@ function EsUiModule() {
 	this.BTN_GUESSBOTH = "BTN_GUESSBOTH";
 	this.BTN_CANCEL = "BTN_CANCEL";
 
-	this.BTN_TEXT_NONALBUMTRACKS = 'Guess all track names according to guess case settings';
-	this.BTN_TEXT_ALBUMANDTRACKS = 'Guess release name and track names according to Guess Case settings';
-	this.BTN_TEXT_ALBUMARTISTANDTRACKS = 'Guess release, artist and track names according to Guess Case settings';
+	this.BTN_TEXT_NONALBUMTRACKS = 'Guess all track names using the guess case settings';
+	this.BTN_TEXT_ALBUMANDTRACKS = 'Guess release name and track names using the guess case settings';
+	this.BTN_TEXT_ALBUMARTISTANDTRACKS = 'Guess release, artist and track names using the guess case settings';
 
 	// guess case mode setting
 	this.GC_MODE = null;
@@ -54,21 +54,23 @@ function EsUiModule() {
 	// regular expressions for the fields
 	this.re = {
 		// names of the different field types.
-		ARTISTFIELD : /^(search|artistname|newartistname|newartistalias)/i,
-		SORTNAMEFIELD : /^(artistsortname|newartistsortname)/i,
-		ALBUMFIELD : /^(newalbumname|albumname|newreleasename|releasename|album|release|name)/i,
-		TRACKFIELD : /^(newtrackname|trackname|track)/i,
-		TRACKLENGTHFIELD : /tracklength\d+/i,
+		ARTISTFIELD_NAME : /(search|artistname|newartistname|newartistalias)/i
+	  ,	SORTNAMEFIELD_NAME : /(artistsortname|newartistsortname)/i
+	  ,	RELEASEFIELD_NAME : /(newreleasename|releasename|newreleasename|releasename|release|release|name)/i
+	  ,	TRACKFIELD_NAME : /(newtrackname|trackname|track)/i
+	  ,	TRACKLENGTHFIELD_NAME : /tracklength\d+/i
 
 		// textfield css classes
-		TEXTFIELD : /^textfield(\sfocus|\smissing)*$/i,
-		RESIZEABLEFIELD : /^textfield(\sfocus|\shidden|\soldvalue|\sheader)*$/i,
-		NUMBERFIELD : /^numberfield(\sfocus|\shidden|oldvalue|header)*$/i
+	  ,	TEXTFIELD_CSS : /textfield(\sfocus|\smissing)*/i
+	  ,	RESIZEABLEFIELD_CSS : /textfield(\sfocus|\shidden|\soldvalue|\sheader)*/i
+	  ,	NUMBERFIELD_CSS : /numberfield(\sfocus|\shidden|oldvalue|header)*/i
+	  ,	TRACKLENGTH_CSS : /tracklength(\sfocus|\shidden|oldvalue|header)*/i
+	  ,	DATEFIELD_CSS : /(year|month|day)field(\sfocus)*/i
 	};
 
 	// default size of the fields is 350px
 	this.TEXTFIELD_SIZE = 350;
-	this.SIZE_PX_FACTOR = 5.7;
+	this.SIZE_PX_FACTOR = 6.7;
 
 	// ----------------------------------------------------------------------------
 	// member functions
@@ -76,7 +78,7 @@ function EsUiModule() {
 
 	this.setupModuleDelegate =  function() {
 		mb.log.enter(this.GID, "setupModuleDelegate");
-		var def = "Guess Case";
+		var def = "Guess case";
 		this.registerButtons(
 			new EsButton(
 				this.BTN_ALIAS, def,
@@ -100,17 +102,17 @@ function EsUiModule() {
 
 			new EsButton(
 				this.BTN_ALBUM, def,
-				"Guess release name according to Guess Case settings",
-				"es.guessAlbumField($);"),
+				"Guess release name using the guess case settings",
+				"es.guessReleaseField($);"),
 
 			new EsButton(
 				this.BTN_TRACK, def,
-				"Guess track name according to Guess Case settings",
+				"Guess track name using the guess case settings",
 				"es.guessTrackField($)"),
 
 			new EsButton(
-				this.BTN_ALL, "Guess All",
-				"Guess all fields according to Guess Case settings",
+				this.BTN_ALL, "Guess all",
+				"Guess all fields using the guess case settings",
 				"es.guessAllFields()"),
 
 			new EsButton(
@@ -119,7 +121,7 @@ function EsUiModule() {
 				"es.swapFields($,$,$)"),
 
 			new EsButton(
-				this.BTN_USECURRENT, "Use Current",
+				this.BTN_USECURRENT, "Use current",
 				"Reset to current artist name and track name",
 				"es.changeartist.useCurrent()"),
 
@@ -129,7 +131,7 @@ function EsUiModule() {
 				"es.changeartist.useSplit()"),
 
 			new EsButton(
-				this.BTN_GUESSBOTH, "Guess Both",
+				this.BTN_GUESSBOTH, "Guess both",
 				"Guess both artist name and track name",
 				"es.changeartist.guessBoth($, $)"),
 
@@ -504,11 +506,20 @@ function EsUiModule() {
 		mb.log.scopeStart("Handling onblur event on field: "+field.name);
 		mb.log.enter(this.GID, "handleBlur");
 		var newvalue = field.value;
+		var name = field.name || "";
 		var oldvalue = this.getFocusValue();
 
-		// check if we are editing a tracktime field. if no changes were made,
-		// reset to "?:??"
-		if (oldvalue == "?:??" && newvalue == "") field.value = oldvalue;
+		// check if we are editing a tracktime field. if no changes were made, reset to "?:??"
+		// automatically insert a colon at the third to last position.
+		if (name.match(this.re.TRACKLENGTHFIELD_NAME)) {
+			if (newvalue.indexOf(":") == -1) {
+				newvalue = newvalue.replace(/(\d*)(\d\d)/i, "$1:$2");
+				if (newvalue.length == 3) {
+					newvalue = "0" + newvalue
+				}
+				field.value = newvalue == "" ? "?:??" : newvalue;
+			}
+		}
 
 		// handle normal blur event (if value changed, add to undo stack)
 		if (this.isFocusField(field) && oldvalue != field.value) {
@@ -531,7 +542,7 @@ function EsUiModule() {
 		mb.log.enter(this.GID, "getResizableFields");
 		var fields = [];
 		if (this.getForm()) {
-			fields = this.getFieldsWalker(this.re.RESIZEABLEFIELD, null);
+			fields = this.getFieldsWalker(this.re.RESIZEABLEFIELD_CSS, null);
 		}
 		mb.log.exit();
 		return fields;
@@ -544,7 +555,7 @@ function EsUiModule() {
 		mb.log.enter(this.GID, "getEditTextFields");
 		var fields = [];
 		if (this.getForm()) {
-			fields = this.getFieldsWalker(this.re.TEXTFIELD, null);
+			fields = this.getFieldsWalker(this.re.TEXTFIELD_CSS, null);
 		}
 		mb.log.exit();
 		return fields;
@@ -557,20 +568,20 @@ function EsUiModule() {
 		mb.log.enter(this.GID, "getArtistFields");
 		var fields = [];
 		if (this.getForm()) {
-			fields = this.getFieldsWalker(this.re.TEXTFIELD, this.re.ARTISTFIELD);
+			fields = this.getFieldsWalker(this.re.TEXTFIELD_CSS, this.re.ARTISTFIELD_NAME);
 		}
 		mb.log.exit();
 		return fields;
 	};
 
 	/**
-	 * returns the album name field (class="textfield")
+	 * returns the release name field (class="textfield")
 	 **/
-	this.getAlbumNameField = function() {
-		mb.log.enter(this.GID, "getAlbumNameField");
+	this.getReleaseNameField = function() {
+		mb.log.enter(this.GID, "getReleaseNameField");
 		var fields = [];
 		if (this.getForm()) {
-			fields = this.getFieldsWalker(this.re.TEXTFIELD, this.re.ALBUMFIELD);
+			fields = this.getFieldsWalker(this.re.TEXTFIELD_CSS, this.re.RELEASEFIELD_NAME);
 		}
 		return (fields[0] || null);
 	};
@@ -582,7 +593,7 @@ function EsUiModule() {
 		mb.log.enter(this.GID, "getTrackNameFields");
 		var fields = [];
 		if (this.getForm()) {
-			fields = this.getFieldsWalker(this.re.TEXTFIELD, this.re.TRACKFIELD);
+			fields = this.getFieldsWalker(this.re.TEXTFIELD_CSS, this.re.TRACKFIELD_NAME);
 		}
 		mb.log.exit();
 		return fields;
@@ -595,7 +606,7 @@ function EsUiModule() {
 		mb.log.enter(this.GID, "getTrackTimeFields");
 		var fields = [];
 		if (this.getForm()) {
-			fields = this.getFieldsWalker(this.re.NUMBERFIELD, this.re.TRACKLENGTHFIELD);
+			fields = this.getFieldsWalker(this.re.TRACKLENGTH_CSS, this.re.TRACKLENGTHFIELD_NAME);
 		}
 		mb.log.exit();
 		return fields;

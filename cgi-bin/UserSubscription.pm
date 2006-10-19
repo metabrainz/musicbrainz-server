@@ -199,7 +199,7 @@ sub ArtistBeingMerged
 }
 
 ################################################################################
-# The Subscription Bot.  This is what checks for moderations on your
+# The Subscription Bot.  This is what checks for edits on your
 # subscribed artists, then e-mails you to let you know.
 ################################################################################
 
@@ -221,7 +221,7 @@ sub ProcessAllSubscriptions
 		"SELECT DISTINCT moderator FROM moderator_subscribe_artist",
 	);
 	
-	printf "Processing subscriptions for %d moderators\n",
+	printf "Processing subscriptions for %d editors\n",
 		scalar @$users
 		if $self->{'verbose'};
 
@@ -270,7 +270,7 @@ sub _ProcessUserSubscriptions
 			$user->GetId, $user->GetName
 			if $self->{'verbose'};
 		# Instead of returning here, we just empty the list of subscriptions.
-		# Thus we don't go to all the trouble of looking for moderations, and
+		# Thus we don't go to all the trouble of looking for edits, and
 		# we don't send an e-mail, but we *do* update the "lastmodsent" values
 		# for this user.
 		@$subs = ();
@@ -377,18 +377,18 @@ sub _ProcessUserSubscriptions
 
 	if ($text eq "")
 	{
-		print "No moderations for subscribed artists\n"
+		print "No edits for subscribed artists\n"
 			if $self->{'verbose'};
 		return;
 	}
 
 		my $textbody = <<EOF;
-This is a notification that moderations have been added for artists to
+This is a notification that edits have been added for artists to
 whom you subscribed on the MusicBrainz web site.  To view or edit your
 subscription list, please use the following link:
 $root/user/subscriptions.html
 
-To see all open moderations for your subscribed artists, see this link:
+To see all open edits for your subscribed artists, see this link:
 $root/mod/search/pre/subscriptions.html
 
 The changes to your subscribed artists are as follows:
@@ -398,7 +398,7 @@ $text
 ------------------------------------------------------------------------
 
 Please do not reply to this message.  If you need help, please see
-$root/support/contact.html
+$root/doc/ContactUs
 
 EOF
 		;
@@ -409,7 +409,7 @@ EOF
 		From		=> 'MusicBrainz Subscription Robot <noreply@musicbrainz.org>',
 		# To: $user (automatic)
 		"Reply-To"	=> 'MusicBrainz Support <support@musicbrainz.org>',
-		Subject		=> "Moderations for your subscribed artists",
+		Subject		=> "Edits for your subscribed artists",
 		Type		=> "text/plain",
 		Encoding	=> "quoted-printable",
 		Data		=> $textbody,

@@ -42,7 +42,7 @@
 	my $mb = $m->comp("/comp/dblogin");
 	my $artist = $m->comp("/comp/loadartist", $mb, $artistid);
 
-	$m->comp("/comp/sidebar-notitle", pagetitle => ("Similar Artists: " . $artist->GetName) );
+	$m->comp("/comp/sidebar-notitle", pagetitle => ("Similar artists: " . $artist->GetName) );
 	$m->comp("/comp/artisttitle", artist => $artist);
 	$m->comp("/comp/tablebegin", title => "Similar Artists");
 

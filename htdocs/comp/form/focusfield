@@ -36,7 +36,7 @@
 
 	# TODO find a way to just do nothing (produce no output) if we've already been
 	# called for this page. (e.g. global variable?)
-	$m->out(qq!<input type="hidden" id="ONLOAD|focusfield" value="$name" />!);
+	$m->out(qq!<span><input type="hidden" id="ONLOAD::focusfield" value="$name" /></span>!);
 
 </%perl>
 

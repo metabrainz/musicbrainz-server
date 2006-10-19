@@ -67,21 +67,22 @@
 		{
 
 </%perl>
-			<& /comp/tablebegin, title => "Similar Albums Found" &>
+			<& /comp/tablebegin, title => "Similar releases found" &>
 
 				<table class="formstyle">
 					<tr class="top">
-						<td class="label">Possible Duplicates:</td>
+						<td class="label">Possible duplicates:</td>
 						<td>
 							<& /comp/form/feedbackbox, "warning", "",
 								qq!MusicBrainz already contains one or more releases that have
-								the same amount of tracks and a similar title as the
-								release that you are about to add.! &>
+								   the same amount of tracks and a similar title as the
+								   release that you are about to add.! &>
 						</td>
 					</tr>
 
 %			for my $release (@similar)
 %			{
+
 					<tr class="top">
 						<td class="label"><% int($release->{_pct_match_}) %>% match:</td>
 						<td>
@@ -100,6 +101,7 @@
 							</table>
 						</td>
 					</tr>
+
 %			}
 
 					<tr class="top">
@@ -114,11 +116,13 @@
 					<tr class="top">
 						<td class="label"></td>
 						<td>
+
 %			# use un-named submit button, else it shows up in the
 %			# location of the browser
+
 							<table border="0" cellspacing="0" cellpadding="0">
 								<tr>
-									<td style="padding-right: 40px">
+									<td>
 										<form action="/index.html">
 											<input type="submit" class="button" value="Cancel" />
 										</form></td>
@@ -129,11 +133,16 @@
 %			my %args = $m->comp("/comp/form/args-strip-editsuitefields", %ARGS);
 
 										<form action="<% $ARGS{"v::action"} %>" method="post">
-											<& /comp/form/buttonsubmit,
-												name => "force_similar",
-												value => $ARGS{"SUBMIT_FORCESIMILAR"} &>
-											<& /comp/args-to-hidden-fields.inc, %args &>
-										</form></td>
+											<div>
+												<& /comp/form/buttonsubmit,
+													name => "force_similar",
+													value => $ARGS{"SUBMIT_FORCESIMILAR"} &>
+
+												<& /comp/args-to-hidden-fields.inc, %args &>
+											</div>
+										</form>
+
+									</td>
 								</tr>
 							</table></td>
 					</tr>

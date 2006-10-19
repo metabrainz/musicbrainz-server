@@ -42,7 +42,6 @@
 
 	my $index = int($offset / $pagesize);
 	my $pagecount = int(($numitems+$pagesize-1) / $pagesize);
-	return undef if ($pagecount <= 1);
 
 	my $start = $index - $numlinks;
 	if ($start < $snaptoend) { $start = 0 }
@@ -84,45 +83,58 @@
 				</form></td>
 
 			<td class="list">
+
+%	if ($pagecount > 1)
+%	{
+				<table class="selectorbuttons">
+					<tr>
+
 <%perl>
 
-	if ($index > 0)
-	{
-		$m->out(sprintf qq!<a href="%soffset=0" title="Go to first page">&lt;&lt;</a>!, encode_entities($urlqs));
-		$m->out(sprintf qq!<a href="%soffset=%d" title="Go to previous page">&lt;</a>!, encode_entities($urlqs), ($index - 1) * $pagesize);
-	}
-	else
-	{
-		$m->out(qq!<span class="inactive" title="Not available">&lt;&lt;</span>!);
-		$m->out(qq!<span class="inactive" title="Not available">&lt;</span>!);
-	}
-	for my $i ($start .. $end)
-	{
-		if ($i != $index)
+		if ($index > 0)
 		{
-			$m->out(sprintf qq!<a href="%soffset=%d" title="Go to page">%s</a>!,
-				encode_entities($urlqs),
-				($i) * $pagesize,
-				($i + 1));
+			$m->out(sprintf qq!<td><a href="%soffset=0" title="Go to first page">&laquo;</a></td>!, encode_entities($urlqs));
+			$m->out(sprintf qq!<td><a href="%soffset=%d" title="Go to previous page">&lt;</a></td>!, encode_entities($urlqs), ($index - 1) * $pagesize);
 		}
 		else
 		{
-			$m->out(qq!<span class="current">! . ($i + 1) . "</span>");
+			$m->out(qq!<td class="inactive" title="Not available"><span>&laquo;</span></td>!);
+			$m->out(qq!<td class="inactive" title="Not available"><span>&lt;</span></td>!);
 		}
-	}
-	if ($index < $pagecount - 1)
-	{
-		$m->out(sprintf qq!<a href="%soffset=%d" title="Go to next page">&gt;</a>!, encode_entities($urlqs), ($index + 1) * $pagesize);
-		$m->out(sprintf qq!<a href="%soffset=%d" title="Go to last page">&gt;&gt;</a>!, encode_entities($urlqs), ($pagecount - 1) * $pagesize);
-	}
-	else
-	{
-		$m->out(qq!<span class="inactive" title="Not available">&gt;&gt;</span>!);
-		$m->out(qq!<span class="inactive" title="Not available">&gt;</span>!);
-	}
+		for my $i ($start .. $end)
+		{
+			if ($i != $index)
+			{
+				$m->out(sprintf qq!<td><a href="%soffset=%d" title="Go to page">%s</a></td>!,
+					encode_entities($urlqs),
+					($i) * $pagesize,
+					($i + 1));
+			}
+			else
+			{
+				$m->out(qq!<td class="current"><span>! . ($i + 1) . "</span></td>");
+			}
+		}
+		if ($index < $pagecount - 1)
+		{
+			$m->out(sprintf qq!<td><a href="%soffset=%d" title="Go to next page">&gt;</a></td>!, encode_entities($urlqs), ($index + 1) * $pagesize);
+			$m->out(sprintf qq!<td><a href="%soffset=%d" title="Go to last page">&raquo;</a></td>!, encode_entities($urlqs), ($pagecount - 1) * $pagesize);
+		}
+		else
+		{
+			$m->out(qq!<td class="inactive" title="Not available"><span>&gt;</span></td>!);
+			$m->out(qq!<td class="inactive" title="Not available"><span>&raquo;</span></td>!);
+		}
 
 </%perl>
 
-</td></tr></table>
+					</tr>
+				</table>
+
+%	}
+
+			</td>
+		</tr>
+	</table>
 
 %# vi: set ts=4 sw=4 ft=mason :

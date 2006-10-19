@@ -30,10 +30,10 @@
 
 	$value
 	$tabindex => undef
-	$validate => undef
 	$name => undef
 	$enabled => 1
 	$title => undef
+	$id => undef
 
 </%args>
 <%perl>
@@ -47,10 +47,7 @@
 
 	# use mason->out to compress whitespace
 	$m->out(qq!<input type="submit" name="$name" !);
-
-	# TODO: move to unobstructive javascript
-	$m->out(qq!onclick="return validateFields(this)" !)
-		if ($validate);
+	$m->out(qq!id="$id" !) if (defined $id);
 
 	$m->out(qq!class="button" value="$value" $enabled !);
 	$m->out(qq!$tabindex $title />\n!);

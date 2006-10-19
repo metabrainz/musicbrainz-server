@@ -80,9 +80,9 @@
 
 </%perl>
 
-<& /comp/sidebar-notitle, pagetitle => "FreeDB Import: Select Artist Type" &>
+<& /comp/sidebar-notitle, pagetitle => "FreeDB import: Select artist type" &>
 
-	<& /comp/tablebegin, title => "Select Artist Type" &>
+	<& /comp/tablebegin, title => "Select artist type" &>
 
 		<& /comp/release_editor/steps, %ARGS, stepsleft => 3, freedbid => "-" &>
 
@@ -91,18 +91,18 @@
 				<td class="instructions">
 					<ul>
 						<li>
-							<strong>Single Artist or Various Artists? </strong>
+							<strong>Single artist or various artists? </strong>
 							Are the tracks of this release credited to a single artist,
-							or more than one? Please note, if the release was DJ-mixed or
-							compiled by a certain artist, but features different artists
-							on the tracks, it still needs to be added as Various Artists
-							release. You can use Artist-Release Relationships to record
-							additional information about the artist who compiled/mixed it.
+							or more than one? Please read the <& /comp/linkdoc,
+							"ReleaseArtistStyle", "release artist style" &> for
+							instructions on how to select the proper release
+							artist.
 						</li>
 					</ul>
 				</td>
-			</tr
+			</tr>
 		</table>
+
 		<table class="formstyle">
 			<tr class="top">
 				<td class="label">Preview:</td>
@@ -132,32 +132,34 @@
 							</tr>
 						</table>
 
-						<& /comp/form/buttonsubmit, value => "Import as Single Artist &raquo;" &>
+						<div>
 
-%						for $i (0 .. $tracks-1)
-%						{
-%							$m->comp("/comp/form/hiddenfield",
-%								"tracklength$i",
-%								Track::FormatTrackLength($durations[$i])
-%							) if ($hasdurations);
-%						}
+						<& /comp/form/buttonsubmit, value => "Import as single artist &raquo;" &>
 
-%						# make sure we do not have these flag twice,
-%						# or get rid of the freedb specific things.
-%						delete $args{"hasmultipletrackartists"};
-%						delete $args{"validate"};
-%						delete $args{"noncd"};
-%						delete $args{"artistid"};
-%						delete $args{"sacartist"};
-%						delete $args{"offer_charset"};
-%						delete $args{"ready"};
+%	for $i (0 .. $tracks-1)
+%	{
+%		$m->comp("/comp/form/hiddenfield",
+%			"tracklength$i",
+%			Track::FormatTrackLength($durations[$i])
+%		) if ($hasdurations);
+%	}
 
-						<& /comp/form/hiddenfield, "noncd", "1" &>
-						<& /comp/form/hiddenfield, "artistid", "0" &>
-						<& /comp/form/hiddenfield, "sacartist", $artistname &>
-						<& /comp/form/hiddenfield, "hasmultipletrackartists", "0" &>
-						<& /comp/args-to-hidden-fields.inc, %args &>
+%	# make sure we do not have these flag twice,
+%	# or get rid of the freedb specific things.
+%	delete $args{"hasmultipletrackartists"};
+%	delete $args{"validate"};
+%	delete $args{"artistid"};
+%	delete $args{"sacartist"};
+%	delete $args{"offer_charset"};
+%	delete $args{"ready"};
+
+							<& /comp/form/hiddenfield, "artistid", "0" &>
+							<& /comp/form/hiddenfield, "sacartist", $artistname &>
+							<& /comp/form/hiddenfield, "hasmultipletrackartists", "0" &>
+							<& /comp/args-to-hidden-fields.inc, %args &>
+						</div>
 					</form>
+
 					<br />
 					<br />
 					<br />
@@ -174,7 +176,7 @@
 	for $i (0 .. $tracks-1)
 	{
 		my $track = Track->new($mb->{DBH});
-		$track->SetId(0);
+		$track->SetId(-1);
 		$track->SetName($args{"track$i"});
 		$track->SetArtist(0);
 		$track->SetArtistName($args{sprintf "tr%d_artistname", $i});
@@ -188,16 +190,16 @@
 	$artist->SetName("Various Artists");
 
 	$release = Album->new($mb->{DBH});
-	$release->SetId(0);
+	$release->SetId(-2);
 	$release->SetArtist(&ModDefs::VARTIST_ID);
 	$release->SetName($releasename);
 	$release->HasMultipleTrackArtists(1);
 	$release->{trackcount} = (@t);
 
-	my $btnimport = "Import as VA &raquo;";
+	my $btnimport = "Import as various artists &raquo;";
 	if ($args{"tomac-failed"})
 	{
-		$btnimport = "Import as VA anyway &raquo;";
+		$btnimport = "Import as various artists anyway &raquo;";
 	}
 
 </%perl>
@@ -232,6 +234,8 @@
 							</tr>
 						</table>
 
+						<div>
+
 %	if ($args{"tomac-failed"})
 %	{
 
@@ -258,21 +262,19 @@
 %		) if ($hasdurations);
 %	}
 
-%						# make sure we do not have these flag twice,
-%						# or get rid of the freedb specific things.
-%						delete $args{"hasmultipletrackartists"};
-%						delete $args{"validate"};
-%						delete $args{"noncd"};
-%						delete $args{"artistid"};
-%						delete $args{"sacartist"};
-%						delete $args{"offer_charset"};
-%						delete $args{"ready"};
+%	# make sure we do not have these flag twice,
+%	# or get rid of the freedb specific things.
+%	delete $args{"hasmultipletrackartists"};
+%	delete $args{"validate"};
+%	delete $args{"artistid"};
+%	delete $args{"sacartist"};
+%	delete $args{"offer_charset"};
+%	delete $args{"ready"};
 
-
-						<& /comp/form/hiddenfield, "noncd", "1" &>
-						<& /comp/form/hiddenfield, "artistid", &ModDefs::VARTIST_ID &>
-						<& /comp/form/hiddenfield, "hasmultipletrackartists", "1" &>
-						<& /comp/args-to-hidden-fields.inc, %args &>
+							<& /comp/form/hiddenfield, "artistid", &ModDefs::VARTIST_ID &>
+							<& /comp/form/hiddenfield, "hasmultipletrackartists", "1" &>
+							<& /comp/args-to-hidden-fields.inc, %args &>
+						</div>
 					</form>
 				</td>
 			</tr>
@@ -285,26 +287,31 @@
 %	if ($offer_charset)
 %	{
 
-	<& /comp/tablebegin, title => "Select Different Encoding" &>
+	<& /comp/tablebegin, title => "Select different encoding" &>
 
 		<form method="post" action="charset.html">
 
 			<table class="formstyle">
 				<tr>
-					<td class="label"></td>
-					<td>
-						<& /comp/form/feedbackbox, "info", "Does the data above look garbled?",
-							qq!If the data above looks garbled, you can click on the
-							button "Change character set" to get a list of previews
-							in different encodings. If you find an entry that looks better
-							you will be able to force using this encoding and return to this page.!
-						&>
+					<td class="instructions">
+						<ul>
+							<li>
+								<strong>Does the data above look garbled? </strong>
+								If the data above looks garbled, you can click on the
+								button "Change character set" to get a list of previews
+								in different encodings. If you find an entry that looks better
+								you will be able to force using this encoding and return to this page.
+							</li>
+						</ul>
 					</td>
 				</tr>
+			</table>
+
+			<table class="formstyle">
 				<tr>
-					<td></td>
+					<td class="label">&nbsp;</td>
 					<td>
-						<input type="submit" class="button" value="Change character set" />
+						<input type="submit" class="button" value="Change character set &raquo;" />
 
 %		delete $args{"enc"};
 
@@ -312,6 +319,7 @@
 					</td>
 				</tr>
 			</table>
+
 		</form>
 
 	<& /comp/tableend &>

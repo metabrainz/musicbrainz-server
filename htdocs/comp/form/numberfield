@@ -29,20 +29,23 @@
 <%args>
 
 	$name
+	$type => "numberfield"
 	$cssclass => ""
 	$tabindex
 	$enabled => 1
 	$size
+	$maxlength => undef
 	$value
 
 </%args>
 <%perl>
 
+	$maxlength ||= $size;
 	$name = encode_entities($name);
 	$value = encode_entities($value);
 
 	# use mason->out to compress whitespace
-	$m->out(qq!<input type="text" name="$name" class="numberfield$cssclass" !);
+	$m->out(qq!<input type="text" name="$name" class="${type}$cssclass" !);
 	$m->out(qq!disabled="disabled" !) if (!$enabled);
 	$m->out(qq!tabindex="$tabindex" size="$size" !);
 	$m->out(qq!maxlength="$maxlength" value="$value" />!);

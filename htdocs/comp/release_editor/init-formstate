@@ -44,21 +44,22 @@
 	$ARGS{"SUBMIT_ADDTRACK"} = "Add track";
 
 	# /comp/release_editor/review
-	$ARGS{"SUBMIT_KEEPEDITING"} = "Keep Editing";
-	$ARGS{"SUBMIT_STARTOVER"} = "Start Over";
+	$ARGS{"SUBMIT_KEEPEDITING"} = "Keep editing";
+	$ARGS{"SUBMIT_STARTOVER"} = "Start over";
 	$ARGS{"SUBMIT_CANCEL"} = "Cancel";
-	$ARGS{"SUBMIT_ENTERMODERATIONS"} = "Enter Edits";
+	$ARGS{"SUBMIT_ENTEREDITS"} = "Enter edits »";
+	$ARGS{"SUBMIT_ADDRELEASE"} = "Add release »";
 
 	# release events
 	$ARGS{"SUBMIT_ADDRELEASEEVENT"} = "Add release event »";
 
 	# freedb import
-	$ARGS{"SUBMIT_FREEDB"} = "FreeDB Lookup";
+	$ARGS{"SUBMIT_FREEDB"} = "FreeDB lookup »";
 	$ARGS{"SUBMIT_SACIMPORT"} = "Import as single artist »";
 	$ARGS{"SUBMIT_MACIMPORT"} = "Import as various artists »";
 
 	# MAC/SAC conversion
-	$ARGS{"SUBMIT_IGNOREMACSAC"} = "Ignore problem »";
+	$ARGS{"SUBMIT_IGNOREMACSAC"} = "Ignore problem";
 	$ARGS{"SUBMIT_TOSAC"} = "Convert to single artist »";
 	$ARGS{"SUBMIT_TOMAC"} = "Convert to various artists »";
 
@@ -86,10 +87,12 @@
 	# language/script
 	$ARGS{"SUBMIT_LANG_COMPACT"} = "Show compact lists";
 	$ARGS{"SUBMIT_LANG_FULL"} = "Show full lists";
-	$ARGS{"SUBMIT_LANG_GUESS"} = "Guess";
+	$ARGS{"SUBMIT_LANG_GUESS"} = "Guess language/script »";
 
-	# attributes
-	$ARGS{"SUBMIT_ATTR_GUESS"} = "Guess attributes";
+	# attributes (since the action is driven by the button value, the
+	# guess language/script and the guess attributes button cannot
+	# be named just "guess".
+	$ARGS{"SUBMIT_ATTR_GUESS"} = "Guess attributes »";
 
 	# similar-releases
 	$ARGS{"SUBMIT_FORCESIMILAR"} = "Yes, my release is different »";

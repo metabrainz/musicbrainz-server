@@ -1507,7 +1507,7 @@ sub CanAddTrack
 
 		# Sanity checks on track number
 		$@ = "$tracknum is not a valid track number", return 0
-			if $tracknum < 1 or $tracknum > 99;
+			if $tracknum < 1;
 
 		# Can't add a track if we've already got a track with that number
 		$@ = "This release already has a track $tracknum", return 0

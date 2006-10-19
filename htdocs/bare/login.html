@@ -29,15 +29,25 @@
 <%args>
 
 	$user => undef
+	$User => undef
 	$password => undef
+	$Password => undef
 	$url => undef
+	$mbt => $session{'mbt'}
 
 </%args>
 <%perl>
 
+    # The tagger sends args in mixed case. :-(
+    $password = $Password if (defined $Password && $password eq '');
+    $user = $User if (defined $User && $user eq '');
+
 	# url fallback.
 	$url = "/search.html"
 		unless defined $url;
+
+    UserStuff::EnsureSessionOpen(), $session{mbt} = $mbt
+       if $mbt;
 
 	# The MB Tagger still uses its own made-up encoding mechanism...
 	$url =~ s/\@Q\@/?/g;

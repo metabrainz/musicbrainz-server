@@ -71,7 +71,7 @@
 		++$artisthash{$release->GetArtist};
 	}
 
-	# convert empty values to internal int value (0).
+	# convert "i don't know" to 0.
 	$script_new = 0 if (defined $script_new and $script_new eq "");
 	$language_new = 0 if (defined $language_new and $language_new eq "");
 
@@ -92,6 +92,10 @@
 		{
 			$script_new = undef;
 			$language_new = undef;
+
+			# clear errors after guessing, they'll be reshown again after
+			# the next submit, if there are still any.
+			@errors = ();
 		}
 		elsif ($submitvalue =~ /Cancel/i)
 		{
@@ -105,9 +109,7 @@
 
 			$m->comp("/comp/redirect", $url);
 		}
-		elsif ($submitvalue =~ /Enter Edit/i
-				and MusicBrainz::Server::Validation::IsNonNegInteger($language_new)
-				and MusicBrainz::Server::Validation::IsNonNegInteger($script_new))
+		elsif (@errors == 0)
 		{
 			# prepare url for enter mods redirct:
 			# * only one release, redirect to the release
@@ -148,6 +150,17 @@
 			die "Shouldn't get here";
 		}
 	}
+	else
+	{
+		# if we are editing one release, load the current values from
+		# the database, else guess them from the list of releases.
+		if (@releaseobjs == 1)
+		{
+			my $release = $releaseobjs[0];
+			$script_new = $release->GetScriptId;
+			$language_new = $release->GetLanguageId;
+		}
+	}
 
 	# let's see if we have to guess language or script from
 	# the title fields of this (or the first) release.
@@ -155,9 +168,10 @@
 	# TODO: would it possibly make more sense to take all fields
 	# of all releases into account?
 	if (not defined $script_new
-		or not not defined $language_new)
+		or not defined $language_new)
 	{
 		my @text;
+
 		if (@releaseobjs)
 		{
 			my $release = $releaseobjs[0];
@@ -169,7 +183,7 @@
 		if (not defined $script_new)
 		{
 			$script_new = MusicBrainz::Server::Script->GuessFromText($mb->{DBH}, \@text);
-			$script_new = ($script_new ? $script_new->GetId : 0);
+			$script_new = ($script_new ? $script_new->GetId : -1);
 		}
 
 		# if the language is not set, guess it from the text and $script
@@ -178,20 +192,20 @@
 			$language_new = MusicBrainz::Server::Language->GuessFromTextAndScript(
 								$mb->{DBH}, \@text, $script_new
 							);
-			$language_new = ($language_new ? $language_new->GetId : 0);
+			$language_new = ($language_new ? $language_new->GetId : -1);
 		}
 	}
 
 	# set the current values from the argument, or the first release handed in.
-	my $language_curr = $language_new || (@releaseobjs ? $releaseobjs[0]->GetLanguageId : "") || "";
-	my $script_curr = $script_new || (@releaseobjs ? $releaseobjs[0]->GetScriptId : "") || "";
+	my $language_curr = $language_new || (@releaseobjs ? $releaseobjs[0]->GetLanguageId : -1) || -1;
+	my $script_curr = $script_new || (@releaseobjs ? $releaseobjs[0]->GetScriptId : -1) || -1;
 
 	# see if one of the releases has a modpending flag.
 	my $mp = grep { $_->GetLanguageModPending } @releaseobjs;
 
 </%perl>
 
-<& /comp/sidebar-notitle, pagetitle => "Edit Release Language/Script" &>
+<& /comp/sidebar-notitle, pagetitle => "Edit release language/script" &>
 
 	<!-- add editsuite for modnote resizer support -->
 	<script type="text/javascript" src="/scripts/editsuite.js"></script>
@@ -201,7 +215,7 @@
 %	if (@releaseobjs == 1)
 %	{
 
-		<& /comp/layout/editformbegin, title => "Edit Release Language/Script",
+		<& /comp/layout/editformbegin, title => "Edit release language/script",
 			release => $releaseobjs[0],
 			mp_type => &ModDefs::MOD_EDIT_ALBUM_LANGUAGE,
 		&>
@@ -210,7 +224,7 @@
 %	else
 %	{
 
-		<& /comp/layout/editformbegin, title => "Edit Release Language/Script",
+		<& /comp/layout/editformbegin, title => "Edit release language/script",
 			mp_type => &ModDefs::MOD_EDIT_ALBUM_LANGUAGE,
 			mp => $mp,
 		&>
@@ -222,48 +236,64 @@
 				<td class="instructions" colspan="2">
 					<ul>
 						<li>
-							Please choose the <& /comp/linkdoc, "ReleaseLanguage", "script and language" &>
+							Please choose the <& /comp/linkdoc, "ReleaseLanguage", "language/script" &>
 							of the selected releases.</li>
 					</ul>
 				</td>
 			</tr>
+
+%	if (@errors)
+%	{
+
+			<tr>
+				<td>&nbsp;</td>
+				<td>
+					<& /comp/form/feedbackbox,
+						"warning", "Your form submission contains errors:",
+						"<ul><li>"
+					  . join ("</li><li>", @errors)
+					  . "</li></ul>" &></td>
+			</tr>
+
+%	}
+
 			<tr class="top">
 				<td class="label">
-					<label>Selected Releases:</label></td>
+					<label>Selected releases:</label></td>
 				<td>
 				<table class="releaselist">
 					<tr class="header">
-						<td>Release Title</td>
-						<td>Language</td>
-						<td>Script</td>
+						<td>Release title:</td>
+						<td>Language:</td>
+						<td>Script:</td>
 					</tr>
 
 <%perl>
 
-						my $n = 0;
-						foreach my $release ( @releaseobjs )
-						{
-							$m->out("<tr>");
+	my $n = 0;
+	foreach my $release ( @releaseobjs )
+	{
+		$m->out("<tr>");
 
-							# TODO: load artist for this?
-							# $m->out(qq!<td style="padding-right: 40px">!);
-							# $m->comp("/comp/linkartist", artist => $release->GetArtist);
-							# $m->out(qq!</td><td style="padding-right: 40px">!);
+		# TODO: load artist for this?
+		# $m->out(qq!<td style="padding-right: 40px">!);
+		# $m->comp("/comp/linkartist", artist => $release->GetArtist);
+		# $m->out(qq!</td><td style="padding-right: 40px">!);
 
-							$m->out(qq!<td style="padding-right: 40px">!);
-							$m->comp("/comp/form/currentvalue", release => $release, mp_type => &ModDefs::MOD_EDIT_ALBUM_LANGUAGE);
-							$m->out(qq!</td><td style="padding-right: 40px">!);
-							$m->out(
-								defined $release->GetLanguage
-									? $release->GetLanguage->GetName
-									: "Not Set");
-							$m->out(qq!</td><td style="padding-right: 40px">!);
-							$m->out(
-								defined $release->GetScript
-									? $release->GetScript->GetName
-									: "Not Set");
-							$m->out("</td></tr>");
-						}
+		$m->out(qq!<td style="padding-right: 40px">!);
+		$m->comp("/comp/form/currentvalue", release => $release, mp_type => &ModDefs::MOD_EDIT_ALBUM_LANGUAGE);
+		$m->out(qq!</td><td style="padding-right: 40px">!);
+		$m->out(
+			defined $release->GetLanguage
+				? $release->GetLanguage->GetName
+				: "Not Set");
+		$m->out(qq!</td><td style="padding-right: 40px">!);
+		$m->out(
+			defined $release->GetScript
+				? $release->GetScript->GetName
+				: "Not Set");
+		$m->out("</td></tr>");
+	}
 
 </%perl>
 
@@ -283,17 +313,15 @@
 
 % 	foreach my $releaseid (@id)
 %	{
-
-		<input type="hidden" name="id" value="<% $releaseid %>" />
-
+%		$m->comp("/comp/form/hiddenfield", "id", $releaseid);
 % 	}
 
-		<input type="hidden" name="untag" value="<% $untag %>" />
-		<input type="hidden" name="expand_lists" value="<% $expand_lists %>" />
+		<& /comp/form/hiddenfield, "untag", $untag &>
+		<& /comp/form/hiddenfield, "expand_lists", $expand_lists &>
+		<& /comp/form/focusfield, "language_new" &>
 
 		<& /comp/layout/editformend &>
 
-		<& /comp/movefocus, id => "language_new" &>
 	</form>
 
 <& /comp/footer &>

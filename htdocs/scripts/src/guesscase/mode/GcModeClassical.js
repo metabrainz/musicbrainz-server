@@ -40,10 +40,10 @@ function GcModeClassical(modes) {
 	this.CN = "GcModeClassical";
 	this.GID = "gc.mode_xc";
 	this.setConfig(
-		modes, 'Classical Mode', modes.XC,
+		modes, 'Classical', modes.XC,
 		  'First word titled, lowercase for <i>most</i> of the other '
 		+ 'words. Read the [url]description[/url] for more details.',
-		'http://wiki.musicbrainz.org/GuessCaseMode/ClassicalMode');
+		  '/doc/GuessCaseMode/ClassicalMode');
 
 	// ----------------------------------------------------------------------------
 	// member variables
@@ -60,7 +60,7 @@ function GcModeClassical(modes) {
 
 	/**
 	 * Handle all the classical mode specific quirks.
-	 * Note: 	this function is run before album and track guess 
+	 * Note: 	this function is run before release and track guess
 	 *   		types (not for artist)
 	 **/
 	this.preProcessTitles = function(is) {
@@ -69,13 +69,13 @@ function GcModeClassical(modes) {
 			gc.re.PREPROCESS_FIXLIST_XC = [
 
 				  // correct tone indication.
-				, new GcFix("Handle -sharp.", /(\b)(\s|-)sharp(\s)/i, "-sharp")				  
-				, new GcFix("Handle -flat.", /(\b)(\s|-)flat(\s)/i, "-flat")				  				
+				, new GcFix("Handle -sharp.", /(\b)(\s|-)sharp(\s)/i, "-sharp")
+				, new GcFix("Handle -flat.", /(\b)(\s|-)flat(\s)/i, "-flat")
 
 				  // expand short tone notation. maybe restrict
 				  // to uppercase tone only?
-				, new GcFix("Expand C# -> C-sharp", /(\s[ACDFG])#(\s)/i, "-sharp")				  
-				, new GcFix("Expand Cb -> C-flat", /(\s[ABCDEG])b(\s)/i, "-flat")				  
+				, new GcFix("Expand C# -> C-sharp", /(\s[ACDFG])#(\s)/i, "-sharp")
+				, new GcFix("Expand Cb -> C-flat", /(\s[ABCDEG])b(\s)/i, "-flat")
 
 				  // common misspellings
 				, new GcFix("adiago (adagio)", "adiago", "adagio")
@@ -88,7 +88,14 @@ function GcModeClassical(modes) {
 				, new GcFix("allgro (allegro)", "allgro", "allegro")
 				, new GcFix("tocatta (toccata)", "tocatta", "toccata")
 				, new GcFix("allegreto (allegretto)", "allegreto", "allegretto")
-				, new GcFix("attaca (attacca)", "attaca", "attacca")				
+				, new GcFix("attaca (attacca)", "attaca", "attacca")
+
+				  // detect one word combinations of work numbers and their number
+				, new GcFix("split worknumber combination", /(\b)(BWV|D|RV|J|Hob|HWV|WwO|KV)(\d+)(\b|$)/i, "$2 $3")
+
+				  // detect one word combinations of work numbers and their number
+				, new GcFix("split op. number combination", /(\b)(Op)(\d+)(\b|$)/i, "$2 $3")
+				, new GcFix("split no. number combination", /(\b)(No|N)(\d+)(\b|$)/i, "$2 $3")
 			];
 		}
 		var os = this.runFixes(is, gc.re.PREPROCESS_FIXLIST_XC);
@@ -98,7 +105,7 @@ function GcModeClassical(modes) {
 
 	/**
 	 * Handle all the classical mode specific quirks.
-	 * Note: 	this function is run before album and track guess 
+	 * Note: 	this function is run before release and track guess
 	 *   		types (not for artist)
 	 **/
 	this.runPostProcess = function(is) {
@@ -108,29 +115,31 @@ function GcModeClassical(modes) {
 
 				  // correct opus/number
 				, new GcFix("Handle Op.", /(\b)[\s,]+(Op|Opus|Opera)[\s\.#]+($|\b)/i, ", Op. " )
-				, new GcFix("Handle No.", /(\b)[\s,]+(No|Num|Nr)[\s\.#]+($|\b)/i, ", No. " )
+				, new GcFix("Handle No.", /(\b)[\s,]+(N|No|Num|Nr)[\s\.#]+($|\b)/i, ", No. " )
 
 				  // correct K. -> KV
 				, new GcFix("Handle K. -> KV", /(\b)[\s,]+K[\.\s]+($|\b)/i, ", KV " )
-			
+
 				  // correct whitespace and comma for work catalog
 				  // BWV D RV J Hob HWV WwO (Work without Opera) KV
 				, new GcFix("Fix whitespace and comma for work catalog", /(\b)[\s,]+(BWV|D|RV|J|Hob|HWV|WwO|KV)\s($|\b)/i, ", $2 " )
 
 				  // correct tone indication
-				, new GcFix("Handle -sharp.", /(\b)(\s|-)sharp(\s)/i, "-sharp")			  
-				, new GcFix("Handle -flat.", /(\b)(\s|-)flat(\s)/i, "-flat")			  				
+				, new GcFix("Handle -sharp.", /(\b)(\s|-)sharp(\s)/i, "-sharp")
+				, new GcFix("Handle -flat.", /(\b)(\s|-)flat(\s)/i, "-flat")
 			];
 		}
 		var os = this.runFixes(is, gc.re.POSTPROCESS_FIXLIST_XC);
 		mb.log.debug('After: $', os);
 		return mb.log.exit(os);
 	};
-	
+
 	/**
-	 * Overide implementation in GcMode.
+	 * Classical mode specific replacements of movement numbers.
+	 * - Converts decimal numbers (followed by a dot) to roman numerals.
+	 * - Adds a colon before existing roman numerals
 	 **/
-	this.runFinalChecks = function(is) { 
+	this.runFinalChecks = function(is) {
 		mb.log.enter(this.GID, "runFinalChecks");
 		if (!gc.re.DECIMALTOROMAN) {
 			gc.re.DECIMALTOROMAN = /[\s,:\-]+(\d+)\.[\s]+/i;
@@ -141,8 +150,12 @@ function GcModeClassical(modes) {
 			var mindex = matcher.index;
 			var mlenght = matcher[0].length;
 			var firstPart = os.substring(0, mindex);
-			var lastPart = os.substring(mindex + mlenght, os.length); 
+			var lastPart = os.substring(mindex + mlenght, os.length);
 			var parts = []; // compile the vinyl designation.
+
+			// strip trailing punctuation from first part, colon is added afterwards.
+			firstPart = firstPart.replace(/[\s,:\-\/]+$/gi, "");
+
 			parts.push(firstPart); // add string before the matched part
 			parts.push(": "); // add colon
 			parts.push(gc.u.convertToRomanNumeral(matcher[1])); // add roman representation.
@@ -150,17 +163,17 @@ function GcModeClassical(modes) {
 			parts.push(lastPart); // add string after the matched part
 			os = parts.join("");
 		}
-		
-		// add a leading colon to a roman numeral 
+
+		// add a leading colon to a roman numeral
 		// if there is none.
 		if (!gc.re.ADD_COLON_TO_ROMAN) {
 			gc.re.ADD_COLON_TO_ROMAN = /([^:])\s+([ivx]+)[\s|\.]+/i;
-		}		
+		}
 		if ((matcher = os.match(gc.re.ADD_COLON_TO_ROMAN)) != null) {
-			var mindex = matcher.index; 
+			var mindex = matcher.index;
 			var mlenght = matcher[0].length;
 			var firstPart = os.substring(0, mindex);
-			var lastPart = os.substring(mindex + mlenght, os.length); 
+			var lastPart = os.substring(mindex + mlenght, os.length);
 			var parts = []; // compile the vinyl designation.
 			parts.push(firstPart); // add string before the matched part
 			parts.push(matcher[1]); // re-add the first match that was _not_ a colon.
@@ -172,7 +185,7 @@ function GcModeClassical(modes) {
 		}
 		return mb.log.exit(os);
 	};
-	
+
 	/**
 	 * Delegate function for Mode specific word handling.
 	 * This is mostly used for context based titling changes.
@@ -183,14 +196,14 @@ function GcModeClassical(modes) {
 	 **/
 	this.doWord = function() {
 		mb.log.enter(this.GID, "doWord");
-		
+
 		var ipos = gc.i.getPos();
 		var cw = gc.i.getCurrentWord();
 		var pw = gc.i.getWordAtIndex(ipos-1);
 		var ppw = gc.i.getPreviousWord(ipos-2);
 		var opos = gc.o.getLength();
 		var foundToneIndication = false;
-		
+
 		// if the current word is one of flat|sharp, and the
 		// previous word is a hyphen, title the word before
 		// is a tone indication.
@@ -201,18 +214,18 @@ function GcModeClassical(modes) {
 		// if the current word is one of the major|minor variants
 		// and the word before the previous is not flat|sharp,
 		// the word before is a tone indication.
-		} else if (cw.match(/minor|major|minore|maggiore|mineur/i) && 
+		} else if (cw.match(/minor|major|minore|maggiore|mineur/i) &&
 				   ppw.match(/flat|sharp/) == null) {
 			opos = opos-1;
 			foundToneIndication = true;
-		
+
 		// if the current word is one of the german variants
 		// the word before is a tone indication.
 		} else if (cw.match(/Moll|Dur/i)) {
 			opos = opos-2;
 			gc.f.forceCaps = true;
-			foundToneIndication = true;			
-		} 		
+			foundToneIndication = true;
+		}
 		if (foundToneIndication) {
 			var w = gc.o.getWordAtIndex(opos);
 			mb.log.debug('Found tone indication before: $, making word: $ at pos: $ a title.', cw, w, opos);
@@ -220,8 +233,8 @@ function GcModeClassical(modes) {
 		}
 		mb.log.exit();
 		return false;
-	};		
-	
+	};
+
 	// exit constructor
 	mb.log.exit();
 }

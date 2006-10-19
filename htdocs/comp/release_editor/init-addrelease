@@ -45,8 +45,6 @@
 	my %orig = %ARGS;
 
 	$orig{"releaseid"} = 0;
-	($orig{"attr_language"}, $orig{"attr_script"}) = ("-1", "-1");
-	($orig{"attr_type"}, $orig{"attr_status"}) = ("-1", "-1");
 
 	# LOAD ARTIST
 	# ---------------------------------------------------------------

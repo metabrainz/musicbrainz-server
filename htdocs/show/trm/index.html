@@ -94,7 +94,9 @@
 				<td class="instructions">
 					<ul>
 
-%			if ($matchesonly && $showreleases) {
+%			if ($matchesonly && $showreleases)
+%			{
+
 						<li>
 							Please note, that only tracks with the specified TRM
 							are shown below. Click on <strong>Show all tracks</strong>
@@ -107,10 +109,15 @@
 								</div>
 							</form></li>
 %			}
-%			if ($showspecial) {
+
+%			if ($showspecial)
+%			{
+
 						<li>
 							<% $showspecial |n %>.</li>
+
 %			}
+
 					</ul></td>
 			</tr>
 		</table>

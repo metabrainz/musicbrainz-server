@@ -225,7 +225,7 @@
 					<td class="label">
 						<label><% ucfirst($type) %>: </label></td>
 					<td class="field">
-%						$m->comp("/comp/link".($type == "album" ? "release" : $type), id => $id, name => $name);
+%						$m->comp("/comp/link".($type eq "album" ? "release" : $type), id => $id, name => $name);
 					</td>
 				</tr>
 
@@ -244,7 +244,7 @@
 
 		$m->out(sprintf qq!<option value="%s|%s" %s>!,
 						$l->[0]->GetId . "|" . $l->[0]->GetAttributes(),
-						$l->[0]->GetDescription(),
+						encode_entities($l->[0]->GetDescription()),
 						$l->[0]->GetId eq $linktype ? qq! selected="selected"! : "");
 
 		my $text = $l->[0]->GetLinkPhrase;
@@ -279,7 +279,7 @@
 						<textarea name="desc" rows="3" cols="52"><% $desc %></textarea></td>
 				</tr>
 
-				<tr class="spaced">
+				<tr>
 					<td>&nbsp;</td>
 					<td class="notetext">
 						<& /comp/notetext, &>

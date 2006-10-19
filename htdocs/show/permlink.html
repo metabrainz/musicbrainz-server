@@ -90,13 +90,21 @@
 					<div style="margin-top: 5px">
 						<textarea cols="60" rows="5" title="Select text"><% $icon %></textarea>
 					</div>
+
+					<div style="margin-top: 3em">
+						<form method="get" action="/<% $type %>/<% $id %>.html">
+							<div>
+								<input type="submit" value="Return to <% $type %> &raquo;" />
+							</div>
+						</form>
+					</div>
 				</td>
 			</tr>
 		</table>
 
 	<& /comp/tableend &>
 
-	<div style="margin-top: 3em">Return to <% $type %> <% $backurl |n %>.</div>
+
 
 <& /comp/footer &>
 

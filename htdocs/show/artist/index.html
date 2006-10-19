@@ -50,11 +50,11 @@
 	{
 		MusicBrainz::Server::Validation::IsGUID($mbid)
 			or return $m->comp("/comp/layout/badarguments",
-				text => "Argument mbid is not a valid MBID");
+				text => "Argument mbid is not a valid MBID.");
 	} else {
 		MusicBrainz::Server::Validation::IsNonNegInteger($artistid) && $artistid
 			or return $m->comp("/comp/layout/badarguments",
-				text => "You need to specify either a valid mbid or a artistid argument");
+				text => "You need to specify either a valid mbid or a artistid argument.");
 	}
 
 	# check tagger session stuff
@@ -204,8 +204,8 @@
         </%perl>
 
         <p>
-        Please use the <a href="search.html">Search Page</a> to look for a
-        specific release, or browse the various artist releases:
+        Please use the <a href="search.html">search page</a> to look for a
+        specific release, or browse the releases directly:
         </p>
 
         <& /comp/browsebox, page => "/browsevarious.html" &>
@@ -339,13 +339,13 @@
 				<a href="/show/artist/?artistid=<% $artist->GetId() %>&amp;ex=<% $exall %>&amp;compact=0&amp;short=<% $short %>">
 				<img src="/images/plus.gif" align="middle"
 					 alt="Expand" title="Expand All Albums"
-					 height="13" width="13" border="0"> Expand All</a>
+					 height="13" width="13" border="0"> Expand all</a>
             </td>
             <td style="padding-right: 1em">
 				<a href="/show/artist/?artistid=<% $artist->GetId() %>&amp;compact=0&amp;short=<% $short %>">
 				<img src="/images/minus.gif" align="middle"
 					 alt="Collapse" title="Collapse All Albums"
-					 height="13" width="13" border="0"> Collapse All</a>
+					 height="13" width="13" border="0"> Collapse all</a>
             </td>
 % }
             <td style="padding-right: 1em">
@@ -367,9 +367,12 @@
 
 	            <form method="post" action="/edit/albumbatch/done.html" id="BatchOp">
 	            	<div id="batchop::selectreleases">
-%	           for my $album (@albums) {
+
+%				for my $album (@albums)
+%				{
 						<input type="hidden" name="releaseid<% $album->GetId() %>" value="off" />
-%	           }
+%				}
+
 					</div>
 				</form>
 		    </td>
@@ -377,7 +380,7 @@
 
             </tr></table>
             <& /comp/framedboxend &>
-			<br>
+			<br />
 
             <%perl>
 			if ($fCompact)

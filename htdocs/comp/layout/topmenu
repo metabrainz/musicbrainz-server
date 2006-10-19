@@ -61,6 +61,7 @@
 				{ url => "/user/election/second.html" },
 				{ url => "/user/election/show.html" },
 				{ url => "/user/election/vote.html" },
+				{ url => "/topmods.html" },
 			],
 		],
 		{ name => "News",					url => "/news/index.html" },
@@ -132,9 +133,11 @@
 		[
 			{ name => "Search",					url => "/search.html" },
 			{ name => "Search Links",			url => "/search/external.html" },
+			{ name => "Search Edits",			url => "/mod/search/index.html" },
 			{ name => "Browse Artists",			url => "/browseartists.html" },
 			{ name => "Browse Releases",		url => "/browsevarious.html" },
 			{ name => "Firefox Plugins",		url => "/search/plugins/firefox/install.html" },
+
 			[
 				{ url => "/search/plugins/firefox/error.html" },
 			],

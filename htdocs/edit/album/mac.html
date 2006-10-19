@@ -110,10 +110,12 @@
 
 	# start page header.
 	my $title = "Convert Release to Multiple Artists";
-	$m->comp("/comp/sidebar-notitle", pagetitle => $title);
-	$m->comp("/comp/layout/editformbegin", title => $title, release => $release);
 
 </%perl>
+
+<& /comp/sidebar-notitle, pagetitle => $title &>
+
+	<&/comp/layout/editformbegin, title => $title, release => $release &>
 
 	<!-- add editsuite for modnote resizer support -->
 	<script type="text/javascript" src="/scripts/editsuite.js"></script>
@@ -154,10 +156,10 @@
 				<td class="label">
 					<label>Release Artist:</label></td>
 				<td>
-					<input type="radio" name="movetova" value="1" checked>
+					<input type="radio" name="movetova" value="1" checked="checked" />
 					Move release to artist <& /comp/linkartist, id => 1, name => "Various Artists" &>
 					<br />
-					<input type="radio" name="movetova" value="0">
+					<input type="radio" name="movetova" value="0" />
 					Keep release under <& /comp/linkartist, artist => $artist &>.
 				</td>
 			</tr>
@@ -196,6 +198,7 @@
 		<& /comp/movefocus, id => "btnYes" &>
 	</form>
 
+	<& /comp/layout/editformend &>
 
 <& /comp/footer &>
 

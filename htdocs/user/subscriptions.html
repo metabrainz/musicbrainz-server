@@ -60,7 +60,7 @@
 	unless ($is_me)
 	{
 		UserPreference::get_for_user("subscriptions_public", $them)
-			or return $m->comp("subscriptions-private.inc", user => $them);
+			or return $m->comp("subscriptions.inc", user => $them, private => 1);
 	}
 
 	# load subscriptions
@@ -71,89 +71,120 @@
 
 	# show public subscriptions of another user if the user we're
 	# are displaying the subscriptions of is not the current user.
-	return $m->comp("subscriptions-public.inc", user => $them, info => $info)
+	return $m->comp("subscriptions.inc", user => $them, info => $info)
 		unless $is_me;
-
-	$m->comp("/comp/sidebar", title => 'Artist Subscriptions');
 
 </%perl>
 
-	<p class="LinksRow">
-		[
-		<a href="/user/view.html">Profile &amp; Statistics</a>
-		| <a href="/user/edit.html">Edit</a>
-		| <a href="/user/change-password.html">Change Password</a>
-		| <a href="/prefs.html">Preferences</a>
-		]
-	</p>
 
-% 	unless ($session{has_confirmed_email})
-%	{
+<& /comp/sidebar-notitle, pagetitle => "Your Artist subscriptions" &>
 
-	<p class="notice">
-		<span class="red">You have not provided an e-mail address!</span>
-		<br />
-		To receive notice of when moderations are added to your
-		subscribed artists, please
-		<a href="/user/edit.html">edit your profile</a>
-		and provide an e-mail address.
-   </p>
+	<& /comp/tablebegin, title => "Your Artist subscriptions" &>
 
-% 	}
+		<table class="formstyle">
+			<tr class="top">
+				<td class="label">Profile:</td>
+				<td>
+					[
+					<a href="/show/user/">Profile &amp; Statistics</a>
+					| <a href="/user/edit.html">Edit</a>
+					| <a href="/user/change-password.html">Change Password</a>
+					| <a href="/user/preferences.html">Preferences</a>
+					]
+				</td>
+			</tr>
+
+% 		unless ($session{has_confirmed_email})
+%		{
+
+			<tr class="spaced">
+				<td>&nbsp;</td>
+				<td>
+					<& /comp/form/feedbackbox, "warning", "You have not provided an e-mail address!",
+						qq!	To receive notice of when edits are entered against your
+							subscribed artists, please <a href="/user/edit.html">edit
+							your profile</a> and provide an e-mail address.! &>
+				</td>
+			</tr>
+
+% 		}
+
+
+			<tr class="spaced top">
+				<td class="label">Subscriptions:</td>
+				<td>
 
 % 	if (not @$info)
 %	{
 
-	<p>
-		You are not currently subscribed to any artists.&nbsp;
-		To subscribe to an artist, click the "Subscribe" link
-		on the artist's page.
-	</p>
+					You are not currently subscribed to any artists.&nbsp;
+					To subscribe to an artist, click the "Subscribe" link
+					on the artist's page.
 
 % 	}
 %	else
 %	{
 
-	<p>
-		You are currently subscribed to
-		<% (@$info == 1) ? "this artist" : "these ".scalar(@$info)." artists" %>.&nbsp;
-		To unsubscribe, tick the "unsubscribe" box next to the
-		subscriptions you want to delete,
-		then click the button below.&nbsp;
-		To subscribe to an artist, click the "Subscribe" link
-		on the artist's page.
-	</p>
+					You are currently subscribed to <% (@$info == 1) ? "this artist" :
+					"these <strong>".scalar(@$info)."</strong> artists" |n %>. To
+					unsubscribe, activate the checkbox next to the artists you would
+					like to unsubscribe from, then click the button below. To subscribe
+					to an artist, use the "Subscribe" link on the artist's page.
+%	}
 
-% 		my $row = 0;
-% 		my @colours = ('#fff', '#ffe1b7');
 
-	<form class="Subs" method="post" action="/user/subscribe.html">
-		<table class="Subs">
-			<caption>Subscribed Artists</caption>
-			<col class="c1" />
-			<col class="c2" />
-			<col class="c3" />
+				</td>
+			</tr>
+
+
+% 	if (@$info)
+%	{
+
+			<tr>
+				<td colspan="2">&nbsp;</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td>
+
+%		my $row = 0;
+%		my @colours = ('#fff', '#ffe1b7');
+
+					<form method="post" action="/user/subscribe.html">
+						<table class="artistfilter-listing">
 
 % 		for my $artist (@$info)
 %		{
 
-			<tr class="r<% $row++ % 2 %>">
-				<td><input type="checkbox" name="artistid" value="<% $artist->{artist} %>" /></td>
-				<td class="a">
-					<& /comp/linkartist, id => $artist->{artist}, name => $artist->{name}, resolution =>  $artist->{resolution} &></td>
-				<td>[ <a href="/mod/search/pre/artist.html?artistid=<% $artist->{artist} %>">Edits</a> ]</td>
-			</tr>
+							<tr class="row<% $row++ % 2 %>">
+								<td><input type="checkbox" name="artistid" value="<% $artist->{artist} %>" /></td>
+								<td class="padright">
+									<& /comp/linkartist, id => $artist->{artist},
+										name => $artist->{name}, resolution =>  $artist->{resolution},
+										strong => 0 &></td>
+								<td>[ <a href="/mod/search/pre/artist.html?artistid=<% $artist->{artist} %>">View edits</a> ]</td>
+							</tr>
 % 		}
-		</table>
 
-		<p>
-			<input type="hidden" name="unsubscribe" value="1" />
-			<input type="submit" value="Delete selected subscriptions" />
-		</p>
-
-	</form>
+							<tr>
+								<td colspan="3">&nbsp;</td>
+							</tr>
+							<tr>
+								<td colspan="3">
+									<input type="hidden" name="unsubscribe" value="1" />
+									<input type="submit" value="Unsubcribe selected artists &raquo;" />
+								</td>
+							</tr>
+						</table>
+					</form>
+				</td>
+			</tr>
 
 % 	}
+
+		</table>
+
+	<& /comp/tableend &>
 
 <& /comp/footer &>
 

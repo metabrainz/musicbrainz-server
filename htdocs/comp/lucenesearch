@@ -13,15 +13,15 @@
 </%perl>
 
 <form method="get" action="/search/textsearch.html" class="formstyle" id="TextSearchForm">
-	<table class="formstyle" style="width: 100%">
-		<tr class="top">
+	<table class="formstyle">
+		<tr>
 			<td class="labelnopad">
 				<label for="id_query">Search for:</label></td>
 			<td>
 				<input type="text" name="query" id="id_query" value="<% $session{"as_query"} %>" size="30" />
 			</td>
 		</tr>
-		<tr class="top">
+		<tr>
 			<td class="labelnopad"><label for="id_type">Type:</label></td>
 			<td style="width: 350px">
 				<select name="type" id="id_type">
@@ -49,7 +49,7 @@
 
 							<input type="checkbox" name="as" value="1"
 								<% $as_as ? qq! checked="checked" ! : "" |n %>
-							/>&nbsp;Sort Names
+							/>&nbsp;Sort names
 
 							<input type="checkbox" name="aa" value="1"
 								<% $as_aa ? qq! checked="checked" ! : "" |n %>
@@ -77,14 +77,14 @@
 		<tr>
 			<td>&nbsp;</td>
 			<td>
-				<input type="submit" value="Indexed Search &raquo;" title="Start search..." />
+				<input type="submit" value="Indexed search &raquo;" title="Start search..." />
 				<input type="submit" name="submitvalue" value="Reset" title="Reset search parameters" />
 				<input type="hidden" name="handlearguments" value="1" /></td>
 		</tr>
 		<tr>
 			<td>&nbsp;</td>
 			<td>
-				[ <a href="<% $oldsearch %>" title="Search for the same query using the Direct Search...">direct search</a> ]&nbsp;&nbsp;[ <a href="/popup/TextSearchSyntax" title="POPUP::TextSearchSyntax::400::400">help</a> ]
+				[ <a href="<% $oldsearch %>" title="Search for the same query using the direct search...">direct search</a> ]&nbsp;&nbsp;[ <a href="/popup/TextSearchSyntax" title="POPUP::TextSearchSyntax::400::400">help</a> ]
 
 				<div id="id_querysyntax" style="display: none">
 					<& /comp/form/feedbackbox, "warning", "Possible query syntax detected:",

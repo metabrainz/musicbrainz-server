@@ -78,7 +78,7 @@ my $private_str = sprintf "%d anonymous subscriber%s",
 						{
 							my ($uid, $name) = @$_;
 							$m->out(", ") if $i;
-							$m->out(qq|<a href="/user/view.html?uid=$uid">$name</a>|);
+							$m->out(qq|<a href="/show/user/?userid=$uid">$name</a>|);
 							++$i;
 						}
 						$m->out(" plus $private_str") if $private;

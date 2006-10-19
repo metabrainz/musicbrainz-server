@@ -395,203 +395,6 @@ this.scopeStart("Loading the Logging object");
 this.enter(this.GID,"__constructor");
 this.exit();
 }
-function MbDiff(){
-this.CN="MbDiff";
-this.GID="mb.diff";
-mb.log.enter(this.CN,"__constructor");
-this.escape=function(s){
-mb.log.enter(this.GID,"escape");
-var n=(s||"");
-n=n.replace(/&/g,"&amp;");
-n=n.replace(/</g,"&lt;");
-n=n.replace(/>/g,"&gt;");
-n=n.replace(/"/g,"&quot;");
-mb.log.exit();
-return n;
-};
-this.diffStringInline=function(o,n){
-mb.log.enter(this.GID,"diffStringInline");
-o=o.replace(/\s+$/,"");
-n=n.replace(/\s+$/,"");
-var out=this.diff(o==""?[]:o.split(/\s+/),n==""?[]:n.split(/\s+/));
-var str="";
-var _4d=o.match(/\s+/g);
-if(_4d==null){
-_4d=["\n"];
-}else{
-_4d.push("\n");
-}
-var _4e=n.match(/\s+/g);
-if(_4e==null){
-_4e=["\n"];
-}else{
-_4e.push("\n");
-}
-var i;
-if(out.n.length==0){
-for(i=0;i<out.o.length;i++){
-str+="<del>"+this.escape(out.o[i])+_4d[i]+"</del>";
-}
-}else{
-if(out.n[0].text==null){
-for(n=0;n<out.o.length&&out.o[n].text==null;n++){
-str+="<del>"+this.escape(out.o[n])+_4d[n]+"</del>";
-}
-}
-for(i=0;i<out.n.length;i++){
-if(out.n[i].text==null){
-str+="<ins>"+this.escape(out.n[i])+_4e[i]+"</ins>";
-}else{
-var pre="";
-for(n=out.n[i].row+1;n<out.o.length&&out.o[n].text==null;n++){
-pre+="<del>"+this.escape(out.o[n])+_4d[n]+"</del>";
-}
-str+=" "+out.n[i].text+_4e[i]+pre;
-}
-}
-}
-mb.log.exit();
-return str;
-};
-this.diffStringSeparate=function(o,n){
-mb.log.enter(this.GID,"diffStringSeparate");
-o=o.replace(/\s+$/,"");
-n=n.replace(/\s+$/,"");
-var out=this.diff(o==""?[]:o.split(/\s+/),n==""?[]:n.split(/\s+/));
-var _54=o.match(/\s+/g);
-if(_54==null){
-_54=["\n"];
-}else{
-_54.push("\n");
-}
-var _55=n.match(/\s+/g);
-if(_55==null){
-_55=["\n"];
-}else{
-_55.push("\n");
-}
-var os=[];
-var i;
-for(i=0;i<out.o.length;i++){
-if(out.o[i].text!=null){
-os.push("<span class=\"text\">");
-os.push(out.o[i].text);
-os.push("</span>");
-os.push(_54[i]);
-}else{
-os.push("<span class=\"del\">");
-os.push(out.o[i]);
-os.push("</span>");
-os.push(_54[i]);
-}
-}
-var ns=[];
-for(i=0;i<out.n.length;i++){
-if(out.n[i].text!=null){
-ns.push("<span class=\"text\">");
-ns.push(out.n[i].text);
-ns.push("</span>");
-ns.push(_55[i]);
-}else{
-ns.push("<span class=\"ins\">");
-ns.push(out.n[i]);
-ns.push("</span>");
-ns.push(_55[i]);
-}
-}
-mb.log.exit();
-return {o:os.join(""),n:ns.join("")};
-};
-this.diff=function(o,n){
-mb.log.enter(this.GID,"diff");
-var ns=new Object();
-var os=new Object();
-var i;
-for(i=0;i<n.length;i++){
-if(ns[n[i]]==null){
-ns[n[i]]={rows:new Array(),o:null};
-}
-ns[n[i]].rows.push(i);
-}
-for(i=0;i<o.length;i++){
-if(os[o[i]]==null){
-os[o[i]]={rows:new Array(),n:null};
-}
-os[o[i]].rows.push(i);
-}
-for(i in ns){
-if(ns[i].rows.length==1&&typeof (os[i])!="undefined"&&os[i].rows.length==1){
-n[ns[i].rows[0]]={text:n[ns[i].rows[0]],row:os[i].rows[0]};
-o[os[i].rows[0]]={text:o[os[i].rows[0]],row:ns[i].rows[0]};
-}
-}
-for(i=0;i<n.length-1;i++){
-if((n[i].text!=null)&&(n[i+1].text==null)&&(n[i].row+1<o.length)&&(o[n[i].row+1].text==null)&&(n[i+1]==o[n[i].row+1])){
-n[i+1]={text:n[i+1],row:n[i].row+1};
-o[n[i].row+1]={text:o[n[i].row+1],row:i+1};
-}
-}
-for(i=n.length-1;i>0;i--){
-if((n[i].text!=null)&&(n[i-1].text==null)&&(n[i].row>0)&&(o[n[i].row-1].text==null)&&(n[i-1]==o[n[i].row-1])){
-n[i-1]={text:n[i-1],row:n[i].row-1};
-o[n[i].row-1]={text:o[n[i].row-1],row:i-1};
-}
-}
-mb.log.exit();
-return {o:o,n:n};
-};
-this.runDiff=function(){
-mb.log.enter(this.GID,"runDiff");
-var _5e=true;
-if(window.showedit!=undefined&&!showedit.isDiffEnabled()){
-_5e=false;
-}
-if(_5e){
-var _5f=mb.ui.getByTag("td");
-var _60=[];
-var i,obj,id,name,ids=[];
-for(i=0;i<_5f.length;i++){
-obj=_5f[i];
-id=(obj.id||"");
-if(id.match(/^(nv\::(album|release|track|edit.*|artist.*)\d+|ov\::(album|release|track|edit.*|artist.*)\d+)/i)){
-var c=id.split("::");
-if(c.length==2){
-mb.log.info("Found diffable element: $",id);
-var _63=c[0];
-var _64=c[1];
-if(!_60[_64]){
-_60[_64]={ov:null,nv:null};
-ids.push(_64);
-}
-_60[_64][_63]=obj;
-}else{
-alert(c);
-}
-}
-}
-mb.log.info("ids: $",ids);
-for(i=0;i<ids.length;i++){
-id=ids[i];
-if((obj=_60[id])!=null){
-if(obj.ov&&obj.nv){
-mb.log.info("id: $, ov: $, nv: $",id,obj.ov,obj.nv);
-var ov=(obj.ov.innerHTML||"").replace("&nbsp;"," ");
-var nv=(obj.nv.innerHTML||"").replace("&nbsp;"," ");
-var out=this.diffStringSeparate(ov,nv);
-obj.ov.innerHTML=out.o.replace(/not_set/gi,"Not set");
-obj.nv.innerHTML=out.n.replace(/not_set/gi,"Not set");
-}else{
-mb.log.warning("Obj does not define ov: $, nv: $",obj.ov||"",obj.nv||"");
-}
-}else{
-mb.log.warning("No element with id: $ found",id);
-}
-}
-}
-mb.log.exit();
-};
-mb.log.exit();
-}
 if(Array.prototype.push&&([0].push(true)==true)){
 Array.prototype.push=null;
 }
@@ -666,6 +469,203 @@ this[this.length]=endArray[i];
 }
 return removeArray;
 };
+}
+function MbDiff(){
+this.CN="MbDiff";
+this.GID="mb.diff";
+mb.log.enter(this.CN,"__constructor");
+this.escape=function(s){
+mb.log.enter(this.GID,"escape");
+var n=(s||"");
+n=n.replace(/&/g,"&amp;");
+n=n.replace(/</g,"&lt;");
+n=n.replace(/>/g,"&gt;");
+n=n.replace(/"/g,"&quot;");
+mb.log.exit();
+return n;
+};
+this.diffStringInline=function(o,n){
+mb.log.enter(this.GID,"diffStringInline");
+o=o.replace(/\s+$/,"");
+n=n.replace(/\s+$/,"");
+var out=this.diff(o==""?[]:o.split(/\s+/),n==""?[]:n.split(/\s+/));
+var str="";
+var _52=o.match(/\s+/g);
+if(_52==null){
+_52=["\n"];
+}else{
+_52.push("\n");
+}
+var _53=n.match(/\s+/g);
+if(_53==null){
+_53=["\n"];
+}else{
+_53.push("\n");
+}
+var i;
+if(out.n.length==0){
+for(i=0;i<out.o.length;i++){
+str+="<del>"+this.escape(out.o[i])+_52[i]+"</del>";
+}
+}else{
+if(out.n[0].text==null){
+for(n=0;n<out.o.length&&out.o[n].text==null;n++){
+str+="<del>"+this.escape(out.o[n])+_52[n]+"</del>";
+}
+}
+for(i=0;i<out.n.length;i++){
+if(out.n[i].text==null){
+str+="<ins>"+this.escape(out.n[i])+_53[i]+"</ins>";
+}else{
+var pre="";
+for(n=out.n[i].row+1;n<out.o.length&&out.o[n].text==null;n++){
+pre+="<del>"+this.escape(out.o[n])+_52[n]+"</del>";
+}
+str+=" "+out.n[i].text+_53[i]+pre;
+}
+}
+}
+mb.log.exit();
+return str;
+};
+this.diffStringSeparate=function(o,n){
+mb.log.enter(this.GID,"diffStringSeparate");
+o=o.replace(/\s+$/,"");
+n=n.replace(/\s+$/,"");
+var out=this.diff(o==""?[]:o.split(/\s+/),n==""?[]:n.split(/\s+/));
+var _59=o.match(/\s+/g);
+if(_59==null){
+_59=["\n"];
+}else{
+_59.push("\n");
+}
+var _5a=n.match(/\s+/g);
+if(_5a==null){
+_5a=["\n"];
+}else{
+_5a.push("\n");
+}
+var os=[];
+var i;
+for(i=0;i<out.o.length;i++){
+if(out.o[i].text!=null){
+os.push("<span class=\"text\">");
+os.push(out.o[i].text);
+os.push("</span>");
+os.push(_59[i]);
+}else{
+os.push("<span class=\"del\">");
+os.push(out.o[i]);
+os.push("</span>");
+os.push(_59[i]);
+}
+}
+var ns=[];
+for(i=0;i<out.n.length;i++){
+if(out.n[i].text!=null){
+ns.push("<span class=\"text\">");
+ns.push(out.n[i].text);
+ns.push("</span>");
+ns.push(_5a[i]);
+}else{
+ns.push("<span class=\"ins\">");
+ns.push(out.n[i]);
+ns.push("</span>");
+ns.push(_5a[i]);
+}
+}
+mb.log.exit();
+return {o:os.join(""),n:ns.join("")};
+};
+this.diff=function(o,n){
+mb.log.enter(this.GID,"diff");
+var ns=new Object();
+var os=new Object();
+var i;
+for(i=0;i<n.length;i++){
+if(ns[n[i]]==null){
+ns[n[i]]={rows:new Array(),o:null};
+}
+ns[n[i]].rows.push(i);
+}
+for(i=0;i<o.length;i++){
+if(os[o[i]]==null){
+os[o[i]]={rows:new Array(),n:null};
+}
+os[o[i]].rows.push(i);
+}
+for(i in ns){
+if(ns[i].rows.length==1&&typeof (os[i])!="undefined"&&os[i].rows.length==1){
+n[ns[i].rows[0]]={text:n[ns[i].rows[0]],row:os[i].rows[0]};
+o[os[i].rows[0]]={text:o[os[i].rows[0]],row:ns[i].rows[0]};
+}
+}
+for(i=0;i<n.length-1;i++){
+if((n[i].text!=null)&&(n[i+1].text==null)&&(n[i].row+1<o.length)&&(o[n[i].row+1].text==null)&&(n[i+1]==o[n[i].row+1])){
+n[i+1]={text:n[i+1],row:n[i].row+1};
+o[n[i].row+1]={text:o[n[i].row+1],row:i+1};
+}
+}
+for(i=n.length-1;i>0;i--){
+if((n[i].text!=null)&&(n[i-1].text==null)&&(n[i].row>0)&&(o[n[i].row-1].text==null)&&(n[i-1]==o[n[i].row-1])){
+n[i-1]={text:n[i-1],row:n[i].row-1};
+o[n[i].row-1]={text:o[n[i].row-1],row:i-1};
+}
+}
+mb.log.exit();
+return {o:o,n:n};
+};
+this.runDiff=function(){
+mb.log.enter(this.GID,"runDiff");
+var _63=true;
+if(window.showedit!=undefined&&!showedit.isDiffEnabled()){
+_63=false;
+}
+if(_63){
+var _64=mb.ui.getByTag("td");
+var _65=[];
+var i,obj,id,name,ids=[];
+for(i=0;i<_64.length;i++){
+obj=_64[i];
+id=(obj.id||"");
+if(id.match(/^(nv\::(album|release|track|edit.*|artist.*)\d+|ov\::(album|release|track|edit.*|artist.*)\d+)/i)){
+var c=id.split("::");
+if(c.length==2){
+mb.log.info("Found diffable element: $",id);
+var _68=c[0];
+var _69=c[1];
+if(!_65[_69]){
+_65[_69]={ov:null,nv:null};
+ids.push(_69);
+}
+_65[_69][_68]=obj;
+}else{
+mb.log.error(c);
+}
+}
+}
+mb.log.info("ids: $",ids);
+for(i=0;i<ids.length;i++){
+id=ids[i];
+if((obj=_65[id])!=null){
+if(obj.ov&&obj.nv){
+mb.log.info("id: $, ov: $, nv: $",id,obj.ov,obj.nv);
+var ov=(obj.ov.innerHTML||"").replace("&nbsp;"," ");
+var nv=(obj.nv.innerHTML||"").replace("&nbsp;"," ");
+var out=this.diffStringSeparate(ov,nv);
+obj.ov.innerHTML=out.o.replace(/not_set/gi,"Not set");
+obj.nv.innerHTML=out.n.replace(/not_set/gi,"Not set");
+}else{
+mb.log.warning("Obj does not define ov: $, nv: $",obj.ov||"",obj.nv||"");
+}
+}else{
+mb.log.warning("No element with id: $ found",id);
+}
+}
+}
+mb.log.exit();
+};
+mb.log.exit();
 }
 function MbUI(){
 this.CN="MbUI";
@@ -886,15 +886,8 @@ var el,list=mb.ui.getByTag("input");
 var _95;
 if((el=mb.ui.get("ONLOAD::focusfield"))!=null){
 if((_95=el.value)!=null){
-var _96,form=el.form;
-for(var i=0;i<list.length;i++){
-el=list[i];
-name=(el.name||"");
-_96=el.form;
-if((_96==form)&&(name==_95)&&(el.focus)){
+if((el=mb.ui.get(_95))!=null&&el.focus){
 el.focus();
-break;
-}
 }
 }else{
 mb.log.warning("ONLOAD::focusfield has no value!");
@@ -928,27 +921,27 @@ this.nav4up=this.nav&&(this.major>=4);
 this.ie4up=this.ie&&(this.major>=4);
 mb.log.exit();
 }
-function MbEventAction(_99,_9a,_9b){
+function MbEventAction(_97,_98,_99){
 mb.log.enter("MbEventAction","__constructor");
 this.CN="MbEventAction";
 this.GID="";
+var _9a=_97;
+var _9b=_98;
 var _9c=_99;
-var _9d=_9a;
-var _9e=_9b;
 this.getObject=function(){
-return _9c;
+return _9a;
 };
 this.getMethod=function(){
-return _9d;
+return _9b;
 };
 this.getDescription=function(){
-return _9e;
+return _9c;
 };
 this.toString=function(){
 var s=[];
 s.push(this.CN);
 s.push(" [");
-s.push(_9e);
+s.push(_9c);
 s.push(", ");
 s.push(this.getCode());
 s.push("]");
@@ -956,9 +949,9 @@ return s.join("");
 };
 this.getCode=function(){
 var s=[];
-s.push(_9c);
+s.push(_9a);
 s.push(".");
-s.push(_9d);
+s.push(_9b);
 s.push("()");
 return s.join("");
 };
@@ -984,14 +977,14 @@ this.trigger="mouseover";
 this.isClickAllowed=false;
 this.displayedDropDown=null;
 this.h={m:[],ml:[],sm:[]};
-this.init=function(ty,tr,_a3){
+this.init=function(ty,tr,_a1){
 if(tr&&tr.match(/mouseover|click/i)){
 this.trigger=tr.toLowerCase();
 }
 if(ty&&ty.match(/both|dropdownonly|staticonly/i)){
 this.type=ty.toLowerCase();
 }
-this.items=_a3;
+this.items=_a1;
 };
 this.isDropDownEnabled=function(){
 return this.type.match(/both|dropdownonly/i);
@@ -1072,8 +1065,8 @@ this.timer.hasLeftSubMenu();
 mb.log.exit();
 return returncode;
 };
-this.activateMenuItem=function(id,_a9){
-if(_a9){
+this.activateMenuItem=function(id,_a7){
+if(_a7){
 if(this.allowMouseTrigger()){
 this.timer.clear();
 this.openDropdown(id);
@@ -1087,16 +1080,16 @@ this.openDropdown(id);
 mb.topmenu.hideDisplayedDropDown();
 }
 };
-this.mouseOver=function(id,_ab){
+this.mouseOver=function(id,_a9){
 mb.log.enter(this.GID,"mouseOver");
-mb.log.trace("id: $, flag: $",id,_ab);
+mb.log.trace("id: $, flag: $",id,_a9);
 var obj=null;
 if((obj=this.h.m[id])!=null){
 var cn=obj.className;
-if(_ab&&cn.indexOf("hover")==-1){
+if(_a9&&cn.indexOf("hover")==-1){
 obj.className=cn+"hover";
 }else{
-if(!_ab&&cn.indexOf("hover")!=-1){
+if(!_a9&&cn.indexOf("hover")!=-1){
 obj.className=cn.replace("hover","");
 }
 }
@@ -1128,10 +1121,10 @@ this.displayedDropDown=id;
 }
 mb.log.exit();
 };
-this.hideRelatedModsIframe=function(_b1){
+this.hideRelatedModsIframe=function(_af){
 var obj=null;
 if((obj=mb.ui.get("RelatedModsBox"))!=null){
-obj.style.display=(_b1?"none":"block");
+obj.style.display=(_af?"none":"block");
 }
 };
 this.setupTopMenu=function(){
@@ -1148,7 +1141,7 @@ oName=mName+".mouseover";
 if((obj=mb.ui.get(oName))!=null){
 this.h.m[mName]=obj;
 mOffsetLeft=obj.offsetLeft;
-obj.onmouseover=function(_b5){
+obj.onmouseover=function(_b3){
 try{
 return mb.topmenu.handleEvent(this,mb.topmenu.MENUITEM_OVER);
 }
@@ -1161,7 +1154,7 @@ catch(e){
 }
 return true;
 };
-obj.onmouseout=function(_b6){
+obj.onmouseout=function(_b4){
 try{
 return mb.topmenu.handleEvent(this,mb.topmenu.MENUITEM_OUT);
 }
@@ -1174,7 +1167,7 @@ catch(e){
 }
 return true;
 };
-obj.onclick=function(_b7){
+obj.onclick=function(_b5){
 try{
 return mb.topmenu.handleEvent(this,mb.topmenu.MENUITEM_CLICKED);
 }
@@ -1190,10 +1183,10 @@ return true;
 oName=mName+".click";
 if((obj=mb.ui.get(oName))!=null){
 obj.href="javascript:; // Click to open submenu";
-obj.onfocus=function(_b8){
+obj.onfocus=function(_b6){
 this.blur();
 };
-obj.onmouseover=function(_b9){
+obj.onmouseover=function(_b7){
 try{
 return mb.topmenu.handleEvent(this,mb.topmenu.CLICK_OVER);
 }
@@ -1206,7 +1199,7 @@ catch(e){
 }
 return true;
 };
-obj.onmouseout=function(_ba){
+obj.onmouseout=function(_b8){
 try{
 return mb.topmenu.handleEvent(this,mb.topmenu.CLICK_OUT);
 }
@@ -1219,7 +1212,7 @@ catch(e){
 }
 return true;
 };
-obj.onclick=function(_bb){
+obj.onclick=function(_b9){
 try{
 return mb.topmenu.handleEvent(this,mb.topmenu.CLICK_CLICKED);
 }
@@ -1237,10 +1230,10 @@ mb.log.debug("Object $ not found...",oName);
 }
 oName=mName+".submenu";
 if((obj=mb.ui.get(oName))!=null){
-var _bc=this.OFFSET_LEFT+mOffsetLeft;
-obj.style.left=""+_bc+"px";
+var _ba=this.OFFSET_LEFT+mOffsetLeft;
+obj.style.left=""+_ba+"px";
 this.h.sm[mName]=obj;
-obj.onmouseover=function(_bd){
+obj.onmouseover=function(_bb){
 try{
 mb.topmenu.handleEvent(this,mb.topmenu.DROPDOWN_OVER);
 }
@@ -1253,7 +1246,7 @@ catch(e){
 }
 return true;
 };
-obj.onmouseout=function(_be){
+obj.onmouseout=function(_bc){
 try{
 return mb.topmenu.handleEvent(this,mb.topmenu.DROPDOWN_OUT);
 }
@@ -1278,25 +1271,25 @@ this.status="ready";
 mb.log.debug("Status: $",this.status);
 mb.log.exit();
 };
-this.writeUI=function(_bf){
+this.writeUI=function(_bd){
 var s=[];
 s.push("<table cellspacing=\"0\" cellpadding=\"0\" border=\"0\"><tr>");
 for(var i=0;i<this.items.length;i++){
-var _c2=this.items[i][0];
+var _c0=this.items[i][0];
 var url=this.items[i][1];
-var _c4=this.items[i][2];
-this.h.ml[_c2]=url;
-var cn=(_bf==_c2?"selected":"");
+var _c2=this.items[i][2];
+this.h.ml[_c0]=url;
+var cn=(_bd==_c0?"selected":"");
 cn=(cn!=""?"class=\""+cn+"\"":"");
 s.push("<td nowrap "+cn);
-s.push("id=\""+_c2+".mouseover\" ");
+s.push("id=\""+_c0+".mouseover\" ");
 s.push("><a ");
-s.push("title=\""+_c4+"\" ");
-s.push("href=\""+url+"\">"+_c4+"</a>");
+s.push("title=\""+_c2+"\" ");
+s.push("href=\""+url+"\">"+_c2+"</a>");
 if(this.allowClickTrigger()){
 s.push("<a ");
-s.push("id=\""+_c2+".click\" ");
-s.push("><img style=\"padding-left: 3px;\" src=\"/images/dropdown.gif\" alt=\"\" border=\"0\"></a>");
+s.push("id=\""+_c0+".click\" ");
+s.push("><img style=\"padding-left: 3px;\" src=\"http://musicbrainz.org/images/dropdown.gif\" alt=\"\" border=\"0\"></a>");
 }
 s.push("</td>");
 }
@@ -1318,30 +1311,30 @@ this.ID_CONTENT="content-td";
 this.STATES=[{id:"hide",title:"Hide side bar",icon:"minimize.gif"},{id:"show",title:"Show side bar",icon:"maximize.gif"}];
 this.init=function(){
 mb.log.enter(this.GID,"init");
-var _c6=mb.cookie.get(this.COOKIE_SIDEBAR);
-_c6=(_c6||"1");
-this.toggle((_c6=="1"));
+var _c4=mb.cookie.get(this.COOKIE_SIDEBAR);
+_c4=(_c4||"1");
+this.toggle((_c4=="1"));
 mb.log.exit();
 };
-this.toggle=function(_c7){
+this.toggle=function(_c5){
 mb.log.enter(this.GID,"toggle");
 var el;
 if((el=mb.ui.get(this.ID_SIDEBAR))!=null){
-_c7=(_c7||(el.style.display=="none"));
+_c5=(_c5||(el.style.display=="none"));
 if(el){
-el.style.display=(_c7?"":"none");
-el.style.width=(_c7?"140px":"0px");
+el.style.display=(_c5?"":"none");
+el.style.width=(_c5?"140px":"0px");
 }
 if((el=mb.ui.get(this.ID_CONTENT))!=null){
 el.style.width="100%";
 }
 if((el=mb.ui.get(this.ID_SHOW))!=null){
-el.style.display=(_c7?"none":"inline");
+el.style.display=(_c5?"none":"inline");
 }
 if((el=mb.ui.get(this.ID_HIDE))!=null){
-el.style.display=(_c7?"inline":"none");
+el.style.display=(_c5?"inline":"none");
 }
-mb.cookie.set(this.COOKIE_SIDEBAR,(_c7?"1":"0"),365);
+mb.cookie.set(this.COOKIE_SIDEBAR,(_c5?"1":"0"),365);
 }else{
 mb.log.error("Did not find el: $",this.ID_SIDEBAR);
 }
@@ -1365,7 +1358,7 @@ s.push("\">");
 s.push(state.title);
 s.push("</a>");
 s.push("</td><td>");
-s.push("<img src=\"/images/icon/");
+s.push("<img src=\"http://musicbrainz.org/images/icon/");
 s.push(state.icon);
 s.push("\" alt=\"\">");
 s.push("</td></tr></table>");
@@ -1391,17 +1384,17 @@ this.clear=function(){
 clearTimeout(this.openTimer);
 clearTimeout(this.closeTimer);
 };
-this.activateMenuItem=function(id,_cb){
+this.activateMenuItem=function(id,_c9){
 if(this.stateChangeTimer[id]!=null){
 clearTimeout(this.stateChangeTimer[id]);
 }
 this.clear();
-this.openTimer=setTimeout("mb.topmenu.activateMenuItem('"+id+"', "+_cb+");",this.activateTime);
-this.stateChangeTimer[id]=setTimeout("mb.topmenu.timer.onStateChange('"+id+"', "+_cb+");",this.stateChangeTime);
+this.openTimer=setTimeout("mb.topmenu.activateMenuItem('"+id+"', "+_c9+");",this.activateTime);
+this.stateChangeTimer[id]=setTimeout("mb.topmenu.timer.onStateChange('"+id+"', "+_c9+");",this.stateChangeTime);
 };
-this.onStateChange=function(id,_cd){
+this.onStateChange=function(id,_cb){
 this.stateChangeTimer[id]=null;
-mb.topmenu.mouseOver(id,_cd);
+mb.topmenu.mouseOver(id,_cb);
 };
 this.hasEnteredSubMenu=function(){
 this.clear();
@@ -1416,44 +1409,44 @@ function MbAlbumArtResizer(){
 mb.log.enter("MbAlbumArtResizer","__constructor");
 this.CN="MbAlbumArtResizer";
 this.GID="mb.albumart";
-this.unscaleAlbumArt=function(_ce){
+this.unscaleAlbumArt=function(_cc){
 mb.log.enter(this.GID,"unscaleAlbumArt");
 var w,h;
-if(!_ce){
+if(!_cc){
 mb.log.error("imgRef is null");
 return mb.log.exit();
 }
-if(!(w=_ce.naturalWidth)||!(h=_ce.naturalHeight)){
+if(!(w=_cc.naturalWidth)||!(h=_cc.naturalHeight)){
 return mb.log.exit();
 }
-var _d0=200,max_h=200;
-if(w>_d0||h>max_h){
-var _d1=w/_d0,scale_h=h/max_h;
-if(_d1>scale_h){
-w/=_d1;
-h/=_d1;
+var _ce=200,max_h=200;
+if(w>_ce||h>max_h){
+var _cf=w/_ce,scale_h=h/max_h;
+if(_cf>scale_h){
+w/=_cf;
+h/=_cf;
 }else{
 w/=scale_h;
 h/=scale_h;
 }
 }
-_ce.width=w;
-_ce.height=h;
+_cc.width=w;
+_cc.height=h;
 mb.log.info("New size: $x$",w,h);
 var obj;
-if((obj=_ce.parentNode.nextSibling)!=null){
+if((obj=_cc.parentNode.nextSibling)!=null){
 obj.style.marginRight=""+(w+10)+"px";
 }
 return mb.log.exit();
 };
 this.setupAmazonCoverart=function(){
 mb.log.enter(this.GID,"setupAmazonCoverart");
-var _d3=document.images;
+var _d1=document.images;
 var cnt=0;
-for(var i=_d3.length-1;i>=0;i--){
-var _d6=_d3[i];
-if(_d6.className=="amazon_coverart"&&_d6.complete){
-this.unscaleAlbumArt(_d6);
+for(var i=_d1.length-1;i>=0;i--){
+var _d4=_d1[i];
+if(_d4.className=="amazon_coverart"&&_d4.complete){
+this.unscaleAlbumArt(_d4);
 cnt++;
 }
 }
@@ -1493,12 +1486,12 @@ mb.onDomReadyFlag=false;
 mb.isPageLoading=function(){
 return !mb.onPageLoadedFlag;
 };
-mb.registerPageLoadedAction=function(_d7){
+mb.registerPageLoadedAction=function(_d5){
 mb.log.enter(mb.GID,"registerPageLoadedAction");
-if(_d7 instanceof MbEventAction){
-mb.onPageLoadedActions.push(_d7);
+if(_d5 instanceof MbEventAction){
+mb.onPageLoadedActions.push(_d5);
 }else{
-mb.log.error("Invalid argument, expected MbEventAction: $",_d7);
+mb.log.error("Invalid argument, expected MbEventAction: $",_d5);
 }
 mb.log.exit();
 };
@@ -1518,12 +1511,12 @@ mb.log.exit();
 mb.log.scopeEnd();
 };
 window.onload=mb.onPageLoaded;
-mb.registerDOMReadyAction=function(_d8){
+mb.registerDOMReadyAction=function(_d6){
 mb.log.enter(mb.GID,"registerDOMReadyAction");
-if(_d8 instanceof MbEventAction){
-mb.onDomReadyActions.push(_d8);
+if(_d6 instanceof MbEventAction){
+mb.onDomReadyActions.push(_d6);
 }else{
-mb.log.error("Invalid argument, expected MbEventAction: $",_d8);
+mb.log.error("Invalid argument, expected MbEventAction: $",_d6);
 }
 mb.log.exit();
 };
@@ -1540,23 +1533,23 @@ mb.log.exit();
 }
 mb.log.exit();
 };
-mb.runRegisteredFunctions=function(_d9){
-var i=0,len=_d9.length;
+mb.runRegisteredFunctions=function(_d7){
+var i=0,len=_d7.length;
 if(len>0){
 mb.log.trace("Running $ actions...",len);
 do{
-var _db=_d9[i];
-if(_db instanceof MbEventAction){
-mb.log.info("* $",_db);
+var _d9=_d7[i];
+if(_d9 instanceof MbEventAction){
+mb.log.info("* $",_d9);
 try{
-eval(_db.getCode());
+eval(_d9.getCode());
 }
 catch(e){
 mb.log.error("Caught exception: ",e);
 mb.log.error(mb.log.getStackTrace());
 }
 }else{
-mb.log.error("Invalid object, expected MbEventAction: $",_db);
+mb.log.error("Invalid object, expected MbEventAction: $",_d9);
 }
 }while(len>++i);
 }
@@ -1567,9 +1560,9 @@ mb.topmenu=new MbTopMenu();
 mb.albumart=new MbAlbumArtResizer();
 mb.diff=new MbDiff();
 mb.registerDOMReadyAction(new MbEventAction(mb.topmenu.GID,"setupTopMenu","Setting up topmenu events."));
-mb.registerDOMReadyAction(new MbEventAction(mb.ui.GID,"setupKeyboardFocus","Setting up focussed field for keyboard input."));
 mb.registerDOMReadyAction(new MbEventAction(mb.ui.GID,"setupPopupLinks","Setting up popup links"));
 mb.registerDOMReadyAction(new MbEventAction(mb.ui.GID,"setupFeedbackBoxes","Setting up feedback boxes"));
+mb.registerPageLoadedAction(new MbEventAction(mb.ui.GID,"setupKeyboardFocus","Setting up keyboard focus input."));
 mb.registerPageLoadedAction(new MbEventAction(mb.albumart.GID,"setupAmazonCoverart","Resize amazon coverart"));
 mb.log.exit();
 }

@@ -65,7 +65,7 @@
 				<td class="label">
 					<a href="/development/mmd">XML</a>:</td>
 				<td>
-					<a href="<% $track->XML_URL %>"><% $track->XML_URL %></a></td>
+					<a href="<% $track->XML_URL %>"><% substr($track->XML_URL, 0, 48) . " &#8230;" |n %></a></td>
 			</tr>
 
 %	if ($track->GetLength)
@@ -117,9 +117,7 @@
 
 %			if (exists $session{user})
 %			{
-
-				[ <a href="/edit/puid/remove.html?trackid=<% $track->GetId %>&amp;puid=<% $id->{PUID} %>&amp;PUIDjoin=<% $id->{PUIDjoinid} %>">remove</a> ]
-
+								[ <a href="/edit/puid/remove.html?trackid=<% $track->GetId %>&amp;puid=<% $id->{PUID} %>&amp;PUIDjoin=<% $id->{PUIDjoinid} %>">remove</a> ]
 %			}
 %			else
 %			{
@@ -149,7 +147,7 @@
 					<table class="listing">
 						<tr class="header">
 							<td>
-								TRM ID <img src="/images/trm.gif" alt="" /></td>
+								TRM ID: <img src="/images/trm.gif" alt="" /></td>
 							<td>
 								Lookup Count:</td>
 							<td>
@@ -172,9 +170,7 @@
 
 %			if (exists $session{user})
 %			{
-
-				[ <a href="/edit/trm/remove.html?trackid=<% $track->GetId %>&amp;trmid=<% $id->{TRM} %>&amp;TRMjoin=<% $id->{TRMjoinid} %>">remove</a> ]
-				
+								[ <a href="/edit/trm/remove.html?trackid=<% $track->GetId %>&amp;trmid=<% $id->{TRM} %>&amp;TRMjoin=<% $id->{TRMjoinid} %>">remove</a> ]
 %			}
 %			else
 %			{

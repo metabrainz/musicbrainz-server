@@ -115,8 +115,8 @@
 </%perl>
 
 	<& /comp/header_inline,
-		title => 'Inline Moderation',
-		head => '<base target="_parent">',
+		title => "Inline edit",
+		head => qq!<base target="_parent">!,
 		nosmallfonts => $nosmallfonts,
 		noentityicons => $noentityicons &>
 
@@ -156,6 +156,7 @@
 		<table class="editlist">
 
 %		my $show_button = 1;
+
 		<& /comp/showmod,
 			edit => $reledit,
 			notes => \@notes,

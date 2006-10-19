@@ -43,7 +43,7 @@ function GcArtistHandler() {
 	// ---------------------------------------------------------------------------
 
 	/**
-	 * Guess the albumname given in string is, and
+	 * Guess the artist name given in string is, and
 	 * returns the guessed name.
 	 *
 	 * @param	is		the inputstring
@@ -57,7 +57,7 @@ function GcArtistHandler() {
 		gc.i.init(is, w);
 		while (!gc.i.isIndexAtEnd()) {
 			this.processWord();
-			mb.log.debug("Output: $", gc.o._w);			
+			mb.log.debug("Output: $", gc.o._w);
 		}
 		var os = gc.o.getOutput();
 		os = gc.artistmode.runPostProcess(os);

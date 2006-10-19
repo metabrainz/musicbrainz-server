@@ -46,21 +46,22 @@
 
 </%perl>
 
-<& /comp/sidebar-notitle, pagetitle => "URL Information" &>
+<& /comp/sidebar-notitle, pagetitle => "URL information" &>
 
 	<& /comp/urlinfo, url => $url &>
 
 <%perl>
 
-	$m->comp("/comp/ar/AddRelationship", id=>$urlid, type=>'url', name=>$url->GetName)
+	$m->comp("/comp/ar/AddRelationship", id => $urlid, type => "url", name => $url->GetName)
 		if ($addrel);
+
 	$m->comp("/comp/ar/ClearRelationships")
 		if ($arcancel);
 
-	$m->comp("/comp/ar/RemoveRelationship", id=>$remrel, type=>$remtype)
+	$m->comp("/comp/ar/RemoveRelationship", id => $remrel, type => $remtype)
 		if ($remrel >= 0);
 
-	$m->comp("/comp/ar/RelationshipBox", id=>$urlid, type=>'url', name=>$url->GetName, modlinks=>1);
+	$m->comp("/comp/ar/RelationshipBox", id => $urlid, type => "url", name => $url->GetName, modlinks => 1);
 
 </%perl>
 

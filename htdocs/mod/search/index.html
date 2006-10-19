@@ -58,9 +58,9 @@
 
 </%perl>
 
-<& /comp/sidebar-notitle, pagetitle => "Search for Edits" &>
+<& /comp/sidebar-notitle, pagetitle => "Search for edits" &>
 
-	<& /comp/tablebegin, title => "Search for Edits" &>
+	<& /comp/tablebegin, title => "Search for edits" &>
 
 		<table class="formstyle">
 			<tr>
@@ -72,7 +72,7 @@
 							are shown. </li>
 						<li>
 							The <strong>language filter</strong> works for add release edits
-							for which the language has been set, edit release
+							for which the language has been set, and edit release
 							language edits.
 						<li>
 							You can <strong>limit your search to a range of Edit
@@ -122,8 +122,8 @@
 							<select name="mod_status" multiple="multiple" size="5">
 							<& /comp/options,
 								[
-									map { [ $_, Moderation::GetChangeName({ status => $_}) ] }
-										sort { $a<=>$b }
+									map { [ $_, Moderation::GetChangeName({ status => $_ }) ] }
+										sort { $a <=> $b }
 										keys %all_status
 								],
 								$filter->{"mod_status"}, &>
@@ -200,13 +200,19 @@
 								<% ($moderator_id) ? "" : 'disabled="disabled"' %>
 								<% ($moderator_type eq "3") ? 'checked="checked"' : "" %>
 
-							/><label for="moderator_type3">
 %	if ($moderator_id)
 %	{
-							Only <& /comp/linkuser, id => $moderator_id, name => $filter->{"moderator_name"} &></label>
+
+							/><label for="moderator_type3">Only <& /comp/linkuser, id => $moderator_id,
+								name => $filter->{"moderator_name"} &></label>
 							<input type="hidden" name="moderator_id" value="<% $moderator_id %>" />
-%	} else {
-							(no editor selected)</label>
+
+%	}
+%	else
+%	{
+
+							/><label for="moderator_type3">(no editor selected)</label>
+
 %	}
 							&nbsp; [ <a href="/mod/search/select-moderator.html?<% scalar $r->args %>">Change ...</a> ] <br />
 
@@ -243,23 +249,25 @@
 								<% ($voter_id) ? "" : 'disabled="disabled"' %>
 								<% ($voter_type eq "1") ? 'checked="checked"' : "" %>
 
-							/><label for="voter_type1"
 %	if ($voter_id)
 %	{
-							>
-							<& /comp/linkuser, id => $voter_id, name => $voter_name, title => "voter" &>'s vote</label>
+							/><label for="voter_type1">Only <& /comp/linkuser, id => $voter_id,
+								name => $voter_name, title => "voter" &></label>
 							<input type="hidden" name="voter_id" value="<% $voter_id %>" />
+
 %	}
 %	else
 %	{
-							No voter selected</label>
+
+							/><label for="voter_type1">No voter selected</label>
+
 %	}
 							&nbsp; [ <a href="/mod/search/select-moderator.html?is_voter=1&<% scalar $r->args %>">Change ...</a> ] <br />
 
 						</div></td>
 				</tr>
 				<tr class="top">
-					<td class="label">Vote Cast:</td>
+					<td class="label">Vote cast:</td>
 					<td>
 						<div id="id_vote_cast">
 							<select name="vote_cast" multiple="multiple" style="margin-top: 3px">
@@ -347,7 +355,7 @@
 						</div></td>
 				</tr>
 				<tr class="top">
-					<td class="label">Sorting Order:</td>
+					<td class="label">Sorting order:</td>
 					<td>
 						<div id="id_orderby">
 
@@ -372,7 +380,7 @@
 %	{
 
 				<tr class="top">
-					<td class="label">Specific Object:</td>
+					<td class="label">Specific object:</td>
 					<td>
 						<div id="id_object_id">
 							<input type="hidden" name="object_type" value="<% $object_type %>" />
@@ -417,7 +425,7 @@
 				</tr>
 
 				<tr class="top">
-					<td class="label">EditID Range:</td>
+					<td class="label">EditID range:</td>
 					<td>
 						<div id="id_minid">
 
@@ -449,7 +457,8 @@
 				<tr>
 					<td class="label">&nbsp;</td>
 					<td>
-						<input type="submit" value="Search for Edits &raquo;" title="Search for all the edits matching the current filters" /></td>
+						<input type="submit" value="Search for edits &raquo;"
+							title="Search for all the edits matching the current filters" /></td>
 				</tr>
 			</table>
 

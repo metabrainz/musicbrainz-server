@@ -456,7 +456,7 @@ function MbTopMenu() {
 			if (this.allowClickTrigger()) {
 				s.push('<a ');
 				s.push('id="'+name+'.click" ');
-				s.push('><img style="padding-left: 3px;" src="/images/dropdown.gif" alt="" border="0"></a>');
+				s.push('><img style="padding-left: 3px;" src="http://musicbrainz.org/images/dropdown.gif" alt="" border="0"></a>');
 			}
 			s.push('</td>');
 		}

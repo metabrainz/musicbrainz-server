@@ -120,9 +120,10 @@
 					<a href="/mod/search/pre/editor-open.html?userid=<% $userid %>">Open edits</a> |
 					<a href="/mod/search/pre/editor-failed.html?userid=<% $userid %>">Failed edits</a> |
   					<a href="/mod/search/pre/editor-deleted.html?userid=<% $userid %>">Cancelled edits</a>
+
 % 	if ($subscriptions_public or $is_me)
 %	{
-					| <a href="/user/subscriptions.html?user=<% $userid %>">Subscriptions</a>
+					| <a href="/user/subscriptions.html?user=<% $userid %>">Artist subscriptions</a>
 % 	}
 				</td>
 			</tr>
@@ -143,8 +144,9 @@
 					| <a href="/user/election/propose.html?username=<% uri_escape($user->GetName)
 						%>">Nominate for AutoEditor</a>
 % 		}
-			</tr>
 % 	}
+				</td>
+			</tr>
 
 % 	if ($is_me)
 %	{
@@ -154,20 +156,20 @@
 					Edit my account:</td>
 				<td>
 					  <a href="/user/edit.html">Edit</a>
-					| <a href="/user/change-password.html">Change Password</a>
+					| <a href="/user/change-password.html">Change password</a>
 					| <a href="/user/preferences.html">Preferences</a>
 
 % 		if (UserStuff->IsLinkModerator($session{privs}))
 %		{
 
-					| <a href="/edit/relationships/link_type_roots.html">Edit Link Types</a>
+					| <a href="/edit/relationships/link_type_roots.html">Edit relationship types</a>
 
 % 		}
 
 % 		if (UserStuff->IsWikiTranscluder($session{privs}))
 %		{
 
-					| <a href="/edit/wikitransclusion/transclusion.html">Wiki Transclusion</a>
+					| <a href="/edit/wikitransclusion/transclusion.html">Wiki transclusion</a>
 
 % 		}
 				</td>
@@ -199,29 +201,40 @@
 %	if (defined($addr) and $addr =~ /\S/)
 %	{
 %		# Show the e-mail address (for yourself), or "[hidden]" (for others)
+
 					<% $is_me ? $addr : "[hidden]" %>
+
 %		# Show the "verified" date, if there is one
 %		if ($date)
 %		{
+
 					<br />Verified on <% $m->comp("/comp/datetime", $date) %>.
+
 %		}
 %		else
 %		{
+
 					<br />this e-mail has never been verified.
+
 %		}
 
 %		# If you're looking at your own profile, you can send yourself a
 %		# (re-)verification link
-%		if ($is_me) {
+%		if ($is_me)
+%		{
+
 					<a href="/user/sendverification.html?email=<% uri_escape($addr) %>"
 						><% $date ? "Re-verify" : "Verify" %> it now!</a>
+
 %		}
 %	}
 %
 %	# There is no e-mail address at all
 %	else
 %	{
+
 					[none]
+
 %	}
 				</td>
 			</tr>
@@ -232,11 +245,15 @@
 
 %   if (my $url = $user->GetWebURLComplete)
 %	{
+
 				<td><a href="<% $url %>"><% $url %></a></td>
+
 %   }
 %	else
 %	{
+
 				<td>[none]</td>
+
 %   }
 			</tr>
 
@@ -245,6 +262,7 @@
 					Bio:</td>
 				<td>
 					<div style="border: 1px dotted #ccc; padding: 5px;">
+
 <%perl>
 
 	my $bio = $user->GetBio;
@@ -265,16 +283,18 @@
 	$m->out($bio);
 
 </%perl>
+
 					</div></td>
 			</tr>
 
 			<tr class="top">
 				<td class="label">
-					Subscriptions:</td>
+					Artist subscriptions:</td>
 				<td>
-					<% $is_me ? "Your" : "This user's" %>
-					list of subscribed artists is
-					<% $subscriptions_public ? "public" : "private" %>.</td>
+					<% $is_me ? "Your" : $user->GetName."'s" %>
+					<a href="/user/subscriptions.html?user=<% $userid %>">
+					artist subscriptions</a> are <% $subscriptions_public ?
+					"public" : "private" %>.</td>
 			</tr>
 
 			<tr class="top">
@@ -323,7 +343,6 @@
 				<td colspan="2">&nbsp;</td>
 			</tr>
 
-
 <%perl>
 
 	# Retrieve vote statistics
@@ -349,8 +368,8 @@
 					<table class="listing">
 						<tr class="header">
 							<td>&nbsp;</td>
-							<td width="150" colspan="2">Last 28 days</td>
-							<td width="150" colspan="2">All time</td>
+							<td colspan="2" style="width: 150px">Last 28 days</td>
+							<td colspan="2" style="width: 150px">All time</td>
 						</tr>
 <%perl>
 
@@ -358,8 +377,8 @@
 		[ "Yes", &ModDefs::VOTE_YES ],
 		[ "No", &ModDefs::VOTE_NO ],
 		[ "Abstain", &ModDefs::VOTE_ABS ],
-		[ "Total", "TOTAL" ],
-	) {
+		[ "Total", "TOTAL" ] )
+	{
 		my ($name, $vote) = @$_;
 
 		$m->out(qq!<tr><td class="right" style="padding-left: 20px;padding-right: 20px;">$name:</td>!);
@@ -397,34 +416,40 @@
 
 </%args>
 
-	<& /comp/tablebegin, title => "Search for an".($jump?"":"other")." Editor" &>
+	<& /comp/tablebegin, title => "Search for an".($jump?"":"other")." editor" &>
 
 		<form method="get" action="/show/user/" id="EditorSearchForm">
 
 			<table class="formstyle">
+
 %	if ($error)
 %	{
 				<tr>
 					<td></td>
-					<td class="error">
-						<ul><li><% $error |n %></li></ul></td>
+					<td>
+						<& /comp/form/feedbackbox, "warning", "",
+							 $error &>
+					</td>
 				</tr>
+
 %	}
+
 				<tr>
 					<td class="label">
 						Name:</td>
 					<td>
-						<input type="text" name="username" size="20" />
-						<input type="submit" value="Search for Editor" /></td>
+						<input type="text" id="id_username" name="username" size="20" />
+						<input type="submit" value="Search &raquo;" /></td>
 				</tr>
 			</table>
 
 % 	if ($jump)
 %	{
 
-			<& /comp/movefocus, "EditorSearchForm", "username" &>
+			<& /comp/movefocus, id => "id_username" &>
 
 % 	}
+
 		</form>
 
 	<& /comp/tableend &>
@@ -434,7 +459,7 @@
 <%def .ShowError>
 % 	my $error = shift;
 
-	<& /comp/sidebar-notitle, pagetitle => 'Show Editor' &>
+	<& /comp/sidebar-notitle, pagetitle => "Show editor" &>
 
 		<& .JumpForm, jump => 1, error => $error &>
 

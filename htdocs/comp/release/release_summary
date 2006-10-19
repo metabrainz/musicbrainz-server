@@ -63,14 +63,14 @@
 					<td class="statistics">
 						<span class="tracks">
 							<% $trackcount %>
-							<img src="/images/notes.gif" alt="Tracks" title="This release has <% $trackcount %> Tracks" />
+							<img src="/images/notes.gif" alt="Tracks" title="This release has <% $trackcount %> tracks" />
 						</span>
 
 % 	if ($discids > 0)
 %	{
 						<span class="discid">
 							<% $discids %>
-							<img src="/images/cd.gif" alt="CD" title="This release has <% $discids %> Disc IDs" />
+							<img src="/images/cd.gif" alt="CD" title="This release has <% $discids %> DiscIDs" />
 						</span>
 %	}
 
@@ -103,7 +103,7 @@
 
 		$m->out(qq![&nbsp;<a href="/popup/ReleaseLanguage" title="POPUP::Release_Language::400::300">!);
 		$m->out(sprintf qq!<span%s>%s, %s</span>!,
-				$release->GetLanguageModPending() ? ' class="mp"' : "",
+				$release->GetLanguageModPending() ? qq! class="mp"! : "",
 				$language ? $language->GetName() : "?",
 				$script ?  $script->GetName() : "?");
 
@@ -114,7 +114,7 @@
 		{
 			$m->out(sprintf qq!&nbsp;<a href="/edit/albumlanguage/edit.html?id=%s" title="%s">Edit%s</a>!,
 							$release->GetId(),
-							"Edit Language and Script of this Release",
+							"Edit language and script of this release",
 							$editwhat);
 		}
 		$m->out(qq!&nbsp;|</td>\n!);
@@ -131,7 +131,7 @@
 			$m->out(qq!<a href="/popup/ReleaseAttribute" title="POPUP::Release_Attributes::400::300">!);
 			if (@attrs > 0)
 			{
-				$m->out(sprintf qq!<span%s>!, $release->GetAttributeModPending() ? ' class="mp"' : "");
+				$m->out(sprintf qq!<span%s>!, $release->GetAttributeModPending() ? qq! class="mp"! : "");
 
 				my $count = 0;
 				for my $attr (@attrs)
@@ -155,7 +155,7 @@
 		{
 			$m->out(sprintf qq!&nbsp;<a href="/edit/album/editattributes.html?id=%s" title="%s">Edit</a>!,
 							$release->GetId(),
-							"Edit Language and Script of this Release",);
+							"Edit release attributes of this release",);
 		}
 	}
 

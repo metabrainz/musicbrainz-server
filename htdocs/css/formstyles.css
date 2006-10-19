@@ -68,21 +68,43 @@ table.formstyle input.tracklength-hidden {
 	visibility: hidden;
 }
 
-table.formstyle input.datefield {
+/**
+ * Date fields: 
+ * yyyy-mm-dd
+ *
+ */
+table.formstyle input.yearfield,
+table.formstyle input.monthfield,
+table.formstyle input.dayfield {
 	width: 50px;
 	background: #fff; color: #000;
 	text-align: center;
 }
 
-table.formstyle input.datefield.year {
-	width: 50px;
-}
-
-table.formstyle input.datefield.month,
-table.formstyle input.datefield.day {
+table.formstyle input.monthfield,
+table.formstyle input.dayfield {
 	width: 25px;
 }
 
+table.formstyle input.yearfield-missing,
+table.formstyle input.monthfield-missing,
+table.formstyle input.dayfield-missing {
+	width: 50px;
+	background: #fff5ce; color: #000;
+	border-left: 2px solid #fb5;
+	text-align: center;
+}
+
+table.formstyle input.monthfield-missing,
+table.formstyle input.dayfield-missing {
+	width: 25px;
+}
+
+
+/**
+ * Textfields, change color upon receiving the keyboard focus
+ *
+ */
 table.formstyle input.textfield {
 	width: 350px;
 	background: #fff; color: #000;
@@ -93,7 +115,6 @@ table.formstyle input.textfield.focus {
 	background: #f0efff; color: #000;
 }
 
-table.formstyle input.numberfield.missing,
 table.formstyle input.textfield.missing {
 	background: #fff5ce; color: #000;
 	border-left: 2px solid #fb5;
@@ -106,18 +127,24 @@ table.formstyle select.missing {
 
 table.formstyle .textfield,
 table.formstyle .numberfield,
-table.formstyle .datefield {
+table.formstyle .yearfield,
+table.formstyle .monthfield,
+table.formstyle .dayfield {
 	background: #fff; color: #000;
 	padding-left: 2px;
 }
 
-table.formstyle .datefield {
-  text-align: center;
+table.formstyle .yearfield,
+table.formstyle .monthfield,
+table.formstyle .dayfield {
+	text-align: center;
 }
 
 table.formstyle .textfieldfocus,
 table.formstyle .numberfieldfocus,
-table.formstyle .datefieldfocus {
+table.formstyle .yearfieldfocus,
+table.formstyle .monthfieldfocus,
+table.formstyle .dayfieldfocus {
 	background: #f0efff; color: #000;
 	padding-left: 2px;
 }
@@ -126,6 +153,13 @@ table.formstyle .numberfield,
 table.formstyle .numberfieldfocus {
 	text-align: center;
 }
+
+table.formstyle .trackerror {
+	font-size: 11px;
+	color: #333;
+	background-color: inherit;
+}
+
 
 table.formstyle .textarea {
 	/* width: 100%; handled with js now */
@@ -201,7 +235,7 @@ table.formstyle td.padtop {
 	margin-bottom: 5px;
 	border: 1px dotted #666;
 	background-color: #fff; color: #000;
-	font-size: 11px;
+	font-size: 12px;
 }
 
 .relationshipTypeError {
@@ -214,7 +248,7 @@ table.formstyle td.padtop {
 	padding: 5px;
 	border: 1px dotted #00f;
 	background-color: #fff; color: #000;
-	font-size: 11px;
+	font-size: 12px;
 }
 
 .helptext {
@@ -228,7 +262,7 @@ table.formstyle td.padtop {
 	width: 400px;
 	border: 1px dotted #666;
 	background-color: #fff; color: #000;
-	font-size: 11px;
+	font-size: 12px;
 }
 
 /* add instrument/vocal button */ 
@@ -618,7 +652,7 @@ fieldset.formstyle legend {
 	line-height: 1.2em;
 	margin-bottom: 15px;
 	padding: 4px;
-	font-size: 11px;
+	font-size: 12px;
 }
 
 .feedbackbox img.boxtype,
@@ -642,23 +676,25 @@ fieldset.formstyle legend {
 	background-color: #fafafa; color: #000;
 }
 
-.feedbackbox #header,
-.feedbackbox-warning #header,
-.feedbackbox-info  #header {
+span.feedbackbox-header {
 	font-weight: bold; margin-right: 5px;
 }
 
-.feedbackbox #text,
-.feedbackbox-warning #text,
-.feedbackbox-info  #text {}
+span.feedbackbox-text {
+}
+
+span.feedbackbox-text ul {
+	margin: 0px; padding: 0px;
+}
+
+span.feedbackbox-text ul li {
+	margin: 0px; padding: 0px;
+}
+
 
 .feedbackbox a,
-.feedbackbox-warning a,
-.feedbackbox-info a {}
 
-.feedbackbox a.readmore,
-.feedbackbox-warning a.readmore,
-.feedbackbox-info a.readmore {
+.feedbackbox a.readmore {
 	font-style: normal;
 	white-space: nowrap;
 	margin-left: 5px;
@@ -667,9 +703,7 @@ fieldset.formstyle legend {
 	text-decoration: underline;
 }
 
-.feedbackbox a.readmore:hover,
-.feedbackbox-warning a.readmore:hover,
-.feedbackbox-info a.readmore:hover {}
+.feedbackbox a.readmore:hover {}
 
 /* workflow state indications (step x of y) */
 div.formsteps {
@@ -736,6 +770,12 @@ table.release_editor td.linkedits {
 	white-space: nowrap;
 	padding-bottom: 12px;
 	vertical-align: bottom;
+}
+
+table.release_editor td.lessboxmargin .feedbackbox,
+table.release_editor td.lessboxmargin .feedbackbox-warning,
+table.release_editor td.lessboxmargin .feedbackbox-info { 
+	margin-bottom: 5px; 
 }
 
 

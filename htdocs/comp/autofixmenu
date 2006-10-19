@@ -34,10 +34,10 @@
 					<td class="title">
 						Help:</td>
 					<td class="link">
-						<& /comp/linkdoc, "StyleGuideline", "Style Guidelines" &></td>
+						<& /comp/linkdoc, "StyleGuideline", "Style guidelines" &></td>
 					<td>&nbsp;</td>
 					<td class="link">
-						<& /comp/linkdoc, "CapitalizationStandard ", "Capitalization Standards" &></td>
+						<& /comp/linkdoc, "CapitalizationStandard ", "Capitalization standards" &></td>
 				</tr>
 			</table>
 		</div>

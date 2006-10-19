@@ -392,6 +392,7 @@ table.listing td.browsename {
 	padding-right: 50px; 
 }
 
+table.artistfilter-listing td.padright,
 table.listing td.padright {
 	padding-right: 30px;
 }
@@ -519,37 +520,42 @@ table.pageselector td.list {
 	padding-left: 40px;
 }
 
-table.pageselector td.list a,
-table.pageselector td.list span {
-	float: left; 
+table.selectorbuttons {
+	border-collapse: collapse;
+	padding: 0px;
+}
+
+table.selectorbuttons a, 
+table.selectorbuttons span {
 	display: block; 
 	margin: 0px 2px; 
 	border: 1px solid #333;
-	padding: 0px 3px; 
+	padding: 1px 4px; 
 	font-size: 11px;
 	color: #333;
+	background-color: #fff;
 } 
 
-table.pageselector td.list a,
-table.pageselector td.list a:hover,
-table.pageselector td.list a:visited,
-table.pageselector td.list a:active {
+table.selectorbuttons td a,
+table.selectorbuttons td a:hover,
+table.selectorbuttons td a:visited,
+table.selectorbuttons td a:active {
 	text-decoration: none;
 }
 
-table.pageselector td.list a:hover {
+table.selectorbuttons td a:hover {
 	background-color: #ffba58;
 	color: #000;
 	text-decoration: none;
 }
 
-table.pageselector td.list span.inactive {
+table.selectorbuttons td.inactive span {
 	color: #999;
 	background-color: #eee;
 	border: 1px solid #999;
 }
 
-table.pageselector td.list span.current {
+table.selectorbuttons td.current span {
 	background-color: #ffba58;
 	color: #000;
 	font-weight: bold;
@@ -665,10 +671,6 @@ table.formstyle td.formsection {
 	/*font-size: 11px;*/
 }
 
-/* add some vertical padding before the notetext textarea */
-table.formstyle td.notetext {
-	padding-top: 20px;
-}
 
 /* include smaller text into a div, this way this can be 
    driven globally. */

@@ -37,11 +37,10 @@
 </%args>
 <%perl>
 
-	my $typeshow = ($type eq "album" ? "release" : $type);
-	my $typename = ($type eq "url" ? "URL" : $typeshow);
+	$targettype = ($targettype eq "album" ? "release" : $targettype);
 
-	my $page = "/show/$typeshow/" . $isrelpage ? "relationships.html" : "";
-	my $idarg = $typeshow . "id";
+	my $page = "/show/$targettype/" . ($isrelpage ? "relationships.html" : "");
+	my $idarg = $targettype . "id";
 
 	$m->out(qq!<a href="$page?$idarg=$targetid&amp;remrel=$id&amp;remtype=$type">Remove</a>!);
 

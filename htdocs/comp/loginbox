@@ -42,7 +42,7 @@
 	if (&DBDefs::REPLICATION_TYPE == RT_SLAVE)
 	{
 		$m->out(qq!<div style="margin: 1em">!);
-		$m->out(qq!  This is a mirror server -- you cannot log in to this server. !);
+		$m->out(qq!  This is a mirror server - you cannot log in to this server. !);
 		$m->out(qq!</div>!);
 		$m->out(qq!<div style="margin: 1em">!);
 		$m->out(qq!  If you would like to make changes to the database or your profile, please go to the !);
@@ -65,13 +65,18 @@
 				<td colspan="2" class="instructions">
 					<ul>
 						<li>Please note that the password field is case sensitive.</li>
-%	if (&DBDefs::DB_STAGING_SERVER) {
+
+%	if (&DBDefs::DB_STAGING_SERVER)
+%	{
+
 						<li>If you have trouble logging in, please note that since this
 							is a <% &DBDefs::DB_STAGING_SERVER %> server, the passwords
 							may have been reset to "mb". If you still cannot login, try
 							to clear the cookies for musicbrainz.org, and/or clearing
 							the browser cache.</li>
+
 % 	}
+
 					</ul>
 				</td>
 			</tr>
@@ -83,18 +88,19 @@
 %	{
 
 			<tr>
-				<td></td>
-				<td class="error">
-					<ul>
-						<li>Invalid Login. Please try again</li>
-					</ul></td>
+				<td>&nbsp;</td>
+				<td>
+					<& /comp/form/feedbackbox, "warning", "Could not log in:",
+						"Either the user name you entered does not exist, or the
+						given password did not match the one stored on the server. Please try again" &>
+				</td>
 			</tr>
 
 %	}
 
 			<tr>
 				<td class="label">
-					<label for="id_user">User Name:</label></td>
+					<label for="id_user">User name:</label></td>
 				<td class="field">
 					<input type="text" name="user" id="id_user" size="20" value="<% $user %>" style="width: 180px"/></td>
 			</tr>
@@ -107,7 +113,7 @@
 			<tr>
 				<td>&nbsp;</td>
 				<td>
-					<input type="submit" name="Login" value="Log In &raquo;" /></td>
+					<input type="submit" name="Login" value="Log in &raquo;" /></td>
 			</tr>
 			<tr class="spaced">
 				<td>&nbsp;</td>

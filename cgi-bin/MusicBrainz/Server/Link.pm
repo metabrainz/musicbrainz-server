@@ -226,47 +226,115 @@ sub FindLinkedEntities
         my @entities = sort { $a->{type} cmp $b->{type} } ( { id => $id, type => lcfirst($type) }, { id => 0, type=> $item } );
 		my $table = "l_" . join '_', map { $_->{type} } @entities;
 		my $link_table = "lt_" . join '_', map { $_->{type} } @entities;
-		my $url_name = ($entities[1]->{type} eq 'url') ? 'url' : 'name';
+		my $namefield = ($entities[1]->{type} eq "url") ? "url" : "name";
 
 		my $rows;
-		if ($entities[0]->{type} ne $entities[1]->{type})
+		my $e0_type = $entities[0]->{type};
+		my $e1_type = $entities[1]->{type};
+
+		if ($e0_type ne $e1_type)
 		{
-            # both entities are a different type
-			my $link = $entities[0]->{id} ? 'link0' : 'link1';
-            $rows = $sql->SelectListOfHashes(
-		        "SELECT ".$entities[0]->{type} .".id AS link0_id, '".$entities[0]->{type} ."' AS link0_type, ".$entities[0]->{type} .".gid AS link0_mbid, ". 
-				          $entities[0]->{type} .".name AS link0_name, $link_table.name AS link_name, $link_table.linkphrase AS link_phrase, $link_table.rlinkphrase AS rlink_phrase, ". 
-				          $entities[1]->{type} .".id AS link1_id, '".$entities[1]->{type} ."' AS link1_type, ".$entities[1]->{type} .".gid AS link1_mbid,  ".
-				          $entities[1]->{type} .".". $url_name . " AS link1_name, $table.begindate AS begindate, $table.enddate AS enddate, ".$table.".id AS link_id, ".$table.".modpending
-					 FROM $table, $link_table, ".  $entities[0]->{type} .", ". $entities[1]->{type} ." 
-				    WHERE $link = ? AND link0 = ". $entities[0]->{type} .".id AND link1 = ". $entities[1]->{type}.".id AND $link_table.id = $table.link_type",
-	            $id
-		    );
-            push @links, @$rows;
+			# both entities are a different type
+			my $link = $entities[0]->{id} ? "link0" : "link1";
+			
+			$rows = $sql->SelectListOfHashes(
+				"SELECT " 
+			  . "$e0_type.id AS link0_id, " 
+			  . "'$e0_type' AS link0_type, " 
+			  . "$e0_type.gid AS link0_mbid, "
+			  . "$e0_type.name AS link0_name, "
+			  . ($e0_type eq "artist" 
+			  	  ? "$e0_type.sortname AS link0_sortname, "
+				  . "$e0_type.resolution AS link0_resolution, "
+				  : "")
+			  . "$link_table.name AS link_name, "
+			  . "$link_table.linkphrase AS link_phrase, "
+			  . "$link_table.rlinkphrase AS rlink_phrase, "
+			  . "$e1_type.id AS link1_id, " 
+			  . "'$e1_type' AS link1_type, " 
+			  . "$e1_type.gid AS link1_mbid,  "
+			  . "$e1_type.$namefield AS link1_name, "
+			  . ($e1_type eq "artist" 
+			  	  ? "$e1_type.sortname AS link1_sortname, "
+				  . "$e1_type.resolution AS link1_resolution, "
+				  : "")
+			  . "$table.begindate AS begindate, "
+			  . "$table.enddate AS enddate, " 
+			  . "$table.id AS link_id, " 
+			  . "$table.modpending "
+			  . "FROM "
+			  . "$table, "
+			  . "$link_table, " 
+			  . "$e0_type, " 
+			  . "$e1_type " 
+			  . "WHERE $link = ? "
+			  . "AND link0 = $e0_type.id "
+			  . "AND link1 = $e1_type.id "
+			  . "AND $link_table.id = $table.link_type",
+				$id
+			);
+			push @links, @$rows;
 		} 
 		else
 		{
-            # both entities are the same type
-			my $ent = $entities[0]->{type}; # for shorthand
-            $rows = $sql->SelectListOfHashes(
-                 "SELECT '' AS link0_name, ? AS link0_id, '$ent' AS link0_type, ". $link_table . ".name AS link_name, ". $link_table . ".linkphrase AS link_phrase, ". $link_table . ".rlinkphrase AS rlink_phrase, 
-				         ". $ent . ".id AS link1_id, ". $ent . ".".$url_name." AS link1_name, '$ent' AS link1_type, ". $ent .".gid as link1_mbid, 
-						 $table.begindate AS begindate, $table.enddate AS enddate, ".$table.".id AS link_id, ".$table.".modpending
-				    FROM $table, $link_table, $ent 
-			       WHERE link0 = ? AND link1 = ". $ent . ".id AND ".$link_table .".id = ".$table.".link_type",
-                   $id, $id,
-		    );
-            push @links, @$rows;
+			# both entities are the same type
+			$rows = $sql->SelectListOfHashes(
+				"SELECT "
+			  . "'' AS link0_name, "
+			  . "? AS link0_id, "
+			  . "'$e0_type' AS link0_type, "
+			  . "$link_table.name AS link_name, "
+			  . "$link_table.linkphrase AS link_phrase, "
+			  . "$link_table.rlinkphrase AS rlink_phrase, "
+			  . "$e0_type.id AS link1_id, "
+			  . "$e0_type.$namefield AS link1_name, "	  
+			  . "'$e0_type' AS link1_type, "
+			  . "$e0_type.gid as link1_mbid, "
+			  . ($e0_type eq "artist" 
+			  	  ? "$e0_type.sortname AS link0_sortname, "
+				  . "$e0_type.resolution AS link0_resolution, "
+				  : "")			  
+			  . "$table.begindate AS begindate, "
+			  . "$table.enddate AS enddate, "
+			  . "$table.id AS link_id, "
+			  . "$table.modpending "
+			  . "FROM $table, $link_table, $e0_type "
+			  . "WHERE link0 = ? "
+			  . "AND link1 = $e0_type.id "
+			  . "AND $link_table.id = $table.link_type",
+				$id, 
+				$id,
+			);
+			push @links, @$rows;
 
-            $rows = $sql->SelectListOfHashes(
-                 "SELECT '' AS link1_name, ? AS link1_id, '$ent' AS link1_type, ". $link_table . ".name AS link_name, ". $link_table . ".linkphrase AS link_phrase, ". $link_table . ".rlinkphrase AS rlink_phrase, 
-				         ". $ent . ".id AS link0_id, ". $ent . ".".$url_name." AS link0_name, '$ent' AS link0_type, ". $ent .".gid as link0_mbid, 
-						 $table.begindate AS begindate, $table.enddate AS enddate, ".$table.".id AS link_id, ".$table.".modpending
-				    FROM $table, $link_table, $ent 
-			       WHERE link1 = ? AND link0 = ". $ent . ".id AND ".$link_table .".id = ".$table.".link_type",
-                   $id, $id,
-		    );
-            push @links, @$rows;
+			$rows = $sql->SelectListOfHashes(
+				"SELECT "
+			  . "'' AS link1_name, "
+			  . "? AS link1_id, "
+			  . "'$e0_type' AS link1_type, "
+			  . "$link_table.name AS link_name, "
+			  . "$link_table.linkphrase AS link_phrase, "
+			  . "$link_table.rlinkphrase AS rlink_phrase, "
+			  . "$e0_type.id AS link0_id, "
+			  . "$e0_type.$namefield AS link0_name, "
+			  . "'$e0_type' AS link0_type, "
+			  . "$e0_type.gid as link0_mbid, "
+			  . ($e0_type eq "artist" 
+			  	  ? "$e0_type.sortname AS link0_sortname, "
+				  . "$e0_type.resolution AS link0_resolution, "
+				  : "")			  
+			  . "$table.begindate AS begindate, "
+			  . "$table.enddate AS enddate, "
+			  . "$table.id AS link_id, "
+			  . "$table.modpending "
+			  . "FROM $table, $link_table, $e0_type "
+			  . "WHERE link1 = ? "
+			  . "AND link0 = $e0_type.id "
+			  . "AND $link_table.id = $table.link_type",
+				$id, 
+				$id,
+			);
+			push @links, @$rows;
 		}
 	}
 

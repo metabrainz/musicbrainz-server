@@ -118,7 +118,10 @@
 				<td>
 					<& /comp/modnotice &>
 				</td>
-%	if ($session{uid}) {
+
+%	if ($session{uid})
+%	{
+
 				<td align="center">
 				   <form method="post" action="/edit/albumbatch/done.html" id="BatchOp">
 						<div id="batchop::selectreleases">
@@ -126,7 +129,9 @@
 						</div>
 					</form>
 				</td>
+
 %	}
+
 			</tr>
 		</table>
 

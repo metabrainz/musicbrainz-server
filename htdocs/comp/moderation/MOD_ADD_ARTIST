@@ -49,48 +49,68 @@
 </%perl>
 
 	<table class="editfields">
+		<tr>
+			<td class="lbl">Name:</td>
+			<td>
+			 	<% $name %></td>
+		</tr>
 
-% 	if ($s == &ModDefs::STATUS_FAILEDVOTE or
-%		$s == &ModDefs::STATUS_FAILEDPREREQ)
+%	if ($sortname ne $name)
 %	{
 
 		<tr>
-			<td class="lbl">New:</td>
+			<td class="lbl">Sortname:</td>
 			<td>
-				<& /comp/linkartist, id => -1, name => $name, sortname => $sortname &></td>
+			 	<% $sortname %></td>
 		</tr>
 
-% 	}
-%	else
+%	}
+
+%	if ($type)
 %	{
 
 		<tr>
-			<td class="lbl">New:</td>
+			<td class="lbl">Type:</td>
 			<td>
-				<& /comp/linkartist, id => $id, name => $name,
-					sortname => $sortname, resolution => $resolution &></td>
+			 	<% $type_str %></td>
 		</tr>
 
-%		my @misc = ();
-%		push @misc, "Sortname: $sortname" if ($sortname ne $name);
-%		push @misc, "Type: $type_str" if ($type);
-%		push @misc, Artist::GetBeginDateName($type).": ".MusicBrainz::Server::Validation::MakeDisplayDateStr($begin) if ($begin);
-%		push @misc, Artist::GetEndDateName($type).": ".MusicBrainz::Server::Validation::MakeDisplayDateStr($end) if ($end);
-%		if (@misc)
-%		{
-%			my $list = join "###", @misc;
-%			$list = $m->interp->apply_escapes($list, "h");
-%			$list =~ s/###/<br\/>/g;
+%	}
 
-		<div class="attrlist">
-			<% $list |n %>
-		</div>
+%	if ($resolution)
+%	{
 
-%		}
+		<tr>
+			<td class="lbl">Comment:</td>
+			<td>
+			 	<% $resolution %></td>
+		</tr>
+
+%	}
+
+%	if ($begin)
+%	{
+
+		<tr>
+			<td class="lbl"><% Artist::GetBeginDateName($type) %>:</td>
+			<td>
+			 	<% MusicBrainz::MakeDisplayDateStr($begin) %></td>
+		</tr>
+
+%	}
+
+%	if ($end)
+%	{
+
+		<tr>
+			<td class="lbl"><% Artist::GetEndDateName($type) %>:</td>
+			<td>
+			 	<% MusicBrainz::MakeDisplayDateStr($end) %></td>
+		</tr>
+
 %	}
 
 	</table>
-
 
 </%method>
 

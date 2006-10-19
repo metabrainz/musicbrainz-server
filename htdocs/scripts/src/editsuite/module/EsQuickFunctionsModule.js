@@ -48,7 +48,7 @@ function EsQuickFunctions() {
 	this.CONFIG_LIST = [
 		new EsModuleConfig(this.CFG_ENABLED,
 						 true,
-			 			 "Enable the Editor Toolboxes",
+			 			 "Enable the editor toolboxes",
 		 				 "<img src=/images/es/tools.gif> This function adds icons to the right of the edit fields, which enable quick access to the most needed functions for the current field.")
 	];
 
@@ -91,7 +91,7 @@ function EsQuickFunctions() {
 			new EsButton(this.BTN_LOWER, "lower", "Convert characters to lowercase", this.getModID()+".runOp("+this.getModID()+".OP_LOWERCASE)"),
 			new EsButton(this.BTN_ADDROUNDBRACKETS, "Add ()", "Add round parentheses () around selection", this.getModID()+".runOp("+this.getModID()+".OP_ADD_ROUNDBRACKETS)"),
 			new EsButton(this.BTN_ADDSQUAREBRACKETS, "Add []", "Add square brackets [] around selection", this.getModID()+".runOp("+this.getModID()+".OP_ADD_SQUAREBRACKETS)"),
-			new EsButton(this.BTN_TB_GUESS, "Guess", "Guess Case using this method", this.getModID()+".onGuessCaseClicked()"));
+			new EsButton(this.BTN_TB_GUESS, "Guess", "Guess case using this method", this.getModID()+".onGuessCaseClicked()"));
 	};
 
 	/**
@@ -190,8 +190,7 @@ function EsQuickFunctions() {
 		s.push('" ');
 		s.push('onClick="return '+this.getModID()+'.onToolboxLinkClicked(\'');
 		s.push(op);
-		s.push('\');"');
-		s.push('onFocus="this.blur()"');
+		s.push('\');" ');
 		s.push('title="'+helpText+'"');
 		s.push('>'+title+'</a>');
 		return s.join("");
@@ -201,7 +200,7 @@ function EsQuickFunctions() {
 	 * Show the editor toolbox
 	 **/
 	this.onShowToolboxClicked = function(el) {
-		mb.log.scopeStart("Handling click on Show toolbox icon");
+		mb.log.scopeStart("Handling click on show toolbox icon");
 		mb.log.enter(this.GID, "onShowToolboxClicked");
 		if (o3_showingsticky) {
 			cClick();
@@ -232,7 +231,7 @@ function EsQuickFunctions() {
 		this.tbField.focus(); // force focus to the current toolbox field.
 
 		// show overlib
-		overlib(this.getToolboxHtml(), STICKY, CLOSECLICK, CAPTION, 'Editor Toolbox:');
+		overlib(this.getToolboxHtml(), STICKY, CLOSECLICK, CAPTION, 'Editor toolbox:');
 
 		// store overlib x/y position and y position of the trigger
 		this.tbBoxX = parseInt(over.style.left);

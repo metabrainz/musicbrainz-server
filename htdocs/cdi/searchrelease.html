@@ -42,7 +42,7 @@
 	$m->comp("/comp/checkloggedin", 1, 1)
 		or return;
 
-	$m->comp("/comp/sidebar-notitle", pagetitle => "Select Release");
+	$m->comp("/comp/sidebar-notitle", pagetitle => "Select release");
 
 	# make sure we got a valid toc parameter
 	MusicBrainz::Server::Validation::IsSingleLineString($toc) && $toc ne ""
@@ -75,7 +75,8 @@
 		};
 	};
 
-	my (%usedartists,  %unusedartists);
+	my %usedartists = ();
+	my %unusedartists = ();
 	my ($countused,  $countunused);
 
 	# Search for releases using the SearchEngine
@@ -104,10 +105,10 @@
 				unless ($usedartists{$artistid})
 				{
 					$usedartists{$artistid} = $artist;
-					$artist->{_sortname_} = Moderation->_normalise_strings($artist->GetSortName);
+					$artist->{"_sortname_"} = Moderation->_normalise_strings($artist->GetSortName);
 				}
 
-				push @{ $usedartists{$artistid}{_releases_} }, $release;
+				push @{ $usedartists{"$artistid"}{"_used_"} }, $release;
 				$countused++;
 			}
 			else
@@ -115,10 +116,9 @@
 				unless ($unusedartists{$artistid})
 				{
 					$unusedartists{$artistid} = $artist;
-					$artist->{_sortname_} = Moderation->_normalise_strings($artist->GetSortName);
+					$artist->{"_sortname_"} = Moderation->_normalise_strings($artist->GetSortName);
 				}
-
-				push @{ $unusedartists{$artistid}{_releases_} }, $release;
+				push @{ $unusedartists{"$artistid"}{"_unused_"} }, $release;
 				$countunused++;
 			}
 		}
@@ -128,7 +128,7 @@
 	{
 		my $title = "Found $countused release";
 		$title .= ($countused == 1 ? "" : "s");
-		$title .= " with $tracks track";
+		$title .= " With $tracks Track";
 		$title .= ($tracks == 1 ? "" : "s");
 
 </%perl>
@@ -136,7 +136,7 @@
 	<& /comp/tablebegin, title => $title &>
 
 		<& /comp/form/steps,
-			steps => ["Lookup CD", "Select Release", "Attach Disc ID"],
+			steps => ["Lookup CD", "Select release", "Attach Disc ID"],
 			curr => 1 &>
 
 		<table class="formstyle">
@@ -146,18 +146,18 @@
 						<li>
 							Please examine the releases listed below. If one of
 							the track listings matches the release that you are submitting,
-							click on the <strong>Select Release &raquo;</strong>
+							click on the <strong>Select release &raquo;</strong>
 							button next to the matching release to attach the
 							table of contents information of your media to
 							this release.</li>
 						<li>
 							If none of the listed releases match, click on
-							the <strong>Enter new Release &raquo;</strong> button
+							the <strong>Enter new release &raquo;</strong> button
 							below to enter your copy into MusicBrainz.</li>
 						<li>
 							If you are unsure as to which one to pick or you have
 							questions about this step, please check out our <& /comp/linkdoc,
-							"DiscSubmission", "CD Submission document" &> for more details
+							"DiscSubmission", "CD submission document" &> for more details
 							on the submission process. The <& /comp/linkdoc, "DiscID",
 							"Disc ID" &> for the CD you have looked up is <strong><% $discid %></strong>.</li>
 					</ul>
@@ -167,12 +167,13 @@
 
 	<& /comp/tableend &>
 
-	<table cellspacing="0" cellpadding="0" border="0" width="80%">
+	<table cellspacing="0" cellpadding="0" border="0" style="width: 80%">
 
-%		for my $artist (sort { $a->{_sortname_} cmp $b->{_sortname_} } values %usedartists)
+%		for my $artist (sort { $a->{"_sortname_"} cmp $b->{"_sortname_"} } values %usedartists)
 %		{
+
 		<tr valign="top">
-			<td width="100%" colspan="3">
+			<td colspan="3" style="width: 100%">
 
 %				# render artist link only, instead of comp/artisttitle
 				<div style="margin-bottom: 3px">Artist:
@@ -181,28 +182,29 @@
 			</td>
 		</tr>
 
-%			for my $release (sort { $a->{_name_} cmp $b->{_name_} } @{ $artist->{_releases_} })
+%			for my $release (sort { $a->{_name_} cmp $b->{_name_} } @{ $artist->{"_used_"} })
 %			{
 
 		<tr valign="top">
-			<td width="100%" style="padding-left: 47px">
+			<td style="width: 100%; padding-left: 47px; padding-bottom: 10px">
 				<& /comp/album, album => $release, artist => $artist, showmodlinks => 0, showrelationships => 0 &>
 			</td>
 			<td>&nbsp;&nbsp;&nbsp;</td>
 			<td align="right">
 				<form method="post" action="/cdi/selectrelease.html">
-					<input type="submit" class="button" value="Select Release &raquo;" />
-					<input type="hidden" name="releaseid" value="<% $release->GetId() %>" />
-					<input type="hidden" name="discid" value="<% $discid %>" />
-					<input type="hidden" name="toc" value="<% $toc %>" />
-					<input type="hidden" name="tracks" value="<% $tracks %>" />
+					<div>
+						<input type="submit" class="button" value="Select Release &raquo;" />
+						<input type="hidden" name="releaseid" value="<% $release->GetId() %>" />
+						<input type="hidden" name="discid" value="<% $discid %>" />
+						<input type="hidden" name="toc" value="<% $toc %>" />
+						<input type="hidden" name="tracks" value="<% $tracks %>" />
+					</div>
 				</form>
 			</td>
 		</tr>
 
 %			}
 %		}
-</%perl>
 
 	</table>
 
@@ -218,7 +220,7 @@
 				<td>
 					<ul>
 						<li>There were no releases with <% $tracks %> tracks found. </li>
-						<li>Please click on the <strong>Enter new Release &raquo;</strong>
+						<li>Please click on the <strong>Enter new release &raquo;</strong>
 							button if you want to add your copy to MusicBrainz.</li>
 					</ul>
 				</td>
@@ -231,18 +233,20 @@
 
 </%perl>
 
-	<& /comp/tablebegin, title => "Search for Release" &>
+	<& /comp/tablebegin, title => "Search for release" &>
 
 		<table class="formstyle">
 			<tr>
 				<td class="label">Search for:</td>
 				<td>
 					<form method="post" action="searchrelease.html">
-						<input type="text" name="search" size="25" value="<% $search %>">
-						<input type="submit" value="Search &raquo;">
-						<input type="hidden" name="discid" value="<% $discid %>">
-						<input type="hidden" name="tracks" value="<% $tracks %>">
-						<input type="hidden" name="toc" value="<% $toc %>">
+						<div>
+							<input type="text" name="search" size="25" value="<% $search %>" />
+							<input type="submit" value="Search &raquo;" />
+							<input type="hidden" name="discid" value="<% $discid %>" />
+							<input type="hidden" name="tracks" value="<% $tracks %>" />
+							<input type="hidden" name="toc" value="<% $toc %>" />
+						</div>
 					</form>
 				</td>
 			</tr>
@@ -256,7 +260,7 @@
 	<& /comp/tablebegin, title => "Enter new release" &>
 
 		<& /comp/form/steps,
-			steps => ["Lookup CD", "Select Release", "Enter Information", "Finish"],
+			steps => ["Lookup CD", "Select release", "Enter information", "Finish"],
 			curr => 1 &>
 
 		<table class="formstyle">
@@ -264,12 +268,14 @@
 				<td class="label">&nbsp;</td>
 				<td>
 					<form method="post" action="enter.html">
-						<input type="submit" class="button" value="Enter new Release &raquo;" />
-						<input type="hidden" name="artistid" value="<% &ModDefs::VARTIST_ID %>" />
-						<input type="hidden" name="discid" value="<% $discid %>" />
-						<input type="hidden" name="toc" value="<% $toc %>" />
-						<input type="hidden" name="tracks" value="<% $tracks %>" />
-						<input type="hidden" name="hasmultipletrackartists" value="0" />
+						<div>
+							<input type="submit" class="button" value="Enter new release &raquo;" />
+							<input type="hidden" name="artistid" value="<% &ModDefs::VARTIST_ID %>" />
+							<input type="hidden" name="discid" value="<% $discid %>" />
+							<input type="hidden" name="toc" value="<% $toc %>" />
+							<input type="hidden" name="tracks" value="<% $tracks %>" />
+							<input type="hidden" name="hasmultipletrackartists" value="0" />
+						</div>
 					</form>
 				</td>
 			</tr>
@@ -277,13 +283,11 @@
 
 	<& /comp/tableend &>
 
-
 %	}
-
 %   if ($countunused)
 %	{
 
-	<& /comp/tablebegin, title => "Found $countunused Releases with different number of tracks" &>
+	<& /comp/tablebegin, title => "Found $countunused releases with different number of tracks" &>
 
 		<table class="formstyle">
 			<tr>
@@ -304,10 +308,11 @@
 
 		<table class="searchresults">
 			<tr class="searchresultsheader">
-				<td width="40">Tracks:</td>
-				<td>Release Title:</td>
-				<td>Release Artist:</td>
+				<td style="width: 40px">Tracks:</td>
+				<td>Release title:</td>
+				<td>Release artist:</td>
 			</tr>
+
 %		my $i = 0;
 %		for my $artist (sort { $a->{"_sortname_"} cmp $b->{"_sortname_"} } values %unusedartists)
 %		{
@@ -334,15 +339,20 @@
 					</form>
 				</td>
 			</tr>
+
 %						last;
 %					}
 %				}
 
 			<tr class="searchresults<% $i++ % 2 == 0 ? "even" : "odd" %>">
-				<td width="40"><img src="/images/notes.gif" alt="" title="Tracks" /> <% $release->GetTrackCount %></td>
-				<td><& /comp/linkrelease, release => $release, strong => 0 &></td>
-				<td><& /comp/linkartist, artist => $artist, strong => 0 &></td>
+				<td style="width: 40px">
+					<img src="/images/notes.gif" alt="" title="Tracks" /> <% $release->GetTrackCount %></td>
+				<td>
+					<& /comp/linkrelease, release => $release, strong => 0 &></td>
+				<td>
+					<& /comp/linkartist, artist => $artist, strong => 0 &></td>
 			</tr>
+
 %       	}
 %		}
 

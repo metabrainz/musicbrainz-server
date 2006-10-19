@@ -41,7 +41,7 @@
 
 	unless ($session{has_confirmed_email})
 	{
-		$m->comp("/comp/sidebar", title => "Editing Error");
+		$m->comp("/comp/sidebar", title => "Editing error");
 		$m->comp("/comp/stylemenu");
 		$m->comp("/comp/footer");
 		return 0;
@@ -71,7 +71,7 @@
 		if (ref $err)
 		{
 			$err = eval { $err->GetError } || $err || "(Unknown error)";
-			$m->comp("/comp/sidebar", title => "Editing Error");
+			$m->comp("/comp/sidebar", title => "Editing error");
 
 </%perl>
 
@@ -84,7 +84,7 @@
 		}
 		else
 		{
-			$m->comp("/comp/sidebar", title => "Server Error");
+			$m->comp("/comp/sidebar", title => "Server error");
 
 </%perl>
 

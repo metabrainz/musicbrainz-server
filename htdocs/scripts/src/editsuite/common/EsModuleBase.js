@@ -5,7 +5,7 @@
  *
  **/
 function EsModuleBase() {
-	
+
 	// ----------------------------------------------------------------------------
 	// register class/global id
 	// ---------------------------------------------------------------------------
@@ -134,7 +134,7 @@ function EsModuleBase() {
 	 **/
 	this.isConfigTrue = function(key) {
 		mb.log.enter(this.GID, "isConfigTrue");
-		if (!this.CONFIG_VALUES[key]) {
+		if (this.CONFIG_VALUES[key] == 'undefined') {
 			this.getConfigFromUI();
 		}
 		var o = (this.CONFIG_VALUES[key] || false);
@@ -428,8 +428,8 @@ function EsModuleBase() {
 		s.push('-tr-'+rowid+'" ');
 		s.push(dispCSS != "" ? 'style="display: '+dispCSS+'"' : '');
 		s.push('>');
-		s.push('<td width="130" nowrap><b>'+this.getModName()+':</b></td>');
-		s.push('<td width="100%">');
+		s.push('<td style="width: 130px; font-weight: bold">'+this.getModName()+':</td>');
+		s.push('<td>');
 		if (!c.x) {
 			var t = (c.dt || ""); // get default text from config, else empty.
 			if (mb.ua.ie) {

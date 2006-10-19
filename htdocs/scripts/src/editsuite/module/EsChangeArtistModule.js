@@ -39,7 +39,7 @@ function EsChangeArtistModule() {
 	// register module
 	// ---------------------------------------------------------------------------
 	this.getModID = function() { return "es.changeartist"; };
-	this.getModName = function() { return "Change Artist functions"; };
+	this.getModName = function() { return "Change artist functions"; };
 
 	// ----------------------------------------------------------------------------
 	// member variables

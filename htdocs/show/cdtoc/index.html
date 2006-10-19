@@ -28,10 +28,13 @@
 </%perl>
 <%args>
 
+	$id => undef
 	$cdtocid
 
 </%args>
 <%perl>
+
+	$cdtocid ||= $id;
 
 	# Instantiate MusicBrainz object, and load CDTOC from cdtocid.
 	my $mb = $m->comp("/comp/dblogin");
@@ -44,7 +47,7 @@
 
 </%perl>
 
-<& /comp/sidebar-notitle, pagetitle => "CD TOC Details" &>
+<& /comp/sidebar-notitle, pagetitle => "CD TOC details" &>
 
 	<& /comp/cdtocinfo, cdtoc => $cdtoc &>
         

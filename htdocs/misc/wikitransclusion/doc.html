@@ -29,11 +29,17 @@
 <%args>
 
 	$id => undef
+	$mbt => $session{'mbt'}
+	$tport => $session{'tport'}
 
 </%args>
 <%perl>
 	# prepare page title (for document <title></title>)
 	my $pagetitle = ($id ? $id : "Documentation");
+
+	# check tagger session stuff
+	UserStuff::EnsureSessionOpen(), $session{mbt} = 1 if $mbt;
+	UserStuff::EnsureSessionOpen(), $session{tport} = $tport if $tport;
 
 	$m->comp("/comp/sidebar-notitle", pagetitle => $pagetitle, spacing => 0, uri => "/doc/$id");
 	$m->comp("/comp/wikitrans", id => $id);

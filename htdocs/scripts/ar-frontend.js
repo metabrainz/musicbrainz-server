@@ -57,13 +57,13 @@ function ARFrontEnd() {
 					mb.ui.setDisplay(lr, false);
 					mb.ui.setDisplay(lr+ "-desc", false);
 				}
-			}	
+			}
 		} else {
 			// addcc.html, addurl.html pages do not specify this.
 		}
 		mb.log.exit();
 	};
-	
+
 
 	/**
 	 * Returns if the form submitted flag is set.
@@ -76,34 +76,34 @@ function ARFrontEnd() {
 			if ((field = this.form.int_formsubmitted) != null) {
 				this.formsubmitted = (field.value || "") == "1";
 			} else {
-				//alert("could not find hidden field int_formsubmitted");
+				mb.log.error("could not find hidden field int_formsubmitted");
 			}
 		}
 		mb.log.exit();
 		return this.formsubmitted;
 	}
-	
+
 
 	/**
 	 * internal fields which drive how the javascript function
 	 * interacts with the form elements -->
 	 * int_isurlform, value: 0|1
 	 * int_typedropdown, value: linktypeid|linktype|license
-	 *	 
+	 *
 	 * checks for the divs containing the client/server side
 	 * variants of the swap elements html, and enables the
  	 * client side behavior if it is supported (=javascript available)
 	 **/
-	this.setupForm = function() {	
+	this.setupForm = function() {
 		mb.log.enter(this.GID, "setupForm");
-		
+
 		// hide the notice, which is displayed for browsers
 		// which have javascript turned off.
 		var obj;
 		if ((obj = mb.ui.get("relationshipNoScript")) != null) {
 			obj.style.display = "none";
 		}
-				
+
 		if ((this.form = mb.ui.get("LinkSelectForm")) != null) {
 			if ((this.typeDropDownName = this.form.int_typedropdown) != null) {
 				this.typeDropDownName = (this.typeDropDownName.value || "");
@@ -111,14 +111,14 @@ function ARFrontEnd() {
 					if ((this.isurlform = this.form.int_isurlform) != null) {
 						this.ready = true;
 
-						// register event handlers			
+						// register event handlers
 						this.typeDropDown.onkeydown = function(event) { arfrontend.typeChanged(); }
 						this.typeDropDown.onchange = function(event) { arfrontend.typeChanged(); }
 
 						// fire event to setup descriptions etc.
-						this.typeChanged(); 
+						this.typeChanged();
 						this.typeDropDown.onkeydown();
-						
+
 						// add handler which clears the default value upon focus.
 						if (this.isurlform.value == 1) {
 							var urlfield;
@@ -129,7 +129,7 @@ function ARFrontEnd() {
 								urlfield.onkeyup = function(event) { arfrontend.guessTypeFromURL(this); }
 							} else {
 								mb.log.error("Field url not found in form!");
-							}						
+							}
 						}
 					} else {
 						mb.log.error("Could not find the hidden field int_isurlform");
@@ -147,36 +147,36 @@ function ARFrontEnd() {
 				}
 			} else {
 				mb.log.error("Could not find the hidden field int_typedropdown");
-			}		
+			}
 		} else {
 			mb.log.error("could not find the LinkSelectForm");
-		}			
+		}
 		mb.log.exit();
 	};
-	
+
 	/**
 	 * Sets the display attributed of the the div
 	 * with id=id to the show (true|false)
 	 *
-	 */	
+	 */
 	this.guessTypeFromURL = function(field) {
 		mb.log.enter(this.GID, "guessTypeFromURL");
 		var tdd = this.typeDropDown;
 		if (tdd.selectedIndex != 1) {
 			var v = (field.value || ""), site = "";
 			if (v.match(/\.amazon\./i)) {
-				site = "amazon asin";	
-				
+				site = "amazon asin";
+
 				// try to chop off stuff from the end of the url.
 				var reUS = /(.*\/gp\/product\/[a-z0-9]*).*/i; // http://www.amazon.com/gp/product/<ASIN>
 				var reNonUS = /(.*\/exec\/obidos\/ASIN\/[a-z0-9]*).*/i; // http://www.amazon.de/exec/obidos/ASIN/<ASIN>
-				
-				if (v.match(reUS)) { 
+
+				if (v.match(reUS)) {
 					field.value = v.replace(reUS, "$1");
-				} else if (v.match(reNonUS)) { 
+				} else if (v.match(reNonUS)) {
 					field.value = v.replace(reNonUS, "$1");
 				}
-				
+
 			} else if (v.match(/\.discogs\./i)) {
 				site = "discogs";
 			} else if (v.match(/\.wikipedia\./i)) {
@@ -203,7 +203,7 @@ function ARFrontEnd() {
 		}
 		mb.log.exit();
 	};
-		
+
 	/**
 	 * Sets the description of the current selected element
 	 * from the dropdown list.
@@ -232,13 +232,13 @@ function ARFrontEnd() {
 						}
 					}
 				}
-			} 
-			
+			}
+
 			// update description div
 			var el = mb.ui.get("relationshipTypeDesc");
 			if (el) {
 				if (descr != "") {
-					el.innerHTML = "" + descr; 
+					el.innerHTML = "" + descr;
 					el.setAttribute("className", "relationshipTypeDesc");
 				} else if (selection == "||") {
 					el.innerHTML = "Please select a relationship type";
@@ -254,7 +254,7 @@ function ARFrontEnd() {
 			}
 		} else {
 			mb.log.error("Cannot find the DropDown $ in the form!", this.typeDropDownName);
-		}				
+		}
 		mb.log.exit();
 	}
 
@@ -283,8 +283,8 @@ function ARFrontEnd() {
 			}
 		}
 		mb.log.exit();
-	}	
-	
+	}
+
 	// exit constructor
 	mb.log.exit();
 }

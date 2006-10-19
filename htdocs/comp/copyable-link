@@ -26,17 +26,16 @@
 	}
 	elsif ($style eq "icon")
 	{
-		</%perl><a href="<% $url %>" title="<% $title %>"><img src="<% $imghost %>/images/entity/<% $type %>.gif" alt="<% $type %>" style="vertical-align:bottom;border:0;margin-right:2px;"><b><% $name %></b></a><%perl>
+		</%perl><a href="<% $url %>" title="<% $title %>"><img src="<% $imghost %>/images/entity/<% $type %>.gif" alt="<% $type %>" style="vertical-align: bottom; border: 0px; margin-right: 2px;" /><b><% $name %></b></a><%perl>
 	}
 	elsif ($style eq "linkedurl")
 	{
-		$m->out("<a href='$url'>$url</a>");
+		$m->out(qq!<a href="$url">$url</a>!);
 	}
 	elsif ($style eq "url")
 	{
 		$m->out($url);
 	}
-
 	return;
 
 </%perl>

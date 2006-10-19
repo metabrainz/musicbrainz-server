@@ -68,7 +68,7 @@
 
 %	}
 
-%	for ("Yes=yes", "No=no", "Abs=abs", "No&nbsp;Vote=novote")
+%	for ("Yes=yes", "No=no", "Abs=abs", "No&nbsp;vote=novote")
 %	{
 %		my ($display, $key) = split /=/;
 %		next if ($key eq "novote" and not $show_novote);

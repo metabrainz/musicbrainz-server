@@ -42,13 +42,11 @@ sub LinkEntityName { "artist" }
 use constant ARTIST_TYPE_UNKNOWN	=> 0;
 use constant ARTIST_TYPE_PERSON		=> 1;
 use constant ARTIST_TYPE_GROUP		=> 2;
-use constant ARTIST_TYPE_PROJECT	=> 3;
 
 my %ArtistTypeNames = (
    0 => [ 'Unknown', 'Begin Date', 'End Date' ],
    1 => [ 'Person', 'Born', 'Deceased' ],
    2 => [ 'Group', 'Founded', 'Dissolved' ],
-   3 => [ 'Project', 'Begin Date', 'End Date' ],
 );
 
 # Artist specific accessor function. Others are inherted from TableBase 
@@ -113,8 +111,7 @@ sub IsValidType
    if ( defined $type and $type ne ""
 		and ($type == ARTIST_TYPE_UNKNOWN or 
 			 $type == ARTIST_TYPE_PERSON or 
-			 $type == ARTIST_TYPE_GROUP or
-			 $type == ARTIST_TYPE_PROJECT) )
+			 $type == ARTIST_TYPE_GROUP) )
    {
       return 1;
    }

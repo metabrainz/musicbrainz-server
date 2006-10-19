@@ -103,8 +103,8 @@ my %ChangeNames = (
     &ModDefs::STATUS_FAILEDDEP		=> "Failed dependency",
     &ModDefs::STATUS_ERROR			=> "Internal error",
     &ModDefs::STATUS_FAILEDPREREQ	=> "Failed prerequisite",
-    &ModDefs::STATUS_TOBEDELETED	=> "To be deleted",
-    &ModDefs::STATUS_DELETED		=> "Deleted"
+    &ModDefs::STATUS_TOBEDELETED	=> "To be cancelled",
+    &ModDefs::STATUS_DELETED		=> "Cancelled"
 );
 
 sub Refresh
@@ -1238,7 +1238,7 @@ sub ShowModType
 	# attempt to load track entity, and see if it still exists.
 	# --- this flag was set in the individual PostLoad
 	#     implementations of the edit types
-	if ($this->{"checkexists-track"})
+	if ($this->{"checkexists-track"} && defined $this->{"trackid"})
 	{
 		require Track;
 		my $track = Track->new($this->{DBH});
@@ -1259,7 +1259,7 @@ sub ShowModType
 	# attempt to load release entity, and see if it still exists
 	# --- this flag was set in the individual PostLoad
 	#     implementations of the edit types	
-	if ($this->{"checkexists-album"})
+	if ($this->{"checkexists-album"} && defined $this->{"albumid"})
 	{
 		require Album;
 		my $release = Album->new($this->{DBH});
@@ -1284,7 +1284,7 @@ sub ShowModType
 	$mason->out(qq!<table class="edittype">!);
 
 	# output edittype as wikidoc link
-	$mason->out(qq!<tr><td class="lbl">Type:</td><td>!);
+	$mason->out(qq!<tr class="entity"><td class="lbl">Type:</td><td>!);
 	my $docname = $this->Name."Edit";
 	$docname =~ s/\s//g;
 	$mason->comp("/comp/linkdoc", $docname, $this->Name);
@@ -1316,7 +1316,8 @@ sub ShowModType
 		id => $this->GetArtist, 
 		name => $this->GetArtistName, 
 		sortname => $this->GetArtistSortName, 
-		resolution => $this->GetArtistResolution
+		resolution => $this->GetArtistResolution,
+		strong => 0
 	);
 	$mason->out(qq!</td>!);
 	if ($showeditlinks)
@@ -1331,18 +1332,17 @@ sub ShowModType
 	# output the release this edit is listed under.
 	if (defined $this->{"albumid"})
 	{
-		my ($id, $name, $title, $strong) = ($this->{"albumid"}, $this->{"albumname"}, undef, 1);
+		my ($id, $name, $title) = ($this->{"albumid"}, $this->{"albumname"}, undef);
 		if (not $this->{"exists-album"})
 		{
 			$name = "This release has been removed" if (not defined $name);
 			$title = "This release has been removed, Id: $id";
 			$id = -1;	
-			$strong = 0;
 		}
 		
 		$mason->out(qq!<tr class="entity"><td class="lbl">Release:</td>!);	
 		$mason->out(qq!<td>!);
-		$mason->comp("/comp/linkrelease", id => $id, name => $name, title => $title, strong => $strong);
+		$mason->comp("/comp/linkrelease", id => $id, name => $name, title => $title, strong => 0);
 		$mason->out(qq!</td>!);
 		if ($showeditlinks)
 		{
@@ -1356,17 +1356,16 @@ sub ShowModType
 	# output the track this edit is listed under.
 	if (defined $this->{"trackid"})
 	{
-		my ($id, $name, $title, $strong) = ($this->{"trackid"}, $this->{"trackname"}, undef, 1);
+		my ($id, $name, $title) = ($this->{"trackid"}, $this->{"trackname"}, undef);
 		if (not $this->{"exists-track"})
 		{
 			$name = "This track has been removed" if (not defined $name);
 			$title = "This track has been removed, Id: $id";
 			$id = -1;
-			$strong = 0;
 		}
 		$mason->out(qq!<tr class="entity"><td class="lbl">Track:</td>!);	
 		$mason->out(qq!<td>!);
-		$mason->comp("/comp/linktrack", id => $id, name => $name, title => $title, strong => $strong);
+		$mason->comp("/comp/linktrack", id => $id, name => $name, title => $title, strong => 0);
 		$mason->out(qq!</td>!);
 		if ($showeditlinks)
 		{

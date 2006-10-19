@@ -45,7 +45,7 @@
 
 </%perl>
 
-	<& /comp/tablebegin, title => "Release Information" &>
+	<& /comp/tablebegin, title => "Release information" &>
 
 		<table class="formstyle">
 			<tr>
@@ -66,13 +66,13 @@
 
 			<tr>
 				<td class="label">
-					Permanent Link:</td>
+					Permanent link:</td>
 				<td>
 					<& /comp/copyable-link, "release", $release, "linkedurl" &></td>
 			</tr>
 			<tr>
 				<td class="label">
-					Fancy Link:</td>
+					Fancy link:</td>
 				<td>
 					<a href="/show/permlink.html?id=<% $release->GetMBId %>&amp;type=release">Click here for a fancy link to this release</a></td>
 			</tr>
@@ -80,7 +80,7 @@
 				<td class="label">
 					<a href="/development/mmd">XML</a>:</td>
 				<td>
-					<a href="<% $release->XML_URL %>"><% $release->XML_URL %></a></td>
+					<a href="<% $release->XML_URL %>"><% substr($release->XML_URL, 0, 48) . " &#8230;" |n %></a></td>
 			</tr>
 
 % 		if ($session{uid})
@@ -92,6 +92,7 @@
 				<td>
 					<% $release->GetId %></td>
 			</tr>
+
 % 		}
 %	}
 
@@ -105,11 +106,11 @@
 %		if ($trackseq and
 %			not($release->IsNonAlbumTracks))
 %		{
-					This track appears as <strong>track number <% $trackseq %></strong> on this release. &nbsp;
+					This track appears as <strong>track number <% $trackseq %></strong> on this release.
 %		}
 
 					[
-						<a href="/edit/track/edit.html?trackid=<% $track->GetId %>&amp;releaseid=<% $release->GetId %>">Edit Track</a>
+						<a href="/edit/track/edit.html?trackid=<% $track->GetId %>&amp;releaseid=<% $release->GetId %>">Edit track</a>
 
 %		if (not($release->IsNonAlbumTracks))
 %		{
@@ -120,6 +121,7 @@
 					  | <a href="/edit/track/change.html?trackid=<% $track->GetId %>&amp;releaseid=<% $release->GetId %>&amp;tindex=<% $trackseq-1 %>&solo=1">Change artist</a>
 
 %		}
+
 					]
 
 				</td>

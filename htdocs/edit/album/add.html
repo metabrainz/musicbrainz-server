@@ -39,16 +39,16 @@
 	$m->comp("/comp/checkloggedin", 1, 1)
 		or return;
 
-	$m->comp("/comp/sidebar-notitle", pagetitle => "Add Release");
+	$m->comp("/comp/sidebar-notitle", pagetitle => "Add release");
 
 	unless ($artistid)
 	{
-		$m->comp("/comp/tablebegin", title => "Add Release");
-		$m->out(qq!To add a release, please go to that artist's main page,
-					and click on the <b>Add Release</b> link.!);
+		$m->comp("/comp/tablebegin", title => "Add release");
+		$m->out(qq!To add a release, please go to that artists main page,
+					and click on the <strong>Add release</strong> link.!);
 		$m->comp("/comp/tableend");
 
-		$m->comp("/comp/tablebegin", title => "Search for an Artist");
+		$m->comp("/comp/tablebegin", title => "Search for an artist");
 		$m->comp("/comp/lucenesearch");
 		$m->comp("/comp/tableend");
 
@@ -82,7 +82,7 @@
 </%perl>
 
 	<& /comp/stylemenu &>
-	<& /comp/layout/editformbegin, title => "Add Release" &>
+	<& /comp/layout/editformbegin, title => "Add release" &>
 
 
 		<form method="post" id="AddAlbumForm" action="/cdi/enter.html">
@@ -96,7 +96,7 @@
 								<a href="/freedb/freedb.html?search=<% uri_escape($ar->GetName()) %>">import
 								releases from the FreeDB database</a>?</li>
 							<li>
-								Please read the <a href="/style.html">Style Guidelines</a>
+								Please read the <a href="/style.html">style guidelines</a>
 								first, then enter the number of tracks on this release:</li>
 						</ul>
 					</td>
@@ -105,15 +105,22 @@
 
 			<table class="formstyle">
 
+%	if ($error == 1)
+%	{
 
-%	if ($error == 1) {
 				<tr>
 					<td>&nbsp;</td>
 					<td class="error">
-						<ul><li>Please enter the number of tracks.</li></ul>
+						<& /comp/form/feedbackbox, "warning",
+							"Your form submission contains errors: ",
+							qq!Please specify the number of tracks of the release
+							you would like to enter. You can add releases with any
+							number of tracks.! &>
 					</td>
 				</tr>
+
 %	}
+
 				<tr>
 					<td class="label">
 						<label for="editalbum_tracks">Number of tracks:</label></td>
@@ -124,19 +131,19 @@
 				<tr>
 					<td class="label">&nbsp;</td>
 					<td>
-						<input type="submit" class="button" value="Next &raquo;" /></td>
+						<input type="submit" class="button" value="Next &raquo;" />
+					</td>
 				</tr>
 			</table>
 
 			<div>
-				<input type="hidden" name="id" value="" />
-				<input type="hidden" name="toc" value="" />
-				<input type="hidden" name="noncd" value="1" />
-				<input type="hidden" name="artistid" value="<% $artistid %>" />
-				<input type="hidden" name="hasmultipletrackartists" value="<% ($artistid == &ModDefs::VARTIST_ID ? 1 : 0) %>" />
+				<& /comp/form/hiddenfield, "id", "" &>
+				<& /comp/form/hiddenfield, "toc", "" &>
+				<& /comp/form/hiddenfield, "artistid", $artistid &>
+				<& /comp/form/hiddenfield, "hasmultipletrackartists", ($artistid == &ModDefs::VARTIST_ID ? 1 : 0) &>
+				<& /comp/form/focusfield, "tracks" &>
 			</div>
 		</form>
-		<& /comp/movefocus, "AddAlbumForm", "tracks" &>
 
 	<& /comp/layout/editformend &>
 

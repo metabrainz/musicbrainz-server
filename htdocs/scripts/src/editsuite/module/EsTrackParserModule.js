@@ -37,37 +37,49 @@ function EsTrackParser() {
 	// register module
 	// ---------------------------------------------------------------------------
 	this.getModID = function() { return "es.tp"; };
-	this.getModName = function() { return "Track Parser"; };
+	this.getModName = function() { return "Track parser"; };
 
 	// ----------------------------------------------------------------------------
 	// member variables
 	// ---------------------------------------------------------------------------
 	this.CFG_ISVA = this.getModID()+".isVA";
 	this.CFG_PARSETIMESONLY = this.getModID()+".timesonly";
-	this.CFG_ALBUMTITLE = this.getModID()+".albumtitle";
+	this.CFG_RELEASETITLE = this.getModID()+".releasetitle";
 	this.CFG_TRACKNUMBER = this.getModID()+".tracknumber";
 	this.CFG_VINYLNUMBERS = this.getModID()+".vinylnumbers";
 	this.CFG_TRACKTIMES = this.getModID()+".tracktimes";
+	this.CFG_FILLTRACKTIMES = this.getModID()+".filltracktimes";
 	this.CFG_STRIPBRACKETS = this.getModID()+".stripbrackets";
 	this.CFG_COLLAPSETEXTAREA = this.getModID()+".collapsetextarea";
 
+
 	this.CONFIG_LIST = [
-		new EsModuleConfig(this.CFG_ALBUMTITLE,
+		new EsModuleConfig(this.CFG_RELEASETITLE,
 						 false,
-			 			 "First line is album title",
-		 				 "The First line is handled as the album title, which is filled into the album title field. The tracks are expected to start from line 2"),
+			 			 "Set release title from first line",
+		 				 "The First line is handled as the release title, which is filled "+
+		 				 "into the release title field. The tracks are expected to start from line 2."),
 		new EsModuleConfig(this.CFG_TRACKNUMBER,
 						 true,
-						 "All tracknames start with a number",
-						 "Lines which do not start with a number are inspected for usable information, which is added to the previous track (this allows to import ExtraTitleInformation from discogs)"),
+						 "Tracknames start with a number",
+						 "This setting attempts to find lines between lines which have a track "+
+						 "number and parses ExtraTitleInformation, which is added to the previous track."),
 		new EsModuleConfig(this.CFG_VINYLNUMBERS,
 						 false,
-						 "Detect Vinyl track numbers",
-						 "Characters which are used for numbering of the tracks may include alphanummeric characters (0-9,a-z) (A1,A2,...C,D...)"),
+						 "Enable vinyl track numbers",
+						 "Characters which are used for numbering of the tracks may include "+
+						 "alphanummeric characters (0-9, a-z) (A1, A2, ... C, D...)."),
 		new EsModuleConfig(this.CFG_TRACKTIMES,
 						 true,
-						 "Detect track times ?:??",
-						 "The line is inspected for an occurence of numbers separated by a colon. If such a value is found the track time is read and removed from the track title. Round parentheses surrounding the time are removed as well."),
+						 "Detect track times",
+						 "The line is inspected for an occurence of numbers separated by a colon. "+
+						 "If such a value is found, the track time is read and stripped from the track "+
+						 "title. Round parentheses surrounding the time are removed as well."),
+		new EsModuleConfig(this.CFG_FILLTRACKTIMES,
+						 true,
+						 "Fill in track times",
+						 "Fill in the track times from the detected values above. If this box is "+
+						 "not activated, the track time fields will not be modified."),
 		new EsModuleConfig(this.CFG_STRIPBRACKETS,
 						 true,
 						 "Remove text in brackets [...]",
@@ -78,6 +90,7 @@ function EsTrackParser() {
 						 "Resize textarea automatically",
 						 "If this checkbox is activated, the textarea is enlarged "+
 						 "if it has the keyboard focus, and collapsed again when the focus is lost.")
+
 	];
 
 	this.TRACKSAREA = this.getModID()+".tracksarea"; // name,id of trackParser textarea
@@ -99,7 +112,7 @@ function EsTrackParser() {
 	this.RE_StripTrailingListen = /\s\s*(listen(music)?|\s)+$/gi;
 	this.RE_StripListenNow = /listen now!/gi;
 	this.RE_StripAmgPick = /amg pick/gi;
-	this.RE_VariousSeparator = /  |\s+-\s+|\t/gi;
+	this.RE_VariousSeparator = /[\s\t]+[-\/]*[\s\t]+/gi;
 
 	// ----------------------------------------------------------------------------
 	// member functions
@@ -110,9 +123,9 @@ function EsTrackParser() {
 	 **/
 	this.setupModuleDelegate =  function() {
 		es.ui.registerButtons(
-			new EsButton(this.BTN_PARSE, "Parse All", "Fill in the artist and track titles with values parsed from the textarea", this.getModID()+".onParseClicked()"),
-			new EsButton(this.BTN_PARSETIMES, "Parse Times", "Fill in the track times only with values parsed from the textarea", this.getModID()+".onParseClicked(true)"),
-			new EsButton(this.BTN_SWAP, "Swap titles", "If the Artist and Track titles are mixed up, click here to swap the fields", this.getModID()+".onSwapArtistTrackClicked()"));
+			new EsButton(this.BTN_PARSE, "Parse all", "Fill in the artist and track titles with values parsed from the textarea", this.getModID()+".onParseClicked()"),
+			new EsButton(this.BTN_PARSETIMES, "Parse times", "Fill in the track times only with values parsed from the textarea", this.getModID()+".onParseClicked(true)"),
+			new EsButton(this.BTN_SWAP, "Swap titles", "If the artist and track titles are mixed up, click here to swap the fields", this.getModID()+".onSwapArtistTrackClicked()"));
 	};
 
 	/**
@@ -240,7 +253,7 @@ function EsTrackParser() {
 	this.checkVAMode = function() {
 		mb.log.enter(this.GID, "checkVAMode");
 		if (this.isUIAvailable()) {
-			this.setVA(es.ui.getField("artistname0", true) != null);
+			this.setVA(es.ui.getField("tr0_artistname", true) != null);
 			if (!this.isConfigTrue(this.CFG_ISVA)) {
 				es.ui.setDisabled(this.BTN_SWAP, false); // disable the swap button
 			} else {
@@ -301,10 +314,10 @@ function EsTrackParser() {
 			var lines = text.split("\n");
 			var number, title, artistName;
 			var si = 0;
-			var albumTitle = "";
-			if (this.isConfigTrue(this.CFG_ALBUMTITLE)) {
-				albumTitle = lines[0];
-				mb.log.info("Album Title: $", albumTitle);
+			var releaseTitle = "";
+			if (this.isConfigTrue(this.CFG_RELEASETITLE)) {
+				releaseTitle = lines[0];
+				mb.log.info("Release Title: $", releaseTitle);
 				si++;
 			}
 			var s, counter = 1;
@@ -450,7 +463,7 @@ function EsTrackParser() {
 							 mb.utils.leadZero(i+1), track.title, track.time,
 							 track.artist);
 			}
-			this.fillFields(albumTitle, tracks);
+			this.fillFields(releaseTitle, tracks);
 		}
 		mb.log.exit();
 	};
@@ -470,15 +483,15 @@ function EsTrackParser() {
 	/**
 	 * Lookup the fields, and fill them accordingly
 	 **/
-	this.fillFields = function(albumtitle, tracks) {
+	this.fillFields = function(releasetitle, tracks) {
 		var i,j,field,fields,newvalue;
 		mb.log.enter(this.GID, "fillFields");
 
 		if (!this.isConfigTrue(this.CFG_PARSETIMESONLY)) {
-			// find, and fill albumname field
-			if (this.isConfigTrue(this.CFG_ALBUMTITLE)) {
-				field = es.ui.getAlbumNameField();
-				this.fillField(field, albumtitle);
+			// find, and fill releasename field
+			if (this.isConfigTrue(this.CFG_RELEASETITLE)) {
+				field = es.ui.getReleaseNameField();
+				this.fillField(field, releasetitle);
 			}
 
 			// find, and fill all artistname fields
@@ -505,13 +518,17 @@ function EsTrackParser() {
 		}
 
 		// find, and fill all track time fields
-		i=0;
-		fields = es.ui.getTrackTimeFields();
-		for (j=0; j<fields.length; j++) {
-			field = fields[j];
-			if (tracks[i] && tracks[i].time) {
-				this.fillField(field, tracks[i].time);
-				i++;
+		if (this.isConfigTrue(this.CFG_PARSETIMESONLY)
+				? true
+				: this.isConfigTrue(this.CFG_FILLTRACKTIMES)) {
+			i=0;
+			fields = es.ui.getTrackTimeFields();
+			for (j=0; j<fields.length; j++) {
+				field = fields[j];
+				if (tracks[i] && tracks[i].time) {
+					this.fillField(field, tracks[i].time);
+					i++;
+				}
 			}
 		}
 		mb.log.exit();

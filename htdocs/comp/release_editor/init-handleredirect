@@ -23,12 +23,12 @@
 	# -----------------------------------------------------------------------------
 	# Handles the special submit buttons:
 	#
-	# SUBMIT_CANCEL: 		Cancel the edit release workflow
-	# SUBMIT_STARTOVER:		Load the release from the database again and
+	# SUBMIT_CANCEL 		Cancel the edit release workflow
+	# SUBMIT_STARTOVER		Load the release from the database again and
 	#						start over.
-	# SUBMIT_ADDARTIST:		If the user wants to add a new artist, redirect to the
+	# SUBMIT_ADDARTIST		If the user wants to add a new artist, redirect to the
 	#						/edit/artist/add editor.
-	# AddArtistAdded:		Return to the release editor if the new artist
+	# SUBMIT_ADDARTIST_DONE	Return to the release editor if the new artist
 	#						has been added (or the add artist redirect has been
 	#						cancelled).
 	#
@@ -49,7 +49,6 @@
 	my $freedbid = $ARGS{"freedbid"};
 	my $freedbcat = $ARGS{"freedbcat"};
 	my $tracks = $ARGS{"tracks"};
-	my $noncd = $ARGS{"noncd"};
 	my $artistid = $ARGS{"artistid"};
 	my $hasmultipletrackartists = $ARGS{"hasmultipletrackartists"};
 
@@ -81,7 +80,7 @@
 		{
 			$url = ($freedbid ne "" and $freedbcat ne ""
 				? "/freedb/import.html?catid=$freedbcat%20/%20$freedbid"
-				: "/cdi/enter.html?artistid=$artistid&tracks=$tracks&noncd=$noncd&hasmultipletrackartists=$hasmultipletrackartists");
+				: "/cdi/enter.html?artistid=$artistid&tracks=$tracks&hasmultipletrackartists=$hasmultipletrackartists");
 
 			return $m->comp("/comp/redirect", $url);
 		}
@@ -163,7 +162,9 @@
 
 		# if we have to handle a single artist conversion, we'll
 		# have to set the track artists, too.
-		if ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_SACARTIST_SELECT"})
+		if ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_SACARTIST_SELECT"} or
+		    ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_ADDARTIST_DONE"} and
+		     $ARGS{"hasmultipletrackartists"} == 0))
 		{
 			for (my $t = 0; $t < $tracks; $t++)
 			{
@@ -180,7 +181,6 @@
 		delete $ARGS{"artistfilter_field"};
 		delete $ARGS{"artistfilter_newartistid"};
 		delete $ARGS{"artistfilter_search"};
-
 
 		if ($ARGS{"artistid"} == &ModDefs::VARTIST_ID)
 		{

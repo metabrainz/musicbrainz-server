@@ -21,28 +21,28 @@
 \----------------------------------------------------------------------------*/
 
 /**
- * Album specific GuessCase functionality
+ * Release specific GuessCase functionality
  **/
-function GcAlbumHandler() {
-	mb.log.enter("GcAlbumHandler", "__constructor");
+function GcReleaseHandler() {
+	mb.log.enter("GcReleaseHandler", "__constructor");
 
 	// ----------------------------------------------------------------------------
 	// register class/global id
 	// ---------------------------------------------------------------------------
-	this.CN = "GcAlbumHandler";
-	this.GID = "gc.album";
+	this.CN = "GcReleaseHandler";
+	this.GID = "gc.release";
 
 	/**
-	 * Checks special cases of albums
+	 * Checks special cases of releases
 	 **/
 	this.checkSpecialCase = function(is) {
 		mb.log.enter(this.GID, "checkSpecialCase");
 		if (is) {
-			if (!gc.re.ALBUM_UNTITLED) {
+			if (!gc.re.RELEASE_UNTITLED) {
 				// untitled
-				gc.re.ALBUM_UNTITLED = /^([\(\[]?\s*untitled\s*[\)\]]?)$/i;
+				gc.re.RELEASE_UNTITLED = /^([\(\[]?\s*untitled\s*[\)\]]?)$/i;
 			}
-			if (is.match(gc.re.ALBUM_UNTITLED)) {
+			if (is.match(gc.re.RELEASE_UNTITLED)) {
 				return mb.log.exit(this.SPECIALCASE_UNTITLED);
 			}
 		}
@@ -50,7 +50,7 @@ function GcAlbumHandler() {
 	};
 
 	/**
-	 * Guess the albumname given in string is, and
+	 * Guess the releasename given in string is, and
 	 * returns the guessed name.
 	 *
 	 * @param	is		the inputstring
@@ -67,7 +67,7 @@ function GcAlbumHandler() {
 		gc.i.init(is, words);
 		while (!gc.i.isIndexAtEnd()) {
 			this.processWord();
-			mb.log.debug("Output: $", gc.o._w);			
+			mb.log.debug("Output: $", gc.o._w);
 		}
 		var os = gc.o.getOutput();
 		os = gc.mode.runPostProcess(os);
@@ -112,4 +112,4 @@ function GcAlbumHandler() {
 	// exit constructor
 	mb.log.exit();
 }
-GcAlbumHandler.prototype = new GcHandler;
+GcReleaseHandler.prototype = new GcHandler;

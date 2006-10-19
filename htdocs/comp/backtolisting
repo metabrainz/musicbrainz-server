@@ -3,7 +3,7 @@
 </%perl>
 
 <div class="backtolisting">
-	<form method="GET" action="<% $formurl %>">
+	<form method="get" action="<% $formurl %>">
 		<input type="submit" class="button" value="&laquo; Back to track listing">
 	</form>
 </div>

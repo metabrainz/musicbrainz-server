@@ -8,7 +8,7 @@
 
 </%perl>
 
-% 	if ( $title ne '' and defined $lang )
+% 	if ($title ne "" and defined $lang)
 %	{
 
 	<span class="explain" title="<% $title %>"><% $lang->GetISOCode3T() %></span>

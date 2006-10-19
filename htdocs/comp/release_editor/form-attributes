@@ -41,22 +41,26 @@
 <%perl>
 
 	# lets see if we have to highlight the fields
-	my $typecss = $checkattributes{"attr_type"} ? " missing" : "";
-	my $statuscss = $checkattributes{"attr_status"} ? " missing" : "";
+	my $typecss = $checkattributes{"attr_type"} ? qq!class="missing"! : "";
+	my $statuscss = $checkattributes{"attr_status"} ? qq!class="missing"! : "";
+
+	my $label = "Attributes";
+	$label .= " [!]" if ($checkattributes{"attr_type"} or
+						 $checkattributes{"attr_status"});
 
 </%perl>
 
 			<tr id="attributes" class="spaced">
 				<td class="label">
-					<label class="label">Attributes:</label></td>
+					<label class="label"><% $label %>:</label></td>
 				<td colspan="2"></td>
 				<td colspan="2">
-					<select name="attr_type" tabindex="<% ++$$tabindex %>" class="<% $typecss %>">
+					<select name="attr_type" tabindex="<% ++$$tabindex %>" <% $typecss |n %>>
 					<& /comp/options,
 						do {
 							[
-								[ "-1", "select type..." ],
-								[ ""  , "i don't know" ],
+								[ "-1", "Select type..." ],
+								[ ""  , "I don't know" ],
 								(map {
 									[ $_, Album->GetAttributeName($_) ]
 								} &Album::ALBUM_ATTR_SECTION_TYPE_START
@@ -67,12 +71,12 @@
 					&>
 					</select>
 					&nbsp;
-					<select name="attr_status" tabindex="<% ++$$tabindex %>" class="<% $statuscss %>">
+					<select name="attr_status" tabindex="<% ++$$tabindex %>" <% $statuscss |n %>>
 					<& /comp/options,
 						do {
 							[
-								[ "-1", "select status..." ],
-								[ ""  , "i don't know" ],
+								[ "-1", "Select status..." ],
+								[ ""  , "I don't know" ],
 								(map {
 									[ $_, Album->GetAttributeName($_) ]
 								} &Album::ALBUM_ATTR_SECTION_STATUS_START

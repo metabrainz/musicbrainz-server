@@ -31,7 +31,6 @@
 	$mb
 
 	# discid, toc for /cdi/enter.html
-	$noncd => 0
 	$discid => ""
 	$toc => ""
 	$search => ""
@@ -59,16 +58,15 @@
     }
 
 
-	my (%checkmacsac, %checkfields, %checkattributes, %checklanguage, %checkreleases);
+	my (%checkfields, %checkattributes, %checklanguage, %checkreleases);
 
-	%checkmacsac = %{ $ARGS{"v::macsac"} } if (ref $ARGS{"v::macsac"} eq "HASH");
 	%checkfields = %{ $ARGS{"v::fields"} } if (ref $ARGS{"v::fields"} eq "HASH");
 	%checklanguage = %{ $ARGS{"v::language"} } if (ref $ARGS{"v::language"} eq "HASH");
 	%checkattributes = %{ $ARGS{"v::attributes"} } if (ref $ARGS{"v::attributes"} eq "HASH");
 	%checkreleases = %{ $ARGS{"v::releases"} } if (ref $ARGS{"v::releases"} eq "HASH");
 
 	my $editmode = $ARGS{"v::action"} ne "/cdi/enter.html";
-	my $boxtitle = $editmode ? "Edit Release" : "Add Release";
+	my $boxtitle = $editmode ? "Edit release" : "Add release";
 
 	my $tabindex = 0;
 	my $dummycounter = 0;
@@ -93,16 +91,16 @@
 
 		<& /comp/autofixmenu &>
 
-%		# this submit hidden field is needed, if the user submits the form
-%		# with a RETURN while the cursor is in a field. It is ignored if
-%		# another submit parameter was sent as well (e.g. if a button
-%		# other than "Next »" was clicked.
-		<input type="submit" value="<% $ARGS{"SUBMIT_NEXT"} %>" style="display: none" />
-
 		<script type="text/javascript" src="/scripts/entervalidate.js"></script>
 		<script type="text/javascript" src="/scripts/editallconfig.js"></script>
 
 		<& /comp/layout/editformbegin, title => $boxtitle, mp => $editmode &>
+
+%			# this submit hidden field is needed, if the user submits the form
+%			# with a RETURN while the cursor is in a field. It is ignored if
+%			# another submit parameter was sent as well (e.g. if a button
+%			# other than "Next »" was clicked.
+			<input type="submit" value="<% $ARGS{"SUBMIT_NEXT"} %>" style="display: none" />
 
 			<& /comp/release_editor/steps, %ARGS, stepsleft => 2 &>
 
@@ -162,6 +160,7 @@
 					<td colspan="3">&nbsp;</td>
 					<td colspan="2">
 						<div id="releaseeditor::config" style="border: 1px dotted #000; padding: 5px; margin: 0px; margin-bottom: 15px">
+
 						<& /comp/form/buttonsubmit,
 							value => ($ARGS{"hasmultipletrackartists"}
 								? $ARGS{"SUBMIT_ARTISTS_HIDE"}
@@ -173,9 +172,10 @@
 										? "Click this button if you want this release to have one artist for the release and tracks."
 										: "Click this button if you want to specify track artists for the tracks other than the release artist."),
 						&>
+
 						</div>
 					</td>
-					<td></td>
+					<td>&nbsp;</td>
 					<td class="linkedits">Review edits:</td>
 				</tr>
 
@@ -196,20 +196,29 @@
 		$release_artist = &$GetCachedArtist($ARGS{"artistid"});
 	}
 
+	my $artistlabel = "Artist";
+	$artistlabel .= " [!]" if ($checkfields{"artistname"});
+
+
 </%perl>
 
 				<tr>
 					<td class="label">
-						<& /comp/form/label, id => "id_artistname", title => "Artist" &>
+						<& /comp/form/label, title => $artistlabel &>
 					</td>
 					<td>&nbsp;</td>
 					<td>
 
 %	my $artist_edit = !defined $release_artist || $ARGS{"artistedit"};
+%	if (defined $release_artist)
+%	{
 
 						<& /comp/form/checkbox-artistchange,
 							name => "artistedit",
 							checked => $artist_edit &>
+
+%	}
+
 					</td>
 					<td colspan="2" id="release_artist::display::::">
 
@@ -246,6 +255,9 @@
 	# RELEASE NAME
 	# -------------------------------------------------------------------------
 
+	my $releaselabel = "Release";
+	$releaselabel .= " [!]" if ($checkfields{"releasename"});
+
 </%perl>
 
 %	if ($releaseid)
@@ -264,7 +276,7 @@
 %	}
 				<tr>
 					<td class="label">
-						<& /comp/form/label, id => "id_releasename", title => "Release" &>
+						<& /comp/form/label, id => "id_releasename", title => $releaselabel &>
 					</td>
 					<td>&nbsp;</td>
 					<td>&nbsp;</td>
@@ -281,78 +293,11 @@
 					</td>
 				</tr>
 
-<%perl>
+%	# -------------------------------------------------------------------------
+%	# MAC/SAC WARNING
+%	# -------------------------------------------------------------------------
 
-	# -------------------------------------------------------------------------
-	# MAC/SAC WARNING
-	# -------------------------------------------------------------------------
-	if (!$ARGS{"force_macsac"}
-		and keys %checkmacsac > 0)
-	{
-		if ($checkmacsac{"sac"})
-		{
-
-</%perl>
-				<tr class="spaced">
-					<td colspan="3">&nbsp;</td>
-					<td colspan="4">
-						<& /comp/form/feedbackbox, "warning", "",
-							qq!You've chosen to enter a "Various Artists" release, but
-							all the artist names are the same, so this should
-							probably be entered as a "Single Artist" release.
-							What do you want to do?! &>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="3"></td>
-					<td colspan="4">
-						<& /comp/form/buttonsubmit, value => $ARGS{"SUBMIT_IGNOREMACSAC"} &>
-						<& /comp/form/buttonsubmit, value => $ARGS{"SUBMIT_TOSAC"} &>
-						<br />&nbsp;
-					</td>
-				</tr>
-%		}
-%		if ($checkmacsac{"mac"})
-%		{
-				<tr class="spaced">
-					<td colspan="3">&nbsp;</td>
-					<td colspan="4">
-						<& /comp/form/feedbackbox, "warning", "",
-							qq!You have chosen to enter a "Single Artist" release, but
-							looking at the track names it seems that maybe this
-							should be a "Various Artists" release. (This message
-							appears because all track names contain either "-"
-							or "/"). What do you want to do?! &>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="3"></td>
-					<td colspan="4">
-						<& /comp/form/buttonsubmit, value => $ARGS{"SUBMIT_IGNOREMACSAC"} &>
-						<& /comp/form/buttonsubmit, value => $ARGS{"SUBMIT_TOMAC"} &>
-
-						<& /comp/form/checkbox,
-							name => "mac_usevartist",
-							checked => 1,
-							title => qq!The release will be attached to the special-case artist
-									 "Various Artists". If you untick this checkbox, the release
-									 artist will be attached to the current artist! &>
-
-						<div class="float">
-							Move release to <& /comp/linkartist, id => &ModDefs::VARTIST_ID,
-							name => "Various Artists" &>.
-						</div>
-						<br />&nbsp;
-					</td>
-				</tr>
-
-%		}
-%	}
-
-				<tr>
-					<td colspan="7">&nbsp;</td>
-				</tr>
-
+	<& /comp/release_editor/form-macsac, %ARGS &>
 
 <%perl>
 
@@ -375,6 +320,14 @@
 		my $artistresolutionfield = getField($i, "artistresolution");
 		my $artistvalue = $ARGS{$artistnamefield} || "";
 
+		my $tracklabel = "Track";
+		$tracklabel .= " [!]" if (not $trackdel and
+								($checkfields{"badsequence"} or
+								 $checkfields{"trackseq$i"} or
+								 $checkfields{"track$i"} or
+								 $checkfields{"tracklength$i"}));
+
+
 </%perl>
 
 
@@ -387,10 +340,12 @@
 
 %		if ($hasmultipletrackartists)
 %		{
+
 						<% $i+1 %>: &nbsp;
+
 %		}
 
-						<& /comp/form/label, id => "id_t$i", title => "Track" &>
+						<& /comp/form/label, id => "id_t$i", title => $tracklabel &>
 
 					</td>
 					<td>
@@ -399,9 +354,10 @@
 							tabindex => ++$tabindex,
 							enabled => $ARGS{"v::edit_track_data"} && !$trackdel,
 							value => $trackseq,
-							cssclass => ($checkfields{"trackseq$i"} ? "-missing" : "") &>
+							cssclass => ($checkfields{"trackseq$i"} || $checkfields{"badsequence"} ? "-missing" : "") &>
 					</td>
 					<td>
+
 %						# checkbox which can be used to delete a track
 						<& /comp/form/checkbox-trackdelete,
 							name => "trackdel$i",
@@ -430,7 +386,9 @@
 %		# guess case button
 %		if (!$trackdel)
 %		{
+
 						<& /comp/form/jsbutton, id => "BTN_TRACK::track$i" &>
+
 %		}
 
 						<& /comp/form/hiddenfield, "trackid$i", $trackid &>
@@ -448,14 +406,19 @@
 
 				<tr class="trackerror <% $i % 2 == 0 ? "even" : "odd" %>">
 					<td colspan="3">&nbsp;</td>
-					<td colspan="3">
+					<td colspan="4" class="trackerror">
+
 %			my @errors = split /\|/, $ARGS{"v::track$i"};
 %			foreach my $err (@errors)
 %			{
-						<b>&middot;</b> <% $err %> <br/>
+
+						&bull; <% $err %> <br/>
+
 %			}
+
 					</td>
 				</tr>
+
 %		}
 
 
@@ -470,19 +433,29 @@
 %		my $track_artist = &$GetCachedArtist($track_artistid)
 %			if ($track_artistid);
 
+%		my $trackartistlabel = "Artist";
+%		$trackartistlabel .= " [!]" if ($checkfields{$artistnamefield});
+
 %		$artist_edit = !defined $track_artist || $ARGS{getField($i, "artistedit")};
 
 				<tr id="track_artist::tr::<% $i %>::" style="<% $artistcss %>" class="trackartist <% $i % 2 == 0 ? "even" : "odd" %>">
 					<td class="label">
-						<& /comp/form/label, id => "id_$artistnamefield", title => "Artist" &>
+						<& /comp/form/label, title => $trackartistlabel &>
 					</td>
 					<td>&nbsp;</td>
 					<td>
+
+%	if ($track_artistid)
+%	{
+
 						<& /comp/form/checkbox-artistchange,
 							enabled => !$trackdel,
 							name => getField($i, "artistedit"),
 							checked => $artist_edit &>
 
+%	}
+
+					</td>
 					<td id="track_artist::display::<% $i %>::">
 
 %		# -------------------------------------------------------------------------
@@ -490,12 +463,14 @@
 %		# -------------------------------------------------------------------------
 %		if (!$artist_edit)
 %		{
+
 						<& /comp/linkartist, artist => $track_artist &>
 						<& /comp/form/hiddenfield, $artistnamefield => $track_artist->GetName &>
 
 %		}
 %		else
 %		{
+
 						<& /comp/form/textfield,
 							name => $artistnamefield,
 							id => "id_$artistnamefield",
@@ -503,13 +478,14 @@
 							value => $artistvalue,
 							enabled => !$trackdel,
 							cssclass => ($checkfields{$artistnamefield} ? " missing" : "") &>
+
 %		}
+
 					</td>
-					<td></td>
+					<td>&nbsp;</td>
 					<td class="field">
 						<div id="track_artist::fields::<% $i %>::" style="<% $artist_edit ? '' : 'display: none' %>">
-							<& /comp/form/jsbutton, id => "BTN_ARTIST::$artistnamefield" &>
-							<& /comp/form/jsbutton, id => "BTN_GUESSBOTH::".$artistnamefield."::track$i", hidden => !$hasmultipletrackartists &>
+							<& /comp/form/jsbutton, id => "BTN_GUESSBOTH::".$artistnamefield."::track$i" &>
 
 							<& /comp/form/hiddenfield, $artistidfield => $ARGS{$artistidfield} &>
 							<& /comp/form/hiddenfield, $artistresolutionfield => $ARGS{$artistresolutionfield} &>
@@ -559,6 +535,7 @@
 							sequence numbers. Please correct them and re-submit the form.! &>
 					</td>
 				</tr>
+
 % 	}
 
 %	# -------------------------------------------------------------------------
@@ -575,7 +552,8 @@
 							"warning", "",
 							qq!Please enter all the required elements of this release.
 							   The missing (or wrong) input fields are marked with
-							   a background color.! &>
+							   a background color, and an exclamation mark [\!] in the
+							   respective label.! &>
 					</td>
 				</tr>
 
@@ -616,13 +594,11 @@
 
 				<tr>
 					<td colspan="3">&nbsp;</td>
-					<td colspan="4">
+					<td colspan="4" class="submitbuttons">
 						<& /comp/form/buttonsubmit,
 							value => $ARGS{"SUBMIT_NEXT"},
 							tabindex => ++$tabindex,
-							validate => 1 &>
-
-						&nbsp;&nbsp;&nbsp;
+							id => "btnContinue" &>
 
 						<& /comp/form/buttonsubmit,
 							value => $ARGS{"SUBMIT_STARTOVER"},
@@ -651,7 +627,9 @@
 %		# -------------------------------------------------------------------------
 %		# HIDDEN FIELDS
 %		# -------------------------------------------------------------------------
-		<& /comp/release_editor/form-hiddenfields, %ARGS &>
+		<div>
+			<& /comp/release_editor/form-hiddenfields, %ARGS &>
+		</div>
 
 	</form>
 

@@ -32,8 +32,8 @@
 
 </%args>
 
-<& /comp/sidebar-notitle, pagetitle => "Propose a Candiate for AutoEditor" &>
-	<& /comp/tablebegin, title => "Propose a Candiate for AutoEditor" &>
+<& /comp/sidebar-notitle, pagetitle => "Propose a candiate for autoeditor" &>
+	<& /comp/tablebegin, title => "Propose a candiate for autoeditor" &>
 
 	<table class="formstyle">
 		<tr>
@@ -41,7 +41,7 @@
 				<ul>
 					<li>
 						Are you sure you want to nominate the editor <& /comp/linkuser,
-						name => $username &> for <& /comp/linkdoc, "AutoEditor", "AutoEditor" &>
+						name => $username &> for <& /comp/linkdoc, "AutoEditor", "autoeditor" &>
 						status?
 					</li>
 				</ul>

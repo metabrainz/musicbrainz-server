@@ -32,10 +32,10 @@ function GcModeDefault(modes, name, lang, desc, url) {
 	this.CN = "GcModeDefault";
 	this.GID = "gc.mode_en";
 	this.setConfig(
-		modes, 'Default (English)', modes.EN,
+		modes, 'English', modes.EN,
 		'Read the [url]description[/url] for more details.',
-		'http://wiki.musicbrainz.org/GuessCaseMode/DefaultMode');	
-	
+		'/doc/GuessCaseMode/DefaultMode');
+
 	// ----------------------------------------------------------------------------
 	// member variables
 	// ---------------------------------------------------------------------------
