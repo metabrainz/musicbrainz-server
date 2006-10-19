@@ -241,16 +241,6 @@
 						$m->out(qq! | <a href="/show/release/?releaseid=$releaseid&amp;showrelationships=$newvalue">$newtext</a>!);
 					}
 
-<<<<<<< .working
-					if (!$release->HasMultipleTrackArtists)
-					{
-						$m->out(qq! | <a href="/edit/album/mac.html?releaseid=$releaseid">Convert&nbsp;to&nbsp;multiple&nbsp;artists</a>!);
-					}
-					else
-					{
-						$m->out(qq! | <a href="/edit/album/sac.html?releaseid=$releaseid">Convert&nbsp;to&nbsp;single&nbsp;artist</a>!);
-					}
-=======
                     if ($release->IsUnlocked)
                     {
                         if (!$release->HasMultipleTrackArtists)
@@ -268,7 +258,6 @@
                     {
 					    $m->out(qq! | <a href="/edit/album/lock.html?releaseid=$releaseid&lock=0">Unlock</a>!);
                     }
->>>>>>> .merge-right.r8543
 				}
 				$m->out(qq! | <a href="/edit/album/remove.html?releaseid=$releaseid">Remove</a>!);
 			}
