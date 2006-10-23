@@ -27,22 +27,22 @@ package Parser;
 
 use strict;
 use DBDefs;
-
-# Normally these modules generate warnings as they compile.  We suppress those
-# warnings.
-BEGIN
-{
-	local $^W = 0;
-	require RDFStore::Parser::SiRPAC;
-	require RDFStore::NodeFactory;
-}
-
 use integer;
 
 sub new
 {
 	my $class = shift;
 	$class = ref($class) || $class;
+
+    eval {
+        # Normally these modules generate warnings as they compile.  We suppress those
+        # warnings.
+        local $^W = 0;
+        require RDFStore::Parser::SiRPAC;
+        require RDFStore::NodeFactory;
+    };
+    return undef if (my $err = $@);
+
 	bless { }, $class;
 }
 

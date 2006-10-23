@@ -231,6 +231,12 @@ if (!defined $rdf)
 
 require Parser;
 $parser = Parser->new();
+if (!defined $parser)
+{
+    $out = $rdf->ErrorRDF("Cannot handle query. RDFStore is not installed.");
+    Output($r, \$out);
+    exit(0);
+}
 if (!$parser->Parse($rdfinput))
 {
     $parser->{error} =~ tr/\n\r/  /;
