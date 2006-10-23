@@ -110,13 +110,11 @@ sub GetNewInsert
 sub CreateNewGlobalId
 {
     my ($this) = @_;
-    my ($uuid, $id);
 
-    require UUID;
-    UUID::generate($uuid);
-    UUID::unparse($uuid, $id);
-
-    return $id;
+    require OSSP::uuid;
+    my $uuid = new OSSP::uuid;
+    $uuid->make("v4");
+    return $uuid->export("str");
 }  
 
 sub CalculatePageIndex 

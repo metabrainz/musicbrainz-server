@@ -164,7 +164,7 @@ specific notes about a server type, the instructions apply to all server types.
        Text::Unaccent 
        Text::WikiFormat
        Time::ParseDate
-       UUID (see notes below)
+       OSSP::UUID (see notes)
 
    A full install will also need these modules:
 
@@ -180,14 +180,12 @@ specific notes about a server type, the instructions apply to all server types.
        and unpack it into your mb_server directory (i.e.
        mb_server/data/language-guess/...)
 
-       UUID
+       OSSP::UUID
 
-       The UUID module cannot be found in CPAN. Installing it by hand works:
-
-        http://search.cpan.org/CPAN/authors/id/B/BR/BRAAM/UUID-0.02.tar.gz
-
-       If it fails to compile, see if you can install module e2fsprogs-dev[el]
-       to get it to compile.
+       This module is currently not in CPAN, but is included in Ubuntu Linux.
+       You can download this module here: http://www.ossp.org/pkg/lib/uuid
+       Installing this module is less painful than the often confusing
+       UUID module from the e2fsprogs package.
 
 5) Apache with mod_perl and Mason installed. You can skip this step
    for a database only slave. See the following sites for more details on 
