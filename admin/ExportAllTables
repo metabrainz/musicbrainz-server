@@ -513,9 +513,11 @@ use File::Copy qw( copy );
 
 if ($fCompress and $fDoFullExport)
 {
+	copy_readme("$dir/README") or die $!;
 	copy("$FindBin::Bin/COPYING-PublicDomain", "$dir/COPYING") or die $!;
 	make_tar("mbdump.tar.bz2", @group_core);
 
+	copy_readme("$dir/README") or die $!;
 	copy("$FindBin::Bin/COPYING-CCShareAlike", "$dir/COPYING") or die $!;
 	make_tar("mbdump-derived.tar.bz2", @group_derived);
 	make_tar("mbdump-moderation.tar.bz2",  @group_moderation);
@@ -555,6 +557,7 @@ sub make_tar
 	unshift @files, qw(
 		TIMESTAMP
 		COPYING
+		README
 		REPLICATION_SEQUENCE
 		SCHEMA_SEQUENCE
 	);
@@ -598,6 +601,26 @@ sub optimise_replication_tables
 	$sql->Do("VACUUM FULL ANALYZE \"PendingData\"");
 	$sql->AutoCommit;
 	$sql->Do("VACUUM FULL ANALYZE \"Pending\"");
+}
+
+sub copy_readme
+{
+    my $svn_url = `svn info | grep "URL:" | colrm 1 5`;
+    chomp($svn_url);
+
+    my $text = <<END;
+The files in this directory are snapshots of the MusicBrainz database,
+in a format suitable for import into a PostgreSQL database. To import
+them, you need a compatible version of the MusicBrainz server software.
+
+Use the following command for checking out the mb_server revision
+which created the snapshots:
+
+svn co $svn_url mb_server
+
+After that, follow the instructions given in mb_server/INSTALL.
+END
+    writefile("README", $text);
 }
 
 sub dumplucene
