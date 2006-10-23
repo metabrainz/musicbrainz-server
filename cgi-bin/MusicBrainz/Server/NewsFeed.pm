@@ -29,7 +29,6 @@ use strict;
 use Carp;
 
 use MusicBrainz::Server::Cache;
-use XML::RSS;
 use LWP::UserAgent;
 
 # Preload required modules
@@ -58,6 +57,11 @@ sub new
 	my %args = @_;
 	my $class = ref($proto) || $proto;
 
+    eval {
+        require XML::RSS;
+    };
+    return undef if (my $err = $@);
+
 	croak "No url parameter given" unless $args{url};
 
 	my $self = {
@@ -84,6 +88,7 @@ sub Load
 	#
 	return 1 if $self->_LoadFromCache();
 
+    require XML::RSS;
 	my $rss = XML::RSS->new();
 
 	# Load the feed from the url. Return undef on error.

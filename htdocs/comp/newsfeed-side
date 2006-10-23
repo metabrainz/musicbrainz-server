@@ -15,13 +15,13 @@
 		categories => $categories,
 	);
 
-	$feed->Load();
+	$feed->Load() if defined $feed;
 
 </%perl>
 
-
-%	foreach my $item ($feed->GetItems())
-%	{
+%   if (defined $feed) {
+%	    foreach my $item ($feed->GetItems())
+%	    {
 
 					<div class="newsarticle">
 						<b><% $item->GetTitle() %></b> &mdash;
@@ -30,6 +30,9 @@
 						<div class="readmore">&raquo; <a href="<% $item->GetLink() %>">read more</a></div>
 					</div>
 
-%	}
+%	    }
+%   } else { 
+        XML::RSS is not installed -- no newsfeeds shown.
+%   } 
 
 %# vi: set ts=4 sw=4 ft=mason :

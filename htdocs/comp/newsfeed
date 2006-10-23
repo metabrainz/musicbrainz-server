@@ -16,32 +16,36 @@
 		categories => $categories,
 	);
 
-	$feed->Load();
+	$feed->Load() if defined $feed;
 
 </%perl>
 
 <div class="boxeslist">
 
-%	foreach my $item ($feed->GetItems())
-%	{
+%   if (defined $feed) {
+%    	foreach my $item ($feed->GetItems())
+%    	{
 
-	<div class="orangeheader">
-		<div class="inner"><b><% $item->GetTitle() %></b></div>
-	</div>
-	<div class="boxcontent">
-		<div class="inner">
-			<% $item->GetDescription() |n %>
-			<div class="datetime">Posted: <% $item->GetDateTimeString() %></div>
+        <div class="orangeheader">
+            <div class="inner"><b><% $item->GetTitle() %></b></div>
+        </div>
+        <div class="boxcontent">
+            <div class="inner">
+                <% $item->GetDescription() |n %>
+                <div class="datetime">Posted: <% $item->GetDateTimeString() %></div>
 
-%		if ($read_more)
-%		{
-			<div class="readmore">&raquo; <a href="<% $item->GetLink() %>">read more</a></div>
-%		}
+%    		if ($read_more)
+%    		{
+                <div class="readmore">&raquo; <a href="<% $item->GetLink() %>">read more</a></div>
+%    		}
 
-		</div>
-	</div>
+            </div>
+        </div>
 
-% 	}
+%     	}
+%   } else { 
+        XML::RSS is not installed -- no newsfeeds shown.
+%   } 
 
 </div>
 
