@@ -1,4 +1,4 @@
-#!/usr/bin/perl -w
+#!/home/httpd/musicbrainz/mb_server/cgi-bin/perl -w
 # vi: set ts=4 sw=4 :
 #____________________________________________________________________________
 #
@@ -36,8 +36,7 @@ use Encode qw( decode from_to );
 use constant AUTO_INSERT_MIN_TRACKS => 5;
 use constant AUTO_ADD_DISCID => 1;
 use constant AUTO_ADD_ALBUM => 0;
-use constant FREEDB_SERVER => "www.freedb.org";
-use constant FREEDB_PORT => 888;
+use constant FREEDB_SERVER => "freedb.freedb.org";
 use constant FREEDB_PROTOCOL => 6; # speaks UTF-8
 
 sub new
@@ -49,9 +48,7 @@ sub new
     }, ref($class) || $class;
 }
 
-# Public.  Called from MusicBrainz::Server::AlbumCDTOC->GenerateAlbumFromDiscid; cdi/enter.html;
-# cdi/menter.html
-
+# Public.  Called from MusicBrainz::Server::AlbumCDTOC->GenerateAlbumFromDiscid; 
 sub Lookup
 {
     my ($this, $Discid, $toc) = @_;
@@ -63,9 +60,9 @@ sub Lookup
     	or warn("Parsed toc '$toc' and got '$info{discid}', not '$Discid'"), return undef;
 
     my $ret = $this->_Retrieve(
-	FREEDB_SERVER, FREEDB_PORT,
+	FREEDB_SERVER, 
 	sprintf(
-	    "cddb query %s %d %s %d",
+	    "cddb+query+%s+%d+%s+%d",
 	    $info{freedbid},
 	    $info{lasttrack},
 	    join(" ", @{ $info{trackoffsets} }),
@@ -86,8 +83,8 @@ sub LookupByFreeDBId
     my ($this, $id, $cat) = @_;
 
     my $ret = $this->_Retrieve(
-	FREEDB_SERVER, FREEDB_PORT,
-	"cddb read $cat $id",
+	FREEDB_SERVER, 
+	"cddb+read+$cat+$id",
     ) or return undef;
 
     $ret->{freedbid} = $id;
@@ -100,107 +97,60 @@ sub LookupByFreeDBId
 
 sub _Retrieve
 {
-    my ($this, $remote, $port, $query) = @_;
+    my ($this, $remote, $query) = @_;
 
-    my $key = "FreeDB-$remote-$port-$query";
+    my $key = "FreeDB-$remote-$query";
 
     if (my $r = MusicBrainz::Server::Cache->get($key))
     {
 	return $$r;
     }
 
-    lprint "freedb", "Querying FreeDB: $remote:$port '$query'";
-    my $r = $this->_Retrieve_no_cache($remote, $port, $query);
+    lprint "freedb", "Querying FreeDB: $remote '$query'";
+    my $r = $this->_Retrieve_no_cache($remote, $query);
     MusicBrainz::Server::Cache->set($key, \$r);
     return $r;
 }
 
 sub _Retrieve_no_cache
 {
-    my ($this, $remote, $port, $query) = @_;
+    my ($this, $remote, $query) = @_;
 
-    if ($remote eq '' || $port == 0)
+    if ($remote eq '')
     {
-        croak "A port and server address/name must be given.";
+        croak "A server address/name must be given.";
         return undef;
     }
 
-    require IO::Socket::INET;
-    my $sock = IO::Socket::INET->new(
-	PeerAddr => $remote,
-	PeerPort => $port,
-	Proto => 'tcp',
-    );
+    my $url = "http://freedb2.org/~cddb/cddb.cgi?cmd=$query".'&hello=webmaster+musicbrainz.org+musicbrainz.org&proto=6';
 
-    if (not $sock)
+    require LWP::UserAgent;
+    my $ua = LWP::UserAgent->new(max_redirect => 0);
+    my $response = $ua->get($url);
+
+    if (!$response->is_success)
     {
-	lprint "freedb", "FreeDB $remote:$port connect failed: $!";
-	return undef;
+		lprint "freedb", "FreeDB $url failed: $!";
+		return undef;
     }
 
-    $sock->autoflush(1);
+	my $page = $response->content;
 
-    my ($line, @response);
-
-    $line = <$sock>;
+	my @lines = split("\n", $page);
+    my $line = shift @lines;
     lprint "freedb", "<< $line";
 
-    @response = split ' ', $line;
-    if (!MusicBrainz::Server::Validation::IsNonNegInteger($response[0]) || $response[0] < 200 || $response[0] > 299)
-    {
-        lprint "freedb", "FreeDB $remote:$port does not want to talk to us: $line";
-        close $sock;
-        return undef;
-    }
+    return $this->_parse_tracks(\@lines) if ($query =~ /^cddb.read/);
 
-    # Send the hello string
-    $line = "cddb hello obs www.musicbrainz.org FreeDBGateway 1.0";
-    lprint "freedb", ">> $line";
-    print $sock $line, $CRLF;
-
-    $line = <$sock>;
-    lprint "freedb", "<< $line";
-
-    @response = split ' ', $line;
-    if ($response[0] < 200 || $response[0] > 299)
-    {
-        lprint "freedb", "FreeDB $remote:$port does not like our hello: $line";
-        return undef;
-    }
-
-    # Select the required protocol
-    $line = "proto " . FREEDB_PROTOCOL;
-    lprint "freedb", ">> $line";
-    print $sock $line, $CRLF;
-
-    $line = <$sock>;
-    lprint "freedb", "<< $line";
-
-    # Expect 201 (OK, changed) or 502 (already using that protocol)
-    unless ($line =~ /^(201|502) /)
-    {
-        lprint "freedb", "FreeDB $remote:$port failed to switch to protocol ".FREEDB_PROTOCOL.": $line";
-        return undef;
-    }
-
-    goto READQUERY if $query =~ /^cddb read /;
-
-    # Send the query 
-    lprint "freedb", ">> $query";
-    print $sock $query, $CRLF;
-
-    $line = <$sock>;
-    lprint "freedb", "<< $line";
-
-    @response = split ' ', $line;
+    my @response = split ' ', $line;
     if ($response[0] == 202)
     {
-        #print STDERR "FreeDB $remote:$port cannot find this CD ($query)\n";
+        lprint "freedb", "FreeDB $remote cannot find this CD ($query)\n";
         return undef;
     }
     if ($response[0] < 200 || $response[0] > 299)
     {
-        lprint "freedb", "FreeDB $remote:$port encountered an error: $line";
+        lprint "freedb", "FreeDB $remote encountered an error: $line";
         return undef;
     }
 
@@ -223,8 +173,8 @@ sub _Retrieve_no_cache
 
         for (my $i = 1; ; $i++)
         {
-            $line = <$sock>;
-	    lprint "freedb", "<< $line";
+            $line = $lines[$i-1];
+	        lprint "freedb", "<< $line";
 
             @response = split ' ', $line;
             if ($response[0] eq '.')
@@ -243,11 +193,17 @@ sub _Retrieve_no_cache
     }
 
     # FIXME lots of undef warnings coming from here
-    $query = "cddb read $category $disc_id";
-   
-READQUERY:
-    lprint "freedb", ">> $query";
-    print $sock $query, $CRLF;
+    $query = "cddb+read+$category+$disc_id";
+	my $ref = $this->_Retrieve_no_cache($remote, $query);
+    $ref->{freedbid} = $disc_id;
+    $ref->{freedbcat} = $category;
+
+	return $ref;
+} 
+
+sub _parse_tracks
+{
+	my ($this, $lines) = @_;
 
     my $artist = "";
     my $title = "";
@@ -261,13 +217,12 @@ READQUERY:
     my $response = $info{_response} = [];
     my $offsets = $info{_offsets} = [];
     my $disc_length = \$info{_disc_length};
-
     my @track_titles;
 
-    while(defined($line = <$sock>))
+    foreach my $line (@$lines)
     {
-	lprint "freedb", "<< $line";
-	push @$response, $line;
+	    lprint "freedb", "<< $line";
+     	push @$response, $line;
 
     	my @chars = split(//, $line, 2);
         if ($chars[0] eq '#')
@@ -285,7 +240,7 @@ READQUERY:
             if ($line =~ /Disc length:/)
             {
                 $line =~ s/^# Disc length:\s*(\d*).*$/$1/i;
-		$$disc_length = $1;
+	 			$$disc_length = $1;
                 $info{durations} .= ($line * 1000) - int(($last_track_offset*1000) / 75);
                 $in_offsets = 0;
                 next;
@@ -295,7 +250,7 @@ READQUERY:
             {
                 next;
             }
-	    push @$offsets, $line;
+		    push @$offsets, $line;
             if($last_track_offset > 0) 
             {
                 $info{durations} .= int ((($line - $last_track_offset)*1000) / 75) . " ";
@@ -304,7 +259,7 @@ READQUERY:
             next;
         }
 
-        @response = split ' ', $line;
+        my @response = split ' ', $line;
         if ($response[0] eq '.')
         {
             last;
@@ -368,11 +323,6 @@ READQUERY:
     }
 
     $info{tracks} = \@tracks;
-
-    close $sock;
-
-    $info{freedbid} = $disc_id;
-    $info{freedbcat} = $category;
 
     return \%info;
 }
@@ -441,7 +391,7 @@ sub InsertForModeration
 	$ar = $$artists[0];
 
         # This is currently a byte-wise comparison, i.e. case-sensitive, etc.
-	# Should it be done using lc() and maybe even unaccent() too?
+	# Should it be done using lc() and maybe even unac_string() too?
         if ($ar->GetSortName() eq $info->{artist})
         {
             $info->{sortname} = $ar->GetSortName();
