@@ -33,6 +33,7 @@ use Carp qw( carp cluck croak );
 use DBDefs;
 use String::Similarity;
 use MusicBrainz::Server::Validation qw( unaccent );
+use MusicBrainz::Server::Cache;
 use LocaleSaver;
 use POSIX qw(:locale_h);
 use Encode qw( decode encode );
