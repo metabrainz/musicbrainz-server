@@ -166,10 +166,12 @@ specific notes about a server type, the instructions apply to all server types.
        Time::ParseDate
        OSSP::UUID (see notes)
 
-   A full install will also need these modules:
+   For a more full install you will need to install these following
+   modules:
 
-       XML::RSS
-       RDFStore (use 0.42 if 0.50 gives you install headaches)
+       XML::RSS -- to display RSS feeds from the blog
+       RDFStore -- to accept POST queries of the old RDF based Web
+                   Service. (use 0.42 if 0.50 gives you install headaches)
 
    Notes on specific perl modules:
 
@@ -201,7 +203,7 @@ specific notes about a server type, the instructions apply to all server types.
 
          # mod_perl:
 	 perl Makefile.PL \
-		APACHE_SRC=../apache_1.3.19/src \
+		APACHE_SRC=../apache_1.3.37/src \
 		DO_HTTPD=1 \
 		USE_APACI=1 \
 		PREP_HTTPD=1 \
@@ -366,10 +368,3 @@ NOTE: Steps 6 - 8 are optional for database only slaves!
    This should be it and now you have your very own MusicBrainz server.
 
 Good luck!
-
-
-
-
-Robert Kaye
-Mayhem & Chaos Coordinator
-rob@eorbit.net
