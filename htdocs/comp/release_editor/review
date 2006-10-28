@@ -79,7 +79,7 @@
 	my $release = Album->new($mb->{DBH});
 	$release->SetId(0);
 	$release = $m->comp("/comp/loadrelease", $mb, $releaseid)
-		if (defined $releaseid && MusicBrainz::IsNonNegInteger($releaseid) && $releaseid);
+		if (defined $releaseid && MusicBrainz::Server::Validation::IsNonNegInteger($releaseid) && $releaseid);
 
 	$release->SetArtist($artist->GetId);
 	$release->SetName($ARGS{"releasename"});
@@ -318,9 +318,9 @@
 		# track-artist mods
 		my $movetracks = 0;
 
-		(MusicBrainz::IsNonNegInteger($orig_artistid) or $orig_artistid eq "*")
+		(MusicBrainz::Server::Validation::IsNonNegInteger($orig_artistid) or $orig_artistid eq "*")
 			or die("need non-negative integer or * \$orig_artistid=$orig_artistid");
-		(MusicBrainz::IsNonNegInteger($new_artistid) or $new_artistid eq "*")
+		(MusicBrainz::Server::Validation::IsNonNegInteger($new_artistid) or $new_artistid eq "*")
 			or die("need non-negative integer or * \$new_artistid=$new_artistid");
 
 		if ($orig_artistid ne $new_artistid)
