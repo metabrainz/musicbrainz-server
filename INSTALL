@@ -4,8 +4,6 @@ Install instructions for the MusicBrainz Server:
 TODO: 
    - Check other docs for perl location issue
    - review the developer install bits
-   - replace cvs bits with better instructions after yalaforge ponders
-     how to tell the user which version to check out.
 
 New (Jan 2005):
 	If you can dedicate a whole machine to use as a MusicBrainz
@@ -93,7 +91,7 @@ specific notes about a server type, the instructions apply to all server types.
    For example, if you run your web server and crontabs
    as "www-user", the following configuration recipe may prove useful:
 	
-	# in pg_hba.conf:
+	# in pg_hba.conf (Note: The order of lines is important!):
 	local musicbrainz_db musicbrainz_user ident mb_map
 
 	# in pg_ident.conf:
@@ -243,22 +241,17 @@ specific notes about a server type, the instructions apply to all server types.
 Installation:
 =============
 
-1) If you want to import the current live data into your database, you'll need
-   the current live copy of the server codebase, not the latest SVN copy.
-   Otherwise, the import may fail, possibly with an error like this:
-     ERROR:  copy: line 1, Missing data for column "automodsaccepted" 
- 
-   How to get the live server code:
+1) If you want to import the current live data into your database, you need
+   exactly the same version of the server codebase that created the database
+   snapshot. Otherwise the schema could be incompatible and the import would
+   fail. The same directory where you downloaded the snapshots also contains
+   a README file giving you the exact subversion command line to check out
+   the code.
 
-   i) Work out what SVN tag corresponds to the live server.  It should be of
-      the form "RELEASE_yyyymmdd-BRANCH".  The date (yyyymmdd) in question
-      will probably match the "server version" smallprint shown at the bottom
-      of every MusicBrainz web page.  Alternatively, review the possible tags
-      (http://bugs.musicbrainz.org/browser/mb_server/branches) and pick the 
-      one with the latest date. 
-
-   ii) Check out that version of the mb_server source code, e.g.
-      svn checkout http://svn.musicbrainz.org/mb_server/branches/<BRANCH NAME> mb_server
+   NOTE: All releases of the MusicBrainz server are developed on branches, so
+	 checking out code from the trunk is almost never the correct choice.
+	 Depending on the release date, the URL has the following format:
+	 http://svn.musicbrainz.org/mb_server/branches/RELEASE_yyyymmdd-BRANCH
 
 2) Make sure you have all the prerequisite pieces of software installed.
    Installing perl modules using CPAN is easier than doing it by hand.
