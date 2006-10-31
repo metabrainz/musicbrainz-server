@@ -41,7 +41,7 @@
 </%args>
 
 %	# freedb import help-box.
-%	if ($toc eq "" && $discid eq "" && !$releaseid && $freedbid eq "" && $freedbcat eq "")
+%   if ($toc ne "" && $discid ne "" && !$releaseid)
 %	{
 
 		<tr>
