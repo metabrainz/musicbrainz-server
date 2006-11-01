@@ -63,7 +63,7 @@
 				<% $prev->{"SortName"} %>
 			</td>
 		</tr>
-
+%   }
 
 %	if ($prev->{"Resolution"} ne $new->{"Resolution"})
 %	{
