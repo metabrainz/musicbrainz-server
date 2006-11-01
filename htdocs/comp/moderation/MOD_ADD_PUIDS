@@ -37,8 +37,6 @@
 
 	<table class="editfields">
 		<tr>
-			<td colspan="2">
-
 			<td class="lbl">Add:</td>
 			<td>
 				<table class="editlisting">
