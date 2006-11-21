@@ -121,7 +121,7 @@ use constant MOD_CHANGE_WIKIDOC			=> 48;
 use constant MOD_ADD_RELEASEEVENTS		=> 49;
 use constant MOD_EDIT_RELEASEEVENTS		=> 50;
 use constant MOD_REMOVE_RELEASEEVENTS	=> 51;
-use constant MOD_CHANGE_RELEASE_LOCK	=> 52;
+# 52 - release locking
 use constant MOD_SET_RELEASE_DURATIONS	=> 53;
 
 use constant MOD_LAST					=> 53;

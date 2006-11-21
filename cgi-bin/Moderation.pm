@@ -49,7 +49,6 @@ require MusicBrainz::Server::Moderation::MOD_ADD_TRACK;
 require MusicBrainz::Server::Moderation::MOD_ADD_TRACK_KV;
 require MusicBrainz::Server::Moderation::MOD_ADD_TRMS;
 require MusicBrainz::Server::Moderation::MOD_CHANGE_TRACK_ARTIST;
-require MusicBrainz::Server::Moderation::MOD_CHANGE_RELEASE_LOCK;
 require MusicBrainz::Server::Moderation::MOD_EDIT_ALBUM_LANGUAGE;
 require MusicBrainz::Server::Moderation::MOD_EDIT_ALBUMATTRS;
 require MusicBrainz::Server::Moderation::MOD_EDIT_ALBUMNAME;
@@ -408,7 +407,6 @@ sub IsAutoEditType
 		$type == &ModDefs::MOD_EDIT_TRACKNUM ||
 		$type == &ModDefs::MOD_EDIT_TRACKTIME ||
 		$type == &ModDefs::MOD_CHANGE_TRACK_ARTIST ||
-		$type == &ModDefs::MOD_CHANGE_RELEASE_LOCK ||
 		$type == &ModDefs::MOD_MAC_TO_SAC ||
 		$type == &ModDefs::MOD_MOVE_ALBUM ||
 		$type == &ModDefs::MOD_MOVE_DISCID ||
