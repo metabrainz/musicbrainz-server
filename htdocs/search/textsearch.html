@@ -29,6 +29,7 @@
 <%args>
 
 	$handlearguments => 0
+    $offset => 0
 
 </%args>
 <%perl>
@@ -46,34 +47,35 @@
 	$m->comp("/search/handle-searchsession.inc", %ARGS)
 		if ($handlearguments);
 
-	$m->comp("/comp/sidebar-notitle", pagetitle => "Indexed Search");
-
-    # determine which fields to search on
-    my $fields = "";
-	$fields .= "artist " if ($session{"as_an"} eq "1");
-	$fields .= "sortname " if ($session{"as_as"} eq "1");
-	$fields .= "alias " if ($session{"as_aa"} eq "1");
-    $fields =~ s/ $//;
-    $fields =~ s/ /+/g;
-
 	if ($session{"as_query"} ne "" && $session{"as_type"} ne "")
 	{
 		use URI::Escape qw( uri_escape );
+
+        my $query = $session{"as_query"};
+        if (!exists $session{"as_adv"} or !$session{"as_adv"})
+        {
+            $query = MusicBrainz::Server::Validation::EscapeLuceneQuery($query);
+            if ($session{"as_type"} eq 'artist')
+            {
+                $query = "artist:($query)(sortname:($query) alias:($query) !artist:($query))";
+            }
+        }
+
 		my $docurl = 	'http://'
 					  . &DBDefs::LUCENE_SERVER
 					  . "/ws/1/"
 					  . $session{"as_type"}
 					  . "/?query="
-					  . uri_escape($session{"as_query"})
+					  . uri_escape($query)
 					  . "&type="
 					  . $session{"as_type"};
+		$docurl 	  .= "&offset=$offset";
 		$docurl 	  .= "&max="
 					  . $session{"as_limit"} if ($session{"as_limit"} >= 0);
 		$docurl 	  .= "&tport="
 					  . $session{"tport"} if ($session{"tport"} > 0);
 		$docurl 	  .= "&dur="
 					  . $session{"as_dur"} if ($session{"as_dur"} > 0);
-		$docurl 	  .= "&fields=$fields" if ($fields ne "");
         $docurl       .= '&rel=1' if ($session{uid});
 
 		require LWP::UserAgent;
@@ -83,9 +85,8 @@
 		{
 			if ($response->code == 404)
 			{
-
-</%perl>
-
+	            $m->comp("/comp/sidebar-notitle", pagetitle => "Indexed Search");
+                </%perl>
 				<& /comp/tablebegin, title => "No ".$session{"as_type"}."s found matching your query" &>
 					<ul>
 						<li>
@@ -105,7 +106,7 @@
 %			}
 %			elsif ($response->code == 403)
 %			{
-
+	            <& /comp/sidebar-notitle, pagetitle => "Indexed Search" &>
 				<& /comp/tablebegin, title => "Not enough information given" &>
 					<ul>
 						<li>
@@ -124,7 +125,7 @@
 %			}
 %			elsif ($response->code == 500)
 %			{
-
+	            <& /comp/sidebar-notitle, pagetitle => "Indexed Search" &>
 				<& /comp/tablebegin, title => "Internal Error" &>
 					<ul>
 						<li>
@@ -136,7 +137,7 @@
 %			}
 %			else
 %			{
-
+	            <& /comp/sidebar-notitle, pagetitle => "Indexed Search" &>
 				<& /comp/tablebegin, title => "Error" &>
 					<ul>
 						<li>
@@ -148,9 +149,68 @@
 %	    }
 %		else
 %		{
-				<& /comp/layout/editformbegin, title => "The following ${session{as_type}}s matched your query", mp => 0, show_coc => 0 &>
+%#              TODO: Move this to a perl module
+                <%perl>
+ 			    my $matchname = $session{as_type} eq 'freedb' ? "FreeDB CDs" : "${session{as_type}}s";
+                my $temp; # must be declared outside the for
+                my $content = $response->content;
+                my $total_hits = 0;
+                for(;;) 
+                {
+                    if ($content =~ /%WIKIBEGIN%(.*?)%WIKIEND%/s) 
+                    {
+                         $temp = Text::WikiFormat::format($1, {}, { prefix => "http://wiki.musicbrainz.org/", extended => 1, absolute_links => 1, implicit_links => 0 });
+                         $content =~ s/%WIKIBEGIN%(.*?)%WIKIEND%/$temp/s;
+                    } 
+                    else 
+                    {    
+                         last; 
+                    }
+                }
 
-					<% $response->content |n %>
+                my $redirect = "";
+                if ($content =~ /<!--\s+(.*?)\s+-->/s)
+                {
+                    my $comment = $1;
+
+                    foreach my $com (split(/\n/, $comment))
+                    {
+                        my ($key, $value) = split(/=/, $com, 2);
+
+                        $total_hits = $value if ($key eq 'hits');
+                        $redirect = $value if ($key eq 'redirect');
+                    }
+                }
+                my $type = $session{"as_type"};
+                if ($total_hits == 1 && ($type eq 'artist' || $type eq 'release' || $type eq 'track'))
+                {
+                    $m->comp("/comp/redirect", "/$type/$redirect.html");
+                    return;
+                }
+                </%perl>
+	            <& /comp/sidebar-notitle, pagetitle => "Indexed Search" &>
+				<& /comp/layout/editformbegin, title => "The following $matchname matched your query", mp => 0, show_coc => 0 &>
+                    <& /comp/browse/pageselector, numitems => $total_hits,
+                                           offset=>$offset, 
+                                           numlinks => 4,
+                                           pagesize=> ($session{"as_limit"} or 25),
+                                           url => "/search/textsearch.html",
+                                           args =>{ query => $session{"as_query"},
+                                                    type => $type,
+                                                    handlearguments => $handlearguments
+                                                  } &>
+
+					<% $content |n %>
+
+                    <& /comp/browse/pageselector, numitems => $total_hits,
+                                           offset=>$offset, 
+                                           numlinks => 4,
+                                           pagesize=> ($session{"as_limit"} or 25),
+                                           url => "/search/textsearch.html",
+                                           args =>{ query => $session{"as_query"},
+                                                    type => $type,
+                                                    handlearguments => $handlearguments
+                                                  } &>
 
 				<& /comp/layout/editformend &>
 
@@ -161,21 +221,20 @@
 %	}
 %	else
 %	{
+        <& /comp/sidebar-notitle, pagetitle => "Indexed Search" &>
 %		if ($session{"as_query"} ne "" || $session{"as_type"} ne "")
 %		{
+            <& /comp/tablebegin, title=>"Results" &>
+                <table style="margin: 0.3em">
+                    <tr>
+                        <td>
+                            Please enter a search phrase including letters and/or numbers.
+                        </td>
+                    </tr>
+                </table>
+            <& /comp/tableend &>
 
-		<& /comp/tablebegin, title=>"Results" &>
-			<table style="margin: 0.3em">
-				<tr>
-					<td>
-	    				Please enter a search phrase including letters and/or numbers.
-					</td>
-				</tr>
-			</table>
-		<& /comp/tableend &>
-
-		<div style="margin-top: 20px"></div>
-
+            <div style="margin-top: 20px"></div>
 %		}
 %	}
 

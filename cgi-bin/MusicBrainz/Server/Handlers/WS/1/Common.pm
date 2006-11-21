@@ -695,16 +695,6 @@ sub xml_relations
     }
 }
 
-sub normalize
-{
-    my $t = $_[0];                 # utf8-bytes
-    $t = decode "utf-8", $t;       # turn into string
-    $t =~ s/[^\p{IsAlnum}]+/ /g;   # turn non-alpha to space
-    $t =~ s/\s+/ /g;               # squish
-    $t = encode "utf-8", $t;       # turn back into utf8-bytes
-    $t;
-}
-
 sub xml_search
 {
     my ($r, $args) = @_;
@@ -714,52 +704,59 @@ sub xml_search
     my $dur = 0;
     if ($type eq 'artist')
     {
-        $query = $args->{artist};
+        my $term = MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{artist});
+        if (not $term =~ /^\s*$/)
+        {
+            $query = "artist:($term) (sortname:($term))^0.000001 (alias:($term))^0.000001";
+        }
     }
     elsif ($type eq 'release')
     {
-        $query = normalize($args->{release});
+        $query = MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{release});
         if ($args->{artistid})
         { 
-            $query .= " arid:" . $args->{artistid};
+            $query .= " arid:" . MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{artistid});
         }
         else
         { 
-            foreach my $term (split(/\s+/, $args->{artist}))
+            my $term = MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{artist});
+            if (not $term =~ /^\s*$/)
             {
-                $query .= " artist:" . $term;
+                $query .= " artist:(" . $term . ")";
             }
         }
-		if (defined $args->{releasetypes} && $args->{releasetypes} =~ /^\d+$/)
-		{
-			$query .= " type:" . $args->{releasetypes};
-		}
+        if (defined $args->{releasetypes} && $args->{releasetypes} =~ /^\d+$/)
+        {
+            $query .= " type:" . $args->{releasetypes};
+        }
     }
     elsif ($type eq 'track')
     {
-        $query = normalize($args->{track});
+        $query = MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{track});
         if ($args->{artistid})
         { 
             $args->{artistid} =~ s/-//g;
-            $query .= " arid:" . normalize($args->{artistid});
+            $query .= " arid:" . MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{artistid});
         }
         else
-        { 
-            foreach my $term (split(/\s+/, $args->{artist}))
+        {
+            my $term = MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{artist});
+            if (not $term =~ /^\s*$/)
             {
-                $query .= " artist:" . $term;
+                $query .= " artist:(" . $term . ")";
             }
         }
         if ($args->{releaseid})
         { 
             $args->{releaseid} =~ s/-//g;
-            $query .= " reid:" . normalize($args->{releaseid});
+            $query .= " reid:" . MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{releaseid});
         }
         else
-        { 
-            foreach my $term (split(/\s+/, $args->{release}))
+        {
+            my $term = MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{release});
+            if (not $term =~ /^\s*$/)
             {
-                $query .= " release:" . $term;
+                $query .= " release:(" . $term . ")";
             }
         }
         if ($args->{duration})
@@ -769,7 +766,7 @@ sub xml_search
         }
         if ($args->{tracknumber})
         {
-            $query .= " tnum:" . $args->{tracknumber};
+            $query .= " tnum:" . MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{tracknumber});
         }
     }
     else

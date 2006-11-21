@@ -664,7 +664,7 @@ sub InsertAlbumModeration
 
 		$mod->InsertNote(
 			MODBOT_MODERATOR,
-			"Imported from http://www.freedb.org/freedb_search_fmt.php?cat=$opts{FreedbCat}&id=$opts{FreedbId}",
+			"Imported from FreeDB $opts{FreedbCat}/$opts{FreedbId}",
 			nosend => 1,
 		)	if defined $opts{"FreedbId"}
 			and defined $opts{"FreedbCat"};

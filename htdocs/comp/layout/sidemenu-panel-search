@@ -38,21 +38,11 @@
 % 	# in xhtml-strict, <input> elements need to be contained in a block-level
 % 	# element, thus the <div> is needed inside the <form>
 
-
-%	my ($an, $as, $aa) = ($session{"as_an"}, $session{"as_as"}, $session{"as_aa"});
-%	$an = defined ($an) ? $an : 1;
-%	$as = defined ($as) ? $as : 1;
-%	$aa = defined ($aa) ? $aa : 0;
-
-
 						<div>
 							<input class="searchfield" type="text" name="query" id="id_qs_artist"
 								value="" />
 							<input type="hidden" name="type" value="artist" />
 							<input type="hidden" name="limit" value="<% $session{"as_limit"} %>" />
-%							$m->out(qq!<input type="hidden" name="an" value="1" />!) if ($an);
-%							$m->out(qq!<input type="hidden" name="as" value="1" />!) if ($as);
-%							$m->out(qq!<input type="hidden" name="aa" value="1" />!) if ($aa);
 							<input type="hidden" name="handlearguments" value="1" />
 						</div>
 					</form></td>

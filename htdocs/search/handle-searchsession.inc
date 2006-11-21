@@ -7,28 +7,17 @@
 	$limit => undef
 	$type => undef
 	$dur => undef
+	$adv => undef
 
 	# form action
 	$submitvalue => ""
 	$tport => undef
 
-	# advanced search parameters
-	# Artist (ax)
-	#   |-- Search artist name (0|1) (on by default)
-	#   |-- Search artist sortname (0|1) (on by default)
-	#   \-- Search artist alias' (0|1) (off by default)
-	# Release (rx)
-	#	none yet
-	# Track (tx)
-	#	none yet
-
-	$an => undef	# Artist Name
-	$as => undef	# Artist Sortname
-	$aa => undef	# Artist Alias
-
-
 </%args>
 <%perl>
+
+    # Remove tabs, which conguse IsSingleLineString
+    $query =~ tr/\t/ /;
 
 	# make sure we got a valid type parameter
 	!MusicBrainz::Server::Validation::IsSingleLineString($type) and $type
@@ -43,6 +32,7 @@
 	# sanitize variables
 	$type = lc $type;
 	$limit = 25 if (defined $limit and ($limit < 0 or $limit > 100));
+    $adv = 0 if ($adv != 0 and $adv != 1);
 
 	# add tagger port to the session variable
 	UserStuff::EnsureSessionOpen(), $session{"tport"} = $tport
@@ -55,30 +45,15 @@
 		$session{"as_limit"} = (defined $limit ? $limit : 25);
 		$session{"as_type"} = (defined $type ? $type : "");
 		$session{"as_dur"} = (defined $dur ? $dur : 0);
+		$session{"as_adv"} = (defined $adv ? $adv : 0);
 
 		if ($submitvalue =~ /Reset/i)
 		{
-			$session{"as_an"} = 1;
-			$session{"as_as"} = 1;
-			$session{"as_aa"} = 0;
-
 			$session{"as_query"} = "";
 			$session{"as_limit"} = 25;
 			$session{"as_type"} = "artist";
 			$session{"as_type"} = undef;
-		}
-		else
-		{
-			# if the value is transmitted, use this value (e.g. enabled).
-			# if the advanced search is disabled, assume default value,
-			# else if value is not submitted, 0 (checkbox unchecked)
-
-			if ($session{"as_type"} eq "artist")
-			{
-				$session{"as_an"} = (defined $an ? 1 : 0);
-				$session{"as_as"} = (defined $as ? 1 : 0);
-				$session{"as_aa"} = (defined $aa ? 1 : 0);
-			}
+			$session{"as_adv"} = 0;
 		}
 	}
 	else
@@ -88,6 +63,7 @@
 		$session{"as_limit"} = (defined $limit ? $limit : 25) if (not defined $session{"as_limit"});
 		$session{"as_type"} = (defined $type ? $type : "") if (not defined $session{"as_type"});
 		$session{"as_dur"} = (defined $dur ? $dur : 0) if (not defined $session{"as_dur"});
+		$session{"as_adv"} = (defined $adv ? $adv : 0) if (not defined $session{"as_adv"});
 	}
 
 </%perl>

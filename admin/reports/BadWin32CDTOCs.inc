@@ -132,13 +132,13 @@
 						sortname => $row->{'artist_sortname_1'}, resolution => $row->{'artist_resolution_1'},
 						strong => 0 &></td>
 				<td>
-					<a href="/show/release/detail.html?releaseid=<% $row->{'album_id_1'} %>&amp;disciddetail=both"><% $row->{'album_name_1'} %></a></td>
+					<a href="/show/release/details.html?releaseid=<% $row->{'album_id_1'} %>&amp;show=both#discid"><% $row->{'album_name_1'} %></a></td>
 				<td>
 					<& /comp/linkartist, id => $row->{'artist_id_2'}, name => $row->{'artist_name_2'},
 						sortname => $row->{'artist_sortname_2'}, resolution => $row->{'artist_resolution_2'},
 						strong => 0 &></td>
 				<td>
-					<a href="/show/release/detail.html?releaseid=<% $row->{'album_id_2'} %>&amp;disciddetail=both"><% $row->{'album_name_2'} %></a></td>
+					<a href="/show/release/details.html?releaseid=<% $row->{'album_id_2'} %>&amp;show=both#discid"><% $row->{'album_name_2'} %></a></td>
 			</tr>
 
 %		}

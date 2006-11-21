@@ -286,7 +286,6 @@
 %	# offer charset
 %	if ($offer_charset)
 %	{
-
 	<& /comp/tablebegin, title => "Select different encoding" &>
 
 		<form method="post" action="charset.html">
@@ -313,7 +312,8 @@
 					<td>
 						<input type="submit" class="button" value="Change character set &raquo;" />
 
-%		delete $args{"enc"};
+%		                delete $args{"enc"};
+%		                $args{"ready"} = $ready;
 
 						<& /comp/args-to-hidden-fields.inc, %args &>
 					</td>

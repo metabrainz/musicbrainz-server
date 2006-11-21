@@ -745,14 +745,4 @@ table.modpending ul.modpending li {
 	margin: 0px; padding: 0px;
 }
 
-/* advanced search page /search/textsearch.html */
-#id_querysyntax {
-	margin: 10px 0px;
-}
-
-#id_querysyntax .feedbackbox-warning {
-	width: 200px;
-}
-
-
 /* vi: set ts=4 sw=4 ft=mason : */

@@ -36,7 +36,8 @@ use Encode qw( decode from_to );
 use constant AUTO_INSERT_MIN_TRACKS => 5;
 use constant AUTO_ADD_DISCID => 1;
 use constant AUTO_ADD_ALBUM => 0;
-use constant FREEDB_SERVER => "freedb.freedb.org";
+use constant FREEDB_SERVER1 => "freedb.freedb.org";
+use constant FREEDB_SERVER2 => "freedb2.org";
 use constant FREEDB_PROTOCOL => 6; # speaks UTF-8
 
 sub new
@@ -59,16 +60,19 @@ sub Lookup
     $info{discid} eq $Discid
     	or warn("Parsed toc '$toc' and got '$info{discid}', not '$Discid'"), return undef;
 
-    my $ret = $this->_Retrieve(
-	FREEDB_SERVER, 
-	sprintf(
-	    "cddb+query+%s+%d+%s+%d",
-	    $info{freedbid},
-	    $info{lasttrack},
-	    join(" ", @{ $info{trackoffsets} }),
-	    int($info{leadoutoffset}/75),
-	),
-    ) or return undef;
+    my $query = sprintf(
+            "cddb+query+%s+%d+%s+%d",
+            $info{freedbid},
+            $info{lasttrack},
+            join(" ", @{ $info{trackoffsets} }),
+            int($info{leadoutoffset}/75));
+
+    # Try both freedb servers and see which one has it
+    my $ret = $this->_Retrieve(FREEDB_SERVER1, $query);
+    $ret = $this->_Retrieve(FREEDB_SERVER2, $query) 
+        if (!defined $ret);
+    return undef
+        if (!defined $ret);
 
     $ret->{cdindexid} = $info{discid};
     $ret->{toc} = $info{toc}; 
@@ -82,10 +86,11 @@ sub LookupByFreeDBId
 {
     my ($this, $id, $cat) = @_;
 
-    my $ret = $this->_Retrieve(
-	FREEDB_SERVER, 
-	"cddb+read+$cat+$id",
-    ) or return undef;
+    my $ret = $this->_Retrieve(FREEDB_SERVER1, "cddb+read+$cat+$id");
+    $ret = $this->_Retrieve(FREEDB_SERVER2, "cddb+read+$cat+$id") 
+        if (!defined $ret);
+    return undef
+        if (!defined $ret);
 
     $ret->{freedbid} = $id;
     $ret->{freedbcat} = $cat;
@@ -103,7 +108,7 @@ sub _Retrieve
 
     if (my $r = MusicBrainz::Server::Cache->get($key))
     {
-	return $$r;
+	    return $$r;
     }
 
     lprint "freedb", "Querying FreeDB: $remote '$query'";
@@ -140,7 +145,6 @@ sub _Retrieve_no_cache
     my $line = shift @lines;
     lprint "freedb", "<< $line";
 
-    return $this->_parse_tracks(\@lines) if ($query =~ /^cddb.read/);
 
     my @response = split ' ', $line;
     if ($response[0] == 202)
@@ -153,6 +157,8 @@ sub _Retrieve_no_cache
         lprint "freedb", "FreeDB $remote encountered an error: $line";
         return undef;
     }
+
+    return $this->_parse_tracks(\@lines) if ($query =~ /^cddb.read/);
 
     #
     # Parse the query 

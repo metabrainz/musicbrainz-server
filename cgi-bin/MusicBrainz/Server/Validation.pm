@@ -228,6 +228,13 @@ sub normalize
     $t;
 }
 
+# Escape special characters in a Lucene search query
+sub EscapeLuceneQuery
+{
+	my $str = shift;
+	$str =~  s/([+\-&|!(){}\[\]\^"~*?:\\])/\\$1/g;
+	return $str;
+}
 
 # Append some data to a file.  Create the file if necessary.
 

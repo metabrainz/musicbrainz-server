@@ -28,42 +28,10 @@
 %					$m->out(qq!<option value="artist" ! . ($session{"as_type"} eq "artist" ? 'selected="selected"' : '') . qq!>Artists</option>!);
 %					$m->out(qq!<option value="release" ! . ($session{"as_type"} eq "release" ? 'selected="selected"' : '') . qq!>Releases</option>!);
 %					$m->out(qq!<option value="track" ! . ($session{"as_type"} eq "track" ? 'selected="selected"' : '') . qq!>Tracks</option>!);
+%					$m->out(qq!<option value="annotation" ! . ($session{"as_type"} eq "annotation" ? 'selected="selected"' : '') . qq!>Annotations</option>!);
+%					$m->out(qq!<option value="freedb" ! . ($session{"as_type"} eq "freedb" ? 'selected="selected"' : '') . qq!>FreeDB</option>!);
 				</select>
 			</td>
-		</tr>
-		<tr class="top">
-			<td class="labelnopad"></td>
-			<td style="width: 350px">
-				<table cellspacing="0" cellpadding="0" border="0">
-					<tr id="id_type_a">
-						<td>
-
-%	my ($as_an, $as_as, $as_aa) = ($session{"as_an"}, $session{"as_as"}, $session{"as_aa"});
-%	$as_an = defined ($as_an) ? $as_an : 1;
-%	$as_as = defined ($as_as) ? $as_as : 1;
-%	$as_aa = defined ($as_aa) ? $as_aa : 0;
-
-							in <input type="checkbox" name="an" value="1"
-								<% $as_an ? qq! checked="checked" ! : "" |n %>
-							/>&nbsp;Names
-
-							<input type="checkbox" name="as" value="1"
-								<% $as_as ? qq! checked="checked" ! : "" |n %>
-							/>&nbsp;Sort names
-
-							<input type="checkbox" name="aa" value="1"
-								<% $as_aa ? qq! checked="checked" ! : "" |n %>
-							/>&nbsp;Aliases
-						</td>
-					</tr>
-					<tr id="id_type_r">
-						<td colspan="2">using release&nbsp;name fields</td>
-					</tr>
-					<tr id="id_type_t">
-						<td colspan="2">using track&nbsp;name fields</td>
-					</tr>
-				</table>
-            </td>
 		</tr>
 		<tr>
 			<td class="labelnopad"><label for="id_limit">Limit to:</label></td>
@@ -73,6 +41,13 @@
 %					$m->out(qq!<option value="50" ! . ($session{"as_limit"} eq 50 ? 'selected="selected"' : '') . qq!>Up to 50</option>!);
 %					$m->out(qq!<option value="100" ! . ($session{"as_limit"} eq 100 or $session{"as_limit"} eq 0 ? 'selected="selected"' : '') . qq!>Up to 100</option>!);
 			  	</select></td>
+		</tr>
+		<tr>
+			<td class="labelnopad"><label for="id_adv">Method:</label></td>
+			<td style="width: 350px">
+				<input type="checkbox" name="adv" id="id_adv" <% ($session{"as_adv"} ? 'checked="checked"' : '') %>/>
+                Use advanced <a href="/popup/TextSearchSyntax" title="POPUP::TextSearchSyntax::400::400">query syntax</a>
+			</td>
 		</tr>
 		<tr>
 			<td>&nbsp;</td>
@@ -85,21 +60,9 @@
 			<td>&nbsp;</td>
 			<td>
 				[ <a href="<% $oldsearch %>" title="Search for the same query using the direct search...">direct search</a> ]&nbsp;&nbsp;[ <a href="/popup/TextSearchSyntax" title="POPUP::TextSearchSyntax::400::400">help</a> ]
-
-				<div id="id_querysyntax" style="display: none">
-					<& /comp/form/feedbackbox, "warning", "Possible query syntax detected:",
-						qq!Your query includes punctuation that may be interpreted as !
-						.$m->scomp("/comp/linkdoc", "TextSearchSyntax", "query syntax")
-						.qq!. (Hint: A list of characters which trigger this warning
-							  message are <code>:?\!~[]{}()+ </code>)!,
-					&>
-				</div>
-
 			</td>
 		</tr>
 	</table>
 </form>
-
-<script type="text/javascript" src="/scripts/search-lucene.js"></script>
 
 %# vi: set ts=4 sw=4 ft=mason :

@@ -60,11 +60,12 @@ use constant ALBUM_ATTR_OTHER          => 11;
 use constant ALBUM_ATTR_OFFICIAL       => 100;
 use constant ALBUM_ATTR_PROMOTION      => 101;
 use constant ALBUM_ATTR_BOOTLEG        => 102;
+use constant ALBUM_ATTR_PSEUDO_RELEASE => 103;
 
 use constant ALBUM_ATTR_SECTION_TYPE_START   => ALBUM_ATTR_ALBUM;
 use constant ALBUM_ATTR_SECTION_TYPE_END     => ALBUM_ATTR_OTHER;
 use constant ALBUM_ATTR_SECTION_STATUS_START => ALBUM_ATTR_OFFICIAL;
-use constant ALBUM_ATTR_SECTION_STATUS_END   => ALBUM_ATTR_BOOTLEG;
+use constant ALBUM_ATTR_SECTION_STATUS_END   => ALBUM_ATTR_PSEUDO_RELEASE;
 
 # make this a package/class variable, it can change 
 our $ASIN_LINK_TYPE_ID = undef;
@@ -85,7 +86,8 @@ my %AlbumAttributeNames = (
 
     100 => [ "Official", "Official", "Any release officially sanctioned by the artist and/or their record company. (Most releases will fit into this category.)"],
     101 => [ "Promotion", "Promotions", "A giveaway release or a release intended to promote an upcoming official release. (e.g. prerelease albums or releases included with a magazine)"],
-    102 => [ "Bootleg", "Bootlegs", "An unofficial/underground release that was not sanctioned by the artist and/or the record company."]
+    102 => [ "Bootleg", "Bootlegs", "An unofficial/underground release that was not sanctioned by the artist and/or the record company."],
+    103 => [ "Pseudo-Release", "Pseudo-Releases", "A pseudo-release is a duplicate release for translation/transliteration purposes."]
 );
 
 # amazon image file names are unique on all servers and constructed like
@@ -95,27 +97,27 @@ my %AlbumAttributeNames = (
 # so we need to make sure we grab an existing image.
 my %CoverArtServer = (
     "amazon.co.jp" => {
-		"server" => "images-jp.amazon.com",
+		"server" => "ec1.images-amazon.com",
 		"id"     => "09",
 	},
     "amazon.co.uk" => {
-		"server" => "images-eu.amazon.com",
+		"server" => "ec1.images-amazon.com",
 		"id"     => "02",
 	},
     "amazon.de"    => {
-		"server" => "images-eu.amazon.com",
+		"server" => "ec2.images-amazon.com",
 		"id"     => "03",
 	},
     "amazon.com"   => {
-		"server" => "images.amazon.com",
+		"server" => "ec1.images-amazon.com",
 		"id"     => "01",
 	},
     "amazon.ca"    => {
-		"server" => "images.amazon.com",
+		"server" => "ec1.images-amazon.com",
 		"id"     => "01",                   # .com and .ca are identical
 	},
     "amazon.fr"    => {
-		"server" => "images.amazon.com",
+		"server" => "ec1.images-amazon.com",
 		"id"     => "08"
 	},
 );

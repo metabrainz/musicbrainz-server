@@ -243,9 +243,9 @@
 		if ($track)
 		{
 			$type = "track";
-			$query .= " (track:$_track)";
-			$query .= " (release:$_release)" if $_release;
-			$query .= " (artist:$artist)" if $artist;
+			$query = $_track;
+			$query .= " release:($_release)" if (not $_release =~ /^\s*$/);
+			$query .= " artist:($_artist)" if (not $_artist =~ /^\s*$/);
 			$query .= " tnum:$_tracknum" if $_tracknum;
 			if ($_duration)
 			{
@@ -256,13 +256,13 @@
 		elsif ($release)
 		{
 			$type = "release";
-     		$query = "(release:$_release)";
-     		$query .= " (artist:$artist)" if ($artist);
+			$query = $_release;
+			$query .= " artist:($_artist)" if (not $_artist =~ /^\s*$/);
 		}
 		else
 		{
 			$type = "artist";
-            $query = "(artist:$artist) (sortname:$artist)^0.000001 (alias:$artist)^0.000001";
+			$query = "artist:($_artist) (sortname:($_artist))^0.000001 (alias:($_artist))^0.000001";
 		}
 
 		use URI::Escape qw( uri_escape );

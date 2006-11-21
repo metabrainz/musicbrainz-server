@@ -34,35 +34,52 @@
 </%args>
 <%perl>
 
+    use URI::Escape qw( uri_escape );
+    if ($search ne "")
+    {
+        $m->comp("/comp/redirect", "/search/textsearch.html?query=" . uri_escape($search) . "&type=freedb&limit=25");
+        return undef;
+    }
+
 	# only logged in users may see this page
 	$m->comp("/comp/checkloggedin", 1, 1)
 		or return;
 
 </%perl>
 
-% 	$m->clear_buffer;
+<& /comp/sidebar, pagetitle => "FreeDB Search/Import" &>
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">
-<html>
-	<head>
-		<title>MusicBrainz FreeDB Import</title>
-	</head>
+<p>
+With the lack of searching at FreeDB, we've stopped using their search funcation and
+added our own FreeDB search functions. You can now search FreeDB releases from any indexed search table
+or use the shortcut form below. Alternatively if you already know the category/id of the CD you'd like to import,
+you can also do that below:
+</p>
 
-	<frameset rows="140, *" frameborder="1">
-	 	<frame name="mb" src="top.html" />
-		<frame name="freedb"
-
-% 	if (1) #$search eq "")
-%	{
-      			src="http://www.freedb2.org"
-%	}
-%	else
-%	{
-	    		src="http://www.freedb.org/freedb_search.php?words=<% uri_escape($search) %>&amp;allfields=NO&amp;fields=artist&amp;fields=title&amp;allcats=YES&amp;grouping=none"
-%	}
-		/>
-
-	</frameset>
-</html>
-
+<h2>FreeDB search</h2>
+<div style="margin-left: 2em">
+    <form action="/search/textsearch.html" method="get" enctype="application/x-www-form-urlencoded">
+        <p>
+        Enter the title and/or the artist name of the CD you want to import:
+        </p>
+        <input type="text" class="textfield" name="query" value=""/><br/>
+        <input type="submit" name="submit" value="Search &raquo;" />
+        <input type="hidden" name="type" value="freedb"/>
+        <input type="hidden" name="limit" value="25"/>
+    </form>
+</div>
+<h2>Direct import</h2>
+<div style="margin-left: 2em">
+    <form action="import.html" method="get" enctype="application/x-www-form-urlencoded">
+        <p>
+        Enter the category/id of the CD you want to import (e.g. <b>rock/a10bda0b</b>):
+        </p>
+        <input type="text" class="textfield" name="catid" value=""/><br/>
+        <input type="submit" name="submit" value="Import &raquo;" />
+        <input type="hidden" name="type" value="freedb"/>
+        <input type="hidden" name="limit" value="25"/>
+    </form>
+</div>
+   
+<& /comp/footer &>
 %# vi: set ts=4 sw=4 ft=mason :
