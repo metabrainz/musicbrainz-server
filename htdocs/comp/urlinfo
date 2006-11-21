@@ -11,7 +11,12 @@
 				<td class="label">
 					URL:</td>
 				<td>
-					<& /comp/linkurl, url => $url &></td>
+					<& /comp/linkurl, url => $url, showlink => 0 &>
+					[
+						<a href="/edit/url/edit.html?urlid=<% $url->GetId %>"> Edit URL </a> |
+						<a href="/mod/search/pre/url.html?urlid=<% $url->GetId %>"> View URL edits </a>
+					]
+				</td>
 			</tr>
 			<tr>
 				<td class="label">

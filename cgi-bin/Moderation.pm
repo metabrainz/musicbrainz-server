@@ -88,6 +88,7 @@ require MusicBrainz::Server::Moderation::MOD_ADD_RELEASEEVENTS;
 require MusicBrainz::Server::Moderation::MOD_EDIT_RELEASEEVENTS;
 require MusicBrainz::Server::Moderation::MOD_REMOVE_RELEASEEVENTS;
 require MusicBrainz::Server::Moderation::MOD_SET_RELEASE_DURATIONS;
+require MusicBrainz::Server::Moderation::MOD_EDIT_URL;
 
 use constant SEARCHRESULT_SUCCESS => 1;
 use constant SEARCHRESULT_NOQUERY => 2;
@@ -401,6 +402,7 @@ sub IsAutoEditType
 		$type == &ModDefs::MOD_EDIT_LINK_TYPE ||
 		$type == &ModDefs::MOD_EDIT_LINK_ATTR ||
 		$type == &ModDefs::MOD_EDIT_RELEASES ||
+		$type == &ModDefs::MOD_EDIT_URL ||
 		$type == &ModDefs::MOD_ADD_RELEASEEVENTS ||
 		$type == &ModDefs::MOD_EDIT_RELEASEEVENTS ||
 		$type == &ModDefs::MOD_EDIT_TRACKNAME ||

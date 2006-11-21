@@ -42,6 +42,8 @@
 	$icon => 0
 	$strong => 0
 	$shorten => 1
+	$showlink => 1
+	$modpending => 0
 
 </%args>
 <%perl>
@@ -50,6 +52,7 @@
 	{
 		$id = $url->GetId;
 		$name = $url->GetName;
+		$modpending = $url->GetModPending;
 	}
 	die ("$id and $name are required") if (not defined $id || not defined $name);
 
@@ -73,6 +76,7 @@
 	}
 
 	# render link to /show/url page.
+	$m->out(qq!<span class="modpending">!) if ($modpending);
 	$m->out(qq!<strong>!) if ($strong);
 
 	if ($icon && !UserPreference::get("css_noentityicons"))
@@ -82,10 +86,11 @@
 
 	$m->out(qq!<a href="$href" rel="nofollow" title="$title">$shorturl</a>!);
 	$m->out(qq!</strong>!) if ($strong);
+	$m->out("</span>") if ($modpending);
 
 	# show clickable link to open the url target
 	$m->out(qq! <span class="nobr">[<a href="/show/url/?urlid=$id">info</a>]</span>!)
-		if (defined $href);
+		if ($showlink && defined $href);
 
 </%perl>
 %# -- no empty line here, else an additional space will be

@@ -103,7 +103,7 @@
 			$name = $decoded_name if !$@;
 		}
 
-		$m->comp("/comp/linkurl", id => $e_id, name => $name, href => $url, strong => $strong, title => $title, shorten => $shorten);
+		$m->comp("/comp/linkurl", id => $e_id, name => $name, href => $url, strong => $strong, title => $title, shorten => $shorten, modpending => $item->{$prefix."modpending"});
 	}
 
 	$m->out("</span>") if ($mp);

@@ -123,8 +123,6 @@ sub UpdateURL
 	defined($url) && $url ne ""
 		or croak "Missing url in UpdateURL";
 	my $desc = $self->GetDesc;
-	defined($desc) && $desc ne ""
-		or croak "Missing description in UpdateURL";
 
 	MusicBrainz::Server::Validation::TrimInPlace($url);
 
@@ -132,7 +130,7 @@ sub UpdateURL
 
 	$sql->Do("LOCK TABLE url IN EXCLUSIVE MODE");
 
-	if (my $other = $self->newFromName($url))
+	if (my $other = $self->newFromURL($url))
 	{
 		if ($other->GetId != $self->GetId)
 		{
@@ -143,7 +141,7 @@ sub UpdateURL
 	}
 
 	$sql->Do(
-		"UPDATE url SET url = ?, desc = ? WHERE id = ?",
+		"UPDATE url SET url = ?, description = ? WHERE id = ?",
 		$url,
 		$desc,
 		$id,

@@ -400,6 +400,12 @@
 								<& /comp/linktrack, track => $track &>
 
 %							}
+%							elsif ($object_type eq "url")
+%							{
+%								my $url = $m->comp("/comp/loadurl", $mb, $object_id);
+								<& /comp/linkurl, url => $url &>
+
+%							}
 %							else
 %							{
 

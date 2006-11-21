@@ -123,8 +123,10 @@ use constant MOD_EDIT_RELEASEEVENTS		=> 50;
 use constant MOD_REMOVE_RELEASEEVENTS	=> 51;
 # 52 - release locking
 use constant MOD_SET_RELEASE_DURATIONS	=> 53;
+# 54-58 labels-related edit types
+use constant MOD_EDIT_URL				=> 59;
 
-use constant MOD_LAST					=> 53;
+use constant MOD_LAST					=> 59;
 
 # The constants below define the state a moderation can have:
 
