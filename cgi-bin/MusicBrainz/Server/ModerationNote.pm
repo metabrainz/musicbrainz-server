@@ -64,8 +64,6 @@ sub mark_up_text_as_html
 	
 	my $html = join "", map {
 
-        print STDERR "URL: $_\n";
-	
 		# shorten url's that are longer 50 characters
 		my $encurl = encode_entities($_);
 		my $shorturl = $encurl;
