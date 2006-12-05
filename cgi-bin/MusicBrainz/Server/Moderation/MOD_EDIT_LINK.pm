@@ -51,18 +51,16 @@ sub PreInsert
 
 	my $oldlinkphrase = $oldlinktype->{linkphrase};
 	my $newlinkphrase = $newlinktype->{linkphrase};
-    if (scalar(@$newattrs))
-	{
-		my $dummy;
-		my $attr = MusicBrainz::Server::Attribute->new(
-			$self->{DBH},
-			scalar($newlinktype->Types)
-		);
-		$attr = $attr->newFromLinkId($link->GetId());
-		($oldlinkphrase, $dummy) = $attr->ReplaceAttributes($oldlinkphrase, '');
-		$attr->SetAttributes([map { $_->{value} } @$newattrs]);
-		($newlinkphrase, $dummy) = $attr->ReplaceAttributes($newlinkphrase, '');
-	}
+
+    my $dummy;
+    my $attr = MusicBrainz::Server::Attribute->new(
+        $self->{DBH},
+        scalar($newlinktype->Types)
+    );
+    $attr = $attr->newFromLinkId($link->GetId());
+    ($oldlinkphrase, $dummy) = $attr->ReplaceAttributes($oldlinkphrase, '');
+    $attr->SetAttributes([map { $_->{value} } @$newattrs]);
+    ($newlinkphrase, $dummy) = $attr->ReplaceAttributes($newlinkphrase, '');
 
     $self->SetArtist(@$entities[0]->{type} eq 'artist' ? @$entities[0]->{obj}->GetId : @$entities[0]->{obj}->GetArtist());
     $self->SetTable($link->Table);
