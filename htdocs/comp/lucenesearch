@@ -8,7 +8,7 @@
 	$m->comp("/search/handle-searchsession.inc", %ARGS)
 		if ($handlearguments);
 
-	my $oldsearch = '/search/oldsearch.html';
+	my $oldsearch = "/search/oldsearch.html?query=" . uri_escape($session{as_query}) . "&type=$session{as_type}&limit=$session{as_limit}";
 
 </%perl>
 
