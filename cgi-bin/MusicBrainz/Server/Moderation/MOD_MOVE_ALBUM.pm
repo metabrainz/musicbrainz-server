@@ -67,7 +67,7 @@ sub PostLoad
   	@$this{qw( new.sortname new.name new.artistid new.movetracks)} = split /\n/, $this->GetNew;
 
     # If the name was blank and the new artist id ended up in its slot, swap the two values
-	if ($this->{'new.name'} =~ /\d+/ && !defined $this->{'new.artistid'})
+	if ($this->{'new.name'} =~ /^\d+$/ && !defined $this->{'new.artistid'})
 	{
 		$this->{'new.movetracks'} = $this->{'new.artistid'};
 		$this->{'new.artistid'} = $this->{'new.name'};
