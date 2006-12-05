@@ -37,9 +37,10 @@
 			<td class="labelnopad"><label for="id_limit">Limit to:</label></td>
 			<td>
 				<select name="limit" id="id_limit">
+%                   $session{"as_limit"} = 25 if ($session{"as_limit"} <= 0);
 %					$m->out(qq!<option value="25" ! . ($session{"as_limit"} eq 25 ? 'selected="selected"' : '') . qq!>Up to 25</option>!);
 %					$m->out(qq!<option value="50" ! . ($session{"as_limit"} eq 50 ? 'selected="selected"' : '') . qq!>Up to 50</option>!);
-%					$m->out(qq!<option value="100" ! . ($session{"as_limit"} eq 100 or $session{"as_limit"} eq 0 ? 'selected="selected"' : '') . qq!>Up to 100</option>!);
+%					$m->out(qq!<option value="100" ! . ($session{"as_limit"} eq "100" ? 'selected="selected"' : '') . qq!>Up to 100</option>!);
 			  	</select></td>
 		</tr>
 		<tr>
