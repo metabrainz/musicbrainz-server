@@ -184,9 +184,10 @@ sub get_type_and_status_from_inc
 sub bad_req
 {
 	my ($r, $error) = @_;
+
 	$r->status(Apache::Constants::BAD_REQUEST());
 	$r->send_http_header("text/plain; charset=utf-8");
-	$r->print($error."\015\012") unless $r->header_only;
+	$r->print($error."\nFor usage, please see: http://musicbrainz.org/development/mmd\015\012") unless $r->header_only;
 	return Apache::Constants::OK();
 }
 
@@ -710,7 +711,7 @@ sub xml_search
         $query = "";
         if ($args->{release})
         {
-            $query = "(" . MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{release}) . ")";
+            $query = "(" . join(" AND ", split / /, MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{release})) . ")";
         }
         if ($args->{artistid})
         { 
@@ -721,7 +722,7 @@ sub xml_search
             my $term = MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{artist});
             if (not $term =~ /^\s*$/)
             {
-                $query .= " AND artist:(" . $term . ")";
+                $query .= " AND artist:(" . join(" AND ", split / /, $term) . ")";
             }
         }
         if (defined $args->{releasetype} && $args->{releasetype} =~ /^\d+$/)
@@ -750,7 +751,7 @@ sub xml_search
             my $term = MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{artist});
             if (not $term =~ /^\s*$/)
             {
-                $query .= " AND artist:(" . $term . ")";
+                $query .= " AND artist:(" . join(" AND ", split / /, $term) . ")";
             }
         }
         if ($args->{releaseid})
@@ -763,7 +764,7 @@ sub xml_search
             my $term = MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{release});
             if (not $term =~ /^\s*$/)
             {
-                $query .= " AND release:(" . $term . ")";
+                $query .= " AND release:(" . join(" AND ", split / /, $term) . ")";
             }
         }
         if ($args->{duration})

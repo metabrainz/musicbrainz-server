@@ -48,7 +48,7 @@ sub handler
     my ($inc, $bad) = convert_inc($args{inc});
     if ($bad)
     {
-		return bad_req($r, "Invalid inc options: '$bad'. For usage, please see: http://musicbrainz.org/development/mmd");
+		return bad_req($r, "Invalid inc options: '$bad'.");
 	}
     my $type = $args{type};
     if (!defined($type) || $type ne 'xml')
@@ -57,17 +57,20 @@ sub handler
 	}
 	if ((!MusicBrainz::Server::Validation::IsGUID($mbid) && $mbid ne '') || $inc eq 'error')
 	{
-		return bad_req($r, "Incorrect URI. For usage, please see: http://musicbrainz.org/development/mmd");
+		return bad_req($r, "Incorrect URI.");
 	}
 
     my $puid = $args{puid};
 	if ($puid && !MusicBrainz::Server::Validation::IsGUID($puid))
 	{
-		return bad_req($r, "Invalid puid. For usage, please see: http://musicbrainz.org/development/mmd");
+		return bad_req($r, "Invalid puid.");
 	}
 
     if (!$mbid && !$puid)
     {
+        return bad_req($r, "Invalid collection URL -- collection URLs must end with /.")
+            if (!($r->uri =~ /\/$/));
+
         my $title = $args{title} or "";
         my $artist = $args{artist} or "";
         my $release = $args{release} or "";
@@ -85,14 +88,14 @@ sub handler
         my $artistid = $args{artistid};
         if ($artistid && !MusicBrainz::Server::Validation::IsGUID($artistid))
         {
-            return bad_req($r, "Invalid artist id. For usage, please see: http://musicbrainz.org/development/mmd");
+            return bad_req($r, "Invalid artist id.");
         }
         $artist = "" if ($artistid);
 
         my $releaseid = $args{releaseid};
         if ($releaseid && !MusicBrainz::Server::Validation::IsGUID($releaseid))
         {
-            return bad_req($r, "Invalid release id. For usage, please see: http://musicbrainz.org/development/mmd");
+            return bad_req($r, "Invalid release id.");
         }
         $release = "" if ($releaseid);
 

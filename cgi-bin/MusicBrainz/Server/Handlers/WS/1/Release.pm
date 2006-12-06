@@ -48,7 +48,7 @@ sub handler
     my ($inc, $bad) = convert_inc($args{inc});
     if ($bad)
     {
-		return bad_req($r, "Invalid inc options: '$bad'. For usage, please see: http://musicbrainz.org/development/mmd");
+		return bad_req($r, "Invalid inc options: '$bad'.");
 	}
     my $type = $args{type};
     if (!defined($type) || $type ne 'xml')
@@ -57,23 +57,26 @@ sub handler
 	}
     if ($inc & INC_RELEASES)
     {
-		return bad_req($r, "Invalid inc options: 'releases'. For usage, please see: http://musicbrainz.org/development/mmd");
+		return bad_req($r, "Invalid inc options: 'releases'.");
 	}
 
     # Check for collection arguments
     my $cdid = $args{discid};
     if ($cdid && length($cdid) != MusicBrainz::Server::CDTOC::CDINDEX_ID_LENGTH)
     {
-		return bad_req($r, "Invalid cdindex id. For usage, please see: http://musicbrainz.org/development/mmd");
+		return bad_req($r, "Invalid cdindex id.");
 	}
 
     my $artistid = $args{artistid};
     if ($artistid && !MusicBrainz::Server::Validation::IsGUID($artistid))
     {
-        return bad_req($r, "Invalid artist id. For usage, please see: http://musicbrainz.org/development/mmd");
+        return bad_req($r, "Invalid artist id.");
     }
     if (!$mbid && !$cdid)
     {
+        return bad_req($r, "Invalid collection URL -- collection URLs must end with /.")
+            if (!($r->uri =~ /\/$/));
+
         my $title = $args{title} or "";
         my $artist = $args{artist} or "";
         my $release = $args{release} or "";
