@@ -733,6 +733,30 @@ sub xml_search
         {
             $query .= " AND status:" . ($args->{releasestatus} - Album::ALBUM_ATTR_SECTION_STATUS_START + 1) . "^0.0001";
         }
+        if ($args->{count} > 0)
+        {
+            $query .= " AND tracks:" . $args->{count};
+        }
+        if ($args->{discids} > 0)
+        {
+            $query .= " AND discids:" . $args->{discids};
+        }
+        if ($args->{date})
+        {
+            $query .= " AND date:" . $args->{date};
+        }
+        if ($args->{asin})
+        {
+            $query .= " AND asin:" . $args->{asin};
+        }
+        if ($args->{lang} > 0)
+        {
+            $query .= " AND lang:" . $args->{lang};
+        }
+        if ($args->{script} > 0)
+        {
+            $query .= " AND script:" . $args->{script};
+        }
     }
     elsif ($type eq 'track')
     {
@@ -772,9 +796,17 @@ sub xml_search
             my $qdur = int($args->{duration} / 2000);
             $query .= " AND (qdur:$qdur OR qdur:" . ($qdur - 1) . " OR qdur:" . ($qdur + 1) . ")" if ($qdur);
         }
-        if ($args->{tracknumber})
+        if ($args->{tracknumber} >= 0)
         {
-            $query .= " AND tnum:" . MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{tracknumber});
+            $query .= " AND tnum:" . $args->{tracknumber};
+        }
+        if ($args->{releasetype})
+        {
+            $query .= " AND type:" . $args->{releasetype};
+        }
+        if ($args->{count} > 0)
+        {
+            $query .= " AND tracks:" . $args->{count};
         }
     }
     else
@@ -784,8 +816,6 @@ sub xml_search
 
     # In case we have a blank query, we must remove the AND at the beginning
     $query =~ s/^ AND //;
-
-    #print STDERR "$query\n";
 
     use URI::Escape qw( uri_escape );
     my $url = 'http://' . &DBDefs::LUCENE_SERVER . "/ws/1/$type/?" .

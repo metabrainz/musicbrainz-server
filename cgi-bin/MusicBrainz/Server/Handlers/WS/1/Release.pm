@@ -84,12 +84,19 @@ sub handler
 
         my $limit = $args{limit};
         $limit = 25 if ($limit < 1 || $limit > 100);
+        my $count = $args{count} or 0;
+        my $discids = $args{discids} or 0;
+        my $date = $args{date} or "";
+        my $asin = $args{asin} or "";
+        my $lang = $args{lang} or 0;
+        my $script = $args{script} or 0;
 
         $artist = "" if ($artistid);
 
         return xml_search($r, {type=>'release', artist=>$artist, release=>$title, 
                                artistid => $artistid, limit => $limit, releasetype => $info->{type}, 
-                               releasestatus=> $info->{status} });
+                               releasestatus=> $info->{status}, count=> $count, discids=>$discids,
+                               date => $date, asin=>$asin, lang=>$lang, script=>$script });
     }
 
 	my $status = eval 
