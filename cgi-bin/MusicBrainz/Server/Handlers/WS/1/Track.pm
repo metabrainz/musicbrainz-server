@@ -69,10 +69,14 @@ sub handler
     if (!$mbid && !$puid)
     {
         my $title = $args{title} or "";
-		return bad_req($r, "Must specify a title argument for track collections.") if (!$title);
-
         my $artist = $args{artist} or "";
         my $release = $args{release} or "";
+
+        if (!$title && !$artist && !$release)
+        {
+		    return bad_req($r, "Must specify one or more of title, artist or release argument(s) for track collections.");
+        }
+
         my $duration = $args{duration} or 0;
         my $tnum = $args{tracknumber} or 0;
         my $limit = $args{limit};

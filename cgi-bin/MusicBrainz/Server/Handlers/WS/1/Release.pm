@@ -77,7 +77,7 @@ sub handler
         my $title = $args{title} or "";
         my $artist = $args{artist} or "";
         my $release = $args{release} or "";
-        my $types = get_release_type($args{releasetypes} or "");
+        my ($info, $bad) = get_type_and_status_from_inc($args{releasetypes} or "");
 
         my $limit = $args{limit};
         $limit = 25 if ($limit < 1 || $limit > 100);
@@ -85,7 +85,8 @@ sub handler
         $artist = "" if ($artistid);
 
         return xml_search($r, {type=>'release', artist=>$artist, release=>$title, 
-                               artistid => $artistid, limit => $limit, releasetypes => $types });
+                               artistid => $artistid, limit => $limit, releasetype => $info->{type}, 
+                               releasestatus=> $info->{status} });
     }
 
 	my $status = eval 

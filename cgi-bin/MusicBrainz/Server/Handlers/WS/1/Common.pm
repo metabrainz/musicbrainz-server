@@ -111,12 +111,15 @@ my %statusShortcuts =
     'Official'           => Album::ALBUM_ATTR_OFFICIAL,
     'Promotion'          => Album::ALBUM_ATTR_PROMOTION,
     'Bootleg'            => Album::ALBUM_ATTR_BOOTLEG,
+    'PseudoRelease'      => Album::ALBUM_ATTR_PSEUDO_RELEASE,
     'sa-Official'        => Album::ALBUM_ATTR_OFFICIAL,
     'sa-Promotion'       => Album::ALBUM_ATTR_PROMOTION,
     'sa-Bootleg'         => Album::ALBUM_ATTR_BOOTLEG,
+    'sa-PseudoRelease'   => Album::ALBUM_ATTR_PSEUDO_RELEASE,
     'va-Official'        => Album::ALBUM_ATTR_OFFICIAL,
     'va-Promotion'       => Album::ALBUM_ATTR_PROMOTION,
     'va-Bootleg'         => Album::ALBUM_ATTR_BOOTLEG,
+    'va-PseudoRelease'   => Album::ALBUM_ATTR_PSEUDO_RELEASE,
 );
 
 # Convert the passed inc argument into a bitflag with the given constants form above
@@ -176,14 +179,6 @@ sub get_type_and_status_from_inc
         }
     }
     return ({ type=>$type, status=>$status, va=>$va }, join(' ', @reallybad));
-}
-
-sub get_release_type
-{
-    my ($arg) = @_;
-
-    return $typeShortcuts{$arg} if (exists $typeShortcuts{$arg});
-	return -1;
 }
 
 sub bad_req
@@ -707,72 +702,89 @@ sub xml_search
         my $term = MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{artist});
         if (not $term =~ /^\s*$/)
         {
-            $query = "artist:($term) (sortname:($term))^0.000001 (alias:($term))^0.000001";
+            $query = "artist:($term)(sortname:($term) alias:($term) !artist:($term))";
         }
     }
     elsif ($type eq 'release')
     {
-        $query = MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{release});
+        $query = "";
+        if ($args->{release})
+        {
+            $query = "(" . MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{release}) . ")";
+        }
         if ($args->{artistid})
         { 
-            $query .= " arid:" . MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{artistid});
+            $query .= " AND arid:" . MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{artistid});
         }
         else
         { 
             my $term = MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{artist});
             if (not $term =~ /^\s*$/)
             {
-                $query .= " artist:(" . $term . ")";
+                $query .= " AND artist:(" . $term . ")";
             }
         }
-        if (defined $args->{releasetypes} && $args->{releasetypes} =~ /^\d+$/)
+        if (defined $args->{releasetype} && $args->{releasetype} =~ /^\d+$/)
         {
-            $query .= " type:" . $args->{releasetypes};
+            $query .= " AND type:" . $args->{releasetype} . "^0.0001";
+        }
+        if (defined $args->{releasestatus} && $args->{releasestatus} =~ /^\d+$/)
+        {
+            $query .= " AND status:" . ($args->{releasestatus} - Album::ALBUM_ATTR_SECTION_STATUS_START + 1) . "^0.0001";
         }
     }
     elsif ($type eq 'track')
     {
-        $query = MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{track});
+        $query = "";
+        if ($args->{track})
+        {
+            $query = "(" . join(" AND ", split / /, MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{track})) . ")";
+        }
         if ($args->{artistid})
         { 
             $args->{artistid} =~ s/-//g;
-            $query .= " arid:" . MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{artistid});
+            $query .= " AND arid:" . MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{artistid});
         }
         else
         {
             my $term = MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{artist});
             if (not $term =~ /^\s*$/)
             {
-                $query .= " artist:(" . $term . ")";
+                $query .= " AND artist:(" . $term . ")";
             }
         }
         if ($args->{releaseid})
         { 
             $args->{releaseid} =~ s/-//g;
-            $query .= " reid:" . MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{releaseid});
+            $query .= " AND reid:" . MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{releaseid});
         }
         else
         {
             my $term = MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{release});
             if (not $term =~ /^\s*$/)
             {
-                $query .= " release:(" . $term . ")";
+                $query .= " AND release:(" . $term . ")";
             }
         }
         if ($args->{duration})
         {
-            my $qdur = $args->{duration} / 2000;
-            $query .= " qdur:$qdur qdur:" . ($qdur - 1) . " qdur:" . ($qdur + 1) if ($qdur);
+            my $qdur = int($args->{duration} / 2000);
+            $query .= " AND (qdur:$qdur OR qdur:" . ($qdur - 1) . " OR qdur:" . ($qdur + 1) . ")" if ($qdur);
         }
         if ($args->{tracknumber})
         {
-            $query .= " tnum:" . MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{tracknumber});
+            $query .= " AND tnum:" . MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{tracknumber});
         }
     }
     else
     {
         die "Incorrect search type: $type\n";
     }
+
+    # In case we have a blank query, we must remove the AND at the beginning
+    $query =~ s/^ AND //;
+
+    #print STDERR "$query\n";
 
     use URI::Escape qw( uri_escape );
     my $url = 'http://' . &DBDefs::LUCENE_SERVER . "/ws/1/$type/?" .
