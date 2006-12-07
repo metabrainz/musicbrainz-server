@@ -54,6 +54,7 @@
         my $query = $session{"as_query"};
         if (!exists $session{"as_adv"} or !$session{"as_adv"})
         {
+            $query =~ tr/A-Z/a-z/;
             $query = MusicBrainz::Server::Validation::EscapeLuceneQuery($query);
             if ($session{"as_type"} eq 'artist')
             {

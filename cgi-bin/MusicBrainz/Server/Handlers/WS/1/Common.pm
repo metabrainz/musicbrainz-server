@@ -701,6 +701,7 @@ sub xml_search
     if ($type eq 'artist')
     {
         my $term = MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{artist});
+        $term =~ tr/A-Z/a-z/;
         if (not $term =~ /^\s*$/)
         {
             $query = "artist:($term)(sortname:($term) alias:($term) !artist:($term))";
@@ -709,9 +710,11 @@ sub xml_search
     elsif ($type eq 'release')
     {
         $query = "";
+        my $term = MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{release});
+        $term =~ tr/A-Z/a-z/;
         if ($args->{release})
         {
-            $query = "(" . join(" AND ", split / /, MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{release})) . ")";
+            $query = "(" . join(" AND ", split / /, $term) . ")";
         }
         if ($args->{artistid})
         { 
@@ -761,9 +764,11 @@ sub xml_search
     elsif ($type eq 'track')
     {
         $query = "";
+        my $term =  MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{track});
+        $term =~ tr/A-Z/a-z/;
         if ($args->{track})
         {
-            $query = "(" . join(" AND ", split / /, MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{track})) . ")";
+            $query = "(" . join(" AND ", split / /, $term) . ")";
         }
         if ($args->{artistid})
         { 
