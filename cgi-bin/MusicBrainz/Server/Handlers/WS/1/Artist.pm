@@ -68,12 +68,14 @@ sub handler
         return bad_req($r, "Invalid collection URL -- collection URLs must end with /.")
             if (!($r->uri =~ /\/$/));
 
+        my $query = $args{query} or "";
         my $name = $args{name} or "";
         my $limit = $args{limit};
         $limit = 25 if ($limit < 1 || $limit > 100);
 
-		return bad_req($r, "Must specify a name argument for artist collections.") if (!$name);
-        return xml_search($r, { type => 'artist', artist => $name, limit => $limit });
+		return bad_req($r, "Must specify a name or query argument for artist collections.") if (!$name && !$query);
+		return bad_req($r, "Must specify a name OR query argument for artist collections. Not both.") if ($name && $query);
+        return xml_search($r, { type => 'artist', artist => $name, limit => $limit, query=>$query });
     }
 
 	my $status = eval {

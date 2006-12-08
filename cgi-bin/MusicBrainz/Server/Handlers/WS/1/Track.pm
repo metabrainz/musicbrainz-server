@@ -72,15 +72,14 @@ sub handler
             if (!($r->uri =~ /\/$/));
 
         my $title = $args{title} or "";
+        my $query = $args{query} or "";
         my $artist = $args{artist} or "";
         my $release = $args{release} or "";
         my $count = $args{count} or 0;
         my $releasetype = $args{releasetype} or -1;
 
-        if (!$title && !$artist && !$release)
-        {
-		    return bad_req($r, "Must specify one or more of title, artist or release argument(s) for track collections.");
-        }
+		return bad_req($r, "Must specify a title OR query argument for track collections. Not both.") if ($title && $query);
+		return bad_req($r, "Must specify a title or query argument for track collections.") if (!$title && !$query);
 
         my $duration = $args{duration} or 0;
         my $tnum = -1;
@@ -102,9 +101,11 @@ sub handler
         }
         $release = "" if ($releaseid);
 
+
         return xml_search($r, {type=>'track', track=>$title, artist=>$artist, release=>$release, 
                                artistid => $artistid, releaseid=>$releaseid, duration=>$duration,
-                               tracknumber => $tnum, limit => $limit, count => $count, releasetype=>$releasetype});
+                               tracknumber => $tnum, limit => $limit, count => $count, releasetype=>$releasetype, 
+                               query=>$query});
     }
 
 	my $status = eval 

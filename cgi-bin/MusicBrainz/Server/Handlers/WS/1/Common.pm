@@ -698,7 +698,13 @@ sub xml_search
     my $type = $args->{type};
     my $query = "";
     my $dur = 0;
-    if ($type eq 'artist')
+
+
+    if (defined $args->{query} && $args->{query} ne "")
+    {
+        $query = $args->{query};
+    }
+    elsif ($type eq 'artist')
     {
         my $term = MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{artist});
         $term =~ tr/A-Z/a-z/;
