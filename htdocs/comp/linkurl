@@ -63,17 +63,17 @@
 	$title ||= $href;
 	$title = encode_entities($title);
 
-
-	# shorten url's that are longer than ~75 chars
-	my $shorturl = encode_entities($name);
-	if ($shorten)
+	# shorten URLs that are too long
+	my $shorturl = $name;
 	{
-		# decode utf-8 to real unicode string so substr can handle multi-byte characters
-    	        use utf8;
-		utf8::decode($name);
-		$shorturl = encode_entities(substr($name, 0, 48)) . "&#8230;"
-			if (length($name) > 50);
+		$shorten or last;
+		require Encode;
+		my $t = Encode::decode("utf-8", $name);
+		last if length($t) <= 50;
+		substr($t, 48) = chr(0x2026); # HORIZONTAL ELLIPSIS
+		$shorturl = Encode::encode("utf-8", $t);
 	}
+	$shorturl = encode_entities($shorturl);
 
 	# render link to /show/url page.
 	$m->out(qq!<span class="modpending">!) if ($modpending);
