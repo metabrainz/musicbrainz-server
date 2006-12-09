@@ -36,8 +36,8 @@ use Encode qw( decode from_to );
 use constant AUTO_INSERT_MIN_TRACKS => 5;
 use constant AUTO_ADD_DISCID => 1;
 use constant AUTO_ADD_ALBUM => 0;
-use constant FREEDB_SERVER1 => "freedb.freedb.org";
-use constant FREEDB_SERVER2 => "freedb2.org";
+use constant FREEDB_SERVER1 => "freedb2.org";
+use constant FREEDB_SERVER2 => "freedb.freedb.org";
 use constant FREEDB_PROTOCOL => 6; # speaks UTF-8
 
 sub new
@@ -127,7 +127,7 @@ sub _Retrieve_no_cache
         return undef;
     }
 
-    my $url = "http://freedb2.org/~cddb/cddb.cgi?cmd=$query".'&hello=webmaster+musicbrainz.org+musicbrainz.org&proto=6';
+    my $url = "http://$remote/~cddb/cddb.cgi?cmd=$query".'&hello=webmaster+musicbrainz.org+musicbrainz.org+1.0&proto=6';
 
     require LWP::UserAgent;
     my $ua = LWP::UserAgent->new(max_redirect => 0);
@@ -187,8 +187,6 @@ sub _Retrieve_no_cache
             {
                last;
             }
-
-            #print "[$i]: $line";
 
             $categories[$i] = $response[0];
             $disc_ids[$i] = $response[1];
