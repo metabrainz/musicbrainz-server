@@ -77,12 +77,12 @@
 	if ($icon && !UserPreference::get("css_noentityicons"))
 	{
 		$m->out(qq!<img src="/images/entity/$usericon.gif" alt="$iconalt" class="entityicon" width="13" height="13" />!)
+		#/# for Vim
 	}
 
 	$m->out(qq!<a href="/show/user/?$arg" title="User: $dispname">$shortname</a>!);
 	$m->out(qq!</strong>!) if ($strong);
 
 </%perl>
-%# -- no empty line here, else an additional space will be
-%#    inserted before the dot at the end of sentences.
+%return; # no final newline
 %# vi: set ts=4 sw=4 ft=mason :
