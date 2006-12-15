@@ -81,6 +81,7 @@ sub handler
         my $artist = $args{artist} or "";
         my $release = $args{release} or "";
         my $query = $args{query} or "";
+        my $offset = $args{offset} or 0;
         my ($info, $bad) = get_type_and_status_from_inc($args{releasetypes} or "");
 
         my $limit = $args{limit};
@@ -96,7 +97,7 @@ sub handler
 
 		return bad_req($r, "Must specify a title OR query argument for release collections. Not both.") if ($title && $query);
 
-        return xml_search($r, {type=>'release', artist=>$artist, release=>$title, 
+        return xml_search($r, {type=>'release', artist=>$artist, release=>$title, offset=>$offset,
                                artistid => $artistid, limit => $limit, releasetype => $info->{type}, 
                                releasestatus=> $info->{status}, count=> $count, discids=>$discids,
                                date => $date, asin=>$asin, lang=>$lang, script=>$script, query=>$query });

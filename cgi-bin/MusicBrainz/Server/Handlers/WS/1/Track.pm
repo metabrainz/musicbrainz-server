@@ -73,6 +73,7 @@ sub handler
 
         my $title = $args{title} or "";
         my $query = $args{query} or "";
+        my $offset = $args{offset} or 0;
         my $artist = $args{artist} or "";
         my $release = $args{release} or "";
         my $count = $args{count} or 0;
@@ -105,7 +106,7 @@ sub handler
         return xml_search($r, {type=>'track', track=>$title, artist=>$artist, release=>$release, 
                                artistid => $artistid, releaseid=>$releaseid, duration=>$duration,
                                tracknumber => $tnum, limit => $limit, count => $count, releasetype=>$releasetype, 
-                               query=>$query});
+                               query=>$query, offset=>$offset});
     }
 
 	my $status = eval 

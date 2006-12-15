@@ -698,8 +698,9 @@ sub xml_search
     my $type = $args->{type};
     my $query = "";
     my $dur = 0;
+    my $offset = 0;
 
-
+    $offset = $args->{offset} if (defined $args->{offset} && MusicBrainz::Server::Validation::IsNonNegInteger($args->{offset}));
     if (defined $args->{query} && $args->{query} ne "")
     {
         $query = $args->{query};
@@ -830,7 +831,7 @@ sub xml_search
 
     use URI::Escape qw( uri_escape );
     my $url = 'http://' . &DBDefs::LUCENE_SERVER . "/ws/1/$type/?" .
-              "max=" . $args->{limit} . "&type=$type&fmt=xml&query=". uri_escape($query);
+              "max=" . $args->{limit} . "&type=$type&fmt=xml&offset=$offset&query=". uri_escape($query);
     my $out;
 
     require LWP::UserAgent;

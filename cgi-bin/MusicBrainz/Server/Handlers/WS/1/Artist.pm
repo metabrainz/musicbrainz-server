@@ -72,10 +72,11 @@ sub handler
         my $name = $args{name} or "";
         my $limit = $args{limit};
         $limit = 25 if ($limit < 1 || $limit > 100);
+        my $offset = $args{offset} or 0;
 
 		return bad_req($r, "Must specify a name or query argument for artist collections.") if (!$name && !$query);
 		return bad_req($r, "Must specify a name OR query argument for artist collections. Not both.") if ($name && $query);
-        return xml_search($r, { type => 'artist', artist => $name, limit => $limit, query=>$query });
+        return xml_search($r, { type => 'artist', artist => $name, limit => $limit, query=>$query, offset=>$offset });
     }
 
 	my $status = eval {
