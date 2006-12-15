@@ -1039,7 +1039,9 @@ table.Subs tr.r1 td {
 	font-weight: bold;
 }
 
-.wikidocs a.unofficial {}
+.wikidocs a.unofficial {
+	font-weight: normal;
+}
 
 /* header section (used for unofficial pages) */
 .wikidocs div.header {
