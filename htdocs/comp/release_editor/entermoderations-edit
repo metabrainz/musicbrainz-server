@@ -315,28 +315,30 @@
 			for (my $t=0; $t < $tracks; $t++)
 			{
 				# get original values
-				my $orig_id = $orig{"trackid$t"} || "";
+				my $orig_id = $orig{"trackid$t"};
 				my $orig_seq = $orig{"trackseq$t"};
-				my $orig_track = $orig{"track$t"} || "";
-				my $orig_length = $orig{"tracklength$t"} || "";
+				my $orig_track = $orig{"track$t"};
+				my $orig_length = $orig{"tracklength$t"};
 				my $orig_artistid = $orig{sprintf "tr%d_artistid", $t};
-				my $oldartist = &$GetCachedArtist($orig_artistid);
 
 				# get the new values
-				my $new_id = $ARGS{"trackid$t"} || "";
+				my $new_id = $ARGS{"trackid$t"};
 				my $new_seq = $ARGS{"trackseq$t"};
 				my $new_track = $ARGS{"track$t"} || "";
 				my $new_length = $ARGS{"tracklength$t"} || "";
 				my $new_delete = $ARGS{"trackdel$t"};
 				my $new_artistid = $ARGS{sprintf "tr%d_artistid", $t};
-				my $newartist = &$GetCachedArtist($new_artistid);
 
 				# prepare Track object
-				my $track = Track->new($mb->{DBH});
-				$track->SetId($new_id);
-				$track->SetAlbum($releaseid);
-				$track->LoadFromId
-					or die "Error loading track\n";
+				my $track;
+				if ($new_id) 
+				{
+					$track = Track->new($mb->{DBH});
+					$track->SetId($new_id);
+					$track->SetAlbum($releaseid);
+					$track->LoadFromId
+						or die "Error loading track\n";
+				}
 
 				# MOD_REMOVE_TRACK
 				# Insert track removal edit if requested
@@ -356,7 +358,7 @@
 				else
 				{
 					# MOD_EDIT_TRACKNUM
-					if ($orig_seq ne $new_seq)
+					if (defined $orig_seq and $orig_seq ne $new_seq)
 					{
 						push @insertededits, Moderation->InsertModeration(
 							DBH	=> $mb->{DBH},
@@ -371,9 +373,11 @@
 					}
 
 					# MOD_CHANGE_TRACK_ARTIST
-					if ($orig_artistid ne $new_artistid
+					if (defined $orig_artistid and $orig_artistid ne $new_artistid
 						and not $movetracks)
 					{
+						my $oldartist = &$GetCachedArtist($orig_artistid);
+						my $newartist = &$GetCachedArtist($new_artistid);
 						push @insertededits, Moderation->InsertModeration(
 							DBH	=> $mb->{DBH},
 							uid	=> $session{uid},
@@ -394,7 +398,7 @@
 					# Insert edit track name edit if the old name was not ""
 					if ($orig_track ne $new_track)
 					{
-						if ($orig_track eq "")
+						if (!defined $orig_track)
 						{
 							# make sure we don't insert empty new tracks.
 							if ($new_track ne "")
@@ -409,7 +413,7 @@
 									trackname => $new_track,
 									tracknum => $new_seq,
 									tracklength => Track::UnformatTrackLength($new_length),
-									artistid => $newartist->GetId,
+									artistid => $new_artistid,
 								);
 							}
 						}
@@ -429,8 +433,7 @@
 
 					# MOD_EDIT_TRACKTIME
 					# Insert edit track length edit if requested
-					if ($orig_length ne $new_length and
-						$orig_track ne "")
+					if (defined $orig_length and $orig_length ne $new_length)
 					{
 						push @insertededits, Moderation->InsertModeration(
 							DBH	=> $mb->{DBH},

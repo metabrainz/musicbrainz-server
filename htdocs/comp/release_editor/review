@@ -323,7 +323,7 @@
 		(MusicBrainz::Server::Validation::IsNonNegInteger($new_artistid) or $new_artistid eq "*")
 			or die("need non-negative integer or * \$new_artistid=$new_artistid");
 
-		if ($orig_artistid ne $new_artistid)
+		if ($orig_artistid && $orig_artistid ne $new_artistid)
 		{
 			# if all tracks are set to the release artist, its a
 			# single artist conversion, else a move release edit.
@@ -538,18 +538,7 @@
 			my $orig_seq = $orig{"trackseq$t"};
 			my $orig_track = $orig{"track$t"};
 			my $orig_length = $orig{"tracklength$t"};
-
 			my $orig_artistid = $orig{getField($t, "artistid")};
-			my $orig_artist = &$GetCachedArtist($orig_artistid),
-
-			(MusicBrainz::Server::Validation::IsNonNegInteger($orig_id))
-				or die("need non-negative integer \$orig_id=$orig_id");
-			(MusicBrainz::Server::Validation::IsNonNegInteger($orig_seq))
-				or die("need non-negative integer \$orig_seq=$orig_seq");
-			(defined $orig_track and $orig_track ne "")
-				or die("need non-empty string \$orig_track=$orig_track");
-			(MusicBrainz::Server::Validation::IsNonNegInteger($orig_artistid) or $orig_artistid eq "*")
-				or die("need non-negative integer or * \$orig_artistid=$orig_artistid");
 
 			# get new values
 			my $new_id = $ARGS{"trackid$t"};
@@ -557,9 +546,7 @@
 			my $new_track = $ARGS{"track$t"};
 			my $new_length = $ARGS{"tracklength$t"};
 			my $new_delete = $ARGS{"trackdel$t"};
-
 			my $new_artistid = $ARGS{getField($t, "artistid")};
-			my $new_artist = &$GetCachedArtist($new_artistid);
 
 			# check if track was removed
 			if ($new_delete)
@@ -579,8 +566,6 @@
 				next;
 			}
 
-			(MusicBrainz::Server::Validation::IsNonNegInteger($new_id))
-				or die("need non-negative integer \$new_id=$new_id");
 			(MusicBrainz::Server::Validation::IsNonNegInteger($new_seq))
 				or die("need non-negative integer \$new_seq=$new_seq");
 			(defined $new_track and $new_track ne "")
@@ -618,7 +603,7 @@
 			#	}
 			#}
 
-			if ($orig_seq ne $new_seq)
+			if (defined $orig_seq and $orig_seq ne $new_seq)
 			{
 				$m->comp(".showTrackEdit",
 					mb => $mb,
@@ -667,9 +652,11 @@
 			}
 
 			# if tracknames differ, it's either an edited or added track
-			if ($orig_artistid ne $new_artistid
+			if (defined $orig_artistid and $orig_artistid ne $new_artistid
 				and not $movetracks)
 			{
+				my $orig_artist = &$GetCachedArtist($orig_artistid),
+				my $new_artist = &$GetCachedArtist($new_artistid);
 				$m->comp(".showTrackEdit",
 					mb => $mb,
 					edittype => "ChangeTrackArtistEdit",
@@ -688,7 +675,7 @@
 			}
 
 			# check if edited track time
-			if ($orig_length ne $new_length)
+			if (defined $orig_length and $orig_length ne $new_length)
 			{
 				$m->comp(".showTrackEdit",
 					mb => $mb,
