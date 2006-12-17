@@ -1,10 +1,6 @@
 Install instructions for the MusicBrainz Server:
 ------------------------------------------------
 
-TODO: 
-   - Check other docs for perl location issue
-   - review the developer install bits
-
 New (Jan 2005):
 	If you can dedicate a whole machine to use as a MusicBrainz
 	server, you might find the following helpful:
