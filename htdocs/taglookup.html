@@ -33,6 +33,7 @@
 	);
 
 	$m->comp("/comp/sidebar-notitle", pagetitle => "Lookup Results");
+	$m->comp("/comp/nagpanel");
 
 	require TaggerSupport;
 	my $mb = $m->comp("/comp/dblogin");

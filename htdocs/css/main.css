@@ -1151,4 +1151,24 @@ table.Subs tr.r1 td {
 	background: transparent; color: gray;
 }
 
+/* Styles for the nag panel */
+.nagpanel {
+   background: #DDDDDD;
+   border: dashed 1px #333333;
+   margin: 1em;
+   padding: 1em;
+}
+.naglinkpanel {
+   text-align: center;
+   margin-top: 1em;
+}
+.naglink {
+   font-weight: bold;
+   font-size: large;
+   padding: 1em;
+}
+.nagchecklink {
+   font-size: 8pt;
+}
+
 /* vi: set ts=4 sw=4 ft=mason : */

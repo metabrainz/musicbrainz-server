@@ -105,23 +105,13 @@ sub print_xml
     require UserStuff;
     my $us = UserStuff->new($mb->{DBH});
     $us = $us->newFromName($user) or die "Cannot load user.\n";
-    my $nag = 1;
-    $nag = 0 if ($us->DontNag($us->GetPrivs) || $us->IsAutoEditor($us->GetPrivs) || $us->IsLinkModerator($us->GetPrivs));
 
     my @types;
     push @types, "AutoEditor" if ($us->IsAutoEditor($us->GetPrivs));
     push @types, "RelationshipEditor" if $us->IsLinkModerator($us->GetPrivs);
     push @types, "Bot" if $us->IsBot($us->GetPrivs);
     push @types, "NotNaggable" if $us->DontNag($us->GetPrivs);
-
-    if ($nag && !$us->DontNag())
-    {
-        use LWP::Simple;
-        use URI::Escape;
-        my $page = get('http://metabrainz.org/cgi-bin/nagcheck?moderator=' . uri_escape($user));
-        $page =~ s/\s*([-01])\s*/$1/;
-        $nag = $page;
-    }
+    my ($nag, $days) = $us->NagCheck;
 
 	print '<?xml version="1.0" encoding="UTF-8"?>';
 	print '<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#" xmlns:ext="http://musicbrainz.org/ns/ext-1.0#">';

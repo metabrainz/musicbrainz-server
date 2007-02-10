@@ -56,6 +56,7 @@ use constant DEFAULT_SEARCH_TIMEOUT => 30;
 use constant DEFAULT_SEARCH_LIMIT => 0;
 
 use constant PERMANENT_COOKIE_NAME => "remember_login";
+use constant LOOKUPS_PER_NAG       => 5;
 
 sub GetPassword			{ $_[0]{password} }
 sub SetPassword			{ $_[0]{password} = $_[1] }
@@ -1048,7 +1049,7 @@ EOF
 Please do not respond to this e-mail.
 
 Unfortunately editor '$fromname' has not supplied their e-mail address,
-so you cannott reply to them.
+so you cannot reply to them.
 EOF
 	}
 
@@ -1368,6 +1369,37 @@ sub _SetLastLoginDate
 	});
 
 	$self->InvalidateCache;
+}
+
+# Checks to see if a user should be nagged because they haven't donated or don't have the
+# NoNagFlag set.
+sub NagCheck
+{
+	my ($self) = @_;
+
+    my $nag = 1;
+    my $privs = $self->GetPrivs;
+    $nag = 0 if ($self->DontNag($privs) || $self->IsAutoEditor($privs) || $self->IsLinkModerator($privs));
+
+    my @types;
+    push @types, "AutoEditor" if ($self->IsAutoEditor($privs));
+    push @types, "RelationshipEditor" if $self->IsLinkModerator($privs);
+    push @types, "Bot" if $self->IsBot($privs);
+    push @types, "NotNaggable" if $self->DontNag($privs);
+
+    my $days = 0.0;
+    if ($nag)
+    {
+        use LWP::Simple;
+        use URI::Escape;
+        $days = get('http://metabrainz.org/cgi-bin/nagcheck_days?moderator=' . uri_escape($self->GetName));
+        if ($days =~ /\s*([-01]+),([-0-9.]+)\s*/) 
+        {
+            $nag = $1;
+            $days = $2;
+        }
+    }
+    return ($nag, $days); 
 }
 
 1;
