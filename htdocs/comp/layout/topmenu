@@ -349,6 +349,7 @@
 			{ name => "Preferences",		url => "/user/preferences.html",			login => 1 },
 			{ name => "Subscriptions",		url => "/user/subscriptions.html", 			login => 1 },
 			{ name => "Logout",				url => "/logout.html",						login => 1 },
+			{ name => "Check donation status",		url => "/user/donationcheck.html",						login => 1 },
 			[
 				{ url => "/user/mod_email.html" },
 				{ url => "/user/verifyemail.html" },
