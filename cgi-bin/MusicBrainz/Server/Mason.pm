@@ -1,4 +1,4 @@
-#!/usr/bin/perl -w
+
 # vi: set ts=4 sw=4 :
 #____________________________________________________________________________
 #
@@ -99,14 +99,15 @@ sub get_handler
 		in_package			=> "MusicBrainz::Server::ComponentPackage",
 	);
 
-	my $handler = HTML::Mason::ApacheHandler->new(
+	my %opts = (
 		compiler			=> $compiler,
 		comp_root			=> &DBDefs::HTDOCS_ROOT,
 		data_dir			=> &DBDefs::MASON_DIR,
-		preloads			=> preload_files(),
 		apache_status_title	=> __PACKAGE__." status",
 		error_mode			=> (&DBDefs::DB_STAGING_SERVER ? "output" : "fatal"),
 	);
+	$opts{preloads} = preload_files() if &DBDefs::PRELOAD_FILES;
+	my $handler = HTML::Mason::ApacheHandler->new(%opts);
 
 	# Install our minimal HTML encoder as the default.  This leaves
 	# top-bit-set characters alone.
