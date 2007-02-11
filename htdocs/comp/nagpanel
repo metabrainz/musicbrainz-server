@@ -26,7 +26,8 @@
 	# $Id: linkedits 8548 2006-10-19 07:41:02Z dave $
 	#
 </%perl>
-% if ($m->comp("/comp/nagcheck")) {
+% my ($nag, $days) = $m->comp("/comp/nagcheck");
+% if ($nag) {
     <div class="nagpanel">
         <p>
         The users make MusicBrainz happen and we appreciate your help!
