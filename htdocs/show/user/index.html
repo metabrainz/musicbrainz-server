@@ -119,7 +119,7 @@
 					<a href="/mod/search/pre/editor.html?userid=<% $userid %>">Edits</a> |
 					<a href="/mod/search/pre/editor-open.html?userid=<% $userid %>">Open edits</a> |
 					<a href="/mod/search/pre/editor-failed.html?userid=<% $userid %>">Failed edits</a> |
-  					<a href="/mod/search/pre/editor-deleted.html?userid=<% $userid %>">Cancelled edits</a>
+  					<a href="/mod/search/pre/editor-deleted.html?userid=<% $userid %>">Cancelled edits</a> 
 
 % 	if ($subscriptions_public or $is_me)
 %	{
@@ -158,6 +158,7 @@
 					  <a href="/user/edit.html">Edit</a>
 					| <a href="/user/change-password.html">Change password</a>
 					| <a href="/user/preferences.html">Preferences</a>
+					| <a href="/user/donationcheck.html">Check donation status</a>
 
 % 		if (UserStuff->IsLinkModerator($session{privs}))
 %		{

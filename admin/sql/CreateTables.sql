@@ -97,7 +97,8 @@ CREATE TABLE artist
     resolution          VARCHAR(64),
     begindate           CHAR(10),
     enddate             CHAR(10),
-    type                SMALLINT
+    type                SMALLINT,
+    strict              SMALLINT DEFAULT 0 -- 0 = normal, -1 = loose, +1 = strict
 );
 
 CREATE TABLE artistalias

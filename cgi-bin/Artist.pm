@@ -44,10 +44,20 @@ use constant ARTIST_TYPE_UNKNOWN	=> 0;
 use constant ARTIST_TYPE_PERSON		=> 1;
 use constant ARTIST_TYPE_GROUP		=> 2;
 
+use constant ARTIST_STRICT_LOOSE    => -1;
+use constant ARTIST_STRICT_NORMAL   => 0;
+use constant ARTIST_STRICT_STRICT   => 1;
+
 my %ArtistTypeNames = (
    0 => [ 'Unknown', 'Begin Date', 'End Date' ],
    1 => [ 'Person', 'Born', 'Deceased' ],
    2 => [ 'Group', 'Founded', 'Dissolved' ],
+);
+
+my %ArtistStrictNames = (
+   -1 => 'loose',
+   0 => 'normal',
+   1 => 'strict'
 );
 
 # Artist specific accessor function. Others are inherted from TableBase 
@@ -168,6 +178,21 @@ sub SetEndDate
    $_[0]->{enddate} = $_[1];
 }
 
+sub SetStrict
+{
+   $_[0]->{strict} = $_[1];
+}
+
+sub GetStrict
+{
+   return $_[0]->{strict};
+}
+
+sub GetStrictName
+{
+   return $ArtistStrictNames{$_[0]};
+}
+
 # Insert an artist into the DB and return the artist id. Returns undef
 # on error. The name and sortname of this artist must be set via the accesor
 # functions.
@@ -192,24 +217,24 @@ sub Insert
     if (!$this->GetResolution())
     {
         my $ar_list = $this->GetArtistsFromName($name);
-	foreach my $ar (@$ar_list)
-	{
-	    return $ar->GetId if ($ar->GetName() eq $name);
+		foreach my $ar (@$ar_list)
+		{
+	    	return $ar->GetId if ($ar->GetName() eq $name);
         }
-	foreach my $ar (@$ar_list)
-	{
-	    return $ar->GetId if (lc($ar->GetName()) eq lc($name));
+		foreach my $ar (@$ar_list)
+		{
+	    	return $ar->GetId if (lc($ar->GetName()) eq lc($name));
         }
     }
 
     unless ($opts{no_alias})
     {
-	# Check to see if the artist has an alias.
-	require Alias;
-	my $alias = Alias->new($this->{DBH});
-	$alias->{table} = "ArtistAlias";
-	$artist = $alias->Resolve($name);
-	return $artist if (defined $artist);
+		# Check to see if the artist has an alias.
+		require Alias;
+		my $alias = Alias->new($this->{DBH});
+		$alias->{table} = "ArtistAlias";
+		$artist = $alias->Resolve($name);
+		return $artist if (defined $artist);
     }
 
     my $page = $this->CalculatePageIndex($this->{sortname});
@@ -221,14 +246,14 @@ sub Insert
 		    (name, sortname, gid, type, resolution,
 		     begindate, enddate, modpending, page)
 	    VALUES (?, ?, ?, ?, ?, ?, ?, 0, ?)|,
-	$this->GetName(),
-	$this->GetSortName(),
-	$this->GetMBId,
-	$this->GetType() || undef,
-	$this->GetResolution() || undef,
-	$this->GetBeginDate() || undef,
-	$this->GetEndDate() || undef,
-	$page,
+		$this->GetName(),
+		$this->GetSortName(),
+		$this->GetMBId,
+		$this->GetType() || undef,
+		$this->GetResolution() || undef,
+		$this->GetBeginDate() || undef,
+		$this->GetEndDate() || undef,
+		$page,
     );
 
 
@@ -289,16 +314,16 @@ sub Remove
 
     $sql->Do("DELETE FROM artistalias WHERE ref = ?", $this->GetId);
     $sql->Do(
-	"DELETE FROM artist_relation WHERE artist = ? OR ref = ?",
-	$this->GetId, $this->GetId,
+		"DELETE FROM artist_relation WHERE artist = ? OR ref = ?",
+		$this->GetId, $this->GetId,
     );
     $sql->Do(
-	"UPDATE moderation_closed SET artist = ? WHERE artist = ?",
-	&ModDefs::DARTIST_ID, $this->GetId,
+		"UPDATE moderation_closed SET artist = ? WHERE artist = ?",
+		&ModDefs::DARTIST_ID, $this->GetId,
     );
     $sql->Do(
-	"UPDATE moderation_open SET artist = ? WHERE artist = ?",
-	&ModDefs::DARTIST_ID, $this->GetId,
+		"UPDATE moderation_open SET artist = ? WHERE artist = ?",
+		&ModDefs::DARTIST_ID, $this->GetId,
     );
 
     # Remove references from artist words table
@@ -411,6 +436,21 @@ sub UpdateSortName
     1;
 }
 
+sub UpdateStrict
+{
+	my $self = shift;
+
+	my $id = $self->GetId
+		or croak "Missing artist ID in UpdateStrict";
+
+	my $sql = Sql->new($self->{DBH});
+	$sql->Do(
+		"UPDATE artist SET strict = ? WHERE id = ?",
+		$self->{strict},
+		$id,
+	);
+}
+
 sub Update
 {
     my ($this, $new) = @_;
@@ -427,21 +467,22 @@ sub Update
     $update{resolution} = $new->{Resolution} if exists $new->{Resolution};
     $update{begindate} = $new->{BeginDate} if exists $new->{BeginDate};
     $update{enddate} = $new->{EndDate} if exists $new->{EndDate};
+    $update{strict} = $new->{Strict} if exists $new->{Strict};
 
     if (exists $update{'sortname'})
     {
-	my $page = $this->CalculatePageIndex($update{'sortname'});
-	$update{'page'} = $page;
+		my $page = $this->CalculatePageIndex($update{'sortname'});
+		$update{'page'} = $page;
     }
 
     # We map the following attributes to NULL
     $update{type} = undef if exists $update{type} and $update{type} == 0;
     $update{resolution} = undef
-	if exists $update{resolution} and $update{resolution} eq '';
+		if exists $update{resolution} and $update{resolution} eq '';
     $update{begindate} = undef
-	if exists $update{begindate} and $update{begindate} eq '';
+		if exists $update{begindate} and $update{begindate} eq '';
     $update{enddate} = undef
-	if exists $update{enddate} and $update{enddate} eq '';
+		if exists $update{enddate} and $update{enddate} eq '';
 
     my $attrlist = join ', ', map { "$_ = ?" } sort keys %update;
 
@@ -451,7 +492,7 @@ sub Update
     return 1 unless $attrlist;
 
     $sql->Do("UPDATE artist SET $attrlist WHERE id = ?", @values, $this->GetId)
-	or return 0;
+		or return 0;
     $this->InvalidateCache;
 
     # Update the search engine
@@ -467,15 +508,15 @@ sub UpdateModPending
     my ($self, $adjust) = @_;
 
     my $id = $self->GetId
-	or croak "Missing artist ID in UpdateModPending";
+		or croak "Missing artist ID in UpdateModPending";
     defined($adjust)
-	or croak "Missing adjustment in UpdateModPending";
+		or croak "Missing adjustment in UpdateModPending";
 
     my $sql = Sql->new($self->{DBH});
     $sql->Do(
-	"UPDATE artist SET modpending = NUMERIC_LARGER(modpending+?, 0) WHERE id = ?",
-	$adjust,
-	$id,
+		"UPDATE artist SET modpending = NUMERIC_LARGER(modpending+?, 0) WHERE id = ?",
+		$adjust,
+		$id,
     );
 
     $self->InvalidateCache;
@@ -498,9 +539,9 @@ sub RebuildWordList
     require SearchEngine;
     my $engine = SearchEngine->new($this->{DBH}, 'artist');
     $engine->AddWordRefs(
-	$this->GetId,
-	[ $this->GetName, @aliases ],
-	1, # remove other words
+		$this->GetId,
+		[ $this->GetName, @aliases ],
+		1, # remove other words
     );
 }
 
@@ -584,17 +625,17 @@ sub GetArtistsFromName
     MusicBrainz::Server::Validation::TrimInPlace($artistname) if defined $artistname;
     if (not defined $artistname or $artistname eq "")
     {
-	carp "Missing artistname in GetArtistsFromName";
-	return [];
+		carp "Missing artistname in GetArtistsFromName";
+		return [];
     }
 
     my $sql = Sql->new($this->{DBH});
     my $artists;
     {
-	# First, try exact match on name
-	$artists = $sql->SelectListOfHashes(
+		# First, try exact match on name
+		$artists = $sql->SelectListOfHashes(
 	    "SELECT id, name, gid, modpending, sortname,
-			resolution, begindate, enddate, type
+			resolution, begindate, enddate, type, strict
 	    FROM artist WHERE name = ?",
 	    $artistname,
 	);
@@ -612,7 +653,7 @@ sub GetArtistsFromName
 
 	$artists = $sql->SelectListOfHashes(
 	    "SELECT id, name, gid, modpending, sortname,
-			resolution, begindate, enddate, type
+			resolution, begindate, enddate, type, strict
 	    FROM artist WHERE name IN (?, ?, ?, ?)",
 	    encode("utf-8", $uc),
 	    encode("utf-8", $lc),
@@ -624,27 +665,27 @@ sub GetArtistsFromName
 	# Next, try a full case-insensitive search
 	$artists = $sql->SelectListOfHashes(
 	    "SELECT id, name, gid, modpending, sortname,
-			resolution, begindate, enddate, type
+			resolution, begindate, enddate, type, strict
 	    FROM artist WHERE LOWER(name) = LOWER(?)",
 	    $artistname,
 	);
 	last if scalar(@$artists);
 
-        # If that failed, then try to find the artist by sortname
+    # If that failed, then try to find the artist by sortname
 	$artists = $this->GetArtistsFromSortname($artistname)
 		and return $artists;
 
-        # If that failed too, then try the artist aliases
+    # If that failed too, then try the artist aliases
 	require Alias;
-        my $alias = Alias->new($this->{DBH}, "artistalias");
+    my $alias = Alias->new($this->{DBH}, "artistalias");
 
-        if (my $artist = $alias->Resolve($artistname))
+    if (my $artist = $alias->Resolve($artistname))
 	{
 	    $artists = $sql->SelectListOfHashes(
-		"SELECT id, name, gid, modpending, sortname, 
-			resolution, begindate, enddate, type
-		FROM artist WHERE id = ?",
-		$artist,
+			"SELECT id, name, gid, modpending, sortname, 
+				resolution, begindate, enddate, type, strict
+			FROM artist WHERE id = ?",
+			$artist,
 	    );
 	}
     }
@@ -655,15 +696,16 @@ sub GetArtistsFromName
     {
         my $ar = Artist->new($this->{DBH});
 
-	$ar->SetId($row->{id});
-	$ar->SetMBId($row->{gid});
-	$ar->SetName($row->{name});
-	$ar->SetSortName($row->{sortname});
-	$ar->SetModPending($row->{modpending});
-	$ar->SetResolution($row->{resolution});
-	$ar->SetBeginDate($row->{begindate});
-	$ar->SetEndDate($row->{enddate});
-	$ar->SetType($row->{type});
+		$ar->SetId($row->{id});
+		$ar->SetMBId($row->{gid});
+		$ar->SetName($row->{name});
+		$ar->SetSortName($row->{sortname});
+		$ar->SetModPending($row->{modpending});
+		$ar->SetResolution($row->{resolution});
+		$ar->SetBeginDate($row->{begindate});
+		$ar->SetEndDate($row->{enddate});
+		$ar->SetType($row->{type});
+		$ar->SetStrict($row->{strict});
 
         push @results, $ar;
     }
@@ -678,18 +720,18 @@ sub GetArtistsFromSortname
     MusicBrainz::Server::Validation::TrimInPlace($sortname) if defined $sortname;
     if (not defined $sortname or $sortname eq "")
     {
-	carp "Missing sortname in GetArtistsFromSortname";
-	return [];
+		carp "Missing sortname in GetArtistsFromSortname";
+		return [];
     }
 
     my $sql = Sql->new($this->{DBH});
 
     my $artists = $sql->SelectListOfHashes(
-	"SELECT	id, name, gid, modpending, sortname,
-		resolution, begindate, enddate, type
-	FROM	artist
-	WHERE	LOWER(sortname) = LOWER(?)",
-	$sortname,
+		"SELECT	id, name, gid, modpending, sortname,
+		resolution, begindate, enddate, type, strict
+		FROM	artist
+		WHERE	LOWER(sortname) = LOWER(?)",
+		$sortname,
     );
     scalar(@$artists) or return [];
 
@@ -698,15 +740,16 @@ sub GetArtistsFromSortname
     {
         my $ar = Artist->new($this->{DBH});
 
-	$ar->SetId($row->{id});
-	$ar->SetMBId($row->{gid});
-	$ar->SetName($row->{name});
-	$ar->SetSortName($row->{sortname});
-	$ar->SetResolution($row->{resolution});
-	$ar->SetBeginDate($row->{begindate});
-	$ar->SetEndDate($row->{enddate});
-	$ar->SetModPending($row->{modpending});
-	$ar->SetType($row->{type});
+		$ar->SetId($row->{id});
+		$ar->SetMBId($row->{gid});
+		$ar->SetName($row->{name});
+		$ar->SetSortName($row->{sortname});
+		$ar->SetResolution($row->{resolution});
+		$ar->SetBeginDate($row->{begindate});
+		$ar->SetEndDate($row->{enddate});
+		$ar->SetModPending($row->{modpending});
+		$ar->SetType($row->{type});
+		$ar->SetStrict($row->{strict});
 
         push @results, $ar;
     }
@@ -723,17 +766,17 @@ sub LoadFromId
 
     if ($id = $this->GetId)
     {
-	my $obj = $this->newFromId($id)
+		my $obj = $this->newFromId($id)
 	    or return undef;
-	%$this = %$obj;
-	return 1;
+		%$this = %$obj;
+		return 1;
     }
     elsif ($id = $this->GetMBId)
     {
-	my $obj = $this->newFromMBId($id)
+		my $obj = $this->newFromMBId($id)
 	    or return undef;
-	%$this = %$obj;
-	return 1;
+		%$this = %$obj;
+		return 1;
     }
     else
     {
@@ -754,16 +797,16 @@ sub newFromId
     if ($obj)
     {
        	$$obj->{DBH} = $this->{DBH} if $$obj;
-	return $$obj;
+		return $$obj;
     }
 
     my $sql = Sql->new($this->{DBH});
 
     $obj = $this->_new_from_row(
-	$sql->SelectSingleRowHash(
-	    "SELECT * FROM artist WHERE id = ?",
-    	    $id,
-	),
+		$sql->SelectSingleRowHash(
+			"SELECT * FROM artist WHERE id = ?",
+				$id,
+		),
     );
 
     $obj->{mbid} = delete $obj->{gid} if $obj;
@@ -772,7 +815,7 @@ sub newFromId
     delete $obj->{DBH} if $obj;
     MusicBrainz::Server::Cache->set($key, \$obj);
     MusicBrainz::Server::Cache->set($obj->_GetMBIDCacheKey($obj->GetMBId), \$obj)
-	if $obj;
+		if $obj;
     $obj->{DBH} = $this->{DBH} if $obj;
 
     return $obj;
@@ -790,16 +833,16 @@ sub newFromMBId
     if ($obj)
     {
        	$$obj->{DBH} = $this->{DBH} if $$obj;
-	return $$obj;
+		return $$obj;
     }
 
     my $sql = Sql->new($this->{DBH});
 
     $obj = $this->_new_from_row(
-	$sql->SelectSingleRowHash(
-	    "SELECT * FROM artist WHERE gid = ?",
-    	    $id,
-	),
+		$sql->SelectSingleRowHash(
+			"SELECT * FROM artist WHERE gid = ?",
+			$id,
+		),
     );
 
     $obj->{mbid} = delete $obj->{gid} if $obj;
@@ -808,7 +851,7 @@ sub newFromMBId
     delete $obj->{DBH} if $obj;
     MusicBrainz::Server::Cache->set($key, \$obj);
     MusicBrainz::Server::Cache->set($obj->_GetIdCacheKey($obj->GetId), \$obj)
-	if $obj;
+		if $obj;
     $obj->{DBH} = $this->{DBH} if $obj;
 
     return $obj;
@@ -832,9 +875,9 @@ sub GetArtistDisplayList
    my $saver = new LocaleSaver(LC_CTYPE, "en_US.UTF-8");
   
    ($page, $page_max) = $this->CalculatePageIndex($ind);
-   $query = qq/select id, sortname, modpending 
-                    from Artist 
-                   where page >= $page and page <= $page_max/;
+   $query = qq/SELECT id, sortname, modpending 
+                 FROM Artist 
+                WHERE page >= $page AND page <= $page_max/;
    $max_artists = 0;
    if ($sql->Select($query))
    {
@@ -842,7 +885,7 @@ sub GetArtistDisplayList
        for(;@row = $sql->NextRow;)
        {
            my $temp = unaccent($row[1]);
-	   $temp = lc decode("utf-8", $temp);
+		   $temp = lc decode("utf-8", $temp);
 
            # Remove all non alpha characters to sort cleaner
            $temp =~ tr/A-Za-z0-9 //cd;
@@ -961,7 +1004,7 @@ sub GetAlbums
    {
         while(@row = $sql->NextRow)
         {
-	    require Album;
+			require Album;
             $album = Album->new($this->{DBH});
             $album->SetId($row[0]);
             $album->SetArtist($row[1]);
@@ -970,8 +1013,8 @@ sub GetAlbums
             $album->SetMBId($row[4]);
             $row[5] =~ s/^\{(.*)\}$/$1/;
             $album->{attrs} = [ split /,/, $row[5] ];
-	    $album->SetLanguageId($row[6]);
-	    $album->SetScriptId($row[7]);
+			$album->SetLanguageId($row[6]);
+			$album->SetScriptId($row[7]);
 
             if (defined $loadmeta && $loadmeta)
             {
@@ -1002,12 +1045,14 @@ sub HasAlbum
 
    # First, pull in the single artist albums
    $sql = Sql->new($this->{DBH});
-   if ($sql->Select(qq/select id, name from 
-                       Album where artist=$this->{id} order by lower(name), name/))
+   if ($sql->Select(qq/select id, name 
+			             from Album 
+						where artist=$this->{id} 
+				     order by lower(name), name/))
    {
         while(@row = $sql->NextRow)
         {
-	    my $name = decode("utf-8", $row[1]);
+			my $name = decode("utf-8", $row[1]);
 
             if (lc($name) eq lc($albumname))
             {
@@ -1039,7 +1084,7 @@ sub HasAlbum
 
         while(@row = $sql->NextRow)
         {
-	    my $name = decode("utf-8", $row[1]);
+			my $name = decode("utf-8", $row[1]);
 
             if (lc($name) eq lc($albumname))
             {
@@ -1069,22 +1114,22 @@ sub GetRelations
 
    $sql = Sql->new($this->{DBH});
    return $sql->SelectListOfHashes(
-	"
-	SELECT a.name, a.id, t.weight
-	FROM (
-		SELECT artist, (SUM(weight)+1)/2 AS weight
+		"
+		SELECT a.name, a.id, t.weight
 		FROM (
-			SELECT artist, weight FROM artist_relation WHERE ref = ?
-			UNION
-			SELECT ref, weight FROM artist_relation WHERE artist = ?
-		) tt
-		GROUP BY artist
-	) t, artist a
-	WHERE a.id = t.artist
-	ORDER BY t.weight DESC, a.name
-	",
-	$this->{id},
-	$this->{id},
+			SELECT artist, (SUM(weight)+1)/2 AS weight
+			FROM (
+				SELECT artist, weight FROM artist_relation WHERE ref = ?
+				UNION
+				SELECT ref, weight FROM artist_relation WHERE artist = ?
+			) tt
+			GROUP BY artist
+		) t, artist a
+		WHERE a.id = t.artist
+		ORDER BY t.weight DESC, a.name
+		",
+		$this->{id},
+		$this->{id},
     );
 } 
 
@@ -1110,32 +1155,32 @@ sub InUse
     my $sql = Sql->new($self->{DBH});
 
     return 1 if $sql->SelectSingleValue(
-	"SELECT 1 FROM album WHERE artist = ? LIMIT 1",
-	$self->GetId,
+		"SELECT 1 FROM album WHERE artist = ? LIMIT 1",
+		$self->GetId,
     );
     return 1 if $sql->SelectSingleValue(
-	"SELECT 1 FROM track WHERE artist = ? LIMIT 1",
-	$self->GetId,
+		"SELECT 1 FROM track WHERE artist = ? LIMIT 1",
+		$self->GetId,
     );
     return 1 if $sql->SelectSingleValue(
-	"SELECT 1 FROM l_album_artist WHERE link1 = ? LIMIT 1",
-	$self->GetId,
+		"SELECT 1 FROM l_album_artist WHERE link1 = ? LIMIT 1",
+		$self->GetId,
     );
     return 1 if $sql->SelectSingleValue(
-	"SELECT 1 FROM l_artist_artist WHERE link1 = ? LIMIT 1",
-	$self->GetId,
+		"SELECT 1 FROM l_artist_artist WHERE link1 = ? LIMIT 1",
+		$self->GetId,
     );
     return 1 if $sql->SelectSingleValue(
-	"SELECT 1 FROM l_artist_artist WHERE link0 = ? LIMIT 1",
-	$self->GetId,
+		"SELECT 1 FROM l_artist_artist WHERE link0 = ? LIMIT 1",
+		$self->GetId,
     );
     return 1 if $sql->SelectSingleValue(
-	"SELECT 1 FROM l_artist_track WHERE link0 = ? LIMIT 1",
-	$self->GetId,
+		"SELECT 1 FROM l_artist_track WHERE link0 = ? LIMIT 1",
+		$self->GetId,
     );
     return 1 if $sql->SelectSingleValue(
-	"SELECT 1 FROM l_artist_url WHERE link0 = ? LIMIT 1",
-	$self->GetId,
+		"SELECT 1 FROM l_artist_url WHERE link0 = ? LIMIT 1",
+		$self->GetId,
     );
     return 0;
 }
