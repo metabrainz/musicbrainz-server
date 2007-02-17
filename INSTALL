@@ -284,10 +284,16 @@ Installation:
      most of the settings you can probably leave unchanged if you wish.
 
    admin/startup.pl
+     NOTE: You can find a default version of startup.pl in startup.pl.default;
+           copy this to DBDefs.pm and edit this.
+
      There's only one thing to change here, namely the "use lib" line,
      which is marked with a "TODO" comment.
 
    admin/vh_httpd.conf
+     NOTE: You can find a default version of vh_httpd.conf in vh_httpd.conf.default;
+           copy this to vh_httpd.conf and edit this.
+
      This contains many things to customize - look for the TODO comments,
      which point out things that you might need to change.
 
