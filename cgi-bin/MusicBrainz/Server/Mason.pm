@@ -65,7 +65,6 @@ sub preload_files
 	for my $t (qw(
 		/bare
 		/cdi
-		/development
 		/edit
 		/freedb
 		/mod
