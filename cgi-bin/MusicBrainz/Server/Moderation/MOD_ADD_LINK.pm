@@ -27,7 +27,7 @@ use strict;
 
 package MusicBrainz::Server::Moderation::MOD_ADD_LINK;
 
-use ModDefs qw( :modstatus MODBOT_MODERATOR );
+use ModDefs qw( :artistid :modstatus MODBOT_MODERATOR );
 use base 'Moderation';
 use MusicBrainz::Server::Link;
 use MusicBrainz::Server::Attribute;
@@ -77,7 +77,16 @@ sub PreInsert
 
 	if (@$entities[0]->{type} eq 'album' || @$entities[0]->{type} eq 'track')
 	{
-	    $self->SetArtist(@$entities[0]->{obj}->GetArtist);
+		my $artistid = @$entities[0]->{obj}->GetArtist;
+		# Don't assign the edit to VA if we don't have to
+		if ($artistid == VARTIST_ID && @$entities[1]->{type} eq 'artist')
+		{
+			$self->SetArtist(@$entities[1]->{obj}->GetId);
+		}
+		else
+		{
+			$self->SetArtist($artistid);
+		}
 	} 
 	elsif (@$entities[0]->{type} ne 'label')
 	{

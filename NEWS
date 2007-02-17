@@ -7,7 +7,10 @@ Release 2007-XX-XX:
      http://wiki.musicbrainz.org/DataQuality
    * IDs of artists, releases, tracks and labels will stay valid
      after merge. (#912)
+   * Added links to open edits to the top editors/voters page. (#2364)
 
  * Bug Fixes:
    * Fixed ':hover' CSS for voting radiobuttons in IE7. (#2352)
    * Fixed adding of new tracks in the release editor. (#2101)
+   * AR edits for VA releases will be assigned to the real
+     artist, instead of VA. (#158)
