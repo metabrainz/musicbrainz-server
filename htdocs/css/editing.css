@@ -396,7 +396,7 @@ table.votechoice label {
 }
 
 table.votechoice label:hover {
-	border: thin dotted #999;
+	border: 1px dotted #999;
 }
 
 
