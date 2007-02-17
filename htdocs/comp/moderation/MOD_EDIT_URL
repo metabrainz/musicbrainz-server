@@ -52,7 +52,7 @@
 %	if ($prev->{'Desc'} ne $new->{'Desc'})
 %	{
 		<tr>
-			<td class="lbl" rowspan="2">Descripition:</td>
+			<td class="lbl" rowspan="2">Description:</td>
 			<td class="diff" id="ov::editdesc<% $id %>"><% $prev->{'Desc'} %></td>
 		</tr>
 		<tr>
