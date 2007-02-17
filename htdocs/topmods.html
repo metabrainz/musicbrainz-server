@@ -32,8 +32,9 @@
 
 	<table class="topmods">
 		<tr class="header">
-			<td class="topmodsname"><% $usertitle || "Editor" %></th>
-			<td class="topmodsnum"><% $numtitle || 'Count' %></th>
+			<td class="topmodsname"><% $usertitle || "Editor" %></td>
+			<td class="topmodsnum"><% $numtitle || 'Count' %></td>
+			<td></td>
 		</tr>
 
 %		local $. = 0;
@@ -45,6 +46,7 @@
 				<% ($d->{name} eq $d->{nametrunc}) ? "" : 'title="'.encode_entities($d->{name}).'"' |n %>
 				><a href="/show/user/?userid=<% $d->{id} %>"><% $d->{nametrunc} %></a></td>
 			<td class="topmodsnum"><% $d->{num} %></td>
+			<td>[ <a href="/mod/search/pre/editor-open.html?userid=<% $d->{id} %>">open edits</a> ]</td>
 		</tr>
 
 %		}
@@ -52,7 +54,7 @@
 %		{
 
 		<tr class="topmods<% ("odd", "even")[++$. % 2] %>">
-			<td class="topmodsnone" colspan="2">(no data to show)</td>
+			<td class="topmodsnone" colspan="3">(no data to show)</td>
 		</tr>
 
 %		}
