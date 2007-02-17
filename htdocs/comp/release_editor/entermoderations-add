@@ -90,7 +90,6 @@
 		my $trackseq = $ARGS{sprintf "trackseq%d", $i};
 
 		push @errors, "Track $i: Track artist is not set" if (not defined $trackartist or !$trackartist);
-		push @errors, "Track $i: Track artist cannot be set to 'Various Artists'" if ($trackartist == &ModDefs::VARTIST_ID);
 		push @errors, "Track $i: Track artist cannot be set to 'Deleted Artist'" if ($trackartist == &ModDefs::DARTIST_ID);
 		push @errors, "Track $i: Track title is not set" if (not defined $trackname or $trackname eq "");
 		push @errors, "Track $i: Track number is not set" if (not defined $trackseq or !$trackseq);
