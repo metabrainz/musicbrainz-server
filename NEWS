@@ -16,3 +16,4 @@ Release 2007-XX-XX:
      artist, instead of VA. (#158)
    * Fixed link to search on the VA page. (#2413)
    * Allow VA as a track artist in the release editor. (#2425)
+   * Don't show end date 1970-01-01 for open auto-editor elections. (#2139)

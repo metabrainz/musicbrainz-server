@@ -76,7 +76,7 @@
 				<td class="<% $status %>"><span>&nbsp;</span></td>
 				<td class="left padright"><% $status %></td>
 				<td class="left padright"><% $m->comp("/comp/datetime", $election->GetProposeTime) %></td>
-				<td class="left padright"><% $m->comp("/comp/datetime", $election->GetCloseTime) %></td>
+				<td class="left padright"><% $election->GetCloseTime ? $m->comp("/comp/datetime", $election->GetCloseTime) : "-"  %></td>
 				<td class="left padright">[ <a href="show.html?id=<% $election->GetId %>">View details</a> ]</td>
 			</tr>
 
