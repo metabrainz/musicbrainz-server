@@ -20,6 +20,7 @@ ALTER TABLE clientversion DROP CONSTRAINT clientversion_pkey;
 ALTER TABLE country DROP CONSTRAINT country_pkey;
 ALTER TABLE currentstat DROP CONSTRAINT currentstat_pkey;
 ALTER TABLE historicalstat DROP CONSTRAINT historicalstat_pkey;
+ALTER TABLE gid_redirect DROP CONSTRAINT gid_redirect_pkey;
 ALTER TABLE l_album_album DROP CONSTRAINT l_album_album_pkey;
 ALTER TABLE l_album_artist DROP CONSTRAINT l_album_artist_pkey;
 ALTER TABLE l_album_label DROP CONSTRAINT l_album_label_pkey;

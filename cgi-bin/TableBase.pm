@@ -35,6 +35,11 @@ use MusicBrainz::Server::Validation qw( unaccent );
 use constant MAX_PAGE_INDEX_LEVELS => 6;
 use constant NUM_BITS_PAGE_INDEX => 5;
 
+use constant TABLE_ALBUM => 1;
+use constant TABLE_ARTIST => 2;
+use constant TABLE_TRACK => 3;
+use constant TABLE_LABEL => 4;
+
 sub new
 {
     my ($class, $dbh) = @_;
@@ -116,6 +121,34 @@ sub CreateNewGlobalId
     $uuid->make("v4");
     return $uuid->export("str");
 }  
+
+sub CheckGlobalIdRedirect
+{
+    my ($this, $gid, $tbl) = @_;
+    
+    my $sql = Sql->new($this->{DBH});
+    return $sql->SelectSingleValue("SELECT newid FROM gid_redirect WHERE gid = ? AND tbl = ?", $gid, $tbl) or undef;
+}
+
+sub SetGlobalIdRedirect
+{
+    my ($this, $id, $gid, $newid, $tbl) = @_;
+    
+    my $sql = Sql->new($this->{DBH});
+    # Update existing redirects
+    $sql->Do("UPDATE gid_redirect SET newid = ? WHERE newid = ? AND tbl = ?", $newid, $id, $tbl);
+    # Add a new redirect
+    $sql->Do("INSERT INTO gid_redirect (gid, newid, tbl) VALUES (?, ?, ?)", $gid, $newid, $tbl);
+}
+
+sub RemoveGlobalIdRedirect
+{
+    my ($this, $newid, $tbl) = @_;
+    
+    my $sql = Sql->new($this->{DBH});
+    # Remove existing redirects
+    $sql->Do("DELETE FROM gid_redirect WHERE newid = ? AND tbl = ?", $newid, $tbl);
+}
 
 sub CalculatePageIndex 
 {

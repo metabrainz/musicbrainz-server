@@ -553,6 +553,8 @@ sub Remove
     require MusicBrainz::Server::Annotation;
     MusicBrainz::Server::Annotation->DeleteAlbum($this->{DBH}, $album);
 
+    $this->RemoveGlobalIdRedirect($album, &TableBase::TABLE_ALBUM);
+
     print STDERR "DELETE: Removed Album " . $album . "\n";
     $sql->Do("DELETE FROM l_album_artist WHERE link0 = ?", $album);
     $sql->Do("DELETE FROM l_album_album WHERE link0 = ?", $album);
@@ -726,7 +728,26 @@ sub LoadFromId
 		. ($loadmeta ? " INNER JOIN albummeta m ON m.id = a.id" : "")
 		. " WHERE	a.$idcol = ?",
 		$idval,
-	) or return undef;
+	);
+	
+	if (!$row)
+	{
+		return undef
+			if ($idcol ne "gid");
+
+		my $newid = $this->CheckGlobalIdRedirect($idval, &TableBase::TABLE_ALBUM)
+			or return;
+	
+		$row = $sql->SelectSingleRowArray(
+			"SELECT	a.id, name, gid, modpending, artist, attributes, "
+			. "       language, script, modpending_lang"
+			. ($loadmeta ? ", tracks, discids, trmids, firstreleasedate,coverarturl,asin,puids" : "")
+			. " FROM album a"
+			. ($loadmeta ? " INNER JOIN albummeta m ON m.id = a.id" : "")
+			. " WHERE	a.id = ?",
+			$newid)
+			or return undef;
+	}
 
 	$this->{id}					= $row->[0];
 	$this->{name}				= $row->[1];
@@ -1026,7 +1047,9 @@ sub MergeAlbums
 				$puid->MergeTracks($old, $new);
 				
 				# Move relationships
-				$link->MergeTracks($old, $new)
+				$link->MergeTracks($old, $new);
+				
+	        		$this->SetGlobalIdRedirect($old, $tr->GetMBId, $new, &TableBase::TABLE_TRACK);
            }
            else
            {
@@ -1068,6 +1091,8 @@ sub MergeAlbums
 
 		# And the ARs
 		$link->MergeAlbums($id, $this->GetId);
+
+    		$this->SetGlobalIdRedirect($id, $al->GetMBId, $this->GetId, &TableBase::TABLE_ALBUM);
 
        # Then, finally remove what is left of the old album
        $al->Remove();

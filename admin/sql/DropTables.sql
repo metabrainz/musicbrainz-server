@@ -19,6 +19,7 @@ DROP TABLE clientversion;
 DROP TABLE country;
 DROP TABLE currentstat;
 DROP TABLE historicalstat;
+DROP TABLE gid_redirect;
 DROP TABLE label;
 DROP TABLE labelwords;
 DROP TABLE l_album_album;

@@ -5,6 +5,8 @@ Release 2007-XX-XX:
      http://wiki.musicbrainz.org/Label
    * Artist strictness.
      http://wiki.musicbrainz.org/DataQuality
+   * IDs of artists, releases, tracks and labels will stay valid
+     after merge. (#912)
 
  * Bug Fixes:
    * Fixed ':hover' CSS for voting radiobuttons in IE7. (#2352)

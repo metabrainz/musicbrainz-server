@@ -334,6 +334,8 @@ sub Remove
     require MusicBrainz::Server::Annotation;
     MusicBrainz::Server::Annotation->DeleteArtist($this->{DBH}, $this->GetId);
 
+    $this->RemoveGlobalIdRedirect($this->GetId, &TableBase::TABLE_ARTIST);
+
     $sql->Do("DELETE FROM l_artist_artist WHERE link0 = ?", $this->GetId);
     $sql->Do("DELETE FROM l_artist_artist WHERE link1 = ?", $this->GetId);
     $sql->Do("DELETE FROM l_album_artist WHERE link1 = ?", $this->GetId);
@@ -381,6 +383,8 @@ sub MergeInto
     my @non = $alb->FindNonAlbum($n);
     $alb->CombineNonAlbums(@non)
 	if @non > 1;
+	
+    $old->SetGlobalIdRedirect($old->GetId, $old->GetMBId, $new->GetId, &TableBase::TABLE_ARTIST);
 
     # Insert the old name as an alias for the new one
     # TODO this is often a bad idea - remove this code?
@@ -844,6 +848,17 @@ sub newFromMBId
 			$id,
 		),
     );
+
+	if (!$obj)
+	{
+		my $newid = $this->CheckGlobalIdRedirect($id, &TableBase::TABLE_ARTIST);
+		if ($newid)
+		{
+			$obj = $this->_new_from_row(
+				$sql->SelectSingleRowHash("SELECT * FROM artist WHERE id = ?", $newid)
+			);
+		}
+	}
 
     $obj->{mbid} = delete $obj->{gid} if $obj;
 

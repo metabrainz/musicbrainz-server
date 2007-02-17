@@ -20,6 +20,7 @@ ALTER TABLE clientversion ADD CONSTRAINT clientversion_pkey PRIMARY KEY (id);
 ALTER TABLE country ADD CONSTRAINT country_pkey PRIMARY KEY (id);
 ALTER TABLE currentstat ADD CONSTRAINT currentstat_pkey PRIMARY KEY (id);
 ALTER TABLE historicalstat ADD CONSTRAINT historicalstat_pkey PRIMARY KEY (id);
+ALTER TABLE gid_redirect ADD CONSTRAINT gid_redirect_pkey PRIMARY KEY (gid);
 ALTER TABLE l_album_album ADD CONSTRAINT l_album_album_pkey PRIMARY KEY (id);
 ALTER TABLE l_album_artist ADD CONSTRAINT l_album_artist_pkey PRIMARY KEY (id);
 ALTER TABLE l_album_label ADD CONSTRAINT l_album_label_pkey PRIMARY KEY (id);

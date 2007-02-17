@@ -32,6 +32,7 @@ DROP INDEX country_name;
 DROP INDEX currentstat_name;
 DROP INDEX historicalstat_date;
 DROP INDEX historicalstat_name_snapshotdate;
+DROP INDEX gid_redirect_newid;
 DROP INDEX l_album_album_idx_uniq;
 DROP INDEX l_album_artist_idx_uniq;
 DROP INDEX l_album_label_idx_uniq;

@@ -225,6 +225,17 @@ sub LoadFromId
 		}
 	}
 
+	if (!$row && $mbid)
+	{
+		my $newid = $this->CheckGlobalIdRedirect($mbid, &TableBase::TABLE_TRACK);
+		if ($newid)
+		{
+			$this->SetId($newid);
+			$this->SetMBId(undef);
+			return $this->LoadFromId;
+		}
+	}
+
 	$row or return undef;
 
 	@$this{qw(
@@ -502,6 +513,8 @@ sub Remove
 	require PUID;
     my $puid = PUID->new($this->{DBH});
     $puid->RemoveByTrackId($this->GetId());
+
+    $this->RemoveGlobalIdRedirect($this->GetId, &TableBase::TABLE_TRACK);
 
     print STDERR "DELETE: Remove track " . $this->GetId() . "\n";
     $sql->Do("DELETE FROM l_artist_track WHERE link1 = ?", $this->GetId);

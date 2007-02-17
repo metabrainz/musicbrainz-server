@@ -297,6 +297,8 @@ sub Remove
 	require MusicBrainz::Server::Annotation;
 	MusicBrainz::Server::Annotation->DeleteLabel($this->{DBH}, $this->GetId);
 
+	$this->RemoveGlobalIdRedirect($this->GetId, &TableBase::TABLE_LABEL);
+
 	$sql->Do("DELETE FROM labelalias WHERE ref = ?", $this->GetId);
 	$sql->Do("DELETE FROM l_album_label WHERE link1 = ?", $this->GetId);
 	$sql->Do("DELETE FROM l_artist_label WHERE link1 = ?", $this->GetId);
@@ -330,6 +332,8 @@ sub MergeInto
 	$sql->Do("UPDATE moderation_open   SET rowid = ? WHERE tab = 'label' AND rowid = ?", $n, $o);
     $sql->Do("UPDATE labelalias        SET ref = ? WHERE ref = ?", $n, $o);
 	
+	$old->SetGlobalIdRedirect($old->GetId, $old->GetMBId, $new->GetId, &TableBase::TABLE_LABEL);
+
     # Insert the old name as an alias for the new one
     require Alias;
     my $al = Alias->new($old->{DBH});
@@ -721,6 +725,17 @@ sub newFromMBId
     	    $id,
 	),
     );
+
+	if (!$obj)
+	{
+		my $newid = $this->CheckGlobalIdRedirect($id, &TableBase::TABLE_LABEL);
+		if ($newid)
+		{
+			$obj = $this->_new_from_row(
+				$sql->SelectSingleRowHash("SELECT * FROM label WHERE id = ?", $newid)
+			);
+		}
+	}
 
     $obj->{mbid} = delete $obj->{gid} if $obj;
 

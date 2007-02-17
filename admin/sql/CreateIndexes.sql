@@ -53,6 +53,8 @@ CREATE INDEX currentstat_name ON currentstat (name);
 CREATE INDEX historicalstat_date ON historicalstat (snapshotdate);
 CREATE INDEX historicalstat_name_snapshotdate ON historicalstat (name, snapshotdate);
 
+CREATE INDEX gid_redirect_newid ON gid_redirect (newid);
+
 CREATE UNIQUE INDEX l_album_album_idx_uniq ON l_album_album (link0, link1, link_type, begindate, enddate);
 CREATE UNIQUE INDEX l_album_artist_idx_uniq ON l_album_artist (link0, link1, link_type, begindate, enddate);
 CREATE UNIQUE INDEX l_album_label_idx_uniq ON l_album_label (link0, link1, link_type, begindate, enddate);

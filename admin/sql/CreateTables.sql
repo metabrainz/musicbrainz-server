@@ -218,6 +218,13 @@ CREATE TABLE label
     type                SMALLINT
 );
 
+CREATE TABLE gid_redirect
+(
+    gid                 CHAR(36) NOT NULL,
+    newid               INTEGER NOT NULL,
+    tbl                 SMALLINT NOT NULL
+);
+
 CREATE TABLE l_album_album
 (
     id                  SERIAL,
