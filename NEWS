@@ -1,0 +1,11 @@
+Release 2007-XX-XX:
+
+ * New Features:
+   * Labels, catalog numbers and barcodes.
+     http://wiki.musicbrainz.org/Label
+   * Artist strictness.
+     http://wiki.musicbrainz.org/DataQuality
+
+ * Bug Fixes:
+   * Fixed ':hover' CSS for voting radiobuttons in IE7. (#2352)
+   * Fixed adding of new tracks in the release editor. (#2101)
