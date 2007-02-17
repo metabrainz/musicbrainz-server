@@ -140,6 +140,8 @@
 
 			if ($expand)
 			{
+				$m->out(sprintf qq!<a href="/edit/annotation/show.html?annotationid=%s">Details</a> | !,
+								$annotation->GetId());
 				$m->comp("/edit/annotation/edit-link", annotation => $annotation);
 			}
 			else
