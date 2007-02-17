@@ -14,3 +14,4 @@ Release 2007-XX-XX:
    * Fixed adding of new tracks in the release editor. (#2101)
    * AR edits for VA releases will be assigned to the real
      artist, instead of VA. (#158)
+   * Fixed link to search on the VA page. (#2413)
