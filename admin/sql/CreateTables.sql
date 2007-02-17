@@ -125,6 +125,12 @@ CREATE TABLE artistwords
     artistid            INTEGER NOT NULL
 );
 
+CREATE TABLE labelwords
+(
+    wordid              INTEGER NOT NULL,
+    labelid            INTEGER NOT NULL
+);
+
 CREATE TABLE automod_election
 (
     id                  SERIAL,
@@ -196,6 +202,22 @@ CREATE TABLE historicalstat
     snapshotdate        DATE NOT NULL
 );
 
+CREATE TABLE label
+(
+    id                  SERIAL,
+    name                VARCHAR(255) NOT NULL,
+    gid                 CHAR(36) NOT NULL,
+    modpending          INTEGER DEFAULT 0,
+    labelcode           VARCHAR(255),
+    sortname            VARCHAR(255) NOT NULL,
+    country             INTEGER, -- references country
+    page                INTEGER NOT NULL,
+    resolution          VARCHAR(64),
+    begindate           CHAR(10),
+    enddate             CHAR(10),
+    type                SMALLINT
+);
+
 CREATE TABLE l_album_album
 (
     id                  SERIAL,
@@ -213,6 +235,17 @@ CREATE TABLE l_album_artist
     link0               INTEGER NOT NULL DEFAULT 0, -- references album
     link1               INTEGER NOT NULL DEFAULT 0, -- references artist
     link_type           INTEGER NOT NULL DEFAULT 0, -- references lt_album_artist
+    begindate           CHAR(10) NOT NULL DEFAULT '',
+    enddate             CHAR(10) NOT NULL DEFAULT '',
+    modpending          INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE l_album_label
+(
+    id                  SERIAL,
+    link0               INTEGER NOT NULL DEFAULT 0, -- references album
+    link1               INTEGER NOT NULL DEFAULT 0, -- references label
+    link_type           INTEGER NOT NULL DEFAULT 0, -- references lt_album_label
     begindate           CHAR(10) NOT NULL DEFAULT '',
     enddate             CHAR(10) NOT NULL DEFAULT '',
     modpending          INTEGER NOT NULL DEFAULT 0
@@ -251,6 +284,17 @@ CREATE TABLE l_artist_artist
     modpending          INTEGER NOT NULL DEFAULT 0
 );
 
+CREATE TABLE l_artist_label
+(
+    id                  SERIAL,
+    link0               INTEGER NOT NULL DEFAULT 0, -- references artist
+    link1               INTEGER NOT NULL DEFAULT 0, -- references label
+    link_type           INTEGER NOT NULL DEFAULT 0, -- references lt_artist_label
+    begindate           CHAR(10) NOT NULL DEFAULT '',
+    enddate             CHAR(10) NOT NULL DEFAULT '',
+    modpending          INTEGER NOT NULL DEFAULT 0
+);
+
 CREATE TABLE l_artist_track
 (
     id                  SERIAL,
@@ -268,6 +312,39 @@ CREATE TABLE l_artist_url
     link0               INTEGER NOT NULL DEFAULT 0, -- references artist
     link1               INTEGER NOT NULL DEFAULT 0, -- references url
     link_type           INTEGER NOT NULL DEFAULT 0, -- references lt_artist_url
+    begindate           CHAR(10) NOT NULL DEFAULT '',
+    enddate             CHAR(10) NOT NULL DEFAULT '',
+    modpending          INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE l_label_label
+(
+    id                  SERIAL,
+    link0               INTEGER NOT NULL DEFAULT 0, -- references label
+    link1               INTEGER NOT NULL DEFAULT 0, -- references label
+    link_type           INTEGER NOT NULL DEFAULT 0, -- references lt_label_label
+    begindate           CHAR(10) NOT NULL DEFAULT '',
+    enddate             CHAR(10) NOT NULL DEFAULT '',
+    modpending          INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE l_label_track
+(
+    id                  SERIAL,
+    link0               INTEGER NOT NULL DEFAULT 0, -- references label
+    link1               INTEGER NOT NULL DEFAULT 0, -- references track
+    link_type           INTEGER NOT NULL DEFAULT 0, -- references lt_label_track
+    begindate           CHAR(10) NOT NULL DEFAULT '',
+    enddate             CHAR(10) NOT NULL DEFAULT '',
+    modpending          INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE l_label_url
+(
+    id                  SERIAL,
+    link0               INTEGER NOT NULL DEFAULT 0, -- references label
+    link1               INTEGER NOT NULL DEFAULT 0, -- references url
+    link_type           INTEGER NOT NULL DEFAULT 0, -- references lt_label_url
     begindate           CHAR(10) NOT NULL DEFAULT '',
     enddate             CHAR(10) NOT NULL DEFAULT '',
     modpending          INTEGER NOT NULL DEFAULT 0
@@ -304,6 +381,16 @@ CREATE TABLE l_url_url
     begindate           CHAR(10) NOT NULL DEFAULT '',
     enddate             CHAR(10) NOT NULL DEFAULT '',
     modpending          INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE labelalias
+(
+    id                  SERIAL,
+    ref                 INTEGER NOT NULL, -- references label
+    name                VARCHAR(255) NOT NULL, 
+    timesused           INTEGER DEFAULT 0,
+    modpending          INTEGER DEFAULT 0,
+    lastused            TIMESTAMP WITH TIME ZONE
 );
 
 CREATE TABLE language
@@ -364,6 +451,20 @@ CREATE TABLE lt_album_artist
     modpending          INTEGER NOT NULL DEFAULT 0
 );
 
+CREATE TABLE lt_album_label
+(
+    id                  SERIAL,
+    parent              INTEGER NOT NULL, -- references self
+    childorder          INTEGER NOT NULL DEFAULT 0,
+    mbid                CHAR(36) NOT NULL,
+    name                VARCHAR(255) NOT NULL,
+    description         TEXT NOT NULL,
+    linkphrase          VARCHAR(255) NOT NULL,
+    rlinkphrase         VARCHAR(255) NOT NULL,
+    attribute           VARCHAR(255) DEFAULT '',
+    modpending          INTEGER NOT NULL DEFAULT 0
+);
+
 CREATE TABLE lt_album_track
 (
     id                  SERIAL,
@@ -406,6 +507,20 @@ CREATE TABLE lt_artist_artist
     modpending          INTEGER NOT NULL DEFAULT 0
 );
 
+CREATE TABLE lt_artist_label
+(
+    id                  SERIAL,
+    parent              INTEGER NOT NULL, -- references self
+    childorder          INTEGER NOT NULL DEFAULT 0,
+    mbid                CHAR(36) NOT NULL,
+    name                VARCHAR(255) NOT NULL,
+    description         TEXT NOT NULL,
+    linkphrase          VARCHAR(255) NOT NULL,
+    rlinkphrase         VARCHAR(255) NOT NULL,
+    attribute           VARCHAR(255) DEFAULT '',
+    modpending          INTEGER NOT NULL DEFAULT 0
+);
+
 CREATE TABLE lt_artist_track
 (
     id                  SERIAL,
@@ -421,6 +536,48 @@ CREATE TABLE lt_artist_track
 );
 
 CREATE TABLE lt_artist_url
+(
+    id                  SERIAL,
+    parent              INTEGER NOT NULL, -- references self
+    childorder          INTEGER NOT NULL DEFAULT 0,
+    mbid                CHAR(36) NOT NULL,
+    name                VARCHAR(255) NOT NULL,
+    description         TEXT NOT NULL,
+    linkphrase          VARCHAR(255) NOT NULL,
+    rlinkphrase         VARCHAR(255) NOT NULL,
+    attribute           VARCHAR(255) DEFAULT '',
+    modpending          INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE lt_label_label
+(
+    id                  SERIAL,
+    parent              INTEGER NOT NULL, -- references self
+    childorder          INTEGER NOT NULL DEFAULT 0,
+    mbid                CHAR(36) NOT NULL,
+    name                VARCHAR(255) NOT NULL,
+    description         TEXT NOT NULL,
+    linkphrase          VARCHAR(255) NOT NULL,
+    rlinkphrase         VARCHAR(255) NOT NULL,
+    attribute           VARCHAR(255) DEFAULT '',
+    modpending          INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE lt_label_track
+(
+    id                  SERIAL,
+    parent              INTEGER NOT NULL, -- references self
+    childorder          INTEGER NOT NULL DEFAULT 0,
+    mbid                CHAR(36) NOT NULL,
+    name                VARCHAR(255) NOT NULL,
+    description         TEXT NOT NULL,
+    linkphrase          VARCHAR(255) NOT NULL,
+    rlinkphrase         VARCHAR(255) NOT NULL,
+    attribute           VARCHAR(255) DEFAULT '',
+    modpending          INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE lt_label_url
 (
     id                  SERIAL,
     parent              INTEGER NOT NULL, -- references self
@@ -627,6 +784,9 @@ CREATE TABLE release
     album               INTEGER NOT NULL, -- references album
     country             INTEGER NOT NULL, -- references country
     releasedate         CHAR(10) NOT NULL,
+    label               INTEGER,          -- references label
+    catno               VARCHAR(255),
+    barcode             VARCHAR(255),
     modpending          INTEGER DEFAULT 0
 );
 
@@ -755,7 +915,8 @@ CREATE TABLE wordlist
     word                VARCHAR(255) NOT NULL,
     artistusecount      SMALLINT NOT NULL DEFAULT 0,
     albumusecount       SMALLINT NOT NULL DEFAULT 0,
-    trackusecount       SMALLINT NOT NULL DEFAULT 0
+    trackusecount       SMALLINT NOT NULL DEFAULT 0,
+    labelusecount       SMALLINT NOT NULL DEFAULT 0
 );
 
 COMMIT;

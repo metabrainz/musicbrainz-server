@@ -524,6 +524,12 @@ sub MergeArtists
 	$self->_Merge($oldid, $newid, "artist");
 }
 
+sub MergeLabels
+{
+	my ($self, $oldid, $newid) = @_;
+	$self->_Merge($oldid, $newid, "label");
+}
+
 sub _Merge
 {
 	my ($self, $oldid, $newid, $type) = @_;

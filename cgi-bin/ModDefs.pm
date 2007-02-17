@@ -41,6 +41,7 @@ use Exporter;
 
 %EXPORT_TAGS = (
 	artistid	=> &$get(qr/^[VD]ARTIST_(MB)?ID$/),
+	labelid		=> &$get(qr/^[D]LABEL_(MB)?ID$/),
 	userid		=> &$get(qr/^\w+_MODERATOR$/),
 	modtype		=> &$get(qr/^MOD_/),
 	modstatus	=> &$get(qr/^STATUS_/),
@@ -59,6 +60,8 @@ use constant VARTIST_MBID				=> "89ad4ac3-39f7-470e-963a-56509c546377";
 # Use the following id to reference artist that have been deleted.
 # This will be used only by the moderation system
 use constant DARTIST_ID					=> 2;
+
+use constant DLABEL_ID					=> 1;
 
 # Special TRMs
 use constant TRM_ID_SILENCE				=> "7d154f52-b536-4fae-b58b-0666826c2bac";
@@ -123,9 +126,16 @@ use constant MOD_EDIT_RELEASEEVENTS		 => 50;
 use constant MOD_REMOVE_RELEASEEVENTS	 => 51;
 use constant MOD_CHANGE_ARTIST_STRICTNESS=> 52;
 use constant MOD_SET_RELEASE_DURATIONS	 => 53;
-# 54-58 labels-related edit types        
+use constant MOD_ADD_LABEL				 => 54;
+use constant MOD_EDIT_LABEL				 => 55;
+use constant MOD_REMOVE_LABEL			 => 56;
+use constant MOD_ADD_LABEL_ANNOTATION	 => 57;
+use constant MOD_MERGE_LABEL			 => 58;
 use constant MOD_EDIT_URL				 => 59;
-use constant MOD_LAST					 => 59;
+use constant MOD_ADD_LABELALIAS			 => 60;
+use constant MOD_EDIT_LABELALIAS		 => 61;
+use constant MOD_REMOVE_LABELALIAS		 => 62;
+use constant MOD_LAST					 => 62;
 
 # The constants below define the state a moderation can have:
 

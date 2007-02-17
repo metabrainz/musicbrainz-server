@@ -43,6 +43,7 @@
 
 	if ($typeshow eq "artist" or
 		$typeshow eq "release" or
+		$typeshow eq "label" or
 		$typeshow eq "track")
 	{
 		$m->comp("/comp/link$typeshow", id => $id, name => $name);

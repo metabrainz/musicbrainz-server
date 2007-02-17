@@ -63,6 +63,7 @@
 	my @r = $release->Releases;
 	@r = map {
 		my @ymd = $_->GetYMD;
+		my $label_name = $_->GetLabel ? $_->Label->GetName : undef;
 		+{
 			id => $_->GetId,
 			country => $_->GetCountry,
@@ -70,10 +71,17 @@
 			month => $ymd[1],
 			day => $ymd[2],
 			sortdate => $_->GetSortDate,
+			label_name => $label_name,
+			catno => $_->GetCatNo,
+			barcode => $_->GetBarcode,
 			orig_country => $_->GetCountry,
 			orig_year => $ymd[0],
 			orig_month => $ymd[1],
 			orig_day => $ymd[2],
+			orig_label => $_->GetLabel,
+			orig_label_name => $label_name,
+			orig_catno => $_->GetCatNo,
+			orig_barcode => $_->GetBarcode,
 			modpending => $_->GetModPending,
 		},
 	} @r;

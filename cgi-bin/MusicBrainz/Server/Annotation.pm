@@ -35,9 +35,10 @@ use Exporter;
 	our @EXPORT_OK = qw(
 		ARTIST_ANNOTATION
 		ALBUM_ANNOTATION
+		LABEL_ANNOTATION
 	);
 	our %EXPORT_TAGS = (
-		type => [qw( ARTIST_ANNOTATION ALBUM_ANNOTATION )],
+		type => [qw( ARTIST_ANNOTATION ALBUM_ANNOTATION LABEL_ANNOTATION )],
 	);
 }
 
@@ -50,6 +51,7 @@ use Moderation;
 
 use constant ARTIST_ANNOTATION	=>	1;
 use constant ALBUM_ANNOTATION	=>	2;
+use constant LABEL_ANNOTATION	=>	3;
 
 
 use constant TRUNC_NONE => 0;
@@ -94,6 +96,11 @@ sub GetArtist
 	return $_[0]->{rowid};
 }
 
+sub GetLabel
+{
+	return $_[0]->{rowid};
+}
+
 sub GetCreationTime
 {
 	return $_[0]->{creation_time};
@@ -113,6 +120,7 @@ sub GetTypeWord
 {
 	return "artist" if $_[0]{type} == ARTIST_ANNOTATION;
 	return "album" if $_[0]{type} == ALBUM_ANNOTATION;
+	return "label" if $_[0]{type} == LABEL_ANNOTATION;
 	die;
 }
 
@@ -188,6 +196,12 @@ sub SetAlbum
 sub SetArtist
 {
 	$_[0]->{type} = ARTIST_ANNOTATION;
+	$_[0]->{rowid} = $_[1];
+}
+
+sub SetLabel
+{
+	$_[0]->{type} = LABEL_ANNOTATION;
 	$_[0]->{rowid} = $_[1];
 }
 
@@ -387,6 +401,15 @@ sub GetAnnotationIDsForArtist
 	return $class->_GetAnnotationIDs($dbh, $artist->GetId, ARTIST_ANNOTATION);
 }
 
+# And the same for a Label object.
+
+sub GetAnnotationIDsForLabel
+{
+	my ($class, $label) = @_;
+	my $dbh = $label->{DBH};
+	return $class->_GetAnnotationIDs($dbh, $label->GetId, LABEL_ANNOTATION);
+}
+
 sub _GetAnnotationIDs
 {
 	my ($class, $dbh, $rowid, $type) = @_;
@@ -449,6 +472,12 @@ sub MergeArtists
 {
 	my $self = shift;
 	$self->_Merge(ARTIST_ANNOTATION, @_);
+}
+
+sub MergeLabels
+{
+	my $self = shift;
+	$self->_Merge(LABEL_ANNOTATION, @_);
 }
 
 sub MergeAlbums
@@ -556,6 +585,12 @@ sub DeleteAlbum
 {
 	my $self = shift;
 	$self->_Delete(ALBUM_ANNOTATION, @_);
+}
+
+sub DeleteLabel
+{
+	my $self = shift;
+	$self->_Delete(LABEL_ANNOTATION, @_);
 }
 
 sub _Delete

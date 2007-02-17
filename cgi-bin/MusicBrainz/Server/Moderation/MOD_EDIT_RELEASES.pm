@@ -33,6 +33,24 @@ use base 'Moderation';
 sub Name { "Edit Release Events (old version)" }
 (__PACKAGE__)->RegisterHandler;
 
+sub _EncodeText
+{
+	my $t = $_[0];
+	$t =~ s/\$/\$26/g;
+	$t =~ s/ /\$20/g;
+	$t =~ s/=/\$3D/g;
+	return $t;
+}
+
+sub _DecodeText
+{
+	my $t = $_[0];
+	$t =~ s/\$20/ /g;
+	$t =~ s/\$3D/=/g;
+	$t =~ s/\$26/\$/g;
+	return $t;
+}
+
 sub PreInsert
 {
 	my ($self, %opts) = @_;
@@ -54,10 +72,13 @@ sub PreInsert
 	{
 		die unless $row->GetAlbum == $al->GetId;
 		$row->InsertSelf;
-		$new{"add".$i++} = sprintf "d=%s c=%d id=%d",
+		$new{"add".$i++} = sprintf "d=%s c=%d id=%d l=%d n=%s b=%s",
 			$row->GetSortDate,
 			$row->GetCountry,
-			$row->GetId;
+			$row->GetId,
+			$row->GetLabel,
+			_EncodeText($row->GetCatNo),
+			_EncodeText($row->GetBarcode);
 	}
 	
 	$i = 0;
@@ -66,17 +87,26 @@ sub PreInsert
 		my $obj = $row->{"object"};
 		die unless $obj->GetAlbum == $al->GetId;
 
-		my $old = sprintf "d=%s c=%d id=%d",
+		my $old = sprintf "d=%s c=%d id=%d l=%d n=%s b=%s",
 			$obj->GetSortDate,
 			$obj->GetCountry,
-			$obj->GetId;
+			$obj->GetId,
+			$obj->GetLabel,
+			_EncodeText($obj->GetCatNo),
+			_EncodeText($obj->GetBarcode);
 
 		$obj->SetCountry($row->{"country"});
 		$obj->SetYMD(@$row{qw( year month day )});
+		$obj->SetLabel($row->{label});
+		$obj->SetCatNo($row->{catno});
+		$obj->SetBarcode($row->{barcode});
 
-		my $new = sprintf "nd=%s nc=%d",
+		my $new = sprintf "nd=%s nc=%d nl=%d nn=%s nb=%s",
 			$obj->GetSortDate,
-			$obj->GetCountry;
+			$obj->GetCountry,
+			$obj->GetLabel,
+			_EncodeText($obj->GetCatNo),
+			_EncodeText($obj->GetBarcode);
 
 		$new{"edit".$i++} = "$old $new";
 	}
@@ -85,10 +115,13 @@ sub PreInsert
 	for my $row (@removes)
 	{
 		die unless $row->GetAlbum == $al->GetId;
-		$new{"remove".$i++} = sprintf "d=%s c=%d id=%d",
+		$new{"remove".$i++} = sprintf "d=%s c=%d id=%d l=%d n=%s b=%s",
 			$row->GetSortDate,
 			$row->GetCountry,
-			$row->GetId;
+			$row->GetId,
+			$row->GetLabel,
+			_EncodeText($row->GetCatNo),
+			_EncodeText($row->GetBarcode);
 	}
 
 	return $self->SuppressInsert
@@ -116,19 +149,30 @@ sub PostLoad
 	for (my $i=0; ; ++$i)
 	{
 		my $v = $new->{"add$i"} or last;
-		push @adds, +{ split /[ =]/, $v };
+		my $r = +{ split /[ =]/, $v };
+		$r->{"n"} = _DecodeText($r->{"n"});
+		$r->{"b"} = _DecodeText($r->{"b"});
+		push @adds, $r;
 	}
 	
 	for (my $i=0; ; ++$i)
 	{
 		my $v = $new->{"edit$i"} or last;
-		push @edits, +{ split /[ =]/, $v };
+		my $r = +{ split /[ =]/, $v };
+		$r->{"n"} = _DecodeText($r->{"n"});
+		$r->{"b"} = _DecodeText($r->{"b"});
+		$r->{"nn"} = _DecodeText($r->{"nn"});
+		$r->{"nb"} = _DecodeText($r->{"nb"});
+		push @edits, $r;
 	}
 	
 	for (my $i=0; ; ++$i)
 	{
 		my $v = $new->{"remove$i"} or last;
-		push @removes, +{ split /[ =]/, $v };
+		my $r = +{ split /[ =]/, $v };
+		$r->{"n"} = _DecodeText($r->{"n"});
+		$r->{"b"} = _DecodeText($r->{"b"});
+		push @removes, $r;
 	}
 	
 	$self->{"adds"} = \@adds;
@@ -157,6 +201,9 @@ sub IsAutoEdit
 		my ($origyear, $origmonth, $origday) = map { 0+$_ } split "-", $t->{"d"};
 		my ($newyear, $newmonth, $newday) = map { 0+$_ } split "-", $t->{"nd"};
 		my ($origcountry, $newcountry) = ($t->{"c"}, $t->{"nc"});
+		my ($origlabel, $newlabel) = ($t->{"l"}, $t->{"nl"});
+		my ($origcatno, $newcatno) = ($t->{"n"}, $t->{"nn"});
+		my ($origbarcode, $newbarcode) = ($t->{"b"}, $t->{"nb"});
 		
 		
 		# if we have a day set, which wasn't set before OR
@@ -165,7 +212,10 @@ sub IsAutoEdit
 		#    change edit.
 		$edits++ if (!($newday && !$origday or
 					   $newmonth && !$origmonth) or
-					  $newcountry != $origcountry);
+					  $newcountry != $origcountry or
+					  $newlabel != $origlabel or
+					  $newcatno != $origcatno or
+					  $newbarcode != $origbarcode);
 	}
 
 	# adding of events is auto approved for autoeditors
@@ -227,7 +277,7 @@ sub ApprovedAction
 			next;
 		}
 
-		unless ($r->Update(date => $t->{"nd"}, country => $t->{"nc"}))
+		unless ($r->Update(date => $t->{"nd"}, country => $t->{"nc"}, label => $t->{"nl"}, catno => $t->{"nn"}, barcode => $t->{"nb"}))
 		{
 			push @notes, "Failed to update $display";
 			next;

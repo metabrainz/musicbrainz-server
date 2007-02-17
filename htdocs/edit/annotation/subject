@@ -31,18 +31,27 @@
 <%args>
 
 	$title => ""
-	$artist
+	$artist => undef
+	$label => undef
 	$release => undef
 
 </%args>
 <%perl>
 
-	$m->out(encode_entities($title)." Artist ");
-	$m->comp("/comp/linkartist", artist => $artist);
-	if (defined $release)
+	if (defined $label)
 	{
-		$m->out(", Release ");
-		$m->comp("/comp/linkrelease", release => $release)
+		$m->out(encode_entities($title)." Label ");
+		$m->comp("/comp/linklabel", label => $label);
+	}
+	else
+	{
+		$m->out(encode_entities($title)." Artist ");
+		$m->comp("/comp/linkartist", artist => $artist);
+		if (defined $release)
+		{
+			$m->out(", Release ");
+			$m->comp("/comp/linkrelease", release => $release)
+		}
 	}
 
 </%perl>

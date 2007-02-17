@@ -158,6 +158,10 @@ my %stats = (
 		DESC => "Count of all artists",
 		SQL => "SELECT COUNT(*) FROM artist",
 	},
+	"count.label" => {
+		DESC => "Count of all labels",
+		SQL => "SELECT COUNT(*) FROM label",
+	},
 	"count.discid" => {
 		DESC => "Count of all disc IDs",
 		SQL => "SELECT COUNT(*) FROM album_cdtoc",
@@ -613,6 +617,11 @@ my %stats = (
 		PREREQ => [qw[ count.ar.links ]],
 		PREREQ_ONLY => 1,
 	},
+	"count.ar.links.l_album_label" => {
+		DESC => "Count of release-label advanced relationships links",
+		PREREQ => [qw[ count.ar.links ]],
+		PREREQ_ONLY => 1,
+	},
 	"count.ar.links.l_album_track" => {
 		DESC => "Count of release-track advanced relationships links",
 		PREREQ => [qw[ count.ar.links ]],
@@ -628,6 +637,11 @@ my %stats = (
 		PREREQ => [qw[ count.ar.links ]],
 		PREREQ_ONLY => 1,
 	},
+	"count.ar.links.l_artist_label" => {
+		DESC => "Count of artist-label advanced relationships links",
+		PREREQ => [qw[ count.ar.links ]],
+		PREREQ_ONLY => 1,
+	},
 	"count.ar.links.l_artist_track" => {
 		DESC => "Count of artist-track advanced relationships links",
 		PREREQ => [qw[ count.ar.links ]],
@@ -635,6 +649,21 @@ my %stats = (
 	},
 	"count.ar.links.l_artist_url" => {
 		DESC => "Count of artist-URL advanced relationships links",
+		PREREQ => [qw[ count.ar.links ]],
+		PREREQ_ONLY => 1,
+	},
+	"count.ar.links.l_label_label" => {
+		DESC => "Count of label-label advanced relationships links",
+		PREREQ => [qw[ count.ar.links ]],
+		PREREQ_ONLY => 1,
+	},
+	"count.ar.links.l_label_track" => {
+		DESC => "Count of label-track advanced relationships links",
+		PREREQ => [qw[ count.ar.links ]],
+		PREREQ_ONLY => 1,
+	},
+	"count.ar.links.l_label_url" => {
+		DESC => "Count of label-URL advanced relationships links",
 		PREREQ => [qw[ count.ar.links ]],
 		PREREQ_ONLY => 1,
 	},

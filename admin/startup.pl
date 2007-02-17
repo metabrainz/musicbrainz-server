@@ -50,6 +50,7 @@ require Artist;
 require DebugLog;
 require FreeDB;
 require Insert;
+require Label;
 require LocaleSaver;
 # require MM;
 # require MM_2_0;

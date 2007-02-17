@@ -31,6 +31,7 @@
 
 	$album => undef
 	$artist => undef
+	$label => undef
 	$explain => undef
 	$header =>  undef
 	$show_info => 1
@@ -52,6 +53,11 @@
 	elsif (defined $album)
 	{
 		$annotation->SetAlbum($album->GetId);
+		$annotation->GetLatestAnnotation() or $annotation = undef;
+	}
+	elsif (defined $label)
+	{
+		$annotation->SetLabel($label->GetId);
 		$annotation->GetLatestAnnotation() or $annotation = undef;
 	}
 	else
@@ -82,6 +88,12 @@
 				$m->out("This release does not yet have an annotation. ");
 				$m->out(sprintf qq!<a href="/edit/annotation/album/edit.html?albumid=%d">Add an annotation &raquo;</a>!,
 								$album->GetId());
+			}
+			elsif (defined $label)
+			{
+				$m->out("This label does not yet have an annotation. ");
+				$m->out(sprintf qq!<a href="/edit/annotation/label/edit.html?labelid=%d">Add an annotation &raquo;</a>!,
+								$label->GetId());
 			}
 			$m->out("</p>");
 		}

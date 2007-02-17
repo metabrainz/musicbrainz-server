@@ -736,6 +736,11 @@ td.trk *, td.did *, td.trm *, td.rdate * {
 	text-align: center 
 } 
 
+/* catalog number */
+#CompactReleaseList td.catno { 
+	padding: 0 0.6em 
+} 
+
 /* release name */
 #CompactReleaseList td.rname { 
 	padding: 0 0.6em 

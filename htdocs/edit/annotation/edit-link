@@ -47,6 +47,12 @@
 						$annotation->GetAlbum(),
 						$annotation->GetId());
 	}
+	elsif ($type == &MusicBrainz::Server::Annotation::LABEL_ANNOTATION)
+	{
+		$m->out(sprintf qq!<a href="/edit/annotation/label/edit.html?labelid=%d&amp;annotationid=%d">Edit</a>!,
+						$annotation->GetLabel(),
+						$annotation->GetId());
+	}
 
 </%perl>
 

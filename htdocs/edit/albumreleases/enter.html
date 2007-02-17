@@ -62,6 +62,9 @@
 		$revnew->SetAlbum($release->GetId);
 		$revnew->SetCountry($rel->{"country"});
 		$revnew->SetYMD(@$rel{qw( year month day )});
+		$revnew->SetLabel($rel->{label});
+		$revnew->SetCatNo($rel->{catno});
+		$revnew->SetBarcode($rel->{barcode});
 
 		if ($rel->{"new"})
 		{
@@ -85,14 +88,14 @@
 			next;
 		}
 
-		my $changed = 0;
-		for (keys %$rel)
-		{
-			next unless /^orig_(.*)$/;
-			$changed = 1, last
-				if $rel->{$_} != $rel->{$1};
-		}
-		$changed or next;
+		next if 
+			int($rel->{orig_year}) == int($rel->{year}) and
+			int($rel->{orig_month}) == int($rel->{month}) and
+			int($rel->{orig_day}) == int($rel->{day}) and
+			int($rel->{orig_country}) == int($rel->{country}) and
+			int($rel->{orig_label}) == int($rel->{label}) and
+			$rel->{orig_catno} eq $rel->{catno} and
+			$rel->{orig_barcode} eq $rel->{barcode};
 
 		push @edits, {
 			object => $revold,
@@ -100,6 +103,9 @@
 			year => $rel->{"year"},
 			month => $rel->{"month"},
 			day => $rel->{"day"},
+			label => $rel->{"label"},
+			catno => $rel->{"catno"},
+			barcode => $rel->{"barcode"},
 		};
 
 		$m->out("Edit Release Event: " . $revold->ToString . " -> " . $revnew->ToString . "<br/>")
@@ -107,7 +113,6 @@
 	}
 
 	exit if ($debug);
-
 
 	$m->comp(
 		"/comp/entermods",

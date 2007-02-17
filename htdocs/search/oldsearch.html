@@ -75,6 +75,10 @@
 		{
 			$url = "/show/track/?trackid=$row->{'trackid'}";
 		}
+		elsif ($session{"as_type"} eq "label")
+		{
+			$url = "/show/label/?labelid=$row->{'labelid'}";
+		}
 		if (defined $url)
 		{
 			$r->method('GET');
@@ -119,16 +123,23 @@
 
 		<& /comp/tablebegin, title => "No ".$session{"as_type"}."s found matching your query" &>
 
-			Please consider <a href="/freedb/freedb.html?search=<% uri_escape($session{"as_query"}) %>"
-			>importing</a> the artist/release/track(s) you are looking for from freedb.
-
-%			if ($session{"as_type"} eq "artist")
+%			if ($session{"as_type"} eq "label")
 %			{
-				Alternatively, <a href="/edit/artist/add.html?initial_name=<% uri_escape($session{"as_query"}) %>">add a new artist</a>.
+				Please consider <a href="/edit/label/add.html?initial_name=<% uri_escape($session{"as_query"}) %>">adding a new label</a>.
 %			}
-%			elsif ($session{"as_type"} eq "release")
+%			else
 %			{
-				Alternatively, <a href="/edit/album/add.html?artistid=0">add a new release</a>.
+				Please consider <a href="/freedb/freedb.html?search=<% uri_escape($session{"as_query"}) %>"
+				>importing</a> the artist/release/track(s) you are looking for from freedb.
+
+%				if ($session{"as_type"} eq "artist")
+%				{
+					Alternatively, <a href="/edit/artist/add.html?initial_name=<% uri_escape($session{"as_query"}) %>">add a new artist</a>.
+%				}
+%				elsif ($session{"as_type"} eq "release")
+%				{
+					Alternatively, <a href="/edit/album/add.html?artistid=0">add a new release</a>.
+%				}
 %			}
 
 		<& /comp/tableend &>
@@ -163,6 +174,13 @@
 					<td>Artist:</td>
 				</tr>
 %			}
+%			elsif ($session{"as_type"} eq "label")
+%			{
+
+				<tr class="searchresultsheader">
+					<td>Label:</td>
+				</tr>
+%			}
 %			elsif ($session{"as_type"} eq "track")
 %			{
 				<tr class="searchresultsheader">
@@ -173,7 +191,6 @@
 					<td class="length">Length:</td>
 				</tr>
 %			}
-
 
 %  			my $i = 0;
 %   		while ( my $row = $engine->NextRow )
@@ -232,6 +249,16 @@
             		<td>
             			<span<% $row->{'artistmp'} ? ' class="mp"' : '' |n %>>
             				<& /comp/linkartist, id => $row->{'artistid'}, name => $row->{'artistname'}, resolution => $row->{artistresolution}, strong => 0 &>
+            			</span></td>
+
+
+%				}
+%				elsif ($session{"as_type"} eq "label")
+%				{
+
+            		<td>
+            			<span<% $row->{'labelmp'} ? ' class="mp"' : '' |n %>>
+            				<& /comp/linklabel, id => $row->{'labelid'}, name => $row->{'labelname'}, resolution => $row->{labelresolution}, strong => 0 &>
             			</span></td>
 
 

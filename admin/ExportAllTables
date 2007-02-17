@@ -132,24 +132,36 @@ my @tables = qw(
 	historicalstat
 	l_album_album
 	l_album_artist
+	l_album_label
 	l_album_track
 	l_album_url
 	l_artist_artist
+	l_artist_label
 	l_artist_track
 	l_artist_url
+	l_label_label
+	l_label_track
+	l_label_url
 	l_track_track
 	l_track_url
 	l_url_url
+	label
+	labelwords
 	language
 	link_attribute
 	link_attribute_type
 	lt_album_album
 	lt_album_artist
+	lt_album_label
 	lt_album_track
 	lt_album_url
 	lt_artist_artist
+	lt_artist_label
 	lt_artist_track
 	lt_artist_url
+	lt_label_label
+	lt_label_track
+	lt_label_url
 	lt_track_track
 	lt_track_url
 	lt_url_url
@@ -430,24 +442,35 @@ my @group_core = qw(
 	country
 	l_album_album
 	l_album_artist
+	l_album_label
 	l_album_track
 	l_album_url
 	l_artist_artist
+	l_artist_label
 	l_artist_track
 	l_artist_url
+	l_label_label
+	l_label_track
+	l_label_url
 	l_track_track
 	l_track_url
 	l_url_url
+	label
 	language
 	link_attribute
 	link_attribute_type
 	lt_album_album
 	lt_album_artist
+	lt_album_label
 	lt_album_track
 	lt_album_url
 	lt_artist_artist
+	lt_artist_label
 	lt_artist_track
 	lt_artist_url
+	lt_label_label
+	lt_label_track
+	lt_label_url
 	lt_track_track
 	lt_track_url
 	lt_url_url
@@ -469,6 +492,7 @@ my @group_derived = qw(
 	albumwords
 	annotation
 	artistwords
+	labelwords
 	trackwords
 	wordlist
 	);

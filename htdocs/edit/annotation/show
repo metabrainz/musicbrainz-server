@@ -120,6 +120,11 @@
 					$type = "album";
 					$id = $annotation->GetAlbum();
 				}
+				elsif ($type == &MusicBrainz::Server::Annotation::LABEL_ANNOTATION)
+				{
+					$type = "label";
+					$id = $annotation->GetLabel();
+				}
 				if (defined $id)
 				{
 					$m->out(sprintf qq!<a href="/edit/annotation/%s/history.html?%sid=%d&amp;expand_all=1">Show history</a> | !,

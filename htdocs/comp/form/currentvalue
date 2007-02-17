@@ -38,6 +38,7 @@
 	$release => undef
 	$track => undef
 	$alcdtoc => undef
+	$label => undef
 
 	$display => undef
 	$mp_type => undef
@@ -63,6 +64,14 @@
 		$object = $artist;
 		$mp = $artist->GetModPending;
 		$url = "/artist/".$artist->GetMBId.".html";
+	}
+	elsif ($label)
+	{
+		$typeicon = "release";
+		$typestr = "Label";
+		$object = $label;
+		$mp = $label->GetModPending;
+		$url = "/label/".$label->GetMBId.".html";
 	}
 	elsif ($alcdtoc)
 	{

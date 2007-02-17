@@ -48,18 +48,6 @@
 	my $countries_menu = $m->comp("countries-menu.inc");
 	my $countries_menu_2 = [ [ "", "[select a country]" ], @$countries_menu ];
 
-
-	# delete everything from the arguments array that
-	# we do not handle.
-	while (my ($k, $v) = each %ARGS)
-	{
-		MusicBrainz::Server::Validation::TrimInPlace($v);
-		delete $ARGS{$k}, next
-			unless MusicBrainz::Server::Validation::IsNonNegInteger($v)
-			and not $k eq "releaseid"; # ignore releaseid argument
-		$ARGS{$k} = $v;
-	}
-
 	# Update releases
 	my $releases = $edit->{"releases"};
 	for my $rel (@$releases)
@@ -80,7 +68,6 @@
 				and not MusicBrainz::Server::Validation::IsNonNegInteger($v);
 			$v;
 		} qw( y m d country );
-
 
 		# Check the date
 		if ($y >= 1900 and $y<= 2100)
@@ -115,6 +102,14 @@
 		# Check the country
 		$rel->{country} = $c
 			if grep { $_->[0] == $c } @$countries_menu;
+
+		my $label = $ARGS{"label".$rel->{id}};
+		$rel->{label_name} = $label if defined $label;
+		delete $rel->{label};
+		my $catno = $ARGS{"catno".$rel->{id}};
+		$rel->{catno} = $catno if defined $catno;
+		my $barcode = $ARGS{"barcode".$rel->{id}};
+		$rel->{barcode} = $barcode if defined $barcode;
 
 		delete $ARGS{'continue'}
 			if not $rel->{country}
@@ -160,13 +155,13 @@
 
 		delete $ARGS{"continue"};
 	}
-
+	
 	$focusfield ||= "y".$releases->[0]{id} if @$releases;
 	$focusfield ||= "AddARelease";
 
 	$session{"editreleases"}{$releaseid} = $edit; # write
 
-	return $m->comp("/comp/redirect", "/edit/albumreleases/review.html?releaseid=".$releaseid)
+	return $m->comp("/comp/redirect", "/edit/albumreleases/selectlabel.html?releaseid=".$releaseid)
 		if $ARGS{"continue"};
 
 	my $artist = Artist->new(undef);
@@ -244,6 +239,9 @@
 							<td>Month:</td>
 							<td>Day:</td>
 							<td>Country:</td>
+							<td>Label:</td>
+							<td>Catalog #:</td>
+							<td>Barcode:</td>
 							<td>
 								<span title="Activate the checkboxes below to remove release events" style="cursor: help"/>Remove</span></td>
 						</tr>
@@ -273,6 +271,15 @@
 								<select name="country<% $rel->{"id"} %>">
 									<& /comp/options, ($rel->{country} ? $countries_menu : $countries_menu_2), $rel->{country} &>
 								</select></td>
+							<td>
+								<input 	type="text" class="textfield" name="label<% $rel->{"id"} %>"
+										value="<% $rel->{label_name}||'' %>" style="width: 8em" /></td>
+							<td>
+								<input 	type="text" class="textfield" name="catno<% $rel->{"id"} %>"
+										value="<% $rel->{catno}||'' %>" style="width: 8em" /></td>
+							<td>
+								<input 	type="text" class="textfield" name="barcode<% $rel->{"id"} %>"
+										value="<% $rel->{barcode}||'' %>" style="width: 8em" /></td>
 							<td align="center">
 								<input 	type="checkbox" name="releasedel<% $rel->{"id"} %>"
 										value="1" <% $rel->{'delete'} ? "checked" : "" %>

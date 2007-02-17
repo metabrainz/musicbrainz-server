@@ -433,7 +433,7 @@
 	# object_type / object_id
 	################################################################################
 
-	if ($object_type =~ /^(album|track|url)$/ and MusicBrainz::Server::Validation::IsNonNegInteger($object_id) and $object_id)
+	if ($object_type =~ /^(album|track|url|label)$/ and MusicBrainz::Server::Validation::IsNonNegInteger($object_id) and $object_id)
 	{
 		my $l = lc $object_type;
 		my $uf = ucfirst $l;

@@ -62,7 +62,15 @@ sub PreInsert
     $attr->SetAttributes([map { $_->{value} } @$newattrs]);
     ($newlinkphrase, $dummy) = $attr->ReplaceAttributes($newlinkphrase, '');
 
-    $self->SetArtist(@$entities[0]->{type} eq 'artist' ? @$entities[0]->{obj}->GetId : @$entities[0]->{obj}->GetArtist());
+	if (@$entities[0]->{type} eq 'album' || @$entities[0]->{type} eq 'track')
+	{
+	    $self->SetArtist(@$entities[0]->{obj}->GetArtist);
+	} 
+	elsif (@$entities[0]->{type} ne 'label')
+	{
+	    $self->SetArtist(@$entities[0]->{obj}->GetId);
+	}
+
     $self->SetTable($link->Table);
     $self->SetColumn("id");
     $self->SetRowId($link->GetId);

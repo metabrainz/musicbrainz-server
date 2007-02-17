@@ -162,6 +162,10 @@
 			{ url => "/show/artist/aliases.html" },
 			{ url => "/show/artist/similar.html" },
 
+			# label
+			{ url => "/showlabel.html" },
+			{ url => "/show/label/index.html" },
+			{ url => "/show/label/details.html" },
 
 			{ url => "/showcdtoc.html" },
 			{ url => "/show/cdtoc/index.html" },
@@ -243,6 +247,7 @@
 			],
 
 			{ name => "Add Artist",				url => "/edit/artist/add.html" },
+			{ name => "Add Label",				url => "/edit/label/add.html" },
 			{ name => "Add Release",			url => "/edit/album/add.html?artistid=0" },
 			[
 				{ url => "/bare/cdlookup.html" },
@@ -304,17 +309,20 @@
 			{ url => "/edit/album/editall.html" },
 			{ url => "/edit/artist/edit.html" },
 			{ url => "/edit/artistalias/edit.html" },
+			{ url => "/edit/label/edit.html" },
 			{ url => "/edit/track/edit.html" },
 
 			# merge mods
 			{ url => "/edit/artist/merge.html" },
 			{ url => "/edit/album/move.html" },
+			{ url => "/edit/label/merge.html" },
 			{ url => "/edit/discid/move.html" },
 
 			# removal mods
 			{ url => "/edit/album/remove.html" },
 			{ url => "/edit/artistalias/remove.html" },
 			{ url => "/edit/artist/remove.html" },
+			{ url => "/edit/label/remove.html" },
 			{ url => "/edit/discid/remove.html" },
 			{ url => "/mod/remove.html" },
 			{ url => "/edit/track/remove.html" },
@@ -329,6 +337,7 @@
 			{ url => "/edit/albumreleases/index.html" },
 			{ url => "/edit/albumreleases/editreleases.html" },
 			{ url => "/edit/albumreleases/review.html" },
+			{ url => "/edit/albumreleases/selectlabel.html" },
 			{ url => "/edit/albumreleases/cancel.html" },
 			{ url => "/edit/albumreleases/enter.html" },
 

@@ -57,6 +57,23 @@ sub Country
 	$c;
 }
 
+sub GetCatNo	{ $_[0]{catno} }
+sub SetCatNo	{ $_[0]{catno} = $_[1] }
+
+sub GetBarcode	{ $_[0]{barcode} }
+sub SetBarcode	{ $_[0]{barcode} = $_[1] }
+
+sub GetLabel	{ $_[0]{label} }
+sub SetLabel	{ $_[0]{label} = $_[1] }
+sub Label
+{
+	my $self = shift;
+	my $c = Label->new($self->{DBH});
+	$c->SetId($self->GetLabel);
+	$c->LoadFromId or return undef;
+	$c;
+}
+
 sub GetYMD
 {
 	map { 0+$_ } split '-', $_[0]{'releasedate'};
@@ -136,10 +153,13 @@ sub InsertSelf
 	my $self = shift;
    	my $sql = Sql->new($self->{DBH});
 	$sql->Do(
-		"INSERT INTO release (album, country, releasedate) VALUES (?, ?, ?)",
+		"INSERT INTO release (album, country, releasedate, label, catno, barcode) VALUES (?, ?, ?, ?, ?, ?)",
 		$self->GetAlbum,
 		$self->GetCountry,
 		$self->GetSortDate,
+		$self->GetLabel,
+		$self->GetCatNo,
+		$self->GetBarcode,
 	);
 	$self->SetId($sql->GetLastInsertId("release"));
 }
@@ -150,10 +170,16 @@ sub Update
    	my $sql = Sql->new($self->{DBH});
 	$self->SetCountry($new{"country"}) if $new{"country"};
 	$self->SetSortDate($new{"date"}) if $new{"date"};
+	$self->SetLabel($new{"label"}) if $new{"label"};
+	$self->SetCatNo($new{"catno"}) if $new{"catno"};
+	$self->SetBarcode($new{"barcode"}) if $new{"barcode"};
 	$sql->Do(
-		"UPDATE release SET country = ?, releasedate = ? WHERE id = ?",
+		"UPDATE release SET country = ?, releasedate = ?, label = ?, catno = ?, barcode = ? WHERE id = ?",
 		$self->GetCountry,
 		$self->GetSortDate,
+		$self->GetLabel,
+		$self->GetCatNo,
+		$self->GetBarcode,
 		$self->GetId,
 	);
 }

@@ -41,6 +41,9 @@ require MusicBrainz::Server::Moderation::MOD_ADD_ARTIST;
 require MusicBrainz::Server::Moderation::MOD_ADD_ARTISTALIAS;
 require MusicBrainz::Server::Moderation::MOD_ADD_ARTIST_ANNOTATION;
 require MusicBrainz::Server::Moderation::MOD_ADD_DISCID;
+require MusicBrainz::Server::Moderation::MOD_ADD_LABEL;
+require MusicBrainz::Server::Moderation::MOD_ADD_LABELALIAS;
+require MusicBrainz::Server::Moderation::MOD_ADD_LABEL_ANNOTATION;
 require MusicBrainz::Server::Moderation::MOD_ADD_LINK;
 require MusicBrainz::Server::Moderation::MOD_ADD_LINK_ATTR;
 require MusicBrainz::Server::Moderation::MOD_ADD_LINK_TYPE;
@@ -57,6 +60,8 @@ require MusicBrainz::Server::Moderation::MOD_EDIT_ARTIST;
 require MusicBrainz::Server::Moderation::MOD_EDIT_ARTISTALIAS;
 require MusicBrainz::Server::Moderation::MOD_EDIT_ARTISTNAME;
 require MusicBrainz::Server::Moderation::MOD_EDIT_ARTISTSORTNAME;
+require MusicBrainz::Server::Moderation::MOD_EDIT_LABEL;
+require MusicBrainz::Server::Moderation::MOD_EDIT_LABELALIAS;
 require MusicBrainz::Server::Moderation::MOD_EDIT_LINK;
 require MusicBrainz::Server::Moderation::MOD_EDIT_LINK_ATTR;
 require MusicBrainz::Server::Moderation::MOD_EDIT_LINK_TYPE;
@@ -68,6 +73,7 @@ require MusicBrainz::Server::Moderation::MOD_MAC_TO_SAC;
 require MusicBrainz::Server::Moderation::MOD_MERGE_ALBUM;
 require MusicBrainz::Server::Moderation::MOD_MERGE_ALBUM_MAC;
 require MusicBrainz::Server::Moderation::MOD_MERGE_ARTIST;
+require MusicBrainz::Server::Moderation::MOD_MERGE_LABEL;
 # require MusicBrainz::Server::Moderation::MOD_MERGE_LINK_TYPE; -- not implemented
 require MusicBrainz::Server::Moderation::MOD_MOVE_ALBUM;
 require MusicBrainz::Server::Moderation::MOD_MOVE_DISCID;
@@ -76,6 +82,8 @@ require MusicBrainz::Server::Moderation::MOD_REMOVE_ALBUMS;
 require MusicBrainz::Server::Moderation::MOD_REMOVE_ARTIST;
 require MusicBrainz::Server::Moderation::MOD_REMOVE_ARTISTALIAS;
 require MusicBrainz::Server::Moderation::MOD_REMOVE_DISCID;
+require MusicBrainz::Server::Moderation::MOD_REMOVE_LABEL;
+require MusicBrainz::Server::Moderation::MOD_REMOVE_LABELALIAS;
 require MusicBrainz::Server::Moderation::MOD_REMOVE_LINK;
 require MusicBrainz::Server::Moderation::MOD_REMOVE_LINK_ATTR;
 require MusicBrainz::Server::Moderation::MOD_REMOVE_LINK_TYPE;
@@ -385,6 +393,9 @@ sub IsAutoEditType
 		$type == &ModDefs::MOD_ADD_ARTIST ||
 		$type == &ModDefs::MOD_ADD_ARTIST_ANNOTATION ||
 		$type == &ModDefs::MOD_ADD_ARTISTALIAS ||
+		$type == &ModDefs::MOD_ADD_LABEL ||
+		$type == &ModDefs::MOD_ADD_LABEL_ANNOTATION ||
+		$type == &ModDefs::MOD_ADD_LABELALIAS ||
 		$type == &ModDefs::MOD_ADD_LINK ||
 		$type == &ModDefs::MOD_ADD_LINK_ATTR ||
 		$type == &ModDefs::MOD_ADD_LINK_TYPE ||
@@ -399,6 +410,8 @@ sub IsAutoEditType
 		$type == &ModDefs::MOD_EDIT_ARTISTALIAS ||
 		$type == &ModDefs::MOD_EDIT_ARTISTNAME ||
 		$type == &ModDefs::MOD_EDIT_ARTISTSORTNAME ||
+		$type == &ModDefs::MOD_EDIT_LABEL ||
+		$type == &ModDefs::MOD_EDIT_LABELALIAS ||
 		$type == &ModDefs::MOD_EDIT_LINK ||
 		$type == &ModDefs::MOD_EDIT_LINK_TYPE ||
 		$type == &ModDefs::MOD_EDIT_LINK_ATTR ||
@@ -416,6 +429,7 @@ sub IsAutoEditType
 		$type == &ModDefs::MOD_MOVE_DISCID ||
 		$type == &ModDefs::MOD_SAC_TO_MAC ||
 		$type == &ModDefs::MOD_REMOVE_ARTIST ||
+		$type == &ModDefs::MOD_REMOVE_LABEL ||
 		$type == &ModDefs::MOD_REMOVE_TRMID ||
 		$type == &ModDefs::MOD_REMOVE_PUID ||
 		$type == &ModDefs::MOD_REMOVE_LINK_TYPE ||
@@ -1312,23 +1326,26 @@ sub ShowModType
 	
 
 	# output the artist this edit is listed under.
-	$mason->out(qq!<tr class="entity"><td class="lbl">Artist:</td>!);
-	$mason->out(qq!<td>!);
-	$mason->comp("/comp/linkartist", 
-		id => $this->GetArtist, 
-		name => $this->GetArtistName, 
-		sortname => $this->GetArtistSortName, 
-		resolution => $this->GetArtistResolution,
-		strong => 0
-	);
-	$mason->out(qq!</td>!);
-	if ($showeditlinks)
+	if (!$this->{'dont-display-artist'})
 	{
-		$mason->out(qq!<td class="editlinks">!);
-		$mason->comp("/comp/linkedits", type => "artist", id => $this->GetArtist, explain => 1);
+		$mason->out(qq!<tr class="entity"><td class="lbl">Artist:</td>!);
+		$mason->out(qq!<td>!);
+		$mason->comp("/comp/linkartist", 
+			id => $this->GetArtist, 
+			name => $this->GetArtistName, 
+			sortname => $this->GetArtistSortName, 
+			resolution => $this->GetArtistResolution,
+			strong => 0
+		);
 		$mason->out(qq!</td>!);
+		if ($showeditlinks)
+		{
+			$mason->out(qq!<td class="editlinks">!);
+			$mason->comp("/comp/linkedits", type => "artist", id => $this->GetArtist, explain => 1);
+			$mason->out(qq!</td>!);
+		}
+		$mason->out(qq!</tr>!);	
 	}
-	$mason->out(qq!</tr>!);	
 	
 	
 	# output the release this edit is listed under.

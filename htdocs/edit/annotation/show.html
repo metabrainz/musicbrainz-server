@@ -53,7 +53,8 @@
 
 	my $artist = $ref->{artist};
 	my $release = $ref->{release};
-	my $title = (defined $release) ? $release->GetName() : $artist->GetName();
+	my $label = $ref->{label};
+	my $title = (defined $release) ? $release->GetName() : (defined $label ? $label->GetName() : $artist->GetName());
 
 </%perl>
 
@@ -61,7 +62,7 @@
 
 	<& /comp/tablebegin, title => "Annotation Detail" &>
 
-		<& /edit/annotation/subject, title => "Annotation for", artist => $artist, release => $release &>
+		<& /edit/annotation/subject, title => "Annotation for", artist => $artist, release => $release, label => $label &>
 
 		<ul>
 			<li>

@@ -85,9 +85,10 @@ sub LoadFromId
     my ($this) = @_;
     my $sql = Sql->new($this->{DBH});
    
+    my $table = lc $this->GetTable;
     my $row = $sql->SelectSingleRowArray(
         "SELECT id, name, ref, lastused, timesused
-        FROM artistalias
+        FROM $table
         WHERE id = ?",
         $this->GetId,
     ) or return undef;
@@ -129,6 +130,12 @@ sub Insert
     {
         require SearchEngine;
         my $engine = SearchEngine->new($this->{DBH}, 'artist');
+        $engine->AddWordRefs($id,$name);
+    }
+    elsif ($table eq 'labelalias')
+    {
+        require SearchEngine;
+        my $engine = SearchEngine->new($this->{DBH}, 'label');
         $engine->AddWordRefs($id,$name);
     }
 
@@ -314,7 +321,7 @@ sub LoadFull
        {
            require Alias;
            $alias = Alias->new($this->{DBH});
-           $alias->{table} = "artistalias";
+           $alias->{table} = $this->{table};
            $alias->SetId($row[0]);
            $alias->SetName($row[1]);
            $alias->SetRowId($row[2]);
@@ -335,6 +342,7 @@ sub ParentClass
 {
     my $this = shift;
     return "Artist" if lc($this->{table}) eq "artistalias";
+    return "Label" if lc($this->{table}) eq "labelalias";
     die "Don't understand Alias where table = $this->{table}";
 }
 

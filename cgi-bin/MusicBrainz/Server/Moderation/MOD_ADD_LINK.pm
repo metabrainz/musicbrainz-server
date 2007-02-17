@@ -79,7 +79,7 @@ sub PreInsert
 	{
 	    $self->SetArtist(@$entities[0]->{obj}->GetArtist);
 	} 
-	else
+	elsif (@$entities[0]->{type} ne 'label')
 	{
 	    $self->SetArtist(@$entities[0]->{obj}->GetId);
 	}

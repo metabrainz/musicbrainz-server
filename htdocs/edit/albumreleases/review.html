@@ -128,7 +128,21 @@
 						<& /comp/linkdoc, "AddReleaseEventsEdit", "Add release events" &>
 					</td>
 					<td class="left">
-						<& /comp/releasedate, @$rel{qw( year month day )} &> - <% $country_name{$rel->{country}} || "?" %>
+						<& /comp/releasedate, @$rel{qw( year month day )} &> - 
+						<% $country_name{$rel->{country}} || "?" %> - 
+						<strong>Label:</strong>
+%						if ($rel->{label})
+%						{
+%							my $label = $m->comp("/comp/loadlabel", $mb, $rel->{label});
+							<& /comp/linklabel, label => $label &>
+%						}
+%						else
+%						{
+							?
+%						}
+						-
+						<strong>Catalog #:</strong> <% $rel->{catno} || "?" %> - 
+						<strong>Barcode:</strong> <% $rel->{barcode} || "?" %>
 					</td>
 				</tr>
 			<%perl>
@@ -137,6 +151,9 @@
 			my $rev = MusicBrainz::Server::Release->new($mb->{DBH});
 			$rev->SetCountry($rel->{country});
 			$rev->SetYMD(@$rel{qw( year month day )});
+			$rev->SetLabel($rel->{label});
+			$rev->SetCatNo($rel->{catno});
+			$rev->SetBarcode($rel->{barcode});
 			push @relEventsNew, $rev;
 
 			next;
@@ -145,11 +162,19 @@
 		my $rev = MusicBrainz::Server::Release->new($mb->{DBH});
 		$rev->SetCountry($rel->{country});
 		$rev->SetYMD(@$rel{qw( year month day )});
+		$rev->SetLabel($rel->{label});
+		$rev->SetCatNo($rel->{catno});
+		$rev->SetBarcode($rel->{barcode});
 		push @relEventsNew, $rev;
 
-		next unless grep {
-			$rel->{$_} != $rel->{"orig_".$_}
-		} qw( year month day country );
+		next if 
+			int($rel->{orig_year}) == int($rel->{year}) and
+			int($rel->{orig_month}) == int($rel->{month}) and
+			int($rel->{orig_day}) == int($rel->{day}) and
+			int($rel->{orig_country}) == int($rel->{country}) and
+			int($rel->{orig_label}) == int($rel->{label}) and
+			$rel->{orig_catno} eq $rel->{catno} and
+			$rel->{orig_barcode} eq $rel->{barcode};
 
 		{
 
@@ -160,8 +185,39 @@
 						<& /comp/linkdoc, "EditReleaseEventsEdit", "Edit release events" &>
 					</td>
 					<td class="left padright">
-						<& /comp/releasedate, @$rel{qw( orig_year orig_month orig_day )} &> - <% $country_name{$rel->{orig_country}} || "?" %> <br/>
-						<& /comp/releasedate, @$rel{qw( year month day )} &> - <% $country_name{$rel->{country}} || "?" %>
+						<& /comp/releasedate, @$rel{qw( orig_year orig_month orig_day )} &> - 
+						<% $country_name{$rel->{orig_country}} || "?" %> - 
+						<strong>Label:</strong>
+%						if ($rel->{orig_label})
+%						{
+%							my $label = $m->comp("/comp/loadlabel", $mb, $rel->{orig_label});
+							<& /comp/linklabel, label => $label &>
+%						}
+%						else
+%						{
+							?
+%						}
+						-
+						<strong>Catalog #:</strong> <% $rel->{orig_catno} || "?" %> - 
+						<strong>Barcode:</strong> <% $rel->{orig_barcode} || "?" %>
+						
+						<br/>
+						
+						<& /comp/releasedate, @$rel{qw( year month day )} &> - 
+						<% $country_name{$rel->{country}} || "?" %> - 
+						<strong>Label:</strong>
+%						if ($rel->{label})
+%						{
+%							my $label = $m->comp("/comp/loadlabel", $mb, $rel->{label});
+							<& /comp/linklabel, label => $label &>
+%						}
+%						else
+%						{
+							?
+%						}
+						-
+						<strong>Catalog #:</strong> <% $rel->{catno} || "?" %> - 
+						<strong>Barcode:</strong> <% $rel->{barcode} || "?" %>
 					</td>
 				</tr>
 

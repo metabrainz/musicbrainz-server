@@ -82,6 +82,7 @@
 	my $ref = $m->comp("/edit/annotation/backreference", annotation => $an_new);
 	my $artist = $ref->{artist};
 	my $release = $ref->{release};
+	my $label = $ref->{label};
 
 </%perl>
 
@@ -89,7 +90,7 @@
 <& /comp/sidebar-notitle, pagetitle => "Compare Annotations" &>
 
 	<& /comp/tablebegin, title => "Compare Annotations" &>
-		<& /edit/annotation/subject, title => "Comparing annotations for", artist => $artist, release => $release &>
+		<& /edit/annotation/subject, title => "Comparing annotations for", artist => $artist, release => $release, label => $label &>
 
 % 	if (!$an_old)
 %	{

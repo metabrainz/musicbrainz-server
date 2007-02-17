@@ -77,6 +77,20 @@
 			</tr>
 			<tr>
 				<td class="label">
+					<label for="id_qs_label" title="Search for a label">Label:</label></td>
+				<td>
+					<form method="get" action="/search/oldsearch.html" id="id_qs_label_form">
+						<div>
+							<input class="searchfield" type="text" name="query" id="id_qs_track"
+								value="" />
+							<input type="hidden" name="type" value="label" />
+							<input type="hidden" name="limit" value="<% $session{"as_limit"} %>" />
+							<input type="hidden" name="handlearguments" value="1" />
+						</div>
+					</form></td>
+			</tr>
+			<tr>
+				<td class="label">
 					<label for="id_qs_editor" title="Search for an MusicBrainz editor">Editor:</label></td>
 				<td>
 					<form method="get" action="/show/user/">

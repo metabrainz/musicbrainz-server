@@ -38,7 +38,7 @@
 	# Instantiate MusicBrainz object
 	my $mb = $m->comp("/comp/dblogin");
 
-	my ($release, $artist);
+	my ($release, $artist, $label);
 	my $type = $annotation->GetType();
 
 	# load release object, if the needed annotationtype is ALBUM_ANNOTATION
@@ -51,12 +51,21 @@
 	{
 		$artist = $annotation->GetArtist();
 	}
+	elsif ($type == &MusicBrainz::Server::Annotation::LABEL_ANNOTATION)
+	{
+		$label = $annotation->GetLabel();
+	}
 
 	# load the artist from the artistid
-	$artist = $m->comp("/comp/loadartist", $mb, $artist);
+	$artist = $m->comp("/comp/loadartist", $mb, $artist)
+		if $artist;
+
+	# load the label from the labelid
+	$label = $m->comp("/comp/loadlabel", $mb, $label)
+		if $label;
 
 	# return the loaded objects
-	return { artist => $artist, release => $release };
+	return { artist => $artist, release => $release, label => $label };
 
 </%perl>
 

@@ -43,7 +43,14 @@ sub PreInsert
 
 	my @ents = $link->Entities();
 
-	$self->SetArtist($types->[0] eq 'artist' ? $ents[0]->GetId : $ents[0]->GetArtist());
+	if ($ents[0]->{type} eq 'album' || $ents[0]->{type} eq 'track')
+	{
+	    $self->SetArtist($ents[0]->{obj}->GetArtist);
+	} 
+	elsif ($ents[0]->{type} ne 'label')
+	{
+	    $self->SetArtist($ents[0]->{obj}->GetId);
+	}
 	$self->SetTable($link->Table);
 	$self->SetColumn("id");
 	$self->SetRowId($link->GetId);

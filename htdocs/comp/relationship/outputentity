@@ -57,6 +57,11 @@
 		my ($sortname, $resolution) = ($item->{$prefix . "sortname"}, $item->{$prefix . "resolution"});
 		$m->comp("/comp/linkartist", id => $e_id, name => $e_name, sortname => $sortname, resolution => $resolution);
 	}
+	elsif ($e_inttype eq "label")
+	{
+		my ($sortname, $resolution) = ($item->{$prefix . "sortname"}, $item->{$prefix . "resolution"});
+		$m->comp("/comp/linklabel", id => $e_id, name => $e_name, sortname => $sortname, resolution => $resolution);
+	}
 	elsif ($e_inttype eq "release" or
 		   $e_inttype eq "track")
 	{

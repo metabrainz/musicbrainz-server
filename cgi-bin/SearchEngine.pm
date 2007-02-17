@@ -490,6 +490,22 @@ sub Search
 		}
 	    }
 	}
+	elsif ($table eq "label")
+	{
+	    if ($r->{'numlabelaliases'})
+	    {
+		require Alias;
+		my $al = Alias->new($self->{DBH}, "labelalias");
+		my $aliases = $al->LoadFull($r->{'labelid'});
+
+		for my $alias (@$aliases)
+		{
+		    ($tokens, $c1) = $self->Tokenize($alias->GetName);
+		    push @t, [ $tokens, $c1 ];
+		    $fOK ||= not grep { ($tokens->{$_}||0) < $words->{$_} } keys %$words;
+		}
+	    }
+	}
 
 	$r->{'tokens'} = \@t if $fOK;
 
@@ -538,6 +554,7 @@ sub Search
     # Decode some strings into Unicode for sorting
     my @string_cols;
     $table eq "artist" and @string_cols = qw( artistsortname );
+    $table eq "label" and @string_cols = qw( labelname );
     $table eq "album" and @string_cols = qw( albumname artistsortname );
     $table eq "track" and @string_cols = qw( trackname artistsortname albumname );
     $self->_DecodeStringColumns($results, \@string_cols);
@@ -548,6 +565,14 @@ sub Search
 	    $b->{'_similarity'} <=> $a->{'_similarity'}
 		or
 	    $a->{'_artistsortname_decoded'} cmp $b->{'_artistsortname_decoded'}
+	} @$results;
+    }
+    elsif ($table eq "label")
+    {
+	@$results = sort {
+	    $b->{'_similarity'} <=> $a->{'_similarity'}
+		or
+	    $a->{'_labelname_decoded'} cmp $b->{'_labelname_decoded'}
 	} @$results;
     }
     elsif ($table eq "album")
@@ -621,6 +646,21 @@ sub _GetQuery
 		WHERE $where
 		GROUP BY t.id, t.name, t.sortname, t.gid, t.resolution, t.modpending
 	" if $table eq "artist";
+
+	return "
+		SELECT	
+		t.id			AS labelid,
+		t.gid			AS labelgid,
+		t.name			AS labelname,
+		t.labelcode		AS labelcode,
+		t.resolution	AS labelresolution,
+		t.modpending	AS labelmp,
+		COUNT(aa.id)	AS numlabelaliases
+		FROM $from
+		LEFT JOIN labelalias aa ON aa.ref = t.id
+		WHERE $where
+		GROUP BY t.id, t.name, t.labelcode, t.gid, t.resolution, t.modpending
+	" if $table eq "label";
 
 	return "
 		SELECT	

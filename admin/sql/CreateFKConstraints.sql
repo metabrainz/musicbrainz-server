@@ -96,6 +96,22 @@ ALTER TABLE automod_election_vote
     FOREIGN KEY (voter)
     REFERENCES moderator(id);
 
+ALTER TABLE label
+    ADD CONSTRAINT label_fk_country
+    FOREIGN KEY (country)
+    REFERENCES country(id);
+
+ALTER TABLE labelalias
+    ADD CONSTRAINT labelalias_fk_ref
+    FOREIGN KEY (ref)
+    REFERENCES label(id);
+
+ALTER TABLE labelwords
+    ADD CONSTRAINT labelwords_fk_labelid
+    FOREIGN KEY (labelid)
+    REFERENCES label (id)
+    ON DELETE CASCADE;
+
 ALTER TABLE l_album_album
     ADD CONSTRAINT fk_l_album_album_link_type
     FOREIGN KEY (link_type)
@@ -125,6 +141,21 @@ ALTER TABLE l_album_artist
     ADD CONSTRAINT fk_l_album_artist_link1
     FOREIGN KEY (link1)
     REFERENCES artist(id);
+
+ALTER TABLE l_album_label
+    ADD CONSTRAINT fk_l_album_label_link_type
+    FOREIGN KEY (link_type)
+    REFERENCES lt_album_label(id);
+
+ALTER TABLE l_album_label
+    ADD CONSTRAINT fk_l_album_label_link0
+    FOREIGN KEY (link0)
+    REFERENCES album(id);
+
+ALTER TABLE l_album_label
+    ADD CONSTRAINT fk_l_album_label_link1
+    FOREIGN KEY (link1)
+    REFERENCES label(id);
 
 ALTER TABLE l_album_track
     ADD CONSTRAINT fk_l_album_track_link_type
@@ -171,6 +202,21 @@ ALTER TABLE l_artist_artist
     FOREIGN KEY (link1)
     REFERENCES artist(id);
 
+ALTER TABLE l_artist_label
+    ADD CONSTRAINT fk_l_artist_label_link_type
+    FOREIGN KEY (link_type)
+    REFERENCES lt_artist_label(id);
+
+ALTER TABLE l_artist_label
+    ADD CONSTRAINT fk_l_artist_label_link0
+    FOREIGN KEY (link0)
+    REFERENCES artist(id);
+
+ALTER TABLE l_artist_label
+    ADD CONSTRAINT fk_l_artist_label_link1
+    FOREIGN KEY (link1)
+    REFERENCES label(id);
+
 ALTER TABLE l_artist_track
     ADD CONSTRAINT fk_l_artist_track_link_type
     FOREIGN KEY (link_type)
@@ -198,6 +244,51 @@ ALTER TABLE l_artist_url
 
 ALTER TABLE l_artist_url
     ADD CONSTRAINT fk_l_artist_url_link1
+    FOREIGN KEY (link1)
+    REFERENCES url(id);
+
+ALTER TABLE l_label_label
+    ADD CONSTRAINT fk_l_label_label_link_type
+    FOREIGN KEY (link_type)
+    REFERENCES lt_label_label(id);
+
+ALTER TABLE l_label_label
+    ADD CONSTRAINT fk_l_label_label_link0
+    FOREIGN KEY (link0)
+    REFERENCES label(id);
+
+ALTER TABLE l_label_label
+    ADD CONSTRAINT fk_l_label_label_link1
+    FOREIGN KEY (link1)
+    REFERENCES label(id);
+
+ALTER TABLE l_label_track
+    ADD CONSTRAINT fk_l_label_track_link_type
+    FOREIGN KEY (link_type)
+    REFERENCES lt_label_track(id);
+
+ALTER TABLE l_label_track
+    ADD CONSTRAINT fk_l_label_track_link0
+    FOREIGN KEY (link0)
+    REFERENCES label(id);
+
+ALTER TABLE l_label_track
+    ADD CONSTRAINT fk_l_label_track_link1
+    FOREIGN KEY (link1)
+    REFERENCES track(id);
+
+ALTER TABLE l_label_url
+    ADD CONSTRAINT fk_l_label_url_link_type
+    FOREIGN KEY (link_type)
+    REFERENCES lt_label_url(id);
+
+ALTER TABLE l_label_url
+    ADD CONSTRAINT fk_l_label_url_link0
+    FOREIGN KEY (link0)
+    REFERENCES label(id);
+
+ALTER TABLE l_label_url
+    ADD CONSTRAINT fk_l_label_url_link1
     FOREIGN KEY (link1)
     REFERENCES url(id);
 
@@ -261,6 +352,11 @@ ALTER TABLE lt_album_artist
     FOREIGN KEY (parent)
     REFERENCES lt_album_artist(id);
 
+ALTER TABLE lt_album_label
+    ADD CONSTRAINT fk_lt_album_label_parent
+    FOREIGN KEY (parent)
+    REFERENCES lt_album_label(id);
+
 ALTER TABLE lt_album_track
     ADD CONSTRAINT fk_lt_album_track_parent
     FOREIGN KEY (parent)
@@ -276,6 +372,11 @@ ALTER TABLE lt_artist_artist
     FOREIGN KEY (parent)
     REFERENCES lt_artist_artist(id);
 
+ALTER TABLE lt_artist_label
+    ADD CONSTRAINT fk_lt_artist_label_parent
+    FOREIGN KEY (parent)
+    REFERENCES lt_artist_label(id);
+
 ALTER TABLE lt_artist_track
     ADD CONSTRAINT fk_lt_artist_track_parent
     FOREIGN KEY (parent)
@@ -285,6 +386,21 @@ ALTER TABLE lt_artist_url
     ADD CONSTRAINT fk_lt_artist_url_parent
     FOREIGN KEY (parent)
     REFERENCES lt_artist_url(id);
+
+ALTER TABLE lt_label_label
+    ADD CONSTRAINT fk_lt_label_label_parent
+    FOREIGN KEY (parent)
+    REFERENCES lt_label_label(id);
+
+ALTER TABLE lt_label_track
+    ADD CONSTRAINT fk_lt_label_track_parent
+    FOREIGN KEY (parent)
+    REFERENCES lt_label_track(id);
+
+ALTER TABLE lt_label_url
+    ADD CONSTRAINT fk_lt_label_url_parent
+    FOREIGN KEY (parent)
+    REFERENCES lt_label_url(id);
 
 ALTER TABLE lt_track_track
     ADD CONSTRAINT fk_lt_track_track_parent

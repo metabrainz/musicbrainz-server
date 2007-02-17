@@ -143,6 +143,31 @@
 						<td><& /comp/releasedate, $rel &></td>
 						<td> - </td>
 						<td><% $name %></td>
+%						if ($rel->GetLabel)
+%						{
+							<td> - </td>
+							<td><strong>Label:</strong>
+							<& /comp/linklabel, label => $rel->Label &>
+							</td>
+%						}
+%						else
+%						{
+							<td colspan="2"></td>
+%						}
+%						if ($rel->GetCatNo)
+%						{
+							<td> - </td>
+							<td><strong>Catalog #:</strong> <% $rel->GetCatNo %></td>
+%						} else {
+							<td colspan="2"></td>
+%						}
+%						if ($rel->GetBarcode)
+%						{
+							<td> - </td>
+							<td><strong>Barcode:</strong> <% $rel->GetBarcode %></td>
+%						} else {
+							<td colspan="2"></td>
+%						}
 					</tr>
 %			}
 

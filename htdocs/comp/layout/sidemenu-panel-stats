@@ -52,6 +52,7 @@
 	for ([ "Artists", $stats{'count.artist'} ],
 		 [ "Releases", $stats{'count.album'} ],
 		 [ "Tracks", $stats{'count.track'} ],
+		 [ "Labels", $stats{'count.label'} ],
 		 [ "Links", $stats{'count.ar.links'} ],
 		 [ "Disc IDs", $stats{'count.discid'} ],
 		 [ "PUID IDs", $stats{'count.puid'} ],

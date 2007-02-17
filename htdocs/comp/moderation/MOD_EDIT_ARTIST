@@ -63,7 +63,7 @@
 				<% $prev->{"SortName"} %>
 			</td>
 		</tr>
-%   }
+%	}
 
 %	if ($prev->{"Resolution"} ne $new->{"Resolution"})
 %	{
@@ -92,7 +92,7 @@
 
 %	if ($prev->{"BeginDate"} ne $new->{"BeginDate"})
 %	{
-%		my $begin = MusicBrainz::MakeDisplayDateStr($prev->{'BeginDate'});
+%		my $begin = MusicBrainz::Server::Validation::MakeDisplayDateStr($prev->{'BeginDate'});
 %		$begin = "[Not&nbsp;set]" if ($begin eq "");
 %		my $datestr = Artist::GetBeginDateName($prev->{"Type"});
 %		$datestr =~ s/ /&nbsp;/g;
@@ -109,7 +109,7 @@
 
 %	if ($prev->{"EndDate"} ne $new->{"EndDate"})
 %	{
-%		my $end = MusicBrainz::MakeDisplayDateStr($prev->{'EndDate'});
+%		my $end = MusicBrainz::Server::Validation::MakeDisplayDateStr($prev->{'EndDate'});
 %		$end = "[Not&nbsp;set]" if ($end eq "");
 %		my $datestr = Artist::GetEndDateName($prev->{"Type"});
 %		$datestr =~ s/ /&nbsp;/g;

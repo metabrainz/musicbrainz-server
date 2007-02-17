@@ -71,12 +71,28 @@ CREATE TRIGGER "reptg_historicalstat"
 AFTER INSERT OR DELETE OR UPDATE ON "historicalstat"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
+CREATE TRIGGER "reptg_label" 
+AFTER INSERT OR DELETE OR UPDATE ON "label"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_labelalias"
+AFTER INSERT OR DELETE OR UPDATE ON "labelalias"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_labelwords" 
+AFTER INSERT OR DELETE OR UPDATE ON "labelwords"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
 CREATE TRIGGER "reptg_l_album_album"
 AFTER INSERT OR DELETE OR UPDATE ON "l_album_album"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_l_album_artist"
 AFTER INSERT OR DELETE OR UPDATE ON "l_album_artist"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_album_label"
+AFTER INSERT OR DELETE OR UPDATE ON "l_album_label"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_l_album_track"
@@ -91,12 +107,28 @@ CREATE TRIGGER "reptg_l_artist_artist"
 AFTER INSERT OR DELETE OR UPDATE ON "l_artist_artist"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
+CREATE TRIGGER "reptg_l_artist_label"
+AFTER INSERT OR DELETE OR UPDATE ON "l_artist_label"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
 CREATE TRIGGER "reptg_l_artist_track"
 AFTER INSERT OR DELETE OR UPDATE ON "l_artist_track"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_l_artist_url"
 AFTER INSERT OR DELETE OR UPDATE ON "l_artist_url"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_label_label"
+AFTER INSERT OR DELETE OR UPDATE ON "l_label_label"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_label_track"
+AFTER INSERT OR DELETE OR UPDATE ON "l_label_track"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_label_url"
+AFTER INSERT OR DELETE OR UPDATE ON "l_label_url"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_l_track_track"
@@ -131,6 +163,10 @@ CREATE TRIGGER "reptg_lt_album_artist"
 AFTER INSERT OR DELETE OR UPDATE ON "lt_album_artist"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
+CREATE TRIGGER "reptg_lt_album_label"
+AFTER INSERT OR DELETE OR UPDATE ON "lt_album_label"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
 CREATE TRIGGER "reptg_lt_album_track"
 AFTER INSERT OR DELETE OR UPDATE ON "lt_album_track"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
@@ -143,12 +179,28 @@ CREATE TRIGGER "reptg_lt_artist_artist"
 AFTER INSERT OR DELETE OR UPDATE ON "lt_artist_artist"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
+CREATE TRIGGER "reptg_lt_artist_label"
+AFTER INSERT OR DELETE OR UPDATE ON "lt_artist_label"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
 CREATE TRIGGER "reptg_lt_artist_track"
 AFTER INSERT OR DELETE OR UPDATE ON "lt_artist_track"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_lt_artist_url"
 AFTER INSERT OR DELETE OR UPDATE ON "lt_artist_url"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_lt_label_label"
+AFTER INSERT OR DELETE OR UPDATE ON "lt_label_label"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_lt_label_track"
+AFTER INSERT OR DELETE OR UPDATE ON "lt_label_track"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_lt_label_url"
+AFTER INSERT OR DELETE OR UPDATE ON "lt_label_url"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_lt_track_track"

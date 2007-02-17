@@ -26,6 +26,7 @@
 					<option value="artist" <% ($session{"as_type"} eq "artist") ? 'selected="selected"' : '' |n %>>Artists</option>
 					<option value="release" <% ($session{"as_type"} eq "release") ? 'selected="selected"' : '' |n %>>Releases</option>
 					<option value="track" <% ($session{"as_type"} eq "track") ? 'selected="selected"' : '' |n %>>Tracks</option>
+					<option value="label" <% ($session{"as_type"} eq "label") ? 'selected="selected"' : '' |n %>>Labels</option>
 				</select>
 			</td>
 		</tr>

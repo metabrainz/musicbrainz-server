@@ -59,6 +59,21 @@
 			<td class="lbl">Add:</td>
 			<td class="field">
 				<& /comp/releasedate, $t->{"d"} &> - <& .ShowCountryName, $t->{"c"} &>
+%				if ($t->{"l"})
+%				{
+%					my $label = Label->new($self->{DBH});
+%					$label->SetId($t->{"l"});
+%					$label->LoadFromId();
+					- Label: <& /comp/linklabel, label => $label &>
+%				}
+%				if ($t->{"n"})
+%				{
+					- Catalog #: <% $t->{"n"} %>
+%				}
+%				if ($t->{"b"})
+%				{
+					- Barcode: <% $t->{"b"} %>
+%				}
 			</td>
 		</tr>
 

@@ -58,14 +58,44 @@
 
 		<tr>
 			<td class="lbl">Change:</td>
-			<td class="diff" id="ov::edit<% $self->GetId %><% $i %>">
+			<td class="field">
 				<& /comp/releasedate, $t->{"d"} &> - <& .ShowCountryName, $t->{"c"} &>
+%				if ($t->{"l"})
+%				{
+%					my $label = Label->new($self->{DBH});
+%					$label->SetId($t->{"l"});
+%					$label->LoadFromId();
+					- Label: <& /comp/linklabel, label => $label &>
+%				}
+%				if ($t->{"n"})
+%				{
+					- Catalog #: <% $t->{"n"} %>
+%				}
+%				if ($t->{"b"})
+%				{
+					- Barcode: <% $t->{"b"} %>
+%				}
 			</td>
 		</tr>
 		<tr>
 			<td>&nbsp;</td>
-			<td class="diff" id="nv::edit<% $self->GetId %><% $i++ %>">
+			<td class="field">
 				<& /comp/releasedate, $t->{"nd"} &> - <& .ShowCountryName, $t->{"nc"} &>
+%				if ($t->{"nl"})
+%				{
+%					my $label = Label->new($self->{DBH});
+%					$label->SetId($t->{"nl"});
+%					$label->LoadFromId();
+					- Label: <& /comp/linklabel, label => $label &>
+%				}
+%				if ($t->{"nn"})
+%				{
+					- Catalog #: <% $t->{"nn"} %>
+%				}
+%				if ($t->{"nb"})
+%				{
+					- Barcode: <% $t->{"nb"} %>
+%				}
 			</td>
 		</tr>
 

@@ -77,7 +77,7 @@ sub TransHandler
 	# These ones are the "permanent URLs" using the MBID
 	# as the query parameter to redirect to the /show/entity/ HTML page
 	# /(artist|album|track)/$GUID.html
-	if ($uri =~ m[^/(artist|release|album|track)/($GUID)\.html\z])
+	if ($uri =~ m[^/(artist|release|album|track|label)/($GUID)\.html\z])
 	{
 		my $entity = ($1 eq "album" ? "release" : $1);
 		my $new_uri = "/show/".$entity."/?mbid=$2";

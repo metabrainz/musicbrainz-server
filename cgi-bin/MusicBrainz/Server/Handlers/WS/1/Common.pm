@@ -31,38 +31,41 @@ require Exporter;
 our @ISA = qw(Exporter);
 our @EXPORT = qw(convert_inc bad_req send_response check_types
                  xml_artist xml_release xml_track xml_search xml_escape
+                 xml_label
                  get_type_and_status_from_inc get_release_type
                  INC_ARTIST INC_COUNTS INC_LIMIT INC_TRACKS INC_RELEASES 
                  INC_VARELEASES INC_DURATION INC_ARTISTREL INC_RELEASEREL 
                  INC_DISCS INC_TRACKREL INC_URLREL INC_RELEASEINFO 
                  INC_ARTISTID INC_RELEASEID INC_TRACKID INC_TITLE 
-                 INC_TRACKNUM INC_PUIDS INC_ALIASES);
+                 INC_TRACKNUM INC_PUIDS INC_ALIASES INC_LABELS);
 
 use Apache::Constants qw( );
 use Apache::File ();
 use Encode;
 use Album;
 
-use constant INC_ARTIST      => 0x00001;
-use constant INC_COUNTS      => 0x00002;
-use constant INC_LIMIT       => 0x00004;
-use constant INC_TRACKS      => 0x00008;
-use constant INC_DURATION    => 0x00010;
-use constant INC_ARTISTREL   => 0x00020;
-use constant INC_RELEASEREL  => 0x00040;
-use constant INC_DISCS       => 0x00080;
-use constant INC_TRACKREL    => 0x00100;
-use constant INC_URLREL      => 0x00200;
-use constant INC_RELEASEINFO => 0x00400;
-use constant INC_ARTISTID    => 0x00800;
-use constant INC_RELEASEID   => 0x01000;
-use constant INC_TRACKID     => 0x02000;
-use constant INC_TITLE       => 0x04000;
-use constant INC_TRACKNUM    => 0x08000;
-use constant INC_TRMIDS      => 0x10000;
-use constant INC_RELEASES    => 0x20000;
-use constant INC_PUIDS       => 0x40000;
-use constant INC_ALIASES     => 0x80000;
+use constant INC_ARTIST      => 0x000001;
+use constant INC_COUNTS      => 0x000002;
+use constant INC_LIMIT       => 0x000004;
+use constant INC_TRACKS      => 0x000008;
+use constant INC_DURATION    => 0x000010;
+use constant INC_ARTISTREL   => 0x000020;
+use constant INC_RELEASEREL  => 0x000040;
+use constant INC_DISCS       => 0x000080;
+use constant INC_TRACKREL    => 0x000100;
+use constant INC_URLREL      => 0x000200;
+use constant INC_RELEASEINFO => 0x000400;
+use constant INC_ARTISTID    => 0x000800;
+use constant INC_RELEASEID   => 0x001000;
+use constant INC_TRACKID     => 0x002000;
+use constant INC_TITLE       => 0x004000;
+use constant INC_TRACKNUM    => 0x008000;
+use constant INC_TRMIDS      => 0x010000;
+use constant INC_RELEASES    => 0x020000;
+use constant INC_PUIDS       => 0x040000;
+use constant INC_ALIASES     => 0x080000;
+use constant INC_LABELS      => 0x100000;
+use constant INC_LABELREL    => 0x200000;
 
 # This hash is used to convert the long form of the args into a short form that can 
 # be used easier 
@@ -88,6 +91,8 @@ my %incShortcuts =
     'releases'           => INC_RELEASES,
     'puids'              => INC_PUIDS,
     'aliases'            => INC_ALIASES,
+    'labels'             => INC_LABELS,
+    'label-rels'         => INC_LABELREL,
 );
 
 my %typeShortcuts =
@@ -310,7 +315,7 @@ sub xml_release
     {
         print '<track-list offset="' .($tnum - 1) .'"/>';
     }
-    xml_relations($al, 'album', $inc) if ($inc & INC_ARTISTREL || $inc & INC_RELEASEREL || $inc & INC_TRACKREL || $inc & INC_URLREL);
+    xml_relations($al, 'album', $inc) if ($inc & INC_ARTISTREL || $inc & INC_LABELREL || $inc & INC_RELEASEREL || $inc & INC_TRACKREL || $inc & INC_URLREL);
     
 	print '</release>';
 }
@@ -374,7 +379,19 @@ sub xml_release_events
 			print ($releasedate);
 			print '" country="'; 
 			print ($c ? $c->GetISOCode : "?");
-			print '"/>';
+			print '"';
+			printf ' catalog-number="%s"', xml_escape($rel->GetCatNo) if $rel->GetCatNo;
+			printf ' barcode="%s"', xml_escape($rel->GetBarcode) if $rel->GetBarcode;
+			if (($inc & INC_LABELS) && $rel->GetLabel)
+			{
+				print '>';
+				xml_label($rel->Label, $inc);
+				print '</event>';
+			}
+			else
+			{
+				print '/>';
+			}
          }
          print "</release-event-list>";
     }
@@ -484,7 +501,7 @@ sub xml_track
         }
     }
     xml_puid($tr) if ($inc & INC_PUIDS);
-    xml_relations($tr, 'track', $inc) if ($inc & INC_ARTISTREL || $inc & INC_RELEASEREL || $inc & INC_TRACKREL || $inc & INC_URLREL);
+    xml_relations($tr, 'track', $inc) if ($inc & INC_ARTISTREL || $inc & INC_LABELREL || $inc & INC_RELEASEREL || $inc & INC_TRACKREL || $inc & INC_URLREL);
     print '</track>';
 
     return undef;
@@ -510,6 +527,34 @@ sub xml_puid
     return undef;
 }
 
+sub xml_label
+{
+    my ($ar, $inc, $info) = @_;
+
+    printf '<label id="%s"', $ar->GetMBId;
+    if ($ar->GetType)
+    {
+        my $name = &Label::GetTypeName($ar->GetType());
+        $name =~ s/(^|[^A-Za-z0-9])+([A-Za-z0-9]?)/uc $2/eg;
+        printf ' type="%s"', $name;
+    }
+    print '><name>' . xml_escape($ar->GetName) . '</name>', ;
+    print '<label-code>' . xml_escape($ar->GetLabelCode) . '</label-code>' if $ar->GetLabelCode;
+    print '<disambiguation>' . xml_escape($ar->GetResolution()) . '</disambiguation>' if ($ar->GetResolution());
+
+    my ($b, $e) = ($ar->GetBeginDate, $ar->GetEndDate);
+    if ($b|| $e)
+    {
+        print '<life-span';
+        print ' begin="' . MusicBrainz::Server::Validation::MakeDisplayDateStr($b) . '"' if ($b); 
+        print ' end="' . MusicBrainz::Server::Validation::MakeDisplayDateStr($e) . '"' if ($e); 
+        print '/>';
+    }
+    xml_relations($ar, 'label', $inc) if ($inc & INC_ARTISTREL || $inc & INC_LABELREL || $inc & INC_RELEASEREL || $inc & INC_TRACKREL || $inc & INC_URLREL);
+    print "</label>";
+
+    return undef;
+}
 
 sub load_object
 {
@@ -528,6 +573,22 @@ sub load_object
             my $temp = Artist->new($dbh);
             MusicBrainz::Server::Validation::IsGUID($id) ? $temp->SetMBId($id) : $temp->SetId($id);
             die "Could not load artist $id\n" if (!$temp->LoadFromId());
+            $cache->{$k} = $temp;
+            return $temp;
+        }
+    } 
+    elsif ($type eq 'label')
+    {
+        $k = "label-$id";
+        if (exists $cache->{$k})
+        {
+            return $cache->{$k};
+        }
+        else
+        {
+            my $temp = Label->new($dbh);
+            MusicBrainz::Server::Validation::IsGUID($id) ? $temp->SetMBId($id) : $temp->SetId($id);
+            die "Could not load label $id\n" if (!$temp->LoadFromId());
             $cache->{$k} = $temp;
             return $temp;
         }
@@ -588,6 +649,7 @@ sub xml_relations
         {
              if (($inc & INC_ARTISTREL && $item->{link1_type} eq 'artist') ||
                  ($inc & INC_RELEASEREL && $item->{link1_type} eq 'album') ||
+                 ($inc & INC_LABELREL && $item->{link1_type} eq 'label') ||
                  ($inc & INC_TRACKREL && $item->{link1_type} eq 'track') ||
                  ($inc & INC_URLREL && $item->{link1_type} eq 'url'))
              {
@@ -608,6 +670,7 @@ sub xml_relations
         {
              if (($inc & INC_ARTISTREL && $item->{link0_type} eq 'artist') ||
                  ($inc & INC_RELEASEREL && $item->{link0_type} eq 'album') ||
+                 ($inc & INC_LABELREL && $item->{link0_type} eq 'label') ||
                  ($inc & INC_TRACKREL && $item->{link0_type} eq 'track') ||
                  ($inc & INC_URLREL && $item->{link0_type} eq 'url'))
              {
@@ -629,7 +692,7 @@ sub xml_relations
     return if (!scalar(%rels));
 
     my (%cache);
-    foreach my $ttype (('artist', 'album', 'track', 'url'))
+    foreach my $ttype (('artist', 'album', 'label', 'track', 'url'))
     {
         next if (!defined($rels{$ttype}) || !scalar(@{$rels{$ttype}}));
         my $ttypename = $ttype;
@@ -673,6 +736,11 @@ sub xml_relations
                 my $al = load_object(\%cache, $obj->{DBH}, $rel->{id}, $rel->{type}, 0);
                 my $ar = load_object(\%cache, $obj->{DBH}, $al->GetArtist, 'artist', 0);
                 xml_release($ar, $al, 0);
+            } 
+            elsif ($rel->{type} eq 'label')
+            {
+                print '>';
+                xml_label(load_object(\%cache, $obj->{DBH}, $rel->{id}, $rel->{type}, 0));
             } 
             elsif ($rel->{type} eq 'track')
             {

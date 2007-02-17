@@ -203,5 +203,26 @@ sub URLFromId
 	"/show/url/?urlid=$_[1]";
 }
 
+################################################################################
+package MusicBrainz::Server::LinkEntity::Label;
+MusicBrainz::Server::LinkEntity->Register(__PACKAGE__);
+################################################################################
+
+sub Type { "label" }
+sub Name { "Label" }
+
+sub newFromId
+{
+	my ($class, $dbh, $id) = @_;
+	require Label;
+	my $object = Label->new($dbh);
+	$object->newFromId($id);
+}
+
+sub URLFromId
+{
+	"/show/label/?label=$_[1]";
+}
+
 1;
 # eof LinkEntity.pm
