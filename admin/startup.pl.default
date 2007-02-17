@@ -17,7 +17,7 @@ use warnings;
 eval 'require Devel::SawAmpersand';
 
 # TODO: Check to make sure this path points to where the cgi-bin stuff is
-use lib "/home/robert/musicbrainz/mb_server/cgi-bin";
+use lib "/home/httpd/musicbrainz/mb_server/cgi-bin";
 
 # Make sure we are in a sane environment.
 $ENV{GATEWAY_INTERFACE} =~ /^CGI-Perl/
