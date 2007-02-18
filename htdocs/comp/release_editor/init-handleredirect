@@ -211,6 +211,49 @@
 		delete $ARGS{"labelfilter_search"};
 	}
 
+	# Handle ADD LABEL button
+	# ---------------------------------------------------------------
+	# the user has pressed "Add New Label", forward to the Add
+	# Label workflow.
+	if ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_ADDLABEL"})
+	{
+		# get ADD LABEL fields from the arguments, they will be
+		# stripped from the HASH in the strip function below, but
+		# generally that is what we wont the function to remove.
+		my $labelfilter_field = $ARGS{"labelfilter_field"};
+
+		# must correspond to searchfieldname handed in to /comp/artistfilter.
+		my $labelfilter_search = $ARGS{"labelfilter_search"};
+
+		# strip editsuite fields.
+		my %args = $m->comp("/comp/form/args-strip-editsuitefields", %ARGS);
+		delete $args{"submitvalue"};
+
+		# re-add labelfilter_field, we'll use it when the content is posted back
+		# from the ADD LABEL editor.
+		$args{"labelfilter_field"} = $labelfilter_field;
+
+		# prepare, and escape returnurl. artistfilter_newartistid will reference the
+		# artistid being added in the ADD ARTIST editor.
+		my $returnurl = MusicBrainz::Server::Validation::IsNonNegInteger($releaseid) && $releaseid
+			? "/edit/album/editall.html?"
+			: "/cdi/enter.html?";
+
+		$returnurl .= $m->comp("/comp/args-to-querystring.inc", %args);
+		$returnurl .= "&labelfilter_newlabelid=";
+		$returnurl = uri_escape($returnurl);
+		$labelfilter_search = uri_escape($labelfilter_search);
+
+		# prepare add label form url.
+		my $addlabelurl = "/edit/label/add.html?name=$labelfilter_search&returnurl=$returnurl";
+
+		# /comp/redirect failed, probably because the URL was too long.
+		$r->internal_redirect($addlabelurl);
+		$m->auto_send_headers(0);
+		$m->clear_buffer;
+		$m->abort;
+	}
+
 	# Handle ADD TRACK button
 	# ---------------------------------------------------------------
 	# the user has pressed "Add New Artist", forward to the Add
