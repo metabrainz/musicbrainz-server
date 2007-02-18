@@ -160,9 +160,9 @@
 				and $name !~ /^\[(unknown|data track|silence|no artist)\]$/)
 			{
 				$m->out(qq!<a href="/edit/artist/edit.html?artistid=$id">Edit artist</a>!);
-				$m->out(qq! | <a href="/edit/artist/merge.html?artistid=$id">Merge into ...</a>!);
+				$m->out(qq! | <a href="/edit/artist/merge.html?artistid=$id">Merge into ...</a> | !);
 			}
-			$m->out(qq! | <a href="/edit/album/add.html?artistid=$id">Add release</a>!);
+			$m->out(qq!<a href="/edit/album/add.html?artistid=$id">Add release</a>!);
 
 			if ($id == &ModDefs::VARTIST_ID)
 			{

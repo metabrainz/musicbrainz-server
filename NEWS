@@ -17,3 +17,6 @@ Release 2007-XX-XX:
    * Fixed link to search on the VA page. (#2413)
    * Allow VA as a track artist in the release editor. (#2425)
    * Don't show end date 1970-01-01 for open auto-editor elections. (#2139)
+   * Changed edit language/script and edit attributes pages, to make them
+     more similar to other edit types. (#2092)
+   * Fixed centering of date form fields. (#2097)
