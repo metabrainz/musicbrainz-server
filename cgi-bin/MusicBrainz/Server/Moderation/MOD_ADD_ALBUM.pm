@@ -33,6 +33,14 @@ use base 'Moderation';
 sub Name { "Add Release" }
 (__PACKAGE__)->RegisterHandler;
 
+sub _DecodeText
+{
+	my $t = $_[0];
+	$t =~ s/\$2C/,/g;
+	$t =~ s/\$26/\$/g;
+	return $t;
+}
+
 sub PreInsert
 {
 	my ($self, %opts) = @_;
@@ -66,7 +74,10 @@ sub PreInsert
 	# Then for 1..m release dates:
 	# \--- Release/n/ 	- , 
 	#      |--- CountryId
-	#      \--- Year-Month-Day
+	#      |--- Year-Month-Day
+	#      |--- LabelId
+	#      |--- CatNo
+	#      \--- BarCode
 	#	
 	# The following keys are added to %new after the insert:
 	#
@@ -165,14 +176,20 @@ sub PreInsert
 	for my $i (sort map { /^Release(\d+)$/ ? ($1) : () } keys %new)
 	{
 		my $release = $new{"Release$i"};
-		my ($country, $date) = split m/,/, $release;
+		my ($country, $date, $label, $catno, $barcode) = split m/,/, $release;
 		my ($year, $month, $day) = split m/-/, $date;
+
+		$catno = _DecodeText($catno) if $catno;
+		$barcode = _DecodeText($barcode) if $barcode;
 
 		push @releases, {
 			year	=> $year,
 			month	=> $month,
 			day		=> $day,
 			country	=> $country,
+			label	=> $label,
+			catno	=> $catno,
+			barcode	=> $barcode,
 		};
 	}
 

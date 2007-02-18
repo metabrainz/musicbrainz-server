@@ -156,7 +156,7 @@
 				%ARGS = $m->comp("/comp/release_editor/check-artists", %ARGS);
 			}
 
-			if ($ARGS{"v::checkedartists"})
+			if (not keys %{$ARGS{"v::fields"}} and $ARGS{"v::showform"})
 			{
 				%ARGS = $m->comp("/comp/release_editor/check-labels", %ARGS);
 			}

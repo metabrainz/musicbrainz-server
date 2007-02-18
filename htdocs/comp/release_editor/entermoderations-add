@@ -184,6 +184,14 @@
 		$new .= "FreedbCat=$freedbcat\n" if ($freedbcat ne "");
 		$new .= $trackdata;
 
+		sub _EncodeText
+		{
+			my $t = $_[0];
+			$t =~ s/\$/\$26/g;
+			$t =~ s/,/\$2C/g;
+			return $t;
+		}
+
 		# retrieve the release-dates and countries from the arguments
 		for my $j (sort map { /^rev_year-(\d+)$/ ? ($1) : () } keys %ARGS)
 		{
@@ -191,6 +199,9 @@
 			my $rev_month = $ARGS{"rev_month-$j"};
 			my $rev_day = $ARGS{"rev_day-$j"};
 			my $rev_country = $ARGS{"rev_country-$j"};
+			my $rev_label = $ARGS{"rev_label-$j"};
+			my $rev_catno = $ARGS{"rev_catno-$j"};
+			my $rev_barcode = $ARGS{"rev_barcode-$j"};
 			my $rev_clear = $ARGS{"rev_clear-$j"} || 0;
 
 			$rev_year = "" if ($rev_year eq "yyyy");
@@ -201,7 +212,7 @@
 			{
 				# Do not validate if all fields are blank, or the
 				# fields are blank and the release country is set to the default one.
-				MusicBrainz::Server::Validation::TrimInPlace($rev_year, $rev_month, $rev_day, $rev_country);
+				MusicBrainz::Server::Validation::TrimInPlace($rev_year, $rev_month, $rev_day, $rev_country, $rev_label, $rev_catno, $rev_barcode);
 				if (!($rev_year eq "" and $rev_month eq "" and $rev_day eq "" and
 					 ($rev_country eq "" or $rev_country eq UserPreference::get("default_country"))))
 				{
@@ -220,7 +231,7 @@
 						);
 
 					no warnings;
-					$new .= sprintf("Release%d=%d,%s-%s-%s\n", $j, $rev_country, @ymd);
+					$new .= sprintf("Release%d=%d,%s-%s-%s,%s,%s,%s\n", $j, $rev_country, @ymd, $rev_label, _EncodeText($rev_catno), _EncodeText($rev_barcode));
 				}
 			}
 		}

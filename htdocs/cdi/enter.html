@@ -110,6 +110,7 @@
 	# setup field checks.
 	$ARGS{"v::checkedmacsac"} = 1;
 	$ARGS{"v::checkedartists"} = !$ARGS{"hasmultipletrackartists"};
+	$ARGS{"v::checkedlabels"} = 0;
 
 	my $title = "Add release".($ARGS{"hasmultipletrackartists"} ? " (Various artists)" : "");
 	$m->comp("/comp/sidebar-notitle", pagetitle => $title);
@@ -202,6 +203,11 @@
 				%ARGS = $m->comp("/comp/release_editor/check-artists", %ARGS);
 			}
 
+			if (not keys %{$ARGS{"v::fields"}} and $ARGS{"v::showform"})
+			{
+				%ARGS = $m->comp("/comp/release_editor/check-labels", %ARGS);
+			}
+
 			# CHECK CHARACTERS IN FIELDS WHICH MIGHT MAC/SAC
 			# ---------------------------------------------------------------
 			# checks if the user tries to enter a multiple artists as
@@ -223,7 +229,8 @@
 				if ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_NEXT"} and
 					$ARGS{"v::checkedmacsac"} &&
 					$ARGS{"v::checkedsimilar"} &&
-					$ARGS{"v::checkedartists"})
+					$ARGS{"v::checkedartists"} &&
+					$ARGS{"v::checkedlabels"})
 				{
 					$m->comp("/comp/release_editor/review", %ARGS);
 					$ARGS{"v::showform"} = 0;
