@@ -109,6 +109,9 @@
 	{
 		$ARGS{"v::formsubmitted"} = 1;
 
+		$ARGS{"force_similar"} = 1
+			if $submitvalue eq $ARGS{"SUBMIT_FORCESIMILAR"};
+
 		# because the submit paramter is overloaded, we
 		# need to find the right operation. if SUBMIT_NEXT
 		# was pressed, it will be skipped twice and is

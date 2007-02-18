@@ -135,7 +135,7 @@
 										<form action="<% $ARGS{"v::action"} %>" method="post">
 											<div>
 												<& /comp/form/buttonsubmit,
-													name => "force_similar",
+													name => "submitvalue",
 													value => $ARGS{"SUBMIT_FORCESIMILAR"} &>
 
 												<& /comp/args-to-hidden-fields.inc, %args &>
