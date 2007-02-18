@@ -137,7 +137,26 @@
 			$m->out(qq!<tr><td class="info">!);
 			$m->out(qq!Release: [ !);
 			$m->out(qq!   <a href="/show/permlink.html?id=$mbid&amp;type=release" title="Link to this release">Link to this</a>!);
-			$m->out(qq!	| <a href="/show/release/details.html?releaseid=$releaseid">Details</a>!);
+			$m->out(qq! | <a href="/show/release/details.html?releaseid=$releaseid">Details</a>!);
+
+			# only show the track artists toggle function if the page using the /comp/album
+			# parameter handles the arguments
+			if ($showtrackartiststoggle && !$release->HasMultipleTrackArtists && !$nonalbum)
+			{
+				my $newtext = ($showtrackartists ? "Hide" : "Show")."&nbsp;artists";
+				my $newvalue = ($showtrackartists ? 0 : 1);
+				$m->out(qq! | <a href="/show/release/?releaseid=$releaseid&amp;showtrackartists=$newvalue">$newtext</a>!);
+			}
+
+			# only show the track relationships toggle function if the page using the /comp/album
+			# parameter handles the arguments
+			if ($showrelationshipstoggle)
+			{
+				my $newtext = ($showrelationships ? "Hide" : "Show")."&nbsp;relationships";
+				my $newvalue = ($showrelationships ? 0 : 1);
+				$m->out(qq! | <a href="/show/release/?releaseid=$releaseid&amp;showrelationships=$newvalue">$newtext</a>!);
+			}
+			
 			$m->out(qq! | !);
 			$m->comp("/comp/googlelink", search => [ $artist->GetName, $name ], text => "Search google");
 
@@ -201,42 +220,13 @@
 				else
 				{
 					$m->out(qq!<a href="/edit/album/edit.html?releaseid=$releaseid">Edit title</a> | !);
-					$m->out(qq!<a href="/edit/album/editall.html?releaseid=$releaseid">Edit all</a> | !);
-
-					unless ($release->HasMultipleTrackArtists)
-					{
-						$m->out(qq!<a href="/edit/relationship/showelements.html?type=album&amp;id=$releaseid&amp;name=!.uri_escape($name).qq!">Link</a> | !);
-					}
-
-
-					$m->out(qq!<a href="/edit/albumbatch/done.html?releaseid$releaseid=on">Merge</a>!);
-
+					$m->out(qq!<a href="/edit/album/editall.html?releaseid=$releaseid">Edit all</a>!);
 					if ($release->CanAddTrack)
 					{
 						$m->out(qq! | <a href="/edit/track/add.html?releaseid=$releaseid">Add&nbsp;track</a>!);
 					}
+					$m->out(qq! | <a href="/edit/relationship/showelements.html?type=album&amp;id=$releaseid&amp;name=!.uri_escape($name).qq!">Add Relationship</a>!);
 					$m->out(qq! | <a href="/edit/album/move.html?releaseid=$releaseid">Move</a>!);
-
-					# only show the track artists toggle function if the page using the /comp/album
-					# parameter handles the arguments
-					if ($showtrackartiststoggle && !$release->HasMultipleTrackArtists && !$nonalbum)
-					{
-						my $newtext = ($showtrackartists ? "Hide" : "Show")."&nbsp;artists";
-						my $newvalue = ($showtrackartists ? 0 : 1);
-
-						$m->out(qq! | <a href="/show/release/?releaseid=$releaseid&amp;showtrackartists=$newvalue">$newtext</a>!);
-					}
-
-					# only show the track relationships toggle function if the page using the /comp/album
-					# parameter handles the arguments
-					if ($showrelationshipstoggle)
-					{
-						my $newtext = ($showrelationships ? "Hide" : "Show")."&nbsp;relationships";
-						my $newvalue = ($showrelationships ? 0 : 1);
-
-						$m->out(qq! | <a href="/show/release/?releaseid=$releaseid&amp;showrelationships=$newvalue">$newtext</a>!);
-					}
-
 					if (!$release->HasMultipleTrackArtists)
 					{
 						$m->out(qq! | <a href="/edit/album/mac.html?releaseid=$releaseid">Convert&nbsp;to&nbsp;multiple&nbsp;artists</a>!);
@@ -245,7 +235,7 @@
 					{
 						$m->out(qq! | <a href="/edit/album/sac.html?releaseid=$releaseid">Convert&nbsp;to&nbsp;single&nbsp;artist</a>!);
 					}
-					$m->out(qq! | <a href="/edit/albumbatch/done.html?releaseid$releaseid=on">Merge&nbsp;with&nbsp;...</a>!);
+					$m->out(qq! | <a href="/edit/albumbatch/done.html?releaseid$releaseid=on">Merge</a>!);
 				}
 				$m->out(qq! | <a href="/edit/album/remove.html?releaseid=$releaseid">Remove</a>!);
 			}
