@@ -5,6 +5,13 @@ input.button {
 }
 
 
+/* datefield classes */
+table.formstyle input.datefield,
+table.formstyle input.datefield-hidden,
+table.formstyle input.datefield-missing {
+	text-align: center;
+}
+
 /* textfield classes */
 table.formstyle input.numberfield,
 table.formstyle input.numberfield-hidden,
