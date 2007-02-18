@@ -32,53 +32,27 @@
 </%method>
 
 <%method ShowNewValue>
-% 	my $this = shift;
-% 	my $new = $this->{'new_unpacked'};
+
+%	my $this = shift;
 %	my $releases = $this->{'new_albums'};
 
-%	my ($type, $status) = map {
-%		Album->GetAttributeName($_) || "#$_"
-%	} split ',', $new->{Attributes};
-
-%	$type = "?" if (not defined $type);
-%	$status = "?" if (not defined $status);
-
 	<table class="editfields">
-		<tr>
-			<td class="lbl">New:</td>
-			<td class="field">Type: <% $type %>, Status: <% $status %></td>
-		</tr>
-		<tr>
-			<td class="lbl">Was:</td>
-			<td>
-				<table class="editlisting">
-
+%	my $i = 0;
 %	for my $release (@$releases)
 %	{
-
-					<tr>
-						<td>
-							<& /comp/linkrelease, id => $release->{'id'}, name => $release->{'name'}, strong => 0 &>
-
-%		my ($type, $status) = map {
-%			Album->GetAttributeName($_) || "#$_"
-%		} split ',', $release->{prev};
-%		$type = "?" if not defined($type);
-%		$status = "?" if not defined($status);
-
-						</td>
-						<td>
-							(<span class="explain" title="Type"><% $type %></span>,
-							 <span class="explain" title="Status"><% $status %></span>)
-						</td>
-					</tr>
-
-%	}
-
-				</table>
-			</td>
+		<tr>
+			<td class="lbl"><% $i++ == 0 ? "Old:" : "" %></td>
+%			my ($type, $status) = map { Album->GetAttributeName($_) || "#$_" } split ',', $release->{prev};
+			<td class="field">Type: <% $type || '?' %>, Status: <% $status || '?' %></td>
+			<td class="field">&nbsp; <& /comp/linkrelease, id => $release->{'id'}, name => $release->{'name'}, strong => 0 &></td>
 		</tr>
-
+%	}
+		<tr>
+			<td class="lbl">New:</td>
+%			my $new = $this->{'new_unpacked'};
+%			my ($type, $status) = map { Album->GetAttributeName($_) || "#$_" } split ',', $new->{Attributes};
+			<td class="field">Type: <% $type || '?' %>, Status: <% $status || '?' %></td>
+		</tr>
 	</table>
 
 </%method>

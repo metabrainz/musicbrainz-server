@@ -644,6 +644,11 @@ table.formstyle td.labelnopad {
 }
 
 
+.formstyle .editchanges td.field {
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+
 /* input field cells do not wrap (e.g. for Guess Case buttons), 
    and use as much room as they can get. */
 table.formstyle td.field {

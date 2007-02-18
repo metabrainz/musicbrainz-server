@@ -32,71 +32,32 @@
 </%method>
 
 <%method ShowNewValue>
-<%perl>
 
-	my $self = shift;
-	my $releases = $self->{'_new_albums'};
-
-	my $lang = "?";
- 	if ($self->{_languageid})
-	{
-	   	$lang = MusicBrainz::Server::Language->newFromId(
-					$self->{DBH}, $self->{_languageid});
-		$lang = $lang->GetName;
-	}
-	my $script = "?";
- 	if ($self->{_scriptid})
-	{
-	   	$script = MusicBrainz::Server::Script->newFromId(
-					$self->{DBH}, $self->{_scriptid});
-		$script = $script->GetName;
-	}
-
-</%perl>
+%	my $self = shift;
+%	my $releases = $self->{'_new_albums'};
 
 	<table class="editfields">
-		<tr>
-			<td class="lbl">New:</td>
-			<td class="field">Language: <% $lang %>, Script: <% $script %></td>
-		</tr>
-		<tr>
-			<td class="lbl">Was:</td>
-			<td>
-				<table class="editlisting">
-
+%	my $i = 0;
 %	for my $release (@$releases)
 %	{
-
-					<tr>
-						<td>
-							<& /comp/linkrelease, id => $release->{'id'}, name => $release->{'name'}, strong => 0 &>
-
-%		my $lang = "?";
-%		if ($release->{prev_lang})
-%		{
-%			my $l = MusicBrainz::Server::Language->newFromId(
-%						$self->{DBH}, $release->{prev_lang});
-%			$lang = $l->GetName;
-%		}
-
-%		my $script = "?";
-%		if ($release->{prev_script})
-%		{
-%			my $s = MusicBrainz::Server::Script->newFromId(
-%						$self->{DBH}, $release->{prev_script});
-%			$script = $s->GetName;
-%		}
-
-						</td>
-						<td>
-							(<span class="explain" title="Language"><% $lang %></span>,
-							 <span class="explain" title="Script"><% $script %></span>)
-						</td>
-					</tr>
-
+		<tr>
+			<td class="lbl"><% $i++ == 0 ? "Old:" : "" %></td>
+			<td class="field">
+				Language:
+					<% $release->{prev_lang} ? MusicBrainz::Server::Language->newFromId($self->{DBH}, $release->{prev_lang})->GetName : '?' %>,
+				Script:
+					<% $release->{prev_script} ? MusicBrainz::Server::Script->newFromId($self->{DBH}, $release->{prev_script})->GetName : '?' %>
+			</td>
+			<td class="field">&nbsp; <& /comp/linkrelease, id => $release->{'id'}, name => $release->{'name'}, strong => 0 &></td>
+		</tr>
 %	}
-
-				</table>
+		<tr>
+			<td class="lbl">New:</td>
+			<td class="field">
+				Language:
+					<% $self->{_languageid} ? MusicBrainz::Server::Language->newFromId($self->{DBH}, $self->{_languageid})->GetName : '?' %>,
+				Script:
+					<% $self->{_scriptid} ? MusicBrainz::Server::Script->newFromId($self->{DBH}, $self->{_scriptid})->GetName : '?' %>
 			</td>
 		</tr>
 	</table>
