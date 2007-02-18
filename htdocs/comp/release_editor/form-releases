@@ -56,8 +56,7 @@
 </%perl>
 
 				<tr class="spaced top">
-					<td colspan="3" class="label"></td>
-					<td colspan="4" class="formsection">
+					<td colspan="7" class="formsection">
 						<div style="width: 600px; margin-bottom: 10px">
 							The fields below allow you to modify release events. The country is preset
 							to the one you can specify in the <a href="/user/preferences.html">user
@@ -70,13 +69,13 @@
 				</tr>
 				<tr>
 					<td colspan="3" class="label">Release Events:</td>
-					<td colspan="4"><strong>
-						Year/Month/Day &nbsp;
-						Country &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						Label &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<abbr title="Catalog Number">Catalog #</abbr> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						Barcode
-					</strong></td>
+					<td colspan="4">
+						<strong>Year/Month/Day</strong> -
+						<strong>Country</strong> -
+						<strong>Label</strong> -
+						<strong>Catalog #</strong> -
+						<strong>Barcode</strong>
+					</td>
 				</tr>
 
 <%perl>
@@ -138,15 +137,15 @@
 						<& /comp/form/hiddenfield, "rev_labelorigname-$j", $rev_labelorigname &>
 						<& /comp/form/hiddenfield, "rev_label-$j", $rev_label &>
 						<& /comp/form/numberfield, type => "shorttxtfield", name => "rev_labelname-$j",
-							tabindex => ++$$tabindex, value => $rev_labelname, size => 16, maxlength => 255,
+							tabindex => ++$$tabindex, value => $rev_labelname, size => 10, maxlength => 255,
 							enabled => !$revdel &>
 
 						<& /comp/form/numberfield, type => "shorttxtfield", name => "rev_catno-$j",
-							tabindex => ++$$tabindex, value => $rn, size => 14, maxlength => 255,
+							tabindex => ++$$tabindex, value => $rn, size => 12, maxlength => 255,
 							enabled => !$revdel &>
 
 						<& /comp/form/numberfield, type => "shorttxtfield", name => "rev_barcode-$j",
-							tabindex => ++$$tabindex, value => $rb, size => 14, maxlength => 255,
+							tabindex => ++$$tabindex, value => $rb, size => 12, maxlength => 255,
 							enabled => !$revdel &>
 
 						<& /comp/form/hiddenfield, "rev_id-$j", $rid &>

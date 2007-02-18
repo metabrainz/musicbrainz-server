@@ -75,9 +75,8 @@
 </%perl>
 
 			<tr id="releaselanguage">
-				<td class="label">
+				<td class="label" colspan="3">
 					<label class="label"><% $languagelabel %>:</label></td>
-				<td colspan="2"></td>
 				<td colspan="2">
 					<select name="attr_language" style="<% $dropdownstyle %>" tabindex="<% ++$$tabindex %>" <% $languagecss |n %>>
 						<& /comp/options, \@languages, $attr_language &>
@@ -87,9 +86,8 @@
 					[ <a href="/popup/ReleaseLanguage" title="POPUP::ReleaseLanguage::400::300">help</a> ]</td>
 			</tr>
 			<tr>
-				<td class="label">
+				<td class="label" colspan="3">
 					<label class="label"><% $scriptlabel %>:</label></td>
-				<td colspan="2"></td>
 				<td colspan="2">
 					<select name="attr_script" style="<% $dropdownstyle %>" tabindex="<% ++$$tabindex %>" <% $scriptcss |n %>>
 						<& /comp/options, \@scripts, $attr_script &>

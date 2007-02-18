@@ -123,8 +123,7 @@
 %	}
 
 				<tr class="top">
-					<td colspan="3" class="label"></td>
-					<td colspan="4" class="formsection">
+					<td colspan="7" class="formsection">
 						<div style="width: 600px; margin-bottom: 10px">
 							The fields below allow you to enter track information, and to select
 							track artists. Unless the release has attached Disc IDs, you can
@@ -176,7 +175,12 @@
 						</div>
 					</td>
 					<td>&nbsp;</td>
-					<td class="linkedits">Review edits:</td>
+					<td class="linkedits">
+%					if ($releaseid)
+%					{
+						Review edits:
+%					}
+					</td>
 				</tr>
 
 <%perl>
@@ -245,7 +249,10 @@
 						</div>
 					</td>
 					<td class="linkedits">
+%					if ($releaseid)
+%					{
 						<& /comp/linkedits, type => "artist", id => $ARGS{"artistid"} &>
+%					}
 					</td>
 				</tr>
 
@@ -394,7 +401,10 @@
 						<& /comp/form/hiddenfield, "trackid$i", $trackid &>
 					</td>
 					<td class="linkedits">
+%					if ($releaseid)
+%					{
 						<& /comp/linkedits, type => "track", id => $trackid, mp => $trackmp &>
+%					}
 					</td>
 				</tr>
 
@@ -492,7 +502,10 @@
 						</div>
 					</td>
 					<td class="linkedits">
+%					if ($releaseid)
+%					{
 						<& /comp/linkedits, type => "artist", id => $track_artistid &>
+%					}
 					</td>
 				</tr>
 

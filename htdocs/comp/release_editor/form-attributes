@@ -51,9 +51,8 @@
 </%perl>
 
 			<tr id="attributes" class="spaced">
-				<td class="label">
+				<td class="label" colspan="3">
 					<label class="label"><% $label %>:</label></td>
-				<td colspan="2"></td>
 				<td colspan="2">
 					<select name="attr_type" tabindex="<% ++$$tabindex %>" <% $typecss |n %>>
 					<& /comp/options,
