@@ -131,6 +131,11 @@
 		$orig{"rev_month-$i"} = $ymd[1] ? $ymd[1] : ""; # can possibly be 0 => ""
 		$orig{"rev_day-$i"} = $ymd[2] ? $ymd[2] : ""; # can possibly be 0 => ""
 		$orig{"rev_country-$i"} = $rev->GetCountry;
+		$orig{"rev_catno-$i"} = $rev->GetCatNo;
+		$orig{"rev_barcode-$i"} = $rev->GetBarcode;
+		$orig{"rev_label-$i"} = $rev->GetLabel;
+		$orig{"rev_labelname-$i"} = $rev->GetLabel ? $rev->Label->GetName : undef;
+		$orig{"rev_labelorigname-$i"} = $orig{"rev_labelname-$i"};
 	}
 	%orig = $m->comp("/comp/release_editor/check-releases", %orig);
 

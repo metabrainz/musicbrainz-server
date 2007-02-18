@@ -23,7 +23,7 @@ form {
 
 abbr, acronym, span.abbr, span.explain {
 	cursor: help; 
-	background-color: inherit; color: #666;
+	background-color: inherit;
 }
 
 .bold { 

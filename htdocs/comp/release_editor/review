@@ -105,6 +105,10 @@
 		my $rev_month = $ARGS{"rev_month-$j"};
 		my $rev_day = $ARGS{"rev_day-$j"};
 		my $rev_country = $ARGS{"rev_country-$j"};
+		my $rev_catno = $ARGS{"rev_catno-$j"};
+		my $rev_barcode = $ARGS{"rev_barcode-$j"};
+		my $rev_label = $ARGS{"rev_label-$j"};
+		my $rev_labelname = $ARGS{"rev_labelname-$j"};
 		my $rev_id = $ARGS{"rev_id-$j"};
 		my $rev_clear = $ARGS{"rev_clear-$j"};
 
@@ -138,6 +142,10 @@
 				$rev->SetId($rev_id);
 				$rev->SetCountry($rev_country);
 				$rev->SetYMD(@ymd);
+				$rev->SetCatNo($rev_catno);
+				$rev->SetBarcode($rev_barcode);
+				$rev->{"__labelname"} = $rev_labelname;
+				$rev->SetLabel($rev_label);
 				$rev->SetAlbum($releaseid);
 				push @revnew, $rev;
 			}
@@ -158,6 +166,10 @@
 		my $rev = MusicBrainz::Server::Release->new($mb->{DBH});
 		$rev->SetCountry($orig{"rev_country-$j"});
 		$rev->SetYMD(@ymd);
+		$rev->SetCatNo($orig{"rev_catno-$j"});
+		$rev->SetBarcode($orig{"rev_barcode-$j"});
+		$rev->SetLabel($orig{"rev_label-$j"});
+		$rev->{"__labelname"} = $orig{"rev_labelname-$j"};
 		$rev->SetId($rev_id);
 		$revorighash{$rev->GetId} = $rev;
 		$revremovehash{$rev->GetId} = $rev;
@@ -184,7 +196,10 @@
 		my @oymd = $oldrev->GetYMD;
 		my @nymd = $newrev->GetYMD;
 		if ($oymd[0] != $nymd[0] or $oymd[1] != $nymd[1] or
-			$oymd[2] != $nymd[2] or $oldrev->GetCountry != $newrev->GetCountry)
+			$oymd[2] != $nymd[2] or $oldrev->GetCountry != $newrev->GetCountry or
+			$oldrev->GetCatNo ne $newrev->GetCatNo or
+			$oldrev->GetBarcode ne $newrev->GetBarcode or
+			$oldrev->GetLabel != $newrev->GetLabel)
 		{
 			push @edits, $newrev;
 		}
@@ -433,6 +448,9 @@
 			$nv = $rev->GetSortDate;
 			$nv .= " - ";
 			$nv .= ($country_names{$rev->GetCountry} || "?");
+			$nv .= " - Label: " . $rev->{"__labelname"} if $rev->GetLabel;
+			$nv .= " - Catalog #: " . $rev->GetCatNo if $rev->GetCatNo;
+			$nv .= " - Barcode: " . $rev->GetBarcode if $rev->GetBarcode;
 
 			# release events are special, they are entered
 			# as one edit, therefore show only a link on the first
@@ -462,12 +480,18 @@
 				$ov .= "-" . $revorig->GetDay if ($revorig->GetDay);
 				$ov .= " - ";
 				$ov .= ($country_names{$revorig->GetCountry} || "?");
+				$ov .= " - Label: " . $revorig->{"__labelname"} if $revorig->GetLabel;
+				$ov .= " - Catalog #: " . $revorig->GetCatNo if $revorig->GetCatNo;
+				$ov .= " - Barcode: " . $revorig->GetBarcode if $revorig->GetBarcode;
 
 				$nv = $rev->GetYear;
 				$nv .= "-" . $rev->GetMonth if ($rev->GetMonth);
 				$nv .= "-" . $rev->GetDay if ($rev->GetDay);
 				$nv .= " - ";
 				$nv .= ($country_names{$rev->GetCountry} || "?");
+				$nv .= " - Label: " . $rev->{"__labelname"} if $rev->GetLabel;
+				$nv .= " - Catalog #: " . $rev->GetCatNo if $rev->GetCatNo;
+				$nv .= " - Barcode: " . $rev->GetBarcode if $rev->GetBarcode;
 
 				$m->comp(".showReleaseEdit",
 					mb => $mb,
@@ -497,6 +521,9 @@
 				$ov .= "-" . $revorig->GetDay if ($revorig->GetDay);
 				$ov .= " - ";
 				$ov .= ($country_names{$revorig->GetCountry} || "?");
+				$ov .= " - Label: " . $revorig->{"__labelname"} if $revorig->GetLabel;
+				$ov .= " - Catalog #: " . $revorig->GetCatNo if $revorig->GetCatNo;
+				$ov .= " - Barcode: " . $revorig->GetBarcode if $revorig->GetBarcode;
 				$ov .= "<br/>";
 			}
 

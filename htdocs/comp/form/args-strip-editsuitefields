@@ -42,6 +42,7 @@
 		next if $k =~ /^autoeditorpriv_enabled/i;
 		next if $k =~ /^notetext$/;
 		next if $k =~ /^artistfilter_/;
+		next if $k =~ /^labelfilter_/;
 		next if $k =~ /^freedb_/;
 		next if $k =~ /^submitvalue/;
 		next if $k =~ /^submit/;

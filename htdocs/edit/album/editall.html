@@ -61,6 +61,7 @@
 	$ARGS{"v::action"} = "/edit/album/editall.html";
 	$ARGS{"v::checkedsimilar"} = 1; # no need to check for duplicates, we're editing a release.
 	$ARGS{"v::checkedartists"} = 1; # true by default.
+	$ARGS{"v::checkedlabels"} = 1; # true by default.
 	$ARGS{"v::isva"} = ($ARGS{"artistid"} == &ModDefs::VARTIST_ID ? 1 : 0);
 
 	# LOAD ORIGINAL VALUES
@@ -155,6 +156,11 @@
 				%ARGS = $m->comp("/comp/release_editor/check-artists", %ARGS);
 			}
 
+			if ($ARGS{"v::checkedartists"})
+			{
+				%ARGS = $m->comp("/comp/release_editor/check-labels", %ARGS);
+			}
+
 			# checks if the user tries to enter a multiple artists as
 			# a single artist release, and vice-versa.
 			# this check is ignored if the force_macsac flag has been set.
@@ -173,7 +179,8 @@
 				if ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_NEXT"} and
 					$ARGS{"v::checkedmacsac"} &&
 					$ARGS{"v::checkedsimilar"} &&
-					$ARGS{"v::checkedartists"})
+					$ARGS{"v::checkedartists"} &&
+					$ARGS{"v::checkedlabels"})
 				{
 					$m->comp("/comp/release_editor/review", %ARGS);
 					$ARGS{"v::showform"} = 0;

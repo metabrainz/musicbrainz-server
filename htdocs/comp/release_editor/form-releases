@@ -48,6 +48,9 @@
 		$ARGS{"rev_month-$j"} = "";
 		$ARGS{"rev_day-$j"} = "";
 		$ARGS{"rev_country-$j"} = "";
+		$ARGS{"rev_catno-$j"} = "";
+		$ARGS{"rev_barcode-$j"} = "";
+		$ARGS{"rev_label-$j"} = "";
 	}
 
 </%perl>
@@ -67,7 +70,13 @@
 				</tr>
 				<tr>
 					<td colspan="3" class="label">Release Events:</td>
-					<td colspan="4"><strong>Year/Month/Day &nbsp; Country</strong></td>
+					<td colspan="4"><strong>
+						Year/Month/Day &nbsp;
+						Country &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						Label &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<abbr title="Catalog Number">Catalog #</abbr> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						Barcode
+					</strong></td>
 				</tr>
 
 <%perl>
@@ -77,6 +86,11 @@
 		my $rm = $ARGS{"rev_month-$j"};
 		my $rd = $ARGS{"rev_day-$j"};
 		my $rc = $ARGS{"rev_country-$j"};
+		my $rn = $ARGS{"rev_catno-$j"};
+		my $rb = $ARGS{"rev_barcode-$j"};
+		my $rev_label = $ARGS{"rev_label-$j"};
+		my $rev_labelname = $ARGS{"rev_labelname-$j"};
+		my $rev_labelorigname = $ARGS{"rev_labelorigname-$j"};
 		my $rid = $ARGS{"rev_id-$j"};
 		my $revdel = $ARGS{"rev_clear-$j"} || 0;
 
@@ -120,6 +134,21 @@
 						<select name="rev_country-<% $j %>" tabindex="<% ++$$tabindex %>" <% $countrycss |n %> <% $countryenabled |n %>>
 							<& /comp/options, $countries_menu_2, $rc &>
 						</select>
+
+						<& /comp/form/hiddenfield, "rev_labelorigname-$j", $rev_labelorigname &>
+						<& /comp/form/hiddenfield, "rev_label-$j", $rev_label &>
+						<& /comp/form/numberfield, type => "shorttxtfield", name => "rev_labelname-$j",
+							tabindex => ++$$tabindex, value => $rev_labelname, size => 16, maxlength => 255,
+							enabled => !$revdel &>
+
+						<& /comp/form/numberfield, type => "shorttxtfield", name => "rev_catno-$j",
+							tabindex => ++$$tabindex, value => $rn, size => 14, maxlength => 255,
+							enabled => !$revdel &>
+
+						<& /comp/form/numberfield, type => "shorttxtfield", name => "rev_barcode-$j",
+							tabindex => ++$$tabindex, value => $rb, size => 14, maxlength => 255,
+							enabled => !$revdel &>
+
 						<& /comp/form/hiddenfield, "rev_id-$j", $rid &>
 					</td>
 				</tr>

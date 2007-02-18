@@ -51,6 +51,23 @@ table.formstyle input.trackseq-hidden {
 
 
 /* textfield classes */
+table.formstyle input.shorttxtfield,
+table.formstyle input.shorttxtfield-hidden,
+table.formstyle input.shorttxtfield-missing {
+	background: #fff; color: #000;
+}
+
+table.formstyle input.shorttxtfield-missing {
+	background: #fff5ce; color: #000;
+	border-left: 2px solid #fb5;
+}
+
+table.formstyle input.shorttxtfield-hidden {
+	visibility: hidden;
+}
+
+
+/* textfield classes */
 table.formstyle input.tracklength,
 table.formstyle input.tracklength-hidden,
 table.formstyle input.tracklength-missing {

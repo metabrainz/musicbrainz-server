@@ -191,6 +191,9 @@
 				my $rev_month = $ARGS{"rev_month-$j"};
 				my $rev_day = $ARGS{"rev_day-$j"};
 				my $rev_country = $ARGS{"rev_country-$j"};
+				my $rev_catno = $ARGS{"rev_catno-$j"};
+				my $rev_barcode = $ARGS{"rev_barcode-$j"};
+				my $rev_label = $ARGS{"rev_label-$j"};
 				my $rev_id = $ARGS{"rev_id-$j"};
 				my $rev_clear = $ARGS{"rev_clear-$j"};
 
@@ -224,6 +227,9 @@
 						$rev->SetId($rev_id);
 						$rev->SetCountry($rev_country);
 						$rev->SetYMD(@ymd);
+						$rev->SetCatNo($rev_catno);
+						$rev->SetBarcode($rev_barcode);
+						$rev->SetLabel($rev_label);
 						$rev->SetAlbum($releaseid);
 						push @revnew, $rev;
 					}
@@ -261,7 +267,10 @@
 				my @oymd = $oldrev->GetYMD;
 				my @nymd = $newrev->GetYMD;
 				if ($oymd[0] != $nymd[0] or $oymd[1] != $nymd[1] or
-					$oymd[2] != $nymd[2] or $oldrev->GetCountry != $newrev->GetCountry)
+					$oymd[2] != $nymd[2] or $oldrev->GetCountry != $newrev->GetCountry or
+					$oldrev->GetCatNo ne $newrev->GetCatNo or
+					$oldrev->GetBarcode ne $newrev->GetBarcode or
+					$oldrev->GetLabel != $newrev->GetLabel)
 				{
 					push @edits, {
 						object => $oldrev,
@@ -269,6 +278,9 @@
 						year => $nymd[0],
 						month => $nymd[1],
 						day => $nymd[2],
+						catno => $newrev->GetCatNo,
+						barcode => $newrev->GetBarcode,
+						label => $newrev->GetLabel,
 					};
 				}
 				delete $revorig{$newrev->GetId};

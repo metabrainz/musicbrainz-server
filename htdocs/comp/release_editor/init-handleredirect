@@ -189,6 +189,28 @@
 		}
 	}
 
+	# Handle SELECT_LABEL button
+	# ---------------------------------------------------------------
+	# Handle callback from ADD ARTIST page, or selection
+	# from the artist filter.
+	if ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_ADDLABEL_DONE"} or
+		$ARGS{"submitvalue"} eq $ARGS{"SUBMIT_LABEL_SELECT"})
+	{
+		my $field = $ARGS{"labelfilter_field"};
+		my $newlabelid = $ARGS{"labelfilter_newlabelid"};
+		my $newlabel = $m->comp("/comp/loadlabel", $mb, $newlabelid);
+
+		$ARGS{$field} = $newlabel->GetId;
+		$field =~ s/label/labelname/;
+		$ARGS{$field} = $newlabel->GetName;
+		$field =~ s/labelname/labelorigname/;
+		$ARGS{$field} = $newlabel->GetName;
+
+		delete $ARGS{"labelfilter_field"};
+		delete $ARGS{"labelfilter_newlabelid"};
+		delete $ARGS{"labelfilter_search"};
+	}
+
 	# Handle ADD TRACK button
 	# ---------------------------------------------------------------
 	# the user has pressed "Add New Artist", forward to the Add

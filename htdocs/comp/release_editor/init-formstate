@@ -70,6 +70,8 @@
 	# artistfilter: General buttons
 	$ARGS{"SUBMIT_ADDARTIST"} = "Add new artist »";
 	$ARGS{"SUBMIT_ADDARTIST_DONE"} = "SUBMIT_ADDARTIST_DONE";
+	$ARGS{"SUBMIT_ADDLABEL"} = "Add new label »";
+	$ARGS{"SUBMIT_ADDLABEL_DONE"} = "SUBMIT_ADDLABEL_DONE";
 	$ARGS{"SUBMIT_BACKTOFORM"} = "Back to form";
 
 	# artistfilter: SAC
@@ -83,6 +85,10 @@
 	# artistfilter: CHANGE TRACK ARTIST
 	$ARGS{"SUBMIT_TRACKARTIST_SEARCH"} = "Search for track artist »";
 	$ARGS{"SUBMIT_TRACKARTIST_SELECT"} = "Select track artist »";
+
+	# labelfilter
+	$ARGS{"SUBMIT_LABEL_SEARCH"} = "Search for label »";
+	$ARGS{"SUBMIT_LABEL_SELECT"} = "Select label »";
 
 	# language/script
 	$ARGS{"SUBMIT_LANG_COMPACT"} = "Show compact lists";
