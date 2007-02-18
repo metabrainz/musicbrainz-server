@@ -63,15 +63,15 @@
 	}
 	elsif ( $begin )
 	{
-		$date_str = "begin $begin";
-		$date_str = "born $begin" if $type == &Artist::ARTIST_TYPE_PERSON;
-		$date_str = "founded $begin" if $type == &Artist::ARTIST_TYPE_GROUP;
+		$date_str = "Begin: $begin";
+		$date_str = "Born: $begin" if $type == &Artist::ARTIST_TYPE_PERSON;
+		$date_str = "Founded: $begin" if $type == &Artist::ARTIST_TYPE_GROUP;
 	}
 	elsif ( $end )
 	{
-		$date_str = "end $end";
-		$date_str = "deceased $end" if $type == &Artist::ARTIST_TYPE_PERSON;
-		$date_str = "dissolved $end" if $type == &Artist::ARTIST_TYPE_GROUP;
+		$date_str = "End: $end";
+		$date_str = "Deceased: $end" if $type == &Artist::ARTIST_TYPE_PERSON;
+		$date_str = "Dissolved: $end" if $type == &Artist::ARTIST_TYPE_GROUP;
 	}
 
 
@@ -88,21 +88,24 @@
 	$m->out(qq!  </span>!) if ($artist->GetModPending);
 	$m->out(qq!</a></td></tr>!);
 
-	# info box, a) resolution b) start-end date c) artist-type d) sortname
-	$m->out(qq!<tr>!);
-	$m->out(qq!<td class="info">!);
-	$m->out($m->interp->apply_escapes($resolution, 'h') . qq!<br />!) if ($resolution);
+	# Info box, a) resolution b) start-end date c) artist-type d) sortname
+	$m->out('<tr><td class="info">');
+	$m->out($m->interp->apply_escapes($resolution, 'h') . '<br />') if ($resolution);
 
-	$m->out(qq!($date_str)!) if ($date_str ne "");
-	$m->out(qq!&nbsp;&nbsp;Type: $type_name!) if ($type);
-	$m->out("&nbsp;&nbsp;Edit strictness: $strict ")
-	   if ($showmodlinks);
-	$m->out(qq!<br />!) if ($type || $date_str ne "");
+	my @info;
+	push @info, "$date_str"
+		if $date_str;
+	push @info, "Type: $type_name"
+		if $type;
+	push @info, "Edit strictness: $strict"
+		if $showmodlinks;
+	$m->out(join(', ', @info));
+	$m->out('<br />')
+		if @info;
 
-	$m->out($m->interp->apply_escapes($sortname, 'h')) if ($name ne $sortname);
-	$m->out(qq!</td>!);
-	$m->out(qq!</tr>!);
-
+	$m->out($m->interp->apply_escapes($sortname, 'h'))
+		if ($name ne $sortname);
+	$m->out('</td></tr>');
 
 	# Row 2: non-editing links
 	if ($showlinks)
