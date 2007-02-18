@@ -119,6 +119,10 @@
 
 		$m->out(sprintf qq!<a href="/show/permlink.html?id=$mbid&amp;type=artist" title="Link to this artist">Link to this</a>!, uri_escape($name));
 		$m->out(qq! | <a href="/show/artist/details.html?artistid=$id" title="Artist details">Details</a>!);
+		if ($id != &ModDefs::VARTIST_ID)
+		{
+				$m->out(qq! | <a href="/user/subscribe.html?artistid=$id">Subscribe</a>!);
+		}
 		$m->out(qq! | <a href="/show/artist/aliases.html?artistid=$id" title="Artist aliases">Aliases</a>!);
 		if ($id != &ModDefs::VARTIST_ID)
 		{
@@ -154,17 +158,16 @@
 			{
 				$m->out(qq!<a href="/edit/artist/edit.html?artistid=$id">Edit artist</a>!);
 				$m->out(qq! | <a href="/edit/artist/merge.html?artistid=$id">Merge into ...</a>!);
-				$m->out(qq! | <a href="/user/subscribe.html?artistid=$id">Subscribe</a> | !);
 			}
-			$m->out(qq!<a href="/edit/album/add.html?artistid=$id">Add release</a> | !);
+			$m->out(qq! | <a href="/edit/album/add.html?artistid=$id">Add release</a>!);
 
 			if ($id == &ModDefs::VARTIST_ID)
 			{
-				$m->out(qq!<a href="/freedb/freedb.html">Import release</a> !);
+				$m->out(qq! | <a href="/freedb/freedb.html">Import release</a>!);
 			}
 			else
 			{
-				$m->out(sprintf qq!<a href="/freedb/freedb.html?search=%s">Import release</a> !, uri_escape($name));
+				$m->out(sprintf qq! | <a href="/freedb/freedb.html?search=%s">Import release</a>!, uri_escape($name));
 
 				require Album;
 				my $mb = $m->comp("/comp/dblogin");
@@ -172,10 +175,10 @@
 				if (my @non = $al->FindNonAlbum($id))
 				{
 					my $nonid = $non[0]->GetMBId;
-					$m->out(qq!| <a href="/show/release/?mbid=$nonid">Non-album tracks</a>!);
+					$m->out(qq! | <a href="/show/release/?mbid=$nonid">Non-album tracks</a>!);
 
 				} else {
-					$m->out(qq!| <a href="/edit/track/addnonalbum.html?artistid=$id">Add non-album tracks</a>!);
+					$m->out(qq! | <a href="/edit/track/addnonalbum.html?artistid=$id">Add non-album tracks</a>!);
 				}
 			}
 			if ($id != &ModDefs::VARTIST_ID && UserStuff->IsAutoEditor($session{privs}))
