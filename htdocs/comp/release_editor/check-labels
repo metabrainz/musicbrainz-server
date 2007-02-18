@@ -46,6 +46,11 @@
 		my $labelname = $ARGS{"rev_labelname-$j"};
 		my $labelorigname = $ARGS{"rev_labelorigname-$j"};
 
+		if (!$labelname) {
+			$ARGS{"rev_label-$j"} = '';
+			next;
+		}
+
 		if (!$labelid || $labelname ne $labelorigname)
 		{
 			my @labels = @{ $label->GetLabelsFromName($labelname) };
