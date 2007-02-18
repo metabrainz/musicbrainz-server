@@ -130,18 +130,6 @@
 				next;
 			}
 
-			# Use the Search Engine to get a list of artists matching
-			# the query $curr_artistname. This takes the alias' into
-			# account, too.
-			my $engine = SearchEngine->new($mb->{DBH}, "artist");
-			$engine->Search(
-
-				# search for the value of the search field, else
-				# for the existing name.
-				query => $artistfilter_search || $curr_artistname,
-				limit => 0,
-			);
-
 </%perl>
 
 			<form method="post" action="<% $ARGS{"v::action"} %>" >
@@ -170,7 +158,6 @@
 
 							# hand-in the SearchEngine to the artistfilter.
 							# This will prevent it from carrying out an own search.
-							engine => $engine,
 							search => $artistfilter_search || $curr_artistname,
 							searchfieldname => "artistfilter_search",
 
