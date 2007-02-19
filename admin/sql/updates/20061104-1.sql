@@ -153,8 +153,8 @@ CREATE TABLE lt_label_url
 );
 
 
-insert into Label (Name, GID, ModPending, Page) 
-      values ('Deleted Label', 'f43e252d-9ebf-4e8e-bba8-36d080756cc1', 0, 0); 
+insert into Label (Name, SortName, GID, ModPending, Page) 
+      values ('Deleted Label', 'Deleted Label', 'f43e252d-9ebf-4e8e-bba8-36d080756cc1', 0, 0); 
 
 
 ALTER TABLE release ADD label INTEGER;
