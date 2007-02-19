@@ -10,8 +10,8 @@ insert into Artist (Name, SortName, GID, ModPending, Page)
       values ('Deleted Artist', 'Deleted Artist', 
               'c06aa285-520e-40c0-b776-83d2c9e8a6d1', 0, 0); 
 
-insert into Label (Name, GID, ModPending, Page) 
-      values ('Deleted Label', 'f43e252d-9ebf-4e8e-bba8-36d080756cc1', 0, 0); 
+insert into Label (Name, SortName, GID, ModPending, Page) 
+      values ('Deleted Label', 'Deleted Label', 'f43e252d-9ebf-4e8e-bba8-36d080756cc1', 0, 0); 
 
 INSERT INTO moderator (id, name, password) VALUES (1, 'Anonymous', '');
 INSERT INTO moderator (id, name, password) VALUES (2, 'FreeDB', '');
