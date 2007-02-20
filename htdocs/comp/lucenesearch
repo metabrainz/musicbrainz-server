@@ -30,6 +30,7 @@
 %					$m->out(qq!<option value="track" ! . ($session{"as_type"} eq "track" ? 'selected="selected"' : '') . qq!>Tracks</option>!);
 %					$m->out(qq!<option value="annotation" ! . ($session{"as_type"} eq "annotation" ? 'selected="selected"' : '') . qq!>Annotations</option>!);
 %					$m->out(qq!<option value="freedb" ! . ($session{"as_type"} eq "freedb" ? 'selected="selected"' : '') . qq!>FreeDB</option>!);
+%					$m->out(qq!<option value="label" ! . ($session{"as_type"} eq "label" ? 'selected="selected"' : '') . qq!>Labels</option>!);
 				</select>
 			</td>
 		</tr>
