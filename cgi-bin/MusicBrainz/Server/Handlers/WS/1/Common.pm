@@ -44,28 +44,31 @@ use Apache::File ();
 use Encode;
 use Album;
 
-use constant INC_ARTIST      => 0x000001;
-use constant INC_COUNTS      => 0x000002;
-use constant INC_LIMIT       => 0x000004;
-use constant INC_TRACKS      => 0x000008;
-use constant INC_DURATION    => 0x000010;
-use constant INC_ARTISTREL   => 0x000020;
-use constant INC_RELEASEREL  => 0x000040;
-use constant INC_DISCS       => 0x000080;
-use constant INC_TRACKREL    => 0x000100;
-use constant INC_URLREL      => 0x000200;
-use constant INC_RELEASEINFO => 0x000400;
-use constant INC_ARTISTID    => 0x000800;
-use constant INC_RELEASEID   => 0x001000;
-use constant INC_TRACKID     => 0x002000;
-use constant INC_TITLE       => 0x004000;
-use constant INC_TRACKNUM    => 0x008000;
-use constant INC_TRMIDS      => 0x010000;
-use constant INC_RELEASES    => 0x020000;
-use constant INC_PUIDS       => 0x040000;
-use constant INC_ALIASES     => 0x080000;
-use constant INC_LABELS      => 0x100000;
-use constant INC_LABELREL    => 0x200000;
+use constant INC_ARTIST       => 0x000001;
+use constant INC_COUNTS       => 0x000002;
+use constant INC_LIMIT        => 0x000004;
+use constant INC_TRACKS       => 0x000008;
+use constant INC_DURATION     => 0x000010;
+use constant INC_ARTISTREL    => 0x000020;
+use constant INC_RELEASEREL   => 0x000040;
+use constant INC_DISCS        => 0x000080;
+use constant INC_TRACKREL     => 0x000100;
+use constant INC_URLREL       => 0x000200;
+use constant INC_RELEASEINFO  => 0x000400;
+use constant INC_ARTISTID     => 0x000800;
+use constant INC_RELEASEID    => 0x001000;
+use constant INC_TRACKID      => 0x002000;
+use constant INC_TITLE        => 0x004000;
+use constant INC_TRACKNUM     => 0x008000;
+use constant INC_TRMIDS       => 0x010000;
+use constant INC_RELEASES     => 0x020000;
+use constant INC_PUIDS        => 0x040000;
+use constant INC_ALIASES      => 0x080000;
+use constant INC_LABELS       => 0x100000;
+use constant INC_LABELREL     => 0x200000;
+use constant INC_TRACKLVLRELS => 0x400000;
+
+use constant INC_MASK_RELS    => INC_ARTISTREL | INC_RELEASEREL | INC_TRACKREL | INC_URLREL | INC_LABELREL;
 
 # This hash is used to convert the long form of the args into a short form that can 
 # be used easier 
@@ -93,6 +96,7 @@ my %incShortcuts =
     'aliases'            => INC_ALIASES,
     'labels'             => INC_LABELS,
     'label-rels'         => INC_LABELREL,
+    'track-level-rels'   => INC_TRACKLVLRELS
 );
 
 my %typeShortcuts =
@@ -433,6 +437,7 @@ sub xml_track_list
 {
 	require Track;
 	my ($ar, $al, $inc) = @_;
+	my $tr_inc = ($inc & INC_TRACKLVLRELS) ? ($inc & INC_MASK_RELS) : 0;
 
     my $tracks = $al->GetTracks;
     if (scalar(@$tracks))
@@ -453,11 +458,11 @@ sub xml_track_list
                 $ar = Artist->new($tr->{DBH});
                 $ar->SetId($tr->GetArtist);
                 $ar->LoadFromId();
-                xml_track($ar, $tr, 0);
+                xml_track($ar, $tr, $tr_inc);
             }
             else
             {
-                xml_track(undef, $tr, 0);
+                xml_track(undef, $tr, $tr_inc);
             }
         }
         print '</track-list>';
