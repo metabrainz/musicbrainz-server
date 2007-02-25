@@ -63,6 +63,9 @@
 			{
 				$m->out(qq! | <a href="/edit/relationship/addurl.html?id=$id&amp;type=$type&amp;name=$ename">Relate to URL</a>!);
 			}
+
+			$m->out(qq!<span class="RELATE_TO_LINK" id="RELATE_TO::${id}::${type}"></span>!);
+
 			if ($count)
 			{
 				$m->out(sprintf qq! | <a href="/show/%s/relationships.html?%sid=$id%s">%s</a>!,
@@ -80,6 +83,9 @@
 			{
 				$m->out(qq! | <a href="/edit/relationship/addurl.html?id=$id&amp;type=$type&amp;name=$ename">Relate to URL</a>!);
 			}
+
+			$m->out(qq!<span class="RELATE_TO_LINK" id="RELATE_TO::${id}::${type}"></span>!);
+
 			if ($count)
 			{
 				$m->out(sprintf qq! | <a href="/show/%s/relationships.html?%sid=$id">View relationships</a>!,

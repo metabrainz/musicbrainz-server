@@ -173,6 +173,12 @@
 	RewriteRule	^/mod/annotation/album-history.html(.*)		/edit/annotation/album/history.html$1 [R=301,L]
 	RewriteRule	^/mod/annotation/(.*)						/edit/annotation/$1 [R=301,L]
 
+	PerlModule MusicBrainz::Server::Handlers::WS::Private::Lookup
+	<Location /ws/priv/lookup>
+		SetHandler perl-script
+		PerlHandler MusicBrainz::Server::Handlers::WS::Private::Lookup
+	</Location>
+
 </VirtualHost>
 
 PerlRestartHandler MusicBrainz::Server::LogFile::RestartHandler

@@ -60,7 +60,7 @@
 	my $find_label_for = undef;
 	for my $rel (@$releases)
 	{
-		if ($rel->{label_name} && not defined $rel->{label})
+		if (!$rel->{label} || $rel->{labelname} ne $rel->{orig_labelname})
 		{
 			if (defined $submit_select and defined $selected_label) 
 			{
@@ -82,7 +82,7 @@
 	return $m->comp("/comp/redirect", "/edit/albumreleases/review.html?releaseid=".$releaseid)
 		if not defined $find_label_for;
 
-	$search = $find_label_for->{label_name}
+	$search = $find_label_for->{labelname}
 		if not defined $search;
 
 	# Instantiate MusicBrainz object

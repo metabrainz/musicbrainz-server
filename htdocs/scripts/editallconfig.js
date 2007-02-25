@@ -277,6 +277,15 @@ function ReleaseEditor() {
 						}
 					}
 
+					i = 0;
+					while ((obj = es.ui.getField("rev_labelname-"+(i++))) != null) {
+						jsselect.registerAjaxSelect(obj, 'label', partial(function(i, entity) {
+							es.ui.getField('rev_label-'+i).value = entity.id;
+							es.ui.getField('rev_labelname-'+i).value = entity.name;
+							es.ui.getField('rev_labelorigname-'+i).value = entity.name;
+						}, i - 1));
+					}
+
 				} else {
 					mb.log.error("Did not find the 'hasmultipletrackartists' field");
 				}
@@ -537,7 +546,7 @@ function ReleaseEditor() {
 			el.src = cb.checked ? this.editartist_on.src : this.editartist_off.src;
 			el.title = cb.checked ? this.editartist_title_on : this.editartist_title_off;
 
-			this.setArtistDisplayFromField(cb.checked, field, index);
+			this.setArtistDisplayFromField(cb.checked, field, index, el);
 
 		} else {
 			mb.log.error("Unexpected element id: $", id);
@@ -607,7 +616,7 @@ function ReleaseEditor() {
 	/**
 	 *
 	 */
-	this.setArtistDisplayFromField = function(isEditMode, field, index) {
+	this.setArtistDisplayFromField = function(isEditMode, field, index, img) {
 
 		// depending on the field (release_artist|track_artist), find hidden input element
 		// which contains the artistid and the artistname
@@ -626,7 +635,7 @@ function ReleaseEditor() {
 
 			// create entity object, and update the artist editor
 			var entity = { id: e_id, name: e_name, resolution: e_resolution };
-			ae.setArtistDisplay(isEditMode, entity, field, index);
+			ae.setArtistDisplay(isEditMode, entity, field, index, img);
 
 		} else {
 			mb.log.error("Could not get field values! id: $, name: $, resolution: $",
@@ -645,7 +654,7 @@ function ReleaseEditor() {
 	 * @param 	id
 	 * @param 	name
 	 */
-	this.setArtistDisplay = function(isEditMode, entity, field, index) {
+	this.setArtistDisplay = function(isEditMode, entity, field, index, img) {
 
 		// get div elements containing the display/hidden form elements
 		var displayTD, displayID = this.getFieldId(field, "display", index);
@@ -675,6 +684,16 @@ function ReleaseEditor() {
 
 			// update the display td with either the field, or the artist name.
 			displayTD.innerHTML = s.join("");
+			if (isEditMode) {
+				jsselect.registerAjaxSelect(displayTD.childNodes[0], 'artist', function(entity) {
+					ae.setArtistDisplay(false, entity, field, index);
+					es.ui.getField(f_id).value = entity.id;
+					es.ui.getField(f_name).value = entity.name;
+					es.ui.getField(f_resolution).value = entity.resolution;
+					img.src = ae.editartist_off.src;
+					img.title = ae.editartist_title_off;
+				})
+			}
 
 			// show the editing fields if we are in editing mode
 			fieldsTD.style.display = isEditMode ? "" : "none";

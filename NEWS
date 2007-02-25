@@ -8,6 +8,10 @@ Release 2007-XX-XX:
    * IDs of artists, releases, tracks and labels will stay valid
      after merge. (#912)
    * Added links to open edits to the top editors/voters page. (#2364)
+   * Added option to the XML web service to return ARs for tracks
+     in the release XML.
+   * In-page artist and label lookups in the release editor.
+   * JavaScript toolbox for quick AR adding.
 
  * Bug Fixes:
    * Fixed ':hover' CSS for voting radiobuttons in IE7. (#2352)

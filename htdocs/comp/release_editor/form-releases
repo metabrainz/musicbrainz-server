@@ -67,16 +67,17 @@
 						</div>
 					</td>
 				</tr>
-				<tr>
-					<td colspan="3" class="label">Release Events:</td>
-					<td colspan="4">
-						<strong>Year/Month/Day</strong> -
-						<strong>Country</strong> -
-						<strong>Label</strong> -
-						<strong>Catalog #</strong> -
-						<strong>Barcode</strong>
-					</td>
-				</tr>
+				<tr class="top">
+					<td colspan="7" class="formsection">
+					<table>
+					<tr>
+						<td colspan="2"></td>
+						<td><strong>Date (<abbr title="Year">Y</abbr>/<abbr title="Day">M</abbr>/<abbr title="Day">D</abbr>):</strong></td>
+						<td><strong>Country:</strong></td>
+						<td><strong>Label:</strong></td>
+						<td><strong>Catalog #:</strong></td>
+						<td><strong>Barcode:</strong></td>
+					</tr>
 
 <%perl>
 	for ($j=0; $j < $num_releases; ++$j)
@@ -110,56 +111,59 @@
 							 $checkreleases{"badcountry$j"});
 
 </%perl>
-
 				<tr>
-					<td colspan="2" class="label"><% $label %></td>
+					<td><% $label %></td>
 					<td>
 						<& /comp/form/checkbox, name => "rev_clear-$j", tabindex => ++$$tabindex, checked => $revdel,
 							title => "Tick this box to remove this release event" &>
 					</td>
-					<td colspan="4">
+					<td>
 						<& /comp/form/numberfield, type => "yearfield", name => "rev_year-$j",
 							cssclass => $datecss, tabindex => ++$$tabindex, value => $ry, size => 4, maxlength => 4,
 							enabled => !$revdel &>
-
 						<& /comp/form/numberfield, type => "monthfield", name => "rev_month-$j",
 							cssclass => $datecss, tabindex => ++$$tabindex, value => $rm, size => 2, maxlength => 2,
 							enabled => !$revdel &>
-
 						<& /comp/form/numberfield, type => "dayfield", name => "rev_day-$j",
 							cssclass => $datecss, tabindex => ++$$tabindex, value => $rd, size => 2, maxlength => 2,
 							enabled => !$revdel &>
-
+					</td>
+					<td>
 						<select name="rev_country-<% $j %>" tabindex="<% ++$$tabindex %>" <% $countrycss |n %> <% $countryenabled |n %>>
 							<& /comp/options, $countries_menu_2, $rc &>
 						</select>
-
+					</td>
+					<td>
 						<& /comp/form/hiddenfield, "rev_labelorigname-$j", $rev_labelorigname &>
 						<& /comp/form/hiddenfield, "rev_label-$j", $rev_label &>
 						<& /comp/form/numberfield, type => "shorttxtfield", name => "rev_labelname-$j",
-							tabindex => ++$$tabindex, value => $rev_labelname, size => 10, maxlength => 255,
+							tabindex => ++$$tabindex, value => $rev_labelname, size => 15, maxlength => 255,
 							enabled => !$revdel &>
-
+					</td>
+					<td>
 						<& /comp/form/numberfield, type => "shorttxtfield", name => "rev_catno-$j",
 							tabindex => ++$$tabindex, value => $rn, size => 12, maxlength => 255,
 							enabled => !$revdel &>
-
+					</td>
+					<td>
 						<& /comp/form/numberfield, type => "shorttxtfield", name => "rev_barcode-$j",
 							tabindex => ++$$tabindex, value => $rb, size => 12, maxlength => 255,
 							enabled => !$revdel &>
-
 						<& /comp/form/hiddenfield, "rev_id-$j", $rid &>
 					</td>
 				</tr>
 % 	}
-
 				<tr>
-					<td colspan="3">&nbsp;</td>
-					<td colspan="4">
+					<td colspan="2">&nbsp;</td>
+					<td colspan="5">
 						<& /comp/form/buttonsubmit, value => $ARGS{"SUBMIT_ADDRELEASEEVENT"},
 							tabindex => ++$$tabindex, id => "btnAddReleaseEvent" &>
 					</td>
 				</tr>
+					</table>
+					</td>
+				</tr>
+
 
 
 %	if (keys %checkreleases > 1)

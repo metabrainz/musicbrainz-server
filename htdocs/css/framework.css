@@ -631,6 +631,7 @@ table.formstyle td.label {
 	text-align: right;
 	padding-right: 15px;
 	padding-left: 0px;
+	width: 100px;	
 }
 
 table.formstyle td.labelnopad {
@@ -639,7 +640,7 @@ table.formstyle td.labelnopad {
 	text-align: right;
 	padding-right: 0px;
 	padding-left: 0px;
-	width: 150px;
+	width: 100px;
 }
 
 
@@ -747,6 +748,50 @@ table.modpending ul.modpending {
 
 table.modpending ul.modpending li {
 	margin: 0px; padding: 0px;
+}
+
+a.ajaxSelectOption,
+a.ajaxSelectOption:visited,
+a.ajaxSelectOption:link,
+a.ajaxSelectOption:focus,
+a.ajaxSelectOption:active {
+	display: block;
+	text-decoration: none;
+	background-color: #FFF;
+	color: #000;
+}
+
+a.ajaxSelectOption:hover {
+	background-color: #7777AA;
+	color: #FFF;
+	text-decoration: none;
+}
+
+div.ajaxSelect {
+	border: solid 1px #666;
+	padding: 2px;
+	background-color: #FFF;
+}
+
+div.ajaxSelectLoading {
+	font-size: 11px;
+	color: #666;
+	padding: 2px;
+	font-style: italic;
+}
+
+div.ajaxSelectLoading img {
+	vertical-align: top;
+}
+
+div.ajaxSelectButtonBox {
+	padding-top: 2px;
+	border-top: solid 1px #999;
+	margin-top: 2px;
+}
+
+span.small {
+	font-size: 11px;
 }
 
 /* vi: set ts=4 sw=4 ft=mason : */

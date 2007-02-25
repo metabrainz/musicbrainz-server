@@ -103,9 +103,12 @@
 		$rel->{country} = $c
 			if grep { $_->[0] == $c } @$countries_menu;
 
-		my $label = $ARGS{"label".$rel->{id}};
-		$rel->{label_name} = $label if defined $label;
-		delete $rel->{label};
+		my $labelname = $ARGS{"labelname" . $rel->{id}};
+		$rel->{labelname} = $labelname if defined $labelname;
+		my $orig_labelname = $ARGS{"orig_labelname" . $rel->{id}};
+		$rel->{orig_labelname} = $orig_labelname if defined $orig_labelname;
+		my $label = $ARGS{"label" . $rel->{id}};
+		$rel->{label} = $label if defined $label;
 		my $catno = $ARGS{"catno".$rel->{id}};
 		$rel->{catno} = $catno if defined $catno;
 		my $barcode = $ARGS{"barcode".$rel->{id}};
@@ -175,6 +178,9 @@
 
 	<& /comp/stylemenu &>
 
+	<script type="text/javascript" src="/scripts/MochiKit/MochiKit.js"></script>
+	<script type="text/javascript" src="/scripts/jsselect.js"></script>
+	<script type="text/javascript" src="/scripts/editreleasesconfig.js"></script>
 	<script type="text/javascript" src="validate.js"></script>
 
 	<form method="post"
@@ -235,9 +241,7 @@
 				<td>
 					<table style="formstyle" border="0" cellspacing="0" cellpadding="0">
 						<tr class="header">
-							<td>Year:</td>
-							<td>Month:</td>
-							<td>Day:</td>
+							<td><strong>Date (<abbr title="Year">Y</abbr>/<abbr title="Day">M</abbr>/<abbr title="Day">D</abbr>):</strong></td>
 							<td>Country:</td>
 							<td>Label:</td>
 							<td>Catalog #:</td>
@@ -247,44 +251,39 @@
 						</tr>
 <%perl>
 
- 	for my $rel (@$releases)
+	my $tabindex = 0;
+	for my $rel (@$releases)
 	{
+		my $datecss = "";
 		$m->out(sprintf "<tr %s>", ($rel->{modpending} ? qq! class="mp"!  : ""));
 
 </%perl>
-							<td>
-								<input 	type="text" class="numberfield" name="y<% $rel->{"id"} %>"
-										value="<% $rel->{year}||'' %>"
-										size="4" maxlength="4"
-										style="text-align: center" /></td>
-							<td>
-								<input 	type="text" class="numberfield" name="m<% $rel->{"id"} %>"
-										value="<% $rel->{month}||'' %>"
-										size="2" maxlength="2"
-										style="text-align: center" /></td>
-							<td>
-								<input 	type="text" class="numberfield" name="d<% $rel->{"id"} %>"
-										value="<% $rel->{day}||'' %>"
-										size="2" maxlength="2"
-										style="text-align: center" /></td>
-							<td>
-								<select name="country<% $rel->{"id"} %>">
-									<& /comp/options, ($rel->{country} ? $countries_menu : $countries_menu_2), $rel->{country} &>
-								</select></td>
-							<td>
-								<input 	type="text" class="textfield" name="label<% $rel->{"id"} %>"
-										value="<% $rel->{label_name}||'' %>" style="width: 8em" /></td>
-							<td>
-								<input 	type="text" class="textfield" name="catno<% $rel->{"id"} %>"
-										value="<% $rel->{catno}||'' %>" style="width: 8em" /></td>
-							<td>
-								<input 	type="text" class="textfield" name="barcode<% $rel->{"id"} %>"
-										value="<% $rel->{barcode}||'' %>" style="width: 8em" /></td>
-							<td align="center">
-								<input 	type="checkbox" name="releasedel<% $rel->{"id"} %>"
-										value="1" <% $rel->{'delete'} ? "checked" : "" %>
-										title="Active this checkbox to remove this release event" /></td>
-						</tr>
+<td>
+	<& /comp/form/numberfield, type => "yearfield", name => "y" . $rel->{"id"},
+		cssclass => $datecss, tabindex => ++$tabindex, value => $rel->{year} || '', size => 4, maxlength => 4 &>
+	<& /comp/form/numberfield, type => "monthfield", name => "m" . $rel->{"id"},
+		cssclass => $datecss, tabindex => ++$tabindex, value => $rel->{month} || '', size => 2, maxlength => 2 &>
+	<& /comp/form/numberfield, type => "dayfield", name => "d" . $rel->{"id"},
+		cssclass => $datecss, tabindex => ++$tabindex, value => $rel->{day} || '', size => 2, maxlength => 2 &></td>
+<td>
+	<select name="country<% $rel->{"id"} %>">
+		<& /comp/options, ($rel->{country} ? $countries_menu : $countries_menu_2), $rel->{country} &>
+	</select></td>
+<td>
+	<& /comp/form/hiddenfield, "orig_labelname" . $rel->{"id"}, $rel->{orig_labelname} || '' &>
+	<& /comp/form/hiddenfield, "label" . $rel->{"id"}, $rel->{label} || '' &>
+	<& /comp/form/numberfield, type => "shorttxtfield", name => "labelname" . $rel->{"id"}, cssclass => " labelname",
+		tabindex => ++$tabindex, value => $rel->{labelname} || '', size => 15, maxlength => 255 &></td>
+<td>
+	<& /comp/form/numberfield, type => "shorttxtfield", name => "catno" . $rel->{"id"},
+		tabindex => ++$tabindex, value => $rel->{catno} || '', size => 12, maxlength => 255 &></td>
+<td>
+	<& /comp/form/numberfield, type => "shorttxtfield", name => "barcode" . $rel->{"id"},
+		tabindex => ++$tabindex, value => $rel->{barcode} || '', size => 12, maxlength => 255 &></td>
+<td align="center">
+	<input type="checkbox" name="releasedel<% $rel->{"id"} %>" value="1" <% $rel->{'delete'} ? "checked" : "" %>
+		title="Active this checkbox to remove this release event" /></td>
+</tr>
 % 	}
 
 % 	if (not @$releases)

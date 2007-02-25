@@ -95,6 +95,9 @@
 </%perl>
 </%def>
 
+<script src="/scripts/MochiKit/MochiKit.js"></script>
+<script src="/scripts/jsselect.js"></script>
+<script src="/scripts/rellinks.js"></script>
 <div class="RelationshipBox">
 
 <%perl>
