@@ -724,6 +724,14 @@ td.trk *, td.did *, td.trm *, td.rdate * {
 	text-align: center 
 } 
 
+#CompactReleaseList td.rdate,
+#CompactReleaseList td.rst,
+#CompactReleaseList td.trm,
+#CompactReleaseList td.trk,
+#CompactReleaseList td.did { 
+	white-space: nowrap;
+} 
+
 /* tag box */
 #CompactReleaseList td.rtag { 
 	padding: 0 0.6em; 

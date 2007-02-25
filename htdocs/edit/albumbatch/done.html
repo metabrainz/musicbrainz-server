@@ -53,23 +53,7 @@
 		$id = $1 if (/releaseid(\d+)/);
 		next if (!defined $id || $ARGS{$_} eq "");
 
-		if ($ARGS{$_} eq "off")
-		{
-			my $i = 0;
-			foreach (@releaseids)
-			{
-				if ($_ == $id)
-				{
-					splice(@releaseids, $i, 1);
-					last;
-				}
-				$i++;
-			}
-		}
-		else
-		{
-			push @releaseids, $id;
-		}
+		push @releaseids, $id;
 	}
 
 	# Remove dupes
@@ -269,6 +253,7 @@
 		</table>
 	<& /comp/tableend &>
 
+	<form method="post" action="/edit/albumbatch/done.html">
 	<& /comp/layout/editformbegin, title => "With selected releases, do...", mp => 1 &>
 		<table>
 			<tr>
@@ -279,14 +264,9 @@
 					<img src="/images/es/maximize.gif" alt="Minimize all releases" />
 					<a href="javascript:; //" onclick="collapsereleases.toggleAll(false); return false;">Minimize all</a></td>
 				<td style="padding-right: 40px; ">
-					<form method="post" action="/edit/albumbatch/done.html" id="BatchOp">
-						<div id="batchop::removereleases">
-							<input type="hidden" name="url" value="<% $referer %>" />
-
-% 	for (@releaseids) { $m->comp("/comp/form/hiddenfield", "releaseid".$_, "on"); }
-
-						</div>
-					</form>
+					<input type="hidden" name="url" value="<% $referer %>" />
+					<input type="hidden" name="reset" value="1" />
+					<input type="submit" value="Update" />
 				</td>
 			</tr>
 		</table>
@@ -326,6 +306,7 @@
     }
 </%perl>
 
+	</form>
 
 <& /comp/footer &>
 

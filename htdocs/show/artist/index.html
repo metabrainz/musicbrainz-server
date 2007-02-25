@@ -332,6 +332,7 @@
             <& /comp/framedboxbegin, width => "100%" &>
             <& /comp/modnotice &>
 
+			<form method="post" action="/edit/albumbatch/done.html">
             <table width="100%">
             <tr>
 % unless ($fCompact) {
@@ -362,21 +363,9 @@
 					><% $dispinfo[$dispmode]->[1] %></a>
 			</td>
 
-%	          if ($session{uid}) {
-    	    <td align="center">
-
-	            <form method="post" action="/edit/albumbatch/done.html" id="BatchOp">
-	            	<div id="batchop::selectreleases">
-
-%				for my $album (@albums)
-%				{
-						<input type="hidden" name="releaseid<% $album->GetId() %>" value="off" />
-%				}
-
-					</div>
-				</form>
-		    </td>
-%	          }
+%			if ($session{uid}) {
+			<td align="right"><input type="submit" value="Batch edit"/></td>
+%			}
 
             </tr></table>
             <& /comp/framedboxend &>
@@ -419,9 +408,7 @@
 					{
 						my $s = 8;
 						++$s if $session{'uid'};
-						</%perl>
-						<tr><th colspan='<% $s %>' align="left"><h2><% $desc %></h2></th></tr>
-						<%perl>
+						</%perl><tr><th colspan='<% $s %>' align="left"><h2><% $desc %></h2></th></tr><%perl>
 					}
 
                     $last = $album->{_section_key_};
@@ -437,70 +424,57 @@
 					my $nmp = $album->GetModPending;
 
 					</%perl>
-					<tr class="<% ('ev', 'od')[$rownum % 2] %>">
+<tr class="<% ('ev', 'od')[$rownum % 2] %>">
 %	if ($album->GetTrackCount) {
-						<td class="trk" nowrap><% $album->GetTrackCount %><img src="/images/notes.gif" hspace="3" alt="Tracks"></td>
+<td class="trk"><% $album->GetTrackCount %><img src="/images/notes.gif" hspace="3" alt="Tracks"></td>
 %	} else {
-						<td></td>
+<td></td>
 %	}
 %	if ($album->GetDiscidCount) {
-						<td class="did" nowrap><% $album->GetDiscidCount %><img src="/images/cd.gif" hspace="3" alt="disc IDs"></td>
+<td class="did"><% $album->GetDiscidCount %><img src="/images/cd.gif" hspace="3" alt="disc IDs"></td>
 %	} else {
-						<td></td>
+<td></td>
 %	}
 %	if ($album->GetTrmidCount) {
-						<td class="trm" nowrap><% $album->GetTrmidCount %><img src="/images/trm.gif" hspace="3" alt="TRM IDs"></td>
+<td class="trm"><% $album->GetTrmidCount %><img src="/images/trm.gif" hspace="3" alt="TRM IDs"></td>
 %	} else {
-						<td></td>
+<td></td>
 %	}
 %	if ($album->GetPuidCount) {
-						<td class="trm" nowrap><% $album->GetPuidCount %><img src="/images/puid.gif" hspace="3" alt="PUIDs"></td>
+<td class="trm"><% $album->GetPuidCount %><img src="/images/puid.gif" hspace="3" alt="PUIDs"></td>
 %	} else {
-						<td></td>
+<td></td>
 %	}
-						<td class="rst" nowrap><%
-								$amp ? "<span class='mp'>" : "" |n
-							%><% do {
-								my $s = $album->{_actual_attr_status};
-								$s ? ($album->GetAttributeName($s)||"?$s") : "None"
-							} %><%
-								$amp ? "</span>" : "" |n
-						%></td>
-						<td class="rdate" nowrap>
-%							$m->comp('/comp/releasedate', $album->GetFirstReleaseDateYMD);
-						</td>
-						<td class="lang">
-%							$m->comp('/comp/language', $album->GetLanguage, $album->GetScript);
-						</td>
+<td class="rst"><%perl>
+	$m->out('<span class="mp">') if $amp;
+	my $s = $album->{_actual_attr_status};
+	$m->out($s ? ($album->GetAttributeName($s) || "?$s") : "None");
+	$m->out('</span>') if $amp;
+</%perl></td>
+<td class="rdate"><& /comp/releasedate, $album->GetFirstReleaseDateYMD &></td>
+<td class="lang"><& /comp/language, $album->GetLanguage, $album->GetScript &></td>
 %	if ($session{uid}) {
-						<td class="rtag">
+<td class="rtag">
 %	if (!$album->IsNonAlbumTracks) {
-						  <form method="post" action="/edit/albumbatch/done.html"
-								enctype="application/x-www-form-urlencoded">
-							  <script type="text/javascript">
-								  document.writeln('<\input type="checkbox" name="check" onchange="document.forms.BatchOp.releaseid<% $album->GetId %>.value = this.form.check.checked ? \'on\' : \'\';">');
-							  </script>
-							  <noscript>
-								  <input type="hidden" name="releaseid<% $album->GetId %>" value="on">
-								  <input type="submit" name="submit" value="Select">
-							  </noscript>
-						  </form>
+<input type="checkbox" name="releaseid<% $album->GetId %>"/>
 %	}
-						</td>
+</td>
 %	}
-						<td class="rname">
-%	           if ($session{tport}) {
-						<a href="http://127.0.0.1:<% $session{tport} %>/openalbum?id=<% $album->GetMBId %>&amp;t=<% time %>"
-							style="margin-right: 1ex"
-							target="hiddeniframe" title="Open in Tagger" border="0"><img
-								src="/images/mblookup-tagger.png" border="0" alt="Open in tagger"></a>
-%	           }
-						<% $nmp ? "<span class='mp'>" : "" |n
-							%><a href="/release/<% $album->GetMBId %>.html"><% $album->GetName %></a><%
-								$nmp ? "</span>" : "" |n
-						%></td>
-					</tr>
-					<%perl>
+<td class="rname"><%perl>
+	if ($session{tport})
+	{
+		$m->out('<a href="http://127.0.0.1:' . $session{tport} . '/openalbum?id=' . $album->GetMBId . '&amp;t=' . time);
+		$m->out('style="margin-right: 1ex"');
+		$m->out('target="hiddeniframe" title="Open in Tagger" border="0"><img');
+		$m->out('src="/images/mblookup-tagger.png" border="0" alt="Open in tagger"></a>');
+	}
+	$m->out('<span class="mp">') if $nmp;
+	$m->out('<a href="/release/' . $album->GetMBId . '.html">');
+	$m->out($m->interp->apply_escapes($album->GetName, 'h'));
+	$m->out('</a>');
+	$m->out('</span>') if $nmp;
+</%perl></td>
+</tr><%perl>
 				}
                 elsif ($ex =~ /(^|\D)$id(\D|$)/)
                 {
@@ -524,9 +498,10 @@
                 }
             }
 
-			$m->out("</table><br><br>") if $fCompact;
+			$m->out("</table><br/><br/>") if $fCompact;
 
             </%perl>
+            </form>
             <%perl>
         }
 

@@ -288,93 +288,6 @@ function CollapseReleases() {
 		mb.log.exit();
 	};
 
-
-	/**
-	 * This function replaces the non-javascript variant of the
-	 * batchop selection with the checkboxes for the BatchOp form.
-	 * The visible fields of the batchop form are added during
-	 * this function as well.
-	 */
-	this.setupReleaseBatch = function() {
-		mb.log.enter(this.CN, "setupReleaseBatch");
-		var obj,list = mb.ui.getByTag("table");
-		for (var i=0;i<list.length; i++) {
-			var t = list[i];
-			var id = (t.id || "");
-			if (id.match(/tracks::\d+/i)) {
-
-				var tagchecked = false;
-				if ((obj = mb.ui.get(id.replace("tracks", "tagchecked"))) != null) {
-					tagchecked = (obj.value == 1);
-				}
-				if ((obj = mb.ui.get(id.replace("tracks", "batchop"))) != null) {
-					var releaseid = id.replace("tracks::", "");
-
-					var input = document.createElement("input");
-					input.id = id.replace("tracks", "batchcheckbox");
-					input.type = "checkbox";
-					input.onclick = function onclick(event) {
-						var releaseid = this.id.replace("batchcheckbox::", "");
-						var fieldName = "releaseid"+releaseid;
-						var batchOpForm, obj;
-						if ((batchOpForm = mb.ui.get("BatchOp")) != null)  {
-							if (batchOpForm[fieldName] != null)  {
-								var value = batchOpForm[fieldName].value;
-								batchOpForm[fieldName].value = (value == "off" ? "on" : "off");
-							}
-						}
-					};
-					obj.innerHTML = "";
-					obj.appendChild(input);
-					input.checked = tagchecked;
-					input.title = tagchecked ?
-						"Deactivate this checkbox and click Update to unselect this release from the Batch Operations," :
-						"Activate this checkbox and click Update to select this release for Batch Operations.";
-				}
-			}
-		}
-
-		// get BatchOp form, then container element (div)
-		// inside it, to add user interface.
-		if ((obj = mb.ui.get("BatchOp")) != null) {
-			if ((obj = mb.ui.getByTag("div", obj)[0]) != null) {
-
-				// used in /edit/albumbatch/done.html
-				if (obj.id == "batchop::removereleases") {
-					var el = document.createElement("input");
-					el.type = "submit";
-					el.name = "submit";
-					el.value = "Update";
-					obj.appendChild(el);
-
-				// used in /show/artist/ and /show/release/?
-				} else if (obj.id == "batchop::selectreleases") {
-
-					var el = document.createElement("input");
-					el.type = "image";
-					el.alt = "Batch Edit";
-					el.title = "Edit selected release(s) in a batch edit";
-					el.src = "/images/batch.gif";
-					obj.appendChild(el);
-					el.style.border = "0";
-					el.style.height = "13px";
-					el.style.width = "13px";
-
-					el = document.createElement("a");
-					el.href = "#";
-					el.title = "Edit selected release(s) in a batch edit";
-					el.onclick = function onclick(event) {
-						document.forms.BatchOp.submit();
-						return false;
-					};
-					obj.appendChild(el);
-					el.innerText = "Batch Operation";
-					el.style.marginLeft = "5px";
-				}
-			}
-		}
-	};
-
 	// exit constructor
 	mb.log.exit();
 }
@@ -385,7 +298,3 @@ var collapsereleases = new CollapseReleases();
 mb.registerDOMReadyAction(
 	new MbEventAction(collapsereleases.GID, "setupReleases", "Setting up release toggle functions")
 );
-mb.registerDOMReadyAction(
-	new MbEventAction(collapsereleases.GID, "setupReleaseBatch", "Setup release batch operations")
-);
-

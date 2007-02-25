@@ -108,15 +108,8 @@
 
 %	if ($session{"uid"} && !$nonalbum && $showtag)
 %	{
-
-			<td class="batchop" id="batchop::<% $releaseid %>">
-				<form method="post" action="/edit/albumbatch/done.html">
-					<div>
-						<input type="hidden" id="tagchecked::<% $releaseid %>" value="<% $tagchecked %>" />
-						<input type="hidden" name="releaseid<% $releaseid %>" value="<% $tagchecked ? "off" : "on" %>" />
-						<input type="submit" name="submit" value="<% $tagchecked ? "Remove" : "Select" %>" />
-					</div>
-				</form>
+			<td class="batchop">
+				<input type="checkbox" name="releaseid<% $releaseid %>" <% $tagchecked ? 'checked="checked"' : "" |n %>" />
 			</td>
 %	}
 		</tr>
