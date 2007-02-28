@@ -16,4 +16,13 @@ CREATE INDEX gid_redirect_newid ON gid_redirect (newid);
 
 COMMIT;
 
+-- Add the quality columns to the artist and album tables
+
+BEGIN;
+
+ALTER TABLE artist ADD COLUMN quality INTEGER DEFAULT 0; 
+ALTER TABLE album ADD COLUMN quality INTEGER DEFAULT 0; 
+
+COMMIT;
+
 -- vi: set ts=4 sw=4 et :

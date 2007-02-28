@@ -27,7 +27,8 @@ CREATE TABLE album
     page                INTEGER NOT NULL,
     language            INTEGER, -- references language
     script              INTEGER, -- references script
-    modpending_lang     INTEGER
+    modpending_lang     INTEGER,
+    quality             SMALLINT DEFAULT 0
 );
 
 CREATE TABLE album_amazon_asin
@@ -98,7 +99,7 @@ CREATE TABLE artist
     begindate           CHAR(10),
     enddate             CHAR(10),
     type                SMALLINT,
-    strict              SMALLINT DEFAULT 0 -- 0 = normal, -1 = loose, +1 = strict
+    quality             SMALLINT DEFAULT 0
 );
 
 CREATE TABLE artistalias

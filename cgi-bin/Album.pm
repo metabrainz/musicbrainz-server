@@ -167,6 +167,16 @@ sub SetLanguageModPeding
    $_[0]->{modpending_lang} = $_[1];
 }
 
+sub SetQuality
+{
+   $_[0]->{quality} = $_[1];
+}
+
+sub GetQuality
+{
+   return $_[0]->{quality};
+}
+
 # return the url to a coverart image on an amazon image server
 sub GetCoverartURL
 {
@@ -722,7 +732,7 @@ sub LoadFromId
 	my $sql = Sql->new($this->{DBH});
 	my $row = $sql->SelectSingleRowArray(
 		"SELECT	a.id, name, gid, modpending, artist, attributes, "
-		. "       language, script, modpending_lang"
+		. "       language, script, modpending_lang, quality"
 		. ($loadmeta ? ", tracks, discids, trmids, firstreleasedate,coverarturl,asin,puids" : "")
 		. " FROM album a"
 		. ($loadmeta ? " INNER JOIN albummeta m ON m.id = a.id" : "")
@@ -758,19 +768,20 @@ sub LoadFromId
 	$this->{language}			= $row->[6];
 	$this->{script}				= $row->[7];
 	$this->{modpending_lang}	= $row->[8];
+	$this->{quality}        	= $row->[9];
 
 	delete @$this{qw( trackcount discidcount trmidcount firstreleasedate asin coverarturl puidcount )};
 	delete @$this{qw( _discids _tracks )};
 
 	if ($loadmeta)
 	{
-		$this->{trackcount}		= $row->[9];
-		$this->{discidcount}	= $row->[10];
-		$this->{trmidcount}		= $row->[11];
-		$this->{firstreleasedate}=$row->[12] || "";
-		$this->{coverarturl}=$row->[13] || "";
-		$this->{asin}=$row->[14] || "";
-		$this->{puidcount}		= $row->[15];
+		$this->{trackcount}		= $row->[10];
+		$this->{discidcount}	= $row->[11];
+		$this->{trmidcount}		= $row->[12];
+		$this->{firstreleasedate}=$row->[13] || "";
+		$this->{coverarturl}=$row->[14] || "";
+		$this->{asin}=$row->[15] || "";
+		$this->{puidcount}		= $row->[16];
 	}
 
 	1;
@@ -828,7 +839,8 @@ sub LoadTracks
 					Track.modpending, 
 					AlbumJoin.modpending, 
 					Artist.name, 
-					Track.gid 
+					Track.gid,
+					AlbumJoin.album
 			from 
 				Track, AlbumJoin, Artist 
 			where 
@@ -854,6 +866,7 @@ sub LoadTracks
 			$track->SetAlbumJoinModPending($row[6]);
 			$track->SetArtistName($row[7]);
 			$track->SetMBId($row[8]);
+			$track->SetAlbum($row[9]);
 			push @info, $track;
 		}
 	}
@@ -1146,7 +1159,7 @@ sub GetVariousDisplayList
 		SELECT	a.id, a.name as albumname, a.gid, a.modpending, 
 				a.artist as artistid, ar.name as artistname,
                 attributes, language, script, modpending_lang,
-				tracks, discids, trmids, firstreleasedate, coverarturl, asin, puids
+				tracks, discids, trmids, firstreleasedate, coverarturl, asin, puids, quality
    		FROM	album a, albummeta m, artist ar
 	  	WHERE	a.page BETWEEN $page_min AND $page_max
 		AND		m.id = a.id
@@ -1221,6 +1234,7 @@ sub GetVariousDisplayList
 		$al->{coverarturl}		= $row->[14] || "";
 		$al->{asin}				= $row->[15] || "";
 		$al->{puidcount}		= $row->[16] || 0;
+		$al->{quality}		    = $row->[17] || 0;
 
 		$al;
 	} @$rows;
@@ -1347,6 +1361,21 @@ sub UpdateName
 	# Now remove the old name from the word index, and then
 	# add the new name to the index
 	$self->RebuildWordList;
+}
+
+sub UpdateQuality
+{
+	my $self = shift;
+
+	my $id = $self->GetId
+		or croak "Missing artist ID in UpdateQuality";
+
+	my $sql = Sql->new($self->{DBH});
+	$sql->Do(
+		"UPDATE album SET quality = ? WHERE id = ?",
+		$self->{quality},
+		$id,
+	);
 }
 
 # The album name has changed.  Rebuild the words for this album.

@@ -124,7 +124,7 @@ use constant MOD_CHANGE_WIKIDOC			 => 48;
 use constant MOD_ADD_RELEASEEVENTS		 => 49;
 use constant MOD_EDIT_RELEASEEVENTS		 => 50;
 use constant MOD_REMOVE_RELEASEEVENTS	 => 51;
-use constant MOD_CHANGE_ARTIST_STRICTNESS=> 52;
+use constant MOD_CHANGE_ARTIST_QUALITY   => 52;
 use constant MOD_SET_RELEASE_DURATIONS	 => 53;
 use constant MOD_ADD_LABEL				 => 54;
 use constant MOD_EDIT_LABEL				 => 55;
@@ -135,7 +135,25 @@ use constant MOD_EDIT_URL				 => 59;
 use constant MOD_ADD_LABELALIAS			 => 60;
 use constant MOD_EDIT_LABELALIAS		 => 61;
 use constant MOD_REMOVE_LABELALIAS		 => 62;
-use constant MOD_LAST					 => 62;
+use constant MOD_CHANGE_RELEASE_QUALITY  => 63;
+use constant MOD_LAST					 => 63;
+
+use constant QUALITY_UNKNOWN  => 0;
+use constant QUALITY_LOW      => 1;
+use constant QUALITY_NORMAL   => 2;
+use constant QUALITY_HIGH     => 3;
+
+my %QualityNames = (
+   QUALITY_UNKNOWN . "" => 'unknown',
+   QUALITY_LOW     . "" => 'low',
+   QUALITY_NORMAL  . "" => 'normal',
+   QUALITY_HIGH    . "" => 'high'
+);
+
+sub GetQualityText
+{
+   return $QualityNames{$_[0]};
+}
 
 # The constants below define the state a moderation can have:
 

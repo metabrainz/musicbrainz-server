@@ -51,7 +51,7 @@
 	my $begin = $artist->GetBeginDate;
 	my $end = $artist->GetEndDate;
 	my $resolution = $artist->GetResolution;
-	my $strict = Artist::GetStrictName($artist->GetStrict);
+	my $quality = ModDefs::GetQualityText($artist->GetQuality);
 
 	# compile begin- and end dates
 	$begin = MusicBrainz::Server::Validation::MakeDisplayDateStr($begin);
@@ -97,7 +97,7 @@
 		if $date_str;
 	push @info, "Type: $type_name"
 		if $type;
-	push @info, "Edit strictness: $strict"
+	push @info, "Quality: $quality"
 		if $showmodlinks;
 	$m->out(join(', ', @info));
 	$m->out('<br />')
@@ -184,9 +184,9 @@
 					$m->out(qq! | <a href="/edit/track/addnonalbum.html?artistid=$id">Add non-album tracks</a>!);
 				}
 			}
-			if ($id != &ModDefs::VARTIST_ID && UserStuff->IsAutoEditor($session{privs}))
+			if ($id != &ModDefs::VARTIST_ID)
 			{
-				$m->out(qq! | <a href="/edit/artist/strict.html?artistid=$id">Change edit strictness</a>!);
+				$m->out(qq! | <a href="/edit/artist/quality.html?artistid=$id">Change quality</a>!);
 			}
 		}
 		else

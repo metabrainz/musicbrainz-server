@@ -348,6 +348,11 @@ table.releasebegin td.title span {
 	font-weight: bold;
 }
 
+table.releasebegin td.quality {
+    background-color: #ffba58; color: #000;
+    text-align: right;
+}
+
 table.releasebegin td.toggle {
 	background-color: #ffba58; color: #000;
 	padding: 2px 0px 0px 3px;

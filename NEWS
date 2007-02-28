@@ -3,7 +3,7 @@ Release 2007-XX-XX:
  * New Features:
    * Labels, catalog numbers and barcodes.
      http://wiki.musicbrainz.org/Label
-   * Artist strictness.
+   * Data quality
      http://wiki.musicbrainz.org/DataQuality
    * IDs of artists, releases, tracks and labels will stay valid
      after merge. (#912)

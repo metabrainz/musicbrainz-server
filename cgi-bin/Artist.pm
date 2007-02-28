@@ -44,20 +44,11 @@ use constant ARTIST_TYPE_UNKNOWN	=> 0;
 use constant ARTIST_TYPE_PERSON		=> 1;
 use constant ARTIST_TYPE_GROUP		=> 2;
 
-use constant ARTIST_STRICT_LOOSE    => -1;
-use constant ARTIST_STRICT_NORMAL   => 0;
-use constant ARTIST_STRICT_STRICT   => 1;
-
+# The uncessary ."" tricks perl into using the constant value rather than its name as the hash key. Lame.
 my %ArtistTypeNames = (
-   0 => [ 'Unknown', 'Begin Date', 'End Date' ],
-   1 => [ 'Person', 'Born', 'Deceased' ],
-   2 => [ 'Group', 'Founded', 'Dissolved' ],
-);
-
-my %ArtistStrictNames = (
-   -1 => 'loose',
-   0 => 'normal',
-   1 => 'strict'
+   ARTIST_TYPE_UNKNOWN . "" => [ 'Unknown', 'Begin Date', 'End Date' ],
+   ARTIST_TYPE_PERSON . "" => [ 'Person', 'Born', 'Deceased' ],
+   ARTIST_TYPE_GROUP . "" => [ 'Group', 'Founded', 'Dissolved' ],
 );
 
 # Artist specific accessor function. Others are inherted from TableBase 
@@ -178,19 +169,14 @@ sub SetEndDate
    $_[0]->{enddate} = $_[1];
 }
 
-sub SetStrict
+sub SetQuality
 {
-   $_[0]->{strict} = $_[1];
+   $_[0]->{quality} = $_[1];
 }
 
-sub GetStrict
+sub GetQuality
 {
-   return $_[0]->{strict};
-}
-
-sub GetStrictName
-{
-   return $ArtistStrictNames{$_[0]};
+   return $_[0]->{quality};
 }
 
 # Insert an artist into the DB and return the artist id. Returns undef
@@ -440,17 +426,17 @@ sub UpdateSortName
     1;
 }
 
-sub UpdateStrict
+sub UpdateQuality
 {
 	my $self = shift;
 
 	my $id = $self->GetId
-		or croak "Missing artist ID in UpdateStrict";
+		or croak "Missing artist ID in UpdateQuality";
 
 	my $sql = Sql->new($self->{DBH});
 	$sql->Do(
-		"UPDATE artist SET strict = ? WHERE id = ?",
-		$self->{strict},
+		"UPDATE artist SET quality = ? WHERE id = ?",
+		$self->{quality},
 		$id,
 	);
 }
@@ -471,7 +457,7 @@ sub Update
     $update{resolution} = $new->{Resolution} if exists $new->{Resolution};
     $update{begindate} = $new->{BeginDate} if exists $new->{BeginDate};
     $update{enddate} = $new->{EndDate} if exists $new->{EndDate};
-    $update{strict} = $new->{Strict} if exists $new->{Strict};
+    $update{quality} = $new->{Quality} if exists $new->{Quality};
 
     if (exists $update{'sortname'})
     {
@@ -639,7 +625,7 @@ sub GetArtistsFromName
 		# First, try exact match on name
 		$artists = $sql->SelectListOfHashes(
 	    "SELECT id, name, gid, modpending, sortname,
-			resolution, begindate, enddate, type, strict
+			resolution, begindate, enddate, type, quality
 	    FROM artist WHERE name = ?",
 	    $artistname,
 	);
@@ -657,7 +643,7 @@ sub GetArtistsFromName
 
 	$artists = $sql->SelectListOfHashes(
 	    "SELECT id, name, gid, modpending, sortname,
-			resolution, begindate, enddate, type, strict
+			resolution, begindate, enddate, type, quality
 	    FROM artist WHERE name IN (?, ?, ?, ?)",
 	    encode("utf-8", $uc),
 	    encode("utf-8", $lc),
@@ -669,7 +655,7 @@ sub GetArtistsFromName
 	# Next, try a full case-insensitive search
 	$artists = $sql->SelectListOfHashes(
 	    "SELECT id, name, gid, modpending, sortname,
-			resolution, begindate, enddate, type, strict
+			resolution, begindate, enddate, type, quality
 	    FROM artist WHERE LOWER(name) = LOWER(?)",
 	    $artistname,
 	);
@@ -687,7 +673,7 @@ sub GetArtistsFromName
 	{
 	    $artists = $sql->SelectListOfHashes(
 			"SELECT id, name, gid, modpending, sortname, 
-				resolution, begindate, enddate, type, strict
+				resolution, begindate, enddate, type, quality
 			FROM artist WHERE id = ?",
 			$artist,
 	    );
@@ -709,7 +695,7 @@ sub GetArtistsFromName
 		$ar->SetBeginDate($row->{begindate});
 		$ar->SetEndDate($row->{enddate});
 		$ar->SetType($row->{type});
-		$ar->SetStrict($row->{strict});
+		$ar->SetQuality($row->{quality});
 
         push @results, $ar;
     }
@@ -732,7 +718,7 @@ sub GetArtistsFromSortname
 
     my $artists = $sql->SelectListOfHashes(
 		"SELECT	id, name, gid, modpending, sortname,
-		resolution, begindate, enddate, type, strict
+		resolution, begindate, enddate, type, quality
 		FROM	artist
 		WHERE	LOWER(sortname) = LOWER(?)",
 		$sortname,
@@ -753,7 +739,7 @@ sub GetArtistsFromSortname
 		$ar->SetEndDate($row->{enddate});
 		$ar->SetModPending($row->{modpending});
 		$ar->SetType($row->{type});
-		$ar->SetStrict($row->{strict});
+		$ar->SetQuality($row->{quality});
 
         push @results, $ar;
     }
@@ -942,7 +928,7 @@ sub GetAlbums
        if (defined $loadmeta && $loadmeta)
        {
            $query = qq/select album.id, name, modpending, GID, attributes,
-                              language, script, tracks, discids, trmids,
+                              language, script, quality, tracks, discids, trmids,
                               firstreleasedate, coverarturl, asin, puids
                        from Album, Albummeta 
                        where artist=$this->{id} and albummeta.id = album.id/;
@@ -950,7 +936,7 @@ sub GetAlbums
        else
        {
            $query = qq/select album.id, name, modpending, GID,
-                              attributes, language, script 
+                              attributes, language, script, quality 
                        from Album 
                        where artist=$this->{id}/;
        }
@@ -969,16 +955,17 @@ sub GetAlbums
                 $album->{attrs} = [ split /,/, $row[4] ];
                 $album->SetLanguageId($row[5]);
                 $album->SetScriptId($row[6]);
+                $album->SetQuality($row[7]);
 
                 if (defined $loadmeta && $loadmeta)
                 {
-                    $album->{trackcount} = $row[7];
-                    $album->{discidcount} = $row[8];
-                    $album->{trmidcount} = $row[9];
-                    $album->{firstreleasedate} = $row[10]||"";
-                    $album->{coverarturl} = $row[11]||"";
-                    $album->{asin} = $row[12]||"";
-                    $album->{puidcount} = $row[13]||0;
+                    $album->{trackcount} = $row[8];
+                    $album->{discidcount} = $row[9];
+                    $album->{trmidcount} = $row[10];
+                    $album->{firstreleasedate} = $row[11]||"";
+                    $album->{coverarturl} = $row[12]||"";
+                    $album->{asin} = $row[13]||"";
+                    $album->{puidcount} = $row[14]||0;
                 }
 
                 push @albums, $album;
@@ -994,7 +981,7 @@ sub GetAlbums
    if (defined $loadmeta && $loadmeta)
    {
        $query = qq/select album.id, album.artist, name, modpending, GID, attributes, language,
-                          script, tracks, discids, trmids, firstreleasedate, puids
+                          script, quality, tracks, discids, trmids, firstreleasedate, puids
                          from album, albummeta 
                         where album.artist != $this->{id} and 
                               albummeta.id = album.id and
@@ -1006,7 +993,7 @@ sub GetAlbums
    else
    {
        $query = qq/select album.id, album.artist, name, modpending, GID,
-                          attributes, language, script
+                          attributes, language, script, quality
                          from album
                         where album.artist != $this->{id} and 
                               album.id in (select distinct albumjoin.album 
@@ -1030,14 +1017,15 @@ sub GetAlbums
             $album->{attrs} = [ split /,/, $row[5] ];
 			$album->SetLanguageId($row[6]);
 			$album->SetScriptId($row[7]);
+			$album->SetQuality($row[8]);
 
             if (defined $loadmeta && $loadmeta)
             {
-                $album->{trackcount} = $row[8];
-                $album->{discidcount} = $row[9];
-                $album->{trmidcount} = $row[10];
-                $album->{firstreleasedate} = $row[11]||"";
-                $album->{puidcount} = $row[12]||0;
+                $album->{trackcount} = $row[9];
+                $album->{discidcount} = $row[10];
+                $album->{trmidcount} = $row[11];
+                $album->{firstreleasedate} = $row[12]||"";
+                $album->{puidcount} = $row[13]||0;
             }
 
             push @albums, $album;

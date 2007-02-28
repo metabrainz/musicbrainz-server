@@ -59,6 +59,7 @@
 	my $name = $release->GetName;
 	my $nonalbum = $release->IsNonAlbumTracks;
 	my $exists = MusicBrainz::Server::Validation::IsNonNegInteger($release->GetId) && $release->GetId;
+	my $quality = ModDefs::GetQualityText($release->GetQuality);
 
 </%perl>
 
@@ -105,6 +106,8 @@
 					align="absmiddle" src="/images/mblookup-tagger.png"
 					alt="Open in tagger" /></a></td>
 %	}
+
+    <td class="quality">quality:&nbsp;<% $quality %></td>
 
 %	if ($session{"uid"} && !$nonalbum && $showtag)
 %	{
@@ -231,6 +234,7 @@
 					$m->out(qq! | <a href="/edit/albumbatch/done.html?releaseid$releaseid=on">Merge</a>!);
 				}
 				$m->out(qq! | <a href="/edit/album/remove.html?releaseid=$releaseid">Remove</a>!);
+				$m->out(qq! | <a href="/edit/albumquality/edit.html?id=$releaseid">Change quality</a>!);
 			}
 			else
 			{

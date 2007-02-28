@@ -238,6 +238,22 @@
 			</tr>
 
 			<tr class="top">
+				<td class="label">Change data quality:</td>
+				<td>
+					<form method="post" action="/edit/albumquality/edit.html">
+						<div>
+
+% 	for (@releaseids) { $m->comp("/comp/form/hiddenfield", "id", $_); }
+
+							<input type="hidden" name="untag" value="1" />
+							<input type="submit" value="Change data quality &raquo;" />
+							Change the quality level of all selected releases.
+						</div>
+					</form>
+				</td>
+			</tr>
+
+			<tr class="top">
 				<td class="label">Cancel:</td>
 				<td>
 					<form method="post" action="/edit/albumbatch/cancel.html">
