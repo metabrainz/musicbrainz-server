@@ -151,6 +151,7 @@ specific notes about a server type, the instructions apply to all server types.
        Digest::SHA1
        Digest::MD5
        HTTP::Negotiate
+       JSON
        Language::Guess (see notes below about seed data for this module)
        MIME::Lite
        Storable
@@ -285,7 +286,7 @@ Installation:
 
    admin/startup.pl
      NOTE: You can find a default version of startup.pl in startup.pl.default;
-           copy this to DBDefs.pm and edit this.
+           copy this to startup.pl and edit this.
 
      There's only one thing to change here, namely the "use lib" line,
      which is marked with a "TODO" comment.
