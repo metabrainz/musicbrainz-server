@@ -130,6 +130,7 @@ my @tables = qw(
 	country
 	currentstat
 	historicalstat
+	gid_redirect
 	l_album_album
 	l_album_artist
 	l_album_label

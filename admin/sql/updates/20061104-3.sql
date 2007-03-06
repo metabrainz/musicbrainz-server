@@ -57,6 +57,10 @@ CREATE TRIGGER "reptg_labelalias"
 AFTER INSERT OR DELETE OR UPDATE ON "labelalias"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
+CREATE TRIGGER "reptg_gid_redirect"
+AFTER INSERT OR DELETE OR UPDATE ON "gid_redirect"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
 COMMIT;
 
 -- vi: set ts=4 sw=4 et :

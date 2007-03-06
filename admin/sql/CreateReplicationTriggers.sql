@@ -269,6 +269,10 @@ CREATE TRIGGER "reptg_url"
 AFTER INSERT OR DELETE OR UPDATE ON "url"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
+CREATE TRIGGER "reptg_gid_redirect"
+AFTER INSERT OR DELETE OR UPDATE ON "gid_redirect"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
 -- Not replicated: vote_closed, vote_open
 
 CREATE TRIGGER "reptg_wordlist" 
