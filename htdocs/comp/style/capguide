@@ -1,0 +1,59 @@
+%# vi: set ts=2 sw=2 ft=mason :
+<%def .StyleGuideLink>
+<a id="capguide-<% $_[0] %>" href="#capguide-<% $_[0] %>"><b>&lowast;</b></a>
+</%def>
+
+<p><b>Capitalization Guide for Submitting/Editing Data</b></p>
+
+<p>
+	<& .StyleGuideLink, "general" &>
+	Use the following standard guidelines for capitalizing titles (releases,
+	songs) in the English language. <b>A more detailed description of these
+	rules and guidelines for other languages can be found on the
+	<a href="http://wiki.musicbrainz.org/wiki.pl?CapitalizationStandard">CapitalizationStandard</a> wiki page.</b>
+</p>
+<p>
+	All titles should be in standard mixed case (initial caps and following
+	lower case), as noted below:
+</p>
+
+<ol class="StyleGuideList">
+
+	<li>
+		<& .StyleGuideLink, "first-and-last" &>
+		Always capitalize the first and last word of a title. If a title
+    is broken up by major punctuation (colon, question mark, exclamation
+    mark, em-dash, parentheses, or quotes), treat each distinct piece
+    of the title as a whole, and always capitalize the first and last
+    words of each division.
+	</li>
+	<li>
+		<& .StyleGuideLink, "exceptions" &>
+		Capitalize all words between the first and last word of a title except:
+    <ol type="a">
+			<li>Articles: <b>a</b>, <b>an</b>, <b>the</b></li>
+			<li>Coordinate conjunctions: <b>and</b>, <b>but</b>, <b>or</b>, <b>nor</b></li>
+			<li>Short (three letters or less) prepositions: <b>as</b>, <b>at</b>, <b>by</b>,
+				<b>for</b>, <b>in</b>, <b>of</b>, <b>on</b>, <b>to</b>
+				&mdash; except when used as adverbs or as an inseparable
+				part of a verb</li>
+			<li>When used to form an infinitive: <b>to</b></li>
+		</ol>
+	</li>
+	<li>
+		<& .StyleGuideLink, "hyphens" &>
+		In compounds formed by hyphens, capitalize each part except where
+    the part would not be capitalized if it were a separate word.
+	</li>
+	<li>
+		<& .StyleGuideLink, "abbr" &>
+		Only use all caps for acronyms or abbreviations where common use
+    is all caps.
+	</li>
+	<li>
+		<& .StyleGuideLink, "contractions" &>
+		Capitalize contractions and slang consistent with the rules above
+    to the extent that such clearly apply. For example, do not capitalize
+    <b>o</b>' for "<b>of</b>", '<b>n</b>' or <b>n</b>' for "<b>and</b>".
+	</li>
+</ol>
