@@ -1418,6 +1418,7 @@ sub FirstNoVote
 
 	require UserStuff;
 	my $editor = UserStuff->newFromId($self->{DBH}, $self->GetModerator);
+	my $voter = UserStuff->newFromId($self->{DBH}, $voter_uid);
 
 	require UserPreference;
 	my $send_mail = UserPreference::get_for_user('mail_on_first_no_vote', $editor);
@@ -1426,12 +1427,15 @@ sub FirstNoVote
 	my $url = "http://" . &DBDefs::WEB_SERVER . "/show/edit/?editid=" . $self->GetId;
 
 	my $body = <<EOF;
-Someone has voted against one of your edits:
+Editor '${\ $voter->GetName }' has voted against your edit #${\ $self->GetId }.
+------------------------------------------------------------------------
+If you would like to respond to this vote, please add your note at:
 $url
+Please do not respond to this e-mail.
 
-This email is only sent for the first "no" vote against your edit,
-not for each one.  If you would prefer not to receive these emails,
-please log in and adjust your preferences accordingly.
+This e-mail is only sent for the first vote against your edit, not for each
+one. If you would prefer not to receive these e-mails, please adjust your
+preferences accordingly at http://${\ DBDefs::WEB_SERVER() }/user/preferences.html
 EOF
 
 	require MusicBrainz::Server::Mail;

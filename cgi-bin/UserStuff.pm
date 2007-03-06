@@ -849,10 +849,10 @@ sub SendMessageToUser
 	$subject =~ s/\s+/ /g;
 
 	my $body = <<EOF;
-$message
-
+MusicBrainz editor '$fromname' has sent you the following message:
 ------------------------------------------------------------------------
-
+$message
+------------------------------------------------------------------------
 EOF
 
 	$revealaddress = 0 unless $self->GetEmail;
@@ -862,9 +862,9 @@ EOF
 	{
 	
 		$body .= <<EOF;
-If you would like to send an e-mail to editor '$fromname',
-either reply to this e-mail, or use this link:
-http://${\ DBDefs::WEB_SERVER() }/user/mod_email.html?uid=${\ $self->GetId }
+If you would like to respond, please reply to this message or visit
+http://${\ DBDefs::WEB_SERVER() }/user/mod_email.html?uid=${\ $self->GetId } to send editor
+'$fromname' an e-mail.
 EOF
 	
 	} 
@@ -872,11 +872,10 @@ EOF
 	{
 	
 		$body .= <<EOF;
+If you would like to respond, please visit
+http://${\ DBDefs::WEB_SERVER() }/user/mod_email.html?uid=${\ $self->GetId } to send editor
+'$fromname' an e-mail.
 Please do not respond to this e-mail.
-
-If you would like to send an e-mail to editor '$fromname',
-please use this link:
-http://${\ DBDefs::WEB_SERVER() }/user/mod_email.html?uid=${\ $self->GetId }
 EOF
 	
 	} 
@@ -884,10 +883,9 @@ EOF
 	{
 	
 		$body .= <<EOF;
-Please do not respond to this e-mail.
-
 Unfortunately editor '$fromname' has not supplied their e-mail address,
 therefore you cannot reply to them.
+Please do not respond to this e-mail.
 EOF
 	}
 
@@ -904,14 +902,6 @@ EOF
 	);
     $mail->attr("content-type.charset" => "utf-8");
 
-	# if the user requested to get a copy of this e-mail, send
-	# him the e-mail first, before setting the revealaddress
-	# options
-	if ($sendcopy)
-	{
-		$self->SendFormattedEmail(entity => $mail);
-	}
-
 	# if the user choose to reveal their e-mail address, override
 	# the Nobody default settings.
 	if ($revealaddress)
@@ -921,6 +911,31 @@ EOF
 	}
 
 	$other_user->SendFormattedEmail(entity => $mail);
+
+	if ($sendcopy)
+	{
+		my $body_copy = <<EOF;
+This is a copy of the message you sent to MusicBrainz editor '$fromname':
+------------------------------------------------------------------------
+$message
+------------------------------------------------------------------------
+Please do not respond to this e-mail.
+EOF
+
+		my $mail = MusicBrainz::Server::Mail->new(
+			Sender		=> 'MusicBrainz Server <webserver@musicbrainz.org>',
+			From		=> $self->GetForwardingAddressHeader,
+			# To: $other_user (automatic)
+			"Reply-To"	=> 'Nobody <noreply@musicbrainz.org>',
+			Subject		=> MusicBrainz::Server::Mail->_quoted_header($subject),
+			Type		=> "text/plain",
+			Encoding	=> "quoted-printable",
+			Data		=> $body_copy,
+		);
+    	$mail->attr("content-type.charset" => "utf-8");
+		$self->SendFormattedEmail(entity => $mail);
+	}
+
 }
 
 # User $self has added a note to $mod.  $edit_user was the original editor.
@@ -936,49 +951,14 @@ sub SendModNoteToUser
 	my $fromname = $self->GetName;
 
 	my $body = <<EOF;
-Editor '$fromname' has attached a note to your edit #$editid:
-
-$note_text
-
-Direct link to this edit: http://${\ DBDefs::WEB_SERVER() }/show/edit/?editid=$editid
-
+Editor '$fromname' has added the following note your edit #$editid:
 ------------------------------------------------------------------------
-EOF
-
-	$opts{'revealaddress'} = 0 unless $self->GetEmail;
-
-	if ($opts{'revealaddress'})
-	{
-	
-		$body .= <<EOF;
-If you would like to send an e-mail to editor '$fromname',
-either reply to this e-mail, or use this link:
-http://${\ DBDefs::WEB_SERVER() }/user/mod_email.html?uid=${\ $self->GetId }
-EOF
-	
-	} 
-	elsif ($self->GetEmail) 
-	{
-	
-		$body .= <<EOF;
+$note_text
+------------------------------------------------------------------------
+If you would like to reply to this note, please add your note at:
+http://${\ DBDefs::WEB_SERVER() }/show/edit/?editid=$editid
 Please do not respond to this e-mail.
-
-If you would like to send an e-mail to editor '$fromname',
-please use this link:
-http://${\ DBDefs::WEB_SERVER() }/user/mod_email.html?uid=${\ $self->GetId }
 EOF
-	
-	} 
-	elsif ($self->GetId != &ModDefs::MODBOT_MODERATOR) 
-	{
-	
-		$body .= <<EOF;
-Please do not respond to this e-mail.
-
-Unfortunately editor '$fromname' has not supplied their e-mail address,
-so you cannot reply to them.
-EOF
-	}
 
 	require MusicBrainz::Server::Mail;
 	my $mail = MusicBrainz::Server::Mail->new(
@@ -1017,41 +997,21 @@ sub SendModNoteToFellowNoter
 	my $fromname = $self->GetName;
 
 	my $body = <<EOF;
-Editor '$fromname' has attached a note to edit #$editid:
-
-$note_text
-
-Direct link to this edit: http://${\ DBDefs::WEB_SERVER() }/show/edit/?editid=$editid
-The original editor was: '${\ $edit_user->GetName }'
-
+Editor '$fromname' has added the following note to edit #$editid:
 ------------------------------------------------------------------------
+$note_text
+------------------------------------------------------------------------
+The original editor was '${\ $edit_user->GetName }'.
+
+If you would like to reply to this note, please add your note at:
+http://${\ DBDefs::WEB_SERVER() }/show/edit/?editid=$editid
+Please do not respond to this e-mail.
+
+If you would prefer not to receive these e-mails, please adjust your
+preferences accordingly at http://${\ DBDefs::WEB_SERVER() }/user/preferences.html
 EOF
 
 	$opts{'revealaddress'} = 0 unless $self->GetEmail;
-
-	if ($opts{'revealaddress'})
-	{
-		$body .= <<EOF;
-If you would like to send an e-mail to editor '$fromname',
-either reply to this e-mail, or use this link:
-http://${\ DBDefs::WEB_SERVER() }/user/mod_email.html?uid=${\ $self->GetId }
-EOF
-	} elsif ($self->GetEmail) {
-		$body .= <<EOF;
-Please do not respond to this e-mail.
-
-If you would like to send an e-mail to editor '$fromname',
-please use this link:
-http://${\ DBDefs::WEB_SERVER() }/user/mod_email.html?uid=${\ $self->GetId }
-EOF
-	} elsif ($self->GetId != &ModDefs::MODBOT_MODERATOR) {
-		$body .= <<EOF;
-Please do not respond to this e-mail.
-
-Unfortunately editor '$fromname' has not supplied their e-mail address,
-so you cannot reply to them.
-EOF
-	}
 
 	require MusicBrainz::Server::Mail;
 	my $mail = MusicBrainz::Server::Mail->new(
