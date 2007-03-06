@@ -41,6 +41,7 @@
 	@messages => ()
 	$confirm => 0
 	$resolution => ""
+	$attempts => 0
 
 </%args>
 <%perl>
@@ -295,6 +296,7 @@
 
 % 	}
 
+				<input type="hidden" name="attempts" value="<% $attempts + 1 %>" />
 				<input type="hidden" name="returnurl" value="<% $returnurl %>" /></td>
 		</tr>
 

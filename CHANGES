@@ -12,6 +12,8 @@ Release 2007-XX-XX:
      in the release XML.
    * In-page artist and label lookups in the release editor.
    * JavaScript toolbox for quick AR adding.
+   * Adding an artist with 'feat.' in the name will give the user
+     an warning. (#787)
 
  * Bug Fixes:
    * Fixed ':hover' CSS for voting radiobuttons in IE7. (#2352)
