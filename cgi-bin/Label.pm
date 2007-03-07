@@ -317,6 +317,10 @@ sub MergeInto
 	my ($old, $new, $mod) = @_;
 	my $sql = Sql->new($old->{DBH});
 
+    require UserSubscription;
+    my $subs = UserSubscription->new($old->{DBH});
+    $subs->LabelBeingMerged($old, $mod);
+
 	my $o = $old->GetId;
 	my $n = $new->GetId;
 

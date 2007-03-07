@@ -739,6 +739,16 @@ CREATE TABLE moderator_subscribe_artist
     mergedbymod         INTEGER NOT NULL DEFAULT 0 -- weakly references moderation
 );
 
+CREATE TABLE moderator_subscribe_label
+(
+    id                  SERIAL,
+    moderator           INTEGER NOT NULL, -- references moderator
+    label               INTEGER NOT NULL, -- weakly references label
+    lastmodsent         INTEGER NOT NULL, -- weakly references moderation
+    deletedbymod        INTEGER NOT NULL DEFAULT 0, -- weakly references moderation
+    mergedbymod         INTEGER NOT NULL DEFAULT 0 -- weakly references moderation
+);
+
 CREATE TABLE "Pending"
 (
     "SeqId"             SERIAL,

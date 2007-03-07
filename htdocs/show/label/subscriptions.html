@@ -1,0 +1,119 @@
+%# vi: set ts=4 sw=4 ft=mason :
+<%args>
+
+	$label => undef
+
+</%args>
+<%perl>
+
+	my ($id, $mbid);
+	if (MusicBrainz::Server::Validation::IsNonNegInteger($label))
+	{
+		$id = $label
+	}
+	elsif (MusicBrainz::Server::Validation::IsGUID($label))
+	{
+		$mbid = $label
+	}
+	else
+	{
+		return $m->comp("/comp/badargs", 1, 1)
+	}
+
+	my $mb = $m->comp("/comp/dblogin");
+
+	$label = Label->new($mb->{DBH});
+	$label->SetMBId($mbid) if $mbid;
+	$label->SetId($id) if $id;
+	$label->LoadFromId()
+		or return $m->comp(
+			"/comp/error",
+			"Label not found in the database.",
+			1, 1,
+		);
+
+	$m->comp(
+		"/comp/sidebar",
+		pagetitle => "Subscriptions for label: " . $label->GetName(),
+		title => '',
+	);
+
+	$m->comp("/comp/labeltitle", label=>$label);
+
+	my @uids = $label->GetSubscribers;
+
+	my $my_uid = $session{uid} || 0;
+	my @public;
+	my $private = 0;
+
+	for my $uid (@uids)
+	{
+		my $user = UserStuff->newFromId($mb->{DBH}, $uid)
+			or next;
+
+		my $is_me = ($uid == $my_uid);
+		my $is_public = ($is_me or UserPreference::get_for_user("subscriptions_public", $user));
+
+		if ($is_public)
+		{
+			my $n = MusicBrainz::Server::Validation::NormaliseSortText($user->GetName);
+			push @public, [$user->GetId, $user->GetName, $n];
+		}
+		else
+		{
+			++$private;
+		}
+	}
+
+	@public = sort { $a->[2] cmp $b->[2] } @public;
+
+	my $private_str = sprintf "%d anonymous subscriber%s",
+		$private, $private==1 ? "" : "s";
+
+</%perl>
+
+	<& /comp/tablebegin, title=>'Editors subscribed to this label', gattrs => "width='100%'" &>
+	<table width="100%" cellspacing="0" cellpadding="0">
+		<tr>
+			<td style="padding: 0px 4px">
+				<%perl>
+					if (@public)
+					{
+						my $i = 0;
+						for (@public)
+						{
+							my ($uid, $name) = @$_;
+							$m->out(", ") if $i;
+							$m->out(qq|<a href="/show/user/?userid=$uid">$name</a>|);
+							++$i;
+						}
+						$m->out(" plus $private_str") if $private;
+						$m->out(".");
+					}
+					elsif ($private)
+					{
+						$m->out($private_str);
+					}
+					else
+					{
+						$m->out("none");
+					}
+				</%perl>
+			</td>
+		</tr>
+		<tr>
+			<td align="center">
+				&nbsp;<br/>
+				<a href="/user/subscribe.html?labelid=<% $label->GetId %>"
+					>Subscribe to this label</a> |
+				<a href="/user/subscribe.html?labelid=<% $label->GetId %>&unsubscribe=1"
+					>Unsubscribe from this label</a>
+
+			</td>
+		</tr>
+	</table>
+	<& /comp/tableend &>
+
+<& /comp/footer &>
+
+%# vi: set ts=4 sw=4 ft=mason :

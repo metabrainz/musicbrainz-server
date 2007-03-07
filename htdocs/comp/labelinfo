@@ -84,6 +84,27 @@
 
 % 		}
 
+			<tr>
+				<td class="label">
+					Subscribers:</td>
+				<td>
+					<% scalar $label->GetSubscribers %>
+					&nbsp;
+					[ <a href="/show/label/subscriptions.html?label=<% $label->GetId %>">List</a>
+
+%		if (exists $session{user}
+%			and $label->GetId != &ModDefs::DLABEL_ID)
+%		{
+
+						| <a href="/user/subscribe.html?labelid=<% $label->GetId %>">Subscribe to this label</a>
+						| <a href="/user/subscribe.html?labelid=<% $label->GetId %>&amp;unsubscribe=1">Unsubscribe from this label</a>
+
+% 		}
+
+					]
+				</td>
+			</tr>
+
 %	}
 
 		</table>

@@ -215,6 +215,26 @@ ALTER TABLE labelalias ADD CONSTRAINT labelalias_pkey PRIMARY KEY (id);
 CREATE INDEX labelalias_nameindex ON labelalias (name);
 CREATE INDEX labelalias_refindex ON labelalias (ref);
 
+
+CREATE TABLE moderator_subscribe_label
+(
+    id                  SERIAL,
+    moderator           INTEGER NOT NULL, -- references moderator
+    label               INTEGER NOT NULL, -- weakly references label
+    lastmodsent         INTEGER NOT NULL, -- weakly references moderation
+    deletedbymod        INTEGER NOT NULL DEFAULT 0, -- weakly references moderation
+    mergedbymod         INTEGER NOT NULL DEFAULT 0 -- weakly references moderation
+);
+
+ALTER TABLE moderator_subscribe_label ADD CONSTRAINT moderator_subscribe_label_pkey PRIMARY KEY (id);
+CREATE UNIQUE INDEX moderator_subscribe_label_moderator_key ON moderator_subscribe_label (moderator, label);
+
+ALTER TABLE moderator_subscribe_label
+    ADD CONSTRAINT modsublabel_fk_moderator
+    FOREIGN KEY (moderator)
+    REFERENCES moderator(id);
+
+
 COMMIT;
 
 -- Add table gid_redirect

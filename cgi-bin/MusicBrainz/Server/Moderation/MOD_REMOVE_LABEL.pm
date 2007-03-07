@@ -66,9 +66,9 @@ sub ApprovedAction
 	my $ar = Label->new($this->{DBH});
 	$ar->SetId($rowid);
 
-	#require UserSubscription;
-	#my $subs = UserSubscription->new($this->{DBH});
-	#$subs->LabelBeingDeleted($ar, $this);
+	require UserSubscription;
+	my $subs = UserSubscription->new($this->{DBH});
+	$subs->LabelBeingDeleted($ar, $this);
 
 	unless (defined $ar->Remove)
 	{

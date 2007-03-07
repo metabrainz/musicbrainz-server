@@ -140,6 +140,7 @@ CREATE UNIQUE INDEX moderator_nameindex ON moderator (name);
 CREATE UNIQUE INDEX moderator_preference_moderator_key ON moderator_preference (moderator, name);
 
 CREATE UNIQUE INDEX moderator_subscribe_artist_moderator_key ON moderator_subscribe_artist (moderator, artist);
+CREATE UNIQUE INDEX moderator_subscribe_label_moderator_key ON moderator_subscribe_label (moderator, label);
 
 CREATE INDEX "Pending_XID_Index" ON "Pending" ("XID");
 

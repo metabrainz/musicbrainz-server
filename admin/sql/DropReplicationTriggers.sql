@@ -60,6 +60,7 @@ DROP TRIGGER "reptg_lt_url_url" ON "lt_url_url";
 -- Not replicated: moderator
 -- Not replicated: moderator_preference
 -- Not replicated: moderator_subscribe_artist
+-- Not replicated: moderator_subscribe_label
 DROP TRIGGER "reptg_puid" ON "puid";
 DROP TRIGGER "reptg_puidjoin" ON "puidjoin";
 DROP TRIGGER "reptg_release" ON "release";

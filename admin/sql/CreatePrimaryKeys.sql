@@ -64,6 +64,7 @@ ALTER TABLE moderation_open ADD CONSTRAINT moderation_open_pkey PRIMARY KEY (id)
 ALTER TABLE moderator ADD CONSTRAINT moderator_pkey PRIMARY KEY (id);
 ALTER TABLE moderator_preference ADD CONSTRAINT moderator_preference_pkey PRIMARY KEY (id);
 ALTER TABLE moderator_subscribe_artist ADD CONSTRAINT moderator_subscribe_artist_pkey PRIMARY KEY (id);
+ALTER TABLE moderator_subscribe_label ADD CONSTRAINT moderator_subscribe_label_pkey PRIMARY KEY (id);
 ALTER TABLE "Pending" ADD CONSTRAINT "Pending_pkey" PRIMARY KEY ("SeqId");
 ALTER TABLE "PendingData" ADD CONSTRAINT "PendingData_pkey" PRIMARY KEY ("SeqId", "IsKey");
 ALTER TABLE puid ADD CONSTRAINT puid_pkey PRIMARY KEY (id);

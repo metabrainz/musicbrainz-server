@@ -220,6 +220,7 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 -- Not replicated: moderator
 -- Not replicated: moderator_preference
 -- Not replicated: moderator_subscribe_artist
+-- Not replicated: moderator_subscribe_label
 
 CREATE TRIGGER "reptg_puid" 
 AFTER INSERT OR DELETE ON "puid"

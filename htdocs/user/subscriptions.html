@@ -68,10 +68,12 @@
 	$subs->SetUser($user);
 	my $info = $subs->GetSubscribedArtists;
 	@$info = grep { defined $_->{name} } @$info;
+	my $labels = $subs->GetSubscribedLabels;
+	@$labels = grep { defined $_->{name} } @$labels;
 
 	# show public subscriptions of another user if the user we're
 	# are displaying the subscriptions of is not the current user.
-	return $m->comp("subscriptions.inc", user => $them, info => $info)
+	return $m->comp("subscriptions.inc", user => $them, info => $info, labels => $labels)
 		unless $is_me;
 
 </%perl>
@@ -114,7 +116,7 @@
 				<td class="label">Subscriptions:</td>
 				<td>
 
-% 	if (not @$info)
+% 	if (not @$info and not @$labels)
 %	{
 
 					You are not currently subscribed to any artists.&nbsp;
@@ -173,6 +175,51 @@
 								<td colspan="3">
 									<input type="hidden" name="unsubscribe" value="1" />
 									<input type="submit" value="Unsubcribe selected artists &raquo;" />
+								</td>
+							</tr>
+						</table>
+					</form>
+				</td>
+			</tr>
+
+% 	}
+
+% 	if (@$labels)
+%	{
+
+			<tr>
+				<td colspan="2">&nbsp;</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td>
+
+%		my $row = 0;
+%		my @colours = ('#fff', '#ffe1b7');
+
+					<form method="post" action="/user/subscribe.html">
+						<table class="artistfilter-listing">
+
+% 		for my $label (@$labels)
+%		{
+
+							<tr class="row<% $row++ % 2 %>">
+								<td><input type="checkbox" name="labelid" value="<% $label->{label} %>" /></td>
+								<td class="padright">
+									<& /comp/linklabel, id => $label->{label},
+										name => $label->{name}, resolution =>  $label->{resolution},
+										strong => 0 &></td>
+								<td>[ <a href="/mod/search/pre/label.html?labelid=<% $label->{label} %>">View edits</a> ]</td>
+							</tr>
+% 		}
+
+							<tr>
+								<td colspan="3">&nbsp;</td>
+							</tr>
+							<tr>
+								<td colspan="3">
+									<input type="hidden" name="unsubscribe" value="1" />
+									<input type="submit" value="Unsubcribe selected labels &raquo;" />
 								</td>
 							</tr>
 						</table>

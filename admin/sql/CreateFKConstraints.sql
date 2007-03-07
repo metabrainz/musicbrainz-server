@@ -477,6 +477,11 @@ ALTER TABLE moderator_subscribe_artist
     FOREIGN KEY (moderator)
     REFERENCES moderator(id);
 
+ALTER TABLE moderator_subscribe_label
+    ADD CONSTRAINT modsublabel_fk_moderator
+    FOREIGN KEY (moderator)
+    REFERENCES moderator(id);
+
 ALTER TABLE "PendingData"
     ADD CONSTRAINT "PendingData_SeqId"
     FOREIGN KEY ("SeqId")

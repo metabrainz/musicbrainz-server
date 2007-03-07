@@ -64,6 +64,7 @@ ALTER TABLE moderation_open DROP CONSTRAINT moderation_open_pkey;
 ALTER TABLE moderator DROP CONSTRAINT moderator_pkey;
 ALTER TABLE moderator_preference DROP CONSTRAINT moderator_preference_pkey;
 ALTER TABLE moderator_subscribe_artist DROP CONSTRAINT moderator_subscribe_artist_pkey;
+ALTER TABLE moderator_subscribe_label DROP CONSTRAINT moderator_subscribe_label_pkey;
 ALTER TABLE "Pending" DROP CONSTRAINT "Pending_pkey";
 ALTER TABLE "PendingData" DROP CONSTRAINT "PendingData_pkey";
 ALTER TABLE puid DROP CONSTRAINT puid_pkey;

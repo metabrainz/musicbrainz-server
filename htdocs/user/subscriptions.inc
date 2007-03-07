@@ -31,6 +31,7 @@
 
 	$user
 	$info => ()
+	$labels => ()
 	$private => 0
 
 </%args>
@@ -38,11 +39,11 @@
 
 	my $uid = $user->GetId;
 	my $name = $user->GetName;
-	$m->comp("/comp/sidebar-notitle", pagetitle => "${name}'s artist subscriptions");
+	$m->comp("/comp/sidebar-notitle", pagetitle => "${name}'s subscriptions");
 
 </%perl>
 
-	<& /comp/tablebegin, title => "${name}'s artist subscriptions" &>
+	<& /comp/tablebegin, title => "${name}'s subscriptions" &>
 
 		<table class="formstyle">
 			<tr class="top">
@@ -124,6 +125,65 @@
 
 				</td>
 			</tr>
+
+
+			<tr>
+				<td colspan="2">&nbsp;</td>			
+			</tr>			
+			<tr class="top">
+				<td colspan="2">
+					<div style="border-bottom: 1px dotted #ccc; padding: 5px; margin-bottom: 5px; font-weight: bold">
+						Label subscriptions:
+					</div></td>
+			</tr>
+			
+			<tr class="top">
+				<td class="label">&nbsp;</td>
+				<td>
+				
+%	if ($private)
+%	{
+
+		<% $name %>'s label subscriptions are private.
+
+%	}
+%	else
+%	{
+
+
+% 		my $row = 0;
+% 		if (not @$info)
+%		{
+
+		No label subscriptions found.
+
+%		}
+%		else
+%		{
+
+					<table class="artistfilter-listing">
+
+% 			for my $label (@$labels)
+%			{
+
+						<tr class="row<% ++$row % 2 %>">
+							<td class="padright">
+								<& /comp/linklabel, id => $label->{label}, name => $label->{name}, 
+									resolution =>  $label->{resolution}, strong => 0 &></td>
+							<td>
+								[&nbsp;<a href="/mod/search/pre/label.html?labelid=<% $label->{label} %>">View edits</a>&nbsp;]</td>
+						</tr>
+
+% 			}
+
+					</table>
+
+% 		}
+% 	}
+
+				</td>
+			</tr>
+
 		</table>
 
 	<& /comp/tableend &>

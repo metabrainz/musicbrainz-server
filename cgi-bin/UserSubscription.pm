@@ -60,6 +60,32 @@ sub GetSubscribersForArtist
 }
 
 ################################################################################
+# Users subscribed to a label
+################################################################################
+
+# Returns a list or count of users subscribed to a particular label
+sub GetSubscribersForLabel
+{
+	my $self = shift;
+	$self = $self->new(shift) if not ref $self;
+	my $label = shift;
+
+	return if not defined wantarray;
+    my $sql = Sql->new($self->{DBH});
+
+    return $sql->SelectSingleValue(
+		"SELECT COUNT(DISTINCT moderator) FROM moderator_subscribe_label WHERE label = ?",
+		$label,
+    ) if not wantarray;
+
+    my $user_ids = $sql->SelectSingleColumnArray(
+		"SELECT DISTINCT moderator FROM moderator_subscribe_label WHERE label = ?",
+		$label,
+    );
+	return @$user_ids;
+}
+
+################################################################################
 # Managing a user's subscription list
 ################################################################################
 
@@ -168,6 +194,109 @@ sub UnsubscribeArtists
 	1;
 }
 
+sub GetSubscribedLabels
+{
+	my ($self) = @_;
+	my $uid = $self->GetUser or die;
+	my $sql = Sql->new($self->{DBH});
+
+	my $rows = $sql->SelectListOfHashes(
+		"SELECT s.*, a.name, a.sortname, a.resolution
+		FROM moderator_subscribe_label s
+		LEFT JOIN label a ON a.id = s.label
+		WHERE s.moderator = ?
+		ORDER BY a.sortname, s.label",
+		$uid,
+	);
+
+	@$rows = map { $_->[0] }
+		sort { $a->[1] cmp $b->[1] }
+		map {
+			my $row = $_;
+			my $name = MusicBrainz::Server::Validation::NormaliseSortText($row->{'sortname'});
+			[ $row, $name ];
+		} @$rows;
+
+	return $rows;
+}
+
+sub SubscribeLabels
+{
+	my ($self, @labels) = @_;
+	my $uid = $self->GetUser or die;
+
+	my @labelids;
+
+	for my $label (@labels)
+	{
+		my $labelid = $label->GetId;
+		die if $labelid == &ModDefs::DARTIST_ID;
+		push @labelids, $labelid;
+	}
+
+	my $sql = Sql->new($self->{DBH});
+
+	$sql->AutoTransaction(sub {
+		require Moderation;
+		my $mod = Moderation->new($self->{DBH});
+		my $modid = 0;
+
+		for my $labelid (@labelids)
+		{
+			$sql->SelectSingleValue(
+				"SELECT 1 FROM moderator_subscribe_label
+				WHERE moderator = ? AND label = ?",
+				$uid,
+				$labelid,
+			) and next;
+
+			$modid ||= $mod->GetMaxModID;
+
+			$sql->Do(
+				"INSERT INTO moderator_subscribe_label
+					(moderator, label, lastmodsent)
+				VALUES (?, ?, ?)",
+				$uid,
+				$labelid,
+				$modid,
+			);
+		}
+	});
+
+	1;
+}
+
+sub UnsubscribeLabels
+{
+	my ($self, @labels) = @_;
+	my $uid = $self->GetUser or die;
+
+	my @labelids;
+
+	for my $label (@labels)
+	{
+		my $labelid = $label->GetId;
+		# die if $labelid == &ModDefs::DARTIST_ID;
+		push @labelids, $labelid;
+	}
+
+	my $sql = Sql->new($self->{DBH});
+
+	$sql->AutoTransaction(sub {
+		for my $labelid (@labelids)
+		{
+			$sql->Do(
+				"DELETE FROM moderator_subscribe_label
+				WHERE moderator = ? AND label = ?",
+				$uid,
+				$labelid,
+			);
+		}
+	});
+
+	1;
+}
+
 ################################################################################
 # Hooks called when artists are about to be deleted or merged away
 ################################################################################
@@ -199,6 +328,36 @@ sub ArtistBeingMerged
 }
 
 ################################################################################
+# Hooks called when labels are about to be deleted or merged away
+################################################################################
+
+sub LabelBeingDeleted
+{
+	my ($self, $label, $moderation) = @_;
+	my $sql = Sql->new($self->{DBH});
+
+	$sql->Do(
+		"UPDATE moderator_subscribe_label
+		SET deletedbymod = ? WHERE label = ?",
+		$moderation->GetId,
+		$label->GetId,
+	);
+}
+
+sub LabelBeingMerged
+{
+	my ($self, $label, $moderation) = @_;
+	my $sql = Sql->new($self->{DBH});
+
+	$sql->Do(
+		"UPDATE moderator_subscribe_label
+		SET mergedbymod = ? WHERE label = ?",
+		$moderation->GetId,
+		$label->GetId,
+	);
+}
+
+################################################################################
 # The Subscription Bot.  This is what checks for edits on your
 # subscribed artists, then e-mails you to let you know.
 ################################################################################
@@ -217,15 +376,21 @@ sub ProcessAllSubscriptions
 
 	$self->{ARTIST_MODCOUNT_CACHE} = {};
 
-	my $users = $sql->SelectSingleColumnArray(
+	my $users_artist = $sql->SelectSingleColumnArray(
 		"SELECT DISTINCT moderator FROM moderator_subscribe_artist",
 	);
-	
+	my $users_label = $sql->SelectSingleColumnArray(
+		"SELECT DISTINCT moderator FROM moderator_subscribe_label",
+	);
+
+	my %users = map { $_ => 1 } (@$users_artist, @$users_label);
+	my @users = keys %users;
+
 	printf "Processing subscriptions for %d editors\n",
-		scalar @$users
+		scalar @users
 		if $self->{'verbose'};
 
-	for my $uid (@$users)
+	for my $uid (@users)
 	{
 		$self->SetUser($uid);
 
@@ -257,7 +422,8 @@ sub _ProcessUserSubscriptions
 		if $self->{'verbose'};
 
 	my $subs = $self->GetSubscribedArtists;
-	if (not @$subs)
+	my $labelsubs = $self->GetSubscribedLabels;
+	if (not @$subs and not @$labelsubs)
 	{
 		print "No subscriptions (huh?)\n"
 			if $self->{'verbose'};
@@ -373,7 +539,18 @@ sub _ProcessUserSubscriptions
 			$self->{THRESHOLD_MODID},
 			$self->GetUser,
 		);
-	}
+		$sql->Do(
+			"DELETE FROM moderator_subscribe_label
+			WHERE moderator = ? AND (deletedbymod <> 0 OR mergedbymod <> 0)",
+			$self->GetUser,
+		);
+		$sql->Do(
+			"UPDATE moderator_subscribe_label
+			SET lastmodsent = ? WHERE moderator = ?",
+			$self->{THRESHOLD_MODID},
+			$self->GetUser,
+		);
+}
 
 	if ($text eq "")
 	{

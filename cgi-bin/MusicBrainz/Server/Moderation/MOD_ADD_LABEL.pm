@@ -88,16 +88,16 @@ sub PreInsert
 	# The label has been inserted. Now set up the moderation record
 	# to undo it if the vote fails.
 
-	#if (UserPreference::get('auto_subscribe'))
-	#{
-	#	my $subs = UserSubscription->new($self->{DBH}); 
-	#	$subs->SetUser($self->GetModerator);
-	#	my $label = Label->new($self->{DBH});
-	#	$label->SetId($info{'label_insertid'});
-	#	$subs->SubscribeLabels(($label))
-	#		if ($label->LoadFromId);
-    #}
-    
+	if (UserPreference::get('auto_subscribe'))
+	{
+		my $subs = UserSubscription->new($self->{DBH});
+		$subs->SetUser($self->GetModerator);
+		my $label = Label->new($self->{DBH});
+		$label->SetId($labelid);
+		$subs->SubscribeLabels(($label))
+			if ($label->LoadFromId);
+    }
+
 	my %new = (
 		LabelName => $name,
 		SortName => $sortname,

@@ -173,6 +173,7 @@ my @tables = qw(
 	moderator
 	moderator_preference
 	moderator_subscribe_artist
+	moderator_subscribe_label
 	moderator_sanitised
 	puid
 	puidjoin
