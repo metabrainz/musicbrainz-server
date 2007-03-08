@@ -230,7 +230,7 @@ sub SubscribeLabels
 	for my $label (@labels)
 	{
 		my $labelid = $label->GetId;
-		die if $labelid == &ModDefs::DARTIST_ID;
+		die if $labelid == &ModDefs::DLABEL_ID;
 		push @labelids, $labelid;
 	}
 
