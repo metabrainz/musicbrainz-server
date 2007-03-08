@@ -170,7 +170,7 @@ sub Update
    	my $sql = Sql->new($self->{DBH});
 	$self->SetCountry($new{"country"}) if $new{"country"};
 	$self->SetSortDate($new{"date"}) if $new{"date"};
-	$self->SetLabel($new{"label"}) if $new{"label"};
+	$self->SetLabel($new{"label"});
 	$self->SetCatNo($new{"catno"}) if $new{"catno"};
 	$self->SetBarcode($new{"barcode"}) if $new{"barcode"};
 	$sql->Do(

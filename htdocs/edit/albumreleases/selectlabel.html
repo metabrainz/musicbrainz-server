@@ -60,7 +60,7 @@
 	my $find_label_for = undef;
 	for my $rel (@$releases)
 	{
-		if (!$rel->{label} || $rel->{labelname} ne $rel->{orig_labelname})
+		if ($rel->{labelname} && (!$rel->{label} || $rel->{labelname} ne $rel->{orig_labelname}))
 		{
 			if (defined $submit_select and defined $selected_label) 
 			{
@@ -73,6 +73,10 @@
 				$find_label_for = $rel;
 				last;
 			}
+		}
+		elsif ($rel->{labelname} eq "")
+		{
+			$rel->{label} = undef;
 		}
 	}
 	
