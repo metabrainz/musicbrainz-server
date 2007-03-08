@@ -49,6 +49,11 @@
 	MusicBrainz::Server::Validation::IsNonNegInteger($artistid) && $artistid
 		or return $m->comp("/comp/layout/badarguments",
 			text => "The argument <strong>artistid</strong> is missing or has a wrong format.");
+	if ($artistid == &ModDefs::VARTIST_ID)
+    {
+		return $m->comp("/comp/layout/badarguments",
+			text => "You cannot change the Various Artist data quality");
+    }
 
 	# Instantiate MusicBrainz object
 	my $mb = $m->comp("/comp/dblogin");
@@ -106,7 +111,7 @@
 				<tr>
 					<td class="instructions" colspan="2">
 					    <p>
-						   The quality level for this artist is currently: <b><% $qualitytext %></b>. Select
+						   The quality level for <b><% $artist->GetName %></b> is currently: <b><% $qualitytext %></b>. Select
 						   a new quality level and please enter an edit comment:
 						</p>
 					</td>
