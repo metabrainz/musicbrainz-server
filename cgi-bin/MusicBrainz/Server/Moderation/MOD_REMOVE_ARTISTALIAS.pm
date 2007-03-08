@@ -47,6 +47,20 @@ sub PreInsert
 	$self->SetRowId($alias->GetId);
 }
 
+sub DetermineQuality
+{
+	my $self = shift;
+
+	my $ar = Artist->new($self->{DBH});
+	$ar->SetId($self->{rowid});
+	if ($ar->LoadFromId())
+	{
+        return $ar->GetQuality();        
+    }
+    print STDERR __PACKAGE__ . ": quality not determined\n";
+    return &ModDefs::QUALITY_UNKNOWN;
+}
+
 sub ApprovedAction
 {
 	my $this = shift;

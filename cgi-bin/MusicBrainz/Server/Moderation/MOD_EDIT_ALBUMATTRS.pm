@@ -126,8 +126,8 @@ sub PreInsert
 
 sub IsAutoEdit
 {
-	my ($self, $user_is_automod) = @_;
-	$self->{"new_unpacked"}{"can_automod"} or $user_is_automod;
+	my ($self) = @_;
+	$self->{"new_unpacked"}{"can_automod"};
 }
 
 sub PostLoad
@@ -152,6 +152,28 @@ sub PostLoad
 	}
 
 	$self->{'new_albums'} = \@albums;
+}
+
+sub DetermineQuality
+{
+	my $self = shift;
+
+    # Take the quality level from the first release or set to normal for multiple releases
+    my $quality_level = &ModDefs::QUALITY_NORMAL;
+    if (scalar(@$self->{new_albums}) == 1)
+    {
+        my $rel = Album->new($self->{DBH});
+        $rel->SetId($self->{new_albums}->[0]->{id});
+        if ($rel->LoadFromId())
+        {
+            $quality_level = $rel->GetQuality();        
+        }
+    }
+    else
+    {
+        print STDERR __PACKAGE__ . " cannot determine quality\n";
+    }
+    return $quality_level;
 }
 
 sub ConvertToText

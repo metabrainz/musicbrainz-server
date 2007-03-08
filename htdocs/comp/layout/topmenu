@@ -222,6 +222,7 @@
 
 			] : [],
 			{ name => "Review/Vote on Edits",	url => "/mod/search/select-filter.html" },
+			{ name => "Edit information", url => "/mod/info.html" },
 			[
 				{ url => "/mod/search/pre/new.html" },
 				{ url => "/mod/search/pre/subscriptions.html" },
@@ -244,7 +245,6 @@
 					{ url => "/mod/approve.html" },
 				],
 				{ url => "/mod/search/results.html" },
-				{ url => "/mod/info.html" },
 			],
 
 			{ name => "Add Artist",				url => "/edit/artist/add.html" },

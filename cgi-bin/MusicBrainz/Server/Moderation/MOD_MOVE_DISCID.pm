@@ -83,8 +83,8 @@ sub PreInsert
 		die $self;
 	}
 
-	require MusicBrainz::Server::AlbumCDTOC;
-	my $alcdtoc = MusicBrainz::Server::AlbumCDTOC->newFromAlbumAndCDTOC($self->{DBH}, $oldal, $cdtoc->GetId);
+	require AlbumCDTOC;
+	my $alcdtoc = AlbumCDTOC->newFromAlbumAndCDTOC($self->{DBH}, $oldal, $cdtoc->GetId);
 	if (not $alcdtoc)
 	{
 		$self->SetError("Old release / CD TOC not found");
@@ -127,6 +127,21 @@ sub PostLoad
 	($self->{"albumname"}) = ($new->{"OldAlbumName"});			
 }
 
+sub DetermineQuality
+{
+	my $self = shift;
+
+	my $rel = Album->new($self->{DBH});
+	my $new = $self->{'new_unpacked'};
+	$rel->SetId($new->{NewAlbumId});
+	if ($rel->LoadFromId())
+	{
+        return $rel->GetQuality();        
+    }
+    print STDERR __PACKAGE__ . ": quality not determined\n";
+    return &ModDefs::QUALITY_UNKNOWN;
+}
+
 # This implementation is required (instead of the default) because old rows
 # will have a "table" value of "discid" instead of "album_cdtoc"
 sub AdjustModPending
@@ -151,8 +166,8 @@ sub DeniedAction
 	my $new = $self->{'new_unpacked'};
 
 	# Check that the album_cdtoc row still exists
-	require MusicBrainz::Server::AlbumCDTOC;
-	my $album_cdtoc = MusicBrainz::Server::AlbumCDTOC->newFromId($self->{DBH}, $self->GetRowId)
+	require AlbumCDTOC;
+	my $album_cdtoc = AlbumCDTOC->newFromId($self->{DBH}, $self->GetRowId)
 		or do {
 			$self->InsertNote(MODBOT_MODERATOR, "This disc ID has been deleted");
 			$self->SetStatus(STATUS_FAILEDDEP);
@@ -182,15 +197,15 @@ sub DeniedAction
 		return;
 	}
 
-	require MusicBrainz::Server::AlbumCDTOC;
+	require AlbumCDTOC;
 
 	if ($new->{"AlreadyThere"})
 	{
 		# Create a new association between the old album and FullTOC
-		MusicBrainz::Server::AlbumCDTOC->Insert($self->{DBH}, $self->GetPrev, $new->{"FullTOC"});
+		AlbumCDTOC->Insert($self->{DBH}, $self->GetPrev, $new->{"FullTOC"});
 	} else {
 		# Move the row back to the old album
-		my $alcdtoc = MusicBrainz::Server::AlbumCDTOC->newFromId($self->{DBH}, $self->GetRowId)
+		my $alcdtoc = AlbumCDTOC->newFromId($self->{DBH}, $self->GetRowId)
 			or return;
 		$alcdtoc->MoveToAlbum($self->GetPrev);
 	}

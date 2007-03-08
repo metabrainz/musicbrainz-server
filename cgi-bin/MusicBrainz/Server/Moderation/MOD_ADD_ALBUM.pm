@@ -305,6 +305,21 @@ sub PostLoad
 	# attempt to load the release entitiy from the value
 	# stored in this edit type. (@see Moderation::ShowModType)
 	($self->{"albumid"}, $self->{"checkexists-album"}) = ($releaseid, 1);
+
+}
+
+sub DetermineQuality
+{
+    my $self = shift;
+
+    my $rel = Album->new($self->{DBH});
+    $rel->SetId($self->{rowid});
+    if ($rel->LoadFromId())
+    {
+        return $rel->GetQuality();        
+    }
+    print STDERR __PACKAGE__ . ": quality not determined\n";
+    return &ModDefs::QUALITY_UNKNOWN;
 }
 
 sub ApprovedAction

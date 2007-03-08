@@ -104,6 +104,33 @@ sub PostLoad
 	@albums or die;
 }
 
+sub DetermineQuality
+{
+	my $self = shift;
+
+	my $new = $self->{'new_unpacked'} = $self->ConvertNewToHash($self->GetNew)
+		or die;
+
+    my $quality = -1;
+    for(my $i = 0;;$i++)
+    {
+        my $rel = Album->new($self->{DBH});
+        last if (!exists $new->{"AlbumId$i"});
+        $rel->SetId($new->{"AlbumId$i"});
+        if ($rel->LoadFromId())
+        {
+            $quality = $rel->GetQuality() > $quality ? $rel->GetQuality() : $quality;        
+        }
+    }
+
+    if ($quality < 0)
+    {
+        print STDERR __PACKAGE__ . ": quality not determined\n";
+        $quality = &ModDefs::QUALITY_UNKNOWN;
+    }
+    return $quality;
+}
+
 sub AdjustModPending
 {
 	my ($self, $adjust) = @_;

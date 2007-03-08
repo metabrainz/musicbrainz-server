@@ -123,8 +123,6 @@ sub PreInsert
 	$self->SetNew($self->ConvertHashToNew(\%new));
 }
 
-sub IsAutoMod { 1 }
-
 sub PostLoad
 {
 	my $self = shift;

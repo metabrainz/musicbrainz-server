@@ -142,12 +142,23 @@ sub PostLoad
 	$self->{'prev_unpacked'} = $self->ConvertNewToHash($self->GetPrev()) or die;
 }
 
+sub DetermineQuality
+{
+	my $self = shift;
+
+	my $ar = Artist->new($self->{DBH});
+	$ar->SetId($self->{rowid});
+	if ($ar->LoadFromId())
+	{
+        return $ar->GetQuality();        
+    }
+    print STDERR __PACKAGE__ . ": quality not determined\n";
+    return &ModDefs::QUALITY_UNKNOWN;
+}
+
 sub IsAutoEdit
 {
-	my ($self, $user_is_automod) = @_;
-
-	# This moderation is automodable
-	return 1 if $user_is_automod;
+	my ($self) = @_;
 
 	my $new = $self->{'new_unpacked'};
 	my $prev = $self->{'prev_unpacked'};

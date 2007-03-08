@@ -67,6 +67,20 @@ sub PostLoad
 	$self->{"trackname"} = $self->{"prev.trackname"};    
 }
 
+sub DetermineQuality
+{
+	my $self = shift;
+
+	my $rel = Album->new($self->{DBH});
+	$rel->SetId($self->{albumid});
+	if ($rel->LoadFromId())
+	{
+        return $rel->GetQuality();        
+    }
+    print STDERR __PACKAGE__ . ": quality not determined\n";
+    return &ModDefs::QUALITY_UNKNOWN;
+}
+
 sub ApprovedAction
 {
 	my $this = shift;

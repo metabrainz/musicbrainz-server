@@ -91,9 +91,12 @@
 		<& /comp/linkdoc, "EditNote", "edit note", 0 &>. If you do
 		so, your edit is more likely to be <& /comp/linkdoc, "EditingFAQ",
 		"voted on, and unanimously accepted", 0 &> by the other MusicBrainz
-		editors. If your edit receives <% &DBDefs::NUM_UNANIMOUS_VOTES %>
+		editors. If your edit receives the required number of  
 		unanimous yes votes, it will be applied instantly, even before the
-		one week period elapses in which edits usually are kept open.
+		voting period elapses in which edits usually are kept open.
+        For detailed information on how long edits stay open and how many votes
+        are required for it to pass unanimously, please see our
+        <a href="/mod/info.html">edit information</a> page.
 	</div>
 
 %		$session{"orig_privs"} = $session{"privs"}

@@ -27,7 +27,22 @@
 	# $Id: approve.html 8548 2006-10-19 07:41:02Z dave $
 	#
 </%perl>
-<& /comp/sidebar, title => "Edit type information" &>
+<& /comp/sidebar, title => "Edit information" &>
+
+<p>
+This page shows the available edit types are and what the requirements are for getting
+and edit applied to the database. Each edit type is listed three times below; one for each 
+of the quality levels: low, normal and high. An unknown quality level will be treated 
+exactly like the normal quality level.
+</p>
+
+<p>
+For each edit type and each quality level the tables below show the voting
+period that an edit will remain open for, the number of unanimous votes required
+to shortcut the edit period, what happens if the edit expires, but has not votes, 
+and wether or not an edit is considere an <& /comp/linkdoc, "AutoEdit", "auto edit" &>.
+</p>
+
 <%perl>
 
 my $level;

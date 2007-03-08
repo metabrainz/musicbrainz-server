@@ -140,6 +140,34 @@ sub PostLoad
 		or die;
 }
 
+sub DetermineQuality
+{
+	my $self = shift;
+
+    my $id = 0;
+    my $type = '';
+    my $new = $self->{'new_unpacked'};
+    if ($new->{entity0type} eq 'album' || $new->{entity1type} eq 'album')
+    {
+        my $rel = Album->new($self->{DBH});
+        $rel->SetId($new->{entity0type} eq 'album' ? $new->{entity0id} : $new->{entity1id});
+        if ($rel->LoadFromId())
+        {
+            return $rel->GetQuality();        
+        }
+    }
+    elsif ($new->{entity0type} eq 'artist' || $new->{entity1type} eq 'artist')
+    {
+        my $rel = Artist->new($self->{DBH});
+        $rel->SetId($new->{entity0type} eq 'artist' ? $new->{entity0id} : $new->{entity1id});
+        if ($rel->LoadFromId())
+        {
+            return $rel->GetQuality();        
+        }
+    }
+    return &ModDefs::QUALITY_NORMAL;
+}
+
 sub DeniedAction
 {
   	my $self = shift;

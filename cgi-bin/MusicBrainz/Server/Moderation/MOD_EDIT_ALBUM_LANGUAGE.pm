@@ -128,6 +128,28 @@ sub PostLoad
 	$self->{_scriptid} = $script;
 }
 
+sub DetermineQuality
+{
+	my $self = shift;
+
+    # Take the quality level from the first release or set to normal for multiple releases
+    my $quality_level = &ModDefs::QUALITY_NORMAL;
+    if (scalar(@$self->{new_albums}) == 1)
+    {
+        my $rel = Album->new($self->{DBH});
+        $rel->SetId($self->{new_albums}->[0]->{id});
+        if ($rel->LoadFromId())
+        {
+            $quality_level = $rel->GetQuality();        
+        }
+    }
+    else
+    {
+        print STDERR __PACKAGE__ . " cannot determine quality\n";
+    } 
+    return $quality_level;
+}
+
 sub AdjustModPending
 {
 	my ($self, $adjust) = @_;

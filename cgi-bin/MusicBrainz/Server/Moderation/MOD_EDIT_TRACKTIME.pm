@@ -64,6 +64,35 @@ sub PostLoad
 	# from the albumjoin table, but it does not.
 }
 
+sub DetermineQuality
+{
+	my $self = shift;
+
+    # Attempt to find the right release this track is attached to.
+	my $tr = Track->new($self->{DBH});
+    $tr->SetId($self->{trackid});
+	if ($tr->LoadFromId())
+	{
+        my $rel = Album->new($self->{DBH});
+        $rel->SetId($tr->GetAlbum());
+        if ($rel->LoadFromId())
+        {
+            return $rel->GetQuality();        
+        }
+    }
+
+    # if that fails, go by the artist
+    my $ar = Artist->new($self->{DBH});
+    $ar->SetId($tr->GetArtist());
+    if ($ar->LoadFromId())
+    {
+        return $ar->GetQuality();        
+    }
+
+    print STDERR __PACKAGE__ . ": quality not determined\n";
+    return &ModDefs::QUALITY_UNKNOWN;
+}
+
 sub IsAutoEdit
 {
 	my $self = shift;

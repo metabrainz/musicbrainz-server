@@ -78,6 +78,21 @@ sub PostLoad
 	($this->{"albumid"}, $this->{"checkexists-album"}) = ($this->GetRowId, 1);			
 }
 
+sub DetermineQuality
+{
+	my $self = shift;
+
+	my $ar = Artist->new($self->{DBH});
+	$ar->SetId($self->{"new.artistid"});
+	if ($ar->LoadFromId())
+	{
+        return $ar->GetQuality();        
+    }
+    print STDERR __PACKAGE__ . ": quality not determined\n";
+    return &ModDefs::QUALITY_UNKNOWN;
+}
+
+
 sub PreDisplay
 {
 	my $this = shift;

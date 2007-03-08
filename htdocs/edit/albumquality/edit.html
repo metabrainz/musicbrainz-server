@@ -148,7 +148,7 @@
     }
 
 	# set the current values from the argument, or the first release handed in.
-	my $quality_curr = $quality_new || (@releaseobjs ? $releaseobjs[0]->GetQuality : -1) || &ModDefs::QUALITY_NORMAL;
+	my $quality_curr = (scalar(@releaseobjs) == 1) ? $releaseobjs[0]->GetQuality : -1;
 
 	# see if one of the releases has a modpending flag.
 	my $mp = grep { $_->GetLanguageModPending } @releaseobjs;

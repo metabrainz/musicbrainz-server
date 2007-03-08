@@ -159,10 +159,7 @@ sub PostLoad
 
 sub IsAutoEdit
 {
-	my ($self, $user_is_automod) = @_;
-
-	# This moderation is automodable
-	return 1 if $user_is_automod;
+	my ($self) = @_;
 
 	my $new = $self->{'new_unpacked'};
 	my $prev = $self->{'prev_unpacked'};

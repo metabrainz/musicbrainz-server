@@ -186,12 +186,28 @@ sub PostLoad
 	$self->{"albumname"} = $new->{"albumname"}; 
 }
 
+sub DetermineQuality
+{
+	my $self = shift;
+
+	my $rel = Album->new($self->{DBH});
+	$rel->SetId($self->{rowid});
+	if ($rel->LoadFromId())
+	{
+        return $rel->GetQuality();        
+    }
+    print STDERR __PACKAGE__ . ": quality not determined\n";
+    return &ModDefs::QUALITY_UNKNOWN;
+}
+
 sub IsAutoEdit
 {
-	my ($self, $isautoeditor) = @_;
+	my ($self) = @_;
 
-	my $adds = @{ $self->{"adds"} }; 
 	my $removes = @{ $self->{"removes"} };
+
+    # If data is being removed, never autoedit
+	return 0 if ($removes);
 
 	# see ticket #1623, entering more complete release events is
 	# an autoedit.
@@ -220,10 +236,7 @@ sub IsAutoEdit
 
 	# adding of events is auto approved for autoeditors
 	# adding more complete data is auto approved for all
-	return 0 if ($adds and !$isautoeditor);
-	return 0 if ($edits and !$isautoeditor);
-	return 0 if ($removes);
-	return 1;
+    return $edits > 0;
 }
 
 sub AdjustModPending

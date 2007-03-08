@@ -63,8 +63,8 @@ sub PreInsert
 	my $cdtoc = $opts{'cdtoc'} or die;
 	my $oldrelease = $opts{album} or die;
 
-	require MusicBrainz::Server::AlbumCDTOC;
-	my $alcdtoc = MusicBrainz::Server::AlbumCDTOC->newFromAlbumAndCDTOC($self->{DBH}, $oldrelease, $cdtoc->GetId);
+	require AlbumCDTOC;
+	my $alcdtoc = AlbumCDTOC->newFromAlbumAndCDTOC($self->{DBH}, $oldrelease, $cdtoc->GetId);
 	if (not $alcdtoc)
 	{
 		$self->SetError("Old album / CD TOC not found");
@@ -102,6 +102,20 @@ sub PostLoad
 	($self->{"albumname"}) = ($new->{"AlbumName"});			
 }
 
+sub DetermineQuality
+{
+	my $self = shift;
+
+	my $rel = Album->new($self->{DBH});
+	$rel->SetId($self->{albumid});
+	if ($rel->LoadFromId())
+	{
+        return $rel->GetQuality();        
+    }
+    print STDERR __PACKAGE__ . ": quality not determined\n";
+    return &ModDefs::QUALITY_UNKNOWN;
+}
+
 # This implementation is required (instead of the default) because old rows
 # will have a "table" value of "discid" instead of "album_cdtoc"
 
@@ -120,9 +134,9 @@ sub ApprovedAction
 {
 	my $self = shift;
 
-	require MusicBrainz::Server::AlbumCDTOC;
+	require AlbumCDTOC;
 
-	my $alcdtoc = MusicBrainz::Server::AlbumCDTOC->newFromId($self->{DBH}, $self->GetRowId);
+	my $alcdtoc = AlbumCDTOC->newFromId($self->{DBH}, $self->GetRowId);
 	if (not $alcdtoc)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This disc ID has already been removed");

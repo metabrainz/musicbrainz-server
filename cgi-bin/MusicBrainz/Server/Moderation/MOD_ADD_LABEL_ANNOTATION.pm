@@ -93,11 +93,6 @@ sub ApprovedAction
 	return &ModDefs::STATUS_APPLIED;
 }
 
-sub IsAutoEdit
-{
-	return 1;
-}
-
 sub ShowModTypeDelegate
 {
 	my ($self, $m) = @_;

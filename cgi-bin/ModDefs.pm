@@ -176,6 +176,10 @@ use constant STATUS_ERROR				=> 5;
 # does not match up with the data currently in the rol/col.
 use constant STATUS_FAILEDPREREQ		=> 6;
 
+# The edit received no votes during the voting period and the
+# edit rules determined that the edit should be rejected.
+use constant STATUS_NOVOTES             => 7;
+
 # When a moderator wants to delete their own mod, the web interface Moderation 
 # its status to 'to be deleted' so that the ModerationBot can clean it and
 # its possible depedents up. Once the ModBot spots this record it cleans up

@@ -37,12 +37,6 @@
 	# Instantiate MusicBrainz object
 	my $mb = $m->comp("/comp/dblogin");
 
-    my @quality_levels = (
-         [ &ModDefs::QUALITY_LOW."", ModDefs::GetQualityText(&ModDefs::QUALITY_LOW) ],
-         [ &ModDefs::QUALITY_NORMAL."", ModDefs::GetQualityText(&ModDefs::QUALITY_NORMAL) ],
-         [ &ModDefs::QUALITY_HIGH."", ModDefs::GetQualityText(&ModDefs::QUALITY_HIGH) ]
-    );
-
 </%perl>
 
 		<tr class="spaced">
@@ -50,24 +44,25 @@
 			<td class="label">
 				<label for="id_<% $quality_fieldname %>">Quality:</label></td>
 			<td class="field">
-				<select name="<% $quality_fieldname %>" style="width: 200px" id="id_<% $quality_fieldname %>">
-					<& /comp/options, \@quality_levels, $quality_curr &>
-				</select></td>
-		</tr>
-
-        <tr>
-           <td>&nbsp;</td>
-           <td>
-            <b>Low</b> -- this quality level generally requires fewer votes and a shorter voting period and 
-            should be used for releases that require a lot of cleanup. This level makes it easy to 
-            change information for this releases.<br/>
-            <b>Normal</b> -- this quality level requires a normal amount of votes and a normal voting period 
-            and should be used for most releases.<br/>
-            <b>High</b> -- this quality level generally requires more votes and a longer voting period 
-            and should be used with releases whose information is fairly complete. 
-            This level makes it hard to change information for this release.<br/>
+%               if ($quality_curr != &ModDefs::QUALITY_LOW) {
+                    <input type="radio" name="<% $quality_fieldname %>" value="<% &ModDefs::QUALITY_LOW %>"><b>Low</b> -- 
+                    this quality level generally requires fewer votes and a shorter voting period and 
+                    should be used for artists that require a lot of cleanup.
+                    This level makes it easy to change information for this artist.<br/>
+%				}
+%               if ($quality_curr != &ModDefs::QUALITY_NORMAL) {
+				    <input type="radio" name="<% $quality_fieldname %>" value="<% &ModDefs::QUALITY_NORMAL %>"><b>Normal</b> -- 
+                    this quality level requires a normal amount of votes and a normal voting period 
+                    and should be used for most artists.<br/>
+%				}
+%               if ($quality_curr != &ModDefs::QUALITY_HIGH) {
+                    <input type="radio" name="<% $quality_fieldname %>" value="<% &ModDefs::QUALITY_HIGH %>"><b>High</b> -- 
+                    this quality level generally requires more votes and a longer voting period 
+                    and should be used with artists whose information is fairly complete. 
+                    This level makes it hard to change information for this artist.<br/>
+%				}
            </td>
-        </tr>
+		</tr>
 
 		<tr>
 			<td>&nbsp;</td>

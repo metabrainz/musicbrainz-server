@@ -45,9 +45,12 @@ sub PreInsert
 		Quality	=> $quality
 	);
 
-	my $fCanAutoMod = 1;
-
 	my $seq = 0;
+
+    # Take the quality level from the first release or set to normal for multiple releases
+    my $quality_level = &ModDefs::QUALITY_NORMAL;
+    $quality_level = $releases->[0] if (scalar(@$releases) == 1);
+
 	foreach my $al ( @$releases )
 	{
 		my $prev = $al->GetQuality || 0;
@@ -57,13 +60,9 @@ sub PreInsert
 		$new{"ReleaseName$seq"} = $al->GetName;
 		$new{"Prev$seq"} = $prev;
 
-		$fCanAutoMod = 0 if $prev and $quality != $prev;
-
 		++$artists{$al->GetArtist};
 		++$seq;
 	}
-
-	$new{can_automod} = $fCanAutoMod;
 
 	# Nothing to change?
 	unless ($seq)
@@ -85,15 +84,6 @@ sub PreInsert
 	$self->SetTable("album");
 	$self->SetColumn("id");
 	$self->SetNew($self->ConvertHashToNew(\%new));
-}
-
-sub IsAutoEdit
-{
-	my $self = shift;
-
-	my $new = $self->ConvertNewToHash($self->GetNew);
-
-	return $new->{can_automod};
 }
 
 sub PostLoad

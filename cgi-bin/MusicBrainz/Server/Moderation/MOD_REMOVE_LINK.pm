@@ -83,6 +83,45 @@ sub PreInsert
 	$self->SetNew($self->ConvertHashToNew(\%new));
 }
 
+sub PostLoad
+{
+	my $self = shift;
+	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->GetNew)
+		or die;
+}
+
+sub DetermineQuality
+{
+	my $self = shift;
+
+    my $id = 0;
+    my $type = '';
+    my $new = $self->{'new_unpacked'};
+    if ($new->{entity0type} eq 'album' || $new->{entity1type} eq 'album')
+    {
+        my $rel = Album->new($self->{DBH});
+        $rel->SetId($new->{entity0type} eq 'album' ? $new->{entity0id} : $new->{entity1id});
+        if ($rel->LoadFromId())
+        {
+            return $rel->GetQuality();        
+        }
+    }
+    elsif ($new->{entity0type} eq 'artist' || $new->{entity1type} eq 'artist')
+    {
+        my $rel = Artist->new($self->{DBH});
+        $rel->SetId($new->{entity0type} eq 'artist' ? $new->{entity0id} : $new->{entity1id});
+        if ($rel->LoadFromId())
+        {
+            return $rel->GetQuality();        
+        }
+    }
+    else
+    {
+        print STDERR __PACKAGE__ . " cannot determine quality\n";
+    }   
+    return &ModDefs::QUALITY_NORMAL;
+}
+
 sub ApprovedAction
 {
 	my $self = shift;
@@ -119,12 +158,6 @@ sub ApprovedAction
 	return STATUS_APPLIED;
 }
 
-sub PostLoad
-{
-	my $self = shift;
-	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->GetNew)
-		or die;
-}
 
 1;
 # eof MOD_REMOVE_LINK.pm

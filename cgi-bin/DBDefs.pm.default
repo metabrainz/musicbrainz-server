@@ -177,16 +177,9 @@ sub DB_STAGING_SERVER { "development" }
 # whatever you want.
 sub VERSION { "TRUNK" }
 
-# Defines the expiry period of new moderations; i.e. age of the moderation
-# after which a simple majority will carry the vote.  This has to be in a
-# format understood by Postgres as an "interval".
-sub MOD_PERIOD { '1 week' }
 # Mods with no votes, for artists which have subscribers, can stay open longer
 # after expiry.  This defines how long.
 sub MOD_PERIOD_GRACE { '1 week' }
-
-# Defines the number of unanimous votes required to pass a moderation early
-sub NUM_UNANIMOUS_VOTES { 3 }
 
 # If this file exists (and is writeable by the web server), debugging
 # information is logged here.

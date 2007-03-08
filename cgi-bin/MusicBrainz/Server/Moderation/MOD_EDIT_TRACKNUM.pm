@@ -72,6 +72,33 @@ sub PostLoad
 	}
 }
 
+sub DetermineQuality
+{
+	my $self = shift;
+
+    # see if we loaded the album
+	if ($self->{'albumexists'})
+	{
+        my $rel = Album->new($self->{DBH});
+        $rel->SetId($self->{albumid});
+        if ($rel->LoadFromId())
+        {
+            return $rel->GetQuality();        
+        }
+    }
+
+    # if that fails, go by the artist
+    my $ar = Artist->new($self->{DBH});
+    $ar->SetId($self->{artist});
+    if ($ar->LoadFromId())
+    {
+        return $ar->GetQuality();        
+    }
+
+    print STDERR __PACKAGE__ . ": quality not determined\n";
+    return &ModDefs::QUALITY_UNKNOWN;
+}
+
 sub ApprovedAction
 {
 	my $this = shift;

@@ -87,6 +87,31 @@ sub PostLoad
 	}
 }
 
+sub DetermineQuality
+{
+	my $self = shift;
+
+    my $quality = -1;
+	my $ar = Artist->new($self->{DBH});
+	$ar->SetId($self->{"new.id"});
+	if ($ar->LoadFromId())
+	{
+        $quality = $ar->GetQuality();        
+    }
+	$ar->SetId($self->{rowid});
+	if ($ar->LoadFromId())
+	{
+        $quality = $quality > $ar->GetQuality() ? $quality : $ar->GetQuality;        
+    }
+
+    if ($quality < 0)
+    {
+        $quality = &ModDefs::QUALITY_UNKNOWN;
+        print STDERR __PACKAGE__ . ": quality not determined\n";
+    }
+    return $quality;
+}
+
 sub AdjustModPending
 {
 	my ($self, $adjust) = @_;

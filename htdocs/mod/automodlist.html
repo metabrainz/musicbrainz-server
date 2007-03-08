@@ -38,28 +38,16 @@
 
 	<& /comp/tablebegin, title => "About AutoEditors" &>
 
-	<& /comp/linkdoc, "AutoEditor", "AutoEditors" &> are editors who
-	have made a large number of contributions to MusicBrainz. There was
-	a time when we used to call certain edit types <em>AutoModerations</em>
-	too, but this terminology has been adjusted to <& /comp/linkdoc, "AutoEdit", "AutoEdits" &>.
-
-	<div style="margin-top: 15px">
-		The following edit types are AutoEdits:
-	</div>
-
-	<div style="margin: 5px 45px">
-
-%	my @edittypes = @{ $mod->GetAutomoderationList };
-%	while (defined(my $edittype = shift @edittypes))
-%	{
-%		my $wp = $edittype;
-%		$wp =~ s/ //g;
-%		$wp .= "Edit";
-
-		<& /comp/linkdoc, $wp , $edittype &><% (@edittypes ? ", " : "") %>
-
-%	}
-
+    <p>
+        <& /comp/linkdoc, "AutoEditor", "AutoEditors" &> are editors who
+        have made a large number of contributions to MusicBrainz. There was
+        a time when we used to call certain edit types <em>AutoModerations</em>
+        too, but this terminology has been adjusted to <& /comp/linkdoc, "AutoEdit", "AutoEdits" &>.
+    </p>
+    <p>
+        For a list of what edit types are auto edits, please refer to the <a href="/mod/info.html">edit
+        information page</a>.
+    </p>
 	</div>
 
 	<& /comp/tableend &>

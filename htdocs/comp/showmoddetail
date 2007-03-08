@@ -23,6 +23,7 @@
 	my $expire_verb = ($edit->GetExpired ? "Expired" : "Expires");
 
 	my $language = $edit->GetLanguage;
+	my $quality = $edit->GetQuality;
 
 	my @statuslinks = ();
 	my $id = $edit->GetId;
@@ -87,6 +88,13 @@
 				<td class="label">Closed:</td>
 				<td><% $closetime %></td>
 			</tr>
+% 	if ($quality)
+%	{
+			<tr>
+				<td class="label">Edit quality level:</td>
+				<td><% &ModDefs::GetQualityText($quality) %></td>
+			</tr>
+% 	}
 
 			<tr>
 				<td></td>

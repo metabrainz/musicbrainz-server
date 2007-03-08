@@ -62,6 +62,21 @@ sub PostLoad
 	@$this{qw( new.sortname new.name new.id )} = ($sortname, $name, $newid);
 }
 
+sub DetermineQuality
+{
+	my $self = shift;
+
+	my $ar = Artist->new($self->{DBH});
+	$ar->SetId($self->{artist});
+	if ($ar->LoadFromId())
+	{
+        return $ar->GetQuality();        
+    }
+    print STDERR __PACKAGE__ . ": quality not determined\n";
+    return &ModDefs::QUALITY_UNKNOWN;
+}
+
+
 sub PreDisplay
 {
 	my $this = shift;

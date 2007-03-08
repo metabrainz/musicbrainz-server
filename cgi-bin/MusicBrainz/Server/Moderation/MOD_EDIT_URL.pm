@@ -101,6 +101,37 @@ sub PostLoad
 	$self->{'prev_unpacked'} = $self->ConvertNewToHash($self->GetPrev()) or die;
 }
 
+sub DetermineQuality
+{
+	my $self = shift;
+
+    my @links = MusicBrainz::Server::Link->FindLinkedEntities(
+        $self->{DBH}, $self->{rowid}, 'url', ('to_type' => 'album')
+    );
+    # See if we have an album url link
+    if (@links)
+    {
+        my $album = Album->new($self->{DBH});
+        $album->SetId($links[0]->{link0_id});
+        return $album->GetQuality
+            if ($album->LoadFromId(0));
+    }
+    # Get the artist from artist ARs
+    @links = MusicBrainz::Server::Link->FindLinkedEntities(
+        $self->{DBH}, $self->{rowid}, 'url', ('to_type' => 'artist')
+    );
+    if (@links)
+    {
+        my $ar = Artist->new($self->{DBH});
+        $ar->SetId($links[0]->{link0_id});
+        return $ar->GetQuality
+            if ($ar->LoadFromId(0));
+    }
+
+    print STDERR __PACKAGE__ . ": quality not determined\n";
+    return &ModDefs::QUALITY_NORMAL;
+}
+
 sub ApprovedAction
 {
 	my $self = shift;

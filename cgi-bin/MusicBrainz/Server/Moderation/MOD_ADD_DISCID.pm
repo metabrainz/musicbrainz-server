@@ -42,7 +42,7 @@ sub PreInsert
 
 	my $added;
 	my $tocid;
-	my $rowid = MusicBrainz::Server::AlbumCDTOC->Insert(
+	my $rowid = AlbumCDTOC->Insert(
 		$self->{DBH}, $al, $toc,
 		added => \$added,
 		tocid => \$tocid,
@@ -69,8 +69,6 @@ sub PreInsert
 	$self->SetNew($self->ConvertHashToNew(\%new));
 }
 
-sub IsAutoEdit { 1 }
-
 sub PostLoad
 {
 	my $self = shift;
@@ -81,6 +79,21 @@ sub PostLoad
 	my $new = $self->{'new_unpacked'};
 
 	($self->{"albumid"}, $self->{"checkexists-album"}) = ($new->{'AlbumId'}, 1);
+}
+
+sub DetermineQuality
+{
+    my $self = shift;
+
+	my $new = $self->{'new_unpacked'};
+    my $rel = Album->new($self->{DBH});
+    $rel->SetId($new->{"ArtistId"});
+    if ($rel->LoadFromId())
+    {
+        return $rel->GetQuality();        
+    }
+    print STDERR __PACKAGE__ . ": quality not determined\n";
+    return &ModDefs::QUALITY_UNKNOWN;
 }
 
 # This implementation is required (instead of the default) because old rows
@@ -106,9 +119,9 @@ sub DeniedAction
 {
 	my $self = shift;
 
-	require MusicBrainz::Server::AlbumCDTOC;
+	require AlbumCDTOC;
 
-	my $alcdtoc = MusicBrainz::Server::AlbumCDTOC->newFromId($self->{DBH}, $self->GetRowId);
+	my $alcdtoc = AlbumCDTOC->newFromId($self->{DBH}, $self->GetRowId);
 	if (not $alcdtoc)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This disc ID has already been removed");

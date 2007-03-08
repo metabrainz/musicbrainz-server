@@ -104,6 +104,7 @@ sub CheckModerations
 	while (my @row = $sql->NextRow())
 	{
 		my $mod = $basemod->CreateFromId($row[0]);
+        my $level = Moderation::GetEditLevelDefs($mod->GetQuality)->{$mod->GetType};
 
 		if (!defined $mod)
 		{
@@ -217,45 +218,57 @@ sub CheckModerations
 			}
 
 			# OK, it has expired and no-one has voted.  What to do?
+            # We're not using grace periods are subscriber counts anymore -- 
+            # given that we can now accept or reject end edit based on the edit type.
+            if ($level->{expireaction} = &Moderation::EXPIRE_ACCEPT)
+            {
+ 				$mod->{__eval__} = STATUS_APPLIED;
+            }
+            else
+            {
+ 				$mod->{__eval__} = STATUS_NOVOTES;
+            }
+    		next;
 
-			# If the grace period has expired, then let it in.  No-one
-			# objected, and the original moderator wanted it it.  That's a
-			# majority of 1.
-			if ($mod->GetGracePeriodExpired)
-			{
-				print localtime() . " : EvalChange: grace period exceeded, approved\n"
-					if $fDebug;
-				$mod->{__eval__} = STATUS_APPLIED;
-				next;
-			}
-
-			# The mod has expired, so see if anyone (other than the moderator) is
-			# subscribed to the artist.  If so, allow the mod to stay open
-			# some more (the grace period).
-			my $subscribers = $artist_subscribers{$mod->GetArtist} ||= do {
-				require UserSubscription;
-				my $us = UserSubscription->new($this->{DBH});
-				[ $us->GetSubscribersForArtist($mod->GetArtist) ];
-			};
-
-			# Any subscribers other than the original moderator?
-			my @other_subscribers = grep { $_ != $mod->GetModerator } @$subscribers;
-
-		 	# The mod has expired, and the artist has no subscribers, so we
-			# don't bother letting it go into the grace period.
-			if (not @other_subscribers)
-			{
-				print localtime() .	" : EvalChange: no subscribers, expired, approved\n"
-					if $fDebug;
-				$mod->{__eval__} = STATUS_APPLIED;
-				next;
-			}
+#           I'd like to keep the following code here for a while in case we change our minds
+#			# If the grace period has expired, then let it in.  No-one
+#			# objected, and the original moderator wanted it it.  That's a
+#			# majority of 1.
+#			if ($mod->GetGracePeriodExpired)
+#			{
+#				print localtime() . " : EvalChange: grace period exceeded, approved\n"
+#					if $fDebug;
+#				$mod->{__eval__} = STATUS_APPLIED;
+#				next;
+#			}
+#
+#			# The mod has expired, so see if anyone (other than the moderator) is
+#			# subscribed to the artist.  If so, allow the mod to stay open
+#			# some more (the grace period).
+#			my $subscribers = $artist_subscribers{$mod->GetArtist} ||= do {
+#				require UserSubscription;
+#				my $us = UserSubscription->new($this->{DBH});
+#				[ $us->GetSubscribersForArtist($mod->GetArtist) ];
+#			};
+#
+#			# Any subscribers other than the original moderator?
+#			my @other_subscribers = grep { $_ != $mod->GetModerator } @$subscribers;
+#
+#		 	# The mod has expired, and the artist has no subscribers, so we
+#			# don't bother letting it go into the grace period.
+#			if (not @other_subscribers)
+#			{
+#				print localtime() .	" : EvalChange: no subscribers, expired, approved\n"
+#					if $fDebug;
+#				$mod->{__eval__} = STATUS_APPLIED;
+#				next;
+#			}
 		}
 
 		# Not expired.
 
 		# Are the number of required unanimous votes present?
-		if ($mod->GetYesVotes() >= &DBDefs::NUM_UNANIMOUS_VOTES && 
+		if ($mod->GetYesVotes() >= $level->{votes} && 
 			$mod->GetNoVotes() == 0)
 		{
 			print localtime() . " : EvalChange: unanimous yes\n"
@@ -265,7 +278,7 @@ sub CheckModerations
 			next;
 		}
 
-		if ($mod->GetNoVotes() >= &DBDefs::NUM_UNANIMOUS_VOTES && 
+		if ($mod->GetNoVotes() >= $level->{votes} && 
 			$mod->GetYesVotes() == 0)
 		{
 			print localtime() . " : EvalChange: unanimous no\n"

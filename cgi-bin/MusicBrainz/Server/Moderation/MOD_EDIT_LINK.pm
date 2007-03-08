@@ -118,6 +118,35 @@ sub PostLoad
 		or die;
 }
 
+sub DetermineQuality
+{
+	my $self = shift;
+
+    my $id = 0;
+    my $type = '';
+    my $new = $self->{'new_unpacked'};
+    if ($new->{newentity0type} eq 'album' || $new->{newentity1type} eq 'album')
+    {
+        my $rel = Album->new($self->{DBH});
+        $rel->SetId($new->{newentity0type} eq 'album' ? $new->{newentity0id} : $new->{newentity1id});
+        if ($rel->LoadFromId())
+        {
+            return $rel->GetQuality();        
+        }
+    }
+    elsif ($new->{newentity0type} eq 'artist' || $new->{newentity1type} eq 'artist')
+    {
+        my $rel = Artist->new($self->{DBH});
+        $rel->SetId($new->{newentity0type} eq 'artist' ? $new->{newentity0id} : $new->{newentity1id});
+        if ($rel->LoadFromId())
+        {
+            return $rel->GetQuality();        
+        }
+    }
+    print STDERR __PACKAGE__ . ": quality not determined\n";
+    return &ModDefs::QUALITY_NORMAL;
+}
+
 sub CheckPrerequisites
 {
 	my $self = shift;
