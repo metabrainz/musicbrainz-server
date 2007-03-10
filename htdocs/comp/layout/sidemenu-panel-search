@@ -81,7 +81,7 @@
 				<td>
 					<form method="get" action="/search/oldsearch.html" id="id_qs_label_form">
 						<div>
-							<input class="searchfield" type="text" name="query" id="id_qs_track"
+							<input class="searchfield" type="text" name="query" id="id_qs_label"
 								value="" />
 							<input type="hidden" name="type" value="label" />
 							<input type="hidden" name="limit" value="<% $session{"as_limit"} %>" />

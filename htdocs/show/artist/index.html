@@ -163,7 +163,7 @@
 		"/edit/annotation/latest",
 		artist => $artist,
 		explain => 1,
-	), $m->out("<br>")
+	), $m->out("<br/>")
 		unless $artist->GetId == &ModDefs::VARTIST_ID;
 
 	my $relations = $artist->GetRelations();
@@ -329,11 +329,10 @@
             </%perl>
 
 
+			<form method="post" action="/edit/albumbatch/done.html">
             <& /comp/framedboxbegin, width => "100%" &>
             <& /comp/modnotice &>
 
-			<form method="post" action="/edit/albumbatch/done.html">
-			<input type="hidden" name="reset" value="1" />
             <table width="100%">
             <tr>
 % unless ($fCompact) {
@@ -365,28 +364,30 @@
 			</td>
 
 %			if ($session{uid}) {
-			<td align="right"><input type="submit" value="Batch edit"/></td>
+			<td align="right">
+				<input type="hidden" name="reset" value="1" />
+				<input type="submit" value="Batch edit"/>
+			</td>
 %			}
 
             </tr></table>
             <& /comp/framedboxend &>
-			<br />
 
             <%perl>
 			if ($fCompact)
 			{
 				</%perl>
 				<table id="CompactReleaseList">
-					<col style="text-align: right">
-					<col style="text-align: right">
-					<col style="text-align: right">
-					<col style="text-align: center">
-					<col style="text-align: center">
-					<col style="text-align: center">
+					<col style="text-align: right" />
+					<col style="text-align: right" />
+					<col style="text-align: right" />
+					<col style="text-align: center" />
+					<col style="text-align: center" />
+					<col style="text-align: center" />
 %	if ($session{uid}) {
-					<col style="width: 3em">
+					<col style="width: 3em" />
 %	}
-					<col>
+					<col />
 				<%perl>
 			}
 
@@ -427,22 +428,22 @@
 					</%perl>
 <tr class="<% ('ev', 'od')[$rownum % 2] %>">
 %	if ($album->GetTrackCount) {
-<td class="trk"><% $album->GetTrackCount %><img src="/images/notes.gif" hspace="3" alt="Tracks"></td>
+<td class="trk"><% $album->GetTrackCount %><img src="/images/notes.gif" alt="Tracks" /></td>
 %	} else {
 <td></td>
 %	}
 %	if ($album->GetDiscidCount) {
-<td class="did"><% $album->GetDiscidCount %><img src="/images/cd.gif" hspace="3" alt="disc IDs"></td>
+<td class="did"><% $album->GetDiscidCount %><img src="/images/cd.gif" alt="disc IDs" /></td>
 %	} else {
 <td></td>
 %	}
 %	if ($album->GetTrmidCount) {
-<td class="trm"><% $album->GetTrmidCount %><img src="/images/trm.gif" hspace="3" alt="TRM IDs"></td>
+<td class="trm"><% $album->GetTrmidCount %><img src="/images/trm.gif" alt="TRM IDs" /></td>
 %	} else {
 <td></td>
 %	}
 %	if ($album->GetPuidCount) {
-<td class="trm"><% $album->GetPuidCount %><img src="/images/puid.gif" hspace="3" alt="PUIDs"></td>
+<td class="trm"><% $album->GetPuidCount %><img src="/images/puid.gif" alt="PUIDs" /></td>
 %	} else {
 <td></td>
 %	}
@@ -499,7 +500,7 @@
                 }
             }
 
-			$m->out("</table><br/><br/>") if $fCompact;
+			$m->out("</table>") if $fCompact;
 
             </%perl>
             </form>

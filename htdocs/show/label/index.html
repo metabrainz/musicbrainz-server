@@ -167,7 +167,7 @@
 		"/edit/annotation/latest",
 		label => $label,
 		explain => 1,
-	), $m->out("<br>");
+	), $m->out("<br/>");
 
     $m->comp("/comp/ar/AddRelationship", id => $label->GetId, type => 'label', name => $label->GetName)
 	    if ($addrel);
@@ -214,7 +214,7 @@
 <a href="http://127.0.0.1:<% $session{tport} %>/openalbum?id=<% $album->GetMBId %>&amp;t=<% time %>"
 style="margin-right: 1ex"
 target="hiddeniframe" title="Open in Tagger" border="0"><img
-src="/images/mblookup-tagger.png" border="0" alt="Open in tagger"></a>
+src="/images/mblookup-tagger.png" border="0" alt="Open in tagger" /></a>
 %					}
 <% $nmp ? "<span class='mp'>" : "" |n %><a href="/release/<% $album->GetMBId %>.html"><% $album->GetName %></a><% $nmp ? "</span>" : "" |n	%></td>
 </tr>
