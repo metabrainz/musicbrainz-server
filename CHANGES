@@ -14,6 +14,7 @@ Release 2007-XX-XX:
    * JavaScript toolbox for quick AR adding.
    * Adding an artist with 'feat.' in the name will give the user
      an warning. (#787)
+   * Updated e-mail templates. (#2247)
 
  * Bug Fixes:
    * Fixed ':hover' CSS for voting radiobuttons in IE7. (#2352)
@@ -27,6 +28,10 @@ Release 2007-XX-XX:
      more similar to other edit types. (#2092)
    * Fixed centering of date form fields. (#2097)
    * Don't unset release events on the similar release screen. (#1992)
+   * Fixed displaying of sortnames and artist comments in the
+     relationship box. (#2111)
+   * Case-insensitive duplicate artist name check on the 'Edit Artist'
+     page. (#1299, #84)
 
 ********************************************************************************
 ********************************************************************************

@@ -91,27 +91,16 @@
 
 	# Try to load the named artist by name. If an artist comes up,
 	# give the user a stern warning about editing a duplicate artist.
-	my ($samecheck, $samename) = (1, 0);
 	my @dupes;
-	my $dupar = Artist->new($mb->{DBH});
-	my $artists = $dupar->GetArtistsFromName($name);
-	if (defined $artists && scalar(@$artists))
+	if ($name ne "")
 	{
-		foreach my $item (@$artists)
-		{
-			# do not check same entity.
-			next if ($item->GetId == $artist->GetId);
+		my $artist = Artist->new($mb->{DBH});
+		my $artists = $artist->GetArtistsFromName($name);
 
-			# if entity has the same name, and the resolution
-			# is set, store this artist as the duplicate.
-			$samename = $item->GetName eq $name;
-			push @dupes, $item if ($samename);
-			if ($samecheck)
-			{
-				$samecheck = ($samename && $resolution ne "") ? 1 : 0 if ($samename);
-				$dupar = $item if ($samename);
-			}
-		}
+		my $norm_name = MusicBrainz::Server::Validation::NormaliseSortText($name);
+		@dupes = grep {
+			MusicBrainz::Server::Validation::NormaliseSortText($_->GetName) eq $norm_name
+		} @$artists;
 	}
 
 	# if we have a value in submitvalue, the form was submitted
@@ -154,10 +143,6 @@
 			# the new artist entry.
 			if (@messages == 0)
 			{
-				# If the artist is not deemed to be the same as another artist, don't save the comment
-				# --> commented out for now.
-				# $resolution = "" if (!$samename);
-
 				$m->comp(
 					"/comp/entermods",
 					DBH => $mb->{DBH},
