@@ -99,6 +99,8 @@
 
 		my $norm_name = MusicBrainz::Server::Validation::NormaliseSortText($name);
 		@dupes = grep {
+			$_->GetId != $artistid
+			&&
 			MusicBrainz::Server::Validation::NormaliseSortText($_->GetName) eq $norm_name
 		} @$artists;
 	}
