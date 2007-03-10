@@ -293,8 +293,8 @@ sub FindLinkedEntities
 			  . "'$e0_type' AS link1_type, "
 			  . "$e0_type.gid as link1_mbid, "
 			  . ($e0_type eq "artist" 
-			  	  ? "$e0_type.sortname AS link0_sortname, "
-				  . "$e0_type.resolution AS link0_resolution, "
+			  	  ? "$e0_type.sortname AS link1_sortname, "
+				  . "$e0_type.resolution AS link1_resolution, "
 				  : "")			  
 			  . "$table.begindate AS begindate, "
 			  . "$table.enddate AS enddate, "
