@@ -1049,14 +1049,6 @@ sub InsertModeration
         $d->close;
     }
 
-    if (my $d = DebugLog->open)
-    {
-        $d->stamp;
-        $d->dumpstring($this->{prev}, "this-prev");
-        $d->dumpstring($this->{new}, "this-new");
-        $d->close;
-    }
-
     my $sql = Sql->new($this->{DBH});
 
 
