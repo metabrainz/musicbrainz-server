@@ -84,6 +84,7 @@
 
 	for (my $i = 0; $i < $tracks; $i++)
 	{
+		next if $ARGS{"trackdel$i"};
 
 		my $trackartist = $ARGS{sprintf "tr%d_artistid", $i};
 		my $trackname = $ARGS{sprintf "track%d", $i};

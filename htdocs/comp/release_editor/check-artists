@@ -56,6 +56,8 @@
 	my $t;
 	for $t (0 .. $tracks-1)
 	{
+		next if $ARGS{"trackdel$t"};
+
 		if ($ARGS{getField($t, "artistedit")})
 		{
 			# if user choose to edit the artist, add the current track

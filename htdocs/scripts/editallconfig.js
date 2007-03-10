@@ -373,6 +373,12 @@ function ReleaseEditor() {
 
 				var label = this.getLabelFromInput(el);
 				if (el.value == "") {
+					if (el.name.match(/track\d+/) && es.ui.getField("trackdel" + el.name.substr(5)).checked) {
+						continue;
+					}
+					if (el.name.match(/tr\d+_artistname/) && es.ui.getField("trackdel" + el.name.substr(2).split("_")[0]).checked) {
+						continue;
+					}
 					if (!cn.match(/missing/i)) {
 						el.className += " missing";
 					}

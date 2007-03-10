@@ -32,6 +32,7 @@ Release 2007-XX-XX:
      relationship box. (#2111)
    * Case-insensitive duplicate artist name check on the 'Edit Artist'
      page. (#1299, #84)
+   * Fixed removing of tracks on the 'Add Release' page. (#2332)
 
 ********************************************************************************
 ********************************************************************************

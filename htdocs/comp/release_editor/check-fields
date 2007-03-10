@@ -47,11 +47,8 @@
 	my $canedit = $ARGS{"v::edit_track_data"} || 0;
 
 	my (%h, $i);
-	for my $key (keys %ARGS) {
-		next unless $key =~ m/^(releasename|tr\d+_artistname|track\d+|trackseq\d+)$/;
-		$h{$key} = 1
-			if ($ARGS{$key} eq "");
-	}
+	$h{"releasename"} = 1
+		if $ARGS{"releasename"} eq "";
 
 	# default true (if not editable, nothing can be wrong)
 	my $checkedsequence = 1;
@@ -72,6 +69,12 @@
 			# only count tracks which are not choosen to be deleted.
 			if (!$ARGS{"trackdel$i"})
 			{
+				$h{"track$i"} = 1
+					if $ARGS{"track$i"} eq "";
+
+				$h{"track${i}_artistname"} = 1
+					if defined $ARGS{"track${i}_artistname"} && $ARGS{"track${i}_artistname"} eq "";
+
 				my $seq = $ARGS{"trackseq$i"};
 				my $len = $ARGS{"tracklength$i"};
 				push @seqlist, $seq;
