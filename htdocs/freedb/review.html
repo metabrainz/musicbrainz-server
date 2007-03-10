@@ -48,6 +48,8 @@
 	# prepare submit to cdi/enter.html
 	my $mb = $m->comp("/comp/dblogin");
 
+	my %orig_args = %ARGS;
+
 	# we don't need the durations anymore we have tracktimes to edit
 	my $hasdurations = $durations ne "";
 	delete $ARGS{"durations"};
@@ -312,10 +314,9 @@
 					<td>
 						<input type="submit" class="button" value="Change character set &raquo;" />
 
-%		                delete $args{"enc"};
-%		                $args{"ready"} = $ready;
+%		                delete $orig_args{"enc"};
 
-						<& /comp/args-to-hidden-fields.inc, %args &>
+						<& /comp/args-to-hidden-fields.inc, %orig_args &>
 					</td>
 				</tr>
 			</table>
