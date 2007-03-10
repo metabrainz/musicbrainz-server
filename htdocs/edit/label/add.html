@@ -184,11 +184,19 @@
 						# load submit values from releas editor formstate component,
 						# and use the Select Label button to submit the newly
 						# added label to the editor.
-						my %cfg = $m->comp("/comp/release_editor/init-formstate", %ARGS);
-						my $submitvalue = uri_escape($cfg{"SUBMIT_ADDLABEL_DONE"});
+						my $submitvalue;
+						if ($returnurl =~ /albumreleases/)
+						{
+							$submitvalue = "&submit_select=1";
+						}
+						else
+						{
+							my %cfg = $m->comp("/comp/release_editor/init-formstate", %ARGS);
+							$submitvalue = "&submitvalue=" . uri_escape($cfg{"SUBMIT_ADDLABEL_DONE"});
+						}
 
 						# append new rowid, and submitvalue to the given returnurl.
-						$returnurl = $returnurl . $rowid . "&amp;submitvalue=" . $submitvalue;
+						$returnurl = $returnurl . $rowid . $submitvalue;
 
 						# /comp/redirect failed, probably because the URL was too long.
 						$r->internal_redirect($returnurl);

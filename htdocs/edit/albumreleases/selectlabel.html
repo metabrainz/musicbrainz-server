@@ -30,13 +30,13 @@
 
 	$releaseid
 
-	$search => undef
-	$submit_search => undef
-	
-	$selected_label => undef
-	$submit_select => undef
+	$search			=> undef
+	$submit_search	=> undef
+	$selected_label	=> undef
 
-	$submit_cancel => undef
+	$submit_select	=> undef
+	$submit_cancel	=> undef
+	$submit_add		=> undef
 	
 </%args>
 <%perl>
@@ -46,6 +46,13 @@
 	my $url = "/show/release/?releaseid=" . $releaseid;
 	my $edit = $session{"editreleases"}{$releaseid}
 		or return $m->comp("/comp/redirect", $url);
+
+	if (defined $submit_add)
+	{
+		my $returnurl = uri_escape("/edit/albumreleases/selectlabel.html?releaseid=$releaseid&selected_label=");
+		my $addlabelurl = "/edit/label/add.html?name=$search&returnurl=$returnurl";
+		return $m->comp("/comp/redirect", $addlabelurl);
+	}
 
 	# the user clicked on the cancel button, remove current
 	# release from the session and show the release again.
@@ -195,7 +202,26 @@
 					<input type="submit" name="submit_select" class="button" value="Select &raquo;" />
 				</td>
 			</tr>
-		
+
+			<tr class="spaced top">
+				<td class="label">
+					Add new label?</td>
+				<td>
+					<& /comp/form/feedbackbox, "warning", "",
+						qq!If you did not find the label you were looking for,
+						you can search again with another keyword, or if you
+						are sure the label was not yet added to the database,
+						click on the <strong>Add new label &raquo;</strong> button! &>
+				</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td style="padding-bottom: 20px">
+					<input class="button" name="submit_add" type="submit" value="Add new label &raquo;"
+							title="Add a new label to MusicBrainz" />
+				</td>
+			</tr>
+
 		</table>
 		
 		<& /comp/layout/editformend &>
