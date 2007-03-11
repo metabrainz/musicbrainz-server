@@ -46,7 +46,7 @@
 
 	my @pairs = (
 		[ $ARGS{"artistname"}, "artistname" ],
-		[ $ARGS{"albumname"}, "albumname" ],
+		[ $ARGS{"releasename"}, "releasename" ],
 		map {
 			[ $ARGS{"track$_"}, "track$_" ]
 		} 0 .. $tracks-1
