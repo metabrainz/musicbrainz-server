@@ -34,6 +34,8 @@ Release 2007-XX-XX:
      page. (#1299, #84)
    * Fixed removing of tracks on the 'Add Release' page. (#2332)
    * Fixed data loss after switching charsets in freedb import. (#2516, #2329)
+   * When "end date" is incorrect the error message is still about
+     "begin date" (#2518)
 
 ********************************************************************************
 ********************************************************************************

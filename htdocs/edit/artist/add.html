@@ -121,7 +121,7 @@
 
 			push @messages, "Begin Date has to be either valid or empty"
 				if (not MusicBrainz::Server::Validation::IsValidDateOrEmpty($begindate_y, $begindate_m, $begindate_d));
-			push @messages, "Begin Date has to be either valid or empty"
+			push @messages, "End Date has to be either valid or empty"
 				if (not MusicBrainz::Server::Validation::IsValidDateOrEmpty($enddate_y, $enddate_m, $enddate_d));
 			push @messages, "Begin Date has to be earlier than End Date"
 				if (not MusicBrainz::Server::Validation::IsDateEarlierThan($begindate_y, $begindate_m, $begindate_d,
