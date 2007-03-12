@@ -112,7 +112,7 @@ sub DetermineQuality
 	{
         return $rel->GetQuality();        
     }
-    print STDERR __PACKAGE__ . ": quality not determined\n";
+    print STDERR __PACKAGE__ . ": quality not determined for $self->{id}\n";
     return &ModDefs::QUALITY_NORMAL;
 }
 
@@ -134,9 +134,9 @@ sub ApprovedAction
 {
 	my $self = shift;
 
-	require AlbumCDTOC;
+	require MusicBrainz::Server::AlbumCDTOC;
 
-	my $alcdtoc = AlbumCDTOC->newFromId($self->{DBH}, $self->GetRowId);
+	my $alcdtoc = MusicBrainz::Server::AlbumCDTOC->newFromId($self->{DBH}, $self->GetRowId);
 	if (not $alcdtoc)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This disc ID has already been removed");

@@ -80,6 +80,11 @@ sub DetermineQuality
             return $rel->GetQuality();        
         }
     }
+    else
+    {
+        # if we can't load the track (it was deleted?) there aint much to do. This mod will fail anyway.
+        return &ModDefs::QUALITY_NORMAL;
+    }
 
     # if that fails, go by the artist
     my $ar = Artist->new($self->{DBH});
@@ -89,7 +94,7 @@ sub DetermineQuality
         return $ar->GetQuality();        
     }
 
-    print STDERR __PACKAGE__ . ": quality not determined\n";
+    print STDERR __PACKAGE__ . ": quality not determined for $self->{id}\n";
     return &ModDefs::QUALITY_NORMAL;
 }
 

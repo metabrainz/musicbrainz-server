@@ -45,6 +45,7 @@ sub _EncodeText
 sub _DecodeText
 {
 	my $t = $_[0];
+    return undef if (!defined $t);
 	$t =~ s/\$20/ /g;
 	$t =~ s/\$3D/=/g;
 	$t =~ s/\$26/\$/g;
@@ -196,7 +197,7 @@ sub DetermineQuality
 	{
         return $rel->GetQuality();        
     }
-    print STDERR __PACKAGE__ . ": quality not determined\n";
+    print STDERR __PACKAGE__ . ": quality not determined for $self->{id}\n";
     return &ModDefs::QUALITY_NORMAL;
 }
 

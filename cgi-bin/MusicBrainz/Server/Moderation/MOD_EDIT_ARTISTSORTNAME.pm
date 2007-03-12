@@ -62,7 +62,7 @@ sub DetermineQuality
 	{
         return $ar->GetQuality();        
     }
-    print STDERR __PACKAGE__ . ": quality not determined\n";
+    print STDERR __PACKAGE__ . ": quality not determined for $self->{id}\n";
     return &ModDefs::QUALITY_NORMAL;
 }
 

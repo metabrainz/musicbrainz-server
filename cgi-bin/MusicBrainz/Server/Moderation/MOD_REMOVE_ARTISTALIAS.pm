@@ -52,12 +52,12 @@ sub DetermineQuality
 	my $self = shift;
 
 	my $ar = Artist->new($self->{DBH});
-	$ar->SetId($self->{rowid});
+	$ar->SetId($self->GetArtist);
 	if ($ar->LoadFromId())
 	{
         return $ar->GetQuality();        
     }
-    print STDERR __PACKAGE__ . ": quality not determined\n";
+    print STDERR __PACKAGE__ . ": quality not determined for $self->{id}\n";
     return &ModDefs::QUALITY_NORMAL;
 }
 
