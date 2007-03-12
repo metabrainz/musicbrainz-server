@@ -151,7 +151,7 @@ sub ApprovedAction
 	{
 		my $al = Album->new($self->{DBH});
 		$al->SetId($new->{entity0id});
-        MusicBrainz::Server::Coverart->UpdateAmazonData($al, -1)
+        MusicBrainz::Server::CoverArt->UpdateAmazonData($al, -1)
 			if ($al->LoadFromId(1));
 	}
 	if ($new->{linktypeid} == MusicBrainz::Server::CoverArt->GetCoverArtLinkTypeId($self->{DBH}) &&
