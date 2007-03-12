@@ -97,7 +97,7 @@
 		if $date_str;
 	push @info, "Type: $type_name"
 		if $type;
-	push @info, "Quality: $quality"
+	push @info, ucfirst($quality) . " data quality"
 		if $showmodlinks;
 	$m->out(join(', ', @info));
 	$m->out('<br />')

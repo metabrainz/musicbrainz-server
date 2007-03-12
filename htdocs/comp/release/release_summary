@@ -52,7 +52,7 @@
 	my $trmids = $release->GetTrmidCount();
 	my $puids = $release->GetPuidCount();
 	my $discids = $release->GetDiscidCount();
-
+	my $quality = ModDefs::GetQualityText($release->GetQuality);
 
 </%perl>
 
@@ -91,6 +91,8 @@
 % 	}
 					</td>
 					<td class="language">
+                    [ <% $quality %> data quality ]
+				    <a href="/edit/albumquality/edit.html?id=$releaseid">Change</a> |
 <%perl>
 
 	# 2. Release Language
