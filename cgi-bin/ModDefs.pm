@@ -138,15 +138,13 @@ use constant MOD_REMOVE_LABELALIAS		 => 62;
 use constant MOD_CHANGE_RELEASE_QUALITY  => 63;
 use constant MOD_LAST					 => 63;
 
-use constant QUALITY_UNKNOWN  => 0;
-use constant QUALITY_LOW      => 1;
-use constant QUALITY_NORMAL   => 2;
-use constant QUALITY_HIGH     => 3;
+use constant QUALITY_LOW      => 0;
+use constant QUALITY_NORMAL   => 1;
+use constant QUALITY_HIGH     => 2;
 
 my %QualityNames = (
-   QUALITY_UNKNOWN . "" => 'unknown',
    QUALITY_LOW     . "" => 'low',
-   QUALITY_NORMAL  . "" => 'normal',
+   QUALITY_NORMAL  . "" => 'unknown',
    QUALITY_HIGH    . "" => 'high'
 );
 

@@ -74,14 +74,7 @@
 		if ($item->{"link_name"} eq "amazon asin" && $prefix eq "link1_")
 		{
 			my ($asin, $coverart, $store);
-            if ($release)
-            {
-			    ($asin, $coverart, $store) = $release->ParseAmazonURL($item->{link1_name});
-            }
-            else
-            {
-			    ($asin, $coverart, $store) = Album->ParseAmazonURL($item->{link1_name});
-            }
+			($asin, $coverart, $store) = MusicBrainz::Server::CoverArt->ParseAmazonURL($item->{link1_name}, $release);
 			if ($asin ne "")
 			{
 			    $url = sprintf(qq!/misc/redirects/amazon-album-info.html?store=%s&amp;asin=%s!, $store, $asin);
@@ -90,6 +83,25 @@
 			    $title = sprintf("Amazon page for ASIN %s on %s", $asin, $store);
 			    $shorten = 0;
 			}
+		}
+		elsif ($item->{"link_name"} eq "cover art link" && $prefix eq "link1_")
+		{
+			my ($coverurl);
+			($name, $coverurl, $url) = MusicBrainz::Server::CoverArt->ParseCoverArtURL($item->{link1_name}, $release);
+            $release->SetCoverartURL($coverurl) if ($coverurl ne '');
+			if ($url ne "")
+			{
+			    $strong = 1;
+			    $title = "$name page";
+			    $shorten = 0;
+			}
+		}
+		elsif (($item->{"link_name"} eq "purchase for mail-order" ||
+                $item->{"link_name"} eq "purchase for download" ||  
+                $item->{"link_name"} eq "download for free" ||    
+                $item->{"link_name"} eq "creative commons licensed download") && $prefix eq "link1_")
+		{
+            $release->SetInfoURL($item->{link1_name}) if $release;
 		}
 		else
 		{

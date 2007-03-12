@@ -78,7 +78,7 @@ sub DetermineQuality
         return $rel->GetQuality();        
     }
     print STDERR __PACKAGE__ . ": quality not determined\n";
-    return &ModDefs::QUALITY_UNKNOWN;
+    return &ModDefs::QUALITY_NORMAL;
 }
 
 sub ApprovedAction

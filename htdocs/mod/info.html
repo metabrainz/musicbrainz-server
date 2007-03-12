@@ -32,49 +32,58 @@
 <p>
 This page shows the available edit types are and what the requirements are for getting
 and edit applied to the database. Each edit type is listed three times below; one for each 
-of the quality levels: low, normal and high. An unknown quality level will be treated 
-exactly like the normal quality level.
+of the quality levels: 
+<% ModDefs::GetQualityText(&ModDefs::QUALITY_LOW) %>, 
+<% ModDefs::GetQualityText(&ModDefs::QUALITY_NORMAL) %> and
+<% ModDefs::GetQualityText(&ModDefs::QUALITY_HIGH) %>. 
 </p>
 
 <p>
 For each edit type and each quality level the tables below show the voting
 period that an edit will remain open for, the number of unanimous votes required
 to shortcut the edit period, what happens if the edit expires, but has not votes, 
-and wether or not an edit is considere an <& /comp/linkdoc, "AutoEdit", "auto edit" &>.
+and wether or not an edit is consider an <& /comp/linkdoc, "AutoEdit", "auto edit" &>.
 </p>
+
+<br/>
 
 <%perl>
 
-my $level;
+my ($level, $quality, $type);
 
 require Artist;
 require ModDefs;
 use Data::Dumper;
 
-foreach $level ((&ModDefs::QUALITY_LOW, &ModDefs::QUALITY_NORMAL, &ModDefs::QUALITY_HIGH))
+my %names;
+foreach $type (Moderation::GetEditTypes())
 {
-    $m->out('<b>' . ModDefs::GetQualityText($level) . '</b><br/>');
-	$m->out('<table class="topmods"><tr class="topmodsodd">');
-	$m->out('<td align="center" valign="top">Type</td><td align="center" valign="top">Voting period<br/>(days)</td>');
-	$m->out('<td align="center" valign="top">Votes<br/>(unanimous)</td><td align="center" valign="top">Expire action</td>');
-	$m->out('<td align="center" valign="top" valign="top">Auto edit</td></tr><tr>');
-	my $k;
-	my $ref = Moderation::GetEditLevelDefs($level);
-	my %names = map { $ref->{$_}->{name} => $_ } keys %{$ref};
-	my $index = 1;
-	foreach $k (sort keys %names)
-	{
-	    $m->out('<tr class="topmods' . (($index++ % 2) ? "even" : "odd"). '">');
-	    $m->out('<td>' . $ref->{$names{$k}}->{name} .'</td>');
-	    $m->out('<td align="center">' . $ref->{$names{$k}}->{duration} .'</td>');
-	    $m->out('<td align="center">' . $ref->{$names{$k}}->{votes} .'</td>');
-	    $m->out('<td align="center">' . ($ref->{$names{$k}}->{expireaction} ? "accept" : "reject") .'</td>');
-	    $m->out('<td align="center">' . ($ref->{$names{$k}}->{autoedit} ? "yes" : "no").'</td>');
-	    $m->out('</tr>');
-	}
-	$m->out('</tr></table><br/>');
+    $level = Moderation::GetEditLevelDefs(&ModDefs::QUALITY_NORMAL, $type);
+    $names{$level->{name}} = $type;
 }
 
+foreach $quality ((&ModDefs::QUALITY_LOW, &ModDefs::QUALITY_NORMAL, &ModDefs::QUALITY_HIGH))
+{
+    $m->out('<b>' . ModDefs::GetQualityText($quality) . '</b><br/>');
+    $m->out('<table class="topmods"><tr class="topmodsodd">');
+    $m->out('<td align="center" valign="top">Type</td><td align="center" valign="top">Voting period<br/>(days)</td>');
+    $m->out('<td align="center" valign="top">Votes<br/>(unanimous)</td><td align="center" valign="top">Expire action</td>');
+    $m->out('<td align="center" valign="top" valign="top">Auto edit</td></tr><tr>');
+
+    my $index = 1;
+    foreach my $k (sort keys %names)
+    {
+        my $ref = Moderation::GetEditLevelDefs($quality, $names{$k});
+        $m->out('<tr class="topmods' . (($index++ % 2) ? "even" : "odd"). '">');
+        $m->out('<td>' . $ref->{name} .'</td>');
+        $m->out('<td align="center">' . $ref->{duration} .'</td>');
+        $m->out('<td align="center">' . $ref->{votes} .'</td>');
+        $m->out('<td align="center">' . ($ref->{expireaction} ? "accept" : "reject") .'</td>');
+        $m->out('<td align="center">' . ($ref->{autoedit} ? "yes" : "no").'</td>');
+        $m->out('</tr>');
+    }
+    $m->out('</tr></table><br/>');
+}
 
 </%perl>
 <& /comp/footer &>

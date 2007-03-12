@@ -5,6 +5,8 @@ Release 2007-XX-XX:
      http://wiki.musicbrainz.org/Label
    * Data quality.
      http://wiki.musicbrainz.org/DataQuality
+   * Generic CoverArt support. CD Baby and archive.org are support right now:
+     http://wiki.musicbrainz.org/CoverArtSites
    * IDs of artists, releases, tracks and labels will stay valid
      after merge. (#912)
    * Added links to open edits to the top editors/voters page. (#2364)

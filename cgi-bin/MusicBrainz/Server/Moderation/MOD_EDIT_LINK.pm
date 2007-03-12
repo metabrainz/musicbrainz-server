@@ -217,7 +217,7 @@ sub ApprovedAction
 {
   	my $self = shift;
 	my $new = $self->{'new_unpacked'};
-	my $asintypeid = Album->GetAsinLinkTypeId($self->{DBH});
+	my $asintypeid = MusicBrainz::Server::CoverArt->GetAsinLinkTypeId($self->{DBH});
 
 	my $link = MusicBrainz::Server::Link->new($self->{DBH}, [$new->{oldentity0type}, $new->{oldentity1type}]);
 	$link = $link->newFromId($new->{linkid});
@@ -262,7 +262,7 @@ sub ApprovedAction
 			my $al = Album->new($self->{DBH});
 			$al->SetId($new->{oldentity0id});
 
-			$al->UpdateAmazonData(-1)
+            MusicBrainz::Server::CoverArt->UpdateAmazonData($al, -1)
 				if ($al->LoadFromId(1));
 		}
 	} 
@@ -273,11 +273,14 @@ sub ApprovedAction
 		# reverse case, link type changed _to_ Amazon AR
 		my $al = Album->new($self->{DBH});
 		$al->SetId($new->{newentity0id});
-		$al->ParseAmazonURL($new->{newentity1name});
+        MusicBrainz::Server::CoverArt->ParseAmazonURL($new->{newentity1name}, $al);
 		
 		# insert the asin data or ignore if already present
-		$al->UpdateAmazonData(0);
+        MusicBrainz::Server::CoverArt->UpdateAmazonData($al, 0);
 	}
+
+    # TODO:
+    # Add cover art support here
 	
 	return STATUS_APPLIED;
 }

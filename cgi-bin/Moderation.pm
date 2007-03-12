@@ -487,11 +487,24 @@ my @EditLevelDefs =
 	}
 );
 
+sub GetEditTypes
+{
+    return keys %{$EditLevelDefs[QUALITY_NORMAL]};
+}
+
 sub GetEditLevelDefs
 {
-	return $EditLevelDefs[QUALITY_NORMAL] if ($_[0] == QUALITY_UNKNOWN);
-	return $EditLevelDefs[$_[0] - 1];
+    # The line below is our OH-SHIT handle. If the new data quality system flies off the rails,
+    # Uncomment the lines below to neuter it back to the OLD system.
+    # my $defs = $EditLevelDefs[$_[0]]->{QUALITY_NORMAL};
+    # $defs->{duration} = 14;
+    # $defs->{expireaction} = EXPIRE_REJECT;
+    # $defs->{votes} = 3;
+    # return $defs;
+
+    return $EditLevelDefs[$_[0]]->{$_[1]};
 }
+
 use constant SEARCHRESULT_SUCCESS => 1;
 use constant SEARCHRESULT_NOQUERY => 2;
 use constant SEARCHRESULT_TIMEOUT => 3;
@@ -633,8 +646,8 @@ sub IsOpen { $_[0]{status} == STATUS_OPEN or $_[0]{status} == STATUS_TOBEDELETED
 sub IsAutoEditType
 {
    my ($this, $type) = @_;
-   my $quality = $this->GetQuality;
-   return $EditLevelDefs[$this->GetQuality]->{$type . ""}->{autoedit};
+   my $level = GetEditLevelDefs($this->GetQuality, $type);
+   return $level->{autoedit};
 }
 
 sub GetArtist
@@ -1033,8 +1046,7 @@ sub InsertModeration
 
 	goto SUPPRESS_INSERT if $this->{suppress_insert};
 	$this->PostLoad;
-    my $quality = $this->GetQuality == &ModDefs::QUALITY_UNKNOWN ? &ModDefs::QUALITY_NORMAL : $this->GetQuality;
-    my $level = $EditLevelDefs[$quality - 1]->{$this->GetType . ""};
+    my $level = GetEditLevelDefs($this->GetQuality, $this->GetType);
 
 	# Now go on to insert the moderation record itself, and to
 	# deal with autoeditss and modpending flags.

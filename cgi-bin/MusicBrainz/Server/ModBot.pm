@@ -104,7 +104,7 @@ sub CheckModerations
 	while (my @row = $sql->NextRow())
 	{
 		my $mod = $basemod->CreateFromId($row[0]);
-        my $level = Moderation::GetEditLevelDefs($mod->GetQuality)->{$mod->GetType};
+        my $level = Moderation::GetEditLevelDefs($mod->GetQuality, $mod->GetType);
 
 		if (!defined $mod)
 		{

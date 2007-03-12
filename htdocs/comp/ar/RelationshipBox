@@ -38,7 +38,6 @@
 
 </%args>
 
-%# RAK: Is this still being called?? Looks like it got superceded by /comp/relationship/outputentity
 <%def .OutputEntity>
 <%perl>
 	my ($item, $index, $name, $release) = @_;
@@ -53,7 +52,12 @@
 	{
 		if ($item->{"link_name"} eq 'amazon asin' && $prefix eq 'link1_')
 		{
-		    ($text,, ) = Album->ParseAmazonURL($item->{link1_name});
+		    ($text,, ) = MusicBrainz::Server::CoverArt->ParseAmazonURL($item->{link1_name});
+			$m->out("<b>");
+		}
+		elsif ($item->{"link_name"} eq 'coverart' && $prefix eq 'link1_')
+		{
+		    ($text,, ) = MusicBrainz::Server::CoverArt->ParseCoverArtURL($item->{link1_name});
 			$m->out("<b>");
 		}
 		else

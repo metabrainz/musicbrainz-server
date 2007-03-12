@@ -139,7 +139,7 @@ sub DetermineQuality
         return $rel->GetQuality();        
     }
     print STDERR __PACKAGE__ . ": quality not determined\n";
-    return &ModDefs::QUALITY_UNKNOWN;
+    return &ModDefs::QUALITY_NORMAL;
 }
 
 # This implementation is required (instead of the default) because old rows

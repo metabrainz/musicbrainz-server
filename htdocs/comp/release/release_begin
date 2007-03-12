@@ -245,42 +245,63 @@
 		$m->out(qq!</table>!);
 		$m->out(qq!</td>!);
 
-		my ($coverart, $store);
-		my $asin = $release->GetAsin();
-		if ($asin)
+		if ($showlinks && UserPreference::get("show_amazon_coverart"))
 		{
-			$coverart = $release->GetCoverartURL();
-			$store = UserPreference::get("use_amazon_store");
+            my ($coverart, $store);
 
-			# if there is no store preference, use the same store as given in the coverart url
-			if (!($store =~ /^amazon/))
-			{
-				$store = $album->GetCoverartStore($coverart);
-			}
-		}
-		if ($coverart && $showlinks && UserPreference::get("show_amazon_coverart"))
-		{
-			$m->out(qq!<td class="cover"><a href="/misc/redirects/amazon-album-info.html?!);
-			$m->out(sprintf qq!%s&amp;store=%s&amp;asin=%s">!,
-				$release->GetMBId,
-				$store,
-				$asin);
-			$m->out(sprintf qq!<img class="asin" src="%s" alt="Show release at amazon" /></a>!,
-				$coverart);
+            my $asin = $release->GetAsin();
+            $coverart = $release->GetCoverartURL();
+            $store = UserPreference::get("use_amazon_store");
 
-			$m->out(qq!<div class="partnerlinks">!);
-			$m->out(qq!Amazon: <a href="/misc/redirects/amazon-album-info.html?!);
-			$m->out(sprintf qq!%s&amp;store=%s&amp;asin=%s">info</a>!,
-				$release->GetMBId,
-				$store,
-				$asin);
-			$m->out(" | ");
-			$m->out(qq!<a href="/misc/redirects/amazon-album-buy.html?!);
-			$m->out(sprintf qq!%s&amp;store=%s&amp;asin=%s">buy</a>!,
-				$release->GetMBId,
-				$store,
-				$asin);
-			$m->out(qq!</div></td>!);
+            # if there is no store preference, use the same store as given in the coverart url
+            if (!($store =~ /^amazon/))
+            {
+                $store = $album->GetCoverartStore($coverart);
+            }
+
+            # If we did get amazon coverart, show it
+            if ($coverart =~ /amazon/ && $asin)
+            {
+                $m->out(qq!<td class="cover"><a href="/misc/redirects/amazon-album-info.html?!);
+                $m->out(sprintf qq!%s&amp;store=%s&amp;asin=%s">!,
+                    $release->GetMBId,
+                    $store,
+                    $asin);
+                $m->out(sprintf qq!<img class="asin" src="%s" alt="Show release at amazon" /></a>!,
+                    $coverart);
+
+                $m->out(qq!<div class="partnerlinks">!);
+                $m->out(qq!Amazon: <a href="/misc/redirects/amazon-album-info.html?!);
+                $m->out(sprintf qq!%s&amp;store=%s&amp;asin=%s">info</a>!,
+                    $release->GetMBId,
+                    $store,
+                    $asin);
+                $m->out(" | ");
+                $m->out(qq!<a href="/misc/redirects/amazon-album-buy.html?!);
+                $m->out(sprintf qq!%s&amp;store=%s&amp;asin=%s">buy</a>!,
+                    $release->GetMBId,
+                    $store,
+                    $asin);
+                $m->out(qq!</div></td>!);
+            }
+            elsif ($coverart)
+            {
+                my ($name, $imguri, $releaseuri) = MusicBrainz::Server::CoverArt->ParseCoverArtURL($release->GetCoverartURL());
+                if ($imguri)
+                {
+                    $m->out("<td class=\"cover\"><a href=\"$releaseuri\">");
+                    $m->out("<img class=\"asin\" src=\"$imguri\" alt=\"Show release at $name\" /></a>");
+
+                    $releaseuri = $release->GetInfoURL if (!$releaseuri);
+                    if ($releaseuri)
+                    {
+                        $m->out(qq!<div class="partnerlinks">!);
+                        $m->out("$name: <a href=\"$releaseuri\">more info</a>");
+                        $m->out(qq!</div>!);
+                    }
+                    $m->out(qq!</td>!);
+                }
+            }
 		}
 		$m->out(qq!</tr>!);
 		$m->out(qq!</table>!);

@@ -117,7 +117,7 @@ sub PreInsert
 	$self->SetNew($self->ConvertHashToNew(\%new));
 
 	# finally some special ASIN URL handling (update album_amazon_asin table data)
-	if ($linktype->{id} == Album->GetAsinLinkTypeId($self->{DBH}) &&
+	if ($linktype->{id} == MusicBrainz::Server::CoverArt->GetAsinLinkTypeId($self->{DBH}) &&
 		@$entities[0]->{type} eq 'album' &&
 		@$entities[1]->{type} eq 'url')
 	{
@@ -125,10 +125,24 @@ sub PreInsert
 		$al->SetId(@$entities[0]->{id});
 		if ($al->LoadFromId(1))
 		{
-			$al->ParseAmazonURL(@$entities[1]->{name});
+            MusicBrainz::Server::CoverArt->ParseAmazonURL(@$entities[1]->{name}, $al);
 			# TODO implement overwriting, if some special flag on the AR edit page is set
 			#      to allow saying "use this as cover image source"
-			$al->UpdateAmazonData(0);
+            MusicBrainz::Server::CoverArt->UpdateAmazonData($al, 0);
+		}
+	}
+
+    # now check to see if we need to tinker with generic cover art
+	if ($linktype->{id} == MusicBrainz::Server::CoverArt->GetCoverArtLinkTypeId($self->{DBH}) &&
+		@$entities[0]->{type} eq 'album' &&
+		@$entities[1]->{type} eq 'url')
+	{
+		my $al = Album->new($self->{DBH});
+		$al->SetId(@$entities[0]->{id});
+		if ($al->LoadFromId(1))
+		{
+            MusicBrainz::Server::CoverArt->ParseCoverArtURL(@$entities[1]->{name}, $al);
+            MusicBrainz::Server::CoverArt->UpdateCoverArtData($al, 0);
 		}
 	}
 }
@@ -180,13 +194,22 @@ sub DeniedAction
 		$link->Delete;
 
 		# remove amazon asin and coverart data as well
-		if ($new->{linktypeid} == Album->GetAsinLinkTypeId($self->{DBH}) &&
+		if ($new->{linktypeid} == MusicBrainz::Server::CoverArt->GetAsinLinkTypeId($self->{DBH}) &&
 			$new->{entity0type} eq 'album' &&
 			$new->{entity1type} eq 'url')
 		{
 			my $al = Album->new($self->{DBH});
 			$al->SetId($new->{entity0id});
-			$al->UpdateAmazonData(-1)
+            MusicBrainz::Server::CoverArt->UpdateAmazonData($al, -1)
+				if ($al->LoadFromId(1));
+		}
+		if ($new->{linktypeid} == MusicBrainz::Server::CoverArt->GetCoverArtLinkTypeId($self->{DBH}) &&
+			$new->{entity0type} eq 'album' &&
+			$new->{entity1type} eq 'url')
+		{
+			my $al = Album->new($self->{DBH});
+			$al->SetId($new->{entity0id});
+            MusicBrainz::Server::CoverArt->UpdateCoverArtData($al, -1)
 				if ($al->LoadFromId(1));
 		}
 	}

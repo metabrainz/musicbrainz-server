@@ -77,7 +77,7 @@
 	if ($submitvalue ne "")
 	{
 		push @errors, "Please select the quality of the selected releases." 
-             if ($quality_new < &ModDefs::QUALITY_UNKNOWN && $quality_new > &ModDefs::QUALITY_NORMAL);
+             if ($quality_new < &ModDefs::QUALITY_LOW || $quality_new > &ModDefs::QUALITY_HIGH);
 
 		if ($submitvalue =~ /Cancel/i)
 		{

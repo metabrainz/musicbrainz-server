@@ -152,6 +152,40 @@ sub ApprovedAction
 	$urlobj->SetDesc($self->{'new_unpacked'}{'Desc'});
 	$urlobj->UpdateURL;
 
+	my @links = MusicBrainz::Server::Link->FindLinkedEntities(
+			$self->{DBH}, $urlobj->GetId, 'url', ('to_type' => 'album')
+	);
+    for my $link (@links)
+	{
+        # update amazon links
+        if ($link->{link_id} == MusicBrainz::Server::CoverArt->GetAsinLinkTypeId($self->{DBH}) &&
+            $link->{link0_type} eq 'album' &&
+            $link->{link1_type} eq 'url')
+        {
+            my $al = Album->new($self->{DBH});
+            $al->SetId($link->{link0_id});
+            if ($al->LoadFromId(1))
+            {
+                MusicBrainz::Server::CoverArt->ParseAmazonURL($link->{link0_name}, $al);
+                MusicBrainz::Server::CoverArt->UpdateAmazonData($al, 0);
+            }
+        }
+
+        # now check to see if we need to tinker with generic cover art
+        if ($link->{link_id} == MusicBrainz::Server::CoverArt->GetCoverArtLinkTypeId($self->{DBH}) &&
+            $link->{link0_type} eq 'album' &&
+            $link->{link1_type} eq 'url')
+        {
+            my $al = Album->new($self->{DBH});
+            $al->SetId($link->{link0_id});
+            if ($al->LoadFromId(1))
+            {
+                MusicBrainz::Server::CoverArt->ParseCoverArtURL($link->{link0_name}, $al);
+                MusicBrainz::Server::CoverArt->UpdateCoverArtData($al, 0);
+            }
+        }
+	}
+
 	return STATUS_APPLIED;
 }
 

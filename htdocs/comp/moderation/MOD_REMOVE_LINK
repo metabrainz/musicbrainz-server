@@ -79,9 +79,9 @@
 		<% $new->{linktypephrase} %>
 
 %   	my ($url, $name) = ($new->{entity1name}, "");
-%   	if ($new->{linktypeid} == Album->GetAsinLinkTypeId($self->{DBH}))
+%   	if ($new->{linktypeid} == MusicBrainz::Server::CoverArt->GetAsinLinkTypeId($self->{DBH}))
 %		{
-%     		($name,, ) = Album->ParseAmazonURL($new->{entity1name});
+%     		($name,, ) = MusicBrainz::Server::CoverArt->ParseAmazonURL($new->{entity1name});
 %   	}
 
 		<& /comp/ar/ShowEntityLink,

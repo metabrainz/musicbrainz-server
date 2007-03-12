@@ -30,6 +30,7 @@ package MusicBrainz::Server::Moderation::MOD_REMOVE_LINK;
 use ModDefs qw( :modstatus MODBOT_MODERATOR );
 use base 'Moderation';
 use MusicBrainz::Server::Link;
+use MusicBrainz::Server::CoverArt;
 
 sub Name { "Remove Relationship" }
 (__PACKAGE__)->RegisterHandler;
@@ -97,6 +98,7 @@ sub DetermineQuality
     my $id = 0;
     my $type = '';
     my $new = $self->{'new_unpacked'};
+
     if ($new->{entity0type} eq 'album' || $new->{entity1type} eq 'album')
     {
         my $rel = Album->new($self->{DBH});
@@ -145,13 +147,22 @@ sub ApprovedAction
 	}
 
 	# finally some special ASIN URL handling 
-	if ($new->{linktypeid} == Album->GetAsinLinkTypeId($self->{DBH}) &&
+	if ($new->{linktypeid} == MusicBrainz::Server::CoverArt->GetAsinLinkTypeId($self->{DBH}) &&
 		$new->{entity0type} eq 'album' &&
 		$new->{entity1type} eq 'url')
 	{
 		my $al = Album->new($self->{DBH});
 		$al->SetId($new->{entity0id});
-		$al->UpdateAmazonData(-1)
+        MusicBrainz::Server::Coverart->UpdateAmazonData($al, -1)
+			if ($al->LoadFromId(1));
+	}
+	if ($new->{linktypeid} == MusicBrainz::Server::CoverArt->GetCoverArtLinkTypeId($self->{DBH}) &&
+		$new->{entity0type} eq 'album' &&
+		$new->{entity1type} eq 'url')
+	{
+		my $al = Album->new($self->{DBH});
+		$al->SetId($new->{entity0id});
+        MusicBrainz::Server::CoverArt->UpdateCoverArtData($al, -1)
 			if ($al->LoadFromId(1));
 	}
 
