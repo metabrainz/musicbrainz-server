@@ -263,8 +263,6 @@ sub ParseCoverArtURL
                 $img =~ s/\$$_/$a[$_]/ for(1..9);
                 $release =~ s/\$$_/$a[$_]/ for(1..9);
 
-                $release = $img if (!$release);
-
                 if (defined $al)
                 {
                     $al->SetCoverartURL($img);
