@@ -149,7 +149,7 @@ specific notes about a server type, the instructions apply to all server types.
        Date::Calc
        Devel::Peek
        Digest::SHA1
-       Digest::MD5
+       Digest::MD5 (should be included in Bundle::Apache)
        HTTP::Negotiate
        JSON
        Language::Guess (see notes below about seed data for this module)
