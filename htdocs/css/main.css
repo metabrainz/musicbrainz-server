@@ -658,9 +658,14 @@ table.releaseevents table.eventslist {
 	border-collapse: collapse; 
 }
 
+table.releaseevents table.eventslist th {
+	text-align: left;
+}
+
+table.releaseevents table.eventslist th,
 table.releaseevents table.eventslist td { 
 	border: none; 
-	padding: 0px 6px 0px 0px; 
+	padding: 0px 1em 0px 0px; 
 }
 
 table.relationships {}

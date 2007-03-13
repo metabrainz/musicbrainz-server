@@ -126,6 +126,13 @@
 %			my $country_obj = MusicBrainz::Server::Country->new($release->{DBH});
 
 				<table class="eventslist">
+					<tr>
+						<th>Date:</th>
+						<th>Country:</th>
+						<th>Label:</th>
+						<th>Catalog #:</th>
+						<th>Barcode:</th>
+					</tr>
 
 %			my $first = 1;
 %			for my $rel (@relevents)
@@ -141,33 +148,17 @@
 
 					<tr <% $rel->GetModPending ? qq! class="mp"! : "" |n %>>
 						<td><& /comp/releasedate, $rel &></td>
-						<td> - </td>
 						<td><% $name %></td>
 %						if ($rel->GetLabel)
 %						{
-							<td> - </td>
-							<td><strong>Label:</strong>
-							<& /comp/linklabel, label => $rel->Label &>
-							</td>
+							<td><& /comp/linklabel, label => $rel->Label &></td>
 %						}
 %						else
 %						{
-							<td colspan="2"></td>
+							<td>-</td>
 %						}
-%						if ($rel->GetCatNo)
-%						{
-							<td> - </td>
-							<td><strong>Catalog #:</strong> <% $rel->GetCatNo %></td>
-%						} else {
-							<td colspan="2"></td>
-%						}
-%						if ($rel->GetBarcode)
-%						{
-							<td> - </td>
-							<td><strong>Barcode:</strong> <% $rel->GetBarcode %></td>
-%						} else {
-							<td colspan="2"></td>
-%						}
+						<td><% $rel->GetCatNo ? $rel->GetCatNo : "-" %></td>
+						<td><% $rel->GetBarcode ? $rel->GetBarcode : "-" %></td>
 					</tr>
 %			}
 
