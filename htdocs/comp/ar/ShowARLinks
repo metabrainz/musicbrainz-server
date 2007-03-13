@@ -59,12 +59,11 @@
 			$m->out(sprintf qq! <a href="/show/%s/relationships.html?%sid=$id&amp;addrel=1">$link</a>!,
 					$typeshow,
 					$typeshow);
-			if (scalar(@$recent_links) == 0 && $name ne "")
+			if ($name ne "")
 			{
 				$m->out(qq! | <a href="/edit/relationship/addurl.html?id=$id&amp;type=$type&amp;name=$ename">Relate to URL</a>!);
+				$m->out(qq!<span class="RELATE_TO_LINK" id="RELATE_TO::${id}::${type}"></span>!);
 			}
-
-			$m->out(qq!<span class="RELATE_TO_LINK" id="RELATE_TO::${id}::${type}"></span>!);
 
 			if ($count)
 			{
@@ -79,12 +78,11 @@
 		{
 			$m->out(sprintf qq!<a href="/show/%s/?%sid=%s&amp;addrel=1">%s</a> !, $typeshow, $typeshow, $id, $link);
 
-			if (scalar(@$recent_links) == 0 && $name ne "")
+			if ($name ne "")
 			{
 				$m->out(qq! | <a href="/edit/relationship/addurl.html?id=$id&amp;type=$type&amp;name=$ename">Relate to URL</a>!);
+				$m->out(qq!<span class="RELATE_TO_LINK" id="RELATE_TO::${id}::${type}"></span>!);
 			}
-
-			$m->out(qq!<span class="RELATE_TO_LINK" id="RELATE_TO::${id}::${type}"></span>!);
 
 			if ($count)
 			{
