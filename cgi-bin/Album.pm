@@ -1087,7 +1087,7 @@ sub GetVariousDisplayList
 		SELECT	a.id, a.name as albumname, a.gid, a.modpending, 
 				a.artist as artistid, ar.name as artistname,
                 attributes, language, script, modpending_lang,
-				tracks, discids, trmids, firstreleasedate, coverarturl, asin, puids, quality
+				tracks, discids, trmids, firstreleasedate, coverarturl, asin, puids, a.quality
    		FROM	album a, albummeta m, artist ar
 	  	WHERE	a.page BETWEEN $page_min AND $page_max
 		AND		m.id = a.id
