@@ -456,17 +456,10 @@
 					</td>
 					<td>&nbsp;</td>
 					<td>
-
-%	if ($track_artistid)
-%	{
-
 						<& /comp/form/checkbox-artistchange,
 							enabled => !$trackdel,
 							name => getField($i, "artistedit"),
 							checked => $artist_edit &>
-
-%	}
-
 					</td>
 					<td id="track_artist::display::<% $i %>::">
 

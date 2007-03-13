@@ -207,6 +207,16 @@ function ReleaseEditor() {
 							img.style.cursor = "hand";
 							td.appendChild(img);
 
+							if (el.checked) {
+								jsselect.registerAjaxSelect(es.ui.getField('tr'+index+'_artistname'), 'artist', partial(function(field, index, img, entity) {
+									ae.setArtistDisplay(false, entity, field, index);
+									es.ui.getField('tr'+index+'_artistid').value = entity.id;
+									es.ui.getField('tr'+index+'_artistname').value = entity.name;
+									es.ui.getField('tr'+index+'_artistresolution').value = entity.name;
+									img.src = ae.editartist_off.src;
+									img.title = ae.editartist_title_off;
+								}, field, index, img));
+							}
 
 						} else {
 							mb.log.error("editcheckboxes "+i+" is null");
