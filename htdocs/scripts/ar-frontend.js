@@ -164,7 +164,7 @@ function ARFrontEnd() {
 		var tdd = this.typeDropDown;
 		if (tdd.selectedIndex != 1) {
 			var v = (field.value || ""), site = "";
-			if (v.match(/\.amazon\./i)) {
+			if (v.match(/[./]amazon\./i)) {
 				site = "amazon asin";
 
 				// determine tld, asin from url, and build standard format [1],
@@ -178,7 +178,7 @@ function ARFrontEnd() {
 				if ((m = v.match(/amazon\.([a-z\.]+)\//)) != null) {
 					tld = m[1];
 				}
-				if ((m = v.match(/\b([A-Z0-9]{10})\b/)) != null) {
+				if ((m = v.match(/\/([A-Z0-9]{10})(?:[/?]|$)/)) != null) {
 					asin = m[1];
 				}
 				if (tld != "" && asin != "") {
