@@ -92,7 +92,11 @@
 					</td>
 					<td class="language">
                     [ <% $quality %> data quality ]
-				    <a href="/edit/albumquality/edit.html?id=$releaseid">Change</a> |
+%					if ($session{"uid"} and $showeditlinks)
+%					{
+				    <a href="/edit/albumquality/edit.html?id=<% $release->GetId() %>">Change</a>
+%					}
+					|
 <%perl>
 
 	# 2. Release Language
