@@ -39,6 +39,8 @@ Release 2007-XX-XX:
      #2329, #2519)
    * When "end date" is incorrect the error message is still about
      "begin date" (#2518)
+   * Fixed JavaScript Amazon URL parsing. (#2319, #2524)
+   * Rephrased the "Reveal my e-mail address" option. (#2438)
 
 ********************************************************************************
 ********************************************************************************
