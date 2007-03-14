@@ -144,7 +144,7 @@ use constant QUALITY_HIGH     => 2;
 
 my %QualityNames = (
    QUALITY_LOW     . "" => 'low',
-   QUALITY_NORMAL  . "" => 'unknown',
+   QUALITY_NORMAL  . "" => 'default',
    QUALITY_HIGH    . "" => 'high'
 );
 

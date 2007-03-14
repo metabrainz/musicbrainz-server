@@ -439,6 +439,7 @@ sub UpdateQuality
 		$self->{quality},
 		$id,
 	);
+    $self->InvalidateCache;
 }
 
 sub Update
