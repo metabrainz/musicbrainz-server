@@ -109,7 +109,7 @@
 %	if ($session{"uid"} && !$nonalbum && $showtag)
 %	{
 			<td class="batchop">
-				<input type="checkbox" name="releaseid<% $releaseid %>" <% $tagchecked ? 'checked="checked"' : "" |n %>" />
+				<input type="checkbox" name="releaseid<% $releaseid %>" <% $tagchecked ? 'checked="checked"' : "" |n %> />
 			</td>
 %	}
 		</tr>
