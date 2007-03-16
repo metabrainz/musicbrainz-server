@@ -109,7 +109,7 @@ my @EditLevelDefs =
 (
 	{   # low quality
 		MOD_EDIT_ARTISTNAME		     ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 1, 
-		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_ARTIST::Name() },  
+		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_ARTISTNAME::Name() },  
 		MOD_EDIT_ARTISTSORTNAME  	 ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_ARTISTSORTNAME::Name() },  
 		MOD_EDIT_ALBUMNAME			 ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
