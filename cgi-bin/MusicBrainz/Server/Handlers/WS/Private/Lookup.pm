@@ -216,7 +216,10 @@ sub serve_from_db
 	my $js = $json->objToJson($obj);
 
 	# send the response
-	$r->send_http_header("text/json; charset=utf-8");
+	
+	# the content type should be application/json, but
+	# Opera 8 can't handle that :(
+	$r->send_http_header("text/plain; charset=utf-8");
 	$r->set_content_length(length($js));
 	$r->print($js) unless $r->header_only;
 
