@@ -207,7 +207,7 @@ function ReleaseEditor() {
 							img.style.cursor = "hand";
 							td.appendChild(img);
 
-							if (el.checked) {
+							if (el.checked && index) {
 								jsselect.registerAjaxSelect(es.ui.getField('tr'+index+'_artistname'), 'artist', partial(function(field, index, img, entity) {
 									ae.setArtistDisplay(false, entity, field, index);
 									es.ui.getField('tr'+index+'_artistid').value = entity.id;

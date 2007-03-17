@@ -249,16 +249,12 @@
 	# has not filled all the fields yet.
 	if ($ARGS{"v::showform"})
 	{
-		if ($artistid > 0)
+		if ($artistid > 0 && !$ARGS{"artistname"})
 		{
 		   my $ar = Artist->new($mb->{DBH});
 		   $ar->SetId($artistid);
 		   $ar->LoadFromId();
 		   $ARGS{"artistname"} = $ar->GetName();
-		   if (!defined $ARGS{"artistname"})
-		   {
-			   $ARGS{"artistname"} = 'Tabasco bondage action';
-		   }
 		   $mb->Logout;
 		}
 
