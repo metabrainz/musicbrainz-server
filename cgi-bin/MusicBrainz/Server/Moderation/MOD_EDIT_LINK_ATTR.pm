@@ -58,7 +58,9 @@ sub PreInsert
 	$self->SetTable($node->{_table});
 	$self->SetColumn("name");
 	$self->SetRowId($node->GetId);
-	$self->SetPrev($node->GetName . " (" . $node->GetDescription . ")");
+	my $prev = $node->GetName . " (" . $node->GetDescription . ")";
+    $prev = substr($prev, 0, 251) . " ..." if (length($prev) > 255);
+	$self->SetPrev($prev);
 
 	my %new = (
 		name        	=> $name,
