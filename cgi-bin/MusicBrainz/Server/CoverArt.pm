@@ -60,6 +60,10 @@ my @CoverArtSites =
 # Releases not sold on amazon.com, don't have a "01"-version of the image,
 # so we need to make sure we grab an existing image.
 my %CoverArtServer = (
+    "amazon.jp" => {
+		"server" => "ec1.images-amazon.com",
+		"id"     => "09",
+	},
     "amazon.co.jp" => {
 		"server" => "ec1.images-amazon.com",
 		"id"     => "09",
@@ -105,7 +109,7 @@ sub ParseAmazonURL
     # default
     $store = "amazon.com";
 
-	if ($url =~ m{^http://(?:www.)?(.*?)/.*/([0-9B][0-9A-Z]{9})(?:[^0-9A-Z]|$)})
+    if ($url =~ m{^http://(?:www.)?(.*?)(?:\:[0-9]+)?/.*/([0-9B][0-9A-Z]{9})(?:[^0-9A-Z]|$)})
 	{
 		$asin = $2;
 		my $cas = $1;
@@ -146,7 +150,7 @@ sub UpdateAmazonData
 	my ($coverurl, $asin)  = ($release->GetCoverartURL, $release->GetAsin);
 	my $ret = 0;
 	
-	return $ret unless ($coverurl && $asin && $release->GetId);
+    return $ret unless ($coverurl && $asin && $release->GetId);
 
 	# make sure the album exists and get current asin and cover data	
 	my $sql = Sql->new($release->{DBH});
