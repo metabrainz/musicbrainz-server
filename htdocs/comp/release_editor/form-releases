@@ -96,7 +96,7 @@
 
 		# lets see if we have to highlight the fields
 		my $datecss = $checkreleases{"baddate$j"} ? "-missing" : "";
-		my $countrycss = $checkreleases{"badcountry$j"} ? qq!class="missing"! : "";
+		my $countrycss = $checkreleases{"badcountry$j"} ? qq!class="country missing"! : "country";
 		my $countryenabled = $revdel ? qq!disabled="disabled"! : "";
 
 		my $countries_menu = $m->comp("/edit/albumreleases/countries-menu.inc");

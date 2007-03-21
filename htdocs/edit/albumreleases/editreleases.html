@@ -237,8 +237,7 @@
 					<& /comp/linkrelease, id => $edit->{'id'}, name => $edit->{'name'} &></td>
 			</tr>
 			<tr>
-				<td>&nbsp;</td>
-				<td>
+				<td colspan="2" style="padding-top: 20px;">
 					<table style="formstyle" border="0" cellspacing="0" cellpadding="0">
 						<tr class="header">
 							<td><strong>Date (<abbr title="Year">Y</abbr>/<abbr title="Day">M</abbr>/<abbr title="Day">D</abbr>):</strong></td>
@@ -258,7 +257,7 @@
 		$m->out(sprintf "<tr %s>", ($rel->{modpending} ? qq! class="mp"!  : ""));
 
 </%perl>
-<td>
+<td nowrap="nowrap">
 	<& /comp/form/numberfield, type => "yearfield", name => "y" . $rel->{"id"},
 		cssclass => $datecss, tabindex => ++$tabindex, value => $rel->{year} || '', size => 4, maxlength => 4 &>
 	<& /comp/form/numberfield, type => "monthfield", name => "m" . $rel->{"id"},
@@ -266,7 +265,7 @@
 	<& /comp/form/numberfield, type => "dayfield", name => "d" . $rel->{"id"},
 		cssclass => $datecss, tabindex => ++$tabindex, value => $rel->{day} || '', size => 2, maxlength => 2 &></td>
 <td>
-	<select name="country<% $rel->{"id"} %>">
+	<select name="country<% $rel->{"id"} %>" class="country">
 		<& /comp/options, ($rel->{country} ? $countries_menu : $countries_menu_2), $rel->{country} &>
 	</select></td>
 <td>
@@ -306,8 +305,7 @@
 				</td>
 			</tr>
 			<tr class="spaced">
-				<td>&nbsp;</td>
-				<td class="submitbuttons">
+				<td class="submitbuttons" colspan="2">
 					<input type="submit" name="submitvalue" class="button" value="Continue &raquo;" />
 					<input type="submit" name="submitvalue" class="button" value="Cancel" />
 					<input type="hidden" name="releaseid" value="<% $releaseid %>" />

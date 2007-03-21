@@ -844,4 +844,8 @@ table.review tr td table.editdiff tr td {
 	padding: 1px;
 }
 
+select.country {
+	width: 18em;
+}
+
 /* vi: set ts=4 sw=4 ft=mason : */

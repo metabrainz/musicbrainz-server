@@ -149,15 +149,13 @@ function ARFrontEnd() {
 				mb.log.error("Could not find the hidden field int_typedropdown");
 			}
 		} else {
-			mb.log.error("could not find the LinkSelectForm");
-		}
-
-		var urlfield;
-		if ((urlfield = mb.ui.get("editurl_url")) != null) {
-			urlfield.onfocus = function(event) { if (this.value == "http://") this.value = ""; }
-			urlfield.onblur = function(event) { if (this.value == "") this.value = "http://"; }
-			urlfield.onchange = function(event) { arfrontend.fixAmazonURL(this); }
-			urlfield.onkeyup = function(event) { arfrontend.fixAmazonURL(this); }
+			var urlfield;
+			if ((urlfield = mb.ui.get("editurl_url")) != null) {
+				urlfield.onfocus = function(event) { if (this.value == "http://") this.value = ""; }
+				urlfield.onblur = function(event) { if (this.value == "") this.value = "http://"; }
+				urlfield.onchange = function(event) { arfrontend.fixAmazonURL(this); }
+				urlfield.onkeyup = function(event) { arfrontend.fixAmazonURL(this); }
+			}
 		}
 
 		mb.log.exit();
