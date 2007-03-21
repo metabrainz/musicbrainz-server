@@ -865,7 +865,6 @@ sub xml_search
         }
         if ($args->{releaseid})
         { 
-            $args->{releaseid} =~ s/-//g;
             $query .= " AND reid:" . MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{releaseid});
         }
         else
