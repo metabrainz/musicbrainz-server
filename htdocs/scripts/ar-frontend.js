@@ -151,6 +151,15 @@ function ARFrontEnd() {
 		} else {
 			mb.log.error("could not find the LinkSelectForm");
 		}
+
+		var urlfield;
+		if ((urlfield = mb.ui.get("editurl_url")) != null) {
+			urlfield.onfocus = function(event) { if (this.value == "http://") this.value = ""; }
+			urlfield.onblur = function(event) { if (this.value == "") this.value = "http://"; }
+			urlfield.onchange = function(event) { arfrontend.fixAmazonURL(this); }
+			urlfield.onkeyup = function(event) { arfrontend.fixAmazonURL(this); }
+		}
+
 		mb.log.exit();
 	};
 
@@ -207,6 +216,24 @@ function ARFrontEnd() {
 						break;
 					}
 				}
+			}
+		}
+		mb.log.exit();
+	};
+
+	this.fixAmazonURL = function(field) {
+		mb.log.enter(this.GID, "fixAmazonURL");
+		var v = (field.value || "");
+		if (v.match(/[./]amazon\./i)) {
+			var tld = "", asin = "";
+			if ((m = v.match(/amazon\.([a-z\.]+)\//)) != null) {
+				tld = m[1];
+			}
+			if ((m = v.match(/\/([A-Z0-9]{10})(?:[/?]|$)/)) != null) {
+				asin = m[1];
+			}
+			if (tld != "" && asin != "") {
+				field.value = "http://www.amazon." + tld + "/gp/product/" + asin;
 			}
 		}
 		mb.log.exit();
