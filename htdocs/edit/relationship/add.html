@@ -31,6 +31,8 @@
 	$link0 => -1
 	$link1 => -1
 	$linktypeid => undef
+	$mblink0 => undef
+	$mblink1 => undef
 
 	$begindate_y => ""
 	$begindate_m => ""
@@ -50,31 +52,52 @@
 	$m->comp("/comp/checkloggedin", 1, 1)
 		or return;
 
+	my @links;
 	# if there are not two elements to relate.
 	if ($link0 < 0 || $link1 < 0)
-	{
-		$m->comp("/comp/layout/badarguments", pagetitle => "Too few elements selected", text => "Please select two elements before you can create a relationship.");
-		return undef;
-	}
+    {
+        # if not, check to see if we have mblinks
+        if (not defined $mblink0  || not defined $mblink1 < 0)
+        {
+            $m->comp("/comp/layout/badarguments", pagetitle => "Too few elements selected", text => "Please select two elements before you can create a relationship.");
+            return undef;
+        }
+        $link0 = $link1 = -1;
+	    @links = @ARGS{qw( mblink0 mblink1 )};
+    }
+    else
+    {
+        $mblink0 = $mblink1 = undef;
+	    @links = @ARGS{qw( link0 link1 )};
+    }
 
 	# check volatile preferences (like autoeditor flag)
 	$m->comp("/comp/user/check-volatile-preferences", %ARGS);
 
 	# Instantiate MusicBrainz object
 	my $mb = $m->comp("/comp/dblogin");
-
-	my @links = @ARGS{qw( link0 link1 )};
 	for my $ref (\(@links))
 	{
-		my ($type, $id) = $$ref =~ /\A(\w+)=(\d+)\z/
-			or die "? $$ref";
+		my ($type, $id)  = split /=/, $$ref;
 		MusicBrainz::Server::LinkEntity->IsValidType($type)
 			or die;
 
-		my $obj = MusicBrainz::Server::LinkEntity->newFromTypeAndId(
-			$mb->{DBH},
-			$type, $id,
-		) or die;
+		my $obj;
+        
+        if ($link0 >= 0)
+        {
+            $obj = MusicBrainz::Server::LinkEntity->newFromTypeAndId(
+                $mb->{DBH},
+                $type, $id,
+            ) or die;
+        }
+        else
+        {
+            $obj = MusicBrainz::Server::LinkEntity->newFromTypeAndMBId(
+                $mb->{DBH},
+                $type, $id,
+            ) or die;
+        }
 
 		$$ref = {
 			type => $type,

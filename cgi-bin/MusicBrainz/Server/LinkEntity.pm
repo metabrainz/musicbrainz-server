@@ -80,6 +80,14 @@ sub newFromTypeAndId
 	$handler->newFromId($dbh, $id);
 }
 
+sub newFromTypeAndMBId
+{
+	my ($class, $dbh, $type, $id) = @_;
+	my $handler = $classes{$type}
+		or croak "Bad type '$type'";
+	$handler->newFromMBId($dbh, $id);
+}
+
 sub URLFromTypeAndId
 {
 	my ($class, $type, $id) = @_;
@@ -131,6 +139,16 @@ sub newFromId
 	$object;
 }
 
+sub newFromMBId
+{
+	my ($class, $dbh, $id) = @_;
+	require Album;
+	my $object = Album->new($dbh);
+	$object->SetMBId($id);
+	$object->LoadFromId or return undef;
+	$object;
+}
+
 sub URLFromId
 {
 	"/show/release/?releaseid=$_[1]";
@@ -150,6 +168,16 @@ sub newFromId
 	require Artist;
 	my $object = Artist->new($dbh);
 	$object->SetId($id);
+	$object->LoadFromId or return undef;
+	$object;
+}
+
+sub newFromMBId
+{
+	my ($class, $dbh, $id) = @_;
+	require Artist;
+	my $object = Artist->new($dbh);
+	$object->SetMBId($id);
 	$object->LoadFromId or return undef;
 	$object;
 }
@@ -177,6 +205,16 @@ sub newFromId
 	$object;
 }
 
+sub newFromId
+{
+	my ($class, $dbh, $id) = @_;
+	require Track;
+	my $object = Track->new($dbh);
+	$object->SetMBId($id);
+	$object->LoadFromId or return undef;
+	$object;
+}
+
 sub URLFromId
 {
 	"/show/track/?trackid=$_[1]";
@@ -198,6 +236,14 @@ sub newFromId
 	$object->newFromId($id);
 }
 
+sub newFromMBId
+{
+	my ($class, $dbh, $id) = @_;
+	require MusicBrainz::Server::URL;
+	my $object = MusicBrainz::Server::URL->new($dbh);
+	$object->newFromMBId($id);
+}
+
 sub URLFromId
 {
 	"/show/url/?urlid=$_[1]";
@@ -217,6 +263,14 @@ sub newFromId
 	require Label;
 	my $object = Label->new($dbh);
 	$object->newFromId($id);
+}
+
+sub newFromMBId
+{
+	my ($class, $dbh, $id) = @_;
+	require Label;
+	my $object = Label->new($dbh);
+	$object->newFromMBId($id);
 }
 
 sub URLFromId
