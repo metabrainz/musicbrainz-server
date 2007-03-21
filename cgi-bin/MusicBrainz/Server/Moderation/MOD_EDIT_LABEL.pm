@@ -77,7 +77,9 @@ sub PreInsert
 	if ( defined $labelcode )
 	{
 		MusicBrainz::Server::Validation::TrimInPlace($labelcode);
-		$labelcode =~ s/^LC\s+//;
+
+		die 'Invalid label code'
+			if ($labelcode && not MusicBrainz::Server::Validation::IsValidLabelCode($labelcode));
 
 		$new{'LabelCode'} = $labelcode if $labelcode ne $ar->GetLabelCode();
 	}

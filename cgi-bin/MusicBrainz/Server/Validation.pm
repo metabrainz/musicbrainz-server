@@ -203,6 +203,18 @@ sub IsDateEarlierThan
     return 1;
 }
 
+sub IsValidLabelCode
+{
+	my $t = shift;
+	defined($t) and not ref($t) and $t =~ /\A(\d{1,5})\z/;
+}
+
+sub MakeDisplayLabelCode
+{
+	my $labelcode = shift;
+	return sprintf("LC-%05d", $labelcode)
+}
+
 # This wrapper will prevent us from having the stupid patched version of the Text::Unaccent library
 # which in turn will make the mb_server install process simpler.
 sub unaccent($) 

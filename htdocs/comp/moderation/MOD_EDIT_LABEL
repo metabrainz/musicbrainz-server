@@ -60,7 +60,7 @@
 		<tr>
 			<td class="lbl">Label code:</td>
 			<td class="diff" id="ov::labelcode<% $id %>">
-				LC <% $prev->{"LabelCode"} %>
+				<% MusicBrainz::Server::Validation::MakeDisplayLabelCode($prev->{"LabelCode"}) %>
 			</td>
 		</tr>
 %	}
@@ -180,12 +180,12 @@
 		<tr class="top">
 			<td class="lbl" rowspan="2">Label Code:</td>
 			<td class="diff" id="ov::labelcode<% $id %>">
-				<% $prev->{'LabelCode'} %>
+				<% MusicBrainz::Server::Validation::MakeDisplayLabelCode($prev->{"LabelCode"}) %>
 			</td>
 		</tr>
 		<tr>
 			<td class="diff" id="nv::labelcode<% $id %>">
-				<% $new->{"LabelCode"} %>
+				<% MusicBrainz::Server::Validation::MakeDisplayLabelCode($new->{"LabelCode"}) %>
 			</td>
 		</tr>
 

@@ -11,7 +11,7 @@ CREATE TABLE label
     name                VARCHAR(255) NOT NULL,
     gid                 CHAR(36) NOT NULL,
     modpending          INTEGER DEFAULT 0,
-    labelcode           VARCHAR(255),
+    labelcode           INTEGER,
     sortname            VARCHAR(255) NOT NULL,
     country             INTEGER, -- references country
     page                INTEGER NOT NULL,

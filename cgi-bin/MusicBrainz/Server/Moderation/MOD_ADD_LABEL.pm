@@ -73,7 +73,10 @@ sub PreInsert
 		die 'Invalid end date' unless MusicBrainz::Server::Validation::IsValidDate(@$enddate);
 		$enddate_str = MusicBrainz::Server::Validation::MakeDBDateStr(@$enddate);
 	}
-	
+
+	die 'Invalid label code'
+		if ($labelcode && not MusicBrainz::Server::Validation::IsValidLabelCode($labelcode));
+
 	my $label = Label->new($self->{DBH});
 	$label->SetName($name);
 	$label->SetSortName($sortname);

@@ -68,7 +68,7 @@
 		<tr>
 			<td class="lbl">Label code:</td>
 			<td>
-			 	LC <% $labelcode %></td>
+			 	<% MusicBrainz::Server::Validation::MakeDisplayLabelCode($labelcode) %></td>
 		</tr>
 %	}
 

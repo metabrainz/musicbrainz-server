@@ -94,7 +94,7 @@
 	{
 		if ($labelcode)
 		{
-			$m->out("LC ".$m->interp->apply_escapes($labelcode, 'h'));
+			$m->out(MusicBrainz::Server::Validation::MakeDisplayLabelCode($labelcode));
 			$m->out(", ") if ($date_str or $country or $type);
 		}
 		if ($date_str)

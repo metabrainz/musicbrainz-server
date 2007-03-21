@@ -123,6 +123,8 @@
 			push @messages, "Please enter the Name." if ($name eq "");
 			push @messages, "Please enter the Sort Name." if ($sortname eq "");
 
+			push @messages, "Label Code has a to be a number with max. 5 digits"
+				if ($labelcode && not MusicBrainz::Server::Validation::IsValidLabelCode($labelcode));
 			push @messages, "Begin Date has to be either valid or empty"
 				if (not MusicBrainz::Server::Validation::IsValidDateOrEmpty($begindate_y, $begindate_m, $begindate_d));
 			push @messages, "End Date has to be either valid or empty"
