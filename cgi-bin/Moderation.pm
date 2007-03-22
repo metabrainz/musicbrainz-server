@@ -494,15 +494,22 @@ sub GetEditTypes
 
 sub GetEditLevelDefs
 {
+    my ($level, $type) = @_;
+
     # The line below is our OH-SHIT handle. If the new data quality system flies off the rails,
     # Uncomment the lines below to neuter it back to the OLD system.
-    # my $defs = $EditLevelDefs[$_[0]]->{QUALITY_NORMAL};
+    # my $defs = $EditLevelDefs[$level]->{QUALITY_NORMAL};
     # $defs->{duration} = 14;
     # $defs->{expireaction} = EXPIRE_REJECT;
     # $defs->{votes} = 3;
     # return $defs;
 
-    return $EditLevelDefs[$_[0]]->{$_[1]};
+    # The level unknown is an internal state that will never be shown to the
+    # the users. Users cannot set data quality back to unknown and yet
+    # unknown behaves like a known level (determined by QUALITY_UNKNOWN_MAPPED)
+    $level = QUALITY_UNKNOWN_MAPPED if $level == QUALITY_UNKNOWN;
+
+    return $EditLevelDefs[$level]->{$type};
 }
 
 use constant SEARCHRESULT_SUCCESS => 1;

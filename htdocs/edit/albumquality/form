@@ -36,6 +36,7 @@
 
 	# Instantiate MusicBrainz object
 	my $mb = $m->comp("/comp/dblogin");
+    $quality_curr = &ModDefs::QUALITY_UNKNOWN_MAPPED if $quality_curr == &ModDefs::QUALITY_UNKNOWN;
 
 </%perl>
 

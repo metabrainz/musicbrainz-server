@@ -66,16 +66,39 @@ sub DetermineQuality
 {
 	my $self = shift;
 
+    my $level = &ModDefs::QUALITY_LOW;
+
 	my $ar = Artist->new($self->{DBH});
+
+    # Check the old artist
 	$ar->SetId($self->{artist});
 	if ($ar->LoadFromId())
 	{
-        return $ar->GetQuality();        
+        $level = $ar->GetQuality();        
+        return $level if ($level == &ModDefs::QUALITY_HIGH);
     }
-    print STDERR __PACKAGE__ . ": quality not determined for $self->{id}\n";
-    return &ModDefs::QUALITY_NORMAL;
-}
+    # Check the new artist
+	$ar->SetId($self->{'new.id'});
+	if ($ar->LoadFromId())
+	{
+        $level = $ar->GetQuality() > $level ? $ar->GetQuality() : $level;        
+        return $level if ($level == &ModDefs::QUALITY_HIGH);
+    }
 
+    # Check any releases that this track is attached to
+	my $tr = Track->new($self->{DBH});
+	$tr->SetId($self->{rowid});
+    my @albums = $tr->GetAlbumInfo();
+    if (@albums)
+    {
+        for (@albums)
+        {
+            $level = $_->[5] > $level ? $_->[5] : $level;        
+        }
+    }
+
+    return $level;
+}
 
 sub PreDisplay
 {

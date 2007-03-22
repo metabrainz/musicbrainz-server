@@ -205,7 +205,7 @@ sub newFromId
 	$object;
 }
 
-sub newFromId
+sub newFromMBId
 {
 	my ($class, $dbh, $id) = @_;
 	require Track;

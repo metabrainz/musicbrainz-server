@@ -111,7 +111,8 @@ sub DetermineQuality
 	my $new = $self->{'new_unpacked'} = $self->ConvertNewToHash($self->GetNew)
 		or die;
 
-    my $quality = -1;
+    my $quality = &ModDefs::QUALITY_LOW;
+    my $artistid = -1;
     for(my $i = 0;;$i++)
     {
         my $rel = Album->new($self->{DBH});
@@ -119,7 +120,19 @@ sub DetermineQuality
         $rel->SetId($new->{"AlbumId$i"});
         if ($rel->LoadFromId())
         {
+            $artistid = $rel->GetArtist() if ($artistid < 0);
             $quality = $rel->GetQuality() > $quality ? $rel->GetQuality() : $quality;        
+        }
+    }
+
+    if ($artistid > 0)
+    {
+        # Check the artist its going to
+        my $ar = Artist->new($self->{DBH});
+        $ar->SetId($artistid);
+        if ($ar->LoadFromId())
+        {
+            $quality = $ar->GetQuality() > $quality ? $ar->GetQuality() : $quality;
         }
     }
 

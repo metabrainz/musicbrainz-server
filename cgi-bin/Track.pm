@@ -538,7 +538,7 @@ sub GetAlbumInfo
    my ($sql, @row, @info);
 
    $sql = Sql->new($this->{DBH});
-   if ($sql->Select(qq|select album, name, sequence, GID, attributes
+   if ($sql->Select(qq|select album, name, sequence, GID, attributes, quality
                          from AlbumJoin, Album
                         where AlbumJoin.album = Album.id and
                               track = | . $this->GetId()))

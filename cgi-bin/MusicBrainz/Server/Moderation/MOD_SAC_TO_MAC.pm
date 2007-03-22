@@ -68,14 +68,23 @@ sub DetermineQuality
 {
 	my $self = shift;
 
+    my $level = &ModDefs::QUALITY_LOW;
+
 	my $rel = Album->new($self->{DBH});
 	$rel->SetId($self->{rowid});
 	if ($rel->LoadFromId())
 	{
-        return $rel->GetQuality();        
+        $level = $rel->GetQuality();        
     }
-    print STDERR __PACKAGE__ . ": quality not determined for $self->{id}\n";
-    return &ModDefs::QUALITY_NORMAL;
+
+	my $ar = Artist->new($self->{DBH});
+	$ar->SetId($rel->GetArtist);
+	if ($ar->LoadFromId())
+	{
+        $level = $ar->GetQuality() > $level ? $ar->GetQuality() : $level;
+    }
+
+    return $level;
 }
 
 sub CheckPrerequisites

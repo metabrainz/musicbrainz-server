@@ -82,16 +82,31 @@ sub DetermineQuality
 {
 	my $self = shift;
 
+    my $level = &ModDefs::QUALITY_LOW;
+
+	my $rel = Album->new($self->{DBH});
+	$rel->SetId($self->{rowid});
+	if ($rel->LoadFromId())
+	{
+        $level = $rel->GetQuality();        
+    }
+
 	my $ar = Artist->new($self->{DBH});
-	$ar->SetId($self->{"new.artistid"});
+	$ar->SetId($rel->GetArtist);
 	if ($ar->LoadFromId())
 	{
-        return $ar->GetQuality();        
+        $level = $ar->GetQuality() > $level ? $ar->GetQuality() : $level;
     }
-    print STDERR __PACKAGE__ . ": quality not determined for $self->{id}\n";
-    return &ModDefs::QUALITY_NORMAL;
-}
 
+	$ar = Artist->new($self->{DBH});
+	$ar->SetId($self->{'new.artistid'});
+	if ($ar->LoadFromId())
+	{
+        $level = $ar->GetQuality() > $level ? $ar->GetQuality() : $level;
+    }
+
+    return $level;
+}
 
 sub PreDisplay
 {

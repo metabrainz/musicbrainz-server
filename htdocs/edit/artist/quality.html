@@ -61,6 +61,7 @@
 	# load artist
 	my $artist = $m->comp("/comp/loadartist", $mb, $artistid);
     my $quality = $artist->GetQuality;
+    $quality= &ModDefs::QUALITY_UNKNOWN_MAPPED if $quality == &ModDefs::QUALITY_UNKNOWN;
     my $qualitytext = ModDefs::GetQualityText($quality);
 
 	# we got a form submission to handle

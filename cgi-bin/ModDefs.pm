@@ -138,9 +138,11 @@ use constant MOD_REMOVE_LABELALIAS		 => 62;
 use constant MOD_CHANGE_RELEASE_QUALITY  => 63;
 use constant MOD_LAST					 => 63;
 
-use constant QUALITY_LOW      => 0;
-use constant QUALITY_NORMAL   => 1;
-use constant QUALITY_HIGH     => 2;
+use constant QUALITY_UNKNOWN         => -1;
+use constant QUALITY_UNKNOWN_MAPPED  => 1;
+use constant QUALITY_LOW             => 0;
+use constant QUALITY_NORMAL          => 1;
+use constant QUALITY_HIGH            => 2;
 
 my %QualityNames = (
    QUALITY_LOW     . "" => 'low',
@@ -150,7 +152,14 @@ my %QualityNames = (
 
 sub GetQualityText
 {
-   return $QualityNames{$_[0]};
+   my ($level) = @_;
+
+   # The level unknown is an internal state that will never be shown to the
+   # the users. Users cannot set data quality back to unknown and yet
+   # unknown behaves like a known level (determined by QUALITY_UNKNOWN_MAPPED)
+   $level = QUALITY_UNKNOWN_MAPPED if $level == QUALITY_UNKNOWN;
+
+   return $QualityNames{$level};
 }
 
 # The constants below define the state a moderation can have:
