@@ -123,6 +123,17 @@
 					</div>
 				</div>
 
+				<!-- browse labels -->
+				<div class="orangeheader">
+					<div class="inner"><b>Browse Labels</b></div>
+				</div>
+				<div class="boxcontent">
+					<div class="inner" style="text-align: center">
+						<& /comp/search/browsesimple,
+							page => "/browselabels.html" &>
+					</div>
+				</div>
+
 %	if (&DBDefs::REPLICATION_TYPE != RT_SLAVE)
 %	{
 
