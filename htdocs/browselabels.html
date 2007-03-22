@@ -48,7 +48,7 @@
 
 	# browse UI, wrapped in a box.
 	$m->comp("/comp/tablebegin", title => "Browse Labels");
-	$m->comp("/comp/browsebox", index => $index);
+	$m->comp("/comp/browsebox", index => $index, page => "/browselabels.html");
 	$m->comp("/comp/tableend");
 
 	# stop here, if we have nothing to search for.

@@ -136,6 +136,7 @@
 			{ name => "Search Edits",			url => "/mod/search/index.html" },
 			{ name => "Browse Artists",			url => "/browseartists.html" },
 			{ name => "Browse Releases",		url => "/browsevarious.html" },
+			{ name => "Browse Labels",			url => "/browselabels.html" },
 			{ name => "Firefox Plugins",		url => "/search/plugins/firefox/install.html" },
 
 			[
@@ -166,6 +167,7 @@
 			{ url => "/showlabel.html" },
 			{ url => "/show/label/index.html" },
 			{ url => "/show/label/details.html" },
+			{ url => "/show/label/aliases.html" },
 
 			{ url => "/showcdtoc.html" },
 			{ url => "/show/cdtoc/index.html" },
@@ -184,6 +186,7 @@
 			{ url => "/showrel.html" },
 			{ url => "/show/release/relationships.html" },
 			{ url => "/show/artist/relationships.html" },
+			{ url => "/show/label/relationships.html" },
 			{ url => "/show/track/relationships.html" },
 			{ url => "/show/url/relationships.html" },
 
