@@ -132,6 +132,7 @@
 						<th>Label:</th>
 						<th>Catalog #:</th>
 						<th>Barcode:</th>
+						<th>Format:</th>
 					</tr>
 
 %			my $first = 1;
@@ -159,6 +160,7 @@
 %						}
 						<td><% $rel->GetCatNo ? $rel->GetCatNo : "-" %></td>
 						<td><% $rel->GetBarcode ? $rel->GetBarcode : "-" %></td>
+						<td><% $rel->GetFormat ? $rel->GetFormatName : "-" %></td>
 					</tr>
 %			}
 

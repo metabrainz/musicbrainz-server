@@ -619,6 +619,7 @@ TRACK:
 		$rel->SetLabel($release->{label});
 		$rel->SetCatNo($release->{catno});
 		$rel->SetBarcode($release->{barcode});
+		$rel->SetFormat($release->{format});
 		$rel->InsertSelf();
 
 		$release->{release_insertid} = $rel->GetId();

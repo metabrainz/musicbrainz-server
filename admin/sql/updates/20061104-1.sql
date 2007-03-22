@@ -160,6 +160,7 @@ insert into Label (Name, SortName, GID, ModPending, Page)
 ALTER TABLE release ADD label INTEGER;
 ALTER TABLE release ADD catno VARCHAR(255);
 ALTER TABLE release ADD barcode VARCHAR(255);
+ALTER TABLE release ADD format SMALLINT;
 
 ALTER TABLE wordlist ADD labelusecount SMALLINT NOT NULL DEFAULT 0;
 

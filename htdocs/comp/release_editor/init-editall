@@ -136,6 +136,7 @@
 		$orig{"rev_label-$i"} = $rev->GetLabel;
 		$orig{"rev_labelname-$i"} = $rev->GetLabel ? $rev->Label->GetName : undef;
 		$orig{"rev_labelorigname-$i"} = $orig{"rev_labelname-$i"};
+		$orig{"rev_format-$i"} = $rev->GetFormat;
 	}
 	%orig = $m->comp("/comp/release_editor/check-releases", %orig);
 

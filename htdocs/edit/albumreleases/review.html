@@ -112,7 +112,25 @@
 						<& /comp/linkdoc, "RemoveReleaseEventsEdit", "Remove release events" &>
 					</td>
 					<td class="left padright">
-						<& /comp/releasedate, @$rel{qw( orig_year orig_month orig_day )} &> - <% $country_name{$rel->{orig_country}} || "?" %>
+						<& /comp/releasedate, @$rel{qw( orig_year orig_month orig_day )} &> -
+						<% $country_name{$rel->{orig_country}} || "?" %> -
+						<strong>Label:</strong>
+%						if ($rel->{orig_label})
+%						{
+%							my $label = $m->comp("/comp/loadlabel", $mb, $rel->{orig_label});
+							<& /comp/linklabel, label => $label &>
+%						}
+%						else
+%						{
+							?
+%						}
+						-
+						<strong>Catalog #:</strong> <% $rel->{orig_catno} || "?" %> - 
+						<strong>Barcode:</strong> <% $rel->{orig_barcode} || "?" %> -
+						<strong>Format:</strong> <%
+							$rel->{orig_format}
+								? MusicBrainz::Server::Release::GetReleaseFormatName($rel->{orig_format})
+								: "?" %>
 					</td>
 				</tr>
 			<%perl>
@@ -142,7 +160,11 @@
 %						}
 						-
 						<strong>Catalog #:</strong> <% $rel->{catno} || "?" %> - 
-						<strong>Barcode:</strong> <% $rel->{barcode} || "?" %>
+						<strong>Barcode:</strong> <% $rel->{barcode} || "?" %> -
+						<strong>Format:</strong> <%
+							$rel->{format}
+								? MusicBrainz::Server::Release::GetReleaseFormatName($rel->{format})
+								: "?" %>
 					</td>
 				</tr>
 			<%perl>
@@ -154,6 +176,7 @@
 			$rev->SetLabel($rel->{label});
 			$rev->SetCatNo($rel->{catno});
 			$rev->SetBarcode($rel->{barcode});
+			$rev->SetFormat($rel->{format});
 			push @relEventsNew, $rev;
 
 			next;
@@ -165,6 +188,7 @@
 		$rev->SetLabel($rel->{label});
 		$rev->SetCatNo($rel->{catno});
 		$rev->SetBarcode($rel->{barcode});
+		$rev->SetFormat($rel->{format});
 		push @relEventsNew, $rev;
 
 		next if 
@@ -174,7 +198,8 @@
 			int($rel->{orig_country}) == int($rel->{country}) and
 			int($rel->{orig_label}) == int($rel->{label}) and
 			$rel->{orig_catno} eq $rel->{catno} and
-			$rel->{orig_barcode} eq $rel->{barcode};
+			$rel->{orig_barcode} eq $rel->{barcode} and
+			$rel->{orig_format} eq $rel->{format};
 
 		{
 
@@ -199,7 +224,11 @@
 %						}
 						-
 						<strong>Catalog #:</strong> <% $rel->{orig_catno} || "?" %> - 
-						<strong>Barcode:</strong> <% $rel->{orig_barcode} || "?" %>
+						<strong>Barcode:</strong> <% $rel->{orig_barcode} || "?" %> -
+						<strong>Format:</strong> <%
+							$rel->{orig_format}
+								? MusicBrainz::Server::Release::GetReleaseFormatName($rel->{orig_format})
+								: "?" %>
 						
 						<br/>
 						
@@ -217,7 +246,11 @@
 %						}
 						-
 						<strong>Catalog #:</strong> <% $rel->{catno} || "?" %> - 
-						<strong>Barcode:</strong> <% $rel->{barcode} || "?" %>
+						<strong>Barcode:</strong> <% $rel->{barcode} || "?" %> -
+						<strong>Format:</strong> <%
+							$rel->{format}
+								? MusicBrainz::Server::Release::GetReleaseFormatName($rel->{format})
+								: "?" %>
 					</td>
 				</tr>
 

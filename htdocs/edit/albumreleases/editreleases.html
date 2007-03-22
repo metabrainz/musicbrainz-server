@@ -47,6 +47,7 @@
 
 	my $countries_menu = $m->comp("countries-menu.inc");
 	my $countries_menu_2 = [ [ "", "[select a country]" ], @$countries_menu ];
+	my $formats_menu = MusicBrainz::Server::Release::GetReleaseFormats();
 
 	# Update releases
 	my $releases = $edit->{"releases"};
@@ -113,6 +114,8 @@
 		$rel->{catno} = $catno if defined $catno;
 		my $barcode = $ARGS{"barcode".$rel->{id}};
 		$rel->{barcode} = $barcode if defined $barcode;
+		my $format = $ARGS{"format".$rel->{id}};
+		$rel->{format} = $format if defined $format;
 
 		delete $ARGS{'continue'}
 			if not $rel->{country}
@@ -245,6 +248,7 @@
 							<td>Label:</td>
 							<td>Catalog #:</td>
 							<td>Barcode:</td>
+							<td>Format:</td>
 							<td>
 								<span title="Activate the checkboxes below to remove release events" style="cursor: help"/>Remove</span></td>
 						</tr>
@@ -279,6 +283,10 @@
 <td>
 	<& /comp/form/numberfield, type => "shorttxtfield", name => "barcode" . $rel->{"id"},
 		tabindex => ++$tabindex, value => $rel->{barcode} || '', size => 12, maxlength => 255 &></td>
+<td>
+	<select name="format<% $rel->{"id"} %>">
+		<& /comp/options, $formats_menu, $rel->{format} &>
+	</select></td>
 <td align="center">
 	<input type="checkbox" name="releasedel<% $rel->{"id"} %>" value="1" <% $rel->{'delete'} ? "checked" : "" %>
 		title="Active this checkbox to remove this release event" /></td>

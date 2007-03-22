@@ -203,6 +203,7 @@
 			my $rev_label = $ARGS{"rev_label-$j"};
 			my $rev_catno = $ARGS{"rev_catno-$j"};
 			my $rev_barcode = $ARGS{"rev_barcode-$j"};
+			my $rev_format = $ARGS{"rev_format-$j"};
 			my $rev_clear = $ARGS{"rev_clear-$j"} || 0;
 
 			$rev_year = "" if ($rev_year eq "yyyy");
@@ -232,7 +233,7 @@
 						);
 
 					no warnings;
-					$new .= sprintf("Release%d=%d,%s-%s-%s,%s,%s,%s\n", $j, $rev_country, @ymd, $rev_label, _EncodeText($rev_catno), _EncodeText($rev_barcode));
+					$new .= sprintf("Release%d=%d,%s-%s-%s,%s,%s,%s,%d\n", $j, $rev_country, @ymd, $rev_label, _EncodeText($rev_catno), _EncodeText($rev_barcode), $rev_format);
 				}
 			}
 		}

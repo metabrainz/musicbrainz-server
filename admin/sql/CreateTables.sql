@@ -805,6 +805,7 @@ CREATE TABLE release
     label               INTEGER,          -- references label
     catno               VARCHAR(255),
     barcode             VARCHAR(255),
+    format              SMALLINT,
     modpending          INTEGER DEFAULT 0
 );
 

@@ -65,6 +65,7 @@
 		$revnew->SetLabel($rel->{label});
 		$revnew->SetCatNo($rel->{catno});
 		$revnew->SetBarcode($rel->{barcode});
+		$revnew->SetFormat($rel->{format});
 
 		if ($rel->{"new"})
 		{
@@ -95,7 +96,8 @@
 			int($rel->{orig_country}) == int($rel->{country}) and
 			int($rel->{orig_label}) == int($rel->{label}) and
 			$rel->{orig_catno} eq $rel->{catno} and
-			$rel->{orig_barcode} eq $rel->{barcode};
+			$rel->{orig_barcode} eq $rel->{barcode} and
+			$rel->{orig_format} eq $rel->{format};
 
 		push @edits, {
 			object => $revold,
@@ -106,6 +108,7 @@
 			label => $rel->{"label"},
 			catno => $rel->{"catno"},
 			barcode => $rel->{"barcode"},
+			format => $rel->{"format"},
 		};
 
 		$m->out("Edit Release Event: " . $revold->ToString . " -> " . $revnew->ToString . "<br/>")

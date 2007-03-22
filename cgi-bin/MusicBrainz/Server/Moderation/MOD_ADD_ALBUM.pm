@@ -176,7 +176,7 @@ sub PreInsert
 	for my $i (sort map { /^Release(\d+)$/ ? ($1) : () } keys %new)
 	{
 		my $release = $new{"Release$i"};
-		my ($country, $date, $label, $catno, $barcode) = split m/,/, $release;
+		my ($country, $date, $label, $catno, $barcode, $format) = split m/,/, $release;
 		my ($year, $month, $day) = split m/-/, $date;
 
 		$catno = _DecodeText($catno) if $catno;
@@ -190,6 +190,7 @@ sub PreInsert
 			label	=> $label,
 			catno	=> $catno,
 			barcode	=> $barcode,
+			format	=> $format,
 		};
 	}
 

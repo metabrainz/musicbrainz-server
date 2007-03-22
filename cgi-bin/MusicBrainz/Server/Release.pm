@@ -30,6 +30,55 @@ package MusicBrainz::Server::Release;
 use base qw( TableBase );
 use Carp;
 
+use constant RELEASE_FORMAT_CD				=> 1;
+use constant RELEASE_FORMAT_DVD				=> 2;
+use constant RELEASE_FORMAT_SACD			=> 3;
+use constant RELEASE_FORMAT_MINIDISC		=> 4;
+use constant RELEASE_FORMAT_VINYL			=> 5;
+use constant RELEASE_FORMAT_CASSETTE		=> 6;
+use constant RELEASE_FORMAT_8TRACK			=> 7;
+use constant RELEASE_FORMAT_DIGITAL			=> 8;
+use constant RELEASE_FORMAT_DAT				=> 9;
+use constant RELEASE_FORMAT_OTHER			=> 10;
+
+my %ReleaseFormatNames = (
+   1 => 'CD',
+   2 => 'DVD',
+   3 => 'SACD',
+   4 => 'MiniDisc',
+   5 => 'Vinyl',
+   6 => 'Cassette',
+   7 => '8-track',
+   8 => 'Digital Media',
+   9 => 'DAT',
+   10 => 'Other',
+);
+
+sub GetReleaseFormats
+{
+	my @types;
+	my $type = ["", ""];
+	push @types, $type;
+	for (my $id = 1; $id < 11; $id++)
+	{
+		$type = [$id, $ReleaseFormatNames{$id}];
+		push @types, $type;
+	}
+	return \@types;
+}
+
+sub GetReleaseFormatName
+{
+	my $format = shift;
+	return $ReleaseFormatNames{$format}
+}
+
+sub IsValidFormat
+{
+	my $type = shift;
+	return (defined $type and ($type eq "" or ($type >= 1 and $type < 11)));
+}
+
 ################################################################################
 # Properties
 ################################################################################
@@ -73,6 +122,10 @@ sub Label
 	$c->LoadFromId or return undef;
 	$c;
 }
+
+sub GetFormat		{ $_[0]{format} }
+sub SetFormat		{ $_[0]{format} = $_[1] }
+sub GetFormatName	{ $ReleaseFormatNames{$_[0]{format}} }
 
 sub GetYMD
 {
@@ -153,13 +206,14 @@ sub InsertSelf
 	my $self = shift;
    	my $sql = Sql->new($self->{DBH});
 	$sql->Do(
-		"INSERT INTO release (album, country, releasedate, label, catno, barcode) VALUES (?, ?, ?, ?, ?, ?)",
+		"INSERT INTO release (album, country, releasedate, label, catno, barcode, format) VALUES (?, ?, ?, ?, ?, ?, ?)",
 		$self->GetAlbum,
 		$self->GetCountry,
 		$self->GetSortDate,
-		$self->GetLabel,
-		$self->GetCatNo,
-		$self->GetBarcode,
+		$self->GetLabel || undef,
+		$self->GetCatNo || undef,
+		$self->GetBarcode || undef,
+		$self->GetFormat || undef,
 	);
 	$self->SetId($sql->GetLastInsertId("release"));
 }
@@ -168,18 +222,20 @@ sub Update
 {
 	my ($self, %new) = @_;
    	my $sql = Sql->new($self->{DBH});
-	$self->SetCountry($new{"country"}) if $new{"country"};
-	$self->SetSortDate($new{"date"}) if $new{"date"};
+	$self->SetCountry($new{"country"});
+	$self->SetSortDate($new{"date"});
 	$self->SetLabel($new{"label"});
-	$self->SetCatNo($new{"catno"}) if $new{"catno"};
-	$self->SetBarcode($new{"barcode"}) if $new{"barcode"};
+	$self->SetCatNo($new{"catno"});
+	$self->SetBarcode($new{"barcode"});
+	$self->SetFormat($new{"format"});
 	$sql->Do(
-		"UPDATE release SET country = ?, releasedate = ?, label = ?, catno = ?, barcode = ? WHERE id = ?",
+		"UPDATE release SET country = ?, releasedate = ?, label = ?, catno = ?, barcode = ?, format = ? WHERE id = ?",
 		$self->GetCountry,
 		$self->GetSortDate,
-		$self->GetLabel,
-		$self->GetCatNo,
-		$self->GetBarcode,
+		$self->GetLabel || undef,
+		$self->GetCatNo || undef,
+		$self->GetBarcode || undef,
+		$self->GetFormat || undef,
 		$self->GetId,
 	);
 }

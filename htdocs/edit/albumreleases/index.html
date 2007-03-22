@@ -75,6 +75,7 @@
 			labelname => $label_name,
 			catno => $_->GetCatNo,
 			barcode => $_->GetBarcode,
+			format => $_->GetFormat ? $_->GetFormat : "",
 			orig_country => $_->GetCountry,
 			orig_year => $ymd[0],
 			orig_month => $ymd[1],
@@ -83,6 +84,7 @@
 			orig_labelname => $label_name,
 			orig_catno => $_->GetCatNo,
 			orig_barcode => $_->GetBarcode,
+			orig_format => $_->GetFormat ? $_->GetFormat : "",
 			modpending => $_->GetModPending,
 		},
 	} @r;

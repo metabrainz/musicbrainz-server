@@ -74,6 +74,10 @@
 %				{
 					- Barcode: <% $t->{"b"} %>
 %				}
+%				if ($t->{"f"})
+%				{
+					- Format: <% MusicBrainz::Server::Release::GetReleaseFormatName($t->{"f"}) %>
+%				}
 			</td>
 		</tr>
 

@@ -77,9 +77,14 @@
 						<td><strong>Label:</strong></td>
 						<td><strong>Catalog #:</strong></td>
 						<td><strong>Barcode:</strong></td>
+						<td><strong>Format:</strong></td>
 					</tr>
 
 <%perl>
+	my $countries_menu = $m->comp("/edit/albumreleases/countries-menu.inc");
+	my $countries_menu_2 = [ [ "", "Select country..." ], @$countries_menu ];
+	my $formats_menu = MusicBrainz::Server::Release::GetReleaseFormats();
+
 	for ($j=0; $j < $num_releases; ++$j)
 	{
 		my $ry = $ARGS{"rev_year-$j"};
@@ -88,6 +93,7 @@
 		my $rc = $ARGS{"rev_country-$j"};
 		my $rn = $ARGS{"rev_catno-$j"};
 		my $rb = $ARGS{"rev_barcode-$j"};
+		my $rf = $ARGS{"rev_format-$j"};
 		my $rev_label = $ARGS{"rev_label-$j"};
 		my $rev_labelname = $ARGS{"rev_labelname-$j"};
 		my $rev_labelorigname = $ARGS{"rev_labelorigname-$j"};
@@ -96,11 +102,8 @@
 
 		# lets see if we have to highlight the fields
 		my $datecss = $checkreleases{"baddate$j"} ? "-missing" : "";
-		my $countrycss = $checkreleases{"badcountry$j"} ? qq!class="country missing"! : "country";
+		my $countrycss = $checkreleases{"badcountry$j"} ? qq!class="country missing"! : 'class="country"';
 		my $countryenabled = $revdel ? qq!disabled="disabled"! : "";
-
-		my $countries_menu = $m->comp("/edit/albumreleases/countries-menu.inc");
-		my $countries_menu_2 = [ [ "", "Select country..." ], @$countries_menu ];
 
 		# load default country from userprefs if country is ""
 		$rc = UserPreference::get('default_country')
@@ -150,6 +153,11 @@
 							tabindex => ++$$tabindex, value => $rb, size => 12, maxlength => 255,
 							enabled => !$revdel &>
 						<& /comp/form/hiddenfield, "rev_id-$j", $rid &>
+					</td>
+					<td>
+						<select name="rev_format-<% $j %>" tabindex="<% ++$$tabindex %>">
+							<& /comp/options, $formats_menu, $rf &>
+						</select>
 					</td>
 				</tr>
 % 	}

@@ -73,13 +73,14 @@ sub PreInsert
 	{
 		die unless $row->GetAlbum == $al->GetId;
 		$row->InsertSelf;
-		$new{"add".$i++} = sprintf "d=%s c=%d id=%d l=%d n=%s b=%s",
+		$new{"add".$i++} = sprintf "d=%s c=%d id=%d l=%d n=%s b=%s f=%d",
 			$row->GetSortDate,
 			$row->GetCountry,
 			$row->GetId,
 			$row->GetLabel,
 			_EncodeText($row->GetCatNo),
-			_EncodeText($row->GetBarcode);
+			_EncodeText($row->GetBarcode),
+			$row->GetFormat;
 	}
 	
 	$i = 0;
@@ -88,26 +89,29 @@ sub PreInsert
 		my $obj = $row->{"object"};
 		die unless $obj->GetAlbum == $al->GetId;
 
-		my $old = sprintf "d=%s c=%d id=%d l=%d n=%s b=%s",
+		my $old = sprintf "d=%s c=%d id=%d l=%d n=%s b=%s f=%d",
 			$obj->GetSortDate,
 			$obj->GetCountry,
 			$obj->GetId,
 			$obj->GetLabel,
 			_EncodeText($obj->GetCatNo),
-			_EncodeText($obj->GetBarcode);
+			_EncodeText($obj->GetBarcode),
+			$obj->GetFormat;
 
 		$obj->SetCountry($row->{"country"});
 		$obj->SetYMD(@$row{qw( year month day )});
 		$obj->SetLabel($row->{label});
 		$obj->SetCatNo($row->{catno});
 		$obj->SetBarcode($row->{barcode});
+		$obj->SetFormat($row->{format});
 
-		my $new = sprintf "nd=%s nc=%d nl=%d nn=%s nb=%s",
+		my $new = sprintf "nd=%s nc=%d nl=%d nn=%s nb=%s nf=%d",
 			$obj->GetSortDate,
 			$obj->GetCountry,
 			$obj->GetLabel,
 			_EncodeText($obj->GetCatNo),
-			_EncodeText($obj->GetBarcode);
+			_EncodeText($obj->GetBarcode),
+			$obj->GetFormat;
 
 		$new{"edit".$i++} = "$old $new";
 	}
@@ -116,13 +120,14 @@ sub PreInsert
 	for my $row (@removes)
 	{
 		die unless $row->GetAlbum == $al->GetId;
-		$new{"remove".$i++} = sprintf "d=%s c=%d id=%d l=%d n=%s b=%s",
+		$new{"remove".$i++} = sprintf "d=%s c=%d id=%d l=%d n=%s b=%s f=%d",
 			$row->GetSortDate,
 			$row->GetCountry,
 			$row->GetId,
 			$row->GetLabel,
 			_EncodeText($row->GetCatNo),
-			_EncodeText($row->GetBarcode);
+			_EncodeText($row->GetBarcode),
+			$row->GetFormat;
 	}
 
 	return $self->SuppressInsert
@@ -221,6 +226,7 @@ sub IsAutoEdit
 		my ($origlabel, $newlabel) = ($t->{"l"}, $t->{"nl"});
 		my ($origcatno, $newcatno) = ($t->{"n"}, $t->{"nn"});
 		my ($origbarcode, $newbarcode) = ($t->{"b"}, $t->{"nb"});
+		my ($origformat, $newformat) = ($t->{"f"}, $t->{"nf"});
 		
 		
 		# if we have a day set, which wasn't set before OR
@@ -231,8 +237,9 @@ sub IsAutoEdit
 					   $newmonth && !$origmonth) or
 					  $newcountry != $origcountry or
 					  $newlabel != $origlabel or
-					  $newcatno != $origcatno or
-					  $newbarcode != $origbarcode);
+					  $newcatno ne $origcatno or
+					  $newbarcode ne $origbarcode or
+					  $newformat != $origformat);
 	}
 
 	# adding of events is auto approved for autoeditors
@@ -291,7 +298,7 @@ sub ApprovedAction
 			next;
 		}
 
-		unless ($r->Update(date => $t->{"nd"}, country => $t->{"nc"}, label => $t->{"nl"}, catno => $t->{"nn"}, barcode => $t->{"nb"}))
+		unless ($r->Update(date => $t->{"nd"}, country => $t->{"nc"}, label => $t->{"nl"}, catno => $t->{"nn"}, barcode => $t->{"nb"}, format => $t->{"nf"}))
 		{
 			push @notes, "Failed to update $display";
 			next;
