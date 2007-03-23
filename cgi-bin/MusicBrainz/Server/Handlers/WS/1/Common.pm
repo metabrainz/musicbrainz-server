@@ -940,9 +940,11 @@ sub xml_search
 sub xml_escape
 {
 	my $t = $_[0];
-	$t =~ s/&/&amp;/g;
+    $t = decode "utf-8", $t;       # turn into string
+	$t =~ s/&/&amp;/g;             # remove XML entities
 	$t =~ s/</&lt;/g;
 	$t =~ s/>/&gt;/g;
+    $t = encode "utf-8", $t;       # turn back into utf8-bytes
 	return $t;
 }
 
