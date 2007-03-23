@@ -9,23 +9,23 @@ up-to-date information.
   http://musicbrainz.org/
 
 * About the MusicBrainz Project
-  http://musicbrainz.org/introduction.html
+  http://musicbrainz.org/doc/AboutMusicBrainz
 
 * Acousting fingerprints and TRMs
   http://musicbrainz.org/docs/20031108-2.html
 
 * Licenses for the software and the data
-  http://musicbrainz.org/news/licenses.html
+  http://musicbrainz.org/doc/MusicBrainzLicense
 
 * Server architecture overview
-  http://musicbrainz.org/products/server/index.html
+  http://musicbrainz.org/doc/Server
 
 * Database structure
-  http://musicbrainz.org/products/server/docs/20030820-1/index.html
+  http://musicbrainz.org/doc/DatabaseSchema
 
 * An overview of the mb_server codebase
-  http://musicbrainz.org/products/server/docs/20040215-1.html
+  http://musicbrainz.org/doc/ServerCodebase
 
 * Help!
-  http://musicbrainz.org/support/contact.html
+  http://musicbrainz.org/doc/ContactUs
 
