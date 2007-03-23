@@ -237,7 +237,7 @@ sub Insert
 		     begindate, enddate, modpending, page)
 	    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?)|,
 	$this->GetName(),
-	$this->GetLabelCode(),
+	$this->GetLabelCode() || undef,
 	$this->GetMBId(),
 	$this->GetType(),
 	$this->GetSortName(),
