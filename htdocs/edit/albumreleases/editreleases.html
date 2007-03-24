@@ -30,6 +30,7 @@
 
 	$releaseid
 	$submitvalue => ""
+    $force => 0
 
 </%args>
 <%perl>
@@ -48,6 +49,7 @@
 	my $countries_menu = $m->comp("countries-menu.inc");
 	my $countries_menu_2 = [ [ "", "[select a country]" ], @$countries_menu ];
 	my $formats_menu = MusicBrainz::Server::Release::GetReleaseFormats();
+    my $error;
 
 	# Update releases
 	my $releases = $edit->{"releases"};
@@ -87,6 +89,15 @@
 					<%perl>
 					$m->comp("/comp/footer");
 					return;
+				}
+                # Check for the amazon bogus release date
+				if (!$force && $y == 1990 && $mon == 10 && $d == 25)
+				{
+					$error = qq|Warning! "$y-$mon-$d" is the bogus date that Amazon gives to
+                                all releases for which they don't know the actual date. If you're
+                                certain that this date is correct, tick the confirmation checkbox
+                                below.|;
+		            delete $ARGS{"continue"};
 				}
 				@$rel{qw( year month day )} = ($y, $mon, $d);
 			}
@@ -185,6 +196,10 @@
 	<script type="text/javascript" src="/scripts/jsselect.js"></script>
 	<script type="text/javascript" src="/scripts/editreleasesconfig.js"></script>
 	<script type="text/javascript" src="validate.js"></script>
+
+%   if ($error) {
+        <& /comp/form/feedbackbox, "warning", "", $error  &>
+%   }
 
 	<form method="post"
 		action="/edit/albumreleases/editreleases.html"
@@ -312,6 +327,12 @@
 					</table>
 				</td>
 			</tr>
+%   if ($error) {
+			<tr>
+                <td colspan="2"><input type="checkbox" name="force">I know what I am doing, use this
+                    possibly bogus date!</td>
+			</tr>
+%   }
 			<tr class="spaced">
 				<td class="submitbuttons" colspan="2">
 					<input type="submit" name="submitvalue" class="button" value="Continue &raquo;" />

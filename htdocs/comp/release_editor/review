@@ -99,6 +99,7 @@
 	my %revorighash;
 	my %revremovehash;
 	my (@adds, @edits, @removes);
+	my $bogus_date = 0;
 	for my $j (sort map { /^rev_year-(\d+)$/ ? ($1) : () } keys %ARGS)
 	{
 		my $rev_year = $ARGS{"rev_year-$j"};
@@ -448,6 +449,7 @@
 
 		for my $rev (@adds)
 		{
+            $bogus_date = 1 if ($rev->GetYear == 1990 && $rev->GetMonth == 10 && $rev->GetDay == 25);
 			$ov = "";
 			$nv = $rev->GetSortDate;
 			$nv .= " - ";
@@ -490,6 +492,7 @@
 				$ov .= " - Barcode: " . $revorig->GetBarcode if $revorig->GetBarcode;
 				$ov .= " - Format: " . $revorig->GetFormatName if $revorig->GetFormat;
 
+                $bogus_date = 1 if ($rev->GetYear == 1990 && $rev->GetMonth == 10 && $rev->GetDay == 25);
 				$nv = $rev->GetYear;
 				$nv .= "-" . $rev->GetMonth if ($rev->GetMonth);
 				$nv .= "-" . $rev->GetDay if ($rev->GetDay);
@@ -545,6 +548,16 @@
 				modtype => &ModDefs::MOD_REMOVE_RELEASEEVENTS,
 				cnt => ++$releasechanges
 			);
+		}
+
+		if ($bogus_date)
+		{
+			$m->out('<tr class="nochanges"><td colspan="3">');
+            $m->comp('/comp/form/feedbackbox', "warning", "", 
+			         qq|Warning! "1990-10-25" is the bogus date that Amazon gives to
+                        all releases for which they don't know the actual date. <b>Please
+                        use this date only if you're certain this date is correct!</b>|);
+			$m->out('</td></tr>');
 		}
 
 		# if no changes were made indicate this.
