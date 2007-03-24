@@ -33,25 +33,33 @@ use Carp;
 use constant RELEASE_FORMAT_CD				=> 1;
 use constant RELEASE_FORMAT_DVD				=> 2;
 use constant RELEASE_FORMAT_SACD			=> 3;
-use constant RELEASE_FORMAT_MINIDISC		=> 4;
-use constant RELEASE_FORMAT_VINYL			=> 5;
-use constant RELEASE_FORMAT_CASSETTE		=> 6;
-use constant RELEASE_FORMAT_8TRACK			=> 7;
-use constant RELEASE_FORMAT_DIGITAL			=> 8;
-use constant RELEASE_FORMAT_DAT				=> 9;
-use constant RELEASE_FORMAT_OTHER			=> 10;
+use constant RELEASE_FORMAT_DUALDISC		=> 4;
+use constant RELEASE_FORMAT_LASERDISC		=> 5;
+use constant RELEASE_FORMAT_MINIDISC		=> 6;
+use constant RELEASE_FORMAT_VINYL			=> 7;
+use constant RELEASE_FORMAT_CASSETTE		=> 8;
+use constant RELEASE_FORMAT_4TRACK			=> 9;
+use constant RELEASE_FORMAT_8TRACK			=> 10;
+use constant RELEASE_FORMAT_REEL_TO_REEL	=> 11;
+use constant RELEASE_FORMAT_DAT				=> 12;
+use constant RELEASE_FORMAT_DIGITAL			=> 13;
+use constant RELEASE_FORMAT_OTHER			=> 14;
 
 my %ReleaseFormatNames = (
    1 => 'CD',
    2 => 'DVD',
    3 => 'SACD',
-   4 => 'MiniDisc',
-   5 => 'Vinyl',
-   6 => 'Cassette',
-   7 => '8-track',
-   8 => 'Digital Media',
-   9 => 'DAT',
-   10 => 'Other',
+   4 => 'DualDisc',
+   5 => 'LaserDisc',
+   6 => 'MiniDisc',
+   7 => 'Vinyl',
+   8 => 'Cassette',
+   9 => '4-Track',
+   10 => '8-Track',
+   11 => 'Reel-To-Reel',
+   12 => 'DAT',
+   13 => 'Digital Media',
+   14 => 'Other',
 );
 
 sub GetReleaseFormats
