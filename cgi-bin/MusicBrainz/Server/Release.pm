@@ -44,6 +44,7 @@ use constant RELEASE_FORMAT_REEL_TO_REEL	=> 11;
 use constant RELEASE_FORMAT_DAT				=> 12;
 use constant RELEASE_FORMAT_DIGITAL			=> 13;
 use constant RELEASE_FORMAT_OTHER			=> 14;
+use constant LAST_RELEASE_FORMAT			=> 14;
 
 my %ReleaseFormatNames = (
    1 => 'CD',
@@ -67,7 +68,7 @@ sub GetReleaseFormats
 	my @types;
 	my $type = ["", ""];
 	push @types, $type;
-	for (my $id = 1; $id < 11; $id++)
+	for (my $id = 1; $id <= LAST_RELEASE_FORMAT; $id++)
 	{
 		$type = [$id, $ReleaseFormatNames{$id}];
 		push @types, $type;
@@ -84,7 +85,7 @@ sub GetReleaseFormatName
 sub IsValidFormat
 {
 	my $type = shift;
-	return (defined $type and ($type eq "" or ($type >= 1 and $type < 11)));
+	return (defined $type and ($type eq "" or ($type >= 1 and $type <= LAST_RELEASE_FORMAT)));
 }
 
 ################################################################################
