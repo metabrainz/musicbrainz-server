@@ -145,7 +145,7 @@
 		<tr>
 			<td>&nbsp;</td>
 			<td class="formsection">
-				<div class="similarlabel">
+				<div class="similarartist">
 					<span class="warning">Warning:</span>
 						You are attempting to <% (defined $label ? "edit" : "add") %>
 						the label <% $name %>, which appears to be very similar,

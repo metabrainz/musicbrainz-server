@@ -94,6 +94,11 @@
 		@dupes = grep {
 			MusicBrainz::Server::Validation::NormaliseSortText($_->GetName) eq $norm_name
 		} @$labels;
+		
+		if ($labelcode) {
+			$labels = $label->GetLabelsFromCode();
+			push @dupes, @$labels;
+		}
 	}
 
 	# if we have a value in submitvalue, the form was submitted

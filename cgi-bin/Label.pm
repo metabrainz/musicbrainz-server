@@ -607,10 +607,10 @@ sub GetLabelsFromSortname
 
 	MusicBrainz::Server::Validation::TrimInPlace($sortname) if defined $sortname;
 	if (not defined $sortname or $sortname eq "")
-	{
+{
 		carp "Missing sortname in GetLabelsFromSortname";
 		return [];
-	}
+}
 
 	my $sql = Sql->new($this->{DBH});
 
@@ -620,6 +620,47 @@ sub GetLabelsFromSortname
 		 FROM label
 		 WHERE LOWER(sortname) = LOWER(?)",
 		 $sortname);
+	scalar(@$labels) or return [];
+
+	my @results;
+	foreach my $row (@$labels)
+{
+		my $ar = Label->new($this->{DBH});
+		$ar->SetId($row->{id});
+		$ar->SetMBId($row->{gid});
+		$ar->SetName($row->{name});
+		$ar->SetSortName($row->{sortname});
+		$ar->SetLabelCode($row->{labelcode});
+		$ar->SetCountry($row->{country});
+		$ar->SetResolution($row->{resolution});
+		$ar->SetBeginDate($row->{begindate});
+		$ar->SetEndDate($row->{enddate});
+		$ar->SetModPending($row->{modpending});
+		$ar->SetType($row->{type});
+		push @results, $ar;
+}
+	return \@results;
+}
+
+# Return a hash of hashes for artists that match the given LC
+sub GetLabelsFromCode
+{
+	my ($this, $labelcode) = @_;
+
+	if (!$labelcode)
+	{
+		carp "Missing labelcode in GetLabelsFromCode";
+		return [];
+	}
+
+	my $sql = Sql->new($this->{DBH});
+
+	my $labels = $sql->SelectListOfHashes(
+		"SELECT id, name, gid, modpending, sortname, country,
+		        resolution, begindate, enddate, type, labelcode
+		 FROM label
+		 WHERE labelcode = ?",
+		 $labelcode);
 	scalar(@$labels) or return [];
 
 	my @results;
