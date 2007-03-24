@@ -51,6 +51,8 @@
 	{
 		use URI::Escape qw( uri_escape );
 
+        $session{"as_query"} = 'chkchkchk' if ($session{"as_query"} eq '!!!' && $session{"as_type"} eq 'artist');
+
         my $query = $session{"as_query"};
         if (!exists $session{"as_adv"} or !$session{"as_adv"})
         {

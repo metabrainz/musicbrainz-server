@@ -323,6 +323,18 @@ sub coalesce
     $t;
 }
 
+# oh god, please don't strike me down for the sins I am committing!
+# (I hate !!! because their shitty name make things really HARD (or ugly)!)
+# hint: svn blame SearchEngine.pm :)
+sub HandleSpecialCases
+{
+    my ($self, $search) = @_;
+
+    return "chkchkchk" if ($search eq '!!!' && $self->{Table} eq 'artist');
+
+    return $self;
+}
+
 sub Search
 {
     my ($self, %opts) = @_;
@@ -335,6 +347,8 @@ sub Search
     $self->{RESULTTYPE} = undef;
     $self->{RESULTS} = [];
     $self->{RESIDX} = 0;
+
+    $search = $self->HandleSpecialCases($search);
 
     my ($words, $wordchain) = $self->Tokenize($search);
 
