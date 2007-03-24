@@ -37,6 +37,7 @@
 	my $j;
 	my $addMore = ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_ADDRELEASEEVENT"} ? 1 : 0);
 	my $num_releases = $checkreleases{"num"} || 0;
+	my $errors = $ARGS{"v::releases_errors"};
 
 	# TODO: this should be moved to check-releases.
 	# Add a pseudo entry at the end if either the 'More releases' button
@@ -102,6 +103,7 @@
 
 		# lets see if we have to highlight the fields
 		my $datecss = $checkreleases{"baddate$j"} ? "-missing" : "";
+		my $barcodecss = $checkreleases{"badbarcode$j"} ? "-missing" : "";
 		my $countrycss = $checkreleases{"badcountry$j"} ? qq!class="country missing"! : 'class="country"';
 		my $countryenabled = $revdel ? qq!disabled="disabled"! : "";
 
@@ -151,7 +153,7 @@
 					<td>
 						<& /comp/form/numberfield, type => "shorttxtfield", name => "rev_barcode-$j",
 							tabindex => ++$$tabindex, value => $rb, size => 12, maxlength => 255,
-							enabled => !$revdel &>
+							enabled => !$revdel, cssclass => $barcodecss &>
 						<& /comp/form/hiddenfield, "rev_id-$j", $rid &>
 					</td>
 					<td>
@@ -184,8 +186,11 @@
 							qq!Please enter valid release events (including the country)
 							   or clear the fields you do not want to enter.
 							   The missing/wrong date and country fields are marked
-							   with a background color and an exclamation mark [\!].!
-						&></td>
+							   with a background color and an exclamation mark [\!].! &>
+%						if (@$errors) {
+							<& /comp/form/feedbackbox, "warning", "", "<ul><li>" . join("</li><li>", @$errors) . "</li></ul>" &>
+%						}
+					</td>
 				</tr>
 
 % 	}

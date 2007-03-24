@@ -36,6 +36,8 @@
 	my %badseq;
 	my %allseq;
 
+	my @errors = ();
+
 	my @items = sort map { /^rev_year-(\d+)$/ ? ($1) : () } keys %ARGS;
 	for my $j (@items)
 	{
@@ -49,6 +51,7 @@
 		my $rev_country = $ARGS{"rev_country-$j"};
 		my $rev_id = $ARGS{"rev_id-$j"};
 		my $rev_clear = $ARGS{"rev_clear-$j"} || 0;
+		my $rev_barcode = $ARGS{"rev_barcode-$j"};
 
 		if (!$rev_clear)
 		{
@@ -64,17 +67,31 @@
 				MusicBrainz::Server::Validation::IsNonNegInteger($rev_country)
 					or $h{"badcountry$j"} = 1;
 
+				if (MusicBrainz::Server::Validation::IsValidBarcode($rev_barcode)) {
+					push @errors, 'Barcode "' . $rev_barcode . '" should contain only numbers, please remove all non-numeric characters.';
+					$h{"badbarcode$j"} = 1;
+				}
+				else {
+					if ($rev_barcode && !MusicBrainz::Server::Validation::IsValidEAN($rev_barcode)) {
+						push @errors, 'Barcode "' . $rev_barcode . '" is not a valid EAN barcode.';
+						$h{"badbarcode$j"} = 1;
+					}
+				}
+
 				# flag a bad date if the validation returns false
 				my @ymd = MusicBrainz::Server::Validation::IsValidDate($rev_year, $rev_month, $rev_day)
 					or $h{"baddate$j"} = 1;
 			}
+			
 		}
+
 	}
 
 	# remember the number of valid release events
 	$h{"num"} = @items;
 
 	# put the encountered problems into the Arguments hash.
+	$ARGS{"v::releases_errors"} = \@errors;
 	$ARGS{"v::releases"} = \%h;
 	return %ARGS;
 

@@ -52,6 +52,8 @@
     my $error;
 
 	# Update releases
+	my @errors = ();
+	my $showforce = 0;
 	my $releases = $edit->{"releases"};
 	for my $rel (@$releases)
 	{
@@ -71,6 +73,23 @@
 				and not MusicBrainz::Server::Validation::IsNonNegInteger($v);
 			$v;
 		} qw( y m d country );
+
+		# Check the country
+		$rel->{country} = $c
+			if grep { $_->[0] == $c } @$countries_menu;
+
+		my $labelname = $ARGS{"labelname" . $rel->{id}};
+		$rel->{labelname} = $labelname if defined $labelname;
+		my $orig_labelname = $ARGS{"orig_labelname" . $rel->{id}};
+		$rel->{orig_labelname} = $orig_labelname if defined $orig_labelname;
+		my $label = $ARGS{"label" . $rel->{id}};
+		$rel->{label} = $label if defined $label;
+		my $catno = $ARGS{"catno".$rel->{id}};
+		$rel->{catno} = $catno if defined $catno;
+		my $barcode = $ARGS{"barcode".$rel->{id}};
+		$rel->{barcode} = $barcode if defined $barcode;
+		my $format = $ARGS{"format".$rel->{id}};
+		$rel->{format} = $format if defined $format;
 
 		# Check the date
 		if ($y >= 1900 and $y<= 2100)
@@ -93,11 +112,11 @@
                 # Check for the amazon bogus release date
 				if (!$force && $y == 1990 && $mon == 10 && $d == 25)
 				{
-					$error = qq|Warning! "$y-$mon-$d" is the bogus date that Amazon gives to
+					push @errors, qq|Warning! "$y-$mon-$d" is the bogus date that Amazon gives to
                                 all releases for which they don't know the actual date. If you're
                                 certain that this date is correct, tick the confirmation checkbox
                                 below.|;
-		            delete $ARGS{"continue"};
+					$showforce = 1;
 				}
 				@$rel{qw( year month day )} = ($y, $mon, $d);
 			}
@@ -111,22 +130,17 @@
 			}
 		}
 
-		# Check the country
-		$rel->{country} = $c
-			if grep { $_->[0] == $c } @$countries_menu;
-
-		my $labelname = $ARGS{"labelname" . $rel->{id}};
-		$rel->{labelname} = $labelname if defined $labelname;
-		my $orig_labelname = $ARGS{"orig_labelname" . $rel->{id}};
-		$rel->{orig_labelname} = $orig_labelname if defined $orig_labelname;
-		my $label = $ARGS{"label" . $rel->{id}};
-		$rel->{label} = $label if defined $label;
-		my $catno = $ARGS{"catno".$rel->{id}};
-		$rel->{catno} = $catno if defined $catno;
-		my $barcode = $ARGS{"barcode".$rel->{id}};
-		$rel->{barcode} = $barcode if defined $barcode;
-		my $format = $ARGS{"format".$rel->{id}};
-		$rel->{format} = $format if defined $format;
+		# Check the barcode
+		if (MusicBrainz::Server::Validation::IsValidBarcode($rel->{barcode})) {
+			push @errors, 'Barcode "' . $rel->{barcode} . '" should contain only numbers, please remove all non-numeric characters.';
+			delete $ARGS{'continue'};
+		}
+		else {
+			if ($rel->{barcode} && !MusicBrainz::Server::Validation::IsValidEAN($rel->{barcode})) {
+				push @errors, 'Barcode "' . $rel->{barcode} . '" is not a valid EAN barcode. If it\'s a different type of barcode, tick the confirmation checkbox below.';
+				$showforce = 1;
+			}
+		}
 
 		delete $ARGS{'continue'}
 			if not $rel->{country}
@@ -179,7 +193,7 @@
 	$session{"editreleases"}{$releaseid} = $edit; # write
 
 	return $m->comp("/comp/redirect", "/edit/albumreleases/selectlabel.html?releaseid=".$releaseid)
-		if $ARGS{"continue"};
+		if $ARGS{"continue"} && ((@errors == 0) || !@errors);
 
 	my $artist = Artist->new(undef);
 	$artist->SetId($edit->{"artist"}{"id"});
@@ -196,10 +210,6 @@
 	<script type="text/javascript" src="/scripts/jsselect.js"></script>
 	<script type="text/javascript" src="/scripts/editreleasesconfig.js"></script>
 	<script type="text/javascript" src="validate.js"></script>
-
-%   if ($error) {
-        <& /comp/form/feedbackbox, "warning", "", $error  &>
-%   }
 
 	<form method="post"
 		action="/edit/albumreleases/editreleases.html"
@@ -254,6 +264,20 @@
 				<td class="field">
 					<& /comp/linkrelease, id => $edit->{'id'}, name => $edit->{'name'} &></td>
 			</tr>
+
+% 	if (@errors) {
+			<tr>
+				<td></td>
+				<td class="error">
+					<ul>
+						<li>
+							<%perl> $m->out(join "</li><li>", @errors), </%perl>
+						</li>
+					</ul>
+				</td>
+			</tr>
+% 	}
+
 			<tr>
 				<td colspan="2" style="padding-top: 20px;">
 					<table style="formstyle" border="0" cellspacing="0" cellpadding="0">
@@ -324,15 +348,14 @@
 								<input type="checkbox" name="AddARelease" value="1" />
 								Add a release event ...</td>
 						</tr>
+%   if ($showforce) {
+						<tr>
+                			<td colspan="5" class="padtop"><input type="checkbox" name="force"> Yes, I'm sure the information is correct.</td>
+						</tr>
+%   }
 					</table>
 				</td>
 			</tr>
-%   if ($error) {
-			<tr>
-                <td colspan="2"><input type="checkbox" name="force">I know what I am doing, use this
-                    possibly bogus date!</td>
-			</tr>
-%   }
 			<tr class="spaced">
 				<td class="submitbuttons" colspan="2">
 					<input type="submit" name="submitvalue" class="button" value="Continue &raquo;" />

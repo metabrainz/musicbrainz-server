@@ -215,6 +215,26 @@ sub MakeDisplayLabelCode
 	return sprintf("LC-%05d", $labelcode)
 }
 
+sub IsValidBarcode
+{
+	my $barcode = shift;
+	return $barcode =~ /[^0-9]/;
+}
+
+sub IsValidEAN
+{
+	my $ean = shift;
+	my $length = length($ean);
+	if ($length == 8 || $length == 12 || $length == 13 || $length == 14 || $length == 17 || $length == 18) {
+		my $sum = 0;
+		for (my $i = 2; $i <= $length; $i++) {
+			$sum += substr($ean, $length - $i, 1) * ($i % 2 == 1 ? 1 : 3);
+		}
+		return ((10 - $sum % 10) % 10) == substr($ean, $length - 1, 1);
+	}
+	return 0;
+}
+
 # This wrapper will prevent us from having the stupid patched version of the Text::Unaccent library
 # which in turn will make the mb_server install process simpler.
 sub unaccent($) 
