@@ -122,7 +122,7 @@
 						<& /comp/form/checkbox, name => "rev_clear-$j", tabindex => ++$$tabindex, checked => $revdel,
 							title => "Tick this box to remove this release event" &>
 					</td>
-					<td>
+					<td nowrap="nowrap">
 						<& /comp/form/numberfield, type => "yearfield", name => "rev_year-$j",
 							cssclass => $datecss, tabindex => ++$$tabindex, value => $ry, size => 4, maxlength => 4,
 							enabled => !$revdel &>
@@ -157,7 +157,7 @@
 						<& /comp/form/hiddenfield, "rev_id-$j", $rid &>
 					</td>
 					<td>
-						<select name="rev_format-<% $j %>" tabindex="<% ++$$tabindex %>">
+						<select name="rev_format-<% $j %>" tabindex="<% ++$$tabindex %>" style="width: 9em">
 							<& /comp/options, $formats_menu, $rf &>
 						</select>
 					</td>

@@ -38,13 +38,12 @@ use constant RELEASE_FORMAT_LASERDISC		=> 5;
 use constant RELEASE_FORMAT_MINIDISC		=> 6;
 use constant RELEASE_FORMAT_VINYL			=> 7;
 use constant RELEASE_FORMAT_CASSETTE		=> 8;
-use constant RELEASE_FORMAT_4TRACK			=> 9;
-use constant RELEASE_FORMAT_8TRACK			=> 10;
-use constant RELEASE_FORMAT_REEL_TO_REEL	=> 11;
-use constant RELEASE_FORMAT_DAT				=> 12;
-use constant RELEASE_FORMAT_DIGITAL			=> 13;
-use constant RELEASE_FORMAT_OTHER			=> 14;
-use constant LAST_RELEASE_FORMAT			=> 14;
+use constant RELEASE_FORMAT_CARTRIDGE		=> 9;
+use constant RELEASE_FORMAT_REEL_TO_REEL	=> 10;
+use constant RELEASE_FORMAT_DAT				=> 11;
+use constant RELEASE_FORMAT_DIGITAL			=> 12;
+use constant RELEASE_FORMAT_OTHER			=> 13;
+use constant LAST_RELEASE_FORMAT			=> 13;
 
 my %ReleaseFormatNames = (
    1 => 'CD',
@@ -55,12 +54,11 @@ my %ReleaseFormatNames = (
    6 => 'MiniDisc',
    7 => 'Vinyl',
    8 => 'Cassette',
-   9 => '4-Track',
-   10 => '8-Track',
-   11 => 'Reel-To-Reel',
-   12 => 'DAT',
-   13 => 'Digital Media',
-   14 => 'Other',
+   9 => 'Cartridge (4/8-tracks)',
+   10 => 'Reel-to-reel',
+   11 => 'DAT',
+   12 => 'Digital Media',
+   13 => 'Other',
 );
 
 sub GetReleaseFormats

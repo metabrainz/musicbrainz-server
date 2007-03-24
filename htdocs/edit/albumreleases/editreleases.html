@@ -323,7 +323,7 @@
 	<& /comp/form/numberfield, type => "shorttxtfield", name => "barcode" . $rel->{"id"},
 		tabindex => ++$tabindex, value => $rel->{barcode} || '', size => 12, maxlength => 255 &></td>
 <td>
-	<select name="format<% $rel->{"id"} %>">
+	<select name="format<% $rel->{"id"} %>" style="width: 9em">
 		<& /comp/options, $formats_menu, $rel->{format} &>
 	</select></td>
 <td align="center">
