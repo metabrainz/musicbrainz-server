@@ -332,7 +332,7 @@ sub HandleSpecialCases
 
     return "chkchkchk" if ($search eq '!!!' && $self->{Table} eq 'artist');
 
-    return $self;
+    return $search;
 }
 
 sub Search
