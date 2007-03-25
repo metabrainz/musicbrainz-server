@@ -257,7 +257,7 @@ my @EditLevelDefs =
 		                                      name => &MusicBrainz::Server::Moderation::MOD_MAC_TO_SAC::Name() },  
 		MOD_REMOVE_ARTISTALIAS		 ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 0,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_REMOVE_ARTISTALIAS::Name() },  
-		MOD_ADD_ARTISTALIAS		     ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 0,  
+		MOD_ADD_ARTISTALIAS		     ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_ARTISTALIAS::Name() },  
 		MOD_ADD_ALBUM				 ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_ALBUM::Name() },  
