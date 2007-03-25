@@ -25,8 +25,8 @@
 	my $language = $edit->GetLanguage;
 	my $quality = $edit->GetQuality;
 	my $numvotes = $edit->GetNumVotesNeeded;
-	my $expireaction = $edit->GetExpireAction;
-
+	my $expireaction = ModDefs::GetExpireActionText($edit->GetExpireAction);
+    
 	my @statuslinks = ();
 	my $id = $edit->GetId;
 	push @statuslinks, qq!<a href="/mod/approve.html?editid=$id">Approve</a>!
@@ -95,7 +95,7 @@
 			<tr>
 				<td class="label">Edit quality info:</td>
 				<td><% &ModDefs::GetQualityText($quality) %> quality level, 
-                    <% $expireaction == &Moderation::EXPIRE_ACCEPT ? "accept" : "reject" %> on expiration,
+                    <% $expireaction %> on expiration,
                     <% $numvotes %> unanimous votes to accept/reject</td>
 			</tr>
 % 	}

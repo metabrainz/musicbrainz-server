@@ -138,6 +138,7 @@ use constant MOD_REMOVE_LABELALIAS		 => 62;
 use constant MOD_CHANGE_RELEASE_QUALITY  => 63;
 use constant MOD_LAST					 => 63;
 
+# Values used for edit levels (quality)
 use constant QUALITY_UNKNOWN         => -1;
 use constant QUALITY_UNKNOWN_MAPPED  => 1;
 use constant QUALITY_LOW             => 0;
@@ -161,6 +162,28 @@ sub GetQualityText
 
    return $QualityNames{$level};
 }
+
+# Expire actions -- what to do when an edit expires without having a definitive outcome
+
+# Reject expired edits
+use constant EXPIRE_REJECT           => 0;
+# Accept expired edits
+use constant EXPIRE_ACCEPT           => 1;
+# Keep expired edits open for a grace period if the artist has enough subscribers. 
+# If there are not enough subscribers, accept the edit. If there are and the
+# grace period passes, accept the edit
+use constant EXPIRE_KEEP_OPEN_IF_SUB => 2;
+
+my %ExpireActionNames = (
+   EXPIRE_REJECT            . "" => 'reject',
+   EXPIRE_ACCEPT            . "" => 'accept',
+   EXPIRE_KEEP_OPEN_IF_SUB  . "" => 'keep open if artist has subscribers' 
+);
+
+sub GetExpireActionText
+{
+    return $ExpireActionNames{$_[0]};
+} 
 
 # The constants below define the state a moderation can have:
 

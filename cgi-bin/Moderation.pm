@@ -100,10 +100,6 @@ require MusicBrainz::Server::Moderation::MOD_EDIT_URL;
 require MusicBrainz::Server::Moderation::MOD_CHANGE_ARTIST_QUALITY;
 require MusicBrainz::Server::Moderation::MOD_CHANGE_RELEASE_QUALITY;
 
-# Expire actions -- what to do when an edit expires without having a definitive outcome
-use constant EXPIRE_REJECT => 0;
-use constant EXPIRE_ACCEPT => 1;
-
 # The following three hashes define the various edit/vote semantics for the three editing levels
 my @EditLevelDefs =
 (
@@ -500,7 +496,7 @@ sub GetEditLevelDefs
     # Uncomment the lines below to neuter it back to the OLD system.
     # my $defs = $EditLevelDefs[$level]->{QUALITY_NORMAL};
     # $defs->{duration} = 14;
-    # $defs->{expireaction} = EXPIRE_REJECT;
+    # $defs->{expireaction} = EXPIRE_KEEP_OPEN_IF_SUB;
     # $defs->{votes} = 3;
     # return $defs;
 
