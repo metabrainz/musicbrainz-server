@@ -24,6 +24,8 @@
 
 	my $language = $edit->GetLanguage;
 	my $quality = $edit->GetQuality;
+	my $numvotes = $edit->GetNumVotesNeeded;
+	my $expireaction = $edit->GetExpireAction;
 
 	my @statuslinks = ();
 	my $id = $edit->GetId;
@@ -91,8 +93,10 @@
 % 	if ($quality)
 %	{
 			<tr>
-				<td class="label">Edit quality level:</td>
-				<td><% &ModDefs::GetQualityText($quality) %></td>
+				<td class="label">Edit quality info:</td>
+				<td><% &ModDefs::GetQualityText($quality) %> quality level, 
+                    <% $expireaction == &Moderation::EXPIRE_ACCEPT ? "accept" : "reject" %> on expiration,
+                    <% $numvotes %> unanimous votes to accept/reject</td>
 			</tr>
 % 	}
 

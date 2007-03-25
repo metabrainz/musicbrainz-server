@@ -657,6 +657,20 @@ sub IsAutoEditType
    return $level->{autoedit};
 }
 
+sub GetNumVotesNeeded
+{
+   my ($this) = @_;
+   my $level = GetEditLevelDefs($this->GetQuality, $this->GetType);
+   return $level->{votes};
+}
+
+sub GetExpireAction
+{
+   my ($this) = @_;
+   my $level = GetEditLevelDefs($this->GetQuality, $this->GetType);
+   return $level->{expireaction};
+}
+
 sub GetArtist
 {
    return $_[0]->{artist};
