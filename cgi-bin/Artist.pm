@@ -179,6 +179,16 @@ sub GetQuality
    return $_[0]->{quality};
 }
 
+sub SetQualityModPending
+{
+   $_[0]->{modpending_qual} = $_[1];
+}
+
+sub GetQualityModPending
+{
+   return $_[0]->{modpending_qual};
+}
+
 # Insert an artist into the DB and return the artist id. Returns undef
 # on error. The name and sortname of this artist must be set via the accesor
 # functions.
@@ -513,6 +523,25 @@ sub UpdateModPending
     $self->InvalidateCache;
 }
 
+sub UpdateQualityModPending
+{
+    my ($self, $adjust) = @_;
+
+    my $id = $self->GetId
+		or croak "Missing artist ID in UpdateQualityModPending";
+    defined($adjust)
+		or croak "Missing adjustment in UpdateQualityModPending";
+
+    my $sql = Sql->new($self->{DBH});
+    $sql->Do(
+		"UPDATE artist SET modpending_qual = NUMERIC_LARGER(modpending_qual+?, 0) WHERE id = ?",
+		$adjust,
+		$id,
+    );
+
+    $self->InvalidateCache;
+}
+
 # The artist name has changed, or an alias has been removed
 # (or possibly, in the future, been changed).  Rebuild the words for this
 # artist.
@@ -626,7 +655,7 @@ sub GetArtistsFromName
 		# First, try exact match on name
 		$artists = $sql->SelectListOfHashes(
 	    "SELECT id, name, gid, modpending, sortname,
-			resolution, begindate, enddate, type, quality
+			resolution, begindate, enddate, type, quality, modpending_quality
 	    FROM artist WHERE name = ?",
 	    $artistname,
 	);
@@ -644,7 +673,7 @@ sub GetArtistsFromName
 
 	$artists = $sql->SelectListOfHashes(
 	    "SELECT id, name, gid, modpending, sortname,
-			resolution, begindate, enddate, type, quality
+			resolution, begindate, enddate, type, quality, modpending_quality
 	    FROM artist WHERE name IN (?, ?, ?, ?)",
 	    encode("utf-8", $uc),
 	    encode("utf-8", $lc),
@@ -656,7 +685,7 @@ sub GetArtistsFromName
 	# Next, try a full case-insensitive search
 	$artists = $sql->SelectListOfHashes(
 	    "SELECT id, name, gid, modpending, sortname,
-			resolution, begindate, enddate, type, quality
+			resolution, begindate, enddate, type, quality, modpending_quality
 	    FROM artist WHERE LOWER(name) = LOWER(?)",
 	    $artistname,
 	);
@@ -674,7 +703,7 @@ sub GetArtistsFromName
 	{
 	    $artists = $sql->SelectListOfHashes(
 			"SELECT id, name, gid, modpending, sortname, 
-				resolution, begindate, enddate, type, quality
+				resolution, begindate, enddate, type, quality, modpending_quality
 			FROM artist WHERE id = ?",
 			$artist,
 	    );
@@ -697,6 +726,7 @@ sub GetArtistsFromName
 		$ar->SetEndDate($row->{enddate});
 		$ar->SetType($row->{type});
 		$ar->SetQuality($row->{quality});
+		$ar->SetQualityModPending($row->{modpending_qual});
 
         push @results, $ar;
     }
@@ -719,7 +749,7 @@ sub GetArtistsFromSortname
 
     my $artists = $sql->SelectListOfHashes(
 		"SELECT	id, name, gid, modpending, sortname,
-		resolution, begindate, enddate, type, quality
+		resolution, begindate, enddate, type, quality, modpending_quality
 		FROM	artist
 		WHERE	LOWER(sortname) = LOWER(?)",
 		$sortname,
@@ -741,6 +771,7 @@ sub GetArtistsFromSortname
 		$ar->SetModPending($row->{modpending});
 		$ar->SetType($row->{type});
 		$ar->SetQuality($row->{quality});
+		$ar->SetQualityModPending($row->{modpending_qual});
 
         push @results, $ar;
     }
@@ -929,7 +960,7 @@ sub GetAlbums
        if (defined $loadmeta && $loadmeta)
        {
            $query = qq/select album.id, name, modpending, GID, attributes,
-                              language, script, quality, tracks, discids, trmids,
+                              language, script, quality, modpending_qual, tracks, discids, trmids,
                               firstreleasedate, coverarturl, asin, puids
                        from Album, Albummeta 
                        where artist=$this->{id} and albummeta.id = album.id/;
@@ -937,7 +968,7 @@ sub GetAlbums
        else
        {
            $query = qq/select album.id, name, modpending, GID,
-                              attributes, language, script, quality 
+                              attributes, language, script, quality, modpending_qual
                        from Album 
                        where artist=$this->{id}/;
        }
@@ -957,16 +988,17 @@ sub GetAlbums
                 $album->SetLanguageId($row[5]);
                 $album->SetScriptId($row[6]);
                 $album->SetQuality($row[7]);
+                $album->SetQualityModPending($row[8]);
 
                 if (defined $loadmeta && $loadmeta)
                 {
-                    $album->{trackcount} = $row[8];
-                    $album->{discidcount} = $row[9];
-                    $album->{trmidcount} = $row[10];
-                    $album->{firstreleasedate} = $row[11]||"";
-                    $album->{coverarturl} = $row[12]||"";
-                    $album->{asin} = $row[13]||"";
-                    $album->{puidcount} = $row[14]||0;
+                    $album->{trackcount} = $row[9];
+                    $album->{discidcount} = $row[10];
+                    $album->{trmidcount} = $row[11];
+                    $album->{firstreleasedate} = $row[12]||"";
+                    $album->{coverarturl} = $row[13]||"";
+                    $album->{asin} = $row[14]||"";
+                    $album->{puidcount} = $row[15]||0;
                 }
 
                 push @albums, $album;
@@ -982,7 +1014,7 @@ sub GetAlbums
    if (defined $loadmeta && $loadmeta)
    {
        $query = qq/select album.id, album.artist, name, modpending, GID, attributes, language,
-                          script, quality, tracks, discids, trmids, firstreleasedate, puids
+                          script, quality, modpending_qual, tracks, discids, trmids, firstreleasedate, puids
                          from album, albummeta 
                         where album.artist != $this->{id} and 
                               albummeta.id = album.id and
@@ -994,7 +1026,7 @@ sub GetAlbums
    else
    {
        $query = qq/select album.id, album.artist, name, modpending, GID,
-                          attributes, language, script, quality
+                          attributes, language, script, quality, modpending_qual
                          from album
                         where album.artist != $this->{id} and 
                               album.id in (select distinct albumjoin.album 
@@ -1019,14 +1051,15 @@ sub GetAlbums
 			$album->SetLanguageId($row[6]);
 			$album->SetScriptId($row[7]);
 			$album->SetQuality($row[8]);
+			$album->SetQualityModPending($row[9]);
 
             if (defined $loadmeta && $loadmeta)
             {
-                $album->{trackcount} = $row[9];
-                $album->{discidcount} = $row[10];
-                $album->{trmidcount} = $row[11];
-                $album->{firstreleasedate} = $row[12]||"";
-                $album->{puidcount} = $row[13]||0;
+                $album->{trackcount} = $row[10];
+                $album->{discidcount} = $row[11];
+                $album->{trmidcount} = $row[12];
+                $album->{firstreleasedate} = $row[13]||"";
+                $album->{puidcount} = $row[14]||0;
             }
 
             push @albums, $album;

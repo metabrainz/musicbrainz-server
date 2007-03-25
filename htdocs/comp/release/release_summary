@@ -91,7 +91,11 @@
 % 	}
 					</td>
 					<td class="language">
-                    [ <% $quality %> data quality ]
+                    [ 
+                    <% $release->GetQualityModPending ? '<span class="mp">' : '' |n %>
+                    <% $quality %> data quality 
+                    <% $release->GetQualityModPending ? '</span>' : '' |n %>
+                    ]
 %					if ($session{"uid"} and $showeditlinks)
 %					{
 				    <a href="/edit/albumquality/edit.html?id=<% $release->GetId() %>">Change</a>

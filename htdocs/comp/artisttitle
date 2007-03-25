@@ -93,12 +93,17 @@
 	$m->out($m->interp->apply_escapes($resolution, 'h') . '<br />') if ($resolution);
 
 	my @info;
+    my $qtxt;
 	push @info, "$date_str"
 		if $date_str;
 	push @info, "Type: $type_name"
 		if $type;
-	push @info, ucfirst($quality) . " data quality"
-		if $showmodlinks;
+	$qtxt = qq!<span class="mp">! 
+        if ($artist->GetQualityModPending);
+	$qtxt .= ucfirst($quality) . " data quality";
+	$qtxt .= qq!</span>! 
+        if ($artist->GetQualityModPending);
+    push @info, $qtxt;
 	$m->out(join(', ', @info));
 	$m->out('<br />')
 		if @info;

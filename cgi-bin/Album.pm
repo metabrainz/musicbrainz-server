@@ -118,9 +118,19 @@ sub SetScriptId
    $_[0]->{script} = $_[1];
 }
 
-sub SetLanguageModPeding
+sub SetLanguageModPending
 {
    $_[0]->{modpending_lang} = $_[1];
+}
+
+sub SetQualityModPending
+{
+   $_[0]->{modpending_qual} = $_[1];
+}
+
+sub GetQualityModPending
+{
+   return $_[0]->{modpending_qual};
 }
 
 sub SetQuality
@@ -660,7 +670,7 @@ sub LoadFromId
 	my $sql = Sql->new($this->{DBH});
 	my $row = $sql->SelectSingleRowArray(
 		"SELECT	a.id, name, gid, modpending, artist, attributes, "
-		. "       language, script, modpending_lang, quality"
+		. "       language, script, modpending_lang, quality, modpending_qual"
 		. ($loadmeta ? ", tracks, discids, trmids, firstreleasedate,coverarturl,asin,puids" : "")
 		. " FROM album a"
 		. ($loadmeta ? " INNER JOIN albummeta m ON m.id = a.id" : "")
@@ -678,7 +688,7 @@ sub LoadFromId
 	
 		$row = $sql->SelectSingleRowArray(
 			"SELECT	a.id, name, gid, modpending, artist, attributes, "
-			. "       language, script, modpending_lang"
+			. "       language, script, modpending_lang, quality, modpending_qual"
 			. ($loadmeta ? ", tracks, discids, trmids, firstreleasedate,coverarturl,asin,puids" : "")
 			. " FROM album a"
 			. ($loadmeta ? " INNER JOIN albummeta m ON m.id = a.id" : "")
@@ -697,19 +707,20 @@ sub LoadFromId
 	$this->{script}				= $row->[7];
 	$this->{modpending_lang}	= $row->[8];
 	$this->{quality}        	= $row->[9];
+	$this->{modpending_qual}	= $row->[10];
 
 	delete @$this{qw( trackcount discidcount trmidcount firstreleasedate asin coverarturl puidcount )};
 	delete @$this{qw( _discids _tracks )};
 
 	if ($loadmeta)
 	{
-		$this->{trackcount}		= $row->[10];
-		$this->{discidcount}	= $row->[11];
-		$this->{trmidcount}		= $row->[12];
-		$this->{firstreleasedate}=$row->[13] || "";
-		$this->{coverarturl}=$row->[14] || "";
-		$this->{asin}=$row->[15] || "";
-		$this->{puidcount}		= $row->[16];
+		$this->{trackcount}		= $row->[11];
+		$this->{discidcount}	= $row->[12];
+		$this->{trmidcount}		= $row->[13];
+		$this->{firstreleasedate}=$row->[14] || "";
+		$this->{coverarturl}=$row->[15] || "";
+		$this->{asin}=$row->[16] || "";
+		$this->{puidcount}		= $row->[17];
 	}
 
 	1;
@@ -1087,7 +1098,8 @@ sub GetVariousDisplayList
 		SELECT	a.id, a.name as albumname, a.gid, a.modpending, 
 				a.artist as artistid, ar.name as artistname,
                 attributes, language, script, modpending_lang,
-				tracks, discids, trmids, firstreleasedate, coverarturl, asin, puids, a.quality
+				tracks, discids, trmids, firstreleasedate, coverarturl, 
+                asin, puids, a.quality, a.modpending_qual
    		FROM	album a, albummeta m, artist ar
 	  	WHERE	a.page BETWEEN $page_min AND $page_max
 		AND		m.id = a.id
@@ -1163,6 +1175,7 @@ sub GetVariousDisplayList
 		$al->{asin}				= $row->[15] || "";
 		$al->{puidcount}		= $row->[16] || 0;
 		$al->{quality}		    = $row->[17] || 0;
+		$al->{modpending_qual}  = $row->[18] || 0;
 
 		$al;
 	} @$rows;
@@ -1313,6 +1326,24 @@ sub UpdateLanguageModPending
 		WHERE	id = ?
 EOF
 }
+
+sub UpdateQualityModPending
+{
+	my ($self, $adjust) = @_;
+
+	my $id = $self->GetId
+		or croak "Missing album ID in UpdateQualityModPending";
+	defined($adjust)
+		or croak "Missing adjustment in UpdateQualityModPending";
+
+	my $sql = Sql->new($self->{DBH});
+	$sql->Do(
+		"UPDATE album SET modpending_qual = NUMERIC_LARGER(modpending_qual+?, 0) WHERE id = ?",
+		$adjust,
+		$id,
+	);
+}
+
 
 sub GetTrackSequence
 {

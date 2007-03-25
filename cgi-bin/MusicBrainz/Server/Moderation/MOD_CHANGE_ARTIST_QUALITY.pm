@@ -82,6 +82,16 @@ sub CheckPrerequisites
 	undef;
 }
 
+sub AdjustModPending
+{
+	my ($self, $adjust) = @_;
+
+	require Artist;
+	my $ar = Artist->new($self->{DBH});
+	$ar->SetId($self->GetRowId);
+	$ar->UpdateQualityModPending($adjust);
+}
+
 sub ApprovedAction
 {
 	my $this = shift;

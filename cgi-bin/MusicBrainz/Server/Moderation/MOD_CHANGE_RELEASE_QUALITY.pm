@@ -155,6 +155,16 @@ sub CheckPrerequisites
 	return undef; # undef means no prerequisite problem
 }
 
+sub AdjustModPending
+{
+	my ($self, $adjust) = @_;
+
+	require Album;
+	my $al = Album->new($self->{DBH});
+	$al->SetId($self->GetRowId);
+	$al->UpdateQualityModPending($adjust);
+}
+
 sub ApprovedAction
 {
 	my $self = shift;

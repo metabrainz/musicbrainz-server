@@ -87,36 +87,115 @@ $verbose
 
 ################################################################################
 
+my @lock_tables =
+qw(
+	moderation_open
+    album
+    album_cdtoc
+    albumjoin
+    annotation
+    artist
+    artistalias
+    label
+    l_album_album
+    l_album_artist
+    l_album_label
+    l_album_track
+    l_album_url
+    l_artist_artist
+    l_artist_label
+    l_artist_track
+    l_artist_url
+    l_label_label
+    l_label_track
+    l_label_url
+    l_track_track
+    l_track_url
+    l_url_url
+    labelalias
+    link_attribute_type
+    lt_album_album
+    lt_album_artist
+    lt_album_label
+    lt_album_track
+    lt_album_url
+    lt_artist_artist
+    lt_artist_label
+    lt_artist_track
+    lt_artist_url
+    lt_label_label
+    lt_label_track
+    lt_label_url
+    lt_track_track
+    lt_track_url
+    lt_url_url
+    release
+    track
+    url
+);
+
+my @columns =
+qw(
+    album
+	album.attributes[1]
+    album.modpending_lang
+    album_cdtoc.modpending
+    albumjoin
+    annotation
+    artist
+    artistalias
+    label
+    l_album_album
+    l_album_artist
+    l_album_label
+    l_album_track
+    l_album_url
+    l_artist_artist
+    l_artist_label
+    l_artist_track
+    l_artist_url
+    l_label_label
+    l_label_track
+    l_label_url
+    l_track_track
+    l_track_url
+    l_url_url
+    labelalias
+    link_attribute_type
+    lt_album_album
+    lt_album_artist
+    lt_album_label
+    lt_album_track
+    lt_album_url
+    lt_artist_artist
+    l_artist_label
+    lt_artist_track
+    lt_artist_url
+    lt_label_label
+    lt_label_track
+    lt_label_url
+    lt_track_track
+    lt_track_url
+    lt_url_url
+    release
+    track
+    url
+);
+
 print LOG localtime() . " : Beginning transaction, locking tables\n";
 
 if ($lockmode eq "full" or $lockmode eq "blank")
 {
 	$sql->Begin;
-	my @t = qw(
-		moderation_open
-		artist
-		artistalias
-		album
-		album_cdtoc
-		albumjoin
-		track
-	);
-	$sql->Do("LOCK TABLE ".join(", ", @t)." IN EXCLUSIVE MODE");
+	$sql->Do("LOCK TABLE ".join(", ", @lock_tables)." IN EXCLUSIVE MODE");
 }
 
 # Reset modpending to zero
 
 print LOG localtime() . " : Blanking non-zero modpending counts\n";
 
-for (qw(
-	artist
-	artistalias
-	album
-	album.attributes[1]
-	album_cdtoc
-	albumjoin
-	track
-)) {
+for (@columns) 
+{
 	my ($table, $expr) = split /\./, $_;
 	$expr ||= "modpending";
 	$sql->AutoCommit if $lockmode eq "none";
