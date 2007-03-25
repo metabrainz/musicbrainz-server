@@ -86,7 +86,7 @@ sub GetQualityChangeDirection
 {
 	my $self = shift;
 
-    return $self->GetNewValue > $self->GetPrevValue;
+    return $self->GetNew  > $self->GetPrev;
 }   
 
 sub AdjustModPending
