@@ -39,13 +39,8 @@ of the quality levels:
 </p>
 
 <p>
-For each edit type and each quality level the tables below show the voting
-period that an edit will remain open for, the number of unanimous votes required
-to shortcut the edit period, what happens if the edit expires, but has not votes, 
-and wether or not an edit is consider an <& /comp/linkdoc, "AutoEdit", "auto edit" &>.
+When changing the quality of an artist or release, the following edit values apply:
 </p>
-
-<br/>
 
 <%perl>
 
@@ -54,6 +49,34 @@ my ($level, $quality, $type);
 require Artist;
 require ModDefs;
 use Data::Dumper;
+
+$m->out('<table class="topmods"><tr class="topmodsodd">');
+$m->out('<td align="center" valign="top">Type</td><td align="center" valign="top">Voting period<br/>(days)</td>');
+$m->out('<td align="center" valign="top">Votes<br/>(unanimous)</td><td align="center" valign="top">Expire action</td>');
+$m->out('<td align="center" valign="top" valign="top">Auto edit</td></tr><tr>');
+
+for(0..1)
+{
+    $level = Moderation::GetQualityChangeDefs($_);
+    $m->out('<tr>');
+    $m->out('<td align="center">' . ($_ == 0 ? "Lower quality" : "Raise quality") . '</td>');
+    $m->out('<td align="center">' . $level->{duration} . '</td>');
+    $m->out('<td align="center">' . $level->{votes} . '</td>');
+    $m->out('<td align="center">' . ModDefs::GetExpireActionText($level->{expireaction}) .'</td>');
+    $m->out('<td align="center">' . ($level->{autoedit} ? "yes" : "no").'</td>');
+    $m->out('</tr>');
+}
+$m->out('</table><br/>');
+
+</%perl>
+<p>
+For each edit type and each quality level the tables below show the voting
+period that an edit will remain open for, the number of unanimous votes required
+to shortcut the edit period, what happens if the edit expires, but has not votes, 
+and wether or not an edit is consider an <& /comp/linkdoc, "AutoEdit", "auto edit" &>.
+</p>
+<br/>
+<%perl>
 
 my %names;
 foreach $type (Moderation::GetEditTypes())
@@ -78,7 +101,7 @@ foreach $quality ((&ModDefs::QUALITY_LOW, &ModDefs::QUALITY_NORMAL, &ModDefs::QU
         $m->out('<td>' . $ref->{name} .'</td>');
         $m->out('<td align="center">' . $ref->{duration} .'</td>');
         $m->out('<td align="center">' . $ref->{votes} .'</td>');
-        $m->out('<td align="center">' . ($ref->{expireaction} ? "accept" : "reject") .'</td>');
+        $m->out('<td align="center">' . ModDefs::GetExpireActionText($ref->{expireaction}) .'</td>');
         $m->out('<td align="center">' . ($ref->{autoedit} ? "yes" : "no").'</td>');
         $m->out('</tr>');
     }
