@@ -135,7 +135,8 @@
 		if ($id != &ModDefs::VARTIST_ID)
 		{
 			$m->out(qq! | <a href="/show/artist/?artistid=$id" title="Releases of this artist">Releases</a>!);
-		}
+			$m->out(qq! | <a href="/show/artist/tracks.html?artistid=$id" title="Tracks of this artist">Tracks</a>!);
+}
 		else
 		{
 			$m->out(qq! | <a href="/browsevarious.html">Browse&nbsp;releases</a>!);

@@ -17,7 +17,8 @@ Release 2007-XX-XX:
    * Adding an artist with 'feat.' in the name will give the user
      an warning. (#787)
    * Updated e-mail templates. (#2247)
-   * Added a report to show bad Amazon ASIN URLs (#2525)
+   * Added a report to show bad Amazon ASIN URLs. (#2525)
+   * Track annotations. (#1259)
 
  * Bug Fixes:
    * Fixed ':hover' CSS for voting radiobuttons in IE7. (#2352)

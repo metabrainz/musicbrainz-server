@@ -49,12 +49,9 @@
 			1, 1,
 		);
 
-	my $ref = $m->comp("/edit/annotation/backreference", annotation => $annotation);
-
-	my $artist = $ref->{artist};
-	my $release = $ref->{release};
-	my $label = $ref->{label};
-	my $title = (defined $release) ? $release->GetName() : (defined $label ? $label->GetName() : $artist->GetName());
+	my $entitytype = $annotation->GetTypeWord;
+	$entitytype = "release" if $entitytype eq "album";
+	my $entity = $m->comp("/comp/load$entitytype", $mb, $annotation->GetEntity);
 
 </%perl>
 
@@ -62,12 +59,12 @@
 
 	<& /comp/tablebegin, title => "Annotation Detail" &>
 
-		<& /edit/annotation/subject, title => "Annotation for", artist => $artist, release => $release, label => $label &>
+		<& /edit/annotation/subject, title => "Annotation for", entity => $entity, mb => $mb &>
 
 		<ul>
 			<li>
 				Click <strong>Show History</strong> to see the history of all annotations
-				for this <% $annotation->GetTypeWord %>.</li>
+				for this <% $entitytype %>.</li>
 			<li>
 				Click <strong>Edit</strong> to add a new annotation based on this one. The
 				annotation you see here will be left intact.</li>

@@ -108,28 +108,9 @@
 
 			if ($history_link)
 			{
-				my $type = $annotation->GetType;
-				my $id = undef;
-				if ($type == &MusicBrainz::Server::Annotation::ARTIST_ANNOTATION)
-				{
-					$type = "artist";
-					$id = $annotation->GetArtist();
-				}
-				elsif ($type == &MusicBrainz::Server::Annotation::ALBUM_ANNOTATION)
-				{
-					$type = "album";
-					$id = $annotation->GetAlbum();
-				}
-				elsif ($type == &MusicBrainz::Server::Annotation::LABEL_ANNOTATION)
-				{
-					$type = "label";
-					$id = $annotation->GetLabel();
-				}
-				if (defined $id)
-				{
-					$m->out(sprintf qq!<a href="/edit/annotation/%s/history.html?%sid=%d&amp;expand_all=1">Show history</a> | !,
-									$type, $type, $id);
-				}
+				my $entitytype = $annotation->GetTypeWord;
+				my $id = $annotation->GetEntity;
+				$m->out(qq!<a href="/edit/annotation/$entitytype/history.html?id=$id&amp;expand_all=1">Show history</a> | !);
 			}
 
 			if ($show_diff)

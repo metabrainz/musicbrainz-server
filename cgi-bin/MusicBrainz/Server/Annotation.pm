@@ -36,9 +36,10 @@ use Exporter;
 		ARTIST_ANNOTATION
 		ALBUM_ANNOTATION
 		LABEL_ANNOTATION
+		TRACK_ANNOTATION
 	);
 	our %EXPORT_TAGS = (
-		type => [qw( ARTIST_ANNOTATION ALBUM_ANNOTATION LABEL_ANNOTATION )],
+		type => [qw( ARTIST_ANNOTATION ALBUM_ANNOTATION LABEL_ANNOTATION TRACK_ANNOTATION )],
 	);
 }
 
@@ -52,6 +53,7 @@ use Moderation;
 use constant ARTIST_ANNOTATION	=>	1;
 use constant ALBUM_ANNOTATION	=>	2;
 use constant LABEL_ANNOTATION	=>	3;
+use constant TRACK_ANNOTATION	=>	4;
 
 
 use constant TRUNC_NONE => 0;
@@ -86,6 +88,11 @@ sub GetChangeLog
 	return $_[0]->{changelog};
 }
 
+sub GetEntity
+{
+	return $_[0]->{rowid};
+}
+
 sub GetAlbum
 {
 	return $_[0]->{rowid};
@@ -97,6 +104,11 @@ sub GetArtist
 }
 
 sub GetLabel
+{
+	return $_[0]->{rowid};
+}
+
+sub GetTrack
 {
 	return $_[0]->{rowid};
 }
@@ -121,6 +133,7 @@ sub GetTypeWord
 	return "artist" if $_[0]{type} == ARTIST_ANNOTATION;
 	return "album" if $_[0]{type} == ALBUM_ANNOTATION;
 	return "label" if $_[0]{type} == LABEL_ANNOTATION;
+	return "track" if $_[0]{type} == TRACK_ANNOTATION;
 	die;
 }
 
@@ -202,6 +215,12 @@ sub SetArtist
 sub SetLabel
 {
 	$_[0]->{type} = LABEL_ANNOTATION;
+	$_[0]->{rowid} = $_[1];
+}
+
+sub SetTrack
+{
+	$_[0]->{type} = TRACK_ANNOTATION;
 	$_[0]->{rowid} = $_[1];
 }
 
@@ -383,31 +402,33 @@ sub Insert
 }
 
 # Returns a reference to an array of Annotation IDs for the specified
-# Album object.
+# object.
 
 sub GetAnnotationIDsForAlbum
 {
-	my ($class, $album) = @_;
-	my $dbh = $album->{DBH};
-	return $class->_GetAnnotationIDs($dbh, $album->GetId, ALBUM_ANNOTATION);
+	return $_[0]->GetAnnotationIDsForEntity($_[1], ALBUM_ANNOTATION);
 }
-
-# The same for an Artist object.
 
 sub GetAnnotationIDsForArtist
 {
-	my ($class, $artist) = @_;
-	my $dbh = $artist->{DBH};
-	return $class->_GetAnnotationIDs($dbh, $artist->GetId, ARTIST_ANNOTATION);
+	return $_[0]->GetAnnotationIDsForEntity($_[1], ARTIST_ANNOTATION);
 }
-
-# And the same for a Label object.
 
 sub GetAnnotationIDsForLabel
 {
-	my ($class, $label) = @_;
-	my $dbh = $label->{DBH};
-	return $class->_GetAnnotationIDs($dbh, $label->GetId, LABEL_ANNOTATION);
+	return $_[0]->GetAnnotationIDsForEntity($_[1], LABEL_ANNOTATION);
+}
+
+sub GetAnnotationIDsForTrack
+{
+	return $_[0]->GetAnnotationIDsForEntity($_[1], TRACK_ANNOTATION);
+}
+
+sub GetAnnotationIDsForEntity
+{
+	my ($class, $entity, $type) = @_;
+	my $dbh = $entity->{DBH};
+	return $class->_GetAnnotationIDs($dbh, $entity->GetId, $type);
 }
 
 sub _GetAnnotationIDs

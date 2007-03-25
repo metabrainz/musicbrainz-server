@@ -40,6 +40,7 @@ require MusicBrainz::Server::Moderation::MOD_ADD_ALBUM_ANNOTATION;
 require MusicBrainz::Server::Moderation::MOD_ADD_ARTIST;
 require MusicBrainz::Server::Moderation::MOD_ADD_ARTISTALIAS;
 require MusicBrainz::Server::Moderation::MOD_ADD_ARTIST_ANNOTATION;
+require MusicBrainz::Server::Moderation::MOD_ADD_TRACK_ANNOTATION;
 require MusicBrainz::Server::Moderation::MOD_ADD_DISCID;
 require MusicBrainz::Server::Moderation::MOD_ADD_LABEL;
 require MusicBrainz::Server::Moderation::MOD_ADD_LABELALIAS;
@@ -166,6 +167,8 @@ my @EditLevelDefs =
 		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_ARTIST_ANNOTATION::Name() },  
 		MOD_ADD_ALBUM_ANNOTATION	 ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_ALBUM_ANNOTATION::Name() },  
+		MOD_ADD_TRACK_ANNOTATION	 ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
+		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_TRACK_ANNOTATION::Name() },  
 		MOD_ADD_DISCID				 ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_DISCID::Name() },  
 		MOD_ADD_LINK				 ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
@@ -292,6 +295,8 @@ my @EditLevelDefs =
 		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_ARTIST_ANNOTATION::Name() },  
 		MOD_ADD_ALBUM_ANNOTATION	 ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_ALBUM_ANNOTATION::Name() },  
+		MOD_ADD_TRACK_ANNOTATION	 ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
+		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_TRACK_ANNOTATION::Name() },  
 		MOD_ADD_DISCID				 ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_DISCID::Name() },  
 		MOD_ADD_LINK				 ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
@@ -418,6 +423,8 @@ my @EditLevelDefs =
 		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_ARTIST_ANNOTATION::Name() },  
 		MOD_ADD_ALBUM_ANNOTATION	 ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_ALBUM_ANNOTATION::Name() },  
+		MOD_ADD_TRACK_ANNOTATION	 ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
+		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_TRACK_ANNOTATION::Name() },  
 		MOD_ADD_DISCID				 ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_DISCID::Name() },  
 		MOD_ADD_LINK				 ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  

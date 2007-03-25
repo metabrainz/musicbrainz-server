@@ -37,20 +37,26 @@
 
 	if ($type == &MusicBrainz::Server::Annotation::ARTIST_ANNOTATION)
 	{
-		$m->out(sprintf qq!<a href="/edit/annotation/artist/edit.html?artistid=%d&amp;annotationid=%d">Edit</a>!,
+		$m->out(sprintf qq!<a href="/edit/annotation/artist/edit.html?id=%d&amp;annotationid=%d">Edit</a>!,
 						$annotation->GetArtist(),
 						$annotation->GetId());
 	}
 	elsif ($type == &MusicBrainz::Server::Annotation::ALBUM_ANNOTATION)
 	{
-		$m->out(sprintf qq!<a href="/edit/annotation/album/edit.html?albumid=%d&amp;annotationid=%d">Edit</a>!,
+		$m->out(sprintf qq!<a href="/edit/annotation/album/edit.html?id=%d&amp;annotationid=%d">Edit</a>!,
 						$annotation->GetAlbum(),
 						$annotation->GetId());
 	}
 	elsif ($type == &MusicBrainz::Server::Annotation::LABEL_ANNOTATION)
 	{
-		$m->out(sprintf qq!<a href="/edit/annotation/label/edit.html?labelid=%d&amp;annotationid=%d">Edit</a>!,
+		$m->out(sprintf qq!<a href="/edit/annotation/label/edit.html?id=%d&amp;annotationid=%d">Edit</a>!,
 						$annotation->GetLabel(),
+						$annotation->GetId());
+	}
+	elsif ($type == &MusicBrainz::Server::Annotation::TRACK_ANNOTATION)
+	{
+		$m->out(sprintf qq!<a href="/edit/annotation/track/edit.html?id=%d&amp;annotationid=%d">Edit</a>!,
+						$annotation->GetTrack(),
 						$annotation->GetId());
 	}
 

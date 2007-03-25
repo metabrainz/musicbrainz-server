@@ -30,28 +30,21 @@
 </%perl>
 <%args>
 
-	$title => ""
-	$artist => undef
-	$label => undef
-	$release => undef
+	$title
+	$entity
+	$mb => undef
 
 </%args>
 <%perl>
 
-	if (defined $label)
-	{
-		$m->out(encode_entities($title)." Label ");
-		$m->comp("/comp/linklabel", label => $label);
-	}
-	else
-	{
-		$m->out(encode_entities($title)." Artist ");
+	my $entitytype = $entity->LinkEntityName;
+	$entitytype = "release" if $entitytype eq "album";
+	$m->out("$title $entitytype ");
+	$m->comp("/comp/link$entitytype", $entitytype => $entity);
+	if ($entitytype eq "track" || $entitytype eq "release") {
+		my $artist = $m->comp("/comp/loadartist", $mb, $entity->GetArtist);
+		$m->out(" by ");
 		$m->comp("/comp/linkartist", artist => $artist);
-		if (defined $release)
-		{
-			$m->out(", Release ");
-			$m->comp("/comp/linkrelease", release => $release)
-		}
 	}
 
 </%perl>

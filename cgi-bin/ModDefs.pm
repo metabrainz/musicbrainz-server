@@ -136,7 +136,8 @@ use constant MOD_ADD_LABELALIAS			 => 60;
 use constant MOD_EDIT_LABELALIAS		 => 61;
 use constant MOD_REMOVE_LABELALIAS		 => 62;
 use constant MOD_CHANGE_RELEASE_QUALITY  => 63;
-use constant MOD_LAST					 => 63;
+use constant MOD_ADD_TRACK_ANNOTATION	 => 64;
+use constant MOD_LAST					 => 64;
 
 # Values used for edit levels (quality)
 use constant QUALITY_UNKNOWN         => -1;
