@@ -29,6 +29,9 @@ use warnings;
 package MusicBrainz::Server::ModBot;
 
 use ModDefs qw( :modstatus );
+use Moderation;
+use MusicBrainz::Server::Moderation::MOD_CHANGE_ARTIST_QUALITY;
+use MusicBrainz::Server::Moderation::MOD_CHANGE_RELEASE_QUALITY;
 
 # This is a placeholder that the Moderation Bot will use to evaluate mods.
 # The user should never see this state.
@@ -103,8 +106,24 @@ sub CheckModerations
 
 	while (my @row = $sql->NextRow())
 	{
+        my $level;
 		my $mod = $basemod->CreateFromId($row[0]);
-        my $level = Moderation::GetEditLevelDefs($mod->GetQuality, $mod->GetType);
+
+        if ($mod->GetType == &Moderation::MOD_CHANGE_RELEASE_QUALITY ||
+            $mod->GetType == &Moderation::MOD_CHANGE_ARTIST_QUALITY)
+        {
+            $level = Moderation::GetQualityChangeDefs($mod->GetQualityChangeDirection);
+        }
+        else
+        {
+            $level = Moderation::GetEditLevelDefs($mod->GetQuality, $mod->GetType);
+        }
+		if (!defined $level)
+		{
+			print STDERR "Cannot determine quality level for moderation $row[0]. This " .
+				"moderation will remain open.\n";
+			next;
+		}
 
 		if (!defined $mod)
 		{

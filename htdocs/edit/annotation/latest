@@ -89,7 +89,7 @@
 	{
 		if ($session{uid})
 		{
-			$m->out(qq!<p>This $entitytype does not yet have an annotation.! .
+			$m->out(qq!<p>This $entitytype does not have an annotation yet. ! .
 					qq!<a href="/edit/annotation/$entitytype/edit.html?id=$entityid">Add an annotation &raquo;</a></p>!);
 		}
 	}

@@ -71,8 +71,6 @@ sub PreDisplay
 	}
 }
 
-sub IsAutoEdit { 1 }
-
 sub ApprovedAction
 {
 	my $self = shift;

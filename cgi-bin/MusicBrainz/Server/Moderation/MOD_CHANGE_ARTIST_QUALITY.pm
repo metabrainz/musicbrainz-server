@@ -82,6 +82,13 @@ sub CheckPrerequisites
 	undef;
 }
 
+sub GetQualityChangeDirection
+{
+	my $self = shift;
+
+    return $self->GetNewValue > $self->GetPrevValue;
+}   
+
 sub AdjustModPending
 {
 	my ($self, $adjust) = @_;

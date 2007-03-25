@@ -91,6 +91,8 @@ sub PostLoad
 	my $self = shift;
 	my $new = $self->ConvertNewToHash($self->GetNew);
 	my @releases;
+    my $l = &ModDefs::QUALITY_HIGH;
+    my $quality;
 
 	for (my $i = 0; defined $new->{"ReleaseId$i"}; $i++)
 	{
@@ -99,10 +101,21 @@ sub PostLoad
 
 		push @releases, { id => $id, name => $name,
   						  prev_quality => $new->{"Prev$i"}};
+        $quality = $new->{"Prev$i"} == &ModDefs::QUALITY_UNKNOWN ? &ModDefs::QUALITY_UNKNOWN_MAPPED : $new->{"Prev$i"};  
+        $l = $l < $quality ? $l: $quality;  
 	}
 
 	$self->{_new_releases} = \@releases;
 	$self->{_quality} = $new->{Quality};
+    $self->{_prev_low} = $l;
+}
+
+sub GetQualityChangeDirection
+{
+	my $self = shift;
+
+    return 0 if ($self->{_quality} < $self->{_prev_low});
+    return 1;
 }
 
 sub CheckPrerequisites
@@ -158,11 +171,21 @@ sub CheckPrerequisites
 sub AdjustModPending
 {
 	my ($self, $adjust) = @_;
+	my $new = $self->ConvertNewToHash($self->GetNew)
+		or die;
+
+	my @releases;
+	my $status = undef;
 
 	require Album;
-	my $al = Album->new($self->{DBH});
-	$al->SetId($self->GetRowId);
-	$al->UpdateQualityModPending($adjust);
+	for (my $i = 0; defined $new->{"ReleaseId$i"}; $i++)
+	{
+		my $id = $new->{"ReleaseId$i"};
+		my $al = Album->new($self->{DBH});
+		$al->SetId($id);
+     	$al->UpdateQualityModPending($adjust)
+     		if ($al->LoadFromId);
+    }
 }
 
 sub ApprovedAction

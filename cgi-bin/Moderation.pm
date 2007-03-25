@@ -207,10 +207,6 @@ my @EditLevelDefs =
 		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_RELEASEEVENTS::Name() },  
 		MOD_REMOVE_RELEASEEVENTS	 ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 0,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_REMOVE_RELEASEEVENTS::Name() },  
-		MOD_CHANGE_ARTIST_QUALITY    ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
-		                                      name => &MusicBrainz::Server::Moderation::MOD_CHANGE_ARTIST_QUALITY::Name() },  
-		MOD_CHANGE_RELEASE_QUALITY   ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
-		                                      name => &MusicBrainz::Server::Moderation::MOD_CHANGE_RELEASE_QUALITY::Name() },  
 		MOD_SET_RELEASE_DURATIONS	 ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_SET_RELEASE_DURATIONS::Name() },  
 		MOD_EDIT_URL				 ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
@@ -335,10 +331,6 @@ my @EditLevelDefs =
 		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_RELEASEEVENTS::Name() },  
 		MOD_REMOVE_RELEASEEVENTS	 ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 0,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_REMOVE_RELEASEEVENTS::Name() },  
-		MOD_CHANGE_ARTIST_QUALITY    ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
-		                                      name => &MusicBrainz::Server::Moderation::MOD_CHANGE_ARTIST_QUALITY::Name() },  
-		MOD_CHANGE_RELEASE_QUALITY   ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
-		                                      name => &MusicBrainz::Server::Moderation::MOD_CHANGE_RELEASE_QUALITY::Name() },  
 		MOD_SET_RELEASE_DURATIONS	 ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_SET_RELEASE_DURATIONS::Name() },  
 		MOD_EDIT_URL				 ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
@@ -421,9 +413,9 @@ my @EditLevelDefs =
 		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_RELEASES::Name() },  
 		MOD_ADD_ARTIST_ANNOTATION	 ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 1,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_ARTIST_ANNOTATION::Name() },  
-		MOD_ADD_ALBUM_ANNOTATION	 ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
+		MOD_ADD_ALBUM_ANNOTATION	 ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 1,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_ALBUM_ANNOTATION::Name() },  
-		MOD_ADD_TRACK_ANNOTATION	 ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
+		MOD_ADD_TRACK_ANNOTATION	 ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 1,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_TRACK_ANNOTATION::Name() },  
 		MOD_ADD_DISCID				 ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_DISCID::Name() },  
@@ -463,17 +455,13 @@ my @EditLevelDefs =
 		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_RELEASEEVENTS::Name() },  
 		MOD_REMOVE_RELEASEEVENTS	 ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_REMOVE_RELEASEEVENTS::Name() },  
-		MOD_CHANGE_ARTIST_QUALITY    ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
-		                                      name => &MusicBrainz::Server::Moderation::MOD_CHANGE_ARTIST_QUALITY::Name() },  
-		MOD_CHANGE_RELEASE_QUALITY   ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
-		                                      name => &MusicBrainz::Server::Moderation::MOD_CHANGE_RELEASE_QUALITY::Name() },  
 		MOD_SET_RELEASE_DURATIONS	 ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_SET_RELEASE_DURATIONS::Name() },  
 		MOD_EDIT_URL				 ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_URL::Name() },  
 		MOD_ADD_LABEL				 ."" => { duration => 14, votes => 4, expireaction => EXPIRE_ACCEPT, autoedit => 0,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_LABEL::Name() },  
-		MOD_ADD_LABEL_ANNOTATION	 ."" => { duration => 14, votes => 4, expireaction => EXPIRE_ACCEPT, autoedit => 0,  
+		MOD_ADD_LABEL_ANNOTATION	 ."" => { duration => 14, votes => 4, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_LABEL_ANNOTATION::Name() },  
 		MOD_ADD_LABELALIAS			 ."" => { duration => 14, votes => 4, expireaction => EXPIRE_ACCEPT, autoedit => 0,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_LABELALIAS::Name() },  
@@ -489,6 +477,32 @@ my @EditLevelDefs =
 		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_LABELALIAS::Name() },  
 	}
 );
+
+# The following two edit level definitions give the number of edit level details for moving the quality up or down.
+my @QualityChangeDefs =
+(
+    # 0 == DOWN
+	{ 
+      duration => 14, 
+      votes => 5, 
+      expireaction => EXPIRE_REJECT, 
+      autoedit => 0,  
+      name => "Lower artist/release quality"
+    },  
+    # 1 == UP
+	{ 
+      duration => 3, 
+      votes => 1, 
+      expireaction => EXPIRE_ACCEPT, 
+      autoedit => 1,  
+      name => "Raise artist/release quality"
+    }
+);
+
+sub GetQualityChangeDefs
+{
+    return $QualityChangeDefs[$_[0]];
+}
 
 sub GetEditTypes
 {
@@ -663,6 +677,12 @@ sub IsAutoEditType
 sub GetNumVotesNeeded
 {
    my ($this) = @_;
+
+   if ($this->GetType == MOD_CHANGE_RELEASE_QUALITY ||
+       $this->GetType == MOD_CHANGE_ARTIST_QUALITY)
+   {
+        return $QualityChangeDefs[$this->GetQualityChangeDirection]->{votes};
+   }
    my $level = GetEditLevelDefs($this->GetQuality, $this->GetType);
    return $level->{votes};
 }
@@ -670,6 +690,11 @@ sub GetNumVotesNeeded
 sub GetExpireAction
 {
    my ($this) = @_;
+   if ($this->GetType == MOD_CHANGE_RELEASE_QUALITY ||
+       $this->GetType == MOD_CHANGE_ARTIST_QUALITY)
+   {
+        return $QualityChangeDefs[$this->GetQualityChangeDirection]->{expireaction};
+   }
    my $level = GetEditLevelDefs($this->GetQuality, $this->GetType);
    return $level->{expireaction};
 }
@@ -1070,7 +1095,17 @@ sub InsertModeration
 
 	goto SUPPRESS_INSERT if $this->{suppress_insert};
 	$this->PostLoad;
-    my $level = GetEditLevelDefs($this->GetQuality, $this->GetType);
+
+    my $level;
+    if ($this->GetType == &Moderation::MOD_CHANGE_RELEASE_QUALITY ||
+        $this->GetType == &Moderation::MOD_CHANGE_ARTIST_QUALITY)
+    {
+        $level = Moderation::GetQualityChangeDefs($this->GetQualityChangeDirection);
+    }
+    else
+    {
+        $level = Moderation::GetEditLevelDefs($this->GetQuality, $this->GetType);
+    }
 
 	# Now go on to insert the moderation record itself, and to
 	# deal with autoeditss and modpending flags.
@@ -1883,6 +1918,9 @@ sub AdjustModPending
 # return it from this function. This causes the quality for an edit
 # to be considered every time the ModBot examines it.
 sub DetermineQuality { QUALITY_NORMAL };
+
+# Determine if a change quality edit is going up (1) or down (0)
+sub GetQualityChangeDirection { 1 }; # default to up, which is more strict
 
 # Check the moderation to see if it can still be applied, e.g. that all the
 # prerequisites and other dependencies are still OK.  If all is well, return

@@ -76,8 +76,6 @@ sub DetermineQuality
 	return &ModDefs::QUALITY_NORMAL;
 }
 
-sub IsAutoEdit { 1 }
-
 sub PreDisplay
 {
 	my $this = shift;

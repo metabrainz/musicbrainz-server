@@ -58,6 +58,8 @@
 	# release artistids in artisthash
 	my @releaseobjs = ();
 	my %artisthash;
+    my ($low, $hi) = (&ModDefs::QUALITY_HIGH, &ModDefs::QUALITY_LOW);
+    my $quality;
 	foreach my $releaseid (@id)
 	{
 		MusicBrainz::Server::Validation::IsNonNegInteger($releaseid) && $releaseid
@@ -65,6 +67,9 @@
 
 		my $release = $m->comp("/comp/loadrelease", $mb, $releaseid);
 		push @releaseobjs, $release;
+        $quality = $release->GetQuality == &ModDefs::QUALITY_UNKNOWN ? &ModDefs::QUALITY_UNKNOWN_MAPPED : $release->GetQuality;
+        $low = $low < $quality ? $low : $quality;
+        $hi = $hi > $quality ? $hi : $quality;
 
 		++$artisthash{$release->GetArtist};
 	}
@@ -72,6 +77,13 @@
 	$quality_new = 0 if (defined $quality_new and $quality_new eq "");
 
 	my @errors = ();
+    if (defined $quality_new && $quality_new <= $hi && $quality_new >= $low)
+    {
+        push @errors, qq|In order to batch change a number of releases, they must all be changed to
+                         to a higher quality lever or a lower quality level. Lowering and raising
+                         releases in one batch edit is not allowed. Also, all releases must change 
+                         quality levels -- keeping releases the same in one batch is not allowed.|;
+    }
 
 	# we got a a form submission
 	if ($submitvalue ne "")
@@ -174,7 +186,7 @@
 %	else
 %	{
 
-		<& /comp/layout/editformbegin, title => "Edit release language/script",
+		<& /comp/layout/editformbegin, title => "Edit release data quality",
 			mp_type => &ModDefs::MOD_CHANGE_RELEASE_QUALITY,
 			mp => $mp,
 		&>
