@@ -87,7 +87,7 @@
 <& /comp/sidebar-notitle, pagetitle => "Compare Annotations" &>
 
 	<& /comp/tablebegin, title => "Compare Annotations" &>
-		<& /edit/annotation/subject, title => "Comparing annotations for", entity => $entity &>
+		<& /edit/annotation/subject, title => "Comparing annotations for", entity => $entity, mb => $mb &>
 
 % 	if (!$an_old)
 %	{
