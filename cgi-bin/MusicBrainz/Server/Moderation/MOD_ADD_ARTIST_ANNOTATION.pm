@@ -54,6 +54,11 @@ sub PreInsert
 	$self->SetRowId($artistid);
 }
 
+sub IsAutoEdit 
+{ 
+    1 
+}
+
 sub DetermineQuality
 {
 	my $self = shift;

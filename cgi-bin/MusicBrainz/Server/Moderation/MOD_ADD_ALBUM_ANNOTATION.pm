@@ -55,6 +55,11 @@ sub PreInsert
 	$self->SetRowId($albumid);
 }
 
+sub IsAutoEdit 
+{ 
+    1 
+}
+
 sub PostLoad
 {
 	my $self = shift;

@@ -53,6 +53,11 @@ sub PreInsert
 	$self->SetRowId($labelid);
 }
 
+sub IsAutoEdit 
+{ 
+    1 
+}
+
 sub PreDisplay
 {
 	my $this = shift;

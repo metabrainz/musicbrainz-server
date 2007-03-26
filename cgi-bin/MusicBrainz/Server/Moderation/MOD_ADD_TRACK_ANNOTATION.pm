@@ -55,6 +55,11 @@ sub PreInsert
 	$self->SetRowId($trackid);
 }
 
+sub IsAutoEdit 
+{ 
+    1 
+}
+
 sub PostLoad
 {
 	my $self = shift;
