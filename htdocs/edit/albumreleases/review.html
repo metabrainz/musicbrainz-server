@@ -279,24 +279,16 @@
 
 	<& /comp/tablebegin, title => "Preview release" &>
 
-		<div style="margin-left: 40px">
-			<table width="600">
-				<tr>
-					<td>
-
-					<& /comp/artisttitle, artist => $artist, showlinks => 0, showmodlinks => 0 &>
-
-					<& /comp/album,
-						album => $release,
-						artist => $artist,
-						showlinks => 0,
-						showmodlinks => 0,
-						showreleases => 1,
-						tracks => \@tracks,
-						releaseevents => \@relEventsNew, &>
-					</td>
-				</tr>
-			</table>
+		<div style="margin: 0px 40px">
+			<& /comp/artisttitle, artist => $artist, showlinks => 0, showmodlinks => 0 &>
+			<& /comp/album,
+				album => $release,
+				artist => $artist,
+				showlinks => 0,
+				showmodlinks => 0,
+				showreleases => 1,
+				tracks => \@tracks,
+				releaseevents => \@relEventsNew, &>
 		</div>
 
 	<& /comp/tableend &>
