@@ -1,5 +1,6 @@
 
 		</div>
+        <& /comp/layout/analytics &>
 	</body>
 </html>
 

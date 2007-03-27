@@ -222,6 +222,7 @@ sub send_response
 		&$printer();
 	}
 
+	$r->status(Apache::Constants::HTTP_OK());
     $r->set_content_length(length($xml));
 	$r->send_http_header("text/xml; charset=utf-8");
 	$r->print(\$xml) unless $r->header_only;
@@ -794,7 +795,7 @@ sub xml_search
         $term =~ tr/A-Z/a-z/;
         if ($args->{release})
         {
-            $query = "(" . join(" AND ", split / /, $term) . ")";
+            $query = "(" . join(" AND ", split /\s+/, $term) . ")";
         }
         if ($args->{artistid})
         { 
@@ -805,7 +806,7 @@ sub xml_search
             my $term = MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{artist});
             if (not $term =~ /^\s*$/)
             {
-                $query .= " AND artist:(" . join(" AND ", split / /, $term) . ")";
+                $query .= " AND artist:(" . join(" AND ", split /\s+/, $term) . ")";
             }
         }
         if (defined $args->{releasetype} && $args->{releasetype} =~ /^\d+$/)
@@ -848,7 +849,7 @@ sub xml_search
         $term =~ tr/A-Z/a-z/;
         if ($args->{track})
         {
-            $query = "(" . join(" AND ", split / /, $term) . ")";
+            $query = "(" . join(" AND ", split /\s+/, $term) . ")";
         }
         if ($args->{artistid})
         { 
@@ -860,7 +861,7 @@ sub xml_search
             my $term = MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{artist});
             if (not $term =~ /^\s*$/)
             {
-                $query .= " AND artist:(" . join(" AND ", split / /, $term) . ")";
+                $query .= " AND artist:(" . join(" AND ", split /\s+/, $term) . ")";
             }
         }
         if ($args->{releaseid})
@@ -872,7 +873,7 @@ sub xml_search
             my $term = MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{release});
             if (not $term =~ /^\s*$/)
             {
-                $query .= " AND release:(" . join(" AND ", split / /, $term) . ")";
+                $query .= " AND release:(" . join(" AND ", split /\s+/, $term) . ")";
             }
         }
         if ($args->{duration})
@@ -930,10 +931,10 @@ sub xml_search
         }
     }
    
+    $r->status(Apache::Constants::HTTP_OK());
     $r->set_content_length(length($out));
     $r->send_http_header("text/xml; charset=utf-8");
     $r->print($out) unless $r->header_only;
-    $r->status(Apache::Constants::OK());
     return Apache::Constants::OK();
 }
 

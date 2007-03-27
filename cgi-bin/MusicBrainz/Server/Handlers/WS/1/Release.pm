@@ -127,7 +127,6 @@ sub handler
         return Apache::Constants::NOT_FOUND();
     }
 
-    $r->status(Apache::Constants::OK());
 	return Apache::Constants::OK();
 }
 
@@ -173,7 +172,7 @@ sub serve_from_db
         }
     }
 
-    if (!$ar && $inc & INC_ARTIST || $inc & INC_TRACKS)
+    if (@albums && !$ar && $inc & INC_ARTIST || $inc & INC_TRACKS)
     {
         $ar = Artist->new($mb->{DBH});
         $ar->SetId($al->GetArtist);

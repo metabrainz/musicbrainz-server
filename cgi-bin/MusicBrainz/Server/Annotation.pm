@@ -49,6 +49,7 @@ use Encode qw( encode decode );
 use Text::WikiFormat;
 use DBDefs;
 use Moderation;
+use MusicBrainz::Server::Validation qw( encode_entities );
 
 use constant ARTIST_ANNOTATION	=>	1;
 use constant ALBUM_ANNOTATION	=>	2;
@@ -147,6 +148,8 @@ sub GetTextAsHTML
 	}
 	else 
 	{
+            $text =~ s/</&lt;/g;
+            $text =~ s/>/&gt;/g;
     		return Text::WikiFormat::format($text, {}, 
 		    	            		    { prefix => "http://wiki.musicbrainz.org/",
             			        	      extended => 1,
@@ -163,6 +166,8 @@ sub GetShortTextAsHTML
 	my ($trunc_type, $text) = $self->GetShortText;
 	if ($text ne '')
 	{
+	    $text =~ s/</&lt;/g;
+	    $text =~ s/>/&gt;/g;
 	    $text = Text::WikiFormat::format($text, {}, 
 			                	{ prefix => "http://wiki.musicbrainz.org/",
         			    		  extended => 1,

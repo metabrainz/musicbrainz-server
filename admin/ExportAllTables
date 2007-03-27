@@ -543,11 +543,11 @@ use File::Copy qw( copy );
 
 if ($fCompress and $fDoFullExport)
 {
-	copy_readme("$dir/README") or die $!;
+	copy_readme() or die $!;
 	copy("$FindBin::Bin/COPYING-PublicDomain", "$dir/COPYING") or die $!;
 	make_tar("mbdump.tar.bz2", @group_core);
 
-	copy_readme("$dir/README") or die $!;
+	copy_readme() or die $!;
 	copy("$FindBin::Bin/COPYING-CCShareAlike", "$dir/COPYING") or die $!;
 	make_tar("mbdump-derived.tar.bz2", @group_derived);
 	make_tar("mbdump-moderation.tar.bz2",  @group_moderation);
@@ -563,6 +563,7 @@ if ($fCompress and $fDoReplication)
 
 	if (grep { $rowcounts{$_} } @replication_tables)
 	{
+		copy_readme() or die $!;
 		# Go for the "most restrictive" license
 		copy("$FindBin::Bin/COPYING-CCShareAlike", "$dir/COPYING") or die $!;
 		make_tar($tarfile, "lucene_dump.xml", @replication_tables);

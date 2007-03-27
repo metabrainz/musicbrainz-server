@@ -356,7 +356,8 @@ sub CombineNonAlbums
 			$t->{_new_sequence},
 			$t->GetId,
 			$t->GetAlbum,
-		) or die;
+		) or die sprintf 'Failed to move track %d from release %d to %d',
+			$t->GetId, $t->GetAlbum, $album->GetId;
 	}
 
 	# Delete the other albums
@@ -534,7 +535,7 @@ sub LoadAlbumMetadata
 		$this->{coverarturl} = $row->{coverarturl};
 		$this->{asin} = $row->{asin};
 	} else {
-		warn "No albummeta row for album #".$this->GetId."\n";
+		cluck "No albummeta row for album #".$this->GetId;
 		delete @$this{qw( trackcount discidcount trmidcount puidcount firstreleasedate )};
 		return 0;
 	}
@@ -588,7 +589,7 @@ sub GetTrmidCount
 
    return $this->{trmidcount};
 }
-# Returns the number of PUID ids for this album or undef on error
+# Returns the number of PUIDs for this album or undef on error
 sub GetPuidCount
 {
    my ($this) = @_;

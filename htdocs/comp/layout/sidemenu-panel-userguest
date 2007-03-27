@@ -35,6 +35,8 @@
 				<a title="Register a new account" href="/user/register.html">Create account</a></li>
 			<li>
 				<a title="Retrieve a lost password" href="/user/forgot-password.html">Forgot Password</a></li>
+			<li>
+				<a title="Make a donation" href="http://metabrainz.org/donate">Donate!</a></li>
 		</ul>
 	</div>
 

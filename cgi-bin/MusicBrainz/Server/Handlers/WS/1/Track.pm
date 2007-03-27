@@ -134,7 +134,6 @@ sub handler
         return Apache::Constants::NOT_FOUND();
     }
 
-    $r->status(Apache::Constants::OK());
 	return Apache::Constants::OK();
 }
 
@@ -260,7 +259,6 @@ sub handler_post
         return NOT_FOUND;
     }
 
-    $r->status(OK);
 	return OK;
 }
 
@@ -341,7 +339,7 @@ sub print_xml_post
         {
             print STDERR "Cannot insert PUID: $@\n";
             $sql->Rollback;
-            die("Cannot write PUID Ids to database.\n")
+            die("Cannot write PUIDs to database.\n")
         }
     }
 

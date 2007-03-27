@@ -78,6 +78,12 @@
 	# prepare release object
 	my $release = Album->new($mb->{DBH});
 	$release->SetId(0);
+	# Hack.  Maybe $release->SetAlbumMeta(...) would be a better method
+	$release->{trackcount} = 0;
+	$release->{discidcount} = 0;
+	$release->{trmidcount} = 0;
+	$release->{puidcount} = 0;
+
 	$release = $m->comp("/comp/loadrelease", $mb, $releaseid)
 		if (defined $releaseid && MusicBrainz::Server::Validation::IsNonNegInteger($releaseid) && $releaseid);
 

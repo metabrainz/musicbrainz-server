@@ -119,6 +119,7 @@ sub _GetNameCacheKey
 sub InvalidateCache
 {
 	my $self = shift;
+	require MusicBrainz::Server::Cache;
 	MusicBrainz::Server::Cache->delete($self->_GetIdCacheKey($self->GetId));
 	MusicBrainz::Server::Cache->delete($self->_GetNameCacheKey($self->GetName));
 }
@@ -138,6 +139,7 @@ sub newFromId
 	my $uid = shift;
 
 	my $key = $this->_GetIdCacheKey($uid);
+	require MusicBrainz::Server::Cache;
 	my $obj = MusicBrainz::Server::Cache->get($key);
 
 	if ($obj)
@@ -172,6 +174,7 @@ sub newFromName
 	my $name = shift;
 
 	my $key = $this->_GetNameCacheKey($name);
+	require MusicBrainz::Server::Cache;
 	my $obj = MusicBrainz::Server::Cache->get($key);
 
 	if ($obj)
@@ -349,6 +352,7 @@ sub CreateLogin
 				);
 
 				my $uid = $sql->GetLastInsertId("Moderator");
+				require MusicBrainz::Server::Cache;
 				MusicBrainz::Server::Cache->delete($this->_GetIdCacheKey($uid));
 
 				# No need to flush the by-name cache: this newFromId call will fill in
@@ -396,7 +400,7 @@ sub LookupNameByEmail
 	my ($this, $email) = @_;
 	my $sql = Sql->new($this->{DBH});
 
-	return $sql->SelectSingleValue(
+	return $sql->SelectSingleColumnArray(
 		"SELECT name
 		FROM	moderator
 		WHERE	email = ?",

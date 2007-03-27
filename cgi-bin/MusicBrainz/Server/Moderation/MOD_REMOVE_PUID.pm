@@ -30,7 +30,7 @@ package MusicBrainz::Server::Moderation::MOD_REMOVE_PUID;
 use ModDefs;
 use base 'Moderation';
 
-sub Name { "Remove PUID ID" }
+sub Name { "Remove PUID" }
 (__PACKAGE__)->RegisterHandler;
 
 sub PreInsert

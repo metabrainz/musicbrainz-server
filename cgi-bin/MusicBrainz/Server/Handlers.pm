@@ -307,7 +307,7 @@ sub auto_detect_taggers
 	my $recent = MusicBrainz::Server::Cache->get($key) || "";
 	{ no warnings; $recent = $tag . substr($recent, 0, 49) };
 	MusicBrainz::Server::Cache->set($key, $recent, 3600);
-	print "history for $ip = $recent\n";
+	# print "history for $ip = $recent\n";
 
 	if ($recent =~ /^[IT]{32}/
 		and $recent =~ tr/I// >= 10

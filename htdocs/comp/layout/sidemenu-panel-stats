@@ -55,7 +55,7 @@
 		 [ "Labels", $stats{'count.label'} ],
 		 [ "Links", $stats{'count.ar.links'} ],
 		 [ "Disc IDs", $stats{'count.discid'} ],
-		 [ "PUID IDs", $stats{'count.puid'} ],
+		 [ "PUIDs", $stats{'count.puid'} ],
 		 [ "TRM IDs", $stats{'count.trm'} ],
 		 [ "Edits", $stats{'count.moderation'} ],
 		 [ "Editors", $stats{'count.moderator'} ])

@@ -44,7 +44,7 @@ eval {
 	$sql->Begin;
 
 	my $users = $sql->SelectListOfLists(
-		"SELECT id, name FROM moderator WHERE email = ?", $email,
+		"SELECT id, name FROM moderator WHERE LOWER(email) = LOWER(?)", $email,
 	);
 
 	if (@$users)

@@ -52,19 +52,9 @@
 			NAME => "Primary server (HTTP)",
 		},
 		{
-			KEYS => [qw( nl )],
-			URL => "ftp://ftp.nl.musicbrainz.org/",
-			NAME => "Netherlands (FTP)",
-			MUNGE => sub {
-				my $t = $_[0];
-				$t =~ s[^pub/musicbrainz/][];
-				$t;
-			},
-		},
-		{
-			KEYS => [qw( au )],
-			URL => "ftp://ftp.au.musicbrainz.org/",
-			NAME => "Australia (FTP)",
+			KEYS => [qw( uk )],
+			URL => "http://ftp.uk.musicbrainz.org/",
+			NAME => "United Kingdom (FTP)",
 		},
 	);
 

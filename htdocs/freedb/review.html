@@ -78,7 +78,11 @@
 	$release->SetId(0);
 	$release->SetArtist(0);
 	$release->SetName($releasename);
+	# Hack.  Maybe $release->SetAlbumMeta(...) would be a better method
 	$release->{trackcount} = (@t);
+	$release->{discidcount} = 1;
+	$release->{trmidcount} = 0;
+	$release->{puidcount} = 0;
 
 </%perl>
 
@@ -196,7 +200,11 @@
 	$release->SetArtist(&ModDefs::VARTIST_ID);
 	$release->SetName($releasename);
 	$release->HasMultipleTrackArtists(1);
+	# Hack.  Maybe $release->SetAlbumMeta(...) would be a better method
 	$release->{trackcount} = (@t);
+	$release->{discidcount} = 1;
+	$release->{trmidcount} = 0;
+	$release->{puidcount} = 0;
 
 	my $btnimport = "Import as various artists &raquo;";
 	if ($args{"tomac-failed"})

@@ -93,6 +93,7 @@
 				{ url => "/doc/PicardTutorial" },
 				{ url => "/doc/PicardQuickStart" },
 			{ name => "Magic Tagger",			url => "/doc/MagicTagger" },
+			{ name => "Jaikoz MP3 Tag Editor",			url => "/doc/JaikozMP3TagEditor" },
 			{ name => "libmusicbrainz",	url => "/doc/libmusicbrainz" },
 			[
 				{ url => "/doc/libmusicbrainzDownload" },

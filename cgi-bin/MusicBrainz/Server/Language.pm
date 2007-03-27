@@ -58,6 +58,7 @@ sub newFromId
 	my $id = shift;
 
 	my $key = $self->_GetIdCacheKey($id);
+	require MusicBrainz::Server::Cache;
 	my $obj = MusicBrainz::Server::Cache->get($key);
 
 	if ($obj)
@@ -96,6 +97,7 @@ sub All
 	my $include = $opts{'include'};
 
 	my $key = $self->_GetAllCacheKey;
+	require MusicBrainz::Server::Cache;
 	my $obj = MusicBrainz::Server::Cache->get($key);
 
 	if ($obj)

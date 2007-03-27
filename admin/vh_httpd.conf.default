@@ -68,6 +68,10 @@
 	RewriteRule	^/tagger/faq.html(.*)$			/doc/ClassicTaggerFAQ$1 [R=301]	
 	RewriteRule	^/tagger/download.html(.*)$		/doc/ClassicTaggerDownload$1 [R=301]	
 
+	RewriteRule ^/products/tunepimp/index.html$ /doc/libtunepimp [R=301]
+	RewriteRule ^/products/tunepimp$            /doc/libtunepimp [R=301]
+	RewriteRule ^/products/tunepimp/download.html$  /doc/libtunepimpDownload [R=301]
+
 	# --------------------------------------------------------------------
 	# Pages moved in XHTML1.1 release
 	# --------------------------------------------------------------------

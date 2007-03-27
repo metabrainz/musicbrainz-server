@@ -50,7 +50,9 @@
 		<tr>
 			<td class="lbl">New:</td>
 %			my $new = $this->{'new_unpacked'};
-%			my ($type, $status) = map { Album->GetAttributeName($_) || "#$_" } split ',', $new->{Attributes};
+%			my ($type, $status) = map {
+%				$_ ? (Album->GetAttributeName($_) || "#$_") : "?"
+%			} Album->GetReleaseTypeAndStatus([ split /,/, $new->{Attributes} ]);
 			<td class="field">Type: <% $type || '?' %>, Status: <% $status || '?' %></td>
 		</tr>
 	</table>

@@ -116,7 +116,7 @@
 %		# call the dom manipulation routines before body.OnLoad
 %		# See comments in domloaded.js
 		<script type="text/javascript" src="/scripts/domloaded.js"></script>
-
+        <& /comp/layout/analytics &>
 	</body>
 </html>
 

@@ -385,6 +385,8 @@ for(;;)
     $data = $parser->Extract($currentURI, $rdfquery);
     $data = undef if (defined $data && $data eq '');
     $data = "" if (defined $data && $data eq "__NULL__");
+	require Encode;
+	$data = Encode::encode("utf-8", $data);
     #print STDERR "'$rdfquery' ->\n'$data'\n\n" if defined $data;
     push @queryargs, $data;
     $rdfquery = undef;

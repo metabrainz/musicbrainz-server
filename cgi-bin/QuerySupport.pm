@@ -691,7 +691,7 @@ sub TrackInfoFromTRMId
    my ($sql, @ids, $query);
 
     my $ip = eval { Apache->request->connection->remote_ip } || "?";
-    lprint "trmlookup", "begin trm=$id ip=$ip";
+    lprint "trmlookup", "begin trm=".($id||'')." ip=$ip";
 
    return $rdf->ErrorRDF("No trm id given.")
       if (!defined $id || $id eq '');

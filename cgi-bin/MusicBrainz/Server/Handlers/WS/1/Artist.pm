@@ -103,7 +103,6 @@ sub handler
         return Apache::Constants::NOT_FOUND();
     }
 
-    $r->status(Apache::Constants::OK());
 	return Apache::Constants::OK();
 }
 

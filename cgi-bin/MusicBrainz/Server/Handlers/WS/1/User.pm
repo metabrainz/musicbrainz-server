@@ -77,7 +77,6 @@ sub handler
         return NOT_FOUND;
     }
 
-    $r->status(OK);
 	return OK;
 }
 

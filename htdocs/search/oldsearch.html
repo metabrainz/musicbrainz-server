@@ -53,41 +53,46 @@
 	use SearchEngine qw( :constants );
 
 	# Initialise Engine, then carry out the search.
-	my $engine = SearchEngine->new($mb->{DBH}, $session{"as_type"} eq "release" ? "album" : $session{"as_type"});
-	$engine->Search(
-		query => $session{"as_query"},
-		limit => $session{"as_limit"},
-	);
+	my $engine;
 
-	if ($engine->Rows == 1)
+	if ($session{"as_type"} =~ /\A(artist|release|track)\z/)
 	{
-		my ($row, $url);
-		$row = $engine->NextRow;
-		if ($session{"as_type"} eq "release")
+		$engine = SearchEngine->new($mb->{DBH}, $session{"as_type"} eq "release" ? "album" : $session{"as_type"});
+		$engine->Search(
+			query => $session{"as_query"},
+			limit => $session{"as_limit"},
+		);
+
+		if ($engine->Rows == 1)
 		{
-			$url = "/show/release/?releaseid=$row->{'albumid'}";
-		}
-		elsif ($session{"as_type"} eq "artist")
-		{
-			$url = "/show/artist/?artistid=$row->{'artistid'}";
-		}
-		elsif ($session{"as_type"} eq "track")
-		{
-			$url = "/show/track/?trackid=$row->{'trackid'}";
-		}
-		elsif ($session{"as_type"} eq "label")
-		{
-			$url = "/show/label/?labelid=$row->{'labelid'}";
-		}
-		if (defined $url)
-		{
-			$r->method('GET');
-			$r->headers_in->unset('Content-length');
-			$r->content_type('text/html');
-			$r->header_out(Location => $url);
-			$r->status(302);
-			$mb->Logout();
-			return undef;
+			my ($row, $url);
+			$row = $engine->NextRow;
+			if ($session{"as_type"} eq "release")
+			{
+				$url = "/show/release/?releaseid=$row->{'albumid'}";
+			}
+			elsif ($session{"as_type"} eq "artist")
+			{
+				$url = "/show/artist/?artistid=$row->{'artistid'}";
+			}
+			elsif ($session{"as_type"} eq "track")
+			{
+				$url = "/show/track/?trackid=$row->{'trackid'}";
+			}
+			elsif ($session{"as_type"} eq "label")
+			{
+				$url = "/show/label/?labelid=$row->{'labelid'}";
+			}
+			if (defined $url)
+			{
+				$r->method('GET');
+				$r->headers_in->unset('Content-length');
+				$r->content_type('text/html');
+				$r->header_out(Location => $url);
+				$r->status(302);
+				$mb->Logout();
+				return undef;
+			}
 		}
 	}
 
@@ -98,7 +103,15 @@
 %	if ($session{"as_query"} ne "")
 %	{
 
-%		if ($engine->Result == SEARCHRESULT_NOQUERY)
+%		if (!$engine)
+%		{
+
+		<& /comp/tablebegin, title => "Unsupported search type" &>
+			Sorry, that search type is not supported as a direct search.
+		<& /comp/tableend &>
+
+%		}
+%		elsif ($engine->Result == SEARCHRESULT_NOQUERY)
 %		{
 
 		<& /comp/tablebegin, title => "Nothing to search for!" &>
