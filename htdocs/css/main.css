@@ -814,7 +814,7 @@ table.topmods tr.header td {
 	font-weight: bold;
 }
 
-table.topmods tr td { 
+table.topmods tr td, table.topmods tr th { 
 	padding: 0.2em; 
 	border: 1px solid #999;
 }
@@ -829,8 +829,19 @@ table.topmods tr td.topmodsnum {
 	width: 7em;
 }
 
-table.topmods tr.topmodseven { 
+table.topmods tr.topmodseven, table.topmods th.topmodseven, table.topmods td.topmodseven { 
 	background-color: #eee; color: #000; 
+}
+
+table.topmods th.subheader { 
+	background-color: #ccc; color: #000; 
+}
+
+a.superscript,
+span.superscript {
+	vertical-align: super;
+	font-weight: normal;
+	font-size: 8px;
 }
 
 table.topmods tr.topmodsnone { 

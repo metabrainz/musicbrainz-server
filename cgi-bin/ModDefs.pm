@@ -253,5 +253,96 @@ sub _hash
 	\%h;
 }
 
+# Moderation DataQuality level categories
+use constant CAT_NONE		=> 0;
+use constant CAT_ARTIST	=> 1;
+use constant CAT_RELEASE	=> 2;
+use constant CAT_DEPENDS	=> 3;
+
+# Moderation DataQuality level category header titles
+my %ModCategoryTitles = (
+	CAT_ARTIST	. "" => "Artist Level Dependent Edits",
+	CAT_RELEASE	. "" => "Release Level Dependent Edits",
+	CAT_DEPENDS	. "" => "Circumstantial Level Dependent Edits",
+	CAT_NONE	. "" => "Level Independent Edits"
+);
+
+# DataQuality level moderations catogorization
+my %ModCategories = (
+	MOD_ADD_ALBUM				. "" => {'category' => CAT_ARTIST, 'criteria' => ""},
+	MOD_ADD_ALBUM_ANNOTATION	. "" => {'category' => CAT_RELEASE, 'criteria' => ""},
+	MOD_ADD_ARTIST				. "" => {'category' => CAT_NONE, 'criteria' => ""},
+	MOD_ADD_ARTISTALIAS			. "" => {'category' => CAT_ARTIST, 'criteria' => ""},
+	MOD_ADD_ARTIST_ANNOTATION	. "" => {'category' => CAT_ARTIST, 'criteria' => ""},
+	MOD_ADD_DISCID				. "" => {'category' => CAT_RELEASE, 'criteria' => ""},
+	MOD_ADD_LABEL				. "" => {'category' => CAT_NONE, 'criteria' => ""},
+	MOD_ADD_LABELALIAS			. "" => {'category' => CAT_NONE, 'criteria' => ""},
+	MOD_ADD_LABEL_ANNOTATION	. "" => {'category' => CAT_NONE, 'criteria' => ""},
+	MOD_ADD_LINK				. "" => {'category' => CAT_DEPENDS, 'criteria' => ""},
+	MOD_ADD_LINK_ATTR			. "" => {'category' => CAT_DEPENDS, 'criteria' => ""},
+	MOD_ADD_LINK_TYPE			. "" => {'category' => CAT_DEPENDS, 'criteria' => ""},
+	MOD_ADD_PUIDS				. "" => {'category' => CAT_DEPENDS, 'criteria' => ""},
+	MOD_ADD_RELEASEEVENTS		. "" => {'category' => CAT_RELEASE, 'criteria' => ""},
+	MOD_ADD_TRACK				. "" => {'category' => CAT_DEPENDS, 'criteria' => ""},
+	MOD_ADD_TRACK_ANNOTATION	. "" => {'category' => CAT_DEPENDS, 'criteria' => ""},
+	MOD_ADD_TRACK_KV			. "" => {'category' => CAT_DEPENDS, 'criteria' => ""},
+	MOD_ADD_TRMS				. "" => {'category' => CAT_DEPENDS, 'criteria' => ""},
+	MOD_CHANGE_ARTIST_QUALITY 	. "" => {'category' => CAT_ARTIST, 'criteria' => ""},
+	MOD_CHANGE_RELEASE_QUALITY	. "" => {'category' => CAT_RELEASE, 'criteria' => ""},
+	MOD_CHANGE_TRACK_ARTIST		. "" => {'category' => CAT_DEPENDS, 'criteria' => "Highest level of release, current artist or new artist"},
+	MOD_CHANGE_WIKIDOC			. "" => {'category' => CAT_NONE, 'criteria' => ""},
+	MOD_EDIT_ALBUM_LANGUAGE		. "" => {'category' => CAT_RELEASE, 'criteria' => ""},
+	MOD_EDIT_ALBUMATTRS			. "" => {'category' => CAT_RELEASE, 'criteria' => ""},
+	MOD_EDIT_ALBUMNAME			. "" => {'category' => CAT_RELEASE, 'criteria' => ""},
+	MOD_EDIT_ARTIST				. "" => {'category' => CAT_ARTIST, 'criteria' => ""},
+	MOD_EDIT_ARTISTALIAS		. "" => {'category' => CAT_ARTIST, 'criteria' => ""},
+	MOD_EDIT_ARTISTNAME			. "" => {'category' => CAT_ARTIST, 'criteria' => ""},
+	MOD_EDIT_ARTISTSORTNAME 	. "" => {'category' => CAT_ARTIST, 'criteria' => ""},
+	MOD_EDIT_LABEL				. "" => {'category' => CAT_NONE, 'criteria' => ""},
+	MOD_EDIT_LABELALIAS 		. "" => {'category' => CAT_NONE, 'criteria' => ""},
+	MOD_EDIT_LINK				. "" => {'category' => CAT_DEPENDS, 'criteria' => ""},
+	MOD_EDIT_LINK_ATTR			. "" => {'category' => CAT_DEPENDS, 'criteria' => ""},
+	MOD_EDIT_LINK_TYPE			. "" => {'category' => CAT_DEPENDS, 'criteria' => ""},
+	MOD_EDIT_RELEASES			. "" => {'category' => CAT_RELEASE, 'criteria' => ""},
+	MOD_EDIT_RELEASEEVENTS		. "" => {'category' => CAT_RELEASE, 'criteria' => ""},
+	MOD_EDIT_TRACKNAME			. "" => {'category' => CAT_RELEASE, 'criteria' => ""},
+	MOD_EDIT_TRACKNUM			. "" => {'category' => CAT_RELEASE, 'criteria' => ""},
+	MOD_EDIT_TRACKTIME			. "" => {'category' => CAT_RELEASE, 'criteria' => ""},
+	MOD_EDIT_URL 				. "" => {'category' => CAT_DEPENDS, 'criteria' => ""},
+	MOD_MAC_TO_SAC				. "" => {'category' => CAT_DEPENDS, 'criteria' => "Highest level of release, one of the current artists or new artist"},
+	MOD_MERGE_ALBUM 			. "" => {'category' => CAT_DEPENDS, 'criteria' => "Highest level of release or new artist"},
+	MOD_MERGE_ALBUM_MAC 		. "" => {'category' => CAT_DEPENDS, 'criteria' => "Highest level of release, one of the current artists or one of the new artists"},
+	MOD_MERGE_ARTIST 			. "" => {'category' => CAT_ARTIST, 'criteria' => "Level of artist with highest level"},
+	MOD_MERGE_LABEL				. "" => {'category' => CAT_NONE, 'criteria' => ""},
+	MOD_MOVE_ALBUM				. "" => {'category' => CAT_DEPENDS, 'criteria' => "Highest level of release, current artist or new artist"},
+	MOD_MOVE_DISCID 			. "" => {'category' => CAT_RELEASE, 'criteria' => "Level of release with highest level"},
+	MOD_REMOVE_ALBUM 			. "" => {'category' => CAT_RELEASE, 'criteria' => ""},
+	MOD_REMOVE_ALBUMS			. "" => {'category' => CAT_RELEASE, 'criteria' => ""},
+	MOD_REMOVE_ARTIST			. "" => {'category' => CAT_ARTIST, 'criteria' => ""},
+	MOD_REMOVE_ARTISTALIAS		. "" => {'category' => CAT_ARTIST, 'criteria' => ""},
+	MOD_REMOVE_DISCID			. "" => {'category' => CAT_RELEASE, 'criteria' => ""},
+	MOD_REMOVE_LABEL			. "" => {'category' => CAT_NONE, 'criteria' => ""},
+	MOD_REMOVE_LABELALIAS		. "" => {'category' => CAT_NONE, 'criteria' => ""},
+	MOD_REMOVE_LINK				. "" => {'category' => CAT_DEPENDS, 'criteria' => ""},
+	MOD_REMOVE_LINK_ATTR		. "" => {'category' => CAT_DEPENDS, 'criteria' => ""},
+	MOD_REMOVE_LINK_TYPE		. "" => {'category' => CAT_DEPENDS, 'criteria' => ""},
+	MOD_REMOVE_PUID				. "" => {'category' => CAT_DEPENDS, 'criteria' => ""},
+	MOD_REMOVE_RELEASEEVENTS	. "" => {'category' => CAT_RELEASE, 'criteria' => ""},
+	MOD_REMOVE_TRACK			. "" => {'category' => CAT_RELEASE, 'criteria' => ""},
+	MOD_REMOVE_TRMID			. "" => {'category' => CAT_DEPENDS, 'criteria' => ""},
+	MOD_SAC_TO_MAC				. "" => {'category' => CAT_DEPENDS, 'criteria' => "Highest level of release, current artist or one of the new artists"},
+	MOD_SET_RELEASE_DURATIONS	. "" => {'category' => CAT_RELEASE, 'criteria' => ""}
+);
+
+sub GetModCategories
+{
+    return %ModCategories;
+}
+
+sub GetModCategoryTitle
+{
+    return $ModCategoryTitles{$_[0]};
+}
+
 1;
 # eof ModDefs.pm
