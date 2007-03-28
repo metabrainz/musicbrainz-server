@@ -308,7 +308,7 @@
 	<& /comp/form/numberfield, type => "dayfield", name => "d" . $rel->{"id"},
 		cssclass => $datecss, tabindex => ++$tabindex, value => $rel->{day} || '', size => 2, maxlength => 2 &></td>
 <td>
-	<select name="country<% $rel->{"id"} %>" class="country">
+	<select name="country<% $rel->{"id"} %>" class="country" tabindex="<% ++$tabindex %>">
 		<& /comp/options, ($rel->{country} ? $countries_menu : $countries_menu_2), $rel->{country} &>
 	</select></td>
 <td>
@@ -323,12 +323,12 @@
 	<& /comp/form/numberfield, type => "shorttxtfield", name => "barcode" . $rel->{"id"},
 		tabindex => ++$tabindex, value => $rel->{barcode} || '', size => 12, maxlength => 255 &></td>
 <td>
-	<select name="format<% $rel->{"id"} %>" style="width: 9em">
+	<select name="format<% $rel->{"id"} %>" style="width: 9em" tabindex="<% ++$tabindex %>">
 		<& /comp/options, $formats_menu, $rel->{format} &>
 	</select></td>
 <td align="center">
 	<input type="checkbox" name="releasedel<% $rel->{"id"} %>" value="1" <% $rel->{'delete'} ? "checked" : "" %>
-		title="Active this checkbox to remove this release event" /></td>
+		title="Active this checkbox to remove this release event" tabindex="<% ++$tabindex %>" /></td>
 </tr>
 % 	}
 
