@@ -658,10 +658,6 @@ table.releaseevents table.eventslist {
 	border-collapse: collapse; 
 }
 
-table.releaseevents table.eventslist th {
-	text-align: left;
-}
-
 table.releaseevents table.eventslist th,
 table.releaseevents table.eventslist td { 
 	border: none; 

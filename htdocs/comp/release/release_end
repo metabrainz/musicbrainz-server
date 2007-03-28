@@ -127,12 +127,12 @@
 
 				<table class="eventslist">
 					<tr>
-						<th>Date:</th>
-						<th>Country:</th>
-						<th>Label:</th>
-						<th>Catalog #:</th>
-						<th>Barcode:</th>
-						<th>Format:</th>
+						<th>Date</th>
+						<th>Country</th>
+						<th>Label</th>
+						<th>Catalog #</th>
+						<th>Barcode</th>
+						<th>Format</th>
 					</tr>
 
 %			my $first = 1;
