@@ -63,8 +63,8 @@ sub PreInsert
 	my $cdtoc = $opts{'cdtoc'} or die;
 	my $oldrelease = $opts{album} or die;
 
-	require AlbumCDTOC;
-	my $alcdtoc = AlbumCDTOC->newFromAlbumAndCDTOC($self->{DBH}, $oldrelease, $cdtoc->GetId);
+	require MusicBrainz::Server::AlbumCDTOC;
+	my $alcdtoc = MusicBrainz::Server::AlbumCDTOC->newFromAlbumAndCDTOC($self->{DBH}, $oldrelease, $cdtoc->GetId);
 	if (not $alcdtoc)
 	{
 		$self->SetError("Old album / CD TOC not found");

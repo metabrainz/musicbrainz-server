@@ -40,9 +40,11 @@ sub PreInsert
 	my $al = $opts{'album'} or die; # object
 	my $toc = $opts{'toc'} or die; # string
 
+	require MusicBrainz::Server::AlbumCDTOC;
+
 	my $added;
 	my $tocid;
-	my $rowid = AlbumCDTOC->Insert(
+	my $rowid = MusicBrainz::Server::AlbumCDTOC->Insert(
 		$self->{DBH}, $al, $toc,
 		added => \$added,
 		tocid => \$tocid,
@@ -119,9 +121,9 @@ sub DeniedAction
 {
 	my $self = shift;
 
-	require AlbumCDTOC;
+	require MusicBrainz::Server::AlbumCDTOC;
 
-	my $alcdtoc = AlbumCDTOC->newFromId($self->{DBH}, $self->GetRowId);
+	my $alcdtoc = MusicBrainz::Server::AlbumCDTOC->newFromId($self->{DBH}, $self->GetRowId);
 	if (not $alcdtoc)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This disc ID has already been removed");
