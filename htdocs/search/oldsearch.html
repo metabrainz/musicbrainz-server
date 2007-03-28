@@ -55,7 +55,7 @@
 	# Initialise Engine, then carry out the search.
 	my $engine;
 
-	if ($session{"as_type"} =~ /\A(artist|release|track)\z/)
+	if ($session{"as_type"} =~ /\A(artist|label|release|track)\z/)
 	{
 		$engine = SearchEngine->new($mb->{DBH}, $session{"as_type"} eq "release" ? "album" : $session{"as_type"});
 		$engine->Search(

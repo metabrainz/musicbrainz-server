@@ -79,7 +79,7 @@
 				<td class="label">
 					<label for="id_qs_label" title="Search for a label">Label:</label></td>
 				<td>
-					<form method="get" action="/search/oldsearch.html" id="id_qs_label_form">
+					<form method="get" action="/search/textsearch.html" id="id_qs_label_form">
 						<div>
 							<input class="searchfield" type="text" name="query" id="id_qs_label"
 								value="" />

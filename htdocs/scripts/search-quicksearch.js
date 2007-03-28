@@ -26,7 +26,7 @@ function QuickSearch() {
 	 * Handles a click on the old search checkbox.
 	 */
 	this.onOldSearchToggle = function(el) {
-		var types = ["artist", "release", "track"];
+		var types = ["artist", "release", "track", "label"];
 		for (type in types) {
 			if ((obj = mb.ui.get("id_qs_"+types[type]+"_form")) != null) {
 				obj.action = el.checked ? "/search/oldsearch.html" : "/search/textsearch.html";
@@ -57,6 +57,11 @@ function QuickSearch() {
 			};
 		}
 		if ((obj = mb.ui.get("id_qs_release")) != null) {
+			obj.onkeydown = function (ev) {
+				if (window.event && window.event.keyCode == 13) { this.form.submit(); }
+			};
+		}
+		if ((obj = mb.ui.get("id_qs_track")) != null) {
 			obj.onkeydown = function (ev) {
 				if (window.event && window.event.keyCode == 13) { this.form.submit(); }
 			};
