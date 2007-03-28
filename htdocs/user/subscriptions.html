@@ -79,9 +79,9 @@
 </%perl>
 
 
-<& /comp/sidebar-notitle, pagetitle => "Your Artist subscriptions" &>
+<& /comp/sidebar-notitle, pagetitle => "Your Artist and Label Subscriptions" &>
 
-	<& /comp/tablebegin, title => "Your Artist subscriptions" &>
+	<& /comp/tablebegin, title => "Your Artist and Label Subscriptions" &>
 
 		<table class="formstyle">
 			<tr class="top">
@@ -127,11 +127,13 @@
 %	else
 %	{
 
-					You are currently subscribed to <% (@$info == 1) ? "this artist" :
-					"these <strong>".scalar(@$info)."</strong> artists" |n %>. To
-					unsubscribe, activate the checkbox next to the artists you would
+					You are currently subscribed to
+					<% (@$info == 1) ? "this artist" : (@$info == 0 ? "no artists" : "these <strong>".scalar(@$info)."</strong> artists") |n %>
+					and
+					<% (@$labels == 1) ? "this label" : (@$labels == 1 ? "no labels" : "these <strong>".scalar(@$labels)."</strong> labels") |n %>. To
+					unsubscribe, activate the checkbox next to the artists or labels you would
 					like to unsubscribe from, then click the button below. To subscribe
-					to an artist, use the "Subscribe" link on the artist's page.
+					to an artist or a label, use the "Subscribe" link on the artist's or label's page.
 %	}
 
 
