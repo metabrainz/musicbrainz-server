@@ -95,7 +95,7 @@
 			MusicBrainz::Server::Validation::NormaliseSortText($_->GetName) eq $norm_name
 		} @$labels;
 		
-		if ($labelcode) {
+		if ($labelcode && MusicBrainz::Server::Validation::IsValidLabelCode($labelcode)) {
 			$labels = $label->GetLabelsFromCode($labelcode);
 			push @dupes, @$labels;
 		}
