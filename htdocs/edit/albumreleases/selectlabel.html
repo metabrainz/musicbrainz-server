@@ -72,6 +72,7 @@
 			if (defined $submit_select and defined $selected_label) 
 			{
 				$rel->{label} = $selected_label;
+				$rel->{orig_labelname} = $rel->{labelname};
 				$selected_label = undef;
 				$search = undef;
 			}
