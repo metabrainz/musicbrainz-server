@@ -195,14 +195,15 @@
 				<th>Artist</th>
 				<th>Title</th>
 			</td>
+%			my $rownum = 0;
 %			for my $album (@albums)
 %			{
 %				&$CheckAttributes($album);
-<tr>
+<tr class="<% ('ev', 'od')[(++$rownum) % 2] %>">
 %				my $amp = $album->GetAttributeModPending;
 %				my $nmp = $album->GetModPending;
 %				if ($album->GetTrackCount) {
-<td class="trk"><% $album->GetTrackCount %> <img src="/images/notes.gif" alt="Tracks" /></td>
+<td class="trk"><% $album->GetTrackCount %>&nbsp;<img src="/images/notes.gif" alt="Tracks" /></td>
 %				} else {
 <td></td>
 %				}
