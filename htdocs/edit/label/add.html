@@ -96,7 +96,7 @@
 		} @$labels;
 		
 		if ($labelcode) {
-			$labels = $label->GetLabelsFromCode();
+			$labels = $label->GetLabelsFromCode($labelcode);
 			push @dupes, @$labels;
 		}
 	}
