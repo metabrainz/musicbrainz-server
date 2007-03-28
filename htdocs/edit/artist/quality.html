@@ -121,21 +121,21 @@
 					<td>&nbsp;</td>
 					<td class="notetext">
 %                       if ($quality != &ModDefs::QUALITY_LOW) {
-                            <input type="radio" name="level" value="<% &ModDefs::QUALITY_LOW %>">
-                            <% ModDefs::GetQualityText(&ModDefs::QUALITY_LOW) %> -- 
+                            <input type="radio" name="level" value="<% &ModDefs::QUALITY_LOW %>" />
+                            <strong><% ModDefs::GetQualityText(&ModDefs::QUALITY_LOW) %></strong> &mdash;
                             this quality level generally requires fewer votes and a shorter voting period and 
                             should be used for artists that require a lot of cleanup.
                             This level makes it easy to change information for this artist.<br/>
 %					    }
 %                       if ($quality != &ModDefs::QUALITY_NORMAL) {
-					 	    <input type="radio" name="level" value="<% &ModDefs::QUALITY_NORMAL %>">
-                            <% ModDefs::GetQualityText(&ModDefs::QUALITY_NORMAL) %> -- 
+					 	    <input type="radio" name="level" value="<% &ModDefs::QUALITY_NORMAL %>" />
+                            <strong><% ModDefs::GetQualityText(&ModDefs::QUALITY_NORMAL) %></strong> &mdash;
                             this quality level requires a normal amount of votes and a normal voting period 
                             and should be used for most artists.<br/>
 %					    }
 %                       if ($quality != &ModDefs::QUALITY_HIGH) {
-                            <input type="radio" name="level" value="<% &ModDefs::QUALITY_HIGH %>">
-                            <% ModDefs::GetQualityText(&ModDefs::QUALITY_HIGH) %> -- 
+                            <input type="radio" name="level" value="<% &ModDefs::QUALITY_HIGH %>" />
+                            <strong><% ModDefs::GetQualityText(&ModDefs::QUALITY_HIGH) %></strong> &mdash;
                             this quality level generally requires more votes and a longer voting period 
                             and should be used with artists whose information is fairly complete. 
                             This level makes it hard to change information for this artist.<br/>

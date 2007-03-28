@@ -44,26 +44,26 @@
 
 			<td class="label">
 				<label for="id_<% $quality_fieldname %>">Quality:</label></td>
-			<td class="field">
+			<td>
 %               if ($quality_curr != &ModDefs::QUALITY_LOW) {
-                    <input type="radio" name="<% $quality_fieldname %>" value="<% &ModDefs::QUALITY_LOW %>">
-                    <b><% ModDefs::GetQualityText(&ModDefs::QUALITY_LOW) %></b> -- 
+                    <input type="radio" name="<% $quality_fieldname %>" value="<% &ModDefs::QUALITY_LOW %>" />
+                    <strong><% ModDefs::GetQualityText(&ModDefs::QUALITY_LOW) %></strong> &mdash;
                     this quality level generally requires fewer votes and a shorter voting period and 
-                    should be used for artists that require a lot of cleanup.
-                    This level makes it easy to change information for this artist.<br/>
+                    should be used for releases that require a lot of cleanup.
+                    This level makes it easy to change information for this release.<br/>
 %				}
 %               if ($quality_curr != &ModDefs::QUALITY_NORMAL) {
-				    <input type="radio" name="<% $quality_fieldname %>" value="<% &ModDefs::QUALITY_NORMAL %>">
-                    <b><% ModDefs::GetQualityText(&ModDefs::QUALITY_NORMAL) %></b> -- 
+				    <input type="radio" name="<% $quality_fieldname %>" value="<% &ModDefs::QUALITY_NORMAL %>" />
+                    <strong><% ModDefs::GetQualityText(&ModDefs::QUALITY_NORMAL) %></strong> &mdash;
                     this quality level requires a normal amount of votes and a normal voting period 
-                    and should be used for most artists.<br/>
+                    and should be used for most relese.<br/>
 %				}
 %               if ($quality_curr != &ModDefs::QUALITY_HIGH) {
-                    <input type="radio" name="<% $quality_fieldname %>" value="<% &ModDefs::QUALITY_HIGH %>">
-                    <b><% ModDefs::GetQualityText(&ModDefs::QUALITY_HIGH) %></b> -- 
+                    <input type="radio" name="<% $quality_fieldname %>" value="<% &ModDefs::QUALITY_HIGH %>" />
+                    <strong><% ModDefs::GetQualityText(&ModDefs::QUALITY_HIGH) %></strong> &mdash;
                     this quality level generally requires more votes and a longer voting period 
-                    and should be used with artists whose information is fairly complete. 
-                    This level makes it hard to change information for this artist.<br/>
+                    and should be used with releases whose information is fairly complete. 
+                    This level makes it hard to change information for this releases.<br/>
 %				}
            </td>
 		</tr>
