@@ -344,11 +344,11 @@ my @EditLevelDefs =
 		                                      name => &MusicBrainz::Server::Moderation::MOD_REMOVE_LABEL::Name() },  
 		MOD_REMOVE_LABELALIAS   	 ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 0,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_REMOVE_LABELALIAS::Name() },  
-		MOD_EDIT_LABEL				 ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 0,  
+		MOD_EDIT_LABEL				 ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_LABEL::Name() },  
 		MOD_MERGE_LABEL         	 ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 0,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_MERGE_LABEL::Name() },  
-		MOD_EDIT_LABELALIAS		    ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 0,  
+		MOD_EDIT_LABELALIAS		    ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_LABELALIAS::Name() },  
 	},
 	{   # high edit level
