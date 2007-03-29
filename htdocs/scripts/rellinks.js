@@ -24,8 +24,10 @@ function RelLinks()
 		this.nameInput = INPUT({'style': 'width: 200px;'});
 		this.ajaxSelectId = jsselect.registerAjaxSelect(this.nameInput, this.type1, function(e) { rellinks.setEntity(e) });
 
+		/*this.titleDiv = DIV({'class': 'ajaxSelectTitle'}, 'Relate to …');*/
 		this.popup = DIV({'style': 'display:none; position:absolute; z-index:100;', 'class': 'ajaxSelect'},
-			DIV(null,
+			/*this.titleDiv,*/
+			DIV({'style': 'padding: 5px;'},
 				this.typeSelect, ' ', this.nameInput),
 			DIV({'class': 'ajaxSelectButtonBox'},
 				this.createButton, ' ', cancelButton));
@@ -44,16 +46,22 @@ function RelLinks()
 	
 	this.showPopup = function(id, type, event)
 	{
-		this.id0 = id;
-		this.id1 = null;
-		this.type0 = type;
-		var element = event.src();
-		var pos = getElementPosition(element);
-		pos.y += getElementDimensions(element).h + 3;
-		setElementPosition(this.popup, pos);
-		showElement(this.popup);
-		this.createButton.disabled = true;
-		event.stop();
+		if (this.popup.style.display != "none") {
+			this.cancel()
+		}
+		else {
+			this.id0 = id;
+			this.id1 = null;
+			this.type0 = type;
+			var element = event.src();
+			var pos = getElementPosition(element);
+			pos.y += getElementDimensions(element).h + 3;
+			setElementPosition(this.popup, pos);
+			showElement(this.popup);
+			/*this.titleDiv.innerHTML = "Relate this " + (type == "album" ? "release" : type) + " to …"*/
+			this.createButton.disabled = true;
+			event.stop();
+		}
 		return false;
 	};
 

@@ -13,7 +13,7 @@ function JsSelect()
 	{
 		lookupButton = BUTTON({}, 'Lookup');
 		connect(lookupButton, 'onclick', this, this.lookup);
-		this.list = DIV();
+		this.list = DIV({'class': 'ajaxSelectContent'});
 		this.selectbox = DIV({'style': 'display:none; position:absolute; z-index:100;', 'class': 'ajaxSelect'},
 			this.list, DIV({'class': 'ajaxSelectButtonBox'}, lookupButton));
 		this.selectbox.onmouseover = function(e) { jsselect.ignoreFocusEvents = true; };
