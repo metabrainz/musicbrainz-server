@@ -6,6 +6,7 @@
 	$annotationtext => undef
 	$changelog => ""
 	$submitvalue => ""
+	$notetext => ""
 </%args>
 
 <%init>
@@ -117,13 +118,17 @@
 							uid	=> $session{uid},
 							privs => $session{privs},
 							type => $self->attr('edittype'),
-# --
+							# --
 							artistid => $self->attr('useartistid') ? $entity->GetArtist() : undef,
 							$entitytype . "id" => $id,
 							text => $annotationtext,
 							changelog => $changelog
 						);
-},
+
+						$mods[0]->InsertNote($session{"uid"}, $notetext)
+							if $mods[0]
+							and $notetext =~ /\S/;
+					},
 					success_url => $url,
 				) or return;
 
@@ -231,6 +236,13 @@
 
 						Enter a description of your changes (optional):<br/>
 						<input name="changelog" type="text" size="60" maxlength="255" <% $disabled %> value="<% $changelog %>" /></td>
+				</tr>
+				<tr class="spaced">
+					<td class="textarea">
+						Enter edit note (optional):<br />
+						<textarea name="notetext" id="notetext" class="textarea"
+							rows="3" cols="52"><% $notetext %></textarea>
+					</td>
 				</tr>
 				<tr>
 					<td class="submitbuttons">
