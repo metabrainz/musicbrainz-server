@@ -101,8 +101,12 @@
 							search queries, please read the <& /comp/linkdoc, "TextSearchSyntax",
 							"text search syntax" &> document.</li>
 
+%						if ($session{"as_type"} eq "label") {
+						<li>Please consider <a href="/edit/label/add.html?initial_name=<% uri_escape($session{"as_query"}) %>">adding a new label</a>.</li>
+%						} else {
 						<li>Please consider <a href="/freedb/freedb.html?search=<% uri_escape($session{"as_query"}) %>"
 							>importing</a> the artist/release/track(s) you are looking for from freedb.</li>
+%						}
 					</ul>
 				<& /comp/tableend &>
 
