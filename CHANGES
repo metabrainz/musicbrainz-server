@@ -1,7 +1,7 @@
 Release 2007-XX-XX:
 
  * New Features:
-   * Labels, catalog numbers and barcodes.
+   * Labels, catalog numbers, barcodes and release formats.
      http://wiki.musicbrainz.org/Label
    * Data quality.
      http://wiki.musicbrainz.org/DataQuality
@@ -19,6 +19,9 @@ Release 2007-XX-XX:
    * Updated e-mail templates. (#2247)
    * Added a report to show bad Amazon ASIN URLs. (#2525)
    * Track annotations. (#1259)
+   * Allow adding an edit note from the "Edit annotation" page. (#2150)
+   * Warning on bogus Amazon release date (1990-10-25). (#2500)
+   * Auto-fix Amazon URLs on the 'Edit URL' page. (#2559)
 
  * Bug Fixes:
    * Fixed ':hover' CSS for voting radiobuttons in IE7. (#2352)
