@@ -287,7 +287,10 @@ sub Remove
 		return undef;
 	}
 
-	#$sql->Do("DELETE FROM labelalias WHERE ref = ?", $this->GetId);
+	# Remove relationships
+	require MusicBrainz::Server::Link;
+	my $link = MusicBrainz::Server::Link->new($this->{DBH});
+	$link->RemoveByLabel($this->GetId);
 
 	# Remove references from label words table
 	require SearchEngine;
@@ -300,12 +303,6 @@ sub Remove
 	$this->RemoveGlobalIdRedirect($this->GetId, &TableBase::TABLE_LABEL);
 
 	$sql->Do("DELETE FROM labelalias WHERE ref = ?", $this->GetId);
-	$sql->Do("DELETE FROM l_album_label WHERE link1 = ?", $this->GetId);
-	$sql->Do("DELETE FROM l_artist_label WHERE link1 = ?", $this->GetId);
-	$sql->Do("DELETE FROM l_label_label WHERE link0 = ?", $this->GetId);
-	$sql->Do("DELETE FROM l_label_label WHERE link1 = ?", $this->GetId);
-	$sql->Do("DELETE FROM l_label_track WHERE link0 = ?", $this->GetId);
-	$sql->Do("DELETE FROM l_label_url WHERE link0 = ?", $this->GetId);
 	$sql->Do("DELETE FROM label WHERE id = ?", $this->GetId);
 	$this->InvalidateCache;
 

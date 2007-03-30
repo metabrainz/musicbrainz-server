@@ -514,20 +514,20 @@ sub Remove
     my $puid = PUID->new($this->{DBH});
     $puid->RemoveByTrackId($this->GetId());
 
+	# Remove relationships
+	require MusicBrainz::Server::Link;
+	my $link = MusicBrainz::Server::Link->new($this->{DBH});
+	$link->RemoveByTrack($this->GetId());
+
+	# Remove references from track words table
+	require SearchEngine;
+	my $engine = SearchEngine->new($this->{DBH}, 'track');
+	$engine->RemoveObjectRefs($this->GetId());
+
     $this->RemoveGlobalIdRedirect($this->GetId, &TableBase::TABLE_TRACK);
 
     print STDERR "DELETE: Remove track " . $this->GetId() . "\n";
-    $sql->Do("DELETE FROM l_artist_track WHERE link1 = ?", $this->GetId);
-    $sql->Do("DELETE FROM l_album_track WHERE link1 = ?", $this->GetId);
-    $sql->Do("DELETE FROM l_track_track WHERE link0 = ?", $this->GetId);
-    $sql->Do("DELETE FROM l_track_track WHERE link1 = ?", $this->GetId);
-    $sql->Do("DELETE FROM l_track_url WHERE link0 = ?", $this->GetId);
     $sql->Do("DELETE FROM track WHERE id = ?", $this->GetId);
-
-    # Remove references from track words table
-	require SearchEngine;
-    my $engine = SearchEngine->new($this->{DBH}, 'track');
-    $engine->RemoveObjectRefs($this->GetId());
 
     return 1;
 }

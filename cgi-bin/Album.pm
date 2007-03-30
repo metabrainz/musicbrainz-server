@@ -494,6 +494,11 @@ sub Remove
     }
 	$sql->Finish;
 
+	# Remove relationships
+	require MusicBrainz::Server::Link;
+	my $link = MusicBrainz::Server::Link->new($this->{DBH});
+	$link->RemoveByAlbum($album);
+
     # Remove references from album words table
 	require SearchEngine;
     my $engine = SearchEngine->new($this->{DBH}, 'album');
@@ -505,11 +510,6 @@ sub Remove
     $this->RemoveGlobalIdRedirect($album, &TableBase::TABLE_ALBUM);
 
     print STDERR "DELETE: Removed Album " . $album . "\n";
-    $sql->Do("DELETE FROM l_album_artist WHERE link0 = ?", $album);
-    $sql->Do("DELETE FROM l_album_album WHERE link0 = ?", $album);
-    $sql->Do("DELETE FROM l_album_album WHERE link1 = ?", $album);
-    $sql->Do("DELETE FROM l_album_track WHERE link0 = ?", $album);
-    $sql->Do("DELETE FROM l_album_url WHERE link0 = ?", $album);
     $sql->Do("DELETE FROM album WHERE id = ?", $album);
 
     return 1;

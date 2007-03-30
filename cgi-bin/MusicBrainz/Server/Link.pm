@@ -610,6 +610,75 @@ sub _Merge
 }
 
 ################################################################################
+# Removing
+################################################################################
+
+sub RemoveByAlbum
+{
+	my ($self, $entityid) = @_;
+	$self->_Remove($entityid, "album");
+}
+
+sub RemoveByArtist
+{
+	my ($self, $entityid) = @_;
+	$self->_Remove($entityid, "artist");
+}
+
+sub RemoveByLabel
+{
+	my ($self, $entityid) = @_;
+	$self->_Remove($entityid, "label");
+}
+
+sub RemoveByTrack
+{
+	my ($self, $entityid) = @_;
+	$self->_Remove($entityid, "track");
+}
+
+sub _Remove
+{
+	my ($self, $entityid, $type) = @_;
+
+	my @tables;
+	my @entity_list = MusicBrainz::Server::LinkEntity->Types;
+	foreach my $item (@entity_list)
+	{
+		if ($type eq $item)
+		{
+			push @tables, [ "l_${type}_${type}", $type, $type, "link0" ];
+			push @tables, [ "l_${type}_${type}", $type, $type, "link1" ];
+		}
+		elsif ($type le $item)
+		{
+			push @tables, [ "l_${type}_${item}", $type, $item, "link0" ];
+		}
+		else
+		{
+			push @tables, [ "l_${item}_${type}", $item, $type, "link1" ];
+		}
+	}
+
+	my $sql = Sql->new($self->{DBH});
+	foreach my $row (@tables)
+	{
+		my ($table, $type1, $type2, $link) = @$row;
+		$self->{_table} = $table;
+		$self->{_types} = [$type1, $type2];
+		my $rows = $sql->SelectListOfHashes("SELECT id, link0, link1 FROM $table WHERE $link = ?", $entityid);
+		foreach my $row (@$rows)
+		{
+			$self->SetId($row->{id});
+			$self->{link0} = $row->{link0};
+			$self->{link1} = $row->{link1};
+			$self->Delete();
+		}
+	}
+	$sql->Finish();
+}
+
+################################################################################
 
 sub _link_type_matches_entities
 {

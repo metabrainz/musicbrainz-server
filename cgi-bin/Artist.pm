@@ -322,6 +322,11 @@ sub Remove
 		&ModDefs::DARTIST_ID, $this->GetId,
     );
 
+	# Remove relationships
+	require MusicBrainz::Server::Link;
+	my $link = MusicBrainz::Server::Link->new($this->{DBH});
+	$link->RemoveByArtist($this->GetId);
+
     # Remove references from artist words table
     require SearchEngine;
     my $engine = SearchEngine->new($this->{DBH}, 'artist');
@@ -332,11 +337,6 @@ sub Remove
 
     $this->RemoveGlobalIdRedirect($this->GetId, &TableBase::TABLE_ARTIST);
 
-    $sql->Do("DELETE FROM l_artist_artist WHERE link0 = ?", $this->GetId);
-    $sql->Do("DELETE FROM l_artist_artist WHERE link1 = ?", $this->GetId);
-    $sql->Do("DELETE FROM l_album_artist WHERE link1 = ?", $this->GetId);
-    $sql->Do("DELETE FROM l_artist_track WHERE link0 = ?", $this->GetId);
-    $sql->Do("DELETE FROM l_artist_url WHERE link0 = ?", $this->GetId);
     $sql->Do("DELETE FROM artist WHERE id = ?", $this->GetId);
     $this->InvalidateCache;
 
