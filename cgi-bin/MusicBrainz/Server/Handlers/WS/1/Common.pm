@@ -41,7 +41,7 @@ our @EXPORT = qw(convert_inc bad_req send_response check_types
 
 use Apache::Constants qw( );
 use Apache::File ();
-use Encode;
+use Encode qw( decode encode );
 use Album;
 
 use constant INC_ARTIST       => 0x000001;
@@ -941,7 +941,12 @@ sub xml_search
 sub xml_escape
 {
 	my $t = $_[0];
+
+    # Remove control characters as they cause XML to not be parsed
+    $t =~ s/[\x00-\x08\x0A-\x0C\x0E-\x1A]//g;
+
     $t = decode "utf-8", $t;       # turn into string
+    $t =~ s/\xFFFD//g;             # remove invalid characters
 	$t =~ s/&/&amp;/g;             # remove XML entities
 	$t =~ s/</&lt;/g;
 	$t =~ s/>/&gt;/g;
