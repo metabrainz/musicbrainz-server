@@ -96,7 +96,7 @@
 
 			</td>
 
-%	if ($session{tport})
+%	if ($session{tport} && $release->GetMBId)
 %	{
 
 			<td class="tagger">

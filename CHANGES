@@ -46,6 +46,7 @@ Release 2007-XX-XX:
      "begin date" (#2518)
    * Fixed JavaScript Amazon URL parsing. (#2319, #2524)
    * Rephrased the "Reveal my e-mail address" option. (#2438)
+   * Tagger icon shows up before new release is submitted. (#2444)
 
 ********************************************************************************
 ********************************************************************************
