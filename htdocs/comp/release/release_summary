@@ -93,7 +93,7 @@
 					<td class="language">
                     [ 
                     <% $release->GetQualityModPending ? '<span class="mp">' : '' |n %>
-                    <% $quality %> data quality 
+                    <% ucfirst($quality) %> data quality 
                     <% $release->GetQualityModPending ? '</span>' : '' |n %>
                     ]
 %					if ($session{"uid"} and $showeditlinks)
