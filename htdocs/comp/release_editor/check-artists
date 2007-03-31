@@ -118,9 +118,7 @@
 			# if a single item was found, set it and redirect
 			# back to the form.
 			if (@artists == 1 and
-				$artists[0]->GetName eq $curr_artistname and
-				$curr_artistid eq "" and
-				not exists $edit_artists{$t})
+				$artists[0]->GetName eq $curr_artistname)
 			{
 				$ARGS{getField($t, "artistid")} = $artists[0]->GetId;
 				$ARGS{getField($t, "artistname")} = $artists[0]->GetName;
