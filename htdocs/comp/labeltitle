@@ -77,7 +77,7 @@
 	# Row 1: the label name (link) and sortname
 	$m->out(qq!<tr valign="top">!);
 	$m->out(qq!<td class="icon" rowspan="2">!);
-	$m->out(qq!  <a href="/label/$mbid.html" title="Go to the label page"><img src="/images/licon_lg.png" alt="" /></a></td>!);
+	$m->out(qq!  <a href="/label/$mbid.html" title="Go to the label page"><img src="/images/bicon_lg.png" alt="" /></a></td>!);
 	$m->out(qq!<td class="title">!);
 	$m->out(qq!  <a href="/label/$mbid.html" title="Go to the label page">!);
 	$m->out(qq!  <span class="mp">!) if ($label->GetModPending);
