@@ -83,7 +83,7 @@
 	# icon was cut off sometimes, we'll rather do it the classic way.
 	if ($icon && !UserPreference::get("css_noentityicons"))
 	{
-		$m->out(qq!<img src="/images/entity/release_small.gif" alt="Label" class="entityicon" width="13" height="13" />!);
+		$m->out(qq!<img src="/images/entity/label_small.gif" alt="Label" class="entityicon" width="13" height="13" />!);
 	}
 
 	# if the id not negative, show a link,
