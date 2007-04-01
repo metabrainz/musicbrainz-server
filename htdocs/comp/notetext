@@ -96,7 +96,7 @@
 		voting period elapses in which edits usually are kept open.
         For detailed information on how long edits stay open and how many votes
         are required for it to pass unanimously, please see our
-        <a href="/mod/info.html">edit conditions</a> page.
+        <a href="/show/edit/conditions.html">edit conditions</a> page.
 	</div>
 
 %		$session{"orig_privs"} = $session{"privs"}

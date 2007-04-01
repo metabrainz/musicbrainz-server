@@ -226,7 +226,7 @@
 
 			] : [],
 			{ name => "Review/Vote on Edits",	url => "/mod/search/select-filter.html" },
-			{ name => "Edit Conditions", url => "/mod/info.html" },
+			{ name => "Edit Conditions", url => "/show/edit/conditions.html" },
 			[
 				{ url => "/mod/search/pre/new.html" },
 				{ url => "/mod/search/pre/subscriptions.html" },
