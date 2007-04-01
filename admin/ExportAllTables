@@ -442,6 +442,7 @@ my @group_core = qw(
 	cdtoc
     clientversion
 	country
+	gid_redirect
 	l_album_album
 	l_album_artist
 	l_album_label
@@ -458,6 +459,7 @@ my @group_core = qw(
 	l_track_url
 	l_url_url
 	label
+	labelalias
 	language
 	link_attribute
 	link_attribute_type
@@ -537,6 +539,7 @@ my @group_modprivate = qw(
 	moderator
 	moderator_preference
 	moderator_subscribe_artist
+	moderator_subscribe_label
 );
 
 use File::Copy qw( copy );
