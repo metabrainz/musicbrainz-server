@@ -113,7 +113,7 @@
 				<td>
 					<& /comp/linkrelease, id => $row->{'release'}, name => $row->{'name'} &></td>
 				<td>
-					<a href="<% $row->{url} %>"><% $url %></td>
+					<a href="<% $row->{url} %>"><% $url %></a> [ <a href="/show/url/?urlid=<% $row->{urlid} %>">info</a> ]</td>
 			</tr>
 
 %		}

@@ -39,7 +39,7 @@ sub GatherData
 	my $sql = $self->SqlObj;
 
 	$self->GatherDataFromQuery(<<'EOF');
-         SELECT url, album.id as release, album.name as name
+         SELECT url, album.id as release, album.name as name, url.id as urlid
            FROM url, album, l_album_url 
           WHERE link1 = url.id 
             AND link0 = album.id
