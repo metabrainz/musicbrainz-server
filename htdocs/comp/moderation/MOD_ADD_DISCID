@@ -39,6 +39,10 @@
 		<tr>
 			<td class="lbl">TOC:</td>
 			<td><a href="/show/cdtoc/?cdtocid=<% $new->{'CDTOCId'} %>"><% $new->{'FullTOC'} %></a></td>
+			<td style="text-align: right">
+				<img src="/images/edit.gif" alt=""/>
+				<a href="/show/release/details.html?releaseid=<% $this->{"albumid"} %>&show=both#discid">View DiscIDs</a>
+			</td>
 		</tr>
 	</table>
 

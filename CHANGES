@@ -22,6 +22,7 @@ Release 2007-04-01:
    * Allow adding an edit note from the "Edit annotation" page. (#2150)
    * Warning on bogus Amazon release date (1990-10-25). (#2500)
    * Auto-fix Amazon URLs on the 'Edit URL' page. (#2559)
+   * 'View DiscIDs' link for remove and add disc id edits. (#2608)
 
  * Bug Fixes:
    * Fixed ':hover' CSS for voting radiobuttons in IE7. (#2352)

@@ -47,6 +47,10 @@
 %	{
 			<td><% $this->GetPrev %></td>
 % 	}
+			<td style="text-align: right">
+				<img src="/images/edit.gif" alt=""/>
+				<a href="/show/release/details.html?releaseid=<% $this->{"albumid"} %>&show=both#discid">View DiscIDs</a>
+			</td>
 		</tr>
 	</table>
 
