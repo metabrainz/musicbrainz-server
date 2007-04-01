@@ -230,11 +230,6 @@ CREATE TABLE moderator_subscribe_label
 ALTER TABLE moderator_subscribe_label ADD CONSTRAINT moderator_subscribe_label_pkey PRIMARY KEY (id);
 CREATE UNIQUE INDEX moderator_subscribe_label_moderator_key ON moderator_subscribe_label (moderator, label);
 
-ALTER TABLE moderator_subscribe_label
-    ADD CONSTRAINT modsublabel_fk_moderator
-    FOREIGN KEY (moderator)
-    REFERENCES moderator(id);
-
 
 COMMIT;
 

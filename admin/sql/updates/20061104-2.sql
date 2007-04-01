@@ -121,6 +121,11 @@ ALTER TABLE label
     FOREIGN KEY (country)
     REFERENCES country(id);
 
+ALTER TABLE moderator_subscribe_label
+    ADD CONSTRAINT modsublabel_fk_moderator
+    FOREIGN KEY (moderator)
+    REFERENCES moderator(id);
+
 COMMIT;
 
 -- vi: set ts=4 sw=4 et :
