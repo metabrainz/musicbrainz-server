@@ -27,11 +27,11 @@
 	# $Id: approve.html 8548 2006-10-19 07:41:02Z dave $
 	#
 </%perl>
-<& /comp/sidebar, title => "Edit Information" &>
+<& /comp/sidebar, title => "Edit Conditions" &>
 
 <p style="margin-bottom: 1em;">
-This page shows the available edit types are and what the requirements are for getting
-and edit applied to the database. Each edit type is listed three times below; one for each 
+This page shows the available edit types and what the requirements are for getting
+an edit applied to the database. Each edit type is listed three times below; one for each 
 of the quality levels: 
 <% ModDefs::GetQualityText(&ModDefs::QUALITY_LOW) %>, 
 <% ModDefs::GetQualityText(&ModDefs::QUALITY_NORMAL) %> and
@@ -70,11 +70,12 @@ $m->out('</table><br/>');
 
 </%perl>
 <p style="margin-bottom: 1em;">
-For each edit type and each quality level the tables below show the voting
-period that an edit will remain open for, the number of unanimous votes required
+For each edit type and each quality level the table below shows the voting 
+period that an edit will remain open for, the number of unanimous votes required 
 to shortcut the edit period, what happens if the edit expires, but has not votes, 
-and wether or not an edit is consider an <& /comp/linkdoc, "AutoEdit", "auto edit" &>.
+and whether or not an edit is considered an <& /comp/linkdoc, "AutoEdit", "auto edit" &>.
 </p>
+
 <%perl>
 
 # Create the table headers
@@ -101,6 +102,7 @@ foreach $quality (&ModDefs::QUALITY_LOW, &ModDefs::QUALITY_NORMAL, &ModDefs::QUA
 	$m->out('<th class="' . $class . '">Expire<br />Action</th>');
 	$m->out('<th class="' . $class . '">Auto<br />Edit</th>');
 }
+
 
 $m->out('</tr></thead>');
 
@@ -157,10 +159,12 @@ foreach $category (&ModDefs::CAT_ARTIST, &ModDefs::CAT_RELEASE, &ModDefs::CAT_DE
 $m->out('</table><br/>');
 
 </%perl>
+
 <p>
 	<span id="note-1" class="superscript">1</span> Voting Period in days<br/>
 	<span id="note-2" class="superscript">2</span> Unanimous Votes
 </p>
+
 <& /comp/footer &>
 
 %# vi: set ts=4 sw=4 ft=mason :

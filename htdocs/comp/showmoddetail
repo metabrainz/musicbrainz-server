@@ -93,7 +93,7 @@
 % 	if ($quality)
 %	{
 			<tr>
-				<td class="label">Edit quality info:</td>
+				<td class="label">Conditions:</td>
 				<td><% &ModDefs::GetQualityText($quality) %> quality level, 
                     <% $expireaction %> on expiration,
                     <% $numvotes %> unanimous votes to accept/reject</td>
