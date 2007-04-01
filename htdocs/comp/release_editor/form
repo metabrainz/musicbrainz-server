@@ -287,8 +287,7 @@
 					<td class="label">
 						<& /comp/form/label, id => "id_releasename", title => $releaselabel &>
 					</td>
-					<td>&nbsp;</td>
-					<td>&nbsp;</td>
+					<td colspan="2">&nbsp;</td>
 					<td colspan="2" class="field">
 						<& /comp/form/textfield,
 							name => "releasename",
@@ -300,6 +299,9 @@
 					<td>
 						<& /comp/form/jsbutton, id => "BTN_ALBUM::releasename" &>
 					</td>
+				</tr>
+				<tr>
+					<td colspan="6">&nbsp;</td>
 				</tr>
 
 %	# -------------------------------------------------------------------------
