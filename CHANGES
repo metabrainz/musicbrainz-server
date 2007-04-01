@@ -1,4 +1,4 @@
-Release 2007-XX-XX:
+Release 2007-04-01:
 
  * New Features:
    * Labels, catalog numbers, barcodes and release formats.
@@ -47,6 +47,10 @@ Release 2007-XX-XX:
    * Fixed JavaScript Amazon URL parsing. (#2319, #2524)
    * Rephrased the "Reveal my e-mail address" option. (#2438)
    * Tagger icon shows up before new release is submitted. (#2444)
+
+For a complete list of fixes that went into this release, please see this link:
+
+   http://bugs.musicbrainz.org/query?status=closed&milestone=Server%3A+Labels%2C+Data+quality+and+improved+cover+art&order=priority
 
 ********************************************************************************
 ********************************************************************************
