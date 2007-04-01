@@ -96,6 +96,7 @@ sub AdjustModPending
 	{
 		defined($labelid) or next;
 		$ar->SetId($labelid);
+		$ar->LoadFromId();
 		$ar->UpdateModPending($adjust);
 	}
 }

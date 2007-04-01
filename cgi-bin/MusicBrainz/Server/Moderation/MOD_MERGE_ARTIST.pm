@@ -91,7 +91,7 @@ sub DetermineQuality
 {
 	my $self = shift;
 
-    my $quality = -1;
+    my $quality = -2;
 	my $ar = Artist->new($self->{DBH});
 	$ar->SetId($self->{"new.id"});
 	if ($ar->LoadFromId())
@@ -104,7 +104,7 @@ sub DetermineQuality
         $quality = $quality > $ar->GetQuality() ? $quality : $ar->GetQuality;        
     }
 
-    if ($quality < 0)
+    if ($quality == -2)
     {
         $quality = &ModDefs::QUALITY_NORMAL;
         print STDERR __PACKAGE__ . ": quality not determined for $self->{id}\n";
@@ -122,6 +122,7 @@ sub AdjustModPending
 	{
 		defined($artistid) or next;
 		$ar->SetId($artistid);
+		$ar->LoadFromId();
 		$ar->UpdateModPending($adjust);
 	}
 }
@@ -210,6 +211,7 @@ sub ApprovedAction
 
 	my $oldar = $self->{_oldar};
 	my $newar = $self->{_newar};
+
 	$oldar->MergeInto($newar, $self);
 
 	STATUS_APPLIED;

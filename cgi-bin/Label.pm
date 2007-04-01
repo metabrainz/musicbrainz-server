@@ -343,6 +343,9 @@ sub MergeInto
 
 	$sql->Do("DELETE FROM label WHERE id = ?", $o);
 	$old->InvalidateCache;
+
+    # Invalidate the new label as well
+    $new->InvalidateCache;
 }
 
 sub Update

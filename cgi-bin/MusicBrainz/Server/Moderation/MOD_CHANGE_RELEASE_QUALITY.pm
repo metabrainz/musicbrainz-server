@@ -183,6 +183,7 @@ sub AdjustModPending
 		my $id = $new->{"ReleaseId$i"};
 		my $al = Album->new($self->{DBH});
 		$al->SetId($id);
+	    $al->LoadFromId;
      	$al->UpdateQualityModPending($adjust)
      		if ($al->LoadFromId);
     }

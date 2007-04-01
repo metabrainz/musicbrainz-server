@@ -388,6 +388,9 @@ sub MergeInto
     my $al = Alias->new($old->{DBH});
     $al->SetTable("ArtistAlias");
     $al->Insert($n, $old->GetName);
+
+    # Invalidate the new artist as well
+    $new->InvalidateCache;
 }
 
 sub UpdateName
