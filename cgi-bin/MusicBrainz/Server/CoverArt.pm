@@ -235,16 +235,16 @@ sub UpdateAmazonData
 sub GetAsinLinkTypeId
 {
 	my $self = shift;
-	return $Album::ASIN_LINK_TYPE_ID if (defined $Album::ASIN_LINK_TYPE_ID);
+	return $ASIN_LINK_TYPE_ID if (defined $ASIN_LINK_TYPE_ID);
 	
 	# try to extract the id from the DB
 	my $dbh = (ref $self ? $self->{DBH} : shift);
 
 	my $sql = Sql->new($dbh);
-	$Album::ASIN_LINK_TYPE_ID = $sql->SelectSingleValue("SELECT id FROM lt_album_url WHERE name = 'amazon asin'")
+	$ASIN_LINK_TYPE_ID = $sql->SelectSingleValue("SELECT id FROM lt_album_url WHERE name = 'amazon asin'")
 		if (defined $sql);
 
-	return $Album::ASIN_LINK_TYPE_ID;
+	return $ASIN_LINK_TYPE_ID;
 }
 
 # -------------------------- Generic Cover Art Support -------------------------------------
@@ -377,16 +377,16 @@ sub UpdateCoverArtData
 sub GetCoverArtLinkTypeId
 {
 	my $self = shift;
-	return $Album::COVERART_LINK_TYPE_ID if (defined $Album::COVERART_LINK_TYPE_ID);
+	return $COVERART_LINK_TYPE_ID if (defined $COVERART_LINK_TYPE_ID);
 	
 	# try to extract the id from the DB
 	my $dbh = (ref $self ? $self->{DBH} : shift);
 
 	my $sql = Sql->new($dbh);
-	$Album::COVERART_LINK_TYPE_ID = $sql->SelectSingleValue("SELECT id FROM lt_album_url WHERE name = 'cover art link'")
+	$COVERART_LINK_TYPE_ID = $sql->SelectSingleValue("SELECT id FROM lt_album_url WHERE name = 'cover art link'")
 		if (defined $sql);
 
-	return $Album::COVERART_LINK_TYPE_ID;
+	return $COVERART_LINK_TYPE_ID;
 }
 
 1;
