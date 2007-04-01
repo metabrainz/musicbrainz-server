@@ -96,6 +96,7 @@ sub AdjustModPending
 	require Artist;
 	my $ar = Artist->new($self->{DBH});
 	$ar->SetId($self->GetRowId);
+	$ar->LoadFromId;
 	$ar->UpdateQualityModPending($adjust);
 }
 
