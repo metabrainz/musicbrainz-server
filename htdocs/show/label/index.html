@@ -37,6 +37,7 @@
 	$mbt => $session{'mbt'}
 	$tport => $session{'tport'}
 
+	$order => "date"
 	$addrel => 0
 	$remrel => -1
 	$remtype => ""
@@ -94,36 +95,107 @@
 		$a->{_attr_status} = Album::ALBUM_ATTR_SECTION_STATUS_END + 1 if (not defined $a->{_attr_status});
 	};
 
-	# Sort by:
-	# 'ReleaseDate' (earliest release date first, no release date last)
-	# 'Name' (lowercase)
-	# 'Status' (release status)
-	# track count
-	# TRM count
-	# PUID count
-	# row id
+	my $SortAlbums;
 
-	my $SortAlbums = sub
-	{
-		($a->{_releasedate_} cmp $b->{_releasedate_})
-		or
-		($a->{_name_sort_} cmp $b->{_name_sort_})
-		or
-		($a->{_disc_max_} <=> $b->{_disc_max_})
-		or
-		($a->{_disc_no_} <=> $b->{_disc_no_})
-		or
-		($a->{_attr_status} <=> $b->{_attr_status})
-		or
-		($a->{trackcount} cmp $b->{trackcount})
-		or
-		($b->{trmidcount} cmp $a->{trmidcount})
-		or
-		($b->{puidcount} cmp $a->{puidcount})
-		or
-		($a->GetId cmp $b->GetId)
-	};
-	
+	if ($order eq "catno") {
+		$SortAlbums = sub
+		{
+			($a->{catno} cmp $b->{catno})
+			or
+			($a->{_releasedate_} cmp $b->{_releasedate_})
+			or
+			($a->{_name_sort_} cmp $b->{_name_sort_})
+			or
+			($a->{_disc_max_} <=> $b->{_disc_max_})
+			or
+			($a->{_disc_no_} <=> $b->{_disc_no_})
+			or
+			($a->{_attr_status} <=> $b->{_attr_status})
+			or
+			($a->{trackcount} cmp $b->{trackcount})
+			or
+			($b->{trmidcount} cmp $a->{trmidcount})
+			or
+			($b->{puidcount} cmp $a->{puidcount})
+			or
+			($a->GetId cmp $b->GetId)
+		};
+	}
+	elsif ($order eq "title") {
+		$SortAlbums = sub
+		{
+			($a->{_name_sort_} cmp $b->{_name_sort_})
+			or
+			($a->{_releasedate_} cmp $b->{_releasedate_})
+			or
+			($a->{catno} cmp $b->{catno})
+			or
+			($a->{_disc_max_} <=> $b->{_disc_max_})
+			or	
+			($a->{_disc_no_} <=> $b->{_disc_no_})
+			or
+			($a->{_attr_status} <=> $b->{_attr_status})
+			or
+			($a->{trackcount} cmp $b->{trackcount})
+			or
+			($b->{trmidcount} cmp $a->{trmidcount})
+			or
+			($b->{puidcount} cmp $a->{puidcount})
+			or
+			($a->GetId cmp $b->GetId)
+		};
+	}
+	elsif ($order eq "title") {
+		$SortAlbums = sub
+		{
+			($a->{artistname} cmp $b->{artistname})
+			or
+			($a->{_name_sort_} cmp $b->{_name_sort_})
+			or
+			($a->{_releasedate_} cmp $b->{_releasedate_})
+			or
+			($a->{catno} cmp $b->{catno})
+			or
+			($a->{_disc_max_} <=> $b->{_disc_max_})
+			or
+			($a->{_disc_no_} <=> $b->{_disc_no_})
+			or
+			($a->{_attr_status} <=> $b->{_attr_status})
+			or
+			($a->{trackcount} cmp $b->{trackcount})
+			or
+			($b->{trmidcount} cmp $a->{trmidcount})
+			or
+			($b->{puidcount} cmp $a->{puidcount})
+			or
+			($a->GetId cmp $b->GetId)
+		};
+	}
+	else {
+		$SortAlbums = sub
+		{
+			($a->{_releasedate_} cmp $b->{_releasedate_})
+			or
+			($a->{catno} cmp $b->{catno})
+			or
+			($a->{_name_sort_} cmp $b->{_name_sort_})
+			or
+			($a->{_disc_max_} <=> $b->{_disc_max_})
+			or
+			($a->{_disc_no_} <=> $b->{_disc_no_})
+			or
+			($a->{_attr_status} <=> $b->{_attr_status})
+			or
+			($a->{trackcount} cmp $b->{trackcount})
+			or
+			($b->{trmidcount} cmp $a->{trmidcount})
+			or
+			($b->{puidcount} cmp $a->{puidcount})
+			or
+			($a->GetId cmp $b->GetId)
+		};
+	}
+
 	for my $album (@albums)
 	{
 		# Munge name for sorting
@@ -182,6 +254,7 @@
 
 </%perl>
 	
+%	my $labelurl = "/label/" . $label->GetMBId . ".html";
 %	if (@albums)
 %	{
 		<table id="CompactReleaseList">
@@ -190,10 +263,10 @@
 				<th></th>
 				<th>Status</th>
 				<th>Language</th>
-				<th>Date</th>
-				<th>Catalog #</th>
-				<th>Artist</th>
-				<th>Title</th>
+				<th><a href="<% $labelurl %>?order=date">Date</a></th>
+				<th><a href="<% $labelurl %>?order=catno">Catalog #</a></th>
+				<th><a href="<% $labelurl %>?order=artist">Artist</a></th>
+				<th><a href="<% $labelurl %>?order=title">Title</a></th>
 			</td>
 %			my $rownum = 0;
 %			for my $album (@albums)

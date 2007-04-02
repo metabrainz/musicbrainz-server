@@ -774,6 +774,13 @@ td.trk *, td.did *, td.trm *, td.rdate * {
 	margin: 1em 0 0.5em 
 }
 
+#CompactReleaseList th a,
+#CompactReleaseList th a:link,
+#CompactReleaseList th a:visited { 
+	color: #000;
+}
+
+
 /* Mod Pending */
 .mp { background-color: #ffc; color: #000}
 
