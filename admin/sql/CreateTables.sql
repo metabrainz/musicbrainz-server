@@ -804,11 +804,11 @@ CREATE TABLE release
     album               INTEGER NOT NULL, -- references album
     country             INTEGER NOT NULL, -- references country
     releasedate         CHAR(10) NOT NULL,
+    modpending          INTEGER DEFAULT 0,
     label               INTEGER,          -- references label
     catno               VARCHAR(255),
     barcode             VARCHAR(255),
-    format              SMALLINT,
-    modpending          INTEGER DEFAULT 0
+    format              SMALLINT
 );
 
 CREATE TABLE replication_control
