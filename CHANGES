@@ -1,12 +1,14 @@
 Release 2007-XX-YY:
 
   * New Features:
-   * PureVolume url AR type detection. (#2724)
-   * Custom release sorting on the label page.
-   * Prevent cat # from wrapping in label view. (#2725)
-   * "Cover art" url AR type detection.
-   * After creating an AR, redirect to the 'current' entity, instead of
-     the first one. (#2722)
+    * PureVolume url AR type detection. (#2724)
+    * Custom release sorting on the label page.
+    * Prevent cat # from wrapping in label view. (#2725)
+    * "Cover art" url AR type detection.
+    * After creating an AR, redirect to the 'current' entity, instead of
+      the first one. (#2722)
+  * Bux Fixes:
+    * Don't double HTML-encode values in hidden inputs. (#2726)
 
 Release 2007-04-01:
 

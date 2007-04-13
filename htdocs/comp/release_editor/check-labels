@@ -46,6 +46,10 @@
 		my $labelname = $ARGS{"rev_labelname-$j"};
 		my $labelorigname = $ARGS{"rev_labelorigname-$j"};
 
+		if ($ARGS{"rev_clear-$j"}) {
+			next;
+		}
+
 		if (!$labelname) {
 			$ARGS{"rev_label-$j"} = '';
 			next;
