@@ -202,6 +202,8 @@ function ARFrontEnd() {
 				site = "internet movie database";
 			} else if (v.match(/(\.|\/)myspace\.com/i)) {
 				site = "myspace";
+			} else if (v.match(/(\.|\/)purevolume\.com/i)) { 
+ 				site = "purevolume";
 			}
 			if (site != "") {
 				var tddo = this.typeDropDown.options;

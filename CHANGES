@@ -1,3 +1,9 @@
+Release 2007-XX-YY:
+
+  * New Features:
+   * PureVolume url AR type detection. (#2724)
+   * Custom release sorting on the label page.
+
 Release 2007-04-01:
 
  * New Features:
