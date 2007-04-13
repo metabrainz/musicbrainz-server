@@ -68,13 +68,13 @@ sub DetermineQuality
 {
 	my $self = shift;
 
-    my $level = &ModDefs::QUALITY_LOW;
+	my $level = &ModDefs::QUALITY_UNKNOWN_MAPPED;
 
 	my $rel = Album->new($self->{DBH});
 	$rel->SetId($self->{rowid});
 	if ($rel->LoadFromId())
 	{
-        $level = $rel->GetQuality();        
+		$level = $rel->GetQuality() > $level ? $rel->GetQuality() : $level;
     }
 
 	my $ar = Artist->new($self->{DBH});

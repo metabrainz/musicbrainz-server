@@ -209,9 +209,12 @@ sub IsAutoEdit
 {
 	my ($self) = @_;
 
-	my $removes = @{ $self->{"removes"} };
+	# Adding of a completely new release events is auto-approved only for autoeditors
+	my $adds = @{ $self->{"adds"} };
+	return 0 if ($adds);
 
-    # If data is being removed, never autoedit
+	# If data is being removed, never autoedit
+	my $removes = @{ $self->{"removes"} };
 	return 0 if ($removes);
 
 	# see ticket #1623, entering more complete release events is
@@ -226,24 +229,24 @@ sub IsAutoEdit
 		my ($origcatno, $newcatno) = ($t->{"n"}, $t->{"nn"});
 		my ($origbarcode, $newbarcode) = ($t->{"b"}, $t->{"nb"});
 		my ($origformat, $newformat) = ($t->{"f"}, $t->{"nf"});
-		
-		
-		# if we have a day set, which wasn't set before OR
-		# if we have a month set, which wasn't set before 
-		# -- the user is adding a more complete event, else its a 
-		#    change edit.
-		$edits++ if (!($newday && !$origday or
-					   $newmonth && !$origmonth) or
-					  $newcountry != $origcountry or
-					  $newlabel != $origlabel or
-					  $newcatno ne $origcatno or
-					  $newbarcode ne $origbarcode or
-					  $newformat != $origformat);
+
+
+		# If is the user changing the existing data, the edit
+		# shouldn't be auto-approved.
+		return 0 if (
+			($origday && ($newday != $origday)) ||
+			($origmonth && ($newmonth != $origmonth)) ||
+			($origyear && ($newyear != $origyear)) ||
+			($origcountry && ($newcountry != $origcountry)) ||
+			($origlabel && ($newlabel != $origlabel)) ||
+			($origcatno && ($newcatno ne $origcatno)) ||
+			($origbarcode && ($newbarcode ne $origbarcode)) ||
+			($origformat && ($newformat != $origformat))
+			);
 	}
 
-	# adding of events is auto approved for autoeditors
-	# adding more complete data is auto approved for all
-    return $edits > 0;
+	# Adding more complete data is auto approved for all
+	return 1;
 }
 
 sub AdjustModPending

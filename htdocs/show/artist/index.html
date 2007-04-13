@@ -469,8 +469,8 @@
 	{
 		$m->out('<a href="http://127.0.0.1:' . $session{tport} . '/openalbum?id=' . $album->GetMBId . '&amp;t=' . time);
 		$m->out('style="margin-right: 1ex"');
-		$m->out('target="hiddeniframe" title="Open in Tagger" border="0"><img');
-		$m->out('src="/images/mblookup-tagger.png" border="0" alt="Open in tagger"></a>');
+		$m->out('target="hiddeniframe" title="Open in Tagger" border="0"><img ');
+		$m->out('src="/images/mblookup-tagger.png" border="0" alt="Open in tagger"></a> ');
 	}
 	$m->out('<span class="mp">') if $nmp;
 	$m->out('<a href="/release/' . $album->GetMBId . '.html">');

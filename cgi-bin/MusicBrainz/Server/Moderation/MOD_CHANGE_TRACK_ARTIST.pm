@@ -66,7 +66,7 @@ sub DetermineQuality
 {
 	my $self = shift;
 
-    my $level = &ModDefs::QUALITY_LOW;
+    my $level = &ModDefs::QUALITY_UNKNOWN_MAPPED;
 
 	my $ar = Artist->new($self->{DBH});
 
@@ -74,7 +74,7 @@ sub DetermineQuality
 	$ar->SetId($self->{artist});
 	if ($ar->LoadFromId())
 	{
-        $level = $ar->GetQuality();        
+		$level = $ar->GetQuality() > $level ? $ar->GetQuality() : $level;
         return $level if ($level == &ModDefs::QUALITY_HIGH);
     }
     # Check the new artist

@@ -68,6 +68,12 @@ sub CheckPrerequisites
 	undef;
 }
 
+sub PostLoad
+{
+	my $self = shift;
+	$self->{'dont-display-artist'} = 1;
+}
+
 sub ApprovedAction
 {
 	my $self = shift;
@@ -90,6 +96,29 @@ sub ApprovedAction
 
 	$self->InsertNote(MODBOT_MODERATOR, $message);
 	return STATUS_ERROR;
+}
+
+sub ShowModTypeDelegate
+{
+	my ($self, $m) = @_;
+	$m->out('<tr class="entity"><td class="lbl">Label:</td><td>');
+	my $id = $self->GetRowId;
+	require Label;
+	my $label = Label->new($self->{DBH});
+	$label->SetId($id);
+	my ($title, $name);
+	if ($label->LoadFromId) 
+	{
+		$title = $name = $label->GetName;
+	}
+	else
+	{
+		$name = "This label has been removed";
+		$title = "This label has been removed, Id: $id";
+		$id = -1;
+	}
+	$m->comp('/comp/linklabel', id => $id, name => $name, title => $title, strong => 0);
+	$m->out('</td></tr>');
 }
 
 1;

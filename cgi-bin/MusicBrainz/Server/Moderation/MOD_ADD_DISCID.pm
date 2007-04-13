@@ -83,19 +83,9 @@ sub PostLoad
 	($self->{"albumid"}, $self->{"checkexists-album"}) = ($new->{'AlbumId'}, 1);
 }
 
-sub DetermineQuality
-{
-    my $self = shift;
-
-	my $new = $self->{'new_unpacked'};
-    my $rel = Album->new($self->{DBH});
-    $rel->SetId($new->{"ArtistId"});
-    if ($rel->LoadFromId())
-    {
-        return $rel->GetQuality();        
-    }
-    print STDERR __PACKAGE__ . ": quality not determined for $self->{id}\n";
-    return &ModDefs::QUALITY_NORMAL;
+sub IsAutoEdit 
+{ 
+    1 
 }
 
 # This implementation is required (instead of the default) because old rows

@@ -67,20 +67,6 @@ sub PostLoad
 	($self->{"trackid"}, $self->{"checkexists-track"}) = ($self->GetRowId, 1);
 } 
 
-sub DetermineQuality
-{
-	my $self = shift;
-
-	my $artist = Artist->new($self->{DBH});
-	$artist->SetId($self->GetArtist);
-	if ($artist->LoadFromId())
-	{
-		return $artist->GetQuality();
-	}
-	print STDERR __PACKAGE__ . ": quality not determined for $self->{id}\n";
-	return &ModDefs::QUALITY_NORMAL;
-}
-
 sub PreDisplay
 {
 	my $this = shift;

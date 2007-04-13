@@ -493,7 +493,7 @@ my @QualityChangeDefs =
       duration => 3, 
       votes => 1, 
       expireaction => EXPIRE_ACCEPT, 
-      autoedit => 1,  
+      autoedit => 0,  
       name => "Raise artist/release quality"
     }
 );
@@ -669,6 +669,11 @@ sub IsOpen { $_[0]{status} == STATUS_OPEN or $_[0]{status} == STATUS_TOBEDELETED
 sub IsAutoEditType
 {
    my ($this, $type) = @_;
+   if ($this->GetType == MOD_CHANGE_RELEASE_QUALITY ||
+       $this->GetType == MOD_CHANGE_ARTIST_QUALITY)
+   {
+        return $QualityChangeDefs[$this->GetQualityChangeDirection]->{automod};
+   }
    my $level = GetEditLevelDefs($this->GetQuality, $type);
    return $level->{autoedit};
 }
@@ -1157,10 +1162,6 @@ sub InsertModeration
 
     my $autoedit = 0;
 
-    print STDERR "Enter mod '" . $this->Name . "' level: " . &ModDefs::GetQualityText($this->GetQuality);
-    print STDERR " canauto: " . $this->IsAutoEdit($isautoeditor);
-    print STDERR " isauto: " . $level->{autoedit};
-   
     # If the edit allows an autoedit and the current level allows autoedits, then make it an autoedit
     $autoedit = 1 if (not $autoedit
                       and $this->IsAutoEdit($isautoeditor) 
@@ -1175,7 +1176,6 @@ sub InsertModeration
 	$autoedit = 0 if ($ui->IsUntrusted($privs) and 
 					  ($this->GetType != &ModDefs::MOD_ADD_TRMS or 
 			 		   $this->GetType != &ModDefs::MOD_ADD_PUIDS));
-    print STDERR " accept auto: $autoedit\n";
 
     # If it is autoedit, then approve the edit and credit the editor
     if ($autoedit)

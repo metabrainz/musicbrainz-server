@@ -5,7 +5,7 @@ cd `dirname $0`
 
 eval `./admin/ShowDBDefs`
 
-echo `date` : Upgrading to RELEASE-20060310-BRANCH
+echo `date` : Upgrading to RELEASE-20070401-BRANCH
 
 # This replication packet will have the old SCHEMA_SEQUENCE number
 
@@ -21,7 +21,9 @@ then
 fi
 
 echo `date` : Upgrading database
-sh ./admin/sql/updates/20060310-1.sh
+./admin/psql READWRITE < ./admin/sql/updates/20061104-1.sql
+[ "$REPLICATION_TYPE" != "$RT_SLAVE" ] && ./admin/psql READWRITE < ./admin/sql/updates/20061104-2.sql
+[ "$REPLICATION_TYPE" = "$RT_MASTER" ] && ./admin/psql READWRITE < ./admin/sql/updates/20061104-3.sql
 
 echo `date` : Going to schema sequence $DB_SCHEMA_SEQUENCE
 echo "UPDATE replication_control SET current_schema_sequence = $DB_SCHEMA_SEQUENCE;" | ./admin/psql READWRITE
@@ -29,6 +31,12 @@ echo "UPDATE replication_control SET current_schema_sequence = $DB_SCHEMA_SEQUEN
 # We're now at the new schema, so the next replication packet (if we are
 # the master) will have the new SCHEMA_SEQUENCE number; thus, it can only
 # be applied to a new schema.
+
+if [ "$REPLICATION_TYPE" != "$RT_SLAVE" ]
+then
+	./admin/cleanup/ModPending.pl
+	./admin/cleanup/UpdateCoverArt.pl
+fi
 
 echo `date` : Done
 

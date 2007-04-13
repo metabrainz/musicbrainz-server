@@ -111,7 +111,7 @@ sub DetermineQuality
 	my $new = $self->{'new_unpacked'} = $self->ConvertNewToHash($self->GetNew)
 		or die;
 
-    my $quality = &ModDefs::QUALITY_LOW;
+    my $quality = &ModDefs::QUALITY_UNKNOWN_MAPPED;
     my $artistid = -1;
     for(my $i = 0;;$i++)
     {
@@ -121,7 +121,7 @@ sub DetermineQuality
         if ($rel->LoadFromId())
         {
             $artistid = $rel->GetArtist() if ($artistid < 0);
-            $quality = $rel->GetQuality() > $quality ? $rel->GetQuality() : $quality;        
+            $quality = $rel->GetQuality() > $quality ? $rel->GetQuality() : $quality;
         }
     }
 

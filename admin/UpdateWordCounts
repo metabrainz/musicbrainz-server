@@ -63,14 +63,14 @@ if ($do_update) {
 
 my $sth = $sqlWrite->{DBH}->prepare(
 	"UPDATE wordlist
-	SET artistusecount = ?, albumusecount = ?, trackusecount = ?
+	SET artistusecount = ?, albumusecount = ?, trackusecount = ?, labelusecount = ?
 	WHERE id = ?
-	AND (artistusecount != ? OR albumusecount != ? OR trackusecount != ?)",
+	AND (artistusecount != ? OR albumusecount != ? OR trackusecount != ? OR labelusecount != ?)",
 ) or die;
 
 $| = 1;
 
-for my $what (qw( artist album track ))
+for my $what (qw( artist album track label ))
 {
 	$sqlRead->AutoCommit;
 	print localtime() . " : Creating t_$what\n";
@@ -85,11 +85,12 @@ for my $what (qw( artist album track ))
 print localtime() . " : Selecting word counts\n";
 
 $sqlRead->Select("
-	SELECT	w.id, a.freq, b.freq, c.freq
+	SELECT	w.id, a.freq, b.freq, c.freq, d.freq
 	FROM wordlist w
 		LEFT join t_artist a ON a.id = w.id
 		LEFT join t_album b ON b.id = w.id
 		LEFT join t_track c ON c.id = w.id
+		LEFT join t_label d ON d.id = w.id
 ") or die;
 
 my @updates;
@@ -107,7 +108,7 @@ my $flush = sub {
 
 	for my $row (@updates)
 	{
-		$sth->execute(@$row[1,2,3,0,1,2,3]);
+		$sth->execute(@$row[1,2,3,4,0,1,2,3,4]);
 	}
 
 	$sqlWrite->Commit;
@@ -121,7 +122,7 @@ my $flush = sub {
 
 while ($row = $sqlRead->NextRowRef)
 {
-	for (@$row[1,2,3])
+	for (@$row[1,2,3,4])
 	{
 		$_ ||= 0;
 		$_ = 32767 if $_ > 32767;
@@ -151,9 +152,11 @@ if ($do_delete)
 		WHERE	artistusecount = 0
 		AND		albumusecount = 0
 		AND		trackusecount = 0
+		AND		labelusecount = 0
 		AND NOT EXISTS (SELECT 1 FROM artistwords t WHERE t.wordid = wordlist.id)
 		AND NOT EXISTS (SELECT 1 FROM albumwords t WHERE t.wordid = wordlist.id)
 		AND NOT EXISTS (SELECT 1 FROM trackwords t WHERE t.wordid = wordlist.id)
+		AND NOT EXISTS (SELECT 1 FROM labelwords t WHERE t.wordid = wordlist.id)
 	");
 
 	printf "%s : Deleted %d row%s\n",

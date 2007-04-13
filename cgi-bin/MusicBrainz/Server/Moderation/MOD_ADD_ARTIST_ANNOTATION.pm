@@ -59,20 +59,6 @@ sub IsAutoEdit
     1 
 }
 
-sub DetermineQuality
-{
-	my $self = shift;
-
-	my $ar = Artist->new($self->{DBH});
-	$ar->SetId($self->{rowid});
-	if ($ar->LoadFromId())
-	{
-        return $ar->GetQuality();        
-    }
-    print STDERR __PACKAGE__ . ": quality not determined for $self->{id}\n";
-    return &ModDefs::QUALITY_NORMAL;
-}
-
 sub PreDisplay
 {
 	my $this = shift;

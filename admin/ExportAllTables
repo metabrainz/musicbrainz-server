@@ -147,6 +147,7 @@ my @tables = qw(
 	l_track_url
 	l_url_url
 	label
+	labelalias
 	labelwords
 	language
 	link_attribute

@@ -135,7 +135,7 @@
 			push @errors, 'Barcode "' . $rel->{barcode} . '" should contain only numbers, please remove all non-numeric characters.';
 			delete $ARGS{'continue'};
 		}
-		else {
+		elsif (!$force) {
 			if ($rel->{barcode} && !MusicBrainz::Server::Validation::IsValidEAN($rel->{barcode})) {
 				push @errors, 'Barcode "' . $rel->{barcode} . '" is not a valid EAN barcode. If it\'s a different type of barcode, tick the confirmation checkbox below.';
 				$showforce = 1;

@@ -230,12 +230,7 @@ CREATE TABLE moderator_subscribe_label
 ALTER TABLE moderator_subscribe_label ADD CONSTRAINT moderator_subscribe_label_pkey PRIMARY KEY (id);
 CREATE UNIQUE INDEX moderator_subscribe_label_moderator_key ON moderator_subscribe_label (moderator, label);
 
-
-COMMIT;
-
 -- Add table gid_redirect
-
-BEGIN;
 
 CREATE TABLE gid_redirect
 (
@@ -247,11 +242,7 @@ CREATE TABLE gid_redirect
 ALTER TABLE gid_redirect ADD CONSTRAINT gid_redirect_pkey PRIMARY KEY (gid);
 CREATE INDEX gid_redirect_newid ON gid_redirect (newid);
 
-COMMIT;
-
 -- Add the quality columns to the artist and album tables
-
-BEGIN;
 
 ALTER TABLE artist ADD COLUMN quality SMALLINT DEFAULT -1; 
 ALTER TABLE artist ADD COLUMN modpending_qual INTEGER DEFAULT 0; 

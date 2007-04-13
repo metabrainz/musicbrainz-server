@@ -97,10 +97,11 @@ sub DetermineQuality
 
     # Take the quality level from the first release or set to normal for multiple releases
     my $quality_level = &ModDefs::QUALITY_NORMAL;
-    if (scalar(@$self->{new_albums}) == 1)
+    my $new_albums = $self->{new_albums};
+    if (scalar(@$new_albums) == 1)
     {
         my $rel = Album->new($self->{DBH});
-        $rel->SetId($self->{new_albums}->[0]->{id});
+        $rel->SetId($new_albums->[0]->{id});
         if ($rel->LoadFromId())
         {
             $quality_level = $rel->GetQuality();        

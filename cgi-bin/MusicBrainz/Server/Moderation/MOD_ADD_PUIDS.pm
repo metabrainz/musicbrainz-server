@@ -77,36 +77,9 @@ sub PostLoad
 	$self->{'new_list'} = \@list;
 }
 
-sub DetermineQuality
-{
-    my $self = shift;
-
-	my $new = $self->{'new_unpacked'} = $self->ConvertNewToHash($self->GetNew)
-		or die;
-
-    # Attempt to find the right release this track is attached to.
-    my $tr = Track->new($self->{DBH});
-    $tr->SetId($new->{"TrackId"});
-    if ($tr->LoadFromId())
-    {
-        my $rel = Album->new($self->{DBH});
-        $rel->SetId($tr->GetAlbum());
-        if ($rel->LoadFromId())
-        {
-            return $rel->GetQuality();        
-        }
-    }
-
-    # if that fails, go by the artist
-    my $ar = Artist->new($self->{DBH});
-    $ar->SetId($tr->GetArtist());
-    if ($ar->LoadFromId())
-    {
-        return $ar->GetQuality();        
-    }
-
-    print STDERR __PACKAGE__ . ": quality not determined for $self->{id}\n";
-    return &ModDefs::QUALITY_NORMAL;
+sub IsAutoEdit 
+{ 
+    1 
 }
 
 sub ApprovedAction

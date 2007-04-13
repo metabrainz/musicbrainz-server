@@ -36,6 +36,7 @@ Options are:
      --artist[=RANGE] Process [only RANGE] artists
      --album[=RANGE]  Process [only RANGE] albums
      --track[=RANGE]  Process [only RANGE] tracks
+     --label[=RANGE]  Process [only RANGE] labels
   -h --help           This help
 
 RANGE specifies which artists (etc) to process.  RANGE can be:
@@ -48,7 +49,7 @@ only the things you specify are processed.
 
 EOF
 
-my ($artist, $album, $track);
+my ($artist, $album, $track, $label);
 
 sub do_range
 {
@@ -69,18 +70,19 @@ sub do_range
 	exit 2;
 }
 
-$artist = $album = $track = "";
-$artist = $album = $track = "NONE" if @ARGV;
+$artist = $album = $track = $label = "";
+$artist = $album = $track = $label = "NONE" if @ARGV;
 
 use Getopt::Long;
 GetOptions(
 	"artist:s"	=> sub { do_range(\$artist, @_) },
 	"album:s"	=> sub { do_range(\$album, @_) },
 	"track:s"	=> sub { do_range(\$track, @_) },
+	"label:s"	=> sub { do_range(\$label, @_) },
 	"help"		=> sub { print $help; exit; },
 ) or exit 2;
 print($help), exit 2 if @ARGV;
-print($help), exit 2 unless grep { $_ ne "NONE" } ($artist, $album, $track);
+print($help), exit 2 unless grep { $_ ne "NONE" } ($artist, $album, $track, $label);
 
 use MusicBrainz;
 use Sql;
@@ -93,6 +95,7 @@ my $sql = Sql->new($mb->{DBH});
 rebuild("artist", "Artist", $artist);
 rebuild("album", "Album", $album);
 rebuild("track", "Track", $track);
+rebuild("label", "Label", $label);
 
 sub rebuild
 {

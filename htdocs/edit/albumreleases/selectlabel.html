@@ -49,6 +49,7 @@
 
 	if (defined $submit_add)
 	{
+		$search = uri_escape($search);
 		my $returnurl = uri_escape("/edit/albumreleases/selectlabel.html?releaseid=$releaseid&selected_label=");
 		my $addlabelurl = "/edit/label/add.html?name=$search&returnurl=$returnurl";
 		return $m->comp("/comp/redirect", $addlabelurl);

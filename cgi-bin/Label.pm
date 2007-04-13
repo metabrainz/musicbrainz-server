@@ -429,11 +429,17 @@ sub RebuildWordList
 {
 	my ($this) = @_;
 
+	require Alias;
+	my $al = Alias->new($this->{DBH});
+	$al->SetTable("LabelAlias");
+	my @aliases = $al->GetList($this->GetId);
+	@aliases = map { $_->[1] } @aliases;
+
 	require SearchEngine;
 	my $engine = SearchEngine->new($this->{DBH}, 'label');
 	$engine->AddWordRefs(
 		$this->GetId,
-		[ $this->GetName ],
+		[ $this->GetName, @aliases ],
 		1, # remove other words
 		);
 }
