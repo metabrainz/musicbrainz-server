@@ -204,6 +204,8 @@ function ARFrontEnd() {
 				site = "myspace";
 			} else if (v.match(/(\.|\/)purevolume\.com/i)) { 
  				site = "purevolume";
+			} else if (v.match(/((\.|\/)archive.org\/download|(\.|\/)cdbaby.name).*?\.(jpg|jpeg|png|gif)/i)) { 
+ 				site = "cover art";
 			}
 			if (site != "") {
 				var tddo = this.typeDropDown.options;

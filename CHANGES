@@ -4,6 +4,7 @@ Release 2007-XX-YY:
    * PureVolume url AR type detection. (#2724)
    * Custom release sorting on the label page.
    * Prevent cat # from wrapping in label view. (#2725)
+   * "Cover art" url AR type detection.
 
 Release 2007-04-01:
 
