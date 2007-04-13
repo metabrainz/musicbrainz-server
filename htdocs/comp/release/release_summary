@@ -91,6 +91,7 @@
 % 	}
 					</td>
 					<td class="language">
+%	if ($release->GetId) {
                     [ 
                     <% $release->GetQualityModPending ? '<span class="mp">' : '' |n %>
                     <% ucfirst($quality) %> data quality 
@@ -101,6 +102,7 @@
 				    <a href="/edit/albumquality/edit.html?id=<% $release->GetId() %>">Change</a>
 %					}
 					|
+% 	}
 <%perl>
 
 	# 2. Release Language
