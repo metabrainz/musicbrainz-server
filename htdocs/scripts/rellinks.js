@@ -70,10 +70,10 @@ function RelLinks()
 		if (this.type0 && this.type1 && this.id0 && this.id1) {
 			var url = "/edit/relationship/add.html?";
 			if (this.type0 < this.type1) {
-				url += "link0=" + this.type0 + "=" + this.id0 + "&link1=" + this.type1 + "=" + this.id1;
+				url += "link0=" + this.type0 + "=" + this.id0 + "&link1=" + this.type1 + "=" + this.id1 + "&returnto=0";
 			}
 			else {
-				url += "link0=" + this.type1 + "=" + this.id1 + "&link1=" + this.type0 + "=" + this.id0;
+				url += "link0=" + this.type1 + "=" + this.id1 + "&link1=" + this.type0 + "=" + this.id0 + "&returnto=1";
 			}
 			window.location.href = url;
 		}

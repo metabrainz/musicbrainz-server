@@ -116,6 +116,7 @@ my $_isEqual = sub {
 
 my $mb = $m->comp("/comp/dblogin");
 my @links = MusicBrainz::Server::Link->FindLinkedEntities($mb->{DBH}, $id, $type);
+my $returnto = 0;
 
 if (@links == 0)
 {
@@ -146,6 +147,7 @@ else
 				link1_resolution	link0_resolution
 				rlink_phrase		link_phrase
 			)};
+			$returnto = 1;
 		}
 	}
 
@@ -241,9 +243,11 @@ else
 		{
 			$m->out(($max > 1) ? '</td><td align="right" valign="top">' : '');
 			$m->out('[&nbsp;<a href="/edit/relationship/remove.html?type=' . $item->{link0_type} . '-' .
-					$item->{link1_type} . '&amp;id='.$item->{link_id}.'">Remove</a>&nbsp;');
+					$item->{link1_type} . '&amp;id='.$item->{link_id}.'&amp;returnto='.
+					$returnto.'">Remove</a>&nbsp;');
 			$m->out('|&nbsp;<a href="/edit/relationship/edit.html?type=' . $item->{link0_type} . '-' .
-					$item->{link1_type} . '&amp;id='.$item->{link_id}.'">Edit</a>&nbsp;]');
+					$item->{link1_type} . '&amp;id='.$item->{link_id}.'&amp;returnto='.
+					$returnto.'">Edit</a>&nbsp;]');
 		}
 		$m->out(($max > 1) ? '</td></tr>' : '<br />');
 	}
@@ -293,9 +297,13 @@ elsif (scalar(@$recent_links) == 1)
 % }
 % unless ($type eq $recent_links->[0][0] && $id == $recent_links->[0][1]) {
 %		my $typename = ($type eq "url" ? "URL" : $type);
-		<a href="/edit/relationship/add.html?link0=<%
-			$type %>=<% $id %>&amp;link1=<%
-			$recent_links->[0][0] %>=<% $recent_links->[0][1] %>">Create relationship with this <% $typename %></a> |
+%		my $url;
+%		if ($type le $recent_links->[0][0]) {
+%			$url = "link0=$type=$id&link1=$recent_links->[0][0]=$recent_links->[0][1]&returnto=0";
+%		} else {
+%			$url = "link1=$type=$id&link0=$recent_links->[0][0]=$recent_links->[0][1]&returnto=1";
+%		}
+		<a href="/edit/relationship/add.html?<% $url %>">Create relationship with this <% $typename %></a> |
 % }
 		<& /comp/ar/ShowCancelLink, targetid => $id, targettype => $type, isrelpage => $isrelpage &>
 		| <a href="/edit/artist/add.html">Add new artist</a>

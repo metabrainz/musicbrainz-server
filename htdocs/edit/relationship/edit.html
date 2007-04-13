@@ -42,6 +42,7 @@
 	$submitvalue => ""
 	$swapval => 0
 	$notetext => undef
+	$returnto => 0
 
 </%args>
 <%perl>
@@ -49,6 +50,12 @@
 	# only logged in users may see this page
 	$m->comp("/comp/checkloggedin", 1, 1)
 		or return;
+
+	if ($returnto < 0 || $returnto > 1)
+	{
+		$m->comp("/comp/layout/badarguments", text => "The returnto argument can be either 0 or 1.");
+		return undef;
+	}
 
 	# check volatile preferences (like autoeditor flag)
 	$m->comp("/comp/user/check-volatile-preferences", %ARGS);
@@ -159,8 +166,8 @@
 	if ($submitvalue ne "")
 	{
 		# prepare forward url after action.
-		my $type = ($links[0]{type} eq "album" ? "release" : $links[0]{type});
-		my $url = "/show/".$type."/?".$type."id=".$links[0]{id};
+		my $type = ($links[$returnto]{type} eq "album" ? "release" : $links[$returnto]{type});
+		my $url = "/show/".$type."/?".$type."id=".$links[$returnto]{id};
 
 		# handle click of Cancel button
 		if ($submitvalue =~ m/cancel/i)

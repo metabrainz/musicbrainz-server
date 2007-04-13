@@ -5,6 +5,8 @@ Release 2007-XX-YY:
    * Custom release sorting on the label page.
    * Prevent cat # from wrapping in label view. (#2725)
    * "Cover art" url AR type detection.
+   * After creating an AR, redirect to the 'current' entity, instead of
+     the first one. (#2722)
 
 Release 2007-04-01:
 

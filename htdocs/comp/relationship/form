@@ -37,6 +37,7 @@
 	$swapval => 0
 	$submitvalue => ""
 	$notetext => undef
+	$returnto => 0
 
 </%args>
 <%perl>
@@ -323,6 +324,8 @@
 					<input type="hidden" name="int_formsubmitted" value="<% $submitvalue ne "" %>" />
 					<input type="hidden" name="int_seenattrs" value="<% join(",", keys %seen_attrs)  %>" />
 					<input type="hidden" name="int_typedropdown" value="linktypeid" /></td>
+
+					<input type="hidden" name="returnto" value="<% $returnto %>" />
 			</tr>
 		</table>
 

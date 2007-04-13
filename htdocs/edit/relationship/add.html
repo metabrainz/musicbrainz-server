@@ -44,6 +44,7 @@
 	$submitvalue => ""
 	$notetext => undef
 	$swap => ""
+	$returnto => 0
 
 </%args>
 <%perl>
@@ -51,6 +52,12 @@
 	# only logged in users may see this page
 	$m->comp("/comp/checkloggedin", 1, 1)
 		or return;
+
+	if ($returnto < 0 || $returnto > 1)
+	{
+		$m->comp("/comp/layout/badarguments", text => "The returnto argument can be either 0 or 1.");
+		return undef;
+	}
 
 	my @links;
 	# if there are not two elements to relate.
@@ -151,7 +158,7 @@
 		if ($submitvalue =~ m/cancel/i)
 		{
 			return $m->comp("/comp/redirect",
-				sprintf "/show%s.html?%sid=%s", $links[0]{type}, $links[0]{type}, $links[0]{id});
+				sprintf "/show%s.html?%sid=%s", $links[$returnto]{type}, $links[$returnto]{type}, $links[$returnto]{id});
 		}
 
 		elsif ($submitvalue =~ m/Enter Edit/i)
@@ -185,14 +192,12 @@
 						$session{recent_links} = $recent_links;
 					}
 
-					# So far, always redirects back to the "first" link
-					my $typeshow = $links[0]{type} eq "album" ? "release" : $links[0]{type};
+					# Redirect to the "current" entity
+					my $typeshow = $links[$returnto]{type} eq "album" ? "release" : $links[$returnto]{type};
 					my $url = sprintf "/show/%s/relationships.html?%sid=%s",
 								$typeshow,
 								$typeshow,
-								$links[0]{id};
-
-
+								$links[$returnto]{id};
 
 					$m->comp(
 						"/comp/entermods",

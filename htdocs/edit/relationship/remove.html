@@ -33,6 +33,7 @@
 
 	$submitvalue => ""
 	$notetext => ""
+	$returnto => 0
 
 </%args>
 <%perl>
@@ -40,6 +41,12 @@
 	# only logged in users may see this page
 	$m->comp("/comp/checkloggedin", 1, 1)
 		or return;
+
+	if ($returnto < 0 || $returnto > 1)
+	{
+		$m->comp("/comp/layout/badarguments", text => "The returnto argument can be either 0 or 1.");
+		return undef;
+	}
 
 	# check volatile preferences (like autoeditor flag)
 	$m->comp("/comp/user/check-volatile-preferences", %ARGS);
@@ -68,8 +75,8 @@
 	{
 
 		# prepare forward url after action.
-		my $showtype = ($types[0] eq "album" ? "release" : $types[0]);
-		my $url = "/show/".$showtype."/?".$showtype."id=".$ents[0]->GetId;
+		my $showtype = ($types[$returnto] eq "album" ? "release" : $types[$returnto]);
+		my $url = "/show/".$showtype."/?".$showtype."id=".$ents[$returnto]->GetId;
 
 		# handle click on enter edit button.
 		if ($submitvalue =~ m/Enter Edit/i)
@@ -158,6 +165,7 @@
 
 					<& /comp/form/hiddenfield, "type", $type &>
 					<& /comp/form/hiddenfield, "id", $id &>
+					<& /comp/form/hiddenfield, "returnto", $returnto &>
 					<& /comp/form/focusfield, "btnYes" &>
 
 				</td>
