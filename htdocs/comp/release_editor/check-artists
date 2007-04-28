@@ -110,28 +110,6 @@
 			$curr_artistname = $ARGS{$field_artistname};
 			$curr_trackname = $ARGS{"track$t"};
 			$artistfilter_search = $ARGS{"artistfilter_search"};
-
-			# find new list of artists if the artistname has changed.
-			@artists = @{ $artist->GetArtistsFromName($curr_artistname) }
-				if ($curr_artistname ne $last_artistname);
-
-			# if a single item was found, set it and redirect
-			# back to the form.
-			if (@artists == 1 and
-				$artists[0]->GetName eq $curr_artistname and
-				$curr_artistid eq "" and
-				not exists $edit_artists{$t})
-			{
-				$ARGS{getField($t, "artistid")} = $artists[0]->GetId;
-				$ARGS{getField($t, "artistname")} = $artists[0]->GetName;
-				$ARGS{getField($t, "artistresolution")} = $artists[0]->GetName;
-				delete $ARGS{getField($t, "artistedit")};
-
-				push @resolved_artists, $t;
-				$last_artistname = $curr_artistname;
-				next;
-			}
-
 </%perl>
 
 			<form method="post" action="<% $ARGS{"v::action"} %>" >

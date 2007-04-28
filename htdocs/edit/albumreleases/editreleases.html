@@ -131,6 +131,7 @@
 		}
 
 		# Check the barcode
+		$rel->{barcode} =~ s/(-|\s)+//g;
 		if (MusicBrainz::Server::Validation::IsValidBarcode($rel->{barcode})) {
 			push @errors, 'Barcode "' . $rel->{barcode} . '" should contain only numbers, please remove all non-numeric characters.';
 			delete $ARGS{'continue'};

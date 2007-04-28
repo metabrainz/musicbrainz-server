@@ -819,10 +819,10 @@ sub LoadTracks
 # Find all releases for this album.  Returns a list of M::S::Release objects.
 sub Releases
 {
-	my $self = shift;
+	my ($self, $loadlabels) = @_;
 	require MusicBrainz::Server::Release;
 	my $rel = MusicBrainz::Server::Release->new($self->{DBH});
-	$rel->newFromAlbum($self->GetId);
+	$rel->newFromAlbum($self->GetId, $loadlabels);
 }
 
 sub GetDiscIDs

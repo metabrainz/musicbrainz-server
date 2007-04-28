@@ -129,6 +129,10 @@ sub Label
 	$c->LoadFromId or return undef;
 	$c;
 }
+# This doesn't have to always contain the actual label name. Use it
+# only on instances loaded by newFromAlbum.
+sub GetLabelName	{ $_[0]{labelname} }
+sub GetLabelMBId	{ $_[0]{labelgid} }
 
 sub GetFormat		{ $_[0]{format} }
 sub SetFormat		{ $_[0]{format} = $_[1] }
@@ -193,14 +197,22 @@ sub newFromId
 
 sub newFromAlbum
 {
-	my ($self, $album) = @_;
-   	my $sql = Sql->new($self->{DBH});
+	my ($self, $album, $loadlabels) = @_;
+	my $sql = Sql->new($self->{DBH});
+	my $query;
+	if ($loadlabels) 
+	{
+		$query = "SELECT release.*, label.name AS labelname, label.gid AS labelgid
+				  FROM release LEFT JOIN label ON release.label = label.id
+				  WHERE release.album = ? ORDER BY release.releasedate, release.country";
+	}
+	else
+	{
+		$query = "SELECT * FROM release WHERE album = ? ORDER BY releasedate, country";
+	}
 	map { $self->_new_from_row($_) }
 		@{
-			$sql->SelectListOfHashes(
-				"SELECT * FROM release WHERE album = ? ORDER BY releasedate, country",
-				$album,
-			),
+			$sql->SelectListOfHashes($query, $album),
 		};
 }
 

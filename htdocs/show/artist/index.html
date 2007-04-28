@@ -220,6 +220,7 @@
         if ($short)
         {
             my @shortlist;
+			my $onlyva = (scalar(@albums) == 0);
 
             for my $album (@albums)
             {
@@ -238,17 +239,17 @@
                 # no releases for our short mode. Set to all SAs, if possible.
                 $dispmode = 1;
             }
+
+			# if we netted no albums to show, fetch everything else.
+			if (scalar(@albums) == 0)
+			{
+				@albums = $artist->GetAlbums(0, 1, $onlyva);
+				$dispmode = 3;
+			}
         }
         else
         {
             # We're not in short mode, so display everything
-            $dispmode = 3;
-        }
-
-        # if we netted no albums to show, fetch everything else.
-        if (scalar(@albums) == 0)
-        {
-		    @albums = $artist->GetAlbums(0, 1) ;
             $dispmode = 3;
         }
 
@@ -288,8 +289,9 @@
 				# todo, what is better - list albums with multiple
 				# tracks per artist which are attributed to this artist
 				# with the various artist appearances or separate?
+				$album->SetMultipleTrackArtists($album->GetArtist != $artist->GetId() ? 1 : 0);
 				$album->{_is_va_} = ($album->GetArtist == &ModDefs::VARTIST_ID or
-					   				 ($album->HasMultipleTrackArtists and $album->GetArtist != $artist->GetId()));
+					   				 $album->GetArtist != $artist->GetId());
 				$album->{_is_nonalbum_} = ($album->{_attr_type} == Album::ALBUM_ATTR_NONALBUMTRACKS);
 
 				$album->{_section_key_} = (

@@ -51,6 +51,7 @@
 		my $rev_country = $ARGS{"rev_country-$j"};
 		my $rev_id = $ARGS{"rev_id-$j"};
 		my $rev_clear = $ARGS{"rev_clear-$j"} || 0;
+		$ARGS{"rev_barcode-$j"} =~ s/(-|\s)+//g;
 		my $rev_barcode = $ARGS{"rev_barcode-$j"};
 
 		if (!$rev_clear)

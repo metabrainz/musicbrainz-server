@@ -60,10 +60,9 @@
 	my $artist = $m->comp("/comp/loadartist", $mb, $release->GetArtist);
 
 	# fill the release events into the "r" list.
-	my @r = $release->Releases;
+	my @r = $release->Releases(1);
 	@r = map {
 		my @ymd = $_->GetYMD;
-		my $label_name = $_->GetLabel ? $_->Label->GetName : undef;
 		+{
 			id => $_->GetId,
 			country => $_->GetCountry,
@@ -72,7 +71,7 @@
 			day => $ymd[2],
 			sortdate => $_->GetSortDate,
 			label => $_->GetLabel,
-			labelname => $label_name,
+			labelname => $_->GetLabelName,
 			catno => $_->GetCatNo,
 			barcode => $_->GetBarcode,
 			format => $_->GetFormat ? $_->GetFormat : "",
@@ -81,7 +80,7 @@
 			orig_month => $ymd[1],
 			orig_day => $ymd[2],
 			orig_label => $_->GetLabel,
-			orig_labelname => $label_name,
+			orig_labelname => $_->GetLabelName,
 			orig_catno => $_->GetCatNo,
 			orig_barcode => $_->GetBarcode,
 			orig_format => $_->GetFormat ? $_->GetFormat : "",

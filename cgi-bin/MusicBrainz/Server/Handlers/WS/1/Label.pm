@@ -48,7 +48,7 @@ sub handler
     my ($info, $bad) = get_type_and_status_from_inc($bad);
     if ($bad)
     {
-		return bad_req($r, "Invalid inc options: '$bad'. For usage, please see: http://musicbrainz.org/development/mmd");
+		return bad_req($r, "Invalid inc options: '$bad'.");
 	}
     my $type = $args{type};
     if (!defined($type) || $type ne 'xml')
@@ -57,11 +57,11 @@ sub handler
 	}
 	if ((!MusicBrainz::Server::Validation::IsGUID($mbid) && $mbid ne '') || $inc eq 'error')
 	{
-		return bad_req($r, "Incorrect URI. For usage, please see: http://musicbrainz.org/development/mmd");
+		return bad_req($r, "Incorrect URI.");
 	}
     if ($inc & INC_TRACKS)
 	{
-		return bad_req($r, "Cannot use track parameter for label resources. For usage, please see: http://musicbrainz.org/development/mmd");
+		return bad_req($r, "Cannot use track parameter for label resources.");
 	}
     if (!$mbid)
     {

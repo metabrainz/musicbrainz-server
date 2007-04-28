@@ -120,7 +120,7 @@
 	$orig{"v::edit_track_data"} = ($release->CanAddTrack or $release->CanRemoveTrack);
 
 	# load releases, and add into @t list.
-	my @releaseEvents = $release->Releases;
+	my @releaseEvents = $release->Releases(1);
 	for $i (0 .. @releaseEvents-1)
 	{
 		my $rev = $releaseEvents[$i];
@@ -134,7 +134,7 @@
 		$orig{"rev_catno-$i"} = $rev->GetCatNo;
 		$orig{"rev_barcode-$i"} = $rev->GetBarcode;
 		$orig{"rev_label-$i"} = $rev->GetLabel;
-		$orig{"rev_labelname-$i"} = $rev->GetLabel ? $rev->Label->GetName : undef;
+		$orig{"rev_labelname-$i"} = $rev->GetLabelName;
 		$orig{"rev_labelorigname-$i"} = $orig{"rev_labelname-$i"};
 		$orig{"rev_format-$i"} = $rev->GetFormat;
 	}

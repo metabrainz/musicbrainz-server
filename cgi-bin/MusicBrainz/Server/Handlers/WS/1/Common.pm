@@ -356,7 +356,7 @@ sub xml_release_events
     require MusicBrainz::Server::Country;
 
 	my ($al, $inc) = @_;
-    my (@releases) = $al->Releases;
+    my (@releases) = $al->Releases(($inc & INC_LABELS) ? 1 : 0);
     my $country_obj = MusicBrainz::Server::Country->new($al->{DBH})
        if @releases;
 	
@@ -390,7 +390,11 @@ sub xml_release_events
 			if (($inc & INC_LABELS) && $rel->GetLabel)
 			{
 				print '>';
-				xml_label($rel->Label, $inc);
+				my $label = Label->new($rel->{DBH});
+				$label->SetId($rel->GetLabel);
+				$label->SetMBId($rel->GetLabelMBId);
+				$label->SetName($rel->GetLabelName);
+				xml_label($label, $inc);
 				print '</event>';
 			}
 			else

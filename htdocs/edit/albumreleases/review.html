@@ -75,7 +75,6 @@
 	my $release = $m->comp("/comp/loadrelease", $mb, $edit->{"id"});
 	my $artist = $m->comp("/comp/loadartist", $mb, $release->GetArtist);
 
-	my @releases = $release->Releases;
 	my @tracks = $release->LoadTracks;
 
 </%perl>

@@ -113,7 +113,7 @@
 		<tr valign="top">
 			<td class="eventslist">
 
-%		my @relevents = $releaseevents ? @$releaseevents : $release->Releases;
+%		my @relevents = $releaseevents ? @$releaseevents : $release->Releases(1);
 %		if (@relevents == 0)
 %		{
 
@@ -152,7 +152,8 @@
 						<td><% $name %></td>
 %						if ($rel->GetLabel)
 %						{
-							<td><& /comp/linklabel, label => $rel->Label &></td>
+							<td><& /comp/linklabel, id => $rel->GetLabel, name => $rel->GetLabelName,
+								mbid => $rel->GetLabelMBId &></td>
 %						}
 %						else
 %						{
