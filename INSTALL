@@ -5,7 +5,7 @@ New (Jan 2005):
 	If you can dedicate a whole machine to use as a MusicBrainz
 	server, you might find the following helpful:
 
-	http://wiki.musicbrainz.org/wiki.pl?DebianServerSetup
+	http://wiki.musicbrainz.org/DebianServerSetup
 
 	It describes how to take a fresh machine, install Debian on it,
 	and then install the MusicBrainz server on top of that.
