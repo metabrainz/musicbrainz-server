@@ -92,7 +92,6 @@
 		<& /comp/autofixmenu &>
 
 		<script type="text/javascript" src="/scripts/entervalidate.js"></script>
-		<script type="text/javascript" src="/scripts/MochiKit/MochiKit.js"></script>
 		<script type="text/javascript" src="/scripts/jsselect.js"></script>
 		<script type="text/javascript" src="/scripts/editallconfig.js"></script>
 

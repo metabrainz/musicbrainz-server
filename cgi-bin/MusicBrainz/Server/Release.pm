@@ -132,6 +132,7 @@ sub Label
 # This doesn't have to always contain the actual label name. Use it
 # only on instances loaded by newFromAlbum.
 sub GetLabelName	{ $_[0]{labelname} }
+sub SetLabelName	{ $_[0]{labelname} = $_[1] }
 sub GetLabelMBId	{ $_[0]{labelgid} }
 
 sub GetFormat		{ $_[0]{format} }

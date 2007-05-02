@@ -173,6 +173,7 @@
 			$rev->SetCountry($rel->{country});
 			$rev->SetYMD(@$rel{qw( year month day )});
 			$rev->SetLabel($rel->{label});
+			$rev->SetLabelName($rel->{labelname});
 			$rev->SetCatNo($rel->{catno});
 			$rev->SetBarcode($rel->{barcode});
 			$rev->SetFormat($rel->{format});
@@ -185,6 +186,7 @@
 		$rev->SetCountry($rel->{country});
 		$rev->SetYMD(@$rel{qw( year month day )});
 		$rev->SetLabel($rel->{label});
+		$rev->SetLabelName($rel->{labelname});
 		$rev->SetCatNo($rel->{catno});
 		$rev->SetBarcode($rel->{barcode});
 		$rev->SetFormat($rel->{format});

@@ -54,6 +54,7 @@
 		<link rel="shortcut icon" href="/favicon.ico" />
 		<script type="text/javascript" src="/scripts/musicbrainz.js?t=<% $mtime_musicbrainzjs %>"></script>
 		<script type="text/javascript" src="/scripts/overlib.js?t=<% $mtime_overlibjs %>"></script>
+		<script type="text/javascript" src="/scripts/MochiKit/MochiKit.js?t=<% $mtime_overlibjs %>"></script>
 
 		<meta http-equiv="expires" content="1" />
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />

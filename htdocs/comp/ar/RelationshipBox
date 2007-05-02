@@ -99,7 +99,6 @@
 </%perl>
 </%def>
 
-<script src="/scripts/MochiKit/MochiKit.js" type="text/javascript"></script>
 <script src="/scripts/jsselect.js" type="text/javascript"></script>
 <script src="/scripts/rellinks.js" type="text/javascript"></script>
 <div class="RelationshipBox">
@@ -303,7 +302,11 @@ elsif (scalar(@$recent_links) == 1)
 %		} else {
 %			$url = "link1=$type=$id&link0=$recent_links->[0][0]=$recent_links->[0][1]&returnto=1";
 %		}
-		<a href="/edit/relationship/add.html?<% $url %>">Create relationship with this <% $typename %></a> |
+		<a href="/edit/relationship/add.html?<% $url %>">Create relationship with this <% $typename %></a>
+%		if ($type eq "album") {
+			(<a href="/edit/relationship/add.html?<% $url %>">tracks</a>)
+%		}
+		|
 % }
 		<& /comp/ar/ShowCancelLink, targetid => $id, targettype => $type, isrelpage => $isrelpage &>
 		| <a href="/edit/artist/add.html">Add new artist</a>

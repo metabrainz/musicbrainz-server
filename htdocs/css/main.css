@@ -50,6 +50,7 @@ img.entityicon {
 	 with left-padding.) */
 span.linkartist-icon,
 span.linkrelease-icon,
+span.linklabel-icon,
 span.linktrack-icon { 
 	padding-left: 16px;
 	background-position: 0px 2px;
@@ -58,6 +59,10 @@ span.linktrack-icon {
 
 span.linkartist-icon { 
 	background-image: url("../images/entity/artist_small.gif");
+}
+
+span.linklabel-icon { 
+	background-image: url("../images/entity/label_small.gif");
 }
 
 span.linkrelease-icon { 

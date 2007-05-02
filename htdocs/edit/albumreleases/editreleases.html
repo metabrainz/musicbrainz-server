@@ -207,7 +207,6 @@
 
 	<& /comp/stylemenu &>
 
-	<script type="text/javascript" src="/scripts/MochiKit/MochiKit.js"></script>
 	<script type="text/javascript" src="/scripts/jsselect.js"></script>
 	<script type="text/javascript" src="/scripts/editreleasesconfig.js"></script>
 	<script type="text/javascript" src="validate.js"></script>
@@ -285,7 +284,7 @@
 						<tr class="header">
 							<td><strong>Date (<abbr title="Year">Y</abbr>/<abbr title="Day">M</abbr>/<abbr title="Day">D</abbr>):</strong></td>
 							<td>Country:</td>
-							<td>Label:</td>
+							<td colspan="2">Label:</td>
 							<td>Catalog #:</td>
 							<td>Barcode:</td>
 							<td>Format:</td>
@@ -312,11 +311,13 @@
 	<select name="country<% $rel->{"id"} %>" class="country" tabindex="<% ++$tabindex %>">
 		<& /comp/options, ($rel->{country} ? $countries_menu : $countries_menu_2), $rel->{country} &>
 	</select></td>
+<td id="labelcheckbox<%  $rel->{"id"} %>"></td>
 <td>
 	<& /comp/form/hiddenfield, "orig_labelname" . $rel->{"id"}, $rel->{orig_labelname} || '' &>
 	<& /comp/form/hiddenfield, "label" . $rel->{"id"}, $rel->{label} || '' &>
+	<span id="labelinput<%  $rel->{"id"} %>">
 	<& /comp/form/numberfield, type => "shorttxtfield", name => "labelname" . $rel->{"id"}, cssclass => " labelname",
-		tabindex => ++$tabindex, value => $rel->{labelname} || '', size => 15, maxlength => 255 &></td>
+		tabindex => ++$tabindex, value => $rel->{labelname} || '', size => 15, maxlength => 255 &></div></td>
 <td>
 	<& /comp/form/numberfield, type => "shorttxtfield", name => "catno" . $rel->{"id"},
 		tabindex => ++$tabindex, value => $rel->{catno} || '', size => 12, maxlength => 255 &></td>
@@ -337,7 +338,7 @@
 %	{
 
 						<tr>
-							<td colspan="5">
+							<td colspan="6">
 								No release information available.&nbsp;
 								Click "Add a release event" and "Continue" to add a release.</td>
 						</tr>
@@ -345,13 +346,13 @@
 % 	}
 
 						<tr>
-							<td colspan="5" class="padtop">
+							<td colspan="6" class="padtop">
 								<input type="checkbox" name="AddARelease" value="1" />
 								Add a release event ...</td>
 						</tr>
 %   if ($showforce) {
 						<tr>
-                			<td colspan="5" class="padtop"><input type="checkbox" name="force"> Yes, I'm sure the information is correct.</td>
+                			<td colspan="6" class="padtop"><input type="checkbox" name="force"> Yes, I'm sure the information is correct.</td>
 						</tr>
 %   }
 					</table>
