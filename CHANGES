@@ -12,6 +12,7 @@ Release 2007-XX-YY:
     * Improve conditions.html overview. (#2715, Age Bosma (Prodoc))
     * Guess Case: Convert "blank" to "[silence]". (#2103)
     * Guess Case: "orchestral" ExtraTitleInformation shouldn't be capitalized. (#2759)
+    * Guess Case: Convert "Ver." to "version". (#2001)
   * Bux Fixes:
     * Don't double HTML-encode values in hidden inputs. (#2726)
     * Removed broken links to (non-existant) TRM reports.

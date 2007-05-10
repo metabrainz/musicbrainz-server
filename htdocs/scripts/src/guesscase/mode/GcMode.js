@@ -310,7 +310,7 @@ function GcMode(modes, name, lang, desc, url) {
 				, new GcFix("instr. -> instrumental", /(\b|^)instr\.?(\b)/i, "instrumental")
 				, new GcFix("altern. -> alternate", /(\b|^)altern\.?(\s|\)|$)/i, "alternate" )
 				, new GcFix("orig. -> original", /(\b|^)orig\.?(\s|\)|$)/i, "original" )
-				, new GcFix("vers. -> version", /(\b|^)vers\.(\s|\)|$)/i, "version" )
+				, new GcFix("ver(s). -> version", /(\b|^)vers?\.(\s|\)|$)/i, "version" )
 				, new GcFix("Extendet -> extended", /(\b|^)Extendet(\b)/i, "extended" )
 				, new GcFix("extd. -> extended", /(\b|^)ext[d]?\.?(\s|\)|$)/i, "extended" )
 
