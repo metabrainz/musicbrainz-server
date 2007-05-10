@@ -3104,7 +3104,7 @@ mb.log.debug("$=$",w,f);
 return mb.log.exit(f);
 };
 this.getLowerCaseBracketWords=function(){
-return ["acoustic","album","alternate","bonus","clean","dirty","disc","extended","instrumental","live","original","radio","single","take","demo","club","dance","edit","skit","mix","remix","version","reprise","megamix","maxi","feat","interlude","dub","dialogue","cut","karaoke","vs","vocal","alternative","disco","unplugged","video","outtake","outtakes","rehearsal","intro","outro","long","short","main","remake","clubmix","composition","reinterpreted","session","rework","reworked","remixed","reedit","airplay","a_cappella","excerpt","medley"];
+return ["acoustic","album","alternate","bonus","clean","dirty","disc","extended","instrumental","live","original","radio","single","take","demo","club","dance","edit","skit","mix","remix","version","reprise","megamix","maxi","feat","interlude","dub","dialogue","cut","karaoke","vs","vocal","alternative","disco","unplugged","video","outtake","outtakes","rehearsal","intro","outro","long","short","main","remake","clubmix","composition","reinterpreted","session","rework","reworked","remixed","reedit","airplay","a_cappella","excerpt","medley","orchestral"];
 };
 this.isLowerCaseBracketWord=function(w){
 mb.log.enter(this.GID,"isLowerCaseBracketWord");

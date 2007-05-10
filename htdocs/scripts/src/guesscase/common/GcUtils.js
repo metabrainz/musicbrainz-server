@@ -121,6 +121,7 @@ function GcUtils() {
 	 *								is handled as 1 word, but is expanded to "a cappella"
 	 *								in post-processing
 	 * keschte		2005-07-21		added outtake(s),rehearsal,intro,outro
+	 * lukas		2007-05-10		added orchestral
 	 **/
 	this.getLowerCaseBracketWords = function() {
 		return ["acoustic", "album", "alternate", "bonus", "clean", "dirty", "disc",
@@ -131,7 +132,8 @@ function GcUtils() {
 				"disco", "unplugged", "video", "outtake", "outtakes", "rehearsal", "intro",
 				"outro", "long", "short", "main", "remake", "clubmix",
 				"composition", "reinterpreted", "session", "rework", "reworked",
-				"remixed", "reedit", "airplay", "a_cappella", "excerpt", "medley"];
+				"remixed", "reedit", "airplay", "a_cappella", "excerpt", "medley",
+				"orchestral"];
 	};
 	this.isLowerCaseBracketWord = function(w) {
 		mb.log.enter(this.GID, "isLowerCaseBracketWord");
