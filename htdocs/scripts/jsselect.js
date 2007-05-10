@@ -130,4 +130,4 @@ function JsSelect()
 }
 
 var jsselect = new JsSelect();
-mb.registerPageLoadedAction(new MbEventAction("jsselect", "initialise", "Init JsSelect"));
+mb.registerDOMReadyAction(new MbEventAction("jsselect", "initialise", "Init JsSelect"));

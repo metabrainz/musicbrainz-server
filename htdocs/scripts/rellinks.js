@@ -101,4 +101,4 @@ function RelLinks()
 }
 
 var rellinks = new RelLinks();
-mb.registerPageLoadedAction(new MbEventAction("rellinks", "initialise", "Init RelLinks"));
+mb.registerDOMReadyAction(new MbEventAction("rellinks", "initialise", "Init RelLinks"));
