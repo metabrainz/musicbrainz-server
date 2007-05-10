@@ -138,9 +138,8 @@ function ARFrontEnd() {
 					mb.log.error("Could not find the DropDown given by int_typedropdown $", this.typeDropDownName);
 				}
 
-				var swapval, elcs, elss;
-				if ((swapval = this.form.swapval) == null &&
-					(elcs = mb.ui.get("arEntitiesSwap-Client")) != null &&
+				var elcs, elss;
+				if ((elcs = mb.ui.get("arEntitiesSwap-Client")) != null &&
 					(elss = mb.ui.get("arEntitiesSwap-Server")) != null) {
 					elcs.style.display = "block";
 					elss.style.display = "none";
@@ -304,16 +303,18 @@ function ARFrontEnd() {
 	this.swapElements = function(theBtn) {
 		mb.log.enter(this.GID, "swapElements");
 		var theForm = theBtn.form;
-		if (theForm == null || theForm.link0 == null || theForm.link1) {
-			var leftTD = document.getElementById("arEntitiesSwap-TD0");
-			var rightTD = document.getElementById("arEntitiesSwap-TD1");
-			var leftVAL = theForm.link0.value;
-			var rightVAL = theForm.link1.value;
-			if (leftTD != null && rightTD != null &&
-				leftVAL != "" && rightVAL != "") {
-				var tmp = leftTD.innerHTML;
-				leftTD.innerHTML = rightTD.innerHTML;
-				rightTD.innerHTML = tmp;
+		var leftTD = $("arEntitiesSwap-TD0");
+		var rightTD = $("arEntitiesSwap-TD1");
+		if (leftTD != null && rightTD != null) {
+			var tmp = leftTD.innerHTML;
+			leftTD.innerHTML = rightTD.innerHTML;
+			rightTD.innerHTML = tmp;
+			// edit AR page
+			if (theForm.swapval != null) {
+				theForm.swapval.value = 1 - theForm.swapval.value;
+			}
+			// add AR page
+			else {
 				tmp = theForm.link0.value;
 				theForm.link0.value = theForm.link1.value
 				theForm.link1.value = tmp;
