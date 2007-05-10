@@ -1,4 +1,8 @@
 http://dojotoolkit.org/docs/compressor_system.html
 
 You may download a patched version from 
-http://musicbrainz.org/~g0llum/dojo_rhino.jar
+http://users.musicbrainz.org/~g0llum/dojo_rhino.jar
+
+Usage:
+./download_rhino.sh
+./run.sh

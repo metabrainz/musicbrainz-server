@@ -1,1 +1,0 @@
-javac -classpath "lib/dojo_rhino.jar" -d "bin" src/Packer.java
