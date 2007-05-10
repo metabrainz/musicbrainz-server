@@ -10,6 +10,7 @@ Release 2007-XX-YY:
     * PUID reports. (#1917, Erik Dalén)
     * Automaticall remove spaces and hyphens from barcodes. (#2635)
     * Improve conditions.html overview. (#2715, Age Bosma (Prodoc))
+    * Guess Case: Convert "blank" to "[silence]". (#2103)
   * Bux Fixes:
     * Don't double HTML-encode values in hidden inputs. (#2726)
     * Removed broken links to (non-existant) TRM reports.

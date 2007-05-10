@@ -4794,7 +4794,7 @@ mb.log.enter(this.GID,"checkSpecialCase");
 if(is){
 if(!gc.re.TRACK_DATATRACK){
 gc.re.TRACK_DATATRACK=/^([\(\[]?\s*data(\s+track)?\s*[\)\]]?$)/i;
-gc.re.TRACK_SILENCE=/^([\(\[]?\s*silen(t|ce)(\s+track)?\s*[\)\]]?)$/i;
+gc.re.TRACK_SILENCE=/^([\(\[]?\s*(silen(t|ce)|blank)(\s+track)?\s*[\)\]]?)$/i;
 gc.re.TRACK_UNTITLED=/^([\(\[]?\s*untitled(\s+track)?\s*[\)\]]?)$/i;
 gc.re.TRACK_UNKNOWN=/^([\(\[]?\s*(unknown|bonus|hidden)(\s+track)?\s*[\)\]]?)$/i;
 gc.re.TRACK_MYSTERY=/^\?+$/i;

@@ -78,7 +78,7 @@ function GcTrackHandler() {
 				// data tracks
 				gc.re.TRACK_DATATRACK = /^([\(\[]?\s*data(\s+track)?\s*[\)\]]?$)/i;
 				// silence
-				gc.re.TRACK_SILENCE = /^([\(\[]?\s*silen(t|ce)(\s+track)?\s*[\)\]]?)$/i;
+				gc.re.TRACK_SILENCE = /^([\(\[]?\s*(silen(t|ce)|blank)(\s+track)?\s*[\)\]]?)$/i;
 				// untitled
 				gc.re.TRACK_UNTITLED = /^([\(\[]?\s*untitled(\s+track)?\s*[\)\]]?)$/i;
 				// unknown
