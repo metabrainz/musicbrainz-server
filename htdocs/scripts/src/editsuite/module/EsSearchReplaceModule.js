@@ -82,7 +82,6 @@ function EsSearchReplace() {
 		es.ui.registerButtons(
 			new EsButton(this.BTN_SEARCH, "Search", "", this.getModID()+".onSearchClicked()"),
 			new EsButton(this.BTN_REPLACE, "Replace", "", this.getModID()+".onReplaceClicked()"),
-			new EsButton(this.BTN_LOADPRESET, "Show/hide presets", "", this.getModID()+".onShowPresetsClicked()"),
 			new EsButton(this.BTN_SWAP, "Swap fields", "", this.getModID()+".onSwapFieldsClicked()"),
 			new EsButton(this.BTN_RESET, "Reset", "", this.getModID()+".onResetFieldsClicked()"));
 	};
@@ -112,7 +111,7 @@ function EsSearchReplace() {
 		s.push('<td>');
 		s.push(es.ui.getButtonHtml(this.BTN_SEARCH)); // not implemented yet.
 		s.push(es.ui.getButtonHtml(this.BTN_REPLACE));
-		s.push(es.ui.getButtonHtml(this.BTN_LOADPRESET));
+		s.push('<input type="button" value="Show/hide presets" onclick="'+this.getModID()+'.onShowPresetsClicked(this, event)" />');
 		s.push('<br/>');
 		s.push('<input type="hidden" name="'+this.FIELD_AUTOAPPLY+'" value="1">');
 		s.push('<input type="checkbox" name="'+this.FIELD_REGEX+'" value="true"><small>Regular expression</small>');
@@ -173,21 +172,19 @@ function EsSearchReplace() {
 	 * -- Is called from the ">> Load Preset" button
 	 *   reference to the form is saved for later use.
 	 **/
-	this.onShowPresetsClicked = function() {
-		if (!o3_showingsticky) {
-			ol_bgclass = "sr-presets-bg";
-			ol_fgclass = "sr-presets-fg";
-			ol_border = 0;
-			ol_vauto = 1;
-			ol_fgcolor = "#ffffff";
-			ol_textsize = '11px';
-			ol_closefontclass = 'sr-presets-close';
-			ol_captionfontclass = 'sr-presets-caption';
-
+	this.onShowPresetsClicked = function(src, ev) {
+		ev = new MochiKit.Signal.Event(src, ev);
+		if (!mb.popup.isVisible()) {
 			// show presets popup
-			overlib(this.getPresetsHtml(), STICKY, CLOSECLICK, CAPTION, 'Search/Replace Presets:');
+			mb.popup.show(ev.mouse().page, this.getPresetsHtml(), 'Search/Replace Presets:', {
+				'bgclass': 'sr-presets-bg',
+				'fgclass': 'sr-presets-fg',
+				'captionfontclass': 'sr-presets-caption',
+				'closefontclass': 'sr-presets-close',
+			});
 		} else {
-			cClick(); // close presets popup
+			// close presets popup
+			mb.popup.hide();
 		}
 	};
 

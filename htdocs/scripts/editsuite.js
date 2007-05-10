@@ -1168,7 +1168,7 @@ this.FIELD_ALLFIELDS=this.getModID()+".allfields";
 this.PRESETS_LIST=[["Remove all round parentheses ()","\\(|\\)","",1],["Remove all square brackets []","\\[|\\]","",1],["Remove all curly braces {}","\\{|\\}","",1],["Remove all bracketing punctuation ()[]{}","\\(|\\)|\\[|\\]|\\{|\\}","",1],["Replace [] with ()","\\[([^\\]]*)\\]","($1)",1],["Replace () with []","\\(([^\\)]*)\\)","[$1]",1],["Replace #1 with No. 1 for any number","#(\\d*)","No. $1",1]];
 this.COOKIE_PRESETEXPANDED="SR_COOKIE_PRESETEXPANDED";
 this.setupModuleDelegate=function(){
-es.ui.registerButtons(new EsButton(this.BTN_SEARCH,"Search","",this.getModID()+".onSearchClicked()"),new EsButton(this.BTN_REPLACE,"Replace","",this.getModID()+".onReplaceClicked()"),new EsButton(this.BTN_LOADPRESET,"Show/hide presets","",this.getModID()+".onShowPresetsClicked()"),new EsButton(this.BTN_SWAP,"Swap fields","",this.getModID()+".onSwapFieldsClicked()"),new EsButton(this.BTN_RESET,"Reset","",this.getModID()+".onResetFieldsClicked()"));
+es.ui.registerButtons(new EsButton(this.BTN_SEARCH,"Search","",this.getModID()+".onSearchClicked()"),new EsButton(this.BTN_REPLACE,"Replace","",this.getModID()+".onReplaceClicked()"),new EsButton(this.BTN_SWAP,"Swap fields","",this.getModID()+".onSwapFieldsClicked()"),new EsButton(this.BTN_RESET,"Reset","",this.getModID()+".onResetFieldsClicked()"));
 };
 this.getModuleHtml=function(){
 var s=[];
@@ -1190,7 +1190,7 @@ s.push("<td></td>");
 s.push("<td>");
 s.push(es.ui.getButtonHtml(this.BTN_SEARCH));
 s.push(es.ui.getButtonHtml(this.BTN_REPLACE));
-s.push(es.ui.getButtonHtml(this.BTN_LOADPRESET));
+s.push("<input type=\"button\" value=\"Show/hide presets\" onclick=\""+this.getModID()+".onShowPresetsClicked(this, event)\" />");
 s.push("<br/>");
 s.push("<input type=\"hidden\" name=\""+this.FIELD_AUTOAPPLY+"\" value=\"1\">");
 s.push("<input type=\"checkbox\" name=\""+this.FIELD_REGEX+"\" value=\"true\"><small>Regular expression</small>");
@@ -1240,28 +1240,21 @@ s.push("</table>");
 var t=s.join("");
 return t;
 };
-this.onShowPresetsClicked=function(){
-if(!o3_showingsticky){
-ol_bgclass="sr-presets-bg";
-ol_fgclass="sr-presets-fg";
-ol_border=0;
-ol_vauto=1;
-ol_fgcolor="#ffffff";
-ol_textsize="11px";
-ol_closefontclass="sr-presets-close";
-ol_captionfontclass="sr-presets-caption";
-overlib(this.getPresetsHtml(),STICKY,CLOSECLICK,CAPTION,"Search/Replace Presets:");
+this.onShowPresetsClicked=function(src,ev){
+ev=new MochiKit.Signal.Event(src,ev);
+if(!mb.popup.isVisible()){
+mb.popup.show(ev.mouse().page,this.getPresetsHtml(),"Search/Replace Presets:",{"bgclass":"sr-presets-bg","fgclass":"sr-presets-fg","captionfontclass":"sr-presets-caption","closefontclass":"sr-presets-close",});
 }else{
-cClick();
+mb.popup.hide();
 }
 };
 this.onSwapFieldsClicked=function(){
 mb.log.enter(this.GID,"onSwapFieldsClicked");
 var fs,fr;
 if((fs=es.ui.getField(this.FIELD_SEARCH))!=null&&(fr=es.ui.getField(this.FIELD_REPLACE))!=null){
-var _a6=fs.value;
+var _a8=fs.value;
 fs.value=fr.value;
-fr.value=_a6;
+fr.value=_a8;
 }else{
 mb.log.error("One of the fields $,$ not found!",this.FIELD_SEARCH,this.FIELD_REPLACE);
 }
@@ -1278,11 +1271,11 @@ mb.log.error("One of the fields $,$ not found!",this.FIELD_SEARCH,this.FIELD_REP
 }
 mb.log.exit();
 };
-this.onSelectPresetClicked=function(_a8){
+this.onSelectPresetClicked=function(_aa){
 mb.log.enter(this.GID,"onResetFieldsClicked");
 var fs,fr,freg,faa;
 if((fs=es.ui.getField(this.FIELD_SEARCH))!=null&&(fr=es.ui.getField(this.FIELD_REPLACE))!=null&&(freg=es.ui.getField(this.FIELD_REGEX))!=null&&(faa=es.ui.getField(this.FIELD_AUTOAPPLY))!=null){
-var p=this.PRESETS_LIST[_a8];
+var p=this.PRESETS_LIST[_aa];
 if(p){
 fs.value=p[1];
 fr.value=p[2];
@@ -1297,10 +1290,10 @@ mb.log.error("One of the fields not found!");
 }
 mb.log.exit();
 };
-this.onPresetChooseApplyChanged=function(_ab){
+this.onPresetChooseApplyChanged=function(_ad){
 var faa;
 if((faa=es.ui.getField(this.FIELD_AUTOAPPLY))!=null){
-faa.value=(_ab?"1":"0");
+faa.value=(_ad?"1":"0");
 }else{
 mb.log.error("Field $ not found!",this.FIELD_AUTOAPPLY);
 }
@@ -1336,9 +1329,9 @@ return;
 }
 var f;
 if(faf.checked){
-var _b3=es.ui.getEditTextFields();
-for(var i=0;i<_b3.length;i++){
-f=_b3[i];
+var _b5=es.ui.getEditTextFields();
+for(var i=0;i<_b5.length;i++){
+f=_b5[i];
 this.handleField(f,sv,rv,fmc.checked,freg.checked,op);
 }
 }else{
@@ -1351,7 +1344,7 @@ mb.log.error("One of the fields not found!");
 }
 mb.log.exit();
 };
-this.handleField=function(f,_b6,_b7,_b8,_b9,op){
+this.handleField=function(f,_b8,_b9,_ba,_bb,op){
 mb.log.enter(this.GID,"handleField");
 if(f){
 var obj,resultElemID=f.name+"::result";
@@ -1362,69 +1355,69 @@ obj.parentNode.removeChild(obj);
 }
 catch(e){
 }
-var _bc=f.value;
-var _bd=_bc;
-var _be=[];
-mb.log.debug("Current: $",_bc);
-mb.log.debug("Search: $, Replace: $",_b6,_b7);
-mb.log.debug("Flags: Case Sensitive: $, Regex: $",_b8,_b9);
-if(_b9){
+var _be=f.value;
+var _bf=_be;
+var _c0=[];
+mb.log.debug("Current: $",_be);
+mb.log.debug("Search: $, Replace: $",_b8,_b9);
+mb.log.debug("Flags: Case Sensitive: $, Regex: $",_ba,_bb);
+if(_bb){
 try{
-var re=new RegExp(_b6,"g"+(_b8?"":"i"));
-_bd=_bc.replace(re,_b7);
+var re=new RegExp(_b8,"g"+(_ba?"":"i"));
+_bf=_be.replace(re,_b9);
 }
 catch(e){
 mb.log.error("Caught error while trying to Match re: $, e: $",re,e);
 }
 }else{
 var pos=-1,lastpos=0;
-var _c1=new Array();
-var _c2=(_b8?_b6:_b6.toLowerCase());
-var _c3="",after="",inbetween="";
-while((pos=(_b8?_bd:_bd.toLowerCase()).indexOf(_c2,lastpos))!=-1){
-_c3=_bd.substring(0,pos);
-after=_bd.substring(pos+_b6.length,_bd.length);
-inbetween=_bd.substring(lastpos,pos);
+var _c3=new Array();
+var _c4=(_ba?_b8:_b8.toLowerCase());
+var _c5="",after="",inbetween="";
+while((pos=(_ba?_bf:_bf.toLowerCase()).indexOf(_c4,lastpos))!=-1){
+_c5=_bf.substring(0,pos);
+after=_bf.substring(pos+_b8.length,_bf.length);
+inbetween=_bf.substring(lastpos,pos);
 var s=[];
-s.push(_c3);
-s.push(_b7);
+s.push(_c5);
+s.push(_b9);
 s.push(after);
-_bd=s.join("");
-_c1.push(pos);
-_be.push(inbetween);
-_be.push(_b6);
-lastpos=pos+_b7.length;
+_bf=s.join("");
+_c3.push(pos);
+_c0.push(inbetween);
+_c0.push(_b8);
+lastpos=pos+_b9.length;
 }
-if(_c1.length<1){
-mb.log.debug("Search value $ was not found",_b6);
+if(_c3.length<1){
+mb.log.debug("Search value $ was not found",_b8);
 }else{
-mb.log.debug("Search value $ replaced with $ at index [$]",_b6,_b7,_c1.join(","));
-_be.push(after);
+mb.log.debug("Search value $ replaced with $ at index [$]",_b8,_b9,_c3.join(","));
+_c0.push(after);
 }
 }
-if(_bd!=_bc){
-mb.log.debug("New value $",_bd);
+if(_bf!=_be){
+mb.log.debug("New value $",_bf);
 if(op=="replace"){
-es.ur.addUndo(es.ur.createItem(f,"searchreplace",_bc,_bd));
-f.value=_bd;
+es.ur.addUndo(es.ur.createItem(f,"searchreplace",_be,_bf));
+f.value=_bf;
 }else{
-var _c5=f.parentNode;
-var _c6=document.createElement("div");
-_c6.id=resultElemID;
-_c6.style.border="1px dotted #999";
-_c6.style.borderTop="none";
-_c6.style.padding="2px";
-_c6.style.marginBottom="5px";
-_c6.style.marginRight="18px";
-_c6.style.fontSize="10px";
+var _c7=f.parentNode;
+var _c8=document.createElement("div");
+_c8.id=resultElemID;
+_c8.style.border="1px dotted #999";
+_c8.style.borderTop="none";
+_c8.style.padding="2px";
+_c8.style.marginBottom="5px";
+_c8.style.marginRight="18px";
+_c8.style.fontSize="10px";
 var s=[];
-for(var i=0;i<_be.length;i++){
-var w=_be[i];
-s.push(w==_b6?"<span style=\"background-color: #fc5\">"+w+"</span>":w);
+for(var i=0;i<_c0.length;i++){
+var w=_c0[i];
+s.push(w==_b8?"<span style=\"background-color: #fc5\">"+w+"</span>":w);
 }
-_c6.innerHTML=s.join("");
-_c5.appendChild(_c6);
-_c5.parentNode.style.verticalAlign="top";
+_c8.innerHTML=s.join("");
+_c7.appendChild(_c8);
+_c7.parentNode.style.verticalAlign="top";
 }
 return mb.log.exit(true);
 }
@@ -1518,28 +1511,28 @@ es.tp.handleBlur();
 el.rows=2;
 }
 };
-this.handleFocus=function(_cd){
+this.handleFocus=function(_cf){
 clearTimeout(this.resizeTimeout);
 var el=mb.ui.get(es.tp.TRACKSAREA);
-if(_cd){
+if(_cf){
 el.rows=20;
 }else{
 this.resizeTimeout=setTimeout("es.tp.handleFocus(1)",100);
 }
 };
-this.handleBlur=function(_cf){
+this.handleBlur=function(_d1){
 var el=mb.ui.get(es.tp.TRACKSAREA);
 clearTimeout(this.resizeTimeout);
-if(_cf){
+if(_d1){
 el.rows=2;
 }else{
 this.resizeTimeout=setTimeout("es.tp.handleBlur(1)",100);
 }
 };
-this.onParseClicked=function(_d1){
+this.onParseClicked=function(_d3){
 mb.log.enter(this.GID,"onParseClicked");
-_d1=(_d1||false);
-this.setConfigValue(this.CFG_PARSETIMESONLY,_d1);
+_d3=(_d3||false);
+this.setConfigValue(this.CFG_PARSETIMESONLY,_d3);
 this.parseNow();
 es.ui.setDisabled(this.BTN_SWAP,false);
 mb.log.exit();
@@ -1548,13 +1541,13 @@ this.onSwapArtistTrackClicked=function(){
 mb.log.scopeStart("Handling click on Swap button");
 mb.log.enter(this.GID,"onSwapArtistTrackClicked");
 if(this.isConfigTrue(this.CFG_ISVA)){
-var _d2=es.ui.getArtistFields();
-var _d3=es.ui.getTrackNameFields();
-if(_d2&&_d3&&_d2.length==_d3.length){
-for(var i=0;i<_d2.length;i++){
-var _d5=_d2[i].value;
-_d2[i].value=_d3[i].value;
-_d3[i].value=_d5;
+var _d4=es.ui.getArtistFields();
+var _d5=es.ui.getTrackNameFields();
+if(_d4&&_d5&&_d4.length==_d5.length){
+for(var i=0;i<_d4.length;i++){
+var _d7=_d4[i].value;
+_d4[i].value=_d5[i].value;
+_d5[i].value=_d7;
 }
 }
 }
@@ -1574,10 +1567,10 @@ es.ui.setDisabled(this.BTN_SWAP,true);
 mb.log.exit();
 };
 mb.registerDOMReadyAction(new MbEventAction(this.GID,"checkVAMode","Setting various artists mode"));
-this.setVA=function(_d6){
+this.setVA=function(_d8){
 mb.log.enter(this.GID,"setVA");
-mb.log.trace("New VA mode: $",_d6);
-this.setConfigValue(this.CFG_ISVA,_d6);
+mb.log.trace("New VA mode: $",_d8);
+this.setConfigValue(this.CFG_ISVA,_d8);
 mb.log.exit();
 };
 this.showWarning=function(s){
@@ -1598,59 +1591,59 @@ obj.innerHTML="";
 }
 }
 };
-this.parseNow=function(_d9){
+this.parseNow=function(_db){
 mb.log.enter(this.GID,"parseNow");
-if(_d9){
-this.setVA(_d9);
+if(_db){
+this.setVA(_db);
 }else{
 this.checkVAMode();
 }
 var obj=null;
-var _db=new Array();
+var _dd=new Array();
 this.showWarning();
 if((obj=mb.ui.get(this.TRACKSAREA))!=null){
-var _dc=obj.value;
-var _dd=_dc.split("\n");
-var _de,title,artistName;
+var _de=obj.value;
+var _df=_de.split("\n");
+var _e0,title,artistName;
 var si=0;
-var _e0="";
+var _e2="";
 if(this.isConfigTrue(this.CFG_RELEASETITLE)){
-_e0=_dd[0];
-mb.log.info("Release Title: $",_e0);
+_e2=_df[0];
+mb.log.info("Release Title: $",_e2);
 si++;
 }
 var s,counter=1;
-var _e2=true;
-for(var i=si;i<_dd.length;i++){
-title=_dd[i];
+var _e4=true;
+for(var i=si;i<_df.length;i++){
+title=_df[i];
 title=title.replace(this.RE_StripListenNow,"");
 title=title.replace(this.RE_StripAmgPick,"");
 title=mb.utils.trim(title);
 mb.log.trace("Parsing line: $",title);
 if(title!=""){
-var _e4=false;
-var _e5=false;
+var _e6=false;
+var _e7=false;
 var re=this.RE_TrackNumber;
 if(this.isConfigTrue(this.CFG_VINYLNUMBERS)){
 re=this.RE_TrackNumberVinyl;
-_e5=true;
+_e7=true;
 }
-_de=title.match(re);
-if(_de!=null){
-mb.log.debug("Checking number, found: $ (vinyl: $)",_de[0],_e5);
-_e4=true;
+_e0=title.match(re);
+if(_e0!=null){
+mb.log.debug("Checking number, found: $ (vinyl: $)",_e0[0],_e7);
+_e6=true;
 if(this.isConfigTrue(this.CFG_TRACKNUMBER)){
 title=title.replace(re,"");
 }
 }
-_de=counter;
-var _e7="";
+_e0=counter;
+var _e9="";
 if(this.isConfigTrue(this.CFG_TRACKTIMES)){
-_e7=title.match(this.RE_TrackTimes);
-if(_e7!=null){
-_e7=mb.utils.trim(_e7[0]);
-mb.log.debug("Checking time, found: $",_e7);
-_e7=_e7.replace(this.RE_RemoveParens,"");
+_e9=title.match(this.RE_TrackTimes);
+if(_e9!=null){
+_e9=mb.utils.trim(_e9[0]);
+mb.log.debug("Checking time, found: $",_e9);
+_e9=_e9.replace(this.RE_RemoveParens,"");
 }
 title=title.replace(this.RE_TrackTimes,"");
 }
@@ -1668,34 +1661,34 @@ title=s;
 }
 artistName="";
 if(this.isConfigTrue(this.CFG_ISVA)){
-if(!this.isConfigTrue(this.CFG_TRACKNUMBER)||_e4){
+if(!this.isConfigTrue(this.CFG_TRACKNUMBER)||_e6){
 mb.log.debug("Looking for Artist/Track split");
 if(title.match(this.RE_VariousSeparator)){
-var _e8=title.split(this.RE_VariousSeparator);
-artistName=mb.utils.trim(_e8[0]);
+var _ea=title.split(this.RE_VariousSeparator);
+artistName=mb.utils.trim(_ea[0]);
 mb.log.debug("Found artist: $",artistName);
-if(_e2&&artistName.match(/\(|\)|remix/gi)){
+if(_e4&&artistName.match(/\(|\)|remix/gi)){
 this.showWarning("Track "+counter+": Possibly Artist/Tracknames swapped: Parentheses in Artist name!");
-_e2=false;
+_e4=false;
 }
-_e8[0]="";
-while(!_e8[0].match(/\S/g)){
-_e8.splice(0,1);
+_ea[0]="";
+while(!_ea[0].match(/\S/g)){
+_ea.splice(0,1);
 }
-if(_e8.length>1){
-this.showWarning("Track "+counter+": Possibly wrong split of Artist and Trackname:<br/>&nbsp; ["+_e8.join(",")+"]");
+if(_ea.length>1){
+this.showWarning("Track "+counter+": Possibly wrong split of Artist and Trackname:<br/>&nbsp; ["+_ea.join(",")+"]");
 }
-title=_e8.join(" ");
+title=_ea.join(" ");
 }
 }
 }
 title=mb.utils.trim(title);
-if(!this.isConfigTrue(this.CFG_TRACKNUMBER)||_e4){
-_db[_db.length]={artist:artistName,title:title,time:_e7,feat:[]};
+if(!this.isConfigTrue(this.CFG_TRACKNUMBER)||_e6){
+_dd[_dd.length]={artist:artistName,title:title,time:_e9,feat:[]};
 counter++;
 mb.log.debug("Added track: $",counter);
 }else{
-if(_db.length>0){
+if(_dd.length>0){
 mb.log.debug("Analyzing string for ExtraTitleInformation: $",title);
 var x=title.split(" - ");
 if(x[0].match(/remix|producer|mixed/i)==null){
@@ -1707,7 +1700,7 @@ title=title.replace(/^\s*/g,"");
 title=title.replace(/[ \s\r\n]*$/g,"");
 title=title.replace(/(.*), The$/i,"The $1");
 if(title!=""){
-_db[_db.length-1].feat.push(title);
+_dd[_dd.length-1].feat.push(title);
 }
 }
 }
@@ -1716,39 +1709,39 @@ _db[_db.length-1].feat.push(title);
 }
 }
 mb.log.scopeStart("Parsed the following fields");
-for(i=0;i<_db.length;i++){
-var _ea=_db[i];
-if(_ea.feat.length>0){
-_ea.title+=" (feat. "+_ea.feat.join(", ")+")";
+for(i=0;i<_dd.length;i++){
+var _ec=_dd[i];
+if(_ec.feat.length>0){
+_ec.title+=" (feat. "+_ec.feat.join(", ")+")";
 }
-mb.log.info("no: $, title: $, time: $ (artist: $)",mb.utils.leadZero(i+1),_ea.title,_ea.time,_ea.artist);
+mb.log.info("no: $, title: $, time: $ (artist: $)",mb.utils.leadZero(i+1),_ec.title,_ec.time,_ec.artist);
 }
-this.fillFields(_e0,_db);
+this.fillFields(_e2,_dd);
 }
 mb.log.exit();
 };
-this.fillField=function(_eb,_ec){
+this.fillField=function(_ed,_ee){
 mb.log.enter(this.GID,"fillField");
-if(_eb!=null&&_ec!=null){
-es.ur.addUndo(es.ur.createItem(_eb,"trackparser",_eb.value,_ec));
-_eb.value=_ec;
+if(_ed!=null&&_ee!=null){
+es.ur.addUndo(es.ur.createItem(_ed,"trackparser",_ed.value,_ee));
+_ed.value=_ee;
 }
 mb.log.exit();
 };
-this.fillFields=function(_ed,_ee){
+this.fillFields=function(_ef,_f0){
 var i,j,field,fields,newvalue;
 mb.log.enter(this.GID,"fillFields");
 if(!this.isConfigTrue(this.CFG_PARSETIMESONLY)){
 if(this.isConfigTrue(this.CFG_RELEASETITLE)){
 field=es.ui.getReleaseNameField();
-this.fillField(field,_ed);
+this.fillField(field,_ef);
 }
 i=0;
 fields=es.ui.getArtistFields();
 for(j=0;j<fields.length;j++){
 field=fields[j];
-if(_ee[i]&&_ee[i].artist){
-this.fillField(field,_ee[i].artist);
+if(_f0[i]&&_f0[i].artist){
+this.fillField(field,_f0[i].artist);
 i++;
 }
 }
@@ -1756,8 +1749,8 @@ i=0;
 fields=es.ui.getTrackNameFields();
 for(j=0;j<fields.length;j++){
 field=fields[j];
-if(_ee[i]&&_ee[i].title){
-this.fillField(field,_ee[i].title);
+if(_f0[i]&&_f0[i].title){
+this.fillField(field,_f0[i].title);
 i++;
 }
 }
@@ -1767,8 +1760,8 @@ i=0;
 fields=es.ui.getTrackTimeFields();
 for(j=0;j<fields.length;j++){
 field=fields[j];
-if(_ee[i]&&_ee[i].time){
-this.fillField(field,_ee[i].time);
+if(_f0[i]&&_f0[i].time){
+this.fillField(field,_f0[i].time);
 i++;
 }
 }
@@ -1868,19 +1861,19 @@ s.push("</td></tr></table>");
 s.push(this.getModuleEndHtml({x:true}));
 return s.join("");
 };
-this.getLinkHtml=function(_f6,id,_f8,_f9,sep){
+this.getLinkHtml=function(_f8,id,_fa,_fb,sep){
 var s=[];
 s.push("<a href=\"javascript:; // ");
-s.push(_f6);
+s.push(_f8);
 s.push(" All\" ");
 s.push("onClick=\"return ");
 s.push(id);
 s.push(".");
-s.push(_f8);
+s.push(_fa);
 s.push("(");
-s.push(_f9);
+s.push(_fb);
 s.push(");\">");
-s.push(_f6);
+s.push(_f8);
 s.push("</a>");
 s.push(sep);
 return s.join("");
@@ -1903,10 +1896,10 @@ this.setExpanded(false);
 this.setVisible(false);
 }
 };
-this.updateVisible=function(mod,_fe){
+this.updateVisible=function(mod,flag){
 mb.log.enter(this.GID,"updateVisible");
-mb.log.info("Setting module: $ visible: $",mod,_fe);
-this.traverseAndCheck(this.CHECKBOX_VISIBLE,mod,_fe);
+mb.log.info("Setting module: $ visible: $",mod,flag);
+this.traverseAndCheck(this.CHECKBOX_VISIBLE,mod,flag);
 mb.log.exit();
 };
 this.updateExpanded=function(mod,flag){
@@ -1997,8 +1990,8 @@ if((el=this.el)==null){
 es.modnote.disabled=true;
 if((el=mb.ui.get("notetext"))!=null){
 mb.log.debug("Setting up event handlers...");
-var func=function(_112){
-es.modnote.handleEvent(_112);
+var func=function(_114){
+es.modnote.handleEvent(_114);
 };
 el.title=this.title;
 el.onblur=func;
@@ -2011,7 +2004,7 @@ el.value=this.defaultText;
 this.recalc(el);
 }
 this.el=el;
-el.form.onsubmit=function(_113){
+el.form.onsubmit=function(_115){
 es.modnote.handleEvent("submit-check");
 return true;
 };
@@ -2048,12 +2041,12 @@ mb.log.warning("Event handling disabled!");
 return mb.log.exit(false);
 }
 };
-this.isSameText=function(text,_116){
+this.isSameText=function(text,_118){
 mb.log.enter(this.GID,"isSameText");
 var el;
 if((el=this.el)!=null){
 if((el.value.replace(this.whitespaceRE,""))==(text.replace(this.whitespaceRE,""))){
-if(_116){
+if(_118){
 this.disabled=true;
 el.value="";
 this.disabled=false;
@@ -2069,11 +2062,11 @@ mb.log.enter(this.GID,"recalc");
 if(el){
 var t=el.value,c=el.cols;
 if(t!=null&&c!=null){
-var _11a=t.split(this.splitRE);
+var _11c=t.split(this.splitRE);
 var len;
-this.rows=1+_11a.length;
-for(var i=0;i<_11a.length;i++){
-if((len=_11a[i].length)>c){
+this.rows=1+_11c.length;
+for(var i=0;i<_11c.length;i++){
+if((len=_11c[i].length)>c){
 this.rows+=Math.floor(len*parseFloat(1/c));
 }
 }
@@ -2143,15 +2136,15 @@ this.isToolboxEnabled=function(){
 return (this.isConfigTrue(this.CFG_ENABLED));
 };
 this.dummyCount=0;
-this.addToolboxDummy=function(_11e){
+this.addToolboxDummy=function(_120){
 mb.log.enter(this.GID,"addToolboxDummy");
 if(this.isToolboxEnabled()){
-var id=_11e.name+"|et";
+var id=_120.name+"|et";
 var obj;
 if((obj=mb.ui.get(id))==null){
 var a=document.createElement("a");
 a.className="toolbox dummy";
-a.onclick=function onclick(_122){
+a.onclick=function onclick(_124){
 return false;
 };
 a.id=id;
@@ -2161,22 +2154,22 @@ img.className="toolbox dummy";
 img.src="/images/es/toolsdummy.gif";
 img.alt="";
 img.border="0";
-var _124=_11e.parentNode;
-_124.insertBefore(a,_11e.nextSibling);
+var _126=_120.parentNode;
+_126.insertBefore(a,_120.nextSibling);
 }
 }
 mb.log.exit();
 };
-this.addToolboxIcon=function(_125){
+this.addToolboxIcon=function(_127){
 mb.log.enter(this.GID,"addToolboxIcon");
 if(this.isToolboxEnabled()){
-var id=_125.name+"|et";
+var id=_127.name+"|et";
 var obj;
 if((obj=mb.ui.get(id))==null){
 var a=document.createElement("a");
 a.className="toolbox";
 a.href="javascript:; // editor tools";
-a.onclick=function onclick(_129){
+a.onclick=function onclick(_12b){
 return es.qf.onShowToolboxClicked(this);
 };
 a.id=id;
@@ -2187,22 +2180,22 @@ img.className="toolbox";
 img.src="/images/es/tools.gif";
 img.alt="Click to access Toolbox";
 img.border="0";
-var _12b=_125.parentNode;
-_12b.insertBefore(a,_125.nextSibling);
+var _12d=_127.parentNode;
+_12d.insertBefore(a,_127.nextSibling);
 }
 }
 mb.log.exit();
 };
-this.getToolboxLink=function(_12c,_12d,op){
+this.getToolboxLink=function(_12e,_12f,op){
 var s=[];
 s.push("<a href=\"javascript: void(); // ");
-s.push(_12c);
+s.push(_12e);
 s.push("\" ");
 s.push("onClick=\"return "+this.getModID()+".onToolboxLinkClicked('");
 s.push(op);
 s.push("');\" ");
-s.push("title=\""+_12d+"\"");
-s.push(">"+_12c+"</a>");
+s.push("title=\""+_12f+"\"");
+s.push(">"+_12e+"</a>");
 return s.join("");
 };
 this.onShowToolboxClicked=function(el){
@@ -2240,10 +2233,10 @@ mb.log.enter(this.GID,"updateToolbox");
 if(o3_showingsticky){
 this.tbFieldId=el.name;
 this.tbField=el;
-var _133=mb.ui.getOffsetTop(el);
-var newY=this.tbBoxY+(_133-this.tbFieldY);
+var _135=mb.ui.getOffsetTop(el);
+var newY=this.tbBoxY+(_135-this.tbFieldY);
 mb.log.debug("xy: $/$, field: $, y: $",this.tbBoxX,this.tbBoxY,this.tbField.name,this.tbFieldY);
-mb.log.debug("newY: $, xy: $/$",_133,this.tbBoxX,newY);
+mb.log.debug("newY: $, xy: $/$",_135,this.tbBoxX,newY);
 repositionTo(over,this.tbBoxX,newY);
 }
 mb.log.exit();
@@ -2252,13 +2245,13 @@ this.onModeChanged=function(el){
 mb.log.scopeStart("Handling change of GC dropdown");
 mb.log.enter(this.GID,"onModeChanged");
 if(el&&el.options&&(el.id==this.TB_GC_DROPDOWN)){
-var _136=el.options[el.selectedIndex].value;
+var _138=el.options[el.selectedIndex].value;
 var m;
-if((m=gc.modes.getModeFromID(_136,true))!=null){
+if((m=gc.modes.getModeFromID(_138,true))!=null){
 this.tbGuessCaseMode=m;
 mb.log.debug("Set mode: $",m);
 }else{
-mb.log.warning("Unknown modeID given: $",_136);
+mb.log.warning("Unknown modeID given: $",_138);
 }
 }else{
 mb.log.error("Unsupported element: $",(el.name||"?"));
@@ -2279,29 +2272,29 @@ var t="Convert all characters of the selection/field to ";
 var s=[];
 var sep=" | ";
 var row="<tr class\"row\"><td class=\"label\">";
-var _13d="<tr class=\"row-spacer\"><td class=\"label\">";
-var _13e="</td><td class=\"text\">";
-var _13f="</td></tr>";
+var _13f="<tr class=\"row-spacer\"><td class=\"label\">";
+var _140="</td><td class=\"text\">";
+var _141="</td></tr>";
 s.push("<table border=\"0\" class=\"editortoolbox\">");
 s.push(row);
 s.push("Guess case:");
-s.push(_13e);
+s.push(_140);
 this.tbGuessCaseMode=(this.tbGuessCaseMode||gc.getMode());
 s.push(gc.modes.getDropdownHtml(this.TB_GC_DROPDOWN,this.GID,this.tbGuessCaseMode));
 s.push(es.ui.getButtonHtml(this.BTN_TB_GUESS));
+s.push(_141);
 s.push(_13f);
-s.push(_13d);
 s.push("Modify case:");
-s.push(_13e);
+s.push(_140);
 s.push(this.getToolboxLink("Titled",t+"lowercase but the first",this.OP_TITLED));
 s.push(sep);
 s.push(this.getToolboxLink("Uppercase",t+"UPPERCASE",this.OP_UPPERCASE));
 s.push(sep);
 s.push(this.getToolboxLink("Lowercase",t+"lowercase",this.OP_LOWERCASE));
+s.push(_141);
 s.push(_13f);
-s.push(_13d);
 s.push("Brackets:");
-s.push(_13e);
+s.push(_140);
 s.push(this.getToolboxLink("Add ()","Add round parentheses () to selection/field",this.OP_ADD_ROUNDBRACKETS));
 s.push(sep);
 s.push(this.getToolboxLink("Add []","Add square brackets [] to selection/field",this.OP_ADD_SQUAREBRACKETS));
@@ -2309,14 +2302,14 @@ s.push(sep);
 s.push(this.getToolboxLink("Rem ()","Remove round parentheses () from selection/field",this.OP_REM_ROUNDBRACKETS));
 s.push(sep);
 s.push(this.getToolboxLink("Rem []","Remove square brackets [] from selection/field",this.OP_REM_SQUAREBRACKETS));
+s.push(_141);
 s.push(_13f);
-s.push(_13d);
 s.push("Undo/Redo:");
-s.push(_13e);
+s.push(_140);
 s.push("<a href=\"javascript:; // Undo\" title=\"Undo the last change (Attention: Not only the selected field)\" onFocus=\"this.blur()\" onClick=\"es.ur.undoStep(); return false;\">Undo</a>");
 s.push(sep);
 s.push("<a href=\"javascript:; // Redo\" title=\"Redo the last undo step (Attention: Not only the selected field)\" onFocus=\"this.blur()\" onClick=\"es.ur.redoStep(); return false;\">Redo</a>");
-s.push(_13f);
+s.push(_141);
 s.push("</table>");
 return s.join("");
 };
@@ -2340,12 +2333,12 @@ f=es.ui.getFocusField();
 if(f!=null){
 var ov=f.value,nv=ov;
 mb.log.info("Applying op: $",op);
-var _145=false,isIE=(typeof document.selection!="undefined");
+var _147=false,isIE=(typeof document.selection!="undefined");
 if(!isIE){
 f.focus();
-_145=(typeof f.selectionStart!="undefined");
+_147=(typeof f.selectionStart!="undefined");
 }
-if(isIE||_145){
+if(isIE||_147){
 var ft=f.value;
 var a,r,rs,re;
 if(isIE){
@@ -2357,7 +2350,7 @@ catch(e){
 mb.log.error("could not get range!");
 }
 }else{
-if(_145){
+if(_147){
 rs=f.selectionStart;
 re=f.selectionEnd;
 a=(rs==re?ft:ft.substring(rs,re));
@@ -2390,7 +2383,7 @@ f.value=b;
 if(isIE){
 r.text=b;
 }else{
-if(_145){
+if(_147){
 var s=[];
 s.push(ft.substring(0,rs));
 s.push(b);
@@ -2410,20 +2403,20 @@ mb.log.info("New value: $",nv);
 }
 mb.log.exit();
 };
-this.formatText=function(_14a,op){
+this.formatText=function(_14c,op){
 if(op==this.OP_UPPERCASE){
-_14a=_14a.toUpperCase();
+_14c=_14c.toUpperCase();
 }
 if(op==this.OP_LOWERCASE){
-_14a=_14a.toLowerCase();
+_14c=_14c.toLowerCase();
 }
 if(op==this.OP_TITLED){
-_14a=_14a.toLowerCase();
-var tArr=_14a.split("");
+_14c=_14c.toLowerCase();
+var tArr=_14c.split("");
 tArr[0]=tArr[0].toUpperCase();
-_14a=tArr.join("");
+_14c=tArr.join("");
 }
-return _14a;
+return _14c;
 };
 mb.log.exit();
 }
@@ -2459,15 +2452,15 @@ es.ui.registerButtons(new EsButton(this.BTN_UNDO_ALL,"Undo all","Undo all change
 };
 this.getModuleHtml=function(){
 var s=[];
-var _14e="Steps 0/0";
+var _150="Steps 0/0";
 s.push(this.getModuleStartHtml({x:true}));
 s.push(es.ui.getButtonHtml(this.BTN_UNDO_ALL));
 s.push(es.ui.getButtonHtml(this.BTN_UNDO_ONE));
 s.push(es.ui.getButtonHtml(this.BTN_REDO_ONE));
 s.push(es.ui.getButtonHtml(this.BTN_REDO_ALL));
-s.push("<small><span id=\""+this.STATUS_EXPANDED+"\">"+_14e+"</span><small>");
+s.push("<small><span id=\""+this.STATUS_EXPANDED+"\">"+_150+"</span><small>");
 s.push(this.getModuleEndHtml({x:true}));
-s.push(this.getModuleStartHtml({x:false,dt:_14e}));
+s.push(this.getModuleStartHtml({x:false,dt:_150}));
 s.push(this.getModuleEndHtml({x:false}));
 return s.join("");
 };
@@ -2483,24 +2476,24 @@ return new EsUndoItem(arguments);
 this.createItemList=function(){
 return new EsUndoItemList(arguments);
 };
-this.addUndo=function(_14f){
+this.addUndo=function(_151){
 mb.log.enter(this.GID,"addUndo");
 this.stack=this.stack.slice(0,this.index);
-this.stack.push(_14f);
+this.stack.push(_151);
 this.index=this.stack.length;
 var f=null;
 var ff=es.ui.getFocusField();
-if(_14f instanceof EsUndoItemList){
-var _152=_14f;
-for(_152.iterate();_152.hasNext();){
-_14f=_152.getNext();
-if(_14f.getField()==ff){
-es.ui.setFocusValue(_14f.getNew());
+if(_151 instanceof EsUndoItemList){
+var _154=_151;
+for(_154.iterate();_154.hasNext();){
+_151=_154.getNext();
+if(_151.getField()==ff){
+es.ui.setFocusValue(_151.getNew());
 }
 }
 }else{
-if(_14f.getField()==ff){
-es.ui.setFocusValue(_14f.getNew());
+if(_151.getField()==ff){
+es.ui.setFocusValue(_151.getNew());
 }
 }
 this.updateUI();
@@ -2510,19 +2503,19 @@ this.undoStep=function(){
 mb.log.enter(this.GID,"undoStep");
 if(this.stack.length>0){
 if(this.index>0){
-var _153=this.stack[--this.index];
+var _155=this.stack[--this.index];
 var f,o;
-if(_153 instanceof EsUndoItemList){
+if(_155 instanceof EsUndoItemList){
 mb.log.info("Undoing combined step...");
-for(_153.iterate();_153.hasNext();){
-o=_153.getNext();
+for(_155.iterate();_155.hasNext();){
+o=_155.getNext();
 f=o.getField();
 f.value=o.getOld();
 mb.log.debug("* op: $, field: $, value: $",o.getOp(),f.name,f.value);
 }
 }else{
 mb.log.info("Undoing single step...");
-o=_153;
+o=_155;
 f=o.getField();
 f.value=o.getOld();
 mb.log.debug("* op: $, field: $, value: $",o.getOp(),f.name,f.value);
@@ -2533,22 +2526,22 @@ es.ui.resetSelection();
 }
 mb.log.exit();
 };
-this.redoStep=function(_155){
+this.redoStep=function(_157){
 mb.log.enter(this.GID,"redoStep");
 if(this.index<this.stack.length){
-var _156=this.stack[this.index];
+var _158=this.stack[this.index];
 var f,o;
-if(_156 instanceof EsUndoItemList){
+if(_158 instanceof EsUndoItemList){
 mb.log.info("Redoing combined step...");
-for(_156.iterate();_156.hasNext();){
-o=_156.getNext();
+for(_158.iterate();_158.hasNext();){
+o=_158.getNext();
 f=o.getField();
 f.value.value=o.getNew();
 mb.log.debug("* op: $, field: $, value: $",o.getOp(),f.name,f.value);
 }
 }else{
 mb.log.info("Redoing single step...");
-o=_156;
+o=_158;
 f=o.getField();
 f.value=o.getNew();
 mb.log.debug("* op: $, field: $, value: $",o.getOp(),f.name,f.value);
@@ -2775,13 +2768,13 @@ return f;
 this.getPos=function(){
 return this._wi;
 };
-this.setPos=function(_165){
-if(_165>=0&&_165<this.getLength()){
-this._wi=_165;
+this.setPos=function(_167){
+if(_167>=0&&_167<this.getLength()){
+this._wi=_167;
 }
 };
-this.getWordAtIndex=function(_166){
-return (this._w[_166]||null);
+this.getWordAtIndex=function(_168){
+return (this._w[_168]||null);
 };
 this.getNextWord=function(){
 return this.getWordAtIndex(this._wi+1);
@@ -2809,19 +2802,19 @@ mb.log.enter(this.GID,"matchCurrentWord");
 var f=(this.matchWordAtIndex(this.getPos(),re));
 return mb.log.exit(f);
 };
-this.matchWordAtIndex=function(_16b,re){
+this.matchWordAtIndex=function(_16d,re){
 mb.log.enter(this.GID,"matchWordAtIndex");
-var cw=(this.getWordAtIndex(_16b)||"");
+var cw=(this.getWordAtIndex(_16d)||"");
 var f;
 if(mb.utils.isString(re)){
 f=(re==cw);
 if(f){
-mb.log.debug("Matched w: $ at index: $, string: $",cw,_16b,re);
+mb.log.debug("Matched w: $ at index: $, string: $",cw,_16d,re);
 }
 }else{
 f=(cw.match(re)!=null);
 if(f){
-mb.log.debug("Matched w: $ at index: $, re: $",cw,_16b,re);
+mb.log.debug("Matched w: $ at index: $, re: $",cw,_16d,re);
 }
 }
 return mb.log.exit(f);
@@ -2843,13 +2836,13 @@ this._wi--;
 }
 }
 };
-this.insertWordsAtIndex=function(_16f,w){
+this.insertWordsAtIndex=function(_171,w){
 mb.log.enter(this.GID,"insertWordsAtIndex");
-var _171=this._w.slice(0,_16f);
-var _172=this._w.slice(_16f,this._w.length);
-this._w=_171.concat(w).concat(_172);
+var _173=this._w.slice(0,_171);
+var _174=this._w.slice(_171,this._w.length);
+this._w=_173.concat(w).concat(_174);
 this._l=this._w.length;
-mb.log.debug("Inserted $ at index $",w,_16f);
+mb.log.debug("Inserted $ at index $",w,_171);
 mb.log.exit();
 };
 this.capitalizeCurrentWord=function(){
@@ -2889,28 +2882,28 @@ mb.log.enter(this.GID,"splitWordsAndPunctuation");
 is=is.replace(/^\s\s*/,"");
 is=is.replace(/\s\s*$/,"");
 is=is.replace(/\s\s*/g," ");
-var _179=is.split("");
-var _17a=[];
+var _17b=is.split("");
+var _17c=[];
 var word=[];
 if(!gc.re.SPLITWORDSANDPUNCTUATION){
 gc.re.SPLITWORDSANDPUNCTUATION=/[^!\"%&'´`()\[\]\{\}\*\+,-\.\/:;<=>\?\s#]/;
 }
-for(var i=0;i<_179.length;i++){
-if(_179[i].match(gc.re.SPLITWORDSANDPUNCTUATION)){
-word.push(_179[i]);
+for(var i=0;i<_17b.length;i++){
+if(_17b[i].match(gc.re.SPLITWORDSANDPUNCTUATION)){
+word.push(_17b[i]);
 }else{
 if(word.length>0){
-_17a.push(word.join(""));
+_17c.push(word.join(""));
 }
-_17a.push(_179[i]);
+_17c.push(_17b[i]);
 word=[];
 }
 }
 if(word.length>0){
-_17a.push(word.join(""));
+_17c.push(word.join(""));
 }
-mb.log.debug("words: $",_17a);
-return mb.log.exit(_17a);
+mb.log.debug("words: $",_17c);
+return mb.log.exit(_17c);
 };
 mb.log.exit();
 }
@@ -2965,16 +2958,16 @@ gc.o.appendSpace();
 }
 mb.log.exit();
 };
-this.getWordAtIndex=function(_180){
-if(this._w[_180]){
-return this._w[_180];
+this.getWordAtIndex=function(_182){
+if(this._w[_182]){
+return this._w[_182];
 }else{
 return null;
 }
 };
-this.setWordAtIndex=function(_181,word){
-if(this.getWordAtIndex(_181)){
-this._w[_181]=word;
+this.setWordAtIndex=function(_183,word){
+if(this.getWordAtIndex(_183)){
+this._w[_183]=word;
 }
 };
 this.getLastWord=function(){
@@ -2990,21 +2983,21 @@ return this._w.pop();
 }
 return null;
 };
-this.capitalizeWordAtIndex=function(_183,_184){
-_184=(_184!=null?_184:gc.f.forceCaps);
+this.capitalizeWordAtIndex=function(_185,_186){
+_186=(_186!=null?_186:gc.f.forceCaps);
 mb.log.enter(this.GID,"capitalizeWordAtIndex");
-if((!gc.getMode().isSentenceCaps()||_184)&&(!this.isEmpty())&&(this.getWordAtIndex(_183)!=null)){
-var w=this.getWordAtIndex(_183),o=w;
+if((!gc.getMode().isSentenceCaps()||_186)&&(!this.isEmpty())&&(this.getWordAtIndex(_185)!=null)){
+var w=this.getWordAtIndex(_185),o=w;
 if(w.match(/^\w\..*/)==null){
-var _186=gc.u.trim(w.toLowerCase());
-if(!_184&&gc.f.isInsideBrackets()&&gc.u.isLowerCaseBracketWord(_186)){
+var _188=gc.u.trim(w.toLowerCase());
+if(!_186&&gc.f.isInsideBrackets()&&gc.u.isLowerCaseBracketWord(_188)){
 }else{
-if(!_184&&gc.mode.isUpperCaseWord(_186)){
+if(!_186&&gc.mode.isUpperCaseWord(_188)){
 }else{
-o=gc.u.titleString(w,_184);
+o=gc.u.titleString(w,_186);
 if(w!=o){
-this.setWordAtIndex(_183,o);
-mb.log.debug("index=$/$, before: $, after: $",_183,this.getLength()-1,w,o);
+this.setWordAtIndex(_185,o);
+mb.log.debug("index=$/$, before: $, after: $",_185,this.getLength()-1,w,o);
 }
 }
 }
@@ -3012,11 +3005,11 @@ mb.log.debug("index=$/$, before: $, after: $",_183,this.getLength()-1,w,o);
 }
 mb.log.exit();
 };
-this.capitalizeLastWord=function(_187){
+this.capitalizeLastWord=function(_189){
 mb.log.enter(this.GID,"capitalizeLastWord");
-_187=(_187!=null?_187:null);
-mb.log.debug("Capitalizing last word... index: $: overrideCaps: $",this.getLength()-1,_187);
-this.capitalizeWordAtIndex(this.getLength()-1,_187);
+_189=(_189!=null?_189:null);
+mb.log.debug("Capitalizing last word... index: $: overrideCaps: $",this.getLength()-1,_189);
+this.capitalizeWordAtIndex(this.getLength()-1,_189);
 mb.log.exit();
 };
 this.getOutput=function(){
@@ -3031,11 +3024,11 @@ return mb.log.exit(os);
 this.closeOpenBrackets=function(){
 mb.log.enter(this.GID,"closeOpenBrackets");
 mb.log.debug("Open brackets stack: $",gc.f.openBrackets);
-var _189=new Array();
+var _18b=new Array();
 while(gc.f.isInsideBrackets()){
-_189[_189.length]=gc.f.popBracket();
+_18b[_18b.length]=gc.f.popBracket();
 }
-this.appendWord(_189.join(""));
+this.appendWord(_18b.join(""));
 mb.log.exit();
 };
 this.appendWordPreserveWhiteSpace=function(c){
@@ -3190,9 +3183,9 @@ is="";
 var os=(is.replace(/^\s\s*/,"").replace(/\s\s*$/,"").replace(/([\(\[])\s+/,"$1").replace(/\s+([\)\]])/,"$1").replace(/\s\s*/g," "));
 return mb.log.exit(os);
 };
-this.titleString=function(is,_1a8){
+this.titleString=function(is,_1aa){
 mb.log.enter(this.GID,"titleString");
-_1a8=(_1a8!=null?_1a8:gc.f.forceCaps);
+_1aa=(_1aa!=null?_1aa:gc.f.forceCaps);
 if(mb.utils.isNullOrEmpty(is)){
 mb.log.warning("Required parameter is was empty!",is);
 return mb.log.exit("");
@@ -3204,7 +3197,7 @@ gc.i.setPos((pos=len-1));
 }
 mb.log.debug("Titling word: $ (pos: $, length: $)",is,pos,len);
 gc.f.dumpRaisedFlags();
-var _1ab=gc.i.getWordAtIndex(pos-2);
+var _1ad=gc.i.getWordAtIndex(pos-2);
 var os;
 var LC=is.toLowerCase();
 var UC=is.toUpperCase();
@@ -3216,20 +3209,20 @@ if(LC.length==1&&gc.i.isPreviousWord("'")){
 os=LC;
 }else{
 if(gc.i.isPreviousWord("'")&&LC.match(/^(s|round|em|ve|ll|d|cha|re|til|way|all)$/i)){
-mb.log.debug("Found contraction: $",_1ab+"'"+LC);
+mb.log.debug("Found contraction: $",_1ad+"'"+LC);
 os=LC;
 }else{
-if(gc.i.isPreviousWord("'")&&_1ab=="Ev"){
-mb.log.debug("Found contraction: $",_1ab+"'"+LC);
+if(gc.i.isPreviousWord("'")&&_1ad=="Ev"){
+mb.log.debug("Found contraction: $",_1ad+"'"+LC);
 os=LC;
 }else{
 if(LC.match(/^(o|y)$/i)&&gc.i.isNextWord("'")){
 os=UC;
 }else{
-os=this.titleStringByMode(LC,_1a8);
+os=this.titleStringByMode(LC,_1aa);
 LC=os.toLowerCase();
 UC=os.toUpperCase();
-if(gc.mode.isLowerCaseWord(LC)&&!_1a8){
+if(gc.mode.isLowerCaseWord(LC)&&!_1aa){
 os=LC;
 }else{
 if(gc.mode.isUpperCaseWord(LC)){
@@ -3250,33 +3243,33 @@ os=LC;
 }
 }
 }
-mb.log.debug("forceCaps: $, in: $, out: $",_1a8,is,os);
+mb.log.debug("forceCaps: $, in: $, out: $",_1aa,is,os);
 return mb.log.exit(os);
 };
-this.titleStringByMode=function(is,_1b0){
+this.titleStringByMode=function(is,_1b2){
 mb.log.enter(this.GID,"titleStringByMode");
 if(is==null||is==""){
 return mb.log.exit("");
 }
 var os=is.toLowerCase();
 var opos=gc.o.getLength();
-var _1b3="";
+var _1b5="";
 if(opos>1){
-_1b3=gc.o.getWordAtIndex(opos-2);
+_1b5=gc.o.getWordAtIndex(opos-2);
 }
-if((!gc.f.slurpExtraTitleInformation)&&(gc.getMode().isSentenceCaps()&&!_1b0)&&(!gc.i.isFirstWord())&&(!gc.u.isSentenceStopChar(_1b3))&&(!gc.f.openingBracket)){
+if((!gc.f.slurpExtraTitleInformation)&&(gc.getMode().isSentenceCaps()&&!_1b2)&&(!gc.i.isFirstWord())&&(!gc.u.isSentenceStopChar(_1b5))&&(!gc.f.openingBracket)){
 mb.log.debug("SentenceCaps, before: $, after: $",is,os);
 }else{
-var _1b4=is.toLowerCase().split("");
-_1b4[0]=_1b4[0].toUpperCase();
+var _1b6=is.toLowerCase().split("");
+_1b6[0]=_1b6[0].toUpperCase();
 if(is.length>2&&is.substring(0,2)=="mc"){
-_1b4[2]=_1b4[2].toUpperCase();
+_1b6[2]=_1b6[2].toUpperCase();
 }else{
 if(gc.u.isMacTitledWord(is)){
-_1b4[3]=_1b4[3].toUpperCase();
+_1b6[3]=_1b6[3].toUpperCase();
 }
 }
-os=_1b4.join("");
+os=_1b6.join("");
 mb.log.debug("Capitalized, before: $, after: $",is,os);
 }
 return mb.log.exit(os);
@@ -3344,12 +3337,12 @@ return mb.log.exit(s.join(""));
 };
 mb.log.exit();
 }
-function GcFix(name,re,_1ba){
+function GcFix(name,re,_1bc){
 mb.log.enter("GcFix","__constructor");
 this.CN="GcFix";
 this._name=name;
 this._re=re;
-this._replace=_1ba;
+this._replace=_1bc;
 this.getName=function(){
 return this._name;
 };
@@ -3361,11 +3354,11 @@ return this._replace;
 };
 mb.log.exit();
 }
-function GcModeFrench(_1bb){
+function GcModeFrench(_1bd){
 mb.log.enter("GcModeFrench","__constructor");
 this.CN="GcModeFrench";
 this.GID="gc.mode_fr";
-this.setConfig(_1bb,"French",_1bb.FR,"First word titled, lowercase for <i>most</i> of the other "+"words. Read the [url]description[/url] for more details.","/doc/GuessCaseMode/FrenchMode");
+this.setConfig(_1bd,"French",_1bd.FR,"First word titled, lowercase for <i>most</i> of the other "+"words. Read the [url]description[/url] for more details.","/doc/GuessCaseMode/FrenchMode");
 this.runFinalChecks=function(is){
 mb.log.enter(this.GID,"runFinalChecks");
 os=is.replace(/([!\?;:]+)/gi," $1");
@@ -3382,11 +3375,11 @@ GcModeFrench.prototype=new GcMode;
 catch(e){
 mb.log.error("GcModeFrench: Could not register GcMode prototype");
 }
-function GcModeArtist(_1bd,name,lang,desc,url){
+function GcModeArtist(_1bf,name,lang,desc,url){
 mb.log.enter("GcModeArtist","__constructor");
 this.CN="GcModeArtist";
 this.GID="gc.mode_artist";
-this.setConfig(_1bd,"Artist mode",_1bd.EN,"","");
+this.setConfig(_1bf,"Artist mode",_1bf.EN,"","");
 mb.log.exit();
 }
 try{
@@ -3395,11 +3388,11 @@ GcModeArtist.prototype=new GcMode;
 catch(e){
 mb.log.error("GcModeArtist: Could not register GcMode prototype");
 }
-function GcModeClassical(_1c2){
+function GcModeClassical(_1c4){
 mb.log.enter("GcModeClassical","__constructor");
 this.CN="GcModeClassical";
 this.GID="gc.mode_xc";
-this.setConfig(_1c2,"Classical",_1c2.XC,"First word titled, lowercase for <i>most</i> of the other "+"words. Read the [url]description[/url] for more details.","/doc/GuessCaseMode/ClassicalMode");
+this.setConfig(_1c4,"Classical",_1c4.XC,"First word titled, lowercase for <i>most</i> of the other "+"words. Read the [url]description[/url] for more details.","/doc/GuessCaseMode/ClassicalMode");
 this.getUpperCaseWords=function(){
 return ["bwv","d","rv","j","hob","hwv","wwo","kv"];
 };
@@ -3426,38 +3419,38 @@ mb.log.enter(this.GID,"runFinalChecks");
 if(!gc.re.DECIMALTOROMAN){
 gc.re.DECIMALTOROMAN=/[\s,:\-]+(\d+)\.[\s]+/i;
 }
-var _1c8=null;
+var _1ca=null;
 var os=is;
-if((_1c8=os.match(gc.re.DECIMALTOROMAN))!=null){
-var _1ca=_1c8.index;
-var _1cb=_1c8[0].length;
-var _1cc=os.substring(0,_1ca);
-var _1cd=os.substring(_1ca+_1cb,os.length);
-var _1ce=[];
-_1cc=_1cc.replace(/[\s,:\-\/]+$/gi,"");
-_1ce.push(_1cc);
-_1ce.push(": ");
-_1ce.push(gc.u.convertToRomanNumeral(_1c8[1]));
-_1ce.push(". ");
-_1ce.push(_1cd);
-os=_1ce.join("");
+if((_1ca=os.match(gc.re.DECIMALTOROMAN))!=null){
+var _1cc=_1ca.index;
+var _1cd=_1ca[0].length;
+var _1ce=os.substring(0,_1cc);
+var _1cf=os.substring(_1cc+_1cd,os.length);
+var _1d0=[];
+_1ce=_1ce.replace(/[\s,:\-\/]+$/gi,"");
+_1d0.push(_1ce);
+_1d0.push(": ");
+_1d0.push(gc.u.convertToRomanNumeral(_1ca[1]));
+_1d0.push(". ");
+_1d0.push(_1cf);
+os=_1d0.join("");
 }
 if(!gc.re.ADD_COLON_TO_ROMAN){
 gc.re.ADD_COLON_TO_ROMAN=/([^:])\s+([ivx]+)[\s|\.]+/i;
 }
-if((_1c8=os.match(gc.re.ADD_COLON_TO_ROMAN))!=null){
-var _1ca=_1c8.index;
-var _1cb=_1c8[0].length;
-var _1cc=os.substring(0,_1ca);
-var _1cd=os.substring(_1ca+_1cb,os.length);
-var _1ce=[];
-_1ce.push(_1cc);
-_1ce.push(_1c8[1]);
-_1ce.push(": ");
-_1ce.push(_1c8[2]);
-_1ce.push(". ");
-_1ce.push(_1cd);
-os=_1ce.join("");
+if((_1ca=os.match(gc.re.ADD_COLON_TO_ROMAN))!=null){
+var _1cc=_1ca.index;
+var _1cd=_1ca[0].length;
+var _1ce=os.substring(0,_1cc);
+var _1cf=os.substring(_1cc+_1cd,os.length);
+var _1d0=[];
+_1d0.push(_1ce);
+_1d0.push(_1ca[1]);
+_1d0.push(": ");
+_1d0.push(_1ca[2]);
+_1d0.push(". ");
+_1d0.push(_1cf);
+os=_1d0.join("");
 }
 return mb.log.exit(os);
 };
@@ -3468,23 +3461,23 @@ var cw=gc.i.getCurrentWord();
 var pw=gc.i.getWordAtIndex(ipos-1);
 var ppw=gc.i.getPreviousWord(ipos-2);
 var opos=gc.o.getLength();
-var _1d4=false;
+var _1d6=false;
 if(cw.match(/flat|sharp/i)&&pw=="-"){
 opos=opos-2;
-_1d4=true;
+_1d6=true;
 }else{
 if(cw.match(/minor|major|minore|maggiore|mineur/i)&&ppw.match(/flat|sharp/)==null){
 opos=opos-1;
-_1d4=true;
+_1d6=true;
 }else{
 if(cw.match(/Moll|Dur/i)){
 opos=opos-2;
 gc.f.forceCaps=true;
-_1d4=true;
+_1d6=true;
 }
 }
 }
-if(_1d4){
+if(_1d6){
 var w=gc.o.getWordAtIndex(opos);
 mb.log.debug("Found tone indication before: $, making word: $ at pos: $ a title.",cw,w,opos);
 gc.o.capitalizeWordAtIndex(opos,true);
@@ -3500,13 +3493,13 @@ GcModeClassical.prototype=new GcMode;
 catch(e){
 mb.log.error("GcModeClassical: Could not register GcMode prototype");
 }
-function GcMode(_1d6,name,lang,desc,url){
+function GcMode(_1d8,name,lang,desc,url){
 mb.log.enter("GcMode","__constructor");
 this.CN="GcMode";
 this.GID="gc.mode";
-this.setConfig=function(_1db,name,lang,desc,url){
+this.setConfig=function(_1dd,name,lang,desc,url){
 mb.log.enter(this.GID,"setConfig");
-this._modes=_1db;
+this._modes=_1dd;
 this._name=name;
 this._lang=lang;
 this._desc=(desc||"");
@@ -3514,7 +3507,7 @@ this._url=(url||"");
 this._id=null;
 mb.log.exit();
 };
-this.setConfig(_1d6,name,lang,desc,url);
+this.setConfig(_1d8,name,lang,desc,url);
 this.getID=function(){
 mb.log.enter(this.GID,"getID");
 if(!this._id){
@@ -3593,25 +3586,25 @@ return mb.log.exit(f);
 };
 this.prepExtraTitleInfo=function(w){
 mb.log.enter(this.GID,"prepExtraTitleInfo");
-var _1ea=w.length-1,wi=_1ea;
-var _1eb=false;
-var _1ec=false;
+var _1ec=w.length-1,wi=_1ec;
+var _1ed=false;
+var _1ee=false;
 while(((w[wi]==" ")||(w[wi]=="\""&&(w[wi-1]=="7"||w[wi-1]=="12"))||((w[wi+1]||"")=="\""&&(w[wi]=="7"||w[wi]=="12"))||(gc.u.isPrepBracketWord(w[wi])))&&wi>=0){
-_1eb=true;
+_1ed=true;
 wi--;
 }
-mb.log.debug("Preprocess: $ ($<--$)",_1eb,wi,_1ea);
-if(wi<_1ea){
+mb.log.debug("Preprocess: $ ($<--$)",_1ed,wi,_1ec);
+if(wi<_1ec){
 wi++;
-while(w[wi]==" "&&wi<_1ea){
+while(w[wi]==" "&&wi<_1ec){
 wi++;
 }
-var _1ed=w[_1ea];
-if((wi==_1ea)&&(gc.u.isPrepBracketSingleWord(_1ed))){
-mb.log.debug("Word: $ which might occur inside brackets, has <strong>not been put into ()</strong>",_1ed);
-_1eb=false;
+var _1ef=w[_1ec];
+if((wi==_1ec)&&(gc.u.isPrepBracketSingleWord(_1ef))){
+mb.log.debug("Word: $ which might occur inside brackets, has <strong>not been put into ()</strong>",_1ef);
+_1ed=false;
 }
-if(_1eb&&wi>0&&wi<=_1ea){
+if(_1ed&&wi>0&&wi<=_1ec){
 var nw=w.slice(0,wi);
 if(nw[wi-1]=="("){
 nw.pop();
@@ -3660,31 +3653,31 @@ return mb.log.exit(os);
 };
 this.runFixes=function(is,list){
 mb.log.enter(this.GID,"runFixes");
-var _1f7=null;
+var _1f9=null;
 var len=list.length;
 for(var i=0;i<len;i++){
 var f=list[i];
 if(f instanceof GcFix){
-var _1fb="Replaced "+f.getName();
+var _1fd="Replaced "+f.getName();
 var find=f.getRe();
-var _1fd=f.getReplace();
+var _1ff=f.getReplace();
 if(typeof (find)=="string"){
 var pos=0;
 while((pos=is.indexOf(find,pos))!=-1){
-mb.log.debug("Applying fix: $ (replace: $)",_1fb,_1fd);
-is=is.replace(find,_1fd);
+mb.log.debug("Applying fix: $ (replace: $)",_1fd,_1ff);
+is=is.replace(find,_1ff);
 }
 }else{
-if((_1f7=is.match(find))!=null){
-var a=_1f7[1];
+if((_1f9=is.match(find))!=null){
+var a=_1f9[1];
 a=(mb.utils.isNullOrEmpty(a)?"":a);
-var b=_1f7[_1f7.length-1];
+var b=_1f9[_1f9.length-1];
 b=(mb.utils.isNullOrEmpty(b)?"":b);
-var rs=[a,_1fd,b].join("");
+var rs=[a,_1ff,b].join("");
 is=is.replace(find,rs);
-mb.log.debug("Applying fix: $ ...",_1fb);
-mb.log.trace("* matcher[$]: $, replace: $, matcher[$]: $ --> $",1,a,_1fd,_1f7.length-1,b,rs);
-mb.log.trace("* matcher: $",_1f7);
+mb.log.debug("Applying fix: $ ...",_1fd);
+mb.log.trace("* matcher[$]: $, replace: $, matcher[$]: $ --> $",1,a,_1ff,_1f9.length-1,b,rs);
+mb.log.trace("* matcher: $",_1f9);
 mb.log.trace("After fix: $",is);
 }else{
 }
@@ -3704,14 +3697,14 @@ gc.re.PREPROCESS_STRIPINFOTOOMIT=[new GcFix("Trim 'bonus (track)?'",/[\(\[]?bonu
 }
 var os=is,list=gc.re.PREPROCESS_STRIPINFOTOOMIT;
 for(var i=list.length-1;i>=0;i--){
-var _205=null;
-var _206=list[i];
-var _207="Replaced "+_206.getName();
-var find=_206.getRe();
-var _209=_206.getReplace();
-if((_205=os.match(find))!=null){
-os=os.replace(find,_209);
-mb.log.debug("Done fix: $",_207);
+var _207=null;
+var _208=list[i];
+var _209="Replaced "+_208.getName();
+var find=_208.getRe();
+var _20b=_208.getReplace();
+if((_207=os.match(find))!=null){
+os=os.replace(find,_20b);
+mb.log.debug("Done fix: $",_209);
 }
 }
 if(is!=os){
@@ -3724,21 +3717,21 @@ mb.log.enter(this.GID,"runFinalChecks");
 if(!gc.re.VINYL){
 gc.re.VINYL=/(\s+|\()((\d+)[\s|-]?(inch\b|in\b|'+|"))([^s]|$)/i;
 }
-var _20b=null,os=is;
-if((_20b=is.match(gc.re.VINYL))!=null){
-var _20c=_20b.index;
-var _20d=_20b[1].length+_20b[2].length+_20b[5].length;
-var _20e=is.substring(0,_20c);
-var _20f=is.substring(_20c+_20d,is.length);
-var _210=[];
-_210.push(_20e);
-_210.push(_20b[1]);
-_210.push(_20b[3]);
-_210.push("\"");
-_210.push((_20b[5])!=" "&&_20b[5]!=")"&&_20b[5]!=","?" ":"");
-_210.push(_20b[5]);
-_210.push(_20f);
-os=_210.join("");
+var _20d=null,os=is;
+if((_20d=is.match(gc.re.VINYL))!=null){
+var _20e=_20d.index;
+var _20f=_20d[1].length+_20d[2].length+_20d[5].length;
+var _210=is.substring(0,_20e);
+var _211=is.substring(_20e+_20f,is.length);
+var _212=[];
+_212.push(_210);
+_212.push(_20d[1]);
+_212.push(_20d[3]);
+_212.push("\"");
+_212.push((_20d[5])!=" "&&_20d[5]!=")"&&_20d[5]!=","?" ":"");
+_212.push(_20d[5]);
+_212.push(_211);
+os=_212.join("");
 }
 return mb.log.exit(os);
 };
@@ -3772,20 +3765,20 @@ this.getArtistMode=function(){
 mb.log.enter(this.GID,"getArtistMode");
 return mb.log.exit(this.ARTIST_MODE);
 };
-this.getModeFromID=function(_211,_212){
+this.getModeFromID=function(_213,_214){
 mb.log.enter(this.GID,"getModeFromID");
 var mode=null;
 for(var i=0;i<this.MODES_LIST.length;i++){
 mode=this.MODES_LIST[i];
 if(mode){
-if(mode.getID()!=_211){
+if(mode.getID()!=_213){
 mode=null;
 }else{
 break;
 }
 }
 }
-mb.log.debug("Id: $, mode: $",_211,(mode||"not found"));
+mb.log.debug("Id: $, mode: $",_213,(mode||"not found"));
 return mb.log.exit(mode);
 };
 this.onModeChanged=function(el){
@@ -3793,13 +3786,13 @@ mb.log.scopeStart("Handle selection on the Mode Dropdown");
 mb.log.enter(this.GID,"onModeChanged");
 if((el&&el.options)&&(el.id==this.MODES_DROPDOWN)){
 var si=el.selectedIndex;
-var _217=el.options[si].value;
-if(_217!=""){
-mb.log.debug("New ModeId: $",_217);
-if(_217!=es.gc.getMode().getID()){
-es.gc.setMode(_217);
-mb.cookie.set(es.gc.COOKIE_MODE,_217,365);
-mb.log.debug("Changed mode to: $",_217);
+var _219=el.options[si].value;
+if(_219!=""){
+mb.log.debug("New ModeId: $",_219);
+if(_219!=es.gc.getMode().getID()){
+es.gc.setMode(_219);
+mb.cookie.set(es.gc.COOKIE_MODE,_219,365);
+mb.log.debug("Changed mode to: $",_219);
 this.updateUI();
 }else{
 mb.log.debug("No mode change required...");
@@ -3855,9 +3848,9 @@ this.useModeFromUI=function(){
 mb.log.enter(this.GID,"useModeFromUI");
 var obj;
 if((obj=mb.ui.get(this.MODES_DROPDOWN))!=null){
-var _222=obj.options[obj.selectedIndex].value;
-if(_222!=""){
-es.gc.setMode(_222);
+var _224=obj.options[obj.selectedIndex].value;
+if(_224!=""){
+es.gc.setMode(_224);
 }
 }else{
 mb.log.error("Unsupported element: $",this.MODES_DROPDOWN);
@@ -3866,11 +3859,11 @@ mb.log.exit();
 };
 mb.log.exit();
 }
-function GcModeDefault(_223,name,lang,desc,url){
+function GcModeDefault(_225,name,lang,desc,url){
 mb.log.enter("GcModeDefault","__constructor");
 this.CN="GcModeDefault";
 this.GID="gc.mode_en";
-this.setConfig(_223,"English",_223.EN,"Read the [url]description[/url] for more details.","/doc/GuessCaseMode/DefaultMode");
+this.setConfig(_225,"English",_225.EN,"Read the [url]description[/url] for more details.","/doc/GuessCaseMode/DefaultMode");
 mb.log.exit();
 }
 try{
@@ -3879,11 +3872,11 @@ GcModeDefault.prototype=new GcMode;
 catch(e){
 mb.log.error("GcModeDefault: Could not register GcMode prototype");
 }
-function GcModeSentence(_228){
+function GcModeSentence(_22a){
 mb.log.enter("GcModeSentence","__constructor");
 this.CN="GcModeSentence";
 this.GID="gc.mode_xx";
-this.setConfig(_228,"Sentence",_228.XX,"First word titled, lowercase for <i>most</i> of the other "+"words. Read the [url]description[/url] for more details.","/doc/GuessCaseMode/SentenceMode");
+this.setConfig(_22a,"Sentence",_22a.XX,"First word titled, lowercase for <i>most</i> of the other "+"words. Read the [url]description[/url] for more details.","/doc/GuessCaseMode/SentenceMode");
 mb.log.exit();
 }
 try{
@@ -3944,12 +3937,12 @@ mb.log.scopeStart("Handle next word: "+gc.i.getCurrentWord()+"");
 mb.log.debug("  Index: $/$ Word: #cw",gc.i.getPos(),gc.i.getLength()-1);
 gc.f.dumpRaisedFlags();
 }
-var _22e=false;
+var _230=false;
 if(!gc.re.SPECIALCASES){
 gc.re.SPECIALCASES=/(&|\?|\!|;|:|'|"|\-|\+|,|\*|\.|#|%|\/|\(|\)|\{|\}|\[|\])/;
 }
 if(gc.i.matchCurrentWord(gc.re.SPECIALCASES)){
-_22e=true;
+_230=true;
 if(this.doDoubleQuote()){
 }else{
 if(this.doSingleQuote()){
@@ -3980,7 +3973,7 @@ if(this.doDiamond()){
 }else{
 if(this.doPercent()){
 }else{
-_22e=false;
+_230=false;
 }
 }
 }
@@ -3997,7 +3990,7 @@ _22e=false;
 }
 }
 }
-if(!_22e){
+if(!_230){
 if(this.doDigits()){
 }else{
 if(this.doAcronym()){
@@ -4034,9 +4027,9 @@ gc.re.COLON=":";
 }
 if(gc.i.matchCurrentWord(gc.re.COLON)){
 mb.log.debug("Handled #cw");
-var _22f=gc.o.getLength()-3;
+var _231=gc.o.getLength()-3;
 var role;
-if(gc.f.slurpExtraTitleInformation&&_22f>0&&gc.o.getWordAtIndex(_22f)=="feat."&&(role=gc.o.getLastWord())!=""){
+if(gc.f.slurpExtraTitleInformation&&_231>0&&gc.o.getWordAtIndex(_231)=="feat."&&(role=gc.o.getLastWord())!=""){
 gc.o.setWordAtIndex(gc.o.getLength()-1,role.toLowerCase());
 }else{
 gc.o.capitalizeLastWord(true);
@@ -4045,13 +4038,13 @@ var skip=false;
 var pos=gc.i.getPos();
 var len=gc.i.getLength();
 if(pos<len-2){
-var _234=gc.i.getWordAtIndex(pos+1);
-var _235=gc.i.getWordAtIndex(pos+2);
-if(_234.match(gc.re.OPENBRACKET)){
+var _236=gc.i.getWordAtIndex(pos+1);
+var _237=gc.i.getWordAtIndex(pos+2);
+if(_236.match(gc.re.OPENBRACKET)){
 skip=true;
 gc.f.spaceNextWord=true;
 }
-if(gc.i.isNextWord(" ")&&_235.match(gc.re.OPENBRACKET)){
+if(gc.i.isNextWord(" ")&&_237.match(gc.re.OPENBRACKET)){
 gc.f.spaceNextWord=true;
 skip=true;
 gc.i.nextIndex();
@@ -4197,7 +4190,7 @@ if(gc.i.matchCurrentWord(gc.re.SINGLEQUOTE)){
 gc.f.forceCaps=false;
 var a=gc.i.isPreviousWord(" ");
 var b=gc.i.isNextWord(" ");
-var _238=gc.f.openedSingleQuote;
+var _23a=gc.f.openedSingleQuote;
 mb.log.debug("Consumed #cw, space before: $, after: $",a,b);
 if(a&&!b){
 mb.log.debug("Found opening singlequote.",a,b);
@@ -4206,7 +4199,7 @@ gc.f.openedSingleQuote=true;
 gc.f.forceCaps=true;
 }else{
 if(!a&&b){
-if(_238){
+if(_23a){
 mb.log.debug("Found closing singlequote.",a,b);
 gc.f.forceCaps=true;
 gc.f.openedSingleQuote=false;
@@ -4219,7 +4212,7 @@ gc.o.capitalizeLastWord();
 gc.f.spaceNextWord=b;
 gc.o.appendCurrentWord();
 gc.f.resetContext();
-if(_238==gc.f.openedSingleQuote){
+if(_23a==gc.f.openedSingleQuote){
 gc.f.forceCaps=false;
 }
 gc.f.singlequote=true;
@@ -4237,7 +4230,7 @@ mb.log.debug("Handled #cw, stack: $",gc.f.openBrackets);
 gc.o.capitalizeLastWord(!gc.getMode().isSentenceCaps());
 gc.f.pushBracket(gc.i.getCurrentWord());
 var cb=gc.f.getCurrentCloseBracket();
-var _23a=false;
+var _23c=false;
 var pos=gc.i.getPos()+1;
 for(var i=pos;i<gc.i.getLength();i++){
 var w=(gc.i.getWordAtIndex(i)||"");
@@ -4245,7 +4238,7 @@ if(w!=" "){
 if((gc.u.isLowerCaseBracketWord(w))||(w.match(/^featuring$|^ft$|^feat$/i)!=null)){
 gc.f.slurpExtraTitleInformation=true;
 if(i==pos){
-_23a=true;
+_23c=true;
 }
 }
 if(w==cb){
@@ -4257,7 +4250,7 @@ gc.o.appendSpace();
 gc.f.resetContext();
 gc.f.spaceNextWord=false;
 gc.f.openingBracket=true;
-gc.f.forceCaps=!_23a;
+gc.f.forceCaps=!_23c;
 gc.o.appendCurrentWord();
 gc.f.disc=false;
 gc.f.part=false;
@@ -4340,16 +4333,16 @@ mb.log.enter(this.GID,"doAcronym");
 if(!gc.re.ACRONYM){
 gc.re.ACRONYM=/^\w$/;
 }
-var _23e,tmp=[];
+var _240,tmp=[];
 if(gc.i.matchCurrentWord(gc.re.ACRONYM)){
 var cw=gc.i.getCurrentWord();
 tmp.push(cw.toUpperCase());
 gc.f.expectWord=false;
 gc.f.gotPeriod=false;
 acronymloop:
-for(_23e=gc.i.getPos()+1;_23e<gc.i.getLength();){
-cw=gc.i.getWordAtIndex(_23e);
-mb.log.debug("Word: $, i: $, expectWord: $, gotPeriod: $",cw,_23e,gc.f.expectWord,gc.f.gotPeriod);
+for(_240=gc.i.getPos()+1;_240<gc.i.getLength();){
+cw=gc.i.getWordAtIndex(_240);
+mb.log.debug("Word: $, i: $, expectWord: $, gotPeriod: $",cw,_240,gc.f.expectWord,gc.f.gotPeriod);
 if(gc.f.expectWord&&cw.match(gc.re.ACRONYM)){
 tmp.push(cw.toUpperCase());
 gc.f.expectWord=false;
@@ -4365,13 +4358,13 @@ gc.f.expectWord=true;
 }else{
 if(tmp[tmp.length-1]!="."){
 tmp.pop();
-_23e--;
+_240--;
 }
 break acronymloop;
 }
 }
 }
-_23e++;
+_240++;
 }
 }
 if(tmp.length>2){
@@ -4384,7 +4377,7 @@ gc.f.resetContext();
 gc.f.acronym=true;
 gc.f.spaceNextWord=true;
 gc.f.forceCaps=false;
-gc.i.setPos(_23e-1);
+gc.i.setPos(_240-1);
 return mb.log.exit(true);
 }
 return mb.log.exit(false);
@@ -4398,73 +4391,73 @@ gc.re.DIGITS_DUPLE=/^\d\d$/;
 gc.re.DIGITS_TRIPLE=/^\d\d\d$/;
 gc.re.DIGITS_NTUPLE=/^\d\d\d\d+$/;
 }
-var _241=null,tmp=[];
+var _243=null,tmp=[];
 if(gc.i.matchCurrentWord(gc.re.DIGITS)){
 tmp.push(gc.i.getCurrentWord());
 gc.f.numberSplitExpect=true;
 numberloop:
-for(_241=gc.i.getPos()+1;_241<gc.i.getLength();){
+for(_243=gc.i.getPos()+1;_243<gc.i.getLength();){
 if(gc.f.numberSplitExpect){
-if(gc.i.matchWordAtIndex(_241,gc.re.DIGITS_NUMBERSPLIT)){
-tmp.push(gc.i.getWordAtIndex(_241));
+if(gc.i.matchWordAtIndex(_243,gc.re.DIGITS_NUMBERSPLIT)){
+tmp.push(gc.i.getWordAtIndex(_243));
 gc.f.numberSplitExpect=false;
 }else{
 break numberloop;
 }
 }else{
-if(gc.i.matchWordAtIndex(_241,gc.re.DIGITS_TRIPLE)){
+if(gc.i.matchWordAtIndex(_243,gc.re.DIGITS_TRIPLE)){
 if(gc.f.numberSplitChar==null){
 gc.f.numberSplitChar=tmp[tmp.length-1];
 }
-tmp.push(gc.i.getWordAtIndex(_241));
+tmp.push(gc.i.getWordAtIndex(_243));
 gc.f.numberSplitExpect=true;
 }else{
-if(gc.i.matchWordAtIndex(_241,gc.re.DIGITS_DUPLE)){
+if(gc.i.matchWordAtIndex(_243,gc.re.DIGITS_DUPLE)){
 if(tmp.length>2&&gc.f.numberSplitChar!=tmp[tmp.length-1]){
-tmp.push(gc.i.getWordAtIndex(_241++));
+tmp.push(gc.i.getWordAtIndex(_243++));
 }else{
 tmp.pop();
-_241--;
+_243--;
 }
 }else{
-if(gc.i.matchWordAtIndex(_241,gc.re.DIGITS_NTUPLE)){
-tmp.push(gc.i.getWordAtIndex(_241++));
+if(gc.i.matchWordAtIndex(_243,gc.re.DIGITS_NTUPLE)){
+tmp.push(gc.i.getWordAtIndex(_243++));
 }else{
 tmp.pop();
-_241--;
+_243--;
 }
 }
 break numberloop;
 }
 }
-_241++;
+_243++;
 }
-gc.i.setPos(_241-1);
-var _242=tmp.join("");
+gc.i.setPos(_243-1);
+var _244=tmp.join("");
 if(gc.f.disc||gc.f.part||gc.f.volume){
-_242=_242.replace(/^0*/,"");
+_244=_244.replace(/^0*/,"");
 }
 mb.log.debug("Processed number: $",tmp.join(""));
-var _243=false;
+var _245=false;
 if(gc.f.disc||gc.f.volume){
 var pos=gc.i.getPos();
 if(pos<gc.i.getLength()-2){
-var _245=gc.i.getWordAtIndex(pos+1);
-var _246=gc.i.getWordAtIndex(pos+2);
-var _247=_245.match(/[\):\-&]/);
-var _248=_246.match(/[\(:\-&]/);
-if(_247==null&&_248==null){
-_243=true;
+var _247=gc.i.getWordAtIndex(pos+1);
+var _248=gc.i.getWordAtIndex(pos+2);
+var _249=_247.match(/[\):\-&]/);
+var _24a=_248.match(/[\(:\-&]/);
+if(_249==null&&_24a==null){
+_245=true;
 }
 }
 gc.f.spaceNextWord=true;
 gc.f.forceCaps=true;
 }
 gc.o.appendSpaceIfNeeded();
-gc.o.appendWord(_242);
+gc.o.appendWord(_244);
 gc.f.resetSeriesNumberStyleFlags();
 gc.f.resetContext();
-if(_243){
+if(_245){
 gc.o.appendWord(":");
 gc.f.forceCaps=true;
 gc.f.colon=true;
@@ -4527,7 +4520,7 @@ return mb.log.exit(true);
 }
 return mb.log.exit(false);
 };
-this.doSeriesNumberStyle=function(_249){
+this.doSeriesNumberStyle=function(_24b){
 mb.log.enter(this.GID,"doSeriesNumberStyle");
 var pos=gc.i.getPos();
 var len=gc.i.getLength();
@@ -4542,10 +4535,10 @@ var w=(gc.i.getWordAtIndex(wi)||"");
 mb.log.debug("Attempting to match number/roman numeral, $",w);
 if(w.match(gc.re.SERIES_NUMBER)){
 if(gc.i.getPos()>=1&&!gc.u.isPunctuationChar(gc.o.getLastWord())){
-var _24e=false;
+var _250=false;
 while(gc.o.getLength()>0&&(gc.o.getLastWord()||"").match(/ |-/i)){
 gc.o.dropLastWord();
-_24e=true;
+_250=true;
 }
 gc.o.capitalizeLastWord(true);
 gc.o.appendWord(",");
@@ -4553,26 +4546,26 @@ gc.o.appendWord(",");
 var pos=gc.o.getLength()-2;
 gc.o.capitalizeWordAtIndex(pos,true);
 }
-var _24f=false;
+var _251=false;
 if(wi<gc.i.getLength()-2){
-var _250=gc.i.getWordAtIndex(wi+1);
-var _251=gc.i.getWordAtIndex(wi+2);
-var _252=_250.match(/[\):\-&,\/]/);
-var _253=_251.match(/[\(:\-&,\/]/);
-if(_252==null&&_253==null){
-_24f=true;
+var _252=gc.i.getWordAtIndex(wi+1);
+var _253=gc.i.getWordAtIndex(wi+2);
+var _254=_252.match(/[\):\-&,\/]/);
+var _255=_253.match(/[\(:\-&,\/]/);
+if(_254==null&&_255==null){
+_251=true;
 }else{
-if(_249.match(/part|parts/i)&&(_250.match(/,/)||_251.match(/&|-|,|\d+/))){
-_249="Parts";
+if(_24b.match(/part|parts/i)&&(_252.match(/,/)||_253.match(/&|-|,|\d+/))){
+_24b="Parts";
 }
 }
 }
 gc.o.appendSpaceIfNeeded();
-gc.o.appendWord(_249);
+gc.o.appendWord(_24b);
 gc.o.appendSpace();
 gc.o.appendWord(w);
 gc.f.resetContext();
-if(_24f){
+if(_251){
 gc.o.appendWord(":");
 gc.f.forceCaps=true;
 gc.f.spaceNextWord=true;
@@ -4592,15 +4585,15 @@ mb.log.enter(this.GID,"doDiscNumberStyle");
 if(!gc.re.DISCNUMBERSTYLE){
 gc.re.DISCNUMBERSTYLE=/^(Cd|Disk|Discque|Disc)([^\s\d]*)(\s*)(\d*)/i;
 }
-var _254=null;
+var _256=null;
 var w=gc.i.getCurrentWord();
-if(!(gc.f.isInsideBrackets()&&gc.f.colon)&&!gc.i.isFirstWord()&&gc.i.hasMoreWords()&&(_254=w.match(gc.re.DISCNUMBERSTYLE))!=null){
-if(_254[2]!=""){
+if(!(gc.f.isInsideBrackets()&&gc.f.colon)&&!gc.i.isFirstWord()&&gc.i.hasMoreWords()&&(_256=w.match(gc.re.DISCNUMBERSTYLE))!=null){
+if(_256[2]!=""){
 return mb.log.exit(false);
 }
 mb.log.debug("Attempting to correct DiscNumberStyle, #cw");
-if(_254[4]!=""){
-var np=_254[4];
+if(_256[4]!=""){
+var np=_256[4];
 np=np.replace("^0","");
 mb.log.debug("Expanding #cw to disc $",np);
 gc.i.insertWordsAtIndex(gc.i.getPos()+1,[" ",np]);
@@ -4656,7 +4649,7 @@ if(gc.i.getPos()<gc.i.getLength()-2){
 if(!gc.f.openingBracket&&!gc.f.isInsideBrackets()){
 mb.log.debug("Matched feat., but previous word is not a closing bracket.");
 if(gc.f.isInsideBrackets()){
-var _25b=new Array();
+var _25d=new Array();
 while(gc.f.isInsideBrackets()){
 var cb=gc.f.popBracket();
 gc.o.appendWord(cb);
@@ -4720,10 +4713,10 @@ mb.log.enter(this.GID,"process");
 is=gc.mode.stripInformationToOmit(is);
 is=gc.mode.preProcessCommons(is);
 is=gc.mode.preProcessTitles(is);
-var _262=gc.i.splitWordsAndPunctuation(is);
-_262=gc.mode.prepExtraTitleInfo(_262);
+var _264=gc.i.splitWordsAndPunctuation(is);
+_264=gc.mode.prepExtraTitleInfo(_264);
 gc.o.init();
-gc.i.init(is,_262);
+gc.i.init(is,_264);
 while(!gc.i.isIndexAtEnd()){
 this.processWord();
 mb.log.debug("Output: $",gc.o._w);
@@ -4776,10 +4769,10 @@ mb.log.enter(this.GID,"process");
 is=gc.mode.stripInformationToOmit(is);
 is=gc.mode.preProcessCommons(is);
 is=gc.mode.preProcessTitles(is);
-var _265=gc.i.splitWordsAndPunctuation(is);
-_265=gc.mode.prepExtraTitleInfo(_265);
+var _267=gc.i.splitWordsAndPunctuation(is);
+_267=gc.mode.prepExtraTitleInfo(_267);
 gc.o.init();
-gc.i.init(is,_265);
+gc.i.init(is,_267);
 while(!gc.i.isIndexAtEnd()){
 this.processWord();
 mb.log.debug("Output: $",gc.o._w);
@@ -4961,104 +4954,104 @@ return false;
 this.guessSortName=function(is){
 mb.log.enter(this.GID,"guessSortName");
 is=gc.u.trim(is);
-var _26e=" and ";
-_26e=(is.indexOf(" + ")!=-1?" + ":_26e);
-_26e=(is.indexOf(" & ")!=-1?" & ":_26e);
-var as=is.split(_26e);
-for(var _270=0;_270<as.length;_270++){
-var _271=as[_270];
-if(!mb.utils.isNullOrEmpty(_271)){
-_271=gc.u.trim(_271);
-var _272="";
-mb.log.debug("Handling artist part: $",_271);
+var _270=" and ";
+_270=(is.indexOf(" + ")!=-1?" + ":_270);
+_270=(is.indexOf(" & ")!=-1?" & ":_270);
+var as=is.split(_270);
+for(var _272=0;_272<as.length;_272++){
+var _273=as[_272];
+if(!mb.utils.isNullOrEmpty(_273)){
+_273=gc.u.trim(_273);
+var _274="";
+mb.log.debug("Handling artist part: $",_273);
 if(!gc.re.SORTNAME_SR){
 gc.re.SORTNAME_SR=/,\s*Sr[\.]?$/i;
 gc.re.SORTNAME_JR=/,\s*Jr[\.]?$/i;
 }
-if(_271.match(gc.re.SORTNAME_SR)){
-_271=_271.replace(gc.re.SORTNAME_SR,"");
-_272=", Sr.";
+if(_273.match(gc.re.SORTNAME_SR)){
+_273=_273.replace(gc.re.SORTNAME_SR,"");
+_274=", Sr.";
 }else{
-if(_271.match(gc.re.SORTNAME_JR)){
-_271=_271.replace(gc.re.SORTNAME_JR,"");
-_272=", Jr.";
+if(_273.match(gc.re.SORTNAME_JR)){
+_273=_273.replace(gc.re.SORTNAME_JR,"");
+_274=", Jr.";
 }
 }
-var _273=_271.split(" ");
-mb.log.debug("names: $",_273);
-var _274=false;
+var _275=_273.split(" ");
+mb.log.debug("names: $",_275);
+var _276=false;
 if(!gc.re.SORTNAME_DJ){
 gc.re.SORTNAME_DJ=/^DJ$/i;
 gc.re.SORTNAME_THE=/^The$/i;
 gc.re.SORTNAME_LOS=/^Los$/i;
 gc.re.SORTNAME_DR=/^Dr\.$/i;
 }
-var _275=_273[0];
-if(_275.match(gc.re.SORTNAME_DJ)){
-_272=(", DJ"+_272);
-_273[0]=null;
+var _277=_275[0];
+if(_277.match(gc.re.SORTNAME_DJ)){
+_274=(", DJ"+_274);
+_275[0]=null;
 }else{
-if(_275.match(gc.re.SORTNAME_THE)){
-_272=(", The"+_272);
-_273[0]=null;
+if(_277.match(gc.re.SORTNAME_THE)){
+_274=(", The"+_274);
+_275[0]=null;
 }else{
-if(_275.match(gc.re.SORTNAME_LOS)){
-_272=(", Los"+_272);
-_273[0]=null;
+if(_277.match(gc.re.SORTNAME_LOS)){
+_274=(", Los"+_274);
+_275[0]=null;
 }else{
-if(_275.match(gc.re.SORTNAME_DR)){
-_272=(", Dr."+_272);
-_273[0]=null;
-_274=true;
+if(_277.match(gc.re.SORTNAME_DR)){
+_274=(", Dr."+_274);
+_275[0]=null;
+_276=true;
 }else{
-_274=true;
+_276=true;
 }
 }
 }
 }
 var i=0;
-if(_274){
-var _277=[];
-if(_273.length>1){
-for(i=0;i<_273.length-1;i++){
-if(i==_273.length-2&&_273[i]=="St."){
-_273[i+1]=_273[i]+" "+_273[i+1];
+if(_276){
+var _279=[];
+if(_275.length>1){
+for(i=0;i<_275.length-1;i++){
+if(i==_275.length-2&&_275[i]=="St."){
+_275[i+1]=_275[i]+" "+_275[i+1];
 }else{
-if(!mb.utils.isNullOrEmpty(_273[i])){
-_277[i+1]=_273[i];
+if(!mb.utils.isNullOrEmpty(_275[i])){
+_279[i+1]=_275[i];
 }
 }
 }
-_277[0]=_273[_273.length-1];
-if(_277.length>1){
-_277[0]+=",";
+_279[0]=_275[_275.length-1];
+if(_279.length>1){
+_279[0]+=",";
 }
-_273=_277;
+_275=_279;
 }
 }
-mb.log.debug("Sorted names: $, append: $",_273,_272);
+mb.log.debug("Sorted names: $, append: $",_275,_274);
 var t=[];
-for(i=0;i<_273.length;i++){
-var w=_273[i];
+for(i=0;i<_275.length;i++){
+var w=_275[i];
 if(!mb.utils.isNullOrEmpty(w)){
 t.push(w);
 }
-if(i<_273.length-1){
+if(i<_275.length-1){
 t.push(" ");
 }
 }
-if(!mb.utils.isNullOrEmpty(_272)){
-t.push(_272);
+if(!mb.utils.isNullOrEmpty(_274)){
+t.push(_274);
 }
-_271=gc.u.trim(t.join(""));
+_273=gc.u.trim(t.join(""));
 }
-if(!mb.utils.isNullOrEmpty(_271)){
-as[_270]=_271;
+if(!mb.utils.isNullOrEmpty(_273)){
+as[_272]=_273;
 }else{
-delete as[_270];
+delete as[_272];
 }
 }
-var os=gc.u.trim(as.join(_26e));
+var os=gc.u.trim(as.join(_270));
 mb.log.debug("Result: $",os);
 return mb.log.exit(os);
 };
@@ -5345,11 +5338,11 @@ return m;
 this.getDisplayedModules=function(){
 return this.modules;
 };
-this.guessArtistField=function(_293){
+this.guessArtistField=function(_295){
 mb.log.enter(this.GID,"guessArtistField");
-_293=(_293||"artist");
+_295=(_295||"artist");
 var f;
-if((f=es.ui.getField(_293))!=null){
+if((f=es.ui.getField(_295))!=null){
 var ov=f.value,nv=ov;
 if(!mb.utils.isNullOrEmpty(ov)){
 mb.log.info("Guessing artist field, input: $",ov);
@@ -5364,15 +5357,15 @@ mb.log.info("Guess yielded same result, nothing to do.");
 mb.log.info("Field value is null or empty, nothing to do.");
 }
 }else{
-mb.log.error("Did not find the field: $",_293);
+mb.log.error("Did not find the field: $",_295);
 }
 mb.log.exit();
 };
-this.guessReleaseField=function(_296,mode){
+this.guessReleaseField=function(_298,mode){
 mb.log.enter(this.GID,"guessReleaseField");
-_296=(_296||"release");
+_298=(_298||"release");
 var f;
-if((f=es.ui.getField(_296))!=null){
+if((f=es.ui.getField(_298))!=null){
 var ov=f.value,nv=ov;
 if(!mb.utils.isNullOrEmpty(ov)){
 mb.log.info("Guessing release field, input: $",ov);
@@ -5388,14 +5381,14 @@ mb.log.info("Guess yielded same result, nothing to do.");
 mb.log.info("Field value is null or empty, nothing to do.");
 }
 }else{
-mb.log.error("Did not find the field: $",_296);
+mb.log.error("Did not find the field: $",_298);
 }
 mb.log.exit();
 };
-this.guessTrackField=function(_29a,mode){
+this.guessTrackField=function(_29c,mode){
 mb.log.enter(this.GID,"guessTrackField");
 var f;
-if((f=es.ui.getField(_29a))!=null){
+if((f=es.ui.getField(_29c))!=null){
 var ov=f.value,nv=ov;
 if(!mb.utils.isNullOrEmpty(ov)){
 mb.log.info("Guessing track field, input: $",ov);
@@ -5411,21 +5404,21 @@ mb.log.info("Guess yielded same result, nothing to do.");
 mb.log.info("Field value is null or empty, nothing to do. $",ov);
 }
 }else{
-mb.log.error("Did not find the field: $",_29a);
+mb.log.error("Did not find the field: $",_29c);
 }
 mb.log.exit();
 };
 this.guessAllFields=function(){
 mb.log.enter(this.GID,"guessAllFields");
 var f,fields=es.ui.getEditTextFields();
-var _29f,name,cn;
+var _2a1,name,cn;
 for(var j=0;j<fields.length;j++){
 f=fields[j];
-_29f=(f.value||"");
+_2a1=(f.value||"");
 name=(f.name||"");
 cn=(f.className||"");
 if(!cn.match(/hidden/i)){
-if(!mb.utils.isNullOrEmpty(_29f)){
+if(!mb.utils.isNullOrEmpty(_2a1)){
 mb.log.scopeStart("Guessing next field: "+name);
 this.guessByFieldName(name);
 }else{
@@ -5447,7 +5440,7 @@ if(name.match(es.ui.re.ARTISTFIELD_NAME)){
 this.guessArtistField(name);
 }else{
 if(name.match(es.ui.re.SORTNAMEFIELD_NAME)){
-var _2a3=name.replace("sort","");
+var _2a5=name.replace("sort","");
 this.guessSortnameField(artistfield,name);
 }else{
 mb.log.warning("Unhandled name: $",name);
@@ -5457,10 +5450,10 @@ mb.log.warning("Unhandled name: $",name);
 }
 mb.log.exit();
 };
-this.copySortnameField=function(_2a4,_2a5){
+this.copySortnameField=function(_2a6,_2a7){
 mb.log.enter(this.GID,"copySortnameField");
 var fa,fsn;
-if((fa=es.ui.getField(_2a4))!=null&&(fsn=es.ui.getField(_2a5))!=null){
+if((fa=es.ui.getField(_2a6))!=null&&(fsn=es.ui.getField(_2a7))!=null){
 var ov=fsn.value;
 var nv=fa.value;
 if(nv!=ov){
@@ -5471,14 +5464,14 @@ es.ui.resetSelection();
 mb.log.info("Destination is same as source, nothing to do.");
 }
 }else{
-mb.log.error("Did not find the fields: $, $",_2a4,_2a5);
+mb.log.error("Did not find the fields: $, $",_2a6,_2a7);
 }
 mb.log.exit();
 };
-this.guessSortnameField=function(_2a9,_2aa){
+this.guessSortnameField=function(_2ab,_2ac){
 mb.log.enter(this.GID,"guessSortnameField");
 var fa,fsn;
-if((fa=es.ui.getField(_2a9))!=null&&(fsn=es.ui.getField(_2aa))!=null){
+if((fa=es.ui.getField(_2ab))!=null&&(fsn=es.ui.getField(_2ac))!=null){
 var av=fa.value,ov=fsn.value,nv=ov;
 if(!mb.utils.isNullOrEmpty(av)){
 mb.log.info("fa: $, fsn: $, value: $",fa.name,fsn.name,fa.value);
@@ -5493,7 +5486,7 @@ mb.log.info("Guess yielded same result, nothing to do.");
 mb.log.info("Artist name is empty, nothing to do.");
 }
 }else{
-mb.log.error("Did not find the fields: $, $",_2a9,_2aa);
+mb.log.error("Did not find the fields: $, $",_2ab,_2ac);
 }
 mb.log.exit();
 };
@@ -5504,13 +5497,13 @@ var fn1=(arguments[0]||"search");
 var fn2=(arguments[1]||"trackname");
 var fns=(arguments[2]||"swapped");
 if(((f1=es.ui.getField(fn1))!=null)&&((f2=es.ui.getField(fn2))!=null)&&((fs=es.ui.getField(fns))!=null)){
-var _2b1=(1-fs.value);
+var _2b3=(1-fs.value);
 var f1v=f1.value;
 var f2v=f2.value;
-es.ur.addUndo(es.ur.createItemList(es.ur.createItem(f2,"swap",f2v,f1v),es.ur.createItem(f1,"swap",f1v,f2v),es.ur.createItem(fs,"swap",fs.value,_2b1)));
+es.ur.addUndo(es.ur.createItemList(es.ur.createItem(f2,"swap",f2v,f1v),es.ur.createItem(f1,"swap",f1v,f2v),es.ur.createItem(fs,"swap",fs.value,_2b3)));
 f1.value=f2v;
 f2.value=f1v;
-fs.value=_2b1;
+fs.value=_2b3;
 }else{
 mb.log.error("Did not find the fields: $,$,$",fn1,fn2,fns);
 }
