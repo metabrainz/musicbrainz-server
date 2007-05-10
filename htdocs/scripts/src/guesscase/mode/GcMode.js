@@ -324,7 +324,7 @@ function GcMode(modes, name, lang, desc, url) {
 
 				  // vinyl
 				, new GcFix("12'' -> 12\"", /(\s|^|\()(\d+)''(\s|$)/i, "$2\"" )
-				, new GcFix("12in -> 12\"", /(\s|^|\()(\d+)\s?in(ch)?(\s|$)/i, "$2\"" )
+				, new GcFix("12in -> 12\"", /(\s|^|\()(\d+)in(ch)?(\s|$)/i, "$2\"" )
 
 				  // combined word hacks, e.g. replace spaces with underscores,
 				  // (e.g. "a cappella" -> a_capella), such that it can be handled
