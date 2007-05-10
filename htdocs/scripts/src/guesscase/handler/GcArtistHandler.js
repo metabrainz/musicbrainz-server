@@ -149,15 +149,17 @@ function GcArtistHandler() {
 	 **/
 	this.doPresentsStyle = function() {
 		if (!this.doPresentsRE) {
-			this.doPresentsRE = /^(presents|pres)$/i;
+			this.doPresentsRE = /^(presents?|pres)$/i;
 		}
 		if (gc.i.matchCurrentWord(this.doPresentsRE)) {
 			gc.o.appendSpace();
-			gc.o.appendCurrentWord();
+			gc.o.appendWord("presents");
 			if (gc.i.isNextWord(".")) {
 				gc.i.nextIndex();
 			}
+			return true;
 		}
+		return false;
 	};
 
 	/**
