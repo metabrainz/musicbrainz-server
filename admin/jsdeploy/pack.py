@@ -13,7 +13,8 @@ for line in open(sys.argv[1], 'rt'):
         name, value = line.split('=', 1)
         conf.setdefault(name, []).append(value)
 
-dstpath = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'htdocs', 'scripts'))
+curpath = os.path.abspath(os.path.dirname(__file__))
+dstpath = os.path.join(curpath, '..', '..', 'htdocs', 'scripts')
 srcpath = os.path.join(dstpath, 'src')
 
 lines = []
@@ -32,7 +33,7 @@ file.close()
 
 print "Compresing", filename
 pipe = subprocess.Popen(
-   ['java', '-jar', 'dojo_rhino.jar', '-c', tmpfilename],
+   ['java', '-jar', os.path.join(curpath, 'dojo_rhino.jar'), '-c', tmpfilename],
    stdout=subprocess.PIPE)
 
 file = open(filename, 'wt')

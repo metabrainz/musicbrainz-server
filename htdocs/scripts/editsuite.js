@@ -1,24 +1,3 @@
-function EsModuleConfig(id,_2,_3,_4){
-mb.log.enter("EsModuleConfig","__constructor");
-this.CN="EsModuleConfig";
-this.id=id;
-this.defaultOn=_2;
-this.desc=_3;
-this.helpText=_4;
-this.getID=function(){
-return this.id;
-};
-this.isDefaultOn=function(){
-return this.defaultOn;
-};
-this.getDescription=function(){
-return this.desc;
-};
-this.getHelpText=function(){
-return this.helpText;
-};
-mb.log.exit();
-}
 function EsModuleBase(){
 this.CN="EsModuleBase";
 this.GID="es.base";
@@ -29,8 +8,8 @@ return "es.base";
 this.getModName=function(){
 return "EsModuleBase";
 };
-this.getModKey=function(_5){
-return this.getModID()+(_5||"");
+this.getModKey=function(_1){
+return this.getModID()+(_1||"");
 };
 this.CONFIG_LIST=[];
 this.CONFIG_VALUES=[];
@@ -59,11 +38,11 @@ this.setupModuleDelegate=function(){
 };
 this.getConfigFromUI=function(){
 mb.log.enter(this.GID,"getConfigFromUI");
-var _8=null;
-if((_8=mb.ui.getByName(this.CONFIG_CHECKBOX))!=null){
-var l=_8.length;
+var _4=null;
+if((_4=mb.ui.getByName(this.CONFIG_CHECKBOX))!=null){
+var l=_4.length;
 for(var i=0;i<l;i++){
-var el=_8[i];
+var el=_4[i];
 this.CONFIG_VALUES[el.id]=el.checked;
 mb.log.debug("$ = $",el.id,el.checked);
 }
@@ -78,33 +57,33 @@ this.getConfigFromUIDelegate=function(){
 this.onConfigurationChange=function(el){
 mb.log.scopeStart("Handling click on config checkbox");
 mb.log.enter(this.GID,"onConfigurationChange");
-var _d=el.id,value=el.checked;
-mb.cookie.set(_d,(value?"1":"0"),365);
-this.setConfigValue(_d,value);
+var _9=el.id,value=el.checked;
+mb.cookie.set(_9,(value?"1":"0"),365);
+this.setConfigValue(_9,value);
 mb.log.exit();
 mb.log.scopeEnd();
 };
-this.setConfigValue=function(_e,_f){
+this.setConfigValue=function(_a,_b){
 mb.log.enter(this.GID,"setConfigValue");
-this.CONFIG_VALUES[_e]=_f;
-mb.log.trace("Set $ = $",_e,_f);
+this.CONFIG_VALUES[_a]=_b;
+mb.log.trace("Set $ = $",_a,_b);
 mb.log.exit();
 };
-this.isConfigTrue=function(key){
+this.isConfigTrue=function(_c){
 mb.log.enter(this.GID,"isConfigTrue");
-if(this.CONFIG_VALUES[key]=="undefined"){
+if(this.CONFIG_VALUES[_c]=="undefined"){
 this.getConfigFromUI();
 }
-var o=(this.CONFIG_VALUES[key]||false);
-mb.log.trace("$=$",key,o);
+var o=(this.CONFIG_VALUES[_c]||false);
+mb.log.trace("$=$",_c,o);
 return mb.log.exit(o);
 };
-this.getConfigFromCookie=function(_12,_13){
+this.getConfigFromCookie=function(_e,_f){
 mb.log.enter(this.GID,"getConfigFromCookie");
-var cv=mb.cookie.getBool(_12);
-var _15=(cv==null?"null":cv);
-var f=((cv!=null&&cv)||(cv==null&&_13));
-mb.log.trace("key: $ (default:$ || cookie:$) = $",_12,_13,_15,f);
+var cv=mb.cookie.getBool(_e);
+var _11=(cv==null?"null":cv);
+var f=((cv!=null&&cv)||(cv==null&&_f));
+mb.log.trace("key: $ (default:$ || cookie:$) = $",_e,_f,_11,f);
 return mb.log.exit(f);
 };
 this.onResetModuleClicked=function(){
@@ -141,11 +120,11 @@ this.visible=f;
 }
 return mb.log.exit(this.visible);
 };
-this.setVisible=function(_1a,_1b){
+this.setVisible=function(_16,_17){
 mb.log.enter(this.GID,"setVisible");
-if(_1a!=null){
-this.visible=_1a;
-if(_1b||this.expanded==null){
+if(_16!=null){
+this.visible=_16;
+if(_17||this.expanded==null){
 if(this.visible){
 this.setExpanded(true);
 }else{
@@ -165,14 +144,14 @@ this.setVisible(this.isVisible());
 }
 mb.log.exit();
 };
-this.onSetVisibleClicked=function(_1c){
+this.onSetVisibleClicked=function(_18){
 mb.log.scopeStart("Handling click on Visible checkbox");
 mb.log.enter(this.GID,"onSetVisibleClicked");
-this.setVisible(_1c,_1c);
+this.setVisible(_18,_18);
 mb.log.exit();
 mb.log.scopeEnd();
 };
-this.isExpanded=function(_1d){
+this.isExpanded=function(_19){
 mb.log.enter(this.GID,"isExpanded");
 if(this.expanded==null){
 var f=this.getConfigFromCookie(this.COOKIE_EXPANDED,this.DEFAULT_EXPANDED);
@@ -180,11 +159,11 @@ this.expanded=f;
 }
 return mb.log.exit(this.expanded);
 };
-this.setExpanded=function(_1f){
+this.setExpanded=function(_1b){
 mb.log.enter(this.GID,"setExpanded");
-if(_1f!=null){
-mb.log.debug("New state: $",(_1f?"expanded":"collapsed"));
-this.expanded=_1f;
+if(_1b!=null){
+mb.log.debug("New state: $",(_1b?"expanded":"collapsed"));
+this.expanded=_1b;
 mb.ui.setDisplay(this.getModKey("-tr-expanded"),this.visible&&this.expanded);
 if(this!=es.cfg){
 mb.ui.setDisplay(this.getModKey("-tr-collapsed"),this.visible&&!this.expanded);
@@ -197,10 +176,10 @@ this.setExpanded(this.isExpanded());
 }
 mb.log.exit();
 };
-this.onSetExpandedClicked=function(_20){
+this.onSetExpandedClicked=function(_1c){
 mb.log.scopeStart("Handling click on Expanded checkbox");
 mb.log.enter(this.GID,"onSetExpandedClicked");
-this.setExpanded(_20);
+this.setExpanded(_1c);
 mb.log.scopeEnd();
 mb.log.exit();
 };
@@ -209,16 +188,16 @@ mb.log.enter(this.GID,"getConfigHtml");
 var s=[];
 for(var i=0;i<this.CONFIG_LIST.length;i++){
 var cb=this.CONFIG_LIST[i];
-var _24=cb.getHelpText();
-_24=_24.replace("'","?");
+var _20=cb.getHelpText();
+_20=_20.replace("'","\ufffd");
 s.push("<input type=\"checkbox\" name=\"");
 s.push(this.CONFIG_CHECKBOX);
 s.push("\" id=\"");
 s.push(cb.getID());
 s.push("\" value=\"on\" ");
-var _25=this.getConfigFromCookie(cb.getID(),cb.isDefaultOn());
-s.push(_25?" checked=\"checked\" ":" ");
-this.setConfigValue(cb.getID(),_25);
+var _21=this.getConfigFromCookie(cb.getID(),cb.isDefaultOn());
+s.push(_21?" checked=\"checked\" ":" ");
+this.setConfigValue(cb.getID(),_21);
 s.push("onChange=\"");
 s.push(this.getModID());
 s.push(".onConfigurationChange(this)\" ");
@@ -226,50 +205,50 @@ s.push(">");
 s.push(cb.getDescription());
 s.push("&nbsp; ");
 s.push("[ <a href=\"javascript:; // help\" ");
-s.push("onmouseover=\"return overlib('"+_24+"');\"");
+s.push("onmouseover=\"return overlib('"+_20+"');\"");
 s.push("onmouseout=\"return nd();\">help</a> ]<br/>");
 }
 return mb.log.exit(s.join(""));
 };
-this.getExpandButton=function(_26){
+this.getExpandButton=function(_22){
 var s=[];
-var _28=[];
-_28.push(_26?"Expand":"Collapse");
-_28.push(" "+this.getModName());
-_28.push(" module");
+var _24=[];
+_24.push(_22?"Expand":"Collapse");
+_24.push(" "+this.getModName());
+_24.push(" module");
 s.push("<td class=\"toggle\">");
 s.push("<a href=\"javascript:; // ");
-s.push(_26?"expand":"collapse");
+s.push(_22?"expand":"collapse");
 s.push("\" onClick=\"");
 s.push(this.getModID());
 s.push(".onSetExpandedClicked(");
-s.push(_26?"true":"false");
+s.push(_22?"true":"false");
 s.push(")\" title=\"");
-s.push(_28.join(""));
+s.push(_24.join(""));
 s.push("\" ><img src=\"/images/es/");
-s.push(_26?"maximize":"minimize");
+s.push(_22?"maximize":"minimize");
 s.push(".gif\" width=\"13\" height=\"13\" alt=\"");
-s.push(_28.join(""));
+s.push(_24.join(""));
 s.push("\" style=\"padding-left: 3px\" border=\"0\"></a>");
 s.push("</td>");
 return s.join("");
 };
 this.getCloseButton=function(){
 var s=[];
-var _2a=[];
-_2a.push("Close");
-_2a.push(" "+this.getModName());
-_2a.push(" module");
+var _26=[];
+_26.push("Close");
+_26.push(" "+this.getModName());
+_26.push(" module");
 s.push("<td class=\"toggle\">");
 s.push("<a href=\"javascript:; // close");
 s.push("\" onClick=\"");
 s.push(this.getModID());
 s.push(".onSetVisibleClicked(false)\" ");
 s.push("title=\"");
-s.push(_2a.join(""));
+s.push(_26.join(""));
 s.push("\"><img src=\"/images/es/");
 s.push("close.gif\" width=\"13\" height=\"13\" alt=\"");
-s.push(_2a.join(""));
+s.push(_26.join(""));
 s.push("\" style=\"padding-left: 3px\" border=\"0\"></a>");
 s.push("</td>");
 return s.join("");
@@ -278,22 +257,22 @@ this.getModuleStartHtml=function(c){
 mb.log.enter(this.GID,"getModuleStartHtml");
 var mv=this.isVisible();
 var mx=this.isExpanded();
-var _2e=(c.x?"expanded":"collapsed");
-var _2f="";
+var _2a=(c.x?"expanded":"collapsed");
+var _2b="";
 if(!mv){
-_2f="none";
+_2b="none";
 }
 if(mv&&mx&&!c.x){
-_2f="none";
+_2b="none";
 }
 if(mv&&!mx&&c.x){
-_2f="none";
+_2b="none";
 }
 var s=[];
 s.push("<tr valign=\"top\" class=\"editsuite-box-tr\" id=\"");
 s.push(this.getModID());
-s.push("-tr-"+_2e+"\" ");
-s.push(_2f!=""?"style=\"display: "+_2f+"\"":"");
+s.push("-tr-"+_2a+"\" ");
+s.push(_2b!=""?"style=\"display: "+_2b+"\"":"");
 s.push(">");
 s.push("<td style=\"width: 130px; font-weight: bold\">"+this.getModName()+":</td>");
 s.push("<td>");
@@ -331,12 +310,12 @@ return this.uiAvailable;
 mb.log.exit();
 }
 EsModuleBase.prototype=new EsModuleBase;
-function EsButton(bid,_35,_36,_37){
+function EsButton(bid,_31,_32,_33){
 mb.log.enter("EsButton","__constructor");
 this.bid=bid;
-this.value=_35;
-this.tooltip=_36;
-this.func=_37;
+this.value=_31;
+this.tooltip=_32;
+this.func=_33;
 this.getID=function(){
 return this.bid;
 };
@@ -365,347 +344,26 @@ return s.join("");
 };
 mb.log.exit();
 }
-function EsQuickFunctions(){
-mb.log.enter("EsQuickFunctions","__constructor");
-this.CN="EsQuickFunctions";
-this.GID="es.qf";
-this.getModID=function(){
-return "es.qf";
+function EsModuleConfig(id,_36,_37,_38){
+mb.log.enter("EsModuleConfig","__constructor");
+this.CN="EsModuleConfig";
+this.id=id;
+this.defaultOn=_36;
+this.desc=_37;
+this.helpText=_38;
+this.getID=function(){
+return this.id;
 };
-this.getModName=function(){
-return "Quick functions";
+this.isDefaultOn=function(){
+return this.defaultOn;
 };
-this.CFG_ENABLED=this.getModID()+".enabled";
-this.CONFIG_LIST=[new EsModuleConfig(this.CFG_ENABLED,true,"Enable the editor toolboxes","<img src=/images/es/tools.gif> This function adds icons to the right of the edit fields, which enable quick access to the most needed functions for the current field.")];
-this.OP_UPPERCASE="QO_UPPERCASE";
-this.OP_LOWERCASE="QO_LOWERCASE";
-this.OP_TITLED="QO_TILED";
-this.OP_ADD_ROUNDBRACKETS="QO_ADD_ROUNDBRACKETS";
-this.OP_ADD_SQUAREBRACKETS="QO_ADD_SQUAREBRACKETS";
-this.OP_REM_ROUNDBRACKETS="QO_REM_ROUNDBRACKETS";
-this.OP_REM_SQUAREBRACKETS="QO_REM_SQUAREBRACKETS";
-this.OP_TB_GUESS="QO_TB_GUESS";
-this.BTN_CAPITAL="BTN_QF_CAPITAL";
-this.BTN_UPPER="BTN_QF_UPPER";
-this.BTN_LOWER="BTN_QF_LOWER";
-this.BTN_ADDROUNDBRACKETS="BTN_QF_ADDROUNDBRACKETS";
-this.BTN_ADDSQUAREBRACKETS="BTN_QF_ADDSQUAREBRACKETS";
-this.BTN_TB_GUESS="BTN_TB_GUESS";
-this.tbFieldId=null;
-this.TB_GC_DROPDOWN="TB_GC_DROPDOWN";
-this.tbGuessCaseMode=null;
-this.setupModuleDelegate=function(){
-es.ui.registerButtons(new EsButton(this.BTN_CAPITAL,"Capital","Capitalize first character only",this.getModID()+".runOp("+this.getModID()+".OP_TITLED)"),new EsButton(this.BTN_UPPER,"UPPER","Convert characters to UPPERCASE",this.getModID()+".runOp("+this.getModID()+".OP_UPPERCASE)"),new EsButton(this.BTN_LOWER,"lower","Convert characters to lowercase",this.getModID()+".runOp("+this.getModID()+".OP_LOWERCASE)"),new EsButton(this.BTN_ADDROUNDBRACKETS,"Add ()","Add round parentheses () around selection",this.getModID()+".runOp("+this.getModID()+".OP_ADD_ROUNDBRACKETS)"),new EsButton(this.BTN_ADDSQUAREBRACKETS,"Add []","Add square brackets [] around selection",this.getModID()+".runOp("+this.getModID()+".OP_ADD_SQUAREBRACKETS)"),new EsButton(this.BTN_TB_GUESS,"Guess","Guess case using this method",this.getModID()+".onGuessCaseClicked()"));
+this.getDescription=function(){
+return this.desc;
 };
-this.getModuleHtml=function(){
-var s=[];
-s.push(this.getModuleStartHtml({x:true}));
-s.push(es.ui.getButtonHtml(this.BTN_CAPITAL));
-s.push(es.ui.getButtonHtml(this.BTN_UPPER));
-s.push(es.ui.getButtonHtml(this.BTN_LOWER));
-s.push(es.ui.getButtonHtml(this.BTN_ADDROUNDBRACKETS));
-s.push(es.ui.getButtonHtml(this.BTN_ADDSQUAREBRACKETS));
-s.push("<br/><small>");
-s.push(this.getConfigHtml());
-s.push("</small>");
-s.push(this.getModuleEndHtml({x:true}));
-s.push(this.getModuleStartHtml({x:false,dt:"Collapsed"}));
-s.push(this.getModuleEndHtml({x:false}));
-return s.join("");
-};
-this.isToolboxEnabled=function(){
-return (this.isConfigTrue(this.CFG_ENABLED));
-};
-this.dummyCount=0;
-this.addToolboxDummy=function(_3a){
-mb.log.enter(this.GID,"addToolboxDummy");
-if(this.isToolboxEnabled()){
-var id=_3a.name+"|et";
-var obj;
-if((obj=mb.ui.get(id))==null){
-var a=document.createElement("a");
-a.className="toolbox dummy";
-a.onclick=function onclick(_3e){
-return false;
-};
-a.id=id;
-var img=document.createElement("img");
-a.appendChild(img);
-img.className="toolbox dummy";
-img.src="/images/es/toolsdummy.gif";
-img.alt="";
-img.border="0";
-var _40=_3a.parentNode;
-_40.insertBefore(a,_3a.nextSibling);
-}
-}
-mb.log.exit();
-};
-this.addToolboxIcon=function(_41){
-mb.log.enter(this.GID,"addToolboxIcon");
-if(this.isToolboxEnabled()){
-var id=_41.name+"|et";
-var obj;
-if((obj=mb.ui.get(id))==null){
-var a=document.createElement("a");
-a.className="toolbox";
-a.href="javascript:; // editor tools";
-a.onclick=function onclick(_45){
-return es.qf.onShowToolboxClicked(this);
-};
-a.id=id;
-a.title="Click to access Toolbox";
-var img=document.createElement("img");
-a.appendChild(img);
-img.className="toolbox";
-img.src="/images/es/tools.gif";
-img.alt="Click to access Toolbox";
-img.border="0";
-var _47=_41.parentNode;
-_47.insertBefore(a,_41.nextSibling);
-}
-}
-mb.log.exit();
-};
-this.getToolboxLink=function(_48,_49,op){
-var s=[];
-s.push("<a href=\"javascript: void(); // ");
-s.push(_48);
-s.push("\" ");
-s.push("onClick=\"return "+this.getModID()+".onToolboxLinkClicked('");
-s.push(op);
-s.push("');\" ");
-s.push("title=\""+_49+"\"");
-s.push(">"+_48+"</a>");
-return s.join("");
-};
-this.onShowToolboxClicked=function(el){
-mb.log.scopeStart("Handling click on show toolbox icon");
-mb.log.enter(this.GID,"onShowToolboxClicked");
-if(o3_showingsticky){
-cClick();
-}
-this.showOverlib(el);
-mb.log.exit();
-mb.log.scopeEnd();
-return false;
-};
-this.showOverlib=function(el){
-ol_bgclass="editor-toolbox-bg";
-ol_fgclass="editor-toolbox-fg";
-ol_border=0;
-ol_width=300;
-ol_vauto=1;
-ol_fgcolor="#ffffff";
-ol_textsize="11px";
-ol_closefontclass="editor-toolbox-close";
-ol_captionfontclass="editor-toolbox-caption";
-this.tbFieldId=el.id.split("|")[0];
-this.tbField=es.ui.getField(this.tbFieldId);
-this.tbField.focus();
-overlib(this.getToolboxHtml(),STICKY,CLOSECLICK,CAPTION,"Editor toolbox:");
-this.tbBoxX=parseInt(over.style.left);
-this.tbBoxY=parseInt(over.style.top);
-this.tbFieldY=mb.ui.getOffsetTop(this.tbField);
-mb.log.debug("xy: $/$, field: $, y: $",this.tbBoxX,this.tbBoxY,this.tbField.name,this.tbFieldY);
-};
-this.updateToolbox=function(el){
-mb.log.enter(this.GID,"updateToolbox");
-if(o3_showingsticky){
-this.tbFieldId=el.name;
-this.tbField=el;
-var _4f=mb.ui.getOffsetTop(el);
-var _50=this.tbBoxY+(_4f-this.tbFieldY);
-mb.log.debug("xy: $/$, field: $, y: $",this.tbBoxX,this.tbBoxY,this.tbField.name,this.tbFieldY);
-mb.log.debug("newY: $, xy: $/$",_4f,this.tbBoxX,_50);
-repositionTo(over,this.tbBoxX,_50);
-}
-mb.log.exit();
-};
-this.onModeChanged=function(el){
-mb.log.scopeStart("Handling change of GC dropdown");
-mb.log.enter(this.GID,"onModeChanged");
-if(el&&el.options&&(el.id==this.TB_GC_DROPDOWN)){
-var _52=el.options[el.selectedIndex].value;
-var m;
-if((m=gc.modes.getModeFromID(_52,true))!=null){
-this.tbGuessCaseMode=m;
-mb.log.debug("Set mode: $",m);
-}else{
-mb.log.warning("Unknown modeID given: $",_52);
-}
-}else{
-mb.log.error("Unsupported element: $",(el.name||"?"));
-}
-mb.log.exit();
-mb.log.scopeEnd();
-};
-this.onGuessCaseClicked=function(){
-mb.log.enter(this.GID,"onGuessCaseClicked");
-var f;
-if((f=es.ui.getField(this.tbFieldId))!=null){
-es.guessByFieldName(f.name,this.tbGuessCaseMode);
-}
-mb.log.exit();
-};
-this.getToolboxHtml=function(){
-var t="Convert all characters of the selection/field to ";
-var s=[];
-var sep=" | ";
-var row="<tr class\"row\"><td class=\"label\">";
-var _59="<tr class=\"row-spacer\"><td class=\"label\">";
-var _5a="</td><td class=\"text\">";
-var _5b="</td></tr>";
-s.push("<table border=\"0\" class=\"editortoolbox\">");
-s.push(row);
-s.push("Guess case:");
-s.push(_5a);
-this.tbGuessCaseMode=(this.tbGuessCaseMode||gc.getMode());
-s.push(gc.modes.getDropdownHtml(this.TB_GC_DROPDOWN,this.GID,this.tbGuessCaseMode));
-s.push(es.ui.getButtonHtml(this.BTN_TB_GUESS));
-s.push(_5b);
-s.push(_59);
-s.push("Modify case:");
-s.push(_5a);
-s.push(this.getToolboxLink("Titled",t+"lowercase but the first",this.OP_TITLED));
-s.push(sep);
-s.push(this.getToolboxLink("Uppercase",t+"UPPERCASE",this.OP_UPPERCASE));
-s.push(sep);
-s.push(this.getToolboxLink("Lowercase",t+"lowercase",this.OP_LOWERCASE));
-s.push(_5b);
-s.push(_59);
-s.push("Brackets:");
-s.push(_5a);
-s.push(this.getToolboxLink("Add ()","Add round parentheses () to selection/field",this.OP_ADD_ROUNDBRACKETS));
-s.push(sep);
-s.push(this.getToolboxLink("Add []","Add square brackets [] to selection/field",this.OP_ADD_SQUAREBRACKETS));
-s.push(sep);
-s.push(this.getToolboxLink("Rem ()","Remove round parentheses () from selection/field",this.OP_REM_ROUNDBRACKETS));
-s.push(sep);
-s.push(this.getToolboxLink("Rem []","Remove square brackets [] from selection/field",this.OP_REM_SQUAREBRACKETS));
-s.push(_5b);
-s.push(_59);
-s.push("Undo/Redo:");
-s.push(_5a);
-s.push("<a href=\"javascript:; // Undo\" title=\"Undo the last change (Attention: Not only the selected field)\" onFocus=\"this.blur()\" onClick=\"es.ur.undoStep(); return false;\">Undo</a>");
-s.push(sep);
-s.push("<a href=\"javascript:; // Redo\" title=\"Redo the last undo step (Attention: Not only the selected field)\" onFocus=\"this.blur()\" onClick=\"es.ur.redoStep(); return false;\">Redo</a>");
-s.push(_5b);
-s.push("</table>");
-return s.join("");
-};
-this.onToolboxLinkClicked=function(op){
-mb.log.scopeStart("Handling click on toolbox link");
-mb.log.enter(this.GID,"onToolboxLinkClicked");
-mb.log.info("el: $",this.tbFieldId);
-var f;
-if((f=es.ui.getField(this.tbFieldId))!=null){
-this.runOp(op,f);
-}
-mb.log.exit();
-mb.log.scopeEnd();
-return false;
-};
-this.runOp=function(op,f){
-mb.log.enter(this.GID,"runOp");
-if(!f){
-f=es.ui.getFocusField();
-}
-if(f!=null){
-var ov=f.value,nv=ov;
-mb.log.info("Applying op: $",op);
-var _61=false,isIE=(typeof document.selection!="undefined");
-if(!isIE){
-f.focus();
-_61=(typeof f.selectionStart!="undefined");
-}
-if(isIE||_61){
-var ft=f.value;
-var a,r,rs,re;
-if(isIE){
-try{
-r=document.selection.createRange();
-a=(r.text!=""?r.text:ft);
-}
-catch(e){
-mb.log.error("could not get range!");
-}
-}else{
-if(_61){
-rs=f.selectionStart;
-re=f.selectionEnd;
-a=(rs==re?ft:ft.substring(rs,re));
-}
-}
-mb.log.info("Operating on "+(a==ft?"full text":"range")+": $",a);
-var b=a;
-switch(op){
-case this.OP_UPPERCASE:
-case this.OP_LOWERCASE:
-case this.OP_TITLED:
-b=this.formatText(a,op);
-break;
-case this.OP_ADD_ROUNDBRACKETS:
-b="("+a+")";
-break;
-case this.OP_ADD_SQUAREBRACKETS:
-b="["+a+"]";
-break;
-case this.OP_REM_ROUNDBRACKETS:
-b=b.replace(/\(|\)/g,"");
-break;
-case this.OP_REM_SQUAREBRACKETS:
-b=b.replace(/\[|\]/g,"");
-break;
-}
-if(a==ft){
-f.value=b;
-}else{
-if(isIE){
-r.text=b;
-}else{
-if(_61){
-var s=[];
-s.push(ft.substring(0,rs));
-s.push(b);
-s.push(ft.substring(re,ft.length));
-f.value=s.join("");
-f.selectionStart=rs;
-f.selectionEnd=rs+b.length;
-}
-}
-}
-nv=f.value;
-if(nv!=ov){
-es.ur.addUndo(es.ur.createItem(f,"runOp",ov,nv));
-mb.log.info("New value: $",nv);
-}
-}
-}
-mb.log.exit();
-};
-this.formatText=function(_66,op){
-if(op==this.OP_UPPERCASE){
-_66=_66.toUpperCase();
-}
-if(op==this.OP_LOWERCASE){
-_66=_66.toLowerCase();
-}
-if(op==this.OP_TITLED){
-_66=_66.toLowerCase();
-var _68=_66.split("");
-_68[0]=_68[0].toUpperCase();
-_66=_68.join("");
-}
-return _66;
+this.getHelpText=function(){
+return this.helpText;
 };
 mb.log.exit();
-}
-try{
-EsQuickFunctions.prototype=new EsModuleBase;
-}
-catch(e){
-mb.log.error("EsQuickFunctions: Could not register EsModuleBase prototype");
 }
 function EsFieldResizer(){
 mb.log.enter("EsFieldResizer","__constructor");
@@ -764,35 +422,35 @@ mb.log.debug("No cookie value found...");
 }
 mb.log.exit();
 };
-this.onSetSizeClicked=function(_6b){
+this.onSetSizeClicked=function(_3b){
 mb.log.enter(this.GID,"onSetSizeClicked");
-this.setSize(_6b);
+this.setSize(_3b);
 mb.log.exit();
 };
-this.setSize=function(_6c){
+this.setSize=function(_3c){
 mb.log.enter(this.GID,"setSize");
 var cn,w,nw,i,f,fields=es.ui.getResizableFields();
-if(mb.utils.isString(_6c)&&_6c.match(/px/i)){
-mb.log.debug("Setting field size to: $",_6c);
+if(mb.utils.isString(_3c)&&_3c.match(/px/i)){
+mb.log.debug("Setting field size to: $",_3c);
 for(i=0;i<fields.length;i++){
 f=fields[i];
 if((this.getWidth(f))!=null){
-f.style.width=_6c;
+f.style.width=_3c;
 }
 }
 this.currentWidth=nw;
 }else{
-if(mb.utils.isNumber(_6c)){
-mb.log.info((_6c>0?"Adding $ to size":"Removing $ from size"),Math.abs(_6c));
-var _6e=false;
+if(mb.utils.isNumber(_3c)){
+mb.log.info((_3c>0?"Adding $ to size":"Removing $ from size"),Math.abs(_3c));
+var _3e=false;
 for(i=0;i<fields.length;i++){
 f=fields[i];
-if((nw=this.getWidth(f,_6c))!=null){
+if((nw=this.getWidth(f,_3c))!=null){
 mb.log.debug("Setting field: $ to width: $",f.name,nw);
 f.style.width=nw;
-if(!_6e){
+if(!_3e){
 mb.cookie.set(this.COOKIE_SIZE,nw);
-_6e=true;
+_3e=true;
 }
 }else{
 mb.log.warning("Field $ does not define width!");
@@ -800,28 +458,28 @@ mb.log.warning("Field $ does not define width!");
 }
 this.currentWidth=nw;
 }else{
-var _6f=0,fl=0;
+var _3f=0,fl=0;
 for(i=0;i<fields.length;i++){
 f=fields[i];
 cn=(f.className||"");
 if(!cn.match(/hidden/)){
 if(f.value){
-if((fl=f.value.length)>_6f){
-_6f=fl;
+if((fl=f.value.length)>_3f){
+_3f=fl;
 }
 mb.log.debug("Checked field: $, length: $",f.name,fl);
 }
 }
 }
-var _70=parseInt(es.ui.TEXTFIELD_SIZE/es.ui.SIZE_PX_FACTOR);
-if(_6f<_70){
-mb.log.debug("Maximum length $ is smaller than default length $",_6f,_70);
-_6f=_70;
+var _40=parseInt(es.ui.TEXTFIELD_SIZE/es.ui.SIZE_PX_FACTOR);
+if(_3f<_40){
+mb.log.debug("Maximum length $ is smaller than default length $",_3f,_40);
+_3f=_40;
 nw=this.getCss(null);
 }else{
-nw=this.getCss(parseInt(_6f*es.ui.SIZE_PX_FACTOR));
+nw=this.getCss(parseInt(_3f*es.ui.SIZE_PX_FACTOR));
 }
-mb.log.debug("Adjusting fields to longest value: $, css: $",_6f,nw);
+mb.log.debug("Adjusting fields to longest value: $, css: $",_3f,nw);
 for(i=0;i<fields.length;i++){
 f=fields[i];
 cn=(f.className||"");
@@ -857,13 +515,13 @@ ov=es.ui.TEXTFIELD_SIZE+"px";
 mb.log.debug("ov: $",ov);
 return mb.log.exit(ov);
 };
-this.getWidth=function(el,_76){
+this.getWidth=function(el,_46){
 mb.log.enter(this.GID,"getWidth");
-_76=(_76||0);
+_46=(_46||0);
 var w,nw;
 if(el&&el.style.width){
 w=el.style.width;
-nw=this.getCss(this.getValue(w)+_76);
+nw=this.getCss(this.getValue(w)+_46);
 mb.log.debug("Field f: $, oldwidth: $, newwidth: $",el.name,w,nw);
 }
 return mb.log.exit(nw);
@@ -879,11 +537,11 @@ mb.log.error("EsFieldResizer: Could not register EsModuleBase prototype");
 function EsUndoItemList(){
 mb.log.enter("EsUndoItemList","__constructor");
 this.CN="EsUndoItemList";
-var _78=arguments[0];
+var _48=arguments[0];
 this._list=[];
-for(var i=0;i<_78.length;i++){
-if(_78[i] instanceof EsUndoItem){
-this._list.push(_78[i]);
+for(var i=0;i<_48.length;i++){
+if(_48[i] instanceof EsUndoItem){
+this._list.push(_48[i]);
 }
 }
 this.getList=function(){
@@ -945,12 +603,12 @@ mb.log.error("Did not find the fields! $,$,$,$",fs,ft,fsa,fst);
 }
 mb.log.exit();
 };
-this.guessBoth=function(_81,_82){
+this.guessBoth=function(_51,_52){
 mb.log.enter(this.GID,"guessBoth");
 var f,fa,ft;
-_81=(_81||"search");
-_82=(_82||"trackname");
-if(((fa=es.ui.getField(_81))!=null)&&((ft=es.ui.getField(_82))!=null)){
+_51=(_51||"search");
+_52=(_52||"trackname");
+if(((fa=es.ui.getField(_51))!=null)&&((ft=es.ui.getField(_52))!=null)){
 var ov={artist:fa.value,track:ft.value};
 var cv={artist:fa.value,track:ft.value};
 if(!mb.utils.isNullOrEmpty(ov.artist)&&!mb.utils.isNullOrEmpty(ov.track)){
@@ -980,8 +638,8 @@ i=(a.match(/\sFeat[\.]?[^$]?/i)?a.indexOf("feat"):i);
 i=(a.match(/\sFt[\.]?[^$]/i)?a.indexOf("ft"):i);
 i=(a.match(/\sFeaturing[^$]/i)?a.indexOf("featuring"):i);
 if(i!=-1){
-var _88=(a.charAt(i)!="(");
-cv.track=cv.track+(_88?" (":"")+cv.artist.substring(i,cv.artist.length)+(_88?")":"");
+var _58=(a.charAt(i)!="(");
+cv.track=cv.track+(_58?" (":"")+cv.artist.substring(i,cv.artist.length)+(_58?")":"");
 cv.artist=cv.artist.substring(0,i);
 mb.log.scopeStart("Found feat at position: "+i);
 mb.log.debug("Artist (-feat): $",cv.artist);
@@ -996,18 +654,18 @@ mb.log.scopeStart("After second guess");
 mb.log.debug("Artist (final): $",cv.artist);
 mb.log.debug("Track (final): $",cv.track);
 }
-var _89={artist:(ov.artist!=cv.artist?es.ur.createItem(fa,"guessboth",ov.artist,cv.artist):null),track:(ov.track!=cv.track?es.ur.createItem(ft,"guessboth",ov.track,cv.track):null)};
-if(_89.artist&&!_89.track){
+var _59={artist:(ov.artist!=cv.artist?es.ur.createItem(fa,"guessboth",ov.artist,cv.artist):null),track:(ov.track!=cv.track?es.ur.createItem(ft,"guessboth",ov.track,cv.track):null)};
+if(_59.artist&&!_59.track){
 fa.value=cv.artist;
-es.ur.addUndo(_89.artist);
+es.ur.addUndo(_59.artist);
 }else{
-if(!_89.artist&&_89.track){
+if(!_59.artist&&_59.track){
 ft.value=cv.track;
-es.ur.addUndo(_89.track);
+es.ur.addUndo(_59.track);
 }else{
 fa.value=cv.artist;
 ft.value=cv.track;
-es.ur.addUndo(es.ur.createItemList(_89.artist,_89.track));
+es.ur.addUndo(es.ur.createItemList(_59.artist,_59.track));
 }
 }
 mb.log.scopeStart("After guess both");
@@ -1017,7 +675,7 @@ mb.log.info("* Track: $",cv.track);
 mb.log.info("Field values are empty, skipped");
 }
 }else{
-mb.log.error("Did not find the fields! $,$",_81,_82);
+mb.log.error("Did not find the fields! $,$",_51,_52);
 }
 mb.log.exit();
 };
@@ -1064,7 +722,7 @@ this.registerButtons(new EsButton(this.BTN_ALIAS,def,"Guess artist alias accordi
 mb.registerDOMReadyAction(new MbEventAction(this.GID,"setupFormFields","Add event handlers on form elements"));
 mb.log.exit();
 };
-this.writeUI=function(el,_8c){
+this.writeUI=function(el,_5c){
 mb.log.enter(this.GID,"writeUI");
 var s=[];
 s.push("<input type=\"hidden\" name=\"jsProxy\" id=\""+this.FORMFIELD_ID+"\" value=\"\">");
@@ -1088,19 +746,19 @@ m.onModuleHtmlWritten();
 }
 mb.log.exit();
 };
-this.getHelpButton=function(mod,_91){
+this.getHelpButton=function(mod,_61){
 var s=[];
 s.push("<td class=\"toggle\">");
 s.push("<a href=\"javascript:; // ");
-s.push(_91?"expand":"collapse");
+s.push(_61?"expand":"collapse");
 s.push("\" onClick=\"");
 s.push(mod.getModID());
 s.push(".setExpanded(");
-s.push(_91?"true":"false");
+s.push(_61?"true":"false");
 s.push(")\"><img src=\"/images/es/");
-s.push(_91?"maximize":"minimize");
+s.push(_61?"maximize":"minimize");
 s.push(".gif\" width=\"13\" height=\"13\" alt=\"");
-s.push(_91?"Expand ":"Collapse ");
+s.push(_61?"Expand ":"Collapse ");
 s.push(mod.getModName());
 s.push("function\" border=\"0\"></a>");
 s.push("</td>");
@@ -1152,7 +810,7 @@ mb.log.enter(es.ui.GID,"setupFormFields");
 var all=mb.ui.getByTag("input");
 var l=all.length;
 var cn,el,log,id,type,name,value;
-var _9c,hasOnFocus,hasOnBlur,isToolboxEnabled=es.qf.isToolboxEnabled();
+var _6c,hasOnFocus,hasOnBlur,isToolboxEnabled=es.qf.isToolboxEnabled();
 for(var i=0;i<l;i++){
 el=all[i];
 id=el.id;
@@ -1162,26 +820,26 @@ type=(el.type||"notype");
 cn=(el.className||"");
 log=[];
 if(el&&type=="text"&&cn.match(/textfield|numberfield|trackseq|tracklength/)){
-el.onfocus=function onfocus(_9e){
+el.onfocus=function onfocus(_6e){
 es.ui.handleFocus(this);
 };
-el.onblur=function onblur(_9f){
+el.onblur=function onblur(_6f){
 es.ui.handleBlur(this);
 };
 }
 if(el&&type=="text"&&cn.match(/textfield/)){
 el.style.width=this.TEXTFIELD_SIZE+"px";
-_9c=!cn.match(/hidden|header|oldvalue/i);
-if(_9c){
+_6c=!cn.match(/hidden|header|oldvalue/i);
+if(_6c){
 if(isToolboxEnabled){
 es.qf.addToolboxIcon(el);
 log.push("toolbox");
 }
 }else{
-el.onfocus=function onfocus(_a0){
+el.onfocus=function onfocus(_70){
 return false;
 };
-el.onblur=function onblur(_a1){
+el.onblur=function onblur(_71){
 };
 if(isToolboxEnabled){
 es.qf.addToolboxDummy(el);
@@ -1196,7 +854,7 @@ el.value=btn.getValue();
 el.title=btn.getTooltip();
 el.className="button";
 el.style.display="inline";
-el.onclick=function onclick(_a3){
+el.onclick=function onclick(_73){
 es.ui.onButtonClicked(this);
 };
 log.push("Registered: "+bid);
@@ -1250,8 +908,8 @@ document.location.replace(url);
 this.getFocusField=function(){
 return this.focusField;
 };
-this.setFocusField=function(_aa){
-this.focusField=_aa;
+this.setFocusField=function(_7a){
+this.focusField=_7a;
 };
 this.getFocusValue=function(){
 return this.focusValue;
@@ -1271,13 +929,13 @@ this.formRef=obj.form;
 }
 return this.formRef;
 };
-this.getField=function(fid,_ae){
-_ae=(_ae||false);
+this.getField=function(fid,_7e){
+_7e=(_7e||false);
 mb.log.enter(this.GID,"getField");
 var f,fr;
 if((f=this.getForm())!=null){
 if((fr=f[fid])==null){
-if(!_ae){
+if(!_7e){
 mb.log.error("Field $ does not exist in form...",fid);
 }
 }
@@ -1305,8 +963,8 @@ catch(e){
 }
 }
 };
-this.handleFocus=function(_b0){
-mb.log.scopeStart("Handling onfocus event on field: "+_b0.name);
+this.handleFocus=function(_80){
+mb.log.scopeStart("Handling onfocus event on field: "+_80.name);
 mb.log.enter(this.GID,"handleFocus");
 var cn=null;
 if(this.focusField){
@@ -1315,119 +973,119 @@ if(cn.indexOf(" focus")!=-1){
 this.focusField.className=cn.replace(/\s+focus/i,"");
 }
 }
-if(_b0&&_b0.className){
-if(_b0.className.indexOf(" focus")==-1){
-_b0.className+=" focus";
+if(_80&&_80.className){
+if(_80.className.indexOf(" focus")==-1){
+_80.className+=" focus";
 }
-this.setFocusField(_b0);
-this.setFocusValue(_b0.value);
-es.qf.updateToolbox(_b0);
-if(_b0.value=="?:??"){
-_b0.value="";
+this.setFocusField(_80);
+this.setFocusValue(_80.value);
+es.qf.updateToolbox(_80);
+if(_80.value=="?:??"){
+_80.value="";
 }
 }
 mb.log.exit();
 };
-this.handleBlur=function(_b2){
-mb.log.scopeStart("Handling onblur event on field: "+_b2.name);
+this.handleBlur=function(_82){
+mb.log.scopeStart("Handling onblur event on field: "+_82.name);
 mb.log.enter(this.GID,"handleBlur");
-var _b3=_b2.value;
-var _b4=_b2.name||"";
-var _b5=this.getFocusValue();
-if(_b4.match(this.re.TRACKLENGTHFIELD_NAME)){
-if(_b3.indexOf(":")==-1){
-_b3=_b3.replace(/(\d*)(\d\d)/i,"$1:$2");
-if(_b3.length==3){
-_b3="0"+_b3;
+var _83=_82.value;
+var _84=_82.name||"";
+var _85=this.getFocusValue();
+if(_84.match(this.re.TRACKLENGTHFIELD_NAME)){
+if(_83.indexOf(":")==-1){
+_83=_83.replace(/(\d*)(\d\d)/i,"$1:$2");
+if(_83.length==3){
+_83="0"+_83;
 }
-_b2.value=_b3==""?"?:??":_b3;
+_82.value=_83==""?"?:??":_83;
 }
 }
-if(this.isFocusField(_b2)&&_b5!=_b2.value){
-es.ur.addUndo(es.ur.createItem(_b2,"manual",_b5,_b3));
+if(this.isFocusField(_82)&&_85!=_82.value){
+es.ur.addUndo(es.ur.createItem(_82,"manual",_85,_83));
 }
 mb.log.exit();
 };
-this.isFocusField=function(_b6){
-return (this.getFocusField()==_b6);
+this.isFocusField=function(_86){
+return (this.getFocusField()==_86);
 };
 this.getResizableFields=function(){
 mb.log.enter(this.GID,"getResizableFields");
-var _b7=[];
+var _87=[];
 if(this.getForm()){
-_b7=this.getFieldsWalker(this.re.RESIZEABLEFIELD_CSS,null);
+_87=this.getFieldsWalker(this.re.RESIZEABLEFIELD_CSS,null);
 }
 mb.log.exit();
-return _b7;
+return _87;
 };
 this.getEditTextFields=function(){
 mb.log.enter(this.GID,"getEditTextFields");
-var _b8=[];
+var _88=[];
 if(this.getForm()){
-_b8=this.getFieldsWalker(this.re.TEXTFIELD_CSS,null);
+_88=this.getFieldsWalker(this.re.TEXTFIELD_CSS,null);
 }
 mb.log.exit();
-return _b8;
+return _88;
 };
 this.getArtistFields=function(){
 mb.log.enter(this.GID,"getArtistFields");
-var _b9=[];
+var _89=[];
 if(this.getForm()){
-_b9=this.getFieldsWalker(this.re.TEXTFIELD_CSS,this.re.ARTISTFIELD_NAME);
+_89=this.getFieldsWalker(this.re.TEXTFIELD_CSS,this.re.ARTISTFIELD_NAME);
 }
 mb.log.exit();
-return _b9;
+return _89;
 };
 this.getReleaseNameField=function(){
 mb.log.enter(this.GID,"getReleaseNameField");
-var _ba=[];
+var _8a=[];
 if(this.getForm()){
-_ba=this.getFieldsWalker(this.re.TEXTFIELD_CSS,this.re.RELEASEFIELD_NAME);
+_8a=this.getFieldsWalker(this.re.TEXTFIELD_CSS,this.re.RELEASEFIELD_NAME);
 }
-return (_ba[0]||null);
+return (_8a[0]||null);
 };
 this.getTrackNameFields=function(){
 mb.log.enter(this.GID,"getTrackNameFields");
-var _bb=[];
+var _8b=[];
 if(this.getForm()){
-_bb=this.getFieldsWalker(this.re.TEXTFIELD_CSS,this.re.TRACKFIELD_NAME);
+_8b=this.getFieldsWalker(this.re.TEXTFIELD_CSS,this.re.TRACKFIELD_NAME);
 }
 mb.log.exit();
-return _bb;
+return _8b;
 };
 this.getTrackTimeFields=function(){
 mb.log.enter(this.GID,"getTrackTimeFields");
-var _bc=[];
+var _8c=[];
 if(this.getForm()){
-_bc=this.getFieldsWalker(this.re.TRACKLENGTH_CSS,this.re.TRACKLENGTHFIELD_NAME);
+_8c=this.getFieldsWalker(this.re.TRACKLENGTH_CSS,this.re.TRACKLENGTHFIELD_NAME);
 }
 mb.log.exit();
-return _bc;
+return _8c;
 };
-this.getFieldsWalker=function(_bd,_be){
-var _bf=[];
+this.getFieldsWalker=function(_8d,_8e){
+var _8f=[];
 var f,el;
 if((f=this.getForm())!=null){
 for(var i=0;i<f.elements.length;i++){
 if((el=f.elements[i])!=null){
 var cn=(el.className||"");
-var _c3=(el.name||"");
-var _c4=(el.type||"");
-var bCN=(_bd==null||(_bd!=null&&cn.match(_bd)));
-var _c6=(_be==null||(_be!=null&&_c3.match(_be)));
-if((_c4=="text")&&bCN&&_c6){
-_bf.push(el);
+var _93=(el.name||"");
+var _94=(el.type||"");
+var bCN=(_8d==null||(_8d!=null&&cn.match(_8d)));
+var _96=(_8e==null||(_8e!=null&&_93.match(_8e)));
+if((_94=="text")&&bCN&&_96){
+_8f.push(el);
 }
 }
 }
 }
-return _bf;
+return _8f;
 };
-this.setDisabled=function(el,_c8){
+this.setDisabled=function(el,_98){
 var obj=null;
 if((obj=mb.ui.get(el))!=null){
 if(obj.disabled!=null){
-obj.disabled=_c8;
+obj.disabled=_98;
 }
 }
 };
@@ -1442,11 +1100,11 @@ mb.log.error("EsUiModule: Could not register EsModuleBase prototype");
 function EsUndoItem(){
 mb.log.enter("EsUndoItem","__constructor");
 this.CN="EsUndoItem";
-var _ca=arguments[0];
-this._field=_ca[0];
-this._op=_ca[1];
-this._old=_ca[2];
-this._new=_ca[3];
+var _9a=arguments[0];
+this._field=_9a[0];
+this._op=_9a[1];
+this._old=_9a[2];
+this._new=_9a[3];
 this.getField=function(){
 return this._field;
 };
@@ -1601,9 +1259,9 @@ this.onSwapFieldsClicked=function(){
 mb.log.enter(this.GID,"onSwapFieldsClicked");
 var fs,fr;
 if((fs=es.ui.getField(this.FIELD_SEARCH))!=null&&(fr=es.ui.getField(this.FIELD_REPLACE))!=null){
-var _d6=fs.value;
+var _a6=fs.value;
 fs.value=fr.value;
-fr.value=_d6;
+fr.value=_a6;
 }else{
 mb.log.error("One of the fields $,$ not found!",this.FIELD_SEARCH,this.FIELD_REPLACE);
 }
@@ -1620,11 +1278,11 @@ mb.log.error("One of the fields $,$ not found!",this.FIELD_SEARCH,this.FIELD_REP
 }
 mb.log.exit();
 };
-this.onSelectPresetClicked=function(_d8){
+this.onSelectPresetClicked=function(_a8){
 mb.log.enter(this.GID,"onResetFieldsClicked");
 var fs,fr,freg,faa;
 if((fs=es.ui.getField(this.FIELD_SEARCH))!=null&&(fr=es.ui.getField(this.FIELD_REPLACE))!=null&&(freg=es.ui.getField(this.FIELD_REGEX))!=null&&(faa=es.ui.getField(this.FIELD_AUTOAPPLY))!=null){
-var p=this.PRESETS_LIST[_d8];
+var p=this.PRESETS_LIST[_a8];
 if(p){
 fs.value=p[1];
 fr.value=p[2];
@@ -1639,10 +1297,10 @@ mb.log.error("One of the fields not found!");
 }
 mb.log.exit();
 };
-this.onPresetChooseApplyChanged=function(_db){
+this.onPresetChooseApplyChanged=function(_ab){
 var faa;
 if((faa=es.ui.getField(this.FIELD_AUTOAPPLY))!=null){
-faa.value=(_db?"1":"0");
+faa.value=(_ab?"1":"0");
 }else{
 mb.log.error("Field $ not found!",this.FIELD_AUTOAPPLY);
 }
@@ -1678,9 +1336,9 @@ return;
 }
 var f;
 if(faf.checked){
-var _e3=es.ui.getEditTextFields();
-for(var i=0;i<_e3.length;i++){
-f=_e3[i];
+var _b3=es.ui.getEditTextFields();
+for(var i=0;i<_b3.length;i++){
+f=_b3[i];
 this.handleField(f,sv,rv,fmc.checked,freg.checked,op);
 }
 }else{
@@ -1693,7 +1351,7 @@ mb.log.error("One of the fields not found!");
 }
 mb.log.exit();
 };
-this.handleField=function(f,_e6,_e7,_e8,_e9,op){
+this.handleField=function(f,_b6,_b7,_b8,_b9,op){
 mb.log.enter(this.GID,"handleField");
 if(f){
 var obj,resultElemID=f.name+"::result";
@@ -1704,69 +1362,69 @@ obj.parentNode.removeChild(obj);
 }
 catch(e){
 }
-var _ec=f.value;
-var _ed=_ec;
-var _ee=[];
-mb.log.debug("Current: $",_ec);
-mb.log.debug("Search: $, Replace: $",_e6,_e7);
-mb.log.debug("Flags: Case Sensitive: $, Regex: $",_e8,_e9);
-if(_e9){
+var _bc=f.value;
+var _bd=_bc;
+var _be=[];
+mb.log.debug("Current: $",_bc);
+mb.log.debug("Search: $, Replace: $",_b6,_b7);
+mb.log.debug("Flags: Case Sensitive: $, Regex: $",_b8,_b9);
+if(_b9){
 try{
-var re=new RegExp(_e6,"g"+(_e8?"":"i"));
-_ed=_ec.replace(re,_e7);
+var re=new RegExp(_b6,"g"+(_b8?"":"i"));
+_bd=_bc.replace(re,_b7);
 }
 catch(e){
 mb.log.error("Caught error while trying to Match re: $, e: $",re,e);
 }
 }else{
 var pos=-1,lastpos=0;
-var _f1=new Array();
-var _f2=(_e8?_e6:_e6.toLowerCase());
-var _f3="",after="",inbetween="";
-while((pos=(_e8?_ed:_ed.toLowerCase()).indexOf(_f2,lastpos))!=-1){
-_f3=_ed.substring(0,pos);
-after=_ed.substring(pos+_e6.length,_ed.length);
-inbetween=_ed.substring(lastpos,pos);
+var _c1=new Array();
+var _c2=(_b8?_b6:_b6.toLowerCase());
+var _c3="",after="",inbetween="";
+while((pos=(_b8?_bd:_bd.toLowerCase()).indexOf(_c2,lastpos))!=-1){
+_c3=_bd.substring(0,pos);
+after=_bd.substring(pos+_b6.length,_bd.length);
+inbetween=_bd.substring(lastpos,pos);
 var s=[];
-s.push(_f3);
-s.push(_e7);
+s.push(_c3);
+s.push(_b7);
 s.push(after);
-_ed=s.join("");
-_f1.push(pos);
-_ee.push(inbetween);
-_ee.push(_e6);
-lastpos=pos+_e7.length;
+_bd=s.join("");
+_c1.push(pos);
+_be.push(inbetween);
+_be.push(_b6);
+lastpos=pos+_b7.length;
 }
-if(_f1.length<1){
-mb.log.debug("Search value $ was not found",_e6);
+if(_c1.length<1){
+mb.log.debug("Search value $ was not found",_b6);
 }else{
-mb.log.debug("Search value $ replaced with $ at index [$]",_e6,_e7,_f1.join(","));
-_ee.push(after);
+mb.log.debug("Search value $ replaced with $ at index [$]",_b6,_b7,_c1.join(","));
+_be.push(after);
 }
 }
-if(_ed!=_ec){
-mb.log.debug("New value $",_ed);
+if(_bd!=_bc){
+mb.log.debug("New value $",_bd);
 if(op=="replace"){
-es.ur.addUndo(es.ur.createItem(f,"searchreplace",_ec,_ed));
-f.value=_ed;
+es.ur.addUndo(es.ur.createItem(f,"searchreplace",_bc,_bd));
+f.value=_bd;
 }else{
-var _f5=f.parentNode;
-var _f6=document.createElement("div");
-_f6.id=resultElemID;
-_f6.style.border="1px dotted #999";
-_f6.style.borderTop="none";
-_f6.style.padding="2px";
-_f6.style.marginBottom="5px";
-_f6.style.marginRight="18px";
-_f6.style.fontSize="10px";
+var _c5=f.parentNode;
+var _c6=document.createElement("div");
+_c6.id=resultElemID;
+_c6.style.border="1px dotted #999";
+_c6.style.borderTop="none";
+_c6.style.padding="2px";
+_c6.style.marginBottom="5px";
+_c6.style.marginRight="18px";
+_c6.style.fontSize="10px";
 var s=[];
-for(var i=0;i<_ee.length;i++){
-var w=_ee[i];
-s.push(w==_e6?"<span style=\"background-color: #fc5\">"+w+"</span>":w);
+for(var i=0;i<_be.length;i++){
+var w=_be[i];
+s.push(w==_b6?"<span style=\"background-color: #fc5\">"+w+"</span>":w);
 }
-_f6.innerHTML=s.join("");
-_f5.appendChild(_f6);
-_f5.parentNode.style.verticalAlign="top";
+_c6.innerHTML=s.join("");
+_c5.appendChild(_c6);
+_c5.parentNode.style.verticalAlign="top";
 }
 return mb.log.exit(true);
 }
@@ -1860,28 +1518,28 @@ es.tp.handleBlur();
 el.rows=2;
 }
 };
-this.handleFocus=function(_fd){
+this.handleFocus=function(_cd){
 clearTimeout(this.resizeTimeout);
 var el=mb.ui.get(es.tp.TRACKSAREA);
-if(_fd){
+if(_cd){
 el.rows=20;
 }else{
 this.resizeTimeout=setTimeout("es.tp.handleFocus(1)",100);
 }
 };
-this.handleBlur=function(_ff){
+this.handleBlur=function(_cf){
 var el=mb.ui.get(es.tp.TRACKSAREA);
 clearTimeout(this.resizeTimeout);
-if(_ff){
+if(_cf){
 el.rows=2;
 }else{
 this.resizeTimeout=setTimeout("es.tp.handleBlur(1)",100);
 }
 };
-this.onParseClicked=function(_101){
+this.onParseClicked=function(_d1){
 mb.log.enter(this.GID,"onParseClicked");
-_101=(_101||false);
-this.setConfigValue(this.CFG_PARSETIMESONLY,_101);
+_d1=(_d1||false);
+this.setConfigValue(this.CFG_PARSETIMESONLY,_d1);
 this.parseNow();
 es.ui.setDisabled(this.BTN_SWAP,false);
 mb.log.exit();
@@ -1890,13 +1548,13 @@ this.onSwapArtistTrackClicked=function(){
 mb.log.scopeStart("Handling click on Swap button");
 mb.log.enter(this.GID,"onSwapArtistTrackClicked");
 if(this.isConfigTrue(this.CFG_ISVA)){
-var aArr=es.ui.getArtistFields();
-var tArr=es.ui.getTrackNameFields();
-if(aArr&&tArr&&aArr.length==tArr.length){
-for(var i=0;i<aArr.length;i++){
-var temp=aArr[i].value;
-aArr[i].value=tArr[i].value;
-tArr[i].value=temp;
+var _d2=es.ui.getArtistFields();
+var _d3=es.ui.getTrackNameFields();
+if(_d2&&_d3&&_d2.length==_d3.length){
+for(var i=0;i<_d2.length;i++){
+var _d5=_d2[i].value;
+_d2[i].value=_d3[i].value;
+_d3[i].value=_d5;
 }
 }
 }
@@ -1916,10 +1574,10 @@ es.ui.setDisabled(this.BTN_SWAP,true);
 mb.log.exit();
 };
 mb.registerDOMReadyAction(new MbEventAction(this.GID,"checkVAMode","Setting various artists mode"));
-this.setVA=function(flag){
+this.setVA=function(_d6){
 mb.log.enter(this.GID,"setVA");
-mb.log.trace("New VA mode: $",flag);
-this.setConfigValue(this.CFG_ISVA,flag);
+mb.log.trace("New VA mode: $",_d6);
+this.setConfigValue(this.CFG_ISVA,_d6);
 mb.log.exit();
 };
 this.showWarning=function(s){
@@ -1940,59 +1598,59 @@ obj.innerHTML="";
 }
 }
 };
-this.parseNow=function(_109){
+this.parseNow=function(_d9){
 mb.log.enter(this.GID,"parseNow");
-if(_109){
-this.setVA(_109);
+if(_d9){
+this.setVA(_d9);
 }else{
 this.checkVAMode();
 }
 var obj=null;
-var _10b=new Array();
+var _db=new Array();
 this.showWarning();
 if((obj=mb.ui.get(this.TRACKSAREA))!=null){
-var text=obj.value;
-var _10d=text.split("\n");
-var _10e,title,artistName;
+var _dc=obj.value;
+var _dd=_dc.split("\n");
+var _de,title,artistName;
 var si=0;
-var _110="";
+var _e0="";
 if(this.isConfigTrue(this.CFG_RELEASETITLE)){
-_110=_10d[0];
-mb.log.info("Release Title: $",_110);
+_e0=_dd[0];
+mb.log.info("Release Title: $",_e0);
 si++;
 }
 var s,counter=1;
-var _112=true;
-for(var i=si;i<_10d.length;i++){
-title=_10d[i];
+var _e2=true;
+for(var i=si;i<_dd.length;i++){
+title=_dd[i];
 title=title.replace(this.RE_StripListenNow,"");
 title=title.replace(this.RE_StripAmgPick,"");
 title=mb.utils.trim(title);
 mb.log.trace("Parsing line: $",title);
 if(title!=""){
-var _114=false;
-var _115=false;
+var _e4=false;
+var _e5=false;
 var re=this.RE_TrackNumber;
 if(this.isConfigTrue(this.CFG_VINYLNUMBERS)){
 re=this.RE_TrackNumberVinyl;
-_115=true;
+_e5=true;
 }
-_10e=title.match(re);
-if(_10e!=null){
-mb.log.debug("Checking number, found: $ (vinyl: $)",_10e[0],_115);
-_114=true;
+_de=title.match(re);
+if(_de!=null){
+mb.log.debug("Checking number, found: $ (vinyl: $)",_de[0],_e5);
+_e4=true;
 if(this.isConfigTrue(this.CFG_TRACKNUMBER)){
 title=title.replace(re,"");
 }
 }
-_10e=counter;
-var time="";
+_de=counter;
+var _e7="";
 if(this.isConfigTrue(this.CFG_TRACKTIMES)){
-time=title.match(this.RE_TrackTimes);
-if(time!=null){
-time=mb.utils.trim(time[0]);
-mb.log.debug("Checking time, found: $",time);
-time=time.replace(this.RE_RemoveParens,"");
+_e7=title.match(this.RE_TrackTimes);
+if(_e7!=null){
+_e7=mb.utils.trim(_e7[0]);
+mb.log.debug("Checking time, found: $",_e7);
+_e7=_e7.replace(this.RE_RemoveParens,"");
 }
 title=title.replace(this.RE_TrackTimes,"");
 }
@@ -2010,34 +1668,34 @@ title=s;
 }
 artistName="";
 if(this.isConfigTrue(this.CFG_ISVA)){
-if(!this.isConfigTrue(this.CFG_TRACKNUMBER)||_114){
+if(!this.isConfigTrue(this.CFG_TRACKNUMBER)||_e4){
 mb.log.debug("Looking for Artist/Track split");
 if(title.match(this.RE_VariousSeparator)){
-var _118=title.split(this.RE_VariousSeparator);
-artistName=mb.utils.trim(_118[0]);
+var _e8=title.split(this.RE_VariousSeparator);
+artistName=mb.utils.trim(_e8[0]);
 mb.log.debug("Found artist: $",artistName);
-if(_112&&artistName.match(/\(|\)|remix/gi)){
+if(_e2&&artistName.match(/\(|\)|remix/gi)){
 this.showWarning("Track "+counter+": Possibly Artist/Tracknames swapped: Parentheses in Artist name!");
-_112=false;
+_e2=false;
 }
-_118[0]="";
-while(!_118[0].match(/\S/g)){
-_118.splice(0,1);
+_e8[0]="";
+while(!_e8[0].match(/\S/g)){
+_e8.splice(0,1);
 }
-if(_118.length>1){
-this.showWarning("Track "+counter+": Possibly wrong split of Artist and Trackname:<br/>&nbsp; ["+_118.join(",")+"]");
+if(_e8.length>1){
+this.showWarning("Track "+counter+": Possibly wrong split of Artist and Trackname:<br/>&nbsp; ["+_e8.join(",")+"]");
 }
-title=_118.join(" ");
+title=_e8.join(" ");
 }
 }
 }
 title=mb.utils.trim(title);
-if(!this.isConfigTrue(this.CFG_TRACKNUMBER)||_114){
-_10b[_10b.length]={artist:artistName,title:title,time:time,feat:[]};
+if(!this.isConfigTrue(this.CFG_TRACKNUMBER)||_e4){
+_db[_db.length]={artist:artistName,title:title,time:_e7,feat:[]};
 counter++;
 mb.log.debug("Added track: $",counter);
 }else{
-if(_10b.length>0){
+if(_db.length>0){
 mb.log.debug("Analyzing string for ExtraTitleInformation: $",title);
 var x=title.split(" - ");
 if(x[0].match(/remix|producer|mixed/i)==null){
@@ -2049,7 +1707,7 @@ title=title.replace(/^\s*/g,"");
 title=title.replace(/[ \s\r\n]*$/g,"");
 title=title.replace(/(.*), The$/i,"The $1");
 if(title!=""){
-_10b[_10b.length-1].feat.push(title);
+_db[_db.length-1].feat.push(title);
 }
 }
 }
@@ -2058,39 +1716,39 @@ _10b[_10b.length-1].feat.push(title);
 }
 }
 mb.log.scopeStart("Parsed the following fields");
-for(i=0;i<_10b.length;i++){
-var _11a=_10b[i];
-if(_11a.feat.length>0){
-_11a.title+=" (feat. "+_11a.feat.join(", ")+")";
+for(i=0;i<_db.length;i++){
+var _ea=_db[i];
+if(_ea.feat.length>0){
+_ea.title+=" (feat. "+_ea.feat.join(", ")+")";
 }
-mb.log.info("no: $, title: $, time: $ (artist: $)",mb.utils.leadZero(i+1),_11a.title,_11a.time,_11a.artist);
+mb.log.info("no: $, title: $, time: $ (artist: $)",mb.utils.leadZero(i+1),_ea.title,_ea.time,_ea.artist);
 }
-this.fillFields(_110,_10b);
+this.fillFields(_e0,_db);
 }
 mb.log.exit();
 };
-this.fillField=function(_11b,_11c){
+this.fillField=function(_eb,_ec){
 mb.log.enter(this.GID,"fillField");
-if(_11b!=null&&_11c!=null){
-es.ur.addUndo(es.ur.createItem(_11b,"trackparser",_11b.value,_11c));
-_11b.value=_11c;
+if(_eb!=null&&_ec!=null){
+es.ur.addUndo(es.ur.createItem(_eb,"trackparser",_eb.value,_ec));
+_eb.value=_ec;
 }
 mb.log.exit();
 };
-this.fillFields=function(_11d,_11e){
+this.fillFields=function(_ed,_ee){
 var i,j,field,fields,newvalue;
 mb.log.enter(this.GID,"fillFields");
 if(!this.isConfigTrue(this.CFG_PARSETIMESONLY)){
 if(this.isConfigTrue(this.CFG_RELEASETITLE)){
 field=es.ui.getReleaseNameField();
-this.fillField(field,_11d);
+this.fillField(field,_ed);
 }
 i=0;
 fields=es.ui.getArtistFields();
 for(j=0;j<fields.length;j++){
 field=fields[j];
-if(_11e[i]&&_11e[i].artist){
-this.fillField(field,_11e[i].artist);
+if(_ee[i]&&_ee[i].artist){
+this.fillField(field,_ee[i].artist);
 i++;
 }
 }
@@ -2098,8 +1756,8 @@ i=0;
 fields=es.ui.getTrackNameFields();
 for(j=0;j<fields.length;j++){
 field=fields[j];
-if(_11e[i]&&_11e[i].title){
-this.fillField(field,_11e[i].title);
+if(_ee[i]&&_ee[i].title){
+this.fillField(field,_ee[i].title);
 i++;
 }
 }
@@ -2109,8 +1767,8 @@ i=0;
 fields=es.ui.getTrackTimeFields();
 for(j=0;j<fields.length;j++){
 field=fields[j];
-if(_11e[i]&&_11e[i].time){
-this.fillField(field,_11e[i].time);
+if(_ee[i]&&_ee[i].time){
+this.fillField(field,_ee[i].time);
 i++;
 }
 }
@@ -2210,19 +1868,19 @@ s.push("</td></tr></table>");
 s.push(this.getModuleEndHtml({x:true}));
 return s.join("");
 };
-this.getLinkHtml=function(_126,id,func,flag,sep){
+this.getLinkHtml=function(_f6,id,_f8,_f9,sep){
 var s=[];
 s.push("<a href=\"javascript:; // ");
-s.push(_126);
+s.push(_f6);
 s.push(" All\" ");
 s.push("onClick=\"return ");
 s.push(id);
 s.push(".");
-s.push(func);
+s.push(_f8);
 s.push("(");
-s.push(flag);
+s.push(_f9);
 s.push(");\">");
-s.push(_126);
+s.push(_f6);
 s.push("</a>");
 s.push(sep);
 return s.join("");
@@ -2245,10 +1903,10 @@ this.setExpanded(false);
 this.setVisible(false);
 }
 };
-this.updateVisible=function(mod,flag){
+this.updateVisible=function(mod,_fe){
 mb.log.enter(this.GID,"updateVisible");
-mb.log.info("Setting module: $ visible: $",mod,flag);
-this.traverseAndCheck(this.CHECKBOX_VISIBLE,mod,flag);
+mb.log.info("Setting module: $ visible: $",mod,_fe);
+this.traverseAndCheck(this.CHECKBOX_VISIBLE,mod,_fe);
 mb.log.exit();
 };
 this.updateExpanded=function(mod,flag){
@@ -2339,8 +1997,8 @@ if((el=this.el)==null){
 es.modnote.disabled=true;
 if((el=mb.ui.get("notetext"))!=null){
 mb.log.debug("Setting up event handlers...");
-var func=function(_142){
-es.modnote.handleEvent(_142);
+var func=function(_112){
+es.modnote.handleEvent(_112);
 };
 el.title=this.title;
 el.onblur=func;
@@ -2353,7 +2011,7 @@ el.value=this.defaultText;
 this.recalc(el);
 }
 this.el=el;
-el.form.onsubmit=function(_143){
+el.form.onsubmit=function(_113){
 es.modnote.handleEvent("submit-check");
 return true;
 };
@@ -2390,12 +2048,12 @@ mb.log.warning("Event handling disabled!");
 return mb.log.exit(false);
 }
 };
-this.isSameText=function(text,_146){
+this.isSameText=function(text,_116){
 mb.log.enter(this.GID,"isSameText");
 var el;
 if((el=this.el)!=null){
 if((el.value.replace(this.whitespaceRE,""))==(text.replace(this.whitespaceRE,""))){
-if(_146){
+if(_116){
 this.disabled=true;
 el.value="";
 this.disabled=false;
@@ -2411,11 +2069,11 @@ mb.log.enter(this.GID,"recalc");
 if(el){
 var t=el.value,c=el.cols;
 if(t!=null&&c!=null){
-var _14a=t.split(this.splitRE);
+var _11a=t.split(this.splitRE);
 var len;
-this.rows=1+_14a.length;
-for(var i=0;i<_14a.length;i++){
-if((len=_14a[i].length)>c){
+this.rows=1+_11a.length;
+for(var i=0;i<_11a.length;i++){
+if((len=_11a[i].length)>c){
 this.rows+=Math.floor(len*parseFloat(1/c));
 }
 }
@@ -2432,6 +2090,348 @@ mb.log.error("Element el is null!");
 mb.log.exit();
 };
 mb.log.exit();
+}
+function EsQuickFunctions(){
+mb.log.enter("EsQuickFunctions","__constructor");
+this.CN="EsQuickFunctions";
+this.GID="es.qf";
+this.getModID=function(){
+return "es.qf";
+};
+this.getModName=function(){
+return "Quick functions";
+};
+this.CFG_ENABLED=this.getModID()+".enabled";
+this.CONFIG_LIST=[new EsModuleConfig(this.CFG_ENABLED,true,"Enable the editor toolboxes","<img src=/images/es/tools.gif> This function adds icons to the right of the edit fields, which enable quick access to the most needed functions for the current field.")];
+this.OP_UPPERCASE="QO_UPPERCASE";
+this.OP_LOWERCASE="QO_LOWERCASE";
+this.OP_TITLED="QO_TILED";
+this.OP_ADD_ROUNDBRACKETS="QO_ADD_ROUNDBRACKETS";
+this.OP_ADD_SQUAREBRACKETS="QO_ADD_SQUAREBRACKETS";
+this.OP_REM_ROUNDBRACKETS="QO_REM_ROUNDBRACKETS";
+this.OP_REM_SQUAREBRACKETS="QO_REM_SQUAREBRACKETS";
+this.OP_TB_GUESS="QO_TB_GUESS";
+this.BTN_CAPITAL="BTN_QF_CAPITAL";
+this.BTN_UPPER="BTN_QF_UPPER";
+this.BTN_LOWER="BTN_QF_LOWER";
+this.BTN_ADDROUNDBRACKETS="BTN_QF_ADDROUNDBRACKETS";
+this.BTN_ADDSQUAREBRACKETS="BTN_QF_ADDSQUAREBRACKETS";
+this.BTN_TB_GUESS="BTN_TB_GUESS";
+this.tbFieldId=null;
+this.TB_GC_DROPDOWN="TB_GC_DROPDOWN";
+this.tbGuessCaseMode=null;
+this.setupModuleDelegate=function(){
+es.ui.registerButtons(new EsButton(this.BTN_CAPITAL,"Capital","Capitalize first character only",this.getModID()+".runOp("+this.getModID()+".OP_TITLED)"),new EsButton(this.BTN_UPPER,"UPPER","Convert characters to UPPERCASE",this.getModID()+".runOp("+this.getModID()+".OP_UPPERCASE)"),new EsButton(this.BTN_LOWER,"lower","Convert characters to lowercase",this.getModID()+".runOp("+this.getModID()+".OP_LOWERCASE)"),new EsButton(this.BTN_ADDROUNDBRACKETS,"Add ()","Add round parentheses () around selection",this.getModID()+".runOp("+this.getModID()+".OP_ADD_ROUNDBRACKETS)"),new EsButton(this.BTN_ADDSQUAREBRACKETS,"Add []","Add square brackets [] around selection",this.getModID()+".runOp("+this.getModID()+".OP_ADD_SQUAREBRACKETS)"),new EsButton(this.BTN_TB_GUESS,"Guess","Guess case using this method",this.getModID()+".onGuessCaseClicked()"));
+};
+this.getModuleHtml=function(){
+var s=[];
+s.push(this.getModuleStartHtml({x:true}));
+s.push(es.ui.getButtonHtml(this.BTN_CAPITAL));
+s.push(es.ui.getButtonHtml(this.BTN_UPPER));
+s.push(es.ui.getButtonHtml(this.BTN_LOWER));
+s.push(es.ui.getButtonHtml(this.BTN_ADDROUNDBRACKETS));
+s.push(es.ui.getButtonHtml(this.BTN_ADDSQUAREBRACKETS));
+s.push("<br/><small>");
+s.push(this.getConfigHtml());
+s.push("</small>");
+s.push(this.getModuleEndHtml({x:true}));
+s.push(this.getModuleStartHtml({x:false,dt:"Collapsed"}));
+s.push(this.getModuleEndHtml({x:false}));
+return s.join("");
+};
+this.isToolboxEnabled=function(){
+return (this.isConfigTrue(this.CFG_ENABLED));
+};
+this.dummyCount=0;
+this.addToolboxDummy=function(_11e){
+mb.log.enter(this.GID,"addToolboxDummy");
+if(this.isToolboxEnabled()){
+var id=_11e.name+"|et";
+var obj;
+if((obj=mb.ui.get(id))==null){
+var a=document.createElement("a");
+a.className="toolbox dummy";
+a.onclick=function onclick(_122){
+return false;
+};
+a.id=id;
+var img=document.createElement("img");
+a.appendChild(img);
+img.className="toolbox dummy";
+img.src="/images/es/toolsdummy.gif";
+img.alt="";
+img.border="0";
+var _124=_11e.parentNode;
+_124.insertBefore(a,_11e.nextSibling);
+}
+}
+mb.log.exit();
+};
+this.addToolboxIcon=function(_125){
+mb.log.enter(this.GID,"addToolboxIcon");
+if(this.isToolboxEnabled()){
+var id=_125.name+"|et";
+var obj;
+if((obj=mb.ui.get(id))==null){
+var a=document.createElement("a");
+a.className="toolbox";
+a.href="javascript:; // editor tools";
+a.onclick=function onclick(_129){
+return es.qf.onShowToolboxClicked(this);
+};
+a.id=id;
+a.title="Click to access Toolbox";
+var img=document.createElement("img");
+a.appendChild(img);
+img.className="toolbox";
+img.src="/images/es/tools.gif";
+img.alt="Click to access Toolbox";
+img.border="0";
+var _12b=_125.parentNode;
+_12b.insertBefore(a,_125.nextSibling);
+}
+}
+mb.log.exit();
+};
+this.getToolboxLink=function(_12c,_12d,op){
+var s=[];
+s.push("<a href=\"javascript: void(); // ");
+s.push(_12c);
+s.push("\" ");
+s.push("onClick=\"return "+this.getModID()+".onToolboxLinkClicked('");
+s.push(op);
+s.push("');\" ");
+s.push("title=\""+_12d+"\"");
+s.push(">"+_12c+"</a>");
+return s.join("");
+};
+this.onShowToolboxClicked=function(el){
+mb.log.scopeStart("Handling click on show toolbox icon");
+mb.log.enter(this.GID,"onShowToolboxClicked");
+if(o3_showingsticky){
+cClick();
+}
+this.showOverlib(el);
+mb.log.exit();
+mb.log.scopeEnd();
+return false;
+};
+this.showOverlib=function(el){
+ol_bgclass="editor-toolbox-bg";
+ol_fgclass="editor-toolbox-fg";
+ol_border=0;
+ol_width=300;
+ol_vauto=1;
+ol_fgcolor="#ffffff";
+ol_textsize="11px";
+ol_closefontclass="editor-toolbox-close";
+ol_captionfontclass="editor-toolbox-caption";
+this.tbFieldId=el.id.split("|")[0];
+this.tbField=es.ui.getField(this.tbFieldId);
+this.tbField.focus();
+overlib(this.getToolboxHtml(),STICKY,CLOSECLICK,CAPTION,"Editor toolbox:");
+this.tbBoxX=parseInt(over.style.left);
+this.tbBoxY=parseInt(over.style.top);
+this.tbFieldY=mb.ui.getOffsetTop(this.tbField);
+mb.log.debug("xy: $/$, field: $, y: $",this.tbBoxX,this.tbBoxY,this.tbField.name,this.tbFieldY);
+};
+this.updateToolbox=function(el){
+mb.log.enter(this.GID,"updateToolbox");
+if(o3_showingsticky){
+this.tbFieldId=el.name;
+this.tbField=el;
+var _133=mb.ui.getOffsetTop(el);
+var newY=this.tbBoxY+(_133-this.tbFieldY);
+mb.log.debug("xy: $/$, field: $, y: $",this.tbBoxX,this.tbBoxY,this.tbField.name,this.tbFieldY);
+mb.log.debug("newY: $, xy: $/$",_133,this.tbBoxX,newY);
+repositionTo(over,this.tbBoxX,newY);
+}
+mb.log.exit();
+};
+this.onModeChanged=function(el){
+mb.log.scopeStart("Handling change of GC dropdown");
+mb.log.enter(this.GID,"onModeChanged");
+if(el&&el.options&&(el.id==this.TB_GC_DROPDOWN)){
+var _136=el.options[el.selectedIndex].value;
+var m;
+if((m=gc.modes.getModeFromID(_136,true))!=null){
+this.tbGuessCaseMode=m;
+mb.log.debug("Set mode: $",m);
+}else{
+mb.log.warning("Unknown modeID given: $",_136);
+}
+}else{
+mb.log.error("Unsupported element: $",(el.name||"?"));
+}
+mb.log.exit();
+mb.log.scopeEnd();
+};
+this.onGuessCaseClicked=function(){
+mb.log.enter(this.GID,"onGuessCaseClicked");
+var f;
+if((f=es.ui.getField(this.tbFieldId))!=null){
+es.guessByFieldName(f.name,this.tbGuessCaseMode);
+}
+mb.log.exit();
+};
+this.getToolboxHtml=function(){
+var t="Convert all characters of the selection/field to ";
+var s=[];
+var sep=" | ";
+var row="<tr class\"row\"><td class=\"label\">";
+var _13d="<tr class=\"row-spacer\"><td class=\"label\">";
+var _13e="</td><td class=\"text\">";
+var _13f="</td></tr>";
+s.push("<table border=\"0\" class=\"editortoolbox\">");
+s.push(row);
+s.push("Guess case:");
+s.push(_13e);
+this.tbGuessCaseMode=(this.tbGuessCaseMode||gc.getMode());
+s.push(gc.modes.getDropdownHtml(this.TB_GC_DROPDOWN,this.GID,this.tbGuessCaseMode));
+s.push(es.ui.getButtonHtml(this.BTN_TB_GUESS));
+s.push(_13f);
+s.push(_13d);
+s.push("Modify case:");
+s.push(_13e);
+s.push(this.getToolboxLink("Titled",t+"lowercase but the first",this.OP_TITLED));
+s.push(sep);
+s.push(this.getToolboxLink("Uppercase",t+"UPPERCASE",this.OP_UPPERCASE));
+s.push(sep);
+s.push(this.getToolboxLink("Lowercase",t+"lowercase",this.OP_LOWERCASE));
+s.push(_13f);
+s.push(_13d);
+s.push("Brackets:");
+s.push(_13e);
+s.push(this.getToolboxLink("Add ()","Add round parentheses () to selection/field",this.OP_ADD_ROUNDBRACKETS));
+s.push(sep);
+s.push(this.getToolboxLink("Add []","Add square brackets [] to selection/field",this.OP_ADD_SQUAREBRACKETS));
+s.push(sep);
+s.push(this.getToolboxLink("Rem ()","Remove round parentheses () from selection/field",this.OP_REM_ROUNDBRACKETS));
+s.push(sep);
+s.push(this.getToolboxLink("Rem []","Remove square brackets [] from selection/field",this.OP_REM_SQUAREBRACKETS));
+s.push(_13f);
+s.push(_13d);
+s.push("Undo/Redo:");
+s.push(_13e);
+s.push("<a href=\"javascript:; // Undo\" title=\"Undo the last change (Attention: Not only the selected field)\" onFocus=\"this.blur()\" onClick=\"es.ur.undoStep(); return false;\">Undo</a>");
+s.push(sep);
+s.push("<a href=\"javascript:; // Redo\" title=\"Redo the last undo step (Attention: Not only the selected field)\" onFocus=\"this.blur()\" onClick=\"es.ur.redoStep(); return false;\">Redo</a>");
+s.push(_13f);
+s.push("</table>");
+return s.join("");
+};
+this.onToolboxLinkClicked=function(op){
+mb.log.scopeStart("Handling click on toolbox link");
+mb.log.enter(this.GID,"onToolboxLinkClicked");
+mb.log.info("el: $",this.tbFieldId);
+var f;
+if((f=es.ui.getField(this.tbFieldId))!=null){
+this.runOp(op,f);
+}
+mb.log.exit();
+mb.log.scopeEnd();
+return false;
+};
+this.runOp=function(op,f){
+mb.log.enter(this.GID,"runOp");
+if(!f){
+f=es.ui.getFocusField();
+}
+if(f!=null){
+var ov=f.value,nv=ov;
+mb.log.info("Applying op: $",op);
+var _145=false,isIE=(typeof document.selection!="undefined");
+if(!isIE){
+f.focus();
+_145=(typeof f.selectionStart!="undefined");
+}
+if(isIE||_145){
+var ft=f.value;
+var a,r,rs,re;
+if(isIE){
+try{
+r=document.selection.createRange();
+a=(r.text!=""?r.text:ft);
+}
+catch(e){
+mb.log.error("could not get range!");
+}
+}else{
+if(_145){
+rs=f.selectionStart;
+re=f.selectionEnd;
+a=(rs==re?ft:ft.substring(rs,re));
+}
+}
+mb.log.info("Operating on "+(a==ft?"full text":"range")+": $",a);
+var b=a;
+switch(op){
+case this.OP_UPPERCASE:
+case this.OP_LOWERCASE:
+case this.OP_TITLED:
+b=this.formatText(a,op);
+break;
+case this.OP_ADD_ROUNDBRACKETS:
+b="("+a+")";
+break;
+case this.OP_ADD_SQUAREBRACKETS:
+b="["+a+"]";
+break;
+case this.OP_REM_ROUNDBRACKETS:
+b=b.replace(/\(|\)/g,"");
+break;
+case this.OP_REM_SQUAREBRACKETS:
+b=b.replace(/\[|\]/g,"");
+break;
+}
+if(a==ft){
+f.value=b;
+}else{
+if(isIE){
+r.text=b;
+}else{
+if(_145){
+var s=[];
+s.push(ft.substring(0,rs));
+s.push(b);
+s.push(ft.substring(re,ft.length));
+f.value=s.join("");
+f.selectionStart=rs;
+f.selectionEnd=rs+b.length;
+}
+}
+}
+nv=f.value;
+if(nv!=ov){
+es.ur.addUndo(es.ur.createItem(f,"runOp",ov,nv));
+mb.log.info("New value: $",nv);
+}
+}
+}
+mb.log.exit();
+};
+this.formatText=function(_14a,op){
+if(op==this.OP_UPPERCASE){
+_14a=_14a.toUpperCase();
+}
+if(op==this.OP_LOWERCASE){
+_14a=_14a.toLowerCase();
+}
+if(op==this.OP_TITLED){
+_14a=_14a.toLowerCase();
+var tArr=_14a.split("");
+tArr[0]=tArr[0].toUpperCase();
+_14a=tArr.join("");
+}
+return _14a;
+};
+mb.log.exit();
+}
+try{
+EsQuickFunctions.prototype=new EsModuleBase;
+}
+catch(e){
+mb.log.error("EsQuickFunctions: Could not register EsModuleBase prototype");
 }
 function EsUndoModule(){
 mb.log.enter("EsUndoModule","__constructor");
@@ -2893,7 +2893,7 @@ var _179=is.split("");
 var _17a=[];
 var word=[];
 if(!gc.re.SPLITWORDSANDPUNCTUATION){
-gc.re.SPLITWORDSANDPUNCTUATION=/[^!\"%&'??`()\[\]\{\}\*\+,-\.\/:;<=>\?\s#]/;
+gc.re.SPLITWORDSANDPUNCTUATION=/[^!\"%&'´`()\[\]\{\}\*\+,-\.\/:;<=>\?\s#]/;
 }
 for(var i=0;i<_179.length;i++){
 if(_179[i].match(gc.re.SPLITWORDSANDPUNCTUATION)){
@@ -3361,11 +3361,45 @@ return this._replace;
 };
 mb.log.exit();
 }
-function GcModeClassical(_1bb){
+function GcModeFrench(_1bb){
+mb.log.enter("GcModeFrench","__constructor");
+this.CN="GcModeFrench";
+this.GID="gc.mode_fr";
+this.setConfig(_1bb,"French",_1bb.FR,"First word titled, lowercase for <i>most</i> of the other "+"words. Read the [url]description[/url] for more details.","/doc/GuessCaseMode/FrenchMode");
+this.runFinalChecks=function(is){
+mb.log.enter(this.GID,"runFinalChecks");
+os=is.replace(/([!\?;:]+)/gi," $1");
+os=os.replace(/([«]+)/gi,"$1 ");
+os=os.replace(/([»]+)/gi," $1");
+mb.log.debug("After: $",os);
+return mb.log.exit(os);
+};
+mb.log.exit();
+}
+try{
+GcModeFrench.prototype=new GcMode;
+}
+catch(e){
+mb.log.error("GcModeFrench: Could not register GcMode prototype");
+}
+function GcModeArtist(_1bd,name,lang,desc,url){
+mb.log.enter("GcModeArtist","__constructor");
+this.CN="GcModeArtist";
+this.GID="gc.mode_artist";
+this.setConfig(_1bd,"Artist mode",_1bd.EN,"","");
+mb.log.exit();
+}
+try{
+GcModeArtist.prototype=new GcMode;
+}
+catch(e){
+mb.log.error("GcModeArtist: Could not register GcMode prototype");
+}
+function GcModeClassical(_1c2){
 mb.log.enter("GcModeClassical","__constructor");
 this.CN="GcModeClassical";
 this.GID="gc.mode_xc";
-this.setConfig(_1bb,"Classical",_1bb.XC,"First word titled, lowercase for <i>most</i> of the other "+"words. Read the [url]description[/url] for more details.","/doc/GuessCaseMode/ClassicalMode");
+this.setConfig(_1c2,"Classical",_1c2.XC,"First word titled, lowercase for <i>most</i> of the other "+"words. Read the [url]description[/url] for more details.","/doc/GuessCaseMode/ClassicalMode");
 this.getUpperCaseWords=function(){
 return ["bwv","d","rv","j","hob","hwv","wwo","kv"];
 };
@@ -3392,38 +3426,38 @@ mb.log.enter(this.GID,"runFinalChecks");
 if(!gc.re.DECIMALTOROMAN){
 gc.re.DECIMALTOROMAN=/[\s,:\-]+(\d+)\.[\s]+/i;
 }
-var _1c1=null;
+var _1c8=null;
 var os=is;
-if((_1c1=os.match(gc.re.DECIMALTOROMAN))!=null){
-var _1c3=_1c1.index;
-var _1c4=_1c1[0].length;
-var _1c5=os.substring(0,_1c3);
-var _1c6=os.substring(_1c3+_1c4,os.length);
-var _1c7=[];
-_1c5=_1c5.replace(/[\s,:\-\/]+$/gi,"");
-_1c7.push(_1c5);
-_1c7.push(": ");
-_1c7.push(gc.u.convertToRomanNumeral(_1c1[1]));
-_1c7.push(". ");
-_1c7.push(_1c6);
-os=_1c7.join("");
+if((_1c8=os.match(gc.re.DECIMALTOROMAN))!=null){
+var _1ca=_1c8.index;
+var _1cb=_1c8[0].length;
+var _1cc=os.substring(0,_1ca);
+var _1cd=os.substring(_1ca+_1cb,os.length);
+var _1ce=[];
+_1cc=_1cc.replace(/[\s,:\-\/]+$/gi,"");
+_1ce.push(_1cc);
+_1ce.push(": ");
+_1ce.push(gc.u.convertToRomanNumeral(_1c8[1]));
+_1ce.push(". ");
+_1ce.push(_1cd);
+os=_1ce.join("");
 }
 if(!gc.re.ADD_COLON_TO_ROMAN){
 gc.re.ADD_COLON_TO_ROMAN=/([^:])\s+([ivx]+)[\s|\.]+/i;
 }
-if((_1c1=os.match(gc.re.ADD_COLON_TO_ROMAN))!=null){
-var _1c3=_1c1.index;
-var _1c4=_1c1[0].length;
-var _1c5=os.substring(0,_1c3);
-var _1c6=os.substring(_1c3+_1c4,os.length);
-var _1c7=[];
-_1c7.push(_1c5);
-_1c7.push(_1c1[1]);
-_1c7.push(": ");
-_1c7.push(_1c1[2]);
-_1c7.push(". ");
-_1c7.push(_1c6);
-os=_1c7.join("");
+if((_1c8=os.match(gc.re.ADD_COLON_TO_ROMAN))!=null){
+var _1ca=_1c8.index;
+var _1cb=_1c8[0].length;
+var _1cc=os.substring(0,_1ca);
+var _1cd=os.substring(_1ca+_1cb,os.length);
+var _1ce=[];
+_1ce.push(_1cc);
+_1ce.push(_1c8[1]);
+_1ce.push(": ");
+_1ce.push(_1c8[2]);
+_1ce.push(". ");
+_1ce.push(_1cd);
+os=_1ce.join("");
 }
 return mb.log.exit(os);
 };
@@ -3434,23 +3468,23 @@ var cw=gc.i.getCurrentWord();
 var pw=gc.i.getWordAtIndex(ipos-1);
 var ppw=gc.i.getPreviousWord(ipos-2);
 var opos=gc.o.getLength();
-var _1cd=false;
+var _1d4=false;
 if(cw.match(/flat|sharp/i)&&pw=="-"){
 opos=opos-2;
-_1cd=true;
+_1d4=true;
 }else{
 if(cw.match(/minor|major|minore|maggiore|mineur/i)&&ppw.match(/flat|sharp/)==null){
 opos=opos-1;
-_1cd=true;
+_1d4=true;
 }else{
 if(cw.match(/Moll|Dur/i)){
 opos=opos-2;
 gc.f.forceCaps=true;
-_1cd=true;
+_1d4=true;
 }
 }
 }
-if(_1cd){
+if(_1d4){
 var w=gc.o.getWordAtIndex(opos);
 mb.log.debug("Found tone indication before: $, making word: $ at pos: $ a title.",cw,w,opos);
 gc.o.capitalizeWordAtIndex(opos,true);
@@ -3466,39 +3500,13 @@ GcModeClassical.prototype=new GcMode;
 catch(e){
 mb.log.error("GcModeClassical: Could not register GcMode prototype");
 }
-function GcModeArtist(_1cf,name,lang,desc,url){
-mb.log.enter("GcModeArtist","__constructor");
-this.CN="GcModeArtist";
-this.GID="gc.mode_artist";
-this.setConfig(_1cf,"Artist mode",_1cf.EN,"","");
-mb.log.exit();
-}
-try{
-GcModeArtist.prototype=new GcMode;
-}
-catch(e){
-mb.log.error("GcModeArtist: Could not register GcMode prototype");
-}
-function GcModeDefault(_1d4,name,lang,desc,url){
-mb.log.enter("GcModeDefault","__constructor");
-this.CN="GcModeDefault";
-this.GID="gc.mode_en";
-this.setConfig(_1d4,"English",_1d4.EN,"Read the [url]description[/url] for more details.","/doc/GuessCaseMode/DefaultMode");
-mb.log.exit();
-}
-try{
-GcModeDefault.prototype=new GcMode;
-}
-catch(e){
-mb.log.error("GcModeDefault: Could not register GcMode prototype");
-}
-function GcMode(_1d9,name,lang,desc,url){
+function GcMode(_1d6,name,lang,desc,url){
 mb.log.enter("GcMode","__constructor");
 this.CN="GcMode";
 this.GID="gc.mode";
-this.setConfig=function(_1de,name,lang,desc,url){
+this.setConfig=function(_1db,name,lang,desc,url){
 mb.log.enter(this.GID,"setConfig");
-this._modes=_1de;
+this._modes=_1db;
 this._name=name;
 this._lang=lang;
 this._desc=(desc||"");
@@ -3506,7 +3514,7 @@ this._url=(url||"");
 this._id=null;
 mb.log.exit();
 };
-this.setConfig(_1d9,name,lang,desc,url);
+this.setConfig(_1d6,name,lang,desc,url);
 this.getID=function(){
 mb.log.enter(this.GID,"getID");
 if(!this._id){
@@ -3585,25 +3593,25 @@ return mb.log.exit(f);
 };
 this.prepExtraTitleInfo=function(w){
 mb.log.enter(this.GID,"prepExtraTitleInfo");
-var _1ed=w.length-1,wi=_1ed;
-var _1ee=false;
-var _1ef=false;
+var _1ea=w.length-1,wi=_1ea;
+var _1eb=false;
+var _1ec=false;
 while(((w[wi]==" ")||(w[wi]=="\""&&(w[wi-1]=="7"||w[wi-1]=="12"))||((w[wi+1]||"")=="\""&&(w[wi]=="7"||w[wi]=="12"))||(gc.u.isPrepBracketWord(w[wi])))&&wi>=0){
-_1ee=true;
+_1eb=true;
 wi--;
 }
-mb.log.debug("Preprocess: $ ($<--$)",_1ee,wi,_1ed);
-if(wi<_1ed){
+mb.log.debug("Preprocess: $ ($<--$)",_1eb,wi,_1ea);
+if(wi<_1ea){
 wi++;
-while(w[wi]==" "&&wi<_1ed){
+while(w[wi]==" "&&wi<_1ea){
 wi++;
 }
-var _1f0=w[_1ed];
-if((wi==_1ed)&&(gc.u.isPrepBracketSingleWord(_1f0))){
-mb.log.debug("Word: $ which might occur inside brackets, has <strong>not been put into ()</strong>",_1f0);
-_1ee=false;
+var _1ed=w[_1ea];
+if((wi==_1ea)&&(gc.u.isPrepBracketSingleWord(_1ed))){
+mb.log.debug("Word: $ which might occur inside brackets, has <strong>not been put into ()</strong>",_1ed);
+_1eb=false;
 }
-if(_1ee&&wi>0&&wi<=_1ed){
+if(_1eb&&wi>0&&wi<=_1ea){
 var nw=w.slice(0,wi);
 if(nw[wi-1]=="("){
 nw.pop();
@@ -3652,31 +3660,31 @@ return mb.log.exit(os);
 };
 this.runFixes=function(is,list){
 mb.log.enter(this.GID,"runFixes");
-var _1fa=null;
+var _1f7=null;
 var len=list.length;
 for(var i=0;i<len;i++){
 var f=list[i];
 if(f instanceof GcFix){
-var _1fe="Replaced "+f.getName();
+var _1fb="Replaced "+f.getName();
 var find=f.getRe();
-var _200=f.getReplace();
+var _1fd=f.getReplace();
 if(typeof (find)=="string"){
 var pos=0;
 while((pos=is.indexOf(find,pos))!=-1){
-mb.log.debug("Applying fix: $ (replace: $)",_1fe,_200);
-is=is.replace(find,_200);
+mb.log.debug("Applying fix: $ (replace: $)",_1fb,_1fd);
+is=is.replace(find,_1fd);
 }
 }else{
-if((_1fa=is.match(find))!=null){
-var a=_1fa[1];
+if((_1f7=is.match(find))!=null){
+var a=_1f7[1];
 a=(mb.utils.isNullOrEmpty(a)?"":a);
-var b=_1fa[_1fa.length-1];
+var b=_1f7[_1f7.length-1];
 b=(mb.utils.isNullOrEmpty(b)?"":b);
-var rs=[a,_200,b].join("");
+var rs=[a,_1fd,b].join("");
 is=is.replace(find,rs);
-mb.log.debug("Applying fix: $ ...",_1fe);
-mb.log.trace("* matcher[$]: $, replace: $, matcher[$]: $ --> $",1,a,_200,_1fa.length-1,b,rs);
-mb.log.trace("* matcher: $",_1fa);
+mb.log.debug("Applying fix: $ ...",_1fb);
+mb.log.trace("* matcher[$]: $, replace: $, matcher[$]: $ --> $",1,a,_1fd,_1f7.length-1,b,rs);
+mb.log.trace("* matcher: $",_1f7);
 mb.log.trace("After fix: $",is);
 }else{
 }
@@ -3696,14 +3704,14 @@ gc.re.PREPROCESS_STRIPINFOTOOMIT=[new GcFix("Trim 'bonus (track)?'",/[\(\[]?bonu
 }
 var os=is,list=gc.re.PREPROCESS_STRIPINFOTOOMIT;
 for(var i=list.length-1;i>=0;i--){
-var _208=null;
-var _209=list[i];
-var _20a="Replaced "+_209.getName();
-var find=_209.getRe();
-var _20c=_209.getReplace();
-if((_208=os.match(find))!=null){
-os=os.replace(find,_20c);
-mb.log.debug("Done fix: $",_20a);
+var _205=null;
+var _206=list[i];
+var _207="Replaced "+_206.getName();
+var find=_206.getRe();
+var _209=_206.getReplace();
+if((_205=os.match(find))!=null){
+os=os.replace(find,_209);
+mb.log.debug("Done fix: $",_207);
 }
 }
 if(is!=os){
@@ -3716,21 +3724,21 @@ mb.log.enter(this.GID,"runFinalChecks");
 if(!gc.re.VINYL){
 gc.re.VINYL=/(\s+|\()((\d+)[\s|-]?(inch\b|in\b|'+|"))([^s]|$)/i;
 }
-var _20e=null,os=is;
-if((_20e=is.match(gc.re.VINYL))!=null){
-var _20f=_20e.index;
-var _210=_20e[1].length+_20e[2].length+_20e[5].length;
-var _211=is.substring(0,_20f);
-var _212=is.substring(_20f+_210,is.length);
-var _213=[];
-_213.push(_211);
-_213.push(_20e[1]);
-_213.push(_20e[3]);
-_213.push("\"");
-_213.push((_20e[5])!=" "&&_20e[5]!=")"&&_20e[5]!=","?" ":"");
-_213.push(_20e[5]);
-_213.push(_212);
-os=_213.join("");
+var _20b=null,os=is;
+if((_20b=is.match(gc.re.VINYL))!=null){
+var _20c=_20b.index;
+var _20d=_20b[1].length+_20b[2].length+_20b[5].length;
+var _20e=is.substring(0,_20c);
+var _20f=is.substring(_20c+_20d,is.length);
+var _210=[];
+_210.push(_20e);
+_210.push(_20b[1]);
+_210.push(_20b[3]);
+_210.push("\"");
+_210.push((_20b[5])!=" "&&_20b[5]!=")"&&_20b[5]!=","?" ":"");
+_210.push(_20b[5]);
+_210.push(_20f);
+os=_210.join("");
 }
 return mb.log.exit(os);
 };
@@ -3764,20 +3772,20 @@ this.getArtistMode=function(){
 mb.log.enter(this.GID,"getArtistMode");
 return mb.log.exit(this.ARTIST_MODE);
 };
-this.getModeFromID=function(_214,_215){
+this.getModeFromID=function(_211,_212){
 mb.log.enter(this.GID,"getModeFromID");
 var mode=null;
 for(var i=0;i<this.MODES_LIST.length;i++){
 mode=this.MODES_LIST[i];
 if(mode){
-if(mode.getID()!=_214){
+if(mode.getID()!=_211){
 mode=null;
 }else{
 break;
 }
 }
 }
-mb.log.debug("Id: $, mode: $",_214,(mode||"not found"));
+mb.log.debug("Id: $, mode: $",_211,(mode||"not found"));
 return mb.log.exit(mode);
 };
 this.onModeChanged=function(el){
@@ -3785,13 +3793,13 @@ mb.log.scopeStart("Handle selection on the Mode Dropdown");
 mb.log.enter(this.GID,"onModeChanged");
 if((el&&el.options)&&(el.id==this.MODES_DROPDOWN)){
 var si=el.selectedIndex;
-var _21a=el.options[si].value;
-if(_21a!=""){
-mb.log.debug("New ModeId: $",_21a);
-if(_21a!=es.gc.getMode().getID()){
-es.gc.setMode(_21a);
-mb.cookie.set(es.gc.COOKIE_MODE,_21a,365);
-mb.log.debug("Changed mode to: $",_21a);
+var _217=el.options[si].value;
+if(_217!=""){
+mb.log.debug("New ModeId: $",_217);
+if(_217!=es.gc.getMode().getID()){
+es.gc.setMode(_217);
+mb.cookie.set(es.gc.COOKIE_MODE,_217,365);
+mb.log.debug("Changed mode to: $",_217);
 this.updateUI();
 }else{
 mb.log.debug("No mode change required...");
@@ -3847,9 +3855,9 @@ this.useModeFromUI=function(){
 mb.log.enter(this.GID,"useModeFromUI");
 var obj;
 if((obj=mb.ui.get(this.MODES_DROPDOWN))!=null){
-var _225=obj.options[obj.selectedIndex].value;
-if(_225!=""){
-es.gc.setMode(_225);
+var _222=obj.options[obj.selectedIndex].value;
+if(_222!=""){
+es.gc.setMode(_222);
 }
 }else{
 mb.log.error("Unsupported element: $",this.MODES_DROPDOWN);
@@ -3858,26 +3866,18 @@ mb.log.exit();
 };
 mb.log.exit();
 }
-function GcModeFrench(_226){
-mb.log.enter("GcModeFrench","__constructor");
-this.CN="GcModeFrench";
-this.GID="gc.mode_fr";
-this.setConfig(_226,"French",_226.FR,"First word titled, lowercase for <i>most</i> of the other "+"words. Read the [url]description[/url] for more details.","/doc/GuessCaseMode/FrenchMode");
-this.runFinalChecks=function(is){
-mb.log.enter(this.GID,"runFinalChecks");
-os=is.replace(/([!\?;:]+)/gi," $1");
-os=os.replace(/([??]+)/gi,"$1 ");
-os=os.replace(/([??]+)/gi," $1");
-mb.log.debug("After: $",os);
-return mb.log.exit(os);
-};
+function GcModeDefault(_223,name,lang,desc,url){
+mb.log.enter("GcModeDefault","__constructor");
+this.CN="GcModeDefault";
+this.GID="gc.mode_en";
+this.setConfig(_223,"English",_223.EN,"Read the [url]description[/url] for more details.","/doc/GuessCaseMode/DefaultMode");
 mb.log.exit();
 }
 try{
-GcModeFrench.prototype=new GcMode;
+GcModeDefault.prototype=new GcMode;
 }
 catch(e){
-mb.log.error("GcModeFrench: Could not register GcMode prototype");
+mb.log.error("GcModeDefault: Could not register GcMode prototype");
 }
 function GcModeSentence(_228){
 mb.log.enter("GcModeSentence","__constructor");
