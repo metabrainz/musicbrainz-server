@@ -343,9 +343,9 @@ function GcMode(modes, name, lang, desc, url) {
 				  // Name [Parts 1] -> Name, Parts 1
 				  // Name (Parts 1-2) -> Name, Parts 1-2
 				  // Name (Parts x & y) -> Name, Parts x & y
-				, new GcFix("(Pt) -> , Part", /((,|\s|:|!)+)([\(\[])?\s*(Part|Pt)[\.\s#]*((\d|[ivx]|[\-,&\s])+)([\)\]])?(\s|$)/i, "Part $5")
-				, new GcFix("(Pts) -> , Parts", /((,|\s|:|!)+)([\(\[])?\s*(Parts|Pts)[\.\s#]*((\d|[ivx]|[\-&,\s])+)([\)\]])?(\s|$)/i, "Parts $5")
-				, new GcFix("(Vol) -> , Volume", /((,|\s|:|!)+)([\(\[])?\s*(Volume|Vol)[\.\s#]*((\d|[ivx]|[\-&,\s])+)([\)\]])?(\s|$)/i, "Volume $5")
+				, new GcFix("(Pt) -> , Part", /((,|\s|:|!)+)([\(\[])?\s*(Part|Pt)[\.\s#]*((\d|[ivx]|[\-,&\s])+)([\)\]])?(\s|:|$)/i, "Part $5")
+				, new GcFix("(Pts) -> , Parts", /((,|\s|:|!)+)([\(\[])?\s*(Parts|Pts)[\.\s#]*((\d|[ivx]|[\-&,\s])+)([\)\]])?(\s|:|$)/i, "Parts $5")
+				, new GcFix("(Vol) -> , Volume", /((,|\s|:|!)+)([\(\[])?\s*(Volume|Vol)[\.\s#]*((\d|[ivx]|[\-&,\s])+)([\)\]])?(\s|:|$)/i, "Volume $5")
 				, new GcFix(": Part -> , Part", /(\b|^): Part(\b)/i, ", part" )
 				, new GcFix(": Parts -> , Parts", /(\b|^): Part(\b)/i, ", parts" )
 			];

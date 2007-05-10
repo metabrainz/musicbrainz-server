@@ -15,6 +15,7 @@ Release 2007-XX-YY:
     * Guess Case: Convert "Ver." to "version". (#2001)
     * Guess Case: Fixed hanlding of 'pres' and 'presents' in artist names. (#2215)
     * Guess Case: Don't convert '3 In' (with a space) to '3"'. (#2191)
+    * Guess Case: Expand Volume (Vol.) and Part (Pt.) numbers with subtitles. (#2805)
   * Bux Fixes:
     * Don't double HTML-encode values in hidden inputs. (#2726)
     * Removed broken links to (non-existant) TRM reports.

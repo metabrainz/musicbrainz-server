@@ -140,7 +140,7 @@ var DEFINED_TESTS = {
 		, new TestCase("Expect the moved to the end", "The Beatles", "Beatles, The")
 		, new TestCase("Expect composite artist/group split", "Bob Marley and the Wailers", "Marley, Bob and Wailers, The")
 		, new TestCase("Expect composite artist/artist split", "Geoff Allman and Beth Joiner", "Allman, Geoff and Joiner, Beth")
-		, new TestCase("Expect DJ moved to the end", "DJ Tiësto", "Tiësto, DJ")
+		, new TestCase("Expect DJ moved to the end", "DJ Tiï¿½sto", "Tiï¿½sto, DJ")
 		, new TestCase("Expect Los moved to the end", "Los Lobos", "Lobos, Los")
 		, new TestCase("Expect Dr. moved to the end", "Dr. Demento", "Demento, Dr.")
 		, new TestCase("Expect Dr., First/Prename handling", "Dr. Harry Klein", "Klein, Harry, Dr.")
@@ -195,6 +195,7 @@ var DEFINED_TESTS = {
 		, new TestCase("Convert (Volume x) -> , Volume x", "Name (Volume 1)", "Name, Volume 1")
 		, new TestCase("Convert (Vol x) -> , Volume x", "Name (Vol 1)", "Name, Volume 1")
 		, new TestCase("Convert (Vol. x) -> , Volume x", "Name (Volume. 1)", "Name, Volume 1")
+		, new TestCase("Convert Vol.x: Volumetitle -> , Volume x: Volumetitle", "Name Vol.2: Volumetitle", "Name, Volume 2: Volumetitle")
 
 		// DiscNumberStyle
 		, new TestCase("Leave proper DiscNumberStyle intact", "Name (disc 1)", "Name (disc 1)")
@@ -272,6 +273,7 @@ var DEFINED_TESTS = {
 		, new TestCase("Convert (Pt x) -> , Part x", "Name (Pt 1)", "Name, Part 1")
 		, new TestCase("Convert (Pt. x) -> , Part x", "Name (Pt. 1)", "Name, Part 1")
 		, new TestCase("Convert (Parts 1 & 2) -> , Parts 1 & 2", "Name (Parts 1 & 2)", "Name, Parts 1 & 2")
+		, new TestCase("Convert Pt.x: Parttitle -> , Part x: Parttitle", "Name Pt.1: Parttitle", "Name, Part 1: Parttitle")
 
 		// PartNumberStyle + Subtitle
 		, new TestCase("Respect correctly formatted PartNumberStyle,SubTitleStyle", "Foo, Part 1: Bar", "Foo, Part 1: Bar")
