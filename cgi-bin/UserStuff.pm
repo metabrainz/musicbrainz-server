@@ -848,6 +848,7 @@ sub SendMessageToUser
 	my $message = $opts{'body'};
 
 	my $fromname = $self->GetName;
+	my $toname = $other_user->GetName;
 
 	# Collapse onto a single line
 	$subject =~ s/\s+/ /g;
@@ -919,7 +920,7 @@ EOF
 	if ($sendcopy)
 	{
 		my $body_copy = <<EOF;
-This is a copy of the message you sent to MusicBrainz editor '$fromname':
+This is a copy of the message you sent to MusicBrainz editor '$toname':
 ------------------------------------------------------------------------
 $message
 ------------------------------------------------------------------------
