@@ -24,6 +24,7 @@ Release 2007-XX-YY:
     * Guess Case: Expand Volume (Vol.) and Part (Pt.) numbers with subtitles. (#2805)
     * Wrong wording in private message copy (when using the option
      "Send me a copy to my e-mail address"). (#2826)
+    * Annotation history: show edits link broken. (#2835)
 
 Release 2007-04-01:
 

@@ -25,10 +25,16 @@
 	{
 		my %filter = (
 			mod_type => [ $self->attr('edittype') ],
-			artist_type => 3, # single artist
-			artist_id => $id,
 			orderby => "desc",
 		);
+		if ($entitytype eq "artist") {
+			$filter{artist_type} = 3; # single artist
+			$filter{artist_id} = $id;
+		}
+		else {
+			$filter{object_type} = $entitytype;
+			$filter{object_id} = $id;
+		}
 
 		return $m->comp(
 			"/comp/redirect",
