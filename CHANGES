@@ -25,6 +25,7 @@ Release 2007-XX-YY:
     * Wrong wording in private message copy (when using the option
      "Send me a copy to my e-mail address"). (#2826)
     * Annotation history: show edits link broken. (#2835)
+    * Tagger links on artist view are malformed. (#2819)
 
 Release 2007-04-01:
 
