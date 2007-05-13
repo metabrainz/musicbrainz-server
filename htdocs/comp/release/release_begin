@@ -178,14 +178,14 @@
 
 			if ($annotation)
 			{
-				$m->out(sprintf qq!<a href="/edit/annotation/album/history.html?albumid=%d&amp;expand_all=1">Show history</a> | !,
+				$m->out(sprintf qq!<a href="/edit/annotation/album/history.html?id=%d&amp;expand_all=1">Show history</a> | !,
 								$release->GetId);
 				$m->comp("/edit/annotation/edit-link", annotation => $annotation);
 			}
 			else
 			{
 				$m->out("This release does not yet have an annotation. ");
-				$m->out(sprintf qq!<a href="/edit/annotation/album/edit.html?albumid=%d">Add an annotation &raquo;</a>!,
+				$m->out(sprintf qq!<a href="/edit/annotation/album/edit.html?id=%d">Add an annotation &raquo;</a>!,
 								$release->GetId);
 			}
 			$m->out(qq! ]</td></tr>!);
