@@ -27,6 +27,7 @@ Release 2007-XX-YY:
     * Annotation history: show edits link broken. (#2835)
     * Tagger links on artist view are malformed. (#2819)
     * HTML error on front page. (#2796)
+    * Country of label isnt retained when editing label. (#2794)
 
 Release 2007-04-01:
 
