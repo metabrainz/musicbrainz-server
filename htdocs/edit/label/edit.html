@@ -205,7 +205,7 @@
 		$name = $label->GetName() if ($name eq "");
 		$sortname = $label->GetSortName() if ($sortname eq "");
 		$labelcode = $label->GetLabelCode() if ($labelcode eq "");
-		$country = $label->GetCountry() if ($labelcountry == undef);
+		$country = $label->GetCountry() if ($country == undef);
 		$type = $label->GetType() if ($label->GetType() and $type == -1); # else we default to 0
 		$resolution = $label->GetResolution() if ($resolution eq "");
 		($begindate_y, $begindate_m, $begindate_d) = $label->GetBeginDateYMD()
