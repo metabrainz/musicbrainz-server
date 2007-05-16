@@ -1,32 +1,3 @@
-getLabelLink = function(id, name, resolution) {
-	resolution = (resolution  != null ? resolution : "");
-	var s = [];
-	s.push(this.getEntityLink('label', id, name));
-	if (!mb.utils.isNullOrEmpty(resolution)) {
-		s.push(' (');
-		s.push(resolution);
-		s.push(')');
-	}
-	return s.join("");
-};
-
-getEntityLink = function(type, id, name) {
-	s = [];
-	type = type.toLowerCase();
-	s.push('<span class="link'+type+'-icon" title="'+name+'">');
-	s.push('<a href="/show/');
-	s.push(type);
-	s.push('/?');
-	s.push(type);
-	s.push('id=');
-	s.push(id);
-	s.push('" class="linkentity-strong">');
-	s.push(name);
-	s.push('</a>');
-	s.push('</span>');
-	return s.join("");
-};
-
 function ReleaseEventEditor()
 {
 
@@ -88,7 +59,7 @@ function ReleaseEventEditor()
 			name = document.getElementsByName('labelname'+id)[0].value;
 		var s = [];
 		s.push('<input type="hidden" name="labelname'+id+'" value="'+name+'" />');
-		s.push(getLabelLink(id, name));
+		s.push(mb.ui.getLabelLink(id, name));
 		$('labelinput'+id).innerHTML = s.join("");
 	}
 

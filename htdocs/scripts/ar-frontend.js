@@ -144,6 +144,19 @@ function ARFrontEnd() {
 					elcs.style.display = "block";
 					elss.style.display = "none";
 				}
+
+				var entities = getElementsByTagAndClassName('span', 'AR_ENTITY');
+				for (var i = 0; i < entities.length; i++) {
+					var e = entities[i];
+					var tmp = e.id.split('::');
+					var index = tmp[1];
+					var type = tmp[2];
+					var button = IMG({'src': '/images/release_editor/edit-off.gif', 'id': '_linkeditimg'+index, 'align': 'absmiddle'});
+					connect(button, 'onclick', this, partial(this.changeEntity, index, type));
+					replaceChildNodes(e, button, INPUT({'type': 'hidden', 'value': '0', 'id': '_linkedit'+index}));
+				}
+				
+
 			} else {
 				mb.log.error("Could not find the hidden field int_typedropdown");
 			}
@@ -306,23 +319,63 @@ function ARFrontEnd() {
 		var leftTD = $("arEntitiesSwap-TD0");
 		var rightTD = $("arEntitiesSwap-TD1");
 		if (leftTD != null && rightTD != null) {
-			var tmp = leftTD.innerHTML;
-			leftTD.innerHTML = rightTD.innerHTML;
-			rightTD.innerHTML = tmp;
+			//var par = leftTD.parentNode;
+			//par.replaceChild(leftTD, rightTD);
+			//par.replaceChild(rightTD, leftTD);
+			var tmp = theForm.link0.value;
+			theForm.link0.value = theForm.link1.value
+			theForm.link1.value = tmp;
 			// edit AR page
-			if (theForm.swapval != null) {
-				theForm.swapval.value = 1 - theForm.swapval.value;
+			if (theForm.link0name != null && theForm.link1name != null) {
+				tmp = theForm.link0name.value;
+				theForm.link0name.value = theForm.link1name.value;
+				theForm.link1name.value = tmp;
+				arfrontend.makeEntityLink(0);
+				arfrontend.makeEntityLink(1);
 			}
-			// add AR page
 			else {
-				tmp = theForm.link0.value;
-				theForm.link0.value = theForm.link1.value
-				theForm.link1.value = tmp;
+				tmp = leftTD.innerHTML;
+				leftTD.innerHTML = rightTD.innerHTML;
+				rightTD.innerHTML = tmp;
 			}
 		}
 		mb.log.exit();
 	}
 
+	this.makeEntityLink = function(idx, edit) {
+		if (!edit)
+			edit = $('_linkedit'+idx);
+		edit.value = '0';
+		$('_linkeditimg'+idx).src = '/images/release_editor/edit-off.gif';
+		$('AR_ENTITY_'+idx).innerHTML = mb.ui.getEntityLink($('link'+idx+'type').value, $('link'+idx).value, $('link'+idx+'name').value);
+	}
+	
+	this.setEntity = function(idx, entity) {
+		$('link'+idx).value = entity.id;
+		$('link'+idx+'name').value = entity.name;
+		arfrontend.makeEntityLink(idx)
+	}
+	
+	this.changeEntity = function(idx, type, evt) {
+		var edit = $('_linkedit'+idx);
+		if (edit.value == '0') {
+			edit.value = '1';
+			$('_linkeditimg'+idx).src = '/images/release_editor/edit-on.gif';
+			var input = INPUT({
+				'type': 'text',
+				'class': 'textfield',
+				'size': '35',
+				'maxlength': '255',
+				'value': $('link'+idx+'name').value,
+			});
+			jsselect.registerAjaxSelect(input, type, partial(this.setEntity, idx));
+			replaceChildNodes($('AR_ENTITY_'+idx), input);
+		}
+		else {
+			arfrontend.makeEntityLink(idx, edit);
+		}
+	}
+	
 	// exit constructor
 	mb.log.exit();
 }

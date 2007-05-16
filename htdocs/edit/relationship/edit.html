@@ -39,6 +39,9 @@
 	$enddate_m => ""
 	$enddate_d => ""
 
+	$link0 => undef
+	$link1 => undef
+
 	$submitvalue => ""
 	$swapval => 0
 	$notetext => undef
@@ -104,14 +107,26 @@
 	}
 	my @oldlinks = @links;
 
+	if ($link0 && $link0 != $links[0]->{id}) {
+		my $ent = MusicBrainz::Server::LinkEntity->newFromTypeAndId(
+			$node->{DBH},
+			$links[0]->{type},
+			$link0,
+		);
+		$links[0] = { type => $links[0]->{type}, id => $ent->GetId(), name => $ent->GetName(), obj => $ent };
+	}
+	if ($link1 && $link1 != $links[1]->{id}) {
+		my $ent = MusicBrainz::Server::LinkEntity->newFromTypeAndId(
+			$node->{DBH},
+			$links[1]->{type},
+			$link1,
+		);
+		$links[1] = { type => $links[1]->{type}, id => $ent->GetId(), name => $ent->GetName(), obj => $ent };
+	}
 
 	# swapval indicates if the current entities should be reversed
 	# (because the user hit the reverse button)
 	if ($submitvalue =~ m/Change direction/i)
-	{
-		$swapval = !$swapval;
-	}
-	if ($swapval)
 	{
 		my $temp = $links[0];
 		$links[0] = $links[1];
