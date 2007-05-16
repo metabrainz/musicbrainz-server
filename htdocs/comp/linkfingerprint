@@ -43,6 +43,8 @@
 
 	die ("$id, $name and $type are required") if (not defined $id || not defined $name || not defined $type);
 
+	$icon = 0 if UserPreference::get("css_noentityicons");
+
 	my $typeicon = $type."_small.gif";
 	my $typealt = uc($type);
 	$url ||= "/show/".$type."/?".$type."=$id";

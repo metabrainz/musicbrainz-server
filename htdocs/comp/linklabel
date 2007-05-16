@@ -61,6 +61,8 @@
 	}
 	die ("\$id and $name are required") if (not defined $id || not defined $name);
 
+	$icon = 0 if UserPreference::get("css_noentityicons");
+
 	# use given title, or use sortname
 	my $showtitle = "Label";
 	$showtitle .= " ($title)" if ($title);
@@ -77,14 +79,8 @@
 
 	# use span with the background image set to render the label icon.
 	$m->out(sprintf qq!<span class="linklabel%s"%s>!,
-					0 && $icon ? "-icon" : "",
+					$icon ? "-icon" : "",
 					$title);
-
-	# icon was cut off sometimes, we'll rather do it the classic way.
-	if ($icon && !UserPreference::get("css_noentityicons"))
-	{
-		$m->out(qq!<img src="/images/entity/label_small.gif" alt="Label" class="entityicon" width="13" height="13" />!);
-	}
 
 	# if the id not negative, show a link,
 	# else show the name only
