@@ -424,32 +424,12 @@ function ReleaseEditor() {
 	this.getArtistLink = function(id, name, resolution) {
 		resolution = (resolution  != null ? resolution : "");
 		var s = [];
-		s.push(this.getEntityLink('artist', id, name));
+		s.push(mb.ui.getEntityLink('artist', id, name));
 		if (!mb.utils.isNullOrEmpty(resolution)) {
 			s.push(' (');
 			s.push(resolution);
 			s.push(')');
 		}
-		return s.join("");
-	};
-
-	/**
-	 *
-	 */
-	this.getEntityLink = function(type, id, name) {
-		s = [];
-		type = type.toLowerCase();
-		s.push('<span class="link'+type+'-icon" title="'+name+'">');
-		s.push('<a href="/show/');
-		s.push(type);
-		s.push('/?');
-		s.push(type);
-		s.push('id=');
-		s.push(id);
-		s.push('" class="linkentity-strong">');
-		s.push(name);
-		s.push('</a>');
-		s.push('</span>');
 		return s.join("");
 	};
 
