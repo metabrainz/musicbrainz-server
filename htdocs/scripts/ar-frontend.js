@@ -366,7 +366,7 @@ function ARFrontEnd() {
 				'class': 'textfield',
 				'size': '35',
 				'maxlength': '255',
-				'value': $('link'+idx+'name').value,
+				'value': $('link'+idx+'name').value
 			});
 			jsselect.registerAjaxSelect(input, type, partial(this.setEntity, idx));
 			replaceChildNodes($('AR_ENTITY_'+idx), input);
