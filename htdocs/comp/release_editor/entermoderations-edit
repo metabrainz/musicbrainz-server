@@ -334,14 +334,14 @@
 				my $orig_id = $orig{"trackid$t"};
 				my $orig_seq = $orig{"trackseq$t"};
 				my $orig_track = $orig{"track$t"};
-				my $orig_length = $orig{"tracklength$t"};
+				my $orig_length = Track::UnformatTrackLength($orig{"tracklength$t"});
 				my $orig_artistid = $orig{sprintf "tr%d_artistid", $t};
 
 				# get the new values
 				my $new_id = $ARGS{"trackid$t"};
 				my $new_seq = $ARGS{"trackseq$t"};
 				my $new_track = $ARGS{"track$t"} || "";
-				my $new_length = $ARGS{"tracklength$t"} || "";
+				my $new_length = Track::UnformatTrackLength($ARGS{"tracklength$t"});
 				my $new_delete = $ARGS{"trackdel$t"};
 				my $new_artistid = $ARGS{sprintf "tr%d_artistid", $t};
 
@@ -449,7 +449,7 @@
 
 					# MOD_EDIT_TRACKTIME
 					# Insert edit track length edit if requested
-					if (defined $orig_length and $orig_length ne $new_length)
+					if ($orig_length != $new_length)
 					{
 						push @insertededits, Moderation->InsertModeration(
 							DBH	=> $mb->{DBH},
@@ -458,7 +458,7 @@
 							type => &ModDefs::MOD_EDIT_TRACKTIME,
 							# --
 							track => $track,
-							newlength => Track::UnformatTrackLength($new_length),
+							newlength => $new_length,
 						);
 					}
 				}

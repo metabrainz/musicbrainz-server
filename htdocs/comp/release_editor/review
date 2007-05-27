@@ -591,14 +591,14 @@
 			my $orig_id = $orig{"trackid$t"};
 			my $orig_seq = $orig{"trackseq$t"};
 			my $orig_track = $orig{"track$t"};
-			my $orig_length = $orig{"tracklength$t"};
+			my $orig_length = Track::UnformatTrackLength($orig{"tracklength$t"});
 			my $orig_artistid = $orig{getField($t, "artistid")};
 
 			# get new values
 			my $new_id = $ARGS{"trackid$t"};
 			my $new_seq = $ARGS{"trackseq$t"};
 			my $new_track = $ARGS{"track$t"};
-			my $new_length = $ARGS{"tracklength$t"};
+			my $new_length = Track::UnformatTrackLength($ARGS{"tracklength$t"});
 			my $new_delete = $ARGS{"trackdel$t"};
 			my $new_artistid = $ARGS{getField($t, "artistid")};
 
@@ -729,7 +729,7 @@
 			}
 
 			# check if edited track time
-			if (defined $orig_length and $orig_length ne $new_length)
+			if ($orig_length != $new_length)
 			{
 				$m->comp(".showTrackEdit",
 					mb => $mb,
@@ -738,8 +738,8 @@
 
 					new_seq => $new_seq,
 					new_id => $new_id,
-					oldvalue => $orig_length,
-					newvalue => $new_length,
+					oldvalue => Track::FormatTrackLength($orig_length),
+					newvalue => Track::FormatTrackLength($new_length),
 					modtype => &ModDefs::MOD_EDIT_TRACKTIME,
 					cnt => ++$trackchanges
 				);

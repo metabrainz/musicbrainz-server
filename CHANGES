@@ -31,6 +31,7 @@ Release 2007-XX-YY:
     * Country of label isnt retained when editing label. (#2794)
     * Broken link to annotation history on the release page. (#2832)
     * Check for label ARs in the artist cleanup script. (#2814)
+    * Error in handling track length edits. (#2887)
 
 Release 2007-04-01:
 
