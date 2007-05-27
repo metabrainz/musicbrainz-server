@@ -36,8 +36,15 @@ function JsSelect()
 	this.selectOption = function(entity, event)
 	{
 		var callback = this.selects[this.id].callback;
-		if (callback)
-			callback(entity);
+		if (callback) {
+			var owner = this.selects[this.id].owner;
+			if (owner) {
+				callback.apply(owner, [entity]);
+			}
+			else {
+				callback(entity);
+			}
+		}
 		this.hide(true);
 	}
 
@@ -114,7 +121,7 @@ function JsSelect()
 		}
 	}
 
-	this.registerAjaxSelect = function(el, entitytype, callback)
+	this.registerAjaxSelect = function(el, entitytype, callback, owner)
 	{
 		var id = ++this.newId;
 		connect(el, 'onfocus', this, partial(this.show, id));
@@ -122,7 +129,8 @@ function JsSelect()
 		this.selects[id] = {
 			'element': el,
 			'entitytype': entitytype,
-			'callback': callback
+			'callback': callback,
+			'owner': owner
 		};
 		return id;
 	}

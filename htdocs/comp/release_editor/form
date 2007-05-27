@@ -93,6 +93,7 @@
 
 		<script type="text/javascript" src="/scripts/entervalidate.js"></script>
 		<script type="text/javascript" src="/scripts/jsselect.js"></script>
+		<script type="text/javascript" src="/scripts/labeleditors.js"></script>
 		<script type="text/javascript" src="/scripts/editallconfig.js"></script>
 
 		<& /comp/layout/editformbegin, title => $boxtitle, mp => $editmode &>

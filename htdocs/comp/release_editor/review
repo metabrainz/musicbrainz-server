@@ -152,7 +152,7 @@
 				$rev->SetYMD(@ymd);
 				$rev->SetCatNo($rev_catno);
 				$rev->SetBarcode($rev_barcode);
-				$rev->{"__labelname"} = $rev_labelname;
+				$rev->SetLabelName($rev_labelname);
 				$rev->SetLabel($rev_label);
 				$rev->SetFormat($rev_format);
 				$rev->SetAlbum($releaseid);
@@ -178,7 +178,7 @@
 		$rev->SetCatNo($orig{"rev_catno-$j"});
 		$rev->SetBarcode($orig{"rev_barcode-$j"});
 		$rev->SetLabel($orig{"rev_label-$j"});
-		$rev->{"__labelname"} = $orig{"rev_labelname-$j"};
+		$rev->SetLabelName($orig{"rev_labelname-$j"});
 		$rev->SetFormat($orig{"rev_format-$j"});
 		$rev->SetId($rev_id);
 		$revorighash{$rev->GetId} = $rev;
@@ -460,7 +460,7 @@
 			$nv = $rev->GetSortDate;
 			$nv .= " - ";
 			$nv .= ($country_names{$rev->GetCountry} || "?");
-			$nv .= " - Label: " . $rev->{"__labelname"} if $rev->GetLabel;
+			$nv .= " - Label: " . $rev->GetLabelName if $rev->GetLabel;
 			$nv .= " - Catalog #: " . $rev->GetCatNo if $rev->GetCatNo;
 			$nv .= " - Barcode: " . $rev->GetBarcode if $rev->GetBarcode;
 			$nv .= " - Format: " . $rev->GetFormatName if $rev->GetFormat;
@@ -493,7 +493,7 @@
 				$ov .= "-" . $revorig->GetDay if ($revorig->GetDay);
 				$ov .= " - ";
 				$ov .= ($country_names{$revorig->GetCountry} || "?");
-				$ov .= " - Label: " . $revorig->{"__labelname"} if $revorig->GetLabel;
+				$ov .= " - Label: " . $revorig->GetLabelName if $revorig->GetLabel;
 				$ov .= " - Catalog #: " . $revorig->GetCatNo if $revorig->GetCatNo;
 				$ov .= " - Barcode: " . $revorig->GetBarcode if $revorig->GetBarcode;
 				$ov .= " - Format: " . $revorig->GetFormatName if $revorig->GetFormat;
@@ -504,7 +504,7 @@
 				$nv .= "-" . $rev->GetDay if ($rev->GetDay);
 				$nv .= " - ";
 				$nv .= ($country_names{$rev->GetCountry} || "?");
-				$nv .= " - Label: " . $rev->{"__labelname"} if $rev->GetLabel;
+				$nv .= " - Label: " . $rev->GetLabelName if $rev->GetLabel;
 				$nv .= " - Catalog #: " . $rev->GetCatNo if $rev->GetCatNo;
 				$nv .= " - Barcode: " . $rev->GetBarcode if $rev->GetBarcode;
 				$nv .= " - Format: " . $rev->GetFormatName if $rev->GetFormat;
@@ -537,7 +537,7 @@
 				$ov .= "-" . $revorig->GetDay if ($revorig->GetDay);
 				$ov .= " - ";
 				$ov .= ($country_names{$revorig->GetCountry} || "?");
-				$ov .= " - Label: " . $revorig->{"__labelname"} if $revorig->GetLabel;
+				$ov .= " - Label: " . $revorig->GetLabelName if $revorig->GetLabel;
 				$ov .= " - Catalog #: " . $revorig->GetCatNo if $revorig->GetCatNo;
 				$ov .= " - Barcode: " . $revorig->GetBarcode if $revorig->GetBarcode;
 				$ov .= " - Format: " . $revorig->GetFormatName if $revorig->GetFormat;
