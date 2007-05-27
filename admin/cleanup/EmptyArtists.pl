@@ -136,6 +136,12 @@ $sql->Select(<<EOF) or die;
 	) t6
         ON a.id = t6.artist
 
+    -- Look for AR artist-label relationships
+	LEFT JOIN (
+        SELECT link0 as artist, COUNT(*) AS arla_links FROM l_artist_label GROUP BY link0
+	) t8
+        ON a.id = t8.artist
+
     -- Look for pending 'Move Album', 'Change Track Artist' and SAC moderations
 	LEFT JOIN (
         SELECT 
@@ -151,6 +157,7 @@ $sql->Select(<<EOF) or die;
 	AND		t4.alar_links IS NULL
 	AND		t5.artr_links IS NULL
 	AND		t6.arur_links IS NULL
+	AND		t8.arla_links IS NULL
 	AND		t7.mods IS NULL
 	AND		a.modpending = 0
 	ORDER BY sortname

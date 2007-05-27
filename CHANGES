@@ -30,6 +30,7 @@ Release 2007-XX-YY:
     * HTML error on front page. (#2796)
     * Country of label isnt retained when editing label. (#2794)
     * Broken link to annotation history on the release page. (#2832)
+    * Check for label ARs in the artist cleanup script. (#2814)
 
 Release 2007-04-01:
 
