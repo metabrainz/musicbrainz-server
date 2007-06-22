@@ -204,19 +204,20 @@ function ARFrontEnd() {
 					field.value = "http://www.amazon." + tld + "/gp/product/" + asin;
 				}
 
-			} else if (v.match(/\.discogs\./i)) {
+			} else if (v.match(/[./]discogs\./i)) {
+				field.value = field.value.replace(/http:\/\/([^.]+\.)?discogs\.com/, "http://www.discogs.com")
 				site = "discogs";
 			} else if (v.match(/\.wikipedia\./i)) {
 				site = "wikipedia";
 			} else if (v.match(/musicmoz\./i)) {
 				site = "musicmoz";
-			} else if (v.match(/(\.|\/)imdb\./i)) {
+			} else if (v.match(/[./]imdb\./i)) {
 				site = "internet movie database";
-			} else if (v.match(/(\.|\/)myspace\.com/i)) {
+			} else if (v.match(/[./]myspace\.com/i)) {
 				site = "myspace";
-			} else if (v.match(/(\.|\/)purevolume\.com/i)) { 
+			} else if (v.match(/[./]purevolume\.com/i)) { 
  				site = "purevolume";
-			} else if (v.match(/((\.|\/)archive.org\/download|(\.|\/)cdbaby.name).*?\.(jpg|jpeg|png|gif)/i)) { 
+			} else if (v.match(/([./]archive.org\/download|[./]cdbaby.name).*?\.(jpg|jpeg|png|gif)/i)) { 
  				site = "cover art";
 			}
 			if (site != "") {
@@ -249,6 +250,8 @@ function ARFrontEnd() {
 			if (tld != "" && asin != "") {
 				field.value = "http://www.amazon." + tld + "/gp/product/" + asin;
 			}
+		} else if (v.match(/[./]discogs\./i)) {
+			field.value = field.value.replace(/http:\/\/([^.]+\.)?discogs\.com/, "http://www.discogs.com")
 		}
 		mb.log.exit();
 	};
