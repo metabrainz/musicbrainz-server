@@ -203,6 +203,7 @@
                                            pagesize=> ($session{"as_limit"} or 25),
                                            url => "/search/textsearch.html",
                                            args =>{ query => $session{"as_query"},
+													adv => $session{"as_adv"},
                                                     type => $type,
                                                     handlearguments => $handlearguments
                                                   } &>
@@ -215,6 +216,7 @@
                                            pagesize=> ($session{"as_limit"} or 25),
                                            url => "/search/textsearch.html",
                                            args =>{ query => $session{"as_query"},
+													adv => $session{"as_adv"},
                                                     type => $type,
                                                     handlearguments => $handlearguments
                                                   } &>
