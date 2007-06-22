@@ -18,25 +18,29 @@ CREATE TABLE tag
 CREATE TABLE artist_tag
 (
     artist              INTEGER NOT NULL,
-    tag                 INTEGER NOT NULL
+    tag                 INTEGER NOT NULL,
+    count               INTEGER NOT NULL
 );
 
 CREATE TABLE release_tag
 (
     release             INTEGER NOT NULL,
-    tag                 INTEGER NOT NULL
+    tag                 INTEGER NOT NULL,
+    count               INTEGER NOT NULL
 );
 
 CREATE TABLE track_tag
 (
     track               INTEGER NOT NULL,
-    tag                 INTEGER NOT NULL
+    tag                 INTEGER NOT NULL,
+    count               INTEGER NOT NULL
 );
 
 CREATE TABLE label_tag
 (
     label               INTEGER NOT NULL,
-    tag                 INTEGER NOT NULL
+    tag                 INTEGER NOT NULL,
+    count               INTEGER NOT NULL
 );
 
 -- These tables could/will live on a separate server, so no FKs to the main tables
@@ -45,32 +49,28 @@ CREATE TABLE artist_tag_raw
 (
     artist              INTEGER NOT NULL,
     tag                 INTEGER NOT NULL,
-    moderator           INTEGER NOT NULL,
-    created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    moderator           INTEGER NOT NULL
 );
 
 CREATE TABLE release_tag_raw
 (
     release             INTEGER NOT NULL,
     tag                 INTEGER NOT NULL,
-    moderator           INTEGER NOT NULL,
-    created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    moderator           INTEGER NOT NULL
 );
 
 CREATE TABLE track_tag_raw
 (
     track               INTEGER NOT NULL,
     tag                 INTEGER NOT NULL,
-    moderator           INTEGER NOT NULL,
-    created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    moderator           INTEGER NOT NULL
 );
 
 CREATE TABLE label_tag_raw
 (
     label               INTEGER NOT NULL,
     tag                 INTEGER NOT NULL,
-    moderator           INTEGER NOT NULL,
-    created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    moderator           INTEGER NOT NULL
 );
 
 -- primary keys
@@ -101,22 +101,18 @@ CREATE UNIQUE INDEX label_tag_idx_tag ON label_tag (tag);
 CREATE UNIQUE INDEX artist_tag_raw_idx_artist ON artist_tag_raw (artist);
 CREATE UNIQUE INDEX artist_tag_raw_idx_tag ON artist_tag_raw (tag);
 CREATE UNIQUE INDEX artist_tag_raw_idx_moderator ON artist_tag_raw (moderator);
-CREATE UNIQUE INDEX artist_tag_raw_idx_created ON artist_tag_raw (created);
 
 CREATE UNIQUE INDEX release_tag_raw_idx_release ON release_tag_raw (release);
 CREATE UNIQUE INDEX release_tag_raw_idx_tag ON release_tag_raw (tag);
 CREATE UNIQUE INDEX release_tag_raw_idx_moderator ON release_tag_raw (moderator);
-CREATE UNIQUE INDEX release_tag_raw_idx_created ON release_tag_raw (created);
 
 CREATE UNIQUE INDEX track_tag_raw_idx_track ON track_tag_raw (track);
 CREATE UNIQUE INDEX track_tag_raw_idx_tag ON track_tag_raw (tag);
 CREATE UNIQUE INDEX track_tag_raw_idx_moderator ON track_tag_raw (moderator);
-CREATE UNIQUE INDEX track_tag_raw_idx_created ON track_tag_raw (created);
 
 CREATE UNIQUE INDEX label_tag_raw_idx_label ON label_tag_raw (label);
 CREATE UNIQUE INDEX label_tag_raw_idx_tag ON label_tag_raw (tag);
 CREATE UNIQUE INDEX label_tag_raw_idx_moderator ON label_tag_raw (moderator);
-CREATE UNIQUE INDEX label_tag_raw_idx_created ON label_tag_raw (created);
 
 -- foreign keys
 ALTER TABLE artist_tag
