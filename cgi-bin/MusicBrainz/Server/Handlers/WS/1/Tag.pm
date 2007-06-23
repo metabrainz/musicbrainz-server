@@ -39,49 +39,12 @@ sub handler
 	my ($r) = @_;
 	# URLs are of the form:
 	# POST http://server/ws/1/tag/?name=<user_name>&entity=<entity>&id=<id>&tags=<tags>
-	# GET http://server/ws/1/tag/?&entity=<entity>&id=<id>
 
-    my $apr = Apache::Request->new($r);
-    my $user = $apr->param('user');
-    return handler_post($r) if ($user);
-    #if ($r->method eq "POST");
+    # TODO: Remove this case and only allow POST here
+    return handler_post($r); # if ($r->method eq "POST");
 
-    my $entity = $apr->param('entity');
-    my $id = $apr->param('id');
-
-    if (!MusicBrainz::Server::Validation::IsGUID($id) || 
-        ($entity ne 'artist' && $entity ne 'release' && $entity ne 'track' && $entity ne 'label'))
-    {
-        $r->status(BAD_REQUEST);
-        return BAD_REQUEST;
-    }
-
-	my $status = eval 
-    {
-		# Try to serve the request from the database
-		{
-			my $status = serve_from_db($r, $entity, $id);
-			return $status if defined $status;
-		}
-        undef;
-	};
-
-	if ($@)
-	{
-		my $error = "$@";
-        print STDERR "WS Error: $error\n";
-		$r->status(Apache::Constants::SERVER_ERROR());
-		$r->send_http_header("text/plain; charset=utf-8");
-		$r->print($error."\015\012") unless $r->header_only;
-		return Apache::Constants::SERVER_ERROR();
-	}
-    if (!defined $status)
-    {
-        $r->status(Apache::Constants::NOT_FOUND());
-        return Apache::Constants::NOT_FOUND();
-    }
-
-	return Apache::Constants::OK();
+    $r->status(BAD_REQUEST);
+	return Apache::Constants::BAD_REQUEST();
 }
 
 sub handler_post
@@ -96,6 +59,11 @@ sub handler_post
     my $entity = $apr->param('entity');
     my $id = $apr->param('id');
     my $tags = $apr->param('tags');
+    my $type = $apr->param('type');
+    if (!defined($type) || $type ne 'xml')
+    {
+		return bad_req($r, "Invalid content type. Must be set to xml.");
+	}
 
     if (!MusicBrainz::Server::Validation::IsGUID($id) || 
         ($entity ne 'artist' && $entity ne 'release' && $entity ne 'track' && $entity ne 'label'))
@@ -144,50 +112,6 @@ sub handler_post
     }
 
 	return OK;
-}
-
-sub serve_from_db
-{
-	my ($r, $entity, $id) = @_;
-
-	require MusicBrainz;
-	my $mb = MusicBrainz->new;
-	$mb->Login;
-
-    require Artist;
-    require Album;
-    require Label;
-    require Track;
-
-    my $obj;
-    if ($entity eq 'artist')
-    {
-        $obj = Artist->new($mb->{DBH});
-    }
-    elsif ($entity eq 'release')
-    {
-        $obj = Album->new($mb->{DBH});
-    }
-    elsif ($entity eq 'track')
-    {
-        $obj = Track->new($mb->{DBH});
-    }
-    elsif ($entity eq 'label')
-    {
-        $obj = Label->new($mb->{DBH});
-    }
-    $obj->SetMBId($id);
-    unless ($obj->LoadFromId)
-    {
-        die "Cannot load entity. Bad entity id given?"
-    } 
-	my $tag = MusicBrainz::Server::Tag->new($mb->{DBH});
-    my $printer = sub {
-         print Dumper($tag->GetTagsForEntity($entity, $obj->GetId()));
-    };
-
-	send_response($r, $printer);
-	return Apache::Constants::OK();
 }
 
 sub serve_from_db_post
