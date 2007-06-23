@@ -54,7 +54,7 @@
 %		if ($showform) {
 %			my $rawtags = $t->GetRawTagsForEntity($entitytype, $entity->GetId, $session{uid});
 			<form action="/show/<% $entitytype %>/tags.html" method="post">
-				Tag this entity:<br />
+				Tag this <% $entitytype %>:<br />
 				<textarea rows="4" cols="40" name="newtags"><% join ", ", map { $_->{"name"} } @$rawtags %></textarea><br />
 				<input type="submit" value="Tag" />
 				<input type="hidden" name="update" value="1" />
@@ -62,7 +62,7 @@
 			</form>
 %		} else {
 			<p>
-				<a href="/show/<% $entitytype %>/tags.html?id=<% $entity->GetId %>&amp;showform=1">Tag this entity</a>
+				<a href="/show/<% $entitytype %>/tags.html?id=<% $entity->GetId %>&amp;showform=1">Tag this <% $entitytype %></a>
 			</p>
 %		}
 %	}

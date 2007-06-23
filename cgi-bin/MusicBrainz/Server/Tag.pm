@@ -39,8 +39,17 @@ sub Update
 
     my (@new_tags, @old_tags, $count);
 
-    #TODO: Make list of tags unique
-    @new_tags = grep((s/^\s*(.*?)\s*$/$1/,$_), split ',', lc($input));
+	@new_tags = grep {
+		# remove non-word characters
+		$_ =~ s/\W+/ /sg;
+		# combine multiple spaces into one
+		$_ =~ s/\s+/ /sg;
+		# remove leading and trailing whitespace
+		$_ =~ s/^\s*(.*?)\s*$/$1/;
+		$_;
+	} split ',', lc($input);
+	# make sure the list contains only unique tags
+	@new_tags = keys %{{ map { $_ => 1 } @new_tags }};
 
    	my $maindb = Sql->new($self->GetDBH()); 
 
