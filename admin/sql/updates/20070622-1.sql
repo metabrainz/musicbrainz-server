@@ -197,6 +197,16 @@ CREATE TRIGGER a_ins_release_tag AFTER INSERT ON release_tag
 CREATE TRIGGER a_del_release_tag AFTER DELETE ON release_tag
      FOR EACH ROW EXECUTE PROCEDURE a_del_tag();
 
+CREATE TRIGGER a_ins_track_tag AFTER INSERT ON track_tag
+    FOR EACH ROW EXECUTE PROCEDURE a_ins_tag();
+CREATE TRIGGER a_del_track_tag AFTER DELETE ON track_tag
+    FOR EACH ROW EXECUTE PROCEDURE a_del_tag();
+
+CREATE TRIGGER a_ins_label_tag AFTER INSERT ON label_tag
+    FOR EACH ROW EXECUTE PROCEDURE a_ins_tag();
+CREATE TRIGGER a_del_label_tag AFTER DELETE ON label_tag
+    FOR EACH ROW EXECUTE PROCEDURE a_del_tag();
+
 COMMIT;
 
 -- vi: set ts=8 sw=8 et tw=0 :
