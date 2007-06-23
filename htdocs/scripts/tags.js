@@ -28,7 +28,7 @@ MusicBrainz.TagsEditor = function()
 		var url = "/show/tag/rawtags.html?entitytype=" + entitytype + "&entityid=" + entityid;
 		var d = loadJSONDoc(url);
 		d.addCallback(bind(this.showForm, this, entitytype, entityid));
-		d.addCallback(bind(this.showError, this, entitytype, entityid));
+		d.addErrback(bind(this.showError, this, entitytype, entityid));
 		return false;
 	}
 
