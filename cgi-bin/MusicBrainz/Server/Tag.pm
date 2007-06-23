@@ -234,6 +234,10 @@ sub GetTagHashForEntity
 	my @tags = map { $_->[1] } @$rows;
 	my $mincount = min(@tags);
 	my $maxcount = max(@tags) - $mincount;
+	if ($maxcount == 0) {
+		$mincount = 0;
+		$maxcount = 1;
+	}
 	my %tags = map { $_->[0] => ($_->[1] - $mincount) * 100 / $maxcount } @$rows;
 	return \%tags;
 }
