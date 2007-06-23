@@ -167,39 +167,19 @@ begin
 end;
 ' language 'plpgsql';
 
--- This function should serve as the generic version of this trigger, but
--- after wasting two hours on it, I'm moving on. Hoping that another set of eyes
--- will fix this properly
-create or replace function BROKEN_a_del_tag () returns trigger as '
+create or replace function a_del_tag () returns trigger as '
 declare
-    rec       record;
-    query     text;
     ref_count integer;
 begin
 
-    query := ''SELECT count(*) AS refcount FROM '' || TG_RELNAME || '' WHERE tag = '' || OLD.tag;
-    FOR rec IN EXECUTE query LOOP 
-        ref_count := rec.refcount;
-    END LOOP;
-    IF ref_count = 0 THEN
+    SELECT INTO ref_count refcount FROM tag WHERE id = OLD.tag;
+    IF ref_count = 1 THEN
          DELETE FROM tag WHERE id = OLD.tag;
     ELSE
          UPDATE  tag
          SET     refcount = refcount - 1
          WHERE   id = OLD.tag;
     END IF;
-
-    return NULL;
-end;
-' language 'plpgsql';
-
--- this function doesn't delete the rows with zero refcount
-create or replace function a_del_tag () returns trigger as '
-begin
-
-    UPDATE  tag
-    SET     refcount = refcount - 1
-    WHERE   id = OLD.tag;
 
     return NULL;
 end;
