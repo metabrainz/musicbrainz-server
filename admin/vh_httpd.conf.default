@@ -230,4 +230,16 @@ PerlModule MusicBrainz::Server::Handlers::WS::1::User
 	PerlSetVar DigestRealm "musicbrainz.org"
 </Location>
 
+PerlModule MusicBrainz::Server::Handlers::WS::1::Tag
+<Location /ws/1/tag>
+    SetHandler perl-script
+    PerlHandler MusicBrainz::Server::Handlers::WS::1::Tag
+
+    PerlAuthenHandler MusicBrainz::Server::Handlers::WS::1::Auth
+    Require valid-user
+    AuthType Digest
+    AuthName "musicbrainz.org"
+    PerlSetVar DigestRealm "musicbrainz.org"
+</Location>
+
 # eof

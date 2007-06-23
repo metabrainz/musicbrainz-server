@@ -89,30 +89,30 @@ ALTER TABLE label_tag_raw ADD CONSTRAINT label_tag_raw_pkey PRIMARY KEY (label, 
 -- indexes
 CREATE UNIQUE INDEX tag_idx_name ON tag (name);
 
-CREATE UNIQUE INDEX artist_tag_idx_artist ON artist_tag (artist);
-CREATE UNIQUE INDEX artist_tag_idx_tag ON artist_tag (tag);
-CREATE UNIQUE INDEX release_tag_idx_release ON release_tag (release);
-CREATE UNIQUE INDEX release_tag_idx_tag ON release_tag (tag);
-CREATE UNIQUE INDEX track_tag_idx_track ON track_tag (track);
-CREATE UNIQUE INDEX track_tag_idx_tag ON track_tag (tag);
-CREATE UNIQUE INDEX label_tag_idx_label ON label_tag (label);
-CREATE UNIQUE INDEX label_tag_idx_tag ON label_tag (tag);
+CREATE INDEX artist_tag_idx_artist ON artist_tag (artist);
+CREATE INDEX artist_tag_idx_tag ON artist_tag (tag);
+CREATE INDEX release_tag_idx_release ON release_tag (release);
+CREATE INDEX release_tag_idx_tag ON release_tag (tag);
+CREATE INDEX track_tag_idx_track ON track_tag (track);
+CREATE INDEX track_tag_idx_tag ON track_tag (tag);
+CREATE INDEX label_tag_idx_label ON label_tag (label);
+CREATE INDEX label_tag_idx_tag ON label_tag (tag);
 
-CREATE UNIQUE INDEX artist_tag_raw_idx_artist ON artist_tag_raw (artist);
-CREATE UNIQUE INDEX artist_tag_raw_idx_tag ON artist_tag_raw (tag);
-CREATE UNIQUE INDEX artist_tag_raw_idx_moderator ON artist_tag_raw (moderator);
+CREATE INDEX artist_tag_raw_idx_artist ON artist_tag_raw (artist);
+CREATE INDEX artist_tag_raw_idx_tag ON artist_tag_raw (tag);
+CREATE INDEX artist_tag_raw_idx_moderator ON artist_tag_raw (moderator);
 
-CREATE UNIQUE INDEX release_tag_raw_idx_release ON release_tag_raw (release);
-CREATE UNIQUE INDEX release_tag_raw_idx_tag ON release_tag_raw (tag);
-CREATE UNIQUE INDEX release_tag_raw_idx_moderator ON release_tag_raw (moderator);
+CREATE INDEX release_tag_raw_idx_release ON release_tag_raw (release);
+CREATE INDEX release_tag_raw_idx_tag ON release_tag_raw (tag);
+CREATE INDEX release_tag_raw_idx_moderator ON release_tag_raw (moderator);
 
-CREATE UNIQUE INDEX track_tag_raw_idx_track ON track_tag_raw (track);
-CREATE UNIQUE INDEX track_tag_raw_idx_tag ON track_tag_raw (tag);
-CREATE UNIQUE INDEX track_tag_raw_idx_moderator ON track_tag_raw (moderator);
+CREATE INDEX track_tag_raw_idx_track ON track_tag_raw (track);
+CREATE INDEX track_tag_raw_idx_tag ON track_tag_raw (tag);
+CREATE INDEX track_tag_raw_idx_moderator ON track_tag_raw (moderator);
 
-CREATE UNIQUE INDEX label_tag_raw_idx_label ON label_tag_raw (label);
-CREATE UNIQUE INDEX label_tag_raw_idx_tag ON label_tag_raw (tag);
-CREATE UNIQUE INDEX label_tag_raw_idx_moderator ON label_tag_raw (moderator);
+CREATE INDEX label_tag_raw_idx_label ON label_tag_raw (label);
+CREATE INDEX label_tag_raw_idx_tag ON label_tag_raw (tag);
+CREATE INDEX label_tag_raw_idx_moderator ON label_tag_raw (moderator);
 
 -- foreign keys
 ALTER TABLE artist_tag
@@ -154,6 +154,68 @@ ALTER TABLE label_tag
     ADD CONSTRAINT fk_label_tag_tag
     FOREIGN KEY (tag)
     REFERENCES tag(id);
+
+-- Functions
+
+create or replace function a_ins_tag () returns trigger as '
+begin
+    UPDATE  tag
+    SET     refcount = refcount + 1
+    WHERE   id = NEW.tag;
+
+    return NULL;
+end;
+' language 'plpgsql';
+
+-- This function should serve as the generic version of this trigger, but
+-- after wasting two hours on it, I'm moving on. Hoping that another set of eyes
+-- will fix this properly
+create or replace function BROKEN_a_del_tag () returns trigger as '
+declare
+    rec       record;
+    query     text;
+    ref_count integer;
+begin
+
+    query := ''SELECT count(*) AS refcount FROM '' || TG_RELNAME || '' WHERE tag = '' || OLD.tag;
+    FOR rec IN EXECUTE query LOOP 
+        ref_count := rec.refcount;
+    END LOOP;
+    IF ref_count = 0 THEN
+         DELETE FROM tag WHERE id = OLD.tag;
+    ELSE
+         UPDATE  tag
+         SET     refcount = refcount - 1
+         WHERE   id = OLD.tag;
+    END IF;
+
+    return NULL;
+end;
+' language 'plpgsql';
+
+-- this function doesn't delete the rows with zero refcount
+create or replace function a_del_tag () returns trigger as '
+begin
+
+    UPDATE  tag
+    SET     refcount = refcount - 1
+    WHERE   id = OLD.tag;
+
+    return NULL;
+end;
+' language 'plpgsql';
+
+-- Triggers
+
+CREATE TRIGGER a_ins_artist_tag AFTER INSERT ON artist_tag
+    FOR EACH ROW EXECUTE PROCEDURE a_ins_tag();
+CREATE TRIGGER a_del_artist_tag AFTER DELETE ON artist_tag
+    FOR EACH ROW EXECUTE PROCEDURE a_del_tag();
+
+CREATE TRIGGER a_ins_release_tag AFTER INSERT ON release_tag
+     FOR EACH ROW EXECUTE PROCEDURE a_ins_tag();
+CREATE TRIGGER a_del_release_tag AFTER DELETE ON release_tag
+     FOR EACH ROW EXECUTE PROCEDURE a_del_tag();
 
 COMMIT;
 
