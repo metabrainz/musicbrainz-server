@@ -1,4 +1,3 @@
-#!/home/httpd/musicbrainz/mb_server/cgi-bin/perl -w
 # vi: set ts=4 sw=4 :
 #____________________________________________________________________________
 #
@@ -20,7 +19,7 @@
 #   along with this program; if not, write to the Free Software
 #   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
-#   $Id: Tag.pm 5597 2005-05-02 10:14:43Z matt $
+#   $Id$
 #____________________________________________________________________________
 
 use strict;
@@ -30,6 +29,9 @@ package MusicBrainz::Server::Tag;
 use base qw( TableBase );
 use Carp;
 use Data::Dumper;
+use List::Util qw( max );
+use URI::Escape qw( uri_escape );
+use MusicBrainz::Server::Validation qw( encode_entities );
 
 sub Update
 {
@@ -208,6 +210,36 @@ sub GetTagsForEntity
 	return $rows;
 }
 
+sub GetTagHashForEntity
+{
+	my ($self, $entity_type, $entity_id) = @_;
+
+	my $sql = Sql->new($self->GetDBH());
+	my $assoc_table = $entity_type . '_tag';
+	my $rows = $sql->SelectListOfLists("SELECT tag.name, count
+		                                  FROM tag, $assoc_table
+		                                 WHERE tag.id = $assoc_table.tag 
+                                           AND $assoc_table.$entity_type = ?", $entity_id);
+	my $maxcount = max(map { $_->[1] } @$rows);
+	my %tags = map { $_->[0] => $_->[1] * 100 / $maxcount } @$rows;
+	return \%tags;
+}
+
+sub GetRawTagsForEntity
+{
+	my ($self, $entity_type, $entity_id, $moderator_id) = @_;
+
+	# TODO use separate DB
+	my $sql = Sql->new($self->GetDBH());
+	my $assoc_table = $entity_type . '_tag_raw';
+	my $rows = $sql->SelectListOfHashes("SELECT tag.id, tag.name
+		                                   FROM tag, $assoc_table
+		                                  WHERE tag.id = $assoc_table.tag 
+                                            AND $assoc_table.$entity_type = ?
+                                            AND $assoc_table.moderator = ?", $entity_id, $moderator_id);
+	return $rows;
+}
+
 sub GetEntitiesForTag
 {
 	my ($self, $entity_type, $tag) = @_;
@@ -226,6 +258,22 @@ EOF
 
 sub GetModerator	{ $_[0]{'moderator'} }
 sub SetModerator	{ $_[0]{'moderator'} = $_[1] }
+
+sub GenerateTagCloud
+{
+	my ($self, $tags, $minsize, $maxsize, $power) = @_;
+	my ($key, $value, $tag, $sizedelta, @res);
+
+	$sizedelta = $maxsize - $minsize;
+	foreach $key (sort keys %$tags) {
+		$value = ($tags->{$key} / 100.0) ** $power;
+		push @res, '<span style="font-size:' . int($minsize + $value * $sizedelta) . 'px;' . ($value > 0.25 ? "font-weight:bold;" : "") . '">';
+		$tag = encode_entities($key);
+		$tag =~ s/\s+/&nbsp;/;
+		push @res, '<a href="/show/tag/?tag=' . uri_escape($key) . '">' . $tag . '</a></span> &nbsp; ';
+	}
+	return join "", @res;
+}
 
 1;
 # eof Tag.pm

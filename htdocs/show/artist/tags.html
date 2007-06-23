@@ -1,0 +1,82 @@
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# Show tags of an artist
+	#
+</%perl>
+<%args>
+	$artistid => ""
+	$showform => 0
+	$newtags => undef
+	$update => undef
+</%args>
+<%perl>
+
+	# Check argument
+	MusicBrainz::Server::Validation::IsNonNegInteger($artistid) && $artistid
+		or return $m->comp("/comp/layout/badarguments", text => "Argument artistid is required");
+
+	# Instantiate MusicBrainz object, and load artist
+	my $mb = $m->comp("/comp/dblogin");
+	my $artist = $m->comp("/comp/loadartist", $mb, $artistid);
+
+	my $t = MusicBrainz::Server::Tag->new($mb->{DBH});
+
+	if (defined $update) {
+		$m->comp("/comp/checkloggedin", 1, 1)
+			or return;
+		$t->Update($newtags, $session{uid}, "artist", $artistid);
+		$m->comp("/comp/redirect", "/show/artist/tags.html?artistid=$artistid");
+	}
+
+	my $tags = $t->GetTagHashForEntity("artist", $artist->GetId);
+
+</%perl>
+
+<& /comp/sidebar-notitle, pagetitle => "Artist Tags: " . $artist->GetName &>
+<& /comp/artisttitle, artist => $artist &>
+
+	<p style="margin-bottom: 1em;">
+		<% $t->GenerateTagCloud($tags, 12, 30, 0.45) | n %>
+	</p>
+
+%	if ($session{uid}) {
+%		if ($showform) {
+%			my $rawtags = $t->GetRawTagsForEntity("artist", $artist->GetId, $session{uid});
+			<form action="/show/artist/tags.html" method="post">
+				Tag this artist:<br />
+				<textarea rows="4" cols="40" name="newtags"><% join ", ", map { $_->{"name"} } @$rawtags %></textarea><br />
+				<input type="submit" value="Tag" />
+				<input type="hidden" name="update" value="1" />
+				<input type="hidden" name="artistid" value="<% $artist->GetId %>" />
+			</form>
+%		} else {
+			<p>
+				<a href="/show/artist/tags.html?artistid=<% $artist->GetId %>&amp;showform=1">Tag this artist</a>
+			</p>
+%		}
+%	}
+
+<& /comp/footer &>
+
+%# vi: set ts=4 sw=4 ft=mason :
