@@ -132,7 +132,7 @@
 				$m->out(qq! | <a href="/user/subscribe.html?artistid=$id">Subscribe</a>!);
 		}
 		$m->out(qq! | <a href="/show/artist/aliases.html?artistid=$id" title="Artist aliases">Aliases</a>!);
-		$m->out(qq! | <a href="/show/artist/tags.html?artistid=$id">Tags</a>!);
+		$m->out(qq! | <a href="/show/artist/tags.html?id=$id">Tags</a>!);
 		if ($id != &ModDefs::VARTIST_ID)
 		{
 			$m->out(qq! | <a href="/show/artist/?artistid=$id" title="Releases of this artist">Releases</a>!);

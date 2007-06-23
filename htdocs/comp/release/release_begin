@@ -131,6 +131,7 @@
 			$m->out(qq!Release: [ !);
 			$m->out(qq!   <a href="/show/permlink.html?id=$mbid&amp;type=release" title="Link to this release">Link to this</a>!);
 			$m->out(qq! | <a href="/show/release/details.html?releaseid=$releaseid">Details</a>!);
+			$m->out(qq! | <a href="/show/release/tags.html?id=$releaseid">Tags</a>!);
 
 			# only show the track artists toggle function if the page using the /comp/album
 			# parameter handles the arguments
