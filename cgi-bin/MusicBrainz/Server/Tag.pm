@@ -31,9 +31,6 @@ use base qw( TableBase );
 use Carp;
 use Data::Dumper;
 
-# Manage tag.refcount via triggers
-#    if refcount goes to 0, nuke tag
-
 sub Update
 {
 	my ($self, $input, $userid, $entity_type, $entity_id) = @_;
@@ -204,15 +201,10 @@ sub GetTagsForEntity
 
    	my $sql = Sql->new($self->GetDBH());
 	my $assoc_table = $entity_type . '_tag';
-
-	my $rows = $sql->SelectListOfHashes(<<EOF, $entity_id);
-		SELECT		t.id AS id, t.name AS name, COUNT(a.*) AS num
-		FROM		tag t, $assoc_table a
-		WHERE		t.id = a.tag AND a.$entity_type = ?
-		GROUP BY	t.id, t.name
-		ORDER BY	t.name
-EOF
-
+	my $rows = $sql->SelectListOfHashes("SELECT tag.id, tag.name, count
+		                                   FROM tag, $assoc_table
+		                                  WHERE tag.id = $assoc_table.tag 
+                                            AND $assoc_table.$entity_type = ?", $entity_id);
 	return $rows;
 }
 

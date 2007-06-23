@@ -32,18 +32,56 @@ use Apache::File ();
 use MusicBrainz::Server::Handlers::WS::1::Common;
 use Apache::Constants qw( OK BAD_REQUEST DECLINED SERVER_ERROR NOT_FOUND FORBIDDEN);
 use MusicBrainz::Server::Tag;
+use Data::Dumper;
 
 sub handler
 {
 	my ($r) = @_;
 	# URLs are of the form:
 	# POST http://server/ws/1/tag/?name=<user_name>&entity=<entity>&id=<id>&tags=<tags>
+	# GET http://server/ws/1/tag/?&entity=<entity>&id=<id>
 
-    return handler_post($r); # if ($r->method eq "POST");
+    my $apr = Apache::Request->new($r);
+    my $user = $apr->param('user');
+    return handler_post($r) if ($user);
+    #if ($r->method eq "POST");
 
-    # implement tag fetching later
+    my $entity = $apr->param('entity');
+    my $id = $apr->param('id');
 
-	return Apache::Constants::BAD_REQUEST();
+    if (!MusicBrainz::Server::Validation::IsGUID($id) || 
+        ($entity ne 'artist' && $entity ne 'release' && $entity ne 'track' && $entity ne 'label'))
+    {
+        $r->status(BAD_REQUEST);
+        return BAD_REQUEST;
+    }
+
+	my $status = eval 
+    {
+		# Try to serve the request from the database
+		{
+			my $status = serve_from_db($r, $entity, $id);
+			return $status if defined $status;
+		}
+        undef;
+	};
+
+	if ($@)
+	{
+		my $error = "$@";
+        print STDERR "WS Error: $error\n";
+		$r->status(Apache::Constants::SERVER_ERROR());
+		$r->send_http_header("text/plain; charset=utf-8");
+		$r->print($error."\015\012") unless $r->header_only;
+		return Apache::Constants::SERVER_ERROR();
+	}
+    if (!defined $status)
+    {
+        $r->status(Apache::Constants::NOT_FOUND());
+        return Apache::Constants::NOT_FOUND();
+    }
+
+	return Apache::Constants::OK();
 }
 
 sub handler_post
@@ -62,7 +100,6 @@ sub handler_post
     if (!MusicBrainz::Server::Validation::IsGUID($id) || 
         ($entity ne 'artist' && $entity ne 'release' && $entity ne 'track' && $entity ne 'label'))
     {
-        print STDERR "not guid or proper entity\n";
         $r->status(BAD_REQUEST);
         return BAD_REQUEST;
     }
@@ -70,7 +107,6 @@ sub handler_post
     # Ensure that the login name is the same as the resource requested 
     if ($r->user ne $user)
     {
-        print STDERR "mismatched user\n";
 		$r->status(FORBIDDEN);
         return FORBIDDEN;
     }
@@ -108,6 +144,50 @@ sub handler_post
     }
 
 	return OK;
+}
+
+sub serve_from_db
+{
+	my ($r, $entity, $id) = @_;
+
+	require MusicBrainz;
+	my $mb = MusicBrainz->new;
+	$mb->Login;
+
+    require Artist;
+    require Album;
+    require Label;
+    require Track;
+
+    my $obj;
+    if ($entity eq 'artist')
+    {
+        $obj = Artist->new($mb->{DBH});
+    }
+    elsif ($entity eq 'release')
+    {
+        $obj = Album->new($mb->{DBH});
+    }
+    elsif ($entity eq 'track')
+    {
+        $obj = Track->new($mb->{DBH});
+    }
+    elsif ($entity eq 'label')
+    {
+        $obj = Label->new($mb->{DBH});
+    }
+    $obj->SetMBId($id);
+    unless ($obj->LoadFromId)
+    {
+        die "Cannot load entity. Bad entity id given?"
+    } 
+	my $tag = MusicBrainz::Server::Tag->new($mb->{DBH});
+    my $printer = sub {
+         print Dumper($tag->GetTagsForEntity($entity, $obj->GetId()));
+    };
+
+	send_response($r, $printer);
+	return Apache::Constants::OK();
 }
 
 sub serve_from_db_post
