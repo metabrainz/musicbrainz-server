@@ -13,7 +13,7 @@
 
 <h2>Artists</h2>
 <table>
-%	$entities = $t->GetEntitiesForTag("artist", $tag);
+%	$entities = $t->GetEntitiesForTag("artist", $tag, 100);
 %	for my $entity (@$entities) {
 		<tr>
 			<td><& "/comp/linkartist", id => $entity->{"id"}, mbid => $entity->{"gid"}, name => $entity->{"name"}  &></td>
@@ -24,7 +24,7 @@
 
 <h2>Labels</h2>
 <table>
-%	$entities = $t->GetEntitiesForTag("label", $tag);
+%	$entities = $t->GetEntitiesForTag("label", $tag, 100);
 %	for my $entity (@$entities) {
 		<tr>
 			<td><& "/comp/linklabel", id => $entity->{"id"}, mbid => $entity->{"gid"}, name => $entity->{"name"}  &></td>
@@ -35,7 +35,7 @@
 
 <h2>Release</h2>
 <table>
-%	$entities = $t->GetEntitiesForTag("release", $tag);
+%	$entities = $t->GetEntitiesForTag("release", $tag, 100);
 %	for my $entity (@$entities) {
 		<tr>
 			<td><& "/comp/linkrelease", id => $entity->{"id"}, mbid => $entity->{"gid"}, name => $entity->{"name"}  &></td>
@@ -46,7 +46,7 @@
 
 <h2>Track</h2>
 <table>
-%	$entities = $t->GetEntitiesForTag("track", $tag);
+%	$entities = $t->GetEntitiesForTag("track", $tag, 100);
 %	for my $entity (@$entities) {
 		<tr>
 			<td><& "/comp/linkrelease", id => $entity->{"id"}, mbid => $entity->{"gid"}, name => $entity->{"name"}  &></td>

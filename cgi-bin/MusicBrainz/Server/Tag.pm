@@ -29,7 +29,7 @@ package MusicBrainz::Server::Tag;
 use base qw( TableBase );
 use Carp;
 use Data::Dumper;
-use List::Util qw( max );
+use List::Util qw( min max );
 use URI::Escape qw( uri_escape );
 use MusicBrainz::Server::Validation qw( encode_entities );
 
@@ -221,16 +221,20 @@ sub GetTagsForEntity
 
 sub GetTagHashForEntity
 {
-	my ($self, $entity_type, $entity_id) = @_;
+	my ($self, $entity_type, $entity_id, $limit) = @_;
 
 	my $sql = Sql->new($self->GetDBH());
 	my $assoc_table = $entity_type . '_tag';
 	my $rows = $sql->SelectListOfLists("SELECT tag.name, count
 		                                  FROM tag, $assoc_table
 		                                 WHERE tag.id = $assoc_table.tag 
-                                           AND $assoc_table.$entity_type = ?", $entity_id);
-	my $maxcount = max(map { $_->[1] } @$rows);
-	my %tags = map { $_->[0] => $_->[1] * 100 / $maxcount } @$rows;
+		                                   AND $assoc_table.$entity_type = ?
+		                              ORDER BY count DESC
+		                                 LIMIT ?", $entity_id, $limit);
+	my @tags = map { $_->[1] } @$rows;
+	my $mincount = min(@tags);
+	my $maxcount = max(@tags) - $mincount;
+	my %tags = map { $_->[0] => ($_->[1] - $mincount) * 100 / $maxcount } @$rows;
 	return \%tags;
 }
 
@@ -251,17 +255,18 @@ sub GetRawTagsForEntity
 
 sub GetEntitiesForTag
 {
-	my ($self, $entity_type, $tag) = @_;
+	my ($self, $entity_type, $tag, $limit) = @_;
 
    	my $sql = Sql->new($self->GetDBH());
 	my $assoc_table = $entity_type . '_tag';
 	my $entity_table = $entity_type eq "release" ? "album" : $entity_type;
 
-	my $rows = $sql->SelectListOfHashes(<<EOF, $tag);
+	my $rows = $sql->SelectListOfHashes(<<EOF, $tag, $limit);
 		SELECT	DISTINCT j.$entity_type AS id, e.name AS name, e.gid AS gid, j.count
 		FROM	$entity_table e, $assoc_table j, tag t
 		WHERE	t.name = ? AND j.tag = t.id AND e.id = j.$entity_type
 		ORDER BY j.count DESC
+		LIMIT ?
 EOF
 
 	return $rows;

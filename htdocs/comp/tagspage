@@ -30,7 +30,7 @@
 		$m->comp("/comp/redirect", "/show/$entitytype/tags.html?id=$id");
 	}
 
-	my $tags = $t->GetTagHashForEntity($entitytype, $entity->GetId);
+	my $tags = $t->GetTagHashForEntity($entitytype, $entity->GetId, 100);
 
 	if ($entitytype eq "artist") {
 		$m->comp("/comp/sidebar-notitle", pagetitle => "$title: " . $entity->GetName);
