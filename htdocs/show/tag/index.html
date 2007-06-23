@@ -1,0 +1,60 @@
+<%args>
+	$tag
+</%args>
+
+<%perl>
+	# Instantiate MusicBrainz object, and load entity
+	my $mb = $m->comp("/comp/dblogin");
+	my $t = MusicBrainz::Server::Tag->new($mb->{DBH});
+	my $entities;
+</%perl>
+
+<& /comp/sidebar, pagetitle => "Tag: $tag" &>
+
+<h2>Artists</h2>
+<table>
+%	$entities = $t->GetEntitiesForTag("artist", $tag);
+%	for my $entity (@$entities) {
+		<tr>
+			<td><& "/comp/linkartist", id => $entity->{"id"}, mbid => $entity->{"gid"}, name => $entity->{"name"}  &></td>
+			<td><% $entity->{"count"} %></td>
+		</tr>
+%	}
+</table>
+
+<h2>Labels</h2>
+<table>
+%	$entities = $t->GetEntitiesForTag("label", $tag);
+%	for my $entity (@$entities) {
+		<tr>
+			<td><& "/comp/linklabel", id => $entity->{"id"}, mbid => $entity->{"gid"}, name => $entity->{"name"}  &></td>
+			<td><% $entity->{"count"} %></td>
+		</tr>
+%	}
+</table>
+
+<h2>Release</h2>
+<table>
+%	$entities = $t->GetEntitiesForTag("release", $tag);
+%	for my $entity (@$entities) {
+		<tr>
+			<td><& "/comp/linkrelease", id => $entity->{"id"}, mbid => $entity->{"gid"}, name => $entity->{"name"}  &></td>
+			<td><% $entity->{"count"} %></td>
+		</tr>
+%	}
+</table>
+
+<h2>Track</h2>
+<table>
+%	$entities = $t->GetEntitiesForTag("track", $tag);
+%	for my $entity (@$entities) {
+		<tr>
+			<td><& "/comp/linkrelease", id => $entity->{"id"}, mbid => $entity->{"gid"}, name => $entity->{"name"}  &></td>
+			<td><% $entity->{"count"} %></td>
+		</tr>
+%	}
+</table>
+
+<& /comp/footer &>
+
+%# vi: set ts=4 sw=4 ft=mason :

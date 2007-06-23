@@ -255,11 +255,13 @@ sub GetEntitiesForTag
 
    	my $sql = Sql->new($self->GetDBH());
 	my $assoc_table = $entity_type . '_tag';
+	my $entity_table = $entity_type eq "release" ? "album" : $entity_type;
 
 	my $rows = $sql->SelectListOfHashes(<<EOF, $tag);
-		SELECT	DISTINCT j.$entity_type AS id, e.name AS name, e.gid AS gid
-		FROM	$entity_type e, $assoc_table j, tag t
-		WHERE	t.name = ? AND j.tag = t.id AND e.id = j.$entity_type;
+		SELECT	DISTINCT j.$entity_type AS id, e.name AS name, e.gid AS gid, j.count
+		FROM	$entity_table e, $assoc_table j, tag t
+		WHERE	t.name = ? AND j.tag = t.id AND e.id = j.$entity_type
+		ORDER BY j.count DESC
 EOF
 
 	return $rows;
