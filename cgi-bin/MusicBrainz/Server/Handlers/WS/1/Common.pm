@@ -587,8 +587,12 @@ sub xml_tags
 
     return undef if (scalar(@$tags) == 0);
 
-    my @taglist = map { $_->{'name'} } @$tags;
-    print '<tags>' . join(',', @taglist) . '</tags>';
+    print '<tag-list>';
+    foreach my $t (@$tags)
+    {
+        print '<tag count="' . $t->{count} . '">' . $t->{name} . '</tag>';
+    }
+    print '</tag-list>';
     return undef;
 }
 
