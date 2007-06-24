@@ -32,6 +32,7 @@ use Data::Dumper;
 use List::Util qw( min max );
 use URI::Escape qw( uri_escape );
 use MusicBrainz::Server::Validation qw( encode_entities );
+use Encode qw( decode encode );
 
 sub Update
 {
@@ -41,13 +42,14 @@ sub Update
 
 	@new_tags = grep {
 		# remove non-word characters
-		$_ =~ s/\W+/ /sg;
+		$_ =~ s/[^\p{IsWord}-]+/ /sg;
 		# combine multiple spaces into one
 		$_ =~ s/\s+/ /sg;
 		# remove leading and trailing whitespace
 		$_ =~ s/^\s*(.*?)\s*$/$1/;
+		$_ = encode "utf-8", $_;
 		$_;
-	} split ',', lc($input);
+	} split ',', lc(decode "utf-8", $input);
 	# make sure the list contains only unique tags
 	@new_tags = keys %{{ map { $_ => 1 } @new_tags }};
 
