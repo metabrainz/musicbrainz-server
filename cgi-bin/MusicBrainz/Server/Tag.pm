@@ -29,7 +29,7 @@ package MusicBrainz::Server::Tag;
 use base qw( TableBase );
 use Carp;
 use Data::Dumper;
-use List::Util qw( min max );
+use List::Util qw( min max sum );
 use URI::Escape qw( uri_escape );
 use MusicBrainz::Server::Validation qw( encode_entities );
 use Encode qw( decode encode );
@@ -221,6 +221,25 @@ sub GetTagsForEntity
 	return $rows;
 }
 
+# Get a hash of { tag1 => count, tag2 => count } value from all available tags.
+sub GetTagHash
+{
+	my ($self, $limit) = @_;
+
+	my $sql = Sql->new($self->GetDBH());
+	# TODO the refcount value is not very useful informatin, we probably need
+	# to track counts rows in XX_tag_raw tables.
+	my $rows = $sql->SelectListOfLists("SELECT name, refcount AS count
+		                                  FROM tag
+		                              ORDER BY refcount DESC
+		                                 LIMIT ?", $limit);
+
+	my %tags = map { $_->[0] => $_->[1] } @$rows;
+	return \%tags;
+}
+
+# Get a hash of { tag1 => count, tag2 => count } value from tags for the
+# speficied entity.
 sub GetTagHashForEntity
 {
 	my ($self, $entity_type, $entity_id, $limit) = @_;
@@ -233,14 +252,8 @@ sub GetTagHashForEntity
 		                                   AND $assoc_table.$entity_type = ?
 		                              ORDER BY count DESC
 		                                 LIMIT ?", $entity_id, $limit);
-	my @tags = map { $_->[1] } @$rows;
-	my $mincount = min(@tags);
-	my $maxcount = max(@tags) - $mincount;
-	if ($maxcount == 0) {
-		$mincount = 0;
-		$maxcount = 1;
-	}
-	my %tags = map { $_->[0] => ($_->[1] - $mincount) * 100 / $maxcount } @$rows;
+
+	my %tags = map { $_->[0] => $_->[1] } @$rows;
 	return \%tags;
 }
 
@@ -283,13 +296,44 @@ sub SetModerator	{ $_[0]{'moderator'} = $_[1] }
 
 sub GenerateTagCloud
 {
-	my ($self, $tags, $minsize, $maxsize, $power) = @_;
+	my ($self, $tags, $minsize, $maxsize) = @_;
 	my ($key, $value, $tag, $sizedelta, @res);
+
+	my @counts = sort { $a <=> $b } values %$tags;
+	my $ntags = scalar @counts;
+	return "" if !$ntags;
+
+	my $min = $counts[0];
+	my $max = $counts[$ntags - 1];
+	my $med = $ntags % 2
+		? $counts[(($ntags + 1) / 2) - 1]
+		: ($counts[($ntags / 2) - 1] + $counts[$ntags / 2]) / 2;
+	my $avg = sum(@counts) / $ntags;
+
+	$avg /= $max;
+	$med /= $max;
+
+	$max -= $min;
+	if ($max == 0) {
+		$max = $min;
+		$min = 0;
+	}
+
+	my $power = 1 + ($avg > $med ? -(($avg - $med) ** 0.6) : ($med - $avg) ** 0.6);
+
+	#push @res, "Counts: @counts<br />";
+	#my @counts2 = map { int($min + $max * ((($_ - $min) / $max) ** $power) + 0.5) } @counts;
+	#push @res, "Counts2: @counts2<br />";
+	#push @res, "Power: $power<br />";
+	#push @res, "Min: $min<br />";
+	#push @res, "Max: $max<br />";
+	#push @res, "Median: $med<br />";
+	#push @res, "Average: $avg<br />";
 
 	$sizedelta = $maxsize - $minsize;
 	foreach $key (sort keys %$tags) {
-		$value = ($tags->{$key} / 100.0) ** $power;
-		push @res, '<span style="font-size:' . int($minsize + $value * $sizedelta) . 'px;' . ($value > 0.25 ? "font-weight:bold;" : "") . '">';
+		$value = (($tags->{$key} - $min) / $max) ** $power;
+		push @res, '<span style="font-size:' . int($minsize + $value * $sizedelta + 0.5) . 'px;' . ($value > 0.25 ? "font-weight:bold;" : "") . '">';
 		$tag = encode_entities($key);
 		$tag =~ s/\s+/&nbsp;/;
 		push @res, '<a href="/show/tag/?tag=' . uri_escape($key) . '">' . $tag . '</a></span> &nbsp; ';

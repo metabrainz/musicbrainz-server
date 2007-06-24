@@ -49,7 +49,7 @@
 	<script type="text/javascript" src="/scripts/tags.js"></script>
 
 	<p style="margin-bottom: 1em;">
-		<% $t->GenerateTagCloud($tags, 12, 30, 0.45) | n %>
+		<% $t->GenerateTagCloud($tags, 12, 30) | n %>
 	</p>
 
 %	if ($session{uid}) {
