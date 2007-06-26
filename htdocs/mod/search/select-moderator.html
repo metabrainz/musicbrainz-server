@@ -42,8 +42,8 @@
 		or return;
 
 	# If we got a selection, redirect to advanced edit search page.
-	if ($submitvalue =~ m/Cancel/i or
-		MusicBrainz::Server::Validation::IsNonNegInteger($selectededitor))
+	if ($submitvalue !~ m/Search again/i and ($submitvalue =~ m/Cancel/i or
+		MusicBrainz::Server::Validation::IsNonNegInteger($selectededitor)))
 	{
 		my %args = %ARGS;
 
