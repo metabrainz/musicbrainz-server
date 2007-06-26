@@ -109,16 +109,20 @@
 		$m->out(qq!</tr>!);
 
 		my $row = 0;
-		for my $cdtoc (map { $_->GetCDTOC } @ids)
+		foreach my $id (@ids)
 		{
+			my $cdtoc = $id->GetCDTOC;
 			# alternate row background color,
 			# and show discid (and freedb id as a title attribute on the link)
 
 			my $style = (++$row % 2 ? "background-color: #eee" : "");
 			$m->out(qq!<tr style="$style">!);
 			$m->out(qq!<td style="padding: 0px 4px"><a href="/show/cdtoc/?cdtocid=!.$cdtoc->GetId);
-			$m->out(qq!" title="FreeDB Id: ! . $cdtoc->GetFreeDBID);
-			$m->out(qq!">! . $cdtoc->GetDiscID . qq!</a></td>!);
+			$m->out(qq!" title="FreeDB Id: ! . $cdtoc->GetFreeDBID . qq!">!);
+			$m->out(qq!<span class="mp">!) if ($id->GetModPending);
+			$m->out($cdtoc->GetDiscID);
+			$m->out(qq!</span>!) if ($id->GetModPending);
+			$m->out(qq!</a></td>!);
 			$m->out(qq!<td style="text-align: center; padding: 0px 4px">! .$cdtoc->GetTrackCount . qq!</td>!);
 
 
