@@ -274,6 +274,9 @@ sub ApprovedAction
 	require MusicBrainz::Server::Country;
 	my $country = MusicBrainz::Server::Country->new($self->{DBH});
 
+	require Label;
+	my $label = Label->new($self->{DBH});
+
 	my @notes;
 	my $ok = 0;
 	
@@ -293,8 +296,20 @@ sub ApprovedAction
 			next;
 		}
 
+		my $l = $label->newFromId($t->{"nl"});
+		unless ($l)
+		{
+			my $nl = $t->{"nl"};
+			push @notes, "Label $nl has already been deleted";
+			next;
+		}
+
 		if ($r->GetCountry != $t->{'c'}
-			or $r->GetSortDate ne $t->{'d'})
+			or $r->GetSortDate ne $t->{'d'}
+			or $r->GetLabel != $t->{'l'}
+			or $r->GetCatNo ne $t->{'n'}
+			or $r->GetBarcode ne $t->{'b'}
+			or $r->GetFormat != $t->{'f'})
 		{
 			push @notes, "$display has already been changed";
 			next;
