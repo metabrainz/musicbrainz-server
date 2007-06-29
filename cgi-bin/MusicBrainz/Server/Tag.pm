@@ -208,6 +208,141 @@ sub Update
 #        if aggregate tag count == 0: remove aggregate tag assoc.
 
 
+sub Merge
+{
+	my ($self, $entity_type, $old_entity_id, $new_entity_id) = @_;
+	
+	my $assoc_table = $entity_type . '_tag';
+	my $assoc_table_raw = $entity_type . '_tag_raw';
+
+	my $maindb = Sql->new($self->GetDBH());
+	my $tagdb = Sql->new($self->GetDBH());
+
+	# TODO: Actually setup two separate DB handles properly
+	#require MusicBrainz;
+	#my $mb = MusicBrainz->new;
+	#$mb->Login();
+	#my $tagdb = Sql->new($mb->{DBH});
+
+	eval
+	{
+		#$maindb->Begin();
+		#$tagdb->Begin();
+
+		# Load the tag ids for both entities
+		my $old_tag_ids = $maindb->SelectSingleColumnArray("
+			SELECT tag
+			  FROM $assoc_table
+			 WHERE $entity_type = ?", $old_entity_id);
+
+		my $new_tag_ids = $maindb->SelectSingleColumnArray("
+			SELECT tag
+			  FROM $assoc_table
+			 WHERE $entity_type = ?", $new_entity_id);
+		my %new_tag_ids = map { $_ => 1 } @$new_tag_ids;
+
+		foreach my $tag_id (@$old_tag_ids)
+		{
+			# If both entities share the tag, move the individual raw tags
+			if ($new_tag_ids{$tag_id})
+			{
+				my $count = 0;
+
+				# Load the moderator ids for this tag and both entities
+				# TODO: move this outside of this loop, to avoid multiple queries
+				my $old_editor_ids = $tagdb->SelectSingleColumnArray("
+					SELECT tag
+					  FROM $assoc_table_raw
+					 WHERE $entity_type = ? AND tag = ?", $old_entity_id, $tag_id);
+
+				my $new_editor_ids = $tagdb->SelectSingleColumnArray("
+					SELECT tag
+					  FROM $assoc_table_raw
+					 WHERE $entity_type = ? AND tag = ?", $old_entity_id, $tag_id);
+				my %new_editor_ids = map { $_ => 1 } @$new_editor_ids;
+
+				foreach my $editor_id (@$old_editor_ids)
+				{
+					# If the raw tag doesn't exist for the target entity, move it
+					if (!$new_editor_ids{$editor_id})
+					{
+						$tagdb->Do("
+							UPDATE $assoc_table_raw
+							   SET $entity_type = ?
+							 WHERE $entity_type = ?
+							   AND tag = ?
+							   AND moderator = ?", $new_entity_id, $old_entity_id, $tag_id, $editor_id);
+						$count++;
+					}
+				}
+
+				# Update the aggregated tag count for moved raw tags
+				if ($count)
+				{
+					$maindb->Do("
+						UPDATE $assoc_table
+						   SET count = count + ?
+						 WHERE $entity_type = ? AND tag = ?", $count, $new_entity_id, $tag_id);
+				}
+
+			}
+			# If the tag doesn't exist for the target entity, move it
+			else
+			{
+				$maindb->Do("
+					UPDATE $assoc_table
+					   SET $entity_type = ?
+					 WHERE $entity_type = ? AND tag = ?", $new_entity_id, $old_entity_id, $tag_id);
+				$tagdb->Do("
+					UPDATE $assoc_table_raw
+					   SET $entity_type = ?
+					 WHERE $entity_type = ? AND tag = ?", $new_entity_id, $old_entity_id, $tag_id);
+			}
+		}
+
+		# Delete unused tags
+		$maindb->Do("DELETE FROM $assoc_table WHERE $entity_type = ?", $old_entity_id);
+		$tagdb->Do("DELETE FROM $assoc_table_raw WHERE $entity_type = ?", $old_entity_id);
+	};
+	if ($@)
+	{
+		my $err = $@;
+		#eval { $maindb->Rollback(); };
+		#eval { $tagdb->Rollback(); };
+		die $err;
+	}
+	else
+	{
+		#$maindb->Commit();
+		#$tagdb->Commit();
+		return 1;
+	}
+}
+
+sub MergeAlbums
+{
+	my ($self, $oldid, $newid) = @_;
+	$self->Merge("release", $oldid, $newid);
+}
+
+sub MergeTracks
+{
+	my ($self, $oldid, $newid) = @_;
+	$self->Merge("track", $oldid, $newid);
+}
+
+sub MergeArtists
+{
+	my ($self, $oldid, $newid) = @_;
+	$self->Merge("artist", $oldid, $newid);
+}
+
+sub MergeLabels
+{
+	my ($self, $oldid, $newid) = @_;
+	$self->Merge("label", $oldid, $newid);
+}
+
 sub GetTagsForEntity
 {
 	my ($self, $entity_type, $entity_id) = @_;

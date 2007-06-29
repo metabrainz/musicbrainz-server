@@ -369,7 +369,11 @@ sub MergeInto
 	require MusicBrainz::Server::Link;
 	my $link = MusicBrainz::Server::Link->new($sql->{DBH});
 	$link->MergeArtists($o, $n);
-	
+
+	require MusicBrainz::Server::Tag;
+	my $tag = MusicBrainz::Server::Tag->new($sql->{DBH});
+	$tag->MergeArtists($o, $n);
+
     $sql->Do("DELETE FROM artist     WHERE id   = ?", $o);
     $old->InvalidateCache;
 

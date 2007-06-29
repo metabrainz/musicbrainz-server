@@ -975,7 +975,10 @@ sub MergeAlbums
    
    require MusicBrainz::Server::Link;
    my $link = MusicBrainz::Server::Link->new($sql->{DBH});
-   
+
+	require MusicBrainz::Server::Tag;
+	my $tag = MusicBrainz::Server::Tag->new($sql->{DBH});
+
    foreach $id (@list)
    {
        $al->SetId($id);
@@ -1001,7 +1004,10 @@ sub MergeAlbums
 				
 				# Move relationships
 				$link->MergeTracks($old, $new);
-				
+
+				# Move tags
+				$tag->MergeTracks($old, $new);
+
 	        		$this->SetGlobalIdRedirect($old, $tr->GetMBId, $new, &TableBase::TABLE_TRACK);
            }
            else
@@ -1044,6 +1050,9 @@ sub MergeAlbums
 
 		# And the ARs
 		$link->MergeAlbums($id, $this->GetId);
+
+		# ... and the tags
+		$tag->MergeAlbums($id, $this->GetId);
 
     		$this->SetGlobalIdRedirect($id, $al->GetMBId, $this->GetId, &TableBase::TABLE_ALBUM);
 
