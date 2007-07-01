@@ -30,6 +30,8 @@
 
 	$modid => 0
 	$editid => undef
+
+	$notetext => ""
 	$submitvalue => ""
 	$url => "/mod/search/pre/moderator.html"
 
@@ -74,6 +76,11 @@
 			{
 				$sql->Begin;
 				$edit->RemoveModeration($session{uid});
+
+				# Insert a note
+				$edit->InsertNote($session{"uid"}, $notetext)
+					if ($notetext);
+
 				$sql->Commit;
 			};
 			if ($@)
@@ -138,13 +145,17 @@
 					$edit->ShowNewValue($m);
 				</%perl></td>
 			</tr>
-			<tr class="spaced">
-				<td class="label">&nbsp;</td>
-				<td class="submitbuttons">
-					<input type="submit" class="button" name="submitvalue" value="Cancel edit &raquo;" />
-					<input type="submit" class="button" name="submitvalue" id="btn_cancel" value="No, keep it" />
-
-					<& /comp/form/focusfield, "btn_cancel" &>
+			<tr>
+				<td>&nbsp;</td>
+				<td>
+					<& /comp/notetext,
+						required => 0,
+						buttons => [["Cancel edit &raquo;", "btnYes"], ["No, keep it", "btnCancel"]],
+						showprivscheckbox => 0,
+						showeditnotetext => 0
+					&>
+				
+					<& /comp/form/focusfield, "btnCancel" &>
 					<& /comp/args-to-hidden-fields.inc, %ARGS &>
 				</td>
 			</tr>
