@@ -130,7 +130,7 @@
      	<& /comp/ar/RemoveRelationship, id=>$remrel, type=>$remtype &>
 % 	}
 
-	<& /comp/ar/RelationshipBox, id=>$track->GetId, type=>'track', name=>$track->GetName &>
+	<& /comp/ar/RelationshipBox, id=>$track->GetId, type=>'track', name=>$track->GetName, isrelpage=>1 &>
 
 	<& /comp/trackinfo, track => $track, TRM => \@TRM, PUID => \@PUID &>
 
