@@ -46,6 +46,7 @@
 			\s+				#  mandatory whitespace
 		)
 		([0-9A-Fa-f]{8})	# data ID (e.g. 12345678)
+		(?:\s*,\s*[0-9A-Fa-f]{8})?	# additional IDs
 		\s*$				# trailing space, end of line
 		/x;
 
