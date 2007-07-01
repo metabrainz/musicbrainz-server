@@ -99,7 +99,7 @@ sub All
 
 	if ($obj)
 	{
-		@$obj = grep { $_->{frequency} >= $minfreq } @$obj
+		@$obj = grep { $_->{frequency} >= $minfreq or $_->{id} == $include } @$obj
 			if defined $minfreq;
 		$_->{DBH} = $self->{DBH} for @$obj;
 		return @$obj;
@@ -120,8 +120,7 @@ sub All
 	MusicBrainz::Server::Cache->set($key, \@list);
 	$_->{DBH} = $self->{DBH} for @list;
 
-	@list = grep { $_->{frequency} >= $minfreq
-			or $_->{id} == $include } @list
+	@list = grep { $_->{frequency} >= $minfreq or $_->{id} == $include } @list
 		if defined $minfreq;
 	return @list;
 }
