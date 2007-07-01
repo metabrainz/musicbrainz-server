@@ -64,7 +64,7 @@
 	if (($us && $us->IsNewbie()) || UserStuff->IsUntrusted($session{privs}))
 	{
 		return $m->comp("/comp/layout/error",
-			text => "You are not allowed to enter non-album tracks.");
+			text => "Editors who are members for less then two weeks are not allowed to enter non-album tracks.");
 	}
 
 	# make sure we got a valid numtracks parameter
