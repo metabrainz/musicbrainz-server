@@ -64,6 +64,8 @@
 
 </%perl>
 
+	<script type="text/javascript" src="/scripts/langselect.js"></script>
+
 % 	if ($add_language)
 %	{
 
@@ -97,13 +99,13 @@
 % 	if ($expand_lists)
 %	{
 
-				<input class="button" type="submit" name="submitvalue" value="Show reduced lists" />
+				<input class="button" type="submit" name="submitvalue" id="toggle_lang_lists" value="Show reduced lists" />
 
 % 	}
 %	else
 %	{
 
-				<input class="button" type="submit" name="submitvalue" value="Show full lists" />
+				<input class="button" type="submit" name="submitvalue" id="toggle_lang_lists" value="Show full lists" />
 
 % 	}
 
@@ -116,7 +118,7 @@
 		<tr>
 			<td>&nbsp;</td>
 			<td class="padtop">
-				<input  class="button" 	type="submit"name="submitvalue" value="Next &raquo;" /></td>
+				<input  class="button" 	type="submit" name="submitvalue" value="Next &raquo;" /></td>
 		</tr>
 
 % 	}
