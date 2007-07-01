@@ -77,6 +77,8 @@
 	# Instantiate MusicBrainz object
 	my $mb = $m->comp("/comp/dblogin");
 
+	MusicBrainz::Server::Validation::TrimInPlace($resolution, $name, $sortname);
+
 	# Try to load the named artist by name. If an artist comes up, give
 	# the user a stern warning about adding a duplicate artist.
 	my @dupes;
@@ -112,8 +114,6 @@
 		}
 		else
 		{
-			MusicBrainz::Server::Validation::TrimInPlace($resolution, $name, $sortname);
-
 			push @messages, "Please Select a valid type." if (not Artist::IsValidType($type));
 			push @messages, "Please enter the Name." if ($name eq "");
 			push @messages, "The artist name contains 'feat.' in it, see the <a href=\"style.html#styleguide-feat-artist\">style guidelines</a> for the correct way to credit featuring artists." if ($attempts == 0 && $name =~ /feat\./);

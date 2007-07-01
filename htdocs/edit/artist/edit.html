@@ -89,6 +89,8 @@
 	$name = $artist->GetName() if !$name;
 	$sortname = $artist->GetSortName() if !$sortname;
 
+	MusicBrainz::Server::Validation::TrimInPlace($resolution, $name, $sortname);
+
 	# Try to load the named artist by name. If an artist comes up,
 	# give the user a stern warning about editing a duplicate artist.
 	my @dupes;
@@ -117,9 +119,6 @@
 		}
 		else
 		{
-
-			MusicBrainz::Server::Validation::TrimInPlace($resolution, $name, $sortname);
-
 			push @messages, "Please Select a valid type." if (not Artist::IsValidType($type));
 			push @messages, "Please Enter the Name." if ($name eq "");
 			push @messages, "Please Enter the Sort Name." if ($sortname eq "");
