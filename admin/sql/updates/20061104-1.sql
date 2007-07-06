@@ -185,6 +185,7 @@ CREATE UNIQUE INDEX label_gidindex ON label (gid);
 CREATE INDEX label_nameindex ON label (name);
 CREATE INDEX label_pageindex ON label (page);
 CREATE INDEX labelwords_labelidindex ON labelwords (labelid);
+CREATE INDEX release_label ON release (label);
 
 CREATE UNIQUE INDEX l_album_label_idx_uniq ON l_album_label (link0, link1, link_type, begindate, enddate);
 CREATE UNIQUE INDEX l_artist_label_idx_uniq ON l_artist_label (link0, link1, link_type, begindate, enddate);

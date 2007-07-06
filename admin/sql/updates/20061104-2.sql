@@ -126,6 +126,11 @@ ALTER TABLE moderator_subscribe_label
     FOREIGN KEY (moderator)
     REFERENCES moderator(id);
 
+ALTER TABLE release
+    ADD CONSTRAINT release_fk_label
+    FOREIGN KEY (label)
+    REFERENCES label(id);
+
 COMMIT;
 
 -- vi: set ts=4 sw=4 et :

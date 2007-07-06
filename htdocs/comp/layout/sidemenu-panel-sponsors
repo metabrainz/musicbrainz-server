@@ -37,6 +37,12 @@
 			</tr>
 			<tr>
 				<td class="sponsors">
+					<a href="http://www.google.com"><img
+						src="/images/sponsors/googlesponsor.png"
+						alt="Google" title="Google" /></a></td>
+			</tr>
+			<tr>
+				<td class="sponsors">
 					<a href="http://musicip.com"><img
 						src="/images/sponsors/musicip.png"
 						alt="MusicIP" title="MusicIP" /></a></td>
@@ -52,12 +58,6 @@
 					<a href="http://digitalwest.net"><img
 						src="/images/sponsors/digitalwest.png"
 						alt="DWNI" title="Digital West Networks Inc." /></a></td>
-			</tr>
-			<tr>
-				<td class="sponsors">
-					<a href="http://www.relatable.com"><img
-						src="/images/sponsors/relatable.png"
-						alt="Relatable" title="Relatable" /></a></td>
 			</tr>
 			<tr>
 				<td class="sponsors">

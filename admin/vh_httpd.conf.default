@@ -1,15 +1,15 @@
 # vi: set ts=4 sw=4 ft=apache :
 
-<VirtualHost *>
-	# TODO: This needs to point to where the htdocs are
-	DocumentRoot "/home/httpd/musicbrainz/mb_server/htdocs"
-	# TODO: This needs to point to where the cgi-bin scripts are
-	Alias /cgi-bin/ "/home/httpd/musicbrainz/mb_server/cgi-bin/"
-
+<VirtualHost *:*>
 	# TODO: Enter the name of your server.  You should have two names
 	# available: one for web browsing (HTML), and one for web services (RDF).
 	ServerName www.musicbrainz.example.com
 	ServerAlias rdf.musicbrainz.example.com
+
+	# TODO: This needs to point to where the htdocs are
+	DocumentRoot "/home/httpd/musicbrainz/mb_server/htdocs"
+	# TODO: This needs to point to where the cgi-bin scripts are
+	Alias /cgi-bin/ "/home/httpd/musicbrainz/mb_server/cgi-bin/"
 
 	DefaultType text/html
 
@@ -177,6 +177,49 @@
 	RewriteRule	^/mod/annotation/album-history.html(.*)		/edit/annotation/album/history.html$1 [R=301,L]
 	RewriteRule	^/mod/annotation/(.*)						/edit/annotation/$1 [R=301,L]
 
+	# new web service rules -- these should probably be moved into the Handlers.pm module
+	PerlModule MusicBrainz::Server::Handlers::WS::1::Artist
+	<Location /ws/1/artist>
+		SetHandler perl-script
+		PerlHandler MusicBrainz::Server::Handlers::WS::1::Artist
+	</Location>
+
+	PerlModule MusicBrainz::Server::Handlers::WS::1::Label
+	<Location /ws/1/label>
+		SetHandler perl-script
+		PerlHandler MusicBrainz::Server::Handlers::WS::1::Label
+	</Location>
+
+	PerlModule MusicBrainz::Server::Handlers::WS::1::Release
+	<Location /ws/1/release>
+		SetHandler perl-script
+		PerlHandler MusicBrainz::Server::Handlers::WS::1::Release
+	</Location>
+
+	PerlModule MusicBrainz::Server::Handlers::WS::1::Track
+	<Location /ws/1/track>
+		SetHandler perl-script
+		PerlHandler MusicBrainz::Server::Handlers::WS::1::Track
+
+		PerlAuthenHandler MusicBrainz::Server::Handlers::WS::1::Auth
+		Require valid-user
+		AuthType Digest
+		AuthName "musicbrainz.org"
+		PerlSetVar DigestRealm "musicbrainz.org"
+	</Location>
+
+	PerlModule MusicBrainz::Server::Handlers::WS::1::User
+	<Location /ws/1/user>
+		PerlHandler MusicBrainz::Server::Handlers::WS::1::User
+		SetHandler perl-script
+
+		PerlAuthenHandler MusicBrainz::Server::Handlers::WS::1::Auth
+		Require valid-user
+		AuthType Digest
+		AuthName "musicbrainz.org"
+		PerlSetVar DigestRealm "musicbrainz.org"
+	</Location>
+
 	PerlModule MusicBrainz::Server::Handlers::WS::Private::Lookup
 	<Location /ws/priv/lookup>
 		SetHandler perl-script
@@ -186,48 +229,5 @@
 </VirtualHost>
 
 PerlRestartHandler MusicBrainz::Server::LogFile::RestartHandler
-
-# new web service rules -- these should probably be moved into the Handlers.pm module
-PerlModule MusicBrainz::Server::Handlers::WS::1::Artist
-<Location /ws/1/artist>
-	SetHandler perl-script
-	PerlHandler MusicBrainz::Server::Handlers::WS::1::Artist
-</Location>
-
-PerlModule MusicBrainz::Server::Handlers::WS::1::Label
-<Location /ws/1/label>
-	SetHandler perl-script
-	PerlHandler MusicBrainz::Server::Handlers::WS::1::Label
-</Location>
-
-PerlModule MusicBrainz::Server::Handlers::WS::1::Release
-<Location /ws/1/release>
-	SetHandler perl-script
-	PerlHandler MusicBrainz::Server::Handlers::WS::1::Release
-</Location>
-
-PerlModule MusicBrainz::Server::Handlers::WS::1::Track
-<Location /ws/1/track>
-	SetHandler perl-script
-	PerlHandler MusicBrainz::Server::Handlers::WS::1::Track
-
-	PerlAuthenHandler MusicBrainz::Server::Handlers::WS::1::Auth
-	Require valid-user
-	AuthType Digest
-	AuthName "musicbrainz.org"
-	PerlSetVar DigestRealm "musicbrainz.org"
-</Location>
-
-PerlModule MusicBrainz::Server::Handlers::WS::1::User
-<Location /ws/1/user>
-	PerlHandler MusicBrainz::Server::Handlers::WS::1::User
-	SetHandler perl-script
-
-	PerlAuthenHandler MusicBrainz::Server::Handlers::WS::1::Auth
-	Require valid-user
-	AuthType Digest
-	AuthName "musicbrainz.org"
-	PerlSetVar DigestRealm "musicbrainz.org"
-</Location>
 
 # eof

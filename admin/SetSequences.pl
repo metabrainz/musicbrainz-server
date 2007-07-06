@@ -38,16 +38,17 @@ sub SetSequence
 
     my $seq = $table . "_id_seq";
 
-    if (not defined $max)
-    {
-		$max = $sql->GetColumnRange($table);
-    }
-
-    $max++;
-
     eval
     {
         $sql->Begin;
+
+		if (not defined $max)
+		{
+			$max = $sql->GetColumnRange($table);
+		}
+
+		$max++;
+
         $sql->SelectSingleValue("SELECT SETVAL(?, ?)", $seq, $max);
         $sql->Commit;
     
@@ -57,7 +58,6 @@ sub SetSequence
     {
         $sql->Rollback;
     }
-
 }
 
 my $mb = MusicBrainz->new;
@@ -84,24 +84,37 @@ SetSequence($sql, "currentstat");
 SetSequence($sql, "historicalstat");
 SetSequence($sql, "l_album_album");
 SetSequence($sql, "l_album_artist");
+SetSequence($sql, "l_album_label");
 SetSequence($sql, "l_album_track");
 SetSequence($sql, "l_album_url");
 SetSequence($sql, "l_artist_artist");
+SetSequence($sql, "l_artist_label");
 SetSequence($sql, "l_artist_track");
 SetSequence($sql, "l_artist_url");
+SetSequence($sql, "l_label_label");
+SetSequence($sql, "l_label_track");
+SetSequence($sql, "l_label_url");
 SetSequence($sql, "l_track_track");
 SetSequence($sql, "l_track_url");
 SetSequence($sql, "l_url_url");
+SetSequence($sql, "label");
+SetSequence($sql, "labelalias");
+# labelwords - no unique column
 SetSequence($sql, "language");
 SetSequence($sql, "link_attribute");
 SetSequence($sql, "link_attribute_type");
 SetSequence($sql, "lt_album_album");
 SetSequence($sql, "lt_album_artist");
+SetSequence($sql, "lt_album_label");
 SetSequence($sql, "lt_album_track");
 SetSequence($sql, "lt_album_url");
 SetSequence($sql, "lt_artist_artist");
+SetSequence($sql, "lt_artist_label");
 SetSequence($sql, "lt_artist_track");
 SetSequence($sql, "lt_artist_url");
+SetSequence($sql, "lt_label_label");
+SetSequence($sql, "lt_label_track");
+SetSequence($sql, "lt_label_url");
 SetSequence($sql, "lt_track_track");
 SetSequence($sql, "lt_track_url");
 SetSequence($sql, "lt_url_url");
@@ -112,6 +125,7 @@ SetSequence($sql, "lt_url_url");
 SetSequence($sql, "moderator");
 SetSequence($sql, "moderator_preference");
 SetSequence($sql, "moderator_subscribe_artist");
+SetSequence($sql, "moderator_subscribe_label");
 SetSequence($sql, "puid");
 SetSequence($sql, "puidjoin");
 SetSequence($sql, "puidjoin_stat");

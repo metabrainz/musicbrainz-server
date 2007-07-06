@@ -249,12 +249,12 @@ sub xml_artist
 		print '</alias-list>';
 	}
 	
-    my ($b, $e) = ($ar->GetBeginDate, $ar->GetEndDate);
-    if ($b|| $e)
+    my ($begin, $end) = ($ar->GetBeginDate, $ar->GetEndDate);
+    if ($begin|| $end)
     {
         print '<life-span';
-        print ' begin="' . MusicBrainz::Server::Validation::MakeDisplayDateStr($b) . '"' if ($b); 
-        print ' end="' . MusicBrainz::Server::Validation::MakeDisplayDateStr($e) . '"' if ($e); 
+        print ' begin="' . MusicBrainz::Server::Validation::MakeDisplayDateStr($begin) . '"' if ($begin); 
+        print ' end="' . MusicBrainz::Server::Validation::MakeDisplayDateStr($end) . '"' if ($end); 
         print '/>';
     }
     if (defined $info)
@@ -272,7 +272,7 @@ sub xml_artist
             if (scalar(@filtered))
             {
                 print '<release-list>';
-                foreach my $al (@filtered)
+                foreach my $al (sort { $a->GetFirstReleaseDate() cmp $b->GetFirstReleaseDate() } @filtered)
                 {
                     xml_release($ar, $al, $inc);
                 }
@@ -786,6 +786,15 @@ sub xml_search
     elsif ($type eq 'artist')
     {
         my $term = MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{artist});
+        $term =~ tr/A-Z/a-z/;
+        if (not $term =~ /^\s*$/)
+        {
+            $query = "artist:($term)(sortname:($term) alias:($term) !artist:($term))";
+        }
+    }
+    elsif ($type eq 'label')
+    {
+        my $term = MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{label});
         $term =~ tr/A-Z/a-z/;
         if (not $term =~ /^\s*$/)
         {

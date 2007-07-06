@@ -109,6 +109,7 @@ ALTER TABLE puidjoin DROP CONSTRAINT puidjoin_fk_puid;
 ALTER TABLE puidjoin_stat DROP CONSTRAINT puidjoin_stat_fk_puidjoin;
 ALTER TABLE release DROP CONSTRAINT release_fk_album;
 ALTER TABLE release DROP CONSTRAINT release_fk_country;
+ALTER TABLE release DROP CONSTRAINT release_fk_label;
 ALTER TABLE label DROP CONSTRAINT label_fk_country;
 ALTER TABLE script_language DROP CONSTRAINT script_language_fk_language;
 ALTER TABLE script_language DROP CONSTRAINT script_language_fk_script;

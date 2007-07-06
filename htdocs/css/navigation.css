@@ -172,7 +172,7 @@ div.morelink a:hover {
 }
 
 .sidemenustats td.sponsors img {
-	width: 110px; height: 35px; border: none;
+	width: 110px; border: none;
 }
 
 /* removed diplay: none, default=open */ 

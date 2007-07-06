@@ -471,47 +471,21 @@ sub _ProcessUserSubscriptions
 		# Find mods for this artist which are
 		# > lastmodsent and <= THRESHOLD_MODID
 
-		my ($open, $applied);
 		require ModDefs;
-		for (
-			[ &ModDefs::STATUS_OPEN, \$open ],
-			[ &ModDefs::STATUS_APPLIED, \$applied ],
-		) {
-			my ($status, $countref) = @$_;
-
-			my $cache = $self->{ARTIST_MODCOUNT_CACHE};
-			my $cachekey = join "-",
-				$sub->{'artist'},
-				$sub->{'lastmodsent'},
-				$status;
-
-			if (not defined $cache->{$cachekey})
-			{
-				printf "Counting mods: a=%d s=%d %d < id <= %d\n",
-					$sub->{'artist'},
-					$status,
-					$sub->{'lastmodsent'},
-					$self->{THRESHOLD_MODID},
-					if $self->{'verbose'};
-
-				$cache->{$cachekey} = $sql->SelectSingleValue(
-					"SELECT COUNT(*) FROM moderation_all
-					WHERE artist = ?
-					AND status = ?
-					AND id > ?
-					AND id <= ?",
-					$sub->{'artist'},
-					$status,
-					$sub->{'lastmodsent'},
-					$self->{THRESHOLD_MODID},
-				);
-
-				print "Answer=$cache->{$cachekey} (saved in $cachekey)\n"
-					if $self->{'verbose'};
-			}
-
-			$$countref = $cache->{$cachekey};
-		}
+		my $open = $self->CountArtistEdits(
+			$sql,
+			artist => $sub->{'artist'},
+			status => &ModDefs::STATUS_OPEN,
+			minid => $sub->{'lastmodsent'}+1,
+			maxid => $self->{THRESHOLD_MODID},
+		);
+		my $applied = $self->CountArtistEdits(
+			$sql,
+			artist => $sub->{'artist'},
+			status => &ModDefs::STATUS_APPLIED,
+			minid => $sub->{'lastmodsent'}+1,
+			maxid => $self->{THRESHOLD_MODID},
+		);
 
 		next if $open == 0 and $applied == 0;
 
@@ -618,6 +592,44 @@ EOF
 	}
 
 	$user->SendFormattedEmail(entity => $mail);
+}
+
+sub CountArtistEdits
+{
+	my ($self, $sql, %opts) = @_;
+
+	my $key = "CountArtistEdits s=$opts{status} id=$opts{minid}-$opts{maxid}";
+	if (my $t = $self->{_cache_}{$key})
+	{
+		return $t->{ $opts{artist} } || 0;
+	}
+
+	printf "Counting edits by artist: s=%d %d <= id <= %d\n",
+		$opts{status},
+		$opts{minid},
+		$opts{maxid},
+		if $self->{'verbose'};
+
+	my %counts;
+	{
+		my $rows = $sql->SelectListOfLists(
+			"SELECT artist, COUNT(*) FROM moderation_all
+			WHERE status = ?
+			AND id BETWEEN ? AND ?
+			GROUP BY artist",
+			$opts{status},
+			$opts{minid},
+			$opts{maxid},
+		);
+		%counts = map { $_->[0] => $_->[1] } @$rows;
+	}
+
+	printf "Got counts of edits by artist (%d artists)\n",
+		scalar(keys %counts),
+		if $self->{'verbose'};
+
+	$self->{_cache_}{$key} = \%counts;
+	return $counts{ $opts{artist} } || 0;
 }
 
 1;

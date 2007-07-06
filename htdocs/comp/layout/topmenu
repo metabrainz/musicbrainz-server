@@ -128,6 +128,7 @@
 			{ name => "Live Data-Feed",		url => "/doc/LiveDataFeed" },
 			{ name => "3rd Party",			url => "/doc/MusicBrainzEnabledApplications" },
 			{ name => "Web Service",		url => "/doc/WebService" },
+			{ name => "FreeDB gateway",		url => "/doc/FreeDBGateway" },
 
 		],
 		{ name => "Search",					url => "/search.html" },
@@ -416,6 +417,7 @@
 			{ name => "Mailing Lists",			url => "/doc/MailingList" },
 			{ name => "Web Forums",             url => "http://forums.musicbrainz.org" },
 			{ name => "Bugs / RFEs",			url => "http://musicbrainz.org/bugs" },
+			{ name => "Copyright Issues",		url => "http://musicbrainz.org/doc/CopyrightViolationNotice" },
 		],
 	);
 

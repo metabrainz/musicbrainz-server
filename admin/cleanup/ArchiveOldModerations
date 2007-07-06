@@ -68,6 +68,7 @@ my $commit = 0;
 my $full = 0;
 my ($la_lwm, $la_hwm) = (1, 2);
 my $sleep;
+my $start_id;
 GetOptions(
 	"chunk=i"	=> \$chunk,
 	"commit=i"	=> \$commit,
@@ -75,6 +76,7 @@ GetOptions(
 	"la-hwm=f"	=> \$la_hwm,
 	"la-lwm=f"	=> \$la_lwm,
 	"sleep=i"	=> \$sleep,
+	"start-id=i"=> \$start_id,
 ) or exit 2;
 
 use DBDefs;
@@ -93,6 +95,7 @@ my $sql = Sql->new($mb->{DBH});
 my $threshold_time = time() - 86400 * 60; # 60 days
 my $threshold_mod_id = Moderation->iFindByTime($mb->{DBH}, $threshold_time);
 my ($iMin, $iMax) = Moderation->iiMinMaxID($mb->{DBH});
+$iMin = $start_id if $start_id;
 print localtime() . " : min=$iMin threshold=$threshold_mod_id max=$iMax\n";
 
 my $types = join ",", &ModDefs::MOD_ADD_TRMS, &ModDefs::MOD_ADD_PUIDS;

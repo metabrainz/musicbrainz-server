@@ -154,6 +154,7 @@ CREATE UNIQUE INDEX puidjoin_puidtrack ON puidjoin (puid, track);
 CREATE UNIQUE INDEX puidjoin_stat_puidjoin_idindex ON puidjoin_stat (puidjoin_id, month_id);
 
 CREATE INDEX release_album ON release (album);
+CREATE INDEX release_label ON release (label);
 
 CREATE UNIQUE INDEX script_isocode ON script (isocode);
 CREATE UNIQUE INDEX script_isonumber ON script (isonumber);
@@ -178,6 +179,7 @@ CREATE UNIQUE INDEX trmjoin_trmtrack ON trmjoin (trm, track);
 CREATE UNIQUE INDEX trmjoin_stat_trmjoin_idindex ON trmjoin_stat (trmjoin_id, month_id);
 
 CREATE UNIQUE INDEX url_idx_gid ON url (gid);
+CREATE UNIQUE INDEX url_idx_url ON url (url);
 
 CREATE INDEX vote_closed_idx_moderation ON vote_closed (moderation);
 CREATE INDEX vote_closed_idx_moderator ON vote_closed (moderator);

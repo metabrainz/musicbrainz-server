@@ -525,6 +525,11 @@ ALTER TABLE release
     FOREIGN KEY (country)
     REFERENCES country(id);
 
+ALTER TABLE release
+    ADD CONSTRAINT release_fk_label
+    FOREIGN KEY (label)
+    REFERENCES label(id);
+
 ALTER TABLE track
     ADD CONSTRAINT track_fk_artist
     FOREIGN KEY (artist)

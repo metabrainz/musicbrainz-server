@@ -47,6 +47,7 @@ use constant LABEL_TYPE_PRODUCTION				=> 3;
 use constant LABEL_TYPE_ORIGINAL_PRODUCTION		=> 4;
 use constant LABEL_TYPE_BOOTLEG_PRODUCTION		=> 5;
 use constant LABEL_TYPE_REISSUE_PRODUCTION		=> 6;
+use constant LABEL_TYPE_PUBLISHER		=> 7;
 
 my %LabelTypeNames = (
    0 => [ 'Unknown', 0 ],
@@ -56,12 +57,13 @@ my %LabelTypeNames = (
    4 => [ 'Original Production', 1 ],
    5 => [ 'Bootleg Production', 1 ],
    6 => [ 'Reissue Production', 1 ],
+   7 => [ 'Publisher', 0 ],
 );
 
 sub GetLabelTypes
 {
 	my @types;
-	for (my $id = 0; $id <= 6; $id++)
+	for (my $id = 0; $id <= 7; $id++)
 	{
 		my $type = [$id, $LabelTypeNames{$id}->[0], undef, $LabelTypeNames{$id}->[1]];
 		push @types, $type;
@@ -72,7 +74,7 @@ sub GetLabelTypes
 sub IsValidType
 {
 	my $type = shift;
-	return (defined $type and $type ne "" and $type >= 0 and $type <= 6);
+	return (defined $type and $type ne "" and $type >= 0 and $type <= 7);
 }
 
 # Label specific accessor function. Others are inherted from TableBase 
