@@ -32,6 +32,7 @@ Release 2007-XX-YY:
     * Broken link to annotation history on the release page. (#2832)
     * Check for label ARs in the artist cleanup script. (#2814)
     * Error in handling track length edits. (#2887)
+    * Display TransclusionEditor privilege on editor profile. (#3000)
 
 Release 2007-04-01:
 

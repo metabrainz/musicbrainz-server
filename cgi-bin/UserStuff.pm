@@ -635,6 +635,9 @@ sub GetUserType
 	$type .= ', <a href="/doc/RelationshipEditor">RelationshipEditor</a>'
 		if ($this->IsLinkModerator($privs));
 
+	$type .= ', <a href="/doc/TransclusionEditor">TransclusionEditor</a>'
+		if ($this->IsWikiTranscluder($privs));
+
 	$type = "Normal User"
 		if ($type eq "");
 
