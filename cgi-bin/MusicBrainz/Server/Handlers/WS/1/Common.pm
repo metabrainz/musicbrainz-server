@@ -865,8 +865,7 @@ sub xml_search
             $query = "(" . join(" AND ", split /\s+/, $term) . ")";
         }
         if ($args->{artistid})
-        { 
-            $args->{artistid} =~ s/-//g;
+        {
             $query .= " AND arid:" . MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{artistid});
         }
         else
