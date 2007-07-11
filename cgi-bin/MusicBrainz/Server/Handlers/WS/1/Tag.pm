@@ -40,8 +40,7 @@ sub handler
 	# URLs are of the form:
 	# POST http://server/ws/1/tag/?name=<user_name>&entity=<entity>&id=<id>&tags=<tags>
 
-    # TODO: Remove this case and only allow POST here
-    return handler_post($r); # if ($r->method eq "POST");
+    return handler_post($r) if ($r->method eq "POST");
 
     $r->status(BAD_REQUEST);
 	return Apache::Constants::BAD_REQUEST();
@@ -68,8 +67,7 @@ sub handler_post
     if (!MusicBrainz::Server::Validation::IsGUID($id) || 
         ($entity ne 'artist' && $entity ne 'release' && $entity ne 'track' && $entity ne 'label'))
     {
-        $r->status(BAD_REQUEST);
-        return BAD_REQUEST;
+		return bad_req($r, "Invalid MBID/entity.");
     }
 
     # Ensure that the login name is the same as the resource requested 
@@ -82,8 +80,7 @@ sub handler_post
     # Ensure that we're not a replicated server and that we were given a client version
     if (&DBDefs::REPLICATION_TYPE == &DBDefs::RT_SLAVE)
     {
-		$r->status(BAD_REQUEST);
-        return BAD_REQUEST;
+		return bad_req($r, "You cannot submit tags to a slave server.");
     }
 
 	my $status = eval 
