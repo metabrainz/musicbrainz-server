@@ -43,10 +43,7 @@
 			{ name => "About MusicBrainz",		url => "/doc/AboutMusicBrainz" },
 			{ name => "Mirrors",				url => "/doc/MirrorServer" },
 			{ name => "People",					url => "/doc/MusicBrainzBio" },
-			{ name => "Privacy",				url => "/privacy" },
-			[
-				{ url => "/docs/20040922-1.html" },
-			],
+			{ name => "Privacy",				url => "/doc/MusicBrainzPrivacyPolicy" },
 			{ name => "History",				url => "/doc/MusicBrainzHistory" },
 			{ name => "Licenses",				url => "/doc/MusicBrainzLicense" },
 			{ name => "Social Contract",		url => "/doc/SocialContract" },

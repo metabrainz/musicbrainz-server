@@ -54,6 +54,9 @@
 	RewriteRule	^/license.html$					/doc/DatabaseLicenseWhitePaper [R=301]
 	RewriteRule	^/mod_intro.html$				/doc/HowEditingWorks [R=301]	
 	RewriteRule	^/privacy$						/doc/MusicBrainzPrivacyPolicy [R=301]
+	RewriteRule	^/docs/20040922-1.html$			/doc/MusicBrainzPrivacyPolicy [R=301]
+	RewriteRule	^/docs/20050213-1.html$			/doc/MusicBrainzPrivacyPolicy [R=301]
+	RewriteRule	^/docs/20050108-1.html$			/doc/MusicBrainzPrivacyPolicy [R=301]
 	
 	RewriteRule	^/about/helpwanted.html$		/doc/HelpWanted [R=301]
 	RewriteRule	^/about/logos.html$				/doc/MusicBrainzLogos [R=301]	
