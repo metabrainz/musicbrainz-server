@@ -86,6 +86,32 @@ sub GetSubscribersForLabel
 }
 
 ################################################################################
+# Users subscribed to an editor
+################################################################################
+
+# Returns a list or count of users subscribed to a particular editor
+sub GetSubscribersForEditor
+{
+	my $self = shift;
+	$self = $self->new(shift) if not ref $self;
+	my $editor = shift;
+
+	return if not defined wantarray;
+	my $sql = Sql->new($self->{DBH});
+
+	return $sql->SelectSingleValue(
+		"SELECT COUNT(DISTINCT editor) FROM editor_subscribe_editor WHERE subscribededitor = ?",
+		$editor,
+	) if not wantarray;
+
+	my $user_ids = $sql->SelectSingleColumnArray(
+		"SELECT DISTINCT editor FROM editor_subscribe_editor WHERE subscribededitor = ?",
+		$editor,
+	);
+	return @$user_ids;
+}
+
+################################################################################
 # Managing a user's subscription list
 ################################################################################
 
@@ -290,6 +316,107 @@ sub UnsubscribeLabels
 				WHERE moderator = ? AND label = ?",
 				$uid,
 				$labelid,
+			);
+		}
+	});
+
+	1;
+}
+
+sub GetSubscribedEditors
+{
+	my ($self) = @_;
+	my $uid = $self->GetUser or die;
+	my $sql = Sql->new($self->{DBH});
+
+	my $rows = $sql->SelectListOfHashes(
+		"SELECT s.*, m.name
+		FROM editor_subscribe_editor s
+		LEFT JOIN moderator m ON m.id = s.subscribededitor
+		WHERE s.editor = ?
+		ORDER BY m.name",
+		$uid,
+	);
+
+	@$rows = map { $_->[0] }
+		sort { $a->[1] cmp $b->[1] }
+		map {
+			my $row = $_;
+			my $name = MusicBrainz::Server::Validation::NormaliseSortText($row->{'name'});
+			[ $row, $name ];
+		} @$rows;
+
+	return $rows;
+}
+
+sub SubscribeEditors
+{
+	my ($self, @editors) = @_;
+	my $uid = $self->GetUser or die;
+
+	my @editorids;
+
+	for my $editor (@editors)
+	{
+		my $editorid = $editor->GetId;
+		push @editorids, $editorid;
+	}
+
+	my $sql = Sql->new($self->{DBH});
+
+	$sql->AutoTransaction(sub {
+		require Moderation;
+		my $mod = Moderation->new($self->{DBH});
+		my $modid = 0;
+
+		for my $editorid (@editorids)
+		{
+			$sql->SelectSingleValue(
+				"SELECT 1 FROM editor_subscribe_editor
+				WHERE editor = ? AND subscribededitor = ?",
+				$uid,
+				$editorid,
+			) and next;
+
+			$modid ||= $mod->GetMaxModID;
+
+			$sql->Do(
+				"INSERT INTO editor_subscribe_editor
+					(editor, subscribededitor, lasteditsent)
+				VALUES (?, ?, ?)",
+				$uid,
+				$editorid,
+				$modid,
+			);
+		}
+	});
+
+	1;
+}
+
+sub UnsubscribeEditors
+{
+	my ($self, @editors) = @_;
+	my $uid = $self->GetUser or die;
+
+	my @editorids;
+
+	for my $editor (@editors)
+	{
+		my $editorid = $editor->GetId;
+		push @editorids, $editorid;
+	}
+
+	my $sql = Sql->new($self->{DBH});
+
+	$sql->AutoTransaction(sub {
+		for my $editorid (@editorids)
+		{
+			$sql->Do(
+				"DELETE FROM editor_subscribe_editor
+				WHERE editor = ? AND subscribededitor = ?",
+				$uid,
+				$editorid,
 			);
 		}
 	});
