@@ -152,7 +152,7 @@
 
 
 % 		my $row = 0;
-% 		if (not @$info)
+% 		if (not @$labels)
 %		{
 
 		No label subscriptions found.
