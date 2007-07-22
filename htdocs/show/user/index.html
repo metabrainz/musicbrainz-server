@@ -62,9 +62,7 @@
 
 	my $membersince;
 
-	if ($user->GetId == &ModDefs::ANON_MODERATOR
-		or $user->GetId == &ModDefs::FREEDB_MODERATOR
-		or $user->GetId == &ModDefs::MODBOT_MODERATOR)
+	if ($user->IsSpecialEditor)
 	{
 		$membersince = 'n/a';
 	}

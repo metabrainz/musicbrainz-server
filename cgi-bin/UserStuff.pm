@@ -288,10 +288,7 @@ sub Login
 	my $self = $this->newFromName($user)
 		or return;
 
-	my $id = $self->GetId;
-	return if $id == &ModDefs::ANON_MODERATOR;
-	return if $id == &ModDefs::FREEDB_MODERATOR;
-	return if $id == &ModDefs::MODBOT_MODERATOR;
+	return if $self->IsSpecialEditor;
 
 	return if $self->GetPassword eq LOCKED_OUT_PASSWORD;
 
@@ -642,6 +639,16 @@ sub GetUserType
 		if ($type eq "");
 
 	return $type;
+}
+
+sub IsSpecialEditor
+{
+	my $self = shift;
+	my $id = $self->GetId;
+
+	return $id == &ModDefs::ANON_MODERATOR
+		or $id == &ModDefs::FREEDB_MODERATOR
+		or $id == &ModDefs::MODBOT_MODERATOR;
 }
 
 sub IsAutoEditor
