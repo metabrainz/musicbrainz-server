@@ -482,6 +482,13 @@ sub SetUserInfo
 	$ok;
 }
 
+sub GetSubscribers
+{
+	my $self = shift;
+	require UserSubscription;
+	return UserSubscription->GetSubscribersForEditor($self->{DBH}, $self->GetId);
+}
+
 sub MakeAutoModerator
 {
 	my $self = shift;

@@ -21,7 +21,7 @@
 	#
 	# Summary:
 	# -----------------------------------------------------------------------------
-	# This page allows an user to modify their artist subscriptions.
+	# This page allows an user to modify its subscriptions.
 	#
 	# $Id$
 	#
@@ -30,6 +30,7 @@
 
 	@artistid => ()
 	@labelid => ()
+	@editorid => ()
 	$unsubscribe => 0
 
 </%args>
@@ -38,7 +39,7 @@
 	return $m->comp(
 		"/comp/redirect",
 		"/user/subscriptions.html",
-	) if not @artistid and not @labelid;
+	) if not @artistid and not @labelid and not @editorid;
 
 	$m->comp(
 		"/comp/checkloggedin", 1, 1,
@@ -48,6 +49,7 @@
 	my $mb = $m->comp("/comp/dblogin");
 	my @artists;
 	my @labels;
+	my @editors;
 
 	for my $artistid (@artistid)
 	{
@@ -80,7 +82,23 @@
 		push @labels, $label;
 	}
 
-	(@artists or @labels)
+	for my $editorid (@editorid)
+	{
+		MusicBrainz::Server::Validation::IsNonNegInteger($editorid)
+			and $editorid
+			or next;
+
+		my $ui = UserStuff->new($mb->{DBH});
+		my $editor = $ui->newFromId($editorid)
+			or next;
+
+		not $editor->IsSpecialEditor
+			or next;
+
+		push @editors, $editor;
+	}
+
+	(@artists or @labels or @editors)
 		or return $m->comp("/comp/badargs", 1, 1);
 
 	my $subs = UserSubscription->new($mb->{DBH});
@@ -105,6 +123,15 @@
 			);
 	}
 
+	if (@editors)
+	{
+		my $editormethod = $method . "Editors";
+		$subs->$editormethod(@editors)
+			or return $m->comp("/comp/error",
+				"Sorry, there was an error processing your request.", 1, 1,
+			);
+	}
+
 	# redirect user to subscribed users instead of the list of subscriptions
 	# if we came from the artist page.
 	if (scalar(@artistid) == 1)
@@ -117,6 +144,12 @@
 	{
 		return $m->comp("/comp/redirect",
 			"/show/label/subscriptions.html?label=".$labelid[0],
+		);
+	}
+	elsif (scalar(@editorid) == 1)
+	{
+		return $m->comp("/comp/redirect",
+			"/user/subscribers.html?userid=".$editorid[0],
 		);
 	}
 	else

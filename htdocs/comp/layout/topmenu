@@ -360,6 +360,7 @@
 			{ name => "Change Password",	url => "/user/change-password.html",	 	login => 1 },
 			{ name => "Preferences",		url => "/user/preferences.html",			login => 1 },
 			{ name => "Subscriptions",		url => "/user/subscriptions.html", 			login => 1 },
+			{ name => "Subscribers",		url => "/user/subscribers.html", 			login => 1 },
 			{ name => "Logout",				url => "/logout.html",						login => 1 },
 			{ name => "Check donation status",		url => "/user/donationcheck.html",						login => 1 },
 			[

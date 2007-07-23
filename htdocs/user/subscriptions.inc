@@ -32,6 +32,7 @@
 	$user
 	$info => ()
 	$labels => ()
+	$editors => ()
 	$private => 0
 
 </%args>
@@ -183,6 +184,64 @@
 
 				</td>
 			</tr>
+
+			<tr>
+				<td colspan="2">&nbsp;</td>			
+			</tr>			
+			<tr class="top">
+				<td colspan="2">
+					<div style="border-bottom: 1px dotted #ccc; padding: 5px; margin-bottom: 5px; font-weight: bold">
+						Editor subscriptions:
+					</div></td>
+			</tr>
+			
+			<tr class="top">
+				<td class="label">&nbsp;</td>
+				<td>
+				
+%	if ($private)
+%	{
+
+		<% $name %>'s editor subscriptions are private.
+
+%	}
+%	else
+%	{
+
+
+% 		my $row = 0;
+% 		if (not @$editors)
+%		{
+
+		No editor subscriptions found.
+
+%		}
+%		else
+%		{
+
+					<table class="artistfilter-listing">
+
+% 			for my $editor (@$editors)
+%			{
+
+						<tr class="row<% ++$row % 2 %>">
+							<td class="padright">
+								<& /comp/linkuser, id => $editor->{subscribededitor}, name => $editor->{name}, 
+									resolution =>  $editor->{resolution}, strong => 0 &></td>
+							<td>
+								[&nbsp;<a href="/mod/search/pre/editor.html?userid=<% $editor->{subscribededitor} %>">View edits</a>&nbsp;]</td>
+						</tr>
+
+% 			}
+
+					</table>
+
+% 		}
+% 	}
+
+				</td>
+			</tr>
+
 
 		</table>
 

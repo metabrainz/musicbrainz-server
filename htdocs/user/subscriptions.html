@@ -70,18 +70,20 @@
 	@$info = grep { defined $_->{name} } @$info;
 	my $labels = $subs->GetSubscribedLabels;
 	@$labels = grep { defined $_->{name} } @$labels;
+	my $editors = $subs->GetSubscribedEditors;
+	@$editors = grep { defined $_->{name} } @$editors;
 
 	# show public subscriptions of another user if the user we're
 	# are displaying the subscriptions of is not the current user.
-	return $m->comp("subscriptions.inc", user => $them, info => $info, labels => $labels)
+	return $m->comp("subscriptions.inc", user => $them, info => $info, labels => $labels, editors => $editors)
 		unless $is_me;
 
 </%perl>
 
 
-<& /comp/sidebar-notitle, pagetitle => "Your Artist and Label Subscriptions" &>
+<& /comp/sidebar-notitle, pagetitle => "Your Subscriptions" &>
 
-	<& /comp/tablebegin, title => "Your Artist and Label Subscriptions" &>
+	<& /comp/tablebegin, title => "Your Subscriptions" &>
 
 		<table class="formstyle">
 			<tr class="top">
@@ -116,24 +118,25 @@
 				<td class="label">Subscriptions:</td>
 				<td>
 
-% 	if (not @$info and not @$labels)
+% 	if (not @$info and not @$labels and not @$editors)
 %	{
 
-					You are not currently subscribed to any artists.&nbsp;
-					To subscribe to an artist, click the "Subscribe" link
-					on the artist's page.
+					You are not currently subscribed to any artists, labels or editors.&nbsp;
+					To subscribe to an artist (or a label or an editor), click the "Subscribe" link
+					on the artist's (or label's or editor's) page.
 
 % 	}
 %	else
 %	{
 
 					You are currently subscribed to
-					<% (@$info == 1) ? "this artist" : (@$info == 0 ? "no artists" : "these <strong>".scalar(@$info)."</strong> artists") |n %>
+					<% (@$info == 1) ? "this artist" : (@$info == 0 ? "no artists" : "these <strong>".scalar(@$info)."</strong> artists") |n %>, 
+					<% (@$labels == 1) ? "this label" : (@$labels == 0 ? "no labels" : "these <strong>".scalar(@$labels)."</strong> labels") |n %>
 					and
-					<% (@$labels == 1) ? "this label" : (@$labels == 1 ? "no labels" : "these <strong>".scalar(@$labels)."</strong> labels") |n %>. To
-					unsubscribe, activate the checkbox next to the artists or labels you would
+					<% (@$editors == 1) ? "this editor" : (@$editors == 0 ? "no editors" : "these <strong>".scalar(@$editors)."</strong> editors") |n %>. To
+					unsubscribe, activate the checkbox next to the artists, labels or editors you would
 					like to unsubscribe from, then click the button below. To subscribe
-					to an artist or a label, use the "Subscribe" link on the artist's or label's page.
+					to an artist, a label or an editor, use the "Subscribe" link on the artist's, label's or editor's page.
 %	}
 
 
@@ -229,6 +232,50 @@
 				</td>
 			</tr>
 
+% 	}
+
+% 	if (@$editors)
+%	{
+
+			<tr>
+				<td colspan="2">&nbsp;</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td>
+
+%		my $row = 0;
+%		my @colours = ('#fff', '#ffe1b7');
+
+					<form method="post" action="/user/subscribe.html">
+						<table class="artistfilter-listing">
+
+% 		for my $editor (@$editors)
+%		{
+
+							<tr class="row<% $row++ % 2 %>">
+								<td><input type="checkbox" name="editorid" value="<% $editor->{subscribededitor} %>" /></td>
+								<td class="padright">
+									<& /comp/linkuser, id => $editor->{subscribededitor},
+										name => $editor->{name}, strong => 0 &></td>
+								<td>[ <a href="/mod/search/pre/editor.html?userid=<% $editor->{subscribededitor} %>">Edits</a> 
+									| <a href="/mod/search/pre/editor-open.html?userid=<% $editor->{subscribededitor} %>">Open edits</a> ]</td>
+							</tr>
+% 		}
+
+							<tr>
+								<td colspan="3">&nbsp;</td>
+							</tr>
+							<tr>
+								<td colspan="3">
+									<input type="hidden" name="unsubscribe" value="1" />
+									<input type="submit" value="Unsubcribe selected editors &raquo;" />
+								</td>
+							</tr>
+						</table>
+					</form>
+				</td>
+			</tr>
 % 	}
 
 		</table>
