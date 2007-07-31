@@ -227,15 +227,12 @@
 %		{
 	            <div class="wikidocs">
 				<div class="header">
-					This page has been copied from our Wiki.
-					The content is <em><strong>not official</strong></em>
-					but probably correct and hopefully informative.
-					If you have spotted a spelling error, or want to help
-					writing the documentation, you'll find the editable version
-					of this page on the wiki at <img src="/images/edit.gif" alt="" /><a
-					href="http://wiki.musicbrainz.org/<% $id %>"><% $id %></a>
+					<span class="mp">This page has not been reviewed by our documentation team (<& /comp/linkdoc, "WikiDocs", "more info", 0, 0 &>)</span>.
 				</div>
 				<div class="unofficial"><% $page |n %></div>
+				<div class="footer">
+					This page is a copy of the WikiPage <a href="http://<% $wdserver %>/<% $id %>"><% $id %></a>. 
+				</div>
 	            </div>
 
 %		}
