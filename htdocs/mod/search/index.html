@@ -227,7 +227,11 @@
 
 							<input type="radio" name="moderator_type" id="moderator_type6" value="6"
 								<% ($moderator_type eq "6") ? 'checked="checked"' : "" %>
-							/><label for="moderator_type6">Not me and not FreeDB</label>
+							/><label for="moderator_type6">Not me and not FreeDB</label><br />
+
+							<input type="radio" name="moderator_type" value="7" id="moderator_type7"
+								<% ($moderator_type eq "7") ? 'checked="checked"' : "" %>
+							/><label for="moderator_type7">My subscribed editors</label>
 
 						</div></td>
 				</tr>

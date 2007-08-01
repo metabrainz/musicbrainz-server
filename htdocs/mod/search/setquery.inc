@@ -341,7 +341,7 @@
 	################################################################################
 
 	$moderator_type = 0
-		unless $moderator_type =~ /^[0123456]$/;
+		unless $moderator_type =~ /^[01234567]$/;
 
 	if (MusicBrainz::Server::Validation::IsNonNegInteger($moderator_id) and $moderator_id)
 	{
@@ -376,6 +376,9 @@
 			if $moderator_type == 4;
 		push @where, "m.moderator != $session{uid}"
 			if $moderator_type == 5 or $moderator_type == 6;
+		$subs_join = " INNER JOIN editor_subscribe_editor s"
+			. " ON s.subscribededitor = m.moderator AND s.editor = $session{uid}"
+			if $moderator_type == 7;
 	}
 
 	# Silly Vim hack:
