@@ -34,6 +34,28 @@ use URI::Escape qw( uri_escape );
 use MusicBrainz::Server::Validation qw( encode_entities );
 use Encode qw( decode encode );
 
+# Algorithm for updating tags
+# update:
+#  - parse tag string into tag list
+#     - separate by comma, trim whitespace
+#  - load existing tags for user/entity from raw tables into a hash
+
+#  - for each tag in tag list:
+#        is tag in existing tag list? 
+#           yes, remove from existing tag list, continue
+#        find tag string in tag table, if not found, add it
+#        add tag assoc to raw tables
+#        find tag assoc in aggregate tables. 
+#        if not found
+#            add it
+#        else
+#            increment count in aggregate table
+#
+#    for each tag remaining in existing tag list:
+#        remove raw tag assoc
+#        decrement aggregate tag
+#        if aggregate tag count == 0: remove aggregate tag assoc.
+
 sub Update
 {
 	my ($self, $input, $userid, $entity_type, $entity_id) = @_;
@@ -53,19 +75,29 @@ sub Update
 	# make sure the list contains only unique tags
 	@new_tags = keys %{{ map { $_ => 1 } @new_tags }};
 
-   	my $maindb = Sql->new($self->GetDBH()); 
-
-    # TODO: Actually setup two separate DB handles properly
     require MusicBrainz;
-    my $mb = MusicBrainz->new;
-    $mb->Login();
-   	my $tagdb = Sql->new($mb->{DBH});   
+
+    # Login to the main DB
+    my $main = MusicBrainz->new;
+    $main->Login();
+   	my $maindb = Sql->new($main->{DBH});
+
+    # Login to the tags DB
+   	my $tagdb = eval
+    {
+        my $tags = MusicBrainz->new;
+        $tags->Login(db => 'RAWDATA');
+        Sql->new($tags->{DBH});   
+    };
+    if ($@)
+    {
+        $tagdb = $maindb;
+    }
 
     eval
     {
-        # TODO: Setup eval block
         $maindb->Begin();
-#        $tagdb->Begin();
+        $tagdb->Begin() if ($maindb != $tagdb);
 
         my $assoc_table = $entity_type . '_tag';
         my $assoc_table_raw = $entity_type . '_tag_raw';
@@ -175,37 +207,16 @@ sub Update
     {
         my $err = $@;
         eval { $maindb->Rollback(); };
-#        eval { $tagdb->Rollback(); };
+        eval { $tagdb->Rollback() if ($maindb != $tagdb); };
         die $err;
     }
     else
     {
         $maindb->Commit();
-#        $tagdb->Commit();
+        $tagdb->Commit() if ($maindb != $tagdb);
         return 1;
     }
 }
-
-# update:
-#  - parse tag string into tag list
-#     - separate by comma, trim whitespace
-#  - load existing tags for user/entity from raw tables into a hash
-
-#  - for each tag in tag list:
-#        is tag in existing tag list? 
-#           yes, remove from existing tag list, continue
-#        find tag string in tag table, if not found, add it
-#        add tag assoc to raw tables
-#        find tag assoc in aggregate tables. 
-#        if not found
-#            add it
-#        else
-#            increment count in aggregate table
-#
-#    for each tag remaining in existing tag list:
-#        remove raw tag assoc
-#        decrement aggregate tag
-#        if aggregate tag count == 0: remove aggregate tag assoc.
 
 
 sub Merge
@@ -215,19 +226,20 @@ sub Merge
 	my $assoc_table = $entity_type . '_tag';
 	my $assoc_table_raw = $entity_type . '_tag_raw';
 
-	my $maindb = Sql->new($self->GetDBH());
-	my $tagdb = Sql->new($self->GetDBH());
+    # Login to the main DB
+    my $main = MusicBrainz->new;
+    $main->Login();
+   	my $maindb = Sql->new($main->{DBH});
 
-	# TODO: Actually setup two separate DB handles properly
-	#require MusicBrainz;
-	#my $mb = MusicBrainz->new;
-	#$mb->Login();
-	#my $tagdb = Sql->new($mb->{DBH});
+    # Login to the tags DB
+    my $tags = MusicBrainz->new;
+    $tags->Login(db => 'RAWDATA');
+   	my $tagdb = Sql->new($tags->{DBH});   
 
 	eval
 	{
-		#$maindb->Begin();
-		#$tagdb->Begin();
+		$maindb->Begin();
+		$tagdb->Begin();
 
 		# Load the tag ids for both entities
 		my $old_tag_ids = $maindb->SelectSingleColumnArray("
@@ -396,14 +408,33 @@ sub GetRawTagsForEntity
 {
 	my ($self, $entity_type, $entity_id, $moderator_id) = @_;
 
-	# TODO use separate DB
-	my $sql = Sql->new($self->GetDBH());
+    # Login to the main DB
+    my $main = MusicBrainz->new;
+    $main->Login();
+   	my $maindb = Sql->new($main->{DBH});
+
+    # Login to the tags DB
+    my $tagdb = eval
+    {
+        my $tags = MusicBrainz->new;
+        $tags->Login(db => 'RAWDATA');
+        my $t = Sql->new($tags->{DBH});   
+    };
+    if ($@)
+    {
+        $tagdb = $maindb;
+    }
+
 	my $assoc_table = $entity_type . '_tag_raw';
-	my $rows = $sql->SelectListOfHashes("SELECT tag.id, tag.name
-		                                   FROM tag, $assoc_table
-		                                  WHERE tag.id = $assoc_table.tag 
-                                            AND $assoc_table.$entity_type = ?
-                                            AND $assoc_table.moderator = ?", $entity_id, $moderator_id);
+	my $rows = $tagdb->SelectSingleColumnArray("SELECT tag
+		                                     FROM $assoc_table
+		                                    WHERE $assoc_table.$entity_type = ?
+                                              AND $assoc_table.moderator = ?", $entity_id, $moderator_id);
+    return [{}] if (scalar(@$rows) == 0);
+
+	$rows = $maindb->SelectListOfHashes("SELECT tag.id, tag.name
+  	                                       FROM tag
+	                                      WHERE tag.id in (" . join(",", @$rows) . ")");
 	return $rows;
 }
 

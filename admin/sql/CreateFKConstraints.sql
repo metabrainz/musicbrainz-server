@@ -60,6 +60,16 @@ ALTER TABLE artist_relation
     FOREIGN KEY (ref)
     REFERENCES artist(id);
 
+ALTER TABLE artist_tag
+    ADD CONSTRAINT fk_artist_tag_artist
+    FOREIGN KEY (artist)
+    REFERENCES artist(id);
+
+ALTER TABLE artist_tag
+    ADD CONSTRAINT fk_artist_tag_tag
+    FOREIGN KEY (tag)
+    REFERENCES tag(id);
+
 ALTER TABLE artistwords
     ADD CONSTRAINT artistwords_fk_artistid
     FOREIGN KEY (artistid)
@@ -105,6 +115,16 @@ ALTER TABLE labelalias
     ADD CONSTRAINT labelalias_fk_ref
     FOREIGN KEY (ref)
     REFERENCES label(id);
+
+ALTER TABLE label_tag
+    ADD CONSTRAINT fk_label_tag_track
+    FOREIGN KEY (label)
+    REFERENCES label(id);
+
+ALTER TABLE label_tag
+    ADD CONSTRAINT fk_label_tag_tag
+    FOREIGN KEY (tag)
+    REFERENCES tag(id);
 
 ALTER TABLE labelwords
     ADD CONSTRAINT labelwords_fk_labelid
@@ -525,10 +545,30 @@ ALTER TABLE release
     FOREIGN KEY (country)
     REFERENCES country(id);
 
+ALTER TABLE release_tag
+    ADD CONSTRAINT fk_release_tag_release
+    FOREIGN KEY (release)
+    REFERENCES album(id);
+
+ALTER TABLE release_tag
+    ADD CONSTRAINT fk_release_tag_tag
+    FOREIGN KEY (tag)
+    REFERENCES tag(id);
+
 ALTER TABLE track
     ADD CONSTRAINT track_fk_artist
     FOREIGN KEY (artist)
     REFERENCES artist(id);
+
+ALTER TABLE track_tag
+    ADD CONSTRAINT fk_track_tag_track
+    FOREIGN KEY (track)
+    REFERENCES track(id);
+
+ALTER TABLE track_tag
+    ADD CONSTRAINT fk_track_tag_tag
+    FOREIGN KEY (tag)
+    REFERENCES tag(id);
 
 ALTER TABLE trackwords
     ADD CONSTRAINT trackwords_fk_trackid

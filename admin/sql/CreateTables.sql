@@ -122,6 +122,13 @@ CREATE TABLE artist_relation
     weight              INTEGER NOT NULL
 );
 
+CREATE TABLE artist_tag
+(
+     artist              INTEGER NOT NULL,
+     tag                 INTEGER NOT NULL,
+     count               INTEGER NOT NULL
+);
+
 CREATE TABLE artistwords
 (
     wordid              INTEGER NOT NULL,
@@ -219,6 +226,13 @@ CREATE TABLE label
     begindate           CHAR(10),
     enddate             CHAR(10),
     type                SMALLINT
+);
+
+CREATE TABLE label_tag
+(
+    label               INTEGER NOT NULL,
+    tag                 INTEGER NOT NULL,
+    count               INTEGER NOT NULL
 );
 
 CREATE TABLE gid_redirect
@@ -811,6 +825,13 @@ CREATE TABLE release
     format              SMALLINT
 );
 
+CREATE TABLE release_tag
+(
+    release             INTEGER NOT NULL,
+    tag                 INTEGER NOT NULL,
+    count               INTEGER NOT NULL
+);
+
 CREATE TABLE replication_control
 (
     id                              SERIAL,
@@ -851,6 +872,13 @@ CREATE TABLE stats
     timestamp           DATE NOT NULL
 );
 
+CREATE TABLE tag
+(
+     id                  SERIAL,
+     name                VARCHAR(255) NOT NULL,
+     refcount            INTEGER NOT NULL DEFAULT 0
+);
+
 CREATE TABLE track
 (
     id                  SERIAL,
@@ -860,6 +888,13 @@ CREATE TABLE track
     length              INTEGER DEFAULT 0,
     year                INTEGER DEFAULT 0,
     modpending          INTEGER DEFAULT 0
+);
+
+CREATE TABLE track_tag
+(
+     track               INTEGER NOT NULL,
+     tag                 INTEGER NOT NULL,
+     count               INTEGER NOT NULL
 );
 
 CREATE TABLE trackwords

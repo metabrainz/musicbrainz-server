@@ -71,6 +71,11 @@ MusicBrainz::Server::Database->register_all(
 	    host	=> "",
 	    port	=> "",
 	},
+    # Fill this out these two sections if the RAW data (tags and ratings raw data)
+    # should live in a seperate database from the main server.
+	RAWDATA => undef,
+    # Fill out only if RAWDATA lives on a different *host* from the READWRITE server. 
+	RAWDATA_SYSTEM => undef,  
     },
 );
 
