@@ -121,7 +121,7 @@
 
 % 	if ($subscriptions_public or $is_me)
 %	{
-					| <a href="/user/subscriptions.html?user=<% $userid %>">Subscriptions</a>
+					| <a href="/user/subscriptions.html?userid=<% $userid %>">Subscriptions</a>
 % 	}
 				</td>
 			</tr>
@@ -291,7 +291,7 @@
 					Subscriptions:</td>
 				<td>
 					<% $is_me ? "Your" : $user->GetName."'s" %>
-					<a href="/user/subscriptions.html?user=<% $userid %>">
+					<a href="/user/subscriptions.html?userid=<% $userid %>">
 					subscriptions</a> are <% $subscriptions_public ?
 					"public" : "private" %>.</td>
 			</tr>

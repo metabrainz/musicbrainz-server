@@ -28,19 +28,19 @@
 </%perl>
 <%args>
 
-	$user => undef
+	$userid => undef
 
 </%args>
 <%perl>
 
 	my $mb = $m->comp("/comp/dblogin");
 
-	if (defined $user)
+	if (defined $userid)
 	{
 		# make sure we got a valid user parameter
-		MusicBrainz::Server::Validation::IsNonNegInteger($user)
+		MusicBrainz::Server::Validation::IsNonNegInteger($userid)
 			or return $m->comp("/comp/layout/badarguments",
-				text => "The argument <strong>user</strong> is missing or has a wrong format.");
+				text => "The argument <strong>userid</strong> is missing or has a wrong format.");
 	}
 	else
 	{
@@ -48,44 +48,53 @@
 		$m->comp("/comp/checkloggedin", 1, 1,
 			"You must log in to manage your subscriptions.",
 		) or return;
-		$user = $session{uid};
+		$userid = $session{uid};
 	}
 
 	# load current user.
-	my $is_me = ($user == $session{uid});
-	my $them = UserStuff->newFromId($mb->{DBH}, $user)
-		or return $m->comp("/comp/error", "There is no user #$user", 1, 1);
+	my $is_me = ($userid == $session{uid});
+	my $user = UserStuff->newFromId($mb->{DBH}, $userid)
+		or return $m->comp("/comp/error", "There is no user with id #$userid", 1, 1);
 
 	# see if other users has their subscriptions public.
+	my $private;
 	unless ($is_me)
 	{
-		UserPreference::get_for_user("subscriptions_public", $them)
-			or return $m->comp("subscriptions.inc", user => $them, private => 1);
+		$private = not UserPreference::get_for_user("subscriptions_public", $user);
 	}
 
 	# load subscriptions
-	my $subs = UserSubscription->new($mb->{DBH});
-	$subs->SetUser($user);
-	my $info = $subs->GetSubscribedArtists;
-	@$info = grep { defined $_->{name} } @$info;
-	my $labels = $subs->GetSubscribedLabels;
-	@$labels = grep { defined $_->{name} } @$labels;
-	my $editors = $subs->GetSubscribedEditors;
-	@$editors = grep { defined $_->{name} } @$editors;
+	my ($artists, $labels, $editors);
+	unless ($private)
+	{
+		my $subs = UserSubscription->new($mb->{DBH});
+		$subs->SetUser($userid);
+		$artists = $subs->GetSubscribedArtists;
+		@$artists = grep { defined $_->{name} } @$artists;
+		$labels = $subs->GetSubscribedLabels;
+		@$labels = grep { defined $_->{name} } @$labels;
+		$editors = $subs->GetSubscribedEditors;
+		@$editors = grep { defined $_->{name} } @$editors;
+	}
 
-	# show public subscriptions of another user if the user we're
-	# are displaying the subscriptions of is not the current user.
-	return $m->comp("subscriptions.inc", user => $them, info => $info, labels => $labels, editors => $editors)
-		unless $is_me;
+	my $uid = $user->GetId;
+	my $name = $user->GetName;
 
 </%perl>
 
 
-<& /comp/sidebar-notitle, pagetitle => "Your Subscriptions" &>
+<& /comp/sidebar-notitle, pagetitle => ($is_me ? "Your" : $name) . " Subscriptions"  &>
 
-	<& /comp/tablebegin, title => "Your Subscriptions" &>
+	<& /comp/tablebegin, title => ($is_me ? "Your" : $name) . " Subscriptions" &>
 
 		<table class="formstyle">
+			<tr class="top">
+				<td colspan="2">
+					<div style="border-bottom: 1px dotted #ccc; padding: 5px; margin-bottom: 5px; font-weight: bold">
+						General information:
+					</div></td>
+%		if ($is_me)
+%		{
 			<tr class="top">
 				<td class="label">Profile:</td>
 				<td>
@@ -97,8 +106,29 @@
 					]
 				</td>
 			</tr>
+%		}
+%		else
+%		{
 
-% 		unless ($session{has_confirmed_email})
+			<tr class="top">
+				<td class="label">Contact:</td>
+				<td>
+					<a href="/show/user/?userid=<% $uid %>">User profile</a> |
+					<a href="/user/mod_email.html?uid=<% $uid %>&amp;url=<% uri_escape("/show/user/?userid=$uid") %>">Send e-mail</a>
+				</td>
+			</tr>
+			<tr class="top">
+				<td class="label">Review:</td>
+				<td>
+					<a href="/mod/search/pre/voted.html?moderator=<% $uid %>">Votes</a> |
+					<a href="/mod/search/pre/moderator.html?moderator=<% $uid %>">Edits</a> |
+					<a href="/mod/search/pre/moderator-failed.html?moderator=<% $uid %>">Failed edits</a> |
+					<a href="/mod/search/pre/moderator-deleted.html?moderator=<% $uid %>">Deleted edits</a>
+				</td>
+			</tr>
+%		}
+
+% 		unless (not $is_me or $session{has_confirmed_email})
 %		{
 
 			<tr class="spaced">
@@ -118,53 +148,83 @@
 				<td class="label">Subscriptions:</td>
 				<td>
 
-% 	if (not @$info and not @$labels and not @$editors)
+%	if ($private)
+%	{
+		<% $name %>'s subscriptions are private.
+
+%	}
+% 	elsif (not @$artists and not @$labels and not @$editors)
 %	{
 
-					You are not currently subscribed to any artists, labels or editors.&nbsp;
+					<% $is_me ? "You are" : $name." is" %> not currently subscribed to any artists, labels or editors.&nbsp;
+%		if($is_me)
+%		{
 					To subscribe to an artist (or a label or an editor), click the "Subscribe" link
 					on the artist's (or label's or editor's) page.
+%		}
 
 % 	}
 %	else
 %	{
 
-					You are currently subscribed to
-					<% (@$info == 1) ? "this artist" : (@$info == 0 ? "no artists" : "these <strong>".scalar(@$info)."</strong> artists") |n %>, 
+					<% $is_me ? "You are" : $name." is" %> currently subscribed to
+					<% (@$artists == 1) ? "this artist" : (@$artists == 0 ? "no artists" : "these <strong>".scalar(@$artists)."</strong> artists") |n %>, 
 					<% (@$labels == 1) ? "this label" : (@$labels == 0 ? "no labels" : "these <strong>".scalar(@$labels)."</strong> labels") |n %>
 					and
-					<% (@$editors == 1) ? "this editor" : (@$editors == 0 ? "no editors" : "these <strong>".scalar(@$editors)."</strong> editors") |n %>. To
-					unsubscribe, activate the checkbox next to the artists, labels or editors you would
+					<% (@$editors == 1) ? "this editor" : (@$editors == 0 ? "no editors" : "these <strong>".scalar(@$editors)."</strong> editors") |n %>. 
+					
+%		if($is_me)
+%		{
+					<br />To unsubscribe, activate the checkbox next to the artists, labels or editors you would
 					like to unsubscribe from, then click the button below. To subscribe
 					to an artist, a label or an editor, use the "Subscribe" link on the artist's, label's or editor's page.
+%		}
 %	}
 
 
 				</td>
 			</tr>
 
-
-% 	if (@$info)
-%	{
-
 			<tr>
-				<td colspan="2">&nbsp;</td>
+				<td colspan="2">&nbsp;</td>			
+			</tr>			
+			<tr class="top">
+				<td colspan="2">
+					<div style="border-bottom: 1px dotted #ccc; padding: 5px; margin-bottom: 5px; font-weight: bold">
+						Artist subscriptions:
+					</div></td>
 			</tr>
-			<tr>
-				<td>&nbsp;</td>
+			
+			<tr class="top">
+				<td class="label">&nbsp;</td>
 				<td>
 
-%		my $row = 0;
-%		my @colours = ('#fff', '#ffe1b7');
+%	if ($private)
+%	{
+		<% $name %>'s artist subscriptions are private.
+%	}
+% 	elsif (not @$artists)
+%	{
+		No artists subscriptions found.
+%	}
+%	else
+%	{
 
+%		my $row = 0;
+%		if ($is_me)
+%		{
 					<form method="post" action="/user/subscribe.html">
+%		}
 						<table class="artistfilter-listing">
 
-% 		for my $artist (@$info)
+% 		for my $artist (@$artists)
 %		{
 
 							<tr class="row<% $row++ % 2 %>">
+%			if ($is_me)
+%			{
 								<td><input type="checkbox" name="artistid" value="<% $artist->{artist} %>" /></td>
+%			}
 								<td class="padright">
 									<& /comp/linkartist, id => $artist->{artist},
 										name => $artist->{name}, resolution =>  $artist->{resolution},
@@ -173,6 +233,8 @@
 							</tr>
 % 		}
 
+%		if ($is_me)
+%		{
 							<tr>
 								<td colspan="3">&nbsp;</td>
 							</tr>
@@ -184,32 +246,56 @@
 							</tr>
 						</table>
 					</form>
+%		}
+%		else
+%		{
+						</table>
+%		}
 				</td>
-			</tr>
 
 % 	}
 
-% 	if (@$labels)
-%	{
-
-			<tr>
-				<td colspan="2">&nbsp;</td>
 			</tr>
 			<tr>
-				<td>&nbsp;</td>
+				<td colspan="2">&nbsp;</td>			
+			</tr>			
+			<tr class="top">
+				<td colspan="2">
+					<div style="border-bottom: 1px dotted #ccc; padding: 5px; margin-bottom: 5px; font-weight: bold">
+						Label subscriptions:
+					</div></td>
+			</tr>
+			
+			<tr class="top">
+				<td class="label">&nbsp;</td>
 				<td>
 
+%	if ($private)
+%	{
+		<% $name %>'s label subscriptions are private.
+%	}
+% 	elsif (not @$labels)
+%	{
+		No label subscriptions found.
+%	}
+%	else
+%	{
 %		my $row = 0;
-%		my @colours = ('#fff', '#ffe1b7');
 
+%		if ($is_me)
+%		{
 					<form method="post" action="/user/subscribe.html">
+%		}
 						<table class="artistfilter-listing">
 
 % 		for my $label (@$labels)
 %		{
 
 							<tr class="row<% $row++ % 2 %>">
+%			if ($is_me)
+%			{
 								<td><input type="checkbox" name="labelid" value="<% $label->{label} %>" /></td>
+%			}
 								<td class="padright">
 									<& /comp/linklabel, id => $label->{label},
 										name => $label->{name}, resolution =>  $label->{resolution},
@@ -218,6 +304,8 @@
 							</tr>
 % 		}
 
+%		if ($is_me)
+%		{
 							<tr>
 								<td colspan="3">&nbsp;</td>
 							</tr>
@@ -229,32 +317,55 @@
 							</tr>
 						</table>
 					</form>
+%		}
+%		else
+%		{
+						</table>
+%		}
 				</td>
-			</tr>
 
 % 	}
 
-% 	if (@$editors)
-%	{
-
-			<tr>
-				<td colspan="2">&nbsp;</td>
 			</tr>
 			<tr>
-				<td>&nbsp;</td>
+				<td colspan="2">&nbsp;</td>			
+			</tr>			
+			<tr class="top">
+				<td colspan="2">
+					<div style="border-bottom: 1px dotted #ccc; padding: 5px; margin-bottom: 5px; font-weight: bold">
+						Editor subscriptions:
+					</div></td>
+			</tr>
+			
+			<tr class="top">
+				<td class="label">&nbsp;</td>
 				<td>
-
+%	if ($private)
+%	{
+		<% $name %>'s editor subscriptions are private.
+%	}
+% 	elsif (not @$editors)
+%	{
+		No editor subscriptions found.
+%	}
+%	else
+%	{
 %		my $row = 0;
-%		my @colours = ('#fff', '#ffe1b7');
 
+%		if ($is_me)
+%		{
 					<form method="post" action="/user/subscribe.html">
+%		}	
 						<table class="artistfilter-listing">
 
 % 		for my $editor (@$editors)
 %		{
 
 							<tr class="row<% $row++ % 2 %>">
+%			if ($is_me)
+%			{
 								<td><input type="checkbox" name="editorid" value="<% $editor->{subscribededitor} %>" /></td>
+%			}	
 								<td class="padright">
 									<& /comp/linkuser, id => $editor->{subscribededitor},
 										name => $editor->{name}, strong => 0 &></td>
@@ -263,6 +374,8 @@
 							</tr>
 % 		}
 
+%		if ($is_me)
+%		{
 							<tr>
 								<td colspan="3">&nbsp;</td>
 							</tr>
@@ -274,10 +387,15 @@
 							</tr>
 						</table>
 					</form>
+%		}
+%		else
+%		{
+						</table>
+%		}
 				</td>
-			</tr>
 % 	}
 
+			</tr>
 		</table>
 
 	<& /comp/tableend &>
