@@ -94,6 +94,28 @@ my $mb = MusicBrainz->new;
 $mb->Login(db => "READWRITE");
 my $sql = Sql->new($mb->{DBH});
 
+# Log in to the raw DB, or duplicate handles to the main DB
+my $rawmb = new MusicBrainz;
+my $rawsql = eval
+{
+    $rawmb->Login(db => 'RAWDATA');
+    Sql->new($rawmb->{DBH});   
+};
+if ($@)
+{
+    $rawsql = $sql;
+}
+
+# This hash indicates which tables may need to be pulled from a vertical DB
+my %table_db_mapping =
+(
+    'artist_tag_raw'  =>  $rawsql,
+    'release_tag_raw' =>  $rawsql,
+    'track_tag_raw'   =>  $rawsql,
+    'label_tag_raw'   =>  $rawsql,
+    '_default_'       =>  $sql
+);
+
 my @tar_to_extract;
 
 for my $arg (@ARGV)
@@ -225,6 +247,9 @@ sub ImportTable
 
 	$| = 1;
 
+    my $sql = $table_db_mapping{'_default_'};
+    $sql = $table_db_mapping{$table} if (exists $table_db_mapping{$table});
+
 	eval
 	{
 		# open in :bytes mode (always keep byte octets), to allow fixing of invalid
@@ -304,6 +329,8 @@ sub empty
 {
 	my $table = shift;
 
+    my $sql = $table_db_mapping{'_default_'};
+    $sql = $table_db_mapping{$table} if (exists $table_db_mapping{$table});
 	my $any = $sql->SelectSingleValue(
 		"SELECT 1 FROM $table LIMIT 1",
 	);
@@ -325,6 +352,8 @@ sub ImportAllTables
 		artist
 		artist_relation
 		artistalias
+		artist_tag
+		artist_tag_raw
 		artistwords
 		automod_election
 		automod_election_vote
@@ -350,6 +379,8 @@ sub ImportAllTables
 		l_track_url
 		l_url_url
 		label
+		label_tag
+		label_tag_raw
 		labelalias
 		labelwords
 		language
@@ -384,11 +415,16 @@ sub ImportAllTables
 		puidjoin_stat
 		puid_stat
 		release
+		release_tag
+		release_tag_raw
 		replication_control
 		script
 		script_language
 		stats
+        tag
 		track
+		track_tag
+		track_tag_raw
 		trackwords
 		trm
 		trmjoin
