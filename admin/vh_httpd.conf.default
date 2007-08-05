@@ -41,10 +41,10 @@
 	# --------------------------------------------------------------------
 	# Static Pages -> WikiDocs pages
 	# --------------------------------------------------------------------
-   
+
 	RewriteRule	^/bio.html$						/doc/MusicBrainzBio [R=301]
 	RewriteRule	^/cd_submission.html$			/doc/DiscSubmission [R=301]
- 	RewriteRule	^/client_howto.html$			/doc/ClientHOWTO [R=301]
+	RewriteRule	^/client_howto.html$			/doc/ClientHOWTO [R=301]
 	RewriteRule	^/contract.html$				/doc/SocialContract [R=301]
 	RewriteRule	^/db_structure.html$			/doc/DatabaseSchema [R=301]
 	RewriteRule	^/disc.html$					/doc/DiscIDCalculation [R=301]
@@ -57,7 +57,7 @@
 	RewriteRule	^/docs/20040922-1.html$			/doc/MusicBrainzPrivacyPolicy [R=301]
 	RewriteRule	^/docs/20050213-1.html$			/doc/MusicBrainzPrivacyPolicy [R=301]
 	RewriteRule	^/docs/20050108-1.html$			/doc/MusicBrainzPrivacyPolicy [R=301]
-	
+
 	RewriteRule	^/about/helpwanted.html$		/doc/HelpWanted [R=301]
 	RewriteRule	^/about/logos.html$				/doc/MusicBrainzLogos [R=301]	
 	RewriteRule	^/about/licenses.html$			/doc/MusicBrainzLicense [R=301]
@@ -65,15 +65,24 @@
 	RewriteRule	^/about/stats.html$				/doc/ServerStatistics [R=301]	
 
 	RewriteRule	^/tagger/index.html(.*)$		/doc/MusicBrainzTagger$1 [R=301]
-	RewriteRule	^/tagger/(.*)$				/doc/MusicBrainzTagger$1 [R=301]
+	RewriteRule	^/tagger/(.*)$					/doc/MusicBrainzTagger$1 [R=301]
 	RewriteRule	^/tagger/intro.html(.*)$		/doc/ClassicTaggerQuickStart$1 [R=301]
 	RewriteRule	^/tagger/tutorial.html(.*)$		/doc/ClassicTaggerTutorial$1 [R=301]
 	RewriteRule	^/tagger/faq.html(.*)$			/doc/ClassicTaggerFAQ$1 [R=301]	
 	RewriteRule	^/tagger/download.html(.*)$		/doc/ClassicTaggerDownload$1 [R=301]	
 
-	RewriteRule ^/products/tunepimp/index.html$ /doc/libtunepimp [R=301]
-	RewriteRule ^/products/tunepimp$            /doc/libtunepimp [R=301]
-	RewriteRule ^/products/tunepimp/download.html$  /doc/libtunepimpDownload [R=301]
+	RewriteRule	^/products/$						/doc/Products [R=301]
+	RewriteRule	^/products/index.html$				/doc/Products [R=301]
+	RewriteRule	^/products/tunepimp/index.html$		/doc/libtunepimp [R=301]
+	RewriteRule	^/products/tunepimp$				/doc/libtunepimp [R=301]
+	RewriteRule	^/products/tunepimp/download.html$	/doc/libtunepimpDownload [R=301]
+	RewriteRule	^/products/trmgen/$					/doc/TRMGen [R=301]
+	RewriteRule	^/products/trmgen/download.html$	/doc/TRMGen [R=301]
+	RewriteRule	^/products/cdlookup/$				/doc/CdLookupTool [R=301]
+	RewriteRule	^/products/cdlookup/download.html$	/doc/CdLookupTool [R=301]
+	RewriteRule	^/products/client/$					/doc/libmusicbrainz [R=301]
+	RewriteRule	^/products/client/index.html$		/doc/libmusicbrainz [R=301]
+	RewriteRule	^/products/client/download.html$	/doc/libmusicbrainzDownload [R=301]
 
 	# --------------------------------------------------------------------
 	# Pages moved in XHTML1.1 release

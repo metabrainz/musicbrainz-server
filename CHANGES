@@ -34,6 +34,7 @@ Release 2007-XX-YY:
     * Check for label ARs in the artist cleanup script. (#2814)
     * Error in handling track length edits. (#2887)
     * Display TransclusionEditor privilege on editor profile. (#3000)
+    * Drop of some products pages already migrated to WikiDocs. (#2928)
 
 Release 2007-04-01:
 
