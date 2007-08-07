@@ -418,7 +418,7 @@ sub GetRawTagsForEntity
     {
         my $tags = MusicBrainz->new;
         $tags->Login(db => 'RAWDATA');
-        my $t = Sql->new($tags->{DBH});   
+        Sql->new($tags->{DBH});   
     };
     if ($@)
     {
