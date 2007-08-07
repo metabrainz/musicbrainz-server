@@ -787,6 +787,7 @@ sub xml_search
     {
         my $term = MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{artist});
         $term =~ tr/A-Z/a-z/;
+        $term =~ s/\s*(.*?)\s*$/$1/;
         if (not $term =~ /^\s*$/)
         {
             $query = "artist:($term)(sortname:($term) alias:($term) !artist:($term))";
@@ -796,6 +797,7 @@ sub xml_search
     {
         my $term = MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{label});
         $term =~ tr/A-Z/a-z/;
+        $term =~ s/\s*(.*?)\s*$/$1/;
         if (not $term =~ /^\s*$/)
         {
             $query = "artist:($term)(sortname:($term) alias:($term) !artist:($term))";
@@ -806,6 +808,7 @@ sub xml_search
         $query = "";
         my $term = MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{release});
         $term =~ tr/A-Z/a-z/;
+        $term =~ s/\s*(.*?)\s*$/$1/;
         if ($args->{release})
         {
             $query = "(" . join(" AND ", split /\s+/, $term) . ")";
@@ -817,6 +820,7 @@ sub xml_search
         else
         { 
             my $term = MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{artist});
+            $term =~ s/\s*(.*?)\s*$/$1/;
             if (not $term =~ /^\s*$/)
             {
                 $query .= " AND artist:(" . join(" AND ", split /\s+/, $term) . ")";
@@ -859,6 +863,7 @@ sub xml_search
     {
         $query = "";
         my $term =  MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{track});
+        $term =~ s/\s*(.*?)\s*$/$1/;
         $term =~ tr/A-Z/a-z/;
         if ($args->{track})
         {
@@ -871,6 +876,7 @@ sub xml_search
         else
         {
             my $term = MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{artist});
+            $term =~ s/\s*(.*?)\s*$/$1/;
             if (not $term =~ /^\s*$/)
             {
                 $query .= " AND artist:(" . join(" AND ", split /\s+/, $term) . ")";
@@ -883,6 +889,7 @@ sub xml_search
         else
         {
             my $term = MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{release});
+            $term =~ s/\s*(.*?)\s*$/$1/;
             if (not $term =~ /^\s*$/)
             {
                 $query .= " AND release:(" . join(" AND ", split /\s+/, $term) . ")";
