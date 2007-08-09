@@ -551,6 +551,16 @@ sub xml_label
     print '><name>' . xml_escape($ar->GetName) . '</name>', ;
     print '<label-code>' . xml_escape($ar->GetLabelCode) . '</label-code>' if $ar->GetLabelCode;
     print '<disambiguation>' . xml_escape($ar->GetResolution()) . '</disambiguation>' if ($ar->GetResolution());
+    
+    if (($inc & INC_ALIASES) && scalar(@{$info->{aliases}}))
+    {
+           print '<alias-list>';
+           foreach my $alias (@{$info->{aliases}})
+           {
+                   printf '<alias>%s</alias>', xml_escape($alias->[1]);
+           }
+           print '</alias-list>';
+   }
 
     my ($b, $e) = ($ar->GetBeginDate, $ar->GetEndDate);
     if ($b|| $e)
