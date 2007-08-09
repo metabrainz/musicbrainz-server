@@ -548,7 +548,8 @@ sub xml_label
         $name =~ s/(^|[^A-Za-z0-9])+([A-Za-z0-9]?)/uc $2/eg;
         printf ' type="%s"', $name;
     }
-    print '><name>' . xml_escape($ar->GetName) . '</name>', ;
+    print '><name>' . xml_escape($ar->GetName) . '</name>';
+    print '<sort-name>' . xml_escape($ar->GetSortName) . '</sort-name>';
     print '<label-code>' . xml_escape($ar->GetLabelCode) . '</label-code>' if $ar->GetLabelCode;
     print '<disambiguation>' . xml_escape($ar->GetResolution()) . '</disambiguation>' if ($ar->GetResolution());
     
