@@ -239,6 +239,15 @@ sub xml_artist
 		xml_escape($ar->GetSortName);
     print '<disambiguation>' . xml_escape($ar->GetResolution()) . '</disambiguation>' if ($ar->GetResolution());
 
+    my ($begin, $end) = ($ar->GetBeginDate, $ar->GetEndDate);
+    if ($begin|| $end)
+    {
+        print '<life-span';
+        print ' begin="' . MusicBrainz::Server::Validation::MakeDisplayDateStr($begin) . '"' if ($begin); 
+        print ' end="' . MusicBrainz::Server::Validation::MakeDisplayDateStr($end) . '"' if ($end); 
+        print '/>';
+    }
+
 	if (($inc & INC_ALIASES) && scalar(@{$info->{aliases}}))
 	{
 		print '<alias-list>';
@@ -249,14 +258,6 @@ sub xml_artist
 		print '</alias-list>';
 	}
 	
-    my ($begin, $end) = ($ar->GetBeginDate, $ar->GetEndDate);
-    if ($begin|| $end)
-    {
-        print '<life-span';
-        print ' begin="' . MusicBrainz::Server::Validation::MakeDisplayDateStr($begin) . '"' if ($begin); 
-        print ' end="' . MusicBrainz::Server::Validation::MakeDisplayDateStr($end) . '"' if ($end); 
-        print '/>';
-    }
     if (defined $info)
     {
         my @albums = $ar->GetAlbums(!$info->{va}, 1, $info->{va});
@@ -552,6 +553,16 @@ sub xml_label
     print '<sort-name>' . xml_escape($ar->GetSortName) . '</sort-name>';
     print '<label-code>' . xml_escape($ar->GetLabelCode) . '</label-code>' if $ar->GetLabelCode;
     print '<disambiguation>' . xml_escape($ar->GetResolution()) . '</disambiguation>' if ($ar->GetResolution());
+    print '<county>' . xml_escape($ar->GetCountry()) . '</country>' if ($ar->GetCountry());
+    
+    my ($b, $e) = ($ar->GetBeginDate, $ar->GetEndDate);
+    if ($b|| $e)
+    {
+        print '<life-span';
+        print ' begin="' . MusicBrainz::Server::Validation::MakeDisplayDateStr($b) . '"' if ($b); 
+        print ' end="' . MusicBrainz::Server::Validation::MakeDisplayDateStr($e) . '"' if ($e); 
+        print '/>';
+    }
     
     if (($inc & INC_ALIASES) && scalar(@{$info->{aliases}}))
     {
@@ -563,14 +574,6 @@ sub xml_label
            print '</alias-list>';
    }
 
-    my ($b, $e) = ($ar->GetBeginDate, $ar->GetEndDate);
-    if ($b|| $e)
-    {
-        print '<life-span';
-        print ' begin="' . MusicBrainz::Server::Validation::MakeDisplayDateStr($b) . '"' if ($b); 
-        print ' end="' . MusicBrainz::Server::Validation::MakeDisplayDateStr($e) . '"' if ($e); 
-        print '/>';
-    }
     xml_relations($ar, 'label', $inc) if ($inc & INC_ARTISTREL || $inc & INC_LABELREL || $inc & INC_RELEASEREL || $inc & INC_TRACKREL || $inc & INC_URLREL);
     print "</label>";
 
