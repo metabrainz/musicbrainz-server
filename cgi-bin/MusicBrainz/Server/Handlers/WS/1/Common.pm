@@ -553,7 +553,7 @@ sub xml_label
     print '<sort-name>' . xml_escape($ar->GetSortName) . '</sort-name>';
     print '<label-code>' . xml_escape($ar->GetLabelCode) . '</label-code>' if $ar->GetLabelCode;
     print '<disambiguation>' . xml_escape($ar->GetResolution()) . '</disambiguation>' if ($ar->GetResolution());
-    print '<county>' . xml_escape($ar->GetCountry()->GetISOCode) . '</country>' if ($ar->GetCountry());
+    print '<country>' . xml_escape($ar->GetCountry()->GetISOCode) . '</country>' if ($ar->GetCountry());
     
     my ($b, $e) = ($ar->GetBeginDate, $ar->GetEndDate);
     if ($b|| $e)
