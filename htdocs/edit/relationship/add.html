@@ -33,6 +33,7 @@
 	$linktypeid => undef
 	$mblink0 => undef
 	$mblink1 => undef
+	$usetracks => undef
 
 	$begindate_y => ""
 	$begindate_m => ""
@@ -134,6 +135,11 @@
 	my ($attributes, $desc);
 	($linktypeid, $attributes, $desc) = split '\|', $linktypeid if ($linktypeid);
 
+	if (defined($usetracks) && $types[$usetracks] eq "album") {
+		$types[$usetracks] = "track";
+		@types = sort { $a cmp $b } @types;
+	}
+
 	# create new linktype instance
 	my $linkType = MusicBrainz::Server::LinkType->new($mb->{DBH}, \@types);
 
@@ -199,30 +205,51 @@
 								$typeshow,
 								$links[$returnto]{id};
 
-					$m->comp(
-						"/comp/entermods",
-						DBH => $mb->{DBH},
-						sub => sub {
-							my @mods = Moderation->InsertModeration(
-								DBH => $mb->{DBH},
-								uid => $session{uid},
-								privs => $session{privs},
-								type => &ModDefs::MOD_ADD_LINK,
-								# --
-								entities => \@links,
-								linktype => $newLinkType,
-								begindate => [ $begindate_y, $begindate_m, $begindate_d ],
-								enddate => [ $enddate_y, $enddate_m, $enddate_d ],
-								attributes => \@new_attr_list,
-							);
+					my @entitiesList = (\@links);
+					if (defined($usetracks) && $links[$usetracks]{type} eq "album") {
+						@entitiesList = ();
+						my $tracks = $links[$usetracks]{obj}->GetTracks;
+						foreach my $track (@$tracks) {
+							next if !$ARGS{"track" . $track->GetId};
+							my @entities = @links;
+							$entities[$usetracks] = {
+								type => "track",
+								id => $track->GetId,
+								name => $track->GetName,
+								obj => $track
+							};
+							@entities = sort { $a->{type} cmp $b->{type} } @entities;
+							push @entitiesList, \@entities;
+						}
+					}
 
-							$mods[0]->InsertNote($session{'uid'}, $notetext)
-								if $mods[0]
-								and $notetext =~ /\S/;
-						},
-						success_url => $url,
-					) or return;
-    			}
+					foreach my $entities (@entitiesList) {
+						$m->comp(
+							"/comp/entermods",
+							DBH => $mb->{DBH},
+							sub => sub {
+								my @mods = Moderation->InsertModeration(
+									DBH => $mb->{DBH},
+									uid => $session{uid},
+									privs => $session{privs},
+									type => &ModDefs::MOD_ADD_LINK,
+									# --
+									entities => $entities,
+									linktype => $newLinkType,
+									begindate => [ $begindate_y, $begindate_m, $begindate_d ],
+									enddate => [ $enddate_y, $enddate_m, $enddate_d ],
+									attributes => \@new_attr_list,
+								);
+
+								$mods[0]->InsertNote($session{'uid'}, $notetext)
+									if $mods[0]
+									and $notetext =~ /\S/;
+							},
+						) or return;
+					}
+
+					return $m->comp("/comp/redirect", $url);
+				}
 			}
 		}
 	}
