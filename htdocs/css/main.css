@@ -723,6 +723,10 @@ td.trk, td.did, td.trm, td.rdate {
 	text-align: right; 
 }
 
+td.rtimeline { 
+	background: url('/images/timeline.gif') 50% 0% repeat-y;
+}
+
 td.trk *, td.did *, td.trm *, td.rdate * { 
 	vertical-align: middle 
 }

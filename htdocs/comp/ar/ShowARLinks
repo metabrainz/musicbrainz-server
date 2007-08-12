@@ -36,6 +36,7 @@
 	$isrelpage => 0
 	$expanded => 0
 	$count => 0
+	$all => 0
 
 </%args>
 <%perl>
@@ -67,10 +68,11 @@
 
 			if ($count)
 			{
-				$m->out(sprintf qq! | <a href="/show/%s/relationships.html?%sid=$id%s">%s</a>!,
+				$m->out(sprintf qq! | <a href="/show/%s/relationships.html?%sid=$id%s%s">%s</a>!,
 						$typeshow,
 						$typeshow,
 						$expanded ? "" : "&amp;expanded=1",
+						$all ? "&amp;all=1" : "",
 						$expanded ? "View relationships" : "Edit relationships");
 			}
 		}

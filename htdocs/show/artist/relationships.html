@@ -35,6 +35,7 @@
 	$remtype => ""
 	$arcancel => 0
 	$expanded => 0
+	$all => 0
 
 </%args>
 <%perl>
@@ -47,10 +48,40 @@
 	my $mb = $m->comp("/comp/dblogin");
 	my $artist = $m->comp("/comp/loadartist", $mb, $artistid);
 
-	my $title = ("Relationships for artist: " . $artist->GetName());
-	$m->comp("/comp/sidebar", pagetitle => $title);
+	my $title = $artist->GetName();
+	if ($all) {
+		$title .= " - All Relationships";
+	}
+	else {
+		$title .= " - Artist, Label and URL Relationships";
+	}
+
+	$m->comp("/comp/sidebar-notitle", pagetitle => $title);
 
 	$m->comp("/comp/artisttitle", artist => $artist);
+
+	if ($all) {
+</%perl>
+<p style="margin-bottom: 1em;">
+	All relationships for <& "/comp/linkartist", artist => $artist &>.
+	[
+		<a href="/show/artist/appears-on.html?artistid=<% $artist->GetId %>">View track and release relationships</a> |
+		<a href="/show/artist/relationships.html?artistid=<% $artist->GetId %>">View artist, label and URL relationships</a>
+	]
+</p>
+<%perl>
+	}
+	else {
+</%perl>
+<p style="margin-bottom: 1em;">
+	Artist, label and URL relationships for <& "/comp/linkartist", artist => $artist &>.
+	[
+		<a href="/show/artist/appears-on.html?artistid=<% $artist->GetId %>">View track and release relationships</a> |
+		<a href="/show/artist/relationships.html?artistid=<% $artist->GetId %>&amp;all=1">View all relationships</a>
+	]
+</p>
+<%perl>
+	}
 
 	$m->comp("/comp/ar/AddRelationship", id => $artist->GetId, type => "artist", name => $artist->GetName)
 		if ($addrel);
@@ -61,9 +92,12 @@
 	$m->comp("/comp/ar/RemoveRelationship", id => $remrel, type => $remtype)
 		if ($remrel >= 0);
 
-    $m->comp("/comp/ar/RelationshipBox", id => $artist->GetId, type => "artist",
-             name => $artist->GetName, modlinks => 1, isrelpage => 1,
-             expanded => $expanded);
+	$m->comp("/comp/ar/RelationshipBox", id => $artist->GetId, type => "artist",
+	         name => $artist->GetName, modlinks => 1, isrelpage => 1,
+	         expanded => $expanded,
+	         to_type => $all ? undef : ['artist', 'label', 'url'],
+	         all => $all,
+	);
 
 	$m->comp("/comp/footer");
 

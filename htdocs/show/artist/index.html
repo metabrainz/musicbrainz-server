@@ -196,8 +196,8 @@
     $m->comp("/comp/ar/RemoveRelationship", id => $remrel, type => $remtype)
 	    if ($remrel >= 0);
 
-    $m->comp("/comp/ar/RelationshipBox", id => $artist->GetId, type => 'artist',
-			                             name => $artist->GetName);
+	$m->comp("/comp/ar/RelationshipBox", id => $artist->GetId, type => 'artist',
+			 name => $artist->GetName, to_type => ['artist', 'label', 'url']);
 
 	if ($artist->GetId == &ModDefs::VARTIST_ID)
     {

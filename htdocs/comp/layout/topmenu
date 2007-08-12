@@ -161,6 +161,7 @@
 			{ url => "/show/artist/details.html" },
 			{ url => "/show/artist/aliases.html" },
 			{ url => "/show/artist/similar.html" },
+			{ url => "/show/artist/appears-on.html" },
 
 			# label
 			{ url => "/showlabel.html" },

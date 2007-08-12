@@ -34,7 +34,9 @@
 	$modlinks => 0
 	$isrelpage => 0
 	$expanded => 0
-    $release => 0
+	$release => 0
+	$to_type => undef
+	$all => 0
 
 </%args>
 
@@ -114,12 +116,19 @@ my $_isEqual = sub {
 };
 
 my $mb = $m->comp("/comp/dblogin");
-my @links = MusicBrainz::Server::Link->FindLinkedEntities($mb->{DBH}, $id, $type);
+my %opts;
+$opts{to_type} = $to_type if defined($to_type);
+my @links = MusicBrainz::Server::Link->FindLinkedEntities($mb->{DBH}, $id, $type, %opts);
 my $returnto = 0;
 
 if (@links == 0)
 {
-	$m->out("This $type has no relationships.<br />");
+	if ($type eq "artist") {
+		$m->out("This $type has no artist, label or URL relationships. <a href=\"/show/artist/appears-on.html?artistid=$id\">View track and release relationships</a>.<br />");
+	}
+	else {
+		$m->out("This $type has no relationships.<br />");
+	}
 }
 else
 {
@@ -255,7 +264,7 @@ else
 }
 $m->comp('/comp/ar/ShowARLinks', id => $id, type => $type, isrelpage => $isrelpage,
 								 expanded => $expanded, count => scalar(@links),
-								 name => $name);
+								 name => $name, all => $all);
 
 my $recent_links = ($session{recent_links} ||= []);
 if (scalar(@$recent_links) == 0)

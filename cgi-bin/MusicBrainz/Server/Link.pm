@@ -367,6 +367,58 @@ sub FindLinkedEntities
 }
 
 
+sub FindLinkedAlbums
+{
+	my ($self, $entitytype, $entityid) = @_;
+	
+	my $sql = Sql->new($self->{DBH});
+
+	my (@albums, $links);
+
+	$links = $sql->SelectListOfHashes("
+		SELECT
+			album.id,
+			album.gid,
+			album.name,
+			lt.name AS linkphrase,
+			artist.id AS artist_id,
+			artist.name AS artist_name,
+			l.begindate,
+			albummeta.firstreleasedate
+		FROM
+			album
+			JOIN l_album_artist AS l ON l.link0 = album.id
+			JOIN lt_album_artist AS lt ON lt.id = l.link_type
+			JOIN artist ON album.artist = artist.id
+			JOIN albummeta ON album.id = albummeta.id
+		WHERE
+			l.link1 = ?
+
+		UNION ALL SELECT
+			album.id,
+			album.gid,
+			album.name,
+			lt.name AS linkphrase,
+			artist.id AS artist_id,
+			artist.name AS artist_name,
+			l.begindate,
+			albummeta.firstreleasedate
+		FROM
+			album
+			JOIN albumjoin ON album.id = albumjoin.album
+			JOIN l_artist_track AS l ON l.link1 = albumjoin.track
+			JOIN lt_artist_track AS lt ON lt.id = l.link_type
+			JOIN artist ON album.artist = artist.id
+			JOIN albummeta ON album.id = albummeta.id
+		WHERE
+			l.link0 = ?
+	", $entityid, $entityid);
+	push @albums, @$links;
+	
+	return \@albums;
+}
+
+
 # Given a sufficiently populated $self object, find out whether such a link
 # exists in the database.  If it does, fill in the remaining fields (id, etc)
 sub Exists

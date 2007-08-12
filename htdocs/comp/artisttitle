@@ -127,14 +127,11 @@
 
 		$m->out(sprintf qq!<a href="/show/permlink.html?id=$mbid&amp;type=artist" title="Link to this artist">Link to this</a>!, uri_escape($name));
 		$m->out(qq! | <a href="/show/artist/details.html?artistid=$id" title="Artist details">Details</a>!);
-		if ($id != &ModDefs::VARTIST_ID)
-		{
-				$m->out(qq! | <a href="/user/subscribe.html?artistid=$id">Subscribe</a>!);
-		}
 		$m->out(qq! | <a href="/show/artist/aliases.html?artistid=$id" title="Artist aliases">Aliases</a>!);
 		if ($id != &ModDefs::VARTIST_ID)
 		{
 			$m->out(qq! | <a href="/show/artist/?artistid=$id" title="Releases of this artist">Releases</a>!);
+			$m->out(qq! | <a href="/show/artist/appears-on.html?artistid=$id" title="All releases this artist appears on">Appears on</a>!);
 		}
 		else
 		{
@@ -166,6 +163,10 @@
 			{
 				$m->out(qq!<a href="/edit/artist/edit.html?artistid=$id">Edit artist</a>!);
 				$m->out(qq! | <a href="/edit/artist/merge.html?artistid=$id">Merge into ...</a> | !);
+			}
+			if ($id != &ModDefs::VARTIST_ID)
+			{
+				$m->out(qq!<a href="/user/subscribe.html?artistid=$id">Subscribe</a> | !);
 			}
 			$m->out(qq!<a href="/edit/album/add.html?artistid=$id">Add release</a>!);
 
