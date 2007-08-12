@@ -114,7 +114,8 @@
 
 	$m->out(sprintf qq!<div class="pagetitle" style="padding-bottom: %dpx">%s</div>!,
 					$spacing,
-					$showtitle ? encode_entities($title) : "");
+					$showtitle ? encode_entities($title) : "")
+		if $showtitle;
 
 	# anchor.
 	$m->out(qq!<a id="maincontent"></a>\n!);
