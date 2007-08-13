@@ -569,7 +569,7 @@ sub FormatTrackLength
 	$ms or return "?:??";
 	$ms >= 1000 or return "$ms ms";
 
-	my $length_in_secs = $ms / 1000;
+	my $length_in_secs = int($ms / 1000.0 + 0.5);
 	sprintf "%d:%02d",
 		int($length_in_secs / 60),
 		($length_in_secs % 60),
