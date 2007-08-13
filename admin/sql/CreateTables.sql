@@ -173,7 +173,8 @@ CREATE TABLE cdtoc
     freedbid            CHAR(8) NOT NULL,
     trackcount          INTEGER NOT NULL,
     leadoutoffset       INTEGER NOT NULL,
-    trackoffset         INTEGER[] NOT NULL
+    trackoffset         INTEGER[] NOT NULL,
+    degraded            BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 CREATE TABLE clientversion
