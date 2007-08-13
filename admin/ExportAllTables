@@ -467,6 +467,9 @@ dumptable("replication_control");
 system "/bin/sync"; $? == 0 or die "sync failed (rc=$?)";
 $sql->Commit;
 
+# There should've been no changes on this handle, so call rollback
+$rawsql->Rollback;
+
 my $dumptime = tv_interval($t0);
 printf "%s : Dumped %d tables (%d rows) in %d seconds\n",
 	scalar localtime,
