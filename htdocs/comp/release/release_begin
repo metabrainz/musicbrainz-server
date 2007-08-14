@@ -283,21 +283,18 @@
             }
             elsif ($coverart)
             {
-                my ($name, $imguri, $releaseuri) = MusicBrainz::Server::CoverArt->ParseCoverArtURL($release->GetCoverartURL());
-                if ($imguri)
-                {
-                    $m->out("<td class=\"cover\"><a href=\"$releaseuri\">");
-                    $m->out("<img class=\"asin\" src=\"$imguri\" alt=\"Show release at $name\" /></a>");
+                my $releaseuri = $release->GetInfoURL;
 
-                    $releaseuri = $release->GetInfoURL if (!$releaseuri);
-                    if ($releaseuri)
-                    {
-                        $m->out(qq!<div class="partnerlinks">!);
-                        $m->out("$name: <a href=\"$releaseuri\">more info</a>");
-                        $m->out(qq!</div>!);
-                    }
-                    $m->out(qq!</td>!);
+                $m->out("<td class=\"cover\">");
+                $m->out("<a href=\"$releaseuri\">") if ($releaseuri);
+                $m->out("<img class=\"asin\" src=\"$coverart\" alt=\"Show release at $name\" />");
+                if ($releaseuri)
+                {
+                    $m->out(qq!</a><div class="partnerlinks">!);
+                    $m->out("$name: <a href=\"$releaseuri\">more info</a>");
+                    $m->out(qq!</div>!);
                 }
+                $m->out(qq!</td>!);
             }
 		}
 		$m->out(qq!</tr>!);

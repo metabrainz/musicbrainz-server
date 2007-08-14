@@ -40,10 +40,10 @@ my @CoverArtSites =
 (
    {
        name       => "CD Baby",
-       domain     => "cdbaby.name",
-       regexp     => "http://cdbaby.name/([a-z0-9])/([a-z0-9])/([A-Za-z0-9]*).jpg",
-       imguri     => 'http://cdbaby.name/$1/$2/$3.jpg',
-       releaseuri => 'http://cdbaby.com/cd/$3/from/musicbrainz',
+       domain     => "cdbaby.com",
+       regexp     => 'http://cdbaby.com/cd/(\w)(\w)(\w*)',
+       imguri     => 'http://cdbaby.name/$1/$2/$1$2$3.jpg',
+       releaseuri => 'http://cdbaby.com/cd/$1$2$3/from/musicbrainz',
    },
    {
        name       => 'archive.org',
@@ -51,7 +51,14 @@ my @CoverArtSites =
        regexp     => '^(.*)$',
        imguri     => '$1',
        releaseuri => '',
-   }
+   },
+   {
+       name       => "Jamendo",
+       domain     => "www.jamendo.com",
+       regexp     => 'http://www.jamendo.com/(\w\w)/album/(\d+)',
+       imguri     => 'http://img.jamendo.com/albums/$2/covers/1.200.jpg',
+       releaseuri => 'http://www.jamendo.com/$1/album/$2',
+   },
 );
 
 # amazon image file names are unique on all servers and constructed like
@@ -264,13 +271,13 @@ sub ParseCoverArtURL
                 my $img = $site->{imguri};
                 my $release = $site->{releaseuri};
 
-                $img =~ s/\$$_/$a[$_]/ for(1..9);
-                $release =~ s/\$$_/$a[$_]/ for(1..9);
+                $img =~ s/\$$_/$a[$_]/g for(1..9);
+                $release =~ s/\$$_/$a[$_]/g for(1..9);
 
                 if (defined $al)
                 {
                     $al->SetCoverartURL($img);
-                    $al->GetInfoURL($release);
+                    $al->SetInfoURL($release);
                 }
                 return ($site->{name}, $img, $release);
             }
