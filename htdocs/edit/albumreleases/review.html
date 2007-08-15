@@ -53,6 +53,10 @@
 		}
 		elsif ($submitvalue =~ m/Start over/i)
 		{
+			# Erase editnote in session
+			delete $edit->{"editnote"};
+			$session{"editreleases"}{$releaseid} = $edit;
+
 			return $m->comp("/comp/redirect", "/edit/albumreleases/index.html?releaseid=$releaseid");
 		}
 		elsif ($submitvalue =~ m/Enter edits/i)
@@ -65,6 +69,10 @@
 		}
 		elsif ($submitvalue =~ m/Keep editing/i)
 		{
+			# Store editnote in session
+			$edit->{"editnote"} = $notetext;
+			$session{"editreleases"}{$releaseid} = $edit;
+
 			return $m->comp("/comp/redirect", "/edit/albumreleases/editreleases.html?releaseid=$releaseid");
 		}
 	}
@@ -76,6 +84,8 @@
 	my $artist = $m->comp("/comp/loadartist", $mb, $release->GetArtist);
 
 	my @tracks = $release->LoadTracks;
+
+	$notetext = $edit->{"editnote"} if $notetext eq "";
 
 </%perl>
 
