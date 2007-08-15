@@ -61,7 +61,7 @@
 		<tr>
 			<td class="textarea">
 				<textarea name="notetext" id="notetext" class="textarea"
-					rows="3" cols="52"><% $notetext %></textarea>
+					rows="5" cols="52"><% $notetext %></textarea>
 			</td>
 		</tr>
 		<tr>

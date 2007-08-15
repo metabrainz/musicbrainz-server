@@ -105,7 +105,7 @@
 
 %	}
 
-		[ <a href="/mod/addnote.html?modid=<% $edit->GetId %>" onclick="MyWindow=window.open('/mod/addnote.html?modid=<% $edit->GetId %>','AddNote','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=150'); return false;">Add note</a>
+		[ <a href="/mod/addnote.html?modid=<% $edit->GetId %>" onclick="MyWindow=window.open('/mod/addnote.html?modid=<% $edit->GetId %>','AddNote','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=500,height=200'); return false;">Add note</a>
 
 % 	my $url = uri_escape($r->uri.'?'.$r->args);
 % 	if ($is_open and
