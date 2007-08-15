@@ -97,6 +97,10 @@ sub mark_up_text_as_html
 	$html =~ s[\b(?:mod(?:eration)? #?|edit[#:\s]+|edit id[#:\s]+|change[#:\s]+)(\d+)\b]
 			  [<a href="http://$server/show/edit/?editid=$1">edit #$1</a>]gi;
 
+	# links to wikidocs 
+	$html =~ s/doc:(\w[\/\w]*)/<a href="\/doc\/$1">$1<\/a>/gi;
+	$html =~ s/\[(\w[\/\w]*)\]/<a href="\/doc\/$1">$1<\/a>/g;
+
 	$html =~ s/<\/?p[^>]*>//g;
 	$html =~ s/<br[^>]*\/?>//g;
 	$html =~ s/&#39;&#39;&#39;(.*)&#39;&#39;&#39;/<strong>$1<\/strong>/g;
