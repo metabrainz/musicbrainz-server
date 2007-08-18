@@ -590,7 +590,7 @@ sub xml_tags
     print '<tag-list>';
     foreach my $t (@$tags)
     {
-        print '<tag count="' . $t->{count} . '">' . $t->{name} . '</tag>';
+        print '<tag count="' . $t->{count} . '">' . xml_escape($t->{name}) . '</tag>';
     }
     print '</tag-list>';
     return undef;

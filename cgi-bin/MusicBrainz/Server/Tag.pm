@@ -408,22 +408,17 @@ sub GetRawTagsForEntity
 {
 	my ($self, $entity_type, $entity_id, $moderator_id) = @_;
 
-    # Login to the main DB
-    my $main = MusicBrainz->new;
-    $main->Login();
-   	my $maindb = Sql->new($main->{DBH});
-
-    # Login to the tags DB
-    my $tagdb = eval
-    {
-        my $tags = MusicBrainz->new;
-        $tags->Login(db => 'RAWDATA');
-        Sql->new($tags->{DBH});   
-    };
-    if ($@)
-    {
-        $tagdb = $maindb;
-    }
+	my $maindb = Sql->new($self->GetDBH());
+	my $tagdb = eval
+	{
+		my $tags = MusicBrainz->new;
+		$tags->Login(db => 'RAWDATA');
+		Sql->new($tags->{DBH});   
+	};
+	if ($@)
+	{
+		$tagdb = $maindb;
+	}
 
 	my $assoc_table = $entity_type . '_tag_raw';
 	my $rows = $tagdb->SelectSingleColumnArray("SELECT tag
