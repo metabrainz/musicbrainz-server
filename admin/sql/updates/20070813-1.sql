@@ -2,6 +2,7 @@
 --    - tagging (coming soon)
 --    - keeping options for TOCs open
 --    - change columns begindate and enddate in AR tables to DEFAULT NULL
+--    - add columns shortlinkphrase and priority to AR type tables
 
 \set ON_ERROR_STOP 1
 
@@ -99,6 +100,53 @@ UPDATE l_track_url SET begindate = NULL WHERE begindate = '';
 UPDATE l_track_url SET enddate = NULL WHERE enddate = '';
 UPDATE l_url_url SET begindate = NULL WHERE begindate = '';
 UPDATE l_url_url SET enddate = NULL WHERE enddate = '';
+
+ALTER TABLE lt_album_album ADD shortlinkphrase VARCHAR(255) NOT NULL DEFAULT '';
+ALTER TABLE lt_album_album ADD priority INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE lt_album_artist ADD shortlinkphrase VARCHAR(255) NOT NULL DEFAULT '';
+ALTER TABLE lt_album_artist ADD priority INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE lt_album_label ADD shortlinkphrase VARCHAR(255) NOT NULL DEFAULT '';
+ALTER TABLE lt_album_label ADD priority INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE lt_album_track ADD shortlinkphrase VARCHAR(255) NOT NULL DEFAULT '';
+ALTER TABLE lt_album_track ADD priority INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE lt_album_url ADD shortlinkphrase VARCHAR(255) NOT NULL DEFAULT '';
+ALTER TABLE lt_album_url ADD priority INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE lt_artist_artist ADD shortlinkphrase VARCHAR(255) NOT NULL DEFAULT '';
+ALTER TABLE lt_artist_artist ADD priority INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE lt_artist_label ADD shortlinkphrase VARCHAR(255) NOT NULL DEFAULT '';
+ALTER TABLE lt_artist_label ADD priority INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE lt_artist_track ADD shortlinkphrase VARCHAR(255) NOT NULL DEFAULT '';
+ALTER TABLE lt_artist_track ADD priority INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE lt_artist_url ADD shortlinkphrase VARCHAR(255) NOT NULL DEFAULT '';
+ALTER TABLE lt_artist_url ADD priority INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE lt_label_label ADD shortlinkphrase VARCHAR(255) NOT NULL DEFAULT '';
+ALTER TABLE lt_label_label ADD priority INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE lt_label_track ADD shortlinkphrase VARCHAR(255) NOT NULL DEFAULT '';
+ALTER TABLE lt_label_track ADD priority INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE lt_label_url ADD shortlinkphrase VARCHAR(255) NOT NULL DEFAULT '';
+ALTER TABLE lt_label_url ADD priority INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE lt_track_track ADD shortlinkphrase VARCHAR(255) NOT NULL DEFAULT '';
+ALTER TABLE lt_track_track ADD priority INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE lt_track_url ADD shortlinkphrase VARCHAR(255) NOT NULL DEFAULT '';
+ALTER TABLE lt_track_url ADD priority INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE lt_url_url ADD shortlinkphrase VARCHAR(255) NOT NULL DEFAULT '';
+ALTER TABLE lt_url_url ADD priority INTEGER NOT NULL DEFAULT 0;
+
+UPDATE lt_album_album SET shortlinkphrase = name;
+UPDATE lt_album_artist SET shortlinkphrase = name;
+UPDATE lt_album_label SET shortlinkphrase = name;
+UPDATE lt_album_track SET shortlinkphrase = name;
+UPDATE lt_album_url SET shortlinkphrase = name;
+UPDATE lt_artist_artist SET shortlinkphrase = name;
+UPDATE lt_artist_label SET shortlinkphrase = name;
+UPDATE lt_artist_track SET shortlinkphrase = name;
+UPDATE lt_artist_url SET shortlinkphrase = name;
+UPDATE lt_label_label SET shortlinkphrase = name;
+UPDATE lt_label_track SET shortlinkphrase = name;
+UPDATE lt_label_url SET shortlinkphrase = name;
+UPDATE lt_track_track SET shortlinkphrase = name;
+UPDATE lt_track_url SET shortlinkphrase = name;
+UPDATE lt_url_url SET shortlinkphrase = name;
 
 COMMIT;
 

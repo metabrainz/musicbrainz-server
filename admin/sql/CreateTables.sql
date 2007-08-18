@@ -445,7 +445,9 @@ CREATE TABLE lt_album_album
     linkphrase          VARCHAR(255) NOT NULL,
     rlinkphrase         VARCHAR(255) NOT NULL,
     attribute           VARCHAR(255) DEFAULT '',
-    modpending          INTEGER NOT NULL DEFAULT 0
+    modpending          INTEGER NOT NULL DEFAULT 0,
+    shortlinkphrase     VARCHAR(255) NOT NULL DEFAULT '',
+    priority            INTEGER NOT NULL DEFAULT 0
 );
 
 CREATE TABLE lt_album_artist
@@ -459,7 +461,9 @@ CREATE TABLE lt_album_artist
     linkphrase          VARCHAR(255) NOT NULL,
     rlinkphrase         VARCHAR(255) NOT NULL,
     attribute           VARCHAR(255) DEFAULT '',
-    modpending          INTEGER NOT NULL DEFAULT 0
+    modpending          INTEGER NOT NULL DEFAULT 0,
+    shortlinkphrase     VARCHAR(255) NOT NULL DEFAULT '',
+    priority            INTEGER NOT NULL DEFAULT 0
 );
 
 CREATE TABLE lt_album_label
@@ -473,7 +477,9 @@ CREATE TABLE lt_album_label
     linkphrase          VARCHAR(255) NOT NULL,
     rlinkphrase         VARCHAR(255) NOT NULL,
     attribute           VARCHAR(255) DEFAULT '',
-    modpending          INTEGER NOT NULL DEFAULT 0
+    modpending          INTEGER NOT NULL DEFAULT 0,
+    shortlinkphrase     VARCHAR(255) NOT NULL DEFAULT '',
+    priority            INTEGER NOT NULL DEFAULT 0
 );
 
 CREATE TABLE lt_album_track
@@ -487,7 +493,9 @@ CREATE TABLE lt_album_track
     linkphrase          VARCHAR(255) NOT NULL,
     rlinkphrase         VARCHAR(255) NOT NULL,
     attribute           VARCHAR(255) DEFAULT '',
-    modpending          INTEGER NOT NULL DEFAULT 0
+    modpending          INTEGER NOT NULL DEFAULT 0,
+    shortlinkphrase     VARCHAR(255) NOT NULL DEFAULT '',
+    priority            INTEGER NOT NULL DEFAULT 0
 );
 
 CREATE TABLE lt_album_url
@@ -501,7 +509,9 @@ CREATE TABLE lt_album_url
     linkphrase          VARCHAR(255) NOT NULL,
     rlinkphrase         VARCHAR(255) NOT NULL,
     attribute           VARCHAR(255) DEFAULT '',
-    modpending          INTEGER NOT NULL DEFAULT 0
+    modpending          INTEGER NOT NULL DEFAULT 0,
+    shortlinkphrase     VARCHAR(255) NOT NULL DEFAULT '',
+    priority            INTEGER NOT NULL DEFAULT 0
 );
 
 CREATE TABLE lt_artist_artist
@@ -515,7 +525,9 @@ CREATE TABLE lt_artist_artist
     linkphrase          VARCHAR(255) NOT NULL,
     rlinkphrase         VARCHAR(255) NOT NULL,
     attribute           VARCHAR(255) DEFAULT '',
-    modpending          INTEGER NOT NULL DEFAULT 0
+    modpending          INTEGER NOT NULL DEFAULT 0,
+    shortlinkphrase     VARCHAR(255) NOT NULL DEFAULT '',
+    priority            INTEGER NOT NULL DEFAULT 0
 );
 
 CREATE TABLE lt_artist_label
@@ -529,7 +541,9 @@ CREATE TABLE lt_artist_label
     linkphrase          VARCHAR(255) NOT NULL,
     rlinkphrase         VARCHAR(255) NOT NULL,
     attribute           VARCHAR(255) DEFAULT '',
-    modpending          INTEGER NOT NULL DEFAULT 0
+    modpending          INTEGER NOT NULL DEFAULT 0,
+    shortlinkphrase     VARCHAR(255) NOT NULL DEFAULT '',
+    priority            INTEGER NOT NULL DEFAULT 0
 );
 
 CREATE TABLE lt_artist_track
@@ -543,7 +557,9 @@ CREATE TABLE lt_artist_track
     linkphrase          VARCHAR(255) NOT NULL,
     rlinkphrase         VARCHAR(255) NOT NULL,
     attribute           VARCHAR(255) DEFAULT '',
-    modpending          INTEGER NOT NULL DEFAULT 0
+    modpending          INTEGER NOT NULL DEFAULT 0,
+    shortlinkphrase     VARCHAR(255) NOT NULL DEFAULT '',
+    priority            INTEGER NOT NULL DEFAULT 0
 );
 
 CREATE TABLE lt_artist_url
@@ -557,7 +573,9 @@ CREATE TABLE lt_artist_url
     linkphrase          VARCHAR(255) NOT NULL,
     rlinkphrase         VARCHAR(255) NOT NULL,
     attribute           VARCHAR(255) DEFAULT '',
-    modpending          INTEGER NOT NULL DEFAULT 0
+    modpending          INTEGER NOT NULL DEFAULT 0,
+    shortlinkphrase     VARCHAR(255) NOT NULL DEFAULT '',
+    priority            INTEGER NOT NULL DEFAULT 0
 );
 
 CREATE TABLE lt_label_label
@@ -571,7 +589,9 @@ CREATE TABLE lt_label_label
     linkphrase          VARCHAR(255) NOT NULL,
     rlinkphrase         VARCHAR(255) NOT NULL,
     attribute           VARCHAR(255) DEFAULT '',
-    modpending          INTEGER NOT NULL DEFAULT 0
+    modpending          INTEGER NOT NULL DEFAULT 0,
+    shortlinkphrase     VARCHAR(255) NOT NULL DEFAULT '',
+    priority            INTEGER NOT NULL DEFAULT 0
 );
 
 CREATE TABLE lt_label_track
@@ -585,7 +605,9 @@ CREATE TABLE lt_label_track
     linkphrase          VARCHAR(255) NOT NULL,
     rlinkphrase         VARCHAR(255) NOT NULL,
     attribute           VARCHAR(255) DEFAULT '',
-    modpending          INTEGER NOT NULL DEFAULT 0
+    modpending          INTEGER NOT NULL DEFAULT 0,
+    shortlinkphrase     VARCHAR(255) NOT NULL DEFAULT '',
+    priority            INTEGER NOT NULL DEFAULT 0
 );
 
 CREATE TABLE lt_label_url
@@ -599,7 +621,9 @@ CREATE TABLE lt_label_url
     linkphrase          VARCHAR(255) NOT NULL,
     rlinkphrase         VARCHAR(255) NOT NULL,
     attribute           VARCHAR(255) DEFAULT '',
-    modpending          INTEGER NOT NULL DEFAULT 0
+    modpending          INTEGER NOT NULL DEFAULT 0,
+    shortlinkphrase     VARCHAR(255) NOT NULL DEFAULT '',
+    priority            INTEGER NOT NULL DEFAULT 0
 );
 
 CREATE TABLE lt_track_track
@@ -613,7 +637,9 @@ CREATE TABLE lt_track_track
     linkphrase          VARCHAR(255) NOT NULL,
     rlinkphrase         VARCHAR(255) NOT NULL,
     attribute           VARCHAR(255) DEFAULT '',
-    modpending          INTEGER NOT NULL DEFAULT 0
+    modpending          INTEGER NOT NULL DEFAULT 0,
+    shortlinkphrase     VARCHAR(255) NOT NULL DEFAULT '',
+    priority            INTEGER NOT NULL DEFAULT 0
 );
 
 CREATE TABLE lt_track_url
@@ -627,7 +653,9 @@ CREATE TABLE lt_track_url
     linkphrase          VARCHAR(255) NOT NULL,
     rlinkphrase         VARCHAR(255) NOT NULL,
     attribute           VARCHAR(255) DEFAULT '',
-    modpending          INTEGER NOT NULL DEFAULT 0
+    modpending          INTEGER NOT NULL DEFAULT 0,
+    shortlinkphrase     VARCHAR(255) NOT NULL DEFAULT '',
+    priority            INTEGER NOT NULL DEFAULT 0
 );
 
 CREATE TABLE lt_url_url
@@ -641,7 +669,9 @@ CREATE TABLE lt_url_url
     linkphrase          VARCHAR(255) NOT NULL,
     rlinkphrase         VARCHAR(255) NOT NULL,
     attribute           VARCHAR(255) DEFAULT '',
-    modpending          INTEGER NOT NULL DEFAULT 0
+    modpending          INTEGER NOT NULL DEFAULT 0,
+    shortlinkphrase     VARCHAR(255) NOT NULL DEFAULT '',
+    priority            INTEGER NOT NULL DEFAULT 0
 );
 
 CREATE TABLE moderation_note_closed
