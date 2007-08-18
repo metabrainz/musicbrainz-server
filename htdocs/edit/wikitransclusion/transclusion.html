@@ -21,7 +21,7 @@
 	#
 	# Summary:
 	# -----------------------------------------------------------------------------
-	# This page allows to edit the wiki transclusion table.
+	# This page allows to see or edit the wiki transclusion table.
 	#
 	# $Id$
 	#
@@ -39,13 +39,8 @@
 	$m->comp("/comp/checkloggedin", 1, 1)
 		or return;
 
-	# only users with permission can see this page.
- 	if (!UserStuff->IsWikiTranscluder($session{privs}))
-	{
-		return $m->comp("/comp/layout/error",
-			title => "Insufficient permissions",
-			text => "You must be a wiki transclusion editor to use this page.");
-	}
+	# check user privileges.
+	my $is_wikitrans_mod = UserStuff->IsWikiTranscluder($session{privs});
 
 	# start page output
 	$m->comp("/comp/sidebar-notitle", pagetitle => "Wiki Transclusions");
@@ -53,80 +48,85 @@
 	# instantiate MusicBrainz, and Transclusion object
 	my $mb = $m->comp("/comp/dblogin");
 	my $wt = MusicBrainz::Server::WikiTransclusion->new();
-	my $pages = $wt->GetPageIndex();
-	if ($action eq 'remove')
-	{
-		$m->out('<p class="notice">');
-		if (!$page)
-		{
-			$m->out("Error: To remove a transclusion page, you must provide the page.\n\n");
-		}
-		else
-		{
-			my $prevrev = $pages->{$page};
-			$wt->SetPage($page);
-			if ($wt->Delete())
-			{
-				$m->out("Page $page has been deleted from the transclusion list and the cache.");
-				$m->comp( "/comp/entermods",
-						DBH => $mb->{DBH},
-						sub => sub {
-							my @mods = Moderation->InsertModeration(
-							DBH	=> $mb->{DBH},
-							uid	=> $session{uid},
-							privs => $session{privs},
-							type => &ModDefs::MOD_CHANGE_WIKIDOC,
-							# --
-							page => $page,
-							rev => "",
-							prevrev => $prevrev
-							)
-						});
-			}
-			else
-			{
-				$m->out("Could not delete page $page -- please try again in a moment.");
-			}
-		}
-		$m->out('</p>');
-	}
+	my $pages = undef;
 
-	if ($action eq 'update')
+	if ($is_wikitrans_mod) 
 	{
-		$m->out('<p class="notice">');
-		if (!$page || !$revision)
+		$pages = $wt->GetPageIndex();
+		if ($action eq 'remove')
 		{
-			$m->out("Error: To edit a transclusion page, you must provide the page and the revision.\n\n");
-		}
-		else
-		{
-			my $prevrev = $pages->{$page};
-			$wt->SetPage($page);
-			$wt->SetRevision($revision);
-			if ($wt->Update())
+			$m->out('<p class="notice">');
+			if (!$page)
 			{
-				$m->out("Page $page has been set to revision $revision and the index has been reloaded.");
-				$m->comp( "/comp/entermods",
-						DBH => $mb->{DBH},
-						sub => sub {
-							my @mods = Moderation->InsertModeration(
-							DBH	=> $mb->{DBH},
-							uid	=> $session{uid},
-							privs => $session{privs},
-							type => &ModDefs::MOD_CHANGE_WIKIDOC,
-							# --
-							page => $page,
-							rev => $revision,
-							prevrev => $prevrev,
-							)
-						});
+				$m->out("Error: To remove a transclusion page, you must provide the page.\n\n");
+			}	
+			else
+			{
+				my $prevrev = $pages->{$page};
+				$wt->SetPage($page);
+				if ($wt->Delete())
+				{
+					$m->out("Page $page has been deleted from the transclusion list and the cache.");
+					$m->comp( "/comp/entermods",
+							DBH => $mb->{DBH},
+							sub => sub {
+								my @mods = Moderation->InsertModeration(
+								DBH	=> $mb->{DBH},
+								uid	=> $session{uid},
+								privs => $session{privs},
+								type => &ModDefs::MOD_CHANGE_WIKIDOC,
+								# --
+								page => $page,
+								rev => "",
+								prevrev => $prevrev
+								)
+							});
+				}
+				else
+				{
+					$m->out("Could not delete page $page -- please try again in a moment.");
+				}
+			}
+			$m->out('</p>');
+		}
+
+		if ($action eq 'update')
+		{
+			$m->out('<p class="notice">');
+			if (!$page || !$revision)
+			{
+				$m->out("Error: To edit a transclusion page, you must provide the page and the revision.\n\n");
 			}
 			else
 			{
-				$m->out("Could not update page $page -- please try again in a moment.");
+				my $prevrev = $pages->{$page};
+				$wt->SetPage($page);
+				$wt->SetRevision($revision);
+				if ($wt->Update())
+				{
+					$m->out("Page $page has been set to revision $revision and the index has been reloaded.");
+					$m->comp( "/comp/entermods",
+							DBH => $mb->{DBH},
+							sub => sub {
+								my @mods = Moderation->InsertModeration(
+								DBH	=> $mb->{DBH},
+								uid	=> $session{uid},
+								privs => $session{privs},
+								type => &ModDefs::MOD_CHANGE_WIKIDOC,
+								# --
+								page => $page,
+								rev => $revision,
+								prevrev => $prevrev,
+								)
+							});
+				}
+				else
+				{
+					$m->out("Could not update page $page -- please try again in a moment.");
+				}
 			}
+			$m->out('</p>');
 		}
-		$m->out('</p>');
 	}
 </%perl>
 
@@ -137,10 +137,12 @@
 			<tr>
 				<td class="instructions">
 					<ul>
+%						if ($is_wikitrans_mod) {
 						<li>
 							If you want to clear the cached copy of a page,
 							simply press the Update button without
 							changing the revision</li>
+%						}
                         <li><a href="/mod/search/results.html?automod=&mod_type=48&moderator_type=0&moderator_id=31736&voter_type=0&voter_id=31736&artist_type=0&orderby=desc&minid=&maxid=&isreset=0">View transclusion history</a></li>
 					</ul>
 				</td>
@@ -152,7 +154,9 @@
 				<td class="left padright">WikiDocs Page</td>
 				<td class="left padright">Wiki Page</td>
 				<td class="left padright">Revision</td>
+%				if ($is_wikitrans_mod) {
 				<td class="left">Action</td>
+%				}
 			</tr>
 
 <%perl>
@@ -171,7 +175,8 @@
 					<& /comp/linkdoc, $page, $page, 0, 0 &></td>
 				<td class="left padright">
 					[&nbsp;<a href="http://wiki.musicbrainz.org/<% $page %>">Show</a>&nbsp;|&nbsp;<a href="http://wiki.musicbrainz.org/<% $page %>?action=info">Info</a>&nbsp;]</td>
-				<td class="left padright">
+				<td class="<% $is_wikitrans_mod ? "left" : "center" %> padright">
+%				if ($is_wikitrans_mod) {
 					<form method="post" action="/edit/wikitransclusion/transclusion.html">
 						<input type="hidden" name="page" value="<% $page %>" />
 						<input type="hidden" name="action" value="update" />
@@ -180,7 +185,11 @@
 						/>&nbsp;<input
 							type="submit" name="submit" value="Update &raquo;" />
 					</form>
+%				} else {
+					<% $pages->{$page} %>
+%				}
 				</td>
+%				if ($is_wikitrans_mod) {				
 				<td class="left">
 					<form method="post" action="/edit/wikitransclusion/transclusion.html">
 						<input type="hidden" name="page" value="<% $page %>" />
@@ -188,6 +197,7 @@
 						<input type="submit" name="submit" value="Remove &raquo;" />
 					</form>
 				</td>
+%				}				
 			</tr>
 
 %	}
@@ -197,7 +207,7 @@
 
 	<& /comp/tableend &>
 
-
+%	if ($is_wikitrans_mod) {
 	<& /comp/tablebegin, title => "Add new wiki page" &>
 
 		Enter the name and the revision of the wiki page to transclude:
@@ -223,6 +233,7 @@
 		</form>
 
 	<& /comp/tableend &>
+%	}
 
 <& /comp/footer &>
 
