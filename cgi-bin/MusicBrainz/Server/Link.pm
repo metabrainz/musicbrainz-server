@@ -502,8 +502,8 @@ sub Insert
 		. ", ?, ?)",
 		$self->GetLinkType,
 		$self->Links,
-		$begindate,
-		$enddate,
+		$begindate || undef,
+		$enddate || undef,
 	);
 
 	$self->SetId($sql->GetLastInsertId($self->{_table}));

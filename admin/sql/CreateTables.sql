@@ -235,8 +235,8 @@ CREATE TABLE l_album_album
     link0               INTEGER NOT NULL DEFAULT 0, -- references album
     link1               INTEGER NOT NULL DEFAULT 0, -- references album
     link_type           INTEGER NOT NULL DEFAULT 0, -- references lt_album_album
-    begindate           CHAR(10) NOT NULL DEFAULT '',
-    enddate             CHAR(10) NOT NULL DEFAULT '',
+    begindate           CHAR(10) DEFAULT NULL,
+    enddate             CHAR(10) DEFAULT NULL,
     modpending          INTEGER NOT NULL DEFAULT 0
 );
 
@@ -246,8 +246,8 @@ CREATE TABLE l_album_artist
     link0               INTEGER NOT NULL DEFAULT 0, -- references album
     link1               INTEGER NOT NULL DEFAULT 0, -- references artist
     link_type           INTEGER NOT NULL DEFAULT 0, -- references lt_album_artist
-    begindate           CHAR(10) NOT NULL DEFAULT '',
-    enddate             CHAR(10) NOT NULL DEFAULT '',
+    begindate           CHAR(10) DEFAULT NULL,
+    enddate             CHAR(10) DEFAULT NULL,
     modpending          INTEGER NOT NULL DEFAULT 0
 );
 
@@ -257,8 +257,8 @@ CREATE TABLE l_album_label
     link0               INTEGER NOT NULL DEFAULT 0, -- references album
     link1               INTEGER NOT NULL DEFAULT 0, -- references label
     link_type           INTEGER NOT NULL DEFAULT 0, -- references lt_album_label
-    begindate           CHAR(10) NOT NULL DEFAULT '',
-    enddate             CHAR(10) NOT NULL DEFAULT '',
+    begindate           CHAR(10) DEFAULT NULL,
+    enddate             CHAR(10) DEFAULT NULL,
     modpending          INTEGER NOT NULL DEFAULT 0
 );
 
@@ -268,8 +268,8 @@ CREATE TABLE l_album_track
     link0               INTEGER NOT NULL DEFAULT 0, -- references album
     link1               INTEGER NOT NULL DEFAULT 0, -- references track
     link_type           INTEGER NOT NULL DEFAULT 0, -- references lt_album_track
-    begindate           CHAR(10) NOT NULL DEFAULT '',
-    enddate             CHAR(10) NOT NULL DEFAULT '',
+    begindate           CHAR(10) DEFAULT NULL,
+    enddate             CHAR(10) DEFAULT NULL,
     modpending          INTEGER NOT NULL DEFAULT 0
 );
 
@@ -279,8 +279,8 @@ CREATE TABLE l_album_url
     link0               INTEGER NOT NULL DEFAULT 0, -- references album
     link1               INTEGER NOT NULL DEFAULT 0, -- references url
     link_type           INTEGER NOT NULL DEFAULT 0, -- references lt_album_url
-    begindate           CHAR(10) NOT NULL DEFAULT '',
-    enddate             CHAR(10) NOT NULL DEFAULT '',
+    begindate           CHAR(10) DEFAULT NULL,
+    enddate             CHAR(10) DEFAULT NULL,
     modpending          INTEGER NOT NULL DEFAULT 0
 );
 
@@ -290,8 +290,8 @@ CREATE TABLE l_artist_artist
     link0               INTEGER NOT NULL DEFAULT 0, -- references artist
     link1               INTEGER NOT NULL DEFAULT 0, -- references artist
     link_type           INTEGER NOT NULL DEFAULT 0, -- references lt_artist_artist
-    begindate           CHAR(10) NOT NULL DEFAULT '',
-    enddate             CHAR(10) NOT NULL DEFAULT '',
+    begindate           CHAR(10) DEFAULT NULL,
+    enddate             CHAR(10) DEFAULT NULL,
     modpending          INTEGER NOT NULL DEFAULT 0
 );
 
@@ -301,8 +301,8 @@ CREATE TABLE l_artist_label
     link0               INTEGER NOT NULL DEFAULT 0, -- references artist
     link1               INTEGER NOT NULL DEFAULT 0, -- references label
     link_type           INTEGER NOT NULL DEFAULT 0, -- references lt_artist_label
-    begindate           CHAR(10) NOT NULL DEFAULT '',
-    enddate             CHAR(10) NOT NULL DEFAULT '',
+    begindate           CHAR(10) DEFAULT NULL,
+    enddate             CHAR(10) DEFAULT NULL,
     modpending          INTEGER NOT NULL DEFAULT 0
 );
 
@@ -312,8 +312,8 @@ CREATE TABLE l_artist_track
     link0               INTEGER NOT NULL DEFAULT 0, -- references artist
     link1               INTEGER NOT NULL DEFAULT 0, -- references track
     link_type           INTEGER NOT NULL DEFAULT 0, -- references lt_artist_track
-    begindate           CHAR(10) NOT NULL DEFAULT '',
-    enddate             CHAR(10) NOT NULL DEFAULT '',
+    begindate           CHAR(10) DEFAULT NULL,
+    enddate             CHAR(10) DEFAULT NULL,
     modpending          INTEGER NOT NULL DEFAULT 0
 );
 
@@ -323,8 +323,8 @@ CREATE TABLE l_artist_url
     link0               INTEGER NOT NULL DEFAULT 0, -- references artist
     link1               INTEGER NOT NULL DEFAULT 0, -- references url
     link_type           INTEGER NOT NULL DEFAULT 0, -- references lt_artist_url
-    begindate           CHAR(10) NOT NULL DEFAULT '',
-    enddate             CHAR(10) NOT NULL DEFAULT '',
+    begindate           CHAR(10) DEFAULT NULL,
+    enddate             CHAR(10) DEFAULT NULL,
     modpending          INTEGER NOT NULL DEFAULT 0
 );
 
@@ -334,8 +334,8 @@ CREATE TABLE l_label_label
     link0               INTEGER NOT NULL DEFAULT 0, -- references label
     link1               INTEGER NOT NULL DEFAULT 0, -- references label
     link_type           INTEGER NOT NULL DEFAULT 0, -- references lt_label_label
-    begindate           CHAR(10) NOT NULL DEFAULT '',
-    enddate             CHAR(10) NOT NULL DEFAULT '',
+    begindate           CHAR(10) DEFAULT NULL,
+    enddate             CHAR(10) DEFAULT NULL,
     modpending          INTEGER NOT NULL DEFAULT 0
 );
 
@@ -345,8 +345,8 @@ CREATE TABLE l_label_track
     link0               INTEGER NOT NULL DEFAULT 0, -- references label
     link1               INTEGER NOT NULL DEFAULT 0, -- references track
     link_type           INTEGER NOT NULL DEFAULT 0, -- references lt_label_track
-    begindate           CHAR(10) NOT NULL DEFAULT '',
-    enddate             CHAR(10) NOT NULL DEFAULT '',
+    begindate           CHAR(10) DEFAULT NULL,
+    enddate             CHAR(10) DEFAULT NULL,
     modpending          INTEGER NOT NULL DEFAULT 0
 );
 
@@ -356,8 +356,8 @@ CREATE TABLE l_label_url
     link0               INTEGER NOT NULL DEFAULT 0, -- references label
     link1               INTEGER NOT NULL DEFAULT 0, -- references url
     link_type           INTEGER NOT NULL DEFAULT 0, -- references lt_label_url
-    begindate           CHAR(10) NOT NULL DEFAULT '',
-    enddate             CHAR(10) NOT NULL DEFAULT '',
+    begindate           CHAR(10) DEFAULT NULL,
+    enddate             CHAR(10) DEFAULT NULL,
     modpending          INTEGER NOT NULL DEFAULT 0
 );
 
@@ -367,8 +367,8 @@ CREATE TABLE l_track_track
     link0               INTEGER NOT NULL DEFAULT 0, -- references track
     link1               INTEGER NOT NULL DEFAULT 0, -- references track
     link_type           INTEGER NOT NULL DEFAULT 0, -- references lt_track_track
-    begindate           CHAR(10) NOT NULL DEFAULT '',
-    enddate             CHAR(10) NOT NULL DEFAULT '',
+    begindate           CHAR(10) DEFAULT NULL,
+    enddate             CHAR(10) DEFAULT NULL,
     modpending          INTEGER NOT NULL DEFAULT 0
 );
 
@@ -378,8 +378,8 @@ CREATE TABLE l_track_url
     link0               INTEGER NOT NULL DEFAULT 0, -- references track
     link1               INTEGER NOT NULL DEFAULT 0, -- references url
     link_type           INTEGER NOT NULL DEFAULT 0, -- references lt_track_url
-    begindate           CHAR(10) NOT NULL DEFAULT '',
-    enddate             CHAR(10) NOT NULL DEFAULT '',
+    begindate           CHAR(10) DEFAULT NULL,
+    enddate             CHAR(10) DEFAULT NULL,
     modpending          INTEGER NOT NULL DEFAULT 0
 );
 
@@ -389,8 +389,8 @@ CREATE TABLE l_url_url
     link0               INTEGER NOT NULL DEFAULT 0, -- references track
     link1               INTEGER NOT NULL DEFAULT 0, -- references url
     link_type           INTEGER NOT NULL DEFAULT 0, -- references lt_track_url
-    begindate           CHAR(10) NOT NULL DEFAULT '',
-    enddate             CHAR(10) NOT NULL DEFAULT '',
+    begindate           CHAR(10) DEFAULT NULL,
+    enddate             CHAR(10) DEFAULT NULL,
     modpending          INTEGER NOT NULL DEFAULT 0
 );
 
