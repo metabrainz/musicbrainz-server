@@ -33,7 +33,7 @@ function MbPopup()
 		);
 		setStyle(overDiv, {
 			'visibility': '',
-			'width': width + 'px',
+			'width': width + 'px'
 		});
 		setElementPosition(overDiv, new Coordinates(coords.x + 10, coords.y + 10));
 		this._visible = true;
