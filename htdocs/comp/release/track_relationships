@@ -35,100 +35,48 @@
 </%args>
 <%perl>
 
-	my $id = $track->GetId;
-	my $name => $track->GetName;
-	my $type = "track";
+	use constant MAX_LINES => 4;
+	use constant MAX_LINKS_PER_LINE => 4;
 
-	my $relationships = $m->comp("/comp/loadrelationships", $mb, $id, $type);
-	my @links = @{ $relationships };
-
-	# output relationships.
-	if (@links != 0)
+	sub ConvertToLines
 	{
-		my $max = scalar(@links);
-		my ($item, $i, $count, $lines);
+		my ($links) = @_;
+		my @lines;
 
-		$m->out('<table class="relationships">');
-		for($i = 0, $count = 0, $lines = 0; $i < $max; $i++, $lines++)
+		my $i = 0;
+		my $num_links = scalar(@$links);
+
+		while ($i < $num_links)
 		{
-			my $itemsperline = 0;
-			if ($lines == 3 && $max > 4)
-			{
-				$m->out(qq!<tr><td colspan="3">!);
-				$m->out(($max - $count) . " relationships not shown. ");
-				$m->out(qq!<a href="/show/track/relationships.html?trackid=$id">View all relationships ...</a></td></tr>!);
-				last;
-			}
-			$item = $links[$i];
+			my @line;
+		
+			my $a = $links->[$i];
+			push @line, $a;
+			$i++;
 
-#			my %h = %{ $item };
-#			$m->out(" ( ");
-#			$m->out(int (keys %h));
-#			$m->out(" ) => ");
-#			my ($k,$v);
-#			while (($k, $v) = each(%h))
-#			{
-#				$m->out("$k=$v,");
-#			}
-
-			# remove un-necessary words from phrase
-			my $phrase = $item->{link_phrase};
-			#$phrase =~ s/^[ \t]*//;
-			#$phrase =~ s/^has|^was|^were//g;
-
-			$m->out('<tr><td class="small">'.$phrase. ' ');
-			$m->comp("/comp/relationship/outputentity", item => $item, index => 1, name => $name);
-			$count++;
-
-
-			for(my $j = $i + 1; $j < $max; $j++)
-			{
-				my $nextitem = $links[$j];
-				if ($m->comp("/comp/relationship/isequal", $item, $nextitem))
-				{
-					if ($itemsperline <= 4)
-					{
-						my $and = 1;
-						if ($j < $max - 1)
-						{
-							my $nextnextitem = $links[$j + 1];
-							$and = 0 if ($m->comp("/comp/relationship/isequal", $nextitem, $nextnextitem));
-						}
-						$and ? $m->out(' and ') : $m->out(', ');
-						$m->comp("/comp/relationship/outputentity", item => $nextitem, index => 1, name => $name);
-						$m->out(" ... ") if ($itemsperline == 4);
-						$itemsperline++;
-					}
-					$i = $j;
-					$count++;
-				}
+			while ($i < $num_links) {
+				my $b = $links->[$i];
+				last if ($a->{link_phrase} ne $b->{link_phrase} ||
+				         $a->{begindate} ne $b->{begindate} ||
+				         $a->{enddate} ne $b->{enddate});
+				push @line, $b;
+				$i++;
 			}
 
-			if ($item->{begindate} =~ /\S/ || $item->{enddate} =~ /\S/)
-			{
-				my ($begindate, $has_begindate) = ($item->{begindate}, $item->{begindate} =~ /\S/);
-				my ($enddate, $has_enddate) = ($item->{enddate}, $item->{enddate} =~ /\S/);
-
-				if ($has_begindate && $has_enddate && $begindate eq $enddate)
-				{
-					# if we have a full date, including day, use "on", else
-					# use range "during/in"
-					$m->out($begindate =~ /\d+-\d+-\d+/ ? " on " : " during/in ");
-					$m->out($begindate);
-				}
-				else
-				{
-					$m->out(" from $begindate") if ($has_begindate);
-					$m->out($has_enddate ? " until $enddate" : " to present");
-				}
-			}
-			$m->out('</span>')
-				if ($max == 1 && $item->{modpending});
-
-			$m->out('</td></tr>');
+			push @lines, \@line;
 		}
-		$m->out('</table>');
+
+		return \@lines;
 	}
+
+	my $id = $track->GetId;
+	my $name = $track->GetName;
+	my $relationships = $m->comp("/comp/loadrelationships", $mb, $id, "track");
+
+	$m->comp("/comp/relationship/relationshiplist", id => $id,
+	         relationships => $relationships, max_lines => 4,
+	         max_links_per_line => 4, type => "track", track => 1);
+
 </%perl>
 
 %# vi: set ts=4 sw=4 ft=mason :

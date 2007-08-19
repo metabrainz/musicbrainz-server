@@ -40,67 +40,6 @@
 
 </%args>
 
-<%def .OutputEntity>
-<%perl>
-	my ($item, $index, $name, $release) = @_;
-
-	my $prefix = "link" . $index . "_";
-
-	$m->out('<span class="mp">')
-		if $item->{modpending};
-
-    my $text = "";
-	if ($item->{$prefix . "type"} eq 'url')
-	{
-		if ($item->{"link_name"} eq 'amazon asin' && $prefix eq 'link1_')
-		{
-		    ($text,, ) = MusicBrainz::Server::CoverArt->ParseAmazonURL($item->{link1_name});
-			$m->out("<b>");
-		}
-		elsif ($item->{"link_name"} eq 'coverart' && $prefix eq 'link1_')
-		{
-		    ($text,, ) = MusicBrainz::Server::CoverArt->ParseCoverArtURL($item->{link1_name});
-			$m->out("<b>");
-		}
-		else
-		{
-			use Encode;
-			my $url = $item->{$prefix . "name"};
-			$text = $url;
-			if ($item->{"link_name"} eq 'wikipedia' && $prefix eq 'link1_')
-			{
-				$text =~ s/^http:\/\/(\w{2,})\.wikipedia\.org\/wiki\/(.*)$/$1: $2/o;
-				$text =~ tr/_/ /;
-			}
-			# decode the URL
-			my $decoded_text = $text;
-			$decoded_text =~ s/\%([\dA-Fa-f]{2})/pack('C', hex($1))/oeg;
-			eval { Encode::decode_utf8($decoded_text, Encode::FB_CROAK); };
-			$text = $decoded_text if !$@;
-			$m->out('<b><a href="'.$url.'" title="'.encode_entities($text).'" rel="nofollow">');
-			# shorten url's that are longer than ~75 chars
-			$text = (length($text) > 75
-					 ? encode_entities(substr($text, 0, 72)) . "&#8230;"
-					 : encode_entities($text));
-		}
-	}
-	else
-	{
-		$m->out('<b><a href="/show'.
-				$item->{$prefix . "type"} . '.html?'.
-				$item->{$prefix . "type"} . 'id=' .
-				$item->{$prefix . "id"}.'">');
-	}
-	$text = encode_entities($item->{$prefix . "name"} eq '' ? $name : $item->{$prefix . "name"}) unless $text;
-
-	$m->out($text);
-	$m->out("</a></b>");
-
-	$m->out('</span>')
-		if $item->{modpending};
-</%perl>
-</%def>
-
 <script src="/scripts/jsselect.js" type="text/javascript"></script>
 <script src="/scripts/rellinks.js" type="text/javascript"></script>
 <div class="RelationshipBox">
@@ -170,98 +109,17 @@ else
 		return $a->{link1_name} cmp $b->{link1_name};
 	} @links;
 
-	$item = $links[0];
-	$m->out('<span class="mp">')
-		if ($max == 1 && $item->{modpending});
+	my $typeshow = $type eq "album" ? "release" : $type;
+	$m->comp("/comp/relationship/relationshiplist", id => $id,
+	         relationships => \@links,
+	         max_lines => ($expanded || $isrelpage) ? 100000 : 4,
+	         max_links_per_line => ($expanded || $isrelpage) ? 100000 : 4,
+	         track => 0, type => $typeshow, expanded => $expanded,
+	         modlinks => $modlinks, returnto => $returnto);
+	$m->out("<br/>");
 
-	# output current entity.
-	$m->comp("/comp/relationship/outputentity", item => $item, index => 0, name => $name, release => $release);
-
-	# output linked entities
-	$m->out(($max > 1) ? ':<table width="100%">' : ' ');
-	for($i = 0, $count = 0, $lines = 0; $i < $max; $i++, $lines++)
-	{
-	    my $itemsperline = 0;
-		if ($lines >= 3 && !$isrelpage)
-		{
-			$m->out(qq!<tr><td colspan="3">!);
-			$m->out(($max - $count) . " relationships not shown. ");
-
-			my $typeshow = $type eq "album" ? "release" : $type;
-			$m->out(sprintf qq!<a href="/show/%s/relationships.html?%sid=$id">View all relationships...</a>!,
-					$typeshow,
-					$typeshow);
-
-			$m->out(qq!</td></tr>!);
-			last;
-		}
-		$item = $links[$i];
-		$m->out('<tr><td valign="top" align="center" width="5%">&bull;</td><td width="99%">') if ($max > 1);
-		$m->out($item->{link_phrase} . " ");
-		$m->comp("/comp/relationship/outputentity", item => $item, index => 1, name => $name, release => $release);
-		$count++;
-
-		if (!$expanded)
-		{
-			for(my $j = $i + 1; $j < $max; $j++)
-			{
-				my $nextitem = $links[$j];
-				if (&$_isEqual($item, $nextitem))
-				{
-					if ($itemsperline <= 4 || $isrelpage)
-					{
-						my $and = 1;
-						if ($j < $max - 1)
-						{
-							my $nextnextitem = $links[$j + 1];
-							$and = 0 if (&$_isEqual($nextitem, $nextnextitem));
-						}
-						$and ? $m->out(' and ') : $m->out(', ');
-						$m->comp("/comp/relationship/outputentity", item => $nextitem, index => 1, name => $name, release => $release);
-						$m->out(" &#8230;") if ($itemsperline == 4) && !$and && !$isrelpage;
-						$itemsperline++;
-					}
-					$i = $j;
-					$count++;
-				}
-			}
-		}
-
-		if ($item->{begindate} =~ /\S/ || $item->{enddate} =~ /\S/)
-		{
-			my ($begindate, $has_begindate) = ($item->{begindate}, $item->{begindate} =~ /\S/);
-			my ($enddate, $has_enddate) = ($item->{enddate}, $item->{enddate} =~ /\S/);
-
-			if ($has_begindate && $has_enddate && $begindate eq $enddate)
-			{
-				# if we have a full date, including day, use "on", else
-				# use range "during/in"
-				$m->out($begindate =~ /\d+-\d+-\d+/ ? " on " : " during/in ");
-				$m->out($begindate);
-			}
-			else
-			{
-				$m->out(" from $begindate") if ($has_begindate);
-				$m->out($has_enddate ? " until $enddate" : " to present");
-			}
-		}
-		$m->out('</span>')
-			if ($max == 1 && $item->{modpending});
-		if ($session{uid} && $modlinks && $expanded)
-		{
-			$m->out(($max > 1) ? '</td><td align="right" valign="top">' : '');
-			$m->out('[&nbsp;<a href="/edit/relationship/remove.html?type=' . $item->{link0_type} . '-' .
-					$item->{link1_type} . '&amp;id='.$item->{link_id}.'&amp;returnto='.
-					$returnto.'">Remove</a>&nbsp;');
-			$m->out('|&nbsp;<a href="/edit/relationship/edit.html?type=' . $item->{link0_type} . '-' .
-					$item->{link1_type} . '&amp;id='.$item->{link_id}.'&amp;returnto='.
-					$returnto.'">Edit</a>&nbsp;]');
-		}
-		$m->out(($max > 1) ? '</td></tr>' : '<br />');
-	}
-	$m->out('</table>') if ($max > 1);
-	$m->out('<br />');
 }
+
 $m->comp('/comp/ar/ShowARLinks', id => $id, type => $type, isrelpage => $isrelpage,
 								 expanded => $expanded, count => scalar(@links),
 								 name => $name, all => $all);
