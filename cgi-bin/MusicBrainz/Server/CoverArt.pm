@@ -46,6 +46,13 @@ my @CoverArtSites =
        releaseuri => 'http://cdbaby.com/cd/$1$2$3/from/musicbrainz',
    },
    {
+       name       => "CD Baby",
+       domain     => "cdbaby.name",
+       regexp     => "http://cdbaby.name/([a-z0-9])/([a-z0-9])/([A-Za-z0-9]*).jpg",
+       imguri     => 'http://cdbaby.name/$1/$2/$3.jpg',
+       releaseuri => 'http://cdbaby.com/cd/$3/from/musicbrainz',
+   },
+   {
        name       => 'archive.org',
        domain     => 'archive.org',
        regexp     => '^(.*)$',
