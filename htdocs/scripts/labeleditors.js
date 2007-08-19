@@ -47,8 +47,9 @@ MusicBrainz.InPlaceLabelEditors = function(labelPrefix, labelNamePrefix, labelOr
 			jsselect.registerAjaxSelect(input, 'label', partial(this.setLabel, id), this);
 			replaceChildNodes($('labelinput'+id), input);
 		}
-		else if (document.getElementsByName('label'+id)[0].value) {
-			releaseeventeditor.makeLabelLink(id);
+		else if (document.getElementsByName(this.labelPrefix+id)[0].value) {
+			document.getElementsByName(this.labelNamePrefix+id)[0].value = document.getElementsByName(this.labelOrigNamePrefix+id)[0].value;
+			this.makeLabelLink(id);
 			$('labeleditimg'+id).src = '/images/release_editor/edit-off.gif';
 			edit.value = '0';
 		}
