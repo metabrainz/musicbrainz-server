@@ -30,6 +30,7 @@
 
 	$id
 	$type
+	$name => ""
 	$relationships
 	$max_lines => 4
 	$max_links_per_line => 4
@@ -74,8 +75,6 @@
 
 		return \@lines;
 	}
-
-	my $name = "";
 
 	my $lines = ConvertToLines($relationships, $expanded);
 
