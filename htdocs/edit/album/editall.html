@@ -156,7 +156,10 @@
 				%ARGS = $m->comp("/comp/release_editor/check-artists", %ARGS);
 			}
 
-			if (not keys %{$ARGS{"v::fields"}} and $ARGS{"v::showform"})
+			if (not keys %{$ARGS{"v::fields"}} and $ARGS{"v::showform"} and
+				(($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_NEXT"}) or
+				 ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_LABEL_SEARCH"}) or
+				 ($ARGS{"submitvalue"} eq $ARGS{"SUBMIT_LABEL_SELECT"})))
 			{
 				%ARGS = $m->comp("/comp/release_editor/check-labels", %ARGS);
 			}
