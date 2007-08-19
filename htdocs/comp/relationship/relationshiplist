@@ -38,6 +38,7 @@
 	$expanded => 0
 	$modlinks => 0
 	$returnto => 0
+	$release => undef
 
 </%args>
 <%perl>
@@ -82,10 +83,18 @@
 	my $missing = 0;
 	if ($num_lines)
 	{
-		$m->comp("/comp/relationship/outputentity", item => $relationships->[0], index => 0, name => $name)
-			if !$track;
-	
-		$m->out($track ? '<table class="relationships">' : ':<table width="100%">');
+		if ($num_lines > 1)
+		{
+			$m->comp("/comp/relationship/outputentity", item => $relationships->[0], index => 0, name => $name)
+				if !$track;
+			$m->out($track ? '<table class="relationships">' : ':<table width="100%">');
+		}
+		else
+		{
+			$m->out('<div>');
+			$m->comp("/comp/relationship/outputentity", item => $relationships->[0], index => 0, name => $name)
+				if !$track;
+		}
 
 		my $i = 0;
 		while ($i < $num_lines) 
@@ -106,8 +115,8 @@
 			if ($num_links)
 			{
 				my $item = $line->[0];
-				$m->out($track ? '<tr><td class="small">' : '<tr><td valign="top" style="text-align:center;width:1em;">&bull;</td><td>');
-				$m->out($item->{link_phrase} . ' ');
+				$m->out($track ? '<tr><td class="small">' : '<tr><td valign="top" style="text-align:center;width:1em;">&bull;</td><td>') if ($num_lines > 1);
+				$m->out(' ' . $item->{link_phrase} . ' ');
 
 				my $j = 0;
 				while ($j < $num_links)
@@ -129,7 +138,7 @@
 							$m->out(', ');
 						}
 					}
-					$m->comp("/comp/relationship/outputentity", item => $line->[$j], index => 1, name => $name);
+					$m->comp("/comp/relationship/outputentity", item => $line->[$j], index => 1, name => $name, release => $release);
 					$j++;
 				}
 
@@ -162,7 +171,7 @@
 							$returnto.'">Edit</a>&nbsp;]');
 				}
 
-				$m->out('</td></tr>');
+				$m->out('</td></tr>') if ($num_lines > 1);
 				$i++;
 			}
 			
@@ -175,7 +184,14 @@
 			$m->out(qq!<a href="/show/$type/relationships.html?${type}id=$id">View all relationships &#8230;</a></td></tr>!);
 		}
 
-		$m->out('</table>');
+		if ($num_lines > 1)
+		{
+			$m->out('</table>');
+		}
+		else
+		{
+			$m->out('</div>');
+		}
 	}
 
 </%perl>

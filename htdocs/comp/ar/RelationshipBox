@@ -115,7 +115,8 @@ else
 	         max_lines => ($expanded || $isrelpage) ? 100000 : 4,
 	         max_links_per_line => ($expanded || $isrelpage) ? 100000 : 4,
 	         track => 0, type => $typeshow, expanded => $expanded,
-	         modlinks => $modlinks, returnto => $returnto, name => $name);
+	         modlinks => $modlinks, returnto => $returnto, name => $name,
+	         release => $release);
 	$m->out("<br/>");
 
 }
