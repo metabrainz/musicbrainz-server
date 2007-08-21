@@ -164,18 +164,13 @@ elsif (scalar(@$recent_links) == 1)
 % }
 % unless ($type eq $recent_links->[0][0] && $id == $recent_links->[0][1]) {
 %		my $typename = ($type eq "url" ? "URL" : $type);
-%		my ($url, $url_tracks);
+%		my $url;
 %		if ($type le $recent_links->[0][0]) {
 %			$url = "link0=$type=$id&link1=$recent_links->[0][0]=$recent_links->[0][1]&returnto=0";
-%			$url_tracks = "$url&usetracks=0";
 %		} else {
 %			$url = "link1=$type=$id&link0=$recent_links->[0][0]=$recent_links->[0][1]&returnto=1";
-%			$url_tracks = "$url&usetracks=1";
 %		}
 		<a href="/edit/relationship/add.html?<% $url %>">Create relationship with this <% $typename %></a>
-%		if ($type eq "album") {
-			(<a href="/edit/relationship/add.html?<% $url_tracks %>">tracks</a>)
-%		}
 		|
 % }
 		<& /comp/ar/ShowCancelLink, targetid => $id, targettype => $type, isrelpage => $isrelpage &>
