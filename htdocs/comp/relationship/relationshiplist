@@ -83,7 +83,7 @@
 	my $missing = 0;
 	if ($num_lines)
 	{
-		if ($num_lines > 1)
+		if ($num_lines > 1 || $track)
 		{
 			$m->comp("/comp/relationship/outputentity", item => $relationships->[0], index => 0, name => $name)
 				if !$track;
@@ -115,7 +115,7 @@
 			if ($num_links)
 			{
 				my $item = $line->[0];
-				$m->out($track ? '<tr><td class="small">' : '<tr><td valign="top" style="text-align:center;width:1em;">&bull;</td><td>') if ($num_lines > 1);
+				$m->out($track ? '<tr><td class="small">' : '<tr><td valign="top" style="text-align:center;width:1em;">&bull;</td><td>') if ($num_lines > 1 || $track);
 				$m->out(' ' . $item->{link_phrase} . ' ');
 
 				my $j = 0;
@@ -171,7 +171,7 @@
 							$returnto.'">Edit</a>&nbsp;]');
 				}
 
-				$m->out('</td></tr>') if ($num_lines > 1);
+				$m->out('</td></tr>') if ($num_lines > 1 || $track);
 				$i++;
 			}
 			
@@ -184,7 +184,7 @@
 			$m->out(qq!<a href="/show/$type/relationships.html?${type}id=$id">View all relationships &#8230;</a></td></tr>!);
 		}
 
-		if ($num_lines > 1)
+		if ($num_lines > 1 || $track)
 		{
 			$m->out('</table>');
 		}
