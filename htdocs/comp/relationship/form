@@ -58,12 +58,18 @@
 	my $e2 = $links[$rev ? 0 : 1];
 	my $etype2 = ucfirst($e2->{type} eq "album" ? "release" : $e2->{type});
 
-	if (defined($usetracks) && $links[$rev ? 1 - $usetracks : $usetracks]->{type} eq "album") {
+#	if (defined($usetracks) && $links[$rev ? 1 - $usetracks : $usetracks]->{type} eq "album") {
+	my $linkrev = $rev;
+	if (defined($usetracks) && $links[$usetracks]->{type} eq "album") {
 		if ($usetracks == $rev ? 1 : 0) {
 			$etype1 = "Tracks";
+			$linkrev = 1 - $linkrev
+				if ($links[1 - $usetracks]->{type} gt "track");
 		}
 		else {
 			$etype2 = "Tracks";
+			$linkrev = 1 - $linkrev
+				if ($links[1 - $usetracks]->{type} lt "track");
 		}
 	}
 
@@ -170,7 +176,7 @@
 						$value,
 						$l->[0]->GetId eq $linktypeid ? qq! selected="selected"! : "");
 
-		my $text = $rev ? $l->[0]->GetReverseLinkPhrase : $l->[0]->GetLinkPhrase;
+		my $text = $linkrev ? $l->[0]->GetReverseLinkPhrase : $l->[0]->GetLinkPhrase;
 		# {attr:% phrase|unset-phrase} => {attr phrase|unset-phrase}
 		$text =~ s/\{(\w+):([^}]*)%/{$2$1/g;
 		# {attr:phrase} => {phrase}
