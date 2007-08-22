@@ -330,7 +330,7 @@ sub MergeInto
 	
 	require MusicBrainz::Server::Tag;
 	my $tag = MusicBrainz::Server::Tag->new($sql->{DBH});
-	$tag->MergeLabels($o, $n);
+	$tag->MergeLabels($mod->GetVerticalDatabaseConnection, $o, $n);
 
 	$sql->Do("UPDATE release           SET label = ? WHERE label = ?", $n, $o);
 	$sql->Do("UPDATE moderation_closed SET rowid = ? WHERE tab = 'label' AND rowid = ?", $n, $o);

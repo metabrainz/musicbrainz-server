@@ -942,6 +942,7 @@ sub MergeAlbums
    my @list = @{ $opts->{'albumids'} };
    my $merge_attributes = $opts->{'merge_attributes'};
    my $merge_langscript = $opts->{'merge_langscript'};
+   my $vertsql = $opts->{'vertsql'};
 
    my ($al, $ar, $tr, @tracks, %merged, $id, $sql);
    
@@ -1006,7 +1007,7 @@ sub MergeAlbums
 				$link->MergeTracks($old, $new);
 
 				# Move tags
-				$tag->MergeTracks($old, $new);
+				$tag->MergeTracks($vertsql, $old, $new);
 
 	        		$this->SetGlobalIdRedirect($old, $tr->GetMBId, $new, &TableBase::TABLE_TRACK);
            }
@@ -1052,7 +1053,7 @@ sub MergeAlbums
 		$link->MergeAlbums($id, $this->GetId);
 
 		# ... and the tags
-		$tag->MergeAlbums($id, $this->GetId);
+		$tag->MergeAlbums($vertsql, $id, $this->GetId);
 
     		$this->SetGlobalIdRedirect($id, $al->GetMBId, $this->GetId, &TableBase::TABLE_ALBUM);
 

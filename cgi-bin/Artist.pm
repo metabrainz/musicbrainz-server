@@ -372,7 +372,7 @@ sub MergeInto
 
 	require MusicBrainz::Server::Tag;
 	my $tag = MusicBrainz::Server::Tag->new($sql->{DBH});
-	$tag->MergeArtists($o, $n);
+	$tag->MergeArtists($mod->GetVerticalDatabaseConnection, $o, $n);
 
     $sql->Do("DELETE FROM artist     WHERE id   = ?", $o);
     $old->InvalidateCache;

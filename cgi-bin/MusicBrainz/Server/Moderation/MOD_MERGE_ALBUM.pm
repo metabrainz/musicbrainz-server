@@ -181,6 +181,7 @@ sub ApprovedAction
 		albumids => [ map { $_->{'id'} } @{ $self->{'new_albums'} } ],
 		merge_attributes => $self->{'merge_attributes'},
 		merge_langscript => $self->{'merge_langscript'},
+        vertsql => $self->GetVerticalDatabaseConnection,
 	});
 					
 	STATUS_APPLIED;
