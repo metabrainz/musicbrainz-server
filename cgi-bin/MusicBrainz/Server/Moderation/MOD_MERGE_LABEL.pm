@@ -33,6 +33,11 @@ use base 'Moderation';
 sub Name { "Merge Labels" }
 (__PACKAGE__)->RegisterHandler;
 
+sub GetVerticalDatabaseName
+{
+    return 'RAWDATA';
+}
+
 sub PreInsert
 {
 	my ($self, %opts) = @_;
