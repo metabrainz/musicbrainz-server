@@ -135,6 +135,7 @@
 		$m->out(qq!<a href="/show/label/details.html?labelid=$id" title="label details">Details</a> | !);
 		$m->out(qq!<a href="/user/subscribe.html?labelid=$id">Subscribe</a> | !);
 		$m->out(qq!<a href="/show/label/aliases.html?labelid=$id" title="label aliases">Aliases</a> | !);
+		$m->out(qq!<a href="/show/label/tags.html?id=$id">Tags</a> | !);
 		$m->comp("/comp/googlelink", search => $name, text => "Search&nbsp;google", raw => 1);
 		if ($session{uid})
 		{

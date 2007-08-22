@@ -32,10 +32,15 @@ use MusicBrainz::Server::Replication ':replication_type';
 my $SYSTEM = MusicBrainz::Server::Database->get("SYSTEM");
 my $READWRITE = MusicBrainz::Server::Database->get("READWRITE");
 my $READONLY = MusicBrainz::Server::Database->get("READONLY");
+my $RAWDATA = MusicBrainz::Server::Database->get("RAWDATA");
+my $RAWDATA_SYSTEM = MusicBrainz::Server::Database->get("RAWDATA_SYSTEM");
+
+# If no RAWDATA section is defined, toss everything into the READWRITE database
+$RAWDATA = $READWRITE if (!defined $RAWDATA);
+$RAWDATA_SYSTEM = $SYSTEM if (!defined $RAWDATA_SYSTEM);
 
 my $REPTYPE = &DBDefs::REPLICATION_TYPE;
 
-my $opts = $READWRITE->shell_args;
 my $psql = "psql";
 my $path_to_pending_so;
 my $fFixUTF8 = 0;
@@ -54,13 +59,15 @@ my $sqldir = "$FindBin::Bin/sql";
 
 sub RunSQLScript
 {
-	my ($file, $startmessage) = @_;
+	my ($db, $file, $startmessage) = @_;
 	$startmessage ||= "Running sql/$file";
 	print localtime() . " : $startmessage ($file)\n";
 
+    my $opts = $db->shell_args;
 	my $echo = ($fEcho ? "-e" : "");
 	my $stdout = ($fQuiet ? ">/dev/null" : "");
 
+	print "$psql $echo -f $sqldir/$file $opts 2>&1 $stdout |\n";
 	open(PIPE, "$psql $echo -f $sqldir/$file $opts 2>&1 $stdout |")
 		or die "exec '$psql': $!";
 	while (<PIPE>)
@@ -95,19 +102,30 @@ sub CreateReplicationFunction
 }
 
 {
-	my $mb;
-	my $sql;
-	sub get_system_sql
-	{
-		return $sql if $sql;
-		$mb = MusicBrainz->new;
-		$mb->Login(db => "SYSTEM");
-		$sql = Sql->new($mb->{DBH});
-	}
+    my $mb;
+    my $sql;
+     sub get_system_sql
+     {
+         my ($name) = shift;
+         $mb = MusicBrainz->new;
+
+         # If we can't open a specific SYSTEM db, fall back to main SYSTEM db
+         $sql = eval
+         {
+             $mb->Login(db => $name);
+         };
+         if ($@)
+         {
+             $mb->Login(db => 'SYSTEM');
+         }
+         $sql = Sql->new($mb->{DBH});
+     }
 }
 
 sub Create 
 {
+    my $system_sql;
+
 	# Check we can find these programs on the path
 	for my $prog (qw( createuser createdb createlang ))
 	{
@@ -115,10 +133,12 @@ sub Create
 		die "Can't find '$prog' on your PATH\n";
 	}
 
-	my $system_sql = get_system_sql();
 
 	# Check the cluster uses the C locale
+    for my $db (qw(SYSTEM RAWDATA_SYSTEM))
 	{
+        $system_sql = get_system_sql($db);
+
 		my $locale = $system_sql->SelectSingleValue(
 			"select setting from pg_settings where name = 'lc_collate'",
 		);
@@ -136,7 +156,10 @@ EOF
 	for my $db (MusicBrainz::Server::Database->all)
 	{
 		my $username = $db->username;
-		
+        my $sysname = "SYSTEM";
+        $sysname = "RAWDATA_SYSTEM" if ($db->key =~ /RAW/);
+	
+        my $system_sql = get_system_sql($sysname);
 		$system_sql->SelectSingleValue(
 			"SELECT 1 FROM pg_shadow WHERE usename = ?", $username,
 		) and next;
@@ -150,6 +173,8 @@ EOF
 			"CREATE USER $username $passwordclause NOCREATEDB NOCREATEUSER",
 		);
 	}
+
+	$system_sql = get_system_sql("SYSTEM");
 
 	my $dbname = $READWRITE->database;
 	print localtime() . " : Creating database '$dbname'\n";
@@ -165,13 +190,36 @@ EOF
 	push @opts, "plpgsql";
 	system "createlang", @opts;
 	die "\nFailed to create language\n" if ($? >> 8);
+
+    # Now create the RAWDATA db
+    if ($RAWDATA->database ne $READWRITE->database)
+    {
+	    $system_sql = get_system_sql("RAWDATA_SYSTEM");
+
+        $dbname = $RAWDATA->database;
+        print localtime() . " : Creating database '$dbname'\n";
+        $system_sql->AutoCommit;
+        $dbuser = $RAWDATA->username;
+        $system_sql->Do("CREATE DATABASE $dbname WITH OWNER = $dbuser ENCODING = 'UNICODE'");
+
+        if ($RAWDATA_SYSTEM)
+        {
+            $sys_in_rw = $RAWDATA_SYSTEM->modify(database => $RAWDATA->database);
+            @opts = $sys_in_rw->shell_args;
+            splice(@opts, -1, 0, "-d");
+            push @opts, "plpgsql";
+            system "createlang", @opts;
+            die "\nFailed to create language for rawdata\n" if ($? >> 8);
+        }
+    }
 }
 
 sub CreateRelations
 {
 	my $import = shift;
 
-	RunSQLScript("CreateTables.sql", "Creating tables ...");
+	RunSQLScript($READWRITE, "CreateTables.sql", "Creating tables ...");
+	RunSQLScript($RAWDATA, "vertical/rawdata/CreateTables.sql", "Creating raw tables ...");
 
 	if ($import)
     {
@@ -181,36 +229,48 @@ sub CreateRelations
         system($^X, "$FindBin::Bin/MBImport.pl", @opts, @$import);
         die "\nFailed to import dataset.\n" if ($? >> 8);
     } else {
-		RunSQLScript("InsertDefaultRows.sql", "Adding default rows ...");
+		RunSQLScript($READWRITE, "InsertDefaultRows.sql", "Adding default rows ...");
 	}
 
-	RunSQLScript("CreatePrimaryKeys.sql", "Creating primary keys ...");
-	RunSQLScript("CreateIndexes.sql", "Creating indexes ...");
-	RunSQLScript("CreateFKConstraints.sql", "Adding foreign key constraints ...")
+	RunSQLScript($READWRITE, "CreatePrimaryKeys.sql", "Creating primary keys ...");
+	RunSQLScript($RAWDATA, "vertical/rawdata/CreatePrimaryKeys.sql", "Creating raw primary keys ...");
+	RunSQLScript($READWRITE, "CreateIndexes.sql", "Creating indexes ...");
+	RunSQLScript($RAWDATA, "vertical/rawdata/CreateIndexes.sql", "Creating raw indexes ...");
+	RunSQLScript($READWRITE, "CreateFKConstraints.sql", "Adding foreign key constraints ...")
 	    unless $REPTYPE == RT_SLAVE;
 
     print localtime() . " : Setting initial sequence values ...\n";
     system($^X, "$FindBin::Bin/SetSequences.pl");
     die "\nFailed to set sequences.\n" if ($? >> 8);
 
-	RunSQLScript("CreateViews.sql", "Creating views ...");
-	RunSQLScript("CreateFunctions.sql", "Creating functions ...");
-	RunSQLScript("CreateTriggers.sql", "Creating triggers ...")
+	RunSQLScript($READWRITE, "CreateViews.sql", "Creating views ...");
+	RunSQLScript($READWRITE, "CreateFunctions.sql", "Creating functions ...");
+	RunSQLScript($READWRITE, "CreateTriggers.sql", "Creating triggers ...")
 	    unless $REPTYPE == RT_SLAVE;
 
 	if ($REPTYPE == RT_MASTER)
 	{
 		CreateReplicationFunction();
-		RunSQLScript("CreateReplicationTriggers.sql", "Creating replication triggers ...");
+		RunSQLScript($READWRITE, "CreateReplicationTriggers.sql", "Creating replication triggers ...");
 	}
 
     print localtime() . " : Optimizing database ...\n";
+    my $opts = $READWRITE->shell_args;
     system("echo \"vacuum analyze\" | $psql $opts");
     die "\nFailed to optimize database\n" if ($? >> 8);
+
+    if ($RAWDATA->database ne $READWRITE->database)
+    {
+        print localtime() . " : Optimizing rawdata database ...\n";
+        $opts = $RAWDATA->shell_args;
+        system("echo \"vacuum analyze\" | $psql $opts");
+        die "\nFailed to optimize rawdata database\n" if ($? >> 8);
+    }
 
     print localtime() . " : Initialized and imported data into the database.\n";
 }
 
+# TODO: Handle this for vertical DBs
 sub GrantSelect
 {
 	return unless $READONLY;

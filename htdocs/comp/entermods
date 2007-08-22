@@ -47,14 +47,9 @@
 		return 0;
 	}
 
-	my $sql = Sql->new($DBH);
-	$sql->Begin;
-
 	my @ret;
-
 	my $ok = eval {
 		@ret = &$sub;
-		$sql->Commit;
 		1;
 	};
 
@@ -63,7 +58,6 @@
 	unless ($ok)
 	{
 		my $err = $@;
-		$sql->Rollback;
 
 		$show_failure_message
 			or return 0;

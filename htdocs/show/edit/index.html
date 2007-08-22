@@ -59,9 +59,31 @@
 		if ($ARGS{"accept"} or $ARGS{"reject"})
 		{
 			my $sql = Sql->new($mb->{DBH});
+            my $vertsql = undef;
 
 			eval {
-				$sql->Begin;
+                my $dbname = $edit->GetVerticalDatabaseName();
+                if ($dbname)
+                {
+                    my $vertmb = new MusicBrainz;
+                    $vertsql = eval
+                    {
+                        $vertmb->Login(db => $dbname);
+                        Sql->new($vertmb->{DBH});
+                    };
+                    if ($@)
+                    {
+                        $vertsql = undef;
+                    }
+                } 
+
+                $sql->Begin;
+                if ($vertsql) 
+                {
+                    $vertsql->Begin;
+                    $edit->SetVerticalDatabaseConnection($vertsql);
+                }
+
 				my $user = UserStuff->new($mb->{DBH});
 
 				if ($ARGS{"accept"})
@@ -76,11 +98,12 @@
 					$edit->CloseModeration(&ModDefs::STATUS_FAILEDVOTE);
 				}
 
+				$vertsql->Commit if ($vertsql);
 				$sql->Commit;
-
 			} or do {
 				my $err = $@;
 				$sql->Rollback;
+				$vertsql->Rollback if ($vertsql);
 				</%perl>
 				<div style="color: red">
 					<p>Error applying edit:</p>

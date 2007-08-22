@@ -67,6 +67,7 @@ use constant INC_ALIASES      => 0x080000;
 use constant INC_LABELS       => 0x100000;
 use constant INC_LABELREL     => 0x200000;
 use constant INC_TRACKLVLRELS => 0x400000;
+use constant INC_TAGS         => 0x800000;
 
 use constant INC_MASK_RELS    => INC_ARTISTREL | INC_RELEASEREL | INC_TRACKREL | INC_URLREL | INC_LABELREL;
 
@@ -96,7 +97,8 @@ my %incShortcuts =
     'aliases'            => INC_ALIASES,
     'labels'             => INC_LABELS,
     'label-rels'         => INC_LABELREL,
-    'track-level-rels'   => INC_TRACKLVLRELS
+    'track-level-rels'   => INC_TRACKLVLRELS,
+    'tags'               => INC_TAGS
 );
 
 my %typeShortcuts =
@@ -258,6 +260,10 @@ sub xml_artist
 		print '</alias-list>';
 	}
 	
+	if ($inc & INC_TAGS)
+    {
+        xml_tags($ar->{DBH}, 'artist', $ar->GetId);
+    }
     if (defined $info)
     {
         my @albums = $ar->GetAlbums(!$info->{va}, 1, $info->{va});
@@ -313,6 +319,7 @@ sub xml_release
     xml_artist($ar, 0) if ($inc & INC_ARTIST && $ar);
     xml_release_events($al, $inc) if ($inc & INC_RELEASEINFO || $inc & INC_COUNTS);
     xml_discs($al, $inc) if ($inc & INC_DISCS || $inc & INC_COUNTS);
+    xml_tags($al->{DBH}, 'release', $al->GetId) if ($inc & INC_TAGS);
     if ($inc & INC_TRACKS || $inc & INC_COUNTS && $ar)
     {
         xml_track_list($ar, $al, $inc) 
@@ -513,6 +520,7 @@ sub xml_track
     }
     xml_puid($tr) if ($inc & INC_PUIDS);
     xml_relations($tr, 'track', $inc) if ($inc & INC_ARTISTREL || $inc & INC_LABELREL || $inc & INC_RELEASEREL || $inc & INC_TRACKREL || $inc & INC_URLREL);
+    xml_tags($tr->{DBH}, 'track', $tr->GetId) if ($inc & INC_TAGS);
     print '</track>';
 
     return undef;
@@ -575,8 +583,30 @@ sub xml_label
    }
 
     xml_relations($ar, 'label', $inc) if ($inc & INC_ARTISTREL || $inc & INC_LABELREL || $inc & INC_RELEASEREL || $inc & INC_TRACKREL || $inc & INC_URLREL);
+    xml_tags($ar->{DBH}, 'label', $ar->GetId) if ($inc & INC_TAGS);
     print "</label>";
 
+    return undef;
+}
+
+sub xml_tags
+{
+    require MusicBrainz::Server::Tag;
+	my ($dbh, $entity, $id) = @_;
+
+    my $tag = MusicBrainz::Server::Tag->new($dbh);
+
+    # TODO: What should we use for a limit?
+    my $tags = $tag->GetTagsForEntity($entity, $id, 100);
+
+    return undef if (scalar(@$tags) == 0);
+
+    print '<tag-list>';
+    foreach my $t (@$tags)
+    {
+        print '<tag count="' . $t->{count} . '">' . xml_escape($t->{name}) . '</tag>';
+    }
+    print '</tag-list>';
     return undef;
 }
 

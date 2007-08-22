@@ -45,6 +45,10 @@ CREATE TRIGGER "reptg_artistalias"
 AFTER INSERT OR DELETE OR UPDATE ON "artistalias"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
+CREATE TRIGGER "reptg_artist_tag" 
+AFTER INSERT OR DELETE OR UPDATE ON "artist_tag"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
 CREATE TRIGGER "reptg_artistwords" 
 AFTER INSERT OR DELETE OR UPDATE ON "artistwords"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
@@ -77,6 +81,10 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_labelalias"
 AFTER INSERT OR DELETE OR UPDATE ON "labelalias"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_label_tag"
+AFTER INSERT OR DELETE OR UPDATE ON "label_tag"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_labelwords" 
@@ -234,6 +242,10 @@ CREATE TRIGGER "reptg_release"
 AFTER INSERT OR DELETE OR UPDATE ON "release"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
+CREATE TRIGGER "reptg_release_tag" 
+AFTER INSERT OR DELETE OR UPDATE ON "release_tag"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
 CREATE TRIGGER "reptg_replication_control" 
 AFTER INSERT OR DELETE OR UPDATE ON "replication_control"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
@@ -250,8 +262,16 @@ CREATE TRIGGER "reptg_stats"
 AFTER INSERT OR DELETE OR UPDATE ON "stats"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
+CREATE TRIGGER "reptg_tag" 
+AFTER INSERT OR DELETE OR UPDATE ON "tag"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
 CREATE TRIGGER "reptg_track" 
 AFTER INSERT OR DELETE OR UPDATE ON "track"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_track_tag" 
+AFTER INSERT OR DELETE OR UPDATE ON "track_tag"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_trackwords" 

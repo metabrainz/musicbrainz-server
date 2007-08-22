@@ -561,4 +561,32 @@ BEGIN
 END;
 ' LANGUAGE 'plpgsql';
 
+create or replace function a_ins_tag () returns trigger as '
+begin
+    UPDATE  tag
+    SET     refcount = refcount + 1
+    WHERE   id = NEW.tag;
+
+    return NULL;
+end;
+' language 'plpgsql';
+
+create or replace function a_del_tag () returns trigger as '
+declare
+    ref_count integer;
+begin
+
+    SELECT INTO ref_count refcount FROM tag WHERE id = OLD.tag;
+    IF ref_count = 1 THEN
+         DELETE FROM tag WHERE id = OLD.tag;
+    ELSE
+         UPDATE  tag
+         SET     refcount = refcount - 1
+         WHERE   id = OLD.tag;
+    END IF;
+
+    return NULL;
+end;
+' language 'plpgsql';
+
 --'-- vi: set ts=4 sw=4 et :

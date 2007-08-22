@@ -37,6 +37,9 @@ CREATE INDEX artist_relation_ref ON artist_relation (ref);
 CREATE UNIQUE INDEX artistalias_nameindex ON artistalias (name);
 CREATE INDEX artistalias_refindex ON artistalias (ref);
 
+CREATE INDEX artist_tag_idx_artist ON artist_tag (artist);
+CREATE INDEX artist_tag_idx_tag ON artist_tag (tag);
+
 CREATE INDEX artistwords_artistidindex ON artistwords (artistid);
 
 CREATE INDEX cdtoc_discid ON cdtoc (discid);
@@ -77,6 +80,9 @@ CREATE INDEX label_pageindex ON label (page);
 CREATE INDEX labelwords_labelidindex ON labelwords (labelid);
 CREATE INDEX labelalias_nameindex ON labelalias (name);
 CREATE INDEX labelalias_refindex ON labelalias (ref);
+
+CREATE INDEX label_tag_idx_label ON label_tag (label);
+CREATE INDEX label_tag_idx_tag ON label_tag (tag);
 
 CREATE UNIQUE INDEX language_isocode_3b ON language (isocode_3b);
 CREATE UNIQUE INDEX language_isocode_3t ON language (isocode_3t);
@@ -156,6 +162,9 @@ CREATE UNIQUE INDEX puidjoin_stat_puidjoin_idindex ON puidjoin_stat (puidjoin_id
 CREATE INDEX release_album ON release (album);
 CREATE INDEX release_label ON release (label);
 
+CREATE INDEX release_tag_idx_release ON release_tag (release);
+CREATE INDEX release_tag_idx_tag ON release_tag (tag);
+
 CREATE UNIQUE INDEX script_isocode ON script (isocode);
 CREATE UNIQUE INDEX script_isonumber ON script (isonumber);
 
@@ -163,9 +172,14 @@ CREATE UNIQUE INDEX script_language_sl ON script_language (script, language);
 
 CREATE UNIQUE INDEX stats_timestampindex ON stats (timestamp);
 
+CREATE UNIQUE INDEX tag_idx_name ON tag (name);
+
 CREATE INDEX track_artistindex ON track (artist);
 CREATE UNIQUE INDEX track_gidindex ON track (gid);
 CREATE INDEX track_nameindex ON track (name);
+
+CREATE INDEX track_tag_idx_track ON track_tag (track);
+CREATE INDEX track_tag_idx_tag ON track_tag (tag);
 
 CREATE INDEX trackwords_trackidindex ON trackwords (trackid);
 

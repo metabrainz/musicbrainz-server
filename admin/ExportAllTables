@@ -104,12 +104,36 @@ mkdir "$dir/mbdump" or die $!;
 print localtime() . " : Exporting to $dir\n";
 
 use MusicBrainz;
+use Sql;
+
+# Log in to the main DB
 my $mb = new MusicBrainz;
 $mb->Login(db => 'READWRITE');
-
-use Sql;
 my $sql = Sql->new($mb->{DBH});
 my $dbh = $mb->{DBH};
+
+# Log in to the raw DB, or duplicate handles to the main DB
+my $rawmb = new MusicBrainz;
+my $rawsql = eval
+{
+    $rawmb->Login(db => 'RAWDATA');
+    Sql->new($rawmb->{DBH});   
+};
+if ($@)
+{
+    $rawsql = $sql;
+}
+my $rawdbh = $rawmb->{DBH};
+
+# This hash indicates which tables may need to be pulled from a vertical DB
+my %table_db_mapping =
+(
+    'artist_tag_raw'  =>  { dbh => $rawdbh, sql => $rawsql },
+    'release_tag_raw' =>  { dbh => $rawdbh, sql => $rawsql },
+    'track_tag_raw'   =>  { dbh => $rawdbh, sql => $rawsql },
+    'label_tag_raw'   =>  { dbh => $rawdbh, sql => $rawsql },
+    '_default_'       =>  { dbh => $dbh, sql => $sql } 
+);
 
 my @tables = qw(
 	album
@@ -122,6 +146,8 @@ my @tables = qw(
 	artist
 	artist_relation
 	artistalias
+	artist_tag
+	artist_tag_raw
 	artistwords
 	automod_election
 	automod_election_vote
@@ -147,6 +173,8 @@ my @tables = qw(
 	l_track_url
 	l_url_url
 	label
+	label_tag
+	label_tag_raw
 	labelalias
 	labelwords
 	language
@@ -181,10 +209,15 @@ my @tables = qw(
 	puidjoin_stat
 	puid_stat
 	release
+	release_tag
+	release_tag_raw
 	script
 	script_language
 	stats
+    tag
 	track
+	track_tag
+	track_tag_raw
 	trackwords
 	trm
 	trmjoin
@@ -223,6 +256,14 @@ flock($lockfh, LOCK_EX) or die $!;
 $sql->AutoCommit;
 $sql->Do("SET SESSION CHARACTERISTICS AS TRANSACTION ISOLATION LEVEL SERIALIZABLE");
 $sql->Begin;
+
+if ($rawsql != $sql)
+{
+    $rawsql->AutoCommit;
+    $rawsql->Do("SET SESSION CHARACTERISTICS AS TRANSACTION ISOLATION LEVEL SERIALIZABLE");
+    $rawsql->Begin;
+}
+
 my $now = $sql->SelectSingleValue("SELECT NOW()");
 
 # Write the TIMESTAMP file
@@ -275,6 +316,10 @@ sub table_rowcount
 {
 	my $table = shift;
 	$table =~ s/_sanitised$//;
+
+    # Get the right sql module
+    my $sql = $table_db_mapping{'_default_'}->{'sql'};
+    $sql = $table_db_mapping{$table}->{'sql'} if (exists $table_db_mapping{$table});
 	$sql->SelectSingleValue(
 		"SELECT reltuples FROM pg_class WHERE relname = ? LIMIT 1",
 		$table,
@@ -284,6 +329,12 @@ sub table_rowcount
 sub dumptable
 {
 	my $table = shift;
+
+    # Get the right sql/dbh module
+    my $sql = $table_db_mapping{'_default_'}->{'sql'};
+    $sql = $table_db_mapping{$table}->{'sql'} if (exists $table_db_mapping{$table});
+    my $dbh = $table_db_mapping{'_default_'}->{'dbh'};
+    $dbh = $table_db_mapping{$table}->{'dbh'} if (exists $table_db_mapping{$table});
 
 	open(DUMP, ">$dir/mbdump/$table")
 		or die $!;
@@ -391,9 +442,6 @@ if ($fDoReplication)
 		# Dump 'em
 		dumptable($_) for @replication_tables;
 
-		# Dump lucene text index bits
-		# dumplucene();
-
 		# Remove the rows we just dumped
 		empty_replication_tables();
 
@@ -419,6 +467,9 @@ dumptable("replication_control");
 system "/bin/sync"; $? == 0 or die "sync failed (rc=$?)";
 $sql->Commit;
 
+# There should've been no changes on this handle, so call rollback
+$rawsql->Rollback;
+
 my $dumptime = tv_interval($t0);
 printf "%s : Dumped %d tables (%d rows) in %d seconds\n",
 	scalar localtime,
@@ -429,7 +480,9 @@ optimise_replication_tables() if $fDoReplication;
 # Now we have all the files; disconnect from the database.
 # This also drops the _sanitised temporary tables.
 undef $sql;
+undef $rawsql;
 undef $mb;
+undef $rawmb;
 
 # We can release the lock, allowing other exports to run if they wish.
 close $lockfh;
@@ -440,6 +493,7 @@ my @group_core = qw(
 	album_cdtoc
 	artist
 	artistalias
+    artist_tag
 	cdtoc
     clientversion
 	country
@@ -460,6 +514,7 @@ my @group_core = qw(
 	l_track_url
 	l_url_url
 	label
+	label_tag
 	labelalias
 	language
 	link_attribute
@@ -482,10 +537,13 @@ my @group_core = qw(
 	puid
 	puidjoin
 	release
+    release_tag
 	replication_control
 	script
 	script_language
+    tag
 	track
+	track_tag
 	trm
 	trmjoin
 	url
@@ -536,11 +594,15 @@ my @group_artistrelation = qw(
 
 my @group_modprivate = qw(
 	album_amazon_asin
+    artist_tag_raw
 	automod_election_vote
+    label_tag_raw
+    release_tag_raw
 	moderator
 	moderator_preference
 	moderator_subscribe_artist
 	moderator_subscribe_label
+    track_tag_raw
 );
 
 use File::Copy qw( copy );
@@ -570,7 +632,7 @@ if ($fCompress and $fDoReplication)
 		copy_readme() or die $!;
 		# Go for the "most restrictive" license
 		copy("$FindBin::Bin/COPYING-CCShareAlike", "$dir/COPYING") or die $!;
-		make_tar($tarfile, "lucene_dump.xml", @replication_tables);
+		make_tar($tarfile, @replication_tables);
 	}
 }
 
@@ -656,47 +718,6 @@ svn co $svn_url mb_server
 After that, follow the instructions given in mb_server/INSTALL.
 END
     writefile("README", $text);
-}
-
-sub dumplucene
-{
-	print localtime() . " : Performing Lucene XML export\n";
-
-	my $xmlfile = "$dir/mbdump/lucene_dump.xml";
-	open(my $xml, ">$xmlfile")
-		or die $!;
-
-	defined(my $pid = fork) or die $!;
-	if ($pid == 0)
-	{
-		open(STDOUT, ">&".fileno($xml)) or die $!;
-		exec &DBDefs::MB_SERVER_ROOT."/admin/replication/ConvertReplicationPacketToXML",
-			"$dir/mbdump/Pending",
-			"$dir/mbdump/PendingData",
-			;
-		die $!;
-	}
-
-	close $xml;
-	waitpid $pid, 0;
-	my $rc = $?;
-
-	if ($rc == 256)
-	{
-		print localtime() . " : No Lucene XML output produced\n";
-		unlink $xmlfile;
-	} elsif ($rc) {
-		unlink $xmlfile;
-		print localtime() . " : Lucene XML output failed!\n";
-		exit 1;
-	} else {
-		printf "%s : Lucene XML dump completed (%d bytes output)\n",
-			scalar localtime,
-			-s $xmlfile,
-			;
-		# Set "rowcounts" to ensure this file gets included in the archives
-		$rowcounts{"lucene_dump.xml"} = 1;
-	}
 }
 
 # eof ExportAllTables

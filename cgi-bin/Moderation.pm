@@ -868,6 +868,22 @@ sub GetChangeName
    return $ChangeNames{$_[0]->{status}};
 }
 
+# If a database connection to a vertical database
+sub GetVerticalDatabaseName
+{
+   return undef;
+}
+
+sub SetVerticalDatabaseConnection
+{
+   $_[0]->{vertsql} = $_[1];
+}
+
+sub GetVerticalDatabaseConnection
+{
+   return $_[0]->{vertsql};
+}
+
 sub GetAutomoderatorList
 {
    my ($this) = @_;
@@ -1125,30 +1141,41 @@ sub InsertModeration
     }
 
     my $sql = Sql->new($this->{DBH});
+    eval
+    {
+        $sql->Begin();
 
+        $sql->Do(
+            "INSERT INTO moderation_open (
+                tab, col, rowid,
+                prevvalue, newvalue,
+                moderator, artist, type,
+                depmod,
+                status, expiretime, yesvotes, novotes, automod, language
+            ) VALUES (
+                ?, ?, ?,
+                ?, ?,
+                ?, ?, ?,
+                ?,
+                ?, NOW() + INTERVAL ?, 0, 0, 0, ?
+            )",
+            $this->GetTable, $this->GetColumn, $this->GetRowId,
+            $this->GetPrev, $this->GetNew,
+            $this->GetModerator, $this->GetArtist, $this->GetType,
+            $this->GetDepMod,
+            &ModDefs::STATUS_OPEN, sprintf("%d days", $level->{duration}),
+            $this->GetLanguageId
+        );
 
-    $sql->Do(
-		"INSERT INTO moderation_open (
-			tab, col, rowid,
-			prevvalue, newvalue,
-			moderator, artist, type,
-			depmod,
-			status, expiretime, yesvotes, novotes, automod, language
-		) VALUES (
-			?, ?, ?,
-			?, ?,
-			?, ?, ?,
-			?,
-			?, NOW() + INTERVAL ?, 0, 0, 0, ?
-		)",
-		$this->GetTable, $this->GetColumn, $this->GetRowId,
-		$this->GetPrev, $this->GetNew,
-		$this->GetModerator, $this->GetArtist, $this->GetType,
-		$this->GetDepMod,
-		&ModDefs::STATUS_OPEN, sprintf("%d days", $level->{duration}),
-		$this->GetLanguageId
-	);
-
+        $sql->Commit;
+    };
+    if ($@)
+    {
+        my $err = $@;
+        $sql->Rollback;
+        croak $err;
+    }
+    
     my $insertid = $sql->GetLastInsertId("moderation_open");
 	MusicBrainz::Server::Cache->delete("Moderation-id-range");
 	MusicBrainz::Server::Cache->delete("Moderation-open-id-range");
@@ -1181,22 +1208,74 @@ sub InsertModeration
     if ($autoedit)
     {
         my $edit = $this->CreateFromId($insertid);
-        my $status = $edit->ApprovedAction;
+        my $sql = Sql->new($this->{DBH});
+        my $vertsql = undef;
+        my $status = undef;
 
-		$sql->Do("UPDATE moderation_open SET status = ?, automod = 1 WHERE id = ?",
-			$status, 
-			$insertid,
-		);
+        eval 
+        {
+            my $dbname = $edit->GetVerticalDatabaseName();
+            if ($dbname)
+            {
+                my $vertmb = new MusicBrainz;
+                $vertsql = eval
+                {
+                    $vertmb->Login(db => $dbname);
+                    Sql->new($vertmb->{DBH});
+                };
+                if ($@)
+                {
+                    $vertsql = undef;
+                }
+            }
+
+            $sql->Begin;
+            if ($vertsql)
+            {
+                $vertsql->Begin;
+                $edit->SetVerticalDatabaseConnection($vertsql);
+            }
+
+            $status = $edit->ApprovedAction;
+
+            $sql->Do("UPDATE moderation_open SET status = ?, automod = 1 WHERE id = ?",
+                $status, 
+                $insertid,
+            );
+
+            require UserStuff;
+            my $user = UserStuff->new($this->{DBH});
+            $user->CreditModerator($this->{moderator}, $status, $autoedit);
+
+            $vertsql->Commit if ($vertsql);
+            $sql->Commit;
+        };
+        if ($@)
+        {
+            my $err = $@;
+
+            $sql->Rollback;
+            $vertsql->Rollback if ($vertsql);
+
+            croak $err;
+        };            
 		MusicBrainz::Server::Cache->delete("Moderation-open-id-range");
 		MusicBrainz::Server::Cache->delete("Moderation-closed-id-range");
-
-		require UserStuff;
-		my $user = UserStuff->new($this->{DBH});
-        $user->CreditModerator($this->{moderator}, $status, $autoedit);
     }
     else
     {
-		$this->AdjustModPending(+1);
+        eval 
+        {
+            $sql->Begin;
+		    $this->AdjustModPending(+1);
+            $sql->Commit;
+        };
+        if ($@)
+        {
+            my $err = $@;
+            $sql->Rollback;
+            croak $err;
+        };            
     }
 
 	push @inserted_moderations, $this;

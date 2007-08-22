@@ -128,6 +128,7 @@
 		$m->out(sprintf qq!<a href="/show/permlink.html?id=$mbid&amp;type=artist" title="Link to this artist">Link to this</a>!, uri_escape($name));
 		$m->out(qq! | <a href="/show/artist/details.html?artistid=$id" title="Artist details">Details</a>!);
 		$m->out(qq! | <a href="/show/artist/aliases.html?artistid=$id" title="Artist aliases">Aliases</a>!);
+		$m->out(qq! | <a href="/show/artist/tags.html?id=$id">Tags</a>!);
 		if ($id != &ModDefs::VARTIST_ID)
 		{
 			$m->out(qq! | <a href="/show/artist/?artistid=$id" title="Releases of this artist">Releases</a>!);
