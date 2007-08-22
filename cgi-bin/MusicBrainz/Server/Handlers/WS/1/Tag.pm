@@ -38,8 +38,8 @@ sub handler
 {
 	my ($r) = @_;
 	# URLs are of the form:
-	# GET http://server/ws/1/tag/?name=<user_name>&entity=<entity>&id=<id>
-	# POST http://server/ws/1/tag/?name=<user_name>&entity=<entity>&id=<id>&tags=<tags>
+	# GET http://server/ws/1/tag/?entity=<entity>&id=<id>
+	# POST http://server/ws/1/tag/?entity=<entity>&id=<id>&tags=<tags>
 
     return handler_post($r) if ($r->method eq "POST");
 
@@ -60,13 +60,6 @@ sub handler
 	    ($entity ne 'artist' && $entity ne 'release' && $entity ne 'track' && $entity ne 'label'))
 	{
 		return bad_req($r, "Invalid MBID/entity.");
-	}
-
-	# Ensure that the login name is the same as the resource requested 
-	if ($r->user ne $user)
-	{
-		$r->status(FORBIDDEN);
-		return FORBIDDEN;
 	}
 
 	my $status = eval 
