@@ -933,6 +933,31 @@ sub LoadPUIDCount
 	};
 }
 
+# Fetch annotations for each track of the current album.
+# Returns a reference to a hash, where the keys are track IDs and the values
+# are a 0 or 1 if track has annotation.  Tracks with no annotations may or may not be in the hash.
+sub LoadLatestTrackAnnos
+{
+ 	my $self = shift;
+	my $sql = Sql->new($self->{DBH});
+	
+	my $annos = $sql->SelectListOfLists(
+		"SELECT albumjoin.track, annotation.text != ''
+		FROM    albumjoin, annotation
+		WHERE   albumjoin.album = ?
+		AND     albumjoin.track = annotation.rowid
+		AND     annotation.type = " . &MusicBrainz::Server::Annotation::TRACK_ANNOTATION .
+		"ORDER BY annotation.created ASC",
+		$self->GetId,
+	);
+
+	+{
+		map {
+			$_->[0] => $_->[1]
+		} @$annos
+	};
+}
+
 # Given a list of albums, this function will merge the list of albums into
 # the current album. All Discids, TRM Ids and PUIDs are preserved in the process
 sub MergeAlbums

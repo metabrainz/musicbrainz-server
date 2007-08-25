@@ -118,6 +118,7 @@
 
 	my $trmcounts = $album->LoadTRMCount();
 	my $puidcounts = $album->LoadPUIDCount();
+	my $trackannos = $album->LoadLatestTrackAnnos();
 
 	for(my $i = 0;; $i++)
 	{
@@ -129,6 +130,8 @@
 
 		my $pcount = $puidcounts->{$track->GetId()};
 		$pcount = 0 if (not defined $pcount);
+		
+		my $hasannotation = $trackannos->{$track->GetId()} ? 1 : 0;
 
 		if (!$highlightonly || $highlighttracks->{$track->GetId})
 		{
@@ -142,6 +145,7 @@
 				showeditlinks => $showmodlinks,
 				trmcount => $tcount,
 				puidcount => $pcount,
+				hasannotation => $hasannotation,
 				mbt => $mbt,
 				showtrackartists => $showtrackartists,
 				showrelationships => $showrelationships,
