@@ -309,8 +309,6 @@ sub print_xml_post
     {
         eval
         {
-            $sql->Begin;
-
             require Moderation;
             my @mods;
 
@@ -332,13 +330,10 @@ sub print_xml_post
                     links => \@thistime,
                 );
             }
-
-            $sql->Commit;
         };
         if ($@)
         {
             print STDERR "Cannot insert PUID: $@\n";
-            $sql->Rollback;
             die("Cannot write PUIDs to database.\n")
         }
     }

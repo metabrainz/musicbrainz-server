@@ -535,8 +535,6 @@ sub SubmitTRMList
    {
        eval
        {
-           $sql->Begin;
-
 	    require Moderation;
 	    my @mods;
 
@@ -558,13 +556,10 @@ sub SubmitTRMList
 		    links => \@thistime,
 		);
 	    }
-
-           $sql->Commit;
        };
        if ($@)
        {
            print STDERR "Cannot insert TRM: $@\n";
-           $sql->Rollback;
            return $rdf->ErrorRDF("Cannot write TRM Ids to database.")
        }
        return $rdf->CreateStatus(0);
