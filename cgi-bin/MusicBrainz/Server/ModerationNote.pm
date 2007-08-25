@@ -98,7 +98,7 @@ sub mark_up_text_as_html
 			  [<a href="http://$server/show/edit/?editid=$1">edit #$1</a>]gi;
 
 	# links to wikidocs 
-	$html =~ s/doc:(\w[\/\w]*)/<a href="\/doc\/$1">$1<\/a>/gi;
+	$html =~ s/doc:(\w[\/\w]*)(``)*/<a href="\/doc\/$1">$1<\/a>/gi;
 	$html =~ s/\[(\w[\/\w]*)\]/<a href="\/doc\/$1">$1<\/a>/g;
 
 	$html =~ s/<\/?p[^>]*>//g;
