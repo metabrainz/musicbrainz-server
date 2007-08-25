@@ -791,6 +791,8 @@
 						<& /comp/js/diffcollapse, JSDiff => 1, JSCollapse => 0 &>
 
 						<form  method="post" action="<% $ARGS{"v::action"} %>">
+%	my $notetext = $ARGS{"notetext"};
+%	delete $ARGS{"notetext"};
 							<& /comp/args-to-hidden-fields.inc,
 								$m->comp("/comp/form/args-strip-editsuitefields", %ARGS) &>
 
@@ -802,7 +804,7 @@
 %	push @buttons, [$ARGS{"SUBMIT_CANCEL"}, "btnCancel"];
 
 							<& /comp/notetext,
-								notetext => $ARGS{"notetext"},
+								notetext => $notetext,
 								buttons => \@buttons &>
 
 							<& /comp/form/focusfield, "btnYes" &>
