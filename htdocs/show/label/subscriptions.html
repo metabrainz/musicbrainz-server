@@ -32,87 +32,16 @@
 			1, 1,
 		);
 
-	$m->comp(
-		"/comp/sidebar",
-		pagetitle => "Subscriptions for label: " . $label->GetName(),
-		title => '',
-	);
-
-	$m->comp("/comp/labeltitle", label=>$label);
-
-	my @uids = $label->GetSubscribers;
-
-	my $my_uid = $session{uid} || 0;
-	my @public;
-	my $private = 0;
-
-	for my $uid (@uids)
-	{
-		my $user = UserStuff->newFromId($mb->{DBH}, $uid)
-			or next;
-
-		my $is_me = ($uid == $my_uid);
-		my $is_public = ($is_me or UserPreference::get_for_user("subscriptions_public", $user));
-
-		if ($is_public)
-		{
-			my $n = MusicBrainz::Server::Validation::NormaliseSortText($user->GetName);
-			push @public, [$user->GetId, $user->GetName, $n];
-		}
-		else
-		{
-			++$private;
-		}
-	}
-
-	@public = sort { $a->[2] cmp $b->[2] } @public;
-
-	my $private_str = sprintf "%d anonymous subscriber%s",
-		$private, $private==1 ? "" : "s";
-
 </%perl>
 
-	<& /comp/tablebegin, title=>'Editors subscribed to this label', gattrs => "width='100%'" &>
-	<table width="100%" cellspacing="0" cellpadding="0">
-		<tr>
-			<td style="padding: 0px 4px">
-				<%perl>
-					if (@public)
-					{
-						my $i = 0;
-						for (@public)
-						{
-							my ($uid, $name) = @$_;
-							$m->out(", ") if $i;
-							$m->out(qq|<a href="/show/user/?userid=$uid">$name</a>|);
-							++$i;
-						}
-						$m->out(" plus $private_str") if $private;
-						$m->out(".");
-					}
-					elsif ($private)
-					{
-						$m->out($private_str);
-					}
-					else
-					{
-						$m->out("none");
-					}
-				</%perl>
-			</td>
-		</tr>
-		<tr>
-			<td align="center">
-				&nbsp;<br/>
-				<a href="/user/subscribe.html?labelid=<% $label->GetId %>"
-					>Subscribe to this label</a> |
-				<a href="/user/subscribe.html?labelid=<% $label->GetId %>&amp;unsubscribe=1"
-					>Unsubscribe from this label</a>
+	<& /comp/sidebar,
+		pagetitle => "Subscriptions for label: " . $label->GetName(),
+		title => '', 
+	&>
 
-			</td>
-		</tr>
-	</table>
-	<& /comp/tableend &>
+	<& /comp/labeltitle, label=>$label &>
+
+	<& /comp/subscribersbox, label=>$label, title=>'Editors subscribed to this label' &>
 
 <& /comp/footer &>
 

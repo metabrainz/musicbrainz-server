@@ -253,10 +253,7 @@ use ModDefs ':userid';
 sub is_user_ineligible
 {
 	my ($self, $user) = @_;
-	my $uid = $user->GetId;
-	return 1 if $uid == ANON_MODERATOR
-		or $uid == FREEDB_MODERATOR
-		or $uid == MODBOT_MODERATOR;
+	return 1 if $user->IsSpecialEditor;
 	0;
 }
 

@@ -48,12 +48,12 @@ sub GetSubscribersForArtist
     my $sql = Sql->new($self->{DBH});
 
     return $sql->SelectSingleValue(
-		"SELECT COUNT(DISTINCT moderator) FROM moderator_subscribe_artist WHERE artist = ?",
+		"SELECT COUNT(*) FROM moderator_subscribe_artist WHERE artist = ?",
 		$artist,
     ) if not wantarray;
 
     my $user_ids = $sql->SelectSingleColumnArray(
-		"SELECT DISTINCT moderator FROM moderator_subscribe_artist WHERE artist = ?",
+		"SELECT moderator FROM moderator_subscribe_artist WHERE artist = ?",
 		$artist,
     );
 	return @$user_ids;
@@ -74,14 +74,40 @@ sub GetSubscribersForLabel
     my $sql = Sql->new($self->{DBH});
 
     return $sql->SelectSingleValue(
-		"SELECT COUNT(DISTINCT moderator) FROM moderator_subscribe_label WHERE label = ?",
+		"SELECT COUNT(*) FROM moderator_subscribe_label WHERE label = ?",
 		$label,
     ) if not wantarray;
 
     my $user_ids = $sql->SelectSingleColumnArray(
-		"SELECT DISTINCT moderator FROM moderator_subscribe_label WHERE label = ?",
+		"SELECT moderator FROM moderator_subscribe_label WHERE label = ?",
 		$label,
     );
+	return @$user_ids;
+}
+
+################################################################################
+# Users subscribed to an editor
+################################################################################
+
+# Returns a list or count of users subscribed to a particular editor
+sub GetSubscribersForEditor
+{
+	my $self = shift;
+	$self = $self->new(shift) if not ref $self;
+	my $editor = shift;
+
+	return if not defined wantarray;
+	my $sql = Sql->new($self->{DBH});
+
+	return $sql->SelectSingleValue(
+		"SELECT COUNT(*) FROM editor_subscribe_editor WHERE subscribededitor = ?",
+		$editor,
+	) if not wantarray;
+
+	my $user_ids = $sql->SelectSingleColumnArray(
+		"SELECT editor FROM editor_subscribe_editor WHERE subscribededitor = ?",
+		$editor,
+	);
 	return @$user_ids;
 }
 
@@ -113,6 +139,18 @@ sub GetSubscribedArtists
 		} @$rows;
 
 	return $rows;
+}
+
+sub GetNumSubscribedArtists
+{
+	my ($self) = @_;
+	my $uid = $self->GetUser or die;
+	my $sql = Sql->new($self->{DBH});
+
+	return $sql->SelectSingleValue(
+		"SELECT COUNT(*) FROM moderator_subscribe_artist WHERE moderator = ?",
+		$uid,
+	);
 }
 
 sub SubscribeArtists
@@ -220,6 +258,18 @@ sub GetSubscribedLabels
 	return $rows;
 }
 
+sub GetNumSubscribedLabels
+{
+	my ($self) = @_;
+	my $uid = $self->GetUser or die;
+	my $sql = Sql->new($self->{DBH});
+
+	return $sql->SelectSingleValue(
+		"SELECT COUNT(*) FROM moderator_subscribe_label WHERE moderator = ?",
+		$uid,
+	);
+}
+
 sub SubscribeLabels
 {
 	my ($self, @labels) = @_;
@@ -290,6 +340,119 @@ sub UnsubscribeLabels
 				WHERE moderator = ? AND label = ?",
 				$uid,
 				$labelid,
+			);
+		}
+	});
+
+	1;
+}
+
+sub GetSubscribedEditors
+{
+	my ($self) = @_;
+	my $uid = $self->GetUser or die;
+	my $sql = Sql->new($self->{DBH});
+
+	my $rows = $sql->SelectListOfHashes(
+		"SELECT s.*, m.name
+		FROM editor_subscribe_editor s
+		LEFT JOIN moderator m ON m.id = s.subscribededitor
+		WHERE s.editor = ?
+		ORDER BY m.name",
+		$uid,
+	);
+
+	@$rows = map { $_->[0] }
+		sort { $a->[1] cmp $b->[1] }
+		map {
+			my $row = $_;
+			my $name = MusicBrainz::Server::Validation::NormaliseSortText($row->{'name'});
+			[ $row, $name ];
+		} @$rows;
+
+	return $rows;
+}
+
+sub GetNumSubscribedEditors
+{
+	my ($self) = @_;
+	my $uid = $self->GetUser or die;
+	my $sql = Sql->new($self->{DBH});
+
+	return $sql->SelectSingleValue(
+		"SELECT COUNT(*) FROM editor_subscribe_editor WHERE editor = ?",
+		$uid,
+	);
+}
+
+sub SubscribeEditors
+{
+	my ($self, @editors) = @_;
+	my $uid = $self->GetUser or die;
+
+	my @editorids;
+
+	for my $editor (@editors)
+	{
+		my $editorid = $editor->GetId;
+		push @editorids, $editorid;
+	}
+
+	my $sql = Sql->new($self->{DBH});
+
+	$sql->AutoTransaction(sub {
+		require Moderation;
+		my $mod = Moderation->new($self->{DBH});
+		my $modid = 0;
+
+		for my $editorid (@editorids)
+		{
+			$sql->SelectSingleValue(
+				"SELECT 1 FROM editor_subscribe_editor
+				WHERE editor = ? AND subscribededitor = ?",
+				$uid,
+				$editorid,
+			) and next;
+
+			$modid ||= $mod->GetMaxModID;
+
+			$sql->Do(
+				"INSERT INTO editor_subscribe_editor
+					(editor, subscribededitor, lasteditsent)
+				VALUES (?, ?, ?)",
+				$uid,
+				$editorid,
+				$modid,
+			);
+		}
+	});
+
+	1;
+}
+
+sub UnsubscribeEditors
+{
+	my ($self, @editors) = @_;
+	my $uid = $self->GetUser or die;
+
+	my @editorids;
+
+	for my $editor (@editors)
+	{
+		my $editorid = $editor->GetId;
+		push @editorids, $editorid;
+	}
+
+	my $sql = Sql->new($self->{DBH});
+
+	$sql->AutoTransaction(sub {
+		for my $editorid (@editorids)
+		{
+			$sql->Do(
+				"DELETE FROM editor_subscribe_editor
+				WHERE editor = ? AND subscribededitor = ?",
+				$uid,
+				$editorid,
 			);
 		}
 	});
@@ -382,8 +545,11 @@ sub ProcessAllSubscriptions
 	my $users_label = $sql->SelectSingleColumnArray(
 		"SELECT DISTINCT moderator FROM moderator_subscribe_label",
 	);
-
-	my %users = map { $_ => 1 } (@$users_artist, @$users_label);
+	my $users_editor = $sql->SelectSingleColumnArray(
+		"SELECT DISTINCT editor FROM editor_subscribe_editor",
+	);
+	
+	my %users = map { $_ => 1 } (@$users_artist, @$users_label, @$users_editor);
 	my @users = keys %users;
 
 	printf "Processing subscriptions for %d editors\n",
@@ -423,7 +589,9 @@ sub _ProcessUserSubscriptions
 
 	my $subs = $self->GetSubscribedArtists;
 	my $labelsubs = $self->GetSubscribedLabels;
-	if (not @$subs and not @$labelsubs)
+	my $editorsubs = $self->GetSubscribedEditors;
+	
+	if (not @$subs and not @$labelsubs and not @$editorsubs)
 	{
 		print "No subscriptions (huh?)\n"
 			if $self->{'verbose'};
@@ -440,9 +608,11 @@ sub _ProcessUserSubscriptions
 		# we don't send an e-mail, but we *do* update the "lastmodsent" values
 		# for this user.
 		@$subs = ();
+		@$editorsubs = ();
 	}
 
 	my $text = "";
+	my $editorstext = "";
 	my $root = "http://" . &DBDefs::WEB_SERVER;
 	my $sql = Sql->new($self->{DBH});
 
@@ -500,6 +670,40 @@ sub _ProcessUserSubscriptions
 			. "?artistid=$sub->{'artist'}\n\n";
 	}
 
+	for my $sub (@$editorsubs)
+	{
+		# Find edits for this editor which are
+		# > lasteditsent and <= THRESHOLD_MODID
+		
+		require ModDefs;
+		my $open = $self->CountEditorEdits(
+			$sql,
+			editor => $sub->{'subscribededitor'},
+			status => &ModDefs::STATUS_OPEN,
+			minid => $sub->{'lasteditsent'}+1,
+			maxid => $self->{THRESHOLD_MODID},
+			);
+		
+		my $applied = $self->CountEditorEdits(
+			$sql,
+			editor => $sub->{'subscribededitor'},
+			status => &ModDefs::STATUS_APPLIED,
+			minid => $sub->{'lasteditsent'}+1,
+			maxid => $self->{THRESHOLD_MODID},
+		);
+		
+		next if $open == 0 and $applied == 0;
+		
+		printf "A=%d '%s' open=%d applied=%d\n",
+			$sub->{'subscribededitor'}, $sub->{'name'},
+			$open, $applied,
+			if $self->{'verbose'};
+		
+		$editorstext .= "$sub->{'name'} ($open open, $applied applied)\n"
+					 . "$root/mod/search/pre/editor.html"
+					 . "?userid=$sub->{'subscribededitor'}\n\n";
+	}
+
 	unless ($self->{'dryrun'})
 	{
 		$sql->Do(
@@ -524,35 +728,63 @@ sub _ProcessUserSubscriptions
 			$self->{THRESHOLD_MODID},
 			$self->GetUser,
 		);
-}
+		$sql->Do(
+			"UPDATE editor_subscribe_editor
+			SET lasteditsent = ? WHERE editor = ?",
+			$self->{THRESHOLD_MODID},
+			$self->GetUser,
+		);
+	}
 
-	if ($text eq "")
+	if ($text eq "" and $editorstext eq "")
 	{
-		print "No edits for subscribed artists\n"
+		print "No edits for subscribed artists, labels and editors\n"
 			if $self->{'verbose'};
 		return;
 	}
 
-		my $textbody = <<EOF;
-This is a notification that edits have been added for artists to
-whom you subscribed on the MusicBrainz web site.  To view or edit your
-subscription list, please use the following link:
+	my $textbody = <<EOF;
+This is a notification that edits have been added for artists, labels and
+editors to whom you subscribed on the MusicBrainz web site.
+To view or edit your subscription list, please use the following link:
 $root/user/subscriptions.html
 
 To see all open edits for your subscribed artists, see this link:
 $root/mod/search/pre/subscriptions.html
+EOF
+	;
+
+	if ($text =~ /\S/) 
+	{
+		$textbody .= <<EOF
 
 The changes to your subscribed artists are as follows:
 ------------------------------------------------------------------------
 
 $text
+EOF
+		;
+	}
+
+	if ($editorstext =~ /\S/)
+	{
+		$textbody .= <<EOF
+
+The changes to your subscribed editors are as follows:
 ------------------------------------------------------------------------
 
+$editorstext
+EOF
+		;
+	}
+
+	$textbody .= <<EOF
+------------------------------------------------------------------------
 Please do not reply to this message.  If you need help, please see
 $root/doc/ContactUs
 
 EOF
-		;
+	;
 
 	require MusicBrainz::Server::Mail;
 	my $mail = MusicBrainz::Server::Mail->new(
@@ -560,7 +792,7 @@ EOF
 		From		=> 'MusicBrainz Subscription Robot <noreply@musicbrainz.org>',
 		# To: $user (automatic)
 		"Reply-To"	=> 'MusicBrainz Support <support@musicbrainz.org>',
-		Subject		=> "Edits for your subscribed artists",
+		Subject		=> "Edits for your subscriptions",
 		Type		=> "text/plain",
 		Encoding	=> "quoted-printable",
 		Data		=> $textbody,
@@ -630,6 +862,44 @@ sub CountArtistEdits
 
 	$self->{_cache_}{$key} = \%counts;
 	return $counts{ $opts{artist} } || 0;
+}
+
+sub CountEditorEdits
+{
+	my ($self, $sql, %opts) = @_;
+	
+	my $key = "CountEditorEdits s=$opts{status} id=$opts{minid}-$opts{maxid}";
+	if (my $t = $self->{_cache_}{$key})
+	{
+		return $t->{ $opts{editor} } || 0;
+	}
+	
+	printf "Counting edits by editor: s=%d %d <= id <= %d\n",
+		$opts{status},
+		$opts{minid},
+		$opts{maxid},
+		if $self->{'verbose'};
+	
+	my %counts;
+	{
+		my $rows = $sql->SelectListOfLists(
+			"SELECT moderator, COUNT(*) FROM moderation_all
+			WHERE status = ?
+			AND id BETWEEN ? AND ?
+			GROUP BY moderator",
+			$opts{status},
+			$opts{minid},
+			$opts{maxid},
+		);
+		%counts = map { $_->[0] => $_->[1] } @$rows;
+	}
+	
+	printf "Got counts of edits by editor (%d editors)\n",
+		scalar(keys %counts),
+		if $self->{'verbose'};
+		
+	$self->{_cache_}{$key} = \%counts;
+	return $counts{ $opts{editor} } || 0;
 }
 
 1;

@@ -62,9 +62,7 @@
 
 	my $membersince;
 
-	if ($user->GetId == &ModDefs::ANON_MODERATOR
-		or $user->GetId == &ModDefs::FREEDB_MODERATOR
-		or $user->GetId == &ModDefs::MODBOT_MODERATOR)
+	if ($user->IsSpecialEditor)
 	{
 		$membersince = 'n/a';
 	}
@@ -123,7 +121,7 @@
 
 % 	if ($subscriptions_public or $is_me)
 %	{
-					| <a href="/user/subscriptions.html?user=<% $userid %>">Subscriptions</a>
+					| <a href="/user/subscriptions.html?userid=<% $userid %>">Subscriptions</a>
 % 	}
 				</td>
 			</tr>
@@ -293,9 +291,29 @@
 					Subscriptions:</td>
 				<td>
 					<% $is_me ? "Your" : $user->GetName."'s" %>
-					<a href="/user/subscriptions.html?user=<% $userid %>">
+					<a href="/user/subscriptions.html?userid=<% $userid %>">
 					subscriptions</a> are <% $subscriptions_public ?
 					"public" : "private" %>.</td>
+			</tr>
+
+			<tr class="top">
+				<td class="label">
+					Subscribers:
+				</td>
+				<td>
+					<% scalar $user->GetSubscribers %>
+					&nbsp;
+					[ <a href="/user/subscribers.html?userid=<% $user->GetId %>">List</a>
+
+%		if(exists $session{user}
+%		   and not $user->IsSpecialEditor
+%		   and not $is_me)
+%		{
+					| <a href="/user/subscribe.html?editorid=<% $user->GetId %>">Subscribe to this editor</a>
+					| <a href="/user/subscribe.html?editorid=<% $user->GetId %>&amp;unsubscribe=1">Unsubscribe from this editor</a>
+%		}
+					]
+				</td>
 			</tr>
 
 			<tr class="top">
