@@ -49,7 +49,7 @@
 %	$entities = $t->GetEntitiesForTag("track", $tag, 100);
 %	for my $entity (@$entities) {
 		<tr>
-			<td><& "/comp/linkrelease", id => $entity->{"id"}, mbid => $entity->{"gid"}, name => $entity->{"name"}  &></td>
+			<td><& "/comp/linktrack", id => $entity->{"id"}, mbid => $entity->{"gid"}, name => $entity->{"name"}  &></td>
 			<td><% $entity->{"count"} %></td>
 		</tr>
 %	}
