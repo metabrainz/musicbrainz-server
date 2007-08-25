@@ -48,12 +48,12 @@ sub GetSubscribersForArtist
     my $sql = Sql->new($self->{DBH});
 
     return $sql->SelectSingleValue(
-		"SELECT COUNT(DISTINCT moderator) FROM moderator_subscribe_artist WHERE artist = ?",
+		"SELECT COUNT(*) FROM moderator_subscribe_artist WHERE artist = ?",
 		$artist,
     ) if not wantarray;
 
     my $user_ids = $sql->SelectSingleColumnArray(
-		"SELECT DISTINCT moderator FROM moderator_subscribe_artist WHERE artist = ?",
+		"SELECT moderator FROM moderator_subscribe_artist WHERE artist = ?",
 		$artist,
     );
 	return @$user_ids;
@@ -74,12 +74,12 @@ sub GetSubscribersForLabel
     my $sql = Sql->new($self->{DBH});
 
     return $sql->SelectSingleValue(
-		"SELECT COUNT(DISTINCT moderator) FROM moderator_subscribe_label WHERE label = ?",
+		"SELECT COUNT(*) FROM moderator_subscribe_label WHERE label = ?",
 		$label,
     ) if not wantarray;
 
     my $user_ids = $sql->SelectSingleColumnArray(
-		"SELECT DISTINCT moderator FROM moderator_subscribe_label WHERE label = ?",
+		"SELECT moderator FROM moderator_subscribe_label WHERE label = ?",
 		$label,
     );
 	return @$user_ids;
@@ -100,12 +100,12 @@ sub GetSubscribersForEditor
 	my $sql = Sql->new($self->{DBH});
 
 	return $sql->SelectSingleValue(
-		"SELECT COUNT(DISTINCT editor) FROM editor_subscribe_editor WHERE subscribededitor = ?",
+		"SELECT COUNT(*) FROM editor_subscribe_editor WHERE subscribededitor = ?",
 		$editor,
 	) if not wantarray;
 
 	my $user_ids = $sql->SelectSingleColumnArray(
-		"SELECT DISTINCT editor FROM editor_subscribe_editor WHERE subscribededitor = ?",
+		"SELECT editor FROM editor_subscribe_editor WHERE subscribededitor = ?",
 		$editor,
 	);
 	return @$user_ids;
