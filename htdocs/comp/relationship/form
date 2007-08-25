@@ -236,7 +236,9 @@
 						<div><small><a href="/edit/relationship/add.html?link0=<% $links[0]->{type} %>=<% $links[0]->{id} %>&amp;link1=<% $links[1]->{type} %>=<% $links[1]->{id} %>&amp;returnto=<% $returnto %>">Add relationships to this release</a></small></div>
 %	} else {
 						<& "/comp/link".lc($etype2), id => $e2->{id}, name => $e2->{name} &>
+%		if ($e2->{type} eq "album") {
 						<div><small><a href="/edit/relationship/add.html?link0=<% $links[0]->{type} %>=<% $links[0]->{id} %>&amp;link1=<% $links[1]->{type} %>=<% $links[1]->{id} %>&amp;returnto=<% $returnto %>&amp;usetracks=<% 1 - $rev %>">Add relationships to tracks on this release</a></small></div>
+%		}
 %	}
 					</span>
 				</td>
