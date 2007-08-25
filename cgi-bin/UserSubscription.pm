@@ -141,6 +141,18 @@ sub GetSubscribedArtists
 	return $rows;
 }
 
+sub GetNumSubscribedArtists
+{
+	my ($self) = @_;
+	my $uid = $self->GetUser or die;
+	my $sql = Sql->new($self->{DBH});
+
+	return $sql->SelectSingleValue(
+		"SELECT COUNT(*) FROM moderator_subscribe_artist WHERE moderator = ?",
+		$uid,
+	);
+}
+
 sub SubscribeArtists
 {
 	my ($self, @artists) = @_;
@@ -246,6 +258,18 @@ sub GetSubscribedLabels
 	return $rows;
 }
 
+sub GetNumSubscribedLabels
+{
+	my ($self) = @_;
+	my $uid = $self->GetUser or die;
+	my $sql = Sql->new($self->{DBH});
+
+	return $sql->SelectSingleValue(
+		"SELECT COUNT(*) FROM moderator_subscribe_label WHERE moderator = ?",
+		$uid,
+	);
+}
+
 sub SubscribeLabels
 {
 	my ($self, @labels) = @_;
@@ -347,6 +371,18 @@ sub GetSubscribedEditors
 		} @$rows;
 
 	return $rows;
+}
+
+sub GetNumSubscribedEditors
+{
+	my ($self) = @_;
+	my $uid = $self->GetUser or die;
+	my $sql = Sql->new($self->{DBH});
+
+	return $sql->SelectSingleValue(
+		"SELECT COUNT(*) FROM editor_subscribe_editor WHERE editor = ?",
+		$uid,
+	);
 }
 
 sub SubscribeEditors

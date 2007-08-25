@@ -29,12 +29,16 @@
 <%args>
 
 	$userid => undef
+    $type => "artist"
+    $offset => 0
+    $limit => 10
+	$page => undef
 
 </%args>
 <%perl>
 
 	my $mb = $m->comp("/comp/dblogin");
-
+	
 	if (defined $userid)
 	{
 		# make sure we got a valid user parameter
@@ -50,6 +54,25 @@
 		) or return;
 		$userid = $session{uid};
 	}
+    
+	# validate "limit" parameter
+	MusicBrainz::Server::Validation::IsNonNegInteger($limit)
+		or return $m->comp("/comp/layout/badarguments",
+			text => "The argument <strong>limit</strong> is missing or has a wrong format.");
+
+	# validate "offset" parameter
+	$offset = ($page - 1) * $limit
+		if (defined $page);
+	MusicBrainz::Server::Validation::IsNonNegInteger($offset)
+		or return $m->comp("/comp/layout/badarguments",
+			text => "The argument <strong>offset</strong> is missing or has a wrong format.");
+
+	# validate "type" parameter
+	if ($type ne "artist" && $type ne "label" && $type ne "editor")
+	{
+		return $m->comp("/comp/layout/badarguments",
+			text => "The argument <strong>type</strong> must be 'artist', 'label', or 'editor'.");
+	}
 
 	# load current user.
 	my $is_me = ($userid == $session{uid});
@@ -64,17 +87,32 @@
 	}
 
 	# load subscriptions
-	my ($artists, $labels, $editors);
+	my ($subscriptions, %numsubscriptions, %linktitles);
 	unless ($private)
 	{
 		my $subs = UserSubscription->new($mb->{DBH});
 		$subs->SetUser($userid);
-		$artists = $subs->GetSubscribedArtists;
-		@$artists = grep { defined $_->{name} } @$artists;
-		$labels = $subs->GetSubscribedLabels;
-		@$labels = grep { defined $_->{name} } @$labels;
-		$editors = $subs->GetSubscribedEditors;
-		@$editors = grep { defined $_->{name} } @$editors;
+		if ($type eq "artist")
+		{
+			$subscriptions = $subs->GetSubscribedArtists;
+			$numsubscriptions{artist} = scalar(@$subscriptions);
+			$numsubscriptions{label} = $subs->GetNumSubscribedLabels;
+			$numsubscriptions{editor} = $subs->GetNumSubscribedEditors;
+		}
+		elsif ($type eq "label")
+		{
+			$subscriptions = $subs->GetSubscribedLabels;
+			$numsubscriptions{label} = scalar(@$subscriptions);
+			$numsubscriptions{artist} = $subs->GetNumSubscribedArtists;
+			$numsubscriptions{editor} = $subs->GetNumSubscribedEditors;
+		}
+		elsif ($type eq "editor")
+		{
+			$subscriptions = $subs->GetSubscribedEditors;
+			$numsubscriptions{editor} = scalar(@$subscriptions);
+			$numsubscriptions{artist} = $subs->GetNumSubscribedArtists;
+			$numsubscriptions{label} = $subs->GetNumSubscribedLabels;
+		}
 	}
 
 	my $uid = $user->GetId;
@@ -83,9 +121,9 @@
 </%perl>
 
 
-<& /comp/sidebar-notitle, pagetitle => ($is_me ? "Your" : $name) . " Subscriptions"  &>
+<& /comp/sidebar-notitle, pagetitle => ($is_me ? "Your " : $name."'s ") . ucfirst($type) . " Subscriptions"  &>
 
-	<& /comp/tablebegin, title => ($is_me ? "Your" : $name) . " Subscriptions" &>
+	<& /comp/tablebegin, title => ($is_me ? "Your " : $name."'s ") . "Subscriptions" &>
 
 		<table class="formstyle">
 			<tr class="top">
@@ -113,17 +151,21 @@
 			<tr class="top">
 				<td class="label">Contact:</td>
 				<td>
+					[
 					<a href="/show/user/?userid=<% $uid %>">User profile</a> |
 					<a href="/user/mod_email.html?uid=<% $uid %>&amp;url=<% uri_escape("/show/user/?userid=$uid") %>">Send e-mail</a>
+					]
 				</td>
 			</tr>
 			<tr class="top">
 				<td class="label">Review:</td>
 				<td>
+					[
 					<a href="/mod/search/pre/voted.html?moderator=<% $uid %>">Votes</a> |
 					<a href="/mod/search/pre/moderator.html?moderator=<% $uid %>">Edits</a> |
 					<a href="/mod/search/pre/moderator-failed.html?moderator=<% $uid %>">Failed edits</a> |
 					<a href="/mod/search/pre/moderator-deleted.html?moderator=<% $uid %>">Deleted edits</a>
+					]
 				</td>
 			</tr>
 %		}
@@ -150,10 +192,10 @@
 
 %	if ($private)
 %	{
-		<% $name %>'s subscriptions are private.
+					<% $name %>'s subscriptions are private.
 
 %	}
-% 	elsif (not @$artists and not @$labels and not @$editors)
+% 	elsif (not $numsubscriptions{artist} and not $numsubscriptions{label} and not $numsubscriptions{editor})
 %	{
 
 					<% $is_me ? "You are" : $name." is" %> not currently subscribed to any artists, labels or editors.&nbsp;
@@ -168,10 +210,10 @@
 %	{
 
 					<% $is_me ? "You are" : $name." is" %> currently subscribed to
-					<% (@$artists == 1) ? "this artist" : (@$artists == 0 ? "no artists" : "these <strong>".scalar(@$artists)."</strong> artists") |n %>, 
-					<% (@$labels == 1) ? "this label" : (@$labels == 0 ? "no labels" : "these <strong>".scalar(@$labels)."</strong> labels") |n %>
+					<% $numsubscriptions{artist} == 0 ? "no artists" : "<strong>".$numsubscriptions{artist}."</strong> artists" |n %>,
+					<% $numsubscriptions{label} == 0 ? "no labels" : "<strong>".$numsubscriptions{label}."</strong> labels" |n %>
 					and
-					<% (@$editors == 1) ? "this editor" : (@$editors == 0 ? "no editors" : "these <strong>".scalar(@$editors)."</strong> editors") |n %>. 
+					<% $numsubscriptions{editor} == 0 ? "no editors" : "<strong>".$numsubscriptions{editor}."</strong> editors" |n %>. 
 					
 %		if($is_me)
 %		{
@@ -180,223 +222,117 @@
 					to an artist, a label or an editor, use the "Subscribe" link on the artist's, label's or editor's page.
 %		}
 %	}
-
-
+	
+			</tr>
+			<tr class="spaced top">
+				<td class="label">&nbsp;</td>
+				<td>
+				[
+%	if ($type eq "artist") {
+				<strong>Artist subscriptions</strong>
+				| <a href="/user/subscriptions.html?userid=<% $userid %>&type=label">Label subscriptions</a>
+				| <a href="/user/subscriptions.html?userid=<% $userid %>&type=editor">Editor subscriptions</a>
+%	} elsif ($type eq "label") {
+				<a href="/user/subscriptions.html?userid=<% $userid %>&type=artist">Artist subscriptions</a>
+				| <strong>Label subscriptions</strong>
+				| <a href="/user/subscriptions.html?userid=<% $userid %>&type=editor">Editor subscriptions</a>
+%	} elsif ($type eq "editor") {
+				<a href="/user/subscriptions.html?userid=<% $userid %>&type=artist">Artist subscriptions</a>
+				| <a href="/user/subscriptions.html?userid=<% $userid %>&type=label">Label subscriptions</a>
+				| <strong>Editor subscriptions</strong>
+%	}
+				]
 				</td>
 			</tr>
-
+% #			<tr><td colspan="2">&nbsp;</td></tr>
 			<tr>
-				<td colspan="2">&nbsp;</td>			
-			</tr>			
-			<tr class="top">
-				<td colspan="2">
-					<div style="border-bottom: 1px dotted #ccc; padding: 5px; margin-bottom: 5px; font-weight: bold">
-						Artist subscriptions:
-					</div></td>
-			</tr>
-			
-			<tr class="top">
 				<td class="label">&nbsp;</td>
 				<td>
 
 %	if ($private)
 %	{
-		<% $name %>'s artist subscriptions are private.
+					<% $name."'s ".$type %> subscriptions are private.
 %	}
-% 	elsif (not @$artists)
+% 	elsif (not $numsubscriptions{$type})
 %	{
-		No artists subscriptions found.
+					No <% $type %> subscriptions found.
 %	}
 %	else
 %	{
-
-%		my $row = 0;
+					<& /comp/browse/pageselector, numitems => $numsubscriptions{$type},
+											offset=> $offset, 
+											numlinks => 6,
+											pagesize=> $limit,
+											url => "/user/subscriptions.html",
+											args =>{ userid => $userid,
+														type => $type
+													} &>
 %		if ($is_me)
 %		{
 					<form method="post" action="/user/subscribe.html">
 %		}
 						<table class="artistfilter-listing">
 
-% 		for my $artist (@$artists)
+%		my $end = $offset + $limit > $numsubscriptions{$type} ? $numsubscriptions{$type} : $offset + $limit;
+% 		for (my $row = $offset; $row < $end; $row++)
 %		{
+%			my $objectid = $type eq "editor" ? $subscriptions->[$row]{subscribededitor} : $subscriptions->[$row]{$type};
 
-							<tr class="row<% $row++ % 2 %>">
+							<tr class="row<% $row % 2 %>">
 %			if ($is_me)
 %			{
-								<td><input type="checkbox" name="artistid" value="<% $artist->{artist} %>" /></td>
+								<td><input type="checkbox" name="<% $type %>id" value="<% $objectid %>" /></td>
 %			}
 								<td class="padright">
-									<& /comp/linkartist, id => $artist->{artist},
-										name => $artist->{name}, resolution =>  $artist->{resolution},
-										strong => 0 &></td>
-								<td>[ <a href="/mod/search/pre/artist.html?artistid=<% $artist->{artist} %>">View edits</a> ]</td>
-							</tr>
-% 		}
-
-%		if ($is_me)
-%		{
-							<tr>
-								<td colspan="3">&nbsp;</td>
-							</tr>
-							<tr>
-								<td colspan="3">
-									<input type="hidden" name="unsubscribe" value="1" />
-									<input type="submit" value="Unsubcribe selected artists &raquo;" />
-								</td>
-							</tr>
-						</table>
-					</form>
-%		}
-%		else
-%		{
-						</table>
-%		}
-				</td>
-
-% 	}
-
-			</tr>
-			<tr>
-				<td colspan="2">&nbsp;</td>			
-			</tr>			
-			<tr class="top">
-				<td colspan="2">
-					<div style="border-bottom: 1px dotted #ccc; padding: 5px; margin-bottom: 5px; font-weight: bold">
-						Label subscriptions:
-					</div></td>
-			</tr>
-			
-			<tr class="top">
-				<td class="label">&nbsp;</td>
-				<td>
-
-%	if ($private)
-%	{
-		<% $name %>'s label subscriptions are private.
-%	}
-% 	elsif (not @$labels)
-%	{
-		No label subscriptions found.
-%	}
-%	else
-%	{
-%		my $row = 0;
-
-%		if ($is_me)
-%		{
-					<form method="post" action="/user/subscribe.html">
-%		}
-						<table class="artistfilter-listing">
-
-% 		for my $label (@$labels)
-%		{
-
-							<tr class="row<% $row++ % 2 %>">
-%			if ($is_me)
+%			if ($type eq "artist")
 %			{
-								<td><input type="checkbox" name="labelid" value="<% $label->{label} %>" /></td>
+									<& /comp/linkartist, id => $objectid,
+											name => $subscriptions->[$row]{name}, resolution =>  $subscriptions->[$row]{resolution},
+											strong => 0 &></td>
+								<td>[ <a href="/mod/search/pre/<% $type %>.html?<% $type %>id=<% $objectid %>">View edits</a> ]</td>
 %			}
-								<td class="padright">
-									<& /comp/linklabel, id => $label->{label},
-										name => $label->{name}, resolution =>  $label->{resolution},
-										strong => 0 &></td>
-								<td>[ <a href="/mod/search/pre/label.html?labelid=<% $label->{label} %>">View edits</a> ]</td>
-							</tr>
-% 		}
-
-%		if ($is_me)
-%		{
-							<tr>
-								<td colspan="3">&nbsp;</td>
-							</tr>
-							<tr>
-								<td colspan="3">
-									<input type="hidden" name="unsubscribe" value="1" />
-									<input type="submit" value="Unsubcribe selected labels &raquo;" />
-								</td>
-							</tr>
-						</table>
-					</form>
-%		}
-%		else
-%		{
-						</table>
-%		}
-				</td>
-
-% 	}
-
-			</tr>
-			<tr>
-				<td colspan="2">&nbsp;</td>			
-			</tr>			
-			<tr class="top">
-				<td colspan="2">
-					<div style="border-bottom: 1px dotted #ccc; padding: 5px; margin-bottom: 5px; font-weight: bold">
-						Editor subscriptions:
-					</div></td>
-			</tr>
-			
-			<tr class="top">
-				<td class="label">&nbsp;</td>
-				<td>
-%	if ($private)
-%	{
-		<% $name %>'s editor subscriptions are private.
-%	}
-% 	elsif (not @$editors)
-%	{
-		No editor subscriptions found.
-%	}
-%	else
-%	{
-%		my $row = 0;
-
-%		if ($is_me)
-%		{
-					<form method="post" action="/user/subscribe.html">
-%		}	
-						<table class="artistfilter-listing">
-
-% 		for my $editor (@$editors)
-%		{
-
-							<tr class="row<% $row++ % 2 %>">
-%			if ($is_me)
+%			elsif ($type eq "label")
 %			{
-								<td><input type="checkbox" name="editorid" value="<% $editor->{subscribededitor} %>" /></td>
-%			}	
-								<td class="padright">
-									<& /comp/linkuser, id => $editor->{subscribededitor},
-										name => $editor->{name}, strong => 0 &></td>
-								<td>[ <a href="/mod/search/pre/editor.html?userid=<% $editor->{subscribededitor} %>">Edits</a> 
-									| <a href="/mod/search/pre/editor-open.html?userid=<% $editor->{subscribededitor} %>">Open edits</a> ]</td>
+									<& /comp/linklabel, id => $objectid,
+											name => $subscriptions->[$row]{name}, resolution =>  $subscriptions->[$row]{resolution},
+											strong => 0 &></td>
+								<td>[ <a href="/mod/search/pre/<% $type %>.html?<% $type %>id=<% $objectid %>">View edits</a> ]</td>
+%			}
+%			elsif ($type eq "editor")
+%			{
+									<& /comp/linkuser, id => $objectid,
+											name => $subscriptions->[$row]{name}, strong => 0 &></td>
+								<td>[ <a href="/mod/search/pre/<% $type %>.html?userid=<% $objectid %>">Edits</a> 
+									| <a href="/mod/search/pre/<% $type %>-open.html?userid=<% $objectid %>">Open edits</a> ]</td>
+%			}
 							</tr>
 % 		}
+						</table>
 
 %		if ($is_me)
 %		{
-							<tr>
-								<td colspan="3">&nbsp;</td>
-							</tr>
-							<tr>
-								<td colspan="3">
-									<input type="hidden" name="unsubscribe" value="1" />
-									<input type="submit" value="Unsubcribe selected editors &raquo;" />
-								</td>
-							</tr>
-						</table>
+
+
+
+						<input type="hidden" name="unsubscribe" value="1" />
+						<input type="hidden" name="returnto" value="/user/subscriptions.html?userid=<% $userid %>&type=<% $type %>&offset=<% $offset %>&limit=<% $limit %>" />
+						<input type="submit" value="Unsubcribe selected <% $type %>s &raquo;" />
+
 					</form>
 %		}
-%		else
-%		{
-						</table>
-%		}
-				</td>
+					<& /comp/browse/pageselector, numitems => $numsubscriptions{$type},
+											offset=> $offset, 
+											numlinks => 6,
+											pagesize=> $limit,
+											url => "/user/subscriptions.html",
+											args =>{ userid => $userid,
+														type => $type
+													} &>
 % 	}
-
+				</td>
 			</tr>
 		</table>
+
 
 	<& /comp/tableend &>
 

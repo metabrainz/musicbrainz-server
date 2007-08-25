@@ -32,14 +32,27 @@
 	@labelid => ()
 	@editorid => ()
 	$unsubscribe => 0
+	$returnto => undef
 
 </%args>
 <%perl>
 
-	return $m->comp(
-		"/comp/redirect",
-		"/user/subscriptions.html",
-	) if not @artistid and not @labelid and not @editorid;
+		
+	if (not @artistid and not @labelid and not @editorid)
+	{
+		if (defined $returnto)
+		{
+			return $m->comp("/comp/redirect",
+				$returnto,
+			);
+		}
+		else
+		{
+			return $m->comp("/comp/redirect",
+				"/user/subscriptions.html",
+			);
+		}
+	}
 
 	$m->comp(
 		"/comp/checkloggedin", 1, 1,
@@ -134,7 +147,13 @@
 
 	# redirect user to subscribed users instead of the list of subscriptions
 	# if we came from the artist page.
-	if (scalar(@artistid) == 1)
+	if (defined $returnto)
+	{
+		return $m->comp("/comp/redirect",
+			$returnto,
+		);
+	}
+	elsif (scalar(@artistid) == 1)
 	{
 		return $m->comp("/comp/redirect",
 			"/show/artist/subscriptions.html?artist=".$artistid[0],
