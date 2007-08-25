@@ -108,6 +108,7 @@ DROP INDEX moderator_nameindex;
 DROP INDEX moderator_preference_moderator_key;
 DROP INDEX moderator_subscribe_artist_moderator_key;
 DROP INDEX moderator_subscribe_label_moderator_key;
+DROP INDEX editor_subscribe_editor_editor_key;
 DROP INDEX "Pending_XID_Index";
 DROP INDEX puid_stat_puid_idindex;
 DROP INDEX puid_puidindex;

@@ -147,6 +147,7 @@ CREATE UNIQUE INDEX moderator_preference_moderator_key ON moderator_preference (
 
 CREATE UNIQUE INDEX moderator_subscribe_artist_moderator_key ON moderator_subscribe_artist (moderator, artist);
 CREATE UNIQUE INDEX moderator_subscribe_label_moderator_key ON moderator_subscribe_label (moderator, label);
+CREATE UNIQUE INDEX editor_subscribe_editor_editor_key ON editor_subscribe_editor (editor, subscribededitor);
 
 CREATE INDEX "Pending_XID_Index" ON "Pending" ("XID");
 

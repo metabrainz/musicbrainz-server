@@ -502,6 +502,16 @@ ALTER TABLE moderator_subscribe_label
     FOREIGN KEY (moderator)
     REFERENCES moderator(id);
 
+ALTER TABLE editor_subscribe_editor
+    ADD CONSTRAINT editsubeditor_fk_moderator
+    FOREIGN KEY (editor)
+    REFERENCES moderator(id);
+
+ALTER TABLE editor_subscribe_editor
+    ADD CONSTRAINT editsubeditor_fk_moderator2
+    FOREIGN KEY (subscribededitor)
+    REFERENCES moderator(id);
+
 ALTER TABLE "PendingData"
     ADD CONSTRAINT "PendingData_SeqId"
     FOREIGN KEY ("SeqId")

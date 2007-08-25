@@ -101,6 +101,8 @@ ALTER TABLE moderation_open DROP CONSTRAINT moderation_open_fk_language;
 ALTER TABLE moderator_preference DROP CONSTRAINT moderator_preference_fk_moderator;
 ALTER TABLE moderator_subscribe_artist DROP CONSTRAINT modsubartist_fk_moderator;
 ALTER TABLE moderator_subscribe_label DROP CONSTRAINT modsublabel_fk_moderator;
+ALTER TABLE editor_subscribe_editor DROP CONSTRAINT editsubeditor_fk_moderator;
+ALTER TABLE editor_subscribe_editor DROP CONSTRAINT editsubeditor_fk_moderator2;
 ALTER TABLE "PendingData" DROP CONSTRAINT "PendingData_SeqId";
 ALTER TABLE puid DROP CONSTRAINT puid_fk_clientversion;
 ALTER TABLE puid_stat DROP CONSTRAINT puid_stat_fk_puid;

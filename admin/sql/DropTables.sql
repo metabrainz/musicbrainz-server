@@ -63,6 +63,7 @@ DROP TABLE moderator;
 DROP TABLE moderator_preference;
 DROP TABLE moderator_subscribe_artist;
 DROP TABLE moderator_subscribe_label;
+DROP TABLE editor_subscribe_editor;
 DROP TABLE "Pending";
 DROP TABLE "PendingData";
 DROP TABLE puid;

@@ -796,6 +796,14 @@ CREATE TABLE moderator_subscribe_label
     mergedbymod         INTEGER NOT NULL DEFAULT 0 -- weakly references moderation
 );
 
+CREATE TABLE editor_subscribe_editor
+(
+    id                  SERIAL,
+    editor              INTEGER NOT NULL, -- references moderator (the one who has subscribed)
+    subscribededitor    INTEGER NOT NULL, -- references moderator (the one being subscribed)
+    lasteditsent        INTEGER NOT NULL  -- weakly references moderation
+);
+
 CREATE TABLE "Pending"
 (
     "SeqId"             SERIAL,
