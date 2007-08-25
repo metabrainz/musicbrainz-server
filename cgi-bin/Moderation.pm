@@ -1101,51 +1101,73 @@ sub InsertModeration
 	my @inserted_moderations;
 	$this->{inserted_moderations} = \@inserted_moderations;
 
-	# The PreInsert method must perform any work it needs to - e.g. inserting
-	# records which maybe ->DeniedAction will delete later - and then override
-	# these default column values as appropriate:
-	$this->SetArtist(&ModDefs::VARTIST_ID);
-	$this->SetTable("");
-	$this->SetColumn("");
-	$this->SetRowId(0);
-	$this->SetDepMod(0);
-	$this->SetPrev("");
-	$this->SetNew("");
-	$this->PreInsert(%opts);
+	my $sql = Sql->new($this->{DBH});
+	my $dbname = $this->GetVerticalDatabaseName();
+	my $vertsql;
+	if ($dbname)
+	{
+		my $vertmb = new MusicBrainz;
+		$vertsql = eval
+		{
+			$vertmb->Login(db => $dbname);
+			Sql->new($vertmb->{DBH});
+		};
+		if ($@)
+		{
+			$vertsql = undef;
+		}
+	}
 
-	goto SUPPRESS_INSERT if $this->{suppress_insert};
-	$this->PostLoad;
+	$sql->Begin;
+	if ($vertsql)
+	{
+		$this->SetVerticalDatabaseConnection($vertsql);
+		$vertsql->Begin;
+	}
 
-    my $level;
-    if ($this->GetType == &Moderation::MOD_CHANGE_RELEASE_QUALITY ||
-        $this->GetType == &Moderation::MOD_CHANGE_ARTIST_QUALITY)
-    {
-        $level = Moderation::GetQualityChangeDefs($this->GetQualityChangeDirection);
-    }
-    else
-    {
-        $level = Moderation::GetEditLevelDefs($this->GetQuality, $this->GetType);
-    }
+	eval
+	{
 
-	# Now go on to insert the moderation record itself, and to
-	# deal with autoeditss and modpending flags.
+		# The PreInsert method must perform any work it needs to - e.g. inserting
+		# records which maybe ->DeniedAction will delete later - and then override
+		# these default column values as appropriate:
+		$this->SetArtist(&ModDefs::VARTIST_ID);
+		$this->SetTable("");
+		$this->SetColumn("");
+		$this->SetRowId(0);
+		$this->SetDepMod(0);
+		$this->SetPrev("");
+		$this->SetNew("");
+		$this->PreInsert(%opts);
 
-    use DebugLog;
-    if (my $d = DebugLog->open)
-    {
-        $d->stamp;
-        $d->dumper([$this], ['this']);
-        $d->dumpstring($this->{prev}, "this-prev");
-        $d->dumpstring($this->{new}, "this-new");
-        $d->close;
-    }
+		goto SUPPRESS_INSERT if $this->{suppress_insert};
+		$this->PostLoad;
 
-    my $sql = Sql->new($this->{DBH});
-    eval
-    {
-        $sql->Begin();
+		my $level;
+		if ($this->GetType == &Moderation::MOD_CHANGE_RELEASE_QUALITY ||
+		    $this->GetType == &Moderation::MOD_CHANGE_ARTIST_QUALITY)
+		{
+			$level = Moderation::GetQualityChangeDefs($this->GetQualityChangeDirection);
+		}
+		else
+		{
+			$level = Moderation::GetEditLevelDefs($this->GetQuality, $this->GetType);
+		}
 
-        $sql->Do(
+		# Now go on to insert the moderation record itself, and to
+		# deal with autoeditss and modpending flags.
+
+		use DebugLog;
+		if (my $d = DebugLog->open)
+		{
+			$d->stamp;
+			$d->dumper([$this], ['this']);
+			$d->dumpstring($this->{prev}, "this-prev");
+			$d->dumpstring($this->{new}, "this-new");
+			$d->close;
+		}
+
+		$sql->Do(
             "INSERT INTO moderation_open (
                 tab, col, rowid,
                 prevvalue, newvalue,
@@ -1165,138 +1187,100 @@ sub InsertModeration
             $this->GetDepMod,
             &ModDefs::STATUS_OPEN, sprintf("%d days", $level->{duration}),
             $this->GetLanguageId
-        );
+		);
 
-        $sql->Commit;
-    };
-    if ($@)
-    {
-        my $err = $@;
-        $sql->Rollback;
-        croak $err;
-    }
-    
-    my $insertid = $sql->GetLastInsertId("moderation_open");
-	MusicBrainz::Server::Cache->delete("Moderation-id-range");
-	MusicBrainz::Server::Cache->delete("Moderation-open-id-range");
-	#print STDERR "Inserted as moderation #$insertid\n";
-	$this->SetId($insertid);
-
-    # Check to see if this moderation should be approved immediately 
-	require UserStuff;
-	my $ui = UserStuff->new($this->{DBH});
-	my $isautoeditor = $ui->IsAutoEditor($privs);
-
-    my $autoedit = 0;
-
-    # If the edit allows an autoedit and the current level allows autoedits, then make it an autoedit
-    $autoedit = 1 if (not $autoedit
-                      and $this->IsAutoEdit($isautoeditor) 
-                      and $level->{autoedit});
-
-    # If the edit type is an autoedit and the editor is an autoedit, then make it an autoedit
-	$autoedit = 1 if (not $autoedit
-					  and $isautoeditor
-					  and $level->{autoedit});
-   
-    # If the editor is untrusted, undo the auto edit
-	$autoedit = 0 if ($ui->IsUntrusted($privs) and 
-					  ($this->GetType != &ModDefs::MOD_ADD_TRMS or 
-			 		   $this->GetType != &ModDefs::MOD_ADD_PUIDS));
-
-    # If it is autoedit, then approve the edit and credit the editor
-    if ($autoedit)
-    {
-        my $edit = $this->CreateFromId($insertid);
-        my $sql = Sql->new($this->{DBH});
-        my $vertsql = undef;
-        my $status = undef;
-
-        eval 
-        {
-            my $dbname = $edit->GetVerticalDatabaseName();
-            if ($dbname)
-            {
-                my $vertmb = new MusicBrainz;
-                $vertsql = eval
-                {
-                    $vertmb->Login(db => $dbname);
-                    Sql->new($vertmb->{DBH});
-                };
-                if ($@)
-                {
-                    $vertsql = undef;
-                }
-            }
-
-            $sql->Begin;
-            if ($vertsql)
-            {
-                $vertsql->Begin;
-                $edit->SetVerticalDatabaseConnection($vertsql);
-            }
-
-            $status = $edit->ApprovedAction;
-
-            $sql->Do("UPDATE moderation_open SET status = ?, automod = 1 WHERE id = ?",
-                $status, 
-                $insertid,
-            );
-
-            require UserStuff;
-            my $user = UserStuff->new($this->{DBH});
-            $user->CreditModerator($this->{moderator}, $status, $autoedit);
-
-            $vertsql->Commit if ($vertsql);
-            $sql->Commit;
-        };
-        if ($@)
-        {
-            my $err = $@;
-
-            $sql->Rollback;
-            $vertsql->Rollback if ($vertsql);
-
-            croak $err;
-        };            
+		my $insertid = $sql->GetLastInsertId("moderation_open");
+		MusicBrainz::Server::Cache->delete("Moderation-id-range");
 		MusicBrainz::Server::Cache->delete("Moderation-open-id-range");
-		MusicBrainz::Server::Cache->delete("Moderation-closed-id-range");
-    }
-    else
-    {
-        eval 
-        {
-            $sql->Begin;
-		    $this->AdjustModPending(+1);
-            $sql->Commit;
-        };
-        if ($@)
-        {
-            my $err = $@;
-            $sql->Rollback;
-            croak $err;
-        };            
-    }
+		#print STDERR "Inserted as moderation #$insertid\n";
+		$this->SetId($insertid);
 
-	push @inserted_moderations, $this;
+		# Check to see if this moderation should be approved immediately 
+		require UserStuff;
+		my $ui = UserStuff->new($this->{DBH});
+		my $isautoeditor = $ui->IsAutoEditor($privs);
+
+		my $autoedit = 0;
+
+		# If the edit allows an autoedit and the current level allows autoedits, then make it an autoedit
+		$autoedit = 1 if (not $autoedit
+		                  and $this->IsAutoEdit($isautoeditor) 
+		                  and $level->{autoedit});
+
+		# If the edit type is an autoedit and the editor is an autoedit, then make it an autoedit
+		$autoedit = 1 if (not $autoedit
+		                  and $isautoeditor
+		                  and $level->{autoedit});
+
+		# If the editor is untrusted, undo the auto edit
+		$autoedit = 0 if ($ui->IsUntrusted($privs) and
+		                  ($this->GetType != &ModDefs::MOD_ADD_TRMS or
+		                   $this->GetType != &ModDefs::MOD_ADD_PUIDS));
+
+		# If it is autoedit, then approve the edit and credit the editor
+		if ($autoedit)
+		{
+			my $edit = $this->CreateFromId($insertid + 1);
+			my $status = $edit->ApprovedAction;
+
+			if ($vertsql)
+			{
+				$edit->SetVerticalDatabaseConnection($vertsql);
+			}
+
+			$sql->Do("UPDATE moderation_open SET status = ?, automod = 1 WHERE id = ?",
+				$status,
+				$insertid,
+			);
+
+			require UserStuff;
+			my $user = UserStuff->new($this->{DBH});
+			$user->CreditModerator($this->{moderator}, $status, $autoedit);
+
+			MusicBrainz::Server::Cache->delete("Moderation-open-id-range");
+			MusicBrainz::Server::Cache->delete("Moderation-closed-id-range");
+		}
+		else
+		{
+			$this->AdjustModPending(+1);
+		}
+
+		push @inserted_moderations, $this;
 
 SUPPRESS_INSERT:
 
-	# Deal with any calls to ->PushModeration
-	for my $opts (@{ $this->{pushed_moderations} })
+		# XXX: This won't work, because we are already in a DB
+		#      transaction. Do we need this at all? This was broken
+		#      for a long time because we had the transaction outside
+		#      of this method, and there is no call to PushModeration
+		#      in the source code, as far as I can see.
+		# Deal with any calls to ->PushModeration
+		for my $opts (@{ $this->{pushed_moderations} })
+		{
+			# Note that we don't have to do anything with the returned
+			# moderations because of the next block, about four lines down.
+			$this->InsertModeration(%$opts);
+		}
+
+		# Ensure our inserted moderations get passed up to our parent,
+		# if this is a nested call to ->InsertModeration.
+		push @{ $class->{inserted_moderations} }, @inserted_moderations
+			if ref $class;
+
+		# Save problems with self-referencing and garbage collection
+		delete $this->{inserted_moderations};
+
+		$vertsql->Commit if ($vertsql);
+		$sql->Commit;
+	};
+
+	if ($@)
 	{
-		# Note that we don't have to do anything with the returned
-		# moderations because of the next block, about four lines down.
-		$this->InsertModeration(%$opts);
-	}
-
-	# Ensure our inserted moderations get passed up to our parent,
-	# if this is a nested call to ->InsertModeration.
-	push @{ $class->{inserted_moderations} }, @inserted_moderations
-		if ref $class;
-
-	# Save problems with self-referencing and garbage collection
-	delete $this->{inserted_moderations};
+		my $err = $@;
+		$vertsql->Rollback if ($vertsql);
+		$sql->Rollback;
+		croak $err;
+	};
 
 	wantarray ? @inserted_moderations : pop @inserted_moderations;
 }
