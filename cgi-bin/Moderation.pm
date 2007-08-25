@@ -1220,7 +1220,7 @@ sub InsertModeration
 		# If it is autoedit, then approve the edit and credit the editor
 		if ($autoedit)
 		{
-			my $edit = $this->CreateFromId($insertid + 1);
+			my $edit = $this->CreateFromId($insertid);
 			my $status = $edit->ApprovedAction;
 
 			if ($vertsql)

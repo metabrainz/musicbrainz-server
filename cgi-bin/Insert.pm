@@ -649,8 +649,6 @@ sub InsertAlbumModeration
 
     my ($artistid, $albumid, $mods) = eval
     {
-       $sql->Begin;
-
 		require Moderation;
 		# FIXME "artist" is undef.  Does this matter?
 		my @mods = Moderation->InsertModeration(
@@ -673,17 +671,13 @@ sub InsertAlbumModeration
 		)	if defined $opts{"FreedbId"}
 			and defined $opts{"FreedbCat"};
 
-		$sql->Commit;
-
         ($mod->GetArtist, $mod->GetRowId, \@mods);
     };
 
     if ($@)
     {
 		my $err = $@;
-		$err = eval { $err->GetError } if ref $err;
 		$this->{error} = $err;
-		$sql->Rollback;
 		return;
     }
 
