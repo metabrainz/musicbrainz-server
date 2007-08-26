@@ -50,7 +50,7 @@
 	else
 	{
 		$m->comp("/comp/linkartist",
-			id => $this->GetRowId,
+			id => -1,
 			name => $this->GetPrev,
 			strong => 0);
 	}
