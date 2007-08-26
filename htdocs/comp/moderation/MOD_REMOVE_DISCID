@@ -52,6 +52,19 @@
 				<a href="/show/release/details.html?releaseid=<% $this->{"albumid"} %>&show=both#discid">View DiscIDs</a>
 			</td>
 		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td colspan="2">
+%	if ($this->GetStatus == &ModDefs::STATUS_APPLIED)
+%	{
+				has been removed from this release.
+%	}
+%	else
+%	{
+				to be removed from this release.
+%	}
+			</td>
+		</tr>
 	</table>
 
 </%method>
