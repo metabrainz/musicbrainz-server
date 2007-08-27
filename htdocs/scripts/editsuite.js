@@ -189,7 +189,7 @@ var s=[];
 for(var i=0;i<this.CONFIG_LIST.length;i++){
 var cb=this.CONFIG_LIST[i];
 var _20=cb.getHelpText();
-_20=_20.replace("'","\ufffd");
+_20=_20.replace("'","\xb4");
 s.push("<input type=\"checkbox\" name=\"");
 s.push(this.CONFIG_CHECKBOX);
 s.push("\" id=\"");
@@ -4135,7 +4135,7 @@ if(!gc.re.HYPHEN){
 gc.re.HYPHEN="-";
 }
 if(gc.i.matchCurrentWord(gc.re.HYPHEN)){
-gc.o.appendWordPreserveWhiteSpace({apply:true,capslast:true});
+gc.o.appendWordPreserveWhiteSpace({apply:true,capslast:!gc.getMode().isSentenceCaps()});
 gc.f.resetContext();
 gc.f.forceCaps=!gc.getMode().isSentenceCaps();
 gc.f.hypen=true;

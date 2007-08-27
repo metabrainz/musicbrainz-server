@@ -363,7 +363,7 @@ function GcHandler() {
 			gc.re.HYPHEN = "-";
 		}
 		if (gc.i.matchCurrentWord(gc.re.HYPHEN)) {
-			gc.o.appendWordPreserveWhiteSpace({apply: true, capslast: true});
+			gc.o.appendWordPreserveWhiteSpace({apply: true, capslast: !gc.getMode().isSentenceCaps()});
 			gc.f.resetContext();
 
 			// don't capitalize next word after hyphen in sentence mode.
