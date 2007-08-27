@@ -49,16 +49,19 @@ my @all = qw(
 	admin/reports/DuplicateAlbums
 	admin/reports/DuplicateArtists.pl
 	admin/reports/DuplicateArtists2
+	admin/reports/DuplicatePUIDsPerAlbum
 	admin/reports/DuplicateTrackNumbers
 	admin/reports/FeaturingArtists
 	admin/reports/NoLanguage
 	admin/reports/NoScript
 	admin/reports/NoUpperCase
+	admin/reports/PUIDsWithManyTracks
 	admin/reports/SuperfluousDataTracks
 	admin/reports/SuspectTrackCharacters
 	admin/reports/TooManyCapitals
 	admin/reports/TracksCalledUnknown
 	admin/reports/TracksNamedWithSequence.pl
+	admin/reports/TracksWithManyPUIDs
 	admin/reports/TracksWithoutTimes
 	admin/reports/WrongCharset
 );
