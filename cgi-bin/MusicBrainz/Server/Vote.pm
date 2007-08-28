@@ -65,11 +65,11 @@ sub _InsertVote
 	$sql->Do("LOCK TABLE vote_open IN EXCLUSIVE MODE");
 
 	my $mod_row = $sql->SelectSingleRowHash(
-		"SELECT novotes, status FROM moderation_open WHERE id = ?",
+		"SELECT novotes, status, moderator FROM moderation_open WHERE id = ?",
 		$modid,
 	);
 
-	(defined($mod_row) and $mod_row->{status} == STATUS_OPEN)
+	(defined($mod_row) and $mod_row->{status} == STATUS_OPEN and $mod_row->{moderator} ne $uid)
 		or return;
 
 	# Find the user's previous (most recent) vote for this mod
