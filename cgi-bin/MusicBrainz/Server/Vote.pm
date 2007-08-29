@@ -47,18 +47,19 @@ sub GetSuperseded	{ $_[0]{superseded} }
 # and the values are the VOTE_* constants.
 sub InsertVotes
 {
-	my ($self, $votes, $uid) = @_;
+	my ($self, $votes, $uid, $allow_selfvoting) = @_;
+	$allow_selfvoting = 0 if $allow_selfvoting == undef;
 
 	while (my ($modid, $vote) = each %$votes)
 	{
 		next unless $vote == VOTE_YES or $vote == VOTE_NO or $vote == VOTE_ABS;
-		$self->_InsertVote($uid, $modid, $vote);
+		$self->_InsertVote($uid, $modid, $vote, $allow_selfvoting);
 	}
 }
 
 sub _InsertVote
 {
-	my ($self, $uid, $modid, $vote) = @_;
+	my ($self, $uid, $modid, $vote, $allow_selfvoting) = @_;
 	my $sql = Sql->new($self->{DBH});
 
 	# Lock the table so that the select-old / insert-new are atomic
@@ -69,7 +70,10 @@ sub _InsertVote
 		$modid,
 	);
 
-	(defined($mod_row) and $mod_row->{status} == STATUS_OPEN and $mod_row->{moderator} ne $uid)
+	(defined($mod_row) and $mod_row->{status} == STATUS_OPEN)
+		or return;
+
+	($allow_selfvoting or $mod_row->{moderator} != $uid)
 		or return;
 
 	# Find the user's previous (most recent) vote for this mod

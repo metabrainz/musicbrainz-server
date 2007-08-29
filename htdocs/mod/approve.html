@@ -122,7 +122,7 @@
 					# Insert a "yes" vote
 					my %votes = ($editid => &ModDefs::VOTE_YES);
 					my $v = MusicBrainz::Server::Vote->new($mb->{DBH});
-					$v->InsertVotes(\%votes, $session{"uid"});
+					$v->InsertVotes(\%votes, $session{"uid"}, 1);
 
 					# Approve the edit
 					my $status = $edit->ApprovedAction;
