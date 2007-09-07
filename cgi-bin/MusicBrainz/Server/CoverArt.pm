@@ -62,7 +62,7 @@ my @CoverArtSites =
    {
        name       => "Jamendo",
        domain     => "www.jamendo.com",
-       regexp     => 'http://www.jamendo.com/(\w\w)/album/(\d+)',
+       regexp     => 'http://www.jamendo.com/(\w\w/)?album/(\d+)',
        imguri     => 'http://img.jamendo.com/albums/$2/covers/1.200.jpg',
        releaseuri => 'http://www.jamendo.com/album/$2',
    },

@@ -38,6 +38,18 @@ function ARFrontEnd() {
 	this.isurlform = false;
 	this.isready = false;
 	this.formsubmitted = null;
+	this.urlRegExps = {
+		amazon:		new RegExp("^(http://)?([^/]+\.)?amazon\.","i"),
+		discogs:	new RegExp("^(http://)?([^/]+\.)?discogs\.com","i"),
+		wikipedia:	new RegExp("^(http://)?([^/]+\.)?wikipedia\.","i"),
+		musicmoz:	new RegExp("^(http://)?([^/]+\.)?musicmoz\.","i"),
+		imdb:		new RegExp("^(http://)?([^/]+\.)?imdb\.com","i"),
+		myspace:	new RegExp("^(http://)?([^/]+\.)?myspace\.com","i"),
+		purevolume:	new RegExp("^(http://)?([^/]+\.)?purevolume\.com","i"),
+		archive:	new RegExp("^(http://)?([^/]+\.)?archive\.org/.*\.(jpg|jpeg|png|gif)$","i"),
+		cdbaby:		new RegExp("^(http://)?([^/]+\.)?cdbaby\.(com|name)","i"),
+		jamendo:	new RegExp("^(http://)?([^/]+\.)?jamendo\.com","i")
+	};
 
 	// ----------------------------------------------------------------------------
 	// member functions
@@ -165,8 +177,8 @@ function ARFrontEnd() {
 			if ((urlfield = mb.ui.get("editurl_url")) != null) {
 				urlfield.onfocus = function(event) { if (this.value == "http://") this.value = ""; }
 				urlfield.onblur = function(event) { if (this.value == "") this.value = "http://"; }
-				urlfield.onchange = function(event) { arfrontend.fixAmazonURL(this); }
-				urlfield.onkeyup = function(event) { arfrontend.fixAmazonURL(this); }
+				urlfield.onchange = function(event) { arfrontend.fixURL(this); }
+				urlfield.onkeyup = function(event) { arfrontend.fixURL(this); }
 			}
 		}
 
@@ -181,49 +193,34 @@ function ARFrontEnd() {
 	this.guessTypeFromURL = function(field) {
 		mb.log.enter(this.GID, "guessTypeFromURL");
 		var tdd = this.typeDropDown;
-		if (tdd.selectedIndex != 1) {
+		if (tdd.selectedIndex != -1) {
+			this.fixURL(field);
 			var v = (field.value || ""), site = "";
-			if (v.match(/[./]amazon\./i)) {
+			if (v.match(this.urlRegExps.amazon))
 				site = "amazon asin";
-
-				// determine tld, asin from url, and build standard format [1],
-				// if both were found. There used to be another [2], but we'll
-				// stick to the new one for now.
-				//
-				// [1] "http://www.amazon.<tld>/gp/product/<ASIN>"
-				// [2] "http://www.amazon.<tld>/exec/obidos/ASIN/<ASIN>"
-
-				var tld = "", asin = "";
-				if ((m = v.match(/amazon\.([a-z\.]+)\//)) != null) {
-					tld = m[1];
-				}
-				if ((m = v.match(/\/([A-Z0-9]{10})(?:[/?]|$)/)) != null) {
-					asin = m[1];
-				}
-				if (tld != "" && asin != "") {
-					field.value = "http://www.amazon." + tld + "/gp/product/" + asin;
-				}
-
-			} else if (v.match(/[./]discogs\./i)) {
-				field.value = field.value.replace(/http:\/\/([^.]+\.)?discogs\.com/, "http://www.discogs.com")
+			else if (v.match(this.urlRegExps.discogs))
 				site = "discogs";
-			} else if (v.match(/\.wikipedia\./i)) {
+			else if (v.match(this.urlRegExps.wikipedia))
 				site = "wikipedia";
-			} else if (v.match(/musicmoz\./i)) {
+			else if (v.match(this.urlRegExps.musicmoz))
 				site = "musicmoz";
-			} else if (v.match(/[./]imdb\./i)) {
-				site = "internet movie database";
-			} else if (v.match(/[./]myspace\.com/i)) {
+			else if (v.match(this.urlRegExps.imdb))
+				site = "imdb";
+			else if (v.match(this.urlRegExps.myspace))
 				site = "myspace";
-			} else if (v.match(/[./]purevolume\.com/i)) { 
- 				site = "purevolume";
-			} else if (v.match(/([./]archive.org\/download|[./]cdbaby.name).*?\.(jpg|jpeg|png|gif)/i)) { 
- 				site = "cover art";
-			}
+			else if (v.match(this.urlRegExps.purevolume))
+				site = "purevolume";
+			else if (v.match(this.urlRegExps.archive))
+				site = "cover art";
+			else if (v.match(this.urlRegExps.cdbaby))
+				site = "cover art";
+			else if (v.match(this.urlRegExps.jamendo))
+				site = "cover art";
+
 			if (site != "") {
 				var tddo = this.typeDropDown.options;
 				for (var i=0;i<tddo.length; i++) {
-					var value = tddo[i].value.toLowerCase();
+					var value = tddo[i].innerHTML.toLowerCase();
 					var found = value.indexOf(site) != -1;
 					if (found) {
 						tdd.selectedIndex = i;
@@ -236,10 +233,19 @@ function ARFrontEnd() {
 		mb.log.exit();
 	};
 
-	this.fixAmazonURL = function(field) {
-		mb.log.enter(this.GID, "fixAmazonURL");
+	this.fixURL = function(field) {
+		mb.log.enter(this.GID, "fixURL");
 		var v = (field.value || "");
-		if (v.match(/[./]amazon\./i)) {
+		if (v.match(/^\w+\./)) {
+			field.value = "http://"+field.value;
+		}
+		if (v.match(this.urlRegExps.amazon)) {
+			// determine tld, asin from url, and build standard format [1],
+			// if both were found. There used to be another [2], but we'll
+			// stick to the new one for now.
+			//
+			// [1] "http://www.amazon.<tld>/gp/product/<ASIN>"
+			// [2] "http://www.amazon.<tld>/exec/obidos/ASIN/<ASIN>"
 			var tld = "", asin = "";
 			if ((m = v.match(/amazon\.([a-z\.]+)\//)) != null) {
 				tld = m[1];
@@ -250,8 +256,13 @@ function ARFrontEnd() {
 			if (tld != "" && asin != "") {
 				field.value = "http://www.amazon." + tld + "/gp/product/" + asin;
 			}
-		} else if (v.match(/[./]discogs\./i)) {
-			field.value = field.value.replace(/http:\/\/([^.]+\.)?discogs\.com/, "http://www.discogs.com")
+		} else if (v.match(this.urlRegExps.discogs)) {
+			field.value = field.value.replace(/^http:\/\/([^.]+\.)?discogs\.com/, "http://www.discogs.com");
+		} else if (v.match(this.urlRegExps.archive)) {
+			field.value = field.value.replace(/\/http:\/\//, "/");
+		} else if (v.match(this.urlRegExps.jamendo)) {
+			field.value = field.value.replace(/jamendo\.com\/\w\w\/album\//, "jamendo.com/album/");
+			field.value = field.value.replace(/img\.jamendo\.com\/albums\/(\d+)\/covers\/\d+\.\d+\.jpg/, "www.jamendo.com/album/$1/");
 		}
 		mb.log.exit();
 	};
