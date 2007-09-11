@@ -84,7 +84,7 @@ my %AlbumAttributeNames = (
     100 => [ "Official", "Official", "Any release officially sanctioned by the artist and/or their record company. (Most releases will fit into this category.)"],
     101 => [ "Promotion", "Promotions", "A giveaway release or a release intended to promote an upcoming official release. (e.g. prerelease albums or releases included with a magazine)"],
     102 => [ "Bootleg", "Bootlegs", "An unofficial/underground release that was not sanctioned by the artist and/or the record company."],
-    103 => [ "Pseudo-Release", "Pseudo-Releases", "A pseudo-release is a duplicate release for translation/transliteration purposes."]
+    103 => [ "PseudoRelease", "PseudoReleases", "A pseudo-release is a duplicate release for translation/transliteration purposes."]
 );
 
 sub LinkEntityName { "album" }
