@@ -987,6 +987,10 @@ sub xml_search
             $out = '<?xml version="1.0" encoding="UTF-8"?>';
             $out .= '<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"/>';
         }
+        elsif ($response->code == Apache::Constants::BAD_REQUEST())
+        {
+            return bad_req($r, "Search server could not complete query: Bad request");
+        }
         else
         {
             return service_unavail($r, "Could not retrieve sub-document page from search server. Error: " .
