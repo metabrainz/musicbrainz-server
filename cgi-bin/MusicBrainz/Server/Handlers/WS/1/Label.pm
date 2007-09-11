@@ -67,10 +67,13 @@ sub handler
     {
         my $name = $args{name} or "";
         my $limit = $args{limit};
+        my $offset = $args{offset} or 0;
         $limit = 25 if ($limit < 1 || $limit > 100);
+        my $query = $args{query} or "";
 
-		return bad_req($r, "Must specify a name argument for label collections.") if (!$name);
-        return xml_search($r, { type => 'label', label => $name, limit => $limit });
+		return bad_req($r, "Must specify a name OR query argument for label collections.") if ($name eq '' && $query eq '');
+		return bad_req($r, "Must specify a name OR query argument for label collections. Not both.") if ($name && $query);
+        return xml_search($r, { type => 'label', label => $name, limit => $limit, offset => $offset, query => $query });
     }
 
 	my $status = eval {
