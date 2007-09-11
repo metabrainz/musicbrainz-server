@@ -341,6 +341,9 @@ sub xml_release_type
 	$type = (defined $type ? $al->GetAttributeName($type) : "");
 	$status = (defined $status ? $al->GetAttributeName($status) : "");
 
+    $type =~ s/-//g;
+    $status =~ s/-//g;
+
     print " type=\"$type $status\" " if ($type or $status);
 }
 
