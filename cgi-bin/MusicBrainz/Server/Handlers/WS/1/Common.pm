@@ -1013,6 +1013,7 @@ sub xml_escape
 	$t =~ s/&/&amp;/g;             # remove XML entities
 	$t =~ s/</&lt;/g;
 	$t =~ s/>/&gt;/g;
+	$t =~ s/"/&quot;/g;
     $t = encode "utf-8", $t;       # turn back into utf8-bytes
 	return $t;
 }
