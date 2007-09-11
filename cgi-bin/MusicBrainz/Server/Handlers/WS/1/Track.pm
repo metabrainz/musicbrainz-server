@@ -201,6 +201,13 @@ sub handler_post
     my @pairs = $apr->param('puid');
     my $client = $apr->param('client');
     my @puids;
+
+    my $type = $apr->param('type');
+    if (!defined($type) || $type ne 'xml')
+    {
+		return bad_req($r, "Invalid content type. Must be set to xml.");
+	}
+
     foreach my $pair (@pairs)
     {
         my ($trackid, $puid) = split(' ', $pair);
