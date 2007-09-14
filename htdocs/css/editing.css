@@ -296,8 +296,8 @@ tr.voteslist {
 	vertical-align: middle;
 }
 
-tr.supersededvote { 
-	background: #eee 
+tr.supersededvote td { 
+	text-decoration: line-through; 
 }
 
 tr.voteslist td.voter {
