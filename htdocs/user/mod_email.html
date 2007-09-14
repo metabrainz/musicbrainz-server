@@ -89,7 +89,7 @@
 	}
 	if ($you and !$you->CheckEMailAddress)
 	{
-		push @messages, qq!The editor ! . $you->GetName . qq!has declined to give an e-mail
+		push @messages, qq!The editor ! . $you->GetName . qq! has declined to give an e-mail
 							address, which means you cannot send them an e-mail...!;
 		$disableform = 1;
 	}
@@ -186,7 +186,7 @@
 % 	$m->out(qq! readonly="readonly" !) if ($disableform);
 % 	$m->out(qq! style="width: 100%" !) if ($pnotes{'ispopup'});
 
-						></textarea>
+						><% $text %></textarea>
 						<input type="hidden" name="userid" value="<% $userid %>" />
 						<input type="hidden" name="url" value="<% $url %>" />
 						<input type="hidden" name="editid" value="<% $editid %>" />
