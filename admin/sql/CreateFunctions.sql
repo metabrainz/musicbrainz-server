@@ -163,7 +163,7 @@ begin
     UPDATE  albummeta
     SET     tracks = tracks - 1,
             trmids = trmids - (SELECT COUNT(*) FROM trmjoin WHERE track = OLD.track),
-            puids = puids + (SELECT COUNT(*) FROM puidjoin WHERE track = OLD.track)
+            puids = puids - (SELECT COUNT(*) FROM puidjoin WHERE track = OLD.track)
     WHERE   id = OLD.album;
 
     UPDATE  albummeta
@@ -181,7 +181,7 @@ begin
     UPDATE  albummeta
     SET     tracks = tracks - 1,
             trmids = trmids - (SELECT COUNT(*) FROM trmjoin WHERE track = OLD.track),
-            puids = puids + (SELECT COUNT(*) FROM puidjoin WHERE track = OLD.track)
+            puids = puids - (SELECT COUNT(*) FROM puidjoin WHERE track = OLD.track)
     WHERE   id = OLD.album;
 
     return NULL;
