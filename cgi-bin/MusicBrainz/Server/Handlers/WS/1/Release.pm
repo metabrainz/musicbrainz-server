@@ -30,6 +30,7 @@ package MusicBrainz::Server::Handlers::WS::1::Release;
 use Apache::Constants qw( );
 use Apache::File ();
 use MusicBrainz::Server::Handlers::WS::1::Common;
+use MusicBrainz::Server::CDTOC;
 
 sub handler
 {

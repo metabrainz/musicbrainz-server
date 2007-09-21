@@ -43,6 +43,7 @@ use Apache::Constants qw( );
 use Apache::File ();
 use Encode qw( decode encode );
 use Album;
+use MusicBrainz::Server::Country;
 
 use constant INC_ARTIST       => 0x000001;
 use constant INC_COUNTS       => 0x000002;
@@ -131,6 +132,23 @@ my %statusShortcuts =
     'va-Promotion'       => Album::ALBUM_ATTR_PROMOTION,
     'va-Bootleg'         => Album::ALBUM_ATTR_BOOTLEG,
     'va-PseudoRelease'   => Album::ALBUM_ATTR_PSEUDO_RELEASE,
+);
+
+my %formatNames = 
+(
+    MusicBrainz::Server::Release::RELEASE_FORMAT_CD           => 'CD',
+    MusicBrainz::Server::Release::RELEASE_FORMAT_DVD          => 'DVD',
+    MusicBrainz::Server::Release::RELEASE_FORMAT_SACD         => 'SACD',
+    MusicBrainz::Server::Release::RELEASE_FORMAT_DUALDISC     => 'DualDisc',
+    MusicBrainz::Server::Release::RELEASE_FORMAT_LASERDISC    => 'LaserDisc',
+    MusicBrainz::Server::Release::RELEASE_FORMAT_MINIDISC     => 'MiniDisc',
+    MusicBrainz::Server::Release::RELEASE_FORMAT_VINYL        => 'Vinyl',
+    MusicBrainz::Server::Release::RELEASE_FORMAT_CASSETTE     => 'Casette',
+    MusicBrainz::Server::Release::RELEASE_FORMAT_CARTRIDGE    => 'Cartridge',
+    MusicBrainz::Server::Release::RELEASE_FORMAT_REEL_TO_REEL => 'ReelToReel',
+    MusicBrainz::Server::Release::RELEASE_FORMAT_DAT          => 'DAT',
+    MusicBrainz::Server::Release::RELEASE_FORMAT_DIGITAL      => 'Digital',
+    MusicBrainz::Server::Release::RELEASE_FORMAT_OTHER        => 'Other'     
 );
 
 # Convert the passed inc argument into a bitflag with the given constants form above
@@ -398,6 +416,7 @@ sub xml_release_events
 			print '"';
 			printf ' catalog-number="%s"', xml_escape($rel->GetCatNo) if $rel->GetCatNo;
 			printf ' barcode="%s"', xml_escape($rel->GetBarcode) if $rel->GetBarcode;
+			printf ' format="%s"', xml_escape($formatNames{$rel->GetFormat}) if $rel->GetFormat;
 			if (($inc & INC_LABELS) && $rel->GetLabel)
 			{
 				print '>';
@@ -564,7 +583,12 @@ sub xml_label
     print '<sort-name>' . xml_escape($ar->GetSortName) . '</sort-name>';
     print '<label-code>' . xml_escape($ar->GetLabelCode) . '</label-code>' if $ar->GetLabelCode;
     print '<disambiguation>' . xml_escape($ar->GetResolution()) . '</disambiguation>' if ($ar->GetResolution());
-    print '<country>' . xml_escape($ar->GetCountry()->GetISOCode) . '</country>' if ($ar->GetCountry());
+    if ($ar->GetCountry())
+    {
+        my $c = MusicBrainz::Server::Country->new($ar->GetDBH);
+        $c = $c->newFromId($ar->GetCountry);
+        print '<country>' . xml_escape($c->GetISOCode) . '</country>';
+    }
     
     my ($b, $e) = ($ar->GetBeginDate, $ar->GetEndDate);
     if ($b|| $e)
