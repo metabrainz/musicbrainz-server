@@ -4,22 +4,19 @@
 # Based upon a plugin, created by:
 # Kim Plowright (www.mildlydiverting.com or kim dot plowright at gmail dot com)
 #
-# Last updated: August 8, 2006
+# Last updated: May 8, 2007
 # by: Jan van Thiel (MusicBrainz user: zout)
 
 <search
  version="7.1"
- name="MusicBrainz: Artist"
- description="MusicBrainz - Search MusicBrainz music metadata for an artist" 
+ name="MusicBrainz: Artist (indexed)"
+ description="Indexed search for an artist on MusicBrainz.org" 
  action="http://musicbrainz.org/search/textsearch.html"
  searchForm="http://musicbrainz.org/search.html"
  method="GET" >
 
 <input name="query" user="">
 <input name="type" value="artist">
-<input name="an" value="1">
-<input name="as" value="1">
-<input name="aa" value="1">
 <input name="limit" value="25">
 <input name="handlearguments" value="1">
 
@@ -33,6 +30,6 @@
 
 <browser
  update="http://musicbrainz.org/search/plugins/firefox/musicbrainzartist.src" 
- updateIcon="http://musicbrainz.org/search/plugins/firefox/musicbrainzartist.gif"
+ updateIcon="http://musicbrainz.org/images/aicon.png"
  updateCheckDays="14"
 >

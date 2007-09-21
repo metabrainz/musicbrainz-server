@@ -27,8 +27,8 @@
 </%perl>
 
 	<div style="text-align: center; margin-bottom: 10px">
-		Search MusicBrainz directly from <a href="http://www.mozilla.org/products/firefox/">FireFox</a>
-		with the <a href="/search/plugins/firefox/install.html">Firefox search plugins</a>!
+		Search MusicBrainz directly from your browser
+		with the <a href="/search/plugins/install.html">search plugins</a>!
 	</div>
 
 

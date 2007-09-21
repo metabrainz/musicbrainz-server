@@ -136,10 +136,10 @@
 			{ name => "Browse Artists",			url => "/browseartists.html" },
 			{ name => "Browse Releases",		url => "/browsevarious.html" },
 			{ name => "Browse Labels",			url => "/browselabels.html" },
-			{ name => "Firefox Plugins",		url => "/search/plugins/firefox/install.html" },
+			{ name => "Browser Search Plugins",		url => "/search/plugins/install.html" },
 
 			[
-				{ url => "/search/plugins/firefox/error.html" },
+				{ url => "/search/plugins/error.html" },
 			],
 			{ url => "/newsearch.html" },
 			{ url => "/oldsearch.html" },
