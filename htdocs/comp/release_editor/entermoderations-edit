@@ -467,22 +467,28 @@
 			if (@insertededits > 1)
 			{
 				my $num = @insertededits;
-				$insertededits[0]->InsertNote(
-					&ModDefs::MODBOT_MODERATOR,
-					"The first of a set of $num edits",
-					nosend => 1,
-				);
-				$insertededits[-1]->InsertNote(
-					&ModDefs::MODBOT_MODERATOR,
-					"The last of a set of $num edits",
-					nosend => 1,
-				);
+				my $firstedit = $insertededits[0]->GetId;
+				for (my $i = 0; $i < $num; $i++)
+				{
+					my $n = $i+1;
+					$insertededits[$i]->InsertNote(
+						&ModDefs::MODBOT_MODERATOR,
+						"The $n".
+						($n % 10 == 1 ? "st" : ($n % 10 == 2 ? "nd" : ($n % 10 == 3 ? "rd" : "th"))).
+						" of a set of $num edits".
+						($n > 1 ? " (beginning with edit #$firstedit)" : ""),
+						nosend => 1,
+					) if $insertededits[$i];
+				}
 			}
 
-			# insert the edit note
-			$insertededits[0]->InsertNote($session{'uid'}, $notetext)
-				if $insertededits[0]
-				and $notetext =~ /\S/;
+			# insert the edit note (on ALL edits in a series)
+			for my $ie (@insertededits)
+			{
+				$ie->InsertNote($session{'uid'}, $notetext)
+					if $ie
+					and $notetext =~ /\S/;
+			}
 		},
 	) or return;
 
