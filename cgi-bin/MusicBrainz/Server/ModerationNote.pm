@@ -121,12 +121,14 @@ sub Insert
 	$moderation = $moderation->CreateFromId($moderation->GetId);
 	my $openclosed = ($moderation->IsOpen ? "open" : "closed");
 
+
 	# For moderation and vote, rows only ever get added to _open, then moved
 	# to _closed - so the sequence only applies to the _open "id" column.
 	# Here however rows can get added to either, and _open rows do get moved
 	# to _closed; hence they must use the same sequence.  So here we
 	# explicitly name the sequence as the ID value.  Redundant for _open, but
 	# required for _closed.
+    $sql->AutoCommit;
 	$sql->Do(
 		"INSERT INTO moderation_note_$openclosed
 			(id, moderation, moderator, text)
