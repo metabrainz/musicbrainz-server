@@ -412,7 +412,7 @@
 				{ url => "/doc/ClassicalMusicFAQ" },
 				{ url => "/doc/AnnotationFAQ" },
 			],
-			{ name => "Editing Style",			url => "/style.html" },
+			{ name => "Editing Style",			url => "/doc/OfficialStyleGuideline" },
 			{ name => "Mailing Lists",			url => "/doc/MailingList" },
 			{ name => "Web Forums",             url => "http://forums.musicbrainz.org" },
 			{ name => "Bugs / RFEs",			url => "http://musicbrainz.org/bugs" },
