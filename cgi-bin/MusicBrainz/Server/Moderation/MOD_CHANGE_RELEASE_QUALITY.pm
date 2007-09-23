@@ -105,6 +105,11 @@ sub PostLoad
         $l = $l < $quality ? $l: $quality;  
 	}
 
+    if (scalar(@releases) == 1)
+    {
+        $self->{"albumid"} = $releases[0]->{id};
+        $self->{"checkexists-album"} = 1;
+    }
 	$self->{_new_releases} = \@releases;
 	$self->{_quality} = $new->{Quality};
     $self->{_prev_low} = $l;

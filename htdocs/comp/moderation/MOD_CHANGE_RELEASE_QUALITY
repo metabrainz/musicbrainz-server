@@ -43,16 +43,13 @@
 		<tr>
 			<td class="lbl"><% $i++ == 0 ? "Old:" : "" %></td>
 			<td class="field">
-				Quality:
 					<% ModDefs::GetQualityText($release->{prev_quality}) %>
 			</td>
-			<td class="field">&nbsp; <& /comp/linkrelease, id => $release->{'id'}, name => $release->{'name'}, strong => 0 &></td>
 		</tr>
 %	}
 		<tr>
 			<td class="lbl">New:</td>
 			<td class="field">
-				Quality:
 					<% ModDefs::GetQualityText($self->{_quality}) %>
 			</td>
 		</tr>
