@@ -106,7 +106,7 @@ sub mark_up_text_as_html
 	$html =~ s/&#39;&#39;&#39;(.*)&#39;&#39;&#39;/<strong>$1<\/strong>/g;
 	$html =~ s/&#39;&#39;(.*)&#39;&#39;/<em>$1<\/em>/g;
     $html =~ s/\n\n/<br\/>/g;
-    $html =~ s/\n/<p\/>/g;
+    $html =~ s/\n/<p class="editnote"\/>/g;
 	
 	return $html;
 }

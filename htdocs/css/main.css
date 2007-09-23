@@ -790,6 +790,11 @@ td.trk *, td.did *, td.trm *, td.rdate * {
 	color: #000;
 }
 
+p.editnote { 
+    margin: 0px; 
+    padding: 0px; 
+    padding-bottom: 15px; 
+}
 
 /* Mod Pending */
 .mp { background-color: #ffc; color: #000}
@@ -899,28 +904,6 @@ table.searchresults td.released {
 table.searchresults td.num,
 table.searchresults td.length {
 	text-align: right;
-}
-
-
-/* style.html */
-ol.StyleGuideList li { 
-	margin: 1em 0 
-}
-
-ol.StyleGuideList li .StyleExample { 
-	font-weight: bold 
-}
-
-ol.StyleGuideList li li { 
-	list-style-type: none 
-}
-
-ol.StyleGuideList li ul { 
-	padding-left: 1em 
-}
-
-ol.StyleGuideList li blockquote { 
-	margin-left: 2em 
 }
 
 
