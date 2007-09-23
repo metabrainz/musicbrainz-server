@@ -130,7 +130,7 @@ sub Insert
 	# to _closed; hence they must use the same sequence.  So here we
 	# explicitly name the sequence as the ID value.  Redundant for _open, but
 	# required for _closed.
-    $sql->AutoCommit;
+    $sql->AutoCommit if (!$sql->IsInTransaction);
 	$sql->Do(
 		"INSERT INTO moderation_note_$openclosed
 			(id, moderation, moderator, text)

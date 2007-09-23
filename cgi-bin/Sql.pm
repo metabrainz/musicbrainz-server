@@ -61,6 +61,11 @@ sub AutoCommit
 	$this->{auto_commit_next_statement} = 1;
 }
 
+sub IsInTransaction
+{
+	return !$_[0]->{DBH}{AutoCommit};
+}
+
 sub Quote
 {
 	my ($this, $data) = @_;
