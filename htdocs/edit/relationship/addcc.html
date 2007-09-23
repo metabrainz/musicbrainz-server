@@ -12,18 +12,8 @@
 <%perl>
 
 my $linktypeid;
-# Use these for main server
-#$linktypeid = 'd9ea0f04-5abf-48a6-98ca-13fa4de7b678' if ($type eq 'album');
-#$linktypeid = '87c9a8ed-36fc-4e39-8219-c5c63a755d56' if ($type eq 'track');
-
-# Use these for test.mb.org
-$linktypeid = 32 if ($type eq 'album');
-$linktypeid = 21 if ($type eq 'track');
-
-# g0llum
-# $linktypeid = 'a300dc05-dd16-49ca-933b-4c3dd22e7a4c' if ($type eq 'album');
-# $linktypeid = 'e1bcedb8-6ea6-40f0-9987-67559f61f439' if ($type eq 'track');
-
+$linktypeid = 'd9ea0f04-5abf-48a6-98ca-13fa4de7b678' if ($type eq 'album');
+$linktypeid = '87c9a8ed-36fc-4e39-8219-c5c63a755d56' if ($type eq 'track');
 
 $m->comp("/comp/checkloggedin", 1, 1)
 	or return;
@@ -102,15 +92,12 @@ my @types = ($type, 'url');
 MusicBrainz::Server::LinkEntity->ValidateTypes(\@types)
 	or die;
 
-print STDERR "url: $url\nlicense: $license\nmodnote: $notetext\n\n";
-
 # split license value
 if ($license)
 {
 	my ($avail_attrs, $desc);
 	($license, $avail_attrs, $desc) = split '\|', $license;
 }
-
 
 my $link = MusicBrainz::Server::LinkType->new($mb->{DBH}, \@types);
 if ($url
@@ -186,12 +173,13 @@ foreach my $node (@children)
 <br/>
 
 <p>
-    Please include a URL in the moderation node that shows where this
+    Please include a URL in the edit node that shows where this
     <% $type %> has been licensed under a CC license. If you do not include a URL
-    to show this, your license link moderation may not be approved by other moderators.
+    to show this, your license link edit may not be approved by other moderators.
 </p>
 
-<form name="linkselect" method="post" action="/edit/relationship/addcc.html">
+<form id="LinkSelectForm" method="post" action="/edit/relationship/addcc.html">
+    <script type="text/javascript" src="/scripts/ar-frontend.js"></script>
 	<fieldset>
 		<legend>Add CC license to <% ucfirst($type) %></legend>
 
@@ -227,7 +215,7 @@ foreach my $node (@children)
 		<table>
 			<tr valign="top">
 				<td valign="top" width="150"><label>Description:</label></td>
-				<td><span id="relationshipTypeDesc" class="linkdesc">&nbsp;</span></td>
+				<td><div id="relationshipTypeDesc" class="relationshipTypeDesc">Please select a license.</span></td>
 			</tr>
 		</table>
 
@@ -238,7 +226,7 @@ foreach my $node (@children)
 			<p/>
 			<& /comp/notetext, notetext => $notetext &>
 
-			<p>Adding a license URL as part of the moderation note is <b>strongly encouraged</b>.</p>
+			<p>Adding a license URL as part of the edit note is <b>strongly encouraged</b>.</p>
 		</div>
 
 		<div class="padlefttop">
@@ -255,6 +243,5 @@ foreach my $node (@children)
 		</div>
 	</fieldset>
 </form>
-<script language="javascript" src="/scripts/ar-frontend.js"></script>
 
 <& /comp/footer &>
