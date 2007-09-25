@@ -139,11 +139,13 @@
 %			{
 	            <& /comp/sidebar-notitle, pagetitle => "Indexed Search" &>
 				<& /comp/tablebegin, title => "Internal Error" &>
-					<ul>
-						<li>
-							The search server could not fulfill your request due to an
-							internal error. Please try again later.</li>
-					</ul>
+                    <p>
+					The search server could not fulfill your request due to an
+					internal error. Please try again later.
+                    </p>
+                    <p>
+                    Error: <% $response->content %>
+                    </p>
 				<& /comp/tableend &>
 
 %			}
@@ -151,10 +153,9 @@
 %			{
 	            <& /comp/sidebar-notitle, pagetitle => "Indexed Search" &>
 				<& /comp/tablebegin, title => "Error" &>
-					<ul>
-						<li>
-							Could not execute search (URL <% $docurl %> received <% $response->status_line %>)</li>
-					</ul>
+       				<p>
+                    Could not execute search:<br/><% $response->content %>
+                    </p>
 				<& /comp/tableend &>
 
 %	        }
