@@ -41,6 +41,8 @@
 </%args>
 <%perl>
 
+    use URI::Escape qw( uri_escape );
+
 	# only logged in users may see this page
 	$m->comp("/comp/checkloggedin", 1, 1)
 		or return;
@@ -207,6 +209,10 @@
 								free license like the <a href="http://creativecommons.org">Creative
 								Commons licenses</a>, <a href="http://www.eff.org/IP/Open_licenses/eff_oal.php">EFF's
 								Open Audio license</a> or is otherwise legally downloadable for free.</li>
+							<li>
+                                To add a Creative Commons license to this release, please use
+                                the <a href="/edit/relationship/addcc.html?id=<% $id %>&type=<% $type %>&name=<% uri_escape($name) %>">Add 
+                                Creative Commons license page</a> which allows you to select a specific license. 
 						</ul>
 					</td>
 				</tr>
