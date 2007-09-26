@@ -149,6 +149,26 @@
 				<& /comp/tableend &>
 
 %			}
+%			elsif ($response->code == 400)
+%			{
+	            <& /comp/sidebar-notitle, pagetitle => "Indexed Search" &>
+				<& /comp/tablebegin, title => "Error" &>
+       				<p>
+                    <b>Error:</b> Your search query was deemed invalid by our ruthless search server.
+                    </p>
+                    <p>
+					For help on writing valid text search queries, please read the 
+                    <& /comp/linkdoc, "TextSearchSyntax", "text search syntax" &> document.
+                    </p>
+                    <p>
+                    The (probably) useless error message provided by the search server was:
+                    </p>
+                    <blockquote>
+                    <% $response->content %>
+                    </blockquote>
+				<& /comp/tableend &>
+
+%	        }
 %			else
 %			{
 	            <& /comp/sidebar-notitle, pagetitle => "Indexed Search" &>
