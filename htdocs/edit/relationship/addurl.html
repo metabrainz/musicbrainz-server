@@ -247,6 +247,7 @@
 	{
 		unshift @q, map { [$_,$l->[1]+1] } $l->[0]->Children;
 		next if ($l->[0]->GetName eq "ROOT");
+		next if ($l->[0]->GetId == 32); # Add CC license -- don't show here, let people go to addcc.html
 
 		$m->out(sprintf qq!<option value="%s|%s" %s>!,
 						$l->[0]->GetId . "|" . $l->[0]->GetAttributes(),
