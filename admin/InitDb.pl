@@ -145,7 +145,7 @@ sub Create
 
 		unless ($locale eq "C")
 		{
-			die <<EOF;
+			print <<EOF;
 It looks like your Postgres database cluster was created with locale '$locale'.
 MusicBrainz needs the "C" locale instead.  To rectify this, re-run "initdb"
 with the option "--locale=C".

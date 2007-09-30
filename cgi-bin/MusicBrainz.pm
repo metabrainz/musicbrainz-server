@@ -85,6 +85,16 @@ sub Login
    $this->{DBH} = DBI->connect($db->dbi_args);
    return 0 if (!$this->{DBH});
 
+	# Since DBD::Pg 1.4, $dbh->prepare uses real PostgreSQL prepared
+	# queries, but the codebase uses some queries that are not valid on
+	# the server side.
+	require DBD::Pg;
+	if ($DBD::Pg::VERSION >= 1.40)
+	{
+		$this->{DBH}->{pg_server_prepare} = 0;
+	}
+
+
 	# Naughty!  Might break in future.  If it does just do the two "SET"
 	# commands every time, like we used to before this was added.
 	my $tied = tied %{ $this->{DBH} };
