@@ -287,15 +287,6 @@ function ReleaseEditor() {
 						}
 					}
 
-					i = 0;
-					while ((obj = es.ui.getField("rev_labelname-"+(i++))) != null) {
-						jsselect.registerAjaxSelect(obj, 'label', partial(function(i, entity) {
-							es.ui.getField('rev_label-'+i).value = entity.id;
-							es.ui.getField('rev_labelname-'+i).value = entity.name;
-							es.ui.getField('rev_labelorigname-'+i).value = entity.name;
-						}, i - 1));
-					}
-
 				} else {
 					mb.log.error("Did not find the 'hasmultipletrackartists' field");
 				}

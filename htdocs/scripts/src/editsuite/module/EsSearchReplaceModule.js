@@ -180,7 +180,7 @@ function EsSearchReplace() {
 				'bgclass': 'sr-presets-bg',
 				'fgclass': 'sr-presets-fg',
 				'captionfontclass': 'sr-presets-caption',
-				'closefontclass': 'sr-presets-close',
+				'closefontclass': 'sr-presets-close'
 			});
 		} else {
 			// close presets popup

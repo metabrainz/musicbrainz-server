@@ -2191,7 +2191,7 @@ return t;
 this.onShowPresetsClicked=function(src,ev){
 ev=new MochiKit.Signal.Event(src,ev);
 if(!mb.popup.isVisible()){
-mb.popup.show(ev.mouse().page,this.getPresetsHtml(),"Search/Replace Presets:",{"bgclass":"sr-presets-bg","fgclass":"sr-presets-fg","captionfontclass":"sr-presets-caption","closefontclass":"sr-presets-close",});
+mb.popup.show(ev.mouse().page,this.getPresetsHtml(),"Search/Replace Presets:",{"bgclass":"sr-presets-bg","fgclass":"sr-presets-fg","captionfontclass":"sr-presets-caption","closefontclass":"sr-presets-close"});
 }else{
 mb.popup.hide();
 }

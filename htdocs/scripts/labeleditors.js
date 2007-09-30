@@ -42,7 +42,7 @@ MusicBrainz.InPlaceLabelEditors = function(labelPrefix, labelNamePrefix, labelOr
 				'class': 'shorttxtfield labelname',
 				'size': '15',
 				'maxlength': '255',
-				'value': document.getElementsByName(this.labelNamePrefix+id)[0].value,
+				'value': document.getElementsByName(this.labelNamePrefix+id)[0].value
 			});
 			jsselect.registerAjaxSelect(input, 'label', partial(this.setLabel, id), this);
 			replaceChildNodes($('labelinput'+id), input);
@@ -55,13 +55,15 @@ MusicBrainz.InPlaceLabelEditors = function(labelPrefix, labelNamePrefix, labelOr
 		}
 	}
 
-	this.makeLabelLink = function(id, name)
+	this.makeLabelLink = function(id, entityid, name)
 	{
 		if (!name)
 			name = document.getElementsByName(this.labelNamePrefix+id)[0].value;
+		if (!entityid)
+			entityid = document.getElementsByName(this.labelPrefix+id)[0].value;
 		var s = [];
 		s.push('<input type="hidden" name="'+this.labelNamePrefix+id+'" value="'+name+'" />');
-		s.push(mb.ui.getLabelLink(id, name));
+		s.push(mb.ui.getLabelLink(entityid, name));
 		$('labelinput'+id).innerHTML = s.join("");
 	}
 
@@ -70,7 +72,7 @@ MusicBrainz.InPlaceLabelEditors = function(labelPrefix, labelNamePrefix, labelOr
 		document.getElementsByName(this.labelPrefix+id)[0].value = entity.id;
 		document.getElementsByName(this.labelNamePrefix+id)[0].value = entity.name;
 		document.getElementsByName(this.labelOrigNamePrefix+id)[0].value = entity.name;
-		this.makeLabelLink(id, entity.name);
+		this.makeLabelLink(id, entity.id, entity.name);
 		$('labeleditimg'+id).src = '/images/release_editor/edit-off.gif';
 		$('labeledit'+id).value = '0';
 	}
