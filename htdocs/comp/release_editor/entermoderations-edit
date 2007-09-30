@@ -340,7 +340,7 @@
 				# get the new values
 				my $new_id = $ARGS{"trackid$t"};
 				my $new_seq = $ARGS{"trackseq$t"};
-				my $new_track = $ARGS{"track$t"} || "";
+				my $new_track = defined($ARGS{"track$t"}) ? $ARGS{"track$t"} : "";
 				my $new_length = Track::UnformatTrackLength($ARGS{"tracklength$t"});
 				my $new_delete = $ARGS{"trackdel$t"};
 				my $new_artistid = $ARGS{sprintf "tr%d_artistid", $t};
