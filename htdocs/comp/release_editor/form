@@ -317,7 +317,7 @@
 	for (my $i = 0; $i < $tracks; $i++)
 	{
 		my $trackid = $ARGS{"trackid$i"} || "";
-		my $track = $ARGS{"track$i"} || "";
+		my $track = defined($ARGS{"track$i"}) ? $ARGS{"track$i"} : "";
 		my $trackdel = ($ARGS{"trackdel$i"} ? 1 : 0);
 		my $trackseq = $ARGS{"trackseq$i"} || ($i+1);
 		my $trackmp =  $ARGS{getField($i, "mp")};
