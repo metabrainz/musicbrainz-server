@@ -191,7 +191,16 @@ function GcOutput() {
 
 				// else capitalize the current word.
 				} else {
+					// rewind pos pointer on input
+					var bef = gc.i.getPos(), pos = bef-1;
+					while (pos >= 0 && gc.u.trim(gc.i.getWordAtIndex(pos).toLowerCase()) != probe) {
+						pos--;
+					}
+					mb.log.debug("Setting pos on input to $",pos);
+					gc.i.setPos(pos);
 					o = gc.u.titleString(w, overrideCaps);
+					// restore pos pointer on input
+					gc.i.setPos(bef);
 					if (w != o) {
 						this.setWordAtIndex(index, o);
 						mb.log.debug('index=$/$, before: $, after: $', index, this.getLength()-1, w, o);

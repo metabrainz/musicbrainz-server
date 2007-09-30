@@ -291,6 +291,8 @@ var DEFINED_TESTS = {
 		, new TestCase("Multiple Parts", "Name, Parts 1 & 2", "Name, Parts 1 & 2")
 		, new TestCase("Multiple Parts", "Name, Parts 1 - 2", "Name, Parts 1 - 2")
 		, new TestCase("Multiple Parts", "Same Beat (Parts 1,2 & 3)", "Same Beat, Parts 1, 2 & 3")
+		
+		, new TestCase("Won't -> Won't", "I Won'T (Super Duper)", "I Won't (Super Duper)")
 	]
 };
 
