@@ -34,6 +34,10 @@
 	# Most of the URL rewriting is done by this:
 	PerlTransHandler MusicBrainz::Server::Handlers::TransHandler
 
+	# Uncomment this line to automatically reload modified Perl modules
+	# without having to restart Apache.
+	#PerlInitHandler Apache::Reload
+
 	# But some is done here:
 	RewriteEngine on
 	RewriteRule	^/ftpmirror/(.*)$				/products/selectmirror.html?path=$1	[PT]
