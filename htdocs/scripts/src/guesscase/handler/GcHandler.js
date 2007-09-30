@@ -24,6 +24,7 @@
  * Base class of the type specific handlers
  *
  * @see GcArtistHandler
+ * @see GcLabelHandler
  * @see GcReleaseHandler
  * @see GcTrackHandler
  */

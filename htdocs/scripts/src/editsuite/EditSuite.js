@@ -205,9 +205,13 @@ function EditSuite() {
 		} else if (name.match(es.ui.re.ARTISTFIELD_NAME)) {
 			this.guessArtistField(name);
 
-		} else if (name.match(es.ui.re.SORTNAMEFIELD_NAME)) {
+		} else if (name.match(es.ui.re.ARTISTSORTNAMEFIELD_NAME)) {
 			var artistField = name.replace("sort", "");
-			this.guessSortnameField(artistfield, name);
+			this.guessArtistSortnameField(artistField, name);
+
+		} else if (name.match(es.ui.re.LABELSORTNAMEFIELD_NAME)) {
+			var labelField = name.replace("sort", "");
+			this.guessLabelSortnameField(labelField, name);
 
 		} else {
 			mb.log.warning("Unhandled name: $", name);
@@ -241,15 +245,15 @@ function EditSuite() {
 	/**
 	 * Guess artist sortname using the guessSortName routine GuessCase object
 	 **/
-	this.guessSortnameField = function(artistId, sortnameId) {
-		mb.log.enter(this.GID, "guessSortnameField");
+	this.guessArtistSortnameField = function(artistId, sortnameId) {
+		mb.log.enter(this.GID, "guessArtistSortnameField");
 		var fa,fsn;
 		if ((fa = es.ui.getField(artistId)) != null &&
 			(fsn = es.ui.getField(sortnameId)) != null) {
 			var av = fa.value, ov = fsn.value, nv = ov;
 			if (!mb.utils.isNullOrEmpty(av)) {
 				mb.log.info("fa: $, fsn: $, value: $", fa.name, fsn.name, fa.value);
-				if ((nv = es.gc.guessSortname(av))  != ov) {
+				if ((nv = es.gc.guessArtistSortname(av))  != ov) {
 					es.ur.addUndo(es.ur.createItem(fsn, 'sortname', ov, nv));
 					fsn.value = nv;
 					es.ui.resetSelection();
@@ -258,6 +262,33 @@ function EditSuite() {
 				}
 			} else {
 				mb.log.info("Artist name is empty, nothing to do.");
+			}
+		} else {
+			mb.log.error("Did not find the fields: $, $", artistId, sortnameId);
+		}
+		mb.log.exit();
+	};
+
+	/**
+	 * Guess label sortname using the guessSortName routine GuessCase object
+	 **/
+	this.guessLabelSortnameField = function(labelId, sortnameId) {
+		mb.log.enter(this.GID, "guessLabelSortnameField");
+		var fa,fsn;
+		if ((fa = es.ui.getField(labelId)) != null &&
+			(fsn = es.ui.getField(sortnameId)) != null) {
+			var av = fa.value, ov = fsn.value, nv = ov;
+			if (!mb.utils.isNullOrEmpty(av)) {
+				mb.log.info("fa: $, fsn: $, value: $", fa.name, fsn.name, fa.value);
+				if ((nv = es.gc.guessLabelSortname(av))  != ov) {
+					es.ur.addUndo(es.ur.createItem(fsn, 'sortname', ov, nv));
+					fsn.value = nv;
+					es.ui.resetSelection();
+				} else {
+					mb.log.info("Guess yielded same result, nothing to do.");
+				}
+			} else {
+				mb.log.info("Label name is empty, nothing to do.");
 			}
 		} else {
 			mb.log.error("Did not find the fields: $, $", artistId, sortnameId);

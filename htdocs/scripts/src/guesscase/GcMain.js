@@ -49,6 +49,7 @@ function GuessCase() {
 	this.i = new GcInput();
 	this.o = new GcOutput();
 	this.artistHandler = null;
+	this.labelHandler = null;
 	this.releaseHandler = null;
 	this.trackHandler = null;
 	this.re = {
@@ -191,7 +192,7 @@ function GuessCase() {
 	 * @param	 is		the un-processed input string
 	 * @returns			the processed string
 	 **/
-	this.guessSortname = function(is) {
+	this.guessArtistSortname = function(is) {
 		var os, handler;
 		gc.init();
 		mb.log.enter(this.GID, "guessArtistSortame");
@@ -199,6 +200,37 @@ function GuessCase() {
 			gc.artistHandler = new GcArtistHandler();
 		}
 		handler = gc.artistHandler;
+		mb.log.info('Input: $', is);
+
+		// we need to query the handler if the input string is
+		// a special case, fetch the correct format, if the
+		// returned case is indeed a special case.
+		var num = handler.checkSpecialCase(is);
+		if (handler.isSpecialCase(num)) {
+			os = handler.getSpecialCaseFormatted(is, num);
+			mb.log.info('Result after special case check: $', os);
+		} else {
+			// if it was not a special case, start Guessing
+			os = handler.guessSortName(is);
+			mb.log.info('Result after guess: $', os);
+		}
+		gc.restoreMode();
+		return mb.log.exit(os);
+	};
+
+	/**
+	 * Guess the sortname of a given label name
+	 * @param	 is		the un-processed input string
+	 * @returns			the processed string
+	 **/
+	this.guessLabelSortname = function(is) {
+		var os, handler;
+		gc.init();
+		mb.log.enter(this.GID, "guessLabelSortame");
+		if (!gc.labelHandler) {
+			gc.labelHandler = new GcLabelHandler();
+		}
+		handler = gc.labelHandler;
 		mb.log.info('Input: $', is);
 
 		// we need to query the handler if the input string is

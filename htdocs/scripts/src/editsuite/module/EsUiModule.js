@@ -22,7 +22,8 @@ function EsUiModule() {
 	// ----------------------------------------------------------------------------
 	this.BTN_ALIAS = "BTN_ALIAS";
 	this.BTN_ARTIST = "BTN_ARTIST";
-	this.BTN_SORTGUESS = "BTN_SORTGUESS";
+	this.BTN_ARTIST_SORTGUESS = "BTN_ARTIST_SORTGUESS";
+	this.BTN_LABEL_SORTGUESS = "BTN_LABEL_SORTGUESS";
 	this.BTN_SORTCOPY = "BTN_SORTCOPY";
 	this.BTN_ALBUM = "BTN_ALBUM";
 	this.BTN_TRACK = "BTN_TRACK";
@@ -55,7 +56,8 @@ function EsUiModule() {
 	this.re = {
 		// names of the different field types.
 		ARTISTFIELD_NAME : /(search|artistname|newartistname|newartistalias)/i
-	  ,	SORTNAMEFIELD_NAME : /(artistsortname|newartistsortname)/i
+	  ,	ARTISTSORTNAMEFIELD_NAME : /(artistsortname|newartistsortname)/i
+	  , LABELSORTNAMEFIELD_NAME : /(labelsortname|newlabelsortname)/i
 	  ,	RELEASEFIELD_NAME : /(newreleasename|releasename|newreleasename|releasename|release|release|name)/i
 	  ,	TRACKFIELD_NAME : /(newtrackname|trackname|track)/i
 	  ,	TRACKLENGTHFIELD_NAME : /tracklength\d+/i
@@ -91,9 +93,14 @@ function EsUiModule() {
 				"es.guessArtistField($);"),
 
 			new EsButton(
-				this.BTN_SORTGUESS, "Guess",
+				this.BTN_ARTIST_SORTGUESS, "Guess",
 				"Guess sort name from artist name field",
-				"es.guessSortnameField($, $);"),
+				"es.guessArtistSortnameField($, $);"),
+
+			new EsButton(
+				this.BTN_LABEL_SORTGUESS, "Guess",
+				"Guess sort name from label name field",
+				"es.guessLabelSortnameField($, $);"),
 
 			new EsButton(
 				this.BTN_SORTCOPY, "Copy",

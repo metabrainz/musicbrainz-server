@@ -90,7 +90,7 @@
 			<td class="field">
 				<input  type="text" name="sortname" class="textfield"
 					id="editartist_sortname" size="50" value="<% $sortname %>" />
-				<& /comp/form/jsbutton, id=>"BTN_SORTGUESS::name::sortname" &>
+				<& /comp/form/jsbutton, id=>"BTN_LABEL_SORTGUESS::name::sortname" &>
 				<& /comp/form/jsbutton, id=>"BTN_SORTCOPY::name::sortname" &></td>
 		</tr>
 
