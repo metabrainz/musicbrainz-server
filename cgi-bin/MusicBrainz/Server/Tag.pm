@@ -445,7 +445,15 @@ sub GenerateTagCloud
 	my $med = $ntags % 2
 		? $counts[(($ntags + 1) / 2) - 1]
 		: ($counts[($ntags / 2) - 1] + $counts[$ntags / 2]) / 2;
-	my $avg = sum(@counts) / $ntags;
+	my $sum = sum(@counts);
+	my $avg = $sum / $ntags;
+
+	# Scale down tag clouds with less than 20 "raw" tags
+	my $boldthreshold = 0.25;
+	$maxsize = $minsize + ($maxsize - $minsize) * log(1 + min(1, $sum / 20) * 1.718281828);
+	if ($maxsize - $minsize < 0.2) {
+		$boldthreshold = 1;
+	}
 
 	$avg /= $max;
 	$med /= $max;
@@ -470,7 +478,7 @@ sub GenerateTagCloud
 	$sizedelta = $maxsize - $minsize;
 	foreach $key (sort keys %$tags) {
 		$value = (($tags->{$key} - $min) / $max) ** $power;
-		push @res, '<span style="font-size:' . int($minsize + $value * $sizedelta + 0.5) . 'px;' . ($value > 0.25 ? "font-weight:bold;" : "") . '">';
+		push @res, '<span style="font-size:' . int($minsize + $value * $sizedelta + 0.5) . 'px;' . ($value > $boldthreshold ? "font-weight:bold;" : "") . '">';
 		$tag = encode_entities($key);
 		$tag =~ s/\s+/&nbsp;/;
 		push @res, '<a href="/show/tag/?tag=' . uri_escape($key) . '">' . $tag . '</a></span> &nbsp; ';
