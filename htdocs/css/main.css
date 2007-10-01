@@ -469,6 +469,11 @@ table.releaselinks td.edit {
 	border-top: 1px solid #000;
 }
 
+/* tags, bluishgreen */
+table.releaselinks td.tags {
+	background-color: #F0F6FF; color: #000;
+	border-top: 1px solid #000;
+}
 
 
 /* ------------------------------------------------------------------------- 
@@ -977,14 +982,20 @@ table.annotation ul {
 	padding: 0px 0px 5px 0px;
 }
 
-/* Related Artists */
-.RelatedArtists {
-	background-color: #f0efff; color: #000;
+/* Related Artists & Tags */
+.TagsBox {
+	background-color: #F0F6FF; color: #000;
 	border: 1px solid black;
 	margin-top: 1em;
 	margin-bottom: 1em;
 	padding: 0.2em;
-	position: relative;
+}
+.RelatedArtists {
+    width: 49%;
+    float: right;
+}
+.ArtistTags {
+    width: 49%;
 }
 
 /* Box with a title (e.g. login) */

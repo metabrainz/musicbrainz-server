@@ -47,6 +47,8 @@
 
 	$showtag => 0
 	$tagchecked => 0
+    
+    $folksonomy => 0
 
 </%args>
 <%perl>
@@ -240,6 +242,15 @@
  			}
 			$m->out(qq!&nbsp;]</td></tr>!);
 		}
+
+        # folksonomy tags
+        if ($folksonomy)
+        {
+            $m->out(qq!<tr><td class="tags"> Tags: !);
+            $m->comp("/comp/toptags", type=>'release', id=>$release->GetId);
+            $m->out(qq!</tr>!);
+        }
+
 		$m->out(qq!</table>!);
 		$m->out(qq!</td>!);
 

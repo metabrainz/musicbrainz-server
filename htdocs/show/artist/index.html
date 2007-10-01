@@ -163,8 +163,7 @@
 		"/edit/annotation/latest",
 		artist => $artist,
 		explain => 1,
-	), $m->out("<br/>")
-		unless $artist->GetId == &ModDefs::VARTIST_ID;
+	) unless $artist->GetId == &ModDefs::VARTIST_ID;
 
 	my $relations = $artist->GetRelations();
 
@@ -181,10 +180,17 @@
 	if (@links)
 	{
 		</%perl>
-		<div class="RelatedArtists">
-			Related artists:
-		<% join ', ', @links | n %>
-		</div>
+		<div class="TagsBox">
+            <div class="RelatedArtists">
+                Related artists:
+                <% join ', ', @links | n %>
+            </div>
+            <div class="ArtistTags">
+                Artist tags: 
+                <& /comp/toptags, type=>'artist', id=>$artist->GetId &>
+            </div>
+        </div>
+        <div style="clear: both;"/>
 		<%perl>
 	}
 

@@ -103,19 +103,17 @@
 
 
 	<& /comp/sidebar-notitle, pagetitle => "Track details: " . $track->GetName &>
-
-	<div class="LinksRow">
-		[ <& /comp/googlelink, search => [ $artist->GetName, $track->GetName ], text => "Search Google" &>
-			| <a href="/show/track/tags.html?id=<% $track->GetId %>">Tags</a>
-			| <a href="/mod/search/pre/track.html?trackid=<% $track->GetId %>&amp;artistid=<% $artist->GetId %>">View track edits under current artist</a>
-			| <a href="/mod/search/pre/track.html?trackid=<% $track->GetId %>">View all track edits</a>
-		]
-	</div>
+	<& /comp/tracktitle, artist=>$artist, track=>$track &>
 
 %	# show any related moderations so people can vote on them
 	<& /comp/relmods, artistid => $artist->GetId &>
 
 	<div style="margin-bottom: 1em;"><& /edit/annotation/latest, track => $track, explain => 1 &></div>
+
+    <div class="TagsBox">
+        Track tags: 
+        <& /comp/toptags, type=>'track', id=>$track->GetId &>
+    </div>
 
 %	# Show the relationships for this track
 

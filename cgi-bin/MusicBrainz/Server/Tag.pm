@@ -438,7 +438,7 @@ sub GenerateTagCloud
 
 	my @counts = sort { $a <=> $b } values %$tags;
 	my $ntags = scalar @counts;
-	return "" if !$ntags;
+	return "(no tags)" if !$ntags;
 
 	my $min = $counts[0];
 	my $max = $counts[$ntags - 1];

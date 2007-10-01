@@ -67,6 +67,8 @@
 	$showrelationshipstoggle => 0
 	$showtrackartiststoggle => 0
 
+    $folksonomy => 0
+
 </%args>
 <%perl>
 
@@ -97,7 +99,8 @@
 				linktype => "collapse",
 				link => $url,
 				showtag => $showtag,
-				tagchecked => $tagchecked
+				tagchecked => $tagchecked,
+                folksonomy => $folksonomy
 			);
 	}
 	else
@@ -112,7 +115,8 @@
 				showtrackartists => $showtrackartists,
 				showrelationships => $showrelationships,
 				showtrackartiststoggle => $showtrackartiststoggle,
-				showrelationshipstoggle => $showrelationshipstoggle
+				showrelationshipstoggle => $showrelationshipstoggle,
+                folksonomy => $folksonomy
 			);
 	}
 
