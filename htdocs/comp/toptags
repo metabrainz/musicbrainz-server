@@ -32,7 +32,7 @@
     }
     else
     {
-        $m->out(" - <a href=\"/show/$type/tags.html?id=$id\">Tag this $type</a>") 
+        $m->out(" - <a href=\"/show/$type/tags.html?id=$id&amp;showform=1\">Tag this $type</a>") 
     }
 </%perl>
 %# vi: set ts=4 sw=4 ft=mason :

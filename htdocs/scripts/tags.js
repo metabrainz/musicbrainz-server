@@ -45,6 +45,10 @@ MusicBrainz.TagsEditor = function()
 			FORM({"action": "/show/"+entitytype+"/tags.html", "method": "post"},
 				"Tag this "+entitytype+":", BR(),
 				TEXTAREA({"name": "newtags", "rows": "4", "cols": "40"}, tags), BR(),
+				'Tags are comma separated. Only word characters, space and - are allowed. See ',
+				STRONG({}, IMG({'src': '/images/icon/wikidocs.gif', 'class': 'entityicon'}),
+				           A({'href': '/doc/FolksonomyTaggingSyntax', 'title': 'Wiki page: FolksonomyTaggingSyntax'}, 'tag syntax')),
+				' for details.', BR(),
 				INPUT({"type": "submit", "value": "Tag"}),
 				INPUT({"type": "hidden", "name": "update", "value": "1"}),
 				INPUT({"type": "hidden", "name": "id", "value": entityid})

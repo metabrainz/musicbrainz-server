@@ -177,14 +177,15 @@
 			$artist->GetId . '">more...</a>')
 	}
 
-	if (@links)
-	{
 		</%perl>
 		<div class="TagsBox">
+%	if (@links)
+%	{
             <div class="RelatedArtists">
                 Related artists:
                 <% join ', ', @links | n %>
             </div>
+%	}
             <div class="ArtistTags">
                 Artist tags: 
                 <& /comp/toptags, type=>'artist', id=>$artist->GetId &>
@@ -192,7 +193,6 @@
         </div>
         <div style="clear: both;"/>
 		<%perl>
-	}
 
     $m->comp("/comp/ar/AddRelationship", id => $artist->GetId, type => 'artist', name => $artist->GetName)
 	    if ($addrel);
