@@ -997,6 +997,9 @@ table.annotation ul {
 .ArtistTags {
     width: 49%;
 }
+a.MyTag {
+    color: #A10048;
+}
 
 /* Box with a title (e.g. login) */
 

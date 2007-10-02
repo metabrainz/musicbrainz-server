@@ -433,12 +433,14 @@ sub SetModerator	{ $_[0]{'moderator'} = $_[1] }
 
 sub GenerateTagCloud
 {
-	my ($self, $tags, $minsize, $maxsize) = @_;
-	my ($key, $value, $tag, $sizedelta, @res);
+	my ($self, $tags, $minsize, $maxsize, $rawtagslist) = @_;
+	my ($key, $value, $tag, $sizedelta, @res, %mytags);
 
 	my @counts = sort { $a <=> $b } values %$tags;
 	my $ntags = scalar @counts;
 	return "(no tags)" if !$ntags;
+
+    %mytags = map { $_->{name} => $_->{id} } @{$rawtagslist} if ($rawtagslist);
 
 	my $min = $counts[0];
 	my $max = $counts[$ntags - 1];
@@ -475,13 +477,15 @@ sub GenerateTagCloud
 	#push @res, "Median: $med<br />";
 	#push @res, "Average: $avg<br />";
 
+    my $mine;
 	$sizedelta = $maxsize - $minsize;
 	foreach $key (sort keys %$tags) {
 		$value = (($tags->{$key} - $min) / $max) ** $power;
+        $mine = (exists $mytags{$key}) ? 'class="MyTag" ' : '';
 		push @res, '<span style="font-size:' . int($minsize + $value * $sizedelta + 0.5) . 'px;' . ($value > $boldthreshold ? "font-weight:bold;" : "") . '">';
 		$tag = encode_entities($key);
 		$tag =~ s/\s+/&nbsp;/;
-		push @res, '<a href="/show/tag/?tag=' . uri_escape($key) . '">' . $tag . '</a></span> &nbsp; ';
+		push @res, '<a '.$mine.'href="/show/tag/?tag=' . uri_escape($key) . '">'.$tag.'</a></span> &nbsp; ';
 	}
 	return join "", @res;
 }
