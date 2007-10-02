@@ -998,7 +998,10 @@ table.annotation ul {
     width: 49%;
 }
 a.MyTag {
-    color: #A10048;
+    color: #ca065e;
+}
+a.MyTag:hover {
+    color: #fd2c8a;
 }
 
 /* Box with a title (e.g. login) */
