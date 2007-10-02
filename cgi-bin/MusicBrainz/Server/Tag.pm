@@ -452,7 +452,7 @@ sub GenerateTagCloud
 
 	# Scale down tag clouds with less than 20 "raw" tags
 	my $boldthreshold = 0.25;
-	$maxsize = $minsize + ($maxsize - $minsize) * log(1 + min(1, $max / 20) * 1.718281828);
+	$maxsize = $minsize + ($maxsize - $minsize) * log(1 + min(1, ($max > 0 ? $max - 1 : 0) / 20) * 1.718281828);
 	if ($maxsize - $minsize < 0.2) {
 		$boldthreshold = 1;
 	}
