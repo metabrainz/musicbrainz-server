@@ -78,6 +78,7 @@
 			show_inline_mods
 			show_inline_mods_random
 			subscriptions_public
+			tags_public
 			auto_subscribe
 			css_noentityicons
 			css_nosmallfonts
@@ -553,6 +554,13 @@
 					Allow other users to see <a href="/user/subscriptions.html"
 						>artist and label subscriptions</a>.</label>
 					(see <a href="/docs/20050108-1.html">notes</a>)
+				</div>
+				<div>
+					<label for="pref_tags_public"><input type="checkbox" name="tags_public" id="pref_tags_public"
+%						$m->out(UserPreference::get('tags_public') ? ' checked="checked" ' : "");
+						/>
+					Allow other users to see <a href="/doc/FolksonomyTagging"
+						>folksonomy tags</a>.</label>
 				</div>
 
 			<& /comp/tableend &>

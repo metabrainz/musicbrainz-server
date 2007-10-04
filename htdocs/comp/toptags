@@ -15,7 +15,7 @@
     my @out;
     foreach my $k (sort { $tags->{$b} <=> $tags->{$a}; } keys %{$tags})
     {
-        push @out, "<a href=\"/show/tag/?tag=" . uri_escape($k) . "\">$k</a>";
+        push @out, "<a href=\"/show/tag/?tag=" . uri_escape($k) . "&show=$type\">$k</a>";
     }
     pop @out if ($more);
     if (scalar(@out))

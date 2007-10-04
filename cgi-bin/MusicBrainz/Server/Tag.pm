@@ -397,7 +397,7 @@ sub GetRawTagsForEntity
 	}
 
 	my $assoc_table = $entity_type . '_tag_raw';
-	my $rows = $tagdb->SelectSingleColumnArray("SELECT tag
+	my $rows = $tagdb->SelectSingleColumnArray("SELECT DISTINCT tag
 		                                     FROM $assoc_table
 		                                    WHERE $assoc_table.$entity_type = ?
                                               AND $assoc_table.moderator = ?", $entity_id, $moderator_id);
@@ -405,7 +405,49 @@ sub GetRawTagsForEntity
 
 	$rows = $maindb->SelectListOfHashes("SELECT tag.id, tag.name
   	                                       FROM tag
-	                                      WHERE tag.id in (" . join(",", @$rows) . ")");
+	                                      WHERE tag.id in (" . join(",", @$rows) . ")
+                                       ORDER BY tag.name");
+	return $rows;
+}
+
+sub GetEditorsForEntityAndTag
+{
+	my ($self, $entity_type, $entity_id, $tag) = @_;
+
+	my $maindb = Sql->new($self->GetDBH());
+	my $tagdb = eval
+	{
+		my $tags = MusicBrainz->new;
+		$tags->Login(db => 'RAWDATA');
+		Sql->new($tags->{DBH});   
+	};
+	if ($@)
+	{
+		$tagdb = $maindb;
+	}
+
+	my $tag_id = $maindb->SelectSingleValue("SELECT tag.id
+  	                                           FROM tag
+	                                          WHERE tag.name = ?", lc($tag));
+    return undef if (!defined $tag_id);
+
+	my $assoc_table = $entity_type . '_tag_raw';
+	my $rows = $tagdb->SelectSingleColumnArray("SELECT moderator
+                                                  FROM $assoc_table
+		                                         WHERE $assoc_table.$entity_type = ?
+                                                   AND $assoc_table.tag = ?", $entity_id, $tag_id);
+    return [{}] if (scalar(@$rows) == 0);
+
+	$rows = $maindb->SelectListOfHashes("SELECT moderator.id, moderator.name
+  	                                       FROM moderator
+                                      LEFT JOIN moderator_preference
+                                             ON moderator.id = moderator_preference.moderator
+	                                      WHERE moderator.id in (" . join(",", @$rows) . ")
+                                            AND moderator_preference.name IS NULl 
+                                             OR (moderator_preference.name = 'tags_public' 
+                                                 AND moderator_preference.value = '1')"); 
+    use Data::Dumper;
+    print STDERR Dumper($rows);
 	return $rows;
 }
 
@@ -433,7 +475,7 @@ sub SetModerator	{ $_[0]{'moderator'} = $_[1] }
 
 sub GenerateTagCloud
 {
-	my ($self, $tags, $minsize, $maxsize, $rawtagslist) = @_;
+	my ($self, $tags, $type, $minsize, $maxsize, $rawtagslist) = @_;
 	my ($key, $value, $tag, $sizedelta, @res, %mytags);
 
 	my @counts = sort { $a <=> $b } values %$tags;
@@ -485,7 +527,7 @@ sub GenerateTagCloud
 		push @res, '<span style="font-size:' . int($minsize + $value * $sizedelta + 0.5) . 'px;' . ($value > $boldthreshold ? "font-weight:bold;" : "") . '">';
 		$tag = encode_entities($key);
 		$tag =~ s/\s+/&nbsp;/;
-		push @res, '<a '.$mine.'href="/show/tag/?tag=' . uri_escape($key) . '">'.$tag.'</a></span> &nbsp; ';
+		push @res, '<a '.$mine.'href="/show/tag/?tag=' . uri_escape($key) . "&show=$type\">".$tag.'</a></span> &nbsp; ';
 	}
 	return join "", @res;
 }

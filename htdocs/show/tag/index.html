@@ -1,5 +1,6 @@
 <%args>
 	$tag
+    $show => 'all'
 </%args>
 
 <%perl>
@@ -9,8 +10,18 @@
 	my $entities;
 </%perl>
 
-<& /comp/sidebar, pagetitle => "Tag: $tag" &>
+<& /comp/sidebar, pagetitle => "Tag details: $tag" &>
 
+[ Show tag for:
+% if ($show ne 'all') {
+    <a href="/show/tag/?tag=<% uri_escape($tag) %>&show=all">all</a> |
+% }
+    <a href="/show/tag/?tag=<% uri_escape($tag) %>&show=artist">artists</a> |
+    <a href="/show/tag/?tag=<% uri_escape($tag) %>&show=label">labels</a> |
+    <a href="/show/tag/?tag=<% uri_escape($tag) %>&show=release">releases</a> |
+    <a href="/show/tag/?tag=<% uri_escape($tag) %>&show=track">tracks</a> ]
+
+% if ($show eq 'all' || $show eq 'artist') {
 <h2>Artists</h2>
 <table>
 %	$entities = $t->GetEntitiesForTag("artist", $tag, 100);
@@ -18,10 +29,13 @@
 		<tr>
 			<td><& "/comp/linkartist", id => $entity->{"id"}, mbid => $entity->{"gid"}, name => $entity->{"name"}  &></td>
 			<td><% $entity->{"count"} %></td>
+			<td><a href="/show/tag/editors.html?id=<% $entity->{"id"} %>&tag=<% uri_escape($tag) %>&type=artist">Who tagged this?</a></td>
 		</tr>
 %	}
 </table>
+% }
 
+% if ($show eq 'all' || $show eq 'label') {
 <h2>Labels</h2>
 <table>
 %	$entities = $t->GetEntitiesForTag("label", $tag, 100);
@@ -29,10 +43,13 @@
 		<tr>
 			<td><& "/comp/linklabel", id => $entity->{"id"}, mbid => $entity->{"gid"}, name => $entity->{"name"}  &></td>
 			<td><% $entity->{"count"} %></td>
+			<td><a href="/show/tag/editors.html?id=<% $entity->{"id"} %>&tag=<% uri_escape($tag) %>&type=label">Who tagged this?</a></td>
 		</tr>
 %	}
 </table>
+% }
 
+% if ($show eq 'all' || $show eq 'release') {
 <h2>Release</h2>
 <table>
 %	$entities = $t->GetEntitiesForTag("release", $tag, 100);
@@ -40,10 +57,13 @@
 		<tr>
 			<td><& "/comp/linkrelease", id => $entity->{"id"}, mbid => $entity->{"gid"}, name => $entity->{"name"}  &></td>
 			<td><% $entity->{"count"} %></td>
+			<td><a href="/show/tag/editors.html?id=<% $entity->{"id"} %>&tag=<% uri_escape($tag) %>&type=track">Who tagged this?</a></td>
 		</tr>
 %	}
 </table>
+% }
 
+% if ($show eq 'all' || $show eq 'track') {
 <h2>Track</h2>
 <table>
 %	$entities = $t->GetEntitiesForTag("track", $tag, 100);
@@ -51,9 +71,11 @@
 		<tr>
 			<td><& "/comp/linktrack", id => $entity->{"id"}, mbid => $entity->{"gid"}, name => $entity->{"name"}  &></td>
 			<td><% $entity->{"count"} %></td>
+			<td><a href="/show/tag/editors.html?id=<% $entity->{"id"} %>&tag=<% uri_escape($tag) %>&type=track">Who tagged this?</a></td>
 		</tr>
 %	}
 </table>
+% }
 
 <& /comp/footer &>
 

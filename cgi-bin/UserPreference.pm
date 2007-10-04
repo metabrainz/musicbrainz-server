@@ -274,6 +274,7 @@ addpref('sitemenu_heavy', 0, \&check_bool);
 addpref('show_inline_mods', 0, \&check_bool);
 addpref('show_inline_mods_random', 0, \&check_bool);
 addpref('subscriptions_public', 1, \&check_bool);
+addpref('tags_public', 1, \&check_bool);
 addpref('timezone', 'UTC', \&check_timezone);
 addpref('topmenu_submenu_types', 'both', sub { check_in([qw( both dropdownonly staticonly )], @_) });
 addpref('topmenu_dropdown_trigger', 'mouseover', sub { check_in([qw( mouseover click )], @_) });

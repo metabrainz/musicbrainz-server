@@ -1,0 +1,30 @@
+<%args>
+    $id
+	$type
+	$tag
+</%args>
+
+<%perl>
+
+	my $mb = $m->comp("/comp/dblogin");
+    $m->comp("/comp/checkloggedin", 1, 1, undef, 1)
+		or return;
+	
+	my $t = MusicBrainz::Server::Tag->new($mb->{DBH});
+	my $editors = $t->GetEditorsForEntityAndTag($type, $id, $tag);
+
+    $m->comp("/comp/sidebar", title=>"Editors who tagged $tag");
+
+
+    $m->out("<table>");
+    foreach my $ed (@{$editors})
+    {
+        $m->out("<tr><td><a href=\"/show/user/?username=" . uri_escape($ed->{name}) . "\">" . $ed->{name} . "</a></td></tr>");
+    }
+    $m->out("</table>");
+
+    $m->comp("/comp/footer");
+
+</%perl>
+
+%# vi: set ts=4 sw=4 ft=mason :
