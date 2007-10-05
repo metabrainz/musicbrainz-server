@@ -443,11 +443,9 @@ sub GetEditorsForEntityAndTag
                                       LEFT JOIN moderator_preference
                                              ON moderator.id = moderator_preference.moderator
 	                                      WHERE moderator.id in (" . join(",", @$rows) . ")
-                                            AND moderator_preference.name IS NULl 
-                                             OR (moderator_preference.name = 'tags_public' 
-                                                 AND moderator_preference.value = '1')"); 
-    use Data::Dumper;
-    print STDERR Dumper($rows);
+                                            AND (moderator_preference.name IS NULL 
+                                                 OR (moderator_preference.name = 'tags_public' 
+                                                 AND moderator_preference.value = '1'))"); 
 	return $rows;
 }
 

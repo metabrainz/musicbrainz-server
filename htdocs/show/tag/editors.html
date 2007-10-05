@@ -13,8 +13,29 @@
 	my $t = MusicBrainz::Server::Tag->new($mb->{DBH});
 	my $editors = $t->GetEditorsForEntityAndTag($type, $id, $tag);
 
-    $m->comp("/comp/sidebar", title=>"Editors who tagged $tag");
+	my $entity = $m->comp("/comp/load$type", $mb, $id);
 
+	if ($type eq "artist") {
+		$m->comp("/comp/sidebar-notitle", pagetitle => "Editors who tagged $type " . $entity->GetName);
+		$m->comp("/comp/artisttitle", artist => $entity);
+	}
+	elsif ($type eq "label") {
+		$m->comp("/comp/sidebar-notitle", pagetitle => "Editors who tagged " . $entity->GetName);
+		$m->comp("/comp/labeltitle", label => $entity);
+	}
+	elsif ($type eq "release") {
+		$m->comp("/comp/sidebar-notitle", pagetitle => "Editors who tagged " . $entity->GetName);
+		my $artist = $m->comp("/comp/loadartist", $mb, $entity->GetArtist);
+		$m->comp("/comp/artisttitle", artist => $artist);
+		$m->comp("/comp/album", artist=>$artist, album => $entity, highlightonly=>1);
+	}
+	else {
+		$m->comp("/comp/sidebar-notitle", pagetitle => "Editors who tagged " . $entity->GetName);
+		my $artist = $m->comp("/comp/loadartist", $mb, $entity->GetArtist);
+		$m->comp("/comp/tracktitle", track => $entity, artist => $artist);
+	}
+
+    $m->out("<p>This $type was tagged by the following editors:</p>");
 
     $m->out("<table>");
     foreach my $ed (@{$editors})
