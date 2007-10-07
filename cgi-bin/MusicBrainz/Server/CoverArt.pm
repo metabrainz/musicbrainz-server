@@ -66,6 +66,13 @@ my @CoverArtSites =
        imguri     => 'http://img.jamendo.com/albums/$2/covers/1.200.jpg',
        releaseuri => 'http://www.jamendo.com/album/$2',
    },
+   {
+       name       => '8bitpeoples.com',
+       domain     => '8bitpeoples.com',
+       regexp     => '^(.*)$',
+       imguri     => '$1',
+       releaseuri => '',
+   },
 );
 
 # amazon image file names are unique on all servers and constructed like
