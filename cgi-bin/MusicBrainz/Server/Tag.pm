@@ -253,14 +253,14 @@ sub Merge
             # Load the moderator ids for this tag and both entities
             # TODO: move this outside of this loop, to avoid multiple queries
             my $old_editor_ids = $tagdb->SelectSingleColumnArray("
-                SELECT tag
+                SELECT moderator
                   FROM $assoc_table_raw
                  WHERE $entity_type = ? AND tag = ?", $old_entity_id, $tag_id);
 
             my $new_editor_ids = $tagdb->SelectSingleColumnArray("
-                SELECT tag
+                SELECT moderator
                   FROM $assoc_table_raw
-                 WHERE $entity_type = ? AND tag = ?", $old_entity_id, $tag_id);
+                 WHERE $entity_type = ? AND tag = ?", $new_entity_id, $tag_id);
             my %new_editor_ids = map { $_ => 1 } @$new_editor_ids;
 
             foreach my $editor_id (@$old_editor_ids)
