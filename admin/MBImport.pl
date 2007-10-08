@@ -94,17 +94,10 @@ my $mb = MusicBrainz->new;
 $mb->Login(db => "READWRITE");
 my $sql = Sql->new($mb->{DBH});
 
-# Log in to the raw DB, or duplicate handles to the main DB
+# Log in to the raw DB
 my $rawmb = new MusicBrainz;
-my $rawsql = eval
-{
-    $rawmb->Login(db => 'RAWDATA');
-    Sql->new($rawmb->{DBH});   
-};
-if ($@)
-{
-    $rawsql = $sql;
-}
+$rawmb->Login(db => 'RAWDATA');
+my $rawsql = Sql->new($rawmb->{DBH});   
 
 # This hash indicates which tables may need to be pulled from a vertical DB
 my %table_db_mapping =

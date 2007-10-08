@@ -33,11 +33,6 @@ use base 'Moderation';
 sub Name { "Merge Artists" }
 (__PACKAGE__)->RegisterHandler;
 
-sub GetVerticalDatabaseName
-{
-    return 'RAWDATA';
-}
-
 sub PreInsert
 {
 	my ($self, %opts) = @_;
@@ -217,6 +212,7 @@ sub ApprovedAction
 	my $oldar = $self->{_oldar};
 	my $newar = $self->{_newar};
 
+    $oldar->SetVerticalDatabaseConnection($self->GetVerticalDatabaseConnection);
 	$oldar->MergeInto($newar, $self);
 
 	STATUS_APPLIED;

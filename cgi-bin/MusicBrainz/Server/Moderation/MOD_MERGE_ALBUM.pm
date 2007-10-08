@@ -35,11 +35,6 @@ use base 'Moderation';
 sub Name { "Merge Releases" }
 (__PACKAGE__)->RegisterHandler;
 
-sub GetVerticalDatabaseName
-{
-    return 'RAWDATA';
-}
-
 sub PreInsert
 {
 	my ($self, %opts) = @_;
@@ -180,13 +175,13 @@ sub ApprovedAction
 		$self->InsertNote(MODBOT_MODERATOR, "This release has been deleted");
 		return STATUS_FAILEDPREREQ;
 	}
-	
+
+    $al->SetVerticalDatabaseConnection($self->GetVerticalDatabaseConnection);
 	$al->MergeAlbums({
 		mac => ($self->GetType == MOD_MERGE_ALBUM_MAC),
 		albumids => [ map { $_->{'id'} } @{ $self->{'new_albums'} } ],
 		merge_attributes => $self->{'merge_attributes'},
-		merge_langscript => $self->{'merge_langscript'},
-        vertsql => $self->GetVerticalDatabaseConnection,
+		merge_langscript => $self->{'merge_langscript'}
 	});
 					
 	STATUS_APPLIED;

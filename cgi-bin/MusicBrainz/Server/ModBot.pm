@@ -375,30 +375,15 @@ sub CheckModerations
 
 			eval
 			{
-				my ($status, $vertsql);
+				my ($status, $vertsql, $vertmb);
 
-                $vertsql = undef;
-                my $dbname = $mod->GetVerticalDatabaseName();
-                if ($dbname)
-                {
-                    my $vertmb = new MusicBrainz;
-                    $vertsql = eval
-                    {
-                        $vertmb->Login(db => $dbname);
-                        Sql->new($vertmb->{DBH});
-                    };
-                    if ($@)
-                    {
-                        $vertsql = undef;
-                    }
-                }
+                $vertmb = new MusicBrainz;
+                $vertmb->Login(db => 'RAWDATA');
+                $vertsql = Sql->new($vertmb->{DBH});
 
-				$sql->Begin;
-                if ($vertsql)
-                {
-				    $vertsql->Begin;
-                    $mod->SetVerticalDatabaseConnection($vertsql);
-                }
+                $sql->Begin;
+				$vertsql->Begin;
+                $mod->SetVerticalDatabaseConnection($vertsql);
 				
 				# check that mod is still open and LOCK the row
 				# (could have been "approved" after the start of ModBot)
@@ -428,7 +413,7 @@ sub CheckModerations
 				}
 
 				$sql->Commit;
-                $vertsql->Commit if ($vertsql);
+                $vertsql->Commit;
 			};
 
 			$report_error->($@, $mod, "approve") if $@;

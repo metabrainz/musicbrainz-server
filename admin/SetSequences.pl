@@ -135,6 +135,7 @@ SetSequence($sql, "replication_control");
 SetSequence($sql, "script");
 SetSequence($sql, "script_language");
 SetSequence($sql, "stats");
+SetSequence($sql, "tag");
 SetSequence($sql, "track");
 # trackwords - no unique column
 SetSequence($sql, "trm");

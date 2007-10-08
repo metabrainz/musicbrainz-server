@@ -173,14 +173,7 @@ sub print_xml_post
 	# Login to the tags DB
 	require MusicBrainz;
 	my $mb = MusicBrainz->new;
-	eval
-	{
-		$mb->Login(db => 'RAWDATA');
-	};
-	if ($@)
-	{
-		$mb->Login();
-	}
+	$mb->Login();
 
 	require UserStuff;
 	my $us = UserStuff->new($mb->{DBH});
@@ -232,18 +225,6 @@ sub serve_from_db
 	my $main = MusicBrainz->new;
 	$main->Login();
 	my $maindb = Sql->new($main->{DBH});
-
-	# Login to the tags DB
-	my $tagdb = eval
-	{
-		my $tags = MusicBrainz->new;
-		$tags->Login(db => 'RAWDATA');
-		Sql->new($tags->{DBH});   
-	};
-	if ($@)
-	{
-		$tagdb = $maindb;
-	}
 
 	require UserStuff;
 	my $user = UserStuff->new($maindb->{DBH});

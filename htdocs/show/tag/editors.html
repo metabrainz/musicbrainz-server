@@ -35,6 +35,7 @@
 		$m->comp("/comp/tracktitle", track => $entity, artist => $artist);
 	}
 
+    $m->out('<div class="TagsBox">');
     $m->out("<p>This $type was tagged by the following editors:</p>");
 
     $m->out("<table>");
@@ -42,10 +43,13 @@
     {
         $m->out("<tr><td><a href=\"/show/user/?username=" . uri_escape($ed->{name}) . "\">" . $ed->{name} . "</a></td></tr>");
     }
-    $m->out("</table>");
+    </%perl>
+    </table>
+    </div>
+    <p>
+    Private tags are not shown.
+    </p>
 
-    $m->comp("/comp/footer");
-
-</%perl>
+    <& /comp/footer &>
 
 %# vi: set ts=4 sw=4 ft=mason :

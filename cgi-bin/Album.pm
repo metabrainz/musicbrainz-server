@@ -18,7 +18,7 @@
 #
 #   You should have received a copy of the GNU General Public License
 #   along with this program; if not, write to the Free Software
-#   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#   Foundatiog, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 #   $Id$
 #
@@ -489,6 +489,7 @@ sub Remove
              print STDERR "DELETE: Removed albumjoin " . $row[0] . "\n";
              $sql->Do("DELETE FROM albumjoin WHERE track = ?", $row[0]);
              $tr->SetId($row[0]);
+             $tr->SetVerticalDatabaseConnection($this->GetVerticalDatabaseConnection);
              $tr->Remove();
          }
     }
@@ -498,6 +499,11 @@ sub Remove
 	require MusicBrainz::Server::Link;
 	my $link = MusicBrainz::Server::Link->new($this->{DBH});
 	$link->RemoveByAlbum($album);
+
+    # Remove tags
+	require MusicBrainz::Server::Tag;
+	my $tag = MusicBrainz::Server::Tag->new($sql->{DBH});
+	$tag->RemoveAlbums($this->GetVerticalDatabaseConnection, $this->GetId);
 
     # Remove references from album words table
 	require SearchEngine;
@@ -967,7 +973,6 @@ sub MergeAlbums
    my @list = @{ $opts->{'albumids'} };
    my $merge_attributes = $opts->{'merge_attributes'};
    my $merge_langscript = $opts->{'merge_langscript'};
-   my $vertsql = $opts->{'vertsql'};
 
    my ($al, $ar, $tr, @tracks, %merged, $id, $sql);
    
@@ -1005,6 +1010,9 @@ sub MergeAlbums
 	require MusicBrainz::Server::Tag;
 	my $tag = MusicBrainz::Server::Tag->new($sql->{DBH});
 
+    use Data::Dumper;
+    print Dumper($this->GetVerticalDatabaseConnection);
+
    foreach $id (@list)
    {
        $al->SetId($id);
@@ -1032,9 +1040,9 @@ sub MergeAlbums
 				$link->MergeTracks($old, $new);
 
 				# Move tags
-				$tag->MergeTracks($vertsql, $old, $new);
+				$tag->MergeTracks($this->GetVerticalDatabaseConnection, $old, $new);
 
-	        		$this->SetGlobalIdRedirect($old, $tr->GetMBId, $new, &TableBase::TABLE_TRACK);
+                $this->SetGlobalIdRedirect($old, $tr->GetMBId, $new, &TableBase::TABLE_TRACK);
            }
            else
            {
@@ -1078,11 +1086,12 @@ sub MergeAlbums
 		$link->MergeAlbums($id, $this->GetId);
 
 		# ... and the tags
-		$tag->MergeAlbums($vertsql, $id, $this->GetId);
+		$tag->MergeAlbums($this->GetVerticalDatabaseConnection, $id, $this->GetId);
 
-    		$this->SetGlobalIdRedirect($id, $al->GetMBId, $this->GetId, &TableBase::TABLE_ALBUM);
+        $this->SetGlobalIdRedirect($id, $al->GetMBId, $this->GetId, &TableBase::TABLE_ALBUM);
 
        # Then, finally remove what is left of the old album
+       $al->SetVerticalDatabaseConnection($this->GetVerticalDatabaseConnection);
        $al->Remove();
    }
 

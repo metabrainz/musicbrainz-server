@@ -15,7 +15,6 @@ insert into Label (Name, SortName, GID, ModPending, Page)
 
 INSERT INTO moderator (id, name, password) VALUES (1, 'Anonymous', '');
 INSERT INTO moderator (id, name, password) VALUES (2, 'FreeDB', '');
-INSERT INTO moderator (id, name, password, privs) VALUES (3, 'rob', '', 1);
 INSERT INTO moderator (id, name, password) VALUES (4, 'ModBot', '');
 
 INSERT INTO clientversion (id, version) VALUES (1, 'unknown');

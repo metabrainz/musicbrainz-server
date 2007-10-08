@@ -519,6 +519,11 @@ sub Remove
 	my $link = MusicBrainz::Server::Link->new($this->{DBH});
 	$link->RemoveByTrack($this->GetId());
 
+    # Remove tags
+	require MusicBrainz::Server::Tag;
+	my $tag = MusicBrainz::Server::Tag->new($sql->{DBH});
+	$tag->RemoveTracks($this->GetVerticalDatabaseConnection, $this->GetId);
+
 	# Remove references from track words table
 	require SearchEngine;
 	my $engine = SearchEngine->new($this->{DBH}, 'track');

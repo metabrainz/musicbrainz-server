@@ -664,6 +664,16 @@ sub GetQuality
    return $_[0]->{quality};
 }
 
+sub SetVerticalDatabaseConnection
+{
+   $_[0]->{vertsql} = $_[1];
+}
+
+sub GetVerticalDatabaseConnection
+{
+   return $_[0]->{vertsql};
+}
+
 sub IsOpen { $_[0]{status} == STATUS_OPEN or $_[0]{status} == STATUS_TOBEDELETED }
 
 sub IsAutoEditType
@@ -866,22 +876,6 @@ sub SetError
 sub GetChangeName
 {
    return $ChangeNames{$_[0]->{status}};
-}
-
-# If a database connection to a vertical database
-sub GetVerticalDatabaseName
-{
-   return undef;
-}
-
-sub SetVerticalDatabaseConnection
-{
-   $_[0]->{vertsql} = $_[1];
-}
-
-sub GetVerticalDatabaseConnection
-{
-   return $_[0]->{vertsql};
 }
 
 sub GetAutomoderatorList
@@ -1102,28 +1096,13 @@ sub InsertModeration
 	$this->{inserted_moderations} = \@inserted_moderations;
 
 	my $sql = Sql->new($this->{DBH});
-	my $dbname = $this->GetVerticalDatabaseName();
-	my $vertsql;
-	if ($dbname)
-	{
-		my $vertmb = new MusicBrainz;
-		$vertsql = eval
-		{
-			$vertmb->Login(db => $dbname);
-			Sql->new($vertmb->{DBH});
-		};
-		if ($@)
-		{
-			$vertsql = undef;
-		}
-	}
+    my $vertmb = new MusicBrainz;
+    $vertmb->Login(db => 'RAWDATA');
+    my $vertsql = Sql->new($vertmb->{DBH});
 
 	$sql->Begin;
-	if ($vertsql)
-	{
-		$this->SetVerticalDatabaseConnection($vertsql);
-		$vertsql->Begin;
-	}
+	$vertsql->Begin;
+    $this->SetVerticalDatabaseConnection($vertsql);
 
 	eval
 	{
@@ -1223,11 +1202,6 @@ sub InsertModeration
 			my $edit = $this->CreateFromId($insertid);
 			my $status = $edit->ApprovedAction;
 
-			if ($vertsql)
-			{
-				$edit->SetVerticalDatabaseConnection($vertsql);
-			}
-
 			$sql->Do("UPDATE moderation_open SET status = ?, automod = 1 WHERE id = ?",
 				$status,
 				$insertid,
@@ -1270,14 +1244,14 @@ SUPPRESS_INSERT:
 		# Save problems with self-referencing and garbage collection
 		delete $this->{inserted_moderations};
 
-		$vertsql->Commit if ($vertsql);
+		$vertsql->Commit;
 		$sql->Commit;
 	};
 
 	if ($@)
 	{
 		my $err = $@;
-		$vertsql->Rollback if ($vertsql);
+		$vertsql->Rollback;
 		$sql->Rollback;
 		croak $err;
 	};

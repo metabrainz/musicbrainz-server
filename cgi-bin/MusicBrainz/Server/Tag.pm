@@ -28,7 +28,6 @@ package MusicBrainz::Server::Tag;
 
 use base qw( TableBase );
 use Carp;
-use Data::Dumper;
 use List::Util qw( min max sum );
 use URI::Escape qw( uri_escape );
 use MusicBrainz::Server::Validation qw( encode_entities );
@@ -76,23 +75,11 @@ sub Update
 	@new_tags = keys %{{ map { $_ => 1 } @new_tags }};
 
     require MusicBrainz;
+    my $maindb = Sql->new($self->{DBH});
 
-    # Login to the main DB
-    my $main = MusicBrainz->new;
-    $main->Login();
-   	my $maindb = Sql->new($main->{DBH});
-
-    # Login to the tags DB
-   	my $tagdb = eval
-    {
-        my $tags = MusicBrainz->new;
-        $tags->Login(db => 'RAWDATA');
-        Sql->new($tags->{DBH});   
-    };
-    if ($@)
-    {
-        $tagdb = $maindb;
-    }
+    my $tags = MusicBrainz->new;
+    $tags->Login(db => 'RAWDATA');
+   	my $tagdb = Sql->new($tags->{DBH});   
 
     eval
     {
@@ -207,29 +194,25 @@ sub Update
     {
         my $err = $@;
         eval { $maindb->Rollback(); };
-        eval { $tagdb->Rollback() if ($maindb != $tagdb); };
+        eval { $tagdb->Rollback(); };
         die $err;
     }
     else
     {
         $maindb->Commit();
-        $tagdb->Commit() if ($maindb != $tagdb);
+        $tagdb->Commit();
         return 1;
     }
 }
 
-
 sub Merge
 {
 	my ($self, $tagdb, $entity_type, $old_entity_id, $new_entity_id) = @_;
-	
+
 	my $assoc_table = $entity_type . '_tag';
 	my $assoc_table_raw = $entity_type . '_tag_raw';
 
    	my $maindb = Sql->new($self->GetDBH());
-
-    # if we were passed in a separate DB connection for vertical data use it. If not use the main connection.
-    $tagdb = $maindb if (!defined $tagdb);
 
     # Load the tag ids for both entities
     my $old_tag_ids = $maindb->SelectSingleColumnArray("
@@ -311,26 +294,66 @@ sub Merge
 
 sub MergeAlbums
 {
-	my ($self, $vertsql, $oldid, $newid) = @_;
-	$self->Merge($vertsql, "release", $oldid, $newid);
+	my ($self, $tagdb, $oldid, $newid) = @_;
+	$self->Merge($tagdb, "release", $oldid, $newid);
 }
 
 sub MergeTracks
 {
-	my ($self, $vertsql, $oldid, $newid) = @_;
-	$self->Merge($vertsql, "track", $oldid, $newid);
+	my ($self, $tagdb, $oldid, $newid) = @_;
+	$self->Merge($tagdb, "track", $oldid, $newid);
 }
 
 sub MergeArtists
 {
-	my ($self, $vertsql, $oldid, $newid) = @_;
-	$self->Merge($vertsql, "artist", $oldid, $newid);
+	my ($self, $tagdb, $oldid, $newid) = @_;
+	$self->Merge($tagdb, "artist", $oldid, $newid);
 }
 
 sub MergeLabels
 {
-	my ($self, $vertsql, $oldid, $newid) = @_;
-	$self->Merge($vertsql, "label", $oldid, $newid);
+	my ($self, $tagdb, $oldid, $newid) = @_;
+	$self->Merge($tagdb, "label", $oldid, $newid);
+}
+
+sub Remove
+{
+	my ($self, $tagdb, $entity_type, $id) = @_;
+
+	my $assoc_table = $entity_type . '_tag';
+	my $assoc_table_raw = $entity_type . '_tag_raw';
+
+   	my $maindb = Sql->new($self->GetDBH());
+
+    # Delete unused tags
+    $maindb->Do("DELETE FROM $assoc_table WHERE $entity_type = ?", $id);
+    $tagdb->Do("DELETE FROM $assoc_table_raw WHERE $entity_type = ?", $id);
+
+    return 1;
+}
+
+sub RemoveAlbums
+{
+	my ($self, $tagdb, $id) = @_;
+	$self->Remove($tagdb, "release", $id);
+}
+
+sub RemoveTracks
+{
+	my ($self, $tagdb, $id) = @_;
+	$self->Remove($tagdb, "track", $id);
+}
+
+sub RemoveArtists
+{
+	my ($self, $tagdb, $id) = @_;
+	$self->Remove($tagdb, "artist", $id);
+}
+
+sub RemoveLabels
+{
+	my ($self, $tagdb, $id) = @_;
+	$self->Remove($tagdb, "label", $id);
 }
 
 sub GetTagsForEntity
@@ -385,16 +408,10 @@ sub GetRawTagsForEntity
 	my ($self, $entity_type, $entity_id, $moderator_id) = @_;
 
 	my $maindb = Sql->new($self->GetDBH());
-	my $tagdb = eval
-	{
-		my $tags = MusicBrainz->new;
-		$tags->Login(db => 'RAWDATA');
-		Sql->new($tags->{DBH});   
-	};
-	if ($@)
-	{
-		$tagdb = $maindb;
-	}
+
+	my $tags = MusicBrainz->new;
+    $tags->Login(db => 'RAWDATA');
+	my $tagdb = Sql->new($tags->{DBH});   
 
 	my $assoc_table = $entity_type . '_tag_raw';
 	my $rows = $tagdb->SelectSingleColumnArray("SELECT DISTINCT tag
@@ -415,16 +432,10 @@ sub GetEditorsForEntityAndTag
 	my ($self, $entity_type, $entity_id, $tag) = @_;
 
 	my $maindb = Sql->new($self->GetDBH());
-	my $tagdb = eval
-	{
-		my $tags = MusicBrainz->new;
-		$tags->Login(db => 'RAWDATA');
-		Sql->new($tags->{DBH});   
-	};
-	if ($@)
-	{
-		$tagdb = $maindb;
-	}
+
+	my $tags = MusicBrainz->new;
+    $tags->Login(db => 'RAWDATA');
+	my $tagdb = Sql->new($tags->{DBH});   
 
 	my $tag_id = $maindb->SelectSingleValue("SELECT tag.id
   	                                           FROM tag

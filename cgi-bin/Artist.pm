@@ -327,6 +327,11 @@ sub Remove
 	my $link = MusicBrainz::Server::Link->new($this->{DBH});
 	$link->RemoveByArtist($this->GetId);
 
+    # Remove tags
+	require MusicBrainz::Server::Tag;
+	my $tag = MusicBrainz::Server::Tag->new($sql->{DBH});
+	$tag->RemoveArtists($this->GetVerticalDatabaseConnection, $this->GetId);
+
     # Remove references from artist words table
     require SearchEngine;
     my $engine = SearchEngine->new($this->{DBH}, 'artist');
@@ -372,7 +377,7 @@ sub MergeInto
 
 	require MusicBrainz::Server::Tag;
 	my $tag = MusicBrainz::Server::Tag->new($sql->{DBH});
-	$tag->MergeArtists($mod->GetVerticalDatabaseConnection, $o, $n);
+	$tag->MergeArtists($old->GetVerticalDatabaseConnection, $o, $n);
 
     $sql->Do("DELETE FROM artist     WHERE id   = ?", $o);
     $old->InvalidateCache;

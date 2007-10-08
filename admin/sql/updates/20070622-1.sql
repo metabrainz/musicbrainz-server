@@ -1,8 +1,4 @@
--- Abstract: Create tag tables
-
--- TODO:
--- 1. Push these changes to CreateTables.sql
--- 2. Consider replication triggers on non-raw tables
+-- Abstract: Create tag tables in the main DB
 
 \set ON_ERROR_STOP 1
 
@@ -43,36 +39,6 @@ CREATE TABLE label_tag
     count               INTEGER NOT NULL
 );
 
--- These tables could/will live on a separate server, so no FKs to the main tables
-
-CREATE TABLE artist_tag_raw
-(
-    artist              INTEGER NOT NULL,
-    tag                 INTEGER NOT NULL,
-    moderator           INTEGER NOT NULL
-);
-
-CREATE TABLE release_tag_raw
-(
-    release             INTEGER NOT NULL,
-    tag                 INTEGER NOT NULL,
-    moderator           INTEGER NOT NULL
-);
-
-CREATE TABLE track_tag_raw
-(
-    track               INTEGER NOT NULL,
-    tag                 INTEGER NOT NULL,
-    moderator           INTEGER NOT NULL
-);
-
-CREATE TABLE label_tag_raw
-(
-    label               INTEGER NOT NULL,
-    tag                 INTEGER NOT NULL,
-    moderator           INTEGER NOT NULL
-);
-
 -- primary keys
 ALTER TABLE tag ADD CONSTRAINT tag_pkey PRIMARY KEY (id);
 
@@ -80,11 +46,6 @@ ALTER TABLE artist_tag ADD CONSTRAINT artist_tag_pkey PRIMARY KEY (artist, tag);
 ALTER TABLE release_tag ADD CONSTRAINT release_tag_pkey PRIMARY KEY (release, tag);
 ALTER TABLE track_tag ADD CONSTRAINT track_tag_pkey PRIMARY KEY (track, tag);
 ALTER TABLE label_tag ADD CONSTRAINT label_tag_pkey PRIMARY KEY (label, tag);
-
-ALTER TABLE artist_tag_raw ADD CONSTRAINT artist_tag_raw_pkey PRIMARY KEY (artist, tag, moderator);
-ALTER TABLE release_tag_raw ADD CONSTRAINT release_tag_raw_pkey PRIMARY KEY (release, tag, moderator);
-ALTER TABLE track_tag_raw ADD CONSTRAINT track_tag_raw_pkey PRIMARY KEY (track, tag, moderator);
-ALTER TABLE label_tag_raw ADD CONSTRAINT label_tag_raw_pkey PRIMARY KEY (label, tag, moderator);
 
 -- indexes
 CREATE UNIQUE INDEX tag_idx_name ON tag (name);
@@ -97,22 +58,6 @@ CREATE INDEX track_tag_idx_track ON track_tag (track);
 CREATE INDEX track_tag_idx_tag ON track_tag (tag);
 CREATE INDEX label_tag_idx_label ON label_tag (label);
 CREATE INDEX label_tag_idx_tag ON label_tag (tag);
-
-CREATE INDEX artist_tag_raw_idx_artist ON artist_tag_raw (artist);
-CREATE INDEX artist_tag_raw_idx_tag ON artist_tag_raw (tag);
-CREATE INDEX artist_tag_raw_idx_moderator ON artist_tag_raw (moderator);
-
-CREATE INDEX release_tag_raw_idx_release ON release_tag_raw (release);
-CREATE INDEX release_tag_raw_idx_tag ON release_tag_raw (tag);
-CREATE INDEX release_tag_raw_idx_moderator ON release_tag_raw (moderator);
-
-CREATE INDEX track_tag_raw_idx_track ON track_tag_raw (track);
-CREATE INDEX track_tag_raw_idx_tag ON track_tag_raw (tag);
-CREATE INDEX track_tag_raw_idx_moderator ON track_tag_raw (moderator);
-
-CREATE INDEX label_tag_raw_idx_label ON label_tag_raw (label);
-CREATE INDEX label_tag_raw_idx_tag ON label_tag_raw (tag);
-CREATE INDEX label_tag_raw_idx_moderator ON label_tag_raw (moderator);
 
 -- foreign keys
 ALTER TABLE artist_tag

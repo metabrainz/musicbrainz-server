@@ -35,9 +35,12 @@ my $READONLY = MusicBrainz::Server::Database->get("READONLY");
 my $RAWDATA = MusicBrainz::Server::Database->get("RAWDATA");
 my $RAWDATA_SYSTEM = MusicBrainz::Server::Database->get("RAWDATA_SYSTEM");
 
-# If no RAWDATA section is defined, toss everything into the READWRITE database
-$RAWDATA = $READWRITE if (!defined $RAWDATA);
+# If no RAWDATA section is defined, assume that the SYSTEM database will also be used for RAWDATA
 $RAWDATA_SYSTEM = $SYSTEM if (!defined $RAWDATA_SYSTEM);
+
+# Check to make sure that the main and raw databases are not the same
+die "The READWRITE database and the RAWDATA database cannot be the same. Use a different name for the RAWDATA database." 
+   if ($RAWDATA->database eq $READWRITE->database);
 
 my $REPTYPE = &DBDefs::REPLICATION_TYPE;
 
@@ -259,13 +262,10 @@ sub CreateRelations
     system("echo \"vacuum analyze\" | $psql $opts");
     die "\nFailed to optimize database\n" if ($? >> 8);
 
-    if ($RAWDATA->database ne $READWRITE->database)
-    {
-        print localtime() . " : Optimizing rawdata database ...\n";
-        $opts = $RAWDATA->shell_args;
-        system("echo \"vacuum analyze\" | $psql $opts");
-        die "\nFailed to optimize rawdata database\n" if ($? >> 8);
-    }
+    print localtime() . " : Optimizing rawdata database ...\n";
+    $opts = $RAWDATA->shell_args;
+    system("echo \"vacuum analyze\" | $psql $opts");
+    die "\nFailed to optimize rawdata database\n" if ($? >> 8);
 
     print localtime() . " : Initialized and imported data into the database.\n";
 }
