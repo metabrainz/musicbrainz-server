@@ -89,7 +89,13 @@ sub CheckModerations
 	print localtime() . " : Finding open and to-be-deleted moderations ...\n"
 		if $fVerbose;
 
-	my $sql = Sql->new($this->{DBH});
+    my ($sql, $vertsql, $vertmb);
+
+	$sql = Sql->new($this->{DBH});
+    $vertmb = new MusicBrainz;
+    $vertmb->Login(db => 'RAWDATA');
+    $vertsql = Sql->new($vertmb->{DBH});
+
 	$sql->Select(
 		"SELECT id FROM moderation_open ORDER BY id",
 	);
@@ -375,11 +381,7 @@ sub CheckModerations
 
 			eval
 			{
-				my ($status, $vertsql, $vertmb);
-
-                $vertmb = new MusicBrainz;
-                $vertmb->Login(db => 'RAWDATA');
-                $vertsql = Sql->new($vertmb->{DBH});
+				my ($status);
 
                 $sql->Begin;
 				$vertsql->Begin;
@@ -433,14 +435,22 @@ sub CheckModerations
 
 			eval
 			{
-				$sql->Begin;
+                $sql->Begin;
+				$vertsql->Begin;
+
+                $Moderation::DBConnections{READWRITE} = $sql;
+                $Moderation::DBConnections{RAWDATA} = $vertsql;
 
 				$mod->SetStatus($newstate);
 				$mod->DeniedAction;
 				$newstate = $mod->GetStatus;
 				$mod->CloseModeration($newstate);
 
+                delete $Moderation::DBConnections{READWRITE};
+                delete $Moderation::DBConnections{RAWDATA};
+
 				$sql->Commit;
+                $vertsql->Commit;
 			};
 
 			$report_error->($@, $mod, "delete") if $@;
@@ -457,6 +467,10 @@ sub CheckModerations
 			eval
 			{
 				$sql->Begin;
+				$vertsql->Begin;
+
+                $Moderation::DBConnections{READWRITE} = $sql;
+                $Moderation::DBConnections{RAWDATA} = $vertsql;
 
 				$mod->SetStatus($newstate);
 				$mod->DeniedAction;
@@ -464,7 +478,11 @@ sub CheckModerations
 				$user->CreditModerator($mod->GetModerator, $newstate);
 				$mod->CloseModeration($newstate);
 
+                delete $Moderation::DBConnections{READWRITE};
+                delete $Moderation::DBConnections{RAWDATA};
+
 				$sql->Commit;
+                $vertsql->Commit;
 			};
 
 			$report_error->($@, $mod, "deny") if $@;
@@ -482,6 +500,10 @@ sub CheckModerations
 			eval
 			{
 				$sql->Begin;
+				$vertsql->Begin;
+
+                $Moderation::DBConnections{READWRITE} = $sql;
+                $Moderation::DBConnections{RAWDATA} = $vertsql;
 
 				# check that mod is still open and LOCK the row
 				# (could have been "approved" after the start of ModBot)
@@ -504,7 +526,11 @@ sub CheckModerations
 					}
 				}
 
+                delete $Moderation::DBConnections{READWRITE};
+                delete $Moderation::DBConnections{RAWDATA};
+
 				$sql->Commit;
+                $vertsql->Commit;
 			};
 
 	 		$report_error->($@, $mod, "deny") if $@;
