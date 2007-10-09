@@ -125,8 +125,17 @@ sub Update
                 next;
             }
 
-            # Lookup tag id for current tag
-            my $tagid = $maindb->SelectSingleValue("SELECT tag.id FROM tag WHERE tag.name = ?", $tag);
+            # Lookup tag id for current tag, checking for UNICODE 
+            my $tagid = eval
+            {
+                $maindb->SelectSingleValue("SELECT tag.id FROM tag WHERE tag.name = ?", $tag);
+            };
+            if ($@)
+            {
+                my $err = $@;
+                next if $err =~ /unicode/i;
+                die $err;
+            }
             if (!defined $tagid)
             {
                 $maindb->Do("INSERT into tag (name) values (?)", $tag);

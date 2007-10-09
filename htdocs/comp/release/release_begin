@@ -248,7 +248,7 @@
         {
             $m->out(qq!<tr><td class="tags"> Tags: !);
             $m->comp("/comp/toptags", type=>'release', id=>$release->GetId);
-            $m->out(qq!</tr>!);
+            $m->out(qq!</td></tr>!);
         }
 
 		$m->out(qq!</table>!);
