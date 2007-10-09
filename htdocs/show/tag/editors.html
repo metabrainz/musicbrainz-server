@@ -21,9 +21,13 @@
     $m->out("<p>The $type ");
     $m->comp("/comp/link$type", $type=>$entity);
 
-    if (scalar(@{$editors}) == 0)
+    if (!defined $editors)
     {
-        $m->out(" was tagged with <b>$tag</b> only by users who didn't make their tags public.</p>");
+        $m->out(" was tagged with <b>$tag</b> by no editors.</p>");
+    }
+    elsif (scalar(@{$editors}) == 0)
+    {
+        $m->out(" was tagged only with <b>$tag</b> by users who didn't make their tags public.</p>");
     }
     else
     {
