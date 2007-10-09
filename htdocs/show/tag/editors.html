@@ -15,39 +15,27 @@
 
 	my $entity = $m->comp("/comp/load$type", $mb, $id);
 
-	if ($type eq "artist") {
-		$m->comp("/comp/sidebar-notitle", pagetitle => "Editors who tagged $type " . $entity->GetName);
-		$m->comp("/comp/artisttitle", artist => $entity);
-	}
-	elsif ($type eq "label") {
-		$m->comp("/comp/sidebar-notitle", pagetitle => "Editors who tagged " . $entity->GetName);
-		$m->comp("/comp/labeltitle", label => $entity);
-	}
-	elsif ($type eq "release") {
-		$m->comp("/comp/sidebar-notitle", pagetitle => "Editors who tagged " . $entity->GetName);
-		my $artist = $m->comp("/comp/loadartist", $mb, $entity->GetArtist);
-		$m->comp("/comp/artisttitle", artist => $artist);
-		$m->comp("/comp/album", artist=>$artist, album => $entity, highlightonly=>1);
-	}
-	else {
-		$m->comp("/comp/sidebar-notitle", pagetitle => "Editors who tagged " . $entity->GetName);
-		my $artist = $m->comp("/comp/loadartist", $mb, $entity->GetArtist);
-		$m->comp("/comp/tracktitle", track => $entity, artist => $artist);
-	}
+    $m->comp("/comp/sidebar", pagetitle => "Editors who tagged $type " . $m->interp->apply_escapes($entity->GetName, 'h') .":");
 
     $m->out('<div class="TagsBox">');
-    $m->out("<p>This $type was tagged by the following editors:</p>");
+    $m->out("<p>The $type ");
+    $m->comp("/comp/link$type", $type=>$entity);
 
-    $m->out("<table>");
-    foreach my $ed (@{$editors})
+    if (scalar(@{$editors}) == 0)
     {
-        $m->out("<tr><td><a href=\"/show/user/?username=" . uri_escape($ed->{name}) . "\">" . $ed->{name} . "</a></td></tr>");
+        $m->out(" was tagged with <b>$tag</b> only by users who didn't make their tags public.</p>");
+    }
+    else
+    {
+        $m->out(" was tagged with <b>$tag</b> by the following editors:</p>");
+        $m->out("<table>");
+        foreach my $ed (@{$editors})
+        {
+            $m->out("<tr><td><a href=\"/show/user/?username=" . uri_escape($ed->{name}) . "\">" . $ed->{name} . "</a></td></tr>");
+        }
+        $m->out("</table><p> Editors who didn't make their tags public are not shown.</p>");
     }
     </%perl>
-    </table>
-    <p>
-    Private tags are not shown.
-    </p>
     </div>
 
     <& /comp/footer &>
