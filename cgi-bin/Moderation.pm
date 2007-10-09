@@ -498,6 +498,9 @@ my @QualityChangeDefs =
     }
 );
 
+# We'll store database handles that have open transactions in this hash for easy access.
+local %Moderation::DBConnections = ();
+
 sub GetQualityChangeDefs
 {
     return $QualityChangeDefs[$_[0]];
@@ -662,16 +665,6 @@ sub GetQuality
    $_[0]->{quality} = $_[0]->DetermineQuality()
        if (!exists $_[0]->{quality});
    return $_[0]->{quality};
-}
-
-sub SetVerticalDatabaseConnection
-{
-   $_[0]->{vertsql} = $_[1];
-}
-
-sub GetVerticalDatabaseConnection
-{
-   return $_[0]->{vertsql};
 }
 
 sub IsOpen { $_[0]{status} == STATUS_OPEN or $_[0]{status} == STATUS_TOBEDELETED }
@@ -1102,7 +1095,9 @@ sub InsertModeration
 
 	$sql->Begin;
 	$vertsql->Begin;
-    $this->SetVerticalDatabaseConnection($vertsql);
+
+    $Moderation::DBConnections{READWRITE} = $sql;
+    $Moderation::DBConnections{RAWDATA} = $vertsql;
 
 	eval
 	{
@@ -1244,6 +1239,9 @@ SUPPRESS_INSERT:
 		# Save problems with self-referencing and garbage collection
 		delete $this->{inserted_moderations};
 
+        delete $Moderation::DBConnections{READWRITE};
+        delete $Moderation::DBConnections{RAWDATA};
+
 		$vertsql->Commit;
 		$sql->Commit;
 	};
@@ -1251,6 +1249,8 @@ SUPPRESS_INSERT:
 	if ($@)
 	{
 		my $err = $@;
+        delete $Moderation::DBConnections{READWRITE};
+        delete $Moderation::DBConnections{RAWDATA};
 		$vertsql->Rollback;
 		$sql->Rollback;
 		croak $err;

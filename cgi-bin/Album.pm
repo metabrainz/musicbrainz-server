@@ -489,7 +489,6 @@ sub Remove
              print STDERR "DELETE: Removed albumjoin " . $row[0] . "\n";
              $sql->Do("DELETE FROM albumjoin WHERE track = ?", $row[0]);
              $tr->SetId($row[0]);
-             $tr->SetVerticalDatabaseConnection($this->GetVerticalDatabaseConnection);
              $tr->Remove();
          }
     }
@@ -503,7 +502,7 @@ sub Remove
     # Remove tags
 	require MusicBrainz::Server::Tag;
 	my $tag = MusicBrainz::Server::Tag->new($sql->{DBH});
-	$tag->RemoveAlbums($this->GetVerticalDatabaseConnection, $this->GetId);
+	$tag->RemoveAlbums($this->GetId);
 
     # Remove references from album words table
 	require SearchEngine;
@@ -1010,9 +1009,6 @@ sub MergeAlbums
 	require MusicBrainz::Server::Tag;
 	my $tag = MusicBrainz::Server::Tag->new($sql->{DBH});
 
-    use Data::Dumper;
-    print Dumper($this->GetVerticalDatabaseConnection);
-
    foreach $id (@list)
    {
        $al->SetId($id);
@@ -1040,7 +1036,7 @@ sub MergeAlbums
 				$link->MergeTracks($old, $new);
 
 				# Move tags
-				$tag->MergeTracks($this->GetVerticalDatabaseConnection, $old, $new);
+				$tag->MergeTracks($old, $new);
 
                 $this->SetGlobalIdRedirect($old, $tr->GetMBId, $new, &TableBase::TABLE_TRACK);
            }
@@ -1086,12 +1082,11 @@ sub MergeAlbums
 		$link->MergeAlbums($id, $this->GetId);
 
 		# ... and the tags
-		$tag->MergeAlbums($this->GetVerticalDatabaseConnection, $id, $this->GetId);
+		$tag->MergeAlbums($id, $this->GetId);
 
         $this->SetGlobalIdRedirect($id, $al->GetMBId, $this->GetId, &TableBase::TABLE_ALBUM);
 
        # Then, finally remove what is left of the old album
-       $al->SetVerticalDatabaseConnection($this->GetVerticalDatabaseConnection);
        $al->Remove();
    }
 

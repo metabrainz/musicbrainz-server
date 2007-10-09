@@ -68,7 +68,6 @@ sub ApprovedAction
 	my $subs = UserSubscription->new($this->{DBH});
 	$subs->LabelBeingDeleted($ar, $this);
 
-    $ar->SetVerticalDatabaseConnection($this->GetVerticalDatabaseConnection);
 	unless (defined $ar->Remove)
 	{
 		$this->InsertNote(MODBOT_MODERATOR, "This label could not be removed");

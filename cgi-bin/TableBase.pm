@@ -67,16 +67,6 @@ sub SetDBH
     $_[0]->{DBH} = $_[1]; 
 }
 
-sub GetVerticalDatabaseConnection
-{
-    return $_[0]->{vertsql}; 
-}
-
-sub SetVerticalDatabaseConnection
-{
-    $_[0]->{vertsql} = $_[1]; 
-}
-
 sub GetId
 {
    return $_[0]->{id};

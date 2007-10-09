@@ -75,7 +75,6 @@ sub ApprovedAction
 	my $al = Album->new($this->{DBH});
 	$al->SetId($this->GetRowId);
 
-    $al->SetVerticalDatabaseConnection($this->GetVerticalDatabaseConnection);
 	unless ($al->Remove)
 	{
 		$this->InsertNote(MODBOT_MODERATOR, "This release could not be removed");

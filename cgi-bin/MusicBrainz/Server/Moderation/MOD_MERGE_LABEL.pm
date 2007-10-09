@@ -185,7 +185,6 @@ sub ApprovedAction
 
 	my $oldar = $self->{_oldar};
 	my $newar = $self->{_newar};
-    $oldar->SetVerticalDatabaseConnection($self->GetVerticalDatabaseConnection);
 	$oldar->MergeInto($newar, $self);
 
 	STATUS_APPLIED;

@@ -95,7 +95,6 @@ sub ApprovedAction
 
 	# Now remove the track. The track will only be removed
 	# if there are no more references to it.
-    $track->SetVerticalDatabaseConnection($this->GetVerticalDatabaseConnection);
 	unless ($track->Remove)
 	{
 		$this->InsertNote(MODBOT_MODERATOR, "This track could not be removed");
@@ -109,7 +108,6 @@ sub ApprovedAction
 	$release->SetId($this->{'prev.albumid'});
 	if ($release->LoadFromId)
 	{
-        $release->SetVerticalDatabaseConnection($this->GetVerticalDatabaseConnection);
 		$release->Remove
 			if $release->IsNonAlbumTracks
 			and $release->LoadTracks == 0;

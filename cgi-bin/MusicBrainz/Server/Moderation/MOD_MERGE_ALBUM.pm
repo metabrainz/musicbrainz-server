@@ -176,7 +176,6 @@ sub ApprovedAction
 		return STATUS_FAILEDPREREQ;
 	}
 
-    $al->SetVerticalDatabaseConnection($self->GetVerticalDatabaseConnection);
 	$al->MergeAlbums({
 		mac => ($self->GetType == MOD_MERGE_ALBUM_MAC),
 		albumids => [ map { $_->{'id'} } @{ $self->{'new_albums'} } ],

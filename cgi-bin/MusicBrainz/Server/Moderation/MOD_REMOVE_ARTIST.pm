@@ -84,7 +84,6 @@ sub ApprovedAction
 	my $subs = UserSubscription->new($this->{DBH});
 	$subs->ArtistBeingDeleted($ar, $this);
 
-    $ar->SetVerticalDatabaseConnection($this->GetVerticalDatabaseConnection);
 	unless (defined $ar->Remove)
 	{
 		$this->InsertNote(MODBOT_MODERATOR, "This artist could not be removed");

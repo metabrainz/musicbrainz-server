@@ -207,12 +207,13 @@ sub Update
 
 sub Merge
 {
-	my ($self, $tagdb, $entity_type, $old_entity_id, $new_entity_id) = @_;
+	my ($self, $entity_type, $old_entity_id, $new_entity_id) = @_;
 
 	my $assoc_table = $entity_type . '_tag';
 	my $assoc_table_raw = $entity_type . '_tag_raw';
 
-   	my $maindb = Sql->new($self->GetDBH());
+    my $maindb = $Moderation::DBConnections{READWRITE};
+    my $tagdb = $Moderation::DBConnections{RAWDATA};
 
     # Load the tag ids for both entities
     my $old_tag_ids = $maindb->SelectSingleColumnArray("
@@ -294,36 +295,37 @@ sub Merge
 
 sub MergeAlbums
 {
-	my ($self, $tagdb, $oldid, $newid) = @_;
-	$self->Merge($tagdb, "release", $oldid, $newid);
+	my ($self, $oldid, $newid) = @_;
+	$self->Merge("release", $oldid, $newid);
 }
 
 sub MergeTracks
 {
-	my ($self, $tagdb, $oldid, $newid) = @_;
-	$self->Merge($tagdb, "track", $oldid, $newid);
+	my ($self, $oldid, $newid) = @_;
+	$self->Merge("track", $oldid, $newid);
 }
 
 sub MergeArtists
 {
-	my ($self, $tagdb, $oldid, $newid) = @_;
-	$self->Merge($tagdb, "artist", $oldid, $newid);
+	my ($self, $oldid, $newid) = @_;
+	$self->Merge("artist", $oldid, $newid);
 }
 
 sub MergeLabels
 {
-	my ($self, $tagdb, $oldid, $newid) = @_;
-	$self->Merge($tagdb, "label", $oldid, $newid);
+	my ($self, $oldid, $newid) = @_;
+	$self->Merge("label", $oldid, $newid);
 }
 
 sub Remove
 {
-	my ($self, $tagdb, $entity_type, $id) = @_;
+	my ($self, $entity_type, $id) = @_;
 
 	my $assoc_table = $entity_type . '_tag';
 	my $assoc_table_raw = $entity_type . '_tag_raw';
 
-   	my $maindb = Sql->new($self->GetDBH());
+    my $maindb = $Moderation::DBConnections{READWRITE};
+    my $tagdb = $Moderation::DBConnections{RAWDATA};
 
     # Delete unused tags
     $maindb->Do("DELETE FROM $assoc_table WHERE $entity_type = ?", $id);
@@ -334,26 +336,26 @@ sub Remove
 
 sub RemoveAlbums
 {
-	my ($self, $tagdb, $id) = @_;
-	$self->Remove($tagdb, "release", $id);
+	my ($self, $id) = @_;
+	$self->Remove("release", $id);
 }
 
 sub RemoveTracks
 {
-	my ($self, $tagdb, $id) = @_;
-	$self->Remove($tagdb, "track", $id);
+	my ($self, $id) = @_;
+	$self->Remove("track", $id);
 }
 
 sub RemoveArtists
 {
-	my ($self, $tagdb, $id) = @_;
-	$self->Remove($tagdb, "artist", $id);
+	my ($self, $id) = @_;
+	$self->Remove("artist", $id);
 }
 
 sub RemoveLabels
 {
-	my ($self, $tagdb, $id) = @_;
-	$self->Remove($tagdb, "label", $id);
+	my ($self, $id) = @_;
+	$self->Remove("label", $id);
 }
 
 sub GetTagsForEntity

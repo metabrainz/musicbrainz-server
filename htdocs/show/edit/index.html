@@ -68,7 +68,9 @@
 
                 $sql->Begin;
                 $vertsql->Begin;
-                $edit->SetVerticalDatabaseConnection($vertsql);
+
+                $Moderation::DBConnections{READWRITE} = $sql;
+                $Moderation::DBConnections{RAWDATA} = $vertsql;
 
 				my $user = UserStuff->new($mb->{DBH});
 
@@ -84,12 +86,19 @@
 					$edit->CloseModeration(&ModDefs::STATUS_FAILEDVOTE);
 				}
 
+                delete $Moderation::DBConnections{READWRITE};
+                delete $Moderation::DBConnections{RAWDATA};
+
 				$vertsql->Commit;
 				$sql->Commit;
 			} or do {
 				my $err = $@;
+
+                delete $Moderation::DBConnections{READWRITE};
+                delete $Moderation::DBConnections{RAWDATA};
 				$sql->Rollback;
 				$vertsql->Rollback;
+
 				</%perl>
 				<div style="color: red">
 					<p>Error applying edit:</p>

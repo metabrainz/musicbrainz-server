@@ -383,7 +383,9 @@ sub CheckModerations
 
                 $sql->Begin;
 				$vertsql->Begin;
-                $mod->SetVerticalDatabaseConnection($vertsql);
+
+                $Moderation::DBConnections{READWRITE} = $sql;
+                $Moderation::DBConnections{RAWDATA} = $vertsql;
 				
 				# check that mod is still open and LOCK the row
 				# (could have been "approved" after the start of ModBot)
@@ -411,6 +413,9 @@ sub CheckModerations
 						$mod->CloseModeration($status);
 					}
 				}
+
+                delete $Moderation::DBConnections{READWRITE};
+                delete $Moderation::DBConnections{RAWDATA};
 
 				$sql->Commit;
                 $vertsql->Commit;
