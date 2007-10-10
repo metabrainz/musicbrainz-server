@@ -148,7 +148,9 @@ my %formatNames =
     MusicBrainz::Server::Release::RELEASE_FORMAT_REEL_TO_REEL => 'ReelToReel',
     MusicBrainz::Server::Release::RELEASE_FORMAT_DAT          => 'DAT',
     MusicBrainz::Server::Release::RELEASE_FORMAT_DIGITAL      => 'Digital',
-    MusicBrainz::Server::Release::RELEASE_FORMAT_OTHER        => 'Other'     
+    MusicBrainz::Server::Release::RELEASE_FORMAT_OTHER        => 'Other'     ,
+    MusicBrainz::Server::Release::RELEASE_FORMAT_WAX_CYLINDER => 'WaxCylinder',
+    MusicBrainz::Server::Release::RELEASE_FORMAT_PIANO_ROLL   => 'Piano Roll',
 );
 
 # Convert the passed inc argument into a bitflag with the given constants form above
