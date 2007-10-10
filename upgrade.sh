@@ -31,15 +31,27 @@ fi
 echo `date` : Create RAWDATA database
 ./admin/InitDb.pl --createrawonly --clean
 
-echo `date` : Upgrading database
+echo `date` : Add tags support to database
 ./admin/psql READWRITE < ./admin/sql/updates/20070622-1.sql
 [ "$REPLICATION_TYPE" != "$RT_SLAVE" ] && ./admin/psql READWRITE < ./admin/sql/updates/20070622-2.sql
 ./admin/psql RAWDATA < ./admin/sql/updates/20070622-3.sql
 
+echo `date` : Add subscribe to editor database tables
 ./admin/psql READWRITE < ./admin/sql/updates/20070719-1.sql
 [ "$REPLICATION_TYPE" != "$RT_SLAVE" ] && ./admin/psql READWRITE < ./admin/sql/updates/20070719-2.sql
+
+echo `date` : Adding AR improvements
 ./admin/psql READWRITE < ./admin/sql/updates/20070813-1.sql
+
+echo `date` : Fixing PUID counts, changing moderation tables
 ./admin/psql READWRITE < ./admin/sql/updates/20070921-1.sql
+
+# Drop the functions and triggers in order to fix the one wrong PUID update function
+echo `date` : Re loading functions
+[ "$REPLICATION_TYPE" != "$RT_SLAVE" ] && ./admin/psql READWRITE < ./admin/sql/DropTriggers.sql
+./admin/psql READWRITE < ./admin/sql/DropFunctions.sql
+./admin/psql READWRITE < ./admin/sql/CreateFunctions.sql
+[ "$REPLICATION_TYPE" != "$RT_SLAVE" ] && ./admin/psql READWRITE < ./admin/sql/CreateTriggers.sql
 
 [ "$REPLICATION_TYPE" = "$RT_MASTER" ] && echo `date` : Create replication triggers
 [ "$REPLICATION_TYPE" = "$RT_MASTER" ] && ./admin/psql READWRITE < ./admin/sql/CreateReplicationTriggers.sql
