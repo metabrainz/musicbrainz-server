@@ -465,9 +465,14 @@ sub GetEditorsForEntityAndTag
                                       LEFT JOIN moderator_preference
                                              ON moderator.id = moderator_preference.moderator
 	                                      WHERE moderator.id in (" . join(",", @$rows) . ")
-                                            AND (moderator_preference.name IS NULL 
-                                                 OR (moderator_preference.name = 'tags_public' 
-                                                 AND moderator_preference.value = '1'))"); 
+                                            AND moderator_preference.name IS NULL 
+                                   UNION
+                                         SELECT moderator.id, moderator.name
+  	                                       FROM moderator, moderator_preference
+                                          WHERE moderator.id = moderator_preference.moderator
+	                                        AND moderator.id in (" . join(",", @$rows) . ")
+                                            AND moderator_preference.name = 'tags_public' 
+                                            AND moderator_preference.value = '1'"); 
 	return $rows;
 }
 

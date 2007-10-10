@@ -18,20 +18,25 @@
     $m->comp("/comp/sidebar", pagetitle => "Editors who tagged $type " . $m->interp->apply_escapes($entity->GetName, 'h') .":");
 
     $m->out('<div class="TagsBox">');
-    $m->out("<p>The $type ");
-    $m->comp("/comp/link$type", $type=>$entity);
 
     if (!defined $editors)
     {
-        $m->out(" was tagged with <b>$tag</b> by no editors.</p>");
+        $m->out("<p>No one tagged $type ");
+        $m->comp("/comp/link$type", $type=>$entity);
+        $m->out(" with '<b>$tag</b>'. Losers, all of them!</p>");
     }
     elsif (scalar(@{$editors}) == 0)
     {
-        $m->out(" was tagged only with <b>$tag</b> by users who didn't make their tags public.</p>");
+        $m->out("<p>The $type ");
+        $m->comp("/comp/link$type", $type=>$entity);
+        $m->out(" tagged with '<b>$tag</b>' was only tagged by editors who didn't make their tags public.");
+        $m->out(" Shame on them for not sharing!</p>");
     }
     else
     {
-        $m->out(" was tagged with <b>$tag</b> by the following editors:</p>");
+        $m->out("<p>The following editors tagged $type ");
+        $m->comp("/comp/link$type", $type=>$entity);
+        $m->out(" with '<b>$tag</b>':");
         $m->out("<table>");
         foreach my $ed (@{$editors})
         {
