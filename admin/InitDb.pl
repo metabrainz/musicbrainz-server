@@ -47,6 +47,8 @@ my $REPTYPE = &DBDefs::REPLICATION_TYPE;
 my $psql = "psql";
 my $path_to_pending_so;
 my $fFixUTF8 = 0;
+my $fCreateDB;
+my $fCreateRawDBOnly;
 
 warn "Warning: this is a slave replication server, but there is no READONLY connection defined\n"
 	if $REPTYPE == RT_SLAVE and not $READONLY;
@@ -107,26 +109,18 @@ sub CreateReplicationFunction
 {
     my $mb;
     my $sql;
-     sub get_system_sql
-     {
-         my ($name) = shift;
-         $mb = MusicBrainz->new;
-
-         # If we can't open a specific SYSTEM db, fall back to main SYSTEM db
-         $sql = eval
-         {
-             $mb->Login(db => $name);
-         };
-         if ($@)
-         {
-             $mb->Login(db => 'SYSTEM');
-         }
-         $sql = Sql->new($mb->{DBH});
-     }
+    sub get_sql
+    {
+        my ($name) = shift;
+        $mb = MusicBrainz->new;
+        $mb->Login(db => $name);
+        $sql = Sql->new($mb->{DBH});
+    }
 }
 
 sub Create 
 {
+    my $createdb = $_[0];
     my $system_sql;
 
 	# Check we can find these programs on the path
@@ -136,85 +130,69 @@ sub Create
 		die "Can't find '$prog' on your PATH\n";
 	}
 
+    # Figure out the name of the system database
+    my $sysname;
+    if ($createdb eq 'READWRITE' || $createdb eq 'READONLY')
+    {
+        $sysname = "SYSTEM";
+    }
+    else
+    {
+        $sysname = $createdb . "_SYSTEM";
+    }
+    my $db = MusicBrainz::Server::Database->get($sysname);
+    if (defined $db)
+    {
+        # Check the cluster uses the C locale
+        $system_sql = get_sql($sysname);
+        my $locale = $system_sql->SelectSingleValue(
+            "select setting from pg_settings where name = 'lc_collate'",
+        );
 
-	# Check the cluster uses the C locale
-    for my $db (qw(SYSTEM RAWDATA_SYSTEM))
-	{
-        $system_sql = get_system_sql($db);
-
-		my $locale = $system_sql->SelectSingleValue(
-			"select setting from pg_settings where name = 'lc_collate'",
-		);
-
-		unless ($locale eq "C")
-		{
+        unless ($locale eq "C")
+        {
 			die <<EOF;
 It looks like your Postgres database cluster was created with locale '$locale'.
 MusicBrainz needs the "C" locale instead.  To rectify this, re-run "initdb"
 with the option "--locale=C".
 EOF
-		}
-	}
+        }
 
-	for my $db (MusicBrainz::Server::Database->all)
-	{
-		my $username = $db->username;
-        my $sysname = "SYSTEM";
-        $sysname = "RAWDATA_SYSTEM" if ($db->key =~ /RAW/);
-	
-        my $system_sql = get_system_sql($sysname);
-		$system_sql->SelectSingleValue(
-			"SELECT 1 FROM pg_shadow WHERE usename = ?", $username,
-		) and next;
+        my $username = $db->username;
 
-		my $passwordclause = "";
-		$passwordclause = "PASSWORD '$_'"
-			if local $_ = $db->password;
+        if (!($system_sql->SelectSingleValue(
+            "SELECT 1 FROM pg_shadow WHERE usename = ?", $username)))
+        {
+            my $passwordclause = "";
+            $passwordclause = "PASSWORD '$_'"
+                if local $_ = $db->password;
 
-		$system_sql->AutoCommit;
-		$system_sql->Do(
-			"CREATE USER $username $passwordclause NOCREATEDB NOCREATEUSER",
-		);
-	}
+            $system_sql->AutoCommit;
+            $system_sql->Do(
+                "CREATE USER $username $passwordclause NOCREATEDB NOCREATEUSER",
+            );
+        }
+    }
+    else
+    {
+        $system_sql = get_sql("SYSTEM");
+    }
 
-	$system_sql = get_system_sql("SYSTEM");
-
-	my $dbname = $READWRITE->database;
+    $db = MusicBrainz::Server::Database->get($createdb);
+	my $dbname = $db->database;
 	print localtime() . " : Creating database '$dbname'\n";
 	$system_sql->AutoCommit;
-	my $dbuser = $READWRITE->username;
+	my $dbuser = $db->username;
 	$system_sql->Do("CREATE DATABASE $dbname WITH OWNER = $dbuser ENCODING = 'UNICODE'");
 
 	# You can do this via CREATE FUNCTION, CREATE LANGUAGE; but using
 	# "createlang" is simpler :-)
-	my $sys_in_rw = $SYSTEM->modify(database => $READWRITE->database);
+	my $sys_in_rw = $SYSTEM->modify(database => $dbname);
 	my @opts = $sys_in_rw->shell_args;
 	splice(@opts, -1, 0, "-d");
 	push @opts, "plpgsql";
 	system "createlang", @opts;
 	die "\nFailed to create language\n" if ($? >> 8);
-
-    # Now create the RAWDATA db
-    if ($RAWDATA->database ne $READWRITE->database)
-    {
-	    $system_sql = get_system_sql("RAWDATA_SYSTEM");
-
-        $dbname = $RAWDATA->database;
-        print localtime() . " : Creating database '$dbname'\n";
-        $system_sql->AutoCommit;
-        $dbuser = $RAWDATA->username;
-        $system_sql->Do("CREATE DATABASE $dbname WITH OWNER = $dbuser ENCODING = 'UNICODE'");
-
-        if ($RAWDATA_SYSTEM)
-        {
-            $sys_in_rw = $RAWDATA_SYSTEM->modify(database => $RAWDATA->database);
-            @opts = $sys_in_rw->shell_args;
-            splice(@opts, -1, 0, "-d");
-            push @opts, "plpgsql";
-            system "createlang", @opts;
-            die "\nFailed to create language for rawdata\n" if ($? >> 8);
-        }
-    }
 }
 
 sub CreateRelations
@@ -270,13 +248,14 @@ sub CreateRelations
     print localtime() . " : Initialized and imported data into the database.\n";
 }
 
-# TODO: Handle this for vertical DBs
 sub GrantSelect
 {
 	return unless $READONLY;
 
+    my $name = $_[0];
+
 	my $mb = MusicBrainz->new;
-	$mb->Login(db => "READWRITE");
+	$mb->Login(db => $name);
 	my $dbh = $mb->{DBH};
 	$dbh->{AutoCommit} = 1;
 
@@ -299,7 +278,7 @@ sub SanityCheck
     die "The postgres psql application must be on your path for this script to work.\n"
        if not -x $psql and (`which psql` eq '');
 
-	if ($REPTYPE == RT_MASTER)
+	if ($REPTYPE == RT_MASTER && !$fCreateRawDBOnly)
 	{
 		defined($path_to_pending_so) or die <<EOF;
 Error: this is a master replication server, but you did not specify
@@ -358,12 +337,12 @@ pass additional options to that script by using "--".  For example:
 EOF
 }
 
-my $fCreateDB;
 my $mode = "MODE_IMPORT";
 
 GetOptions(
 	"psql=s"			=> \$psql,
 	"createdb"			=> \$fCreateDB,
+	"createrawonly"		=> \$fCreateRawDBOnly,
 	"empty-database"	=> sub { $mode = "MODE_NO_TABLES" },
 	"import|i"			=> sub { $mode = "MODE_IMPORT" },
 	"clean|c"			=> sub { $mode = "MODE_NO_DATA" },
@@ -379,13 +358,26 @@ SanityCheck();
 print localtime() . " : InitDb.pl starting\n";
 my $started = 1;
 
-Create() if $fCreateDB;
+if ($fCreateRawDBOnly)
+{
+    Create("RAWDATA");
+    GrantSelect("RAWDATA");
+}
+else
+{
+    if ($fCreateDB)
+    {
+        Create("READWRITE");
+        Create("RAWDATA");
+    }
 
-if ($mode eq "MODE_NO_TABLES") { } # nothing to do
-elsif ($mode eq "MODE_NO_DATA") { CreateRelations() }
-elsif ($mode eq "MODE_IMPORT") { CreateRelations(\@ARGV) }
+    if ($mode eq "MODE_NO_TABLES") { } # nothing to do
+    elsif ($mode eq "MODE_NO_DATA") { CreateRelations() }
+    elsif ($mode eq "MODE_IMPORT") { CreateRelations(\@ARGV) }
 
-GrantSelect();
+    GrantSelect("READWRITE");
+    GrantSelect("RAWDATA");
+}
 
 END {
 	print localtime() . " : InitDb.pl "
