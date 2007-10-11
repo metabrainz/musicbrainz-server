@@ -104,6 +104,19 @@
 
 % 	}
 
+% 	if (&DBDefs::REPLICATION_TYPE == RT_SLAVE)
+%	{
+
+				<tr>
+					<td class="perlstatus" colspan="3">
+                    <%perl>
+                    $m->out("This mirror was last updated: " . MusicBrainz::Server::Database->get_last_replication_date());
+                    </%perl>
+					</td>
+				</tr>
+
+% 	}
+
 			</table>
 		</div>
 

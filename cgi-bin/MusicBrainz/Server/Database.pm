@@ -147,5 +147,14 @@ sub shell_args
 	join " ", map { String::ShellQuote::shell_quote($_) } @args;
 }
 
+sub get_last_replication_date
+{
+    require MusicBrainz;
+    my $mb = MusicBrainz->new;
+    $mb->Login;
+    my $sql = Sql->new($mb->{DBH});
+    return $sql->SelectSingleValue("SELECT last_replication_date FROM replication_control");
+}
+
 1;
 # eof Database.pm
