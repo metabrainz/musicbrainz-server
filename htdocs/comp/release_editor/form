@@ -91,11 +91,6 @@
 
 		<& /comp/autofixmenu &>
 
-		<script type="text/javascript" src="/scripts/entervalidate.js"></script>
-		<script type="text/javascript" src="/scripts/jsselect.js"></script>
-		<script type="text/javascript" src="/scripts/labeleditors.js"></script>
-		<script type="text/javascript" src="/scripts/editallconfig.js"></script>
-
 		<& /comp/layout/editformbegin, title => $boxtitle, mp => $editmode &>
 
 %			# this submit hidden field is needed, if the user submits the form
@@ -642,6 +637,11 @@
 		</div>
 
 	</form>
+    <script type="text/javascript" src="/scripts/entervalidate.js"></script>
+    <script type="text/javascript" src="/scripts/jsselect.js"></script>
+    <script type="text/javascript" src="/scripts/labeleditors.js"></script>
+    <script type="text/javascript" src="/scripts/editallconfig.js"></script>
+
 
 %# vi: set ts=4 sw=4 ft=mason :
 
