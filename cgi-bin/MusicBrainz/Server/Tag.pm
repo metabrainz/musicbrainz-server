@@ -460,19 +460,14 @@ sub GetEditorsForEntityAndTag
                                                    AND $assoc_table.tag = ?", $entity_id, $tag_id);
     return [{}] if (scalar(@$rows) == 0);
 
-	$rows = $maindb->SelectListOfHashes("SELECT moderator.id, moderator.name
-  	                                       FROM moderator
-                                      LEFT JOIN moderator_preference
-                                             ON moderator.id = moderator_preference.moderator
-	                                      WHERE moderator.id in (" . join(",", @$rows) . ")
-                                            AND moderator_preference.name IS NULL 
-                                   UNION
-                                         SELECT moderator.id, moderator.name
-  	                                       FROM moderator, moderator_preference
-                                          WHERE moderator.id = moderator_preference.moderator
-	                                        AND moderator.id in (" . join(",", @$rows) . ")
-                                            AND moderator_preference.name = 'tags_public' 
-                                            AND moderator_preference.value = '1'"); 
+	$rows = $maindb->SelectListOfHashes("SELECT moderator.id, moderator.name 
+                                           FROM moderator 
+                                      LEFT JOIN moderator_preference 
+                                             ON moderator_preference.name='tags_public' 
+                                            AND moderator_preference.moderator=moderator.id 
+                                          WHERE moderator.id in (" . join(",", @$rows) . ")
+                                            AND (moderator_preference.value IS NULL 
+                                                 OR moderator_preference.value = '1')");
 	return $rows;
 }
 
