@@ -43,46 +43,37 @@
 </%args>
 <%perl>
 
-	sub ConvertToLines
-	{
-		my ($links, $expanded) = @_;
-		my @lines;
-
-		my $i = 0;
-		my $num_links = scalar(@$links);
-
-		while ($i < $num_links)
-		{
-			my @line;
-		
-			my $a = $links->[$i];
-			push @line, $a;
-			$i++;
-
-			if (!$expanded)
-			{
-				while ($i < $num_links) {
-					my $b = $links->[$i];
-					last if ($a->{link_phrase} ne $b->{link_phrase} ||
-				         	$a->{begindate} ne $b->{begindate} ||
-				         	$a->{enddate} ne $b->{enddate});
-					push @line, $b;
-					$i++;
-				}
-			}
-
-			push @lines, \@line;
-		}
-
-		return \@lines;
-	}
+	my @lines;
+	my $i = 0;
+	my $num_links = scalar(@$relationships);
 
 	$expanded = ($expanded == 1);
 	$modlinks = ($modlinks == 1);
 
-	my $lines = ConvertToLines($relationships, $expanded);
+	while ($i < $num_links)
+	{
+		my @line;
+		
+		my $a = $relationships->[$i];
+		push @line, $a;
+		$i++;
 
-	my $num_lines = scalar(@$lines);
+		if (!$expanded)
+		{
+			while ($i < $num_links) {
+				my $b = $relationships->[$i];
+				last if ($a->{link_phrase} ne $b->{link_phrase} ||
+			         	$a->{begindate} ne $b->{begindate} ||
+			         	$a->{enddate} ne $b->{enddate});
+				push @line, $b;
+				$i++;
+			}
+		}
+
+		push @lines, \@line;
+	}
+
+	my $num_lines = scalar(@lines);
 	my $missing = 0;
 	if ($num_lines)
 	{
@@ -99,7 +90,7 @@
 				if !$track;
 		}
 
-		my $i = 0;
+		$i = 0;
 		while ($i < $num_lines) 
 		{
 		
@@ -107,13 +98,13 @@
 			{
 				while ($i < $num_lines)
 				{
-					$missing += scalar(@{$lines->[$i]});
+					$missing += scalar(@{$lines[$i]});
 					$i++;
 				}
 				last;
 			}
 
-			my $line = $lines->[$i];
+			my $line = $lines[$i];
 			my $num_links = scalar(@$line);
 			if ($num_links)
 			{
