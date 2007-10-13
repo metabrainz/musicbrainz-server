@@ -11,7 +11,7 @@
 <& /comp/sidebar, pagetitle => "All Tags" &>
 
 <p style="margin-bottom: 1em;">
-	<% $t->GenerateTagCloud($tags, 12, 30) | n %>
+	<% $t->GenerateTagCloud($tags, "all", 12, 30) | n %>
 </p>
 
 <& /comp/footer &>
