@@ -112,6 +112,7 @@
             my ($coverurl);
             ($name, $coverurl, $url) = MusicBrainz::Server::CoverArt->ParseCoverArtURL($item->{link1_name}, $release);
             $release->SetInfoURL($url ne '' ? $url : $item->{link1_name}) if $release;
+            $name = $item->{link1_name} if $url eq '';
 		}
 		else
 		{
