@@ -109,10 +109,6 @@
 			$m->out(sprintf qq! <a href="/show/%s/relationships.html?%sid=$id">View relationships</a>!,
 					$typeshow,
 					$typeshow);
-
-			$m->out(sprintf qq! | <a href="/show/%s/relationships.html?%sid=$id">Edit</a>!,
-					$typeshow,
-					$typeshow);
 		}
 	}
 
