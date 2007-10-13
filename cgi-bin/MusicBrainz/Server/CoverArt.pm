@@ -73,6 +73,13 @@ my @CoverArtSites =
        imguri     => '$1',
        releaseuri => '',
    },
+   { 
+       name       => 'www.ozon.ru',
+       domain     => 'www.ozon.ru',
+       regexp     => 'http://www.ozon.ru/context/detail/id/(\d+)',
+       imguri     => '',
+       releaseuri => 'http://www.ozon.ru/context/detail/id/$1/?partner=musicbrainz',
+   },
 );
 
 # amazon image file names are unique on all servers and constructed like
@@ -294,6 +301,10 @@ sub ParseCoverArtURL
                     $al->SetInfoURL($release);
                 }
                 return ($site->{name}, $img, $release);
+            }
+            else
+            {
+                return ($site->{name}, '', '');
             }
         }
     }

@@ -88,7 +88,14 @@
 		{
 			my ($coverurl);
 			($name, $coverurl, $url) = MusicBrainz::Server::CoverArt->ParseCoverArtURL($item->{link1_name}, $release);
-            $url = $coverurl if (!$url);
+            if ($name ne '' && $coverurl eq '' && $url eq '')
+            {
+                $coverurl = $item->{link1_name};
+            }
+            elsif (!$url)
+            {
+                $url = $coverurl;
+            }
             $release->SetCoverartURL($coverurl) if ($coverurl ne '');
 			if ($url ne "")
 			{
@@ -102,7 +109,9 @@
                 $item->{"link_name"} eq "download for free" ||    
                 $item->{"link_name"} eq "creative commons licensed download") && $prefix eq "link1_")
 		{
-            $release->SetInfoURL($item->{link1_name}) if $release;
+            my ($coverurl);
+            ($name, $coverurl, $url) = MusicBrainz::Server::CoverArt->ParseCoverArtURL($item->{link1_name}, $release);
+            $release->SetInfoURL($url ne '' ? $url : $item->{link1_name}) if $release;
 		}
 		else
 		{
