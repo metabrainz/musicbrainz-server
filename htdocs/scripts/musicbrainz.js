@@ -957,6 +957,7 @@ mb.log.debug("ONLOAD::focusfield not found.");
 return mb.log.exit();
 };
 this.getEntityLink=function(_9f,id,_a1){
+_9f=_9f=="album"?"release":_9f;
 s=[];
 _9f=_9f.toLowerCase();
 s.push("<span class=\"link"+_9f+"-icon\" title=\""+_a1+"\">");

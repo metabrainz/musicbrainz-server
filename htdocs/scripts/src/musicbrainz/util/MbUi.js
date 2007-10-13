@@ -312,6 +312,7 @@ function MbUI() {
 	};
 
 	this.getEntityLink = function(type, id, name) {
+		type = type == "album" ? "release" : type;
 		s = [];
 		type = type.toLowerCase();
 		s.push('<span class="link'+type+'-icon" title="'+name+'">');
