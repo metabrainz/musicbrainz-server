@@ -77,13 +77,16 @@
 		return \@lines;
 	}
 
+	$expanded = ($expanded == 1);
+	$modlinks = ($modlinks == 1);
+
 	my $lines = ConvertToLines($relationships, $expanded);
 
 	my $num_lines = scalar(@$lines);
 	my $missing = 0;
 	if ($num_lines)
 	{
-		if ($num_lines > 1 || $track || ($modlinks && $expanded))
+		if (($num_lines > 1) || $track || ($modlinks && $expanded))
 		{
 			$m->comp("/comp/relationship/outputentity", item => $relationships->[0], index => 0, name => $name)
 				if !$track;
@@ -100,7 +103,7 @@
 		while ($i < $num_lines) 
 		{
 		
-			if ($i + 1 == $max_lines && ($missing > 0 || $num_lines > $max_lines))
+			if (($i + 1 == $max_lines) && (($missing > 0) || ($num_lines > $max_lines)))
 			{
 				while ($i < $num_lines)
 				{
@@ -115,7 +118,7 @@
 			if ($num_links)
 			{
 				my $item = $line->[0];
-				if ($num_lines > 1 || $track || ($modlinks && $expanded))
+				if (($num_lines > 1) || $track || ($modlinks && $expanded))
 				{
 					$m->out($track ? '<tr><td class="small">' : '<tr><td valign="top" style="text-align:center;width:1em;">&bull;</td><td>')
 				}
@@ -174,7 +177,7 @@
 							$returnto.'">Edit</a>&nbsp;]');
 				}
 
-				if ($num_lines > 1 || $track || ($modlinks && $expanded))
+				if (($num_lines > 1) || $track || ($modlinks && $expanded))
 				{
 					$m->out('</td></tr>');
 				}
