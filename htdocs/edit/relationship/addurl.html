@@ -57,7 +57,7 @@
 	$url = undef if ($url eq "http://" || $url eq "");
 
 	# check if all needed external arguments were given
-	if (!$type || !$id || !$name)
+	if (!$type || !$id || $name eq "")
 	{
 		$m->comp("/comp/layout/badarguments", text => "The id, type and name parameters must be provided to this page.");
 		return undef;
