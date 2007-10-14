@@ -27,17 +27,24 @@ use strict;
 
 package MusicBrainz::Server::Handlers::WS::1::Common;
 
+my $stash = \%MusicBrainz::Server::Handlers::WS::1::Common::;
+
 require Exporter;
 our @ISA = qw(Exporter);
 our @EXPORT = qw(convert_inc bad_req send_response check_types
                  xml_artist xml_release xml_track xml_search xml_escape
                  xml_label
                  get_type_and_status_from_inc get_release_type
-                 INC_ARTIST INC_COUNTS INC_LIMIT INC_TRACKS INC_RELEASES 
-                 INC_VARELEASES INC_DURATION INC_ARTISTREL INC_RELEASEREL 
-                 INC_DISCS INC_TRACKREL INC_URLREL INC_RELEASEINFO 
-                 INC_ARTISTID INC_RELEASEID INC_TRACKID INC_TITLE 
-                 INC_TRACKNUM INC_PUIDS INC_ALIASES INC_LABELS);
+);
+push @EXPORT, grep /^INC_/, keys %$stash;
+our %EXPORT_TAGS = (
+	'inc'	=> [ grep /^INC_/, keys %$stash ],
+);
+our @EXPORT_OK = qw(
+	service_unavail
+	rate_limited
+	apply_rate_limit
+);
 
 use Apache::Constants qw( );
 use Apache::File ();
@@ -229,6 +236,44 @@ sub service_unavail
 	$r->send_http_header("text/plain; charset=utf-8");
 	$r->print($error."\015\012") unless $r->header_only;
 	return Apache::Constants::OK();
+}
+
+# Given the result of a RateLimit test ($t), return a response indicating that
+# the client is making requests too fast.
+sub rate_limited
+{
+	my ($r, $t) = @_;
+	$r->status(Apache::Constants::HTTP_SERVICE_UNAVAILABLE());
+	$r->headers_out->add("X-Rate-Limited", sprintf("%.1f %.1f %d", $t->rate, $t->limit, $t->period));
+	$r->send_http_header("text/plain; charset=utf-8");
+	unless ($r->header_only)
+	{
+		$r->print("Your requests are exceeding the allowable rate limit (" . $t->msg . ")\015\012");
+		$r->print("Please see http://wiki.musicbrainz.org/XMLWebService for more information.\015\012");
+	}
+	return Apache::Constants::OK();
+}
+
+# Given a key (optional - defaults to something sensible), tests to see if the
+# client is making requests too fast.  If yes, generates an appropriate
+# response and returns something true (an Apache status for the handler to
+# return); if no, returns something false.
+sub apply_rate_limit
+{
+	my ($r, $key) = @_;
+
+	if (not defined $key)
+	{
+		$key = "ws ip=" . $r->connection->remote_ip;
+	}
+
+	use MusicBrainz::Server::RateLimit;
+	if (my $test = MusicBrainz::Server::RateLimit->test($key))
+	{
+		return rate_limited($r, $test) || '0 but true';
+	}
+
+	return '';
 }
 
 sub send_response

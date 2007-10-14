@@ -29,7 +29,7 @@ package MusicBrainz::Server::Handlers::WS::1::Track;
 
 use Apache::Constants qw( );
 use Apache::File ();
-use MusicBrainz::Server::Handlers::WS::1::Common;
+use MusicBrainz::Server::Handlers::WS::1::Common qw( :DEFAULT apply_rate_limit );
 use Apache::Constants qw( OK BAD_REQUEST DECLINED SERVER_ERROR NOT_FOUND FORBIDDEN);
 
 sub handler
@@ -102,12 +102,15 @@ sub handler
         }
         $release = "" if ($releaseid);
 
+		if (my $st = apply_rate_limit($r)) { return $st }
 
         return xml_search($r, {type=>'track', track=>$title, artist=>$artist, release=>$release, 
                                artistid => $artistid, releaseid=>$releaseid, duration=>$duration,
                                tracknumber => $tnum, limit => $limit, count => $count, releasetype=>$releasetype, 
                                query=>$query, offset=>$offset});
     }
+
+	if (my $st = apply_rate_limit($r)) { return $st }
 
 	my $status = eval 
     {

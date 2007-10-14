@@ -29,7 +29,7 @@ package MusicBrainz::Server::Handlers::WS::1::Artist;
 
 use Apache::Constants qw( );
 use Apache::File ();
-use MusicBrainz::Server::Handlers::WS::1::Common;
+use MusicBrainz::Server::Handlers::WS::1::Common qw( :DEFAULT apply_rate_limit );
 
 sub handler
 {
@@ -76,8 +76,11 @@ sub handler
 
 		return bad_req($r, "Must specify a name or query argument for artist collections.") if (!$name && !$query);
 		return bad_req($r, "Must specify a name OR query argument for artist collections. Not both.") if ($name && $query);
+		if (my $st = apply_rate_limit($r)) { return $st }
         return xml_search($r, { type => 'artist', artist => $name, limit => $limit, query=>$query, offset=>$offset });
     }
+
+	if (my $st = apply_rate_limit($r)) { return $st }
 
 	my $status = eval {
 		# Try to serve the request from the database
