@@ -5,23 +5,7 @@ cd `dirname $0`
 
 eval `./admin/ShowDBDefs`
 
-echo `date` : Upgrading to RELEASE-20070401-BRANCH
-
-
-# This replication packet will have the old SCHEMA_SEQUENCE number
-
-if [ "$REPLICATION_TYPE" = "$RT_MASTER" ]
-then
-	# The old / new schema sequence numbers
-	OLD_SEQ=$(( $DB_SCHEMA_SEQUENCE - 1 ))
-	NEW_SEQ=$DB_SCHEMA_SEQUENCE
-	# The final export of the old schema needs to run under the old sequence number
-	perl -i -pwe 's/\b\d+\b/'$OLD_SEQ'/ if m/^sub DB_SCHEMA_SEQUENCE /' ./cgi-bin/DBDefs.pm
-#TODO:
-# This needs to run under the OLD branch!
-#	./admin/RunExport
-	perl -i -pwe 's/\b\d+\b/'$NEW_SEQ'/ if m/^sub DB_SCHEMA_SEQUENCE /' ./cgi-bin/DBDefs.pm
-fi
+echo `date` : Upgrading to RELEASE-20071014-BRANCH
 
 # Drop the old replication triggers on the master, so that the changes in 20070813-1.sql don't create
 # massive replication packets.
