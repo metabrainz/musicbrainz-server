@@ -55,10 +55,10 @@
 		<link rel="stylesheet" type="text/css" href="/css/print.css?t=<% $mtime_print %>" media="print" />
 		<link rel="shortcut icon" href="/favicon.ico" />
 
-		<link rel="search" type="application/opensearchdescription+xml" title="MusicBrainz: Artist" href="/search/plugins/opensearch/musicbrainzartist.xml">
-		<link rel="search" type="application/opensearchdescription+xml" title="MusicBrainz: Label" href="/search/plugins/opensearch/musicbrainzlabel.xml">
-		<link rel="search" type="application/opensearchdescription+xml" title="MusicBrainz: Release" href="/search/plugins/opensearch/musicbrainzrelease.xml">
-		<link rel="search" type="application/opensearchdescription+xml" title="MusicBrainz: Track" href="/search/plugins/opensearch/musicbrainztrack.xml">
+		<link rel="search" type="application/opensearchdescription+xml" title="MusicBrainz: Artist" href="/search/plugins/opensearch/musicbrainzartist.xml" />
+		<link rel="search" type="application/opensearchdescription+xml" title="MusicBrainz: Label" href="/search/plugins/opensearch/musicbrainzlabel.xml" />
+		<link rel="search" type="application/opensearchdescription+xml" title="MusicBrainz: Release" href="/search/plugins/opensearch/musicbrainzrelease.xml" />
+		<link rel="search" type="application/opensearchdescription+xml" title="MusicBrainz: Track" href="/search/plugins/opensearch/musicbrainztrack.xml" />
 
 		<script type="text/javascript" src="/scripts/musicbrainz.js?t=<% $mtime_musicbrainzjs %>"></script>
 		<script type="text/javascript" src="/scripts/popup.js?t=<% $mtime_popupjs %>"></script>
