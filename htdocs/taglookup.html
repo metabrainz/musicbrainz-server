@@ -266,6 +266,8 @@
 			$query = "artist:($_artist) (sortname:($_artist))^0.000001 (alias:($_artist))^0.000001";
 		}
 
+# print "Sorry, the search server is down.";
+# return;
 		use URI::Escape qw( uri_escape );
 		my $docurl = 'http://' . &DBDefs::LUCENE_SERVER . "/ws/1/$type/?query=" .
 					 uri_escape($query) . "&type=$type";
@@ -276,6 +278,7 @@
 
 		require LWP::UserAgent;
 		my $ua = LWP::UserAgent->new;
+		$ua->timeout(2);
 		my $response = $ua->get($docurl);
 		if (!$response->is_success)
 		{

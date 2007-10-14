@@ -1039,6 +1039,7 @@ sub xml_search
     # In case we have a blank query, we must remove the AND at the beginning
     $query =~ s/^ AND //;
 
+# return service_unavail($r, "Sorry, the search server is down");
     use URI::Escape qw( uri_escape );
     my $url = 'http://' . &DBDefs::LUCENE_SERVER . "/ws/1/$type/?" .
               "max=" . $args->{limit} . "&type=$type&fmt=xml&offset=$offset&query=". uri_escape($query);
@@ -1047,6 +1048,7 @@ sub xml_search
     require LWP::UserAgent;
     my $ua = LWP::UserAgent->new;
     my $response = $ua->get($url);
+	$ua->timeout(2);
     if ( $response->is_success )
     {
         $out = '<?xml version="1.0" encoding="UTF-8"?>';

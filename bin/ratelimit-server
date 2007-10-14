@@ -104,7 +104,7 @@ sub process_request
 				if $key =~ /^mason ip=(\d+\.\d+\.\d+\.\d+)$/;
 
 			# MusicBrainz::Server::Handlers::WS::1::Common
-			($limit, $period) = (30, 30), last
+			($limit, $period) = (40, 30), last
 				if $key =~ /^ws ip=(\d+\.\d+\.\d+\.\d+)$/;
 
 			# Default is to allow everything
