@@ -27,5 +27,13 @@ DROP TRIGGER a_del_puidjoin ON puidjoin;
 DROP TRIGGER a_ins_puidjoin ON puidjoin;
 DROP TRIGGER a_idu_puid_stat ON puid_stat;
 DROP TRIGGER a_idu_puidjoin_stat ON puidjoin_stat;
+DROP TRIGGER a_ins_artist_tag ON artist_tag;
+DROP TRIGGER a_del_artist_tag ON artist_tag;
+DROP TRIGGER a_ins_release_tag ON release_tag;
+DROP TRIGGER a_del_release_tag ON release_tag;
+DROP TRIGGER a_ins_track_tag ON track_tag;
+DROP TRIGGER a_del_track_tag ON track_tag;
+DROP TRIGGER a_ins_label_tag ON label_tag;
+DROP TRIGGER a_del_label_tag ON label_tag;
 
 -- vi: set ts=4 sw=4 et :
