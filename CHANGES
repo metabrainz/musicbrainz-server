@@ -1,4 +1,4 @@
-Release 2007-XX-YY:
+Release 2007-10-07:
 
   * New Features:
     * PureVolume url AR type detection. (#2724)
@@ -18,6 +18,10 @@ Release 2007-XX-YY:
     * Make non-wikidocs pages look like normal wikidocs pages (#1962)
     * Use an icon to show that track has track annotation. (patch by Jugdish,
       icon by mo) (#3021)
+    * Cover art support for ozon.ru and 8bitpeoples.com
+    * Folksonomy Tagging
+    * Vertical database support for running the RAWDATA database on a physically seperate machine.
+
   * Bux Fixes:
     * Don't double HTML-encode values in hidden inputs. (#2726)
     * Removed broken links to (non-existant) TRM reports.
