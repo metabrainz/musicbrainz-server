@@ -682,12 +682,53 @@ my %stats = (
 		PREREQ => [qw[ count.ar.links ]],
 		PREREQ_ONLY => 1,
 	},
+
+	"count.tag" => {
+		DESC => "Count of all tags",
+		SQL => "SELECT COUNT(*) FROM tag",
+	},
+	"count.tag.raw.artist" => {
+		DESC => "Count of all artist raw tags",
+		SQL => "SELECT COUNT(*) FROM artist_tag_raw",
+		RAWDATA_DB => 1,
+	},
+	"count.tag.raw.label" => {
+		DESC => "Count of all label raw tags",
+		SQL => "SELECT COUNT(*) FROM label_tag_raw",
+		RAWDATA_DB => 1,
+	},
+	"count.tag.raw.release" => {
+		DESC => "Count of all release raw tags",
+		SQL => "SELECT COUNT(*) FROM release_tag_raw",
+		RAWDATA_DB => 1,
+	},
+	"count.tag.raw.track" => {
+		DESC => "Count of all track raw tags",
+		SQL => "SELECT COUNT(*) FROM track_tag_raw",
+		RAWDATA_DB => 1,
+	},
+	"count.tag.raw" => {
+		DESC => "Count of all raw tags",
+		PREREQ => [qw[ count.tag.raw.artist count.tag.raw.label count.tag.raw.release count.tag.raw.track ]],
+		CALC => sub {
+			my ($self, $sql) = @_;
+			return $self->Fetch('count.tag.raw.artist') + 
+			       $self->Fetch('count.tag.raw.label') +
+			       $self->Fetch('count.tag.raw.release') +
+			       $self->Fetch('count.tag.raw.track');
+		},
+	},
+
 );
 
 sub RecalculateStat
 {
 	my ($self, $name) = @_;
 	my $sql = Sql->new($self->{DBH});
+
+	my $vertmb = new MusicBrainz;
+	$vertmb->Login(db => 'RAWDATA');
+	my $vertsql = Sql->new($vertmb->{DBH});
 
 	my $def = $stats{$name}
 		or warn("Unknown stat name '$name'"), return;
@@ -696,14 +737,22 @@ sub RecalculateStat
 
 	if (my $query = $def->{SQL})
 	{
-		my $value = $sql->SelectSingleValue($query);
+		my $value;
+		if ($def->{RAWDATA_DB})
+		{
+			$value = $vertsql->SelectSingleValue($query);
+		}
+		else
+		{
+			$value = $sql->SelectSingleValue($query);
+		}
 		$self->Update($name, $value);
 		return;
 	}
 
 	if (my $sub = $def->{CALC})
 	{
-		my $towrite = $sub->($self, $sql);
+		my $towrite = $sub->($self, $sql, $vertsql);
 
 		if (ref($towrite) eq "HASH")
 		{
