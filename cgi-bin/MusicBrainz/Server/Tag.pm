@@ -483,7 +483,7 @@ sub GetEntitiesForTag
 		SELECT	DISTINCT j.$entity_type AS id, e.name AS name, e.gid AS gid, j.count
 		FROM	$entity_table e, $assoc_table j, tag t
 		WHERE	t.name = ? AND j.tag = t.id AND e.id = j.$entity_type
-		ORDER BY j.count DESC
+		ORDER BY j.count DESC, name ASC
 		LIMIT ?
 EOF
 
