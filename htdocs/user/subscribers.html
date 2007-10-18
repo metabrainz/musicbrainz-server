@@ -56,10 +56,11 @@
 			<tr class="top">
 				<td class="label">Review:</td>
 				<td>
-					<a href="/mod/search/pre/voted.html?moderator=<% $user->GetId %>">Votes</a> |
-					<a href="/mod/search/pre/moderator.html?moderator=<% $user->GetId %>">Edits</a> |
-					<a href="/mod/search/pre/moderator-failed.html?moderator=<% $user->GetId %>">Failed edits</a> |
-					<a href="/mod/search/pre/moderator-deleted.html?moderator=<% $user->GetId %>">Deleted edits</a>
+					<a href="/mod/search/pre/voted.html?userid=<% $user->GetId %>">Votes</a> |
+					<a href="/mod/search/pre/editor.html?userid=<% $user->GetId %>">Edits</a> |
+					<a href="/mod/search/pre/editor-open.html?userid=<% $user->GetId %>">Open edits</a> |
+					<a href="/mod/search/pre/editor-failed.html?userid=<% $user->GetId %>">Failed edits</a> |
+  					<a href="/mod/search/pre/editor-deleted.html?userid=<% $user->GetId %>">Cancelled edits</a> 
 				</td>
 			</tr>
 		</table>
