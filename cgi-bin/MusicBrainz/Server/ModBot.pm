@@ -346,7 +346,7 @@ sub CheckModerations
 		chomp $err;
 		print STDERR $err, "\n";
 
-		unless (eval { $sql->Rollback; 1 })
+		unless (eval { $sql->Rollback; $vertsql->Rollback; 1 })
 		{
 			chomp $@;
 			print STDERR localtime() . " : Additionally, the ROLLBACK failed ($@)\n";
