@@ -1061,6 +1061,10 @@ sub InsertModeration
 		$opts{privs} = $class->{_privs_};
 	}
 
+    # in some cases there are nested transaction (e.g. some album merges) where
+    # we specfically do not want to start a new transaction
+    my $notrans = exists $opts{notrans};
+
 	# Process the required %opts keys - DBH, type, uid, privs.
 	my $privs;
 	my $this = do {
@@ -1093,11 +1097,14 @@ sub InsertModeration
     $vertmb->Login(db => 'RAWDATA');
     my $vertsql = Sql->new($vertmb->{DBH});
 
-	$sql->Begin;
-	$vertsql->Begin;
+    if (!$notrans)
+    {
+        $sql->Begin;
+        $vertsql->Begin;
 
-    $Moderation::DBConnections{READWRITE} = $sql;
-    $Moderation::DBConnections{RAWDATA} = $vertsql;
+        $Moderation::DBConnections{READWRITE} = $sql;
+        $Moderation::DBConnections{RAWDATA} = $vertsql;
+    }
 
 	eval
 	{
@@ -1239,20 +1246,26 @@ SUPPRESS_INSERT:
 		# Save problems with self-referencing and garbage collection
 		delete $this->{inserted_moderations};
 
-        delete $Moderation::DBConnections{READWRITE};
-        delete $Moderation::DBConnections{RAWDATA};
+        if (!$notrans)
+        {
+            delete $Moderation::DBConnections{READWRITE};
+            delete $Moderation::DBConnections{RAWDATA};
 
-		$vertsql->Commit;
-		$sql->Commit;
+            $vertsql->Commit;
+            $sql->Commit;
+        }
 	};
 
 	if ($@)
 	{
 		my $err = $@;
-        delete $Moderation::DBConnections{READWRITE};
-        delete $Moderation::DBConnections{RAWDATA};
-		$vertsql->Rollback;
-		$sql->Rollback;
+        if (!$notrans)
+        {
+            delete $Moderation::DBConnections{READWRITE};
+            delete $Moderation::DBConnections{RAWDATA};
+            $vertsql->Rollback;
+            $sql->Rollback;
+        }
 		croak $err;
 	};
 
