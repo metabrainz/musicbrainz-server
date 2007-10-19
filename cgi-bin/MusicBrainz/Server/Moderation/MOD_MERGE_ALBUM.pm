@@ -138,7 +138,6 @@ sub DetermineQuality
 
     if ($quality < 0)
     {
-        print STDERR __PACKAGE__ . ": quality not determined for $self->{id}\n";
         $quality = &ModDefs::QUALITY_NORMAL;
     }
     return $quality;
