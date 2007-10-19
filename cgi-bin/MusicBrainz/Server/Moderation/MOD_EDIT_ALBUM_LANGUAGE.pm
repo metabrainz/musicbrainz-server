@@ -141,7 +141,6 @@ sub DetermineQuality
         {
             return $rel->GetQuality();        
         }
-        print STDERR __PACKAGE__ . " cannot determine quality for $self->{id}\n";
     }
     return &ModDefs::QUALITY_NORMAL;
 }
