@@ -12,8 +12,11 @@
 <%perl>
 
 my $linktypeid;
-$linktypeid = 'd9ea0f04-5abf-48a6-98ca-13fa4de7b678' if ($type eq 'album');
-$linktypeid = '87c9a8ed-36fc-4e39-8219-c5c63a755d56' if ($type eq 'track');
+#$linktypeid = 'd9ea0f04-5abf-48a6-98ca-13fa4de7b678' if ($type eq 'album');
+#$linktypeid = '87c9a8ed-36fc-4e39-8219-c5c63a755d56' if ($type eq 'track');
+
+$linktypeid = 32 if ($type eq 'album'); 
+$linktypeid = 21 if ($type eq 'track'); 
 
 $m->comp("/comp/checkloggedin", 1, 1)
 	or return;
