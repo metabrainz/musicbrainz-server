@@ -34,6 +34,7 @@ use Getopt::Long;
 
 use DBDefs;
 use MusicBrainz;
+use Moderation;
 use Sql;
 use ModDefs;
 use UserStuff;
@@ -45,6 +46,10 @@ my $sql = Sql->new($mb->{DBH});
 my $mb2 = MusicBrainz->new;
 $mb2->Login;
 my $sqlWrite = Sql->new($mb2->{DBH});
+
+my $vertmb = new MusicBrainz;
+$vertmb->Login(db => 'RAWDATA');
+my $sqlVert = Sql->new($vertmb->{DBH});
 
 my $use_auto_mod = 1;
 my $moderator = &ModDefs::MODBOT_MODERATOR;
@@ -218,6 +223,10 @@ while (my ($id, $name, $sortname) = $sql->NextRow)
 	}
 
 	$sqlWrite->Begin;
+	$sqlVert->Begin;
+
+    $Moderation::DBConnections{READWRITE} = $sqlWrite;
+    $Moderation::DBConnections{RAWDATA} = $sqlVert;
 	
 	eval
 	{
@@ -237,8 +246,10 @@ while (my ($id, $name, $sortname) = $sql->NextRow)
 			type => &ModDefs::MOD_REMOVE_ARTIST,
 			# --
 			artist => $ar,
+            notrans => 1
 		);
 		$sqlWrite->Commit;
+		$sqlVert->Commit;
 
 		my $modid = 0;
 		$modid = $mods[0]->GetId if @mods;
@@ -254,11 +265,14 @@ while (my ($id, $name, $sortname) = $sql->NextRow)
 	} or do {
 		my $err = $@;
 		$sqlWrite->Rollback;
+		$sqlVert->Rollback;
 		printf "%s : Error removing %6d %-30.30s (%s):\n  %s\n",
 			scalar localtime,
 			$id, $name, $sortname,
 			$err;
 	};
+    delete $Moderation::DBConnections{READWRITE};
+    delete $Moderation::DBConnections{RAWDATA};
 }
 
 # Issue a commit on the main handle to drop the temp tables
