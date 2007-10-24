@@ -92,6 +92,7 @@
 					<select name="attr_script" style="<% $dropdownstyle %>" tabindex="<% ++$$tabindex %>" <% $scriptcss |n %>>
 						<& /comp/options, \@scripts, $attr_script &>
 					</select>
+                    <br/><span style="font-size: x-small">Hint: If this release/CD is in English, please select the Latin script.</span><br/>
 					<& /comp/form/buttonsubmit, value => $submit_togglelists, tabindex => ++$$tabindex &></td>
 				<td colspan="2">
 					[ <a href="/popup/ReleaseLanguage" title="POPUP::ReleaseLanguage::400::300">help</a> ]

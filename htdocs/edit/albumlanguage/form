@@ -90,7 +90,9 @@
 				<select name="<% $script_fieldname %>" style="<% $expand_lists ? "" : "width: 200px" %>"
 					id="id_<% $script_fieldname %>">
 					<& /comp/options, \@scripts, $script_curr &>
-				</select></td>
+				</select>
+                <br/><span style="font-size: x-small">Hint: If this release/CD is in English, please select the Latin script.</span><br/>
+                </td>
 		</tr>
 		<tr>
 			<td>&nbsp;</td>
