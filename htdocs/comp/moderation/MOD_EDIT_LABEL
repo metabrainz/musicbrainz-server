@@ -163,12 +163,12 @@
 %	{
 		<tr class="top">
 			<td class="lbl" rowspan="2">Sort Name:</td>
-			<td class="diff" id="ov::sortname<% $id %>">
+			<td class="diff" id="ov::labelsortname<% $id %>">
 				<% $prev->{'SortName'} %>
 			</td>
 		</tr>
 		<tr>
-			<td class="diff" id="nv::sortname<% $id %>">
+			<td class="diff" id="nv::labelsortname<% $id %>">
 				<% $new->{"SortName"} %>
 			</td>
 		</tr>

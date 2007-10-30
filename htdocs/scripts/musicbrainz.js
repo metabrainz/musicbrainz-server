@@ -576,7 +576,7 @@ var i,obj,id,name,ids=[];
 for(i=0;i<_60.length;i++){
 obj=_60[i];
 id=(obj.id||"");
-if(id.match(/^(nv\::(album|release|track|edit.*|artist.*)\d+|ov\::(album|release|track|edit.*|artist.*)\d+)/i)){
+if(id.match(/^(nv\::(album|release|track|edit.*|artist.*|label.*)\d+|ov\::(album|release|track|edit.*|artist.*|label.*)\d+)/i)){
 var c=id.split("::");
 if(c.length==2){
 mb.log.info("Found diffable element: $",id);
