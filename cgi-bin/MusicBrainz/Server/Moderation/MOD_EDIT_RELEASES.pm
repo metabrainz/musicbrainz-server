@@ -296,12 +296,15 @@ sub ApprovedAction
 			next;
 		}
 
-		my $l = $label->newFromId($t->{"nl"});
-		unless ($l)
+		my $nl = $t->{"n1"};
+		if ($nl)
 		{
-			my $nl = $t->{"nl"};
-			push @notes, "Label $nl has already been deleted";
-			next;
+			my $l = $label->newFromId($nl);
+			unless ($l)
+			{
+				push @notes, "Label $nl has already been deleted";
+				next;
+			}
 		}
 
 		if ($r->GetCountry != $t->{'c'}

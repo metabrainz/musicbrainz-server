@@ -66,6 +66,10 @@ my $pc = sub
 		<td class="NumberCell"><% $stats{"count.ar.links"} %></td>
 	</tr>
 	<tr>
+		<th class="StatName">Tags</th>
+		<td class="NumberCell"><% $stats{"count.tag.raw"} %> / <% $stats{"count.tag"} %></td>
+	</tr>
+	<tr>
 		<th class="StatName">PUIDs</th>
 		<td class="NumberCell"><% $stats{"count.puid"} %></td>
 	</tr>
@@ -451,6 +455,8 @@ for my $n (qw(
 	count.trm
 	count.discid
 	count.ar.links
+	count.tag
+	count.tag.raw
 	count.moderator
 	count.moderation
 	count.vote

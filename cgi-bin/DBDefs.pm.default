@@ -88,7 +88,7 @@ MusicBrainz::Server::Database->register_all(
 
 # The schema sequence number.  Must match the value in
 # replication_control.current_schema_sequence.
-sub DB_SCHEMA_SEQUENCE { 8 }
+sub DB_SCHEMA_SEQUENCE { 9 }
 
 # What type of server is this?
 # * RT_MASTER - this is a master replication server.  Changes are allowed, and
@@ -157,7 +157,16 @@ our %CACHE_OPTIONS = (
 );
 sub CACHE_OPTIONS { \%CACHE_OPTIONS }
 
+################################################################################
+# Rate-Limiting
+################################################################################
 
+# The "host:port" of the ratelimit server ($MB_SERVER/bin/ratelimit-server).
+# If undef, the rate-limit code always returns undef (as it does if there is
+# an error).
+# Just like the memcached server settings, there is NO SECURITY built into the
+# ratelimit protocol, so be careful about enabling it.
+sub RATELIMIT_SERVER { undef }
 
 ################################################################################
 # Other Settings

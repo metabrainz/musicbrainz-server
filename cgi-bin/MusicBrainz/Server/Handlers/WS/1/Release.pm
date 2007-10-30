@@ -29,7 +29,7 @@ package MusicBrainz::Server::Handlers::WS::1::Release;
 
 use Apache::Constants qw( );
 use Apache::File ();
-use MusicBrainz::Server::Handlers::WS::1::Common;
+use MusicBrainz::Server::Handlers::WS::1::Common qw( :DEFAULT apply_rate_limit );
 use MusicBrainz::Server::CDTOC;
 
 sub handler
@@ -98,11 +98,15 @@ sub handler
 
 		return bad_req($r, "Must specify a title OR query argument for release collections. Not both.") if ($title && $query);
 
+		if (my $st = apply_rate_limit($r)) { return $st }
+
         return xml_search($r, {type=>'release', artist=>$artist, release=>$title, offset=>$offset,
                                artistid => $artistid, limit => $limit, releasetype => $info->{type}, 
                                releasestatus=> $info->{status}, count=> $count, discids=>$discids,
                                date => $date, asin=>$asin, lang=>$lang, script=>$script, query=>$query });
     }
+
+	if (my $st = apply_rate_limit($r)) { return $st }
 
 	my $status = eval 
     {

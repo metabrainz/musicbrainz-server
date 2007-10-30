@@ -15,7 +15,7 @@
 
 	my $entity = $m->comp("/comp/load$type", $mb, $id);
 
-    $m->comp("/comp/sidebar", pagetitle => "Editors who tagged $type " . $m->interp->apply_escapes($entity->GetName, 'h') .":");
+    $m->comp("/comp/sidebar", pagetitle => "Editors who tagged $type " . $entity->GetName .":");
 
     $m->out('<div class="TagsBox">');
 

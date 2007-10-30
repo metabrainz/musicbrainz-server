@@ -1,5 +1,5 @@
 <%args>
-	$tag
+	$tag => ''
     $show => 'all'
 </%args>
 
@@ -8,6 +8,24 @@
 	my $mb = $m->comp("/comp/dblogin");
 	my $t = MusicBrainz::Server::Tag->new($mb->{DBH});
 	my $entities;
+
+    if (!$tag)
+    {
+        </%perl>
+        <& /comp/sidebar, pagetitle => "Tag details" &>
+
+        <form method="post" action="/show/tag/index.html">
+        <p>
+        Enter a tag name to display:
+        <input type="text" size="15" name="tag"/>
+        </p>
+        <br/>
+        <input type="submit" value="Show details"/>
+        </form>
+        <& /comp/footer &>
+        <%perl>
+        return undef;
+    }
 </%perl>
 
 <& /comp/sidebar, pagetitle => "Tag details: $tag" &>
@@ -80,7 +98,7 @@
 % }
 
 % if ($show eq 'all' || $show eq 'track') {
-<h2>Tracask</h2>
+<h2>Tracks</h2>
 <table>
 %	$entities = $t->GetEntitiesForTag("track", $tag, 100);
 %	for my $entity (@$entities) {

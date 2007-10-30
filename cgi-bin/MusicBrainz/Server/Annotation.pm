@@ -582,6 +582,7 @@ sub _Merge
 			artistid => $new_id,
 			text => $text,
 			changelog => "Result of artist merge",
+            notrans => 1
 		);
 	} elsif ($type == ALBUM_ANNOTATION) {
 
@@ -597,6 +598,7 @@ sub _Merge
 			albumid => $new_id,
 			text => $text,
 			changelog => "Result of album merge",
+            notrans => 1
 		);
 	}
 }

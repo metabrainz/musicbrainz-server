@@ -225,6 +225,8 @@ sub handler
 		$tied = undef;
     }
 
+	if (my $st = MusicBrainz::Server::Mason::apply_rate_limit($r)) { return $st }
+
     my $ret = eval { $ah->handle_request($r) };
 	my $err = $@;
 
@@ -233,6 +235,44 @@ sub handler
 	die $err if $err ne "";
 
     $ret;
+}
+
+# Given the result of a RateLimit test ($t), return a response indicating that
+# the client is making requests too fast.
+sub rate_limited
+{
+	my ($r, $t) = @_;
+	$r->status(Apache::Constants::HTTP_SERVICE_UNAVAILABLE());
+	$r->headers_out->add("X-Rate-Limited", sprintf("%.1f %.1f %d", $t->rate, $t->limit, $t->period));
+	$r->send_http_header("text/plain; charset=utf-8");
+	unless ($r->header_only)
+	{
+		$r->print("Your requests are exceeding the allowable rate limit (" . $t->msg . ")\015\012");
+		$r->print("Please slow down then try again.\015\012");
+	}
+	return Apache::Constants::OK();
+}
+
+# Given a key (optional - defaults to something sensible), tests to see if the
+# client is making requests too fast.  If yes, generates an appropriate
+# response and returns something true (an Apache status for the handler to
+# return); if no, returns something false.
+sub apply_rate_limit
+{
+	my ($r, $key) = @_;
+
+	if (not defined $key)
+	{
+		$key = "mason ip=" . $r->connection->remote_ip;
+	}
+
+	use MusicBrainz::Server::RateLimit;
+	if (my $test = MusicBrainz::Server::RateLimit->test($key))
+	{
+		return rate_limited($r, $test) || '0 but true';
+	}
+
+	return '';
 }
 
 1;

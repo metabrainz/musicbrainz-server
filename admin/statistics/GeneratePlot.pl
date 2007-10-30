@@ -65,6 +65,8 @@ sub count_and_delta
 		$statname,
 	);
 
+	return if !scalar(@$data);
+
 	# Certain stats are known to suffer from spikes due to culls.
 
 	my @range = (undef, undef);
@@ -184,6 +186,8 @@ count_and_delta("count.moderator");
 count_and_delta("count.moderation");
 count_and_delta("count.moderation.open");
 count_and_delta("count.vote");
+count_and_delta("count.tag");
+count_and_delta("count.tag.raw");
 
 # Disconnect
 $mb->Logout;

@@ -169,10 +169,6 @@ sub DetermineQuality
             $quality_level = $rel->GetQuality();        
         }
     }
-    else
-    {
-        print STDERR __PACKAGE__ . " cannot determine quality for $self->{id}\n";
-    }
     return $quality_level;
 }
 

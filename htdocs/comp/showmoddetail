@@ -243,7 +243,7 @@
 						<a href="/mod/addnote.html?editid=<% $edit->GetId %>"
 							onclick="MyWindow=window.open('/mod/addnote.html?editid=<% $edit->GetId %>',
 								'AddNote',
-								'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=150'); return false;"
+								'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=500,height=200'); return false;"
 							>Add note</a>
 
 %						$m->out("&nbsp;|&nbsp;") if (@statuslinks);
@@ -310,7 +310,7 @@
 						<a href="/mod/addnote.html?editid=<% $edit->GetId %>"
 							onclick="MyWindow=window.open('/mod/addnote.html?editid=<% $edit->GetId %>',
 								'AddNote',
-								'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=150'); return false;"
+								'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=500,height=200'); return false;"
 							>Add note</a><%perl>
 
 						$m->out("&nbsp;|&nbsp;") if (@statuslinks);
