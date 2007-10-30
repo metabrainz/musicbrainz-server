@@ -71,7 +71,7 @@
 	{
 		my $name = $url;
 
-		if ($item->{"link_name"} eq "amazon asin" && $prefix eq "link1_")
+		if ($item->{"link_name"} eq "amazon asin" && $prefix eq "link1_" && $release)
 		{
 			my ($asin, $coverart, $store);
 			($asin, $coverart, $store) = MusicBrainz::Server::CoverArt->ParseAmazonURL($item->{link1_name}, $release);
@@ -84,7 +84,7 @@
 			    $shorten = 0;
 			}
 		}
-		elsif ($item->{"link_name"} eq "cover art link" && $prefix eq "link1_")
+		elsif ($item->{"link_name"} eq "cover art link" && $prefix eq "link1_" && $release)
 		{
 			my ($coverurl);
 			($name, $coverurl, $url) = MusicBrainz::Server::CoverArt->ParseCoverArtURL($item->{link1_name}, $release);
@@ -107,7 +107,7 @@
 		elsif (($item->{"link_name"} eq "purchase for mail-order" ||
                 $item->{"link_name"} eq "purchase for download" ||  
                 $item->{"link_name"} eq "download for free" ||    
-                $item->{"link_name"} eq "creative commons licensed download") && $prefix eq "link1_")
+                $item->{"link_name"} eq "creative commons licensed download") && $prefix eq "link1_" && $release)
 		{
             my ($coverurl);
             ($name, $coverurl, $url) = MusicBrainz::Server::CoverArt->ParseCoverArtURL($item->{link1_name}, $release);
