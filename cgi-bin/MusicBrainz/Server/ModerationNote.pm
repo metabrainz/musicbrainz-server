@@ -99,7 +99,7 @@ sub mark_up_text_as_html
 
 	# links to wikidocs 
 	$html =~ s/doc:(\w[\/\w]*)(``)*/<a href="\/doc\/$1">$1<\/a>/gi;
-	$html =~ s/\[(\w[\/\w]*)\]/<a href="\/doc\/$1">$1<\/a>/g;
+	$html =~ s/\[(\p{IsUpper}[\/\w]*)\]/<a href="\/doc\/$1">$1<\/a>/g;
 
 	$html =~ s/<\/?p[^>]*>//g;
 	$html =~ s/<br[^>]*\/?>//g;
