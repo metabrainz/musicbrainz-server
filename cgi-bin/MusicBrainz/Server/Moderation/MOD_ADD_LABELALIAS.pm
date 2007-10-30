@@ -86,7 +86,7 @@ sub ApprovedAction
 	$al->SetTable("LabelAlias");
 
 	my $other;
-	if ($al->Insert($self->GetRowId, $self->GetNew, \$other))
+	if ($al->Insert($self->GetRowId, $self->GetNew, \$other, 1))
 	{
 		return STATUS_APPLIED;
 	}

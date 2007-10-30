@@ -104,20 +104,23 @@ sub LoadFromId
 # and an alias name.
 sub Insert
 {
-    my ($this, $id, $name, $otherref) = @_;
+	my ($this, $id, $name, $otherref, $allowdupe) = @_;
 
     my $sql = Sql->new($this->{DBH});
     my $table = lc $this->GetTable;
     $sql->Do("LOCK TABLE $table IN EXCLUSIVE MODE");
 
-    # Check to make sure we don't already have this in the database
-    if (my $other = $this->newFromName($name))
-    {
-        # Note: this sub used to return the rowid of the existing row
-        $$otherref = $other if $otherref;
-        $! = EEXIST;
-        return 0;
-    }
+	if (!$allowdupe)
+	{
+		# Check to make sure we don't already have this in the database
+		if (my $other = $this->newFromName($name))
+		{
+			# Note: this sub used to return the rowid of the existing row
+			$$otherref = $other if $otherref;
+			$! = EEXIST;
+			return 0;
+		}
+	}
 
     $sql->Do(
         "INSERT INTO $table (name, ref, lastused)
