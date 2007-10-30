@@ -163,9 +163,11 @@ function ARFrontEnd() {
 					var tmp = e.id.split('::');
 					var index = tmp[1];
 					var type = tmp[2];
-					var button = IMG({'src': '/images/release_editor/edit-off.gif', 'id': '_linkeditimg'+index, 'align': 'absmiddle', 'alt': 'Change this ' + type, 'title': 'Change this ' + type});
-					connect(button, 'onclick', this, partial(this.changeEntity, index, type));
-					replaceChildNodes(e, button, INPUT({'type': 'hidden', 'value': '0', 'id': '_linkedit'+index}));
+					if (type != 'url') {
+						var button = IMG({'src': '/images/release_editor/edit-off.gif', 'id': '_linkeditimg'+index, 'align': 'absmiddle', 'alt': 'Change this ' + type, 'title': 'Change this ' + type});
+						connect(button, 'onclick', this, partial(this.changeEntity, index, type));
+						replaceChildNodes(e, button, INPUT({'type': 'hidden', 'value': '0', 'id': '_linkedit'+index}));
+					}
 				}
 				
 
