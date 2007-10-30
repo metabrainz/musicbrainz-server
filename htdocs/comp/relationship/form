@@ -231,6 +231,7 @@
 %						my $tracks = $e2->{obj}->GetTracks();
 %						foreach my $track (@$tracks) {
 							<input type="checkbox" name="track<% $track->GetId %>" value="1" />
+							<% $track->GetSequence %>.
 							<& "/comp/linktrack", id => $track->GetId, name => $track->GetName &><br />
 %						}
 					</span>
