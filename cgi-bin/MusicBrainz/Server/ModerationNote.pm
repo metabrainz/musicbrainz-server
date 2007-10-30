@@ -57,8 +57,6 @@ sub mark_up_text_as_html
 	my $text = shift;
 	use MusicBrainz::Server::Validation qw( encode_entities );
 
-	$text =~ s/(\015\012|\012\015|\012|\015)\1+/\n/g;
-
 	my $is_url = 1;
 	my $server = &DBDefs::WEB_SERVER;
 	
@@ -105,9 +103,8 @@ sub mark_up_text_as_html
 	$html =~ s/<br[^>]*\/?>//g;
 	$html =~ s/&#39;&#39;&#39;(.*)&#39;&#39;&#39;/<strong>$1<\/strong>/g;
 	$html =~ s/&#39;&#39;(.*)&#39;&#39;/<em>$1<\/em>/g;
-    $html =~ s/\n\n/<br\/>/g;
-    $html =~ s/\n/<p class="editnote"\/>/g;
-	
+	$html =~ s/(\015\012|\012\015|\012|\015)/<br\/>/g;
+
 	return $html;
 }
 
