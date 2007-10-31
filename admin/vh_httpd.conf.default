@@ -67,6 +67,7 @@
 	RewriteRule	^/about/licenses.html$			/doc/MusicBrainzLicense [R=301]
 	RewriteRule	^/about/mirrors.html$			/doc/MirrorServer [R=301]
 	RewriteRule	^/about/stats.html$				/doc/ServerStatistics [R=301]	
+    RewriteRule ^/news/licenses.html$           /doc/MusicBrainzLicense [R=301]
 
 	RewriteRule	^/tagger/index.html(.*)$		/doc/MusicBrainzTagger$1 [R=301]
 	RewriteRule	^/tagger/(.*)$					/doc/MusicBrainzTagger$1 [R=301]
