@@ -69,8 +69,6 @@
             }
         }
 
-# print "Sorry, the search server is down.";
-# return;
 		my $docurl = 	'http://'
 					  . &DBDefs::LUCENE_SERVER
 					  . "/ws/1/"
@@ -150,7 +148,7 @@
                     Error: <% $response->content %>
                     </p>
 				<& /comp/tableend &>
-
+%               MusicBrainz::Server::LogFile::lprint("textsearch", "Search server returned 500: " . $response->content);
 %			}
 %			elsif ($response->code == 400)
 %			{
@@ -180,7 +178,7 @@
                     Could not execute search:<br/><% $response->content %>
                     </p>
 				<& /comp/tableend &>
-
+%               MusicBrainz::Server::LogFile::lprint("textsearch", "Search server returned " . $response->code . ": " . $response->content);
 %	        }
 %	    }
 %		else
