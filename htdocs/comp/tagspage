@@ -62,7 +62,11 @@
 	<script type="text/javascript" src="/scripts/tags.js"></script>
 
 	<div class="TagsBox">
-	<p style="margin-bottom: 1em;">
+    <p>
+    [ Show: <a href="/show/tag/all.html">all tags</a> ]
+    </p>
+
+	<p style="margin-bottom: 1em; margin-top: 1em">
 		<% $t->GenerateTagCloud($tags, $entitytype, 12, 30, $rawtags) | n %>
 	</p>
 
