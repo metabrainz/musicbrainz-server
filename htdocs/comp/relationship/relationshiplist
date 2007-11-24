@@ -45,12 +45,12 @@
 
 	my @lines;
 	my $i = 0;
-	my $num_links = scalar(@$relationships);
+	my $total_links = scalar(@$relationships);
 
 	$expanded = ($expanded == 1);
 	$modlinks = ($modlinks == 1);
 
-	while ($i < $num_links)
+	while ($i < $total_links)
 	{
 		my @line;
 		
@@ -60,7 +60,7 @@
 
 		if (!$expanded)
 		{
-			while ($i < $num_links) {
+			while ($i < $total_links) {
 				my $b = $relationships->[$i];
 				last if ($a->{link_phrase} ne $b->{link_phrase} ||
 			         	$a->{begindate} ne $b->{begindate} ||
@@ -77,7 +77,7 @@
 	my $missing = 0;
 	if ($num_lines)
 	{
-		if (($num_links > 1) || $track || ($modlinks && $expanded))
+		if (($total_links > 1) || $track || ($modlinks && $expanded))
 		{
 			$m->comp("/comp/relationship/outputentity", item => $relationships->[0], index => 0, name => $name)
 				if !$track;
@@ -109,7 +109,7 @@
 			if ($num_links)
 			{
 				my $item = $line->[0];
-				if (($num_links > 1) || $track || ($modlinks && $expanded))
+				if (($total_links > 1) || $track || ($modlinks && $expanded))
 				{
 					$m->out($track ? '<tr><td class="small">' : '<tr><td valign="top" style="text-align:center;width:1em;">&bull;</td><td>')
 				}
@@ -168,7 +168,7 @@
 							$returnto.'">Edit</a>&nbsp;]');
 				}
 
-				if (($num_links > 1) || $track || ($modlinks && $expanded))
+				if (($total_links > 1) || $track || ($modlinks && $expanded))
 				{
 					$m->out('</td></tr>');
 				}
@@ -184,7 +184,7 @@
 			$m->out(qq!<a href="/show/$type/relationships.html?${type}id=$id">View all relationships &#8230;</a></td></tr>!);
 		}
 
-		if ($num_links > 1 || $track || ($modlinks && $expanded))
+		if ($total_links > 1 || $track || ($modlinks && $expanded))
 		{
 			$m->out('</table>');
 		}
