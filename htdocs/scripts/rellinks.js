@@ -65,8 +65,8 @@ function RelLinks()
 			showElement(this.popup);
 			/*this.titleDiv.innerHTML = "Relate this " + (type == "album" ? "release" : type) + " to …"*/
 			this.createButton.disabled = true;
-			event.stop();
 		}
+		event.stop();
 		return false;
 	};
 
