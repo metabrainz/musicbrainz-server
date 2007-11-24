@@ -230,7 +230,8 @@
 %	if (defined($usetracks) && ($usetracks == $rev ? 0 : 1) && $e2->{type} eq "album") {
 %						my $tracks = $e2->{obj}->GetTracks();
 %						foreach my $track (@$tracks) {
-							<input type="checkbox" name="track<% $track->GetId %>" value="1" />
+%							my $input_name = "track" . $track->GetId;
+							<input type="checkbox" name="<% $input_name %>" <% $ARGS{$input_name} ? 'checked="checked"' : '' |n %> value="1" />
 							<% $track->GetSequence %>.
 							<& "/comp/linktrack", id => $track->GetId, name => $track->GetName &><br />
 %						}
