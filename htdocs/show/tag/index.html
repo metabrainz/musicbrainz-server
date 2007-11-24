@@ -30,7 +30,8 @@
 
 <& /comp/sidebar, pagetitle => "Tag details: $tag" &>
 
-[ Show tag for:
+[ <a href="/show/tag/all.html">Show all tags</a> |
+ show tag <% $tag %> for:
 % if ($show ne 'all') {
     <a href="/show/tag/?tag=<% uri_escape($tag) %>&show=all">all</a> |
 % }

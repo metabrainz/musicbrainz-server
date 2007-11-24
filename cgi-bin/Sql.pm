@@ -322,7 +322,7 @@ sub AutoTransaction
 # timeout?
 sub is_timeout
 {
-	$_[1] =~ /(?:Query was cancelled|canceling query)/i;
+	$_[1] =~ /(?:Query was cancelled|canceling query|statement timeout)/i;
 }
 
 # The "Select*" methods.  All these methods accept ($query, @args) parameters,

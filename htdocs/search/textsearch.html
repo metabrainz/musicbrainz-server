@@ -69,8 +69,6 @@
             }
         }
 
-# print "Sorry, the search server is down.";
-# return;
 		my $docurl = 	'http://'
 					  . &DBDefs::LUCENE_SERVER
 					  . "/ws/1/"
@@ -150,7 +148,7 @@
                     Error: <% $response->content %>
                     </p>
 				<& /comp/tableend &>
-
+%               MusicBrainz::Server::LogFile::lprint("textsearch", "Search server returned 500: " . $response->content);
 %			}
 %			elsif ($response->code == 400)
 %			{
@@ -180,7 +178,7 @@
                     Could not execute search:<br/><% $response->content %>
                     </p>
 				<& /comp/tableend &>
-
+%               MusicBrainz::Server::LogFile::lprint("textsearch", "Search server returned " . $response->code . ": " . $response->content);
 %	        }
 %	    }
 %		else
@@ -319,7 +317,7 @@
 							Another possible starting point is to use the <a href="/browselabels.html"
 							>Browse Labels</a> page to find the label you are looking for.</li>
 						<li>
-							Alternatively, <a href="/edit/label/add.html">add a new label</a>.</li>
+							Alternatively, <a href="/edit/label/add.html?initial_name=<% uri_escape($session{"as_query"}) %>">add a new label</a>.</li>
 
 % 				}
 
