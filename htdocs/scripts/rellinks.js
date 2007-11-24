@@ -21,6 +21,10 @@ function RelLinks()
 		this.type1 = 'artist';
 		connect(this.typeSelect, 'onchange', this, this.changeType);
 
+		this.targetSelect = SELECT({},
+			OPTION({'value': 'release'}, 'Release'),
+			OPTION({'value': 'tracks'}, 'Tracks'));
+
 		this.nameInput = INPUT({'style': 'width: 200px;'});
 		this.ajaxSelectId = jsselect.registerAjaxSelect(this.nameInput, this.type1, function(e) { rellinks.setEntity(e) });
 
@@ -30,7 +34,7 @@ function RelLinks()
 			DIV({'style': 'padding: 5px;'},
 				this.typeSelect, ' ', this.nameInput),
 			DIV({'class': 'ajaxSelectButtonBox'},
-				this.createButton, ' ', cancelButton));
+				this.targetSelect, ' ', this.createButton, ' ', cancelButton));
 		insertSiblingNodesAfter('overDiv', this.popup);
 
 		var spans = getElementsByTagAndClassName('span', 'RELATE_TO_LINK');
@@ -57,6 +61,7 @@ function RelLinks()
 			var pos = getElementPosition(element);
 			pos.y += getElementDimensions(element).h + 3;
 			setElementPosition(this.popup, pos);
+			setDisplayForElement(this.type0 == 'album' ? '' : 'none', this.targetSelect);
 			showElement(this.popup);
 			/*this.titleDiv.innerHTML = "Relate this " + (type == "album" ? "release" : type) + " to …"*/
 			this.createButton.disabled = true;
@@ -69,11 +74,18 @@ function RelLinks()
 	{
 		if (this.type0 && this.type1 && this.id0 && this.id1) {
 			var url = "/edit/relationship/add.html?";
+			var usetracks = this.type0 == 'album' && this.targetSelect.selectedIndex == 1;
 			if (this.type0 < this.type1) {
 				url += "link0=" + this.type0 + "=" + this.id0 + "&link1=" + this.type1 + "=" + this.id1 + "&returnto=0";
+				if (usetracks) {
+					url += "&usetracks=0";
+				}
 			}
 			else {
 				url += "link0=" + this.type1 + "=" + this.id1 + "&link1=" + this.type0 + "=" + this.id0 + "&returnto=1";
+				if (usetracks) {
+					url += "&usetracks=1";
+				}
 			}
 			window.location.href = url;
 		}
