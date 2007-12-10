@@ -116,7 +116,7 @@
 		{
 			push @messages, "Please Select a valid type." if (not Artist::IsValidType($type));
 			push @messages, "Please enter the Name." if ($name eq "");
-			push @messages, "The artist name contains 'feat.' in it, see the <a href=\"style.html#styleguide-feat-artist\">style guidelines</a> for the correct way to credit featuring artists." if ($attempts == 0 && $name =~ /feat\./);
+			push @messages, "The artist name contains 'feat.' in it, see the <a href=\"/doc/FeaturingArtistStyle\">style guidelines</a> for the correct way to credit featuring artists." if ($attempts == 0 && $name =~ /feat\./);
 			push @messages, "Please enter the Sort Name." if ($sortname eq "");
 
 			push @messages, "Begin Date has to be either valid or empty"
