@@ -1,16 +1,24 @@
 
+function showNote
 
-function toggleNoteText(addnoteLink)
+function toggleNoteText(editid)
 {
-	var noteBlock = document.getElementById(addnoteLink.id.replace(/-addnote$/,"-noteblock"));
-	var noteBox = document.getElementById(addnoteLink.id.replace(/-addnote$/,"-notetext"));
-	if (noteBlock && noteBox)
+	var noteBlock = document.getElementById(addNoteLink.id.replace(/-addnote.*/,"-noteblock"));
+	var noteText = document.getElementById(addNoteLink.id.replace(/-addnote.*/,"-notetext"));
+	
+	if (noteBlock && noteText)
 	{
+		var otherAddNoteLink = null;
+		if (addNoteLink.id.matches(/-top$/))
+			otherAddNoteLink = document.getElementById(addNoteLink.id.replace(/-
+	
 		if (addnoteLink.innerHTML == "Add note")
 		{
 			// show the note block
 			noteBlock.style["display"] = "table-row";
-			addnoteLink.innerHTML = "Del note";
+			addNoteLink.innerHTML = "Del note";
+			if (addNoteLink.id.matches(/-addnote-top/))
+				var document.getElementById(addNoteLink
 			// set cursor focus to note textarea
 			noteBox.focus();
 		}
