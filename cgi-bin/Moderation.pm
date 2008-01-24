@@ -2056,7 +2056,7 @@ use URI::Escape qw( uri_escape uri_unescape );
 sub _encode_value
 {
 	return $_[1] unless $_[1] =~ /[\x00-\x1F\x7F]/;
-	"\x1BURI;" . uri_escape($_[1], '\x00-\x1F\x7F');
+	"\x1BURI;" . uri_escape($_[1], '\x00-\x1F\x7F%');
 }
 
 sub _decode_value
