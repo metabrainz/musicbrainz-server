@@ -42,6 +42,8 @@
 	Link Type: <% $new->{'types'} %><br />
 	Link Phrase: <% $new->{'linkphrase'} %><br />
 	Reverse Link Phrase: <% $new->{'rlinkphrase'} %><br />
+	Short Link Phrase: <% $new->{'shortlinkphrase'} %><br />
+	Priority: <% $new->{'priority'} %><br />
 
 %   if ($new->{'attribute'}) {
 

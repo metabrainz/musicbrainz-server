@@ -37,6 +37,8 @@
 	Name: <strong><% $self->{'new_unpacked'}{'old_name'} %></strong><br />
 	Link Phrase: <% $self->{'new_unpacked'}{'old_linkphrase'} %><br />
 	Reverse Link Phrase: <% $self->{'new_unpacked'}{'old_rlinkphrase'} %><br />
+	Short Link Phrase: <% $self->{'new_unpacked'}{'old_shortlinkphrase'} %><br />
+	Priority: <% $self->{'new_unpacked'}{'old_priority'} %><br />
 	Description: <% $self->{'new_unpacked'}{'old_description'} %>
 
 %   if ($self->{'new_unpacked'}->{'old_attribute'}) {
@@ -56,6 +58,8 @@
 	Name: <strong><% $self->{'new_unpacked'}{'name'} %></strong><br />
 	Link Phrase: <% $self->{'new_unpacked'}{'linkphrase'} %><br />
 	Reverse Link Phrase: <% $self->{'new_unpacked'}{'rlinkphrase'} %><br />
+	Short Link Phrase: <% $self->{'new_unpacked'}{'shortlinkphrase'} %><br />
+	Priority: <% $self->{'new_unpacked'}{'priority'} %><br />
 	Description: <% $self->{'new_unpacked'}{'description'} %>
 
 %   if ($self->{'new_unpacked'}->{'attribute'}) {

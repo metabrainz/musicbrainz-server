@@ -112,6 +112,12 @@ sub SetDescription         { $_[0]->{description} = $_[1]; }
 sub GetAttributes          { $_[0]->{attribute} }
 sub SetAttributes          { $_[0]->{attribute} = $_[1]; }
 
+sub GetShortLinkPhrase { $_[0]->{shortlinkphrase} }
+sub SetShortLinkPhrase { $_[0]->{shortlinkphrase} = $_[1]; }
+
+sub GetPriority { $_[0]->{priority} }
+sub SetPriority { $_[0]->{priority} = $_[1]; }
+
 sub GetChildOrder	{ $_[0]->{childorder} }
 sub SetChildOrder	{ $_[0]->{childorder} = $_[1] }
 
@@ -233,10 +239,14 @@ sub GetNamedChild
 # Always call GetNamedChild first, to check that it doesn't already exist
 sub AddChild
 {
-	my ($self, $childname, $linkphrase, $rlinkphrase, $description, $attribute, $childorder) = @_;
+	my ($self, $childname, $linkphrase, $rlinkphrase, $description,
+		$attribute, $childorder, $shortlinkphrase, $priority) = @_;
 	my $sql = Sql->new($self->{DBH});
 	$sql->Do(
-		"INSERT INTO $self->{_table} (parent, name, linkphrase, rlinkphrase, description, attribute, mbid, childorder) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+		"INSERT INTO $self->{_table} (
+			parent, name, linkphrase, rlinkphrase, description, attribute,
+			mbid, childorder, shortlinkphrase, priority
+		) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
 		$self->GetId,
 		$childname,
 		$linkphrase,
@@ -245,6 +255,8 @@ sub AddChild
 		$attribute,
 		TableBase::CreateNewGlobalId(),
 		$childorder,
+		$shortlinkphrase,
+		$priority,
 	);
 	$self->newFromId($sql->GetLastInsertId($self->{_table}));
 }
@@ -279,7 +291,9 @@ sub Update
 	my $self = shift;
 	my $sql = Sql->new($self->{DBH});
 	$sql->Do(
-		"UPDATE $self->{_table} SET parent = ?, childorder = ?, name = ?, linkphrase = ?, rlinkphrase = ?, description = ?, attribute = ? WHERE id = ?",
+		"UPDATE $self->{_table} SET parent = ?, childorder = ?, name = ?,
+			linkphrase = ?, rlinkphrase = ?, description = ?,
+			attribute = ?, shortlinkphrase = ?, priority = ? WHERE id = ?",
 		$self->GetParentId, 
 		$self->GetChildOrder, 
 		$self->GetName,
@@ -287,6 +301,8 @@ sub Update
 		$self->GetReverseLinkPhrase,
 		$self->GetDescription,
 		$self->GetAttributes,
+		$self->GetShortLinkPhrase,
+		$self->GetPriority,
 		$self->GetId,
 	);
 }

@@ -7,6 +7,8 @@ $linkphrase => ""
 $rlinkphrase => ""
 $desc => ""
 $parent => ""
+$shortlinkphrase => ""
+$priority => 0
 $childorder => 0
 $submit=>0
 </%args>
@@ -68,14 +70,16 @@ if ($linktypename =~ /\S/ && $linkphrase =~ /\S/ && $rlinkphrase =~ /\S/ && $att
 				privs => $session{privs},
 				type => &ModDefs::MOD_EDIT_LINK_TYPE,
 				# --
-				parent      => $parent_node, 
-				node        => $node,
-				name        => $linktypename,
-				linkphrase  => $linkphrase,
-				rlinkphrase => $rlinkphrase,
-				description => $desc,
-				attribute   => $attrtext,
-				childorder  => $childorder, 
+				parent			=> $parent_node, 
+				node			=> $node,
+				name			=> $linktypename,
+				linkphrase		=> $linkphrase,
+				rlinkphrase		=> $rlinkphrase,
+				description		=> $desc,
+				attribute		=> $attrtext,
+				childorder		=> $childorder, 
+				shortlinkphrase	=> $shortlinkphrase,
+				priority		=> $priority,
 			);
 		},
 	) or return;
@@ -118,6 +122,8 @@ if ($submit)
      $linktypename = $node->GetName;
      $linkphrase = $node->GetLinkPhrase;
      $rlinkphrase = $node->GetReverseLinkPhrase;
+     $shortlinkphrase = $node->GetShortLinkPhrase;
+     $priority = $node->GetPriority;
      $desc = $node->GetDescription;
 	 $parent = $node->Parent->GetMBId; 
      $childorder = $node->GetChildOrder;
@@ -206,7 +212,7 @@ my $new = undef;
 		<td colspan="2"><select name="parent"><& .ShowList, 0, $id, $parent, $linktypes_root &></select></td>
 	</tr> 
 	<tr>
-	   <td>Child order:</td>
+	   <td>Child Order:</td>
 	   <td>&nbsp;</td>
 	   <td>
 		<input type="text" name="childorder"
@@ -227,8 +233,28 @@ my $new = undef;
 	   </td>
 	   <td>&nbsp;</td>
      </tr>
+	<tr>
+		<td>Priority:</td>
+		<td>&nbsp;</td>
+		<td>
+			<input type="text" name="priority"
+				maxlength="2" size="2"
+				value="<% $priority %>">
+		</td>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td>Short Link Phrase:</td>
+		<td>&nbsp;</td>
+		<td>
+			<input type="text" name="shortlinkphrase"
+				maxlength="255" size="40"
+				value="<% $shortlinkphrase %>">
+		</td>
+		<td>&nbsp;</td>
+	</tr>
 	 <tr>
-	   <td>Link phrase:</td>
+	   <td>Link Phrase:</td>
 	   <td align="right"><% $ent0 %></td>
 	   <td>
 		<input type="text" name="linkphrase"
@@ -239,7 +265,7 @@ my $new = undef;
 	   <td><% $ent1 %></td>
      </tr>
 	 <tr>
-	   <td nowrap>Reverse link phrase:</td>
+	   <td nowrap>Reverse Link Phrase:</td>
 	   <td align="right"><% $ent1 %></td>
 	   <td>
 	    <input type="text" name="rlinkphrase"

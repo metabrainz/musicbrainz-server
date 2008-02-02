@@ -44,6 +44,8 @@ sub PreInsert
 	my $description = $opts{'description'};
 	my $attribute = $opts{'attribute'};
 	my $childorder = $opts{'childorder'};
+	my $shortlinkphrase = $opts{'shortlinkphrase'};
+	my $priority = $opts{'priority'};
 
 	defined() or die
 		for $linkphrase, $rlinkphrase, $description, $attribute;
@@ -54,6 +56,8 @@ sub PreInsert
 	die if $linkphrase eq "";
 	MusicBrainz::Server::Validation::TrimInPlace($rlinkphrase);
 	die if $rlinkphrase eq "";
+	MusicBrainz::Server::Validation::TrimInPlace($shortlinkphrase);
+	die if $shortlinkphrase eq "";
 	MusicBrainz::Server::Validation::TrimInPlace($description);
 	MusicBrainz::Server::Validation::TrimInPlace($attribute);
 
@@ -64,7 +68,9 @@ sub PreInsert
 		die $self;
 	}
 
-	my $child = $parent->AddChild($name, $linkphrase, $rlinkphrase, $description, $attribute, $childorder);
+	my $child = $parent->AddChild($name, $linkphrase, $rlinkphrase,
+		$description, $attribute, $childorder, $shortlinkphrase,
+		$priority);
 
 	$self->SetArtist(DARTIST_ID);
 	$self->SetTable($parent->{_table}); # FIXME internal field
@@ -72,16 +78,18 @@ sub PreInsert
 	$self->SetRowId($child->GetId);
 
 	my %new = (
-		types	   => $parent->PackTypes,
-		parent	   => $parent->GetMBId,
-		name	   => $child->GetName,
-		gid		   => $child->GetMBId,
-		parent_name => $parent->GetName,
-		childorder => $child->GetChildOrder,
-		linkphrase => $child->GetLinkPhrase,
-		rlinkphrase => $child->GetReverseLinkPhrase,
-		description => $child->GetDescription,
-		attribute => $child->GetAttributes,
+		types			=> $parent->PackTypes,
+		parent			=> $parent->GetMBId,
+		name			=> $child->GetName,
+		gid				=> $child->GetMBId,
+		parent_name		=> $parent->GetName,
+		childorder		=> $child->GetChildOrder,
+		linkphrase		=> $child->GetLinkPhrase,
+		rlinkphrase		=> $child->GetReverseLinkPhrase,
+		shortlinkphrase	=> $child->GetShortLinkPhrase,
+		description		=> $child->GetDescription,
+		attribute		=> $child->GetAttributes,
+		priority		=> $child->GetPriority,
 	);
 
 	$self->SetNew($self->ConvertHashToNew(\%new));

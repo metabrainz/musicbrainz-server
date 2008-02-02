@@ -7,6 +7,8 @@ $linkphrase => ""
 $rlinkphrase => ""
 $desc => ""
 $childorder => 0
+$shortlinkphrase => ""
+$priority => 0
 $submit=>0
 </%args>
 <%perl>
@@ -58,13 +60,15 @@ if ($linktypename =~ /\S/ && $linkphrase =~ /\S/ && $rlinkphrase =~ /\S/ && $att
 				privs => $session{privs},
 				type => &ModDefs::MOD_ADD_LINK_TYPE,
 				# --
-				parent => $node,
-				name => $linktypename,
-				linkphrase => $linkphrase,
-				rlinkphrase => $rlinkphrase,
-				description => $desc,
-				attribute => $attrtext,
-				childorder  => $childorder, 
+				parent			=> $node,
+				name			=> $linktypename,
+				linkphrase		=> $linkphrase,
+				rlinkphrase		=> $rlinkphrase,
+				description		=> $desc,
+				attribute		=> $attrtext,
+				childorder		=> $childorder, 
+				shortlinkphrase	=> $shortlinkphrase,
+				priority		=> $priority,
 			);
 		},
 	) or return;
@@ -158,8 +162,28 @@ my @children = $root->Children;
 	   </td>
 	   <td>&nbsp;</td>
      </tr>
+	<tr>
+		<td>Priority:</td>
+		<td>&nbsp;</td>
+		<td>
+			<input type="text" name="priority"
+				maxlength="2" size="2"
+				value="<% $priority %>">
+		</td>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td>Short Link Phrase:</td>
+		<td>&nbsp;</td>
+		<td>
+			<input type="text" name="shortlinkphrase"
+				maxlength="255" size="40"
+				value="<% $shortlinkphrase %>">
+		</td>
+		<td>&nbsp;</td>
+	</tr>
 	 <tr>
-	   <td>Link phrase:</td>
+	   <td>Link Phrase:</td>
 	   <td align="right"><% $ent0 %></td>
 	   <td>
 		<input type="text" name="linkphrase"
@@ -170,7 +194,7 @@ my @children = $root->Children;
 	   <td><% $ent1 %></td>
      </tr>
 	 <tr>
-	   <td nowrap>Reverse link phrase:</td>
+	   <td nowrap>Reverse Link Phrase:</td>
 	   <td align="right"><% $ent1 %></td>
 	   <td>
 	    <input type="text" name="rlinkphrase"

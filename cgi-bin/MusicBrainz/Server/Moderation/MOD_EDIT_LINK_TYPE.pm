@@ -45,6 +45,8 @@ sub PreInsert
 	my $description = $opts{'description'};
 	my $attribute = $opts{'attribute'};
 	my $childorder = $opts{'childorder'};
+	my $shortlinkphrase = $opts{'shortlinkphrase'};
+	my $priority = $opts{'priority'};
 
 	defined() or die
 		for $linkphrase, $rlinkphrase, $description, $attribute;
@@ -55,6 +57,8 @@ sub PreInsert
 	die if $linkphrase eq "";
 	MusicBrainz::Server::Validation::TrimInPlace($rlinkphrase);
 	die if $rlinkphrase eq "";
+	MusicBrainz::Server::Validation::TrimInPlace($shortlinkphrase);
+	die if $shortlinkphrase eq "";
 	MusicBrainz::Server::Validation::TrimInPlace($description);
 	MusicBrainz::Server::Validation::TrimInPlace($attribute);
 
@@ -73,30 +77,36 @@ sub PreInsert
 	$self->SetPrev($node->GetName);
 
 	my %new = (
-		parent			=> $parent->GetName, 
-		types	        => $node->PackTypes,
-		name            => $name,
-		childorder		=> $childorder,
-		linkphrase      => $linkphrase,
-		rlinkphrase     => $rlinkphrase,
-		description     => $description,
-		attribute       => $attribute,
-		old_parent		=> $node->Parent->GetName, 
-		old_name        => $node->GetName,
-		old_childorder	=> $node->GetChildOrder,
-		old_linkphrase  => $node->GetLinkPhrase,
-		old_rlinkphrase => $node->GetReverseLinkPhrase,
-		old_description => $node->GetDescription,
-		old_attribute   => $node->GetAttributes,
+		parent				=> $parent->GetName, 
+		types				=> $node->PackTypes,
+		name				=> $name,
+		childorder			=> $childorder,
+		linkphrase			=> $linkphrase,
+		rlinkphrase			=> $rlinkphrase,
+		shortlinkphrase		=> $shortlinkphrase,
+		description			=> $description,
+		attribute			=> $attribute,
+		priority			=> $priority,
+		old_parent			=> $node->Parent->GetName, 
+		old_name			=> $node->GetName,
+		old_childorder		=> $node->GetChildOrder,
+		old_linkphrase		=> $node->GetLinkPhrase,
+		old_rlinkphrase		=> $node->GetReverseLinkPhrase,
+		old_shortlinkphrase	=> $node->GetShortLinkPhrase,
+		old_description		=> $node->GetDescription,
+		old_attribute		=> $node->GetAttributes,
+		old_priority		=> $node->GetPriority,
 	);
 
 	$node->SetParentId($parent->GetId); 
 	$node->SetName($name);
 	$node->SetLinkPhrase($linkphrase);
 	$node->SetReverseLinkPhrase($rlinkphrase);
+	$node->SetShortLinkPhrase($shortlinkphrase);
 	$node->SetDescription($description);
 	$node->SetAttributes($attribute);
 	$node->SetChildOrder($childorder);
+	$node->SetPriority($priority);
 	$node->Update;
 
 	$self->SetNew($self->ConvertHashToNew(\%new));
