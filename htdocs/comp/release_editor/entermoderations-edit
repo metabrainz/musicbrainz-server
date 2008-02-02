@@ -474,7 +474,7 @@
 					$insertededits[$i]->InsertNote(
 						&ModDefs::MODBOT_MODERATOR,
 						"The $n".
-						($n % 10 == 1 ? "st" : ($n % 10 == 2 ? "nd" : ($n % 10 == 3 ? "rd" : "th"))).
+						MusicBrainz::Server::Validation::OrdinalNumberSuffix($n).
 						" of a set of $num edits".
 						($n > 1 ? " (beginning with edit #$firstedit)" : ""),
 						nosend => 1,

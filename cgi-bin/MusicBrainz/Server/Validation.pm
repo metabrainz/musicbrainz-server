@@ -268,6 +268,19 @@ sub EscapeLuceneQuery
 	return $str;
 }
 
+sub OrdinalNumberSuffix
+{
+	my ($d, $n);
+ 	$n = shift;
+	$d = int(($n % 100) / 10);
+	return "th" if ($d == 1);
+	$d = $n % 10;
+	return "st" if ($d == 1);
+	return "nd" if ($d == 2);
+	return "rd" if ($d == 3);
+	return "th";
+}
+
 # Append some data to a file.  Create the file if necessary.
 
 use Fcntl 'LOCK_EX';
