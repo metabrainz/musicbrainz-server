@@ -519,7 +519,11 @@ sub xml_track_list
 {
 	require Track;
 	my ($ar, $al, $inc) = @_;
-	my $tr_inc = ($inc & INC_TRACKLVLRELS) ? ($inc & INC_MASK_RELS) : 0;
+
+    my $tr_inc_mask = INC_TAGS;
+    $tr_inc_mask |= INC_MASK_RELS
+        if ($inc & INC_TRACKLVLRELS);
+    my $tr_inc = $inc & $tr_inc_mask;
 
     my $tracks = $al->GetTracks;
     if (scalar(@$tracks))
