@@ -64,8 +64,7 @@
              name => $track->GetName, modlinks => 1, isrelpage => 1,
              expanded => $expanded);
 
-	my $artist = $m->comp("/comp/loadartist", $mb, $track->GetArtist());
-	$m->comp("/comp/artistinfo", artist => $artist);
+	$m->comp("/comp/trackinfo", track => $track);
 
 	my @info = $track->GetAlbumInfo;
 	if (@info)
@@ -87,7 +86,8 @@
 		}
 	}
 
-	$m->comp("/comp/trackinfo", track => $track);
+	my $artist = $m->comp("/comp/loadartist", $mb, $track->GetArtist());
+	$m->comp("/comp/artistinfo", artist => $artist);
 
 	$m->comp("/comp/footer");
 
