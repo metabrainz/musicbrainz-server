@@ -60,13 +60,17 @@ $opts{to_type} = $to_type if defined($to_type);
 my @links = MusicBrainz::Server::Link->FindLinkedEntities($mb->{DBH}, $id, $type, %opts);
 my $returnto = 0;
 
+my $typename = ($type eq "url" ? "URL" : $type);
+$typename = ($typename eq "album" ? "release" : $typename);
+
 if (@links == 0)
 {
 	if ($type eq "artist") {
-		$m->out("This $type has no artist, label or URL relationships. <a href=\"/show/artist/appears-on.html?artistid=$id\">View track and release relationships</a>.<br />");
+		$m->out("This $typename has no artist, label or URL relationships. <a href=\"/show/artist/appears-on.html?artistid=$id\">View track and release relationships</a>.<br />");
 	}
 	else {
-		$m->out("This $type has no relationships.<br />");
+		
+		$m->out("This $typename has no relationships.<br />");
 	}
 }
 else
@@ -163,14 +167,13 @@ elsif (scalar(@$recent_links) == 1)
 			%>&amp;name=<% uri_escape($recent_links->[0][2]) %>">Relate to URL</a> |
 % }
 % unless ($type eq $recent_links->[0][0] && $id == $recent_links->[0][1]) {
-%		my $typename = ($type eq "url" ? "URL" : $type);
 %		my $url;
 %		if ($type le $recent_links->[0][0]) {
 %			$url = "link0=$type=$id&link1=$recent_links->[0][0]=$recent_links->[0][1]&returnto=0";
 %		} else {
 %			$url = "link1=$type=$id&link0=$recent_links->[0][0]=$recent_links->[0][1]&returnto=1";
 %		}
-		<a href="/edit/relationship/add.html?<% $url %>">Create relationship with this <% $typename eq "album" ? "release" : $typename %></a>
+		<a href="/edit/relationship/add.html?<% $url %>">Create relationship with this <% $typename %></a>
 		|
 % }
 		<& /comp/ar/ShowCancelLink, targetid => $id, targettype => $type, isrelpage => $isrelpage &>
