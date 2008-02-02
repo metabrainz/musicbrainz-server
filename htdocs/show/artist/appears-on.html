@@ -123,7 +123,6 @@
 %
 %	my $linkphrase;
 %	my $lastyear;
-%	my $lastalbumid;
 %	my $rownum = 0;
 %	my $numalbums = scalar(@albums);
 %	my $i = 0;
@@ -131,7 +130,7 @@
 %		my $album = $albums[$i];
 %		
 %		my @tracks;
-%		while ($album->{id} == $albums[$i]{id}) {
+%		while ($album->{id} == $albums[$i]{id} && $album->{linkphrase} eq $albums[$i]{linkphrase}) {
 %			push @tracks, $albums[$i] if $albums[$i]{track_id};
 %			$i++;
 %		}
