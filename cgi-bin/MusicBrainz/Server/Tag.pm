@@ -473,21 +473,33 @@ sub GetEditorsForEntityAndTag
 
 sub GetEntitiesForTag
 {
-	my ($self, $entity_type, $tag, $limit) = @_;
+	my ($self, $entity_type, $tag, $limit, $offset) = @_;
 
    	my $sql = Sql->new($self->GetDBH());
 	my $assoc_table = $entity_type . '_tag';
 	my $entity_table = $entity_type eq "release" ? "album" : $entity_type;
+	
+	$offset ||= 0;
 
-	my $rows = $sql->SelectListOfHashes(<<EOF, $tag, $limit);
+	$sql->Select(<<EOF, $tag, $offset);
 		SELECT	DISTINCT j.$entity_type AS id, e.name AS name, e.gid AS gid, j.count
 		FROM	$entity_table e, $assoc_table j, tag t
 		WHERE	t.name = ? AND j.tag = t.id AND e.id = j.$entity_type
 		ORDER BY j.count DESC, name ASC
-		LIMIT ?
+		OFFSET ?
 EOF
 
-	return $rows;
+	my @rows;
+	while ($limit--)
+	{
+		my $row = $sql->NextRowHashRef or last;
+		push @rows, $row;
+	}
+
+	my $total_rows = $sql->Rows;
+	$sql->Finish;
+
+	return (\@rows, $offset + $total_rows);
 }
 
 sub GetModerator	{ $_[0]{'moderator'} }

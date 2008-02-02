@@ -1,13 +1,19 @@
 <%args>
 	$tag => ''
     $show => 'all'
+    $offset => 0
 </%args>
 
 <%perl>
+
+	MusicBrainz::Server::Validation::IsNonNegInteger($offset)
+		or return $m->comp("/comp/layout/badarguments",
+			text => "The argument <strong>offset</strong> has wrong format.");
+
 	# Instantiate MusicBrainz object, and load entity
 	my $mb = $m->comp("/comp/dblogin");
 	my $t = MusicBrainz::Server::Tag->new($mb->{DBH});
-	my $entities;
+	my ($entities, $numitems);
 
     if (!$tag)
     {
@@ -56,61 +62,41 @@
     <a href="/show/tag/?tag=<% uri_escape($tag) %>&show=track">tracks</a> ]
 % }
 
-% if ($show eq 'all' || $show eq 'artist') {
-<h2>Artists</h2>
-<table>
-%	$entities = $t->GetEntitiesForTag("artist", $tag, 100);
-%	for my $entity (@$entities) {
-		<tr>
-			<td><& "/comp/linkartist", id => $entity->{"id"}, mbid => $entity->{"gid"}, name => $entity->{"name"}  &></td>
-			<td><% $entity->{"count"} %></td>
-			<td><a href="/show/tag/editors.html?id=<% $entity->{"id"} %>&tag=<% uri_escape($tag) %>&type=artist">Who tagged this?</a></td>
-		</tr>
+%	my @types = ($show eq 'all') ? ("artist", "label", "release", "track") : ($show);
+%	my $limit = ($show eq 'all') ? 10 : 100;
+%	for my $type (@types) {
+		<h2><% ucfirst($type) %>s</h2>
+%		($entities, $numitems) = $t->GetEntitiesForTag($type, $tag, $limit, $offset);
+%		if ($numitems) {
+			<table>
+%				for my $entity (@$entities) {
+					<tr>
+						<td><& "/comp/link".$type,
+							id => $entity->{"id"},
+							mbid => $entity->{"gid"},
+							name => $entity->{"name"}
+						&></td>
+						<td><% $entity->{"count"} %></td>
+						<td><a href="/show/tag/editors.html?id=<% $entity->{"id"} %>&tag=<% uri_escape($tag) %>&type=<% $type %>">Who tagged this?</a></td>
+					</tr>
+%				}
+			</table>
+%		}
+%		if ($numitems > $limit) {
+%			if ($show eq 'all') {
+				<p><a href="/show/tag/?tag=<% uri_escape($tag) %>&show=<% $type %>">More...</a></p>
+%			}
+%			else {
+				<& /comp/browse/pageselector, numitems => $numitems,
+					offset=> $offset,
+					numlinks => 6,
+					pagesize=> $limit,
+					url => "/show/tag/",
+					args => { "tag" => $tag, "show" => $type }
+				&>
+%			}
+%		}
 %	}
-</table>
-% }
-
-% if ($show eq 'all' || $show eq 'label') {
-<h2>Labels</h2>
-<table>
-%	$entities = $t->GetEntitiesForTag("label", $tag, 100);
-%	for my $entity (@$entities) {
-		<tr>
-			<td><& "/comp/linklabel", id => $entity->{"id"}, mbid => $entity->{"gid"}, name => $entity->{"name"}  &></td>
-			<td><% $entity->{"count"} %></td>
-			<td><a href="/show/tag/editors.html?id=<% $entity->{"id"} %>&tag=<% uri_escape($tag) %>&type=label">Who tagged this?</a></td>
-		</tr>
-%	}
-</table>
-% }
-
-% if ($show eq 'all' || $show eq 'release') {
-<h2>Releases</h2>
-<table>
-%	$entities = $t->GetEntitiesForTag("release", $tag, 100);
-%	for my $entity (@$entities) {
-		<tr>
-			<td><& "/comp/linkrelease", id => $entity->{"id"}, mbid => $entity->{"gid"}, name => $entity->{"name"}  &></td>
-			<td><% $entity->{"count"} %></td>
-			<td><a href="/show/tag/editors.html?id=<% $entity->{"id"} %>&tag=<% uri_escape($tag) %>&type=release">Who tagged this?</a></td>
-		</tr>
-%	}
-</table>
-% }
-
-% if ($show eq 'all' || $show eq 'track') {
-<h2>Tracks</h2>
-<table>
-%	$entities = $t->GetEntitiesForTag("track", $tag, 100);
-%	for my $entity (@$entities) {
-		<tr>
-			<td><& "/comp/linktrack", id => $entity->{"id"}, mbid => $entity->{"gid"}, name => $entity->{"name"}  &></td>
-			<td><% $entity->{"count"} %></td>
-			<td><a href="/show/tag/editors.html?id=<% $entity->{"id"} %>&tag=<% uri_escape($tag) %>&type=track">Who tagged this?</a></td>
-		</tr>
-%	}
-</table>
-% }
 
 <& /comp/footer &>
 
