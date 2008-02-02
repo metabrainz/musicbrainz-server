@@ -127,6 +127,11 @@ my %CoverArtStore = (
     "09" => "amazon.co.jp"
 );
 
+my %AmazonStoreRedirects = (
+    "amazon.jp" => "amazon.co.jp",
+    "amazon.at" => "amazon.de",
+);
+
 # Parse any amazon product URL 
 # returns (asin, coverarturl, store) on success, ("", "", "") otherwise
 sub ParseAmazonURL
@@ -151,7 +156,12 @@ sub ParseAmazonURL
 	{
 		return ("", "", "");
 	}
-	
+
+	if (exists $AmazonStoreRedirects{$store})
+	{
+		$store = $AmazonStoreRedirects{$store};
+	}
+
 	# update the object data if called from an instance
 	if ($al)
     {

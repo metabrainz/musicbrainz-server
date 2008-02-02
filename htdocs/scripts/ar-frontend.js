@@ -39,7 +39,7 @@ function ARFrontEnd() {
 	this.isready = false;
 	this.formsubmitted = null;
 	this.urlRegExps = {
-		amazon:		new RegExp("^(http://)?([^/]+\.)?amazon\.","i"),
+		amazon:		new RegExp("^(http://)?([^/]+\.)?amazon\.(com|ca|co\.uk|fr|at|de|co\.jp|jp)","i"),
 		discogs:	new RegExp("^(http://)?([^/]+\.)?discogs\.com","i"),
 		wikipedia:	new RegExp("^(http://)?([^/]+\.)?wikipedia\.","i"),
 		musicmoz:	new RegExp("^(http://)?([^/]+\.)?musicmoz\.","i"),
@@ -256,6 +256,8 @@ function ARFrontEnd() {
 				asin = m[1];
 			}
 			if (tld != "" && asin != "") {
+				if (tld == "jp") tld = "co.jp";
+				if (tld == "at") tld = "de";
 				field.value = "http://www.amazon." + tld + "/gp/product/" + asin;
 			}
 		} else if (v.match(this.urlRegExps.discogs)) {
