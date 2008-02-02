@@ -520,8 +520,8 @@ sub Update
 	$sql->Do(
 		"UPDATE $self->{_table} SET link0 = ?, link1 = ?, begindate = ?, enddate = ?, link_type = ? where id = ?",
 		$self->Links,
-		$self->GetBeginDate,
-		$self->GetEndDate,
+		$self->GetBeginDate || undef,
+		$self->GetEndDate || undef,
 		$self->GetLinkType,
 		$self->GetId,
 	) or return undef;
