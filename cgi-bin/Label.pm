@@ -229,7 +229,7 @@ sub Insert
 		}
     }
 
-    my $page = $this->CalculatePageIndex($this->{name});
+    my $page = $this->CalculatePageIndex($this->{sortname});
     my $mbid = $this->CreateNewGlobalId;
     $this->SetMBId($mbid);
 
@@ -379,7 +379,7 @@ sub Update
 
 	if (exists $update{'name'})
 	{
-		my $page = $this->CalculatePageIndex($update{'name'});
+		my $page = $this->CalculatePageIndex($update{'sortname'});
 		$update{'page'} = $page;
 	}
 
