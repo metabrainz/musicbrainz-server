@@ -683,7 +683,7 @@ sub _GetQuery
 		t.name			AS albumname,
 		m.tracks,
 		m.discids,
-		m.trmids,
+		m.puids,
 		m.firstreleasedate,
 		a.id			AS artistid,
 		a.gid			AS artistgid,

@@ -172,7 +172,7 @@
 					<td>Release Title:</td>
 					<td class="tracks">Tracks:</td>
 					<td class="discid">Disc IDs:</td>
-					<td class="trmid">TRM IDs:</td>
+					<td class="trmid">PUIDs:</td>
 					<td class="released">Released:</td>
 
 				</tr>
@@ -238,9 +238,9 @@
 %					{
 					<td class="discid">&nbsp;</td>
 % 					}
-%					if ($row->{trmids})
+%					if ($row->{puids})
 %					{
-					<td class="trmid"><% $row->{trmids} %> <img src="/images/trm.gif" alt="TRM IDs" /></td>
+					<td class="trmid"><% $row->{puids} %> <img src="/images/puid.gif" alt="PUIDs" /></td>
 %					}
 %					else
 %					{
