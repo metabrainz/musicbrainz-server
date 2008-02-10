@@ -46,6 +46,7 @@ my $fHelp = 0;
 GetOptions(
 	"artist!"	=> \$do{'artist'},
 	"album!"	=> \$do{'album'},
+	"label!"	=> \$do{'label'},
 	"verbose!"	=> \$fVerbose,
 	"fix!"		=> \$fFix,
 	"help!"		=> \$fHelp,
@@ -61,6 +62,7 @@ Usage: FixPageIndexValues [OPTIONS]
         --help            show this help
         --[no]artist      [don't] process artists
         --[no]album       [don't] process albums
+        --[no]label       [don't] process labels
         --[no]verbose     [don't] describe each change
         --[no]fix         [don't] fix incorrect values
 
@@ -81,6 +83,7 @@ my $tb = TableBase->new($mbRead->{DBH});
 
 Process("album", "name") if $do{"album"};
 Process("artist", "sortname") if $do{"artist"};
+Process("label", "sortname") if $do{"label"};
 
 sub Process
 {

@@ -377,7 +377,7 @@ sub Update
     $update{begindate} = $new->{BeginDate} if exists $new->{BeginDate};
     $update{enddate} = $new->{EndDate} if exists $new->{EndDate};
 
-	if (exists $update{'name'})
+	if (exists $update{'sortname'})
 	{
 		my $page = $this->CalculatePageIndex($update{'sortname'});
 		$update{'page'} = $page;
