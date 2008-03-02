@@ -29,14 +29,9 @@ use MusicBrainz;
 use DBDefs;
 use MusicBrainz::Server::Replication ':replication_type';
 
-my $SYSTEM = MusicBrainz::Server::Database->get("SYSTEM");
 my $READWRITE = MusicBrainz::Server::Database->get("READWRITE");
 my $READONLY = MusicBrainz::Server::Database->get("READONLY");
 my $RAWDATA = MusicBrainz::Server::Database->get("RAWDATA");
-my $RAWDATA_SYSTEM = MusicBrainz::Server::Database->get("RAWDATA_SYSTEM");
-
-# If no RAWDATA section is defined, assume that the SYSTEM database will also be used for RAWDATA
-$RAWDATA_SYSTEM = $SYSTEM if (!defined $RAWDATA_SYSTEM);
 
 # Check to make sure that the main and raw databases are not the same
 die "The READWRITE database and the RAWDATA database cannot be the same. Use a different name for the RAWDATA database." 
@@ -139,9 +134,11 @@ sub Create
     else
     {
         $sysname = $createdb . "_SYSTEM";
+	$sysname = "SYSTEM" if not defined MusicBrainz::Server::Database->get($sysname);
     }
-    my $db = MusicBrainz::Server::Database->get($sysname);
-    if (defined $db)
+
+    my $db = MusicBrainz::Server::Database->get($createdb);
+
     {
         # Check the cluster uses the C locale
         $system_sql = get_sql($sysname);
@@ -173,12 +170,7 @@ EOF
             );
         }
     }
-    else
-    {
-        $system_sql = get_sql("SYSTEM");
-    }
 
-    $db = MusicBrainz::Server::Database->get($createdb);
 	my $dbname = $db->database;
 	print localtime() . " : Creating database '$dbname'\n";
 	$system_sql->AutoCommit;
@@ -187,8 +179,8 @@ EOF
 
 	# You can do this via CREATE FUNCTION, CREATE LANGUAGE; but using
 	# "createlang" is simpler :-)
-	my $sys_in_rw = $SYSTEM->modify(database => $dbname);
-	my @opts = $sys_in_rw->shell_args;
+	my $sys_in_thisdb =  MusicBrainz::Server::Database->get($sysname)->modify(database => $dbname);
+	my @opts = $sys_in_thisdb->shell_args;
 	splice(@opts, -1, 0, "-d");
 	push @opts, "plpgsql";
 	system "createlang", @opts;
