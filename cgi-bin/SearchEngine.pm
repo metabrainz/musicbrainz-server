@@ -446,8 +446,9 @@ sub Search
 
     my $results = eval {
 	local $sql->{Quiet} = 1;
+	my @wordids = map { $_->[0] } @$counts;
 	$sql->SelectListOfHashes(
-	    $self->_GetQuery(map { $_->[0] } @$counts),
+	    $self->_GetQuery(\@wordids),
 	)
     };
 
@@ -624,7 +625,8 @@ sub Search
 sub _GetQuery
 {
     my $self = shift;
-    my @words = shift;
+    my $wordsref = shift;
+    my @words = @$wordsref;
     my $table = $self->Table;
     my $wtable = $table . "words";
     my $idcol = $table . "id";
