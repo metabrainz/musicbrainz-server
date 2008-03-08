@@ -155,60 +155,82 @@ sub ReplaceAttributes
 		}
 	}
 
-	foreach my $attr (keys %temp)
-	{
-		my $rep_name;
-
-		if (scalar(@{$temp{$attr}}) == 1)
-		{
-    		    $rep_name = shift @{$temp{$attr}};
-		}
-		elsif (scalar(@{$temp{$attr}}) == 2)
-		{
-        	    $rep_name = shift @{$temp{$attr}};
-    		    $rep_name .= " and " . shift @{$temp{$attr}};
-		}
-		else
-		{
-    		    my $last = pop @{$temp{$attr}};
-    		    $rep_name = join ", ", @{$temp{$attr}};
-    		    $rep_name .= " and " . $last;
-		}
-		$rep_name =~ s/\s*?(.*?)\s*/$1/;
-		$rep_name =~ tr/A-Z/a-z/;
-	   
- 		# replace simple {$attr}
- 		$phrase =~ s/\{$attr\}/$rep_name/;
- 		$rphrase =~ s/\{$attr\}/$rep_name/;
- 		
- 		# replace {attr: phrase} => phrase (compile only once)
- 		my $re_inner = qr/\{$attr:([^|}]*)(?:\|[^}]*)?\}/;
- 		if ($phrase =~ /$re_inner/)
- 		{
-  			my $saved = $1;
- 			$saved =~ s/%/$rep_name/;
- 			$phrase =~ s/$re_inner/$saved/;
-  		}
- 		if ($rphrase =~ /$re_inner/)
- 		{
-  			my $saved = $1;
- 			$saved =~ s/%/$rep_name/;
- 			$rphrase =~ s/$re_inner/$saved/;
-  		}
-	}
-
- 	# pattern: unset attribute with alternative
- 	# {attr: phrase|unset-phrase} => unset-phrase
- 	my $re_unsetalt = qr/\{[^|}]*\|([^}]*)\}/;
-	$phrase =~ s/$re_unsetalt/$1/g;
- 	$rphrase =~ s/$re_unsetalt/$1/g;
-	
- 	# pattern: any other unset attribute
- 	my $re_unset = qr/\{[^|}]*\}\s*/;
- 	$phrase =~ s/$re_unset//g;
- 	$rphrase =~ s/$re_unset//g;
-
+	$phrase = _replace_attributes($phrase, \%temp);
+	$rphrase = _replace_attributes($rphrase, \%temp);
 	return ($phrase, $rphrase);
+}
+
+sub _join_words
+{
+	my ($words) = @_;
+	my @words = @$words;
+	my $numwords = scalar(@words);
+	my ($last, $result);
+
+	if ($numwords == 1) {
+		return $words[0];
+	}
+	elsif ($numwords == 2) {
+		$result = $words[0];
+		$last = $words[1];
+	}
+	else {
+		$last = pop(@words);
+		$result = join(", ", @words);
+	}
+	return $result . " and " . $last;
+}
+
+sub _replace_attributes
+{
+	my ($phrase, $attrs) = @_;
+
+	my @result;
+	my @tokens = split /({.*?}\s*)/, $phrase;
+	my $is_tag = 0;
+
+	foreach my $token (@tokens) {
+
+		if ($is_tag) {
+
+			$token =~ /{(.*?)(?::(.*?))?(?:\|(.*?))?}(\s*)/;
+			my $name = $1;
+			my $alternative_replacement = $2;
+			my $unset_replacement = $3;
+			my $space = $4;
+
+			my $replacement = $attrs->{"__$name"};
+			if (!defined($replacement)) {
+				my @values;
+				for my $n (split(/\+/, $name)) {
+					my $attr = $attrs->{$n};
+					if (defined($attr) && @$attr) {
+						push @values, @$attr;
+					}
+				}
+				$replacement = @values ? lc(_join_words(\@values)) : "";
+				$attrs->{"__$name"} = $replacement;
+			}
+
+			if ($replacement) {
+				$token = $replacement;
+				if ($alternative_replacement) {
+ 					$alternative_replacement =~ s/%/$token/;
+					$token = $alternative_replacement;
+				}
+			}
+			else {
+				$token = $unset_replacement;
+			}
+
+			$token .= $space if $token;
+		}
+
+		push @result, $token;
+		$is_tag = !$is_tag;
+	}
+	
+	return join "", @result;
 }
 
 sub Exists
