@@ -55,6 +55,7 @@
 	# Instantiate MusicBrainz object, and load the edit
 	# from the database.
 	my $mb = $m->comp("/comp/dblogin");
+
 	my $edit = Moderation->new($mb->{DBH});
 	$edit = $edit->CreateFromId($editid);
 
@@ -116,8 +117,17 @@
 			if ($optionalNote or $notetext ne "")
 			{
 				my $sql = Sql->new($mb->{DBH});
+
+				my $vertmb = new MusicBrainz;
+				$vertmb->Login(db => 'RAWDATA');
+				my $vertsql = Sql->new($vertmb->{DBH});
+
 				eval {
 					$sql->Begin;
+					$vertsql->Begin;
+
+					$Moderation::DBConnections{READWRITE} = $sql;
+					$Moderation::DBConnections{RAWDATA} = $vertsql;
 
 					# Insert a "yes" vote
 					my %votes = ($editid => &ModDefs::VOTE_YES);
@@ -138,11 +148,13 @@
 						if ($notetext);
 
 					$sql->Commit;
+					$vertsql->Commit;
 				}
 				or do
 				{
 					my $err = $@;
 					$sql->Rollback;
+					$vertsql->Rollback;
 
 					$m->comp("/comp/layout/error",
 						title => "Error applying edit:",
