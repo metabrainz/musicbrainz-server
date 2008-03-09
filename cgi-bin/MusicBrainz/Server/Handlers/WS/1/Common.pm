@@ -51,6 +51,7 @@ use Apache::File ();
 use Encode qw( decode encode );
 use Album;
 use MusicBrainz::Server::Country;
+use MusicBrainz::Server::LuceneSearch;
 
 use constant INC_ARTIST       => 0x000001;
 use constant INC_COUNTS       => 0x000002;
@@ -907,7 +908,7 @@ sub xml_search
     }
     elsif ($type eq 'artist')
     {
-        my $term = MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{artist});
+        my $term = MusicBrainz::Server::LuceneSearch::EscapeQuery($args->{artist});
         $term =~ tr/A-Z/a-z/;
         $term =~ s/\s*(.*?)\s*$/$1/;
         if (not $term =~ /^\s*$/)
@@ -917,7 +918,7 @@ sub xml_search
     }
     elsif ($type eq 'label')
     {
-        my $term = MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{label});
+        my $term = MusicBrainz::Server::LuceneSearch::EscapeQuery($args->{label});
         $term =~ tr/A-Z/a-z/;
         $term =~ s/\s*(.*?)\s*$/$1/;
         if (not $term =~ /^\s*$/)
@@ -928,7 +929,7 @@ sub xml_search
     elsif ($type eq 'release')
     {
         $query = "";
-        my $term = MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{release});
+        my $term = MusicBrainz::Server::LuceneSearch::EscapeQuery($args->{release});
         $term =~ tr/A-Z/a-z/;
         $term =~ s/\s*(.*?)\s*$/$1/;
         if ($args->{release})
@@ -937,11 +938,11 @@ sub xml_search
         }
         if ($args->{artistid})
         { 
-            $query .= " AND arid:" . MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{artistid});
+            $query .= " AND arid:" . MusicBrainz::Server::LuceneSearch::EscapeQuery($args->{artistid});
         }
         else
         { 
-            my $term = MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{artist});
+            my $term = MusicBrainz::Server::LuceneSearch::EscapeQuery($args->{artist});
             $term =~ s/\s*(.*?)\s*$/$1/;
             if (not $term =~ /^\s*$/)
             {
@@ -984,7 +985,7 @@ sub xml_search
     elsif ($type eq 'track')
     {
         $query = "";
-        my $term =  MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{track});
+        my $term =  MusicBrainz::Server::LuceneSearch::EscapeQuery($args->{track});
         $term =~ s/\s*(.*?)\s*$/$1/;
         $term =~ tr/A-Z/a-z/;
         if ($args->{track})
@@ -993,11 +994,11 @@ sub xml_search
         }
         if ($args->{artistid})
         {
-            $query .= " AND arid:" . MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{artistid});
+            $query .= " AND arid:" . MusicBrainz::Server::LuceneSearch::EscapeQuery($args->{artistid});
         }
         else
         {
-            my $term = MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{artist});
+            my $term = MusicBrainz::Server::LuceneSearch::EscapeQuery($args->{artist});
             $term =~ s/\s*(.*?)\s*$/$1/;
             if (not $term =~ /^\s*$/)
             {
@@ -1006,11 +1007,11 @@ sub xml_search
         }
         if ($args->{releaseid})
         { 
-            $query .= " AND reid:" . MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{releaseid});
+            $query .= " AND reid:" . MusicBrainz::Server::LuceneSearch::EscapeQuery($args->{releaseid});
         }
         else
         {
-            my $term = MusicBrainz::Server::Validation::EscapeLuceneQuery($args->{release});
+            my $term = MusicBrainz::Server::LuceneSearch::EscapeQuery($args->{release});
             $term =~ s/\s*(.*?)\s*$/$1/;
             if (not $term =~ /^\s*$/)
             {

@@ -30,6 +30,7 @@
 		$release,
 		$track,
 		$tracknum,
+		$duration,
 	);
 
 	$m->comp("/comp/sidebar-notitle", pagetitle => "Lookup Results");
@@ -48,11 +49,7 @@
 		$tracknum = $data{tracknum} if (exists $data{tracknum} && !$tracknum);
 	}
 
-	my $_artist = MusicBrainz::Server::Validation::normalize($artist);
-	my $_release = MusicBrainz::Server::Validation::normalize($release);
-	my $_track = MusicBrainz::Server::Validation::normalize($track);
 	my $_duration = 0;
-
 	if ($duration =~ /(\d+):(\d+)/)
 	{
 		$_duration = (($1 * 60) + $2) * 1000;
@@ -61,8 +58,6 @@
 	{
 		$_duration = $1;
 	}
-	my $_tracknum = MusicBrainz::Server::Validation::normalize($tracknum);
-
 
 	# If a TRM is specified, and if it resolves to multiple tracks, show the
 	# matching tracks, and also a "search anyway" form.
@@ -238,33 +233,10 @@
 <%perl>
 
 	}
-	elsif ($_artist)
+	elsif ($artist)
 	{
-		my ($query, $type);
-		if ($track)
-		{
-			$type = "track";
-			$query = $_track;
-			$query .= " release:($_release)" if (not $_release =~ /^\s*$/);
-			$query .= " artist:($_artist)" if (not $_artist =~ /^\s*$/);
-			$query .= " tnum:$_tracknum" if $_tracknum;
-			if ($_duration)
-			{
-				my $qdur = $_duration / 2000;
-				$query .= " qdur:$qdur qdur:" . ($qdur - 1) . " qdur:" . ($qdur + 1) if ($qdur);
-			}
-		}
-		elsif ($release)
-		{
-			$type = "release";
-			$query = $_release;
-			$query .= " artist:($_artist)" if (not $_artist =~ /^\s*$/);
-		}
-		else
-		{
-			$type = "artist";
-			$query = "artist:($_artist) (sortname:($_artist))^0.000001 (alias:($_artist))^0.000001";
-		}
+		use MusicBrainz::Server::LuceneSearch qw( TagLookupQuery );
+		my ($query, $type) = TagLookupQuery($artist, $release, $track, $tracknum, $_duration);
 
 # print "Sorry, the search server is down.";
 # return;
@@ -274,7 +246,6 @@
 		$docurl .= "&tport=$tport" if $tport;
 		$docurl .= "&dur=$_duration" if $_duration;
 		$docurl .= "&mbt=1" if $mbt;
-		$docurl .= "&fields=artist" if $mbt;
 
 		require LWP::UserAgent;
 		my $ua = LWP::UserAgent->new;
