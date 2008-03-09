@@ -186,7 +186,7 @@ sub _replace_attributes
 	my ($phrase, $attrs) = @_;
 
 	my @result;
-	my @tokens = split /({.*?}\s*)/, $phrase;
+	my @tokens = split(/({.*?}\s*)/, $phrase);
 	my $is_tag = 0;
 
 	foreach my $token (@tokens) {
@@ -226,11 +226,11 @@ sub _replace_attributes
 			$token .= $space if $token;
 		}
 
-		push @result, $token;
+		push(@result, $token) if $token;
 		$is_tag = !$is_tag;
 	}
-	
-	return join "", @result;
+
+	return join("", @result);
 }
 
 sub Exists
