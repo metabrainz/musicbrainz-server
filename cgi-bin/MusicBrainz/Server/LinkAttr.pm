@@ -245,7 +245,7 @@ sub Update
 
 ################################################################################
 
-InsertDefaultRows();
+#InsertDefaultRows();
 
 1;
 # eof LinkAttr.pm
