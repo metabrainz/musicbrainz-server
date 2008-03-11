@@ -32,9 +32,9 @@ use base qw( TableBase );
 require MusicBrainz::Server::LinkEntity;
 require MusicBrainz::Server::Attribute;
 require MusicBrainz::Server::URL;
-require Artist;
-require Album;
-require Track;
+require MusicBrainz::Server::Artist;
+require MusicBrainz::Server::Release;
+require MusicBrainz::Server::Track;
 
 ################################################################################
 # Bare Constructor
@@ -558,7 +558,7 @@ sub Delete
 # Merging 
 ################################################################################
 
-sub MergeAlbums
+sub MergeReleases
 {
 	my ($self, $oldid, $newid) = @_;
 	$self->_Merge($oldid, $newid, "album");
@@ -665,7 +665,7 @@ sub _Merge
 # Removing
 ################################################################################
 
-sub RemoveByAlbum
+sub RemoveByRelease
 {
 	my ($self, $entityid) = @_;
 	$self->_Remove($entityid, "album");

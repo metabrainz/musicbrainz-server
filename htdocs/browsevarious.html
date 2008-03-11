@@ -63,13 +63,13 @@
 
 	# handle release type argument
 	MusicBrainz::Server::Validation::IsNonNegInteger($reltype) or $reltype = 0;
-	$reltype >= Album::ALBUM_ATTR_SECTION_TYPE_START or $reltype = 0;
-	$reltype <= Album::ALBUM_ATTR_SECTION_TYPE_END or $reltype = 0;
+	$reltype >= MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_TYPE_START or $reltype = 0;
+	$reltype <= MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_TYPE_END or $reltype = 0;
 
 	# handle release status argument
 	MusicBrainz::Server::Validation::IsNonNegInteger($relstatus) or $relstatus = 0;
-	$relstatus >= Album::ALBUM_ATTR_SECTION_STATUS_START or $relstatus = 0;
-	$relstatus <= Album::ALBUM_ATTR_SECTION_STATUS_END or $relstatus = 0;
+	$relstatus >= MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_STATUS_START or $relstatus = 0;
+	$relstatus <= MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_STATUS_END or $relstatus = 0;
 
 	# handle artists argument
 	$artists = ""
@@ -106,7 +106,7 @@
 
 	# load album list from the database.
 	my $mb = $m->comp("/comp/dblogin");
-	my $al = Album->new($mb->{DBH});
+	my $al = MusicBrainz::Server::Release->new($mb->{DBH});
 	$al->SetId(&ModDefs::VARTIST_ID);
 	my ($num_albums, $albums) = $al->GetVariousDisplayList(
 									$index,

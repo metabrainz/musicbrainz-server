@@ -57,7 +57,7 @@
 		$labelid = $id if (MusicBrainz::Server::Validation::IsNonNegInteger($id) && $id);
 
 		# if the $id parameter is a GUID
-		my $label = Label->new($mb->{DBH});
+		my $label = MusicBrainz::Server::Label->new($mb->{DBH});
 		if ($mbid ne "")
 		{
 			$label->SetMBId($mbid);

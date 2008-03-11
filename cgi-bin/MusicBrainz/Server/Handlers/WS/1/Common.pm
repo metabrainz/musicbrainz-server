@@ -49,7 +49,8 @@ our @EXPORT_OK = qw(
 use Apache::Constants qw( );
 use Apache::File ();
 use Encode qw( decode encode );
-use Album;
+use MusicBrainz::Server::Release;
+use MusicBrainz::Server::ReleaseEvent;
 use MusicBrainz::Server::Country;
 use MusicBrainz::Server::LuceneSearch;
 
@@ -112,53 +113,53 @@ my %incShortcuts =
 
 my %typeShortcuts =
 ( 
-    'NonAlbumTrack'   => Album::ALBUM_ATTR_NONALBUMTRACKS,
-    'Album'           => Album::ALBUM_ATTR_ALBUM,
-    'Single'          => Album::ALBUM_ATTR_SINGLE,
-    'EP'              => Album::ALBUM_ATTR_EP,
-    'Compilation'     => Album::ALBUM_ATTR_COMPILATION,
-    'Soundtrack'      => Album::ALBUM_ATTR_SOUNDTRACK,
-    'Spokenword'      => Album::ALBUM_ATTR_SPOKENWORD,
-    'Interview'       => Album::ALBUM_ATTR_INTERVIEW,
-    'Audiobook'       => Album::ALBUM_ATTR_AUDIOBOOK,
-    'Live'            => Album::ALBUM_ATTR_LIVE,
-    'Remix'           => Album::ALBUM_ATTR_REMIX,
-    'Other'           => Album::ALBUM_ATTR_OTHER        
+    'NonAlbumTrack'   => MusicBrainz::Server::Release::RELEASE_ATTR_NONALBUMTRACKS,
+    'Album'           => MusicBrainz::Server::Release::RELEASE_ATTR_ALBUM,
+    'Single'          => MusicBrainz::Server::Release::RELEASE_ATTR_SINGLE,
+    'EP'              => MusicBrainz::Server::Release::RELEASE_ATTR_EP,
+    'Compilation'     => MusicBrainz::Server::Release::RELEASE_ATTR_COMPILATION,
+    'Soundtrack'      => MusicBrainz::Server::Release::RELEASE_ATTR_SOUNDTRACK,
+    'Spokenword'      => MusicBrainz::Server::Release::RELEASE_ATTR_SPOKENWORD,
+    'Interview'       => MusicBrainz::Server::Release::RELEASE_ATTR_INTERVIEW,
+    'Audiobook'       => MusicBrainz::Server::Release::RELEASE_ATTR_AUDIOBOOK,
+    'Live'            => MusicBrainz::Server::Release::RELEASE_ATTR_LIVE,
+    'Remix'           => MusicBrainz::Server::Release::RELEASE_ATTR_REMIX,
+    'Other'           => MusicBrainz::Server::Release::RELEASE_ATTR_OTHER        
 );
 
 my %statusShortcuts =
 ( 
-    'Official'           => Album::ALBUM_ATTR_OFFICIAL,
-    'Promotion'          => Album::ALBUM_ATTR_PROMOTION,
-    'Bootleg'            => Album::ALBUM_ATTR_BOOTLEG,
-    'PseudoRelease'      => Album::ALBUM_ATTR_PSEUDO_RELEASE,
-    'sa-Official'        => Album::ALBUM_ATTR_OFFICIAL,
-    'sa-Promotion'       => Album::ALBUM_ATTR_PROMOTION,
-    'sa-Bootleg'         => Album::ALBUM_ATTR_BOOTLEG,
-    'sa-PseudoRelease'   => Album::ALBUM_ATTR_PSEUDO_RELEASE,
-    'va-Official'        => Album::ALBUM_ATTR_OFFICIAL,
-    'va-Promotion'       => Album::ALBUM_ATTR_PROMOTION,
-    'va-Bootleg'         => Album::ALBUM_ATTR_BOOTLEG,
-    'va-PseudoRelease'   => Album::ALBUM_ATTR_PSEUDO_RELEASE,
+    'Official'           => MusicBrainz::Server::Release::RELEASE_ATTR_OFFICIAL,
+    'Promotion'          => MusicBrainz::Server::Release::RELEASE_ATTR_PROMOTION,
+    'Bootleg'            => MusicBrainz::Server::Release::RELEASE_ATTR_BOOTLEG,
+    'PseudoRelease'      => MusicBrainz::Server::Release::RELEASE_ATTR_PSEUDO_RELEASE,
+    'sa-Official'        => MusicBrainz::Server::Release::RELEASE_ATTR_OFFICIAL,
+    'sa-Promotion'       => MusicBrainz::Server::Release::RELEASE_ATTR_PROMOTION,
+    'sa-Bootleg'         => MusicBrainz::Server::Release::RELEASE_ATTR_BOOTLEG,
+    'sa-PseudoRelease'   => MusicBrainz::Server::Release::RELEASE_ATTR_PSEUDO_RELEASE,
+    'va-Official'        => MusicBrainz::Server::Release::RELEASE_ATTR_OFFICIAL,
+    'va-Promotion'       => MusicBrainz::Server::Release::RELEASE_ATTR_PROMOTION,
+    'va-Bootleg'         => MusicBrainz::Server::Release::RELEASE_ATTR_BOOTLEG,
+    'va-PseudoRelease'   => MusicBrainz::Server::Release::RELEASE_ATTR_PSEUDO_RELEASE,
 );
 
 my %formatNames = 
 (
-    MusicBrainz::Server::Release::RELEASE_FORMAT_CD           => 'CD',
-    MusicBrainz::Server::Release::RELEASE_FORMAT_DVD          => 'DVD',
-    MusicBrainz::Server::Release::RELEASE_FORMAT_SACD         => 'SACD',
-    MusicBrainz::Server::Release::RELEASE_FORMAT_DUALDISC     => 'DualDisc',
-    MusicBrainz::Server::Release::RELEASE_FORMAT_LASERDISC    => 'LaserDisc',
-    MusicBrainz::Server::Release::RELEASE_FORMAT_MINIDISC     => 'MiniDisc',
-    MusicBrainz::Server::Release::RELEASE_FORMAT_VINYL        => 'Vinyl',
-    MusicBrainz::Server::Release::RELEASE_FORMAT_CASSETTE     => 'Cassette',
-    MusicBrainz::Server::Release::RELEASE_FORMAT_CARTRIDGE    => 'Cartridge',
-    MusicBrainz::Server::Release::RELEASE_FORMAT_REEL_TO_REEL => 'ReelToReel',
-    MusicBrainz::Server::Release::RELEASE_FORMAT_DAT          => 'DAT',
-    MusicBrainz::Server::Release::RELEASE_FORMAT_DIGITAL      => 'Digital',
-    MusicBrainz::Server::Release::RELEASE_FORMAT_OTHER        => 'Other'     ,
-    MusicBrainz::Server::Release::RELEASE_FORMAT_WAX_CYLINDER => 'WaxCylinder',
-    MusicBrainz::Server::Release::RELEASE_FORMAT_PIANO_ROLL   => 'PianoRoll',
+    MusicBrainz::Server::ReleaseEvent::RELEASE_FORMAT_CD           => 'CD',
+    MusicBrainz::Server::ReleaseEvent::RELEASE_FORMAT_DVD          => 'DVD',
+    MusicBrainz::Server::ReleaseEvent::RELEASE_FORMAT_SACD         => 'SACD',
+    MusicBrainz::Server::ReleaseEvent::RELEASE_FORMAT_DUALDISC     => 'DualDisc',
+    MusicBrainz::Server::ReleaseEvent::RELEASE_FORMAT_LASERDISC    => 'LaserDisc',
+    MusicBrainz::Server::ReleaseEvent::RELEASE_FORMAT_MINIDISC     => 'MiniDisc',
+    MusicBrainz::Server::ReleaseEvent::RELEASE_FORMAT_VINYL        => 'Vinyl',
+    MusicBrainz::Server::ReleaseEvent::RELEASE_FORMAT_CASSETTE     => 'Cassette',
+    MusicBrainz::Server::ReleaseEvent::RELEASE_FORMAT_CARTRIDGE    => 'Cartridge',
+    MusicBrainz::Server::ReleaseEvent::RELEASE_FORMAT_REEL_TO_REEL => 'ReelToReel',
+    MusicBrainz::Server::ReleaseEvent::RELEASE_FORMAT_DAT          => 'DAT',
+    MusicBrainz::Server::ReleaseEvent::RELEASE_FORMAT_DIGITAL      => 'Digital',
+    MusicBrainz::Server::ReleaseEvent::RELEASE_FORMAT_OTHER        => 'Other'     ,
+    MusicBrainz::Server::ReleaseEvent::RELEASE_FORMAT_WAX_CYLINDER => 'WaxCylinder',
+    MusicBrainz::Server::ReleaseEvent::RELEASE_FORMAT_PIANO_ROLL   => 'PianoRoll',
 );
 
 # Convert the passed inc argument into a bitflag with the given constants form above
@@ -301,7 +302,7 @@ sub xml_artist
 	my ($ar, $inc, $info) = @_;
 
 	printf '<artist id="%s"', $ar->GetMBId;
-    printf ' type="%s"', &Artist::GetTypeName($ar->GetType()) if ($ar->GetType);
+    printf ' type="%s"', &MusicBrainz::Server::Artist::GetTypeName($ar->GetType()) if ($ar->GetType);
     printf '><name>%s</name><sort-name>%s</sort-name>',
 		xml_escape($ar->GetName),
 		xml_escape($ar->GetSortName);
@@ -332,7 +333,7 @@ sub xml_artist
     }
     if (defined $info)
     {
-        my @albums = $ar->GetAlbums(!$info->{va}, 1, $info->{va});
+        my @albums = $ar->GetReleases(!$info->{va}, 1, $info->{va});
         if (scalar(@albums) && ($info->{type} != -1 || $info->{status} != -1))
         {
             my @filtered;
@@ -433,7 +434,7 @@ sub xml_release_events
     require MusicBrainz::Server::Country;
 
 	my ($al, $inc) = @_;
-    my (@releases) = $al->Releases(($inc & INC_LABELS) ? 1 : 0);
+    my (@releases) = $al->ReleaseEvents(($inc & INC_LABELS) ? 1 : 0);
     my $country_obj = MusicBrainz::Server::Country->new($al->{DBH})
        if @releases;
 	
@@ -468,7 +469,7 @@ sub xml_release_events
 			if (($inc & INC_LABELS) && $rel->GetLabel)
 			{
 				print '>';
-				my $label = Label->new($rel->{DBH});
+				my $label = MusicBrainz::Server::Label->new($rel->{DBH});
 				$label->SetId($rel->GetLabel);
 				$label->SetMBId($rel->GetLabelMBId);
 				$label->SetName($rel->GetLabelName);
@@ -518,7 +519,7 @@ sub xml_discs
 
 sub xml_track_list
 {
-	require Track;
+	require MusicBrainz::Server::Track;
 	my ($ar, $al, $inc) = @_;
 
     my $tr_inc_mask = INC_TAGS;
@@ -542,7 +543,7 @@ sub xml_track_list
             if ($ar->GetId != $tr->GetArtist)
             {
                 my $ar;
-                $ar = Artist->new($tr->{DBH});
+                $ar = MusicBrainz::Server::Artist->new($tr->{DBH});
                 $ar->SetId($tr->GetArtist);
                 $ar->LoadFromId();
                 xml_track($ar, $tr, $tr_inc);
@@ -559,7 +560,7 @@ sub xml_track_list
 
 sub xml_track
 {
-	require Track;
+	require MusicBrainz::Server::Track;
 	my ($ar, $tr, $inc) = @_;
 
 
@@ -579,7 +580,7 @@ sub xml_track
         my @albums = $tr->GetAlbumInfo();
         if (scalar(@albums))
         {
-            my $al = Album->new($ar->{DBH});
+            my $al = MusicBrainz::Server::Release->new($ar->{DBH});
             print '<release-list>';
             foreach my $i (@albums)
             {
@@ -602,11 +603,11 @@ sub xml_track
 
 sub xml_puid
 {
-    require PUID;
+    require MusicBrainz::Server::PUID;
 	my ($tr) = @_;
 
     my $id;
-    my $puid = PUID->new($tr->{DBH});
+    my $puid = MusicBrainz::Server::PUID->new($tr->{DBH});
     my @PUID = $puid->GetPUIDFromTrackId($tr->GetId);
     return undef if (scalar(@PUID) == 0);
     print '<puid-list>';
@@ -627,7 +628,7 @@ sub xml_label
     printf '<label id="%s"', $ar->GetMBId;
     if ($ar->GetType)
     {
-        my $name = &Label::GetTypeName($ar->GetType());
+        my $name = &MusicBrainz::Server::Label::GetTypeName($ar->GetType());
         $name =~ s/(^|[^A-Za-z0-9])+([A-Za-z0-9]?)/uc $2/eg;
         printf ' type="%s"', $name;
     }
@@ -703,7 +704,7 @@ sub load_object
         }
         else
         {
-            my $temp = Artist->new($dbh);
+            my $temp = MusicBrainz::Server::Artist->new($dbh);
             MusicBrainz::Server::Validation::IsGUID($id) ? $temp->SetMBId($id) : $temp->SetId($id);
             die "Could not load artist $id\n" if (!$temp->LoadFromId());
             $cache->{$k} = $temp;
@@ -719,7 +720,7 @@ sub load_object
         }
         else
         {
-            my $temp = Label->new($dbh);
+            my $temp = MusicBrainz::Server::Label->new($dbh);
             MusicBrainz::Server::Validation::IsGUID($id) ? $temp->SetMBId($id) : $temp->SetId($id);
             die "Could not load label $id\n" if (!$temp->LoadFromId());
             $cache->{$k} = $temp;
@@ -735,7 +736,7 @@ sub load_object
         }
         else
         {
-            $temp = Album->new($dbh);
+            $temp = MusicBrainz::Server::Release->new($dbh);
             MusicBrainz::Server::Validation::IsGUID($id) ? $temp->SetMBId($id) : $temp->SetId($id);
             die "Could not load release $id\n" if (!$temp->LoadFromId());
             $cache->{$k} = $temp;
@@ -751,7 +752,7 @@ sub load_object
         }
         else
         {
-            $temp = Track->new($dbh);
+            $temp = MusicBrainz::Server::Track->new($dbh);
             MusicBrainz::Server::Validation::IsGUID($id) ? $temp->SetMBId($id) : $temp->SetId($id);
             die "Could not load track $id\n" if (!$temp->LoadFromId());
             $cache->{$k} = $temp;
@@ -955,7 +956,7 @@ sub xml_search
         }
         if (defined $args->{releasestatus} && $args->{releasestatus} =~ /^\d+$/)
         {
-            $query .= " AND status:" . ($args->{releasestatus} - Album::ALBUM_ATTR_SECTION_STATUS_START + 1) . "^0.0001";
+            $query .= " AND status:" . ($args->{releasestatus} - MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_STATUS_START + 1) . "^0.0001";
         }
         if ($args->{count} > 0)
         {

@@ -46,8 +46,8 @@
 </%args>
 <%perl>
 
-	my $begindate_str = Artist::GetBeginDateName($type);
-	my $enddate_str = Artist::GetEndDateName($type);
+	my $begindate_str = MusicBrainz::Server::Artist::GetBeginDateName($type);
+	my $enddate_str = MusicBrainz::Server::Artist::GetEndDateName($type);
 
 </%perl>
 

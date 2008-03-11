@@ -63,8 +63,8 @@ sub PreInsert
 	my $cdtoc = $opts{'cdtoc'} or die;
 	my $oldrelease = $opts{album} or die;
 
-	require MusicBrainz::Server::AlbumCDTOC;
-	my $alcdtoc = MusicBrainz::Server::AlbumCDTOC->newFromAlbumAndCDTOC($self->{DBH}, $oldrelease, $cdtoc->GetId);
+	require MusicBrainz::Server::ReleaseCDTOC;
+	my $alcdtoc = MusicBrainz::Server::ReleaseCDTOC->newFromReleaseAndCDTOC($self->{DBH}, $oldrelease, $cdtoc->GetId);
 	if (not $alcdtoc)
 	{
 		$self->SetError("Old album / CD TOC not found");
@@ -106,7 +106,7 @@ sub DetermineQuality
 {
 	my $self = shift;
 
-	my $rel = Album->new($self->{DBH});
+	my $rel = MusicBrainz::Server::Release->new($self->{DBH});
 	$rel->SetId($self->{albumid});
 	if ($rel->LoadFromId())
 	{
@@ -133,9 +133,9 @@ sub ApprovedAction
 {
 	my $self = shift;
 
-	require MusicBrainz::Server::AlbumCDTOC;
+	require MusicBrainz::Server::ReleaseCDTOC;
 
-	my $alcdtoc = MusicBrainz::Server::AlbumCDTOC->newFromId($self->{DBH}, $self->GetRowId);
+	my $alcdtoc = MusicBrainz::Server::ReleaseCDTOC->newFromId($self->{DBH}, $self->GetRowId);
 	if (not $alcdtoc)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This disc ID has already been removed");

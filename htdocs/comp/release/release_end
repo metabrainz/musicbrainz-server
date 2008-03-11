@@ -57,7 +57,7 @@
 			foreach my $id (@ids)
 			{
 				my $cdtoc = $id->GetCDTOC;
-				my $duration = Track::FormatTrackLength($cdtoc->GetLeadoutOffset / 75 * 1000);
+				my $duration = MusicBrainz::Server::Track::FormatTrackLength($cdtoc->GetLeadoutOffset / 75 * 1000);
 				my $id_numtracks = $cdtoc->GetTrackCount;
 				my $discid = $cdtoc->GetDiscID;
 				my $mismatch = (defined $id_numtracks and
@@ -113,7 +113,7 @@
 		<tr valign="top">
 			<td class="eventslist">
 
-%		my @relevents = $releaseevents ? @$releaseevents : $release->Releases(1);
+%		my @relevents = $releaseevents ? @$releaseevents : $release->ReleaseEvents(1);
 %		if (@relevents == 0)
 %		{
 

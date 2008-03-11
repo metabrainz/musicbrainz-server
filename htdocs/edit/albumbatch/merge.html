@@ -114,8 +114,8 @@
 						privs => $session{privs},
 						type => (
 							$mac
-							? &ModDefs::MOD_MERGE_ALBUM_MAC
-							: &ModDefs::MOD_MERGE_ALBUM
+							? &ModDefs::MOD_MERGE_RELEASE_MAC
+							: &ModDefs::MOD_MERGE_RELEASE
 						),
 						# --
 						albums => \@objs,
@@ -175,7 +175,7 @@
 	my (%merged, @id_numtracks);
 	my ($id, $i, $release, @tracks, $track, @ids);
 
-	my $artist = Artist->new($mb->{DBH});
+	my $artist = MusicBrainz::Server::Artist->new($mb->{DBH});
 
 	foreach $release (@objs)
 	{

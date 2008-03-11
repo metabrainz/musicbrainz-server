@@ -37,11 +37,11 @@
 	<table class="editdiff">
 		<tr>
 			<td class="lbl">Old:</td>
-			<td class="diff" id="ov::edit<% $this->GetId %>"><% Track::FormatTrackLength($this->GetPrev) %></td>
+			<td class="diff" id="ov::edit<% $this->GetId %>"><% MusicBrainz::Server::Track::FormatTrackLength($this->GetPrev) %></td>
 		</tr>
 		<tr>
 			<td class="lbl">New:</td>
-			<td class="diff" id="nv::edit<% $this->GetId %>"><% Track::FormatTrackLength($this->GetNew) %></td>
+			<td class="diff" id="nv::edit<% $this->GetId %>"><% MusicBrainz::Server::Track::FormatTrackLength($this->GetNew) %></td>
 		</tr>
 	</table>
 

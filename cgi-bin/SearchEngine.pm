@@ -493,8 +493,8 @@ sub Search
 
 	    if ($r->{'numartistaliases'})
 	    {
-		require Alias;
-		my $al = Alias->new($self->{DBH}, "ArtistAlias");
+		require MusicBrainz::Server::Alias;
+		my $al = MusicBrainz::Server::Alias->new($self->{DBH}, "ArtistAlias");
 		my $aliases = $al->LoadFull($r->{'artistid'});
 
 		for my $alias (@$aliases)
@@ -509,8 +509,8 @@ sub Search
 	{
 	    if ($r->{'numlabelaliases'})
 	    {
-		require Alias;
-		my $al = Alias->new($self->{DBH}, "labelalias");
+		require MusicBrainz::Server::Alias;
+		my $al = MusicBrainz::Server::Alias->new($self->{DBH}, "labelalias");
 		my $aliases = $al->LoadFull($r->{'labelid'});
 
 		for my $alias (@$aliases)

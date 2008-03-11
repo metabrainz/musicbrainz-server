@@ -41,7 +41,7 @@
 % 	# link to new artist if all info is known
 % 	if ($this->{'new.exists'})
 % 	{
-%		my $artist = Artist->new($this->{DBH});
+%		my $artist = MusicBrainz::Server::Artist->new($this->{DBH});
 %		$artist->SetId($this->{'new.artistid'} );
 %		my $exists = $artist->LoadFromId;
 

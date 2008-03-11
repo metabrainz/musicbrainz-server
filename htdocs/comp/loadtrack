@@ -57,7 +57,7 @@
 		$trackid = $id if (MusicBrainz::Server::Validation::IsNonNegInteger($id) && $id);
 
 		# if the $id parameter is a GUID
-		my $track = Track->new($mb->{DBH});
+		my $track = MusicBrainz::Server::Track->new($mb->{DBH});
 		if ($mbid ne "")
 		{
 			$track->SetMBId($mbid);
@@ -71,7 +71,7 @@
 		# if the releaseid was given, restrict to tracks from this release.
 		if (defined $releaseid)
 		{
-			$track->SetAlbum($releaseid);
+			$track->SetRelease($releaseid);
 			$error = sprintf "Track with <strong>id</strong> #%s not found on the release with <strong>releaseid</strong> %s", $trackid, $releaseid;
 		}
 		if ($track->LoadFromId(1))

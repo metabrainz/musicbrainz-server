@@ -116,8 +116,8 @@ while (my ($id) = $sql->NextRow)
 	
 	eval
 	{
-		use Track;
-		my $tr = Track->new($sqlWrite->{DBH});
+		use MusicBrainz::Server::Track;
+		my $tr = MusicBrainz::Server::Track->new($sqlWrite->{DBH});
 		$tr->SetId($id);
 		$tr->Remove;
 		$sqlWrite->Commit;

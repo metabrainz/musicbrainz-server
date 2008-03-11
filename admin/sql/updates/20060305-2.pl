@@ -37,7 +37,7 @@ use lib "$FindBin::Bin/../../../cgi-bin";
 require DBDefs;
 require MusicBrainz;
 require Sql;
-require Album;
+require MusicBrainz::Server::Release;
 
 my $verbose = 1;
 
@@ -71,7 +71,7 @@ my $i = 0;
 my %done;
 for my $link (@$rows)
 {
-	my $al = Album->new($mb->{DBH});
+	my $al = MusicBrainz::Server::Release->new($mb->{DBH});
 	my $alid = $link->{alid};
 	$al->SetId($alid);
 

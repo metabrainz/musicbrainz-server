@@ -121,7 +121,7 @@ sub PreInsert
 		@$entities[0]->{type} eq 'album' &&
 		@$entities[1]->{type} eq 'url')
 	{
-		my $al = Album->new($self->{DBH});
+		my $al = MusicBrainz::Server::Release->new($self->{DBH});
 		$al->SetId(@$entities[0]->{id});
 		if ($al->LoadFromId(1))
 		{
@@ -137,7 +137,7 @@ sub PreInsert
 		@$entities[0]->{type} eq 'album' &&
 		@$entities[1]->{type} eq 'url')
 	{
-		my $al = Album->new($self->{DBH});
+		my $al = MusicBrainz::Server::Release->new($self->{DBH});
 		$al->SetId(@$entities[0]->{id});
 		if ($al->LoadFromId(1))
 		{
@@ -163,7 +163,7 @@ sub DetermineQuality
     my $new = $self->{'new_unpacked'};
     if ($new->{entity0type} eq 'album' || $new->{entity1type} eq 'album')
     {
-        my $rel = Album->new($self->{DBH});
+        my $rel = MusicBrainz::Server::Release->new($self->{DBH});
         $rel->SetId($new->{entity0type} eq 'album' ? $new->{entity0id} : $new->{entity1id});
         if ($rel->LoadFromId())
         {
@@ -172,7 +172,7 @@ sub DetermineQuality
     }
     elsif ($new->{entity0type} eq 'artist' || $new->{entity1type} eq 'artist')
     {
-        my $rel = Artist->new($self->{DBH});
+        my $rel = MusicBrainz::Server::Artist->new($self->{DBH});
         $rel->SetId($new->{entity0type} eq 'artist' ? $new->{entity0id} : $new->{entity1id});
         if ($rel->LoadFromId())
         {
@@ -198,7 +198,7 @@ sub DeniedAction
 			$new->{entity0type} eq 'album' &&
 			$new->{entity1type} eq 'url')
 		{
-			my $al = Album->new($self->{DBH});
+			my $al = MusicBrainz::Server::Release->new($self->{DBH});
 			$al->SetId($new->{entity0id});
             MusicBrainz::Server::CoverArt->UpdateAmazonData($al, -1)
 				if ($al->LoadFromId(1));
@@ -207,7 +207,7 @@ sub DeniedAction
 			$new->{entity0type} eq 'album' &&
 			$new->{entity1type} eq 'url')
 		{
-			my $al = Album->new($self->{DBH});
+			my $al = MusicBrainz::Server::Release->new($self->{DBH});
 			$al->SetId($new->{entity0id});
             MusicBrainz::Server::CoverArt->UpdateCoverArtData($al, -1)
 				if ($al->LoadFromId(1));

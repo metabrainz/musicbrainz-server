@@ -56,7 +56,7 @@
 	# load artist
 	my $artist = $m->comp("/comp/loadartist", $mb, $artistid);
     my $strict = $artist->GetStrict;
-    my $stricttext = Artist::GetStrictName($strict);
+    my $stricttext = MusicBrainz::Server::Artist::GetStrictName($strict);
 
 	# we got a form submission to handle
 	if ($submitvalue ne "")
@@ -115,22 +115,22 @@
 					<td>&nbsp;</td>
 					<td class="notetext">
 					    <%perl>
-                        if ($strict != &Artist::ARTIST_STRICT_LOOSE)
+                        if ($strict != &MusicBrainz::Server::Artist::ARTIST_STRICT_LOOSE)
                         {
-                            $m->out('<input type="radio" name="level" value="' . &Artist::ARTIST_STRICT_LOOSE . '">Loose -- ') ;
+                            $m->out('<input type="radio" name="level" value="' . &MusicBrainz::Server::Artist::ARTIST_STRICT_LOOSE . '">Loose -- ') ;
                             $m->out('this edit level generally requires fewer votes and a shorter voting period and ') ;
                             $m->out('should be used for artists that require a lot of cleanup.') ;
                             $m->out('This level makes it easy to change information for this artist.<br/>') ;
 						}
-                        if ($strict != &Artist::ARTIST_STRICT_NORMAL)
+                        if ($strict != &MusicBrainz::Server::Artist::ARTIST_STRICT_NORMAL)
                         {
-					 	    $m->out('<input type="radio" name="level" value="'. &Artist::ARTIST_STRICT_NORMAL .'">Normal -- ') ;
+					 	    $m->out('<input type="radio" name="level" value="'. &MusicBrainz::Server::Artist::ARTIST_STRICT_NORMAL .'">Normal -- ') ;
                             $m->out('this edit level requires a normal amount of votes and a normal voting period ') ;
                             $m->out('and should be used for most artists.<br/>') ;
 						}
-                        if ($strict != &Artist::ARTIST_STRICT_STRICT)
+                        if ($strict != &MusicBrainz::Server::Artist::ARTIST_STRICT_STRICT)
                         {
-                            $m->out('<input type="radio" name="level" value="'. &Artist::ARTIST_STRICT_STRICT .'">Strict -- ') ;
+                            $m->out('<input type="radio" name="level" value="'. &MusicBrainz::Server::Artist::ARTIST_STRICT_STRICT .'">Strict -- ') ;
                             $m->out('this edit level generally requires more votes and a longer voting period ') ;
                             $m->out('and should be used with artists whose information is fairly complete. ') ;
                             $m->out('This level makes it hard to change information for this artist.<br/>') ;

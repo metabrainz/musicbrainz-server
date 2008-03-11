@@ -61,9 +61,9 @@
 								[ "-1", "Select type..." ],
 								[ ""  , "I don't know" ],
 								(map {
-									[ $_, Album->GetAttributeName($_) ]
-								} &Album::ALBUM_ATTR_SECTION_TYPE_START
-									.. &Album::ALBUM_ATTR_SECTION_TYPE_END)
+									[ $_, MusicBrainz::Server::Release->GetAttributeName($_) ]
+								} &MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_TYPE_START
+									.. &MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_TYPE_END)
 							]
 						},
 						$attr_type
@@ -77,9 +77,9 @@
 								[ "-1", "Select status..." ],
 								[ ""  , "I don't know" ],
 								(map {
-									[ $_, Album->GetAttributeName($_) ]
-								} &Album::ALBUM_ATTR_SECTION_STATUS_START
-									.. &Album::ALBUM_ATTR_SECTION_STATUS_END)
+									[ $_, MusicBrainz::Server::Release->GetAttributeName($_) ]
+								} &MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_STATUS_START
+									.. &MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_STATUS_END)
 							]
 						},
 						$attr_status

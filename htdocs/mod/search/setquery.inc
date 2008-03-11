@@ -395,7 +395,7 @@
 	if (MusicBrainz::Server::Validation::IsNonNegInteger($artist_id) and $artist_id)
 	{
 		# Validate id and get name
-		my $ar = Artist->new($dbh);
+		my $ar = MusicBrainz::Server::Artist->new($dbh);
 		$ar->SetId($artist_id);
 
 		if ($ar->LoadFromId)

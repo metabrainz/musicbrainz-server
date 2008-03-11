@@ -48,7 +48,7 @@
 	my $sortname = $label->GetSortName;
 	my $country = $label->GetCountry;
 	my $type = $label->GetType;
-	my $type_name = Label::GetTypeName($type) || '';
+	my $type_name = MusicBrainz::Server::Label::GetTypeName($type) || '';
 	my $labelcode = $label->GetLabelCode;
 	my $begin = $label->GetBeginDate;
 	my $end = $label->GetEndDate;

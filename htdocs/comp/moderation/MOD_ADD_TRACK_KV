@@ -44,7 +44,7 @@
 
 %# 	Dirty; really we should test the non-album bit of the album attribute.
 %# 	but that would require another fetch.
-% 	unless ($this->GetPrev eq &Album::NONALBUMTRACKS_NAME)
+% 	unless ($this->GetPrev eq &MusicBrainz::Server::Release::NONALBUMTRACKS_NAME)
 %	{
 		<tr>
 			<td class="lbl">Track #:</td>
@@ -55,7 +55,7 @@
 
 		<tr>
 			<td class="lbl">Length:</td>
-			<td><% Track::FormatTrackLength($new->{'TrackLength'}) %></td>
+			<td><% MusicBrainz::Server::Track::FormatTrackLength($new->{'TrackLength'}) %></td>
 		</tr>
 
 

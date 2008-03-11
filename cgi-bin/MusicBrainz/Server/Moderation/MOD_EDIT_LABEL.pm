@@ -87,7 +87,7 @@ sub PreInsert
 	if ( defined $type )
 	{
 		die $self->SetError('Label type invalid')
-			unless Label::IsValidType($type);
+			unless MusicBrainz::Server::Label::IsValidType($type);
 
 		$new{'Type'} = $type if $type != $ar->GetType();
 	}
@@ -208,8 +208,8 @@ sub CheckPrerequisites
 	}
 
 	# Load the label by ID
-	require Label;
-	my $ar = Label->new($self->{DBH});
+	require MusicBrainz::Server::Label;
+	my $ar = MusicBrainz::Server::Label->new($self->{DBH});
 	$ar->SetId($label_id);
 	unless ($ar->LoadFromId)
 	{
@@ -253,8 +253,8 @@ sub DeniedAction
 
 	if (my $label = $new->{'LabelId'})
 	{
-		require Label;
-		my $ar = Label->new($self->{DBH});
+		require MusicBrainz::Server::Label;
+		my $ar = MusicBrainz::Server::Label->new($self->{DBH});
 		$ar->SetId($label);
 		$ar->Remove;
    }
@@ -265,8 +265,8 @@ sub ShowModTypeDelegate
 	my ($self, $m) = @_;
 	$m->out('<tr class="entity"><td class="lbl">Label:</td><td>');
 	my $id = $self->GetRowId;
-	require Label;
-	my $label = Label->new($self->{DBH});
+	require MusicBrainz::Server::Label;
+	my $label = MusicBrainz::Server::Label->new($self->{DBH});
 	$label->SetId($id);
 	my ($title, $name);
 	if ($label->LoadFromId) 

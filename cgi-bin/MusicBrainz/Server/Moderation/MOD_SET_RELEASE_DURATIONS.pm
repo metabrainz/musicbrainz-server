@@ -20,7 +20,7 @@
 #   along with this program; if not, write to the Free Software
 #   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
-#   $Id: MOD_EDIT_ALBUMNAME.pm 8492 2006-09-26 22:44:39Z robert $
+#   $Id: MOD_EDIT_RELEASE_NAME.pm 8492 2006-09-26 22:44:39Z robert $
 #____________________________________________________________________________
 
 use strict;
@@ -31,7 +31,7 @@ use ModDefs qw( :modstatus MODBOT_MODERATOR );
 use base 'Moderation';
 use MusicBrainz::Server::CDTOC;
 use Sql;
-use Track;
+use MusicBrainz::Server::Track;
 
 sub Name { "Set Release Durations" }
 (__PACKAGE__)->RegisterHandler;
@@ -61,14 +61,14 @@ sub PreInsert
     my $prevdurs;
     foreach (@$tracks)
     {
-        $prevdurs .= Track::FormatTrackLength($_->{length}) . " ";
+        $prevdurs .= MusicBrainz::Server::Track::FormatTrackLength($_->{length}) . " ";
     }
 
     my @dur = TrackLengthsFromTOC($cdtoc);
     my $newdurs;
     foreach (@dur)
     {
-        $newdurs .= Track::FormatTrackLength($_) . " ";
+        $newdurs .= MusicBrainz::Server::Track::FormatTrackLength($_) . " ";
     }
 
     my %new = (
@@ -97,7 +97,7 @@ sub DetermineQuality
 {
 	my $self = shift;
 
-	my $rel = Album->new($self->{DBH});
+	my $rel = MusicBrainz::Server::Release->new($self->{DBH});
 	$rel->SetId($self->{rowid});
 	if ($rel->LoadFromId())
 	{
@@ -111,8 +111,8 @@ sub CheckPrerequisites
 	my $self = shift;
 
 	# Load the album by ID
-	require Album;
-	my $release = Album->new($self->{DBH});
+	require MusicBrainz::Server::Release;
+	my $release = MusicBrainz::Server::Release->new($self->{DBH});
 	$release->SetId($self->GetRowId);
 	unless ($release->LoadFromId)
 	{

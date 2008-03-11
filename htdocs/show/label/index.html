@@ -71,7 +71,7 @@
 		and return $m->comp("/comp/layout/badarguments",
 				text => "The special label DELETED_LABEL cannot be shown.");
 
-	my @albums = $label->GetAlbums;
+	my @albums = $label->GetReleases;
 	
 	my $CheckAttributes = sub
 	{
@@ -79,11 +79,11 @@
 
 		for my $attr ($a->GetAttributes)
 		{
-			$a->{_attr_type} = $attr if ($attr >= Album::ALBUM_ATTR_SECTION_TYPE_START &&
-										 $attr <= Album::ALBUM_ATTR_SECTION_TYPE_END);
-			$a->{_attr_status} = $attr if ($attr >= Album::ALBUM_ATTR_SECTION_STATUS_START &&
-										   $attr <= Album::ALBUM_ATTR_SECTION_STATUS_END);
-			$a->{_attr_type} = $attr if ($attr == Album::ALBUM_ATTR_NONALBUMTRACKS);
+			$a->{_attr_type} = $attr if ($attr >= MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_TYPE_START &&
+										 $attr <= MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_TYPE_END);
+			$a->{_attr_status} = $attr if ($attr >= MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_STATUS_START &&
+										   $attr <= MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_STATUS_END);
+			$a->{_attr_type} = $attr if ($attr == MusicBrainz::Server::Release::RELEASE_ATTR_NONALBUMTRACKS);
 		}
 
 		# The "actual values", used for display
@@ -91,8 +91,8 @@
 		$a->{_actual_attr_status} = $a->{_attr_status};
 
 		# Used for sorting
-		$a->{_attr_type} = Album::ALBUM_ATTR_SECTION_TYPE_END + 1 if (not defined $a->{_attr_type});
-		$a->{_attr_status} = Album::ALBUM_ATTR_SECTION_STATUS_END + 1 if (not defined $a->{_attr_status});
+		$a->{_attr_type} = MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_TYPE_END + 1 if (not defined $a->{_attr_type});
+		$a->{_attr_status} = MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_STATUS_END + 1 if (not defined $a->{_attr_status});
 	};
 
 	my $SortAlbums;

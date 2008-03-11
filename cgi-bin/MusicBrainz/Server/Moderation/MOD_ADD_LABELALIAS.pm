@@ -53,8 +53,8 @@ sub CheckPrerequisites
 	my $self = shift;
 
 	# Check that the referenced label is still around
-	require Label;
-	my $ar = Label->new($self->{DBH});
+	require MusicBrainz::Server::Label;
+	my $ar = MusicBrainz::Server::Label->new($self->{DBH});
 	$ar->SetId($self->GetRowId);
 	unless ($ar->LoadFromId)
 	{
@@ -81,8 +81,8 @@ sub ApprovedAction
 	my $status = $self->CheckPrerequisites;
 	return $status if $status;
 
-	require Alias;
-	my $al = Alias->new($self->{DBH});
+	require MusicBrainz::Server::Alias;
+	my $al = MusicBrainz::Server::Alias->new($self->{DBH});
 	$al->SetTable("LabelAlias");
 
 	my $other;
@@ -103,8 +103,8 @@ sub ShowModTypeDelegate
 	my ($self, $m) = @_;
 	$m->out('<tr class="entity"><td class="lbl">Label:</td><td>');
 	my $id = $self->GetRowId;
-	require Label;
-	my $label = Label->new($self->{DBH});
+	require MusicBrainz::Server::Label;
+	my $label = MusicBrainz::Server::Label->new($self->{DBH});
 	$label->SetId($id);
 	my ($title, $name);
 	if ($label->LoadFromId) 

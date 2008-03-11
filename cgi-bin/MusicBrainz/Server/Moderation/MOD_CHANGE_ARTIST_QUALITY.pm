@@ -20,7 +20,7 @@
 #   along with this program; if not, write to the Free Software
 #   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
-#   $Id: MOD_EDIT_ALBUMNAME.pm 8492 2006-09-26 22:44:39Z robert $
+#   $Id: MOD_EDIT_RELEASE_NAME.pm 8492 2006-09-26 22:44:39Z robert $
 #____________________________________________________________________________
 
 use strict;
@@ -60,8 +60,8 @@ sub CheckPrerequisites
 	my $self = shift;
 
 	# Load the album by ID
-	require Artist;
-	my $artist = Artist->new($self->{DBH});
+	require MusicBrainz::Server::Artist;
+	my $artist = MusicBrainz::Server::Artist->new($self->{DBH});
 	$artist->SetId($self->GetRowId);
 	unless ($artist->LoadFromId)
 	{
@@ -93,8 +93,8 @@ sub AdjustModPending
 {
 	my ($self, $adjust) = @_;
 
-	require Artist;
-	my $ar = Artist->new($self->{DBH});
+	require MusicBrainz::Server::Artist;
+	my $ar = MusicBrainz::Server::Artist->new($self->{DBH});
 	$ar->SetId($self->GetRowId);
 	$ar->LoadFromId;
 	$ar->UpdateQualityModPending($adjust);

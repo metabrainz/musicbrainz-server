@@ -230,8 +230,8 @@ while (my ($id, $name, $sortname) = $sql->NextRow)
 	
 	eval
 	{
-		use Artist;
-		my $ar = Artist->new($sqlWrite->{DBH});
+		use MusicBrainz::Server::Artist;
+		my $ar = MusicBrainz::Server::Artist->new($sqlWrite->{DBH});
 
 		# No need to load the whole record, hopefully...
 		$ar->SetId($id);

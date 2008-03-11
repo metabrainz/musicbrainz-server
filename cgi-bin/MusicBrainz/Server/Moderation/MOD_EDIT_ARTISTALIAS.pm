@@ -50,8 +50,8 @@ sub PreInsert
 
 	# Currently there's a unique index on artistalias.name.
 	# Refuse to insert the mod if that index would be violated.
-	require Alias;
-	my $test = Alias->new($self->{DBH}, 'artistalias');
+	require MusicBrainz::Server::Alias;
+	my $test = MusicBrainz::Server::Alias->new($self->{DBH}, 'artistalias');
 
 	if (my $other = $test->newFromName($newname))
 	{
@@ -70,7 +70,7 @@ sub DetermineQuality
 {
 	my $self = shift;
 
-	my $ar = Artist->new($self->{DBH});
+	my $ar = MusicBrainz::Server::Artist->new($self->{DBH});
 	$ar->SetId($self->{artist});
 	if ($ar->LoadFromId())
 	{
@@ -90,8 +90,8 @@ sub CheckPrerequisites
 {
 	my $self = shift;
 
-	require Alias;
-	my $alias = Alias->new($self->{DBH}, "artistalias");
+	require MusicBrainz::Server::Alias;
+	my $alias = MusicBrainz::Server::Alias->new($self->{DBH}, "artistalias");
 	$alias->SetId($self->GetRowId);
 
 	unless ($alias->LoadFromId)

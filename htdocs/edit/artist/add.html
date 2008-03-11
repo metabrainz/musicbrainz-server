@@ -67,7 +67,7 @@
 		or return $m->comp("/comp/layout/badarguments",
 			text => "Argument resolution has an invalid format.");
 
-	MusicBrainz::Server::Validation::IsNonNegInteger($type) && Artist::IsValidType($type)
+	MusicBrainz::Server::Validation::IsNonNegInteger($type) && MusicBrainz::Server::Artist::IsValidType($type)
 		or return $m->comp("/comp/layout/badarguments",
 			text =>"Argument type is invalid.");
 
@@ -84,7 +84,7 @@
 	my @dupes;
 	if ($name ne "")
 	{
-		my $artist = Artist->new($mb->{DBH});
+		my $artist = MusicBrainz::Server::Artist->new($mb->{DBH});
 		my $artists = $artist->GetArtistsFromName($name);
 
 		my $norm_name = MusicBrainz::Server::Validation::NormaliseSortText($name);
@@ -114,7 +114,7 @@
 		}
 		else
 		{
-			push @messages, "Please Select a valid type." if (not Artist::IsValidType($type));
+			push @messages, "Please Select a valid type." if (not MusicBrainz::Server::Artist::IsValidType($type));
 			push @messages, "Please enter the Name." if ($name eq "");
 			push @messages, "The artist name contains 'feat.' in it, see the <a href=\"/doc/FeaturingArtistStyle\">style guidelines</a> for the correct way to credit featuring artists." if ($attempts == 0 && $name =~ /feat\./);
 			push @messages, "Please enter the Sort Name." if ($sortname eq "");

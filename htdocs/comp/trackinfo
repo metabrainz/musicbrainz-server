@@ -75,7 +75,7 @@
 				<td class="label">
 					Length:</td>
 				<td>
-					<% Track::FormatTrackLength($track->GetLength) %></td>
+					<% MusicBrainz::Server::Track::FormatTrackLength($track->GetLength) %></td>
 			</tr>
 
 %	}

@@ -48,7 +48,7 @@
 
 	my $countries_menu = $m->comp("countries-menu.inc");
 	my $countries_menu_2 = [ [ "", "[select a country]" ], @$countries_menu ];
-	my $formats_menu = MusicBrainz::Server::Release::GetReleaseFormats();
+	my $formats_menu = MusicBrainz::Server::ReleaseEvent::GetReleaseFormats();
     my $error;
 
 	# Update releases
@@ -196,7 +196,7 @@
 	return $m->comp("/comp/redirect", "/edit/albumreleases/selectlabel.html?releaseid=".$releaseid)
 		if $ARGS{"continue"} && ((@errors == 0) || !@errors);
 
-	my $artist = Artist->new(undef);
+	my $artist = MusicBrainz::Server::Artist->new(undef);
 	$artist->SetId($edit->{"artist"}{"id"});
 	$artist->SetName($edit->{"artist"}{"name"});
 	$artist->SetSortName($edit->{"artist"}{"sortname"});

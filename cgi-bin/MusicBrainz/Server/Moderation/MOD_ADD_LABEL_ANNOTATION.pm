@@ -103,8 +103,8 @@ sub ShowModTypeDelegate
 	my ($self, $m) = @_;
 	$m->out('<tr class="entity"><td class="lbl">Label:</td><td>');
 	my $id = $self->GetRowId;
-	require Label;
-	my $label = Label->new($self->{DBH});
+	require MusicBrainz::Server::Label;
+	my $label = MusicBrainz::Server::Label->new($self->{DBH});
 	$label->SetId($id);
 	my ($title, $name);
 	if ($label->LoadFromId) 

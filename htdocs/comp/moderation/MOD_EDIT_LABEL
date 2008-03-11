@@ -67,7 +67,7 @@
 
 %	if ($prev->{"Type"} ne $new->{"Type"})
 %	{
-%		my $type_str = Label::GetTypeName($prev->{"Type"});
+%		my $type_str = MusicBrainz::Server::Label::GetTypeName($prev->{"Type"});
 
 		<tr>
 			<td class="lbl">Type:</td>
@@ -94,7 +94,7 @@
 %	{
 %		my $begin = MusicBrainz::Server::Validation::MakeDisplayDateStr($prev->{'BeginDate'});
 %		$begin = "[Not&nbsp;set]" if ($begin eq "");
-%		my $datestr = Label::GetBeginDateName($prev->{"Type"});
+%		my $datestr = MusicBrainz::Server::Label::GetBeginDateName($prev->{"Type"});
 %		$datestr =~ s/ /&nbsp;/g;
 
 		<tr>
@@ -111,7 +111,7 @@
 %	{
 %		my $end = MusicBrainz::Server::Validation::MakeDisplayDateStr($prev->{'EndDate'});
 %		$end = "[Not&nbsp;set]" if ($end eq "");
-%		my $datestr = Label::GetEndDateName($prev->{"Type"});
+%		my $datestr = MusicBrainz::Server::Label::GetEndDateName($prev->{"Type"});
 %		$datestr =~ s/ /&nbsp;/g;
 
 		<tr>
@@ -213,8 +213,8 @@
 
 %	if ($prev->{"Type"} ne $new->{"Type"})
 %	{
-%		my $prevtype = Label::GetTypeName($prev->{"Type"});
-%		my $newtype = Label::GetTypeName($new->{"Type"}) || "?";
+%		my $prevtype = MusicBrainz::Server::Label::GetTypeName($prev->{"Type"});
+%		my $newtype = MusicBrainz::Server::Label::GetTypeName($new->{"Type"}) || "?";
 
 		<tr class="top">
 			<td class="lbl" rowspan="2">Type:</td>

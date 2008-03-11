@@ -47,19 +47,19 @@
 		my $disclength = 0;
 		for my $i (0 .. $tracks-1)
 		{
-			my $length = Track::UnformatTrackLength($ARGS{"tracklength$i"});
+			my $length = MusicBrainz::Server::Track::UnformatTrackLength($ARGS{"tracklength$i"});
 			$disclength += $length if $length > 0;
 		}
 
 		# guess release attributes from most common factors
-		$ARGS{"attr_status_guessed"} = Album::ALBUM_ATTR_OFFICIAL;
+		$ARGS{"attr_status_guessed"} = MusicBrainz::Server::Release::RELEASE_ATTR_OFFICIAL;
 
-		$ARGS{"attr_type_guessed"} = Album::ALBUM_ATTR_ALBUM;
-		$ARGS{"attr_type_guessed"} = Album::ALBUM_ATTR_COMPILATION
+		$ARGS{"attr_type_guessed"} = MusicBrainz::Server::Release::RELEASE_ATTR_ALBUM;
+		$ARGS{"attr_type_guessed"} = MusicBrainz::Server::Release::RELEASE_ATTR_COMPILATION
 			if $hasmultipletrackartists;
-		$ARGS{"attr_type_guessed"} = Album::ALBUM_ATTR_SINGLE
+		$ARGS{"attr_type_guessed"} = MusicBrainz::Server::Release::RELEASE_ATTR_SINGLE
 			if ($disclength ? ($disclength < 30*60*1000) : ($tracks <= 5));
-		$ARGS{"attr_type_guessed"} = Album::ALBUM_ATTR_EP
+		$ARGS{"attr_type_guessed"} = MusicBrainz::Server::Release::RELEASE_ATTR_EP
 			if $releasename =~ /\bEP\b/i;
 	}
 

@@ -52,7 +52,7 @@ sub PreInsert
 
 	# We allow a type of 0. It is mapped to NULL in the DB.
 	die $self->SetError('Artist type invalid')
-		unless Artist::IsValidType($type) or not defined $type;
+		unless MusicBrainz::Server::Artist::IsValidType($type) or not defined $type;
 
 	MusicBrainz::Server::Validation::TrimInPlace($resolution) if defined $resolution;
 
@@ -99,7 +99,7 @@ sub PreInsert
 	{
 		my $subs = UserSubscription->new($self->{DBH}); 
 		$subs->SetUser($self->GetModerator);
-		my $artist = Artist->new($self->{DBH});
+		my $artist = MusicBrainz::Server::Artist->new($self->{DBH});
 		$artist->SetId($info{'artist_insertid'});
 		$subs->SubscribeArtists(($artist))
 			if ($artist->LoadFromId);

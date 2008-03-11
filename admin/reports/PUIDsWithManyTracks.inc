@@ -142,7 +142,7 @@
 						strong => 0
 					&></td>
 				<td>
-					<% Track::FormatTrackLength($track->{'length'}) %></td>
+					<% MusicBrainz::Server::Track::FormatTrackLength($track->{'length'}) %></td>
 			</tr>
 
 <%perl>

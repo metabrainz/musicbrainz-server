@@ -31,7 +31,7 @@ use DBDefs;
 use Sql;
 use Data::Dumper;
 use MusicBrainz;
-use Artist;
+use MusicBrainz::Server::Artist;
 
 my $mb = MusicBrainz->new;
 $mb->Login;
@@ -51,8 +51,8 @@ while(defined($line = <>))
 	$rel =~ s/^\s*|\s*$//g;
 #print "$ent0 $ent1 $rel\n";
 
-	my $ar0 = Artist->new($mb->{DBH});
-	my $ar1 = Artist->new($mb->{DBH});
+	my $ar0 = MusicBrainz::Server::Artist->new($mb->{DBH});
+	my $ar1 = MusicBrainz::Server::Artist->new($mb->{DBH});
 	$ar0->SetMBId($ent0);
 	$ar1->SetMBId($ent1);
 

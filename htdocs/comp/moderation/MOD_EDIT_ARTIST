@@ -79,7 +79,7 @@
 
 %	if ($prev->{"Type"} ne $new->{"Type"})
 %	{
-%		my $type_str = Artist::GetTypeName($prev->{"Type"});
+%		my $type_str = MusicBrainz::Server::Artist::GetTypeName($prev->{"Type"});
 
 		<tr>
 			<td class="lbl">Type:</td>
@@ -94,7 +94,7 @@
 %	{
 %		my $begin = MusicBrainz::Server::Validation::MakeDisplayDateStr($prev->{'BeginDate'});
 %		$begin = "[Not&nbsp;set]" if ($begin eq "");
-%		my $datestr = Artist::GetBeginDateName($prev->{"Type"});
+%		my $datestr = MusicBrainz::Server::Artist::GetBeginDateName($prev->{"Type"});
 %		$datestr =~ s/ /&nbsp;/g;
 
 		<tr>
@@ -111,7 +111,7 @@
 %	{
 %		my $end = MusicBrainz::Server::Validation::MakeDisplayDateStr($prev->{'EndDate'});
 %		$end = "[Not&nbsp;set]" if ($end eq "");
-%		my $datestr = Artist::GetEndDateName($prev->{"Type"});
+%		my $datestr = MusicBrainz::Server::Artist::GetEndDateName($prev->{"Type"});
 %		$datestr =~ s/ /&nbsp;/g;
 
 		<tr>
@@ -197,8 +197,8 @@
 
 %	if ($prev->{"Type"} ne $new->{"Type"})
 %	{
-%		my $prevtype = Artist::GetTypeName($prev->{"Type"});
-%		my $newtype = Artist::GetTypeName($new->{"Type"}) || "?";
+%		my $prevtype = MusicBrainz::Server::Artist::GetTypeName($prev->{"Type"});
+%		my $newtype = MusicBrainz::Server::Artist::GetTypeName($new->{"Type"}) || "?";
 
 
 		<tr class="top">

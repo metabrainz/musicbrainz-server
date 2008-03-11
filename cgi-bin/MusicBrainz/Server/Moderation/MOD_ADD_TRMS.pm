@@ -86,13 +86,13 @@ sub ApprovedAction
 {
 	my $self = shift;
 
-	require TRM;
-	my $TRM = TRM->new($self->{DBH});
+	require MusicBrainz::Server::TRM;
+	my $TRM = MusicBrainz::Server::TRM->new($self->{DBH});
 	my $clientVersion = $self->{'new_unpacked'}{'ClientVersion'};
 
 	for (@{ $self->{'new_list'} })
 	{
-		$TRM->Insert(
+		$MusicBrainz::Server::TRM->Insert(
 			$_->{'trmid'},
 			$_->{'trackid'},
 			$clientVersion,

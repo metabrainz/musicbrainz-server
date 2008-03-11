@@ -50,7 +50,7 @@
 	if ($error eq "")
 	{
 		# if the $id parameter is a GUID
-		my $alias = Alias->new($mb->{DBH}, "artistalias");
+		my $alias = MusicBrainz::Server::Alias->new($mb->{DBH}, "artistalias");
 		$alias->SetId($id);
 
 		if ($alias->LoadFromId(1))

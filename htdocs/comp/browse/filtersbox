@@ -40,9 +40,9 @@
 	$m->out(qq!<table class="listing">!);
 
 	$m->out(qq!<tr><td class="left"><b>Release&nbsp;Type:&nbsp;</b></td><td class="left">!);
-	for my $rt (0, Album::ALBUM_ATTR_SECTION_TYPE_START ..  Album::ALBUM_ATTR_SECTION_TYPE_END)
+	for my $rt (0, MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_TYPE_START ..  MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_TYPE_END)
 	{
-		my $name = ($rt ? Album->GetAttributeName($rt) : "All");
+		my $name = ($rt ? MusicBrainz::Server::Release->GetAttributeName($rt) : "All");
 		$m->out(" | ") if $rt;
 		$m->out(qq!<span class="selected">!)if $rt == $reltype;
 		$m->out(qq!<a href="/browsevarious.html?reltype=$rt&amp;relstatus=$relstatus&amp;artists=$artists&amp;index=$index">$name</a>!);
@@ -51,9 +51,9 @@
 	$m->out(qq!</td></tr>!);
 
 	$m->out(qq!<tr><td class="left"><b>Release&nbsp;Status:&nbsp;</b></td><td class="left">!);
-	for my $rt (0, Album::ALBUM_ATTR_SECTION_STATUS_START ..  Album::ALBUM_ATTR_SECTION_STATUS_END)
+	for my $rt (0, MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_STATUS_START ..  MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_STATUS_END)
 	{
-		my $name = ($rt ? Album->GetAttributeName($rt) : "All");
+		my $name = ($rt ? MusicBrainz::Server::Release->GetAttributeName($rt) : "All");
 		$m->out(" | ") if $rt;
 		$m->out(qq!<span class="selected">!) if $rt == $relstatus;
 		$m->out(qq!<a href="/browsevarious.html?reltype=$reltype&amp;relstatus=$rt&amp;artists=$artists&amp;index=$index">$name</a>!);

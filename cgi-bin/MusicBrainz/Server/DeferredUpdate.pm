@@ -217,8 +217,8 @@ sub _LoadFromFilehandle
 	$n = keys %trm;
 	$i = 0;
 	$t0 = [ gettimeofday ];
-	require TRM;
-	my $trmobj = TRM->new($dbh);
+	require MusicBrainz::Server::TRM;
+	my $trmobj = MusicBrainz::Server::TRM->new($dbh);
 
 	while (my ($trm, $usecount) = each %trm)
 	{
@@ -248,7 +248,7 @@ sub _LoadFromFilehandle
 	$n = keys %trmusage;
 	$i = 0;
 	$t0 = [ gettimeofday ];
-	$trmobj = TRM->new($dbh);
+	$trmobj = MusicBrainz::Server::TRM->new($dbh);
 
 	while (my ($args, $usecount) = each %trmusage)
 	{
@@ -270,8 +270,8 @@ sub _LoadFromFilehandle
 	$i = 0;
 	$t0 = [ gettimeofday ];
 
-	require Alias;
-	my $aliasobj = Alias->new($dbh, "artistalias");
+	require MusicBrainz::Server::Alias;
+	my $aliasobj = MusicBrainz::Server::Alias->new($dbh, "artistalias");
 
 	while (my ($aliasid, $t) = each %artistalias)
 	{

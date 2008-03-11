@@ -32,7 +32,7 @@ use warnings;
 package DuplicateArtists2;
 use base qw(MusicBrainz::Server::ReportScript);
 
-use Artist;
+use MusicBrainz::Server::Artist;
 
 
 sub GatherData
@@ -67,7 +67,7 @@ sub GatherData
 		my @entry;
 		foreach my $artist (@$artists)
 		{
-			my $ar = Artist->new($self->DBH);
+			my $ar = MusicBrainz::Server::Artist->new($self->DBH);
 			$ar->SetMBId($artist->{artist_mbid});
 
 			next unless $ar->LoadFromId;

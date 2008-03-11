@@ -39,8 +39,8 @@
 </%args>
 <%perl>
 
-	use Album;
-	use Artist;
+	use MusicBrainz::Server::Release;
+	use MusicBrainz::Server::Artist;
 	use MusicBrainz::Server::PagedReport;
 	use File::Basename qw(dirname);
 	use ModDefs;
@@ -114,11 +114,11 @@
 			# read album and artist information if the album exists
 			foreach my $entry (@$dupelist)
 			{
-				my $al = Album->new($mb->{DBH});
+				my $al = MusicBrainz::Server::Release->new($mb->{DBH});
 				$al->SetMBId($entry->{album_mbid});
 				if ($al->LoadFromId(1))
 				{
-					my $ar = Artist->new($mb->{DBH});
+					my $ar = MusicBrainz::Server::Artist->new($mb->{DBH});
 					$ar->SetId($al->GetArtist);
 					$ar->LoadFromId;
 					push @section, {

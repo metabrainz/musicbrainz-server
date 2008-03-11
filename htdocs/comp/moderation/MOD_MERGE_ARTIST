@@ -41,7 +41,7 @@
 
 <%perl>
 
-	my $artist = Artist->new($this->{DBH});
+	my $artist = MusicBrainz::Server::Artist->new($this->{DBH});
 	$artist->SetId($this->GetRowId);
 	if ($artist->LoadFromId)
 	{

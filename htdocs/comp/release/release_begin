@@ -173,7 +173,7 @@
 
 			# load the annotation from the database
 			my $annotation = MusicBrainz::Server::Annotation->new($mb->{DBH});
-			$annotation->SetAlbum($releaseid);
+			$annotation->SetRelease($releaseid);
 			$annotation->GetLatestAnnotation() or $annotation = undef;
 
 			$m->out(qq!<tr><td class="editannotation">!);

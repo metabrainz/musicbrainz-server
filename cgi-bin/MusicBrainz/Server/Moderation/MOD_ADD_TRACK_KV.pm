@@ -49,8 +49,8 @@ sub PreInsert
 	{
 		$artist or die;
 
-		require Album;
-		$release = Album->new($self->{DBH});
+		require MusicBrainz::Server::Release;
+		$release = MusicBrainz::Server::Release->new($self->{DBH});
 		$release = $release->GetOrInsertNonAlbum($artist->GetId);
 		$nonalbum = 1;
 	} 
@@ -101,7 +101,7 @@ sub PreInsert
 		my $sql = Sql->new($self->{DBH}); 
 		(my $albummodid) = $sql->SelectSingleValue(
 			"SELECT id FROM moderation_open WHERE type = " 
-			. &ModDefs::MOD_ADD_ALBUM
+			. &ModDefs::MOD_ADD_RELEASE
 			. " AND rowid = ?", $self->GetRowId,
 		);
 		$new{'Dep0'} = $albummodid if ($albummodid);
@@ -171,7 +171,7 @@ sub DetermineQuality
 {
 	my $self = shift;
 
-	my $rel = Album->new($self->{DBH});
+	my $rel = MusicBrainz::Server::Release->new($self->{DBH});
 	$rel->SetId($self->{albumid});
 	if ($rel->LoadFromId())
 	{
@@ -196,10 +196,10 @@ sub DeniedAction
 	my $releaseid = $new->{"AlbumId"}
 		or croak "Missing AlbumId";
 
-	require Track;
-	my $track = Track->new($self->{DBH});
+	require MusicBrainz::Server::Track;
+	my $track = MusicBrainz::Server::Track->new($self->{DBH});
 	$track->SetId($trackid);
-	$track->SetAlbum($releaseid);
+	$track->SetRelease($releaseid);
 
 	unless ($track->LoadFromId)
 	{
@@ -217,8 +217,8 @@ sub DeniedAction
 	$track->Remove;
 
 	# Try to remove the album if it's a "non-album" album
-	require Album;
-	my $release = Album->new($self->{DBH});
+	require MusicBrainz::Server::Release;
+	my $release = MusicBrainz::Server::Release->new($self->{DBH});
 	$release->SetId($releaseid);
 	if ($release->LoadFromId)
 	{
@@ -229,8 +229,8 @@ sub DeniedAction
 
 	if (my $artistid = $new->{"NewArtistId"})
 	{
-		require Artist;
-		my $artist = Artist->new($self->{DBH});
+		require MusicBrainz::Server::Artist;
+		my $artist = MusicBrainz::Server::Artist->new($self->{DBH});
 		$artist->SetId($artistid);
 		$artist->Remove;
 	}

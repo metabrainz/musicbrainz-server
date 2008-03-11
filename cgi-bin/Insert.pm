@@ -27,7 +27,7 @@ use strict;
 
 package Insert;
 
-use ModDefs qw( VARTIST_ID DARTIST_ID ANON_MODERATOR MODBOT_MODERATOR MOD_ADD_ALBUM );
+use ModDefs qw( VARTIST_ID DARTIST_ID ANON_MODERATOR MODBOT_MODERATOR MOD_ADD_RELEASE );
 
 sub new
 {
@@ -86,7 +86,7 @@ sub Insert
 #			}
 #		] (always exactly one track)
 #
-#	MOD_ADD_ALBUM PreInsert
+#	MOD_ADD_RELEASE PreInsert
 #		EITHER artist+sortname OR artistid
 #		album => name
 #		OPTIONAL cdindexid => ..., toc => ...
@@ -207,19 +207,19 @@ sub _Insert
         die "Insert failed: you cannot force a new album and provide an albumid.\n";
     }
 
-	require Artist;
-    my $ar = Artist->new($this->{DBH});
-    my $mar = Artist->new($this->{DBH});
-	require Album;
-    my $al = Album->new($this->{DBH});
-	require Track;
-    my $tr = Track->new($this->{DBH});
-	require TRM;
-    my $trm = TRM->new($this->{DBH});
-	require PUID;
-    my $puid = PUID->new($this->{DBH});
+	require MusicBrainz::Server::Artist;
+    my $ar = MusicBrainz::Server::Artist->new($this->{DBH});
+    my $mar = MusicBrainz::Server::Artist->new($this->{DBH});
 	require MusicBrainz::Server::Release;
-	my $rel = MusicBrainz::Server::Release->new($this->{DBH});
+    my $al = MusicBrainz::Server::Release->new($this->{DBH});
+	require MusicBrainz::Server::Track;
+    my $tr = MusicBrainz::Server::Track->new($this->{DBH});
+	require MusicBrainz::Server::TRM;
+    my $trm = MusicBrainz::Server::TRM->new($this->{DBH});
+	require MusicBrainz::Server::PUID;
+    my $puid = MusicBrainz::Server::PUID->new($this->{DBH});
+	require MusicBrainz::Server::ReleaseEvent;
+	my $rel = MusicBrainz::Server::ReleaseEvent->new($this->{DBH});
 
 	my $artist;
 	my $artistid;
@@ -415,8 +415,8 @@ sub _Insert
     # If a valid cdindexid and toc was supplied, then insert that now
     if (exists $info->{cdindexid} && exists $info->{toc})
     {
-		require MusicBrainz::Server::AlbumCDTOC;
-		MusicBrainz::Server::AlbumCDTOC->Insert($this->{DBH}, $albumid, $info->{toc});
+		require MusicBrainz::Server::ReleaseCDTOC;
+		MusicBrainz::Server::ReleaseCDTOC->Insert($this->{DBH}, $albumid, $info->{toc});
         $info->{cdindexid_insertid} = $info->{cdindexid};
     }
 
@@ -613,7 +613,7 @@ TRACK:
 			die "Skipped Insert: Release country is required\n";
 		}
 
-		$rel->SetAlbum($albumid);
+		$rel->SetRelease($albumid);
 		$rel->SetYMD(@ymd);
 		$rel->SetCountry($release->{country});
 		$rel->SetLabel($release->{label});
@@ -629,7 +629,7 @@ TRACK:
 }
 
 # Called by FreeDB->InsertForModeration and cdi/done.html
-# This inserts a mod of type MOD_ADD_ALBUM, which in turn calls
+# This inserts a mod of type MOD_ADD_RELEASE, which in turn calls
 # $insert->Insert (above).
 
 sub InsertAlbumModeration
@@ -640,7 +640,7 @@ sub InsertAlbumModeration
 
 	# TODO: for now, the $new passed in is still the packed string
 	# (key=value\nkey=value\n etc).  Here we parse that back into hash form
-	# and pass it into the MOD_ADD_ALBUM handler.  Eventually we'll invent a
+	# and pass it into the MOD_ADD_RELEASE handler.  Eventually we'll invent a
 	# new named-arguments convention and pass a hash like that, instead of
 	# passing packed strings.
 	my %opts = (
@@ -655,13 +655,13 @@ sub InsertAlbumModeration
 			DBH	=> $this->{DBH},
 			uid	=> $moderator || ANON_MODERATOR,
 			privs => $privs || 0,
-			type => MOD_ADD_ALBUM,
+			type => MOD_ADD_RELEASE,
 			#
 			%opts,
 			artist => $artist,
 		);
 
-		(my $mod) = grep { $_->Type == MOD_ADD_ALBUM } @mods
+		(my $mod) = grep { $_->Type == MOD_ADD_RELEASE } @mods
 			or die;
 
 		$mod->InsertNote(

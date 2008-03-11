@@ -60,8 +60,8 @@ sub ApprovedAction
    
 	# Now remove the Label. The Label will only be removed
 	# if there are not more references to it.
-	require Label;
-	my $ar = Label->new($this->{DBH});
+	require MusicBrainz::Server::Label;
+	my $ar = MusicBrainz::Server::Label->new($this->{DBH});
 	$ar->SetId($rowid);
 
 	require UserSubscription;
@@ -88,8 +88,8 @@ sub ShowModTypeDelegate
 	my ($self, $m) = @_;
 	$m->out('<tr class="entity"><td class="lbl">Label:</td><td>');
 	my $id = $self->GetRowId;
-	require Label;
-	my $label = Label->new($self->{DBH});
+	require MusicBrainz::Server::Label;
+	my $label = MusicBrainz::Server::Label->new($self->{DBH});
 	$label->SetId($id);
 	my ($title, $name);
 	if ($label->LoadFromId) 

@@ -72,7 +72,7 @@
 			and $artistid != &ModDefs::DARTIST_ID
 			or next;
 
-		my $artist = Artist->new($mb->{DBH});
+		my $artist = MusicBrainz::Server::Artist->new($mb->{DBH});
 		$artist->SetId($artistid);
 		$artist->LoadFromId
 			or next;
@@ -87,7 +87,7 @@
 			and $labelid != &ModDefs::DLABEL_ID
 			or next;
 
-		my $label = Label->new($mb->{DBH});
+		my $label = MusicBrainz::Server::Label->new($mb->{DBH});
 		$label->SetId($labelid);
 		$label->LoadFromId
 			or next;

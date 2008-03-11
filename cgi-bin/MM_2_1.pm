@@ -85,7 +85,7 @@ sub OutputArtistRDF
     $out .= $this->Element("dc:comment", $artist->GetResolution) if ($artist->GetResolution);
 
     $out .= $this->Element("mm:artistType", "", "rdf:resource", $this->GetMMNamespace() . 
-                                  "Type" . &Artist::GetTypeName($artist->GetType)) if ($artist->GetType);
+                                  "Type" . &MusicBrainz::Server::Artist::GetTypeName($artist->GetType)) if ($artist->GetType);
     $out .= $this->OutputRelationships($ref->{_relationships})
         if (exists $ref->{_relationships});
 
@@ -120,7 +120,7 @@ sub OutputAlbumRDF
     $album = $ref->{obj};
     $artist = $this->GetFromCache('artist', $album->GetArtist()); 
 
-    @releases = $album->Releases;
+    @releases = $album->ReleaseEvents;
     require MusicBrainz::Server::Country;
     my $country_obj = MusicBrainz::Server::Country->new($album->{DBH})
        if @releases;
@@ -170,14 +170,14 @@ sub OutputAlbumRDF
     my @attrs = $album->GetAttributes();
     foreach $attr (@attrs)
     {
-        if ($attr >= Album::ALBUM_ATTR_SECTION_TYPE_START && 
-            $attr <= Album::ALBUM_ATTR_SECTION_TYPE_END)
+        if ($attr >= MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_TYPE_START && 
+            $attr <= MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_TYPE_END)
         {
            $out .= $this->Element("mm:releaseType", "", "rdf:resource", $this->GetMMNamespace() . 
                                   "Type" . $album->GetAttributeName($attr));
         }
-        elsif ($attr >= Album::ALBUM_ATTR_SECTION_STATUS_START && 
-               $attr <= Album::ALBUM_ATTR_SECTION_STATUS_END)
+        elsif ($attr >= MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_STATUS_START && 
+               $attr <= MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_STATUS_END)
         {
            $out .= $this->Element("mm:releaseStatus", "", "rdf:resource", $this->GetMMNamespace() . 
                                   "Status" . $album->GetAttributeName($attr));
@@ -228,7 +228,7 @@ sub OutputAlbumRDF
 	if (scalar(@$ids))
 	{
 	    $complete = $$ids[scalar(@$ids) - 1]->{tracknum} != (scalar(@$ids) + 1);
-            $complete = 1 if (!$complete && $album->GetName() eq &Album::NONALBUMTRACKS_NAME);
+            $complete = 1 if (!$complete && $album->GetName() eq &MusicBrainz::Server::Release::NONALBUMTRACKS_NAME);
 	    foreach $track (@$ids)
 	    {
 		my $li = $complete ? "rdf:li" : ("rdf:_" . $track->{tracknum});
@@ -297,8 +297,8 @@ sub OutputTrackRDF
     $out .= $this->OutputRelationships($ref->{_relationships})
         if (exists $ref->{_relationships});
 
-    require TRM;
-    $gu = TRM->new($this->{DBH});
+    require MusicBrainz::Server::TRM;
+    $gu = MusicBrainz::Server::TRM->new($this->{DBH});
     if ($track->GetId())
     {
 	@TRM = $gu->GetTRMFromTrackId($track->GetId());
@@ -576,8 +576,8 @@ sub CreateFileLookup
                {
                    my $artist;
 
-		   require Artist;
-                   $artist = Artist->new($this->{DBH});
+		   require MusicBrainz::Server::Artist;
+                   $artist = MusicBrainz::Server::Artist->new($this->{DBH});
                    $artist->SetId($tr->GetArtist());
                    $artist->LoadFromId();
                    $this->AddToCache(0, 'artist', $artist);
@@ -796,19 +796,19 @@ sub CreateRelationshipList
 	my ($type, $id) = split '-', $item;
 	if ($type eq 'artist')
 	{
-	    $temp = Artist->new($this->{DBH});
+	    $temp = MusicBrainz::Server::Artist->new($this->{DBH});
 	    $temp->SetId($id);
 	    die if (!$temp->LoadFromId());
             $out .= $this->OutputArtistRDF({ obj=> $temp });
 	} elsif ($type eq 'album')
 	{
-	    $temp = Album->new($this->{DBH});
+	    $temp = MusicBrainz::Server::Release->new($this->{DBH});
 	    $temp->SetId($id);
 	    die if (!$temp->LoadFromId());
             $out .= $this->OutputAlbumRDF({ obj=> $temp });
 	} elsif ($type eq 'track')
 	{
-	    $temp = Track->new($this->{DBH});
+	    $temp = MusicBrainz::Server::Track->new($this->{DBH});
 	    $temp->SetId($id);
 	    die if (!$temp->LoadFromId());
             $out .= $this->OutputTrackRDF({ obj=> $temp });

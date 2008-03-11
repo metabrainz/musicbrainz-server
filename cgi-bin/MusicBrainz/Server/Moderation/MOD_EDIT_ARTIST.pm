@@ -72,7 +72,7 @@ sub PreInsert
 	if ( defined $type )
 	{
 		die $self->SetError('Artist type invalid')
-			unless Artist::IsValidType($type);
+			unless MusicBrainz::Server::Artist::IsValidType($type);
 
 		$new{'Type'} = $type if $type != $ar->GetType();
 	}
@@ -146,7 +146,7 @@ sub DetermineQuality
 {
 	my $self = shift;
 
-	my $ar = Artist->new($self->{DBH});
+	my $ar = MusicBrainz::Server::Artist->new($self->{DBH});
 	$ar->SetId($self->{rowid});
 	if ($ar->LoadFromId())
 	{
@@ -201,8 +201,8 @@ sub CheckPrerequisites
 	}
 
 	# Load the artist by ID
-	require Artist;
-	my $ar = Artist->new($self->{DBH});
+	require MusicBrainz::Server::Artist;
+	my $ar = MusicBrainz::Server::Artist->new($self->{DBH});
 	$ar->SetId($artist_id);
 	unless ($ar->LoadFromId)
 	{
@@ -246,8 +246,8 @@ sub DeniedAction
 
 	if (my $artist = $new->{'ArtistId'})
 	{
-		require Artist;
-		my $ar = Artist->new($self->{DBH});
+		require MusicBrainz::Server::Artist;
+		my $ar = MusicBrainz::Server::Artist->new($self->{DBH});
 		$ar->SetId($artist);
 		$ar->Remove;
    }

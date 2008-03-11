@@ -138,20 +138,20 @@ sub CreateDenseTrackList
     $this->{cache} = [];
     for my $id (@{$gids})
     {
-    	require Track;
-     	my $tr = Track->new($this->{DBH});
+    	require MusicBrainz::Server::Track;
+     	my $tr = MusicBrainz::Server::Track->new($this->{DBH});
       	$tr->SetMBId($id);
        	$tr->LoadFromId();
 
-	require Artist;
-	my $ar = Artist->new($this->{DBH});
+	require MusicBrainz::Server::Artist;
+	my $ar = MusicBrainz::Server::Artist->new($this->{DBH});
 	$ar->SetId($tr->GetArtist());
 	# TODO This is complaining about the ID being undef
 	$ar->LoadFromId();
 
-	require Album;
-	my $al = Album->new($this->{DBH});
-	my @ids = $al->GetAlbumIdsFromTrackId($tr->GetId());
+	require MusicBrainz::Server::Release;
+	my $al = MusicBrainz::Server::Release->new($this->{DBH});
+	my @ids = $al->GetReleaseIdsFromTrackId($tr->GetId());
 	$al->SetId($ids[0]);
 	# TODO this is complaining that the album ID is false
 	$al->LoadFromId();
@@ -192,18 +192,18 @@ sub CreateDenseAlbum
 
     for my $id (@$gids)
     {
-	require Album;
-	my $al = Album->new($this->{DBH});
+	require MusicBrainz::Server::Release;
+	my $al = MusicBrainz::Server::Release->new($this->{DBH});
 	$al->SetMBId($id);
 	$al->LoadFromId(1);
 
-	require Artist;
-	my $ar = Artist->new($this->{DBH});
+	require MusicBrainz::Server::Artist;
+	my $ar = MusicBrainz::Server::Artist->new($this->{DBH});
 	$ar->SetId($al->GetArtist);
 	$ar->LoadFromId;
 	$this->AddToCache(0, 'artist', $ar);
 
-	require Track;
+	require MusicBrainz::Server::Track;
 	my @tracks = $al->LoadTracks;
 	my $is_va = $al->GetArtist == VARTIST_ID || $al->HasMultipleTrackArtists;
 
@@ -214,7 +214,7 @@ sub CreateDenseAlbum
 	{
 	    if ($is_va)
 	    {
-		my $var = Artist->new($this->{DBH});
+		my $var = MusicBrainz::Server::Artist->new($this->{DBH});
 		$var->SetId($tr->GetArtist);
 		if ($var->LoadFromId)
 		{
@@ -438,8 +438,8 @@ sub LoadObject
 
     if ($type eq "trmid")
     {
-	require TRM;
-	$obj = TRM->new($this->{DBH});
+	require MusicBrainz::Server::TRM;
+	$obj = MusicBrainz::Server::TRM->new($this->{DBH});
 	$obj->SetTRM($id);
 	# Most of the code around here assumes that "GetId" or "GetMBId"
 	# return something sensible, so here we pretend that the TRM is
@@ -451,18 +451,18 @@ sub LoadObject
     }
     elsif ($type eq 'artist')
     {
-       	require Artist;
-	$obj = Artist->new($this->{DBH});
+       	require MusicBrainz::Server::Artist;
+	$obj = MusicBrainz::Server::Artist->new($this->{DBH});
     }
     elsif ($type eq 'album')
     {
-       	require Album;
-	$obj = Album->new($this->{DBH});
+       	require MusicBrainz::Server::Release;
+	$obj = MusicBrainz::Server::Release->new($this->{DBH});
     }
     elsif ($type eq 'track')
     {
-       	require Track;
-	$obj = Track->new($this->{DBH});
+       	require MusicBrainz::Server::Track;
+	$obj = MusicBrainz::Server::Track->new($this->{DBH});
     }
     elsif ($type eq 'trmid')
     {
@@ -550,7 +550,7 @@ sub _GetArtistReferences
 	return ();
     }
 
-    @albums = $artist->GetAlbums();
+    @albums = $artist->GetReleases();
     foreach $album (@albums)
     {
 	next if not defined $album;

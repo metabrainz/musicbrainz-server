@@ -58,7 +58,7 @@
 
  	if ($this->{"new.id"})
 	{
-		my $label = Label->new($this->{DBH});
+		my $label = MusicBrainz::Server::Label->new($this->{DBH});
 		$label->SetId($this->{"new.id"});
 		if ($label->LoadFromId)
 		{

@@ -242,7 +242,7 @@
 		# $m->out(qq!</td><td style="padding-right: 40px">!);
 
 		$m->out(qq!<td style="padding-right: 40px">!);
-		$m->comp("/comp/form/currentvalue", release => $release, mp_type => &ModDefs::MOD_EDIT_ALBUM_LANGUAGE);
+		$m->comp("/comp/form/currentvalue", release => $release, mp_type => &ModDefs::MOD_EDIT_RELEASE_LANGUAGE);
 		$m->out(qq!</td><td style="padding-right: 40px">!);
 		$m->out(ModDefs::GetQualityText($release->GetQuality));
 		$m->out(qq!</td></tr>!);

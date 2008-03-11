@@ -34,12 +34,12 @@ use Exporter;
 {
 	our @EXPORT_OK = qw(
 		ARTIST_ANNOTATION
-		ALBUM_ANNOTATION
+		RELEASE_ANNOTATION
 		LABEL_ANNOTATION
 		TRACK_ANNOTATION
 	);
 	our %EXPORT_TAGS = (
-		type => [qw( ARTIST_ANNOTATION ALBUM_ANNOTATION LABEL_ANNOTATION TRACK_ANNOTATION )],
+		type => [qw( ARTIST_ANNOTATION RELEASE_ANNOTATION LABEL_ANNOTATION TRACK_ANNOTATION )],
 	);
 }
 
@@ -52,7 +52,7 @@ use Moderation;
 use MusicBrainz::Server::Validation qw( encode_entities );
 
 use constant ARTIST_ANNOTATION	=>	1;
-use constant ALBUM_ANNOTATION	=>	2;
+use constant RELEASE_ANNOTATION	=>	2;
 use constant LABEL_ANNOTATION	=>	3;
 use constant TRACK_ANNOTATION	=>	4;
 
@@ -94,7 +94,7 @@ sub GetEntity
 	return $_[0]->{rowid};
 }
 
-sub GetAlbum
+sub GetRelease
 {
 	return $_[0]->{rowid};
 }
@@ -132,7 +132,7 @@ sub GetType
 sub GetTypeWord
 {
 	return "artist" if $_[0]{type} == ARTIST_ANNOTATION;
-	return "album" if $_[0]{type} == ALBUM_ANNOTATION;
+	return "album" if $_[0]{type} == RELEASE_ANNOTATION;
 	return "label" if $_[0]{type} == LABEL_ANNOTATION;
 	return "track" if $_[0]{type} == TRACK_ANNOTATION;
 	die;
@@ -205,9 +205,9 @@ sub SetChangeLog
 	$_[0]->{changelog} = $_[1];
 }
 
-sub SetAlbum
+sub SetRelease
 {
-	$_[0]->{type} = ALBUM_ANNOTATION;
+	$_[0]->{type} = RELEASE_ANNOTATION;
 	$_[0]->{rowid} = $_[1];
 }
 
@@ -326,8 +326,8 @@ sub LoadFromId
 	return 1;
 }
 
-# Get the latest Annotation for the artist or album.
-# To make this work, SetArtist() or SetAlbum() have to be called
+# Get the latest Annotation for the artist or release.
+# To make this work, SetArtist() or SetRelease() have to be called
 
 sub GetLatestAnnotation
 {
@@ -375,7 +375,7 @@ sub GetLatestAnnotation
 	return 1;
 }
 
-# Insert an annotation. Moderator and album have to be set.
+# Insert an annotation. Moderator and release have to be set.
 # If the text attribute is unset, an empty annotation is inserted.
 
 sub Insert
@@ -409,9 +409,9 @@ sub Insert
 # Returns a reference to an array of Annotation IDs for the specified
 # object.
 
-sub GetAnnotationIDsForAlbum
+sub GetAnnotationIDsForRelease
 {
-	return $_[0]->GetAnnotationIDsForEntity($_[1], ALBUM_ANNOTATION);
+	return $_[0]->GetAnnotationIDsForEntity($_[1], RELEASE_ANNOTATION);
 }
 
 sub GetAnnotationIDsForArtist
@@ -506,10 +506,10 @@ sub MergeLabels
 	$self->_Merge(LABEL_ANNOTATION, @_);
 }
 
-sub MergeAlbums
+sub MergeReleases
 {
 	my $self = shift;
-	$self->_Merge(ALBUM_ANNOTATION, @_);
+	$self->_Merge(RELEASE_ANNOTATION, @_);
 }
 
 sub _Merge
@@ -584,7 +584,7 @@ sub _Merge
 			changelog => "Result of artist merge",
             notrans => 1
 		);
-	} elsif ($type == ALBUM_ANNOTATION) {
+	} elsif ($type == RELEASE_ANNOTATION) {
 
 		my $artist_id = $opts{artistid} or die;
 
@@ -592,7 +592,7 @@ sub _Merge
 			DBH	=> $self->{DBH},
 			uid	=> MODBOT_MODERATOR,
 			privs => UserStuff->AUTOMOD_FLAG,
-			type => &ModDefs::MOD_ADD_ALBUM_ANNOTATION,
+			type => &ModDefs::MOD_ADD_RELEASE_ANNOTATION,
 			# --
 			artistid => $artist_id,
 			albumid => $new_id,
@@ -609,10 +609,10 @@ sub DeleteArtist
 	$self->_Delete(ARTIST_ANNOTATION, @_);
 }
 
-sub DeleteAlbum
+sub DeleteRelease
 {
 	my $self = shift;
-	$self->_Delete(ALBUM_ANNOTATION, @_);
+	$self->_Delete(RELEASE_ANNOTATION, @_);
 }
 
 sub DeleteLabel

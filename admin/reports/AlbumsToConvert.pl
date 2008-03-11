@@ -32,8 +32,8 @@ use warnings;
 package AlbumsToConvert;
 use base qw( MusicBrainz::Server::ReportScript );
 
-use Album;
-use Artist;
+use MusicBrainz::Server::Release;
+use MusicBrainz::Server::Artist;
 
 sub GatherData
 {
@@ -85,7 +85,7 @@ sub GatherData
 
 	for my $album (@album_ids)
 	{
-		my $al = Album->new($self->{DBH});
+		my $al = MusicBrainz::Server::Release->new($self->{DBH});
 		$al->SetId($album);
 		$al->LoadFromId or next;
 
@@ -93,7 +93,7 @@ sub GatherData
 
 		unless ($ar)
 		{
-			$ar = Artist->new($self->DBH);
+			$ar = MusicBrainz::Server::Artist->new($self->DBH);
 			$ar->SetId($al->GetArtist);
 			$ar->LoadFromId or next;
 

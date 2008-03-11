@@ -56,7 +56,7 @@ sub DetermineQuality
 {
 	my $self = shift;
 
-	my $ar = Artist->new($self->{DBH});
+	my $ar = MusicBrainz::Server::Artist->new($self->{DBH});
 	$ar->SetId($self->{rowid});
 	if ($ar->LoadFromId())
 	{
@@ -84,8 +84,8 @@ sub ApprovedAction
 		return STATUS_ERROR;
 	}
 
-	require Artist;
-	my $artist = Artist->new($this->{DBH});
+	require MusicBrainz::Server::Artist;
+	my $artist = MusicBrainz::Server::Artist->new($this->{DBH});
 	$artist->SetId($rowid);
 
 	unless ($artist->LoadFromId)

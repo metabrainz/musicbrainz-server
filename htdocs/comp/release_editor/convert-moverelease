@@ -43,7 +43,7 @@
 	my $artistfilter_search = $ARGS{"artistfilter_search"};
 
 	my ($artist, @artists);
-	$artist = Artist->new($mb->{DBH});
+	$artist = MusicBrainz::Server::Artist->new($mb->{DBH});
 	@artists = @{ $artist->GetArtistsFromName($curr_artistname) };
 
 	# if a single item was found, set it and redirect back to the form.

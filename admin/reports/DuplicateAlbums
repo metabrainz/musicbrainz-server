@@ -25,8 +25,8 @@
 
 use FindBin;
 use lib "$FindBin::Bin/../../cgi-bin";
-use Album;
-use Artist;
+use MusicBrainz::Server::Release;
+use MusicBrainz::Server::Artist;
 
 use strict;
 use warnings;
@@ -75,7 +75,7 @@ sub GatherData
 			my $al;
 			if (not exists $albums{ $album->{album_mbid} })
 			{
-				$al = Album->new($self->DBH);
+				$al = MusicBrainz::Server::Release->new($self->DBH);
 				$al->SetMBId($album->{album_mbid});
 				unless ($al->LoadFromId(0))
 				{
@@ -97,7 +97,7 @@ sub GatherData
 			my $ar;
 			if (not exists $artists{ $al->GetArtist })
 			{
-				$ar = Artist->new($self->DBH);
+				$ar = MusicBrainz::Server::Artist->new($self->DBH);
 				$ar->SetId($al->GetArtist);
 				unless ($ar->LoadFromId)
 				{

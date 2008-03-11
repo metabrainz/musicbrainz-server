@@ -75,35 +75,35 @@ use constant MODBOT_MODERATOR			=> 4;
 # The various moderations, enumerated
 use constant MOD_EDIT_ARTISTNAME		 => 1;
 use constant MOD_EDIT_ARTISTSORTNAME	 => 2;
-use constant MOD_EDIT_ALBUMNAME			 => 3;
+use constant MOD_EDIT_RELEASE_NAME			 => 3;
 use constant MOD_EDIT_TRACKNAME			 => 4;
 use constant MOD_EDIT_TRACKNUM			 => 5;
 use constant MOD_MERGE_ARTIST			 => 6;
 use constant MOD_ADD_TRACK				 => 7;
-use constant MOD_MOVE_ALBUM				 => 8;
+use constant MOD_MOVE_RELEASE				 => 8;
 use constant MOD_SAC_TO_MAC				 => 9;
 use constant MOD_CHANGE_TRACK_ARTIST	 => 10;
 use constant MOD_REMOVE_TRACK			 => 11;
-use constant MOD_REMOVE_ALBUM			 => 12;
+use constant MOD_REMOVE_RELEASE			 => 12;
 use constant MOD_MAC_TO_SAC				 => 13;
 use constant MOD_REMOVE_ARTISTALIAS		 => 14;
 use constant MOD_ADD_ARTISTALIAS		 => 15;
-use constant MOD_ADD_ALBUM				 => 16;
+use constant MOD_ADD_RELEASE				 => 16;
 use constant MOD_ADD_ARTIST				 => 17;
 use constant MOD_ADD_TRACK_KV			 => 18;
 use constant MOD_REMOVE_ARTIST			 => 19;
 use constant MOD_REMOVE_DISCID			 => 20;
 use constant MOD_MOVE_DISCID			 => 21;
 use constant MOD_REMOVE_TRMID			 => 22;
-use constant MOD_MERGE_ALBUM			 => 23;
-use constant MOD_REMOVE_ALBUMS			 => 24;
-use constant MOD_MERGE_ALBUM_MAC		 => 25;
-use constant MOD_EDIT_ALBUMATTRS		 => 26;
+use constant MOD_MERGE_RELEASE			 => 23;
+use constant MOD_REMOVE_RELEASES			 => 24;
+use constant MOD_MERGE_RELEASE_MAC		 => 25;
+use constant MOD_EDIT_RELEASE_ATTRS		 => 26;
 use constant MOD_ADD_TRMS				 => 27;
 use constant MOD_EDIT_ARTISTALIAS		 => 28;
-use constant MOD_EDIT_RELEASES			 => 29;
+use constant MOD_EDIT_RELEASE_EVENTS_OLD			 => 29;
 use constant MOD_ADD_ARTIST_ANNOTATION	 => 30;
-use constant MOD_ADD_ALBUM_ANNOTATION	 => 31;
+use constant MOD_ADD_RELEASE_ANNOTATION	 => 31;
 use constant MOD_ADD_DISCID				 => 32;
 use constant MOD_ADD_LINK				 => 33;
 use constant MOD_EDIT_LINK				 => 34;
@@ -116,14 +116,14 @@ use constant MOD_EDIT_ARTIST			 => 40;
 use constant MOD_ADD_LINK_ATTR			 => 41;
 use constant MOD_EDIT_LINK_ATTR			 => 42;
 use constant MOD_REMOVE_LINK_ATTR		 => 43;
-use constant MOD_EDIT_ALBUM_LANGUAGE	 => 44;
+use constant MOD_EDIT_RELEASE_LANGUAGE	 => 44;
 use constant MOD_EDIT_TRACKTIME			 => 45;
 use constant MOD_REMOVE_PUID			 => 46;
 use constant MOD_ADD_PUIDS				 => 47;
 use constant MOD_CHANGE_WIKIDOC			 => 48;
-use constant MOD_ADD_RELEASEEVENTS		 => 49;
-use constant MOD_EDIT_RELEASEEVENTS		 => 50;
-use constant MOD_REMOVE_RELEASEEVENTS	 => 51;
+use constant MOD_ADD_RELEASE_EVENTS		 => 49;
+use constant MOD_EDIT_RELEASE_EVENTS		 => 50;
+use constant MOD_REMOVE_RELEASE_EVENTS	 => 51;
 use constant MOD_CHANGE_ARTIST_QUALITY   => 52;
 use constant MOD_SET_RELEASE_DURATIONS	 => 53;
 use constant MOD_ADD_LABEL				 => 54;
@@ -270,8 +270,8 @@ my %ModCategoryTitles = (
 
 # DataQuality level moderations catogorization
 my %ModCategories = (
-	MOD_ADD_ALBUM				. "" => {'category' => CAT_ARTIST, 'criteria' => ""},
-	MOD_ADD_ALBUM_ANNOTATION	. "" => {'category' => CAT_NONE, 'criteria' => ""},
+	MOD_ADD_RELEASE				. "" => {'category' => CAT_ARTIST, 'criteria' => ""},
+	MOD_ADD_RELEASE_ANNOTATION	. "" => {'category' => CAT_NONE, 'criteria' => ""},
 	MOD_ADD_ARTIST				. "" => {'category' => CAT_NONE, 'criteria' => ""},
 	MOD_ADD_ARTISTALIAS			. "" => {'category' => CAT_ARTIST, 'criteria' => ""},
 	MOD_ADD_ARTIST_ANNOTATION	. "" => {'category' => CAT_NONE, 'criteria' => ""},
@@ -283,7 +283,7 @@ my %ModCategories = (
 	MOD_ADD_LINK_ATTR			. "" => {'category' => CAT_DEPENDS, 'criteria' => ""},
 	MOD_ADD_LINK_TYPE			. "" => {'category' => CAT_DEPENDS, 'criteria' => ""},
 	MOD_ADD_PUIDS				. "" => {'category' => CAT_NONE, 'criteria' => ""},
-	MOD_ADD_RELEASEEVENTS		. "" => {'category' => CAT_RELEASE, 'criteria' => ""},
+	MOD_ADD_RELEASE_EVENTS		. "" => {'category' => CAT_RELEASE, 'criteria' => ""},
 	MOD_ADD_TRACK				. "" => {'category' => CAT_DEPENDS, 'criteria' => ""},
 	MOD_ADD_TRACK_ANNOTATION		. "" => {'category' => CAT_NONE, 'criteria' => ""},
 	MOD_ADD_TRACK_KV				. "" => {'category' => CAT_DEPENDS, 'criteria' => ""},
@@ -292,9 +292,9 @@ my %ModCategories = (
 	MOD_CHANGE_RELEASE_QUALITY	. "" => {'category' => CAT_RELEASE, 'criteria' => ""},
 	MOD_CHANGE_TRACK_ARTIST		. "" => {'category' => CAT_DEPENDS, 'criteria' => "Highest level of release, current artist or new artist"},
 	MOD_CHANGE_WIKIDOC			. "" => {'category' => CAT_NONE, 'criteria' => ""},
-	MOD_EDIT_ALBUM_LANGUAGE		. "" => {'category' => CAT_RELEASE, 'criteria' => "Auto-edit if no language was set"},
-	MOD_EDIT_ALBUMATTRS			. "" => {'category' => CAT_RELEASE, 'criteria' => "Auto-edit if no attributes where set"},
-	MOD_EDIT_ALBUMNAME			. "" => {'category' => CAT_RELEASE, 'criteria' => "Auto-edit when changing capitalisation or accents"},
+	MOD_EDIT_RELEASE_LANGUAGE		. "" => {'category' => CAT_RELEASE, 'criteria' => "Auto-edit if no language was set"},
+	MOD_EDIT_RELEASE_ATTRS			. "" => {'category' => CAT_RELEASE, 'criteria' => "Auto-edit if no attributes where set"},
+	MOD_EDIT_RELEASE_NAME			. "" => {'category' => CAT_RELEASE, 'criteria' => "Auto-edit when changing capitalisation or accents"},
 	MOD_EDIT_ARTIST				. "" => {'category' => CAT_ARTIST, 'criteria' => "Auto-edit when providing new properties (Begin Date, End Date or Type) or changing capitalisation or accents"},
 	MOD_EDIT_ARTISTALIAS			. "" => {'category' => CAT_ARTIST, 'criteria' => "Auto-edit when changing capitalisation or accents"},
 	MOD_EDIT_ARTISTNAME			. "" => {'category' => CAT_ARTIST, 'criteria' => ""},
@@ -304,21 +304,21 @@ my %ModCategories = (
 	MOD_EDIT_LINK					. "" => {'category' => CAT_DEPENDS, 'criteria' => ""},
 	MOD_EDIT_LINK_ATTR			. "" => {'category' => CAT_DEPENDS, 'criteria' => ""},
 	MOD_EDIT_LINK_TYPE			. "" => {'category' => CAT_DEPENDS, 'criteria' => ""},
-	MOD_EDIT_RELEASES			. "" => {'category' => CAT_RELEASE, 'criteria' => ""},
-	MOD_EDIT_RELEASEEVENTS		. "" => {'category' => CAT_RELEASE, 'criteria' => "Auto-edit when providing supplemental information"},
+	MOD_EDIT_RELEASE_EVENTS_OLD			. "" => {'category' => CAT_RELEASE, 'criteria' => ""},
+	MOD_EDIT_RELEASE_EVENTS		. "" => {'category' => CAT_RELEASE, 'criteria' => "Auto-edit when providing supplemental information"},
 	MOD_EDIT_TRACKNAME			. "" => {'category' => CAT_RELEASE, 'criteria' => "Auto-edit when changing capitalisation or accents"},
 	MOD_EDIT_TRACKNUM			. "" => {'category' => CAT_RELEASE, 'criteria' => ""},
 	MOD_EDIT_TRACKTIME			. "" => {'category' => CAT_RELEASE, 'criteria' => "Auto-edit if no times where set"},
 	MOD_EDIT_URL 				. "" => {'category' => CAT_DEPENDS, 'criteria' => ""},
 	MOD_MAC_TO_SAC				. "" => {'category' => CAT_DEPENDS, 'criteria' => "Highest level of release or new artist"},
-	MOD_MERGE_ALBUM 			. "" => {'category' => CAT_DEPENDS, 'criteria' => "Highest level of release or new artist"},
-	MOD_MERGE_ALBUM_MAC 		. "" => {'category' => CAT_DEPENDS, 'criteria' => "Highest level of release or new artist"},
+	MOD_MERGE_RELEASE 			. "" => {'category' => CAT_DEPENDS, 'criteria' => "Highest level of release or new artist"},
+	MOD_MERGE_RELEASE_MAC 		. "" => {'category' => CAT_DEPENDS, 'criteria' => "Highest level of release or new artist"},
 	MOD_MERGE_ARTIST 			. "" => {'category' => CAT_ARTIST, 'criteria' => "Level of artist with highest level"},
 	MOD_MERGE_LABEL				. "" => {'category' => CAT_NONE, 'criteria' => ""},
-	MOD_MOVE_ALBUM				. "" => {'category' => CAT_DEPENDS, 'criteria' => "Highest level of release, current artist or new artist"},
+	MOD_MOVE_RELEASE				. "" => {'category' => CAT_DEPENDS, 'criteria' => "Highest level of release, current artist or new artist"},
 	MOD_MOVE_DISCID 				. "" => {'category' => CAT_RELEASE, 'criteria' => "Level of release with highest level"},
-	MOD_REMOVE_ALBUM 			. "" => {'category' => CAT_RELEASE, 'criteria' => ""},
-	MOD_REMOVE_ALBUMS			. "" => {'category' => CAT_RELEASE, 'criteria' => ""},
+	MOD_REMOVE_RELEASE 			. "" => {'category' => CAT_RELEASE, 'criteria' => ""},
+	MOD_REMOVE_RELEASES			. "" => {'category' => CAT_RELEASE, 'criteria' => ""},
 	MOD_REMOVE_ARTIST			. "" => {'category' => CAT_ARTIST, 'criteria' => ""},
 	MOD_REMOVE_ARTISTALIAS		. "" => {'category' => CAT_ARTIST, 'criteria' => ""},
 	MOD_REMOVE_DISCID			. "" => {'category' => CAT_RELEASE, 'criteria' => ""},
@@ -328,7 +328,7 @@ my %ModCategories = (
 	MOD_REMOVE_LINK_ATTR			. "" => {'category' => CAT_DEPENDS, 'criteria' => ""},
 	MOD_REMOVE_LINK_TYPE			. "" => {'category' => CAT_DEPENDS, 'criteria' => ""},
 	MOD_REMOVE_PUID				. "" => {'category' => CAT_DEPENDS, 'criteria' => ""},
-	MOD_REMOVE_RELEASEEVENTS	. "" => {'category' => CAT_RELEASE, 'criteria' => ""},
+	MOD_REMOVE_RELEASE_EVENTS	. "" => {'category' => CAT_RELEASE, 'criteria' => ""},
 	MOD_REMOVE_TRACK			. "" => {'category' => CAT_RELEASE, 'criteria' => ""},
 	MOD_REMOVE_TRMID			. "" => {'category' => CAT_DEPENDS, 'criteria' => ""},
 	MOD_SAC_TO_MAC				. "" => {'category' => CAT_DEPENDS, 'criteria' => "Highest level of release or current artist"},

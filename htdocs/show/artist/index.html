@@ -93,11 +93,11 @@
 
 		for my $attr ($a->GetAttributes)
 		{
-			$a->{_attr_type} = $attr if ($attr >= Album::ALBUM_ATTR_SECTION_TYPE_START &&
-										 $attr <= Album::ALBUM_ATTR_SECTION_TYPE_END);
-			$a->{_attr_status} = $attr if ($attr >= Album::ALBUM_ATTR_SECTION_STATUS_START &&
-										   $attr <= Album::ALBUM_ATTR_SECTION_STATUS_END);
-			$a->{_attr_type} = $attr if ($attr == Album::ALBUM_ATTR_NONALBUMTRACKS);
+			$a->{_attr_type} = $attr if ($attr >= MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_TYPE_START &&
+										 $attr <= MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_TYPE_END);
+			$a->{_attr_status} = $attr if ($attr >= MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_STATUS_START &&
+										   $attr <= MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_STATUS_END);
+			$a->{_attr_type} = $attr if ($attr == MusicBrainz::Server::Release::RELEASE_ATTR_NONALBUMTRACKS);
 		}
 
 		# The "actual values", used for display
@@ -105,8 +105,8 @@
 		$a->{_actual_attr_status} = $a->{_attr_status};
 
 		# Used for sorting
-		$a->{_attr_type} = Album::ALBUM_ATTR_SECTION_TYPE_END + 1 if (not defined $a->{_attr_type});
-		$a->{_attr_status} = Album::ALBUM_ATTR_SECTION_STATUS_END + 1 if (not defined $a->{_attr_status});
+		$a->{_attr_type} = MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_TYPE_END + 1 if (not defined $a->{_attr_type});
+		$a->{_attr_status} = MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_STATUS_END + 1 if (not defined $a->{_attr_status});
 	};
 
 	# Sort by:
@@ -220,7 +220,7 @@
     }
     else
     {
-		@albums = $artist->GetAlbums($short, 1);
+		@albums = $artist->GetReleases($short, 1);
 
         # filter out non album, EP and single releases if in short listing
         if ($short)
@@ -231,10 +231,10 @@
             for my $album (@albums)
             {
                 my ($type, $status) = $album->GetReleaseTypeAndStatus();
-                push @shortlist, $album if ($type == &Album::ALBUM_ATTR_ALBUM ||
-                                            $type == &Album::ALBUM_ATTR_EP ||
-                                            $type == &Album::ALBUM_ATTR_COMPILATION ||
-                                            $type == &Album::ALBUM_ATTR_SINGLE);
+                push @shortlist, $album if ($type == &MusicBrainz::Server::Release::RELEASE_ATTR_ALBUM ||
+                                            $type == &MusicBrainz::Server::Release::RELEASE_ATTR_EP ||
+                                            $type == &MusicBrainz::Server::Release::RELEASE_ATTR_COMPILATION ||
+                                            $type == &MusicBrainz::Server::Release::RELEASE_ATTR_SINGLE);
             }
             if (scalar(@shortlist))
             {
@@ -249,7 +249,7 @@
 			# if we netted no albums to show, fetch everything else.
 			if (scalar(@albums) == 0)
 			{
-				@albums = $artist->GetAlbums(0, 1, $onlyva);
+				@albums = $artist->GetReleases(0, 1, $onlyva);
 				$dispmode = 3;
 			}
         }
@@ -298,7 +298,7 @@
 				$album->SetMultipleTrackArtists($album->GetArtist != $artist->GetId() ? 1 : 0);
 				$album->{_is_va_} = ($album->GetArtist == &ModDefs::VARTIST_ID or
 					   				 $album->GetArtist != $artist->GetId());
-				$album->{_is_nonalbum_} = ($album->{_attr_type} == Album::ALBUM_ATTR_NONALBUMTRACKS);
+				$album->{_is_nonalbum_} = ($album->{_attr_type} == MusicBrainz::Server::Release::RELEASE_ATTR_NONALBUMTRACKS);
 
 				$album->{_section_key_} = (
 					$album->{_is_va_} . " " . $album->{_attr_type}

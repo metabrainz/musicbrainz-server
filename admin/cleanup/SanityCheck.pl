@@ -30,7 +30,7 @@ use FindBin;
 use lib "$FindBin::Bin/../../cgi-bin";
 
 use DBDefs;
-use Artist;
+use MusicBrainz::Server::Artist;
 use ModDefs ':modstatus', 'DARTIST_ID';
 use MusicBrainz;
 

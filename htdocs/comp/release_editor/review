@@ -76,7 +76,7 @@
 	my $artist = &$GetCachedArtist($artistid);
 
 	# prepare release object
-	my $release = Album->new($mb->{DBH});
+	my $release = MusicBrainz::Server::Release->new($mb->{DBH});
 	$release->SetId(0);
 	# Hack.  Maybe $release->SetAlbumMeta(...) would be a better method
 	$release->{trackcount} = 0;
@@ -97,10 +97,10 @@
 
 
 
-	# MOD_EDIT_RELEASES (RELEASE_EVENTS)
+	# MOD_EDIT_RELEASE_EVENTS_OLD (RELEASE_EVENTS)
 	# get all defined release events from the arguments hash
 	# and fill the list of new release objects
-	require MusicBrainz::Server::Release;
+	require MusicBrainz::Server::ReleaseEvent;
 	my @revnew;
 	my %revorighash;
 	my %revremovehash;
@@ -146,7 +146,7 @@
 						0, 1,
 					);
 
-				my $rev = MusicBrainz::Server::Release->new($mb->{DBH});
+				my $rev = MusicBrainz::Server::ReleaseEvent->new($mb->{DBH});
 				$rev->SetId($rev_id);
 				$rev->SetCountry($rev_country);
 				$rev->SetYMD(@ymd);
@@ -155,7 +155,7 @@
 				$rev->SetLabelName($rev_labelname);
 				$rev->SetLabel($rev_label);
 				$rev->SetFormat($rev_format);
-				$rev->SetAlbum($releaseid);
+				$rev->SetRelease($releaseid);
 				push @revnew, $rev;
 			}
 		}
@@ -172,7 +172,7 @@
 		my @ymd = MusicBrainz::Server::Validation::IsValidDate($rev_year, $rev_month, $rev_day)
 			or next;
 
-		my $rev = MusicBrainz::Server::Release->new($mb->{DBH});
+		my $rev = MusicBrainz::Server::ReleaseEvent->new($mb->{DBH});
 		$rev->SetCountry($orig{"rev_country-$j"});
 		$rev->SetYMD(@ymd);
 		$rev->SetCatNo($orig{"rev_catno-$j"});
@@ -243,7 +243,7 @@
 		{
 			# initialise track object
 			my $trackid = $ARGS{"trackid$i"};
-			my $tr = Track->new($mb->{DBH});
+			my $tr = MusicBrainz::Server::Track->new($mb->{DBH});
 			$tr->SetId($trackid);
 			$tr->LoadFromId
 				or return $m->comp("/comp/error",
@@ -254,7 +254,7 @@
 
 			$tr->SetSequence($ARGS{"trackseq$i"});
 			$tr->SetName($ARGS{"track$i"});
-			$tr->SetLength(Track::UnformatTrackLength($ARGS{"tracklength$i"}));
+			$tr->SetLength(MusicBrainz::Server::Track::UnformatTrackLength($ARGS{"tracklength$i"}));
 
 			# set track artist, if it is defined, or
 			# use release artist
@@ -391,7 +391,7 @@
 
 				oldvalue => $orig_releasename,
 				newvalue => $new_releasename,
-				modtype => &ModDefs::MOD_EDIT_ALBUMNAME,
+				modtype => &ModDefs::MOD_EDIT_RELEASE_NAME,
 				cnt => ++$releasechanges
 			);
 		}
@@ -405,7 +405,7 @@
 			for ($ov, $nv)
 			{
 				my @names = map {
-					Album->GetAttributeName($_) || "Not_set"
+					MusicBrainz::Server::Release->GetAttributeName($_) || "Not_set"
 				} split ',', $_;
 				my $type = ($_ eq $ov ? "Old: " : "New: ");
 				push @attrvalues, (@names ? join ", ", @names : "None");
@@ -417,7 +417,7 @@
 
 				oldvalue => $attrvalues[0],
 				newvalue => $attrvalues[1],
-				modtype => &ModDefs::MOD_EDIT_ALBUMATTRS,
+				modtype => &ModDefs::MOD_EDIT_RELEASE_ATTRS,
 				cnt => ++$releasechanges
 			);
 		}
@@ -444,7 +444,7 @@
 
 				oldvalue => $langvalues[0],
 				newvalue => $langvalues[1],
-				modtype => &ModDefs::MOD_EDIT_ALBUM_LANGUAGE,
+				modtype => &ModDefs::MOD_EDIT_RELEASE_LANGUAGE,
 				cnt => ++$releasechanges
 			);
 		}
@@ -475,7 +475,7 @@
 
 				oldvalue => $ov,
 				newvalue => $nv,
-				modtype => &ModDefs::MOD_ADD_RELEASEEVENTS,
+				modtype => &ModDefs::MOD_ADD_RELEASE_EVENTS,
 				cnt => ++$releasechanges
 			);
 		}
@@ -516,7 +516,7 @@
 
 					oldvalue => $ov,
 					newvalue => $nv,
-					modtype => &ModDefs::MOD_EDIT_RELEASEEVENTS,
+					modtype => &ModDefs::MOD_EDIT_RELEASE_EVENTS,
 					cnt => ++$releasechanges
 				);
 				$first = 0;
@@ -551,7 +551,7 @@
 
 				oldvalue => $ov,
 				newvalue => $nv,
-				modtype => &ModDefs::MOD_REMOVE_RELEASEEVENTS,
+				modtype => &ModDefs::MOD_REMOVE_RELEASE_EVENTS,
 				cnt => ++$releasechanges
 			);
 		}
@@ -591,14 +591,14 @@
 			my $orig_id = $orig{"trackid$t"};
 			my $orig_seq = $orig{"trackseq$t"};
 			my $orig_track = $orig{"track$t"};
-			my $orig_length = Track::UnformatTrackLength($orig{"tracklength$t"});
+			my $orig_length = MusicBrainz::Server::Track::UnformatTrackLength($orig{"tracklength$t"});
 			my $orig_artistid = $orig{getField($t, "artistid")};
 
 			# get new values
 			my $new_id = $ARGS{"trackid$t"};
 			my $new_seq = $ARGS{"trackseq$t"};
 			my $new_track = $ARGS{"track$t"};
-			my $new_length = Track::UnformatTrackLength($ARGS{"tracklength$t"});
+			my $new_length = MusicBrainz::Server::Track::UnformatTrackLength($ARGS{"tracklength$t"});
 			my $new_delete = $ARGS{"trackdel$t"};
 			my $new_artistid = $ARGS{getField($t, "artistid")};
 
@@ -738,8 +738,8 @@
 
 					new_seq => $new_seq,
 					new_id => $new_id,
-					oldvalue => Track::FormatTrackLength($orig_length),
-					newvalue => Track::FormatTrackLength($new_length),
+					oldvalue => MusicBrainz::Server::Track::FormatTrackLength($orig_length),
+					newvalue => MusicBrainz::Server::Track::FormatTrackLength($new_length),
 					modtype => &ModDefs::MOD_EDIT_TRACKTIME,
 					cnt => ++$trackchanges
 				);
@@ -896,7 +896,7 @@
 	$m->comp("/comp/linkartist", artist => $new_artist);
 	$m->out('</td>');
 	$m->out('<td class="autoedit">');
-	$m->comp(".isAutoEdit", &ModDefs::MOD_MOVE_ALBUM);
+	$m->comp(".isAutoEdit", &ModDefs::MOD_MOVE_RELEASE);
 	$m->out('</td></tr>');
 
 </%perl>

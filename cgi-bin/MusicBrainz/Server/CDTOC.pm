@@ -168,12 +168,12 @@ sub newFromFreeDBID
 	$rows;
 }
 
-sub GetAlbumCDTOCs
+sub GetReleaseCDTOCs
 {
 	my $self = shift;
 	$self = $self->new(shift) if not ref $self;
-	require MusicBrainz::Server::AlbumCDTOC;
-	MusicBrainz::Server::AlbumCDTOC->newFromCDTOC($self->{DBH}, $self, @_);
+	require MusicBrainz::Server::ReleaseCDTOC;
+	MusicBrainz::Server::ReleaseCDTOC->newFromCDTOC($self->{DBH}, $self, @_);
 }
 
 ################################################################################

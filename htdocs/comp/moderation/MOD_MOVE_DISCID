@@ -60,7 +60,7 @@
 <%perl>
 
 	my ($releaseexists, $artistexists) = (0, 0);
-	my ($release, $artist) = (Album->new($this->{DBH}), Artist->new($this->{DBH}));
+	my ($release, $artist) = (MusicBrainz::Server::Release->new($this->{DBH}), MusicBrainz::Server::Artist->new($this->{DBH}));
 	$release->SetId($this->GetPrev);
 	if ($releaseexists = $release->LoadFromId())
 	{

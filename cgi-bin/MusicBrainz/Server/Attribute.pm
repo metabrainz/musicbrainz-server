@@ -30,9 +30,9 @@ package MusicBrainz::Server::Attribute;
 
 use Carp qw( croak );
 use base qw( TableBase );
-require Artist;
-require Album;
-require Track;
+require MusicBrainz::Server::Artist;
+require MusicBrainz::Server::Release;
+require MusicBrainz::Server::Track;
 
 ################################################################################
 # Bare Constructor

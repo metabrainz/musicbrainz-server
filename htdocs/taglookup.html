@@ -96,11 +96,11 @@
 		# Retrieve artist info, then sort on artist
 		foreach my $ref (@coll_list)
 		{
-			my $al = Album->new($ts->{DBH});
+			my $al = MusicBrainz::Server::Release->new($ts->{DBH});
 			$al->SetId($ref->{album});
 			if ($al->LoadFromId())
 			{
-				my $ar = Artist->new($ts->{DBH});
+				my $ar = MusicBrainz::Server::Artist->new($ts->{DBH});
 				$ar->SetId($al->GetArtist());
 				if ($ar->LoadFromId())
 				{
@@ -177,11 +177,11 @@
 		# Retrieve artist info, then sort on artist
 		foreach my $ref (@pcoll_list)
 		{
-			my $al = Album->new($ts->{DBH});
+			my $al = MusicBrainz::Server::Release->new($ts->{DBH});
 			$al->SetId($ref->{album});
 			if ($al->LoadFromId())
 			{
-				my $ar = Artist->new($ts->{DBH});
+				my $ar = MusicBrainz::Server::Artist->new($ts->{DBH});
 				$ar->SetId($al->GetArtist());
 				if ($ar->LoadFromId())
 				{

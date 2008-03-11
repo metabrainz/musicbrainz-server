@@ -30,7 +30,7 @@ use constant TRM_ID_SILENCE              => "7d154f52-b536-4fae-b58b-0666826c2ba
 use constant TRM_TOO_SHORT               => "f9809ab1-2b0f-4d78-8862-fb425ade8ab9";
 use constant TRM_SIGSERVER_BUSY          => "c457a4a8-b342-4ec9-8f13-b6bd26c0e400";
 
-use Album; # for constants
+use MusicBrainz::Server::Release; # for constants
 use DBDefs;
 use MusicBrainz::Server::Validation;
 use MusicBrainz::Server::LogFile qw( lprint lprintf );
@@ -66,8 +66,8 @@ sub GetCDInfoMM2
    }
 
    # Check to see if the album is in the main database
-   require MusicBrainz::Server::AlbumCDTOC;
-   $di = MusicBrainz::Server::AlbumCDTOC->new($dbh);
+   require MusicBrainz::Server::ReleaseCDTOC;
+   $di = MusicBrainz::Server::ReleaseCDTOC->new($dbh);
    $rdf->SetDepth(5);
    return $di->GenerateAlbumFromDiscid($rdf, $id, $toc);
 }
@@ -90,8 +90,8 @@ sub AssociateCDMM2
    }
 
    # Check to see if the album is in the main database
-   require MusicBrainz::Server::AlbumCDTOC;
-   $di = MusicBrainz::Server::AlbumCDTOC->new($dbh);
+   require MusicBrainz::Server::ReleaseCDTOC;
+   $di = MusicBrainz::Server::ReleaseCDTOC->new($dbh);
    $di->Insert($albumid, $toc);
 }
 
@@ -306,10 +306,10 @@ sub LookupMetadata
 
    #PrintData("Lookup:", $id);
 
-   require TRM;
-   $gu = TRM->new($dbh);
-   require Track;
-   $tr = Track->new($dbh);
+   require MusicBrainz::Server::TRM;
+   $gu = MusicBrainz::Server::TRM->new($dbh);
+   require MusicBrainz::Server::Track;
+   $tr = MusicBrainz::Server::Track->new($dbh);
 
    # has this data been accepted into the database?
    @ids = @{ $gu->GetTrackIdsFromTRM($id) };
@@ -382,12 +382,12 @@ sub ExchangeMetadata
 
    if (!&DBDefs::DB_READ_ONLY)
    {
-       require Artist;
-       $ar = Artist->new($dbh);
-       require TRM;
-       $gu = TRM->new($dbh);
-       require Track;
-       $tr = Track->new($dbh);
+       require MusicBrainz::Server::Artist;
+       $ar = MusicBrainz::Server::Artist->new($dbh);
+       require MusicBrainz::Server::TRM;
+       $gu = MusicBrainz::Server::TRM->new($dbh);
+       require MusicBrainz::Server::Track;
+       $tr = MusicBrainz::Server::Track->new($dbh);
 
        # has this data been accepted into the database?
        @ids = @{ $gu->GetTrackIdsFromTRM($data[4]) };
@@ -520,8 +520,8 @@ sub SubmitTRMList
        }
 
 	#lookup the IDs associated with the $trackGID
-	require Track;
-	my $trackobj = Track->new($sql->{DBH});
+	require MusicBrainz::Server::Track;
+	my $trackobj = MusicBrainz::Server::Track->new($sql->{DBH});
 	$trackobj->SetMBId($trackid);
 	unless ($trackobj->LoadFromId)
 	{
@@ -612,15 +612,15 @@ sub SubmitTRMFeedback
        }
 
 	#lookup the IDs associated with the $trackGID
-	require Track;
-	my $trackobj = Track->new($sql->{DBH});
+	require MusicBrainz::Server::Track;
+	my $trackobj = MusicBrainz::Server::Track->new($sql->{DBH});
 	$trackobj->SetMBId($trackid);
 	unless ($trackobj->LoadFromId)
 	{
 	    # print STDERR "Unknown MB Track Id: $trackid\n";
 	} else {
-	    require TRM;
-	    my $trmobj = TRM->new($sql->{DBH});
+	    require MusicBrainz::Server::TRM;
+	    my $trmobj = MusicBrainz::Server::TRM->new($sql->{DBH});
 	    $trmobj->IncrementUsageCount($trmid, $trackobj->GetId);
 	}
    }
@@ -758,8 +758,8 @@ sub TrackInfoFromTRMId
        # If this TRM generated any hits, update the lookup count
        if ($sql->Rows >= 1)
        {
-	   require TRM;
-           TRM->IncrementLookupCount($id);
+	   require MusicBrainz::Server::TRM;
+           MusicBrainz::Server::TRM->IncrementLookupCount($id);
        }
        while(@row = $sql->NextRow())
        {
@@ -852,15 +852,15 @@ EOF
 	lprint "trmlookup", "TRM $trmid matches many tracks - results truncated";
     }
 
-    require TRM;
-    TRM->IncrementLookupCount($trmid);
+    require MusicBrainz::Server::TRM;
+    MusicBrainz::Server::TRM->IncrementLookupCount($trmid);
  
     my %artists;
     for my $artistid (map { $_->[3], $_->[8] } @$rows)
     {
 	next if $artists{$artistid};
-	require Artist;
-	my $ar = Artist->newFromId($sql->{DBH}, $artistid);
+	require MusicBrainz::Server::Artist;
+	my $ar = MusicBrainz::Server::Artist->newFromId($sql->{DBH}, $artistid);
 	$artists{$artistid} = $ar;
     }
 
@@ -923,9 +923,9 @@ EOF
 	{
 	    my @attrs = $row->[7] =~ /(\d+)/g;
 	    shift @attrs;
-	    my ($type, $status) = Album->GetReleaseTypeAndStatus(\@attrs);
-	    $typehash = "Type" . Album->GetAttributeName($type) if $type;
-	    $statushash = "Status" . Album->GetAttributeName($status) if $status;
+	    my ($type, $status) = MusicBrainz::Server::Release->GetReleaseTypeAndStatus(\@attrs);
+	    $typehash = "Type" . MusicBrainz::Server::Release->GetAttributeName($type) if $type;
+	    $statushash = "Status" . MusicBrainz::Server::Release->GetAttributeName($status) if $status;
 	}
 
 	# Cheat: this is missing the releaseDateList
@@ -1011,8 +1011,8 @@ sub QuickTrackInfoFromTRMId
        if ($sql->Rows == 1)
        {
            @data = $sql->NextRow();
-	   require TRM;
-           TRM->IncrementLookupCount($id);
+	   require MusicBrainz::Server::TRM;
+           MusicBrainz::Server::TRM->IncrementLookupCount($id);
        }
        else
        {
@@ -1089,8 +1089,8 @@ sub QuickTrackInfoFromTrackId
       if (!defined $tid || $tid eq '' || !defined $aid || $aid eq '');
    return undef if (!defined $dbh);
 
-    require Album;
-    my $album = Album->new($dbh);
+    require MusicBrainz::Server::Release;
+    my $album = MusicBrainz::Server::Release->new($dbh);
     $album->SetMBId($aid);
     unless ($album->LoadFromId)
     {
@@ -1151,14 +1151,14 @@ sub QuickTrackInfoFromTrackId
 
    foreach my $attr (@attrs)
    {
-       if ($attr >= Album::ALBUM_ATTR_SECTION_TYPE_START &&
-           $attr <= Album::ALBUM_ATTR_SECTION_TYPE_END)
+       if ($attr >= MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_TYPE_START &&
+           $attr <= MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_TYPE_END)
        {
           $out .= $rdf->Element("mm:releaseType", "", "rdf:resource", $rdf->GetMMNamespace() .
                                  "Type" . $album->GetAttributeName($attr));
        }
-       elsif ($attr >= Album::ALBUM_ATTR_SECTION_STATUS_START &&
-              $attr <= Album::ALBUM_ATTR_SECTION_STATUS_END)
+       elsif ($attr >= MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_STATUS_START &&
+              $attr <= MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_STATUS_END)
        {
           $out .= $rdf->Element("mm:releaseStatus", "", "rdf:resource", $rdf->GetMMNamespace() .
                                  "Status" . $album->GetAttributeName($attr));
@@ -1166,7 +1166,7 @@ sub QuickTrackInfoFromTrackId
    }
 
    my (@releases, $releasedate);
-   @releases = $album->Releases;
+   @releases = $album->ReleaseEvents;
    if (@releases)
    {
        require MusicBrainz::Server::Country;
@@ -1211,7 +1211,7 @@ sub GetArtistRelationships
 	return $rdf->ErrorRDF("No artist GUID given");
     }
 
-    my $ar = Artist->new($dbh);
+    my $ar = MusicBrainz::Server::Artist->new($dbh);
     $ar->SetMBId($id);
     if (!$ar->LoadFromId())
     {
@@ -1236,7 +1236,7 @@ sub GetAlbumRelationships
 	return $rdf->ErrorRDF("No album GUID given");
     }
 
-    my $al = Album->new($dbh);
+    my $al = MusicBrainz::Server::Release->new($dbh);
     $al->SetMBId($id);
     if (!$al->LoadFromId())
     {
@@ -1261,7 +1261,7 @@ sub GetTrackRelationships
 	return $rdf->ErrorRDF("No artist GUID given");
     }
 
-    my $tr = Track->new($dbh);
+    my $tr = MusicBrainz::Server::Track->new($dbh);
     $tr->SetMBId($id);
     if (!$tr->LoadFromId())
     {

@@ -57,7 +57,7 @@ sub PreInsert
 
 	# We allow a type of 0. It is mapped to NULL in the DB.
 	die $self->SetError('Label type invalid')
-		unless Label::IsValidType($type) or not defined $type;
+		unless MusicBrainz::Server::Label::IsValidType($type) or not defined $type;
 
 	# undefined $begindate means: no date given
 	my $begindate_str;
@@ -77,7 +77,7 @@ sub PreInsert
 	die 'Invalid label code'
 		if ($labelcode && not MusicBrainz::Server::Validation::IsValidLabelCode($labelcode));
 
-	my $label = Label->new($self->{DBH});
+	my $label = MusicBrainz::Server::Label->new($self->{DBH});
 	$label->SetName($name);
 	$label->SetSortName($sortname);
 	$label->SetType($type);
@@ -95,7 +95,7 @@ sub PreInsert
 	{
 		my $subs = UserSubscription->new($self->{DBH});
 		$subs->SetUser($self->GetModerator);
-		my $label = Label->new($self->{DBH});
+		my $label = MusicBrainz::Server::Label->new($self->{DBH});
 		$label->SetId($labelid);
 		$subs->SubscribeLabels(($label))
 			if ($label->LoadFromId);
@@ -152,8 +152,8 @@ sub ShowModTypeDelegate
 	my ($self, $m) = @_;
 	$m->out('<tr class="entity"><td class="lbl">Label:</td><td>');
 	my $id = $self->GetRowId;
-	require Label;
-	my $label = Label->new($self->{DBH});
+	require MusicBrainz::Server::Label;
+	my $label = MusicBrainz::Server::Label->new($self->{DBH});
 	$label->SetId($id);
 	my ($title, $name);
 	if ($label->LoadFromId) 

@@ -26,7 +26,7 @@
 package TaggerSupport;
 
 use strict;
-use Album; # for constants
+use MusicBrainz::Server::Release; # for constants
 use String::Similarity;
 use Encode qw( encode decode );
 
@@ -357,8 +357,8 @@ sub ArtistSearch
 
    return (0, []) if (!$name);
 
-   require Artist;
-   $ar = Artist->new($this->{DBH});
+   require MusicBrainz::Server::Artist;
+   $ar = MusicBrainz::Server::Artist->new($this->{DBH});
 
    my $artists = $ar->GetArtistsFromName($name);
    if (scalar(@$artists) == 1)
@@ -455,8 +455,8 @@ sub AlbumSearch
    }
    else
    {
-       require Artist;
-       $ar = Artist->new($this->{DBH});
+       require MusicBrainz::Server::Artist;
+       $ar = MusicBrainz::Server::Artist->new($this->{DBH});
        $ar->SetMBId($artistId);
        if (!defined $ar->LoadFromId())
        {
@@ -466,8 +466,8 @@ sub AlbumSearch
    }
 
    # first check, if there are any exact matches for artist & album
-   require Album;
-   $al = Album->new($this->{DBH});
+   require MusicBrainz::Server::Release;
+   $al = MusicBrainz::Server::Release->new($this->{DBH});
    $al->SetArtist($ar->GetId());
    my (@aids) = $al->GetAlbumListFromName($name);
 
@@ -478,7 +478,7 @@ sub AlbumSearch
        # (just a speed-up)
        foreach my $aid (@aids)
        {
-           $al = Album->new($this->{DBH});
+           $al = MusicBrainz::Server::Release->new($this->{DBH});
            $al->SetMBId($aid->{mbid});
            if ($al->LoadFromId)
            {
@@ -487,7 +487,7 @@ sub AlbumSearch
        }
    } else {
        # get the complete album list from artist
-       @albums = $ar->GetAlbums(0, 1);
+       @albums = $ar->GetReleases(0, 1);
    }
    
    if (scalar(@albums) == 0)
@@ -510,8 +510,8 @@ sub AlbumSearch
            my @attrs = $al->GetAttributes();
            foreach $attr (@attrs)
            {
-               if ($attr >= &Album::ALBUM_ATTR_SECTION_TYPE_START &&
-                   $attr <= &Album::ALBUM_ATTR_SECTION_TYPE_END)
+               if ($attr >= &MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_TYPE_START &&
+                   $attr <= &MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_TYPE_END)
                {
                    $albumtype = $attr;
                    last;
@@ -556,8 +556,8 @@ sub AlbumSearch
            my @attrs = $al->GetAttributes();
            foreach $attr (@attrs)
            {
-               if ($attr >= &Album::ALBUM_ATTR_SECTION_TYPE_START &&
-                   $attr <= &Album::ALBUM_ATTR_SECTION_TYPE_END)
+               if ($attr >= &MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_TYPE_START &&
+                   $attr <= &MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_TYPE_END)
                {
                    $albumtype = $attr;
                    last;
@@ -601,8 +601,8 @@ sub AlbumTrackSearch
    }
    else
    {
-	require Artist;
-       $ar = Artist->new($this->{DBH});
+	require MusicBrainz::Server::Artist;
+       $ar = MusicBrainz::Server::Artist->new($this->{DBH});
        $ar->SetMBId($artistId);
        if (!defined $ar->LoadFromId())
        {
@@ -739,8 +739,8 @@ sub TrackSearch
    }
    else
    {
-	require Artist;
-       $ar = Artist->new($this->{DBH});
+	require MusicBrainz::Server::Artist;
+       $ar = MusicBrainz::Server::Artist->new($this->{DBH});
        $ar->SetMBId($artistId);
        if (!defined $ar->LoadFromId())
        {
@@ -755,8 +755,8 @@ sub TrackSearch
    }
    else
    {
-	require Album;
-       $al = Album->new($this->{DBH});
+	require MusicBrainz::Server::Release;
+       $al = MusicBrainz::Server::Release->new($this->{DBH});
        $al->SetMBId($albumId);
        if (!defined $al->LoadFromId())
        {
@@ -827,14 +827,14 @@ sub VariousArtistSearch
    my ($this, $name) = @_;
    my ($al, @ids, $ar);
 
-   require Artist;
-   $ar = Artist->new($this->{DBH});
+   require MusicBrainz::Server::Artist;
+   $ar = MusicBrainz::Server::Artist->new($this->{DBH});
    $ar->SetId(&ModDefs::VARTIST_ID);
    $ar->LoadFromId();
    $this->{artist} = $ar;     
 
-   require Album;
-   $al = Album->new($this->{DBH});
+   require MusicBrainz::Server::Release;
+   $al = MusicBrainz::Server::Release->new($this->{DBH});
 
    require SearchEngine;
    my $engine = SearchEngine->new($this->{DBH}, 'album');
@@ -865,7 +865,7 @@ sub VariousArtistSearch
                                  artist=>$ar->GetName(),
                                  mbid=>$al->GetMBId(), 
                                  name=>$al->GetName(),
-                                 albumtype=>Album::ALBUM_ATTR_COMPILATION
+                                 albumtype=>MusicBrainz::Server::Release::RELEASE_ATTR_COMPILATION
                                })
                              ]);
        }
@@ -881,7 +881,7 @@ sub VariousArtistSearch
            push @ids, $this->SetSim(ALBUMID, { id=>$row->{'albumid'},
                         name=>$row->{'albumname'},
                         mbid=>$row->{'albumgid'},
-                        albumtype=>Album::ALBUM_ATTR_COMPILATION });
+                        albumtype=>MusicBrainz::Server::Release::RELEASE_ATTR_COMPILATION });
        }
 
        @ids = sort { $b->{sim} <=> $a->{sim} } @ids;
@@ -987,11 +987,11 @@ sub MetadataCompare
 
     # If one album is blank, and the other is an album, copy it over to favor it.
     $A{album} = $B{album} if ($A{album} eq '' && $B{album} ne '' && 
-                              $B{albumtype} == &Album::ALBUM_ATTR_ALBUM);
+                              $B{albumtype} == &MusicBrainz::Server::Release::RELEASE_ATTR_ALBUM);
 
     # Now check the reverse case as well.
     $B{album} = $A{album} if ($B{album} eq '' && $A{album} ne '' && 
-                              $A{albumtype} == &Album::ALBUM_ATTR_ALBUM);
+                              $A{albumtype} == &MusicBrainz::Server::Release::RELEASE_ATTR_ALBUM);
 
     $index |= 8 if ($A{album} ne '' && $B{album} ne '');
 

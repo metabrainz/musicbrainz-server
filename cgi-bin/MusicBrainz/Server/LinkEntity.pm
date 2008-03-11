@@ -132,8 +132,8 @@ sub Name { "Album" }
 sub newFromId
 {
 	my ($class, $dbh, $id) = @_;
-	require Album;
-	my $object = Album->new($dbh);
+	require MusicBrainz::Server::Release;
+	my $object = MusicBrainz::Server::Release->new($dbh);
 	$object->SetId($id);
 	$object->LoadFromId or return undef;
 	$object;
@@ -142,8 +142,8 @@ sub newFromId
 sub newFromMBId
 {
 	my ($class, $dbh, $id) = @_;
-	require Album;
-	my $object = Album->new($dbh);
+	require MusicBrainz::Server::Release;
+	my $object = MusicBrainz::Server::Release->new($dbh);
 	$object->SetMBId($id);
 	$object->LoadFromId or return undef;
 	$object;
@@ -165,8 +165,8 @@ sub Name { "Artist" }
 sub newFromId
 {
 	my ($class, $dbh, $id) = @_;
-	require Artist;
-	my $object = Artist->new($dbh);
+	require MusicBrainz::Server::Artist;
+	my $object = MusicBrainz::Server::Artist->new($dbh);
 	$object->SetId($id);
 	$object->LoadFromId or return undef;
 	$object;
@@ -175,8 +175,8 @@ sub newFromId
 sub newFromMBId
 {
 	my ($class, $dbh, $id) = @_;
-	require Artist;
-	my $object = Artist->new($dbh);
+	require MusicBrainz::Server::Artist;
+	my $object = MusicBrainz::Server::Artist->new($dbh);
 	$object->SetMBId($id);
 	$object->LoadFromId or return undef;
 	$object;
@@ -198,8 +198,8 @@ sub Name { "Track" }
 sub newFromId
 {
 	my ($class, $dbh, $id) = @_;
-	require Track;
-	my $object = Track->new($dbh);
+	require MusicBrainz::Server::Track;
+	my $object = MusicBrainz::Server::Track->new($dbh);
 	$object->SetId($id);
 	$object->LoadFromId or return undef;
 	$object;
@@ -208,8 +208,8 @@ sub newFromId
 sub newFromMBId
 {
 	my ($class, $dbh, $id) = @_;
-	require Track;
-	my $object = Track->new($dbh);
+	require MusicBrainz::Server::Track;
+	my $object = MusicBrainz::Server::Track->new($dbh);
 	$object->SetMBId($id);
 	$object->LoadFromId or return undef;
 	$object;
@@ -260,16 +260,16 @@ sub Name { "Label" }
 sub newFromId
 {
 	my ($class, $dbh, $id) = @_;
-	require Label;
-	my $object = Label->new($dbh);
+	require MusicBrainz::Server::Label;
+	my $object = MusicBrainz::Server::Label->new($dbh);
 	$object->newFromId($id);
 }
 
 sub newFromMBId
 {
 	my ($class, $dbh, $id) = @_;
-	require Label;
-	my $object = Label->new($dbh);
+	require MusicBrainz::Server::Label;
+	my $object = MusicBrainz::Server::Label->new($dbh);
 	$object->newFromMBId($id);
 }
 

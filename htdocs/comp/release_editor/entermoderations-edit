@@ -78,7 +78,7 @@
 		sub => sub {
 			my @insertededits;
 
-			my $release = Album->new($mb->{DBH});
+			my $release = MusicBrainz::Server::Release->new($mb->{DBH});
 			$release->SetId($releaseid);
 			$release->LoadFromId
 				or die "Error loading release\n";
@@ -90,7 +90,7 @@
 			# different track artists than the release artist.
 			my $movetracks = 0;
 
-			# MOD_MOVE_ALBUM
+			# MOD_MOVE_RELEASE
 			# if the album needs to be moved to an existing artist, or
 			# if the insert mod above was successful, continue moving the
 			# album to the newly created artist
@@ -115,7 +115,7 @@
 					DBH	=> $mb->{DBH},
 					uid	=> $session{uid},
 					privs => $session{privs},
-					type => &ModDefs::MOD_MOVE_ALBUM,
+					type => &ModDefs::MOD_MOVE_RELEASE,
 					# --
 					album => $release,
 					oldartist => $oldartist,
@@ -126,7 +126,7 @@
 				);
 			}
 
-			# MOD_EDIT_ALBUMNAME
+			# MOD_EDIT_RELEASE_NAME
 			# Enter an edit if the releasename was edited
 			$ov = $orig{"releasename"};
 			$nv = $ARGS{"releasename"};
@@ -136,14 +136,14 @@
 					DBH	=> $mb->{DBH},
 					uid	=> $session{uid},
 					privs => $session{privs},
-					type => &ModDefs::MOD_EDIT_ALBUMNAME,
+					type => &ModDefs::MOD_EDIT_RELEASE_NAME,
 					# --
 					album => $release,
 					newname => $nv,
 				);
 			}
 
-			# MOD_EDIT_ALBUMATTRS
+			# MOD_EDIT_RELEASE_ATTRS
 			# Enter an edit if the album attributes were changed
 			$ov = $orig{"attr_type"}.",".$orig{"attr_status"};
 			$nv = $ARGS{"attr_type"}.",".$ARGS{"attr_status"};
@@ -153,7 +153,7 @@
 					DBH	=> $mb->{DBH},
 					uid	=> $session{uid},
 					privs => $session{privs},
-					type => &ModDefs::MOD_EDIT_ALBUMATTRS,
+					type => &ModDefs::MOD_EDIT_RELEASE_ATTRS,
 					# --
 					albums => [ $release ],
 					attr_type => $ARGS{"attr_type"},
@@ -161,7 +161,7 @@
 				);
 			}
 
-			# MOD_EDIT_ALBUM_LANGUAGE
+			# MOD_EDIT_RELEASE_LANGUAGE
 			# Enter an edit if the album language/script was changed
 			$ov = $orig{"attr_language"}.",".$orig{"attr_script"};
 			$nv = $ARGS{"attr_language"}.",".$ARGS{"attr_script"};
@@ -171,7 +171,7 @@
 					DBH	=> $mb->{DBH},
 					uid	=> $session{uid},
 					privs => $session{privs},
-					type => &ModDefs::MOD_EDIT_ALBUM_LANGUAGE,
+					type => &ModDefs::MOD_EDIT_RELEASE_LANGUAGE,
 					# --
 					albums => [ $release ],
 					language => $ARGS{"attr_language"},
@@ -179,10 +179,10 @@
 				);
 			}
 
-			# MOD_EDIT_RELEASES (RELEASE_EVENTS)
+			# MOD_EDIT_RELEASE_EVENTS_OLD (RELEASE_EVENTS)
 			# get all defined release events from the arguments hash
 			# and fill the list of new release objects
-			require MusicBrainz::Server::Release;
+			require MusicBrainz::Server::ReleaseEvent;
 			my @revnew;
 			my (@adds, @edits, @removes);
 			for my $j (sort map { /^rev_year-(\d+)$/ ? ($1) : () } keys %ARGS)
@@ -224,7 +224,7 @@
 								0, 1,
 							);
 
-						my $rev = MusicBrainz::Server::Release->new($mb->{DBH});
+						my $rev = MusicBrainz::Server::ReleaseEvent->new($mb->{DBH});
 						$rev->SetId($rev_id);
 						$rev->SetCountry($rev_country);
 						$rev->SetYMD(@ymd);
@@ -232,14 +232,14 @@
 						$rev->SetBarcode($rev_barcode);
 						$rev->SetLabel($rev_label);
 						$rev->SetFormat($rev_format);
-						$rev->SetAlbum($releaseid);
+						$rev->SetRelease($releaseid);
 						push @revnew, $rev;
 					}
 				}
 			}
 
 			# get all defined release events.
-			my @relEvents = $release->Releases;
+			my @relEvents = $release->ReleaseEvents;
 			my %revorig;
 			for my $i (0 .. @relEvents-1)
 			{
@@ -301,7 +301,7 @@
 				DBH	=> $mb->{DBH},
 				uid	=> $session{uid},
 				privs => $session{privs},
-				type => &ModDefs::MOD_ADD_RELEASEEVENTS,
+				type => &ModDefs::MOD_ADD_RELEASE_EVENTS,
 				# --
 				album => $release,
 				adds => \@adds,
@@ -311,7 +311,7 @@
 				DBH	=> $mb->{DBH},
 				uid	=> $session{uid},
 				privs => $session{privs},
-				type => &ModDefs::MOD_EDIT_RELEASEEVENTS,
+				type => &ModDefs::MOD_EDIT_RELEASE_EVENTS,
 				# --
 				album => $release,
 				edits => \@edits,
@@ -321,7 +321,7 @@
 				DBH	=> $mb->{DBH},
 				uid	=> $session{uid},
 				privs => $session{privs},
-				type => &ModDefs::MOD_REMOVE_RELEASEEVENTS,
+				type => &ModDefs::MOD_REMOVE_RELEASE_EVENTS,
 				# --
 				album => $release,
 				removes => \@removes,
@@ -334,14 +334,14 @@
 				my $orig_id = $orig{"trackid$t"};
 				my $orig_seq = $orig{"trackseq$t"};
 				my $orig_track = $orig{"track$t"};
-				my $orig_length = Track::UnformatTrackLength($orig{"tracklength$t"});
+				my $orig_length = MusicBrainz::Server::Track::UnformatTrackLength($orig{"tracklength$t"});
 				my $orig_artistid = $orig{sprintf "tr%d_artistid", $t};
 
 				# get the new values
 				my $new_id = $ARGS{"trackid$t"};
 				my $new_seq = $ARGS{"trackseq$t"};
 				my $new_track = defined($ARGS{"track$t"}) ? $ARGS{"track$t"} : "";
-				my $new_length = Track::UnformatTrackLength($ARGS{"tracklength$t"});
+				my $new_length = MusicBrainz::Server::Track::UnformatTrackLength($ARGS{"tracklength$t"});
 				my $new_delete = $ARGS{"trackdel$t"};
 				my $new_artistid = $ARGS{sprintf "tr%d_artistid", $t};
 
@@ -349,9 +349,9 @@
 				my $track;
 				if ($new_id) 
 				{
-					$track = Track->new($mb->{DBH});
+					$track = MusicBrainz::Server::Track->new($mb->{DBH});
 					$track->SetId($new_id);
-					$track->SetAlbum($releaseid);
+					$track->SetRelease($releaseid);
 					$track->LoadFromId
 						or die "Error loading track\n";
 				}
@@ -428,7 +428,7 @@
 									album => $release,
 									trackname => $new_track,
 									tracknum => $new_seq,
-									tracklength => Track::UnformatTrackLength($new_length),
+									tracklength => MusicBrainz::Server::Track::UnformatTrackLength($new_length),
 									artistid => $new_artistid,
 								);
 							}

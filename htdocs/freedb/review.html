@@ -61,7 +61,7 @@
 	my ($i, @t);
 	for $i (0 .. $args{"tracks"}-1)
 	{
-		my $track = Track->new($mb->{DBH});
+		my $track = MusicBrainz::Server::Track->new($mb->{DBH});
 		$track->SetId(-1);
 		$track->SetName($args{"track$i"});
 		$track->SetSequence(($i+1));
@@ -70,11 +70,11 @@
 		push @t, $track;
 	}
 
-	my $artist = Artist->new($mb->{DBH});
+	my $artist = MusicBrainz::Server::Artist->new($mb->{DBH});
 	$artist->SetId(0);
 	$artist->SetName($artistname);
 
-	my $release = Album->new($mb->{DBH});
+	my $release = MusicBrainz::Server::Release->new($mb->{DBH});
 	$release->SetId(0);
 	$release->SetArtist(0);
 	$release->SetName($releasename);
@@ -146,7 +146,7 @@
 %	{
 %		$m->comp("/comp/form/hiddenfield",
 %			"tracklength$i",
-%			Track::FormatTrackLength($durations[$i])
+%			MusicBrainz::Server::Track::FormatTrackLength($durations[$i])
 %		) if ($hasdurations);
 %	}
 
@@ -181,7 +181,7 @@
 	@t = ();
 	for $i (0 .. $tracks-1)
 	{
-		my $track = Track->new($mb->{DBH});
+		my $track = MusicBrainz::Server::Track->new($mb->{DBH});
 		$track->SetId(-1);
 		$track->SetName($args{"track$i"});
 		$track->SetArtist(0);
@@ -191,11 +191,11 @@
 		push @t, $track;
 	}
 
-	$artist = Artist->new($mb->{DBH});
+	$artist = MusicBrainz::Server::Artist->new($mb->{DBH});
 	$artist->SetId(1);
 	$artist->SetName("Various Artists");
 
-	$release = Album->new($mb->{DBH});
+	$release = MusicBrainz::Server::Release->new($mb->{DBH});
 	$release->SetId(-2);
 	$release->SetArtist(&ModDefs::VARTIST_ID);
 	$release->SetName($releasename);
@@ -268,7 +268,7 @@
 %	{
 %		$m->comp("/comp/form/hiddenfield",
 %			"tracklength$i",
-%			Track::FormatTrackLength($durations[$i])
+%			MusicBrainz::Server::Track::FormatTrackLength($durations[$i])
 %		) if ($hasdurations);
 %	}
 

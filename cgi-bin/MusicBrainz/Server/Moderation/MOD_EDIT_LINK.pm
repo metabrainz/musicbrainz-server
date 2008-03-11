@@ -127,7 +127,7 @@ sub DetermineQuality
     my $new = $self->{'new_unpacked'};
     if ($new->{newentity0type} eq 'album' || $new->{newentity1type} eq 'album')
     {
-        my $rel = Album->new($self->{DBH});
+        my $rel = MusicBrainz::Server::Release->new($self->{DBH});
         $rel->SetId($new->{newentity0type} eq 'album' ? $new->{newentity0id} : $new->{newentity1id});
         if ($rel->LoadFromId())
         {
@@ -136,7 +136,7 @@ sub DetermineQuality
     }
     elsif ($new->{newentity0type} eq 'artist' || $new->{newentity1type} eq 'artist')
     {
-        my $rel = Artist->new($self->{DBH});
+        my $rel = MusicBrainz::Server::Artist->new($self->{DBH});
         $rel->SetId($new->{newentity0type} eq 'artist' ? $new->{newentity0id} : $new->{newentity1id});
         if ($rel->LoadFromId())
         {
@@ -258,7 +258,7 @@ sub ApprovedAction
 		# must be checked as well when implemented
 		if ($new->{newlinktypeid} != $asintypeid)
 		{
-			my $al = Album->new($self->{DBH});
+			my $al = MusicBrainz::Server::Release->new($self->{DBH});
 			$al->SetId($new->{oldentity0id});
 
             MusicBrainz::Server::CoverArt->UpdateAmazonData($al, -1)
@@ -270,7 +270,7 @@ sub ApprovedAction
 			 $new->{newentity1type} eq 'url')
 	{
 		# reverse case, link type changed _to_ Amazon AR
-		my $al = Album->new($self->{DBH});
+		my $al = MusicBrainz::Server::Release->new($self->{DBH});
 		$al->SetId($new->{newentity0id});
         MusicBrainz::Server::CoverArt->ParseAmazonURL($new->{newentity1name}, $al);
 		

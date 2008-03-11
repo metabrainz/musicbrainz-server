@@ -74,7 +74,7 @@
 
 	# get all releases, and sort out the unapplicable ones
 	my ( $release, @foundreleases, %unused);
-	my @releaselist = sort { $a->{name} cmp $b->{name} } $artist->GetAlbums(0, 1);
+	my @releaselist = sort { $a->{name} cmp $b->{name} } $artist->GetReleases(0, 1);
 	for(;;)
 	{
 		$release = shift @releaselist;

@@ -48,8 +48,8 @@ sub PreInsert
 	$self->SetPrev($puid);
 
 	# Save the PUID's clientversion in case we need to re-add it
-	require PUID;
-	my $puidobj = PUID->new($self->{DBH});
+	require MusicBrainz::Server::PUID;
+	my $puidobj = MusicBrainz::Server::PUID->new($self->{DBH});
 	my $clientversion = $puidobj->FindPUIDClientVersion($puid);
 
 	my %new = (
@@ -61,8 +61,8 @@ sub PreInsert
 
 	# This is one of those mods where we give the user instant gratification,
 	# then undo the mod later if it's rejected.
-	require PUID;
-	my $t = PUID->new($self->{DBH});
+	require MusicBrainz::Server::PUID;
+	my $t = MusicBrainz::Server::PUID->new($self->{DBH});
 	$t->RemovePUIDByPUIDJoin($self->GetRowId);
 }
 
@@ -82,12 +82,12 @@ sub DetermineQuality
     my $self = shift;
 
     # Attempt to find the right release this track is attached to.
-    my $tr = Track->new($self->{DBH});
+    my $tr = MusicBrainz::Server::Track->new($self->{DBH});
     $tr->SetId($self->{"trackid"});
     if ($tr->LoadFromId())
     {
-        my $rel = Album->new($self->{DBH});
-        $rel->SetId($tr->GetAlbum());
+        my $rel = MusicBrainz::Server::Release->new($self->{DBH});
+        $rel->SetId($tr->GetRelease());
         if ($rel->LoadFromId())
         {
             return $rel->GetQuality();        
@@ -95,7 +95,7 @@ sub DetermineQuality
     }
 
     # if that fails, go by the artist
-    my $ar = Artist->new($self->{DBH});
+    my $ar = MusicBrainz::Server::Artist->new($self->{DBH});
     $ar->SetId($tr->GetArtist());
     if ($ar->LoadFromId())
     {
@@ -120,8 +120,8 @@ sub DeniedAction
 	my $trackid = $new->{'TrackId'}
 		or return;
 
-	require Track;
-	my $track = Track->new($self->{DBH});
+	require MusicBrainz::Server::Track;
+	my $track = MusicBrainz::Server::Track->new($self->{DBH});
 	$track->SetId($trackid);
 	unless ($track->LoadFromId)
 	{
@@ -132,8 +132,8 @@ sub DeniedAction
 		return;
 	}
 
-	require PUID;
-	my $t = PUID->new($self->{DBH});
+	require MusicBrainz::Server::PUID;
+	my $t = MusicBrainz::Server::PUID->new($self->{DBH});
 	my $id = $t->Insert($self->GetPrev, $trackid, $new->{'ClientVersion'});
 
 	# The above Insert can fail, usually if the row in the "puid" table

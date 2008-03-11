@@ -28,7 +28,7 @@ use lib "$FindBin::Bin/../../cgi-bin";
 
 use strict;
 use DBDefs;
-use Album;
+use MusicBrainz::Server::Release;
 use MusicBrainz;
 use MusicBrainz::Server::CoverArt;
 
@@ -65,7 +65,7 @@ $sql->Select("select album.id, asin, coverarturl, url
                  and (coverarturl = '' OR coverarturl is null)");
 while (my ($id, $asin, $coverarturl, $url) = $sql->NextRow)
 {
-    my $al = Album->new($mb->{DBH});
+    my $al = MusicBrainz::Server::Release->new($mb->{DBH});
     $al->SetId($id);
     if ($al->LoadFromId(1))
     {

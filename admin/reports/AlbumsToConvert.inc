@@ -101,7 +101,7 @@
 
 			if ($row->{artist_id} != $lastartist)
 			{
-				my $ar = Artist->new(undef);
+				my $ar = MusicBrainz::Server::Artist->new(undef);
 				$ar->SetId($row->{artist_id});
 				$ar->SetMBId($row->{artist_mbid});
 				$ar->SetName($row->{artist_name});

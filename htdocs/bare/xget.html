@@ -51,11 +51,11 @@
 		my ($artist, $release, $di);
 		my ($out, @tracks);
 
-		$artist = Artist->new($mb->{DBH});
-		$release = Album->new($mb->{DBH});
-			$di = MusicBrainz::Server::AlbumCDTOC->new($mb->{DBH});
+		$artist = MusicBrainz::Server::Artist->new($mb->{DBH});
+		$release = MusicBrainz::Server::Release->new($mb->{DBH});
+			$di = MusicBrainz::Server::ReleaseCDTOC->new($mb->{DBH});
 
-		my $releaseids = $di->GetAlbumIDsFromDiscID($discid);
+		my $releaseids = $di->GetReleaseIDsFromDiscID($discid);
 		if (not @$releaseids)
 		{
 			return "<CDInfo />";

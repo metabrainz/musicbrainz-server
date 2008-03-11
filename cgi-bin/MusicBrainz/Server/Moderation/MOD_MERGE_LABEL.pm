@@ -89,8 +89,8 @@ sub PostLoad
 sub AdjustModPending
 {
 	my ($self, $adjust) = @_;
-	require Label;
-	my $ar = Label->new($self->{DBH});
+	require MusicBrainz::Server::Label;
+	my $ar = MusicBrainz::Server::Label->new($self->{DBH});
 
 	for my $labelid ($self->GetRowId, $self->{"new.id"})
 	{
@@ -110,8 +110,8 @@ sub CheckPrerequisites
 	my $name = $self->{'new.name'};
 	#my $sortname = $self->{'new.sortname'};
 
-	require Label;
-	my $newar = Label->new($self->{DBH});
+	require MusicBrainz::Server::Label;
+	my $newar = MusicBrainz::Server::Label->new($self->{DBH});
 
 	if (my $newid = $self->{"new.id"})
 	{
@@ -133,8 +133,8 @@ sub CheckPrerequisites
 	}
 
 	# Load old label by ID
-	require Label;
-	my $oldar = Label->new($self->{DBH});
+	require MusicBrainz::Server::Label;
+	my $oldar = MusicBrainz::Server::Label->new($self->{DBH});
 	$oldar->SetId($rowid);
 	unless ($oldar->LoadFromId)
 	{
@@ -195,8 +195,8 @@ sub ShowModTypeDelegate
 	my ($self, $m) = @_;
 	$m->out('<tr class="entity"><td class="lbl">Label:</td><td>');
 	my $id = $self->GetRowId;
-	require Label;
-	my $label = Label->new($self->{DBH});
+	require MusicBrainz::Server::Label;
+	my $label = MusicBrainz::Server::Label->new($self->{DBH});
 	$label->SetId($id);
 	my ($title, $name);
 	if ($label->LoadFromId) 

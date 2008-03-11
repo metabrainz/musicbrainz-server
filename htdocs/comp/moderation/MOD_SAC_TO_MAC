@@ -37,7 +37,7 @@
 	my $this = shift;
 	my ($exists, $id, $name, $resolution) = (0, $this->GetArtist, $this->GetPrev, $this->{'old.res'});
 
-	my $artist = Artist->new($this->{DBH});
+	my $artist = MusicBrainz::Server::Artist->new($this->{DBH});
 	$artist->SetId($id);
 	$exists = $artist->LoadFromId;
 

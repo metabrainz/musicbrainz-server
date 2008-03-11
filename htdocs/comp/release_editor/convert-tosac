@@ -66,7 +66,7 @@
 		my @dupes;
 		if ($curr_artistname ne "")
 		{
-			my $artist = Artist->new($mb->{DBH});
+			my $artist = MusicBrainz::Server::Artist->new($mb->{DBH});
 			my $artistlist = $artist->GetArtistsFromName($curr_artistname);
 			if (@$artistlist == 1 and @$artistlist[0]->GetName eq $curr_artistname)
 			{

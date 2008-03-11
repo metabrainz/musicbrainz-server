@@ -34,7 +34,7 @@ use Carp;
 sub Name { "Convert Release to Single Artist" }
 (__PACKAGE__)->RegisterHandler;
 
-# PLEASE NOTE that MOD_MOVE_ALBUM is almost exactly the same as MOD_MAC_TO_SAC
+# PLEASE NOTE that MOD_MOVE_RELEASE is almost exactly the same as MOD_MAC_TO_SAC
 
 sub PreInsert
 {
@@ -84,7 +84,7 @@ sub DetermineQuality
 
 	my $level = &ModDefs::QUALITY_UNKNOWN_MAPPED;
 
-	my $rel = Album->new($self->{DBH});
+	my $rel = MusicBrainz::Server::Release->new($self->{DBH});
 	$rel->SetId($self->{rowid});
 	if ($rel->LoadFromId())
 	{
@@ -92,7 +92,7 @@ sub DetermineQuality
     }
 
     # Check the artist its going to
-	my $ar = Artist->new($self->{DBH});
+	my $ar = MusicBrainz::Server::Artist->new($self->{DBH});
 	$ar->SetId($self->{'new.artistid'});
 	if ($ar->LoadFromId())
 	{
@@ -114,8 +114,8 @@ sub PreDisplay
 		unless (defined $this->{'new.name'});
 
 	# load album name
-	require Album;
-	my $al = Album->new($this->{DBH});
+	require MusicBrainz::Server::Release;
+	my $al = MusicBrainz::Server::Release->new($this->{DBH});
 	$al->SetId($this->GetRowId);
 	if ($al->LoadFromId)
 	{
@@ -128,8 +128,8 @@ sub PreDisplay
 		# (when this causes false assumptions, remove the followig lines)
 		if (!$this->{'new.exists'})
 		{
-			require Artist;
-			my $ar = Artist->new($this->{DBH});
+			require MusicBrainz::Server::Artist;
+			my $ar = MusicBrainz::Server::Artist->new($this->{DBH});
 			$ar->SetId($al->GetArtist);
 			if ($ar->LoadFromId 
 				&& $ar->GetName eq $this->{'new.name'})
@@ -149,8 +149,8 @@ sub CheckPrerequisites
 	my $rowid = $self->GetRowId;
 
 	# Load the album by ID
-	require Album;
-	my $al = Album->new($self->{DBH});
+	require MusicBrainz::Server::Release;
+	my $al = MusicBrainz::Server::Release->new($self->{DBH});
 	$al->SetId($rowid);
 	unless ($al->LoadFromId)
 	{
@@ -204,8 +204,8 @@ sub ApprovedAction
 	if (not defined $newid)
 	{
 		# No such artist, so create one
-		require Artist;
-		my $ar = Artist->new($this->{DBH});
+		require MusicBrainz::Server::Artist;
+		my $ar = MusicBrainz::Server::Artist->new($this->{DBH});
 		$ar->SetName($name);
 		$ar->SetSortName($this->{'new.sortname'});
 		$newid = $ar->Insert(no_alias => 1);

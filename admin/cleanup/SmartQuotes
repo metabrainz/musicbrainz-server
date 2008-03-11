@@ -130,7 +130,7 @@ for (
 	[ &ModDefs::MOD_EDIT_ARTISTNAME, "artist.name.id" ],
 	[ &ModDefs::MOD_EDIT_ARTISTSORTNAME, "artist.sortname.id" ],
 	[ &ModDefs::MOD_EDIT_ARTISTALIAS, "artistalias.name.ref" ],
-	[ &ModDefs::MOD_EDIT_ALBUMNAME, "album.name.artist" ],
+	[ &ModDefs::MOD_EDIT_RELEASE_NAME, "album.name.artist" ],
 	[ &ModDefs::MOD_EDIT_TRACKNAME, "track.name.artist" ],
 ) {
 	my $modtype = $_->[0];
@@ -184,8 +184,8 @@ for (
 					# Hence, we need to check for name clashes, then check for
 					# open "merge" mods, and not add the mod if it's already
 					# there.
-					require Artist;
-					my $ar = Artist->new($sqlWrite->{DBH});
+					require MusicBrainz::Server::Artist;
+					my $ar = MusicBrainz::Server::Artist->new($sqlWrite->{DBH});
 					$ar->SetId($id);
 					$ar->SetName(encode "utf-8", $oname);
 					$ar->SetSortName(encode "utf-8", $oname);
@@ -193,8 +193,8 @@ for (
 				}
 				elsif ($table eq "artistalias")
 				{
-					require Alias;
-					my $al = Alias->new($sqlWrite->{DBH}, 'artistalias');
+					require MusicBrainz::Server::Alias;
+					my $al = MusicBrainz::Server::Alias->new($sqlWrite->{DBH}, 'artistalias');
 					$al->SetId($id);
 					$al->SetRowId($artistid);
 					$al->SetName(encode "utf-8", $oname);
@@ -202,8 +202,8 @@ for (
 				}
 				elsif ($table eq "album")
 				{
-					require Album;
-					my $al = Album->new($sqlWrite->{DBH});
+					require MusicBrainz::Server::Release;
+					my $al = MusicBrainz::Server::Release->new($sqlWrite->{DBH});
 					$al->SetId($id);
 					$al->SetArtist($artistid);
 					$al->SetName(encode "utf-8", $oname);
@@ -211,8 +211,8 @@ for (
 				}
 				elsif ($table eq "track")
 				{
-					require Track;
-					my $tr = Track->new($sqlWrite->{DBH});
+					require MusicBrainz::Server::Track;
+					my $tr = MusicBrainz::Server::Track->new($sqlWrite->{DBH});
 					$tr->SetId($id);
 					$tr->SetArtist($artistid);
 					$tr->SetName(encode "utf-8", $oname);

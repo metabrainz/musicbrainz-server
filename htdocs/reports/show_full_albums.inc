@@ -99,7 +99,7 @@
 		{
 			my $artist = $rep->Get or last;
 
-			my $ar = Artist->new($mb->{DBH});
+			my $ar = MusicBrainz::Server::Artist->new($mb->{DBH});
 			$ar->SetId($artist->{ID});
 			$ar->LoadFromId();
 
@@ -107,7 +107,7 @@
 
 			for my $album ( values %{ $artist->{ALBUMS} } )
 			{
-				my $al = new Album($mb->{DBH});
+				my $al = MusicBrainz::Server::Release->new($mb->{DBH});
 				$al->SetId($album->{ID});
 				$al->LoadFromId();
 

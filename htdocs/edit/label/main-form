@@ -71,7 +71,7 @@
 				<label for="editartist_type">Type:</label></td>
 			<td>
 				<select name="type" id="editartist_type">
-					<& /comp/options, Label::GetLabelTypes(), $type &>
+					<& /comp/options, MusicBrainz::Server::Label::GetLabelTypes(), $type &>
 				</select></td>
 		</tr>
 

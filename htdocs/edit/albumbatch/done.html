@@ -296,7 +296,7 @@
     # Sort by artist so that all the artists are sequential
     @releaseObjs = sort { $a->GetArtist() <=> $b->GetArtist()} @releaseObjs;
 
-    my $ar = Artist->new($mb->{DBH});
+    my $ar = MusicBrainz::Server::Artist->new($mb->{DBH});
 	$ar->SetId(0);
 
 	for my $release (@releaseObjs)

@@ -39,7 +39,7 @@
 
 	# LOAD RELEASE
 	# ---------------------------------------------------------------
-	my $release = Album->new($mb->{DBH});
+	my $release = MusicBrainz::Server::Release->new($mb->{DBH});
 	$release->SetId($releaseid);
 	$release->SetMBId($mbid)
 		if ($mbid ne "");
@@ -54,7 +54,7 @@
 	# disallow editing the NAT-album
 	if ($release->IsNonAlbumTracks)
 	{
-		$ARGS{"init-editall-error"} = sprintf "The 'Edit Release' feature cannot edit '%s'", &Album::NONALBUMTRACKS_NAME;
+		$ARGS{"init-editall-error"} = sprintf "The 'Edit Release' feature cannot edit '%s'", &MusicBrainz::Server::Release::NONALBUMTRACKS_NAME;
 		return %ARGS;
 	}
 	$orig{"releaseid"} = $release->GetId;
@@ -67,7 +67,7 @@
 	# LOAD ARTIST
 	# ---------------------------------------------------------------
 	# load release artist from database
-	my $artist = Artist->new($mb->{DBH});
+	my $artist = MusicBrainz::Server::Artist->new($mb->{DBH});
 	$artist->SetId($release->GetArtist);
 	if (not $artist->LoadFromId)
 	{
@@ -88,12 +88,12 @@
 		$orig{"trackid$i"} = $tr->GetId;
 		$orig{"trackseq$i"} = $tr->GetSequence;
 		$orig{"track$i"} = $tr->GetName;
-		$orig{"tracklength$i"} = Track::FormatTrackLength($tr->GetLength);
+		$orig{"tracklength$i"} = MusicBrainz::Server::Track::FormatTrackLength($tr->GetLength);
 
 		#$orig{sprintf "tr%d_id", $i} = $tr->GetId;
 		#$orig{sprintf "tr%d_seq", $i} = $tr->GetSequence;
 		#$orig{sprintf "tr%d_name", $i} = $tr->GetName;
-		#$orig{sprintf "tr%d_length", $i} = Track::FormatTrackLength($tr->GetLength);
+		#$orig{sprintf "tr%d_length", $i} = MusicBrainz::Server::Track::FormatTrackLength($tr->GetLength);
 		$orig{sprintf "tr%d_mp", $i} = $tr->GetModPending;
 
 		# load the artist object for the track
@@ -120,7 +120,7 @@
 	$orig{"v::edit_track_data"} = ($release->CanAddTrack or $release->CanRemoveTrack);
 
 	# load releases, and add into @t list.
-	my @releaseEvents = $release->Releases(1);
+	my @releaseEvents = $release->ReleaseEvents(1);
 	for $i (0 .. @releaseEvents-1)
 	{
 		my $rev = $releaseEvents[$i];
@@ -203,7 +203,7 @@
 
 			# create an artist object, and load the resolution from
 			# the database
-			$artist = Artist->new($mb->{DBH}) if (not defined $artist);
+			$artist = MusicBrainz::Server::Artist->new($mb->{DBH}) if (not defined $artist);
 			$artist->SetId($artistid);
 			if (not $artist->LoadFromId)
 			{

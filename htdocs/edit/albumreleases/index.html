@@ -53,14 +53,14 @@
 	$release->IsNonAlbumTracks
 		and return $m->comp(
 			"/comp/error",
-			"The 'Edit Release Events' feature cannot edit '".&Album::NONALBUMTRACKS_NAME."'",
+			"The 'Edit Release Events' feature cannot edit '".&MusicBrainz::Server::Release::NONALBUMTRACKS_NAME."'",
 			1, 1,
 		);
 
 	my $artist = $m->comp("/comp/loadartist", $mb, $release->GetArtist);
 
 	# fill the release events into the "r" list.
-	my @r = $release->Releases(1);
+	my @r = $release->ReleaseEvents(1);
 	@r = map {
 		my @ymd = $_->GetYMD;
 		+{

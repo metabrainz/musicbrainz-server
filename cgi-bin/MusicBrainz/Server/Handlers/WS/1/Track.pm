@@ -161,15 +161,15 @@ sub serve_from_db
 	require MusicBrainz;
 	my $mb = MusicBrainz->new;
 	$mb->Login;
-	require Track;
+	require MusicBrainz::Server::Track;
 
-	$tr = Track->new($mb->{DBH});
+	$tr = MusicBrainz::Server::Track->new($mb->{DBH});
     $tr->SetMBId($mbid);
 	return undef unless $tr->LoadFromId(1);
 
     if ($inc & INC_ARTIST || $inc & INC_RELEASES)
     {
-        $ar = Artist->new($mb->{DBH});
+        $ar = MusicBrainz::Server::Artist->new($mb->{DBH});
         $ar->SetId($tr->GetArtist);
         $ar = undef unless $ar->LoadFromId(1);
     }
@@ -294,10 +294,10 @@ sub print_xml_post
     my $sql = Sql->new($mb->{DBH});
 
     # Check each track and then then adjust the list to have the row id of the track
-    require Track;
+    require MusicBrainz::Server::Track;
     foreach my $pair (@$links)
     {
-        my $tr = Track->new($sql->{DBH});
+        my $tr = MusicBrainz::Server::Track->new($sql->{DBH});
         $tr->SetMBId($pair->{trackmbid});
         unless ($tr->LoadFromId)
         {
@@ -350,7 +350,7 @@ sub print_xml_post
 # Thus this is optimized to move as fast as possible. Thus everything has been flattened out.
 sub xml_puid
 {
-	require Track;
+	require MusicBrainz::Server::Track;
 	my ($puid) = @_;
 
 	require MusicBrainz;

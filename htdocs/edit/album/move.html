@@ -181,7 +181,7 @@
 							DBH	=> $mb->{DBH},
 							uid	=> $session{uid},
 							privs => $session{privs},
-							type => &ModDefs::MOD_MOVE_ALBUM,
+							type => &ModDefs::MOD_MOVE_RELEASE,
 							# --
 							album => $al,
 							oldartist => $oldar,
@@ -234,7 +234,7 @@
 		title => $title,
 		release => ($_isbatch ? undef : &$GetCachedRelease($releaseid[0])),
 		mp => ($_isbatch ? $mp : undef),
-		mp_type => &ModDefs::MOD_MOVE_ALBUM,
+		mp_type => &ModDefs::MOD_MOVE_RELEASE,
 	);
 
 </%perl>

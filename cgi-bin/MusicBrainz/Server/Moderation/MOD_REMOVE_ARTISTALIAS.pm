@@ -51,7 +51,7 @@ sub DetermineQuality
 {
 	my $self = shift;
 
-	my $ar = Artist->new($self->{DBH});
+	my $ar = MusicBrainz::Server::Artist->new($self->{DBH});
 	$ar->SetId($self->GetArtist);
 	if ($ar->LoadFromId())
 	{
@@ -64,8 +64,8 @@ sub ApprovedAction
 {
 	my $this = shift;
 
-	require Alias;
-	my $al = Alias->new($this->{DBH});
+	require MusicBrainz::Server::Alias;
+	my $al = MusicBrainz::Server::Alias->new($this->{DBH});
 	$al->SetTable("ArtistAlias");
 	$al->SetId($this->GetRowId);
 

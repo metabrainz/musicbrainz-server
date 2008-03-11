@@ -50,8 +50,8 @@ sub ApprovedAction
 {
 	my $this = shift;
 
-	require Alias;
-	my $al = Alias->new($this->{DBH});
+	require MusicBrainz::Server::Alias;
+	my $al = MusicBrainz::Server::Alias->new($this->{DBH});
 	$al->SetTable("labelalias");
 	$al->SetId($this->GetRowId);
 

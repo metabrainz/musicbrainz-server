@@ -59,8 +59,8 @@ sub CheckPrerequisites
 {
 	my $self = shift;
 
-	require Alias;
-	my $alias = Alias->new($self->{DBH}, "labelalias");
+	require MusicBrainz::Server::Alias;
+	my $alias = MusicBrainz::Server::Alias->new($self->{DBH}, "labelalias");
 	$alias->SetId($self->GetRowId);
 
 	unless ($alias->LoadFromId)

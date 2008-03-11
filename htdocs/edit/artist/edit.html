@@ -96,7 +96,7 @@
 	my @dupes;
 	if ($name ne "")
 	{
-		my $artist = Artist->new($mb->{DBH});
+		my $artist = MusicBrainz::Server::Artist->new($mb->{DBH});
 		my $artists = $artist->GetArtistsFromName($name);
 
 		my $norm_name = MusicBrainz::Server::Validation::NormaliseSortText($name);
@@ -119,7 +119,7 @@
 		}
 		else
 		{
-			push @messages, "Please Select a valid type." if (not Artist::IsValidType($type));
+			push @messages, "Please Select a valid type." if (not MusicBrainz::Server::Artist::IsValidType($type));
 			push @messages, "Please Enter the Name." if ($name eq "");
 			push @messages, "Please Enter the Sort Name." if ($sortname eq "");
 			push @messages, "Begin Date has to be either valid or empty"

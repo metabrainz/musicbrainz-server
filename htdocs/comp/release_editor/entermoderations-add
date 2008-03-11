@@ -152,7 +152,7 @@
 				}
 				else
 				{
-					my $length = Track::UnformatTrackLength($ARGS{"tracklength$i"});
+					my $length = MusicBrainz::Server::Track::UnformatTrackLength($ARGS{"tracklength$i"});
 					$length = 0 if $length < 0;
 					$trackdata .= "TrackDur" . ($realtracks) . "=" . $length . "\n";
 				}

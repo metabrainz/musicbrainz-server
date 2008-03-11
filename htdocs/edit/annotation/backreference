@@ -21,7 +21,7 @@
 	#
 	# Summary:
 	# -----------------------------------------------------------------------------
-	# This component loads the artist and release (if type=ALBUM_ANNOTATION)
+	# This component loads the artist and release (if type=RELEASE_ANNOTATION)
 	# object and returns them as list. If type is ARTIST_ANNOTATION, undef is
 	# returned for the release object.
 	#

@@ -35,8 +35,8 @@ use Encode qw( encode decode );
 use utf8;
 
 # Load all the moderation handlers (sorted please)
-require MusicBrainz::Server::Moderation::MOD_ADD_ALBUM;
-require MusicBrainz::Server::Moderation::MOD_ADD_ALBUM_ANNOTATION;
+require MusicBrainz::Server::Moderation::MOD_ADD_RELEASE;
+require MusicBrainz::Server::Moderation::MOD_ADD_RELEASE_ANNOTATION;
 require MusicBrainz::Server::Moderation::MOD_ADD_ARTIST;
 require MusicBrainz::Server::Moderation::MOD_ADD_ARTISTALIAS;
 require MusicBrainz::Server::Moderation::MOD_ADD_ARTIST_ANNOTATION;
@@ -49,7 +49,7 @@ require MusicBrainz::Server::Moderation::MOD_ADD_LINK;
 require MusicBrainz::Server::Moderation::MOD_ADD_LINK_ATTR;
 require MusicBrainz::Server::Moderation::MOD_ADD_LINK_TYPE;
 require MusicBrainz::Server::Moderation::MOD_ADD_PUIDS;
-require MusicBrainz::Server::Moderation::MOD_ADD_RELEASEEVENTS;
+require MusicBrainz::Server::Moderation::MOD_ADD_RELEASE_EVENTS;
 require MusicBrainz::Server::Moderation::MOD_ADD_TRACK;
 require MusicBrainz::Server::Moderation::MOD_ADD_TRACK_KV;
 require MusicBrainz::Server::Moderation::MOD_ADD_TRMS;
@@ -57,9 +57,9 @@ require MusicBrainz::Server::Moderation::MOD_CHANGE_ARTIST_QUALITY;
 require MusicBrainz::Server::Moderation::MOD_CHANGE_RELEASE_QUALITY;
 require MusicBrainz::Server::Moderation::MOD_CHANGE_TRACK_ARTIST;
 require MusicBrainz::Server::Moderation::MOD_CHANGE_WIKIDOC;
-require MusicBrainz::Server::Moderation::MOD_EDIT_ALBUM_LANGUAGE;
-require MusicBrainz::Server::Moderation::MOD_EDIT_ALBUMATTRS;
-require MusicBrainz::Server::Moderation::MOD_EDIT_ALBUMNAME;
+require MusicBrainz::Server::Moderation::MOD_EDIT_RELEASE_LANGUAGE;
+require MusicBrainz::Server::Moderation::MOD_EDIT_RELEASE_ATTRS;
+require MusicBrainz::Server::Moderation::MOD_EDIT_RELEASE_NAME;
 require MusicBrainz::Server::Moderation::MOD_EDIT_ARTIST;
 require MusicBrainz::Server::Moderation::MOD_EDIT_ARTISTALIAS;
 require MusicBrainz::Server::Moderation::MOD_EDIT_ARTISTNAME;
@@ -69,22 +69,22 @@ require MusicBrainz::Server::Moderation::MOD_EDIT_LABELALIAS;
 require MusicBrainz::Server::Moderation::MOD_EDIT_LINK;
 require MusicBrainz::Server::Moderation::MOD_EDIT_LINK_ATTR;
 require MusicBrainz::Server::Moderation::MOD_EDIT_LINK_TYPE;
-require MusicBrainz::Server::Moderation::MOD_EDIT_RELEASEEVENTS;
-require MusicBrainz::Server::Moderation::MOD_EDIT_RELEASES;
+require MusicBrainz::Server::Moderation::MOD_EDIT_RELEASE_EVENTS;
+require MusicBrainz::Server::Moderation::MOD_EDIT_RELEASE_EVENTS_OLD;
 require MusicBrainz::Server::Moderation::MOD_EDIT_TRACKNAME;
 require MusicBrainz::Server::Moderation::MOD_EDIT_TRACKNUM;
 require MusicBrainz::Server::Moderation::MOD_EDIT_TRACKTIME;
 require MusicBrainz::Server::Moderation::MOD_EDIT_URL;
 require MusicBrainz::Server::Moderation::MOD_MAC_TO_SAC;
-require MusicBrainz::Server::Moderation::MOD_MERGE_ALBUM;
-require MusicBrainz::Server::Moderation::MOD_MERGE_ALBUM_MAC;
+require MusicBrainz::Server::Moderation::MOD_MERGE_RELEASE;
+require MusicBrainz::Server::Moderation::MOD_MERGE_RELEASE_MAC;
 require MusicBrainz::Server::Moderation::MOD_MERGE_ARTIST;
 require MusicBrainz::Server::Moderation::MOD_MERGE_LABEL;
 # require MusicBrainz::Server::Moderation::MOD_MERGE_LINK_TYPE; -- not implemented
-require MusicBrainz::Server::Moderation::MOD_MOVE_ALBUM;
+require MusicBrainz::Server::Moderation::MOD_MOVE_RELEASE;
 require MusicBrainz::Server::Moderation::MOD_MOVE_DISCID;
-require MusicBrainz::Server::Moderation::MOD_REMOVE_ALBUM;
-require MusicBrainz::Server::Moderation::MOD_REMOVE_ALBUMS;
+require MusicBrainz::Server::Moderation::MOD_REMOVE_RELEASE;
+require MusicBrainz::Server::Moderation::MOD_REMOVE_RELEASES;
 require MusicBrainz::Server::Moderation::MOD_REMOVE_ARTIST;
 require MusicBrainz::Server::Moderation::MOD_REMOVE_ARTISTALIAS;
 require MusicBrainz::Server::Moderation::MOD_REMOVE_DISCID;
@@ -94,7 +94,7 @@ require MusicBrainz::Server::Moderation::MOD_REMOVE_LINK;
 require MusicBrainz::Server::Moderation::MOD_REMOVE_LINK_ATTR;
 require MusicBrainz::Server::Moderation::MOD_REMOVE_LINK_TYPE;
 require MusicBrainz::Server::Moderation::MOD_REMOVE_PUID;
-require MusicBrainz::Server::Moderation::MOD_REMOVE_RELEASEEVENTS;
+require MusicBrainz::Server::Moderation::MOD_REMOVE_RELEASE_EVENTS;
 require MusicBrainz::Server::Moderation::MOD_REMOVE_TRACK;
 require MusicBrainz::Server::Moderation::MOD_REMOVE_TRMID;
 require MusicBrainz::Server::Moderation::MOD_SAC_TO_MAC;
@@ -108,8 +108,8 @@ my @EditLevelDefs =
 		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_ARTISTNAME::Name() },  
 		MOD_EDIT_ARTISTSORTNAME  	 ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_ARTISTSORTNAME::Name() },  
-		MOD_EDIT_ALBUMNAME			 ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
-		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_ALBUMNAME::Name() },  
+		MOD_EDIT_RELEASE_NAME			 ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
+		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_RELEASE_NAME::Name() },  
 		MOD_EDIT_TRACKNAME			 ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_TRACKNAME::Name() },  
 		MOD_EDIT_TRACKNUM			 ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
@@ -118,24 +118,24 @@ my @EditLevelDefs =
 		                                      name => &MusicBrainz::Server::Moderation::MOD_MERGE_ARTIST::Name() },  
 		MOD_ADD_TRACK				 ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_TRACK::Name() },  
-		MOD_MOVE_ALBUM				 ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 0,  
-		                                      name => &MusicBrainz::Server::Moderation::MOD_MOVE_ALBUM::Name() },  
+		MOD_MOVE_RELEASE				 ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 0,  
+		                                      name => &MusicBrainz::Server::Moderation::MOD_MOVE_RELEASE::Name() },  
 		MOD_SAC_TO_MAC				 ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_SAC_TO_MAC::Name() },  
 		MOD_CHANGE_TRACK_ARTIST	     ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_CHANGE_TRACK_ARTIST::Name() },  
 		MOD_REMOVE_TRACK			 ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 0,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_REMOVE_TRACK::Name() },  
-		MOD_REMOVE_ALBUM			 ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 0,  
-		                                      name => &MusicBrainz::Server::Moderation::MOD_REMOVE_ALBUM::Name() },  
+		MOD_REMOVE_RELEASE			 ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 0,  
+		                                      name => &MusicBrainz::Server::Moderation::MOD_REMOVE_RELEASE::Name() },  
 		MOD_MAC_TO_SAC				 ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_MAC_TO_SAC::Name() },  
 		MOD_REMOVE_ARTISTALIAS		 ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_REMOVE_ARTISTALIAS::Name() },  
 		MOD_ADD_ARTISTALIAS		     ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_ARTISTALIAS::Name() },  
-		MOD_ADD_ALBUM				 ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
-		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_ALBUM::Name() },  
+		MOD_ADD_RELEASE				 ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
+		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_RELEASE::Name() },  
 		MOD_ADD_ARTIST				 ."" => { duration => 0, votes => 0, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_ARTIST::Name() },  
 		MOD_ADD_TRACK_KV			 ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
@@ -148,24 +148,24 @@ my @EditLevelDefs =
 		                                      name => &MusicBrainz::Server::Moderation::MOD_MOVE_DISCID::Name() },  
 		MOD_REMOVE_TRMID			 ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_REMOVE_TRMID::Name() },  
-		MOD_MERGE_ALBUM			     ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 0,  
-		                                      name => &MusicBrainz::Server::Moderation::MOD_MERGE_ALBUM::Name() },  
-		MOD_REMOVE_ALBUMS			 ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
-		                                      name => &MusicBrainz::Server::Moderation::MOD_REMOVE_ALBUMS::Name() },  
-		MOD_MERGE_ALBUM_MAC	    	 ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
-		                                      name => &MusicBrainz::Server::Moderation::MOD_MERGE_ALBUM_MAC::Name() },  
-		MOD_EDIT_ALBUMATTRS	    	 ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
-		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_ALBUMATTRS::Name() },  
+		MOD_MERGE_RELEASE			     ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 0,  
+		                                      name => &MusicBrainz::Server::Moderation::MOD_MERGE_RELEASE::Name() },  
+		MOD_REMOVE_RELEASES			 ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
+		                                      name => &MusicBrainz::Server::Moderation::MOD_REMOVE_RELEASES::Name() },  
+		MOD_MERGE_RELEASE_MAC	    	 ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
+		                                      name => &MusicBrainz::Server::Moderation::MOD_MERGE_RELEASE_MAC::Name() },  
+		MOD_EDIT_RELEASE_ATTRS	    	 ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
+		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_RELEASE_ATTRS::Name() },  
 		MOD_ADD_TRMS				 ."" => { duration => 0, votes => 0, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_TRMS::Name() },  
 		MOD_EDIT_ARTISTALIAS		 ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_ARTISTALIAS::Name() },  
-		MOD_EDIT_RELEASES			 ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
-		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_RELEASES::Name() },  
+		MOD_EDIT_RELEASE_EVENTS_OLD			 ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
+		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_RELEASE_EVENTS_OLD::Name() },  
 		MOD_ADD_ARTIST_ANNOTATION	 ."" => { duration => 0, votes => 0, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_ARTIST_ANNOTATION::Name() },  
-		MOD_ADD_ALBUM_ANNOTATION	 ."" => { duration => 0, votes => 0, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
-		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_ALBUM_ANNOTATION::Name() },  
+		MOD_ADD_RELEASE_ANNOTATION	 ."" => { duration => 0, votes => 0, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
+		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_RELEASE_ANNOTATION::Name() },  
 		MOD_ADD_TRACK_ANNOTATION	 ."" => { duration => 0, votes => 0, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_TRACK_ANNOTATION::Name() },  
 		MOD_ADD_DISCID				 ."" => { duration => 0, votes => 0, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
@@ -190,8 +190,8 @@ my @EditLevelDefs =
 		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_LINK_ATTR::Name() },  
 		MOD_REMOVE_LINK_ATTR		 ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_REMOVE_LINK_ATTR::Name() },  
-		MOD_EDIT_ALBUM_LANGUAGE	     ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
-		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_ALBUM_LANGUAGE::Name() },  
+		MOD_EDIT_RELEASE_LANGUAGE	     ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
+		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_RELEASE_LANGUAGE::Name() },  
 		MOD_EDIT_TRACKTIME			 ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_TRACKTIME::Name() },  
 		MOD_REMOVE_PUID			     ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
@@ -200,12 +200,12 @@ my @EditLevelDefs =
 		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_PUIDS::Name() },  
 		MOD_CHANGE_WIKIDOC			 ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_CHANGE_WIKIDOC::Name() },  
-		MOD_ADD_RELEASEEVENTS		 ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
-		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_RELEASEEVENTS::Name() },  
-		MOD_EDIT_RELEASEEVENTS		 ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
-		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_RELEASEEVENTS::Name() },  
-		MOD_REMOVE_RELEASEEVENTS	 ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 0,  
-		                                      name => &MusicBrainz::Server::Moderation::MOD_REMOVE_RELEASEEVENTS::Name() },  
+		MOD_ADD_RELEASE_EVENTS		 ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
+		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_RELEASE_EVENTS::Name() },  
+		MOD_EDIT_RELEASE_EVENTS		 ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
+		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_RELEASE_EVENTS::Name() },  
+		MOD_REMOVE_RELEASE_EVENTS	 ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 0,  
+		                                      name => &MusicBrainz::Server::Moderation::MOD_REMOVE_RELEASE_EVENTS::Name() },  
 		MOD_SET_RELEASE_DURATIONS	 ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_SET_RELEASE_DURATIONS::Name() },  
 		MOD_EDIT_URL				 ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
@@ -232,8 +232,8 @@ my @EditLevelDefs =
 		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_ARTISTNAME::Name() },  
 		MOD_EDIT_ARTISTSORTNAME  	 ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_ARTISTSORTNAME::Name() },  
-		MOD_EDIT_ALBUMNAME			 ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
-		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_ALBUMNAME::Name() },  
+		MOD_EDIT_RELEASE_NAME			 ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
+		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_RELEASE_NAME::Name() },  
 		MOD_EDIT_TRACKNAME			 ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_TRACKNAME::Name() },  
 		MOD_EDIT_TRACKNUM			 ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
@@ -242,24 +242,24 @@ my @EditLevelDefs =
 		                                      name => &MusicBrainz::Server::Moderation::MOD_MERGE_ARTIST::Name() },  
 		MOD_ADD_TRACK				 ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_TRACK::Name() },  
-		MOD_MOVE_ALBUM				 ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
-		                                      name => &MusicBrainz::Server::Moderation::MOD_MOVE_ALBUM::Name() },  
+		MOD_MOVE_RELEASE				 ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
+		                                      name => &MusicBrainz::Server::Moderation::MOD_MOVE_RELEASE::Name() },  
 		MOD_SAC_TO_MAC				 ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_SAC_TO_MAC::Name() },  
 		MOD_CHANGE_TRACK_ARTIST	     ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_CHANGE_TRACK_ARTIST::Name() },  
 		MOD_REMOVE_TRACK			 ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 0,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_REMOVE_TRACK::Name() },  
-		MOD_REMOVE_ALBUM			 ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 0,  
-		                                      name => &MusicBrainz::Server::Moderation::MOD_REMOVE_ALBUM::Name() },  
+		MOD_REMOVE_RELEASE			 ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 0,  
+		                                      name => &MusicBrainz::Server::Moderation::MOD_REMOVE_RELEASE::Name() },  
 		MOD_MAC_TO_SAC				 ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_MAC_TO_SAC::Name() },  
 		MOD_REMOVE_ARTISTALIAS		 ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 0,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_REMOVE_ARTISTALIAS::Name() },  
 		MOD_ADD_ARTISTALIAS		     ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_ARTISTALIAS::Name() },  
-		MOD_ADD_ALBUM				 ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
-		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_ALBUM::Name() },  
+		MOD_ADD_RELEASE				 ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
+		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_RELEASE::Name() },  
 		MOD_ADD_ARTIST				 ."" => { duration => 0, votes => 0, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_ARTIST::Name() },  
 		MOD_ADD_TRACK_KV			 ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
@@ -272,24 +272,24 @@ my @EditLevelDefs =
 		                                      name => &MusicBrainz::Server::Moderation::MOD_MOVE_DISCID::Name() },  
 		MOD_REMOVE_TRMID			 ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_REMOVE_TRMID::Name() },  
-		MOD_MERGE_ALBUM			     ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 0,  
-		                                      name => &MusicBrainz::Server::Moderation::MOD_MERGE_ALBUM::Name() },  
-		MOD_REMOVE_ALBUMS			 ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 0,  
-		                                      name => &MusicBrainz::Server::Moderation::MOD_REMOVE_ALBUMS::Name() },  
-		MOD_MERGE_ALBUM_MAC	    	 ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 0,  
-		                                      name => &MusicBrainz::Server::Moderation::MOD_MERGE_ALBUM_MAC::Name() },  
-		MOD_EDIT_ALBUMATTRS	    	 ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
-		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_ALBUMATTRS::Name() },  
+		MOD_MERGE_RELEASE			     ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 0,  
+		                                      name => &MusicBrainz::Server::Moderation::MOD_MERGE_RELEASE::Name() },  
+		MOD_REMOVE_RELEASES			 ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 0,  
+		                                      name => &MusicBrainz::Server::Moderation::MOD_REMOVE_RELEASES::Name() },  
+		MOD_MERGE_RELEASE_MAC	    	 ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 0,  
+		                                      name => &MusicBrainz::Server::Moderation::MOD_MERGE_RELEASE_MAC::Name() },  
+		MOD_EDIT_RELEASE_ATTRS	    	 ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
+		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_RELEASE_ATTRS::Name() },  
 		MOD_ADD_TRMS				 ."" => { duration => 0, votes => 0, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_TRMS::Name() },  
 		MOD_EDIT_ARTISTALIAS		 ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_ARTISTALIAS::Name() },  
-		MOD_EDIT_RELEASES			 ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
-		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_RELEASES::Name() },  
+		MOD_EDIT_RELEASE_EVENTS_OLD			 ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
+		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_RELEASE_EVENTS_OLD::Name() },  
 		MOD_ADD_ARTIST_ANNOTATION	 ."" => { duration => 0, votes => 0, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_ARTIST_ANNOTATION::Name() },  
-		MOD_ADD_ALBUM_ANNOTATION	 ."" => { duration => 0, votes => 0, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
-		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_ALBUM_ANNOTATION::Name() },  
+		MOD_ADD_RELEASE_ANNOTATION	 ."" => { duration => 0, votes => 0, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
+		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_RELEASE_ANNOTATION::Name() },  
 		MOD_ADD_TRACK_ANNOTATION	 ."" => { duration => 0, votes => 0, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_TRACK_ANNOTATION::Name() },  
 		MOD_ADD_DISCID				 ."" => { duration => 0, votes => 0, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
@@ -314,8 +314,8 @@ my @EditLevelDefs =
 		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_LINK_ATTR::Name() },  
 		MOD_REMOVE_LINK_ATTR		 ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_REMOVE_LINK_ATTR::Name() },  
-		MOD_EDIT_ALBUM_LANGUAGE	     ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
-		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_ALBUM_LANGUAGE::Name() },  
+		MOD_EDIT_RELEASE_LANGUAGE	     ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
+		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_RELEASE_LANGUAGE::Name() },  
 		MOD_EDIT_TRACKTIME			 ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_TRACKTIME::Name() },  
 		MOD_REMOVE_PUID			     ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
@@ -324,12 +324,12 @@ my @EditLevelDefs =
 		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_PUIDS::Name() },  
 		MOD_CHANGE_WIKIDOC			 ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_CHANGE_WIKIDOC::Name() },  
-		MOD_ADD_RELEASEEVENTS		 ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
-		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_RELEASEEVENTS::Name() },  
-		MOD_EDIT_RELEASEEVENTS		 ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
-		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_RELEASEEVENTS::Name() },  
-		MOD_REMOVE_RELEASEEVENTS	 ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 0,  
-		                                      name => &MusicBrainz::Server::Moderation::MOD_REMOVE_RELEASEEVENTS::Name() },  
+		MOD_ADD_RELEASE_EVENTS		 ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
+		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_RELEASE_EVENTS::Name() },  
+		MOD_EDIT_RELEASE_EVENTS		 ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
+		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_RELEASE_EVENTS::Name() },  
+		MOD_REMOVE_RELEASE_EVENTS	 ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 0,  
+		                                      name => &MusicBrainz::Server::Moderation::MOD_REMOVE_RELEASE_EVENTS::Name() },  
 		MOD_SET_RELEASE_DURATIONS	 ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_SET_RELEASE_DURATIONS::Name() },  
 		MOD_EDIT_URL				 ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
@@ -356,8 +356,8 @@ my @EditLevelDefs =
 		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_ARTISTNAME::Name() },  
 		MOD_EDIT_ARTISTSORTNAME  	 ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_ARTISTSORTNAME::Name() },  
-		MOD_EDIT_ALBUMNAME			 ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
-		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_ALBUMNAME::Name() },  
+		MOD_EDIT_RELEASE_NAME			 ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
+		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_RELEASE_NAME::Name() },  
 		MOD_EDIT_TRACKNAME			 ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_TRACKNAME::Name() },  
 		MOD_EDIT_TRACKNUM			 ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
@@ -366,24 +366,24 @@ my @EditLevelDefs =
 		                                      name => &MusicBrainz::Server::Moderation::MOD_MERGE_ARTIST::Name() },  
 		MOD_ADD_TRACK				 ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_TRACK::Name() },  
-		MOD_MOVE_ALBUM				 ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
-		                                      name => &MusicBrainz::Server::Moderation::MOD_MOVE_ALBUM::Name() },  
+		MOD_MOVE_RELEASE				 ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
+		                                      name => &MusicBrainz::Server::Moderation::MOD_MOVE_RELEASE::Name() },  
 		MOD_SAC_TO_MAC				 ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_SAC_TO_MAC::Name() },  
 		MOD_CHANGE_TRACK_ARTIST	     ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_CHANGE_TRACK_ARTIST::Name() },  
 		MOD_REMOVE_TRACK			 ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_REMOVE_TRACK::Name() },  
-		MOD_REMOVE_ALBUM			 ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
-		                                      name => &MusicBrainz::Server::Moderation::MOD_REMOVE_ALBUM::Name() },  
+		MOD_REMOVE_RELEASE			 ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
+		                                      name => &MusicBrainz::Server::Moderation::MOD_REMOVE_RELEASE::Name() },  
 		MOD_MAC_TO_SAC				 ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_MAC_TO_SAC::Name() },  
 		MOD_REMOVE_ARTISTALIAS		 ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_REMOVE_ARTISTALIAS::Name() },  
 		MOD_ADD_ARTISTALIAS		     ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_ARTISTALIAS::Name() },  
-		MOD_ADD_ALBUM				 ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
-		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_ALBUM::Name() },  
+		MOD_ADD_RELEASE				 ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
+		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_RELEASE::Name() },  
 		MOD_ADD_ARTIST				 ."" => { duration => 0, votes => 0, expireaction => EXPIRE_REJECT, autoedit => 0,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_ARTIST::Name() },  
 		MOD_ADD_TRACK_KV			 ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
@@ -396,24 +396,24 @@ my @EditLevelDefs =
 		                                      name => &MusicBrainz::Server::Moderation::MOD_MOVE_DISCID::Name() },  
 		MOD_REMOVE_TRMID			 ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_REMOVE_TRMID::Name() },  
-		MOD_MERGE_ALBUM			     ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
-		                                      name => &MusicBrainz::Server::Moderation::MOD_MERGE_ALBUM::Name() },  
-		MOD_REMOVE_ALBUMS			 ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
-		                                      name => &MusicBrainz::Server::Moderation::MOD_REMOVE_ALBUMS::Name() },  
-		MOD_MERGE_ALBUM_MAC	    	 ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
-		                                      name => &MusicBrainz::Server::Moderation::MOD_MERGE_ALBUM_MAC::Name() },  
-		MOD_EDIT_ALBUMATTRS	    	 ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
-		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_ALBUMATTRS::Name() },  
+		MOD_MERGE_RELEASE			     ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
+		                                      name => &MusicBrainz::Server::Moderation::MOD_MERGE_RELEASE::Name() },  
+		MOD_REMOVE_RELEASES			 ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
+		                                      name => &MusicBrainz::Server::Moderation::MOD_REMOVE_RELEASES::Name() },  
+		MOD_MERGE_RELEASE_MAC	    	 ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
+		                                      name => &MusicBrainz::Server::Moderation::MOD_MERGE_RELEASE_MAC::Name() },  
+		MOD_EDIT_RELEASE_ATTRS	    	 ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
+		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_RELEASE_ATTRS::Name() },  
 		MOD_ADD_TRMS				 ."" => { duration => 0, votes => 0, expireaction => EXPIRE_REJECT, autoedit => 0,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_TRMS::Name() },  
 		MOD_EDIT_ARTISTALIAS		 ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_ARTISTALIAS::Name() },  
-		MOD_EDIT_RELEASES			 ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
-		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_RELEASES::Name() },  
+		MOD_EDIT_RELEASE_EVENTS_OLD			 ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
+		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_RELEASE_EVENTS_OLD::Name() },  
 		MOD_ADD_ARTIST_ANNOTATION	 ."" => { duration => 0, votes => 0, expireaction => EXPIRE_REJECT, autoedit => 1,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_ARTIST_ANNOTATION::Name() },  
-		MOD_ADD_ALBUM_ANNOTATION	 ."" => { duration => 0, votes => 0, expireaction => EXPIRE_REJECT, autoedit => 1,  
-		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_ALBUM_ANNOTATION::Name() },  
+		MOD_ADD_RELEASE_ANNOTATION	 ."" => { duration => 0, votes => 0, expireaction => EXPIRE_REJECT, autoedit => 1,  
+		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_RELEASE_ANNOTATION::Name() },  
 		MOD_ADD_TRACK_ANNOTATION	 ."" => { duration => 0, votes => 0, expireaction => EXPIRE_REJECT, autoedit => 1,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_TRACK_ANNOTATION::Name() },  
 		MOD_ADD_DISCID				 ."" => { duration => 0, votes => 0, expireaction => EXPIRE_REJECT, autoedit => 0,  
@@ -438,8 +438,8 @@ my @EditLevelDefs =
 		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_LINK_ATTR::Name() },  
 		MOD_REMOVE_LINK_ATTR		 ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_REMOVE_LINK_ATTR::Name() },  
-		MOD_EDIT_ALBUM_LANGUAGE	     ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
-		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_ALBUM_LANGUAGE::Name() },  
+		MOD_EDIT_RELEASE_LANGUAGE	     ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
+		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_RELEASE_LANGUAGE::Name() },  
 		MOD_EDIT_TRACKTIME			 ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_TRACKTIME::Name() },  
 		MOD_REMOVE_PUID			     ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
@@ -448,12 +448,12 @@ my @EditLevelDefs =
 		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_PUIDS::Name() },  
 		MOD_CHANGE_WIKIDOC			 ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_CHANGE_WIKIDOC::Name() },  
-		MOD_ADD_RELEASEEVENTS		 ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
-		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_RELEASEEVENTS::Name() },  
-		MOD_EDIT_RELEASEEVENTS		 ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
-		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_RELEASEEVENTS::Name() },  
-		MOD_REMOVE_RELEASEEVENTS	 ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
-		                                      name => &MusicBrainz::Server::Moderation::MOD_REMOVE_RELEASEEVENTS::Name() },  
+		MOD_ADD_RELEASE_EVENTS		 ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
+		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_RELEASE_EVENTS::Name() },  
+		MOD_EDIT_RELEASE_EVENTS		 ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
+		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_RELEASE_EVENTS::Name() },  
+		MOD_REMOVE_RELEASE_EVENTS	 ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
+		                                      name => &MusicBrainz::Server::Moderation::MOD_REMOVE_RELEASE_EVENTS::Name() },  
 		MOD_SET_RELEASE_DURATIONS	 ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_SET_RELEASE_DURATIONS::Name() },  
 		MOD_EDIT_URL				 ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
@@ -1386,7 +1386,7 @@ sub GetModerationList
 	$sql->Finish;
 
 	# Fetch artists, and cache by artistid.
-	require Artist;
+	require MusicBrainz::Server::Artist;
 	my %artist_cache;
 	
 	# Cache editors by name
@@ -1411,7 +1411,7 @@ sub GetModerationList
 		my $artistid = $edit->GetArtist;
 		if (not defined $artist_cache{$artistid})
 		{
-			my $artist = Artist->new($this->{DBH});
+			my $artist = MusicBrainz::Server::Artist->new($this->{DBH});
 			$artist->SetId($artistid);
 			if ($artist->LoadFromId())
 			{
@@ -1723,8 +1723,8 @@ sub ShowModType
 	#     implementations of the edit types
 	if ($this->{"checkexists-track"} && defined $this->{"trackid"})
 	{
-		require Track;
-		my $track = Track->new($this->{DBH});
+		require MusicBrainz::Server::Track;
+		my $track = MusicBrainz::Server::Track->new($this->{DBH});
 		$track->SetId($this->{"trackid"});
 		if ($this->{"exists-track"} = $track->LoadFromId)
 		{
@@ -1735,7 +1735,7 @@ sub ShowModType
 			# assume that the release needs to be loaded from
 			# the album-track core relationship, if it not
 			# has been set explicitly.
-			$this->{"albumid"} = $track->GetAlbum if ($this->{"checkexists-album"} && not defined $this->{"albumid"});
+			$this->{"albumid"} = $track->GetRelease if ($this->{"checkexists-album"} && not defined $this->{"albumid"});
 		}
 	}
 	
@@ -1744,8 +1744,8 @@ sub ShowModType
 	#     implementations of the edit types	
 	if ($this->{"checkexists-album"} && defined $this->{"albumid"})
 	{
-		require Album;
-		my $release = Album->new($this->{DBH});
+		require MusicBrainz::Server::Release;
+		my $release = MusicBrainz::Server::Release->new($this->{DBH});
 		$release->SetId($this->{"albumid"});
 		if ($this->{"exists-album"} = $release->LoadFromId)
 		{
@@ -1758,11 +1758,11 @@ sub ShowModType
 	
 	# do not display release if we have a batch edit type
 	$this->{"albumid"} = undef 
-		if ($this->GetType == &ModDefs::MOD_REMOVE_ALBUMS or
-			$this->GetType == &ModDefs::MOD_MERGE_ALBUM or
-			$this->GetType == &ModDefs::MOD_MERGE_ALBUM_MAC or
-			$this->GetType == &ModDefs::MOD_EDIT_ALBUM_LANGUAGE or
-			$this->GetType == &ModDefs::MOD_EDIT_ALBUMATTRS);
+		if ($this->GetType == &ModDefs::MOD_REMOVE_RELEASES or
+			$this->GetType == &ModDefs::MOD_MERGE_RELEASE or
+			$this->GetType == &ModDefs::MOD_MERGE_RELEASE_MAC or
+			$this->GetType == &ModDefs::MOD_EDIT_RELEASE_LANGUAGE or
+			$this->GetType == &ModDefs::MOD_EDIT_RELEASE_ATTRS);
 	
 	$mason->out(qq!<table class="edittype">!);
 

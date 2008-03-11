@@ -57,7 +57,7 @@
 		$artistid = $id if (MusicBrainz::Server::Validation::IsNonNegInteger($id) && $id);
 
 		# if the $id parameter is a GUID
-		my $artist = Artist->new($mb->{DBH});
+		my $artist = MusicBrainz::Server::Artist->new($mb->{DBH});
 		if ($mbid ne "")
 		{
 			$artist->SetMBId($mbid);

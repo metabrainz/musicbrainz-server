@@ -31,9 +31,9 @@ use DBDefs;
 use Sql;
 use MusicBrainz;
 use MM_2_1;
-use Artist;
-use Album;
-use Track;
+use MusicBrainz::Server::Artist;
+use MusicBrainz::Server::Release;
+use MusicBrainz::Server::Track;
 
 my $verbose = -t;
 
@@ -172,7 +172,7 @@ sub DumpAlbums
 	$start = time;
 	$mx = $sql->Rows();
 
-	$album = Album->new($sql->{DBH});
+	$album = MusicBrainz::Server::Release->new($sql->{DBH});
 	$sql2 = Sql->new($sql->{DBH});
 	$sql2->Select(
 		"SELECT	j.album, t.discid
@@ -230,15 +230,15 @@ sub DumpAlbums
 			shift @attrs; 
 			foreach $attr (@attrs)
 			{
-				if ($attr >= Album::ALBUM_ATTR_SECTION_TYPE_START &&
-					$attr <= Album::ALBUM_ATTR_SECTION_TYPE_END)
+				if ($attr >= MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_TYPE_START &&
+					$attr <= MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_TYPE_END)
 				{
 					$out .= $rdf->Element("rdf:type", "", "rdf:resource", 
 							$rdf->GetMMNamespace() . "Type" . 
 							$album->GetAttributeName($attr));
 				}
-				elsif ($attr >= Album::ALBUM_ATTR_SECTION_STATUS_START &&
-						$attr <= Album::ALBUM_ATTR_SECTION_STATUS_END)
+				elsif ($attr >= MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_STATUS_START &&
+						$attr <= MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_STATUS_END)
 				{
 					$out .= $rdf->Element("mm:release", "", "rdf:resource", 
 							$rdf->GetMMNamespace() . "Status" .

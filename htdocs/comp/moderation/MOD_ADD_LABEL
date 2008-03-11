@@ -45,7 +45,7 @@
 	my $begin = $new->{'BeginDate'};
 	my $end = $new->{'EndDate'};
 	my $type = $new->{'Type'};
-	my $type_str = Label::GetTypeName($type);
+	my $type_str = MusicBrainz::Server::Label::GetTypeName($type);
 
 	my $s = $this->GetStatus;
 </%perl>

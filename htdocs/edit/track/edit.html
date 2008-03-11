@@ -108,7 +108,7 @@
 			if (not MusicBrainz::Server::Validation::IsSingleLineString($newtrackname));
 
 		# check new track length
-		$newlength = Track::UnformatTrackLength($newlength);
+		$newlength = MusicBrainz::Server::Track::UnformatTrackLength($newlength);
 		push @errors, "The new track length has an invalid format (either ?:?? or a valid length in minutes:seconds is required)"
 			if (not MusicBrainz::Server::Validation::IsNonNegInteger($newlength));
 
@@ -169,8 +169,8 @@
 
 					# only enter MOD_EDIT_TRACKTIME if the track length
 					# was modified
-					if (Track::FormatTrackLength($newlength) ne
-						Track::FormatTrackLength($track->GetLength))
+					if (MusicBrainz::Server::Track::FormatTrackLength($newlength) ne
+						MusicBrainz::Server::Track::FormatTrackLength($track->GetLength))
 					{
 						my @mods3 = Moderation->InsertModeration(
 							DBH	=> $mb->{DBH},
@@ -247,7 +247,7 @@
 					<td>
 						<& /comp/form/currentvalue, track => $track &></td>
 					<td>
-						<div class="oldlength"><% Track::FormatTrackLength($track->GetLength) %></div></td>
+						<div class="oldlength"><% MusicBrainz::Server::Track::FormatTrackLength($track->GetLength) %></div></td>
 
 					<td>&nbsp;</td>
 				</tr>
@@ -279,7 +279,7 @@
 					<td>
 						<input type="text" size="4" class="numberfield"
 							<% $can_add_remove ? "" : 'readonly="readonly"' |n %>
-							name="newlength" value="<% $defaultlength || Track::FormatTrackLength($track->GetLength) %>" /></td>
+							name="newlength" value="<% $defaultlength || MusicBrainz::Server::Track::FormatTrackLength($track->GetLength) %>" /></td>
 					<td>
 						<& /comp/form/jsbutton, id=>"BTN_TRACK::newtrackname" &></td>
 				</tr>

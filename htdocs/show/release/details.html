@@ -130,11 +130,11 @@
 			# the track length of each track.
 			if ($show =~ /(times|both)/)
 			{
-				my $len = Track::FormatTrackLength($cdtoc->GetLeadoutOffset/75*1000);
+				my $len = MusicBrainz::Server::Track::FormatTrackLength($cdtoc->GetLeadoutOffset/75*1000);
 				$m->out(qq!<td style="text-align: center; padding: 0px 4px">$len</td>!);
 				for (@{ $cdtoc->GetTrackLengths })
 				{
-					$len = Track::FormatTrackLength($_/75*1000);
+					$len = MusicBrainz::Server::Track::FormatTrackLength($_/75*1000);
 					$m->out(qq!<td style="text-align: center; padding: 0px 4px">$len</td>!);
 				}
 			}

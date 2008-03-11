@@ -86,13 +86,13 @@ sub ApprovedAction
 {
 	my $self = shift;
 
-	require PUID;
-	my $PUID = PUID->new($self->{DBH});
+	require MusicBrainz::Server::PUID;
+	my $puid = MusicBrainz::Server::PUID->new($self->{DBH});
 	my $clientVersion = $self->{'new_unpacked'}{'ClientVersion'};
 
 	for (@{ $self->{'new_list'} })
 	{
-		$PUID->Insert(
+		$puid->Insert(
 			$_->{'puid'},
 			$_->{'trackid'},
 			$clientVersion,

@@ -34,8 +34,8 @@ use base qw( MusicBrainz::Server::ReportScript );
 
 use MusicBrainz::Server::Validation;
 use Encode qw( decode );
-use Album;
-use Artist;
+use MusicBrainz::Server::Release;
+use MusicBrainz::Server::Artist;
 
 sub GatherData
 {
@@ -71,8 +71,8 @@ sub GatherData
 		push @{ $artists->{ $_->[0] }{ALBUMS}{ $_->[1] }{TRACKS} }, $_;
 	}
 
-	my $al = Album->new($self->{DBH});
-	my $ar = Artist->new($self->{DBH});
+	my $al = MusicBrainz::Server::Release->new($self->{DBH});
+	my $ar = MusicBrainz::Server::Artist->new($self->{DBH});
 
 	for my $artistid (keys %$artists)
 	{

@@ -103,12 +103,12 @@
 	elsif ($release)
 	{
   		SWITCH: {
-			if ($mp_type == &ModDefs::MOD_EDIT_ALBUM_LANGUAGE)
+			if ($mp_type == &ModDefs::MOD_EDIT_RELEASE_LANGUAGE)
 			{
 				$mp = $release->GetLanguageModPending;
 				last SWITCH;
 			}
-			if ($mp_type == &ModDefs::MOD_EDIT_ALBUMATTRS)
+			if ($mp_type == &ModDefs::MOD_EDIT_RELEASE_ATTRS)
 			{
 				$mp = $release->GetAttributeModPending;
 				last SWITCH;

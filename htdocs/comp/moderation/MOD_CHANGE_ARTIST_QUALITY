@@ -24,7 +24,7 @@
 	# This component provides the display facilities for
 	# the MOD_CHANGE_ARTIST_QUALITY edit type.
 	#
-	# $Id: MOD_EDIT_ALBUMNAME 8022 2006-07-02 21:17:05Z keschte $
+	# $Id: MOD_EDIT_RELEASE_NAME 8022 2006-07-02 21:17:05Z keschte $
 	#
 </%perl>
 <%method ShowPreviousValue>

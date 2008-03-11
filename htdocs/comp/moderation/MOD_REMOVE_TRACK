@@ -52,7 +52,7 @@
 
 		<tr>
 			<td class="lbl">Length:</td>
-			<td><% Track::FormatTrackLength($this->{'prev.tracklength'}) %></td>
+			<td><% MusicBrainz::Server::Track::FormatTrackLength($this->{'prev.tracklength'}) %></td>
 		</tr>
 
 % 	}

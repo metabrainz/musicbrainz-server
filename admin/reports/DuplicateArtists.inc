@@ -37,7 +37,7 @@
 </%args>
 <%perl>
 
-	use Artist;
+	use MusicBrainz::Server::Artist;
 	use MusicBrainz::Server::PagedReport;
 	use File::Basename qw( dirname );
 
@@ -110,7 +110,7 @@
 %			my $j = 0;
 % 			foreach my $row ( @$dupelist )
 %			{
-% 				my $ar = Artist->new($mb->{DBH});
+% 				my $ar = MusicBrainz::Server::Artist->new($mb->{DBH});
 % 				$ar->SetId( $row->{artist_id} );
 % 				$ar->LoadFromId();
 

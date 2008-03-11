@@ -58,8 +58,8 @@
 	my (@adds, @edits, @removes);
 	for my $rel (@{ $edit->{"releases"} })
 	{
-		my $revnew = MusicBrainz::Server::Release->new($mb->{DBH});
-		$revnew->SetAlbum($release->GetId);
+		my $revnew = MusicBrainz::Server::ReleaseEvent->new($mb->{DBH});
+		$revnew->SetRelease($release->GetId);
 		$revnew->SetCountry($rel->{"country"});
 		$revnew->SetYMD(@$rel{qw( year month day )});
 		$revnew->SetLabel($rel->{label});
@@ -77,7 +77,7 @@
 			next;
 		}
 
-		my $revold = MusicBrainz::Server::Release->new($mb->{DBH});
+		my $revold = MusicBrainz::Server::ReleaseEvent->new($mb->{DBH});
 		$revold = $revold->newFromId($rel->{"id"})
 			or next;
 
@@ -127,7 +127,7 @@
 				DBH	=> $mb->{DBH},
 				uid	=> $session{uid},
 				privs => $session{privs},
-				type => &ModDefs::MOD_ADD_RELEASEEVENTS,
+				type => &ModDefs::MOD_ADD_RELEASE_EVENTS,
 				# --
 				album => $release,
 				adds => \@adds,
@@ -137,7 +137,7 @@
 				DBH	=> $mb->{DBH},
 				uid	=> $session{uid},
 				privs => $session{privs},
-				type => &ModDefs::MOD_EDIT_RELEASEEVENTS,
+				type => &ModDefs::MOD_EDIT_RELEASE_EVENTS,
 				# --
 				album => $release,
 				edits => \@edits,
@@ -147,7 +147,7 @@
 				DBH	=> $mb->{DBH},
 				uid	=> $session{uid},
 				privs => $session{privs},
-				type => &ModDefs::MOD_REMOVE_RELEASEEVENTS,
+				type => &ModDefs::MOD_REMOVE_RELEASE_EVENTS,
 				# --
 				album => $release,
 				removes => \@removes,

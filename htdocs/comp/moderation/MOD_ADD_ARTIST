@@ -43,7 +43,7 @@
 	my $begin = $new->{'BeginDate'};
 	my $end = $new->{'EndDate'};
 	my $type = $new->{'Type'};
-	my $type_str = Artist::GetTypeName($type);
+	my $type_str = MusicBrainz::Server::Artist::GetTypeName($type);
 
 	my $s = $this->GetStatus;
 </%perl>
@@ -92,7 +92,7 @@
 %	{
 
 		<tr>
-			<td class="lbl"><% Artist::GetBeginDateName($type) %>:</td>
+			<td class="lbl"><% MusicBrainz::Server::Artist::GetBeginDateName($type) %>:</td>
 			<td>
 			 	<% MusicBrainz::Server::Validation::MakeDisplayDateStr($begin) %></td>
 		</tr>
@@ -103,7 +103,7 @@
 %	{
 
 		<tr>
-			<td class="lbl"><% Artist::GetEndDateName($type) %>:</td>
+			<td class="lbl"><% MusicBrainz::Server::Artist::GetEndDateName($type) %>:</td>
 			<td>
 			 	<% MusicBrainz::Server::Validation::MakeDisplayDateStr($end) %></td>
 		</tr>

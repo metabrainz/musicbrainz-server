@@ -98,7 +98,7 @@
 
 		my @resolved_artists;
 
-		my $artist = Artist->new($mb->{DBH});
+		my $artist = MusicBrainz::Server::Artist->new($mb->{DBH});
 		my @artists;
 		my $last_artistname;
 

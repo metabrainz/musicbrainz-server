@@ -92,7 +92,7 @@
 				$seqnumbers{$seq} = 1;
 
 				if ($len ne "?:??" and
-					Track::UnformatTrackLength($len) < 0)
+					MusicBrainz::Server::Track::UnformatTrackLength($len) < 0)
 				{
 					$h{"tracklength$i"} = 1;
 					push @error, "Invalid time format, use ?:?? for unknown time or

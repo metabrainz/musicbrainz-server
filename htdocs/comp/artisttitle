@@ -47,7 +47,7 @@
 	my $name = $artist->GetName;
 	my $sortname = $artist->GetSortName;
 	my $type = $artist->GetType;
-	my $type_name = Artist::GetTypeName($type) || '';
+	my $type_name = MusicBrainz::Server::Artist::GetTypeName($type) || '';
 	my $begin = $artist->GetBeginDate;
 	my $end = $artist->GetEndDate;
 	my $resolution = $artist->GetResolution;
@@ -64,14 +64,14 @@
 	elsif ( $begin )
 	{
 		$date_str = "Begin: $begin";
-		$date_str = "Born: $begin" if $type == &Artist::ARTIST_TYPE_PERSON;
-		$date_str = "Founded: $begin" if $type == &Artist::ARTIST_TYPE_GROUP;
+		$date_str = "Born: $begin" if $type == &MusicBrainz::Server::Artist::ARTIST_TYPE_PERSON;
+		$date_str = "Founded: $begin" if $type == &MusicBrainz::Server::Artist::ARTIST_TYPE_GROUP;
 	}
 	elsif ( $end )
 	{
 		$date_str = "End: $end";
-		$date_str = "Deceased: $end" if $type == &Artist::ARTIST_TYPE_PERSON;
-		$date_str = "Dissolved: $end" if $type == &Artist::ARTIST_TYPE_GROUP;
+		$date_str = "Deceased: $end" if $type == &MusicBrainz::Server::Artist::ARTIST_TYPE_PERSON;
+		$date_str = "Dissolved: $end" if $type == &MusicBrainz::Server::Artist::ARTIST_TYPE_GROUP;
 	}
 
 
@@ -179,9 +179,9 @@
 			{
 				$m->out(sprintf qq! | <a href="/freedb/freedb.html?search=%s">Import release</a>!, uri_escape($name));
 
-				require Album;
+				require MusicBrainz::Server::Release;
 				my $mb = $m->comp("/comp/dblogin");
-				my $al = Album->new($mb->{DBH});
+				my $al = MusicBrainz::Server::Release->new($mb->{DBH});
 				if (my @non = $al->FindNonAlbum($id))
 				{
 					my $nonid = $non[0]->GetMBId;

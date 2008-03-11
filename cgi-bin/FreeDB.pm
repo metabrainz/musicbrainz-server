@@ -49,7 +49,7 @@ sub new
     }, ref($class) || $class;
 }
 
-# Public.  Called from MusicBrainz::Server::AlbumCDTOC->GenerateAlbumFromDiscid; 
+# Public.  Called from MusicBrainz::Server::ReleaseCDTOC->GenerateAlbumFromDiscid; 
 sub Lookup
 {
     my ($this, $Discid, $toc) = @_;
@@ -331,7 +331,7 @@ sub _parse_tracks
     return \%info;
 }
 
-# Public.  Called by MusicBrainz::Server::AlbumCDTOC->GenerateAlbumFromDiscid
+# Public.  Called by MusicBrainz::Server::ReleaseCDTOC->GenerateAlbumFromDiscid
 
 sub InsertForModeration
 {
@@ -366,10 +366,10 @@ sub InsertForModeration
 
     $info->{sortname} = $st->MakeDefaultSortname($info->{artist});
 
-    require Alias;
-    require Artist;
-    $alias = Alias->new($this->{DBH});
-    $ar = Artist->new($this->{DBH});
+    require MusicBrainz::Server::Alias;
+    require MusicBrainz::Server::Artist;
+    $alias = MusicBrainz::Server::Alias->new($this->{DBH});
+    $ar = MusicBrainz::Server::Artist->new($this->{DBH});
 
     # Check to see if the artist has an alias.
     $alias->{table} = "ArtistAlias";
@@ -403,7 +403,7 @@ sub InsertForModeration
         }
 
 	my $album = lc(decode "utf-8", $info->{album});
-        @albums = $ar->GetAlbums();
+        @albums = $ar->GetReleases();
         foreach $al (@albums)
         {
    	    my $thisname = lc(decode "utf-8", $al->GetName);

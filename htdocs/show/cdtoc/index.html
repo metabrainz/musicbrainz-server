@@ -53,7 +53,7 @@
         
     <& /comp/tablebegin, title => "Releases linked to this CD TOC" &>
 
-%	my $alcdtocs = $cdtoc->GetAlbumCDTOCs;
+%	my $alcdtocs = $cdtoc->GetReleaseCDTOCs;
 %	if (@$alcdtocs)
 %	{
 
@@ -61,7 +61,7 @@
 
 %		for my $alcdtoc (@$alcdtocs)
 %		{
-%			my $release = $alcdtoc->GetAlbum;
+%			my $release = $alcdtoc->GetRelease;
 %           my $artist = $m->comp("/comp/loadartist", $mb, $release->GetArtist);
 			<& /comp/album, album => $release, artist => $artist, showmodlinks => 0, showlinks => 0  &>
             <p style="text-align: center"><a href="/edit/album/setdurations.html?cdtocid=<% $cdtocid %>&releaseid=<% $release->GetId %>">Set track durations for the above release based on this CD TOC</a></p>

@@ -99,7 +99,7 @@
 	# give the user a stern warning about editing a duplicate label.
 	my ($samecheck, $samename) = (1, 0);
 	my @dupes;
-	my $dupar = Label->new($mb->{DBH});
+	my $dupar = MusicBrainz::Server::Label->new($mb->{DBH});
 	my $labels = $dupar->GetLabelsFromName($name);
 	if (defined $labels && scalar(@$labels))
 	{
@@ -135,7 +135,7 @@
 
 			MusicBrainz::Server::Validation::TrimInPlace($resolution, $name, $sortname);
 
-			push @messages, "Please Select a valid type." if (not Label::IsValidType($type));
+			push @messages, "Please Select a valid type." if (not MusicBrainz::Server::Label::IsValidType($type));
 			push @messages, "Please Enter the Name." if ($name eq "");
 			push @messages, "Please Enter the Sort Name." if ($sortname eq "");
 			push @messages, "Label Code has a to be a number with max. 5 digits"

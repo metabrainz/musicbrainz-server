@@ -146,10 +146,10 @@ sub serve_from_db
 	require MusicBrainz;
 	my $mb = MusicBrainz->new;
 	$mb->Login;
-	require Album;
+	require MusicBrainz::Server::Release;
 
     my @albums;
-	$al = Album->new($mb->{DBH});
+	$al = MusicBrainz::Server::Release->new($mb->{DBH});
     if ($mbid)
     {
         $al->SetMBId($mbid);
@@ -158,18 +158,18 @@ sub serve_from_db
     }
     elsif ($cdid)
     {
-        require MusicBrainz::Server::AlbumCDTOC;
+        require MusicBrainz::Server::ReleaseCDTOC;
 
         $is_coll = 1;
         $inc = INC_ARTIST | INC_COUNTS | INC_RELEASEINFO;
 
-        my $cd = MusicBrainz::Server::AlbumCDTOC->new($mb->{DBH});
-        my $albumids = $cd->GetAlbumIDsFromDiscID($cdid);
+        my $cd = MusicBrainz::Server::ReleaseCDTOC->new($mb->{DBH});
+        my $albumids = $cd->GetReleaseIDsFromDiscID($cdid);
         if (scalar(@$albumids))
         {
             foreach my $id (@$albumids)
             {
-                $al = Album->new($mb->{DBH});
+                $al = MusicBrainz::Server::Release->new($mb->{DBH});
                 $al->SetId($id);
                 return undef unless $al->LoadFromId(1);
                 push @albums, $al;
@@ -179,7 +179,7 @@ sub serve_from_db
 
     if (@albums && !$ar && $inc & INC_ARTIST || $inc & INC_TRACKS)
     {
-        $ar = Artist->new($mb->{DBH});
+        $ar = MusicBrainz::Server::Artist->new($mb->{DBH});
         $ar->SetId($al->GetArtist);
         $ar->LoadFromId();
     }

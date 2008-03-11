@@ -101,7 +101,7 @@
 		if ($toc ne "")
 		{
 			my $dur = int((($offsets[$i+1] - $offsets[$i])*1000)/75);
-			$orig{"tracklength$i"} = Track::FormatTrackLength($dur);
+			$orig{"tracklength$i"} = MusicBrainz::Server::Track::FormatTrackLength($dur);
 		}
 	}
 

@@ -58,7 +58,7 @@
 		$entitytype = "album";
 		$entitytype2 = "release";
 		$entityid = $album->GetId;
-		$annotation->SetAlbum($album->GetId);
+		$annotation->SetRelease($album->GetId);
 	}
 	elsif (defined $label)
 	{

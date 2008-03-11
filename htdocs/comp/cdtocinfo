@@ -79,7 +79,7 @@
 				<td class="label">
 					Total length:</td>
 				<td>
-					<% Track::FormatTrackLength($cdtoc->GetLeadoutOffset / 75 * 1000) %></td>
+					<% MusicBrainz::Server::Track::FormatTrackLength($cdtoc->GetLeadoutOffset / 75 * 1000) %></td>
 			</tr>
 			<tr class="top">
 				<td class="label">
@@ -105,7 +105,7 @@
 
 	my $off = $cdtoc->GetTrackOffsets;
 	my $len = $cdtoc->GetTrackLengths;
-	my $fmt = sub { Track::FormatTrackLength($_[0]/75*1000) };
+	my $fmt = sub { MusicBrainz::Server::Track::FormatTrackLength($_[0]/75*1000) };
 	for my $n ($cdtoc->GetFirstTrack .. $cdtoc->GetLastTrack)
 	{
 		my $st = $off->[$n-1];

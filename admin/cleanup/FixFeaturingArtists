@@ -39,7 +39,7 @@ use Sql;
 use ModDefs;
 use UserStuff;
 use Moderation;
-use Track;
+use MusicBrainz::Server::Track;
 
 my $mb = MusicBrainz->new;
 $mb->Login;
@@ -204,7 +204,7 @@ sub enter_moderation
 
 	# Create a Track object. Just as much as necessary to enter the mod.
 	#
-	my $track = Track->new($sql->{DBH});
+	my $track = MusicBrainz::Server::Track->new($sql->{DBH});
 	$track->SetId($trackid);
 	$track->SetArtist($artistid);
 	$track->SetName($oldname);

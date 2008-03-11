@@ -36,7 +36,7 @@
 
 
 	# Get the cdtoc / album_cdtoc
-	my $alcdtoc = MusicBrainz::Server::AlbumCDTOC->newFromAlbumAndCDTOC($mb->{DBH}, $release, $tocid)
+	my $alcdtoc = MusicBrainz::Server::ReleaseCDTOC->newFromReleaseAndCDTOC($mb->{DBH}, $release, $tocid)
 		or return $m->comp(
 			"/comp/error",
 			"No such CDTOC #$tocid, or it is not linked to album #$releaseid",

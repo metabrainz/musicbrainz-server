@@ -138,7 +138,7 @@
 						<strong>Barcode:</strong> <% $rel->{orig_barcode} || "?" %> -
 						<strong>Format:</strong> <%
 							$rel->{orig_format}
-								? MusicBrainz::Server::Release::GetReleaseFormatName($rel->{orig_format})
+								? MusicBrainz::Server::ReleaseEvent::GetReleaseFormatName($rel->{orig_format})
 								: "?" %>
 					</td>
 				</tr>
@@ -172,14 +172,14 @@
 						<strong>Barcode:</strong> <% $rel->{barcode} || "?" %> -
 						<strong>Format:</strong> <%
 							$rel->{format}
-								? MusicBrainz::Server::Release::GetReleaseFormatName($rel->{format})
+								? MusicBrainz::Server::ReleaseEvent::GetReleaseFormatName($rel->{format})
 								: "?" %>
 					</td>
 				</tr>
 			<%perl>
 			++$changes;
 
-			my $rev = MusicBrainz::Server::Release->new($mb->{DBH});
+			my $rev = MusicBrainz::Server::ReleaseEvent->new($mb->{DBH});
 			$rev->SetCountry($rel->{country});
 			$rev->SetYMD(@$rel{qw( year month day )});
 			$rev->SetLabel($rel->{label});
@@ -192,7 +192,7 @@
 			next;
 		}
 
-		my $rev = MusicBrainz::Server::Release->new($mb->{DBH});
+		my $rev = MusicBrainz::Server::ReleaseEvent->new($mb->{DBH});
 		$rev->SetCountry($rel->{country});
 		$rev->SetYMD(@$rel{qw( year month day )});
 		$rev->SetLabel($rel->{label});
@@ -238,7 +238,7 @@
 						<strong>Barcode:</strong> <% $rel->{orig_barcode} || "?" %> -
 						<strong>Format:</strong> <%
 							$rel->{orig_format}
-								? MusicBrainz::Server::Release::GetReleaseFormatName($rel->{orig_format})
+								? MusicBrainz::Server::ReleaseEvent::GetReleaseFormatName($rel->{orig_format})
 								: "?" %>
 						
 						<br/>
@@ -260,7 +260,7 @@
 						<strong>Barcode:</strong> <% $rel->{barcode} || "?" %> -
 						<strong>Format:</strong> <%
 							$rel->{format}
-								? MusicBrainz::Server::Release::GetReleaseFormatName($rel->{format})
+								? MusicBrainz::Server::ReleaseEvent::GetReleaseFormatName($rel->{format})
 								: "?" %>
 					</td>
 				</tr>

@@ -182,27 +182,27 @@ sub print_xml_post
     require Sql;
     my $sql = Sql->new($mb->{DBH});
 
-    require Artist;
-    require Album;
-    require Label;
-    require Track;
+    require MusicBrainz::Server::Artist;
+    require MusicBrainz::Server::Release;
+    require MusicBrainz::Server::Label;
+    require MusicBrainz::Server::Track;
 
     my $obj;
     if ($entity eq 'artist')
     {
-        $obj = Artist->new($sql->{DBH});
+        $obj = MusicBrainz::Server::Artist->new($sql->{DBH});
     }
     elsif ($entity eq 'release')
     {
-        $obj = Album->new($sql->{DBH});
+        $obj = MusicBrainz::Server::Release->new($sql->{DBH});
     }
     elsif ($entity eq 'track')
     {
-        $obj = Track->new($sql->{DBH});
+        $obj = MusicBrainz::Server::Track->new($sql->{DBH});
     }
     elsif ($entity eq 'label')
     {
-        $obj = Label->new($sql->{DBH});
+        $obj = MusicBrainz::Server::Label->new($sql->{DBH});
     }
     $obj->SetMBId($id);
     unless ($obj->LoadFromId)
@@ -230,27 +230,27 @@ sub serve_from_db
 	my $user = UserStuff->new($maindb->{DBH});
 	$user = $user->newFromName($user_name) or die "Cannot load user.\n";
 
-    require Artist;
-    require Album;
-    require Label;
-    require Track;
+    require MusicBrainz::Server::Artist;
+    require MusicBrainz::Server::Release;
+    require MusicBrainz::Server::Label;
+    require MusicBrainz::Server::Track;
 
     my $obj;
     if ($entity_type eq 'artist')
     {
-        $obj = Artist->new($maindb->{DBH});
+        $obj = MusicBrainz::Server::Artist->new($maindb->{DBH});
     }
     elsif ($entity_type eq 'release')
     {
-        $obj = Album->new($maindb->{DBH});
+        $obj = MusicBrainz::Server::Release->new($maindb->{DBH});
     }
     elsif ($entity_type eq 'track')
     {
-        $obj = Track->new($maindb->{DBH});
+        $obj = MusicBrainz::Server::Track->new($maindb->{DBH});
     }
     elsif ($entity_type eq 'label')
     {
-        $obj = Label->new($maindb->{DBH});
+        $obj = MusicBrainz::Server::Label->new($maindb->{DBH});
     }
     $obj->SetMBId($entity_id);
     unless ($obj->LoadFromId)

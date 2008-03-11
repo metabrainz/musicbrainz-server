@@ -72,7 +72,7 @@
 	my $release = $m->comp("/comp/loadrelease", $mb, $releaseid);
 
 	# Get the cdtoc / release_cdtoc
-	my $alcdtoc = MusicBrainz::Server::AlbumCDTOC->newFromAlbumAndCDTOC($mb->{DBH}, $release, $tocid)
+	my $alcdtoc = MusicBrainz::Server::ReleaseCDTOC->newFromReleaseAndCDTOC($mb->{DBH}, $release, $tocid)
 		or return $m->comp(
 			"/comp/error",
 			"No such CDTOC #$tocid, or it is not linked to release #$releaseid",
@@ -161,7 +161,7 @@
 
 			while (my $row = $eng->NextRow)
 			{
-				my $newrelease = Album->new($mb->{DBH});
+				my $newrelease = MusicBrainz::Server::Release->new($mb->{DBH});
 				$newrelease->SetId($row->{'albumid'});
 
 				# Get data for the current candidate
@@ -182,7 +182,7 @@
 	{
 		if ($release->GetArtist != &ModDefs::VARTIST_ID)
 		{
-			my @treleases = $artist->GetAlbums(1, 0);
+			my @treleases = $artist->GetReleases(1, 0);
 			my $newrelease;
 			while ($newrelease = shift @treleases)
 			{
@@ -319,7 +319,7 @@
 %		my $newrelease;
 %		while ($newrelease = shift @releases)
 %		{
-%			my $newar = Artist->new($mb->{DBH});
+%			my $newar = MusicBrainz::Server::Artist->new($mb->{DBH});
 %			$newar->SetId($newrelease->GetArtist);
 %			$newar->LoadFromId();
 

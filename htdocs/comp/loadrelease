@@ -57,7 +57,7 @@
 		$releaseid = $id if (MusicBrainz::Server::Validation::IsNonNegInteger($id) && $id);
 
 		# if the $id parameter is a GUID
-		my $release = Album->new($mb->{DBH});
+		my $release = MusicBrainz::Server::Release->new($mb->{DBH});
 		if ($mbid ne "")
 		{
 			$release->SetMBId($mbid);

@@ -255,7 +255,7 @@
 	{
 		if ($artistid > 0 && !$ARGS{"artistname"})
 		{
-		   my $ar = Artist->new($mb->{DBH});
+		   my $ar = MusicBrainz::Server::Artist->new($mb->{DBH});
 		   $ar->SetId($artistid);
 		   $ar->LoadFromId();
 		   $ARGS{"artistname"} = $ar->GetName();

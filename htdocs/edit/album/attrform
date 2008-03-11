@@ -46,7 +46,7 @@
 </%args>
 <%perl>
 
-	my $attrlist = Album->GetAttributeList();
+	my $attrlist = MusicBrainz::Server::Release->GetAttributeList();
 	my @indexes;
 
 </%perl>
@@ -91,7 +91,7 @@
 						my ($type, $status) = $release->GetReleaseTypeAndStatus;
 
 						$m->out(qq!<td style="padding-right: 20px">!);
-						$m->comp("/comp/form/currentvalue", release => $release, mp_type => &ModDefs::MOD_EDIT_ALBUMATTRS);
+						$m->comp("/comp/form/currentvalue", release => $release, mp_type => &ModDefs::MOD_EDIT_RELEASE_ATTRS);
 
 						my $artist = $m->comp("/comp/loadartist", $mb, $release->GetArtist);
 						$m->out(qq!</td><td style="padding-right: 20px">!);
@@ -100,13 +100,13 @@
 						$m->out(qq!</td><td style="padding-right: 20px">!);
 						$m->out(
 							defined $type
-								? Album->GetAttributeName($type)
+								? MusicBrainz::Server::Release->GetAttributeName($type)
 								: "Not Set");
 
 						$m->out(qq!</td><td>!);
 						$m->out(
 							defined $status
-								? Album->GetAttributeName($status)
+								? MusicBrainz::Server::Release->GetAttributeName($status)
 								: "Not Set");
 						$m->out("</td></tr>");
 					}
@@ -138,7 +138,7 @@
 			label => "Release type",
 			selection => $type_value,
 			fieldname => $type_fieldname,
-			valuelist => [ &Album::ALBUM_ATTR_SECTION_TYPE_START .. &Album::ALBUM_ATTR_SECTION_TYPE_END ],
+			valuelist => [ &MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_TYPE_START .. &MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_TYPE_END ],
 			attrlist => $attrlist,
 			pushindex => \@indexes,
 			&>
@@ -147,7 +147,7 @@
 			label => "Release status",
 			selection => $status_value,
 			fieldname => $status_fieldname,
-			valuelist => [ &Album::ALBUM_ATTR_SECTION_STATUS_START .. &Album::ALBUM_ATTR_SECTION_STATUS_END ],
+			valuelist => [ &MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_STATUS_START .. &MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_STATUS_END ],
 			attrlist => $attrlist,
 			pushindex => \@indexes,
 			&>

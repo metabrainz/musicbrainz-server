@@ -41,9 +41,9 @@
 	my $showspecial = undef;
 
     my $mb = $m->comp("/comp/dblogin");
-    my $artist = Artist->new($mb->{DBH});
-    my $release = Album->new($mb->{DBH});
-    my $pweed = PUID->new($mb->{DBH});
+    my $artist = MusicBrainz::Server::Artist->new($mb->{DBH});
+    my $release = MusicBrainz::Server::Release->new($mb->{DBH});
+    my $pweed = MusicBrainz::Server::PUID->new($mb->{DBH});
 	my $ids;
 
 	unless (MusicBrainz::Server::Validation::IsGUID($puid))
@@ -115,11 +115,11 @@
 
 			for my $trackid (@$ids)
 			{
-				my @releases = $release->GetAlbumIdsFromTrackId($trackid);
+				my @releases = $release->GetReleaseIdsFromTrackId($trackid);
 				for my $releaseid (@releases)
 				{
 					$releases{$releaseid} ||= do {
-						my $release = Album->new($mb->{DBH});
+						my $release = MusicBrainz::Server::Release->new($mb->{DBH});
 						$release->SetId($releaseid);
 						$release->LoadFromId
 							or $release = "0 but true"; # load failed
@@ -129,7 +129,7 @@
 						or next;
 
 					$artists{$release->GetArtist} ||= do {
-						my $artist = Artist->new($mb->{DBH});
+						my $artist = MusicBrainz::Server::Artist->new($mb->{DBH});
 						$artist->SetId($release->GetArtist);
 						$artist->LoadFromId
 							or $artist = "0 but true"; # load failed

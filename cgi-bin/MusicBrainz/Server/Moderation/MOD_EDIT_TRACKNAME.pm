@@ -77,12 +77,12 @@ sub DetermineQuality
 	my $self = shift;
 
     # Attempt to find the right release this track is attached to.
-	my $tr = Track->new($self->{DBH});
+	my $tr = MusicBrainz::Server::Track->new($self->{DBH});
     $tr->SetId($self->{trackid});
 	if ($tr->LoadFromId())
 	{
-        my $rel = Album->new($self->{DBH});
-        $rel->SetId($tr->GetAlbum());
+        my $rel = MusicBrainz::Server::Release->new($self->{DBH});
+        $rel->SetId($tr->GetRelease());
         if ($rel->LoadFromId())
         {
             return $rel->GetQuality();        
@@ -90,7 +90,7 @@ sub DetermineQuality
     }
 
     # if that fails, go by the artist
-    my $ar = Artist->new($self->{DBH});
+    my $ar = MusicBrainz::Server::Artist->new($self->{DBH});
     $ar->SetId($tr->GetArtist());
     if ($ar->LoadFromId())
     {
@@ -105,8 +105,8 @@ sub CheckPrerequisites
 	my $self = shift;
 
 	# Load the track by ID
-	require Track;
-	my $track = Track->new($self->{DBH});
+	require MusicBrainz::Server::Track;
+	my $track = MusicBrainz::Server::Track->new($self->{DBH});
 	$track->SetId($self->GetRowId);
 	unless ($track->LoadFromId)
 	{

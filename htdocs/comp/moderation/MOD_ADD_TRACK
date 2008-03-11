@@ -41,7 +41,7 @@
 
 %# 	Dirty; really we should test the non-album bit of the album attribute.
 %# 	but that would require another fetch.
-% 	unless ($this->GetPrev eq &Album::NONALBUMTRACKS_NAME) {
+% 	unless ($this->GetPrev eq &MusicBrainz::Server::Release::NONALBUMTRACKS_NAME) {
 
 	<br />
 	Track: <strong><% $this->{'new.tracknum'} %></strong>

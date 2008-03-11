@@ -92,7 +92,7 @@
 		push @trackname, $currname;
 
 		defined(my $currlength= $ARGS{"tracklength$i"}) or last;
-		my $lengthasint = Track::UnformatTrackLength($currlength);
+		my $lengthasint = MusicBrainz::Server::Track::UnformatTrackLength($currlength);
 		push @tracklength, $lengthasint;
 	}
 
@@ -112,7 +112,7 @@
 		# find non-album tracks release, else
 		# redirect to artist page after the required
 		# action given by submitvalue was performed.
-		my $release = Album->new($mb->{DBH});
+		my $release = MusicBrainz::Server::Release->new($mb->{DBH});
 		my $url = "/artist/".$artist->GetMBId.".html";
 		if (my @non = $release->FindNonAlbum($artistid))
 		{
@@ -247,7 +247,7 @@
 							class="textfield" size="50" value="<% $trackname[$_-1] %>" /></td>
 					<td>
 						<input type="text" name="tracklength<% $_ %>" class="numberfield"
-							size="2" value="<% Track::FormatTrackLength($tracklength[$_-1]) %>" /></td>
+							size="2" value="<% MusicBrainz::Server::Track::FormatTrackLength($tracklength[$_-1]) %>" /></td>
 					<td>
 						<& /comp/form/jsbutton, id=>"BTN_TRACK::trackname".$_ &></td>
 				</tr>

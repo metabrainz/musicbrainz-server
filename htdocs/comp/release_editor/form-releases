@@ -84,7 +84,7 @@
 <%perl>
 	my $countries_menu = $m->comp("/edit/albumreleases/countries-menu.inc");
 	my $countries_menu_2 = [ [ "", "Select country..." ], @$countries_menu ];
-	my $formats_menu = MusicBrainz::Server::Release::GetReleaseFormats();
+	my $formats_menu = MusicBrainz::Server::ReleaseEvent::GetReleaseFormats();
 
 	for ($j=0; $j < $num_releases; ++$j)
 	{

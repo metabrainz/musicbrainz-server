@@ -70,7 +70,7 @@
 
 	my $mb = $m->comp("/comp/dblogin");
 
-	my $ar = Artist->new($mb->{DBH});
+	my $ar = MusicBrainz::Server::Artist->new($mb->{DBH});
 	$ar->SetId($artistid);
 	$ar->LoadFromId
 		or return $m->comp(

@@ -38,7 +38,7 @@
 
 	my @missing_labels;
 
-	my $label = Label->new($mb->{DBH});
+	my $label = MusicBrainz::Server::Label->new($mb->{DBH});
 	my @items = sort map { /^rev_label-(\d+)$/ ? ($1) : () } keys %ARGS;
 	for my $j (@items)
 	{

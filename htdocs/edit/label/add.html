@@ -72,7 +72,7 @@
 		or return $m->comp("/comp/layout/badarguments",
 			text => "Argument resolution has an invalid format.");
 
-	MusicBrainz::Server::Validation::IsNonNegInteger($type) && Label::IsValidType($type)
+	MusicBrainz::Server::Validation::IsNonNegInteger($type) && MusicBrainz::Server::Label::IsValidType($type)
 		or return $m->comp("/comp/layout/badarguments",
 			text =>"Argument type is invalid.");
 
@@ -87,7 +87,7 @@
 	my @dupes;
 	if ($name ne "")
 	{
-		my $label = Label->new($mb->{DBH});
+		my $label = MusicBrainz::Server::Label->new($mb->{DBH});
 		my $labels = $label->GetLabelsFromName($name);
 
 		my $norm_name = MusicBrainz::Server::Validation::NormaliseSortText($name);
@@ -124,7 +124,7 @@
 		{
 			MusicBrainz::Server::Validation::TrimInPlace($resolution, $name, $sortname);
 
-			push @messages, "Please Select a valid type." if (not Label::IsValidType($type));
+			push @messages, "Please Select a valid type." if (not MusicBrainz::Server::Label::IsValidType($type));
 			push @messages, "Please enter the Name." if ($name eq "");
 			push @messages, "Please enter the Sort Name." if ($sortname eq "");
 

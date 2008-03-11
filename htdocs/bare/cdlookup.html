@@ -86,12 +86,12 @@
 		# If we have no TOC then we cannot add the release if it's missing.  So just
 		# look for the release (based on CDIndex ID or FreeDB ID) and show whatever we
 		# find. etrieve the releases matching the given ID
-		my $alcdtoc = MusicBrainz::Server::AlbumCDTOC->new($mb->{DBH});
+		my $alcdtoc = MusicBrainz::Server::ReleaseCDTOC->new($mb->{DBH});
 		my $releaseids = (
 			$discid
-				? $alcdtoc->GetAlbumIDsFromDiscID($discid)
+				? $alcdtoc->GetReleaseIDsFromDiscID($discid)
 				: $freedbid
-					? $alcdtoc->GetAlbumIDsFromFreeDBID($freedbid)
+					? $alcdtoc->GetReleaseIDsFromFreeDBID($freedbid)
 					: []);
 
 		# No matches, and we cant add the release since we have no toc,
@@ -176,8 +176,8 @@
 
 			if ($cdtoc)
 			{
-				my $alcdtocs = $cdtoc->GetAlbumCDTOCs;
-				$releaseids = [ map { $_->GetAlbumId } @$alcdtocs ];
+				my $relcdtocs = $cdtoc->GetReleaseCDTOCs;
+				$releaseids = [ map { $_->GetReleaseId } @$relcdtocs ];
 			}
 		}
 
@@ -382,12 +382,12 @@
 
 	for my $releaseid (@$releaseids)
 	{
-		my $release = Album->new($dbh);
+		my $release = MusicBrainz::Server::Release->new($dbh);
 		$release->SetId($releaseid);
 		$release->LoadFromId or next;
 
 		my $artist = $artists{ $release->GetArtist } ||= do {
-			my $artist = Artist->new($dbh);
+			my $artist = MusicBrainz::Server::Artist->new($dbh);
 			$artist->SetId($release->GetArtist);
 			$artist->LoadFromId ? $artist : undef;
 		};

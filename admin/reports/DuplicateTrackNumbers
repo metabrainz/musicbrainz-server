@@ -32,7 +32,7 @@ use warnings;
 package DuplicateTrackNumbers;
 use base qw( MusicBrainz::Server::ReportScript );
 
-use Album;
+use MusicBrainz::Server::Release;
 
 sub GatherData
 {
@@ -84,7 +84,7 @@ EOF
 		ORDER BY
 			ar.sortname, al.name
 EOF
-		[ &Album::ALBUM_ATTR_NONALBUMTRACKS ],
+		[ &MusicBrainz::Server::Release::RELEASE_ATTR_NONALBUMTRACKS ],
 	);
 }
 

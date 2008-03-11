@@ -109,7 +109,7 @@
 		MusicBrainz::Server::Validation::TrimInPlace($trackname);
 
 		# check track length
-		my $unformatted_tracklength = Track::UnformatTrackLength($tracklength);
+		my $unformatted_tracklength = MusicBrainz::Server::Track::UnformatTrackLength($tracklength);
 		push @errors, "Please enter a valid track length"
 			if (not (MusicBrainz::Server::Validation::IsNonNegInteger($unformatted_tracklength) && $unformatted_tracklength >= 0));
 

@@ -58,7 +58,7 @@
 	my $mb = $m->comp("/comp/dblogin");
 	my $num_labels = 0;
 	my @info;
-	my $ar = Label->new($mb->{DBH});
+	my $ar = MusicBrainz::Server::Label->new($mb->{DBH});
 	($num_labels, @info) = $ar->GetLabelDisplayList($index, $offset);
 
 	# render results-box

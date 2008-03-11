@@ -85,7 +85,7 @@ my $ids = $sql->SelectSingleColumnArray(
 	. " WHERE	( a.type = ? AND a.rowid NOT IN (SELECT id FROM artist) ) "
 	. "		OR ( a.type = ? AND a.rowid NOT IN (SELECT id FROM album) ) ",
 	ARTIST_ANNOTATION,
-	ALBUM_ANNOTATION,
+	RELEASE_ANNOTATION,
 );
 
 unless ( defined $ids )

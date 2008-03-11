@@ -153,7 +153,7 @@
 	}
 
 	# 4. length
-	my $tracklen = Track::FormatTrackLength($track->GetLength);
+	my $tracklen = MusicBrainz::Server::Track::FormatTrackLength($track->GetLength);
 	$m->out(sprintf qq!<td class="length%s">!, ($track->GetModPending ? " mp" : ""));
 	$m->out(length($tracklen)==4 ? "&nbsp;" : "");
 	$m->out($tracklen);

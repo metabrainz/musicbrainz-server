@@ -22,7 +22,7 @@
 
 	my $mb = $m->comp("/comp/dblogin");
 
-	$label = Label->new($mb->{DBH});
+	$label = MusicBrainz::Server::Label->new($mb->{DBH});
 	$label->SetMBId($mbid) if $mbid;
 	$label->SetId($id) if $id;
 	$label->LoadFromId()

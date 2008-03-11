@@ -49,7 +49,7 @@
 	$m->comp("/comp/sidebar-notitle", pagetitle => $title);
 	$m->comp("/comp/artisttitle", artist => $artist);
 
-	my $alias = Alias->new($mb->{DBH}, "ArtistAlias");
+	my $alias = MusicBrainz::Server::Alias->new($mb->{DBH}, "ArtistAlias");
 	my @list = $alias->GetList($artist->GetId);
 
 	# see if one of the releases has a moderation pending flag.

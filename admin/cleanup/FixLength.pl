@@ -28,7 +28,7 @@ use lib "$FindBin::Bin/../../cgi-bin";
 
 use strict;
 use DBDefs;
-use Album;
+use MusicBrainz::Server::Release;
 use MusicBrainz;
 
 use Getopt::Long;
@@ -86,8 +86,8 @@ for my $id (@$albums)
 	no warnings 'exiting';
 	eval {
 
-		require MusicBrainz::Server::AlbumCDTOC;
-		my $tocs = MusicBrainz::Server::AlbumCDTOC->newFromAlbum($mb->{DBH}, $id);
+		require MusicBrainz::Server::ReleaseCDTOC;
+		my $tocs = MusicBrainz::Server::ReleaseCDTOC->newFromRelease($mb->{DBH}, $id);
 		$_ = $_->GetCDTOC for @$tocs;
 
 		if ($debug)
@@ -97,9 +97,9 @@ for my $id (@$albums)
 			{
 				print "  " . $t->GetTOC . "\n";
 
-				require Track;
+				require MusicBrainz::Server::Track;
 				my @l = TrackLengthsFromTOC($t);
-				@l = map { Track::FormatTrackLength($_) } @l;
+				@l = map { MusicBrainz::Server::Track::FormatTrackLength($_) } @l;
 				print "    (@l)\n";
 			}
 		}
@@ -119,7 +119,7 @@ for my $id (@$albums)
 			printf "  #%02d : %10d %-8s  %12d\n",
 				$_->{sequence},
 				$_->{length},
-				(($_->{length} > 0) ? Track::FormatTrackLength($_->{length}) : ""),
+				(($_->{length} > 0) ? MusicBrainz::Server::Track::FormatTrackLength($_->{length}) : ""),
 				$_->{id},
 				for @$tracks;
 		}

@@ -302,7 +302,7 @@ sub Merge
     return 1;
 }
 
-sub MergeAlbums
+sub MergeReleases
 {
 	my ($self, $oldid, $newid) = @_;
 	$self->Merge("release", $oldid, $newid);
@@ -343,7 +343,7 @@ sub Remove
     return 1;
 }
 
-sub RemoveAlbums
+sub RemoveReleases
 {
 	my ($self, $id) = @_;
 	$self->Remove("release", $id);

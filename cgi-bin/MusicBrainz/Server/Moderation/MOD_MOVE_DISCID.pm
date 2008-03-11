@@ -79,12 +79,12 @@ sub PreInsert
 
 	if ($newal->IsNonAlbumTracks)
 	{
-		$self->SetError("Disc IDs cannot be moved to '".&Album::NONALBUMTRACKS_NAME."'");
+		$self->SetError("Disc IDs cannot be moved to '".&MusicBrainz::Server::Release::NONALBUMTRACKS_NAME."'");
 		die $self;
 	}
 
-	require MusicBrainz::Server::AlbumCDTOC;
-	my $alcdtoc = MusicBrainz::Server::AlbumCDTOC->newFromAlbumAndCDTOC($self->{DBH}, $oldal, $cdtoc->GetId);
+	require MusicBrainz::Server::ReleaseCDTOC;
+	my $alcdtoc = MusicBrainz::Server::ReleaseCDTOC->newFromReleaseAndCDTOC($self->{DBH}, $oldal, $cdtoc->GetId);
 	if (not $alcdtoc)
 	{
 		$self->SetError("Old release / CD TOC not found");
@@ -94,7 +94,7 @@ sub PreInsert
 	# This is one of those mods where we give the user instant gratification,
 	# then undo the mod later if it's rejected.
 	my $already_there;
-	$alcdtoc->MoveToAlbum($newal, \$already_there);
+	$alcdtoc->MoveToRelease($newal, \$already_there);
 
 	$self->SetTable("album_cdtoc");
 	$self->SetColumn("album");
@@ -131,7 +131,7 @@ sub DetermineQuality
 {
 	my $self = shift;
 
-	my $rel = Album->new($self->{DBH});
+	my $rel = MusicBrainz::Server::Release->new($self->{DBH});
 	my $new = $self->{'new_unpacked'};
 	$rel->SetId($new->{NewAlbumId});
 	if ($rel->LoadFromId())
@@ -165,8 +165,8 @@ sub DeniedAction
 	my $new = $self->{'new_unpacked'};
 
 	# Check that the album_cdtoc row still exists
-	require MusicBrainz::Server::AlbumCDTOC;
-	my $album_cdtoc = MusicBrainz::Server::AlbumCDTOC->newFromId($self->{DBH}, $self->GetRowId)
+	require MusicBrainz::Server::ReleaseCDTOC;
+	my $album_cdtoc = MusicBrainz::Server::ReleaseCDTOC->newFromId($self->{DBH}, $self->GetRowId)
 		or do {
 			$self->InsertNote(MODBOT_MODERATOR, "This disc ID has been deleted");
 			$self->SetStatus(STATUS_FAILEDDEP);
@@ -175,8 +175,8 @@ sub DeniedAction
 
 	# Check that the old album still exists
 	# (the mod is applied, we need to revert it when it is voted down)
-	require Album;
-	my $oldal = Album->new($self->{DBH});
+	require MusicBrainz::Server::Release;
+	my $oldal = MusicBrainz::Server::Release->new($self->{DBH});
 	$oldal->SetId($self->GetPrev);
 	unless ($oldal->LoadFromId)
 	{
@@ -186,8 +186,8 @@ sub DeniedAction
 	}
 
 	# Check that the new album still exists
-	require Album;
-	my $al = Album->new($self->{DBH});
+	require MusicBrainz::Server::Release;
+	my $al = MusicBrainz::Server::Release->new($self->{DBH});
 	$al->SetId($new->{NewAlbumId});
 	unless ($al->LoadFromId)
 	{
@@ -199,12 +199,12 @@ sub DeniedAction
 	if ($new->{"AlreadyThere"})
 	{
 		# Create a new association between the old album and FullTOC
-		MusicBrainz::Server::AlbumCDTOC->Insert($self->{DBH}, $self->GetPrev, $new->{"FullTOC"});
+		MusicBrainz::Server::ReleaseCDTOC->Insert($self->{DBH}, $self->GetPrev, $new->{"FullTOC"});
 	} else {
 		# Move the row back to the old album
-		my $alcdtoc = MusicBrainz::Server::AlbumCDTOC->newFromId($self->{DBH}, $self->GetRowId)
+		my $alcdtoc = MusicBrainz::Server::ReleaseCDTOC->newFromId($self->{DBH}, $self->GetRowId)
 			or return;
-		$alcdtoc->MoveToAlbum($self->GetPrev);
+		$alcdtoc->MoveToRelease($self->GetPrev);
 	}
 }
 

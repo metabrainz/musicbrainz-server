@@ -35,7 +35,7 @@ use MusicBrainz::Server::Validation qw( unaccent );
 use constant MAX_PAGE_INDEX_LEVELS => 6;
 use constant NUM_BITS_PAGE_INDEX => 5;
 
-use constant TABLE_ALBUM => 1;
+use constant TABLE_RELEASE => 1;
 use constant TABLE_ARTIST => 2;
 use constant TABLE_TRACK => 3;
 use constant TABLE_LABEL => 4;

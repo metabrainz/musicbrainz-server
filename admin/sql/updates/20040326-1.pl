@@ -66,15 +66,15 @@ for (@$rows)
 	eval {
 		$sql->Begin;
 
-		require Artist;
-		my $ar = Artist->new($mb->{DBH});
+		require MusicBrainz::Server::Artist;
+		my $ar = MusicBrainz::Server::Artist->new($mb->{DBH});
 		$ar->SetId($id);
 		$ar->LoadFromId or die "No artist #$id";
 
 		unless ($name eq $_->[1])
 		{
 			# Is there already an artist with the new name?
-			my $mergeinto = Artist->new($mb->{DBH});
+			my $mergeinto = MusicBrainz::Server::Artist->new($mb->{DBH});
 			if ($mergeinto->LoadFromName($name) and $mergeinto->GetName eq $name)
 			{
 				# Merge $ar into $mergeinto
@@ -141,8 +141,8 @@ for (@$rows)
 	eval {
 		$sql->Begin;
 
-		require Album;
-		my $al = Album->new($mb->{DBH});
+		require MusicBrainz::Server::Release;
+		my $al = MusicBrainz::Server::Release->new($mb->{DBH});
 		$al->SetId($id);
 		$al->LoadFromId or die "No album #$id";
 
@@ -182,8 +182,8 @@ for (@$rows)
 	eval {
 		$sql->Begin;
 
-		require Track;
-		my $tr = Track->new($mb->{DBH});
+		require MusicBrainz::Server::Track;
+		my $tr = MusicBrainz::Server::Track->new($mb->{DBH});
 		$tr->SetId($id);
 		$tr->LoadFromId or die "No track #$id";
 
@@ -223,8 +223,8 @@ for (@$rows)
 	eval {
 		$sql->Begin;
 
-		require Alias;
-		my $alias = Alias->new($mb->{DBH}, "artistalias");
+		require MusicBrainz::Server::Alias;
+		my $alias = MusicBrainz::Server::Alias->new($mb->{DBH}, "artistalias");
 		$alias->SetId($id);
 		$alias->LoadFromId or die "No artist alias #$id";
 

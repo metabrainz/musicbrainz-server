@@ -32,13 +32,13 @@ use warnings;
 package SuperfluousDataTracks;
 use base qw( MusicBrainz::Server::ReportScript );
 
-use Album;
+use MusicBrainz::Server::Release;
 
 sub GatherData
 {
 	my $self = shift;
 
-	$self->GatherDataFromQuery(<<'EOF', [ &Album::NONALBUMTRACKS_NAME ]);
+	$self->GatherDataFromQuery(<<'EOF', [ &MusicBrainz::Server::Release::NONALBUMTRACKS_NAME ]);
 		SELECT
 			ar.id AS artist_id,
 			ar.name AS artist_name,

@@ -70,14 +70,14 @@ sub DetermineQuality
 
 	my $level = &ModDefs::QUALITY_UNKNOWN_MAPPED;
 
-	my $rel = Album->new($self->{DBH});
+	my $rel = MusicBrainz::Server::Release->new($self->{DBH});
 	$rel->SetId($self->{rowid});
 	if ($rel->LoadFromId())
 	{
 		$level = $rel->GetQuality() > $level ? $rel->GetQuality() : $level;
     }
 
-	my $ar = Artist->new($self->{DBH});
+	my $ar = MusicBrainz::Server::Artist->new($self->{DBH});
 	$ar->SetId($rel->GetArtist);
 	if ($ar->LoadFromId())
 	{
@@ -92,8 +92,8 @@ sub CheckPrerequisites
 	my $self = shift;
 
 	# Load the album by ID
-	require Album;
-	my $release = Album->new($self->{DBH});
+	require MusicBrainz::Server::Release;
+	my $release = MusicBrainz::Server::Release->new($self->{DBH});
 	$release->SetId($self->GetRowId);
 	unless ($release->LoadFromId)
 	{

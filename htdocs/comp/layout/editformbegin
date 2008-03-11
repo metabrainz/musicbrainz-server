@@ -41,7 +41,7 @@
 	$type => undef # artist or release
 	$id => undef # rowid
 	$mp => undef # optional moderation type argument
-	$mp_type => ""	# optional moderation type argument (e.g. MOD_EDIT_ALBUMATTRS|MOD_EDIT_ALBUM_LANGUAGE...)
+	$mp_type => ""	# optional moderation type argument (e.g. MOD_EDIT_RELEASE_ATTRS|MOD_EDIT_RELEASE_LANGUAGE...)
 
 	$show_coc => 1
 
@@ -85,16 +85,16 @@
 		$mp_url = sprintf($mp_urlrelease, $id);
 
 		# release language
-		if ($mp_type == &ModDefs::MOD_EDIT_ALBUM_LANGUAGE)
+		if ($mp_type == &ModDefs::MOD_EDIT_RELEASE_LANGUAGE)
 		{
 			$mp = $release->GetLanguageModPending;
 		}
 
 		# release attributes
-		elsif ($mp_type == &ModDefs::MOD_EDIT_ALBUMATTRS)
+		elsif ($mp_type == &ModDefs::MOD_EDIT_RELEASE_ATTRS)
 		{
 			$mp = $release->GetAttributeModPending;
-			$mp_typefilter = "&amp;mod_type=".&ModDefs::MOD_EDIT_ALBUMATTRS;
+			$mp_typefilter = "&amp;mod_type=".&ModDefs::MOD_EDIT_RELEASE_ATTRS;
 		}
 
 		# everything else
@@ -204,25 +204,25 @@
 		}
 
 		# edit release title
-		elsif ($mp_type == &ModDefs::MOD_EDIT_ALBUMNAME)
+		elsif ($mp_type == &ModDefs::MOD_EDIT_RELEASE_NAME)
 		{
 			$mp_type_message = $m->scomp("/comp/linkdoc", "EditReleaseNameEdit", "Edit Release Title edits");
 		}
 
 		# edit release language
-		elsif ($mp_type == &ModDefs::MOD_EDIT_ALBUM_LANGUAGE)
+		elsif ($mp_type == &ModDefs::MOD_EDIT_RELEASE_LANGUAGE)
 		{
 			$mp_type_message = $m->scomp("/comp/linkdoc", "EditReleaseLanguageEdit", "Edit Release Language edits");
 		}
 
 		# edit release attributes
-		elsif ($mp_type == &ModDefs::MOD_EDIT_ALBUMATTRS)
+		elsif ($mp_type == &ModDefs::MOD_EDIT_RELEASE_ATTRS)
 		{
 			$mp_type_message = $m->scomp("/comp/linkdoc", "EditReleaseAttributesEdit", "Edit Release Attribute edits");
 		}
 
 		# move release
-		elsif ($mp_type == &ModDefs::MOD_MOVE_ALBUM)
+		elsif ($mp_type == &ModDefs::MOD_MOVE_RELEASE)
 		{
 			# since we cannot say which type of edit we have (the modpending flag
 			# doesn't tell), link to the general EditType document.

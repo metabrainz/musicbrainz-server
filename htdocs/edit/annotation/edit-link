@@ -41,10 +41,10 @@
 						$annotation->GetArtist(),
 						$annotation->GetId());
 	}
-	elsif ($type == &MusicBrainz::Server::Annotation::ALBUM_ANNOTATION)
+	elsif ($type == &MusicBrainz::Server::Annotation::RELEASE_ANNOTATION)
 	{
 		$m->out(sprintf qq!<a href="/edit/annotation/album/edit.html?id=%d&amp;annotationid=%d">Edit</a>!,
-						$annotation->GetAlbum(),
+						$annotation->GetRelease(),
 						$annotation->GetId());
 	}
 	elsif ($type == &MusicBrainz::Server::Annotation::LABEL_ANNOTATION)

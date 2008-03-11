@@ -71,12 +71,12 @@
 	{
 		for (@info)
 		{
-			my $release = Album->new($mb->{DBH});
+			my $release = MusicBrainz::Server::Release->new($mb->{DBH});
 			$release->SetId($_->[0]);
 			$release->SetName($_->[1]);
 			$release->SetMBId($_->[3]);
 
-			# FIXME need API in Album.pm
+			# FIXME need API in Release.pm
 			$release->{attrs} = [ $_->[4] =~ /(\d+)/g ];
 			$m->comp("/comp/albuminfo",
 				album => $release,

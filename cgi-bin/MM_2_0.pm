@@ -125,13 +125,13 @@ sub OutputAlbumRDF
     my @attrs = $album->GetAttributes();
     foreach $attr (@attrs)
     {
-        if ($attr >= Album::ALBUM_ATTR_SECTION_TYPE_START && 
-            $attr <= Album::ALBUM_ATTR_SECTION_TYPE_END)
+        if ($attr >= MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_TYPE_START && 
+            $attr <= MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_TYPE_END)
         {
            $out .= $this->Element("rdf:type", "", "rdf:resource", $this->GetMMNamespace() . $album->GetAttributeName($attr));
         }
-        elsif ($attr >= Album::ALBUM_ATTR_SECTION_STATUS_START && 
-               $attr <= Album::ALBUM_ATTR_SECTION_STATUS_END)
+        elsif ($attr >= MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_STATUS_START && 
+               $attr <= MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_STATUS_END)
         {
            $out .= $this->Element("mm:release", "", "rdf:resource", $this->GetMMNamespace() . $album->GetAttributeName($attr));
         }
@@ -168,8 +168,8 @@ sub OutputTrackRDF
     }
 
     $track = $ref->{obj};
-    require TRM;
-    $gu = TRM->new($this->{DBH});
+    require MusicBrainz::Server::TRM;
+    $gu = MusicBrainz::Server::TRM->new($this->{DBH});
     @TRM = $gu->GetTRMFromTrackId($track->GetId());
 
     $artist = $this->GetFromCache('artist', $track->GetArtist()); 

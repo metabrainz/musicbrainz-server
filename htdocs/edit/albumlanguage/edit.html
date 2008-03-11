@@ -130,7 +130,7 @@
 						DBH	=> $mb->{DBH},
 						uid	=> $session{uid},
 						privs => $session{privs},
-						type => &ModDefs::MOD_EDIT_ALBUM_LANGUAGE,
+						type => &ModDefs::MOD_EDIT_RELEASE_LANGUAGE,
 						# --
 						albums => \@releaseobjs,
 						language => $language_new,
@@ -217,7 +217,7 @@
 
 		<& /comp/layout/editformbegin, title => "Edit release language/script",
 			release => $releaseobjs[0],
-			mp_type => &ModDefs::MOD_EDIT_ALBUM_LANGUAGE,
+			mp_type => &ModDefs::MOD_EDIT_RELEASE_LANGUAGE,
 		&>
 
 %	}
@@ -225,7 +225,7 @@
 %	{
 
 		<& /comp/layout/editformbegin, title => "Edit release language/script",
-			mp_type => &ModDefs::MOD_EDIT_ALBUM_LANGUAGE,
+			mp_type => &ModDefs::MOD_EDIT_RELEASE_LANGUAGE,
 			mp => $mp,
 		&>
 
@@ -281,7 +281,7 @@
 		# $m->out(qq!</td><td style="padding-right: 40px">!);
 
 		$m->out(qq!<td style="padding-right: 40px">!);
-		$m->comp("/comp/form/currentvalue", release => $release, mp_type => &ModDefs::MOD_EDIT_ALBUM_LANGUAGE);
+		$m->comp("/comp/form/currentvalue", release => $release, mp_type => &ModDefs::MOD_EDIT_RELEASE_LANGUAGE);
 		$m->out(qq!</td><td style="padding-right: 40px">!);
 		$m->out(
 			defined $release->GetLanguage

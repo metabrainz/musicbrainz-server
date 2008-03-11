@@ -117,15 +117,15 @@ sub serve_from_db
 	require MusicBrainz;
 	my $mb = MusicBrainz->new;
 	$mb->Login;
-	require Label;
+	require MusicBrainz::Server::Label;
 
-	$ar = Label->new($mb->{DBH});
+	$ar = MusicBrainz::Server::Label->new($mb->{DBH});
     $ar->SetMBId($mbid);
 	return undef unless $ar->LoadFromId(1);
 	
 	if ($inc & INC_ALIASES) {
-        require Alias;
-        my $alias = Alias->new($mb->{DBH}, "LabelAlias");
+        require MusicBrainz::Server::Alias;
+        my $alias = MusicBrainz::Server::Alias->new($mb->{DBH}, "LabelAlias");
         my @list = $alias->GetList($ar->GetId);
         $info->{aliases} = \@list;
     }

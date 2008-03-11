@@ -58,7 +58,7 @@
 	my $mb = $m->comp("/comp/dblogin");
 	my $num_artists = 0;
 	my @info;
-	my $ar = Artist->new($mb->{DBH});
+	my $ar = MusicBrainz::Server::Artist->new($mb->{DBH});
 	($num_artists, @info) = $ar->GetArtistDisplayList($index, $offset);
 
 	# render results-box
