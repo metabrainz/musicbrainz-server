@@ -71,6 +71,13 @@
 	}
 
 	my $obj;
+
+    # If we're passed an MBID, load the rowid and proceed as usual
+	if (MusicBrainz::Server::Validation::IsGUID($id))
+    {
+		my $artist = $m->comp("/comp/load" . ($type == "album" ? "release" : $type), $mb, $id);
+		$id = $artist->GetId();
+    }
 	$obj = MusicBrainz::Server::LinkEntity->newFromTypeAndId(
 		$mb->{DBH},
 		$type, $id
