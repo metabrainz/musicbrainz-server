@@ -97,14 +97,24 @@
             $obj = MusicBrainz::Server::LinkEntity->newFromTypeAndId(
                 $mb->{DBH},
                 $type, $id,
-            ) or die;
+            );
+			if (!$obj)
+			{
+				$m->comp("/comp/layout/badarguments", pagetitle => "Invalid entity id passed", text => "An Invalid entity id was passed.");
+				return undef;
+			}
         }
         else
         {
             $obj = MusicBrainz::Server::LinkEntity->newFromTypeAndMBId(
                 $mb->{DBH},
                 $type, $id,
-            ) or die;
+            );
+			if (!$obj)
+			{
+				$m->comp("/comp/layout/badarguments", pagetitle => "Invalid entity id passed", text => "An Invalid entity id was passed.");
+				return undef;
+			}
         }
 
 		$$ref = {
