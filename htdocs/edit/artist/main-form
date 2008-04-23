@@ -218,8 +218,7 @@
 		<td>&nbsp;</td>
 		<td class="formsection">
 			The comment field is used to differentiate between artists with the same, <br/>
-			or confusingly similar, names. Please leave this blank if this artist does <br/>
-			not conflict with an artist of a similar name.</td>
+			or confusingly similar, names.</td>
 	</tr>
 
 % 	if (defined $artist)
