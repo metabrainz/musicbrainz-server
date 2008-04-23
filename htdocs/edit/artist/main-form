@@ -214,40 +214,33 @@
 					</div></td></tr>
 %	}
 
+	<tr>
+		<td>&nbsp;</td>
+		<td class="formsection">
+			The comment field is used to differentiate between artists with the same, <br/>
+			or confusingly similar, names. Please leave this blank if this artist does <br/>
+			not conflict with an artist of a similar name.</td>
+	</tr>
 
-% 	if (@dupes or $resolution)
+% 	if (defined $artist)
 %	{
-
-%#		<tr>
-%#			<td>&nbsp;</td>
-%#			<td class="formsection">
-%#				The comment field is used to differentiate between artists with the same, <br/>
-%#				or confusingly similar, names. Please leave this blank if this artist does <br/>
-%#				not conflict with an artist of a similar name.</td>
-%#		</tr>
-
-% 		if (defined $artist)
-%	{
-
-		<tr>
-			<td class="label">
-				<label>Current Comment:</label></td>
-			<td class="field">
-				<div class="oldtextfield"><% $artist->GetResolution() || "(none)" %></div></td>
-		</tr>
-
-% 		}
-
-		<tr>
-			<td class="label">
-				<label for="editartist_resolution">Comment:</label></td>
-			<td class="field">
-				<input type="text" name="resolution" class="textfield"
-					id="editartist_resolution" size="50" maxlength="64"
-					value="<% $resolution %>" /></td>
-		</tr>
-
+	<tr>
+		<td class="label">
+			<label>Current Comment:</label></td>
+		<td class="field">
+			<div class="oldtextfield"><% $artist->GetResolution() || "(none)" %></div></td>
+	</tr>
 % 	}
+
+	<tr>
+		<td class="label">
+			<label for="editartist_resolution">Comment:</label></td>
+		<td class="field">
+			<input type="text" name="resolution" class="textfield"
+				id="editartist_resolution" size="50" maxlength="64"
+				value="<% $resolution %>" /></td>
+	</tr>
+
 % 	if (@dupes)
 %	{
 
