@@ -40,6 +40,7 @@
 	$enddate_y => ""
 	$enddate_m => ""
 	$enddate_d => ""
+    $mbid => ""
 
 	$resolution => ""
 	$confirm => 0
@@ -70,6 +71,11 @@
 	MusicBrainz::Server::Validation::IsNonNegInteger($type) && MusicBrainz::Server::Artist::IsValidType($type)
 		or return $m->comp("/comp/layout/badarguments",
 			text =>"Argument type is invalid.");
+
+    if (!UserStuff->IsMBIDSubmitter($session{"privs"}) || !MusicBrainz::Server::Validation::IsGUID($mbid))
+	{
+		$mbid = "";
+	}
 
 	# check volatile preferences (like autoeditor flag)
 	$m->comp("/comp/user/check-volatile-preferences", %ARGS);
@@ -150,6 +156,7 @@
 							# --
 							name => $name,
 							sortname => $sortname,
+							mbid => $mbid,
 							artist_type => $type,
 							artist_resolution => $resolution,
 							artist_begindate => [ $begindate_y, $begindate_m, $begindate_d ],
@@ -234,6 +241,10 @@
 							Please note that casing of the artist is taken into account when
 							determining the need for a comment; The two Artists <em>somename</em>
 							and <em>Somename</em> are not the same.</li>
+% if ($mbid) {
+	                    <li>
+							Using MBID <% $mbid %> for this new artist.</li>
+% }
 					</ul>
 				</td>
 			</tr>
@@ -249,6 +260,7 @@
 				begindate	=> [ $begindate_y, $begindate_m, $begindate_d ],
 				enddate		=> [ $enddate_y, $enddate_m, $enddate_d ],
 				notetext	=> $notetext,
+				mbid		=> $mbid,
 
 				dupes		=> \@dupes,
 				confirm		=> $confirm,

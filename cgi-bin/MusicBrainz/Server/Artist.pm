@@ -234,7 +234,15 @@ sub Insert
     }
 
     my $page = $this->CalculatePageIndex($this->{sortname});
-    my $mbid = $this->CreateNewGlobalId;
+    my $mbid;
+	if ($opts{mbid})
+	{
+		$mbid = $opts{mbid};
+	}
+	else
+	{
+		$mbid = $this->CreateNewGlobalId;
+	}
     $this->SetMBId($mbid);
 
     $sql->Do(

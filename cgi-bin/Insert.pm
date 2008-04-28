@@ -118,6 +118,7 @@ sub Insert
 #		OPTIONAL begindate => date-str
 #		OPTIONAL enddate => date-str
 #		OPTIONAL resolution => str
+#		OPTIONAL mbid => guid
 #		artist_only => 1
 #
 #	MOD_ADD_TRACK_KV PreInsert
@@ -307,7 +308,7 @@ sub _Insert
 		$ar->SetResolution($artist_resolution);
 		$ar->SetBeginDate($artist_begindate);
 		$ar->SetEndDate($artist_enddate);
-        $artistid = $ar->Insert(no_alias => $info->{artist_only});
+        $artistid = $ar->Insert(no_alias => $info->{artist_only}, mbid => $info->{artist_mbid});
         if (!defined $artistid)
         {
             die "Insert failed: Cannot insert artist.\n";

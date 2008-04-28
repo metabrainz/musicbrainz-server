@@ -47,6 +47,7 @@ use constant UNTRUSTED_FLAG => 4;
 use constant LINK_MODERATOR_FLAG => 8;
 use constant DONT_NAG_FLAG => 16;
 use constant WIKI_TRANSCLUSION_FLAG => 32;
+use constant MBID_SUBMITTER_FLAG => 64;
 
 use constant SEARCHRESULT_SUCCESS => 1;
 use constant SEARCHRESULT_NOQUERY => 2;
@@ -642,6 +643,9 @@ sub GetUserType
 	$type .= ', <a href="/doc/TransclusionEditor">TransclusionEditor</a>'
 		if ($this->IsWikiTranscluder($privs));
 
+	$type .= ', MB ID Submitter'
+		if ($this->IsMBIDSubmitter($privs));
+
 	$type = "Normal User"
 		if ($type eq "");
 
@@ -698,6 +702,13 @@ sub IsWikiTranscluder
 	my ($this, $privs) = @_;
 
 	return ($privs & WIKI_TRANSCLUSION_FLAG) > 0;
+}
+
+sub IsMBIDSubmitter
+{
+	my ($this, $privs) = @_;
+
+	return ($privs & MBID_SUBMITTER_FLAG) > 0;
 }
 
 ################################################################################

@@ -43,6 +43,7 @@ sub PreInsert
 	my $resolution = $opts{'artist_resolution'};
 	my $begindate = $opts{'artist_begindate'};
 	my $enddate = $opts{'artist_enddate'};
+	my $mbid = $opts{'mbid'};
 
 	MusicBrainz::Server::Validation::TrimInPlace($name) if defined $name;
 	$name =~ /\S/ or die $self->SetError('Artist name not set');;
@@ -83,6 +84,7 @@ sub PreInsert
 	$info{'artist_resolution'} = $resolution if defined $resolution;
 	$info{'artist_begindate'} = $begindate_str if defined $begindate_str;
 	$info{'artist_enddate'} = $enddate_str if defined $enddate_str;
+	$info{'artist_mbid'} = $mbid if defined $mbid;
 
 	require Insert;
 	my $in = Insert->new($self->{DBH});

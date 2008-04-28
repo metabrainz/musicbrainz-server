@@ -36,6 +36,7 @@
 	$enddate => [ ]
 	$notetext => ""
 	$returnurl => ""
+	$mbid => ""
 
 	@dupes => ()
 	@messages => ()
@@ -290,6 +291,7 @@
 
 				<input type="hidden" name="attempts" value="<% $attempts + 1 %>" />
 				<input type="hidden" name="returnurl" value="<% $returnurl %>" /></td>
+				<input type="hidden" name="mbid" value="<% $mbid %>" /></td>
 		</tr>
 
 %# vi: set ts=4 sw=4 ft=mason :
