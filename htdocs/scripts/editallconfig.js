@@ -314,7 +314,7 @@ function ReleaseEditor() {
 				if (el.disabled) {
 					el.title = "Release event is selected for removal";
 				} else {
-					el.title = "Enter the year here. This value is required if you enter the month and day (e.g. " + new Date().getYear() + ")";
+					el.title = "Enter the year here. This value is required if you enter the month and day (e.g. " + new Date().getFullYear() + ")";
 				}
 
 			} else if (name.match(/month-/i)) {
