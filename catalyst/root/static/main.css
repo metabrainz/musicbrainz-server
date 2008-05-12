@@ -57,6 +57,29 @@ a:hover {
     text-align: center;
 }
 
+#creditsBar {
+    clear: both;
+    color: #BBB;
+    margin: 0 1em;
+    margin-bottom: 1em;
+}
+
+#creditsBar a, #footerNotes a {
+    font-weight: bold;
+    color: #BBB;
+}
+
+#creditsBar a:hover, #footerNotes a:hover {
+    color: #555;
+}
+
+#creditsBar li {
+    text-align: center;
+    list-style-type: none;
+}
+#creditsBar li.left { float: left;}
+#creditsBar li.right { float: right; }
+
 #sidebar {
     float: left;
     width: 100pt;
