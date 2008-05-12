@@ -1,0 +1,6 @@
+<ul>
+  <li><a href="/login.html">Login</a></li>
+  <li><a href="/user/register.html">Register</a></li>
+  <li><a href="/user/forgot-password.html">Forgot Password</a></li>
+  <li><a href="/donate">Donate!</a></li>
+</ul>

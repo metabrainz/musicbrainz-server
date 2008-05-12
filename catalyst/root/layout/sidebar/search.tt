@@ -1,0 +1,19 @@
+<form method="get" action="/search/textsearch.html" id="id_qs_release_form">
+  <table border="0">
+    <tr>
+      <th><label for="id_type">Type:</label></th>
+      <td>
+	<select name="type" id="id_type">
+	  <option value="release">Release</option>
+	  <option value="artist">Artist</option>
+	  <option value="label">Label</option>
+	  <option value="track">Track</option>
+	</select>
+      </td>
+    </tr>
+    <tr>
+      <th><label for="id_query">Query:</label></th>
+      <td><input id="id_query" name="query" /></td>
+    </tr>
+  </table>
+</form>

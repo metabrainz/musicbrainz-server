@@ -1,0 +1,8 @@
+<div id="sidebar">
+  [% INCLUDE "layout/sidebar/sites.tt" WRAPPER "layout/sidebar/section.tt" title="MusicBrainz sites" %]
+  [% INCLUDE "layout/sidebar/login.tt" WRAPPER "layout/sidebar/section.tt" title="Not Logged In" %]
+  [% INCLUDE "layout/sidebar/search.tt" WRAPPER "layout/sidebar/section.tt" title="Search" %]
+  [% INCLUDE "layout/sidebar/top-voters.tt" WRAPPER "layout/sidebar/section.tt" title="Top Voters" %]
+  [% INCLUDE "layout/sidebar/stats.tt" WRAPPER "layout/sidebar/section.tt" title="Stats" %]
+  [% INCLUDE "layout/sidebar/partners.tt" WRAPPER "layout/sidebar/section.tt" title="Partners" %]
+</div>

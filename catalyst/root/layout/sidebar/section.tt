@@ -1,0 +1,4 @@
+<h3>[% title %]</h3>
+<div class="sidebar-module">
+  [% content %]	
+</div>

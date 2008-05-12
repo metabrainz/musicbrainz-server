@@ -1,0 +1,5 @@
+[% DEFAULT
+   type = 'release'
+%]
+
+<a href="/[% type %]/[% mbid %].html">[% text %]</a>

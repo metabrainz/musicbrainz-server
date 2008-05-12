@@ -1,0 +1,150 @@
+body {
+    font-family: sans-serif;
+    font-size: 12.5px;
+    line-height: 1.5em;
+    margin: 0;
+}
+
+p {
+    margin: 0;
+    margin-bottom: 10pt;
+}
+
+a {
+    color: #534D8B;
+    text-decoration: none;
+}
+
+a img { border: none; }
+
+a:hover {
+    text-decoration: underline;
+}
+
+#header {
+    background: #736DAB;
+    border-bottom: 1px solid black;
+    margin: 0; padding: 0;
+}
+
+#footer {
+    clear: both;
+}
+
+#footer-bar {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    display: block;
+    margin-bottom: 10pt;
+    overflow: hidden;
+    background: #FFBA58;
+    padding: 3pt;
+}
+
+#footer-bar a {
+    color: #997035;
+}
+
+#footer-bar a:hover {
+    color: black;
+    text-decoration: none;
+}
+
+#footer-bar li {
+    list-style-type: none;
+    float: left;
+    width: 20%;
+    text-align: center;
+}
+
+#sidebar {
+    float: left;
+    width: 100pt;
+    background: lightgray;
+    border-right: 1px solid black;
+    color: #050505;
+    margin-bottom: 20pt;
+}
+
+#sidebar .sidebar-module {
+    border-bottom: 1px solid black;
+    padding: 6pt;
+}
+
+#sidebar label {
+    font-size: 8pt;
+}
+
+#sidebar input, #sidebar select {
+    width: 50pt;
+    background: #eee;
+    border: 1px inset;
+    font-size: 8pt;
+}
+
+#sidebar img {
+    margin: auto;
+    display: block;
+    margin-bottom: 2pt;
+}
+
+#sidebar h3 {
+    background: darkgray;
+    margin: 0;
+    padding: 5pt;
+    border-bottom: 1px solid black;
+    font-size: 10pt;
+    padding: 0pt 4pt;
+}
+
+#sidebar a {
+    color: #555;
+}
+
+#sidebar a:hover {
+    color: black;
+}
+
+#sidebar ul {
+    margin: 0;
+    padding: 0;
+}
+
+#sidebar li {
+    list-style-type: none;
+}
+
+#sidebar li li {
+    list-style-type: square;
+}
+
+#sidebar ul ul {
+    padding: 0;
+    padding-left: 10pt;
+}
+
+#content {
+    margin-left: 100pt;
+    padding: 10pt;
+}
+
+div.box {
+    border: 1px solid #FFBB55;
+    margin-bottom: 16pt;
+}
+
+div.box h2 {
+    border-bottom: 1px solid #FFBB55;
+    margin: 0;
+    padding: 2pt 4pt;
+    background: #ffbb55;
+    font-size: 10pt;
+}
+
+div.purple h2 {
+    background: purple;
+}
+
+div.box div.content {
+    padding: 5pt;
+}

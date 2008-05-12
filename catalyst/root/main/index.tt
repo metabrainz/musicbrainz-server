@@ -1,0 +1,57 @@
+[% WRAPPER "layout.tt" title="Welcome to MusicBrainz!" %]
+
+<h1>Welcome to MusicBrainz!</h1>
+
+[% WRAPPER components/box.tt header="What is MusicBrainz?" %]
+  <p>MusicBrainz is a community music metadatabase that attempts to create a comprehensive music information
+    site. You can use the MusicBrainz data either by browsing this web site, or you can access the data from
+    a client program - for example, a CD player program can use MusicBrainz to identify CDs and provide
+    information about the CD, about the artist or about related information. You can also use the MusicBrainz
+    Tagger to automatically identify and clean up the metadata tags in your digital music collections. Find
+    out more in the introduction.
+  </p>
+[% END %]
+
+[% WRAPPER components/box.tt header="Use MusicBrainz" %]
+  <p>
+    You can use Musicbrainz right now to automatically identify and label your music files - all you have to do is
+    download and run a MusicBrainz enabled tagger.
+    [% INCLUDE "components/doc-link.tt" to="MusicBrainzTagger" text="Read more about our taggers." %]
+  </p>
+  <ul>
+  </ul>
+  <p>
+    Alternatively, you might just want to <a href="/search.html">search</a> or <a href="/browseartists.html">browse</a>
+    the MusicBrainz database. If you spot a mistake, or something that is missing, you can even
+    [% INCLUDE "components/doc-link.tt" to="HowEditingWorks" text="edit or add more data!" %]
+  </p>
+  <p>
+    If you're new to MusicBrainz, please take a moment to read the
+    [% INCLUDE "components/doc-link.tt" to="BeginnersGuide" text="beginners guide" %]
+    before editing the database.
+  </p>
+  <p>
+    If you are a software developer you might want to learn about the
+    [% INCLUDE "components/doc-link.tt" to="libmusicbrainz" text="MusicBrainz client library/SDK" %]. You can use the
+    library to enable your programs to access the MusicBrainz database, both for looking up data and also for
+    submitting new data.
+  </p>
+[% END %]
+
+[% WRAPPER components/box.tt header="Be a Part of MusicBrainz" %]
+  <p>Many people are needed to make MusicBrainz work. Come and take part!</p>
+  <ul>
+    <li>Please download and use Picard. By doing so, you will be using and adding to the MusicBrainz database.</li>
+    <li>
+      <a href="/search.html">Search</a> or <a href="/browseartists.html">browse</a> the MusicBrainz data for
+      your favourite artists, or for your <a href="/browsevarious.html">favourite releases</a>.
+    </li>
+    <li>
+      If you spot something that is wrong, poorly entered or just plain missing, please
+      <a href="/user/register.html">register</a> and
+      [% INCLUDE "components/doc-link.tt" to="HowEditingWorks" text="edit the data" %]
+    </li>
+  </ul>
+[% END %]
+
+[% END %]
