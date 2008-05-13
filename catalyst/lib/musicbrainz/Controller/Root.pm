@@ -89,7 +89,8 @@ sub end : ActionClass('RenderView') {
     my ($self, $c) = @_;
     
     $c->stash->{server_details}->{version} = &DBDefs::VERSION;
-    $c->stash->{user} = $c->session->{user};
+    $c->stash->{logged_in} = defined $c->session->{user};
+    $c->stash->{user}->{name} = $c->session->{user}->{name} if $c->stash->{logged_in};
 }
 
 =head1 AUTHOR

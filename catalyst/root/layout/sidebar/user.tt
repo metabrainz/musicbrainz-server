@@ -1,0 +1,12 @@
+<ul>
+  <li><a href="/user/profile">My Profile</a></li>
+  <li><a href="/user/logout">Logout</a></li>
+  <li><a href="/user/preferences">Preferences</a></li>
+  <li>
+    <a href="/bad_link">Votes on Edits</a>
+    <ul>
+      <li><a href="/bad_link">Subscribed</a></li>
+    </ul>
+  </li>
+  <li><a href="/bad_link">Donate!</a></li>
+</ul>

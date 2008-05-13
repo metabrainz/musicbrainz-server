@@ -63,7 +63,6 @@ sub processLogin : Path("process-login") {
     my $user = $us->Login($username, $password);
     if($user) {
 	$c->session->{user} = {
-	    logged_in => 1,
 	    name => $user->GetName
 	};
 	$c->response->redirect($c->uri_for('/user/profile'));

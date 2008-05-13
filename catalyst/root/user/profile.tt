@@ -1,7 +1,66 @@
 [% META title = "User Profile" %]
 [% WRAPPER "layout.tt" %]
 
+[% BLOCK property %]
+  <dt>[% name %]:</dt>
+  <dd>[% content %]</dd>
+[% END %]
 
-<p>Hey [% user.name %]!</p>
+[% review_options = [
+     { link => "", text => "Votes" },
+     { link => "", text => "Edits" },
+     { link => "", text => "Open Edits" },
+     { link => "", text => "Failed Edits" },
+     { link => "", text => "Cancelled Edits" },
+     { link => "", text => "Subscriptions" },
+   ]
+%]
+
+[% edit_account_options = [
+     { link => "", text => "Edit" },
+     { link => "", text => "Change Password" },
+     { link => "", text => "Preferences" },
+     { link => "", text => "Check Donation Status" },
+   ]
+%]
+
+[% WRAPPER "components/box.tt" header="Editor \"$user.name\"" %]
+  <h3>General Information:</h3>
+  <dl>
+    [% INCLUDE "components/piped-list.tt" list = review_options
+         WRAPPER property name = "Review" %]
+
+    [% INCLUDE "components/piped-list.tt" list = edit_account_options
+         WRAPPER property name = "Edit My Account" %]
+	
+    [% user.name WRAPPER property name = "Name" %]
+
+    [% user.type WRAPPER property name = "User Type" %]
+
+    [% WRAPPER property name = "E-Mail" %]
+      [% user.email or "[Hidden]" %] <br />
+      Verified on [% user.email_verification_date %]
+    [% END %]
+	
+    [% user.homepage or "[None]" WRAPPER property name = "Homepage" %]
+	
+    [% user.biography or "[None]" WRAPPER property name = "Biography" %]
+	
+    [% PROCESS property name = "Subscriptions" %]
+	
+    [% WRAPPER property name = "Subscribers" %]
+      [% user.subscriber_count %] (<a href="/bad_link">view all</a>)
+    [% END %]
+  </dl>
+  
+ <h3>User Statistics</h3>
+ <dl>
+   [% PROCESS property name = "Member Since" %]
+   [% PROCESS property name = "Accepted Non-autoedits" %]
+   [% PROCESS property name = "Autoedits" %]
+   [% PROCESS property name = "Edits Voted Down" %]
+   [% PROCESS property name = "Other Failed Edits" %]
+ </dl>
+[% END %]
 
 [% END %]
