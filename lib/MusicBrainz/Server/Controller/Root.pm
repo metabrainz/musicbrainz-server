@@ -1,11 +1,8 @@
-package musicbrainz::Controller::Root;
+package MusicBrainz::Server::Controller::Root;
 
 use strict;
 use warnings;
 use parent 'Catalyst::Controller';
-
-# We need this to specify the MusicBrainz perl codebase
-use lib "/home/musicbrainz/blah/TemplateToolkit/cgi-bin";
 
 # Import MusicBrainz libraries
 use DBDefs;

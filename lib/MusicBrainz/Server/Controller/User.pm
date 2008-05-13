@@ -1,11 +1,8 @@
-package musicbrainz::Controller::User;
+package MusicBrainz::Server::Controller::User;
 
 use strict;
 use warnings;
 use parent 'Catalyst::Controller';
-
-# We need this to specify the MusicBrainz perl codebase
-use lib "/home/musicbrainz/blah/TemplateToolkit/cgi-bin";
 
 =head1 NAME
 musicbrainz::Controller::User - Catalyst Controller to handle user authentication and profile management

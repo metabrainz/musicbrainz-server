@@ -1,4 +1,4 @@
-package musicbrainz;
+package MusicBrainz::Server;
 
 use strict;
 use warnings;
@@ -26,7 +26,7 @@ our $VERSION = '0.01';
 # with a external configuration file acting as an override for
 # local deployment.
 
-__PACKAGE__->config( name => 'musicbrainz' );
+__PACKAGE__->config( name => 'MusicBrainz::Server' );
 
 # Start the application
 __PACKAGE__->setup(qw/
