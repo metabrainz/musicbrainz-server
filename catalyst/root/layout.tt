@@ -1,7 +1,3 @@
-[%- DEFAULT
-    title = "MusicBrainz"
--%]
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
 	  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 
@@ -10,9 +6,13 @@
     <meta http-equiv="expires" content="1" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   
-    <title>[% title %]</title>
+    <title>[% template.title %]</title>
     
     <link rel="stylesheet" type="text/css" href="/static/main.css" />
+
+    [% IF template.extra_css %]
+    <link rel="stylesheet" type="text/css" href="/static/styles/extra/[% template.extra_css %]" />
+    [% END %]
 
     <link rel="search" type="application/opensearchdescription+xml" title="MusicBrainz: Artist" href="/search/plugins/opensearch/musicbrainzartist.xml" />
     <link rel="search" type="application/opensearchdescription+xml" title="MusicBrainz: Label" href="/search/plugins/opensearch/musicbrainzlabel.xml" />

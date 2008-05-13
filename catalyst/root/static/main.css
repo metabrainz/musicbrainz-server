@@ -160,12 +160,17 @@ div.box h2 {
     border-bottom: 1px solid #FFBB55;
     margin: 0;
     padding: 2pt 4pt;
-    background: #ffbb55;
+    background: url(/static/images/header-bg-orangefade.gif) repeat-y;
     font-size: 10pt;
 }
 
 div.purple h2 {
-    background: purple;
+    background: url(/static/images/header-bg-lightpurplefade.gif) repeat-y;
+    border-bottom: 1px solid #736DAB;
+}
+
+div.purple {
+    border: 1px solid #736DAB;
 }
 
 div.box div.content {
