@@ -1,6 +1,6 @@
 <ul>
-  <li><a href="/login.html">Login</a></li>
-  <li><a href="/user/register.html">Register</a></li>
-  <li><a href="/user/forgot-password.html">Forgot Password</a></li>
-  <li><a href="/donate">Donate!</a></li>
+  <li><a href="[% Catalyst.uri_for("/user/login") %]">Login</a></li>
+  <li><a href="/bad_link">Register</a></li>
+  <li><a href="/bad_link">Forgot Password</a></li>
+  <li><a href="/bad_link">Donate!</a></li>
 </ul>
