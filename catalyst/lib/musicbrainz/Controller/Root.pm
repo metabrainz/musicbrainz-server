@@ -81,13 +81,15 @@ sub default : Path
 
 =head2 end
 Attempt to render a view, if needed. This will also set up some global variables in the 
-context containing important information about the server used on the majority of templates.
+context containing important information about the server used on the majority of templates,
+and also the current user.
 =cut 
 
 sub end : ActionClass('RenderView') {
     my ($self, $c) = @_;
-
+    
     $c->stash->{server_details}->{version} = &DBDefs::VERSION;
+    $c->stash->{user} = $c->session->{user};
 }
 
 =head1 AUTHOR

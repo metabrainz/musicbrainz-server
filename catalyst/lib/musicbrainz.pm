@@ -29,7 +29,16 @@ our $VERSION = '0.01';
 __PACKAGE__->config( name => 'musicbrainz' );
 
 # Start the application
-__PACKAGE__->setup(qw/-Debug ConfigLoader Static::Simple/);
+__PACKAGE__->setup(qw/
+-Debug
+ConfigLoader
+Static::Simple
+
+StackTrace
+
+Session
+Session::State::Cookie
+Session::Store::FastMmap/);
 
 
 =head1 NAME

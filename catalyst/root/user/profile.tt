@@ -1,0 +1,7 @@
+[% META title = "User Profile" %]
+[% WRAPPER "layout.tt" %]
+
+
+<p>Hey [% user.name %]!</p>
+
+[% END %]
