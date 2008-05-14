@@ -1,8 +1,9 @@
 body {
-    font-family: sans-serif;
+    font-family: Verdana,Geneva,Arial,Helvetica,sans-serif;
     font-size: 12.5px;
     line-height: 1.5em;
     margin: 0;
+    width: 100%;
 }
 
 p {
@@ -81,8 +82,8 @@ a:hover {
 #creditsBar li.right { float: right; }
 
 #sidebar {
-    float: left;
-    width: 100pt;
+    width: 200px;
+    min-width: 110pt;
     background: lightgray;
     border-right: 1px solid black;
     color: #050505;
@@ -146,8 +147,14 @@ a:hover {
     padding-left: 10pt;
 }
 
+#container {
+    width: 100%;
+    float: right;
+    margin-left: -200px;
+}
+
 #content {
-    margin-left: 100pt;
+    margin-left: 200px;
     padding: 10pt;
 }
 
@@ -175,4 +182,20 @@ div.purple {
 
 div.box div.content {
     padding: 5pt;
+}
+
+#content form p {
+    clear: both;
+}
+
+#content form label {
+    float: left;
+    text-align: right;
+    font-weight: bold;
+    margin-right: 10pt;
+    width: 100pt;
+}
+
+#content form p.no-label {
+    margin-left: 110pt;
 }

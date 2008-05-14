@@ -1,4 +1,5 @@
 [% META title = "User Profile" %]
+[% META extra_css = "user.css" %]
 [% WRAPPER "layout.tt" %]
 
 [% BLOCK property %]
@@ -35,11 +36,11 @@
 	
     [% user.name WRAPPER property name = "Name" %]
 
-    [% user.type WRAPPER property name = "User Type" %]
+    [% user.type or "Unknown" WRAPPER property name = "User Type" %]
 
     [% WRAPPER property name = "E-Mail" %]
-      [% user.email or "[Hidden]" %] <br />
-      Verified on [% user.email_verification_date %]
+      [% user.email or "[Hidden]" %]
+      (verified [% user.email_verification_date %])
     [% END %]
 	
     [% user.homepage or "[None]" WRAPPER property name = "Homepage" %]
