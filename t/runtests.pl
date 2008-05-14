@@ -2,7 +2,7 @@
 
 use Test::Harness;
 use FindBin;
-use lib "$FindBin::Bin/../cgi-bin";
+use lib "$FindBin::Bin/../lib";
 
 my @tests;
 my $pattern = $ARGV[0];

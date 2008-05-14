@@ -26,7 +26,7 @@
 # Abstract: populate the "countries" table from the ISO 3166 countries list
 
 use FindBin;
-use lib "$FindBin::Bin/../../cgi-bin";
+use lib "$FindBin::Bin/../../lib";
 
 use DBDefs;
 use MusicBrainz;

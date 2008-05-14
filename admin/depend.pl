@@ -31,7 +31,7 @@ unless (caller)
 	require FindBin;
 	require lib;
 	no warnings 'once';
-	lib->import("$FindBin::Bin/../cgi-bin");
+	lib->import("$FindBin::Bin/../lib");
 }
 
 # Check for various dependencies.

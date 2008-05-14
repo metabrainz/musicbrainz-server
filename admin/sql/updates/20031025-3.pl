@@ -26,7 +26,7 @@
 # Abstract: set votes.superseded to 'false' where it's currently NULL
 
 use FindBin;
-use lib "$FindBin::Bin/../../../cgi-bin";
+use lib "$FindBin::Bin/../../../lib";
 
 use DBDefs;
 use MusicBrainz;

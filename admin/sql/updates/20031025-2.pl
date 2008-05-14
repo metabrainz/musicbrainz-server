@@ -26,7 +26,7 @@
 # Abstract: set votes.superseded to true where appropriate
 
 use FindBin;
-use lib "$FindBin::Bin/../../../cgi-bin";
+use lib "$FindBin::Bin/../../../lib";
 
 use DBDefs;
 use MusicBrainz;

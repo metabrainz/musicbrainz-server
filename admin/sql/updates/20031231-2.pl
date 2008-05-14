@@ -27,7 +27,7 @@
 # Abstract: Part 2: scan the old tables and load the data into the new tables
 
 use FindBin;
-use lib "$FindBin::Bin/../../../cgi-bin";
+use lib "$FindBin::Bin/../../../lib";
 
 use DBDefs;
 use MusicBrainz;

@@ -28,7 +28,7 @@
 # a format usable by the shell (e.g. eval `./admin/ShowDBDefs`)
 
 use FindBin;
-use lib "$FindBin::Bin/../cgi-bin";
+use lib "$FindBin::Bin/../lib";
 
 use strict;
 use DBDefs;

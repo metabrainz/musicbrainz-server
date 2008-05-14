@@ -28,7 +28,7 @@ use 5.008;
 use strict;
 
 use FindBin;
-use lib "$FindBin::Bin/../../cgi-bin";
+use lib "$FindBin::Bin/../../lib";
 
 use Getopt::Long;
 
