@@ -2,7 +2,7 @@ package MusicBrainz::Server::Controller::User;
 
 use strict;
 use warnings;
-use parent 'Catalyst::Controller';
+use base 'Catalyst::Controller';
 
 =head1 NAME
 musicbrainz::Controller::User - Catalyst Controller to handle user authentication and profile management
