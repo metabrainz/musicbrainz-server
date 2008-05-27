@@ -58,7 +58,9 @@
 		return;
 	}
 
-	MusicBrainz::Server::Validation::IsNonNegInteger($artistid) && $artistid
+
+	(MusicBrainz::Server::Validation::IsGUID($artistid) ||
+	MusicBrainz::Server::Validation::IsNonNegInteger($artistid)) && $artistid
 		or return $m->comp("/comp/badargs", 0, 1);
 
 	$artistid != &ModDefs::DARTIST_ID
@@ -71,13 +73,21 @@
 	my $mb = $m->comp("/comp/dblogin");
 
 	my $ar = MusicBrainz::Server::Artist->new($mb->{DBH});
-	$ar->SetId($artistid);
+	if (MusicBrainz::Server::Validation::IsGUID($artistid))
+    {
+	    $ar->SetMBId($artistid);
+	}
+	else
+	{
+	    $ar->SetId($artistid);
+	}
 	$ar->LoadFromId
 		or return $m->comp(
 			"/comp/error",
 			"Artist #$artistid does not exist",
 			0, 1,
 		);
+    $artistid = $ar->GetId();
 
 </%perl>
 
