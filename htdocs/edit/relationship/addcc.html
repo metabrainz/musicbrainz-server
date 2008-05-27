@@ -54,11 +54,26 @@ if (!MusicBrainz::Server::LinkEntity->IsValidType($type))
     return undef;
 }
 
-my $obj;
-$obj = MusicBrainz::Server::LinkEntity->newFromTypeAndId(
-    $mb->{DBH},
-    $type, $id
-) or $obj = undef;
+# If we're passed an MBID, load the rowid and proceed as usual
+if (MusicBrainz::Server::Validation::IsGUID($id))
+{
+	my $obj = $m->comp("/comp/load" . ($type == "album" ? "release" : $type), $mb, $id);
+	$id = $obj->GetId();
+}
+
+my $obj = undef;
+if (MusicBrainz::Server::Validation::IsNonNegInteger($id))
+{
+	$obj = MusicBrainz::Server::LinkEntity->newFromTypeAndId(
+		$mb->{DBH},
+		$type, $id);
+}
+elsif (MusicBrainz::Server::Validation::IsGUID($id))
+{
+	$obj = MusicBrainz::Server::LinkEntity->newFromTypeAndMBId(
+		$mb->{DBH},
+		$type, $id);
+}
 if (!defined $obj)
 {
 	</%perl>
