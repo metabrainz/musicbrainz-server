@@ -49,6 +49,11 @@
 	# LOAD ARTIST
 	# ---------------------------------------------------------------
 	# load release artist from database
+	if (MusicBrainz::Server::Validation::IsGUID($artistid))
+	{
+		my $obj = $m->comp("/comp/loadartist", $mb, $artistid);
+		$artistid = $obj->GetId;
+	}
 	$orig{"artistid"} = $artistid;
 	$orig{"artistname"} = $artistname;
 	$orig{"artistresolution"} = $artistresolution;
@@ -65,8 +70,6 @@
 		my $leadout = shift @offsets;
 		push @offsets, $leadout;
 	}
-
-
 
 	# load tracks, and add into @t list.
 	my $track_artist;

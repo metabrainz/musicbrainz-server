@@ -66,7 +66,8 @@
 	$m->comp("/comp/user/check-volatile-preferences", %ARGS);
 
 	# make sure we got a valid releaseid parameter
-	MusicBrainz::Server::Validation::IsNonNegInteger($artistid)
+	MusicBrainz::Server::Validation::IsNonNegInteger($artistid) 
+	    or MusicBrainz::Server::Validation::IsGUID($artistid)
 		or return $m->comp("/comp/layout/badarguments",
 			text => "The argument <strong>artistid</strong> is missing or has a wrong format.");
 
