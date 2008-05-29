@@ -37,6 +37,7 @@
 
 	# release
 	$releasename => undef
+	$releasembid => undef
 	$attr_status => undef
 	$attr_type => undef
 	$attr_language => undef
@@ -183,6 +184,7 @@
 		$new .= "TOC=$toc\n" if ($toc ne "");
 		$new .= "FreedbId=$freedbid\n" if ($freedbid ne "");
 		$new .= "FreedbCat=$freedbcat\n" if ($freedbcat ne "");
+		$new .= "ReleaseId=$releasembid\n" if ($releasembid ne "");
 		$new .= $trackdata;
 
 		sub _EncodeText

@@ -420,14 +420,14 @@ sub GetNextFreeTrackId
 # set before this function is called.
 sub Insert
 {
-    my ($this) = @_;
+    my ($this, $albumid) = @_;
 
     $this->{new_insert} = 0;
     return undef if (!exists $this->{artist} || $this->{artist} eq '');
     return undef if (!exists $this->{name} || $this->{name} eq '');
 
     my $sql = Sql->new($this->{DBH});
-    my $id = $this->CreateNewGlobalId();
+    my $id = $albumid ? $albumid : $this->CreateNewGlobalId();
     my $attrs = "{" . join(',', @{ $this->{attrs} }) . "}";
     my $page = $this->CalculatePageIndex($this->{name});
     my $lang = $this->GetLanguageId();

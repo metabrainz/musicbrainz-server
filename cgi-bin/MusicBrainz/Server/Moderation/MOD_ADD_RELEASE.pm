@@ -66,6 +66,7 @@ sub PreInsert
 	# |--- Attributes (default: none) (OPTIONAL)
 	# |--- Language (OPTIONAL)
 	# |--- Script (OPTIONAL)
+	# |--- ReleaseId (OPTIONAL -- only for MBID Submitters)
 	# \--- for tracks 1..n:
 	#      |--- Track/n/ 	- name
 	#      |--- Artist/n/ 	- ??? id or name ???
@@ -115,6 +116,10 @@ sub PreInsert
 	{
 	  	$info{'cdindexid'} = $new{'CDIndexId'};
 	   	$info{'toc'} = $new{'TOC'};
+	}
+	if (exists $new{'ReleaseId'} && $new{'ReleaseId'})
+	{
+	  	$info{'albumid_supplied'} = $new{'ReleaseId'};
 	}
 
 	if ($new{'NonAlbum'})

@@ -32,6 +32,7 @@
 	$artistid => 0
 	$tracks => undef
 	$hasmultipletrackartists => undef
+    $releasembid => ""
 
 	# cd-toc attach /bare/cdlookup.html
 	$discid => ""
@@ -65,12 +66,6 @@
 	# check volatile preferences (like autoeditor flag)
 	$m->comp("/comp/user/check-volatile-preferences", %ARGS);
 
-	# make sure we got a valid releaseid parameter
-	MusicBrainz::Server::Validation::IsNonNegInteger($artistid) 
-	    or MusicBrainz::Server::Validation::IsGUID($artistid)
-		or return $m->comp("/comp/layout/badarguments",
-			text => "The argument <strong>artistid</strong> is missing or has a wrong format.");
-
 	# make sure we got a valid tracks parameter
 	MusicBrainz::Server::Validation::IsNonNegInteger($tracks) && $tracks
 		or return $m->comp("/comp/layout/badarguments",
@@ -84,6 +79,23 @@
 	# load musicbrainz object, and make it available in the ARGS hash.
 	my $mb = $m->comp("/comp/dblogin");
 	$ARGS{"mb"} = $mb;
+
+	if (MusicBrainz::Server::Validation::IsGUID($artistid))
+	{
+		my $obj = $m->comp("/comp/loadartist", $mb, $artistid);
+		$artistid = $obj->GetId;
+	}
+
+	# make sure we got a valid artistid parameter
+	MusicBrainz::Server::Validation::IsNonNegInteger($artistid) 
+		or return $m->comp("/comp/layout/badarguments",
+			text => "The argument <strong>artistid</strong> is missing or has a wrong format.");
+
+	if (!UserStuff->IsMBIDSubmitter($session{"privs"}) || !MusicBrainz::Server::Validation::IsGUID($releasembid))
+	{
+		$releasembid = "";
+		$ARGS{releasembid} = "";
+	}
 
 	# SETUP FORM STATE
 	# ---------------------------------------------------------------

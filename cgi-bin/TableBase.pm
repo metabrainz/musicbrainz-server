@@ -74,7 +74,15 @@ sub GetId
 
 sub SetId
 {
-   $_[0]->{id} = $_[1];
+   if (MusicBrainz::Server::Validation::IsGUID($_[1]))
+   {
+       $_[0]->{mbid} = $_[1];
+       delete $_[0]->{id};
+   }
+   else
+   {
+       $_[0]->{id} = $_[1];
+   }
 }
 
 sub GetName

@@ -142,6 +142,7 @@ sub Insert
 #  artist_begindate                                        [optional]
 #  artist_enddate                                          [optional]
 #  album name or albumid                                   [required]
+#  albumid_supplied                                        [optional] (for use with album ids supplied from peeps like the BBC)
 #  attributes -> ref to array                              [optional]
 #  languageid                                              [optional]
 #  scriptid                                                [optional]
@@ -203,6 +204,8 @@ sub _Insert
     }
 
     my $forcenewalbum = $info->{forcenewalbum};
+
+    # This is now possible with allowing some users to submit MBIDs
     if ($forcenewalbum && exists $info->{albumid})
     {
         die "Insert failed: you cannot force a new album and provide an albumid.\n";
@@ -270,7 +273,6 @@ sub _Insert
 
     if (!exists $info->{artist_only})
     {
-
         # Try and resolve/check the album name
         if (exists $info->{albumid})
         {
@@ -367,12 +369,14 @@ sub _Insert
            $al->SetName($album);
            $al->SetArtist($artistid);
            if (exists $info->{attrs})
-           {
-               $al->SetAttributes(@{ $info->{attrs} });
+		   {
+			   $al->SetAttributes(@{ $info->{attrs} });
            }
            $al->SetLanguageId($language) if $language;
            $al->SetScriptId($script) if $script;
-           $albumid = $al->Insert;
+		   my $albumid_supplied;
+		   $albumid_supplied = $info->{albumid_supplied} if (exists $info->{albumid_supplied});
+           $albumid = $al->Insert($albumid_supplied);
            if (!defined $albumid)
            {
                die "Insert failed: cannot insert new album.\n";
@@ -562,7 +566,7 @@ TRACK:
             }
 
 			# insert track using the verified track artist            
-            $mar->SetId($track_artistid);
+            $mar->SetId($ar->GetId);
             $trackid = $tr->Insert($al, $mar);
             $track->{track_insertid} = $trackid if ($tr->GetNewInsert());
         }
