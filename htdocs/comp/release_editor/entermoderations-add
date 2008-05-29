@@ -163,6 +163,10 @@
 					my $new_artistid = $ARGS{sprintf "tr%d_artistid", $i};
 					$trackdata .= "ArtistID" . ($realtracks) . "=" . $new_artistid . "\n";
 				}
+				if ($ARGS{"tr$i"."_id"})
+				{
+				    $trackdata .= "TrackID" . ($realtracks) . "=" . $ARGS{"tr$i"."_id"} . "\n";
+				}
 
 				# handled this track, increment non-deleted tracks counter
 				$realtracks++;

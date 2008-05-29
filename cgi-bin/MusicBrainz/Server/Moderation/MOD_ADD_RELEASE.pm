@@ -69,6 +69,7 @@ sub PreInsert
 	# |--- ReleaseId (OPTIONAL -- only for MBID Submitters)
 	# \--- for tracks 1..n:
 	#      |--- Track/n/ 	- name
+	#      |--- TrackID/n/ 	- name  (only used for MBID submitters)
 	#      |--- Artist/n/ 	- ??? id or name ???
 	#      \--- TrackDur/n/ 	- duration in ms ?
 	#
@@ -152,6 +153,11 @@ sub PreInsert
 			track => $name,
 			tracknum => $i,
 		);
+
+		if (exists $new{"TrackID$i"})
+		{
+			$tmp{trackid} = $new{"TrackID$i"};
+		}
 		
 		if ($isva)
 		{

@@ -91,10 +91,24 @@
 		or return $m->comp("/comp/layout/badarguments",
 			text => "The argument <strong>artistid</strong> is missing or has a wrong format.");
 
+	# Check for a user supplied release id
 	if (!UserStuff->IsMBIDSubmitter($session{"privs"}) || !MusicBrainz::Server::Validation::IsGUID($releasembid))
 	{
 		$releasembid = "";
-		$ARGS{releasembid} = "";
+		delete $ARGS{releasembid};
+	}
+
+	# Check for user supplied track ids
+	for(0..$tracks)
+	{
+		my $key = "tr$_"."id";
+		if (exists $ARGS{$key})
+		{
+	        if (!UserStuff->IsMBIDSubmitter($session{"privs"}) || !MusicBrainz::Server::Validation::IsGUID($ARGS{$key}))
+			{
+				delete $ARGS{$key};
+			}
+		}
 	}
 
 	# SETUP FORM STATE

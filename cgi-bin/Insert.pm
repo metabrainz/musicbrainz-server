@@ -82,7 +82,8 @@ sub Insert
 #				tracknum => $seq,
 #				duration => $len, 
 #				trmid => $TRM,
-#				puid => $PUID
+#				puid => $PUID,
+#				trackid => $mbid (optinal, only for mbid submitters)
 #			}
 #		] (always exactly one track)
 #
@@ -151,6 +152,7 @@ sub Insert
 #  tracks -> array of hash refs:                           [required]
 #    track    title                                        [required]
 #    tracknum                                              [required]
+#    trackid                                               [optional]
 #    artist or artistid                                    [MACs only]
 #    sortname                                              [MACs only]
 #    trmid                                                 [optional]
@@ -567,7 +569,9 @@ TRACK:
 
 			# insert track using the verified track artist            
             $mar->SetId($ar->GetId);
-            $trackid = $tr->Insert($al, $mar);
+			my $tid;
+			$tid = $track->{trackid} if (exists $track->{trackid});
+            $trackid = $tr->Insert($al, $mar, $tid);
             $track->{track_insertid} = $trackid if ($tr->GetNewInsert());
         }
         else

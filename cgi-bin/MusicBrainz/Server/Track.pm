@@ -322,7 +322,7 @@ sub GetMetadataFromIdAndAlbum
 # inited/loaded artist must also be passed in. The new track id is returned
 sub Insert
 {
-    my ($this, $al, $ar) = @_;
+    my ($this, $al, $ar, $trackid) = @_;
     $this->{new_insert} = 0;
 
 	my $name = $this->GetName;
@@ -365,7 +365,7 @@ sub Insert
 	return $track if $track;
 
 	my %row = (
-		gid => $this->CreateNewGlobalId,
+		gid => $trackid ? $trackid : $this->CreateNewGlobalId,
 		name => $this->GetName,
 		artist => $artist,
 		modpending	=> 0,

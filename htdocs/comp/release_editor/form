@@ -389,6 +389,9 @@
 							value => $track,
 							enabled => !$trackdel,
 							cssclass => ($checkfields{"track$i"} ? " missing" : "") &>
+%		if (exists $ARGS{"tr".$i."_id"}) {
+						<br/><span style="font-size: x-small">Track id: <% $ARGS{"tr".$i."_id"} %></span>
+%		}
 					</td>
 					<td>
 						<& /comp/form/tracktimefield,
@@ -493,7 +496,6 @@
 							cssclass => ($checkfields{$artistnamefield} ? " missing" : "") &>
 
 %		}
-
 					</td>
 					<td>&nbsp;</td>
 					<td class="field">
