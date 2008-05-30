@@ -27,30 +27,18 @@ use strict;
 
 package MusicBrainz::Server::TRMGatewayHandler;
 
-use MusicBrainz::Server::TRMGateway;
 use MusicBrainz::Server::LogFile qw( lprint lprintf );
 use Apache::Constants qw( :http M_POST OK );
-use Time::HiRes qw( gettimeofday tv_interval );
 
 use constant REQ_CONTENT_TYPE => "application/octet-stream";
 use constant REQ_BODY_SIZE => 566;
 use constant RESP_CONTENT_TYPE => "application/octet-stream";
 use constant CMD_GET_GUID => "N";
 use constant CMD_DISCONNECT => "E";
-use constant KILL_SWITCH => "/tmp/disable-trm-gateway";
 
 sub handler
 {
 	my $r = shift;
-
-	my $SIGSERVER_HOST = $r->dir_config('TRMServerHost');
-	my $SIGSERVER_PORT = $r->dir_config('TRMServerPort');
-	return server_error($r, "TRM server host/port not configured")
-		unless $SIGSERVER_HOST and $SIGSERVER_PORT;
-
-	my $MAX_SIGSERVERS = $r->dir_config('MaxSigServers') || 10;
-	my $LOOKUP_TIMEOUT = $r->dir_config('LookupTimeout') || 10;
-	my $COLLECT_STATS = $r->dir_config('CollectSigserverStats');
 
 	$r->method_number == M_POST
 		or return fail($r);
@@ -84,124 +72,14 @@ sub handler
 		fail($r);
 	}
 
-	my $memc = MusicBrainz::Server::Cache->_new;
-
-	if (-f KILL_SWITCH)
-	{
-		lprint "TRMGatewayHandler", "All TRM requests are currently disabled"
-			if $r->dir_config('WarnIfSigserverDisabled');
-		if ($memc) { $memc->add("trm-disabled", 0); $memc->incr("trm-disabled", 1); }
-		$r->status(HTTP_SERVICE_UNAVAILABLE);
-		$r->send_http_header;
-		return OK;
-	}
-
-	my $key = "sigservers";
-
-	if ($memc)
-	{
-		$memc->add($key, 0);
-		my $newcount = $memc->incr($key, 1) || 0;
-
-		if ($newcount > $MAX_SIGSERVERS)
-		{
-			defined($memc->decr($key, 1))
-				or warn "Failed to decrement $key key";
-			$memc->add("trm-busy", 0); $memc->incr("trm-busy", 1);
-			lprint "TRMGatewayHandler", "Too many sigservers ($newcount > $MAX_SIGSERVERS)"
-				if $r->dir_config('WarnIfSigserverBusy');
-			$r->status(HTTP_SERVICE_UNAVAILABLE);
-			$r->send_http_header;
-			return OK;
-		}
-
-		# lprint "TRMGatewayHandler" "$newcount sigservers";
-	}
-
-	my $gateway = get_gateway($SIGSERVER_HOST, $SIGSERVER_PORT);
-	unless ($gateway)
-	{
-		not($memc)
-			or defined($memc->decr($key, 1))
-			or warn "Failed to decrement $key key";
-		if ($memc) { $memc->add("trm-nogateway", 0); $memc->incr("trm-nogateway", 1); }
-		lprint "TRMGatewayHandler", "Couldn't get gateway object";
-		$r->status(HTTP_SERVICE_UNAVAILABLE);
-		$r->send_http_header;
-		return OK;
-	}
-
-	my $t0 = [ gettimeofday ] if $COLLECT_STATS;
-
-	my $bytes;
-	my $err;
-	{
-		alarm 0;
-		$SIG{ALRM} = sub { die "ALARM\n" };
-		alarm $LOOKUP_TIMEOUT;
-		eval { $bytes = $gateway->request($body) };
-		$err = $@;
-		$SIG{ALRM} = 'IGNORE';
-		alarm 0;
-	}
-
-	my $took = tv_interval($t0) if $COLLECT_STATS;
-
-	not($memc)
-    	or defined($memc->decr($key, 1))
-		or warn "Failed to decrement $key key";
-
-	if ($err eq "ALARM\n")
-	{
-		$gateway = undef;
-		remove_gateway();
-		if ($memc) { $memc->add("trm-error", 0); $memc->incr("trm-error", 1); }
-		lprint "sigserver", "sigserver timed out"
-			if $COLLECT_STATS;
-		$r->status(HTTP_SERVICE_UNAVAILABLE);
-		$r->send_http_header;
-		return OK;
-	}
-
-	if ($err)
-	{
-		warn "Sigserver error: $err";
-		$gateway = undef;
-		remove_gateway();
-		if ($memc) { $memc->add("trm-error", 0); $memc->incr("trm-error", 1); }
-		$r->status(HTTP_SERVICE_UNAVAILABLE);
-		$r->send_http_header;
-		return OK;
-	}
-
-	lprintf "sigserver", "sigserver took %.4fs\n", $took
-		if $COLLECT_STATS;
-
-	if ($memc)
-	{
-		$memc->add("trm-ok", 0);
-		$memc->incr("trm-ok", 1);
-		$memc->add("trm-taken", 0);
-		$memc->incr("trm-taken", $took * 1E6) if $took;
-		$memc->add("trm-taken-count", 0);
-		$memc->incr("trm-taken-count", 1) if $took;
-	}
+	# And now, the super-fast TRM lookup algorithm...
+	my $bytes = "";
+	$bytes .= chr(rand 256) for 1..64;
+	substr($bytes, 27, 1) = "L";
 
 	$r->status(HTTP_OK);
 	$r->send_http_header(RESP_CONTENT_TYPE);
 	$r->print($bytes);
-
-	if ($r->dir_config("LogTrmAnswers"))
-	{
-		my $answer = eval {
-			return "-" unless length($bytes) == 64;
-			$bytes =~ s/...(.)/$1/g;
-			$bytes = unpack "H*", $bytes;
-			$bytes =~ s/(........)(....)(....)(....)(............)/$1-$2-$3-$4-$5/;
-			return $bytes;
-		};
-		$r->subprocess_env("EXTRA_LOG", " trm=".($answer || "?"));
-	}
 
 	OK;
 }
@@ -231,59 +109,6 @@ sub fail
 		unless $r->header_only;
 
 	OK;
-}
-
-{
-	our $gateway;
-	our $localport;
-
-	sub get_gateway
-	{
-		my ($host, $port) = @_;
-
-		if ($gateway)
-		{
-			return $gateway unless $gateway->has_disconnected;
-			lprint "TRMGatewayHandler", "Gateway to $host:$port on local port $localport has become disconnected - reconnecting";
-			$gateway = $localport = undef;
-		} else {
-			lprint "TRMGatewayHandler", "Attempting to connect to gateway $host:$port ...";
-		}
-		
-		alarm 0;
-		$SIG{ALRM} = sub { die "ALARM\n" };
-		alarm 10;
-		eval { $gateway = MusicBrainz::Server::TRMGateway->new($host, $port) };
-		my $err = $@;
-		$SIG{ALRM} = 'IGNORE';
-		alarm 0;
-
-		if ($err eq "ALARM\n")
-		{
-			lprint "TRMGatewayHandler", "Timeout connecting to gateway $host:$port";
-			return($gateway = undef);
-		}
-
-		if ($err)
-		{
-			chomp $err;
-			lprint "TRMGatewayHandler", "Error connecting to gateway $host:$port ($err)";
-			return($gateway = undef);
-		}
-
-		$localport = $gateway->{SOCK}->sockport;
-		lprint "TRMGatewayHandler", "Connected to gateway $host:$port (local port $localport)";
-		return $gateway;
-	}
-
-	sub remove_gateway
-	{
-		if ($gateway)
-		{
-			lprint "TRMGatewayHandler", "Disconnecting from gateway (local port $localport)";
-		}
-		$gateway = $localport = undef;
-	}
 }
 
 1;
