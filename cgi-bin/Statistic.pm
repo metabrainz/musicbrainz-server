@@ -186,14 +186,6 @@ my %stats = (
 		DESC => "Count of all tracks",
 		SQL => "SELECT COUNT(*) FROM track",
 	},
-	"count.trm" => {
-		DESC => "Count of all TRMs joined to tracks",
-		SQL => "SELECT COUNT(*) FROM trmjoin",
-	},
-	"count.trm.ids" => {
-		DESC => "Count of unique TRM IDs",
-		SQL => "SELECT COUNT(DISTINCT trm) FROM trmjoin",
-	},
 	"count.vote" => {
 		DESC => "Count of all votes",
 		SQL => "SELECT COUNT(*) FROM vote_all",
@@ -253,87 +245,6 @@ my %stats = (
 			+{
 				map {
 					"count.album.".$_."discids" => $dist{$_}
-				} keys %dist
-			};
-		},
-	},
-
-
-	"count.trm.Ntracks" => {
-		DESC => "Distribution of tracks per TRM (collisions)",
-		CALC => sub {
-			my ($self, $sql) = @_;
-
-			my $max_dist_tail = 10;
-
-			my $data = $sql->SelectListOfLists(
-				"SELECT c, COUNT(*) AS freq
-				FROM (
-					SELECT trm, COUNT(*) AS c
-					FROM trmjoin
-					GROUP BY trm
-				) AS t
-				GROUP BY c
-				",
-			);
-
-			my %dist = map { $_ => 0 } 1 .. $max_dist_tail;
-
-			for (@$data)
-			{
-				$dist{ $_->[0] } = $_->[1], next
-					if $_->[0] < $max_dist_tail;
-
-				$dist{$max_dist_tail} += $_->[1];
-			}
-			
-			+{
-				map {
-					"count.trm.".$_."tracks" => $dist{$_}
-				} keys %dist
-			};
-		},
-	},
-
-	"count.track.has_trm" => {
-		DESC => "Count of tracks with at least one TRM",
-		SQL => "SELECT COUNT(DISTINCT track) FROM trmjoin",
-	},
-	"count.track.Ntrms" => {
-		DESC => "Distribution of TRMs per track (varying TRMs)",
-		PREREQ => [qw[ count.track count.track.has_trm ]],
-		CALC => sub {
-			my ($self, $sql) = @_;
-
-			my $max_dist_tail = 10;
-
-			my $data = $sql->SelectListOfLists(
-				"SELECT c, COUNT(*) AS freq
-				FROM (
-					SELECT track, COUNT(*) AS c
-					FROM trmjoin
-					GROUP BY track
-				) AS t
-				GROUP BY c
-				",
-			);
-
-			my %dist = map { $_ => 0 } 1 .. $max_dist_tail;
-
-			for (@$data)
-			{
-				$dist{ $_->[0] } = $_->[1], next
-					if $_->[0] < $max_dist_tail;
-
-				$dist{$max_dist_tail} += $_->[1];
-			}
-
-			$dist{0} = $self->Fetch("count.track")
-				- $self->Fetch("count.track.has_trm");
-			
-			+{
-				map {
-					"count.track.".$_."trms" => $dist{$_}
 				} keys %dist
 			};
 		},

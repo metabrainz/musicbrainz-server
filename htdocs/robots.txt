@@ -24,7 +24,6 @@ Disallow: /showaliases.html
 Disallow: /showartist.html
 Disallow: /showmod.html
 Disallow: /showtrack.html
-Disallow: /showtrm.html
 Disallow: /showpuid.html
 Disallow: /taglookup.html
 Disallow: /track/

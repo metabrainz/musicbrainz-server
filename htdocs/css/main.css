@@ -578,7 +578,7 @@ table.releasetracks tr.discid td.links {
 
 /* ------------------------------------------------------------------------- 
 	* Release summary table:
-	* This summary with statistics (tracks/discids/puids/trmids), release
+	* This summary with statistics (tracks/discids/puids), release
 	* langauge and attributes is nested in the releasetracks table, because 
 	* the discID section which comes after this row needs to align with 
 	* the columns of the tracks.
@@ -614,10 +614,6 @@ table.releasesummary span.tracks {
 
 table.releasesummary span.puid img { 
 	width: 35px; height: 13px; 
-}
-
-table.releasesummary span.trmid img { 
-	width: 30px; height: 11px; 
 }
 
 table.releasesummary td.statistics {
@@ -719,11 +715,11 @@ h2.AlbumType {
 }
 
 /* Album meta, whereever it is shown */
-td.trk, td.did, td.trm { 
+td.trk, td.did { 
 	font-size: 11px; 
 }
 
-td.trk, td.did, td.trm, td.rdate { 
+td.trk, td.did, td.rdate { 
 	padding: 0.3em 0.6em; 
 	text-align: right; 
 }
@@ -732,7 +728,7 @@ td.rtimeline {
 	background: url('/images/timeline.gif') 50% 0% repeat-y;
 }
 
-td.trk *, td.did *, td.trm *, td.rdate * { 
+td.trk *, td.did *, td.rdate * { 
 	vertical-align: middle 
 }
 
@@ -746,7 +742,6 @@ td.trk *, td.did *, td.trm *, td.rdate * {
 
 #CompactReleaseList td.rdate,
 #CompactReleaseList td.rst,
-#CompactReleaseList td.trm,
 #CompactReleaseList td.trk,
 #CompactReleaseList td.did { 
 	white-space: nowrap;
@@ -899,7 +894,7 @@ table.searchresults tr.searchresultsnone {
 
 table.searchresults td.tracks,
 table.searchresults td.discid,
-table.searchresults td.trmid,
+table.searchresults td.puid,
 table.searchresults td.released { 
 	padding-right: 12px; white-space: nowrap;
 	text-align: right;

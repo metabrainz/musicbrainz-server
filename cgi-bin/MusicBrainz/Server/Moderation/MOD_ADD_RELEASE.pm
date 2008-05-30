@@ -208,7 +208,7 @@ sub PreInsert
 	$info{'releases'} = \@releases;
 
 	# Now we actually insert the album and tracks,
-	# and maybe also some artists, a disc ID, TRMs etc.
+	# and maybe also some artists, a disc ID etc.
 	{
 		require Insert;
 		my $in = Insert->new($self->{DBH});

@@ -77,7 +77,6 @@
 			{ name => "Products",				url => "/doc/Products" },
 			[
 				{ url => "/doc/CdLookupTool" },
-				{ url => "/doc/TRMGen" },
 			],
 			{ name => "Classic Tagger",			url => "/doc/ClassicTagger" },
 			[
@@ -117,7 +116,6 @@
 				{ url => "/doc/DatabaseSchema/Artists" },
 				{ url => "/doc/DatabaseSchema/Releases" },
 				{ url => "/doc/DatabaseSchema/Tracks" },
-				{ url => "/doc/DatabaseSchema/TRMs" },
 				{ url => "/doc/DatabaseSchema/SearchTables" },
 				{ url => "/doc/DatabaseSchema/Moderation" },
 				{ url => "/doc/DatabaseSchema/Statistics" },
@@ -175,9 +173,6 @@
 			{ url => "/showtrack.html" },
 			{ url => "/show/track/index.html" },
 
-			{ url => "/showtrm.html" },
-			{ url => "/show/trm/index.html" },
-
 			{ url => "/showpuid.html" },
 			{ url => "/show/puid/index.html" },
 
@@ -208,7 +203,6 @@
 				{ url => "/reports/generated/DuplicateArtists/index.html" },
 				{ url => "/reports/generated/DuplicateArtists2/index.html" },
 				{ url => "/reports/generated/DuplicateTrackNumbers/index.html" },
-				{ url => "/reports/generated/DuplicateTRMsPerAlbum/index.html" },
 				{ url => "/reports/generated/FeaturingArtists/index.html" },
 				{ url => "/reports/generated/NoLanguage/index.html" },
 				{ url => "/reports/generated/NoScript/index.html" },
@@ -218,9 +212,7 @@
 				{ url => "/reports/generated/TooManyCapitals/index.html" },
 				{ url => "/reports/generated/TracksCalledUnknown/index.html" },
 				{ url => "/reports/generated/TracksNamedWithSequence/index.html" },
-				{ url => "/reports/generated/TracksWithManyTRMs/index.html" },
 				{ url => "/reports/generated/TracksWithoutTimes/index.html" },
-				{ url => "/reports/generated/TRMsWithManyTracks/index.html" },
 				{ url => "/reports/generated/WrongCharset/index.html" },
 
 			] : [],
@@ -330,7 +322,6 @@
 			{ url => "/edit/discid/remove.html" },
 			{ url => "/mod/remove.html" },
 			{ url => "/edit/track/remove.html" },
-			{ url => "/edit/trm/remove.html" },
 			{ url => "/edit/puid/remove.html" },
 
 			# single- and multiartist conversion

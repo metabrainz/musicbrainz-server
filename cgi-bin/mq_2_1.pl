@@ -62,40 +62,18 @@ my %Queries =
         'http://musicbrainz.org/mm/mq-1.1#trackName',
         'http://musicbrainz.org/mm/mq-1.1#maxItems'],
    FindDistinctTRMID => 
-      [\&QuerySupport::FindDistinctTRM, 0, 
-        'http://musicbrainz.org/mm/mq-1.1#trackName',
-        'http://musicbrainz.org/mm/mq-1.1#artistName'],
+      [\&QuerySupport::GoodRiddance, 0],
    LookupMetadata =>
-      [\&QuerySupport::LookupMetadata, 0, 
-        'http://musicbrainz.org/mm/mm-2.1#trmid'],
-   SubmitTrack =>
-      [\&QuerySupport::SubmitTrack, 1, 
-        'http://musicbrainz.org/mm/mq-1.1#artistName',
-        'http://musicbrainz.org/mm/mq-1.1#albumName',
-        'http://musicbrainz.org/mm/mq-1.1#trackName',
-        'http://musicbrainz.org/mm/mm-2.1#trmid',
-        'http://musicbrainz.org/mm/mm-2.1#trackNum',
-        'http://musicbrainz.org/mm/mm-2.1#duration',
-        'http://musicbrainz.org/mm/mm-2.1#issued',
-        'http://musicbrainz.org/mm/mm-2.1#genre',
-        'http://purl.org/dc/elements/1.1/description',
-        'http://musicbrainz.org/mm/mm-2.1#link'],
+      [\&QuerySupport::GoodRiddance, 0],
    SubmitTRMList =>
-      [\&QuerySupport::SubmitTRMList, 1],
+      [\&QuerySupport::GoodRiddance, 1],
    SubmitTRMFeedback=>
-      [\&QuerySupport::SubmitTRMFeedback, 1],
+      [\&QuerySupport::GoodRiddance, 1],
    AuthenticateQuery =>
       [\&QuerySupport::AuthenticateQuery, 0, 
         'http://musicbrainz.org/mm/mq-1.1#username'],
    TrackInfoFromTRMId =>
-      [\&QuerySupport::TrackInfoFromTRMId, 0, 
-        'http://musicbrainz.org/mm/mm-2.1#trmid',
-        'http://musicbrainz.org/mm/mq-1.1#artistName',
-        'http://musicbrainz.org/mm/mq-1.1#albumName',
-        'http://musicbrainz.org/mm/mq-1.1#trackName',
-        'http://musicbrainz.org/mm/mm-2.1#trackNum',
-        'http://musicbrainz.org/mm/mm-2.1#duration',
-        'http://musicbrainz.org/mm/mq-1.1#fileName'],
+      [\&QuerySupport::GoodRiddance, 0],
    QuickTrackInfoFromTrackId =>
       [\&QuerySupport::QuickTrackInfoFromTrackId, 0, 
         'http://musicbrainz.org/mm/mm-2.1#trackid',
@@ -340,7 +318,6 @@ for(;;)
 if ($r)
 {
 	my $uri = "/mm-2.1/$queryname";
-	$uri .= "?$queryargs[0]" if $queryname eq "TrackInfoFromTRMId";
 	$r->the_request($r->method . " $uri " . $r->protocol);
 }
 

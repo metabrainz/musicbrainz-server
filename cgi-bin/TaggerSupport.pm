@@ -67,7 +67,6 @@ sub FileInfoLookup
    $data{track} = $trackName;
    $data{trackid} = $trackId;
    $data{tracknum} = $trackNum;
-   $data{tmid} = $trmId;
    $data{duration} = $duration;
    $data{filename} = $fileName;
 
@@ -193,27 +192,6 @@ sub Lookup
 
 
    return ("", $data, $flags, undef);
-}
-
-# Called by taglookup.html
-sub LookupTRMCollisions
-{
-   my ($this, $trm) = @_;
-   my $sql = Sql->new($this->{DBH});
-
-   my $data = $sql->SelectListOfHashes(
-   	"SELECT DISTINCT
-		albumjoin.album,
-		trmjoin.track
-	FROM	trm
-		INNER JOIN trmjoin ON trmjoin.trm = trm.id
-		INNER JOIN albumjoin ON albumjoin.track = trmjoin.track
-	WHERE	trm.trm = ?
-	ORDER BY 1, 2",
-	$trm,
-   );
-
-   @$data;
 }
 
 sub LookupPUIDCollisions
@@ -524,7 +502,6 @@ sub AlbumSearch
                         mbid=>$al->GetMBId(),
                         album_tracks=>$al->GetTrackCount(),
                         album_discids=>$al->GetDiscidCount(),
-                        album_trmids=>$al->GetTrmidCount(),
                         albumtype=>$albumtype});
            $this->{album} = $al if (scalar(@ids) == 1);
            $this->{album} = undef if (scalar(@ids) > 1);
@@ -570,7 +547,6 @@ sub AlbumSearch
                         mbid=>$al->GetMBId(),
                         album_tracks=>$al->GetTrackCount(),
                         album_discids=>$al->GetDiscidCount(),
-                        album_trmids=>$al->GetTrmidCount(),
                         albumtype=>$albumtype});
            $this->{fuzzy} = 1;
        }
@@ -660,9 +636,7 @@ sub AlbumTrackSearch
    @ids = (sort { $b->{sim} <=> $a->{sim} } @ids);
    @ids = splice @ids, 0, $this->{maxitems};
    $query = qq|select album.id, album.name, album.gid, albumjoin.sequence, track,
-                      albummeta.tracks, albummeta.discids, albummeta.trmids,
-		      album.artist,
-		      album.attributes
+                      albummeta.tracks, albummeta.discids, album.artist, album.attributes
                  from Album, AlbumJoin, albummeta
                 where albumjoin.album = album.id and 
                       album.id = albummeta.id and
@@ -710,9 +684,8 @@ sub AlbumTrackSearch
            $id->{albumid} = $row[0];
            $id->{album_tracks} = $row[5];
            $id->{album_discids} = $row[6];
-           $id->{album_trmids} = $row[7];
-           $id->{album_artist} = $row[8];
-           $id->{album_attrs} = $row[9];
+           $id->{album_artist} = $row[7];
+           $id->{album_attrs} = $row[8];
            $id->{albumid} = $row[0];
            $id->{artist} = $ar->GetName();
            $id->{artistmbid} = $ar->GetMBId();

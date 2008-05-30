@@ -117,7 +117,6 @@
 	# 'Name' (lowercase)
 	# 'Status' (release status)
 	# track count
-	# TRM count
 	# PUID count
 	# row id
 
@@ -142,8 +141,6 @@
 		($a->{_attr_status} <=> $b->{_attr_status})
 		or
 		($a->{trackcount} cmp $b->{trackcount})
-		or
-		($b->{trmidcount} cmp $a->{trmidcount})
 		or
 		($b->{puidcount} cmp $a->{puidcount})
 		or
@@ -447,13 +444,8 @@
 %	} else {
 <td></td>
 %	}
-%	if ($album->GetTrmidCount) {
-<td class="trm"><% $album->GetTrmidCount %>&nbsp;<img src="/images/trm.gif" alt="TRM IDs" /></td>
-%	} else {
-<td></td>
-%	}
 %	if ($album->GetPuidCount) {
-<td class="trm"><% $album->GetPuidCount %>&nbsp;<img src="/images/puid.gif" alt="PUIDs" /></td>
+<td class="puid"><% $album->GetPuidCount %>&nbsp;<img src="/images/puid.gif" alt="PUIDs" /></td>
 %	} else {
 <td></td>
 %	}

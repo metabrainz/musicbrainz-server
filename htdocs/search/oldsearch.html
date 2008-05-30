@@ -172,7 +172,7 @@
 					<td>Release Title:</td>
 					<td class="tracks">Tracks:</td>
 					<td class="discid">Disc IDs:</td>
-					<td class="trmid">PUIDs:</td>
+					<td class="puid">PUIDs:</td>
 					<td class="released">Released:</td>
 
 				</tr>
@@ -240,11 +240,11 @@
 % 					}
 %					if ($row->{puids})
 %					{
-					<td class="trmid"><% $row->{puids} %> <img src="/images/puid.gif" alt="PUIDs" /></td>
+					<td class="puid"><% $row->{puids} %> <img src="/images/puid.gif" alt="PUIDs" /></td>
 %					}
 %					else
 %					{
-					<td class="trmid">&nbsp;</td>
+					<td class="puid">&nbsp;</td>
 % 					}
 %					if ($row->{firstreleasedate})
 %					{

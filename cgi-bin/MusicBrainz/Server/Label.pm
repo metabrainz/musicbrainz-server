@@ -884,7 +884,6 @@ sub GetReleases
 			catno,
 			tracks,
 			discids,
-			trmids,
 			puids,
 			artist.name as artistname
 		FROM
@@ -915,9 +914,8 @@ sub GetReleases
 			$album->{catno} = $row[9];
 			$album->{trackcount} = $row[10];
 			$album->{discidcount} = $row[11];
-			$album->{trmidcount} = $row[12];
-			$album->{puidcount} = $row[13] || 0;
-			$album->{artistname} = $row[14];
+			$album->{puidcount} = $row[12] || 0;
+			$album->{artistname} = $row[13];
 			push @albums, $album;
 		}
 	}

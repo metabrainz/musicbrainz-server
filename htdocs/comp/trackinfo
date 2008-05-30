@@ -30,7 +30,6 @@
 
 	$track
 	@PUID => ()
-	@TRM => ()
 
 </%args>
 
@@ -135,58 +134,6 @@
 				</td>
 			</tr>
 
-%	}
-
-%	if (scalar(@TRM) > 0)
-%	{
-
-			<tr class="top">
-				<td class="label">
-					<& /comp/linkdoc, "TRM", "TRM IDs" &>:</td>
-				<td>
-					<table class="listing">
-						<tr class="header">
-							<td>
-								TRM ID: <img src="/images/trm.gif" alt="" /></td>
-							<td>
-								Lookup Count:</td>
-							<td>
-								Use Count:</td>
-							<td>
-								&nbsp;</td>
-						</tr>
-
-%		foreach my $id (@TRM)
-%		{
-
-				 		 <tr>
-							<td>
-								<a href="/show/trm/?trm=<% $id->{TRM} %>"><% $id->{TRM} %></a></td>
-							<td class="center">
-								<% $id->{lookupcount} %></td>
-							<td class="center">
-								<% $id->{usecount} %></td>
-							<td>
-
-%			if (exists $session{user})
-%			{
-								[ <a href="/edit/trm/remove.html?trackid=<% $track->GetId %>&amp;trmid=<% $id->{TRM} %>&amp;TRMjoin=<% $id->{TRMjoinid} %>">remove</a> ]
-%			}
-%			else
-%			{
-
-								&nbsp;
-
-%			}
-
-							</td>
-						</tr>
-
-%		}
-
-					</table>
-				</td>
-			</tr>
 %	}
 		</table>
 

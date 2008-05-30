@@ -84,12 +84,6 @@
 							method => "get" &>
 						<hr />
 
-						<& /comp/search/form, name => "TRM ID:",
-							scripturl => "/show/trm/",
-							searchfield => "trm",
-							method => "get" &>
-						<hr />
-
 						<& /comp/search/form, name => "Editor:",
 							scripturl => "/show/user/",
 							searchfield => "username",

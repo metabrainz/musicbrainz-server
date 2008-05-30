@@ -9,7 +9,6 @@
 	$filename => ""
 	$duration => ""
 
-	$trmid => ""
 	$puid => ""
 
 	$tport => $session{'tport'}
@@ -59,99 +58,10 @@
 		$_duration = $1;
 	}
 
-	# If a TRM is specified, and if it resolves to multiple tracks, show the
-	# matching tracks, and also a "search anyway" form.
-	my @coll_list;
-	@coll_list = $ts->LookupTRMCollisions($trmid) if $trmid;
-
 	# Do the same for PUIDs
 	my @pcoll_list;
 	@pcoll_list = $ts->LookupPUIDCollisions($puid) if $puid;
-	use Data::Dumper;
 
-	# print STDERR Dumper(\@pcoll_list);
-
-	if (scalar(@coll_list) > 1)
-	{
-
-   </%perl>
-
-    TRM ID: <b><% $trmid %></b>
-
-    <p>
-    <table width="420">
-    	<tr>
-    		<td>
-				More than one track has the same TRM ID shown above. The highlighted tracks
-				shown in the releases below are the possible matches for the track
-				you're matching. If none of the tracks below apply, click on
-				the lookup button at the bottom of this page:
-    		</td>
-    	</tr>
-    </table>
-    </p>
-
-<%perl>
-
-		# Retrieve artist info, then sort on artist
-		foreach my $ref (@coll_list)
-		{
-			my $al = MusicBrainz::Server::Release->new($ts->{DBH});
-			$al->SetId($ref->{album});
-			if ($al->LoadFromId())
-			{
-				my $ar = MusicBrainz::Server::Artist->new($ts->{DBH});
-				$ar->SetId($al->GetArtist());
-				if ($ar->LoadFromId())
-				{
-					use Encode qw( decode );
-					$ref->{_name1_} = lc decode "utf-8", $ar->GetName;
-					$ref->{_name2_} = lc decode "utf-8", $al->GetName;
-
-					$ref->{al} = $al;
-					$ref->{ar} = $ar;
-				}
-			}
-		}
-
-		@coll_list = grep { $_->{_name1_} } @coll_list;
-		@coll_list = sort {
-			$a->{_name1_} cmp $b->{_name1_}
-			or
-			$a->{_name2_} cmp $b->{_name2_}
-		} @coll_list;
-
-		# Now show releases with tracks highlighted, indicating the artist name
-		# whenever it changes.
-		my $last_artist = 0;
-		for my $ref (@coll_list)
-		{
-			my $artist_id = $ref->{ar}->GetId;
-
-			unless ($last_artist == $artist_id)
-			{
-				$m->comp("/comp/artisttitle", artist => $ref->{ar}, showmodlinks => 0);
-				$last_artist = $artist_id;
-			}
-
-			$m->comp("/comp/album",
-				album => $ref->{al},
-				artist => $ref->{ar},
-				highlighttracks => { $ref->{track} => 1 },
-				mbtagger => $mbt,
-			);
-		}
-
-</%perl>
-
-    <p>
-		If none of the releases above apply, click on lookup to ignore
-		these releases and continue with your lookup:
-	</p>
-
-<%perl>
-
-	}
 	elsif (scalar(@pcoll_list) > 1)
 	{
 

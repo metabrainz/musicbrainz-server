@@ -247,14 +247,6 @@ sub CreateDenseAlbum
     return $out;
 }
 
-sub CreateTRMList
-{
-    my ($this, @ids) = @_;
-
-    $this->{status} = "OK";
-    return $this->CreateOutputRDF('trmid', @ids);
-}
-
 # Check for duplicates, then add if not already in cache
 sub AddToCache
 {
@@ -436,20 +428,7 @@ sub LoadObject
     my ($this, $id, $mbid, $type) = @_;
     my $obj;
 
-    if ($type eq "trmid")
-    {
-	require MusicBrainz::Server::TRM;
-	$obj = MusicBrainz::Server::TRM->new($this->{DBH});
-	$obj->SetTRM($id);
-	# Most of the code around here assumes that "GetId" or "GetMBId"
-	# return something sensible, so here we pretend that the TRM is
-	# actually the MB id.
-	# This also means that http://server/trmid/GUID works like all the
-	# other objects.
-	$obj->SetMBId($id);
-	return $obj;
-    }
-    elsif ($type eq 'artist')
+    if ($type eq 'artist')
     {
        	require MusicBrainz::Server::Artist;
 	$obj = MusicBrainz::Server::Artist->new($this->{DBH});
@@ -463,12 +442,6 @@ sub LoadObject
     {
        	require MusicBrainz::Server::Track;
 	$obj = MusicBrainz::Server::Track->new($this->{DBH});
-    }
-    elsif ($type eq 'trmid')
-    {
-       	# In this case, we already have the TRMID, so there is no need to
-	# load an object.
-	$obj = undef;
     }
     return undef if (not defined $obj);
 
@@ -526,7 +499,7 @@ sub GetReferences
 
     return () if not defined $ref;
 
-    # Artists and TRMIDs do not have any references, so they are not listed here
+    # Artists do not have any references, so they are not listed here
     return $this->_GetArtistReferences($ref, $ref->{obj}, $depth)
 	if ($ref->{type} eq 'artist');
     return $this->_GetAlbumReferences($ref, $ref->{obj}, $depth)
@@ -614,7 +587,6 @@ sub _GetTrackReferences
     my ($this, $ref, $track, $depth) = @_;
     my (@ret, %info);
 
-    # TODO: Should the TRM output also be a seperate depth?
     $info{type} = 'artist';
     $info{id} = $track->GetArtist();
     $info{tracknum} = $track->GetSequence();
@@ -643,10 +615,6 @@ sub OutputRDF
     elsif ($ref->{type} eq 'track')
     {
     	return $this->OutputTrackRDF($ref);
-    }
-    elsif ($ref->{type} eq 'trmid')
-    {
-	return "";
     }
 
     return "";

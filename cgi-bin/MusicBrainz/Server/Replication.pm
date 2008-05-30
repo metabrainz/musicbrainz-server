@@ -44,8 +44,6 @@ use constant NON_REPLICATED_TABLES => qw(
 	moderator_subscribe_artist
 	puidjoin_stat
 	puid_stat
-	trmjoin_stat
-	trm_stat
 	vote_closed
 	vote_open
 );

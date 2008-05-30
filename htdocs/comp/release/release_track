@@ -37,7 +37,6 @@
 	$highlight
 	$highlightonly => 0
 
-	$trmcount => 0
 	$puidcount => 0
 	$hasannotation => 0
 
@@ -105,14 +104,10 @@
 						encode_entities($track->GetName));
 	}
 
-	# render PUID/TRM/Annotation ID icons
+	# render PUID/Annotation ID icons
 	if ($puidcount > 0)
 	{
 		$m->out(qq!&nbsp;<img src="/images/puid.gif" alt="PUID" width="35" height="13" title="$puidcount PUIDs" />&nbsp;!);
-	}
-	if ($trmcount > 0)
-	{
-       $m->out(qq!&nbsp;<img src="/images/trm.gif" alt="TRM" width="30" height="11" title="$trmcount TRM IDs" />&nbsp;!);
 	}
 	if ($hasannotation)
 	{

@@ -52,7 +52,6 @@ require MusicBrainz::Server::Moderation::MOD_ADD_PUIDS;
 require MusicBrainz::Server::Moderation::MOD_ADD_RELEASE_EVENTS;
 require MusicBrainz::Server::Moderation::MOD_ADD_TRACK;
 require MusicBrainz::Server::Moderation::MOD_ADD_TRACK_KV;
-require MusicBrainz::Server::Moderation::MOD_ADD_TRMS;
 require MusicBrainz::Server::Moderation::MOD_CHANGE_ARTIST_QUALITY;
 require MusicBrainz::Server::Moderation::MOD_CHANGE_RELEASE_QUALITY;
 require MusicBrainz::Server::Moderation::MOD_CHANGE_TRACK_ARTIST;
@@ -96,7 +95,6 @@ require MusicBrainz::Server::Moderation::MOD_REMOVE_LINK_TYPE;
 require MusicBrainz::Server::Moderation::MOD_REMOVE_PUID;
 require MusicBrainz::Server::Moderation::MOD_REMOVE_RELEASE_EVENTS;
 require MusicBrainz::Server::Moderation::MOD_REMOVE_TRACK;
-require MusicBrainz::Server::Moderation::MOD_REMOVE_TRMID;
 require MusicBrainz::Server::Moderation::MOD_SAC_TO_MAC;
 require MusicBrainz::Server::Moderation::MOD_SET_RELEASE_DURATIONS;
 
@@ -146,8 +144,6 @@ my @EditLevelDefs =
 		                                      name => &MusicBrainz::Server::Moderation::MOD_REMOVE_DISCID::Name() },  
 		MOD_MOVE_DISCID			     ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_MOVE_DISCID::Name() },  
-		MOD_REMOVE_TRMID			 ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
-		                                      name => &MusicBrainz::Server::Moderation::MOD_REMOVE_TRMID::Name() },  
 		MOD_MERGE_RELEASE			     ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 0,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_MERGE_RELEASE::Name() },  
 		MOD_REMOVE_RELEASES			 ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
@@ -156,8 +152,6 @@ my @EditLevelDefs =
 		                                      name => &MusicBrainz::Server::Moderation::MOD_MERGE_RELEASE_MAC::Name() },  
 		MOD_EDIT_RELEASE_ATTRS	    	 ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_RELEASE_ATTRS::Name() },  
-		MOD_ADD_TRMS				 ."" => { duration => 0, votes => 0, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
-		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_TRMS::Name() },  
 		MOD_EDIT_ARTISTALIAS		 ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_ARTISTALIAS::Name() },  
 		MOD_EDIT_RELEASE_EVENTS_OLD			 ."" => { duration => 4, votes => 1, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
@@ -270,8 +264,6 @@ my @EditLevelDefs =
 		                                      name => &MusicBrainz::Server::Moderation::MOD_REMOVE_DISCID::Name() },  
 		MOD_MOVE_DISCID			     ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_MOVE_DISCID::Name() },  
-		MOD_REMOVE_TRMID			 ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
-		                                      name => &MusicBrainz::Server::Moderation::MOD_REMOVE_TRMID::Name() },  
 		MOD_MERGE_RELEASE			     ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 0,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_MERGE_RELEASE::Name() },  
 		MOD_REMOVE_RELEASES			 ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 0,  
@@ -280,8 +272,6 @@ my @EditLevelDefs =
 		                                      name => &MusicBrainz::Server::Moderation::MOD_MERGE_RELEASE_MAC::Name() },  
 		MOD_EDIT_RELEASE_ATTRS	    	 ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_RELEASE_ATTRS::Name() },  
-		MOD_ADD_TRMS				 ."" => { duration => 0, votes => 0, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
-		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_TRMS::Name() },  
 		MOD_EDIT_ARTISTALIAS		 ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_ARTISTALIAS::Name() },  
 		MOD_EDIT_RELEASE_EVENTS_OLD			 ."" => { duration => 14, votes => 3, expireaction => EXPIRE_ACCEPT, autoedit => 1,  
@@ -394,8 +384,6 @@ my @EditLevelDefs =
 		                                      name => &MusicBrainz::Server::Moderation::MOD_REMOVE_DISCID::Name() },  
 		MOD_MOVE_DISCID			     ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_MOVE_DISCID::Name() },  
-		MOD_REMOVE_TRMID			 ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
-		                                      name => &MusicBrainz::Server::Moderation::MOD_REMOVE_TRMID::Name() },  
 		MOD_MERGE_RELEASE			     ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_MERGE_RELEASE::Name() },  
 		MOD_REMOVE_RELEASES			 ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
@@ -404,8 +392,6 @@ my @EditLevelDefs =
 		                                      name => &MusicBrainz::Server::Moderation::MOD_MERGE_RELEASE_MAC::Name() },  
 		MOD_EDIT_RELEASE_ATTRS	    	 ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_RELEASE_ATTRS::Name() },  
-		MOD_ADD_TRMS				 ."" => { duration => 0, votes => 0, expireaction => EXPIRE_REJECT, autoedit => 0,  
-		                                      name => &MusicBrainz::Server::Moderation::MOD_ADD_TRMS::Name() },  
 		MOD_EDIT_ARTISTALIAS		 ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
 		                                      name => &MusicBrainz::Server::Moderation::MOD_EDIT_ARTISTALIAS::Name() },  
 		MOD_EDIT_RELEASE_EVENTS_OLD			 ."" => { duration => 14, votes => 4, expireaction => EXPIRE_REJECT, autoedit => 0,  
@@ -1194,9 +1180,7 @@ sub InsertModeration
 		                  and $level->{autoedit});
 
 		# If the editor is untrusted, undo the auto edit
-		$autoedit = 0 if ($ui->IsUntrusted($privs) and
-		                  ($this->GetType != &ModDefs::MOD_ADD_TRMS or
-		                   $this->GetType != &ModDefs::MOD_ADD_PUIDS));
+		$autoedit = 0 if ($ui->IsUntrusted($privs) and $this->GetType != &ModDefs::MOD_ADD_PUIDS);
 
 		# If it is autoedit, then approve the edit and credit the editor
 		if ($autoedit)
@@ -1950,15 +1934,12 @@ sub AdjustModPending
 	my ($this, $adjust) = @_;
 	my $table = lc $this->GetTable;
 
-	if ($table ne 'trm')
-	{
-		my $sql = Sql->new($this->{DBH});
-		$sql->Do(
-			"UPDATE $table SET modpending = modpending + ? WHERE id = ?",
-			$adjust,
-			$this->GetRowId,
-		);
-	}
+	my $sql = Sql->new($this->{DBH});
+	$sql->Do(
+		"UPDATE $table SET modpending = modpending + ? WHERE id = ?",
+		$adjust,
+		$this->GetRowId,
+	);
 }
 
 # Determine the current quality level that should be applied to this edit.

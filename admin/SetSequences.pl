@@ -138,10 +138,6 @@ SetSequence($sql, "stats");
 SetSequence($sql, "tag");
 SetSequence($sql, "track");
 # trackwords - no unique column
-SetSequence($sql, "trm");
-SetSequence($sql, "trmjoin");
-SetSequence($sql, "trmjoin_stat");
-SetSequence($sql, "trm_stat");
 SetSequence($sql, "url");
 # vote_closed - see below
 # vote_open - see below

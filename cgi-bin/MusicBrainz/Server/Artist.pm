@@ -980,7 +980,7 @@ sub GetReleases
        if (defined $loadmeta && $loadmeta)
        {
            $query = qq/select album.id, name, modpending, GID, attributes,
-                              language, script, quality, modpending_qual, tracks, discids, trmids,
+                              language, script, quality, modpending_qual, tracks, discids, 
                               firstreleasedate, coverarturl, asin, puids
                        from Album, Albummeta 
                        where artist=$this->{id} and albummeta.id = album.id/;
@@ -1014,11 +1014,10 @@ sub GetReleases
                 {
                     $album->{trackcount} = $row[9];
                     $album->{discidcount} = $row[10];
-                    $album->{trmidcount} = $row[11];
-                    $album->{firstreleasedate} = $row[12]||"";
-                    $album->{coverarturl} = $row[13]||"";
-                    $album->{asin} = $row[14]||"";
-                    $album->{puidcount} = $row[15]||0;
+                    $album->{firstreleasedate} = $row[11]||"";
+                    $album->{coverarturl} = $row[12]||"";
+                    $album->{asin} = $row[13]||"";
+                    $album->{puidcount} = $row[14]||0;
                 }
 
                 push @albums, $album;
@@ -1034,7 +1033,7 @@ sub GetReleases
    if (defined $loadmeta && $loadmeta)
    {
        $query = qq/select album.id, album.artist, name, modpending, GID, attributes, language,
-                          script, quality, modpending_qual, tracks, discids, trmids, firstreleasedate, puids
+                          script, quality, modpending_qual, tracks, discids, firstreleasedate, puids
                          from album, albummeta 
                         where album.artist != $this->{id} and 
                               albummeta.id = album.id and
@@ -1077,9 +1076,8 @@ sub GetReleases
             {
                 $album->{trackcount} = $row[10];
                 $album->{discidcount} = $row[11];
-                $album->{trmidcount} = $row[12];
-                $album->{firstreleasedate} = $row[13]||"";
-                $album->{puidcount} = $row[14]||0;
+                $album->{firstreleasedate} = $row[12]||"";
+                $album->{puidcount} = $row[13]||0;
             }
 
             push @albums, $album;

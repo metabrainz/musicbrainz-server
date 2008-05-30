@@ -120,7 +120,6 @@
 			);
 	}
 
-	my $trmcounts = $album->LoadTRMCount();
 	my $puidcounts = $album->LoadPUIDCount();
 	my $trackannos = $album->LoadLatestTrackAnnos();
 
@@ -128,9 +127,6 @@
 	{
 		my $track = $info[$i];
 		last if (!defined $track);
-
-		my $tcount = $trmcounts->{$track->GetId()};
-		$tcount = 0 if (not defined $tcount);
 
 		my $pcount = $puidcounts->{$track->GetId()};
 		$pcount = 0 if (not defined $pcount);
@@ -147,7 +143,6 @@
 				tindex => $i,
 				highlight => $highlighttracks->{$track->GetId},
 				showeditlinks => $showmodlinks,
-				trmcount => $tcount,
 				puidcount => $pcount,
 				hasannotation => $hasannotation,
 				mbt => $mbt,

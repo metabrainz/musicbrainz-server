@@ -155,8 +155,6 @@ sub _LoadFromFilehandle
 
 	my %type;
 
-	my %trm;
-	my %trmusage;
 	my %artistalias;
 
 	while (<$fh>)
@@ -166,15 +164,7 @@ sub _LoadFromFilehandle
 
 		++$type{$type};
 
-		if ($type eq "TRM::IncrementLookupCount")
-		{
-			++$trm{$args[0]};
-		}
-		elsif ($type eq "TRM::IncrementUsageCount")
-		{
-			++$trmusage{"$args[0],$args[1]"};
-		}
-		elsif ($type eq "Alias::UpdateLookupCount")
+		if ($type eq "Alias::UpdateLookupCount")
 		{
 			my $table = lc $args[0];
 			lc($table) eq "artistalias" or die "table = $table";
@@ -196,16 +186,10 @@ sub _LoadFromFilehandle
 	print localtime() . " : Stopping at seek=$$newseekref (after $lines lines)\n";
 
 	my $sql = Sql->new($dbh);
-	$sql->Do("LOCK TABLE trm, trm_stat, trmjoin_stat IN EXCLUSIVE MODE");
-
-	# ------------------------------------------------------
-	printf "%s : Applying updates - %d TRM lookups\n",
-		scalar(localtime),
-		scalar(keys %trm);
+	my ($n, $i, $t0);
 
 	use Time::HiRes qw( gettimeofday tv_interval );
 
-	my ($n, $i, $t0);
 	my $p = sub {
 		my $t = tv_interval($t0);
 		printf "%s : %6d rows ; %3d%% ; %d rows/sec",
@@ -213,53 +197,6 @@ sub _LoadFromFilehandle
 			$i, int(100 * $i / ($n||1)), $i/$t,
 			;
 	};
-
-	$n = keys %trm;
-	$i = 0;
-	$t0 = [ gettimeofday ];
-	require MusicBrainz::Server::TRM;
-	my $trmobj = MusicBrainz::Server::TRM->new($dbh);
-
-	while (my ($trm, $usecount) = each %trm)
-	{
-		# $trmobj->UpdateLookupCount($trm, $usecount);
-		++$i;
-		$i % 100 or $p->(), print "\r"
-			if -t STDOUT;
-	}
-
-	$p->(); print "\n";
-
-	# ------------------------------------------------------
-	printf "%s : Applying updates - %d TRM usage\n",
-		scalar(localtime),
-		scalar(keys %trmusage);
-
-	use Time::HiRes qw( gettimeofday tv_interval );
-
-	$p = sub {
-		my $t = tv_interval($t0);
-		printf "%s : %6d rows ; %3d%% ; %d rows/sec",
-			scalar(localtime),
-			$i, int(100 * $i / ($n||1)), $i/$t,
-			;
-	};
-
-	$n = keys %trmusage;
-	$i = 0;
-	$t0 = [ gettimeofday ];
-	$trmobj = MusicBrainz::Server::TRM->new($dbh);
-
-	while (my ($args, $usecount) = each %trmusage)
-	{
-		my ($trm, $trackid) = split /,/, $args;
-		# $trmobj->UpdateUsageCount($trm, $trackid, $usecount);
-		++$i;
-		$i % 100 or $p->(), print "\r"
-			if -t STDOUT;
-	}
-
-	$p->(); print "\n";
 
 	# ------------------------------------------------------
 	printf "%s : Applying updates - %d artist alias uses\n",

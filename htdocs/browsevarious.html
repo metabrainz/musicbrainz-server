@@ -43,12 +43,11 @@
 <%def .DescribeAlbumMeta>
 <%perl>
 	my $al = shift;
-	my $msg = sprintf "Artist: %s - %d track%s - %d discid%s - %d PUID%s - %d TRM%s",
+	my $msg = sprintf "Artist: %s - %d track%s - %d discid%s - %d PUID%s",
 		$al->{artistname},
 		$al->GetTrackCount, ($al->GetTrackCount == 1 ? "" : "s"),
 		$al->GetDiscidCount, ($al->GetDiscidCount == 1 ? "" : "s"),
-		$al->GetPuidCount, ($al->GetPuidCount == 1 ? "" : "s"),
-		$al->GetTrmidCount, ($al->GetTrmidCount == 1 ? "" : "s");
+		$al->GetPuidCount, ($al->GetPuidCount == 1 ? "" : "s");
 	$m->out($msg);
 </%perl>
 </%def>

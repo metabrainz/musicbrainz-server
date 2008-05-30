@@ -65,8 +65,6 @@ use constant DLABEL_ID					=> 1;
 
 # Special TRMs
 use constant TRM_ID_SILENCE				=> "7d154f52-b536-4fae-b58b-0666826c2bac";
-use constant TRM_TOO_SHORT				=> "f9809ab1-2b0f-4d78-8862-fb425ade8ab9";
-use constant TRM_SIGSERVER_BUSY			=> "c457a4a8-b342-4ec9-8f13-b6bd26c0e400";
 
 use constant ANON_MODERATOR				=> 1;
 use constant FREEDB_MODERATOR			=> 2;
@@ -94,12 +92,10 @@ use constant MOD_ADD_TRACK_KV			 => 18;
 use constant MOD_REMOVE_ARTIST			 => 19;
 use constant MOD_REMOVE_DISCID			 => 20;
 use constant MOD_MOVE_DISCID			 => 21;
-use constant MOD_REMOVE_TRMID			 => 22;
 use constant MOD_MERGE_RELEASE			 => 23;
 use constant MOD_REMOVE_RELEASES			 => 24;
 use constant MOD_MERGE_RELEASE_MAC		 => 25;
 use constant MOD_EDIT_RELEASE_ATTRS		 => 26;
-use constant MOD_ADD_TRMS				 => 27;
 use constant MOD_EDIT_ARTISTALIAS		 => 28;
 use constant MOD_EDIT_RELEASE_EVENTS_OLD			 => 29;
 use constant MOD_ADD_ARTIST_ANNOTATION	 => 30;
@@ -287,7 +283,6 @@ my %ModCategories = (
 	MOD_ADD_TRACK				. "" => {'category' => CAT_DEPENDS, 'criteria' => ""},
 	MOD_ADD_TRACK_ANNOTATION		. "" => {'category' => CAT_NONE, 'criteria' => ""},
 	MOD_ADD_TRACK_KV				. "" => {'category' => CAT_DEPENDS, 'criteria' => ""},
-	MOD_ADD_TRMS				. "" => {'category' => CAT_NONE, 'criteria' => ""},
 	MOD_CHANGE_ARTIST_QUALITY 	. "" => {'category' => CAT_ARTIST, 'criteria' => ""},
 	MOD_CHANGE_RELEASE_QUALITY	. "" => {'category' => CAT_RELEASE, 'criteria' => ""},
 	MOD_CHANGE_TRACK_ARTIST		. "" => {'category' => CAT_DEPENDS, 'criteria' => "Highest level of release, current artist or new artist"},
@@ -330,7 +325,6 @@ my %ModCategories = (
 	MOD_REMOVE_PUID				. "" => {'category' => CAT_DEPENDS, 'criteria' => ""},
 	MOD_REMOVE_RELEASE_EVENTS	. "" => {'category' => CAT_RELEASE, 'criteria' => ""},
 	MOD_REMOVE_TRACK			. "" => {'category' => CAT_RELEASE, 'criteria' => ""},
-	MOD_REMOVE_TRMID			. "" => {'category' => CAT_DEPENDS, 'criteria' => ""},
 	MOD_SAC_TO_MAC				. "" => {'category' => CAT_DEPENDS, 'criteria' => "Highest level of release or current artist"},
 	MOD_SET_RELEASE_DURATIONS	. "" => {'category' => CAT_RELEASE, 'criteria' => ""}
 );

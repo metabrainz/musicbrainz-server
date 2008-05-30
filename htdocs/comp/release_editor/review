@@ -81,7 +81,6 @@
 	# Hack.  Maybe $release->SetAlbumMeta(...) would be a better method
 	$release->{trackcount} = 0;
 	$release->{discidcount} = 0;
-	$release->{trmidcount} = 0;
 	$release->{puidcount} = 0;
 
 	$release = $m->comp("/comp/loadrelease", $mb, $releaseid)
@@ -833,7 +832,7 @@
 
     # my $automod = $this->IsAutoEdit($user_is_automod);
 	# $automod = 0 if $ui->IsUntrusted($privs)
-	#	and ($type != &ModDefs::MOD_ADD_TRMS or $type != &ModDefs::MOD_ADD_PUIDS);
+	#	and ($type != &ModDefs::MOD_ADD_PUIDS);
 	# $automod = 1
 	# 	if not $automod
 	# 	and $user_is_automod

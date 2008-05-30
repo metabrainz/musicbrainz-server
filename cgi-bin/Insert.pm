@@ -81,7 +81,6 @@ sub Insert
 #				track => $name,
 #				tracknum => $seq,
 #				duration => $len, 
-#				trmid => $TRM,
 #				puid => $PUID,
 #				trackid => $mbid (optinal, only for mbid submitters)
 #			}
@@ -155,7 +154,6 @@ sub Insert
 #    trackid                                               [optional]
 #    artist or artistid                                    [MACs only]
 #    sortname                                              [MACs only]
-#    trmid                                                 [optional]
 #    puid                                                  [optional]
 #    duration                                              [optional]
 #    year                                                  [optional]
@@ -220,8 +218,6 @@ sub _Insert
     my $al = MusicBrainz::Server::Release->new($this->{DBH});
 	require MusicBrainz::Server::Track;
     my $tr = MusicBrainz::Server::Track->new($this->{DBH});
-	require MusicBrainz::Server::TRM;
-    my $trm = MusicBrainz::Server::TRM->new($this->{DBH});
 	require MusicBrainz::Server::PUID;
     my $puid = MusicBrainz::Server::PUID->new($this->{DBH});
 	require MusicBrainz::Server::ReleaseEvent;
@@ -445,44 +441,24 @@ TRACK:
         {
             die "Skipped Insert: Invalid track number\n";
         }
-        if (exists $track->{trmid} && length($track->{trmid}) != 36)
-        {
-            die "Skipped Insert: Invalid trmid\n";
-        }
         if (exists $track->{puid} && length($track->{puid}) != 36)
         {
             die "Skipped Insert: Invalid puid\n";
         }
         delete $track->{track_insertid};
-        delete $track->{trm_insertid};
         delete $track->{puid_insertid};
         delete $track->{artist_insertid};
         delete $track->{track_artistid};
 
         #print STDERR "name: $track->{track}\n";
         #print STDERR "num: $track->{tracknum}\n";
-        #print STDERR "trm: $track->{trmid}\n" if (exists $track->{trmid});
         #print STDERR "artist: $track->{artist}\n" if (exists $track->{artist});
 
         for my $albumtrack (@albumtracks)
         {
             # Check to see if the given track exists. If so, check to
-            # see if a trm id was given. If it was, then insert the
-            # trmid for this track.
-            if ($albumtrack->GetSequence() == $track->{tracknum} &&
-                $albumtrack->GetName() eq $track->{track} &&
-                exists $track->{trmid} && $track->{trmid} ne '')
-            {
-                my $newtrm;
-                
-                $newtrm = $trm->Insert($track->{trmid}, $albumtrack->GetId());
-                if (defined $newtrm)
-                {
-                    $track->{trm_insertid} = $newtrm if ($trm->GetNewInsert());
-                }
-                
-                next TRACK;
-            }
+            # see if a puid was given. If it was, then insert the
+            # puid for this track.
             if ($albumtrack->GetSequence() == $track->{tracknum} &&
                 $albumtrack->GetName() eq $track->{track} &&
                 exists $track->{puid} && $track->{puid} ne '')
@@ -587,16 +563,6 @@ TRACK:
         $track->{track_insertid} = $trackid;
         
         #print STDERR "Inserted track: $trackid, artist: $track_artistid\n";
-        
-        # The track has been inserted. Now insert the TRM if there is one
-        if (exists $track->{trmid} && $track->{trmid} ne '')
-        {
-            my $newtrm = $trm->Insert($track->{trmid}, $trackid);
-            if (defined $newtrm)
-            {
-                $track->{trm_insertid} = $newtrm if ($trm->GetNewInsert());
-            }
-        }
         
         # Now insert the PUID if there is one
         if (exists $track->{puid} && $track->{puid} ne '')

@@ -21,7 +21,7 @@
 	#
 	# Summary:
 	# -----------------------------------------------------------------------------
-	# Render the release meta data (count of Tracks, Disc IDs, TRM Ids PUIDs),
+	# Render the release meta data (count of Tracks, Disc IDs, PUIDs),
 	# the release language and attributes.
 	#
 	# $Id$
@@ -49,7 +49,6 @@
 	$colspan++ if ($isva);
 
 	my $trackcount = $release->GetTrackCount();
-	my $trmids = $release->GetTrmidCount();
 	my $puids = $release->GetPuidCount();
 	my $discids = $release->GetDiscidCount();
 	my $quality = ModDefs::GetQualityText($release->GetQuality);
@@ -82,13 +81,6 @@
 						</span>
 % 	}
 
-%	if ($trmids > 0)
-%	{
-						<span class="trmid">
-							<% $trmids %>
-							<img src="/images/trm.gif" alt="TRM" title="This release has <% $trmids %> TRM IDs" />
-						</span>
-% 	}
 					</td>
 					<td class="language">
 %	if ($release->GetId) {

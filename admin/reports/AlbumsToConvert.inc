@@ -20,8 +20,6 @@
 #   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #____________________________________________________________________________
 #
-#   This report lists Releases with duplicate TRMs for different tracks.
-#
 #   $Id$
 #____________________________________________________________________________
 #

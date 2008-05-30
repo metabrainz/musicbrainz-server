@@ -74,10 +74,6 @@ my $pc = sub
 		<td class="NumberCell"><% $stats{"count.puid"} %></td>
 	</tr>
 	<tr>
-		<th class="StatName">TRMs</th>
-		<td class="NumberCell"><% $stats{"count.trm"} %></td>
-	</tr>
-	<tr>
 		<th class="StatName">Editors</th>
 		<td class="NumberCell"><% $stats{"count.moderator"} %></td>
 	</tr>
@@ -201,68 +197,6 @@ my $pc = sub
 		<th class="StatName">&nbsp; which resolve to <% $_ %> <% $_==10 ? "or more" : "" %> track<% $_==1 ? "" : "s" %></th>
 		<td class="NumberCell"><% $stats{"count.puid.${_}tracks"} %></td>
 		<td class="NumberCell"><% &$pc(@stats{"count.puid.${_}tracks", "count.puid.ids"}) %></td>
-	</tr>
-% }
-</table>
-<& /comp/tableend &>
-
-% $gattrs->{"id"} = "TRMStats";
-<& /comp/tablebegin, title=>'Track Identifiers', gattrs=>$gattrs &>
-<table class="StatsTable" style="width: 100%">
-	<col />
-	<col style="width: 6em" />
-	<col style="width: 4em" />
-	<tr>
-		<th class="StatName">Tracks</th>
-		<td class="NumberCell"><% $stats{"count.track"} %></td>
-		<td>&nbsp;</td>
-	</tr>
-	<tr>
-		<th class="StatName">Tracks with no TRMs</th>
-		<td class="NumberCell"><% $stats{"count.track.0trms"} %></td>
-		<td class="NumberCell"><% &$pc(@stats{qw( count.track.0trms count.track )}) %></td>
-	</tr>
-	<tr>
-		<th class="StatName">Tracks with at least one TRM</th>
-		<td class="NumberCell"><% $stats{"count.track.has_trm"} %></td>
-		<td class="NumberCell"><% &$pc(@stats{qw( count.track.has_trm count.track )}) %></td>
-	</tr>
-% for (1 .. 10) {
-	<tr>
-		<th class="StatName">&nbsp; with <% $_ %> <% $_==10 ? "or more" : "" %> TRM<% $_==1 ? "" : "s" %></th>
-		<td class="NumberCell"><% $stats{"count.track.${_}trms"} %></td>
-		<td class="NumberCell"><% &$pc(@stats{"count.track.${_}trms", "count.track.has_trm"}) %></td>
-	</tr>
-% }
-</table>
-<& /comp/tableend &>
-
-% $gattrs->{"id"} = "TRMCollisionStats";
-<& /comp/tablebegin, title=>'TRM Collisions', gattrs=>$gattrs &>
-<table class="StatsTable" style="width: 100%">
-		<col />
-		<col style="width: 6em" />
-		<col style="width: 4em" />
-	<tr>
-		<th class="StatName">TRMs (on tracks)</th>
-		<td class="NumberCell"><% $stats{"count.trm"} %></td>
-		<td>&nbsp;</td>
-	</tr>
-	<tr>
-		<th class="StatName">TRMs (distinct IDs)</th>
-		<td class="NumberCell"><% $stats{"count.trm.ids"} %></td>
-		<td>&nbsp;</td>
-	</tr>
-	<tr>
-		<th class="StatName">TRM IDs which identify exactly one track</th>
-		<td class="NumberCell"><% $stats{"count.trm.1tracks"} %></td>
-		<td class="NumberCell"><% &$pc(@stats{qw( count.trm.1tracks count.trm.ids )}) %></td>
-	</tr>
-% for (2 .. 10) {
-	<tr>
-		<th class="StatName">&nbsp; which resolve to <% $_ %> <% $_==10 ? "or more" : "" %> track<% $_==1 ? "" : "s" %></th>
-		<td class="NumberCell"><% $stats{"count.trm.${_}tracks"} %></td>
-		<td class="NumberCell"><% &$pc(@stats{"count.trm.${_}tracks", "count.trm.ids"}) %></td>
 	</tr>
 % }
 </table>
@@ -452,7 +386,6 @@ for my $n (qw(
 	count.track
 	count.label
 	count.puid
-	count.trm
 	count.discid
 	count.ar.links
 	count.tag

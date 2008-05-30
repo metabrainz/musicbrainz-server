@@ -92,7 +92,6 @@
 			);
 	}
 
-	my @TRM = MusicBrainz::Server::TRM->new($mb->{DBH})->GetTRMFromTrackId($track->GetId);
 	my @PUID = MusicBrainz::Server::PUID->new($mb->{DBH})->GetPUIDFromTrackId($track->GetId);
 
 
@@ -131,7 +130,7 @@
 
 	<& /comp/ar/RelationshipBox, id=>$track->GetId, type=>'track', name=>$track->GetName, isrelpage=>1 &>
 
-	<& /comp/trackinfo, track => $track, TRM => \@TRM, PUID => \@PUID &>
+	<& /comp/trackinfo, track => $track, PUID => \@PUID &>
 
 <%perl>
 
