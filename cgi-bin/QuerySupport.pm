@@ -106,8 +106,8 @@ sub FindArtistByName
    my $engine = SearchEngine->new($dbh, 'artist');
 
     $engine->Search(
-	query => $search,
-	limit => $limit,
+    query => $search,
+    limit => $limit,
     );
 
    while (my $row = $engine->NextRow)
@@ -134,8 +134,8 @@ sub FindAlbumByName
    my $engine = SearchEngine->new($dbh, 'album');
 
     $engine->Search(
-	query => $search,
-	limit => $limit,
+    query => $search,
+    limit => $limit,
     );
 
    while (my $row = $engine->NextRow)
@@ -162,8 +162,8 @@ sub FindTrackByName
    my $engine = SearchEngine->new($dbh, 'track');
 
     $engine->Search(
-	query => $search,
-	limit => $limit,
+    query => $search,
+    limit => $limit,
     );
 
    while (my $row = $engine->NextRow)
@@ -181,14 +181,14 @@ sub GetArtistByGlobalId
 
     if (not defined $id or $id eq "")
     {
-	carp "Missing artist GUID in GetArtistByGlobalId";
-	return $rdf->ErrorRDF("No artist GUID given");
+    carp "Missing artist GUID in GetArtistByGlobalId";
+    return $rdf->ErrorRDF("No artist GUID given");
     }
 
     my $sql = Sql->new($dbh);
     my $artist = $sql->SelectSingleValue(
-	"SELECT id FROM artist WHERE gid = ?",
-	lc $id,
+    "SELECT id FROM artist WHERE gid = ?",
+    lc $id,
     );
 
     return $rdf->CreateArtistList($parser, $artist);
@@ -201,14 +201,14 @@ sub GetAlbumByGlobalId
 
     if (not defined $id or $id eq "")
     {
-	carp "Missing album GUID in GetAlbumByGlobalId";
-	return $rdf->ErrorRDF("No album GUID given");
+    carp "Missing album GUID in GetAlbumByGlobalId";
+    return $rdf->ErrorRDF("No album GUID given");
     }
 
     my $sql = Sql->new($dbh);
     my $album = $sql->SelectSingleValue(
-	"SELECT id FROM album WHERE gid = ?",
-	lc $id,
+    "SELECT id FROM album WHERE gid = ?",
+    lc $id,
     );
 
     return $rdf->CreateAlbum(0, $album);
@@ -221,14 +221,14 @@ sub GetTrackByGlobalId
 
     if (not defined $id or $id eq "")
     {
-	carp "Missing track GUID in GetTrackByGlobalId";
-	return $rdf->ErrorRDF("No track GUID given");
+    carp "Missing track GUID in GetTrackByGlobalId";
+    return $rdf->ErrorRDF("No track GUID given");
     }
 
     my $sql = Sql->new($dbh);
     my $ids = $sql->SelectSingleColumnArray(
-	"SELECT id FROM track WHERE gid = ?",
-	lc $id,
+    "SELECT id FROM track WHERE gid = ?",
+    lc $id,
     );
 
     return $rdf->CreateTrackList(@$ids);
@@ -298,16 +298,16 @@ sub GetArtistRelationships
 
     if (not defined $id or $id eq "")
     {
-	carp "Missing artist GUID in GetArtistRelationships";
-	return $rdf->ErrorRDF("No artist GUID given");
+    carp "Missing artist GUID in GetArtistRelationships";
+    return $rdf->ErrorRDF("No artist GUID given");
     }
 
     my $ar = MusicBrainz::Server::Artist->new($dbh);
     $ar->SetMBId($id);
     if (!$ar->LoadFromId())
     {
-	carp "Invalid artist is given to GetTrackRelationships";
-	return $rdf->ErrorRDF("Invalid artist GUID given");
+    carp "Invalid artist is given to GetTrackRelationships";
+    return $rdf->ErrorRDF("Invalid artist GUID given");
     }
 
     my $sql = Sql->new($dbh);
@@ -323,16 +323,16 @@ sub GetAlbumRelationships
 
     if (not defined $id or $id eq "")
     {
-	carp "Missing artist GUID in GetAlbumRelationships";
-	return $rdf->ErrorRDF("No album GUID given");
+    carp "Missing artist GUID in GetAlbumRelationships";
+    return $rdf->ErrorRDF("No album GUID given");
     }
 
     my $al = MusicBrainz::Server::Release->new($dbh);
     $al->SetMBId($id);
     if (!$al->LoadFromId())
     {
-	carp "Invalid album is given to GetTrackRelationships";
-	return $rdf->ErrorRDF("Invalid album GUID given");
+    carp "Invalid album is given to GetTrackRelationships";
+    return $rdf->ErrorRDF("Invalid album GUID given");
     }
 
     my $sql = Sql->new($dbh);
@@ -348,22 +348,62 @@ sub GetTrackRelationships
 
     if (not defined $id or $id eq "")
     {
-	carp "Missing artist GUID in GetTrackRelationships";
-	return $rdf->ErrorRDF("No artist GUID given");
+    carp "Missing artist GUID in GetTrackRelationships";
+    return $rdf->ErrorRDF("No artist GUID given");
     }
 
     my $tr = MusicBrainz::Server::Track->new($dbh);
     $tr->SetMBId($id);
     if (!$tr->LoadFromId())
     {
-	carp "Invalid artist is given to GetTrackRelationships";
-	return $rdf->ErrorRDF("Invalid artist GUID given");
+    carp "Invalid artist is given to GetTrackRelationships";
+    return $rdf->ErrorRDF("Invalid artist GUID given");
     }
 
     my $sql = Sql->new($dbh);
     my @links = MusicBrainz::Server::Link->FindLinkedEntities($dbh, $tr->GetId, 'track');
 
     return $rdf->CreateRelationshipList($parser, $tr, 'track', \@links);
+}
+
+sub TrackInfoFromTRMId
+{
+    my ($dbh, $parser, $rdf, $id, $artist, $album, $track,
+        $tracknum, $duration, $filename)=@_;
+    my ($sql, @ids, $query);
+ 
+    return undef if (!defined $dbh);
+ 
+    $sql = Sql->new($dbh);
+    $id =~ tr/A-Z/a-z/;
+ 
+    my (%lookup, $ts);
+ 
+    $lookup{artist} = $artist;
+    $lookup{album} = $album;
+    $lookup{track} = $track;
+    $lookup{tracknum} = $tracknum;
+    $lookup{filename} = $filename;
+    $lookup{duration} = $duration;
+ 
+    require TaggerSupport;
+    $ts = TaggerSupport->new($dbh);
+    my ($error, $result, $flags, $list) = $ts->Lookup(\%lookup, 3);
+    if ($flags & TaggerSupport::ALBUMTRACKLIST)
+    {
+        my ($id);
+
+        foreach $id (@$list)
+        {
+            if ($id->{sim} >= .9)
+            {
+                my $out = $rdf->CreateDenseTrackList(1, [$id->{mbid}]);
+                return $out;
+            }
+        }
+    }
+
+    return $rdf->CreateStatus(0);
 }
 
 1;

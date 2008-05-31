@@ -73,7 +73,14 @@ my %Queries =
       [\&QuerySupport::AuthenticateQuery, 0, 
         'http://musicbrainz.org/mm/mq-1.1#username'],
    TrackInfoFromTRMId =>
-      [\&QuerySupport::GoodRiddance, 0],
+      [\&QuerySupport::TrackInfoFromTRMId, 0,
+        'http://musicbrainz.org/mm/mm-2.1#trmid',
+        'http://musicbrainz.org/mm/mq-1.1#artistName',
+        'http://musicbrainz.org/mm/mq-1.1#albumName',
+        'http://musicbrainz.org/mm/mq-1.1#trackName',
+        'http://musicbrainz.org/mm/mm-2.1#trackNum',
+        'http://musicbrainz.org/mm/mm-2.1#duration',
+        'http://musicbrainz.org/mm/mq-1.1#fileName'],
    QuickTrackInfoFromTrackId =>
       [\&QuerySupport::QuickTrackInfoFromTrackId, 0, 
         'http://musicbrainz.org/mm/mm-2.1#trackid',
