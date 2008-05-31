@@ -62,7 +62,7 @@
 	my @pcoll_list;
 	@pcoll_list = $ts->LookupPUIDCollisions($puid) if $puid;
 
-	elsif (scalar(@pcoll_list) > 1)
+	if (scalar(@pcoll_list) > 1)
 	{
 
 </%perl>
