@@ -90,4 +90,7 @@ The following people have contributed to the MusicBrainz server:
   - Submitted new Multiple TRMs per album report
   - Fixed bug [ 1239431 ] Move Disc ID: Failed dependency
 
+  Mustaqil "Muzz" Ali
+  - Submitted patch for #3329
+
 (please send change requests to rob@musicbrainz.org or maintainer)

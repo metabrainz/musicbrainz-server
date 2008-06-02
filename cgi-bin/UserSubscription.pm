@@ -700,7 +700,9 @@ sub _ProcessUserSubscriptions
 			if $self->{'verbose'};
 		
 		$editorstext .= "$sub->{'name'} ($open open, $applied applied)\n"
-					 . "$root/mod/search/pre/editor.html"
+					 . "All Edits: $root/mod/search/pre/editor.html"
+					 . "?userid=$sub->{'subscribededitor'}\n"
+					 . "Open Edits: $root/mod/search/pre/editor-open.html"
 					 . "?userid=$sub->{'subscribededitor'}\n\n";
 	}
 
