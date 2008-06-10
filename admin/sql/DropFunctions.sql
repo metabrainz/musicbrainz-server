@@ -24,5 +24,6 @@ DROP FUNCTION a_del_album_amazon_asin ();
 DROP FUNCTION a_ins_puidjoin();
 DROP FUNCTION a_upd_puidjoin();
 DROP FUNCTION a_del_puidjoin();
+DROP FUNCTION b_iu_update_lastmodified();
 
 -- vi: set ts=4 sw=4 et :

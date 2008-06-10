@@ -97,27 +97,38 @@ end;
 ' language 'plpgsql';
 
 --'-----------------------------------------------------------------
+-- Keep lastupdated columns up to date
+--'-----------------------------------------------------------------
+
+create or replace function b_iu_update_lastmodified () returns TRIGGER as '
+begin
+   NEW.lastupdate = now(); 
+   return NEW;
+end;
+' language 'plpgsql';
+
+--'-----------------------------------------------------------------
 -- Keep rows in albummeta in sync with album
 --'-----------------------------------------------------------------
 
-create or replace function insert_album_meta () returns TRIGGER as '
+create or replace function insert_album_meta () returns TRIGGER as $$
 begin 
     insert into albummeta (id, tracks, discids, puids) values (NEW.id, 0, 0, 0); 
-    insert into album_amazon_asin (album, lastupdate) values (NEW.id, \'1970-01-01 00:00:00\'); 
+    insert into album_amazon_asin (album, lastupdate) values (NEW.id, '1970-01-01 00:00:00'); 
     
     return NEW; 
 end; 
-' language 'plpgsql';
+$$ language 'plpgsql';
 
-create or replace function update_album_meta () returns TRIGGER as '
+create or replace function update_album_meta () returns TRIGGER as $$
 begin
     if NEW.name != OLD.name 
     then
-        update album_amazon_asin set lastupdate = \'1970-01-01 00:00:00\' where album = NEW.id; 
+        update album_amazon_asin set lastupdate = '1970-01-01 00:00:00' where album = NEW.id; 
     end if;
    return NULL;
 end;
-' language 'plpgsql';
+$$ language 'plpgsql';
 
 create or replace function delete_album_meta () returns TRIGGER as '
 begin

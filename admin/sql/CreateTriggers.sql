@@ -1,5 +1,8 @@
 \set ON_ERROR_STOP 1
 
+CREATE TRIGGER b_iu_album BEFORE INSERT OR DELETE OR UPDATE ON album 
+   FOR EACH ROW EXECUTE PROCEDURE b_iu_update_lastmodified();
+
 -- These XXXX_album_meta() functions should really have the _meta dropped
 CREATE TRIGGER a_ins_album AFTER INSERT ON album 
     FOR EACH ROW EXECUTE PROCEDURE insert_album_meta();
@@ -22,6 +25,9 @@ CREATE TRIGGER a_upd_album_cdtoc AFTER UPDATE ON album_cdtoc
 CREATE TRIGGER a_del_album_cdtoc AFTER DELETE ON album_cdtoc
     FOR EACH ROW EXECUTE PROCEDURE a_del_album_cdtoc();
 
+CREATE TRIGGER b_iu_artist BEFORE INSERT OR DELETE OR UPDATE ON artist 
+   FOR EACH ROW EXECUTE PROCEDURE b_iu_update_lastmodified();
+
 CREATE TRIGGER a_upd_moderation_open AFTER UPDATE ON moderation_open
     FOR EACH ROW EXECUTE PROCEDURE after_update_moderation_open();
 
@@ -40,6 +46,9 @@ CREATE TRIGGER a_upd_album_amazon_asin AFTER UPDATE ON album_amazon_asin
     FOR EACH ROW EXECUTE PROCEDURE a_upd_album_amazon_asin();
 CREATE TRIGGER a_del_album_amazon_asin AFTER DELETE ON album_amazon_asin
     FOR EACH ROW EXECUTE PROCEDURE a_del_album_amazon_asin();
+
+create trigger b_iu_label BEFORE INSERT OR DELETE OR UPDATE ON label 
+   FOR EACH ROW EXECUTE PROCEDURE b_iu_update_lastmodified();
 
 CREATE TRIGGER a_ins_puidjoin AFTER INSERT ON puidjoin
     FOR EACH ROW EXECUTE PROCEDURE a_ins_puidjoin();
@@ -60,6 +69,9 @@ CREATE TRIGGER a_ins_release_tag AFTER INSERT ON release_tag
      FOR EACH ROW EXECUTE PROCEDURE a_ins_tag();
 CREATE TRIGGER a_del_release_tag AFTER DELETE ON release_tag
      FOR EACH ROW EXECUTE PROCEDURE a_del_tag();
+
+CREATE TRIGGER b_iu_track BEFORE INSERT OR DELETE OR UPDATE ON track 
+   FOR EACH ROW EXECUTE PROCEDURE b_iu_update_lastmodified();
 
 CREATE TRIGGER a_ins_track_tag AFTER INSERT ON track_tag
     FOR EACH ROW EXECUTE PROCEDURE a_ins_tag();

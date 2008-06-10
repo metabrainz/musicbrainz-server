@@ -29,7 +29,8 @@ CREATE TABLE album
     script              INTEGER, -- references script
     modpending_lang     INTEGER,
     quality             SMALLINT DEFAULT -1,
-    modpending_qual     INTEGER DEFAULT 0
+    modpending_qual     INTEGER DEFAULT 0,
+    lastupdate          TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE album_amazon_asin
@@ -100,7 +101,8 @@ CREATE TABLE artist
     enddate             CHAR(10),
     type                SMALLINT,
     quality             SMALLINT DEFAULT -1,
-    modpending_qual     INTEGER DEFAULT 0
+    modpending_qual     INTEGER DEFAULT 0,
+    lastupdate          TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE artistalias
@@ -225,7 +227,8 @@ CREATE TABLE label
     resolution          VARCHAR(64),
     begindate           CHAR(10),
     enddate             CHAR(10),
-    type                SMALLINT
+    type                SMALLINT,
+    lastupdate          TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE label_tag
@@ -924,7 +927,8 @@ CREATE TABLE track
     gid                 CHAR(36) NOT NULL, 
     length              INTEGER DEFAULT 0,
     year                INTEGER DEFAULT 0,
-    modpending          INTEGER DEFAULT 0
+    modpending          INTEGER DEFAULT 0,
+    lastupdate          TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE track_tag
