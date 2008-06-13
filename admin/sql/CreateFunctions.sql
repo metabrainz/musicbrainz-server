@@ -102,7 +102,20 @@ end;
 
 create or replace function b_iu_update_lastmodified () returns TRIGGER as '
 begin
-   NEW.lastupdate = now(); 
+    NEW.lastupdate = now(); 
+    IF (TG_RELNAME = ''track'')
+    THEN
+        -- update the releases
+        UPDATE album SET lastupdate = NOW() FROM albumjoin WHERE NEW.id = albumjoin.track and albumjoin.album = album.id;
+    END IF;
+    IF (TG_RELNAME = ''album'')
+    THEN
+        -- update the artist
+        IF (NEW.artist != 1)
+        THEN
+            UPDATE artist SET lastupdate = NOW() WHERE artist.id = NEW.artist;
+        END IF;
+    END IF;
    return NEW;
 end;
 ' language 'plpgsql';
@@ -150,6 +163,9 @@ begin
             puids = puids + (SELECT COUNT(*) FROM puidjoin WHERE track = NEW.track)
     WHERE   id = NEW.album;
 
+    -- When a track is added to an album, update the albums lastupdate
+    UPDATE  album SET lastupdate = NOW() WHERE album.id = NEW.album;
+
     return NULL;
 end;
 ' language 'plpgsql';
@@ -171,20 +187,26 @@ begin
             puids = puids + (SELECT COUNT(*) FROM puidjoin WHERE track = NEW.track)
     WHERE   id = NEW.album;
 
+    -- When a track is added to an album, update the albums lastupdate
+    UPDATE  album SET lastupdate = NOW() WHERE album.id = NEW.album;
+
     return NULL;
 end;
 ' language 'plpgsql';
 --'--
-create or replace function a_del_albumjoin () returns trigger as '
+create or replace function a_del_albumjoin () returns trigger as $$
 begin
     UPDATE  albummeta
     SET     tracks = tracks - 1,
             puids = puids - (SELECT COUNT(*) FROM puidjoin WHERE track = OLD.track)
     WHERE   id = OLD.album;
 
+    -- When a track is removed from an album, update the albums lastupdate
+    UPDATE  album SET lastupdate = NOW() WHERE album.id = OLD.album;
+
     return NULL;
 end;
-' language 'plpgsql';
+$$ language 'plpgsql';
 
 --'-----------------------------------------------------------------
 -- Changes to album_cdtoc could cause changes to albummeta.discids
@@ -363,6 +385,7 @@ END;
 CREATE OR REPLACE FUNCTION a_ins_release () RETURNS TRIGGER AS '
 BEGIN
     EXECUTE set_album_firstreleasedate(NEW.album);
+    UPDATE album SET lastupdate = NOW() WHERE id = NEW.album;
     RETURN NEW;
 END;
 ' LANGUAGE 'plpgsql';
@@ -374,6 +397,7 @@ BEGIN
     THEN
         EXECUTE set_album_firstreleasedate(OLD.album);
     END IF;
+    UPDATE album SET lastupdate = NOW() WHERE id = NEW.album;
     RETURN NEW;
 END;
 ' LANGUAGE 'plpgsql';
@@ -381,6 +405,7 @@ END;
 CREATE OR REPLACE FUNCTION a_del_release () RETURNS TRIGGER AS '
 BEGIN
     EXECUTE set_album_firstreleasedate(OLD.album);
+    UPDATE album SET lastupdate = NOW() WHERE id = OLD.album;
     RETURN OLD;
 END;
 ' LANGUAGE 'plpgsql';
