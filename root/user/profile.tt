@@ -1,5 +1,7 @@
+[% USE date %]
 [% META title = "User Profile" %]
 [% META extra_css = "user.css" %]
+
 [% WRAPPER "layout.tt" %]
 
 [% BLOCK property %]
@@ -32,22 +34,29 @@
          WRAPPER property name = "Review" %]
 
     [% INCLUDE "components/piped-list.tt" list = edit_account_options
-         WRAPPER property name = "Edit My Account" %]
+         WRAPPER property name = "Edit My Account" IF viewing_own_profile%]
 	
     [% user.name WRAPPER property name = "Name" %]
 
     [% user.type or "Unknown" WRAPPER property name = "User Type" %]
 
     [% WRAPPER property name = "E-Mail" %]
-      [% user.email or "[Hidden]" %]
-      (verified [% user.email_verification_date %])
+      [% viewing_own_profile ? user.email.address or "[None]" : "[Hidden]" %]
+      
+      [% IF user.email.verified_at %]
+        (verified [% user.email.verified_at %])
+      [% ELSE %]
+        [% IF viewing_own_profile %](<em>unverified!</em>)[% END %]
+      [% END %]
     [% END %]
 	
     [% user.homepage or "[None]" WRAPPER property name = "Homepage" %]
 	
     [% user.biography or "[None]" WRAPPER property name = "Biography" %]
 	
-    [% PROCESS property name = "Subscriptions" %]
+    [% WRAPPER property name = "Subscriptions" %]
+      [% viewing_own_profile ? "Your" : user.name %] subscriptions are [% user.public_subscriptions ? "public" : "private" %]
+    [% END %]
 	
     [% WRAPPER property name = "Subscribers" %]
       [% user.subscriber_count %] (<a href="/bad_link">view all</a>)
@@ -56,11 +65,11 @@
   
  <h3>User Statistics</h3>
  <dl>
-   [% PROCESS property name = "Member Since" %]
-   [% PROCESS property name = "Accepted Non-autoedits" %]
-   [% PROCESS property name = "Autoedits" %]
-   [% PROCESS property name = "Edits Voted Down" %]
-   [% PROCESS property name = "Other Failed Edits" %]
+   [% user.member_since | mb_date WRAPPER property name = "Member Since" %]
+   [% user.accepted_non_autoedits WRAPPER property name = "Accepted Non-autoedits" %]
+   [% user.accepted_autoedits WRAPPER property name = "Autoedits" %]
+   [% user.edits_voted_down WRAPPER property name = "Edits Voted Down" %]
+   [% user.other_failed_edits WRAPPER property name = "Other Failed Edits" %]
  </dl>
 [% END %]
 

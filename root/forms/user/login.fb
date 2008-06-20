@@ -1,0 +1,15 @@
+name: user_login
+method: post
+fields:
+	username:
+		label: Username
+		type: text
+		size: 50
+		required: 1
+	password:
+		label: Password
+		type: password
+		size: 50
+		required: 1
+
+submit: Login

@@ -4,11 +4,11 @@ dl dt {
     float: left;
     clear: both;
     font-weight: bold;
-    width: 100pt;
+    width: 150pt;
     margin-right: 10pt;
     text-align: right;
 }
-dl dd { margin-left: 110pt; }
+dl dd { margin-left: 160pt; }
 dl, dd {
     line-height: 18pt; 
 }

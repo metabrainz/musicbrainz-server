@@ -26,7 +26,16 @@ our $VERSION = '0.01';
 # with a external configuration file acting as an override for
 # local deployment.
 
-__PACKAGE__->config( name => 'MusicBrainz::Server' );
+require MusicBrainz::Server::Filters;
+
+__PACKAGE__->config(
+    name => 'MusicBrainz::Server',
+    "View::Default" => {
+	FILTERS => {
+	    'mb_date' => \&MusicBrainz::Server::Filters::date,
+	},
+    },
+);
 
 # Start the application
 __PACKAGE__->setup(qw/
@@ -38,7 +47,10 @@ StackTrace
 
 Session
 Session::State::Cookie
-Session::Store::FastMmap/);
+Session::Store::FastMmap
+
+FormBuilder
+/);
 
 
 =head1 NAME
