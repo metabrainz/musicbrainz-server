@@ -84,11 +84,31 @@ sub register : Local Form
 
     if($c->form->submitted && $c->form->validate)
     {
-    }
-    else
-    {
+	require MusicBrainz;
+	require UserStuff;
+
+	my $mb = new MusicBrainz;
+	$mb->Login();
+	
+	my $ui = UserStuff->new($mb->{DBH});
+	my ($userobj, $createlogin) = $ui->CreateLogin($c->form->field('username'),
+						    $c->form->field('password'),
+						    $c->form->field('confirm_password'));
+	
+	# if createlogin list is empty, the user was created.
+	if (@$createlogin == 0)
+	{
+	    $c->error(":)");
+	}
+	else
+	{
+	    $c->error(":(");
+	}
+
 	$c->stash->{template} = 'user/register.tt';
     }
+
+    $c->stash->{template} = 'user/register.tt';
 }
 
 =head2 profile

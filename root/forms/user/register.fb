@@ -24,5 +24,4 @@ fields:
 
 validate:
 	confirm_password:
-		javascript: == form.password.value
 		perl:	    eq $form->field("password")
