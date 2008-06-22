@@ -3,13 +3,23 @@ method: post
 fields:
 	username:
 		label: Username
-		type: text
 		size: 50
 		required: 1
+		
 	password:
 		label: Password
 		type: password
 		size: 50
 		required: 1
+
+	remember:
+		label: -
+		options: Log In Permenantly
+
+
+	singleIp:
+		label: -
+		options: Only From This IP Address
+
 
 submit: Login

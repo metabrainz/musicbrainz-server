@@ -8,6 +8,7 @@
     or post it to the appropriate [% INCLUDE "components/doc-link.tt" to="MailingList" text="Mailing List" %].</li>
 </ul>
 
+[% INCLUDE 'components/form-errors.tt' %]
 [% form.render %]
 
 <h3>We respect your privacy</h3>

@@ -48,8 +48,10 @@ sub login : Local Form {
     
 	my ($self, $c) = @_;
 
-	my $username = $c->request->params->{username};
-	my $password = $c->request->params->{password};
+	my $username = $c->form->field('username');
+	my $password = $c->form->field('password');
+	my $singleIp = $c->form->field('singleIp');
+	my $remember = $c->form->field('remember');
 	
 	my $mb = new MusicBrainz;
 	$mb->Login();
@@ -61,17 +63,19 @@ sub login : Local Form {
 	    $c->session->{user} = {
 		name => $user->GetName
 	    };
+	    
+	    $user->SetPermanentCookie(only_this_ip => $singleIp)
+		if $remember;
+
 	    $c->response->redirect($c->uri_for('/user/profile'));
 	}
 	else
 	{
-	    $c->error("FAIL");
+	    $c->stash->{errors} = ['Username and password combination is invalid'];
 	}
     }
-    else
-    {
-	$c->stash->{template} = 'user/login.tt';
-    }
+
+    $c->stash->{template} = 'user/login.tt';
 }
 
 =head2 register
@@ -98,17 +102,27 @@ sub register : Local Form
 	# if createlogin list is empty, the user was created.
 	if (@$createlogin == 0)
 	{
-	    $c->error(":)");
+	    $c->detach('registered');
 	}
 	else
 	{
-	    $c->error(":(");
+	    $c->stash->{errors} = \@$createlogin;
 	}
-
-	$c->stash->{template} = 'user/register.tt';
     }
 
     $c->stash->{template} = 'user/register.tt';
+}
+
+=head2 registered
+Called when a user has completed registration. We use this to notify the user that everything
+went ok
+=cut
+
+sub registered : Private
+{
+    my ($self, $c) = @_;
+
+    $c->stash->{template} = 'user/registered.tt';
 }
 
 =head2 profile

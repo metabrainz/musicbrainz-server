@@ -3,6 +3,15 @@
 
 [% WRAPPER "components/box.tt" header="Login" %]
   <p>Please login using the form below. Note that the password field <em>is</em> case sensitive.</p>
+  [% IF errors %]
+    <p>Uh oh - we've encountered some errors!</p>
+    <ul>
+    [% FOR error IN errors %]
+      <li>[% error %]</li>    
+    [% END %]
+    </ul>
+  [% END %]
+  
   [% form.render %]
 [% END %]
 

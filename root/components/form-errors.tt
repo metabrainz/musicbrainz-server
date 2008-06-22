@@ -1,0 +1,8 @@
+[% IF errors %]
+  <p>Uh oh - we've encountered some errors!</p>
+  <ul>
+  [% FOR error IN errors %]
+    <li>[% error %]</li>    
+  [% END %]
+  </ul>
+[% END %]
