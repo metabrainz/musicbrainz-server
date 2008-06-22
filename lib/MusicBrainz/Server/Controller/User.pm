@@ -98,11 +98,16 @@ sub register : Local Form
 	my ($userobj, $createlogin) = $ui->CreateLogin($c->form->field('username'),
 						    $c->form->field('password'),
 						    $c->form->field('confirm_password'));
+
+	my $email = $c->form->field('email');
 	
 	# if createlogin list is empty, the user was created.
 	if (@$createlogin == 0)
 	{
-	    $c->detach('registered');
+	    # Send the email if possible
+	    my $couldSend = $userobj->SendVerificationEmail($email);
+	    
+	    $c->detach('registered', $couldSend, $email);
 	}
 	else
 	{
@@ -120,7 +125,10 @@ went ok
 
 sub registered : Private
 {
-    my ($self, $c) = @_;
+    my ($self, $c, $couldSend, $email) = @_;
+
+    $c->stash->{emailed} = $couldSend;
+    $c->stash->{email} = $email;
 
     $c->stash->{template} = 'user/registered.tt';
 }
@@ -136,18 +144,22 @@ sub profile : Local {
     
     my ($self, $c, $userName) = @_;
 
-    my $userId = $userName or $c->session->{user}->{name};
+    $userName ||= $c->session->{user}->{name};
+    $c->error("No username specified (not logged in?)") unless $userName;
 
     my $mb = new MusicBrainz;
     $mb->Login();
     
     my $us = UserStuff->new($mb->{DBH});
-    my $user = $us->newFromName($userId);
+    my $user = $us->newFromName($userName);
 
-    $c->stash->{viewing_own_profile} = $c->session->{user}->{name} eq $userId;
+    $c->error("The user with username '" . $userName . "' could not be found")
+	unless $user;
 
-    $c->stash->{user} = {
-	name => $userId,
+    $c->stash->{viewing_own_profile} = $c->session->{user}->{name} eq $userName;
+
+    $c->stash->{profile} = {
+	name => $userName,
 	type => $user->GetUserType,
 	email => {
 	    address => $user->GetEmail,

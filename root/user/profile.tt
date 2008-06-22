@@ -27,49 +27,49 @@
    ]
 %]
 
-[% WRAPPER "components/box.tt" header="Editor \"$user.name\"" %]
+[% WRAPPER "components/box.tt" header="Editor \"$profile.name\"" %]
   <h3>General Information:</h3>
   <dl>
-    [% INCLUDE "components/piped-list.tt" list = review_options
-         WRAPPER property name = "Review" %]
+    [% INCLUDE "components/piped-list.tt" list=review_options
+         WRAPPER property name="Review" %]
 
-    [% INCLUDE "components/piped-list.tt" list = edit_account_options
-         WRAPPER property name = "Edit My Account" IF viewing_own_profile%]
+    [% INCLUDE "components/piped-list.tt" list=edit_account_options
+         WRAPPER property name="Edit My Account" IF viewing_own_profile%]
 	
-    [% user.name WRAPPER property name = "Name" %]
+    [% profile.name WRAPPER property name="Name" %]
 
-    [% user.type or "Unknown" WRAPPER property name = "User Type" %]
+    [% profile.type or "Unknown" WRAPPER property name="User Type" %]
 
-    [% WRAPPER property name = "E-Mail" %]
-      [% viewing_own_profile ? user.email.address or "[None]" : "[Hidden]" %]
+    [% WRAPPER property name="E-Mail" %]
+      [% viewing_own_profile ? profile.email.address or "[None]" : "[Hidden]" %]
       
-      [% IF user.email.verified_at %]
-        (verified [% user.email.verified_at %])
+      [% IF profile.email.verified_at %]
+        (verified [% profile.email.verified_at %])
       [% ELSE %]
         [% IF viewing_own_profile %](<em>unverified!</em>)[% END %]
       [% END %]
     [% END %]
 	
-    [% user.homepage or "[None]" WRAPPER property name = "Homepage" %]
+    [% profile.homepage or "[None]" WRAPPER property name="Homepage" %]
 	
-    [% user.biography or "[None]" WRAPPER property name = "Biography" %]
+    [% profile.biography or "[None]" WRAPPER property name="Biography" %]
 	
-    [% WRAPPER property name = "Subscriptions" %]
-      [% viewing_own_profile ? "Your" : user.name %] subscriptions are [% user.public_subscriptions ? "public" : "private" %]
+    [% WRAPPER property name="Subscriptions" %]
+      [% viewing_own_profile ? "Your" : profile.name %] subscriptions are [% profile.public_subscriptions ? "public" : "private" %]
     [% END %]
 	
-    [% WRAPPER property name = "Subscribers" %]
-      [% user.subscriber_count %] (<a href="/bad_link">view all</a>)
+    [% WRAPPER property name="Subscribers" %]
+      [% profile.subscriber_count %] (<a href="/bad_link">view all</a>)
     [% END %]
   </dl>
   
  <h3>User Statistics</h3>
  <dl>
-   [% user.member_since | mb_date WRAPPER property name = "Member Since" %]
-   [% user.accepted_non_autoedits WRAPPER property name = "Accepted Non-autoedits" %]
-   [% user.accepted_autoedits WRAPPER property name = "Autoedits" %]
-   [% user.edits_voted_down WRAPPER property name = "Edits Voted Down" %]
-   [% user.other_failed_edits WRAPPER property name = "Other Failed Edits" %]
+   [% profile.member_since | mb_date WRAPPER property name="Member Since" %]
+   [% profile.accepted_non_autoedits WRAPPER property name="Accepted Non-autoedits" %]
+   [% profile.accepted_autoedits WRAPPER property name="Autoedits" %]
+   [% profile.edits_voted_down WRAPPER property name="Edits Voted Down" %]
+   [% profile.other_failed_edits WRAPPER property name="Other Failed Edits" %]
  </dl>
 [% END %]
 
