@@ -5,17 +5,22 @@ use warnings;
 use base 'Catalyst::Controller';
 
 =head1 NAME
+
 musicbrainz::Controller::User - Catalyst Controller to handle user authentication and profile management
 
 =head1 DESCRIPTION
+
 The User controller handles the Users logging in and logging out, along with providing logic for updating &
 managing user profiles
 
 =head1 METHODS
+
 =cut
 
-=head2 index 
+=head2 index
+
 If the user is currently logged in redirect them to their profile page, otherwise redirect the user to the login page.
+
 =cut
 
 sub index : Private {
@@ -35,7 +40,9 @@ sub index : Private {
 }
 
 =head2 login
+
 Handle logging in users
+
 =cut
 
 sub login : Local Form {
@@ -79,7 +86,9 @@ sub login : Local Form {
 }
 
 =head2 register
+
 Handle user registration
+
 =cut
 
 sub register : Local Form
@@ -119,8 +128,10 @@ sub register : Local Form
 }
 
 =head2 registered
+
 Called when a user has completed registration. We use this to notify the user that everything
 went ok
+
 =cut
 
 sub registered : Private
@@ -134,7 +145,9 @@ sub registered : Private
 }
 
 =head2 profile
+
 Display a users profile page.
+
 =cut 
 
 sub profile : Local {
@@ -183,7 +196,9 @@ sub profile : Local {
 }
 
 =head2 logout
+
 Logout the current user. Has no effect if the user is already logged out.
+
 =cut
 
 sub logout : Local {
@@ -193,7 +208,8 @@ sub logout : Local {
 }
 
 =head1 AUTHOR
-Oliver Charles
+
+Oliver Charles <oliver.g.charles@googlemail.com>
 
 =head1 LICENSE
 

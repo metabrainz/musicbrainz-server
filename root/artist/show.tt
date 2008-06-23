@@ -1,0 +1,8 @@
+[% WRAPPER 'layout.tt' %]
+
+<div id="artistHeader">
+  <h1>[% artist.name %]</h1>
+  <h2>[% artist.type %], [% artist.quality %]</h2>
+</div>
+
+[% END %]

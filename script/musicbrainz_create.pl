@@ -20,7 +20,7 @@ pod2usage(1) if ( $help || !$ARGV[0] );
 
 my $helper = Catalyst::Helper->new( { '.newfiles' => !$force, mech => $mech } );
 
-pod2usage(1) unless $helper->mk_component( 'musicbrainz', @ARGV );
+pod2usage(1) unless $helper->mk_component( 'MusicBrainz::Server', @ARGV );
 
 1;
 
