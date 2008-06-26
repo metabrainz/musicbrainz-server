@@ -395,6 +395,40 @@ sub GetTagHash
 	return \%tags;
 }
 
+# Get a hash of { tag1 => count, tag2 => count } value from user's tags.
+sub GetRawTagHash
+{
+	my ($self, $moderator_id) = @_;
+
+	my $maindb = Sql->new($self->GetDBH());
+
+	my $tags = MusicBrainz->new;
+    $tags->Login(db => 'RAWDATA');
+	my $tagdb = Sql->new($tags->{DBH});
+
+	my %counts;
+
+	my @entity_types = ('artist', 'label', 'track', 'release');
+	foreach my $entity_type (@entity_types) {
+		my $assoc_table = $entity_type . '_tag_raw';
+		my $rows = $tagdb->SelectListOfLists("SELECT tag, COUNT(*)
+		                                        FROM $assoc_table
+		                                       WHERE $assoc_table.moderator = ?
+		                                       GROUP BY tag", $moderator_id);
+		foreach my $row (@$rows) {
+			$counts{$row->[0]} += $row->[1];
+		}
+	}
+	
+	my %result;
+	return \%result if (scalar(%counts) == 0);
+
+	my $rows = $maindb->SelectListOfLists("SELECT id, name FROM tag
+	                                        WHERE id IN (" . join(",", keys(%counts)) . ")");
+	%result = map { $_->[1] => $counts{$_->[0]} } @$rows;
+	return \%result;
+}
+
 # Get a hash of { tag1 => count, tag2 => count } value from tags for the
 # speficied entity.
 sub GetTagHashForEntity
@@ -502,12 +536,52 @@ EOF
 	return (\@rows, $offset + $total_rows);
 }
 
+sub GetEntitiesForRawTag
+{
+	my ($self, $entity_type, $tag, $moderator_id, $limit, $offset) = @_;
+
+	my $maindb = Sql->new($self->GetDBH());
+
+	my $tags = MusicBrainz->new;
+    $tags->Login(db => 'RAWDATA');
+	my $tagdb = Sql->new($tags->{DBH});   
+
+	# lookup tag ID by name
+	my $tag_id = $maindb->SelectSingleValue(
+		"SELECT id FROM tag WHERE name = ?", $tag);
+    return [] if (!$tag_id);
+
+	# select all entity IDs
+	my $assoc_table = $entity_type . '_tag_raw';
+	my $rows = $tagdb->SelectSingleColumnArray(
+		"SELECT $entity_type FROM $assoc_table
+		 WHERE tag = ? AND moderator = ?", $tag_id, $moderator_id);
+    return [] if (scalar(@$rows) == 0);
+
+	my $entity_table = $entity_type eq "release" ? "album" : $entity_type;
+	
+	$offset ||= 0;
+	$maindb->Select("SELECT id, name, gid FROM $entity_table WHERE id IN (".join(",", @$rows).") ORDER BY name OFFSET ?", $offset);
+
+	my @rows;
+	while ($limit--)
+	{
+		my $row = $maindb->NextRowHashRef or last;
+		push @rows, $row;
+	}
+
+	my $total_rows = $maindb->Rows;
+	$maindb->Finish;
+
+	return (\@rows, $offset + $total_rows);
+}
+
 sub GetModerator	{ $_[0]{'moderator'} }
 sub SetModerator	{ $_[0]{'moderator'} = $_[1] }
 
 sub GenerateTagCloud
 {
-	my ($self, $tags, $type, $minsize, $maxsize, $rawtagslist) = @_;
+	my ($self, $tags, $type, $minsize, $maxsize, $rawtagslist, $urlprefix) = @_;
 	my ($key, $value, $tag, $sizedelta, @res, %mytags);
 
 	my @counts = sort { $a <=> $b } values %$tags;
@@ -515,6 +589,8 @@ sub GenerateTagCloud
 	return "(no tags)" if !$ntags;
 
     %mytags = map { $_->{name} => $_->{id} } @{$rawtagslist} if ($rawtagslist);
+
+	$urlprefix = '/show/tag/?' if !defined($urlprefix);
 
 	my $min = $counts[0];
 	my $max = $counts[$ntags - 1];
@@ -559,7 +635,7 @@ sub GenerateTagCloud
 		push @res, '<span style="font-size:' . int($minsize + $value * $sizedelta + 0.5) . 'px;' . ($value > $boldthreshold ? "font-weight:bold;" : "") . '">';
 		$tag = encode_entities($key);
 		$tag =~ s/\s+/&nbsp;/;
-		push @res, '<a '.$mine.'href="/show/tag/?tag=' . uri_escape($key) . "&show=$type\">".$tag.'</a></span> &nbsp; ';
+		push @res, '<a '.$mine.'href="' . $urlprefix . 'tag=' . uri_escape($key) . "&amp;show=$type\">".$tag.'</a></span> &nbsp; ';
 	}
 	return join "", @res;
 }

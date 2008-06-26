@@ -1,0 +1,35 @@
+<%doc>
+	Show a list of tags for currently logged in user.
+</%doc>
+
+<%args>
+	$userid => $session{uid}
+</%args>
+
+<%perl>
+	my $mb = $m->comp("/comp/dblogin");
+	$m->comp("/comp/checkloggedin", 1, 1, undef, 1)
+		or return;
+
+	my $user;
+	my $is_me = ($userid == $session{uid});
+	if (!$is_me) {
+		$user = UserStuff->newFromId($mb->{DBH}, $userid)
+			or return $m->comp("/comp/error", "There is no user with id #$userid", 1, 1);
+	}
+
+	my $t = MusicBrainz::Server::Tag->new($mb->{DBH});
+	my $tags = $t->GetRawTagHash($userid);
+</%perl>
+
+<& /comp/sidebar, pagetitle => ($is_me ? "My" : $user->GetName . "'s") . " Tags" &>
+
+<div class="TagsBox">
+<p style="margin-bottom: 1em;">
+	<% $t->GenerateTagCloud($tags, "all", 12, 30, undef, '/user/tags/tag.html?userid=' . $userid . '&amp;') | n %>
+</p>
+</div>
+
+<& /comp/footer &>
+
+%# vi: set ts=4 sw=4 ft=mason :
