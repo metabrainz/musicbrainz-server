@@ -1,0 +1,9 @@
+#!/bin/sh
+
+unset SSH_AUTH_SOCK
+
+LOCAL_DIR=/var/ftp/pub/musicbrainz/data/replication
+
+rsync -e "ssh -i $HOME/.ssh/rysnc-data-replication" -av $LOCAL_DIR/ ftpowner@scooby.localdomain:dummy
+
+# eof rsync-replication-files

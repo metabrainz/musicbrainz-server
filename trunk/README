@@ -1,0 +1,31 @@
+The MusicBrainz server README
+
+This file lists a number of web pages which will hopefully answer your
+questions.  I've taken this approach because this file was and is mostly
+only poorly maintained, but the web pages are much more likely to contain
+up-to-date information.
+
+* Where to find us
+  http://musicbrainz.org/
+
+* About the MusicBrainz Project
+  http://musicbrainz.org/doc/AboutMusicBrainz
+
+* Acousting fingerprints and TRMs
+  http://musicbrainz.org/docs/20031108-2.html
+
+* Licenses for the data (see COPYING for license of the software)
+  http://musicbrainz.org/doc/MusicBrainzLicense
+
+* Server architecture overview
+  http://musicbrainz.org/doc/Server
+
+* Database structure
+  http://musicbrainz.org/doc/DatabaseSchema
+
+* An overview of the mb_server codebase
+  http://musicbrainz.org/doc/ServerCodebase
+
+* Help!
+  http://musicbrainz.org/doc/ContactUs
+

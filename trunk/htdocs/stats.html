@@ -1,0 +1,458 @@
+<%perl>
+
+my $sMagicWord = "CacheMe!";
+my $fCallingSelf = ($_[0] and $_[0] eq $sMagicWord);
+
+if (&DBDefs::REPLICATION_TYPE == RT_SLAVE) 
+{
+	$m->comp("/comp/sidebar", title=>'Database Stats', expand=>'about');
+	</%perl>
+	The statistics are available only on the <a href="http://musicbrainz.org/stats.html">main server</a>.
+	<%perl>
+	$m->comp("/comp/footer");
+	return;
+} 
+
+my $mb = $m->comp("/comp/dblogin", quiet=>1);
+my $stat = Statistic->new($mb->{DBH});
+
+if ($fCallingSelf)
+{
+
+################################################################################
+
+my %stats = %{ $stat->FetchAllAsHashRef };
+
+my $pc = sub
+{
+	my ($n, $of) = @_;
+	return "-" unless $of;
+	my $pct = 100 * $n / $of;
+	sprintf "%.1f%%", $pct;
+};
+
+
+</%perl>
+
+% my $gattrs = { width => "100%" };
+
+<div style="width: 30em">
+
+% $gattrs->{"id"} = "BasicMetadataStats";
+<& /comp/tablebegin, title=>'Basic Metadata Statistics', gattrs=>$gattrs &>
+<table class="StatsTable" style="width: 100%">
+	<tr>
+		<th class="StatName">Artists</th>
+		<td class="NumberCell"><% $stats{"count.artist"} %></td>
+	</tr>
+	<tr>
+		<th class="StatName">Releases</th>
+		<td class="NumberCell"><% $stats{"count.album"} %></td>
+	</tr>
+	<tr>
+		<th class="StatName">Disc IDs</th>
+		<td class="NumberCell"><% $stats{"count.discid"} %></td>
+	</tr>
+	<tr>
+		<th class="StatName">Tracks</th>
+		<td class="NumberCell"><% $stats{"count.track"} %></td>
+	</tr>
+	<tr>
+		<th class="StatName">Labels</th>
+		<td class="NumberCell"><% $stats{"count.label"} %></td>
+	</tr>
+	<tr>
+		<th class="StatName">Links</th>
+		<td class="NumberCell"><% $stats{"count.ar.links"} %></td>
+	</tr>
+	<tr>
+		<th class="StatName">Tags</th>
+		<td class="NumberCell"><% $stats{"count.tag.raw"} %> / <% $stats{"count.tag"} %></td>
+	</tr>
+	<tr>
+		<th class="StatName">PUIDs</th>
+		<td class="NumberCell"><% $stats{"count.puid"} %></td>
+	</tr>
+	<tr>
+		<th class="StatName">Editors</th>
+		<td class="NumberCell"><% $stats{"count.moderator"} %></td>
+	</tr>
+</table>
+<& /comp/tableend &>
+
+% $gattrs->{"id"} = "AlbumStats";
+<& /comp/tablebegin, title=>'Albums', gattrs=>$gattrs &>
+<table class="StatsTable" style="width: 100%">
+	<col />
+	<col style="width: 6em" />
+	<col style="width: 4em" />
+	<tr>
+		<th class="StatName">Releases</th>
+		<td class="NumberCell"><% $stats{"count.album"} %></td>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<th class="StatName">&nbsp; by various artists</th>
+		<td class="NumberCell"><% $stats{"count.album.various"} %></td>
+		<td class="NumberCell"><% &$pc(@stats{qw( count.album.various count.album )}) %></td>
+	</tr>
+	<tr>
+		<th class="StatName">&nbsp; by a single artist</th>
+		<td class="NumberCell"><% $stats{"count.album.nonvarious"} %></td>
+		<td class="NumberCell"><% &$pc(@stats{qw( count.album.nonvarious count.album )}) %></td>
+	</tr>
+</table>
+<& /comp/tableend &>
+
+% $gattrs->{"id"} = "DiscIdStats";
+<& /comp/tablebegin, title=>'Disc Identifiers', gattrs=>$gattrs &>
+<table class="StatsTable" style="width: 100%">
+	<col />
+	<col style="width: 6em" />
+	<col style="width: 4em" />
+	<tr>
+		<th class="StatName">Disc IDs</th>
+		<td class="NumberCell"><% $stats{"count.discid"} %></td>
+		<td></td>
+	</tr>
+	<tr>
+		<th class="StatName">Releases</th>
+		<td class="NumberCell"><% $stats{"count.album"} %></td>
+		<td></td>
+	</tr>
+	<tr>
+		<th class="StatName">Releases with no disc ID</th>
+		<td class="NumberCell"><% $stats{"count.album.0discids"} %></td>
+		<td class="NumberCell"><% &$pc(@stats{qw( count.album.0discids count.album )}) %></td>
+	</tr>
+	<tr>
+		<th class="StatName">Releases with at least one disc ID</th>
+		<td class="NumberCell"><% $stats{"count.album.has_discid"} %></td>
+		<td class="NumberCell"><% &$pc(@stats{qw( count.album.has_discid count.album )}) %></td>
+	</tr>
+% for (1 .. 10) {
+	<tr>
+		<th class="StatName">&nbsp; with <% $_ %> <% $_==10 ? "or more" : "" %> disc ID<% $_==1 ? "" : "s" %></th>
+		<td class="NumberCell"><% $stats{"count.album.${_}discids"} %></td>
+		<td class="NumberCell"><% &$pc(@stats{"count.album.${_}discids", "count.album.has_discid"}) %></td>
+	</tr>
+% }
+</table>
+<& /comp/tableend &>
+
+% $gattrs->{"id"} = "PUIDStats";
+<& /comp/tablebegin, title=>'Track Identifiers', gattrs=>$gattrs &>
+<table class="StatsTable" style="width: 100%">
+	<col />
+	<col style="width: 6em" />
+	<col style="width: 4em" />
+	<tr>
+		<th class="StatName">Tracks</th>
+		<td class="NumberCell"><% $stats{"count.track"} %></td>
+		<td></td>
+	</tr>
+	<tr>
+		<th class="StatName">Tracks with no PUIDs</th>
+		<td class="NumberCell"><% $stats{"count.track.0puids"} %></td>
+		<td class="NumberCell"><% &$pc(@stats{qw( count.track.0puids count.track )}) %></td>
+	</tr>
+	<tr>
+		<th class="StatName">Tracks with at least one PUID</th>
+		<td class="NumberCell"><% $stats{"count.track.has_puid"} %></td>
+		<td class="NumberCell"><% &$pc(@stats{qw( count.track.has_puid count.track )}) %></td>
+	</tr>
+% for (1 .. 10) {
+	<tr>
+		<th class="StatName">&nbsp; with <% $_ %> <% $_==10 ? "or more" : "" %> PUID<% $_==1 ? "" : "s" %></th>
+		<td class="NumberCell"><% $stats{"count.track.${_}puids"} %></td>
+		<td class="NumberCell"><% &$pc(@stats{"count.track.${_}puids", "count.track.has_puid"}) %></td>
+	</tr>
+% }
+</table>
+<& /comp/tableend &>
+
+% $gattrs->{"id"} = "PUIDCollisionStats";
+<& /comp/tablebegin, title=>'PUID Collisions', gattrs=>$gattrs &>
+<table class="StatsTable" style="width: 100%">
+	<col />
+	<col style="width: 6em" />
+	<col style="width: 4em" />
+	<tr>
+		<th class="StatName">PUIDs (on tracks)</th>
+		<td class="NumberCell"><% $stats{"count.puid"} %></td>
+		<td></td>
+	</tr>
+	<tr>
+		<th class="StatName">PUIDs (distinct IDs)</th>
+		<td class="NumberCell"><% $stats{"count.puid.ids"} %></td>
+		<td></td>
+	</tr>
+	<tr>
+		<th class="StatName">PUIDs which identify exactly one track</th>
+		<td class="NumberCell"><% $stats{"count.puid.1tracks"} %></td>
+		<td class="NumberCell"><% &$pc(@stats{qw( count.puid.1tracks count.puid.ids )}) %></td>
+	</tr>
+% for (2 .. 10) {
+	<tr>
+		<th class="StatName">&nbsp; which resolve to <% $_ %> <% $_==10 ? "or more" : "" %> track<% $_==1 ? "" : "s" %></th>
+		<td class="NumberCell"><% $stats{"count.puid.${_}tracks"} %></td>
+		<td class="NumberCell"><% &$pc(@stats{"count.puid.${_}tracks", "count.puid.ids"}) %></td>
+	</tr>
+% }
+</table>
+<& /comp/tableend &>
+
+% $gattrs->{"id"} = "ModeratorStats";
+<& /comp/tablebegin, title=>'Moderators', gattrs=>$gattrs &>
+<table class="StatsTable" style="width: 100%">
+	<col />
+	<col style="width: 6em" />
+	<col style="width: 4em" />
+	<tr>
+		<th class="StatName">Editors</th>
+		<td class="NumberCell"><% $stats{"count.moderator"} %></td>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<th class="StatName">&nbsp; who edited last week</th>
+		<td class="NumberCell"><% $stats{"count.moderator.editlastweek"} %></td>
+		<td class="NumberCell"><% &$pc(@stats{qw( count.moderator.editlastweek count.moderator )}) %></td>
+	</tr>
+	<tr>
+		<th class="StatName">&nbsp; who voted last week</th>
+		<td class="NumberCell"><% $stats{"count.moderator.votelastweek"} %></td>
+		<td class="NumberCell"><% &$pc(@stats{qw( count.moderator.votelastweek count.moderator )}) %></td>
+	</tr>
+	<tr>
+		<th class="StatName">&nbsp; active last week</th>
+		<td class="NumberCell"><% $stats{"count.moderator.activelastweek"} %></td>
+		<td class="NumberCell"><% &$pc(@stats{qw( count.moderator.activelastweek count.moderator )}) %></td>
+	</tr>
+</table>
+<& /comp/tableend &>
+
+% $gattrs->{"id"} = "ModerationStats";
+<& /comp/tablebegin, title=>'Moderations', gattrs=>$gattrs &>
+<table class="StatsTable" style="width: 100%">
+	<col />
+	<col style="width: 6em" />
+	<col style="width: 4em" />
+	<tr>
+		<th class="StatName">Edits</th>
+		<td class="NumberCell"><% $stats{"count.moderation"} %></td>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<th class="StatName">&nbsp; Open</th>
+		<td class="NumberCell"><% $stats{"count.moderation.open"} %></td>
+		<td class="NumberCell"><% &$pc(@stats{qw( count.moderation.open count.moderation )}) %></td>
+	</tr>
+	<tr>
+		<th class="StatName">&nbsp; Applied</th>
+		<td class="NumberCell"><% $stats{"count.moderation.applied"} %></td>
+		<td class="NumberCell"><% &$pc(@stats{qw( count.moderation.applied count.moderation )}) %></td>
+	</tr>
+	<tr>
+		<th class="StatName">&nbsp; Rejected</th>
+		<td class="NumberCell"><% $stats{"count.moderation.failedvote"} %></td>
+		<td class="NumberCell"><% &$pc(@stats{qw( count.moderation.failedvote count.moderation )}) %></td>
+	</tr>
+	<tr>
+		<th class="StatName">&nbsp; Failed (failed dependency)</th>
+		<td class="NumberCell"><% $stats{"count.moderation.faileddep"} %></td>
+		<td class="NumberCell"><% &$pc(@stats{qw( count.moderation.faileddep count.moderation )}) %></td>
+	</tr>
+	<tr>
+		<th class="StatName">&nbsp; Failed (failed prerequisite)</th>
+		<td class="NumberCell"><% $stats{"count.moderation.failedprereq"} %></td>
+		<td class="NumberCell"><% &$pc(@stats{qw( count.moderation.failedprereq count.moderation )}) %></td>
+	</tr>
+	<tr>
+		<th class="StatName">&nbsp; Failed (internal error)</th>
+		<td class="NumberCell"><% $stats{"count.moderation.error"} %></td>
+		<td class="NumberCell"><% &$pc(@stats{qw( count.moderation.error count.moderation )}) %></td>
+	</tr>
+	<tr>
+		<th class="StatName">&nbsp; Delete pending</th>
+		<td class="NumberCell"><% $stats{"count.moderation.tobedeleted"} %></td>
+		<td class="NumberCell"><% &$pc(@stats{qw( count.moderation.tobedeleted count.moderation )}) %></td>
+	</tr>
+	<tr>
+		<th class="StatName">&nbsp; Deleted</th>
+		<td class="NumberCell"><% $stats{"count.moderation.deleted"} %></td>
+		<td class="NumberCell"><% &$pc(@stats{qw( count.moderation.deleted count.moderation )}) %></td>
+	</tr>
+</table>
+<& /comp/tableend &>
+
+% $gattrs->{"id"} = "VoteStats";
+<& /comp/tablebegin, title=>'Votes', gattrs=>$gattrs &>
+<table class="StatsTable" style="width: 100%">
+	<col />
+	<col style="width: 6em" />
+	<col style="width: 4em" />
+	<tr>
+		<th class="StatName">Votes</th>
+		<td class="NumberCell"><% $stats{"count.vote"} %></td>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<th class="StatName">&nbsp; Yes</th>
+		<td class="NumberCell"><% $stats{"count.vote.yes"} %></td>
+		<td class="NumberCell"><% &$pc(@stats{qw( count.vote.yes count.vote )}) %></td>
+	</tr>
+	<tr>
+		<th class="StatName">&nbsp; No</th>
+		<td class="NumberCell"><% $stats{"count.vote.no"} %></td>
+		<td class="NumberCell"><% &$pc(@stats{qw( count.vote.no count.vote )}) %></td>
+	</tr>
+	<tr>
+		<th class="StatName">&nbsp; Abstain</th>
+		<td class="NumberCell"><% $stats{"count.vote.abstain"} %></td>
+		<td class="NumberCell"><% &$pc(@stats{qw( count.vote.abstain count.vote )}) %></td>
+	</tr>
+</table>
+<& /comp/tableend &>
+
+<p style="margin-left: 1em; margin-right: 1em">
+	(These next statistics are calculated separately from
+	the others on this page, so don't expect the numbers
+	to match&nbsp;up).
+</p>
+
+% $gattrs->{"id"} = "OpenModerationStats";
+<& /comp/tablebegin, title=>'Open Moderations', gattrs=>$gattrs &>
+<table class="StatsTable" style="width: 100%">
+	<col />
+	<col style="width: 6em" />
+	<col style="width: 4em" />
+	<%perl>
+
+	my $mod = Moderation->new($mb->{DBH});
+	my $openmods = $mod->OpenModsByType_as_hashref;
+
+	my $rows = [
+		sort {
+			$b->[1] <=> $a->[1]
+			or
+			$a->[0] <=> $b->[0]
+		} map {
+			[ $_ => $openmods->{$_} ]
+		} keys %$openmods
+	];
+
+	my $open = 0;
+	$open += $_->[1] for @$rows;
+
+	</%perl>
+	<tr>
+		<th class="StatName">Open Edits</th>
+		<td class="NumberCell"><% $open %></td>
+		<td>&nbsp;</td>
+	</tr>
+	<%perl>
+
+	for (@$rows)
+	{
+		my ($t, $c) = @$_;
+		my $class = Moderation->ClassFromType($t);
+		my $name = ($class ? $class->Name : "? type #$t");
+		</%perl>
+		<tr>
+			<th class="StatName">&nbsp; <% $name %></th>
+			<td class="NumberCell"><% $c %></td>
+			<td class="NumberCell"><% &$pc($c, $open) %></td>
+		</tr>
+		<%perl>
+	}
+
+	</%perl>
+</table>
+<& /comp/tableend &>
+
+</div>
+
+<p>
+	Here are some graphs over a few of the above statistics over time.
+	Each one is presented as a simple count, followed by a "delta" plot
+	showing how the weekly change rate.
+</p>
+
+<%perl>
+
+for my $n (qw(
+	count.artist
+	count.album
+	count.track
+	count.label
+	count.puid
+	count.discid
+	count.ar.links
+	count.tag
+	count.tag.raw
+	count.moderator
+	count.moderation
+	count.vote
+)) {
+	$m->out(qq{
+		<div style="border: 0; width: 80%; border-top: 3px double #999;
+			margin: 1em"></div>
+		<div>
+			<img id="plot.$n" src="generated/plot_$n.png" alt="$n" />
+		</div>
+		<div>
+			<img id="plot.$n.delta" src="generated/plot_${n}_delta.png" alt="$n" />
+		</div>
+	});
+}
+
+for my $n (qw(
+	count.moderation.open
+)) {
+	$m->out(qq{
+		<div style="border: 0; width: 80%; border-top: 3px double #999;
+			margin: 1em"></div>
+		<div>
+			<img id="plot.$n" src="generated/plot_$n.png" alt="$n" />
+		</div>
+	});
+}
+
+$mb->Logout();
+
+################################################################################
+
+}
+else
+{
+	$m->comp("/comp/sidebar", title=>'Database Stats', expand=>'about');
+
+	my $time = $m->comp("/comp/datetime", $stat->LastRefreshed);
+	</%perl>
+
+	<p>
+		These statistics represent provide aggregate data on various things in the
+	 	MusicBrainz database. They were last refreshed <% $time %>.
+	</p>
+	<p>
+		See also our <a href="http://musicbrainz.org/usage/">Web Stats</a> pages, and our
+		<a href="http://musicbrainz.org/mrtg/">system monitoring</a> pages.
+	</p>
+	<%perl>
+
+	my $result = $m->cache->get("anyoldkey");
+
+	if (!$result)
+	{
+		$result = $m->scomp("stats.html", $sMagicWord);
+		$m->cache->set('anyoldkey', $result, '1 hour');
+	}
+
+	$m->out($result);
+
+	$m->comp("/comp/footer");
+}
+
+</%perl>
+
+%# vi: set ts=4 sw=4 ft=mason :

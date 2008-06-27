@@ -1,0 +1,703 @@
+#!/usr/bin/perl -w
+# vi: set ts=4 sw=4 :
+#____________________________________________________________________________
+#
+#   MusicBrainz -- the open internet music database
+#
+#   Copyright (C) 1998 Robert Kaye
+#
+#   This program is free software; you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation; either version 2 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program; if not, write to the Free Software
+#   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+#   $Id$
+#____________________________________________________________________________
+
+use FindBin;
+use lib "$FindBin::Bin/../cgi-bin";
+
+use strict;
+use DBDefs;
+use integer;
+
+use Getopt::Long;
+
+my $fHelp;
+my $OutputDir = ".";
+my $dir = "/tmp";
+my $fCompress = 1;
+my $fKeepFiles = 0;
+my $fProgress = -t STDOUT;
+my $fDoFullExport = 1;
+my $fDoReplication = 0;
+my @tablelist;
+
+GetOptions(
+	"output-dir|d=s"	=> \$OutputDir,
+	"tmp-dir|t=s"		=> \$dir,
+	"compress|c!"		=> \$fCompress,
+	"keep-files|k!"		=> \$fKeepFiles,
+	"table=s"			=> \@tablelist,
+	"with-replication"		=> sub { $fDoReplication = 1 },
+	"without-replication"	=> sub { $fDoReplication = 0 },
+	"with-full-export"		=> sub { $fDoFullExport = 1 },
+	"without-full-export"	=> sub { $fDoFullExport = 0 },
+	"help"				=> \$fHelp,
+);
+
+sub usage
+{
+	print <<EOF;
+Usage: ExportAllTables [options]
+
+        --help            show this help
+    -d, --output-dir DIR  place the final archive files in DIR (default: ".")
+    -t, --tmp-dir DIR     use DIR for temporary storage (default: /tmp)
+    -c, --[no]compress    [don't] create .tar.bz2 archives after exporting
+    -k, --keep-files      don't delete the exported files from the tmp directory
+        --table TABLE     process only these tables
+        --with[out]-replication  Do [not] produce a replication packet
+        --with[out]-full-export  Do [not] export full tables
+
+Certain combinations of options are pointless:
+ * specifying --without-replication and --without-full-export
+ * specifying tables (via --table) and --without-full-export
+ * specifying --nocompress and omitting --keep-files
+
+If you specify --table TABLE, you won't get a complete consistent snapshot
+of the database, of course.
+
+EOF
+}
+
+usage(), exit if $fHelp;
+usage(), exit 1 if @ARGV;
+usage(), exit 1 if not $fCompress and not $fKeepFiles;
+usage(), exit 1 if not $fDoFullExport and not $fDoReplication;
+usage(), exit 1 if not $fDoFullExport and @tablelist;
+
+my $erase_tmpdir_on_exit = 0;
+END
+{
+	if ($erase_tmpdir_on_exit and not $fKeepFiles and defined($dir) and -d $dir and -d "$dir/mbdump")
+	{
+		print localtime() . " : Erasing $dir\n";
+		system "/bin/rm", "-rf", $dir;
+	}
+}
+
+use File::Temp qw( tempdir );
+$SIG{'INT'} = sub { exit 3 };
+$dir = tempdir("mbexport-XXXXXX", DIR => $dir, CLEANUP => 0);
+$erase_tmpdir_on_exit = 1;
+mkdir "$dir/mbdump" or die $!;
+print localtime() . " : Exporting to $dir\n";
+
+use MusicBrainz;
+use Sql;
+
+# Log in to the main DB
+my $mb = new MusicBrainz;
+$mb->Login(db => 'READWRITE');
+my $sql = Sql->new($mb->{DBH});
+my $dbh = $mb->{DBH};
+
+# Log in to the raw DB, or duplicate handles to the main DB
+my $rawmb = new MusicBrainz;
+$rawmb->Login(db => 'RAWDATA');
+my $rawsql = Sql->new($rawmb->{DBH});   
+my $rawdbh = $rawmb->{DBH};
+
+# This hash indicates which tables may need to be pulled from a vertical DB
+my %table_db_mapping =
+(
+    'artist_tag_raw'  =>  { dbh => $rawdbh, sql => $rawsql },
+    'release_tag_raw' =>  { dbh => $rawdbh, sql => $rawsql },
+    'track_tag_raw'   =>  { dbh => $rawdbh, sql => $rawsql },
+    'label_tag_raw'   =>  { dbh => $rawdbh, sql => $rawsql },
+    '_default_'       =>  { dbh => $dbh, sql => $sql } 
+);
+
+my @tables = qw(
+	album
+	album_amazon_asin
+	album_cdtoc
+	albumjoin
+	albummeta
+	albumwords
+	annotation
+	artist
+	artist_relation
+	artistalias
+	artist_tag
+	artist_tag_raw
+	artistwords
+	automod_election
+	automod_election_vote
+	cdtoc
+	clientversion
+	country
+	currentstat
+	historicalstat
+	gid_redirect
+	l_album_album
+	l_album_artist
+	l_album_label
+	l_album_track
+	l_album_url
+	l_artist_artist
+	l_artist_label
+	l_artist_track
+	l_artist_url
+	l_label_label
+	l_label_track
+	l_label_url
+	l_track_track
+	l_track_url
+	l_url_url
+	label
+	label_tag
+	label_tag_raw
+	labelalias
+	labelwords
+	language
+	link_attribute
+	link_attribute_type
+	lt_album_album
+	lt_album_artist
+	lt_album_label
+	lt_album_track
+	lt_album_url
+	lt_artist_artist
+	lt_artist_label
+	lt_artist_track
+	lt_artist_url
+	lt_label_label
+	lt_label_track
+	lt_label_url
+	lt_track_track
+	lt_track_url
+	lt_url_url
+	moderation_closed
+	moderation_note_closed
+	moderation_note_open
+	moderation_open
+	moderator
+	moderator_preference
+	moderator_subscribe_artist
+	moderator_subscribe_label
+	moderator_sanitised
+	puid
+	puidjoin
+	puidjoin_stat
+	puid_stat
+	release
+	release_tag
+	release_tag_raw
+	script
+	script_language
+	stats
+    tag
+	track
+	track_tag
+	track_tag_raw
+	trackwords
+	url
+	vote_closed
+	vote_open
+	wordlist
+);
+
+my @replication_tables = qw(
+	Pending
+	PendingData
+);
+
+@tables = @tablelist if @tablelist;
+@tables = () if not $fDoFullExport;
+
+use Time::HiRes qw( gettimeofday tv_interval );
+my $t0 = [gettimeofday];
+my $totalrows = 0;
+my $tables = 0;
+
+# A quick discussion of the "Can't serialize access due to concurrent update"
+# problem.  See "transaction-iso.html" in the Postgres documentation.
+# Basically the problem is this: export "A" starts; export "B" starts; export
+# "B" updates replication_control; export "A" then can't update
+# replication_control, failing with the above error.
+# The solution is to get a lock (outside of the database) before we start the
+# serializable transaction.
+open(my $lockfh, ">>/tmp/.mb-export-lock") or die $!;
+use Fcntl qw( LOCK_EX );
+flock($lockfh, LOCK_EX) or die $!;
+
+$sql->AutoCommit;
+$sql->Do("SET SESSION CHARACTERISTICS AS TRANSACTION ISOLATION LEVEL SERIALIZABLE");
+$sql->Begin;
+
+$rawsql->AutoCommit;
+$rawsql->Do("SET SESSION CHARACTERISTICS AS TRANSACTION ISOLATION LEVEL SERIALIZABLE");
+$rawsql->Begin;
+
+my $now = $sql->SelectSingleValue("SELECT NOW()");
+
+# Write the TIMESTAMP file
+# This used to be free text; now it's parseable.  It contains a PostgreSQL
+# TIMESTAMP WITH TIME ZONE expression.
+writefile("TIMESTAMP", "$now\n");
+
+# Get the replication control data
+
+my ($iSchemaSequence, $iReplicationSequence, $dtReplicationDate) = do {
+	my $row = $sql->SelectSingleRowHash("SELECT * FROM replication_control");
+	$row ||= {};
+	@$row{qw(
+		current_schema_sequence
+		current_replication_sequence
+		last_replication_date
+	)};
+};
+
+$iSchemaSequence or die "Don't know what schema sequence number we're using";
+$iSchemaSequence == &DBDefs::DB_SCHEMA_SEQUENCE
+	or die "Stored schema sequence ($iSchemaSequence) does not match DBDefs::DB_SCHEMA_SEQUENCE (".&DBDefs::DB_SCHEMA_SEQUENCE.")";
+
+# Write the SCHEMA_SEQUENCE file.  Again, this is parseable - it's just an
+# integer.
+writefile("SCHEMA_SEQUENCE", "$iSchemaSequence\n");
+
+# Sanitise various things for public consumption
+
+if (grep { $_ eq "moderator_sanitised" } @tables)
+{
+	$sql->Do("SELECT * INTO TEMPORARY TABLE moderator_sanitised FROM moderator");
+	$sql->Do("UPDATE moderator_sanitised SET password = 'mb', privs = 0, email = ''");
+}
+
+$| = 1;
+
+printf "%-30.30s %9s %4s %9s\n",
+	"Table", "Rows", "est%", "rows/sec",
+	;
+
+my %rowcounts;
+
+for my $table (@tables)
+{
+	dumptable($table);
+}
+
+sub table_rowcount
+{
+	my $table = shift;
+	$table =~ s/_sanitised$//;
+
+    # Get the right sql module
+    my $sql = $table_db_mapping{'_default_'}->{'sql'};
+    $sql = $table_db_mapping{$table}->{'sql'} if (exists $table_db_mapping{$table});
+	$sql->SelectSingleValue(
+		"SELECT reltuples FROM pg_class WHERE relname = ? LIMIT 1",
+		$table,
+	);
+}
+
+sub dumptable
+{
+	my $table = shift;
+
+    # Get the right sql/dbh module
+    my $sql = $table_db_mapping{'_default_'}->{'sql'};
+    $sql = $table_db_mapping{$table}->{'sql'} if (exists $table_db_mapping{$table});
+    my $dbh = $table_db_mapping{'_default_'}->{'dbh'};
+    $dbh = $table_db_mapping{$table}->{'dbh'} if (exists $table_db_mapping{$table});
+
+	open(DUMP, ">$dir/mbdump/$table")
+		or die $!;
+
+	my $estrows = table_rowcount($table) || 1;
+
+	$sql->Do("COPY \"$table\" TO stdout");
+	my $buffer;
+	my $rows = 0;
+
+	my $t1 = [gettimeofday];
+	my $interval;
+
+	my $p = sub {
+		my ($pre, $post) = @_;
+		no integer;
+		printf $pre."%-30.30s %9d %3d%% %9d".$post,
+			$table, $rows, int(100 * $rows / $estrows),
+			$rows / ($interval||1);
+	};
+
+	$p->("", "") if $fProgress;
+
+	# This has to be at least as large as the longest line given
+	# by "copy table to stdout".
+	# Currently the largest value is moderation #2575726 at approx
+	# 312,851 bytes.
+	my $max = 315_000; my $maxline = __LINE__;
+	my $longest = 0;
+
+	while ($dbh->func($buffer, $max, "getline"))
+	{
+		die "\nProbable data truncation!  See $0 line $maxline"
+			if length($buffer) >= $max-1;
+
+		$longest = length($buffer) if length($buffer) > $longest;
+		print DUMP $buffer, "\n"
+			or die $!;
+
+		++$rows;
+		unless ($rows & 0xFFF)
+		{
+			$interval = tv_interval($t1);
+			$p->("\r", "") if $fProgress;
+		}
+	}
+
+	$dbh->func("endcopy") or die;
+	close DUMP
+		or die $!;
+
+	$interval = tv_interval($t1);
+	$p->(($fProgress ? "\r" : ""), sprintf(" %.2f sec\n", $interval));
+	print "Longest buffer used: $longest\n" if $ENV{SHOW_BUFFER_SIZE};
+
+	++$tables;
+	$totalrows += $rows;
+	$rowcounts{$table} = $rows;
+
+	$rows;
+}
+
+# Is there any replication data to dump?
+my $fAnyReplicationData = 0;
+for my $table (@replication_tables)
+{
+	$fAnyReplicationData = 1
+		if $sql->SelectSingleValue("SELECT COUNT(*) FROM \"$table\"") > 0;
+}
+
+if ($fDoReplication)
+{
+	if ($fAnyReplicationData or not $iReplicationSequence)
+	{
+		# Are we starting replication for the first time?
+		if (not defined $iReplicationSequence)
+		{
+			# If we're currently not at a replication point, then let's turn this
+			# one into sequence #0.
+			$iReplicationSequence = 0;
+
+			# In this case we may as well ditch any pending
+			# replication data; no-one can ever load and apply packet #0, so it
+			# will effectively just be there for cosmetic reasons.
+			empty_replication_tables();
+		} else {
+			# Otherwise, we're moving on to the next replication sequence
+			# number.
+			++$iReplicationSequence;
+		}
+
+		# Set the replication sequence number.  This should (I think) be
+		# the final transaction included in each packet.
+		$iReplicationSequence ||= 0;
+
+		$sql->Do(
+			"UPDATE replication_control
+			SET current_replication_sequence = ?,
+			last_replication_date = NOW()",
+			$iReplicationSequence,
+		);
+
+		print localtime() . " : Producing replication packet #$iReplicationSequence\n";
+
+		# Dump 'em
+		dumptable($_) for @replication_tables;
+
+		# Remove the rows we just dumped
+		empty_replication_tables();
+
+		writefile("REPLICATION_SEQUENCE", "$iReplicationSequence\n");
+	} elsif (defined $iReplicationSequence and not $fAnyReplicationData) {
+		print localtime() . " : No changes since the last replication point (#$iReplicationSequence)\n";
+		writefile("REPLICATION_SEQUENCE", "$iReplicationSequence\n");
+	} else {
+		print localtime() . " : No replication data dumped - not producing a replication packet\n";
+		writefile("REPLICATION_SEQUENCE", "");
+	}
+} elsif (defined $iReplicationSequence and not $fAnyReplicationData) {
+	print localtime() . " : No changes since the last replication point (#$iReplicationSequence)\n";
+	writefile("REPLICATION_SEQUENCE", "$iReplicationSequence\n");
+} else {
+	writefile("REPLICATION_SEQUENCE", "");
+}
+
+# Dump this /after/ we've possibly updated the current_replication_sequence
+dumptable("replication_control");
+
+# Make sure our replication data is safe before we commit its removal from the database
+system "/bin/sync"; $? == 0 or die "sync failed (rc=$?)";
+$sql->Commit;
+
+# There should've been no changes on this handle, so call rollback
+$rawsql->Rollback;
+
+my $dumptime = tv_interval($t0);
+printf "%s : Dumped %d tables (%d rows) in %d seconds\n",
+	scalar localtime,
+	$tables, $totalrows, $dumptime;
+
+optimise_replication_tables() if $fDoReplication;
+
+# Now we have all the files; disconnect from the database.
+# This also drops the _sanitised temporary tables.
+undef $sql;
+undef $rawsql;
+undef $mb;
+undef $rawmb;
+
+# We can release the lock, allowing other exports to run if they wish.
+close $lockfh;
+
+my @group_core = qw(
+	album
+	albumjoin
+	album_cdtoc
+	artist
+	artistalias
+    artist_tag
+	cdtoc
+    clientversion
+	country
+	gid_redirect
+	l_album_album
+	l_album_artist
+	l_album_label
+	l_album_track
+	l_album_url
+	l_artist_artist
+	l_artist_label
+	l_artist_track
+	l_artist_url
+	l_label_label
+	l_label_track
+	l_label_url
+	l_track_track
+	l_track_url
+	l_url_url
+	label
+	label_tag
+	labelalias
+	language
+	link_attribute
+	link_attribute_type
+	lt_album_album
+	lt_album_artist
+	lt_album_label
+	lt_album_track
+	lt_album_url
+	lt_artist_artist
+	lt_artist_label
+	lt_artist_track
+	lt_artist_url
+	lt_label_label
+	lt_label_track
+	lt_label_url
+	lt_track_track
+	lt_track_url
+	lt_url_url
+	puid
+	puidjoin
+	release
+    release_tag
+	replication_control
+	script
+	script_language
+    tag
+	track
+	track_tag
+	url
+	);
+
+my @group_derived = qw(
+	album_amazon_asin
+	albummeta
+	albumwords
+	annotation
+	artistwords
+	labelwords
+	trackwords
+	wordlist
+	);
+
+my @group_stats = qw(
+	currentstat
+	historicalstat
+	stats
+	puidjoin_stat
+	puid_stat
+	puidjoin_stat
+	puid_stat
+);
+
+my @group_moderation = qw(
+	automod_election
+	moderation_note_open
+	moderation_open
+	moderator_sanitised
+	vote_open
+	);
+
+my @group_closedmoderation = qw(
+	moderation_closed
+	moderation_note_closed
+	vote_closed
+	);
+
+my @group_artistrelation = qw(
+	artist_relation
+);
+
+my @group_modprivate = qw(
+	album_amazon_asin
+    artist_tag_raw
+	automod_election_vote
+    label_tag_raw
+    release_tag_raw
+	moderator
+	moderator_preference
+	moderator_subscribe_artist
+	moderator_subscribe_label
+    track_tag_raw
+);
+
+use File::Copy qw( copy );
+
+if ($fCompress and $fDoFullExport)
+{
+	copy_readme() or die $!;
+	copy("$FindBin::Bin/COPYING-PublicDomain", "$dir/COPYING") or die $!;
+	make_tar("mbdump.tar.bz2", @group_core);
+
+	copy_readme() or die $!;
+	copy("$FindBin::Bin/COPYING-CCShareAlike", "$dir/COPYING") or die $!;
+	make_tar("mbdump-derived.tar.bz2", @group_derived);
+	make_tar("mbdump-moderation.tar.bz2",  @group_moderation);
+	make_tar("mbdump-stats.tar.bz2",  @group_stats);
+	make_tar("mbdump-closedmoderation.tar.bz2",  @group_closedmoderation);
+	make_tar("mbdump-artistrelation.tar.bz2", @group_artistrelation);
+	make_tar("mbdump-private.tar.bz2", @group_modprivate);
+}
+
+if ($fCompress and $fDoReplication)
+{
+	my $tarfile = "replication-$iReplicationSequence.tar.bz2";
+
+	if (grep { $rowcounts{$_} } @replication_tables)
+	{
+		copy_readme() or die $!;
+		# Go for the "most restrictive" license
+		copy("$FindBin::Bin/COPYING-CCShareAlike", "$dir/COPYING") or die $!;
+		make_tar($tarfile, @replication_tables);
+	}
+}
+
+# Tar files all created safely... we can erase the tmpdir on exit
+system "/bin/sync"; $? == 0 or die "sync failed (rc=$?)";
+$erase_tmpdir_on_exit = 1;
+
+exit;
+
+################################################################################
+
+sub make_tar
+{
+	my ($tarfile, @files) = @_;
+
+	@files = map { "mbdump/$_" } grep { defined $rowcounts{$_} } @files;
+
+	# These ones go first, so MBImport can quickly find them
+	unshift @files, qw(
+		TIMESTAMP
+		COPYING
+		README
+		REPLICATION_SEQUENCE
+		SCHEMA_SEQUENCE
+	);
+
+	my $t0 = [gettimeofday];
+	print localtime() . " : Creating $tarfile\n";
+	system { "/bin/tar" } "tar",
+		"-C", $dir,
+		"--bzip2",
+		"--create",
+		"--verbose",
+		"--file", "$OutputDir/$tarfile",
+		"--",
+		@files,
+		;
+	$? == 0 or die "Tar returned $?";
+	printf "%s : Tar completed in %d seconds\n", scalar localtime, tv_interval($t0);
+}
+
+sub writefile
+{
+	my ($file, $contents) = @_;
+	open(my $fh, ">$dir/$file") or die $!;
+	print $fh $contents or die $!;
+	close $fh or die $!;
+}
+
+sub empty_replication_tables
+{
+	$sql->Do("DELETE FROM \"PendingData\"");
+	$sql->Do("DELETE FROM \"Pending\"");
+	# As soon as we commit, the replication data is gone from the DB, so we must
+	# be sure that we have a safe copy.
+	$erase_tmpdir_on_exit = 0;
+}
+
+sub optimise_replication_tables
+{
+	print localtime() . " : Optimising replication tables\n";
+	$sql->AutoCommit;
+	$sql->Do("VACUUM FULL ANALYZE \"PendingData\"");
+	$sql->AutoCommit;
+	$sql->Do("VACUUM FULL ANALYZE \"Pending\"");
+}
+
+sub copy_readme
+{
+    my $svn_url = `svn info | grep "URL:" | colrm 1 5`;
+    chomp($svn_url);
+
+    my $text = <<END;
+The files in this directory are snapshots of the MusicBrainz database,
+in a format suitable for import into a PostgreSQL database. To import
+them, you need a compatible version of the MusicBrainz server software.
+
+Use the following command for checking out the mb_server revision
+which created the snapshots:
+
+svn co $svn_url mb_server
+
+After that, follow the instructions given in mb_server/INSTALL.
+END
+    writefile("README", $text);
+}
+
+# eof ExportAllTables

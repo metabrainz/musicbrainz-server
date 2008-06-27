@@ -1,0 +1,10 @@
+#!/bin/sh
+
+unset SSH_AUTH_SOCK
+
+LOCAL_DIR=/var/ftp/pub/musicbrainz/data/fullexport
+
+rsync -e "ssh -i $HOME/.ssh/rysnc-data-fullexport" -av --delete --exclude='latest-is*' $LOCAL_DIR/ ftpowner@scooby.localdomain:dummy
+rsync -e "ssh -i $HOME/.ssh/rysnc-data-latest" -av $LOCAL_DIR/latest* ftpowner@scooby.localdomain:dummy
+
+# eof rsync-fullexport-files
