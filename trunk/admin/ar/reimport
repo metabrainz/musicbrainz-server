@@ -1,9 +1,0 @@
-#!/bin/sh
-
-psql -U musicbrainz_user musicbrainz_db < DropLinks 
-./ImportLinkTypes < linktypes.txt 
-./ImportLinkAttrs < linkattrs.txt 
-./ImportLinks < ar_data.txt 
-cd ..
-./SetSequences.pl
-cd -

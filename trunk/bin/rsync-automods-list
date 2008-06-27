@@ -1,7 +1,0 @@
-#!/bin/sh
-
-unset SSH_AUTH_SOCK
-
-exec ssh -i $HOME/.ssh/rsync-automods-list root@scooby.localdomain dummy
-
-# eof rsync-automods-list

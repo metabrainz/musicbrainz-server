@@ -1,7 +1,0 @@
-Server Update Tasks
--------------------
-
-1. Create new album_amazon_asin table, indexes and FKs
-2. Run populate album meta script
-
-    
