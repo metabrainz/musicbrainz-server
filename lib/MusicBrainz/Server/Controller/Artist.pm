@@ -27,6 +27,7 @@ sub show : Path Args(1) {
     require MusicBrainz;
     require MusicBrainz::Server::Validation;
     require MusicBrainz::Server::Artist;
+    require ModDefs;
 
     if($mbid ne "")
     {
@@ -47,7 +48,8 @@ sub show : Path Args(1) {
 	    start => $artist->GetBeginDate,
 	    end => $artist->GetEndDate
 	},
-	quality => '',
+	quality => ModDefs::GetQualityText($artist->GetQuality),
+        resolution => $artist->GetResolution,
     };
 
     $c->stash->{template} = 'artist/show.tt';

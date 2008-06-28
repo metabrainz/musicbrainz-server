@@ -15,7 +15,7 @@
      { link => "", text => "Open Edits" },
      { link => "", text => "Failed Edits" },
      { link => "", text => "Cancelled Edits" },
-     { link => "", text => "Subscriptions" },
+     { link => "", text => "Subscriptions", hide => not (viewing_own_profile or profile.public_subscriptions) },
    ]
 %]
 
@@ -36,26 +36,38 @@
     [% INCLUDE "components/piped-list.tt" list=edit_account_options
          WRAPPER property name="Edit My Account" IF viewing_own_profile%]
 	
-    [% profile.name WRAPPER property name="Name" %]
+    [% profile.name | html_entity WRAPPER property name="Name" %]
 
-    [% profile.type or "Unknown" WRAPPER property name="User Type" %]
+    [% IF (not viewing_own_profile) %]
+      [% WRAPPER property name="Contact"%]
+        <a href="[% c.uri_for('/user/contact', profile.name) %]">Send E-Mail</a>
+      [% END %]
+    [% END %]
+
+    [% (profile.type or "Unknown") | html_entity WRAPPER property name="User Type" %]
 
     [% WRAPPER property name="E-Mail" %]
-      [% viewing_own_profile ? profile.email.address or "[None]" : "[Hidden]" %]
+      [% IF viewing_own_profile %]
+        [% (profile.email.address or "[None]") | html_entity %]
+      [% ELSE %][Hidden][% END %]
       
       [% IF profile.email.verified_at %]
-        (verified [% profile.email.verified_at %])
+        (verified [% profile.email.verified_at |mb_date %])
       [% ELSE %]
         [% IF viewing_own_profile %](<em>unverified!</em>)[% END %]
       [% END %]
     [% END %]
 	
-    [% profile.homepage or "[None]" WRAPPER property name="Homepage" %]
+    [% WRAPPER property name="Homepage" %]
+      [% IF profile.hompage %]
+      <a href="[% profile.homepage | url %]">[% profile.homepage | html_entity %]</a>
+      [% ELSE %][None][% END %]
+    [% END %]
 	
-    [% profile.biography or "[None]" WRAPPER property name="Biography" %]
+    [% (profile.biography or "[None]") | html_entity WRAPPER property name="Biography" %]
 	
     [% WRAPPER property name="Subscriptions" %]
-      [% viewing_own_profile ? "Your" : profile.name %] subscriptions are [% profile.public_subscriptions ? "public" : "private" %]
+      [% viewing_own_profile ? "Your" : profile.name | html_entity %] subscriptions are [% profile.public_subscriptions ? "public" : "private" %]
     [% END %]
 	
     [% WRAPPER property name="Subscribers" %]
@@ -65,7 +77,13 @@
   
  <h3>User Statistics</h3>
  <dl>
-   [% profile.member_since | mb_date WRAPPER property name="Member Since" %]
+   [% WRAPPER property name="Member Since" %]
+     [% IF profile.name == "Rob" %]the dawn of the project
+     [% ELSIF profile.is_special %]N/A
+     [% ELSIF profile.charter %]charter member
+     [% ELSE %][% profile.member_since | mb_date %]
+     [% END %]
+   [% END %]
    [% profile.accepted_non_autoedits WRAPPER property name="Accepted Non-autoedits" %]
    [% profile.accepted_autoedits WRAPPER property name="Autoedits" %]
    [% profile.edits_voted_down WRAPPER property name="Edits Voted Down" %]

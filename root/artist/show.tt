@@ -1,8 +1,45 @@
 [% WRAPPER 'layout.tt' %]
 
+[% info_links = [
+     { link => "permalink", text => "Permenant Link" },
+     { link => "details", text => "Details" },
+     { link => "aliases", text => "Aliases" },
+     { link => "tags", text => "Tags" },
+     { link => "", text => "Releases" },
+     { link => "", text => "Appears On" },
+     { link => "", text => "Similar Artists" },
+     { link => "", text => "Search Google" }
+   ]
+%]
+
 <div id="artistHeader">
   <h1>[% artist.name %]</h1>
-  <h2>[% artist.type %], [% artist.quality %]</h2>
+  [% IF artist.resolution %]
+    <h2>[% artist.resolution %]</h2>
+  [% END %]
+  <h2>Type: [% artist.type %],
+    [% artist.quality %] data quality</h2>
+
+  Info: [% INCLUDE "components/piped-list.tt" list=info_links %]
+
+  <div id="editLinks">
+    Edit:
+    [% IF logged_in %]
+      [% edit_links = [
+           { link => "", text => "Edit Artist" },
+           { link => "", text => "Merge Into" },
+           { link => "", text => "Subscribe" },
+           { link => "", text => "Add Release" },
+           { link => "", text => "Import Release" },
+           { link => "", text => "Add Non-Album Tracks" },
+           { link => "", text => "Change Data Quality" },
+         ]
+      %]
+      [% INCLUDE "components/piped-list.tt" list=edit_links %]
+    [% ELSE %]
+      <a href="[% c.uri_for('/user/login') %]">Log in</a> to edit this data
+    [% END %]
+  </div>
 </div>
 
 [% END %]

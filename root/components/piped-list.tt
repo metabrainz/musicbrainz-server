@@ -1,4 +1,6 @@
 [% FOREACH list %]
+  [% UNLESS hide %]
   <a href="[% link %]">[% text %]</a>
-  [% UNLESS loop.last %] | [% END %]
+  [% "|" UNLESS loop.last %]
+  [% END %]
 [% END %]
