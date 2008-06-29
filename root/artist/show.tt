@@ -43,14 +43,14 @@
 </div>
 
 <h1>Releases</h1>
+<table class="releasetypes">
 [% FOREACH group IN groups %]
   <h2>[% group.name %]</h2>
-  <table>
+  <table class="releaselist">
     <thead>
       <tr>
 	<th>Tracks</th>
 	<th>Disc IDs</th>
-	<th>TRMs</th>
 	<th>PUIDs</th>
 	<th>Status</th>
 	<th>Release Date</th>
@@ -63,7 +63,6 @@
       <tr>
         <td>[% release.trackCount %]</td>
 	<td>[% release.discIds %]</td>
-	<td>[% release.trms %]</td>
 	<td>[% release.puids %]</td>
 	<td>[% release.status %]</td>
 	<td>[% release.releaseDate %]</td>
@@ -76,5 +75,6 @@
     </tbody>
   </table>
 [% END %]
+</table>
 
 [% END %]
