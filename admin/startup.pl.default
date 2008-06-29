@@ -101,7 +101,6 @@ require Style;
 require TableBase;
 require TaggerSupport;
 require MusicBrainz::Server::Track;
-require MusicBrainz::Server::TRM;
 require MusicBrainz::Server::PUID;
 require UserPreference;
 require UserStuff;
