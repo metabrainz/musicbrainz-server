@@ -82,11 +82,11 @@ a:hover {
 #creditsBar li.right { float: right; }
 
 #sidebar {
-    width: 200px;
-    min-width: 110pt;
-    background: lightgray;
-    border-right: 1px solid black;
+    width: 130px;
+    background: #DDD;
+    border-right: 1px solid #000;
     color: #050505;
+    font-size: 9pt;
     margin-bottom: 20pt;
 }
 
@@ -117,7 +117,7 @@ a:hover {
     margin: 0;
     padding: 5pt;
     border-bottom: 1px solid black;
-    font-size: 10pt;
+    font-size: 8pt;
     padding: 0pt 4pt;
 }
 
@@ -138,10 +138,6 @@ a:hover {
     list-style-type: none;
 }
 
-#sidebar li li {
-    list-style-type: square;
-}
-
 #sidebar ul ul {
     padding: 0;
     padding-left: 10pt;
@@ -154,8 +150,8 @@ a:hover {
 }
 
 #content {
-    margin-left: 200px;
-    padding: 10pt;
+    margin-left: 140px;
+    padding: 15px;
 }
 
 div.box {
