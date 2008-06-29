@@ -14,12 +14,12 @@ fields:
 
 	remember:
 		label: -
-		options: Log In Permenantly
+		options: Log in permenently
 
 
 	singleIp:
 		label: -
-		options: Only From This IP Address
+		options: Only from this IP address
 
 
 submit: Login
