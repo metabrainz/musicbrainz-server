@@ -207,6 +207,18 @@ sub logout : Local {
     $c->response->redirect($c->uri_for('/user/login'));
 }
 
+=head2 preferences
+
+Change the users preferences
+
+=cut
+
+sub preferences : Local Form {
+  my ($self, $c) = @_;
+
+  $c->stash->{template} = 'user/preferences.tt';
+}
+
 =head1 AUTHOR
 
 Oliver Charles <oliver.g.charles@googlemail.com>

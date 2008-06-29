@@ -42,4 +42,16 @@
   </div>
 </div>
 
+<h1>Releases</h1>
+[% FOREACH group IN groups %]
+  <h2>[% group.name %]</h2>
+  <ul>
+    [% FOREACH release IN group.releases %]
+      <li>
+      <a href="[% c.uri_for('/release', release.id) %]">[% release.title %]</a>
+      </li>
+    [% END %]
+  </ul>
+[% END %]
+
 [% END %]

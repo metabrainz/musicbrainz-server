@@ -1,27 +1,27 @@
 name: user_register
 method: post
 fields:
-	username:
-		label:	  Username
-		size:	  50
-		required: 1
-		
-	password:
-		label:    Password
-		type:	  password
-		size:	  50
-		required: 1
-		
-	confirm_password:
-		label:	  Confirm Password
-		type: 	  password
-		size:	  50
-		required: 1
-		
-	email:
-		size:	  50
-		required: 0
+  username:
+    label: Username
+    size: 50
+    required: 1
+    
+    password:
+      label: Password
+      type: password
+      size: 50
+      required: 1
+      
+    confirm_password:
+      label: Confirm Password
+      type: password
+      size: 50
+      required: 1
+      
+    email:
+      size: 50
+      required: 0
 
 validate:
-	confirm_password:
-		perl:	    eq $form->field("password")
+  confirm_password:
+    perl: eq $form->field("password")
