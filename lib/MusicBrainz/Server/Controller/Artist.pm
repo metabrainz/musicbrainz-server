@@ -107,15 +107,15 @@ sub show : Path Args(1) {
     #
     # Artist:
     $c->stash->{artist} = {
-	name => $artist->GetName,
-	type => MusicBrainz::Server::Artist::GetTypeName($artist->GetType) || '',
-	datespan => {
-	    start => $artist->GetBeginDate,
-	    end => $artist->GetEndDate
-	},
-	quality => ModDefs::GetQualityText($artist->GetQuality),
-        resolution => $artist->GetResolution,
-    };
+			      name => $artist->GetName,
+			      type => MusicBrainz::Server::Artist::GetTypeName($artist->GetType),
+			      datespan => {
+					      start => $artist->GetBeginDate,
+					      end => $artist->GetEndDate
+					  },
+			      quality => ModDefs::GetQualityText($artist->GetQuality),
+			      resolution => $artist->GetResolution,
+			  };
 
     # Releases, sorted into "release groups":
     $c->stash->{groups} = [];
@@ -130,22 +130,43 @@ sub show : Path Args(1) {
 	if(not defined $currentGroup or $currentGroup->{type} != $type)
 	{
 	    $currentGroup = {
-			       name => $release->GetAttributeNamePlural($type),
-			       releases => [],
-			       type => $type
+			        name => $release->GetAttributeNamePlural($type),
+			        releases => [],
+			        type => $type
 			    };
 
 	    push @{$c->stash->{groups}}, $currentGroup;
 	}
 
+	my $language = {};
+	$language->{script} = defined $release->GetScript ? $release->GetScript->GetName : "";
+	$language->{language} = defined $release->GetLanguage ? $release->GetLanguage->GetName : "";
+	$language->{shortLanguage} = defined $release->GetLanguage ? $release->GetLanguage->GetISOCode3T : "";
+
 	my $rel = {
-	    title => $release->GetName,
-	    id => $release->GetMBId
-	};
+		      title => $release->GetName,
+		      id => $release->GetMBId,
+		      trackCount => $release->GetTrackCount,
+		      discIds => $release->GetDiscidCount,
+		      puids => $release->GetPuidCount,
+		      trms => $release->GetTrmidCount,
+		      quality => ModDefs::GetQualityText($release->GetQuality),
+		      language => $language,
+#		      releaseDate => ,
+		  };
+
+	$rel->{attributes} = [];
+	my $attributes = $release->GetAttributes;
+	
+	for my $attr ($attributes)
+	{
+	    push @{$rel->{attributes}}, $release->GetAttributeName($attr);
+	}
 
 	push @{$currentGroup->{releases}}, $rel;
     }
 
+    $c->error("");
     $c->stash->{template} = 'artist/show.tt';
 }
 

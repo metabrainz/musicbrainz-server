@@ -1,4 +1,4 @@
-[% WRAPPER 'layout.tt' %]
+[% WRAPPER "layout.tt" title=artist.name %]
 
 [% info_links = [
      { link => "permalink", text => "Permenant Link" },
@@ -45,13 +45,36 @@
 <h1>Releases</h1>
 [% FOREACH group IN groups %]
   <h2>[% group.name %]</h2>
-  <ul>
-    [% FOREACH release IN group.releases %]
-      <li>
-      <a href="[% c.uri_for('/release', release.id) %]">[% release.title %]</a>
-      </li>
-    [% END %]
-  </ul>
+  <table>
+    <thead>
+      <tr>
+	<th>Tracks</th>
+	<th>Disc IDs</th>
+	<th>TRMs</th>
+	<th>PUIDs</th>
+	<th>Status</th>
+	<th>Release Date</th>
+	<th>Language</th>
+	<th>Title</th>
+      </tr>
+    </thead>
+    <tbody>
+      [% FOREACH release IN group.releases %]
+      <tr>
+        <td>[% release.trackCount %]</td>
+	<td>[% release.discIds %]</td>
+	<td>[% release.trms %]</td>
+	<td>[% release.puids %]</td>
+	<td>[% release.status %]</td>
+	<td>[% release.releaseDate %]</td>
+	<td>[% release.language.shortLanguage %]</td>
+	<td>
+          <a href="[% c.uri_for('/release', release.id) %]">[% release.title %]</a>
+        </td>
+      </tr>
+      [% END %]
+    </tbody>
+  </table>
 [% END %]
 
 [% END %]
