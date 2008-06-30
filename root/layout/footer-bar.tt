@@ -26,6 +26,6 @@
   <ul id="creditsBar" class="bulletless">
     <li class="left">Original Design|<a href="http://vacubomb.com/">vacubomb.com</a></li>
     <li class="right">Server version: [% server_details.version %]</li>
-    <li><img src="/images/edit.gif" alt="" /><a href="/doc/ContactUs">Contact details</a></li>
+    <li><img src="/static/images/edit.gif" alt="" /><a href="/doc/ContactUs">Contact details</a></li>
   </ul>
 </div>
