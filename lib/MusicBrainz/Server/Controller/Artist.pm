@@ -12,8 +12,37 @@ MusicBrainz::Server::Controller::Artist - Catalyst Controller for working with A
 
 =head1 METHODS
 
+=head2 artistLink
+
+Create stash data to create a link to an artist, in an form that can be then displayed by
+root/components/entity-link.tt
+
 =cut
 
+sub artistLink
+{
+    my $artist = @_;
+
+    artistLinkRaw $artist->GetName, $artist->GetMBId;
+}
+
+=head2 artistLinkRaw
+
+Create stash data to link to an artist, but given the parameters explicity (rather than requiring an
+Artist object)
+
+=cut
+
+sub artistLinkRaw
+{
+    my ($name, $mbid) = @_;
+
+    {
+        name => $name,
+        mbid => $mbid,
+        type => 'artist'
+    };
+}
 
 =head2 show
 
@@ -27,16 +56,15 @@ sub show : Path Args(1)
 
     use Encode qw( decode );
     use MusicBrainz::Server::Artist;
+    use MusicBrainz::Server::Link;
     use MusicBrainz::Server::Release;
     use MusicBrainz::Server::Tag;
     use MusicBrainz::Server::Validation;
     use MusicBrainz;
     use ModDefs;
 
-    if($mbid ne "")
-    {
-        MusicBrainz::Server::Validation::IsGUID($mbid) or $c->error("Not a valid GUID");
-    }
+    # Validate the MBID
+    $c->error("Not a valid GUID") unless MusicBrainz::Server::Validation::IsGUID($mbid);
 
     # Load the artist
     my $mb = new MusicBrainz;
@@ -46,85 +74,68 @@ sub show : Path Args(1)
     $artist->SetMBId($mbid);
     $artist->LoadFromId(1) or $c->error("Failed to load artist");
 
-    # Load tags
-    my $tagCount = 5;
-    my $t = MusicBrainz::Server::Tag->new($mb->{DBH});
-    my $tagHash = $t->GetTagHashForEntity('artist', $artist->GetId, $tagCount + 1);
+    $c->error("You cannot view the special DELETED_ARTIST")
+        if $artist->GetId == ModDefs::DARTIST_ID;
 
-    my @tags = sort { $tagHash->{$b} <=> $tagHash->{$a}; } keys %{$tagHash};
-
-    # Load releases
-    my @releases = $artist->GetReleases(1, 1);
-    my $onlyHasVAReleases = (scalar @releases) == 0;
-
-    my @shortList;
-
-    for my $release (@releases)
-    {
-        my ($type, $status) = $release->GetReleaseTypeAndStatus;
-
-        # Construct values to sort on
-        $release->SetMultipleTrackArtists($release->GetArtist != $release->GetId() ? 1 : 0);
-        $release->{_is_va_} = ($release->GetArtist == &ModDefs::VARTIST_ID or
-                               $release->GetArtist != $release->GetId());
-        $release->{_is_nonalbum_} = ($type == MusicBrainz::Server::Release::RELEASE_ATTR_NONALBUMTRACKS);
-        $release->{_section_key_} = ($release->{_is_va_} . " " . $type);
-        $release->{_name_sort_} = lc decode "utf-8", $release->GetName;
-        $release->{_disc_max_} = 0;
-        $release->{_disc_no_} = 0;
-        $release->{_firstreleasedate_} = ($release->GetFirstReleaseDate || "9999-99-99");
-
-        CheckAttributes($release);
-
-        # Attempt to sort "disc x [of y]" correctly
-        if ($release->{_name_sort_} =~
-            /^(.*)                              # $1 <main title>
-                (?:[(]disc\ (\d+)               # $2 (disc x
-                    (?:\ of\ (\d+))?            # $3 [of y]
-                    (?::[^()]*                  #    [: <disc title>
-                        (?:[(][^()]*[)][^()]*)* #     [<1 level of nested par.>]
-                    )?                          #    ]
-                    [)]                         #    )
-                )
-                (.*)$                           # $4 [<rest of main title>]
-            /xi)
-        {
-            $release->{_name_sort_} = "$1 $4";
-            $release->{_disc_no_} = $2;
-            $release->{_disc_max_} = $3 || 0;
-        }
-
-        # Push onto our list of releases we are actually interested in
-        push @shortList, $release
-            if ($type == MusicBrainz::Server::Release::RELEASE_ATTR_ALBUM ||
-                $type == MusicBrainz::Server::Release::RELEASE_ATTR_EP ||
-                $type == MusicBrainz::Server::Release::RELEASE_ATTR_COMPILATION ||
-                $type == MusicBrainz::Server::Release::RELEASE_ATTR_SINGLE);
-    }
-
-    if(scalar @shortList)
-    {
-        @releases = @shortList;
-        @releases = sort SortAlbums @releases;
-    }
-    else
-    {
-        $c->error("No releases to show");
-    }
+    # Load data for the landing page
+    my @tags = LoadArtistTags ($mb->{DBH}, 5, $artist);
+    my @arLinks = LoadArtistARLinks ($mb->{DBH}, $artist); 
+    my @releases = LoadArtistReleases ($artist);
 
     # Create data structures for the template
     #
+
+    # ARs:
+    my @prettyArs;
+    my $currentArGroup = undef;
+    for my $ar (@arLinks)
+    {
+        if(not defined $currentArGroup or $currentArGroup->{connector} ne $ar->{link_phrase})
+        {
+            $currentArGroup = {
+                connector => $ar->{link_phrase},
+                type => $ar->{link_type},
+                entities => []
+            };
+            push @prettyArs, $currentArGroup;
+        }
+
+        my $entity;
+
+        if ($ar->{link1_type} eq 'artist')
+        {
+            $entity = artistLinkRaw($ar->{link1_name}, $ar->{link1_mbid});
+        }
+        elsif ($ar->{link1_type} eq 'album')
+        {
+            use MusicBrainz::Server::Controller::Release;
+            $entity = MusicBrainz::Server::Controller::Release::releaseLinkRaw($ar->{link1_name},
+                $ar->{link1_mbid});
+        }
+        elsif ($ar->{link1_type} eq 'url')
+        {
+            use MusicBrainz::Server::Controller::Url;
+            $entity = MusicBrainz::Server::Controller::Url::urlLinkRaw($ar->{link1_name},
+                $ar->{link1_mbid});
+        }
+
+        push @{$currentArGroup->{entities}}, $entity;
+    }
+
     # Artist:
     $c->stash->{artist} = {
         name => $artist->GetName,
-        type => MusicBrainz::Server::Artist::GetTypeName($artist->GetType),
+        type => 'artist',
+        mbid => $artist->GetMBId,
+        artist_type => MusicBrainz::Server::Artist::GetTypeName($artist->GetType),
         datespan => {
             start => $artist->GetBeginDate,
             end => $artist->GetEndDate
         },
         quality => ModDefs::GetQualityText($artist->GetQuality),
         resolution => $artist->GetResolution,
-        tags => \@tags
+        tags => \@tags,
+        relations => \@prettyArs,
     };
 
     # Releases, sorted into "release groups":
@@ -184,6 +195,122 @@ sub show : Path Args(1)
     {
         $c->stash->{template} = 'artist/compact.tt';
     }
+}
+
+sub LoadArtistTags
+{
+    my ($dbh, $tagCount, $artist) = @_;
+
+    my $t = MusicBrainz::Server::Tag->new($dbh);
+    my $tagHash = $t->GetTagHashForEntity('artist', $artist->GetId, $tagCount + 1);
+
+    sort { $tagHash->{$b} <=> $tagHash->{$a}; } keys %{$tagHash};
+}
+
+sub LoadArtistARLinks
+{
+    my ($dbh, $artist) = @_;
+    my @arLinks;
+
+    @arLinks = MusicBrainz::Server::Link->FindLinkedEntities($dbh, $artist->GetId,
+        'artist', { to_type => ['label', 'url', 'artist'] });
+
+    my $max = scalar(@arLinks);
+    my ($item, $i);
+
+    for($i = 0; $i < $max; $i++)
+    {
+        $item = $arLinks[$i];
+		if ($item->{link0_type} ne 'artist' || $item->{link0_id} != $artist->GetId)
+		{
+			@$item{qw(
+				link0_type			link1_type
+				link0_id			link1_id
+				link0_name			link1_name
+				link0_sortname		link1_sortname
+				link0_resolution	link1_resolution
+				link_phrase			rlink_phrase
+			)} = @$item{qw(
+				link1_type			link0_type
+				link1_id			link0_id
+				link1_name			link0_name
+				link1_sortname		link0_sortname
+				link1_resolution	link0_resolution
+				rlink_phrase		link_phrase
+			)};
+		}
+	}
+
+    sort
+    {
+        my $c = $a->{link_phrase} cmp $b->{link_phrase};
+        return $c if ($c);
+        
+        $c = $a->{enddate} cmp $b->{enddate};
+        return $c if ($c);
+
+        $c = $a->{begindate} cmp $b->{begindate};
+        return $c if ($c);
+		
+        return $a->{link1_name} cmp $b->{link1_name};
+    } @arLinks;
+}
+
+sub LoadArtistReleases
+{
+    use MusicBrainz::Server::Artist;
+
+    my $artist = shift;
+
+    my @releases = $artist->GetReleases(1, 1);
+    my $onlyHasVAReleases = (scalar @releases) == 0;
+
+    my @shortList;
+
+    for my $release (@releases)
+    {
+        my ($type, $status) = $release->GetReleaseTypeAndStatus;
+
+        # Construct values to sort on
+        $release->SetMultipleTrackArtists($release->GetArtist != $release->GetId() ? 1 : 0);
+        $release->{_is_va_} = ($release->GetArtist == &ModDefs::VARTIST_ID or
+                               $release->GetArtist != $release->GetId());
+        $release->{_is_nonalbum_} = ($type == MusicBrainz::Server::Release::RELEASE_ATTR_NONALBUMTRACKS);
+        $release->{_section_key_} = ($release->{_is_va_} . " " . $type);
+        $release->{_name_sort_} = lc decode "utf-8", $release->GetName;
+        $release->{_disc_max_} = 0;
+        $release->{_disc_no_} = 0;
+        $release->{_firstreleasedate_} = ($release->GetFirstReleaseDate || "9999-99-99");
+
+        CheckAttributes($release);
+
+        # Attempt to sort "disc x [of y]" correctly
+        if ($release->{_name_sort_} =~
+            /^(.*)                              # $1 <main title>
+                (?:[(]disc\ (\d+)               # $2 (disc x
+                    (?:\ of\ (\d+))?            # $3 [of y]
+                    (?::[^()]*                  #    [: <disc title>
+                        (?:[(][^()]*[)][^()]*)* #     [<1 level of nested par.>]
+                    )?                          #    ]
+                    [)]                         #    )
+                )
+                (.*)$                           # $4 [<rest of main title>]
+            /xi)
+        {
+            $release->{_name_sort_} = "$1 $4";
+            $release->{_disc_no_} = $2;
+            $release->{_disc_max_} = $3 || 0;
+        }
+
+        # Push onto our list of releases we are actually interested in
+        push @shortList, $release
+            if ($type == MusicBrainz::Server::Release::RELEASE_ATTR_ALBUM ||
+                $type == MusicBrainz::Server::Release::RELEASE_ATTR_EP ||
+                $type == MusicBrainz::Server::Release::RELEASE_ATTR_COMPILATION ||
+                $type == MusicBrainz::Server::Release::RELEASE_ATTR_SINGLE);
+    }
+
+    sort SortAlbums @shortList;
 }
 
 sub CheckAttributes

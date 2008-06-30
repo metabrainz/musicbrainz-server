@@ -1,3 +1,4 @@
 [% INCLUDE "artist/header.tt" %]
 [% INCLUDE "artist/tags.tt" %]
+[% INCLUDE "artist/ar-summary.tt" %]
 [% content %]

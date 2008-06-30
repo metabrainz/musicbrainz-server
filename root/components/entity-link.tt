@@ -1,5 +1,6 @@
-[% DEFAULT
-   type = 'release'
-%]
-
-<a href="/[% type %]/[% mbid %].html">[% text %]</a>
+[% IF entity.type == "url" %]
+  <a href="[% entity.url | url %]">[% entity.url | html %]</a>
+  [ <a href="[% c.uri_for('/uri', entity.mbid) %]">info</a> ]
+[% ELSE %]
+  <a href="[% c.uri_for(entity.type, entity.mbid) %]">[% entity.name | html %]</a>
+[% END %]

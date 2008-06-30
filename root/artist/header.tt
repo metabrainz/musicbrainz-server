@@ -15,7 +15,7 @@
   [% IF artist.resolution %]
     <h2>[% artist.resolution %]</h2>
   [% END %]
-  <h2>Type: [% artist.type %],
+  <h2>Type: [% artist.artist_type %],
     [% artist.quality %] data quality</h2>
     <div class="links"> Info: [ [% INCLUDE "components/piped-list.tt" list=info_links %] ] </div>
 
