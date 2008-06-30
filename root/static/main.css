@@ -241,3 +241,20 @@ div.RelationshipBox {
     border: 1px solid;
     margin-bottom: .5em;
 }
+
+span.artist_icon,
+span.release_icon,
+span.label_icon,
+span.track_icon {
+    padding-left: 16px;
+    background-position: 0px 65%;
+    background-repeat: no-repeat;
+}
+
+span.artist_icon { background-image: url("/static/images/entity/artist_small.gif"); }
+
+span.release_icon { background-image: url("/static/images/entity/release_small.gif"); }
+
+span.label_icon { background-image: url("/static/images/entity/album_small.gif"); }
+
+span.track_icon { background-image: url("/static/images/entity/track_small.gif"); }

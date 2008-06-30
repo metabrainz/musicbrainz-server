@@ -2,5 +2,9 @@
   <a href="[% entity.url | url %]">[% entity.url | html %]</a>
   [ <a href="[% c.uri_for('/uri', entity.mbid) %]">info</a> ]
 [% ELSE %]
-  <a href="[% c.uri_for(entity.type, entity.mbid) %]">[% entity.name | html %]</a>
+  <a href="[% c.uri_for(entity.type, entity.mbid) %]">
+    <span class="[% entity.type %]_icon">
+    [% entity.name | html %]
+    </span>
+  </a>
 [% END %]
