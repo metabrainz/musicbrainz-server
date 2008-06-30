@@ -1,4 +1,4 @@
-<div class="ars">
+<div class="RelationshipBox">
   [% INCLUDE "components/entity-link.tt" entity=artist %]:
 
   <ul>

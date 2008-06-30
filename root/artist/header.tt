@@ -11,13 +11,19 @@
 %]
 
 <div id="artistHeader">
-  <h1>[% artist.name %]</h1>
+  
+  <div class="title">
+  <span><img src="/static/images/aicon_lg.png"> [% artist.name %]</span>
   [% IF artist.resolution %]
     <h2>[% artist.resolution %]</h2>
   [% END %]
-  <h2>Type: [% artist.artist_type %],
-    [% artist.quality %] data quality</h2>
-    <div class="links"> Info: [ [% INCLUDE "components/piped-list.tt" list=info_links %] ] </div>
+  </div>
+  
+  <div class="info">
+  Type: [% artist.type %], [% artist.quality %] data quality<br />
+  </div>
+  
+  <div class="links"> Info: [ [% INCLUDE "components/piped-list.tt" list=info_links %] ] </div>
 
   <div id="editLinks">
     Edit:
@@ -37,4 +43,5 @@
       [ <a href="[% c.uri_for('/user/login') %]">Log in</a> to edit this data ]
     [% END %]
   </div>
+
 </div>
