@@ -1,0 +1,14 @@
+<div class="release">
+  <a href="[% c.uri_for('/release', release.id) %]">[% release.title %]</a>
+  <div>
+    [%# I thought with these we could use CSS to hide the text and replace it with the image?
+        Just match on .tracks span, .puids span etc... %]
+    <div class="tracks">[% release.trackCount %] <span>tracks</span></div>
+    <div class="puids">[% release.puids %] <span>puids</span></div>
+    <div class="right">
+      [ [% release.quality %] ] |
+      [ [% release.language.language %], [% release.language.script %] ] |
+      [ [% release.type.type %] | [% release.type.status %] ]
+    </div>
+  </div>
+</div>

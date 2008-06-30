@@ -1,0 +1,40 @@
+[% WRAPPER "layout.tt" title=artist.name %]
+
+[% INCLUDE "artist/header.tt" %]
+
+<h1>Releases</h1>
+<table class="releasetypes">
+[% FOREACH group IN groups %]
+  <h2>[% group.name %]</h2>
+  <table class="releaselist">
+    <thead>
+      <tr>
+        <th>Tracks</th>
+        <th>Disc IDs</th>
+        <th>PUIDs</th>
+        <th>Status</th>
+        <th>Release Date</th>
+        <th>Language</th>
+        <th>Title</th>
+      </tr>
+    </thead>
+    <tbody>
+      [% FOREACH release IN group.releases %]
+      <tr>
+        <td>[% release.trackCount %]</td>
+        <td>[% release.discIds %]</td>
+        <td>[% release.puids %]</td>
+        <td>[% release.status %]</td>
+        <td>[% release.releaseDate %]</td>
+        <td>[% release.language.shortLanguage %]</td>
+        <td>
+          <a href="[% c.uri_for('/release', release.id) %]">[% release.title %]</a>
+        </td>
+      </tr>
+      [% END %]
+    </tbody>
+  </table>
+[% END %]
+</table>
+
+[% END %]

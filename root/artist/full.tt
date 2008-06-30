@@ -1,0 +1,12 @@
+[% WRAPPER "layout.tt" title=artist.name %]
+
+[% INCLUDE "artist/header.tt" %]
+
+[% FOREACH group IN groups %]
+  <h2>[% group.name %]</h2>
+  [% FOREACH release IN group.releases %]
+    [% INCLUDE "releases/release-box.tt" %]
+  [% END %]
+[% END %]
+
+[% END %]
