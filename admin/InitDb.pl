@@ -148,11 +148,13 @@ sub Create
 
         unless ($locale eq "C")
         {
-			die <<EOF;
-It looks like your Postgres database cluster was created with locale '$locale'.
-MusicBrainz needs the "C" locale instead.  To rectify this, re-run "initdb"
-with the option "--locale=C".
-EOF
+			#die <<EOF;
+#It looks like your Postgres database cluster was created with locale 
+'$locale'.
+#MusicBrainz needs the "C" locale instead.  To rectify this, re-run 
+"initdb"
+#with the option "--locale=C".
+#EOF
         }
 
         my $username = $db->username;
