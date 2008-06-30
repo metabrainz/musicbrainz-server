@@ -1,0 +1,7 @@
+<div class="tags">Artist tags:
+  <ul>
+    [% FOREACH tag IN artist.tags %]
+    <li>[% tag %]</li>
+    [% END %]
+  </ul>
+</div>

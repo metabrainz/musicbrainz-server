@@ -1,6 +1,5 @@
 [% WRAPPER "layout.tt" title=artist.name %]
-
-[% INCLUDE "artist/header.tt" %]
+[% WRAPPER "artist/landing.tt" %]
 
 <h1>Releases</h1>
 <table class="releasetypes">
@@ -37,4 +36,5 @@
 [% END %]
 </table>
 
+[% END %]
 [% END %]

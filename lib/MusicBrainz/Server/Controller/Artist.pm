@@ -28,6 +28,7 @@ sub show : Path Args(1)
     use Encode qw( decode );
     use MusicBrainz::Server::Artist;
     use MusicBrainz::Server::Release;
+    use MusicBrainz::Server::Tag;
     use MusicBrainz::Server::Validation;
     use MusicBrainz;
     use ModDefs;
@@ -44,6 +45,13 @@ sub show : Path Args(1)
     my $artist = MusicBrainz::Server::Artist->new($mb->{DBH});
     $artist->SetMBId($mbid);
     $artist->LoadFromId(1) or $c->error("Failed to load artist");
+
+    # Load tags
+    my $tagCount = 5;
+    my $t = MusicBrainz::Server::Tag->new($mb->{DBH});
+    my $tagHash = $t->GetTagHashForEntity('artist', $artist->GetId, $tagCount + 1);
+
+    my @tags = sort { $tagHash->{$b} <=> $tagHash->{$a}; } keys %{$tagHash};
 
     # Load releases
     my @releases = $artist->GetReleases(1, 1);
@@ -116,6 +124,7 @@ sub show : Path Args(1)
         },
         quality => ModDefs::GetQualityText($artist->GetQuality),
         resolution => $artist->GetResolution,
+        tags => \@tags
     };
 
     # Releases, sorted into "release groups":
