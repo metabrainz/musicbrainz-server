@@ -4,6 +4,9 @@ use strict;
 use warnings;
 use parent 'Catalyst::Controller';
 
+use MusicBrainz::Server::Release;
+use MusicBrainz;
+
 =head1 NAME
 
 MusicBrainz::Server::Controller::Release - Catalyst Controller for working with Release entities

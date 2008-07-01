@@ -4,6 +4,9 @@ use strict;
 use warnings;
 use parent 'Catalyst::Controller';
 
+use MusicBrainz::Server::URL;
+use MusicBrainz;
+
 =head1 NAME
 
 MusicBrainz::Server::Controller::Url - Catalyst Controller for working with Url entities

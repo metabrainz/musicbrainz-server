@@ -4,6 +4,16 @@ use strict;
 use warnings;
 use parent 'Catalyst::Controller';
 
+use Encode qw( decode );
+use ModDefs;
+use MusicBrainz::Server::Artist;
+use MusicBrainz::Server::Link;
+use MusicBrainz::Server::Release;
+use MusicBrainz::Server::Tag;
+use MusicBrainz::Server::URL;
+use MusicBrainz::Server::Validation;
+use MusicBrainz;
+
 =head1 NAME
 
 MusicBrainz::Server::Controller::Artist - Catalyst Controller for working with Artist entities
@@ -54,10 +64,6 @@ sub details : Local Args(1)
 {
     my ($self, $c, $mbid) = @_;
 
-    use MusicBrainz;
-    use MusicBrainz::Server::Artist;
-    use MusicBrainz::Server::Validation;
-
     $c->error("Not a valid GUID") unless MusicBrainz::Server::Validation::IsGUID($mbid);
 
     my $mb = new MusicBrainz;
@@ -87,15 +93,6 @@ Shows an artist's main landing page, showing all of the releases that are attrib
 sub show : Path Args(1)
 {
     my ($self, $c, $mbid) = @_;
-
-    use Encode qw( decode );
-    use MusicBrainz::Server::Artist;
-    use MusicBrainz::Server::Link;
-    use MusicBrainz::Server::Release;
-    use MusicBrainz::Server::Tag;
-    use MusicBrainz::Server::Validation;
-    use MusicBrainz;
-    use ModDefs;
 
     # Validate the MBID
     $c->error("Not a valid GUID") unless MusicBrainz::Server::Validation::IsGUID($mbid);
@@ -142,13 +139,11 @@ sub show : Path Args(1)
         }
         elsif ($ar->{link1_type} eq 'album')
         {
-            use MusicBrainz::Server::Controller::Release;
             $entity = MusicBrainz::Server::Controller::Release::releaseLinkRaw($ar->{link1_name},
                 $ar->{link1_mbid});
         }
         elsif ($ar->{link1_type} eq 'url')
         {
-            use MusicBrainz::Server::Controller::Url;
             $entity = MusicBrainz::Server::Controller::Url::urlLinkRaw($ar->{link1_name},
                 $ar->{link1_mbid});
         }
@@ -292,8 +287,6 @@ sub LoadArtistARLinks
 
 sub LoadArtistReleases
 {
-    use MusicBrainz::Server::Artist;
-
     my $artist = shift;
 
     my @releases = $artist->GetReleases(1, 1);
@@ -349,8 +342,6 @@ sub LoadArtistReleases
 
 sub CheckAttributes
 {
-    use MusicBrainz::Server::Release;
-
     my ($a) = @_;
 
     for my $attr ($a->GetAttributes)
@@ -382,8 +373,6 @@ artist homepage
 
 sub SortAlbums
 {
-    use MusicBrainz::Server::Release;
-
     # I edited these out of one huge "or"ed conditional as it was a bitch to debug
     my @predicates = (
         ($a->{_is_va_} <=> $b->{_is_va_}),
