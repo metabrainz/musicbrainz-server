@@ -1,4 +1,3 @@
-[% WRAPPER "layout.tt" title=artist.name %]
 [% WRAPPER "artist/landing.tt" %]
 
 [% FOREACH group IN groups %]
@@ -8,5 +7,4 @@
   [% END %]
 [% END %]
 
-[% END %]
 [% END %]

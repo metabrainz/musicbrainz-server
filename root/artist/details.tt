@@ -3,6 +3,7 @@
 [% INCLUDE "artist/header.tt" %]
 
 [% WRAPPER "components/box.tt" header="Artist Information" %]
+Test is [% testing %]
 <table>
   <tr>
     <th>[% INCLUDE "components/doc-link.tt" to="ArtistName" text="Name" %]:</th>

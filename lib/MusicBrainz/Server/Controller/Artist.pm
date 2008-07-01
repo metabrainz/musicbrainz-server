@@ -6,6 +6,7 @@ use parent 'Catalyst::Controller';
 
 use Encode qw( decode );
 use ModDefs;
+use MusicBrainz::Server::Alias;
 use MusicBrainz::Server::Artist;
 use MusicBrainz::Server::Link;
 use MusicBrainz::Server::Release;
@@ -60,7 +61,7 @@ Display detailed information about a specific artist
 
 =cut
 
-sub details : Local Args(1)
+sub details : Local Args(1) MyAction('ArtistPage')
 {
     my ($self, $c, $mbid) = @_;
 
@@ -73,15 +74,51 @@ sub details : Local Args(1)
     $artist->SetMBId($mbid);
     $artist->LoadFromId(1) or $c->error("Failed to load artist");
 
-    $c->stash->{artist} = {
-        name => $artist->GetName,
-        type => 'artist',
-        mbid => $artist->GetMBId,
-        resolution => $artist->GetResolution,
+    $c->stash->{details} = {
         subscriber_count => scalar $artist->GetSubscribers
     };
 
+    $c->stash->{_artist} = $artist;
     $c->stash->{template} = 'artist/details.tt';
+}
+
+=head2 aliases
+
+Display all aliases of an artist, along with usage information
+
+=cut
+
+sub aliases : Local Args(1) MyAction('ArtistPage')
+{
+    my ($self, $c, $mbid) = @_;
+
+    # Validate the MBID
+    $c->error("Not a valid GUID") unless MusicBrainz::Server::Validation::IsGUID($mbid);
+
+    my $mb = new MusicBrainz;
+    $mb->Login;
+
+    my $artist = MusicBrainz::Server::Artist->new($mb->{DBH});
+    $artist->SetMBId($mbid);
+    $artist->LoadFromId(1) or $c->error("Failed to load artist");
+
+    my $alias = MusicBrainz::Server::Alias->new($mb->{DBH}, "ArtistAlias");
+    my @aliases = $alias->GetList($artist->GetId);
+
+    my @prettyAliases = ();
+    for my $alias (@aliases)
+    {
+        push @prettyAliases, {
+            name => $alias->[1],
+            useCount => $alias->[2],
+            used => !($alias->[3] =~ /^1970-01-01/)
+        }
+    }
+
+    $c->stash->{_artist} = $artist;
+    $c->stash->{aliases} = \@prettyAliases;
+
+    $c->stash->{template} = 'artist/aliases.tt';
 }
 
 =head2 show
@@ -90,7 +127,7 @@ Shows an artist's main landing page, showing all of the releases that are attrib
 
 =cut
 
-sub show : Path Args(1)
+sub show : Path Args(1) MyAction('ArtistPage')
 {
     my ($self, $c, $mbid) = @_;
 
@@ -152,20 +189,9 @@ sub show : Path Args(1)
     }
 
     # Artist:
-    $c->stash->{artist} = {
-        name => $artist->GetName,
-        type => 'artist',
-        mbid => $artist->GetMBId,
-        artist_type => MusicBrainz::Server::Artist::GetTypeName($artist->GetType),
-        datespan => {
-            start => $artist->GetBeginDate,
-            end => $artist->GetEndDate
-        },
-        quality => ModDefs::GetQualityText($artist->GetQuality),
-        resolution => $artist->GetResolution,
-        tags => \@tags,
-        relations => \@prettyArs,
-    };
+    $c->stash->{_artist} = $artist;
+    $c->stash->{artist_tags} = \@tags;
+    $c->stash->{artist_relations} = \@prettyArs;
 
     # Releases, sorted into "release groups":
     $c->stash->{groups} = [];

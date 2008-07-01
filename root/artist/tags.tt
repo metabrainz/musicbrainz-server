@@ -1,7 +1,7 @@
 <div class="TagsBox">Artist tags:
-  [% IF artist.tags.size %]
+  [% IF artist_tags.size %]
   <ul>
-      [% FOREACH tag IN artist.tags %]
+      [% FOREACH tag IN artist_tags %]
       <li>[% tag %]</li>
       [% END %]
     </ul>

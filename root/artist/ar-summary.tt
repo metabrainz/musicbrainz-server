@@ -2,17 +2,11 @@
   [% INCLUDE "components/entity-link.tt" entity=artist %]:
 
   <ul>
-    [% FOREACH ar IN artist.relations %]
+    [% FOREACH ar IN artist_relations %]
       <li>
         [% ar.connector %]
-        [% FOREACH entity IN ar.entities %]
-          [% IF loop.last && loop.size > 1 %]
-            and, 
-          [% ELSIF !loop.first %]
-            ,
-          [% END %]
-
-          [% INCLUDE "components/entity-link.tt" %]
+        [% FOREACH entity IN ar.entities %] 
+          [% INCLUDE "components/entity-link.tt" %][% !loop.last ? "," : "" %]
         [% END %]
     [% END %]
   </ul>
