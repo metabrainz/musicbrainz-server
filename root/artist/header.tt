@@ -14,12 +14,12 @@
   
   <div class="title">
   <span><img src="/static/images/aicon_lg.png"> [% artist.name %]</span>
-  [% IF artist.resolution %]
-    <h2>[% artist.resolution %]</h2>
-  [% END %]
   </div>
   
   <div class="info">
+  [% IF artist.resolution %]
+    <p>[% artist.resolution %]</p>
+  [% END %]
   Type: [% artist.type %], [% artist.quality %] data quality<br />
   </div>
   
