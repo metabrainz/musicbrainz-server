@@ -44,6 +44,40 @@ sub artistLinkRaw
     };
 }
 
+=head2 details
+
+Display detailed information about a specific artist
+
+=cut
+
+sub details : Local Args(1)
+{
+    my ($self, $c, $mbid) = @_;
+
+    use MusicBrainz;
+    use MusicBrainz::Server::Artist;
+    use MusicBrainz::Server::Validation;
+
+    $c->error("Not a valid GUID") unless MusicBrainz::Server::Validation::IsGUID($mbid);
+
+    my $mb = new MusicBrainz;
+    $mb->Login();
+
+    my $artist = MusicBrainz::Server::Artist->new($mb->{DBH});
+    $artist->SetMBId($mbid);
+    $artist->LoadFromId(1) or $c->error("Failed to load artist");
+
+    $c->stash->{artist} = {
+        name => $artist->GetName,
+        type => 'artist',
+        mbid => $artist->GetMBId,
+        resolution => $artist->GetResolution,
+        subscriber_count => scalar $artist->GetSubscribers
+    };
+
+    $c->stash->{template} = 'artist/details.tt';
+}
+
 =head2 show
 
 Shows an artist's main landing page, showing all of the releases that are attributed to them

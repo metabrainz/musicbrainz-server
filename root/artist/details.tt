@@ -1,0 +1,30 @@
+[% WRAPPER "layout.tt" title="$artist.name - Details" %]
+
+[% INCLUDE "artist/header.tt" %]
+
+[% WRAPPER "components/box.tt" header="Artist Information" %]
+<table>
+  <tr>
+    <th>[% INCLUDE "components/doc-link.tt" to="ArtistName" text="Name" %]:</th>
+    <td>
+      [% artist.name %]
+      [% IF artist.resolution %]
+      ([% artist.resolution %])
+      [% END %]
+    </td>
+  </tr>
+  <tr>
+    <th>[% INCLUDE "components/doc-link.tt" to="MusicBrainzIdentifier" text="MBID" %]:</th>
+    <td>[% artist.mbid %]</td>
+  </tr>
+  </tr>
+    <th>Permanent link:</th>
+    <td>
+      [% perma="http://musicbrainz.org/artist/${artist.mbid}.html" %]
+      <a href="[% perma | url %]">[% perma | html %]</a>
+    </td>
+  </tr>
+</table>
+[% END %]
+
+[% END %]

@@ -1,6 +1,6 @@
 [% info_links = [
      { link => "permalink", text => "Permenant Link" },
-     { link => "details", text => "Details" },
+     { link => c.uri_for('/artist/details', artist.mbid), text => "Details" },
      { link => "aliases", text => "Aliases" },
      { link => "tags", text => "Tags" },
      { link => "", text => "Releases" },
