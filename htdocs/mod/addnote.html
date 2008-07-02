@@ -118,14 +118,7 @@
 %		else
 %		{
 
-		<& /comp/header_small, title => $successmsg &>
-
-			<script type="text/javascript"> window.close(); </script>
-
-			<p><% $successmsg %></p>
-			<p><a href="/show/edit/?editid=<% $editid %>">Continue</a></p>
-
-		<& /comp/footer_small &>
+		<& /comp/redirect, "/show/edit/?editid=$editid" &>
 
 <%perl>
 

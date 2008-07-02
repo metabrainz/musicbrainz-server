@@ -1,34 +1,49 @@
 
-function showNote
-
 function toggleNoteText(editid)
 {
-	var noteBlock = document.getElementById(addNoteLink.id.replace(/-addnote.*/,"-noteblock"));
-	var noteText = document.getElementById(addNoteLink.id.replace(/-addnote.*/,"-notetext"));
-	
+	var addNoteLink, otherAddNoteLink;
+	var noteBlock, noteText;
+
+	if (editid == null) 
+	{
+		// Single edit review page ( from comp/showmoddetail)
+		addNoteLink = document.getElementById("addnote-top");
+		otherAddNoteLink = document.getElementById("addnote-bottom");
+		noteBlock = document.getElementById("noteblock");
+		noteText = document.getElementById("notetext");
+	} 
+	else 
+	{
+		// Multiple edits review page ( from comp/showmod)
+		var baseId = "rowid"+editid+"-";
+		addNoteLink = document.getElementById(baseId+"addnote");
+		otherAddNoteLink = null;
+		noteBlock = document.getElementById(baseId+"noteblock");
+		noteText = document.getElementById(baseId+"notetext");
+	}
+		
 	if (noteBlock && noteText)
 	{
-		var otherAddNoteLink = null;
-		if (addNoteLink.id.matches(/-top$/))
-			otherAddNoteLink = document.getElementById(addNoteLink.id.replace(/-
-	
-		if (addnoteLink.innerHTML == "Add note")
+		if (addNoteLink.innerHTML == "Add note")
 		{
 			// show the note block
 			noteBlock.style["display"] = "table-row";
 			addNoteLink.innerHTML = "Del note";
-			if (addNoteLink.id.matches(/-addnote-top/))
-				var document.getElementById(addNoteLink
 			// set cursor focus to note textarea
-			noteBox.focus();
+			noteText.focus();
 		}
-		else if (addnoteLink.innerHTML == "Del note")
+		else if (addNoteLink.innerHTML == "Del note")
 		{
 			// hide the note block
 			noteBlock.style["display"] = "none";
-			addnoteLink.innerHTML = "Add note";
+			addNoteLink.innerHTML = "Add note";
 			// erase contents of note textarea
-			noteBox.value = "";
+			noteText.value = "";
+		}
+
+		if (otherAddNoteLink != null)
+		{
+			otherAddNoteLink.innerHTML = addNoteLink.innerHTML;
 		}
 	}
 }
