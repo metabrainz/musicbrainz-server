@@ -55,6 +55,83 @@ sub artistLinkRaw
     };
 }
 
+=head2 appearances
+
+Display a list of releases that an artist appears on; that is - does not have the actual release
+attributed to them, but somehow appear on the release via an AR.
+
+=cut
+
+sub appearances : Local Args(1) MyAction('ArtistPage')
+{
+    my ($self, $c) = @_;
+    my $artist = $c->stash->{_artist};
+    my $mb = $c->mb;
+
+    my $link = new MusicBrainz::Server::Link($mb->{DBH});
+    my @rawReleases = @{$link->FindLinkedAlbums("artist", $artist->GetId)};
+
+    for my $release (@rawReleases)
+    {
+        $release->{_name_sort_} = lc decode "utf-8", $release->{name};
+        $release->{_disc_no_} = 0;
+
+        # Attempt to sort "disc x" correctly
+        if ($release->{_name_sort_} =~
+            /^(.*)                              # $1 <main title>
+                (?:[(]disc\ (\d+)               # $2 (disc x
+                    (?::[^()]*                  #    [: <disc title>
+                        (?:[(][^()]*[)][^()]*)* #     [<1 level of nested par.>]
+                    )?                          #    ]
+                    [)]                         #    )
+                )
+                (.*)$                           # $4 [<rest of main title>]
+            /xi)
+        {
+            $release->{_name_sort_} = "$1 $3";
+            $release->{_disc_no_} = $2;
+        }
+
+        $release->{date} = $release->{begindate};
+        $release->{date} =~ s/\s+//;
+        $release->{date} = $release->{firstreleasedate} if !$release->{date};
+        $release->{_sort_date_} = ($release->{date} || "9999-99-99");
+    }
+    
+    @rawReleases = sort {
+        ($a->{linkphrase} cmp $b->{linkphrase}) or
+        ($a->{_sort_date_} cmp $b->{_sort_date_}) or
+        ($a->{_name_sort_} cmp $b->{_name_sort_}) or
+        ($a->{_disc_no_} <=> $b->{_disc_no_})
+    } @rawReleases;
+   
+    my @releaseGroups;
+    my $group;
+    for my $release (@rawReleases)
+    {
+        die "No release" unless defined $release;
+
+        if(not defined $group or $release->{linkphrase} ne $group->{phrase})
+        {
+            $group = {
+                phrase => $release->{linkphrase},
+                releases => []
+            };
+
+            push @releaseGroups, $group;
+        }
+
+        my $stashRelease = MusicBrainz::Server::Controller::Release::releaseLinkRaw($release->{name}, "???");
+        $stashRelease->{artist} = MusicBrainz::Server::Controller::Artist::artistLinkRaw($release->{artist_name}, "???");
+        $stashRelease->{year} = substr($release->{date}, 0, 4) || '?';
+
+        push @{$group->{releases}}, $stashRelease;
+    }
+
+    $c->stash->{release_groups} = \@releaseGroups;
+    $c->stash->{template} = 'artist/appearances.tt';
+}
+
 =head2 perma
 
 Display the perma-link for a given artist

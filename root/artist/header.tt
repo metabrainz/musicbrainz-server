@@ -4,7 +4,7 @@
      { link => c.uri_for('/artist/aliases', artist.mbid), text => "Aliases" },
      { link => c.uri_for('/tags/artist', artist.mbid), text => "Tags" },
      { link => c.uri_for('/artist', artist.mbid), text => "Releases" },
-     { link => c.uri_for('/artist/appearences', artist.mbid), text => "Appears On" },
+     { link => c.uri_for('/artist/appearances', artist.mbid), text => "Appears On" },
      { link => c.uri_for('/artist/similar', artist.mbid), text => "Similar Artists" },
      { link => c.uri_for('/artist/google', artist.mbid), text => "Search Google" }
    ]
