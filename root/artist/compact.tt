@@ -25,9 +25,7 @@
         <td>[% release.status %]</td>
         <td>[% release.releaseDate %]</td>
         <td>[% release.language.shortLanguage %]</td>
-        <td>
-          <a href="[% c.uri_for('/release', release.id) %]">[% release.title %]</a>
-        </td>
+        <td>[% INCLUDE "components/entity-link.tt" entity=release icon=0 %]</td>
       </tr>
       [% END %]
     </tbody>

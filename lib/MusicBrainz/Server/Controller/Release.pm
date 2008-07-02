@@ -17,7 +17,7 @@ MusicBrainz::Server::Controller::Release - Catalyst Controller for working with 
 
 =head1 METHODS
 
-=head1 releaseLinkRaw
+=head2 releaseLinkRaw
 
 Create stash data to link to a Release entity using root/components/entity-link.tt
 
@@ -32,6 +32,19 @@ sub releaseLinkRaw
         mbid => $mbid,
         type => 'release'
     };
+}
+
+=head2 releaseLink
+
+Create stash data to link to a Release entity using root/components/entity-link.tt
+
+=cut
+
+sub releaseLink
+{
+    my $release = shift;
+
+    releaseLinkRaw ($release->GetName, $release->GetMBId);
 }
 
 =head1 AUTHOR

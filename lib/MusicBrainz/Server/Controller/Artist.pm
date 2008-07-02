@@ -215,16 +215,14 @@ sub show : Path Args(1) MyAction('ArtistPage')
         $language->{language} = defined $release->GetLanguage ? $release->GetLanguage->GetName : "";
         $language->{shortLanguage} = defined $release->GetLanguage ? $release->GetLanguage->GetISOCode3T : "";
 
-        my $rel = {
-            title => $release->GetName,
-            id => $release->GetMBId,
-            trackCount => $release->GetTrackCount,
-            discIds => $release->GetDiscidCount,
-            puids => $release->GetPuidCount,
-            quality => ModDefs::GetQualityText($release->GetQuality),
-            language => $language,
-#           releaseDate => ,
-        };
+        my $rel = MusicBrainz::Server::Controller::Release::releaseLink($release);
+        $rel->{trackCount} = $release->GetTrackCount;
+        $rel->{discIds} = $release->GetDiscidCount;
+        $rel->{puids} = $release->GetPuidCount;
+        $rel->{quality} = ModDefs::GetQualityText($release->GetQuality);
+        $rel->{language} = $language;
+        $rel->{status} = $release->GetAttributeName($status);
+        $rel->{releaseDate} = $release->GetFirstReleaseDateYMD;
 
         $rel->{attributes} = [];
         my $attributes = $release->GetAttributes;
@@ -276,19 +274,21 @@ sub LoadArtistARLinks
 		if ($item->{link0_type} ne 'artist' || $item->{link0_id} != $artist->GetId)
 		{
 			@$item{qw(
-				link0_type			link1_type
-				link0_id			link1_id
-				link0_name			link1_name
-				link0_sortname		link1_sortname
-				link0_resolution	link1_resolution
-				link_phrase			rlink_phrase
+                link0_type			link1_type
+                link0_id			link1_id
+                link0_name			link1_name
+                link0_sortname		link1_sortname
+                link0_resolution	link1_resolution
+                link0_mbid          link1_mbid
+                link_phrase			rlink_phrase
 			)} = @$item{qw(
-				link1_type			link0_type
-				link1_id			link0_id
-				link1_name			link0_name
-				link1_sortname		link0_sortname
-				link1_resolution	link0_resolution
-				rlink_phrase		link_phrase
+                link1_type			link0_type
+                link1_id			link0_id
+                link1_name			link0_name
+                link1_sortname		link0_sortname
+                link1_resolution	link0_resolution
+                link1_mbid          link0_mbid
+                rlink_phrase		link_phrase
 			)};
 		}
 	}
