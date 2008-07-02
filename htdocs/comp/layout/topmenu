@@ -348,13 +348,15 @@
 
 		{ name => "Account",			url => "/show/user/index.html" },
 		[
+			{ name => "Collection",			url => "/show/collection/index.html",		login => 1 },
+			{ name => "Missing releases",	url => "/show/collection/missing.html",		login => 1 },
 			{ name => "Edit Account",		url => "/user/edit.html",					login => 1 },
 			{ name => "Change Password",	url => "/user/change-password.html",	 	login => 1 },
 			{ name => "Preferences",		url => "/user/preferences.html",			login => 1 },
 			{ name => "Subscriptions",		url => "/user/subscriptions.html", 			login => 1 },
 			{ name => "Subscribers",		url => "/user/subscribers.html", 			login => 1 },
 			{ name => "Logout",				url => "/logout.html",						login => 1 },
-			{ name => "Check donation status",		url => "/user/donationcheck.html",						login => 1 },
+			{ name => "Check donation status",		url => "/user/donationcheck.html",	login => 1 },
 			[
 				{ url => "/user/mod_email.html" },
 				{ url => "/user/verifyemail.html" },

@@ -1,0 +1,44 @@
+<%perl>
+
+
+	# Set up page
+	my $mb = $m->comp("/comp/dblogin");
+	$m->comp("/comp/sidebar-notitle", pagetitle => 'Collection');
+	
+	# Make sure user is logged on
+	$m->comp("/comp/checkloggedin", 1, 1, "You need to be logged in to view your collection.", 1) or return;
+</%perl>
+
+<& /comp/tablebegin, title => "Music in collection" &>
+test
+
+
+<table id="CompactReleaseList">
+	<col style="text-align: right" />
+	<col style="text-align: right" />
+	<col style="text-align: right" />
+	<col style="text-align: center" />
+	<col style="text-align: center" />
+	<col style="text-align: center" />
+	<col />
+</table>
+
+
+<%perl>
+
+	print "USER ID: " . $session{uid} . "<br/>";
+	# Get all releases in collection
+	use MusicBrainz::Server::CollectionInfo;
+	my $collectionInfo=MusicBrainz::Server::CollectionInfo::new($session{uid});
+	
+	#print $collectionInfo{collectionId};
+	print '<pre>';
+	use Data::Dumper;
+	print Dumper($collectionInfo);
+	print '</pre>';
+	print 'error: '.$collectionInfo->{DBH}->GetError();
+	print Dumper($collectionInfo->{result});
+</%perl>
+
+
+<& /comp/tableend &>

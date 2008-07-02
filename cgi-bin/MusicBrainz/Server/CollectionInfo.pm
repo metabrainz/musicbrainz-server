@@ -2,20 +2,37 @@
 
 use strict;
 
-package MusicBrainz::Server::MusicCollection::Collection;
+package MusicBrainz::Server::CollectionInfo;
 
 
 sub new
 {
-	my ($this, $sql, $userId)=@_;
+	my ($this, $userId)=@_;
 	
 	my %collectionHash;
 	my %artistHash;
+	
+	require MusicBrainz;
+	require Sql;
+	my $mb = MusicBrainz->new;
+	$mb->Login;
+	
+	my $sql=Sql->new($mb->{DBH});
+	
+	
+	
+	my $query="SELECT * FROM collection_info";
+	my $result=$sql->SelectListOfHashes($query);
+	
+	use Data::Dumper;
+	print Dumper($result);
 	
 	
 	bless(
 	{
 		DBH				=> $sql,
+		userId			=> $userId,
+		result			=> $result,
 		collectionId	=> 123 # for now
 		#collectionHash	=> {}, # {'Smash Mouth' => ('Release 1', 'Release 2'), 'Fort Minor' => ('Release')}
 		#artistHash		=> {}
