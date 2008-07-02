@@ -55,6 +55,19 @@ sub artistLinkRaw
     };
 }
 
+=head2 perma
+
+Display the perma-link for a given artist
+
+=cut
+
+sub perma : Local Args(1) MyAction('ArtistPage')
+{
+    my ($self, $c) = @_;
+    my $artist = $c->stash->{_artist};
+    $c->stash->{template} = 'artist/perma.tt';
+}
+
 =head2 details
 
 Display detailed information about a specific artist
@@ -65,20 +78,16 @@ sub details : Local Args(1) MyAction('ArtistPage')
 {
     my ($self, $c, $mbid) = @_;
 
-    $c->error("Not a valid GUID") unless MusicBrainz::Server::Validation::IsGUID($mbid);
-
     my $mb = new MusicBrainz;
     $mb->Login();
 
-    my $artist = MusicBrainz::Server::Artist->new($mb->{DBH});
-    $artist->SetMBId($mbid);
-    $artist->LoadFromId(1) or $c->error("Failed to load artist");
+    my $artist = $c->stash->{_artist};
+    $artist->{DBH} = $mb->{DBH};
 
     $c->stash->{details} = {
         subscriber_count => scalar $artist->GetSubscribers
     };
 
-    $c->stash->{_artist} = $artist;
     $c->stash->{template} = 'artist/details.tt';
 }
 
@@ -92,15 +101,11 @@ sub aliases : Local Args(1) MyAction('ArtistPage')
 {
     my ($self, $c, $mbid) = @_;
 
-    # Validate the MBID
-    $c->error("Not a valid GUID") unless MusicBrainz::Server::Validation::IsGUID($mbid);
-
     my $mb = new MusicBrainz;
     $mb->Login;
 
-    my $artist = MusicBrainz::Server::Artist->new($mb->{DBH});
-    $artist->SetMBId($mbid);
-    $artist->LoadFromId(1) or $c->error("Failed to load artist");
+    my $artist = $c->stash->{_artist};
+    $artist->{DBH} = $mb->{DBH};
 
     my $alias = MusicBrainz::Server::Alias->new($mb->{DBH}, "ArtistAlias");
     my @aliases = $alias->GetList($artist->GetId);
@@ -115,9 +120,7 @@ sub aliases : Local Args(1) MyAction('ArtistPage')
         }
     }
 
-    $c->stash->{_artist} = $artist;
     $c->stash->{aliases} = \@prettyAliases;
-
     $c->stash->{template} = 'artist/aliases.tt';
 }
 
@@ -131,19 +134,12 @@ sub show : Path Args(1) MyAction('ArtistPage')
 {
     my ($self, $c, $mbid) = @_;
 
-    # Validate the MBID
-    $c->error("Not a valid GUID") unless MusicBrainz::Server::Validation::IsGUID($mbid);
-
     # Load the artist
     my $mb = new MusicBrainz;
     $mb->Login();
 
-    my $artist = MusicBrainz::Server::Artist->new($mb->{DBH});
-    $artist->SetMBId($mbid);
-    $artist->LoadFromId(1) or $c->error("Failed to load artist");
-
-    $c->error("You cannot view the special DELETED_ARTIST")
-        if $artist->GetId == ModDefs::DARTIST_ID;
+    my $artist = $c->stash->{_artist};
+    $artist->{DBH} = $mb->{DBH};
 
     # Load data for the landing page
     my @tags = LoadArtistTags ($mb->{DBH}, 5, $artist);

@@ -1,0 +1,54 @@
+[% WRAPPER 'artist/layout.tt' title="Permanant Link" %]
+
+[% url = "http://musicbrainz.org/artist/${artist.mbid}.html" %]
+
+[% WRAPPER 'components/box.tt' header="Link to ${artist.name}" %]
+<ul>
+  <li>
+    The permanent link for the MusicBrainz artist
+    [% INCLUDE "components/entity-link.tt" entity=artist %]
+    is <a href="[% url | url %]">[% url.html %]</a>.
+  </li>
+  <li>
+    If you wish to add a permanent link to the MusicBrainz artist
+    [% INCLUDE "components/entity-link.tt" entity=artist %]
+    from your website or weblog, choose one of the link styles below.
+  </li>
+  <li>
+    Just highlight (Ctrl+A) the content in the textbox, and copy (Ctrl+C) and paste (Ctrl+V) it into
+    your webpage or weblog. Alternatively, you can click the right button on the textbox, and click
+    the appropriate function in the popup menu.
+  </li>
+</ul>
+
+<table>
+  <tr>
+    <th>Text Link</th>
+    <td>
+      <p>
+        If you wish to use a text link (e.g.
+        [% INCLUDE "components/entity-link.tt" entity=artist icon=0 %]), you can use the following
+        markup:
+      </p>
+      <textarea cols="60" rows="5" title="Select text">
+&lt;a href=&quot;http://musicbrainz.org/artist/[% artist.mbid %].html&quot; title=&quot;Show artist at MusicBrainz&quot;&gt;[% artist.title %]&lt;/a&gt;
+      </textarea>
+  </tr>
+  <tr>
+    <th>Text Link</th>
+    <td>
+      <p>
+        If you wish to use a link with an icon (e.g.
+        [% INCLUDE "components/entity-link.tt" entity=artist %]), you can use the following
+        markup:
+      </p>
+      <textarea cols="60" rows="5" title="Select text">
+&lt;a href=&quot;http://musicbrainz.org/artist/[% artist.mbid %].html&quot; title=&quot;Show artist
+at MusicBrainz&quot;&gt;&lt;img
+src=&quot;http://musicbrainz.org/static/images/entity/artist_small.gif&quot; /&gt;[% artist.title %]&lt;/a&gt;
+      </textarea>
+  </tr>
+</table>
+[% END %]
+
+[% END %]
