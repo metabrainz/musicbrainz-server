@@ -1,9 +1,10 @@
 <div id="sidebar">
   [% INCLUDE "layout/sidebar/sites.tt" WRAPPER "layout/sidebar/section.tt" title="MusicBrainz sites" %]
-  [% IF !logged_in %]
-    [% INCLUDE "layout/sidebar/login.tt" WRAPPER "layout/sidebar/section.tt" title="Not Logged In" %]
+  [% IF c.user_exists %]
+    [% INCLUDE "layout/sidebar/user.tt" WRAPPER "layout/sidebar/section.tt"
+    title=c.user.username %]
   [% ELSE %]
-    [% INCLUDE "layout/sidebar/user.tt" WRAPPER "layout/sidebar/section.tt" title=user.name %]
+    [% INCLUDE "layout/sidebar/login.tt" WRAPPER "layout/sidebar/section.tt" title="Not Logged In" %]
   [% END %]
   [% INCLUDE "layout/sidebar/search.tt" WRAPPER "layout/sidebar/section.tt" title="Search" %]
   [% INCLUDE "layout/sidebar/top-voters.tt" WRAPPER "layout/sidebar/section.tt" title="Top Voters" %]

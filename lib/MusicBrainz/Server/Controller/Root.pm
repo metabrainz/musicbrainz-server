@@ -92,11 +92,11 @@ and also the current user.
 sub end : ActionClass('RenderView')
 {
     my ($self, $c) = @_;
-    
+
     $c->stash->{server_details}->{version} = &DBDefs::VERSION;
-    $c->stash->{logged_in} = defined $c->session->{user}{name};
-    $c->stash->{user}->{name} = $c->session->{user}->{name}
-        if $c->stash->{logged_in};
+    #$c->stash->{logged_in} = $c->user_exists;
+    #$c->stash->{user}->{name} = $c->user->get_object->GetName
+    #    if $c->stash->{logged_in};
 }
 
 =head1 AUTHOR

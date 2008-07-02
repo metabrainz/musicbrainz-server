@@ -267,8 +267,9 @@ sub LoadArtistARLinks
     my ($dbh, $artist) = @_;
     my @arLinks;
 
-    @arLinks = MusicBrainz::Server::Link->FindLinkedEntities($dbh, $artist->GetId,
-        'artist', { to_type => ['label', 'url', 'artist'] });
+    my $link = MusicBrainz::Server::Link->new($dbh);
+    @arLinks = $link->FindLinkedEntities($artist->GetId,
+        'artist', to_type => ['label', 'url', 'artist']);
 
     my $max = scalar(@arLinks);
     my ($item, $i);

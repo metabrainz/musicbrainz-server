@@ -13,32 +13,7 @@ use Catalyst::Runtime '5.70';
 # Static::Simple: will serve static files from the application's root 
 #                 directory
 
-use Catalyst;
-
-our $VERSION = '0.01';
-
-# Configure the application. 
-#
-# Note that settings in musicbrainz.yml (or other external
-# configuration file that you set up manually) take precedence
-# over this when using ConfigLoader. Thus configuration
-# details given here can function as a default configuration,
-# with a external configuration file acting as an override for
-# local deployment.
-
-require MusicBrainz::Server::Filters;
-
-__PACKAGE__->config(
-    name => 'MusicBrainz::Server',
-    "View::Default" => {
-	FILTERS => {
-	    'mb_date' => \&MusicBrainz::Server::Filters::date,
-	},
-    },
-);
-
-# Start the application
-__PACKAGE__->setup(qw/
+use Catalyst qw/
 -Debug
 ConfigLoader
 Static::Simple
@@ -50,7 +25,49 @@ Session::State::Cookie
 Session::Store::FastMmap
 
 FormBuilder
-/);
+
+Authentication
+/;
+
+our $VERSION = '0.01';
+
+# Configure the application. 
+#
+# Note that settings in musicbrainz.yml (or other external
+# configuration file that you set up manually) take precedence
+# over this when using ConfigLoader. Thus configuration
+# details given here can function as a default configuration,
+# with a external configuration file acting as an override for
+# local deployment.
+require MusicBrainz::Server::Filters;
+
+__PACKAGE__->config(
+    name => 'MusicBrainz::Server',
+    "View::Default" => {
+        FILTERS => {
+            'mb_date' => \&MusicBrainz::Server::Filters::date,
+        }
+    }
+);
+
+__PACKAGE__->config->{'Plugin::Authentication'} = {
+    default_realm => 'moderators',
+    realms => {
+        moderators => {
+            credential => {
+                class => 'Password',
+                password_field => 'password',
+                password_type => 'clear'
+            },
+            store => {
+                class => '+MusicBrainz::Server::Authentication::Store'
+            }
+        }
+    }
+};
+
+# Start the application
+__PACKAGE__->setup();
 
 
 =head1 NAME
