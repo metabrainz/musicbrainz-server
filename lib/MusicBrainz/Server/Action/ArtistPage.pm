@@ -36,12 +36,12 @@ sub execute
         die "Not a valid GUID"
             unless(MusicBrainz::Server::Validation::IsGUID($mbid));
 
-        my $mb = new MusicBrainz;
-        $mb->Login();
+        my $mb = $c->mb;
 
         my $artist = MusicBrainz::Server::Artist->new($mb->{DBH});
         $artist->SetMBId($mbid);
-        $artist->LoadFromId(1) or $c->error("Failed to load artist");
+        $artist->LoadFromId(1)
+            or die "Failed to load artist";
 
         die "You cannot view the special DELETED_ARTIST"
             if ($artist->GetId == ModDefs::DARTIST_ID);

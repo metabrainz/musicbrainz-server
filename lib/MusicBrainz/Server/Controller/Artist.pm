@@ -101,13 +101,9 @@ sub aliases : Local Args(1) MyAction('ArtistPage')
 {
     my ($self, $c, $mbid) = @_;
 
-    my $mb = new MusicBrainz;
-    $mb->Login;
-
     my $artist = $c->stash->{_artist};
-    $artist->{DBH} = $mb->{DBH};
 
-    my $alias = MusicBrainz::Server::Alias->new($mb->{DBH}, "ArtistAlias");
+    my $alias = MusicBrainz::Server::Alias->new($c->mb->{DBH}, "ArtistAlias");
     my @aliases = $alias->GetList($artist->GetId);
 
     my @prettyAliases = ();
@@ -135,11 +131,8 @@ sub show : Path Args(1) MyAction('ArtistPage')
     my ($self, $c, $mbid) = @_;
 
     # Load the artist
-    my $mb = new MusicBrainz;
-    $mb->Login();
-
+    my $mb = $c->mb;
     my $artist = $c->stash->{_artist};
-    $artist->{DBH} = $mb->{DBH};
 
     # Load data for the landing page
     my @tags = LoadArtistTags ($mb->{DBH}, 5, $artist);

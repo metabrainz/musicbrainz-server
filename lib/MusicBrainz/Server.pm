@@ -5,6 +5,8 @@ use warnings;
 
 use Catalyst::Runtime '5.70';
 
+use MusicBrainz;
+
 # Set flags and add plugins for the application
 #
 #         -Debug: activates the debug mode for very useful log messages
@@ -69,6 +71,19 @@ __PACKAGE__->config->{'Plugin::Authentication'} = {
 # Start the application
 __PACKAGE__->setup();
 
+sub mb
+{
+    my $self = shift;
+
+    unless(defined $self->{_mb})
+    {
+        my $mb = new MusicBrainz;
+        $mb->Login();
+        $self->{_mb} = $mb
+    }   
+
+    return $self->{_mb};
+}
 
 =head1 NAME
 

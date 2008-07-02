@@ -20,8 +20,7 @@ sub find_user
 {
     my ($self, $authinfo, $c) = @_;
 
-    my $mb = new MusicBrainz;
-    $mb->Login();
+    my $mb = $c->mb;
 
     my $us = UserStuff->new($mb->{DBH});
     my $user = $us->newFromName($authinfo->{username});
@@ -41,7 +40,7 @@ sub from_session
 {
     my ($self, $c, $frozenUser) = @_;
 
-    return $self->find_user({ username => $frozenUser });
+    return $self->find_user({ username => $frozenUser }, $c);
 }
 
 sub user_support

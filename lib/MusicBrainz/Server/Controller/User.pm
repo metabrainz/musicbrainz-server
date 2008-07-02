@@ -83,8 +83,7 @@ sub register : Local Form
 
     if($c->form->submitted && $c->form->validate)
     {
-        my $mb = new MusicBrainz;
-        $mb->Login();
+        my $mb = $c->mb;
 	
         my $ui = UserStuff->new($mb->{DBH});
         my ($userobj, $createlogin) = $ui->CreateLogin($c->form->field('username'),
@@ -139,8 +138,7 @@ sub profile : Local
 {
     my ($self, $c, $userName) = @_;
 
-    my $mb = new MusicBrainz;
-    $mb->Login();
+    my $mb = $c->mb;
     
     my $us = UserStuff->new($mb->{DBH});
     my $user;
@@ -154,16 +152,15 @@ sub profile : Local
         if ($c->user_exists)
         {
             $user = $c->user->get_object;
-            $user->{DBH} = $mb->{DBH};
             $c->stash->{viewing_own_profile} = 1 if defined $userName and $user->GetName eq $userName;
         }
         else
         {
-            $c->error("No username specified, please login");
+            die "No username specified, please login or specify a users profile to vie";
         }
     }
 
-    $c->error("The user with username '" . $userName . "' could not be found")
+    die "The user with username '" . $userName . "' could not be found"
         unless $user;
 
     $c->stash->{profile} = {
