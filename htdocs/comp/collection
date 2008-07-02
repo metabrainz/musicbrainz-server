@@ -1,0 +1,71 @@
+</%perl>
+<%args>
+	$userId => undef
+	$collectionId => undef
+</%args>
+
+
+<& /comp/tablebegin, title => "Music in collection" &>
+
+
+<%perl>
+if(1==1) # Check if there are releases to display
+{
+	my $rownum=0;
+</%perl>
+
+
+<table id="CompactReleaseList">
+	<col style="text-align: right" />
+	<col style="text-align: right" />
+	<col style="text-align: right" />
+	<col style="text-align: center" />
+	<col style="text-align: center" />
+	<col style="text-align: center" />
+	<col />
+
+
+<%perl>
+
+
+# Get all releases in collection
+use MusicBrainz::Server::CollectionInfo;
+my $collectionInfo=MusicBrainz::Server::CollectionInfo->new($session{uid});
+
+
+my $releases=$collectionInfo->GetHasReleases();
+
+
+
+
+for my $release (@{$releases})
+{
+	print '<tr class="'.('ev', 'od')[$rownum % 2].'">';
+	print '<td>123</td>';
+	print '<td>123</td>';
+	print '<td>123</td>';
+	print '<td>123</td>';
+	print '<td>asd</td>';
+	print '<td>1234-12-12</td>';
+	print '<td>lang</td>';
+	print '<td>'.$release->{albumname}.'</td>';
+	print '</tr>';
+	
+	$rownum++;
+}
+
+
+print '</table>';
+
+
+}
+else
+{
+	print 'No releases in collection.';
+}
+
+
+</%perl>
+
+
+<& /comp/tableend &>

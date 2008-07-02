@@ -20,12 +20,9 @@ sub new
 	my $sql=Sql->new($mb->{DBH});
 	
 	
+	my $query="SELECT * FROM collection_info WHERE moderator='$userId'";
+	my $result=$sql->SelectSingleRowHash($query);
 	
-	my $query="SELECT * FROM collection_info";
-	my $result=$sql->SelectListOfHashes($query);
-	
-	use Data::Dumper;
-	print Dumper($result);
 	
 	
 	bless(
@@ -33,7 +30,7 @@ sub new
 		DBH				=> $sql,
 		userId			=> $userId,
 		result			=> $result,
-		collectionId	=> 123 # for now
+		collectionId	=> $result->{id} #$result{id}
 		#collectionHash	=> {}, # {'Smash Mouth' => ('Release 1', 'Release 2'), 'Fort Minor' => ('Release')}
 		#artistHash		=> {}
 	}, $this);
@@ -60,12 +57,14 @@ sub GetHasReleases
 	
 	#my $query="SELECT album.name FROM album INNER JOIN collection_has_release_join b ON b.album = album.id INNER JOIN collection_info ON c.id = b.collection_info";
 	
-	my $query="SELECT artist,name,attributes,gid FROM album WHERE id IN (SELECT album FROM collection_has_release_join WHERE collection_info='123')";
+	#my $query="SELECT artist,name,attributes,gid FROM album WHERE id IN (SELECT album FROM collection_has_release_join WHERE collection_info='123')";
+	
+	my $query="SELECT album.artist AS artistid, album.name AS albumname, album.attributes, album.gid, artist.name AS artistname FROM album, artist WHERE album.id IN (SELECT album FROM collection_has_release_join WHERE collection_info='123') AND artist.id=album.artist";
 	
 	my $result=$sql->SelectListOfHashes($query);
 	
-	use Data::Dumper;
-	print Dumper($result);
+	
+	return $result;
 }
 
 
@@ -79,6 +78,7 @@ sub GetHasArtists
 	my $query="SELECT id,name FROM artist WHERE id IN (SELECT artist FROM album WHERE id IN (SELECT album FROM collection_has_release_join WHERE collection_info='123'))";
 	
 	my $result=$sql->SelectListOfHashes($query);
+	
 	
 	use Data::Dumper;
 	print Dumper($result);

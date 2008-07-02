@@ -34,7 +34,7 @@ CREATE TABLE collection_info
 	id								SERIAL,
 	moderator						INTEGER NOT NULL, -- references moderator
 	collection_watch				INTEGER NOT NULL, -- references collection_watch
-	collection_ignore_time_range	INTEGER NOT NULL, -- references collection_ignore_time_range
+	collection_ignore_time_range	INTEGER, -- references collection_ignore_time_range
 	lastcheck						TIMESTAMP,
 	publiccollection				BOOLEAN NOT NULL, -- publicly display collection?
 	emailnotifications				BOOLEAN DEFAULT TRUE, -- send notifications by e-mail?
