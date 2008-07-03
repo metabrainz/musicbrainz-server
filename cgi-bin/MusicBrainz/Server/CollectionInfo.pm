@@ -7,17 +7,11 @@ package MusicBrainz::Server::CollectionInfo;
 
 sub new
 {
-	my ($this, $userId)=@_;
+	my ($this, $userId, $sql)=@_;
 	
 	my %collectionHash;
 	my %artistHash;
 	
-	require MusicBrainz;
-	require Sql;
-	my $mb = MusicBrainz->new;
-	$mb->Login;
-	
-	my $sql=Sql->new($mb->{DBH});
 	
 	
 	my $query="SELECT * FROM collection_info WHERE moderator='$userId'";
@@ -63,6 +57,19 @@ sub GetHasReleases
 	
 	my $result=$sql->SelectListOfHashes($query);
 	
+	return $result;
+}
+
+
+sub GetHasMBIDs
+{
+	my ($this)=@_;
+	
+	my $sql=$this->{DBH};
+	
+	my $query="SELECT album.gid FROM album WHERE album.id IN (SELECT album FROM collection_has_release_join WHERE collection_info='123')"; # order by some stuff here
+	
+	my $result=$sql->SelectListOfLists($query);
 	
 	return $result;
 }
