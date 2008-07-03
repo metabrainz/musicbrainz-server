@@ -1516,7 +1516,7 @@ sub InsertNote
 	my $self = shift;
 	require MusicBrainz::Server::ModerationNote;
 	my $notes = MusicBrainz::Server::ModerationNote->new($self->{DBH});
-	$notes->Insert($self, @_);
+	$notes->Insert($self->GetId, @_);
 }
 
 # Links to the Vote class

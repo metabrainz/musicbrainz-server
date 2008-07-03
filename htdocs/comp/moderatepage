@@ -176,17 +176,11 @@
 
 		</table>
 
-% 		if ($show_button)
-%		{
-
 		<div style="text-align: right; margin-bottom: 20px">
-			Click here to vote on the items on this page:
-
+			Click here to <% $show_button ? "vote" : "submit notes" %> on the items on this page:
 			<input type="hidden" name="url" value="<% $r->uri() . "?" . $r->args() %>" />
-			<input type="submit" name="submit" value="Enter votes &raquo;" />
+			<input type="submit" name="submit" value="Continue &raquo;" />
 		</div>
-
-%		}
 
 	</form>
 
