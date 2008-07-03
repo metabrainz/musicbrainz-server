@@ -42,8 +42,10 @@
 
 			<li>
 				<a href="<% $votelink %>">Vote on Edits</a></li>
-			<li>
-				<a href="/mod/search/pre/subscriptions.html"><strong>&middot;</strong> Subscribed</a></li>
+			<li><small>
+				<a href="/mod/search/pre/subscriptions.html"><strong>&middot;</strong> Subscribed artists</a></small></li>
+			<li><small>
+				<a href="/mod/search/pre/subscriptions-editors.html"><strong>&middot;</strong> Subscribed editors</a></small></li>
 
 %	# Show Relationship Types Editor link if the user
 %	# has these privileges
