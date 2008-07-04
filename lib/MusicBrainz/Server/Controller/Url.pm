@@ -30,7 +30,7 @@ sub urlLinkRaw
     {
         url => $url,
         mbid => $mbid,
-        type => 'url'
+        link_type => 'url'
     };
 }
 

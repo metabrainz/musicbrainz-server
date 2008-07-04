@@ -30,7 +30,7 @@ sub releaseLinkRaw
     {
         name => $name,
         mbid => $mbid,
-        type => 'release'
+        link_type => 'release'
     };
 }
 
@@ -43,8 +43,7 @@ Create stash data to link to a Release entity using root/components/entity-link.
 sub releaseLink
 {
     my $release = shift;
-
-    releaseLinkRaw ($release->GetName, $release->GetMBId);
+    $release->ExportStash qw( name mbid )
 }
 
 =head1 AUTHOR

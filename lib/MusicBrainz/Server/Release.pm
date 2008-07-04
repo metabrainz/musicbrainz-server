@@ -415,6 +415,22 @@ sub GetNextFreeTrackId
 	}
 }
 
+sub ExportStash
+{
+    my ($self, @data) = @_;
+
+    my %dataHash;
+    for (@data) { $dataHash{$_} = 1; }
+
+    my $ret = {};
+
+    $ret->{mbid} = $self->GetMBId if $dataHash{'mbid'};
+    $ret->{link_type} = 'release';
+    $ret->{name} = $self->GetName if $dataHash{'name'};
+
+    return $ret;
+}
+
 # Insert an album that belongs to this artist. The Artist object should've
 # been loaded with a LoadFromXXXX call, or the id of this artist must be
 # set before this function is called.

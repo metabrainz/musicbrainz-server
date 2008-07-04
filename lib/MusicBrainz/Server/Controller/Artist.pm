@@ -33,8 +33,7 @@ root/components/entity-link.tt
 sub artistLink
 {
     my $artist = @_;
-
-    artistLinkRaw $artist->GetName, $artist->GetMBId;
+    $artist->ExportStash qw( name mbid );
 }
 
 =head2 artistLinkRaw
@@ -51,7 +50,7 @@ sub artistLinkRaw
     {
         name => $name,
         mbid => $mbid,
-        type => 'artist'
+        link_type => 'artist'
     };
 }
 
