@@ -189,6 +189,44 @@ sub GetQualityModPending
    return $_[0]->{modpending_qual};
 }
 
+sub ExportStash
+{
+    my $self = shift;
+    my @data = @_;
+
+    my %dataHash;
+    for (@data) { $dataHash{$_} = 1 }
+
+    my $ret = {};
+    $ret->{mbid} = $self->GetMBId if $dataHash{'mbid'};
+    $ret->{type} = GetTypeName($self->GetType) if $dataHash{'type'};
+    $ret->{resolution} = $self->GetResolution if $dataHash{'resolution'};
+
+    if($dataHash{'name'})
+    {
+        $ret->{name} = $self->GetName;
+        $ret->{sortname} = $self->GetSortName;
+    }
+
+    if($dataHash{'quality'})
+    {
+        $ret->{quality} = {
+            quality => ModDefs::GetQualityText($self->GetQuality),
+            mp => $self->GetQualityModPending
+        }
+    }
+
+    if($dataHash{'date'})
+    {
+        $ret->{datespan} = {
+            start => $self->GetBeginDate,
+            end => $self->GetEndDate
+        };
+    }
+
+    return $ret;
+}
+
 # Insert an artist into the DB and return the artist id. Returns undef
 # on error. The name and sortname of this artist must be set via the accesor
 # functions.

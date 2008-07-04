@@ -1,9 +1,9 @@
-[% IF entity.type == "url" %]
+[% IF entity.link_type == "url" %]
   <a href="[% entity.url | url %]">[% entity.url | html %]</a>
   [ <a href="[% c.uri_for('/uri', entity.mbid) %]">info</a> ]
 [% ELSE %]
-  <a href="[% c.uri_for("/${entity.type}", entity.mbid) %]">
-    <span class="[% entity.type %]_icon">
+  <a href="[% c.uri_for("/${entity.link_type}", entity.mbid) %]">
+    <span class="[% entity.link_type %]_icon">
     [% entity.name | html %]
     </span>
   </a>

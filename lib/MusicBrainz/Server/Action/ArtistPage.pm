@@ -47,19 +47,7 @@ sub execute
             if ($artist->GetId == ModDefs::DARTIST_ID);
 
         $c->stash->{_artist} = $artist;
-
-        $c->stash->{artist} = {
-            name => $artist->GetName,
-            type => 'artist',
-            mbid => $artist->GetMBId,
-            artist_type => MusicBrainz::Server::Artist::GetTypeName($artist->GetType),
-            datespan => {
-                start => $artist->GetBeginDate,
-                end => $artist->GetEndDate
-            },
-            quality => ModDefs::GetQualityText($artist->GetQuality),
-            resolution => $artist->GetResolution,
-        };
+        $c->stash->{artist} = $artist->ExportStash qw( name mbid type date quality resolution );
     }
 
     $self->NEXT::execute(@_);

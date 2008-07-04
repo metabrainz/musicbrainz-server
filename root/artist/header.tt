@@ -13,14 +13,15 @@
 <div id="artistHeader">
   
   <div class="title">
-  <span><img src="/static/images/aicon_lg.png"> [% artist.name %]</span>
+    <span><img src="/static/images/aicon_lg.png"> [% artist.name %]</span>
   </div>
   
   <div class="info">
   [% IF artist.resolution %]
     <p>[% artist.resolution %]</p>
   [% END %]
-  Type: [% artist.type %], [% artist.quality %] data quality<br />
+  Type: [% artist.type %], [% artist.quality.quality %] data quality<br />
+  [% IF artist.sortname != artist.name %][% artist.sortname %][% END %]
   </div>
   
   <div class="links"> Info: [% INCLUDE "components/piped-list.tt" list=info_links %]</div>
