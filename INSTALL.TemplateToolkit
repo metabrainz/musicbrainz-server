@@ -47,6 +47,8 @@ codebase.
 		Catalyst::Plugin::Authentication
 		Catalyst::View::TT
 		Cache::Memcached
+        Email::Valid
+        Form::Processor
 
 Setting up & running:
 

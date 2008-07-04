@@ -7,12 +7,12 @@
 [%- END -%]
 [%- IF widget.widget == 'checkbox' -%]
 <p class="labelRight">
-  <input type="[% widget.widget %]" id="[% id %]" name="[% widget.name %]" />
+  <input type="[% widget.widget %]" id="[% id %]" name="[% widget.name %]" value="[% widget.value %]"/>
   [% PROCESS labelHtml %]
 [%- ELSE -%]
 <p>
   [% PROCESS labelHtml %]
-  <input type="[% widget.widget %]" id="id_[% widget.name %]" name="[% widget.name %]" />
+  <input type="[% widget.widget %]" id="[% id %]" name="[% widget.name %]" value="[% widget.value %]"/>
 [%- END -%]
 [%- IF widget.errors.size -%]
 <ul class="labelRight">

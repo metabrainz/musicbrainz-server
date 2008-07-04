@@ -88,18 +88,23 @@ Handle user registration
 
 sub register : Local Form
 {
+    use MusicBrainz::Server::Form::User::Register;
+
     my ($self, $c) = @_;
 
-    if($c->form->submitted && $c->form->validate)
+    my $form = MusicBrainz::Server::Form::User::Register->new;
+    $c->stash->{form} = $form;
+
+    if($c->form_posted && $form->validate($c->request->parameters))
     {
         my $mb = $c->mb;
 	
         my $ui = UserStuff->new($mb->{DBH});
-        my ($userobj, $createlogin) = $ui->CreateLogin($c->form->field('username'),
-                                                       $c->form->field('password'),
-                                                       $c->form->field('confirm_password'));
+        my ($userobj, $createlogin) = $ui->CreateLogin($form->value('username'),
+                                                       $form->value('password'),
+                                                       $form->value('confirm_password'));
 
-        my $email = $c->form->field('email');
+        my $email = $form->value('email');
 
         # if createlogin list is empty, the user was created.
         if (@$createlogin == 0)

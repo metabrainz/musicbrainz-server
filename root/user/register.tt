@@ -8,8 +8,13 @@
     or post it to the appropriate [% INCLUDE "components/doc-link.tt" to="MailingList" text="Mailing List" %].</li>
 </ul>
 
-[% INCLUDE 'components/form-errors.tt' %]
-[% form.render %]
+[% WRAPPER "forms/form.tt" %]
+  [% INCLUDE "forms/widget.tt" widget=form.field('username') label="Username" %]
+  [% INCLUDE "forms/widget.tt" widget=form.field('password') label="Password" %]
+  [% INCLUDE "forms/widget.tt" widget=form.field('confirm_password') label="Confirm Password" %]
+  [% INCLUDE "forms/widget.tt" widget=form.field('email') label="Email Address" %]
+  [% INCLUDE "forms/submit.tt" label="Create Account" %]
+[% END %]
 
 <h3>We respect your privacy</h3>
 <p>Rest assured that we will not pass your e-mail address on to anyone, including
