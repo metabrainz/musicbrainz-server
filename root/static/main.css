@@ -183,17 +183,33 @@ div.box div.content {
 #content form p {
     clear: both;
 }
+#content form .labelRight {
+    margin-left: 110pt;
+}
 
 #content form label {
     float: left;
     text-align: right;
-    font-weight: bold;
     margin-right: 10pt;
     width: 100pt;
 }
 
-#content form p.no-label {
+#content form .required {
+    font-weight: bold;
+}
+
+#content form .error {
+    color: #ff0000;
+}
+
+#content form .labelRight {
     margin-left: 110pt;
+}
+#content form .labelRight label {
+    width: auto;
+    float: none;
+    text-align: left;
+    margin: 0;
 }
 
 #artistHeader {

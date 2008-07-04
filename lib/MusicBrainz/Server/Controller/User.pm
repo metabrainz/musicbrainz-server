@@ -51,20 +51,29 @@ Handle logging in users
 
 =cut
 
-sub login : Local Form
+sub login : Local
 {
+    use MusicBrainz::Server::Form::User::Login;
+
     my ($self, $c) = @_;
 
-    if ($c->form->submitted && $c->form->validate)
+    my $form = MusicBrainz::Server::Form::User::Login->new;
+    $c->stash->{form} = $form;
+
+    if ($c->form_posted && $form->validate($c->request->parameters))
     {
-        my ($username, $password) = ( $c->form->field("username"),
-                                      $c->form->field("password") );
+        my ($username, $password) = ( $form->value("username"),
+                                      $form->value("password") );
 
         if( $c->authenticate({ username => $username,
                                password => $password }) )
         {
             $c->response->redirect($c->uri_for('/user/profile'));
             $c->detach();
+        }
+        else
+        {
+            $c->stash->{errors} = ['Username/password combination invalid'];
         }
     }
 

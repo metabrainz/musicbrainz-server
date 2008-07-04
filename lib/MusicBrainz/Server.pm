@@ -85,6 +85,10 @@ sub mb
     return $self->{_mb};
 }
 
+sub form_posted {
+    return shift->request->method eq 'POST'
+}
+
 =head1 NAME
 
 musicbrainz - Catalyst based application

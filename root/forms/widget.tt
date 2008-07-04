@@ -1,0 +1,24 @@
+[%#- Generic way to display form fields -%]
+[%- id = "id_${widget.name}" -%]
+[%- BLOCK labelHtml -%]
+<label for="id_[% id %]" class="[% widget.required_text %][% widget.errors.size ? " error" : "" %]">
+  [% label %]
+</label>
+[%- END -%]
+[%- IF widget.widget == 'checkbox' -%]
+<p class="labelRight">
+  <input type="[% widget.widget %]" id="[% id %]" name="[% widget.name %]" />
+  [% PROCESS labelHtml %]
+[%- ELSE -%]
+<p>
+  [% PROCESS labelHtml %]
+  <input type="[% widget.widget %]" id="id_[% widget.name %]" name="[% widget.name %]" />
+[%- END -%]
+[%- IF widget.errors.size -%]
+<ul class="labelRight">
+  [% FOREACH error=widget.errors %]
+  <li class="error">[% error %]</li>
+  [% END %]
+</ul>
+[%- END -%]
+</p>

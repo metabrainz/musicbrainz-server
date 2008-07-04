@@ -1,0 +1,13 @@
+[%- DEFAULT method="post" -%]
+<form action="[% action %]" method="[% method %]">
+  <p>Fields that are <span class="required">bold</span> are required.</p>
+  [%- IF errors.size -%]
+    <p>Sorry - some errors were present in the data you provided!</p>
+    <ul class="error">
+      [% FOREACH error=errors %]
+      <li>[% error %]</li>
+      [% END %]
+    </ul>
+  [%- END -%]
+  [% content %]
+</form>
