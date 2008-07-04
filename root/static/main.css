@@ -274,3 +274,10 @@ span.release_icon { background-image: url("/static/images/entity/release_small.g
 span.label_icon { background-image: url("/static/images/entity/album_small.gif"); }
 
 span.track_icon { background-image: url("/static/images/entity/track_small.gif"); }
+
+div.releasetype {
+    color: #000;
+    font-weight: bold;
+    padding-left: 5px;
+    background: url(/static/images/header-bg-orangefade.gif) repeat-y;
+}

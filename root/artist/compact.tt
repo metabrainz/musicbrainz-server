@@ -1,9 +1,8 @@
 [% WRAPPER "artist/landing.tt" %]
 
-<h1>Releases</h1>
-<table class="releasetypes">
 [% FOREACH group IN groups %]
-  <h2>[% group.name %]</h2>
+  <div>
+  <div class="releasetype">[% group.name %]</div>
   <table class="releaselist">
     <thead>
       <tr>
@@ -19,18 +18,23 @@
     <tbody>
       [% FOREACH release IN group.releases %]
       <tr>
-        <td>[% release.trackCount %]</td>
-        <td>[% release.discIds %]</td>
-        <td>[% release.puids %]</td>
+        <td>[% release.trackCount %]&nbsp;<img src="/static/images/notes.gif" alt="Tracks" /></td>
+        <td>[% release.discIds %]&nbsp;<img src="/static/images/cd.gif" alt="Disc IDs" /></td>
+        <td>[% release.puids %]&nbsp;<img src="/static/images/puid.gif" alt="PUIDs" /></td>
         <td>[% release.status %]</td>
         <td>[% release.releaseDate %]</td>
-        <td>[% release.language.shortLanguage %]</td>
+        <td>
+            <abbr title="[% release.language.language %] / [% release.language.script %]">
+            [% release.language.shortLanguage %]
+            </abbr>
+        </td>
         <td>[% INCLUDE "components/entity-link.tt" entity=release icon=0 %]</td>
       </tr>
       [% END %]
     </tbody>
   </table>
+  </div>
+  <br />
 [% END %]
-</table>
 
 [% END %]
