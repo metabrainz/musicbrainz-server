@@ -2,7 +2,7 @@
 
 [% FOREACH group IN groups %]
   <div>
-  <div class="releasetype">[% group.name %]</div>
+  <div class="compactreleasetype">[% group.name %]</div>
   <table class="releaselist">
     <thead>
       <tr>

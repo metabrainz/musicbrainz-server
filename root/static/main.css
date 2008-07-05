@@ -275,9 +275,39 @@ span.label_icon { background-image: url("/static/images/entity/album_small.gif")
 
 span.track_icon { background-image: url("/static/images/entity/track_small.gif"); }
 
-div.releasetype {
+div.compactreleasetype {
     color: #000;
     font-weight: bold;
     padding-left: 5px;
     background: url(/static/images/header-bg-orangefade.gif) repeat-y;
+}
+
+div.releasetype {
+    background: #736DAB;
+    color: #FFF;
+    border: 1px solid #000;
+    font-weight: bold;
+    margin: 1em 0;
+    padding: 2px 4px;
+}
+
+div.release {
+    position: relative;
+}
+
+div.releasename {
+    background: #FFBA68;
+    border: 1px solid #000;
+    padding: 1px;
+    color: #736DAB;
+    font-weight: bold;
+}
+
+div.releaseinfo {
+    background: #F0EFFF;
+    border-bottom: 1px solid #000;
+    border-right: 1px solid #000;
+    border-left: 1px solid #000;
+    margin-bottom: 10px;
+    padding: 1px;
 }
