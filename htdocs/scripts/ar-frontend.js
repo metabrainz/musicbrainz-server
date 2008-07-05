@@ -48,7 +48,8 @@ function ARFrontEnd() {
 		purevolume:	new RegExp("^(http://)?([^/]+\.)?purevolume\.com","i"),
 		archive:	new RegExp("^(http://)?([^/]+\.)?archive\.org/.*\.(jpg|jpeg|png|gif)$","i"),
 		cdbaby:		new RegExp("^(http://)?([^/]+\.)?cdbaby\.(com|name)","i"),
-		jamendo:	new RegExp("^(http://)?([^/]+\.)?jamendo\.com","i")
+		jamendo:	new RegExp("^(http://)?([^/]+\.)?jamendo\.com","i"),
+		encyclopedisque:	new RegExp("^(http://)?([^/]+\.)?encyclopedisque\.fr/images/.*\.jpg","i")
 	};
 
 	// ----------------------------------------------------------------------------
@@ -217,6 +218,8 @@ function ARFrontEnd() {
 			else if (v.match(this.urlRegExps.cdbaby))
 				site = "cover art";
 			else if (v.match(this.urlRegExps.jamendo))
+				site = "cover art";
+			else if (v.match(this.urlRegExps.encyclopedisque))
 				site = "cover art";
 
 			if (site != "") {
