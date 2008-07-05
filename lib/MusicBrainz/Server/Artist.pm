@@ -201,6 +201,7 @@ sub ExportStash
     $ret->{mbid} = $self->GetMBId if $dataHash{'mbid'};
     $ret->{type} = GetTypeName($self->GetType) if $dataHash{'type'};
     $ret->{resolution} = $self->GetResolution if $dataHash{'resolution'};
+    $ret->{link_type} = 'artist';
 
     if($dataHash{'name'})
     {

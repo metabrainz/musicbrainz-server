@@ -1712,7 +1712,7 @@ sub ShowModType
 {
 	my ($this, $mason, $showeditlinks) = splice(@_, 0, 3);
 	
-	use MusicBrainz qw( encode_entities );
+	#use MusicBrainz qw( encode_entities );
 	
 	# default exists is to check if the given name is set
 	# in the values hash.

@@ -28,7 +28,7 @@ use strict;
 package MusicBrainz::Server::Moderation::MOD_ADD_RELEASE_ANNOTATION;
 
 use ModDefs;
-use MusicBrainz::Server::Annotation ':type';
+use MusicBrainz::Server::Annotation 'RELEASE_ANNOTATION';
 use base 'Moderation';
 
 sub Name { "Add Release Annotation" }

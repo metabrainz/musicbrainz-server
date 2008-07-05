@@ -22,7 +22,7 @@
         <td>[% release.discIds %]&nbsp;<img src="/static/images/cd.gif" alt="Disc IDs" /></td>
         <td>[% release.puids %]&nbsp;<img src="/static/images/puid.gif" alt="PUIDs" /></td>
         <td>[% release.status %]</td>
-        <td>[% release.releaseDate %]</td>
+        <td>[% release.releaseDate | release_date %]</td>
         <td>
             <abbr title="[% release.language.language %] / [% release.language.script %]">
             [% release.language.shortLanguage %]

@@ -48,6 +48,7 @@ __PACKAGE__->config(
     "View::Default" => {
         FILTERS => {
             'mb_date' => \&MusicBrainz::Server::Filters::date,
+            'release_date' => \&MusicBrainz::Server::Filters::release_date,
         }
     }
 );

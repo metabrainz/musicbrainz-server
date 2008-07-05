@@ -6,6 +6,8 @@ use parent 'Catalyst::Controller';
 
 use Encode qw( decode );
 use ModDefs;
+use Moderation;
+use MusicBrainz::Server::Annotation;
 use MusicBrainz::Server::Alias;
 use MusicBrainz::Server::Artist;
 use MusicBrainz::Server::Link;
@@ -23,6 +25,9 @@ MusicBrainz::Server::Controller::Artist - Catalyst Controller for working with A
 
 =head1 METHODS
 
+=cut
+
+# artistLink {{{
 =head2 artistLink
 
 Create stash data to create a link to an artist, in an form that can be then displayed by
@@ -35,7 +40,8 @@ sub artistLink
     my $artist = @_;
     $artist->ExportStash qw( name mbid );
 }
-
+# }}}
+# artistLinkRaw {{{
 =head2 artistLinkRaw
 
 Create stash data to link to an artist, but given the parameters explicity (rather than requiring an
@@ -53,7 +59,54 @@ sub artistLinkRaw
         link_type => 'artist'
     };
 }
+# }}}
+# edit {{{
+=head2 edit
 
+Allows users to edit an artist
+
+=cut 
+
+sub edit : Local Args(1) MyAction('ArtistPage')
+{
+    my ($self, $c, $mbid) = @_;
+
+    die "You must be logged in" unless $c->user_exists;
+
+    my $artist = $c->stash->{_artist};
+
+    use MusicBrainz::Server::Form::Artist::Edit;
+
+    my $form = new MusicBrainz::Server::Form::Artist::Edit;
+    $c->stash->{form} = $form;
+
+    if($c->form_posted)
+    {
+        if($form->validate($c->req->params))
+        {
+            # TODO BUG ERROR OMG WTF R U DOING.
+            # Still need to validate the date field and stuff
+
+            Moderation->Insert( DBH => $c->mb->{DBH},
+                                uid => $c->user->get_object->GetId,
+                                type => ModDefs::MOD_EDIT_ARTIST,
+                                artist => $artist,
+                                name => $artist->GetName,
+                                sortname => $artist->GetSortName );
+        }
+    }
+    else
+    {
+        # Prefill form with the current artist data
+        $form->field('name')->value($artist->GetName);
+        $form->field('sortname')->value($artist->GetSortName);
+        $form->field('artist_type')->value($artist->GetType);
+    }
+
+    $c->stash->{template} = 'artist/edit.tt';
+}
+# }}}
+# appearances {{{
 =head2 appearances
 
 Display a list of releases that an artist appears on; that is - does not have the actual release
@@ -130,7 +183,8 @@ sub appearances : Local Args(1) MyAction('ArtistPage')
     $c->stash->{release_groups} = \@releaseGroups;
     $c->stash->{template} = 'artist/appearances.tt';
 }
-
+# }}}
+# perma {{{
 =head2 perma
 
 Display the perma-link for a given artist
@@ -143,7 +197,8 @@ sub perma : Local Args(1) MyAction('ArtistPage')
     my $artist = $c->stash->{_artist};
     $c->stash->{template} = 'artist/perma.tt';
 }
-
+#}}}
+# details {{{
 =head2 details
 
 Display detailed information about a specific artist
@@ -166,7 +221,8 @@ sub details : Local Args(1) MyAction('ArtistPage')
 
     $c->stash->{template} = 'artist/details.tt';
 }
-
+# }}}
+# aliases {{{
 =head2 aliases
 
 Display all aliases of an artist, along with usage information
@@ -195,13 +251,15 @@ sub aliases : Local Args(1) MyAction('ArtistPage')
     $c->stash->{aliases} = \@prettyAliases;
     $c->stash->{template} = 'artist/aliases.tt';
 }
-
+# }}}
+# show {{{
 =head2 show
 
 Shows an artist's main landing page, showing all of the releases that are attributed to them
 
 =cut
 
+# show {{{
 sub show : Path Args(1) MyAction('ArtistPage')
 {
     my ($self, $c, $mbid) = @_;
@@ -211,14 +269,13 @@ sub show : Path Args(1) MyAction('ArtistPage')
     my $artist = $c->stash->{_artist};
 
     # Load data for the landing page
+    my $annotation = LoadArtistAnnotation ($mb->{DBH}, $artist);
     my @tags = LoadArtistTags ($mb->{DBH}, 5, $artist);
     my @arLinks = LoadArtistARLinks ($mb->{DBH}, $artist); 
     my @releases = LoadArtistReleases ($artist);
 
     # Create data structures for the template
-    #
-
-    # ARs:
+    # Advanced relations: {{{
     my @prettyArs;
     my $currentArGroup = undef;
     for my $ar (@arLinks)
@@ -250,15 +307,18 @@ sub show : Path Args(1) MyAction('ArtistPage')
                 $ar->{link1_mbid});
         }
 
-        push @{$currentArGroup->{entities}}, $entity;
+        push @{$currentArGroup->{entities}}, $entity
     }
 
-    # Artist:
-    $c->stash->{_artist} = $artist;
+    # }}}
+    # General artist data: {{{
     $c->stash->{artist_tags} = \@tags;
     $c->stash->{artist_relations} = \@prettyArs;
+    $c->stash->{annotation} = $annotation->GetTextAsHTML
+        if defined $annotation;
 
-    # Releases, sorted into "release groups":
+    # }}}
+    # Releases, sorted into "release groups": {{{
     $c->stash->{groups} = [];
 
     my $currentGroup;
@@ -291,7 +351,7 @@ sub show : Path Args(1) MyAction('ArtistPage')
         $rel->{quality} = ModDefs::GetQualityText($release->GetQuality);
         $rel->{language} = $language;
         $rel->{status} = $release->GetAttributeName($status);
-        $rel->{releaseDate} = $release->GetFirstReleaseDateYMD;
+        $rel->{releaseDate} = $release->GetFirstReleaseDate;
 
         $rel->{attributes} = [];
         my $attributes = $release->GetAttributes;
@@ -303,18 +363,26 @@ sub show : Path Args(1) MyAction('ArtistPage')
 
         push @{$currentGroup->{releases}}, $rel;
     }
+    # }}}
 
     # Decide how to display the data
-    if ($c->request->params->{full})
-    {
-        $c->stash->{template} = 'artist/full.tt';
-    }
-    else
-    {
-        $c->stash->{template} = 'artist/compact.tt';
-    }
+    $c->stash->{template} = $c->request->params->{full} ? 
+                                'artist/full.tt' :
+                                'artist/compact.tt';
 }
+# }}}
 
+# LoadArtistAnnotation {{{
+sub LoadArtistAnnotation
+{
+    my ($dbh, $artist) = @_;
+
+    my $annotation = MusicBrainz::Server::Annotation->new($dbh);
+    $annotation->SetArtist($artist->GetId);
+    return $annotation->GetLatestAnnotation;
+}
+# }}}
+# LoadArtistTags {{{
 sub LoadArtistTags
 {
     my ($dbh, $tagCount, $artist) = @_;
@@ -324,7 +392,8 @@ sub LoadArtistTags
 
     sort { $tagHash->{$b} <=> $tagHash->{$a}; } keys %{$tagHash};
 }
-
+# }}}
+# LoadArtistARLinks {{{
 sub LoadArtistARLinks
 {
     my ($dbh, $artist) = @_;
@@ -376,7 +445,8 @@ sub LoadArtistARLinks
         return $a->{link1_name} cmp $b->{link1_name};
     } @arLinks;
 }
-
+# }}}
+# LoadArtistReleases {{{
 sub LoadArtistReleases
 {
     my $artist = shift;
@@ -431,7 +501,9 @@ sub LoadArtistReleases
 
     sort SortAlbums @shortList;
 }
-
+# }}}
+# }}}
+# CheckAttributes {{{
 sub CheckAttributes
 {
     my ($a) = @_;
@@ -455,7 +527,8 @@ sub CheckAttributes
     $a->{_attr_status} = MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_STATUS_END + 1
         if (not defined $a->{_attr_status});
 };
-
+# }}}
+# SortAlbums {{{
 =head2 SortAlbums
 
 Sort a list of MusicBrainz::Server::Album objects into the order they are displayed on the
@@ -489,6 +562,7 @@ sub SortAlbums
 
     0;
 };
+# }}}
 
 =head1 AUTHOR
 

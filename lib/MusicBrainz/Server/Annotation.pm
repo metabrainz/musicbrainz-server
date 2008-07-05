@@ -31,7 +31,7 @@ use TableBase;
 use ModDefs qw( :artistid MODBOT_MODERATOR );
 
 use Exporter;
-{
+BEGIN {
 	our @EXPORT_OK = qw(
 		ARTIST_ANNOTATION
 		RELEASE_ANNOTATION

@@ -1,19 +1,36 @@
 [%#- Generic way to display form fields -%]
+
 [%- id = "id_${widget.name}" -%]
+
 [%- BLOCK labelHtml -%]
 <label for="id_[% id %]" class="[% widget.required_text %][% widget.errors.size ? " error" : "" %]">
   [% label %]
 </label>
 [%- END -%]
+
 [%- IF widget.widget == 'checkbox' -%]
 <p class="labelRight">
   <input type="[% widget.widget %]" id="[% id %]" name="[% widget.name %]" value="[% widget.value %]"/>
   [% PROCESS labelHtml %]
 [%- ELSE -%]
-<p>
-  [% PROCESS labelHtml %]
-  <input type="[% widget.widget %]" id="[% id %]" name="[% widget.name %]" value="[% widget.value %]"/>
+  <p>
+    [% PROCESS labelHtml %]
+    [%- IF widget.widget == 'textarea' -%]
+      <textarea id="[% id %]" name="[% widget.name %]">[% widget.value or "Please enter an edit note here" %]</textarea>
+    [%- ELSIF widget.widget == 'select' -%]
+      <select id="[% id %]" name="[% widget.name %]">
+        [%- FOREACH option IN widget.options -%]
+        <option value="[% option.value %]" [%- IF widget.value == option.value -%]selected="true"[%- END -%]>
+          [% option.label %]
+        </option>
+        [%- END -%]
+      </select>
+    [%- ELSE -%]
+      <input type="[% widget.widget %]" id="[% id %]" name="[% widget.name %]" value="[% widget.value %]"/>
+    [%- END -%]
 [%- END -%]
+</p>
+
 [%- IF widget.errors.size -%]
 <ul class="labelRight">
   [% FOREACH error=widget.errors %]
@@ -21,4 +38,3 @@
   [% END %]
 </ul>
 [%- END -%]
-</p>
