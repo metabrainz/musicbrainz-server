@@ -36,17 +36,17 @@
     [% INCLUDE "components/piped-list.tt" list=edit_account_options
          WRAPPER property name="Edit My Account" IF viewing_own_profile%]
 	
-    [% profile.name | html_entity WRAPPER property name="Name" %]
-
     [% IF (not viewing_own_profile) %]
       [% WRAPPER property name="Contact"%]
-        <a href="[% c.uri_for('/user/contact', profile.name) %]">Send E-Mail</a>
+        <a href="[% c.uri_for('/user/contact', profile.name) %]">Send e-mail</a>
       [% END %]
     [% END %]
+    
+    [% profile.name | html_entity WRAPPER property name="Name" %]
 
-    [% (profile.type or "Unknown") | html_entity WRAPPER property name="User Type" %]
+    [% (profile.type or "Unknown") | html_entity WRAPPER property name="User type" %]
 
-    [% WRAPPER property name="E-Mail" %]
+    [% WRAPPER property name="E-mail" %]
       [% IF viewing_own_profile %]
         [% (profile.email.address or "[None]") | html_entity %]
       [% ELSE %][Hidden][% END %]
@@ -64,7 +64,11 @@
       [% ELSE %][None][% END %]
     [% END %]
 	
-    [% (profile.biography or "[None]") | html_entity WRAPPER property name="Biography" %]
+    [% WRAPPER property name="Bio" %]
+    <div class="bio">
+    [% (profile.biography or "[None]") | html_entity %]
+    </div>
+    [% END %]
 	
     [% WRAPPER property name="Subscriptions" %]
       [% viewing_own_profile ? "Your" : profile.name | html_entity %] subscriptions are [% profile.public_subscriptions ? "public" : "private" %]
@@ -78,7 +82,8 @@
  <h3>User Statistics</h3>
  <dl>
    [% WRAPPER property name="Member Since" %]
-     [% IF profile.name == "Rob" %]the dawn of the project
+     [% IF profile.name == "Rob" %]The Dawn of the project
+     [% ELSIF profile.name == "aCiD2" %]9 months after someone did your mum
      [% ELSIF profile.is_special %]N/A
      [% ELSIF profile.charter %]charter member
      [% ELSE %][% profile.member_since | mb_date %]
@@ -87,7 +92,7 @@
    [% profile.accepted_non_autoedits WRAPPER property name="Accepted Non-autoedits" %]
    [% profile.accepted_autoedits WRAPPER property name="Autoedits" %]
    [% profile.edits_voted_down WRAPPER property name="Edits Voted Down" %]
-   [% profile.other_failed_edits WRAPPER property name="Other Failed Edits" %]
+   [% profile.other_failed_edits WRAPPER property name="Edits Failed" %]
  </dl>
 [% END %]
 

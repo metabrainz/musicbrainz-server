@@ -1,4 +1,10 @@
-<h3>[% title %]</h3>
+<h3>
+[% IF link %]
+<a href="[% link %]">[% title %]</a>
+[% ELSE %]
+[% title %]
+[% END %]
+</h3>
 <div class="sidebar-module">
   [% content %]	
 </div>

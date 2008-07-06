@@ -121,6 +121,15 @@ a:hover {
     padding: 0pt 4pt;
 }
 
+#sidebar h3 a:visited,
+#sidebar h3 a:active,
+#sidebar h3 a:hover,
+#sidebar h3 a:link {
+    color: #000;
+}
+
+#sidebar h3 a:hover { text-decoration: underline; }
+
 #sidebar a {
     color: #555;
 }
@@ -293,11 +302,13 @@ div.releasetype {
 
 div.release {
     position: relative;
+    border: 1px solid #000;
+    margin-bottom: 10px;
 }
 
 div.releasename {
     background: #FFBA68;
-    border: 1px solid #000;
+    border-bottom: 1px solid #000;
     padding: 1px;
     color: #736DAB;
     font-weight: bold;
@@ -305,9 +316,11 @@ div.releasename {
 
 div.releaseinfo {
     background: #F0EFFF;
-    border-bottom: 1px solid #000;
-    border-right: 1px solid #000;
-    border-left: 1px solid #000;
-    margin-bottom: 10px;
     padding: 1px;
+}
+
+div.bio { 
+    width: 90%;
+    border: 1px dotted #CCC; 
+    padding: 0px 5px 5px 5px; 
 }
