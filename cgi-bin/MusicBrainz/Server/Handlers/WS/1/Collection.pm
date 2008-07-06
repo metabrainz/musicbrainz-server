@@ -4,9 +4,9 @@ use strict;
 
 package MusicBrainz::Server::Handlers::WS::1::Collection;
 
-use MusicBrainz::Server::Handlers::MC::1::Add;
+use MusicBrainz::Server::Collection;
 use MusicBrainz::Server::Handlers::WS::1::Common;
-use Apache::Constants qw( OK BAD_REQUEST DECLINED SERVER_ERROR NOT_FOUND FORBIDDEN);
+use Apache::Constants qw( OK BAD_REQUEST AUTH_REQUIRED DECLINED SERVER_ERROR NOT_FOUND FORBIDDEN);
 
 sub handler
 {
@@ -31,22 +31,26 @@ sub handler
 	
 	require MusicBrainz;
 	require Sql;
-	my $mb = MusicBrainz->new;
-	$mb->Login;
-	my $sql=Sql->new($mb->{DBH});
+	
+	my $mbro = MusicBrainz->new();
+	$mbro->Login();
+	
+	my $mbraw = MusicBrainz->new();
+	$mbraw->Login(db => 'RAWDATA');
 	
 	
 	# instantiate
-	my $aaa=MusicBrainz::Server::Handlers::MC::1::Add->new($sql, $collectionId);
+	my $collection=MusicBrainz::Server::Collection->new($mbro->{DBH}, $mbraw->{DBH}, $collectionId);
 	
 	# add albums, if the array is not empty...
-	if(@addAlbums){ $aaa->AddAlbums(@addAlbums); }
+	if(@addAlbums){ $collection->AddAlbums(@addAlbums); }
 	
 	# remove albums, if the array is not empty
-	if(@removeAlbums){ $aaa->RemoveAlbums(@removeAlbums); }
+	if(@removeAlbums){ $collection->RemoveAlbums(@removeAlbums); }
 	
 	# print XML response
-	$aaa->PrintResultXML();
+	print 'asfgfgfgd';
+	$collection->PrintResultXML();
 }
 
 1;

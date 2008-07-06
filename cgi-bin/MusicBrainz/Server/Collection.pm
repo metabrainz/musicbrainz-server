@@ -2,7 +2,7 @@
 #
 #	TODO:
 #
-#
+#	move RemoveRelease to RAW database
 #
 
 #!/usr/bin/perl -w
@@ -31,13 +31,14 @@ my $addAlbum_insertCount=0;
 
 sub new
 {
-	my($this, $sql, $collectionId)=@_;
+	my($this, $rodbh, $rawdbh, $collectionId) = @_;
 	
-	my @duplicateIds=();
+	my @duplicateIds = ();
 	
 	bless(
 	{
-		DBH								=> $sql,
+		RODBH							=> $rodbh,
+		RAWDBH							=> $rawdbh,
 		collectionId					=> $collectionId,
 		addAlbum						=> 0, # 0=havent touched add album stuff. 1=has done so
 		addAlbum_duplicateArray			=> [()],
@@ -57,10 +58,9 @@ sub new
 sub AddAlbums {
 	my ($this, @albums) = @_;
 	
-	$this->{addAlbum}=1;
+	$this->{addAlbum} = 1;
 	
-	$collectionId=$this->{collectionId};
-	$sql=$this->{DBH};
+	$collectionId = $this->{collectionId};
 	
 	
 	print "adding albumsa:\n";
@@ -100,38 +100,28 @@ sub AddRelease #"album" in current schema
 {
 	my ($this, $mbid) = @_;
 	
-	my $sql=$this->{DBH};
+	my $rosql=Sql->new($this->{RODBH});
+	my $rawsql=Sql->new($this->{RAWDBH});
 	
 	
 	# make sure this is valid format for a mbid
 	if($mbid =~ m/[a-z0-9]{8}[:-][a-z0-9]{4}[:-][a-z0-9]{4}[:-][a-z0-9]{4}[:-][a-z0-9]{12}/)
 	{
 		print "VALID MBID!\n";
-		
+	
+		my $releaseId;
 		
 		eval
 		{
-			$sql->Begin();
-			
-			# make sure there is a release with the mbid in the database
-			my $result=$sql->SelectSingleRowHash("SELECT * FROM album WHERE gid='$mbid'");
+			$rosql->Begin();
 			
 			
-			if($result=="undef") # the mbid does not exist
+			# get album id
+			$releaseId = $rosql->SelectSingleValue("SELECT id FROM album WHERE gid='$mbid'");
+			
+			if($releaseId=="undef") # the mbid does not exist
 			{
 				push(@{$this->{addAlbum_notExistingArray}}, $mbid);
-			}
-			else # it is a valid mbid. add it to the collection
-			{
-				# get id of album
-				my $albumId=$result->{id};
-				
-				# add MBID to the collection
-				my $attributes={id => 456, collection_info => $collectionId, album => $albumId};
-				$sql->InsertRow("collection_has_release_join", $attributes);
-				
-				# increase add count
-				$this->{addAlbum_insertCount}++;
 			}
 		};
 		
@@ -144,15 +134,47 @@ sub AddRelease #"album" in current schema
 				push(@{$this->{addAlbum_duplicateArray}}, $mbid);
 			}
 			
-			$sql->Commit();
+			$rosql->Commit();	
 		}
 		else
 		{
-			$sql->Commit();
+			$rosql->Commit();
 		}
 		
-		#use Data::Dumper;
-		#print Dumper(@result);
+		use Data::Dumper;
+			print Dumper($releaseId);
+		
+		
+		eval
+		{
+			$rawsql->Begin();
+			
+						use Data::Dumper;
+			print Dumper($releaseId);
+				
+			# add MBID to the collection
+			my $attributes={id => 456, collection_info => $collectionId, album => $releaseId};
+			$rawsql->InsertRow("collection_has_release_join", $attributes);
+			
+			# increase add count
+			$this->{addAlbum_insertCount}++;
+		};
+		
+		if($@)
+		{
+			my $error=$@; # get the error message
+			
+			if($error =~ /duplicate/) # it is a duplicate... add it to the array of duplicates
+			{
+				push(@{$this->{addAlbum_duplicateArray}}, $mbid);
+			}
+			
+			$rawsql->Commit();	
+		}
+		else
+		{
+			$rawsql->Commit();
+		}
 		
 		print "adding mbid " . $mbid . " for user " . $collectionId . "\n";
 	}
@@ -187,7 +209,7 @@ sub RemoveRelease
 			# make sure there is a release with the mbid in the database
 			my $deleteResult=$sql->Do("DELETE FROM collection_has_release_join WHERE album=(SELECT id FROM album WHERE gid='$mbid')");
 			
-			print "REsuLT:$deleteResult\n";
+			print "Result:$deleteResult\n";
 			
 			if($deleteResult==1) # successfully deleted
 			{

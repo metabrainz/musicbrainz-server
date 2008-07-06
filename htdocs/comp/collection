@@ -2,6 +2,9 @@
 <%args>
 	$userId => undef
 	$collectionId => undef
+	$dbh => undef
+	$rodbh => undef
+	$rawdbh => undef
 </%args>
 
 
@@ -23,34 +26,48 @@ if(1==1) # Check if there are releases to display
 	<col style="text-align: center" />
 	<col style="text-align: center" />
 	<col />
+	
+	
+	<tr>
+		<td><b>Artist</b></td>
+		<td><b>Release name</b></td>
+		<td><b>Release date</b></td>
+		<td><b>Track count</b></td>
+	</tr>
 
 
 <%perl>
 
+my $sql=Sql->new($dbh);
 
 # Get all releases in collection
 use MusicBrainz::Server::CollectionInfo;
-my $collectionInfo=MusicBrainz::Server::CollectionInfo->new($session{uid});
+my $collectionInfo=MusicBrainz::Server::CollectionInfo->new($session{uid}, $sql, $rodbh, $rawdbh);
 
 
-my $releases=$collectionInfo->GetHasReleases();
+#my $releases=$collectionInfo->GetHasMBIDs();
+my $releases = $collectionInfo->GetHasMBIDs();
 
+use MusicBrainz::Server::Release;
 
+$collectionInfo->GetHasMBIDsForArtist('357465');
 
-
-for my $release (@{$releases})
+for my $mbid (@{$releases})
 {
-	print '<tr class="'.('ev', 'od')[$rownum % 2].'">';
-	print '<td>123</td>';
-	print '<td>123</td>';
-	print '<td>123</td>';
-	print '<td>123</td>';
-	print '<td>asd</td>';
-	print '<td>1234-12-12</td>';
-	print '<td>lang</td>';
-	print '<td>'.$release->{albumname}.'</td>';
-	print '</tr>';
+	# load Release object
+	my $release=MusicBrainz::Server::Release->new($dbh);
+	$release->SetMBId(@{$mbid}[0]);
+	$release->LoadFromId();
 	
+	my $artistname = $sql->SelectSingleValue("SELECT name FROM artist WHERE id='" . $release->GetArtist() . "'");
+	
+	print '<tr class="'.('ev', 'od')[$rownum % 2].'">';
+	print '<td>'.$artistname.'</td>';
+	print '<td>'.$release->GetName().'</td>';
+	print '<td>' . $release->GetFirstReleaseDate() . '</td>';
+	print '<td>'.$release->GetTrackCount().'</td>';
+	print '</tr>';
+
 	$rownum++;
 }
 
