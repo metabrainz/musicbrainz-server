@@ -1,0 +1,46 @@
+<%perl>
+
+
+	# Set up page
+	my $mb = $m->comp("/comp/dblogin");
+	$m->comp("/comp/sidebar-notitle", pagetitle => 'Collection Preferences');
+	
+	# Make sure user is logged on
+	$m->comp("/comp/checkloggedin", 1, 1, "You need to be logged in to modify your collection preferences.", 1) or return;
+	
+	
+	require CollectionPreference;
+	
+	for my $key (CollectionPreference::valid_keys())
+	{
+		print 'key ' . $key . '</br>';
+		CollectionPreference::set($key, $ARGS{$key})
+			if defined $ARGS{$key};
+	}
+	
+	
+	use Data::Dumper;
+	print Dumper(CollectionPreference::valid_keys());
+	
+</%perl>
+
+
+<form method="post" action="/user/collectionpreferences.html" id="CollectionPreferencesForm">
+
+	<& /comp/tablebegin, title => "Missing Releases" &>
+	
+	<& /comp/tableend &>
+	
+	<& /comp/tablebegin, title => "New releases" &>
+		<div>
+			<input type="checkbox" name="email_notify_release" id="pref_email_notify_release"
+%				$m->out(UserPreference::get('email_notify_release') ? ' checked="checked" ' : "" );
+				/>
+			<label for="pref_vote_abs_default">
+				E-mail notifications about upcoming releases.</label>
+		</div>
+	<& /comp/tableend &>
+
+	<input type="submit" value="Update &raquo;" />
+	
+</form>
