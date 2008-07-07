@@ -1,0 +1,24 @@
+[% META title = "Donations" %]
+[% WRAPPER "layout.tt" %]
+
+<h2>Donations</h2>
+
+[% IF donateinfo.nag %]
+    <p>
+    We have not received a donation from you recently. If you have just made a PayPal donation,
+    we have not received a notification from PayPal yet. Please wait a few minutes and reload this page to check again.
+    </p>
+    <p>
+    If you would like to make a donation, <a href="http://metabrainz.org/donate">you can do that here</a>. If you've
+    donated, but you're still being nagged, please <a href="/doc/ContactUs">contact us</a>.
+    </p>
+[% ELSE %]
+    <p>Thank you for contributing to Musicbrainz.</p>
+    [% IF donateinfo.days %]
+        <p>You won't be nagged for another [% donateinfo.days %] days.</p>
+    [% ELSE %]
+        <p>You'll never be nagged again!</p>
+    [% END %]
+[% END %]
+
+[% END %]
