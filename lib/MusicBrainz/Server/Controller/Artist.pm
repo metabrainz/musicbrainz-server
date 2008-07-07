@@ -314,8 +314,8 @@ sub show : Path Args(1) MyAction('ArtistPage')
     # General artist data: {{{
     $c->stash->{artist_tags} = \@tags;
     $c->stash->{artist_relations} = \@prettyArs;
-    $c->stash->{annotation} = $annotation->GetTextAsHTML
-        if defined $annotation;
+    # $c->stash->{annotation} = $annotation->GetTextAsHTML
+    #    if defined $annotation;
 
     # }}}
     # Releases, sorted into "release groups": {{{

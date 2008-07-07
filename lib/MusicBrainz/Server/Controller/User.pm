@@ -170,7 +170,8 @@ sub profile : Local
         }
         else
         {
-            die "No username specified, please login or specify a users profile to vie";
+            $c->response->redirect($c->uri_for('/user/login'));
+            $c->detach();
         }
     }
 
@@ -228,9 +229,41 @@ sub preferences : Local Form
   $c->stash->{template} = 'user/preferences.tt';
 }
 
+=head2 donate
+
+Check the status of donations and ask for one.
+
+=cut
+
+sub donate : Local
+{
+    my ($self, $c) = @_;
+    my $mb = $c->mb;
+    my $us = UserStuff->new($mb->{DBH});
+    my $user;
+    
+    if ($c->user_exists)
+    {
+        $user = $c->user->get_object;
+        my ($nag, $days) = $us->NagCheck();
+    }
+    else
+    {
+        $c->response->redirect($c->uri_for('/user/login'));
+        $c->detach();
+    }
+    
+    $c->stash->{donateinfo} = {
+        'nag' => 1,
+        'days' => 1
+    };
+    $c->stash->{template} = 'user/donate.tt';
+}
+
 =head1 AUTHOR
 
 Oliver Charles <oliver.g.charles@googlemail.com>
+Mustaqil 'Muzzz' Ali
 
 =head1 LICENSE
 

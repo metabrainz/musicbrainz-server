@@ -23,7 +23,7 @@
      { link => "", text => "Edit" },
      { link => "", text => "Change Password" },
      { link => "", text => "Preferences" },
-     { link => "", text => "Check Donation Status" },
+     { link => "donate", text => "Check Donation Status" },
    ]
 %]
 
@@ -34,7 +34,7 @@
          WRAPPER property name="Review" %]
 
     [% INCLUDE "components/piped-list.tt" list=edit_account_options
-         WRAPPER property name="Edit My Account" IF viewing_own_profile%]
+         WRAPPER property name="Edit My Account" IF viewing_own_profile %]
 	
     [% IF (not viewing_own_profile) %]
       [% WRAPPER property name="Contact"%]
