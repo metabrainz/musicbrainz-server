@@ -23,7 +23,7 @@
      { link => "", text => "Edit" },
      { link => "", text => "Change Password" },
      { link => "", text => "Preferences" },
-     { link => "donate", text => "Check Donation Status" },
+     { link => c.uri_for('/user/donate'), text => "Check Donation Status" },
    ]
 %]
 

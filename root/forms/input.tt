@@ -1,0 +1,19 @@
+[%- name = widget.name
+    id = "id_${widget.name}"
+    type = widget.widget
+    value = widget.value -%]
+[%- IF type == 'textarea' -%]
+  <textarea name="[% name %]" id="[% id %]">[% value %]</textarea>
+[%- ELSIF type == 'select' -%]
+  <select id="[% id %]" name="[% name %]">
+  [%- FOREACH option IN widget.options -%]
+    <option value="[% option.value %]" [%- IF widget.value == option.value -%]selected="true"[%- END -%]>
+      [% option.label %]
+    </option>
+  [%- END -%]
+  </select>
+[%- ELSIF type == 'checkbox' %]
+  <input type="[% type %]" name="[% name %]" id="[% id %]" [% IF value %]checked="checked"[% END %] />
+[%- ELSE -%]
+  <input type="[% type %]" name="[% name %]" id="[% id %]" value="[% value %]" />
+[%- END -%]

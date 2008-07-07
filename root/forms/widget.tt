@@ -10,24 +10,12 @@
 
 [%- IF widget.widget == 'checkbox' -%]
 <p class="labelRight">
-  <input type="[% widget.widget %]" id="[% id %]" name="[% widget.name %]" value="[% widget.value %]"/>
+  [% INCLUDE "forms/input.tt" %]
   [% PROCESS labelHtml %]
 [%- ELSE -%]
   <p>
     [% PROCESS labelHtml %]
-    [%- IF widget.widget == 'textarea' -%]
-      <textarea id="[% id %]" name="[% widget.name %]">[% widget.value or "Please enter an edit note here" %]</textarea>
-    [%- ELSIF widget.widget == 'select' -%]
-      <select id="[% id %]" name="[% widget.name %]">
-        [%- FOREACH option IN widget.options -%]
-        <option value="[% option.value %]" [%- IF widget.value == option.value -%]selected="true"[%- END -%]>
-          [% option.label %]
-        </option>
-        [%- END -%]
-      </select>
-    [%- ELSE -%]
-      <input type="[% widget.widget %]" id="[% id %]" name="[% widget.name %]" value="[% widget.value %]"/>
-    [%- END -%]
+    [% INCLUDE "forms/input.tt" %]
 [%- END -%]
 </p>
 

@@ -20,6 +20,9 @@ updating & managing user profiles
 
 =head1 METHODS
 
+=cut
+
+# index {{{
 =head2 index
 
 If the user is currently logged in redirect them to their profile page, otherwise redirect the user
@@ -44,7 +47,8 @@ sub index : Private
         $c->detach();
     }
 }
-
+# }}}
+# login {{{
 =head2 login
 
 Handle logging in users
@@ -79,7 +83,8 @@ sub login : Local
 
     $c->stash->{template} = 'user/login.tt';
 }
-
+# }}}
+# register {{{
 =head2 register
 
 Handle user registration
@@ -124,7 +129,8 @@ sub register : Local Form
 
     $c->stash->{template} = 'user/register.tt';
 }
-
+# }}}
+# registered {{{
 =head2 registered
 
 Called when a user has completed registration. We use this to notify the user that everything
@@ -141,7 +147,8 @@ sub registered : Private
 
     $c->stash->{template} = 'user/registered.tt';
 }
-
+# }}}
+# profile {{{
 =head2 profile
 
 Display a users profile page.
@@ -166,7 +173,8 @@ sub profile : Local
         if ($c->user_exists)
         {
             $user = $c->user->get_object;
-            $c->stash->{viewing_own_profile} = 1 if defined $userName and $user->GetName eq $userName;
+            $c->stash->{viewing_own_profile} = 1
+                unless defined $userName and $user->GetName ne $userName;
         }
         else
         {
@@ -201,7 +209,8 @@ sub profile : Local
 
     $c->stash->{filter} = sub { \&date };
 }
-
+# }}}
+# logout {{{
 =head2 logout
 
 Logout the current user. Has no effect if the user is already logged out.
@@ -215,20 +224,34 @@ sub logout : Local
     $c->logout;
     $c->response->redirect($c->uri_for('/user/login'));
 }
-
+# }}}
+# preferences {{{
 =head2 preferences
 
 Change the users preferences
 
 =cut
 
-sub preferences : Local Form
+sub preferences : Local
 {
-  my ($self, $c) = @_;
+    use MusicBrainz::Server::Form::User::Preferences;
 
-  $c->stash->{template} = 'user/preferences.tt';
+    my ($self, $c) = @_;
+
+    die "You must be logged in" unless $c->user_exists;
+    
+    my $form = MusicBrainz::Server::Form::User::Preferences->new($c->user->get_object->GetName);
+    $form->build_form;
+    $c->stash->{form} = $form;
+
+    if ($c->form_posted && $form->validate($c->request->parameters))
+    {
+    }
+
+    $c->stash->{template} = 'user/preferences.tt';
 }
-
+# }}}
+# donate {{{
 =head2 donate
 
 Check the status of donations and ask for one.
@@ -259,6 +282,7 @@ sub donate : Local
     };
     $c->stash->{template} = 'user/donate.tt';
 }
+# }}}
 
 =head1 AUTHOR
 
