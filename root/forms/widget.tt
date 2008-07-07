@@ -3,7 +3,7 @@
 [%- id = "id_${widget.name}" -%]
 
 [%- BLOCK labelHtml -%]
-<label for="id_[% id %]" class="[% widget.required_text %][% widget.errors.size ? " error" : "" %]">
+<label for="[% id %]" class="[% widget.required_text %][% widget.errors.size ? " error" : "" %]">
   [% label %]
 </label>
 [%- END -%]

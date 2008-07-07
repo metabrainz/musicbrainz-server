@@ -27,10 +27,27 @@ sub init_value {
 
     my $mb = new MusicBrainz;
     $mb->Login();
-
     $self->item->{DBH} = $mb->{DBH};
 
     return UserPreference::get_for_user($field->name, $item);
+}
+
+sub update_model {
+    my $self = shift;
+    my $item = $self->item;
+
+    my $mb = new MusicBrainz;
+    $mb->Login();
+    $self->item->{DBH} = $mb->{DBH};
+
+    die "apparently saving for mr. " . $self->item->GetName;
+}
+
+sub update_from_form {
+    my ($self, $data) = @_;
+
+    return unless $self->validate($data);
+    $self->update_model;
 }
 
 1;

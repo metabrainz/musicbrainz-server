@@ -8,7 +8,7 @@ body {
 
 p {
     margin: 0;
-    margin-bottom: 10pt;
+    margin-bottom: 5pt;
 }
 
 a {
@@ -163,12 +163,12 @@ a:hover {
     padding: 15px;
 }
 
-div.box {
+div.box, #content form fieldset {
     border: 1px solid #FFBB55;
     margin-bottom: 16pt;
 }
 
-div.box h2 {
+div.box h2, #content form legend {
     border-bottom: 1px solid #FFBB55;
     margin: 0;
     padding: 2pt 4pt;
@@ -189,14 +189,14 @@ div.box div.content {
     padding: 5pt;
 }
 
-#content form p {
+#content form.generic p {
     clear: both;
 }
-#content form .labelRight {
+#content form.generic .labelRight {
     margin-left: 110pt;
 }
 
-#content form label {
+#content form.generic label {
     float: left;
     text-align: right;
     margin-right: 10pt;
@@ -211,10 +211,10 @@ div.box div.content {
     color: #ff0000;
 }
 
-#content form .labelRight {
+#content form.generic .labelRight {
     margin-left: 110pt;
 }
-#content form .labelRight label {
+#content form.generic .labelRight label {
     width: auto;
     float: none;
     text-align: left;

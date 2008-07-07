@@ -244,9 +244,8 @@ sub preferences : Local
     $form->build_form;
     $c->stash->{form} = $form;
 
-    if ($c->form_posted && $form->validate($c->request->parameters))
-    {
-    }
+    $form->update_from_form ($c->req->params)
+        if $c->form_posted;
 
     $c->stash->{template} = 'user/preferences.tt';
 }
