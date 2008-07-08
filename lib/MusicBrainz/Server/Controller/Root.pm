@@ -3,11 +3,11 @@ package MusicBrainz::Server::Controller::Root;
 use strict;
 use warnings;
 use base 'Catalyst::Controller';
-use MusicBrainz::Server::Replication ':replication_type';
-use MusicBrainz::Server::NewsFeed;
 
 # Import MusicBrainz libraries
 use DBDefs;
+use MusicBrainz::Server::NewsFeed;
+use MusicBrainz::Server::Replication ':replication_type';
 
 #
 # Sets the actions in this controller to be registered with no prefix
@@ -24,6 +24,33 @@ musicbrainz::Controller::Root - Root Controller for musicbrainz
 This controller handles application wide logic for the MusicBrainz website.
 
 =head1 METHODS
+
+=cut
+
+# auto {{{
+=head2 auto
+
+Runs before any other action is dispatched, so we use this to make sure the user can view the page
+(and redirect them if they need to login)
+
+=cut
+
+sub auto : Private {
+    my ($self, $c) = @_;
+
+    my %private;
+    for (@{$c->config->{privatePages}}) { $private{$_} = 1; }
+
+    if (!$c->user_exists && $private{$c->action})
+    {
+        $c->flash->{login_redirect} = $c->uri_for($c->action, $c->req->args);
+        $c->response->redirect($c->uri_for('/user/login'));
+        return 0;
+    }
+
+    return 1;
+}
+# }}}
 
 =head2 index
 
@@ -94,9 +121,6 @@ sub end : ActionClass('RenderView')
     my ($self, $c) = @_;
 
     $c->stash->{server_details}->{version} = &DBDefs::VERSION;
-    #$c->stash->{logged_in} = $c->user_exists;
-    #$c->stash->{user}->{name} = $c->user->get_object->GetName
-    #    if $c->stash->{logged_in};
 }
 
 =head1 AUTHOR

@@ -57,9 +57,15 @@ Handle logging in users
 
 sub login : Local
 {
-    use MusicBrainz::Server::Form::User::Login;
-
     my ($self, $c) = @_;
+
+    if ($c->user_exists) {
+        my $redir = $c->flash->{login_redirect} || $c->uri_for('/user/profile');
+        $c->response->redirect($redir);
+        $c->detach;
+    }
+
+    use MusicBrainz::Server::Form::User::Login;
 
     my $form = MusicBrainz::Server::Form::User::Login->new;
     $c->stash->{form} = $form;
@@ -72,8 +78,9 @@ sub login : Local
         if( $c->authenticate({ username => $username,
                                password => $password }) )
         {
-            $c->response->redirect($c->uri_for('/user/profile'));
-            $c->detach();
+            my $redir = $c->flash->{login_redirect} || $c->uri_for('/user/profile');
+            $c->response->redirect($redir);
+            $c->detach;
         }
         else
         {
@@ -264,16 +271,8 @@ sub donate : Local
     my $us = UserStuff->new($mb->{DBH});
     my $user;
     
-    if ($c->user_exists)
-    {
-        $user = $c->user->get_object;
-        my ($nag, $days) = $us->NagCheck();
-    }
-    else
-    {
-        $c->response->redirect($c->uri_for('/user/login'));
-        $c->detach();
-    }
+    $user = $c->user->get_object;
+    my ($nag, $days) = $us->NagCheck();
     
     $c->stash->{donateinfo} = {
         'nag' => 1,

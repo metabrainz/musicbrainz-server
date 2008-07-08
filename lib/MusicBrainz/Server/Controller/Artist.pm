@@ -70,9 +70,6 @@ Allows users to edit an artist
 sub edit : Local Args(1) MyAction('ArtistPage')
 {
     my ($self, $c, $mbid) = @_;
-
-    die "You must be logged in" unless $c->user_exists;
-
     my $artist = $c->stash->{_artist};
 
     use MusicBrainz::Server::Form::Artist::Edit;
@@ -503,6 +500,7 @@ sub LoadArtistReleases
 }
 # }}}
 # }}}
+# Helpers (these aren't actions) {{{
 # CheckAttributes {{{
 sub CheckAttributes
 {
@@ -562,6 +560,7 @@ sub SortAlbums
 
     0;
 };
+# }}}
 # }}}
 
 =head1 AUTHOR

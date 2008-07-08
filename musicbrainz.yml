@@ -1,2 +1,6 @@
 ---
-name: musicbrainz
+privatePages:
+    - artist/edit
+
+    - user/donate
+    - user/preferences
