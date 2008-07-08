@@ -29,7 +29,11 @@ use lib "$FindBin::Bin/../../cgi-bin";
 use strict;
 use DBDefs;
 use MusicBrainz::Server::Release;
+use MusicBrainz::Server::Track;
+use MusicBrainz::Server::ReleaseCDTOC;
+use Moderation;
 use MusicBrainz;
+use UserStuff;
 
 use Getopt::Long;
 my $debug = 0;
@@ -60,11 +64,13 @@ my $mb = MusicBrainz->new;
 $mb->Login;
 my $sql = Sql->new($mb->{DBH});
 $| = 1;
+my $privs = &UserStuff::AUTOMOD_FLAG;
+my $moderator = &ModDefs::MODBOT_MODERATOR;
 
 # Find albums with at least one track to fix
 print localtime() . " : Finding candidate albums\n" if $verbose;
-my $albums = $sql->SelectSingleColumnArray(
-	"SELECT DISTINCT a.id
+my $albums = $sql->SelectListOfHashes(
+	"SELECT DISTINCT a.id, a.artist
 	FROM album a, albumjoin j, track t, album_cdtoc
 	WHERE a.id = j.album
 	AND t.id = j.track
@@ -79,14 +85,14 @@ my $tracks_fixed = 0;
 my $tracks_set = 0;
 my $albums_fixed = 0;
 
-for my $id (@$albums)
+for my $album (@$albums)
 {
+	my $id = $album->{id};
     print localtime() . " : Fixing album #$id\n" if $verbose;
 
 	no warnings 'exiting';
 	eval {
 
-		require MusicBrainz::Server::ReleaseCDTOC;
 		my $tocs = MusicBrainz::Server::ReleaseCDTOC->newFromRelease($mb->{DBH}, $id);
 		$_ = $_->GetCDTOC for @$tocs;
 
@@ -97,7 +103,6 @@ for my $id (@$albums)
 			{
 				print "  " . $t->GetTOC . "\n";
 
-				require MusicBrainz::Server::Track;
 				my @l = TrackLengthsFromTOC($t);
 				@l = map { MusicBrainz::Server::Track::FormatTrackLength($_) } @l;
 				print "    (@l)\n";
@@ -105,7 +110,7 @@ for my $id (@$albums)
 		}
 
 		my $tracks = $sql->SelectListOfHashes(
-			"SELECT t.id, t.length, j.sequence
+			"SELECT t.id, t.length, j.sequence, t.artist
 			FROM track t, albumjoin j
 			WHERE t.id = j.track
 			AND j.album = ?
@@ -128,6 +133,10 @@ for my $id (@$albums)
 		# tracks, and all the tracks have no length.
 		if (@$tocs == 1)
 		{
+			my $release = MusicBrainz::Server::Release->new($mb->{DBH});
+			$release->SetId($id);
+			$release->SetArtist($album->{artist});
+
 			my $ideal_tracks = $tocs->[0]->GetTrackCount;
 			my $want_tracks = join ",", 1 .. $ideal_tracks;
 			my $have_tracks = join ",", sort { $a<=>$b } map { $_->{sequence} } @$tracks;
@@ -157,23 +166,20 @@ for my $id (@$albums)
 				{
 					# For each track with no length, set the length as indicated
 					# by the TOC
+					
+					print "Set track durations from CDTOC #". $tocs->[0]->GetId ." for release #". $release->GetId . "\n"
+						if $verbose;
 
-					$sql->Begin;
+					my @mods = Moderation->InsertModeration(
+						DBH => $mb->{DBH},
+						uid => $moderator,
+						privs => $privs,
+						type => &ModDefs::MOD_SET_RELEASE_DURATIONS,
+						release =>  $release,
+						cdtoc => $tocs->[0],
+					) unless $dry_run;
 
-					for my $t (@$tracks)
-					{
-						# TODO? next if $t->{length} > 0;
-						my $id = $t->{id};
-						my $l = int($want[$t->{sequence}-1]);
-						print "UPDATE track SET length = $l WHERE id = $id\n"
-							if $verbose;
-						$sql->Do("UPDATE track SET length = ? WHERE id = ?", $l, $id)
-							unless $dry_run;
-						++$tracks_fixed;
-						++$tracks_set unless $t->{length} > 0;
-					}
-
-					$sql->Commit;
+					$mods[0]->InsertNote($moderator, "FixTrackLength script") if $mods[0];
 
 					++$albums_fixed;
 					next;
@@ -243,22 +249,32 @@ for my $id (@$albums)
 
 				if ($sqdiff < 5)
 				{
-					$sql->Begin;
-
 					for my $t (@$tracks)
 					{
 						# TODO? next if $t->{length} > 0;
-						my $id = $t->{id};
-						my $l = int($average_toc[$t->{sequence}-1]);
-						print "UPDATE track SET length = $l WHERE id = $id\n"
+						my $new_length = int($average_toc[$t->{sequence}-1]);
+						my $track = MusicBrainz::Server::Track->new($mb->{DBH});
+						$track->SetId($t->{id});
+						$track->SetArtist($t->{artist});
+						$track->SetLength($t->{length});
+
+						print "Edit track time #". $track->GetId ." with length = $new_length\n"
 							if $verbose;
-						$sql->Do("UPDATE track SET length = ? WHERE id = ?", $l, $id)
-							unless $dry_run;
+
+						my @mods = Moderation->InsertModeration(
+							DBH => $mb->{DBH},
+							uid => $moderator,
+							privs => $privs,
+							type => &ModDefs::MOD_EDIT_TRACKTIME,
+							track =>  $track,
+							newlength => $new_length,
+						) unless $dry_run;
+
+						$mods[0]->InsertNote($moderator, "FixTrackLength script") if $mods[0];
+						
 						++$tracks_fixed;
 						++$tracks_set unless $t->{length} > 0;
 					}
-
-					$sql->Commit;
 
 					++$albums_fixed;
 					next;
