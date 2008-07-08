@@ -98,7 +98,7 @@ echo `date`" : Processing subscriptions"
 ./admin/SetLanguageFrequencies
 
 # Add missing track lengths
-./admin/cleanup/FixLength.pl
+./admin/cleanup/FixTrackLength.pl
 
 echo `date`" : Nightly jobs complete!"
 

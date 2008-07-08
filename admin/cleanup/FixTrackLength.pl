@@ -49,7 +49,7 @@ GetOptions(
 $help = 1 if @ARGV;
 
 die <<EOF if $help;
-Usage: FixLength.pl [OPTIONS]
+Usage: FixTrackLength.pl [OPTIONS]
 
 Allowed options are:
         --[no]dry-run     don't actually make any changes (best used with
@@ -316,4 +316,4 @@ sub TrackLengthsFromTOC
 	map { $_/75*1000 } @{ $toc->GetTrackLengths };
 }
 
-# eof FixLength.pl
+# eof FixTrackLength.pl
