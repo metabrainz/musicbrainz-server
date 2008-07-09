@@ -76,6 +76,14 @@
 				
 				for my $artist (@{$artists})
 				{
+					if($preferences->ArtistInMissingList($artist->{id}))
+					{
+						#print $artist->{id} .'in list';
+					}
+					else
+					{
+						#print $artist->{id} .'not in list';
+					}
 					print '<input type="checkbox" name="artistwatchmissing_'. $artistIndex.'"';
 					print $preferences->get('artistwatchmissing_'.$artistIndex) ? ' checked' : "";
 					print '/>'. $artist->{name} .'<br/>';

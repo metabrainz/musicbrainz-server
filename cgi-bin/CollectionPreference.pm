@@ -20,19 +20,20 @@ package CollectionPreference;
 sub new
 {
 	my ($this, $rawdbh, $userId) = @_;
-	#my $prefs;
-	#$prefs->{'asd'}='asdasd';
-	#$prefs->{'qwe'}='qweqwe';
-	my %prefs = ('asd'=>'asdasd', 'qwe'=>'qweqwe', 'tyu'=>'tyutyu',);
-	use Data::Dumper;
-	print Dumper(%prefs);
-	print '<br/>'.Dumper(keys %prefs).'<br/>';
-	#my %prefs = (KEY => 'email_notify_release', DEFAULT => 1, CHECK => \&check_boo);
-	print 'RAWDBH:'.Dumper($rawdbh);
+	
+	
 	# get collection id
 	my $sql=Sql->new($rawdbh);
 	my $query="SELECT id FROM collection_info WHERE moderator='$userId'";
 	my $collectionId=$sql->SelectSingleValue($query);
+	
+	# select artist id's of artists to display missing releases of
+	my $artistsQuery="SELECT artist FROM collection_discography_artist_join WHERE collection_info='". $collectionId ."'";
+	my $artistsMissing=$sql->SelectSingleColumnArray($artistsQuery);
+	
+	print 'missing:'.Dumper($artistsMissing);
+	
+	
 	print Dumper($userId);
 	
 	print 'collectionId: '.$collectionId.'<br/><br/>';
@@ -41,7 +42,8 @@ sub new
 	{
 		RAWDBH			=> $rawdbh,
 		prefs			=> {},
-		collectionId	=> $collectionId
+		collectionId	=> $collectionId,
+		artistsMissing	=>	$artistsMissing
 	}, $this);
 	
 	$object->addpref('emailnotifications', 0, \&check_bool);
@@ -312,6 +314,14 @@ sub SaveForUser
 #		$sql->Rollback if $wrap_transaction;
 #		die $e;
 #	};
+}
+
+sub ArtistInMissingList
+{
+	my ($this, $artistId) = @_;
+	#print '<br/>list:'.Dumper($this->{prefs});
+	#return exists $this->{artistsMissing}->{$artistId};
+	return 1;
 }
 
 1;
