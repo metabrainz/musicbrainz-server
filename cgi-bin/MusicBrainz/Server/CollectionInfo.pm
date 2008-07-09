@@ -7,12 +7,13 @@ package MusicBrainz::Server::CollectionInfo;
 
 sub new
 {
-	my ($this, $userId, $sql, $rodbh, $rawdbh)=@_;
+	my ($this, $userId, $rodbh, $rawdbh)=@_;
 	
 	my %collectionHash;
 	my %artistHash;
 	
 	
+	my $sql = Sql->new($rawdbh);
 	
 	my $query="SELECT * FROM collection_info WHERE moderator='$userId'";
 	my $result=$sql->SelectSingleRowHash($query);
@@ -21,7 +22,6 @@ sub new
 	
 	bless(
 	{
-		DBH				=> $sql,
 		RODBH			=> $rodbh, # read only database
 		RAWDBH			=> $rawdbh, # raw database
 		userId			=> $userId,
@@ -50,7 +50,7 @@ sub GetHasReleases
 	my ($this) = @_;
 	
 	
-	my $sql = $this->{DBH};
+	my $sql = $this->{RODBH};
 	
 	#my $query="SELECT (album.name) FROM album INNER JOIN collection_info ON (collection_has_release_join.collection_info = album.id) INNER JOIN collection_info ON (collection_has_release_join.collection_info = collection_info.id)";
 	
@@ -70,19 +70,40 @@ sub GetHasMBIDs
 {
 	my ($this, $artistId) = @_;
 	
+	
+	# create Sql objects
+	require Sql;
 	my $rosql = Sql->new($this->{RODBH});
 	my $rawsql = Sql->new($this->{RAWDBH});
 	
-	
+	# get id's of all releases in collection
 	my $query = "SELECT album FROM collection_has_release_join WHERE collection_info='" . $this->{collectionId} . "'";
-	#my $query="SELECT album FROM collection_has_release_join";
 	my $result = $rawsql->SelectSingleColumnArray($query);
-	my @asd=("asd", "qwe");
 	
 	
-	my $releaseQuery='SELECT gid FROM album WHERE id IN(' . join(',', @{$result}) . ')';
 	
-	my $mbids = $rosql->SelectListOfLists($releaseQuery);
+	# get MBID's for all releases in collection
+	my $mbids; # for storing the result
+	
+	eval
+	{
+		$rosql->Begin();
+		
+		my $releaseQuery='SELECT gid FROM album WHERE id IN(' . join(',', @{$result}) . ')';
+	
+		$mbids = $rosql->SelectListOfLists($releaseQuery);
+	};
+	
+	if($@)
+	{
+		print $@;
+		$rosql->Commit();
+	}
+	else
+	{
+		$rosql->Commit();
+	}
+	
 	
 	return $mbids;
 }
@@ -100,15 +121,20 @@ sub GetHasArtists
 {
 	my ($this) = @_;
 	
-	my $sql = $this->{DBH};
-	
-	my $query="SELECT id,name FROM artist WHERE id IN (SELECT artist FROM album WHERE id IN (SELECT album FROM collection_has_release_join WHERE collection_info='123'))";
-	
-	my $result = $sql->SelectListOfHashes($query);
+	my $rosql = Sql->new($this->{RODBH});
+	my $rawsql = Sql->new($this->{RAWDBH});
 	
 	
-	use Data::Dumper;
-	print Dumper($result);
+	my $albumIdQuery = "SELECT album FROM collection_has_release_join WHERE collection_info='" . $this->{collectionId} . "'";
+	
+	my $albumIds = $rawsql->SelectSingleColumnArray($albumIdQuery);
+	
+	
+	my $query="SELECT id,name FROM artist WHERE id IN (SELECT artist FROM album WHERE id IN (" . join(',', @{$albumIds}) . "))";
+	
+	my $result = $rosql->SelectListOfHashes($query);
+	
+	return $result;
 }
 
 
@@ -117,7 +143,7 @@ sub GetMissingReleases
 {
 	my ($this) = @_;
 	
-	my $sql = $this->{DBH};
+	my $sql = $this->{RODBH};
 	
 	#my $query="SELECT * FROM album WHERE artist IN (SELECT artist FROM collection_discography_artist_join WHERE collection_info='123')";
 	
@@ -134,7 +160,7 @@ sub GetMissingMBIDsForArtist
 {
 	my ($this, $artistId) = @_;
 	
-	my $sql=$this->{DBH};
+	my $sql=$this->{RODBH};
 	
 	#my $query="SELECT * FROM album WHERE artist IN (SELECT artist FROM collection_discography_artist_join WHERE collection_info='123')";
 	

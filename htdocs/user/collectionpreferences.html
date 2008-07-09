@@ -8,19 +8,58 @@
 	# Make sure user is logged on
 	$m->comp("/comp/checkloggedin", 1, 1, "You need to be logged in to modify your collection preferences.", 1) or return;
 	
+	# Log on to raw database
+	require MusicBrainz;
+	my $mbraw = MusicBrainz->new();
+	$mbraw->Login(db => 'RAWDATA');
 	
 	require CollectionPreference;
 	
-	for my $key (CollectionPreference::valid_keys())
+	my $preferences = CollectionPreference->new($mbraw->{DBH}, $session{uid});
+	
+	use MusicBrainz::Server::CollectionInfo;
+	
+	my $collection = MusicBrainz::Server::CollectionInfo->new($session{uid}, $mb->{DBH}, $mbraw->{DBH});
+	
+	my $artists = $collection->GetHasArtists();
+	
+	print '<br/><br/>';
+	
+	print '<br/>NUMBER OF ARTISTS: '.@{$artists}.'<br/>';
+	
+	
+	# check wich artists to display missing releases of
+	my @missingOfArtists=();
+	
+	for(my $i=0; $i<@{$artists}; $i++)
 	{
-		print 'key ' . $key . '</br>';
-		CollectionPreference::set($key, $ARGS{$key})
+		print 'ERTTTTTTRTYRETYRTYTERYERTYERTYERTYERTY: '.$ARGS{'artistwatchmissing_'.$i};
+		
+		if($ARGS{'artistwatchmissing_'.$i} eq '')
+		{
+			print 'UNDEFINED';
+		}
+		else
+		{
+			# add this artist's id to list of artists to display missing releases of
+			push(@missingOfArtists, @{$artists}[$i]->{id});
+		}
+	}
+	
+	print Dumper(@missingOfArtists);
+	
+	$preferences->setMissingOfArtists(@missingOfArtists);
+	
+	
+	for my $key ($preferences->valid_keys())
+	{
+		print ' got key ' . $key . '  value '.$ARGS{$key}.'</br>';
+		$preferences->set($key, $ARGS{$key})
 			if defined $ARGS{$key};
 	}
 	
 	
-	use Data::Dumper;
-	print Dumper(CollectionPreference::valid_keys());
+	
 	
 </%perl>
 
@@ -28,13 +67,44 @@
 <form method="post" action="/user/collectionpreferences.html" id="CollectionPreferencesForm">
 
 	<& /comp/tablebegin, title => "Missing Releases" &>
-	
+		<div>
+			Select artists from which you want to see releases missing in your collection.
+			<div style="width:150px; height:300px; overflow:scroll; border:1px solid black">
+				<%perl>
+				
+				my $artistIndex=0;
+				
+				for my $artist (@{$artists})
+				{
+					print '<input type="checkbox" name="artistwatchmissing_'. $artistIndex.'"';
+					print $preferences->get('artistwatchmissing_'.$artistIndex) ? ' checked' : "";
+					print '/>'. $artist->{name} .'<br/>';
+					$artistIndex++;
+				}
+				
+				</%perl>
+			</div>
+		</div>
 	<& /comp/tableend &>
 	
 	<& /comp/tablebegin, title => "New releases" &>
 		<div>
-			<input type="checkbox" name="email_notify_release" id="pref_email_notify_release"
-%				$m->out(UserPreference::get('email_notify_release') ? ' checked="checked" ' : "" );
+			How long time in advance do you want to be notified about upcoming releases?
+			<select name="pref_notificationinterval">
+				<& /comp/options,
+					[
+						[ "1", "A day" ],
+						[ "7", "A week" ],
+						[ "14", "Two weeks" ],
+						[ "31", "A month" ],
+					],
+					$preferences->get('notificationinterval') &>
+			</select>
+		</div>
+		
+		<div>
+			<input type="checkbox" name="emailnotifications" id="pref_emailnotifications"
+%				$m->out($preferences->get('emailnotifications') ? ' checked="checked" ' : "" );
 				/>
 			<label for="pref_vote_abs_default">
 				E-mail notifications about upcoming releases.</label>

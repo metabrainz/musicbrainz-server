@@ -42,7 +42,7 @@ my $sql=Sql->new($dbh);
 
 # Get all releases in collection
 use MusicBrainz::Server::CollectionInfo;
-my $collectionInfo=MusicBrainz::Server::CollectionInfo->new($session{uid}, $sql, $rodbh, $rawdbh);
+my $collectionInfo=MusicBrainz::Server::CollectionInfo->new($session{uid}, $rodbh, $rawdbh);
 
 
 #my $releases=$collectionInfo->GetHasMBIDs();

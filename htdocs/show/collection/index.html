@@ -6,8 +6,8 @@
 	$m->comp("/comp/checkloggedin", 1, 1, "You need to be logged in to view your collection.", 1) or return;
 	
 	# Log on to database
-	my $mbro = $m->comp("/comp/dblogin");
 	require MusicBrainz;
+	my $mbro = $m->comp("/comp/dblogin");
 	my $mbraw = MusicBrainz->new();
 	$mbraw->Login(db => 'RAWDATA');
 </%perl>
@@ -15,7 +15,7 @@
 
 
 
-<& /comp/collection, userId=>'2', dbh=>$mbro->{DBH}, rodbh=>$mbro->{DBH}, rawdbh=>$mbraw->{DBH} &>
+<& /comp/collection, userId=>$session{uid}, dbh=>$mbro->{DBH}, rodbh=>$mbro->{DBH}, rawdbh=>$mbraw->{DBH} &>
 
 
 <%perl>
