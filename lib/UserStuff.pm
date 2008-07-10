@@ -537,55 +537,27 @@ sub CreditModerator
 sub ChangePassword
 {
 	my ($self, $oldpassword, $newpass1, $newpass2) = @_;
-	my (@messages);
+	
+    my $sql = Sql->new($self->{DBH});
+	my $ok = $sql->AutoTransaction(
+		sub {
+			$sql->Do(
+				"UPDATE moderator SET password = ?
+					WHERE id = ?",
+				$newpass1,
+				$self->GetId,
+			);
+		},
+	);
 
-	if (!MusicBrainz::Server::Validation::IsNonEmptyString($oldpassword) or
-		!MusicBrainz::Server::Validation::IsNonEmptyString($newpass1) or
-		!MusicBrainz::Server::Validation::IsNonEmptyString($newpass2))
-		
+	if ($ok) 
 	{
-		push @messages, "Please fill-in Old password, New password, and Verify Password.";
+		$self->InvalidateCache;
 	}
-	else
-	{
-		MusicBrainz::Server::Validation::TrimInPlace($oldpassword, $newpass1, $newpass2);
-		unless ($newpass1 eq $newpass2)
-		{
-			push @messages, "New Password and Verify Password do not match.";
-		}
+	else 
+	{	
+        die "Unable to change password - does the moderator exist?";
 	}
-
-	unless ($self->IsGoodPassword($newpass1))
-	{
-		# IsGoodPassword sets $@
-		push @messages, $@;
-	}
-
-	if (@messages == 0)
-	{
-		my $sql = Sql->new($self->{DBH});
-		my $ok = $sql->AutoTransaction(
-			sub {
-				$sql->Do(
-					"UPDATE moderator SET password = ?
-						WHERE id = ?
-						AND password = ?",
-					$newpass1,
-					$self->GetId,
-					$oldpassword,
-				);
-			},
-		);
-		if ($ok) 
-		{
-			$self->InvalidateCache;
-		}
-		else 
-		{	
-			push @messages, "old password is wrong.";
-		}
-	}
-	return \@messages;
 }
 
 # Determine if the given password is "good enough".  Returns true or false.
@@ -1081,13 +1053,13 @@ sub SendFormattedEmail
 
 	my $from = $opts{'from'} || 'noreply@musicbrainz.org';
 	my $to = $opts{'to'} || $self->GetEmail;
-	$to or return "No e-mail address available for user " . $self->GetName;
+	$to or die "No e-mail address available for user " . $self->GetName;
 
 	require MusicBrainz::Server::Mail;
 	my $mailer = MusicBrainz::Server::Mail->open(
 		$from,
 		$to,
-	) or return "Could not send the e-mail. Please try again later.";
+	) or die "Could not send the e-mail. Please try again later.";
 
 	if ($opts{'entity'})
 	{
@@ -1107,7 +1079,8 @@ sub SendFormattedEmail
 	}
 
 	my $ok = close $mailer;
-	$ok ? undef : "Failed to send the e-mail. Please try again later.";
+	die "Failed to send the e-mail. Please try again later."
+        unless $ok;
 }
 
 ################################################################################

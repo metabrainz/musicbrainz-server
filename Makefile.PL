@@ -28,6 +28,7 @@ requires 'Digest::SHA1';
 requires 'Email::Valid';
 requires 'Form::Processor';
 requires 'JSON';
+requires 'MIME::Lite';
 requires 'parent';
 requires 'String::ShellQuote';
 requires 'String::Similarity';

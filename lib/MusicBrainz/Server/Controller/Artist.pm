@@ -433,11 +433,17 @@ sub LoadArtistARLinks
         my $c = $a->{link_phrase} cmp $b->{link_phrase};
         return $c if ($c);
         
-        $c = $a->{enddate} cmp $b->{enddate};
-        return $c if ($c);
+	if (defined $a->{enddate} || defined $b->{enddate})
+        {
+            $c = $a->{enddate} cmp $b->{enddate};
+            return $c if ($c);
+        }
 
-        $c = $a->{begindate} cmp $b->{begindate};
-        return $c if ($c);
+	if (defined $a->{begindate} || $b->{begindate})
+ 	{
+            $c = $a->{begindate} cmp $b->{begindate};
+            return $c if ($c);
+        }
 		
         return $a->{link1_name} cmp $b->{link1_name};
     } @arLinks;
@@ -461,8 +467,8 @@ sub LoadArtistReleases
         $release->SetMultipleTrackArtists($release->GetArtist != $release->GetId() ? 1 : 0);
         $release->{_is_va_} = ($release->GetArtist == &ModDefs::VARTIST_ID or
                                $release->GetArtist != $release->GetId());
-        $release->{_is_nonalbum_} = ($type == MusicBrainz::Server::Release::RELEASE_ATTR_NONALBUMTRACKS);
-        $release->{_section_key_} = ($release->{_is_va_} . " " . $type);
+        $release->{_is_nonalbum_} = ($type && $type == MusicBrainz::Server::Release::RELEASE_ATTR_NONALBUMTRACKS);
+        $release->{_section_key_} = (defined $type ? $release->{_is_va_} . " " . $type : $release->{_is_va});
         $release->{_name_sort_} = lc decode "utf-8", $release->GetName;
         $release->{_disc_max_} = 0;
         $release->{_disc_no_} = 0;
@@ -490,10 +496,11 @@ sub LoadArtistReleases
 
         # Push onto our list of releases we are actually interested in
         push @shortList, $release
-            if ($type == MusicBrainz::Server::Release::RELEASE_ATTR_ALBUM ||
+            if (defined $type && (
+                $type == MusicBrainz::Server::Release::RELEASE_ATTR_ALBUM ||
                 $type == MusicBrainz::Server::Release::RELEASE_ATTR_EP ||
                 $type == MusicBrainz::Server::Release::RELEASE_ATTR_COMPILATION ||
-                $type == MusicBrainz::Server::Release::RELEASE_ATTR_SINGLE);
+                $type == MusicBrainz::Server::Release::RELEASE_ATTR_SINGLE));
     }
 
     sort SortAlbums @shortList;

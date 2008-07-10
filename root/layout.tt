@@ -25,7 +25,10 @@
 
     <div id="container">
       <div id="content">
-	[% content %]
+        [%- IF c.flash.ok -%]
+        <div class="status_ok">[% c.flash.ok %]</div>
+        [%- END -%]
+        [% content %]
       </div>
     </div>
 

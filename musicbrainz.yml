@@ -3,4 +3,5 @@ privatePages:
     - artist/edit
 
     - user/donate
+    - user/changePassword
     - user/preferences

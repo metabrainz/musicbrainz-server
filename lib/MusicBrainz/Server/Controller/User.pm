@@ -98,7 +98,7 @@ Handle user registration
 
 =cut
 
-sub register : Local Form
+sub register : Local
 {
     use MusicBrainz::Server::Form::User::Register;
 
@@ -153,6 +153,121 @@ sub registered : Private
     $c->stash->{email} = $email;
 
     $c->stash->{template} = 'user/registered.tt';
+}
+# }}}
+#  forgotPassword {{{
+sub forgotPassword : Local
+{
+    my ($self, $c) = @_;
+
+    use MusicBrainz::Server::Form::User::ForgotPassword;
+
+    my $form = new MusicBrainz::Server::Form::User::ForgotPassword;
+    $c->stash->{form} = $form;
+
+    if ($c->form_posted && $form->validate($c->req->params))
+    {
+        my ($email, $username) = ( $form->value('email'),
+                                   $form->value('username') );
+        my $us = new UserStuff($c->mb->{DBH});
+
+        if ($email)
+        {
+            my $usernames = $us->LookupNameByEmail($email);
+            if(scalar @$usernames)
+            {
+                foreach $username (@$usernames)
+                {
+                    my $user = $us->newFromName($username);
+                    if ($user)
+                    {
+                        $user->SendPasswordReminder
+                            or die "Could not send password reminder";
+                    }
+                }
+
+            $c->flash->{ok} = "A password reminder has been sent to you. Please check your inbox for more details";
+            }
+            else
+            {
+                $c->field('email')->add_error('We could not find any users registered with this email address');
+            }
+        }
+        elsif ($username)
+        {
+            my $user = $us->newFromName ($username);
+            if ($user)
+            {
+                $user->SendPasswordReminder
+                    or die "Could not send password reminder";
+
+                $c->flash->{ok} = "A password reminder has been sent to you. Please check your inbox for more details";
+            }
+            else
+            {
+                $form->field('username')->add_error("This user does not exist");
+            }
+        }
+        else
+        {
+            $c->stash->{errors} = "You must fill in either an email address or a username";
+        }
+    }
+
+    $c->stash->{template} = 'user/forgot.tt';
+}
+# }}}
+# editProfile {{{
+sub editProfile : Local
+{
+    my ($self, $c) = @_;
+
+    use MusicBrainz::Server::Form::User::EditProfile;
+    my $form = new MusicBrainz::Server::Form::User::EditProfile;
+    $c->stash->{form} = $form;
+
+    if ($c->form_posted && $form->validate ($c->req->params))
+    {
+        my %opts;
+
+        $opts{email} = $form->value('email');
+        $opts{bio} = $form->value('biography');
+        $opts{weburl} = $form->value('homepage');
+
+        $c->user->get_object->SetUserInfo(%opts)
+            or die "Could not update profile";
+        $c->flash->{ok} = "Your profile has been sucessfully updated";
+    }
+
+    $c->stash->{template} = 'user/edit.tt';
+}
+# }}}
+# changePassword {{{
+sub changePassword : Local
+{
+    my ($self, $c) = @_;
+
+    use MusicBrainz::Server::Form::User::ChangePassword;
+    my $form = new MusicBrainz::Server::Form::User::ChangePassword;
+    $c->stash->{form} = $form;
+
+    if ($c->form_posted && $form->validate($c->req->params))
+    {
+        if ($form->value('old_password') eq $c->user->get_object->GetPassword)
+        {
+            $c->user->get_object->ChangePassword( $form->value('old_password'),
+                                                  $form->value('new_password'),
+                                                  $form->value('confirm_new_password') );
+
+            $c->flash->{ok} = "Your password has been successfully changed";
+        }
+        else
+        {
+            $form->field('old_password')->add_error("Old password is incorrect.");
+        }
+    }
+
+    $c->stash->{template} = 'user/changePassword.tt';
 }
 # }}}
 # profile {{{

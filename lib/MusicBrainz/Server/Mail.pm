@@ -27,7 +27,9 @@ use strict;
 
 package MusicBrainz::Server::Mail;
 
+use MIME::Lite;
 use Encode qw( from_to );
+use base qw( MIME::Lite );
 
 sub format_address_line
 {
@@ -68,8 +70,6 @@ sub _quoted_header
 ################################################################################
 # MIME::Lite interface.
 ################################################################################
-
-use base qw( MIME::Lite );
 
 sub send
 {

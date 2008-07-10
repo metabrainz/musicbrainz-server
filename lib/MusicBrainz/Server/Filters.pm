@@ -19,9 +19,9 @@ sub release_date
 
     my $str = "";
 
-    $str .= $y if (0 + $y);
-    $str .= "-".$m if (0 + $m);
-    $str .= "-".$d if (0 + $d);
+    $str .= $y     if ($y && 0 + $y);
+    $str .= "-".$m if ($m && 0 + $m);
+    $str .= "-".$d if ($d && 0 + $d);
 
     return $str;
 }

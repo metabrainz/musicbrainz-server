@@ -1,0 +1,27 @@
+[% WRAPPER "layout.tt" title="Forgot Password" %]
+[% WRAPPER "components/box.tt" header="Forgot Password" %]
+
+<ul>
+  <li>
+    If you know your user name, and you've already entered and confirmed your e-mail address,
+    then we can send you your password.
+  </li>
+  <li>
+    If you can't remember your user name, but can remember the e-mail address you used when you
+    created your MusicBrainz account, please enter the e-mail address into the field.
+  </li>
+  <li>
+    If neither of the options work, you may
+    [% INCLUDE "components/doc-link.tt" to="ContactUs" text="contact us" %],
+    and we'll see if we can help you.
+  </li>
+</ul>
+
+[% WRAPPER "forms/form.tt" %]
+  [% INCLUDE "forms/widget.tt" widget=form.field('username') label="User name:" %]
+  [% INCLUDE "forms/widget.tt" widget=form.field('email') label="E-mail address:" %]
+  [% INCLUDE "forms/submit.tt" label="Send Password" %]
+[% END %]
+
+[% END %]
+[% END %]
