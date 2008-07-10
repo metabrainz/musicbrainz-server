@@ -195,23 +195,47 @@ sub RemoveRelease
 	# make sure this is valid format for a mbid
 	if($mbid =~ m/[a-z0-9]{8}[:-][a-z0-9]{4}[:-][a-z0-9]{4}[:-][a-z0-9]{4}[:-][a-z0-9]{12}/)
 	{
-		my $sql=$this->{DBH};
+		my $rawsql = $this->{RAWDBH};
+		my $rosql = $this->{RODBH};
+		
 		
 		print "\nremoving $mbid\n";
 		
+		
+		# get id for realease with specified mbid
+		my $albumId;
+		
 		eval
 		{
-			$sql->Begin();
+			$rosql->Begin();
+			
+			my $idQuery = "SELECT id FROM album WHERE gid='$mbid'";
+			$albumId = $rosql->SelectSingleValue($idQuery);
+		};
+		
+		if($@)
+		{
+			print $@;
+			$rosql->Commit();
+		}
+		else
+		{
+			$rosql->Commit();
+		}
+		
+		eval
+		{
+			$rawsql->Begin();
 			# get the album id
 			#my $selectResult=$sql->SelectSingleRowHash("SELECT id FROM album WHERE gid='$mbid'");
 			#my $albumId=$selectResult->{id};
 			
 			# make sure there is a release with the mbid in the database
-			my $deleteResult=$sql->Do("DELETE FROM collection_has_release_join WHERE album=(SELECT id FROM album WHERE gid='$mbid')");
+			my $deleteResult = $rawsql->Do("DELETE FROM collection_has_release_join WHERE album='$albumId' AND collection_info='". $this->{collectionId} ."'");
 			
 			print "Result:$deleteResult\n";
 			
-			if($deleteResult==1) # successfully deleted
+			if($deleteResult == 1) # successfully deleted
 			{
 				# increase remove count
 				$this->{removeAlbum_removeCount}++;
@@ -220,7 +244,7 @@ sub RemoveRelease
 		
 		if($@)
 		{
-			my $error=$@; # get the error message
+			my $error = $@; # get the error message
 			print $error;
 			$sql->Commit();
 		}
