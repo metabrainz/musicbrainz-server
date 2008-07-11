@@ -17,12 +17,12 @@ sub handler
 
 	# make sure we are getting POST data
 	#if($r->method != "POST") print "Only accepting POST data";
-
+	# perhaps the above check should not be done? why not allow GET...
+	
+	# store 
 	my %args=$r->args;
 	
 	
-	# which user is logged on?
-	my $collectionId=123; #for now...
 	
 	# get the albums from the POST data
 	my @addAlbums=split(",", $args{addalbums});
@@ -38,8 +38,15 @@ sub handler
 	my $mbraw = MusicBrainz->new();
 	$mbraw->Login(db => 'RAWDATA');
 	
+	my $sqlraw = Sql->new($mbraw->{DBH});
 	
-	# instantiate
+	# get collection_info id
+	my $collectionIdQuery="SELECT id FROM collection_info WHERE moderator='". $r->user ."'";
+	my $collectionId=$sqlraw->SelectSingleValue($collectionIdQuery);
+	
+	
+	
+	# instantiate Collection object
 	my $collection=MusicBrainz::Server::Collection->new($mbro->{DBH}, $mbraw->{DBH}, $collectionId);
 	
 	# add albums, if the array is not empty...

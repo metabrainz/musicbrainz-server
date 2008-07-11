@@ -2,7 +2,6 @@
 #
 #	TODO:
 #
-#	move RemoveRelease to RAW database
 #
 
 #!/usr/bin/perl -w

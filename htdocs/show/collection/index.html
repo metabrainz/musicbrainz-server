@@ -10,6 +10,9 @@
 	my $mbro = $m->comp("/comp/dblogin");
 	my $mbraw = MusicBrainz->new();
 	$mbraw->Login(db => 'RAWDATA');
+	
+	# make sure the user has a collection_info tuple
+	MusicBrainz::Server::CollectionInfo::AssureCollection($session{uid}, $mbraw->{DBH});
 </%perl>
 
 

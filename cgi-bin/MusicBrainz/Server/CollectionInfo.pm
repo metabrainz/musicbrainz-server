@@ -29,19 +29,50 @@ sub new
 		collectionId	=> $result->{id},
 		hasReleases		=> undef,
 		missingReleases	=> undef
-		#$result{id}
-		#collectionHash	=> {}, # {'Smash Mouth' => ('Release 1', 'Release 2'), 'Fort Minor' => ('Release')}
 		#artistHash		=> {}
 	}, $this);
 }
 
 
 
-sub RetrieveCollection
+# check if a user has a collection_info tuple. returns true or false.
+sub HasCollection
 {
-	my($this) = @_;
+	my ($userId, $rawdbh) = @_;
 	
-	my %collection;
+	my $sql = Sql->new($rawdbh);
+	
+	my $query = "SELECT COUNT(*) FROM collection_info WHERE moderator='". $userId ."'";
+	
+	return $sql->SelectSingleValue($query);
+}
+
+
+# assure that the user has a corresponding collection_info tuple. if it does not have one yet - create it.
+# this sub should be called on every page that requires a collection
+sub AssureCollection
+{
+	my ($userId, $rawdbh) = @_;
+	
+	if(HasCollection($userId, $rawdbh))
+	{
+		print 'HAS COLLECTION';
+	}
+	else
+	{
+		print 'DO NOT HAVE COLLECTION';
+	}
+}
+
+
+# add a collection_info tuple for the specified user
+sub CreateCollection
+{
+	my ($userId, $rawdbh) = @_;
+	
+	my $sql = Sql->new($rawdbh);
+	
+	my $query = "INSERT INTO collection_info";
 }
 
 
