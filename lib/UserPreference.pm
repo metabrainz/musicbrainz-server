@@ -371,48 +371,137 @@ sub check_in
 ################################################################################
 # get, set, load, save
 ################################################################################
+=head2 C<newFromUser>
+
+Instantiate a new UserPreference object for a specific user.
+
+=cut
+
+sub newFromUser
+{
+    my ($class, $user) = @_;
+
+    my $uid = $user->GetId
+        or carp "No user id could be found";
+
+    bless {
+        uid => $uid,
+        DBH => $user->{DBH},
+        prefs => {},
+    }, $class;
+}
+
+=head2 C<load>
+
+Loads the users preferences from the database. This B<will> override any changes that
+have been made.
+
+=cut
+
+sub load
+{
+    my $self = shift;
+    my $uid = $self->{uid};
+
+    my $sql = Sql->new($self->{DBH});
+    my $rows = $sql->SelectListOfLists(
+        "SELECT name, value FROM moderator_preference WHERE moderator = ?",
+        $uid,
+    );
+
+    my $preferences = {};
+    for (@$rows)
+    {
+        my ($key, $value) = @$_;
+
+		my $info = $prefs{$key}
+			or warn("Moderator #$uid has invalid saved preference '$key'"), next;
+
+        my $newValue = $info->{CHECK}->($value);
+
+        defined $newValue
+            or warn "Moderator #$uid has invalid saved value '$value' for preference '$key'";
+
+        $self->{prefs}->{$key} = $newValue;
+    }
+}
+
+=head2 C<get> KEY
+
+Gets a user preference with key KEY. If this preference is not present in the users preferences,
+the default value for it will be returned.
+
+=cut
 
 sub get
 {
-	my ($key) = @_;
+	my ($self, $key) = @_;
+
 	my $info = $prefs{$key}
 		or carp("UserPreference::get called with invalid key '$key'"), return undef;
 
-	require UserStuff;
-	my $s = UserStuff->GetSession;
-	my $value = $s->{"PREF_$key"};
+	my $value = $self->{prefs}->{$key};
 	defined($value) or return $info->{DEFAULT};
 	$value;
 }
 
+=head2 C<set> KEY, VALUE
+
+Sets a user preference with KEY to VALUE
+
+=cut
+
 sub set
 {
-	my ($key, $value) = @_;
+	my ($self, $key, $value) = @_;
+
 	my $info = $prefs{$key}
 		or carp("UserPreference::set called with invalid key '$key'"), return;
+
 	my $newvalue = $info->{CHECK}->($value);
 	defined $newvalue
 		or carp("UserPreference::set called with invalid value '$value' for key '$key'"), return;
 
-	require UserStuff;
-	my $s = UserStuff->GetSession;
-	tied %$s
-		or carp("UserPreference::set called, but %session is not tied"), return;
-
-	$s->{"PREF_$key"} = $newvalue;
+	$self->{prefs}->{$key} = $newvalue;
 }
 
-sub LoadForUser
+=head2 C<save>
+
+Save the user preferences to the database
+
+=cut
+sub save {
+    my $self = shift;
+    my $uid = $self->{uid};
+
+    my $sql = Sql->new($self->{DBH});
+    my $wrap_transaction = $sql->{DBH}{AutoCommit};
+
+    eval {
+        $sql->Begin if $wrap_transaction;
+		$sql->Do("DELETE FROM moderator_preference WHERE moderator = ?", $uid);
+
+        while (my ($key, $value) = each %{$self->{prefs}})
+        {
+            $sql->Do("INSERT INTO moderator_preference (moderator, name, value) VALUES (?, ?, ?)",
+                     $uid, $key, $value);
+        }
+
+        $sql->Commit if $wrap_transaction;
+        1;
+    } or do {
+        my $e = $@;
+        $sql->Rollback if $wrap_transaction;
+        die $e;
+    };
+}
+
+sub LoadForUser#{{{
 {
 	my ($user) = @_;
 
 	my $uid = $user->GetId
 		or return;
-
-	require UserStuff;
-	my $s = UserStuff->GetSession;
-	tied %$s
-		or carp("UserPreference::LoadFromUser called, but %session is not tied"), return;
 
 	my $sql = Sql->new($user->{DBH});
 	my $rows = $sql->SelectListOfLists(
@@ -420,6 +509,7 @@ sub LoadForUser
 		$uid,
 	);
 
+    my $preferences = {};
 	for (@$rows)
 	{
 		my ($key, $value) = @$_;
@@ -430,9 +520,11 @@ sub LoadForUser
 		defined $newvalue
 			or warn("Moderator #$uid has invalid saved value '$value' for preference '$key'"), next;
 
-		$s->{"PREF_$key"} = $newvalue;
+		$preferences->{$key} = $newvalue;
 	}
-}
+
+    return $preferences;
+}#}}}
 
 sub SaveForUser
 {

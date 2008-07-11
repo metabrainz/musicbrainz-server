@@ -363,11 +363,10 @@ sub preferences : Local
     die "You must be logged in" unless $c->user_exists;
     
     my $form = MusicBrainz::Server::Form::User::Preferences->new($c->user->get_object->GetName);
-    $form->build_form;
     $c->stash->{form} = $form;
 
     $form->update_from_form ($c->req->params)
-        if $c->form_posted;
+        if($c->form_posted);
 
     $c->stash->{template} = 'user/preferences.tt';
 }

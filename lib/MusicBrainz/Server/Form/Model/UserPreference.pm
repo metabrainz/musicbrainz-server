@@ -5,6 +5,7 @@ use warnings;
 
 use MusicBrainz;
 use UserStuff;
+use UserPreference;
 
 use base 'Form::Processor';
 
@@ -18,18 +19,20 @@ sub init_item {
     $mb->Login();
 
     my $us = new UserStuff($mb->{DBH});
-    return $us->newFromName($id);
+    my $user = $us->newFromName($id);
+
+    my $prefs = UserPreference->newFromUser ($user);
+    $prefs->load;
+
+    return $prefs;
 }
 
 sub init_value {
     my ($self, $field, $item) = @_;
+
     $item ||= $self->item;
 
-    my $mb = new MusicBrainz;
-    $mb->Login();
-    $self->item->{DBH} = $mb->{DBH};
-
-    return UserPreference::get_for_user($field->name, $item);
+    return $item->get($field->name);
 }
 
 sub update_model {
@@ -40,7 +43,12 @@ sub update_model {
     $mb->Login();
     $self->item->{DBH} = $mb->{DBH};
 
-    die "apparently saving for mr. " . $self->item->GetName;
+    for my $field ($self->fields)
+    {
+        $self->item->set ($field->name, $field->value);
+    }
+
+    $self->item->save;
 }
 
 sub update_from_form {

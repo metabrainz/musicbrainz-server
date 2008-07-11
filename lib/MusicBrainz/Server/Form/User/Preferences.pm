@@ -10,7 +10,6 @@ use UserPreference;
 
 sub name { 'user_preferences' };
 
-
 # profile {{{
 sub profile
 {
@@ -89,26 +88,26 @@ sub profile
 
 # 'Select' options {{{
 sub options_autofix_open {
-    return (
-        "remember" => "how I last left it",
-        "1" => "open",
-        "0" => "closed",
-    );
+    [
+        "remember", "how I last left it",
+        1, "open",
+        0, "closed",
+    ];
 }
 
 sub options_topmenu_dropdown_trigger {
-    return (
+    [
         "mouseover" => "When I move the mouse over the item",
         "click" => "When I click the open submenu icon",
-    );
+    ];
 }
 
 sub options_topmenu_submenu_types {
-    return (
+    [
         "both" => "Both",
         "dropdownonly" => "Dropdown menus only (vertical)",
         "staticonly" => "Static submenus only (horizontal)",
-    );
+    ];
 }
 
 sub options_datetimeformat {    
