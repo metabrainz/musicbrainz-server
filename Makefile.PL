@@ -34,6 +34,7 @@ requires 'String::ShellQuote';
 requires 'String::Similarity';
 requires 'Text::Unaccent';
 requires 'Text::WikiFormat';
+requires 'XML::RSS';
 requires 'YAML';
 
 catalyst;

@@ -26,11 +26,14 @@ sub profile {
     };
 }
 
-sub validate_confirm_password {
-    my ($self, $field) = @_;
+sub cross_validate {
+    my $self = shift;
 
-    $field->add_error("Both provided passwords must be equal")
-        if $field->value ne $self->value('password');
+    my ($pass, $confirm) = ( $self->field('password'),
+                             $self->field('confirm_password') );
+
+    $confirm->add_error("Both provided passwords must be equal")
+        if $confirm->value ne $pass->value;
 }
 
 1;

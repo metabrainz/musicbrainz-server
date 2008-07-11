@@ -17,11 +17,14 @@ sub profile {
     };
 }
 
-sub validate_confirm_new_password {
-    my ($self, $field) = @_;
+sub cross_validate {
+    my ($self) = @_;
 
-    $field->add_error("The new password fields must match")
-        if $field->value ne $self->value('new_password');
+    my ($new, $confirm) = ( $self->field('new_password'),
+                            $self->field('confirm_new_password') );
+
+    $confirm->add_error("The new password fields must match")
+        if $confirm->value ne $new->value;
 }
 
 1;

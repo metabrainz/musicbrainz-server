@@ -74,21 +74,22 @@ sub index : Path Args(0)
         update_interval => 5 * 60,
         max_items => 3);
     
-    $feed->Load() if defined $feed;
-
-    # Process the items to a template friendly data structure
-    #
-    my $item = undef;    
-    $c->stash->{blog} = [];
-
-    foreach $item ($feed->GetItems())
+    if (defined $feed)
     {
-        push @{ $c->stash->{blog} }, {
-            title => $item->GetTitle,
-            description => $item->GetDescription,
-            date_time => $item->GetDateTimeString,
-            link => $item->GetLink,
-        };
+        $feed->Load();
+
+        # Process the items to a template friendly data structure
+        $c->stash->{blog} = [];
+
+        foreach my $item ($feed->GetItems())
+        {
+            push @{ $c->stash->{blog} }, {
+                title => $item->GetTitle,
+                description => $item->GetDescription,
+                date_time => $item->GetDateTimeString,
+                link => $item->GetLink,
+            };
+        }
     }
 
     $c->stash->{template} = 'main/index.tt';
