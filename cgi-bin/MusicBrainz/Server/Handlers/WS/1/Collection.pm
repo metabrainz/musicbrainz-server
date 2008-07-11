@@ -18,11 +18,10 @@ sub handler
 	# make sure we are getting POST data
 	#if($r->method != "POST") print "Only accepting POST data";
 	# perhaps the above check should not be done? why not allow GET...
+        # RAK: You should allow GET so that people can fetch their collection information.
 	
 	# store 
 	my %args=$r->args;
-	
-	
 	
 	# get the albums from the POST data
 	my @addAlbums=split(",", $args{addalbums});
@@ -46,10 +45,11 @@ sub handler
 	my $userId = $sqlro->SelectSingleValue("SELECT id FROM moderator WHERE name='". $r->user ."'");
 	
 	# get collection_info id
+
+	# RAK: Should this be done by CollectionInfo? I'd like to remove most of the collection 
+        # specific SQL from this module and have it all reside in your Collection(Info) objects.
 	my $collectionIdQuery = "SELECT id FROM collection_info WHERE moderator='". $userId ."'";
 	my $collectionId=$sqlraw->SelectSingleValue($collectionIdQuery);
-	
-	
 	
 	# instantiate Collection object
 	my $collection = MusicBrainz::Server::Collection->new($mbro->{DBH}, $mbraw->{DBH}, $collectionId);
@@ -61,7 +61,15 @@ sub handler
 	if(@removeAlbums){ $collection->RemoveAlbums(@removeAlbums); }
 	
 	# print XML response
-	print 'asfgfgfgd';
+	# RAK:
+        # please use STDERR to print the debug output and then tail -f <error_log> to see the output
+        # this way the output does not interfere with the operations.
+	print STDERR 'asfgfgfgd\n';
+
+	# RAK: Please use a similar construct as to this:
+ 	# http://bugs.musicbrainz.org/browser/mb_server/branches/Discographies-BRANCH/cgi-bin/MusicBrainz/Server/Handlers/WS/1/Artist.pm#L112
+	# This uses the send_response() function, which does all the proper header setting: http://bugs.musicbrainz.org/browser/mb_server/branches/Discographies-BRANCH/cgi-bin/MusicBrainz/Server/Handlers/WS/1/Common.pm#L281
+        # Also, the actual XML output code should also live in this module, much like the other WS modules
 	$collection->PrintResultXML();
 }
 
