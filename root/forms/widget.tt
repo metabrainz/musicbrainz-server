@@ -2,19 +2,13 @@
 
 [%- id = "id_${widget.name}" -%]
 
-[%- BLOCK labelHtml -%]
-<label for="[% id %]" class="[% widget.required_text %][% widget.errors.size ? " error" : "" %]">
-  [% label %]
-</label>
-[%- END -%]
-
 [%- IF widget.widget == 'checkbox' -%]
 <p class="labelRight">
   [% INCLUDE "forms/input.tt" %]
-  [% PROCESS labelHtml %]
+  [% INCLUDE "forms/label.tt" %]
 [%- ELSE -%]
   <p>
-    [% PROCESS labelHtml %]
+    [% INCLUDE "forms/label.tt" %]
     [% INCLUDE "forms/input.tt" %]
 [%- END -%]
 </p>

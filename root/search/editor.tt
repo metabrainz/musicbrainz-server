@@ -1,0 +1,9 @@
+[% WRAPPER "layout.tt" title="Search for an editor" %]
+
+[%- IF could_not_find_user -%]
+[% WRAPPER "components/box.tt" header="Editor not found" %]
+<p>Sorry, but we couldn't locate an editor matching your query: "[% query | html %]"</p>
+[% END %]
+[%- END -%]
+
+[% END %]

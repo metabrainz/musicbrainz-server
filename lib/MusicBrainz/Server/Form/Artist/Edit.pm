@@ -3,7 +3,7 @@ package MusicBrainz::Server::Form::Artist::Edit;
 use strict;
 use warnings;
 
-use base 'Form::Processor';
+use base 'MusicBrainz::Server::Form::Model::Artist';
 
 use MusicBrainz::Server::Artist;
 
@@ -18,14 +18,8 @@ sub profile
             artist_type => 'Select'
         },
         optional => {
-            startYear => 'Integer',
-            startMonth => 'Integer',
-            startDay => 'Integer',
-
-            endYear => 'Integer',
-            endMonth => 'Integer',
-            endDay => 'Integer',
-
+            start => '+MusicBrainz::Server::Form::Field::Date',
+            end => '+MusicBrainz::Server::Form::Field::Date',
             editNote => 'TextArea'
         }
     };

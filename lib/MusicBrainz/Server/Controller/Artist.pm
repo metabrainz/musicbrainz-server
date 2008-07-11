@@ -74,7 +74,7 @@ sub edit : Local Args(1) MyAction('ArtistPage')
 
     use MusicBrainz::Server::Form::Artist::Edit;
 
-    my $form = new MusicBrainz::Server::Form::Artist::Edit;
+    my $form = new MusicBrainz::Server::Form::Artist::Edit($artist->GetId);
     $c->stash->{form} = $form;
 
     if($c->form_posted)
@@ -91,13 +91,6 @@ sub edit : Local Args(1) MyAction('ArtistPage')
                                 name => $artist->GetName,
                                 sortname => $artist->GetSortName );
         }
-    }
-    else
-    {
-        # Prefill form with the current artist data
-        $form->field('name')->value($artist->GetName);
-        $form->field('sortname')->value($artist->GetSortName);
-        $form->field('artist_type')->value($artist->GetType);
     }
 
     $c->stash->{template} = 'artist/edit.tt';
