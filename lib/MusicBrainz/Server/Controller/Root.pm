@@ -17,7 +17,7 @@ __PACKAGE__->config->{namespace} = '';
 
 =head1 NAME
 
-musicbrainz::Controller::Root - Root Controller for musicbrainz
+MusicBrainz::Server::Controller::Root - Root Controller for musicbrainz
 
 =head1 DESCRIPTION
 
@@ -97,7 +97,8 @@ sub index : Path Args(0)
 
 =head2 default
 
-Handle any pages not matched by a specific controller path. In our case, this means serving a 404 error page.
+Handle any pages not matched by a specific controller path. In our case, this means serving a
+404 error page.
 
 =cut
 
@@ -120,6 +121,12 @@ and also the current user.
 sub end : ActionClass('RenderView')
 {
     my ($self, $c) = @_;
+
+    # Setup the searchs on the sidebar
+    use MusicBrainz::Server::Form::Search::Simple;
+    my $simpleSearch = new MusicBrainz::Server::Form::Search::Simple;
+    $simpleSearch->field('type')->value($c->session->{last_simple_search} || 'artist');
+    $c->stash->{sidebar_search} = $simpleSearch;
 
     $c->stash->{server_details}->{version} = &DBDefs::VERSION;
 }

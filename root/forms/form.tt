@@ -1,6 +1,6 @@
 [%- DEFAULT method="post" -%]
 <form action="[% action %]" method="[% method %]" [% UNLESS custom %]class="generic"[% END %]>
-  <p>Fields that are <span class="required">bold</span> are required.</p>
+  [% UNLESS quiet %]<p>Fields that are <span class="required">bold</span> are required.</p>[% END %]
   [%- IF errors.size -%]
     <p>Sorry - some errors were present in the data you provided!</p>
     <ul class="error">

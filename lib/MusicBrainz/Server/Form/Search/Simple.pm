@@ -1,0 +1,23 @@
+package MusicBrainz::Server::Form::Search::Simple;
+
+use strict;
+use warnings;
+
+use base 'Form::Processor';
+
+sub name { 'search_user' }
+
+sub profile {
+    return {
+        required => {
+            type => 'Select',
+            query => 'Text'
+        }
+    }
+}
+
+sub options_type {
+    map { lc $_ => $_ } qw(Artist Label Release Track Editor);
+}
+
+1;
