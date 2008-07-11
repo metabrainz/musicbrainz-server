@@ -61,6 +61,7 @@ for my $mbid (@{$releases})
 	
 	my $artistname = $sql->SelectSingleValue("SELECT name FROM artist WHERE id='" . $release->GetArtist() . "'");
 	
+	
 	print '<tr class="'.('ev', 'od')[$rownum % 2].'">';
 	print '<td>'.$artistname.'</td>';
 	print '<td>'.$release->GetName().'</td>';

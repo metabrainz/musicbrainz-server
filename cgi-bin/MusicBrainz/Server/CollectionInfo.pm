@@ -102,6 +102,7 @@ sub GetHasMBIDs
 	my ($this, $artistId) = @_;
 	
 	
+	
 	# create Sql objects
 	require Sql;
 	my $rosql = Sql->new($this->{RODBH});
@@ -112,31 +113,37 @@ sub GetHasMBIDs
 	my $result = $rawsql->SelectSingleColumnArray($query);
 	
 	
-	
-	# get MBID's for all releases in collection
-	my $mbids; # for storing the result
-	
-	eval
+	if(@{$result} == 0) # 0 results
 	{
-		$rosql->Begin();
-		
-		my $releaseQuery='SELECT gid FROM album WHERE id IN(' . join(',', @{$result}) . ')';
-	
-		$mbids = $rosql->SelectListOfLists($releaseQuery);
-	};
-	
-	if($@)
-	{
-		print $@;
-		$rosql->Commit();
+		return [];
 	}
 	else
-	{
-		$rosql->Commit();
+	{	
+		# get MBID's for all releases in collection
+		my $mbids; # for storing the result
+		
+		eval
+		{
+			$rosql->Begin();
+			
+			my $releaseQuery='SELECT gid FROM album WHERE id IN(' . join(',', @{$result}) . ')';
+		
+			$mbids = $rosql->SelectListOfLists($releaseQuery);
+		};
+		
+		if($@)
+		{
+			print $@;
+			$rosql->Commit();
+		}
+		else
+		{
+			$rosql->Commit();
+		}
+		
+		
+		return $mbids;
 	}
-	
-	
-	return $mbids;
 }
 
 

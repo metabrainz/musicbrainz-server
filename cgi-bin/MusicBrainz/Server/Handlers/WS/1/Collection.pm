@@ -39,15 +39,20 @@ sub handler
 	$mbraw->Login(db => 'RAWDATA');
 	
 	my $sqlraw = Sql->new($mbraw->{DBH});
+	my $sqlro = Sql->new($mbro->{DBH});
+	
+	
+	# get user id for logged on user
+	my $userId = $sqlro->SelectSingleValue("SELECT id FROM moderator WHERE name='". $r->user ."'");
 	
 	# get collection_info id
-	my $collectionIdQuery="SELECT id FROM collection_info WHERE moderator='". $r->user ."'";
+	my $collectionIdQuery = "SELECT id FROM collection_info WHERE moderator='". $userId ."'";
 	my $collectionId=$sqlraw->SelectSingleValue($collectionIdQuery);
 	
 	
 	
 	# instantiate Collection object
-	my $collection=MusicBrainz::Server::Collection->new($mbro->{DBH}, $mbraw->{DBH}, $collectionId);
+	my $collection = MusicBrainz::Server::Collection->new($mbro->{DBH}, $mbraw->{DBH}, $collectionId);
 	
 	# add albums, if the array is not empty...
 	if(@addAlbums){ $collection->AddAlbums(@addAlbums); }
