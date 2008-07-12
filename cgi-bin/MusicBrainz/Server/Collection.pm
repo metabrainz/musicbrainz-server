@@ -62,16 +62,11 @@ sub AddAlbums {
 	$collectionId = $this->{collectionId};
 	
 	
-	print "adding albumsa:\n";
-	
-	
-	
 	
 	#iterate over the album MBID's to be added
 	foreach my $item (@albums)
 	{
 		$this->AddRelease($item);
-		print "$item\n";
 	}
 	
 	
@@ -85,7 +80,6 @@ sub RemoveAlbums
 	my ($this, @albums) = @_;
 	
 	$this->{removeAlbum}=1;
-	print "REMOVE ALBUM";
 	
 	foreach my $item (@albums)
 	{
@@ -106,8 +100,6 @@ sub AddRelease #"album" in current schema
 	# make sure this is valid format for a mbid
 	if($mbid =~ m/[a-z0-9]{8}[:-][a-z0-9]{4}[:-][a-z0-9]{4}[:-][a-z0-9]{4}[:-][a-z0-9]{12}/)
 	{
-		print "VALID MBID!\n";
-	
 		my $releaseId;
 		
 		eval
@@ -139,17 +131,12 @@ sub AddRelease #"album" in current schema
 		{
 			$rosql->Commit();
 		}
-		
-		use Data::Dumper;
-			print Dumper($releaseId);
-		
+				
 		
 		eval
 		{
 			$rawsql->Begin();
 			
-						use Data::Dumper;
-			print Dumper($releaseId);
 				
 			# add MBID to the collection
 			my $attributes={id => 456, collection_info => $collectionId, album => $releaseId};
@@ -174,12 +161,9 @@ sub AddRelease #"album" in current schema
 		{
 			$rawsql->Commit();
 		}
-		
-		print "adding mbid " . $mbid . " for user " . $collectionId . "\n";
 	}
 	else
 	{
-		print "NOT VALID MBID:'$mbid'\n";
 		$this->{addAlbum_invalidMBIDCount}++; # increase invalid mbid count
 	}
 }
@@ -197,8 +181,6 @@ sub RemoveRelease
 		my $rawsql = $this->{RAWDBH};
 		my $rosql = $this->{RODBH};
 		
-		
-		print "\nremoving $mbid\n";
 		
 		
 		# get id for realease with specified mbid
@@ -256,46 +238,6 @@ sub RemoveRelease
 	{
 		$this->{removeAlbum_invalidMBIDCount}++; # increase invalid mbid count
 	}
-}
-
-
-
-# Print XML response
-sub PrintResultXML
-{
-	my ($this)=@_;
-	
-	print "\n\nduplicates:\n";
-	for my $duplicate (@{$this->{addAlbum_duplicateArray}})
-	{
-		print "$duplicate\n";
-	}
-
-	print "\n\not existing MBIDs:\n";
-	for my $notExisting (@{$this->{addAlbum_notExistingArray}})
-	{
-		print "$notExisting\n";
-	}
-	
-	print "\n\ninsert count: " .$this->{addAlbum_insertCount}. "\n";
-	
-	
-	
-	
-	print '<?xml version="1.0" encoding="UTF-8"?>';
-	print '<response>';
-	
-	if($this->{addAlbum}==1 || $this->{removeAlbum}==1) # print details for uuidtype album
-	{
-		print '<details uuidtype="album">';
-		print '<addcount>'.$this->{addAlbum_insertCount}.'</addcount>';
-		print '<removecount>'.$this->{removeAlbum_removeCount}.'</removecount>';
-		print '<addinvalidmbidcount>'.$this->{addAlbum_invalidMBIDCount}.'</addinvalidmbidcount>';
-		print '<removeinvalidmbidcount>'.$this->{removeAlbum_invalidMBIDCount}.'</removeinvalidmbidcount>';
-		print '<error></error>'; # <--
-		print '</details>';	
-	}
-	print '</response>';
 }
 
 1;

@@ -1,3 +1,8 @@
+#
+# TODO:
+# remove notificationinterval etc from query in CreateCollection and set them as default values in CreateTables.sql instead
+#
+
 #!/usr/bin/perl -w
 
 use strict;
@@ -61,6 +66,7 @@ sub AssureCollection
 	else
 	{
 		print 'DO NOT HAVE COLLECTION';
+		CreateCollection($userId, $rawdbh);
 	}
 }
 
@@ -70,9 +76,39 @@ sub CreateCollection
 {
 	my ($userId, $rawdbh) = @_;
 	
-	my $sql = Sql->new($rawdbh);
+	my $rawsql = Sql->new($rawdbh);
 	
-	my $query = "INSERT INTO collection_info";
+	my $query = "INSERT INTO collection_info (moderator, publiccollection, emailnotifications, notificationinterval) VALUES ($userId, TRUE, TRUE, 7)";
+	
+	
+	eval
+	{
+		$rawsql->Begin();
+		$rawsql->Do($query);
+	};
+	
+	if($@)
+	{
+		$rawsql->Commit();
+		print $@;
+	}
+	else
+	{
+		$rawsql->Commit();
+	}	
+}
+
+
+sub GetCollectionIdForUser
+{
+	my ($userId, $rawdbh) = @_;
+	
+	my $sqlraw = Sql->new($rawdbh);
+	
+	my $collectionIdQuery = "SELECT id FROM collection_info WHERE moderator='". $userId ."'";
+	my $collectionId=$sqlraw->SelectSingleValue($collectionIdQuery);
+	
+	return $collectionId;
 }
 
 

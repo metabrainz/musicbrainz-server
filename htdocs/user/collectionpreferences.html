@@ -13,6 +13,9 @@
 	my $mbraw = MusicBrainz->new();
 	$mbraw->Login(db => 'RAWDATA');
 	
+	# make sure the user has a collection_info tuple
+	MusicBrainz::Server::CollectionInfo::AssureCollection($session{uid}, $mbraw->{DBH});
+	
 	require CollectionPreference;
 	
 	my $preferences = CollectionPreference->new($mbraw->{DBH}, $session{uid});
