@@ -20,8 +20,7 @@ sub new
 	
 	my $sql = Sql->new($rawdbh);
 	
-	my $query="SELECT * FROM collection_info WHERE moderator='$userId'";
-	my $result=$sql->SelectSingleRowHash($query);
+	my $result=$sql->SelectSingleRowHash("SELECT * FROM collection_info WHERE moderator=?", $userId);
 	
 	
 	
@@ -46,10 +45,8 @@ sub HasCollection
 	my ($userId, $rawdbh) = @_;
 	
 	my $sql = Sql->new($rawdbh);
-	
-	my $query = "SELECT COUNT(*) FROM collection_info WHERE moderator='". $userId ."'";
-	
-	return $sql->SelectSingleValue($query);
+		
+	return $sql->SelectSingleValue("SELECT COUNT(*) FROM collection_info WHERE moderator=?", $userId);
 }
 
 
@@ -78,13 +75,12 @@ sub CreateCollection
 	
 	my $rawsql = Sql->new($rawdbh);
 	
-	my $query = "INSERT INTO collection_info (moderator, publiccollection, emailnotifications, notificationinterval) VALUES ($userId, TRUE, TRUE, 7)";
 	
 	
 	eval
 	{
 		$rawsql->Begin();
-		$rawsql->Do($query);
+		$rawsql->Do("INSERT INTO collection_info (moderator, publiccollection, emailnotifications, notificationinterval) VALUES (?, TRUE, TRUE, 7)", $userId);
 	};
 	
 	if($@)
@@ -105,31 +101,25 @@ sub GetCollectionIdForUser
 	
 	my $sqlraw = Sql->new($rawdbh);
 	
-	my $collectionIdQuery = "SELECT id FROM collection_info WHERE moderator='". $userId ."'";
-	my $collectionId=$sqlraw->SelectSingleValue($collectionIdQuery);
+	my $collectionId=$sqlraw->SelectSingleValue("SELECT id FROM collection_info WHERE moderator=?", $userId);
 	
 	return $collectionId;
 }
 
 
+# remove this sub?
 sub GetHasReleases
 {
 	my ($this) = @_;
 	
 	
-	my $sql = $this->{RODBH};
+	#my $sql = $this->{RODBH};
 	
-	#my $query="SELECT (album.name) FROM album INNER JOIN collection_info ON (collection_has_release_join.collection_info = album.id) INNER JOIN collection_info ON (collection_has_release_join.collection_info = collection_info.id)";
+	#my $query = "SELECT album.artist AS artistid, album.name AS albumname, album.attributes, album.gid, artist.name AS artistname FROM album, artist WHERE album.id IN (SELECT album FROM collection_has_release_join WHERE collection_info='123') AND artist.id=album.artist";
 	
-	#my $query="SELECT album.name FROM album INNER JOIN collection_has_release_join b ON b.album = album.id INNER JOIN collection_info ON c.id = b.collection_info";
+	#my $result = $sql->SelectListOfHashes($query);
 	
-	#my $query="SELECT artist,name,attributes,gid FROM album WHERE id IN (SELECT album FROM collection_has_release_join WHERE collection_info='123')";
-	
-	my $query = "SELECT album.artist AS artistid, album.name AS albumname, album.attributes, album.gid, artist.name AS artistname FROM album, artist WHERE album.id IN (SELECT album FROM collection_has_release_join WHERE collection_info='123') AND artist.id=album.artist";
-	
-	my $result = $sql->SelectListOfHashes($query);
-	
-	return $result;
+	#return $result;
 }
 
 
@@ -145,8 +135,7 @@ sub GetHasMBIDs
 	my $rawsql = Sql->new($this->{RAWDBH});
 	
 	# get id's of all releases in collection
-	my $query = "SELECT album FROM collection_has_release_join WHERE collection_info='" . $this->{collectionId} . "'";
-	my $result = $rawsql->SelectSingleColumnArray($query);
+	my $result = $rawsql->SelectSingleColumnArray('SELECT album FROM collection_has_release_join WHERE collection_info=?', $this->{collectionId});
 	
 	
 	if(@{$result} == 0) # 0 results
@@ -199,9 +188,7 @@ sub GetHasArtists
 	my $rawsql = Sql->new($this->{RAWDBH});
 	
 	
-	my $albumIdQuery = "SELECT album FROM collection_has_release_join WHERE collection_info='" . $this->{collectionId} . "'";
-	
-	my $albumIds = $rawsql->SelectSingleColumnArray($albumIdQuery);
+	my $albumIds = $rawsql->SelectSingleColumnArray("SELECT album FROM collection_has_release_join WHERE collection_info=?", $this->{collectionId});
 	my $count = @$albumIds;
 	
 	if($count > 0)
@@ -242,10 +229,8 @@ sub GetMissingMBIDsForArtist
 	my $sql=$this->{RODBH};
 	
 	#my $query="SELECT * FROM album WHERE artist IN (SELECT artist FROM collection_discography_artist_join WHERE collection_info='123')";
-	
-	my $query = "SELECT gid FROM album WHERE artist='$artistId'";
-	
-	my $result = $sql->SelectListOfHashes($query);
+		
+	my $result = $sql->SelectListOfHashes("SELECT gid FROM album WHERE artist=", $artistId);
 	
 	use Data::Dumper;
 	print Dumper($result);

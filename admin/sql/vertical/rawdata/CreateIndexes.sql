@@ -27,11 +27,15 @@ CREATE INDEX label_tag_raw_idx_moderator ON label_tag_raw (moderator);
 -- an unique index made out of all the fields in the collection_has_release_join table. used to not allow duplicates of tuples
 CREATE UNIQUE INDEX collection_has_release_join_combined_index ON collection_has_release_join (id, collection_info, album);
 
-CREATE INDEX collection_ignore_release_join_index ON collection_ignore_release_join (collection_info);
-CREATE INDEX collection_discography_artist_join_index ON collection_discography_artist_join (collection_info);
-CREATE INDEX collection_watch_artist_join_index ON collection_watch_artist_join (collection_info);
-CREATE INDEX collection_ignore_release_join_index ON collection_ignore_release_join (collection_info);
-CREATE INDEX collection_discography_artist_join_index ON collection_discography_artist_join (collection_info);
-CREATE INDEX collection_watch_artist_join_index ON collection_watch_artist_join (collection_info);
+CREATE INDEX collection_has_release_join_collection_info ON collection_has_release_join (collection_info);
+CREATE INDEX collection_ignore_release_join_collection_info ON collection_ignore_release_join (collection_info);
+CREATE INDEX collection_discography_artist_join_collection_info ON collection_discography_artist_join (collection_info);
+CREATE INDEX collection_watch_artist_join_collection_info ON collection_watch_artist_join (collection_info);
 
+CREATE INDEX collection_has_release_join_album ON collection_has_release_join (album);
+CREATE INDEX collection_ignore_release_join_album ON collection_ignore_release_join (album);
+CREATE INDEX collection_discography_artist_join_artist ON collection_discography_artist_join (artist);
+CREATE INDEX collection_watch_artist_join_artist ON collection_watch_artist_join (artist);
+
+CREATE INDEX collection_info_moderator ON collection_info (moderator);
 -- vi: set ts=4 sw=4 et :

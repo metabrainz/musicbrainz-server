@@ -109,8 +109,10 @@ sub AddRelease #"album" in current schema
 			$rosql->Begin();
 			
 			
+			use Data::Dumper;
+			print Dumper($mbid);
 			# get album id
-			$releaseId = $rosql->SelectSingleValue("SELECT id FROM album WHERE gid='$mbid'");
+			$releaseId = $rosql->SelectSingleValue("SELECT id FROM album WHERE gid = ?", $mbid);
 			
 			#print Dumper($releaseId);
 			
@@ -149,7 +151,7 @@ sub AddRelease #"album" in current schema
 			# add MBID to the collection
 			my $attributes={id => 456, collection_info => $collectionId, album => $releaseId};
 			#$rawsql->InsertRow("collection_has_release_join", $attributes);
-			$rawsql->Do('INSERT INTO collection_has_release_join (collection_info, album) VALUES ('.$collectionId.', '. $releaseId .')');
+			$rawsql->Do('INSERT INTO collection_has_release_join (collection_info, album) VALUES (?, ?)', $collectionId, $releaseId);
 			
 			# increase add count
 			$this->{addAlbum_insertCount}++;
@@ -203,8 +205,7 @@ sub RemoveRelease
 		{
 			$rosql->Begin();
 			
-			my $idQuery = "SELECT id FROM album WHERE gid='$mbid'";
-			$albumId = $rosql->SelectSingleValue($idQuery);
+			$albumId = $rosql->SelectSingleValue("SELECT id FROM album WHERE gid = ?", $mbid);
 		};
 		
 		if($@)
@@ -225,7 +226,7 @@ sub RemoveRelease
 			#my $albumId=$selectResult->{id};
 			
 			# make sure there is a release with the mbid in the database
-			my $deleteResult = $rawsql->Do("DELETE FROM collection_has_release_join WHERE album='$albumId' AND collection_info='". $this->{collectionId} ."'");
+			my $deleteResult = $rawsql->Do("DELETE FROM collection_has_release_join WHERE album='?' AND collection_info='?'", $albumId, $this->{collectionId});
 			
 			#print "Result:$deleteResult\n";
 			

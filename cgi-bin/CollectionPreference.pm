@@ -236,14 +236,12 @@ sub setMissingOfArtists
 		$rawsql->Begin();
 		
 		# clear user's all entries in collection_discography_artist_join
-		my $clearQuery="DELETE FROM collection_discography_artist_join WHERE collection_info=". $this->{collectionId};
-		$rawsql->Do($clearQuery);
+		$rawsql->Do("DELETE FROM collection_discography_artist_join WHERE collection_info=?", $this->{collectionId});
 		
 		# add selected artists
 		for my $artistId (@artists)
 		{
-			my $addQuery="INSERT INTO collection_discography_artist_join (collection_info, artist) VALUES (". $this->{collectionId} .", ". $artistId .")";
-			$rawsql->Do($addQuery);
+			$rawsql->Do("INSERT INTO collection_discography_artist_join (collection_info, artist) VALUES (?, ?)", $this->{collectionId}, $artistId);
 		}
 	};
 	
@@ -263,7 +261,7 @@ sub LoadForUser
 	my ($userId, $dbh) = @_;
 
 	my $sql = Sql->new($dbh);
-	my $rows = $sql->SelectListOfLists("SELECT * FROM collection_info WHERE moderator = '$userId'");
+	my $rows = $sql->SelectListOfLists("SELECT * FROM collection_info WHERE moderator = ?", $userId);
 
 #	for (@$rows)
 #	{
