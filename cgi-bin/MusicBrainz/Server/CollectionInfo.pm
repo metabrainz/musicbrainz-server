@@ -61,11 +61,11 @@ sub AssureCollection
 	
 	if(HasCollection($userId, $rawdbh))
 	{
-		print 'HAS COLLECTION';
+		#print 'HAS COLLECTION';
 	}
 	else
 	{
-		print 'DO NOT HAVE COLLECTION';
+		#print 'DO NOT HAVE COLLECTION';
 		CreateCollection($userId, $rawdbh);
 	}
 }
@@ -202,13 +202,18 @@ sub GetHasArtists
 	my $albumIdQuery = "SELECT album FROM collection_has_release_join WHERE collection_info='" . $this->{collectionId} . "'";
 	
 	my $albumIds = $rawsql->SelectSingleColumnArray($albumIdQuery);
+	my $count = @$albumIds;
 	
-	
-	my $query="SELECT id,name FROM artist WHERE id IN (SELECT artist FROM album WHERE id IN (" . join(',', @{$albumIds}) . "))";
-	
-	my $result = $rosql->SelectListOfHashes($query);
-	
-	return $result;
+	if($count > 0)
+	{
+		my $query="SELECT id,name FROM artist WHERE id IN (SELECT artist FROM album WHERE id IN (" . join(',', @{$albumIds}) . "))";
+		my $result = $rosql->SelectListOfHashes($query);
+		return $result;
+	}
+	else
+	{
+		return [];
+	}
 }
 
 

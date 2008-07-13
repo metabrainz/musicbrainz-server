@@ -16,16 +16,13 @@ sub handler
     my $r = shift;
     #return bad_req($r, 'test');
 
-
-
 	
-	
-	my %args=$r->args;
+	my %args = $r->args;
 	
 	# get the albums from the POST data
 	my @addAlbums=split(",", $args{addalbums});
 	my @removeAlbums=split(",", $args{removealbums});
-	#my @removetracks=split(",", $args{removetracks});
+	#my @removeTracks=split(",", $args{removetracks});
 	
 	require MusicBrainz;
 	require Sql;

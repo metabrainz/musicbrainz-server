@@ -236,13 +236,13 @@ sub setMissingOfArtists
 		$rawsql->Begin();
 		
 		# clear user's all entries in collection_discography_artist_join
-		my $clearQuery="DELETE FROM collection_discography_artist_join WHERE collection_info='123'";
+		my $clearQuery="DELETE FROM collection_discography_artist_join WHERE collection_info=". $this->{collectionId};
 		$rawsql->Do($clearQuery);
 		
 		# add selected artists
 		for my $artistId (@artists)
 		{
-			my $addQuery="INSERT INTO collection_discography_artist_join VALUES ('0', '". $this->{collectionId} ."', '". $artistId ."')";
+			my $addQuery="INSERT INTO collection_discography_artist_join (collection_info, artist) VALUES (". $this->{collectionId} .", ". $artistId .")";
 			$rawsql->Do($addQuery);
 		}
 	};

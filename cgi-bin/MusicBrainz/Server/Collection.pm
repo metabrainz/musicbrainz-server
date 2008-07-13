@@ -11,6 +11,7 @@ use TableBase;
 { our @ISA = qw( TableBase ) }
 
 use strict;
+use Data::Dumper;
 
 package MusicBrainz::Server::Collection;
 
@@ -56,6 +57,7 @@ sub new
 # Add albums. MBID's listed in @albums
 sub AddAlbums {
 	my ($this, @albums) = @_;
+	
 	
 	$this->{addAlbum} = 1;
 	
@@ -110,6 +112,8 @@ sub AddRelease #"album" in current schema
 			# get album id
 			$releaseId = $rosql->SelectSingleValue("SELECT id FROM album WHERE gid='$mbid'");
 			
+			#print Dumper($releaseId);
+			
 			if($releaseId=="undef") # the mbid does not exist
 			{
 				push(@{$this->{addAlbum_notExistingArray}}, $mbid);
@@ -123,6 +127,10 @@ sub AddRelease #"album" in current schema
 			if($error =~ /duplicate/) # it is a duplicate... add it to the array of duplicates
 			{
 				push(@{$this->{addAlbum_duplicateArray}}, $mbid);
+			}
+			else
+			{
+				print $error;
 			}
 			
 			$rosql->Commit();	
@@ -140,7 +148,8 @@ sub AddRelease #"album" in current schema
 				
 			# add MBID to the collection
 			my $attributes={id => 456, collection_info => $collectionId, album => $releaseId};
-			$rawsql->InsertRow("collection_has_release_join", $attributes);
+			#$rawsql->InsertRow("collection_has_release_join", $attributes);
+			$rawsql->Do('INSERT INTO collection_has_release_join (collection_info, album) VALUES ('.$collectionId.', '. $releaseId .')');
 			
 			# increase add count
 			$this->{addAlbum_insertCount}++;
@@ -148,11 +157,15 @@ sub AddRelease #"album" in current schema
 		
 		if($@)
 		{
-			my $error=$@; # get the error message
+			my $error = $@; # get the error message
 			
 			if($error =~ /duplicate/) # it is a duplicate... add it to the array of duplicates
 			{
 				push(@{$this->{addAlbum_duplicateArray}}, $mbid);
+			}
+			else
+			{
+				print $error;
 			}
 			
 			$rawsql->Commit();	
@@ -178,8 +191,8 @@ sub RemoveRelease
 	# make sure this is valid format for a mbid
 	if($mbid =~ m/[a-z0-9]{8}[:-][a-z0-9]{4}[:-][a-z0-9]{4}[:-][a-z0-9]{4}[:-][a-z0-9]{12}/)
 	{
-		my $rawsql = $this->{RAWDBH};
-		my $rosql = $this->{RODBH};
+		my $rawsql = Sql->new($this->{RAWDBH});
+		my $rosql = Sql->new($this->{RODBH});
 		
 		
 		
@@ -214,7 +227,7 @@ sub RemoveRelease
 			# make sure there is a release with the mbid in the database
 			my $deleteResult = $rawsql->Do("DELETE FROM collection_has_release_join WHERE album='$albumId' AND collection_info='". $this->{collectionId} ."'");
 			
-			print "Result:$deleteResult\n";
+			#print "Result:$deleteResult\n";
 			
 			if($deleteResult == 1) # successfully deleted
 			{
@@ -227,11 +240,11 @@ sub RemoveRelease
 		{
 			my $error = $@; # get the error message
 			print $error;
-			$sql->Commit();
+			$rawsql->Commit();
 		}
 		else
 		{
-			$sql->Commit();
+			$rawsql->Commit();
 		}
 	}
 	else
