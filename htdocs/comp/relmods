@@ -4,7 +4,7 @@
 
 </%args>
 
-% 	return if !$session{uid} || !$session{PREF_show_inline_mods} || !$session{has_confirmed_email};
+% 	return if !$session{uid} || !$session{PREF_show_inline_mods} || !UserStuff->CanVote;
 
 	<script type="text/javascript" src="/scripts/iframe.js"></script>
 

@@ -39,7 +39,7 @@
 	ref($DBH) or die;
 	ref($sub) eq "CODE" or die;
 
-	unless ($session{has_confirmed_email})
+	unless (UserStuff->CanVote)
 	{
 		$m->comp("/comp/sidebar", title => "Editing error");
 		$m->comp("/comp/stylemenu");

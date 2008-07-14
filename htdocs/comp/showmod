@@ -15,6 +15,7 @@
 
 	my $is_open = ($edit->GetStatus == &ModDefs::STATUS_OPEN);
 	my $is_mine = ($edit->GetModerator == $session{"uid"});
+	my $can_vote = UserStuff->CanVote;
 
 	my $time = ($is_open ? $edit->GetExpireTime : $edit->GetCloseTime);
 	$time = $m->comp("/comp/datetime", $time);
@@ -143,9 +144,7 @@
 			<% MusicBrainz::Server::Vote->GetVoteName($voted) %><br />
 %	}
 
-%	if (not $is_mine and
-%		$is_open and
-%		$session{"has_confirmed_email"})
+%	if (!$is_mine && $is_open && $can_vote)
 %	{
 %		$$voteflag = 1 if $voteflag;
 
@@ -160,13 +159,12 @@
 
 		<% $changename |n %>
 
-%		unless ($session{"has_confirmed_email"})
+%		unless ($can_vote)
 %		{
 
-			<span style="font-size: 8pt;">
-				<br />(No email provided
-				<br /> -- you cannot vote)
-			</span>
+			<div style="font-size: 8pt;">
+				You cannot vote on this edit. (<a href="/doc/Voting">Details</a>)
+			</div>
 
 %		}
 %	}

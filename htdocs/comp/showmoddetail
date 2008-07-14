@@ -8,6 +8,7 @@
 	my $my_mod = ($edit->GetModerator == $my_uid);
 	my $my_vote = $edit->VoteFromUser($my_uid);
 	my $is_open = ($edit->GetStatus == &ModDefs::STATUS_OPEN);
+	my $can_vote = UserStuff->CanVote;
 
 	my $see_votes = 1; # ($my_mod or not $is_open);
 
@@ -145,16 +146,20 @@
 
 			<tr class="top">
 				<td class="label">My vote:</td>
+%			if ($can_vote) {
 				<td><%
 					$my_vote ? $my_vote->GetVoteName
 					: $is_open
 						? "You have not voted yet. Please vote now!"
 						: "You did not vote"
 				%></td>
+%			} else {
+				<td>You cannot vote on this edit. (<a href="/doc/Voting">Details</a>)</td>
+%			}
 			</tr>
 %		}
 
-% 		if ($is_open)
+% 		if ($is_open && $can_vote)
 %		{
 
 			<tr>

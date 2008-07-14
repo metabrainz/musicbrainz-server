@@ -711,6 +711,15 @@ sub IsMBIDSubmitter
 	return ($privs & MBID_SUBMITTER_FLAG) > 0;
 }
 
+# User can vote if they have at least 10 accepted edits and a confirmed
+# e-mail address.
+sub CanVote
+{
+	my $session = GetSession();
+
+	return ($session->{has_confirmed_email} > 0) && ($session->{editsaccepted} > 10);
+}
+
 ################################################################################
 # E-mail
 ################################################################################
@@ -1180,6 +1189,7 @@ sub SetSession
 	$session->{uid} = $self->GetId;
 	$session->{expire} = time() + &DBDefs::WEB_SESSION_SECONDS_TO_LIVE;
 	$session->{has_confirmed_email} = ($self->GetEmail ? 1 : 0);
+	$session->{editsaccepted} = $self->GetModsAccepted;
 
 	require Moderation;
 	my $mod = Moderation->new($self->{DBH});
