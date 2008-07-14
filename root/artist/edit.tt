@@ -27,6 +27,10 @@
 
   [% INCLUDE "forms/widget.tt" widget=form.field("start") label="Start" %]
   [% INCLUDE "forms/widget.tt" widget=form.field("end") label="End" %]
+
+  [%- IF form.field("resolution").required -%]
+    [% INCLUDE "forms/widget.tt" widget=form.field("resolution") label="Resolution" %]
+  [%- END -%]
  
   [% INCLUDE "forms/edit-note.tt" %]
   [% INCLUDE "forms/submit.tt" label="Update" %]

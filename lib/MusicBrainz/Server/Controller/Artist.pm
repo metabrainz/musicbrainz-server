@@ -72,24 +72,18 @@ sub edit : Local Args(1) MyAction('ArtistPage')
     my ($self, $c, $mbid) = @_;
     my $artist = $c->stash->{_artist};
 
-    use MusicBrainz::Server::Form::Artist::Edit;
+    use MusicBrainz::Server::Form::Artist;
 
-    my $form = new MusicBrainz::Server::Form::Artist::Edit($artist->GetId);
+    my $form = new MusicBrainz::Server::Form::Artist($artist->GetId);
+    $form->context($c);
     $c->stash->{form} = $form;
 
     if($c->form_posted)
     {
-        if($form->validate($c->req->params))
+        if ($form->update_from_form($c->req->params))
         {
-            # TODO BUG ERROR OMG WTF R U DOING.
-            # Still need to validate the date field and stuff
-
-            Moderation->Insert( DBH => $c->mb->{DBH},
-                                uid => $c->user->get_object->GetId,
-                                type => ModDefs::MOD_EDIT_ARTIST,
-                                artist => $artist,
-                                name => $artist->GetName,
-                                sortname => $artist->GetSortName );
+            $c->flash->{ok} = "Thanks, your artist edit has been entered into the moderation queue";
+            $c->detach('/artist/show', $mbid);
         }
     }
 

@@ -10,8 +10,14 @@ use MusicBrainz::Server::Validation;
 sub init_widget { 'date' }
 
 sub input_to_value {
-    my $self = shift;
-    $self->value("This?");
+    my ($self, %date) = @_;
+    $self->value(
+        MusicBrainz::Server::Validation::MakeDBDateStr(
+            $date{year},
+            $date{month},
+            $date{day}
+        )
+    );
 }
 
 sub validate_field {
@@ -34,25 +40,19 @@ sub validate_field {
         $date{$field} = $value;
     }
 
-    # Store the date - this is used to display in the HTML form
-    $self->{date} = \%date;
-
     if ($self->required && !($date{year}))
     {
-        $self->add_error("This field is required");
+        $self->add_error($self->required_text);
         return;
     }
 
     unless(MusicBrainz::Server::Validation::IsValidDateOrEmpty($date{year}, $date{month}, $date{day}))
     {
-        use Data::Dumper;
-        die Dumper \%date;
-
         $self->add_error('Invalid date');
         return;
     }
 
-    $self->input_to_value;
+    $self->input_to_value(%date);
 
     1;
 }
