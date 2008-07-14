@@ -83,33 +83,56 @@ sub update_model {
     my $self = shift;
     my $item = $self->item;
 
-    my $mb = new MusicBrainz;
-    $mb->Login();
-
     my $user = $self->context->user->get_object;
 
-    use Data::Dumper;
-    my @startDate = 
+    my %moderation;
+    $moderation{DBH} = $self->context->mb->{DBH};
+    $moderation{uid} = $user->GetId;
+    $moderation{privs} = $user->GetPrivs;
 
-    my @mods = Moderation->InsertModeration(
-        DBH => $mb->{DBH},
-        uid => $user->GetId,
-        privs => $user->GetPrivs,
-        type => ModDefs::MOD_EDIT_ARTIST,
+    my ($begin, $end) =
+        (
+            [ map {$_ == '00' ? '' : $_} (split m/-/, $self->value('start') || '') ],
+            [ map {$_ == '00' ? '' : $_} (split m/-/, $self->value('end') || '') ],
+        );
 
-        artist => $item,
-        name => $self->value('name') || $item->GetName,
-        sortname => $self->value('sortname') || $item->GetSortName,
-        artist_type => $self->value('artist_type') || $item->GetType,
-        resolution => $self->value('resolution') || $item->GetResolution,
-        begindate => [ map {$_ == '00' ? '' : $_} (split m/-/, $self->value('start')) ],
-        enddate => [ map {$_ == '00' ? '' : $_} (split m/-/, $self->value('end')) ],
-    );
+    # Split these into 2 separate conditions because the keys are slightly different
+    # and the default values are also slightly different.
+    if(defined $item)
+    {
+        # An artist was passed when we created the form, so this is an update edit
+        $moderation{type} = ModDefs::MOD_EDIT_ARTIST;
+
+        $moderation{artist} = $item;
+        $moderation{name} = $self->value('name') || $item->GetName;
+        $moderation{sortname} = $self->value('sortname') || $item->GetSortName;
+        $moderation{artist_type} = $self->value('artist_type') || $item->GetType;
+        $moderation{resolution} = $self->value('resolution') || $item->GetResolution;
+
+        $moderation{begindate} = $begin;
+        $moderation{enddate} = $end;
+    }
+    else
+    {
+        # No artist was passed, so we are creating a new artist.
+        $moderation{type} = ModDefs::MOD_ADD_ARTIST;
+
+        $moderation{name} = $self->value('name');
+        $moderation{sortname} = $self->value('sortname');
+        $moderation{mbid} = '';
+        $moderation{artist_type} = $self->value('artist_type');
+        $moderation{artist_resolution} = $self->value('resolution') || '';
+
+        $moderation{artist_begindate} = $begin;
+        $moderation{artist_enddate} = $end;
+    }
+
+    my @mods = Moderation->InsertModeration(%moderation);
 
     $mods[0]->InsertNote($user->GetId, $self->value('edit_note'))
         if $mods[0] and $self->value('edit_note') =~ /\S/;
 
-    1;
+    return \@mods;
 }
 
 sub update_from_form {

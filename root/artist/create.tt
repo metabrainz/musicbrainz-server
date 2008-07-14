@@ -1,0 +1,7 @@
+[% WRAPPER "layout.tt" title="New Artist" %]
+[% WRAPPER "components/box.tt" header="Create new artist" %]
+
+[% INCLUDE "artist/edit_form.tt" %]
+
+[% END %]
+[% END %]

@@ -60,6 +60,34 @@ sub artistLinkRaw
     };
 }
 # }}}
+# create {{{
+sub create : Local
+{
+    my ($self, $c) = @_;
+
+    use MusicBrainz::Server::Form::Artist;
+
+    my $form = new MusicBrainz::Server::Form::Artist;
+    $form->context($c);
+
+    $c->stash->{form} = $form;
+
+    if ($c->form_posted)
+    {
+        if (my $mods = $form->update_from_form ($c->req->params))
+        {
+            $c->flash->{ok} = "Thanks! The artist has been added to the database, and we have redirected you to their landing page";
+            (my $addmod) = grep { $_->Type eq ModDefs::MOD_ADD_ARTIST } @$mods;
+            if ($addmod)
+            {
+                $c->detach('/artist/show', $addmod->GetRowId);
+            }
+        }
+    }
+
+    $c->stash->{template} = 'artist/create.tt';
+}
+# }}}
 # edit {{{
 =head2 edit
 

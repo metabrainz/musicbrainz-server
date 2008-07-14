@@ -1,5 +1,5 @@
 [%- DEFAULT field=form.field("edit_note") -%]
 <p>
     <label for="id_[% field.name %]" class="[% field.required_text %]">Edit Note:</label>
-    <textarea></textarea>
+    <textarea name="[% field.name %]" rows="5" cols="52"></textarea>
 </p>

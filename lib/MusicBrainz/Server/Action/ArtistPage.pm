@@ -32,14 +32,28 @@ sub execute
     my $mbid = $c->request->arguments->[0];
     if (defined $mbid)
     {
-        # Validate the MBID
-        die "Not a valid GUID"
-            unless(MusicBrainz::Server::Validation::IsGUID($mbid));
-
         my $mb = $c->mb;
-
         my $artist = MusicBrainz::Server::Artist->new($mb->{DBH});
-        $artist->SetMBId($mbid);
+
+        # Validate the arguments
+        unless(MusicBrainz::Server::Validation::IsGUID($mbid))
+        {
+            if (MusicBrainz::Server::Validation::IsNonNegInteger($mbid))
+            {
+                # Appears to be a row ID
+                $artist->SetId($mbid);
+            }
+            else
+            {
+                die "Not a valid GUID or row ID";
+            }
+        }
+        else
+        {
+            # Looks like a GUID
+            $artist->SetMBId($mbid);
+        }
+
         $artist->LoadFromId(1)
             or die "Failed to load artist";
 
