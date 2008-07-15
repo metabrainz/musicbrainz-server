@@ -9,7 +9,7 @@ use MusicBrainz;
 
 =head1 NAME
 
-MusicBrainz::Server::Actions::ArtistPage - Custom Action for creating artist pages.
+MusicBrainz::Server::Action::ArtistPage - Custom Action for creating artist pages.
 
 =head1 DESCRIPTION
 

@@ -522,6 +522,7 @@ sub LoadArtistReleases
 }
 # }}}
 # }}}
+
 # Helpers (these aren't actions) {{{
 # CheckAttributes {{{
 sub CheckAttributes

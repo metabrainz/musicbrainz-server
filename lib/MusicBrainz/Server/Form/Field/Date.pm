@@ -61,7 +61,7 @@ sub validate_field {
 sub date {
     my $self = shift;
   
-    my @split = map { $_ == '00' ? '' : $_} split(m/-/, $self->value);
+    my @split = map { $_ == '00' ? '' : $_} split(m/-/, $self->value || '');
 
     return {
         year => $split[0],

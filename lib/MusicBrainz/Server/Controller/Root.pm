@@ -38,13 +38,12 @@ Runs before any other action is dispatched, so we use this to make sure the user
 sub auto : Private {
     my ($self, $c) = @_;
 
-    my %private;
-    for (@{$c->config->{privatePages}}) { $private{$_} = 1; }
+    my %private = map { $_ => 1} @{$c->config->{privatePages}};
 
     if (!$c->user_exists && $private{$c->action})
     {
         $c->flash->{login_redirect} = $c->uri_for($c->action, $c->req->args);
-        $c->response->redirect($c->uri_for('/user/login'));
+        $c->forward('/user/login');
         return 0;
     }
 
