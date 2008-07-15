@@ -185,8 +185,18 @@ sub appearances : Local Args(1) MyAction('ArtistPage')
             push @releaseGroups, $group;
         }
 
-        my $stashRelease = MusicBrainz::Server::Controller::Release::releaseLinkRaw($release->{name}, "???");
-        $stashRelease->{artist} = MusicBrainz::Server::Controller::Artist::artistLinkRaw($release->{artist_name}, "???");
+        # TODO - How to get the MBID?
+        my $stashRelease = {
+            name => $release->{name},
+            link_type => 'release',
+            mbid => $release->{id}
+        };
+
+        $stashRelease->{artist} = {
+            name => $release->{artist_name},
+            link_type => 'artist',
+            mbid => $release->{artist_id}
+        };
         $stashRelease->{year} = substr($release->{date}, 0, 4) || '?';
 
         push @{$group->{releases}}, $stashRelease;

@@ -381,3 +381,22 @@ div.bio {
     border: 1px dotted #CCC; 
     padding: 0px 5px 5px 5px; 
 }
+
+table.appears {
+    width: 100%;
+    margin-bottom: 1em;
+}
+
+table.appears .year {
+    width: 60pt;
+    text-align: center;
+}
+
+table.appears .artist {
+    text-align: left;
+    width: 200pt;
+}
+
+table.appears .title {
+    text-align: left;
+}

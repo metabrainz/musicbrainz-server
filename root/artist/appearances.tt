@@ -1,22 +1,22 @@
 [% WRAPPER "artist/layout.tt" title="Appearances" %]
 
 [% FOREACH group IN release_groups %]
-<h2>[% group.phrase | ucfirst %]</h2>
-<table>
+<div class="compactreleasetype">[% group.phrase | ucfirst %]</div>
+<table class="appears">
   <thead>
     <tr>
-      <th>Year</th>
-      <th>Artist</th>
-      <th>Release Title</th>
+      <th class="year">Year</th>
+      <th class="artist">Artist</th>
+      <th class="title">Release Title</th>
     </tr>
   </thead>
   <tbody>
   [% lastyear = "." %]
   [% FOREACH release IN group.releases %]
     <tr>
-      <td>[% release.year %]</td>
-      <td>[% INCLUDE "components/entity-link.tt" entity=release.artist %]</td>
-      <td>[% INCLUDE "components/entity-link.tt" entity=release %]</td>
+      <td class="year">[% release.year %]</td>
+      <td class="artist">[% INCLUDE "components/entity-link.tt" entity=release.artist %]</td>
+      <td class="title">[% INCLUDE "components/entity-link.tt" entity=release %]</td>
     </tr>
   [% END %]
   </tbody>
