@@ -163,7 +163,7 @@
 					<form method="post" action="/bare/vote.html">
 						<table>
 							<tr>
-								<td>
+								<td class="vote">
 									<& /mod/voting-buttons.inc,
 										edit => $edit,
 										vote => ($my_vote ? $my_vote->GetVote : undef),
