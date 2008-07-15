@@ -351,27 +351,8 @@ sub show : Path Args(1) MyAction('ArtistPage')
             push @{$c->stash->{groups}}, $currentGroup;
         }
 
-        my $language = {};
-        $language->{script} = defined $release->GetScript ? $release->GetScript->GetName : "";
-        $language->{language} = defined $release->GetLanguage ? $release->GetLanguage->GetName : "";
-        $language->{shortLanguage} = defined $release->GetLanguage ? $release->GetLanguage->GetISOCode3T : "";
-
-        my $rel = MusicBrainz::Server::Controller::Release::releaseLink($release);
-        $rel->{trackCount} = $release->GetTrackCount;
-        $rel->{discIds} = $release->GetDiscidCount;
-        $rel->{puids} = $release->GetPuidCount;
-        $rel->{quality} = ModDefs::GetQualityText($release->GetQuality);
-        $rel->{language} = $language;
-        $rel->{status} = $release->GetAttributeName($status);
-        $rel->{releaseDate} = $release->GetFirstReleaseDate;
-
-        $rel->{attributes} = [];
-        my $attributes = $release->GetAttributes;
-
-        for my $attr ($attributes)
-        {
-            push @{$rel->{attributes}}, $release->GetAttributeName($attr);
-        }
+        my $rel = $release->ExportStash qw/ language track_count disc_ids puids quality language status
+                                            first_date attributes type/;
 
         push @{$currentGroup->{releases}}, $rel;
     }

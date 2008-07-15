@@ -4,6 +4,7 @@ use strict;
 use warnings;
 use parent 'Catalyst::Controller';
 
+use ModDefs;
 use MusicBrainz;
 use MusicBrainz::Server::Release;
 use MusicBrainz::Server::Track;
@@ -72,9 +73,7 @@ sub show : Path Local Args(1) {
     $release->LoadFromId(1)
         or die "Failed to load release";
 
-    $c->stash->{release} = {
-        title => $release->GetName
-    };
+    $c->stash->{release} = $release->ExportStash qw/ puids track_count quality language type /;
 
     my $puid_counts = $release->LoadPUIDCount;
     # }}}
@@ -85,6 +84,7 @@ sub show : Path Local Args(1) {
     $artist->LoadFromId(1)
         or die "Failed to load the artist of this release";
 
+    # Export enough to display the artist header
     $c->stash->{artist} = $artist->ExportStash qw/ name mbid type date quality
                                                    resolution /;
     # }}}
@@ -105,6 +105,7 @@ sub show : Path Local Args(1) {
 
     $c->stash->{template} = 'releases/show.tt';
 }
+# }}}
 
 =head1 AUTHOR
 

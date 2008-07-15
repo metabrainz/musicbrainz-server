@@ -290,6 +290,107 @@ sub IsNonAlbumTracks
    return (scalar(@attrs) == 2 && $attrs[1] == RELEASE_ATTR_NONALBUMTRACKS);
 }
 
+=head2 ExportStash [ @names ]
+
+Exports data from this artist to a Template Toolkit friendly format, that can be placed in the
+Catalyst stash. You can control what data is exported by use of the @names parameter. Possible
+options are:
+
+=over
+
+=item track_count
+
+Exports the amount of tracks on this release, as in integer in the C<track_count> key. See
+L<GetTrackCount>.
+
+=item disc_ids
+
+Exports the amount of disc IDs attached to this release, as an integer in the C<disc_ids> key.
+See L<GetDiscidCount>
+
+=item puids
+
+Exports the total amount of puids attached to tracks in this release, as in integer in the
+C<puids> key. See L<GetPuidCount>.
+
+=item quality
+
+Exports the data quality of this release in a human readable format, as a string in the C<quality>
+key. This string is created by using L<ModDefs::GetQualityText>, along with L<GetQuality>.
+
+=item first_date
+
+Exports the first date this release was released, in the C<first_date> key.
+See L<GetFirstReleaseDate>.
+
+=item type
+
+Exports both the release type and status attributes of this release, in human readable form. If
+either of these attributes are missing they will be filled with an empty string. This data is stored
+as a hash (key C<type>) which has keys C<type> and C<status>.
+
+=item language
+
+Exports language related data from this release, into a hash with key C<language>. This hash contains
+3 keys: C<language>, C<script> and C<shortLanguage> which contain the name of the language, the script
+used to write the language and a short abbreviation of the language (see
+L<MusicBrainz::Server::Language::GetISOCode3T>).
+
+=back
+
+By default, the release name and MBID will also be exported, which will allow you to use this
+data with the C<entity-link.tt> component.
+
+=cut 
+
+sub ExportStash
+{
+    my ($self, @names) = @_;
+
+    use Switch;
+
+    my %stash;
+    $stash{name} = $self->GetName;
+    $stash{link_type} = 'release';
+    $stash{mbid} = $self->GetMBId;
+
+    for my $name (@names)
+    {
+        switch($name)
+        {
+            case('track_count')  { $stash{track_count} = $self->GetTrackCount; }
+            case('disc_ids')     { $stash{disc_ids} = $self->GetDiscidCount; }
+            case('puids')       { $stash{puids} = $self->GetPuidCount; }
+            case('quality')     { $stash{quality} = ModDefs::GetQualityText($self->GetQuality); }
+            case('first_date')  { $stash{first_release_date} = $self->GetFirstReleaseDate; }
+
+            case('type') {
+                my ($type, $status) = $self->GetReleaseTypeAndStatus;
+                $stash{type} = $self->GetAttributeName($type) || '';
+                $stash{status} = $self->GetAttributeName($status) || '';
+            }
+
+            case('language') {
+                $stash{language} = {
+                    script => defined $self->GetScript ? $self->GetScript->GetName : "",
+                    language => defined $self->GetLanguage ? $self->GetLanguage->GetName : "",
+                    shortLanguage => defined $self->GetLanguage ?
+                        $self->GetLanguage->GetISOCode3T : ""
+                };
+            }
+
+            case('attributes') {
+                $stash{attributes} = [];
+                for ($self->GetAttributes) {
+                    push @{ $stash{attributes} }, $self->GetAttributeName($_);
+                }
+            }
+        }
+    }
+
+    return \%stash;
+}
+
 sub FindNonAlbum
 {
 	my ($this, $artist) = @_;
@@ -413,22 +514,6 @@ sub GetNextFreeTrackId
 	{
 		return $seq unless $used{$seq};
 	}
-}
-
-sub ExportStash
-{
-    my ($self, @data) = @_;
-
-    my %dataHash;
-    for (@data) { $dataHash{$_} = 1; }
-
-    my $ret = {};
-
-    $ret->{mbid} = $self->GetMBId if $dataHash{'mbid'};
-    $ret->{link_type} = 'release';
-    $ret->{name} = $self->GetName if $dataHash{'name'};
-
-    return $ret;
 }
 
 # Insert an album that belongs to this artist. The Artist object should've

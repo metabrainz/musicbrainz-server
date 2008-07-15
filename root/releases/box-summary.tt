@@ -1,0 +1,11 @@
+  <div class="releaseinfo">
+    <div class="tracks">
+      [% release.track_count %]&nbsp;<img src="/static/images/notes.gif" alt="Tracks" />
+      [% IF release.puids %][% release.puids %]&nbsp;<img src="/static/images/puid.gif" alt="PUIDs" />[% END %]
+    </div>
+    <div class="right">
+      [ [% release.quality %] data quality ] |
+      [ [% release.language.language %], [% release.language.script %] ] |
+      [ [% release.type %], [% release.status %] ]
+    </div>
+  </div>

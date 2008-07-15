@@ -1,16 +1,4 @@
 <div class="release">
-  <div class="releasename">
-  <a href="[% c.uri_for('/release', release.mbid) %]">[% release.name %]</a>
-  </div>
-  <div class="releaseinfo">
-    <div class="tracks">
-    [% release.trackCount %]&nbsp;<img src="/static/images/notes.gif" alt="Tracks" />
-    [% release.puids %]&nbsp;<img src="/static/images/puid.gif" alt="PUIDs" />
-    </div>
-    <div class="right">
-      [ [% release.quality %] ] |
-      [ [% release.language.language %], [% release.language.script %] ] |
-      [ [% release.type.type %], [% release.status %] ]
-    </div>
-  </div>
+  [% INCLUDE "releases/box-header.tt" %]
+  [% INCLUDE "releases/box-summary.tt" %]
 </div>

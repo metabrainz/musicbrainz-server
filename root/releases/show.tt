@@ -1,0 +1,3 @@
+[% WRAPPER 'artist/layout.tt' title=release.name %]
+[% INCLUDE 'releases/full.tt' %]
+[% END %]

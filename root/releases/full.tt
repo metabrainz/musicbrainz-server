@@ -1,0 +1,57 @@
+[%- info_links = [
+        { link => c.uri_for('/release/perma', release.mbid), text => "Permenant link" },
+        { link => c.uri_for('/release/details', release.mbid), text => "Details" },
+        { link => c.uri_for('/tags/release', release.mbid), text => "Details" },
+        { link => c.uri_for('/release/show', release.mbid), text => "Show artists" },
+        { link => c.uri_for('/release/show', release.mbid), text => "Hide relationships" },
+        { link => c.uri_for('/release/google', release.mbid), text => "Search Google" },
+    ] -%]
+
+<div class="release">
+  [% INCLUDE "releases/box-header.tt" %]
+  <div class="infoLinks">
+    Info: [% INCLUDE "components/piped-list.tt" list=info_links %]
+  </div>
+  <div class="editLinks">
+    Edit: 
+    [%- IF c.user_exists -%]
+      [%- edit_links = [
+            { link => '', text => 'Add relationship' },
+            { link => '', text => 'Relate to URL' },
+            { link => '', text => 'Add CC license' },
+          ] -%]
+        [% INCLUDE "components/piped-list.tt" list=edit_links %]
+    [%- ELSE -%]
+      Please <a href="[% c.uri_for('/user/login') %]">log in</a> to edit this release
+    [%- END -%]
+  </div>
+  <div class="releasetags">
+    [%- IF tags -%]
+    <p>Tags:</p>
+    <ul>
+      [%- FOREACH tag=tags -%]
+      <li>[% tag %]</li>
+      [%- END -%]
+    </ul>
+    [%- ELSE -%]
+      This release has no tags.
+    [%- END -%]
+  </div>
+  <table class="release_tracks">
+    <tbody>
+      [%- FOREACH track=tracks -%]
+        <tr>
+          <td class="number">[% track.number %]</td>
+          <td class="title">[% track.title %]</td>
+          <td class="duration">[% track.duration %]</td>
+          [%- IF c.user_exists -%]
+          <td class="editinglinks">
+            Editing links
+          </td>
+          [%- END -%]
+        </tr>
+      [%- END -%]
+    </tbody>
+  </table>
+  [% INCLUDE "releases/box-summary.tt" %]
+</div>

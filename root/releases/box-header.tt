@@ -1,0 +1,3 @@
+  <div class="releasename">
+    [% INCLUDE "components/entity-link.tt" entity=release noicon=1 %]
+  </div>

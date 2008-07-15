@@ -226,7 +226,12 @@ div.box div.content {
     background-color: #F0EFFF;
     color: #000;
     width: 100%;
+    margin-bottom: 1em;
     padding-top: 5px;
+}
+
+#artistHeader div.title a {
+    color: #000;
 }
 
 #artistHeader div.title {
@@ -235,26 +240,25 @@ div.box div.content {
 }
 
 #artistHeader div.info {
-    padding-top: 5px;
     padding-left: 5px;
+    padding-top: 3px;
     font-size: 8pt;
 }
 
-#artistHeader div.links {
-    padding-left: 5px;
+.infoLinks,
+.editLinks {
+    padding: 1pt 5pt;
 }
 
-#editLinks {
+.editLinks {
     border-top: 1px solid #000;
     background-color: #FFECD6;
-    padding-left: 5px;
 }
 
 div.TagsBox {
     background-color: #F0F6FF;
     color; #000;
     border: 1px solid #000;
-    margin-top: 1em;
     margin-bottom: 1em;
     padding: 0.2em;
 }
@@ -264,7 +268,7 @@ div.RelationshipBox {
     background-color: #EFE8E2;
     color: #000;
     border: 1px solid;
-    margin-bottom: .5em;
+    margin-bottom: 1em;
 }
 
 span.artist_icon,
@@ -287,7 +291,7 @@ span.track_icon { background-image: url("/static/images/entity/track_small.gif")
 div.compactreleasetype {
     color: #000;
     font-weight: bold;
-    padding-left: 5px;
+    padding: 1pt 5pt;
     background: url(/static/images/header-bg-orangefade.gif) repeat-y;
 }
 
@@ -306,18 +310,71 @@ div.release {
     margin-bottom: 10px;
 }
 
+div.release table {
+    border-bottom: 1px solid black;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+div.release table tr {
+    border-bottom: 1px solid black;
+}
+
+div.release table .number,
+div.release table .title {
+    border-right: 1px solid #aaa;
+}
+
+div.release table td {
+    padding: 2pt 3pt;
+}
+
+div.release table .number {
+    width: 15pt;
+    text-align: center;
+}
+
+div.release table .duration {
+    width: 40pt;
+    text-align: center;
+}
+
+div.release table .editinglinks {
+    border-left: 1px solid #aaa;
+    width: 150pt;
+}
+
+div.releaseinfo div {
+    padding: 2pt 3pt;
+}
+
+div.releaseinfo .tracks {
+    float: left;
+}
+div.releaseinfo .right {
+    text-align: right;
+}
+
 div.releasename {
     background: #FFBA68;
     border-bottom: 1px solid #000;
-    padding: 1px;
+    padding: 1pt 5pt;
     color: #736DAB;
     font-weight: bold;
 }
 
 div.releaseinfo {
-    background: #F0EFFF;
     padding: 1px;
+    background: #F0EFFF;
 }
+
+div.releasetags {
+    background: #F0EFFF;
+    padding: 1pt 5pt;
+    border-bottom: 1px solid black;
+}
+
+div.release .editLinks { border-bottom: 1px solid black; }
 
 div.bio { 
     width: 90%;

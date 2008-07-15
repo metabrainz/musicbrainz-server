@@ -18,11 +18,11 @@
     <tbody>
       [% FOREACH release IN group.releases %]
       <tr>
-        <td>[% release.trackCount %]&nbsp;<img src="/static/images/notes.gif" alt="Tracks" /></td>
-        <td>[% release.discIds %]&nbsp;<img src="/static/images/cd.gif" alt="Disc IDs" /></td>
+        <td>[% release.track_count %]&nbsp;<img src="/static/images/notes.gif" alt="Tracks" /></td>
+        <td>[% release.disc_ids %]&nbsp;<img src="/static/images/cd.gif" alt="Disc IDs" /></td>
         <td>[% release.puids %]&nbsp;<img src="/static/images/puid.gif" alt="PUIDs" /></td>
         <td>[% release.status %]</td>
-        <td>[% release.releaseDate | release_date %]</td>
+        <td>[% release.first_release_date | release_date %]</td>
         <td>
             <abbr title="[% release.language.language %] / [% release.language.script %]">
             [% release.language.shortLanguage %]
