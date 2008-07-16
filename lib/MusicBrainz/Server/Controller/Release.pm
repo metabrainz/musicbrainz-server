@@ -7,6 +7,7 @@ use parent 'Catalyst::Controller';
 use ModDefs;
 use MusicBrainz;
 use MusicBrainz::Server::Release;
+use MusicBrainz::Server::Tag;
 use MusicBrainz::Server::Track;
 use MusicBrainz::Server::Validation;
 
@@ -40,19 +41,6 @@ sub releaseLinkRaw
     };
 }
 # }}}
-# releaseLink {{{
-=head2 releaseLink
-
-Create stash data to link to a Release entity using root/components/entity-link.tt
-
-=cut
-
-sub releaseLink
-{
-    my $release = shift;
-    $release->ExportStash qw( name mbid )
-}
-# }}}
 
 # show {{{
 sub show : Path Local Args(1) {
@@ -74,8 +62,33 @@ sub show : Path Local Args(1) {
         or die "Failed to load release";
 
     $c->stash->{release} = $release->ExportStash qw/ puids track_count quality language type /;
+    # }}}
 
-    my $puid_counts = $release->LoadPUIDCount;
+    # Load Release Relationships {{{
+    my $link = MusicBrainz::Server::Link->new($c->mb->{DBH});
+    my @arLinks = $link->FindLinkedEntities($release->GetId, 'album');
+
+    MusicBrainz::Server::Link::NormaliseLinkDirections(\@arLinks, $release->GetId,
+                                                       'album');
+    MusicBrainz::Server::Link::SortLinks \@arLinks;
+    
+    $c->stash->{relations} = [];
+    my $currentGroup = undef;
+    for my $link (@arLinks)
+    {
+        if(not defined $currentGroup or $currentGroup->{connector} ne $link->{link_phrase})
+        {
+            $currentGroup = {
+                connector => $link->{link_phrase},
+                type => $link->{link_type},
+                entities => []
+            };
+            push @{$c->stash->{relations}}, $currentGroup;
+        }
+
+        push @{$currentGroup->{entities}},
+            MusicBrainz::Server::Link::ExportAsLink($link, "link1");
+    }
     # }}}
 
     # Load Artist {{{
@@ -88,10 +101,13 @@ sub show : Path Local Args(1) {
     $c->stash->{artist} = $artist->ExportStash qw/ name mbid type date quality
                                                    resolution /;
     # }}}
-
+    
     # Tracks {{{
+    my $puid_counts = $release->LoadPUIDCount;
     my @tracks = $release->LoadTracks;
+
     $c->stash->{tracks} = [];
+
     for my $track (@tracks)
     {
         push @{ $c->stash->{tracks} }, {
@@ -101,6 +117,14 @@ sub show : Path Local Args(1) {
             duration => MusicBrainz::Server::Track::FormatTrackLength($track->GetLength)
         };
     }
+    # }}}
+    # Tags {{{
+    my $t = MusicBrainz::Server::Tag->new($c->mb->{DBH});
+    my $num = 5;
+    my $tags = $t->GetTagHashForEntity('release', $release->GetId, $num + 1);
+
+    $c->stash->{tags} = sort { $tags->{$b} <=> $tags->{$a}; } keys %{$tags};
+    $c->stash->{more_tags} = scalar(keys %$tags) > $num;
     # }}}
 
     $c->stash->{template} = 'releases/show.tt';

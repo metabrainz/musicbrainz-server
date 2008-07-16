@@ -2,6 +2,6 @@
 [% INCLUDE "artist/header.tt" %]
 [% INCLUDE "artist/annotation.tt" IF annotation %]
 [% INCLUDE "artist/tags.tt" %]
-[% INCLUDE "artist/ar-summary.tt" %]
+[% INCLUDE "components/relations.tt" source=artist relations=artist_relations %]
 [% content %]
 [% END %]

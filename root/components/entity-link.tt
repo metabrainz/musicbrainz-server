@@ -1,10 +1,11 @@
-[% IF entity.link_type == "url" %]
-  <a href="[% entity.url | url %]">[% entity.url | html %]</a>
+[%#- The formatting on this is crazy, but we need to make sure no white space -%]
+[%#- escapes! -%]
+[%- IF entity.link_type == "url" -%]
+  <a href="[% entity.name | url %]">[% entity.name | html %]</a>
   [ <a href="[% c.uri_for('/uri', entity.mbid) %]">info</a> ]
-[% ELSE %]
+[%- ELSE -%]
   <a href="[% c.uri_for("/${entity.link_type}", entity.mbid) %]">
-    [% UNLESS noicon %]<span class="[% entity.link_type %]_icon">[% END %]
+    [%- UNLESS noicon -%]<span class="[% entity.link_type %]_icon">[%- END -%]
     [% entity.name | html %]
-    [% UNLESS noicon %]</span>[% END %]
-  </a>
-[% END %]
+    [%- UNLESS noicon -%]</span>[%- END -%]</a>
+[%- END -%]

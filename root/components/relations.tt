@@ -1,0 +1,17 @@
+<div class="RelationshipBox">
+  [%- IF relations.size -%]
+  [%- INCLUDE "components/entity-link.tt" entity=source -%]:
+
+  <ul>
+    [% FOREACH ar IN relations %]
+      <li>
+        [% ar.connector %]
+        [% FOREACH entity IN ar.entities %] 
+          [% INCLUDE "components/entity-link.tt" %][% !loop.last ? "," : "" %]
+        [% END %]
+    [% END %]
+  </ul>
+  [%- ELSE -%]
+  [%- INCLUDE "components/entity-link.tt" entity=source -%] has no relations.
+  [%- END -%]
+</div>

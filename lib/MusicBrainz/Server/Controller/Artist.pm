@@ -27,20 +27,6 @@ MusicBrainz::Server::Controller::Artist - Catalyst Controller for working with A
 
 =cut
 
-# artistLink {{{
-=head2 artistLink
-
-Create stash data to create a link to an artist, in an form that can be then displayed by
-root/components/entity-link.tt
-
-=cut
-
-sub artistLink
-{
-    my $artist = @_;
-    $artist->ExportStash qw( name mbid );
-}
-# }}}
 # artistLinkRaw {{{
 =head2 artistLinkRaw
 
@@ -60,6 +46,7 @@ sub artistLinkRaw
     };
 }
 # }}}
+
 # create {{{
 sub create : Local
 {
@@ -185,7 +172,6 @@ sub appearances : Local Args(1) MyAction('ArtistPage')
             push @releaseGroups, $group;
         }
 
-        # TODO - How to get the MBID?
         my $stashRelease = {
             name => $release->{name},
             link_type => 'release',
@@ -312,26 +298,10 @@ sub show : Path Args(1) MyAction('ArtistPage')
             push @prettyArs, $currentArGroup;
         }
 
-        my $entity;
-
-        if ($ar->{link1_type} eq 'artist')
-        {
-            $entity = artistLinkRaw($ar->{link1_name}, $ar->{link1_mbid});
-        }
-        elsif ($ar->{link1_type} eq 'album')
-        {
-            $entity = MusicBrainz::Server::Controller::Release::releaseLinkRaw($ar->{link1_name},
-                $ar->{link1_mbid});
-        }
-        elsif ($ar->{link1_type} eq 'url')
-        {
-            $entity = MusicBrainz::Server::Controller::Url::urlLinkRaw($ar->{link1_name},
-                $ar->{link1_mbid});
-        }
-
-        push @{$currentArGroup->{entities}}, $entity
+        push @{$currentArGroup->{entities}},
+            MusicBrainz::Server::Link::ExportAsLink($ar, "link1");
     }
-
+    
     # }}}
     # General artist data: {{{
     $c->stash->{artist_tags} = \@tags;
@@ -406,53 +376,8 @@ sub LoadArtistARLinks
     @arLinks = $link->FindLinkedEntities($artist->GetId,
         'artist', to_type => ['label', 'url', 'artist']);
 
-    my $max = scalar(@arLinks);
-    my ($item, $i);
-
-    for($i = 0; $i < $max; $i++)
-    {
-        $item = $arLinks[$i];
-		if ($item->{link0_type} ne 'artist' || $item->{link0_id} != $artist->GetId)
-		{
-			@$item{qw(
-                link0_type			link1_type
-                link0_id			link1_id
-                link0_name			link1_name
-                link0_sortname		link1_sortname
-                link0_resolution	link1_resolution
-                link0_mbid          link1_mbid
-                link_phrase			rlink_phrase
-			)} = @$item{qw(
-                link1_type			link0_type
-                link1_id			link0_id
-                link1_name			link0_name
-                link1_sortname		link0_sortname
-                link1_resolution	link0_resolution
-                link1_mbid          link0_mbid
-                rlink_phrase		link_phrase
-			)};
-		}
-	}
-
-    sort
-    {
-        my $c = $a->{link_phrase} cmp $b->{link_phrase};
-        return $c if ($c);
-        
-	if (defined $a->{enddate} || defined $b->{enddate})
-        {
-            $c = $a->{enddate} cmp $b->{enddate};
-            return $c if ($c);
-        }
-
-	if (defined $a->{begindate} || $b->{begindate})
- 	{
-            $c = $a->{begindate} cmp $b->{begindate};
-            return $c if ($c);
-        }
-		
-        return $a->{link1_name} cmp $b->{link1_name};
-    } @arLinks;
+    MusicBrainz::Server::Link::NormaliseLinkDirections(\@arLinks, $artist->GetId, 'artist');
+    MusicBrainz::Server::Link::SortLinks(\@arLinks);
 }
 # }}}
 # LoadArtistReleases {{{

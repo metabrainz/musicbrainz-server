@@ -7,6 +7,8 @@
         { link => c.uri_for('/release/google', release.mbid), text => "Search Google" },
     ] -%]
 
+[% INCLUDE "components/relations.tt" source=release %]
+
 <div class="release">
   [% INCLUDE "releases/box-header.tt" %]
   <div class="infoLinks">
