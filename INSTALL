@@ -1,17 +1,6 @@
 Install instructions for the MusicBrainz Server:
 ------------------------------------------------
 
-New (Jan 2005):
-	If you can dedicate a whole machine to use as a MusicBrainz
-	server, you might find the following helpful:
-
-	http://wiki.musicbrainz.org/DebianServerSetup
-
-	It describes how to take a fresh machine, install Debian on it,
-	and then install the MusicBrainz server on top of that.
-	Even if you don't have a whole machine for MusicBrainz, you
-	might find the above document a useful source of reference.
-
 These instructions are general instructions for setting up MusicBrainz server.
 If you want to set up a "slave" replication server (to use the data feed
 provided by the master server), please read htdocs/docs/Replication.
@@ -64,12 +53,7 @@ The MusicBrainz server requires the following items. Please note the
 inline notes about which type of server you are setting up -- if there are no
 specific notes about a server type, the instructions apply to all server types.
 
-1) PostgreSQL 7.4 or later
-
-   Postgres must have multi-byte support enabled.  In older versions
-   this was doing with "./configure --enable-multibyte=UNICODE" , but
-   since 7.3.0 this has been the default, so you probably don't have to
-   worry about it.
+1) PostgreSQL 8.1 or later
 
    Locales
 
@@ -167,6 +151,7 @@ specific notes about a server type, the instructions apply to all server types.
        XML::RSS -- to display RSS feeds from the blog
        RDFStore -- to accept POST queries of the old RDF based Web
                    Service. (use 0.42 if 0.50 gives you install headaches)
+       Time::Duration -- this will give you pretty "last modified on" strings.
 
    Notes on specific perl modules:
 
