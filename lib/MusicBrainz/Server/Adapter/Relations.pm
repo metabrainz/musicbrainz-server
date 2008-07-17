@@ -7,23 +7,28 @@ use MusicBrainz::Server::CoverArt;
 
 =head1 NAME
 
-MusicBrainz::Server::Adapter::Relations;
+MusicBrainz::Server::Adapter::Relations - Adapt data from
+L<MusicBrainz::Server::Link> to a form suitable for use with Template
+Toolkit.
 
 =head1 DESCRIPTION
 
-This adapter allows users to easily manipulate advanced relations (ARs) and
-produce data that can be easily displayed by Template Toolkit components
+This adapter allows users to easily manipulate advanced relations
+(ARs) and produce data that can be easily displayed by Template Toolkit
+components
 
 =head1 METHODS
 
 =cut
 
 # NormaliseLinkDirections {{{
+
 =head2 NormaliseLinkDirections \@links, $id, $type
 
-Takes an array ref of L<MusicBrainz::Server::Link>s (\@links) and re-arranges them such that link0
-is always the same entity (the entity with the same id as C<$id>). $type should
-be either 'artist', 'album', 'label' or 'track'.
+Takes an array ref of L<MusicBrainz::Server::Link>s (C<\@links>) and
+re-arranges them such that link0 is always the same entity (the entity
+with the same id as C<$id>). $type should be either 'artist', 'album',
+'label' or 'track'.
 
 =cut
 
@@ -59,10 +64,12 @@ sub NormaliseLinkDirections
 }
 # }}}
 # SortLinks {{{
+
 =head2 SortLinks \@links
 
-Sort a list of L<Link>s into order by the type of AR, followed by the date period the AR occured in,
-and finally the name of the link.
+Sort a list of L<MusicBrainz::Server::Link>s (given by the array reference
+C<\@links>) into order by the type of AR, followed by the date period
+the AR occured in, and finally the name of the link.
 
 =cut
 
@@ -92,14 +99,17 @@ sub SortLinks
 }
 # }}}
 # ExportLink {{{
+
 =head2 ExportLink $link, [$index]
 
-Export either end of this link as stash data that can be used with entity-link.tt
+Export either end of this link as stash data that can be used with
+entity-link.tt
 
-$link is a hash reference to a AR link (which can be created with
-L<FindLinkedEntities>, along with other functions in this module). $index must be
-either link0 or link1 and represents which end of the link to export. If not passed
-as a parameter, this will default to "link1" (as this is usually the destination of
+C<$link >is a hash reference to a AR link (which can be created with
+L<MusicBrainz::Server::Link::FindLinkedEntities>, along with other
+functions in this module). C<$index> must be either link0 or link1 and
+represents which end of the link to export. If not passed as a parameter,
+this will default to "link1" (as this is usually the destination of
 the AR).
 
 =cut
@@ -140,10 +150,13 @@ sub ExportLink
 }
 # }}}
 # ExportLinks {{{
+
 =head2 ExportLinks \@links
 
 Exports an array of AR links to an array reference that can be stored in the stash,
 and displayed using the C<components/relations.tt> component.
+
+C<\@links> is an array reference to a list of links to export.
 
 =cut
 sub ExportLinks
@@ -198,5 +211,24 @@ sub ExportLinks
     return \@stashData;
 }
 # }}}
+
+=head1 LICENSE 
+
+This software is provided "as is", without warranty of any kind, express or
+implied, including  but not limited  to the warranties of  merchantability,
+fitness for a particular purpose and noninfringement. In no event shall the
+authors or  copyright  holders be  liable for any claim,  damages or  other
+liability, whether  in an  action of  contract, tort  or otherwise, arising
+from,  out of  or in  connection with  the software or  the  use  or  other
+dealings in the software.
+
+GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+Permits anyone the right to use and modify the software without limitations
+as long as proper  credits are given  and the original  and modified source
+code are included. Requires  that the final product, software derivate from
+the original  source or any  software  utilizing a GPL  component, such  as
+this, is also licensed under the GPL license.
+
+=cut
 
 1;

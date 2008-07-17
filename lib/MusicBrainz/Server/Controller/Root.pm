@@ -25,13 +25,12 @@ This controller handles application wide logic for the MusicBrainz website.
 
 =head1 METHODS
 
-=cut
-
-# auto {{{
 =head2 auto
 
-Runs before any other action is dispatched, so we use this to make sure the user can view the page
-(and redirect them if they need to login)
+Runs before any other action is dispatched, so we use this to make sure
+the user can view the page. This involves checking the list of "private
+pages" (those that require an authenticated user), and if the user should
+be logged in, gracefully redirecting them to the login action.
 
 =cut
 
@@ -49,11 +48,11 @@ sub auto : Private {
 
     return 1;
 }
-# }}}
 
 =head2 index
 
-Render the standard MusicBrainz welcome page, which is mainly static, other than the blog feed.
+Render the standard MusicBrainz welcome page, which is mainly static,
+other than the blog feed.
 
 =cut
 
@@ -96,8 +95,8 @@ sub index : Path Args(0)
 
 =head2 default
 
-Handle any pages not matched by a specific controller path. In our case, this means serving a
-404 error page.
+Handle any pages not matched by a specific controller path. In our case,
+this means serving a 404 error page.
 
 =cut
 
@@ -130,14 +129,23 @@ sub end : ActionClass('RenderView')
     $c->stash->{server_details}->{version} = &DBDefs::VERSION;
 }
 
-=head1 AUTHOR
-
-Oliver Charles <oliver.g.charles@googlemail.com>
-
 =head1 LICENSE
 
-This library is free software, you can redistribute it and/or modify
-it under the same terms as Perl itself.
+This software is provided "as is", without warranty of any kind, express or
+implied, including  but not limited  to the warranties of  merchantability,
+fitness for a particular purpose and noninfringement. In no event shall the
+authors or  copyright  holders be  liable for any claim,  damages or  other
+liability, whether  in an  action of  contract, tort  or otherwise, arising
+from,  out of  or in  connection with  the software or  the  use  or  other
+dealings in the software.
+
+GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+Permits anyone the right to use and modify the software without limitations
+as long as proper  credits are given  and the original  and modified source
+code are included. Requires  that the final product, software derivate from
+the original  source or any  software  utilizing a GPL  component, such  as
+this, is also licensed under the GPL license.
 
 =cut
+
 1;

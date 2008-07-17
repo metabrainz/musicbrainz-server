@@ -10,23 +10,21 @@ use UserStuff;
 
 =head1 NAME
 
-musicbrainz::Controller::User - Catalyst Controller to handle user authentication and profile
-management
+MusicBrainz::Server::Controller::User - Catalyst Controller to handle
+user authentication and profile management
 
 =head1 DESCRIPTION
 
-The User controller handles the Users logging in and logging out, along with providing logic for
-updating & managing user profiles
+The user controller handles users logging in and logging out, the
+registration or administration of accounts, and the viewing/updating of
+profile pages.
 
 =head1 METHODS
 
-=cut
-
-# index {{{
 =head2 index
 
-If the user is currently logged in redirect them to their profile page, otherwise redirect the user
-to the login page.
+If the user is currently logged in redirect them to their profile page,
+otherwise redirect the user to the login page.
 
 =cut
 
@@ -47,11 +45,11 @@ sub index : Private
         $c->detach();
     }
 }
-# }}}
-# login {{{
+
 =head2 login
 
-Handle logging in users
+Display a form allowing users to login. If a POST request is received,
+we validate this login data, and attempt to log the user in.
 
 =cut
 
@@ -90,11 +88,12 @@ sub login : Local
 
     $c->stash->{template} = 'user/login.tt';
 }
-# }}}
-# register {{{
+
 =head2 register
 
-Handle user registration
+Display a form allowing new users to register on the site. When a POST
+request is received, we validate the data and attempt to create the
+new user.
 
 =cut
 
@@ -136,12 +135,11 @@ sub register : Local
 
     $c->stash->{template} = 'user/register.tt';
 }
-# }}}
-# registered {{{
+
 =head2 registered
 
-Called when a user has completed registration. We use this to notify the user that everything
-went ok
+Called when a user has completed registration. We use this to notify
+the user that everything went ok.
 
 =cut
 
@@ -154,8 +152,17 @@ sub registered : Private
 
     $c->stash->{template} = 'user/registered.tt';
 }
-# }}}
-#  forgotPassword {{{
+
+=head2 forgotPassword
+
+Allow users to retrieve their password if they have forgotten it.
+
+This displays a form allowing the user to enter either their username
+or email address in. With this data we then attempt to email the user
+their password.
+
+=cut
+
 sub forgotPassword : Local
 {
     my ($self, $c) = @_;
@@ -163,6 +170,7 @@ sub forgotPassword : Local
     use MusicBrainz::Server::Form::User::ForgotPassword;
 
     my $form = new MusicBrainz::Server::Form::User::ForgotPassword;
+    $form->context($c);
     $c->stash->{form} = $form;
 
     if ($c->form_posted && $form->validate($c->req->params))
@@ -186,7 +194,7 @@ sub forgotPassword : Local
                     }
                 }
 
-            $c->flash->{ok} = "A password reminder has been sent to you. Please check your inbox for more details";
+                $c->flash->{ok} = "A password reminder has been sent to you. Please check your inbox for more details";
             }
             else
             {
@@ -203,46 +211,45 @@ sub forgotPassword : Local
 
                 $c->flash->{ok} = "A password reminder has been sent to you. Please check your inbox for more details";
             }
-            else
-            {
-                $form->field('username')->add_error("This user does not exist");
-            }
-        }
-        else
-        {
-            $c->stash->{errors} = "You must fill in either an email address or a username";
         }
     }
 
     $c->stash->{template} = 'user/forgot.tt';
 }
-# }}}
-# editProfile {{{
+
+=head2 editProfile
+
+Display a form to allow users to edit their profile, or (if a POST
+request is received), update the profile data in the database.
+
+=cut
+
 sub editProfile : Local
 {
     my ($self, $c) = @_;
 
     use MusicBrainz::Server::Form::User::EditProfile;
-    my $form = new MusicBrainz::Server::Form::User::EditProfile;
+
+    my $form = new MusicBrainz::Server::Form::User::EditProfile($c->user);
     $c->stash->{form} = $form;
 
-    if ($c->form_posted && $form->validate ($c->req->params))
+    if ($c->form_posted)
     {
-        my %opts;
-
-        $opts{email} = $form->value('email');
-        $opts{bio} = $form->value('biography');
-        $opts{weburl} = $form->value('homepage');
-
-        $c->user->get_object->SetUserInfo(%opts)
-            or die "Could not update profile";
-        $c->flash->{ok} = "Your profile has been sucessfully updated";
+        $c->flash->{ok} = "Your profile has been sucessfully updated"
+            if $form->update_from_form ($c->req->params);
     }
 
     $c->stash->{template} = 'user/edit.tt';
 }
-# }}}
-# changePassword {{{
+
+=head2 changePassword
+
+Allow users to change their password. This displays a form prompting
+for their old password and a new password (with confirmation), which
+when use to update the database data when we receive a valid POST request.
+
+=cut
+
 sub changePassword : Local
 {
     my ($self, $c) = @_;
@@ -269,8 +276,7 @@ sub changePassword : Local
 
     $c->stash->{template} = 'user/changePassword.tt';
 }
-# }}}
-# profile {{{
+
 =head2 profile
 
 Display a users profile page.
@@ -331,8 +337,7 @@ sub profile : Local
 
     $c->stash->{filter} = sub { \&date };
 }
-# }}}
-# logout {{{
+
 =head2 logout
 
 Logout the current user. Has no effect if the user is already logged out.
@@ -346,8 +351,7 @@ sub logout : Local
     $c->logout;
     $c->response->redirect($c->uri_for('/user/login'));
 }
-# }}}
-# preferences {{{
+
 =head2 preferences
 
 Change the users preferences
@@ -370,8 +374,7 @@ sub preferences : Local
 
     $c->stash->{template} = 'user/preferences.tt';
 }
-# }}}
-# donate {{{
+
 =head2 donate
 
 Check the status of donations and ask for one.
@@ -394,17 +397,23 @@ sub donate : Local
     };
     $c->stash->{template} = 'user/donate.tt';
 }
-# }}}
 
-=head1 AUTHOR
+=head1 LICENSE 
 
-Oliver Charles <oliver.g.charles@googlemail.com>
-Mustaqil 'Muzzz' Ali
+This software is provided "as is", without warranty of any kind, express or
+implied, including  but not limited  to the warranties of  merchantability,
+fitness for a particular purpose and noninfringement. In no event shall the
+authors or  copyright  holders be  liable for any claim,  damages or  other
+liability, whether  in an  action of  contract, tort  or otherwise, arising
+from,  out of  or in  connection with  the software or  the  use  or  other
+dealings in the software.
 
-=head1 LICENSE
-
-This library is free software, you can redistribute it and/or modify
-it under the same terms as Perl itself.
+GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+Permits anyone the right to use and modify the software without limitations
+as long as proper  credits are given  and the original  and modified source
+code are included. Requires  that the final product, software derivate from
+the original  source or any  software  utilizing a GPL  component, such  as
+this, is also licensed under the GPL license.
 
 =cut
 

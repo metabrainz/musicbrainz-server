@@ -10,13 +10,35 @@ use MusicBrainz::Server::Country;
 use UserPreference;
 use UserStuff;
 
+=head1 NAME
+
+MusicBrainz::Server::Form::User::Preferences
+
+=head1 DESCRIPTION
+
+Provides a form for the user to set their user preferences as to how
+they interact with the website.
+
+=head1 METHODS
+
+=head2 name
+
+Returns a name for this form
+
+=cut
+
 sub name { 'user_preferences' };
 
-# profile {{{
+=head2 profile
+
+Gets all the fields used to set user preferences. The names of the fields
+must exist in UserPreference::prefs.
+
+=cut
+
 sub profile
 {
     return {
-        # The keys used here *MUST* exist in UserPreference::prefs
         optional => {
             # Voting/edit review pages {{{
             mod_add_album_inline => 'Checkbox',
@@ -86,9 +108,11 @@ sub profile
         },
     };
 }
-# }}}
 
-# 'Select' options {{{
+=head2 Combo box options
+
+=cut
+
 sub options_autofix_open {
     [
         "remember", "how I last left it",
@@ -132,7 +156,7 @@ sub options_google_domain {
 
 sub options_default_country {
     my $mb = new MusicBrainz;
-    $mb->Login();
+    $mb->Login;
 
     my $countries = MusicBrainz::Server::Country->new($mb->{DBH});
 
@@ -142,9 +166,13 @@ sub options_default_country {
 
     return \@countries_menu;   
 }
-# }}}
 
-# validation {{{
+=head2 Validation methods
+
+The following subroutines validate on a per field basis.
+
+=cut
+
 sub validate_mods_per_page {
     my ($self, $field) = @_;
 
@@ -158,7 +186,13 @@ sub validate_releases_show_compact {
     return $field->add_error("The amount of releases to trigger compact listing must be in the range 1 to 100")
         unless $field->value >= 1 && $field->value <= 100
 }
-# }}}
+
+=head2 init_item
+
+Load the user preferences for a given user id. We pass the user id as
+the users name.
+
+=cut
 
 sub init_item {
     my $self = shift;
@@ -178,6 +212,13 @@ sub init_item {
     return $prefs;
 }
 
+=head2 init_value
+
+Initialize the value of a form field from the user preference setting,
+or fall back to a default value.
+
+=cut
+
 sub init_value {
     my ($self, $field, $item) = @_;
 
@@ -185,6 +226,12 @@ sub init_value {
 
     return $item->get($field->name);
 }
+
+=head2 update_model
+
+Save the updated user preferences to the database.
+
+=cut
 
 sub update_model {
     my $self = shift;
@@ -202,11 +249,36 @@ sub update_model {
     $self->item->save;
 }
 
+=head2 update_from_form
+
+Helper method to save the preferences if the form validates
+
+=cut
+
 sub update_from_form {
     my ($self, $data) = @_;
 
     return unless $self->validate($data);
     $self->update_model;
 }
+
+=head1 LICENSE 
+
+This software is provided "as is", without warranty of any kind, express or
+implied, including  but not limited  to the warranties of  merchantability,
+fitness for a particular purpose and noninfringement. In no event shall the
+authors or  copyright  holders be  liable for any claim,  damages or  other
+liability, whether  in an  action of  contract, tort  or otherwise, arising
+from,  out of  or in  connection with  the software or  the  use  or  other
+dealings in the software.
+
+GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+Permits anyone the right to use and modify the software without limitations
+as long as proper  credits are given  and the original  and modified source
+code are included. Requires  that the final product, software derivate from
+the original  source or any  software  utilizing a GPL  component, such  as
+this, is also licensed under the GPL license.
+
+=cut
 
 1;

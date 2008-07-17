@@ -15,17 +15,19 @@ use MusicBrainz::Server::Validation;
 
 =head1 NAME
 
-MusicBrainz::Server::Controller::Release - Catalyst Controller for working with Release entities
+MusicBrainz::Server::Controller::Release - Catalyst Controller for
+working with Release entities
 
 =cut
 
 =head1 DESCRIPTION
 
+This controller handles user interaction, both read and write, with
+L<MusicBrainz::Server::Release> objects. This includes displaying
+releases, editing releases and creating new releases.
+
 =head1 METHODS
 
-=cut
-
-# releaseLinkRaw {{{
 =head2 releaseLinkRaw
 
 Create stash data to link to a Release entity using root/components/entity-link.tt
@@ -42,13 +44,22 @@ sub releaseLinkRaw
         link_type => 'release'
     };
 }
-# }}}
 
-# show {{{
+=head2 show
+
+Display a release to the user.
+
+This loads a release from the database (given a valid MBID or database row
+ID) and displays it in full, including a summary of advanced relations,
+tags, tracklisting, release events, etc.
+
+=cut
+
 sub show : Path Local Args(1) {
     my ($self, $c, $mbid) = @_;
 
-    # Load Release {{{
+    # Load Release
+    #
     my $release = MusicBrainz::Server::Release->new($c->mb->{DBH});
 
     unless (MusicBrainz::Server::Validation::IsGUID($mbid))
@@ -64,18 +75,20 @@ sub show : Path Local Args(1) {
         or die "Failed to load release";
 
     $c->stash->{release} = $release->ExportStash qw/ puids track_count quality language type /;
-    # }}}
 
-    # Load Release Relationships {{{
+
+    # Load Release Relationships
+    #
     my $link = MusicBrainz::Server::Link->new($c->mb->{DBH});
     my @arLinks = $link->FindLinkedEntities($release->GetId, 'album');
 
     MusicBrainz::Server::Adapter::Relations::NormaliseLinkDirections(\@arLinks, $release->GetId, 'album');
     @arLinks = MusicBrainz::Server::Adapter::Relations::SortLinks(\@arLinks);
     $c->stash->{relations} = MusicBrainz::Server::Adapter::Relations::ExportLinks(\@arLinks);
-    # }}}
 
-    # Load Artist {{{
+
+    # Load Artist
+    #
     my $artist = MusicBrainz::Server::Artist->new($c->mb->{DBH});
     $artist->SetId($release->GetArtist);
     $artist->LoadFromId(1)
@@ -84,9 +97,9 @@ sub show : Path Local Args(1) {
     # Export enough to display the artist header
     $c->stash->{artist} = $artist->ExportStash qw/ name mbid type date quality
                                                    resolution /;
-    # }}}
     
-    # Tracks {{{
+
+    # Tracks
     my $puid_counts = $release->LoadPUIDCount;
     my @tracks = $release->LoadTracks;
 
@@ -106,29 +119,35 @@ sub show : Path Local Args(1) {
             relations => MusicBrainz::Server::Adapter::Relations::ExportLinks(\@trackLinks),
         };
     }
-    # }}}
 
-    # Tags {{{
+
+    # Tags
     my $t = MusicBrainz::Server::Tag->new($c->mb->{DBH});
     my $num = 5;
     my $tags = $t->GetTagHashForEntity('release', $release->GetId, $num + 1);
 
     $c->stash->{tags} = sort { $tags->{$b} <=> $tags->{$a}; } keys %{$tags};
     $c->stash->{more_tags} = scalar(keys %$tags) > $num;
-    # }}}
 
     $c->stash->{template} = 'releases/show.tt';
 }
-# }}}
-
-=head1 AUTHOR
-
-Oliver Charles <oliver.g.charles@googlemail.com>
 
 =head1 LICENSE
 
-This library is free software, you can redistribute it and/or modify it under the same terms as Perl
-itself.
+This software is provided "as is", without warranty of any kind, express or
+implied, including  but not limited  to the warranties of  merchantability,
+fitness for a particular purpose and noninfringement. In no event shall the
+authors or  copyright  holders be  liable for any claim,  damages or  other
+liability, whether  in an  action of  contract, tort  or otherwise, arising
+from,  out of  or in  connection with  the software or  the  use  or  other
+dealings in the software.
+
+GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+Permits anyone the right to use and modify the software without limitations
+as long as proper  credits are given  and the original  and modified source
+code are included. Requires  that the final product, software derivate from
+the original  source or any  software  utilizing a GPL  component, such  as
+this, is also licensed under the GPL license.
 
 =cut
 

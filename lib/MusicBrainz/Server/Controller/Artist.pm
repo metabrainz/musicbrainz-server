@@ -19,15 +19,18 @@ use MusicBrainz;
 
 =head1 NAME
 
-MusicBrainz::Server::Controller::Artist - Catalyst Controller for working with Artist entities
+MusicBrainz::Server::Controller::Artist - Catalyst Controller for working
+with Artist entities
 
 =head1 DESCRIPTION
 
+The artist controller is used for interacting with
+L<MusicBrainz::Server::Artist> entities - both read and write. It provides
+views to the artist data itself, and a means to navigate to a release
+that is attributed to a certain artist.
+
 =head1 METHODS
 
-=cut
-
-# artistLinkRaw {{{
 =head2 artistLinkRaw
 
 Create stash data to link to an artist, but given the parameters explicity (rather than requiring an
@@ -43,11 +46,21 @@ sub artistLinkRaw
         name => $name,
         mbid => $mbid,
         link_type => 'artist'
-    };
+   };
 }
-# }}}
 
-# create {{{
+=head2 create
+
+When given a GET request this displays a form allowing the user to enter
+data, creating a new artist. If a POST request is received, the data
+is validated and if validation succeeds, the artist is entered into the
+MusicBrainz database.
+
+The heavy work validating the form and entering data into the database
+is done via L<MusicBrainz::Server::Form::Artist;
+
+=cut
+
 sub create : Local
 {
     my ($self, $c) = @_;
@@ -74,11 +87,15 @@ sub create : Local
 
     $c->stash->{template} = 'artist/create.tt';
 }
-# }}}
-# edit {{{
+
 =head2 edit
 
-Allows users to edit an artist
+Allows users to edit the data about this artist.
+
+When viewed with a GET request, the user is displayed a form filled with
+the current artist data. When a POST request is received, the data is
+validated and if it passed validation is the updated data is entered
+into the MusicBrainz database.
 
 =cut 
 
@@ -104,12 +121,11 @@ sub edit : Local Args(1) MyAction('ArtistPage')
 
     $c->stash->{template} = 'artist/edit.tt';
 }
-# }}}
-# appearances {{{
+
 =head2 appearances
 
-Display a list of releases that an artist appears on; that is - does not have the actual release
-attributed to them, but somehow appear on the release via an AR.
+Display a list of releases that an artist appears on via advanced
+relations.
 
 =cut
 
@@ -191,11 +207,10 @@ sub appearances : Local Args(1) MyAction('ArtistPage')
     $c->stash->{release_groups} = \@releaseGroups;
     $c->stash->{template} = 'artist/appearances.tt';
 }
-# }}}
-# perma {{{
+
 =head2 perma
 
-Display the perma-link for a given artist
+Display the perma-link for a given artist.
 
 =cut
 
@@ -205,11 +220,10 @@ sub perma : Local Args(1) MyAction('ArtistPage')
     my $artist = $c->stash->{_artist};
     $c->stash->{template} = 'artist/perma.tt';
 }
-#}}}
-# details {{{
+
 =head2 details
 
-Display detailed information about a specific artist
+Display detailed information about a specific artist.
 
 =cut
 
@@ -229,11 +243,10 @@ sub details : Local Args(1) MyAction('ArtistPage')
 
     $c->stash->{template} = 'artist/details.tt';
 }
-# }}}
-# aliases {{{
+
 =head2 aliases
 
-Display all aliases of an artist, along with usage information
+Display all aliases of an artist, along with usage information.
 
 =cut
 
@@ -259,15 +272,17 @@ sub aliases : Local Args(1) MyAction('ArtistPage')
     $c->stash->{aliases} = \@prettyAliases;
     $c->stash->{template} = 'artist/aliases.tt';
 }
-# }}}
-# show {{{
+
 =head2 show
 
-Shows an artist's main landing page, showing all of the releases that are attributed to them
+Shows an artist's main landing page.
+
+This page shows the main releases (by default) of an artist, along with a
+summary of advanced relations this artist is involved in. It also shows
+folksonomy information (tags).
 
 =cut
 
-# show {{{
 sub show : Path Args(1) MyAction('ArtistPage')
 {
     my ($self, $c, $mbid) = @_;
@@ -323,9 +338,7 @@ sub show : Path Args(1) MyAction('ArtistPage')
                                 'artist/full.tt' :
                                 'artist/compact.tt';
 }
-# }}}
 
-# LoadArtistAnnotation {{{
 sub LoadArtistAnnotation
 {
     my ($dbh, $artist) = @_;
@@ -334,8 +347,7 @@ sub LoadArtistAnnotation
     $annotation->SetArtist($artist->GetId);
     return $annotation->GetLatestAnnotation;
 }
-# }}}
-# LoadArtistTags {{{
+
 sub LoadArtistTags
 {
     my ($dbh, $tagCount, $artist) = @_;
@@ -345,8 +357,7 @@ sub LoadArtistTags
 
     sort { $tagHash->{$b} <=> $tagHash->{$a}; } keys %{$tagHash};
 }
-# }}}
-# LoadArtistARLinks {{{
+
 sub LoadArtistARLinks
 {
     my ($dbh, $artist) = @_;
@@ -361,8 +372,7 @@ sub LoadArtistARLinks
 
     return \@arLinks;
 }
-# }}}
-# LoadArtistReleases {{{
+
 sub LoadArtistReleases
 {
     my $artist = shift;
@@ -418,11 +428,10 @@ sub LoadArtistReleases
 
     sort SortAlbums @shortList;
 }
-# }}}
-# }}}
 
-# Helpers (these aren't actions) {{{
-# CheckAttributes {{{
+# Helpers:
+#
+
 sub CheckAttributes
 {
     my ($a) = @_;
@@ -446,12 +455,11 @@ sub CheckAttributes
     $a->{_attr_status} = MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_STATUS_END + 1
         if (not defined $a->{_attr_status});
 };
-# }}}
-# SortAlbums {{{
+
 =head2 SortAlbums
 
-Sort a list of MusicBrainz::Server::Album objects into the order they are displayed on the
-artist homepage
+Sort a list of MusicBrainz::Server::Album objects into the order they
+are displayed on the artist homepage
 
 =cut
 
@@ -481,17 +489,23 @@ sub SortAlbums
 
     0;
 };
-# }}}
-# }}}
 
-=head1 AUTHOR
+=head1 LICENSE 
 
-Oliver Charles <oliver.g.charles@googlemail.com>
+This software is provided "as is", without warranty of any kind, express or
+implied, including  but not limited  to the warranties of  merchantability,
+fitness for a particular purpose and noninfringement. In no event shall the
+authors or  copyright  holders be  liable for any claim,  damages or  other
+liability, whether  in an  action of  contract, tort  or otherwise, arising
+from,  out of  or in  connection with  the software or  the  use  or  other
+dealings in the software.
 
-=head1 LICENSE
-
-This library is free software, you can redistribute it and/or modify
-it under the same terms as Perl itself.
+GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+Permits anyone the right to use and modify the software without limitations
+as long as proper  credits are given  and the original  and modified source
+code are included. Requires  that the final product, software derivate from
+the original  source or any  software  utilizing a GPL  component, such  as
+this, is also licensed under the GPL license.
 
 =cut
 
