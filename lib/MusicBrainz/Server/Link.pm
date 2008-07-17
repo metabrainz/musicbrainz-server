@@ -455,10 +455,29 @@ sub ExportAsLink
     croak "No link passed"
         unless defined $link and ref $link eq 'HASH';
 
+    my $name = $link->{"${linkType}_name"};
+    my $url = $name;
+
+    if($link->{link_name} eq "wikipedia")
+    {
+        $name =~ s/^http:\/\/(\w{2,})\.wikipedia\.org\/wiki\/(.*)$/$1: $2/o;
+        $name =~ tr/_/ /;
+
+        # We have to decode the URL now to display in text form
+        $name =~ s/\%([\dA-Fa-f]{2})/pack('C', hex($1))/oeg;
+
+        use Encode;
+        my $decoded_name = $name;
+        eval { Encode::decode_utf8($decoded_name, Encode::FB_CROAK); };
+        $name = $decoded_name unless $@;
+    }
+
     return {
-        name => $link->{"${linkType}_name"},
+        name => $name,
+        url => $url,
         link_type => $link->{"${linkType}_type"},
-        mbid => $link->{"${linkType}_mbid"}
+        mbid => $link->{"${linkType}_mbid"},
+        resolution => $link->{"${linkType}_resolution"},
     };
 }
 

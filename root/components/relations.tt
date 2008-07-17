@@ -8,6 +8,7 @@
         [% ar.connector %]
         [% FOREACH entity IN ar.entities %] 
           [% INCLUDE "components/entity-link.tt" %][% !loop.last ? "," : "" %]
+          [% "(${entity.resolution})" IF entity.resolution %]
         [% END %]
     [% END %]
   </ul>

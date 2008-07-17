@@ -279,14 +279,14 @@ sub show : Path Args(1) MyAction('ArtistPage')
     # Load data for the landing page
     my $annotation = LoadArtistAnnotation ($mb->{DBH}, $artist);
     my @tags = LoadArtistTags ($mb->{DBH}, 5, $artist);
-    my @arLinks = LoadArtistARLinks ($mb->{DBH}, $artist); 
+    my $arLinks = LoadArtistARLinks ($mb->{DBH}, $artist); 
     my @releases = LoadArtistReleases ($artist);
 
     # Create data structures for the template
     # Advanced relations: {{{
     my @prettyArs;
     my $currentArGroup = undef;
-    for my $ar (@arLinks)
+    for my $ar (@$arLinks)
     {
         if(not defined $currentArGroup or $currentArGroup->{connector} ne $ar->{link_phrase})
         {
@@ -377,7 +377,9 @@ sub LoadArtistARLinks
         'artist', to_type => ['label', 'url', 'artist']);
 
     MusicBrainz::Server::Link::NormaliseLinkDirections(\@arLinks, $artist->GetId, 'artist');
-    MusicBrainz::Server::Link::SortLinks(\@arLinks);
+    @arLinks = MusicBrainz::Server::Link::SortLinks(\@arLinks);
+
+    return \@arLinks;
 }
 # }}}
 # LoadArtistReleases {{{
