@@ -90,10 +90,7 @@ sub show : Path Local Args(1) {
         # Export enough information to link to *any* entity.
         my $stashLink = MusicBrainz::Server::Link::ExportAsLink($link, "link1");
 
-        # Special treatment for certain urls:
-        $stashLink->{url} = $link->{link1_name}
-            if $link->{link1_type} eq 'url';
-
+        # Special treatment for certain urls {{{
         use Switch;
         switch($link->{link_name})
         {
@@ -116,6 +113,7 @@ sub show : Path Local Args(1) {
                     if $url;
             }
         }
+        # }}}
 
         push @{$currentGroup->{entities}}, $stashLink;
     }
@@ -140,14 +138,38 @@ sub show : Path Local Args(1) {
 
     for my $track (@tracks)
     {
-        push @{ $c->stash->{tracks} }, {
+        my $trackStash = {
             number => $track->GetSequence,
             title => $track->GetName,
             puids => $puid_counts->{ $track->GetId },
-            duration => MusicBrainz::Server::Track::FormatTrackLength($track->GetLength)
+            duration => MusicBrainz::Server::Track::FormatTrackLength($track->GetLength),
+            relations => [],
         };
+
+        my @trackLinks = $link->FindLinkedEntities($track->GetId, 'track');
+        MusicBrainz::Server::Link::NormaliseLinkDirections(\@trackLinks, $track->GetId, 'track');
+        @trackLinks = MusicBrainz::Server::Link::SortLinks \@trackLinks;
+        
+        $currentGroup = undef;
+        for my $link (@trackLinks)
+        {
+            if(not defined $currentGroup or $currentGroup->{connector} ne $link->{link_phrase})
+            {
+                $currentGroup = {
+                    connector => $link->{link_phrase},
+                    type => $link->{link_type},
+                    entities => []
+                };
+                push @{$trackStash->{relations}}, $currentGroup;
+            }
+
+            push @{$currentGroup->{entities}}, MusicBrainz::Server::Link::ExportAsLink($link, "link1");
+        }
+
+        push @{ $c->stash->{tracks} }, $trackStash;
     }
     # }}}
+
     # Tags {{{
     my $t = MusicBrainz::Server::Tag->new($c->mb->{DBH});
     my $num = 5;

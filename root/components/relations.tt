@@ -1,7 +1,4 @@
-<div class="RelationshipBox">
-  [%- IF relations.size -%]
-  [%- INCLUDE "components/entity-link.tt" entity=source -%]:
-
+[%- BLOCK list -%]
   <ul>
     [% FOREACH ar IN relations %]
       <li>
@@ -12,7 +9,17 @@
         [% END %]
     [% END %]
   </ul>
+[%- END -%]
+
+[%- UNLESS justlist -%]
+<div class="RelationshipBox">
+  [%- IF relations.size -%]
+    [%- INCLUDE "components/entity-link.tt" entity=source -%]:
+    [%- PROCESS list -%]
   [%- ELSE -%]
-  [%- INCLUDE "components/entity-link.tt" entity=source -%] has no relations.
+    [%- INCLUDE "components/entity-link.tt" entity=source -%] has no relations.
   [%- END -%]
 </div>
+[%- ELSE -%]
+  [%- PROCESS list -%]
+[%- END -%]
