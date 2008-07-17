@@ -283,29 +283,9 @@ sub show : Path Args(1) MyAction('ArtistPage')
     my @releases = LoadArtistReleases ($artist);
 
     # Create data structures for the template
-    # Advanced relations: {{{
-    my @prettyArs;
-    my $currentArGroup = undef;
-    for my $ar (@$arLinks)
-    {
-        if(not defined $currentArGroup or $currentArGroup->{connector} ne $ar->{link_phrase})
-        {
-            $currentArGroup = {
-                connector => $ar->{link_phrase},
-                type => $ar->{link_type},
-                entities => []
-            };
-            push @prettyArs, $currentArGroup;
-        }
-
-        push @{$currentArGroup->{entities}},
-            MusicBrainz::Server::Link::ExportAsLink($ar, "link1");
-    }
-    
-    # }}}
     # General artist data: {{{
     $c->stash->{artist_tags} = \@tags;
-    $c->stash->{artist_relations} = \@prettyArs;
+    $c->stash->{artist_relations} = MusicBrainz::Server::Adapter::Relations::ExportLinks($arLinks);
     # $c->stash->{annotation} = $annotation->GetTextAsHTML
     #    if defined $annotation;
 
@@ -376,8 +356,8 @@ sub LoadArtistARLinks
     @arLinks = $link->FindLinkedEntities($artist->GetId,
         'artist', to_type => ['label', 'url', 'artist']);
 
-    MusicBrainz::Server::Link::NormaliseLinkDirections(\@arLinks, $artist->GetId, 'artist');
-    @arLinks = MusicBrainz::Server::Link::SortLinks(\@arLinks);
+    MusicBrainz::Server::Adapter::Relations::NormaliseLinkDirections(\@arLinks, $artist->GetId, 'artist');
+    @arLinks = MusicBrainz::Server::Adapter::Relations::SortLinks(\@arLinks);
 
     return \@arLinks;
 }

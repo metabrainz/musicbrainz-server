@@ -6,6 +6,7 @@ use parent 'Catalyst::Controller';
 
 use ModDefs;
 use MusicBrainz;
+use MusicBrainz::Server::Adapter::Relations;
 use MusicBrainz::Server::CoverArt;
 use MusicBrainz::Server::Release;
 use MusicBrainz::Server::Tag;
@@ -69,54 +70,9 @@ sub show : Path Local Args(1) {
     my $link = MusicBrainz::Server::Link->new($c->mb->{DBH});
     my @arLinks = $link->FindLinkedEntities($release->GetId, 'album');
 
-    MusicBrainz::Server::Link::NormaliseLinkDirections(\@arLinks, $release->GetId,
-                                                       'album');
-    @arLinks = MusicBrainz::Server::Link::SortLinks \@arLinks;
-    
-    $c->stash->{relations} = [];
-    my $currentGroup = undef;
-    for my $link (@arLinks)
-    {
-        if(not defined $currentGroup or $currentGroup->{connector} ne $link->{link_phrase})
-        {
-            $currentGroup = {
-                connector => $link->{link_phrase},
-                type => $link->{link_type},
-                entities => []
-            };
-            push @{$c->stash->{relations}}, $currentGroup;
-        }
-
-        # Export enough information to link to *any* entity.
-        my $stashLink = MusicBrainz::Server::Link::ExportAsLink($link, "link1");
-
-        # Special treatment for certain urls {{{
-        use Switch;
-        switch($link->{link_name})
-        {
-            case("amazon asin") {
-                MusicBrainz::Server::CoverArt->ParseAmazonURL($link->{link1_name}, $release);
-                $stashLink->{name} = $release->GetAsin;
-            }
-
-            case("purchase for mail-order") { next; }
-            case("purchase for download") { next; }
-            case("download for free") { next; }
-            case("creative commons licensed download") { next; }
-            case("cover art link") {
-                my ($name, $coverurl, $url) = MusicBrainz::Server::CoverArt->ParseCoverArtURL($link->{link1_name}, $release);
-
-                $stashLink->{name} = $name
-                    if $name;
-
-                $stashLink->{url} = $url
-                    if $url;
-            }
-        }
-        # }}}
-
-        push @{$currentGroup->{entities}}, $stashLink;
-    }
+    MusicBrainz::Server::Adapter::Relations::NormaliseLinkDirections(\@arLinks, $release->GetId, 'album');
+    @arLinks = MusicBrainz::Server::Adapter::Relations::SortLinks(\@arLinks);
+    $c->stash->{relations} = MusicBrainz::Server::Adapter::Relations::ExportLinks(\@arLinks);
     # }}}
 
     # Load Artist {{{
@@ -138,35 +94,17 @@ sub show : Path Local Args(1) {
 
     for my $track (@tracks)
     {
-        my $trackStash = {
+        my @trackLinks = $link->FindLinkedEntities($track->GetId, 'track');
+        MusicBrainz::Server::Adapter::Relations::NormaliseLinkDirections(\@trackLinks, $track->GetId, 'track');
+        @trackLinks = MusicBrainz::Server::Adapter::Relations::SortLinks(\@trackLinks);
+
+        push @{ $c->stash->{tracks} }, {
             number => $track->GetSequence,
             title => $track->GetName,
             puids => $puid_counts->{ $track->GetId },
             duration => MusicBrainz::Server::Track::FormatTrackLength($track->GetLength),
-            relations => [],
+            relations => MusicBrainz::Server::Adapter::Relations::ExportLinks(\@trackLinks),
         };
-
-        my @trackLinks = $link->FindLinkedEntities($track->GetId, 'track');
-        MusicBrainz::Server::Link::NormaliseLinkDirections(\@trackLinks, $track->GetId, 'track');
-        @trackLinks = MusicBrainz::Server::Link::SortLinks \@trackLinks;
-        
-        $currentGroup = undef;
-        for my $link (@trackLinks)
-        {
-            if(not defined $currentGroup or $currentGroup->{connector} ne $link->{link_phrase})
-            {
-                $currentGroup = {
-                    connector => $link->{link_phrase},
-                    type => $link->{link_type},
-                    entities => []
-                };
-                push @{$trackStash->{relations}}, $currentGroup;
-            }
-
-            push @{$currentGroup->{entities}}, MusicBrainz::Server::Link::ExportAsLink($link, "link1");
-        }
-
-        push @{ $c->stash->{tracks} }, $trackStash;
     }
     # }}}
 
