@@ -198,6 +198,28 @@ sub SetEndDate
    $_[0]->{enddate} = $_[1];
 }
 
+sub ExportStash
+{
+    my ($self, @data) = @_;
+
+    my %stash;
+
+    $stash{name} = $self->GetName;
+    $stash{mbid} = $self->GetMBId;
+    $stash{link_type} = 'label';
+
+    use Switch;
+    for (@data)
+    {
+        switch($_)
+        {
+
+        }
+    }
+
+    return \%stash;
+}
+
 # Insert an label into the DB and return the label id. Returns undef
 # on error. The name of this label must be set via the accesor
 # functions.

@@ -11,18 +11,20 @@ use MusicBrainz;
 
 =head1 NAME
 
-MusicBrainz::Server::Action::ArtistPage - Custom Action for creating artist pages.
+MusicBrainz::Server::Action::ArtistPage - Custom Action for creating
+artist pages.
 
 =head1 DESCRIPTION
 
-This fills the Catalyst stash with variables to display the Artist header on a page
+This fills the Catalyst stash with variables to display the Artist header
+on a page
 
 =head1 METHODS
 
 =head2 execute
 
-Executes the ArtistPage Action after the action has completed. This will load the artist with a
-given MBID into the stash in the {_artist} key. 
+Executes the ArtistPage Action after the action has completed. This will
+load the artist with a given MBID into the stash in the {_artist} key.
 
 =cut
 

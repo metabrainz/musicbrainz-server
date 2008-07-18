@@ -35,8 +35,8 @@ sub relations : Local Args(1)
     my $link = MusicBrainz::Server::Link->new($c->mb->{DBH});
     my @links = $link->FindLinkedEntities($entity->GetId, 'track');
 
-    MusicBrainz::Server::Adapter::Relations::NormaliseLinkDirections (\@links);
-    MusicBrainz::Server::Adapter::Relations::SortLinks (\@links);
+    MusicBrainz::Server::Adapter::Relations::NormaliseLinkDirections (\@links, $entity->GetId, 'track');
+    @links = MusicBrainz::Server::Adapter::Relations::SortLinks (\@links);
     $c->stash->{relations} = MusicBrainz::Server::Adapter::Relations::ExportLinks (\@links);
 
     $c->stash->{track} = $entity->ExportStash;

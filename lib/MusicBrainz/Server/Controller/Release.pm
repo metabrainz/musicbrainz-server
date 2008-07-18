@@ -138,7 +138,7 @@ sub show : Path Local Args(1) {
     my $num = 5;
     my $tags = $t->GetTagHashForEntity('release', $release->GetId, $num + 1);
 
-    $c->stash->{tags} = sort { $tags->{$b} <=> $tags->{$a}; } keys %{$tags};
+    $c->stash->{tags} = [ sort { $tags->{$b} <=> $tags->{$a}; } keys %{$tags} ];
     $c->stash->{more_tags} = scalar(keys %$tags) > $num;
 
     $c->stash->{template} = 'releases/show.tt';

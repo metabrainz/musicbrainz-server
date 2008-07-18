@@ -1,0 +1,24 @@
+[%- info_links = [
+     { link => c.uri_for('/label/perma', artist.mbid), text => "Permenant link" },
+     { link => c.uri_for('/label/details', artist.mbid), text => "Details" },
+     { link => c.uri_for('/label/aliases', artist.mbid), text => "Aliases" },
+     { link => c.uri_for('/tags/artist', artist.mbid), text => "Tags" },
+     { link => c.uri_for('/label', artist.mbid), text => "Releases" },
+     { link => c.uri_for('/label/google', artist.mbid), text => "Search Google" }
+   ]
+-%]
+
+<div class="entity_header">
+  <div class="title">
+    <span><img src="/static/images/licon_lg.png"> [% INCLUDE "components/entity-link.tt" entity=label noicon=1 %]</span>
+  </div>
+  <div class="infoLinks"> Info: [% INCLUDE "components/piped-list.tt" list=info_links %]</div>
+  <div class="editLinks">
+    Edit:
+    [%- IF c.user_exists -%]
+
+    [%- ELSE -%]
+      Please <a herf="[% c.uri_for('/user/login') %]"> login to edit this label
+    [%- END -%]
+  </div>
+</div>

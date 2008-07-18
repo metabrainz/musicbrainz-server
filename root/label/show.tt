@@ -1,0 +1,38 @@
+[% WRAPPER "layout.tt" title=label.name %]
+[% INCLUDE "label/header.tt" %]
+[% INCLUDE "components/relations.tt" source=label %]
+
+<h2>Releases</h2>
+<table class="releaselist">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Status</th>
+      <th>Language</th>
+      <th>Date</th>
+      <th>Catalog #</th>
+      <th>Artist</th>
+      <th>Title</th>
+    </tr>
+  </thead>
+  <tbody>
+  [%- FOREACH release=releases -%]
+    <tr>
+      <td>[% release.track_count %]</td>
+      <td>[% release.status %]</td>
+      <td>
+        <abbr title="[% release.language.language %] / [% release.language.script %]">
+          [% release.language.shortLanguage %]
+        </abbr>
+      </td>
+      <td>
+        [% release.first_release_date | release_date %]
+      </td>
+      <td>[% release.catalog_number %]</td>
+      <td>[% INCLUDE "components/entity-link.tt" entity=release.artist %]</td>
+      <td>[% INCLUDE "components/entity-link.tt" entity=release %]</td>
+    </tr>
+  [%- END -%]
+  </tbody>
+</table>
+[% END %]

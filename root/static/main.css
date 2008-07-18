@@ -221,7 +221,7 @@ div.box div.content {
     margin: 0;
 }
 
-#artistHeader {
+.entity_header {
     border: 1px solid #000;
     background-color: #F0EFFF;
     color: #000;
@@ -230,16 +230,16 @@ div.box div.content {
     padding-top: 5px;
 }
 
-#artistHeader div.title a {
+.entity_header div.title a {
     color: #000;
 }
 
-#artistHeader div.title {
+.entity_header div.title {
     padding-left: 5px;
     font-size: 25pt;
 }
 
-#artistHeader div.info {
+.entity_header div.info {
     padding-left: 5px;
     padding-top: 3px;
     font-size: 8pt;
@@ -281,11 +281,8 @@ span.track_icon {
 }
 
 span.artist_icon { background-image: url("/static/images/entity/artist_small.gif"); }
-
 span.release_icon { background-image: url("/static/images/entity/release_small.gif"); }
-
-span.label_icon { background-image: url("/static/images/entity/album_small.gif"); }
-
+span.label_icon { background-image: url("/static/images/entity/label_small.gif"); }
 span.track_icon { background-image: url("/static/images/entity/track_small.gif"); }
 
 div.compactreleasetype {
