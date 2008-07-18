@@ -13,15 +13,19 @@
 
 <%perl>
 
-my $sql=Sql->new($dbh);
+my $sql = Sql->new($dbh);
 
 # Get all releases in collection
 use MusicBrainz::Server::CollectionInfo;
-my $collectionInfo=MusicBrainz::Server::CollectionInfo->new($session{uid}, $rodbh, $rawdbh);
+my $collectionInfo = MusicBrainz::Server::CollectionInfo->new($session{uid}, $rodbh, $rawdbh, undef);
 my $releases = $collectionInfo->GetHasMBIDs();
-my $count=@$releases;
+my $count = @$releases;
 
-if($count>0) # Check if there are releases to display
+if($count == 0) # Check if there are releases to display
+{
+	print 'No releases in collection.';
+}
+else
 {
 	my $rownum=0;
 </%perl>
@@ -55,7 +59,7 @@ $collectionInfo->GetHasMBIDsForArtist('357465');
 for my $mbid (@{$releases})
 {
 	# load Release object
-	my $release=MusicBrainz::Server::Release->new($dbh);
+	my $release = MusicBrainz::Server::Release->new($dbh);
 	$release->SetMBId(@{$mbid}[0]);
 	$release->LoadFromId();
 	
@@ -63,10 +67,10 @@ for my $mbid (@{$releases})
 	
 	
 	print '<tr class="'.('ev', 'od')[$rownum % 2].'">';
-	print '<td>'.$artistname.'</td>';
-	print '<td>'.$release->GetName().'</td>';
-	print '<td>' . $release->GetFirstReleaseDate() . '</td>';
-	print '<td>'.$release->GetTrackCount().'</td>';
+	print '<td>'. $artistname .'</td>';
+	print '<td>'. $release->GetName() .'</td>';
+	print '<td>'. $release->GetFirstReleaseDate() .'</td>';
+	print '<td>'. $release->GetTrackCount() .'</td>';
 	print '</tr>';
 
 	$rownum++;
@@ -77,10 +81,7 @@ print '</table>';
 
 
 }
-else
-{
-	print 'No releases in collection.';
-}
+
 
 
 </%perl>

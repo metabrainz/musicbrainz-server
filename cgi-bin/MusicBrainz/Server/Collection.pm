@@ -109,8 +109,8 @@ sub AddRelease #"album" in current schema
 			$rosql->Begin();
 			
 			
-			use Data::Dumper;
-			print Dumper($mbid);
+			#use Data::Dumper;
+			#print Dumper($mbid);
 			# get album id
 			$releaseId = $rosql->SelectSingleValue("SELECT id FROM album WHERE gid = ?", $mbid);
 			

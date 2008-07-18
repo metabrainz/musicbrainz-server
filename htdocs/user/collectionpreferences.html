@@ -2,7 +2,7 @@
 
 
 	# Set up page
-	my $mb = $m->comp("/comp/dblogin");
+	my $mbro = $m->comp("/comp/dblogin");
 	$m->comp("/comp/sidebar-notitle", pagetitle => 'Collection Preferences');
 	
 	# Make sure user is logged on
@@ -17,12 +17,11 @@
 	MusicBrainz::Server::CollectionInfo::AssureCollection($session{uid}, $mbraw->{DBH});
 	
 	require CollectionPreference;
-	
-	my $preferences = CollectionPreference->new($mbraw->{DBH}, $session{uid});
+	my $preferences = CollectionPreference->new($mbro->{DBH}, $mbraw->{DBH}, $session{uid});
 	
 	use MusicBrainz::Server::CollectionInfo;
 	
-	my $collection = MusicBrainz::Server::CollectionInfo->new($session{uid}, $mb->{DBH}, $mbraw->{DBH});
+	my $collection = MusicBrainz::Server::CollectionInfo->new($session{uid}, $mbro->{DBH}, $mbraw->{DBH});
 	
 	my $artists = $collection->GetHasArtists();
 	

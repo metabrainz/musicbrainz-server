@@ -1,6 +1,7 @@
 #
 # TODO:
 # check values
+# if possible insert all tuples in setMissing... in one INSERT query
 #
 
 
@@ -19,7 +20,7 @@ package CollectionPreference;
 
 sub new
 {
-	my ($this, $rawdbh, $userId) = @_;
+	my ($this, $rodbh, $rawdbh, $userId) = @_;
 	
 	
 	# get collection id
@@ -27,28 +28,35 @@ sub new
 	my $query="SELECT id FROM collection_info WHERE moderator='$userId'";
 	my $collectionId=$sql->SelectSingleValue($query);
 	
+	
 	# select artist id's of artists to display missing releases of
 	my $artistsQuery="SELECT artist FROM collection_discography_artist_join WHERE collection_info='". $collectionId ."'";
 	my $artistsMissing=$sql->SelectSingleColumnArray($artistsQuery);
 	
-	print 'missing:'.Dumper($artistsMissing);
+	
+	# convert the array of artists to display missing releases of into a hash with the value as key
+	my $artistsMissingHash;
+	for my $artistId (@$artistsMissing)
+	{
+		$artistsMissingHash->{$artistId}=1;
+	}
 	
 	
-	print Dumper($userId);
-	
-	print 'collectionId: '.$collectionId.'<br/><br/>';
+	my $collection = MusicBrainz::Server::CollectionInfo->new($userId, $rodbh, $rawdbh);
+	my $hasArtists = $collection->GetHasArtists();
 	
 	my $object=bless(
 	{
 		RAWDBH			=> $rawdbh,
 		prefs			=> {},
 		collectionId	=> $collectionId,
-		artistsMissing	=>	$artistsMissing
+		hasArtists		=> $hasArtists,
+		artistsMissing	=> $artistsMissingHash
 	}, $this);
 	
 	$object->addpref('emailnotifications', 0, \&check_bool);
 	$object->addpref('notificationinterval', 7, sub { check_int(1,31,@_) });
-	
+	print Dumper($object->{artistsMissing});
 	return $object;
 }
 
@@ -122,10 +130,15 @@ sub get
 	my ($this, $key) = @_;
 	
 	
-	if($key =~ /artistwatchmissing_/)
+	if($key =~ /artistwatchmissing_([0-9]*)/)
 	{
-		my $index=/artistwatchmissing_([0-9]*)/;
-		return 1;
+		#my $index = /artistwatchmissing_([0-9]*)/;
+		#m/artistwatchmissing_([0-9]*)/;
+		my $index=$1;
+		
+		
+		#print Dumper($this->{artistsMissing});
+		return exists($this->{artistsMissing}{$this->{hasArtists}[$index]{id}});
 	}
 	
 	
@@ -147,11 +160,13 @@ sub get
 #	$value;
 }
 
+
+# $key and $value masking
 sub set
 {
 	my ($this, $key, $value) = @_;
 	
-	my $sql=Sql->new($this->{RAWDBH});
+	my $rawsql=Sql->new($this->{RAWDBH});
 	
 	my $prefs=$this->{prefs};
 	
@@ -160,8 +175,8 @@ sub set
 	
 	
 	
-	my $key = $info->{KEY};
-	my $value = $info->{VALUE};
+	my $oldkey = $info->{KEY};
+	my $oldvalue = $info->{VALUE};
 	
 	print '<br/><br/>key: '.$key.'<br/>value: '.$value.'<br/>collectionId: '.$this->{collectionId}.'<br/>';
 	
@@ -177,10 +192,10 @@ sub set
 
 	eval
 	{
-		$sql->Begin();
+		$rawsql->Begin();
 		
 		# update setting in collection_info table
-		$sql->Do("UPDATE collection_info SET $key='TRUE' WHERE id='".$this->{collectionId}."'");
+		$rawsql->Do("UPDATE collection_info SET $key='TRUE' WHERE id='".$this->{collectionId}."'");
 		#$sql->Do("UPDATE collection_info SET emailnotifications=FALSE WHERE id='0';");
 	};
 	
@@ -190,7 +205,7 @@ sub set
 		
 		print $error;
 		
-		$sql->Commit();	
+		$rawsql->Commit();	
 	}
 	else
 	{
@@ -199,7 +214,7 @@ sub set
 		
 		print Dumper($this->{prefs});
 		
-		$sql->Commit();
+		$rawsql->Commit();
 	}
 
 
@@ -224,9 +239,9 @@ sub set
 # set which artists to display missing discography of
 sub setMissingOfArtists
 {
-	my ($this, @artists) = @_;
-	print 'artists:'.Dumper(@artists);
-	print 'RAWDBH:'.Dumper($this->{RAWDBH});
+	my ($this, @artistsMissing) = @_;
+	#print 'artists:'.Dumper(@artistsMissing);
+	#print 'RAWDBH:'.Dumper($this->{RAWDBH});
 	my $rawsql = Sql->new($this->{RAWDBH});
 	
 	
@@ -239,7 +254,7 @@ sub setMissingOfArtists
 		$rawsql->Do("DELETE FROM collection_discography_artist_join WHERE collection_info=?", $this->{collectionId});
 		
 		# add selected artists
-		for my $artistId (@artists)
+		for my $artistId (@artistsMissing)
 		{
 			$rawsql->Do("INSERT INTO collection_discography_artist_join (collection_info, artist) VALUES (?, ?)", $this->{collectionId}, $artistId);
 		}
@@ -252,6 +267,16 @@ sub setMissingOfArtists
 	}
 	else
 	{
+		# update array of "missing artist" in object
+		# convert the array of artists to display missing releases of into a hash with the value as key
+		my $artistsMissingHash;
+		for my $artistId (@artistsMissing)
+		{
+			$artistsMissingHash->{$artistId}=1;
+		}
+		$this->{artistsMissing} = $artistsMissingHash;
+
+
 		$rawsql->Commit();
 	}
 }
@@ -321,6 +346,8 @@ sub ArtistInMissingList
 	#return exists $this->{artistsMissing}->{$artistId};
 	return 1;
 }
+
+
 
 1;
 

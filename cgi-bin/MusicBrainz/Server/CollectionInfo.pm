@@ -1,6 +1,8 @@
 #
 # TODO:
 # remove notificationinterval etc from query in CreateCollection and set them as default values in CreateTables.sql instead
+# do some of the SQL querys in evals
+# look up when to use/require should be used
 #
 
 #!/usr/bin/perl -w
@@ -12,7 +14,7 @@ package MusicBrainz::Server::CollectionInfo;
 
 sub new
 {
-	my ($this, $userId, $rodbh, $rawdbh)=@_;
+	my ($this, $userId, $rodbh, $rawdbh, $preferences)=@_;
 	
 	my %collectionHash;
 	my %artistHash;
@@ -26,27 +28,16 @@ sub new
 	
 	bless(
 	{
+		userId			=> $userId,
 		RODBH			=> $rodbh, # read only database
 		RAWDBH			=> $rawdbh, # raw database
-		userId			=> $userId,
+		preferences		=> $preferences,
 		result			=> $result,
 		collectionId	=> $result->{id},
 		hasReleases		=> undef,
 		missingReleases	=> undef
 		#artistHash		=> {}
 	}, $this);
-}
-
-
-
-# check if a user has a collection_info tuple. returns true or false.
-sub HasCollection
-{
-	my ($userId, $rawdbh) = @_;
-	
-	my $sql = Sql->new($rawdbh);
-		
-	return $sql->SelectSingleValue("SELECT COUNT(*) FROM collection_info WHERE moderator=?", $userId);
 }
 
 
@@ -65,6 +56,17 @@ sub AssureCollection
 		#print 'DO NOT HAVE COLLECTION';
 		CreateCollection($userId, $rawdbh);
 	}
+}
+
+
+# check if a user has a collection_info tuple. returns true or false.
+sub HasCollection
+{
+	my ($userId, $rawdbh) = @_;
+	
+	my $sql = Sql->new($rawdbh);
+		
+	return $sql->SelectSingleValue("SELECT COUNT(*) FROM collection_info WHERE moderator=?", $userId);
 }
 
 
@@ -106,21 +108,6 @@ sub GetCollectionIdForUser
 	return $collectionId;
 }
 
-
-# remove this sub?
-sub GetHasReleases
-{
-	my ($this) = @_;
-	
-	
-	#my $sql = $this->{RODBH};
-	
-	#my $query = "SELECT album.artist AS artistid, album.name AS albumname, album.attributes, album.gid, artist.name AS artistname FROM album, artist WHERE album.id IN (SELECT album FROM collection_has_release_join WHERE collection_info='123') AND artist.id=album.artist";
-	
-	#my $result = $sql->SelectListOfHashes($query);
-	
-	#return $result;
-}
 
 
 sub GetHasMBIDs
@@ -205,20 +192,29 @@ sub GetHasArtists
 
 
 
-sub GetMissingReleases
+# TODO: do the SQL stuff in an eval
+sub GetMissingMBIDs
 {
 	my ($this) = @_;
 	
-	my $sql = $this->{RODBH};
+	my $rosql = Sql->new($this->{RODBH});
+	my $rawsql = Sql->new($this->{RAWDBH});
 	
-	#my $query="SELECT * FROM album WHERE artist IN (SELECT artist FROM collection_discography_artist_join WHERE collection_info='123')";
+	#dont select all this stuff, its done by Release
+	#my $query = "SELECT album.name AS albumname, album.attributes, album.gid AS mbid, album.artist AS artistid,artist.name AS artistname FROM album,artist WHERE album.artist IN (SELECT artist FROM collection_discography_artist_join WHERE collection_info='123') AND artist.id IN (SELECT artist FROM collection_discography_artist_join WHERE collection_info='123') ORDER BY artist.name";
 	
-	my $query = "SELECT album.name AS albumname, album.attributes, album.gid AS mbid, album.artist AS artistid,artist.name AS artistname FROM album,artist WHERE album.artist IN (SELECT artist FROM collection_discography_artist_join WHERE collection_info='123') AND artist.id IN (SELECT artist FROM collection_discography_artist_join WHERE collection_info='123')";
+	#$artists = 
 	
-	my $result = $sql->SelectListOfHashes($query);
+	my $displayMissingOfArtists = $rawsql->SelectSingleColumnArray('SELECT artist FROM collection_discography_artist_join WHERE collection_info = ?', $this->{collectionId});
+	print STDERR Dumper(join(',', @$displayMissingOfArtists));
 	
-	use Data::Dumper;
-	print Dumper($result);
+	
+	my $query = "SELECT gid FROM album WHERE artist IN (". join(',', @$displayMissingOfArtists) .")";
+	
+	my $result = $rosql->SelectSingleColumnArray($query);
+	
+	
+	return $result;
 }
 
 
@@ -245,7 +241,7 @@ sub LoadHas
 
 sub LoadMissing
 {
-	
+	my (@missingArtists) = @_;
 }
 
 

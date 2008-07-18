@@ -64,7 +64,7 @@ sub handler
         # this way the output does not interfere with the operations.
 	#print STDERR 'asfgfgfgd\n';
 	
-	print 'asd';
+	#print 'asd';
 	
 	my $printer = sub {
 		print_xml($collection);

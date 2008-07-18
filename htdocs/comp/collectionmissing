@@ -1,0 +1,73 @@
+</%perl>
+<%args>
+	$userId => undef
+	$collectionId => undef
+	$rodbh => undef
+	$rawdbh => undef
+</%args>
+
+
+<& /comp/tablebegin, title => "Missing releases" &>
+
+
+<%perl>
+my $collectionInfo = MusicBrainz::Server::CollectionInfo->new($session{uid}, $rodbh, $rawdbh, undef);
+
+my $releases = $collectionInfo->GetMissingMBIDs();
+
+my $count = @$releases;
+print $count;
+
+if($count == 0)
+{
+	print 'There are no missing releases to display.';
+}
+else
+{
+
+</%perl>
+
+
+<table id="CompactReleaseList">
+	<tr>
+		<td><b>Artist</b></td>
+		<td><b>Release name</b></td>
+		<td><b>Release date</b></td>
+		<td><b>Track count</b></td>
+	</tr>
+
+
+<%perl>
+
+require Sql;
+my $rosql = Sql->new($rodbh);
+
+use MusicBrainz::Server::Release;
+
+my $rownum=0;
+
+for my $mbid (@{$releases})
+{
+	# load Release object
+	my $release = MusicBrainz::Server::Release->new($rodbh);
+	$release->SetMBId($mbid);
+	$release->LoadFromId();
+	
+	my $artistname = $rosql->SelectSingleValue("SELECT name FROM artist WHERE id='" . $release->GetArtist() . "'");
+	
+	
+	print '<tr class="'.('ev', 'od')[$rownum % 2].'">';
+	print '<td>'. $artistname .'</td>';
+	print '<td>'. $release->GetName() .'</td>';
+	print '<td>'. $release->GetFirstReleaseDate() .'</td>';
+	print '<td>'. $release->GetTrackCount() .'</td>';
+	print '</tr>';
+
+	$rownum++;
+}
+
+}
+</%perl>
+
+
+<& /comp/tableend &>
