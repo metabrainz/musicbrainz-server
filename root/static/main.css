@@ -327,6 +327,7 @@ div.release table .title {
 
 div.release table td {
     padding: 2pt 3pt;
+    vertical-align: top;
 }
 
 div.release table .number {
@@ -399,4 +400,19 @@ table.appears .artist {
 
 table.appears .title {
     text-align: left;
+}
+
+.release_tracks ul {
+    padding: 0;
+    margin: 0;
+}
+
+.release_tracks ul,
+.release_tracks .more_relationships {
+    margin-left: 15pt;
+    font-size: 8pt;
+}
+
+.release_tracks ul li {
+    list-style-type: none;
 }

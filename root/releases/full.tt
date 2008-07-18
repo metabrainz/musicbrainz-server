@@ -44,7 +44,11 @@
       [%- FOREACH track=tracks -%]
         <tr>
           <td class="number">[% track.number %]</td>
-          <td class="title">[% track.title %]</td>
+          <td class="title">
+            [% track.name %]
+            [% INCLUDE "components/relations.tt" source=track relations=track.relations justlist=1
+                 IF track.relations.size%]
+          </td>
           <td class="duration">[% track.duration %]</td>
           [%- IF c.user_exists -%]
           <td class="editinglinks">
@@ -52,13 +56,6 @@
           </td>
           [%- END -%]
         </tr>
-        [%- IF track.relations.size -%]
-        <tr>
-          <td colspan="3">
-          [% INCLUDE "components/relations.tt" relations=track.relations justlist=1 %]
-          </td>
-        </tr>
-        [%- END -%]
       [%- END -%]
     </tbody>
   </table>

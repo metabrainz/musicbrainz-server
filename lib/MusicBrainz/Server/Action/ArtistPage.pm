@@ -4,6 +4,8 @@ use strict;
 use warnings;
 use base 'Catalyst::Action';
 
+use Carp;
+use MusicBrainz::Server::Adapter;
 use MusicBrainz::Server::Artist;
 use MusicBrainz;
 
@@ -35,33 +37,17 @@ sub execute
         my $mb = $c->mb;
         my $artist = MusicBrainz::Server::Artist->new($mb->{DBH});
 
-        # Validate the arguments
-        unless(MusicBrainz::Server::Validation::IsGUID($mbid))
-        {
-            if (MusicBrainz::Server::Validation::IsNonNegInteger($mbid))
-            {
-                # Appears to be a row ID
-                $artist->SetId($mbid);
-            }
-            else
-            {
-                die "Not a valid GUID or row ID";
-            }
-        }
-        else
-        {
-            # Looks like a GUID
-            $artist->SetMBId($mbid);
-        }
+        MusicBrainz::Server::Adapter::LoadEntity ($artist, $mbid);
 
-        $artist->LoadFromId(1)
-            or die "Failed to load artist";
-
-        die "You cannot view the special DELETED_ARTIST"
+        croak "You cannot view the special DELETED_ARTIST"
             if ($artist->GetId == ModDefs::DARTIST_ID);
 
         $c->stash->{_artist} = $artist;
         $c->stash->{artist} = $artist->ExportStash qw( name mbid type date quality resolution );
+    }
+    else
+    {
+        croak "No MBID/row ID given.";
     }
 
     $self->NEXT::execute(@_);

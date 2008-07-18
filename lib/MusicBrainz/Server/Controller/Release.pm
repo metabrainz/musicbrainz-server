@@ -6,6 +6,7 @@ use parent 'Catalyst::Controller';
 
 use ModDefs;
 use MusicBrainz;
+use MusicBrainz::Server::Adapter;
 use MusicBrainz::Server::Adapter::Relations;
 use MusicBrainz::Server::CoverArt;
 use MusicBrainz::Server::Release;
@@ -45,6 +46,30 @@ sub releaseLinkRaw
     };
 }
 
+=head2 relations
+
+Show all relationships attached to this release
+
+=cut
+
+sub relations : Local Args(1) {
+    my ($self, $c, $mbid) = @_;
+
+    my $release = MusicBrainz::Server::Release->new($c->mb->{DBH});
+    MusicBrainz::Server::Adapter::LoadEntity ($release, $mbid);
+
+    $c->stash->{release} = $release->ExportStash;
+
+    my $link = MusicBrainz::Server::Link->new($c->mb->{DBH});
+    my @arLinks = $link->FindLinkedEntities($release->GetId, 'album');
+
+    MusicBrainz::Server::Adapter::Relations::NormaliseLinkDirections(\@arLinks, $release->GetId, 'album');
+    @arLinks = MusicBrainz::Server::Adapter::Relations::SortLinks(\@arLinks);
+    $c->stash->{relations} = MusicBrainz::Server::Adapter::Relations::ExportLinks(\@arLinks);
+
+    $c->stash->{template} = 'releases/relations.tt';
+}
+
 =head2 show
 
 Display a release to the user.
@@ -61,19 +86,8 @@ sub show : Path Local Args(1) {
     # Load Release
     #
     my $release = MusicBrainz::Server::Release->new($c->mb->{DBH});
-
-    unless (MusicBrainz::Server::Validation::IsGUID($mbid))
-    {
-        if (MusicBrainz::Server::Validation::IsNonNegInteger($mbid))
-            { $release->SetId($mbid); }
-        else
-            { die "Not a valid GUID or row ID"; }
-    }
-    else { $release->SetMBId($mbid); }
-
-    $release->LoadFromId(1)
-        or die "Failed to load release";
-
+    MusicBrainz::Server::Adapter::LoadEntity ($release, $mbid);
+    
     $c->stash->{release} = $release->ExportStash qw/ puids track_count quality language type /;
 
 
@@ -111,13 +125,11 @@ sub show : Path Local Args(1) {
         MusicBrainz::Server::Adapter::Relations::NormaliseLinkDirections(\@trackLinks, $track->GetId, 'track');
         @trackLinks = MusicBrainz::Server::Adapter::Relations::SortLinks(\@trackLinks);
 
-        push @{ $c->stash->{tracks} }, {
-            number => $track->GetSequence,
-            title => $track->GetName,
-            puids => $puid_counts->{ $track->GetId },
-            duration => MusicBrainz::Server::Track::FormatTrackLength($track->GetLength),
-            relations => MusicBrainz::Server::Adapter::Relations::ExportLinks(\@trackLinks),
-        };
+        my $trackStash = $track->ExportStash qw/number duration/;
+        $trackStash->{puids} = $puid_counts->{ $track->GetId };
+        $trackStash->{relations} = MusicBrainz::Server::Adapter::Relations::ExportLinks(\@trackLinks);
+
+        push @{ $c->stash->{tracks} }, $trackStash;
     }
 
 

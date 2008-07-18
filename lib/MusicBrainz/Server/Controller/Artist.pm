@@ -49,6 +49,23 @@ sub artistLinkRaw
    };
 }
 
+=head2 relations
+
+Shows all the entities (except track) that this artist is related to.
+
+=cut
+
+sub relations : Local Args(1) MyAction('ArtistPage')
+{
+    my ($self, $c, $mbid) = @_;
+
+    my $artist = $c->stash->{_artist};
+    my $links = LoadArtistARLinks ($c->mb->{DBH}, $artist);
+    $c->stash->{relations} = MusicBrainz::Server::Adapter::Relations::ExportLinks($links);
+
+    $c->stash->{template} = 'artist/relations.tt';
+}
+
 =head2 create
 
 When given a GET request this displays a form allowing the user to enter

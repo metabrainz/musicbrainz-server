@@ -1,20 +1,27 @@
 [%- DEFAULT maximum=3 -%]
 [%- BLOCK list -%]
-  <ul>
-    [% FOREACH ar IN relations %]
-      [% LAST IF loop.count > maximum && !showall %]
+  <ul class="relations_list">
+    [%- FOREACH ar IN relations -%]
+      [%- LAST IF loop.count > maximum && !showall -%]
       <li>
         [% ar.connector %]
-        [% FOREACH entity IN ar.entities %] 
-          [% INCLUDE "components/entity-link.tt" %][% !loop.last ? "," : "" %]
-          [% "(${entity.resolution})" IF entity.resolution %]
-        [% END %]
-    [% END %]
+        [%- FOREACH entity IN ar.entities -%]
+          [%- IF loop.count > 4 && !showall -%]
+            &hellip;
+            [%- LAST -%]
+          [%- ELSE -%]
+            [% INCLUDE "components/entity-link.tt" %][% !loop.last ? "," : "" %]
+            [% "(${entity.resolution})" IF entity.resolution %]
+          [%- END -%]
+        [%- END -%]
+    [%- END -%]
   </ul>
   [%- IF relations.size > maximum  && !showall -%]
     [%- n = relations.size - maximum -%]
-    [% n %] relationship[% n > 1 ? "s" : "" %] not shown.
-    <a href="[% c.uri_for("/relations/${source.link_type}/${source.mbid}") %]">View all relationships&hellip;</a>
+    <div class="more_relationships">
+      [% n %] relationship[% n > 1 ? "s" : "" %] not shown.
+    <a href="[% c.uri_for("/${source.link_type}/relations", source.mbid) %]">View all relationships&hellip;</a>
+    </div>
   [%- END -%]
 [%- END -%]
 
