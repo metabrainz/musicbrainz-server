@@ -240,7 +240,7 @@
 				<td class="label">Edit notes:</td>
 				<td>
 					[
-						<a href="/mod/addnote.html?editid=<% $id %>" id="addnote-top" onclick="toggleNoteText(); return false;">Add note</a>
+						<a href="/mod/addnote.html?editid=<% $id %>" id="addnote-top" onclick="jsvoting.toggleNoteText(); return false;">Add note</a>
 
 %						$m->out("&nbsp;|&nbsp;") if (@statuslinks);
 
@@ -320,7 +320,7 @@
 					<p style="margin: 0pt; text-align: right;">
 						<input type="hidden" value="<% $id %>" name="editid"/>
 						<input type="submit" value="Add Note »" name="submitvalue"/>
-						<input type="submit" value="Cancel" onclick="toggleNoteText(); return false;" />
+						<input type="submit" value="Cancel" onclick="jsvoting.toggleNoteText(); return false;" />
 					</p>
 					</form>
 				</td>
@@ -332,7 +332,7 @@
 				<td>&nbsp;</td>
 				<td>
 					[
-						<a href="/mod/addnote.html?editid=<% $id %>" id="addnote-bottom" onclick="toggleNoteText(); return false;">Add note</a>
+						<a href="/mod/addnote.html?editid=<% $id %>" id="addnote-bottom" onclick="jsvoting.toggleNoteText(); return false;">Add note</a>
 
 						<%perl>
 

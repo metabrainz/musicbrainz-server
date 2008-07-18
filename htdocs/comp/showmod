@@ -107,7 +107,7 @@
 
 %	}
 
-		[ <a href="/mod/addnote.html?modid=<% $editid %>" id="rowid<% $editid %>-addnote" onclick="toggleNoteText(<% $editid %>); return false;">Add note</a>
+		[ <a href="/mod/addnote.html?modid=<% $editid %>" id="rowid<% $editid %>-addnote" onclick="jsvoting.toggleNoteText(<% $editid %>); return false;">Add note</a>
 
 % 	my $url = uri_escape($r->uri.'?'.$r->args);
 % 	if ($is_open and
