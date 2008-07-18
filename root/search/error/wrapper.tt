@@ -1,0 +1,13 @@
+[% WRAPPER "layout.tt" title="Search" %]
+[% WRAPPER "components/box.tt" header="Error" %]
+
+[% content %]
+
+<p>
+  For help on writing effective search queries, try reading the 
+  [% INCLUDE "components/doc-link.tt" to="TextSearchSyntax"
+        text="text search syntax" %] documentation.
+</p>
+
+[% END %]
+[% END %]

@@ -19,10 +19,6 @@ and tags.
 
 =head1 METHODS
 
-=cut
-
-# simple {{{
-
 =head2 simple
 
 Handle a "simple" search which has a type and a query. This then redirects
@@ -38,14 +34,23 @@ sub simple : Local {
 
     if ($c->form_posted && $form->validate($c->req->params))
     {
-        $c->session->{last_simple_search} = $form->value('type');
-        $c->detach($form->value('type'), [ $form->value('query') ]);
-    }
+        my ($type, $query) = (  $form->value('type'),
+                                $form->value('query')   );
 
-    $c->stash->{template} = 'search/simple.tt';
+        $c->session->{last_simple_search} = $type;
+
+        # Use the 'editor' action for searching for moderators,
+        # otherwise search using the external search engine
+        if($type eq 'editor')
+        {
+            $c->detach("editor", [ $query ]);
+        }
+        else
+        {
+            $c->detach("external", [ $type, $query ]);
+        }
+    }
 }
-# }}}
-# editor {{{
 
 =head2 editor
 
@@ -76,31 +81,64 @@ sub editor : Local {
         $c->stash->{template} = 'search/editor.tt';
     }
 }
-# }}}
-# artist {{{
-sub artist : Local {
-    my ($self, $c) = @_;
-    die "This search not yet written";
+
+=head2 external
+
+Search using an external search engine (currently Lucene, but moving
+towards Xapian).
+
+=cut
+
+sub external : Local
+{
+    my ($self, $c, $type, $query) = @_;
+
+    my $searchUrl = sprintf("http://%s/ws/1/%s/?query=%s", DBDefs::LUCENE_SERVER,
+                                                           $type,
+                                                           $query );
+
+    use LWP::UserAgent;
+
+    my $ua = LWP::UserAgent->new;
+    $ua->timeout (2);
+    
+    # Dispatch the search request.
+    my $response = $ua->get ($searchUrl);
+    unless($response->is_success)
+    {
+        # Something went wrong with the search
+        my $template = 'search/error/';
+
+        # Switch on the response code to decide which template to provide
+        use Switch;
+        switch ($response->code)
+        {
+            case 404 { $template .= 'no-results.tt'; }
+            case 403 { $template .= 'no-info.tt'; };
+            case 500 { $template .= 'internal-error.tt'; }
+            case 400 { $template .= 'invalid.tt'; }
+
+            else { $template .= 'general.tt'; }
+        }
+
+        $c->stash->{content} = $response->content;
+        $c->stash->{query} = $query;
+        $c->stash->{type} = $type;
+        $c->stash->{template} = $template;
+    }
+    else
+    {
+        my $results = $response->content;
+
+        # Because this branch has a different url scheme, we need to
+        # update the URLs.
+        # TODO Update when this branch is live in Xapian's code base.
+        $results =~ s/\.html//;
+
+        $c->stash->{results} = $results;
+        $c->stash->{template} = 'search/external.tt';
+    }
 }
-# }}}
-# release {{{
-sub release : Local {
-    my ($self, $c) = @_;
-    die "This search not yet written";
-}
-# }}}
-# track {{{
-sub track : Local {
-    my ($self, $c) = @_;
-    die "This search not yet written";
-}
-# }}}
-# label {{{
-sub label : Local {
-    my ($self, $c) = @_;
-    die "This search not yet written";
-}
-# }}}
 
 =head1 LICENSE
 

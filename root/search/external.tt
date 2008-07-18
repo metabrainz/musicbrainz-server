@@ -1,0 +1,5 @@
+[% WRAPPER "layout.tt" title="Search" %]
+[% WRAPPER "components/box.tt" header="Search Results" %]
+[% results %]
+[% END %]
+[% END %]
