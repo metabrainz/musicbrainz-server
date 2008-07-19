@@ -2,7 +2,8 @@ package MusicBrainz::Server::Controller::Url;
 
 use strict;
 use warnings;
-use parent 'Catalyst::Controller';
+
+use base 'Catalyst::Controller';
 
 use MusicBrainz::Server::URL;
 use MusicBrainz;
@@ -32,8 +33,8 @@ sub urlLinkRaw
     my ($url, $mbid) = @_;
 
     {
-        url => $url,
-        mbid => $mbid,
+        url       => $url,
+        mbid      => $mbid,
         link_type => 'url'
     };
 }

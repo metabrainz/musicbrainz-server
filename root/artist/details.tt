@@ -3,13 +3,13 @@
 [% INCLUDE "artist/header.tt" %]
 
 [% WRAPPER "components/box.tt" header="Artist Information" %]
-<table>
+<table class="details">
   <tr>
     <th>[% INCLUDE "components/doc-link.tt" to="ArtistName" text="Name" %]:</th>
     <td>
-      [% artist.name %]
+      [% INCLUDE "components/entity-link.tt" entity=artist %]
       [% IF artist.resolution %]
-      ([% artist.resolution %])
+        ([% artist.resolution %])
       [% END %]
     </td>
   </tr>
@@ -20,7 +20,7 @@
   </tr>
     <th>Permanent link:</th>
     <td>
-      [% perma="http://musicbrainz.org/artist/${artist.mbid}.html" %]
+      [% perma="http://musicbrainz.org/artist/${artist.mbid}" %]
       <a href="[% perma | url %]">[% perma | html %]</a>
     </td>
   </tr>

@@ -2,6 +2,7 @@ package MusicBrainz::Server::Controller::Root;
 
 use strict;
 use warnings;
+
 use base 'Catalyst::Controller';
 
 # Import MusicBrainz libraries

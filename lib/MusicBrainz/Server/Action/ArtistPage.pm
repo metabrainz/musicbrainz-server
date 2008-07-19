@@ -5,7 +5,7 @@ use warnings;
 use base 'Catalyst::Action';
 
 use Carp;
-use MusicBrainz::Server::Adapter;
+use MusicBrainz::Server::Adapter qw(LoadEntity);
 use MusicBrainz::Server::Artist;
 use MusicBrainz;
 
@@ -37,15 +37,16 @@ sub execute
     if (defined $mbid)
     {
         my $mb = $c->mb;
-        my $artist = MusicBrainz::Server::Artist->new($mb->{DBH});
 
-        MusicBrainz::Server::Adapter::LoadEntity ($artist, $mbid);
+        my $artist = MusicBrainz::Server::Artist->new($mb->{DBH});
+        LoadEntity ($artist, $mbid);
 
         croak "You cannot view the special DELETED_ARTIST"
             if ($artist->GetId == ModDefs::DARTIST_ID);
 
         $c->stash->{_artist} = $artist;
-        $c->stash->{artist} = $artist->ExportStash qw( name mbid type date quality resolution );
+        $c->stash->{artist} = $artist->ExportStash qw( name mbid type date
+                                                       quality resolution );
     }
     else
     {

@@ -3,6 +3,9 @@ package MusicBrainz::Server::Adapter::Relations;
 use strict;
 use warnings;
 
+use Exporter;
+our @EXPORT_OK = qw( LoadRelations );
+
 use MusicBrainz::Server::CoverArt;
 
 =head1 NAME
@@ -19,9 +22,30 @@ components
 
 =head1 METHODS
 
+=head2 LoadRelations $entity, $type, [%opts]
+
+Load all relationships for an entity (given by C<$entity> - note that the
+C<$type> of the entity must also be given). C<%opts> is passed to
+L<MusicBrainz::Server::Link::FindLinkedEntities>, see that for more details on
+what options are taken.
+
+Returns a reference ready to be stored in the stash, and rendered with
+components/relations.tt
+
 =cut
 
-# NormaliseLinkDirections {{{
+sub LoadRelations
+{
+    my ($entity, $type, %opts) = @_;
+
+    my $link  = MusicBrainz::Server::Link->new($entity->{DBH});
+    my @links = $link->FindLinkedEntities($entity->GetId, $type, %opts);
+
+    NormaliseLinkDirections(\@links, $entity->GetId, $type);
+    @links = SortLinks(\@links);
+
+    return ExportLinks(\@links);
+}
 
 =head2 NormaliseLinkDirections \@links, $id, $type
 
@@ -62,8 +86,6 @@ sub NormaliseLinkDirections
 
     return $arLinks;
 }
-# }}}
-# SortLinks {{{
 
 =head2 SortLinks \@links
 
@@ -97,8 +119,6 @@ sub SortLinks
         return $a->{link1_name} cmp $b->{link1_name};
     } @$links;
 }
-# }}}
-# ExportLink {{{
 
 =head2 ExportLink $link, [$index]
 
@@ -123,33 +143,68 @@ sub ExportLink
 
     $linkType ||= "link1";
 
+    my $stash = {};
+
     my $name = $link->{"${linkType}_name"};
-    my $url = $name;
 
-    if($link->{link_name} eq "wikipedia")
+    # Special treatment for certain urls:
+    if ($link->{"${linkType}_type"} eq 'url')
     {
-        $name =~ s/^http:\/\/(\w{2,})\.wikipedia\.org\/wiki\/(.*)$/$1: $2/o;
-        $name =~ tr/_/ /;
+        my $url = $name;
 
-        # We have to decode the URL now to display in text form
-        $name =~ s/\%([\dA-Fa-f]{2})/pack('C', hex($1))/oeg;
+        use Switch;
+        switch($link->{link_name})
+        {
+            case("amazon asin")
+            {
+                my ($asin) = MusicBrainz::Server::CoverArt->ParseAmazonURL($link->{link1_name});
+                $name = $asin;
+            }
 
-        use Encode;
-        my $decoded_name = $name;
-        eval { Encode::decode_utf8($decoded_name, Encode::FB_CROAK); };
-        $name = $decoded_name unless $@;
+            case("purchase for mail-order") { next; }
+            case("purchase for download") { next; }
+            case("download for free") { next; }
+            case("creative commons licensed download") { next; }
+
+            case("cover art link")
+            {
+                my ($new_name, $coverurl, $new_url) = MusicBrainz::Server::CoverArt->ParseCoverArtURL($link->{link1_name});
+
+                $name = $new_name
+                    if $new_name;
+
+                $url = $new_url
+                    if $new_url;
+            }
+
+            case("wikipedia")
+            {
+                $name =~ s/^http:\/\/(\w{2,})\.wikipedia\.org\/wiki\/(.*)$/$1: $2/o;
+                $name =~ tr/_/ /;
+
+                # We have to decode the URL now to display in text form
+                $name =~ s/\%([\dA-Fa-f]{2})/pack('C', hex($1))/oeg;
+
+                use Encode;
+                my $decoded_name = $name;
+                eval { Encode::decode_utf8($decoded_name, Encode::FB_CROAK); };
+                $name = $decoded_name unless $@;
+            }
+        }
+
+        $stash->{url} = $url;
+    }
+    elsif ($link->{"${linkType}_type"} eq 'artist')
+    {
+        $stash->{resolution} = $link->{"${linkType}_resolution"};
     }
 
-    return {
-        name => $name,
-        url => $url,
-        link_type => $link->{"${linkType}_type"},
-        mbid => $link->{"${linkType}_mbid"},
-        resolution => $link->{"${linkType}_resolution"},
-    };
+    $stash->{name}      = $name;
+    $stash->{link_type} = $link->{"${linkType}_type"};
+    $stash->{mbid}      = $link->{"${linkType}_mbid"};
+    
+    return $stash;
 }
-# }}}
-# ExportLinks {{{
 
 =head2 ExportLinks \@links
 
@@ -159,6 +214,7 @@ and displayed using the C<components/relations.tt> component.
 C<\@links> is an array reference to a list of links to export.
 
 =cut
+
 sub ExportLinks
 {
     my $links = shift;
@@ -177,40 +233,11 @@ sub ExportLinks
             push @stashData, $currentGroup;
         }
 
-        # Export enough information to link to *any* entity.
-        my $stashLink = ExportLink($link, "link1");
-
-        # Special treatment for certain urls {{{
-        use Switch;
-        switch($link->{link_name})
-        {
-            case("amazon asin") {
-                my ($asin) = MusicBrainz::Server::CoverArt->ParseAmazonURL($link->{link1_name});
-                $stashLink->{name} = $asin;
-            }
-
-            case("purchase for mail-order") { next; }
-            case("purchase for download") { next; }
-            case("download for free") { next; }
-            case("creative commons licensed download") { next; }
-            case("cover art link") {
-                my ($name, $coverurl, $url) = MusicBrainz::Server::CoverArt->ParseCoverArtURL($link->{link1_name});
-
-                $stashLink->{name} = $name
-                    if $name;
-
-                $stashLink->{url} = $url
-                    if $url;
-            }
-        }
-        # }}}
-
-        push @{$currentGroup->{entities}}, $stashLink;
+        push @{$currentGroup->{entities}}, ExportLink($link, "link1");
     }
 
     return \@stashData;
 }
-# }}}
 
 =head1 LICENSE 
 

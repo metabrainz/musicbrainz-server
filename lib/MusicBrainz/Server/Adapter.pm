@@ -3,6 +3,9 @@ package MusicBrainz::Server::Adapter;
 use strict;
 use warnings;
 
+use Exporter;
+our @EXPORT_OK = qw( LoadEntity );
+
 use Carp;
 use MusicBrainz::Server::Artist;
 use MusicBrainz::Server::Release;
@@ -37,13 +40,13 @@ sub LoadEntity
     croak "No entity given"
         unless defined $entity and ref $entity;
 
-    if(MusicBrainz::Server::Validation::IsGUID($mbid))
+    if (MusicBrainz::Server::Validation::IsGUID($mbid))
     {
         $entity->SetMBId($mbid);
     }
     else
     {
-        if(MusicBrainz::Server::Validation::IsNonNegInteger($mbid))
+        if (MusicBrainz::Server::Validation::IsNonNegInteger($mbid))
         {
             $entity->SetId($mbid);
         }

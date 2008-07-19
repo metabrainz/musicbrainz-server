@@ -6,7 +6,7 @@ use base 'Catalyst::Action';
 
 use Carp;
 use ModDefs;
-use MusicBrainz::Server::Adapter;
+use MusicBrainz::Server::Adapter qw(LoadEntity);
 use MusicBrainz::Server::Artist;
 use MusicBrainz;
 
@@ -38,15 +38,15 @@ sub execute
     if (defined $mbid)
     {
         my $mb = $c->mb;
-        my $label = MusicBrainz::Server::Label->new($mb->{DBH});
 
-        MusicBrainz::Server::Adapter::LoadEntity ($label, $mbid);
+        my $label = MusicBrainz::Server::Label->new($mb->{DBH});
+        LoadEntity($label, $mbid);
 
         croak "The special label 'DELETED_LABEL' cannot be shown"
             if $label->GetId == ModDefs::DLABEL_ID;
 
         $c->stash->{_label} = $label;
-        $c->stash->{label} = $label->ExportStash;
+        $c->stash->{label}  = $label->ExportStash;
     }
     else
     {

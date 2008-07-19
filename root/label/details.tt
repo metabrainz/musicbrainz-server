@@ -1,0 +1,28 @@
+[% WRAPPER 'label/layout.tt' title="Details" %]
+[% WRAPPER "components/box.tt" header="Details" %]
+<table>
+  <tr>
+    <th>[%- INCLUDE "components/doc-link.tt" to="LabelName" text="Name" -%]:</th>
+    <td>[%- INCLUDE "components/entity-link.tt" entity=label -%]</td>
+  </tr>
+
+  <tr>
+    <th>[%- INCLUDE "components/doc-link.tt" to="MusicBrainzIdentifier" text="MBID" -%]:</th>
+    <td>[%- label.mbid %]</td>
+  </tr>
+
+  <tr>
+    <th>Permanent link:</th>
+    <td>
+      [% perma="http://musicbrainz.org/label/${artist.mbid}" %]
+      <a href="[% perma | url %]">[% perma | html %]</a>
+    </td>
+  </tr>
+
+  <tr>
+    <th>Subscribers:</th>
+    <td>[% label.subscribers %]</td>
+  </tr>
+</table>
+[% END %]
+[% END %]

@@ -25,7 +25,8 @@ Handle a "simple" search which has a type and a query. This then redirects
 to whichever specific search action the search type maps to.
 
 =cut
-sub simple : Local {
+sub simple : Local
+{
     my ($self, $c) = @_;
 
     use MusicBrainz::Server::Form::Search::Simple;
@@ -41,7 +42,7 @@ sub simple : Local {
 
         # Use the 'editor' action for searching for moderators,
         # otherwise search using the external search engine
-        if($type eq 'editor')
+        if ($type eq 'editor')
         {
             $c->detach("editor", [ $query ]);
         }
@@ -63,10 +64,11 @@ no moderator could be found, the user is informed.
 
 =cut
 
-sub editor : Local {
+sub editor : Local
+{
     my ($self, $c, $query) = @_;
 
-    my $us = new UserStuff ($c->mb->{DBH});
+    my $us = new UserStuff($c->mb->{DBH});
     my $user = $us->newFromName($query);
 
     if(defined $user)
@@ -103,8 +105,8 @@ sub external : Local
     $ua->timeout (2);
     
     # Dispatch the search request.
-    my $response = $ua->get ($searchUrl);
-    unless($response->is_success)
+    my $response = $ua->get($searchUrl);
+    unless ($response->is_success)
     {
         # Something went wrong with the search
         my $template = 'search/error/';
@@ -121,9 +123,9 @@ sub external : Local
             else { $template .= 'general.tt'; }
         }
 
-        $c->stash->{content} = $response->content;
-        $c->stash->{query} = $query;
-        $c->stash->{type} = $type;
+        $c->stash->{content}  = $response->content;
+        $c->stash->{query}    = $query;
+        $c->stash->{type}     = $type;
         $c->stash->{template} = $template;
     }
     else
@@ -135,7 +137,7 @@ sub external : Local
         # TODO Update when this branch is live in Xapian's code base.
         $results =~ s/\.html//;
 
-        $c->stash->{results} = $results;
+        $c->stash->{results}  = $results;
         $c->stash->{template} = 'search/external.tt';
     }
 }

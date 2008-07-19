@@ -2,13 +2,15 @@ package MusicBrainz::Server::Controller::Artist;
 
 use strict;
 use warnings;
-use parent 'Catalyst::Controller';
+
+use base 'Catalyst::Controller';
 
 use Encode qw( decode );
 use ModDefs;
 use Moderation;
-use MusicBrainz::Server::Annotation;
+use MusicBrainz::Server::Adapter::Relations qw(LoadRelations);
 use MusicBrainz::Server::Alias;
+use MusicBrainz::Server::Annotation;
 use MusicBrainz::Server::Artist;
 use MusicBrainz::Server::Link;
 use MusicBrainz::Server::Release;
@@ -33,8 +35,8 @@ that is attributed to a certain artist.
 
 =head2 artistLinkRaw
 
-Create stash data to link to an artist, but given the parameters explicity (rather than requiring an
-Artist object)
+Create stash data to link to an artist, but given the parameters explicity
+(rather than requiring an Artist object)
 
 =cut
 
@@ -43,9 +45,9 @@ sub artistLinkRaw
     my ($name, $mbid) = @_;
 
     {
-        name => $name,
-        mbid => $mbid,
-        link_type => 'artist'
+        name      => $name,
+        mbid      => $mbid,
+        link_type => 'artist',
    };
 }
 
@@ -58,10 +60,9 @@ Shows all the entities (except track) that this artist is related to.
 sub relations : Local Args(1) MyAction('ArtistPage')
 {
     my ($self, $c, $mbid) = @_;
-
     my $artist = $c->stash->{_artist};
-    my $links = LoadArtistARLinks ($c->mb->{DBH}, $artist);
-    $c->stash->{relations} = MusicBrainz::Server::Adapter::Relations::ExportLinks($links);
+
+    $c->stash->{relations} = load_relations($artist);
 
     $c->stash->{template} = 'artist/relations.tt';
 }
@@ -93,12 +94,16 @@ sub create : Local
     {
         if (my $mods = $form->update_from_form ($c->req->params))
         {
-            $c->flash->{ok} = "Thanks! The artist has been added to the database, and we have redirected you to their landing page";
-            (my $addmod) = grep { $_->Type eq ModDefs::MOD_ADD_ARTIST } @$mods;
-            if ($addmod)
-            {
-                $c->detach('/artist/show', $addmod->GetRowId);
-            }
+            $c->flash->{ok} = "Thanks! The artist has been added to the " .
+                              "database, and we have redirected you to " .
+                              "their landing page";
+
+            # Make sure that the moderation did go through, and redirect to
+            # the new artist
+            my $addmod = grep { $_->Type eq ModDefs::MOD_ADD_ARTIST } @$mods;
+
+            $c->detach('/artist/show', $addmod->GetRowId)
+                if $addmod;
         }
     }
 
@@ -125,13 +130,16 @@ sub edit : Local Args(1) MyAction('ArtistPage')
 
     my $form = new MusicBrainz::Server::Form::Artist($artist->GetId);
     $form->context($c);
+
     $c->stash->{form} = $form;
 
-    if($c->form_posted)
+    if ($c->form_posted)
     {
         if ($form->update_from_form($c->req->params))
         {
-            $c->flash->{ok} = "Thanks, your artist edit has been entered into the moderation queue";
+            $c->flash->{ok} = "Thanks, your artist edit has been entered " .
+                              "into the moderation queue";
+
             $c->detach('/artist/show', $mbid);
         }
     }
@@ -149,8 +157,9 @@ relations.
 sub appearances : Local Args(1) MyAction('ArtistPage')
 {
     my ($self, $c) = @_;
+
     my $artist = $c->stash->{_artist};
-    my $mb = $c->mb;
+    my $mb     = $c->mb;
 
     my $link = new MusicBrainz::Server::Link($mb->{DBH});
     my @rawReleases = @{$link->FindLinkedAlbums("artist", $artist->GetId)};
@@ -176,17 +185,17 @@ sub appearances : Local Args(1) MyAction('ArtistPage')
             $release->{_disc_no_} = $2;
         }
 
-        $release->{date} = $release->{begindate};
-        $release->{date} =~ s/\s+//;
-        $release->{date} = $release->{firstreleasedate} if !$release->{date};
-        $release->{_sort_date_} = ($release->{date} || "9999-99-99");
+        $release->{date}        = $release->{begindate};
+        $release->{date}        =~ s/\s+//;
+        $release->{date}        = $release->{firstreleasedate} if !$release->{date};
+        $release->{_sort_date_} = $release->{date} || "9999-99-99";
     }
     
     @rawReleases = sort {
-        ($a->{linkphrase} cmp $b->{linkphrase}) or
+        ($a->{linkphrase}  cmp $b->{linkphrase}) or
         ($a->{_sort_date_} cmp $b->{_sort_date_}) or
         ($a->{_name_sort_} cmp $b->{_name_sort_}) or
-        ($a->{_disc_no_} <=> $b->{_disc_no_})
+        ($a->{_disc_no_}   <=> $b->{_disc_no_})
     } @rawReleases;
    
     my @releaseGroups;
@@ -195,10 +204,10 @@ sub appearances : Local Args(1) MyAction('ArtistPage')
     {
         die "No release" unless defined $release;
 
-        if(not defined $group or $release->{linkphrase} ne $group->{phrase})
+        if (not defined $group or $release->{linkphrase} ne $group->{phrase})
         {
             $group = {
-                phrase => $release->{linkphrase},
+                phrase   => $release->{linkphrase},
                 releases => []
             };
 
@@ -206,15 +215,15 @@ sub appearances : Local Args(1) MyAction('ArtistPage')
         }
 
         my $stashRelease = {
-            name => $release->{name},
+            name      => $release->{name},
             link_type => 'release',
-            mbid => $release->{id}
+            mbid      => $release->{id},
         };
 
         $stashRelease->{artist} = {
-            name => $release->{artist_name},
+            name      => $release->{artist_name},
             link_type => 'artist',
-            mbid => $release->{artist_id}
+            mbid      => $release->{artist_id},
         };
         $stashRelease->{year} = substr($release->{date}, 0, 4) || '?';
 
@@ -222,7 +231,7 @@ sub appearances : Local Args(1) MyAction('ArtistPage')
     }
 
     $c->stash->{release_groups} = \@releaseGroups;
-    $c->stash->{template} = 'artist/appearances.tt';
+    $c->stash->{template}       = 'artist/appearances.tt';
 }
 
 =head2 perma
@@ -234,7 +243,7 @@ Display the perma-link for a given artist.
 sub perma : Local Args(1) MyAction('ArtistPage')
 {
     my ($self, $c) = @_;
-    my $artist = $c->stash->{_artist};
+
     $c->stash->{template} = 'artist/perma.tt';
 }
 
@@ -248,15 +257,9 @@ sub details : Local Args(1) MyAction('ArtistPage')
 {
     my ($self, $c, $mbid) = @_;
 
-    my $mb = new MusicBrainz;
-    $mb->Login();
-
     my $artist = $c->stash->{_artist};
-    $artist->{DBH} = $mb->{DBH};
 
-    $c->stash->{details} = {
-        subscriber_count => scalar $artist->GetSubscribers
-    };
+    $c->stash->{details}->{subscriber_count} = scalar $artist->GetSubscribers;
 
     $c->stash->{template} = 'artist/details.tt';
 }
@@ -273,20 +276,20 @@ sub aliases : Local Args(1) MyAction('ArtistPage')
 
     my $artist = $c->stash->{_artist};
 
-    my $alias = MusicBrainz::Server::Alias->new($c->mb->{DBH}, "ArtistAlias");
+    my $alias   = MusicBrainz::Server::Alias->new($c->mb->{DBH}, "ArtistAlias");
     my @aliases = $alias->GetList($artist->GetId);
 
     my @prettyAliases = ();
     for my $alias (@aliases)
     {
         push @prettyAliases, {
-            name => $alias->[1],
+            name     => $alias->[1],
             useCount => $alias->[2],
-            used => !($alias->[3] =~ /^1970-01-01/)
+            used     => !($alias->[3] =~ /^1970-01-01/),
         }
     }
 
-    $c->stash->{aliases} = \@prettyAliases;
+    $c->stash->{aliases}  = \@prettyAliases;
     $c->stash->{template} = 'artist/aliases.tt';
 }
 
@@ -305,24 +308,21 @@ sub show : Path Args(1) MyAction('ArtistPage')
     my ($self, $c, $mbid) = @_;
 
     # Load the artist
-    my $mb = $c->mb;
+    my $mb     = $c->mb;
     my $artist = $c->stash->{_artist};
 
     # Load data for the landing page
-    my $annotation = LoadArtistAnnotation ($mb->{DBH}, $artist);
-    my @tags = LoadArtistTags ($mb->{DBH}, 5, $artist);
-    my $arLinks = LoadArtistARLinks ($mb->{DBH}, $artist); 
-    my @releases = LoadArtistReleases ($artist);
+    my $annotation = LoadArtistAnnotation($mb->{DBH}, $artist);
+    my @tags       = LoadArtistTags($mb->{DBH}, 5, $artist);
+    my @releases   = LoadArtistReleases($artist);
 
     # Create data structures for the template
-    # General artist data: {{{
-    $c->stash->{artist_tags} = \@tags;
-    $c->stash->{artist_relations} = MusicBrainz::Server::Adapter::Relations::ExportLinks($arLinks);
+    $c->stash->{artist_tags}      = \@tags;
+    $c->stash->{artist_relations} = load_relations($artist);
     # $c->stash->{annotation} = $annotation->GetTextAsHTML
     #    if defined $annotation;
 
-    # }}}
-    # Releases, sorted into "release groups": {{{
+    # Releases, sorted into "release groups":
     $c->stash->{groups} = [];
 
     my $currentGroup;
@@ -330,25 +330,26 @@ sub show : Path Args(1) MyAction('ArtistPage')
     {
         my ($type, $status) = $release->GetReleaseTypeAndStatus;
 
-        # Releases should have sorted into groups, so if $type has changed, we need to create
-        # a new "release group"
-        if(not defined $currentGroup or $currentGroup->{type} != $type)
+        # Releases should have sorted into groups, so if $type has changed,
+        # we need to create a new "release group"
+        if (not defined $currentGroup or $currentGroup->{type} != $type)
         {
             $currentGroup = {
-                name => $release->GetAttributeNamePlural($type),
+                name     => $release->GetAttributeNamePlural($type),
                 releases => [],
-                type => $type
+                type     => $type,
             };
 
             push @{$c->stash->{groups}}, $currentGroup;
         }
 
-        my $rel = $release->ExportStash qw/ language track_count disc_ids puids quality language status
-                                            first_date attributes type/;
+        my $rel = $release->ExportStash qw/ language track_count disc_ids
+                                            puids    quality     language
+                                            status   first_date  attributes
+                                            type/;
 
         push @{$currentGroup->{releases}}, $rel;
     }
-    # }}}
 
     # Decide how to display the data
     $c->stash->{template} = $c->request->params->{full} ? 
@@ -356,12 +357,19 @@ sub show : Path Args(1) MyAction('ArtistPage')
                                 'artist/compact.tt';
 }
 
+
+
+=head2 INTERNAL METHODS
+
+=cut
+
 sub LoadArtistAnnotation
 {
     my ($dbh, $artist) = @_;
 
     my $annotation = MusicBrainz::Server::Annotation->new($dbh);
     $annotation->SetArtist($artist->GetId);
+
     return $annotation->GetLatestAnnotation;
 }
 
@@ -369,25 +377,10 @@ sub LoadArtistTags
 {
     my ($dbh, $tagCount, $artist) = @_;
 
-    my $t = MusicBrainz::Server::Tag->new($dbh);
+    my $t       = MusicBrainz::Server::Tag->new($dbh);
     my $tagHash = $t->GetTagHashForEntity('artist', $artist->GetId, $tagCount + 1);
 
     sort { $tagHash->{$b} <=> $tagHash->{$a}; } keys %{$tagHash};
-}
-
-sub LoadArtistARLinks
-{
-    my ($dbh, $artist) = @_;
-    my @arLinks;
-
-    my $link = MusicBrainz::Server::Link->new($dbh);
-    @arLinks = $link->FindLinkedEntities($artist->GetId,
-        'artist', to_type => ['label', 'url', 'artist']);
-
-    MusicBrainz::Server::Adapter::Relations::NormaliseLinkDirections(\@arLinks, $artist->GetId, 'artist');
-    @arLinks = MusicBrainz::Server::Adapter::Relations::SortLinks(\@arLinks);
-
-    return \@arLinks;
 }
 
 sub LoadArtistReleases
@@ -405,14 +398,14 @@ sub LoadArtistReleases
 
         # Construct values to sort on
         $release->SetMultipleTrackArtists($release->GetArtist != $release->GetId() ? 1 : 0);
-        $release->{_is_va_} = ($release->GetArtist == &ModDefs::VARTIST_ID or
-                               $release->GetArtist != $release->GetId());
-        $release->{_is_nonalbum_} = ($type && $type == MusicBrainz::Server::Release::RELEASE_ATTR_NONALBUMTRACKS);
-        $release->{_section_key_} = (defined $type ? $release->{_is_va_} . " " . $type : $release->{_is_va});
-        $release->{_name_sort_} = lc decode "utf-8", $release->GetName;
-        $release->{_disc_max_} = 0;
-        $release->{_disc_no_} = 0;
         $release->{_firstreleasedate_} = ($release->GetFirstReleaseDate || "9999-99-99");
+        $release->{_is_va_}       = ($release->GetArtist == &ModDefs::VARTIST_ID) or
+                                    ($release->GetArtist != $release->GetId());
+        $release->{_is_nonalbum_} = $type && $type == MusicBrainz::Server::Release::RELEASE_ATTR_NONALBUMTRACKS;
+        $release->{_section_key_} = (defined $type ? $release->{_is_va_} . " " . $type : $release->{_is_va});
+        $release->{_name_sort_}   = lc decode "utf-8", $release->GetName;
+        $release->{_disc_max_}    = 0;
+        $release->{_disc_no_}     = 0;
 
         CheckAttributes($release);
 
@@ -430,8 +423,8 @@ sub LoadArtistReleases
             /xi)
         {
             $release->{_name_sort_} = "$1 $4";
-            $release->{_disc_no_} = $2;
-            $release->{_disc_max_} = $3 || 0;
+            $release->{_disc_no_}   = $2;
+            $release->{_disc_max_}  = $3 || 0;
         }
 
         # Push onto our list of releases we are actually interested in
@@ -446,8 +439,23 @@ sub LoadArtistReleases
     sort SortAlbums @shortList;
 }
 
-# Helpers:
-#
+=head2 load_relations $artist
+
+Load the relations for a given artist. Returns a reference, ready for store
+in the stash.
+
+=cut
+
+sub load_relations
+{
+    my $artist = shift;
+
+    my %opts = (
+        to_type => ['label', 'url', 'artist'],
+    );
+
+    return LoadRelations($artist, 'artist', %opts);
+}
 
 sub CheckAttributes
 {
@@ -455,22 +463,22 @@ sub CheckAttributes
 
     for my $attr ($a->GetAttributes)
     {
-        $a->{_attr_type} = $attr if ($attr >= MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_TYPE_START &&
-                                     $attr <= MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_TYPE_END);
+        $a->{_attr_type}   = $attr if ($attr >= MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_TYPE_START &&
+                                       $attr <= MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_TYPE_END);
         $a->{_attr_status} = $attr if ($attr >= MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_STATUS_START &&
                                        $attr <= MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_STATUS_END);
-        $a->{_attr_type} = $attr if ($attr == MusicBrainz::Server::Release::RELEASE_ATTR_NONALBUMTRACKS);
+        $a->{_attr_type}   = $attr if ($attr == MusicBrainz::Server::Release::RELEASE_ATTR_NONALBUMTRACKS);
     }
 
     # The "actual values", used for display
-    $a->{_actual_attr_type} = $a->{_attr_type};
+    $a->{_actual_attr_type}   = $a->{_attr_type};
     $a->{_actual_attr_status} = $a->{_attr_status};
 
     # Used for sorting
     $a->{_attr_type} = MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_TYPE_END + 1
-        if (not defined $a->{_attr_type});
+        unless defined $a->{_attr_type};
     $a->{_attr_status} = MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_STATUS_END + 1
-        if (not defined $a->{_attr_status});
+        unless defined $a->{_attr_status};
 };
 
 =head2 SortAlbums
@@ -484,28 +492,25 @@ sub SortAlbums
 {
     # I edited these out of one huge "or"ed conditional as it was a bitch to debug
     my @predicates = (
-        ($a->{_is_va_} <=> $b->{_is_va_}),
-        ($b->{_is_nonalbum_} <=> $a->{_is_nonalbum_}),
-        ($a->{_attr_type} <=> $b->{_attr_type}),
+        ($a->{_is_va_}            <=> $b->{_is_va_}),
+        ($b->{_is_nonalbum_}      <=> $a->{_is_nonalbum_}),
+        ($a->{_attr_type}         <=> $b->{_attr_type}),
         ($a->{_firstreleasedate_} cmp $b->{_firstreleasedate_}),
-        ($a->{_name_sort_} cmp $b->{_name_sort_}),
-        ($a->{_disc_max_} <=> $b->{_disc_max_}),
-        ($a->{_disc_no_} <=> $b->{_disc_no_}),
-        ($a->{_attr_status} <=> $b->{_attr_status}),
-        ($a->{trackcount} cmp $b->{trackcount}),
-        ($b->{trmidcount} cmp $a->{trmidcount}),
-        ($b->{puidcount} cmp $a->{puidcount}),
-        ($a->GetId cmp $b->GetId)
+        ($a->{_name_sort_}        cmp $b->{_name_sort_}),
+        ($a->{_disc_max_}         <=> $b->{_disc_max_}),
+        ($a->{_disc_no_}          <=> $b->{_disc_no_}),
+        ($a->{_attr_status}       <=> $b->{_attr_status}),
+        ($a->{trackcount}         cmp $b->{trackcount}),
+        ($b->{trmidcount}         cmp $a->{trmidcount}),
+        ($b->{puidcount}          cmp $a->{puidcount}),
+        ($a->GetId                cmp $b->GetId),
     );
     
 
-    for my $pred (@predicates)
-    {
-        return $pred if ($pred);
-    }
+    for (@predicates) { return $_ if $_; }
 
-    0;
-};
+    return 0;
+}
 
 =head1 LICENSE 
 
