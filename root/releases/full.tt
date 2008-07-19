@@ -28,16 +28,7 @@
     [%- END -%]
   </div>
   <div class="releasetags">
-    [%- IF tags -%]
-    <p>Tags:</p>
-    <ul>
-      [%- FOREACH tag=tags -%]
-      <li>[% tag %]</li>
-      [%- END -%]
-    </ul>
-    [%- ELSE -%]
-      This release has no tags.
-    [%- END -%]
+    [% INCLUDE "tag/summary.tt" tags=tags source=release %]
   </div>
   <table class="release_tracks">
     <tbody>

@@ -9,6 +9,7 @@ use ModDefs;
 use MusicBrainz;
 use MusicBrainz::Server::Adapter qw(LoadEntity);
 use MusicBrainz::Server::Adapter::Relations qw(LoadRelations);
+use MusicBrainz::Server::Adapter::Tag qw(PrepareForTagCloud);
 use MusicBrainz::Server::CoverArt;
 use MusicBrainz::Server::Release;
 use MusicBrainz::Server::Tag;
@@ -43,6 +44,28 @@ sub releaseLinkRaw
         mbid      => $mbid,
         link_type => 'release'
     };
+}
+
+=head2 tags
+
+Show all of this release's tags
+
+=cut
+
+sub tags : Local Args(1)
+{
+    my ($self, $c, $mbid) = @_;
+
+    my $release = MusicBrainz::Server::Release->new($c->mb->{DBH});
+    LoadEntity($release, $mbid);
+
+    my $t = MusicBrainz::Server::Tag->new($c->mb->{DBH});
+    my $tags = $t->GetTagHashForEntity('release', $release->GetId, 200);
+
+    $c->stash->{tagcloud} = PrepareForTagCloud($tags);
+    $c->stash->{release} = $release->ExportStash;
+
+    $c->stash->{template} = 'releases/tags.tt';
 }
 
 =head2 relations

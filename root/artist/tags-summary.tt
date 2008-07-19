@@ -1,0 +1,14 @@
+<div class="TagsBox">Artist tags:
+  [% IF artist_tags.size %]
+    [% FOREACH tag IN tags %]
+      [% LAST IF loop.count > 3 %]
+      <a href="[% c.uri_for('/tags', tag) %]">[% tag %]</a>[%- "," UNLESS (loop.first AND loop.size == 0) OR (loop.last) -%]
+    [% END %]
+    [% IF artist_tags.size > 3 %]
+      <a href="[% c.uri_for('/artist/tags', artist.mbid) %]">See all&hellip;</a>
+    [% END %]
+  [% ELSE %]
+    (none)
+  [% END %]
+  [ <a href="[% c.uri_for('/tags', 'artist', artist.id) %]">Tag this artist</a> ]
+</div>

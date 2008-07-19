@@ -413,3 +413,9 @@ table.appears .title {
 .release_tracks ul li {
     list-style-type: none;
 }
+
+ul.tagcloud li {
+    display: inline;
+    padding-right: 10pt;
+    list-style-type: none;
+}

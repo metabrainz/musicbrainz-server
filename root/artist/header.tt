@@ -2,7 +2,7 @@
      { link => c.uri_for('/artist/perma', artist.mbid), text => "Permenant link" },
      { link => c.uri_for('/artist/details', artist.mbid), text => "Details" },
      { link => c.uri_for('/artist/aliases', artist.mbid), text => "Aliases" },
-     { link => c.uri_for('/tags/artist', artist.mbid), text => "Tags" },
+     { link => c.uri_for('/artist/tags', artist.mbid), text => "Tags" },
      { link => c.uri_for('/artist', artist.mbid), text => "Releases" },
      { link => c.uri_for('/artist/appearances', artist.mbid), text => "Appears on" },
      { link => c.uri_for('/artist/similar', artist.mbid), text => "Similar artists" },

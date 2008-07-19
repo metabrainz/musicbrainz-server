@@ -1,0 +1,6 @@
+[% WRAPPER "layout.tt" title="Tags for ${release.name}" %]
+<h1>Tags for [% release.name | html %]</h1>
+[% WRAPPER 'components/box.tt' header="Tags" %]
+[% INCLUDE "tag/cloud.tt" tags=tagcloud source=release %]
+[% END %]
+[% END %]

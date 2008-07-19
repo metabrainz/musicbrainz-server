@@ -9,6 +9,7 @@ use Encode qw( decode );
 use ModDefs;
 use Moderation;
 use MusicBrainz::Server::Adapter::Relations qw(LoadRelations);
+use MusicBrainz::Server::Adapter::Tag qw(PrepareForTagCloud);
 use MusicBrainz::Server::Alias;
 use MusicBrainz::Server::Annotation;
 use MusicBrainz::Server::Artist;
@@ -49,6 +50,25 @@ sub artistLinkRaw
         mbid      => $mbid,
         link_type => 'artist',
    };
+}
+
+=head2 tags
+
+Show all of this artists tags
+
+=cut
+
+sub tags : Local Args(1) MyAction('ArtistPage')
+{
+    my ($self, $c, $mbid) = @_;
+    my $artist = $c->stash->{_artist};
+
+    my $t = MusicBrainz::Server::Tag->new($c->mb->{DBH});
+    my $tags = $t->GetTagHashForEntity('artist', $artist->GetId, 200);
+
+    $c->stash->{tagcloud} = PrepareForTagCloud($tags);
+
+    $c->stash->{template} = 'releases/tags.tt';
 }
 
 =head2 relations

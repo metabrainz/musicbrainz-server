@@ -1,12 +1,5 @@
-<div class="TagsBox">Artist tags:
-  [% IF artist_tags.size %]
-  <ul>
-      [% FOREACH tag IN artist_tags %]
-      <li>[% tag %]</li>
-      [% END %]
-    </ul>
-  [% ELSE %]
-    (none)
-  [% END %]
-  <p><a href="[% c.uri_for('/tags', 'artist', artist.id) %]">Tag this artist</a></p>
-</div>
+[% WRAPPER "artist/layout.tt" title="Tags" %]
+[% WRAPPER "components/box.tt" header="Tags" %]
+[% INCLUDE "tag/cloud.tt" %]
+[% END %]
+[% END %]

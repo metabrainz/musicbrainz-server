@@ -1,7 +1,9 @@
 [% WRAPPER "layout.tt" title=artist.name %]
 [% INCLUDE "artist/header.tt" %]
 [% INCLUDE "artist/annotation.tt" IF annotation %]
-[% INCLUDE "artist/tags.tt" %]
+<div class="TagsBox">
+  [% INCLUDE "tag/summary.tt" tags=artist_tags source=artist %]
+</div>
 [% INCLUDE "components/relations.tt" source=artist relations=artist_relations %]
 [% content %]
 [% END %]
