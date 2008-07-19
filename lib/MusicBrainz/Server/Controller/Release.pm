@@ -84,6 +84,11 @@ sub show : Path Local Args(1)
 {
     my ($self, $c, $mbid) = @_;
 
+    my $show_rels = $c->req->query_params->{rel};
+
+    $c->stash->{show_artists}       = $c->req->query_params->{artist};
+    $c->stash->{show_relationships} = defined $show_rels ? $show_rels : 1;
+
     # Load Release
     #
     my $release = MusicBrainz::Server::Release->new($c->mb->{DBH});
@@ -97,7 +102,6 @@ sub show : Path Local Args(1)
     # Load Release Relationships
     #
     $c->stash->{relations} = LoadRelations($release, 'album');
-
 
     # Load Artist
     #
@@ -117,10 +121,11 @@ sub show : Path Local Args(1)
 
     for my $track (@tracks)
     {
-        my $trackStash = $track->ExportStash qw/number duration/;
+        my $trackStash = $track->ExportStash qw/number duration artist/;
 
         $trackStash->{puids}     = $puid_counts->{ $track->GetId };
-        $trackStash->{relations} = LoadRelations($track, 'track');
+        $trackStash->{relations} = LoadRelations($track, 'track')
+            if $c->stash->{show_relationships};
 
         push @{ $c->stash->{tracks} }, $trackStash;
     }

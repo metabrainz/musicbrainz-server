@@ -318,6 +318,7 @@ div.release table tr {
 }
 
 div.release table .number,
+div.release table .artist,
 div.release table .title {
     border-right: 1px solid #aaa;
 }

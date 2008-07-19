@@ -148,6 +148,14 @@ sub ExportStash
         {
             case('number')   { $stash{number} = $self->GetSequence; }
             case('duration') { $stash{duration} = FormatTrackLength($self->GetLength); }
+            case('artist')
+            {
+                $stash{artist} = {
+                    link_type => 'artist',
+                    mbid      => $self->GetArtist,
+                    name      => $self->GetArtistName,
+                };
+            }
         }
     }
 

@@ -2,8 +2,30 @@
         { link => c.uri_for('/release/perma', release.mbid), text => "Permenant link" },
         { link => c.uri_for('/release/details', release.mbid), text => "Details" },
         { link => c.uri_for('/tags/release', release.mbid), text => "Details" },
-        { link => c.uri_for('/release/show', release.mbid), text => "Show artists" },
-        { link => c.uri_for('/release/show', release.mbid), text => "Hide relationships" },
+
+        {
+            link => c.uri_for('/release/show', release.mbid, { artist => 1, rel = show_relationships }),
+            text => "Show artists",
+            hide => show_artists,
+        },
+        {
+            link => c.uri_for('/release/show', release.mbid, { artist => 0, rel = show_relationships }),
+            text => "Hide artists",
+            hide => !show_artists,
+        },
+
+
+        {
+            link => c.uri_for('/release/show', release.mbid, { rel => 1, artist = show_artists }),
+            text => "Show relationships",
+            hide => show_relationships,
+        },
+        {
+            link => c.uri_for('/release/show', release.mbid, { rel => 0, artist = show_artists }),
+            text => "Hide relationships",
+            hide => !show_relationships,
+        },
+
         { link => c.uri_for('/release/google', release.mbid), text => "Search Google" },
     ] -%]
 
@@ -38,9 +60,15 @@
           <td class="title">
             [% track.name %]
             [% INCLUDE "components/relations.tt" source=track relations=track.relations justlist=1
-                 IF track.relations.size%]
+                 IF track.relations.size AND show_relationships %]
           </td>
+
+          [%- IF show_artists -%]
+          <td class="artist">[% INCLUDE "components/entity-link.tt" noicon=1 entity=track.artist %]</td>
+          [%- END -%]
+
           <td class="duration">[% track.duration %]</td>
+
           [%- IF c.user_exists -%]
           <td class="editinglinks">
             Editing links

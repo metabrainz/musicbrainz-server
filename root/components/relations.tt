@@ -44,7 +44,7 @@
 [%- UNLESS justlist -%]
 <div class="RelationshipBox">
   [%- IF relations.size -%]
-    [%- INCLUDE "components/entity-link.tt" entity=source -%]:
+    [%- INCLUDE "components/entity-link.tt" entity=source -%][% relations.size > 1 ? ":" : "" %]
     [%- PROCESS list -%]
   [%- ELSE -%]
     [%- INCLUDE "components/entity-link.tt" entity=source -%] has no relations.
