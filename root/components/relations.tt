@@ -1,5 +1,6 @@
 [%- DEFAULT maximum=3 -%]
 [%- BLOCK list -%]
+  [%- IF relations.size > 1 -%]
   <ul class="relations_list">
     [%- FOREACH ar IN relations -%]
       [%- LAST IF loop.count > maximum && !showall -%]
@@ -14,8 +15,23 @@
             [% "(${entity.resolution})" IF entity.resolution %]
           [%- END -%]
         [%- END -%]
+      </li>
     [%- END -%]
   </ul>
+  [%- ELSIF relations.size == 1 -%] 
+    [%- FOREACH ar IN relations -%]
+        [% ar.connector %]
+        [%- FOREACH entity IN ar.entities -%]
+          [%- IF loop.count > 4 && !showall -%]
+            &hellip;
+            [%- LAST -%]
+          [%- ELSE -%]
+            [% INCLUDE "components/entity-link.tt" %][% !loop.last ? "," : "" %]
+            [% "(${entity.resolution})" IF entity.resolution %]
+          [%- END -%]
+        [%- END -%]
+    [%- END -%]
+  [%- END -%]
   [%- IF relations.size > maximum  && !showall -%]
     [%- n = relations.size - maximum -%]
     <div class="more_relationships">

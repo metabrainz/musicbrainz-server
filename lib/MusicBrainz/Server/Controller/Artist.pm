@@ -34,24 +34,6 @@ that is attributed to a certain artist.
 
 =head1 METHODS
 
-=head2 artistLinkRaw
-
-Create stash data to link to an artist, but given the parameters explicity
-(rather than requiring an Artist object)
-
-=cut
-
-sub artistLinkRaw
-{
-    my ($name, $mbid) = @_;
-
-    {
-        name      => $name,
-        mbid      => $mbid,
-        link_type => 'artist',
-   };
-}
-
 =head2 tags
 
 Show all of this artists tags

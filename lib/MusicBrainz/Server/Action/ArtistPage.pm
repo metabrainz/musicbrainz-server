@@ -39,14 +39,14 @@ sub execute
         my $mb = $c->mb;
 
         my $artist = MusicBrainz::Server::Artist->new($mb->{DBH});
-        LoadEntity ($artist, $mbid);
+        LoadEntity($artist, $mbid);
 
         croak "You cannot view the special DELETED_ARTIST"
             if ($artist->GetId == ModDefs::DARTIST_ID);
 
         $c->stash->{_artist} = $artist;
-        $c->stash->{artist} = $artist->ExportStash qw( name mbid type date
-                                                       quality resolution );
+        $c->stash->{artist}  = $artist->ExportStash qw( name mbid type date
+                                                        quality resolution );
     }
     else
     {

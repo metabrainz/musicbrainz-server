@@ -419,3 +419,8 @@ ul.tagcloud li {
     padding-right: 10pt;
     list-style-type: none;
 }
+
+table.details th {
+    text-align: right;
+    padding-right: 10pt;
+}

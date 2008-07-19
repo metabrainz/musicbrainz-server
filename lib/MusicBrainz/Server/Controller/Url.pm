@@ -5,6 +5,9 @@ use warnings;
 
 use base 'Catalyst::Controller';
 
+use Carp;
+use MusicBrainz::Server::Adapter qw(LoadEntity);
+use MusicBrainz::Server::Adapter::Relations qw(LoadRelations);
 use MusicBrainz::Server::URL;
 use MusicBrainz;
 
@@ -22,21 +25,25 @@ relationships).
 
 =head1 METHODS
 
-=head1 urlLinkRaw
+=head2 info
 
-Create stash data to link to a URL entity using root/components/entity-link.tt
+Provides information about a given link
 
 =cut
 
-sub urlLinkRaw
+sub info : Path Args(1)
 {
-    my ($url, $mbid) = @_;
+    my ($self, $c, $mbid) = @_;
 
-    {
-        url       => $url,
-        mbid      => $mbid,
-        link_type => 'url'
-    };
+    # Load the URL
+    my $url = MusicBrainz::Server::URL->new($c->mb->{DBH});
+    MusicBrainz::Server::Adapter::LoadEntity($url, $mbid);
+
+    # Store in the stash
+    $c->stash->{url}       = $url->ExportStash qw( description );
+    $c->stash->{relations} = MusicBrainz::Server::Adapter::Relations::LoadRelations($url, 'url');
+
+    $c->stash->{template} = 'url/info.tt';
 }
 
 =head1 LICENSE

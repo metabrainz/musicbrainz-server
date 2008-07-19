@@ -1,0 +1,22 @@
+[% WRAPPER "layout.tt" title="URL Information" %]
+[% WRAPPER "components/box.tt" header="URL Information" %]
+  <table class="details">
+    <tr>
+      <th>URL:</th>
+      <td>[% INCLUDE "components/entity-link.tt" entity=url %]</td>
+    </tr>
+
+    <tr>
+      <th>Description:</th>
+      <td>[% (url.description || "This url has no description") | html %]</td>
+    </tr>
+
+    <tr>
+      <th>[% INCLUDE "components/doc-link.tt" to="MusicBrainzIdentifier" text="MBID" %]:</th>
+      <td>[% url.mbid %]</td>
+    </tr>
+  </table>
+[% END %]
+
+[% INCLUDE "components/relations.tt" showall=1 source=url %]
+[% END %]

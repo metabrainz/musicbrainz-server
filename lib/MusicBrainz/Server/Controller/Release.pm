@@ -29,23 +29,6 @@ releases, editing releases and creating new releases.
 
 =head1 METHODS
 
-=head2 releaseLinkRaw
-
-Create stash data to link to a Release entity using root/components/entity-link.tt
-
-=cut
-
-sub releaseLinkRaw
-{
-    my ($name, $mbid) = @_;
-
-    {
-        name      => $name,
-        mbid      => $mbid,
-        link_type => 'release'
-    };
-}
-
 =head2 tags
 
 Show all of this release's tags

@@ -28,7 +28,7 @@ use TableBase;
 
 use strict;
 use DBDefs;
-use Carp qw( carp croak );
+use Carp qw( carp croak cluck );
 use Errno qw( EEXIST );
 
 sub new
@@ -45,6 +45,57 @@ sub GetURL { return $_[0]->{url}; }
 sub SetDesc { $_[0]->{desc} = $_[1]; }
 sub GetDesc { return $_[0]->{desc}; }
 sub GetName { return $_[0]->GetURL; }
+
+sub ExportStash
+{
+    my ($self, @data) = @_;
+
+    my %stash = (
+        name      => $self->GetURL,
+        url       => $self->GetURL,
+        link_type => 'url',
+        mbid      => $self->GetMBId,
+    );
+
+    use Switch;
+    for (@data)
+    {
+        switch($_)
+        {
+            case ('description') { $stash{description} = $self->GetDesc; }
+        }
+    }
+
+    return \%stash;
+}
+
+sub LoadFromId
+{
+    my $self = shift;
+    my $id;
+
+    if ($id = $self->GetId)
+    {
+        my $url = $self->newFromId($id)
+            or return undef;
+
+        %$self = %$url;
+        return 1;
+    }
+    elsif ($id = $self->GetMBId)
+    {
+        my $url = $self->newFromMBId($id)
+            or return undef;
+
+        %$self = %$url;
+        return 1;
+    }
+    else
+    {
+        cluck "MusicBrainz::Server::URL::LoadFromId is called with no ID/MBID set\n";
+        return undef;
+    }
+}
 
 sub newFromId
 {
@@ -68,15 +119,26 @@ sub newFromId
 	return $row;
 }
 
-sub LoadFromId
+sub newFromMBId
 {
-	my ($self) = @_;
+	my $self = shift;
+	$self = $self->new(shift) if not ref $self;
+	my $id = shift;
 
-	my $obj = $self->newFromId($self->GetId)
-		or return undef;
+	my $sql = Sql->new($self->{DBH});
 
-	%$self = %$obj;
-	return 1;
+	my $row = $sql->SelectSingleRowHash(
+		"SELECT id, gid AS mbid, url, description, refcount, modpending
+		   FROM url
+		  WHERE gid = ?",
+		$id,
+	) or return undef;
+
+	$row->{'desc'} = delete $row->{'description'};
+
+	$row->{DBH} = $self->{DBH};
+	bless $row, ref($self);
+	return $row;
 }
 
 sub Insert

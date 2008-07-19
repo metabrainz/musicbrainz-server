@@ -202,6 +202,12 @@ sub ExportLink
     $stash->{name}      = $name;
     $stash->{link_type} = $link->{"${linkType}_type"};
     $stash->{mbid}      = $link->{"${linkType}_mbid"};
+
+    # Old terminology...
+    if($stash->{link_type} eq 'album')
+    {
+        $stash->{link_type} = 'release'
+    }
     
     return $stash;
 }
