@@ -208,13 +208,19 @@ sub GetMissingMBIDs
 	my $displayMissingOfArtists = $rawsql->SelectSingleColumnArray('SELECT artist FROM collection_discography_artist_join WHERE collection_info = ?', $this->{collectionId});
 	print STDERR Dumper(join(',', @$displayMissingOfArtists));
 	
+	my $count = @$displayMissingOfArtists;
 	
-	my $query = "SELECT gid FROM album WHERE artist IN (". join(',', @$displayMissingOfArtists) .")";
-	
-	my $result = $rosql->SelectSingleColumnArray($query);
-	
-	
-	return $result;
+	if($count == 0)
+	{
+		return [];
+	}
+	else
+	{
+		my $query = "SELECT gid FROM album WHERE artist IN (". join(',', @$displayMissingOfArtists) .")";
+		my $result = $rosql->SelectSingleColumnArray($query);
+		
+		return $result;
+	}
 }
 
 

@@ -1,3 +1,6 @@
+<script src="/scripts/jsselect.js" type="text/javascript"></script>
+<script src="/scripts/rellinks.js" type="text/javascript"></script>
+
 <%perl>
 
 
@@ -23,44 +26,49 @@
 	
 	my $collection = MusicBrainz::Server::CollectionInfo->new($session{uid}, $mbro->{DBH}, $mbraw->{DBH});
 	
-	my $artists = $collection->GetHasArtists();
+	
+	my $artists;
+	
+	
+
+	$artists = $collection->GetHasArtists();
 	
 	print '<br/><br/>';
 	
 	print '<br/>NUMBER OF ARTISTS: '.@{$artists}.'<br/>';
 	
-	
-	# check wich artists to display missing releases of
-	my @missingOfArtists=();
-	
-	for(my $i=0; $i<@{$artists}; $i++)
+	if($r->method eq 'POST')
 	{
-		print 'ERTTTTTTRTYRETYRTYTERYERTYERTYERTYERTY: '.$ARGS{'artistwatchmissing_'.$i};
+		# check wich artists to display missing releases of
+		my @missingOfArtists=();
 		
-		if($ARGS{'artistwatchmissing_'.$i} eq '')
+		for(my $i=0; $i<@{$artists}; $i++)
 		{
-			print 'UNDEFINED';
+			print 'ERTTTTTTRTYRETYRTYTERYERTYERTYERTYERTY: '.$ARGS{'artistwatchmissing_'.$i};
+			
+			if($ARGS{'artistwatchmissing_'.$i} eq '')
+			{
+				print 'UNDEFINED';
+			}
+			else
+			{
+				# add this artist's id to list of artists to display missing releases of
+				push(@missingOfArtists, @{$artists}[$i]->{id});
+			}
 		}
-		else
+		
+		print Dumper(@missingOfArtists);
+		
+		$preferences->setMissingOfArtists(@missingOfArtists);
+		
+		
+		for my $key ($preferences->valid_keys())
 		{
-			# add this artist's id to list of artists to display missing releases of
-			push(@missingOfArtists, @{$artists}[$i]->{id});
+			print ' got key ' . $key . '  value '.$ARGS{$key}.'</br>';
+			$preferences->set($key, $ARGS{$key})
+				if defined $ARGS{$key};
 		}
-	}
-	
-	print Dumper(@missingOfArtists);
-	
-	$preferences->setMissingOfArtists(@missingOfArtists);
-	
-	
-	for my $key ($preferences->valid_keys())
-	{
-		print ' got key ' . $key . '  value '.$ARGS{$key}.'</br>';
-		$preferences->set($key, $ARGS{$key})
-			if defined $ARGS{$key};
-	}
-	
-	
+	}	
 	
 	
 </%perl>
@@ -93,7 +101,7 @@
 				}
 				
 				</%perl>
-			</div>
+			</div>	
 		</div>
 	<& /comp/tableend &>
 	
