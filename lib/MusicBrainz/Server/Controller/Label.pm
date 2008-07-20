@@ -46,6 +46,25 @@ sub perma : Chained('label')
 
 sub aliases : Chained('label')
 {
+    my ($self, $c) = @_;
+
+    my $label = $c->stash->{_label};
+
+    my $alias   = MusicBrainz::Server::Alias->new($c->mb->{DBH}, "LabelAlias");
+    my @aliases = $alias->GetList($label->GetId);
+
+    my @prettyAliases = ();
+    for my $alias (@aliases)
+    {
+        push @prettyAliases, {
+            name     => $alias->[1],
+            useCount => $alias->[2],
+            used     => !($alias->[3] =~ /^1970-01-01/),
+        }
+    }
+
+    $c->stash->{aliases}  = \@prettyAliases;
+    $c->stash->{template} = 'label/aliases.tt';
 }
 
 sub tags : Chained('label')

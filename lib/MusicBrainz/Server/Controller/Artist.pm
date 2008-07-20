@@ -353,7 +353,7 @@ Display all aliases of an artist, along with usage information.
 
 sub aliases : Chained('artist')
 {
-    my ($self, $c, $mbid) = @_;
+    my ($self, $c) = @_;
 
     my $artist = $c->stash->{_artist};
 

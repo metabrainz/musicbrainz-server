@@ -1,0 +1,24 @@
+[%- WRAPPER "components/box.tt" header="Aliases for ${entity.name}" -%]
+  [%- IF aliases.size > 0 -%]
+  <table>
+    <thead>
+      <tr>
+        <th>Alias</th>
+        <th>Times Used</th>
+        <th>Last Used</th>
+      </tr>
+    </thead>
+    <tbody> 
+    [%- FOREACH alias IN aliases -%]
+      <tr>
+        <td>[% alias.name | html %]</td>
+        <td>[% alias.useCount | html %]</td>
+        <td>[% IF alias.used %][% alias.lastUsed | mb_date %][% ELSE %]never[% END %]</td>
+      </tr>
+    [%- END -%]
+    </tbody>
+  </table>
+  [%- ELSE -%]
+    <p>[% entity.link_type | ucfirst %] has no aliases</p>
+  [%- END -%]
+[%- END -%]
