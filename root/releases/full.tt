@@ -1,32 +1,32 @@
 [%- info_links = [
-        { link => c.uri_for('/release/perma', release.mbid), text => "Permenant link" },
-        { link => c.uri_for('/release/details', release.mbid), text => "Details" },
-        { link => c.uri_for('/tags/release', release.mbid), text => "Details" },
+        { link => entity_url(release, 'perma'), text => "Permenant link" },
+        { link => entity_url(release, 'details'), text => "Details" },
+        { link => entity_url(release, 'tags'), text => "Tags" },
 
         {
-            link => c.uri_for('/release/show', release.mbid, { artist => 1, rel = show_relationships }),
+            link => entity_url(release, 'show', { artist => 1, rel = show_relationships }),
             text => "Show artists",
             hide => show_artists,
         },
         {
-            link => c.uri_for('/release/show', release.mbid, { artist => 0, rel = show_relationships }),
+            link => entity_url(release, 'show', { artist => 0, rel = show_relationships }),
             text => "Hide artists",
             hide => !show_artists,
         },
 
 
         {
-            link => c.uri_for('/release/show', release.mbid, { rel => 1, artist = show_artists }),
+            link => entity_url(release, 'show', { rel => 1, artist = show_artists }),
             text => "Show relationships",
             hide => show_relationships,
         },
         {
-            link => c.uri_for('/release/show', release.mbid, { rel => 0, artist = show_artists }),
+            link => entity_url(release, 'show', { rel => 0, artist = show_artists }),
             text => "Hide relationships",
             hide => !show_relationships,
         },
 
-        { link => c.uri_for('/release/google', release.mbid), text => "Search Google" },
+        { link => entity_url(release, 'google'), text => "Search Google" },
     ] -%]
 
 [% INCLUDE "components/relations.tt" source=release %]

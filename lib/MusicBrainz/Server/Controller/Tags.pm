@@ -70,7 +70,51 @@ sub display : Path
 
     $c->stash->{tag} = $tag;
 
+    # Function to generate URL for "who tagged this"
+    $c->stash->{who_url} = sub {
+        my ($entity, $tag) = @_;
+
+        my $action = $self->action_for('who')
+            or die "No action?";
+
+        return $c->uri_for($action,
+            [ $entity->{link_type}, $entity->{mbid} ], $tag);
+    };
+
     $c->stash->{template} = 'tag/display.tt';
+}
+
+sub entity : PathPart('tags') Chained CaptureArgs(2)
+{
+    my ($self, $c, $type, $mbid) = @_;
+
+    my $entity;
+
+    use Switch;
+    switch ($type)
+    {
+        case('artist')  { $entity = MusicBrainz::Server::Artist->new($c->mb->{DBH}); }
+        case('label')   { $entity = MusicBrainz::Server::Label->new($c->mb->{DBH}); }
+        case('release') { $entity = MusicBrainz::Server::Release->new($c->mb->{DBH}); }
+        case('track')   { $entity = MusicBrainz::Server::Track->new($c->mb->{DBH}); }
+    }
+
+    $c->stash->{entity}  = $entity->ExportStash;
+    $c->stash->{_entity} = $entity;
+}
+
+sub who : Chained('entity') Args(1)
+{
+    my ($self, $c, $tag) = @_;
+    
+    my $entity = $c->stash->{_entity};
+    my $entity_type = $c->stash->{entity}->{link_type};
+
+    my $t = MusicBrainz::Server::Tag->new($c->mb->{DBH});
+    my $tags = $t->GetEditorsForEntityAndTag($entity_type, $entity->GetId, $tag);
+
+    use Data::Dumper;
+    die Dumper $tags;
 }
 
 =head2 all

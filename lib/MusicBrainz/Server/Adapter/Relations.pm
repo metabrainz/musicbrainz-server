@@ -3,7 +3,7 @@ package MusicBrainz::Server::Adapter::Relations;
 use strict;
 use warnings;
 
-use Exporter;
+use base 'Exporter';
 our @EXPORT_OK = qw( LoadRelations );
 
 use MusicBrainz::Server::CoverArt;

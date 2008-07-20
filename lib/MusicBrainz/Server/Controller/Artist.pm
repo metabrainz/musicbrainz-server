@@ -5,9 +5,11 @@ use warnings;
 
 use base 'Catalyst::Controller';
 
+use Carp;
 use Encode qw( decode );
 use ModDefs;
 use Moderation;
+use MusicBrainz::Server::Adapter qw( LoadEntity );
 use MusicBrainz::Server::Adapter::Relations qw(LoadRelations);
 use MusicBrainz::Server::Adapter::Tag qw(PrepareForTagCloud);
 use MusicBrainz::Server::Alias;
@@ -34,13 +36,63 @@ that is attributed to a certain artist.
 
 =head1 METHODS
 
+=head2 artist
+
+Private chained action for loading enough information on the artist header
+
+=cut
+
+sub artist : Chained CaptureArgs(1)
+{
+    my ($self, $c, $mbid) = @_;
+
+    if (defined $mbid)
+    {
+        my $mb = $c->mb;
+
+        my $artist = MusicBrainz::Server::Artist->new($mb->{DBH});
+        LoadEntity($artist, $mbid);
+
+        croak "You cannot view the special DELETED_ARTIST"
+            if ($artist->GetId == ModDefs::DARTIST_ID);
+
+        $c->stash->{_artist} = $artist;
+        $c->stash->{artist}  = $artist->ExportStash qw( name mbid type date
+                                                        quality resolution );
+    }
+    else
+    {
+        croak "No MBID/row ID given.";
+    }
+}
+
+=head2 similar
+
+Display artists similar to this artist
+
+=cut
+
+sub similar : Chained('artist')
+{
+}
+
+=head2 google
+
+Search Google for this artist
+
+=cut
+
+sub google : Chained('artist')
+{
+}
+
 =head2 tags
 
 Show all of this artists tags
 
 =cut
 
-sub tags : Local Args(1) MyAction('ArtistPage')
+sub tags : Chained('artist')
 {
     my ($self, $c, $mbid) = @_;
     my $artist = $c->stash->{_artist};
@@ -50,7 +102,7 @@ sub tags : Local Args(1) MyAction('ArtistPage')
 
     $c->stash->{tagcloud} = PrepareForTagCloud($tags);
 
-    $c->stash->{template} = 'releases/tags.tt';
+    $c->stash->{template} = 'artist/tags.tt';
 }
 
 =head2 relations
@@ -59,7 +111,7 @@ Shows all the entities (except track) that this artist is related to.
 
 =cut
 
-sub relations : Local Args(1) MyAction('ArtistPage')
+sub relations : Chained('artist')
 {
     my ($self, $c, $mbid) = @_;
     my $artist = $c->stash->{_artist};
@@ -123,7 +175,7 @@ into the MusicBrainz database.
 
 =cut 
 
-sub edit : Local Args(1) MyAction('ArtistPage')
+sub edit : Chained('artist')
 {
     my ($self, $c, $mbid) = @_;
     my $artist = $c->stash->{_artist};
@@ -156,7 +208,7 @@ relations.
 
 =cut
 
-sub appearances : Local Args(1) MyAction('ArtistPage')
+sub appearances : Chained('artist')
 {
     my ($self, $c) = @_;
 
@@ -242,7 +294,7 @@ Display the perma-link for a given artist.
 
 =cut
 
-sub perma : Local Args(1) MyAction('ArtistPage')
+sub perma : Chained('artist')
 {
     my ($self, $c) = @_;
 
@@ -255,7 +307,7 @@ Display detailed information about a specific artist.
 
 =cut
 
-sub details : Local Args(1) MyAction('ArtistPage')
+sub details : Chained('artist')
 {
     my ($self, $c, $mbid) = @_;
 
@@ -272,7 +324,7 @@ Display all aliases of an artist, along with usage information.
 
 =cut
 
-sub aliases : Local Args(1) MyAction('ArtistPage')
+sub aliases : Chained('artist')
 {
     my ($self, $c, $mbid) = @_;
 
@@ -305,7 +357,7 @@ folksonomy information (tags).
 
 =cut
 
-sub show : Path Args(1) MyAction('ArtistPage')
+sub show : PathPart('') Chained('artist')
 {
     my ($self, $c, $mbid) = @_;
 

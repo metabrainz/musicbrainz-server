@@ -19,23 +19,50 @@ Handles user interaction with C<MusicBrainz::Server::Track> entities.
 
 =head1 METHODS
 
+=head2 track
+
+Chained action to load a track
+
+=cut
+
+sub track : Chained CaptureArgs(1)
+{ 
+    my ($self, $c, $mbid) = @_;
+
+    my $entity = MusicBrainz::Server::Track->new($c->mb->{DBH});
+    LoadEntity($entity, $mbid);
+
+    $c->stash->{_track} = $entity;
+    $c->stash->{track}  = $entity->ExportStash;
+}
+
 =head2 relations
 
 Shows all relations to a given track
 
 =cut
 
-sub relations : Local Args(1)
+sub relations : Chained('track')
 {
     my ($self, $c, $mbid) = @_;
 
-    my $entity = MusicBrainz::Server::Track->new($c->mb->{DBH});
-    LoadEntity($entity, $mbid);
-
-    $c->stash->{relations} = LoadRelations($entity, 'track');;
-    $c->stash->{track}     = $entity->ExportStash;
+    my $track = $c->stash->{_track};
+    $c->stash->{relations} = LoadRelations($track, 'track');;
 
     $c->stash->{template} = 'track/relations.tt';
+}
+
+=head2 show
+
+Show details of a track
+
+=cut
+
+sub show : Chained('track') PathPart('')
+{
+    my ($self, $c) = @_;
+
+    $c->detach('relations');
 }
 
 =head1 LICENSE

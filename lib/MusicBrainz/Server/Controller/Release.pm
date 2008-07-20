@@ -29,24 +29,50 @@ releases, editing releases and creating new releases.
 
 =head1 METHODS
 
-=head2 tags
+=head2 release
 
-Show all of this release's tags
+Chained action to load the release
 
 =cut
 
-sub tags : Local Args(1)
+sub release : Chained CaptureArgs(1)
 {
     my ($self, $c, $mbid) = @_;
 
     my $release = MusicBrainz::Server::Release->new($c->mb->{DBH});
     LoadEntity($release, $mbid);
 
+    $c->stash->{_release} = $release;
+    $c->stash->{release}  = $release->ExportStash;
+}
+
+sub perma : Chained('release')
+{
+}
+
+sub details : Chained('release')
+{
+}
+
+sub google : Chained('release')
+{
+}
+
+=head2 tags
+
+Show all of this release's tags
+
+=cut
+
+sub tags : Chained('release')
+{
+    my ($self, $c) = @_;
+    my $release = $c->stash->{_release};
+
     my $t = MusicBrainz::Server::Tag->new($c->mb->{DBH});
     my $tags = $t->GetTagHashForEntity('release', $release->GetId, 200);
 
     $c->stash->{tagcloud} = PrepareForTagCloud($tags);
-    $c->stash->{release} = $release->ExportStash;
 
     $c->stash->{template} = 'releases/tags.tt';
 }
@@ -57,14 +83,11 @@ Show all relationships attached to this release
 
 =cut
 
-sub relations : Local Args(1)
+sub relations : Chained('release')
 {
-    my ($self, $c, $mbid) = @_;
+    my ($self, $c) = @_;
+    my $release = $c->stash->{_release};
 
-    my $release = MusicBrainz::Server::Release->new($c->mb->{DBH});
-    MusicBrainz::Server::Adapter::LoadEntity($release, $mbid);
-
-    $c->stash->{release}   = $release->ExportStash;
     $c->stash->{relations} = LoadRelations($release, 'album');
 
     $c->stash->{template} = 'releases/relations.tt';
@@ -80,9 +103,10 @@ tags, tracklisting, release events, etc.
 
 =cut
 
-sub show : Path Local Args(1)
+sub show : Chained('release') PathPart('')
 {
-    my ($self, $c, $mbid) = @_;
+    my ($self, $c) = @_;
+    my $release = $c->stash->{_release};
 
     my $show_rels = $c->req->query_params->{rel};
 
@@ -91,9 +115,6 @@ sub show : Path Local Args(1)
 
     # Load Release
     #
-    my $release = MusicBrainz::Server::Release->new($c->mb->{DBH});
-    LoadEntity($release, $mbid);
-    
     $c->stash->{release} = $release->ExportStash qw( puids   track_count
                                                      quality language
                                                      type                );

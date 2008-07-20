@@ -3,7 +3,7 @@ package MusicBrainz::Server::Adapter::Tag;
 use strict;
 use warnings;
 
-use Exporter;
+use base 'Exporter';
 our @EXPORT_OK = qw(PrepareForTagCloud);
 
 use List::Util qw( min max sum );

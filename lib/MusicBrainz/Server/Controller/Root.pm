@@ -7,6 +7,7 @@ use base 'Catalyst::Controller';
 
 # Import MusicBrainz libraries
 use DBDefs;
+use MusicBrainz::Server::Adapter qw( EntityUrl );
 use MusicBrainz::Server::NewsFeed;
 use MusicBrainz::Server::Replication ':replication_type';
 
@@ -127,6 +128,8 @@ sub end : ActionClass('RenderView')
     $simpleSearch->field('type')->value($c->session->{last_simple_search} || 'artist');
     $c->stash->{sidebar_search} = $simpleSearch;
 
+    # For linking to entities
+    $c->stash(entity_url => sub { EntityUrl($c, @_); }); 
     $c->stash->{server_details}->{version} = &DBDefs::VERSION;
 }
 

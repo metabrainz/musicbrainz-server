@@ -9,7 +9,7 @@
       <td>[% INCLUDE "components/entity-link.tt" %]</td>
       <td>[% entity.amount %]</td>
       <td>
-        <a href="[% c.uri_for('/tags/who', group.type, entity.mbid, tag) %]">
+        <a href="[% who_url(entity, tag) %]">
           Who tagged this?
         </a>
       </td>

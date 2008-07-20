@@ -6,8 +6,8 @@ use warnings;
 use base 'Catalyst::Controller';
 
 use Carp;
-use MusicBrainz::Server::Adapter qw(LoadEntity);
-use MusicBrainz::Server::Adapter::Relations qw(LoadRelations);
+use MusicBrainz::Server::Adapter qw( LoadEntity );
+use MusicBrainz::Server::Adapter::Relations qw( LoadRelations );
 use MusicBrainz::Server::URL;
 use MusicBrainz;
 
@@ -25,23 +25,37 @@ relationships).
 
 =head1 METHODS
 
+=head2 url
+
+Base method for chaining - loads the URL into the stash
+
+=cut
+
+sub url : Chained CaptureArgs(1)
+{
+    my ($self, $c, $mbid) = @_;
+
+    my $url = MusicBrainz::Server::URL->new($c->mb->{DBH});
+    LoadEntity($url, $mbid);
+
+    $c->stash->{_url} = $url;
+    $c->stash->{url}  = $url->ExportStash;
+}
+
 =head2 info
 
 Provides information about a given link
 
 =cut
 
-sub info : Path Args(1)
+sub info : Chained('url')
 {
     my ($self, $c, $mbid) = @_;
 
-    # Load the URL
-    my $url = MusicBrainz::Server::URL->new($c->mb->{DBH});
-    MusicBrainz::Server::Adapter::LoadEntity($url, $mbid);
+    my $url = $c->stash->{_url};
 
-    # Store in the stash
-    $c->stash->{url}       = $url->ExportStash qw( description );
     $c->stash->{relations} = MusicBrainz::Server::Adapter::Relations::LoadRelations($url, 'url');
+    $c->stash->{url}       = $url->ExportStash qw(description);
 
     $c->stash->{template} = 'url/info.tt';
 }

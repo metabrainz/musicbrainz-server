@@ -1,10 +1,10 @@
 [%- info_links = [
-     { link => c.uri_for('/label/perma', artist.mbid), text => "Permenant link" },
-     { link => c.uri_for('/label/details', artist.mbid), text => "Details" },
-     { link => c.uri_for('/label/aliases', artist.mbid), text => "Aliases" },
-     { link => c.uri_for('/tags/artist', artist.mbid), text => "Tags" },
-     { link => c.uri_for('/label', artist.mbid), text => "Releases" },
-     { link => c.uri_for('/label/google', artist.mbid), text => "Search Google" }
+     { link => c.uri_for(label, 'perma'), text => "Permenant link" },
+     { link => c.uri_for(label, 'details'), text => "Details" },
+     { link => c.uri_for(label, 'aliases'), text => "Aliases" },
+     { link => c.uri_for(label, 'tags'), text => "Tags" },
+     { link => c.uri_for(label, 'show'), text => "Releases" },
+     { link => c.uri_for(label, 'google'), text => "Search Google" }
    ]
 -%]
 

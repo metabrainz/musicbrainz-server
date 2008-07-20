@@ -36,7 +36,7 @@
     [%- n = relations.size - maximum -%]
     <div class="more_relationships">
       [% n %] relationship[% n > 1 ? "s" : "" %] not shown.
-    <a href="[% c.uri_for("/${source.link_type}/relations", source.mbid) %]">View all relationships&hellip;</a>
+    <a href="[% entity_url(source, 'relations') %]">View all relationships&hellip;</a>
     </div>
   [%- END -%]
 [%- END -%]

@@ -1,12 +1,12 @@
 [%- info_links = [
-     { link => c.uri_for('/artist/perma', artist.mbid), text => "Permenant link" },
-     { link => c.uri_for('/artist/details', artist.mbid), text => "Details" },
-     { link => c.uri_for('/artist/aliases', artist.mbid), text => "Aliases" },
-     { link => c.uri_for('/artist/tags', artist.mbid), text => "Tags" },
-     { link => c.uri_for('/artist', artist.mbid), text => "Releases" },
-     { link => c.uri_for('/artist/appearances', artist.mbid), text => "Appears on" },
-     { link => c.uri_for('/artist/similar', artist.mbid), text => "Similar artists" },
-     { link => c.uri_for('/artist/google', artist.mbid), text => "Search Google" }
+     { link => entity_url(artist, 'perma'), text => "Permenant link" },
+     { link => entity_url(artist, 'details'), text => "Details" },
+     { link => entity_url(artist, 'aliases'), text => "Aliases" },
+     { link => entity_url(artist, 'tags'), text => "Tags" },
+     { link => entity_url(artist, 'show'), text => "Releases" },
+     { link => entity_url(artist, 'appearances'), text => "Appears on" },
+     { link => entity_url(artist, 'similar'), text => "Similar artists" },
+     { link => entity_url(artist, 'google'), text => "Search Google" }
    ]
 -%]
 

@@ -19,20 +19,36 @@ Handles user interaction with label entities
 
 =head1 METHODS
 
+=head2 label
+
+Chained action to load the label into the stash.
+
+=cut
+
+sub label : Chained CaptureArgs(1)
+{
+    my ($self, $c, $mbid) = @_;
+
+    my $label = MusicBrainz::Server::Label->new($c->mb->{DBH});
+    LoadEntity($label, $mbid);
+
+    $c->stash->{_label} = $label;
+    $c->stash->{label}  = $label->ExportStash;
+}
+
 =head2 relations
 
 Show all relations to this label
 
 =cut
 
-sub relations : Local Args(1) MyAction('LabelPage')
+sub relations : Chained('label')
 {
-    my ($self, $c, $mbid) = @_;
+    my ($self, $c) = @_;
 
     my $label = $c->stash->{_label};
   
     $c->stash->{relations} = load_relations($label);
-    $c->stash->{label}     = $label->ExportStash;
 
     $c->stash->{template}  = 'label/relations.tt';
 }
@@ -44,9 +60,9 @@ that have been released through this label
 
 =cut
 
-sub show : Path Args(1) MyAction('LabelPage')
+sub show : PathPart('') Chained('label')
 {
-    my ($self, $c, $mbid) = @_;
+    my ($self, $c) = @_;
 
     my $label = $c->stash->{_label};
 
@@ -108,9 +124,9 @@ Display detailed information about a given label
 
 =cut
 
-sub details : Local Args(1) MyAction('LabelPage')
+sub details : Chained('label')
 {
-    my ($self, $c, $mbid) = @_;
+    my ($self, $c) = @_;
 
     my $label = $c->stash->{_label};
 
