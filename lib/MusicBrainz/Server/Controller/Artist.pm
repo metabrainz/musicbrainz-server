@@ -9,7 +9,7 @@ use Carp;
 use Encode qw( decode );
 use ModDefs;
 use Moderation;
-use MusicBrainz::Server::Adapter qw( LoadEntity );
+use MusicBrainz::Server::Adapter qw( LoadEntity Google );
 use MusicBrainz::Server::Adapter::Relations qw(LoadRelations);
 use MusicBrainz::Server::Adapter::Tag qw(PrepareForTagCloud);
 use MusicBrainz::Server::Alias;
@@ -106,6 +106,11 @@ Search Google for this artist
 
 sub google : Chained('artist')
 {
+    my ($self, $c) = @_;
+
+    my $artist = $c->stash->{_artist};
+
+    $c->response->redirect(Google($artist->GetName));
 }
 
 =head2 tags

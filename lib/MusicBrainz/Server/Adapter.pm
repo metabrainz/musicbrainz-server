@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 use base 'Exporter';
-our @EXPORT_OK = qw( LoadEntity EntityUrl );
+our @EXPORT_OK = qw( LoadEntity EntityUrl Google );
 
 use Carp;
 use MusicBrainz::Server::Artist;
@@ -90,6 +90,27 @@ sub EntityUrl
         or die "$action is not a valid action (for $entity->{link_type})";
  
     return $c->uri_for($catalyst_action, [ $entity->{mbid} ], $query_params);
+}
+
+=head2 Google $query.
+
+Form a Google search URL, with the MusicBrainz colours.
+
+=cut
+
+sub Google
+{
+    my $query = shift;
+
+    my $google_domain = "google.com";
+
+    return sprintf "http://%s/custom?q=%s&sa=%s&cof=%s&domains=%s&ie=%s&oe=%s",
+        $google_domain, $query, "Google+Search", 
+        "GIMP%3A%23b78242%3BT%3A%23000000%3BLW%3A604%3BALC%3A%2300FFFF%3BL%3A"
+        . "http%3A%2F%2Fwww.musicbrainz.org%2Fimages%2Fgoogle%2Epng%3BGFNT%3A"
+        . "%23CCCCC%3BLC%3A%23736DAB%3BLH%3A89%3BBGC%3A%23FFFFFF%3BAH%3Acenter"
+        . "%3BVLC%3A%23734D8B%3BGALT%3A%23b78242%3BAWFID%3Af7ac0473f1a88aef%3B",
+        "musicbrainz.org", "utf-8", "utf-8";
 }
 
 1;
