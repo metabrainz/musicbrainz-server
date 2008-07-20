@@ -1,4 +1,4 @@
 [% WRAPPER "layout.tt" title="Tags" %]
 <h1>All Tags:</h1>
-[% cloud %]
+[% INCLUDE "tag/cloud.tt" %]
 [% END %]

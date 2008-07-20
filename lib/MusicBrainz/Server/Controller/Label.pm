@@ -5,8 +5,9 @@ use warnings;
 
 use base 'Catalyst::Controller';
 
-use MusicBrainz::Server::Adapter qw(LoadEntity);
+use MusicBrainz::Server::Adapter qw(LoadEntity Google);
 use MusicBrainz::Server::Adapter::Relations qw(LoadRelations);
+use MusicBrainz::Server::Adapter::Tag qw(PrepareForTagCloud);
 use MusicBrainz::Server::Label;
 
 =head1 NAME
@@ -46,10 +47,25 @@ sub aliases : Chained('label')
 
 sub tags : Chained('label')
 {
+    my ($self, $c) = @_;
+
+    my $label = $c->stash->{_label};
+
+    my $t = MusicBrainz::Server::Tag->new($c->mb->{DBH});
+    my $tags = $t->GetTagHashForEntity('label', $label->GetId, 200);
+
+    $c->stash->{tagcloud} = PrepareForTagCloud($tags);
+
+    $c->stash->{template} = 'label/tags.tt';
 }
 
 sub google : Chained('label')
 {
+    my ($self, $c) = @_;
+
+    my $label = $c->stash->{_label};
+
+    $c->response->redirect(Google($label->GetName));
 }
 
 =head2 relations

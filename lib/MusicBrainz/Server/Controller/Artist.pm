@@ -121,7 +121,7 @@ Show all of this artists tags
 
 sub tags : Chained('artist')
 {
-    my ($self, $c, $mbid) = @_;
+    my ($self, $c) = @_;
     my $artist = $c->stash->{_artist};
 
     my $t = MusicBrainz::Server::Tag->new($c->mb->{DBH});

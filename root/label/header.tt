@@ -18,7 +18,7 @@
     [%- IF c.user_exists -%]
 
     [%- ELSE -%]
-      Please <a herf="[% c.uri_for('/user/login') %]"> login to edit this label
+      Please <a herf="[% c.uri_for('/user/login') %]">login</a> to edit this label
     [%- END -%]
   </div>
 </div>

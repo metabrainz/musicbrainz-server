@@ -6,6 +6,7 @@ use warnings;
 use base 'Catalyst::Controller';
 
 use MusicBrainz::Server::Adapter qw(LoadEntity);
+use MusicBrainz::Server::Adapter::Tag qw(PrepareForTagCloud);
 use MusicBrainz::Server::Artist;
 use MusicBrainz::Server::Label;
 use MusicBrainz::Server::Release;
@@ -31,6 +32,11 @@ Display all entities that relate to a given tag.
 sub display : Path
 {
     my ($self, $c, $tag, $type) = @_;
+
+    unless($tag)
+    {
+        $c->detach('all');
+    }
     
     $type ||= 'all';
     ($type eq 'all' || $type eq 'artist' || $type eq 'label'
@@ -130,7 +136,7 @@ sub all : Local
     my $t = MusicBrainz::Server::Tag->new($c->mb->{DBH});
     my $tags = $t->GetTagHash(200);
 
-    $c->stash->{cloud} = $t->GenerateTagCloud($tags, 'all', 12, 30);
+    $c->stash->{tagcloud} = PrepareForTagCloud($tags);
     
     $c->stash->{template} = 'tag/all.tt';
 }
