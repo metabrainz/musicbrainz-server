@@ -74,6 +74,28 @@ Display artists similar to this artist
 
 sub similar : Chained('artist')
 {
+    my ($self, $c) = @_;
+    
+    my $artist = $c->stash->{_artist};
+
+    my $similar_artists = $artist->GetRelations();
+
+    $c->stash->{similar_artists} = [];
+    for my $similar_artist (@$similar_artists)
+    {
+        my $weight = $similar_artist->{weight};
+        my $id     = $similar_artist->{id};
+        my $name   = $similar_artist->{name};
+
+        push @{ $c->stash->{similar_artists} }, {
+            link_type => 'artist',
+            mbid      => $id,
+            name      => $name,
+            weight    => $weight,
+        };
+    }
+
+    $c->stash->{template} = 'artist/similar.tt';
 }
 
 =head2 google

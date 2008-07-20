@@ -5,7 +5,7 @@ use warnings;
 
 use base 'Catalyst::Controller';
 
-use MusicBrainz::Server::Adapter;
+use MusicBrainz::Server::Adapter qw(LoadEntity);
 use MusicBrainz::Server::Adapter::Relations qw(LoadRelations);
 use MusicBrainz::Server::Label;
 
@@ -34,6 +34,22 @@ sub label : Chained CaptureArgs(1)
 
     $c->stash->{_label} = $label;
     $c->stash->{label}  = $label->ExportStash;
+}
+
+sub perma : Chained('label')
+{
+}
+
+sub aliases : Chained('label')
+{
+}
+
+sub tags : Chained('label')
+{
+}
+
+sub google : Chained('label')
+{
 }
 
 =head2 relations
