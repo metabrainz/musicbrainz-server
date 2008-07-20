@@ -1,0 +1,3 @@
+[% WRAPPER "label/layout.tt" title="Tags" %]
+[% INCLUDE "tag/entity-tags.tt" entity=label %]
+[% END %]

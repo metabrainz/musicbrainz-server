@@ -39,6 +39,9 @@ sub label : Chained CaptureArgs(1)
 
 sub perma : Chained('label')
 {
+    my ($self, $c) = @_;
+
+    $c->stash->{template} = 'label/perma.tt';
 }
 
 sub aliases : Chained('label')

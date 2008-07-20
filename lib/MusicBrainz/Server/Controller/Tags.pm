@@ -94,16 +94,7 @@ sub entity : PathPart('tags') Chained CaptureArgs(2)
 {
     my ($self, $c, $type, $mbid) = @_;
 
-    my $entity;
-
-    use Switch;
-    switch ($type)
-    {
-        case('artist')  { $entity = MusicBrainz::Server::Artist->new($c->mb->{DBH}); }
-        case('label')   { $entity = MusicBrainz::Server::Label->new($c->mb->{DBH}); }
-        case('release') { $entity = MusicBrainz::Server::Release->new($c->mb->{DBH}); }
-        case('track')   { $entity = MusicBrainz::Server::Track->new($c->mb->{DBH}); }
-    }
+    my $entity = LoadEntity($type, $mbid);
 
     $c->stash->{entity}  = $entity->ExportStash;
     $c->stash->{_entity} = $entity;

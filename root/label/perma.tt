@@ -1,0 +1,3 @@
+[% WRAPPER "label/layout.tt" title="Permanant Link" %]
+[% INCLUDE "components/perma-link.tt" entity=label %]
+[% END %]

@@ -24,21 +24,41 @@ routines in different packages (such as loading by either row ID or MBID)
 
 =head1 METHODS
 
-=head2 LoadEntity $mbid, $entity
+=head2 LoadEntity $entity, $mbid, [$c]
 
 Load an entity from either an MBID or row ID - and die on invalid data.
 
-$mbid is the mbid/row id of the $entity. $entity is an instance of the
-entity type - with a database handle.
+$mbid is the mbid/row id of the $entity.
+
+$entity may be either a reference to the entity, or it can be a string
+of the type of the entity. If $entity is a string, $c must be passed -
+which is the Catalyst context.
 
 =cut
 
 sub LoadEntity
 {
-    my ($entity, $mbid) = @_;
+    my ($entity, $mbid, $c) = @_;
+    
+    unless(ref $entity)
+    {
+        croak "LoadEntity called with no context"
+            unless $c;
+
+        use Switch;
+        switch ($entity)
+        {
+            case('artist')  { $entity = MusicBrainz::Server::Artist->new($c->mb->{DBH}); }
+            case('label')   { $entity = MusicBrainz::Server::Label->new($c->mb->{DBH}); }
+            case('release') { $entity = MusicBrainz::Server::Release->new($c->mb->{DBH}); }
+            case('track')   { $entity = MusicBrainz::Server::Track->new($c->mb->{DBH}); }
+
+            else            { croak "$entity is not a valid entity type."; }
+        }
+    }
 
     croak "No entity given"
-        unless defined $entity and ref $entity;
+        unless defined $entity;
 
     if (MusicBrainz::Server::Validation::IsGUID($mbid))
     {

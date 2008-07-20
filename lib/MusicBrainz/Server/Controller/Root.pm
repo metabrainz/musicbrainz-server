@@ -7,7 +7,7 @@ use base 'Catalyst::Controller';
 
 # Import MusicBrainz libraries
 use DBDefs;
-use MusicBrainz::Server::Adapter qw( EntityUrl );
+use MusicBrainz::Server::Adapter qw( LoadEntity EntityUrl );
 use MusicBrainz::Server::NewsFeed;
 use MusicBrainz::Server::Replication ':replication_type';
 

@@ -48,6 +48,9 @@ sub release : Chained CaptureArgs(1)
 
 sub perma : Chained('release')
 {
+    my ($self, $c) = @_;
+
+    $c->stash->{template} = 'releases/perma.tt';
 }
 
 sub details : Chained('release')
