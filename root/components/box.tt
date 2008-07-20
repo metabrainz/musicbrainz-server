@@ -7,13 +7,12 @@
                          Defaults to 'orange'
      - header: The header of the box
 -%]
-
 [%- DEFAULT
     color = 'orange'
-%]
+-%]
 
 <div class="box [% color %]">
-  <h2>[% header %]</h2>
+  <h2>[% header | html %]</h2>
   <div class="content">
     [% content %]
   </div>

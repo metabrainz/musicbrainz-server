@@ -1,3 +1,3 @@
-[% WRAPPER "label/layout.tt" title="Relationships" %]
-[% INCLUDE "components/relations.tt" source=label showall=1 %]
-[% END %]
+[%- WRAPPER "label/layout.tt" title="Relationships" -%]
+[%- INCLUDE "components/relations.tt" source=label showall=1 -%]
+[%- END -%]

@@ -1,18 +1,18 @@
 [%- DEFAULT maximum=3 -%]
 [%- BLOCK list -%]
-  [%- IF relations.size > 1 -%]
+  [%- IF relations.size > 1 OR nocompact -%]
   <ul class="relations_list">
     [%- FOREACH ar IN relations -%]
       [%- LAST IF loop.count > maximum && !showall -%]
       <li>
-        [% ar.connector %]
+        [% ar.connector | html %]
         [%- FOREACH entity IN ar.entities -%]
           [%- IF loop.count > 4 && !showall -%]
             &hellip;
             [%- LAST -%]
           [%- ELSE -%]
             [% INCLUDE "components/entity-link.tt" %][% !loop.last ? "," : "" %]
-            [% "(${entity.resolution})" IF entity.resolution %]
+            [% "(${entity.resolution})" | html IF entity.resolution %]
           [%- END -%]
         [%- END -%]
       </li>
@@ -20,14 +20,14 @@
   </ul>
   [%- ELSIF relations.size == 1 -%] 
     [%- FOREACH ar IN relations -%]
-        [% ar.connector %]
+        [% ar.connector | html %]
         [%- FOREACH entity IN ar.entities -%]
           [%- IF loop.count > 4 && !showall -%]
             &hellip;
             [%- LAST -%]
           [%- ELSE -%]
             [% INCLUDE "components/entity-link.tt" %][% !loop.last ? "," : "" %]
-            [% "(${entity.resolution})" IF entity.resolution %]
+            [% "(${entity.resolution})" | html IF entity.resolution %]
           [%- END -%]
         [%- END -%]
     [%- END -%]

@@ -16,19 +16,19 @@
   </li>
 </ul>
 
-[% WRAPPER "forms/form.tt" %]
-  [% INCLUDE "forms/widget.tt" widget=form.field("artist_type") label="Type" %]
+[%- WRAPPER "forms/form.tt" -%]
+  [%- INCLUDE "forms/widget.tt" widget=form.field("artist_type") label="Type" -%]
   
-  [% INCLUDE "forms/widget.tt" widget=form.field("name") label="Name" %]
-  [% INCLUDE "forms/widget.tt" widget=form.field("sortname") label="Sort Name" %]
+  [%- INCLUDE "forms/widget.tt" widget=form.field("name") label="Name" -%]
+  [%- INCLUDE "forms/widget.tt" widget=form.field("sortname") label="Sort Name" -%]
 
-  [% INCLUDE "forms/widget.tt" widget=form.field("start") label="Start" %]
-  [% INCLUDE "forms/widget.tt" widget=form.field("end") label="End" %]
+  [%- INCLUDE "forms/widget.tt" widget=form.field("start") label="Start" -%]
+  [%- INCLUDE "forms/widget.tt" widget=form.field("end") label="End" -%]
 
   [%- IF form.field("resolution").required -%]
-    [% INCLUDE "forms/widget.tt" widget=form.field("resolution") label="Resolution" %]
+    [%- INCLUDE "forms/widget.tt" widget=form.field("resolution") label="Resolution" -%]
   [%- END -%]
  
-  [% INCLUDE "forms/edit-note.tt" %]
-  [% INCLUDE "forms/submit.tt" label="Update" %]
+  [%- INCLUDE "forms/edit-note.tt" -%]
+  [%- INCLUDE "forms/submit.tt" label="Update" -%]
 [% END %]

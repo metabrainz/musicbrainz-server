@@ -1,8 +1,7 @@
-[% WRAPPER "artist/landing.tt" %]
-
-[% FOREACH group IN groups %]
+[%- WRAPPER "artist/landing.tt" -%]
+[%- FOREACH group IN groups -%]
   <div>
-  <div class="compactreleasetype">[% group.name %]</div>
+  <div class="compactreleasetype">[% group.name | html %]</div>
   <table class="releaselist">
     <thead>
       <tr>
@@ -16,7 +15,7 @@
       </tr>
     </thead>
     <tbody>
-      [% FOREACH release IN group.releases %]
+      [%- FOREACH release IN group.releases -%]
       <tr>
         <td>[% release.track_count %]&nbsp;<img src="/static/images/notes.gif" alt="Tracks" /></td>
         <td>[% release.disc_ids %]&nbsp;<img src="/static/images/cd.gif" alt="Disc IDs" /></td>
@@ -30,11 +29,10 @@
         </td>
         <td>[% INCLUDE "components/entity-link.tt" entity=release icon=0 %]</td>
       </tr>
-      [% END %]
+      [%- END -%]
     </tbody>
   </table>
   </div>
   <br />
-[% END %]
-
+[%- END -%]
 [% END %]

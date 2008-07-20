@@ -5,7 +5,7 @@
     <p>Sorry - some errors were present in the data you provided!</p>
     <ul class="error">
       [% FOREACH error=errors %]
-      <li>[% error %]</li>
+      <li>[% error | html %]</li>
       [% END %]
     </ul>
   [%- END -%]

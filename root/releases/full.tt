@@ -58,8 +58,9 @@
         <tr>
           <td class="number">[% track.number %]</td>
           <td class="title">
-            [% track.name %]
+            [% track.name | html %]
             [% INCLUDE "components/relations.tt" source=track relations=track.relations justlist=1
+                                                 nocompact=1
                  IF track.relations.size AND show_relationships %]
           </td>
 

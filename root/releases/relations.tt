@@ -1,4 +1,4 @@
-[% WRAPPER 'layout.tt' title="Relationships for \"${release.name}\"" %]
-<h1>Relationships for "[% release.name %]"</h1>
-[% INCLUDE "components/relations.tt" source=release showall=1 %]
-[% END %]
+[%- WRAPPER 'layout.tt' title="Relationships for \"${release.name}\"" -%]
+<h1>Relationships for "[% release.name | html %]"</h1>
+[%- INCLUDE "components/relations.tt" source=release showall=1 -%]
+[%- END -%]

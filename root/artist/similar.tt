@@ -1,11 +1,11 @@
-[% WRAPPER "artist/layout.tt" title="Similar Artists" %]
-[% WRAPPER "components/box.tt" header="Similar Artists" %]
+[%- WRAPPER "artist/layout.tt" title="Similar Artists" -%]
+[%- WRAPPER "components/box.tt" header="Similar Artists" -%]
 [%- IF similar_artists.size -%]
 <table>
   [%- FOREACH similar=similar_artists -%]
   <tr>
-    <td>[% INCLUDE "components/entity-link.tt" entity=similar %]</td>
-    <td>[% similar.weight %]0%</td>
+    <td>[%- INCLUDE "components/entity-link.tt" entity=similar -%]</td>
+    <td>[%- similar.weight -%]0%</td>
   </tr>
   [%- END -%]
 </table>
@@ -15,5 +15,5 @@
     [% INCLUDE "components/entity-link.tt" entity=artist %].
   </p>
 [%- END -%]
-[% END %]
-[% END %]
+[%- END -%]
+[%- END -%]
