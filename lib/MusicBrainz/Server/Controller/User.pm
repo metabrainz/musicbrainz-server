@@ -58,7 +58,8 @@ sub login : Local
 {
     my ($self, $c) = @_;
 
-    if ($c->user_exists) {
+    if ($c->user_exists)
+    {
         my $redir = $c->flash->{login_redirect} || $c->uri_for('/user/profile');
         $c->response->redirect($redir);
         $c->detach;

@@ -7,7 +7,7 @@ use base 'Catalyst::Controller';
 
 use ModDefs;
 use MusicBrainz;
-use MusicBrainz::Server::Adapter qw(LoadEntity);
+use MusicBrainz::Server::Adapter qw(LoadEntity Google);
 use MusicBrainz::Server::Adapter::Relations qw(LoadRelations);
 use MusicBrainz::Server::Adapter::Tag qw(PrepareForTagCloud);
 use MusicBrainz::Server::CoverArt;
@@ -46,6 +46,12 @@ sub release : Chained CaptureArgs(1)
     $c->stash->{release}  = $release->ExportStash;
 }
 
+=head2 perma
+
+Display permalink information for a release
+
+=cut
+
 sub perma : Chained('release')
 {
     my ($self, $c) = @_;
@@ -53,12 +59,32 @@ sub perma : Chained('release')
     $c->stash->{template} = 'releases/perma.tt';
 }
 
+=head2 details
+
+Display detailed information about a release
+
+=cut
+
 sub details : Chained('release')
 {
+    my ($self, $c) = @_;
+
+    $c->stash->{template} = 'releases/details.tt';
 }
+
+=head2 google
+
+Redirect to Google and search for this release's name.
+
+=cut
 
 sub google : Chained('release')
 {
+    my ($self, $c) = @_;
+
+    my $release = $c->stash->{_release};
+
+    $c->response->redirect(Google($release->GetName));
 }
 
 =head2 tags

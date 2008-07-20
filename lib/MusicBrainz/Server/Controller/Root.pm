@@ -133,6 +133,20 @@ sub end : ActionClass('RenderView')
     $c->stash->{server_details}->{version} = &DBDefs::VERSION;
 }
 
+=head css
+
+"Static" action which allows us to build a CSS file using templates
+
+=cut
+
+sub css : Path('main.css')
+{
+    my ($self, $c) = @_;
+
+    $c->response->content_type('text/css');
+    $c->stash->{template} = 'css/main.tt';
+}
+
 =head1 LICENSE
 
 This software is provided "as is", without warranty of any kind, express or

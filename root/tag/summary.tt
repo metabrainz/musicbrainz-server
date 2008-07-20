@@ -12,4 +12,4 @@
   (none)
 [%- END -%]
 
-- <a href="[% c.uri_for('/tags/new/', source.link_type, artist.id) %]">Tag this [% source.link_type %]</a>
+- <a href="[% tag_url %]">Tag this [% source.link_type %]</a>

@@ -13,10 +13,13 @@
   [%- lastyear = "." -%]
   [%- FOREACH release IN group.releases -%]
     <tr>
-      <td class="year">[% release.year | html %]</td>
+      <td class="year[% release.year == lastyear && release.year != "?" ? " timeline" : "" -%]">
+        [% release.year %]
+      </td>
       <td class="artist">[% INCLUDE "components/entity-link.tt" entity=release.artist %]</td>
       <td class="title">[% INCLUDE "components/entity-link.tt" entity=release %]</td>
     </tr>
+    [%- lastyear = release.year -%]
   [%- END -%]
   </tbody>
 </table>

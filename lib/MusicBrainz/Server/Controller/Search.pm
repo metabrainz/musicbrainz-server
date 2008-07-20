@@ -25,6 +25,7 @@ Handle a "simple" search which has a type and a query. This then redirects
 to whichever specific search action the search type maps to.
 
 =cut
+
 sub simple : Local
 {
     my ($self, $c) = @_;

@@ -1,0 +1,37 @@
+/*
+ * Messages
+ */
+#content form .required {
+    font-weight: bold;
+}
+
+#content form .error {
+    color: #ff0000;
+}
+
+/*
+ * Generic Forms
+ */
+#content form.generic p {
+    clear: both;
+}
+#content form.generic .labelRight {
+    margin-left: 110pt;
+}
+
+#content form.generic label {
+    float: left;
+    text-align: right;
+    margin-right: 10pt;
+    width: 100pt;
+}
+
+#content form.generic .labelRight {
+    margin-left: 110pt;
+}
+#content form.generic .labelRight label {
+    width: auto;
+    float: none;
+    text-align: left;
+    margin: 0;
+}

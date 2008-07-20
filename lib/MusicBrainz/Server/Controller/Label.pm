@@ -37,12 +37,24 @@ sub label : Chained CaptureArgs(1)
     $c->stash->{label}  = $label->ExportStash;
 }
 
+=head2 perma
+
+Display details about a permanant link to this label.
+
+=cut
+
 sub perma : Chained('label')
 {
     my ($self, $c) = @_;
 
     $c->stash->{template} = 'label/perma.tt';
 }
+
+=head2 aliases
+
+Display all aliases for a label
+
+=cut
 
 sub aliases : Chained('label')
 {
@@ -67,6 +79,12 @@ sub aliases : Chained('label')
     $c->stash->{template} = 'label/aliases.tt';
 }
 
+=head2 tags
+
+Display a tag-cloud of tags for a label
+
+=cut
+
 sub tags : Chained('label')
 {
     my ($self, $c) = @_;
@@ -80,6 +98,12 @@ sub tags : Chained('label')
 
     $c->stash->{template} = 'label/tags.tt';
 }
+
+=head2 google
+
+Redirect to Google and search for this label (using MusicBrainz colours).
+
+=cut
 
 sub google : Chained('label')
 {

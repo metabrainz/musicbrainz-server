@@ -78,6 +78,8 @@ sub LoadEntity
 
     $entity->LoadFromId(1)
         or croak "Could not load entity";
+
+    return $entity;
 }
 
 =head2 EntityUrl $c, $entity, $action, [\%query_params]
@@ -108,7 +110,9 @@ sub EntityUrl
 
     my $catalyst_action = $controller->action_for($action)
         or die "$action is not a valid action (for $entity->{link_type})";
- 
+
+    $query_params ||= {};
+
     return $c->uri_for($catalyst_action, [ $entity->{mbid} ], $query_params);
 }
 
@@ -132,5 +136,24 @@ sub Google
         . "%3BVLC%3A%23734D8B%3BGALT%3A%23b78242%3BAWFID%3Af7ac0473f1a88aef%3B",
         "musicbrainz.org", "utf-8", "utf-8";
 }
+
+=head1 LICENSE
+
+This software is provided "as is", without warranty of any kind, express or
+implied, including  but not limited  to the warranties of  merchantability,
+fitness for a particular purpose and noninfringement. In no event shall the
+authors or  copyright  holders be  liable for any claim,  damages or  other
+liability, whether  in an  action of  contract, tort  or otherwise, arising
+from,  out of  or in  connection with  the software or  the  use  or  other
+dealings in the software.
+
+GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+Permits anyone the right to use and modify the software without limitations
+as long as proper  credits are given  and the original  and modified source
+code are included. Requires  that the final product, software derivate from
+the original  source or any  software  utilizing a GPL  component, such  as
+this, is also licensed under the GPL license.
+
+=cut
 
 1;

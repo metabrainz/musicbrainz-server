@@ -2,27 +2,16 @@
 [%- FOREACH group IN groups -%]
   <div>
   <div class="compactreleasetype">[% group.name | html %]</div>
-  <table class="releaselist">
-    <thead>
-      <tr>
-        <th>Tracks</th>
-        <th>Disc IDs</th>
-        <th>PUIDs</th>
-        <th>Status</th>
-        <th>Release Date</th>
-        <th>Language</th>
-        <th>Title</th>
-      </tr>
-    </thead>
+  <table class="releases">
     <tbody>
       [%- FOREACH release IN group.releases -%]
       <tr>
-        <td>[% release.track_count %]&nbsp;<img src="/static/images/notes.gif" alt="Tracks" /></td>
-        <td>[% release.disc_ids %]&nbsp;<img src="/static/images/cd.gif" alt="Disc IDs" /></td>
-        <td>[% release.puids %]&nbsp;<img src="/static/images/puid.gif" alt="PUIDs" /></td>
-        <td>[% release.status %]</td>
-        <td>[% release.first_release_date | release_date %]</td>
-        <td>
+        <td class="tracks">[% release.track_count %]&nbsp;<img src="/static/images/notes.gif" alt="Tracks" /></td>
+        <td class="discids">[% release.disc_ids %]&nbsp;<img src="/static/images/cd.gif" alt="Disc IDs" /></td>
+        <td class="puids">[% release.puids %]&nbsp;<img src="/static/images/puid.gif" alt="PUIDs" /></td>
+        <td class="status">[% release.status %]</td>
+        <td class="date">[% release.first_release_date | release_date %]</td>
+        <td class="language">
             <abbr title="[% release.language.language %] / [% release.language.script %]">
             [% release.language.shortLanguage %]
             </abbr>

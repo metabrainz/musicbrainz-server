@@ -1,0 +1,228 @@
+/* 
+ * General Elements
+ */
+body {
+    font-family: Verdana,Geneva,Arial,Helvetica,sans-serif;
+    font-size: 12.5px;
+    line-height: 1.5em;
+    margin: 0;
+    width: 100%;
+}
+
+p {
+    margin: 0;
+    margin-bottom: 5pt;
+}
+
+a {
+    color: #534D8B;
+    text-decoration: none;
+}
+
+a img { border: none; }
+
+a:hover {
+    text-decoration: underline;
+}
+
+/*
+ * Header
+ */
+#header {
+    background: #736DAB;
+    border-bottom: 1px solid #000;
+    margin: 0; padding: 0;
+}
+
+/*
+ * Footer
+ */
+#footer {
+    clear: both;
+}
+
+#footer-bar {
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000;
+    display: block;
+    margin-bottom: 10pt;
+    overflow: hidden;
+    background: #FFBA58;
+    padding: 3pt;
+}
+
+#footer-bar a {
+    color: #997035;
+}
+
+#footer-bar a:hover {
+    color: #000;
+    text-decoration: none;
+}
+
+#footer-bar li {
+    list-style-type: none;
+    float: left;
+    width: 20%;
+    text-align: center;
+}
+
+/*
+ * Credits bar
+ */
+#creditsBar {
+    clear: both;
+    color: #BBB;
+    margin: 0 1em;
+    margin-bottom: 1em;
+}
+
+#creditsBar a, #footerNotes a {
+    font-weight: bold;
+    color: #BBB;
+}
+
+#creditsBar a:hover, #footerNotes a:hover {
+    color: #555;
+}
+
+#creditsBar li {
+    text-align: center;
+    list-style-type: none;
+}
+#creditsBar li.left { float: left;}
+#creditsBar li.right { float: right; }
+
+/*
+ * Sidebar
+ */
+#sidebar {
+    width: 130px;
+    background: #DDD;
+    border-right: 1px solid #000;
+    color: #050505;
+    font-size: 9pt;
+    margin-bottom: 20pt;
+}
+
+#sidebar .sidebar-module {
+    border-bottom: 1px solid #000;
+    padding: 6pt;
+}
+
+#sidebar label {
+    font-size: 8pt;
+}
+
+#sidebar input, #sidebar select {
+    width: 50pt;
+    background: #eee;
+    border: 1px inset;
+    font-size: 8pt;
+}
+
+#sidebar img {
+    margin: auto;
+    display: block;
+    margin-bottom: 2pt;
+}
+
+#sidebar h3 {
+    background: #BBB;
+    margin: 0;
+    padding: 5pt;
+    border-bottom: 1px solid #000;
+    font-size: 8pt;
+    padding: 0pt 4pt;
+}
+
+#sidebar h3 a:visited,
+#sidebar h3 a:active,
+#sidebar h3 a:hover,
+#sidebar h3 a:link {
+    color: #000;
+}
+
+#sidebar h3 a:hover { text-decoration: underline; }
+
+#sidebar a {
+    color: #555;
+}
+
+#sidebar a:hover {
+    color: #000;
+}
+
+#sidebar ul {
+    margin: 0;
+    padding: 0;
+}
+
+#sidebar li {
+    list-style-type: none;
+}
+
+#sidebar ul ul {
+    padding: 0;
+    padding-left: 10pt;
+}
+
+/*
+ * Content
+ */
+#container {
+    width: 100%;
+    float: right;
+    margin-left: -200px;
+}
+
+#content {
+    margin-left: 140px;
+    padding: 15px;
+}
+
+/*
+ * Boxes
+ */
+div.box, #content form fieldset {
+    border: 1px solid #FFBB55;
+    margin-bottom: 16pt;
+}
+
+div.box h2, #content form legend {
+    border-bottom: 1px solid #FFBB55;
+    margin: 0;
+    padding: 2pt 4pt;
+    background: url(/static/images/header-bg-orangefade.gif) repeat-y;
+    font-size: 10pt;
+}
+
+div.purple h2 {
+    background: url(/static/images/header-bg-lightpurplefade.gif) repeat-y;
+    border-bottom: 1px solid #736DAB;
+}
+
+div.purple {
+    border: 1px solid #736DAB;
+}
+
+div.box div.content {
+    padding: 5pt;
+}
+
+div.bio { 
+    width: 90%;
+    border: 1px dotted #CCC; 
+    padding: 0px 5px 5px 5px; 
+}
+
+ul.tagcloud li {
+    display: inline;
+    padding-right: 10pt;
+    list-style-type: none;
+}
+
+table.details th {
+    text-align: right;
+    padding-right: 10pt;
+}
