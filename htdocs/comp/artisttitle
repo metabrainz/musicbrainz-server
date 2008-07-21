@@ -230,12 +230,12 @@
 		
 		if($notify == 1)
 		{
-			CollectionPreference::ArtistMissing($artist->GetId(), $session{uid});
+			CollectionPreference::ArtistWatch($artist->GetId(), $session{uid});
 		}
 		
 		if($dispmissing == 1)
 		{
-			CollectionPreference::ArtistWatch($artist->GetId(), $session{uid});
+			CollectionPreference::ArtistMissing($artist->GetId(), $session{uid});
 		}
 	}
 

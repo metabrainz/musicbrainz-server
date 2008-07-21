@@ -25,13 +25,11 @@ sub new
 	
 	# get collection id
 	my $sql=Sql->new($rawdbh);
-	my $query="SELECT id FROM collection_info WHERE moderator='$userId'";
-	my $collectionId=$sql->SelectSingleValue($query);
+	my $collectionId=$sql->SelectSingleValue('SELECT id FROM collection_info WHERE moderator=?', $userId);
 	
 	
 	# select artist id's of artists to display missing releases of
-	my $artistsQuery="SELECT artist FROM collection_discography_artist_join WHERE collection_info='". $collectionId ."'";
-	my $artistsMissing=$sql->SelectSingleColumnArray($artistsQuery);
+	my $artistsMissing=$sql->SelectSingleColumnArray('SELECT artist FROM collection_discography_artist_join WHERE collection_info=?', $collectionId);
 	
 	
 	# convert the array of artists to display missing releases of into a hash with the value as key
@@ -48,8 +46,10 @@ sub new
 	my $object=bless(
 	{
 		RAWDBH			=> $rawdbh,
+		RODBH			=> $rodbh,
 		prefs			=> {},
 		collectionId	=> $collectionId,
+		userId			=> $userId,
 		hasArtists		=> $hasArtists,
 		artistsMissing	=> $artistsMissingHash
 	}, $this);
@@ -60,6 +60,30 @@ sub new
 	return $object;
 }
 
+
+sub LoadArtists
+{
+	my ($this) = @_;
+	
+	my $rosql = Sql->new($this->{RODBH});
+	
+	# select artist id's of artists to display missing releases of
+	my $artistsMissing=$rosql->SelectSingleColumnArray('SELECT artist FROM collection_discography_artist_join WHERE collection_info=?', $this->{collectionId});
+	
+	
+	# convert the array of artists to display missing releases of into a hash with the value as key
+	my $artistsMissingHash;
+	for my $artistId (@$artistsMissing)
+	{
+		$artistsMissingHash->{$artistId}=1;
+	}
+	
+	$this->{artistsMissing} = $artistsMissingHash;
+	
+	
+	my $collection = MusicBrainz::Server::CollectionInfo->new($this->{userId}, $this->{RODBH}, $this->{RAWDBH});
+	$this->{hasArtists} = $collection->GetHasArtists();
+}
 
 sub addpref
 {
@@ -374,7 +398,7 @@ sub ArtistWatch
 	
 	if($@)
 	{
-		print $@;
+		#print $@;
 	}
 	
 	$rawsql->Commit();
@@ -403,7 +427,7 @@ sub ArtistMissing
 	
 	if($@)
 	{
-		print $@;
+		#print $@;
 	}
 	
 	$rawsql->Commit();
