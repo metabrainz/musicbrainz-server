@@ -67,6 +67,10 @@
             {
                 $query = "artist:($query)(sortname:($query) alias:($query) !artist:($query))";
             }
+            elsif ($session{"as_type"} eq 'release')
+            {
+                $query = "release:($query)(barcode:($query) !release:($query))";
+            }
         }
 
 		my $docurl = 	'http://'
