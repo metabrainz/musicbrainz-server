@@ -349,5 +349,67 @@ sub ArtistInMissingList
 
 
 
+
+
+#--------------------------------------------------
+# Static subs
+#--------------------------------------------------
+
+sub ArtistWatch
+{
+	my ($artistId, $userId) = @_;
+	
+	require MusicBrainz;
+	my $mbraw = MusicBrainz->new();
+	$mbraw->Login(db => 'RAWDATA');
+	my $rawsql = Sql->new($mbraw->{DBH});
+	
+	my $collectionId = MusicBrainz::Server::CollectionInfo::GetCollectionIdForUser($userId, $mbraw->{DBH});
+	
+	eval
+	{
+		$rawsql->Begin();
+		$rawsql->Do('INSERT INTO collection_watch_artist_join (collection_info, artist) VALUES (?, ?)', $collectionId, $artistId);
+	};
+	
+	if($@)
+	{
+		print $@;
+	}
+	
+	$rawsql->Commit();
+}
+
+sub ArtistMissing
+{
+	my ($artistId, $userId) = @_;
+	
+	require MusicBrainz;
+	my $mbraw = MusicBrainz->new();
+	$mbraw->Login(db => 'RAWDATA');
+	my $rawsql = Sql->new($mbraw->{DBH});
+	
+	print STDERR 'userId:'.$userId;
+	use Data::Dumper;
+	print STDERR Dumper($mbraw->{DBH});
+	
+	my $collectionId = MusicBrainz::Server::CollectionInfo::GetCollectionIdForUser($userId, $mbraw->{DBH});
+	
+	eval
+	{
+		$rawsql->Begin();
+		$rawsql->Do('INSERT INTO collection_discography_artist_join (collection_info, artist) VALUES (?, ?)', $collectionId, $artistId);
+	};
+	
+	if($@)
+	{
+		print $@;
+	}
+	
+	$rawsql->Commit();
+}
+
+
+
 1;
 

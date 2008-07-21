@@ -34,6 +34,9 @@
 	$showlinks => undef		# show info links
 	$showmodlinks => 1		# show editing links.
 							# -- TODO: rename to showeditlinks
+							
+	$notify => undef
+	$dispmissing => undef
 
 </%args>
 <%perl>
@@ -150,7 +153,7 @@
 		$m->out(qq! ]</td></tr>!);
 	}
 
-
+	
 	# Row 3: editing links
 	if ($showmodlinks)
 	{
@@ -212,6 +215,28 @@
 		$m->out(qq!<a href="/show/artist/?artistid=$id&addrel=1">Use this artist in a relationship</a>!);
 		$m->out(qq! | <a href="/edit/relationship/addurl.html?type=artist&id=$id&name=! . uri_escape($name) . qq!">Relate to URL</a>!);
 		$m->out(qq! ]</td></tr>!);
+	}
+	
+	# Row 5: Collection links
+	if($session{uid} != undef)
+	{
+		$m->out(qq!<tr>!);
+		$m->out(qq!<td colspan="2" class="editlinks">!);
+		$m->out(qq!Collection: [ !);
+		$m->out(qq!<a href="/show/artist/?artistid=$id&notify=1">Notify me on new releases</a> | !);
+		$m->out(qq!<a href="/show/artist/?artistid=$id&dispmissing=1">Display missing releases</a>!);
+		$m->out(qq! ]</td></tr>!);
+		
+		
+		if($notify == 1)
+		{
+			CollectionPreference::ArtistMissing($artist->GetId(), $session{uid});
+		}
+		
+		if($dispmissing == 1)
+		{
+			CollectionPreference::ArtistWatch($artist->GetId(), $session{uid});
+		}
 	}
 
 	$m->out(qq!</table>!);
