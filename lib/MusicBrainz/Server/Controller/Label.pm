@@ -342,7 +342,7 @@ sub sort_artist
 Export data from a release to store in stash.
 
 We can't just use $release->ExportStash as this doesn't give us the
-artist name/mbid.
+catalog number - which is loaded if you load via a label.
 
 =cut
 
@@ -350,7 +350,7 @@ sub export_release
 {
     my $release = shift;
 
-    my $stash = $release->ExportStash qw/language type first_date/;
+    my $stash = $release->ExportStash qw/track_count language type first_date/;
 
     $stash->{artist} = {
         name      => $release->{artistname},

@@ -191,38 +191,39 @@ sub GetQualityModPending
 
 sub ExportStash
 {
-    my $self = shift;
-    my @data = @_;
-
-    my %dataHash;
-    for (@data) { $dataHash{$_} = 1 }
+    my ($self, @data) = @_;
 
     my $ret = {};
-    $ret->{mbid} = $self->GetMBId if $dataHash{'mbid'};
-    $ret->{type} = GetTypeName($self->GetType) if $dataHash{'type'};
-    $ret->{resolution} = $self->GetResolution if $dataHash{'resolution'};
+    $ret->{mbid}      = $self->GetMBId;
+    $ret->{name}      = $self->GetName;
     $ret->{link_type} = 'artist';
 
-    if($dataHash{'name'})
+    use Switch;
+    for my $data_item (@data)
     {
-        $ret->{name} = $self->GetName;
-        $ret->{sortname} = $self->GetSortName;
-    }
+        switch ($data_item)
+        {
+            case ('name')       { $ret->{sortname}   = $self->GetSortName; }
+            case ('type')       { $ret->{type}       = GetTypeName($self->GetType); }
+            case ('resolution') { $ret->{resolution} = $self->GetResolution; }
 
-    if($dataHash{'quality'})
-    {
-        $ret->{quality} = {
-            quality => ModDefs::GetQualityText($self->GetQuality),
-            mp => $self->GetQualityModPending
+            case ('quality')
+            {
+                $ret->{quality} = {
+                    quality => ModDefs::GetQualityText($self->GetQuality),
+                    mp      => $self->GetQualityModPending
+                };
+            }
+
+            case ('date')
+            {
+                $ret->{datespan} = {
+                    start    => $self->GetBeginDate,
+                    end      => $self->GetEndDate,
+                    complete => $self->GetBeginDate && $self->GetEndDate,
+                };
+            }
         }
-    }
-
-    if($dataHash{'date'})
-    {
-        $ret->{datespan} = {
-            start => $self->GetBeginDate,
-            end => $self->GetEndDate
-        };
     }
 
     return $ret;

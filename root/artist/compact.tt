@@ -1,11 +1,11 @@
 [%- WRAPPER "artist/landing.tt" -%]
 [%- FOREACH group IN groups -%]
   <div>
-  <div class="compactreleasetype">[% group.name | html %]</div>
+  <h2 class="compactreleasetype">[% group.name | html %]</h2>
   <table class="releases">
     <tbody>
       [%- FOREACH release IN group.releases -%]
-      <tr>
+      <tr[% ' class="odd"' IF loop.count % 2 == 0 %]>
         <td class="tracks">[% release.track_count %]&nbsp;<img src="/static/images/notes.gif" alt="Tracks" /></td>
         <td class="discids">[% release.disc_ids %]&nbsp;<img src="/static/images/cd.gif" alt="Disc IDs" /></td>
         <td class="puids">[% release.puids %]&nbsp;<img src="/static/images/puid.gif" alt="PUIDs" /></td>

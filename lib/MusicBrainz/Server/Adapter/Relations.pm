@@ -224,17 +224,36 @@ C<\@links> is an array reference to a list of links to export.
 sub ExportLinks
 {
     my $links = shift;
+
+    sub require_new_group
+    {
+        my ($current_group, $relation) = @_;
+
+        if (not defined $current_group or
+            $current_group->{connector}  ne $relation->{link_phrase} or
+            $current_group->{start_date} ne $relation->{begindate}   or
+            $current_group->{end_date}   ne $relation->{enddate})
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    };
     
     my @stashData;
     my $currentGroup = undef;
     for my $link (@$links)
     {
-        if(not defined $currentGroup or $currentGroup->{connector} ne $link->{link_phrase})
+        if (require_new_group($currentGroup, $link))
         {
             $currentGroup = {
-                connector => $link->{link_phrase},
-                type => $link->{link_type},
-                entities => []
+                connector  => $link->{link_phrase},
+                type       => $link->{link_type},
+                start_date => $link->{begindate},
+                end_date   => $link->{enddate},
+                entities   => [],
             };
             push @stashData, $currentGroup;
         }

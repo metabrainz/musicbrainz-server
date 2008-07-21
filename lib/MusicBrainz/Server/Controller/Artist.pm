@@ -62,6 +62,7 @@ sub artist : Chained CaptureArgs(1)
     }
     else
     {
+        $c->response->status(404);
         croak "No MBID/row ID given.";
     }
 }
@@ -173,7 +174,7 @@ sub create : Local
 
     if ($c->form_posted)
     {
-        if (my $mods = $form->update_from_form ($c->req->params))
+        if (my $mods = $form->update_from_form($c->req->params))
         {
             $c->flash->{ok} = "Thanks! The artist has been added to the " .
                               "database, and we have redirected you to " .
@@ -283,8 +284,6 @@ sub appearances : Chained('artist')
     my $group;
     for my $release (@rawReleases)
     {
-        die "No release" unless defined $release;
-
         if (not defined $group or $release->{linkphrase} ne $group->{phrase})
         {
             $group = {

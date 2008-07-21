@@ -1,12 +1,13 @@
 
-div.compactreleasetype {
+h2.compactreleasetype {
     color: #000;
     font-weight: bold;
+    font-size: 12pt;
     padding: 1pt 5pt;
     background: url(/static/images/header-bg-orangefade.gif) repeat-y;
 }
 
-div.releasetype {
+h2.releasetype {
     background: #736DAB;
     color: #FFF;
     border: 1px solid #000;
@@ -109,6 +110,14 @@ div.release .editLinks { border-bottom: 1px solid black; }
  */
 table.releases { width: 100%; }
 
+table.releases td,
+table.releases th {
+    padding-left:  10pt;
+    padding-right: 10pt;
+}
+
+table.releases tr.odd { background: #eee; }
+
 table.releases .tracks,
 table.releases .puids,
 table.releases .discids {
@@ -120,12 +129,14 @@ table.releases .puids   { width: 50pt; }
 table.releases .tracks  { width: 30pt; }
 
 table.releases .date,
-table.releases .status {
-    width: 80pt;
+table.releases .status,
+table.releases .language {
+    width: 20pt;
     text-align: center;
 }
 
-table.releases .language {
-    width: 40pt;
-    text-align: center;
+table.releases .artist,
+table.releases .title,
+table.releases .catalog {
+    text-align: left;
 }

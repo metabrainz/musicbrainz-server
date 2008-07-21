@@ -2,35 +2,35 @@
 [%- INCLUDE "label/header.tt" -%]
 [%- INCLUDE "components/relations.tt" source=label -%]
 
-<h2>Releases</h2>
-<table class="releaselist">
+<h2 class="compactreleasetype">Releases</h2>
+<table class="releases">
   <thead>
     <tr>
-      <th></th>
-      <th>Status</th>
-      <th>Language</th>
-      <th>Date</th>
-      <th>Catalog #</th>
-      <th>Artist</th>
-      <th>Title</th>
+      <th class="tracks"></th>
+      <th class="status">Status</th>
+      <th class="language">Language</th>
+      <th class="date">Date</th>
+      <th class="catalog">Catalog #</th>
+      <th class="artist">Artist</th>
+      <th class="title">Title</th>
     </tr>
   </thead>
   <tbody>
   [%- FOREACH release=releases -%]
-    <tr>
-      <td>[% release.track_count %]</td>
-      <td>[% release.status %]</td>
-      <td>
+    <tr[% ' class="odd"' IF loop.count % 2 == 0 %]>
+      <td class="tracks">[% release.track_count %]&nbsp;<img src="/static/images/notes.gif" alt="Tracks" /></td>
+      <td class="status">[% release.status %]</td>
+      <td class="language">
         <abbr title="[% release.language.language %] / [% release.language.script %]">
           [% release.language.shortLanguage %]
         </abbr>
       </td>
-      <td>
+      <td class="date">
         [% release.first_release_date | release_date %]
       </td>
-      <td>[% release.catalog_number %]</td>
-      <td>[% INCLUDE "components/entity-link.tt" entity=release.artist %]</td>
-      <td>[% INCLUDE "components/entity-link.tt" entity=release %]</td>
+      <td class="catalog">[% release.catalog_number %]</td>
+      <td class="artist">[% INCLUDE "components/entity-link.tt" entity=release.artist %]</td>
+      <td class="name">[% INCLUDE "components/entity-link.tt" entity=release %]</td>
     </tr>
   [%- END -%]
   </tbody>

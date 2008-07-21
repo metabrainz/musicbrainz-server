@@ -14,19 +14,31 @@
     padding-top: 5px;
 }
 
-.entity_header div.title a {
-    color: #000;
+.entity_header .title,
+.entity_header .info {
+    padding-left: 45px;
 }
 
+.entity_header div.title a {
+    color: #000;
+    font-size: 20pt;
+}
+
+.entity_header .artist { background: url(/static/images/aicon_lg.png) no-repeat 5px top; }
+.entity_header .label  { background: url(/static/images/licon_lg.png) no-repeat 5px top; }
+
 .entity_header div.title {
-    padding-left: 5px;
-    font-size: 25pt;
+    font-size: 15pt;
+    color: #555;
+    min-height: 32px;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    padding-top: 3px;
 }
 
 .entity_header div.info {
-    padding-left: 5px;
-    padding-top: 3px;
     font-size: 8pt;
+    line-height: 10pt;
 }
 
 .infoLinks,
