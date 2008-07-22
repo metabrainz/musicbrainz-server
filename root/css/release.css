@@ -22,13 +22,13 @@ div.release {
     margin-bottom: 10px;
 }
 
-div.release table {
+div.release table.release_tracks {
     border-bottom: 1px solid black;
     width: 100%;
     border-collapse: collapse;
 }
 
-div.release table tr {
+div.release table.release_tracks tr {
     border-bottom: 1px solid black;
 }
 
@@ -38,7 +38,7 @@ div.release table .title {
     border-right: 1px solid #aaa;
 }
 
-div.release table td {
+div.release table.release_tracks td {
     padding: 2pt 3pt;
     vertical-align: top;
 }
@@ -139,4 +139,22 @@ table.releases .artist,
 table.releases .title,
 table.releases .catalog {
     text-align: left;
+}
+
+/*
+ * Release events
+ */
+table.release_events {
+    width: 100%;
+    border-top: 1px solid #000;
+}
+
+table.release_events th,
+table.release_events td {
+    text-align: left;
+}
+
+table.release_events .date {
+    text-align: center;
+    width: 80pt;
 }

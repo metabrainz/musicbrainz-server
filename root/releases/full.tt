@@ -80,4 +80,29 @@
     </tbody>
   </table>
   [% INCLUDE "releases/box-summary.tt" %]
+
+    <table class="release_events">
+      <thead>
+        <tr>
+          <th class="date">Date</th>
+          <th>Country</th>
+          <th>Label</th>
+          <th>Catalog #</th>
+          <th>Barcode</th>
+          <th>Format</th>
+        </tr>
+      </thead>
+      <tbody>
+        [%- FOREACH event=release_events -%]
+        <tr>
+          <td class="date">[% event.date | release_date %]</td>
+          <td>[% event.country %]</td>
+          <td>[% INCLUDE "components/entity-link.tt" entity=event.label IF event.has_label %]</td>
+          <td>[% event.catalog %]</td>
+          <td>[% event.barcode %]</td>
+          <td>[% event.format %]</td>
+        </tr>
+        [%- END -%]
+      </tbody>
+    </table>
 </div>

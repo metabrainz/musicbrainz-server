@@ -1,5 +1,5 @@
+Tags:
 [%- IF tags.size -%]
-  Tags:
     [%- FOREACH tag IN tags -%]
       [%- LAST IF loop.count > 3 -%]
       <a href="[% c.uri_for('/tags', tag) %]">[% tag %]</a>[%- "," UNLESS (loop.first AND loop.size == 0) OR (loop.last) -%]

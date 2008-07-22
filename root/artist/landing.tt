@@ -2,7 +2,7 @@
 [%- INCLUDE "artist/header.tt" -%]
 [%- INCLUDE "artist/annotation.tt" IF annotation -%]
 <div class="TagsBox">
-  Tags: [%- INCLUDE "tag/summary.tt" tags=artist_tags source=artist -%]
+  [%- INCLUDE "tag/summary.tt" tags=artist_tags source=artist -%]
 </div>
 [%- INCLUDE "components/relations.tt" source=artist relations=artist_relations -%]
 [%- content -%]

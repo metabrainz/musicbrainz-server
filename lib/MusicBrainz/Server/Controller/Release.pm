@@ -10,6 +10,7 @@ use MusicBrainz;
 use MusicBrainz::Server::Adapter qw(LoadEntity Google);
 use MusicBrainz::Server::Adapter::Relations qw(LoadRelations);
 use MusicBrainz::Server::Adapter::Tag qw(PrepareForTagCloud);
+use MusicBrainz::Server::Country;
 use MusicBrainz::Server::CoverArt;
 use MusicBrainz::Server::Release;
 use MusicBrainz::Server::Tag;
@@ -180,6 +181,28 @@ sub show : Chained('release') PathPart('')
         push @{ $c->stash->{tracks} }, $trackStash;
     }
 
+    # Release Events
+    my @events = $release->ReleaseEvents(1);
+
+    my $country_obj = MusicBrainz::Server::Country->new($c->mb->{DBH});
+    my %county_names;
+
+    $c->stash->{release_events} = [ map {
+        my $event_stash = $_->ExportStash;
+
+        my $cid = $event_stash->{country};
+        $event_stash->{country} = (
+            $county_names{$cid} ||= do {
+                my $c = $country_obj->newFromId($cid);
+                $c ? $c->GetName : "?";
+            }
+        );
+
+        $event_stash;
+    } @events ];
+    
+    # Need to convert country ID to name:
+    #
 
     # Tags
     my $t    = MusicBrainz::Server::Tag->new($c->mb->{DBH});

@@ -24,7 +24,7 @@
     [%- END -%]
   </ul>
   [%- ELSIF relations.size == 1 -%] 
-    [%- PROCESS relation_group ar=relations -%]
+    [%- PROCESS relation_group ar=relations.first -%]
   [%- END -%]
   [%- IF relations.size > maximum  && !showall -%]
     [%- n = relations.size - maximum -%]
