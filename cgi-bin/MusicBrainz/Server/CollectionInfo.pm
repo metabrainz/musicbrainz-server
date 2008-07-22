@@ -3,6 +3,7 @@
 # remove notificationinterval etc from query in CreateCollection and set them as default values in CreateTables.sql instead
 # do some of the SQL querys in evals
 # look up when to use/require should be used
+# get some stuff from the CollectionPreference object instead of doing new queries in here
 #
 
 #!/usr/bin/perl -w
@@ -10,6 +11,8 @@
 use strict;
 
 package MusicBrainz::Server::CollectionInfo;
+
+
 
 
 sub new
@@ -34,11 +37,12 @@ sub new
 		preferences		=> $preferences,
 		result			=> $result,
 		collectionId	=> $result->{id},
-		hasReleases		=> undef,
+		hasReleases		=> undef, # lets see if this and missingReleases will be used
 		missingReleases	=> undef
 		#artistHash		=> {}
 	}, $this);
 }
+
 
 
 # assure that the user has a corresponding collection_info tuple. if it does not have one yet - create it.
@@ -59,6 +63,7 @@ sub AssureCollection
 }
 
 
+
 # check if a user has a collection_info tuple. returns true or false.
 sub HasCollection
 {
@@ -68,6 +73,7 @@ sub HasCollection
 		
 	return $sql->SelectSingleValue("SELECT COUNT(*) FROM collection_info WHERE moderator=?", $userId);
 }
+
 
 
 # add a collection_info tuple for the specified user
@@ -97,6 +103,7 @@ sub CreateCollection
 }
 
 
+
 sub GetCollectionIdForUser
 {
 	my ($userId, $rawdbh) = @_;
@@ -109,7 +116,20 @@ sub GetCollectionIdForUser
 }
 
 
+sub GetHasReleaseIds
+{
+	my ($this, $artistId) = @_;
+	
+	my $rawsql = Sql->new($this->{RAWDBH});
+	
+	my $hasReleaseIds = $rawsql->SelectSingleColumnArray('SELECT album FROM collection_has_release_join WHERE collection_info = ?', $this->{collectionId});
+	
+	return $hasReleaseIds;
+}
 
+
+# TODO:
+# rename to GetHasMBIDsForArtist
 sub GetHasMBIDs
 {
 	my ($this, $artistId) = @_;
@@ -159,7 +179,9 @@ sub GetHasMBIDs
 }
 
 
-#scrap this?
+
+# scrap this?
+# no, but instead the above sub should be moved into this one?
 sub GetHasMBIDsForArtist
 {
 }
@@ -167,6 +189,8 @@ sub GetHasMBIDsForArtist
 
 
 # Get hash of artist name and id of artists in collection
+# TODO:
+# also create a sub similar to this but for missing artists?
 sub GetHasArtists
 {
 	my ($this) = @_;
@@ -192,7 +216,31 @@ sub GetHasArtists
 
 
 
-# TODO: do the SQL stuff in an eval
+sub GetShowMissingArtists
+{
+	my ($this) = @_;
+	
+	my $rawsql = Sql->new($this->{RAWDBH});
+	
+	my $displayMissingOfArtists = $rawsql->SelectSingleColumnArray('SELECT artist FROM collection_discography_artist_join WHERE collection_info = ?', $this->{collectionId});
+	
+	return $displayMissingOfArtists;
+}
+
+
+
+sub GetWatchArtists
+{
+	
+}
+
+
+
+# TODO:
+# do the SQL stuff in an eval
+# only select one version of each release(ignore e.g. UK version, USA version etc) 
+#
+# ignores all releases named [non-album tracks]
 sub GetMissingMBIDs
 {
 	my ($this) = @_;
@@ -205,8 +253,8 @@ sub GetMissingMBIDs
 	
 	#$artists = 
 	
-	my $displayMissingOfArtists = $rawsql->SelectSingleColumnArray('SELECT artist FROM collection_discography_artist_join WHERE collection_info = ?', $this->{collectionId});
-	print STDERR Dumper(join(',', @$displayMissingOfArtists));
+	my $displayMissingOfArtists = $this->GetShowMissingArtists();#$rawsql->SelectSingleColumnArray('SELECT artist FROM collection_discography_artist_join WHERE collection_info = ?', $this->{collectionId});
+	#print STDERR Dumper(join(',', @$displayMissingOfArtists));
 	
 	my $count = @$displayMissingOfArtists;
 	
@@ -216,12 +264,16 @@ sub GetMissingMBIDs
 	}
 	else
 	{
-		my $query = "SELECT gid FROM album WHERE artist IN (". join(',', @$displayMissingOfArtists) .")";
+		my $hasReleaseIds = $this->GetHasReleaseIds();
+		
+		my $query = "SELECT gid FROM album WHERE artist IN (". join(',', @$displayMissingOfArtists).") AND album.id NOT IN (". join(',', @{$hasReleaseIds}) .") AND album.name != '[non-album tracks]'";
+		
 		my $result = $rosql->SelectSingleColumnArray($query);
 		
 		return $result;
 	}
 }
+
 
 
 sub GetMissingMBIDsForArtist
@@ -239,12 +291,16 @@ sub GetMissingMBIDsForArtist
 }
 
 
+
+# ?
 sub LoadHas
 {
 	
 }
 
 
+
+# ?
 sub LoadMissing
 {
 	my (@missingArtists) = @_;

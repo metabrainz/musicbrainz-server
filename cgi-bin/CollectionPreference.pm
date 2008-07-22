@@ -26,22 +26,22 @@ sub new
 	# get collection id
 	my $sql=Sql->new($rawdbh);
 	my $collectionId=$sql->SelectSingleValue('SELECT id FROM collection_info WHERE moderator=?', $userId);
-	
+	#my $collectionId = $this::	
 	
 	# select artist id's of artists to display missing releases of
-	my $artistsMissing=$sql->SelectSingleColumnArray('SELECT artist FROM collection_discography_artist_join WHERE collection_info=?', $collectionId);
+#	my $artistsMissing=$sql->SelectSingleColumnArray('SELECT artist FROM collection_discography_artist_join WHERE collection_info=?', $collectionId);
 	
 	
 	# convert the array of artists to display missing releases of into a hash with the value as key
-	my $artistsMissingHash;
-	for my $artistId (@$artistsMissing)
-	{
-		$artistsMissingHash->{$artistId}=1;
-	}
+#	my $artistsMissingHash;
+#	for my $artistId (@$artistsMissing)
+#	{
+#		$artistsMissingHash->{$artistId}=1;
+#	}
 	
 	
-	my $collection = MusicBrainz::Server::CollectionInfo->new($userId, $rodbh, $rawdbh);
-	my $hasArtists = $collection->GetHasArtists();
+	#my $collection = MusicBrainz::Server::CollectionInfo->new($userId, $rodbh, $rawdbh);
+	#my $hasArtists = $collection->GetHasArtists();
 	
 	my $object=bless(
 	{
@@ -50,8 +50,8 @@ sub new
 		prefs			=> {},
 		collectionId	=> $collectionId,
 		userId			=> $userId,
-		hasArtists		=> $hasArtists,
-		artistsMissing	=> $artistsMissingHash
+		hasArtists		=> undef,#$hasArtists
+		artistsMissing	=> undef#$artistsMissingHash
 	}, $this);
 	
 	$object->addpref('emailnotifications', 0, \&check_bool);

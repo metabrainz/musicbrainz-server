@@ -21,6 +21,7 @@
 	
 	require CollectionPreference;
 	my $preferences = CollectionPreference->new($mbro->{DBH}, $mbraw->{DBH}, $session{uid});
+	$preferences->LoadArtists();
 	
 	use MusicBrainz::Server::CollectionInfo;
 	
