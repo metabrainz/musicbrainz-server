@@ -188,6 +188,7 @@ a:hover {
 div.box, #content form fieldset {
     border: 1px solid #FFBB55;
     margin-bottom: 16pt;
+    overflow: auto;
 }
 
 div.box h2, #content form legend {
@@ -226,4 +227,20 @@ ul.tagcloud li {
 table.details th {
     text-align: right;
     padding-right: 10pt;
+}
+
+#sidebar_search label {
+    float: left;
+    width: 30pt;
+    margin-right: 2pt;
+    text-align: right;
+}
+
+#sidebar_search input,
+#sidebar_search select {
+    width: 50pt;
+}
+
+#sidebar_search .submit {
+    width: auto;
 }

@@ -81,7 +81,8 @@
   </table>
   [% INCLUDE "releases/box-summary.tt" %]
 
-    <table class="release_events">
+  <div class="release_events">
+    <table>
       <thead>
         <tr>
           <th class="date">Date</th>
@@ -105,4 +106,5 @@
         [%- END -%]
       </tbody>
     </table>
+  </div>
 </div>

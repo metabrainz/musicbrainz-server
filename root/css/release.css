@@ -144,17 +144,17 @@ table.releases .catalog {
 /*
  * Release events
  */
-table.release_events {
-    width: 100%;
+.release_events {
     border-top: 1px solid #000;
 }
 
-table.release_events th,
-table.release_events td {
+.release_events th,
+.release_events td {
     text-align: left;
+    padding-left:  8pt;
+    padding-right: 8pt;
 }
 
-table.release_events .date {
+.release_events .date {
     text-align: center;
-    width: 80pt;
 }

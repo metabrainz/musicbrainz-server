@@ -3,3 +3,4 @@
 [%- INCLUDE "css/entity.css" -%]
 [%- INCLUDE "css/release.css" -%]
 [%- INCLUDE "css/appears.css" -%]
+[%- INCLUDE "css/search.css" -%]

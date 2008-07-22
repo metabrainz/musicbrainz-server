@@ -1,0 +1,21 @@
+/*
+ * Search results (from external search)
+ */
+table.searchresults {
+    width: 100%;
+}
+table.searchresults .searchresultsheader td {
+    font-weight: bold;
+}
+table.searchresults .searchresultsodd {
+    background: #eee;
+}
+
+div.box .searchform {
+    float: left;
+    width: 50%;
+}
+
+div.box .searchinfo {
+    margin-left: 50%;
+}
