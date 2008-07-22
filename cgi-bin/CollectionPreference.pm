@@ -50,17 +50,18 @@ sub new
 		prefs			=> {},
 		collectionId	=> $collectionId,
 		userId			=> $userId,
-		hasArtists		=> undef,#$hasArtists
-		artistsMissing	=> undef#$artistsMissingHash
+		hasArtists		=> undef,#$hasArtists # should this even be here!? since selection stuff has been removed from collectionpreferences.html 
+		artistsMissing	=> undef#$artistsMissingHash   # same as above
 	}, $this);
 	
 	$object->addpref('emailnotifications', 0, \&check_bool);
 	$object->addpref('notificationinterval', 7, sub { check_int(1,31,@_) });
-	print Dumper($object->{artistsMissing});
+	#print Dumper($object->{artistsMissing});
 	return $object;
 }
 
 
+# remove since this stuff has been removed from collectionpreferences.html?
 sub LoadArtists
 {
 	my ($this) = @_;
@@ -94,8 +95,8 @@ sub addpref
 	
 	$this->{prefs}{$key} = {KEY => $key, VALUE => $value, CHECK => $check};
 	
-	use Data::Dumper;
-	print 'after addpref: '.Dumper($this->{prefs});
+	#use Data::Dumper;
+	#print 'after addpref: '.Dumper($this->{prefs});
 	
 	
 	
@@ -154,18 +155,6 @@ sub get
 	my ($this, $key) = @_;
 	
 	
-	if($key =~ /artistwatchmissing_([0-9]*)/)
-	{
-		#my $index = /artistwatchmissing_([0-9]*)/;
-		#m/artistwatchmissing_([0-9]*)/;
-		my $index=$1;
-		
-		
-		#print Dumper($this->{artistsMissing});
-		return exists($this->{artistsMissing}{$this->{hasArtists}[$index]{id}});
-	}
-	
-	
 	my $info = $this->{prefs}->{$key}
 		or carp("CollectionPreference::get called with invalid key '$key'"), return undef;
 		
@@ -185,7 +174,7 @@ sub get
 }
 
 
-# $key and $value masking
+
 sub set
 {
 	my ($this, $key, $value) = @_;
