@@ -143,16 +143,16 @@ sub show : Chained('release') PathPart('')
     $c->stash->{show_artists}       = $c->req->query_params->{artist};
     $c->stash->{show_relationships} = defined $show_rels ? $show_rels : 1;
 
+    # Load Release Relationships
+    #
+    $c->stash->{relations} = LoadRelations($release, 'album');
+
     # Load Release
     #
     $c->stash->{release} = $release->ExportStash qw( puids   track_count
                                                      quality language
-                                                     type                );
+                                                     type    cover_art   );
 
-
-    # Load Release Relationships
-    #
-    $c->stash->{relations} = LoadRelations($release, 'album');
 
     # Load Artist
     #

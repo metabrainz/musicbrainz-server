@@ -22,6 +22,19 @@ div.release {
     margin-bottom: 10px;
 }
 
+div.release .release_top {
+    overflow: auto;
+}
+
+div.release .artwork {
+    float: right;
+    padding: 10px;
+}
+
+div.release .artwork img {
+    border: 1px dotted black;
+}
+
 div.release table.release_tracks {
     border-bottom: 1px solid black;
     width: 100%;

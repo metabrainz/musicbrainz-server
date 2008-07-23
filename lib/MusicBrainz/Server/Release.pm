@@ -379,6 +379,11 @@ sub ExportStash
                 };
             }
 
+            case('cover_art') {
+                $stash{has_artwork} = $self->GetCoverartURL ? 1 : 0;
+                $stash{cover_url  } = $self->GetCoverartURL;
+            }
+
             case('attributes') {
                 $stash{attributes} = [];
                 for ($self->GetAttributes) {

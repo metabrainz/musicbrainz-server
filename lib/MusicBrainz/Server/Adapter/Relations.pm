@@ -136,7 +136,7 @@ the AR).
 
 sub ExportLink
 {
-    my ($link, $linkType) = @_;
+    my ($link, $linkType, $entity) = @_;
 
     croak ("No link passed")
         unless defined $link and ref $link eq 'HASH';
@@ -157,7 +157,7 @@ sub ExportLink
         {
             case("amazon asin")
             {
-                my ($asin) = MusicBrainz::Server::CoverArt->ParseAmazonURL($link->{link1_name});
+                my ($asin) = MusicBrainz::Server::CoverArt->ParseAmazonURL($link->{link1_name}, $entity);
                 $name = $asin;
             }
 
@@ -168,8 +168,8 @@ sub ExportLink
 
             case("cover art link")
             {
-                my ($new_name, $coverurl, $new_url) = MusicBrainz::Server::CoverArt->ParseCoverArtURL($link->{link1_name});
-
+                my ($new_name, $coverurl, $new_url) = MusicBrainz::Server::CoverArt->ParseCoverArtURL($link->{link1_name}, $entity);
+                
                 $name = $new_name
                     if $new_name;
 
