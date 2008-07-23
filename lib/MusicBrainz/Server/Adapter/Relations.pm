@@ -44,7 +44,7 @@ sub LoadRelations
     NormaliseLinkDirections(\@links, $entity->GetId, $type);
     @links = SortLinks(\@links);
 
-    return ExportLinks(\@links);
+    return ExportLinks(\@links, $entity);
 }
 
 =head2 NormaliseLinkDirections \@links, $id, $type
@@ -223,7 +223,7 @@ C<\@links> is an array reference to a list of links to export.
 
 sub ExportLinks
 {
-    my $links = shift;
+    my ($links, $entity) = @_;
 
     sub require_new_group
     {
@@ -258,7 +258,7 @@ sub ExportLinks
             push @stashData, $currentGroup;
         }
 
-        push @{$currentGroup->{entities}}, ExportLink($link, "link1");
+        push @{$currentGroup->{entities}}, ExportLink($link, "link1", $entity);
     }
 
     return \@stashData;

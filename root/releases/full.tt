@@ -1,5 +1,5 @@
 [%- info_links = [
-        { link => entity_url(release, 'perma'), text => "Permenant link" },
+        { link => entity_url(release, 'perma'), text => "Permanent link" },
         { link => entity_url(release, 'details'), text => "Details" },
         { link => entity_url(release, 'tags'), text => "Tags" },
 

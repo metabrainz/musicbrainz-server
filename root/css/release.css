@@ -32,7 +32,9 @@ div.release .artwork {
 }
 
 div.release .artwork img {
-    border: 1px dotted black;
+    border: 1px solid black;
+    max-width: 200px;
+    max-height: 200px;
 }
 
 div.release table.release_tracks {
