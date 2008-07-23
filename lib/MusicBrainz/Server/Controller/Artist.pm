@@ -391,10 +391,12 @@ sub show : PathPart('') Chained('artist')
     my $mb     = $c->mb;
     my $artist = $c->stash->{_artist};
 
+    my $short_list = 1 - $c->req->query_params->{show_all};
+
     # Load data for the landing page
     my $annotation = LoadArtistAnnotation($mb->{DBH}, $artist);
     my @tags       = LoadArtistTags($mb->{DBH}, 5, $artist);
-    my @releases   = LoadArtistReleases($artist);
+    my @releases   = LoadArtistReleases($artist, $short_list);
 
     # Create data structures for the template
     $c->stash->{artist_tags}      = \@tags;
@@ -414,8 +416,12 @@ sub show : PathPart('') Chained('artist')
         # we need to create a new "release group"
         if (not defined $currentGroup or $currentGroup->{type} != $type)
         {
+            my $va   = $release->{_is_va_} ? "Various Artist" : "";
+            my $name = $release->GetAttributeNamePlural($type);
+            $name    = $name eq "" ? "Uncategorized Releases" : $name;
+
             $currentGroup = {
-                name     => $release->GetAttributeNamePlural($type),
+                name     => ($name ? "$va $name" : $va ? $va."s" : "None"),
                 releases => [],
                 type     => $type,
             };
@@ -432,7 +438,7 @@ sub show : PathPart('') Chained('artist')
     }
 
     # Decide how to display the data
-    $c->stash->{template} = $c->request->params->{full} ? 
+    $c->stash->{template} = defined $c->request->query_params->{full} ? 
                                 'artist/full.tt' :
                                 'artist/compact.tt';
 }
@@ -465,12 +471,35 @@ sub LoadArtistTags
 
 sub LoadArtistReleases
 {
-    my $artist = shift;
+    my ($artist, $limited_selection) = @_;
 
-    my @releases = $artist->GetReleases(1, 1);
-    my $onlyHasVAReleases = (scalar @releases) == 0;
+    my @releases = $artist->GetReleases($limited_selection, 1);
 
-    my @shortList;
+    if ($limited_selection)
+    {
+        my $onlyHasVAReleases = (scalar @releases) == 0;
+
+        my @shortList;
+        for my $release (@releases)
+        {
+            my ($type, $status) = $release->GetReleaseTypeAndStatus;
+
+            # Push onto our list of releases we are actually interested in
+            push @shortList, $release
+                if (defined $type && (
+                    $type == MusicBrainz::Server::Release::RELEASE_ATTR_ALBUM ||
+                    $type == MusicBrainz::Server::Release::RELEASE_ATTR_EP ||
+                    $type == MusicBrainz::Server::Release::RELEASE_ATTR_COMPILATION ||
+                    $type == MusicBrainz::Server::Release::RELEASE_ATTR_SINGLE));
+        }
+
+        @releases = scalar @shortList ? @shortList : @releases;
+
+        if (scalar @releases == 0)
+        {
+            @releases = $artist->GetReleases(0, 1, $onlyHasVAReleases);
+        }
+    }
 
     for my $release (@releases)
     {
@@ -506,17 +535,9 @@ sub LoadArtistReleases
             $release->{_disc_no_}   = $2;
             $release->{_disc_max_}  = $3 || 0;
         }
-
-        # Push onto our list of releases we are actually interested in
-        push @shortList, $release
-            if (defined $type && (
-                $type == MusicBrainz::Server::Release::RELEASE_ATTR_ALBUM ||
-                $type == MusicBrainz::Server::Release::RELEASE_ATTR_EP ||
-                $type == MusicBrainz::Server::Release::RELEASE_ATTR_COMPILATION ||
-                $type == MusicBrainz::Server::Release::RELEASE_ATTR_SINGLE));
     }
 
-    sort SortAlbums @shortList;
+    sort SortAlbums @releases;
 }
 
 =head2 load_relations $artist

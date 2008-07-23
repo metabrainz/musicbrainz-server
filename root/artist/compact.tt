@@ -22,6 +22,5 @@
     </tbody>
   </table>
   </div>
-  <br />
 [%- END -%]
 [% END %]

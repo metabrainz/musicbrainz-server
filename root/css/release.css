@@ -128,8 +128,12 @@ table.releases .discids { width: 30pt; }
 table.releases .puids   { width: 50pt; }
 table.releases .tracks  { width: 30pt; }
 
-table.releases .date,
 table.releases .status,
+table.releases .date {
+    width: 60pt;
+    text-align: center;
+}
+
 table.releases .language {
     width: 20pt;
     text-align: center;
