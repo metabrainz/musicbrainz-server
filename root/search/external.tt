@@ -4,29 +4,6 @@
   [% results %]
 [% END IF results%]
 
-[% WRAPPER "components/box.tt" header="Search" %]
-  <div class="searchform">
-    [% WRAPPER "forms/form.tt" action=c.uri_for('/search/external') %]
-      [% INCLUDE "forms/widget.tt" widget=form.field('query') label="Search for:" %]
-      [% INCLUDE "forms/widget.tt" widget=form.field('type')  label="Type:" %]
-      [% INCLUDE "forms/widget.tt" widget=form.field('limit') label="Limit to:" %]
-      [% INCLUDE "forms/widget.tt" widget=form.field('enable_advanced') label="Use advanced query syntax:" %]
-
-      [% INCLUDE "forms/submit.tt" label="Search" %]
-    [% END %]
-  </div>
-
-  <div class="searchinfo">
-    <strong>Please Note:</strong>
-
-    <ul>
-      <li>
-        Search indexes are currently updated once a day at 1800 GMT (10am PST).
-        If you require up to the minute correct search, please use the
-        <a href="[% c.uri_for('/search/internal') %]">old search</a>.
-      </li>
-    </ul>
-  </div>
-[% END %]
+[% INCLUDE "search/form.tt" %]
 
 [% END %]

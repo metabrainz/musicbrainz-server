@@ -22,12 +22,12 @@ sub profile {
 
 sub options_type {
     return [
-        'annotation' => 'Annotations',
         'artist'     => 'Artists',
-        'freedb'     => 'FreeDB',
         'label'      => 'Labels',
         'release'    => 'Releases',
         'track'      => 'Tracks',
+        'annotation' => 'Annotations',
+        'freedb'     => 'FreeDB',
     ];
 }
 

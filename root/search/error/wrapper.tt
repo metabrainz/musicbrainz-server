@@ -10,4 +10,7 @@
 </p>
 
 [% END %]
+
+[% INCLUDE "search/form.tt" %]
+
 [% END %]
