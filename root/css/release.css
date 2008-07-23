@@ -16,6 +16,23 @@ h2.releasetype {
     padding: 2px 4px;
 }
 
+div.release_discids table {
+    border-collapse: collapse;
+}
+
+div.release_discids tr {
+    border-top: 1px solid #000;
+    background: #FFECD6;
+}
+
+div.release_discids td {
+    padding: 2pt 3pt;
+}
+
+div.release_discids table td.duration {
+    width: 20pt;
+}
+
 div.release {
     position: relative;
     border: 1px solid #000;

@@ -180,6 +180,17 @@ sub show : Chained('release') PathPart('')
 
         push @{ $c->stash->{tracks} }, $trackStash;
     }
+    
+    my $discids = $release->GetDiscIDs;
+    $c->stash->{release}->{disc_ids} = [ map {
+        my $cdtoc = $_->GetCDTOC;
+
+        {
+            mbid      => $cdtoc->GetDiscID,
+            duration  => MusicBrainz::Server::Track::FormatTrackLength($cdtoc->GetLeadoutOffset / 75 * 1000),
+            link_type => 'cdtoc',
+        }
+    } @$discids ];
 
     # Release Events
     my @events = $release->ReleaseEvents(1);
@@ -193,8 +204,8 @@ sub show : Chained('release') PathPart('')
         my $cid = $event_stash->{country};
         $event_stash->{country} = (
             $county_names{$cid} ||= do {
-                my $c = $country_obj->newFromId($cid);
-                $c ? $c->GetName : "?";
+                my $country = $country_obj->newFromId($cid);
+                $country ? $country->GetName : "?";
             }
         );
 

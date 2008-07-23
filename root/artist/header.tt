@@ -1,5 +1,5 @@
 [%- info_links = [
-     { link => entity_url(artist, 'perma'), text => "Permenant link" },
+     { link => entity_url(artist, 'perma'), text => "Permanent link" },
      { link => entity_url(artist, 'details'), text => "Details" },
      { link => entity_url(artist, 'aliases'), text => "Aliases" },
      { link => entity_url(artist, 'tags'), text => "Tags" },
