@@ -19,6 +19,6 @@
     </tbody>
   </table>
   [%- ELSE -%]
-    <p>[% entity.link_type | ucfirst %] has no aliases</p>
+    <p>[% INCLUDE "components/entity-link.tt" %] has no aliases</p>
   [%- END -%]
 [%- END -%]

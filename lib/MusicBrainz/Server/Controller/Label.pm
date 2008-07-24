@@ -28,11 +28,7 @@ sub label : Chained CaptureArgs(1)
 {
     my ($self, $c, $mbid) = @_;
 
-    my $label = MusicBrainz::Server::Label->new($c->mb->{DBH});
-    LoadEntity($label, $mbid);
-
-    $c->stash->{_label} = $label;
-    $c->stash->{label}  = $label->ExportStash;
+    $c->stash->{label} = $c->model('Label')->load($mbid);
 }
 
 =head2 perma
@@ -44,7 +40,6 @@ Display details about a permanant link to this label.
 sub perma : Chained('label')
 {
     my ($self, $c) = @_;
-
     $c->stash->{template} = 'label/perma.tt';
 }
 
@@ -57,23 +52,9 @@ Display all aliases for a label
 sub aliases : Chained('label')
 {
     my ($self, $c) = @_;
+    my $label = $c->stash->{label};
 
-    my $label = $c->stash->{_label};
-
-    my $alias   = MusicBrainz::Server::Alias->new($c->mb->{DBH}, "LabelAlias");
-    my @aliases = $alias->GetList($label->GetId);
-
-    my @prettyAliases = ();
-    for my $alias (@aliases)
-    {
-        push @prettyAliases, {
-            name     => $alias->[1],
-            useCount => $alias->[2],
-            used     => !($alias->[3] =~ /^1970-01-01/),
-        }
-    }
-
-    $c->stash->{aliases}  = \@prettyAliases;
+    $c->stash->{aliases}  = $c->model('Alias')->load_for_entity($label);
     $c->stash->{template} = 'label/aliases.tt';
 }
 
@@ -86,14 +67,9 @@ Display a tag-cloud of tags for a label
 sub tags : Chained('label')
 {
     my ($self, $c) = @_;
+    my $label = $c->stash->{label};
 
-    my $label = $c->stash->{_label};
-
-    my $t = MusicBrainz::Server::Tag->new($c->mb->{DBH});
-    my $tags = $t->GetTagHashForEntity('label', $label->GetId, 200);
-
-    $c->stash->{tagcloud} = PrepareForTagCloud($tags);
-
+    $c->stash->{tagcloud} = $c->model('Tag')->generate_tag_cloud($label);
     $c->stash->{template} = 'label/tags.tt';
 }
 
@@ -106,10 +82,9 @@ Redirect to Google and search for this label (using MusicBrainz colours).
 sub google : Chained('label')
 {
     my ($self, $c) = @_;
+    my $label = $c->stash->{label};
 
-    my $label = $c->stash->{_label};
-
-    $c->response->redirect(Google($label->GetName));
+    $c->response->redirect(Google($label->name));
 }
 
 =head2 relations
@@ -121,7 +96,6 @@ Show all relations to this label
 sub relations : Chained('label')
 {
     my ($self, $c) = @_;
-
     my $label = $c->stash->{_label};
   
     $c->stash->{relations} = load_relations($label);
@@ -139,57 +113,10 @@ that have been released through this label
 sub show : PathPart('') Chained('label')
 {
     my ($self, $c) = @_;
+    my $label = $c->stash->{label};
 
-    my $label = $c->stash->{_label};
-
-    # Load releases
-    my @releases = $label->GetReleases;
-
-    for my $release (@releases)
-    {
-        # Munge name for sorting
-		use Encode qw( decode );
-
-		$release->{_name_sort_} = lc decode "utf-8", $release->GetName;
-		$release->{_disc_max_}  = 0;
-		$release->{_disc_no_}   = 0;
-
-		# Attempt to sort "disc x [of y]" correctly
-		if ($release->{_name_sort_} =~
-			/^(.*)								# $1 <main title>
-				(?:[(]disc\ (\d+)				# $2 (disc x
-					(?:\ of\ (\d+))?			# $3 [of y]
-					(?::[^()]*					#    [: <disc title>
-						(?:[(][^()]*[)][^()]*)* #     [<1 level of nested par.>]
-					)?                          #    ]
-					[)]							#    )
-				)
-				(.*)$							# $4 [<rest of main title>]
-			/xi)
-		{
-			$release->{_name_sort_} = "$1 $4";
-			$release->{_disc_no_}   = $2;
-			$release->{_disc_max_}  = $3 || 0;
-		}
-
-		# Sort albums with no release last
-		$release->{_releasedate_} = ($release->{releasedate} || "9999-99-99");
-    }
-
-    use Switch;
-    switch($c->req->params->{order})
-    {
-        case('title')   { @releases = sort sort_title @releases; }
-        case('catno')   { @releases = sort sort_catalog @releases; }
-        case('artist')  { @releases = sort sort_artist @releases; }
-        case('date')    { @releases = sort sort_date @releases; }
-
-        else            { @releases = sort sort_date @releases; }
-    }
-
-    # Export releases to stash
-    $c->stash->{releases}  = [ map { export_release($_) } @releases ];
-    $c->stash->{relations} = load_relations($label);
+    $c->stash->{releases}  = $c->model('Release')->load_for_label($label);
+    $c->stash->{relations} = $c->model('Relation')->load_relations($label);
 
     $c->stash->{template} = 'label/show.tt';
 }
@@ -203,27 +130,10 @@ Display detailed information about a given label
 sub details : Chained('label')
 {
     my ($self, $c) = @_;
-
-    my $label = $c->stash->{_label};
-
-    $c->stash->{label}->{subscribers} = scalar $label->GetSubscribers;
-
     $c->stash->{template} = 'label/details.tt';
 }
 
 =head2 INTERNAL METHODS
-
-=head2 load_relations
-
-Load relations of this label for store in the stash.
-
-=cut
-
-sub load_relations
-{
-    return LoadRelations(shift, 'label');
-}
-
 
 # All of these sort routines use the same predicates *except* the first -
 # and should probably be refactored.

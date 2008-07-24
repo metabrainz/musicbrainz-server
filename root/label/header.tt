@@ -14,12 +14,12 @@
     [% IF label.resolution; "(${label.resolution})" | html; END %]
   </div>
   <div class="info">
-    [%- IF label.datespan.complete -%]
-      [% label.datespan.start %] - [% label.datespan.end %]<br/>
-    [%- ELSIF label.datespan.start -%]
-      Began: [% label.datespan.start -%]<br />
-    [%- ELSIF label.datespan.end -%]
-      End: [% label.datespan.end -%]<br />
+    [%- IF label.has_complete_date -%]
+      [% label.founded %] - [% label.dissolved %]<br/>
+    [%- ELSIF label.founded -%]
+      Founded: [% label.founded -%]<br />
+    [%- ELSIF label.dissolved -%]
+      Dissolved: [% label.dissolved -%]<br />
     [%- END -%]
   </div>
   <div class="infoLinks"> Info: [% INCLUDE "components/piped-list.tt" list=info_links %]</div>

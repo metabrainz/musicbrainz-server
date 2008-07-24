@@ -16,11 +16,36 @@ sub ACCEPT_CONTEXT
     bless { _dbh => $c->mb->{DBH} }, ref $self;
 }
 
+sub load_for_label
+{
+    my ($self, $label) = @_;
+
+    my @releases = $label->get_label->GetReleases;
+
+    for (@releases) { _build_sort_keys($_); }
+    
+    return [
+        map {
+            my $export = MusicBrainz::Server::Facade::Release->new_from_release($_);
+
+            $export->{artist} = MusicBrainz::Server::Facade::Artist->new({
+                name => $_->{artistname},
+                mbid => $_->GetArtist
+            });
+
+            $export->{catalog_number} = $_->{catno};
+
+            $export;
+        }
+            sort _sort_albums @releases 
+    ];
+}
+
 sub load_for_artist
 {
     my ($self, $artist, $show_all) = @_;
 
-    my @releases = $artist->{_a}->GetReleases(!$show_all, 1);
+    my @releases = $artist->get_artist->GetReleases(!$show_all, 1);
 
     if (!$show_all)
     {

@@ -1,6 +1,6 @@
 [%- WRAPPER 'label/layout.tt' title="Details" -%]
 [%- WRAPPER "components/box.tt" header="Details" -%]
-<table>
+<table class="details">
   <tr>
     <th>[%- INCLUDE "components/doc-link.tt" to="LabelName" text="Name" -%]:</th>
     <td>[%- INCLUDE "components/entity-link.tt" entity=label -%]</td>
@@ -21,7 +21,7 @@
 
   <tr>
     <th>Subscribers:</th>
-    <td>[% label.subscribers %]</td>
+    <td>[% label.subscriber_count %]</td>
   </tr>
 </table>
 [% END %]
