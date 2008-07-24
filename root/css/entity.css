@@ -57,7 +57,7 @@ div.TagsBox {
     color; #000;
     border: 1px solid #000;
     margin-bottom: 1em;
-    padding: 0.2em;
+    padding: 1pt 5pt;
 }
 
 div.RelationshipBox {
@@ -66,6 +66,19 @@ div.RelationshipBox {
     color: #000;
     border: 1px solid;
     margin-bottom: 1em;
+}
+
+div.annotation {
+    border: 1px solid #000;
+    margin-bottom: 1em;
+}
+
+div.annotation div.body,
+div.annotation div.details 
+{ padding: 1pt 5pt; }
+
+div.annotation div.details {
+    border-top: 1px solid #000;
 }
 
 span.artist_icon,

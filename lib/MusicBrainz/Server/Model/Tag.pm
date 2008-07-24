@@ -8,7 +8,6 @@ use base 'Catalyst::Model';
 use Carp;
 use List::Util qw(min max sum);
 use MusicBrainz::Server::Tag;
-use MusicBrainz::Server::Adapter::Tag qw(PrepareForTagCloud);
 
 sub ACCEPT_CONTEXT
 {

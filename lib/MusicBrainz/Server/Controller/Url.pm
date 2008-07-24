@@ -6,8 +6,6 @@ use warnings;
 use base 'Catalyst::Controller';
 
 use Carp;
-use MusicBrainz::Server::Adapter qw( LoadEntity );
-use MusicBrainz::Server::Adapter::Relations qw( LoadRelations );
 use MusicBrainz::Server::URL;
 use MusicBrainz;
 

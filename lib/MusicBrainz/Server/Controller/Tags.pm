@@ -6,7 +6,6 @@ use warnings;
 use base 'Catalyst::Controller';
 
 use MusicBrainz::Server::Adapter qw(LoadEntity);
-use MusicBrainz::Server::Adapter::Tag qw(PrepareForTagCloud);
 use MusicBrainz::Server::Artist;
 use MusicBrainz::Server::Label;
 use MusicBrainz::Server::Release;

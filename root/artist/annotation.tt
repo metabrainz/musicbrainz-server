@@ -1,3 +1,8 @@
-<div>
-  [% annotation | html %]
+<div class="annotation">
+  <div class="body">
+    [% annotation.short_text_as_html  %]
+  </div>
+  <div class="details">
+    Annotation last modified [% annotation.last_modified %].
+  </div>
 </div>

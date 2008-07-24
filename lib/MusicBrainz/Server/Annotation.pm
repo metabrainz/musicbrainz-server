@@ -229,6 +229,20 @@ sub SetTrack
 	$_[0]->{rowid} = $_[1];
 }
 
+sub SetEntity
+{
+    my ($self, $entity_type, $entity_id) = @_;
+
+    use Switch;
+    switch ($entity_type)
+    {
+        case('artist')  { $self->SetArtist($entity_id); }
+        case('label')   { $self->SetLabel($entity_id); }
+        case('release') { $self->SetRelease($entity_id); }
+        case('track')   { $self->SetTrack($entity_id); }
+    }
+}
+
 sub SetCreationTime
 {
 	$_[0]->{creation_time} = $_[1];

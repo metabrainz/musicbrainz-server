@@ -8,8 +8,6 @@ use base 'Catalyst::Controller';
 use ModDefs;
 use MusicBrainz;
 use MusicBrainz::Server::Adapter qw(LoadEntity Google);
-use MusicBrainz::Server::Adapter::Relations qw(LoadRelations);
-use MusicBrainz::Server::Adapter::Tag qw(PrepareForTagCloud);
 use MusicBrainz::Server::Country;
 use MusicBrainz::Server::CoverArt;
 use MusicBrainz::Server::Release;

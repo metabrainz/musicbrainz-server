@@ -6,7 +6,6 @@ use warnings;
 use base 'Catalyst::Controller';
 
 use MusicBrainz::Server::Adapter qw(LoadEntity);
-use MusicBrainz::Server::Adapter::Relations qw(LoadRelations);
 use MusicBrainz::Server::Track;
 
 =head1 NAME

@@ -19,7 +19,8 @@
         <td class="year[% item.year == last_year && item.year != "?" ? " timeline" : "" -%]">
           [% item.year %]
         </td>
-        <td>[% item.name %]</td>
+        <td>[% INCLUDE "components/entity-link.tt" entity=item.artist %]</td>
+        <td>[% INCLUDE "components/entity-link.tt" entity=item %]</td>
       </tr>
       [%- last_year = item.year -%]
 [% END %]

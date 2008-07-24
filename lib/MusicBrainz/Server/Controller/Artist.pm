@@ -10,8 +10,6 @@ use Encode qw( decode );
 use ModDefs;
 use Moderation;
 use MusicBrainz::Server::Adapter qw( LoadEntity Google );
-use MusicBrainz::Server::Adapter::Relations qw(LoadRelations);
-use MusicBrainz::Server::Adapter::Tag qw(PrepareForTagCloud);
 use MusicBrainz::Server::Alias;
 use MusicBrainz::Server::Annotation;
 use MusicBrainz::Server::Artist;
@@ -197,9 +195,10 @@ sub show : PathPart('') Chained('artist')
 
     my $show_all = $c->req->query_params->{show_all} || 0;
 
-    $c->stash->{tags}      = $c->model('Tag')->top_tags($artist);
-    $c->stash->{releases}  = $c->model('Release')->load_for_artist($artist, $show_all);
-    $c->stash->{relations} = $c->model('Relation')->load_relations($artist);
+    $c->stash->{tags}       = $c->model('Tag')->top_tags($artist);
+    $c->stash->{releases}   = $c->model('Release')->load_for_artist($artist, $show_all);
+    $c->stash->{relations}  = $c->model('Relation')->load_relations($artist);
+    $c->stash->{annotation} = $c->model('Annotation')->load_latest_annotation($artist);
 
     #my $annotation = LoadArtistAnnotation($mb->{DBH}, $artist);
 #    my @releases   = LoadArtistReleases($artist, $short_list);
@@ -313,62 +312,6 @@ sub LoadArtistAnnotation
 
     return $annotation->GetLatestAnnotation;
 }
-
-sub LoadArtistTags
-{
-    my ($dbh, $tagCount, $artist) = @_;
-
-    my $t       = MusicBrainz::Server::Tag->new($dbh);
-    my $tagHash = $t->GetTagHashForEntity('artist', $artist->GetId, $tagCount + 1);
-
-    sort { $tagHash->{$b} <=> $tagHash->{$a}; } keys %{$tagHash};
-}
-
-sub LoadArtistReleases
-{
-}
-
-=head2 load_relations $artist
-
-Load the relations for a given artist. Returns a reference, ready for store
-in the stash.
-
-=cut
-
-sub load_relations
-{
-    my $artist = shift;
-
-    my %opts = (
-        to_type => ['label', 'url', 'artist'],
-    );
-
-    return LoadRelations($artist, 'artist', %opts);
-}
-
-sub CheckAttributes
-{
-    my ($a) = @_;
-
-    for my $attr ($a->GetAttributes)
-    {
-        $a->{_attr_type}   = $attr if ($attr >= MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_TYPE_START &&
-                                       $attr <= MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_TYPE_END);
-        $a->{_attr_status} = $attr if ($attr >= MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_STATUS_START &&
-                                       $attr <= MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_STATUS_END);
-        $a->{_attr_type}   = $attr if ($attr == MusicBrainz::Server::Release::RELEASE_ATTR_NONALBUMTRACKS);
-    }
-
-    # The "actual values", used for display
-    $a->{_actual_attr_type}   = $a->{_attr_type};
-    $a->{_actual_attr_status} = $a->{_attr_status};
-
-    # Used for sorting
-    $a->{_attr_type} = MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_TYPE_END + 1
-        unless defined $a->{_attr_type};
-    $a->{_attr_status} = MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_STATUS_END + 1
-        unless defined $a->{_attr_status};
-};
 
 =head1 LICENSE 
 
