@@ -18,17 +18,17 @@
   </div>
   
   <div class="info">
-    [% IF artist.sortname != artist.name %][% artist.sortname | html %]<br />[% END %]
+    [% IF artist.sort_name != artist.name %][% artist.sort_name | html %]<br />[% END %]
 
-    [%- IF artist.datespan.complete -%]
-      [% artist.datespan.start %] - [% artist.datespan.end %]<br/>
-    [%- ELSIF artist.datespan.start -%]
-      Began: [% artist.datespan.start -%]<br />
-    [%- ELSIF artist.datespan.end -%]
-      End: [% artist.datespan.end -%]<br />
+    [%- IF artist.complete_date_range -%]
+      [% artist.start_date %] - [% artist.end_date %]<br/>
+    [%- ELSIF artist.start_date -%]
+      Began: [% artist.start_date -%]<br />
+    [%- ELSIF artist.end_date -%]
+      End: [% artist.end_date -%]<br />
     [%- END -%]
 
-    Type: [%- artist.type -%], [%- artist.quality.quality -%] data quality<br />
+    Type: [%- artist.type -%], [%- artist.quality -%] data quality<br />
   </div>
   
   <div class="infoLinks"> Info: [% INCLUDE "components/piped-list.tt" list=info_links %]</div>

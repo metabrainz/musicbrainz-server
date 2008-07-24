@@ -10,6 +10,7 @@ requires 'Apache::Session';
 requires 'Apache::Session::File';
 requires 'Cache::Memcached';
 requires 'Catalyst::Action::RenderView';
+requires 'Catalyst::Model::Adaptor';
 requires 'Catalyst::Plugin::Authentication';
 requires 'Catalyst::Plugin::ConfigLoader';
 requires 'Catalyst::Plugin::FormBuilder';

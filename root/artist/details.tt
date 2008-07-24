@@ -5,7 +5,7 @@
 [% WRAPPER "components/box.tt" header="Artist Information" %]
 <table class="details">
   <tr>
-    <th>[% INCLUDE "components/doc-link.tt" to="ArtistName" text="Name" %]:</th>
+    <th>[%- INCLUDE "components/doc-link.tt" to="ArtistName" text="Name" -%]:</th>
     <td>
       [% INCLUDE "components/entity-link.tt" entity=artist %]
       [% IF artist.resolution %]
@@ -14,16 +14,19 @@
     </td>
   </tr>
   <tr>
-    <th>[% INCLUDE "components/doc-link.tt" to="MusicBrainzIdentifier" text="MBID" %]:</th>
+    <th>[%- INCLUDE "components/doc-link.tt" to="MusicBrainzIdentifier" text="MBID" -%]:</th>
     <td>[% artist.mbid %]</td>
   </tr>
   </tr>
-    <th>Permanent link:</th>
+    <th>Permanent link :</th>
     <td>
       [% perma="http://musicbrainz.org/artist/${artist.mbid}" %]
       <a href="[% perma | url %]">[% perma | html %]</a>
     </td>
   </tr>
+  <tr>
+    <th>Subscriber Count :</th>
+    <td>[% artist.subscriber_count %]</td>
 </table>
 [% END %]
 

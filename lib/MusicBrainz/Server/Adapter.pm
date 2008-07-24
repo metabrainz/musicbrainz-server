@@ -104,12 +104,13 @@ sub EntityUrl
     my ($c, $entity, $action, $query_params) = @_;
 
     my $url = '';
+    my $type = $entity->entity_type;
 
-    my $controller = $c->controller($entity->{link_type})
-        or die "Not a valid type";
+    my $controller = $c->controller($type)
+        or die "$type is not a valid type";
 
     my $catalyst_action = $controller->action_for($action)
-        or die "$action is not a valid action (for $entity->{link_type})";
+        or die "$action is not a valid action for the controller $type";
 
     $query_params ||= {};
 

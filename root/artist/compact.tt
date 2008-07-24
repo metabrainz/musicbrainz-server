@@ -1,26 +1,45 @@
 [%- WRAPPER "artist/landing.tt" -%]
-[%- FOREACH group IN groups -%]
-  <div>
-  <h2 class="compactreleasetype">[% group.name | html %]</h2>
+
+[% BLOCK group_head %]
+  <h2 class="compactreleasetype">
+    [% IF item.artist.id != artist.id; "Various Artist "; END %] [% item.release_type_plural %]</h2>
   <table class="releases">
     <tbody>
-      [%- FOREACH release IN group.releases -%]
+[% END %]
+
+[% BLOCK group_item %]
       <tr[% ' class="odd"' IF loop.count % 2 == 0 %]>
-        <td class="tracks">[% release.track_count %]&nbsp;<img src="/static/images/notes.gif" alt="Tracks" /></td>
-        <td class="discids">[% release.disc_ids %]&nbsp;<img src="/static/images/cd.gif" alt="Disc IDs" /></td>
-        <td class="puids">[% release.puids %]&nbsp;<img src="/static/images/puid.gif" alt="PUIDs" /></td>
-        <td class="status">[% release.status %]</td>
-        <td class="date">[% release.first_release_date | release_date %]</td>
+        <td class="tracks">
+            [% item.track_count %]&nbsp;<img src="/static/images/notes.gif" alt="Tracks" />
+        </td>
+        <td class="discids">
+          [% IF item.disc_ids %]
+            [% item.disc_ids %]&nbsp;<img src="/static/images/cd.gif" alt="Disc IDs" />
+          [% END %]
+        </td>
+        <td class="puids">
+          [% IF item.puid_count %]
+            [% item.puid_count %]&nbsp;<img src="/static/images/puid.gif" alt="PUIDs" />
+          [% END %]
+        </td>
+        <td class="status">
+            [% item.release_status_name %]
+        </td>
+        <td class="date">[% item.first_release_date | release_date %]</td>
         <td class="language">
-            <abbr title="[% release.language.language %] / [% release.language.script %]">
-            [% release.language.shortLanguage %]
+            <abbr title="[% item.language %] / [% item.script %]">
+            [% item.short_language %]
             </abbr>
         </td>
-        <td>[% INCLUDE "components/entity-link.tt" entity=release icon=0 %]</td>
+        <td>[% INCLUDE "components/entity-link.tt" entity=item icon=0 %]</td>
       </tr>
-      [%- END -%]
+[% END %]
+
+[% BLOCK group_foot %]
     </tbody>
   </table>
-  </div>
-[%- END -%]
+[% END %]
+
+[% INCLUDE "components/grouped.tt" items=releases group_var='release_type' %]
+
 [% END %]

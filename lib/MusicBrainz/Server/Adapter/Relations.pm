@@ -37,54 +37,7 @@ components/relations.tt
 sub LoadRelations
 {
     my ($entity, $type, %opts) = @_;
-
-    my $link  = MusicBrainz::Server::Link->new($entity->{DBH});
-    my @links = $link->FindLinkedEntities($entity->GetId, $type, %opts);
-
-    NormaliseLinkDirections(\@links, $entity->GetId, $type);
-    @links = SortLinks(\@links);
-
-    return ExportLinks(\@links, $entity);
-}
-
-=head2 NormaliseLinkDirections \@links, $id, $type
-
-Takes an array ref of L<MusicBrainz::Server::Link>s (C<\@links>) and
-re-arranges them such that link0 is always the same entity (the entity
-with the same id as C<$id>). $type should be either 'artist', 'album',
-'label' or 'track'.
-
-=cut
-
-sub NormaliseLinkDirections
-{
-    my ($arLinks, $id, $type) = @_;
-
-    foreach my $link (@$arLinks)
-    {
-        if($link->{link0_id} != $id || $link->{link0_type} ne $type)
-        {
-            @$link{qw(
-                link0_type			link1_type
-                link0_id			link1_id
-                link0_name			link1_name
-                link0_sortname		link1_sortname
-                link0_resolution	link1_resolution
-                link0_mbid          link1_mbid
-                link_phrase			rlink_phrase
-			)} = @$link{qw(
-                link1_type			link0_type
-                link1_id			link0_id
-                link1_name			link0_name
-                link1_sortname		link0_sortname
-                link1_resolution	link0_resolution
-                link1_mbid          link0_mbid
-                rlink_phrase		link_phrase
-			)};
-        }
-    }
-
-    return $arLinks;
+    die "Don't call this!"
 }
 
 =head2 SortLinks \@links
@@ -99,25 +52,6 @@ sub SortLinks
 {
     my $links = shift;
 
-    sort
-    {
-        my $c = $a->{link_phrase} cmp $b->{link_phrase};
-        return $c if ($c);
-        
-        if (defined $a->{enddate} || defined $b->{enddate})
-        {
-            $c = $a->{enddate} cmp $b->{enddate};
-            return $c if ($c);
-        }
-
-        if (defined $a->{begindate} || $b->{begindate})
-        {
-            $c = $a->{begindate} cmp $b->{begindate};
-            return $c if ($c);
-        }
-		
-        return $a->{link1_name} cmp $b->{link1_name};
-    } @$links;
 }
 
 =head2 ExportLink $link, [$index]
@@ -224,44 +158,7 @@ C<\@links> is an array reference to a list of links to export.
 sub ExportLinks
 {
     my ($links, $entity) = @_;
-
-    sub require_new_group
-    {
-        my ($current_group, $relation) = @_;
-
-        if (not defined $current_group or
-            $current_group->{connector}  ne $relation->{link_phrase} or
-            $current_group->{start_date} ne $relation->{begindate}   or
-            $current_group->{end_date}   ne $relation->{enddate})
-        {
-            return 1;
-        }
-        else
-        {
-            return 0;
-        }
-    };
     
-    my @stashData;
-    my $currentGroup = undef;
-    for my $link (@$links)
-    {
-        if (require_new_group($currentGroup, $link))
-        {
-            $currentGroup = {
-                connector  => $link->{link_phrase},
-                type       => $link->{link_type},
-                start_date => $link->{begindate},
-                end_date   => $link->{enddate},
-                entities   => [],
-            };
-            push @stashData, $currentGroup;
-        }
-
-        push @{$currentGroup->{entities}}, ExportLink($link, "link1", $entity);
-    }
-
-    return \@stashData;
 }
 
 =head1 LICENSE 

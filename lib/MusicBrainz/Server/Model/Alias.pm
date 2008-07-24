@@ -1,0 +1,33 @@
+package MusicBrainz::Server::Model::Alias;
+
+use strict;
+use warnings;
+
+use base 'Catalyst::Model';
+
+use MusicBrainz::Server::Facade::Alias;
+
+sub ACCEPT_CONTEXT
+{
+    my ($self, $c) = @_;
+    bless { _dbh => $c->mb->{DBH} }, ref $self;
+}
+
+sub load_for_entity
+{
+    my ($self, $entity) = @_;
+
+    my $type  = (ucfirst $entity->entity_type);
+    my $table = "${type}Alias";
+
+    my $alias   = MusicBrainz::Server::Alias->new($self->{_dbh}, $table);
+    my @aliases = $alias->GetList($entity->id);
+
+    [ map { MusicBrainz::Server::Facade::Alias->new({
+        last_used  => $_->[3],
+        times_used => $_->[2] || 0,
+        name       => $_->[1],
+    }) } @aliases ];
+}
+
+1;
