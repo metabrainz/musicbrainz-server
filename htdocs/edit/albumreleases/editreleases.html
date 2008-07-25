@@ -283,12 +283,12 @@
 				<td colspan="2" style="padding-top: 20px;">
 					<table style="formstyle" border="0" cellspacing="0" cellpadding="0">
 						<tr class="header">
-							<td><strong>Date (<abbr title="Year">Y</abbr>/<abbr title="Month">M</abbr>/<abbr title="Day">D</abbr>):</strong></td>
-							<td>Country:</td>
-							<td colspan="2">Label:</td>
-							<td>Catalog #:</td>
-							<td>Barcode:</td>
-							<td>Format:</td>
+							<td><& /comp/linkdoc, "ReleaseDate", "Date", 0, 1 &> <strong>(<abbr title="Year">Y</abbr>/<abbr title="Month">M</abbr>/<abbr title="Day">D</abbr>):</strong></td>
+							<td><& /comp/linkdoc, "ReleaseCountry", "Country", 0, 1 &>:</td>
+							<td colspan="2"><& /comp/linkdoc, "Label", "Label", 0, 1 &>:</td>
+							<td><& /comp/linkdoc, "ReleaseCatalogNumber", "Catalog #", 0, 1 &>:</td>
+							<td><& /comp/linkdoc, "BarCode", "Barcode", 0, 1 &>:</td>
+							<td><& /comp/linkdoc, "ReleaseFormat", "Format", 0, 1 &>:</td>
 							<td>
 								<span title="Activate the checkboxes below to remove release events" style="cursor: help">Remove</span></td>
 						</tr>
