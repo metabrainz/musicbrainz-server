@@ -21,6 +21,7 @@
         <h3>[% post.title %]</h3>
         <p>[% post.description %]</p>
         <p>Posted: [% post.date_time %]</p>
+      </li>
     [% END %]
     </ul>
   [% END %]
@@ -36,7 +37,7 @@
       <p>
         Unless you want to be testing the latest and greatest MusicBrainz features
         you probably want to go to the <a href="http://musicbrainz.org/">
-        <img src="/images/icon/extlink.gif" alt="External Website" /> musicbrainz.org main
+        <img src="/static/images/icon/extlink.gif" alt="External Website" /> musicbrainz.org main
         server</a>.
       </p>
     [% END %]
@@ -69,8 +70,6 @@
       download and run a MusicBrainz enabled tagger.
       [% INCLUDE "components/doc-link.tt" to="MusicBrainzTagger" text="Read more about our taggers." %]
     </p>
-    <ul>
-    </ul>
     <p>
       Alternatively, you might just want to <a href="/search.html">search</a> or <a href="/browseartists.html">browse</a>
       the MusicBrainz database. If you spot a mistake, or something that is missing, you can even

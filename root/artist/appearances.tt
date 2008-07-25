@@ -16,7 +16,7 @@
 
 [% BLOCK group_item %]
       <tr>
-        <td class="year[% item.year == last_year && item.year != "?" ? " timeline" : "" -%]">
+        <td class="year[% item.year == last_year && item.year != '?' ? ' timeline' : '' -%]">
           [% item.year %]
         </td>
         <td>[% INCLUDE "components/entity-link.tt" entity=item.artist %]</td>
@@ -32,12 +32,4 @@
 
 [% INCLUDE "components/grouped.tt" items=releases group_var='link_phrase' %]
 
-[%- FOREACH group IN releases -%]
-  [%- lastyear = "." -%]
-  [%- FOREACH release IN group.releases -%]
-    [%- lastyear = release.year -%]
-  [%- END -%]
-  </tbody>
-</table>
-[%- END -%]
 [%- END -%]

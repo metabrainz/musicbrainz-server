@@ -1,14 +1,14 @@
-[%- url = "http://musicbrainz.org/${entity.link_type}/${entity.mbid}.html" -%]
+[%- url = "http://musicbrainz.org/${entity.entity_type}/${entity.mbid}.html" -%]
 
 [%- WRAPPER 'components/box.tt' header="Link to ${entity.name}" -%]
 <ul>
   <li>
-    The permanent link for the MusicBrainz [%- entity.link_type -%]
+    The permanent link for the MusicBrainz [%- entity.entity_type -%]
     [%- INCLUDE "components/entity-link.tt" -%]
     is <a href="[% url | url %]">[% url | html %]</a>.
   </li>
   <li>
-    If you wish to add a permanent link to the MusicBrainz [% entity.link_type %]
+    If you wish to add a permanent link to the MusicBrainz [% entity.entity_type %]
     [% INCLUDE "components/entity-link.tt" %]
     from your website or weblog, choose one of the link styles below.
   </li>
@@ -29,8 +29,9 @@
         markup:
       </p>
       <textarea cols="60" rows="5" title="Select text">
-&lt;a href=&quot;http://musicbrainz.org/[% entity.link_type %]/[% entity.mbid %].html&quot; title=&quot;Show [% entity.link_type %] at MusicBrainz&quot;&gt;[% entity.name | html %]&lt;/a&gt;
+&lt;a href=&quot;http://musicbrainz.org/[% entity.entity_type %]/[% entity.mbid %].html&quot; title=&quot;Show [% entity.entity_type %] at MusicBrainz&quot;&gt;[% entity.name | html %]&lt;/a&gt;
       </textarea>
+    </td>
   </tr>
   <tr>
     <th>Text Link</th>
@@ -41,10 +42,11 @@
         markup:
       </p>
       <textarea cols="60" rows="5" title="Select text">
-&lt;a href=&quot;http://musicbrainz.org/[% entity.link_type %]/[% entity.mbid %].html&quot; title=&quot;Show [% entity.link_type %]
+&lt;a href=&quot;http://musicbrainz.org/[% entity.entity_type %]/[% entity.mbid %].html&quot; title=&quot;Show [% entity.entity_type %]
 at MusicBrainz&quot;&gt;&lt;img
-src=&quot;http://musicbrainz.org/static/images/entity/[% entity.link_type %]_small.gif&quot; /&gt;[% entity.name | html %]&lt;/a&gt;
+src=&quot;http://musicbrainz.org/static/images/entity/[% entity.entity_type %]_small.gif&quot; /&gt;[% entity.name | html %]&lt;/a&gt;
       </textarea>
+    </td>
   </tr>
 </table>
 [% END %]

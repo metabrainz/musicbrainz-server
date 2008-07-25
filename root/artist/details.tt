@@ -17,7 +17,7 @@
     <th>[%- INCLUDE "components/doc-link.tt" to="MusicBrainzIdentifier" text="MBID" -%]:</th>
     <td>[% artist.mbid %]</td>
   </tr>
-  </tr>
+  <tr>
     <th>Permanent link :</th>
     <td>
       [% perma="http://musicbrainz.org/artist/${artist.mbid}" %]
@@ -27,6 +27,7 @@
   <tr>
     <th>Subscriber Count :</th>
     <td>[% artist.subscriber_count %]</td>
+  </tr>
 </table>
 [% END %]
 

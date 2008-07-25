@@ -1,5 +1,5 @@
 [%- name = widget.name
-    id = "id_${widget.name}"
+    id = "${prefix}id_${widget.name}"
     type = widget.widget
     value = widget.value -%]
 [%- IF type == 'textarea' -%]
@@ -7,7 +7,7 @@
 [%- ELSIF type == 'select' -%]
   <select id="[% id %]" name="[% name %]">
   [%- FOREACH option IN widget.options -%]
-    <option value="[% option.value %]" [%- IF widget.value == option.value -%]selected="true"[%- END -%]>
+    <option value="[% option.value %]" [%- IF widget.value == option.value -%]selected="selected"[%- END -%]>
       [% option.label %]
     </option>
   [%- END -%]

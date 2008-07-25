@@ -5,6 +5,7 @@ use warnings;
 
 use base 'MusicBrainz::Server::Model::Base';
 
+use MusicBrainz::Server::Alias;
 use MusicBrainz::Server::Facade::Alias;
 
 sub load_for_entity
