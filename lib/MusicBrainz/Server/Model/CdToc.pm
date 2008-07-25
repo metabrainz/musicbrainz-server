@@ -3,15 +3,9 @@ package MusicBrainz::Server::Model::CdToc;
 use strict;
 use warnings;
 
-use base 'Catalyst::Model';
+use base 'MusicBrainz::Server::Model::Base';
 
 use MusicBrainz::Server::Facade::CdToc;
-
-sub ACCEPT_CONTEXT
-{
-    my ($self, $c) = @_;
-    bless { dbh => $c->mb->{DBH} }, ref $self;
-}
 
 sub load_for_release
 {

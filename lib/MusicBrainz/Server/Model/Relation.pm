@@ -3,17 +3,11 @@ package MusicBrainz::Server::Model::Relation;
 use strict;
 use warnings;
 
-use base 'Catalyst::Model';
+use base 'MusicBrainz::Server::Model::Base';
 
 use MusicBrainz::Server::Facade::Link;
 use MusicBrainz::Server::Facade::Release;
 use MusicBrainz::Server::Link;
-
-sub ACCEPT_CONTEXT
-{
-    my ($self, $c) = @_;
-    bless { _dbh => $c->mb->{DBH} }, ref $self;
-}
 
 sub load_relations
 {
@@ -78,6 +72,9 @@ sub load_relations
             $current_group->{start_date} ne $link->{begindate}   or
             $current_group->{end_date}   ne $link->{enddate})
         {
+            $link->{begindate} =~ s/\s+$//g;
+            $link->{enddate  } =~ s/\s+$//g;
+
             $current_group = {
                 connector  => $link->{link_phrase},
                 type       => $link->{link_type},

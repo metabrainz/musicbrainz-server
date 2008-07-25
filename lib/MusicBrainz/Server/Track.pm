@@ -131,37 +131,6 @@ sub SetAlbumJoinModPending
    $_[0]->{albumjoinmodpending} = $_[1];
 }
 
-sub ExportStash
-{
-    my ($self, @data) = @_;
-
-    my %stash = (
-        name => $self->GetName,
-        mbid => $self->GetMBId,
-        link_type => 'track',
-    );
-
-    use Switch;
-    for (@data)
-    {
-        switch($_)
-        {
-            case('number')   { $stash{number} = $self->GetSequence; }
-            case('duration') { $stash{duration} = FormatTrackLength($self->GetLength); }
-            case('artist')
-            {
-                $stash{artist} = {
-                    link_type => 'artist',
-                    mbid      => $self->GetArtist,
-                    name      => $self->GetArtistName,
-                };
-            }
-        }
-    }
-
-    return \%stash;
-}
-
 # Given an albumjoin id, determine the track id and load it
 sub LoadFromAlbumJoin
 {

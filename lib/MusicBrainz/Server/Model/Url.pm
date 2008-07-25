@@ -6,6 +6,7 @@ use warnings;
 use base 'Catalyst::Model';
 
 use Carp;
+use MusicBrainz::Server::Adapter 'LoadEntity';
 use MusicBrainz::Server::Facade::Url;
 use MusicBrainz::Server::Validation;
 use MusicBrainz::Server::URL;
@@ -21,25 +22,7 @@ sub load
     my ($self, $id) = @_;
 
     my $url = MusicBrainz::Server::URL->new($self->{_dbh});
-
-    if (MusicBrainz::Server::Validation::IsGUID($id))
-    {
-        $url->SetMBId($id);
-    }
-    else
-    {
-        if (MusicBrainz::Server::Validation::IsNonNegInteger($id))
-        {
-            $url->SetId($id);
-        }
-        else
-        {
-            croak "$id is not a valid GUID or database row ID";
-        }
-    }
-
-    $url->LoadFromId
-        or croak "Could not load URL at $id";
+    LoadEntity($url, $id);
 
     return MusicBrainz::Server::Facade::Url->new_from_url($url);
 }

@@ -3,16 +3,10 @@ package MusicBrainz::Server::Model::Track;
 use strict;
 use warnings;
 
-use base 'Catalyst::Model';
+use base 'MusicBrainz::Server::Model::Base';
 
 use MusicBrainz::Server::Adapter 'LoadEntity';
 use MusicBrainz::Server::Facade::Track;
-
-sub ACCEPT_CONTEXT
-{
-    my ($self, $c) = @_;
-    bless { _dbh => $c->mb->{DBH} }, ref $self;
-}
 
 sub load
 {

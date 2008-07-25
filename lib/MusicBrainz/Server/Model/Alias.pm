@@ -3,15 +3,9 @@ package MusicBrainz::Server::Model::Alias;
 use strict;
 use warnings;
 
-use base 'Catalyst::Model';
+use base 'MusicBrainz::Server::Model::Base';
 
 use MusicBrainz::Server::Facade::Alias;
-
-sub ACCEPT_CONTEXT
-{
-    my ($self, $c) = @_;
-    bless { _dbh => $c->mb->{DBH} }, ref $self;
-}
 
 sub load_for_entity
 {

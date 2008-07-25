@@ -3,18 +3,12 @@ package MusicBrainz::Server::Model::Artist;
 use strict;
 use warnings;
 
-use base 'Catalyst::Model';
+use base 'MusicBrainz::Server::Model::Base';
 
 use Carp;
+use MusicBrainz::Server::Adapter 'LoadEntity';
 use MusicBrainz::Server::Artist;
 use MusicBrainz::Server::Facade::Artist;
-
-sub ACCEPT_CONTEXT
-{
-    my ($self, $c, @args) = @_;
-
-    bless { _dbh => $c->mb->{DBH} }, ref $self;
-}
 
 =head2 load $id
 
@@ -25,36 +19,11 @@ Loads a new artist, given a specific GUID or database row id.
 sub load
 {
     my ($self, $id) = @_;
+    
+    my $artist = new MusicBrainz::Server::Artist($self->{_dbh});
+    LoadEntity($artist, $id);
 
-    if (defined $id)
-    {
-        my $artist = new MusicBrainz::Server::Artist($self->{_dbh});
-
-        if (MusicBrainz::Server::Validation::IsGUID($id))
-        {
-            $artist->SetMBId($id);
-        }
-        else
-        {
-            if (MusicBrainz::Server::Validation::IsNonNegInteger($id))
-            {
-                $artist->SetId($id);
-            }
-            else
-            {
-                croak "$id is not a valid MBID or database row ID"
-            }
-        }
-
-        $artist->LoadFromId()
-            or croak "Could not load artist with id $id";
-
-        MusicBrainz::Server::Facade::Artist->new_from_artist($artist);
-    }
-    else
-    {
-        croak "Cannot load an artist without an id specified";
-    }
+    MusicBrainz::Server::Facade::Artist->new_from_artist($artist);
 }
 
 sub find_similar_artists

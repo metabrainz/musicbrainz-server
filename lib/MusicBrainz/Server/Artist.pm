@@ -189,46 +189,6 @@ sub GetQualityModPending
    return $_[0]->{modpending_qual};
 }
 
-sub ExportStash
-{
-    my ($self, @data) = @_;
-
-    my $ret = {};
-    $ret->{mbid}      = $self->GetMBId;
-    $ret->{name}      = $self->GetName;
-    $ret->{link_type} = 'artist';
-
-    use Switch;
-    for my $data_item (@data)
-    {
-        switch ($data_item)
-        {
-            case ('name')       { $ret->{sortname}   = $self->GetSortName; }
-            case ('type')       { $ret->{type}       = GetTypeName($self->GetType); }
-            case ('resolution') { $ret->{resolution} = $self->GetResolution; }
-
-            case ('quality')
-            {
-                $ret->{quality} = {
-                    quality => ModDefs::GetQualityText($self->GetQuality),
-                    mp      => $self->GetQualityModPending
-                };
-            }
-
-            case ('date')
-            {
-                $ret->{datespan} = {
-                    start    => $self->GetBeginDate,
-                    end      => $self->GetEndDate,
-                    complete => $self->GetBeginDate && $self->GetEndDate,
-                };
-            }
-        }
-    }
-
-    return $ret;
-}
-
 # Insert an artist into the DB and return the artist id. Returns undef
 # on error. The name and sortname of this artist must be set via the accesor
 # functions.

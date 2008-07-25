@@ -183,27 +183,6 @@ sub ToString {
 			"}";
 }
 
-sub ExportStash
-{
-    my ($self, @data) = @_;
-
-    my %stash = (
-        has_label => $self->GetLabel,
-        label => {
-            link_type => 'label',
-            mbid      => $self->GetLabelMBId,
-            name      => $self->GetLabelName,
-        },
-        format  => $self->GetFormat ? $self->GetFormatName : "-",
-        date    => $self->GetSortDate,
-        country => $self->GetCountry,
-        catalog => $self->GetCatNo,
-        barcode => $self->GetBarcode,
-    );
-
-    return \%stash;
-}
-
 ################################################################################
 # Constructors
 ################################################################################

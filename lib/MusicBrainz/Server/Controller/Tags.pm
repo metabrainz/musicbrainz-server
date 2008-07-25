@@ -98,11 +98,7 @@ Used for tag information applied to a specific MusicBrainz entity.
 sub entity : PathPart('tags') Chained CaptureArgs(2)
 {
     my ($self, $c, $type, $mbid) = @_;
-
-    my $entity = LoadEntity($type, $mbid, $c);
-
-    $c->stash->{entity}  = $entity->ExportStash;
-    $c->stash->{_entity} = $entity;
+    $c->stash->{entity}  = $c->model(ucfirst $type)->load($mbid);
 }
 
 =head2 who

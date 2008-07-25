@@ -46,29 +46,6 @@ sub SetDesc { $_[0]->{desc} = $_[1]; }
 sub GetDesc { return $_[0]->{desc}; }
 sub GetName { return $_[0]->GetURL; }
 
-sub ExportStash
-{
-    my ($self, @data) = @_;
-
-    my %stash = (
-        name      => $self->GetURL,
-        url       => $self->GetURL,
-        link_type => 'url',
-        mbid      => $self->GetMBId,
-    );
-
-    use Switch;
-    for (@data)
-    {
-        switch($_)
-        {
-            case ('description') { $stash{description} = $self->GetDesc; }
-        }
-    }
-
-    return \%stash;
-}
-
 sub LoadFromId
 {
     my $self = shift;

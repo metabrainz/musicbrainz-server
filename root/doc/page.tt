@@ -1,0 +1,3 @@
+[% WRAPPER "layout.tt" %]
+[% page.body %]
+[% END %]

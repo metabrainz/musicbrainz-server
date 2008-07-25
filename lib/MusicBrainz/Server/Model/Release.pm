@@ -3,22 +3,17 @@ package MusicBrainz::Server::Model::Release;
 use strict;
 use warnings;
 
-use base 'Catalyst::Model';
+use base 'MusicBrainz::Server::Model::Base';
 
 use Carp;
 use Encode 'decode';
+use MusicBrainz::Server::Adapter 'LoadEntity';
 use MusicBrainz::Server::Country;
 use MusicBrainz::Server::Facade::Artist;
 use MusicBrainz::Server::Facade::ReleaseEvent;
 use MusicBrainz::Server::Link;
 use MusicBrainz::Server::Release;
 use MusicBrainz::Server::Validation;
-
-sub ACCEPT_CONTEXT
-{
-    my ($self, $c) = @_;
-    bless { _dbh => $c->mb->{DBH} }, ref $self;
-}
 
 sub load_events
 {
@@ -50,25 +45,7 @@ sub load
     my ($self, $id) = @_;
 
     my $release = MusicBrainz::Server::Release->new($self->{_dbh});
-
-    if (MusicBrainz::Server::Validation::IsGUID($id))
-    {
-        $release->SetMBId($id);
-    }
-    else
-    {
-        if (MusicBrainz::Server::Validation::IsNonNegInteger($id))
-        {
-            $release->SetId($id);
-        }
-        else
-        {
-            croak "$id not a valid MBID or database row id";
-        }
-    }
-
-    $release->LoadFromId
-        or croak "Could not load release $id";
+    LoadEntity($release, $id);
 
     return MusicBrainz::Server::Facade::Release->new_from_release($release);
 }
