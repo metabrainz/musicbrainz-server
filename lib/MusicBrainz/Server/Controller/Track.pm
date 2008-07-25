@@ -27,12 +27,7 @@ Chained action to load a track
 sub track : Chained CaptureArgs(1)
 { 
     my ($self, $c, $mbid) = @_;
-
-    my $entity = MusicBrainz::Server::Track->new($c->mb->{DBH});
-    LoadEntity($entity, $mbid);
-
-    $c->stash->{_track} = $entity;
-    $c->stash->{track}  = $entity->ExportStash;
+    $c->stash->{track} = $c->model('Track')->load($mbid);
 }
 
 =head2 relations
@@ -44,11 +39,10 @@ Shows all relations to a given track
 sub relations : Chained('track')
 {
     my ($self, $c, $mbid) = @_;
+    my $track = $c->stash->{track};
 
-    my $track = $c->stash->{_track};
-    $c->stash->{relations} = LoadRelations($track, 'track');;
-
-    $c->stash->{template} = 'track/relations.tt';
+    $c->stash->{relations} = $c->model('Relation')->load_relations($track);
+    $c->stash->{template}  = 'track/relations.tt';
 }
 
 =head2 show

@@ -109,7 +109,7 @@ sub relations : Chained('artist')
     my ($self, $c) = @_;
     my $artist = $c->stash->{artist};
 
-    $c->stash->{relations} = $c->model('Relation')->load_relations($artist);
+    $c->stash->{relations} = $c->model('Relation')->load_relations($artist, to_type => [ 'artist', 'url', 'label', 'album' ]);
     $c->stash->{template}  = 'artist/relations.tt';
 }
 
@@ -187,7 +187,7 @@ sub show : PathPart('') Chained('artist')
 
     $c->stash->{tags}       = $c->model('Tag')->top_tags($artist);
     $c->stash->{releases}   = $c->model('Release')->load_for_artist($artist, $show_all);
-    $c->stash->{relations}  = $c->model('Relation')->load_relations($artist);
+    $c->stash->{relations}  = $c->model('Relation')->load_relations($artist, to_type => [ 'artist', 'url', 'label', 'album' ]);
     $c->stash->{annotation} = $c->model('Annotation')->load_latest_annotation($artist);
 
     # Decide how to display the data

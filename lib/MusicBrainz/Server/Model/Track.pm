@@ -5,6 +5,7 @@ use warnings;
 
 use base 'Catalyst::Model';
 
+use MusicBrainz::Server::Adapter 'LoadEntity';
 use MusicBrainz::Server::Facade::Track;
 
 sub ACCEPT_CONTEXT
@@ -13,9 +14,19 @@ sub ACCEPT_CONTEXT
     bless { _dbh => $c->mb->{DBH} }, ref $self;
 }
 
+sub load
+{
+    my ($self, $mbid) = @_;
+
+    my $track = MusicBrainz::Server::Track->new($self->{_dbh});
+    LoadEntity($track, $mbid);
+
+    return MusicBrainz::Server::Facade::Track->new_from_track($track);
+}
+
 sub load_from_release
 {
-    my ($self, $release, $relations) = @_;
+    my ($self, $release) = @_;
 
     my @tracks = $release->get_release->LoadTracks;
     my $puid_counts = $release->get_release->LoadPUIDCount;

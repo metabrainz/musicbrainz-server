@@ -16,16 +16,16 @@ __PACKAGE__->mk_accessors( qw{
     disc_ids
     first_release_date
     id
-    language_code
     language
+    language_code
     mbid
     name
     puid_count
     quality
+    release_status
+    release_type
     script
     track_count
-    release_type
-    release_status
 });
 
 sub entity_type { 'release' }
@@ -70,10 +70,10 @@ sub new_from_release
         name               => $release->GetName,
         puid_count         => $release->GetPuidCount,
         quality            => ModDefs::GetQualityText($release->GetQuality),
-        script             => $release->GetScript   ? $release->GetScript->GetName   : '',
-        track_count        => $release->GetTrackCount,
-        release_type       => $type,
         release_status     => $status,
+        release_type       => $type,
+        script             => $release->GetScript   ? $release->GetScript->GetName : '',
+        track_count        => $release->GetTrackCount,
 
         _r                 => $release,
     });

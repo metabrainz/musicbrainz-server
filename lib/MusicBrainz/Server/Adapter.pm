@@ -114,7 +114,11 @@ sub EntityUrl
 
     $query_params ||= {};
 
-    return $c->uri_for($catalyst_action, [ $entity->{mbid} ], $query_params);
+    my $id = $entity->can('mbid') && $entity->mbid ? $entity->mbid
+           : $entity->can('id')   && $entity->id   ? $entity->id
+           :                                         '';
+
+    return $c->uri_for($catalyst_action, [ $id ], $query_params);
 }
 
 =head2 Google $query.

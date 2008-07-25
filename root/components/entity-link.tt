@@ -1,7 +1,7 @@
 [%#- The formatting on this is crazy, but we need to make sure no white space -%]
 [%#- escapes! -%]
 [%- IF entity.entity_type == "url" -%]
-  <a href="[% (entity.url || entity.name) | url %]">[% entity.name | truncate(53) | html %]</a>
+  <a href="[% (entity.url || entity.name) | url %]">[% (entity.name || entity.url) | truncate(53) | html %]</a>
   [<a href="[% entity_url(entity, 'info') %]">info</a>]
 [%- ELSE -%]
   <a href="[% entity_url(entity, 'show') %]">

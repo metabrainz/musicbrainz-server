@@ -5,10 +5,6 @@ use warnings;
 
 use base 'Catalyst::Controller';
 
-use Carp;
-use MusicBrainz::Server::URL;
-use MusicBrainz;
-
 =head1 NAME
 
 MusicBrainz::Server::Controller::Url - Catalyst Controller for working
@@ -32,12 +28,7 @@ Base method for chaining - loads the URL into the stash
 sub url : Chained CaptureArgs(1)
 {
     my ($self, $c, $mbid) = @_;
-
-    my $url = MusicBrainz::Server::URL->new($c->mb->{DBH});
-    LoadEntity($url, $mbid);
-
-    $c->stash->{_url} = $url;
-    $c->stash->{url}  = $url->ExportStash;
+    $c->stash->{url} = $c->model('Url')->load($mbid);
 }
 
 =head2 info
@@ -49,11 +40,9 @@ Provides information about a given link
 sub info : Chained('url')
 {
     my ($self, $c, $mbid) = @_;
+    my $url = $c->stash->{url};
 
-    my $url = $c->stash->{_url};
-
-    $c->stash->{relations} = MusicBrainz::Server::Adapter::Relations::LoadRelations($url, 'url');
-    $c->stash->{url}       = $url->ExportStash qw(description);
+    $c->stash->{relations} = $c->model('Relation')->load_relations($url);
 
     $c->stash->{template} = 'url/info.tt';
 }
