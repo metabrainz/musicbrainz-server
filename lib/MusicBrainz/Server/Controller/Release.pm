@@ -5,15 +5,7 @@ use warnings;
 
 use base 'Catalyst::Controller';
 
-use ModDefs;
-use MusicBrainz;
-use MusicBrainz::Server::Adapter qw(LoadEntity Google);
-use MusicBrainz::Server::Country;
-use MusicBrainz::Server::CoverArt;
-use MusicBrainz::Server::Release;
-use MusicBrainz::Server::Tag;
-use MusicBrainz::Server::Track;
-use MusicBrainz::Server::Validation;
+use MusicBrainz::Server::Adapter qw(Google);
 
 =head1 NAME
 
@@ -37,12 +29,7 @@ Chained action to load the release
 sub release : Chained CaptureArgs(1)
 {
     my ($self, $c, $mbid) = @_;
-
-    my $release = MusicBrainz::Server::Release->new($c->mb->{DBH});
-    LoadEntity($release, $mbid);
-
-    $c->stash->{_release} = $release;
-    $c->stash->{release}  = $release->ExportStash;
+    $c->stash->{release} = $c->model('Release')->load($mbid);
 }
 
 =head2 perma
@@ -54,7 +41,6 @@ Display permalink information for a release
 sub perma : Chained('release')
 {
     my ($self, $c) = @_;
-
     $c->stash->{template} = 'releases/perma.tt';
 }
 
@@ -67,7 +53,6 @@ Display detailed information about a release
 sub details : Chained('release')
 {
     my ($self, $c) = @_;
-
     $c->stash->{template} = 'releases/details.tt';
 }
 
@@ -80,10 +65,9 @@ Redirect to Google and search for this release's name.
 sub google : Chained('release')
 {
     my ($self, $c) = @_;
+    my $release = $c->stash->{release};
 
-    my $release = $c->stash->{_release};
-
-    $c->response->redirect(Google($release->GetName));
+    $c->response->redirect(Google($release->name));
 }
 
 =head2 tags
@@ -95,13 +79,9 @@ Show all of this release's tags
 sub tags : Chained('release')
 {
     my ($self, $c) = @_;
-    my $release = $c->stash->{_release};
+    my $release = $c->stash->{release};
 
-    my $t = MusicBrainz::Server::Tag->new($c->mb->{DBH});
-    my $tags = $t->GetTagHashForEntity('release', $release->GetId, 200);
-
-    $c->stash->{tagcloud} = PrepareForTagCloud($tags);
-
+    $c->stash->{tagcloud} = $c->model('Tag')->generate_tag_cloud($release);
     $c->stash->{template} = 'releases/tags.tt';
 }
 
@@ -114,10 +94,9 @@ Show all relationships attached to this release
 sub relations : Chained('release')
 {
     my ($self, $c) = @_;
-    my $release = $c->stash->{_release};
+    my $release = $c->stash->{release};
 
-    $c->stash->{relations} = LoadRelations($release, 'album');
-
+    $c->stash->{relations} = $c->model('Relation')->load_relations($release);
     $c->stash->{template} = 'releases/relations.tt';
 }
 
@@ -134,92 +113,26 @@ tags, tracklisting, release events, etc.
 sub show : Chained('release') PathPart('')
 {
     my ($self, $c) = @_;
-    my $release = $c->stash->{_release};
+    my $release = $c->stash->{release};
 
-    my $show_rels = $c->req->query_params->{rel};
+    my $show_rels = $c->req->query_params->{rel} || 1;
 
     $c->stash->{show_artists}       = $c->req->query_params->{artist};
     $c->stash->{show_relationships} = defined $show_rels ? $show_rels : 1;
 
-    # Load Release Relationships
-    #
-    $c->stash->{relations} = LoadRelations($release, 'album');
+    $c->stash->{artist}         = $c->model('Artist')->load($release->artist->id); 
+    $c->stash->{relations}      = $c->model('Relation')->load_relations($release);
+    $c->stash->{tags}           = $c->model('Tag')->top_tags($release);
+    $c->stash->{disc_ids}       = $c->model('CdToc')->load_for_release($release);
+    $c->stash->{release_events} = $c->model('Release')->load_events($release);
 
-    # Load Release
-    #
-    $c->stash->{release} = $release->ExportStash qw( puids   track_count
-                                                     quality language
-                                                     type    cover_art   );
+    # Load the tracks, and relationships for tracks if we need them
+    my $releases = $c->model('Track')->load_from_release($release);
+    $c->stash->{tracks} = [ map {
+        if ($show_rels) { $_->{relations} = $c->model('Relation')->load_relations($_); }
 
-
-    # Load Artist
-    #
-    my $artist = MusicBrainz::Server::Artist->new($c->mb->{DBH});
-    LoadEntity($artist, $release->GetArtist);
-
-    # Export enough to display the artist header
-    $c->stash->{artist} = $artist->ExportStash qw/ name mbid type date quality
-                                                   resolution /;
-    
-
-    # Tracks
-    my $puid_counts = $release->LoadPUIDCount;
-    my @tracks = $release->LoadTracks;
-
-    $c->stash->{tracks} = [];
-
-    for my $track (@tracks)
-    {
-        my $trackStash = $track->ExportStash qw/number duration artist/;
-
-        $trackStash->{puids}     = $puid_counts->{ $track->GetId };
-        $trackStash->{relations} = LoadRelations($track, 'track')
-            if $c->stash->{show_relationships};
-
-        push @{ $c->stash->{tracks} }, $trackStash;
-    }
-    
-    my $discids = $release->GetDiscIDs;
-    $c->stash->{release}->{disc_ids} = [ map {
-        my $cdtoc = $_->GetCDTOC;
-
-        {
-            mbid      => $cdtoc->GetDiscID,
-            duration  => MusicBrainz::Server::Track::FormatTrackLength($cdtoc->GetLeadoutOffset / 75 * 1000),
-            link_type => 'cdtoc',
-        }
-    } @$discids ];
-
-    # Release Events
-    my @events = $release->ReleaseEvents(1);
-
-    my $country_obj = MusicBrainz::Server::Country->new($c->mb->{DBH});
-    my %county_names;
-
-    $c->stash->{release_events} = [ map {
-        my $event_stash = $_->ExportStash;
-
-        my $cid = $event_stash->{country};
-        $event_stash->{country} = (
-            $county_names{$cid} ||= do {
-                my $country = $country_obj->newFromId($cid);
-                $country ? $country->GetName : "?";
-            }
-        );
-
-        $event_stash;
-    } @events ];
-    
-    # Need to convert country ID to name:
-    #
-
-    # Tags
-    my $t    = MusicBrainz::Server::Tag->new($c->mb->{DBH});
-    my $num  = 5;
-    my $tags = $t->GetTagHashForEntity('release', $release->GetId, $num + 1);
-
-    $c->stash->{tags}      = [ sort { $tags->{$b} <=> $tags->{$a}; } keys %{$tags} ];
-    $c->stash->{more_tags} = scalar(keys %$tags) > $num;
+        $_;
+    } @$releases ];
 
     $c->stash->{template} = 'releases/show.tt';
 }

@@ -5,15 +5,72 @@ use warnings;
 
 use base 'Catalyst::Model';
 
+use Carp;
 use Encode 'decode';
+use MusicBrainz::Server::Country;
 use MusicBrainz::Server::Facade::Artist;
+use MusicBrainz::Server::Facade::ReleaseEvent;
 use MusicBrainz::Server::Link;
 use MusicBrainz::Server::Release;
+use MusicBrainz::Server::Validation;
 
 sub ACCEPT_CONTEXT
 {
     my ($self, $c) = @_;
     bless { _dbh => $c->mb->{DBH} }, ref $self;
+}
+
+sub load_events
+{
+    my ($self, $release) = @_;
+
+    my @events = $release->get_release->ReleaseEvents(1);
+
+    my $country_obj = MusicBrainz::Server::Country->new($self->{_dbh});
+    my %county_names;
+
+    return [ map {
+        my $rel = MusicBrainz::Server::Facade::ReleaseEvent->new_from_event($_);
+
+        my $cid = $rel->country;
+        $rel->country(
+            $county_names{$cid} ||= do {
+                my $country = $country_obj->newFromId($cid);
+                $country ? $country->GetName : "?";
+            }
+        );
+
+        $rel;
+    } @events ];
+
+}
+
+sub load
+{
+    my ($self, $id) = @_;
+
+    my $release = MusicBrainz::Server::Release->new($self->{_dbh});
+
+    if (MusicBrainz::Server::Validation::IsGUID($id))
+    {
+        $release->SetMBId($id);
+    }
+    else
+    {
+        if (MusicBrainz::Server::Validation::IsNonNegInteger($id))
+        {
+            $release->SetId($id);
+        }
+        else
+        {
+            croak "$id not a valid MBID or database row id";
+        }
+    }
+
+    $release->LoadFromId
+        or croak "Could not load release $id";
+
+    return MusicBrainz::Server::Facade::Release->new_from_release($release);
 }
 
 sub load_for_label
@@ -37,7 +94,7 @@ sub load_for_label
 
             $export;
         }
-            sort _sort_albums @releases 
+        sort _sort_albums @releases 
     ];
 }
 

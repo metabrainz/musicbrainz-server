@@ -30,6 +30,8 @@ __PACKAGE__->mk_accessors( qw{
 
 sub entity_type { 'release' }
 
+sub get_release { shift->{_r}; }
+
 sub release_type_name
 {
     my $self = shift;

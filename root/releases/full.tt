@@ -88,19 +88,19 @@
   </table>
   [% INCLUDE "releases/box-summary.tt" %]
 
-  [%- IF release.disc_ids.size -%]
+ [%- IF disc_ids.size -%]
   <div class="release_discids">
     <table style="width: 100%">
-    [%- FOREACH discid = release.disc_ids -%]
+    [%- FOREACH discid = disc_ids -%]
       <tr>
-        <td>Disc ID: <a href="[% entity_url(discid, 'show') %]">[% discid.mbid %]</a></td>
+        <td>Disc ID: <a href="[% entity_url(discid, 'show') %]">[% discid.disc_id %]</a></td>
         <td style="width: 20pt;">[% discid.duration %]</td>
       </tr>
     [%- END -%]
     </table>
   </div>
   [%- END -%]
-
+ 
   <div class="release_events">
     <table>
       <thead>
@@ -118,8 +118,8 @@
         <tr>
           <td class="date">[% event.date | release_date %]</td>
           <td>[% event.country %]</td>
-          <td>[% INCLUDE "components/entity-link.tt" entity=event.label IF event.has_label %]</td>
-          <td>[% event.catalog %]</td>
+          <td>[% INCLUDE "components/entity-link.tt" entity=event.label IF event.label.name %]</td>
+          <td>[% event.catalog_number %]</td>
           <td>[% event.barcode %]</td>
           <td>[% event.format %]</td>
         </tr>

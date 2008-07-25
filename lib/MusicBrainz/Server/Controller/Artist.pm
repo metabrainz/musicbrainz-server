@@ -5,20 +5,7 @@ use warnings;
 
 use base 'Catalyst::Controller';
 
-use Carp;
-use Encode qw( decode );
 use ModDefs;
-use Moderation;
-use MusicBrainz::Server::Adapter qw( LoadEntity Google );
-use MusicBrainz::Server::Alias;
-use MusicBrainz::Server::Annotation;
-use MusicBrainz::Server::Artist;
-use MusicBrainz::Server::Link;
-use MusicBrainz::Server::Release;
-use MusicBrainz::Server::Tag;
-use MusicBrainz::Server::URL;
-use MusicBrainz::Server::Validation;
-use MusicBrainz;
 
 =head1 NAME
 
@@ -36,7 +23,7 @@ that is attributed to a certain artist.
 
 =head2 READ ONLY PAGES
 
-The follow pages can are all read only
+The follow pages can are all read only.
 
 =head2 artist
 
@@ -44,7 +31,7 @@ Private chained action for loading enough information on the artist header
 
 =cut
 
-sub artist : Chained CaptureArgs(1)
+sub artist : Chained('/') CaptureArgs(1)
 {
     my ($self, $c, $mbid) = @_;
 
@@ -52,15 +39,18 @@ sub artist : Chained CaptureArgs(1)
     {
         my $artist = $c->model('Artist')->load($mbid);
 
-        croak "You cannot view the special DELETED_ARTIST"
-            if ($artist->id == ModDefs::DARTIST_ID);
+        if ($artist->id == ModDefs::DARTIST_ID)
+        {
+            $c->error("You cannot view the special artist 'DELETED ARTIST'");
+            $c->detach;
+        }
 
         $c->stash->{artist} = $artist;
     }
     else
     {
-        $c->response->status(404);
-        croak "No MBID/row ID given.";
+        $c->error("No MBID/row ID given.");
+        $c->detach;
     }
 }
 
@@ -116,7 +106,7 @@ Shows all the entities (except track) that this artist is related to.
 
 sub relations : Chained('artist')
 {
-    my ($self, $c, $mbid) = @_;
+    my ($self, $c) = @_;
     my $artist = $c->stash->{artist};
 
     $c->stash->{relations} = $c->model('Relation')->load_relations($artist);
@@ -159,7 +149,7 @@ Display detailed information about a specific artist.
 
 sub details : Chained('artist')
 {
-    my ($self, $c, $mbid) = @_;
+    my ($self, $c) = @_;
     $c->stash->{template} = 'artist/details.tt';
 }
 
@@ -190,7 +180,7 @@ folksonomy information (tags).
 
 sub show : PathPart('') Chained('artist')
 {
-    my ($self, $c, $mbid) = @_;
+    my ($self, $c) = @_;
     my $artist = $c->stash->{artist};
 
     my $show_all = $c->req->query_params->{show_all} || 0;
@@ -199,13 +189,6 @@ sub show : PathPart('') Chained('artist')
     $c->stash->{releases}   = $c->model('Release')->load_for_artist($artist, $show_all);
     $c->stash->{relations}  = $c->model('Relation')->load_relations($artist);
     $c->stash->{annotation} = $c->model('Annotation')->load_latest_annotation($artist);
-
-    #my $annotation = LoadArtistAnnotation($mb->{DBH}, $artist);
-#    my @releases   = LoadArtistReleases($artist, $short_list);
-
-    # Create data structures for the template
-    # $c->stash->{annotation} = $annotation->GetTextAsHTML
-    #    if defined $annotation;
 
     # Decide how to display the data
     $c->stash->{template} = defined $c->request->query_params->{full} ? 
@@ -296,21 +279,6 @@ sub edit : Chained('artist')
     }
 
     $c->stash->{template} = 'artist/edit.tt';
-}
-
-
-=head2 INTERNAL METHODS
-
-=cut
-
-sub LoadArtistAnnotation
-{
-    my ($dbh, $artist) = @_;
-
-    my $annotation = MusicBrainz::Server::Annotation->new($dbh);
-    $annotation->SetArtist($artist->GetId);
-
-    return $annotation->GetLatestAnnotation;
 }
 
 =head1 LICENSE 
