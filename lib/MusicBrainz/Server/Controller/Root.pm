@@ -131,6 +131,8 @@ sub end : ActionClass('RenderView')
     # For linking to entities
     $c->stash(entity_url => sub { EntityUrl($c, @_); }); 
     $c->stash->{server_details}->{version} = &DBDefs::VERSION;
+
+    $c->mb->Logout();
 }
 
 =head css

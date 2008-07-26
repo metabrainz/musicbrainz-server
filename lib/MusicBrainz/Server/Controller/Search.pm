@@ -184,7 +184,7 @@ sub external : Local
             # Because this branch has a different url scheme, we need to
             # update the URLs.
             # TODO Update when this branch is live in Xapian's code base.
-            $results =~ s/\.html//;
+            $results =~ s/\.html//g;
 
             # Parse information about total results
             my ($redirect, $total_hits);
