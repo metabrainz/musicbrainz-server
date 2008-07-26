@@ -462,7 +462,7 @@ sub SelectListOfLists
 		my $tt = Sql::Timer->new($query, \@params) if SQL_DEBUG;
 		my $sth = $this->{DBH}->prepare_cached($query);
 		my $rv = $sth->execute(@params)
-			or die;
+			or croak;
 
 		my @vals;
 

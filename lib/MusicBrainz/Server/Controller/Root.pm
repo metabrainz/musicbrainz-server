@@ -132,6 +132,22 @@ sub end : ActionClass('RenderView')
     $c->stash(entity_url => sub { EntityUrl($c, @_); }); 
     $c->stash->{server_details}->{version} = &DBDefs::VERSION;
 
+    # Effectivly a date filter:
+    $c->stash->{user_date} = sub {
+        use UserPreference;
+
+        my $mb = new MusicBrainz;
+        $mb->Login();
+
+        my $prefs = UserPreference->newFromUser($mb->{DBH}, $c->user->get_object);
+        $prefs->load;
+
+        MusicBrainz::Server::DateTime::format_datetime( {
+            datetimeformat => $prefs->get('datetimeformat'),
+            tz             => $prefs->get('timezone')
+        }, @_);
+    };
+
     $c->mb->Logout();
 }
 

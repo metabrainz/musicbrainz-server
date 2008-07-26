@@ -94,9 +94,7 @@ sub format_datetime
 	# ignored).  So in this case, make sure that the time values you're passing in
 	# are in UTC.
 
-	require UserPreference;
-	my $fmt = UserPreference::get('datetimeformat');
-	my $tz = UserPreference::get('timezone');
+	my ($fmt, $tz);
 
 	# Allow overrides by passing a hash reference as the first parameter.
 	if (@_ and ref($_[0]) eq "HASH")

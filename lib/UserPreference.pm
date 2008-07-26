@@ -27,7 +27,7 @@ use strict;
 
 package UserPreference;
 
-use Carp qw( carp );
+use Carp qw( carp croak );
 
 ################################################################################
 # These subs are called from outside of this module.
@@ -379,14 +379,18 @@ Instantiate a new UserPreference object for a specific user.
 
 sub newFromUser
 {
-    my ($class, $user) = @_;
+    my ($class, $dbh, $user) = @_;
 
     my $uid = $user->GetId
-        or carp "No user id could be found";
+        or croak "No user id could be found";
+
+    my $mb = new MusicBrainz();
+    $mb->Login();
 
     bless {
         uid => $uid,
-        DBH => $user->{DBH},
+        DBH => $mb->{dbh},
+        mb  => $mb,
         prefs => {},
     }, $class;
 }
@@ -403,7 +407,7 @@ sub load
     my $self = shift;
     my $uid = $self->{uid};
 
-    my $sql = Sql->new($self->{DBH});
+    my $sql = Sql->new($self->{mb}->{DBH});
     my $rows = $sql->SelectListOfLists(
         "SELECT name, value FROM moderator_preference WHERE moderator = ?",
         $uid,
@@ -415,12 +419,12 @@ sub load
         my ($key, $value) = @$_;
 
 		my $info = $prefs{$key}
-			or warn("Moderator #$uid has invalid saved preference '$key'"), next;
+			or carp("Moderator #$uid has invalid saved preference '$key'"), next;
 
         my $newValue = $info->{CHECK}->($value);
 
         defined $newValue
-            or warn "Moderator #$uid has invalid saved value '$value' for preference '$key'";
+            or carp "Moderator #$uid has invalid saved value '$value' for preference '$key'";
 
         $self->{prefs}->{$key} = $newValue;
     }
@@ -441,8 +445,10 @@ sub get
 		or carp("UserPreference::get called with invalid key '$key'"), return undef;
 
 	my $value = $self->{prefs}->{$key};
-	defined($value) or return $info->{DEFAULT};
-	$value;
+    $value = defined $value ? $value
+           :                  $info->{DEFAULT};
+    
+	return $value;
 }
 
 =head2 C<set> KEY, VALUE

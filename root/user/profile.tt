@@ -49,10 +49,12 @@
     [% WRAPPER property name="E-mail" %]
       [% IF viewing_own_profile %]
         [% (profile.email.address or "[None]") | html_entity %]
-      [% ELSE %][Hidden][% END %]
+      [% ELSE %]
+        [Hidden]
+      [% END %]
       
       [% IF profile.email.verified_at %]
-        (verified [% profile.email.verified_at |mb_date %])
+        (verified [% user_date(profile.email.verified_at) %])
       [% ELSE %]
         [% IF viewing_own_profile %](<em>unverified!</em>)[% END %]
       [% END %]

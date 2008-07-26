@@ -303,14 +303,17 @@ sub profile : Local
         if ($c->user_exists)
         {
             $user = $c->user->get_object;
-            $c->stash->{viewing_own_profile} = 1
-                unless defined $userName and $user->GetName ne $userName;
         }
         else
         {
             $c->response->redirect($c->uri_for('/user/login'));
             $c->detach();
         }
+    }
+
+    if ($c->user_exists && $c->user->get_object->GetName eq $user->GetName)
+    {
+        $c->stash->{viewing_own_profile} = 1;
     }
 
     die "The user with username '" . $userName . "' could not be found"
