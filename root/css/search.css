@@ -3,12 +3,16 @@
  */
 table.searchresults {
     width: 100%;
+    border-collapse: collapse;
 }
 table.searchresults .searchresultsheader td {
     font-weight: bold;
 }
+table.searchresults td {
+    padding: 3pt 5pt;
+}
 table.searchresults .searchresultsodd {
-    background: #eee;
+    background: #eaeaea;
 }
 
 div.box .searchform {

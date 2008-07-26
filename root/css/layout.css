@@ -48,8 +48,8 @@ a:hover {
     display: block;
     margin-bottom: 10pt;
     overflow: hidden;
-    background: #FFBA58;
     padding: 3pt;
+    background: #FFBA58;
 }
 
 #footer-bar a {
@@ -243,4 +243,27 @@ table.details th {
 
 #sidebar_search .submit {
     width: auto;
+}
+
+.paginator ul {
+    margin: 0;
+}
+
+.paginator .counter {
+    margin-right: 20pt;
+}
+
+.paginator li {
+    display: inline;
+}
+
+.paginator li a {
+    padding: 0pt 5pt;
+    color: #000;
+    border: 1px solid;
+}
+
+.paginator li.current {
+    background: #FFBA58;
+    font-weight: bold;
 }

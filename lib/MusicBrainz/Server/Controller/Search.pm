@@ -34,7 +34,7 @@ sub simple : Local
 
     my $form = new MusicBrainz::Server::Form::Search::Simple;
 
-    if ($c->form_posted && $form->validate($c->req->params))
+    if ($form->validate($c->req->query_params))
     {
         my ($type, $query) = (  $form->value('type'),
                                 $form->value('query')   );
@@ -49,7 +49,7 @@ sub simple : Local
         }
         else
         {
-            $c->detach("external", [ $type, $query ]);
+            $c->detach("external");
         }
     }
 
@@ -110,21 +110,22 @@ sub external : Local
         $c->stash->{form} = $form;
     }
 
-    if ($c->form_posted and $form->validate($c->req->params))
+    if ($form->validate($c->req->query_params))
     {
         use URI::Escape qw( uri_escape );
+        use POSIX qw(ceil floor);
 
         my $type   = $form->value('type');
         my $query  = $form->value('query');
-        my $offset = $c->request->query_params->{offset};
-        my $limit  = $form->value('limit');
+        my $offset = $c->request->query_params->{offset} || 0;
+        my $limit  = $form->value('limit') || 25;
 
         if ($query eq '!!!' and $type eq 'artist')
         {
             $query = 'chkchkchk';
         }
 
-        if ($form->value('enable_advanced'))
+        unless ($form->value('enable_advanced'))
         {
             use MusicBrainz::Server::LuceneSearch;
             
@@ -142,8 +143,8 @@ sub external : Local
                                      DBDefs::LUCENE_SERVER,
                                      $type,
                                      $query,
-                                     $offset || 0,
-                                     $limit || 25,);
+                                     $offset,
+                                     $limit,);
         use LWP::UserAgent;
         
         warn "Search is: $search_url";
@@ -232,10 +233,33 @@ sub external : Local
                 $c->res->redirect($c->uri_for($action, [ $redirect ]));
                 $c->detach;
             }
+    
+            my $total_pages = ceil($total_hits / $limit);
 
-            $c->stash->{offset}     = $offset;
-            $c->stash->{total_hits} = $total_hits;
-            $c->stash->{results}    = $results;
+            $c->stash->{current_page} = floor($offset / $limit) + 1;
+            $c->stash->{total_pages}  = $total_pages;
+            $c->stash->{offset}       = $offset;
+            $c->stash->{total_hits}   = $total_hits;
+            $c->stash->{results}      = $results;
+
+            $c->stash->{url_for_page} = sub {
+                my $page_number = shift;
+                $page_number    = $page_number - 1;
+
+                my $new_offset  = $page_number * $limit;
+
+                my $min_offset  = 0;
+                my $max_offset  = ($c->stash->{total_pages} - 1) * $limit;
+
+                $new_offset = $new_offset < $min_offset ? $min_offset
+                            : $new_offset > $max_offset ? $max_offset
+                            :                             $new_offset;
+
+                my $query = $c->req->query_params;
+                $query->{offset} = $page_number * $limit;
+
+                $c->uri_for('/search/external', $query);
+            };
         }
     }
 
