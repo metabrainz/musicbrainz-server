@@ -5,6 +5,8 @@ use warnings;
 
 use base 'MusicBrainz::Server::Model::Base';
 
+use Carp;
+use MusicBrainz::Server::CDTOC;
 use MusicBrainz::Server::Facade::CdToc;
 
 sub load_for_release
@@ -16,6 +18,16 @@ sub load_for_release
     [ map {
         MusicBrainz::Server::Facade::CdToc->new_from_cdtoc($_->GetCDTOC)
     } @$disc_ids ];
+}
+
+sub load
+{
+    my ($self, $id) = @_;
+
+    my $cdtoc = MusicBrainz::Server::CDTOC->newFromId($self->dbh, $id)
+        or croak "Could not load CDTOC with id $id";
+
+    return MusicBrainz::Server::Facade::CdToc->new_from_cdtoc($cdtoc);
 }
 
 1;
