@@ -262,9 +262,9 @@ sub changePassword : Local
 
     if ($c->form_posted && $form->validate($c->req->params))
     {
-        if ($form->value('old_password') eq $c->user->get_object->GetPassword)
+        if ($form->value('old_password') eq $c->user->password)
         {
-            $c->user->get_object->ChangePassword( $form->value('old_password'),
+            $c->user->get_user->ChangePassword( $form->value('old_password'),
                                                   $form->value('new_password'),
                                                   $form->value('confirm_new_password') );
 
@@ -287,22 +287,19 @@ Display a users profile page.
 
 sub profile : Local
 {
-    my ($self, $c, $userName) = @_;
+    my ($self, $c, $user_name) = @_;
 
-    my $mb = $c->mb;
-    
-    my $us = UserStuff->new($mb->{DBH});
     my $user;
     
-    if ($userName)
+    if ($c->user_exists)
     {
-        $user = $us->newFromName($userName);
+        $user = $c->user;
     }
     else
     {
-        if ($c->user_exists)
+        if ($user_name)
         {
-            $user = $c->user->get_object;
+            $user = $c->model('User')->load_user({ username => $user_name });
         }
         else
         {
@@ -311,36 +308,17 @@ sub profile : Local
         }
     }
 
-    if ($c->user_exists && $c->user->get_object->GetName eq $user->GetName)
+    if ($c->user_exists && $c->user->id eq $user->id)
     {
         $c->stash->{viewing_own_profile} = 1;
     }
 
-    die "The user with username '" . $userName . "' could not be found"
+    die "The user with username '" . $user_name . "' could not be found"
         unless $user;
 
-    $c->stash->{profile} = {
-        name => $user->GetName,
-        type => $user->GetUserType,
-        email => {
-            address => $user->GetEmail,
-            verified_at => $user->GetEmailConfirmDate,
-        },
-        homepage => $user->GetWebURL,
-        biography => $user->GetBio,
-        public_subscriptions => UserPreference::get_for_user("subscriptions_public", $user),
-        subscriber_count => scalar $user->GetSubscribers,
-
-        member_since => $user->GetMemberSince,
-        accepted_non_autoedits => $user->GetModsAccepted,
-        accepted_autoedits => $user->GetAutoModsAccepted,
-        edits_voted_down => $user->GetModsRejected,
-        other_failed_edits => $user->GetModsFailed,
-    };
+    $c->stash->{profile} = $user;
 
     $c->stash->{template} = 'user/profile.tt';
-
-    $c->stash->{filter} = sub { \&date };
 }
 
 =head2 logout
@@ -365,13 +343,13 @@ Change the users preferences
 
 sub preferences : Local
 {
-    use MusicBrainz::Server::Form::User::Preferences;
-
     my ($self, $c) = @_;
 
-    die "You must be logged in" unless $c->user_exists;
-    
-    my $form = MusicBrainz::Server::Form::User::Preferences->new($c->user->get_object->GetName);
+    my $user  = $c->user;
+
+    use MusicBrainz::Server::Form::User::Preferences;
+
+    my $form = MusicBrainz::Server::Form::User::Preferences->new($user->id);
     $c->stash->{form} = $form;
 
     $form->update_from_form ($c->req->params)
@@ -389,18 +367,7 @@ Check the status of donations and ask for one.
 sub donate : Local
 {
     my ($self, $c) = @_;
-    my $mb = $c->mb;
-    my $us = UserStuff->new($mb->{DBH});
-    my $user;
-    
-    $user = $c->user->get_object;
-    my ($nag, $days) = $us->NagCheck();
-    
-    $c->stash->{donateinfo} = {
-        'nag' => 1,
-        'days' => 1
-    };
-    $c->stash->{template} = 'user/donate.tt';
+    die "Not implemented";
 }
 
 =head1 LICENSE 

@@ -136,7 +136,7 @@ sub end : ActionClass('RenderView')
     $c->stash->{user_date} = sub {
         use UserPreference;
 
-        my $prefs = UserPreference->newFromUser($c->mb->{DBH}, $c->user->get_object);
+        my $prefs = UserPreference->newFromUser($c->mb->{DBH}, $c->user->id);
         $prefs->load;
 
         MusicBrainz::Server::DateTime::format_datetime( {

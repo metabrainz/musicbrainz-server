@@ -53,8 +53,8 @@
         [Hidden]
       [% END %]
       
-      [% IF profile.email.verified_at %]
-        (verified [% user_date(profile.email.verified_at) %])
+      [% IF profile.email_verification_date %]
+        (verified [% user_date(profile.email_verification_date) %])
       [% ELSE %]
         [% IF viewing_own_profile %](<em>unverified!</em>)[% END %]
       [% END %]
@@ -85,16 +85,15 @@
  <dl>
    [% WRAPPER property name="Member Since" %]
      [% IF profile.name == "Rob" %]The Dawn of the project
-     [% ELSIF profile.name == "aCiD2" %]9 months after someone did your mum
      [% ELSIF profile.is_special %]N/A
      [% ELSIF profile.charter %]charter member
-     [% ELSE %][% profile.member_since | mb_date %]
+     [% ELSE %][% user_date(profile.member_since) %]
      [% END %]
    [% END %]
    [% profile.accepted_non_autoedits WRAPPER property name="Accepted Non-autoedits" %]
-   [% profile.accepted_autoedits WRAPPER property name="Autoedits" %]
-   [% profile.edits_voted_down WRAPPER property name="Edits Voted Down" %]
-   [% profile.other_failed_edits WRAPPER property name="Edits Failed" %]
+   [% profile.accepted_autoedits     WRAPPER property name="Autoedits" %]
+   [% profile.edits_voted_down       WRAPPER property name="Edits Voted Down" %]
+   [% profile.edits_failed           WRAPPER property name="Edits Failed" %]
  </dl>
 [% END %]
 

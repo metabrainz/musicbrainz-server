@@ -379,18 +379,11 @@ Instantiate a new UserPreference object for a specific user.
 
 sub newFromUser
 {
-    my ($class, $dbh, $user) = @_;
-
-    my $uid = $user->GetId
-        or croak "No user id could be found";
-
-    my $mb = new MusicBrainz();
-    $mb->Login();
+    my ($class, $dbh, $uid) = @_;
 
     bless {
         uid => $uid,
-        DBH => $mb->{dbh},
-        mb  => $mb,
+        DBH => $dbh,
         prefs => {},
     }, $class;
 }
@@ -407,7 +400,7 @@ sub load
     my $self = shift;
     my $uid = $self->{uid};
 
-    my $sql = Sql->new($self->{mb}->{DBH});
+    my $sql = Sql->new($self->{DBH});
     my $rows = $sql->SelectListOfLists(
         "SELECT name, value FROM moderator_preference WHERE moderator = ?",
         $uid,

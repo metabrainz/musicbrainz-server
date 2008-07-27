@@ -187,28 +187,14 @@ sub validate_releases_show_compact {
         unless $field->value >= 1 && $field->value <= 100
 }
 
-=head2 init_item
-
-Load the user preferences for a given user id. We pass the user id as
-the users name.
-
-=cut
-
-sub init_item {
-    my $self = shift;
-    my $id = $self->item_id;
-
-    return unless defined $id;
+sub init_item
+{
+    my ($self, $id) = @_;
 
     my $mb = new MusicBrainz;
     $mb->Login();
 
-    my $us = new UserStuff($mb->{DBH});
-    my $user = $us->newFromName($id);
-
-    my $prefs = UserPreference->newFromUser ($user);
-    $prefs->load;
-
+    my $prefs = UserPreference->newFromUser($mb->{DBH}, $id);
     return $prefs;
 }
 

@@ -54,13 +54,7 @@ sub init_value
 
     return unless defined $item;
 
-    use Switch;
-    switch($field->name)
-    {
-        return $item->GetEmail case ('email');
-        return $item->GetWebURL case('homepage');
-        return $item->GetBio case('biography');
-    }
+    return $item->get($field->name);
 }
 
 =head2 update_model
