@@ -78,7 +78,7 @@ sub mb
 {
     my $self = shift;
 
-    unless(defined $self->{_mb})
+    unless(defined $self->{_mb} && defined $self->{_mb}->{DBH})
     {
         my $mb = new MusicBrainz;
         $mb->Login();

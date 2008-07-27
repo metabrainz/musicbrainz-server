@@ -5,7 +5,7 @@ use warnings;
 
 use base 'Catalyst::Controller';
 
-use MusicBrainz::Server::Adapter qw(LoadEntity);
+use MusicBrainz::Server::Adapter qw(LoadEntity Google);
 use MusicBrainz::Server::Track;
 
 =head1 NAME
@@ -27,7 +27,11 @@ Chained action to load a track
 sub track : Chained CaptureArgs(1)
 { 
     my ($self, $c, $mbid) = @_;
-    $c->stash->{track} = $c->model('Track')->load($mbid);
+
+    my $track = $c->model('Track')->load($mbid);
+
+    $c->stash->{track}  = $track;
+    $c->stash->{artist} = $c->model('Artist')->load($track->artist_id);
 }
 
 =head2 relations
@@ -45,17 +49,45 @@ sub relations : Chained('track')
     $c->stash->{template}  = 'track/relations.tt';
 }
 
-=head2 show
+=head2 details
 
 Show details of a track
 
 =cut
 
+sub details : Chained('track')
+{
+    my ($self, $c) = @_;
+    my $track = $c->stash->{track};
+
+    $c->stash->{relations} = $c->model('Relation')->load_relations($track);
+    $c->stash->{tags}      = $c->model('Tag')->top_tags($track);
+    $c->stash->{release}   = $c->model('Release')->load($track->release_id);
+
+    $c->stash->{template} = 'track/info.tt';
+}
+
 sub show : Chained('track') PathPart('')
 {
     my ($self, $c) = @_;
+    $c->detach('details');
+}
 
-    $c->detach('relations');
+sub tags : Chained('track')
+{
+    my ($self, $c, $mbid) = @_;
+    my $track = $c->stash->{track};
+
+    $c->stash->{tags}     = $c->model('Tag')->generate_tag_cloud($track);
+    $c->stash->{template} = 'track/tags.tt';
+}
+
+sub google : Chained('track')
+{
+    my ($self, $c) = @_;
+    my $track = $c->stash->{track};
+
+    $c->response->redirect(Google($track->name));
 }
 
 =head1 LICENSE

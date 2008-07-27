@@ -8,12 +8,14 @@ use base 'Class::Accessor';
 use MusicBrainz::Server::Track;
 
 __PACKAGE__->mk_accessors(qw{
+    artist_id
     duration
     id
     number
     name
     mbid
     puid_count
+    release_id
 });
 
 sub entity_type { 'track' }
@@ -23,12 +25,14 @@ sub new_from_track
     my ($class, $track) = @_;
 
     $class->new({
+        artist_id  => $track->GetArtist,
         duration   => MusicBrainz::Server::Track::FormatTrackLength($track->GetLength),
         id         => $track->GetId,
         number     => $track->GetSequence,
         name       => $track->GetName,
         mbid       => $track->GetMBId,
         puid_count => 0,
+        release_id => $track->GetRelease,
 
         _t   => $track,
     });

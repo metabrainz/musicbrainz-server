@@ -10,9 +10,9 @@
     
     <link rel="stylesheet" type="text/css" href="/main.css" />
 
-    [% IF template.extra_css %]
+    [%- IF template.extra_css -%]
     <link rel="stylesheet" type="text/css" href="/static/styles/extra/[% template.extra_css %]" />
-    [% END %]
+    [%- END -%]
 
     <link rel="search" type="application/opensearchdescription+xml" title="MusicBrainz: Artist" href="/search/plugins/opensearch/musicbrainzartist.xml" />
     <link rel="search" type="application/opensearchdescription+xml" title="MusicBrainz: Label" href="/search/plugins/opensearch/musicbrainzlabel.xml" />
@@ -21,7 +21,7 @@
   </head>
 
   <body>
-    [% INCLUDE "layout/header.tt" %]
+    [%- INCLUDE "layout/header.tt" -%]
 
     <div id="container">
       <div id="content">
@@ -32,8 +32,8 @@
       </div>
     </div>
 
-    [% INCLUDE "layout/sidebar.tt" %]
+    [%- INCLUDE "layout/sidebar.tt" -%]
 
-    [% INCLUDE "layout/footer-bar.tt" %]
+    [%- INCLUDE "layout/footer-bar.tt" -%]
   </body>
 </html>

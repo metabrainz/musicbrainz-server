@@ -1,0 +1,19 @@
+[%- info_links = [
+     { link => entity_url(track, 'details'), text => "Details" },
+     { link => entity_url(track, 'relations'), text => "Relations" },
+     { link => entity_url(track, 'tags'), text => "Tags" },
+     { link => entity_url(track, 'google'), text => "Search Google" }
+   ]
+-%]
+
+<div class="entity_header">
+  <div class="title track">
+    [% INCLUDE "components/entity-link.tt" entity=track noicon=1 %]
+  </div>
+
+  <div class="info">
+    by [% INCLUDE "components/entity-link.tt" entity=artist noicon=1 %]
+  </div>
+
+  <div class="infoLinks"> Info: [% INCLUDE "components/piped-list.tt" list=info_links %]</div>
+</div>

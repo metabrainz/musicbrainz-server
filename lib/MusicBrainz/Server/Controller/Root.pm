@@ -136,10 +136,7 @@ sub end : ActionClass('RenderView')
     $c->stash->{user_date} = sub {
         use UserPreference;
 
-        my $mb = new MusicBrainz;
-        $mb->Login();
-
-        my $prefs = UserPreference->newFromUser($mb->{DBH}, $c->user->get_object);
+        my $prefs = UserPreference->newFromUser($c->mb->{DBH}, $c->user->get_object);
         $prefs->load;
 
         MusicBrainz::Server::DateTime::format_datetime( {
@@ -147,8 +144,6 @@ sub end : ActionClass('RenderView')
             tz             => $prefs->get('timezone')
         }, @_);
     };
-
-    $c->mb->Logout();
 }
 
 =head css
