@@ -1,4 +1,4 @@
-[%- WRAPPER "layout.tt" title="Details" -%]
+[%- WRAPPER "releases/layout.tt" title="Details" -%]
 [%- WRAPPER "components/box.tt" header="Release details" -%]
   <table class="details">
       <tr>

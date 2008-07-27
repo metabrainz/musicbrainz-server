@@ -1,0 +1,24 @@
+[%- info_links = [
+        { link => entity_url(release, 'perma'), text => "Permanent link" },
+        { link => entity_url(release, 'details'), text => "Details" },
+        { link => entity_url(release, 'relations'), text => "Relations" },
+        { link => entity_url(release, 'tags'), text => "Tags" },
+
+        { link => entity_url(release, 'google'), text => "Search Google" },
+    ] -%]
+
+<div class="entity_header">
+  <div class="title album">
+    [% INCLUDE "components/entity-link.tt" entity=release noicon=1 %]
+  </div>
+
+  <div class="info">
+    by [% INCLUDE "components/entity-link.tt" entity=release_artist noicon=1 %]
+  </div>
+
+  <div class="infoLinks">
+    Info: [% INCLUDE "components/piped-list.tt" list=info_links %]
+  </div>
+
+  [% INCLUDE "releases/edit-links.tt" %]
+</div>

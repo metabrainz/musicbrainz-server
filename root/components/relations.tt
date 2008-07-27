@@ -36,6 +36,7 @@
 [%- END -%]
 
 [%- UNLESS justlist -%]
+[%- IF showall -%]<h1>Relationships for [% source.entity_type %] "[% source.name %]"</h1>[% END %]
 <div class="RelationshipBox">
   [%- IF relations.size -%]
     [%- INCLUDE "components/entity-link.tt" entity=source -%][% relations.size > 1 ? ":" : "" %]

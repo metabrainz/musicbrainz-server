@@ -10,7 +10,7 @@ use MusicBrainz::Server::Facade::Artist;
 use MusicBrainz::Server::Release;
 
 __PACKAGE__->mk_accessors( qw{
-    artist
+    artist_id
     attributes
     cover_art_url
     disc_ids
@@ -58,7 +58,7 @@ sub new_from_release
     my ($type, $status) = $release->GetReleaseTypeAndStatus;
 
     return $class->new({
-        artist             => MusicBrainz::Server::Facade::Artist->new({ id => $release->GetArtist }),
+        artist_id          => $release->GetArtist,
         attributes         => [ map { $release->GetAttributeName($_) } @attributes ],
         cover_art_url      => $release->GetCoverartURL,
         disc_ids           => $release->GetDiscidCount,

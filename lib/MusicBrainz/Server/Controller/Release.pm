@@ -29,7 +29,11 @@ Chained action to load the release
 sub release : Chained CaptureArgs(1)
 {
     my ($self, $c, $mbid) = @_;
-    $c->stash->{release} = $c->model('Release')->load($mbid);
+
+    my $release = $c->model('Release')->load($mbid);
+
+    $c->stash->{release}        = $release;
+    $c->stash->{release_artist} = $c->model('Artist')->load($release->artist_id); 
 }
 
 =head2 perma
@@ -96,7 +100,8 @@ sub relations : Chained('release')
     my ($self, $c) = @_;
     my $release = $c->stash->{release};
 
-    $c->stash->{relations} = $c->model('Relation')->load_relations($release);
+    $c->stash->{relations}      = $c->model('Relation')->load_relations($release);
+
     $c->stash->{template} = 'releases/relations.tt';
 }
 
@@ -120,7 +125,7 @@ sub show : Chained('release') PathPart('')
     $c->stash->{show_artists}       = $c->req->query_params->{artist};
     $c->stash->{show_relationships} = defined $show_rels ? $show_rels : 1;
 
-    $c->stash->{artist}         = $c->model('Artist')->load($release->artist->id); 
+    $c->stash->{artist}         = $c->model('Artist')->load($release->artist_id); 
     $c->stash->{relations}      = $c->model('Relation')->load_relations($release);
     $c->stash->{tags}           = $c->model('Tag')->top_tags($release);
     $c->stash->{disc_ids}       = $c->model('CdToc')->load_for_release($release);

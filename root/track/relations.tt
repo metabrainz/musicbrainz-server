@@ -1,5 +1,4 @@
 [%- WRAPPER "layout.tt" title="Relationships for \"${track.name}\"" -%]
 [% INCLUDE "track/header.tt" %]
-<h1>Relationships for "[% track.name %]"</h1>
 [%- INCLUDE "components/relations.tt" source=track showall=1 -%]
 [%- END -%]

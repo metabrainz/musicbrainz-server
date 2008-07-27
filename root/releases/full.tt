@@ -1,34 +1,3 @@
-[%- info_links = [
-        { link => entity_url(release, 'perma'), text => "Permanent link" },
-        { link => entity_url(release, 'details'), text => "Details" },
-        { link => entity_url(release, 'tags'), text => "Tags" },
-
-        {
-            link => entity_url(release, 'show', { artist => 1, rel = show_relationships }),
-            text => "Show artists",
-            hide => show_artists,
-        },
-        {
-            link => entity_url(release, 'show', { artist => 0, rel = show_relationships }),
-            text => "Hide artists",
-            hide => !show_artists,
-        },
-
-
-        {
-            link => entity_url(release, 'show', { rel => 1, artist = show_artists }),
-            text => "Show relationships",
-            hide => show_relationships,
-        },
-        {
-            link => entity_url(release, 'show', { rel => 0, artist = show_artists }),
-            text => "Hide relationships",
-            hide => !show_relationships,
-        },
-
-        { link => entity_url(release, 'google'), text => "Search Google" },
-    ] -%]
-
 [% INCLUDE "components/relations.tt" source=release %]
 
 <div class="release">
@@ -39,22 +8,8 @@
         <img src="[% release.cover_url %]"> 
       </div>
     [%- END -%]
-    <div class="infoLinks">
-      Info: [% INCLUDE "components/piped-list.tt" list=info_links %]
-    </div>
-    <div class="editLinks">
-      Edit: 
-      [%- IF c.user_exists -%]
-        [%- edit_links = [
-              { link => '', text => 'Add relationship' },
-              { link => '', text => 'Relate to URL' },
-              { link => '', text => 'Add CC license' },
-            ] -%]
-        [% INCLUDE "components/piped-list.tt" list=edit_links %]
-      [%- ELSE -%]
-        Please <a href="[% c.uri_for('/user/login') %]">log in</a> to edit this release
-      [%- END -%]
-    </div>
+    [% INCLUDE "releases/info-links.tt" %]
+    [% INCLUDE "releases/edit-links.tt" %]
     <div class="releasetags">
       [% INCLUDE "tag/summary.tt" tags=tags source=release %]
     </div>
@@ -65,7 +20,7 @@
         <tr>
           <td class="number">[% track.number %]</td>
           <td class="title">
-            [% track.name | html %]
+            [% INCLUDE "components/entity-link.tt" entity=track noicon=1 %]
             [% INCLUDE "components/relations.tt" source=track relations=track.relations justlist=1
                                                  nocompact=1
                  IF track.relations.size AND show_relationships %]

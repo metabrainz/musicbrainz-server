@@ -16,4 +16,9 @@
   </div>
 
   <div class="infoLinks"> Info: [% INCLUDE "components/piped-list.tt" list=info_links %]</div>
+
+  <div class="editLinks">
+    Edit: 
+      Please <a href="[% c.uri_for('/user/login') %]">log in</a> to edit this artist
+  </div>
 </div>

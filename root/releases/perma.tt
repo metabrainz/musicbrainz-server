@@ -1,3 +1,3 @@
-[%- WRAPPER 'layout.tt' title="Permanant Link" -%]
+[%- WRAPPER 'releases/layout.tt' title="Permanant Link" -%]
 [%- INCLUDE "components/perma-link.tt" entity=release -%]
 [%- END -%]

@@ -45,7 +45,8 @@ sub index : Path Args(0)
 
     # Load the blog for the sidebar
     #
-    $c->stash->{blog} = $c->model('Feeds')->get_cached('musicbrainz', 'http://blog.musicbrainz.org/?feed=rss2');
+    my $feed = $c->model('Feeds')->get_cached('musicbrainz', 'http://blog.musicbrainz.org/?feed=rss2');
+    $feed->entries;
 
     $c->stash->{template} = 'main/index.tt';
 }
