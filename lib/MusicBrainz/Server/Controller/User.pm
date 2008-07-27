@@ -58,37 +58,35 @@ sub login : Local
 {
     my ($self, $c) = @_;
 
-    if ($c->user_exists)
+    unless ($c->user_exists)
     {
-        my $redir = $c->flash->{login_redirect} || $c->uri_for('/user/profile');
-        $c->response->redirect($redir);
+        use MusicBrainz::Server::Form::User::Login;
+
+        my $form = MusicBrainz::Server::Form::User::Login->new;
+        $c->stash->{form} = $form;
+
+        if ($c->form_posted && $form->validate($c->request->parameters))
+        {
+            my ($username, $password) = ( $form->value("username"),
+                                          $form->value("password") );
+
+            if( $c->authenticate({ username => $username,
+                                   password => $password }) )
+            {
+                $c->response->redirect($c->req->referer);
+                $c->detach;
+            }
+            else
+            {
+                $c->stash->{errors} = ['Username/password combination invalid'];
+            }
+        }
+
+        $c->stash->{template} = 'user/login.tt';
+
+        # Have to make sure we detach
         $c->detach;
     }
-
-    use MusicBrainz::Server::Form::User::Login;
-
-    my $form = MusicBrainz::Server::Form::User::Login->new;
-    $c->stash->{form} = $form;
-
-    if ($c->form_posted && $form->validate($c->request->parameters))
-    {
-        my ($username, $password) = ( $form->value("username"),
-                                      $form->value("password") );
-
-        if( $c->authenticate({ username => $username,
-                               password => $password }) )
-        {
-            my $redir = $c->flash->{login_redirect} || $c->uri_for('/user/profile');
-            $c->response->redirect($redir);
-            $c->detach;
-        }
-        else
-        {
-            $c->stash->{errors} = ['Username/password combination invalid'];
-        }
-    }
-
-    $c->stash->{template} = 'user/login.tt';
 }
 
 =head2 register
@@ -168,6 +166,8 @@ their password.
 sub forgotPassword : Local
 {
     my ($self, $c) = @_;
+
+    $c->forward('login');
 
     use MusicBrainz::Server::Form::User::ForgotPassword;
 

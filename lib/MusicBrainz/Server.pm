@@ -43,8 +43,6 @@ our $VERSION = '0.01';
 # local deployment.
 require MusicBrainz::Server::Filters;
 
-__PACKAGE__->config( 'Plugin::ConfigLoader' => { file => 'musicbrainz.yml' } );
-
 __PACKAGE__->config(
     name => 'MusicBrainz::Server',
     "View::Default" => {

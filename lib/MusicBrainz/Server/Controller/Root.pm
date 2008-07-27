@@ -27,30 +27,6 @@ This controller handles application wide logic for the MusicBrainz website.
 
 =head1 METHODS
 
-=head2 auto
-
-Runs before any other action is dispatched, so we use this to make sure
-the user can view the page. This involves checking the list of "private
-pages" (those that require an authenticated user), and if the user should
-be logged in, gracefully redirecting them to the login action.
-
-=cut
-
-sub auto : Private {
-    my ($self, $c) = @_;
-
-    my %private = map { $_ => 1} @{$c->config->{privatePages}};
-
-    if (!$c->user_exists && $private{$c->action})
-    {
-        $c->flash->{login_redirect} = $c->uri_for($c->action, $c->req->args);
-        $c->forward('/user/login');
-        return 0;
-    }
-
-    return 1;
-}
-
 =head2 index
 
 Render the standard MusicBrainz welcome page, which is mainly static,
@@ -63,34 +39,14 @@ sub index : Path Args(0)
     my ($self, $c) = @_;
 
     $c->stash->{server_details} = {
-        is_slave_db => &DBDefs::REPLICATION_TYPE == RT_SLAVE,
+        is_slave_db    => &DBDefs::REPLICATION_TYPE == RT_SLAVE,
         staging_server => &DBDefs::DB_STAGING_SERVER,
     };
 
     # Load the blog for the sidebar
-    # 
-    my $feed = MusicBrainz::Server::NewsFeed->new(
-        url => 'http://blog.musicbrainz.org/?feed=rss2',
-        update_interval => 5 * 60,
-        max_items => 3);
-    
-    if (defined $feed)
-    {
-        $feed->Load();
-
-        # Process the items to a template friendly data structure
-        $c->stash->{blog} = [];
-
-        foreach my $item ($feed->GetItems())
-        {
-            push @{ $c->stash->{blog} }, {
-                title => $item->GetTitle,
-                description => $item->GetDescription,
-                date_time => $item->GetDateTimeString,
-                link => $item->GetLink,
-            };
-        }
-    }
+    #
+    $c->model('Feeds')->register('musicbrainz', 'http://blog.musicbrainz.org/?feed=rss2');
+    $c->stash->{blog} = $c->model('Feeds')->get('musicbrainz');
 
     $c->stash->{template} = 'main/index.tt';
 }

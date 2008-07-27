@@ -1,8 +1,1 @@
 ---
-privatePages:
-    - artist/edit
-    - artist/create
-
-    - user/donate
-    - user/changePassword
-    - user/preferences

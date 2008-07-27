@@ -217,6 +217,8 @@ sub create : Local
 {
     my ($self, $c) = @_;
 
+    $c->forward('/user/login');
+
     use MusicBrainz::Server::Form::Artist;
 
     my $form = new MusicBrainz::Server::Form::Artist;
@@ -258,11 +260,14 @@ into the MusicBrainz database.
 sub edit : Chained('artist')
 {
     my ($self, $c, $mbid) = @_;
-    my $artist = $c->stash->{_artist};
+    
+    $c->forward('/user/login');
+
+    my $artist = $c->stash->{artist};
 
     use MusicBrainz::Server::Form::Artist;
 
-    my $form = new MusicBrainz::Server::Form::Artist($artist->GetId);
+    my $form = new MusicBrainz::Server::Form::Artist($artist->id);
     $form->context($c);
 
     $c->stash->{form} = $form;
