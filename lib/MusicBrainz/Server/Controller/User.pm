@@ -33,18 +33,8 @@ sub index : Private
 {
     my ($self, $c) = @_;
 
-    if($c->user_exists)
-    {
-        # If we are logged in, redirect to profile page
-        $c->response->redirect($c->uri_for('/user/profile'));
-	    $c->detach();
-    }
-    else
-    {
-        # Not logged in, redirect to the login page
-        $c->response->redirect($c->uri_for('/user/login'));
-        $c->detach();
-    }
+    $c->forward('login');
+    $c->detach('profile');
 }
 
 =head2 login
@@ -99,18 +89,16 @@ new user.
 
 sub register : Local
 {
-    use MusicBrainz::Server::Form::User::Register;
-
     my ($self, $c) = @_;
+
+    use MusicBrainz::Server::Form::User::Register;
 
     my $form = MusicBrainz::Server::Form::User::Register->new;
     $c->stash->{form} = $form;
 
     if($c->form_posted && $form->validate($c->request->parameters))
     {
-        my $mb = $c->mb;
-	
-        my $ui = UserStuff->new($mb->{DBH});
+        my $ui = UserStuff->new($c->mb->{DBH});
         my ($userobj, $createlogin) = $ui->CreateLogin($form->value('username'),
                                                        $form->value('password'),
                                                        $form->value('confirm_password'));
@@ -148,7 +136,7 @@ sub registered : Private
     my ($self, $c, $couldSend, $email) = @_;
 
     $c->stash->{emailed} = $couldSend;
-    $c->stash->{email} = $email;
+    $c->stash->{email}   = $email;
 
     $c->stash->{template} = 'user/registered.tt';
 }
@@ -166,8 +154,6 @@ their password.
 sub forgotPassword : Local
 {
     my ($self, $c) = @_;
-
-    $c->forward('login');
 
     use MusicBrainz::Server::Form::User::ForgotPassword;
 
@@ -226,9 +212,11 @@ request is received), update the profile data in the database.
 
 =cut
 
-sub editProfile : Local
+sub edit_profile : Local
 {
     my ($self, $c) = @_;
+
+    $c->forward('login');
 
     use MusicBrainz::Server::Form::User::EditProfile;
 
@@ -252,11 +240,14 @@ when use to update the database data when we receive a valid POST request.
 
 =cut
 
-sub changePassword : Local
+sub change_password : Local
 {
     my ($self, $c) = @_;
 
+    $c->forward('login');
+
     use MusicBrainz::Server::Form::User::ChangePassword;
+
     my $form = new MusicBrainz::Server::Form::User::ChangePassword;
     $c->stash->{form} = $form;
 
@@ -344,6 +335,8 @@ Change the users preferences
 sub preferences : Local
 {
     my ($self, $c) = @_;
+
+    $c->forward('login');
 
     my $user  = $c->user;
 
