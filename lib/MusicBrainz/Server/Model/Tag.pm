@@ -7,6 +7,7 @@ use base 'MusicBrainz::Server::Model::Base';
 
 use Carp;
 use List::Util qw(min max sum);
+use MusicBrainz::Server::Facade::Entity;
 use MusicBrainz::Server::Tag;
 
 =head2 top_tags
@@ -22,19 +23,45 @@ sub top_tags
 
     $amount ||= 5;
 
-    my $t        = MusicBrainz::Server::Tag->new($self->{_dbh});
+    my $t        = MusicBrainz::Server::Tag->new($self->dbh);
     my $tag_hash = $t->GetTagHashForEntity($entity->entity_type, $entity->id,
                                            $amount + 1);
 
     [ sort { $tag_hash->{$b} <=> $tag_hash->{$a}; } keys %{$tag_hash} ];
 }
 
+sub tagged_entities
+{
+    my ($self, $tag, $entity_type, $limit, $offset) = @_;
+
+    $limit  ||= 20;
+    $offset ||= 0;
+
+    my %entity_types = (
+        artist => 'MusicBrainz::Server::Facade::Artist',
+    );
+
+    my $t = MusicBrainz::Server::Tag->new($self->dbh);
+
+    my ($entities, $count) = $t->GetEntitiesForTag($entity_type, $tag, $limit, $offset);
+
+    return [ map {
+        MusicBrainz::Server::Facade::Entity->new( {
+            mbid        => $_->{gid},
+            entity_type => $entity_type,
+            name        => $_->{name},
+        });
+    } @$entities ];
+}
+
 sub generate_tag_cloud
 {
     my ($self, $entity, $min_size, $max_size, $bold_threshold) = @_;
 
-    my $t    = MusicBrainz::Server::Tag->new($self->{_dbh});
-    my $tags = $t->GetTagHashForEntity($entity->entity_type, $entity->id, 30);
+    my $t    = MusicBrainz::Server::Tag->new($self->dbh);
+
+    my $tags = defined $entity ? $t->GetTagHashForEntity($entity->entity_type, $entity->id, 30)
+             :                   $t->GetTagHash(200);
 
     my @counts = sort { $a <=> $b} values %$tags;
     my $ntags  = scalar @counts;

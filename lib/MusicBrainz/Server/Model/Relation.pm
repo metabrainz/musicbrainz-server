@@ -16,7 +16,7 @@ sub load_relations
     my $type = $entity->entity_type;
     if ($type eq 'release') { $type = 'album' }
 
-    my $link  = MusicBrainz::Server::Link->new($self->{_dbh});
+    my $link  = MusicBrainz::Server::Link->new($self->dbh);
     my @links = $link->FindLinkedEntities($entity->id, $type, %opts);
 
     # Make sure every link is in the same direction

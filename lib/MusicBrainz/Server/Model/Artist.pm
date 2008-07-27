@@ -20,7 +20,7 @@ sub load
 {
     my ($self, $id) = @_;
     
-    my $artist = new MusicBrainz::Server::Artist($self->{_dbh});
+    my $artist = new MusicBrainz::Server::Artist($self->dbh);
     LoadEntity($artist, $id);
 
     MusicBrainz::Server::Facade::Artist->new_from_artist($artist);

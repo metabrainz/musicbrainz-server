@@ -12,7 +12,7 @@ sub load
 {
     my ($self, $mbid) = @_;
 
-    my $track = MusicBrainz::Server::Track->new($self->{_dbh});
+    my $track = MusicBrainz::Server::Track->new($self->dbh);
     LoadEntity($track, $mbid);
 
     return MusicBrainz::Server::Facade::Track->new_from_track($track);

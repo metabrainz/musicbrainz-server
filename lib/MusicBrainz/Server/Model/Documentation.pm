@@ -14,7 +14,7 @@ sub fetch_page
 {
     my ($self, $id) = @_;
 
-    my $wt = MusicBrainz::Server::WikiTransclusion->new($self->{_dbh});
+    my $wt = MusicBrainz::Server::WikiTransclusion->new($self->dbh);
     my $index = $wt->GetPageIndex();
 
     if (!defined $index)

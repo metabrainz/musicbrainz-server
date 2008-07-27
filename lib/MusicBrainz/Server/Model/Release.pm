@@ -21,7 +21,7 @@ sub load_events
 
     my @events = $release->get_release->ReleaseEvents(1);
 
-    my $country_obj = MusicBrainz::Server::Country->new($self->{_dbh});
+    my $country_obj = MusicBrainz::Server::Country->new($self->dbh);
     my %county_names;
 
     return [ map {
@@ -44,7 +44,7 @@ sub load
 {
     my ($self, $id) = @_;
 
-    my $release = MusicBrainz::Server::Release->new($self->{_dbh});
+    my $release = MusicBrainz::Server::Release->new($self->dbh);
     LoadEntity($release, $id);
 
     return MusicBrainz::Server::Facade::Release->new_from_release($release);
@@ -119,7 +119,7 @@ sub find_linked_albums
 {
     my ($self, $entity) = @_;
 
-    my $link         = new MusicBrainz::Server::Link($self->{_dbh});
+    my $link         = new MusicBrainz::Server::Link($self->dbh);
     my @raw_releases = @{$link->FindLinkedAlbums($entity->entity_type, $entity->id)};
 
     for my $release (@raw_releases) { _build_sort_keys($release); }

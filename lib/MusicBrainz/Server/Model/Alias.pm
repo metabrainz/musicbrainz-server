@@ -15,7 +15,7 @@ sub load_for_entity
     my $type  = (ucfirst $entity->entity_type);
     my $table = "${type}Alias";
 
-    my $alias   = MusicBrainz::Server::Alias->new($self->{_dbh}, $table);
+    my $alias   = MusicBrainz::Server::Alias->new($self->dbh, $table);
     my @aliases = $alias->GetList($entity->id);
 
     [ map { MusicBrainz::Server::Facade::Alias->new({

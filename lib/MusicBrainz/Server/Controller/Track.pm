@@ -5,7 +5,7 @@ use warnings;
 
 use base 'Catalyst::Controller';
 
-use MusicBrainz::Server::Adapter qw(LoadEntity Google);
+use MusicBrainz::Server::Adapter qw(Google);
 use MusicBrainz::Server::Track;
 
 =head1 NAME

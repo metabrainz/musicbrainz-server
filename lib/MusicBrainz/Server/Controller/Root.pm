@@ -7,7 +7,7 @@ use base 'Catalyst::Controller';
 
 # Import MusicBrainz libraries
 use DBDefs;
-use MusicBrainz::Server::Adapter qw( LoadEntity EntityUrl );
+use MusicBrainz::Server::Adapter qw( EntityUrl );
 use MusicBrainz::Server::NewsFeed;
 use MusicBrainz::Server::Replication ':replication_type';
 
@@ -92,8 +92,7 @@ sub end : ActionClass('RenderView')
     $c->stash->{user_date} = sub {
         use UserPreference;
 
-        my $prefs = UserPreference->newFromUser($c->mb->{DBH}, $c->user->id);
-        $prefs->load;
+        my $prefs = $c->model('User')->get_preferences_hash($c->user);
 
         MusicBrainz::Server::DateTime::format_datetime( {
             datetimeformat => $prefs->get('datetimeformat'),

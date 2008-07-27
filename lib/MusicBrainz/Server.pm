@@ -72,20 +72,6 @@ __PACKAGE__->config->{'Plugin::Authentication'} = {
 # Start the application
 __PACKAGE__->setup();
 
-sub mb
-{
-    my $self = shift;
-
-    unless(defined $self->{_mb} && defined $self->{_mb}->{DBH})
-    {
-        my $mb = new MusicBrainz;
-        $mb->Login();
-        $self->{_mb} = $mb
-    }   
-
-    return $self->{_mb};
-}
-
 sub form_posted {
     return shift->request->method eq 'POST'
 }

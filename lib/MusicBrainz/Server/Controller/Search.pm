@@ -5,8 +5,6 @@ use warnings;
 
 use base 'Catalyst::Controller';
 
-use UserStuff;
-
 =head1 NAME
 
 MusicBrainz::Server::Controller::Search - Handles searching the database
@@ -71,8 +69,7 @@ sub editor : Local
 {
     my ($self, $c, $query) = @_;
 
-    my $us = new UserStuff($c->mb->{DBH});
-    my $user = $us->newFromName($query);
+    my $user = $c->model('User')->load({ username => $query });
 
     if(defined $user)
     {

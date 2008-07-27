@@ -1,5 +1,5 @@
 [%- WRAPPER "layout.tt" -%]
-[%- FOREACH group=tag_groups -%]
+[%- FOREACH group=tag_types -%]
   <h2>[%- group.type | ucfirst -%]</h2>
 
   [%- IF group.entities.size -%]
@@ -8,9 +8,6 @@
       <tr>
         <td>[% INCLUDE "components/entity-link.tt" %]</td>
         <td>[% entity.amount %]</td>
-        <td>
-          <a href="[% who_url(entity, tag) %]">Who tagged this?</a>
-        </td>
       </tr>
     [%- END -%]
     </table>

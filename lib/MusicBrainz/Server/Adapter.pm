@@ -38,24 +38,7 @@ which is the Catalyst context.
 
 sub LoadEntity
 {
-    my ($entity, $mbid, $c) = @_;
-    
-    unless(ref $entity)
-    {
-        croak "LoadEntity called with no context"
-            unless $c;
-
-        use Switch;
-        switch ($entity)
-        {
-            case('artist')  { $entity = MusicBrainz::Server::Artist->new($c->mb->{DBH}); }
-            case('label')   { $entity = MusicBrainz::Server::Label->new($c->mb->{DBH}); }
-            case('release') { $entity = MusicBrainz::Server::Release->new($c->mb->{DBH}); }
-            case('track')   { $entity = MusicBrainz::Server::Track->new($c->mb->{DBH}); }
-
-            else            { croak "$entity is not a valid entity type."; }
-        }
-    }
+    my ($entity, $mbid) = @_; 
 
     croak "No entity given"
         unless defined $entity;

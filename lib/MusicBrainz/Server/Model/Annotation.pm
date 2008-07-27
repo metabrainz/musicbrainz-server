@@ -11,7 +11,7 @@ sub load_latest_annotation
 {
     my ($self, $entity) = @_;
 
-    my $annotation = MusicBrainz::Server::Annotation->new($self->{_dbh});
+    my $annotation = MusicBrainz::Server::Annotation->new($self->dbh);
     $annotation->SetEntity($entity->entity_type, $entity->id);
 
     $annotation->GetLatestAnnotation

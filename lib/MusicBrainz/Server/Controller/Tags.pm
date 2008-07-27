@@ -5,7 +5,6 @@ use warnings;
 
 use base 'Catalyst::Controller';
 
-use MusicBrainz::Server::Adapter qw(LoadEntity);
 use MusicBrainz::Server::Artist;
 use MusicBrainz::Server::Label;
 use MusicBrainz::Server::Release;
@@ -32,59 +31,35 @@ sub display : Path
 {
     my ($self, $c, $tag, $type) = @_;
 
-    unless($tag)
-    {
-        $c->detach('all');
-    }
+    $c->detach('all')
+        unless($tag);
     
     $type ||= 'all';
-    ($type eq 'all' || $type eq 'artist' || $type eq 'label'
-        || $type eq 'track' || $type eq 'release')
-        or die "$type is not a valid type of entity";
+    unless ($type eq 'all'      ||
+            $type eq 'artist'   ||
+            $type eq 'label'    ||
+            $type eq 'track'    ||
+            $type eq 'release')
+    {
+        die "$type is not a valid type of entity";
+    }
 
     my @display_types = $type ne 'all' ? ($type)
-                                       : ('artist', 'label', 'release', 'track');
+                      :                  ('artist', 'label', 'release', 'track');
     
-    my $t = MusicBrainz::Server::Tag->new($c->mb->{DBH});
-
     my $limit = ($type eq 'all') ? 10 : 100;
     my $offset = 0;
 
+    $c->stash->{tag_types} = [];
     for my $tag_type (@display_types)
     {
-        my %group = (
-            type => $tag_type,
-            entities => [],
-        );
-
-        my ($entities, $numitems) = $t->GetEntitiesForTag($tag_type, $tag, $limit, $offset);
-        for my $entity (@$entities)
-        {
-            push @{ $group{entities} }, {
-                name      => $entity->{name},
-                mbid      => $entity->{gid},
-                link_type => $tag_type,
-                amount    => $entity->{count},
-            };
+        push @{ $c->stash->{tag_types} }, {
+            type     => $tag_type,
+            entities => $c->model('Tag')->tagged_entities($tag, $tag_type, $limit, $offset),
         }
-
-        $group{more} = $numitems > $limit;
-
-        push @{ $c->stash->{tag_groups} }, \%group;
     }
 
     $c->stash->{tag} = $tag;
-
-    # Function to generate URL for "who tagged this"
-    $c->stash->{who_url} = sub {
-        my ($entity, $tag) = @_;
-
-        my $action = $self->action_for('who')
-            or die "No action?";
-
-        return $c->uri_for($action,
-            [ $entity->{link_type}, $entity->{mbid} ], $tag);
-    };
 
     $c->stash->{template} = 'tag/display.tt';
 }
@@ -99,26 +74,6 @@ sub entity : PathPart('tags') Chained CaptureArgs(2)
 {
     my ($self, $c, $type, $mbid) = @_;
     $c->stash->{entity}  = $c->model(ucfirst $type)->load($mbid);
-}
-
-=head2 who
-
-Show a list of which moderators applied a certain tag to a certain entity.
-
-=cut
-
-sub who : Chained('entity') Args(1)
-{
-    my ($self, $c, $tag) = @_;
-    
-    my $entity = $c->stash->{_entity};
-    my $entity_type = $c->stash->{entity}->{link_type};
-
-    my $t = MusicBrainz::Server::Tag->new($c->mb->{DBH});
-    my $tags = $t->GetEditorsForEntityAndTag($entity_type, $entity->GetId, $tag);
-
-    use Data::Dumper;
-    die Dumper $tags;
 }
 
 =head2 new
@@ -141,10 +96,7 @@ sub all : Local
 {
     my ($self, $c) = @_;
 
-    my $t = MusicBrainz::Server::Tag->new($c->mb->{DBH});
-    my $tags = $t->GetTagHash(200);
-
-    $c->stash->{tagcloud} = PrepareForTagCloud($tags);
+    $c->stash->{tagcloud} = $c->model('Tag')->generate_tag_cloud();
     
     $c->stash->{template} = 'tag/all.tt';
 }

@@ -98,27 +98,16 @@ sub register : Local
 
     if($c->form_posted && $form->validate($c->request->parameters))
     {
-        my $ui = UserStuff->new($c->mb->{DBH});
-        my ($userobj, $createlogin) = $ui->CreateLogin($form->value('username'),
-                                                       $form->value('password'),
-                                                       $form->value('confirm_password'));
+        my $new_user = $c->model('User')->create($form->value('username'),
+                                                 $form->value('password'));
 
-        my $email = $form->value('email');
+        my $email            = $form->value('email');
+        my $could_send_email = $new_user->get_user->SendVerificationEmail($email);
 
-        # if createlogin list is empty, the user was created.
-        if (@$createlogin == 0)
-        {
-            # Send the email if possible
-            my $couldSend = $userobj->SendVerificationEmail($email);
+        $c->authenticate({ username => $new_user->username,
+                           password => $new_user->password });
 
-            $c->authenticate({ username => $userobj->GetName,
-                               password => $userobj->GetPassword });
-            $c->detach('registered', $couldSend, $email);
-        }
-        else
-        {
-            $c->stash->{errors} = \@$createlogin;
-        }
+        $c->detach('registered', $could_send_email, $email);
     }
 
     $c->stash->{template} = 'user/register.tt';
@@ -165,16 +154,15 @@ sub forgotPassword : Local
     {
         my ($email, $username) = ( $form->value('email'),
                                    $form->value('username') );
-        my $us = new UserStuff($c->mb->{DBH});
 
         if ($email)
         {
-            my $usernames = $us->LookupNameByEmail($email);
+            my $usernames = $c->model('User')->find_by_email($email);
             if(scalar @$usernames)
             {
                 foreach $username (@$usernames)
                 {
-                    my $user = $us->newFromName($username);
+                    my $user = $c->model('User')->load_user({ username => $username });
                     if ($user)
                     {
                         $user->SendPasswordReminder
@@ -191,10 +179,10 @@ sub forgotPassword : Local
         }
         elsif ($username)
         {
-            my $user = $us->newFromName ($username);
+            my $user = $c->model('User')->load_user({ username => $username });
             if ($user)
             {
-                $user->SendPasswordReminder
+                $user->get_user->SendPasswordReminder
                     or die "Could not send password reminder";
 
                 $c->flash->{ok} = "A password reminder has been sent to you. Please check your inbox for more details";
