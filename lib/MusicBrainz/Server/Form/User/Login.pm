@@ -35,9 +35,10 @@ sub profile
         required => {
             username => 'Text',
             password => {
-                type => 'Password',
-                min_length => 1
-            }
+                type => 'Text',
+                min_length => 1,
+                widget => 'Password'
+            },
         },
         optional => {
             singleIp => 'Checkbox',

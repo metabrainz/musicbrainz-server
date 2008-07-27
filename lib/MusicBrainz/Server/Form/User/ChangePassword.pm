@@ -35,8 +35,16 @@ Returns a hash reference of the fields of this form.
 sub profile {
     return {
         required => {
-            old_password => 'Password',
-            new_password => 'Password',
+            old_password => {
+                type => 'Text',
+                min_length => 1,
+                widget => 'Password'
+            },
+            new_password => {
+                type => 'Text',
+                min_length => 1,
+                widget => 'Password'
+            },
             confirm_new_password => 'Password',
         },
     };
