@@ -1,0 +1,70 @@
+[%- WRAPPER 'layout.tt' -%]
+
+  [% WRAPPER 'components/box.tt' header="CD Table of Contents Information" %]
+    <table class="details">
+      <tr>
+        <th>Full TOC:</th>
+        <td>[% cdtoc.cdtoc %]</td>
+      </tr>
+      <tr>
+        <th>[% INCLUDE "components/doc-link.tt" to="DiscID" text="Disc ID" %]:</th>
+        <td>[% cdtoc.disc_id %]</td>
+      </tr>
+      <tr>
+        <th>FreeDB id:</td>
+        <td>[% cdtoc.freedb_id %]</td>
+      </tr>
+      <tr>
+        <th>First track:</th>
+        <td>[% cdtoc.first_track %]</td>
+      </tr>
+      <tr>
+        <th>Last track:</th>
+        <td>[% cdtoc.last_track %]</td>
+      </tr>
+      <tr>
+        <th>Total length:</th>
+        <td>[% cdtoc.duration %]</td>
+      </tr>
+      <tr>
+        <th>Track details:</th>
+        <td>
+          <table class="cdtoc_track_details">
+            <thead>
+              <tr>
+                <th rowspan="2">Track</th>
+                <th colspan="2">Start</th>
+                <th colspan="2">Length</th>
+                <th colspan="2">End</th>
+              </tr>
+              <tr>
+                <th>Time</th>
+                <th>Sectors</th>
+
+                <th>Time</th>
+                <th>Sectors</th>
+
+                <th>Time</th>
+                <th>Sectors</th>
+              </tr>
+            </thead>
+            <tbody>
+              [% FOREACH track=cdtoc.tracks %]
+              <tr>
+                <td>[% track.number %]</td>
+                <td>[% track.start.time %]</td>
+                <td>[% track.start.sectors %]</td>
+                <td>[% track.length.time %]</td>
+                <td>[% track.length.sectors %]</td>
+                <td>[% track.end.time %]</td>
+                <td>[% track.end.sectors %]</td>
+              </tr>
+              [% END %]
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    </table>
+  [% END %]
+
+[%- END -%]

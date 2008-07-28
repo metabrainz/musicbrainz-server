@@ -15,6 +15,7 @@ sub cdtoc : Chained CaptureArgs(1)
 sub show : Chained("cdtoc") PathPart('')
 {
     my ($self, $c) = @_;
+    $c->stash->{template} = 'toc/details.tt';
 }
 
 1;
