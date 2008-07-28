@@ -30,4 +30,12 @@ sub load
     return MusicBrainz::Server::Facade::CdToc->new_from_cdtoc($cdtoc);
 }
 
+sub get_attached_release_ids
+{
+    my ($self, $cdtoc) = @_;
+
+    my $all_cdtocs = $cdtoc->get_cdtoc->GetReleaseCDTOCs;
+    return [ map { $_->GetReleaseId } @{$all_cdtocs} ];
+}
+
 1;

@@ -15,6 +15,8 @@ __PACKAGE__->mk_accessors(qw{
     tracks
 });
 
+sub get_cdtoc { shift->{_toc}; }
+
 sub entity_type { 'cdtoc' }
 
 sub new_from_cdtoc
@@ -56,6 +58,8 @@ sub new_from_cdtoc
         freedb_id   => $cdtoc->GetFreeDBID,
         last_track  => $cdtoc->GetLastTrack,
         tracks      => $tracks,
+
+        _toc        => $cdtoc,
     });
 }
 

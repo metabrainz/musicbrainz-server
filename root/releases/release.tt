@@ -8,9 +8,11 @@
     [%- END -%]
     [% INCLUDE "releases/info-links.tt" %]
     [% INCLUDE "releases/edit-links.tt" %]
+    [% IF tags %]
     <div class="releasetags">
       [% INCLUDE "tag/summary.tt" tags=tags source=release %]
     </div>
+    [% END %]
   </div>
   [% IF tracks.size %]
   <table class="release_tracks" [%- IF release.has_artwork; 'style="border-top: 1px solid black;"'; END -%]>

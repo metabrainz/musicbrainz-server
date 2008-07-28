@@ -67,4 +67,9 @@
     </table>
   [% END %]
 
+  <h1>Releases with this CDTOC</h1>
+  [% FOREACH release=releases %]
+    [% INCLUDE "releases/release.tt" release=release.release tracks=release.tracks %]
+  [% END %]
+
 [%- END -%]
