@@ -46,6 +46,7 @@ codebase.
 		Catalyst::Plugin::StackTrace
 		Catalyst::Plugin::Authentication
 		Catalyst::View::TT
+		Catalyst::Component::ACCEPT_CONTEXT
 		Cache::Memcached
         Email::Valid
         Form::Processor

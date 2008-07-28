@@ -89,7 +89,7 @@ sub EntityUrl
     my $url = '';
     my $type = $entity->entity_type;
 
-    my $controller = $c->controller($type)
+    my $controller = $c->controller(ucfirst $type)
         or die "$type is not a valid type";
 
     my $catalyst_action = $controller->action_for($action)

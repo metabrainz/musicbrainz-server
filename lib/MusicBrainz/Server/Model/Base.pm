@@ -3,25 +3,12 @@ package MusicBrainz::Server::Model::Base;
 use strict;
 use warnings;
 
-use base 'Catalyst::Model';
-
-use MusicBrainz;
-
-sub new
-{
-    my $self = shift;
-    $self = $self->NEXT::new(@_);
-
-    $self->{mb} = new MusicBrainz;
-    $self->{mb}->Login();
-
-    return $self;
-}
+use base qw/Catalyst::Component::ACCEPT_CONTEXT Catalyst::Model/;
 
 sub dbh
 {
     my $self = shift;
-    $self->{mb}->{DBH};
+    $self->context->mb->{DBH};
 }
 
 1;

@@ -50,7 +50,7 @@ __PACKAGE__->config(
             'mb_date' => \&MusicBrainz::Server::Filters::date,
             'release_date' => \&MusicBrainz::Server::Filters::release_date,
         }
-    }
+    },
 );
 
 __PACKAGE__->config->{'Plugin::Authentication'} = {
@@ -75,6 +75,31 @@ __PACKAGE__->setup();
 sub form_posted {
     return shift->request->method eq 'POST'
 }
+
+sub dispatch {
+    my $self = shift;
+    $self->mb_logout;
+    $self->NEXT::dispatch(@_);
+    $self->mb_logout;
+}
+
+sub mb {
+    my $self = shift;
+    if (!defined($self->{mb})) {
+        $self->{mb} = MusicBrainz->new;
+        $self->{mb}->Login;
+    }
+    return $self->{mb};
+}
+
+sub mb_logout {
+    my $self = shift;
+    if (defined($self->{mb})) {
+        $self->{mb}->Logout;
+        $self->{mb} = undef;
+    }
+}
+
 
 =head1 NAME
 
