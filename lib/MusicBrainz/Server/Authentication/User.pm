@@ -26,6 +26,8 @@ __PACKAGE__->mk_accessors(qw(
     accepted_autoedits
     edits_voted_down
     edits_failed
+
+    privileges
 ));
 
 sub new
@@ -54,6 +56,8 @@ sub new
         accepted_autoedits     => $user->GetAutoModsAccepted,
         edits_voted_down       => $user->GetModsRejected,
         edits_failed           => $user->GetModsFailed,
+
+        privileges => $user->GetPrivs,
 
         _u => $user,
     }, $class;

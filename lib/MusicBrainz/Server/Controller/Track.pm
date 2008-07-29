@@ -111,12 +111,18 @@ sub edit : Chained('track')
     my $track = $c->stash->{track};
 
     use MusicBrainz::Server::Form::Track;
-    my $form = new MusicBrainz::Server::Form::Track;#($track);
+    my $form = new MusicBrainz::Server::Form::Track($track);
+    $form->context($c);
+
     $c->stash->{form} = $form;
 
     if($c->form_posted)
     {
-        $form->validate($c->req->params);
+        if($form->update_from_form($c->req->params))
+        {
+            $c->flash->{ok} = "Thank you, your edits have been added to the queue";
+            $c->detach($self->action_for('show'), [ $track->id ]);
+        }
     }
 
     $c->stash->{template} = 'track/edit.tt';

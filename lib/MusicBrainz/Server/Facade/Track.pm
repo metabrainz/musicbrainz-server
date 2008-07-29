@@ -20,6 +20,8 @@ __PACKAGE__->mk_accessors(qw{
 
 sub entity_type { 'track' }
 
+sub get_track { shift->{_t}; }
+
 sub new_from_track
 {
     my ($class, $track) = @_;
