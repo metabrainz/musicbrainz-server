@@ -15,4 +15,8 @@ CREATE VIEW moderation_all AS
     UNION ALL
     SELECT * FROM moderation_closed;
 
+-- Add a date added column to album table to support the upcoming discographies feature
+ALTER TABLE album ADD COLUMN dateadded TIMESTAMP WITH TIME ZONE DEFAULT '1970-01-01 00:00:00-00';
+ALTER TABLE album ALTER COLUMN dateadded SET DEFAULT now();
+
 COMMIT;
