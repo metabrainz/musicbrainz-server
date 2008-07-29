@@ -1,11 +1,21 @@
 [%- name = widget.name
     id = "${prefix}id_${widget.name}"
     type = widget.widget
-    value = widget.value -%]
+    value = widget.input || widget.value
+    error_class = widget.errors.size ? "error" : ""
+    style = widget.style
+    extra_attributes = "class=\"${style} ${error_class}\""-%]
+
 [%- IF type == 'textarea' -%]
-  <textarea name="[% name %]" id="[% id %]">[% value %]</textarea>
+  <textarea name="[% name %]"
+            id="[% id %]"
+            [% extra_attributes %]>
+    [% value %]
+  </textarea>
 [%- ELSIF type == 'select' -%]
-  <select id="[% id %]" name="[% name %]">
+  <select id="[% id %]"
+          name="[% name %]"
+          [% extra_attributes %]>
   [%- FOREACH option IN widget.options -%]
     <option value="[% option.value %]" [%- IF widget.value == option.value -%]selected="selected"[%- END -%]>
       [% option.label %]
@@ -13,11 +23,11 @@
   [%- END -%]
   </select>
 [%- ELSIF type == 'date' %]
-  <input size="4" type="text" name="[% name %]_year" id="[% id %]_year" value="[% widget.date.year %]" />
-  <input size="2" type="text" name="[% name %]_month" id="[% id %]_month" value="[% widget.date.month %]" />
-  <input size="2" type="text" name="[% name %]_day" id="[% id %]_day" value="[% widget.date.day %]" />
+  <input size="4" type="text" name="[% name %]_year"  id="[% id %]_year"  value="[% widget.date.year %]"  [% extra_attributes %] />
+  <input size="2" type="text" name="[% name %]_month" id="[% id %]_month" value="[% widget.date.month %]" [% extra_attributes %] />
+  <input size="2" type="text" name="[% name %]_day"  id="[% id %]_day"    value="[% widget.date.day %]"   [% extra_attributes %] />
 [%- ELSIF type == 'checkbox' %]
-  <input type="[% type %]" name="[% name %]" id="[% id %]" [% IF value %]checked="checked"[% END %] />
+  <input type="[% type %]" name="[% name %]" id="[% id %]" [% IF value %]checked="checked"[% END %] [% extra_attributes %] />
 [%- ELSE -%]
-  <input type="[% type %]" name="[% name %]" id="[% id %]" value="[% value %]" />
+  <input type="[% type %]" name="[% name %]" id="[% id %]" value="[% value %]" [% extra_attributes %] />
 [%- END -%]

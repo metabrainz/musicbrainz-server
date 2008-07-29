@@ -1,0 +1,27 @@
+[% WRAPPER 'layout.tt' %]
+[% WRAPPER 'components/box.tt' header="Edit track number, name and duration" %]
+
+[% WRAPPER 'forms/form.tt' %]
+  [% IF form.has_error %]
+  <ul>
+    [% FOREACH bad_field=form.error_fields %]
+      [% FOREACH error=bad_field.errors %]
+        <li>[% "${bad_field.name}: ${error}" %]</li>
+      [% END %]
+    [% END %]
+  </ul>
+  [% END %]
+
+  <p>
+  <label>New:</label>
+  [% INCLUDE 'forms/input.tt' widget=form.field('number') %]
+  [% INCLUDE 'forms/input.tt' widget=form.field('name') %]
+  [% INCLUDE 'forms/input.tt' widget=form.field('duration') %]
+  </p>
+
+  [% INCLUDE 'forms/edit-note.tt' %]
+  [% INCLUDE 'forms/submit.tt' label="Save edit" %]
+[% END %]
+
+[% END %]
+[% END %]

@@ -9,6 +9,24 @@
     color: #ff0000;
 }
 
+#content form input.error,
+#content form textarea.error,
+#content form select.error {
+    background: #ffcccc;
+}
+
+#content form input.field_type_duration
+{
+    width: 40pt;
+    text-align: center;
+}
+
+#content form input.field_type_tracknumber
+{
+    width: 20pt;
+    text-align: center;
+}
+
 /*
  * Generic Forms
  */

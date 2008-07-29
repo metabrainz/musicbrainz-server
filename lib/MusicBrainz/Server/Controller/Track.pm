@@ -18,6 +18,8 @@ Handles user interaction with C<MusicBrainz::Server::Track> entities.
 
 =head1 METHODS
 
+=head2 READ ONLY METHODS
+
 =head2 track
 
 Chained action to load a track
@@ -88,6 +90,36 @@ sub google : Chained('track')
     my $track = $c->stash->{track};
 
     $c->response->redirect(Google($track->name));
+}
+
+=head2 DESTRUCTIVE METHODS
+
+This methods alter data
+
+=head2 edit
+
+Edit track details (sequence number, track time and title)
+
+=cut
+
+sub edit : Chained('track')
+{
+    my ($self, $c) = @_;
+
+    $c->forward('/user/login');
+
+    my $track = $c->stash->{track};
+
+    use MusicBrainz::Server::Form::Track;
+    my $form = new MusicBrainz::Server::Form::Track;#($track);
+    $c->stash->{form} = $form;
+
+    if($c->form_posted)
+    {
+        $form->validate($c->req->params);
+    }
+
+    $c->stash->{template} = 'track/edit.tt';
 }
 
 =head1 LICENSE
