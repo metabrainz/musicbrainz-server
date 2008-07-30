@@ -97,36 +97,12 @@ end;
 ' language 'plpgsql';
 
 --'-----------------------------------------------------------------
--- Keep lastupdated columns up to date
---'-----------------------------------------------------------------
-
-create or replace function b_iu_update_lastmodified () returns TRIGGER as '
-begin
-    NEW.lastupdate = now(); 
-    IF (TG_RELNAME = ''track'')
-    THEN
-        -- update the releases
-        UPDATE album SET lastupdate = NOW() FROM albumjoin WHERE NEW.id = albumjoin.track and albumjoin.album = album.id;
-    END IF;
-    IF (TG_RELNAME = ''album'')
-    THEN
-        -- update the artist
-        IF (NEW.artist != 1)
-        THEN
-            UPDATE artist SET lastupdate = NOW() WHERE artist.id = NEW.artist;
-        END IF;
-    END IF;
-   return NEW;
-end;
-' language 'plpgsql';
-
---'-----------------------------------------------------------------
 -- Keep rows in albummeta in sync with album
 --'-----------------------------------------------------------------
 
 create or replace function insert_album_meta () returns TRIGGER as $$
 begin 
-    insert into albummeta (id, tracks, discids, puids) values (NEW.id, 0, 0, 0); 
+    insert into albummeta (id, tracks, discids, puids, lastupdate) values (NEW.id, 0, 0, 0, now()); 
     insert into album_amazon_asin (album, lastupdate) values (NEW.id, '1970-01-01 00:00:00'); 
     
     return NEW; 
@@ -139,6 +115,7 @@ begin
     then
         update album_amazon_asin set lastupdate = '1970-01-01 00:00:00' where album = NEW.id; 
     end if;
+    UPDATE albummeta SET lastupdate = now() WHERE id = NEW.id; 
    return NULL;
 end;
 $$ language 'plpgsql';
@@ -152,19 +129,64 @@ end;
 ' language 'plpgsql';
 
 --'-----------------------------------------------------------------
+-- Keep rows in <entity>_meta table in sync with table <entity>
+--'-----------------------------------------------------------------
+
+create or replace function a_idu_entity () returns TRIGGER as $$
+begin 
+    IF (TG_OP = 'INSERT') 
+    THEN
+        EXECUTE 'INSERT INTO ' || TG_RELNAME || '_meta (id) VALUES (' || NEW.id || ')';
+    ELSIF (TG_OP = 'DELETE') 
+    THEN
+        EXECUTE 'DELETE FROM ' || TG_RELNAME || '_meta WHERE id = ' || OLD.id;
+    ELSIF (TG_OP = 'UPDATE')
+    THEN
+        EXECUTE 'UPDATE ' || TG_RELNAME || ' SET lastupdate = now() WHERE id = ' || NEW.id; 
+    END IF;
+    RETURN NULL; 
+end; 
+$$ language 'plpgsql';
+
+--'-----------------------------------------------------------------
+-- Propagates changes on <entity>_meta to linked entities metadata 
+--'-----------------------------------------------------------------
+create or replace function a_idu_entity_meta () returns TRIGGER as $$
+declare
+    entity_id track_meta.id%TYPE;
+begin 
+    IF (TG_OP = 'INSERT' OR TG_OP = 'UPDATE') THEN
+        entity_id := NEW.id;
+    ELSE
+        entity_id := OLD.id;
+    END IF;
+
+    IF (TG_RELNAME = 'track_meta') THEN
+        -- update the releases
+        UPDATE albummeta SET lastupdate = NOW() 
+        WHERE id IN (SELECT distinct album FROM albumjoin WHERE entity_id = albumjoin.track);
+    ELSIF (TG_RELNAME = 'albummeta') THEN
+        -- update the artist
+        UPDATE artist_meta SET lastupdate = NOW()
+        WHERE id = (SELECT artist FROM album where id = entity_id)
+            -- Skip Various artists
+            AND id <> 1; 
+    END IF;
+    RETURN NULL; 
+end; 
+$$ language 'plpgsql';
+--'-----------------------------------------------------------------
 -- Changes to albumjoin could cause changes to albummeta.tracks
--- and/or albummeta.puids and/org albummeta.puids
+-- and/or albummeta.puids and/or albummeta.puids
 --'-----------------------------------------------------------------
 
 create or replace function a_ins_albumjoin () returns trigger as '
 begin
     UPDATE  albummeta
     SET     tracks = tracks + 1,
-            puids = puids + (SELECT COUNT(*) FROM puidjoin WHERE track = NEW.track)
+            puids = puids + (SELECT COUNT(*) FROM puidjoin WHERE track = NEW.track),
+            lastupdate = now()
     WHERE   id = NEW.album;
-
-    -- When a track is added to an album, update the albums lastupdate
-    UPDATE  album SET lastupdate = NOW() WHERE album.id = NEW.album;
 
     return NULL;
 end;
@@ -179,16 +201,15 @@ begin
 
     UPDATE  albummeta
     SET     tracks = tracks - 1,
-            puids = puids - (SELECT COUNT(*) FROM puidjoin WHERE track = OLD.track)
+            puids = puids - (SELECT COUNT(*) FROM puidjoin WHERE track = OLD.track),
+            lastupdate = now()
     WHERE   id = OLD.album;
 
     UPDATE  albummeta
     SET     tracks = tracks + 1,
-            puids = puids + (SELECT COUNT(*) FROM puidjoin WHERE track = NEW.track)
+            puids = puids + (SELECT COUNT(*) FROM puidjoin WHERE track = NEW.track),
+            lastupdate = now()
     WHERE   id = NEW.album;
-
-    -- When a track is added to an album, update the albums lastupdate
-    UPDATE  album SET lastupdate = NOW() WHERE album.id = NEW.album;
 
     return NULL;
 end;
@@ -198,11 +219,9 @@ create or replace function a_del_albumjoin () returns trigger as $$
 begin
     UPDATE  albummeta
     SET     tracks = tracks - 1,
-            puids = puids - (SELECT COUNT(*) FROM puidjoin WHERE track = OLD.track)
+            puids = puids - (SELECT COUNT(*) FROM puidjoin WHERE track = OLD.track),
+            lastupdate = now()
     WHERE   id = OLD.album;
-
-    -- When a track is removed from an album, update the albums lastupdate
-    UPDATE  album SET lastupdate = NOW() WHERE album.id = OLD.album;
 
     return NULL;
 end;
@@ -377,38 +396,35 @@ RETURNS VOID AS '
 BEGIN
     UPDATE albummeta SET firstreleasedate = (
         SELECT MIN(releasedate) FROM release WHERE album = $1
-    ) WHERE id = $1;
+    ), lastupdate = now() WHERE id = $1;
     RETURN;
 END;
 ' LANGUAGE 'plpgsql';
 
-CREATE OR REPLACE FUNCTION a_ins_release () RETURNS TRIGGER AS '
+CREATE OR REPLACE FUNCTION a_ins_release () RETURNS TRIGGER AS $$
 BEGIN
     EXECUTE set_album_firstreleasedate(NEW.album);
-    UPDATE album SET lastupdate = NOW() WHERE id = NEW.album;
     RETURN NEW;
 END;
-' LANGUAGE 'plpgsql';
+$$ LANGUAGE 'plpgsql';
 
-CREATE OR REPLACE FUNCTION a_upd_release () RETURNS TRIGGER AS '
+CREATE OR REPLACE FUNCTION a_upd_release () RETURNS TRIGGER AS $$
 BEGIN
     EXECUTE set_album_firstreleasedate(NEW.album);
     IF (OLD.album != NEW.album)
     THEN
         EXECUTE set_album_firstreleasedate(OLD.album);
     END IF;
-    UPDATE album SET lastupdate = NOW() WHERE id = NEW.album;
     RETURN NEW;
 END;
-' LANGUAGE 'plpgsql';
+$$ LANGUAGE 'plpgsql';
 
-CREATE OR REPLACE FUNCTION a_del_release () RETURNS TRIGGER AS '
+CREATE OR REPLACE FUNCTION a_del_release () RETURNS TRIGGER AS $$
 BEGIN
     EXECUTE set_album_firstreleasedate(OLD.album);
-    UPDATE album SET lastupdate = NOW() WHERE id = OLD.album;
     RETURN OLD;
 END;
-' LANGUAGE 'plpgsql';
+$$ LANGUAGE 'plpgsql';
 
 --'-----------------------------------------------------------------
 -- Changes to album_amazon_asin should cause changes to albummeta.asin

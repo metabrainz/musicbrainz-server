@@ -29,8 +29,7 @@ CREATE TABLE album
     script              INTEGER, -- references script
     modpending_lang     INTEGER,
     quality             SMALLINT DEFAULT -1,
-    modpending_qual     INTEGER DEFAULT 0,
-    lastupdate          TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    modpending_qual     INTEGER DEFAULT 0
 );
 
 CREATE TABLE album_amazon_asin
@@ -66,7 +65,8 @@ CREATE TABLE albummeta
     puids               INTEGER DEFAULT 0,
     firstreleasedate    CHAR(10),
     asin                CHAR(10),
-    coverarturl         VARCHAR(255)
+    coverarturl         VARCHAR(255),
+    lastupdate          TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE albumwords
@@ -101,8 +101,13 @@ CREATE TABLE artist
     enddate             CHAR(10),
     type                SMALLINT,
     quality             SMALLINT DEFAULT -1,
-    modpending_qual     INTEGER DEFAULT 0,
-    lastupdate          TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    modpending_qual     INTEGER DEFAULT 0
+);
+
+CREATE TABLE artist_meta
+(
+    id          INTEGER NOT NULL,
+    lastupdate  TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE artistalias
@@ -227,8 +232,13 @@ CREATE TABLE label
     resolution          VARCHAR(64),
     begindate           CHAR(10),
     enddate             CHAR(10),
-    type                SMALLINT,
-    lastupdate          TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    type                SMALLINT
+);
+
+CREATE TABLE label_meta
+(
+    id          INTEGER NOT NULL,
+    lastupdate  TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE label_tag
@@ -927,8 +937,13 @@ CREATE TABLE track
     gid                 CHAR(36) NOT NULL, 
     length              INTEGER DEFAULT 0,
     year                INTEGER DEFAULT 0,
-    modpending          INTEGER DEFAULT 0,
-    lastupdate          TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    modpending          INTEGER DEFAULT 0
+);
+
+CREATE TABLE track_meta
+(
+    id          INTEGER NOT NULL,
+    lastupdate  TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE track_tag
