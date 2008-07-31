@@ -5,7 +5,7 @@ use warnings;
 
 use base 'Class::Accessor';
 
-__PACKAGE__->mk_accessors(qw{ last_modified });
+__PACKAGE__->mk_accessors(qw{ last_modified text });
 
 sub short_text_as_html
 {
@@ -27,6 +27,7 @@ sub new_from_annotation
         _note         => $annotation,
 
         last_modified => $annotation->GetCreationTime,
+        text          => $annotation->GetText,
     });
 }
 
