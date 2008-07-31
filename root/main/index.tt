@@ -16,12 +16,12 @@
   
   [% WRAPPER "components/box.tt" color="purple" header="MusicBrainz Blog" %]
     <ul id="blog">
-    [% FOREACH post IN blog.rss.items %]
+    [% FOREACH post IN blog.entries %]
       [% LAST IF loop.count > 5 %]
       <li>
         <h3>[% post.title %]</h3>
-        <p>[% post.content.encoded %]</p>
-        <p>Posted: [% post.pubDate %]</p>
+        [% post.summary.body %]
+        <p>Posted: [% post.issued %]</p>
       </li>
     [% END %]
     </ul>

@@ -3,7 +3,7 @@ package MusicBrainz::Server::Model::Feeds;
 use strict;
 use warnings;
 
-use base 'Catalyst::Model::XML::Feed';
+use XML::Feed;
 
 sub get_cached
 {
@@ -13,17 +13,34 @@ sub get_cached
     my $feed = MusicBrainz::Server::Cache->get("feed-id-${feed_id}");
     if ($feed)
     {
+        # HACK Force XML::Feed::RSS to load. 
+        require XML::Feed;
+        my $fake = _fake_feed();
+        XML::Feed->parse(\$fake);
+
         return $feed;
     }
     else
     {
-        $self->Catalyst::Model::XML::Feed::register($feed_id, $uri);
-        $feed = $self->Catalyst::Model::XML::Feed::get($feed_id);
-
+        $feed = XML::Feed->parse(URI($uri));
         MusicBrainz::Server::Cache->set("feed-id-${feed_id}", $feed);
 
         return $feed;
     }
+}
+
+sub _fake_feed
+{
+    return <<'END_OF_FEED'
+<?xml version="1.0"?>
+<rss version="2.0">
+  <channel>
+    <description>Fake feed</description>
+    <link>http://example.org</link>
+    <title>Fake feed</title>
+  </channel>
+</rss>
+END_OF_FEED
 }
 
 1;
