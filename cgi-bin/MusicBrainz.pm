@@ -78,7 +78,8 @@ sub Login
 	unless (ref $db)
 	{
 		$db = MusicBrainz::Server::Database->get($db)
-			or croak "No such database '$db'";
+			or croak "No such database '$db', Check your Database section in DBDefs.pm and make sure that ".
+			         "READWRITE, READONLY and RAWDATA are all defined and correct.";
 	}
 
    require DBI;
