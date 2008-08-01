@@ -634,7 +634,8 @@ sub _Merge
 			my $newlinkid = $sql->SelectSingleValue(
 				"SELECT id FROM $table WHERE ".
 				"$link0 = ? AND $link1 = ? AND ".
-				"begindate = ? AND enddate = ? AND ".
+				"NOT (begindate IS DISTINCT FROM ?) AND ".
+				"NOT (enddate IS DISTINCT FROM ?) AND ".
 				"link_type = ? LIMIT 1",
 				$newid,	$row->{$link1},
 				$row->{begindate}, $row->{enddate},
