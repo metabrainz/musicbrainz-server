@@ -270,6 +270,7 @@ function ARFrontEnd() {
 		} else if (v.match(this.urlRegExps.jamendo)) {
 			field.value = field.value.replace(/jamendo\.com\/\w\w\/album\//, "jamendo.com/album/");
 			field.value = field.value.replace(/img\.jamendo\.com\/albums\/(\d+)\/covers\/\d+\.\d+\.jpg/, "www.jamendo.com/album/$1/");
+			field.value = field.value.replace(/jamendo\.com\/\w\w\/artist\//, "jamendo.com/artist/");
 		}
 		mb.log.exit();
 	};
