@@ -92,10 +92,10 @@ $mb->Login;
 
 my $sql = Sql->new($mb->{DBH});
 
-rebuild("artist", "Artist", $artist);
-rebuild("album", "Album", $album);
-rebuild("track", "Track", $track);
-rebuild("label", "Label", $label);
+rebuild("artist", "MusicBrainz::Server::Artist", $artist);
+rebuild("album", "MusicBrainz::Server::Release", $album);
+rebuild("track", "MusicBrainz::Server::Track", $track);
+rebuild("label", "MusicBrainz::Server::Label", $label);
 
 sub rebuild
 {
