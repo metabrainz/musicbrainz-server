@@ -28,6 +28,7 @@
 </%perl>
 <%args>
 
+	$discid
 	$toc
 	$releaseid
 
@@ -49,7 +50,7 @@
 	if ($release->IsNonAlbumTracks)
 	{
 		return $m->comp("/comp/error",
-			"Disc IDs cannot be added to $release->{name} albums: NonAlbumTracks can't have CDTOCs.",
+			"Disc IDs cannot be added to release $release->{name}: NonAlbumTracks can't have CDTOCs.",
 			1, 1) ;
 	}
 	
@@ -58,7 +59,14 @@
 	if ($toc_info{tracks} != $release->GetTrackCount())
 	{
 		return $m->comp("/comp/error",
-			"Disc IDs cannot be added to $release->{name} albums: tracks number differs.",
+			"Disc IDs cannot be added to release $release->{name}: tracks number differs.",
+			1, 1) ;
+	}
+
+	if ($toc_info{discid} ne $discid)
+	{
+		return $m->comp("/comp/error",
+			"Disc IDs cannot be added to release $release->{name}: DiscID mismatches TOC.",
 			1, 1) ;
 	}
 
