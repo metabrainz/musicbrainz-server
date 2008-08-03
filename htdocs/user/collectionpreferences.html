@@ -26,11 +26,24 @@
 	{
 		for my $key ($preferences->valid_keys())
 		{
-			print ' got key ' . $key . '  value '.$ARGS{$key}.'</br>';
-			$preferences->set($key, $ARGS{$key})
-				if defined $ARGS{$key};
+			my $value = $ARGS{$key};
+			
+			
+			# convert the value from "on" or empty to a boolean value
+			if($value eq 'on')
+			{
+				$value = 1;
+			}
+			elsif($value eq '')
+			{
+				$value = 0;
+			}
+			
+			
+			$preferences->set($key, $value);
 		}
-	}	
+	}
+	
 	
 	
 </%perl>
@@ -40,13 +53,13 @@
 	<& /comp/tablebegin, title => "New releases" &>
 		<div>
 			How long time in advance do you want to be notified about upcoming releases?
-			<select name="pref_notificationinterval">
+			<select name="notificationinterval">
 				<& /comp/options,
 					[
-						[ "1", "A day" ],
-						[ "7", "A week" ],
-						[ "14", "Two weeks" ],
-						[ "31", "A month" ],
+						[ 1, "A day" ],
+						[ 7, "A week" ],
+						[ 14, "Two weeks" ],
+						[ 31, "A month" ],
 					],
 					$preferences->get('notificationinterval') &>
 			</select>
@@ -54,7 +67,7 @@
 		
 		<div>
 			<input type="checkbox" name="emailnotifications" id="pref_emailnotifications"
-%				$m->out($preferences->get('emailnotifications') ? ' checked="checked" ' : "" );
+%				$m->out($preferences->get('emailnotifications')==1 ? ' checked="checked" ' : "" );
 				/>
 			<label for="pref_vote_abs_default">
 				E-mail notifications about upcoming releases.</label>

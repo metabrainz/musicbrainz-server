@@ -2,6 +2,7 @@
 # TODO:
 # check values
 # if possible insert all tuples in setMissing... in one INSERT query
+# make another new sub which does not get values from db, as the values are known from POST data(when sent)
 #
 
 
@@ -13,7 +14,7 @@ use strict;
 
 package CollectionPreference;
 
-#use Carp qw( carp );
+use Carp qw( carp );
 
 
 
@@ -24,9 +25,8 @@ sub new
 	
 	
 	# get collection id
-	my $sql=Sql->new($rawdbh);
-	my $collectionId=$sql->SelectSingleValue('SELECT id FROM collection_info WHERE moderator=?', $userId);
-	#my $collectionId = $this::	
+	my $rawsql = Sql->new($rawdbh);
+	my $collectionId = $rawsql->SelectSingleValue('SELECT id FROM collection_info WHERE moderator=?', $userId);
 	
 	# select artist id's of artists to display missing releases of
 #	my $artistsMissing=$sql->SelectSingleColumnArray('SELECT artist FROM collection_discography_artist_join WHERE collection_info=?', $collectionId);
@@ -57,6 +57,21 @@ sub new
 	$object->addpref('emailnotifications', 0, \&check_bool);
 	$object->addpref('notificationinterval', 7, sub { check_int(1,31,@_) });
 	#print Dumper($object->{artistsMissing});
+	
+	
+	# load the preference keys and values into the prefs hash
+	my $selectprefs = $rawsql->SelectSingleRowHash('SELECT emailnotifications, notificationinterval, lastcheck FROM collection_info WHERE id = ?', $collectionId);
+
+	
+	my $prefs = {
+		'emailnotifications' => {'KEY' => 'emailnotifications', VALUE => $selectprefs->{emailnotifications}, 'CHECK' => undef},
+		'notificationinterval' => {'KEY' => 'notificationinterval', VALUE => $selectprefs->{notificationinterval}, 'CHECK' => undef}
+	};
+	
+	$object->{prefs} = $prefs;
+	
+	
+	
 	return $object;
 }
 
@@ -95,9 +110,6 @@ sub addpref
 	
 	$this->{prefs}{$key} = {KEY => $key, VALUE => $value, CHECK => $check};
 	
-	#use Data::Dumper;
-	#print 'after addpref: '.Dumper($this->{prefs});
-	
 	
 	
 #	my ($key, $defaultvalue, $checksub) = @_;
@@ -117,7 +129,6 @@ sub valid_keys {
 	my ($this) = @_;
 	use Data::Dumper;
 	my $prefs=$this->{prefs};
-	print 'asdsdsa: '.Dumper(keys %$prefs);
 	#return keys %prefs;
 	#my $prefs=$this->{prefs};
 	#print '<br/>HASH:'.Dumper($prefs).'<br/>';
@@ -157,7 +168,8 @@ sub get
 	
 	my $info = $this->{prefs}->{$key}
 		or carp("CollectionPreference::get called with invalid key '$key'"), return undef;
-		
+	
+	
 	return $info->{VALUE};
 	
 	
@@ -175,9 +187,12 @@ sub get
 
 
 
+# TO DO:
+# use check functions
 sub set
 {
 	my ($this, $key, $value) = @_;
+	
 	
 	my $rawsql=Sql->new($this->{RAWDBH});
 	
@@ -190,8 +205,12 @@ sub set
 	
 	my $oldkey = $info->{KEY};
 	my $oldvalue = $info->{VALUE};
+	my $oldcheck = $info->{CHECK};
 	
-	print '<br/><br/>key: '.$key.'<br/>value: '.$value.'<br/>collectionId: '.$this->{collectionId}.'<br/>';
+	
+	
+	
+	
 	
 	#$sql->InsertRow("UPDATE collection_info SET $key='TRUE' WHERE id='".$this->{collectionId}."'");
 	#$sql->InsertRow("UPDATE collection_info SET emailnotifications=FALSE WHERE id='0';");
@@ -208,7 +227,7 @@ sub set
 		$rawsql->Begin();
 		
 		# update setting in collection_info table
-		$rawsql->Do("UPDATE collection_info SET $key='TRUE' WHERE id='".$this->{collectionId}."'");
+		$rawsql->Do("UPDATE collection_info SET $key = ? WHERE id='".$this->{collectionId}."'", $value);
 		#$sql->Do("UPDATE collection_info SET emailnotifications=FALSE WHERE id='0';");
 	};
 	
@@ -223,10 +242,9 @@ sub set
 	else
 	{
 		# update setting in object hash
-		$info->{$value}=0;
-		
-		print Dumper($this->{prefs});
-		
+		#$info->{$value}=0;
+		$this->{prefs}{$key} = {'KEY' => $key, 'VALUE' => $value, 'CHECK' => $oldcheck};
+				
 		$rawsql->Commit();
 	}
 
@@ -236,7 +254,6 @@ sub set
 
 
 
-	print 'stored '.$key.', '.$value.'<br/>'
 #	my ($key, $value) = @_;
 #	my $info = $prefs{$key}
 #		or carp("CollectionPreference::set called with invalid key '$key'"), return;
@@ -253,8 +270,8 @@ sub set
 sub setMissingOfArtists
 {
 	my ($this, @artistsMissing) = @_;
-	#print 'artists:'.Dumper(@artistsMissing);
-	#print 'RAWDBH:'.Dumper($this->{RAWDBH});
+	
+	
 	my $rawsql = Sql->new($this->{RAWDBH});
 	
 	
@@ -402,9 +419,9 @@ sub ArtistMissing
 	$mbraw->Login(db => 'RAWDATA');
 	my $rawsql = Sql->new($mbraw->{DBH});
 	
-	print STDERR 'userId:'.$userId;
+	#print STDERR 'userId:'.$userId;
 	use Data::Dumper;
-	print STDERR Dumper($mbraw->{DBH});
+	#print STDERR Dumper($mbraw->{DBH});
 	
 	my $collectionId = MusicBrainz::Server::CollectionInfo::GetCollectionIdForUser($userId, $mbraw->{DBH});
 	

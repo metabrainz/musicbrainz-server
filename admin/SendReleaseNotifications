@@ -1,0 +1,76 @@
+#!/usr/bin/perl -w
+
+use strict;
+
+use FindBin;
+use lib "$FindBin::Bin/../cgi-bin";
+
+use MusicBrainz::Server::CollectionInfo;
+use MusicBrainz::Server::Release;
+use Data::Dumper;
+
+
+# login
+require MusicBrainz;
+my $mbraw = MusicBrainz->new();
+$mbraw->Login(db => 'RAWDATA');
+my $mbro = MusicBrainz->new();
+$mbro->Login();
+
+
+# set up SQL identifiers
+my $sqlraw = Sql->new($mbraw->{DBH});
+my $sqlro = Sql->new($mbro->{DBH});
+
+
+# select all collections that shall receive notifications by e-mail
+my $collections = $sqlraw->SelectSingleColumnArray('SELECT id FROM collection_info WHERE emailnotifications = TRUE');
+
+print 'collections:'.Dumper($collections);
+
+# iterate over all collections to be notified and send out e-mails(if any new releases)
+foreach my $currentCollectionId (@$collections)
+{
+	my $currentPreferences = undef;
+	my $currentCollection = MusicBrainz::Server::CollectionInfo->newFromCollectionId($currentCollectionId, $mbro->{DBH}, $mbraw->{DBH}, $currentPreferences);
+	
+	my $newReleases = $currentCollection->GetNewReleases();
+	
+	my $count = @{$newReleases};
+	
+	#print Dumper($newReleases);
+	
+	my $userId = $currentCollection->GetUserId();
+	
+	if($count>0) # notifications should be sent
+	{
+		sendMail($currentCollection, $newReleases, $userId, $mbro->{DBH});
+	}
+}
+
+
+exit 1;
+
+
+sub sendMail
+{
+	my ($collectionId, $releaseIds, $userId, $rodbh) = @_;
+	
+	#my $user = UserStuff->newFromId();
+	
+	print Dumper(@$releaseIds);
+	my $subject = 'New releases';
+	my $message = 'The following releases are about to be released:\n';
+	
+	
+	for my $releaseId (@{$releaseIds})
+	{
+		my $release = MusicBrainz::Server::Release->new($rodbh);
+		$release->SetId($releaseId);
+		$release->LoadFromId();
+		
+		$message = $message . $release->GetName() . '\n';
+	}
+	
+	print $message;
+}

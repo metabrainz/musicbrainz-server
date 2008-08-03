@@ -19,9 +19,6 @@ sub new
 {
 	my ($this, $userId, $rodbh, $rawdbh, $preferences)=@_;
 	
-	my %collectionHash;
-	my %artistHash;
-	
 	
 	my $sql = Sql->new($rawdbh);
 	
@@ -35,12 +32,40 @@ sub new
 		RODBH			=> $rodbh, # read only database
 		RAWDBH			=> $rawdbh, # raw database
 		preferences		=> $preferences,
-		result			=> $result,
 		collectionId	=> $result->{id},
 		hasReleases		=> undef, # lets see if this and missingReleases will be used
 		missingReleases	=> undef
 		#artistHash		=> {}
 	}, $this);
+}
+
+sub newFromCollectionId
+{
+	my ($this, $collectionId, $rodbh, $rawdbh, $preferences)=@_;
+	
+	
+	my $sql = Sql->new($rawdbh);
+	
+	my $userId=$sql->SelectSingleValue("SELECT moderator FROM collection_info WHERE id=?", $collectionId);
+	
+	
+	
+	bless(
+	{
+		userId			=> $userId,
+		RODBH			=> $rodbh, # read only database
+		RAWDBH			=> $rawdbh, # raw database
+		preferences		=> $preferences,
+		collectionId	=> $collectionId,
+		hasReleases		=> undef, # lets see if this and missingReleases will be used
+		missingReleases	=> undef
+		#artistHash		=> {}
+	}, $this);
+}
+
+
+sub newMissingCollectionInfo
+{
 }
 
 
@@ -113,6 +138,14 @@ sub GetCollectionIdForUser
 	my $collectionId=$sqlraw->SelectSingleValue("SELECT id FROM collection_info WHERE moderator=?", $userId);
 	
 	return $collectionId;
+}
+
+
+sub GetUserId
+{
+	my ($this) = @_;
+	
+	return 0;
 }
 
 
@@ -280,14 +313,73 @@ sub GetMissingMBIDsForArtist
 {
 	my ($this, $artistId) = @_;
 	
-	my $sql=$this->{RODBH};
+	my $rosql = Sql->new($this->{RODBH});
 	
 	#my $query="SELECT * FROM album WHERE artist IN (SELECT artist FROM collection_discography_artist_join WHERE collection_info='123')";
 		
-	my $result = $sql->SelectListOfHashes("SELECT gid FROM album WHERE artist=", $artistId);
+	my $result = $rosql->SelectListOfHashes("SELECT gid FROM album WHERE artist=", $artistId);
 	
 	use Data::Dumper;
 	print Dumper($result);
+}
+
+
+
+# NOTES:
+# xlotlu: select foo, foo + '1 day'::interval as foo_tomorrow
+# xlotlu: niklas: extract (epoch from datefield)
+# xlotlu: niklas: you can use to_timestamp(date_string, date_format) ...
+# to_timestamp('1234-12-12', 'YYYY-MM-DD')
+# '1234-12-12'::TIMESTAMP
+sub GetNewReleases
+{
+	my ($this) = @_;
+	
+	my $rosql = Sql->new($this->{RODBH});
+	
+	my $lastCheck = $this->GetLastCheck();
+	
+	#my $newReleases = ['685970', '696912']; # while testing
+	#my $newReleases = $rosql->SelectSingleColumnArray("SELECT id FROM album WHERE id IN(SELECT album FROM release WHERE to_date(releasedate, 'YYYY-MM-DD') > (CURRENT_DATE - '14 days'::INTERVAL) AND to_date(releasedate, 'YYYY-MM-DD') < (CURRENT_DATE + '14 days'::INTERVAL)) LIMIT 10");
+	#my $newReleases = $rosql->SelectSingleColumnArray("SELECT id FROM album WHERE id IN (SELECT id FROM albummeta WHERE dateadded > (CURRENT_TIMESTAMP - '14 days'::INTERVAL) AND dateadded < (CURRENT_TIMESTAMP + '14 days'::INTERVAL)) LIMIT 3");
+	
+	#my $newReleases = $rosql->SelectSingleColumnArray("SELECT id FROM album WHERE id IN (SELECT album FROM release WHERE to_date(releasedate, 'YYYY-MM-DD') > (CURRENT_DATE - '14 days'::INTERVAL) AND to_date(releasedate, 'YYYY-MM-DD') < (CURRENT_DATE + '14 days'::INTERVAL)) LIMIT 10");
+	
+	my $newReleases = $rosql->SelectSingleColumnArray("SELECT id FROM album WHERE id IN(SELECT album FROM release WHERE to_date(releasedate, 'YYYY-MM-DD') > (CURRENT_DATE - '14 days'::INTERVAL) AND to_date(releasedate, 'YYYY-MM-DD') < (CURRENT_DATE + '14 days'::INTERVAL)) LIMIT 10");#, $this->GetLastCheck());
+	
+	
+	print 'last check: '.$this->GetLastCheck();
+	
+	return $newReleases;
+	
+	#my $newReleases = $rosql->SelectSingleColumnArray('SELECT id FROM album WHERE id IN (SELECT album FROM release WHERE releasedate < CURRENT_DATE + '14 days'::INTERVAL and releasedate > something)');
+	# SELECT id FROM album WHERE id IN(SELECT album FROM release WHERE to_date(releasedate, 'YYYY-MM-DD') > '2007-01-01'::DATE);
+	# SELECT gid FROM album WHERE id IN(SELECT album FROM release WHERE to_date(releasedate, 'YYYY-MM-DD') > '2007-01-01'::DATE);
+	# SELECT gid,id,name FROM album WHERE id IN(SELECT album FROM release WHERE to_date(releasedate, 'YYYY-MM-DD') > (CURRENT_DATE - '14 days'::INTERVAL) AND to_date(releasedate, 'YYYY-MM-DD') < (CURRENT_DATE + '14 days'::INTERVAL)) LIMIT 10;
+}
+
+
+
+sub GetLastCheck
+{
+	my ($this) = @_;
+	
+	my $rawsql = Sql->new($this->{RAWDBH});
+	
+	my $lastCheck = $rawsql->SelectSingleValue('SELECT lastcheck FROM collection_info WHERE id = ?', $this->{collectionId});
+	
+	return $lastCheck;
+}
+
+
+
+sub UpdateLastCheck
+{
+	my ($this) = @_;
+	
+	my $rawsql = Sql->new($this->{RAWDBH});
+	
+	$rawsql->Do('UPDATE collection_info SET lastcheck = CURRENT_TIMESTAMP WHERE id = ?', $this->{collectionId});
 }
 
 
