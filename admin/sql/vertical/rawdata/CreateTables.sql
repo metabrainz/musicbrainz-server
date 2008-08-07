@@ -35,7 +35,7 @@ CREATE TABLE collection_info
 	moderator						INTEGER NOT NULL, -- references moderator
 	--collection_watch				INTEGER NOT NULL, -- references collection_watch
 	collection_ignore_time_range	INTEGER, -- references collection_ignore_time_range
-	lastcheck						TIMESTAMP,
+	lastcheck						TIMESTAMP DEFAULT (CURRENT_TIMESTAMP - '7 days'::INTERVAL),
 	publiccollection				BOOLEAN NOT NULL, -- publicly display collection?
 	emailnotifications				BOOLEAN DEFAULT TRUE, -- send notifications by e-mail?
 	notificationinterval			INTEGER DEFAULT 7, -- specifies how many days in advance of a release date the user want to be notified

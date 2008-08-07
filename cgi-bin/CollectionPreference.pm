@@ -410,6 +410,33 @@ sub ArtistWatch
 	$rawsql->Commit();
 }
 
+
+sub ArtistDontWatch
+{
+	my ($artistId, $userId) = @_;
+	
+	require MusicBrainz;
+	my $mbraw = MusicBrainz->new();
+	$mbraw->Login(db => 'RAWDATA');
+	my $rawsql = Sql->new($mbraw->{DBH});
+	
+	my $collectionId = MusicBrainz::Server::CollectionInfo::GetCollectionIdForUser($userId, $mbraw->{DBH});
+	
+	eval
+	{
+		$rawsql->Begin();
+		$rawsql->Do('DELETE FROM collection_watch_artist_join WHERE collection_info = ? AND artist = ?', $collectionId, $artistId);
+	};
+	
+	if($@)
+	{
+		#print $@;
+	}
+	
+	$rawsql->Commit();
+}
+
+
 sub ArtistMissing
 {
 	my ($artistId, $userId) = @_;
@@ -419,9 +446,7 @@ sub ArtistMissing
 	$mbraw->Login(db => 'RAWDATA');
 	my $rawsql = Sql->new($mbraw->{DBH});
 	
-	#print STDERR 'userId:'.$userId;
 	use Data::Dumper;
-	#print STDERR Dumper($mbraw->{DBH});
 	
 	my $collectionId = MusicBrainz::Server::CollectionInfo::GetCollectionIdForUser($userId, $mbraw->{DBH});
 	
@@ -429,6 +454,35 @@ sub ArtistMissing
 	{
 		$rawsql->Begin();
 		$rawsql->Do('INSERT INTO collection_discography_artist_join (collection_info, artist) VALUES (?, ?)', $collectionId, $artistId);
+	};
+	
+	if($@)
+	{
+		#print $@;
+	}
+	
+	$rawsql->Commit();
+}
+
+
+
+sub ArtistDontShowMissing
+{
+	my ($artistId, $userId) = @_;
+	
+	require MusicBrainz;
+	my $mbraw = MusicBrainz->new();
+	$mbraw->Login(db => 'RAWDATA');
+	my $rawsql = Sql->new($mbraw->{DBH});
+	
+	use Data::Dumper;
+	
+	my $collectionId = MusicBrainz::Server::CollectionInfo::GetCollectionIdForUser($userId, $mbraw->{DBH});
+	
+	eval
+	{
+		$rawsql->Begin();
+		$rawsql->Do('DELETE FROM collection_discography_artist_join WHERE collection_info = ? AND artist = ?', $collectionId, $artistId);
 	};
 	
 	if($@)

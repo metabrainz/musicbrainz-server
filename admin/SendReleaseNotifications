@@ -70,7 +70,33 @@ sub sendMail
 		$release->LoadFromId();
 		
 		$message = $message . $release->GetName() . '\n';
+		
+		
+		
+		
+		require UserStuff;
+		my $user = UserStuff->new($rodbh);
+		$user = $user->newFromId($userId);
+		
+
+
+		require MusicBrainz::Server::Mail;
+		my $mail = MusicBrainz::Server::Mail->new(
+			# Sender: not required
+			From		=> 'MusicBrainz Collection Robot <noreply@musicbrainz.org>',
+			# To: $user (automatic)
+			"Reply-To"	=> 'MusicBrainz Support <support@musicbrainz.org>',
+			Subject		=> "New releases",
+			Type		=> "text/plain",
+			Encoding	=> "quoted-printable",
+			Data		=> $message,
+		);
+	    $mail->attr("content-type.charset" => "utf-8");
+
+	
+		$user->SendFormattedEmail(entity => $mail);
 	}
+	
 	
 	print $message;
 }

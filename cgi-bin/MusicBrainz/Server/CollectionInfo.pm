@@ -264,7 +264,65 @@ sub GetShowMissingArtists
 
 sub GetWatchArtists
 {
+	my ($this) = @_;
 	
+	my $rawsql = Sql->new($this->{RAWDBH});
+	
+	my $watchArtists = $rawsql->SelectSingleColumnArray('SELECT artist FROM collection_watch_artist_join WHERE collection_info = ?', $this->{collectionId});
+	
+	return $watchArtists;
+}
+
+
+
+# Should missing releases of specified artist be displayed to specified user?
+sub ShowMissingOfArtistToUser
+{
+	my ($artistId, $userId, $rawdbh) = @_;
+	
+	my $collectionId = MusicBrainz::Server::CollectionInfo::GetCollectionIdForUser($userId, $rawdbh);
+	
+	
+	# Check if the user has selected to see missing releases of the artist
+	my $rawsql = Sql->new($rawdbh);
+	my $result = $rawsql->SelectSingleValue('SELECT artist FROM collection_discography_artist_join WHERE collection_info = ? AND artist = ?', $collectionId, $artistId);
+	
+	
+	if($result == undef)
+	{
+		return 0;
+	}
+	else
+	{
+		return 1;
+	}
+}
+
+
+
+
+# Should the user be notified about new releases from this artist?
+sub NotifyUserAboutNewFromArtist
+{
+	my ($artistId, $userId, $rawdbh) = @_;
+	
+	
+	my $collectionId = MusicBrainz::Server::CollectionInfo::GetCollectionIdForUser($userId, $rawdbh);
+	
+	
+	# Check if the user has selected to be notified about new releases from this artist
+	my $rawsql = Sql->new($rawdbh);
+	my $result = $rawsql->SelectSingleValue('SELECT artist FROM collection_watch_artist_join WHERE collection_info = ? AND artist = ?', $collectionId, $artistId);
+	
+	
+	if($result == undef)
+	{
+		return 0;
+	}
+	else
+	{
+		return 1;
+	}
 }
 
 
@@ -345,8 +403,28 @@ sub GetNewReleases
 	
 	#my $newReleases = $rosql->SelectSingleColumnArray("SELECT id FROM album WHERE id IN (SELECT album FROM release WHERE to_date(releasedate, 'YYYY-MM-DD') > (CURRENT_DATE - '14 days'::INTERVAL) AND to_date(releasedate, 'YYYY-MM-DD') < (CURRENT_DATE + '14 days'::INTERVAL)) LIMIT 10");
 	
-	my $newReleases = $rosql->SelectSingleColumnArray("SELECT id FROM album WHERE id IN(SELECT album FROM release WHERE to_date(releasedate, 'YYYY-MM-DD') > (CURRENT_DATE - '14 days'::INTERVAL) AND to_date(releasedate, 'YYYY-MM-DD') < (CURRENT_DATE + '14 days'::INTERVAL)) LIMIT 10");#, $this->GetLastCheck());
+	#my $newReleases = $rosql->SelectSingleColumnArray("SELECT id FROM album WHERE id IN(SELECT album FROM release WHERE to_date(releasedate, 'YYYY-MM-DD') > (CURRENT_DATE - '14 days'::INTERVAL) AND to_date(releasedate, 'YYYY-MM-DD') < (CURRENT_DATE + '14 days'::INTERVAL)) LIMIT 10");#, $this->GetLastCheck());
 	
+	#my $newReleases = $rosql->SelectSingleColumnArray("SELECT id FROM album WHERE id IN(SELECT id FROM album WHERE dateadded > (CURRENT_DATE - '1499 days'::INTERVAL) AND dateadded < (CURRENT_DATE + '14 days'::INTERVAL)) LIMIT 10");
+	
+	my $watchArtists = $this->GetWatchArtists();
+	
+	print Dumper($watchArtists);
+	
+	my $newReleases;
+	
+	if(@{$watchArtists})
+	{
+		# Select new releases
+		# New release == added after last check and release date within a week
+		# ...so users are notified about new releases a week in advance
+		$newReleases = $rosql->SelectSingleColumnArray("SELECT id FROM album WHERE dateadded > ? AND artist IN (" . join(',', @{$watchArtists}) . ") AND id IN (SELECT id FROM albummeta WHERE to_timestamp(firstreleasedate, 'YYYY-MM-DD') > (CURRENT_TIMESTAMP - '7 days'::INTERVAL)) LIMIT 10", $this->GetLastCheck());
+	}
+	
+	else
+	{
+		$newReleases = [];
+	}
 	
 	print 'last check: '.$this->GetLastCheck();
 	
