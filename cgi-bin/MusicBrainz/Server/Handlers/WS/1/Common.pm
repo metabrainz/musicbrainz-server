@@ -54,30 +54,31 @@ use MusicBrainz::Server::ReleaseEvent;
 use MusicBrainz::Server::Country;
 use MusicBrainz::Server::LuceneSearch;
 
-use constant INC_ARTIST       => 0x000001;
-use constant INC_COUNTS       => 0x000002;
-use constant INC_LIMIT        => 0x000004;
-use constant INC_TRACKS       => 0x000008;
-use constant INC_DURATION     => 0x000010;
-use constant INC_ARTISTREL    => 0x000020;
-use constant INC_RELEASEREL   => 0x000040;
-use constant INC_DISCS        => 0x000080;
-use constant INC_TRACKREL     => 0x000100;
-use constant INC_URLREL       => 0x000200;
-use constant INC_RELEASEINFO  => 0x000400;
-use constant INC_ARTISTID     => 0x000800;
-use constant INC_RELEASEID    => 0x001000;
-use constant INC_TRACKID      => 0x002000;
-use constant INC_TITLE        => 0x004000;
-use constant INC_TRACKNUM     => 0x008000;
-use constant INC_TRMIDS       => 0x010000;
-use constant INC_RELEASES     => 0x020000;
-use constant INC_PUIDS        => 0x040000;
-use constant INC_ALIASES      => 0x080000;
-use constant INC_LABELS       => 0x100000;
-use constant INC_LABELREL     => 0x200000;
-use constant INC_TRACKLVLRELS => 0x400000;
-use constant INC_TAGS         => 0x800000;
+use constant INC_ARTIST       => 0x0000001;
+use constant INC_COUNTS       => 0x0000002;
+use constant INC_LIMIT        => 0x0000004;
+use constant INC_TRACKS       => 0x0000008;
+use constant INC_DURATION     => 0x0000010;
+use constant INC_ARTISTREL    => 0x0000020;
+use constant INC_RELEASEREL   => 0x0000040;
+use constant INC_DISCS        => 0x0000080;
+use constant INC_TRACKREL     => 0x0000100;
+use constant INC_URLREL       => 0x0000200;
+use constant INC_RELEASEINFO  => 0x0000400;
+use constant INC_ARTISTID     => 0x0000800;
+use constant INC_RELEASEID    => 0x0001000;
+use constant INC_TRACKID      => 0x0002000;
+use constant INC_TITLE        => 0x0004000;
+use constant INC_TRACKNUM     => 0x0008000;
+use constant INC_TRMIDS       => 0x0010000;
+use constant INC_RELEASES     => 0x0020000;
+use constant INC_PUIDS        => 0x0040000;
+use constant INC_ALIASES      => 0x0080000;
+use constant INC_LABELS       => 0x0100000;
+use constant INC_LABELREL     => 0x0200000;
+use constant INC_TRACKLVLRELS => 0x0400000;
+use constant INC_TAGS         => 0x0800000;
+use constant INC_RATING       => 0x1000000;
 
 use constant INC_MASK_RELS    => INC_ARTISTREL | INC_RELEASEREL | INC_TRACKREL | INC_URLREL | INC_LABELREL;
 
@@ -108,7 +109,8 @@ my %incShortcuts =
     'labels'             => INC_LABELS,
     'label-rels'         => INC_LABELREL,
     'track-level-rels'   => INC_TRACKLVLRELS,
-    'tags'               => INC_TAGS
+    'tags'               => INC_TAGS,
+    'rating'             => INC_RATING
 );
 
 my %typeShortcuts =
@@ -331,6 +333,10 @@ sub xml_artist
     {
         xml_tags($ar->{DBH}, 'artist', $ar->GetId);
     }
+	if ($inc & INC_RATING)
+    {
+        xml_rating($ar->{DBH}, 'artist', $ar->GetId);
+    }
     if (defined $info)
     {
         my @albums = $ar->GetReleases(!$info->{va}, 1, $info->{va});
@@ -387,6 +393,7 @@ sub xml_release
     xml_release_events($al, $inc) if ($inc & INC_RELEASEINFO || $inc & INC_COUNTS);
     xml_discs($al, $inc) if ($inc & INC_DISCS || $inc & INC_COUNTS);
     xml_tags($al->{DBH}, 'release', $al->GetId) if ($inc & INC_TAGS);
+    xml_rating($al->{DBH}, 'release', $al->GetId) if ($inc & INC_RATING);
     if ($inc & INC_TRACKS || $inc & INC_COUNTS && $ar)
     {
         xml_track_list($ar, $al, $inc) 
@@ -596,6 +603,7 @@ sub xml_track
     xml_puid($tr) if ($inc & INC_PUIDS);
     xml_relations($tr, 'track', $inc) if ($inc & INC_ARTISTREL || $inc & INC_LABELREL || $inc & INC_RELEASEREL || $inc & INC_TRACKREL || $inc & INC_URLREL);
     xml_tags($tr->{DBH}, 'track', $tr->GetId) if ($inc & INC_TAGS);
+    xml_rating($tr->{DBH}, 'track', $tr->GetId) if ($inc & INC_RATING);
     print '</track>';
 
     return undef;
@@ -664,6 +672,7 @@ sub xml_label
 
     xml_relations($ar, 'label', $inc) if ($inc & INC_ARTISTREL || $inc & INC_LABELREL || $inc & INC_RELEASEREL || $inc & INC_TRACKREL || $inc & INC_URLREL);
     xml_tags($ar->{DBH}, 'label', $ar->GetId) if ($inc & INC_TAGS);
+    xml_rating($ar->{DBH}, 'label', $ar->GetId) if ($inc & INC_RATING);
     print "</label>";
 
     return undef;
@@ -687,6 +696,18 @@ sub xml_tags
         print '<tag count="' . $t->{count} . '">' . xml_escape($t->{name}) . '</tag>';
     }
     print '</tag-list>';
+    return undef;
+}
+
+sub xml_rating
+{
+    require MusicBrainz::Server::Rating;
+	my ($dbh, $entity, $id) = @_;
+
+    my $rt = MusicBrainz::Server::Rating->new($dbh);
+    my $rating = $rt->GetRatingForEntity($entity, $id);
+
+    print '<rating votes-count="'. $rating->{rating_count} .'">'. $rating->{rating} .'</rating>';
     return undef;
 }
 
