@@ -93,6 +93,7 @@
 
 	my $subscriptions_public = UserPreference::get_for_user("subscriptions_public", $user);
 	my $tags_public = UserPreference::get_for_user("tags_public", $user);
+	my $ratings_public = UserPreference::get_for_user("ratings_public", $user);
 
 </%perl>
 
@@ -127,6 +128,10 @@
 % 	if ($tags_public or $is_me)
 %	{
 					| <a href="/user/tags/?userid=<% $userid %>">Tags</a>
+% 	}
+% 	if ($ratings_public or $is_me)
+%	{
+					| <a href="/user/ratings/?userid=<% $userid %>">Ratings</a>
 % 	}
 				</td>
 			</tr>
