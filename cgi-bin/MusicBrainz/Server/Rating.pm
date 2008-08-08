@@ -12,370 +12,230 @@ use Encode qw( decode encode );
  	
 sub Update 
 { 
-	my ($self, $new_rating, $userid, $entity_type, $entity_id) = @_;
- 	my ($new_sum, $final_rating, $final_count, $res_count, $res_rating, @final, $temp, $output, $whetherrated, $temp_rating, $self_rated); 
-	my ($mycount, $temporary);
- 	
-	my $maindb = Sql->new($self->GetDBH()); 
-	# TODO: Actually setup two separate DB handles properly
+	my ($self, $entity_type, $entity_id, $userid, $new_rating) = @_;
+ 
+ 	# Return values
+ 	my ($rating_count, $rating);
+
 	require MusicBrainz; 
-	my $mb = MusicBrainz->new; 
-	$mb->Login(); 
-	my $ratingdb = $maindb;   
+	my $maindb = Sql->new($self->GetDBH()); 
+	
+	my $ratings = MusicBrainz->new; 
+	$ratings->Login(db => 'RAWDATA'); 
+	my $rawdb = Sql->new($ratings->{DBH});   
   	
 	eval 
 	{ 
-		$self_rated=0;
-		# TODO: Setup eval block
 		$maindb->Begin(); 
-		# $ratingdb->Begin(); 
+		$rawdb->Begin() if ($maindb != $rawdb); 
  	
-		my $assoc_table = $entity_type . '_rating';  
+		my $assoc_table = ($entity_type eq "release") ? "albummeta" : $entity_type . '_meta';  
 		my $assoc_table_raw = $entity_type . '_rating_raw'; 
 
-		#check if user already rated
-		#$whetherrated = $ratingdb->SelectSingleColumnArray("SELECT rating
- 	       #                                                      	  	FROM $assoc_table_raw
- 	       #                                                     	  	WHERE $entity_type = ?
- 	       #                                                         	AND moderator = ?", $entity_id, $userid);
-
-		#check if user already rated
-		$whetherrated = $ratingdb->SelectSingleValue("SELECT rating
- 	                                                             	  FROM $assoc_table_raw
- 	                                                            	  WHERE $entity_type = ?
- 	                                                                AND moderator = ?", $entity_id, $userid);
-		#if(scalar(@$whetherrated))
+		# Check if user has already rated this entity
+		my $whetherrated = $rawdb->SelectSingleValue("SELECT rating FROM $assoc_table_raw
+                                                   	  WHERE $entity_type = ? AND editor = ?", $entity_id, $userid);
 		if($whetherrated)
 		{
-			#already rated - so update
-			if($new_rating==$whetherrated)
+			# Already rated - so update
+			if($new_rating)
 			{
-              		$ratingdb->Do("DELETE FROM $assoc_table_raw 
-                                   		WHERE $entity_type = ? 
-                                   		AND moderator = ?", $entity_id, $userid);
+        			$rawdb->Do("UPDATE $assoc_table_raw SET rating = ? 
+   				        	     WHERE $entity_type = ? AND editor = ?",
+  								 $new_rating, $entity_id, $userid);
 			}
 			else
 			{
-			$ratingdb->Do("
-				         UPDATE $assoc_table_raw 
-				       	 set rating = $new_rating 
- 				        	 where $entity_type = ? and moderator = ?", $entity_id, $userid);
+                      		$rawdb->Do("DELETE FROM $assoc_table_raw 
+                                   		WHERE $entity_type = ? AND editor = ?", $entity_id, $userid);
 			}
-			#$maindb->Do("
-			#	         UPDATE $assoc_table 
-			#	       	 set count = count-1 
- 			#	        	 where $entity_type = ?", $entity_id);
-			
-			$self_rated=1;
 		}
 		else
 		{
-			#not rated - so insert
-			# Add raw rating values
-			$ratingdb->Do("
-		               	 INSERT into $assoc_table_raw ($entity_type, rating, moderator) 
+			# Not rated - so insert raw rating values
+			$rawdb->Do("INSERT into $assoc_table_raw ($entity_type, rating, editor) 
 			        	 values (?, ?, ?)", $entity_id, $new_rating, $userid);
 		}
- 	
-		# Look for the enitity's rating in aggregate table
-		$res_count = $maindb->SelectSingleValue("SELECT count
- 	                                  				FROM $assoc_table
-  	                                 			 	WHERE $entity_type = ?", $entity_id);
+ 			
+		# Update the aggregate rating
+		my $rating_sum;
+		($rating_count, $rating_sum) = @{
+			$rawdb->SelectSingleRowArray("SELECT count(rating), sum(rating) 
+            								FROM $assoc_table_raw
+ 	                                        WHERE $entity_type = ? GROUP BY $entity_type", $entity_id)
+		};
+		$rating = ($rating_count eq 0) ? undef : $rating_sum/$rating_count;
 
-		$temp_rating = $maindb->SelectSingleValue("SELECT rating
- 	                                  				FROM $assoc_table
-  	                                 			 	WHERE $entity_type = ?", $entity_id);
-           	# not yet rated by others
-		if (!$temp_rating)
-		{
-			$final_rating=10*$new_rating;
-			$final_count=1;
-			$maindb->Do("
-				       INSERT INTO $assoc_table ($entity_type, rating, count) 
-				      values (?, ?, ?)", $entity_id, $final_rating, $final_count);
-		}
-		else #already rated by others
-		{
-			#if($self_rated) 
-			#{
-			#	#only current user had rated last.
-			#	$final_rating=10*$new_rating;
-			#	$maindb->Do("
-			#       		UPDATE $assoc_table 
-			#       		set rating = $final_rating 
-			#        		where $entity_type = ?", $entity_id);
-			#}
-			#else
-			#{
-				#other users had rated too.
-				#$res_rating = $maindb->SelectSingleValue("SELECT rating
- 	                    #              					FROM $assoc_table
-  	                    #             			 		WHERE $entity_type = ?", $entity_id);
-				#$new_sum=$res_rating+(10*$new_rating);
-				#$final_count=$res_count+1;
-				#$final_rating=$new_sum/$final_count;
-				#$maindb->Do("
-				#        	UPDATE $assoc_table 
-				#       	set count = count + 1, rating = $final_rating 
- 				#        	where $entity_type = ?", $entity_id);
-
-				my $array_rated = $ratingdb->SelectSingleColumnArray("SELECT rating
- 	                                                             	  		  FROM $assoc_table_raw
- 	                                                            	  		  WHERE $entity_type = ?", $entity_id);
-
-				$mycount=scalar(@$array_rated);
-				if($mycount)
-				{
-				$temporary=0;
-				foreach (@$array_rated)
-				{
-					$temporary = $temporary + $_;
-				}
-
-				$new_sum=10*$temporary;
-				$final_count=$mycount;
-				$final_rating=$new_sum/$final_count;
-				$maindb->Do("
-				        	UPDATE $assoc_table 
-				       	set count = $final_count, rating = $final_rating 
- 				       	where $entity_type = ?", $entity_id);
-				}
-				else
-				{
-
-              		$maindb->Do("DELETE FROM $assoc_table 
-                                   		WHERE $entity_type = ?", $entity_id);
-				}
-
-				
-				
-
-				
-			#}
-		}
-	$output=$final_rating/10;
+		$maindb->Do("UPDATE $assoc_table 
+	        	       	SET rating_count = ?, rating = ? 
+ 			       		WHERE id = ?", $rating_count, $rating, $entity_id);
 	};
 
 	if ($@)
 	{
-		# TODO: Setup eval block
   	       my $err = $@;
   	       eval { $maindb->Rollback(); };
-  	     #  eval { $ratingdb->Rollback(); };
+  	       eval { $rawdb->Rollback(); };
  	       die $err;
 	}
 	else
 	{
 		$maindb->Commit();
-  	    #   $ratingdb->Commit();
- 	       return 1;
+		$rawdb->Commit();
+		return ($rating, $rating_count);
 	}
-	return $output;
 }
 
-
-#sub GetEntitiesForRating
-#{
-# 		my ($self, $entity_type, $rating, $limit) = @_;
-# 
-# 		my $sql = Sql->new($self->GetDBH());
-# 		my $assoc_table = $entity_type . '_rating';
-# 		my $entity_table = $entity_type eq "release" ? "album" : $entity_type;
-# 
-# 		my $rows = $sql->SelectListOfHashes(<<EOF, $rating, $limit);
-# 		SELECT	DISTINCT j.$entity_type AS id, e.name AS name, e.gid AS gid, j.count
-# 		FROM	$entity_table e, $assoc_table j
-# 		WHERE	j.rating = ? AND e.id = j.$entity_type
-# 		LIMIT ?
-# 		EOF
-# 
-# 		return $rows;
-#}
-
-sub GetModerator	{ $_[0]{'moderator'} }
-
-sub SetModerator	{ $_[0]{'moderator'} = $_[1] }
-
-sub GenerateRatings
+sub Merge
 {
-		my ($self, $entity_type, $entity_id) = @_;
-		my ($temp, $temp1);
+	my ($self, $entity_type, $old_entity_id, $new_entity_id) = @_;
 
-  		my $sql = Sql->new($self->GetDBH());
-  		my $assoc_table = $entity_type . '_rating';
-  		#my $entity_table = $entity_type eq "release" ? "album" : $entity_type;
+	my $assoc_table = ($entity_type eq "release") ? "albummeta" : $entity_type . '_meta';  
+	my $assoc_table_raw = $entity_type . '_rating_raw';
 
-		$temp = $sql->SelectSingleValue("SELECT rating
+    my $maindb = $Moderation::DBConnections{READWRITE};
+    my $rawdb = $Moderation::DBConnections{RAWDATA};
+
+    # Load the editors raw ratings for this rating and both entities
+    my $old_editor_ids = $rawdb->SelectSingleColumnArray("
+	    SELECT editor
+          FROM $assoc_table_raw
+          WHERE $entity_type = ?", $old_entity_id);
+
+    my $new_editor_ids = $rawdb->SelectSingleColumnArray("
+    	SELECT editor
+          FROM $assoc_table_raw
+          WHERE $entity_type = ?", $new_entity_id);
+    my %new_editor_ids = map { $_ => 1 } @$new_editor_ids;
+
+    foreach my $editor_id (@$old_editor_ids)
+    {
+    	# If the raw rating doesn't exist for the target entity, move it
+        if (!$new_editor_ids{$editor_id})
+        {
+        	$rawdb->Do("
+            	UPDATE $assoc_table_raw
+                  SET $entity_type = ?
+                  WHERE $entity_type = ?
+                    AND editor = ?", $new_entity_id, $old_entity_id, $editor_id);
+        }
+    }
+
+    # Delete unused ratings (only in raw B, triggers should handle ratings deletion in main DB)
+    $rawdb->Do("DELETE FROM $assoc_table_raw WHERE $entity_type = ?", $old_entity_id);
+
+	# Update the aggregate rating
+	my ($rating_count, $rating_sum) = @{
+		$rawdb->SelectSingleRowArray("SELECT count(rating), sum(rating) 
+        								FROM $assoc_table_raw
+ 	                                    WHERE $entity_type = ? GROUP BY $entity_type", $new_entity_id)
+	};
+	my $rating = ($rating_count eq 0 ? undef : $rating_sum/$rating_count);
+
+	$maindb->Do("UPDATE $assoc_table 
+        	       	SET rating_count = ?, rating = ? 
+		       		WHERE id = ?", $rating_count, $rating, $new_entity_id);
+    return 1;
+}
+
+sub MergeReleases
+{
+	my ($self, $oldid, $newid) = @_;
+	$self->Merge("release", $oldid, $newid);
+}
+
+sub MergeTracks
+{
+	my ($self, $oldid, $newid) = @_;
+	$self->Merge("track", $oldid, $newid);
+}
+
+sub MergeArtists
+{
+	my ($self, $oldid, $newid) = @_;
+	$self->Merge("artist", $oldid, $newid);
+}
+
+sub MergeLabels
+{
+	my ($self, $oldid, $newid) = @_;
+	$self->Merge("label", $oldid, $newid);
+}
+
+sub GetRatingForEntity
+{
+	my ($self, $entity_type, $entity_id) = @_;
+
+  	my $sql = Sql->new($self->GetDBH());
+	my $assoc_table = ($entity_type eq "release") ? "albummeta" : $entity_type . '_meta';  
+
+	my $rating = $sql->SelectSingleRowHash("SELECT rating, rating_count
  	                                  		FROM $assoc_table
-  	                                 		WHERE $entity_type = ?", $entity_id);
-		$temp1=$temp/10;
-  
-  		return $temp1;
+  	                                 		WHERE id = ?", $entity_id);
+  	return $rating;
 }
 
-
-sub GenerateNewRatings
+sub GetUserRatingForEntity
 {
-		my ($self, $entity_type, $entity_id) = @_;
-		my ($temp, $temp1, $temp2, @answer, $myrating, $mycount);
+	my ($self, $entity_type, $entity_id, $userid) = @_;
+	my $rating;
 
-#  		my $sql = Sql->new($self->GetDBH());
-#  		my $assoc_table = $entity_type . '_rating';
-#  		#my $entity_table = $entity_type eq "release" ? "album" : $entity_type;
-#
- 		my $maindb = Sql->new($self->GetDBH()); 
- 		# TODO: Actually setup two separate DB handles properly
- 		require MusicBrainz; 
- 		my $mb = MusicBrainz->new; 
- 		$mb->Login(); 
- 		my $ratingdb = $maindb;  
- 
-#  		my $sql = Sql->new($self->GetDBH());
-   		my $assoc_table_raw = $entity_type . '_rating_raw';
-#  		#my $entity_table = $entity_type eq "release" ? "album" : $entity_type;
+	require MusicBrainz; 
+	my $ratings = MusicBrainz->new; 
+	$ratings->Login(db => 'RAWDATA'); 
+	my $rawdb = Sql->new($ratings->{DBH});
 
-		my $ratingvalues = $ratingdb->SelectSingleColumnArray("SELECT rating
- 	                                                             	    FROM $assoc_table_raw
- 	                                                            	    WHERE $entity_type = ?", $entity_id);
-		$mycount=scalar(@$ratingvalues);
+	my $assoc_table_raw = $entity_type . '_rating_raw';  
 
- 	       if ($mycount)
- 	       {
-			$temp=0;
-			foreach (@$ratingvalues)
-			{
-				$temp=$temp+$_;
-			}
-			$myrating=$temp/$mycount;
- 	       }
- 	       else
-		{
-			$myrating=0;	
-		}
-
-
-#		$temp = $sql->SelectSingleValue("SELECT rating
-# 	                                  		FROM $assoc_table
-#  	                                 		WHERE $entity_type = ?", $entity_id);
-#		$temp1=$temp/10;
-#
-#		$temp2 = $sql->SelectSingleValue("SELECT count
-# 	                                  		FROM $assoc_table
-#  	                                 		WHERE $entity_type = ?", $entity_id);
-#
- 		@answer = ($myrating, $mycount);
-   
-  		return @answer;
-}
-
-sub GenerateUserRatings
-{
-		my ($self, $userid, $entity_type, $entity_id) = @_;
-		my ($temp, $mycount, $myrating);
-
-		my $maindb = Sql->new($self->GetDBH()); 
-		# TODO: Actually setup two separate DB handles properly
-		require MusicBrainz; 
-		my $mb = MusicBrainz->new; 
-		$mb->Login(); 
-		my $ratingdb = $maindb;  
-
-#  		my $sql = Sql->new($self->GetDBH());
-   		my $assoc_table_raw = $entity_type . '_rating_raw';
-#  		#my $entity_table = $entity_type eq "release" ? "album" : $entity_type;
-
-		my $ratingvalues = $ratingdb->SelectSingleColumnArray("SELECT rating
- 	                                                             	    FROM $assoc_table_raw
- 	                                                            	    WHERE $entity_type = ?
- 	                                                                  AND moderator = ?", $entity_id, $userid);
-		$mycount=scalar(@$ratingvalues);
-
- 	       if ($mycount)
- 	       {
-			$temp=0;
-			foreach (@$ratingvalues)
-			{
-				$temp=$temp+$_;
-			}
-			$myrating=$temp/$mycount;
- 	       }
- 	       else
-		{
-			$myrating=0;	
-		}
-   
-   		return $myrating;
+	$rating = $rawdb->SelectSingleValue("SELECT rating
+ 	                                  		FROM $assoc_table_raw
+  	                                 		WHERE $entity_type = ? AND editor = ?",
+											$entity_id, $userid);
+  	return $rating;
 }
 
 sub CancelRating
 {
-		my ($self, $userid, $entity_type, $entity_id) = @_;
-		my ($temp, $mycount, $myrating);
-
-		my $maindb = Sql->new($self->GetDBH()); 
-		# TODO: Actually setup two separate DB handles properly
-		require MusicBrainz; 
-		my $mb = MusicBrainz->new; 
-		$mb->Login(); 
-		my $ratingdb = $maindb;  
-
-    eval
-    {
-        # TODO: Setup eval block
-        $maindb->Begin();
-#        $ratingdb->Begin();
-
-
-#  		my $sql = Sql->new($self->GetDBH());
-   		my $assoc_table_raw = $entity_type . '_rating_raw';
-#  		#my $entity_table = $entity_type eq "release" ? "album" : $entity_type;
-
-              $ratingdb->Do("DELETE FROM $assoc_table_raw 
-                                   WHERE $entity_type = ? 
-                                   AND moderator = ?", $entity_id, $userid);
-    };
-    if ($@)
-    {
-        my $err = $@;
-        eval { $maindb->Rollback(); };
-#        eval { $ratingdb->Rollback(); };
-        die $err;
-    }
-    else
-    {
-        $maindb->Commit();
-#        $ratingdb->Commit();
-        return 1;
-    }
+	my ($self, $entity_type, $entity_id, $userid) = @_;
+	$self->Update($entity_type, $entity_id, $userid, undef);
 }
 
-
-
-
-sub VerifyRated
+sub GetEntitiesRatingsForUser
 {
- 		my ($self, $userid, $entity_type, $entity_id) = @_;
- 		my ($countrating);
+	my ($self, $entity_type, $userid, $limit, $offset) = @_;
 
-		my $maindb = Sql->new($self->GetDBH()); 
-		# TODO: Actually setup two separate DB handles properly
-		require MusicBrainz; 
-		my $mb = MusicBrainz->new; 
-		$mb->Login(); 
-		my $ratingdb = $maindb;  
+	my $maindb = Sql->new($self->GetDBH());
 
-#  		my $sql = Sql->new($self->GetDBH());
-   		my $assoc_table_raw = $entity_type . '_rating_raw';
-#  		#my $entity_table = $entity_type eq "release" ? "album" : $entity_type;
+	my $ratings = MusicBrainz->new;
+    $ratings->Login(db => 'RAWDATA');
+	my $rawdb = Sql->new($ratings->{DBH});   
 
-		my $ratingvalues = $ratingdb->SelectSingleColumnArray("SELECT rating
- 	                                                             	    FROM $assoc_table_raw
- 	                                                            	    WHERE $entity_type = ?
- 	                                                                  AND moderator = ?", $entity_id, $userid);
+	# select all raw ratings for user
+	my $assoc_table = $entity_type . '_rating_raw';
+	my $raw_ratings = $rawdb->SelectListOfLists(
+		"SELECT $entity_type, rating FROM $assoc_table
+		 WHERE editor = ?", $userid);
+    return [] if (scalar(@$raw_ratings) == 0);
+	my %raw_ratings = map { $_->[0] => $_->[1] } @$raw_ratings;
+	
+	my $entity_table = $entity_type eq "release" ? "album" : $entity_type;
+	
+	$offset ||= 0;
+	$maindb->Select("SELECT id, name, gid FROM $entity_table 
+											WHERE id IN (".join(",", keys %raw_ratings).") 
+											ORDER BY name OFFSET ?", $offset);
+	my @rows;
+	while ($limit--)
+	{
+		my $row = $maindb->NextRowHashRef or last;
+		$row->{rating} = $raw_ratings{ $row->{id} };
+		push @rows, $row;
+	}
 
-		$countrating=scalar(@$ratingvalues);
-   
-   		return $countrating;
+	my $total_rows = $maindb->Rows;
+	$maindb->Finish;
+
+	return (\@rows, $offset + $total_rows);
 }
 
 1;
