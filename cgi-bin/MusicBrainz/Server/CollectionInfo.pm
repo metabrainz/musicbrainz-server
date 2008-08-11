@@ -357,11 +357,28 @@ sub GetMissingMBIDs
 	{
 		my $hasReleaseIds = $this->GetHasReleaseIds();
 		
-		my $query = "SELECT gid FROM album WHERE artist IN (". join(',', @$displayMissingOfArtists).") AND album.id NOT IN (". join(',', @{$hasReleaseIds}) .") AND album.name != '[non-album tracks]'";
+		my $result;
+		my $hasIdsQueryString;
 		
-		my $result = $rosql->SelectSingleColumnArray($query);
 		
-		return $result;
+		if(@{$hasReleaseIds})
+		{		
+			$hasIdsQueryString = ' AND album.id NOT IN (' . join(',', @{$hasReleaseIds}) . ') AND album.id NOT IN (SELECT id FROM album WHERE name IN (SELECT name FROM album WHERE id IN (' . join(',', @{$hasReleaseIds}) . ')) AND artist IN (SELECT artist FROM album WHERE id IN(' . join(',', @{$hasReleaseIds}) . ')))';
+		}
+		
+		if(@{$displayMissingOfArtists})
+		{
+			my $query = "SELECT DISTINCT ON (album.name) album.gid FROM album, albummeta WHERE album.id = albummeta.id AND album.artist IN (". join(',', @{$displayMissingOfArtists}).")" . $hasIdsQueryString . " AND album.name != '[non-album tracks]' ORDER BY album.name, albummeta.firstreleasedate";
+
+			
+			print STDERR $query;
+		
+			return $rosql->SelectSingleColumnArray($query);
+		}
+		else
+		{
+			return [];
+		}
 	}
 }
 

@@ -100,3 +100,12 @@ sub sendMail
 	
 	print $message;
 }
+
+
+=head1 NAME
+	SendReleaseNotifications - Send e-mail notifications about new releases
+	
+	=head1 DESCRIPTION
+	Iterate over all users who have selected to have e-mail notifications sent and notify them by email about new releases.
+
+	=cut

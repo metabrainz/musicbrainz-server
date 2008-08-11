@@ -56,7 +56,7 @@ sub new
 	
 	$object->addpref('emailnotifications', 0, \&check_bool);
 	$object->addpref('notificationinterval', 7, sub { check_int(1,31,@_) });
-	#print Dumper($object->{artistsMissing});
+	
 	
 	
 	# load the preference keys and values into the prefs hash
@@ -64,11 +64,13 @@ sub new
 
 	
 	my $prefs = {
-		'emailnotifications' => {'KEY' => 'emailnotifications', VALUE => $selectprefs->{emailnotifications}, 'CHECK' => undef},
-		'notificationinterval' => {'KEY' => 'notificationinterval', VALUE => $selectprefs->{notificationinterval}, 'CHECK' => undef}
+		'emailnotifications' => {'KEY' => 'emailnotifications', VALUE => $selectprefs->{emailnotifications}, 'CHECK' => sub { check_int(1,31,@_) }},
+		'notificationinterval' => {'KEY' => 'notificationinterval', VALUE => $selectprefs->{notificationinterval}, 'CHECK' => \&check_bool}
 	};
 	
 	$object->{prefs} = $prefs;
+	
+	print STDERR Dumper($object->{prefs});
 	
 	
 	
@@ -76,31 +78,8 @@ sub new
 }
 
 
-# remove since this stuff has been removed from collectionpreferences.html?
-sub LoadArtists
-{
-	my ($this) = @_;
-	
-	my $rosql = Sql->new($this->{RODBH});
-	
-	# select artist id's of artists to display missing releases of
-	my $artistsMissing=$rosql->SelectSingleColumnArray('SELECT artist FROM collection_discography_artist_join WHERE collection_info=?', $this->{collectionId});
-	
-	
-	# convert the array of artists to display missing releases of into a hash with the value as key
-	my $artistsMissingHash;
-	for my $artistId (@$artistsMissing)
-	{
-		$artistsMissingHash->{$artistId}=1;
-	}
-	
-	$this->{artistsMissing} = $artistsMissingHash;
-	
-	
-	my $collection = MusicBrainz::Server::CollectionInfo->new($this->{userId}, $this->{RODBH}, $this->{RAWDBH});
-	$this->{hasArtists} = $collection->GetHasArtists();
-}
 
+# remove or rewrite
 sub addpref
 {
 	my ($this, $key, $value, $check) = @_;
@@ -108,7 +87,10 @@ sub addpref
 	
 	my $prefs = $this->{prefs};
 	
+	
 	$this->{prefs}{$key} = {KEY => $key, VALUE => $value, CHECK => $check};
+	
+	#print STDERR 'asd'.Dumper($this->{prefs});
 	
 	
 	
@@ -193,6 +175,12 @@ sub set
 {
 	my ($this, $key, $value) = @_;
 	
+	# check if the given key exists
+	if(!defined($this->{prefs}{$key}{KEY}))
+	{
+		carp("CollectionPreference::set called with invalid key '$key'");
+		return;
+	}
 	
 	my $rawsql=Sql->new($this->{RAWDBH});
 	
@@ -210,31 +198,17 @@ sub set
 	
 	
 	
-	
-	
-	#$sql->InsertRow("UPDATE collection_info SET $key='TRUE' WHERE id='".$this->{collectionId}."'");
-	#$sql->InsertRow("UPDATE collection_info SET emailnotifications=FALSE WHERE id='0';");
-	
-	#FIXA EVAL?
-
-
-
-
-
-
 	eval
 	{
 		$rawsql->Begin();
 		
 		# update setting in collection_info table
 		$rawsql->Do("UPDATE collection_info SET $key = ? WHERE id='".$this->{collectionId}."'", $value);
-		#$sql->Do("UPDATE collection_info SET emailnotifications=FALSE WHERE id='0';");
 	};
 	
 	if($@)
 	{
-		my $error=$@; # get the error message
-		
+		my $error=$@;
 		print $error;
 		
 		$rawsql->Commit();	
@@ -242,7 +216,6 @@ sub set
 	else
 	{
 		# update setting in object hash
-		#$info->{$value}=0;
 		$this->{prefs}{$key} = {'KEY' => $key, 'VALUE' => $value, 'CHECK' => $oldcheck};
 				
 		$rawsql->Commit();
