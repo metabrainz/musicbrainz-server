@@ -179,7 +179,7 @@ sub GetHasReleaseIds
 	
 	my $rawsql = Sql->new($this->{RAWDBH});
 	
-	my $hasReleaseIds = $rawsql->SelectSingleColumnArray('SELECT album FROM collection_has_release_join WHERE collection_info = ?', $this->{collectionId});
+	my $hasReleaseIds = $rawsql->SelectSingleColumnArray('SELECT album FROM collection_has_release_join, artist INNER JOIN artist ON (album.artist = artist.id) WHERE collection_info = ?  ORDER BY artist.name, album.name', $this->{collectionId});
 	
 	return $hasReleaseIds;
 }
@@ -201,7 +201,8 @@ sub GetHasMBIDs
 	my $rawsql = Sql->new($this->{RAWDBH});
 	
 	# get id's of all releases in collection
-	my $result = $rawsql->SelectSingleColumnArray('SELECT album FROM collection_has_release_join WHERE collection_info=?', $this->{collectionId});
+	#my $result = $rawsql->SelectSingleColumnArray('SELECT collection_has_release_join.album FROM collection_has_release_join, album, artist INNER JOIN album ON (collection_has_release_join.album = album.id) INNER JOIN artist ON (album.artist = artist.id) WHERE collection_info = ?', $this->{collectionId});
+	my $result = $rawsql->SelectSingleColumnArray('SELECT album FROM collection_has_release_join WHERE collection_info = ?', $this->{collectionId});
 	
 	
 	if(@{$result} == 0) # 0 results
@@ -217,7 +218,8 @@ sub GetHasMBIDs
 		{
 			$rosql->Begin();
 			
-			my $releaseQuery='SELECT gid FROM album WHERE id IN(' . join(',', @{$result}) . ')';
+			#my $releaseQuery='SELECT gid FROM album WHERE id IN(' . join(',', @{$result}) . ')';
+			my $releaseQuery='SELECT album.gid FROM album INNER JOIN artist ON (album.artist = artist.id) WHERE album.id IN(' . join(',', @{$result}) . ') ORDER BY artist.name, album.name';
 		
 			$mbids = $rosql->SelectListOfLists($releaseQuery);
 		};
