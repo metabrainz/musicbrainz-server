@@ -16,7 +16,6 @@ my $collectionInfo = MusicBrainz::Server::CollectionInfo->new($session{uid}, $ro
 my $releases = $collectionInfo->GetMissingMBIDs();
 
 my $count = @$releases;
-print $count;
 
 if($count == 0)
 {

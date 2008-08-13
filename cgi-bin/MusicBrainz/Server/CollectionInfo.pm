@@ -15,6 +15,9 @@ package MusicBrainz::Server::CollectionInfo;
 
 
 
+=head2 new $userId, $rodbh, $rawdbh, $preferences
+Create a CollectionInfo object for user with id C<$userId>.
+=cut
 sub new
 {
 	my ($this, $userId, $rodbh, $rawdbh, $preferences)=@_;
@@ -39,6 +42,11 @@ sub new
 	}, $this);
 }
 
+
+
+=head2 newFromCollectionId $collectionId, $rodbh, $rawdbh, $preferences
+Create a CollectionInfo object for the collection C<$collectionId>.
+=cut
 sub newFromCollectionId
 {
 	my ($this, $collectionId, $rodbh, $rawdbh, $preferences)=@_;
@@ -70,8 +78,10 @@ sub newMissingCollectionInfo
 
 
 
-# assure that the user has a corresponding collection_info tuple. if it does not have one yet - create it.
-# this sub should be called on every page that requires a collection
+=head2 AssureCollection $userId, $rawdbh
+Assure that the user with id C<$userId> has a collection tuple. If it does not have one yet - create it.
+This sub should be called from every page/module that require the user to have a collection.
+=cut
 sub AssureCollection
 {
 	my ($userId, $rawdbh) = @_;
@@ -89,7 +99,10 @@ sub AssureCollection
 
 
 
-# check if a user has a collection_info tuple. returns true or false.
+=head2 HasCollection $userId, $rawdbh
+Check if user with id C<$userId> has a collection_info tuple.
+Returns true or false.
+=cut
 sub HasCollection
 {
 	my ($userId, $rawdbh) = @_;
@@ -101,7 +114,9 @@ sub HasCollection
 
 
 
-# add a collection_info tuple for the specified user
+=head2 CreateCollection $userId, $rawdbh
+Create a collection_info tuple for the specified user.
+=cut
 sub CreateCollection
 {
 	my ($userId, $rawdbh) = @_;
@@ -129,6 +144,9 @@ sub CreateCollection
 
 
 
+=head2 GetCollectionIdForUser $userId, $rawdbh
+Get the id of the collection_info tuple corresponding to the specified user.
+=cut
 sub GetCollectionIdForUser
 {
 	my ($userId, $rawdbh) = @_;
@@ -141,6 +159,9 @@ sub GetCollectionIdForUser
 }
 
 
+=head2 GetUserId
+Returns userId.
+=cut
 sub GetUserId
 {
 	my ($this) = @_;
@@ -149,6 +170,9 @@ sub GetUserId
 }
 
 
+#
+#	TODO: IS THIS ONE EVEN USED?
+#
 sub GetHasReleaseIds
 {
 	my ($this, $artistId) = @_;
@@ -161,11 +185,13 @@ sub GetHasReleaseIds
 }
 
 
-# TODO:
-# rename to GetHasMBIDsForArtist
+
+=head2 GetHasMBIDs $artistId
+Returns MBIds of all releases in collection.
+=cut
 sub GetHasMBIDs
 {
-	my ($this, $artistId) = @_;
+	my ($this) = @_;
 	
 	
 	
@@ -222,8 +248,6 @@ sub GetHasMBIDsForArtist
 
 
 # Get hash of artist name and id of artists in collection
-# TODO:
-# also create a sub similar to this but for missing artists?
 sub GetHasArtists
 {
 	my ($this) = @_;
