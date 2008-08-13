@@ -368,11 +368,7 @@ sub GetMissingMBIDs
 		
 		if(@{$displayMissingOfArtists})
 		{
-			my $query = "SELECT DISTINCT ON (artist.name, album.name) album.gid FROM album INNER JOIN albummeta ON (album.id = albummeta.id) INNER JOIN artist ON (album.artist = artist.id) WHERE album.artist IN (". join(',', @{$displayMissingOfArtists}).")" . $hasIdsQueryString . " AND album.name != '[non-album tracks]' ORDER BY artist.name, album.name, albummeta.firstreleasedate";
-			
-			#my $query = "SELECT DISTINCT ON (album.artist, album.name) album.gid FROM album, albummeta WHERE album.id = albummeta.id AND album.artist IN (". join(',', @{$displayMissingOfArtists}).")" . $hasIdsQueryString . " AND album.name != '[non-album tracks]' ORDER BY album.artist, album.name, albummeta.firstreleasedate";
-
-			# INNER JOIN artist ON (album.artist = artist.id)
+			my $query = "SELECT DISTINCT ON (artist.name, album.name) album.gid FROM album INNER JOIN albummeta ON (album.id = albummeta.id) INNER JOIN artist ON (album.artist = artist.id) WHERE album.artist IN (". join(',', @{$displayMissingOfArtists}).")" . $hasIdsQueryString . " AND album.name != '[non-album tracks]' ORDER BY artist.name, album.name, albummeta.firstreleasedate DESC";
 			
 			print STDERR $query;
 		

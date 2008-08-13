@@ -16,6 +16,8 @@ use Data::Dumper;
 package MusicBrainz::Server::Collection;
 
 
+
+
 require Exporter;
 our @ISA = qw(Exporter);
 our @EXPORT_OK = qw(addtracks removetracks);
@@ -29,6 +31,22 @@ my @notExistingIds;
 my $addAlbum_insertCount=0;
 
 
+
+
+=head1 NAME
+
+MusicBrainz::Server::Collection - Manipulate collection
+	
+=head1 DESCRIPTION
+
+Has functions for adding and removing releases In collection.
+
+=head1 METHODS
+
+
+=head2 new $rodbh, $rawdbh, $collectionId
+Create a Collection object for the collection with id C<$collectionId>.
+=cut
 sub new
 {
 	my($this, $rodbh, $rawdbh, $collectionId) = @_;
@@ -54,6 +72,9 @@ sub new
 
 
 
+=head2 addAlbums @albums
+Add the albums in C<@albums> to this collection.
+=cut
 # Add albums. MBID's listed in @albums
 sub AddAlbums {
 	my ($this, @albums) = @_;
@@ -76,7 +97,9 @@ sub AddAlbums {
 }
 
 
-# Remove albums listed in @albums
+=head2 removeAlbums @albums
+Remove the albums in C<@albums> from this collection.
+=cut
 sub RemoveAlbums
 {
 	my ($this, @albums) = @_;
@@ -90,7 +113,10 @@ sub RemoveAlbums
 }
 
 
-# add release with MBID $mbid
+
+=head2 addRelease $mbid
+Add the release with MBId C<$mbid> to collection.
+=cut
 sub AddRelease #"album" in current schema
 {
 	my ($this, $mbid) = @_;
@@ -131,6 +157,10 @@ sub AddRelease #"album" in current schema
 			{
 				push(@{$this->{addAlbum_duplicateArray}}, $mbid);
 			}
+			elsif($error =~ /asd/)
+			{
+			
+			}
 			else
 			{
 				print $error;
@@ -150,7 +180,7 @@ sub AddRelease #"album" in current schema
 			
 				
 			# add MBID to the collection
-			my $attributes={id => 456, collection_info => $collectionId, album => $releaseId};
+			my $attributes={id => 456, collection_info => 123, album => $releaseId};
 			#$rawsql->InsertRow("collection_has_release_join", $attributes);
 			$rawsql->Do('INSERT INTO collection_has_release_join (collection_info, album) VALUES (?, ?)', $collectionId, $releaseId);
 			
@@ -186,7 +216,9 @@ sub AddRelease #"album" in current schema
 
 
 
-# Remove release with MBID $mbid
+=head2 removeRelease $mbid
+Remove realease with MBId C<$mbid> from collection
+=cut
 sub RemoveRelease
 {
 	my ($this, $mbid) = @_;

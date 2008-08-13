@@ -12,17 +12,34 @@ use Apache::Constants qw( OK BAD_REQUEST AUTH_REQUIRED DECLINED SERVER_ERROR NOT
 sub handler
 {
 	# URLs are of the form:
-	# POST http://server/ws/1/collection/?addalbums=<mbid1>,<mbid2>&removealbums=<mbid3>,<mbid4>
+	# POST http://server/ws/1/collection/?addalbums=<comma separated list of mbids>&removealbums=<comma separated list of mbids>
     my $r = shift;
-    #return bad_req($r, 'test');
-
+    
+    
+	use Data::Dumper;
 	
 	my %args = $r->args;
 	
-	# get the albums from the POST data
-	my @addAlbums=split(",", $args{addalbums});
-	my @removeAlbums=split(",", $args{removealbums});
-	#my @removeTracks=split(",", $args{removetracks});
+	
+	my @addAlbums;
+	my @removeAlbums;
+	
+	if($r->method eq "POST")
+	{
+		my $apr = Apache::Request->new($r);
+		
+		# split into arrays
+		@addAlbums=split(/, |,/, $apr->param('addAlbums'));
+		@removeAlbums=split(/, |,/, $apr->param('removeAlbums'));
+	}
+	else
+	{	
+		# get the albums from the POST/GET data
+		@addAlbums=split(",", $args{addalbums});
+		@removeAlbums=split(",", $args{removealbums});
+		#my @removeTracks=split(",", $args{removetracks});
+	}
+	
 	
 	require MusicBrainz;
 	require Sql;
@@ -36,6 +53,10 @@ sub handler
 	my $sqlraw = Sql->new($mbraw->{DBH});
 	my $sqlro = Sql->new($mbro->{DBH});
 	
+	#use Data::Dumper;
+	#print Dumper(@addAlbums);
+	
+	print STDERR 'received post from '.$r->user;
 	
 	
 	
@@ -43,11 +64,11 @@ sub handler
 	my $userId = $sqlro->SelectSingleValue("SELECT id FROM moderator WHERE name='". $r->user ."'");
 	
 	
-	# get collection_info id
-	my $collectionId = MusicBrainz::Server::CollectionInfo::GetCollectionIdForUser($userId, $mbraw->{DBH});
-	
 	# make sure the user has a collection_info tuple
 	MusicBrainz::Server::CollectionInfo::AssureCollection($userId, $mbraw->{DBH});
+	
+	# get collection_info id
+	my $collectionId = MusicBrainz::Server::CollectionInfo::GetCollectionIdForUser($userId, $mbraw->{DBH});
 	
 	# instantiate Collection object
 	my $collection = MusicBrainz::Server::Collection->new($mbro->{DBH}, $mbraw->{DBH}, $collectionId);
@@ -78,6 +99,8 @@ sub handler
 sub print_xml
 {
 	my ($collection) = @_;
+	
+	#print Dumper(@addAlbums);
 	
 #	print "\n\nduplicates:\n";
 #	for my $duplicate (@{$collection->{addAlbum_duplicateArray}})
