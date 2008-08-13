@@ -12,13 +12,29 @@
 
 use strict;
 
-package CollectionPreference;
+package MusicBrainz::Server::CollectionPreference;
 
 use Carp qw( carp );
 
 
 
 
+=head1 NAME
+
+MusicBrainz::Server::CollectionPreference - Access and set collection preferences
+	
+=head1 DESCRIPTION
+
+Has subs for setting and getting collection preference values.
+
+=head1 METHODS
+
+
+
+
+=head2 new $rodbh, $rawdbh, $userId
+Create a CollectionPreference object. Load preferences for user with id C<$userId>.
+=cut
 sub new
 {
 	my ($this, $rodbh, $rawdbh, $userId) = @_;
@@ -28,20 +44,6 @@ sub new
 	my $rawsql = Sql->new($rawdbh);
 	my $collectionId = $rawsql->SelectSingleValue('SELECT id FROM collection_info WHERE moderator=?', $userId);
 	
-	# select artist id's of artists to display missing releases of
-#	my $artistsMissing=$sql->SelectSingleColumnArray('SELECT artist FROM collection_discography_artist_join WHERE collection_info=?', $collectionId);
-	
-	
-	# convert the array of artists to display missing releases of into a hash with the value as key
-#	my $artistsMissingHash;
-#	for my $artistId (@$artistsMissing)
-#	{
-#		$artistsMissingHash->{$artistId}=1;
-#	}
-	
-	
-	#my $collection = MusicBrainz::Server::CollectionInfo->new($userId, $rodbh, $rawdbh);
-	#my $hasArtists = $collection->GetHasArtists();
 	
 	my $object=bless(
 	{
@@ -58,19 +60,34 @@ sub new
 	$object->addpref('notificationinterval', 7, sub { check_int(1,31,@_) });
 	
 	
+	my $selectprefs;
 	
-	# load the preference keys and values into the prefs hash
-	my $selectprefs = $rawsql->SelectSingleRowHash('SELECT emailnotifications, notificationinterval, lastcheck FROM collection_info WHERE id = ?', $collectionId);
-
+	eval
+	{
+		$rawsql->Begin();
+		
+		# load the preference keys and values into the prefs hash
+		$selectprefs = $rawsql->SelectSingleRowHash('SELECT emailnotifications, notificationinterval, lastcheck FROM collection_info WHERE id = ?', $collectionId);
+	};
 	
+	if($@)
+	{
+		die('Could not load preferences');
+	}
+	else
+	{
+		$rawsql->Commit();
+	}
+	
+	
+	# add valid keys
 	my $prefs = {
 		'emailnotifications' => {'KEY' => 'emailnotifications', VALUE => $selectprefs->{emailnotifications}, 'CHECK' => sub { check_int(1,31,@_) }},
 		'notificationinterval' => {'KEY' => 'notificationinterval', VALUE => $selectprefs->{notificationinterval}, 'CHECK' => \&check_bool}
 	};
 	
-	$object->{prefs} = $prefs;
 	
-	print STDERR Dumper($object->{prefs});
+	$object->{prefs} = $prefs;
 	
 	
 	
@@ -119,30 +136,15 @@ sub valid_keys {
 	return keys %$prefs;
 }
 
-################################################################################
-# Value checkers.
-# Each checker returns either 'undef' if the given value is not valid, or
-# the value (or some normalised version of it) if it is vald.
-################################################################################
-
-sub check_bool { $_[0] ? 1 : 0 }
-
-sub check_int
-{
-	my ($min, $max, $value) = @_;
-	$value =~ /\A(\d+)\z/ or return undef;
-	$value = 0+$1;
-	return undef if defined $min and $value < $min;
-	return undef if defined $max and $value > $max;
-	$value;
-}
-
 
 
 ################################################################################
 # get, set, load, save
 ################################################################################
 
+=head2 get $key
+Get the value of key C<$key>.
+=cut
 sub get
 {
 	my ($this, $key) = @_;
@@ -153,24 +155,13 @@ sub get
 	
 	
 	return $info->{VALUE};
-	
-	
-	
-#	my ($key) = @_;
-#	my $info = $prefs{$key}
-#		or carp("UserPreference::get called with invalid key '$key'"), return undef;
-#
-#	require UserStuff;
-#	my $s = UserStuff->GetSession;
-#	my $value = $s->{"PREF_$key"};
-#	defined($value) or return $info->{DEFAULT};
-#	$value;
 }
 
 
 
-# TO DO:
-# use check functions
+=head2 set $key, $value
+Set preference with key C<$key> to value C<$value> in this object and in the db.
+=cut
 sub set
 {
 	my ($this, $key, $value) = @_;
@@ -208,9 +199,8 @@ sub set
 	
 	if($@)
 	{
-		my $error=$@;
-		print $error;
-		
+		die('Could not update preference');
+			
 		$rawsql->Commit();	
 	}
 	else
@@ -239,50 +229,6 @@ sub set
 #	print 'UPDATE';
 }
 
-# set which artists to display missing discography of
-sub setMissingOfArtists
-{
-	my ($this, @artistsMissing) = @_;
-	
-	
-	my $rawsql = Sql->new($this->{RAWDBH});
-	
-	
-	
-	eval
-	{
-		$rawsql->Begin();
-		
-		# clear user's all entries in collection_discography_artist_join
-		$rawsql->Do("DELETE FROM collection_discography_artist_join WHERE collection_info=?", $this->{collectionId});
-		
-		# add selected artists
-		for my $artistId (@artistsMissing)
-		{
-			$rawsql->Do("INSERT INTO collection_discography_artist_join (collection_info, artist) VALUES (?, ?)", $this->{collectionId}, $artistId);
-		}
-	};
-	
-	if($@)
-	{
-		print $@;
-		$rawsql->Commit();
-	}
-	else
-	{
-		# update array of "missing artist" in object
-		# convert the array of artists to display missing releases of into a hash with the value as key
-		my $artistsMissingHash;
-		for my $artistId (@artistsMissing)
-		{
-			$artistsMissingHash->{$artistId}=1;
-		}
-		$this->{artistsMissing} = $artistsMissingHash;
-
-
-		$rawsql->Commit();
-	}
-}
 
 sub LoadForUser
 {
@@ -305,42 +251,6 @@ sub LoadForUser
 #	}
 }
 
-sub SaveForUser
-{
-#	my ($user) = @_;
-#
-#	my $uid = $user->GetId
-#		or return;
-#
-#	require UserStuff;
-#	my $s = UserStuff->GetSession;
-#	tied %$s
-#		or carp("UserPreference::SaveForUser called, but %session is not tied"), return;
-#
-#	my $sql = Sql->new($user->{DBH});
-#	my $wrap_transaction = $sql->{DBH}{AutoCommit};
-#	
-#	eval {
-#		$sql->Begin if $wrap_transaction;
-#		$sql->Do("DELETE FROM moderator_preference WHERE moderator = ?", $uid);
-#
-#		while (my ($key, $value) = each %$s)
-#		{
-#			$key =~ s/^PREF_// or next;
-#			$sql->Do(
-#				"INSERT INTO moderator_preference (moderator, name, value) VALUES (?, ?, ?)",
-#				$uid, $key, $value,
-#			);
-#		}
-#
-#		$sql->Commit if $wrap_transaction;
-#		1;
-#	} or do {
-#		my $e = $@;
-#		$sql->Rollback if $wrap_transaction;
-#		die $e;
-#	};
-}
 
 sub ArtistInMissingList
 {
@@ -358,6 +268,10 @@ sub ArtistInMissingList
 # Static subs
 #--------------------------------------------------
 
+
+=head2 ArtistWatch $artistId, $userId
+Specifies that user with id C<$userId> want to watch for new releases of artist with id C<$artistId>.
+=cut
 sub ArtistWatch
 {
 	my ($artistId, $userId) = @_;
@@ -377,13 +291,17 @@ sub ArtistWatch
 	
 	if($@)
 	{
-		#print $@;
+		die('Could not add artist to list of artists being watched');
 	}
 	
 	$rawsql->Commit();
 }
 
 
+
+=head2 ArtistDontWatch $artistId, $userId
+Specifies that user with id C<$userId> do not want to watch for new releases of artist with id C<$artistId>.
+=cut
 sub ArtistDontWatch
 {
 	my ($artistId, $userId) = @_;
@@ -395,21 +313,15 @@ sub ArtistDontWatch
 	
 	my $collectionId = MusicBrainz::Server::CollectionInfo::GetCollectionIdForUser($userId, $mbraw->{DBH});
 	
-	eval
-	{
-		$rawsql->Begin();
-		$rawsql->Do('DELETE FROM collection_watch_artist_join WHERE collection_info = ? AND artist = ?', $collectionId, $artistId);
-	};
 	
-	if($@)
-	{
-		#print $@;
-	}
-	
-	$rawsql->Commit();
+	$rawsql->Do('DELETE FROM collection_watch_artist_join WHERE collection_info = ? AND artist = ?', $collectionId, $artistId);
 }
 
 
+
+=head2 ArtistsDontShowMissing $artistId, $userId
+Specifies that user with id C<$userId> want to see missing releases of artist with id C<$artistId>.
+=cut
 sub ArtistMissing
 {
 	my ($artistId, $userId) = @_;
@@ -423,22 +335,15 @@ sub ArtistMissing
 	
 	my $collectionId = MusicBrainz::Server::CollectionInfo::GetCollectionIdForUser($userId, $mbraw->{DBH});
 	
-	eval
-	{
-		$rawsql->Begin();
-		$rawsql->Do('INSERT INTO collection_discography_artist_join (collection_info, artist) VALUES (?, ?)', $collectionId, $artistId);
-	};
 	
-	if($@)
-	{
-		#print $@;
-	}
-	
-	$rawsql->Commit();
+	$rawsql->Do('INSERT INTO collection_discography_artist_join (collection_info, artist) VALUES (?, ?)', $collectionId,
 }
 
 
 
+=head2 ArtistsDontShowMissing $artistId, $userId
+Specifies that user with id C<$userId> do not want to see missing releases of artist with id C<$artistId>.
+=cut
 sub ArtistDontShowMissing
 {
 	my ($artistId, $userId) = @_;
@@ -452,18 +357,8 @@ sub ArtistDontShowMissing
 	
 	my $collectionId = MusicBrainz::Server::CollectionInfo::GetCollectionIdForUser($userId, $mbraw->{DBH});
 	
-	eval
-	{
-		$rawsql->Begin();
-		$rawsql->Do('DELETE FROM collection_discography_artist_join WHERE collection_info = ? AND artist = ?', $collectionId, $artistId);
-	};
-	
-	if($@)
-	{
-		#print $@;
-	}
-	
-	$rawsql->Commit();
+
+	$rawsql->Do('DELETE FROM collection_discography_artist_join WHERE collection_info = ? AND artist = ?', $collectionId, $artistId);
 }
 
 

@@ -239,40 +239,9 @@ sub GetHasMBIDs
 
 
 
-# scrap this?
-# no, but instead the above sub should be moved into this one?
-sub GetHasMBIDsForArtist
-{
-}
-
-
-
-# Get hash of artist name and id of artists in collection
-sub GetHasArtists
-{
-	my ($this) = @_;
-	
-	my $rosql = Sql->new($this->{RODBH});
-	my $rawsql = Sql->new($this->{RAWDBH});
-	
-	
-	my $albumIds = $rawsql->SelectSingleColumnArray("SELECT album FROM collection_has_release_join WHERE collection_info=?", $this->{collectionId});
-	my $count = @$albumIds;
-	
-	if($count > 0)
-	{
-		my $query="SELECT id,name FROM artist WHERE id IN (SELECT artist FROM album WHERE id IN (" . join(',', @{$albumIds}) . "))";
-		my $result = $rosql->SelectListOfHashes($query);
-		return $result;
-	}
-	else
-	{
-		return [];
-	}
-}
-
-
-
+=head2 GetShowMissingArtists
+Returns 
+=cut
 sub GetShowMissingArtists
 {
 	my ($this) = @_;

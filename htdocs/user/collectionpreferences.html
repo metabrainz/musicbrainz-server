@@ -19,8 +19,8 @@
 	# make sure the user has a collection_info tuple
 	MusicBrainz::Server::CollectionInfo::AssureCollection($session{uid}, $mbraw->{DBH});
 	
-	require CollectionPreference;
-	my $preferences = CollectionPreference->new($mbro->{DBH}, $mbraw->{DBH}, $session{uid});
+	require MusicBrainz::Server::CollectionPreference;
+	my $preferences = MusicBrainz::Server::CollectionPreference->new($mbro->{DBH}, $mbraw->{DBH}, $session{uid});
 	
 	if($r->method eq 'POST')
 	{
