@@ -126,8 +126,8 @@ sub AddRelease #"album" in current schema
 	
 	
 	# make sure this is valid format for a mbid
-	# TODO: use MusicBrainz::Server::Validation::IsGUID instead
-	if($mbid =~ m/[a-z0-9]{8}[:-][a-z0-9]{4}[:-][a-z0-9]{4}[:-][a-z0-9]{4}[:-][a-z0-9]{12}/)
+	#if($mbid =~ m/[a-z0-9]{8}[:-][a-z0-9]{4}[:-][a-z0-9]{4}[:-][a-z0-9]{4}[:-][a-z0-9]{12}/)
+	if(MusicBrainz::Server::Validation::IsGUID($mbid))
 	{
 		my $releaseId;
 		

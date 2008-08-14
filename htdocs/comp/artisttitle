@@ -89,11 +89,11 @@ nnnn<%perl>
 		print STDERR 'notify NOT UNDEFINED';
 		if($notify == 1)
 		{
-			CollectionPreference::ArtistWatch($artist->GetId(), $session{uid});
+			MusicBrainz::Server::CollectionPreference::ArtistWatch($artist->GetId(), $session{uid});
 		}
 		elsif($notify == 0)
 		{
-			CollectionPreference::ArtistDontWatch($artist->GetId(), $session{uid});
+			MusicBrainz::Server::CollectionPreference::ArtistDontWatch($artist->GetId(), $session{uid});
 		}
 	}
 	
@@ -103,11 +103,11 @@ nnnn<%perl>
 		print STDERR Dumper($dispmissing);
 		if($dispmissing == 1)
 		{
-			CollectionPreference::ArtistMissing($artist->GetId(), $session{uid});
+			MusicBrainz::Server::CollectionPreference::ArtistMissing($artist->GetId(), $session{uid});
 		}
 		elsif($dispmissing == 0)
 		{
-			CollectionPreference::ArtistDontShowMissing($artist->GetId(), $session{uid});
+			MusicBrainz::Server::CollectionPreference::ArtistDontShowMissing($artist->GetId(), $session{uid});
 		}
 	}
 

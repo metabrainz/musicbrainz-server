@@ -117,6 +117,7 @@ sub print_xml
 	
 	
 	print '<?xml version="1.0" encoding="UTF-8"?>';
+	print '<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">';
 	print '<response>';
 	
 	if($collection->{addAlbum}==1 || $collection->{removeAlbum}==1) # print details for uuidtype album
@@ -130,6 +131,7 @@ sub print_xml
 		print '</details>';	
 	}
 	print '</response>';
+	print '</metadata>';
 }
 
 1;

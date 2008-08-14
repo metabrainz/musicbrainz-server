@@ -179,7 +179,7 @@ sub GetHasReleaseIds
 	
 	my $rawsql = Sql->new($this->{RAWDBH});
 	
-	my $hasReleaseIds = $rawsql->SelectSingleColumnArray('SELECT album FROM collection_has_release_join, artist INNER JOIN artist ON (album.artist = artist.id) WHERE collection_info = ?  ORDER BY artist.name, album.name', $this->{collectionId});
+	my $hasReleaseIds = $rawsql->SelectSingleColumnArray('SELECT album FROM collection_has_release_join WHERE collection_info = ?', $this->{collectionId});
 	
 	return $hasReleaseIds;
 }

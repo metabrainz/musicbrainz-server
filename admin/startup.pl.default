@@ -47,7 +47,7 @@ require ModDefs;
 require MusicBrainz::Server::Release;
 require MusicBrainz::Server::Alias;
 require MusicBrainz::Server::Artist;
-require CollectionPreference;
+require MusicBrainz::Server::CollectionPreference;
 require DebugLog;
 require FreeDB;
 require Insert;
