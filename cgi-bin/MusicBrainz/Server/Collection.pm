@@ -224,4 +224,37 @@ sub RemoveRelease
 	}
 }
 
+
+#----------------------------
+# static subs
+#----------------------------
+
+sub AddReleaseWithId
+{
+	my ($rawdbh, $releaseId, $collectionId) = @_;
+	
+	my $rawsql = Sql->new($rawdbh);
+	
+	eval
+	{
+		$rawsql->Begin();
+		
+		$rawsql->Do('INSERT INTO collection_has_release_join (collection_info, album) VALUES(?, ?)', $collectionId, $releaseId);
+	};
+	
+	if($@)
+	{
+		# ignore duplicate errors
+		if($@ !~ /duplicate/)
+		{
+			$rawsql->Rollback();
+			die($@);
+		}
+	}
+	else
+	{
+		$rawsql->Commit();
+	}
+}
+
 1;

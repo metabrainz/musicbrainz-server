@@ -254,28 +254,6 @@ sub setReleaseType
 }
 
 
-sub LoadForUser
-{
-	my ($userId, $dbh) = @_;
-
-	my $sql = Sql->new($dbh);
-	my $rows = $sql->SelectListOfLists("SELECT * FROM collection_info WHERE moderator = ?", $userId);
-
-#	for (@$rows)
-#	{
-#		my ($key, $value) = @$_;
-
-#		my $info = $prefs{$key}
-#			or warn("Moderator #$uid has invalid saved preference '$key'"), next;
-#		my $newvalue = $info->{CHECK}->($value);
-#		defined $newvalue
-#			or warn("Moderator #$uid has invalid saved value '$value' for preference '$key'"), next;
-#
-#		$s->{"PREF_$key"} = $newvalue;
-#	}
-}
-
-
 sub ArtistInMissingList
 {
 	my ($this, $artistId) = @_;
@@ -349,8 +327,21 @@ sub ArtistDontWatch
 	
 	my $collectionId = MusicBrainz::Server::CollectionInfo::GetCollectionIdForUser($userId, $mbraw->{DBH});
 	
+	eval
+	{
+		$rawsql->Begin();
+		$rawsql->Do('DELETE FROM collection_watch_artist_join WHERE collection_info = ? AND artist = ?', $collectionId, $artistId);
+	};
 	
-	$rawsql->Do('DELETE FROM collection_watch_artist_join WHERE collection_info = ? AND artist = ?', $collectionId, $artistId);
+	if($@)
+	{
+		$rawsql->Rollback();
+		die($@);
+	}
+	else
+	{
+		$rawsql->Commit();
+	}
 }
 
 
@@ -432,6 +423,9 @@ sub ArtistDontShowMissing
 
 
 
+=head2 GetReleaseTypes
+Returns a reference to a hash with info about the different release types.
+=cut
 sub GetReleaseTypes
 {
 	my %releaseTypes = (

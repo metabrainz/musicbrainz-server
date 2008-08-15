@@ -168,12 +168,12 @@ sub GetUserId
 }
 
 
-#
-#	TODO: IS THIS ONE EVEN USED?
-#
+=head2 GetHasReleaseIds $artistId
+Returns a reference to an array containing id's of all releases in collection.
+=cut
 sub GetHasReleaseIds
 {
-	my ($this, $artistId) = @_;
+	my ($this) = @_;
 	
 	my $rawsql = Sql->new($this->{RAWDBH});
 	
@@ -212,25 +212,9 @@ sub GetHasMBIDs
 		# get MBID's for all releases in collection
 		my $mbids; # for storing the result
 		
-		eval
-		{
-			$rosql->Begin();
-			
-			#my $releaseQuery='SELECT gid FROM album WHERE id IN(' . join(',', @{$result}) . ')';
-			my $releaseQuery='SELECT album.gid FROM album INNER JOIN artist ON (album.artist = artist.id) WHERE album.id IN(' . join(',', @{$result}) . ') ORDER BY artist.name, album.name';
+		my $releaseQuery='SELECT album.gid FROM album INNER JOIN artist ON (album.artist = artist.id) WHERE album.id IN(' . join(',', @{$result}) . ') ORDER BY artist.name, album.name';
 		
-			$mbids = $rosql->SelectListOfLists($releaseQuery);
-		};
-		
-		if($@)
-		{
-			print $@;
-			$rosql->Commit();
-		}
-		else
-		{
-			$rosql->Commit();
-		}
+		$mbids = $rosql->SelectListOfLists($releaseQuery);
 		
 		
 		return $mbids;
@@ -255,6 +239,9 @@ sub GetShowMissingArtists
 
 
 
+=head2 GetWatchArtists
+Returns a reference to an array containing id's of
+=cut
 sub GetWatchArtists
 {
 	my ($this) = @_;
@@ -320,11 +307,7 @@ sub NotifyUserAboutNewFromArtist
 
 
 
-# TODO:
-# do the SQL stuff in an eval
-# only select one version of each release(ignore e.g. UK version, USA version etc) 
-#
-# ignores all releases named [non-album tracks]
+
 sub GetMissingMBIDs
 {
 	my ($this) = @_;
@@ -332,13 +315,7 @@ sub GetMissingMBIDs
 	my $rosql = Sql->new($this->{RODBH});
 	my $rawsql = Sql->new($this->{RAWDBH});
 	
-	#dont select all this stuff, its done by Release
-	#my $query = "SELECT album.name AS albumname, album.attributes, album.gid AS mbid, album.artist AS artistid,artist.name AS artistname FROM album,artist WHERE album.artist IN (SELECT artist FROM collection_discography_artist_join WHERE collection_info='123') AND artist.id IN (SELECT artist FROM collection_discography_artist_join WHERE collection_info='123') ORDER BY artist.name";
-	
-	#$artists = 
-	
-	my $displayMissingOfArtists = $this->GetShowMissingArtists();#$rawsql->SelectSingleColumnArray('SELECT artist FROM collection_discography_artist_join WHERE collection_info = ?', $this->{collectionId});
-	#print STDERR Dumper(join(',', @$displayMissingOfArtists));
+	my $displayMissingOfArtists = $this->GetShowMissingArtists();
 	
 	my $count = @$displayMissingOfArtists;
 	
@@ -381,8 +358,6 @@ sub GetMissingMBIDsForArtist
 	my ($this, $artistId) = @_;
 	
 	my $rosql = Sql->new($this->{RODBH});
-	
-	#my $query="SELECT * FROM album WHERE artist IN (SELECT artist FROM collection_discography_artist_join WHERE collection_info='123')";
 		
 	my $result = $rosql->SelectListOfHashes("SELECT gid FROM album WHERE artist=", $artistId);
 	
@@ -392,12 +367,7 @@ sub GetMissingMBIDsForArtist
 
 
 
-# NOTES:
-# xlotlu: select foo, foo + '1 day'::interval as foo_tomorrow
-# xlotlu: niklas: extract (epoch from datefield)
-# xlotlu: niklas: you can use to_timestamp(date_string, date_format) ...
-# to_timestamp('1234-12-12', 'YYYY-MM-DD')
-# '1234-12-12'::TIMESTAMP
+
 sub GetNewReleases
 {
 	my ($this) = @_;
@@ -405,16 +375,6 @@ sub GetNewReleases
 	my $rosql = Sql->new($this->{RODBH});
 	
 	my $lastCheck = $this->GetLastCheck();
-	
-	#my $newReleases = ['685970', '696912']; # while testing
-	#my $newReleases = $rosql->SelectSingleColumnArray("SELECT id FROM album WHERE id IN(SELECT album FROM release WHERE to_date(releasedate, 'YYYY-MM-DD') > (CURRENT_DATE - '14 days'::INTERVAL) AND to_date(releasedate, 'YYYY-MM-DD') < (CURRENT_DATE + '14 days'::INTERVAL)) LIMIT 10");
-	#my $newReleases = $rosql->SelectSingleColumnArray("SELECT id FROM album WHERE id IN (SELECT id FROM albummeta WHERE dateadded > (CURRENT_TIMESTAMP - '14 days'::INTERVAL) AND dateadded < (CURRENT_TIMESTAMP + '14 days'::INTERVAL)) LIMIT 3");
-	
-	#my $newReleases = $rosql->SelectSingleColumnArray("SELECT id FROM album WHERE id IN (SELECT album FROM release WHERE to_date(releasedate, 'YYYY-MM-DD') > (CURRENT_DATE - '14 days'::INTERVAL) AND to_date(releasedate, 'YYYY-MM-DD') < (CURRENT_DATE + '14 days'::INTERVAL)) LIMIT 10");
-	
-	#my $newReleases = $rosql->SelectSingleColumnArray("SELECT id FROM album WHERE id IN(SELECT album FROM release WHERE to_date(releasedate, 'YYYY-MM-DD') > (CURRENT_DATE - '14 days'::INTERVAL) AND to_date(releasedate, 'YYYY-MM-DD') < (CURRENT_DATE + '14 days'::INTERVAL)) LIMIT 10");#, $this->GetLastCheck());
-	
-	#my $newReleases = $rosql->SelectSingleColumnArray("SELECT id FROM album WHERE id IN(SELECT id FROM album WHERE dateadded > (CURRENT_DATE - '1499 days'::INTERVAL) AND dateadded < (CURRENT_DATE + '14 days'::INTERVAL)) LIMIT 10");
 	
 	my $watchArtists = $this->GetWatchArtists();
 	
@@ -438,11 +398,6 @@ sub GetNewReleases
 	print 'last check: '.$this->GetLastCheck();
 	
 	return $newReleases;
-	
-	#my $newReleases = $rosql->SelectSingleColumnArray('SELECT id FROM album WHERE id IN (SELECT album FROM release WHERE releasedate < CURRENT_DATE + '14 days'::INTERVAL and releasedate > something)');
-	# SELECT id FROM album WHERE id IN(SELECT album FROM release WHERE to_date(releasedate, 'YYYY-MM-DD') > '2007-01-01'::DATE);
-	# SELECT gid FROM album WHERE id IN(SELECT album FROM release WHERE to_date(releasedate, 'YYYY-MM-DD') > '2007-01-01'::DATE);
-	# SELECT gid,id,name FROM album WHERE id IN(SELECT album FROM release WHERE to_date(releasedate, 'YYYY-MM-DD') > (CURRENT_DATE - '14 days'::INTERVAL) AND to_date(releasedate, 'YYYY-MM-DD') < (CURRENT_DATE + '14 days'::INTERVAL)) LIMIT 10;
 }
 
 
@@ -466,23 +421,28 @@ sub UpdateLastCheck
 	
 	my $rawsql = Sql->new($this->{RAWDBH});
 	
-	$rawsql->Do('UPDATE collection_info SET lastcheck = CURRENT_TIMESTAMP WHERE id = ?', $this->{collectionId});
-}
-
-
-
-# ?
-sub LoadHas
-{
+	eval
+	{
+		$rawsql->Do('UPDATE collection_info SET lastcheck = CURRENT_TIMESTAMP WHERE id = ?', $this->{collectionId});
+	};
 	
+	if($@)
+	{
+		$rawsql->Rollback();
+		die($@);
+	}
 }
 
 
 
-# ?
-sub LoadMissing
+# REMOVE
+sub HasRelease
 {
-	my (@missingArtists) = @_;
+	my ($this, $releaseId);
+	
+	my $rawsql = Sql->new($this->{RAWDBH});
+	
+	$rawsql->SelectSingleValue('SELECT album FROM ');
 }
 
 

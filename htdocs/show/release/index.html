@@ -43,6 +43,8 @@
 
 	$showtrackartists => $session{"showtrackartists"}
 	$showrelationships => $session{"showrelationships"}
+	
+	$addtocollection => undef
 
 </%args>
 <%perl>
@@ -149,7 +151,8 @@
 		showreleases => 1,
 		showtrackartiststoggle => 1,
 		showrelationshipstoggle => 1,
-        folksonomy => 1
+        folksonomy => 1,
+        addtocollection => $addtocollection
 	&>
 
 	<& /comp/js/diffcollapse, JSCollapse => 0 &>
