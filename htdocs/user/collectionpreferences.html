@@ -21,12 +21,16 @@
 	
 	require MusicBrainz::Server::CollectionPreference;
 	my $preferences = MusicBrainz::Server::CollectionPreference->new($mbro->{DBH}, $mbraw->{DBH}, $session{uid});
+	my @showReleaseTypes; # scalar containing the release types to display missing releases of and 
+	my $releaseTypes = MusicBrainz::Server::CollectionPreference::GetReleaseTypes();
 	
 	if($r->method eq 'POST')
 	{
 		for my $key ($preferences->valid_keys())
 		{
 			my $value = $ARGS{$key};
+			
+			print STDERR 'checking key '.$key;
 			
 			
 			# convert the value from "on" or empty to a boolean value
@@ -39,35 +43,24 @@
 				$value = 0;
 			}
 			
+			print STDERR $key;
 			
-			$preferences->set($key, $value);
+			
+			# check if it is a release type checkbox. they are treated differently
+			# store it in a scalar and then store this entire scalar
+			if($key =~ /pref_releasetype_/)
+			{
+				print STDERR Dumper($value);
+			}
+			else
+			{
+				$preferences->set($key, $value);
+			}
 		}
 	}
 	
 	
 	
-	
-	
-	
-	my %releaseTypes = (
-	    0 => [ "ignore_nonalbumtracks", "Non-Album Track", "Non-Album Tracks", "(Special case)"],
-	    1 => [ "ignore_album", "Album", "Albums", "An album release primarily consists of previously unreleased material. This includes album re-issues, with or without bonus tracks."],
-	    2 => [ "ignore_single", "Single", "Singles", "A single typically has one main song and possibly a handful of additional tracks or remixes of the main track. A single is usually named after its main song."],
-	    3 => [ "ignore_ep", "EP", "EPs", "An EP is an Extended Play release and often contains the letters EP in the title."],
-	    4 => [ "ignore_compilation", "Compilation", "Compilations", "A compilation is a collection of previously released tracks by one or more artists."],
-	    5 => [ "ignore_soundtrack", "Soundtrack", "Soundtracks", "A soundtrack is the musical score to a movie, TV series, stage show, computer game etc."],
-	    6 => [ "ignore_spokenword", "Spokenword", "Spokenword", "Non-music spoken word releases."],
-	    7 => [ "ignore_interview", "Interview", "Interviews", "An interview release contains an interview with the Artist."],
-	    8 => [ "ignore_audiobook", "Audiobook", "Audiobooks", "An audiobook is a book read by a narrator without music."],
-	    9 => [ "ignore_live", "Live", "Live Releases", "A release that was recorded live."],
-	    10 => [ "ignore_remix", "Remix", "Remixes", "A release that was (re)mixed from previously released material."],
-	    11 => [ "ignore_other", "Other", "Other Releases", "Any release that does not fit any of the categories above."],
-	
-	    100 => [ "ignore_official", "Official", "Official", "Any release officially sanctioned by the artist and/or their record company. (Most releases will fit into this category.)"],
-	    101 => [ "ignore_promotion", "Promotion", "Promotions", "A giveaway release or a release intended to promote an upcoming official release. (e.g. prerelease albums or releases included with a magazine)"],
-	    102 => [ "ignore_bootleg", "Bootleg", "Bootlegs", "An unofficial/underground release that was not sanctioned by the artist and/or the record company."],
-	    103 => [ "ignore_pseudorelease", "Pseudo-Release", "PseudoReleases", "A pseudo-release is a duplicate release for translation/transliteration purposes."]
-	);
 
 
 
@@ -98,18 +91,25 @@
 				E-mail notifications about upcoming releases.</label>
 		</div>
 		
-		
-%		for my $key (keys %releaseTypes)
+		<br/>
+		<div>
+			I want to see results for releases of the following release types:
+%		for my $key (keys %{$releaseTypes})
 %		{
 			<div>
-				<input type="checkbox" name="emailnotifications" id="pref_emailnotifications"
-%				$m->out($preferences->get('emailnotifications')==1 ? ' checked="checked" ' : '' );
-					/>
+				<input type="checkbox" name="<%perl>$m->out($releaseTypes->{$key}[0]);</%perl>" id="pref_<%perl>$m->out($releaseTypes->{$key}[0]);</%perl>"<%perl>$m->out(' value="' . $key . '"');
+				$m->out($preferences->get('emailnotifications')==1 ? ' checked="checked" ' : '' );
+				
+				</%perl>/>
 				<label for="pref_vote_abs_default">
+%					$m->out($releaseTypes->{$key}[1]);# . ' - ' . $releaseTypes{$key}[2];
 				</label>
 			</div>
 %		}
+		</div>
 	<& /comp/tableend &>
+	
+	
 	
 	<& /comp/tablebegin, title => "Ignore release types" &>
 	

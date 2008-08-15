@@ -1,4 +1,4 @@
-nnnn<%perl>
+<%perl>
 	# -----------------------------------------------------------------------------
 	#                               Musicbrainz.org
 	#                        Copyright (c) 2001 Robert Kaye
@@ -83,12 +83,12 @@ nnnn<%perl>
 	}
 	
 	
-	print STDERR Dumper($notify);
 	if(defined($notify))
 	{
-		print STDERR 'notify NOT UNDEFINED';
 		if($notify == 1)
 		{
+			# Make sure user is logged on
+			$m->comp("/comp/checkloggedin", 1, 1, "You need to be logged in to modify your collection preferences.", 1) or return;
 			MusicBrainz::Server::CollectionPreference::ArtistWatch($artist->GetId(), $session{uid});
 		}
 		elsif($notify == 0)
@@ -99,10 +99,10 @@ nnnn<%perl>
 	
 	if(defined($dispmissing))
 	{
-		print STDERR 'dispmissing NOT UNDEFINED';
-		print STDERR Dumper($dispmissing);
 		if($dispmissing == 1)
 		{
+			# Make sure user is logged on
+			$m->comp("/comp/checkloggedin", 1, 1, "You need to be logged in to modify your collection preferences.", 1) or return;
 			MusicBrainz::Server::CollectionPreference::ArtistMissing($artist->GetId(), $session{uid});
 		}
 		elsif($dispmissing == 0)
@@ -252,7 +252,6 @@ nnnn<%perl>
 	}
 	
 	# Row 5: Collection links
-	print STDERR 'ShowMissingOfArtistToUser:' . MusicBrainz::Server::CollectionInfo::ShowMissingOfArtistToUser($id, $session{uid}, $mbraw->{DBH});
 	
 	
 	if($session{uid} != undef)
