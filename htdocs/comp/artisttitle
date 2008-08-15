@@ -85,10 +85,14 @@
 	
 	if(defined($notify))
 	{
+		# make sure the user has a collection_info tuple
+		MusicBrainz::Server::CollectionInfo::AssureCollection($session{uid}, $mbraw->{DBH});
+			
 		if($notify == 1)
 		{
 			# Make sure user is logged on
 			$m->comp("/comp/checkloggedin", 1, 1, "You need to be logged in to modify your collection preferences.", 1) or return;
+	
 			MusicBrainz::Server::CollectionPreference::ArtistWatch($artist->GetId(), $session{uid});
 		}
 		elsif($notify == 0)
@@ -99,10 +103,14 @@
 	
 	if(defined($dispmissing))
 	{
+		# make sure the user has a collection_info tuple
+		MusicBrainz::Server::CollectionInfo::AssureCollection($session{uid}, $mbraw->{DBH});
+		
 		if($dispmissing == 1)
 		{
 			# Make sure user is logged on
 			$m->comp("/comp/checkloggedin", 1, 1, "You need to be logged in to modify your collection preferences.", 1) or return;
+			
 			MusicBrainz::Server::CollectionPreference::ArtistMissing($artist->GetId(), $session{uid});
 		}
 		elsif($dispmissing == 0)

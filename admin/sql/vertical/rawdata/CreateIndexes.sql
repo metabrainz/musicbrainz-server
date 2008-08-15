@@ -24,7 +24,7 @@ CREATE INDEX label_tag_raw_idx_label ON label_tag_raw (label);
 CREATE INDEX label_tag_raw_idx_tag ON label_tag_raw (tag);
 CREATE INDEX label_tag_raw_idx_moderator ON label_tag_raw (moderator);
 
--- an unique index made out of all the fields in the collection_has_release_join table. used to not allow duplicates of tuples
+-- unique indexes so that duplicates are not allowed
 CREATE UNIQUE INDEX collection_has_release_join_combined_index ON collection_has_release_join (collection_info, album);
 CREATE UNIQUE INDEX collection_discography_artist_join_combined_index ON collection_discography_artist_join (collection_info, artist);
 CREATE UNIQUE INDEX collection_ignore_release_combined_index ON collection_ignore_release_join (collection_info, album);

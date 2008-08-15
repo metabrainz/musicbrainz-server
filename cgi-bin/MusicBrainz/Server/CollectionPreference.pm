@@ -1,7 +1,6 @@
 #
 # TODO:
 # check values
-# if possible insert all tuples in setMissing... in one INSERT query
 # make another new sub which does not get values from db, as the values are known from POST data(when sent)
 #
 
@@ -59,6 +58,8 @@ sub new
 	$object->addpref('emailnotifications', 0, \&check_bool);
 	$object->addpref('notificationinterval', 7, sub { check_int(1,31,@_) });
 	
+	my $releaseTypes = MusicBrainz::Server::CollectionPreference::GetReleaseTypes();
+	
 	
 	my $selectprefs;
 	
@@ -85,6 +86,14 @@ sub new
 		'emailnotifications' => {'KEY' => 'emailnotifications', VALUE => $selectprefs->{emailnotifications}, 'CHECK' => sub { check_int(1,31,@_) }},
 		'notificationinterval' => {'KEY' => 'notificationinterval', VALUE => $selectprefs->{notificationinterval}, 'CHECK' => \&check_bool}
 	};
+	
+	
+	# iterate over the release types and add those as valid keys with a dummy value
+	for my $key (keys %{$releaseTypes})
+	{
+		#$prefs->{$releaseTypes->{$key}[0]} = {'KEY' => $releaseTypes->{$key}[0], 'VALUE' => undef, 'CHECK' => undef};
+	}
+	
 	
 	
 	$object->{prefs} = $prefs;
@@ -127,6 +136,7 @@ sub addpref
 sub valid_keys {
 	my ($this) = @_;
 	use Data::Dumper;
+	print STDERR Dumper($this->{prefs});
 	my $prefs=$this->{prefs};
 	#return keys %prefs;
 	#my $prefs=$this->{prefs};
@@ -186,6 +196,7 @@ sub set
 	my $oldvalue = $info->{VALUE};
 	my $oldcheck = $info->{CHECK};
 	
+	print STDERR 'key:'.$key.' value:'.Dumper($value);
 	
 	
 	
@@ -230,6 +241,19 @@ sub set
 }
 
 
+sub getReleaseType
+{
+	
+}
+
+
+
+sub setReleaseType
+{
+	
+}
+
+
 sub LoadForUser
 {
 	my ($userId, $dbh) = @_;
@@ -264,6 +288,8 @@ sub ArtistInMissingList
 
 
 
+
+
 #--------------------------------------------------
 # Static subs
 #--------------------------------------------------
@@ -291,10 +317,20 @@ sub ArtistWatch
 	
 	if($@)
 	{
-		die('Could not add artist to list of artists being watched');
+		# do not care about duplicate error. it is caused by a user reloading page when a GET variable is set to add this artist
+		if($@ =~ /duplicate/)
+		{
+			
+		}
+		else
+		{
+			die('Could not add artist to list of artists being watched');
+		}
 	}
-	
-	$rawsql->Commit();
+	else
+	{
+		$rawsql->Commit();
+	}
 }
 
 
@@ -335,8 +371,28 @@ sub ArtistMissing
 	
 	my $collectionId = MusicBrainz::Server::CollectionInfo::GetCollectionIdForUser($userId, $mbraw->{DBH});
 	
+	eval
+	{
+		$rawsql->Begin();
+		$rawsql->Do('INSERT INTO collection_discography_artist_join (collection_info, artist) VALUES (?, ?)', $collectionId, $artistId);
+	};
 	
-	$rawsql->Do('INSERT INTO collection_discography_artist_join (collection_info, artist) VALUES (?, ?)', $collectionId, $artistId);
+	if($@)
+	{
+		# do not care about duplicate error. it is caused by a user reloading page when a GET variable is set to add this artist
+		if($@ =~ /duplicate/)
+		{
+			
+		}
+		else
+		{
+			die('Could not add artist to list of artists being watched');
+		}
+	}
+	else
+	{
+		$rawsql->Commit();
+	}
 }
 
 
@@ -357,8 +413,48 @@ sub ArtistDontShowMissing
 	
 	my $collectionId = MusicBrainz::Server::CollectionInfo::GetCollectionIdForUser($userId, $mbraw->{DBH});
 	
+	eval
+	{
+		$rawsql->Begin();
+		$rawsql->Do('DELETE FROM collection_discography_artist_join WHERE collection_info = ? AND artist = ?', $collectionId, $artistId);
+	};
+	
+	if($@)
+	{
+		$rawsql->Rollback;
+		die($@);
+	}
+	else
+	{
+		$rawsql->Commit();
+	}
+}
 
-	$rawsql->Do('DELETE FROM collection_discography_artist_join WHERE collection_info = ? AND artist = ?', $collectionId, $artistId);
+
+
+sub GetReleaseTypes
+{
+	my %releaseTypes = (
+	    0 => [ "releasetype_nonalbumtracks", "Non-Album Track", "Non-Album Tracks", "(Special case)"],
+	    1 => [ "releasetype_album", "Album", "Albums", "An album release primarily consists of previously unreleased material. This includes album re-issues, with or without bonus tracks."],
+	    2 => [ "releasetype_single", "Single", "Singles", "A single typically has one main song and possibly a handful of additional tracks or remixes of the main track. A single is usually named after its main song."],
+	    3 => [ "releasetype_ep", "EP", "EPs", "An EP is an Extended Play release and often contains the letters EP in the title."],
+	    4 => [ "releasetype_compilation", "Compilation", "Compilations", "A compilation is a collection of previously released tracks by one or more artists."],
+	    5 => [ "releasetype_soundtrack", "Soundtrack", "Soundtracks", "A soundtrack is the musical score to a movie, TV series, stage show, computer game etc."],
+	    6 => [ "releasetype_spokenword", "Spokenword", "Spokenword", "Non-music spoken word releases."],
+	    7 => [ "releasetype_interview", "Interview", "Interviews", "An interview release contains an interview with the Artist."],
+	    8 => [ "releasetype_audiobook", "Audiobook", "Audiobooks", "An audiobook is a book read by a narrator without music."],
+	    9 => [ "releasetype_live", "Live", "Live Releases", "A release that was recorded live."],
+	    10 => [ "releasetype_remix", "Remix", "Remixes", "A release that was (re)mixed from previously released material."],
+	    11 => [ "releasetype_other", "Other", "Other Releases", "Any release that does not fit any of the categories above."],
+	
+	    100 => [ "releasetype_official", "Official", "Official", "Any release officially sanctioned by the artist and/or their record company. (Most releases will fit into this category.)"],
+	    101 => [ "releasetype_promotion", "Promotion", "Promotions", "A giveaway release or a release intended to promote an upcoming official release. (e.g. prerelease albums or releases included with a magazine)"],
+	    102 => [ "releasetype_bootleg", "Bootleg", "Bootlegs", "An unofficial/underground release that was not sanctioned by the artist and/or the record company."],
+	    103 => [ "releasetype_pseudorelease", "Pseudo-Release", "PseudoReleases", "A pseudo-release is a duplicate release for translation/transliteration purposes."]
+	);
+	
+	return \%releaseTypes;
 }
 
 

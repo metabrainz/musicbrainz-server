@@ -126,52 +126,13 @@ sub AddRelease #"album" in current schema
 	
 	
 	# make sure this is valid format for a mbid
-	#if($mbid =~ m/[a-z0-9]{8}[:-][a-z0-9]{4}[:-][a-z0-9]{4}[:-][a-z0-9]{4}[:-][a-z0-9]{12}/)
 	if(MusicBrainz::Server::Validation::IsGUID($mbid))
 	{
 		my $releaseId;
 		
-		eval
-		{
-			$rosql->Begin();
-			
-			
-			#use Data::Dumper;
-			#print Dumper($mbid);
-			# get album id
-			$releaseId = $rosql->SelectSingleValue("SELECT id FROM album WHERE gid = ?", $mbid);
-			
-			#print Dumper($releaseId);
-			
-			if($releaseId=="undef") # the mbid does not exist
-			{
-				push(@{$this->{addAlbum_notExistingArray}}, $mbid);
-			}
-		};
 		
-		if($@)
-		{
-			my $error=$@; # get the error message
-			
-			if($error =~ /duplicate/) # it is a duplicate... add it to the array of duplicates
-			{
-				push(@{$this->{addAlbum_duplicateArray}}, $mbid);
-			}
-			elsif($error =~ /asd/)
-			{
-			
-			}
-			else
-			{
-				print $error;
-			}
-			
-			$rosql->Commit();	
-		}
-		else
-		{
-			$rosql->Commit();
-		}
+		# get album id
+		$releaseId = $rosql->SelectSingleValue("SELECT id FROM album WHERE gid = ?", $mbid);
 				
 		
 		eval
@@ -180,8 +141,6 @@ sub AddRelease #"album" in current schema
 			
 				
 			# add MBID to the collection
-			my $attributes={id => 456, collection_info => 123, album => $releaseId};
-			#$rawsql->InsertRow("collection_has_release_join", $attributes);
 			$rawsql->Do('INSERT INTO collection_has_release_join (collection_info, album) VALUES (?, ?)', $collectionId, $releaseId);
 			
 			# increase add count
@@ -224,7 +183,7 @@ sub RemoveRelease
 	my ($this, $mbid) = @_;
 	
 	# make sure this is valid format for a mbid
-	if($mbid =~ m/[a-z0-9]{8}[:-][a-z0-9]{4}[:-][a-z0-9]{4}[:-][a-z0-9]{4}[:-][a-z0-9]{12}/)
+	if(MusicBrainz::Server::Validation::IsGUID($mbid))
 	{
 		my $rawsql = Sql->new($this->{RAWDBH});
 		my $rosql = Sql->new($this->{RODBH});
@@ -232,36 +191,16 @@ sub RemoveRelease
 		
 		
 		# get id for realease with specified mbid
-		my $albumId;
+		my $albumId = $rosql->SelectSingleValue("SELECT id FROM album WHERE gid = ?", $mbid);
 		
-		eval
-		{
-			$rosql->Begin();
-			
-			$albumId = $rosql->SelectSingleValue("SELECT id FROM album WHERE gid = ?", $mbid);
-		};
-		
-		if($@)
-		{
-			print $@;
-			$rosql->Commit();
-		}
-		else
-		{
-			$rosql->Commit();
-		}
 		
 		eval
 		{
 			$rawsql->Begin();
-			# get the album id
-			#my $selectResult=$sql->SelectSingleRowHash("SELECT id FROM album WHERE gid='$mbid'");
-			#my $albumId=$selectResult->{id};
 			
 			# make sure there is a release with the mbid in the database
 			my $deleteResult = $rawsql->Do("DELETE FROM collection_has_release_join WHERE album='?' AND collection_info='?'", $albumId, $this->{collectionId});
 			
-			#print "Result:$deleteResult\n";
 			
 			if($deleteResult == 1) # successfully deleted
 			{
@@ -272,9 +211,7 @@ sub RemoveRelease
 		
 		if($@)
 		{
-			my $error = $@; # get the error message
-			print $error;
-			$rawsql->Commit();
+			$rawsql->Rollback();
 		}
 		else
 		{

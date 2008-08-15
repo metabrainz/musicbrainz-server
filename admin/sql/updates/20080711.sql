@@ -15,7 +15,7 @@ CREATE TABLE collection_info
 	emailnotifications				BOOLEAN DEFAULT TRUE, -- send notifications by e-mail?
 	notificationinterval			INTEGER DEFAULT 7, -- specifies how many days in advance of a release date the user want to be notified
 	ignorecollectionattributes		INTEGER[], -- list of attributes to ignore when displaying missing releases
-	ignorewatchattributes				INTEGER[] -- list of attributes to ignore when sending notifications
+	ignorewatchattributes			INTEGER[] -- list of attributes to ignore when sending notifications
 );
 
 CREATE TABLE collection_ignore_time_range
@@ -59,7 +59,10 @@ CREATE TABLE collection_has_release_join
 
 
 -- an unique index made out of all the fields in the collection_has_release_join table. used to not allow duplicates of tuples
-CREATE UNIQUE INDEX collection_has_release_join_combined_index ON collection_has_release_join (id, collection_info, album);
+CREATE UNIQUE INDEX collection_has_release_join_combined_index ON collection_has_release_join (collection_info, album);
+CREATE UNIQUE INDEX collection_discography_artist_join_combined_index ON collection_discography_artist_join (collection_info, artist);
+CREATE UNIQUE INDEX collection_ignore_release_combined_index ON collection_ignore_release_join (collection_info, album);
+CREATE UNIQUE INDEX collection_watch_artist_combined_index ON collection_watch_artist_join (collection_info, artist);
 
 CREATE INDEX collection_ignore_release_join_index ON collection_ignore_release_join (collection_info);
 CREATE INDEX collection_discography_artist_join_index ON collection_discography_artist_join (collection_info);

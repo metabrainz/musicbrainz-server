@@ -1,8 +1,6 @@
 #
 # TODO:
-# remove notificationinterval etc from query in CreateCollection and set them as default values in CreateTables.sql instead
-# do some of the SQL querys in evals
-# look up when to use/require should be used
+# look up when use/require should be used
 # get some stuff from the CollectionPreference object instead of doing new queries in here
 #
 
@@ -128,13 +126,13 @@ sub CreateCollection
 	eval
 	{
 		$rawsql->Begin();
-		$rawsql->Do("INSERT INTO collection_info (moderator, publiccollection, emailnotifications, notificationinterval) VALUES (?, TRUE, TRUE, 7)", $userId);
+		$rawsql->Do("INSERT INTO collection_info (moderator, publiccollection, emailnotifications) VALUES (?, TRUE, TRUE)", $userId);
 	};
 	
 	if($@)
 	{
-		$rawsql->Commit();
-		print $@;
+		$rawsql->Rollback();
+		die($@);
 	}
 	else
 	{
