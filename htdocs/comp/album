@@ -118,7 +118,8 @@
 				showrelationships => $showrelationships,
 				showtrackartiststoggle => $showtrackartiststoggle,
 				showrelationshipstoggle => $showrelationshipstoggle,
-                folksonomy => $folksonomy
+                folksonomy => $folksonomy,
+                addtocollection => $addtocollection
 			);
 	}
 

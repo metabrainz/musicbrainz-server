@@ -141,7 +141,7 @@ sub AddRelease #"album" in current schema
 			
 				
 			# add MBID to the collection
-			$rawsql->Do('INSERT INTO collection_has_release_join (collection_info, album) VALUES (?, ?)', $collectionId, $releaseId);
+			$rawsql->Do('INSERT INTO collection_has_release_join (collection_info, album) VALUES (?, ?)', $this->{collectionId}, $releaseId);
 			
 			# increase add count
 			$this->{addAlbum_insertCount}++;
