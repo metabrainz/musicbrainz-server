@@ -327,6 +327,13 @@ table.artisttitle td.relationshiplinks {
 	border-top: 1px solid #000;
 }
 
+table.artisttitle td.collection
+{
+	padding: 2px 4px;
+	background-color: #c6cbd7;
+	border-top: 1px solid #000;
+}
+
 /* ------------------------------------------------------------------------- 
 	* /comp/albumbegin
 	* The release header table.
@@ -473,6 +480,12 @@ table.releaselinks td.edit {
 table.releaselinks td.tags {
 	background-color: #F0F6FF; color: #000;
 	border-top: 1px solid #000;
+}
+
+/* collection add/remove link box */
+table.releaselinks td.collection {
+	background-color:#c6cbd7;
+	border-top:1px solid #000;
 }
 
 

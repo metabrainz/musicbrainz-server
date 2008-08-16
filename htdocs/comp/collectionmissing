@@ -52,12 +52,15 @@ for my $mbid (@{$releases})
 	$release->SetMBId($mbid);
 	$release->LoadFromId();
 	
-	my $artistname = $rosql->SelectSingleValue("SELECT name FROM artist WHERE id='" . $release->GetArtist() . "'");
+	# load the artist of this release
+	my $artist = MusicBrainz::Server::Artist->new($rodbh);
+	$artist->SetId($release->GetArtist());
+	$artist->LoadFromId();
 	
 	
 	print '<tr class="'.('ev', 'od')[$rownum % 2].'">';
-	print '<td>'. $artistname .'</td>';
-	print '<td>'. $release->GetName() .'</td>';
+	print '<td><a href="/artist/' . $artist->GetMBId() . '.html">' . $artist->GetName() . '</a></td>';
+	print '<td><a href="/release/' . $release->GetMBId(). '.html">' .$release->GetName() .'</a></td>';
 	#print '<td>'. $release->GetFirstReleaseDate() .'</td>';
 </%perl>
 	<td><& /comp/releasedate, $release->GetFirstReleaseDateYMD &></td>

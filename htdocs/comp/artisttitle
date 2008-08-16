@@ -265,7 +265,7 @@
 	if($session{uid} != undef)
 	{
 		$m->out(qq!<tr>!);
-		$m->out(qq!<td colspan="2" class="editlinks">!);
+		$m->out(qq!<td colspan="2" class="collection">!);
 		$m->out(qq!Collection: [ !);
 		if(MusicBrainz::Server::CollectionInfo::NotifyUserAboutNewFromArtist($id, $session{uid}, $mbraw->{DBH}))
 		{

@@ -5,8 +5,19 @@
 	$dbh => undef
 	$rodbh => undef
 	$rawdbh => undef
+	$removerelease => undef
 </%args>
 
+<%perl>
+
+# if a release id is specified in in the removerelease get variable remove this release from collection
+if(defined($removerelease))
+{
+	MusicBrainz::Server::Collection::RemoveReleaseWithId($rawdbh, $removerelease, $collectionId);
+}
+
+
+</%perl>
 
 <& /comp/tablebegin, title => "Music in collection" &>
 
@@ -46,6 +57,7 @@ else
 		<td><b>Release name</b></td>
 		<td><b>Release date</b></td>
 		<td><b>Track count</b></td>
+		<td><b>Remove</b></td>
 	</tr>
 
 
@@ -78,6 +90,7 @@ for my $mbid (@{$releases})
 	<td><& /comp/releasedate, $release->GetFirstReleaseDateYMD &></td>
 <%perl>
 	print '<td>'. $release->GetTrackCount() .'</td>';
+	print '<td><a href="/show/collection/?removerelease=' . $release->GetId() . '">remove</a></td>';
 	print '</tr>';
 
 	$rownum++;

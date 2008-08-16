@@ -5,6 +5,29 @@
 #
 
 #!/usr/bin/perl -w
+#____________________________________________________________________________
+#
+#	MusicBrainz -- the open music metadata database
+#
+#	Copyright (C) 2001 Robert Kaye
+#
+#	This program is free software; you can redistribute it and/or modify
+#	it under the terms of the GNU General Public License as published by
+#	the Free Software Foundation; either version 2 of the License, or
+#	(at your option) any later version.
+#
+#	This program is distributed in the hope that it will be useful,
+#	but WITHOUT ANY WARRANTY; without even the implied warranty of
+#	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#	GNU General Public License for more details.
+#
+#	You should have received a copy of the GNU General Public License
+#	along with this program; if not, write to the Free Software
+#	Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+#	$Id: Sql.pm 9606 2007-11-24 16:14:09Z luks $
+#____________________________________________________________________________
+
 
 use strict;
 
@@ -74,87 +97,6 @@ sub newMissingCollectionInfo
 {
 }
 
-
-
-=head2 AssureCollection $userId, $rawdbh
-Assure that the user with id C<$userId> has a collection tuple. If it does not have one yet - create it.
-This sub should be called from every page/module that require the user to have a collection.
-=cut
-sub AssureCollection
-{
-	my ($userId, $rawdbh) = @_;
-	
-	if(HasCollection($userId, $rawdbh))
-	{
-		#print 'HAS COLLECTION';
-	}
-	else
-	{
-		#print 'DO NOT HAVE COLLECTION';
-		CreateCollection($userId, $rawdbh);
-	}
-}
-
-
-
-=head2 HasCollection $userId, $rawdbh
-Check if user with id C<$userId> has a collection_info tuple.
-Returns true or false.
-=cut
-sub HasCollection
-{
-	my ($userId, $rawdbh) = @_;
-	
-	my $sql = Sql->new($rawdbh);
-		
-	return $sql->SelectSingleValue("SELECT COUNT(*) FROM collection_info WHERE moderator=?", $userId);
-}
-
-
-
-=head2 CreateCollection $userId, $rawdbh
-Create a collection_info tuple for the specified user.
-=cut
-sub CreateCollection
-{
-	my ($userId, $rawdbh) = @_;
-	
-	my $rawsql = Sql->new($rawdbh);
-	
-	
-	
-	eval
-	{
-		$rawsql->Begin();
-		$rawsql->Do("INSERT INTO collection_info (moderator, publiccollection, emailnotifications) VALUES (?, TRUE, TRUE)", $userId);
-	};
-	
-	if($@)
-	{
-		$rawsql->Rollback();
-		die($@);
-	}
-	else
-	{
-		$rawsql->Commit();
-	}	
-}
-
-
-
-=head2 GetCollectionIdForUser $userId, $rawdbh
-Get the id of the collection_info tuple corresponding to the specified user.
-=cut
-sub GetCollectionIdForUser
-{
-	my ($userId, $rawdbh) = @_;
-	
-	my $sqlraw = Sql->new($rawdbh);
-	
-	my $collectionId=$sqlraw->SelectSingleValue("SELECT id FROM collection_info WHERE moderator=?", $userId);
-	
-	return $collectionId;
-}
 
 
 =head2 GetUserId
@@ -435,14 +377,115 @@ sub UpdateLastCheck
 
 
 
-# REMOVE
+#----------------------------
+# static subs
+#----------------------------
+
+=head2 AssureCollection $userId, $rawdbh
+Assure that the user with id C<$userId> has a collection tuple. If it does not have one yet - create it.
+This sub should be called from every page/module that require the user to have a collection.
+=cut
+sub AssureCollection
+{
+	my ($userId, $rawdbh) = @_;
+	
+	if(HasCollection($userId, $rawdbh))
+	{
+		#print 'HAS COLLECTION';
+	}
+	else
+	{
+		#print 'DO NOT HAVE COLLECTION';
+		CreateCollection($userId, $rawdbh);
+	}
+}
+
+
+
+=head2 HasCollection $userId, $rawdbh
+Check if user with id C<$userId> has a collection_info tuple.
+Returns true or false.
+=cut
+sub HasCollection
+{
+	my ($userId, $rawdbh) = @_;
+	
+	my $sql = Sql->new($rawdbh);
+		
+	return $sql->SelectSingleValue("SELECT COUNT(*) FROM collection_info WHERE moderator=?", $userId);
+}
+
+
+
+=head2 CreateCollection $userId, $rawdbh
+Create a collection_info tuple for the specified user.
+=cut
+sub CreateCollection
+{
+	my ($userId, $rawdbh) = @_;
+	
+	my $rawsql = Sql->new($rawdbh);
+	
+	
+	
+	eval
+	{
+		$rawsql->Begin();
+		$rawsql->Do("INSERT INTO collection_info (moderator, publiccollection, emailnotifications) VALUES (?, TRUE, TRUE)", $userId);
+	};
+	
+	if($@)
+	{
+		$rawsql->Rollback();
+		die($@);
+	}
+	else
+	{
+		$rawsql->Commit();
+	}	
+}
+
+
+
+=head2 GetCollectionIdForUser $userId, $rawdbh
+Get the id of the collection_info tuple corresponding to the specified user.
+=cut
+sub GetCollectionIdForUser
+{
+	my ($userId, $rawdbh) = @_;
+	
+	my $sqlraw = Sql->new($rawdbh);
+	
+	my $collectionId=$sqlraw->SelectSingleValue("SELECT id FROM collection_info WHERE moderator=?", $userId);
+	
+	return $collectionId;
+}
+
+
+
 sub HasRelease
 {
-	my ($this, $releaseId);
+	my ($rawdbh, $collectionId, $releaseId) = @_;
 	
-	my $rawsql = Sql->new($this->{RAWDBH});
+	my $rawsql = Sql->new($rawdbh);
 	
-	$rawsql->SelectSingleValue('SELECT album FROM ');
+	
+	my $count;
+	
+
+	#$count = $rawsql->SelectSingleValue('SELECT COUNT(*) FROM collection_has_release_join WHERE collection_info = ? AND album = ?', $collectionId, $releaseId);
+	$count=1;
+	
+	
+	
+	if($count>0)
+	{
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
 }
 
 

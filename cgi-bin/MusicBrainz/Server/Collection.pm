@@ -1,11 +1,26 @@
-#
-#
-#	TODO:
-#
-#
-
 #!/usr/bin/perl -w
-
+#____________________________________________________________________________
+#
+#	MusicBrainz -- the open music metadata database
+#
+#	Copyright (C) 2001 Robert Kaye
+#
+#	This program is free software; you can redistribute it and/or modify
+#	it under the terms of the GNU General Public License as published by
+#	the Free Software Foundation; either version 2 of the License, or
+#	(at your option) any later version.
+#
+#	This program is distributed in the hope that it will be useful,
+#	but WITHOUT ANY WARRANTY; without even the implied warranty of
+#	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#	GNU General Public License for more details.
+#
+#	You should have received a copy of the GNU General Public License
+#	along with this program; if not, write to the Free Software
+#	Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+#	$Id: Sql.pm 9606 2007-11-24 16:14:09Z luks $
+#____________________________________________________________________________
 
 use TableBase;
 { our @ISA = qw( TableBase ) }
@@ -117,7 +132,7 @@ sub RemoveAlbums
 =head2 addRelease $mbid
 Add the release with MBId C<$mbid> to collection.
 =cut
-sub AddRelease #"album" in current schema
+sub AddRelease
 {
 	my ($this, $mbid) = @_;
 	
@@ -139,7 +154,7 @@ sub AddRelease #"album" in current schema
 		{
 			$rawsql->Begin();
 			
-				
+			$rawsql->Quiet(1);
 			# add MBID to the collection
 			$rawsql->Do('INSERT INTO collection_has_release_join (collection_info, album) VALUES (?, ?)', $this->{collectionId}, $releaseId);
 			
@@ -148,19 +163,19 @@ sub AddRelease #"album" in current schema
 		};
 		
 		if($@)
-		{
-			my $error = $@; # get the error message
-			
-			if($error =~ /duplicate/) # it is a duplicate... add it to the array of duplicates
+		{			
+			if($@ =~ /duplicate/) # it is a duplicate... add it to the array of duplicates
 			{
+				print STDERR 'CATCHED CATCHED                 CATCHED';
 				push(@{$this->{addAlbum_duplicateArray}}, $mbid);
 			}
 			else
 			{
-				print $error;
+				print STDERR '                         NOT CATCHED                      NOT CATCHED                   NOT CATCHED          ';
+				#die($@);
 			}
 			
-			$rawsql->Commit();	
+			$rawsql->Rollback();	
 		}
 		else
 		{
@@ -175,9 +190,53 @@ sub AddRelease #"album" in current schema
 
 
 
+sub AddReleaseWithId
+{
+	my($this, $releaseId, $collectionId, $mbid) = @_;
+	
+	
+	my $rawsql=Sql->new($this->{RAWDBH});
+	
+	
+	eval
+	{
+		$rawsql->Begin();
+		
+		$rawsql->Quiet(1);
+		# add MBID to the collection
+		$rawsql->Do('INSERT INTO collection_has_release_join (collection_info, album) VALUES (?, ?)', $collectionId, $releaseId);
+		
+		# increase add count
+		$this->{addAlbum_insertCount}++;
+	};
+	
+	if($@)
+	{			
+		if($@ =~ /duplicate/) # it is a duplicate... add it to the array of duplicates
+		{
+			push(@{$this->{addAlbum_duplicateArray}}, $mbid);
+		}
+		else
+		{
+			die($@);
+		}
+		
+		$rawsql->Rollback();	
+	}
+	else
+	{
+		$rawsql->Commit();
+	}
+
+}
+
+
+
 =head2 removeRelease $mbid
 Remove realease with MBId C<$mbid> from collection
 =cut
+# TO DO: call RemoveReleaseWithId after getting id.
+# do this for AddRelease as well
 sub RemoveRelease
 {
 	my ($this, $mbid) = @_;
@@ -212,6 +271,7 @@ sub RemoveRelease
 		if($@)
 		{
 			$rawsql->Rollback();
+			die($@);
 		}
 		else
 		{
@@ -222,7 +282,12 @@ sub RemoveRelease
 	{
 		$this->{removeAlbum_invalidMBIDCount}++; # increase invalid mbid count
 	}
+	
+	
+	# $this->{removeAlbum_removeCount}++;
 }
+
+
 
 
 #----------------------------
@@ -235,6 +300,7 @@ sub AddReleaseWithId
 	
 	my $rawsql = Sql->new($rawdbh);
 	
+	
 	eval
 	{
 		$rawsql->Begin();
@@ -245,7 +311,11 @@ sub AddReleaseWithId
 	if($@)
 	{
 		# ignore duplicate errors
-		if($@ !~ /duplicate/)
+		if($@ =~ /duplicate/)
+		{
+			$rawsql->Rollback();
+		}
+		else
 		{
 			$rawsql->Rollback();
 			die($@);
@@ -256,5 +326,35 @@ sub AddReleaseWithId
 		$rawsql->Commit();
 	}
 }
+
+
+
+sub RemoveReleaseWithId
+{
+	my ($rawdbh, $releaseId, $collectionId) = @_;
+	
+	my $rawsql = Sql->new($rawdbh);
+	
+	eval
+	{
+		$rawsql->Begin();
+		
+		# make sure there is a release with the mbid in the database
+		my $deleteResult = $rawsql->Do("DELETE FROM collection_has_release_join WHERE album = ? AND collection_info = ?", $releaseId, $collectionId);
+		print STDERR "DELETING RELEASE $releaseId FROM $collectionId";
+	};
+	
+	if($@)
+	{
+		$rawsql->Rollback();
+		die($@);
+	}
+	else
+	{
+		$rawsql->Commit();
+		return 1;
+	}
+}
+
 
 1;

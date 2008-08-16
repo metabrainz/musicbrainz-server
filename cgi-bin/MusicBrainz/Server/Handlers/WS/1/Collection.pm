@@ -1,4 +1,26 @@
 #!/usr/bin/perl -w
+#____________________________________________________________________________
+#
+#	MusicBrainz -- the open music metadata database
+#
+#	Copyright (C) 2001 Robert Kaye
+#
+#	This program is free software; you can redistribute it and/or modify
+#	it under the terms of the GNU General Public License as published by
+#	the Free Software Foundation; either version 2 of the License, or
+#	(at your option) any later version.
+#
+#	This program is distributed in the hope that it will be useful,
+#	but WITHOUT ANY WARRANTY; without even the implied warranty of
+#	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#	GNU General Public License for more details.
+#
+#	You should have received a copy of the GNU General Public License
+#	along with this program; if not, write to the Free Software
+#	Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+#	$Id: Sql.pm 9606 2007-11-24 16:14:09Z luks $
+#____________________________________________________________________________
 
 use strict;
 
@@ -35,9 +57,8 @@ sub handler
 	else
 	{	
 		# get the albums from the POST/GET data
-		@addAlbums=split(",", $args{addalbums});
-		@removeAlbums=split(",", $args{removealbums});
-		#my @removeTracks=split(",", $args{removetracks});
+		@addAlbums=split(/, |,/, $args{addalbums});
+		@removeAlbums=split(/, |,/, $args{removealbums});
 	}
 	
 	
@@ -52,11 +73,6 @@ sub handler
 	
 	my $sqlraw = Sql->new($mbraw->{DBH});
 	my $sqlro = Sql->new($mbro->{DBH});
-	
-	#use Data::Dumper;
-	#print Dumper(@addAlbums);
-	
-	print STDERR 'received post from '.$r->user;
 	
 	
 	
@@ -80,13 +96,6 @@ sub handler
 	if(@removeAlbums){ $collection->RemoveAlbums(@removeAlbums); }
 	
 	# print XML response
-	# RAK:
-        # please use STDERR to print the debug output and then tail -f <error_log> to see the output
-        # this way the output does not interfere with the operations.
-	#print STDERR 'asfgfgfgd\n';
-	
-	#print 'asd';
-	
 	my $printer = sub {
 		print_xml($collection);
 	};

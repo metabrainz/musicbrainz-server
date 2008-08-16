@@ -1,4 +1,10 @@
+<%args>
+	$removerelease => undef
+</%args>
+
+
 <%perl>
+	
 	# Set up page
 	$m->comp("/comp/sidebar-notitle", pagetitle => 'Collection');
 	
@@ -13,12 +19,15 @@
 	
 	# make sure the user has a collection_info tuple
 	MusicBrainz::Server::CollectionInfo::AssureCollection($session{uid}, $mbraw->{DBH});
+	
+	# get the collection id
+	my $collectionId = MusicBrainz::Server::CollectionInfo::GetCollectionIdForUser($session{uid}, $mbraw->{DBH});
 </%perl>
 
 
 
 
-<& /comp/collection, userId=>$session{uid}, dbh=>$mbro->{DBH}, rodbh=>$mbro->{DBH}, rawdbh=>$mbraw->{DBH} &>
+<& /comp/collection, userId=>$session{uid}, dbh=>$mbro->{DBH}, rodbh=>$mbro->{DBH}, rawdbh=>$mbraw->{DBH}, collectionId=>$collectionId, removerelease=>$removerelease &>
 
 
 <%perl>

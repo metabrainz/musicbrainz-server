@@ -68,26 +68,21 @@ print STDERR 'value of addtocollection:'.$addtocollection;
 	my $mbraw = MusicBrainz->new();
 	$mbraw->Login(db => 'RAWDATA');
 	my $collectionId = MusicBrainz::Server::CollectionInfo::GetCollectionIdForUser($session{'uid'}, $mbraw->{DBH});
-	my $collection = MusicBrainz::Server::Collection->new($mb->{DBH}, $mbraw->{DBH}, $collectionId);
-	
-	print STDERR 'uid:'.$session{'uid'};
-	print STDERR 'collectionId: '.$collectionId;
+	#my $collection = MusicBrainz::Server::Collection->new($mb->{DBH}, $mbraw->{DBH}, $collectionId);
 
 
 	# add or remove release from collection if requested
-	print STDERR $addtocollection;
 	if(defined($addtocollection))
 	{
 		MusicBrainz::Server::CollectionInfo::AssureCollection($session{'uid'}, $mbraw->{DBH});
 		
 		if($addtocollection == 1)
 		{
-			$collection->AddRelease($mbid);
-			print STDERR 'ADDING';
+			MusicBrainz::Server::Collection::AddReleaseWithId($mbraw->{DBH}, $releaseid, $collectionId, $mbid);
 		}
 		else
 		{
-			$collection->RemoveRelease($mbid);
+			MusicBrainz::Server::Collection::RemoveReleaseWithId($mbraw->{DBH}, $releaseid, $collectionId);
 		}
 	}
 
@@ -280,7 +275,15 @@ print STDERR 'value of addtocollection:'.$addtocollection;
         
         # collection links
         $m->out(qq!<tr><td class="collection">Collection: !);
-        $m->out(qq!<a href="/show/release/?releaseid=$releaseid&addtocollection=1">Add release to collection</a>!);
+        print STDERR "dbh: $mbraw->{DBH} collectionId: $collectionId releaseid: $releaseid";
+        if(MusicBrainz::Server::CollectionInfo::HasRelease($mbraw->{DBH}, $collectionId, $releaseid))
+        {
+        	$m->out(qq!<a href="/show/release/?releaseid=$releaseid&addtocollection=0">Remove release from collection</a>!);
+        }
+        else
+        {
+        	$m->out(qq!<a href="/show/release/?releaseid=$releaseid&addtocollection=1">Add release to collection</a>!);
+        }
         $m->out(qq!</td></tr>!);
         
 
