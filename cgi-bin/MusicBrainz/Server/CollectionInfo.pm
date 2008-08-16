@@ -473,8 +473,7 @@ sub HasRelease
 	my $count;
 	
 
-	#$count = $rawsql->SelectSingleValue('SELECT COUNT(*) FROM collection_has_release_join WHERE collection_info = ? AND album = ?', $collectionId, $releaseId);
-	$count=1;
+	$count = $rawsql->SelectSingleValue('SELECT COUNT(*) FROM collection_has_release_join WHERE collection_info = ? AND album = ?', $collectionId, $releaseId);
 	
 	
 	
