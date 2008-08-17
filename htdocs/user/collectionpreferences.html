@@ -96,9 +96,10 @@
 			I want to see results for releases of the following release types:
 %		for my $key (keys %{$releaseTypes})
 %		{
+%			print STDERR Dumper($releaseTypes->{$key}[0]);
 			<div>
 				<input type="checkbox" name="<%perl>$m->out($releaseTypes->{$key}[0]);</%perl>" id="pref_<%perl>$m->out($releaseTypes->{$key}[0]);</%perl>"<%perl>$m->out(' value="' . $key . '"');
-				$m->out($preferences->get('emailnotifications')==1 ? ' checked="checked" ' : '' );
+				$m->out($preferences->get($releaseTypes->{$key}[0])==1 ? ' checked="checked" ' : '' );
 				
 				</%perl>/>
 				<label for="pref_vote_abs_default">
