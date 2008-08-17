@@ -17,21 +17,110 @@
 	my $mbraw = MusicBrainz->new();
 	$mbraw->Login(db => 'RAWDATA');
 	
+	my $rawdbh = $mbraw->{DBH};
+	my $rodbh = $mbro->{DBH};
+	
 	# make sure the user has a collection_info tuple
 	MusicBrainz::Server::CollectionInfo::AssureCollection($session{uid}, $mbraw->{DBH});
 	
 	# get the collection id
 	my $collectionId = MusicBrainz::Server::CollectionInfo::GetCollectionIdForUser($session{uid}, $mbraw->{DBH});
+
+
+	# if a release id is specified in in the removerelease get variable remove this release from collection
+	if(defined($removerelease))
+	{
+		MusicBrainz::Server::Collection::RemoveReleaseWithId($rawdbh, $removerelease, $collectionId);
+	}
+	
+	
+</%perl>
+	
+<& /comp/tablebegin, title => "Music in collection" &>
+	
+<%perl>
+	
+	
+	# Get all releases in collection
+	use MusicBrainz::Server::CollectionInfo;
+	my $collectionInfo = MusicBrainz::Server::CollectionInfo->new($session{uid}, $rodbh, $rawdbh, undef);
+	my $releases = $collectionInfo->GetHasMBIDs();
+	my $count = @$releases;
+	
+	if($count == 0) # Check if there are releases to display
+	{
+		print '<p>You have no releases in your collection. To add a release, view any release in MusicBrainz' .
+		      ' and click on the <i>Add release to collection</i> link.</p>'
+	}
+	else
+	{
+		my $rownum=0;
 </%perl>
 
 
-
-
-<& /comp/collection, userId=>$session{uid}, dbh=>$mbro->{DBH}, rodbh=>$mbro->{DBH}, rawdbh=>$mbraw->{DBH}, collectionId=>$collectionId, removerelease=>$removerelease &>
+<table id="CompactReleaseList">
+	<col style="text-align: right" />
+	<col style="text-align: right" />
+	<col style="text-align: right" />
+	<col style="text-align: center" />
+	<col style="text-align: center" />
+	<col style="text-align: center" />
+	<col />
+	
+	
+	<tr>
+		<td><b>Artist</b></td>
+		<td><b>Release name</b></td>
+		<td><b>Release date</b></td>
+		<td><b>Track count</b></td>
+		<td><b>Remove</b></td>
+	</tr>
 
 
 <%perl>
 
 
+use MusicBrainz::Server::Release;
+
+
+for my $mbid (@{$releases})
+{
+	# load Release object
+
+        
+	my $release = MusicBrainz::Server::Release->new($rodbh);
+	$release->SetMBId(@{$mbid}[0]);
+	$release->LoadFromId();
+
+	my $artist = MusicBrainz::Server::Artist->new($rodbh);
+	$artist->SetId($release->GetArtist());
+	$artist->LoadFromId();
+	
+	print '<tr class="'.('ev', 'od')[$rownum % 2].'">';
+	print '<td><a href="/artist/'.$artist->GetMBId.'.html">'.$artist->GetName().'</a></td>';
+	print '<td><a href="/release/'.$release->GetMBId.'.html">'. $release->GetName() .'</a></td>';
+	
+	# why do this following commented line print the release date further up in the document?
+	#print '<td>'. $m->comp('/comp/releasedate', $release->GetFirstReleaseDateYMD) .'</td>';
+</%perl>
+	<td><& /comp/releasedate, $release->GetFirstReleaseDateYMD &></td>
+<%perl>
+	print '<td>'. $release->GetTrackCount() .'</td>';
+	print '<td><a href="/show/collection/?removerelease=' . $release->GetId() . '">remove</a></td>';
+	print '</tr>';
+
+	$rownum++;
+}
+
+
+print '</table>';
+
+
+}
+
+
 
 </%perl>
+
+
+<& /comp/tableend &>

@@ -17,6 +17,73 @@
 
 
 
+<& /comp/tablebegin, title => "Missing releases" &>
 
-<& /comp/collectionmissing, userId=>$session{uid}, rodbh=>$mbro->{DBH}, rawdbh=>$mbraw->{DBH} &>
+
+<%perl>
+my $collectionInfo = MusicBrainz::Server::CollectionInfo->new($session{uid}, $mbro->{DBH}, $mbraw->{DBH}, undef);
+
+my $releases = $collectionInfo->GetMissingMBIDs();
+
+my $count = @$releases;
+
+if($count == 0)
+{
+	print 'There are no missing releases to display.';
+}
+else
+{
+
+</%perl>
+
+
+<table id="CompactReleaseList">
+	<tr>
+		<td><b>Artist</b></td>
+		<td><b>Release name</b></td>
+		<td><b>Release date</b></td>
+		<td><b>Track count</b></td>
+	</tr>
+
+
+<%perl>
+
+require Sql;
+my $rosql = Sql->new($mbro->{DBH});
+
+use MusicBrainz::Server::Release;
+
+my $rownum=0;
+
+for my $mbid (@{$releases})
+{
+	# load Release object
+	my $release = MusicBrainz::Server::Release->new($mbro->{DBH});
+	$release->SetMBId($mbid);
+	$release->LoadFromId();
+	
+	# load the artist of this release
+	my $artist = MusicBrainz::Server::Artist->new($mbro->{DBH});
+	$artist->SetId($release->GetArtist());
+	$artist->LoadFromId();
+	
+	
+	print '<tr class="'.('ev', 'od')[$rownum % 2].'">';
+	print '<td><a href="/artist/' . $artist->GetMBId() . '.html">' . $artist->GetName() . '</a></td>';
+	print '<td><a href="/release/' . $release->GetMBId(). '.html">' .$release->GetName() .'</a></td>';
+	#print '<td>'. $release->GetFirstReleaseDate() .'</td>';
+</%perl>
+	<td><& /comp/releasedate, $release->GetFirstReleaseDateYMD &></td>
+<%perl>
+	print '<td>'. $release->GetTrackCount() .'</td>';
+	print '</tr>';
+
+	$rownum++;
+}
+
+}
+</%perl>
+
+
+<& /comp/tableend &>
 

@@ -19,7 +19,7 @@
 #	along with this program; if not, write to the Free Software
 #	Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
-#	$Id: Sql.pm 9606 2007-11-24 16:14:09Z luks $
+#	$id: $
 #____________________________________________________________________________
 
 
@@ -33,7 +33,7 @@ use MusicBrainz::Server::Release;
 use Data::Dumper;
 
 
-# login
+# log in
 require MusicBrainz;
 my $mbraw = MusicBrainz->new();
 $mbraw->Login(db => 'RAWDATA');
@@ -54,10 +54,16 @@ print 'collections:'.Dumper($collections);
 # iterate over all collections to be notified and send out e-mails(if any new releases)
 foreach my $currentCollectionId (@$collections)
 {
-	my $currentPreferences = undef;
+	use MusicBrainz::Server::CollectionPreference;
+	my $currentPreferences = MusicBrainz::Server::CollectionPreference->new($mbro->{DBH}, $mbraw->{DBH}, MusicBrainz::Server::CollectionInfo::GetUserIdForCollection($currentCollectionId, $mbraw->{DBH}));
+	
 	my $currentCollection = MusicBrainz::Server::CollectionInfo->newFromCollectionId($currentCollectionId, $mbro->{DBH}, $mbraw->{DBH}, $currentPreferences);
 	
+	# get new releases
 	my $newReleases = $currentCollection->GetNewReleases();
+	
+	# update the lastcheck attribute of the collection_info table
+	$currentCollection->UpdateLastCheck();
 	
 	my $count = @{$newReleases};
 	
@@ -65,8 +71,11 @@ foreach my $currentCollectionId (@$collections)
 	
 	my $userId = $currentCollection->GetUserId();
 	
+	print "count: $count \n";
+	
 	if($count>0) # notifications should be sent
 	{
+		print 'SENDING NOTIFICATION';
 		sendMail($currentCollection, $newReleases, $userId, $mbro->{DBH});
 	}
 }
@@ -91,6 +100,9 @@ sub sendMail
 		my $release = MusicBrainz::Server::Release->new($rodbh);
 		$release->SetId($releaseId);
 		$release->LoadFromId();
+		
+		
+		print $release->GetName()."\n";
 		
 		$message = $message . $release->GetName() . '\n';
 		
@@ -117,7 +129,7 @@ sub sendMail
 	    $mail->attr("content-type.charset" => "utf-8");
 
 	
-		$user->SendFormattedEmail(entity => $mail);
+		#$user->SendFormattedEmail(entity => $mail);
 	}
 	
 	

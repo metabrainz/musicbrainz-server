@@ -54,7 +54,6 @@
 
 </%args>
 <%perl>
-print STDERR 'value of addtocollection:'.$addtocollection;
 
 	$release ||= $album;
 
@@ -68,7 +67,6 @@ print STDERR 'value of addtocollection:'.$addtocollection;
 	my $mbraw = MusicBrainz->new();
 	$mbraw->Login(db => 'RAWDATA');
 	my $collectionId = MusicBrainz::Server::CollectionInfo::GetCollectionIdForUser($session{'uid'}, $mbraw->{DBH});
-	#my $collection = MusicBrainz::Server::Collection->new($mb->{DBH}, $mbraw->{DBH}, $collectionId);
 
 
 	# add or remove release from collection if requested
@@ -274,17 +272,19 @@ print STDERR 'value of addtocollection:'.$addtocollection;
         }
         
         # collection links
-        $m->out(qq!<tr><td class="collection">Collection: !);
-        print STDERR "dbh: $mbraw->{DBH} collectionId: $collectionId releaseid: $releaseid";
-        if(MusicBrainz::Server::CollectionInfo::HasRelease($mbraw->{DBH}, $collectionId, $releaseid))
+        if($session{uid})
         {
-        	$m->out(qq!<a href="/show/release/?releaseid=$releaseid&addtocollection=0">Remove release from collection</a>!);
+	        $m->out(qq!<tr><td class="collection">Collection: !);
+	        if(MusicBrainz::Server::CollectionInfo::HasRelease($mbraw->{DBH}, $collectionId, $releaseid))
+	        {
+	        	$m->out(qq!<a href="/show/release/?releaseid=$releaseid&addtocollection=0">Remove release from collection</a>!);
+	        }
+	        else
+	        {
+	        	$m->out(qq!<a href="/show/release/?releaseid=$releaseid&addtocollection=1">Add release to collection</a>!);
+	        }
+	        $m->out(qq!</td></tr>!);
         }
-        else
-        {
-        	$m->out(qq!<a href="/show/release/?releaseid=$releaseid&addtocollection=1">Add release to collection</a>!);
-        }
-        $m->out(qq!</td></tr>!);
         
 
 		$m->out(qq!</table>!);

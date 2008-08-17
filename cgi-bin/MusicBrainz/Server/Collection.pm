@@ -19,7 +19,7 @@
 #	along with this program; if not, write to the Free Software
 #	Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
-#	$Id: Sql.pm 9606 2007-11-24 16:14:09Z luks $
+#	$id: $
 #____________________________________________________________________________
 
 use TableBase;
@@ -153,10 +153,11 @@ sub AddRelease
 		eval
 		{
 			$rawsql->Begin();
-			
 			$rawsql->Quiet(1);
+			
+			
 			# add MBID to the collection
-			$rawsql->Do('INSERT INTO collection_has_release_join (collection_info, album) VALUES (?, ?)', $this->{collectionId}, $releaseId);
+			$rawsql->Do('INSERT INTO collection_has_release_joinasd (collection_info, album) VALUES (?, ?)', $this->{collectionId}, $releaseId);
 			
 			# increase add count
 			$this->{addAlbum_insertCount}++;
@@ -166,6 +167,10 @@ sub AddRelease
 		{			
 			if($@ =~ /duplicate/) # it is a duplicate... add it to the array of duplicates
 			{
+				my $err = "$@";
+				use Carp qw( cluck );
+				cluck $err;
+				die($err);
 				print STDERR 'CATCHED CATCHED                 CATCHED';
 				push(@{$this->{addAlbum_duplicateArray}}, $mbid);
 			}
@@ -201,10 +206,10 @@ sub AddReleaseWithId
 	eval
 	{
 		$rawsql->Begin();
-		
 		$rawsql->Quiet(1);
+		
 		# add MBID to the collection
-		$rawsql->Do('INSERT INTO collection_has_release_join (collection_info, album) VALUES (?, ?)', $collectionId, $releaseId);
+		$rawsql->Do('INSERT INTO collection_has_release_joinasd (collection_info, album) VALUES (?, ?)', $collectionId, $releaseId);
 		
 		# increase add count
 		$this->{addAlbum_insertCount}++;
@@ -214,6 +219,10 @@ sub AddReleaseWithId
 	{			
 		if($@ =~ /duplicate/) # it is a duplicate... add it to the array of duplicates
 		{
+			my $err = "$@";
+			use Carp qw( cluck );
+			cluck $err;
+			die($err);
 			push(@{$this->{addAlbum_duplicateArray}}, $mbid);
 		}
 		else

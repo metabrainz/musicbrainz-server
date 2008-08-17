@@ -25,7 +25,7 @@
 #	along with this program; if not, write to the Free Software
 #	Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
-#	$Id: Sql.pm 9606 2007-11-24 16:14:09Z luks $
+#	$id: $
 #____________________________________________________________________________
 
 
@@ -320,7 +320,7 @@ sub GetNewReleases
 	
 	my $watchArtists = $this->GetWatchArtists();
 	
-	print Dumper($watchArtists);
+	print 'watchArtists:'.Dumper($watchArtists);
 	
 	my $newReleases;
 	
@@ -330,6 +330,7 @@ sub GetNewReleases
 		# New release == added after last check and release date within a week
 		# ...so users are notified about new releases a week in advance
 		$newReleases = $rosql->SelectSingleColumnArray("SELECT id FROM album WHERE dateadded > ? AND artist IN (" . join(',', @{$watchArtists}) . ") AND id IN (SELECT id FROM albummeta WHERE to_timestamp(firstreleasedate, 'YYYY-MM-DD') > (CURRENT_TIMESTAMP - '7 days'::INTERVAL)) LIMIT 10", $this->GetLastCheck());
+		#$newReleases = $rosql->SelectSingleColumnArray('');
 	}
 	
 	else
@@ -365,6 +366,7 @@ sub UpdateLastCheck
 	
 	eval
 	{
+		$rawsql->Begin();
 		$rawsql->Do('UPDATE collection_info SET lastcheck = CURRENT_TIMESTAMP WHERE id = ?', $this->{collectionId});
 	};
 	
@@ -372,6 +374,10 @@ sub UpdateLastCheck
 	{
 		$rawsql->Rollback();
 		die($@);
+	}
+	else
+	{
+		$rawsql->Commit();
 	}
 }
 
@@ -456,9 +462,21 @@ sub GetCollectionIdForUser
 	
 	my $sqlraw = Sql->new($rawdbh);
 	
-	my $collectionId=$sqlraw->SelectSingleValue("SELECT id FROM collection_info WHERE moderator=?", $userId);
+	my $collectionId = $sqlraw->SelectSingleValue("SELECT id FROM collection_info WHERE moderator=?", $userId);
 	
 	return $collectionId;
+}
+
+
+sub GetUserIdForCollection
+{
+	my ($collectionId, $rawdbh) = @_;
+	
+	my $sqlraw = Sql->new($rawdbh);
+	
+	my $userId = $sqlraw->SelectSingleValue('SELECT moderator FROM collection_info WHERE id = ?', $collectionId);
+	
+	return $userId;
 }
 
 

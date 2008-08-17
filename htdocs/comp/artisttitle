@@ -262,7 +262,7 @@
 	# Row 5: Collection links
 	
 	
-	if($session{uid} != undef)
+	if($session{uid})
 	{
 		$m->out(qq!<tr>!);
 		$m->out(qq!<td colspan="2" class="collection">!);

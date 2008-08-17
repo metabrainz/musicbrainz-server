@@ -330,7 +330,7 @@ table.artisttitle td.relationshiplinks {
 table.artisttitle td.collection
 {
 	padding: 2px 4px;
-	background-color: #c6cbd7;
+	background-color: #e1e5ed;
 	border-top: 1px solid #000;
 }
 
@@ -484,7 +484,7 @@ table.releaselinks td.tags {
 
 /* collection add/remove link box */
 table.releaselinks td.collection {
-	background-color:#c6cbd7;
+	background-color:#e1e5ed;
 	border-top:1px solid #000;
 }
 

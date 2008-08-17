@@ -27,7 +27,7 @@
 #	along with this program; if not, write to the Free Software
 #	Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
-#	$Id: Sql.pm 9606 2007-11-24 16:14:09Z luks $
+#	$id: $
 #____________________________________________________________________________
 
 
