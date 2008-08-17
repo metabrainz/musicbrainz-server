@@ -51,6 +51,10 @@ codebase.
         Email::Valid
         Form::Processor
 
+    This list may not be up to date - so you should use the Makefile.PL to double check:
+
+        perl Makefile.PL
+
 Setting up & running:
 
 1) Make a checkout of the code.
