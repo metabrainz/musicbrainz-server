@@ -90,8 +90,11 @@
 			<label for="pref_vote_abs_default">
 				E-mail notifications about upcoming releases.</label>
 		</div>
-		
-		<br/>
+	<& /comp/tableend &>
+	
+	
+	
+	<& /comp/tablebegin, title => "Ignore release types" &>
 		<div>
 			I want to see results for releases of the following release types:
 %		for my $key (keys %{$releaseTypes})
@@ -108,12 +111,6 @@
 			</div>
 %		}
 		</div>
-	<& /comp/tableend &>
-	
-	
-	
-	<& /comp/tablebegin, title => "Ignore release types" &>
-	
 	<& /comp/tableend &>
 
 	<input type="submit" value="Update &raquo;" />
