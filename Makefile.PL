@@ -14,7 +14,6 @@ requires 'Catalyst::Component::ACCEPT_CONTEXT';
 requires 'Catalyst::Model::Adaptor';
 requires 'Catalyst::Plugin::Authentication';
 requires 'Catalyst::Plugin::ConfigLoader';
-requires 'Catalyst::Plugin::FormBuilder';
 requires 'Catalyst::Plugin::Session::State::Cookie';
 requires 'Catalyst::Plugin::Session::Store::FastMmap';
 requires 'Catalyst::Plugin::StackTrace';

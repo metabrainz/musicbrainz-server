@@ -26,8 +26,6 @@ Session
 Session::State::Cookie
 Session::Store::FastMmap
 
-FormBuilder
-
 Authentication
 /;
 
