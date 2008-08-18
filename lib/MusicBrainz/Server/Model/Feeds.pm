@@ -3,6 +3,7 @@ package MusicBrainz::Server::Model::Feeds;
 use strict;
 use warnings;
 
+use URI;
 use XML::Feed;
 
 sub get_cached
@@ -22,7 +23,7 @@ sub get_cached
     }
     else
     {
-        $feed = XML::Feed->parse(URI($uri));
+        $feed = XML::Feed->parse(URI->new($uri));
         MusicBrainz::Server::Cache->set("feed-id-${feed_id}", $feed);
 
         return $feed;
