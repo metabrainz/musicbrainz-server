@@ -36,15 +36,21 @@ package MusicBrainz::Server::LogFile;
 	);
 }
 
-use Apache ();
-use Apache::File ();
-use Apache::Table ();
 use Fcntl qw( LOCK_EX LOCK_UN );
 
 our %logfiles;
 
 sub RestartHandler
 {
+    eval
+    {
+        require Apache;
+        require Apache::File;
+        require Apache::Table;
+    };
+
+    return if $@;
+
 	my $r = shift;
 
 	my @open = $r->dir_config->get("MBLogFile");

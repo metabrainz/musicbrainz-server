@@ -31,7 +31,6 @@ use TableBase;
 use strict;
 use DBDefs;
 use MusicBrainz::Server::Validation;
-use Apache;
 use URI::Escape qw( uri_escape );
 use CGI::Cookie;
 use Digest::SHA1 qw(sha1_base64);
@@ -1091,6 +1090,9 @@ sub GetSession { \%MusicBrainz::Server::ComponentPackage::session }
 
 sub EnsureSessionOpen
 {
+    eval { require Apache; };
+    return if $@;
+
 	my $class = shift;
 
 	my $session = GetSession();
@@ -1129,6 +1131,9 @@ sub EnsureSessionClosed
 
 sub ClearSessionCookie
 {
+    eval { require Apache; };
+    return if $@;
+
 	my $cookie = new CGI::Cookie(
 		-name	=> &DBDefs::SESSION_COOKIE,
 		-value	=> "",
@@ -1170,6 +1175,9 @@ sub SetSession
 
 sub SetPermanentCookie
 {
+    eval { require Apache; };
+    return if $@;
+
 	my ($this, %opts) = @_;
 	my $r = Apache->request;
 
@@ -1202,6 +1210,9 @@ sub SetPermanentCookie
 
 sub ClearPermanentCookie
 {
+    eval { require Apache; };
+    return if $@;
+
 	my $r = Apache->request;
 
 	my $cookie = new CGI::Cookie(
@@ -1222,6 +1233,9 @@ sub ClearPermanentCookie
 
 sub TryAutoLogin
 {
+    eval { require Apache; };
+    return if $@;
+
 	my ($self, $cookies) = @_;
 	my $mb;
 
