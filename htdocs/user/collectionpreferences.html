@@ -108,7 +108,7 @@
 	
 	<& /comp/tablebegin, title => "Ignore status and release types" &>
 		<div>
-			I want to see results for releases of the following status types:
+			I want to be notified and see missing releases of the following status:
 %		for my $key (keys %{$statusTypes})
 %		{
 			<div>
@@ -133,7 +133,7 @@
 		</div>
 		<br/>
 		<div>
-			I want to see results for releases of the following release types:
+			I want to notified and see missing releases of the following type:
 %		for my $key (keys %{$releaseTypes})
 %		{
 			<div>

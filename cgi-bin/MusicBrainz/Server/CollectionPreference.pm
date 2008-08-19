@@ -349,6 +349,7 @@ sub ArtistWatch
 	eval
 	{
 		$rawsql->Begin();
+		#$rawsql->Quiet(1);
 		$rawsql->Do('INSERT INTO collection_watch_artist_join (collection_info, artist) VALUES (?, ?)', $collectionId, $artistId);
 	};
 	
@@ -357,10 +358,11 @@ sub ArtistWatch
 		# do not care about duplicate error. it is caused by a user reloading page when a GET variable is set to add this artist
 		if($@ =~ /duplicate/)
 		{
-			
+			$rawsql->Rollback();
 		}
 		else
 		{
+			$rawsql->Rollback();
 			die('Could not add artist to list of artists being watched');
 		}
 	}
@@ -424,6 +426,7 @@ sub ArtistMissing
 	eval
 	{
 		$rawsql->Begin();
+		#$rawsql->Quiet(1);
 		$rawsql->Do('INSERT INTO collection_discography_artist_join (collection_info, artist) VALUES (?, ?)', $collectionId, $artistId);
 	};
 	
@@ -432,10 +435,11 @@ sub ArtistMissing
 		# do not care about duplicate error. it is caused by a user reloading page when a GET variable is set to add this artist
 		if($@ =~ /duplicate/)
 		{
-			
+			$rawsql->Rollback();
 		}
 		else
 		{
+			$rawsql->Rollback();
 			die('Could not add artist to list of artists being watched');
 		}
 	}
@@ -447,7 +451,7 @@ sub ArtistMissing
 
 
 
-=head2 ArtistsDontShowMissing $artistId, $userId
+=head2 ArtistDontShowMissing $artistId, $userId
 Specifies that user with id C<$userId> do not want to see missing releases of artist with id C<$artistId>.
 =cut
 sub ArtistDontShowMissing
