@@ -21,7 +21,8 @@
 
 
 <%perl>
-my $collectionInfo = MusicBrainz::Server::CollectionInfo->new($session{uid}, $mbro->{DBH}, $mbraw->{DBH}, undef);
+my $preferences = MusicBrainz::Server::CollectionPreference->new($mbro->{DBH}, $mbraw->{DBH}, $session{uid});
+my $collectionInfo = MusicBrainz::Server::CollectionInfo->new($session{uid}, $mbro->{DBH}, $mbraw->{DBH}, $preferences);
 
 my $releases = $collectionInfo->GetMissingMBIDs();
 

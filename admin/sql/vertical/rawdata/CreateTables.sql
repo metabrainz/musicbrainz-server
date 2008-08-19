@@ -40,7 +40,7 @@ CREATE TABLE collection_info
 	emailnotifications				BOOLEAN DEFAULT TRUE, -- send notifications by e-mail?
 	notificationinterval			INTEGER DEFAULT 7, -- specifies how many days in advance of a release date the user want to be notified
 	ignorecollectionattributes		INTEGER[], -- list of attributes to ignore when displaying missing releases
-	ignorewatchattributes				INTEGER[] -- list of attributes to ignore when sending notifications
+	ignorewatchattributes			INTEGER[] -- list of attributes to ignore when sending notifications
 );
 
 CREATE TABLE collection_ignore_time_range

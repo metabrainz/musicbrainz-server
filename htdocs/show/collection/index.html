@@ -43,7 +43,8 @@
 	
 	# Get all releases in collection
 	use MusicBrainz::Server::CollectionInfo;
-	my $collectionInfo = MusicBrainz::Server::CollectionInfo->new($session{uid}, $rodbh, $rawdbh, undef);
+	my $preferences = MusicBrainz::Server::CollectionPreference->new($rodbh, $rawdbh, $session{uid});
+	my $collectionInfo = MusicBrainz::Server::CollectionInfo->new($session{uid}, $rodbh, $rawdbh, $preferences);
 	my $releases = $collectionInfo->GetHasMBIDs();
 	my $count = @$releases;
 	

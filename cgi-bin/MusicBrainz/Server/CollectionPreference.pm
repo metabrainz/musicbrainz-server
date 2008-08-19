@@ -81,6 +81,7 @@ sub new
 	$object->addpref('notificationinterval', 7, sub { check_int(1,31,@_) });
 	
 	my $releaseTypes = MusicBrainz::Server::CollectionPreference::GetReleaseTypes();
+	my $statusTypes = MusicBrainz::Server::CollectionPreference::GetStatusTypes();
 	
 	
 	my $selectprefs;
@@ -113,7 +114,13 @@ sub new
 	# iterate over the release types and add those as valid keys with a dummy value
 	for my $key (keys %{$releaseTypes})
 	{
-		#$prefs->{$releaseTypes->{$key}[0]} = {'KEY' => $releaseTypes->{$key}[0], 'VALUE' => undef, 'CHECK' => undef};
+		$prefs->{$releaseTypes->{$key}[0]} = {'KEY' => $releaseTypes->{$key}[0], 'VALUE' => undef, 'CHECK' => undef};
+	}
+	
+	# ... and also iterate the status types and add those as well
+	for my $key (keys %{$statusTypes})
+	{
+		$prefs->{$statusTypes->{$key}[0]} = {'KEY' => $statusTypes->{$key}[0], 'VALUE' => undef, 'CHECK' => undef};
 	}
 	
 	
@@ -138,7 +145,6 @@ sub addpref
 	
 	$this->{prefs}{$key} = {KEY => $key, VALUE => $value, CHECK => $check};
 	
-	#print STDERR 'asd'.Dumper($this->{prefs});
 	
 	
 	
@@ -157,14 +163,8 @@ sub addpref
 
 sub valid_keys {
 	my ($this) = @_;
-	use Data::Dumper;
-	print STDERR Dumper($this->{prefs});
 	my $prefs=$this->{prefs};
-	#return keys %prefs;
-	#my $prefs=$this->{prefs};
-	#print '<br/>HASH:'.Dumper($prefs).'<br/>';
-	#print '<br/>KEYS:'.Dumper(keys $prefs).'<br/>';
-	#return keys $prefs;
+	
 	return keys %$prefs;
 }
 
@@ -218,7 +218,6 @@ sub set
 	my $oldvalue = $info->{VALUE};
 	my $oldcheck = $info->{CHECK};
 	
-	print STDERR 'key:'.$key.' value:'.Dumper($value);
 	
 	
 	
@@ -263,16 +262,54 @@ sub set
 }
 
 
-sub getReleaseType
+
+
+
+=head2 SetShowTypes $showTypes
+Sets which release and status types the user want to see missing releases of and be notified about new releases of. C<$showTypes> is an array reference for an array containing type identifiers to display.
+=cut
+sub SetShowTypes
 {
+	my ($this, $showTypes) = @_;
 	
+	my $rawsql=Sql->new($this->{RAWDBH});
+	
+	print STDERR 'inserting:'. Dumper($showTypes);
+	
+	eval
+	{
+		$rawsql->Begin();
+		$rawsql->Do("UPDATE collection_info SET showattributes = '{" . join(',', @{$showTypes}) . "}' WHERE id = ?", $this->{collectionId});
+	};
+	
+	if($@)
+	{
+		$rawsql->Rollback();
+		die($@);
+	}
+	else
+	{
+		$rawsql->Commit();
+	}
 }
 
 
 
-sub setReleaseType
+sub GetShowTypes
 {
+	my ($this) = @_;
 	
+	my $rawsql = Sql->new($this->{RAWDBH});
+	
+
+	my $showTypes = $rawsql->SelectSingleValue('SELECT showattributes FROM collection_info WHERE id = ?', $this->{collectionId});
+	
+	# convert to {1,2,3} formatted string to array
+	my $showTypesPrefString = $showTypes;
+	$showTypesPrefString =~ s/^\{(.*)\}$/$1/;
+	my @showTypesPref = split(',', $showTypesPrefString); # ref to array containing identifiers of types to show currently in the prefs
+	
+	return @showTypesPref;
 }
 
 
@@ -451,26 +488,36 @@ Returns a reference to a hash with info about the different release types.
 sub GetReleaseTypes
 {
 	my %releaseTypes = (
-	    0 => [ "releasetype_nonalbumtracks", "Non-Album Track", "Non-Album Tracks", "(Special case)"],
-	    1 => [ "releasetype_album", "Album", "Albums", "An album release primarily consists of previously unreleased material. This includes album re-issues, with or without bonus tracks."],
-	    2 => [ "releasetype_single", "Single", "Singles", "A single typically has one main song and possibly a handful of additional tracks or remixes of the main track. A single is usually named after its main song."],
-	    3 => [ "releasetype_ep", "EP", "EPs", "An EP is an Extended Play release and often contains the letters EP in the title."],
-	    4 => [ "releasetype_compilation", "Compilation", "Compilations", "A compilation is a collection of previously released tracks by one or more artists."],
-	    5 => [ "releasetype_soundtrack", "Soundtrack", "Soundtracks", "A soundtrack is the musical score to a movie, TV series, stage show, computer game etc."],
-	    6 => [ "releasetype_spokenword", "Spokenword", "Spokenword", "Non-music spoken word releases."],
-	    7 => [ "releasetype_interview", "Interview", "Interviews", "An interview release contains an interview with the Artist."],
-	    8 => [ "releasetype_audiobook", "Audiobook", "Audiobooks", "An audiobook is a book read by a narrator without music."],
-	    9 => [ "releasetype_live", "Live", "Live Releases", "A release that was recorded live."],
-	    10 => [ "releasetype_remix", "Remix", "Remixes", "A release that was (re)mixed from previously released material."],
-	    11 => [ "releasetype_other", "Other", "Other Releases", "Any release that does not fit any of the categories above."],
-	
-	    100 => [ "releasetype_official", "Official", "Official", "Any release officially sanctioned by the artist and/or their record company. (Most releases will fit into this category.)"],
-	    101 => [ "releasetype_promotion", "Promotion", "Promotions", "A giveaway release or a release intended to promote an upcoming official release. (e.g. prerelease albums or releases included with a magazine)"],
-	    102 => [ "releasetype_bootleg", "Bootleg", "Bootlegs", "An unofficial/underground release that was not sanctioned by the artist and/or the record company."],
-	    103 => [ "releasetype_pseudorelease", "Pseudo-Release", "PseudoReleases", "A pseudo-release is a duplicate release for translation/transliteration purposes."]
+	    0 => [ "type_nonalbumtracks", "Non-Album Track", "Non-Album Tracks", "(Special case)"],
+	    1 => [ "type_album", "Album", "Albums", "An album release primarily consists of previously unreleased material. This includes album re-issues, with or without bonus tracks."],
+	    2 => [ "type_single", "Single", "Singles", "A single typically has one main song and possibly a handful of additional tracks or remixes of the main track. A single is usually named after its main song."],
+	    3 => [ "type_ep", "EP", "EPs", "An EP is an Extended Play release and often contains the letters EP in the title."],
+	    4 => [ "type_compilation", "Compilation", "Compilations", "A compilation is a collection of previously released tracks by one or more artists."],
+	    5 => [ "type_soundtrack", "Soundtrack", "Soundtracks", "A soundtrack is the musical score to a movie, TV series, stage show, computer game etc."],
+	    6 => [ "type_spokenword", "Spokenword", "Spokenword", "Non-music spoken word releases."],
+	    7 => [ "type_interview", "Interview", "Interviews", "An interview release contains an interview with the Artist."],
+	    8 => [ "type_audiobook", "Audiobook", "Audiobooks", "An audiobook is a book read by a narrator without music."],
+	    9 => [ "type_live", "Live", "Live Releases", "A release that was recorded live."],
+	    10 => [ "type_remix", "Remix", "Remixes", "A release that was (re)mixed from previously released material."],
+	    11 => [ "type_other", "Other", "Other Releases", "Any release that does not fit any of the categories above."],
 	);
 	
 	return \%releaseTypes;
+}
+
+
+
+
+sub GetStatusTypes
+{
+	my %statusTypes = (
+		100 => [ "type_official", "Official", "Official", "Any release officially sanctioned by the artist and/or their record company. (Most releases will fit into this category.)"],
+		101 => [ "type_promotion", "Promotion", "Promotions", "A giveaway release or a release intended to promote an upcoming official release. (e.g. prerelease albums or releases included with a magazine)"],
+		102 => [ "type_bootleg", "Bootleg", "Bootlegs", "An unofficial/underground release that was not sanctioned by the artist and/or the record company."],
+		103 => [ "type_pseudorelease", "Pseudo-Release", "PseudoReleases", "A pseudo-release is a duplicate release for translation/transliteration purposes."]
+	);
+	
+	return \%statusTypes;
 }
 
 

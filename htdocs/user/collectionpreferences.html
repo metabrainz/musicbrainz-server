@@ -21,48 +21,60 @@
 	
 	require MusicBrainz::Server::CollectionPreference;
 	my $preferences = MusicBrainz::Server::CollectionPreference->new($mbro->{DBH}, $mbraw->{DBH}, $session{uid});
-	my @showReleaseTypes; # scalar containing the release types to display missing releases of and 
+	my @showTypes; # array containing the release types to display missing releases of and
 	my $releaseTypes = MusicBrainz::Server::CollectionPreference::GetReleaseTypes();
+	my $statusTypes = MusicBrainz::Server::CollectionPreference::GetStatusTypes();
 	
+
+
 	if($r->method eq 'POST')
 	{
 		for my $key ($preferences->valid_keys())
 		{
 			my $value = $ARGS{$key};
 			
-			print STDERR 'checking key '.$key;
-			
-			
-			# convert the value from "on" or empty to a boolean value
-			if($value eq 'on')
-			{
-				$value = 1;
-			}
-			elsif($value eq '')
-			{
-				$value = 0;
-			}
-			
-			print STDERR $key;
 			
 			
 			# check if it is a release type checkbox. they are treated differently
 			# store it in a scalar and then store this entire scalar
-			if($key =~ /pref_releasetype_/)
+			if($key =~ /type_/)
 			{
-				print STDERR Dumper($value);
+				print STDERR "value:$value";
+				if(defined($value))
+				{
+					push(@showTypes, $value);
+				}
 			}
 			else
 			{
+				# convert the value from "on" or empty to a boolean value
+				if($value eq 'on')
+				{
+					$value = 1;
+				}
+				elsif($value eq '')
+				{
+					$value = 0;
+				}
+				
+				
 				$preferences->set($key, $value);
 			}
 		}
+		
+		print STDERR 'selected types:'.Dumper(@showTypes);
+		$preferences->SetShowTypes(\@showTypes);
 	}
 	
 	
 	
-
-
+	
+	# get types for the checkboxes that should be checked
+	my @showTypesPref = $preferences->GetShowTypes(); # array containing identifiers of types to show currently in the prefs
+	
+	# make a hash out of @showTypesPref for checking if values exist
+    my %show_type = undef;
+    for (@showTypesPref) { $show_type{$_} = 1; }
 
 </%perl>
 
@@ -94,20 +106,54 @@
 	
 	
 	
-	<& /comp/tablebegin, title => "Ignore release types" &>
+	<& /comp/tablebegin, title => "Ignore status and release types" &>
+		<div>
+			I want to see results for releases of the following status types:
+%		for my $key (keys %{$statusTypes})
+%		{
+			<div>
+				<input type="checkbox" name="<%perl>$m->out($statusTypes->{$key}[0]);</%perl>" id="pref_<%perl>$m->out($statusTypes->{$key}[0]);</%perl>"<%perl>$m->out(' value="' . $key . '"');
+				if($show_type{$key} == 1)
+				{
+					$m->out(' checked="checked" ');
+				}
+				else
+				{
+					$m->out('');
+				};
+				
+				</%perl>/>
+				<label for="<%perl>
+					$m->out('pref_'.$statusTypes->{$key}[0]);
+				</%perl>">
+%					$m->out($statusTypes->{$key}[1]);# . ' - ' . $releaseTypes{$key}[2];
+</label>
+			</div>
+%		}
+		</div>
+		<br/>
 		<div>
 			I want to see results for releases of the following release types:
 %		for my $key (keys %{$releaseTypes})
 %		{
-%			print STDERR Dumper($releaseTypes->{$key}[0]);
 			<div>
 				<input type="checkbox" name="<%perl>$m->out($releaseTypes->{$key}[0]);</%perl>" id="pref_<%perl>$m->out($releaseTypes->{$key}[0]);</%perl>"<%perl>$m->out(' value="' . $key . '"');
-				$m->out($preferences->get($releaseTypes->{$key}[0])==1 ? ' checked="checked" ' : '' );
+				
+				if($show_type{$key} == 1)
+				{
+					$m->out(' checked="checked" ');
+				}
+				else
+				{
+					$m->out('');
+				}
 				
 				</%perl>/>
-				<label for="pref_vote_abs_default">
+				<label for="<%perl>
+					$m->out('pref_'.$releaseTypes->{$key}[0]);
+				</%perl>">
 %					$m->out($releaseTypes->{$key}[1]);# . ' - ' . $releaseTypes{$key}[2];
-				</label>
+</label>
 			</div>
 %		}
 		</div>
