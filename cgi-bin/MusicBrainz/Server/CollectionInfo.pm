@@ -5,6 +5,7 @@
 #
 
 #!/usr/bin/perl -w
+# vi: set ts=4 sw=4 :
 #____________________________________________________________________________
 #
 #	MusicBrainz -- the open music metadata database
@@ -281,7 +282,7 @@ sub GetMissingMBIDs
 		
 		for my $attribute (@showTypes)
 		{
-			$showAttributesCondition .= ' AND ' . $attribute . ' = ANY (album.attributes)';
+			$showAttributesCondition .= ' AND ' . $attribute . ' <> ALL (album.attributes[2:5])';
 		}
 		
 		print STDERR "\n $showAttributesCondition \n";

@@ -1,4 +1,5 @@
 #!/usr/bin/perl -w
+# vi: set ts=4 sw=4 :
 #____________________________________________________________________________
 #
 #	MusicBrainz -- the open music metadata database

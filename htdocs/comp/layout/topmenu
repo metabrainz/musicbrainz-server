@@ -345,7 +345,15 @@
 			{ url => "/edit/albumbatch/merge.html" },
 			{ url => "/edit/albumbatch/remove.html" },
 		],
-
+		
+		{ name => "Collection",			url => "/show/collection/" },
+		[
+			{ name => "Collection",				url => "/show/collection/index.html",		login => 1 },
+			{ name => "Missing releases",		url => "/show/collection/missing.html",		login => 1 },
+			{ name => "Collection Preferences",	url => "/user/collectionpreferences.html",	login => 1 },
+			{ name => "Artists",				url => "/show/collection/artists.html",	login => 1 },
+		],
+		
 		{ name => "Account",			url => "/show/user/index.html" },
 		[
 			{ name => "Edit Account",			url => "/user/edit.html",					login => 1 },
@@ -365,14 +373,6 @@
 			{ name => "Create Account",		url => "/user/register.html", 				login => 0 },
 			{ name => "Login",				url => "/login.html",						login => 0 },
 			{ name => "Forgot Password",	url => "/user/forgot-password.html",	 	login => 0 },
-		],
-		
-		{ name => "Collection",			url => "/show/collection/" },
-		[
-			{ name => "Collection",				url => "/show/collection/index.html",		login => 1 },
-			{ name => "Missing releases",		url => "/show/collection/missing.html",		login => 1 },
-			{ name => "Collection Preferences",	url => "/user/collectionpreferences.html",	login => 1 },
-			{ name => "Artists",				url => "/show/collection/artists.html",	login => 1 },
 		],
 
 		{ name => "Contribute",				url => "/doc/HowToContribute" },

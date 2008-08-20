@@ -7,6 +7,7 @@
 
 
 #!/usr/bin/perl -w
+# vi: set ts=4 sw=4 :
 #____________________________________________________________________________
 #
 #	MusicBrainz -- the open music metadata database
@@ -522,6 +523,32 @@ sub GetStatusTypes
 	);
 	
 	return \%statusTypes;
+}
+
+
+
+sub GetTypeIdentifiers
+{
+	my %types = (
+		0 => 0,
+		1 => 1,
+		2 => 2,
+		3 => 3,
+		4 => 4,
+		5 => 5,
+		6 => 6,
+		7 => 7,
+		8 => 8,
+		9 => 9,
+		10 => 10,
+		11 => 11,
+		100 => 100,
+		101 => 101,
+		102 => 102,
+		103 => 103
+		);
+	
+	return \%types;
 }
 
 
