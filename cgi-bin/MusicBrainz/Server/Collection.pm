@@ -198,10 +198,10 @@ sub AddRelease
 
 sub AddReleaseWithId
 {
-	my($this, $releaseId, $collectionId, $mbid) = @_;
+	my($releaseId, $collectionId, $rawdbh) = @_;
 	
 	
-	my $rawsql=Sql->new($this->{RAWDBH});
+	my $rawsql=Sql->new($rawdbh);
 	
 	
 	eval
@@ -213,7 +213,7 @@ sub AddReleaseWithId
 		$rawsql->Do('INSERT INTO collection_has_release_joinasd (collection_info, album) VALUES (?, ?)', $collectionId, $releaseId);
 		
 		# increase add count
-		$this->{addAlbum_insertCount}++;
+		#$this->{addAlbum_insertCount}++;
 	};
 	
 	if($@)
@@ -224,7 +224,7 @@ sub AddReleaseWithId
 			use Carp qw( cluck );
 			cluck $err;
 			die($err);
-			push(@{$this->{addAlbum_duplicateArray}}, $mbid);
+			#push(@{$this->{addAlbum_duplicateArray}}, $mbid);
 		}
 		else
 		{
@@ -310,7 +310,7 @@ sub AddReleaseWithId
 	
 	my $rawsql = Sql->new($rawdbh);
 	
-	
+	print STDERR "INSERTING: $releaseId into $rawdbh collection $collectionId";
 	eval
 	{
 		$rawsql->Begin();

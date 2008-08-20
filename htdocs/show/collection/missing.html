@@ -22,8 +22,13 @@
 #
 #	$id: $
 #____________________________________________________________________________
+</%perl>
 
+<%args>
+	$addrelease => undef
+</%args>
 
+<%perl>
 	# Set up page
 	$m->comp("/comp/sidebar-notitle", pagetitle => 'Collection');
 	
@@ -38,7 +43,11 @@
 	
 	# make sure the user has a collection_info tuple
 	MusicBrainz::Server::CollectionInfo::AssureCollection($session{uid}, $mbraw->{DBH});
+	
+	my $collectionId = MusicBrainz::Server::CollectionInfo::GetCollectionIdForUser($session{uid}, $mbraw->{DBH});
+	
 </%perl>
+
 
 
 
@@ -48,6 +57,18 @@
 <%perl>
 my $preferences = MusicBrainz::Server::CollectionPreference->new($mbro->{DBH}, $mbraw->{DBH}, $session{uid});
 my $collectionInfo = MusicBrainz::Server::CollectionInfo->new($session{uid}, $mbro->{DBH}, $mbraw->{DBH}, $preferences);
+
+
+
+
+
+# if a release id is specified in in the removerelease get variable remove this release from collection
+if(defined($addrelease))
+{
+	MusicBrainz::Server::Collection::AddReleaseWithId($mbraw->{DBH}, $addrelease, $collectionId);
+}
+
+
 
 my $releases = $collectionInfo->GetMissingMBIDs();
 
@@ -69,6 +90,7 @@ else
 		<td><b>Release name</b></td>
 		<td><b>Release date</b></td>
 		<td><b>Track count</b></td>
+		<td><b>Add release</b></td>
 	</tr>
 
 
@@ -102,6 +124,7 @@ for my $mbid (@{$releases})
 	<td><& /comp/releasedate, $release->GetFirstReleaseDateYMD &></td>
 <%perl>
 	print '<td>'. $release->GetTrackCount() .'</td>';
+	print '<td><a href="/show/collection/missing.html?addrelease=' . $release->GetId() . '">Add to collection</a></td>';
 	print '</tr>';
 
 	$rownum++;
