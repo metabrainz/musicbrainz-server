@@ -21,7 +21,7 @@
 	#
 	# Summary:
 	# -----------------------------------------------------------------------------
-	# Render the artist title box.
+	# Render the artist title box.$
 	#
 	# $Id$
 	#
@@ -269,23 +269,25 @@
 		$m->out(qq!Collection: [ !);
 		if(MusicBrainz::Server::CollectionInfo::NotifyUserAboutNewFromArtist($id, $session{uid}, $mbraw->{DBH}))
 		{
-			$m->out(qq!<a href="/show/artist/?artistid=$id&notify=0">Do not notify me on new releases</a> | !);
+			$m->out(qq!<a href="?artistid=$id&notify=0">Do not notify me on new releases</a> | !);
 		}
 		else
 		{
-			$m->out(qq!<a href="/show/artist/?artistid=$id&notify=1">Notify me on new releases</a> | !);
+			$m->out(qq!<a href="?artistid=$id&notify=1">Notify me on new releases</a> | !);
 		}
 		
 		if(MusicBrainz::Server::CollectionInfo::ShowMissingOfArtistToUser($id, $session{uid}, $mbraw->{DBH}))
 		{
-			$m->out(qq!<a href="/show/artist/?artistid=$id&dispmissing=0">Do not display missing releases</a>!);
+			$m->out(qq!<a href="?artistid=$id&dispmissing=0">Do not display missing releases</a>!);
 		}
 		else
 		{
-			$m->out(qq!<a href="/show/artist/?artistid=$id&dispmissing=1">Display missing releases</a>!);
+			$m->out(qq!<a href="?artistid=$id&dispmissing=1">Display missing releases</a>!);
 		}
 		$m->out(qq! ]</td></tr>!);
 	}
+	
+	print STDERR Dumper(%ENV);
 
 	$m->out(qq!</table>!);
 

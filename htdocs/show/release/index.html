@@ -45,6 +45,9 @@
 	$showrelationships => $session{"showrelationships"}
 	
 	$addtocollection => undef
+	
+	$notify => undef
+	$dispmissing => undef
 
 </%args>
 <%perl>
@@ -91,7 +94,7 @@
 %# 	show any related moderations so people can vote on them
 	<& /comp/relmods, artistid => $release->GetArtist() &>
 
-	<& /comp/artisttitle, artist => $artist &>
+	<& /comp/artisttitle, artist => $artist, notify => $notify, dispmissing => $dispmissing &>
 
 <%perl>
 
