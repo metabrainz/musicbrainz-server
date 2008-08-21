@@ -124,11 +124,19 @@
 		</div>
 		
 		<div>
+			<%perl>
+				my $user = UserStuff->new($mbro->{DBH});
+				$user = $user->newFromId($session{uid});
+				print STDERR 'confirm:'.$user->GetEmailStatus();
+				if($user->GetEmailStatus() eq "confirmed")
+				{
+			</%perl>
 			<input type="checkbox" name="emailnotifications" id="pref_emailnotifications"
 %				$m->out($preferences->get('emailnotifications')==1 ? ' checked="checked" ' : "" );
 				/>
 			<label for="pref_vote_abs_default">
 				E-mail notifications about upcoming releases.</label>
+%				}
 		</div>
 	<& /comp/tableend &>
 	
