@@ -286,8 +286,6 @@
 		}
 		$m->out(qq! ]</td></tr>!);
 	}
-	
-	print STDERR Dumper(%ENV);
 
 	$m->out(qq!</table>!);
 
