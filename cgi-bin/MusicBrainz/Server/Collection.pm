@@ -82,7 +82,8 @@ sub new
 		removeAlbum						=> 0, # 0=havent touched remove album stuff. 1=has done so
 		removeAlbum_notExistingArray	=> [()],
 		removeAlbum_removeCount			=> 0,
-		removeAlbum_invalidMBIDCount	=> 0
+		removeAlbum_invalidMBIDCount	=> 0,
+		MBIdArray						=> ()
 	}, $this);
 }
 
@@ -158,10 +159,14 @@ sub AddRelease
 			
 			
 			# add MBID to the collection
-			$rawsql->Do('INSERT INTO collection_has_release_joinasd (collection_info, album) VALUES (?, ?)', $this->{collectionId}, $releaseId);
+			$rawsql->Quiet(1);
+			$rawsql->Do('INSERT INTO collection_has_release_join (collection_info, album) VALUES (?, ?)', $this->{collectionId}, $releaseId);
 			
 			# increase add count
 			$this->{addAlbum_insertCount}++;
+			
+			# add to list of MBIds
+			push(@{$this->{MBIdArray}}, $mbid);
 		};
 		
 		if($@)
@@ -170,8 +175,8 @@ sub AddRelease
 			{
 				my $err = "$@";
 				use Carp qw( cluck );
-				cluck $err;
-				die($err);
+				#cluck $err;
+				#die($err);
 				print STDERR 'CATCHED CATCHED                 CATCHED';
 				push(@{$this->{addAlbum_duplicateArray}}, $mbid);
 			}
@@ -196,6 +201,7 @@ sub AddRelease
 
 
 
+# static
 sub AddReleaseWithId
 {
 	my($releaseId, $collectionId, $rawdbh) = @_;
@@ -268,13 +274,16 @@ sub RemoveRelease
 			$rawsql->Begin();
 			
 			# make sure there is a release with the mbid in the database
-			my $deleteResult = $rawsql->Do("DELETE FROM collection_has_release_join WHERE album='?' AND collection_info='?'", $albumId, $this->{collectionId});
+			my $deleteResult = $rawsql->Do("DELETE FROM collection_has_release_join WHERE album = ? AND collection_info = ?", $albumId, $this->{collectionId});
 			
 			
 			if($deleteResult == 1) # successfully deleted
 			{
 				# increase remove count
 				$this->{removeAlbum_removeCount}++;
+				
+				# add MBId to array
+				push(@{$this->{MBIdArray}}, $mbid);
 			}
 		};
 		
