@@ -157,7 +157,7 @@ sub GetHasMBIDs
 		
 		my $releaseQuery='SELECT album.gid FROM album INNER JOIN artist ON (album.artist = artist.id) WHERE album.id IN(' . join(',', @{$result}) . ') ORDER BY artist.name, album.name';
 		
-		$mbids = $rosql->SelectListOfLists($releaseQuery);
+		$mbids = $rosql->SelectSingleColumnArray($releaseQuery);
 		
 		
 		return $mbids;

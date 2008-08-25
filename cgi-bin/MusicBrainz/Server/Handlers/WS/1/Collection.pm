@@ -38,6 +38,8 @@ sub handler
 	# POST http://server/ws/1/collection/?addalbums=<comma separated list of mbids>&removealbums=<comma separated list of mbids>
     my $r = shift;
     
+    my $printer;
+    
     
 	use Data::Dumper;
 	
@@ -96,43 +98,35 @@ sub handler
 	{
 		return bad_req($r, "Adding and removing releases must be done one at a time.");
 	}
+	elsif(!@addAlbums && !@removeAlbums)
+	{
+		$printer = sub {
+			print_collection_xml($collectionId, $mbro->{DBH}, $mbraw->{DBH});
+		};
+	}
+	elsif(@addAlbums){
+		$collection->AddAlbums(@addAlbums);
+		$printer = sub {
+			print_manipulate_xml($collection);
+		};
+	}
+	elsif(@removeAlbums){
+		$collection->RemoveAlbums(@removeAlbums);
+		$printer = sub {
+			print_manipulate_xml($collection);
+		};
+	}
 	
-	# add albums, if the array is not empty...
-	if(@addAlbums){ $collection->AddAlbums(@addAlbums); }
-	
-	# remove albums, if the array is not empty
-	if(@removeAlbums){ $collection->RemoveAlbums(@removeAlbums); }
-	
-	# print XML response
-	my $printer = sub {
-		print_xml($collection);
-	};
 	
 	send_response($r, $printer);
 	return Apache::Constants::OK();	
 }
 
 
-sub print_xml
+sub print_manipulate_xml
 {
 	my ($collection) = @_;
 	
-	#print Dumper(@addAlbums);
-	
-#	print "\n\nduplicates:\n";
-#	for my $duplicate (@{$collection->{addAlbum_duplicateArray}})
-#	{
-#		print STDERR "$duplicate\n";
-#	}
-#
-#	print "\n\not existing MBIDs:\n";
-#	for my $notExisting (@{$collection->{addAlbum_notExistingArray}})
-#	{
-#		print STDERR "$notExisting\n";
-#	}
-	
-	
-
 	print '<?xml version="1.0" encoding="UTF-8"?>';
 	print '<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">';
 	
@@ -149,24 +143,29 @@ sub print_xml
 	}
 	
 	print '</metadata>';
+}
 
 
-#	print '<?xml version="1.0" encoding="UTF-8"?>';
-#	print '<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">';
-#	print '<response>';
-#	
-#	if($collection->{addAlbum}==1 || $collection->{removeAlbum}==1) # print details for uuidtype album
-#	{
-#		print '<details uuidtype="album">';
-#		print '<addcount>'.$collection->{addAlbum_insertCount}.'</addcount>';
-#		print '<removecount>'.$collection->{removeAlbum_removeCount}.'</removecount>';
-#		print '<addinvalidmbidcount>'.$collection->{addAlbum_invalidMBIDCount}.'</addinvalidmbidcount>';
-#		print '<removeinvalidmbidcount>'.$collection->{removeAlbum_invalidMBIDCount}.'</removeinvalidmbidcount>';
-#		print '<error></error>'; # <--
-#		print '</details>';	
-#	}
-#	print '</response>';
-#	print '</metadata>';
+
+sub print_collection_xml
+{
+	my ($collectionId, $rodbh, $rawdbh) = @_;
+	
+	my $collectionInfo = MusicBrainz::Server::CollectionInfo->newFromCollectionId($collectionId, $rodbh, $rawdbh, undef);
+	
+	print '<?xml version="1.0" encoding="UTF-8"?>';
+	print '<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">';
+	print '<response-list>';
+	
+	print STDERR Dumper($collectionInfo->GetHasMBIDs());
+		
+	for my $mbid (@{$collectionInfo->GetHasMBIDs()})
+	{
+		print '<release id="' . $mbid . '"/>';
+	}
+	
+	print '</response-list>';
+	print '</metadata>';
 }
 
 1;
