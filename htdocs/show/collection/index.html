@@ -114,7 +114,7 @@ for my $mbid (@{$releases})
 
         
 	my $release = MusicBrainz::Server::Release->new($rodbh);
-	$release->SetMBId(@{$mbid}[0]);
+	$release->SetMBId($mbid);
 	$release->LoadFromId();
 
 	my $artist = MusicBrainz::Server::Artist->new($rodbh);

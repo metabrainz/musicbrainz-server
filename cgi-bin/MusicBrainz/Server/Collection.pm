@@ -83,6 +83,7 @@ sub new
 		removeAlbum_notExistingArray	=> [()],
 		removeAlbum_removeCount			=> 0,
 		removeAlbum_invalidMBIDCount	=> 0,
+		invalidMBIdCount				=> 0,
 		MBIdArray						=> ()
 	}, $this);
 }
@@ -140,7 +141,7 @@ sub AddRelease
 	
 	my $rosql=Sql->new($this->{RODBH});
 	my $rawsql=Sql->new($this->{RAWDBH});
-	
+	print STDERR "adding $mbid \n";
 	
 	# make sure this is valid format for a mbid
 	if(MusicBrainz::Server::Validation::IsGUID($mbid))
@@ -155,7 +156,6 @@ sub AddRelease
 		eval
 		{
 			$rawsql->Begin();
-			$rawsql->Quiet(1);
 			
 			
 			# add MBID to the collection
@@ -173,8 +173,8 @@ sub AddRelease
 		{			
 			if($@ =~ /duplicate/) # it is a duplicate... add it to the array of duplicates
 			{
-				my $err = "$@";
-				use Carp qw( cluck );
+				#my $err = "$@";
+				#use Carp qw( cluck );
 				#cluck $err;
 				#die($err);
 				print STDERR 'CATCHED CATCHED                 CATCHED';
@@ -183,6 +183,7 @@ sub AddRelease
 			else
 			{
 				print STDERR '                         NOT CATCHED                      NOT CATCHED                   NOT CATCHED          ';
+				$this->{invalidMBIdCount}++;
 				#die($@);
 			}
 			
@@ -313,38 +314,38 @@ sub RemoveRelease
 # static subs
 #----------------------------
 
-sub AddReleaseWithId
-{
-	my ($rawdbh, $releaseId, $collectionId) = @_;
-	
-	my $rawsql = Sql->new($rawdbh);
-	
-	print STDERR "INSERTING: $releaseId into $rawdbh collection $collectionId";
-	eval
-	{
-		$rawsql->Begin();
-		
-		$rawsql->Do('INSERT INTO collection_has_release_join (collection_info, album) VALUES(?, ?)', $collectionId, $releaseId);
-	};
-	
-	if($@)
-	{
-		# ignore duplicate errors
-		if($@ =~ /duplicate/)
-		{
-			$rawsql->Rollback();
-		}
-		else
-		{
-			$rawsql->Rollback();
-			die($@);
-		}
-	}
-	else
-	{
-		$rawsql->Commit();
-	}
-}
+#sub AddReleaseWithId
+#{
+#	my ($rawdbh, $releaseId, $collectionId) = @_;
+#	
+#	my $rawsql = Sql->new($rawdbh);
+#	
+#	print STDERR "INSERTING: $releaseId into $rawdbh collection $collectionId";
+#	eval
+#	{
+#		$rawsql->Begin();
+#		
+#		$rawsql->Do('INSERT INTO collection_has_release_join (collection_info, album) VALUES(?, ?)', $collectionId, $releaseId);
+#	};
+#	
+#	if($@)
+#	{
+#		# ignore duplicate errors
+#		if($@ =~ /duplicate/)
+#		{
+#			$rawsql->Rollback();
+#		}
+#		else
+#		{
+#			$rawsql->Rollback();
+#			die($@);
+#		}
+#	}
+#	else
+#	{
+#		$rawsql->Commit();
+#	}
+#}
 
 
 
