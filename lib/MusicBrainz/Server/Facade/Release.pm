@@ -73,7 +73,7 @@ sub new_from_release
         release_status     => $status,
         release_type       => $type,
         script             => $release->GetScript   ? $release->GetScript->GetName : '',
-        track_count        => $release->GetTrackCount,
+        track_count        => $release->track_count,
 
         _r                 => $release,
     });

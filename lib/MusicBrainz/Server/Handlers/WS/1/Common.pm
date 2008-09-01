@@ -502,8 +502,8 @@ sub xml_discs
 		foreach my $id (@ids)
 		{
 			my ($cdtoc) = $id->GetCDTOC;
-			my ($sectors) = $cdtoc->GetLeadoutOffset;
-			my ($discid) = $cdtoc->GetDiscID;
+			my ($sectors) = $cdtoc->leadout_offset;
+			my ($discid) = $cdtoc->disc_id;
 
 			# create a cdindexId element
 			print '<disc sectors="';

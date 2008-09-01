@@ -75,12 +75,12 @@ sub PreInsert
 	$self->SetColumn("album");
 	$self->row_id($alcdtoc->GetId);
 	$self->SetArtist($oldrelease->GetArtist);
-	$self->SetPrev($cdtoc->GetDiscID);
+	$self->SetPrev($cdtoc->disc_id);
 
 	my %new = (
 		AlbumName => $oldrelease->GetName,
 		AlbumId => $oldrelease->GetId,
-		FullTOC => $cdtoc->GetTOC,
+		FullTOC => $cdtoc->toc,
 		CDTOCId => $cdtoc->GetId,
 	);
 	$self->SetNew($self->ConvertHashToNew(\%new));

@@ -25,10 +25,10 @@ sub new_from_cdtoc
 
     my $tracks = [];
 
-    my $offsets = $cdtoc->GetTrackOffsets;
-    my $lengths = $cdtoc->GetTrackLengths;
+    my $offsets = $cdtoc->track_offsets;
+    my $lengths = $cdtoc->track_lengths;
 
-    for my $n ($cdtoc->GetFirstTrack .. $cdtoc->GetLastTrack)
+    for my $n ($cdtoc->first_track .. $cdtoc->last_track)
     {
         my $start  = $offsets->[$n-1];
         my $length = $lengths->[$n-1];
@@ -51,12 +51,12 @@ sub new_from_cdtoc
     }
 
     return $class->new({
-        cdtoc       => $cdtoc->GetTOC,
-        disc_id     => $cdtoc->GetDiscID, 
-        duration    => MusicBrainz::Server::Track::FormatTrackLength($cdtoc->GetLeadoutOffset / 75 * 1000),
-        first_track => $cdtoc->GetFirstTrack,
-        freedb_id   => $cdtoc->GetFreeDBID,
-        last_track  => $cdtoc->GetLastTrack,
+        cdtoc       => $cdtoc->toc,
+        disc_id     => $cdtoc->disc_id, 
+        duration    => MusicBrainz::Server::Track::FormatTrackLength($cdtoc->leadout_offset / 75 * 1000),
+        first_track => $cdtoc->first_track,
+        freedb_id   => $cdtoc->freedb_id,
+        last_track  => $cdtoc->last_track,
         tracks      => $tracks,
 
         _toc        => $cdtoc,

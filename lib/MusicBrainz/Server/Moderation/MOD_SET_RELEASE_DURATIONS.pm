@@ -39,7 +39,7 @@ sub Name { "Set Release Durations" }
 sub TrackLengthsFromTOC
 {
     my $toc = shift;
-    map { $_/75*1000 } @{ $toc->GetTrackLengths };
+    map { $_/75*1000 } @{ $toc->track_lengths };
 }
 
 sub PreInsert

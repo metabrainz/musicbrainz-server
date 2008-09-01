@@ -546,7 +546,7 @@ sub LoadAlbumMetadata
 
 # Given an album, query the number of tracks present in this album
 # Returns the number of tracks or undef on error
-sub GetTrackCount
+sub track_count
 {
    my ($this) = @_;
    my ($sql);
@@ -1525,7 +1525,7 @@ sub _GetTOCTracksHash
 
 	for (@$discids)
 	{
-		my $n = $_->GetCDTOC->GetTrackCount;
+		my $n = $_->GetCDTOC->track_count;
 		++$h{$n};
 	}
 

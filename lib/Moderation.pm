@@ -1740,7 +1740,7 @@ sub ShowModType
 		{
 			$this->{"albumid"} = $release->GetId;
 			$this->{"albumname"} = $release->GetName;
-			$this->{"trackcount"} = $release->GetTrackCount;
+			$this->{"trackcount"} = $release->track_count;
 			$this->{"isnonalbum"} = $release->IsNonAlbumTracks;
 		}	
 	}

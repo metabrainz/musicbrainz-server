@@ -50,20 +50,20 @@ use TableBase;
 ################################################################################
 
 # GetId - see TableBase
-sub GetDiscID		{ $_[0]{discid} }
-sub GetFreeDBID		{ $_[0]{freedbid} }
-sub GetFirstTrack	{ 1 }
-sub GetLastTrack	{ $_[0]{trackcount} }
-sub GetTrackCount	{ $_[0]{trackcount} }
-sub GetLeadoutOffset{ $_[0]{leadoutoffset} }
+sub disc_id         { $_[0]{discid} }
+sub freedb_id		{ $_[0]{freedbid} }
+sub first_track	{ 1 }
+sub last_track	{ $_[0]{trackcount} }
+sub track_count	{ $_[0]{trackcount} }
+sub leadout_offset{ $_[0]{leadoutoffset} }
 
 ################################################################################
 # Derived Properties
 ################################################################################
 
-sub GetTrackOffsets	{ $_[0]{_trackoffsets} ||= $_[0]->_DeriveTrackOffsets }
-sub GetTOC			{ $_[0]{_toc} ||= $_[0]->_DeriveTOC }
-sub GetTrackLengths	{ $_[0]{_tracklengths} ||= $_[0]->_DeriveTrackLengths }
+sub track_offsets	{ $_[0]{_trackoffsets} ||= $_[0]->_DeriveTrackOffsets }
+sub toc			{ $_[0]{_toc} ||= $_[0]->_DeriveTOC }
+sub track_lengths	{ $_[0]{_tracklengths} ||= $_[0]->_DeriveTrackLengths }
 
 sub _DeriveTrackOffsets
 {
@@ -76,13 +76,13 @@ sub _DeriveTOC
 	my $self = shift;
 	join " ",
 		1, $self->{trackcount}, $self->{leadoutoffset},
-		@{ $self->GetTrackOffsets };
+		@{ $self->track_offsets };
 }
 
 sub _DeriveTrackLengths
 {
 	my $self = shift;
-	my $trackoffsets = $self->GetTrackOffsets;
+	my $trackoffsets = $self->track_offsets;
 	[
 		(map {
 			$trackoffsets->[$_] - $trackoffsets->[$_-1]

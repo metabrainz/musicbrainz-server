@@ -106,8 +106,8 @@ sub PreInsert
 		OldAlbumName	=> $oldal->GetName,
 		NewAlbumId		=> $newal->GetId,
 		NewAlbumName	=> $newal->GetName,
-		DiscId			=> $cdtoc->GetDiscID,
-		FullTOC			=> $cdtoc->GetTOC,
+		DiscId			=> $cdtoc->disc_id,
+		FullTOC			=> $cdtoc->toc,
 		CDTOCId			=> $cdtoc->GetId,
 		AlreadyThere	=> $already_there ? 1 : 0,
 	);

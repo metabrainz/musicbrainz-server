@@ -410,7 +410,7 @@ sub InsertForModeration
 
             if ($thisname eq $album)
             {
-                if ($al->GetTrackCount() == scalar(@$ref))
+                if ($al->track_count() == scalar(@$ref))
                 {
 		    return unless AUTO_ADD_DISCID;
 		    return if $al->IsNonAlbumTracks;

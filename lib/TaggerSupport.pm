@@ -522,7 +522,7 @@ sub AlbumSearch
                         id=>$al->GetId(),
                         name=>$al->GetName(),
                         mbid=>$al->GetMBId(),
-                        album_tracks=>$al->GetTrackCount(),
+                        album_tracks=>$al->track_count(),
                         album_discids=>$al->GetDiscidCount(),
                         album_trmids=>$al->GetTrmidCount(),
                         albumtype=>$albumtype});
@@ -568,7 +568,7 @@ sub AlbumSearch
                         id=>$al->GetId(),
                         name=>$al->GetName(),
                         mbid=>$al->GetMBId(),
-                        album_tracks=>$al->GetTrackCount(),
+                        album_tracks=>$al->track_count(),
                         album_discids=>$al->GetDiscidCount(),
                         album_trmids=>$al->GetTrmidCount(),
                         albumtype=>$albumtype});

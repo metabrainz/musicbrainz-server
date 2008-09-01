@@ -492,7 +492,7 @@ sub LoadObject
 	my $index = 0;
 	for my $t (@$discids)
 	{
-	    $obj->{"_cdindexid$index"} = $t->GetCDTOC->GetDiscID;
+	    $obj->{"_cdindexid$index"} = $t->GetCDTOC->disc_id;
 	    $index++;
 	}
     }
