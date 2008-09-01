@@ -60,25 +60,6 @@ sub sort_name
     return $self->{sortname};
 }
 
-sub _GetIdCacheKey
-{
-    my ($class, $id) = @_;
-    "artist-id-" . int($id);
-}
-
-sub _GetMBIDCacheKey
-{
-    my ($class, $mbid) = @_;
-    "artist-mbid-" . lc $mbid;
-}
-
-sub InvalidateCache
-{
-    my $self = shift;
-    MusicBrainz::Server::Cache->delete($self->_GetIdCacheKey($self->GetId));
-    MusicBrainz::Server::Cache->delete($self->_GetMBIDCacheKey($self->GetMBId));
-}
-
 sub type
 {
     my ($self, $new_type) = @_;
@@ -100,23 +81,6 @@ sub begin_date_name
 sub end_date_name
 {
    return $ArtistTypeNames{$_[0]}->[2] || 'End Date';
-}
-
-sub IsValidType
-{
-   my $type = shift;
-
-   if ( defined $type and $type ne ""
-		and ($type == ARTIST_TYPE_UNKNOWN or 
-			 $type == ARTIST_TYPE_PERSON or 
-			 $type == ARTIST_TYPE_GROUP) )
-   {
-      return 1;
-   }
-   else
-   {
-      return 0;
-   }
 }
 
 sub resolution
@@ -174,6 +138,43 @@ sub quality_has_mod_pending
     if (defined $new_val) { $self->{modpending_qual} = $new_val; }
     return $self->{modpending_qual};
 }
+
+sub IsValidType
+{
+   my $type = shift;
+
+   if ( defined $type and $type ne ""
+		and ($type == ARTIST_TYPE_UNKNOWN or 
+			 $type == ARTIST_TYPE_PERSON or 
+			 $type == ARTIST_TYPE_GROUP) )
+   {
+      return 1;
+   }
+   else
+   {
+      return 0;
+   }
+}
+
+sub _GetIdCacheKey
+{
+    my ($class, $id) = @_;
+    "artist-id-" . int($id);
+}
+
+sub _GetMBIDCacheKey
+{
+    my ($class, $mbid) = @_;
+    "artist-mbid-" . lc $mbid;
+}
+
+sub InvalidateCache
+{
+    my $self = shift;
+    MusicBrainz::Server::Cache->delete($self->_GetIdCacheKey($self->GetId));
+    MusicBrainz::Server::Cache->delete($self->_GetMBIDCacheKey($self->GetMBId));
+}
+
 
 # Insert an artist into the DB and return the artist id. Returns undef
 # on error. The name and sortname of this artist must be set via the accesor
