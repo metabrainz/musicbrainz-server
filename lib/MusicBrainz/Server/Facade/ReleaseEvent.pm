@@ -20,7 +20,7 @@ sub new_from_event
 
     return $class->new({
         catalog_number => $event->GetCatNo,
-        country        => $event->GetCountry,
+        country        => $event->country,
         date           => $event->GetSortDate,
         format         => $event->GetFormat ? $event->GetFormatName : "",
         barcode        => $event->GetBarcode,

@@ -616,7 +616,7 @@ TRACK:
 
 		$rel->SetRelease($albumid);
 		$rel->SetYMD(@ymd);
-		$rel->SetCountry($release->{country});
+		$rel->country($release->{country});
 		$rel->SetLabel($release->{label});
 		$rel->SetCatNo($release->{catno});
 		$rel->SetBarcode($release->{barcode});

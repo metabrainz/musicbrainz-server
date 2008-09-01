@@ -75,7 +75,7 @@ sub PreInsert
 		$row->InsertSelf;
 		$new{"add".$i++} = sprintf "d=%s c=%d id=%d l=%d n=%s b=%s f=%d",
 			$row->GetSortDate,
-			$row->GetCountry,
+			$row->country,
 			$row->GetId,
 			$row->GetLabel,
 			_EncodeText($row->GetCatNo),
@@ -91,14 +91,14 @@ sub PreInsert
 
 		my $old = sprintf "d=%s c=%d id=%d l=%d n=%s b=%s f=%d",
 			$obj->GetSortDate,
-			$obj->GetCountry,
+			$obj->country,
 			$obj->GetId,
 			$obj->GetLabel,
 			_EncodeText($obj->GetCatNo),
 			_EncodeText($obj->GetBarcode),
 			$obj->GetFormat;
 
-		$obj->SetCountry($row->{"country"});
+		$obj->country($row->{"country"});
 		$obj->SetYMD(@$row{qw( year month day )});
 		$obj->SetLabel($row->{label});
 		$obj->SetCatNo($row->{catno});
@@ -107,7 +107,7 @@ sub PreInsert
 
 		my $new = sprintf "nd=%s nc=%d nl=%d nn=%s nb=%s nf=%d",
 			$obj->GetSortDate,
-			$obj->GetCountry,
+			$obj->country,
 			$obj->GetLabel,
 			_EncodeText($obj->GetCatNo),
 			_EncodeText($obj->GetBarcode),
@@ -122,7 +122,7 @@ sub PreInsert
 		die unless $row->GetRelease == $al->GetId;
 		$new{"remove".$i++} = sprintf "d=%s c=%d id=%d l=%d n=%s b=%s f=%d",
 			$row->GetSortDate,
-			$row->GetCountry,
+			$row->country,
 			$row->GetId,
 			$row->GetLabel,
 			_EncodeText($row->GetCatNo),
@@ -307,7 +307,7 @@ sub ApprovedAction
 			}
 		}
 
-		if ($r->GetCountry != $t->{'c'}
+		if ($r->country != $t->{'c'}
 			or $r->GetSortDate ne $t->{'d'}
 			or $r->GetLabel != $t->{'l'}
 			or $r->GetCatNo ne $t->{'n'}

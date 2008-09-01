@@ -71,7 +71,7 @@ sub PreInsert
 	if (defined $country)
 {
 		MusicBrainz::Server::Validation::TrimInPlace($sortname);
-		$new{'Country'} = $country if $country ne $ar->GetCountry();
+		$new{'Country'} = $country if $country ne $ar->country();
 }
 
 	if ( defined $labelcode )
@@ -126,7 +126,7 @@ sub PreInsert
 
 	$prev{'LabelName'} = $ar->GetName() if exists $new{'LabelName'};
 	$prev{'LabelCode'} = $ar->label_code() if exists $new{'LabelCode'};
-	$prev{'Country'} = $ar->GetCountry() if exists $new{'Country'};
+	$prev{'Country'} = $ar->country() if exists $new{'Country'};
 	$prev{'SortName'} = $ar->sort_name() if exists $new{'SortName'};
 	$prev{'Type'} = $ar->type() if exists $new{'Type'};
 	$prev{'Resolution'} = $ar->resolution() if exists $new{'Resolution'};

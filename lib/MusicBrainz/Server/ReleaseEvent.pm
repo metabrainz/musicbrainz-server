@@ -107,13 +107,19 @@ sub Release
 	$c;
 }
 
-sub GetCountry	{ $_[0]{country} }
-sub SetCountry	{ $_[0]{country} = $_[1] }
+sub country
+{
+    my ($self, $new_country) = @_;
+
+    if (defined $new_country) { $self->{country} = $new_country; }
+    return $self->{country};
+}
+
 sub Country
 {
 	my $self = shift;
 	my $c = MusicBrainz::Server::Country->new($self->{DBH});
-	$c = $c->newFromId($self->GetCountry);
+	$c = $c->newFromId($self->country);
 	$c;
 }
 
@@ -179,7 +185,7 @@ sub ToString {
 	return 	"ReleaseEvent { Id: " . $self->GetId . 
 			", Release: " . $self->GetRelease . 
 			", Date: " . $self->{"releasedate"} . 
-			", Country: ".$self->GetCountry .
+			", Country: ".$self->country .
 			"}";
 }
 
@@ -231,7 +237,7 @@ sub InsertSelf
 	$sql->Do(
 		"INSERT INTO release (album, country, releasedate, label, catno, barcode, format) VALUES (?, ?, ?, ?, ?, ?, ?)",
 		$self->GetRelease,
-		$self->GetCountry,
+		$self->country,
 		$self->GetSortDate,
 		$self->GetLabel || undef,
 		$self->GetCatNo || undef,
@@ -245,7 +251,7 @@ sub Update
 {
 	my ($self, %new) = @_;
    	my $sql = Sql->new($self->{DBH});
-	$self->SetCountry($new{"country"});
+	$self->country($new{"country"});
 	$self->SetSortDate($new{"date"});
 	$self->SetLabel($new{"label"});
 	$self->SetCatNo($new{"catno"});
@@ -253,7 +259,7 @@ sub Update
 	$self->SetFormat($new{"format"});
 	$sql->Do(
 		"UPDATE release SET country = ?, releasedate = ?, label = ?, catno = ?, barcode = ?, format = ? WHERE id = ?",
-		$self->GetCountry,
+		$self->country,
 		$self->GetSortDate,
 		$self->GetLabel || undef,
 		$self->GetCatNo || undef,

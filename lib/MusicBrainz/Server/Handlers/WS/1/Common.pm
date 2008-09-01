@@ -449,7 +449,7 @@ sub xml_release_events
         print "<release-event-list>";
         for my $rel (@releases)
         {
-			my $cid = $rel->GetCountry;
+			my $cid = $rel->country;
 			my $c = $country_obj->newFromId($cid);
 			my ($year, $month, $day) = $rel->GetYMD();
 			my ($releasedate) = $year;
@@ -636,10 +636,10 @@ sub xml_label
     print '<sort-name>' . xml_escape($ar->sort_name) . '</sort-name>';
     print '<label-code>' . xml_escape($ar->label_code) . '</label-code>' if $ar->label_code;
     print '<disambiguation>' . xml_escape($ar->resolution()) . '</disambiguation>' if ($ar->resolution());
-    if ($ar->GetCountry())
+    if ($ar->country())
     {
         my $c = MusicBrainz::Server::Country->new($ar->GetDBH);
-        $c = $c->newFromId($ar->GetCountry);
+        $c = $c->newFromId($ar->country);
         print '<country>' . xml_escape($c->GetISOCode) . '</country>';
     }
     

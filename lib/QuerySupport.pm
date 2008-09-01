@@ -1176,7 +1176,7 @@ sub QuickTrackInfoFromTrackId
        $out .= $rdf->BeginSeq();
        for my $rel (@releases)
        {
-            my $cid = $rel->GetCountry;
+            my $cid = $rel->country;
             my $c = $country_obj->newFromId($cid);
             my ($year, $month, $day) = $rel->GetYMD();
 

@@ -94,14 +94,12 @@ sub sort_name
     return $self->{sortname};
 }
 
-sub GetCountry
+sub country
 {
-   return $_[0]->{country};
-}
+    my ($self, $new_country) = @_;
 
-sub SetCountry
-{
-   $_[0]->{country} = $_[1];
+    if (defined $new_country) { $self->{country} = $new_country; }
+    return $self->{country};
 }
 
 sub type
@@ -232,7 +230,7 @@ sub Insert
 	$this->GetMBId(),
 	$this->type(),
 	$this->sort_name(),
-	$this->GetCountry() || undef,
+	$this->country() || undef,
 	$this->resolution() || undef,
 	$this->begin_date() || undef,
 	$this->end_date() || undef,
@@ -595,7 +593,7 @@ sub GetLabelsFromName
 		$ar->SetName($row->{name});
 		$ar->type($row->{type});
 		$ar->label_code($row->{labelcode});
-		$ar->SetCountry($row->{country});
+		$ar->country($row->{country});
 		$ar->sort_name($row->{sortname});
 		$ar->SetModPending($row->{modpending});
 		$ar->resolution($row->{resolution});
@@ -637,7 +635,7 @@ sub GetLabelsFromSortname
 		$ar->SetName($row->{name});
 		$ar->sort_name($row->{sortname});
 		$ar->label_code($row->{labelcode});
-		$ar->SetCountry($row->{country});
+		$ar->country($row->{country});
 		$ar->resolution($row->{resolution});
 		$ar->begin_date($row->{begindate});
 		$ar->end_date($row->{enddate});
@@ -678,7 +676,7 @@ sub GetLabelsFromCode
 		$ar->SetName($row->{name});
 		$ar->sort_name($row->{sortname});
 		$ar->label_code($row->{labelcode});
-		$ar->SetCountry($row->{country});
+		$ar->country($row->{country});
 		$ar->resolution($row->{resolution});
 		$ar->begin_date($row->{begindate});
 		$ar->end_date($row->{enddate});
