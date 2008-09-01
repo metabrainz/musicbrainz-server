@@ -924,8 +924,8 @@ EOF
 	    my @attrs = $row->[7] =~ /(\d+)/g;
 	    shift @attrs;
 	    my ($type, $status) = MusicBrainz::Server::Release->GetReleaseTypeAndStatus(\@attrs);
-	    $typehash = "Type" . MusicBrainz::Server::Release->GetAttributeName($type) if $type;
-	    $statushash = "Status" . MusicBrainz::Server::Release->GetAttributeName($status) if $status;
+	    $typehash = "Type" . MusicBrainz::Server::Release->attribute_name($type) if $type;
+	    $statushash = "Status" . MusicBrainz::Server::Release->attribute_name($status) if $status;
 	}
 
 	# Cheat: this is missing the releaseDateList
@@ -1155,13 +1155,13 @@ sub QuickTrackInfoFromTrackId
            $attr <= MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_TYPE_END)
        {
           $out .= $rdf->Element("mm:releaseType", "", "rdf:resource", $rdf->GetMMNamespace() .
-                                 "Type" . $album->GetAttributeName($attr));
+                                 "Type" . $album->attribute_name($attr));
        }
        elsif ($attr >= MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_STATUS_START &&
               $attr <= MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_STATUS_END)
        {
           $out .= $rdf->Element("mm:releaseStatus", "", "rdf:resource", $rdf->GetMMNamespace() .
-                                 "Status" . $album->GetAttributeName($attr));
+                                 "Status" . $album->attribute_name($attr));
        }
    }
 

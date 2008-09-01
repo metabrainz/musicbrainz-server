@@ -109,8 +109,14 @@ sub GetReverseLinkPhrase   { $_[0]->{rlinkphrase} }
 sub SetReverseLinkPhrase   { $_[0]->{rlinkphrase} = $_[1]; }
 sub GetDescription         { $_[0]->{description} }
 sub SetDescription         { $_[0]->{description} = $_[1]; }
-sub GetAttributes          { $_[0]->{attribute} }
-sub SetAttributes          { $_[0]->{attribute} = $_[1]; }
+
+sub attributes
+{
+    my ($self, $new_attributes) = @_;
+
+    if (defined $new_attributes) { $self->{attribute} = $new_attributes; }
+    return $self->{attribute};
+}
 
 sub GetShortLinkPhrase { $_[0]->{shortlinkphrase} }
 sub SetShortLinkPhrase { $_[0]->{shortlinkphrase} = $_[1]; }
@@ -300,7 +306,7 @@ sub Update
 		$self->GetLinkPhrase,
 		$self->GetReverseLinkPhrase,
 		$self->GetDescription,
-		$self->GetAttributes,
+		$self->attributes,
 		$self->GetShortLinkPhrase,
 		$self->GetPriority,
 		$self->GetId,

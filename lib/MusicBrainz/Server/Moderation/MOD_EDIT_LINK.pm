@@ -59,7 +59,7 @@ sub PreInsert
     );
     $attr = $attr->newFromLinkId($link->GetId());
     ($oldlinkphrase, $dummy) = $attr->ReplaceAttributes($oldlinkphrase, '');
-    $attr->SetAttributes([map { $_->{value} } @$newattrs]);
+    $attr->attributes([map { $_->{value} } @$newattrs]);
     ($newlinkphrase, $dummy) = $attr->ReplaceAttributes($newlinkphrase, '');
 
 	if (@$entities[0]->{type} eq 'album' || @$entities[0]->{type} eq 'track')

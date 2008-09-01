@@ -104,36 +104,33 @@ sub newFromLinkId
 	$self->_new_from_attribute_ids($linkid, $attrs);
 }
 
-sub SetAttributes
+sub attributes
 {
-	my ($self, $attrs) = @_;
-	$self->{attributes} = $attrs;
-}
+    my ($self, $new_attrs) = @_;
+    
+    if (defined $attrs) { $self->{attributes} = $new_attrs; }
 
-sub GetAttributes
-{
-	my ($self) = @_;
-	my @attrs;
-
-    my $linkattr = MusicBrainz::Server::LinkAttr->new($self->{DBH});
-	foreach my $attr (@{$self->{attributes}})
-	{
-		my $obj = $linkattr->newFromId($attr);
+    my @attributes;
+    my $link_attr = MusicBrainz::Server::LinkAttr->new($self->{DBH});
+    
+    foreach my $attr (@{ $self->{attributes} })
+    {
+        my $obj = $link_attr->newFromId($attr);
         if ($obj)
-		{
-			my @p = $obj->PathFromRoot();
-			if (scalar(@p) > 1)
-			{
-				push @attrs, { 
-					           name=>$p[1]->GetName(), 
-					           value=>$attr,
-							   value_text=>$obj->GetName(),
-				             };
-			}
-		}
-	}
+        {
+            my @p = $obj->PathFromRoot();
+            if (scalar(@p) > 1)
+            {
+                push @attributes, { 
+                    name       => $p[1]->GetName(), 
+                    valuei     => $attr,
+                    value_text => $obj->GetName(),
+                };
+            }
+        }
+    }
 
-    return \@attrs;
+    return \@attributes;
 }
 
 sub ReplaceAttributes

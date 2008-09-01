@@ -507,7 +507,7 @@ sub AlbumSearch
        {
            my $albumtype = -1;
            my $attr;
-           my @attrs = $al->GetAttributes();
+           my @attrs = $al->attributes();
            foreach $attr (@attrs)
            {
                if ($attr >= &MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_TYPE_START &&
@@ -553,7 +553,7 @@ sub AlbumSearch
 
            my $albumtype = -1;
            my $attr;
-           my @attrs = $al->GetAttributes();
+           my @attrs = $al->attributes();
            foreach $attr (@attrs)
            {
                if ($attr >= &MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_TYPE_START &&

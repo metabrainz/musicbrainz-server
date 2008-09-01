@@ -76,7 +76,7 @@ sub PreInsert
 	{
 		die "Cannot edit attributes of 'non-album tracks' release"
 			if $al->IsNonAlbumTracks;
-		my $prev = join ",", $al->GetAttributes;
+		my $prev = join ",", $al->attributes;
 		next if $prev eq $new{'Attributes'};
 
 		$new{"AlbumId$seq"} = $al->GetId;
@@ -119,7 +119,7 @@ sub PreInsert
 	# This mod is immediately applied, and undone later if rejected.
  	for my $al (@$albums)
 	{
-	  	$al->SetAttributes(@$attrs);
+	  	$al->attributes(@$attrs);
   		$al->UpdateAttributes;
 	}
 }
@@ -180,7 +180,7 @@ sub ConvertToText
 
 	join ", ",
 		map {
-			$al->GetAttributeName($_)
+			$al->attribute_name($_)
 		} @_;
 }
 
@@ -219,7 +219,7 @@ sub DeniedAction
 	{
 		$al->SetId($t->{'id'});
 		$al->LoadFromId;
-		$al->SetAttributes(split /,/, $t->{'prev'});
+		$al->attributes(split /,/, $t->{'prev'});
   		$al->UpdateAttributes;
 	}
 }

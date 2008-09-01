@@ -368,7 +368,7 @@ sub _Insert
            $al->SetArtist($artistid);
            if (exists $info->{attrs})
            {
-               $al->SetAttributes(@{ $info->{attrs} });
+               $al->attributes(@{ $info->{attrs} });
            }
            $al->language_id($language) if $language;
            $al->script_id($script) if $script;
@@ -389,7 +389,7 @@ sub _Insert
            {
                if (exists $info->{attrs})
                {
-                   $al->SetAttributes(@{ $info->{attrs} });
+                   $al->attributes(@{ $info->{attrs} });
                }
                $al->language_id($language) if $language;
                $al->script_id($script) if $script;

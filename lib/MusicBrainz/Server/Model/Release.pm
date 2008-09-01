@@ -167,7 +167,7 @@ sub _build_sort_keys
         $release->{_attr_type}    = $type;
         $release->{_attr_status}  = $status;
 
-        for my $attr ($release->GetAttributes)
+        for my $attr ($release->attributes)
         {
             $release->{_attr_type}   = $attr if ($attr >= MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_TYPE_START &&
                                                  $attr <= MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_TYPE_END);

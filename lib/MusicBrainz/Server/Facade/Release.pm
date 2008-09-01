@@ -35,31 +35,31 @@ sub get_release { shift->{_r}; }
 sub release_type_name
 {
     my $self = shift;
-    $self->{_r}->GetAttributeName($self->release_type);
+    $self->{_r}->attribute_name($self->release_type);
 }
 
 sub release_type_plural
 {
     my $self = shift;
-    $self->{_r}->GetAttributeNamePlural($self->release_type);
+    $self->{_r}->attribute_name_as_plural($self->release_type);
 }
 
 sub release_status_name
 {
     my $self = shift;
-    $self->{_r}->GetAttributeName($self->release_status);
+    $self->{_r}->attribute_name($self->release_status);
 }
 
 sub new_from_release
 {
     my ($class, $release) = @_;
 
-    my @attributes      = $release->GetAttributes;
+    my @attributes      = $release->attributes;
     my ($type, $status) = $release->GetReleaseTypeAndStatus;
 
     return $class->new({
         artist_id          => $release->GetArtist,
-        attributes         => [ map { $release->GetAttributeName($_) } @attributes ],
+        attributes         => [ map { $release->attribute_name($_) } @attributes ],
         cover_art_url      => $release->coverart_url,
         disc_ids           => $release->GetDiscidCount,
         first_release_date => $release->GetFirstReleaseDate,

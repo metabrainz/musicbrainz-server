@@ -405,8 +405,8 @@ sub xml_release_type
 	my $al = $_[0];
 
 	my ($type, $status) = $al->GetReleaseTypeAndStatus;
-	$type = (defined $type ? $al->GetAttributeName($type) : "");
-	$status = (defined $status ? $al->GetAttributeName($status) : "");
+	$type = (defined $type ? $al->attribute_name($type) : "");
+	$status = (defined $status ? $al->attribute_name($status) : "");
 
     $type =~ s/-//g;
     $status =~ s/-//g;
@@ -841,7 +841,7 @@ sub xml_relations
     	    if (exists $rel->{"_attrs"})
             {
                 # If we have more detailed attributes, collect them
-                my $attrs = $rel->{"_attrs"}->GetAttributes();
+                my $attrs = $rel->{"_attrs"}->attributes();
                 if ($attrs)
                 {
                     foreach my $ref (@$attrs)

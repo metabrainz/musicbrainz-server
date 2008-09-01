@@ -206,35 +206,42 @@ sub script
 	return MusicBrainz::Server::Script->newFromId($self->{DBH}, $id);
 }
 
-sub GetAttributeName
+sub attribute_name
 {
    return $AlbumAttributeNames{$_[1]}->[0];
 }
 
-sub GetAttributeNamePlural
+sub attribute_name_as_plural
 {
    return $AlbumAttributeNames{$_[1]}->[1];
 }
 
-sub GetAttributeDescription
+sub attribute_description
 {
    return $AlbumAttributeNames{$_[1]}->[2];
 }
 
-sub GetAttributes
+sub attributes
 {
-   my @attrs = @{ $_[0]->{attrs}};
+    my $self = shift;
+    my @new_attributes = @_;
 
-   # Shift off the mod pending indicator
-   shift @attrs;
+    if (@new_attributes)
+    {
+        $self->{attrs} = [ ${ $self->{attrs} }[0], grep { defined } @new_attributes ];
+    }
 
-   return @attrs;
+    my @attrs = @{ $self->{attrs} };
+
+    # Shift off the mod pending indicator
+    shift @attrs;
+    return @attrs;
 }
 
 sub GetReleaseTypeAndStatus
 {
 	my $self = shift;
-	my $attrs = shift || [ $self->GetAttributes ];
+	my $attrs = shift || [ $self->attributes ];
 	my ($type, $status);
 	for (@$attrs)
 	{
@@ -245,18 +252,12 @@ sub GetReleaseTypeAndStatus
 	($type, $status);
 }
 
-sub SetAttributes
-{
-   my $this = shift;
-   $this->{attrs} = [ ${ $this->{attrs}}[0], grep { defined } @_ ];
-}
-
-sub GetAttributeList
+sub attribute_list
 {
    return \%AlbumAttributeNames;
 }
 
-sub GetAttributeModPending
+sub attributes_have_mod_pending
 {
    return ${$_[0]->{attrs}}[0]
 }
@@ -365,7 +366,7 @@ sub GetOrInsertNonAlbum
 	# insert one.
 	$this->SetArtist($artist);
 	$this->SetName(&NONALBUMTRACKS_NAME);
-	$this->SetAttributes(&RELEASE_ATTR_NONALBUMTRACKS);
+	$this->attributes(&RELEASE_ATTR_NONALBUMTRACKS);
 	my $id = $this->Insert;
 
 	$this->LoadFromId
@@ -974,7 +975,7 @@ sub MergeReleases
 		);
    }
 
-   my $old_attrs = join " ", $this->GetAttributes;
+   my $old_attrs = join " ", $this->attributes;
    my $old_langscript = join " ", ($this->language_id||0), ($this->script_id||0);
 
    require MusicBrainz::Server::Release;
@@ -1067,7 +1068,7 @@ sub MergeReleases
        $al->Remove();
    }
 
-   my $new_attrs = join " ", $this->GetAttributes;
+   my $new_attrs = join " ", $this->attributes;
    $this->UpdateAttributes if $new_attrs ne $old_attrs;
 
    my $new_langscript = join " ", ($this->language_id||0), ($this->script_id||0);
@@ -1089,7 +1090,7 @@ sub MergeAttributesFrom
 		$got[$_] ||= $from[$_];
 	}
 
-	$self->SetAttributes(@got);
+	$self->attributes(@got);
 }
 
 sub MergeLanguageAndScriptFrom
