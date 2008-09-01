@@ -56,24 +56,20 @@ sub row_id
     return $self->{rowid};
 }
 
-sub GetLastUsed
+sub last_used
 {
-   return $_[0]->{lastused};
+    my ($self, $new_last_used) = @_;
+
+    if (defined $new_last_used) { $self->{lastused} = $new_last_used; }
+    return $self->{lastused};
 }
 
-sub SetLastUsed
+sub times_used
 {
-   $_[0]->{lastused} = $_[1];
-}
+    my ($self, $new_count) = @_;
 
-sub GetTimesUsed
-{
-   return $_[0]->{timesused};
-}
-
-sub SetTimesUsed
-{
-   $_[0]->{timesused} = $_[1];
+    if (defined $new_count) { $self->{timesused} = $new_count; }
+    return $self->{timesused};
 }
 
 sub LoadFromId
@@ -324,8 +320,8 @@ sub LoadFull
            $alias->SetId($row[0]);
            $alias->SetName($row[1]);
            $alias->row_id($row[2]);
-           $alias->SetLastUsed($row[3]);
-           $alias->SetTimesUsed($row[4]);
+           $alias->last_used($row[3]);
+           $alias->times_used($row[4]);
            push @info, $alias;
        }
        $sql->Finish;
