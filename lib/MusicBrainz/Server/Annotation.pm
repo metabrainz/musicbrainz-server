@@ -140,9 +140,12 @@ sub GetTrack
 	return $_[0]->{rowid};
 }
 
-sub GetCreationTime
+sub creation_time
 {
-	return $_[0]->{creation_time};
+    my ($self, $new_time) = @_;
+
+    if (defined $new_time) { $self->{creation_time} = $new_time; }
+    return $self->{creation_time};
 }
 
 sub text
@@ -191,11 +194,11 @@ sub text_as_html
 	}
 }
 
-sub GetShortTextAsHTML
+sub summary_as_html
 {
 	my ($self, $morelink) = @_;
 
-	my ($trunc_type, $text) = $self->GetShortText;
+	my ($trunc_type, $text) = $self->summary;
 	if ($text ne '')
 	{
 	    $text =~ s/</&lt;/g;
@@ -239,11 +242,6 @@ sub SetTrack
 {
 	$_[0]->{type} = TRACK_ANNOTATION;
 	$_[0]->{rowid} = $_[1];
-}
-
-sub SetCreationTime
-{
-	$_[0]->{creation_time} = $_[1];
 }
 
 # Make an annotation object just from some text (for preview purposes)
@@ -677,7 +675,7 @@ sub ReleaseLock
 # Lots of hard-wired numbers in here representing what I think are sensible
 # settings.
 
-sub GetShortText
+sub summary
 {
 	my $self = shift;
 	my $text = $self->{text};

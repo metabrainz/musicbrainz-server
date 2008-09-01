@@ -10,7 +10,7 @@ __PACKAGE__->mk_accessors(qw{ last_modified text });
 sub short_text_as_html
 {
     my $self = shift;
-    $self->{_note}->GetShortTextAsHTML;
+    $self->{_note}->summary_as_html;
 }
 
 sub as_html
@@ -26,7 +26,7 @@ sub new_from_annotation
     $class->new({
         _note         => $annotation,
 
-        last_modified => $annotation->GetCreationTime,
+        last_modified => $annotation->creation_time,
         text          => $annotation->text,
     });
 }
