@@ -306,7 +306,7 @@ sub xml_artist
     printf '><name>%s</name><sort-name>%s</sort-name>',
 		xml_escape($ar->GetName),
 		xml_escape($ar->sort_name);
-    print '<disambiguation>' . xml_escape($ar->GetResolution()) . '</disambiguation>' if ($ar->GetResolution());
+    print '<disambiguation>' . xml_escape($ar->resolution()) . '</disambiguation>' if ($ar->resolution());
 
     my ($begin, $end) = ($ar->begin_date, $ar->end_date);
     if ($begin|| $end)
@@ -635,7 +635,7 @@ sub xml_label
     print '><name>' . xml_escape($ar->GetName) . '</name>';
     print '<sort-name>' . xml_escape($ar->sort_name) . '</sort-name>';
     print '<label-code>' . xml_escape($ar->GetLabelCode) . '</label-code>' if $ar->GetLabelCode;
-    print '<disambiguation>' . xml_escape($ar->GetResolution()) . '</disambiguation>' if ($ar->GetResolution());
+    print '<disambiguation>' . xml_escape($ar->resolution()) . '</disambiguation>' if ($ar->resolution());
     if ($ar->GetCountry())
     {
         my $c = MusicBrainz::Server::Country->new($ar->GetDBH);

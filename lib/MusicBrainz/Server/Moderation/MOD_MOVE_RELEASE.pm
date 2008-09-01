@@ -158,7 +158,7 @@ sub PreDisplay
 		# the old one ...
 		$oar->SetId($this->GetArtist);
 		$oar->LoadFromId
-			and $this->{'old.res'} = $oar->GetResolution;
+			and $this->{'old.res'} = $oar->resolution;
 
 		# ... and the new resolution if artist is in the DB
 		# TODO what if new artist with res is created with this mod?
@@ -171,7 +171,7 @@ sub PreDisplay
 				$newartist->SetId($this->{'new.artistid'});
 				$newartist->LoadFromId;
 			}
-			my $res = $newartist->GetResolution;
+			my $res = $newartist->resolution;
 			$this->{'new.res'} = ($res eq '' ? undef : $res);
 		}
 	}

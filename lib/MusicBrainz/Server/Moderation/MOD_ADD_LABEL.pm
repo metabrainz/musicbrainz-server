@@ -85,7 +85,7 @@ sub PreInsert
 	$label->SetLabelCode($labelcode);
 	$label->begin_date($begindate_str);
 	$label->end_date($enddate_str);
-	$label->SetResolution($resolution);
+	$label->resolution($resolution);
 	my $labelid = $label->Insert();
 
 	# The label has been inserted. Now set up the moderation record

@@ -144,7 +144,7 @@ sub PreDisplay
 			{
 				$this->{'new.id'} = $newartist->GetId;
 				$this->{'new.sortname'} = $newartist->sort_name;
-				$this->{'new.resolution'} = $newartist->GetResolution;
+				$this->{'new.resolution'} = $newartist->resolution;
 				$this->{'new.exists'} = 1;
 			}
 		}
@@ -158,7 +158,7 @@ sub PreDisplay
 	$oldartist->SetId($this->GetArtist);
 	if ($this->{"old.exists"} = $oldartist->LoadFromId)
 	{
-		$this->{"old.resolution"} = $oldartist->GetResolution;
+		$this->{"old.resolution"} = $oldartist->resolution;
 		$this->{"old.sortname"} = $oldartist->sort_name;
 	}
 
@@ -173,7 +173,7 @@ sub PreDisplay
 		}
 		if ($this->{'new.exists'})
 		{
-			my $res = $newartist->GetResolution;
+			my $res = $newartist->resolution;
 			$this->{'new.resolution'} = ($res eq "" ? undef : $res);
 		}
 	}

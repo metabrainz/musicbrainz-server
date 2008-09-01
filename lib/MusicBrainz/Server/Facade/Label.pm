@@ -41,7 +41,7 @@ sub new_from_label
         id         => $label->GetId,
         name       => $label->GetName,
         mbid       => $label->GetMBId,
-        resolution => $label->GetResolution,
+        resolution => $label->resolution,
 
         _l   => $label,
     });

@@ -82,7 +82,7 @@ sub OutputArtistRDF
 
     my $enddate = MusicBrainz::Server::Validation::MakeDisplayDateStr($artist->end_date);
     $out .= $this->Element("mm:endDate", $enddate) if ($enddate);
-    $out .= $this->Element("dc:comment", $artist->GetResolution) if ($artist->GetResolution);
+    $out .= $this->Element("dc:comment", $artist->resolution) if ($artist->resolution);
 
     $out .= $this->Element("mm:artistType", "", "rdf:resource", $this->GetMMNamespace() . 
                                   "Type" . &MusicBrainz::Server::Artist::type_name($artist->type)) if ($artist->type);

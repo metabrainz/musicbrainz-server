@@ -119,14 +119,12 @@ sub IsValidType
    }
 }
 
-sub GetResolution
+sub resolution
 {
-   return ( defined $_[0]->{resolution} ) ? $_[0]->{resolution} : '';
-}
+    my ($self, $new_resolution) = @_;
 
-sub SetResolution
-{
-   $_[0]->{resolution} = $_[1];
+    if (defined $new_resolution) { $self->{resolution} = $new_resolution; }
+    return defined $self->{resolution} ? $self->{resolution} : '';
 }
 
 sub begin_date
@@ -202,7 +200,7 @@ sub Insert
     my $sql = Sql->new($this->{DBH});
     my $artist;
 
-    if (!$this->GetResolution())
+    if (!$this->resolution())
     {
         my $ar_list = $this->GetArtistsFromName($name);
 		foreach my $ar (@$ar_list)
@@ -246,7 +244,7 @@ sub Insert
 		$this->sort_name(),
 		$this->GetMBId,
 		$this->type() || undef,
-		$this->GetResolution() || undef,
+		$this->resolution() || undef,
 		$this->begin_date() || undef,
 		$this->end_date() || undef,
 		$page,
@@ -733,7 +731,7 @@ sub GetArtistsFromName
 		$ar->SetName($row->{name});
 		$ar->sort_name($row->{sortname});
 		$ar->SetModPending($row->{modpending});
-		$ar->SetResolution($row->{resolution});
+		$ar->resolution($row->{resolution});
 		$ar->begin_date($row->{begindate});
 		$ar->end_date($row->{enddate});
 		$ar->type($row->{type});
@@ -777,7 +775,7 @@ sub GetArtistsFromSortname
 		$ar->SetMBId($row->{gid});
 		$ar->SetName($row->{name});
 		$ar->sort_name($row->{sortname});
-		$ar->SetResolution($row->{resolution});
+		$ar->resolution($row->{resolution});
 		$ar->begin_date($row->{begindate});
 		$ar->end_date($row->{enddate});
 		$ar->SetModPending($row->{modpending});

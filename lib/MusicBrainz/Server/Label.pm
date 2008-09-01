@@ -148,14 +148,13 @@ sub end_date_name
    return 'End Date';
 }
 
-sub GetResolution
-{
-   return ( defined $_[0]->{resolution} ) ? $_[0]->{resolution} : '';
-}
 
-sub SetResolution
+sub resolution
 {
-   $_[0]->{resolution} = $_[1];
+    my ($self, $new_resolution) = @_;
+
+    if (defined $new_resolution) { $self->{resolution} = $new_resolution; }
+    return defined $self->{resolution} ? $self->{resolution} : '';
 }
 
 sub begin_date
@@ -208,7 +207,7 @@ sub Insert
 	my $sql = Sql->new($this->{DBH});
 	my $label;
 
-	if (!$this->GetResolution())
+	if (!$this->resolution())
 	{
 		my $ar_list = $this->GetLabelsFromName($name);
 		foreach my $ar (@$ar_list)
@@ -236,7 +235,7 @@ sub Insert
 	$this->type(),
 	$this->sort_name(),
 	$this->GetCountry() || undef,
-	$this->GetResolution() || undef,
+	$this->resolution() || undef,
 	$this->begin_date() || undef,
 	$this->end_date() || undef,
 	$page,
@@ -601,7 +600,7 @@ sub GetLabelsFromName
 		$ar->SetCountry($row->{country});
 		$ar->sort_name($row->{sortname});
 		$ar->SetModPending($row->{modpending});
-		$ar->SetResolution($row->{resolution});
+		$ar->resolution($row->{resolution});
 		$ar->begin_date($row->{begindate});
 		$ar->end_date($row->{enddate});
 		push @results, $ar;
@@ -641,7 +640,7 @@ sub GetLabelsFromSortname
 		$ar->sort_name($row->{sortname});
 		$ar->SetLabelCode($row->{labelcode});
 		$ar->SetCountry($row->{country});
-		$ar->SetResolution($row->{resolution});
+		$ar->resolution($row->{resolution});
 		$ar->begin_date($row->{begindate});
 		$ar->end_date($row->{enddate});
 		$ar->SetModPending($row->{modpending});
@@ -682,7 +681,7 @@ sub GetLabelsFromCode
 		$ar->sort_name($row->{sortname});
 		$ar->SetLabelCode($row->{labelcode});
 		$ar->SetCountry($row->{country});
-		$ar->SetResolution($row->{resolution});
+		$ar->resolution($row->{resolution});
 		$ar->begin_date($row->{begindate});
 		$ar->end_date($row->{enddate});
 		$ar->SetModPending($row->{modpending});

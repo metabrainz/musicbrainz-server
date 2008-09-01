@@ -111,7 +111,7 @@ sub init_value {
         return $item->begin_date case('start');
         return $item->end_date case('end');
         case('resolution') {
-            my $resolution = $item->GetResolution;
+            my $resolution = $item->resolution;
             $field->required(1) if $resolution;
             return $resolution;
         };
@@ -156,7 +156,7 @@ sub update_model {
         $moderation{name} = $self->value('name') || $item->GetName;
         $moderation{sortname} = $self->value('sortname') || $item->sort_name;
         $moderation{artist_type} = $self->value('artist_type') || $item->type;
-        $moderation{resolution} = $self->value('resolution') || $item->GetResolution;
+        $moderation{resolution} = $self->value('resolution') || $item->resolution;
 
         $moderation{begindate} = $begin;
         $moderation{enddate} = $end;

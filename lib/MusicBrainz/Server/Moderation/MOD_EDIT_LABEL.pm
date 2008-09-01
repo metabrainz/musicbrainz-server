@@ -97,7 +97,7 @@ sub PreInsert
 		MusicBrainz::Server::Validation::TrimInPlace($resolution);
 
 		$new{'Resolution'} = $resolution
-				if $resolution ne $ar->GetResolution;
+				if $resolution ne $ar->resolution;
 	}
 
 	if ( defined $begindate )
@@ -129,7 +129,7 @@ sub PreInsert
 	$prev{'Country'} = $ar->GetCountry() if exists $new{'Country'};
 	$prev{'SortName'} = $ar->sort_name() if exists $new{'SortName'};
 	$prev{'Type'} = $ar->type() if exists $new{'Type'};
-	$prev{'Resolution'} = $ar->GetResolution() if exists $new{'Resolution'};
+	$prev{'Resolution'} = $ar->resolution() if exists $new{'Resolution'};
 	$prev{'BeginDate'} = $ar->begin_date() if exists $new{'BeginDate'};
 	$prev{'EndDate'} = $ar->end_date() if exists $new{'EndDate'};
 

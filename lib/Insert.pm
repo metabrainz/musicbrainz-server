@@ -305,7 +305,7 @@ sub _Insert
         $ar->SetName($artist);
         $ar->sort_name($sortname);
 		$ar->type($artist_type);
-		$ar->SetResolution($artist_resolution);
+		$ar->resolution($artist_resolution);
 		$ar->begin_date($artist_begindate);
 		$ar->end_date($artist_enddate);
         $artistid = $ar->Insert(no_alias => $info->{artist_only}, mbid => $info->{artist_mbid});
@@ -527,7 +527,7 @@ TRACK:
             $ar->SetName($track->{artist});
             $ar->sort_name($track->{sortname});
             $ar->type(0);
-            $ar->SetResolution("");
+            $ar->resolution("");
             $ar->begin_date("");
             $ar->end_date("");
             $track_insertartistid = $ar->Insert();
