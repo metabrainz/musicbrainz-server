@@ -40,7 +40,7 @@ sub new_from_label
         founded    => $label->begin_date,
         id         => $label->GetId,
         name       => $label->GetName,
-        mbid       => $label->GetMBId,
+        mbid       => $label->mbid,
         resolution => $label->resolution,
 
         _l   => $label,

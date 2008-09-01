@@ -60,9 +60,9 @@ sub PreInsert
 	$self->row_id($child->GetId);
 
 	my %new = (
-		parent	   => $parent->GetMBId,
+		parent	   => $parent->mbid,
 		name	   => $child->GetName,
-		gid		   => $child->GetMBId,
+		gid		   => $child->mbid,
 		desc	   => $desc,
 		childorder => $childorder,
 		parent_name => $parent->GetName,

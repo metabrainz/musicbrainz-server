@@ -32,7 +32,7 @@ sub new_from_track
         id         => $track->GetId,
         number     => $track->sequence,
         name       => $track->GetName,
-        mbid       => $track->GetMBId,
+        mbid       => $track->mbid,
         puid_count => 0,
         release_id => $track->release,
 

@@ -453,8 +453,8 @@ sub Exists
 	$row or return undef;
 
 	$self->SetId($row->{'id'});
-	$self->SetMBId($row->{'mbid'});
-	$self->SetModPending($row->{'modpending'});
+	$self->mbid($row->{'mbid'});
+	$self->has_mod_pending($row->{'modpending'});
 
 	1;
 }
@@ -502,7 +502,7 @@ sub Insert
 	);
 
 	$self->SetId($sql->GetLastInsertId($self->{_table}));
-	$self->SetModPending(0);
+	$self->has_mod_pending(0);
 
 	$self;
 }

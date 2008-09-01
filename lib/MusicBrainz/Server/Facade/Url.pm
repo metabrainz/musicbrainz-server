@@ -21,7 +21,7 @@ sub new_from_url
     return $class->new({
         url         => $url->GetURL,
         id          => $url->GetId,
-        mbid        => $url->GetMBId,
+        mbid        => $url->mbid,
         description => $url->GetDesc,
 
         _u          => $url,

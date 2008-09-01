@@ -204,7 +204,7 @@ sub print_xml_post
     {
         $obj = MusicBrainz::Server::Label->new($sql->{DBH});
     }
-    $obj->SetMBId($id);
+    $obj->mbid($id);
     unless ($obj->LoadFromId)
     {
         die "Cannot load entity. Bad entity id given?"
@@ -252,7 +252,7 @@ sub serve_from_db
     {
         $obj = MusicBrainz::Server::Label->new($maindb->{DBH});
     }
-    $obj->SetMBId($entity_id);
+    $obj->mbid($entity_id);
     unless ($obj->LoadFromId)
     {
         die "Cannot load entity. Bad entity id given?"

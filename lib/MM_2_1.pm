@@ -71,7 +71,7 @@ sub OutputArtistRDF
     return "" if (!defined $this->GetBaseURI());
     $artist = $ref->{obj};
 
-    $out  = $this->BeginDesc("mm:Artist", $this->GetBaseURI() . "/artist/" . $artist->GetMBId())
+    $out  = $this->BeginDesc("mm:Artist", $this->GetBaseURI() . "/artist/" . $artist->mbid())
 	if ($artist);
 
     $out .=   $this->Element("dc:title", $artist->GetName());
@@ -125,14 +125,14 @@ sub OutputAlbumRDF
     my $country_obj = MusicBrainz::Server::Country->new($album->{DBH})
        if @releases;
 
-    $out  = $this->BeginDesc("mm:Album", $this->GetBaseURI() . "/album/" . $album->GetMBId())
+    $out  = $this->BeginDesc("mm:Album", $this->GetBaseURI() . "/album/" . $album->mbid())
 	if ($album);
     $out .=   $this->Element("dc:title", $album->GetName());
     if (defined $artist)
     {
         $out .=   $this->Element("dc:creator", "", "rdf:resource",
                                  $this->GetBaseURI() . "/artist/" . 
-                                 $artist->GetMBId());
+                                 $artist->mbid());
     }
     else
     {
@@ -276,13 +276,13 @@ sub OutputTrackRDF
     $artist = $this->GetFromCache('artist', $track->artist()); 
 
     $out  = $this->BeginDesc("mm:Track", $this->GetBaseURI() .
-                            "/track/" . $track->GetMBId());
+                            "/track/" . $track->mbid());
     $out .=   $this->Element("dc:title", $track->GetName());
 
     if (defined $artist)
     {
     	$out .= $this->Element("dc:creator", "", "rdf:resource",
-		        $this->{baseuri}. "/artist/" . $artist->GetMBId())
+		        $this->{baseuri}. "/artist/" . $artist->mbid())
 	}
     if ($track->length() != 0) 
     {
@@ -291,7 +291,7 @@ sub OutputTrackRDF
     if (defined $album)
     {
         $out .= $this->Element("mq:album", "", "rdf:resource",
-                  $this->{baseuri}. "/album/" . $album->GetMBId());
+                  $this->{baseuri}. "/album/" . $album->mbid());
     }
 
     $out .= $this->OutputRelationships($ref->{_relationships})
@@ -428,7 +428,7 @@ sub CreateTrackListing
    {
        next if not defined $track;
 
-       push @trackids, { id=>$track->GetMBId(),
+       push @trackids, { id=>$track->mbid(),
            tracknum=>$track->sequence() };
    }
 
@@ -462,7 +462,7 @@ sub CreateFileLookup
            $ar = $this->GetObject($tagger, 'artist', $id->{id});
            $out .=   $this->Element("mq:relevance", int(100 * $id->{sim}));
            $out .=   $this->Element("mq:artist", "", "rdf:resource",
-                     $this->{baseuri}. "/artist/" . $ar->GetMBId());
+                     $this->{baseuri}. "/artist/" . $ar->mbid());
 
            $out .= $this->EndDesc("mq:ArtistResult");
            $out .= $this->EndDesc("rdf:li");
@@ -497,7 +497,7 @@ sub CreateFileLookup
            $al = $this->GetObject($tagger, 'album', $id->{id});
            $out .=   $this->Element("mq:relevance", int(100 * $id->{sim}));
            $out .=   $this->Element("mq:album", "", "rdf:resource",
-                     $this->{baseuri}. "/album/" . $al->GetMBId());
+                     $this->{baseuri}. "/album/" . $al->mbid());
 
            $out .= $this->EndDesc("mq:AlbumResult");
            $out .= $this->EndDesc("rdf:li");
@@ -542,11 +542,11 @@ sub CreateFileLookup
 	   {
 	       $albums{$id->{albumid}}++;
 	       $al = $this->GetObject($tagger, 'album', $id->{albumid});
-               $out .=   $this->Element("mq:album", "", "rdf:resource", $this->{baseuri}. "/album/" . $al->GetMBId());
+               $out .=   $this->Element("mq:album", "", "rdf:resource", $this->{baseuri}. "/album/" . $al->mbid());
 	   }
 
            $tr = $this->GetObject($tagger, 'track', $id->{id});
-           $out .=   $this->Element("mq:track", "", "rdf:resource", $this->{baseuri}. "/track/" . $tr->GetMBId())
+           $out .=   $this->Element("mq:track", "", "rdf:resource", $this->{baseuri}. "/track/" . $tr->mbid())
 	       if ($tr);
 
            $out .= $this->EndDesc("mq:AlbumTrackResult");
@@ -597,15 +597,15 @@ sub CreateFileLookup
 
        $out .= $this->BeginDesc("mq:Result");
        $out .=    $this->Element("mq:status", ($flags & TaggerSupport::FUZZY) != 0  ? "Fuzzy" : "OK");
-       $out .=    $this->Element("mq:artist", "", "rdf:resource", $this->{baseuri}. "/artist/" . $ar->GetMBId());
-       $out .=    $this->Element("mq:album", "", "rdf:resource", $this->{baseuri}. "/album/" . $al->GetMBId())
+       $out .=    $this->Element("mq:artist", "", "rdf:resource", $this->{baseuri}. "/artist/" . $ar->mbid());
+       $out .=    $this->Element("mq:album", "", "rdf:resource", $this->{baseuri}. "/album/" . $al->mbid())
            if ($al);
-       $out .=    $this->Element("mq:track", "", "rdf:resource", $this->{baseuri}. "/track/" . $tr->GetMBId());
+       $out .=    $this->Element("mq:track", "", "rdf:resource", $this->{baseuri}. "/track/" . $tr->mbid());
        $out .= $this->EndDesc("mq:Result");
 
        my $tracknum = $al->GetTrackSequence($tr->GetId());
        $out .= $this->OutputArtistRDF({ obj=>$ar });
-       $out .= $this->OutputAlbumRDF({ obj=>$al, _track=> [ $tr->GetMBId(), $tracknum ] });
+       $out .= $this->OutputAlbumRDF({ obj=>$al, _track=> [ $tr->mbid(), $tracknum ] });
        $out .= $this->OutputTrackRDF({ obj=>$tr });
    }
    elsif (($flags & TaggerSupport::ARTISTID) &&
@@ -616,8 +616,8 @@ sub CreateFileLookup
 
        $out .= $this->BeginDesc("mq:Result");
        $out .=    $this->Element("mq:status", ($flags & TaggerSupport::FUZZY) != 0  ? "Fuzzy" : "OK");
-       $out .=    $this->Element("mq:artist", "", "rdf:resource", $this->{baseuri}. "/artist/" . $ar->GetMBId());
-       $out .=    $this->Element("mq:track", "", "rdf:resource", $this->{baseuri}. "/track/" . $tr->GetMBId());
+       $out .=    $this->Element("mq:artist", "", "rdf:resource", $this->{baseuri}. "/artist/" . $ar->mbid());
+       $out .=    $this->Element("mq:track", "", "rdf:resource", $this->{baseuri}. "/track/" . $tr->mbid());
        $out .= $this->EndDesc("mq:Result");
 
        $out .= $this->OutputArtistRDF({ obj=>$ar });
@@ -631,8 +631,8 @@ sub CreateFileLookup
 
        $out .= $this->BeginDesc("mq:Result");
        $out .=    $this->Element("mq:status", ($flags & TaggerSupport::FUZZY) != 0  ? "Fuzzy" : "OK");
-       $out .=    $this->Element("mq:artist", "", "rdf:resource", $this->{baseuri}. "/artist/" . $ar->GetMBId());
-       $out .=    $this->Element("mq:album", "", "rdf:resource", $this->{baseuri}. "/album/" . $al->GetMBId());
+       $out .=    $this->Element("mq:artist", "", "rdf:resource", $this->{baseuri}. "/artist/" . $ar->mbid());
+       $out .=    $this->Element("mq:album", "", "rdf:resource", $this->{baseuri}. "/album/" . $al->mbid());
        $out .= $this->EndDesc("mq:Result");
 
        $out .= $this->OutputArtistRDF({ obj=>$ar });
@@ -644,7 +644,7 @@ sub CreateFileLookup
 
        $out .= $this->BeginDesc("mq:Result");
        $out .=    $this->Element("mq:status", ($flags & TaggerSupport::FUZZY) != 0  ? "Fuzzy" : "OK");
-       $out .=    $this->Element("mq:artist", "", "rdf:resource", $this->{baseuri}. "/artist/" . $ar->GetMBId());
+       $out .=    $this->Element("mq:artist", "", "rdf:resource", $this->{baseuri}. "/artist/" . $ar->mbid());
        $out .= $this->EndDesc("mq:Result");
 
        $out .= $this->OutputArtistRDF({ obj=>$ar });
@@ -739,7 +739,7 @@ sub CreateRelationshipList
     my $out;
     $out  = $this->BeginRDFObject();
     $out .= $this->BeginDesc("mq:Result");
-    $out .= $this->OutputList($type, [$obj->GetMBId]);
+    $out .= $this->OutputList($type, [$obj->mbid]);
     $out .= $this->EndDesc("mq:Result");
 
     # Create a list of rel names and other ent mbids

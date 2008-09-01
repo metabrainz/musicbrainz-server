@@ -140,7 +140,7 @@ sub CreateDenseTrackList
     {
     	require MusicBrainz::Server::Track;
      	my $tr = MusicBrainz::Server::Track->new($this->{DBH});
-      	$tr->SetMBId($id);
+      	$tr->mbid($id);
        	$tr->LoadFromId();
 
 	require MusicBrainz::Server::Artist;
@@ -162,7 +162,7 @@ sub CreateDenseTrackList
 
 	$out .= $this->OutputTrackRDF({ obj=>$tr }, $al) . "\n";
 	$out .= $this->OutputArtistRDF({ obj=>$ar }) . "\n";
-	$out .= $this->OutputAlbumRDF({ obj=>$al, _track=> [ $tr->GetMBId(), $tracknum ] });
+	$out .= $this->OutputAlbumRDF({ obj=>$al, _track=> [ $tr->mbid(), $tracknum ] });
     }
 
     $out .= $this->EndRDFObject;
@@ -194,7 +194,7 @@ sub CreateDenseAlbum
     {
 	require MusicBrainz::Server::Release;
 	my $al = MusicBrainz::Server::Release->new($this->{DBH});
-	$al->SetMBId($id);
+	$al->mbid($id);
 	$al->LoadFromId(1);
 
 	require MusicBrainz::Server::Artist;
@@ -222,7 +222,7 @@ sub CreateDenseAlbum
 		    $artists{$var->GetId} = $var;
 		}
 	    }
-	    push @ids, { id=>$tr->GetMBId, tracknum=>$tr->sequence };
+	    push @ids, { id=>$tr->mbid, tracknum=>$tr->sequence };
 	}
 
 	$out .= $this->OutputAlbumRDF({ obj=>$al, _album=>\@ids });
@@ -269,7 +269,7 @@ sub AddToCache
     {
         next if ($i->{type} ne $type);
         if (($i->{id} && $i->{id} == $obj->GetId()) ||
-            ($i->{mbid} && $i->{mbid} eq $obj->GetMBId))
+            ($i->{mbid} && $i->{mbid} eq $obj->mbid))
         {
             return $i;
         }
@@ -278,7 +278,7 @@ sub AddToCache
     my %item;
     $item{type} = $type;
     $item{id} = $obj->GetId();
-    $item{mbid} = $obj->GetMBId();
+    $item{mbid} = $obj->mbid();
     $item{obj} = $obj;
     $item{depth} = $curdepth;
 
@@ -387,7 +387,7 @@ sub CreateOutputRDF
 	}
 	else
 	{
-	    push @gids, $cache[$i]->{obj}->GetMBId();
+	    push @gids, $cache[$i]->{obj}->mbid();
 	}
     }
 
@@ -441,12 +441,12 @@ sub LoadObject
 	require MusicBrainz::Server::TRM;
 	$obj = MusicBrainz::Server::TRM->new($this->{DBH});
 	$obj->SetTRM($id);
-	# Most of the code around here assumes that "GetId" or "GetMBId"
+	# Most of the code around here assumes that "GetId" or "mbid"
 	# return something sensible, so here we pretend that the TRM is
 	# actually the MB id.
 	# This also means that http://server/trmid/GUID works like all the
 	# other objects.
-	$obj->SetMBId($id);
+	$obj->mbid($id);
 	return $obj;
     }
     elsif ($type eq 'artist')
@@ -474,7 +474,7 @@ sub LoadObject
 
     if (defined $mbid)
     {
-      	$obj->SetMBId($mbid);
+      	$obj->mbid($mbid);
     }
     else
     {
@@ -558,7 +558,7 @@ sub _artistReferences
 	$info{id} = $album->GetId();
 	$info{obj} = undef;
 	push @ret, {%info};
-	push @albumids, $album->GetMBId();
+	push @albumids, $album->mbid();
     }
     $ref->{_artist} = \@albumids;
 
@@ -599,7 +599,7 @@ sub _GetAlbumReferences
 	    $info{id} = $track->GetId();
 	    push @ret, {%info};
 
-	    push @trackids, { id=>$track->GetMBId(),
+	    push @trackids, { id=>$track->mbid(),
      		tracknum=>$track->sequence() };
 	}
 	$ref->{_album} = \@trackids;

@@ -87,24 +87,20 @@ sub SetName
    $_[0]->{name} = $_[1];
 }
 
-sub GetMBId
+sub mbid
 {
-   return $_[0]->{mbid};
+    my ($self, $new_mbid) = @_;
+    
+    if (defined $new_mbid) { $self->{mbid} = $new_mbid; }
+    return $self->{mbid};
 }
 
-sub SetMBId
+sub has_mod_pending
 {
-   $_[0]->{mbid} = $_[1];
-}
+    my ($self, $new_pending) = @_;
 
-sub GetModPending
-{
-   return $_[0]->{modpending};
-}
-
-sub SetModPending
-{
-   $_[0]->{modpending} = $_[1];
+    if (defined $new_pending) { $self->{modpending} = $new_pending; }
+    return $self->{modpending};
 }
 
 sub GetNewInsert

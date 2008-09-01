@@ -131,7 +131,7 @@ sub InvalidateCache
 {
     my $self = shift;
     MusicBrainz::Server::Cache->delete($self->_GetIdCacheKey($self->GetId));
-    MusicBrainz::Server::Cache->delete($self->_GetMBIDCacheKey($self->GetMBId));
+    MusicBrainz::Server::Cache->delete($self->_GetMBIDCacheKey($self->mbid));
 }
 
 sub begin_date_name
@@ -218,7 +218,7 @@ sub Insert
 
     my $page = $this->CalculatePageIndex($this->{sortname});
     my $mbid = $this->CreateNewGlobalId;
-    $this->SetMBId($mbid);
+    $this->mbid($mbid);
 
     $sql->Do(
 	qq|INSERT INTO label
@@ -227,7 +227,7 @@ sub Insert
 	    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?)|,
 	$this->GetName(),
 	$this->label_code() || undef,
-	$this->GetMBId(),
+	$this->mbid(),
 	$this->type(),
 	$this->sort_name(),
 	$this->country() || undef,
@@ -331,7 +331,7 @@ sub MergeInto
 	$sql->Do("UPDATE moderation_open   SET rowid = ? WHERE tab = 'label' AND rowid = ?", $n, $o);
     $sql->Do("UPDATE labelalias        SET ref = ? WHERE ref = ?", $n, $o);
 	
-	$old->SetGlobalIdRedirect($old->GetId, $old->GetMBId, $new->GetId, &TableBase::TABLE_LABEL);
+	$old->SetGlobalIdRedirect($old->GetId, $old->mbid, $new->GetId, &TableBase::TABLE_LABEL);
 
     # Insert the old name as an alias for the new one
     require MusicBrainz::Server::Alias;
@@ -589,13 +589,13 @@ sub GetLabelsFromName
 	{
 		my $ar = MusicBrainz::Server::Label->new($this->{DBH});
 		$ar->SetId($row->{id});
-		$ar->SetMBId($row->{gid});
+		$ar->mbid($row->{gid});
 		$ar->SetName($row->{name});
 		$ar->type($row->{type});
 		$ar->label_code($row->{labelcode});
 		$ar->country($row->{country});
 		$ar->sort_name($row->{sortname});
-		$ar->SetModPending($row->{modpending});
+		$ar->has_mod_pending($row->{modpending});
 		$ar->resolution($row->{resolution});
 		$ar->begin_date($row->{begindate});
 		$ar->end_date($row->{enddate});
@@ -631,7 +631,7 @@ sub GetLabelsFromSortname
 {
 		my $ar = MusicBrainz::Server::Label->new($this->{DBH});
 		$ar->SetId($row->{id});
-		$ar->SetMBId($row->{gid});
+		$ar->mbid($row->{gid});
 		$ar->SetName($row->{name});
 		$ar->sort_name($row->{sortname});
 		$ar->label_code($row->{labelcode});
@@ -639,7 +639,7 @@ sub GetLabelsFromSortname
 		$ar->resolution($row->{resolution});
 		$ar->begin_date($row->{begindate});
 		$ar->end_date($row->{enddate});
-		$ar->SetModPending($row->{modpending});
+		$ar->has_mod_pending($row->{modpending});
 		$ar->type($row->{type});
 		push @results, $ar;
 }
@@ -672,7 +672,7 @@ sub GetLabelsFromCode
 	{
 		my $ar = MusicBrainz::Server::Label->new($this->{DBH});
 		$ar->SetId($row->{id});
-		$ar->SetMBId($row->{gid});
+		$ar->mbid($row->{gid});
 		$ar->SetName($row->{name});
 		$ar->sort_name($row->{sortname});
 		$ar->label_code($row->{labelcode});
@@ -680,7 +680,7 @@ sub GetLabelsFromCode
 		$ar->resolution($row->{resolution});
 		$ar->begin_date($row->{begindate});
 		$ar->end_date($row->{enddate});
-		$ar->SetModPending($row->{modpending});
+		$ar->has_mod_pending($row->{modpending});
 		$ar->type($row->{type});
 		push @results, $ar;
 	}
@@ -702,7 +702,7 @@ sub LoadFromId
 		%$this = %$obj;
 		return 1;
 	}
-	elsif ($id = $this->GetMBId)
+	elsif ($id = $this->mbid)
 	{
 		my $obj = $this->newFromMBId($id)
 			or return undef;
@@ -744,7 +744,7 @@ sub newFromId
 	# We can't store DBH in the cache...
 	delete $obj->{DBH} if $obj;
 	MusicBrainz::Server::Cache->set($key, \$obj);
-	MusicBrainz::Server::Cache->set($obj->_GetMBIDCacheKey($obj->GetMBId), \$obj)
+	MusicBrainz::Server::Cache->set($obj->_GetMBIDCacheKey($obj->mbid), \$obj)
 		if $obj;
 	$obj->{DBH} = $this->{DBH} if $obj;
 
@@ -892,8 +892,8 @@ sub select_releases
 			$album->SetId($row[0]);
 			$album->artist($row[1]);
 			$album->SetName($row[2]);
-			$album->SetModPending($row[3]);
-			$album->SetMBId($row[4]);
+			$album->has_mod_pending($row[3]);
+			$album->mbid($row[4]);
 			$row[5] =~ s/^\{(.*)\}$/$1/;
 			$album->{attrs} = [ split /,/, $row[5] ];
 			$album->language_id($row[6]);
@@ -917,7 +917,7 @@ sub XML_URL
 	my $this = shift;
 	sprintf "http://%s/ws/1/label/%s?type=xml",
 		&DBDefs::RDF_SERVER,
-		$this->GetMBId,
+		$this->mbid,
 	;
 }
 

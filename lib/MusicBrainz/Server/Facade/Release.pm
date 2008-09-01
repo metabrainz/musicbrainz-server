@@ -66,7 +66,7 @@ sub new_from_release
         id                 => $release->GetId,
         language_code      => $release->language ? $release->language->GetISOCode3T : '',
         language           => $release->language ? $release->language->GetName : '',
-        mbid               => $release->GetMBId,
+        mbid               => $release->mbid,
         name               => $release->GetName,
         puid_count         => $release->puid_count,
         quality            => ModDefs::GetQualityText($release->quality),

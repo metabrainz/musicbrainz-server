@@ -79,9 +79,9 @@ sub PreInsert
 
 	my %new = (
 		types			=> $parent->PackTypes,
-		parent			=> $parent->GetMBId,
+		parent			=> $parent->mbid,
 		name			=> $child->GetName,
-		gid				=> $child->GetMBId,
+		gid				=> $child->mbid,
 		parent_name		=> $parent->GetName,
 		childorder		=> $child->GetChildOrder,
 		linkphrase		=> $child->GetLinkPhrase,

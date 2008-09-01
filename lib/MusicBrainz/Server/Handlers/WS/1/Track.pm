@@ -164,7 +164,7 @@ sub serve_from_db
 	require MusicBrainz::Server::Track;
 
 	$tr = MusicBrainz::Server::Track->new($mb->{DBH});
-    $tr->SetMBId($mbid);
+    $tr->mbid($mbid);
 	return undef unless $tr->LoadFromId(1);
 
     if ($inc & INC_ARTIST || $inc & INC_RELEASES)
@@ -298,7 +298,7 @@ sub print_xml_post
     foreach my $pair (@$links)
     {
         my $tr = MusicBrainz::Server::Track->new($sql->{DBH});
-        $tr->SetMBId($pair->{trackmbid});
+        $tr->mbid($pair->{trackmbid});
         unless ($tr->LoadFromId)
         {
             print STDERR "Unknown MB Track Id: " . $pair->{trackmbid} . "\n";

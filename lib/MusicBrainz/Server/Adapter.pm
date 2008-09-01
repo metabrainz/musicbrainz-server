@@ -45,7 +45,7 @@ sub LoadEntity
 
     if (MusicBrainz::Server::Validation::IsGUID($mbid))
     {
-        $entity->SetMBId($mbid);
+        $entity->mbid($mbid);
     }
     else
     {

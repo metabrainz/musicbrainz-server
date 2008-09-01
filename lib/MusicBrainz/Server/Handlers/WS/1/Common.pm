@@ -301,7 +301,7 @@ sub xml_artist
 {
 	my ($ar, $inc, $info) = @_;
 
-	printf '<artist id="%s"', $ar->GetMBId;
+	printf '<artist id="%s"', $ar->mbid;
     printf ' type="%s"', &MusicBrainz::Server::Artist::type_name($ar->type()) if ($ar->type);
     printf '><name>%s</name><sort-name>%s</sort-name>',
 		xml_escape($ar->GetName),
@@ -364,7 +364,7 @@ sub xml_release
 {
 	my ($ar, $al, $inc, $tnum, $showscore) = @_;
 
-    print '<release id="' . $al->GetMBId . '"';
+    print '<release id="' . $al->mbid . '"';
     xml_release_type($al);
 	print ' ext:score="100"' if ($showscore);
     print '><title>' . xml_escape($al->GetName) . '</title>';
@@ -455,7 +455,7 @@ sub xml_release_events
 			my ($releasedate) = $year;
 			$releasedate .= sprintf "-%02d", $month if ($month != 0);
 			$releasedate .= sprintf "-%02d", $day if ($day != 0);
-			my ($editpending) = ($rel->GetModPending ? 'editpending="1"' : '');
+			my ($editpending) = ($rel->has_mod_pending ? 'editpending="1"' : '');
 
 			# create a releasedate element
 			print '<event date="';
@@ -471,7 +471,7 @@ sub xml_release_events
 				print '>';
 				my $label = MusicBrainz::Server::Label->new($rel->{DBH});
 				$label->SetId($rel->GetLabel);
-				$label->SetMBId($rel->label_mbid);
+				$label->mbid($rel->label_mbid);
 				$label->SetName($rel->label_name);
 				xml_label($label, $inc);
 				print '</event>';
@@ -564,7 +564,7 @@ sub xml_track
 	my ($ar, $tr, $inc) = @_;
 
 
-	printf '<track id="%s"', $tr->GetMBId;
+	printf '<track id="%s"', $tr->mbid;
     print '><title>';
     print xml_escape($tr->GetName());
     print '</title>';
@@ -584,7 +584,7 @@ sub xml_track
             print '<release-list>';
             foreach my $i (@albums)
             {
-                $al->SetMBId($i->[3]);
+                $al->mbid($i->[3]);
                 if ($al->LoadFromId())
                 {
                     xml_release($ar, $al, 0, $i->[2]) 
@@ -625,7 +625,7 @@ sub xml_label
 {
     my ($ar, $inc, $info) = @_;
 
-    printf '<label id="%s"', $ar->GetMBId;
+    printf '<label id="%s"', $ar->mbid;
     if ($ar->type)
     {
         my $name = &MusicBrainz::Server::Label::type_name($ar->type());
@@ -705,7 +705,7 @@ sub load_object
         else
         {
             my $temp = MusicBrainz::Server::Artist->new($dbh);
-            MusicBrainz::Server::Validation::IsGUID($id) ? $temp->SetMBId($id) : $temp->SetId($id);
+            MusicBrainz::Server::Validation::IsGUID($id) ? $temp->mbid($id) : $temp->SetId($id);
             die "Could not load artist $id\n" if (!$temp->LoadFromId());
             $cache->{$k} = $temp;
             return $temp;
@@ -721,7 +721,7 @@ sub load_object
         else
         {
             my $temp = MusicBrainz::Server::Label->new($dbh);
-            MusicBrainz::Server::Validation::IsGUID($id) ? $temp->SetMBId($id) : $temp->SetId($id);
+            MusicBrainz::Server::Validation::IsGUID($id) ? $temp->mbid($id) : $temp->SetId($id);
             die "Could not load label $id\n" if (!$temp->LoadFromId());
             $cache->{$k} = $temp;
             return $temp;
@@ -737,7 +737,7 @@ sub load_object
         else
         {
             $temp = MusicBrainz::Server::Release->new($dbh);
-            MusicBrainz::Server::Validation::IsGUID($id) ? $temp->SetMBId($id) : $temp->SetId($id);
+            MusicBrainz::Server::Validation::IsGUID($id) ? $temp->mbid($id) : $temp->SetId($id);
             die "Could not load release $id\n" if (!$temp->LoadFromId());
             $cache->{$k} = $temp;
             return $temp;
@@ -753,7 +753,7 @@ sub load_object
         else
         {
             $temp = MusicBrainz::Server::Track->new($dbh);
-            MusicBrainz::Server::Validation::IsGUID($id) ? $temp->SetMBId($id) : $temp->SetId($id);
+            MusicBrainz::Server::Validation::IsGUID($id) ? $temp->mbid($id) : $temp->SetId($id);
             die "Could not load track $id\n" if (!$temp->LoadFromId());
             $cache->{$k} = $temp;
             return $temp;

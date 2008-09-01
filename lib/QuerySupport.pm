@@ -522,7 +522,7 @@ sub SubmitTRMList
 	#lookup the IDs associated with the $trackGID
 	require MusicBrainz::Server::Track;
 	my $trackobj = MusicBrainz::Server::Track->new($sql->{DBH});
-	$trackobj->SetMBId($trackid);
+	$trackobj->mbid($trackid);
 	unless ($trackobj->LoadFromId)
 	{
 	    # print STDERR "Unknown MB Track Id: $trackid\n";
@@ -614,7 +614,7 @@ sub SubmitTRMFeedback
 	#lookup the IDs associated with the $trackGID
 	require MusicBrainz::Server::Track;
 	my $trackobj = MusicBrainz::Server::Track->new($sql->{DBH});
-	$trackobj->SetMBId($trackid);
+	$trackobj->mbid($trackid);
 	unless ($trackobj->LoadFromId)
 	{
 	    # print STDERR "Unknown MB Track Id: $trackid\n";
@@ -894,7 +894,7 @@ EOF
 	my $ar = $artists{ $row->[3] }
 	    or next;
 	my $trackname = $row->[1]; RDF2::escape($trackname);
-	my $artistgid = $ar->GetMBId;
+	my $artistgid = $ar->mbid;
 
 	# Cheat: this is missing the trmidList
 	$out .= <<EOF;
@@ -915,7 +915,7 @@ EOF
 	my $ar = $artists{ $row->[8] }
 	    or next;
 	my $albumname = $row->[6]; RDF2::escape($albumname);
-	my $artistgid = $ar->GetMBId;
+	my $artistgid = $ar->mbid;
 
 	my $typehash = "";
 	my $statushash = "";
@@ -960,7 +960,7 @@ EOF
 	# The "full" RDF code doesn't seem to spit out VARTIST_ID
 	my $artistname = $ar->GetName; RDF2::escape($artistname);
 	my $sortname = $ar->sort_name; RDF2::escape($sortname);
-	my $artistgid = $ar->GetMBId;
+	my $artistgid = $ar->mbid;
 
 	# Cheat: this is missing artistType and beginDate
 	$out .= <<EOF;
@@ -1091,7 +1091,7 @@ sub QuickTrackInfoFromTrackId
 
     require MusicBrainz::Server::Release;
     my $album = MusicBrainz::Server::Release->new($dbh);
-    $album->SetMBId($aid);
+    $album->mbid($aid);
     unless ($album->LoadFromId)
     {
         return $rdf->ErrorRDF("Cannot load given album.");
@@ -1212,7 +1212,7 @@ sub artist_relationships
     }
 
     my $ar = MusicBrainz::Server::Artist->new($dbh);
-    $ar->SetMBId($id);
+    $ar->mbid($id);
     if (!$ar->LoadFromId())
     {
 	carp "Invalid artist is given to GetTrackRelationships";
@@ -1237,7 +1237,7 @@ sub GetAlbumRelationships
     }
 
     my $al = MusicBrainz::Server::Release->new($dbh);
-    $al->SetMBId($id);
+    $al->mbid($id);
     if (!$al->LoadFromId())
     {
 	carp "Invalid album is given to GetTrackRelationships";
@@ -1262,7 +1262,7 @@ sub GetTrackRelationships
     }
 
     my $tr = MusicBrainz::Server::Track->new($dbh);
-    $tr->SetMBId($id);
+    $tr->mbid($id);
     if (!$tr->LoadFromId())
     {
 	carp "Invalid artist is given to GetTrackRelationships";

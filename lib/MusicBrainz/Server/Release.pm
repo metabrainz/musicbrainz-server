@@ -638,10 +638,10 @@ sub LoadFromId
 		$idcol = "id";
 		$idval = $this->GetId;
 	}
-	elsif ($this->GetMBId)
+	elsif ($this->mbid)
 	{
 		$idcol = "gid";
-		$idval = $this->GetMBId;
+		$idval = $this->mbid;
 	}
 	else
 	{
@@ -783,10 +783,10 @@ sub LoadTracks
 			$track->artist($row[2]);
 			$track->sequence($row[3]);
 			$track->length($row[4]);
-			$track->SetModPending($row[5]);
+			$track->has_mod_pending($row[5]);
 			$track->SetAlbumJoinModPending($row[6]);
 			$track->artist_name($row[7]);
-			$track->SetMBId($row[8]);
+			$track->mbid($row[8]);
 			$track->release($row[9]);
 			push @info, $track;
 		}
@@ -1014,7 +1014,7 @@ sub MergeReleases
 				# Move tags
 				$tag->MergeTracks($old, $new);
 
-                $this->SetGlobalIdRedirect($old, $tr->GetMBId, $new, &TableBase::TABLE_TRACK);
+                $this->SetGlobalIdRedirect($old, $tr->mbid, $new, &TableBase::TABLE_TRACK);
            }
            else
            {
@@ -1060,7 +1060,7 @@ sub MergeReleases
 		# ... and the tags
 		$tag->MergeReleases($id, $this->GetId);
 
-        $this->SetGlobalIdRedirect($id, $al->GetMBId, $this->GetId, &TableBase::TABLE_RELEASE);
+        $this->SetGlobalIdRedirect($id, $al->mbid, $this->GetId, &TableBase::TABLE_RELEASE);
 
        # Then, finally remove what is left of the old album
        $al->Remove();
@@ -1384,7 +1384,7 @@ sub XML_URL
 	my $this = shift;
 	sprintf "http://%s/ws/1/release/%s?type=xml&inc=artist+counts+release-events+discs+tracks",
 		&DBDefs::RDF_SERVER,
-		$this->GetMBId,
+		$this->mbid,
 	;
 }
 

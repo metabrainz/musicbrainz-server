@@ -172,7 +172,7 @@ sub InvalidateCache
 {
     my $self = shift;
     MusicBrainz::Server::Cache->delete($self->_GetIdCacheKey($self->GetId));
-    MusicBrainz::Server::Cache->delete($self->_GetMBIDCacheKey($self->GetMBId));
+    MusicBrainz::Server::Cache->delete($self->_GetMBIDCacheKey($self->mbid));
 }
 
 
@@ -230,7 +230,7 @@ sub Insert
 	{
 		$mbid = $this->CreateNewGlobalId;
 	}
-    $this->SetMBId($mbid);
+    $this->mbid($mbid);
 
     $sql->Do(
 	qq|INSERT INTO artist
@@ -239,7 +239,7 @@ sub Insert
 	    VALUES (?, ?, ?, ?, ?, ?, ?, 0, ?)|,
 		$this->GetName(),
 		$this->sort_name(),
-		$this->GetMBId,
+		$this->mbid,
 		$this->type() || undef,
 		$this->resolution() || undef,
 		$this->begin_date() || undef,
@@ -384,7 +384,7 @@ sub MergeInto
     $alb->CombineNonAlbums(@non)
 	if @non > 1;
 	
-    $old->SetGlobalIdRedirect($old->GetId, $old->GetMBId, $new->GetId, &TableBase::TABLE_ARTIST);
+    $old->SetGlobalIdRedirect($old->GetId, $old->mbid, $new->GetId, &TableBase::TABLE_ARTIST);
 
     # Insert the old name as an alias for the new one
     # TODO this is often a bad idea - remove this code?
@@ -724,10 +724,10 @@ sub select_artists_by_name
         my $ar = MusicBrainz::Server::Artist->new($this->{DBH});
 
 		$ar->SetId($row->{id});
-		$ar->SetMBId($row->{gid});
+		$ar->mbid($row->{gid});
 		$ar->SetName($row->{name});
 		$ar->sort_name($row->{sortname});
-		$ar->SetModPending($row->{modpending});
+		$ar->has_mod_pending($row->{modpending});
 		$ar->resolution($row->{resolution});
 		$ar->begin_date($row->{begindate});
 		$ar->end_date($row->{enddate});
@@ -769,13 +769,13 @@ sub select_artists_by_sort_name
         my $ar = MusicBrainz::Server::Artist->new($this->{DBH});
 
 		$ar->SetId($row->{id});
-		$ar->SetMBId($row->{gid});
+		$ar->mbid($row->{gid});
 		$ar->SetName($row->{name});
 		$ar->sort_name($row->{sortname});
 		$ar->resolution($row->{resolution});
 		$ar->begin_date($row->{begindate});
 		$ar->end_date($row->{enddate});
-		$ar->SetModPending($row->{modpending});
+		$ar->has_mod_pending($row->{modpending});
 		$ar->type($row->{type});
 		$ar->quality($row->{quality});
 		$ar->quality_has_mod_pending($row->{modpending_qual});
@@ -800,7 +800,7 @@ sub LoadFromId
 		%$this = %$obj;
 		return 1;
     }
-    elsif ($id = $this->GetMBId)
+    elsif ($id = $this->mbid)
     {
 		my $obj = $this->newFromMBId($id)
 	    or return undef;
@@ -843,7 +843,7 @@ sub newFromId
     # We can't store DBH in the cache...
     delete $obj->{DBH} if $obj;
     MusicBrainz::Server::Cache->set($key, \$obj);
-    MusicBrainz::Server::Cache->set($obj->_GetMBIDCacheKey($obj->GetMBId), \$obj)
+    MusicBrainz::Server::Cache->set($obj->_GetMBIDCacheKey($obj->mbid), \$obj)
 		if $obj;
     $obj->{DBH} = $this->{DBH} if $obj;
 
@@ -987,9 +987,9 @@ sub select_releases
                 $album = MusicBrainz::Server::Release->new($this->{DBH});
                 $album->SetId($row[0]);
                 $album->SetName($row[1]);
-                $album->SetModPending($row[2]);
+                $album->has_mod_pending($row[2]);
                 $album->artist($this->{id});
-                $album->SetMBId($row[3]);
+                $album->mbid($row[3]);
                 $row[4] =~ s/^\{(.*)\}$/$1/;
                 $album->{attrs} = [ split /,/, $row[4] ];
                 $album->language_id($row[5]);
@@ -1051,8 +1051,8 @@ sub select_releases
             $album->SetId($row[0]);
             $album->artist($row[1]);
             $album->SetName($row[2]);
-            $album->SetModPending($row[3]);
-            $album->SetMBId($row[4]);
+            $album->has_mod_pending($row[3]);
+            $album->mbid($row[4]);
             $row[5] =~ s/^\{(.*)\}$/$1/;
             $album->{attrs} = [ split /,/, $row[5] ];
 			$album->language_id($row[6]);
@@ -1182,7 +1182,7 @@ sub XML_URL
 	my $this = shift;
 	sprintf "http://%s/ws/1/artist/%s?type=xml&inc=aliases",
 		&DBDefs::RDF_SERVER,
-		$this->GetMBId,
+		$this->mbid,
 	;
 }
 

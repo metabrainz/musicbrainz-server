@@ -120,7 +120,7 @@ sub serve_from_db
 	require MusicBrainz::Server::Label;
 
 	$ar = MusicBrainz::Server::Label->new($mb->{DBH});
-    $ar->SetMBId($mbid);
+    $ar->mbid($mbid);
 	return undef unless $ar->LoadFromId(1);
 	
 	if ($inc & INC_ALIASES) {

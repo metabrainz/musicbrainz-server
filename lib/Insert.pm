@@ -403,7 +403,7 @@ sub _Insert
            else
            {
                $albumid = $ids[0]->{mbid};
-               $al->SetMBId($albumid);
+               $al->mbid($albumid);
                if (!defined $al->LoadFromId())
                {
                    die "Insert failed: cannot album $albumid.\n";

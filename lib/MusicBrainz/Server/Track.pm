@@ -99,16 +99,6 @@ sub length
     return $self->{length};
 }
 
-sub GetModPending
-{
-   return $_[0]->{modpending};
-}
-
-sub SetModPending
-{
-   $_[0]->{modpending} = $_[1];
-}
-
 sub GetAlbumJoinModPending
 {
    return $_[0]->{albumjoinmodpending};
@@ -142,7 +132,7 @@ sub LoadFromId
 	my ($this) = @_;
 
 	my $id = $this->GetId;
-	my $mbid = $this->GetMBId;
+	my $mbid = $this->mbid;
 
 	if (not $id and not $mbid)
 	{
@@ -219,7 +209,7 @@ sub LoadFromId
 		if ($newid)
 		{
 			$this->SetId($newid);
-			$this->SetMBId(undef);
+			$this->mbid(undef);
 			return $this->LoadFromId;
 		}
 	}
@@ -551,7 +541,7 @@ sub XML_URL
 	my $this = shift;
 	sprintf "http://%s/ws/1/track/%s?type=xml&inc=artist+releases",
 		&DBDefs::RDF_SERVER,
-		$this->GetMBId,
+		$this->mbid,
 	;
 }
 

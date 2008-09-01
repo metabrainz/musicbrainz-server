@@ -59,7 +59,7 @@ sub LoadFromId
         %$self = %$url;
         return 1;
     }
-    elsif ($id = $self->GetMBId)
+    elsif ($id = $self->mbid)
     {
         my $url = $self->newFromMBId($id)
             or return undef;

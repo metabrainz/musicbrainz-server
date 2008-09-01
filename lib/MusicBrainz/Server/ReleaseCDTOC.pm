@@ -321,7 +321,7 @@ sub GenerateAlbumFromDiscid
 			my $al = MusicBrainz::Server::Release->new($self->{DBH});
 			$al->SetId($id);
 			$al->LoadFromId();
-			push @mbids, $al->GetMBId;
+			push @mbids, $al->mbid;
 		}
 
 		lprintf "generatefromdiscid", "GenerateAlbumFromDiscid success: already got album%s %s",

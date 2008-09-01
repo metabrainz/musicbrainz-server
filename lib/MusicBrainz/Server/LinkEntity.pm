@@ -144,7 +144,7 @@ sub newFromMBId
 	my ($class, $dbh, $id) = @_;
 	require MusicBrainz::Server::Release;
 	my $object = MusicBrainz::Server::Release->new($dbh);
-	$object->SetMBId($id);
+	$object->mbid($id);
 	$object->LoadFromId or return undef;
 	$object;
 }
@@ -177,7 +177,7 @@ sub newFromMBId
 	my ($class, $dbh, $id) = @_;
 	require MusicBrainz::Server::Artist;
 	my $object = MusicBrainz::Server::Artist->new($dbh);
-	$object->SetMBId($id);
+	$object->mbid($id);
 	$object->LoadFromId or return undef;
 	$object;
 }
@@ -210,7 +210,7 @@ sub newFromMBId
 	my ($class, $dbh, $id) = @_;
 	require MusicBrainz::Server::Track;
 	my $object = MusicBrainz::Server::Track->new($dbh);
-	$object->SetMBId($id);
+	$object->mbid($id);
 	$object->LoadFromId or return undef;
 	$object;
 }

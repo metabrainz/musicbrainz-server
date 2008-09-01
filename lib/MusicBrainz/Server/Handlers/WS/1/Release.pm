@@ -152,7 +152,7 @@ sub serve_from_db
 	$al = MusicBrainz::Server::Release->new($mb->{DBH});
     if ($mbid)
     {
-        $al->SetMBId($mbid);
+        $al->mbid($mbid);
         return undef unless $al->LoadFromId(1);
         push @albums, $al;
     }

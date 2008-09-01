@@ -367,7 +367,7 @@ sub ArtistSearch
        return (ARTISTID, [ 
                            $this->SetSim(ARTISTID, {
                              id=>$this->{artist}->GetId(),
-                             mbid=>$this->{artist}->GetMBId(), 
+                             mbid=>$this->{artist}->mbid(), 
                              name=>$this->{artist}->GetName(),
                              resolution=>$this->{artist}->resolution(),
                              sortname=>$this->{artist}->sort_name() })
@@ -380,7 +380,7 @@ sub ArtistSearch
            push @ids, { id=>$item->GetId(),
                       name=>$item->GetName(),
                   sortname=>$item->sort_name(),
-                      mbid=>$item->GetMBId(),
+                      mbid=>$item->mbid(),
                 resolution=>$item->resolution(),
                        sim=>1.0
                       };
@@ -412,7 +412,7 @@ sub ArtistSearch
                              [ 
                               $this->SetSim(ARTISTID, { 
                                  id=>$ar->GetId(),
-                                 mbid=>$ar->GetMBId(), 
+                                 mbid=>$ar->mbid(), 
                                  name=>$ar->GetName(),
                                  resolution=>$ar->resolution(),
                                  sortname=>$ar->sort_name()})
@@ -457,7 +457,7 @@ sub AlbumSearch
    {
        require MusicBrainz::Server::Artist;
        $ar = MusicBrainz::Server::Artist->new($this->{DBH});
-       $ar->SetMBId($artistId);
+       $ar->mbid($artistId);
        if (!defined $ar->LoadFromId())
        {
            return (0, []);
@@ -479,7 +479,7 @@ sub AlbumSearch
        foreach my $aid (@aids)
        {
            $al = MusicBrainz::Server::Release->new($this->{DBH});
-           $al->SetMBId($aid->{mbid});
+           $al->mbid($aid->{mbid});
            if ($al->LoadFromId)
            {
                push @albums, $al;
@@ -521,7 +521,7 @@ sub AlbumSearch
                         artist=>$ar->GetName(),
                         id=>$al->GetId(),
                         name=>$al->GetName(),
-                        mbid=>$al->GetMBId(),
+                        mbid=>$al->mbid(),
                         album_tracks=>$al->track_count(),
                         album_discids=>$al->discid_count(),
                         album_trmids=>$al->trmid_count(),
@@ -567,7 +567,7 @@ sub AlbumSearch
                         artist=>$ar->GetName(),
                         id=>$al->GetId(),
                         name=>$al->GetName(),
-                        mbid=>$al->GetMBId(),
+                        mbid=>$al->mbid(),
                         album_tracks=>$al->track_count(),
                         album_discids=>$al->discid_count(),
                         album_trmids=>$al->trmid_count(),
@@ -603,7 +603,7 @@ sub AlbumTrackSearch
    {
 	require MusicBrainz::Server::Artist;
        $ar = MusicBrainz::Server::Artist->new($this->{DBH});
-       $ar->SetMBId($artistId);
+       $ar->mbid($artistId);
        if (!defined $ar->LoadFromId())
        {
            return (0, []);
@@ -715,7 +715,7 @@ sub AlbumTrackSearch
            $id->{album_attrs} = $row[9];
            $id->{albumid} = $row[0];
            $id->{artist} = $ar->GetName();
-           $id->{artistmbid} = $ar->GetMBId();
+           $id->{artistmbid} = $ar->mbid();
            $this->SetSim(ALBUMTRACKID, $id);
        }
    }
@@ -741,7 +741,7 @@ sub TrackSearch
    {
 	require MusicBrainz::Server::Artist;
        $ar = MusicBrainz::Server::Artist->new($this->{DBH});
-       $ar->SetMBId($artistId);
+       $ar->mbid($artistId);
        if (!defined $ar->LoadFromId())
        {
            return (0, []);
@@ -757,7 +757,7 @@ sub TrackSearch
    {
 	require MusicBrainz::Server::Release;
        $al = MusicBrainz::Server::Release->new($this->{DBH});
-       $al->SetMBId($albumId);
+       $al->mbid($albumId);
        if (!defined $al->LoadFromId())
        {
            return (0, []);
@@ -863,7 +863,7 @@ sub VariousArtistSearch
                               $this->SetSim(ALBUMID, { 
                                  id=>$al->GetId(),
                                  artist=>$ar->GetName(),
-                                 mbid=>$al->GetMBId(), 
+                                 mbid=>$al->mbid(), 
                                  name=>$al->GetName(),
                                  albumtype=>MusicBrainz::Server::Release::RELEASE_ATTR_COMPILATION
                                })
