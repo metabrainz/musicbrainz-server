@@ -108,8 +108,8 @@ sub init_value {
         return $item->GetName case ('name');
         return $item->sort_name case('sortname');
         return $item->type case('artist_type');
-        return $item->GetBeginDate case('start');
-        return $item->GetEndDate case('end');
+        return $item->begin_date case('start');
+        return $item->end_date case('end');
         case('resolution') {
             my $resolution = $item->GetResolution;
             $field->required(1) if $resolution;

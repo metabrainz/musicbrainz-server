@@ -120,40 +120,36 @@ sub Entity
 	);
 }
 
-sub GetBeginDate
+sub begin_date
 {
-   return ( defined $_[0]->{begindate} ) ? $_[0]->{begindate} : '';
+    my ($self, $new_date) = @_;
+
+    if (defined $new_date) { $self->{begindate} = $new_date; }
+    return defined $self->{begindate} ? $self->{begindate} : '';
 }
 
-sub GetBeginDateYMD
+sub begin_date_ymd
 {
-   my $self = shift;
+    my $self = shift;
 
-   return ('', '', '') unless $self->GetBeginDate();
-   return map { $_ == 0 ? '' : $_ } split(m/-/, $self->GetBeginDate);
+    return ('', '', '') unless $self->begin_date();
+    return map { $_ == 0 ? '' : $_ } split(m/-/, $self->begin_date);
 }
 
-sub SetBeginDate
+sub end_date
 {
-   $_[0]->{begindate} = $_[1];
+    my ($self, $new_date) = @_;
+
+    if (defined $new_date) { $self->{enddate} = $new_date; }
+    return defined $self->{enddate} ? $self->{enddate} : '';
 }
 
-sub GetEndDate
+sub end_date_ymd
 {
-   return ( defined $_[0]->{enddate} ) ? $_[0]->{enddate} : '';
-}
-
-sub GetEndDateYMD
-{
-   my $self = shift;
-
-   return ('', '', '') unless $self->GetEndDate();
-   return map { $_ == 0 ? '' : $_ } split(m/-/, $self->GetEndDate);
-}
-
-sub SetEndDate
-{
-   $_[0]->{enddate} = $_[1];
+    my $self = shift;
+    
+    return ('', '', '') unless $self->end_date();
+    return map { $_ == 0 ? '' : $_ } split(m/-/, $self->end_date);
 }
 
 ################################################################################
@@ -429,15 +425,15 @@ sub Exists
 
 	my @links = $self->Links;
     my @args = ($self->GetLinkType, @links);
-    if ($self->GetBeginDate() =~ /\S/)
+    if ($self->begin_date() =~ /\S/)
 	{
 		$datewhere .= " AND begindate = ?";
-		push @args, $self->GetBeginDate();
+		push @args, $self->begin_date();
 	}
-    if ($self->GetEndDate() =~ /\S/)
+    if ($self->end_date() =~ /\S/)
 	{
 		$datewhere .= " AND enddate = ?";
-		push @args, $self->GetEndDate();
+		push @args, $self->end_date();
 	}
 
 	my $row = $sql->SelectSingleRowHash(
@@ -486,8 +482,8 @@ sub Insert
 	$self = $self->new($self->{DBH}, scalar($link_type->Types));
 	$self->SetLinkType($link_type->GetId);
 	$self->SetLinks([ map { $_->{id} } @$entities ]);
-	$self->SetBeginDate($begindate);
-	$self->SetEndDate($enddate);
+	$self->begin_date($begindate);
+	$self->end_date($enddate);
 
     return undef
 	    if ($self->Exists);
@@ -519,8 +515,8 @@ sub Update
 	$sql->Do(
 		"UPDATE $self->{_table} SET link0 = ?, link1 = ?, begindate = ?, enddate = ?, link_type = ? where id = ?",
 		$self->Links,
-		$self->GetBeginDate || undef,
-		$self->GetEndDate || undef,
+		$self->begin_date || undef,
+		$self->end_date || undef,
 		$self->GetLinkType,
 		$self->GetId,
 	) or return undef;

@@ -77,10 +77,10 @@ sub OutputArtistRDF
     $out .=   $this->Element("dc:title", $artist->GetName());
     $out .=   $this->Element("mm:sortName", $artist->sort_name());
 
-    my $begindate = MusicBrainz::Server::Validation::MakeDisplayDateStr($artist->GetBeginDate);
+    my $begindate = MusicBrainz::Server::Validation::MakeDisplayDateStr($artist->begin_date);
     $out .= $this->Element("mm:beginDate", $begindate) if ($begindate);
 
-    my $enddate = MusicBrainz::Server::Validation::MakeDisplayDateStr($artist->GetEndDate);
+    my $enddate = MusicBrainz::Server::Validation::MakeDisplayDateStr($artist->end_date);
     $out .= $this->Element("mm:endDate", $enddate) if ($enddate);
     $out .= $this->Element("dc:comment", $artist->GetResolution) if ($artist->GetResolution);
 

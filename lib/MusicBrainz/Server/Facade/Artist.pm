@@ -99,14 +99,14 @@ sub new_from_artist
     my ($class, $artist) = @_;
 
     $class->new({
-        end_date    => $artist->GetEndDate, 
+        end_date    => $artist->end_date, 
         id          => $artist->GetId,
         mbid        => $artist->GetMBId,
         name        => $artist->GetName,
         quality     => ModDefs::GetQualityText($artist->GetQuality),
         resolution  => $artist->GetResolution,
         sort_name   => $artist->sort_name,
-        start_date  => $artist->GetBeginDate,
+        start_date  => $artist->begin_date,
         type        => MusicBrainz::Server::Artist::type_name($artist->type),
 
         _a          => $artist,

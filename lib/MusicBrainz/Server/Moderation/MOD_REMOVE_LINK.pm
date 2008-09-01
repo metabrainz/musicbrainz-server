@@ -78,8 +78,8 @@ sub PreInsert
 		entity1id=>$ents[1]->GetId,
 		entity1type=>$types->[1],
 		entity1name=>$ents[1]->GetName,
-		begindate=>$link->GetBeginDate(),
-		enddate=>$link->GetEndDate(),
+		begindate=>$link->begin_date(),
+		enddate=>$link->end_date(),
 	);
 	$self->SetNew($self->ConvertHashToNew(\%new));
 }

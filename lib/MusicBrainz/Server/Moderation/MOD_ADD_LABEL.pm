@@ -83,8 +83,8 @@ sub PreInsert
 	$label->type($type);
 	$label->SetCountry($country);
 	$label->SetLabelCode($labelcode);
-	$label->SetBeginDate($begindate_str);
-	$label->SetEndDate($enddate_str);
+	$label->begin_date($begindate_str);
+	$label->end_date($enddate_str);
 	$label->SetResolution($resolution);
 	my $labelid = $label->Insert();
 

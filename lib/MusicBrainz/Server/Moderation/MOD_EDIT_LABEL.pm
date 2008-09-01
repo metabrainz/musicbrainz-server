@@ -105,7 +105,7 @@ sub PreInsert
 		my $datestr = MakeDateStr(@$begindate);
 		die $self->SetError('Invalid begin date') unless defined $datestr;
 
-		$new{'BeginDate'} = $datestr if $datestr ne $ar->GetBeginDate();
+		$new{'BeginDate'} = $datestr if $datestr ne $ar->begin_date();
 	}
 
 	if ( defined $enddate )
@@ -113,7 +113,7 @@ sub PreInsert
 		my $datestr = MakeDateStr(@$enddate);
 		die $self->SetError('Invalid end date') unless defined $datestr;
 
-		$new{'EndDate'} = $datestr if $datestr ne $ar->GetEndDate();
+		$new{'EndDate'} = $datestr if $datestr ne $ar->end_date();
 	}
 
 
@@ -130,8 +130,8 @@ sub PreInsert
 	$prev{'SortName'} = $ar->sort_name() if exists $new{'SortName'};
 	$prev{'Type'} = $ar->type() if exists $new{'Type'};
 	$prev{'Resolution'} = $ar->GetResolution() if exists $new{'Resolution'};
-	$prev{'BeginDate'} = $ar->GetBeginDate() if exists $new{'BeginDate'};
-	$prev{'EndDate'} = $ar->GetEndDate() if exists $new{'EndDate'};
+	$prev{'BeginDate'} = $ar->begin_date() if exists $new{'BeginDate'};
+	$prev{'EndDate'} = $ar->end_date() if exists $new{'EndDate'};
 
 	$self->SetPrev($self->ConvertHashToNew(\%prev));
 	$self->SetNew($self->ConvertHashToNew(\%new));

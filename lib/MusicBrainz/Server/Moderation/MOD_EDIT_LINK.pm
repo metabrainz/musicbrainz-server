@@ -104,8 +104,8 @@ sub PreInsert
         newentity1name=>@$entities[1]->{name},
         newbegindate=>$begindate,
         newenddate=>$enddate,
-		oldbegindate=>$link->GetBeginDate(),
-		oldenddate=>$link->GetEndDate(),
+		oldbegindate=>$link->begin_date(),
+		oldenddate=>$link->end_date(),
 		newattrs=>join(" ", map { $_->{value} } @$newattrs)
     );
     $self->SetNew($self->ConvertHashToNew(\%new));
@@ -171,8 +171,8 @@ sub CheckPrerequisites
 	my $new_ids = join " ", $link->Links;
 
 	if ($link->GetLinkType != $new->{oldlinktypeid}
-		or $link->GetBeginDate ne $new->{oldbegindate}
-		or $link->GetEndDate ne $new->{oldenddate}
+		or $link->begin_date ne $new->{oldbegindate}
+		or $link->end_date ne $new->{oldenddate}
 		or $old_ids ne $new_ids
 	) {
 		$self->InsertNote(MODBOT_MODERATOR, "This link has already been modified.");
@@ -239,8 +239,8 @@ sub ApprovedAction
 
 		$link->SetLinks([$new->{newentity0id}, $new->{newentity1id}]);
 		$link->SetLinkType($new->{newlinktypeid});
-		$link->SetBeginDate($new->{newbegindate});
-		$link->SetEndDate($new->{newenddate});
+		$link->begin_date($new->{newbegindate});
+		$link->end_date($new->{newenddate});
 		if (!$link->Update)
 		{
 			$self->InsertNote(MODBOT_MODERATOR, "This link could not be updated.");

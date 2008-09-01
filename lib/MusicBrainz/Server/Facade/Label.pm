@@ -36,8 +36,8 @@ sub new_from_label
     my ($class, $label) = @_;
 
     $class->new({
-        dissolved  => $label->GetEndDate,
-        founded    => $label->GetBeginDate,
+        dissolved  => $label->end_date,
+        founded    => $label->begin_date,
         id         => $label->GetId,
         name       => $label->GetName,
         mbid       => $label->GetMBId,

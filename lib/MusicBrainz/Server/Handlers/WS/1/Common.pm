@@ -308,7 +308,7 @@ sub xml_artist
 		xml_escape($ar->sort_name);
     print '<disambiguation>' . xml_escape($ar->GetResolution()) . '</disambiguation>' if ($ar->GetResolution());
 
-    my ($begin, $end) = ($ar->GetBeginDate, $ar->GetEndDate);
+    my ($begin, $end) = ($ar->begin_date, $ar->end_date);
     if ($begin|| $end)
     {
         print '<life-span';
@@ -643,7 +643,7 @@ sub xml_label
         print '<country>' . xml_escape($c->GetISOCode) . '</country>';
     }
     
-    my ($b, $e) = ($ar->GetBeginDate, $ar->GetEndDate);
+    my ($b, $e) = ($ar->begin_date, $ar->end_date);
     if ($b|| $e)
     {
         print '<life-span';
