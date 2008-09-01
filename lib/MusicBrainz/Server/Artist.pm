@@ -169,14 +169,12 @@ sub GetQuality
    return $_[0]->{quality};
 }
 
-sub SetQualityModPending
+sub quality_has_mod_pending
 {
-   $_[0]->{modpending_qual} = $_[1];
-}
+    my ($self, $new_val) = @_;
 
-sub GetQualityModPending
-{
-   return $_[0]->{modpending_qual};
+    if (defined $new_val) { $self->{modpending_qual} = $new_val; }
+    return $self->{modpending_qual};
 }
 
 # Insert an artist into the DB and return the artist id. Returns undef
@@ -736,7 +734,7 @@ sub GetArtistsFromName
 		$ar->end_date($row->{enddate});
 		$ar->type($row->{type});
 		$ar->SetQuality($row->{quality});
-		$ar->SetQualityModPending($row->{modpending_qual});
+		$ar->quality_has_mod_pending($row->{modpending_qual});
 
         push @results, $ar;
     }
@@ -781,7 +779,7 @@ sub GetArtistsFromSortname
 		$ar->SetModPending($row->{modpending});
 		$ar->type($row->{type});
 		$ar->SetQuality($row->{quality});
-		$ar->SetQualityModPending($row->{modpending_qual});
+		$ar->quality_has_mod_pending($row->{modpending_qual});
 
         push @results, $ar;
     }
@@ -998,7 +996,7 @@ sub GetReleases
                 $album->SetLanguageId($row[5]);
                 $album->SetScriptId($row[6]);
                 $album->SetQuality($row[7]);
-                $album->SetQualityModPending($row[8]);
+                $album->quality_has_mod_pending($row[8]);
 
                 if (defined $loadmeta && $loadmeta)
                 {
@@ -1061,7 +1059,7 @@ sub GetReleases
 			$album->SetLanguageId($row[6]);
 			$album->SetScriptId($row[7]);
 			$album->SetQuality($row[8]);
-			$album->SetQualityModPending($row[9]);
+			$album->quality_has_mod_pending($row[9]);
 
             if (defined $loadmeta && $loadmeta)
             {

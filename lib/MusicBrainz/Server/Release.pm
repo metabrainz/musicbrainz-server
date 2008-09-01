@@ -123,14 +123,12 @@ sub SetLanguageModPending
    $_[0]->{modpending_lang} = $_[1];
 }
 
-sub SetQualityModPending
+sub quality_has_mod_pending
 {
-   $_[0]->{modpending_qual} = $_[1];
-}
+    my ($self, $new_val) = @_;
 
-sub GetQualityModPending
-{
-   return $_[0]->{modpending_qual};
+    if (defined $new_val) { $self->{modpending_qual} = $new_val; }
+    return $self->{modpending_qual};
 }
 
 sub SetQuality
