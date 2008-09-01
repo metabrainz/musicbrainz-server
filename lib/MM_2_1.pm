@@ -75,7 +75,7 @@ sub OutputArtistRDF
 	if ($artist);
 
     $out .=   $this->Element("dc:title", $artist->GetName());
-    $out .=   $this->Element("mm:sortName", $artist->GetSortName());
+    $out .=   $this->Element("mm:sortName", $artist->sort_name());
 
     my $begindate = MusicBrainz::Server::Validation::MakeDisplayDateStr($artist->GetBeginDate);
     $out .= $this->Element("mm:beginDate", $begindate) if ($begindate);

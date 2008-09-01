@@ -52,14 +52,12 @@ my %ArtistTypeNames = (
 );
 
 # Artist specific accessor function. Others are inherted from TableBase 
-sub GetSortName
+sub sort_name
 {
-   return $_[0]->{sortname};
-}
+    my ($self, $new_sort_name) = @_;
 
-sub SetSortName
-{
-   $_[0]->{sortname} = $_[1];
+    if (defined $new_sort_name) { $self->{sortname} = $new_sort_name; }
+    return $self->{sortname};
 }
 
 sub _GetIdCacheKey
@@ -200,12 +198,12 @@ sub Insert
     # Check name and sortname
     defined(my $name = $this->GetName)
 	or return undef;
-    my $sortname = $this->GetSortName;
+    my $sortname = $this->sort_name;
     $sortname = $name if not defined $sortname;
 
     MusicBrainz::Server::Validation::TrimInPlace($name, $sortname);
     $this->SetName($name);
-    $this->SetSortName($sortname);
+    $this->sort_name($sortname);
 
     my $sql = Sql->new($this->{DBH});
     my $artist;
@@ -251,7 +249,7 @@ sub Insert
 		     begindate, enddate, modpending, page)
 	    VALUES (?, ?, ?, ?, ?, ?, ?, 0, ?)|,
 		$this->GetName(),
-		$this->GetSortName(),
+		$this->sort_name(),
 		$this->GetMBId,
 		$this->GetType() || undef,
 		$this->GetResolution() || undef,
@@ -450,7 +448,7 @@ sub UpdateSortName
     $this->InvalidateCache;
 
     # Update the search engine
-    $this->SetSortName($name);
+    $this->sort_name($name);
     $this->RebuildWordList;
 
     1;
@@ -518,7 +516,7 @@ sub Update
 
     # Update the search engine
     $this->SetName($name) if exists $update{name};
-    $this->SetSortName($sortname) if exists $update{sortname};
+    $this->sort_name($sortname) if exists $update{sortname};
     $this->RebuildWordList;
 
     return 1;
@@ -739,7 +737,7 @@ sub GetArtistsFromName
 		$ar->SetId($row->{id});
 		$ar->SetMBId($row->{gid});
 		$ar->SetName($row->{name});
-		$ar->SetSortName($row->{sortname});
+		$ar->sort_name($row->{sortname});
 		$ar->SetModPending($row->{modpending});
 		$ar->SetResolution($row->{resolution});
 		$ar->SetBeginDate($row->{begindate});
@@ -784,7 +782,7 @@ sub GetArtistsFromSortname
 		$ar->SetId($row->{id});
 		$ar->SetMBId($row->{gid});
 		$ar->SetName($row->{name});
-		$ar->SetSortName($row->{sortname});
+		$ar->sort_name($row->{sortname});
 		$ar->SetResolution($row->{resolution});
 		$ar->SetBeginDate($row->{begindate});
 		$ar->SetEndDate($row->{enddate});

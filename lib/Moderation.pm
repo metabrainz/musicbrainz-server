@@ -1421,7 +1421,7 @@ sub GetModerationList
 		
 		my $artist = $artist_cache{$artistid};
 		$edit->SetArtistName($artist ? $artist->GetName : "?");
-		$edit->SetArtistSortName($artist ? $artist->GetSortName : "?");
+		$edit->SetArtistSortName($artist ? $artist->sort_name : "?");
 		$edit->SetArtistResolution($artist ? $artist->GetResolution : "?");
 
 		# Find vote

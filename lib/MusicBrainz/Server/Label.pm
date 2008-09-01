@@ -88,14 +88,12 @@ sub SetLabelCode
    $_[0]->{labelcode} = $_[1];
 }
 
-sub GetSortName
+sub sort_name
 {
-   return $_[0]->{sortname};
-}
+    my ($self, $new_sort) = @_;
 
-sub SetSortName
-{
-   $_[0]->{sortname} = $_[1];
+    if (defined $new_sort) { $self->{sortname} = $new_sort; }
+    return $self->{sortname};
 }
 
 sub GetCountry
@@ -242,7 +240,7 @@ sub Insert
 	$this->GetLabelCode() || undef,
 	$this->GetMBId(),
 	$this->GetType(),
-	$this->GetSortName(),
+	$this->sort_name(),
 	$this->GetCountry() || undef,
 	$this->GetResolution() || undef,
 	$this->GetBeginDate() || undef,
@@ -607,7 +605,7 @@ sub GetLabelsFromName
 		$ar->SetType($row->{type});
 		$ar->SetLabelCode($row->{labelcode});
 		$ar->SetCountry($row->{country});
-		$ar->SetSortName($row->{sortname});
+		$ar->sort_name($row->{sortname});
 		$ar->SetModPending($row->{modpending});
 		$ar->SetResolution($row->{resolution});
 		$ar->SetBeginDate($row->{begindate});
@@ -646,7 +644,7 @@ sub GetLabelsFromSortname
 		$ar->SetId($row->{id});
 		$ar->SetMBId($row->{gid});
 		$ar->SetName($row->{name});
-		$ar->SetSortName($row->{sortname});
+		$ar->sort_name($row->{sortname});
 		$ar->SetLabelCode($row->{labelcode});
 		$ar->SetCountry($row->{country});
 		$ar->SetResolution($row->{resolution});
@@ -687,7 +685,7 @@ sub GetLabelsFromCode
 		$ar->SetId($row->{id});
 		$ar->SetMBId($row->{gid});
 		$ar->SetName($row->{name});
-		$ar->SetSortName($row->{sortname});
+		$ar->sort_name($row->{sortname});
 		$ar->SetLabelCode($row->{labelcode});
 		$ar->SetCountry($row->{country});
 		$ar->SetResolution($row->{resolution});

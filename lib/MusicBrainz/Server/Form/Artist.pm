@@ -106,7 +106,7 @@ sub init_value {
     switch($field->name)
     {
         return $item->GetName case ('name');
-        return $item->GetSortName case('sortname');
+        return $item->sort_name case('sortname');
         return $item->GetType case('artist_type');
         return $item->GetBeginDate case('start');
         return $item->GetEndDate case('end');
@@ -154,7 +154,7 @@ sub update_model {
 
         $moderation{artist} = $item;
         $moderation{name} = $self->value('name') || $item->GetName;
-        $moderation{sortname} = $self->value('sortname') || $item->GetSortName;
+        $moderation{sortname} = $self->value('sortname') || $item->sort_name;
         $moderation{artist_type} = $self->value('artist_type') || $item->GetType;
         $moderation{resolution} = $self->value('resolution') || $item->GetResolution;
 

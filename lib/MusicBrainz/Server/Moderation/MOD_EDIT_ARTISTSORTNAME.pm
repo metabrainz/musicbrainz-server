@@ -45,7 +45,7 @@ sub PreInsert
 	die if $ar->GetId == DARTIST_ID;
 
 	$self->SetArtist($ar->GetId);
-	$self->SetPrev($ar->GetSortName);
+	$self->SetPrev($ar->sort_name);
 	$self->SetNew($newname);
 	$self->SetTable("artist");
 	$self->SetColumn("sortname");
@@ -94,7 +94,7 @@ sub ApprovedAction
 		return STATUS_FAILEDPREREQ;
 	}
 	
-	unless ($artist->GetSortName eq $this->GetPrev)
+	unless ($artist->sort_name eq $this->GetPrev)
 	{
 		$this->InsertNote(MODBOT_MODERATOR, "This artist's sortname has already been changed");
 		return STATUS_FAILEDDEP;

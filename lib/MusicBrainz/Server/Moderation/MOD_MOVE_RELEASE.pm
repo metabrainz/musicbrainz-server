@@ -139,12 +139,12 @@ sub PreDisplay
 			# FIXME is the name = new.sortname comparison necessary?
 			if ($newartist->LoadFromId 
 				&& ($newartist->GetName eq $this->{'new.sortname'}
-					|| $newartist->GetSortName eq $this->{'new.sortname'}))
+					|| $newartist->sort_name eq $this->{'new.sortname'}))
 			{
 				# assume we got the right artist, and reset name and sortname
 				# to the correct values
 				$this->{'new.name'} = $newartist->GetName;
-				$this->{'new.sortname'} = $newartist->GetSortName;
+				$this->{'new.sortname'} = $newartist->sort_name;
 				$this->{'new.exists'} = 1;
 			}
 		}
@@ -238,7 +238,7 @@ sub ApprovedAction
 		require MusicBrainz::Server::Artist;
 		my $artist = MusicBrainz::Server::Artist->new($this->{DBH});
 		$artist->SetName($name);
-		$artist->SetSortName($this->{'new.sortname'});
+		$artist->sort_name($this->{'new.sortname'});
 		$newid = $artist->Insert(no_alias => 1);
 	}
 

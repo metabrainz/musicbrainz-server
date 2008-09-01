@@ -143,7 +143,7 @@ sub PreDisplay
 				$newartist->GetName eq $this->{'new.name'})
 			{
 				$this->{'new.id'} = $newartist->GetId;
-				$this->{'new.sortname'} = $newartist->GetSortName;
+				$this->{'new.sortname'} = $newartist->sort_name;
 				$this->{'new.resolution'} = $newartist->GetResolution;
 				$this->{'new.exists'} = 1;
 			}
@@ -159,7 +159,7 @@ sub PreDisplay
 	if ($this->{"old.exists"} = $oldartist->LoadFromId)
 	{
 		$this->{"old.resolution"} = $oldartist->GetResolution;
-		$this->{"old.sortname"} = $oldartist->GetSortName;
+		$this->{"old.sortname"} = $oldartist->sort_name;
 	}
 
 	# ... and the new resolution if artist is in the DB
@@ -238,7 +238,7 @@ sub ApprovedAction
 		require MusicBrainz::Server::Artist;
 		my $ar = MusicBrainz::Server::Artist->new($this->{DBH});
 		$ar->SetName($name);
-		$ar->SetSortName($sortname);
+		$ar->sort_name($sortname);
 		$artistid = $ar->Insert(no_alias => 1);
 	}
 

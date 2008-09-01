@@ -70,7 +70,7 @@ sub OutputArtistRDF
     $out  = $this->BeginDesc("mm:Artist", $this->GetBaseURI() .
                             "/artist/" . $artist->GetMBId());
     $out .=   $this->Element("dc:title", $artist->GetName());
-    $out .=   $this->Element("mm:sortName", $artist->GetSortName());
+    $out .=   $this->Element("mm:sortName", $artist->sort_name());
 
     if (exists $ref->{_artist})
     {

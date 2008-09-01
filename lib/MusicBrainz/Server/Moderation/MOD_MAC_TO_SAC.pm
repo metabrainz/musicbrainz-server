@@ -136,7 +136,7 @@ sub PreDisplay
 			{
 				$this->{'new.artistid'} = $ar->GetId;
 				$this->{'new.exists'} = 1;
-				$this->{'new.sortname'} = $ar->GetSortName;
+				$this->{'new.sortname'} = $ar->sort_name;
 			}
 		}
 	}
@@ -207,7 +207,7 @@ sub ApprovedAction
 		require MusicBrainz::Server::Artist;
 		my $ar = MusicBrainz::Server::Artist->new($this->{DBH});
 		$ar->SetName($name);
-		$ar->SetSortName($this->{'new.sortname'});
+		$ar->sort_name($this->{'new.sortname'});
 		$newid = $ar->Insert(no_alias => 1);
 		$newid or croak "Failed to create artist $name / $this->{'new.sortname'}";
 	}

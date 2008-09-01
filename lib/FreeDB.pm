@@ -396,9 +396,9 @@ sub InsertForModeration
 
         # This is currently a byte-wise comparison, i.e. case-sensitive, etc.
 	# Should it be done using lc() and maybe even unac_string() too?
-        if ($ar->GetSortName() eq $info->{artist})
+        if ($ar->sort_name() eq $info->{artist})
         {
-            $info->{sortname} = $ar->GetSortName();
+            $info->{sortname} = $ar->sort_name();
             $info->{artist} = $ar->GetName();
         }
 

@@ -105,7 +105,7 @@ sub new_from_artist
         name        => $artist->GetName,
         quality     => ModDefs::GetQualityText($artist->GetQuality),
         resolution  => $artist->GetResolution,
-        sort_name   => $artist->GetSortName,
+        sort_name   => $artist->sort_name,
         start_date  => $artist->GetBeginDate,
         type        => MusicBrainz::Server::Artist::GetTypeName($artist->GetType),
 

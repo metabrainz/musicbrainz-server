@@ -370,7 +370,7 @@ sub ArtistSearch
                              mbid=>$this->{artist}->GetMBId(), 
                              name=>$this->{artist}->GetName(),
                              resolution=>$this->{artist}->GetResolution(),
-                             sortname=>$this->{artist}->GetSortName() })
+                             sortname=>$this->{artist}->sort_name() })
                          ]);
    }
    if (scalar(@$artists) > 1)
@@ -379,7 +379,7 @@ sub ArtistSearch
        {
            push @ids, { id=>$item->GetId(),
                       name=>$item->GetName(),
-                  sortname=>$item->GetSortName(),
+                  sortname=>$item->sort_name(),
                       mbid=>$item->GetMBId(),
                 resolution=>$item->GetResolution(),
                        sim=>1.0
@@ -415,7 +415,7 @@ sub ArtistSearch
                                  mbid=>$ar->GetMBId(), 
                                  name=>$ar->GetName(),
                                  resolution=>$ar->GetResolution(),
-                                 sortname=>$ar->GetSortName()})
+                                 sortname=>$ar->sort_name()})
                              ]);
        }
    }

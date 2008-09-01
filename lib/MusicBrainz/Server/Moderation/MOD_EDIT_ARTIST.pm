@@ -66,7 +66,7 @@ sub PreInsert
 		die $self->SetError('Empty sort name not allowed.')
 			unless $sortname =~ m/\S/;
 
-		$new{'SortName'} = $sortname if $sortname ne $ar->GetSortName();
+		$new{'SortName'} = $sortname if $sortname ne $ar->sort_name();
 	}
 
 	if ( defined $type )
@@ -110,7 +110,7 @@ sub PreInsert
 	my %prev;
 
 	$prev{'ArtistName'} = $ar->GetName() if exists $new{'ArtistName'};
-	$prev{'SortName'} = $ar->GetSortName() if exists $new{'SortName'};
+	$prev{'SortName'} = $ar->sort_name() if exists $new{'SortName'};
 	$prev{'Type'} = $ar->GetType() if exists $new{'Type'};
 	$prev{'Resolution'} = $ar->GetResolution() if exists $new{'Resolution'};
 	$prev{'BeginDate'} = $ar->GetBeginDate() if exists $new{'BeginDate'};

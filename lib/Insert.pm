@@ -242,7 +242,7 @@ sub _Insert
 
         $artist = $ar->GetName();
         $artistid = $ar->GetId();
-        $sortname = $ar->GetSortName();
+        $sortname = $ar->sort_name();
     }
     else
     {
@@ -303,7 +303,7 @@ sub _Insert
     if (!defined $artistid)
     {
         $ar->SetName($artist);
-        $ar->SetSortName($sortname);
+        $ar->sort_name($sortname);
 		$ar->SetType($artist_type);
 		$ar->SetResolution($artist_resolution);
 		$ar->SetBeginDate($artist_begindate);
@@ -525,7 +525,7 @@ TRACK:
            
             # Load/insert artist
             $ar->SetName($track->{artist});
-            $ar->SetSortName($track->{sortname});
+            $ar->sort_name($track->{sortname});
             $ar->SetType(0);
             $ar->SetResolution("");
             $ar->SetBeginDate("");
