@@ -953,7 +953,7 @@ sub artist_browse_selection
 # references to Album objects. Refer to the Album object for details.
 # The returned array is empty on error. Multiple artist albums are
 # also returned by this query. Use SetId() to set the id of artist
-sub GetReleases
+sub select_releases
 {
    my ($this, $novartist, $loadmeta, $onlyvartist) = @_;
    my (@albums, $sql, @row, $album, $query);

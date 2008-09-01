@@ -853,7 +853,7 @@ sub GetLabelDisplayList
 # retreive the set of albums by this label. Returns an array of 
 # references to Album objects. Refer to the Album object for details.
 # The returned array is empty on error.
-sub GetReleases
+sub select_releases
 {
 	my ($this) = @_;
 	my $sql = Sql->new($this->{DBH});

@@ -1714,7 +1714,7 @@ sub ShowModType
 			# assume that the release needs to be loaded from
 			# the album-track core relationship, if it not
 			# has been set explicitly.
-			$this->{"albumid"} = $track->GetRelease if ($this->{"checkexists-album"} && not defined $this->{"albumid"});
+			$this->{"albumid"} = $track->release if ($this->{"checkexists-album"} && not defined $this->{"albumid"});
 		}
 	}
 	

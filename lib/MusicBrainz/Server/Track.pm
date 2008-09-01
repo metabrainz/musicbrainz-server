@@ -67,14 +67,12 @@ sub artist_name
     return $self->{artistname};
 }
 
-sub GetRelease
+sub release
 {
-   return $_[0]->{album};
-}
+    my ($self, $new_release) = @_;
 
-sub SetRelease
-{
-   $_[0]->{album} = $_[1];
+    if (defined $new_release) { $self->{album} = $new_release; }
+    return $self->{album};
 }
 
 sub GetSequence
@@ -139,11 +137,11 @@ sub LoadFromAlbumJoin
 	) or return undef;
 
 	$this->SetId($t->[0]);
-	$this->SetRelease($t->[1]);
+	$this->release($t->[1]);
 	return $this->LoadFromId();
 }
 
-# Load a track. Set the track id and the album id via the SetId and SetRelease
+# Load a track. Set the track id and the album id via the SetId and release
 # Accessor functions. Return true on success, undef otherwise
 sub LoadFromId
 {
@@ -471,7 +469,7 @@ sub RemoveFromAlbum
 
 	my $id = $self->GetId
 		or croak "Missing track ID in RemoveFromAlbum";
-	my $alid = $self->GetRelease
+	my $alid = $self->release
 		or croak "Missing album ID in RemoveFromAlbum";
 
 	my $sql = Sql->new($self->{DBH});

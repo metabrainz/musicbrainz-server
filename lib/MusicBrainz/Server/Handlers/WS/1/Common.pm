@@ -333,14 +333,14 @@ sub xml_artist
     }
     if (defined $info)
     {
-        my @albums = $ar->GetReleases(!$info->{va}, 1, $info->{va});
+        my @albums = $ar->select_releases(!$info->{va}, 1, $info->{va});
         if (scalar(@albums) && ($info->{type} != -1 || $info->{status} != -1))
         {
             my @filtered;
 
             foreach my $al (@albums)
             {
-                my ($t, $s) = $al->GetReleaseTypeAndStatus();
+                my ($t, $s) = $al->release_type_and_status();
                 push @filtered, $al if (($t == $info->{type} || $info->{type} == -1) && ($info->{status} == -1 || $info->{status} == $s));
             }
             if (scalar(@filtered))
@@ -404,7 +404,7 @@ sub xml_release_type
 {
 	my $al = $_[0];
 
-	my ($type, $status) = $al->GetReleaseTypeAndStatus;
+	my ($type, $status) = $al->release_type_and_status;
 	$type = (defined $type ? $al->attribute_name($type) : "");
 	$status = (defined $status ? $al->attribute_name($status) : "");
 

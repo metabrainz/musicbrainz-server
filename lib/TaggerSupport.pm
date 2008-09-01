@@ -487,7 +487,7 @@ sub AlbumSearch
        }
    } else {
        # get the complete album list from artist
-       @albums = $ar->GetReleases(0, 1);
+       @albums = $ar->select_releases(0, 1);
    }
    
    if (scalar(@albums) == 0)

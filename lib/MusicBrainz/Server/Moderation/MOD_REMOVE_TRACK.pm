@@ -87,7 +87,7 @@ sub ApprovedAction
 	require MusicBrainz::Server::Track;
 	my $track = MusicBrainz::Server::Track->new($this->{DBH});
 	$track->SetId($this->row_id);
-	$track->SetRelease($this->{'prev.albumid'});
+	$track->release($this->{'prev.albumid'});
 
 	# Remove the album join for this track
 	$track->RemoveFromAlbum;

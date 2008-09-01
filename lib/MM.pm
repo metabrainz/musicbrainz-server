@@ -151,7 +151,7 @@ sub CreateDenseTrackList
 
 	require MusicBrainz::Server::Release;
 	my $al = MusicBrainz::Server::Release->new($this->{DBH});
-	my @ids = $al->GetReleaseIdsFromTrackId($tr->GetId());
+	my @ids = $al->release_ids_from_track_id($tr->GetId());
 	$al->SetId($ids[0]);
 	# TODO this is complaining that the album ID is false
 	$al->LoadFromId();
@@ -550,7 +550,7 @@ sub _artistReferences
 	return ();
     }
 
-    @albums = $artist->GetReleases();
+    @albums = $artist->select_releases();
     foreach $album (@albums)
     {
 	next if not defined $album;

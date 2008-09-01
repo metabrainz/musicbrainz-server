@@ -34,8 +34,8 @@ sub get_attached_release_ids
 {
     my ($self, $cdtoc) = @_;
 
-    my $all_cdtocs = $cdtoc->get_cdtoc->GetReleaseCDTOCs;
-    return [ map { $_->GetReleaseId } @{$all_cdtocs} ];
+    my $all_cdtocs = $cdtoc->get_cdtoc->release_cdtocs;
+    return [ map { $_->release_id } @{$all_cdtocs} ];
 }
 
 1;

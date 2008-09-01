@@ -112,17 +112,12 @@ sub entity_id
         {
             case('artist')  { $self->artist($new_id); }
             case('label')   { $self->SetLabel($new_id); }
-            case('release') { $self->SetRelease($new_id); }
+            case('release') { $self->release($new_id); }
             case('track')   { $self->SetTrack($new_id); }
         }
     }
 
 	return $self->{rowid};
-}
-
-sub GetRelease
-{
-	return $_[0]->{rowid};
 }
 
 sub GetLabel
@@ -215,10 +210,17 @@ sub summary_as_html
 	$text;
 }
 
-sub SetRelease
+sub release
 {
-	$_[0]->{type} = RELEASE_ANNOTATION;
-	$_[0]->{rowid} = $_[1];
+    my ($self, $new_release) = @_;
+
+    if (defined $new_release)
+    {
+        $self->{type } = RELEASE_ANNOTATION;
+        $self->{rowid} = $new_release;
+    }
+
+    return $self->{album};
 }
 
 sub artist
@@ -329,7 +331,7 @@ sub LoadFromId
 }
 
 # Get the latest Annotation for the artist or release.
-# To make this work, artist() or SetRelease() have to be called
+# To make this work, artist() or release() have to be called
 
 sub GetLatestAnnotation
 {

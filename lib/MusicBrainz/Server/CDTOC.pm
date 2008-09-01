@@ -168,7 +168,7 @@ sub newFromFreeDBID
 	$rows;
 }
 
-sub GetReleaseCDTOCs
+sub release_cdtocs
 {
 	my $self = shift;
 	$self = $self->new(shift) if not ref $self;

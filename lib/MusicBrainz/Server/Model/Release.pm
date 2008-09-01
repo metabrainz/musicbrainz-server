@@ -54,7 +54,7 @@ sub load_for_label
 {
     my ($self, $label) = @_;
 
-    my @releases = $label->get_label->GetReleases;
+    my @releases = $label->get_label->select_releases;
 
     for (@releases) { _build_sort_keys($_); }
     
@@ -79,7 +79,7 @@ sub load_for_artist
 {
     my ($self, $artist, $show_all) = @_;
 
-    my @releases = $artist->get_artist->GetReleases(!$show_all, 1);
+    my @releases = $artist->get_artist->select_releases(!$show_all, 1);
 
     if (!$show_all)
     {
@@ -88,7 +88,7 @@ sub load_for_artist
         my @shortList;
         for my $release (@releases)
         {
-            my ($type, $status) = $release->GetReleaseTypeAndStatus;
+            my ($type, $status) = $release->release_type_and_status;
 
             # Push onto our list of releases we are actually interested in
             push @shortList, $release
@@ -103,7 +103,7 @@ sub load_for_artist
 
         if (scalar @releases == 0)
         {
-            @releases = $artist->get_artist->GetReleases(0, 1, $onlyHasVAReleases);
+            @releases = $artist->get_artist->select_releases(0, 1, $onlyHasVAReleases);
         }
     }
 
@@ -155,7 +155,7 @@ sub _build_sort_keys
 
     if(ref $release ne 'HASH')
     {
-        my ($type, $status) = $release->GetReleaseTypeAndStatus;
+        my ($type, $status) = $release->release_type_and_status;
 
         $release->SetMultipleTrackArtists($release->artist != $release->GetId() ? 1 : 0);
         $release->{_firstreleasedate_} = ($release->GetFirstReleaseDate || "9999-99-99");

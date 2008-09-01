@@ -83,7 +83,7 @@ sub PreInsert
 		$new{"AlbumName$seq"} = $al->GetName;
 		$new{"Prev$seq"} = $prev;
 
-		my ($t, $s) = $al->GetReleaseTypeAndStatus;
+		my ($t, $s) = $al->release_type_and_status;
 		$fCanAutoMod = 0
 			if defined($t) and $t != $type;
 		$fCanAutoMod = 0

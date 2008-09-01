@@ -923,7 +923,7 @@ EOF
 	{
 	    my @attrs = $row->[7] =~ /(\d+)/g;
 	    shift @attrs;
-	    my ($type, $status) = MusicBrainz::Server::Release->GetReleaseTypeAndStatus(\@attrs);
+	    my ($type, $status) = MusicBrainz::Server::Release->release_type_and_status(\@attrs);
 	    $typehash = "Type" . MusicBrainz::Server::Release->attribute_name($type) if $type;
 	    $statushash = "Status" . MusicBrainz::Server::Release->attribute_name($status) if $status;
 	}

@@ -403,7 +403,7 @@ sub InsertForModeration
         }
 
 	my $album = lc(decode "utf-8", $info->{album});
-        @albums = $ar->GetReleases();
+        @albums = $ar->select_releases();
         foreach $al (@albums)
         {
    	    my $thisname = lc(decode "utf-8", $al->GetName);

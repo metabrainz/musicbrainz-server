@@ -164,7 +164,7 @@ sub serve_from_db
         $inc = INC_ARTIST | INC_COUNTS | INC_RELEASEINFO;
 
         my $cd = MusicBrainz::Server::ReleaseCDTOC->new($mb->{DBH});
-        my $albumids = $cd->GetReleaseIDsFromDiscID($cdid);
+        my $albumids = $cd->release_ids_from_discid($cdid);
         if (scalar(@$albumids))
         {
             foreach my $id (@$albumids)

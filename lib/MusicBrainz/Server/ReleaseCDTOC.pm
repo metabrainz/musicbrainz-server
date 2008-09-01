@@ -42,7 +42,7 @@ use MusicBrainz::Server::LogFile qw( lprint lprintf );
 ################################################################################
 
 # GetId / SetId - see TableBase
-sub GetReleaseId	{ $_[0]{album} }
+sub release_id	{ $_[0]{album} }
 sub GetCDTOCId	{ $_[0]{cdtoc} }
 # GetModPending / SetModPending - see TableBase
 
@@ -50,7 +50,7 @@ sub GetCDTOCId	{ $_[0]{cdtoc} }
 # Derived Properties
 ################################################################################
 
-sub GetRelease	{ $_[0]{_album} ||= $_[0]->_GetRelease }
+sub release	{ $_[0]{_album} ||= $_[0]->_release }
 sub GetCDTOC	{ $_[0]{_cdtoc} ||= $_[0]->_GetCDTOC }
 
 sub _GetCDTOC
@@ -64,10 +64,10 @@ sub _GetCDTOC
 	$cdtoc;
 }
 
-sub _GetRelease
+sub _release
 {
 	my $self = shift;
-	my $id = $self->GetReleaseId;
+	my $id = $self->release_id;
 
 	require MusicBrainz::Server::Release;
 	my $release = MusicBrainz::Server::Release->new($self->{DBH});
@@ -249,10 +249,10 @@ sub _newFromHash
 
 # Given a discid / freedbid, get a list of matching album IDs
 
-sub GetReleaseIDsFromDiscID { my $self = shift; $self->_GetReleaseIDsFromHash("discid", @_) }
-sub GetReleaseIDsFromFreeDBID { my $self = shift; $self->_GetReleaseIDsFromHash("freedbid", @_) }
+sub release_ids_from_discid { my $self = shift; $self->_releaseIDsFromHash("discid", @_) }
+sub release_ids_from_freedb_id { my $self = shift; $self->_releaseIDsFromHash("freedbid", @_) }
 
-sub _GetReleaseIDsFromHash
+sub _releaseIDsFromHash
 {
 	my $self = shift;
 	my $type = shift;
@@ -310,7 +310,7 @@ sub GenerateAlbumFromDiscid
 	}
 
 	# Check to see if the album is in the main database
-	my $albumids = $self->GetReleaseIDsFromDiscID($discid);
+	my $albumids = $self->release_ids_from_discid($discid);
 
 	if (@$albumids)
 	{

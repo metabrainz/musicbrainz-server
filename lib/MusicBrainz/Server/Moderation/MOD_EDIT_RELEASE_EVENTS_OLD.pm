@@ -71,7 +71,7 @@ sub PreInsert
 	$i = 0;
 	for my $row (@adds)
 	{
-		die unless $row->GetRelease == $al->GetId;
+		die unless $row->release == $al->GetId;
 		$row->InsertSelf;
 		$new{"add".$i++} = sprintf "d=%s c=%d id=%d l=%d n=%s b=%s f=%d",
 			$row->sort_date,
@@ -87,7 +87,7 @@ sub PreInsert
 	for my $row (@edits)
 	{	
 		my $obj = $row->{"object"};
-		die unless $obj->GetRelease == $al->GetId;
+		die unless $obj->release == $al->GetId;
 
 		my $old = sprintf "d=%s c=%d id=%d l=%d n=%s b=%s f=%d",
 			$obj->sort_date,
@@ -119,7 +119,7 @@ sub PreInsert
 	$i = 0;	
 	for my $row (@removes)
 	{
-		die unless $row->GetRelease == $al->GetId;
+		die unless $row->release == $al->GetId;
 		$new{"remove".$i++} = sprintf "d=%s c=%d id=%d l=%d n=%s b=%s f=%d",
 			$row->sort_date,
 			$row->country,

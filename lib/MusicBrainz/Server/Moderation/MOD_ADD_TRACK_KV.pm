@@ -199,7 +199,7 @@ sub DeniedAction
 	require MusicBrainz::Server::Track;
 	my $track = MusicBrainz::Server::Track->new($self->{DBH});
 	$track->SetId($trackid);
-	$track->SetRelease($releaseid);
+	$track->release($releaseid);
 
 	unless ($track->LoadFromId)
 	{

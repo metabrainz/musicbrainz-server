@@ -34,7 +34,7 @@ sub new_from_track
         name       => $track->GetName,
         mbid       => $track->GetMBId,
         puid_count => 0,
-        release_id => $track->GetRelease,
+        release_id => $track->release,
 
         _t   => $track,
     });

@@ -63,7 +63,7 @@ sub PostLoad
  
 		require MusicBrainz::Server::Release;
 		my $release = MusicBrainz::Server::Release->new($self->{DBH});
-		$release->SetId($track->GetRelease);
+		$release->SetId($track->release);
 		if ($self->{'albumexists'} = $release->LoadFromId)
 		{
 			$self->{'albumid'} = $release->GetId;

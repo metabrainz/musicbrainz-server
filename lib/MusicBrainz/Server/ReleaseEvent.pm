@@ -65,7 +65,7 @@ my %ReleaseFormatNames = (
    15 => 'Piano Roll',
 );
 
-sub GetReleaseFormats
+sub release_formats
 {
 	my @types;
 	my $type = ["", ""];
@@ -78,7 +78,7 @@ sub GetReleaseFormats
 	return \@types;
 }
 
-sub GetReleaseFormatName
+sub release_format_name
 {
 	my $format = shift;
 	return $ReleaseFormatNames{$format}
@@ -96,13 +96,19 @@ sub IsValidFormat
 
 # GetId / SetId - see TableBase
 
-sub GetRelease	{ $_[0]{album} }
-sub SetRelease	{ $_[0]{album} = $_[1] }
+sub release
+{
+    my ($self, $new_release) = @_;
+
+    if (defined $new_release) { $self->{album} = $new_release; }
+    return $self->{album};
+}
+
 sub Release
 {
 	my $self = shift;
 	my $c = MusicBrainz::Server::Release->new($self->{DBH});
-	$c->SetId($self->GetRelease);
+	$c->SetId($self->release);
 	$c->LoadFromId or return undef;
 	$c;
 }
@@ -205,7 +211,7 @@ sub sort_date
 sub ToString { 
 	my $self = shift;
 	return 	"ReleaseEvent { Id: " . $self->GetId . 
-			", Release: " . $self->GetRelease . 
+			", Release: " . $self->release . 
 			", Date: " . $self->{"releasedate"} . 
 			", Country: ".$self->country .
 			"}";
@@ -258,7 +264,7 @@ sub InsertSelf
    	my $sql = Sql->new($self->{DBH});
 	$sql->Do(
 		"INSERT INTO release (album, country, releasedate, label, catno, barcode, format) VALUES (?, ?, ?, ?, ?, ?, ?)",
-		$self->GetRelease,
+		$self->release,
 		$self->country,
 		$self->sort_date,
 		$self->GetLabel || undef,

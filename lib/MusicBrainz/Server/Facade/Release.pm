@@ -55,7 +55,7 @@ sub new_from_release
     my ($class, $release) = @_;
 
     my @attributes      = $release->attributes;
-    my ($type, $status) = $release->GetReleaseTypeAndStatus;
+    my ($type, $status) = $release->release_type_and_status;
 
     return $class->new({
         artist_id          => $release->artist,

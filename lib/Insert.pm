@@ -614,7 +614,7 @@ TRACK:
 			die "Skipped Insert: Release country is required\n";
 		}
 
-		$rel->SetRelease($albumid);
+		$rel->release($albumid);
 		$rel->date(@ymd);
 		$rel->country($release->{country});
 		$rel->SetLabel($release->{label});

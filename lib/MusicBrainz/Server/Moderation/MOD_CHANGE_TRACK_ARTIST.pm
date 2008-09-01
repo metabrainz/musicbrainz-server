@@ -130,7 +130,7 @@ sub PreDisplay
 
 		# since the track exists, we can see if can load the 
 		# corresponding release.
-		$this->{"albumid"} = $track->GetRelease; 
+		$this->{"albumid"} = $track->release; 
 		$this->{"checkexists-album"} = 1; 
 				
 		# try to guess artist id.

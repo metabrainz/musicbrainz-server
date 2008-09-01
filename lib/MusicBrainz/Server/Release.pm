@@ -236,7 +236,7 @@ sub attributes
     return @attrs;
 }
 
-sub GetReleaseTypeAndStatus
+sub release_type_and_status
 {
 	my $self = shift;
 	my $attrs = shift || [ $self->attributes ];
@@ -331,9 +331,9 @@ sub CombineNonAlbums
 			$album->GetId,
 			$t->{_new_sequence},
 			$t->GetId,
-			$t->GetRelease,
+			$t->release,
 		) or die sprintf 'Failed to move track %d from release %d to %d',
-			$t->GetId, $t->GetRelease, $album->GetId;
+			$t->GetId, $t->release, $album->GetId;
 	}
 
 	# Delete the other albums
@@ -608,7 +608,7 @@ sub GetFirstReleaseDateYMD
 
 # This function takes a track id and returns an array of album ids
 # on which this track appears. The array is empty on error.
-sub GetReleaseIdsFromTrackId
+sub release_ids_from_track_id
 {
 	my ($this, $trackid) = @_;
 	my $sql = Sql->new($this->{DBH});
@@ -787,7 +787,7 @@ sub LoadTracks
 			$track->SetAlbumJoinModPending($row[6]);
 			$track->artist_name($row[7]);
 			$track->SetMBId($row[8]);
-			$track->SetRelease($row[9]);
+			$track->release($row[9]);
 			push @info, $track;
 		}
 	}
@@ -1080,8 +1080,8 @@ sub MergeAttributesFrom
 	my ($self, $from) = @_;
 	return if $self->IsNonAlbumTracks or $from->IsNonAlbumTracks;
 
-	my @got = $self->GetReleaseTypeAndStatus;
-	my @from = $from->GetReleaseTypeAndStatus;
+	my @got = $self->release_type_and_status;
+	my @from = $from->release_type_and_status;
 
 	for (0..$#got)
 	{

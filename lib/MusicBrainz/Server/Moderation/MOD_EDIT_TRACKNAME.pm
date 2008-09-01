@@ -82,7 +82,7 @@ sub DetermineQuality
 	if ($tr->LoadFromId())
 	{
         my $rel = MusicBrainz::Server::Release->new($self->{DBH});
-        $rel->SetId($tr->GetRelease());
+        $rel->SetId($tr->release());
         if ($rel->LoadFromId())
         {
             return $rel->quality;        
