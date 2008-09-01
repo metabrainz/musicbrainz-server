@@ -74,9 +74,13 @@ sub GetModerator
 	return $_[0]->{moderator};
 }
 
-sub GetModeratorName
+
+sub moderator_name
 {
-	return $_[0]->{moderator_name};
+    my ($self, $new_name) = @_;
+
+    if (defined $new_name) { $self->{moderator_name} = $new_name; }
+    return $self->{moderator_name};
 }
 
 sub GetModeration
@@ -192,11 +196,6 @@ sub GetShortTextAsHTML
 sub SetModerator
 {
 	$_[0]->{moderator} = $_[1];
-}
-
-sub SetModeratorName
-{
-	$_[0]->{moderator_name} = $_[1];
 }
 
 sub SetModeration

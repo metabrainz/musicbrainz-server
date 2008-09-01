@@ -829,14 +829,12 @@ sub SetArtistResolution
    $_[0]->{artistresolution} = $_[1];
 }
 
-sub GetModeratorName
+sub moderator_name
 {
-   return $_[0]->{moderatorname};
-}
+    my ($self, $new_name) = @_;
 
-sub SetModeratorName
-{
-   $_[0]->{moderatorname} = $_[1];
+    if (defined $new_name) { $self->{moderatorname} = $new_name; }
+    return $self->{moderatorname};
 }
 
 sub GetAutomod
@@ -909,7 +907,7 @@ sub CreateFromId
 			$edit->SetPrev($row[6]);
 			$edit->SetNew($row[7]);
 			$edit->SetExpireTime($row[8]);
-			$edit->SetModeratorName($row[9]);
+			$edit->moderator_name($row[9]);
 			$edit->SetYesVotes($row[10]);
 			$edit->SetNoVotes($row[11]);
 			$edit->SetArtistName($row[12]);
@@ -1398,7 +1396,7 @@ sub GetModerationList
 			my $u = $user->newFromId($uid);
 			$u ? $u->GetName : "?";
 		} unless defined $editor_cache{$uid};
-		$edit->SetModeratorName($editor_cache{$uid});
+		$edit->moderator_name($editor_cache{$uid});
 
 		# Fetch artist into cache if not loaded before.
 		my $artistid = $edit->GetArtist;
