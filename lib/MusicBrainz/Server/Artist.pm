@@ -992,8 +992,8 @@ sub GetReleases
                 $album->SetMBId($row[3]);
                 $row[4] =~ s/^\{(.*)\}$/$1/;
                 $album->{attrs} = [ split /,/, $row[4] ];
-                $album->SetLanguageId($row[5]);
-                $album->SetScriptId($row[6]);
+                $album->language_id($row[5]);
+                $album->script_id($row[6]);
                 $album->quality($row[7]);
                 $album->quality_has_mod_pending($row[8]);
 
@@ -1055,8 +1055,8 @@ sub GetReleases
             $album->SetMBId($row[4]);
             $row[5] =~ s/^\{(.*)\}$/$1/;
             $album->{attrs} = [ split /,/, $row[5] ];
-			$album->SetLanguageId($row[6]);
-			$album->SetScriptId($row[7]);
+			$album->language_id($row[6]);
+			$album->script_id($row[7]);
 			$album->quality($row[8]);
 			$album->quality_has_mod_pending($row[9]);
 

@@ -370,8 +370,8 @@ sub _Insert
            {
                $al->SetAttributes(@{ $info->{attrs} });
            }
-           $al->SetLanguageId($language) if $language;
-           $al->SetScriptId($script) if $script;
+           $al->language_id($language) if $language;
+           $al->script_id($script) if $script;
            $albumid = $al->Insert;
            if (!defined $albumid)
            {
@@ -391,8 +391,8 @@ sub _Insert
                {
                    $al->SetAttributes(@{ $info->{attrs} });
                }
-               $al->SetLanguageId($language) if $language;
-               $al->SetScriptId($script) if $script;
+               $al->language_id($language) if $language;
+               $al->script_id($script) if $script;
                $albumid = $al->Insert;
                if (!defined $albumid)
                {

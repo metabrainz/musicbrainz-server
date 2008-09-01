@@ -54,8 +54,8 @@ sub PreInsert
 		die "Can't edit the language of 'non-album tracks' releases"
 			if $al->IsNonAlbumTracks;
 
-		my $curr_lang = $al->GetLanguageId || 0;
-		my $curr_script = $al->GetScriptId || 0;
+		my $curr_lang = $al->language_id || 0;
+		my $curr_script = $al->script_id || 0;
 		my $prev = "$curr_lang,$curr_script";
 		next if $prev eq $new{Language};
 
@@ -92,7 +92,7 @@ sub PreInsert
 	$self->table("album");
 	$self->SetColumn("id");
 	$self->SetNew($self->ConvertHashToNew(\%new));
-	$self->SetLanguageId($languageid) if $languageid;
+	$self->language_id($languageid) if $languageid;
 }
 
 sub IsAutoEdit
@@ -185,7 +185,7 @@ sub CheckPrerequisites
 		}
 
 		my $prev = $new->{"Prev$i"};
-		my $curr = ($al->GetLanguageId||0) . "," . ($al->GetScriptId||0);
+		my $curr = ($al->language_id||0) . "," . ($al->script_id||0);
 
 		# Make sure the language hasn't changed while this mod was open
 		if ($curr ne $prev)
@@ -223,8 +223,8 @@ sub ApprovedAction
 
 	foreach my $al ( @$albums )
 	{
-		$al->SetLanguageId($languageid);
-		$al->SetScriptId($scriptid);
+		$al->language_id($languageid);
+		$al->script_id($scriptid);
 		$al->UpdateLanguageAndScript;
 	}
 

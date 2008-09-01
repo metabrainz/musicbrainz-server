@@ -370,8 +370,8 @@ sub xml_release
     print '><title>' . xml_escape($al->GetName) . '</title>';
 
     my ($lang, $script);
-    $lang = $al->GetLanguageId;
-    $script = $al->GetScriptId;
+    $lang = $al->language_id;
+    $script = $al->script_id;
     if ($lang || $script)
     {
         print '<text-representation';

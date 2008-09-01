@@ -632,22 +632,20 @@ sub SetStatus
    $_[0]->{status} = $_[1];
 }
 
-sub GetLanguageId
+sub language_id
 {
-   return $_[0]->{language};
+    my ($self, $new_id) = @_;
+
+    if (defined $new_id) { $self->{language} = $new_id; }
+    return $self->{language};
 }
 
 sub GetLanguage
 {
 	my $self = shift;
-	my $id = $self->GetLanguageId or return undef;
+	my $id = $self->language_id or return undef;
 	require MusicBrainz::Server::Language;
 	return MusicBrainz::Server::Language->newFromId($self->{DBH}, $id);
-}
-
-sub SetLanguageId
-{
-   $_[0]->{language} = $_[1];
 }
 
 sub quality
@@ -916,7 +914,7 @@ sub CreateFromId
 			$edit->SetDepMod($row[17]);
 			$edit->moderator($row[18]);
 			$edit->SetAutomod($row[19]);
-			$edit->SetLanguageId($row[20]);
+			$edit->language_id($row[20]);
 			$edit->SetOpenTime($row[21]);
 			$edit->SetCloseTime($row[22]);
 			$edit->SetExpired($row[23]);
@@ -1156,7 +1154,7 @@ sub InsertModeration
             $this->moderator, $this->GetArtist, $this->type,
             $this->GetDepMod,
             &ModDefs::STATUS_OPEN, sprintf("%d days", $level->{duration}),
-            $this->GetLanguageId
+            $this->language_id
 		);
 
 		my $insertid = $sql->GetLastInsertId("moderation_open");
@@ -1362,7 +1360,7 @@ sub moderation_list
 		$edit->SetOpenTime($r->{opentime});
 		$edit->SetCloseTime($r->{closetime});
 		$edit->SetExpireTime($r->{expiretime});
-		$edit->SetLanguageId($r->{language});
+		$edit->language_id($r->{language});
 
 		$edit->SetExpired($r->{expired});
 		$edit->SetVote($r->{vote});

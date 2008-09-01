@@ -896,8 +896,8 @@ sub GetReleases
 			$album->SetMBId($row[4]);
 			$row[5] =~ s/^\{(.*)\}$/$1/;
 			$album->{attrs} = [ split /,/, $row[5] ];
-			$album->SetLanguageId($row[6]);
-			$album->SetScriptId($row[7]);
+			$album->language_id($row[6]);
+			$album->script_id($row[7]);
 			$album->{releasedate} = $row[8];
 			$album->{catno} = $row[9];
 			$album->{trackcount} = $row[10];

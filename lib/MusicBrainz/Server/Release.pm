@@ -108,14 +108,20 @@ sub SetArtist
    $_[0]->{artist} = $_[1];
 }
 
-sub SetLanguageId
+sub language_id
 {
-   $_[0]->{language} = $_[1];
+    my ($self, $new_id) = @_;
+
+    if (defined $new_id) { $self->{language} = $new_id; }
+    return $self->{language};
 }
 
-sub SetScriptId
+sub script_id
 {
-   $_[0]->{script} = $_[1];
+    my ($self, $new_id) = @_;
+
+    if (defined $new_id) { $self->{script} = $new_id; }
+    return $self->{script};
 }
 
 sub SetLanguageModPending
@@ -194,28 +200,18 @@ sub SetAsin
     $_[0]->{asin} = $_[1];
 }
 
-sub GetLanguageId
-{
-	return $_[0]{language};
-}
-
 sub GetLanguage
 {
 	my $self = shift;
-	my $id = $self->GetLanguageId or return undef;
+	my $id = $self->language_id or return undef;
 	require MusicBrainz::Server::Language;
 	return MusicBrainz::Server::Language->newFromId($self->{DBH}, $id);
-}
-
-sub GetScriptId
-{
-	return $_[0]{script};
 }
 
 sub GetScript
 {
 	my $self = shift;
-	my $id = $self->GetScriptId or return undef;
+	my $id = $self->script_id or return undef;
 	require MusicBrainz::Server::Script;
 	return MusicBrainz::Server::Script->newFromId($self->{DBH}, $id);
 }
@@ -426,8 +422,8 @@ sub Insert
     my $id = $this->CreateNewGlobalId();
     my $attrs = "{" . join(',', @{ $this->{attrs} }) . "}";
     my $page = $this->CalculatePageIndex($this->{name});
-    my $lang = $this->GetLanguageId();
-    my $script = $this->GetScriptId();
+    my $lang = $this->language_id();
+    my $script = $this->script_id();
 
 	$sql->Do(qq|INSERT INTO album
 			(name, artist, gid, modpending, attributes, page, language, script)
@@ -994,7 +990,7 @@ sub MergeReleases
    }
 
    my $old_attrs = join " ", $this->GetAttributes;
-   my $old_langscript = join " ", ($this->GetLanguageId||0), ($this->GetScriptId||0);
+   my $old_langscript = join " ", ($this->language_id||0), ($this->script_id||0);
 
    require MusicBrainz::Server::Release;
    $al = MusicBrainz::Server::Release->new($this->{DBH});
@@ -1089,7 +1085,7 @@ sub MergeReleases
    my $new_attrs = join " ", $this->GetAttributes;
    $this->UpdateAttributes if $new_attrs ne $old_attrs;
 
-   my $new_langscript = join " ", ($this->GetLanguageId||0), ($this->GetScriptId||0);
+   my $new_langscript = join " ", ($this->language_id||0), ($this->script_id||0);
    $this->UpdateLanguageAndScript if $new_langscript ne $old_langscript;
 
    return 1;
@@ -1114,10 +1110,10 @@ sub MergeAttributesFrom
 sub MergeLanguageAndScriptFrom
 {
 	my ($self, $from) = @_;
-	$self->SetLanguageId($from->GetLanguageId)
-		unless $self->GetLanguageId;
-	$self->SetScriptId($from->GetScriptId)
-		unless $self->GetScriptId;
+	$self->language_id($from->language_id)
+		unless $self->language_id;
+	$self->script_id($from->script_id)
+		unless $self->script_id;
 }
 
 # Pull back a section of various artist albums for the browse various display.
@@ -1295,8 +1291,8 @@ sub UpdateLanguageAndScript
 	my $sql = Sql->new($this->{DBH});
 	$sql->Do(
 		"UPDATE album SET language = ?, script = ? WHERE id = ?",
-		$this->GetLanguageId || undef,
-		$this->GetScriptId || undef,
+		$this->language_id || undef,
+		$this->script_id || undef,
 		$this->GetId,
 	);
 
@@ -1305,7 +1301,7 @@ sub UpdateLanguageAndScript
 	$sql->Do(
 		"UPDATE moderation_open SET language = ? "
 		. "WHERE tab = 'album' AND rowid = ? AND type = ? ",
-		$this->GetLanguageId || undef,
+		$this->language_id || undef,
 		$this->GetId,
 		&ModDefs::MOD_ADD_RELEASE, 
 	);

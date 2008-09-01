@@ -128,7 +128,7 @@ sub PreInsert
 	 	$info{'attrs'} = [ grep { $_ } split /,/, $attrs ];
 
 		my ($language, $script) = split(',', $new{'Language'} || '');
-		$self->SetLanguageId($language) if $language;
+		$self->language_id($language) if $language;
 		
 		$info{'languageid'} = $language if (defined $language);
 		$info{'scriptid'} = $script if (defined $script);
