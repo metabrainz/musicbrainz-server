@@ -72,7 +72,7 @@ $m->out('</table><br/>');
 <p style="margin-bottom: 1em;">
 For each edit type and each quality level the table below shows the voting 
 period that an edit will remain open for, the number of unanimous votes required 
-to shortcut the edit period, what happens if the edit expires, but has not votes, 
+to shortcut the edit period, what happens if the edit expires but has no votes, 
 and whether or not an edit is considered an <& /comp/linkdoc, "AutoEdit", "auto-edit" &> for an <&/comp/linkdoc, "AutoEditor", "auto-editor" &>.
 </p>
 
@@ -99,7 +99,7 @@ foreach $quality (&ModDefs::QUALITY_LOW, &ModDefs::QUALITY_NORMAL, &ModDefs::QUA
 	
 	$m->out('<th class="' . $class . '">Voting<br />Period<a class="superscript" href="#note-1">1</a></th>');
 	$m->out('<th class="' . $class . '">Votes<a class="superscript" href="#note-2">2</a></th>');
-	$m->out('<th class="' . $class . '">Expire<br />Action</th>');
+	$m->out('<th class="' . $class . '">Expire<br />Action<a class="superscript" href="#note-3">3</a></th>');
 	$m->out('<th class="' . $class . '">Auto<br />Edit</th>');
 }
 
@@ -134,7 +134,7 @@ foreach $category (&ModDefs::CAT_ARTIST, &ModDefs::CAT_RELEASE, &ModDefs::CAT_DE
 		if ($k)
 		{
 			$m->out('<tr>');
-			$m->out('<td>' . $k . (Moderation::GetEditLevelDefs($quality, $names{$k}{'type'})->{duration} == 0 ? '<a class="superscript" href="#note-3">3</a>' : '') . '</td>');
+			$m->out('<td>' . $k . (Moderation::GetEditLevelDefs($quality, $names{$k}{'type'})->{duration} == 0 ? '<a class="superscript" href="#note-4">4</a>' : '') . '</td>');
 			
 			$index = 1;
 			foreach $quality (&ModDefs::QUALITY_LOW, &ModDefs::QUALITY_NORMAL, &ModDefs::QUALITY_HIGH)
@@ -177,7 +177,8 @@ $m->out('</table><br/>');
 <p>
 	<span id="note-1" class="superscript">1</span> Voting period in days<br />
 	<span id="note-2" class="superscript">2</span> Unanimous votes<br />
-	<span id="note-3" class="superscript">3</span> <& /comp/linkdoc, "AutoEdit", "auto-edit" &> for all users
+	<span id="note-3" class="superscript">3</span> Expire action when edit has no votes (abstain votes excluded)<br />
+	<span id="note-4" class="superscript">3</span> <& /comp/linkdoc, "AutoEdit", "auto-edit" &> for all users
 </p>
 
 <& /comp/footer &>
