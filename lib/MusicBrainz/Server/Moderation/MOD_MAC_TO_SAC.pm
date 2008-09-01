@@ -88,7 +88,7 @@ sub DetermineQuality
 	$rel->SetId($self->{rowid});
 	if ($rel->LoadFromId())
 	{
-		$level = $rel->GetQuality() > $level ? $rel->GetQuality() : $level;
+		$level = $rel->quality > $level ? $rel->quality : $level;
     }
 
     # Check the artist its going to
@@ -96,7 +96,7 @@ sub DetermineQuality
 	$ar->SetId($self->{'new.artistid'});
 	if ($ar->LoadFromId())
 	{
-        $level = $ar->GetQuality() > $level ? $ar->GetQuality() : $level;
+        $level = $ar->quality > $level ? $ar->quality : $level;
     }
 
     return $level;

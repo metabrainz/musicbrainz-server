@@ -96,12 +96,12 @@ sub DetermineQuality
 	$ar->SetId($self->{"new.id"});
 	if ($ar->LoadFromId())
 	{
-        $quality = $ar->GetQuality();        
+        $quality = $ar->quality;        
     }
 	$ar->SetId($self->{rowid});
 	if ($ar->LoadFromId())
 	{
-        $quality = $quality > $ar->GetQuality() ? $quality : $ar->GetQuality;        
+        $quality = $quality > $ar->quality ? $quality : $ar->quality;
     }
 
     if ($quality == -2)

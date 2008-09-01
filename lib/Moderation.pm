@@ -652,17 +652,16 @@ sub SetLanguageId
    $_[0]->{language} = $_[1];
 }
 
-sub SetQuality
+sub quality
 {
-   $_[0]->{quality} = $_[1];
-}
+    my ($self, $new_quality) = @_;
 
-sub GetQuality
-{
-   # If the quality hasn't been set, call the moderation to figure it out
-   $_[0]->{quality} = $_[0]->DetermineQuality()
-       if (!exists $_[0]->{quality});
-   return $_[0]->{quality};
+    if (defined $new_quality) { $self->{quality} = $new_quality; }
+
+    # If the quality hasn't been set, call the moderation to figure it out
+    if (!exists $self->{quality}) { $self->{quality} = $self->DetermineQuality(); }
+
+    return $self->{quality};
 }
 
 sub IsOpen { $_[0]{status} == STATUS_OPEN or $_[0]{status} == STATUS_TOBEDELETED }
@@ -675,7 +674,7 @@ sub IsAutoEditType
    {
         return $QualityChangeDefs[$this->GetQualityChangeDirection]->{automod};
    }
-   my $level = GetEditLevelDefs($this->GetQuality, $type);
+   my $level = GetEditLevelDefs($this->quality, $type);
    return $level->{autoedit};
 }
 
@@ -688,7 +687,7 @@ sub GetNumVotesNeeded
    {
         return $QualityChangeDefs[$this->GetQualityChangeDirection]->{votes};
    }
-   my $level = GetEditLevelDefs($this->GetQuality, $this->type);
+   my $level = GetEditLevelDefs($this->quality, $this->type);
    return $level->{votes};
 }
 
@@ -700,7 +699,7 @@ sub GetExpireAction
    {
         return $QualityChangeDefs[$this->GetQualityChangeDirection]->{expireaction};
    }
-   my $level = GetEditLevelDefs($this->GetQuality, $this->type);
+   my $level = GetEditLevelDefs($this->quality, $this->type);
    return $level->{expireaction};
 }
 
@@ -1130,7 +1129,7 @@ sub InsertModeration
 		}
 		else
 		{
-			$level = Moderation::GetEditLevelDefs($this->GetQuality, $this->type);
+			$level = Moderation::GetEditLevelDefs($this->quality, $this->type);
 		}
 
 		# Now go on to insert the moderation record itself, and to

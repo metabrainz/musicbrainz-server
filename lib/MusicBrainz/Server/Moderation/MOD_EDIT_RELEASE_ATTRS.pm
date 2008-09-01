@@ -166,7 +166,7 @@ sub DetermineQuality
         $rel->SetId($self->{new_albums}->[0]->{id});
         if ($rel->LoadFromId())
         {
-            $quality_level = $rel->GetQuality();        
+            $quality_level = $rel->quality;        
         }
     }
     return $quality_level;

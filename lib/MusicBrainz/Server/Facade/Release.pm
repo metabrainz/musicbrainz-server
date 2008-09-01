@@ -69,7 +69,7 @@ sub new_from_release
         mbid               => $release->GetMBId,
         name               => $release->GetName,
         puid_count         => $release->GetPuidCount,
-        quality            => ModDefs::GetQualityText($release->GetQuality),
+        quality            => ModDefs::GetQualityText($release->quality),
         release_status     => $status,
         release_type       => $type,
         script             => $release->GetScript   ? $release->GetScript->GetName : '',

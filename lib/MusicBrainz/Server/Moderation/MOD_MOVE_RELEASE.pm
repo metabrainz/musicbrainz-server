@@ -88,21 +88,21 @@ sub DetermineQuality
 	$rel->SetId($self->{rowid});
 	if ($rel->LoadFromId())
 	{
-		$level = $rel->GetQuality() > $level ? $rel->GetQuality() : $level;
+		$level = $rel->quality > $level ? $rel->quality : $level;
     }
 
 	my $ar = MusicBrainz::Server::Artist->new($self->{DBH});
 	$ar->SetId($rel->GetArtist);
 	if ($ar->LoadFromId())
 	{
-        $level = $ar->GetQuality() > $level ? $ar->GetQuality() : $level;
+        $level = $ar->quality > $level ? $ar->quality : $level;
     }
 
 	$ar = MusicBrainz::Server::Artist->new($self->{DBH});
 	$ar->SetId($self->{'new.artistid'});
 	if ($ar->LoadFromId())
 	{
-        $level = $ar->GetQuality() > $level ? $ar->GetQuality() : $level;
+        $level = $ar->quality > $level ? $ar->quality : $level;
     }
 
     return $level;

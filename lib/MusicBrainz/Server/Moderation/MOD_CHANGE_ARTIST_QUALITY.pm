@@ -41,7 +41,7 @@ sub PreInsert
 	my $quality = $opts{'quality'};
 
 	$self->SetArtist($artist->GetId);
-	$self->SetPrev($artist->GetQuality);
+	$self->SetPrev($artist->quality);
 	$self->SetNew($quality);
 	$self->SetTable("artist");
 	$self->SetColumn("quality");
@@ -70,9 +70,9 @@ sub CheckPrerequisites
 	}
 
 	# Check that it hasn't been locked
-	if ($artist->GetQuality == $self->GetNew)
+	if ($artist->quality == $self->GetNew)
 	{
-		$self->InsertNote(MODBOT_MODERATOR, "This artist is already set to quality level " . ModDefs::GetQualityText($artist->GetQuality));
+		$self->InsertNote(MODBOT_MODERATOR, "This artist is already set to quality level " . ModDefs::GetQualityText($artist->quality));
 		return STATUS_FAILEDPREREQ;
 	}
 
@@ -108,7 +108,7 @@ sub ApprovedAction
 	return $status if $status;
 
 	my $artist = $this->{_artist};
-	$artist->SetQuality($this->GetNew);
+	$artist->quality($this->GetNew);
 	$artist->UpdateQuality;
 
 	STATUS_APPLIED;

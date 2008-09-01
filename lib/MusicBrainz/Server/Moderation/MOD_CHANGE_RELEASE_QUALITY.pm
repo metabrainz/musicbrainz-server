@@ -53,7 +53,7 @@ sub PreInsert
 
 	foreach my $al ( @$releases )
 	{
-		my $prev = $al->GetQuality || 0;
+		my $prev = $al->quality || 0;
 		next if $prev eq $new{Quality};
 
 		$new{"ReleaseId$seq"} = $al->GetId;
@@ -148,7 +148,7 @@ sub CheckPrerequisites
 		}
 
 		my $prev = $new->{"Prev$i"};
-		my $curr = $al->GetQuality;
+		my $curr = $al->quality;
 
 		# Make sure the quality hasn't changed while this mod was open
 		if ($curr ne $prev && $curr ne $new->{Quality})
@@ -206,7 +206,7 @@ sub ApprovedAction
 
 	foreach my $al ( @$albums )
 	{
-		$al->SetQuality($quality);
+		$al->quality($quality);
 		$al->UpdateQuality;
 	}
 

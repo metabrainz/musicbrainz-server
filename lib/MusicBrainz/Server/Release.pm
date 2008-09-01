@@ -131,14 +131,12 @@ sub quality_has_mod_pending
     return $self->{modpending_qual};
 }
 
-sub SetQuality
+sub quality
 {
-   $_[0]->{quality} = $_[1];
-}
+    my ($self, $new_quality) = @_;
 
-sub GetQuality
-{
-   return $_[0]->{quality};
+    if (defined $new_quality) { $self->{quality} = $new_quality; }
+    return $self->{quality};
 }
 
 sub SetInfoURL

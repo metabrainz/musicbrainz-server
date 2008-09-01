@@ -200,7 +200,7 @@ sub DetermineQuality
 	$rel->SetId($self->{rowid});
 	if ($rel->LoadFromId())
 	{
-        return $rel->GetQuality();        
+        return $rel->quality;        
     }
     return &ModDefs::QUALITY_NORMAL;
 }

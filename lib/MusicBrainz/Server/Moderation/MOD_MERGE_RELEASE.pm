@@ -121,7 +121,7 @@ sub DetermineQuality
         if ($rel->LoadFromId())
         {
             $artistid = $rel->GetArtist() if ($artistid < 0);
-            $quality = $rel->GetQuality() > $quality ? $rel->GetQuality() : $quality;
+            $quality = $rel->quality > $quality ? $rel->quality : $quality;
         }
     }
 
@@ -132,7 +132,7 @@ sub DetermineQuality
         $ar->SetId($artistid);
         if ($ar->LoadFromId())
         {
-            $quality = $ar->GetQuality() > $quality ? $ar->GetQuality() : $quality;
+            $quality = $ar->quality > $quality ? $ar->quality : $quality;
         }
     }
 

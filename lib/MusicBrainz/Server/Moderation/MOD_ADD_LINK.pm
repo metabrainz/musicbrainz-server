@@ -167,7 +167,7 @@ sub DetermineQuality
         $rel->SetId($new->{entity0type} eq 'album' ? $new->{entity0id} : $new->{entity1id});
         if ($rel->LoadFromId())
         {
-            return $rel->GetQuality();        
+            return $rel->quality;        
         }
     }
     elsif ($new->{entity0type} eq 'artist' || $new->{entity1type} eq 'artist')
@@ -176,7 +176,7 @@ sub DetermineQuality
         $rel->SetId($new->{entity0type} eq 'artist' ? $new->{entity0id} : $new->{entity1id});
         if ($rel->LoadFromId())
         {
-            return $rel->GetQuality();        
+            return $rel->quality;        
         }
     }
     return &ModDefs::QUALITY_NORMAL;

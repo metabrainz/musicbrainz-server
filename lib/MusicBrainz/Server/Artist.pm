@@ -159,14 +159,12 @@ sub end_date_ymd
     return map { $_ == 0 ? '' : $_ } split(m/-/, $self->end_date);
 }
 
-sub SetQuality
+sub quality
 {
-   $_[0]->{quality} = $_[1];
-}
+    my ($self, $new_quality) = @_;
 
-sub GetQuality
-{
-   return $_[0]->{quality};
+    if (defined $new_quality) { $self->{quality} = $new_quality; }
+    return $self->{quality};
 }
 
 sub quality_has_mod_pending
@@ -733,7 +731,7 @@ sub GetArtistsFromName
 		$ar->begin_date($row->{begindate});
 		$ar->end_date($row->{enddate});
 		$ar->type($row->{type});
-		$ar->SetQuality($row->{quality});
+		$ar->quality($row->{quality});
 		$ar->quality_has_mod_pending($row->{modpending_qual});
 
         push @results, $ar;
@@ -778,7 +776,7 @@ sub GetArtistsFromSortname
 		$ar->end_date($row->{enddate});
 		$ar->SetModPending($row->{modpending});
 		$ar->type($row->{type});
-		$ar->SetQuality($row->{quality});
+		$ar->quality($row->{quality});
 		$ar->quality_has_mod_pending($row->{modpending_qual});
 
         push @results, $ar;
@@ -995,7 +993,7 @@ sub GetReleases
                 $album->{attrs} = [ split /,/, $row[4] ];
                 $album->SetLanguageId($row[5]);
                 $album->SetScriptId($row[6]);
-                $album->SetQuality($row[7]);
+                $album->quality($row[7]);
                 $album->quality_has_mod_pending($row[8]);
 
                 if (defined $loadmeta && $loadmeta)
@@ -1058,7 +1056,7 @@ sub GetReleases
             $album->{attrs} = [ split /,/, $row[5] ];
 			$album->SetLanguageId($row[6]);
 			$album->SetScriptId($row[7]);
-			$album->SetQuality($row[8]);
+			$album->quality($row[8]);
 			$album->quality_has_mod_pending($row[9]);
 
             if (defined $loadmeta && $loadmeta)

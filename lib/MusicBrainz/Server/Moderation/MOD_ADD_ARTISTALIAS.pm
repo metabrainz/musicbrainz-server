@@ -75,7 +75,7 @@ sub DetermineQuality
 	$ar->SetId($self->{rowid});
 	if ($ar->LoadFromId())
 	{
-        return $ar->GetQuality();        
+        return $ar->quality;        
     }
     return &ModDefs::QUALITY_NORMAL;
 }

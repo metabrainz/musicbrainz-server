@@ -90,7 +90,7 @@ sub DetermineQuality
         $rel->SetId($tr->GetRelease());
         if ($rel->LoadFromId())
         {
-            return $rel->GetQuality();        
+            return $rel->quality;        
         }
     }
 
@@ -99,7 +99,7 @@ sub DetermineQuality
     $ar->SetId($tr->GetArtist());
     if ($ar->LoadFromId())
     {
-        return $ar->GetQuality();        
+        return $ar->quality;        
     }
 
     return &ModDefs::QUALITY_NORMAL;

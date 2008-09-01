@@ -103,7 +103,7 @@ sub new_from_artist
         id          => $artist->GetId,
         mbid        => $artist->GetMBId,
         name        => $artist->GetName,
-        quality     => ModDefs::GetQualityText($artist->GetQuality),
+        quality     => ModDefs::GetQualityText($artist->quality),
         resolution  => $artist->resolution,
         sort_name   => $artist->sort_name,
         start_date  => $artist->begin_date,

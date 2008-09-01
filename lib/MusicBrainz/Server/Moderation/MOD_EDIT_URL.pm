@@ -113,7 +113,7 @@ sub DetermineQuality
     {
         my $album = MusicBrainz::Server::Release->new($self->{DBH});
         $album->SetId($links[0]->{link0_id});
-        return $album->GetQuality
+        return $album->quality
             if ($album->LoadFromId(0));
     }
     # Get the artist from artist ARs
@@ -124,7 +124,7 @@ sub DetermineQuality
     {
         my $ar = MusicBrainz::Server::Artist->new($self->{DBH});
         $ar->SetId($links[0]->{link0_id});
-        return $ar->GetQuality
+        return $ar->quality
             if ($ar->LoadFromId(0));
     }
 

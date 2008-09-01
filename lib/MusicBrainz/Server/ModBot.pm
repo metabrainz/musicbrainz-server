@@ -122,7 +122,7 @@ sub CheckModerations
         }
         else
         {
-            $level = Moderation::GetEditLevelDefs($mod->GetQuality, $mod->type);
+            $level = Moderation::GetEditLevelDefs($mod->quality, $mod->type);
         }
 		if (!defined $level)
 		{

@@ -74,14 +74,14 @@ sub DetermineQuality
 	$ar->SetId($self->{artist});
 	if ($ar->LoadFromId())
 	{
-		$level = $ar->GetQuality() > $level ? $ar->GetQuality() : $level;
+		$level = $ar->quality > $level ? $ar->quality : $level;
         return $level if ($level == &ModDefs::QUALITY_HIGH);
     }
     # Check the new artist
 	$ar->SetId($self->{'new.id'});
 	if ($ar->LoadFromId())
 	{
-        $level = $ar->GetQuality() > $level ? $ar->GetQuality() : $level;        
+        $level = $ar->quality > $level ? $ar->quality : $level;        
         return $level if ($level == &ModDefs::QUALITY_HIGH);
     }
 
