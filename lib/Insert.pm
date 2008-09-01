@@ -463,7 +463,7 @@ TRACK:
             # Check to see if the given track exists. If so, check to
             # see if a trm id was given. If it was, then insert the
             # trmid for this track.
-            if ($albumtrack->GetSequence() == $track->{tracknum} &&
+            if ($albumtrack->sequence() == $track->{tracknum} &&
                 $albumtrack->GetName() eq $track->{track} &&
                 exists $track->{trmid} && $track->{trmid} ne '')
             {
@@ -477,7 +477,7 @@ TRACK:
                 
                 next TRACK;
             }
-            if ($albumtrack->GetSequence() == $track->{tracknum} &&
+            if ($albumtrack->sequence() == $track->{tracknum} &&
                 $albumtrack->GetName() eq $track->{track} &&
                 exists $track->{puid} && $track->{puid} ne '')
             {
@@ -492,7 +492,7 @@ TRACK:
                 next TRACK;
             }
             # If a track with that tracknumber already exists, skip the insertion.
-            if ($albumtrack->GetSequence() == $track->{tracknum})
+            if ($albumtrack->sequence() == $track->{tracknum})
             {
                 $info->{album_complete} = 0;
 				next TRACK;
@@ -501,14 +501,14 @@ TRACK:
 
         # Ok, the track passes all the tests. Insert the track.
         $tr->SetName($track->{track});
-        $tr->SetSequence($track->{tracknum});
+        $tr->sequence($track->{tracknum});
         if (exists $track->{year} && $track->{year} != 0)
         {
             $tr->SetYear($track->{year});
         }
         if (exists $track->{duration})
         {
-            $tr->SetLength($track->{duration});
+            $tr->length($track->{duration});
         }
 
         # Check to see if this track has an artist that needs to get

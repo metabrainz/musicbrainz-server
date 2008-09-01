@@ -568,10 +568,10 @@ sub xml_track
     print '><title>';
     print xml_escape($tr->GetName());
     print '</title>';
-    if ($tr->GetLength())
+    if ($tr->length())
     {
         print '<duration>';
-        print xml_escape($tr->GetLength());
+        print xml_escape($tr->length());
         print '</duration>';
     }
     xml_artist($ar, 0) if (defined $ar);

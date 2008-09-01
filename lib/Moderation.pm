@@ -1709,7 +1709,7 @@ sub ShowModType
 		{
 			$this->{"trackid"} = $track->GetId;
 			$this->{"trackname"} = $track->GetName;
-			$this->{"trackseq"} = $track->GetSequence;
+			$this->{"trackseq"} = $track->sequence;
 			
 			# assume that the release needs to be loaded from
 			# the album-track core relationship, if it not

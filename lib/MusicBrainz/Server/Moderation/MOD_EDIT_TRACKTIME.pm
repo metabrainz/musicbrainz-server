@@ -41,7 +41,7 @@ sub PreInsert
 	my $newlength = $opts{'newlength'};
 
 	$self->artist($track->artist);
-	$self->SetPrev($track->GetLength);
+	$self->SetPrev($track->length);
 	$self->SetNew(0+$newlength);
 	$self->table("track");
 	$self->SetColumn("length");
@@ -117,13 +117,13 @@ sub ApprovedAction
 		return STATUS_FAILEDPREREQ;
 	}
 
-	unless ($track->GetLength == $self->GetPrev)
+	unless ($track->length == $self->GetPrev)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "Track time has already been changed");
 		return STATUS_FAILEDDEP;
 	}
 	
-	$track->SetLength($self->GetNew);
+	$track->length($self->GetNew);
 	$track->UpdateLength;
 
 	STATUS_APPLIED;

@@ -75,34 +75,28 @@ sub release
     return $self->{album};
 }
 
-sub GetSequence
+sub sequence
 {
-   return $_[0]->{sequence};
+    my ($self, $new_sequence) = @_;
+
+    if (defined $new_sequence) { $self->{sequence} = $new_sequence; }
+    return $self->{sequence};
 }
 
-sub SetSequence
+sub sequence_id
 {
-   $_[0]->{sequence} = $_[1];
+    my ($self, $new_sequence) = @_;
+
+    if (defined $new_sequence) { $self->{sequenceid} = $new_sequence; }
+    return $self->{sequenceid};
 }
 
-sub GetSequenceId
+sub length
 {
-   return $_[0]->{sequenceid};
-}
+    my ($self, $new_length) = @_;
 
-sub SetSequenceId
-{
-   $_[0]->{sequenceid} = $_[1];
-}
-
-sub GetLength
-{
-   return $_[0]->{length};
-}
-
-sub SetLength
-{
-   $_[0]->{length} = $_[1];
+    if (defined $new_length) { $self->{length} = $new_length; }
+    return $self->{length};
 }
 
 sub GetModPending
@@ -353,7 +347,7 @@ sub Insert
 		AND		track.id = albumjoin.track
 		AND		LOWER(track.name) = LOWER(?)",
 		$album,
-		$this->GetSequence,
+		$this->sequence,
 		$this->GetName,
 	);
 	return $track if $track;
@@ -365,7 +359,7 @@ sub Insert
 		modpending	=> 0,
 	);
 
-	if (my $l = $this->GetLength)
+	if (my $l = $this->length)
 	{
 		$row{'length'} = $l;
 	}
@@ -446,7 +440,7 @@ sub UpdateLength
 
 	$sql->Do(
 		"UPDATE track SET length = ? WHERE id = ?",
-		$self->GetLength,
+		$self->length,
 		$self->GetId,
 	);
 } 
@@ -458,8 +452,8 @@ sub UpdateSequence
 
 	$sql->Do(
 		"UPDATE albumjoin SET sequence = ? WHERE id = ?",
-		$self->GetSequence,
-		$self->GetSequenceId,
+		$self->sequence,
+		$self->sequence_id,
 	);
 }
 

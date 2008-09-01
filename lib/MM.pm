@@ -222,7 +222,7 @@ sub CreateDenseAlbum
 		    $artists{$var->GetId} = $var;
 		}
 	    }
-	    push @ids, { id=>$tr->GetMBId, tracknum=>$tr->GetSequence };
+	    push @ids, { id=>$tr->GetMBId, tracknum=>$tr->sequence };
 	}
 
 	$out .= $this->OutputAlbumRDF({ obj=>$al, _album=>\@ids });
@@ -600,7 +600,7 @@ sub _GetAlbumReferences
 	    push @ret, {%info};
 
 	    push @trackids, { id=>$track->GetMBId(),
-     		tracknum=>$track->GetSequence() };
+     		tracknum=>$track->sequence() };
 	}
 	$ref->{_album} = \@trackids;
     }
@@ -617,7 +617,7 @@ sub _GetTrackReferences
     # TODO: Should the TRM output also be a seperate depth?
     $info{type} = 'artist';
     $info{id} = $track->artist();
-    $info{tracknum} = $track->GetSequence();
+    $info{tracknum} = $track->sequence();
     $info{obj} = undef;
     push @ret, {%info};
 

@@ -284,9 +284,9 @@ sub OutputTrackRDF
     	$out .= $this->Element("dc:creator", "", "rdf:resource",
 		        $this->{baseuri}. "/artist/" . $artist->GetMBId())
 	}
-    if ($track->GetLength() != 0) 
+    if ($track->length() != 0) 
     {
-        $out .=   $this->Element("mm:duration", $track->GetLength());
+        $out .=   $this->Element("mm:duration", $track->length());
     }
     if (defined $album)
     {
@@ -429,7 +429,7 @@ sub CreateTrackListing
        next if not defined $track;
 
        push @trackids, { id=>$track->GetMBId(),
-           tracknum=>$track->GetSequence() };
+           tracknum=>$track->sequence() };
    }
 
    return \@trackids;

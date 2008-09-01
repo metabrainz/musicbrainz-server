@@ -28,9 +28,9 @@ sub new_from_track
 
     $class->new({
         artist_id  => $track->artist,
-        duration   => MusicBrainz::Server::Track::FormatTrackLength($track->GetLength),
+        duration   => MusicBrainz::Server::Track::FormatTrackLength($track->length),
         id         => $track->GetId,
-        number     => $track->GetSequence,
+        number     => $track->sequence,
         name       => $track->GetName,
         mbid       => $track->GetMBId,
         puid_count => 0,

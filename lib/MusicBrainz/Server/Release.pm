@@ -781,8 +781,8 @@ sub LoadTracks
 			$track->SetId($row[0]);
 			$track->SetName($row[1]);
 			$track->artist($row[2]);
-			$track->SetSequence($row[3]);
-			$track->SetLength($row[4]);
+			$track->sequence($row[3]);
+			$track->length($row[4]);
 			$track->SetModPending($row[5]);
 			$track->SetAlbumJoinModPending($row[6]);
 			$track->artist_name($row[7]);
@@ -959,7 +959,7 @@ sub MergeReleases
    # Create a hash that contains the original album
    foreach $tr (@tracks)
    {
-      $merged{$tr->GetSequence()} = $tr;
+      $merged{$tr->sequence()} = $tr;
    }
 
    $sql = Sql->new($this->{DBH});
@@ -993,12 +993,12 @@ sub MergeReleases
        @tracks = $al->LoadTracks();
        foreach $tr (@tracks)
        {
-           if (exists $merged{$tr->GetSequence()})
+           if (exists $merged{$tr->sequence()})
            {
                 # We already have that track. Move any existing TRMs/PUIDs
                 # to the existing track
 				my $old = $tr->GetId;
-				my $new = $merged{$tr->GetSequence()}->GetId;
+				my $new = $merged{$tr->sequence()}->GetId;
 
 				require MusicBrainz::Server::TRM;
 				my $trm = MusicBrainz::Server::TRM->new($this->{DBH});
@@ -1024,7 +1024,7 @@ sub MergeReleases
 					$this->GetId,
 					$tr->GetId,
 				);
-                $merged{$tr->GetSequence()} = $tr;
+                $merged{$tr->sequence()} = $tr;
            }
 
            if (!$intoMAC)
@@ -1522,7 +1522,7 @@ sub _GetTrackNumbersHash
 
 	for (@$tracks)
 	{
-		++$h{$_->GetSequence};
+		++$h{$_->sequence};
 	}
 
 	\%h;

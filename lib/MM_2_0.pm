@@ -182,10 +182,10 @@ sub OutputTrackRDF
     $out .=   $this->Element("dc:creator", "", "rdf:resource",
               $this->{baseuri}. "/artist/" . $artist->GetMBId());
 
-    $out .=   $this->Element("mm:trackNum", $track->GetSequence());
-    if ($track->GetLength() != 0) 
+    $out .=   $this->Element("mm:trackNum", $track->sequence());
+    if ($track->length() != 0) 
     {
-        $out .=   $this->Element("mm:duration", $track->GetLength());
+        $out .=   $this->Element("mm:duration", $track->length());
     }
     foreach $trm (@TRM)
     {
