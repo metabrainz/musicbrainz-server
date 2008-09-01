@@ -92,12 +92,12 @@ sub type_name
    return $ArtistTypeNames{$_[0]}->[0];
 }
 
-sub GetBeginDateName
+sub begin_date_name
 {
    return $ArtistTypeNames{$_[0]}->[1] || 'Begin Date';
 }
 
-sub GetEndDateName
+sub end_date_name
 {
    return $ArtistTypeNames{$_[0]}->[2] || 'End Date';
 }

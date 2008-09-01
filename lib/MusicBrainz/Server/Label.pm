@@ -138,12 +138,12 @@ sub InvalidateCache
     MusicBrainz::Server::Cache->delete($self->_GetMBIDCacheKey($self->GetMBId));
 }
 
-sub GetBeginDateName
+sub begin_date_name
 {
    return 'Begin Date';
 }
 
-sub GetEndDateName
+sub end_date_name
 {
    return 'End Date';
 }
