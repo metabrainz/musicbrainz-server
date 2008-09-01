@@ -16,7 +16,7 @@ sub short_text_as_html
 sub as_html
 {
     my $self = shift;
-    $self->{_note}->GetTextAsHTML;
+    $self->{_note}->text_as_html;
 }
 
 sub new_from_annotation
@@ -27,7 +27,7 @@ sub new_from_annotation
         _note         => $annotation,
 
         last_modified => $annotation->GetCreationTime,
-        text          => $annotation->GetText,
+        text          => $annotation->text,
     });
 }
 

@@ -99,7 +99,7 @@ sub ApprovedAction
 	$an->moderation($self->GetId());
 	$an->type(RELEASE_ANNOTATION);
 	$an->SetRelease($self->row_id());
-	$an->SetText($text);
+	$an->text($text);
 	$an->change_log($changelog);
 	$an->Insert();
 

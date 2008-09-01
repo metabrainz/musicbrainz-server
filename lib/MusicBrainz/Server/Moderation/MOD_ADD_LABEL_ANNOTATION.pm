@@ -91,7 +91,7 @@ sub ApprovedAction
 	$an->moderation($self->GetId());
 	$an->type(LABEL_ANNOTATION);
 	$an->SetLabel($self->row_id());
-	$an->SetText($text);
+	$an->text($text);
 	$an->change_log($changelog);
 	$an->Insert();
 

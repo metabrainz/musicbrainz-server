@@ -145,11 +145,13 @@ sub GetCreationTime
 	return $_[0]->{creation_time};
 }
 
-sub GetText
+sub text
 {
-	return $_[0]->{text};
-}
+    my ($self, $new_text) = @_;
 
+    if (defined $new_text) { $self->{text} = $new_text; }
+    return $self->{text};
+}
 
 sub type
 {
@@ -168,10 +170,10 @@ sub type_word
 	die;
 }
 
-sub GetTextAsHTML
+sub text_as_html
 {
 	my $self = shift;
-	my $text = $self->GetText;
+	my $text = $self->text;
 	if ($text eq '')
 	{
 		return $text
@@ -242,11 +244,6 @@ sub SetTrack
 sub SetCreationTime
 {
 	$_[0]->{creation_time} = $_[1];
-}
-
-sub SetText
-{
-	$_[0]->{text} = $_[1];
 }
 
 # Make an annotation object just from some text (for preview purposes)
@@ -492,7 +489,7 @@ sub GetPrevious
 
 sub IsBlank
 {
-	not($_[0]->GetText =~ /\S/);
+	not($_[0]->text =~ /\S/);
 }
 
 ################################################################################
@@ -570,9 +567,9 @@ sub _Merge
 	# new annotation at the head of the bunch which represents both
 	# $old_latest and $new_latest.
 
-	my $text = $new_latest->GetText
+	my $text = $new_latest->text
 		. "\n\n"
-		. $old_latest->GetText;
+		. $old_latest->text;
 
 	require UserStuff;
 

@@ -44,18 +44,24 @@ sub moderation_id
     return $self->{moderation};
 }
 
+sub text
+{
+    my ($self, $new_text) = @_;
+
+    if (defined $new_text) { $self->{text} = $new_text; }
+    return $self->{text};
+}
+
 sub GetUserId		{ $_[0]{moderator} }
 sub SetUserId		{ $_[0]{moderator} = $_[1] }
-sub GetText			{ $_[0]{text} }
-sub SetText			{ $_[0]{text} = $_[1] }
 sub GetNoteTime		{ $_[0]{notetime} }
 sub GetUserName		{ $_[0]{user} }
 
-# Like GetText, but marks it up as HTML (e.g. adds hyperlinks)
-sub GetTextAsHTML
+# Like text, but marks it up as HTML (e.g. adds hyperlinks)
+sub text_as_html
 {
 	my $self = shift;
-	mark_up_text_as_html($self->GetText);
+	mark_up_text_as_html($self->text);
 }
 
 sub mark_up_text_as_html

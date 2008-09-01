@@ -101,7 +101,7 @@ sub ApprovedAction
 	$an->moderation($self->GetId());
 	$an->type(TRACK_ANNOTATION);
 	$an->SetTrack($self->row_id());
-	$an->SetText($text);
+	$an->text($text);
 	$an->change_log($changelog);
 	$an->Insert();
 
