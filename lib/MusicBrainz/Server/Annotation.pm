@@ -93,14 +93,31 @@ sub moderation
     return $self->{moderation};
 }
 
-sub GetChangeLog
+sub change_log
 {
-	return $_[0]->{changelog};
+    my ($self, $new_change_log) = @_;
+
+    if (defined $new_change_log) { $self->{changelog} = $new_change_log; }
+    return $self->{changelog};
 }
 
-sub GetEntity
+sub entity_id
 {
-	return $_[0]->{rowid};
+    my ($self, $new_id, $entity_type) = @_;
+
+    if (defined $new_id and defined $entity_type)
+    {
+        use Switch;
+        switch ($entity_type)
+        {
+            case('artist')  { $self->SetArtist($new_id); }
+            case('label')   { $self->SetLabel($new_id); }
+            case('release') { $self->SetRelease($new_id); }
+            case('track')   { $self->SetTrack($new_id); }
+        }
+    }
+
+	return $self->{rowid};
 }
 
 sub GetRelease
@@ -198,11 +215,6 @@ sub GetShortTextAsHTML
 	$text;
 }
 
-sub SetChangeLog
-{
-	$_[0]->{changelog} = $_[1];
-}
-
 sub SetRelease
 {
 	$_[0]->{type} = RELEASE_ANNOTATION;
@@ -225,20 +237,6 @@ sub SetTrack
 {
 	$_[0]->{type} = TRACK_ANNOTATION;
 	$_[0]->{rowid} = $_[1];
-}
-
-sub SetEntity
-{
-    my ($self, $entity_type, $entity_id) = @_;
-
-    use Switch;
-    switch ($entity_type)
-    {
-        case('artist')  { $self->SetArtist($entity_id); }
-        case('label')   { $self->SetLabel($entity_id); }
-        case('release') { $self->SetRelease($entity_id); }
-        case('track')   { $self->SetTrack($entity_id); }
-    }
 }
 
 sub SetCreationTime

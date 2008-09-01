@@ -76,7 +76,7 @@ sub PreDisplay
 	$an->moderation($this->GetId());
 	if ($an->LoadFromId())
 	{
-		my $log = $an->GetChangeLog;
+		my $log = $an->change_log;
 		$log = "(no change log)"
 			unless ($log =~ /\S/);
 		$this->{'changelog'} = $log;
@@ -102,7 +102,7 @@ sub ApprovedAction
 	$an->type(TRACK_ANNOTATION);
 	$an->SetTrack($self->row_id());
 	$an->SetText($text);
-	$an->SetChangeLog($changelog);
+	$an->change_log($changelog);
 	$an->Insert();
 
 	return &ModDefs::STATUS_APPLIED;
