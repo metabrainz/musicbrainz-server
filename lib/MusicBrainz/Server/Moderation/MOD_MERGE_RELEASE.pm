@@ -65,7 +65,7 @@ sub PreInsert
 	$new{"merge_attributes"} = 1 if $opts{"merge_attributes"};
 	$new{"merge_langscript"} = 1 if $opts{"merge_langscript"};
 
-	$self->SetArtist($into->GetArtist);
+	$self->artist($into->artist);
 	$self->table("album");
 	$self->SetColumn("id");
 	$self->row_id($into->GetId);
@@ -120,7 +120,7 @@ sub DetermineQuality
         $rel->SetId($new->{"AlbumId$i"});
         if ($rel->LoadFromId())
         {
-            $artistid = $rel->GetArtist() if ($artistid < 0);
+            $artistid = $rel->artist() if ($artistid < 0);
             $quality = $rel->quality > $quality ? $rel->quality : $quality;
         }
     }

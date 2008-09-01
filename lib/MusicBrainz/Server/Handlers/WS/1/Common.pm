@@ -540,11 +540,11 @@ sub xml_track_list
         foreach my $tr (@$tracks)
         {
 
-            if ($ar->GetId != $tr->GetArtist)
+            if ($ar->GetId != $tr->artist)
             {
                 my $ar;
                 $ar = MusicBrainz::Server::Artist->new($tr->{DBH});
-                $ar->SetId($tr->GetArtist);
+                $ar->SetId($tr->artist);
                 $ar->LoadFromId();
                 xml_track($ar, $tr, $tr_inc);
             }
@@ -868,7 +868,7 @@ sub xml_relations
             {
                 print '>';
                 my $al = load_object(\%cache, $obj->{DBH}, $rel->{id}, $rel->{type}, 0);
-                my $ar = load_object(\%cache, $obj->{DBH}, $al->GetArtist, 'artist', 0);
+                my $ar = load_object(\%cache, $obj->{DBH}, $al->artist, 'artist', 0);
                 xml_release($ar, $al, 0);
             } 
             elsif ($rel->{type} eq 'label')

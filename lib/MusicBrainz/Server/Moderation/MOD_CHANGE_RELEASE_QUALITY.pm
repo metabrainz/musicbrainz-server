@@ -60,7 +60,7 @@ sub PreInsert
 		$new{"ReleaseName$seq"} = $al->GetName;
 		$new{"Prev$seq"} = $prev;
 
-		++$artists{$al->GetArtist};
+		++$artists{$al->artist};
 		++$seq;
 	}
 
@@ -75,10 +75,10 @@ sub PreInsert
 	# If all n releases are stored under artist x use this
 	# artist as the moderation artist, else VA.
 	$self->row_id($releases->[0]->GetId) if ($seq == 1);
-	$self->SetArtist(
+	$self->artist(
 		keys(%artists) > 1
 			? &ModDefs::VARTIST_ID
-			: $releases->[0]->GetArtist
+			: $releases->[0]->artist
 	);
 	
 	$self->table("album");

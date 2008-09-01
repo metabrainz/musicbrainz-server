@@ -40,7 +40,7 @@ sub PreInsert
 	my $track = $opts{'track'} or die;
 	my $newlength = $opts{'newlength'};
 
-	$self->SetArtist($track->GetArtist);
+	$self->artist($track->artist);
 	$self->SetPrev($track->GetLength);
 	$self->SetNew(0+$newlength);
 	$self->table("track");
@@ -88,7 +88,7 @@ sub DetermineQuality
 
     # if that fails, go by the artist
     my $ar = MusicBrainz::Server::Artist->new($self->{DBH});
-    $ar->SetId($tr->GetArtist());
+    $ar->SetId($tr->artist());
     if ($ar->LoadFromId())
     {
         return $ar->quality;        

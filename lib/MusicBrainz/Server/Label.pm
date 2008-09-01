@@ -890,7 +890,7 @@ sub GetReleases
 			require MusicBrainz::Server::Release;
 			my $album = MusicBrainz::Server::Release->new($this->{DBH});
 			$album->SetId($row[0]);
-			$album->SetArtist($row[1]);
+			$album->artist($row[1]);
 			$album->SetName($row[2]);
 			$album->SetModPending($row[3]);
 			$album->SetMBId($row[4]);

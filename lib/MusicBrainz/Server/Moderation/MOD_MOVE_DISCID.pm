@@ -99,7 +99,7 @@ sub PreInsert
 	$self->table("album_cdtoc");
 	$self->SetColumn("album");
 	$self->row_id($alcdtoc->GetId);
-	$self->SetArtist($oldal->GetArtist);
+	$self->artist($oldal->artist);
 	$self->SetPrev($oldal->GetId);
 
 	my %new = (

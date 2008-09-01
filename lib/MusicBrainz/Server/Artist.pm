@@ -199,7 +199,7 @@ sub Insert
 
     if (!$this->resolution())
     {
-        my $ar_list = $this->GetArtistsFromName($name);
+        my $ar_list = $this->select_artists_by_name($name);
 		foreach my $ar (@$ar_list)
 		{
 	    	return $ar->GetId if ($ar->GetName() eq $name);
@@ -645,14 +645,14 @@ sub RebuildWordListForAll
 }
 
 # Return a hash of hashes for artists that match the given artist name
-sub GetArtistsFromName
+sub select_artists_by_name
 {
     my ($this, $artistname) = @_;
 
     MusicBrainz::Server::Validation::TrimInPlace($artistname) if defined $artistname;
     if (not defined $artistname or $artistname eq "")
     {
-		carp "Missing artistname in GetArtistsFromName";
+		carp "Missing artistname in select_artists_by_name";
 		return [];
     }
 
@@ -699,7 +699,7 @@ sub GetArtistsFromName
 	last if scalar(@$artists);
 
     # If that failed, then try to find the artist by sortname
-	$artists = $this->GetArtistsFromSortname($artistname)
+	$artists = $this->select_artists_by_sort_name($artistname)
 		and return $artists;
 
     # If that failed too, then try the artist aliases
@@ -741,14 +741,14 @@ sub GetArtistsFromName
 }
 
 # Return a hash of hashes for artists that match the given artist's sortname
-sub GetArtistsFromSortname
+sub select_artists_by_sort_name
 {
     my ($this, $sortname) = @_;
 
     MusicBrainz::Server::Validation::TrimInPlace($sortname) if defined $sortname;
     if (not defined $sortname or $sortname eq "")
     {
-		carp "Missing sortname in GetArtistsFromSortname";
+		carp "Missing sortname in select_artists_by_sort_name";
 		return [];
     }
 
@@ -901,7 +901,7 @@ sub newFromMBId
 # Given an index character ($ind), a page offset ($offset) 
 # it will return an array of references to an array
 # of artistid, sortname, modpending. The array is empty on error.
-sub GetArtistDisplayList
+sub artist_browse_selection
 {
    my ($this, $ind, $offset) = @_;
    my ($query, @info, @row, $sql, $page, $page_max, $ind_max, $un, $max_artists); 
@@ -988,7 +988,7 @@ sub GetReleases
                 $album->SetId($row[0]);
                 $album->SetName($row[1]);
                 $album->SetModPending($row[2]);
-                $album->SetArtist($this->{id});
+                $album->artist($this->{id});
                 $album->SetMBId($row[3]);
                 $row[4] =~ s/^\{(.*)\}$/$1/;
                 $album->{attrs} = [ split /,/, $row[4] ];
@@ -1049,7 +1049,7 @@ sub GetReleases
 			require MusicBrainz::Server::Release;
             $album = MusicBrainz::Server::Release->new($this->{DBH});
             $album->SetId($row[0]);
-            $album->SetArtist($row[1]);
+            $album->artist($row[1]);
             $album->SetName($row[2]);
             $album->SetModPending($row[3]);
             $album->SetMBId($row[4]);

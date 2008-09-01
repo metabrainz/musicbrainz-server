@@ -110,7 +110,7 @@ sub entity_id
         use Switch;
         switch ($entity_type)
         {
-            case('artist')  { $self->SetArtist($new_id); }
+            case('artist')  { $self->artist($new_id); }
             case('label')   { $self->SetLabel($new_id); }
             case('release') { $self->SetRelease($new_id); }
             case('track')   { $self->SetTrack($new_id); }
@@ -121,11 +121,6 @@ sub entity_id
 }
 
 sub GetRelease
-{
-	return $_[0]->{rowid};
-}
-
-sub GetArtist
 {
 	return $_[0]->{rowid};
 }
@@ -226,10 +221,17 @@ sub SetRelease
 	$_[0]->{rowid} = $_[1];
 }
 
-sub SetArtist
+sub artist
 {
-	$_[0]->{type} = ARTIST_ANNOTATION;
-	$_[0]->{rowid} = $_[1];
+    my ($self, $new_artist) = @_;
+
+    if (defined $new_artist)
+    {
+        $self->{type } = ARTIST_ANNOTATION;
+        $self->{rowid} = $new_artist;
+    }
+
+    return $self->{rowid};
 }
 
 sub SetLabel
@@ -327,7 +329,7 @@ sub LoadFromId
 }
 
 # Get the latest Annotation for the artist or release.
-# To make this work, SetArtist() or SetRelease() have to be called
+# To make this work, artist() or SetRelease() have to be called
 
 sub GetLatestAnnotation
 {

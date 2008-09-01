@@ -384,8 +384,8 @@ sub InsertForModeration
         }
     }
 
-    my $artists = $ar->GetArtistsFromName($info->{artist});
-    $artists = $ar->GetArtistsFromSortname($info->{artist}) if (!scalar(@$artists));
+    my $artists = $ar->select_artists_by_name($info->{artist});
+    $artists = $ar->select_artists_by_sort_name($info->{artist}) if (!scalar(@$artists));
     if (scalar(@$artists))
     {
         my (@albums, $al);

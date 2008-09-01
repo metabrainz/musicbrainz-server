@@ -40,7 +40,7 @@ sub PreInsert
 	my $artist = $opts{'artist'} or die;
 	my $alias = $opts{'alias'} or die;
 
-	$self->SetArtist($artist->GetId);
+	$self->artist($artist->GetId);
 	$self->SetPrev($alias->GetName);
 	$self->table("artistalias");
 	$self->SetColumn("name");
@@ -52,7 +52,7 @@ sub DetermineQuality
 	my $self = shift;
 
 	my $ar = MusicBrainz::Server::Artist->new($self->{DBH});
-	$ar->SetId($self->GetArtist);
+	$ar->SetId($self->artist);
 	if ($ar->LoadFromId())
 	{
         return $ar->quality;        

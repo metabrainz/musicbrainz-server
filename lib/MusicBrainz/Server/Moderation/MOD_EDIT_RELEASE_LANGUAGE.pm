@@ -66,7 +66,7 @@ sub PreInsert
 		$fCanAutoMod = 0 if $curr_lang and $languageid != $curr_lang;
 		$fCanAutoMod = 0 if $curr_script and $scriptid != $curr_script;
 
-		++$artists{$al->GetArtist};
+		++$artists{$al->artist};
 		++$seq;
 	}
 
@@ -83,10 +83,10 @@ sub PreInsert
 	# If all n releases are stored under artist x use this
 	# artist as the moderation artist, else VA.
 	$self->row_id($albums->[0]->GetId) if ($seq == 1);
-	$self->SetArtist(
+	$self->artist(
 		keys(%artists) > 1
 			? &ModDefs::VARTIST_ID
-			: $albums->[0]->GetArtist
+			: $albums->[0]->artist
 	);
 	
 	$self->table("album");

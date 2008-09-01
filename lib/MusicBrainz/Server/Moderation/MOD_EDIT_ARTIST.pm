@@ -116,7 +116,7 @@ sub PreInsert
 	$prev{'BeginDate'} = $ar->begin_date() if exists $new{'BeginDate'};
 	$prev{'EndDate'} = $ar->end_date() if exists $new{'EndDate'};
 
-	$self->SetArtist($ar->GetId);
+	$self->artist($ar->GetId);
 	$self->SetPrev($self->ConvertHashToNew(\%prev));
 	$self->SetNew($self->ConvertHashToNew(\%new));
 	$self->table("artist");

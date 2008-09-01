@@ -217,13 +217,13 @@ sub FindDistinctTRM
 }
 
 # returns artistList
-sub GetArtistByGlobalId
+sub select_artist_by_guid
 {
     my ($dbh, $parser, $rdf, $id) = @_;
 
     if (not defined $id or $id eq "")
     {
-	carp "Missing artist GUID in GetArtistByGlobalId";
+	carp "Missing artist GUID in select_artist_by_guid";
 	return $rdf->ErrorRDF("No artist GUID given");
     }
 
@@ -1201,13 +1201,13 @@ sub QuickTrackInfoFromTrackId
 }
 
 # returns artistList
-sub GetArtistRelationships
+sub artist_relationships
 {
     my ($dbh, $parser, $rdf, $id) = @_;
 
     if (not defined $id or $id eq "")
     {
-	carp "Missing artist GUID in GetArtistRelationships";
+	carp "Missing artist GUID in artist_relationships";
 	return $rdf->ErrorRDF("No artist GUID given");
     }
 

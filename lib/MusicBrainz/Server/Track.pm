@@ -50,25 +50,21 @@ sub _GetMBIDCacheKey
 }
 
 # Accessor functions to set/get the artist id of this album
-sub GetArtist
+sub artist
 {
-   return $_[0]->{artist};
-}
+    my ($self, $new_artist) = @_;
 
-sub SetArtist
-{
-   $_[0]->{artist} = $_[1];
+    if (defined $new_artist) { $self->{artist} = $new_artist; }
+    return $self->{artist};
 }
 
 # This is only used for tracks from multiple artist albums
-sub GetArtistName
+sub artist_name
 {
-   return $_[0]->{artistname};
-}
+    my ($self, $new_name) = @_;
 
-sub SetArtistName
-{
-   $_[0]->{artistname} = $_[1];
+    if (defined $new_name) { $self->{artistname} = $new_name; }
+    return $self->{artistname};
 }
 
 sub GetRelease
@@ -263,7 +259,7 @@ sub GetMetadataFromIdAndAlbum
 
 	require MusicBrainz::Server::Artist;
     my $ar = MusicBrainz::Server::Artist->new($this->{DBH});
-    $ar->SetId($this->GetArtist());
+    $ar->SetId($this->artist());
     if (!defined $ar->LoadFromId())
     {
          return ();
@@ -340,8 +336,8 @@ sub Insert
 	# If an artist is given, we assume that this one
 	# should be used to attribute the track to.
 	# -- (keschte)    
-    my $artist = ($al->GetArtist() == &ModDefs::VARTIST_ID or
-    			  defined $ar) ? $ar->GetId() : $al->GetArtist();
+    my $artist = ($al->artist() == &ModDefs::VARTIST_ID or
+    			  defined $ar) ? $ar->GetId() : $al->artist();
 
 	if (not $artist)
 	{
@@ -440,7 +436,7 @@ sub UpdateArtist
 
 	$sql->Do(
 		"UPDATE track SET artist = ? WHERE id = ?",
-		$self->GetArtist,
+		$self->artist,
 		$self->GetId,
 	);
 }

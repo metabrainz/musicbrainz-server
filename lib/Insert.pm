@@ -330,7 +330,7 @@ sub _Insert
         # If we get to this point, we will have verified the Album by
         # loading it from disk. Check to make sure that the specified
         # album does indeed go to the correct artist.
-        if ($artistid != $al->GetArtist())
+        if ($artistid != $al->artist())
         {
             #die "Insert failed: Artist/Album id clash.\n";
         }
@@ -365,7 +365,7 @@ sub _Insert
         if ($forcenewalbum)
         {
            $al->SetName($album);
-           $al->SetArtist($artistid);
+           $al->artist($artistid);
            if (exists $info->{attrs})
            {
                $al->attributes(@{ $info->{attrs} });
@@ -383,7 +383,7 @@ sub _Insert
         {
            my @ids;
 
-           $al->SetArtist($artistid);
+           $al->artist($artistid);
            (@ids) = $al->GetAlbumListFromName($album);
            if (scalar(@ids) == 0)
            {
@@ -672,7 +672,7 @@ sub InsertAlbumModeration
 		)	if defined $opts{"FreedbId"}
 			and defined $opts{"FreedbCat"};
 
-        ($mod->GetArtist, $mod->row_id, \@mods);
+        ($mod->artist, $mod->row_id, \@mods);
     };
 
     if ($@)

@@ -48,7 +48,7 @@ sub PreInsert
 		ChangeLog => $changelog,
 	);
 
-	$self->SetArtist($artistid);
+	$self->artist($artistid);
 	$self->SetNew($self->ConvertHashToNew(\%new));
 	$self->table('album');
 	$self->SetColumn('annotation.text');

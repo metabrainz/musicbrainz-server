@@ -53,7 +53,7 @@ sub PreInsert
 	
 	# Force a deliberately bad value to start with - this makes it obvious if
 	# we somehow fail to insert a good value later on.
-	$self->SetArtist(0);
+	$self->artist(0);
 
 	# keys in %new:
 	# |--- EITHER self->artist OR Artist and Sortname
@@ -102,7 +102,7 @@ sub PreInsert
 	# that possible?
 	if (defined $new{'artist'})
 	{
-	   	$self->SetArtist($info{'artistid'} = $new{'artist'});
+	   	$self->artist($info{'artistid'} = $new{'artist'});
 	}
 	else
 	{
@@ -274,7 +274,7 @@ sub PreInsert
 		}
 	}
 
-	$self->SetArtist($new{_artistid} = $info{_artistid} or die);
+	$self->artist($new{_artistid} = $info{_artistid} or die);
 	$self->row_id($new{_albumid} = $info{_albumid} or die);
 
 	# Add a dependency on a pending MOD_ADD_ARTIST if there is one
@@ -283,7 +283,7 @@ sub PreInsert
 	(my $artistmodid) = $sql->SelectSingleValue(
 		"SELECT id FROM moderation_open WHERE type = " . &ModDefs::MOD_ADD_ARTIST
 		. " AND rowid = ?",
-		$self->GetArtist,
+		$self->artist,
 	);
 
 	$new{"Dep0"} = $artistmodid

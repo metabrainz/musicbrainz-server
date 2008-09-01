@@ -55,13 +55,13 @@ sub PreInsert
 		my $al = $albums->[$seq];
 		$new{"AlbumId$seq"} = $al->GetId;
 		$new{"AlbumName$seq"} = $al->GetName;
-		++$artists{$al->GetArtist};
+		++$artists{$al->artist};
 	}
 
-	$self->SetArtist(
+	$self->artist(
 		keys(%artists) > 1
 			? &ModDefs::VARTIST_ID
-			: $albums->[0]->GetArtist
+			: $albums->[0]->artist
 	);
 	$self->table("album");
 	$self->SetColumn("id");

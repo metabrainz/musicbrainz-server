@@ -118,7 +118,7 @@ sub OutputAlbumRDF
     return "" if (!defined $this->GetBaseURI());
 
     $album = $ref->{obj};
-    $artist = $this->GetFromCache('artist', $album->GetArtist()); 
+    $artist = $this->GetFromCache('artist', $album->artist()); 
 
     @releases = $album->ReleaseEvents;
     require MusicBrainz::Server::Country;
@@ -136,7 +136,7 @@ sub OutputAlbumRDF
     }
     else
     {
-	my $temp = $album->GetArtist();
+	my $temp = $album->artist();
 	if ($temp && $temp == &ModDefs::VARTIST_ID)
 	{
 	    $out .=   $this->Element("dc:creator", "", "rdf:resource",
@@ -273,7 +273,7 @@ sub OutputTrackRDF
     }
 
     $track = $ref->{obj};
-    $artist = $this->GetFromCache('artist', $track->GetArtist()); 
+    $artist = $this->GetFromCache('artist', $track->artist()); 
 
     $out  = $this->BeginDesc("mm:Track", $this->GetBaseURI() .
                             "/track/" . $track->GetMBId());
@@ -578,7 +578,7 @@ sub CreateFileLookup
 
 		   require MusicBrainz::Server::Artist;
                    $artist = MusicBrainz::Server::Artist->new($this->{DBH});
-                   $artist->SetId($tr->GetArtist());
+                   $artist->SetId($tr->artist());
                    $artist->LoadFromId();
                    $this->AddToCache(0, 'artist', $artist);
                    $out .= $this->OutputArtistRDF({ obj=>$artist });

@@ -101,7 +101,7 @@ sub OutputAlbumRDF
 
     $album = $ref->{obj};
 
-    $artist = $this->GetFromCache('artist', $album->GetArtist()); 
+    $artist = $this->GetFromCache('artist', $album->artist()); 
     return "" if (!defined $artist);
 
     $out  = $this->BeginDesc("mm:Album", $this->GetBaseURI() .
@@ -172,7 +172,7 @@ sub OutputTrackRDF
     $gu = MusicBrainz::Server::TRM->new($this->{DBH});
     @TRM = $gu->GetTRMFromTrackId($track->GetId());
 
-    $artist = $this->GetFromCache('artist', $track->GetArtist()); 
+    $artist = $this->GetFromCache('artist', $track->artist()); 
     return "" if (!defined $artist);
 
     $out  = $this->BeginDesc("mm:Track", $this->GetBaseURI() .

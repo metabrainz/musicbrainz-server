@@ -78,7 +78,7 @@ sub PreInsert
 
     $self->SetNew($self->ConvertHashToNew(\%new));
 	$self->SetPrev($prevdurs);
-	$self->SetArtist($release->GetArtist);
+	$self->artist($release->artist);
 	$self->table("album");
 	$self->SetColumn("cdtoc.text");
 	$self->row_id($release->GetId);

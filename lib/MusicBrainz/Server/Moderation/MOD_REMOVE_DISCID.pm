@@ -74,7 +74,7 @@ sub PreInsert
 	$self->table("album_cdtoc");
 	$self->SetColumn("album");
 	$self->row_id($alcdtoc->GetId);
-	$self->SetArtist($oldrelease->GetArtist);
+	$self->artist($oldrelease->artist);
 	$self->SetPrev($cdtoc->disc_id);
 
 	my %new = (

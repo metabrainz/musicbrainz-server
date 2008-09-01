@@ -272,10 +272,10 @@ sub CheckModerations
 			# The mod has expired, so see if anyone (other than the moderator) is
 			# subscribed to the artist.  If so, allow the mod to stay open
 			# some more (the grace period).
-			my $subscribers = $artist_subscribers{$mod->GetArtist} ||= do {
+			my $subscribers = $artist_subscribers{$mod->artist} ||= do {
 				require UserSubscription;
 				my $us = UserSubscription->new($this->{DBH});
-				[ $us->GetSubscribersForArtist($mod->GetArtist) ];
+				[ $us->GetSubscribersForArtist($mod->artist) ];
 			};
 
 			# Any subscribers other than the original moderator?

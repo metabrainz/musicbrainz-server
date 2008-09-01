@@ -145,7 +145,7 @@ sub CreateDenseTrackList
 
 	require MusicBrainz::Server::Artist;
 	my $ar = MusicBrainz::Server::Artist->new($this->{DBH});
-	$ar->SetId($tr->GetArtist());
+	$ar->SetId($tr->artist());
 	# TODO This is complaining about the ID being undef
 	$ar->LoadFromId();
 
@@ -199,13 +199,13 @@ sub CreateDenseAlbum
 
 	require MusicBrainz::Server::Artist;
 	my $ar = MusicBrainz::Server::Artist->new($this->{DBH});
-	$ar->SetId($al->GetArtist);
+	$ar->SetId($al->artist);
 	$ar->LoadFromId;
 	$this->AddToCache(0, 'artist', $ar);
 
 	require MusicBrainz::Server::Track;
 	my @tracks = $al->LoadTracks;
-	my $is_va = $al->GetArtist == VARTIST_ID || $al->HasMultipleTrackArtists;
+	my $is_va = $al->artist == VARTIST_ID || $al->HasMultipleTrackArtists;
 
 	my @ids;
 	my %artists;
@@ -215,7 +215,7 @@ sub CreateDenseAlbum
 	    if ($is_va)
 	    {
 		my $var = MusicBrainz::Server::Artist->new($this->{DBH});
-		$var->SetId($tr->GetArtist);
+		$var->SetId($tr->artist);
 		if ($var->LoadFromId)
 		{
 		    $this->AddToCache(0, 'artist', $var);
@@ -527,7 +527,7 @@ sub GetReferences
     return () if not defined $ref;
 
     # Artists and TRMIDs do not have any references, so they are not listed here
-    return $this->_GetArtistReferences($ref, $ref->{obj}, $depth)
+    return $this->_artistReferences($ref, $ref->{obj}, $depth)
 	if ($ref->{type} eq 'artist');
     return $this->_GetAlbumReferences($ref, $ref->{obj}, $depth)
 	if ($ref->{type} eq 'album');
@@ -539,7 +539,7 @@ sub GetReferences
 }
 
 # For an Artist, add a ref for each album
-sub _GetArtistReferences
+sub _artistReferences
 {
     my ($this, $ref, $artist, $depth) = @_;
     my (@albums, @albumids, $album, %info, @ret);
@@ -572,9 +572,9 @@ sub _GetAlbumReferences
     # TODO get rid of %info
     my (@ret, %info);
 
-    my $albumartist = $album->GetArtist();
+    my $albumartist = $album->artist();
     $info{type} = 'artist';
-    $info{id} = $album->GetArtist();
+    $info{id} = $album->artist();
     $info{obj} = undef;
     push @ret, {%info};
 
@@ -589,7 +589,7 @@ sub _GetAlbumReferences
 	    if ($is_va)
 	    {
 		$info{type} = 'artist';
-		$info{id} = $track->GetArtist();
+		$info{id} = $track->artist();
 		$info{obj} = undef;
 		push @ret, {%info};
 	    }
@@ -616,7 +616,7 @@ sub _GetTrackReferences
 
     # TODO: Should the TRM output also be a seperate depth?
     $info{type} = 'artist';
-    $info{id} = $track->GetArtist();
+    $info{id} = $track->artist();
     $info{tracknum} = $track->GetSequence();
     $info{obj} = undef;
     push @ret, {%info};

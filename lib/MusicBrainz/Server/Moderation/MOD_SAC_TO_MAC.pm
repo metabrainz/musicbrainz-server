@@ -41,7 +41,7 @@ sub PreInsert
 	my $ar = $opts{artist} or die;
 	my $movetova = $opts{movetova} or die;
 
-	if ($al->GetArtist == VARTIST_ID)
+	if ($al->artist == VARTIST_ID)
 	{
 		$self->SetError("This is already a 'Various Artists' release");
 		die $self;
@@ -49,7 +49,7 @@ sub PreInsert
 
 	$self->table("album");
 	$self->SetColumn("artist");
-	$self->SetArtist($al->GetArtist);
+	$self->artist($al->artist);
 	$self->row_id($al->GetId);
 	$self->SetPrev($ar->GetName);
 	$self->SetNew($movetova);
@@ -78,7 +78,7 @@ sub DetermineQuality
     }
 
 	my $ar = MusicBrainz::Server::Artist->new($self->{DBH});
-	$ar->SetId($rel->GetArtist);
+	$ar->SetId($rel->artist);
 	if ($ar->LoadFromId())
 	{
         $level = $ar->quality > $level ? $ar->quality : $level;
@@ -102,12 +102,12 @@ sub CheckPrerequisites
 	}
 
 	# Check that its artist has not changed
-	if ($release->GetArtist == VARTIST_ID)
+	if ($release->artist == VARTIST_ID)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This release has already been converted to multiple artists");
 		return STATUS_FAILEDPREREQ;
 	}
-	if ($release->GetArtist != $self->GetArtist)
+	if ($release->artist != $self->artist)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This release is no longer associated with this artist");
 		return STATUS_FAILEDDEP;
@@ -136,7 +136,7 @@ sub ApprovedAction
 		"UPDATE album SET artist = ? WHERE id = ? AND artist = ?",
 		&ModDefs::VARTIST_ID,
 		$self->row_id,
-		$self->GetArtist,
+		$self->artist,
 	) or die "Failed to update album in MOD_SAC_TO_MAC";
 
 	&ModDefs::STATUS_APPLIED;

@@ -72,7 +72,7 @@ sub PreInsert
 		$description, $attribute, $childorder, $shortlinkphrase,
 		$priority);
 
-	$self->SetArtist(DARTIST_ID);
+	$self->artist(DARTIST_ID);
 	$self->table($parent->{_table}); # FIXME internal field
 	$self->SetColumn("name");
 	$self->row_id($child->GetId);

@@ -66,7 +66,7 @@ sub PreInsert
 		{
 			my $album = MusicBrainz::Server::Release->new($self->{DBH});
 			$album->SetId($links[0]->{link0_id});
-			$artist = $album->GetArtist
+			$artist = $album->artist
 				if ($album->LoadFromId(0));
 		}
 	}
@@ -80,12 +80,12 @@ sub PreInsert
 		{
 			my $track = MusicBrainz::Server::Track->new($self->{DBH});
 			$track->SetId($links[0]->{link0_id});
-			$artist = $track->GetArtist
+			$artist = $track->artist
 				if ($track->LoadFromId(0));
 		}
 	}
 
-	$self->SetArtist($artist) if $artist;
+	$self->artist($artist) if $artist;
 	$self->SetPrev($self->ConvertHashToNew(\%prev));
 	$self->SetNew($self->ConvertHashToNew(\%new));
 	$self->table("url");

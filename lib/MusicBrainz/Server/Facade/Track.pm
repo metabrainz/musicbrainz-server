@@ -27,7 +27,7 @@ sub new_from_track
     my ($class, $track) = @_;
 
     $class->new({
-        artist_id  => $track->GetArtist,
+        artist_id  => $track->artist,
         duration   => MusicBrainz::Server::Track::FormatTrackLength($track->GetLength),
         id         => $track->GetId,
         number     => $track->GetSequence,

@@ -48,7 +48,7 @@ sub PreInsert
     my %new;
 	$new{'Rev'} = $rev;
 
-	$self->SetArtist(VARTIST_ID);
+	$self->artist(VARTIST_ID);
 	$self->SetPrev($self->ConvertHashToNew(\%prev));
 	$self->SetNew($self->ConvertHashToNew(\%new));
 	$self->table("artist");

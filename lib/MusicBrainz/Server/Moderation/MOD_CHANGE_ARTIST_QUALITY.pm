@@ -40,7 +40,7 @@ sub PreInsert
 	my $artist = $opts{'artist'} or die;
 	my $quality = $opts{'quality'};
 
-	$self->SetArtist($artist->GetId);
+	$self->artist($artist->GetId);
 	$self->SetPrev($artist->quality);
 	$self->SetNew($quality);
 	$self->table("artist");

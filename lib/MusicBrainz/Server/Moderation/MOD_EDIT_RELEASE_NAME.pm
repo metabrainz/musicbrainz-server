@@ -41,7 +41,7 @@ sub PreInsert
 	my $newname = $opts{'newname'};
 	$newname =~ /\S/ or die;
 
-	$self->SetArtist($release->GetArtist);
+	$self->artist($release->artist);
 	$self->SetPrev($release->GetName);
 	$self->SetNew($newname);
 	$self->table("album");

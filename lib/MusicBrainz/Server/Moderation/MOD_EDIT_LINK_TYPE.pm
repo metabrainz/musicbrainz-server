@@ -70,7 +70,7 @@ sub PreInsert
 		die $self;
 	}
 
-	$self->SetArtist(DARTIST_ID);
+	$self->artist(DARTIST_ID);
 	$self->table($node->{_table}); # FIXME internal field
 	$self->SetColumn("name");
 	$self->row_id($node->GetId);

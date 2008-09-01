@@ -699,14 +699,12 @@ sub GetExpireAction
    return $level->{expireaction};
 }
 
-sub GetArtist
+sub artist
 {
-   return $_[0]->{artist};
-}
+    my ($self, $new_artist) = @_;
 
-sub SetArtist
-{
-   $_[0]->{artist} = $_[1];
+    if (defined $new_artist) { $self->{artist} = $new_artist; }
+    return $self->{artist};
 }
 
 sub GetYesVotes
@@ -795,34 +793,28 @@ sub SetVote
    $_[0]->{vote} = $_[1];
 }
 
-sub GetArtistName
+sub artist_name
 {
-   return $_[0]->{artistname};
+    my ($self, $new_name) = @_;
+
+    if (defined $new_name) { $self->{artistname} = $new_name; }
+    return $self->{artistname};
 }
 
-sub SetArtistName
+sub artist_sort_name
 {
-   $_[0]->{artistname} = $_[1];
+    my ($self, $new_sort) = @_;
+
+    if (defined $new_sort) { $self->{artistsortname} = $new_sort; }
+    return $self->{artistsortname};
 }
 
-sub GetArtistSortName
+sub artist_resolution
 {
-   return $_[0]->{artistsortname};
-}
+    my ($self, $new_resolution) = @_;
 
-sub SetArtistSortName
-{
-   $_[0]->{artistsortname} = $_[1];
-}
-
-sub GetArtistResolution
-{
-   return $_[0]->{artistresolution};
-}
-
-sub SetArtistResolution
-{
-   $_[0]->{artistresolution} = $_[1];
+    if (defined $new_resolution) { $self->{artistresolution} = $new_resolution; }
+    return $self->{artistresolution};
 }
 
 sub moderator_name
@@ -898,7 +890,7 @@ sub CreateFromId
 			$edit->table($row[1]);
 			$edit->SetColumn($row[2]);
 			$edit->row_id($row[3]);
-			$edit->SetArtist($row[4]);
+			$edit->artist($row[4]);
 			$edit->type($row[5]);
 			$edit->SetPrev($row[6]);
 			$edit->SetNew($row[7]);
@@ -906,9 +898,9 @@ sub CreateFromId
 			$edit->moderator_name($row[9]);
 			$edit->SetYesVotes($row[10]);
 			$edit->SetNoVotes($row[11]);
-			$edit->SetArtistName($row[12]);
-			$edit->SetArtistSortName($row[13]);
-			$edit->SetArtistResolution($row[14]);
+			$edit->artist_name($row[12]);
+			$edit->artist_sort_name($row[13]);
+			$edit->artist_resolution($row[14]);
 			$edit->SetStatus($row[15]);
 			$edit->SetVote(&ModDefs::VOTE_UNKNOWN);
 			$edit->SetDepMod($row[17]);
@@ -1099,7 +1091,7 @@ sub InsertModeration
 		# The PreInsert method must perform any work it needs to - e.g. inserting
 		# records which maybe ->DeniedAction will delete later - and then override
 		# these default column values as appropriate:
-		$this->SetArtist(&ModDefs::VARTIST_ID);
+		$this->artist(&ModDefs::VARTIST_ID);
 		$this->table("");
 		$this->SetColumn("");
 		$this->row_id(0);
@@ -1151,7 +1143,7 @@ sub InsertModeration
             )",
             $this->table, $this->GetColumn, $this->row_id,
             $this->GetPrev, $this->GetNew,
-            $this->moderator, $this->GetArtist, $this->type,
+            $this->moderator, $this->artist, $this->type,
             $this->GetDepMod,
             &ModDefs::STATUS_OPEN, sprintf("%d days", $level->{duration}),
             $this->language_id
@@ -1344,7 +1336,7 @@ sub moderation_list
 		}
 
 		$edit->SetId($r->{id});
-		$edit->SetArtist($r->{artist});
+		$edit->artist($r->{artist});
 		$edit->moderator($r->{moderator});
 		$edit->table($r->{tab});
 		$edit->SetColumn($r->{col});
@@ -1395,7 +1387,7 @@ sub moderation_list
 		$edit->moderator_name($editor_cache{$uid});
 
 		# Fetch artist into cache if not loaded before.
-		my $artistid = $edit->GetArtist;
+		my $artistid = $edit->artist;
 		if (not defined $artist_cache{$artistid})
 		{
 			my $artist = MusicBrainz::Server::Artist->new($this->{DBH});
@@ -1407,9 +1399,9 @@ sub moderation_list
 		}
 		
 		my $artist = $artist_cache{$artistid};
-		$edit->SetArtistName($artist ? $artist->GetName : "?");
-		$edit->SetArtistSortName($artist ? $artist->sort_name : "?");
-		$edit->SetArtistResolution($artist ? $artist->resolution : "?");
+		$edit->artist_name($artist ? $artist->GetName : "?");
+		$edit->artist_sort_name($artist ? $artist->sort_name : "?");
+		$edit->artist_resolution($artist ? $artist->resolution : "?");
 
 		# Find vote
 		if ($edit->GetVote == VOTE_UNKNOWN and $voter)
@@ -1785,17 +1777,17 @@ sub ShowModType
 		$mason->out(qq!<tr class="entity"><td class="lbl">Artist:</td>!);
 		$mason->out(qq!<td>!);
 		$mason->comp("/comp/linkartist", 
-			id => $this->GetArtist, 
-			name => $this->GetArtistName, 
-			sortname => $this->GetArtistSortName, 
-			resolution => $this->GetArtistResolution,
+			id => $this->artist, 
+			name => $this->artist_name, 
+			sortname => $this->artist_sort_name, 
+			resolution => $this->artist_resolution,
 			strong => 0
 		);
 		$mason->out(qq!</td>!);
 		if ($showeditlinks)
 		{
 			$mason->out(qq!<td class="editlinks">!);
-			$mason->comp("/comp/linkedits", type => "artist", id => $this->GetArtist, explain => 1);
+			$mason->comp("/comp/linkedits", type => "artist", id => $this->artist, explain => 1);
 			$mason->out(qq!</td>!);
 		}
 		$mason->out(qq!</tr>!);	

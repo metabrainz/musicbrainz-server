@@ -180,7 +180,7 @@ sub serve_from_db
     if (@albums && !$ar && $inc & INC_ARTIST || $inc & INC_TRACKS)
     {
         $ar = MusicBrainz::Server::Artist->new($mb->{DBH});
-        $ar->SetId($al->GetArtist);
+        $ar->SetId($al->artist);
         $ar->LoadFromId();
     }
 

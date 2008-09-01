@@ -53,7 +53,7 @@ sub PreInsert
 	
 	$self->table("album");
 	$self->SetColumn("artist");
-	$self->SetArtist($release->GetArtist);
+	$self->artist($release->artist);
 	$self->row_id($release->GetId);
 	$self->SetPrev($artist->GetName);
 	$self->SetNew($new);
@@ -92,7 +92,7 @@ sub DetermineQuality
     }
 
 	my $ar = MusicBrainz::Server::Artist->new($self->{DBH});
-	$ar->SetId($rel->GetArtist);
+	$ar->SetId($rel->artist);
 	if ($ar->LoadFromId())
 	{
         $level = $ar->quality > $level ? $ar->quality : $level;
@@ -134,7 +134,7 @@ sub PreDisplay
 		{
 			require MusicBrainz::Server::Artist;
 			$newartist = MusicBrainz::Server::Artist->new($this->{DBH});
-			$newartist->SetId($release->GetArtist);
+			$newartist->SetId($release->artist);
 				
 			# FIXME is the name = new.sortname comparison necessary?
 			if ($newartist->LoadFromId 
@@ -156,7 +156,7 @@ sub PreDisplay
 	{
 		my $oar = MusicBrainz::Server::Artist->new($this->{DBH});
 		# the old one ...
-		$oar->SetId($this->GetArtist);
+		$oar->SetId($this->artist);
 		$oar->LoadFromId
 			and $this->{'old.res'} = $oar->resolution;
 
@@ -205,7 +205,7 @@ sub ApprovedAction
 	$sql->SelectSingleValue(
 		"SELECT 1 FROM album WHERE id = ? AND artist = ?",
 		$this->row_id,
-		$this->GetArtist,
+		$this->artist,
 	) or do {
 		$this->InsertNote(MODBOT_MODERATOR, "This release has already been deleted or moved");
 		return STATUS_FAILEDPREREQ;

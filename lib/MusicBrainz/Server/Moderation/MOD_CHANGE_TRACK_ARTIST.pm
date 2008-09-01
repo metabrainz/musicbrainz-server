@@ -46,7 +46,7 @@ sub PreInsert
 	$self->table("track");
 	$self->SetColumn("artist");
 	$self->row_id($tr->GetId);
-	$self->SetArtist($ar->GetId);
+	$self->artist($ar->GetId);
 	$self->SetPrev($ar->GetName);
 	$self->SetNew($sortname . "\n" . $name . "\n" . $newartistid);
 }
@@ -138,7 +138,7 @@ sub PreDisplay
 		{
 			require MusicBrainz::Server::Artist;
 			$newartist = MusicBrainz::Server::Artist->new($this->{DBH});
-			$newartist->SetId($track->GetArtist);
+			$newartist->SetId($track->artist);
 			if ($newartist->LoadFromId and
 				$newartist->GetName eq $this->{'new.name'})
 			{
@@ -155,7 +155,7 @@ sub PreDisplay
 
 	# the old one ...
 	my $oldartist = MusicBrainz::Server::Artist->new($this->{DBH});
-	$oldartist->SetId($this->GetArtist);
+	$oldartist->SetId($this->artist);
 	if ($this->{"old.exists"} = $oldartist->LoadFromId)
 	{
 		$this->{"old.resolution"} = $oldartist->resolution;
@@ -196,7 +196,7 @@ sub CheckPrerequisites
 	}
 
 	# Check that its artist has not changed
-	if ($track->GetArtist != $self->GetArtist)
+	if ($track->artist != $self->artist)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This track has already been moved to another artist");
 		return STATUS_FAILEDPREREQ;
@@ -245,7 +245,7 @@ sub ApprovedAction
 	require MusicBrainz::Server::Track;
 	my $track = MusicBrainz::Server::Track->new($this->{DBH});
 	$track->SetId($this->row_id);
-	$track->SetArtist($artistid);
+	$track->artist($artistid);
 	$track->UpdateArtist
 		or die "Failed to update track in MOD_CHANGE_TRACK_ARTIST";
 

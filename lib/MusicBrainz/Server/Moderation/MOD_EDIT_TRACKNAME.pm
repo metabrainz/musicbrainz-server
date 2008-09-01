@@ -41,7 +41,7 @@ sub PreInsert
 	my $newname = $opts{'newname'};
 	$newname =~ /\S/ or die;
 
-	$self->SetArtist($track->GetArtist);
+	$self->artist($track->artist);
 	$self->SetPrev($track->GetName);
 	$self->SetNew($newname);
 	$self->table("track");
@@ -91,7 +91,7 @@ sub DetermineQuality
 
     # if that fails, go by the artist
     my $ar = MusicBrainz::Server::Artist->new($self->{DBH});
-    $ar->SetId($tr->GetArtist());
+    $ar->SetId($tr->artist());
     if ($ar->LoadFromId())
     {
         return $ar->quality;        

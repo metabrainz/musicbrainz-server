@@ -133,7 +133,7 @@ sub PreInsert
 	return $self->SuppressInsert
 		unless @adds or @edits or @removes;
 
-	$self->SetArtist($al->GetArtist);
+	$self->artist($al->artist);
 	$self->SetPrev($al->GetName);
 	$self->table("album");
 	$self->SetColumn("releases");

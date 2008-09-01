@@ -41,7 +41,7 @@ sub PreInsert
 	die if $ar->GetId == VARTIST_ID;
 	die if $ar->GetId == DARTIST_ID;
 
-	$self->SetArtist($ar->GetId);
+	$self->artist($ar->GetId);
 	$self->SetPrev($ar->GetName);
 	$self->table("artist");
 	$self->SetColumn("name");

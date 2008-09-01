@@ -59,7 +59,7 @@ sub PreInsert
 		die $self;
 	}
 
-	$self->SetArtist($ar->GetId);
+	$self->artist($ar->GetId);
 	$self->SetPrev($ar->GetName);
 	$self->SetNew($newalias);
 	$self->table("artist");

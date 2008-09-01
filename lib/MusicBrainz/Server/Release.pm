@@ -98,14 +98,12 @@ sub new
 }
 
 # Accessor functions to set/get the artist id of this album
-sub GetArtist
+sub artist
 {
-   return $_[0]->{artist};
-}
+    my ($self, $new_artist) = @_;
 
-sub SetArtist
-{
-   $_[0]->{artist} = $_[1];
+    if (defined $new_artist) { $self->{artist} = $new_artist; }
+    return $self->{artist};
 }
 
 sub language_id
@@ -271,7 +269,7 @@ sub IsNonAlbumTracks
 sub FindNonAlbum
 {
 	my ($this, $artist) = @_;
-	$artist ||= $this->GetArtist;
+	$artist ||= $this->artist;
 
 	my $sql = Sql->new($this->{DBH});
 	my $ids = $sql->SelectSingleColumnArray(
@@ -351,7 +349,7 @@ sub CombineNonAlbums
 sub GetOrInsertNonAlbum
 {
 	my ($this, $artist) = @_;
-	$artist ||= $this->GetArtist;
+	$artist ||= $this->artist;
 
 	my @albums = $this->FindNonAlbum($artist);
 
@@ -364,7 +362,7 @@ sub GetOrInsertNonAlbum
 
 	# There doesn't seem to be a non-album for this artist, so we'll
 	# insert one.
-	$this->SetArtist($artist);
+	$this->artist($artist);
 	$this->SetName(&NONALBUMTRACKS_NAME);
 	$this->attributes(&RELEASE_ATTR_NONALBUMTRACKS);
 	my $id = $this->Insert;
@@ -782,12 +780,12 @@ sub LoadTracks
 			$track = MusicBrainz::Server::Track->new($this->{DBH});
 			$track->SetId($row[0]);
 			$track->SetName($row[1]);
-			$track->SetArtist($row[2]);
+			$track->artist($row[2]);
 			$track->SetSequence($row[3]);
 			$track->SetLength($row[4]);
 			$track->SetModPending($row[5]);
 			$track->SetAlbumJoinModPending($row[6]);
-			$track->SetArtistName($row[7]);
+			$track->artist_name($row[7]);
 			$track->SetMBId($row[8]);
 			$track->SetRelease($row[9]);
 			push @info, $track;
@@ -854,14 +852,14 @@ sub HasMultipleTrackArtists
 		# different than the release artist. we still diplay
 		# the track artists in that case.
 		
-		$ar{$self->GetArtist} = 1;
+		$ar{$self->artist} = 1;
 		
 		# get the list of tracks and get their respective
 		# artistid.
 		$tracks = $self->GetTracks;
 		foreach my $t (@$tracks) 
 		{
-			$ar{$t->GetArtist} = 1;
+			$ar{$t->artist} = 1;
 		}
 		$self->{"_isva"} = (keys %ar > 1);
 	}
@@ -1034,7 +1032,7 @@ sub MergeReleases
                 # Move that the track to the target album's artist
                 $sql->Do(
 					"UPDATE track SET artist = ? WHERE id = ?",
-					$this->GetArtist,
+					$this->artist,
 					$tr->GetId,
 				);
            }                
@@ -1054,7 +1052,7 @@ sub MergeReleases
 
 		# And the annotations
 		require MusicBrainz::Server::Annotation;
-		MusicBrainz::Server::Annotation->MergeReleases($this->{DBH}, $id, $this->GetId, artistid => $this->GetArtist);
+		MusicBrainz::Server::Annotation->MergeReleases($this->{DBH}, $id, $this->GetId, artistid => $this->artist);
 
 		# And the ARs
 		$link->MergeReleases($id, $this->GetId);

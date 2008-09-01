@@ -66,12 +66,12 @@ sub PreInsert
 	my $artistid = $opts{'artistid'};
 	
 	# TrackArtist
-	my $hastrackartist = $release->GetArtist == &ModDefs::VARTIST_ID or 
+	my $hastrackartist = $release->artist == &ModDefs::VARTIST_ID or 
 						 $release->HasMultipleTrackArtists;
 	if (not $artistid)
 	{
 		$artistid = $artist->GetId if ($artist);
-		$artistid = $release->GetArtist if ($release);
+		$artistid = $release->artist if ($release);
 	}
 	die if ($hastrackartist and not $artistid);
 	
@@ -148,7 +148,7 @@ sub PreInsert
 
 	$self->table("track");
 	$self->SetColumn("name");
-	$self->SetArtist($artistid); # use track artist (or release artist if no track artist)
+	$self->artist($artistid); # use track artist (or release artist if no track artist)
 	$self->row_id($newtrackid);
 	$self->SetPrev($release->GetName);
 	$self->SetNew($self->ConvertHashToNew(\%new));

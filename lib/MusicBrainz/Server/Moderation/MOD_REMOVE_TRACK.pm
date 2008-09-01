@@ -40,7 +40,7 @@ sub PreInsert
 	my $tr = $opts{'track'} or die;
 	my $al = $opts{'album'} or die;
 
-	$self->SetArtist($tr->GetArtist);
+	$self->artist($tr->artist);
 	$self->SetPrev($tr->GetName . "\n" . $al->GetId . "\n" . $al->IsNonAlbumTracks . "\n" . $tr->GetSequence . "\n" . $tr->GetLength);
 	$self->table("track");
 	$self->SetColumn("name");

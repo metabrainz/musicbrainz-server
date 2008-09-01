@@ -64,7 +64,7 @@ sub load_for_label
 
             $export->{artist} = MusicBrainz::Server::Facade::Artist->new({
                 name => $_->{artistname},
-                mbid => $_->GetArtist
+                mbid => $_->artist
             });
 
             $export->{catalog_number} = $_->{catno};
@@ -157,10 +157,10 @@ sub _build_sort_keys
     {
         my ($type, $status) = $release->GetReleaseTypeAndStatus;
 
-        $release->SetMultipleTrackArtists($release->GetArtist != $release->GetId() ? 1 : 0);
+        $release->SetMultipleTrackArtists($release->artist != $release->GetId() ? 1 : 0);
         $release->{_firstreleasedate_} = ($release->GetFirstReleaseDate || "9999-99-99");
-        $release->{_is_va_}       = ($release->GetArtist == &ModDefs::VARTIST_ID) or
-                                    ($release->GetArtist != $release->GetId());
+        $release->{_is_va_}       = ($release->artist == &ModDefs::VARTIST_ID) or
+                                    ($release->artist != $release->GetId());
         $release->{_is_nonalbum_} = $type && $type == MusicBrainz::Server::Release::RELEASE_ATTR_NONALBUMTRACKS;
         $release->{_section_key_} = (defined $type ? $release->{_is_va_} . " " . $type : $release->{_is_va});
         $release->{_name_sort_}   = lc decode "utf-8", $release->GetName;

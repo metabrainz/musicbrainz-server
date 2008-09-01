@@ -59,7 +59,7 @@ sub PreInsert
 	$self->table("album_cdtoc");
 	$self->SetColumn("album");
 	$self->row_id($rowid);
-	$self->SetArtist($al->GetArtist);
+	$self->artist($al->artist);
 
 	my %new = (
 		AlbumName		=> $al->GetName,

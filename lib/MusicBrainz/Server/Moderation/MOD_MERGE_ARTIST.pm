@@ -56,7 +56,7 @@ sub PreInsert
 
 	$self->table("artist");
 	$self->SetColumn("name");
-	$self->SetArtist($source->GetId);
+	$self->artist($source->GetId);
 	$self->row_id($source->GetId);
 	$self->SetPrev($source->GetName);
 	$self->SetNew($self->ConvertHashToNew(\%new));
@@ -148,7 +148,7 @@ sub CheckPrerequisites
 		}
 	} else {
 		# Load new artist by name
-		my $artists = $newar->GetArtistsFromName($name);
+		my $artists = $newar->select_artists_by_name($name);
 		if (scalar(@$artists) == 0)
 		{
 			$self->InsertNote(MODBOT_MODERATOR, "Artist '$name' not found - it has been deleted or renamed");

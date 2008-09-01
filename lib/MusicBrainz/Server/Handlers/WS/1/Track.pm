@@ -170,7 +170,7 @@ sub serve_from_db
     if ($inc & INC_ARTIST || $inc & INC_RELEASES)
     {
         $ar = MusicBrainz::Server::Artist->new($mb->{DBH});
-        $ar->SetId($tr->GetArtist);
+        $ar->SetId($tr->artist);
         $ar = undef unless $ar->LoadFromId(1);
     }
 

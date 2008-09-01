@@ -53,7 +53,7 @@ sub PreInsert
 
 	$self->table("album");
 	$self->SetColumn("artist");
-	$self->SetArtist($al->GetArtist);
+	$self->artist($al->artist);
 	$self->row_id($al->GetId);
 	$self->SetNew($new);
 }
@@ -130,7 +130,7 @@ sub PreDisplay
 		{
 			require MusicBrainz::Server::Artist;
 			my $ar = MusicBrainz::Server::Artist->new($this->{DBH});
-			$ar->SetId($al->GetArtist);
+			$ar->SetId($al->artist);
 			if ($ar->LoadFromId 
 				&& $ar->GetName eq $this->{'new.name'})
 			{
@@ -160,7 +160,7 @@ sub CheckPrerequisites
 
 	# album needs to have more than one track artist
 	# if it is not VA to allow a SA-conversion
-	if ($al->GetArtist != VARTIST_ID and 
+	if ($al->artist != VARTIST_ID and 
 		not $al->HasMultipleTrackArtists)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This release has already been converted to a single artist");

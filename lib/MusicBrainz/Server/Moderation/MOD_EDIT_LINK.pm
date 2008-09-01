@@ -64,20 +64,20 @@ sub PreInsert
 
 	if (@$entities[0]->{type} eq 'album' || @$entities[0]->{type} eq 'track')
 	{
-		my $artistid = @$entities[0]->{obj}->GetArtist;
+		my $artistid = @$entities[0]->{obj}->artist;
 		# Don't assign the edit to VA if we don't have to
 		if ($artistid == VARTIST_ID && @$entities[1]->{type} eq 'artist')
 		{
-			$self->SetArtist(@$entities[1]->{obj}->GetId);
+			$self->artist(@$entities[1]->{obj}->GetId);
 		}
 		else
 		{
-			$self->SetArtist($artistid);
+			$self->artist($artistid);
 		}
 	} 
 	elsif (@$entities[0]->{type} ne 'label')
 	{
-	    $self->SetArtist(@$entities[0]->{obj}->GetId);
+	    $self->artist(@$entities[0]->{obj}->GetId);
 	}
 
     $self->table($link->Table);

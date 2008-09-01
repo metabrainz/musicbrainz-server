@@ -47,7 +47,7 @@ sub PreInsert
 		ChangeLog => $changelog,
 	);
 
-	$self->SetArtist($artistid);
+	$self->artist($artistid);
 	$self->SetNew($self->ConvertHashToNew(\%new));
 	$self->table('artist');
 	$self->SetColumn('annotation.text');
@@ -90,7 +90,7 @@ sub ApprovedAction
 	$an->moderator($self->moderator());
 	$an->moderation($self->GetId());
 	$an->type(ARTIST_ANNOTATION);
-	$an->SetArtist($self->row_id());
+	$an->artist($self->row_id());
 	$an->text($text);
 	$an->change_log($changelog);
 	$an->Insert();

@@ -360,7 +360,7 @@ sub ArtistSearch
    require MusicBrainz::Server::Artist;
    $ar = MusicBrainz::Server::Artist->new($this->{DBH});
 
-   my $artists = $ar->GetArtistsFromName($name);
+   my $artists = $ar->select_artists_by_name($name);
    if (scalar(@$artists) == 1)
    {
        $this->{artist} = $$artists[0];
@@ -468,7 +468,7 @@ sub AlbumSearch
    # first check, if there are any exact matches for artist & album
    require MusicBrainz::Server::Release;
    $al = MusicBrainz::Server::Release->new($this->{DBH});
-   $al->SetArtist($ar->GetId());
+   $al->artist($ar->GetId());
    my (@aids) = $al->GetAlbumListFromName($name);
 
    my @albums;
