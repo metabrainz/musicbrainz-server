@@ -163,39 +163,43 @@ sub label_name
 
 sub label_mbid	{ $_[0]{labelgid} }
 
-sub GetFormat		{ $_[0]{format} }
-sub SetFormat		{ $_[0]{format} = $_[1] }
-sub GetFormatName	{ $ReleaseFormatNames{$_[0]{format}} }
-
-sub GetYMD
+sub format
 {
-	map { 0+$_ } split '-', $_[0]{'releasedate'};
+    my ($self, $new_format) = @_;
+
+    if (defined $new_format) { $self->{format} = $new_format; }
+    return $self->{format};
 }
 
-sub GetYear
+sub format_name	{ $ReleaseFormatNames{$_[0]{format}} }
+
+sub date
 {
-	($_[0]->GetYMD)[0];
+    my $self = shift;
+
+    if (@_)
+    {
+        my ($y, $m, $d) = @_;
+
+        $self->{'releasedate'} = sprintf "%04d-%02d-%02d",
+            $y || 0, $m || 0, $d || 0;
+    }
+    
+    map { 0 + $_ } split('-', $self->{releasedate});
 }
 
-sub GetMonth
+sub year  { ($_[0]->date)[0]; }
+sub month { ($_[0]->date)[1]; }
+sub day   { ($_[0]->date)[2]; }
+
+sub sort_date
 {
-	($_[0]->GetYMD)[1];
+    my ($self, $new_date) = @_;
+
+    if (defined $new_date) { $self->date(split /-/, $new_date); }
+    return $self->{releasedate};
 }
 
-sub GetDay
-{
-	($_[0]->GetYMD)[2];
-}
-
-sub SetYMD
-{
-	my ($self, $y, $m, $d) = @_;
-	$self->{'releasedate'} = sprintf "%04d-%02d-%02d",
-		$y || 0, $m || 0, $d || 0;
-}
-
-sub GetSortDate	{ $_[0]{'releasedate'} }
-sub SetSortDate { $_[0]->SetYMD(split /-/, $_[1]) }
 # GetModPending / SetModPending - see TableBase
 
 sub ToString { 
@@ -256,11 +260,11 @@ sub InsertSelf
 		"INSERT INTO release (album, country, releasedate, label, catno, barcode, format) VALUES (?, ?, ?, ?, ?, ?, ?)",
 		$self->GetRelease,
 		$self->country,
-		$self->GetSortDate,
+		$self->sort_date,
 		$self->GetLabel || undef,
 		$self->cat_no || undef,
 		$self->barcode || undef,
-		$self->GetFormat || undef,
+		$self->format || undef,
 	);
 	$self->SetId($sql->GetLastInsertId("release"));
 }
@@ -270,19 +274,19 @@ sub Update
 	my ($self, %new) = @_;
    	my $sql = Sql->new($self->{DBH});
 	$self->country($new{"country"});
-	$self->SetSortDate($new{"date"});
+	$self->sort_date($new{"date"});
 	$self->SetLabel($new{"label"});
 	$self->cat_no($new{"catno"});
 	$self->barcode($new{"barcode"});
-	$self->SetFormat($new{"format"});
+	$self->format($new{"format"});
 	$sql->Do(
 		"UPDATE release SET country = ?, releasedate = ?, label = ?, catno = ?, barcode = ?, format = ? WHERE id = ?",
 		$self->country,
-		$self->GetSortDate,
+		$self->sort_date,
 		$self->GetLabel || undef,
 		$self->cat_no || undef,
 		$self->barcode || undef,
-		$self->GetFormat || undef,
+		$self->format || undef,
 		$self->GetId,
 	);
 }

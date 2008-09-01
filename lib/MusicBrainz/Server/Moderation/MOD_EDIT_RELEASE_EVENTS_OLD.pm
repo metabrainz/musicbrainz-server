@@ -74,13 +74,13 @@ sub PreInsert
 		die unless $row->GetRelease == $al->GetId;
 		$row->InsertSelf;
 		$new{"add".$i++} = sprintf "d=%s c=%d id=%d l=%d n=%s b=%s f=%d",
-			$row->GetSortDate,
+			$row->sort_date,
 			$row->country,
 			$row->GetId,
 			$row->GetLabel,
 			_EncodeText($row->cat_no),
 			_EncodeText($row->barcode),
-			$row->GetFormat;
+			$row->format;
 	}
 	
 	$i = 0;
@@ -90,28 +90,28 @@ sub PreInsert
 		die unless $obj->GetRelease == $al->GetId;
 
 		my $old = sprintf "d=%s c=%d id=%d l=%d n=%s b=%s f=%d",
-			$obj->GetSortDate,
+			$obj->sort_date,
 			$obj->country,
 			$obj->GetId,
 			$obj->GetLabel,
 			_EncodeText($obj->cat_no),
 			_EncodeText($obj->barcode),
-			$obj->GetFormat;
+			$obj->format;
 
 		$obj->country($row->{"country"});
-		$obj->SetYMD(@$row{qw( year month day )});
+		$obj->date(@$row{qw( year month day )});
 		$obj->SetLabel($row->{label});
 		$obj->cat_no($row->{catno});
 		$obj->barcode($row->{barcode});
-		$obj->SetFormat($row->{format});
+		$obj->format($row->{format});
 
 		my $new = sprintf "nd=%s nc=%d nl=%d nn=%s nb=%s nf=%d",
-			$obj->GetSortDate,
+			$obj->sort_date,
 			$obj->country,
 			$obj->GetLabel,
 			_EncodeText($obj->cat_no),
 			_EncodeText($obj->barcode),
-			$obj->GetFormat;
+			$obj->format;
 
 		$new{"edit".$i++} = "$old $new";
 	}
@@ -121,13 +121,13 @@ sub PreInsert
 	{
 		die unless $row->GetRelease == $al->GetId;
 		$new{"remove".$i++} = sprintf "d=%s c=%d id=%d l=%d n=%s b=%s f=%d",
-			$row->GetSortDate,
+			$row->sort_date,
 			$row->country,
 			$row->GetId,
 			$row->GetLabel,
 			_EncodeText($row->cat_no),
 			_EncodeText($row->barcode),
-			$row->GetFormat;
+			$row->format;
 	}
 
 	return $self->SuppressInsert
@@ -308,11 +308,11 @@ sub ApprovedAction
 		}
 
 		if ($r->country != $t->{'c'}
-			or $r->GetSortDate ne $t->{'d'}
+			or $r->sort_date ne $t->{'d'}
 			or $r->GetLabel != $t->{'l'}
 			or $r->cat_no ne $t->{'n'}
 			or $r->barcode ne $t->{'b'}
-			or $r->GetFormat != $t->{'f'})
+			or $r->format != $t->{'f'})
 		{
 			push @notes, "$display has already been changed";
 			next;

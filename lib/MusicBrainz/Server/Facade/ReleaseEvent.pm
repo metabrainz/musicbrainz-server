@@ -21,8 +21,8 @@ sub new_from_event
     return $class->new({
         catalog_number => $event->cat_no,
         country        => $event->country,
-        date           => $event->GetSortDate,
-        format         => $event->GetFormat ? $event->GetFormatName : "",
+        date           => $event->sort_date,
+        format         => $event->format ? $event->format_name : "",
         barcode        => $event->barcode,
         label          => MusicBrainz::Server::Facade::Label->new({
             name => $event->label_name,

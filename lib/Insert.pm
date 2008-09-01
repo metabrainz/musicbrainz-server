@@ -615,12 +615,12 @@ TRACK:
 		}
 
 		$rel->SetRelease($albumid);
-		$rel->SetYMD(@ymd);
+		$rel->date(@ymd);
 		$rel->country($release->{country});
 		$rel->SetLabel($release->{label});
 		$rel->cat_no($release->{catno});
 		$rel->barcode($release->{barcode});
-		$rel->SetFormat($release->{format});
+		$rel->format($release->{format});
 		$rel->InsertSelf();
 
 		$release->{release_insertid} = $rel->GetId();

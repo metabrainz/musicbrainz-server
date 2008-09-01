@@ -451,7 +451,7 @@ sub xml_release_events
         {
 			my $cid = $rel->country;
 			my $c = $country_obj->newFromId($cid);
-			my ($year, $month, $day) = $rel->GetYMD();
+			my ($year, $month, $day) = $rel->date();
 			my ($releasedate) = $year;
 			$releasedate .= sprintf "-%02d", $month if ($month != 0);
 			$releasedate .= sprintf "-%02d", $day if ($day != 0);
@@ -465,7 +465,7 @@ sub xml_release_events
 			print '"';
 			printf ' catalog-number="%s"', xml_escape($rel->cat_no) if $rel->cat_no;
 			printf ' barcode="%s"', xml_escape($rel->barcode) if $rel->barcode;
-			printf ' format="%s"', xml_escape($formatNames{$rel->GetFormat}) if $rel->GetFormat;
+			printf ' format="%s"', xml_escape($formatNames{$rel->format}) if $rel->format;
 			if (($inc & INC_LABELS) && $rel->GetLabel)
 			{
 				print '>';

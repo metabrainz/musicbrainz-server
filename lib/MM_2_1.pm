@@ -192,7 +192,7 @@ sub OutputAlbumRDF
         {
              my $cid = $rel->country;
              my $c = $country_obj->newFromId($cid);
-             my ($year, $month, $day) = $rel->GetYMD();
+             my ($year, $month, $day) = $rel->date();
         
              $releasedate = $year;
              $releasedate .= sprintf "-%02d", $month if ($month != 0);
