@@ -73,7 +73,7 @@ sub PreDisplay
 
 	# load annotation data
 	my $an = MusicBrainz::Server::Annotation->new($this->{DBH});
-	$an->SetModeration($this->GetId());
+	$an->moderation($this->GetId());
 	if ($an->LoadFromId())
 	{
 		my $log = $an->GetChangeLog;
@@ -96,7 +96,7 @@ sub ApprovedAction
 	my $an = MusicBrainz::Server::Annotation->new($self->{DBH});
 
 	$an->moderator($self->moderator());
-	$an->SetModeration($self->GetId());
+	$an->moderation($self->GetId());
 	$an->type(RELEASE_ANNOTATION);
 	$an->SetRelease($self->row_id());
 	$an->SetText($text);

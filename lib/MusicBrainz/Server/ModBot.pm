@@ -210,7 +210,7 @@ sub CheckModerations
 			else
 			{
 				# If we can't find it, we need to load the status by hand.
-				my $dep_status = $this->GetModerationStatus($mod->GetDepMod());
+				my $dep_status = $this->moderation_status($mod->GetDepMod());
 				if ($dep_status != STATUS_APPLIED)
 				{
 					print localtime() . " : EvalChange: Disk dep failed\n"
@@ -592,7 +592,7 @@ sub CheckModificationForFailedDependencies
 			}
 			else
 			{
-				$status = $this->GetModerationStatus($1);
+				$status = $this->moderation_status($1);
 			}
 			if (!defined $status || 
 				$status == STATUS_FAILEDVOTE ||
@@ -611,7 +611,7 @@ sub CheckModificationForFailedDependencies
 	return 1;
 }
 
-sub GetModerationStatus
+sub moderation_status
 {
  	my ($this, $id) = @_;
 	my $sql = Sql->new($this->{DBH});

@@ -1299,7 +1299,7 @@ sub OpenModCountByModerator
 # be shown on one moderation page.  It returns an array
 # of references to Moderation objects.
 
-sub GetModerationList
+sub moderation_list
 {
 	my ($this, $query, $voter, $index, $num) = @_;
 	$query or return SEARCHRESULT_NOQUERY;

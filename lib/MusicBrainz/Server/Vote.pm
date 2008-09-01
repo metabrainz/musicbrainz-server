@@ -32,8 +32,14 @@ use Carp;
 use ModDefs ':vote', 'STATUS_OPEN';
 
 # GetId / SetId - see TableBase
-sub GetModerationId	{ $_[0]{moderation} }
-sub SetModerationId	{ $_[0]{moderation} = $_[1] }
+sub moderation_id
+{
+    my ($self, $new_id) = @_;
+
+    if (defined $new_id) { $self->{moderation} = $new_id; }
+    return $self->{moderation};
+}
+
 sub GetUserId		{ $_[0]{moderator} }
 sub SetUserId		{ $_[0]{moderator} = $_[1] }
 sub GetVote			{ $_[0]{vote} }

@@ -85,9 +85,12 @@ sub moderator_name
     return $self->{moderator_name};
 }
 
-sub GetModeration
+sub moderation
 {
-	return $_[0]->{moderation};
+    my ($self, $new_mod) = @_;
+
+    if (defined $new_mod) { $self->{moderation} = $new_mod; }
+    return $self->{moderation};
 }
 
 sub GetChangeLog
@@ -195,11 +198,6 @@ sub GetShortTextAsHTML
 	$text;
 }
 
-sub SetModeration
-{
-	$_[0]->{moderation} = $_[1];
-}
-
 sub SetChangeLog
 {
 	$_[0]->{changelog} = $_[1];
@@ -277,7 +275,7 @@ sub newFromId
 	$self;
 }
 
-# Load an annotation. The id has to be set via SetId() or SetModeration().
+# Load an annotation. The id has to be set via SetId() or moderation().
 
 sub LoadFromId
 {
