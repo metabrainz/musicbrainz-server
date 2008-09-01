@@ -111,6 +111,16 @@ JSVoting ()
 				otherAddNoteLink.innerHTML = addNoteLink.innerHTML;
 			}
 		}
+        
+        // Hack for inline edits
+        if(window.parent && mb.ui.get("RelatedModsBox", window.parent.document))
+        {
+            var iframe = mb.ui.getByTag("iframe", mb.ui.get("RelatedModsBox", window.parent.document))[0];
+            if (window.parent.resizeFrameAsRequired && iframe)
+            {
+                window.parent.resizeFrameAsRequired(iframe);
+            }
+        }
    };
 
    /**
