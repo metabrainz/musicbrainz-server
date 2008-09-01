@@ -107,7 +107,7 @@ sub new_from_artist
         resolution  => $artist->GetResolution,
         sort_name   => $artist->sort_name,
         start_date  => $artist->GetBeginDate,
-        type        => MusicBrainz::Server::Artist::type_name($artist->GetType),
+        type        => MusicBrainz::Server::Artist::type_name($artist->type),
 
         _a          => $artist,
     });

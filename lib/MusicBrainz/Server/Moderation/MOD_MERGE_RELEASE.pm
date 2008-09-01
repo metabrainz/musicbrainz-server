@@ -176,7 +176,7 @@ sub ApprovedAction
 	}
 
 	$al->MergeReleases({
-		mac => ($self->GetType == MOD_MERGE_RELEASE_MAC),
+		mac => ($self->type == MOD_MERGE_RELEASE_MAC),
 		albumids => [ map { $_->{'id'} } @{ $self->{'new_albums'} } ],
 		merge_attributes => $self->{'merge_attributes'},
 		merge_langscript => $self->{'merge_langscript'}

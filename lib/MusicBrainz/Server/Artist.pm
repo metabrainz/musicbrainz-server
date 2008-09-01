@@ -79,14 +79,12 @@ sub InvalidateCache
     MusicBrainz::Server::Cache->delete($self->_GetMBIDCacheKey($self->GetMBId));
 }
 
-sub GetType
+sub type
 {
-   return ( defined $_[0]->{type} ) ? $_[0]->{type} : 0;
-}
+    my ($self, $new_type) = @_;
 
-sub SetType
-{
-   $_[0]->{type} = $_[1];
+    if (defined $new_type) { $self->{type} = $new_type; }
+    return defined $self->{type} ? $self->{type} : 0;
 }
 
 sub type_name
@@ -251,7 +249,7 @@ sub Insert
 		$this->GetName(),
 		$this->sort_name(),
 		$this->GetMBId,
-		$this->GetType() || undef,
+		$this->type() || undef,
 		$this->GetResolution() || undef,
 		$this->GetBeginDate() || undef,
 		$this->GetEndDate() || undef,
@@ -742,7 +740,7 @@ sub GetArtistsFromName
 		$ar->SetResolution($row->{resolution});
 		$ar->SetBeginDate($row->{begindate});
 		$ar->SetEndDate($row->{enddate});
-		$ar->SetType($row->{type});
+		$ar->type($row->{type});
 		$ar->SetQuality($row->{quality});
 		$ar->SetQualityModPending($row->{modpending_qual});
 
@@ -787,7 +785,7 @@ sub GetArtistsFromSortname
 		$ar->SetBeginDate($row->{begindate});
 		$ar->SetEndDate($row->{enddate});
 		$ar->SetModPending($row->{modpending});
-		$ar->SetType($row->{type});
+		$ar->type($row->{type});
 		$ar->SetQuality($row->{quality});
 		$ar->SetQualityModPending($row->{modpending_qual});
 

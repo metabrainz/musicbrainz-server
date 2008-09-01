@@ -106,14 +106,12 @@ sub SetCountry
    $_[0]->{country} = $_[1];
 }
 
-sub GetType
+sub type
 {
-   return ( defined $_[0]->{type} ) ? $_[0]->{type} : 0;
-}
+    my ($self, $new_type) = @_;
 
-sub SetType
-{
-   $_[0]->{type} = $_[1];
+    if (defined $new_type) { $self->{type} = $new_type; }
+    return defined $self->{type} ? $self->{type} : 0;
 }
 
 sub type_name
@@ -239,7 +237,7 @@ sub Insert
 	$this->GetName(),
 	$this->GetLabelCode() || undef,
 	$this->GetMBId(),
-	$this->GetType(),
+	$this->type(),
 	$this->sort_name(),
 	$this->GetCountry() || undef,
 	$this->GetResolution() || undef,
@@ -602,7 +600,7 @@ sub GetLabelsFromName
 		$ar->SetId($row->{id});
 		$ar->SetMBId($row->{gid});
 		$ar->SetName($row->{name});
-		$ar->SetType($row->{type});
+		$ar->type($row->{type});
 		$ar->SetLabelCode($row->{labelcode});
 		$ar->SetCountry($row->{country});
 		$ar->sort_name($row->{sortname});
@@ -651,7 +649,7 @@ sub GetLabelsFromSortname
 		$ar->SetBeginDate($row->{begindate});
 		$ar->SetEndDate($row->{enddate});
 		$ar->SetModPending($row->{modpending});
-		$ar->SetType($row->{type});
+		$ar->type($row->{type});
 		push @results, $ar;
 }
 	return \@results;
@@ -692,7 +690,7 @@ sub GetLabelsFromCode
 		$ar->SetBeginDate($row->{begindate});
 		$ar->SetEndDate($row->{enddate});
 		$ar->SetModPending($row->{modpending});
-		$ar->SetType($row->{type});
+		$ar->type($row->{type});
 		push @results, $ar;
 	}
 	return \@results;

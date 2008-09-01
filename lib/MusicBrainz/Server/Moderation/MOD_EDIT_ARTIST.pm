@@ -74,7 +74,7 @@ sub PreInsert
 		die $self->SetError('Artist type invalid')
 			unless MusicBrainz::Server::Artist::IsValidType($type);
 
-		$new{'Type'} = $type if $type != $ar->GetType();
+		$new{'Type'} = $type if $type != $ar->type();
 	}
 
 	if ( defined $resolution )
@@ -111,7 +111,7 @@ sub PreInsert
 
 	$prev{'ArtistName'} = $ar->GetName() if exists $new{'ArtistName'};
 	$prev{'SortName'} = $ar->sort_name() if exists $new{'SortName'};
-	$prev{'Type'} = $ar->GetType() if exists $new{'Type'};
+	$prev{'Type'} = $ar->type() if exists $new{'Type'};
 	$prev{'Resolution'} = $ar->GetResolution() if exists $new{'Resolution'};
 	$prev{'BeginDate'} = $ar->GetBeginDate() if exists $new{'BeginDate'};
 	$prev{'EndDate'} = $ar->GetEndDate() if exists $new{'EndDate'};

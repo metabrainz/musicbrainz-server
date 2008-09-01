@@ -304,7 +304,7 @@ sub _Insert
     {
         $ar->SetName($artist);
         $ar->sort_name($sortname);
-		$ar->SetType($artist_type);
+		$ar->type($artist_type);
 		$ar->SetResolution($artist_resolution);
 		$ar->SetBeginDate($artist_begindate);
 		$ar->SetEndDate($artist_enddate);
@@ -526,7 +526,7 @@ TRACK:
             # Load/insert artist
             $ar->SetName($track->{artist});
             $ar->sort_name($track->{sortname});
-            $ar->SetType(0);
+            $ar->type(0);
             $ar->SetResolution("");
             $ar->SetBeginDate("");
             $ar->SetEndDate("");

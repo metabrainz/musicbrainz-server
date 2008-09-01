@@ -124,9 +124,13 @@ sub GetText
 	return $_[0]->{text};
 }
 
-sub GetType
+
+sub type
 {
-	return $_[0]->{type};
+    my ($self, $new_type) = @_;
+
+    if (defined $new_type) { $self->{type} = $new_type; }
+    return $self->{type};
 }
 
 sub type_word
@@ -251,11 +255,6 @@ sub SetCreationTime
 sub SetText
 {
 	$_[0]->{text} = $_[1];
-}
-
-sub SetType
-{
-	$_[0]->{type} = $_[1];
 }
 
 # Make an annotation object just from some text (for preview purposes)

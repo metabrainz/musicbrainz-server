@@ -616,14 +616,12 @@ sub SetExpireTime
    $_[0]->{expiretime} = $_[1];
 }
 
-sub GetType
+sub type
 {
-   return $_[0]->{type};
-}
+    my ($self, $new_type) = @_;
 
-sub SetType
-{
-   $_[0]->{type} = $_[1];
+    if (defined $new_type) { $self->{type} = $new_type; }
+    return $self->{type};
 }
 
 sub GetStatus
@@ -672,8 +670,8 @@ sub IsOpen { $_[0]{status} == STATUS_OPEN or $_[0]{status} == STATUS_TOBEDELETED
 sub IsAutoEditType
 {
    my ($this, $type) = @_;
-   if ($this->GetType == MOD_CHANGE_RELEASE_QUALITY ||
-       $this->GetType == MOD_CHANGE_ARTIST_QUALITY)
+   if ($this->type == MOD_CHANGE_RELEASE_QUALITY ||
+       $this->type == MOD_CHANGE_ARTIST_QUALITY)
    {
         return $QualityChangeDefs[$this->GetQualityChangeDirection]->{automod};
    }
@@ -685,24 +683,24 @@ sub GetNumVotesNeeded
 {
    my ($this) = @_;
 
-   if ($this->GetType == MOD_CHANGE_RELEASE_QUALITY ||
-       $this->GetType == MOD_CHANGE_ARTIST_QUALITY)
+   if ($this->type == MOD_CHANGE_RELEASE_QUALITY ||
+       $this->type == MOD_CHANGE_ARTIST_QUALITY)
    {
         return $QualityChangeDefs[$this->GetQualityChangeDirection]->{votes};
    }
-   my $level = GetEditLevelDefs($this->GetQuality, $this->GetType);
+   my $level = GetEditLevelDefs($this->GetQuality, $this->type);
    return $level->{votes};
 }
 
 sub GetExpireAction
 {
    my ($this) = @_;
-   if ($this->GetType == MOD_CHANGE_RELEASE_QUALITY ||
-       $this->GetType == MOD_CHANGE_ARTIST_QUALITY)
+   if ($this->type == MOD_CHANGE_RELEASE_QUALITY ||
+       $this->type == MOD_CHANGE_ARTIST_QUALITY)
    {
         return $QualityChangeDefs[$this->GetQualityChangeDirection]->{expireaction};
    }
-   my $level = GetEditLevelDefs($this->GetQuality, $this->GetType);
+   my $level = GetEditLevelDefs($this->GetQuality, $this->type);
    return $level->{expireaction};
 }
 
@@ -912,7 +910,7 @@ sub CreateFromId
 			$edit->SetColumn($row[2]);
 			$edit->SetRowId($row[3]);
 			$edit->SetArtist($row[4]);
-			$edit->SetType($row[5]);
+			$edit->type($row[5]);
 			$edit->SetPrev($row[6]);
 			$edit->SetNew($row[7]);
 			$edit->SetExpireTime($row[8]);
@@ -1074,7 +1072,7 @@ sub InsertModeration
 			or die "No such moderation type #$t";
 
 		my $this = $editclass->new($opts{'DBH'} || die "No DBH passed");
-		$this->SetType($this->Type);
+		$this->type($this->Type);
 
 		$this->SetModerator($opts{'uid'} or die "No uid passed");
 		defined($privs = $opts{'privs'}) or die;
@@ -1125,14 +1123,14 @@ sub InsertModeration
 		$this->PostLoad;
 
 		my $level;
-		if ($this->GetType == &Moderation::MOD_CHANGE_RELEASE_QUALITY ||
-		    $this->GetType == &Moderation::MOD_CHANGE_ARTIST_QUALITY)
+		if ($this->type == &Moderation::MOD_CHANGE_RELEASE_QUALITY ||
+		    $this->type == &Moderation::MOD_CHANGE_ARTIST_QUALITY)
 		{
 			$level = Moderation::GetQualityChangeDefs($this->GetQualityChangeDirection);
 		}
 		else
 		{
-			$level = Moderation::GetEditLevelDefs($this->GetQuality, $this->GetType);
+			$level = Moderation::GetEditLevelDefs($this->GetQuality, $this->type);
 		}
 
 		# Now go on to insert the moderation record itself, and to
@@ -1164,7 +1162,7 @@ sub InsertModeration
             )",
             $this->GetTable, $this->GetColumn, $this->GetRowId,
             $this->GetPrev, $this->GetNew,
-            $this->GetModerator, $this->GetArtist, $this->GetType,
+            $this->GetModerator, $this->GetArtist, $this->type,
             $this->GetDepMod,
             &ModDefs::STATUS_OPEN, sprintf("%d days", $level->{duration}),
             $this->GetLanguageId
@@ -1195,8 +1193,8 @@ sub InsertModeration
 
 		# If the editor is untrusted, undo the auto edit
 		$autoedit = 0 if ($ui->IsUntrusted($privs) and
-		                  ($this->GetType != &ModDefs::MOD_ADD_TRMS or
-		                   $this->GetType != &ModDefs::MOD_ADD_PUIDS));
+		                  ($this->type != &ModDefs::MOD_ADD_TRMS or
+		                   $this->type != &ModDefs::MOD_ADD_PUIDS));
 
 		# If it is autoedit, then approve the edit and credit the editor
 		if ($autoedit)
@@ -1361,7 +1359,7 @@ sub GetModerationList
 		$edit->SetModerator($r->{moderator});
 		$edit->SetTable($r->{tab});
 		$edit->SetColumn($r->{col});
-		$edit->SetType($r->{type});
+		$edit->type($r->{type});
 		$edit->SetStatus($r->{status});
 		$edit->SetRowId($r->{rowid});
 		$edit->SetPrev($r->{prevvalue});
@@ -1758,11 +1756,11 @@ sub ShowModType
 	
 	# do not display release if we have a batch edit type
 	$this->{"albumid"} = undef 
-		if ($this->GetType == &ModDefs::MOD_REMOVE_RELEASES or
-			$this->GetType == &ModDefs::MOD_MERGE_RELEASE or
-			$this->GetType == &ModDefs::MOD_MERGE_RELEASE_MAC or
-			$this->GetType == &ModDefs::MOD_EDIT_RELEASE_LANGUAGE or
-			$this->GetType == &ModDefs::MOD_EDIT_RELEASE_ATTRS);
+		if ($this->type == &ModDefs::MOD_REMOVE_RELEASES or
+			$this->type == &ModDefs::MOD_MERGE_RELEASE or
+			$this->type == &ModDefs::MOD_MERGE_RELEASE_MAC or
+			$this->type == &ModDefs::MOD_EDIT_RELEASE_LANGUAGE or
+			$this->type == &ModDefs::MOD_EDIT_RELEASE_ATTRS);
 	
 	$mason->out(qq!<table class="edittype">!);
 

@@ -89,7 +89,7 @@ sub ApprovedAction
 
 	$an->SetModerator($self->GetModerator());
 	$an->SetModeration($self->GetId());
-	$an->SetType(ARTIST_ANNOTATION);
+	$an->type(ARTIST_ANNOTATION);
 	$an->SetArtist($self->GetRowId());
 	$an->SetText($text);
 	$an->SetChangeLog($changelog);

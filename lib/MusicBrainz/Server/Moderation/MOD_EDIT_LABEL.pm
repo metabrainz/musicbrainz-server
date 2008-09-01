@@ -89,7 +89,7 @@ sub PreInsert
 		die $self->SetError('Label type invalid')
 			unless MusicBrainz::Server::Label::IsValidType($type);
 
-		$new{'Type'} = $type if $type != $ar->GetType();
+		$new{'Type'} = $type if $type != $ar->type();
 	}
 
 	if ( defined $resolution )
@@ -128,7 +128,7 @@ sub PreInsert
 	$prev{'LabelCode'} = $ar->GetLabelCode() if exists $new{'LabelCode'};
 	$prev{'Country'} = $ar->GetCountry() if exists $new{'Country'};
 	$prev{'SortName'} = $ar->sort_name() if exists $new{'SortName'};
-	$prev{'Type'} = $ar->GetType() if exists $new{'Type'};
+	$prev{'Type'} = $ar->type() if exists $new{'Type'};
 	$prev{'Resolution'} = $ar->GetResolution() if exists $new{'Resolution'};
 	$prev{'BeginDate'} = $ar->GetBeginDate() if exists $new{'BeginDate'};
 	$prev{'EndDate'} = $ar->GetEndDate() if exists $new{'EndDate'};

@@ -80,7 +80,7 @@ sub PreInsert
 	my $label = MusicBrainz::Server::Label->new($self->{DBH});
 	$label->SetName($name);
 	$label->sort_name($sortname);
-	$label->SetType($type);
+	$label->type($type);
 	$label->SetCountry($country);
 	$label->SetLabelCode($labelcode);
 	$label->SetBeginDate($begindate_str);

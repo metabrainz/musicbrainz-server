@@ -107,7 +107,7 @@ sub init_value {
     {
         return $item->GetName case ('name');
         return $item->sort_name case('sortname');
-        return $item->GetType case('artist_type');
+        return $item->type case('artist_type');
         return $item->GetBeginDate case('start');
         return $item->GetEndDate case('end');
         case('resolution') {
@@ -155,7 +155,7 @@ sub update_model {
         $moderation{artist} = $item;
         $moderation{name} = $self->value('name') || $item->GetName;
         $moderation{sortname} = $self->value('sortname') || $item->sort_name;
-        $moderation{artist_type} = $self->value('artist_type') || $item->GetType;
+        $moderation{artist_type} = $self->value('artist_type') || $item->type;
         $moderation{resolution} = $self->value('resolution') || $item->GetResolution;
 
         $moderation{begindate} = $begin;

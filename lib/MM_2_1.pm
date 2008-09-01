@@ -85,7 +85,7 @@ sub OutputArtistRDF
     $out .= $this->Element("dc:comment", $artist->GetResolution) if ($artist->GetResolution);
 
     $out .= $this->Element("mm:artistType", "", "rdf:resource", $this->GetMMNamespace() . 
-                                  "Type" . &MusicBrainz::Server::Artist::type_name($artist->GetType)) if ($artist->GetType);
+                                  "Type" . &MusicBrainz::Server::Artist::type_name($artist->type)) if ($artist->type);
     $out .= $this->OutputRelationships($ref->{_relationships})
         if (exists $ref->{_relationships});
 

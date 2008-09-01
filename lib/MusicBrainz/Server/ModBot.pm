@@ -115,14 +115,14 @@ sub CheckModerations
         my $level;
 		my $mod = $basemod->CreateFromId($row[0]);
 
-        if ($mod->GetType == &Moderation::MOD_CHANGE_RELEASE_QUALITY ||
-            $mod->GetType == &Moderation::MOD_CHANGE_ARTIST_QUALITY)
+        if ($mod->type == &Moderation::MOD_CHANGE_RELEASE_QUALITY ||
+            $mod->type == &Moderation::MOD_CHANGE_ARTIST_QUALITY)
         {
             $level = Moderation::GetQualityChangeDefs($mod->GetQualityChangeDirection);
         }
         else
         {
-            $level = Moderation::GetEditLevelDefs($mod->GetQuality, $mod->GetType);
+            $level = Moderation::GetEditLevelDefs($mod->GetQuality, $mod->type);
         }
 		if (!defined $level)
 		{

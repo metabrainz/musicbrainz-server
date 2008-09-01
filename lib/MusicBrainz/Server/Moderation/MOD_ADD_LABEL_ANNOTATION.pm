@@ -89,7 +89,7 @@ sub ApprovedAction
 
 	$an->SetModerator($self->GetModerator());
 	$an->SetModeration($self->GetId());
-	$an->SetType(LABEL_ANNOTATION);
+	$an->type(LABEL_ANNOTATION);
 	$an->SetLabel($self->GetRowId());
 	$an->SetText($text);
 	$an->SetChangeLog($changelog);

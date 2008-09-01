@@ -99,7 +99,7 @@ sub ApprovedAction
 
 	$an->SetModerator($self->GetModerator());
 	$an->SetModeration($self->GetId());
-	$an->SetType(TRACK_ANNOTATION);
+	$an->type(TRACK_ANNOTATION);
 	$an->SetTrack($self->GetRowId());
 	$an->SetText($text);
 	$an->SetChangeLog($changelog);

@@ -302,7 +302,7 @@ sub xml_artist
 	my ($ar, $inc, $info) = @_;
 
 	printf '<artist id="%s"', $ar->GetMBId;
-    printf ' type="%s"', &MusicBrainz::Server::Artist::type_name($ar->GetType()) if ($ar->GetType);
+    printf ' type="%s"', &MusicBrainz::Server::Artist::type_name($ar->type()) if ($ar->type);
     printf '><name>%s</name><sort-name>%s</sort-name>',
 		xml_escape($ar->GetName),
 		xml_escape($ar->sort_name);
@@ -626,9 +626,9 @@ sub xml_label
     my ($ar, $inc, $info) = @_;
 
     printf '<label id="%s"', $ar->GetMBId;
-    if ($ar->GetType)
+    if ($ar->type)
     {
-        my $name = &MusicBrainz::Server::Label::type_name($ar->GetType());
+        my $name = &MusicBrainz::Server::Label::type_name($ar->type());
         $name =~ s/(^|[^A-Za-z0-9])+([A-Za-z0-9]?)/uc $2/eg;
         printf ' type="%s"', $name;
     }
