@@ -544,7 +544,7 @@ sub track_count
 
 # Given an album, query the number of discids present in this album
 # Returns the number of discids or undef on error
-sub GetDiscidCount
+sub discid_count
 {
    my ($this) = @_;
    my ($sql);
@@ -559,7 +559,7 @@ sub GetDiscidCount
 }
 
 # Returns the number of TRM ids for this album or undef on error
-sub GetTrmidCount
+sub trmid_count
 {
    my ($this) = @_;
    my ($sql);
@@ -573,7 +573,7 @@ sub GetTrmidCount
    return $this->{trmidcount};
 }
 # Returns the number of PUIDs for this album or undef on error
-sub GetPuidCount
+sub puid_count
 {
    my ($this) = @_;
    my ($sql);

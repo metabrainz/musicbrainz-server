@@ -123,14 +123,25 @@ sub Country
 	$c;
 }
 
-sub GetCatNo	{ $_[0]{catno} }
-sub SetCatNo	{ $_[0]{catno} = $_[1] }
+sub cat_no
+{
+    my ($self, $new_cat_no) = @_;
 
-sub GetBarcode	{ $_[0]{barcode} }
-sub SetBarcode	{ $_[0]{barcode} = $_[1] }
+    if (defined $new_cat_no) { $self->{catno} = $new_cat_no; }
+    return $self->{catno};
+}
+
+sub barcode
+{
+    my ($self, $new_barcode) = @_;
+
+    if (defined $new_barcode) { $self->{barcode} = $new_barcode; }
+    return $self->{barcode};
+}
 
 sub GetLabel	{ $_[0]{label} }
 sub SetLabel	{ $_[0]{label} = $_[1] }
+
 sub Label
 {
 	my $self = shift;
@@ -139,11 +150,18 @@ sub Label
 	$c->LoadFromId or return undef;
 	$c;
 }
+
 # This doesn't have to always contain the actual label name. Use it
 # only on instances loaded by newFromRelease.
-sub GetLabelName	{ $_[0]{labelname} }
-sub SetLabelName	{ $_[0]{labelname} = $_[1] }
-sub GetLabelMBId	{ $_[0]{labelgid} }
+sub label_name
+{
+    my ($self, $new_name) = @_;
+
+    if (defined $new_name) { $self->{labelname} = $new_name; }
+    return $self->{labelname};
+}
+
+sub label_mbid	{ $_[0]{labelgid} }
 
 sub GetFormat		{ $_[0]{format} }
 sub SetFormat		{ $_[0]{format} = $_[1] }
@@ -240,8 +258,8 @@ sub InsertSelf
 		$self->country,
 		$self->GetSortDate,
 		$self->GetLabel || undef,
-		$self->GetCatNo || undef,
-		$self->GetBarcode || undef,
+		$self->cat_no || undef,
+		$self->barcode || undef,
 		$self->GetFormat || undef,
 	);
 	$self->SetId($sql->GetLastInsertId("release"));
@@ -254,16 +272,16 @@ sub Update
 	$self->country($new{"country"});
 	$self->SetSortDate($new{"date"});
 	$self->SetLabel($new{"label"});
-	$self->SetCatNo($new{"catno"});
-	$self->SetBarcode($new{"barcode"});
+	$self->cat_no($new{"catno"});
+	$self->barcode($new{"barcode"});
 	$self->SetFormat($new{"format"});
 	$sql->Do(
 		"UPDATE release SET country = ?, releasedate = ?, label = ?, catno = ?, barcode = ?, format = ? WHERE id = ?",
 		$self->country,
 		$self->GetSortDate,
 		$self->GetLabel || undef,
-		$self->GetCatNo || undef,
-		$self->GetBarcode || undef,
+		$self->cat_no || undef,
+		$self->barcode || undef,
 		$self->GetFormat || undef,
 		$self->GetId,
 	);

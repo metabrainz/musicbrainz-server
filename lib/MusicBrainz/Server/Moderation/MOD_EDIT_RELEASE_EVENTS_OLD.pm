@@ -78,8 +78,8 @@ sub PreInsert
 			$row->country,
 			$row->GetId,
 			$row->GetLabel,
-			_EncodeText($row->GetCatNo),
-			_EncodeText($row->GetBarcode),
+			_EncodeText($row->cat_no),
+			_EncodeText($row->barcode),
 			$row->GetFormat;
 	}
 	
@@ -94,23 +94,23 @@ sub PreInsert
 			$obj->country,
 			$obj->GetId,
 			$obj->GetLabel,
-			_EncodeText($obj->GetCatNo),
-			_EncodeText($obj->GetBarcode),
+			_EncodeText($obj->cat_no),
+			_EncodeText($obj->barcode),
 			$obj->GetFormat;
 
 		$obj->country($row->{"country"});
 		$obj->SetYMD(@$row{qw( year month day )});
 		$obj->SetLabel($row->{label});
-		$obj->SetCatNo($row->{catno});
-		$obj->SetBarcode($row->{barcode});
+		$obj->cat_no($row->{catno});
+		$obj->barcode($row->{barcode});
 		$obj->SetFormat($row->{format});
 
 		my $new = sprintf "nd=%s nc=%d nl=%d nn=%s nb=%s nf=%d",
 			$obj->GetSortDate,
 			$obj->country,
 			$obj->GetLabel,
-			_EncodeText($obj->GetCatNo),
-			_EncodeText($obj->GetBarcode),
+			_EncodeText($obj->cat_no),
+			_EncodeText($obj->barcode),
 			$obj->GetFormat;
 
 		$new{"edit".$i++} = "$old $new";
@@ -125,8 +125,8 @@ sub PreInsert
 			$row->country,
 			$row->GetId,
 			$row->GetLabel,
-			_EncodeText($row->GetCatNo),
-			_EncodeText($row->GetBarcode),
+			_EncodeText($row->cat_no),
+			_EncodeText($row->barcode),
 			$row->GetFormat;
 	}
 
@@ -310,8 +310,8 @@ sub ApprovedAction
 		if ($r->country != $t->{'c'}
 			or $r->GetSortDate ne $t->{'d'}
 			or $r->GetLabel != $t->{'l'}
-			or $r->GetCatNo ne $t->{'n'}
-			or $r->GetBarcode ne $t->{'b'}
+			or $r->cat_no ne $t->{'n'}
+			or $r->barcode ne $t->{'b'}
 			or $r->GetFormat != $t->{'f'})
 		{
 			push @notes, "$display has already been changed";

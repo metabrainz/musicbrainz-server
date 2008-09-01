@@ -463,16 +463,16 @@ sub xml_release_events
 			print '" country="'; 
 			print ($c ? $c->GetISOCode : "?");
 			print '"';
-			printf ' catalog-number="%s"', xml_escape($rel->GetCatNo) if $rel->GetCatNo;
-			printf ' barcode="%s"', xml_escape($rel->GetBarcode) if $rel->GetBarcode;
+			printf ' catalog-number="%s"', xml_escape($rel->cat_no) if $rel->cat_no;
+			printf ' barcode="%s"', xml_escape($rel->barcode) if $rel->barcode;
 			printf ' format="%s"', xml_escape($formatNames{$rel->GetFormat}) if $rel->GetFormat;
 			if (($inc & INC_LABELS) && $rel->GetLabel)
 			{
 				print '>';
 				my $label = MusicBrainz::Server::Label->new($rel->{DBH});
 				$label->SetId($rel->GetLabel);
-				$label->SetMBId($rel->GetLabelMBId);
-				$label->SetName($rel->GetLabelName);
+				$label->SetMBId($rel->label_mbid);
+				$label->SetName($rel->label_name);
 				xml_label($label, $inc);
 				print '</event>';
 			}

@@ -618,8 +618,8 @@ TRACK:
 		$rel->SetYMD(@ymd);
 		$rel->country($release->{country});
 		$rel->SetLabel($release->{label});
-		$rel->SetCatNo($release->{catno});
-		$rel->SetBarcode($release->{barcode});
+		$rel->cat_no($release->{catno});
+		$rel->barcode($release->{barcode});
 		$rel->SetFormat($release->{format});
 		$rel->InsertSelf();
 

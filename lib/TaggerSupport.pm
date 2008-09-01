@@ -523,8 +523,8 @@ sub AlbumSearch
                         name=>$al->GetName(),
                         mbid=>$al->GetMBId(),
                         album_tracks=>$al->track_count(),
-                        album_discids=>$al->GetDiscidCount(),
-                        album_trmids=>$al->GetTrmidCount(),
+                        album_discids=>$al->discid_count(),
+                        album_trmids=>$al->trmid_count(),
                         albumtype=>$albumtype});
            $this->{album} = $al if (scalar(@ids) == 1);
            $this->{album} = undef if (scalar(@ids) > 1);
@@ -569,8 +569,8 @@ sub AlbumSearch
                         name=>$al->GetName(),
                         mbid=>$al->GetMBId(),
                         album_tracks=>$al->track_count(),
-                        album_discids=>$al->GetDiscidCount(),
-                        album_trmids=>$al->GetTrmidCount(),
+                        album_discids=>$al->discid_count(),
+                        album_trmids=>$al->trmid_count(),
                         albumtype=>$albumtype});
            $this->{fuzzy} = 1;
        }
