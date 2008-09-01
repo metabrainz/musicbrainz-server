@@ -45,7 +45,7 @@ sub PreInsert
 	$self->SetNew(0+$newseq);
 	$self->table("albumjoin");
 	$self->SetColumn("sequence");
-	$self->SetRowId($track->GetSequenceId);
+	$self->row_id($track->GetSequenceId);
 }
 
 sub PostLoad
@@ -56,7 +56,7 @@ sub PostLoad
 	require MusicBrainz::Server::Track;
 	my $track = MusicBrainz::Server::Track->new($self->{DBH});
 	
-	if ($self->{'trackexists'} = $track->LoadFromAlbumJoin($self->GetRowId))
+	if ($self->{'trackexists'} = $track->LoadFromAlbumJoin($self->row_id))
 	{
 		$self->{'trackid'} = $track->GetId;
 		$self->{'trackname'} = $track->GetName;
@@ -104,7 +104,7 @@ sub ApprovedAction
 
 	require MusicBrainz::Server::Track;
 	my $track = MusicBrainz::Server::Track->new($this->{DBH});
-	unless ($track->LoadFromAlbumJoin($this->GetRowId))
+	unless ($track->LoadFromAlbumJoin($this->row_id))
 	{
 		$this->InsertNote(MODBOT_MODERATOR, "This track has been deleted");
 		return STATUS_FAILEDPREREQ;

@@ -90,13 +90,13 @@ sub PreInsert
 	$self->SetNew($self->ConvertHashToNew(\%new));
 	$self->table("url");
 	$self->SetColumn("url");
-	$self->SetRowId($urlobj->GetId);
+	$self->row_id($urlobj->GetId);
 }
 
 sub PostLoad
 {
 	my $self = shift;
-	$self->{'_urlobj'} = MusicBrainz::Server::URL->newFromId($self->{DBH}, $self->GetRowId);
+	$self->{'_urlobj'} = MusicBrainz::Server::URL->newFromId($self->{DBH}, $self->row_id);
 	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->GetNew()) or die;
 	$self->{'prev_unpacked'} = $self->ConvertNewToHash($self->GetPrev()) or die;
 }

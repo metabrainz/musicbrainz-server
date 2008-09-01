@@ -95,7 +95,7 @@ sub PreInsert
 
 	$self->table($link->Table);
 	$self->SetColumn("id");
-	$self->SetRowId($link->GetId);
+	$self->row_id($link->GetId);
 
 	my %new = (
 	    linkid=>$link->GetId,

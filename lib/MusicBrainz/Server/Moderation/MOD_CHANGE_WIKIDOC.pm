@@ -53,7 +53,7 @@ sub PreInsert
 	$self->SetNew($self->ConvertHashToNew(\%new));
 	$self->table("artist");
 	$self->SetColumn("name");
-	$self->SetRowId(VARTIST_ID);
+	$self->row_id(VARTIST_ID);
 }
 
 sub PostLoad

@@ -57,7 +57,7 @@ sub PreInsert
 	$self->SetArtist(DARTIST_ID);
 	$self->table($node->{_table}); # FIXME internal field
 	$self->SetColumn("name");
-	$self->SetRowId($node->GetId);
+	$self->row_id($node->GetId);
 	$self->SetPrev($node->GetName);
 
 	my %new = (

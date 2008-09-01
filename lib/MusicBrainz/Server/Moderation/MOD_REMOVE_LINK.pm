@@ -54,7 +54,7 @@ sub PreInsert
 	}
 	$self->table($link->Table);
 	$self->SetColumn("id");
-	$self->SetRowId($link->GetId);
+	$self->row_id($link->GetId);
 
 	require MusicBrainz::Server::LinkType;
 	my $linktype = MusicBrainz::Server::LinkType->newFromPackedTypes($self->{DBH}, $types->[0].'-'.$types->[1]);

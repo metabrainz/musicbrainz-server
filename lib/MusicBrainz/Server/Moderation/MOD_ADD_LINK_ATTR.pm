@@ -57,7 +57,7 @@ sub PreInsert
 	$self->SetArtist(DARTIST_ID);
 	$self->table($parent->{_table});
 	$self->SetColumn("name");
-	$self->SetRowId($child->GetId);
+	$self->row_id($child->GetId);
 
 	my %new = (
 		parent	   => $parent->GetMBId,
@@ -86,7 +86,7 @@ sub DeniedAction
 	my $link = MusicBrainz::Server::LinkAttr->new(
 		$self->{DBH},
 	);
-	my $child = $link->newFromId($self->GetRowId);
+	my $child = $link->newFromId($self->row_id);
 
 	if ($child->InUse)
 	{

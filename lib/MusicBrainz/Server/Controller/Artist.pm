@@ -238,7 +238,7 @@ sub create : Local
             # the new artist
             my $addmod = grep { $_->Type eq ModDefs::MOD_ADD_ARTIST } @$mods;
 
-            $c->detach('/artist/show', $addmod->GetRowId)
+            $c->detach('/artist/show', $addmod->row_id)
                 if $addmod;
         }
     }

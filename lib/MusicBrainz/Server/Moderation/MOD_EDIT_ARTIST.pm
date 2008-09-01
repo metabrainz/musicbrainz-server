@@ -121,7 +121,7 @@ sub PreInsert
 	$self->SetNew($self->ConvertHashToNew(\%new));
 	$self->table("artist");
 	$self->SetColumn("name");
-	$self->SetRowId($ar->GetId);
+	$self->row_id($ar->GetId);
 }
 
 # Specialized version of MusicBrainz::Server::Validation::MakeDBDateStr:
@@ -192,7 +192,7 @@ sub CheckPrerequisites
 	my $new = $self->{'new_unpacked'};
 	my $prev = $self->{'prev_unpacked'};
 
-	my $artist_id = $self->GetRowId();
+	my $artist_id = $self->row_id();
 
 	if ($artist_id == VARTIST_ID or $artist_id == DARTIST_ID)
 	{

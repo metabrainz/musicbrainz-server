@@ -48,14 +48,12 @@ sub table
     return $self->{table};
 }
 
-sub GetRowId
+sub row_id
 {
-   return $_[0]->{rowid};
-}
+    my ($self, $new_row_id) = @_;
 
-sub SetRowId
-{
-   $_[0]->{rowid} = $_[1];
+    if (defined $new_row_id) { $self->{rowid} = $new_row_id; }
+    return $self->{rowid};
 }
 
 sub GetLastUsed
@@ -155,7 +153,7 @@ sub UpdateName
 	my $name = $self->GetName;
 	defined($name) && $name ne ""
 		or croak "Missing alias name in UpdateName";
-	my $rowid = $self->GetRowId
+	my $rowid = $self->row_id
 		or croak "Missing row ID in UpdateName";
 
     MusicBrainz::Server::Validation::TrimInPlace($name);
@@ -325,7 +323,7 @@ sub LoadFull
            $alias->{table} = $this->{table};
            $alias->SetId($row[0]);
            $alias->SetName($row[1]);
-           $alias->SetRowId($row[2]);
+           $alias->row_id($row[2]);
            $alias->SetLastUsed($row[3]);
            $alias->SetTimesUsed($row[4]);
            push @info, $alias;
@@ -353,9 +351,9 @@ sub Parent
     my $parentclass = $this->ParentClass;
     eval "require $parentclass; 1" or die $@;
     my $parent = $parentclass->new($this->{DBH});
-    $parent->SetId($this->GetRowId);
+    $parent->SetId($this->row_id);
     $parent->LoadFromId
-        or die "Couldn't load $parentclass #" . $this->GetRowId;
+        or die "Couldn't load $parentclass #" . $this->row_id;
     $parent;
 }
 

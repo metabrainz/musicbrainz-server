@@ -73,7 +73,7 @@ sub PreInsert
 	$self->SetArtist(DARTIST_ID);
 	$self->table($node->{_table}); # FIXME internal field
 	$self->SetColumn("name");
-	$self->SetRowId($node->GetId);
+	$self->row_id($node->GetId);
 	$self->SetPrev($node->GetName);
 
 	my %new = (
@@ -132,7 +132,7 @@ sub DeniedAction
 		$self->{'new_unpacked'}{'types'},
 	);
 
-	my $node = $link->newFromId($self->GetRowId);
+	my $node = $link->newFromId($self->row_id);
 	if (not $node)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This link type has been deleted");

@@ -68,7 +68,7 @@ sub PreInsert
 	$self->SetArtist($into->GetArtist);
 	$self->table("album");
 	$self->SetColumn("id");
-	$self->SetRowId($into->GetId);
+	$self->row_id($into->GetId);
 	$self->SetNew($self->ConvertHashToNew(\%new));
 }
 
@@ -150,7 +150,7 @@ sub AdjustModPending
 	my $al = MusicBrainz::Server::Release->new($self->{DBH});
 
 	# Prior to the ModerationClasses2 branch, the "mod pending" change would
-	# only be applied to the album listed in $self->GetRowId, i.e. the target
+	# only be applied to the album listed in $self->row_id, i.e. the target
 	# of the merge (here referred to as the "into" album).
 	# Now though we apply the modpending change to all affected albums.
 

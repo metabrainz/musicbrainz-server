@@ -52,7 +52,7 @@ sub PreInsert
 	$self->SetNew($self->ConvertHashToNew(\%new));
 	$self->table('album');
 	$self->SetColumn('annotation.text');
-	$self->SetRowId($albumid);
+	$self->row_id($albumid);
 }
 
 sub IsAutoEdit 
@@ -64,7 +64,7 @@ sub PostLoad
 {
 	my $self = shift;
 		
-	($self->{"albumid"}, $self->{"checkexists-album"}) = ($self->GetRowId, 1);
+	($self->{"albumid"}, $self->{"checkexists-album"}) = ($self->row_id, 1);
 } 
 
 sub PreDisplay
@@ -98,7 +98,7 @@ sub ApprovedAction
 	$an->SetModerator($self->GetModerator());
 	$an->SetModeration($self->GetId());
 	$an->type(RELEASE_ANNOTATION);
-	$an->SetRelease($self->GetRowId());
+	$an->SetRelease($self->row_id());
 	$an->SetText($text);
 	$an->SetChangeLog($changelog);
 	$an->Insert();

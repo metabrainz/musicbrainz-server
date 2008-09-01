@@ -102,7 +102,7 @@ sub PreInsert
 		(my $albummodid) = $sql->SelectSingleValue(
 			"SELECT id FROM moderation_open WHERE type = " 
 			. &ModDefs::MOD_ADD_RELEASE
-			. " AND rowid = ?", $self->GetRowId,
+			. " AND rowid = ?", $self->row_id,
 		);
 		$new{'Dep0'} = $albummodid if ($albummodid);
 	}
@@ -149,7 +149,7 @@ sub PreInsert
 	$self->table("track");
 	$self->SetColumn("name");
 	$self->SetArtist($artistid); # use track artist (or release artist if no track artist)
-	$self->SetRowId($newtrackid);
+	$self->row_id($newtrackid);
 	$self->SetPrev($release->GetName);
 	$self->SetNew($self->ConvertHashToNew(\%new));
 }

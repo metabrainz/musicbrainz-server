@@ -75,7 +75,7 @@ sub PreInsert
 	$self->SetArtist(DARTIST_ID);
 	$self->table($parent->{_table}); # FIXME internal field
 	$self->SetColumn("name");
-	$self->SetRowId($child->GetId);
+	$self->row_id($child->GetId);
 
 	my %new = (
 		types			=> $parent->PackTypes,
@@ -111,7 +111,7 @@ sub DeniedAction
 		$self->{DBH},
 		$new->{'types'},
 	);
-	my $child = $link->newFromId($self->GetRowId);
+	my $child = $link->newFromId($self->row_id);
 
 	if ($child->InUse)
 	{

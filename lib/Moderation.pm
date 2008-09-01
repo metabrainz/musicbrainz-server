@@ -751,14 +751,12 @@ sub SetColumn
    $_[0]->{column} = $_[1];
 }
 
-sub GetRowId
+sub row_id
 {
-   return $_[0]->{rowid};
-}
+    my ($self, $new_id) = @_;
 
-sub SetRowId
-{
-   $_[0]->{rowid} = $_[1];
+    if (defined $new_id) { $self->{rowid} = $new_id; }
+    return $self->{rowid};
 }
 
 sub GetDepMod
@@ -905,7 +903,7 @@ sub CreateFromId
 			$edit->SetId($row[0]);
 			$edit->table($row[1]);
 			$edit->SetColumn($row[2]);
-			$edit->SetRowId($row[3]);
+			$edit->row_id($row[3]);
 			$edit->SetArtist($row[4]);
 			$edit->type($row[5]);
 			$edit->SetPrev($row[6]);
@@ -1110,7 +1108,7 @@ sub InsertModeration
 		$this->SetArtist(&ModDefs::VARTIST_ID);
 		$this->table("");
 		$this->SetColumn("");
-		$this->SetRowId(0);
+		$this->row_id(0);
 		$this->SetDepMod(0);
 		$this->SetPrev("");
 		$this->SetNew("");
@@ -1157,7 +1155,7 @@ sub InsertModeration
                 ?,
                 ?, NOW() + INTERVAL ?, 0, 0, 0, ?
             )",
-            $this->table, $this->GetColumn, $this->GetRowId,
+            $this->table, $this->GetColumn, $this->row_id,
             $this->GetPrev, $this->GetNew,
             $this->GetModerator, $this->GetArtist, $this->type,
             $this->GetDepMod,
@@ -1358,7 +1356,7 @@ sub GetModerationList
 		$edit->SetColumn($r->{col});
 		$edit->type($r->{type});
 		$edit->SetStatus($r->{status});
-		$edit->SetRowId($r->{rowid});
+		$edit->row_id($r->{rowid});
 		$edit->SetPrev($r->{prevvalue});
 		$edit->SetNew($r->{newvalue});
 		$edit->SetYesVotes($r->{yesvotes});
@@ -1951,7 +1949,7 @@ sub AdjustModPending
 		$sql->Do(
 			"UPDATE $table SET modpending = modpending + ? WHERE id = ?",
 			$adjust,
-			$this->GetRowId,
+			$this->row_id,
 		);
 	}
 }

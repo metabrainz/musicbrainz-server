@@ -49,7 +49,7 @@ sub PreInsert
 	$self->SetNew($newname);
 	$self->table("artist");
 	$self->SetColumn("name");
-	$self->SetRowId($ar->GetId);
+	$self->row_id($ar->GetId);
 
     # We used to perform a duplicate artist check here, but that has been removed.
 }
@@ -78,7 +78,7 @@ sub CheckPrerequisites
 {
 	my $self = shift;
 
-	my $rowid = $self->GetRowId;
+	my $rowid = $self->row_id;
 
 	if ($rowid == VARTIST_ID or $rowid == DARTIST_ID)
 	{

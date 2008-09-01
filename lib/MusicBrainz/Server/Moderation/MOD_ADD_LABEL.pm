@@ -122,7 +122,7 @@ sub PreInsert
 
 	$self->table('label');
 	$self->SetColumn('name');
-	$self->SetRowId($labelid);
+	$self->row_id($labelid);
 	$self->SetNew($self->ConvertHashToNew(\%new));
 }
 
@@ -151,7 +151,7 @@ sub ShowModTypeDelegate
 {
 	my ($self, $m) = @_;
 	$m->out('<tr class="entity"><td class="lbl">Label:</td><td>');
-	my $id = $self->GetRowId;
+	my $id = $self->row_id;
 	require MusicBrainz::Server::Label;
 	my $label = MusicBrainz::Server::Label->new($self->{DBH});
 	$label->SetId($id);

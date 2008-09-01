@@ -43,7 +43,7 @@ sub PreInsert
 
 	$self->table("puidjoin");
 	$self->SetColumn("id");
-	$self->SetRowId($puidjoinid);
+	$self->row_id($puidjoinid);
 	$self->SetArtist($track->GetArtist);
 	$self->SetPrev($puid);
 
@@ -63,7 +63,7 @@ sub PreInsert
 	# then undo the mod later if it's rejected.
 	require MusicBrainz::Server::PUID;
 	my $t = MusicBrainz::Server::PUID->new($self->{DBH});
-	$t->RemovePUIDByPUIDJoin($self->GetRowId);
+	$t->RemovePUIDByPUIDJoin($self->row_id);
 }
 
 sub PostLoad

@@ -54,7 +54,7 @@ sub PreInsert
 	$self->table("album");
 	$self->SetColumn("artist");
 	$self->SetArtist($release->GetArtist);
-	$self->SetRowId($release->GetId);
+	$self->row_id($release->GetId);
 	$self->SetPrev($artist->GetName);
 	$self->SetNew($new);
 }
@@ -75,7 +75,7 @@ sub PostLoad
 	}
 	
 	# verify if release still exists in Moderation.ShowModType method.
-	($this->{"albumid"}, $this->{"checkexists-album"}) = ($this->GetRowId, 1);			
+	($this->{"albumid"}, $this->{"checkexists-album"}) = ($this->row_id, 1);			
 }
 
 sub DetermineQuality
@@ -123,7 +123,7 @@ sub PreDisplay
 	# load album name
 	require MusicBrainz::Server::Release;
 	my $release = MusicBrainz::Server::Release->new($this->{DBH});
-	$release->SetId($this->GetRowId);
+	$release->SetId($this->row_id);
 	if ($release->LoadFromId)
 	{
 		$this->{'albumname'} = $release->GetName;
@@ -204,7 +204,7 @@ sub ApprovedAction
 	# Check album is still where it used to be
 	$sql->SelectSingleValue(
 		"SELECT 1 FROM album WHERE id = ? AND artist = ?",
-		$this->GetRowId,
+		$this->row_id,
 		$this->GetArtist,
 	) or do {
 		$this->InsertNote(MODBOT_MODERATOR, "This release has already been deleted or moved");
@@ -247,7 +247,7 @@ sub ApprovedAction
 	if ($this->{'new.movetracks'}) 
 	{
 		if ($sql->Select("SELECT track FROM albumjoin WHERE album = ?",
-				$this->GetRowId))
+				$this->row_id))
 		{
 			while (my @row = $sql->NextRow)
 			{
@@ -266,7 +266,7 @@ sub ApprovedAction
 	$sql->Do(
 		"UPDATE album SET artist = ? WHERE id = ?",
 		$newid,
-		$this->GetRowId,
+		$this->row_id,
 	);
 
 	STATUS_APPLIED;

@@ -52,7 +52,7 @@ sub PreInsert
 	$self->SetNew($self->ConvertHashToNew(\%new));
 	$self->table('track');
 	$self->SetColumn('annotation.text');
-	$self->SetRowId($trackid);
+	$self->row_id($trackid);
 }
 
 sub IsAutoEdit 
@@ -64,7 +64,7 @@ sub PostLoad
 {
 	my $self = shift;
 		
-	($self->{"trackid"}, $self->{"checkexists-track"}) = ($self->GetRowId, 1);
+	($self->{"trackid"}, $self->{"checkexists-track"}) = ($self->row_id, 1);
 } 
 
 sub PreDisplay
@@ -100,7 +100,7 @@ sub ApprovedAction
 	$an->SetModerator($self->GetModerator());
 	$an->SetModeration($self->GetId());
 	$an->type(TRACK_ANNOTATION);
-	$an->SetTrack($self->GetRowId());
+	$an->SetTrack($self->row_id());
 	$an->SetText($text);
 	$an->SetChangeLog($changelog);
 	$an->Insert();

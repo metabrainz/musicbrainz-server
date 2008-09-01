@@ -51,7 +51,7 @@ sub PreInsert
 	$self->SetNew($self->ConvertHashToNew(\%new));
 	$self->table('artist');
 	$self->SetColumn('annotation.text');
-	$self->SetRowId($artistid);
+	$self->row_id($artistid);
 }
 
 sub IsAutoEdit 
@@ -90,7 +90,7 @@ sub ApprovedAction
 	$an->SetModerator($self->GetModerator());
 	$an->SetModeration($self->GetId());
 	$an->type(ARTIST_ANNOTATION);
-	$an->SetArtist($self->GetRowId());
+	$an->SetArtist($self->row_id());
 	$an->SetText($text);
 	$an->SetChangeLog($changelog);
 	$an->Insert();

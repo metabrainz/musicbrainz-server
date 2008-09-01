@@ -73,7 +73,7 @@ sub PreInsert
 
 	$self->table("album_cdtoc");
 	$self->SetColumn("album");
-	$self->SetRowId($alcdtoc->GetId);
+	$self->row_id($alcdtoc->GetId);
 	$self->SetArtist($oldrelease->GetArtist);
 	$self->SetPrev($cdtoc->GetDiscID);
 
@@ -125,7 +125,7 @@ sub AdjustModPending
 	$sql->Do(
 		"UPDATE album_cdtoc SET modpending = modpending + ? WHERE id = ?",
 		$adjust,
-		$self->GetRowId,
+		$self->row_id,
 	);
 }
 
@@ -135,7 +135,7 @@ sub ApprovedAction
 
 	require MusicBrainz::Server::ReleaseCDTOC;
 
-	my $alcdtoc = MusicBrainz::Server::ReleaseCDTOC->newFromId($self->{DBH}, $self->GetRowId);
+	my $alcdtoc = MusicBrainz::Server::ReleaseCDTOC->newFromId($self->{DBH}, $self->row_id);
 	if (not $alcdtoc)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This disc ID has already been removed");

@@ -275,7 +275,7 @@ sub PreInsert
 	}
 
 	$self->SetArtist($new{_artistid} = $info{_artistid} or die);
-	$self->SetRowId($new{_albumid} = $info{_albumid} or die);
+	$self->row_id($new{_albumid} = $info{_albumid} or die);
 
 	# Add a dependency on a pending MOD_ADD_ARTIST if there is one
 

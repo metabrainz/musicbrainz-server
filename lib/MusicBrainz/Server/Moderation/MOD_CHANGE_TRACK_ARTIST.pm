@@ -45,7 +45,7 @@ sub PreInsert
 
 	$self->table("track");
 	$self->SetColumn("artist");
-	$self->SetRowId($tr->GetId);
+	$self->row_id($tr->GetId);
 	$self->SetArtist($ar->GetId);
 	$self->SetPrev($ar->GetName);
 	$self->SetNew($sortname . "\n" . $name . "\n" . $newartistid);
@@ -113,7 +113,7 @@ sub PreDisplay
 
 	# set trackid for ShowModType, checkexists is set to 0,
 	# because we'll check that in the next couple of lines.
-	$this->{"trackid"} = $this->GetRowId;
+	$this->{"trackid"} = $this->row_id;
 	$this->{"exists-track"} = 0;
 	$this->{"checkexists-track"} = 0;
 	
@@ -183,7 +183,7 @@ sub CheckPrerequisites
 {
 	my $self = shift;
 
-	my $rowid = $self->GetRowId;
+	my $rowid = $self->row_id;
 
 	# Load the track by ID
 	require MusicBrainz::Server::Track;
@@ -244,7 +244,7 @@ sub ApprovedAction
 
 	require MusicBrainz::Server::Track;
 	my $track = MusicBrainz::Server::Track->new($this->{DBH});
-	$track->SetId($this->GetRowId);
+	$track->SetId($this->row_id);
 	$track->SetArtist($artistid);
 	$track->UpdateArtist
 		or die "Failed to update track in MOD_CHANGE_TRACK_ARTIST";

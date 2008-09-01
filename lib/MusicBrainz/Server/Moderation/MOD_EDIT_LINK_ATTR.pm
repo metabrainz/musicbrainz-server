@@ -57,7 +57,7 @@ sub PreInsert
 	$self->SetArtist(DARTIST_ID);
 	$self->table($node->{_table});
 	$self->SetColumn("name");
-	$self->SetRowId($node->GetId);
+	$self->row_id($node->GetId);
 	my $prev = $node->GetName . " (" . $node->GetDescription . ")";
     $prev = substr($prev, 0, 251) . " ..." if (length($prev) > 255);
 	$self->SetPrev($prev);
@@ -99,7 +99,7 @@ sub DeniedAction
 		$self->{DBH},
 	);
 
-	my $node = $link->newFromId($self->GetRowId);
+	my $node = $link->newFromId($self->row_id);
 	if (not $node)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This link attribute has been deleted");

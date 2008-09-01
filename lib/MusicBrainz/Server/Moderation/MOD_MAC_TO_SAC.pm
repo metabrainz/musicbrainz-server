@@ -54,7 +54,7 @@ sub PreInsert
 	$self->table("album");
 	$self->SetColumn("artist");
 	$self->SetArtist($al->GetArtist);
-	$self->SetRowId($al->GetId);
+	$self->row_id($al->GetId);
 	$self->SetNew($new);
 }
 
@@ -75,7 +75,7 @@ sub PostLoad
 
 	# attempt to load the release entitiy from the value
 	# stored in this edit type. (@see Moderation::ShowModType)
-	($self->{"albumid"}, $self->{"checkexists-album"}) = ($self->GetRowId, 1);  
+	($self->{"albumid"}, $self->{"checkexists-album"}) = ($self->row_id, 1);  
 }
 
 sub DetermineQuality
@@ -116,7 +116,7 @@ sub PreDisplay
 	# load album name
 	require MusicBrainz::Server::Release;
 	my $al = MusicBrainz::Server::Release->new($this->{DBH});
-	$al->SetId($this->GetRowId);
+	$al->SetId($this->row_id);
 	if ($al->LoadFromId)
 	{
 		$this->{'albumname'} = $al->GetName;
@@ -146,7 +146,7 @@ sub CheckPrerequisites
 {
 	my $self = shift;
 
-	my $rowid = $self->GetRowId;
+	my $rowid = $self->row_id;
 
 	# Load the album by ID
 	require MusicBrainz::Server::Release;
@@ -216,7 +216,7 @@ sub ApprovedAction
     if ($movetracks)
     {
         if ($sql->Select("SELECT track FROM albumjoin WHERE album = ?",
-                $this->GetRowId))
+                $this->row_id))
         {
             while (my @row = $sql->NextRow)
             {
@@ -235,7 +235,7 @@ sub ApprovedAction
 	$sql->Do(
 		"UPDATE album SET artist = ? WHERE id = ?",
 		$newid,
-		$this->GetRowId,
+		$this->row_id,
 	) or die "Failed to update artist in MOD_MAC_TO_SAC";
 
 	STATUS_APPLIED;

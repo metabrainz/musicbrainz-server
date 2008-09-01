@@ -65,7 +65,7 @@ sub PreInsert
 	);
 	$self->table("album");
 	$self->SetColumn("id");
-	$self->SetRowId($albums->[0]->GetId); # misleading
+	$self->row_id($albums->[0]->GetId); # misleading
 	$self->SetNew($self->ConvertHashToNew(\%new));
 }
 

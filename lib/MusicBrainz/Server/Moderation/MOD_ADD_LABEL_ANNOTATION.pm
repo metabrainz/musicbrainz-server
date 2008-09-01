@@ -50,7 +50,7 @@ sub PreInsert
 	$self->SetNew($self->ConvertHashToNew(\%new));
 	$self->table('label');
 	$self->SetColumn('annotation.text');
-	$self->SetRowId($labelid);
+	$self->row_id($labelid);
 }
 
 sub IsAutoEdit 
@@ -90,7 +90,7 @@ sub ApprovedAction
 	$an->SetModerator($self->GetModerator());
 	$an->SetModeration($self->GetId());
 	$an->type(LABEL_ANNOTATION);
-	$an->SetLabel($self->GetRowId());
+	$an->SetLabel($self->row_id());
 	$an->SetText($text);
 	$an->SetChangeLog($changelog);
 	$an->Insert();
@@ -102,7 +102,7 @@ sub ShowModTypeDelegate
 {
 	my ($self, $m) = @_;
 	$m->out('<tr class="entity"><td class="lbl">Label:</td><td>');
-	my $id = $self->GetRowId;
+	my $id = $self->row_id;
 	require MusicBrainz::Server::Label;
 	my $label = MusicBrainz::Server::Label->new($self->{DBH});
 	$label->SetId($id);

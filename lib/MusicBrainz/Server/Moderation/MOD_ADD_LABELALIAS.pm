@@ -45,7 +45,7 @@ sub PreInsert
 	$self->SetNew($newalias);
 	$self->table("label");
 	$self->SetColumn("name");
-	$self->SetRowId($ar->GetId);
+	$self->row_id($ar->GetId);
 }
 
 sub CheckPrerequisites
@@ -55,7 +55,7 @@ sub CheckPrerequisites
 	# Check that the referenced label is still around
 	require MusicBrainz::Server::Label;
 	my $ar = MusicBrainz::Server::Label->new($self->{DBH});
-	$ar->SetId($self->GetRowId);
+	$ar->SetId($self->row_id);
 	unless ($ar->LoadFromId)
 	{
 		$self->InsertNote(
@@ -86,7 +86,7 @@ sub ApprovedAction
 	$al->table("LabelAlias");
 
 	my $other;
-	if ($al->Insert($self->GetRowId, $self->GetNew, \$other, 1))
+	if ($al->Insert($self->row_id, $self->GetNew, \$other, 1))
 	{
 		return STATUS_APPLIED;
 	}
@@ -102,7 +102,7 @@ sub ShowModTypeDelegate
 {
 	my ($self, $m) = @_;
 	$m->out('<tr class="entity"><td class="lbl">Label:</td><td>');
-	my $id = $self->GetRowId;
+	my $id = $self->row_id;
 	require MusicBrainz::Server::Label;
 	my $label = MusicBrainz::Server::Label->new($self->{DBH});
 	$label->SetId($id);

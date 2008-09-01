@@ -43,14 +43,14 @@ sub PreInsert
 	$self->SetPrev($ar->GetName);
 	$self->table("label");
 	$self->SetColumn("name");
-	$self->SetRowId($ar->GetId);
+	$self->row_id($ar->GetId);
 }
 
 sub ApprovedAction
 {
 	my $this = shift;
 
-	my $rowid = $this->GetRowId;
+	my $rowid = $this->row_id;
 
 	if ($rowid == %ModDefs::DLABEL_ID)
 	{
@@ -87,7 +87,7 @@ sub ShowModTypeDelegate
 {
 	my ($self, $m) = @_;
 	$m->out('<tr class="entity"><td class="lbl">Label:</td><td>');
-	my $id = $self->GetRowId;
+	my $id = $self->row_id;
 	require MusicBrainz::Server::Label;
 	my $label = MusicBrainz::Server::Label->new($self->{DBH});
 	$label->SetId($id);

@@ -137,7 +137,7 @@ sub PreInsert
 	$self->SetNew($self->ConvertHashToNew(\%new));
 	$self->table("label");
 	$self->SetColumn("name");
-	$self->SetRowId($ar->GetId);
+	$self->row_id($ar->GetId);
 }
 
 # Specialized version of MusicBrainz::Server::Validation::MakeDBDateStr:
@@ -199,7 +199,7 @@ sub CheckPrerequisites
 	my $new = $self->{'new_unpacked'};
 	my $prev = $self->{'prev_unpacked'};
 
-	my $label_id = $self->GetRowId();
+	my $label_id = $self->row_id();
 
 	if ($label_id == &ModDefs::DLABEL_ID)
 	{
@@ -264,7 +264,7 @@ sub ShowModTypeDelegate
 {
 	my ($self, $m) = @_;
 	$m->out('<tr class="entity"><td class="lbl">Label:</td><td>');
-	my $id = $self->GetRowId;
+	my $id = $self->row_id;
 	require MusicBrainz::Server::Label;
 	my $label = MusicBrainz::Server::Label->new($self->{DBH});
 	$label->SetId($id);

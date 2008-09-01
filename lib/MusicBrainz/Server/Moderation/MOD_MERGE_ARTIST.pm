@@ -57,7 +57,7 @@ sub PreInsert
 	$self->table("artist");
 	$self->SetColumn("name");
 	$self->SetArtist($source->GetId);
-	$self->SetRowId($source->GetId);
+	$self->row_id($source->GetId);
 	$self->SetPrev($source->GetName);
 	$self->SetNew($self->ConvertHashToNew(\%new));
 }
@@ -117,7 +117,7 @@ sub AdjustModPending
 	require MusicBrainz::Server::Artist;
 	my $ar = MusicBrainz::Server::Artist->new($self->{DBH});
 
-	for my $artistid ($self->GetRowId, $self->{"new.id"})
+	for my $artistid ($self->row_id, $self->{"new.id"})
 	{
 		defined($artistid) or next;
 		$ar->SetId($artistid);
@@ -131,7 +131,7 @@ sub CheckPrerequisites
 	my $self = shift;
 
 	my $prevval = $self->GetPrev;
-	my $rowid = $self->GetRowId;
+	my $rowid = $self->row_id;
 	my $name = $self->{'new.name'};
 	#my $sortname = $self->{'new.sortname'};
 

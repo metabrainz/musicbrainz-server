@@ -41,12 +41,12 @@ sub PreInsert
 	my $newname = $opts{'newname'};
 	$newname =~ /\S/ or die;
 
-	$self->SetArtist($al->GetRowId);
+	$self->SetArtist($al->row_id);
 	$self->SetPrev($al->GetName);
 	$self->SetNew($newname);
 	$self->table("artistalias");
 	$self->SetColumn("name");
-	$self->SetRowId($al->GetId);
+	$self->row_id($al->GetId);
 
 	# Currently there's a unique index on artistalias.name.
 	# Refuse to insert the mod if that index would be violated.
@@ -92,7 +92,7 @@ sub CheckPrerequisites
 
 	require MusicBrainz::Server::Alias;
 	my $alias = MusicBrainz::Server::Alias->new($self->{DBH}, "artistalias");
-	$alias->SetId($self->GetRowId);
+	$alias->SetId($self->row_id);
 
 	unless ($alias->LoadFromId)
 	{
@@ -136,7 +136,7 @@ sub ApprovedAction
 	if ($!{EEXIST})
 	{
 		my $url = "http://" . &DBDefs::WEB_SERVER
-			. "/showaliases.html?artistid=" . $other->GetRowId;
+			. "/showaliases.html?artistid=" . $other->row_id;
 		my $newname = $self->GetNew;
 		$message = "There is already an alias called '$newname' (see $url)"
 			. " - duplicate aliases are not yet supported";

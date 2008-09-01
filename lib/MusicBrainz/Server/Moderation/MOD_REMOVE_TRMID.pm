@@ -43,7 +43,7 @@ sub PreInsert
 
 	$self->table("trmjoin");
 	$self->SetColumn("id");
-	$self->SetRowId($trmjoinid);
+	$self->row_id($trmjoinid);
 	$self->SetArtist($track->GetArtist);
 	$self->SetPrev($trm);
 
@@ -63,7 +63,7 @@ sub PreInsert
 	# then undo the mod later if it's rejected.
 	require MusicBrainz::Server::TRM;
 	my $t = MusicBrainz::Server::TRM->new($self->{DBH});
-	$t->RemoveTRMByTRMJoin($self->GetRowId);
+	$t->RemoveTRMByTRMJoin($self->row_id);
 }
 
 sub PostLoad

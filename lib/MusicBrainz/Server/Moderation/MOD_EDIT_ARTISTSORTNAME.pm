@@ -49,7 +49,7 @@ sub PreInsert
 	$self->SetNew($newname);
 	$self->table("artist");
 	$self->SetColumn("sortname");
-	$self->SetRowId($ar->GetId);
+	$self->row_id($ar->GetId);
 }
 
 sub DetermineQuality
@@ -76,7 +76,7 @@ sub ApprovedAction
 {
 	my $this = shift;
 
-	my $rowid = $this->GetRowId;
+	my $rowid = $this->row_id;
 
 	if ($rowid == VARTIST_ID or $rowid == DARTIST_ID)
 	{

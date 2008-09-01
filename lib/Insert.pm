@@ -672,7 +672,7 @@ sub InsertAlbumModeration
 		)	if defined $opts{"FreedbId"}
 			and defined $opts{"FreedbCat"};
 
-        ($mod->GetArtist, $mod->GetRowId, \@mods);
+        ($mod->GetArtist, $mod->row_id, \@mods);
     };
 
     if ($@)

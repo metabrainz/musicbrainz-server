@@ -104,7 +104,7 @@ sub PreInsert
 	# if in single edit mod, file moderation under release object.
 	# If all n releases are stored under artist x use this
 	# artist as the moderation artist, else VA.
-	$self->SetRowId($albums->[0]->GetId) if ($seq == 1);
+	$self->row_id($albums->[0]->GetId) if ($seq == 1);
 	$self->SetArtist(
 		keys(%artists) > 1
 			? &ModDefs::VARTIST_ID
@@ -113,7 +113,7 @@ sub PreInsert
 
 	$self->table("album");
 	$self->SetColumn("id");
-	$self->SetRowId($albums->[0]->GetId);
+	$self->row_id($albums->[0]->GetId);
 	$self->SetNew($self->ConvertHashToNew(\%new));
 
 	# This mod is immediately applied, and undone later if rejected.
@@ -189,7 +189,7 @@ sub AdjustModPending
 	my ($self, $adjust) = @_;
 
 	# Prior to the ModerationClasses2 branch, the "mod pending" change would
-	# only be applied to the releaseid listed in $self->GetRowId - which, in the
+	# only be applied to the releaseid listed in $self->row_id - which, in the
 	# case of a multiple release change, would be none of them (since the row id
 	# for them was zero).
 	# Now though we apply the modpending change to all affected releases.

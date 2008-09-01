@@ -46,7 +46,7 @@ sub PreInsert
 	$self->SetNew($newname);
 	$self->table("track");
 	$self->SetColumn("name");
-	$self->SetRowId($track->GetId);
+	$self->row_id($track->GetId);
 }
 
 sub IsAutoEdit
@@ -64,7 +64,7 @@ sub PostLoad
 	# stored in this edit type. (@see Moderation::ShowModType)
 	# -- the album will be loaded from the album-track core
 	#    relationship if the track was loaded successfully.
-	($self->{"trackid"}, $self->{"checkexists-track"}) = ($self->GetRowId, 1);
+	($self->{"trackid"}, $self->{"checkexists-track"}) = ($self->row_id, 1);
 	($self->{"albumid"}, $self->{"checkexists-album"}) = (undef, 1);	
 	
 	# TODO: what can we do that the release is loaded from this track object?
@@ -107,7 +107,7 @@ sub CheckPrerequisites
 	# Load the track by ID
 	require MusicBrainz::Server::Track;
 	my $track = MusicBrainz::Server::Track->new($self->{DBH});
-	$track->SetId($self->GetRowId);
+	$track->SetId($self->row_id);
 	unless ($track->LoadFromId)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This track has been deleted");

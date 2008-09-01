@@ -44,7 +44,7 @@ sub PreInsert
 	$self->SetPrev($tr->GetName . "\n" . $al->GetId . "\n" . $al->IsNonAlbumTracks . "\n" . $tr->GetSequence . "\n" . $tr->GetLength);
 	$self->table("track");
 	$self->SetColumn("name");
-	$self->SetRowId($tr->GetId);
+	$self->row_id($tr->GetId);
 }
 
 sub PostLoad
@@ -59,7 +59,7 @@ sub PostLoad
 
 	# attempt to load the release/track entities from the values
 	# stored in this edit type. (@see Moderation::ShowModType method)
-	($self->{"trackid"}, $self->{"checkexists-track"}) = ($self->GetRowId, 1);
+	($self->{"trackid"}, $self->{"checkexists-track"}) = ($self->row_id, 1);
 	($self->{"albumid"}, $self->{"checkexists-album"}) = ($self->{'prev.albumid'}, 1);
 
 	# store value for the trackname, in case the track can't be loaded from 
@@ -86,7 +86,7 @@ sub ApprovedAction
 
 	require MusicBrainz::Server::Track;
 	my $track = MusicBrainz::Server::Track->new($this->{DBH});
-	$track->SetId($this->GetRowId);
+	$track->SetId($this->row_id);
 	$track->SetRelease($this->{'prev.albumid'});
 
 	# Remove the album join for this track

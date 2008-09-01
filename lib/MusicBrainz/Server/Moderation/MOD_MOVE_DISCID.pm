@@ -98,7 +98,7 @@ sub PreInsert
 
 	$self->table("album_cdtoc");
 	$self->SetColumn("album");
-	$self->SetRowId($alcdtoc->GetId);
+	$self->row_id($alcdtoc->GetId);
 	$self->SetArtist($oldal->GetArtist);
 	$self->SetPrev($oldal->GetId);
 
@@ -150,7 +150,7 @@ sub AdjustModPending
 	$sql->Do(
 		"UPDATE album_cdtoc SET modpending = modpending + ? WHERE id = ?",
 		$adjust,
-		$self->GetRowId,
+		$self->row_id,
 	);
 }
 
@@ -166,7 +166,7 @@ sub DeniedAction
 
 	# Check that the album_cdtoc row still exists
 	require MusicBrainz::Server::ReleaseCDTOC;
-	my $album_cdtoc = MusicBrainz::Server::ReleaseCDTOC->newFromId($self->{DBH}, $self->GetRowId)
+	my $album_cdtoc = MusicBrainz::Server::ReleaseCDTOC->newFromId($self->{DBH}, $self->row_id)
 		or do {
 			$self->InsertNote(MODBOT_MODERATOR, "This disc ID has been deleted");
 			$self->SetStatus(STATUS_FAILEDDEP);
@@ -202,7 +202,7 @@ sub DeniedAction
 		MusicBrainz::Server::ReleaseCDTOC->Insert($self->{DBH}, $self->GetPrev, $new->{"FullTOC"});
 	} else {
 		# Move the row back to the old album
-		my $alcdtoc = MusicBrainz::Server::ReleaseCDTOC->newFromId($self->{DBH}, $self->GetRowId)
+		my $alcdtoc = MusicBrainz::Server::ReleaseCDTOC->newFromId($self->{DBH}, $self->row_id)
 			or return;
 		$alcdtoc->MoveToRelease($self->GetPrev);
 	}

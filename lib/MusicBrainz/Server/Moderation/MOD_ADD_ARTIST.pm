@@ -125,7 +125,7 @@ sub PreInsert
 	$self->table('artist');
 	$self->SetColumn('name');
 	$self->SetArtist($info{'artist_insertid'});
-	$self->SetRowId($info{'artist_insertid'});
+	$self->row_id($info{'artist_insertid'});
 	$self->SetNew($self->ConvertHashToNew(\%new));
 }
 

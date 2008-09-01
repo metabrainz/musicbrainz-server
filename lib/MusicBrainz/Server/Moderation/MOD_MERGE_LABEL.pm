@@ -55,7 +55,7 @@ sub PreInsert
 
 	$self->table("label");
 	$self->SetColumn("name");
-	$self->SetRowId($source->GetId);
+	$self->row_id($source->GetId);
 	$self->SetPrev($source->GetName);
 	$self->SetNew($self->ConvertHashToNew(\%new));
 }
@@ -92,7 +92,7 @@ sub AdjustModPending
 	require MusicBrainz::Server::Label;
 	my $ar = MusicBrainz::Server::Label->new($self->{DBH});
 
-	for my $labelid ($self->GetRowId, $self->{"new.id"})
+	for my $labelid ($self->row_id, $self->{"new.id"})
 	{
 		defined($labelid) or next;
 		$ar->SetId($labelid);
@@ -106,7 +106,7 @@ sub CheckPrerequisites
 	my $self = shift;
 
 	my $prevval = $self->GetPrev;
-	my $rowid = $self->GetRowId;
+	my $rowid = $self->row_id;
 	my $name = $self->{'new.name'};
 	#my $sortname = $self->{'new.sortname'};
 
@@ -194,7 +194,7 @@ sub ShowModTypeDelegate
 {
 	my ($self, $m) = @_;
 	$m->out('<tr class="entity"><td class="lbl">Label:</td><td>');
-	my $id = $self->GetRowId;
+	my $id = $self->row_id;
 	require MusicBrainz::Server::Label;
 	my $label = MusicBrainz::Server::Label->new($self->{DBH});
 	$label->SetId($id);

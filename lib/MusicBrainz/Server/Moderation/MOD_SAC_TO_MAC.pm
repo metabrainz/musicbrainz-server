@@ -50,7 +50,7 @@ sub PreInsert
 	$self->table("album");
 	$self->SetColumn("artist");
 	$self->SetArtist($al->GetArtist);
-	$self->SetRowId($al->GetId);
+	$self->row_id($al->GetId);
 	$self->SetPrev($ar->GetName);
 	$self->SetNew($movetova);
 }
@@ -61,7 +61,7 @@ sub PostLoad
 
 	# attempt to load the release entitiy from the value
 	# stored in this edit type. (@see Moderation::ShowModType)
-	($self->{"albumid"}, $self->{"checkexists-album"}) = ($self->GetRowId, 1);
+	($self->{"albumid"}, $self->{"checkexists-album"}) = ($self->row_id, 1);
 }
 
 sub DetermineQuality
@@ -94,7 +94,7 @@ sub CheckPrerequisites
 	# Load the album by ID
 	require MusicBrainz::Server::Release;
 	my $release = MusicBrainz::Server::Release->new($self->{DBH});
-	$release->SetId($self->GetRowId);
+	$release->SetId($self->row_id);
 	unless ($release->LoadFromId)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This release has been deleted");
@@ -135,7 +135,7 @@ sub ApprovedAction
  	$sql->Do(
 		"UPDATE album SET artist = ? WHERE id = ? AND artist = ?",
 		&ModDefs::VARTIST_ID,
-		$self->GetRowId,
+		$self->row_id,
 		$self->GetArtist,
 	) or die "Failed to update album in MOD_SAC_TO_MAC";
 
