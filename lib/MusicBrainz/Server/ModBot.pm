@@ -279,7 +279,7 @@ sub CheckModerations
 			};
 
 			# Any subscribers other than the original moderator?
-			my @other_subscribers = grep { $_ != $mod->GetModerator } @$subscribers;
+			my @other_subscribers = grep { $_ != $mod->moderator } @$subscribers;
 
 		 	# The mod has expired, and the artist has no subscribers, so we
 			# don't bother letting it go into the grace period.
@@ -405,13 +405,13 @@ sub CheckModerations
 						$mod->DeniedAction;
 						$status = $mod->GetStatus;
 						$mod->CloseModeration($status);
-						$user->CreditModerator($mod->GetModerator, $status);
+						$user->CreditModerator($mod->moderator, $status);
 						--$count{STATUS_APPLIED};
 						++$count{$status};
 					} else {
 						$status = $mod->ApprovedAction;
 						$mod->SetStatus($status);
-						$user->CreditModerator($mod->GetModerator, $status);
+						$user->CreditModerator($mod->moderator, $status);
 						$mod->CloseModeration($status);
 					}
 				}
@@ -475,7 +475,7 @@ sub CheckModerations
 				$mod->SetStatus($newstate);
 				$mod->DeniedAction;
 				$newstate = $mod->GetStatus;
-				$user->CreditModerator($mod->GetModerator, $newstate);
+				$user->CreditModerator($mod->moderator, $newstate);
 				$mod->CloseModeration($newstate);
 
                 delete $Moderation::DBConnections{READWRITE};
@@ -521,7 +521,7 @@ sub CheckModerations
 						$mod->DeniedAction;
 						$status = $mod->GetStatus;
 						$mod->CloseModeration($status);
-						$user->CreditModerator($mod->GetModerator, $status);
+						$user->CreditModerator($mod->moderator, $status);
 						++$count{$status};
 					}
 				}

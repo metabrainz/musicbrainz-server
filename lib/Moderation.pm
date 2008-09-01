@@ -556,14 +556,12 @@ sub Refresh
 	%$self = %$newself;
 }
 
-sub GetModerator
+sub moderator
 {
-   return $_[0]->{moderator};
-}
+    my ($self, $new_moderator) = @_;
 
-sub SetModerator
-{
-   $_[0]->{moderator} = $_[1];
+    if (defined $new_moderator) { $self->{moderator} = $new_moderator; }
+    return $self->{moderator};
 }
 
 sub GetExpired
@@ -916,7 +914,7 @@ sub CreateFromId
 			$edit->SetStatus($row[15]);
 			$edit->SetVote(&ModDefs::VOTE_UNKNOWN);
 			$edit->SetDepMod($row[17]);
-			$edit->SetModerator($row[18]);
+			$edit->moderator($row[18]);
 			$edit->SetAutomod($row[19]);
 			$edit->SetLanguageId($row[20]);
 			$edit->SetOpenTime($row[21]);
@@ -1048,7 +1046,7 @@ sub InsertModeration
 	if (ref $class)
 	{
 		$opts{DBH} = $class->{DBH};
-		$opts{uid} = $class->GetModerator;
+		$opts{uid} = $class->moderator;
 		$opts{privs} = $class->{_privs_};
 	}
 
@@ -1067,7 +1065,7 @@ sub InsertModeration
 		my $this = $editclass->new($opts{'DBH'} || die "No DBH passed");
 		$this->type($this->Type);
 
-		$this->SetModerator($opts{'uid'} or die "No uid passed");
+		$this->moderator($opts{'uid'} or die "No uid passed");
 		defined($privs = $opts{'privs'}) or die;
 
 		delete @opts{qw( type DBH uid privs )};
@@ -1155,7 +1153,7 @@ sub InsertModeration
             )",
             $this->table, $this->GetColumn, $this->row_id,
             $this->GetPrev, $this->GetNew,
-            $this->GetModerator, $this->GetArtist, $this->type,
+            $this->moderator, $this->GetArtist, $this->type,
             $this->GetDepMod,
             &ModDefs::STATUS_OPEN, sprintf("%d days", $level->{duration}),
             $this->GetLanguageId
@@ -1349,7 +1347,7 @@ sub GetModerationList
 
 		$edit->SetId($r->{id});
 		$edit->SetArtist($r->{artist});
-		$edit->SetModerator($r->{moderator});
+		$edit->moderator($r->{moderator});
 		$edit->table($r->{tab});
 		$edit->SetColumn($r->{col});
 		$edit->type($r->{type});
@@ -1391,7 +1389,7 @@ sub GetModerationList
 	for my $edit (@edits)
 	{
 		# Fetch editor into cache if not loaded before.
-		my $uid = $edit->GetModerator;
+		my $uid = $edit->moderator;
 		$editor_cache{$uid} = do {
 			my $u = $user->newFromId($uid);
 			$u ? $u->GetName : "?";
@@ -1525,7 +1523,7 @@ sub FirstNoVote
 	my ($self, $voter_uid) = @_;
 
 	require UserStuff;
-	my $editor = UserStuff->newFromId($self->{DBH}, $self->GetModerator);
+	my $editor = UserStuff->newFromId($self->{DBH}, $self->moderator);
 	my $voter = UserStuff->newFromId($self->{DBH}, $voter_uid);
 
 	require UserPreference;

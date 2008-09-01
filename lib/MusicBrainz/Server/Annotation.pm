@@ -69,11 +69,13 @@ sub new
 	return $self;
 }
 
-sub GetModerator
+sub moderator
 {
-	return $_[0]->{moderator};
-}
+    my ($self, $new_moderator) = @_;
 
+    if (defined $new_moderator) { $self->{moderator} = $new_moderator; }
+    return $self->{moderator};
+}
 
 sub moderator_name
 {
@@ -191,11 +193,6 @@ sub GetShortTextAsHTML
 		if $trunc_type != TRUNC_NONE;
 
 	$text;
-}
-
-sub SetModerator
-{
-	$_[0]->{moderator} = $_[1];
 }
 
 sub SetModeration

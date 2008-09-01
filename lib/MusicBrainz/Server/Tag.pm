@@ -502,8 +502,13 @@ EOF
 	return (\@rows, $offset + $total_rows);
 }
 
-sub GetModerator	{ $_[0]{'moderator'} }
-sub SetModerator	{ $_[0]{'moderator'} = $_[1] }
+sub moderator
+{
+    my ($self, $new_moderator) = @_;
+
+    if (defined $new_moderator) { $self->{moderator} = $new_moderator; }
+    return $self->{moderator};
+}
 
 sub GenerateTagCloud
 {

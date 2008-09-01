@@ -94,7 +94,7 @@ sub PreInsert
 	if (UserPreference::get('auto_subscribe'))
 	{
 		my $subs = UserSubscription->new($self->{DBH});
-		$subs->SetUser($self->GetModerator);
+		$subs->SetUser($self->moderator);
 		my $label = MusicBrainz::Server::Label->new($self->{DBH});
 		$label->SetId($labelid);
 		$subs->SubscribeLabels(($label))

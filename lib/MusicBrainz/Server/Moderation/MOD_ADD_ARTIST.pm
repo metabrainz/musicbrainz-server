@@ -100,7 +100,7 @@ sub PreInsert
 	if (UserPreference::get('auto_subscribe'))
 	{
 		my $subs = UserSubscription->new($self->{DBH}); 
-		$subs->SetUser($self->GetModerator);
+		$subs->SetUser($self->moderator);
 		my $artist = MusicBrainz::Server::Artist->new($self->{DBH});
 		$artist->SetId($info{'artist_insertid'});
 		$subs->SubscribeArtists(($artist))

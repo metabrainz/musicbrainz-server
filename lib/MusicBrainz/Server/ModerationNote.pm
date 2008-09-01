@@ -145,14 +145,14 @@ sub Insert
 	$done{$noteuid} = 1;
 
 	my $ui = UserStuff->new($self->{DBH});
-	my $mod_user = $ui->newFromId($moderation->GetModerator)
+	my $mod_user = $ui->newFromId($moderation->moderator)
 		or die;
 	my $note_user = $ui->newFromId($noteuid)
 		or die;
 
 	{
 		# Not if it's them that just added the note.
-		next if $noteuid == $moderation->GetModerator;
+		next if $noteuid == $moderation->moderator;
 
 		# Also not unless they've got a confirmed e-mail address
 		next unless $mod_user->GetEmail and $mod_user->GetEmailConfirmDate;
@@ -164,7 +164,7 @@ sub Insert
 			revealaddress=> $opts{'revealaddress'},
 		);
 
-		$done{$moderation->GetModerator} = 1;
+		$done{$moderation->moderator} = 1;
 	}
 
 	# Who else wants to receive this note via email?

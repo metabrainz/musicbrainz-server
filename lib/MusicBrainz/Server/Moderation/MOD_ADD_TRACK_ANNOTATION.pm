@@ -97,7 +97,7 @@ sub ApprovedAction
 	require MusicBrainz::Server::Annotation;
 	my $an = MusicBrainz::Server::Annotation->new($self->{DBH});
 
-	$an->SetModerator($self->GetModerator());
+	$an->moderator($self->moderator());
 	$an->SetModeration($self->GetId());
 	$an->type(TRACK_ANNOTATION);
 	$an->SetTrack($self->row_id());
