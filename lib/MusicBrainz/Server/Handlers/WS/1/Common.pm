@@ -380,7 +380,7 @@ sub xml_release
         print '/>';
     }
 
-    my $asin = $al->GetAsin;
+    my $asin = $al->asin;
     print "<asin>$asin</asin>" if $asin;
 
     xml_artist($ar, 0) if ($inc & INC_ARTIST && $ar);

@@ -117,7 +117,7 @@ sub PreInsert
 	$self->SetNew($self->ConvertHashToNew(\%new));
 
 	# finally some special ASIN URL handling (update album_amazon_asin table data)
-	if ($linktype->{id} == MusicBrainz::Server::CoverArt->GetAsinLinkTypeId($self->{DBH}) &&
+	if ($linktype->{id} == MusicBrainz::Server::CoverArt->asin_link_type_id($self->{DBH}) &&
 		@$entities[0]->{type} eq 'album' &&
 		@$entities[1]->{type} eq 'url')
 	{
@@ -194,7 +194,7 @@ sub DeniedAction
 		$link->Delete;
 
 		# remove amazon asin and coverart data as well
-		if ($new->{linktypeid} == MusicBrainz::Server::CoverArt->GetAsinLinkTypeId($self->{DBH}) &&
+		if ($new->{linktypeid} == MusicBrainz::Server::CoverArt->asin_link_type_id($self->{DBH}) &&
 			$new->{entity0type} eq 'album' &&
 			$new->{entity1type} eq 'url')
 		{

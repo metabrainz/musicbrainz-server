@@ -157,7 +157,7 @@ sub ApprovedAction
     for my $link (@links)
 	{
         # update amazon links
-        if ($link->{link_id} == MusicBrainz::Server::CoverArt->GetAsinLinkTypeId($self->{DBH}) &&
+        if ($link->{link_id} == MusicBrainz::Server::CoverArt->asin_link_type_id($self->{DBH}) &&
             $link->{link0_type} eq 'album' &&
             $link->{link1_type} eq 'url')
         {

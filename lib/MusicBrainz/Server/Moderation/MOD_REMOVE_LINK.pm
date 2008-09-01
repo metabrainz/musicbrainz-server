@@ -143,7 +143,7 @@ sub ApprovedAction
 	}
 
 	# finally some special ASIN URL handling 
-	if ($new->{linktypeid} == MusicBrainz::Server::CoverArt->GetAsinLinkTypeId($self->{DBH}) &&
+	if ($new->{linktypeid} == MusicBrainz::Server::CoverArt->asin_link_type_id($self->{DBH}) &&
 		$new->{entity0type} eq 'album' &&
 		$new->{entity1type} eq 'url')
 	{

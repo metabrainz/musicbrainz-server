@@ -208,7 +208,7 @@ sub OutputAlbumRDF
          $out .= $this->EndDesc("mm:releaseDateList");
     }
 
-    my $asin = $album->GetAsin();
+    my $asin = $album->asin();
     if ($asin)
     {
         $out .= $this->Element("az:Asin", $asin);

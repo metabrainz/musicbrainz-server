@@ -60,7 +60,7 @@ sub new_from_release
     return $class->new({
         artist_id          => $release->GetArtist,
         attributes         => [ map { $release->GetAttributeName($_) } @attributes ],
-        cover_art_url      => $release->GetCoverartURL,
+        cover_art_url      => $release->coverart_url,
         disc_ids           => $release->GetDiscidCount,
         first_release_date => $release->GetFirstReleaseDate,
         id                 => $release->GetId,

@@ -216,7 +216,7 @@ sub ApprovedAction
 {
   	my $self = shift;
 	my $new = $self->{'new_unpacked'};
-	my $asintypeid = MusicBrainz::Server::CoverArt->GetAsinLinkTypeId($self->{DBH});
+	my $asintypeid = MusicBrainz::Server::CoverArt->asin_link_type_id($self->{DBH});
 
 	my $link = MusicBrainz::Server::Link->new($self->{DBH}, [$new->{oldentity0type}, $new->{oldentity1type}]);
 	$link = $link->newFromId($new->{linkid});

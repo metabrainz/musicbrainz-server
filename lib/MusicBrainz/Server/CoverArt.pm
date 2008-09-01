@@ -165,9 +165,9 @@ sub ParseAmazonURL
 	# update the object data if called from an instance
 	if ($al)
     {
-	    $al->SetAsin($asin);
-        $al->SetCoverartURL($coverurl);
-        $al->SetCoverartStore($store);
+	    $al->asin($asin);
+        $al->coverart_url($coverurl);
+        $al->coverart_store($store);
     }
 
 	return ($asin, $coverurl, $store);
@@ -185,7 +185,7 @@ sub ParseAmazonURL
 sub UpdateAmazonData
 {
 	my ($self, $release, $mode) = @_;
-	my ($coverurl, $asin)  = ($release->GetCoverartURL, $release->GetAsin);
+	my ($coverurl, $asin)  = ($release->coverart_url, $release->asin);
 	my $ret = 0;
 	
     return $ret unless ($coverurl && $asin && $release->GetId);
@@ -213,7 +213,7 @@ sub UpdateAmazonData
 
 		for my $item (@altlinks)
 		{
-			next unless ($item->{link_id} == MusicBrainz::Server::CoverArt::GetAsinLinkTypeId($release->{DBH}));
+			next unless ($item->{link_id} == MusicBrainz::Server::CoverArt::asin_link_type_id($release->{DBH}));
 			
 			($asin, $coverurl,,) = MusicBrainz::Server::CoverArt->ParseAmazonURL($item->{entity1name});
 			next if ($asin eq $oldasin);
@@ -231,8 +231,8 @@ sub UpdateAmazonData
 				   WHERE album = ?;|,
 				$release->GetId
 			) unless ($oldcoverurl eq "" && $oldasin eq "");
-			$release->SetCoverartURL("");
-			$release->SetAsin("");
+			$release->coverart_url("");
+			$release->asin("");
 			$ret =1;
 		}
 	}
@@ -262,15 +262,15 @@ sub UpdateAmazonData
 	}
 
 	# reset $self data, to the new values
-	$release->SetCoverartURL($coverurl);
-	$release->SetAsin($asin);
+	$release->coverart_url($coverurl);
+	$release->asin($asin);
 
 	return $ret;
 }
 
 # Get the current link type id for the amazon asin AR.
 # It should be used for any access to this class variable.
-sub GetAsinLinkTypeId
+sub asin_link_type_id
 {
 	my $self = shift;
 	return $ASIN_LINK_TYPE_ID if (defined $ASIN_LINK_TYPE_ID);
@@ -307,8 +307,8 @@ sub ParseCoverArtURL
 
                 if (defined $al)
                 {
-                    $al->SetCoverartURL($img);
-                    $al->SetInfoURL($release);
+                    $al->coverart_url($img);
+                    $al->info_url($release);
                 }
                 return ($site->{name}, $img, $release);
             }
@@ -333,7 +333,7 @@ sub ParseCoverArtURL
 sub UpdateCoverArtData
 {
 	my ($self, $release, $mode) = @_;
-	my $coverurl = $release->GetCoverartURL;
+	my $coverurl = $release->coverart_url;
 	my $ret = 0;
 	
 	return $ret unless ($coverurl && $release->GetId);
@@ -378,8 +378,8 @@ sub UpdateCoverArtData
 				   WHERE album = ?;|,
 				$release->GetId
 			) unless ($oldcoverurl eq "");
-			$release->SetCoverartURL("");
-			$release->SetAsin("");
+			$release->coverart_url("");
+			$release->asin("");
 			$ret =1;
 		}
 	}
@@ -409,8 +409,8 @@ sub UpdateCoverArtData
     }
 
 	# reset $self data, to the new values
-	$release->SetCoverartURL($coverurl);
-	$release->SetAsin("");
+	$release->coverart_url($coverurl);
+	$release->asin("");
 
 	return $ret;
 }

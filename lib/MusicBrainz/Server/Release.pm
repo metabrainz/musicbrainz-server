@@ -145,59 +145,46 @@ sub quality
     return $self->{quality};
 }
 
-sub SetInfoURL
+sub info_url
 {
-    $_[0]->{infourl} = $_[1];
+    my ($self, $new_url) = @_;
+
+    if (defined $new_url) { $self->{infourl} = $new_url; }
+    return $self->{infourl};
 }
 
-sub GetInfoURL
+sub coverart_url
 {
-   return $_[0]->{infourl};
+    my ($self, $new_url) = @_;
+
+    if (defined $new_url) { $self->{infourl} = $new_url; }
+
+    my $cover_url = $self->{coverarturl};
+    if ($cover_url)
+    {
+        # Old entries didn't include the protocol in the URL
+        $cover_url = "http://images.amazon.com/$cover_url"
+            if $cover_urll =~ m{^/};
+    }
+
+    return $cover_url;
 }
 
-sub SetCoverartURL
+
+sub coverart_store
 {
-    $_[0]->{coverarturl} = $_[1];
+    my ($self, $new_store) = @_;
+
+    if (defined $new_store) { $self->{amazon_store} = $new_store; }
+    return $self->{amazon_store} || "amazon.com";
 }
 
-# return the url to a coverart image on an amazon image server
-sub GetCoverartURL
+sub asin
 {
-	my $coverurl = $_[0]->{coverarturl};
+    my ($self, $new_asin) = @_;
 
-	if ($coverurl)
-	{
-		# older entries didn't include the protocol and server parts of the URL
-		$coverurl = ("http://images.amazon.com" . $coverurl)
-			if ($coverurl =~ m{^/});
-	}
-	
- 	return $coverurl;
-}
-
-# Set the amazon cover art store associated with this release
-sub SetCoverartStore
-{
-    $_[0]->{amazon_store} = $_[1];
-}
-
-# Return the amazon store that was associated with this release
-sub GetCoverartStore
-{
-	my $self = $_[0];
-
-    return $self->{amazon_store} if (exists $self->{amazon_store});
-	return "amazon.com";
-}
-
-sub GetAsin
-{
-   return ($_[0]{asin}||"") =~ /(\S+)/ ? $1 : ""
-}
-
-sub SetAsin
-{
-    $_[0]->{asin} = $_[1];
+    if (defined $new_asin) { $self->{asin} = $new_asin; }
+    return ($self->{asin} || "") =~ /(\S+)/ ? $1 : "";
 }
 
 sub GetLanguage
