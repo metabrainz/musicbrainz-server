@@ -129,7 +129,7 @@ sub GetType
 	return $_[0]->{type};
 }
 
-sub GetTypeWord
+sub type_word
 {
 	return "artist" if $_[0]{type} == ARTIST_ANNOTATION;
 	return "album" if $_[0]{type} == RELEASE_ANNOTATION;

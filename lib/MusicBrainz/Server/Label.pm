@@ -116,7 +116,7 @@ sub SetType
    $_[0]->{type} = $_[1];
 }
 
-sub GetTypeName
+sub type_name
 {
    return $LabelTypeNames{$_[0]}->[0];
 }
