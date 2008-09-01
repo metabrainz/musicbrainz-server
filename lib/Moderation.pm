@@ -640,7 +640,7 @@ sub language_id
     return $self->{language};
 }
 
-sub GetLanguage
+sub language
 {
 	my $self = shift;
 	my $id = $self->language_id or return undef;

@@ -124,9 +124,12 @@ sub script_id
     return $self->{script};
 }
 
-sub SetLanguageModPending
+sub language_has_mod_pending
 {
-   $_[0]->{modpending_lang} = $_[1];
+    my ($self, $new_val) = @_;
+
+    if (defined $new_val) { $self->{modpending_lang} = $new_val; }
+    return $self->{modpending_lang} || 0;
 }
 
 sub quality_has_mod_pending
@@ -187,7 +190,7 @@ sub asin
     return ($self->{asin} || "") =~ /(\S+)/ ? $1 : "";
 }
 
-sub GetLanguage
+sub language
 {
 	my $self = shift;
 	my $id = $self->language_id or return undef;
@@ -195,17 +198,12 @@ sub GetLanguage
 	return MusicBrainz::Server::Language->newFromId($self->{DBH}, $id);
 }
 
-sub GetScript
+sub script
 {
 	my $self = shift;
 	my $id = $self->script_id or return undef;
 	require MusicBrainz::Server::Script;
 	return MusicBrainz::Server::Script->newFromId($self->{DBH}, $id);
-}
-
-sub GetLanguageModPending
-{
-	return $_[0]->{modpending_lang} || 0;
 }
 
 sub GetAttributeName

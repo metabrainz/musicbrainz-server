@@ -375,8 +375,8 @@ sub xml_release
     if ($lang || $script)
     {
         print '<text-representation';
-        print ' language="' . uc($al->GetLanguage->GetISOCode3T()) . '"' if ($lang);
-        print ' script="' . $al->GetScript->GetISOCode . '"' if ($script);
+        print ' language="' . uc($al->language->GetISOCode3T()) . '"' if ($lang);
+        print ' script="' . $al->script->GetISOCode . '"' if ($script);
         print '/>';
     }
 
@@ -417,11 +417,11 @@ sub xml_release_type
 sub xml_language
 {
 	my $al = $_[0];
-	my ($lang) = $al->GetLanguage;
+	my ($lang) = $al->language;
 	my ($name) = (defined $lang ? $lang->GetName : "?");
-	my ($code) = (defined $lang ? $al->GetLanguage->GetISOCode3T() : "?");
-	my ($script) = (defined $al->GetScript ? $al->GetScript->GetName : "?");
-	my ($editpending) = ($al->GetLanguageModPending() ? 'editpending="1"' : '');
+	my ($code) = (defined $lang ? $al->language->GetISOCode3T() : "?");
+	my ($script) = (defined $al->script ? $al->script->GetName : "?");
+	my ($editpending) = ($al->language_has_mod_pending() ? 'editpending="1"' : '');
 
 	return '<mm:language '.$editpending.' '
 	     . 'code="'.xml_escape($code).'" '
