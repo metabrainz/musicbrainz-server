@@ -48,7 +48,7 @@ sub PreInsert
 	);
 
 	$self->SetNew($self->ConvertHashToNew(\%new));
-	$self->SetTable('label');
+	$self->table('label');
 	$self->SetColumn('annotation.text');
 	$self->SetRowId($labelid);
 }

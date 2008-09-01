@@ -54,7 +54,7 @@ sub PreInsert
 	$new{"ArtistName"} = $target->GetName;
 	$new{"ArtistId"} = $target->GetId;
 
-	$self->SetTable("artist");
+	$self->table("artist");
 	$self->SetColumn("name");
 	$self->SetArtist($source->GetId);
 	$self->SetRowId($source->GetId);

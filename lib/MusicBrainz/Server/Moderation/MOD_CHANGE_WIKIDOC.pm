@@ -51,7 +51,7 @@ sub PreInsert
 	$self->SetArtist(VARTIST_ID);
 	$self->SetPrev($self->ConvertHashToNew(\%prev));
 	$self->SetNew($self->ConvertHashToNew(\%new));
-	$self->SetTable("artist");
+	$self->table("artist");
 	$self->SetColumn("name");
 	$self->SetRowId(VARTIST_ID);
 }

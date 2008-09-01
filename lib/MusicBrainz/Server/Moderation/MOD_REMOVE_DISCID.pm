@@ -71,7 +71,7 @@ sub PreInsert
 		die $self;
 	}
 
-	$self->SetTable("album_cdtoc");
+	$self->table("album_cdtoc");
 	$self->SetColumn("album");
 	$self->SetRowId($alcdtoc->GetId);
 	$self->SetArtist($oldrelease->GetArtist);

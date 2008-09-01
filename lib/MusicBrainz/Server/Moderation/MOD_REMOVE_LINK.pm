@@ -52,7 +52,7 @@ sub PreInsert
 	{
 	    $self->SetArtist($ents[0]->GetId);
 	}
-	$self->SetTable($link->Table);
+	$self->table($link->Table);
 	$self->SetColumn("id");
 	$self->SetRowId($link->GetId);
 

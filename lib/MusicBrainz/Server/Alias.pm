@@ -40,14 +40,12 @@ sub new
 }
 
 # Artist specific accessor function. Others are inherted from TableBase
-sub GetTable
+sub table
 {
-   return $_[0]->{table};
-}
+    my ($self, $new_table) = @_;
 
-sub SetTable
-{
-   $_[0]->{table} = $_[1];
+    if (defined $new_table) { $self->{table} = $new_table; }
+    return $self->{table};
 }
 
 sub GetRowId
@@ -85,7 +83,7 @@ sub LoadFromId
     my ($this) = @_;
     my $sql = Sql->new($this->{DBH});
    
-    my $table = lc $this->GetTable;
+    my $table = lc $this->table;
     my $row = $sql->SelectSingleRowArray(
         "SELECT id, name, ref, lastused, timesused
         FROM $table
@@ -107,7 +105,7 @@ sub Insert
 	my ($this, $id, $name, $otherref, $allowdupe) = @_;
 
     my $sql = Sql->new($this->{DBH});
-    my $table = lc $this->GetTable;
+    my $table = lc $this->table;
     $sql->Do("LOCK TABLE $table IN EXCLUSIVE MODE");
 
 	if (!$allowdupe)
@@ -163,7 +161,7 @@ sub UpdateName
     MusicBrainz::Server::Validation::TrimInPlace($name);
 
 	my $sql = Sql->new($self->{DBH});
-    my $table = lc $self->GetTable;
+    my $table = lc $self->table;
 
     $sql->Do("LOCK TABLE $table IN EXCLUSIVE MODE");
 

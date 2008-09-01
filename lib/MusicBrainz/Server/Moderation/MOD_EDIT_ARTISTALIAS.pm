@@ -44,7 +44,7 @@ sub PreInsert
 	$self->SetArtist($al->GetRowId);
 	$self->SetPrev($al->GetName);
 	$self->SetNew($newname);
-	$self->SetTable("artistalias");
+	$self->table("artistalias");
 	$self->SetColumn("name");
 	$self->SetRowId($al->GetId);
 

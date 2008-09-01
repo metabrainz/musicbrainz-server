@@ -135,7 +135,7 @@ sub PreInsert
 
 	$self->SetPrev($self->ConvertHashToNew(\%prev));
 	$self->SetNew($self->ConvertHashToNew(\%new));
-	$self->SetTable("label");
+	$self->table("label");
 	$self->SetColumn("name");
 	$self->SetRowId($ar->GetId);
 }

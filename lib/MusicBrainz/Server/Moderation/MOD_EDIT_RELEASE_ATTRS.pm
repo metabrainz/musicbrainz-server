@@ -111,7 +111,7 @@ sub PreInsert
 			: $albums->[0]->GetArtist
 	);
 
-	$self->SetTable("album");
+	$self->table("album");
 	$self->SetColumn("id");
 	$self->SetRowId($albums->[0]->GetId);
 	$self->SetNew($self->ConvertHashToNew(\%new));

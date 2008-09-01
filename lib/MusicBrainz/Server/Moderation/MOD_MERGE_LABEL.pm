@@ -53,7 +53,7 @@ sub PreInsert
 	$new{"LabelName"} = $target->GetName;
 	$new{"LabelId"} = $target->GetId;
 
-	$self->SetTable("label");
+	$self->table("label");
 	$self->SetColumn("name");
 	$self->SetRowId($source->GetId);
 	$self->SetPrev($source->GetName);

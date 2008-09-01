@@ -80,7 +80,7 @@ sub PreInsert
 	    $self->SetArtist(@$entities[0]->{obj}->GetId);
 	}
 
-    $self->SetTable($link->Table);
+    $self->table($link->Table);
     $self->SetColumn("id");
     $self->SetRowId($link->GetId);
 

@@ -42,7 +42,7 @@ sub PreInsert
 
 	$self->SetArtist($tr->GetArtist);
 	$self->SetPrev($tr->GetName . "\n" . $al->GetId . "\n" . $al->IsNonAlbumTracks . "\n" . $tr->GetSequence . "\n" . $tr->GetLength);
-	$self->SetTable("track");
+	$self->table("track");
 	$self->SetColumn("name");
 	$self->SetRowId($tr->GetId);
 }

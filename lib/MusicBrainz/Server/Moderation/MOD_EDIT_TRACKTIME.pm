@@ -43,7 +43,7 @@ sub PreInsert
 	$self->SetArtist($track->GetArtist);
 	$self->SetPrev($track->GetLength);
 	$self->SetNew(0+$newlength);
-	$self->SetTable("track");
+	$self->table("track");
 	$self->SetColumn("length");
 	$self->SetRowId($track->GetId);
 }

@@ -43,7 +43,7 @@ sub PreInsert
 
 	$self->SetPrev($al->GetName);
 	$self->SetNew($newname);
-	$self->SetTable("labelalias");
+	$self->table("labelalias");
 	$self->SetColumn("name");
 	$self->SetRowId($al->GetId);
 }

@@ -43,7 +43,7 @@ sub PreInsert
 	$self->SetArtist($track->GetArtist);
 	$self->SetPrev($track->GetSequence);
 	$self->SetNew(0+$newseq);
-	$self->SetTable("albumjoin");
+	$self->table("albumjoin");
 	$self->SetColumn("sequence");
 	$self->SetRowId($track->GetSequenceId);
 }

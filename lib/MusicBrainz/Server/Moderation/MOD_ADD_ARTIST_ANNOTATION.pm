@@ -49,7 +49,7 @@ sub PreInsert
 
 	$self->SetArtist($artistid);
 	$self->SetNew($self->ConvertHashToNew(\%new));
-	$self->SetTable('artist');
+	$self->table('artist');
 	$self->SetColumn('annotation.text');
 	$self->SetRowId($artistid);
 }

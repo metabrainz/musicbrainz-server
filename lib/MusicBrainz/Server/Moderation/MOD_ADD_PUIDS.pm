@@ -40,7 +40,7 @@ sub PreInsert
 	my $client = $opts{'client'} or die;
 	my $links = $opts{'links'} or die;
 
-	$self->SetTable('PUID');
+	$self->table('PUID');
 	$self->SetColumn('puid');
 
 	my $new = "ClientVersion=$client\n";

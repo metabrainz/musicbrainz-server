@@ -88,7 +88,7 @@ sub PreInsert
 	$self->SetArtist($artist) if $artist;
 	$self->SetPrev($self->ConvertHashToNew(\%prev));
 	$self->SetNew($self->ConvertHashToNew(\%new));
-	$self->SetTable("url");
+	$self->table("url");
 	$self->SetColumn("url");
 	$self->SetRowId($urlobj->GetId);
 }

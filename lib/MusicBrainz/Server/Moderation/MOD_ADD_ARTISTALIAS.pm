@@ -44,7 +44,7 @@ sub PreInsert
 	# Check that the alias $self->GetNew does not exist
 	require MusicBrainz::Server::Alias;
 	my $al = MusicBrainz::Server::Alias->new($self->{DBH});
-	$al->SetTable("ArtistAlias");
+	$al->table("ArtistAlias");
 
 	if (my $other = $al->newFromName($newalias))
 	{
@@ -62,7 +62,7 @@ sub PreInsert
 	$self->SetArtist($ar->GetId);
 	$self->SetPrev($ar->GetName);
 	$self->SetNew($newalias);
-	$self->SetTable("artist");
+	$self->table("artist");
 	$self->SetColumn("name");
 	$self->SetRowId($ar->GetId);
 }
@@ -100,7 +100,7 @@ sub CheckPrerequisites
 	# Check that the alias $self->GetNew does not exist
 	require MusicBrainz::Server::Alias;
 	my $al = MusicBrainz::Server::Alias->new($self->{DBH});
-	$al->SetTable("ArtistAlias");
+	$al->table("ArtistAlias");
 
 	if (my $other = $al->newFromName($self->GetNew))
 	{
@@ -127,7 +127,7 @@ sub ApprovedAction
 
 	require MusicBrainz::Server::Alias;
 	my $al = MusicBrainz::Server::Alias->new($self->{DBH});
-	$al->SetTable("ArtistAlias");
+	$al->table("ArtistAlias");
 
 	my $other;
 	if ($al->Insert($self->GetRowId, $self->GetNew, \$other))

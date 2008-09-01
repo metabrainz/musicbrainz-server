@@ -55,7 +55,7 @@ sub PreInsert
 	}
 
 	$self->SetArtist(DARTIST_ID);
-	$self->SetTable($node->{_table});
+	$self->table($node->{_table});
 	$self->SetColumn("name");
 	$self->SetRowId($node->GetId);
 	my $prev = $node->GetName . " (" . $node->GetDescription . ")";

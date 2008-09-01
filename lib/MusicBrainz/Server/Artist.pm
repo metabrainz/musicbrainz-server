@@ -390,7 +390,7 @@ sub MergeInto
     # TODO this is often a bad idea - remove this code?
     require MusicBrainz::Server::Alias;
     my $al = MusicBrainz::Server::Alias->new($old->{DBH});
-    $al->SetTable("ArtistAlias");
+    $al->table("ArtistAlias");
     $al->Insert($n, $old->GetName);
 
     # Invalidate the new artist as well
@@ -559,7 +559,7 @@ sub RebuildWordList
 
     require MusicBrainz::Server::Alias;
     my $al = MusicBrainz::Server::Alias->new($this->{DBH});
-    $al->SetTable("ArtistAlias");
+    $al->table("ArtistAlias");
     my @aliases = $al->GetList($this->GetId);
     @aliases = map { $_->[1] } @aliases;
 

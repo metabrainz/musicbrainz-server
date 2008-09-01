@@ -63,7 +63,7 @@ sub PreInsert
 			? &ModDefs::VARTIST_ID
 			: $albums->[0]->GetArtist
 	);
-	$self->SetTable("album");
+	$self->table("album");
 	$self->SetColumn("id");
 	$self->SetRowId($albums->[0]->GetId); # misleading
 	$self->SetNew($self->ConvertHashToNew(\%new));

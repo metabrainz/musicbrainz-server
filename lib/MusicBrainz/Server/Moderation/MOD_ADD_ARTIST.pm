@@ -122,7 +122,7 @@ sub PreInsert
 		if exists $info{'artist_enddate'};
 	$new{'ArtistId'} = $info{'artist_insertid'};
 
-	$self->SetTable('artist');
+	$self->table('artist');
 	$self->SetColumn('name');
 	$self->SetArtist($info{'artist_insertid'});
 	$self->SetRowId($info{'artist_insertid'});

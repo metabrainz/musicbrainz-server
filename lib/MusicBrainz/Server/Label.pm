@@ -340,7 +340,7 @@ sub MergeInto
     # Insert the old name as an alias for the new one
     require MusicBrainz::Server::Alias;
     my $al = MusicBrainz::Server::Alias->new($old->{DBH});
-    $al->SetTable("labelalias");
+    $al->table("labelalias");
     $al->Insert($n, $old->GetName);
 
 	$sql->Do("DELETE FROM label WHERE id = ?", $o);
@@ -433,7 +433,7 @@ sub RebuildWordList
 
 	require MusicBrainz::Server::Alias;
 	my $al = MusicBrainz::Server::Alias->new($this->{DBH});
-	$al->SetTable("LabelAlias");
+	$al->table("LabelAlias");
 	my @aliases = $al->GetList($this->GetId);
 	@aliases = map { $_->[1] } @aliases;
 

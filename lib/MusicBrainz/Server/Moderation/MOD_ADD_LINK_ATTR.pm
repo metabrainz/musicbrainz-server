@@ -55,7 +55,7 @@ sub PreInsert
 	my $child = $parent->AddChild($name, $desc, $childorder);
 
 	$self->SetArtist(DARTIST_ID);
-	$self->SetTable($parent->{_table});
+	$self->table($parent->{_table});
 	$self->SetColumn("name");
 	$self->SetRowId($child->GetId);
 

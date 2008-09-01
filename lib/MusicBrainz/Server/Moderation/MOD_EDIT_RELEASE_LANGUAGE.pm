@@ -89,7 +89,7 @@ sub PreInsert
 			: $albums->[0]->GetArtist
 	);
 	
-	$self->SetTable("album");
+	$self->table("album");
 	$self->SetColumn("id");
 	$self->SetNew($self->ConvertHashToNew(\%new));
 	$self->SetLanguageId($languageid) if $languageid;

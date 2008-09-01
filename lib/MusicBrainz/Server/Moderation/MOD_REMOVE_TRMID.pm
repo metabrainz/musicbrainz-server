@@ -41,7 +41,7 @@ sub PreInsert
 	my $trm = $opts{'trm'} or die;
 	my $trmjoinid = $opts{'trmjoinid'} or die;
 
-	$self->SetTable("trmjoin");
+	$self->table("trmjoin");
 	$self->SetColumn("id");
 	$self->SetRowId($trmjoinid);
 	$self->SetArtist($track->GetArtist);

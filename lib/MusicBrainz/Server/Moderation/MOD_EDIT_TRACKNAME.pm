@@ -44,7 +44,7 @@ sub PreInsert
 	$self->SetArtist($track->GetArtist);
 	$self->SetPrev($track->GetName);
 	$self->SetNew($newname);
-	$self->SetTable("track");
+	$self->table("track");
 	$self->SetColumn("name");
 	$self->SetRowId($track->GetId);
 }

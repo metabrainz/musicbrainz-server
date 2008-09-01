@@ -79,7 +79,7 @@ sub PreInsert
     $self->SetNew($self->ConvertHashToNew(\%new));
 	$self->SetPrev($prevdurs);
 	$self->SetArtist($release->GetArtist);
-	$self->SetTable("album");
+	$self->table("album");
 	$self->SetColumn("cdtoc.text");
 	$self->SetRowId($release->GetId);
 }

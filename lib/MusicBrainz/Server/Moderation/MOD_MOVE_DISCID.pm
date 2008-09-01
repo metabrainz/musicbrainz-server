@@ -96,7 +96,7 @@ sub PreInsert
 	my $already_there;
 	$alcdtoc->MoveToRelease($newal, \$already_there);
 
-	$self->SetTable("album_cdtoc");
+	$self->table("album_cdtoc");
 	$self->SetColumn("album");
 	$self->SetRowId($alcdtoc->GetId);
 	$self->SetArtist($oldal->GetArtist);

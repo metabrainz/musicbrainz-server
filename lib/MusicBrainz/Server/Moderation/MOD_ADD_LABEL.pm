@@ -120,7 +120,7 @@ sub PreInsert
 		if defined $enddate_str;
 	$new{'LabelId'} = $labelid;
 
-	$self->SetTable('label');
+	$self->table('label');
 	$self->SetColumn('name');
 	$self->SetRowId($labelid);
 	$self->SetNew($self->ConvertHashToNew(\%new));

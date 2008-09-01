@@ -56,7 +56,7 @@ sub PreInsert
 		return;
 	}
 
-	$self->SetTable("album_cdtoc");
+	$self->table("album_cdtoc");
 	$self->SetColumn("album");
 	$self->SetRowId($rowid);
 	$self->SetArtist($al->GetArtist);

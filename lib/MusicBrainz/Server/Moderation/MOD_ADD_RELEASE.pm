@@ -48,7 +48,7 @@ sub PreInsert
 	# TODO check options and fill in %new
 	my %new = %opts;
 	
-	$self->SetTable("album");
+	$self->table("album");
 	$self->SetColumn("name");
 	
 	# Force a deliberately bad value to start with - this makes it obvious if

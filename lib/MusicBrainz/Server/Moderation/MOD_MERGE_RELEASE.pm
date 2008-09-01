@@ -66,7 +66,7 @@ sub PreInsert
 	$new{"merge_langscript"} = 1 if $opts{"merge_langscript"};
 
 	$self->SetArtist($into->GetArtist);
-	$self->SetTable("album");
+	$self->table("album");
 	$self->SetColumn("id");
 	$self->SetRowId($into->GetId);
 	$self->SetNew($self->ConvertHashToNew(\%new));

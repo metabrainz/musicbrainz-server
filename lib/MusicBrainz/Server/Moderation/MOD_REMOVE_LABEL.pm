@@ -41,7 +41,7 @@ sub PreInsert
 	die if $ar->GetId == %ModDefs::DLABEL_ID;
 
 	$self->SetPrev($ar->GetName);
-	$self->SetTable("label");
+	$self->table("label");
 	$self->SetColumn("name");
 	$self->SetRowId($ar->GetId);
 }

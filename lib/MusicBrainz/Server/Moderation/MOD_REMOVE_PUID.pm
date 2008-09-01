@@ -41,7 +41,7 @@ sub PreInsert
 	my $puid = $opts{'puid'} or die;
 	my $puidjoinid = $opts{'puidjoinid'} or die;
 
-	$self->SetTable("puidjoin");
+	$self->table("puidjoin");
 	$self->SetColumn("id");
 	$self->SetRowId($puidjoinid);
 	$self->SetArtist($track->GetArtist);

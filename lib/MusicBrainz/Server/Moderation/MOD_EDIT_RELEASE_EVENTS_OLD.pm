@@ -135,7 +135,7 @@ sub PreInsert
 
 	$self->SetArtist($al->GetArtist);
 	$self->SetPrev($al->GetName);
-	$self->SetTable("album");
+	$self->table("album");
 	$self->SetColumn("releases");
 	$self->SetRowId($al->GetId);
 	$self->SetNew($self->ConvertHashToNew(\%new));

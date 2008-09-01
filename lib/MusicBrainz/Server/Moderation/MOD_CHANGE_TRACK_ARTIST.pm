@@ -43,7 +43,7 @@ sub PreInsert
 	my $sortname = $opts{'artistsortname'} or die;
 	my $newartistid = $opts{'artistid'} or die;
 
-	$self->SetTable("track");
+	$self->table("track");
 	$self->SetColumn("artist");
 	$self->SetRowId($tr->GetId);
 	$self->SetArtist($ar->GetId);

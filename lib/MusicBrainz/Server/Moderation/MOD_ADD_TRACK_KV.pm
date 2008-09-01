@@ -146,7 +146,7 @@ sub PreInsert
 	$new{"ArtistId"} = $artistid; # use track artist (or release artist if no track artist)
 	$new{"NewArtistId"} = $newartistid if ($newartistid);
 
-	$self->SetTable("track");
+	$self->table("track");
 	$self->SetColumn("name");
 	$self->SetArtist($artistid); # use track artist (or release artist if no track artist)
 	$self->SetRowId($newtrackid);

@@ -733,14 +733,12 @@ sub SetNoVotes
    $_[0]->{novotes} = $_[1];
 }
 
-sub GetTable
+sub table
 {
-   return $_[0]->{table};
-}
+    my ($self, $new_table) = @_;
 
-sub SetTable
-{
-   $_[0]->{table} = $_[1];
+    if (defined $new_table) { $self->{table} = $new_table; }
+    return $self->{table};
 }
 
 sub GetColumn
@@ -905,7 +903,7 @@ sub CreateFromId
         if (defined $edit)
         {
 			$edit->SetId($row[0]);
-			$edit->SetTable($row[1]);
+			$edit->table($row[1]);
 			$edit->SetColumn($row[2]);
 			$edit->SetRowId($row[3]);
 			$edit->SetArtist($row[4]);
@@ -1110,7 +1108,7 @@ sub InsertModeration
 		# records which maybe ->DeniedAction will delete later - and then override
 		# these default column values as appropriate:
 		$this->SetArtist(&ModDefs::VARTIST_ID);
-		$this->SetTable("");
+		$this->table("");
 		$this->SetColumn("");
 		$this->SetRowId(0);
 		$this->SetDepMod(0);
@@ -1159,7 +1157,7 @@ sub InsertModeration
                 ?,
                 ?, NOW() + INTERVAL ?, 0, 0, 0, ?
             )",
-            $this->GetTable, $this->GetColumn, $this->GetRowId,
+            $this->table, $this->GetColumn, $this->GetRowId,
             $this->GetPrev, $this->GetNew,
             $this->GetModerator, $this->GetArtist, $this->type,
             $this->GetDepMod,
@@ -1356,7 +1354,7 @@ sub GetModerationList
 		$edit->SetId($r->{id});
 		$edit->SetArtist($r->{artist});
 		$edit->SetModerator($r->{moderator});
-		$edit->SetTable($r->{tab});
+		$edit->table($r->{tab});
 		$edit->SetColumn($r->{col});
 		$edit->type($r->{type});
 		$edit->SetStatus($r->{status});
@@ -1945,7 +1943,7 @@ sub IsAutoEdit { 0 }
 sub AdjustModPending
 {
 	my ($this, $adjust) = @_;
-	my $table = lc $this->GetTable;
+	my $table = lc $this->table;
 
 	if ($table ne 'trm')
 	{

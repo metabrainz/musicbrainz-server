@@ -43,7 +43,7 @@ sub PreInsert
 
 	$self->SetArtist($ar->GetId);
 	$self->SetPrev($ar->GetName);
-	$self->SetTable("artist");
+	$self->table("artist");
 	$self->SetColumn("name");
 	$self->SetRowId($ar->GetId);
 }
