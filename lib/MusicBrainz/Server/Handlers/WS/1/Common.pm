@@ -634,7 +634,7 @@ sub xml_label
     }
     print '><name>' . xml_escape($ar->GetName) . '</name>';
     print '<sort-name>' . xml_escape($ar->sort_name) . '</sort-name>';
-    print '<label-code>' . xml_escape($ar->GetLabelCode) . '</label-code>' if $ar->GetLabelCode;
+    print '<label-code>' . xml_escape($ar->label_code) . '</label-code>' if $ar->label_code;
     print '<disambiguation>' . xml_escape($ar->resolution()) . '</disambiguation>' if ($ar->resolution());
     if ($ar->GetCountry())
     {

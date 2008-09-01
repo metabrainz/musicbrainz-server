@@ -82,7 +82,7 @@ sub PreInsert
 	$label->sort_name($sortname);
 	$label->type($type);
 	$label->SetCountry($country);
-	$label->SetLabelCode($labelcode);
+	$label->label_code($labelcode);
 	$label->begin_date($begindate_str);
 	$label->end_date($enddate_str);
 	$label->resolution($resolution);

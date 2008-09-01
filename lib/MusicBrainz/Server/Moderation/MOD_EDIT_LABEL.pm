@@ -81,7 +81,7 @@ sub PreInsert
 		die 'Invalid label code'
 			if ($labelcode && not MusicBrainz::Server::Validation::IsValidLabelCode($labelcode));
 
-		$new{'LabelCode'} = $labelcode if $labelcode ne $ar->GetLabelCode();
+		$new{'LabelCode'} = $labelcode if $labelcode ne $ar->label_code();
 	}
 
 	if ( defined $type )
@@ -125,7 +125,7 @@ sub PreInsert
 	my %prev;
 
 	$prev{'LabelName'} = $ar->GetName() if exists $new{'LabelName'};
-	$prev{'LabelCode'} = $ar->GetLabelCode() if exists $new{'LabelCode'};
+	$prev{'LabelCode'} = $ar->label_code() if exists $new{'LabelCode'};
 	$prev{'Country'} = $ar->GetCountry() if exists $new{'Country'};
 	$prev{'SortName'} = $ar->sort_name() if exists $new{'SortName'};
 	$prev{'Type'} = $ar->type() if exists $new{'Type'};

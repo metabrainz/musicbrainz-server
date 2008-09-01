@@ -78,14 +78,12 @@ sub IsValidType
 }
 
 # Label specific accessor function. Others are inherted from TableBase 
-sub GetLabelCode
+sub label_code
 {
-   return $_[0]->{labelcode};
-}
+    my ($self, $new_code) = @_;
 
-sub SetLabelCode
-{
-   $_[0]->{labelcode} = $_[1];
+    if (defined $new_code) { $self->{labelcode} = $new_code; }
+    return $self->{labelcode};
 }
 
 sub sort_name
@@ -230,7 +228,7 @@ sub Insert
 		     begindate, enddate, modpending, page)
 	    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?)|,
 	$this->GetName(),
-	$this->GetLabelCode() || undef,
+	$this->label_code() || undef,
 	$this->GetMBId(),
 	$this->type(),
 	$this->sort_name(),
@@ -596,7 +594,7 @@ sub GetLabelsFromName
 		$ar->SetMBId($row->{gid});
 		$ar->SetName($row->{name});
 		$ar->type($row->{type});
-		$ar->SetLabelCode($row->{labelcode});
+		$ar->label_code($row->{labelcode});
 		$ar->SetCountry($row->{country});
 		$ar->sort_name($row->{sortname});
 		$ar->SetModPending($row->{modpending});
@@ -638,7 +636,7 @@ sub GetLabelsFromSortname
 		$ar->SetMBId($row->{gid});
 		$ar->SetName($row->{name});
 		$ar->sort_name($row->{sortname});
-		$ar->SetLabelCode($row->{labelcode});
+		$ar->label_code($row->{labelcode});
 		$ar->SetCountry($row->{country});
 		$ar->resolution($row->{resolution});
 		$ar->begin_date($row->{begindate});
@@ -679,7 +677,7 @@ sub GetLabelsFromCode
 		$ar->SetMBId($row->{gid});
 		$ar->SetName($row->{name});
 		$ar->sort_name($row->{sortname});
-		$ar->SetLabelCode($row->{labelcode});
+		$ar->label_code($row->{labelcode});
 		$ar->SetCountry($row->{country});
 		$ar->resolution($row->{resolution});
 		$ar->begin_date($row->{begindate});
