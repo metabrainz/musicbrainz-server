@@ -64,7 +64,7 @@ sub new_from_release
         disc_ids           => $release->discid_count,
         first_release_date => $release->GetFirstReleaseDate,
         id                 => $release->id,
-        language_code      => $release->language ? $release->language->GetISOCode3T : '',
+        language_code      => $release->language ? $release->language->iso_code_3t : '',
         language           => $release->language ? $release->language->name : '',
         mbid               => $release->mbid,
         name               => $release->name,
