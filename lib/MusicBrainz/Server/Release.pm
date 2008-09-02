@@ -165,7 +165,7 @@ sub coverart_url
     {
         # Old entries didn't include the protocol in the URL
         $cover_url = "http://images.amazon.com/$cover_url"
-            if $cover_urll =~ m{^/};
+            if $cover_url =~ m{^/};
     }
 
     return $cover_url;

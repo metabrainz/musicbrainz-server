@@ -108,7 +108,7 @@ sub attributes
 {
     my ($self, $new_attrs) = @_;
     
-    if (defined $attrs) { $self->{attributes} = $new_attrs; }
+    if (defined $new_attrs) { $self->{attributes} = $new_attrs; }
 
     my @attributes;
     my $link_attr = MusicBrainz::Server::LinkAttr->new($self->{DBH});
