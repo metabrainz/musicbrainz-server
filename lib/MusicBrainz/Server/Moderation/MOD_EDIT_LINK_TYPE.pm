@@ -62,7 +62,7 @@ sub PreInsert
 	MusicBrainz::Server::Validation::TrimInPlace($description);
 	MusicBrainz::Server::Validation::TrimInPlace($attribute);
 
-	my $c = $parent->GetNamedChild($name);
+	my $c = $parent->named_child($name);
 	if ($c and $c->id != $node->id)
 	{
 		my $note = "There is already a link type called '$name' here";
@@ -140,7 +140,7 @@ sub DeniedAction
 	}
 
 	my $name = $self->GetPrev;
-	my $c = $node->Parent->GetNamedChild($name);
+	my $c = $node->Parent->named_child($name);
 	if ($c and $c->id != $node->id)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "There is already a link type called '$name' here");

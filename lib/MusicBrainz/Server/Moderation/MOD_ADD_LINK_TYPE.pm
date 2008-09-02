@@ -61,7 +61,7 @@ sub PreInsert
 	MusicBrainz::Server::Validation::TrimInPlace($description);
 	MusicBrainz::Server::Validation::TrimInPlace($attribute);
 
-	if ($parent->GetNamedChild($name))
+	if ($parent->named_child($name))
 	{
 		my $note = "There is already a link type called '$name' here";
 		$self->SetError($note);

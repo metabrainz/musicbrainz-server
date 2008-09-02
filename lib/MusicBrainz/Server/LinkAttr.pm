@@ -167,7 +167,7 @@ sub PathFromRoot
 	@path;
 }
 
-sub GetNamedChild
+sub named_child
 {
 	my ($self, $childname) = @_;
 	$self->newFromParentIdAndChildName($self->id, $childname);
@@ -189,7 +189,7 @@ sub HasChildren
 # Insert, Delete
 ################################################################################
 
-# Always call GetNamedChild first, to check that it doesn't already exist
+# Always call named_child first, to check that it doesn't already exist
 sub AddChild
 {
 	my ($self, $childname, $desc, $childorder) = @_;
