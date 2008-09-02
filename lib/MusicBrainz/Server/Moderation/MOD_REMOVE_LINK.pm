@@ -74,10 +74,10 @@ sub PreInsert
 		linktypephrase=>$linkphrase,
 		entity0id=>$ents[0]->id,
 		entity0type=>$types->[0],
-		entity0name=>$ents[0]->GetName,
+		entity0name=>$ents[0]->name,
 		entity1id=>$ents[1]->id,
 		entity1type=>$types->[1],
-		entity1name=>$ents[1]->GetName,
+		entity1name=>$ents[1]->name,
 		begindate=>$link->begin_date(),
 		enddate=>$link->end_date(),
 	);

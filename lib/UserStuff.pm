@@ -110,7 +110,7 @@ sub _id_cache_key
 	"moderator-id-" . int($id);
 }
 
-sub _GetNameCacheKey
+sub _name_cache_key
 {
 	my ($class, $name) = @_;
 	"moderator-name-" . $name;
@@ -121,7 +121,7 @@ sub InvalidateCache
 	my $self = shift;
 	require MusicBrainz::Server::Cache;
 	MusicBrainz::Server::Cache->delete($self->_id_cache_key($self->id));
-	MusicBrainz::Server::Cache->delete($self->_GetNameCacheKey($self->GetName));
+	MusicBrainz::Server::Cache->delete($self->_name_cache_key($self->name));
 }
 
 sub Refresh
@@ -160,7 +160,7 @@ sub newFromId
 	# We can't store DBH in the cache...
 	delete $obj->{DBH} if $obj;
 	MusicBrainz::Server::Cache->set($key, \$obj);
-	MusicBrainz::Server::Cache->set($obj->_GetNameCacheKey($obj->GetName), \$obj)
+	MusicBrainz::Server::Cache->set($obj->_name_cache_key($obj->name), \$obj)
 		if $obj;
 	$obj->{DBH} = $this->{DBH} if $obj;
 
@@ -173,7 +173,7 @@ sub newFromName
 	$this = $this->new(shift) if not ref $this;
 	my $name = shift;
 
-	my $key = $this->_GetNameCacheKey($name);
+	my $key = $this->_name_cache_key($name);
 	require MusicBrainz::Server::Cache;
 	my $obj = MusicBrainz::Server::Cache->get($key);
 
@@ -242,7 +242,7 @@ sub search
 		sort { $b->[2] <=> $a->[2] or $a->[1] cmp $b->[1] }
 		map {
 			my $u = $_;
-			my $name = lc(decode "utf-8", $u->GetName);
+			my $name = lc(decode "utf-8", $u->name);
 			my $sim = similarity($name, $query);
 			[ $u, $name, $sim ];
 		} @u;
@@ -701,7 +701,7 @@ sub CheckEMailAddress
 sub GetForwardingAddress
 {
 	my ($self, $name) = @_;
-	$name = $self->GetName unless defined $name;
+	$name = $self->name unless defined $name;
 
 	require MusicBrainz::Server::Mail;
 	MusicBrainz::Server::Mail->_quoted_string($name)
@@ -713,7 +713,7 @@ sub GetForwardingAddressHeader
 	my $self = shift;
 	require MusicBrainz::Server::Mail;
 	MusicBrainz::Server::Mail->format_address_line(
-		$self->GetName,
+		$self->name,
 		$self->GetForwardingAddress,
 	);
 }
@@ -723,7 +723,7 @@ sub GetRealAddressHeader
 	my $self = shift;
 	require MusicBrainz::Server::Mail;
 	MusicBrainz::Server::Mail->format_address_line(
-		$self->GetName,
+		$self->name,
 		$self->GetEmail,
 	);
 }
@@ -759,7 +759,7 @@ sub SendPasswordReminder
 {
 	my $self = shift;
 
-	my $username = $self->GetName;
+	my $username = $self->name;
 	my $pass = $self->GetPassword;
 
 	my $body = <<EOF;
@@ -823,7 +823,7 @@ EOF
 	my $mail = MusicBrainz::Server::Mail->new(
 		Sender		=> 'MusicBrainz Server <webserver@musicbrainz.org>',
 		From		=> 'MusicBrainz <noreply@musicbrainz.org>',
-		To			=> MusicBrainz::Server::Mail->format_address_line($self->GetName, $email),
+		To			=> MusicBrainz::Server::Mail->format_address_line($self->name, $email),
 		"Reply-To"	=> 'MusicBrainz Support <support@musicbrainz.org>',
 		Subject		=> "Please verify your e-mail address",
 		Type		=> "text/plain",
@@ -846,8 +846,8 @@ sub SendMessageToUser
 	my $subject = $opts{'subject'};
 	my $message = $opts{'body'};
 
-	my $fromname = $self->GetName;
-	my $toname = $other_user->GetName;
+	my $fromname = $self->name;
+	my $toname = $other_user->name;
 
 	# Collapse onto a single line
 	$subject =~ s/\s+/ /g;
@@ -952,7 +952,7 @@ sub SendModNoteToUser
 	my $note_text = $opts{'note_text'};
 
 	my $editid = $edit->id;
-	my $fromname = $self->GetName;
+	my $fromname = $self->name;
 
 	my $body = <<EOF;
 Editor '$fromname' has added the following note your edit #$editid:
@@ -998,14 +998,14 @@ sub SendModNoteToFellowNoter
 	my $note_text = $opts{'note_text'};
 
 	my $editid = $edit->id;
-	my $fromname = $self->GetName;
+	my $fromname = $self->name;
 
 	my $body = <<EOF;
 Editor '$fromname' has added the following note to edit #$editid:
 ------------------------------------------------------------------------
 $note_text
 ------------------------------------------------------------------------
-The original editor was '${\ $edit_user->GetName }'.
+The original editor was '${\ $edit_user->name }'.
 
 If you would like to reply to this note, please add your note at:
 http://${\ DBDefs::WEB_SERVER() }/show/edit/?editid=$editid
@@ -1052,7 +1052,7 @@ sub SendFormattedEmail
 
 	my $from = $opts{'from'} || 'noreply@musicbrainz.org';
 	my $to = $opts{'to'} || $self->GetEmail;
-	$to or die "No e-mail address available for user " . $self->GetName;
+	$to or die "No e-mail address available for user " . $self->name;
 
 	require MusicBrainz::Server::Mail;
 	my $mailer = MusicBrainz::Server::Mail->open(
@@ -1153,7 +1153,7 @@ sub SetSession
 
 	$self->EnsureSessionOpen;
 
-	$session->{user} = $self->GetName;
+	$session->{user} = $self->name;
 	$session->{privs} = $self->GetPrivs;
 	$session->{uid} = $self->id;
 	$session->{expire} = time() + &DBDefs::WEB_SESSION_SECONDS_TO_LIVE;
@@ -1181,7 +1181,7 @@ sub SetPermanentCookie
 	my ($this, %opts) = @_;
 	my $r = Apache->request;
 
-	my ($username, $password) = ($this->GetName, $this->GetPassword);
+	my ($username, $password) = ($this->name, $this->GetPassword);
 
 	# There are (will be) multiple formats to this cookie.  This is format #2.
 	# See TryAutoLogin.
@@ -1372,7 +1372,7 @@ sub NagCheck
     {
         use LWP::Simple;
         use URI::Escape;
-        $days = get('http://metabrainz.org/cgi-bin/nagcheck_days?moderator=' . uri_escape($self->GetName));
+        $days = get('http://metabrainz.org/cgi-bin/nagcheck_days?moderator=' . uri_escape($self->name));
         if ($days =~ /\s*([-01]+),([-0-9.]+)\s*/) 
         {
             $nag = $1;

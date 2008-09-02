@@ -237,7 +237,7 @@ sub Update
 		"UPDATE link_attribute_type SET parent = ?, childorder = ?, name = ?, description = ? WHERE id = ?",
 		$self->GetParentId,
 		$self->GetChildOrder,
-		$self->GetName,
+		$self->name,
 		$self->GetDescription,
 		$self->id,
 	);

@@ -62,7 +62,7 @@ sub PreInsert
 	$self->artist($al->artist);
 
 	my %new = (
-		AlbumName		=> $al->GetName,
+		AlbumName		=> $al->name,
 		AlbumId			=> $al->id,
 		FullTOC			=> $toc,
 		CDTOCId			=> $tocid,

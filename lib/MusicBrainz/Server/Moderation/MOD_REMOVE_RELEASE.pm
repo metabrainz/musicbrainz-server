@@ -40,7 +40,7 @@ sub PreInsert
 	my $al = $opts{'album'} or die;
 
 	$self->artist($al->artist);
-	$self->SetPrev($al->GetName);
+	$self->SetPrev($al->name);
 	$self->table("album");
 	$self->SetColumn("name");
 	$self->row_id($al->id);

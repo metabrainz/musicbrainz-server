@@ -60,7 +60,7 @@ sub PreInsert
 		next if $prev eq $new{Language};
 
 		$new{"AlbumId$seq"} = $al->id;
-		$new{"AlbumName$seq"} = $al->GetName;
+		$new{"AlbumName$seq"} = $al->name;
 		$new{"Prev$seq"} = $prev;
 
 		$fCanAutoMod = 0 if $curr_lang and $languageid != $curr_lang;

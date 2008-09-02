@@ -50,13 +50,13 @@ sub PreInsert
 	}
 
 	my %new;
-	$new{"LabelName"} = $target->GetName;
+	$new{"LabelName"} = $target->name;
 	$new{"LabelId"} = $target->id;
 
 	$self->table("label");
 	$self->SetColumn("name");
 	$self->row_id($source->id);
-	$self->SetPrev($source->GetName);
+	$self->SetPrev($source->name);
 	$self->SetNew($self->ConvertHashToNew(\%new));
 }
 
@@ -143,7 +143,7 @@ sub CheckPrerequisites
 	}
 
 	# Check to see that the old value is still what we think it is
-	unless ($oldar->GetName eq $prevval)
+	unless ($oldar->name eq $prevval)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This label has already been renamed");
 		return STATUS_FAILEDPREREQ;
@@ -201,7 +201,7 @@ sub ShowModTypeDelegate
 	my ($title, $name);
 	if ($label->LoadFromId) 
 	{
-		$title = $name = $label->GetName;
+		$title = $name = $label->name;
 	}
 	else
 	{

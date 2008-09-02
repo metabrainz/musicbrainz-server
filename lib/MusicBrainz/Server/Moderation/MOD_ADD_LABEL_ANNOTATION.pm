@@ -109,7 +109,7 @@ sub ShowModTypeDelegate
 	my ($title, $name);
 	if ($label->LoadFromId) 
 	{
-		$title = $name = $label->GetName;
+		$title = $name = $label->name;
 	}
 	else
 	{

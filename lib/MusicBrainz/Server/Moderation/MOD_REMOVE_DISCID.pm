@@ -78,7 +78,7 @@ sub PreInsert
 	$self->SetPrev($cdtoc->disc_id);
 
 	my %new = (
-		AlbumName => $oldrelease->GetName,
+		AlbumName => $oldrelease->name,
 		AlbumId => $oldrelease->id,
 		FullTOC => $cdtoc->toc,
 		CDTOCId => $cdtoc->id,

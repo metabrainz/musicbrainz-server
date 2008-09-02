@@ -240,7 +240,7 @@ sub _Insert
             die "Insert failed: Could not load artist: $info->{artistid}\n";
         }
 
-        $artist = $ar->GetName();
+        $artist = $ar->name();
         $artistid = $ar->id();
         $sortname = $ar->sort_name();
     }
@@ -281,7 +281,7 @@ sub _Insert
                 die "Insert failed: Could not load given albumid.\n";
             }
     
-            $album = $al->GetName();
+            $album = $al->name();
             $albumid = $al->id();
         }
         else
@@ -302,7 +302,7 @@ sub _Insert
     # If we have no artistid, then insert the artist
     if (!defined $artistid)
     {
-        $ar->SetName($artist);
+        $ar->name($artist);
         $ar->sort_name($sortname);
 		$ar->type($artist_type);
 		$ar->resolution($artist_resolution);
@@ -364,7 +364,7 @@ sub _Insert
     {
         if ($forcenewalbum)
         {
-           $al->SetName($album);
+           $al->name($album);
            $al->artist($artistid);
            if (exists $info->{attrs})
            {
@@ -464,7 +464,7 @@ TRACK:
             # see if a trm id was given. If it was, then insert the
             # trmid for this track.
             if ($albumtrack->sequence() == $track->{tracknum} &&
-                $albumtrack->GetName() eq $track->{track} &&
+                $albumtrack->name() eq $track->{track} &&
                 exists $track->{trmid} && $track->{trmid} ne '')
             {
                 my $newtrm;
@@ -478,7 +478,7 @@ TRACK:
                 next TRACK;
             }
             if ($albumtrack->sequence() == $track->{tracknum} &&
-                $albumtrack->GetName() eq $track->{track} &&
+                $albumtrack->name() eq $track->{track} &&
                 exists $track->{puid} && $track->{puid} ne '')
             {
                 my $newpuid;
@@ -500,7 +500,7 @@ TRACK:
         }
 
         # Ok, the track passes all the tests. Insert the track.
-        $tr->SetName($track->{track});
+        $tr->name($track->{track});
         $tr->sequence($track->{tracknum});
         if (exists $track->{year} && $track->{year} != 0)
         {
@@ -524,7 +524,7 @@ TRACK:
 				if (!exists $track->{sortname} || $track->{sortname} eq "");        
            
             # Load/insert artist
-            $ar->SetName($track->{artist});
+            $ar->name($track->{artist});
             $ar->sort_name($track->{sortname});
             $ar->type(0);
             $ar->resolution("");

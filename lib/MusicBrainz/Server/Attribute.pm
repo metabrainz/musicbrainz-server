@@ -122,9 +122,9 @@ sub attributes
             if (scalar(@p) > 1)
             {
                 push @attributes, { 
-                    name       => $p[1]->GetName(), 
+                    name       => $p[1]->name(), 
                     valuei     => $attr,
-                    value_text => $obj->GetName(),
+                    value_text => $obj->name(),
                 };
             }
         }
@@ -147,7 +147,7 @@ sub ReplaceAttributes
 			my @p = $obj->PathFromRoot();
 			if (scalar(@p) > 1)
 			{
-		        push @{$temp{$p[1]->GetName()}}, $obj->GetName();
+		        push @{$temp{$p[1]->name()}}, $obj->name();
 			}
 		}
 	}

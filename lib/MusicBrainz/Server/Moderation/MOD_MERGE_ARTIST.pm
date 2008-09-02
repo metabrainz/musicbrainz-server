@@ -51,14 +51,14 @@ sub PreInsert
 	}
 
 	my %new;
-	$new{"ArtistName"} = $target->GetName;
+	$new{"ArtistName"} = $target->name;
 	$new{"ArtistId"} = $target->id;
 
 	$self->table("artist");
 	$self->SetColumn("name");
 	$self->artist($source->id);
 	$self->row_id($source->id);
-	$self->SetPrev($source->GetName);
+	$self->SetPrev($source->name);
 	$self->SetNew($self->ConvertHashToNew(\%new));
 }
 
@@ -168,7 +168,7 @@ sub CheckPrerequisites
 	}
 
 	# Check to see that the old value is still what we think it is
-	unless ($oldar->GetName eq $prevval)
+	unless ($oldar->name eq $prevval)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This artist has already been renamed");
 		return STATUS_FAILEDPREREQ;

@@ -40,7 +40,7 @@ sub PreInsert
 	my $label = $opts{'label'} or die;
 	my $alias = $opts{'alias'} or die;
 
-	$self->SetPrev($alias->GetName);
+	$self->SetPrev($alias->name);
 	$self->table("labelalias");
 	$self->SetColumn("name");
 	$self->row_id($alias->id);

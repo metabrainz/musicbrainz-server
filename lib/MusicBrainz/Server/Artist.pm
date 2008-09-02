@@ -185,13 +185,13 @@ sub Insert
     $this->{new_insert} = 0;
 
     # Check name and sortname
-    defined(my $name = $this->GetName)
+    defined(my $name = $this->name)
 	or return undef;
     my $sortname = $this->sort_name;
     $sortname = $name if not defined $sortname;
 
     MusicBrainz::Server::Validation::TrimInPlace($name, $sortname);
-    $this->SetName($name);
+    $this->name($name);
     $this->sort_name($sortname);
 
     my $sql = Sql->new($this->{DBH});
@@ -202,11 +202,11 @@ sub Insert
         my $ar_list = $this->select_artists_by_name($name);
 		foreach my $ar (@$ar_list)
 		{
-	    	return $ar->id if ($ar->GetName() eq $name);
+	    	return $ar->id if ($ar->name() eq $name);
         }
 		foreach my $ar (@$ar_list)
 		{
-	    	return $ar->id if (lc($ar->GetName()) eq lc($name));
+	    	return $ar->id if (lc($ar->name()) eq lc($name));
         }
     }
 
@@ -237,7 +237,7 @@ sub Insert
 		    (name, sortname, gid, type, resolution,
 		     begindate, enddate, modpending, page)
 	    VALUES (?, ?, ?, ?, ?, ?, ?, 0, ?)|,
-		$this->GetName(),
+		$this->name(),
 		$this->sort_name(),
 		$this->mbid,
 		$this->type() || undef,
@@ -391,7 +391,7 @@ sub MergeInto
     require MusicBrainz::Server::Alias;
     my $al = MusicBrainz::Server::Alias->new($old->{DBH});
     $al->table("ArtistAlias");
-    $al->Insert($n, $old->GetName);
+    $al->Insert($n, $old->name);
 
     # Invalidate the new artist as well
     $new->InvalidateCache;
@@ -413,7 +413,7 @@ sub UpdateName
     $this->InvalidateCache;
 
     # Update the search engine
-    $this->SetName($name);
+    $this->name($name);
     $this->RebuildWordList;
 
     1;
@@ -504,7 +504,7 @@ sub Update
     $this->InvalidateCache;
 
     # Update the search engine
-    $this->SetName($name) if exists $update{name};
+    $this->name($name) if exists $update{name};
     $this->sort_name($sortname) if exists $update{sortname};
     $this->RebuildWordList;
 
@@ -567,7 +567,7 @@ sub RebuildWordList
     my $engine = SearchEngine->new($this->{DBH}, 'artist');
     $engine->AddWordRefs(
 		$this->id,
-		[ $this->GetName, @aliases ],
+		[ $this->name, @aliases ],
 		1, # remove other words
     );
 }
@@ -725,7 +725,7 @@ sub select_artists_by_name
 
 		$ar->id($row->{id});
 		$ar->mbid($row->{gid});
-		$ar->SetName($row->{name});
+		$ar->name($row->{name});
 		$ar->sort_name($row->{sortname});
 		$ar->has_mod_pending($row->{modpending});
 		$ar->resolution($row->{resolution});
@@ -770,7 +770,7 @@ sub select_artists_by_sort_name
 
 		$ar->id($row->{id});
 		$ar->mbid($row->{gid});
-		$ar->SetName($row->{name});
+		$ar->name($row->{name});
 		$ar->sort_name($row->{sortname});
 		$ar->resolution($row->{resolution});
 		$ar->begin_date($row->{begindate});
@@ -986,7 +986,7 @@ sub select_releases
                 require MusicBrainz::Server::Release;
                 $album = MusicBrainz::Server::Release->new($this->{DBH});
                 $album->id($row[0]);
-                $album->SetName($row[1]);
+                $album->name($row[1]);
                 $album->has_mod_pending($row[2]);
                 $album->artist($this->{id});
                 $album->mbid($row[3]);
@@ -1050,7 +1050,7 @@ sub select_releases
             $album = MusicBrainz::Server::Release->new($this->{DBH});
             $album->id($row[0]);
             $album->artist($row[1]);
-            $album->SetName($row[2]);
+            $album->name($row[2]);
             $album->has_mod_pending($row[3]);
             $album->mbid($row[4]);
             $row[5] =~ s/^\{(.*)\}$/$1/;

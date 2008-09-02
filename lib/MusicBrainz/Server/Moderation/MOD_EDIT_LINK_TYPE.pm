@@ -74,10 +74,10 @@ sub PreInsert
 	$self->table($node->{_table}); # FIXME internal field
 	$self->SetColumn("name");
 	$self->row_id($node->id);
-	$self->SetPrev($node->GetName);
+	$self->SetPrev($node->name);
 
 	my %new = (
-		parent				=> $parent->GetName, 
+		parent				=> $parent->name, 
 		types				=> $node->PackTypes,
 		name				=> $name,
 		childorder			=> $childorder,
@@ -87,8 +87,8 @@ sub PreInsert
 		description			=> $description,
 		attribute			=> $attribute,
 		priority			=> $priority,
-		old_parent			=> $node->Parent->GetName, 
-		old_name			=> $node->GetName,
+		old_parent			=> $node->Parent->name, 
+		old_name			=> $node->name,
 		old_childorder		=> $node->GetChildOrder,
 		old_linkphrase		=> $node->GetLinkPhrase,
 		old_rlinkphrase		=> $node->GetReverseLinkPhrase,
@@ -99,7 +99,7 @@ sub PreInsert
 	);
 
 	$node->SetParentId($parent->id); 
-	$node->SetName($name);
+	$node->name($name);
 	$node->SetLinkPhrase($linkphrase);
 	$node->SetReverseLinkPhrase($rlinkphrase);
 	$node->SetShortLinkPhrase($shortlinkphrase);
@@ -147,7 +147,7 @@ sub DeniedAction
 		return;
 	}
 
-	$node->SetName($name);
+	$node->name($name);
 	$node->Update;
 }
 

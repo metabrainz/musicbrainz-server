@@ -31,7 +31,7 @@ sub load_events
         $rel->country(
             $county_names{$cid} ||= do {
                 my $country = $country_obj->newFromId($cid);
-                $country ? $country->GetName : "?";
+                $country ? $country->name : "?";
             }
         );
 
@@ -163,7 +163,7 @@ sub _build_sort_keys
                                     ($release->artist != $release->id());
         $release->{_is_nonalbum_} = $type && $type == MusicBrainz::Server::Release::RELEASE_ATTR_NONALBUMTRACKS;
         $release->{_section_key_} = (defined $type ? $release->{_is_va_} . " " . $type : $release->{_is_va});
-        $release->{_name_sort_}   = lc decode "utf-8", $release->GetName;
+        $release->{_name_sort_}   = lc decode "utf-8", $release->name;
         $release->{_attr_type}    = $type;
         $release->{_attr_status}  = $status;
 

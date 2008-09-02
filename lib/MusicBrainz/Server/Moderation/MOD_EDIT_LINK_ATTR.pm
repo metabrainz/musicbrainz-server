@@ -58,21 +58,21 @@ sub PreInsert
 	$self->table($node->{_table});
 	$self->SetColumn("name");
 	$self->row_id($node->id);
-	my $prev = $node->GetName . " (" . $node->GetDescription . ")";
+	my $prev = $node->name . " (" . $node->GetDescription . ")";
     $prev = substr($prev, 0, 251) . " ..." if (length($prev) > 255);
 	$self->SetPrev($prev);
 
 	my %new = (
 		name        	=> $name,
 		desc        	=> $desc,
-		old_parent		=> $parent->Parent->GetName,
-		parent			=> $parent->GetName,
+		old_parent		=> $parent->Parent->name,
+		parent			=> $parent->name,
 		childorder		=> $childorder,
 		old_childorder	=> $node->GetChildOrder,
 	);
 
 	$node->SetParentId($parent->id);
-	$node->SetName($name);
+	$node->name($name);
 	$node->SetDescription($desc);
 	$node->SetChildOrder($childorder);
 	$node->Update;
@@ -114,7 +114,7 @@ sub DeniedAction
 		return;
 	}
 
-	$node->SetName($name);
+	$node->name($name);
 	$node->Update;
 }
 

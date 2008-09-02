@@ -64,7 +64,7 @@ sub PreInsert
 	use MusicBrainz::Server::Release;
 	my %new = (
 		albumid => $al->id,
-		albumname => $al->GetName,
+		albumname => $al->name,
 	);	
 
 	my $i;
@@ -134,7 +134,7 @@ sub PreInsert
 		unless @adds or @edits or @removes;
 
 	$self->artist($al->artist);
-	$self->SetPrev($al->GetName);
+	$self->SetPrev($al->name);
 	$self->table("album");
 	$self->SetColumn("releases");
 	$self->row_id($al->id);
@@ -287,7 +287,7 @@ sub ApprovedAction
 	{
 		my $r = $release->newFromId($t->{"id"});
 		my $c = $country->newFromId($t->{"c"});
-		my $name = ($c ? $c->GetName : "?");
+		my $name = ($c ? $c->name : "?");
 		my $display = "'$t->{d} - $name'";
 
 		unless ($r)
@@ -332,7 +332,7 @@ sub ApprovedAction
 		$release->RemoveById($t->{"id"})
 			and ++$ok, next;
 		my $c = $country->newFromId($t->{"c"});
-		my $name = ($c ? $c->GetName : "?");
+		my $name = ($c ? $c->name : "?");
 		my $display = "'$t->{d} - $name'";
 		push @notes, "$display has already been deleted";
 	}

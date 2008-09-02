@@ -31,7 +31,7 @@ sub new_from_track
         duration   => MusicBrainz::Server::Track::FormatTrackLength($track->length),
         id         => $track->id,
         number     => $track->sequence,
-        name       => $track->GetName,
+        name       => $track->name,
         mbid       => $track->mbid,
         puid_count => 0,
         release_id => $track->release,

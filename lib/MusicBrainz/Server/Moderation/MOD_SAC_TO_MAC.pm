@@ -51,7 +51,7 @@ sub PreInsert
 	$self->SetColumn("artist");
 	$self->artist($al->artist);
 	$self->row_id($al->id);
-	$self->SetPrev($ar->GetName);
+	$self->SetPrev($ar->name);
 	$self->SetNew($movetova);
 }
 

@@ -304,7 +304,7 @@ sub xml_artist
 	printf '<artist id="%s"', $ar->mbid;
     printf ' type="%s"', &MusicBrainz::Server::Artist::type_name($ar->type()) if ($ar->type);
     printf '><name>%s</name><sort-name>%s</sort-name>',
-		xml_escape($ar->GetName),
+		xml_escape($ar->name),
 		xml_escape($ar->sort_name);
     print '<disambiguation>' . xml_escape($ar->resolution()) . '</disambiguation>' if ($ar->resolution());
 
@@ -367,7 +367,7 @@ sub xml_release
     print '<release id="' . $al->mbid . '"';
     xml_release_type($al);
 	print ' ext:score="100"' if ($showscore);
-    print '><title>' . xml_escape($al->GetName) . '</title>';
+    print '><title>' . xml_escape($al->name) . '</title>';
 
     my ($lang, $script);
     $lang = $al->language_id;
@@ -418,9 +418,9 @@ sub xml_language
 {
 	my $al = $_[0];
 	my ($lang) = $al->language;
-	my ($name) = (defined $lang ? $lang->GetName : "?");
+	my ($name) = (defined $lang ? $lang->name : "?");
 	my ($code) = (defined $lang ? $al->language->GetISOCode3T() : "?");
-	my ($script) = (defined $al->script ? $al->script->GetName : "?");
+	my ($script) = (defined $al->script ? $al->script->name : "?");
 	my ($editpending) = ($al->language_has_mod_pending() ? 'editpending="1"' : '');
 
 	return '<mm:language '.$editpending.' '
@@ -472,7 +472,7 @@ sub xml_release_events
 				my $label = MusicBrainz::Server::Label->new($rel->{DBH});
 				$label->id($rel->GetLabel);
 				$label->mbid($rel->label_mbid);
-				$label->SetName($rel->label_name);
+				$label->name($rel->label_name);
 				xml_label($label, $inc);
 				print '</event>';
 			}
@@ -566,7 +566,7 @@ sub xml_track
 
 	printf '<track id="%s"', $tr->mbid;
     print '><title>';
-    print xml_escape($tr->GetName());
+    print xml_escape($tr->name());
     print '</title>';
     if ($tr->length())
     {
@@ -632,7 +632,7 @@ sub xml_label
         $name =~ s/(^|[^A-Za-z0-9])+([A-Za-z0-9]?)/uc $2/eg;
         printf ' type="%s"', $name;
     }
-    print '><name>' . xml_escape($ar->GetName) . '</name>';
+    print '><name>' . xml_escape($ar->name) . '</name>';
     print '<sort-name>' . xml_escape($ar->sort_name) . '</sort-name>';
     print '<label-code>' . xml_escape($ar->label_code) . '</label-code>' if $ar->label_code;
     print '<disambiguation>' . xml_escape($ar->resolution()) . '</disambiguation>' if ($ar->resolution());

@@ -61,11 +61,11 @@ sub PreInsert
 
 	my %new = (
 		parent	   => $parent->mbid,
-		name	   => $child->GetName,
+		name	   => $child->name,
 		gid		   => $child->mbid,
 		desc	   => $desc,
 		childorder => $childorder,
-		parent_name => $parent->GetName,
+		parent_name => $parent->name,
 	);
 
 	$self->SetNew($self->ConvertHashToNew(\%new));

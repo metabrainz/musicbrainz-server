@@ -584,7 +584,7 @@ sub _ProcessUserSubscriptions
 	$user = $user->newFromId($self->GetUser);
 
 	printf "Processing subscriptions for #%d '%s'\n",
-		$user->id, $user->GetName,
+		$user->id, $user->name,
 		if $self->{'verbose'};
 
 	my $subs = $self->GetSubscribedArtists;
@@ -601,7 +601,7 @@ sub _ProcessUserSubscriptions
 	unless ($user->GetEmail and $user->GetEmailConfirmDate)
 	{
 		printf "Skipping subscriptions for user #%d '%s' because they have no confirmed e-mail address\n",
-			$user->id, $user->GetName
+			$user->id, $user->name
 			if $self->{'verbose'};
 		# Instead of returning here, we just empty the list of subscriptions.
 		# Thus we don't go to all the trouble of looking for edits, and
@@ -818,7 +818,7 @@ EOF
 	if ($self->{'dryrun'})
 	{
 		printf "The following e-mail would be sent to #%d '%s':\n",
-			$user->id, $user->GetName;
+			$user->id, $user->name;
 		$mail->print;
 		return;
 	}

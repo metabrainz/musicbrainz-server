@@ -39,7 +39,7 @@ sub new_from_label
         dissolved  => $label->end_date,
         founded    => $label->begin_date,
         id         => $label->id,
-        name       => $label->GetName,
+        name       => $label->name,
         mbid       => $label->mbid,
         resolution => $label->resolution,
 

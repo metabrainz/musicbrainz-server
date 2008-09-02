@@ -32,7 +32,7 @@ use Carp;
 use Encode qw( decode );
 
 # id / id - see TableBase
-# GetName / SetName - see TableBase
+# name / name - see TableBase
 sub GetISOCode		{ $_[0]{isocode} }
 sub GetISONumber	{ $_[0]{isonumber} }
 
@@ -244,7 +244,7 @@ sub Menu
 	my @scripts = All(@_);
 	
 	my @menu = map {
-		[ $_->id(), $_->GetName() ]
+		[ $_->id(), $_->name() ]
 	} @scripts;
 
 	unshift @menu, [ '', "I don't know" ];

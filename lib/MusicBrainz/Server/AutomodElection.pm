@@ -453,7 +453,7 @@ sub _PrepareMail
 		my $them = $us->newFromId($id)
 			or next;
 		$self->{$key."_user"} = $them;
-		$self->{$key."_name"} = $them->GetName;
+		$self->{$key."_name"} = $them->name;
 		$self->{$key."_link"} = sprintf "http://%s/show/user/?userid=%d",
 			&DBDefs::WEB_SERVER, $them->id;
 	}

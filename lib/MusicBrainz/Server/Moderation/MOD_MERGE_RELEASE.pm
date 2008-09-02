@@ -57,7 +57,7 @@ sub PreInsert
 		map {
 			(
 				"AlbumId$_"		=> $albums[$_]->id,
-				"AlbumName$_"	=> $albums[$_]->GetName,
+				"AlbumName$_"	=> $albums[$_]->name,
 			)
 		} 0 .. $#albums
 	);

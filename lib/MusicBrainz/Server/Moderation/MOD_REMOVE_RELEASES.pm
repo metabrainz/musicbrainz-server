@@ -54,7 +54,7 @@ sub PreInsert
 	{
 		my $al = $albums->[$seq];
 		$new{"AlbumId$seq"} = $al->id;
-		$new{"AlbumName$seq"} = $al->GetName;
+		$new{"AlbumName$seq"} = $al->name;
 		++$artists{$al->artist};
 	}
 

@@ -31,7 +31,7 @@ use base qw( TableBase );
 use Carp;
 
 # id / id - see TableBase
-# GetName / SetName - see TableBase
+# name / name - see TableBase
 sub GetISOCode	{ $_[0]{isocode} }
 sub SetISOCode	{ $_[0]{isocode} = $_[1] }
 

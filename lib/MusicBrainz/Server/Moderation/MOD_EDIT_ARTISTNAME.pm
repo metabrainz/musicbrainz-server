@@ -45,7 +45,7 @@ sub PreInsert
 	die if $ar->id == DARTIST_ID;
 
 	$self->artist($ar->id);
-	$self->SetPrev($ar->GetName);
+	$self->SetPrev($ar->name);
 	$self->SetNew($newname);
 	$self->table("artist");
 	$self->SetColumn("name");
@@ -97,7 +97,7 @@ sub CheckPrerequisites
 	}
 
 	# Check that its name has not changed
-	if ($ar->GetName ne $self->GetPrev)
+	if ($ar->name ne $self->GetPrev)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This artist has already been renamed");
 		return STATUS_FAILEDPREREQ;

@@ -109,7 +109,7 @@ sub PreInsert
 	# record previous values if we set their corresponding attributes
 	my %prev;
 
-	$prev{'ArtistName'} = $ar->GetName() if exists $new{'ArtistName'};
+	$prev{'ArtistName'} = $ar->name() if exists $new{'ArtistName'};
 	$prev{'SortName'} = $ar->sort_name() if exists $new{'SortName'};
 	$prev{'Type'} = $ar->type() if exists $new{'Type'};
 	$prev{'Resolution'} = $ar->resolution() if exists $new{'Resolution'};
@@ -211,7 +211,7 @@ sub CheckPrerequisites
 	}
 
 	# Check that its name has not changed.
-	if ( exists $prev->{ArtistName} and $ar->GetName() ne $prev->{ArtistName} )
+	if ( exists $prev->{ArtistName} and $ar->name() ne $prev->{ArtistName} )
 	{
 		$self->InsertNote(MODBOT_MODERATOR,
 									"This artist has already been renamed.");

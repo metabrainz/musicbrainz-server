@@ -41,7 +41,7 @@ sub PreInsert
 	my $newalias = $opts{'newalias'};
 	defined $newalias or die;
 
-	$self->SetPrev($ar->GetName);
+	$self->SetPrev($ar->name);
 	$self->SetNew($newalias);
 	$self->table("label");
 	$self->SetColumn("name");
@@ -109,7 +109,7 @@ sub ShowModTypeDelegate
 	my ($title, $name);
 	if ($label->LoadFromId) 
 	{
-		$title = $name = $label->GetName;
+		$title = $name = $label->name;
 	}
 	else
 	{

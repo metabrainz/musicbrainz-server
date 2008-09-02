@@ -368,7 +368,7 @@ sub ArtistSearch
                            $this->SetSim(ARTISTID, {
                              id=>$this->{artist}->id(),
                              mbid=>$this->{artist}->mbid(), 
-                             name=>$this->{artist}->GetName(),
+                             name=>$this->{artist}->name(),
                              resolution=>$this->{artist}->resolution(),
                              sortname=>$this->{artist}->sort_name() })
                          ]);
@@ -378,7 +378,7 @@ sub ArtistSearch
        foreach my $item (@$artists)
        {
            push @ids, { id=>$item->id(),
-                      name=>$item->GetName(),
+                      name=>$item->name(),
                   sortname=>$item->sort_name(),
                       mbid=>$item->mbid(),
                 resolution=>$item->resolution(),
@@ -407,13 +407,13 @@ sub ArtistSearch
        {
            $this->{artist} = $ar;     
            $this->{fuzzy} = 1;
-           my $thisname = lc(decode "utf-8", $ar->GetName);
+           my $thisname = lc(decode "utf-8", $ar->name);
            return (ARTISTID | FUZZY, 
                              [ 
                               $this->SetSim(ARTISTID, { 
                                  id=>$ar->id(),
                                  mbid=>$ar->mbid(), 
-                                 name=>$ar->GetName(),
+                                 name=>$ar->name(),
                                  resolution=>$ar->resolution(),
                                  sortname=>$ar->sort_name()})
                              ]);
@@ -501,7 +501,7 @@ sub AlbumSearch
    # do an exact match
    foreach $al (@albums)
    {
-       my $thisname = lc(decode "utf-8", $al->GetName);
+       my $thisname = lc(decode "utf-8", $al->name);
 
        if ($thisname eq $name)
        {
@@ -518,9 +518,9 @@ sub AlbumSearch
                }
            }
            push @ids, $this->SetSim(ALBUMID, { 
-                        artist=>$ar->GetName(),
+                        artist=>$ar->name(),
                         id=>$al->id(),
-                        name=>$al->GetName(),
+                        name=>$al->name(),
                         mbid=>$al->mbid(),
                         album_tracks=>$al->track_count(),
                         album_discids=>$al->discid_count(),
@@ -538,7 +538,7 @@ sub AlbumSearch
 
        foreach $al (@albums)
        {
-           my $thisname = lc(decode "utf-8", $al->GetName);
+           my $thisname = lc(decode "utf-8", $al->name);
 
            $sim = similarity($thisname, $name);
 
@@ -564,9 +564,9 @@ sub AlbumSearch
                }
            }
            push @ids, $this->SetSim(ALBUMID, { 
-                        artist=>$ar->GetName(),
+                        artist=>$ar->name(),
                         id=>$al->id(),
-                        name=>$al->GetName(),
+                        name=>$al->name(),
                         mbid=>$al->mbid(),
                         album_tracks=>$al->track_count(),
                         album_discids=>$al->discid_count(),
@@ -714,7 +714,7 @@ sub AlbumTrackSearch
            $id->{album_artist} = $row[8];
            $id->{album_attrs} = $row[9];
            $id->{albumid} = $row[0];
-           $id->{artist} = $ar->GetName();
+           $id->{artist} = $ar->name();
            $id->{artistmbid} = $ar->mbid();
            $this->SetSim(ALBUMTRACKID, $id);
        }
@@ -802,9 +802,9 @@ sub TrackSearch
            next if ($namesim < .35);
 
            push @ids, $this->SetSim(TRACKID, { id=>$row[0],
-                        artist=>$ar->GetName(),
+                        artist=>$ar->name(),
                         albumid=>$al->id(),
-                        album=>$al->GetName(),
+                        album=>$al->name(),
                         name=>$row[2], 
                         mbid=>$row[1],
                         tracklen=>$row[3],
@@ -857,14 +857,14 @@ sub VariousArtistSearch
            $this->{artistid} = &ModDefs::VARTIST_MBID;
            $this->{album} = $al;     
            $this->{fuzzy} = 1;
-           my $thisname = lc(decode "utf-8", $al->GetName);
+           my $thisname = lc(decode "utf-8", $al->name);
            return (ALBUMID, 
                              [ 
                               $this->SetSim(ALBUMID, { 
                                  id=>$al->id(),
-                                 artist=>$ar->GetName(),
+                                 artist=>$ar->name(),
                                  mbid=>$al->mbid(), 
-                                 name=>$al->GetName(),
+                                 name=>$al->name(),
                                  albumtype=>MusicBrainz::Server::Release::RELEASE_ATTR_COMPILATION
                                })
                              ]);

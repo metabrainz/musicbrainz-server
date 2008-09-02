@@ -55,7 +55,7 @@ sub PreInsert
 	$self->SetColumn("artist");
 	$self->artist($release->artist);
 	$self->row_id($release->id);
-	$self->SetPrev($artist->GetName);
+	$self->SetPrev($artist->name);
 	$self->SetNew($new);
 }
 
@@ -126,7 +126,7 @@ sub PreDisplay
 	$release->id($this->row_id);
 	if ($release->LoadFromId)
 	{
-		$this->{'albumname'} = $release->GetName;
+		$this->{'albumname'} = $release->name;
 
 		# make sure new artist really doesn't exist; old mods only had 
 		# the artist sortname (or name?) in 'prevvalue'
@@ -138,12 +138,12 @@ sub PreDisplay
 				
 			# FIXME is the name = new.sortname comparison necessary?
 			if ($newartist->LoadFromId 
-				&& ($newartist->GetName eq $this->{'new.sortname'}
+				&& ($newartist->name eq $this->{'new.sortname'}
 					|| $newartist->sort_name eq $this->{'new.sortname'}))
 			{
 				# assume we got the right artist, and reset name and sortname
 				# to the correct values
-				$this->{'new.name'} = $newartist->GetName;
+				$this->{'new.name'} = $newartist->name;
 				$this->{'new.sortname'} = $newartist->sort_name;
 				$this->{'new.exists'} = 1;
 			}
@@ -237,7 +237,7 @@ sub ApprovedAction
 		# No such artist, so create one
 		require MusicBrainz::Server::Artist;
 		my $artist = MusicBrainz::Server::Artist->new($this->{DBH});
-		$artist->SetName($name);
+		$artist->name($name);
 		$artist->sort_name($this->{'new.sortname'});
 		$newid = $artist->Insert(no_alias => 1);
 	}

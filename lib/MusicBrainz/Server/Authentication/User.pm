@@ -43,7 +43,7 @@ sub new
         id        => $user->id,
         password  => $user->GetPassword,
         type      => $user->GetUserType,
-        username  => $user->GetName,
+        username  => $user->name,
 
         has_public_subscriptions => UserPreference::get_for_user('subscriptions_public', $user),
         subscriber_count         => scalar $user->GetSubscribers,

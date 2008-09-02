@@ -69,7 +69,7 @@ sub OutputArtistRDF
 
     $out  = $this->BeginDesc("mm:Artist", $this->GetBaseURI() .
                             "/artist/" . $artist->mbid());
-    $out .=   $this->Element("dc:title", $artist->GetName());
+    $out .=   $this->Element("dc:title", $artist->name());
     $out .=   $this->Element("mm:sortName", $artist->sort_name());
 
     if (exists $ref->{_artist})
@@ -106,7 +106,7 @@ sub OutputAlbumRDF
 
     $out  = $this->BeginDesc("mm:Album", $this->GetBaseURI() .
                             "/album/" . $album->mbid());
-    $out .=   $this->Element("dc:title", $album->GetName());
+    $out .=   $this->Element("dc:title", $album->name());
     $out .=   $this->Element("dc:creator", "", "rdf:resource",
                              $this->GetBaseURI() . "/artist/" . 
                              $artist->mbid());
@@ -177,7 +177,7 @@ sub OutputTrackRDF
 
     $out  = $this->BeginDesc("mm:Track", $this->GetBaseURI() .
                             "/track/" . $track->mbid());
-    $out .=   $this->Element("dc:title", $track->GetName());
+    $out .=   $this->Element("dc:title", $track->name());
 
     $out .=   $this->Element("dc:creator", "", "rdf:resource",
               $this->{baseuri}. "/artist/" . $artist->mbid());

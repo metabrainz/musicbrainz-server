@@ -57,7 +57,7 @@ sub PreInsert
 		next if $prev eq $new{Quality};
 
 		$new{"ReleaseId$seq"} = $al->id;
-		$new{"ReleaseName$seq"} = $al->GetName;
+		$new{"ReleaseName$seq"} = $al->name;
 		$new{"Prev$seq"} = $prev;
 
 		++$artists{$al->artist};

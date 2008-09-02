@@ -41,7 +41,7 @@ sub PreInsert
 	my $alias = $opts{'alias'} or die;
 
 	$self->artist($artist->id);
-	$self->SetPrev($alias->GetName);
+	$self->SetPrev($alias->name);
 	$self->table("artistalias");
 	$self->SetColumn("name");
 	$self->row_id($alias->id);

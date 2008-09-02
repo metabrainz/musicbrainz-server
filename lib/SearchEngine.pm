@@ -499,7 +499,7 @@ sub Search
 
 		for my $alias (@$aliases)
 		{
-		    ($tokens, $c1) = $self->Tokenize($alias->GetName);
+		    ($tokens, $c1) = $self->Tokenize($alias->name);
 		    push @t, [ $tokens, $c1 ];
 		    $fOK ||= not grep { ($tokens->{$_}||0) < $words->{$_} } keys %$words;
 		}
@@ -515,7 +515,7 @@ sub Search
 
 		for my $alias (@$aliases)
 		{
-		    ($tokens, $c1) = $self->Tokenize($alias->GetName);
+		    ($tokens, $c1) = $self->Tokenize($alias->name);
 		    push @t, [ $tokens, $c1 ];
 		    $fOK ||= not grep { ($tokens->{$_}||0) < $words->{$_} } keys %$words;
 		}

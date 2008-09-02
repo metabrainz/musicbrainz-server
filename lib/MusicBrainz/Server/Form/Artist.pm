@@ -105,7 +105,7 @@ sub init_value {
     use Switch;
     switch($field->name)
     {
-        return $item->GetName case ('name');
+        return $item->name case ('name');
         return $item->sort_name case('sortname');
         return $item->type case('artist_type');
         return $item->begin_date case('start');
@@ -153,7 +153,7 @@ sub update_model {
         $moderation{type} = ModDefs::MOD_EDIT_ARTIST;
 
         $moderation{artist} = $item;
-        $moderation{name} = $self->value('name') || $item->GetName;
+        $moderation{name} = $self->value('name') || $item->name;
         $moderation{sortname} = $self->value('sortname') || $item->sort_name;
         $moderation{artist_type} = $self->value('artist_type') || $item->type;
         $moderation{resolution} = $self->value('resolution') || $item->resolution;

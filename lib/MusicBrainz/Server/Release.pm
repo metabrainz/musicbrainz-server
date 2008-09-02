@@ -304,7 +304,7 @@ sub CombineNonAlbums
 
 	for (@tracks)
 	{
-		my $temp = unaccent($_->GetName);
+		my $temp = unaccent($_->name);
 		$temp = lc decode("utf-8", $temp);
 		$_->{_name} = $temp;
 	}
@@ -363,7 +363,7 @@ sub GetOrInsertNonAlbum
 	# There doesn't seem to be a non-album for this artist, so we'll
 	# insert one.
 	$this->artist($artist);
-	$this->SetName(&NONALBUMTRACKS_NAME);
+	$this->name(&NONALBUMTRACKS_NAME);
 	$this->attributes(&RELEASE_ATTR_NONALBUMTRACKS);
 	my $id = $this->Insert;
 
@@ -779,7 +779,7 @@ sub LoadTracks
 			require MusicBrainz::Server::Track;
 			$track = MusicBrainz::Server::Track->new($this->{DBH});
 			$track->id($row[0]);
-			$track->SetName($row[1]);
+			$track->name($row[1]);
 			$track->artist($row[2]);
 			$track->sequence($row[3]);
 			$track->length($row[4]);
@@ -1205,7 +1205,7 @@ sub UpdateName
 
 	my $id = $self->id
 		or croak "Missing album ID in RemoveFromAlbum";
-	my $name = $self->GetName;
+	my $name = $self->name;
 	defined($name) && $name ne ""
 		or croak "Missing album name in RemoveFromAlbum";
 
@@ -1250,7 +1250,7 @@ sub RebuildWordList
     my $engine = SearchEngine->new($this->{DBH}, 'album');
     $engine->AddWordRefs(
 		$this->id,
-		$this->GetName,
+		$this->name,
 		1, # remove other words
     );
 }

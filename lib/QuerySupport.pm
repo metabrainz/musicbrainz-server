@@ -958,7 +958,7 @@ EOF
     {
 	$ar or next;
 	# The "full" RDF code doesn't seem to spit out VARTIST_ID
-	my $artistname = $ar->GetName; RDF2::escape($artistname);
+	my $artistname = $ar->name; RDF2::escape($artistname);
 	my $sortname = $ar->sort_name; RDF2::escape($sortname);
 	my $artistgid = $ar->mbid;
 

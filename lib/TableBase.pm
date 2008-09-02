@@ -75,14 +75,12 @@ sub id
     return $self->{id};
 }
 
-sub GetName
+sub name
 {
-   return $_[0]->{name};
-}
+    my ($self, $new_name) = @_;
 
-sub SetName
-{
-   $_[0]->{name} = $_[1];
+    if (defined $new_name) { $self->{name} = $new_name; }
+    return $self->{name};
 }
 
 sub mbid

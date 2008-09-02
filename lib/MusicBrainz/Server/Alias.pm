@@ -146,7 +146,7 @@ sub UpdateName
 		or croak "Missing table in UpdateName";
 	my $id = $self->id
 		or croak "Missing alias ID in UpdateName";
-	my $name = $self->GetName;
+	my $name = $self->name;
 	defined($name) && $name ne ""
 		or croak "Missing alias name in UpdateName";
 	my $rowid = $self->row_id
@@ -318,7 +318,7 @@ sub LoadFull
            $alias = MusicBrainz::Server::Alias->new($this->{DBH});
            $alias->{table} = $this->{table};
            $alias->id($row[0]);
-           $alias->SetName($row[1]);
+           $alias->name($row[1]);
            $alias->row_id($row[2]);
            $alias->last_used($row[3]);
            $alias->times_used($row[4]);

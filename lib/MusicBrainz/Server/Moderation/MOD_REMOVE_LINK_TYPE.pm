@@ -58,11 +58,11 @@ sub PreInsert
 	$self->table($node->{_table}); # FIXME internal field
 	$self->SetColumn("name");
 	$self->row_id($node->id);
-	$self->SetPrev($node->GetName);
+	$self->SetPrev($node->name);
 
 	my %new = (
 		types 	        => $linktype,
-		old_name        => $node->GetName(),
+		old_name        => $node->name(),
 		old_linkphrase  => $node->GetLinkPhrase(),
 		old_rlinkphrase => $node->GetReverseLinkPhrase(),
 		old_description => $node->GetDescription(),

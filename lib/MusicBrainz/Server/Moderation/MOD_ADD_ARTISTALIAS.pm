@@ -60,7 +60,7 @@ sub PreInsert
 	}
 
 	$self->artist($ar->id);
-	$self->SetPrev($ar->GetName);
+	$self->SetPrev($ar->name);
 	$self->SetNew($newalias);
 	$self->table("artist");
 	$self->SetColumn("name");

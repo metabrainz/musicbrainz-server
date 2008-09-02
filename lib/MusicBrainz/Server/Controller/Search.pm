@@ -73,7 +73,7 @@ sub editor : Local
 
     if(defined $user)
     {
-        $c->response->redirect($c->uri_for('/user/profile', $user->GetName));
+        $c->response->redirect($c->uri_for('/user/profile', $user->name));
         $c->detach;
     }
     else

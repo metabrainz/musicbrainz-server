@@ -78,7 +78,7 @@ sub PreInsert
 		if ($labelcode && not MusicBrainz::Server::Validation::IsValidLabelCode($labelcode));
 
 	my $label = MusicBrainz::Server::Label->new($self->{DBH});
-	$label->SetName($name);
+	$label->name($name);
 	$label->sort_name($sortname);
 	$label->type($type);
 	$label->country($country);
@@ -158,7 +158,7 @@ sub ShowModTypeDelegate
 	my ($title, $name);
 	if ($label->LoadFromId) 
 	{
-		$title = $name = $label->GetName;
+		$title = $name = $label->name;
 	}
 	else
 	{

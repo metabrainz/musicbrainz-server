@@ -119,7 +119,7 @@ sub PreDisplay
 	$al->id($this->row_id);
 	if ($al->LoadFromId)
 	{
-		$this->{'albumname'} = $al->GetName;
+		$this->{'albumname'} = $al->name;
 
 		# try to guess the artist id for old moderations which only had the
 		# name in 'newvalue'
@@ -132,7 +132,7 @@ sub PreDisplay
 			my $ar = MusicBrainz::Server::Artist->new($this->{DBH});
 			$ar->id($al->artist);
 			if ($ar->LoadFromId 
-				&& $ar->GetName eq $this->{'new.name'})
+				&& $ar->name eq $this->{'new.name'})
 			{
 				$this->{'new.artistid'} = $ar->id;
 				$this->{'new.exists'} = 1;
@@ -206,7 +206,7 @@ sub ApprovedAction
 		# No such artist, so create one
 		require MusicBrainz::Server::Artist;
 		my $ar = MusicBrainz::Server::Artist->new($this->{DBH});
-		$ar->SetName($name);
+		$ar->name($name);
 		$ar->sort_name($this->{'new.sortname'});
 		$newid = $ar->Insert(no_alias => 1);
 		$newid or croak "Failed to create artist $name / $this->{'new.sortname'}";

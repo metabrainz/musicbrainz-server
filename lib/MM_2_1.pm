@@ -74,7 +74,7 @@ sub OutputArtistRDF
     $out  = $this->BeginDesc("mm:Artist", $this->GetBaseURI() . "/artist/" . $artist->mbid())
 	if ($artist);
 
-    $out .=   $this->Element("dc:title", $artist->GetName());
+    $out .=   $this->Element("dc:title", $artist->name());
     $out .=   $this->Element("mm:sortName", $artist->sort_name());
 
     my $begindate = MusicBrainz::Server::Validation::MakeDisplayDateStr($artist->begin_date);
@@ -127,7 +127,7 @@ sub OutputAlbumRDF
 
     $out  = $this->BeginDesc("mm:Album", $this->GetBaseURI() . "/album/" . $album->mbid())
 	if ($album);
-    $out .=   $this->Element("dc:title", $album->GetName());
+    $out .=   $this->Element("dc:title", $album->name());
     if (defined $artist)
     {
         $out .=   $this->Element("dc:creator", "", "rdf:resource",
@@ -228,7 +228,7 @@ sub OutputAlbumRDF
 	if (scalar(@$ids))
 	{
 	    $complete = $$ids[scalar(@$ids) - 1]->{tracknum} != (scalar(@$ids) + 1);
-            $complete = 1 if (!$complete && $album->GetName() eq &MusicBrainz::Server::Release::NONALBUMTRACKS_NAME);
+            $complete = 1 if (!$complete && $album->name() eq &MusicBrainz::Server::Release::NONALBUMTRACKS_NAME);
 	    foreach $track (@$ids)
 	    {
 		my $li = $complete ? "rdf:li" : ("rdf:_" . $track->{tracknum});
@@ -277,7 +277,7 @@ sub OutputTrackRDF
 
     $out  = $this->BeginDesc("mm:Track", $this->GetBaseURI() .
                             "/track/" . $track->mbid());
-    $out .=   $this->Element("dc:title", $track->GetName());
+    $out .=   $this->Element("dc:title", $track->name());
 
     if (defined $artist)
     {

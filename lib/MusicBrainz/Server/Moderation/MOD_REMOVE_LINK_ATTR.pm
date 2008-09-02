@@ -50,10 +50,10 @@ sub PreInsert
 	$self->table($node->{_table}); 
 	$self->SetColumn("name");
 	$self->row_id($node->id);
-	$self->SetPrev($node->GetName . " (" . $node->GetDescription . ")");
+	$self->SetPrev($node->name . " (" . $node->GetDescription . ")");
 
 	my %new = (
-		name    => $node->GetName(),
+		name    => $node->name(),
 	);
 
 	$node->Delete;

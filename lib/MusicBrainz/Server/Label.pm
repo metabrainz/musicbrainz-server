@@ -194,11 +194,11 @@ sub Insert
 	$this->{new_insert} = 0;
 
 	# Check name
-	defined(my $name = $this->GetName)
+	defined(my $name = $this->name)
 		or return undef;
 
 	MusicBrainz::Server::Validation::TrimInPlace($name);
-	$this->SetName($name);
+	$this->name($name);
 
 	my $sql = Sql->new($this->{DBH});
 	my $label;
@@ -208,11 +208,11 @@ sub Insert
 		my $ar_list = $this->GetLabelsFromName($name);
 		foreach my $ar (@$ar_list)
 		{
-			return $ar->id if ($ar->GetName() eq $name);
+			return $ar->id if ($ar->name() eq $name);
 		}
 		foreach my $ar (@$ar_list)
 		{
-			return $ar->id if (lc($ar->GetName()) eq lc($name));
+			return $ar->id if (lc($ar->name()) eq lc($name));
 		}
     }
 
@@ -225,7 +225,7 @@ sub Insert
 		    (name, labelcode, gid, type, sortname, country, resolution,
 		     begindate, enddate, modpending, page)
 	    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?)|,
-	$this->GetName(),
+	$this->name(),
 	$this->label_code() || undef,
 	$this->mbid(),
 	$this->type(),
@@ -337,7 +337,7 @@ sub MergeInto
     require MusicBrainz::Server::Alias;
     my $al = MusicBrainz::Server::Alias->new($old->{DBH});
     $al->table("labelalias");
-    $al->Insert($n, $old->GetName);
+    $al->Insert($n, $old->name);
 
 	$sql->Do("DELETE FROM label WHERE id = ?", $o);
 	$old->InvalidateCache;
@@ -394,7 +394,7 @@ sub Update
 	$this->InvalidateCache;
 
 	# Update the search engine
-	$this->SetName($name) if exists $update{name};
+	$this->name($name) if exists $update{name};
 	$this->RebuildWordList;
 
 	return 1;
@@ -437,7 +437,7 @@ sub RebuildWordList
 	my $engine = SearchEngine->new($this->{DBH}, 'label');
 	$engine->AddWordRefs(
 		$this->id,
-		[ $this->GetName, @aliases ],
+		[ $this->name, @aliases ],
 		1, # remove other words
 		);
 }
@@ -590,7 +590,7 @@ sub GetLabelsFromName
 		my $ar = MusicBrainz::Server::Label->new($this->{DBH});
 		$ar->id($row->{id});
 		$ar->mbid($row->{gid});
-		$ar->SetName($row->{name});
+		$ar->name($row->{name});
 		$ar->type($row->{type});
 		$ar->label_code($row->{labelcode});
 		$ar->country($row->{country});
@@ -632,7 +632,7 @@ sub GetLabelsFromSortname
 		my $ar = MusicBrainz::Server::Label->new($this->{DBH});
 		$ar->id($row->{id});
 		$ar->mbid($row->{gid});
-		$ar->SetName($row->{name});
+		$ar->name($row->{name});
 		$ar->sort_name($row->{sortname});
 		$ar->label_code($row->{labelcode});
 		$ar->country($row->{country});
@@ -673,7 +673,7 @@ sub GetLabelsFromCode
 		my $ar = MusicBrainz::Server::Label->new($this->{DBH});
 		$ar->id($row->{id});
 		$ar->mbid($row->{gid});
-		$ar->SetName($row->{name});
+		$ar->name($row->{name});
 		$ar->sort_name($row->{sortname});
 		$ar->label_code($row->{labelcode});
 		$ar->country($row->{country});
@@ -891,7 +891,7 @@ sub select_releases
 			my $album = MusicBrainz::Server::Release->new($this->{DBH});
 			$album->id($row[0]);
 			$album->artist($row[1]);
-			$album->SetName($row[2]);
+			$album->name($row[2]);
 			$album->has_mod_pending($row[3]);
 			$album->mbid($row[4]);
 			$row[5] =~ s/^\{(.*)\}$/$1/;

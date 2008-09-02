@@ -42,7 +42,7 @@ sub PreInsert
 	$newname =~ /\S/ or die;
 
 	$self->artist($release->artist);
-	$self->SetPrev($release->GetName);
+	$self->SetPrev($release->name);
 	$self->SetNew($newname);
 	$self->table("album");
 	$self->SetColumn("name");
@@ -91,7 +91,7 @@ sub CheckPrerequisites
 	}
 
 	# Check that its name has not changed
-	if ($release->GetName ne $self->GetPrev)
+	if ($release->name ne $self->GetPrev)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This release has already been renamed");
 		return STATUS_FAILEDPREREQ;
@@ -118,7 +118,7 @@ sub ApprovedAction
 	return $status if $status;
 
 	my $release = $this->{_album};
-	$release->SetName($this->GetNew);
+	$release->name($this->GetNew);
 	$release->UpdateName;
 
 	STATUS_APPLIED;

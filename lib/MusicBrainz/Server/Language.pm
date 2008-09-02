@@ -32,7 +32,7 @@ use Carp;
 use Encode qw( decode );
 
 # id / id - see TableBase
-# GetName / SetName - see TableBase
+# name / name - see TableBase
 sub GetISOCode3T	{ $_[0]{isocode_3t} }
 sub GetISOCode3B	{ $_[0]{isocode_3b} }
 sub GetISOCode2		{ $_[0]{isocode_2} }
@@ -267,7 +267,7 @@ sub Menu
 	my @languages = All(@_);
 	
 	my @menu = map {
-		[ $_->id(), $_->GetName() ]
+		[ $_->id(), $_->name() ]
 	} @languages;
 
 	unshift @menu, [ '', "I don't know" ];

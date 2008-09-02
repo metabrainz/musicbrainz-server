@@ -44,7 +44,7 @@ sub SetURL { $_[0]->{url} = $_[1]; }
 sub GetURL { return $_[0]->{url}; }
 sub SetDesc { $_[0]->{desc} = $_[1]; }
 sub GetDesc { return $_[0]->{desc}; }
-sub GetName { return $_[0]->GetURL; }
+sub name { return $_[0]->GetURL; }
 
 sub LoadFromId
 {

@@ -40,7 +40,7 @@ sub PreInsert
 	my $ar = $opts{'label'} or die;
 	die if $ar->id == %ModDefs::DLABEL_ID;
 
-	$self->SetPrev($ar->GetName);
+	$self->SetPrev($ar->name);
 	$self->table("label");
 	$self->SetColumn("name");
 	$self->row_id($ar->id);
@@ -94,7 +94,7 @@ sub ShowModTypeDelegate
 	my ($title, $name);
 	if ($label->LoadFromId) 
 	{
-		$title = $name = $label->GetName;
+		$title = $name = $label->name;
 	}
 	else
 	{

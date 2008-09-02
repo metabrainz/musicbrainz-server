@@ -124,7 +124,7 @@ sub PreInsert
 	# record previous values if we set their corresponding attributes
 	my %prev;
 
-	$prev{'LabelName'} = $ar->GetName() if exists $new{'LabelName'};
+	$prev{'LabelName'} = $ar->name() if exists $new{'LabelName'};
 	$prev{'LabelCode'} = $ar->label_code() if exists $new{'LabelCode'};
 	$prev{'Country'} = $ar->country() if exists $new{'Country'};
 	$prev{'SortName'} = $ar->sort_name() if exists $new{'SortName'};
@@ -218,7 +218,7 @@ sub CheckPrerequisites
 	}
 
 	# Check that its name has not changed.
-	if ( exists $prev->{LabelName} and $ar->GetName() ne $prev->{LabelName} )
+	if ( exists $prev->{LabelName} and $ar->name() ne $prev->{LabelName} )
 	{
 		$self->InsertNote(MODBOT_MODERATOR,
 									"This label has already been renamed.");
@@ -271,7 +271,7 @@ sub ShowModTypeDelegate
 	my ($title, $name);
 	if ($label->LoadFromId) 
 	{
-		$title = $name = $label->GetName;
+		$title = $name = $label->name;
 	}
 	else
 	{

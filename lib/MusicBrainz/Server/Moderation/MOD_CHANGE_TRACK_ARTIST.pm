@@ -47,7 +47,7 @@ sub PreInsert
 	$self->SetColumn("artist");
 	$self->row_id($tr->id);
 	$self->artist($ar->id);
-	$self->SetPrev($ar->GetName);
+	$self->SetPrev($ar->name);
 	$self->SetNew($sortname . "\n" . $name . "\n" . $newartistid);
 }
 
@@ -125,7 +125,7 @@ sub PreDisplay
 	$track->id($this->{"trackid"});
 	if ($track->LoadFromId)
 	{
-		$this->{"trackname"} = $track->GetName;
+		$this->{"trackname"} = $track->name;
 		$this->{"exists-track"} = 1;
 
 		# since the track exists, we can see if can load the 
@@ -140,7 +140,7 @@ sub PreDisplay
 			$newartist = MusicBrainz::Server::Artist->new($this->{DBH});
 			$newartist->id($track->artist);
 			if ($newartist->LoadFromId and
-				$newartist->GetName eq $this->{'new.name'})
+				$newartist->name eq $this->{'new.name'})
 			{
 				$this->{'new.id'} = $newartist->id;
 				$this->{'new.sortname'} = $newartist->sort_name;
@@ -237,7 +237,7 @@ sub ApprovedAction
 	{
 		require MusicBrainz::Server::Artist;
 		my $ar = MusicBrainz::Server::Artist->new($this->{DBH});
-		$ar->SetName($name);
+		$ar->name($name);
 		$ar->sort_name($sortname);
 		$artistid = $ar->Insert(no_alias => 1);
 	}

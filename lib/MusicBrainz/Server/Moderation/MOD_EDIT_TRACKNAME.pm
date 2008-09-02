@@ -42,7 +42,7 @@ sub PreInsert
 	$newname =~ /\S/ or die;
 
 	$self->artist($track->artist);
-	$self->SetPrev($track->GetName);
+	$self->SetPrev($track->name);
 	$self->SetNew($newname);
 	$self->table("track");
 	$self->SetColumn("name");
@@ -115,7 +115,7 @@ sub CheckPrerequisites
 	}
 
 	# Check that its name has not changed
-	if ($track->GetName ne $self->GetPrev)
+	if ($track->name ne $self->GetPrev)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This track has already been renamed");
 		return STATUS_FAILEDPREREQ;
@@ -144,7 +144,7 @@ sub ApprovedAction
 	my $track = $this->{_track}
 		or die;
 
-	$track->SetName($this->GetNew);
+	$track->name($this->GetNew);
 	$track->UpdateName;
 
 	STATUS_APPLIED;

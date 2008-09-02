@@ -103,9 +103,9 @@ sub PreInsert
 	$self->SetPrev($oldal->id);
 
 	my %new = (
-		OldAlbumName	=> $oldal->GetName,
+		OldAlbumName	=> $oldal->name,
 		NewAlbumId		=> $newal->id,
-		NewAlbumName	=> $newal->GetName,
+		NewAlbumName	=> $newal->name,
 		DiscId			=> $cdtoc->disc_id,
 		FullTOC			=> $cdtoc->toc,
 		CDTOCId			=> $cdtoc->id,

@@ -41,7 +41,7 @@ sub PreInsert
 	my $newname = $opts{'newname'};
 	$newname =~ /\S/ or die;
 
-	$self->SetPrev($al->GetName);
+	$self->SetPrev($al->name);
 	$self->SetNew($newname);
 	$self->table("labelalias");
 	$self->SetColumn("name");
@@ -69,7 +69,7 @@ sub CheckPrerequisites
 		return STATUS_FAILEDPREREQ;
 	}
 	
-	unless ($alias->GetName eq $self->GetPrev)
+	unless ($alias->name eq $self->GetPrev)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This alias has already been changed");
 		return STATUS_FAILEDDEP;
@@ -91,7 +91,7 @@ sub ApprovedAction
 	my $alias = $self->{_alias}
 		or die;
 
-	$alias->SetName($self->GetNew);
+	$alias->name($self->GetNew);
 	my $other;
 	if ($alias->UpdateName(\$other))
 	{

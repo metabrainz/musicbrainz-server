@@ -302,7 +302,7 @@ sub Update
 			attribute = ?, shortlinkphrase = ?, priority = ? WHERE id = ?",
 		$self->GetParentId, 
 		$self->GetChildOrder, 
-		$self->GetName,
+		$self->name,
 		$self->GetLinkPhrase,
 		$self->GetReverseLinkPhrase,
 		$self->GetDescription,

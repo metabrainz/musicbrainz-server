@@ -59,7 +59,7 @@ sub PostLoad
 	if ($self->{'trackexists'} = $track->LoadFromAlbumJoin($self->row_id))
 	{
 		$self->{'trackid'} = $track->id;
-		$self->{'trackname'} = $track->GetName;
+		$self->{'trackname'} = $track->name;
  
 		require MusicBrainz::Server::Release;
 		my $release = MusicBrainz::Server::Release->new($self->{DBH});
@@ -67,7 +67,7 @@ sub PostLoad
 		if ($self->{'albumexists'} = $release->LoadFromId)
 		{
 			$self->{'albumid'} = $release->id;
-			$self->{'albumname'} = $release->GetName;
+			$self->{'albumname'} = $release->name;
 		}
 	}
 }

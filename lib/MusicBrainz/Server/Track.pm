@@ -292,7 +292,7 @@ sub GetMetadataFromIdAndAlbum
     }
 	$sql->Finish;
 
-    return ($this->GetName(), $ar->GetName(), $album, $seq, $TRM[0]->{TRM});
+    return ($this->name(), $ar->name(), $album, $seq, $TRM[0]->{TRM});
 }
 
 # This function inserts a new track. A properly initialized/loaded album
@@ -303,7 +303,7 @@ sub Insert
     my ($this, $al, $ar) = @_;
     $this->{new_insert} = 0;
 
-	my $name = $this->GetName;
+	my $name = $this->name;
 	MusicBrainz::Server::Validation::TrimInPlace($name) if defined $name;
 	if (not defined $name or $name eq "")
 	{
@@ -338,13 +338,13 @@ sub Insert
 		AND		LOWER(track.name) = LOWER(?)",
 		$album,
 		$this->sequence,
-		$this->GetName,
+		$this->name,
 	);
 	return $track if $track;
 
 	my %row = (
 		gid => $this->CreateNewGlobalId,
-		name => $this->GetName,
+		name => $this->name,
 		artist => $artist,
 		modpending	=> 0,
 	);
@@ -378,7 +378,7 @@ sub UpdateName
 
 	my $id = $self->id
 		or croak "Missing track ID in UpdateName";
-	my $name = $self->GetName;
+	my $name = $self->name;
 	defined($name) && $name ne ""
 		or croak "Missing track name in UpdateName";
 
@@ -406,7 +406,7 @@ sub RebuildWordList
     my $engine = SearchEngine->new($this->{DBH}, 'track');
     $engine->AddWordRefs(
 		$this->id,
-		$this->GetName,
+		$this->name,
 		1, # remove other words
     );
 }

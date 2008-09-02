@@ -1382,7 +1382,7 @@ sub moderation_list
 		my $uid = $edit->moderator;
 		$editor_cache{$uid} = do {
 			my $u = $user->newFromId($uid);
-			$u ? $u->GetName : "?";
+			$u ? $u->name : "?";
 		} unless defined $editor_cache{$uid};
 		$edit->moderator_name($editor_cache{$uid});
 
@@ -1399,7 +1399,7 @@ sub moderation_list
 		}
 		
 		my $artist = $artist_cache{$artistid};
-		$edit->artist_name($artist ? $artist->GetName : "?");
+		$edit->artist_name($artist ? $artist->name : "?");
 		$edit->artist_sort_name($artist ? $artist->sort_name : "?");
 		$edit->artist_resolution($artist ? $artist->resolution : "?");
 
@@ -1523,7 +1523,7 @@ sub FirstNoVote
 	my $url = "http://" . &DBDefs::WEB_SERVER . "/show/edit/?editid=" . $self->id;
 
 	my $body = <<EOF;
-Editor '${\ $voter->GetName }' has voted against your edit #${\ $self->id }.
+Editor '${\ $voter->name }' has voted against your edit #${\ $self->id }.
 ------------------------------------------------------------------------
 If you would like to respond to this vote, please add your note at:
 $url
@@ -1708,7 +1708,7 @@ sub ShowModType
 		if ($this->{"exists-track"} = $track->LoadFromId)
 		{
 			$this->{"trackid"} = $track->id;
-			$this->{"trackname"} = $track->GetName;
+			$this->{"trackname"} = $track->name;
 			$this->{"trackseq"} = $track->sequence;
 			
 			# assume that the release needs to be loaded from
@@ -1729,7 +1729,7 @@ sub ShowModType
 		if ($this->{"exists-album"} = $release->LoadFromId)
 		{
 			$this->{"albumid"} = $release->id;
-			$this->{"albumname"} = $release->GetName;
+			$this->{"albumname"} = $release->name;
 			$this->{"trackcount"} = $release->track_count;
 			$this->{"isnonalbum"} = $release->IsNonAlbumTracks;
 		}	

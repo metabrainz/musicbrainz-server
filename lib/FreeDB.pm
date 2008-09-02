@@ -380,7 +380,7 @@ sub InsertForModeration
         $ar->id($aliasid);
         if ($ar->LoadFromId())
         {
-            $info->{artist} = $ar->GetName();
+            $info->{artist} = $ar->name();
         }
     }
 
@@ -399,14 +399,14 @@ sub InsertForModeration
         if ($ar->sort_name() eq $info->{artist})
         {
             $info->{sortname} = $ar->sort_name();
-            $info->{artist} = $ar->GetName();
+            $info->{artist} = $ar->name();
         }
 
 	my $album = lc(decode "utf-8", $info->{album});
         @albums = $ar->select_releases();
         foreach $al (@albums)
         {
-   	    my $thisname = lc(decode "utf-8", $al->GetName);
+   	    my $thisname = lc(decode "utf-8", $al->name);
 
             if ($thisname eq $album)
             {

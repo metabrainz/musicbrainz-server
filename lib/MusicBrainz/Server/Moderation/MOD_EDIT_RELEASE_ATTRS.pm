@@ -80,7 +80,7 @@ sub PreInsert
 		next if $prev eq $new{'Attributes'};
 
 		$new{"AlbumId$seq"} = $al->id;
-		$new{"AlbumName$seq"} = $al->GetName;
+		$new{"AlbumName$seq"} = $al->name;
 		$new{"Prev$seq"} = $prev;
 
 		my ($t, $s) = $al->release_type_and_status;
