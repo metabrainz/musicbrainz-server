@@ -170,7 +170,7 @@ sub serve_from_db
     if ($inc & INC_ARTIST || $inc & INC_RELEASES)
     {
         $ar = MusicBrainz::Server::Artist->new($mb->{DBH});
-        $ar->SetId($tr->artist);
+        $ar->id($tr->artist);
         $ar = undef unless $ar->LoadFromId(1);
     }
 
@@ -305,7 +305,7 @@ sub print_xml_post
         } 
         else 
         {
-            $pair->{trackid} = $tr->GetId;
+            $pair->{trackid} = $tr->id;
         }
     }
 
@@ -326,7 +326,7 @@ sub print_xml_post
 
                 my @mods = Moderation->InsertModeration(
                     DBH => $mb->{DBH},
-                    uid => $us->GetId,
+                    uid => $us->id,
                     privs => 0, # TODO
                     type => &ModDefs::MOD_ADD_PUIDS,
                     # --

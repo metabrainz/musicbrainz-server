@@ -51,7 +51,7 @@ sub PreInsert
 
 		require MusicBrainz::Server::Release;
 		$release = MusicBrainz::Server::Release->new($self->{DBH});
-		$release = $release->GetOrInsertNonAlbum($artist->GetId);
+		$release = $release->GetOrInsertNonAlbum($artist->id);
 		$nonalbum = 1;
 	} 
 	else 
@@ -70,7 +70,7 @@ sub PreInsert
 						 $release->HasMultipleTrackArtists;
 	if (not $artistid)
 	{
-		$artistid = $artist->GetId if ($artist);
+		$artistid = $artist->id if ($artist);
 		$artistid = $release->artist if ($release);
 	}
 	die if ($hastrackartist and not $artistid);
@@ -91,7 +91,7 @@ sub PreInsert
 		TrackName => $trackname,
 		TrackNum => $tracknum,
 		TrackLength	=> $tracklength,
-		AlbumId => $release->GetId,
+		AlbumId => $release->id,
 		ArtistId => $artistid
 	);
 
@@ -118,7 +118,7 @@ sub PreInsert
 	);
 	my %info = (
 		artistid => $artistid, 
-		albumid	=> $release->GetId,
+		albumid	=> $release->id,
 		tracks => [ \%trackinfo ],
 	);
 
@@ -142,7 +142,7 @@ sub PreInsert
 	}
 	
 	$new{"TrackId"} = $newtrackid;
-	$new{"AlbumId"} = $release->GetId;
+	$new{"AlbumId"} = $release->id;
 	$new{"ArtistId"} = $artistid; # use track artist (or release artist if no track artist)
 	$new{"NewArtistId"} = $newartistid if ($newartistid);
 
@@ -172,7 +172,7 @@ sub DetermineQuality
 	my $self = shift;
 
 	my $rel = MusicBrainz::Server::Release->new($self->{DBH});
-	$rel->SetId($self->{albumid});
+	$rel->id($self->{albumid});
 	if ($rel->LoadFromId())
 	{
         return $rel->quality;        
@@ -198,7 +198,7 @@ sub DeniedAction
 
 	require MusicBrainz::Server::Track;
 	my $track = MusicBrainz::Server::Track->new($self->{DBH});
-	$track->SetId($trackid);
+	$track->id($trackid);
 	$track->release($releaseid);
 
 	unless ($track->LoadFromId)
@@ -219,7 +219,7 @@ sub DeniedAction
 	# Try to remove the album if it's a "non-album" album
 	require MusicBrainz::Server::Release;
 	my $release = MusicBrainz::Server::Release->new($self->{DBH});
-	$release->SetId($releaseid);
+	$release->id($releaseid);
 	if ($release->LoadFromId)
 	{
 		$release->Remove
@@ -231,7 +231,7 @@ sub DeniedAction
 	{
 		require MusicBrainz::Server::Artist;
 		my $artist = MusicBrainz::Server::Artist->new($self->{DBH});
-		$artist->SetId($artistid);
+		$artist->id($artistid);
 		$artist->Remove;
 	}
 }

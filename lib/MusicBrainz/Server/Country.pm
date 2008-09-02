@@ -30,12 +30,12 @@ package MusicBrainz::Server::Country;
 use base qw( TableBase );
 use Carp;
 
-# GetId / SetId - see TableBase
+# id / id - see TableBase
 # GetName / SetName - see TableBase
 sub GetISOCode	{ $_[0]{isocode} }
 sub SetISOCode	{ $_[0]{isocode} = $_[1] }
 
-sub _GetIdCacheKey
+sub _id_cache_key
 {
     my ($class, $id) = @_;
     "country-id-" . int($id);
@@ -52,7 +52,7 @@ sub newFromId
     $self = $self->new(shift) if not ref $self;
 	my $id = shift;
 
-    my $key = $self->_GetIdCacheKey($id);
+    my $key = $self->_id_cache_key($id);
     my $obj = MusicBrainz::Server::Cache->get($key);
 
     if ($obj)

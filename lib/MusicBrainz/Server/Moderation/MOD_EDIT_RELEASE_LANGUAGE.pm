@@ -59,7 +59,7 @@ sub PreInsert
 		my $prev = "$curr_lang,$curr_script";
 		next if $prev eq $new{Language};
 
-		$new{"AlbumId$seq"} = $al->GetId;
+		$new{"AlbumId$seq"} = $al->id;
 		$new{"AlbumName$seq"} = $al->GetName;
 		$new{"Prev$seq"} = $prev;
 
@@ -82,7 +82,7 @@ sub PreInsert
 	# if in single edit mod, file moderation under release object.
 	# If all n releases are stored under artist x use this
 	# artist as the moderation artist, else VA.
-	$self->row_id($albums->[0]->GetId) if ($seq == 1);
+	$self->row_id($albums->[0]->id) if ($seq == 1);
 	$self->artist(
 		keys(%artists) > 1
 			? &ModDefs::VARTIST_ID
@@ -136,7 +136,7 @@ sub DetermineQuality
     if (scalar(@{$self->{'_new_albums'}}) == 1)
     {
         my $rel = MusicBrainz::Server::Release->new($self->{DBH});
-        $rel->SetId($self->{_new_albums}->[0]->{id});
+        $rel->id($self->{_new_albums}->[0]->{id});
         if ($rel->LoadFromId())
         {
             return $rel->quality;        
@@ -155,7 +155,7 @@ sub AdjustModPending
 
 	foreach my $album ( @$albums )
 	{
-		$al->SetId($album->{id});
+		$al->id($album->{id});
 		$al->UpdateLanguageModPending($adjust);
 	}
 }
@@ -174,7 +174,7 @@ sub CheckPrerequisites
 	{
 		my $id = $new->{"AlbumId$i"};
 		my $al = MusicBrainz::Server::Release->new($self->{DBH});
-		$al->SetId($id);
+		$al->id($id);
 
 		unless ( $al->LoadFromId )
 		{

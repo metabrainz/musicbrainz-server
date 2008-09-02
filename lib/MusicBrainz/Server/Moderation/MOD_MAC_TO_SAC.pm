@@ -54,7 +54,7 @@ sub PreInsert
 	$self->table("album");
 	$self->SetColumn("artist");
 	$self->artist($al->artist);
-	$self->row_id($al->GetId);
+	$self->row_id($al->id);
 	$self->SetNew($new);
 }
 
@@ -85,7 +85,7 @@ sub DetermineQuality
 	my $level = &ModDefs::QUALITY_UNKNOWN_MAPPED;
 
 	my $rel = MusicBrainz::Server::Release->new($self->{DBH});
-	$rel->SetId($self->{rowid});
+	$rel->id($self->{rowid});
 	if ($rel->LoadFromId())
 	{
 		$level = $rel->quality > $level ? $rel->quality : $level;
@@ -93,7 +93,7 @@ sub DetermineQuality
 
     # Check the artist its going to
 	my $ar = MusicBrainz::Server::Artist->new($self->{DBH});
-	$ar->SetId($self->{'new.artistid'});
+	$ar->id($self->{'new.artistid'});
 	if ($ar->LoadFromId())
 	{
         $level = $ar->quality > $level ? $ar->quality : $level;
@@ -116,7 +116,7 @@ sub PreDisplay
 	# load album name
 	require MusicBrainz::Server::Release;
 	my $al = MusicBrainz::Server::Release->new($this->{DBH});
-	$al->SetId($this->row_id);
+	$al->id($this->row_id);
 	if ($al->LoadFromId)
 	{
 		$this->{'albumname'} = $al->GetName;
@@ -130,11 +130,11 @@ sub PreDisplay
 		{
 			require MusicBrainz::Server::Artist;
 			my $ar = MusicBrainz::Server::Artist->new($this->{DBH});
-			$ar->SetId($al->artist);
+			$ar->id($al->artist);
 			if ($ar->LoadFromId 
 				&& $ar->GetName eq $this->{'new.name'})
 			{
-				$this->{'new.artistid'} = $ar->GetId;
+				$this->{'new.artistid'} = $ar->id;
 				$this->{'new.exists'} = 1;
 				$this->{'new.sortname'} = $ar->sort_name;
 			}
@@ -151,7 +151,7 @@ sub CheckPrerequisites
 	# Load the album by ID
 	require MusicBrainz::Server::Release;
 	my $al = MusicBrainz::Server::Release->new($self->{DBH});
-	$al->SetId($rowid);
+	$al->id($rowid);
 	unless ($al->LoadFromId)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This release has been deleted");

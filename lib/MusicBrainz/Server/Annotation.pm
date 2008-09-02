@@ -266,13 +266,13 @@ sub newFromId
 	$self = $self->new(shift) if not ref $self;
 	my $id = shift;
 
-	$self->SetId($id);
+	$self->id($id);
 	$self->LoadFromId
 		or return undef;
 	$self;
 }
 
-# Load an annotation. The id has to be set via SetId() or moderation().
+# Load an annotation. The id has to be set via id() or moderation().
 
 sub LoadFromId
 {
@@ -437,7 +437,7 @@ sub GetAnnotationIDsForEntity
 {
 	my ($class, $entity, $type) = @_;
 	my $dbh = $entity->{DBH};
-	return $class->_GetAnnotationIDs($dbh, $entity->GetId, $type);
+	return $class->_GetAnnotationIDs($dbh, $entity->id, $type);
 }
 
 sub _GetAnnotationIDs

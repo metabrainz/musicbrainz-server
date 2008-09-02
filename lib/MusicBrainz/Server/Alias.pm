@@ -82,7 +82,7 @@ sub LoadFromId
         "SELECT id, name, ref, lastused, timesused
         FROM $table
         WHERE id = ?",
-        $this->GetId,
+        $this->id,
     ) or return undef;
 
     @$this{qw(
@@ -144,7 +144,7 @@ sub UpdateName
 
     $self->{table}
 		or croak "Missing table in UpdateName";
-	my $id = $self->GetId
+	my $id = $self->id
 		or croak "Missing alias ID in UpdateName";
 	my $name = $self->GetName;
 	defined($name) && $name ne ""
@@ -161,7 +161,7 @@ sub UpdateName
 
     if (my $other = $self->newFromName($name))
     {
-        if ($other->GetId != $self->GetId)
+        if ($other->id != $self->id)
         {
             # Note: this sub used to return the rowid of the existing row
             $$otherref = $other if $otherref;
@@ -181,7 +181,7 @@ sub UpdateName
         # Update the search engine
         require MusicBrainz::Server::Artist;
         my $artist = MusicBrainz::Server::Artist->new($self->{DBH});
-        $artist->SetId($rowid);
+        $artist->id($rowid);
         $artist->LoadFromId;
         $artist->RebuildWordList;
     }
@@ -252,7 +252,7 @@ sub Remove
     my $parent = $this->Parent;
 
     my $sql = Sql->new($this->{DBH});
-    $sql->Do("DELETE FROM $this->{table} WHERE id = ?", $this->GetId)
+    $sql->Do("DELETE FROM $this->{table} WHERE id = ?", $this->id)
         or return undef;
 
     $parent->RebuildWordList;
@@ -317,7 +317,7 @@ sub LoadFull
            require MusicBrainz::Server::Alias;
            $alias = MusicBrainz::Server::Alias->new($this->{DBH});
            $alias->{table} = $this->{table};
-           $alias->SetId($row[0]);
+           $alias->id($row[0]);
            $alias->SetName($row[1]);
            $alias->row_id($row[2]);
            $alias->last_used($row[3]);
@@ -347,7 +347,7 @@ sub Parent
     my $parentclass = $this->ParentClass;
     eval "require $parentclass; 1" or die $@;
     my $parent = $parentclass->new($this->{DBH});
-    $parent->SetId($this->row_id);
+    $parent->id($this->row_id);
     $parent->LoadFromId
         or die "Couldn't load $parentclass #" . $this->row_id;
     $parent;

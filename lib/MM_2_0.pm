@@ -170,7 +170,7 @@ sub OutputTrackRDF
     $track = $ref->{obj};
     require MusicBrainz::Server::TRM;
     $gu = MusicBrainz::Server::TRM->new($this->{DBH});
-    @TRM = $gu->GetTRMFromTrackId($track->GetId());
+    @TRM = $gu->GetTRMFromTrackId($track->id());
 
     $artist = $this->GetFromCache('artist', $track->artist()); 
     return "" if (!defined $artist);

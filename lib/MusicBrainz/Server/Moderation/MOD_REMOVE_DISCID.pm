@@ -64,7 +64,7 @@ sub PreInsert
 	my $oldrelease = $opts{album} or die;
 
 	require MusicBrainz::Server::ReleaseCDTOC;
-	my $alcdtoc = MusicBrainz::Server::ReleaseCDTOC->newFromReleaseAndCDTOC($self->{DBH}, $oldrelease, $cdtoc->GetId);
+	my $alcdtoc = MusicBrainz::Server::ReleaseCDTOC->newFromReleaseAndCDTOC($self->{DBH}, $oldrelease, $cdtoc->id);
 	if (not $alcdtoc)
 	{
 		$self->SetError("Old album / CD TOC not found");
@@ -73,15 +73,15 @@ sub PreInsert
 
 	$self->table("album_cdtoc");
 	$self->SetColumn("album");
-	$self->row_id($alcdtoc->GetId);
+	$self->row_id($alcdtoc->id);
 	$self->artist($oldrelease->artist);
 	$self->SetPrev($cdtoc->disc_id);
 
 	my %new = (
 		AlbumName => $oldrelease->GetName,
-		AlbumId => $oldrelease->GetId,
+		AlbumId => $oldrelease->id,
 		FullTOC => $cdtoc->toc,
-		CDTOCId => $cdtoc->GetId,
+		CDTOCId => $cdtoc->id,
 	);
 	$self->SetNew($self->ConvertHashToNew(\%new));
 }
@@ -107,7 +107,7 @@ sub DetermineQuality
 	my $self = shift;
 
 	my $rel = MusicBrainz::Server::Release->new($self->{DBH});
-	$rel->SetId($self->{albumid});
+	$rel->id($self->{albumid});
 	if ($rel->LoadFromId())
 	{
         return $rel->quality;        

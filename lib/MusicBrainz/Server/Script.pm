@@ -31,12 +31,12 @@ use base qw( TableBase );
 use Carp;
 use Encode qw( decode );
 
-# GetId / SetId - see TableBase
+# id / id - see TableBase
 # GetName / SetName - see TableBase
 sub GetISOCode		{ $_[0]{isocode} }
 sub GetISONumber	{ $_[0]{isonumber} }
 
-sub _GetIdCacheKey
+sub _id_cache_key
 {
 	my ($class, $id) = @_;
 	"script-id-" . int($id);
@@ -56,7 +56,7 @@ sub newFromId
 	$self = $self->new(shift) if not ref $self;
 	my $id = shift;
 
-	my $key = $self->_GetIdCacheKey($id);
+	my $key = $self->_id_cache_key($id);
 	my $obj = MusicBrainz::Server::Cache->get($key);
 
 	if ($obj)
@@ -244,7 +244,7 @@ sub Menu
 	my @scripts = All(@_);
 	
 	my @menu = map {
-		[ $_->GetId(), $_->GetName() ]
+		[ $_->id(), $_->GetName() ]
 	} @scripts;
 
 	unshift @menu, [ '', "I don't know" ];

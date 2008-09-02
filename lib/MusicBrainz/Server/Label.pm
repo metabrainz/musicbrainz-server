@@ -115,7 +115,7 @@ sub type_name
    return $LabelTypeNames{$_[0]}->[0];
 }
 
-sub _GetIdCacheKey
+sub _id_cache_key
 {
     my ($class, $id) = @_;
     "label-id-" . int($id);
@@ -130,7 +130,7 @@ sub _GetMBIDCacheKey
 sub InvalidateCache
 {
     my $self = shift;
-    MusicBrainz::Server::Cache->delete($self->_GetIdCacheKey($self->GetId));
+    MusicBrainz::Server::Cache->delete($self->_id_cache_key($self->id));
     MusicBrainz::Server::Cache->delete($self->_GetMBIDCacheKey($self->mbid));
 }
 
@@ -208,11 +208,11 @@ sub Insert
 		my $ar_list = $this->GetLabelsFromName($name);
 		foreach my $ar (@$ar_list)
 		{
-			return $ar->GetId if ($ar->GetName() eq $name);
+			return $ar->id if ($ar->GetName() eq $name);
 		}
 		foreach my $ar (@$ar_list)
 		{
-			return $ar->GetId if (lc($ar->GetName()) eq lc($name));
+			return $ar->id if (lc($ar->GetName()) eq lc($name));
 		}
     }
 
@@ -242,7 +242,7 @@ sub Insert
     $this->{new_insert} = 1;
     $this->{id} = $label;
 
-    MusicBrainz::Server::Cache->delete($this->_GetIdCacheKey($label));
+    MusicBrainz::Server::Cache->delete($this->_id_cache_key($label));
     MusicBrainz::Server::Cache->delete($this->_GetMBIDCacheKey($mbid));
 
     # Add search engine tokens.
@@ -260,18 +260,18 @@ sub Remove
 {
 	my ($this) = @_;
 
-	return if (!defined $this->GetId());
+	return if (!defined $this->id());
 
 	my $sql = Sql->new($this->{DBH});
 
 	# See if there are any release events that needs this label
 	my $refcount = $sql->SelectSingleValue(
 		"SELECT COUNT(*) FROM release WHERE label = ?",
-		$this->GetId,
+		$this->id,
 		);
 	if ($refcount > 0)
 	{
-		print STDERR "Cannot remove label ". $this->GetId() .
+		print STDERR "Cannot remove label ". $this->id() .
     		". $refcount release events still depend on it.\n";
 		return undef;
 	}
@@ -279,25 +279,25 @@ sub Remove
 	# Remove relationships
 	require MusicBrainz::Server::Link;
 	my $link = MusicBrainz::Server::Link->new($this->{DBH});
-	$link->RemoveByLabel($this->GetId);
+	$link->RemoveByLabel($this->id);
 
     # Remove tags
 	require MusicBrainz::Server::Tag;
 	my $tag = MusicBrainz::Server::Tag->new($sql->{DBH});
-	$tag->RemoveLabels($this->GetId);
+	$tag->RemoveLabels($this->id);
 
 	# Remove references from label words table
 	require SearchEngine;
 	my $engine = SearchEngine->new($this->{DBH}, 'label');
-	$engine->RemoveObjectRefs($this->GetId());
+	$engine->RemoveObjectRefs($this->id());
 
 	require MusicBrainz::Server::Annotation;
-	MusicBrainz::Server::Annotation->DeleteLabel($this->{DBH}, $this->GetId);
+	MusicBrainz::Server::Annotation->DeleteLabel($this->{DBH}, $this->id);
 
-	$this->RemoveGlobalIdRedirect($this->GetId, &TableBase::TABLE_LABEL);
+	$this->RemoveGlobalIdRedirect($this->id, &TableBase::TABLE_LABEL);
 
-	$sql->Do("DELETE FROM labelalias WHERE ref = ?", $this->GetId);
-	$sql->Do("DELETE FROM label WHERE id = ?", $this->GetId);
+	$sql->Do("DELETE FROM labelalias WHERE ref = ?", $this->id);
+	$sql->Do("DELETE FROM label WHERE id = ?", $this->id);
 	$this->InvalidateCache;
 
 	return 1;
@@ -312,8 +312,8 @@ sub MergeInto
     my $subs = UserSubscription->new($old->{DBH});
     $subs->LabelBeingMerged($old, $mod);
 
-	my $o = $old->GetId;
-	my $n = $new->GetId;
+	my $o = $old->id;
+	my $n = $new->id;
 
 	require MusicBrainz::Server::Annotation;
 	MusicBrainz::Server::Annotation->MergeLabels($old->{DBH}, $o, $n);
@@ -331,7 +331,7 @@ sub MergeInto
 	$sql->Do("UPDATE moderation_open   SET rowid = ? WHERE tab = 'label' AND rowid = ?", $n, $o);
     $sql->Do("UPDATE labelalias        SET ref = ? WHERE ref = ?", $n, $o);
 	
-	$old->SetGlobalIdRedirect($old->GetId, $old->mbid, $new->GetId, &TableBase::TABLE_LABEL);
+	$old->SetGlobalIdRedirect($old->id, $old->mbid, $new->id, &TableBase::TABLE_LABEL);
 
     # Insert the old name as an alias for the new one
     require MusicBrainz::Server::Alias;
@@ -389,7 +389,7 @@ sub Update
     # there is nothing to change, exit.
 	return 1 unless $attrlist;
 
-	$sql->Do("UPDATE label SET $attrlist WHERE id = ?", @values, $this->GetId)
+	$sql->Do("UPDATE label SET $attrlist WHERE id = ?", @values, $this->id)
 		or return 0;
 	$this->InvalidateCache;
 
@@ -404,7 +404,7 @@ sub UpdateModPending
 {
     my ($self, $adjust) = @_;
 
-    my $id = $self->GetId
+    my $id = $self->id
 	or croak "Missing label ID in UpdateModPending";
     defined($adjust)
 	or croak "Missing adjustment in UpdateModPending";
@@ -430,13 +430,13 @@ sub RebuildWordList
 	require MusicBrainz::Server::Alias;
 	my $al = MusicBrainz::Server::Alias->new($this->{DBH});
 	$al->table("LabelAlias");
-	my @aliases = $al->GetList($this->GetId);
+	my @aliases = $al->GetList($this->id);
 	@aliases = map { $_->[1] } @aliases;
 
 	require SearchEngine;
 	my $engine = SearchEngine->new($this->{DBH}, 'label');
 	$engine->AddWordRefs(
-		$this->GetId,
+		$this->id,
 		[ $this->GetName, @aliases ],
 		1, # remove other words
 		);
@@ -479,7 +479,7 @@ sub RebuildWordListForAll
 
 	eval {
 	    my $ar = MusicBrainz::Server::Label->new($mb_w->{DBH});
-	    $ar->SetId($id);
+	    $ar->id($id);
 	    if ($ar->LoadFromId)
 	    {
 		$ar->RebuildWordList;
@@ -588,7 +588,7 @@ sub GetLabelsFromName
 	foreach my $row (@$labels)
 	{
 		my $ar = MusicBrainz::Server::Label->new($this->{DBH});
-		$ar->SetId($row->{id});
+		$ar->id($row->{id});
 		$ar->mbid($row->{gid});
 		$ar->SetName($row->{name});
 		$ar->type($row->{type});
@@ -630,7 +630,7 @@ sub GetLabelsFromSortname
 	foreach my $row (@$labels)
 {
 		my $ar = MusicBrainz::Server::Label->new($this->{DBH});
-		$ar->SetId($row->{id});
+		$ar->id($row->{id});
 		$ar->mbid($row->{gid});
 		$ar->SetName($row->{name});
 		$ar->sort_name($row->{sortname});
@@ -671,7 +671,7 @@ sub GetLabelsFromCode
 	foreach my $row (@$labels)
 	{
 		my $ar = MusicBrainz::Server::Label->new($this->{DBH});
-		$ar->SetId($row->{id});
+		$ar->id($row->{id});
 		$ar->mbid($row->{gid});
 		$ar->SetName($row->{name});
 		$ar->sort_name($row->{sortname});
@@ -695,7 +695,7 @@ sub LoadFromId
 	my $this = shift;
 	my $id;
 
-	if ($id = $this->GetId)
+	if ($id = $this->id)
 	{
 		my $obj = $this->newFromId($id)
 			or return undef;
@@ -722,7 +722,7 @@ sub newFromId
 	$this = $this->new(shift) if not ref $this;
 	my $id = shift;
 
-	my $key = $this->_GetIdCacheKey($id);
+	my $key = $this->_id_cache_key($id);
 	my $obj = MusicBrainz::Server::Cache->get($key);
 
 	if ($obj)
@@ -791,7 +791,7 @@ sub newFromMBId
     # We can't store DBH in the cache...
     delete $obj->{DBH} if $obj;
     MusicBrainz::Server::Cache->set($key, \$obj);
-    MusicBrainz::Server::Cache->set($obj->_GetIdCacheKey($obj->GetId), \$obj)
+    MusicBrainz::Server::Cache->set($obj->_id_cache_key($obj->id), \$obj)
 	if $obj;
     $obj->{DBH} = $this->{DBH} if $obj;
 
@@ -883,13 +883,13 @@ sub select_releases
 			AND release.label = ?
 		/;
 	my @albums;
-	if ($sql->Select($query, $this->GetId))
+	if ($sql->Select($query, $this->id))
 	{
 		while(my @row = $sql->NextRow)
 		{
 			require MusicBrainz::Server::Release;
 			my $album = MusicBrainz::Server::Release->new($this->{DBH});
-			$album->SetId($row[0]);
+			$album->id($row[0]);
 			$album->artist($row[1]);
 			$album->SetName($row[2]);
 			$album->has_mod_pending($row[3]);
@@ -925,7 +925,7 @@ sub GetSubscribers
 {
 	my $self = shift;
 	require UserSubscription;
-	return UserSubscription->GetSubscribersForLabel($self->{DBH}, $self->GetId);
+	return UserSubscription->GetSubscribersForLabel($self->{DBH}, $self->id);
 }
 
 sub InUse
@@ -935,31 +935,31 @@ sub InUse
 
 	return 1 if $sql->SelectSingleValue(
 		"SELECT 1 FROM release WHERE label = ? LIMIT 1",
-		$self->GetId,
+		$self->id,
 		);
 	return 1 if $sql->SelectSingleValue(
 		"SELECT 1 FROM l_album_label WHERE link1 = ? LIMIT 1",
-		$self->GetId,
+		$self->id,
 		);
 	return 1 if $sql->SelectSingleValue(
 		"SELECT 1 FROM l_artist_label WHERE link1 = ? LIMIT 1",
-		$self->GetId,
+		$self->id,
 		);
 	return 1 if $sql->SelectSingleValue(
 		"SELECT 1 FROM l_label_label WHERE link0 = ? LIMIT 1",
-		$self->GetId,
+		$self->id,
 		);
 	return 1 if $sql->SelectSingleValue(
 		"SELECT 1 FROM l_label_label WHERE link0 = ? LIMIT 1",
-		$self->GetId,
+		$self->id,
 		);
 	return 1 if $sql->SelectSingleValue(
 		"SELECT 1 FROM l_label_track WHERE link0 = ? LIMIT 1",
-		$self->GetId,
+		$self->id,
 		);
 	return 1 if $sql->SelectSingleValue(
 		"SELECT 1 FROM l_label_url WHERE link0 = ? LIMIT 1",
-		$self->GetId,
+		$self->id,
 		);
 	return 0;
 }

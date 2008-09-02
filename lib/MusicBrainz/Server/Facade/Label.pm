@@ -38,7 +38,7 @@ sub new_from_label
     $class->new({
         dissolved  => $label->end_date,
         founded    => $label->begin_date,
-        id         => $label->GetId,
+        id         => $label->id,
         name       => $label->GetName,
         mbid       => $label->mbid,
         resolution => $label->resolution,

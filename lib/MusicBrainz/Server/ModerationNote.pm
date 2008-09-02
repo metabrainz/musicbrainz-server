@@ -35,7 +35,7 @@ use Encode qw( encode decode );
 
 use ModDefs qw( VOTE_ABS );
 
-# GetId / SetId - see TableBase
+# id / id - see TableBase
 sub moderation_id
 {
     my ($self, $new_id) = @_;
@@ -125,11 +125,11 @@ sub Insert
 	my ($self, $moderation, $noteuid, $text, %opts) = @_;
    	my $sql = Sql->new($self->{DBH});
 
-	my $modid = $moderation->GetId;
+	my $modid = $moderation->id;
 
 	# Make sure we have the most up-to-date status, so we get the correct
 	# table (open/closed)
-	$moderation = $moderation->CreateFromId($moderation->GetId);
+	$moderation = $moderation->CreateFromId($moderation->id);
 	my $openclosed = ($moderation->IsOpen ? "open" : "closed");
 
 
@@ -180,7 +180,7 @@ sub Insert
 	}
 
 	# Who else wants to receive this note via email?
-	my @notes = $self->newFromModerationId($moderation->GetId);
+	my @notes = $self->newFromModerationId($moderation->id);
 
 	for my $note (@notes)
 	{
@@ -210,7 +210,7 @@ sub Insert
 	# Do any voters want to receive this note?
 	require MusicBrainz::Server::Vote;
 	my $v = MusicBrainz::Server::Vote->new($self->{DBH});
-	my @votes = $v->newFromModerationId($moderation->GetId);
+	my @votes = $v->newFromModerationId($moderation->id);
 
 	for my $vote (@votes)
 	{

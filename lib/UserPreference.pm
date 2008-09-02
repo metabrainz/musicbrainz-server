@@ -499,7 +499,7 @@ sub LoadForUser#{{{
 {
 	my ($user) = @_;
 
-	my $uid = $user->GetId
+	my $uid = $user->id
 		or return;
 
 	my $sql = Sql->new($user->{DBH});
@@ -529,7 +529,7 @@ sub SaveForUser
 {
 	my ($user) = @_;
 
-	my $uid = $user->GetId
+	my $uid = $user->id
 		or return;
 
 	require UserStuff;
@@ -575,7 +575,7 @@ sub get_for_user
 	my $sql = Sql->new($user->{DBH});
 	my $value = $sql->SelectSingleValue(
 		"SELECT value FROM moderator_preference WHERE moderator = ? AND name = ?",
-		$user->GetId,
+		$user->id,
 		$key,
 	);
 

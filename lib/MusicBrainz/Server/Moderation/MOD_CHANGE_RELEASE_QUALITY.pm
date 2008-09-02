@@ -56,7 +56,7 @@ sub PreInsert
 		my $prev = $al->quality || 0;
 		next if $prev eq $new{Quality};
 
-		$new{"ReleaseId$seq"} = $al->GetId;
+		$new{"ReleaseId$seq"} = $al->id;
 		$new{"ReleaseName$seq"} = $al->GetName;
 		$new{"Prev$seq"} = $prev;
 
@@ -74,7 +74,7 @@ sub PreInsert
 	# if in single edit mod, file moderation under release object.
 	# If all n releases are stored under artist x use this
 	# artist as the moderation artist, else VA.
-	$self->row_id($releases->[0]->GetId) if ($seq == 1);
+	$self->row_id($releases->[0]->id) if ($seq == 1);
 	$self->artist(
 		keys(%artists) > 1
 			? &ModDefs::VARTIST_ID
@@ -137,7 +137,7 @@ sub CheckPrerequisites
 	{
 		my $id = $new->{"ReleaseId$i"};
 		my $al = MusicBrainz::Server::Release->new($self->{DBH});
-		$al->SetId($id);
+		$al->id($id);
 
 		unless ( $al->LoadFromId )
 		{
@@ -187,7 +187,7 @@ sub AdjustModPending
 	{
 		my $id = $new->{"ReleaseId$i"};
 		my $al = MusicBrainz::Server::Release->new($self->{DBH});
-		$al->SetId($id);
+		$al->id($id);
 	    $al->LoadFromId;
      	$al->UpdateQualityModPending($adjust)
      		if ($al->LoadFromId);

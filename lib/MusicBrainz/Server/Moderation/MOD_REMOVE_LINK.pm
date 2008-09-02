@@ -50,11 +50,11 @@ sub PreInsert
 	}
 	elsif ($types->[0] ne 'label')
 	{
-	    $self->artist($ents[0]->GetId);
+	    $self->artist($ents[0]->id);
 	}
 	$self->table($link->Table);
 	$self->SetColumn("id");
-	$self->row_id($link->GetId);
+	$self->row_id($link->id);
 
 	require MusicBrainz::Server::LinkType;
 	my $linktype = MusicBrainz::Server::LinkType->newFromPackedTypes($self->{DBH}, $types->[0].'-'.$types->[1]);
@@ -64,18 +64,18 @@ sub PreInsert
         $self->{DBH},
         scalar($linktype->Types)
     );
-    $attr = $attr->newFromLinkId($link->GetId());
+    $attr = $attr->newFromLinkId($link->id());
     my ($linkphrase, $dummy) = $attr->ReplaceAttributes($linktype->{linkphrase}, "");
 
 	my %new = (
-	    linkid=>$link->GetId,
+	    linkid=>$link->id,
 		linktypeid=>$linktype->{id},
 		linktypename=>$linktype->{name},
 		linktypephrase=>$linkphrase,
-		entity0id=>$ents[0]->GetId,
+		entity0id=>$ents[0]->id,
 		entity0type=>$types->[0],
 		entity0name=>$ents[0]->GetName,
-		entity1id=>$ents[1]->GetId,
+		entity1id=>$ents[1]->id,
 		entity1type=>$types->[1],
 		entity1name=>$ents[1]->GetName,
 		begindate=>$link->begin_date(),
@@ -102,7 +102,7 @@ sub DetermineQuality
     if ($new->{entity0type} eq 'album' || $new->{entity1type} eq 'album')
     {
         my $rel = MusicBrainz::Server::Release->new($self->{DBH});
-        $rel->SetId($new->{entity0type} eq 'album' ? $new->{entity0id} : $new->{entity1id});
+        $rel->id($new->{entity0type} eq 'album' ? $new->{entity0id} : $new->{entity1id});
         if ($rel->LoadFromId())
         {
             return $rel->quality;        
@@ -111,7 +111,7 @@ sub DetermineQuality
     elsif ($new->{entity0type} eq 'artist' || $new->{entity1type} eq 'artist')
     {
         my $rel = MusicBrainz::Server::Artist->new($self->{DBH});
-        $rel->SetId($new->{entity0type} eq 'artist' ? $new->{entity0id} : $new->{entity1id});
+        $rel->id($new->{entity0type} eq 'artist' ? $new->{entity0id} : $new->{entity1id});
         if ($rel->LoadFromId())
         {
             return $rel->quality;        
@@ -148,7 +148,7 @@ sub ApprovedAction
 		$new->{entity1type} eq 'url')
 	{
 		my $al = MusicBrainz::Server::Release->new($self->{DBH});
-		$al->SetId($new->{entity0id});
+		$al->id($new->{entity0id});
         MusicBrainz::Server::CoverArt->UpdateAmazonData($al, -1)
 			if ($al->LoadFromId(1));
 	}
@@ -157,7 +157,7 @@ sub ApprovedAction
 		$new->{entity1type} eq 'url')
 	{
 		my $al = MusicBrainz::Server::Release->new($self->{DBH});
-		$al->SetId($new->{entity0id});
+		$al->id($new->{entity0id});
         MusicBrainz::Server::CoverArt->UpdateCoverArtData($al, -1)
 			if ($al->LoadFromId(1));
 	}

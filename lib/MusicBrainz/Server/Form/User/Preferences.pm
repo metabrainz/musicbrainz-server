@@ -161,7 +161,7 @@ sub options_default_country {
     my $countries = MusicBrainz::Server::Country->new($mb->{DBH});
 
     my @countries_menu = map {
-        $_->GetId => $_->GetName
+        $_->id => $_->GetName
     } $countries->All;
 
     return \@countries_menu;   

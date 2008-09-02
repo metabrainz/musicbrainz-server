@@ -59,12 +59,12 @@ sub PreInsert
 		die $self;
 	}
 
-	$self->artist($ar->GetId);
+	$self->artist($ar->id);
 	$self->SetPrev($ar->GetName);
 	$self->SetNew($newalias);
 	$self->table("artist");
 	$self->SetColumn("name");
-	$self->row_id($ar->GetId);
+	$self->row_id($ar->id);
 }
 
 sub DetermineQuality
@@ -72,7 +72,7 @@ sub DetermineQuality
 	my $self = shift;
 
 	my $ar = MusicBrainz::Server::Artist->new($self->{DBH});
-	$ar->SetId($self->{rowid});
+	$ar->id($self->{rowid});
 	if ($ar->LoadFromId())
 	{
         return $ar->quality;        
@@ -87,7 +87,7 @@ sub CheckPrerequisites
 	# Check that the referenced artist is still around
 	require MusicBrainz::Server::Artist;
 	my $ar = MusicBrainz::Server::Artist->new($self->{DBH});
-	$ar->SetId($self->row_id);
+	$ar->id($self->row_id);
 	unless ($ar->LoadFromId)
 	{
 		$self->InsertNote(

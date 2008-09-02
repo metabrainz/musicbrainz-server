@@ -75,7 +75,7 @@ sub PreInsert
 	$self->artist(DARTIST_ID);
 	$self->table($parent->{_table}); # FIXME internal field
 	$self->SetColumn("name");
-	$self->row_id($child->GetId);
+	$self->row_id($child->id);
 
 	my %new = (
 		types			=> $parent->PackTypes,

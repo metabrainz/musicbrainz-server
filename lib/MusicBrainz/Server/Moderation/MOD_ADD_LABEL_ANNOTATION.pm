@@ -65,14 +65,14 @@ sub PreDisplay
 	$this->{'dont-display-artist'} = 1;
 	# load annotation data
 	my $an = MusicBrainz::Server::Annotation->new($this->{DBH});
-	$an->moderation($this->GetId());
+	$an->moderation($this->id());
 	if ($an->LoadFromId())
 	{
 		my $log = $an->change_log;
 		$log = "(no change log)"
 			unless ($log =~ /\S/);
 		$this->{'changelog'} = $log;
-		$this->{'annotid'} = $an->GetId;
+		$this->{'annotid'} = $an->id;
 	}
 }
 
@@ -88,7 +88,7 @@ sub ApprovedAction
 	my $an = MusicBrainz::Server::Annotation->new($self->{DBH});
 
 	$an->moderator($self->moderator());
-	$an->moderation($self->GetId());
+	$an->moderation($self->id());
 	$an->type(LABEL_ANNOTATION);
 	$an->SetLabel($self->row_id());
 	$an->text($text);
@@ -105,7 +105,7 @@ sub ShowModTypeDelegate
 	my $id = $self->row_id;
 	require MusicBrainz::Server::Label;
 	my $label = MusicBrainz::Server::Label->new($self->{DBH});
-	$label->SetId($id);
+	$label->id($id);
 	my ($title, $name);
 	if ($label->LoadFromId) 
 	{

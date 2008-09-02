@@ -55,7 +55,7 @@ sub GetTrackIdsFromTRM
 	);
 }
 
-sub GetIdFromTRM
+sub id_from_trm
 {
 	my ($this, $TRM) = @_;
 	my $sql = Sql->new($this->{DBH});
@@ -100,7 +100,7 @@ sub Insert
     my ($this, $TRM, $trackid, $clientver) = @_;
 
     my $sql = Sql->new($this->{DBH});
-    my $id = $this->GetIdFromTRM($TRM);
+    my $id = $this->id_from_trm($TRM);
     $this->{new_insert} = 0;
 
     if (!defined $id)
@@ -163,11 +163,11 @@ sub Remove
     my ($this) = @_;
     my ($sql);
 
-    return undef if (!defined $this->GetId());
+    return undef if (!defined $this->id());
   
     $sql = Sql->new($this->{DBH});
-    $sql->Do("DELETE FROM trmjoin WHERE trm = ?", $this->GetId);
-    $sql->Do("DELETE FROM trm WHERE id = ?", $this->GetId);
+    $sql->Do("DELETE FROM trmjoin WHERE trm = ?", $this->id);
+    $sql->Do("DELETE FROM trm WHERE id = ?", $this->id);
 
     return 1;
 }

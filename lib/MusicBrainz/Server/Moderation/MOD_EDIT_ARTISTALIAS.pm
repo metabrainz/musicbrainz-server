@@ -46,7 +46,7 @@ sub PreInsert
 	$self->SetNew($newname);
 	$self->table("artistalias");
 	$self->SetColumn("name");
-	$self->row_id($al->GetId);
+	$self->row_id($al->id);
 
 	# Currently there's a unique index on artistalias.name.
 	# Refuse to insert the mod if that index would be violated.
@@ -55,7 +55,7 @@ sub PreInsert
 
 	if (my $other = $test->newFromName($newname))
 	{
-		if ($other->GetId != $al->GetId)
+		if ($other->id != $al->id)
 		{
 			$self->SetError(
 				"There is already an alias called '$newname'"
@@ -71,7 +71,7 @@ sub DetermineQuality
 	my $self = shift;
 
 	my $ar = MusicBrainz::Server::Artist->new($self->{DBH});
-	$ar->SetId($self->{artist});
+	$ar->id($self->{artist});
 	if ($ar->LoadFromId())
 	{
         return $ar->quality;        
@@ -92,7 +92,7 @@ sub CheckPrerequisites
 
 	require MusicBrainz::Server::Alias;
 	my $alias = MusicBrainz::Server::Alias->new($self->{DBH}, "artistalias");
-	$alias->SetId($self->row_id);
+	$alias->id($self->row_id);
 
 	unless ($alias->LoadFromId)
 	{

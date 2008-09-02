@@ -41,15 +41,15 @@ sub PreInsert
 	my $newname = $opts{'newname'};
 	$newname =~ /\S/ or die;
 
-	die if $ar->GetId == VARTIST_ID;
-	die if $ar->GetId == DARTIST_ID;
+	die if $ar->id == VARTIST_ID;
+	die if $ar->id == DARTIST_ID;
 
-	$self->artist($ar->GetId);
+	$self->artist($ar->id);
 	$self->SetPrev($ar->GetName);
 	$self->SetNew($newname);
 	$self->table("artist");
 	$self->SetColumn("name");
-	$self->row_id($ar->GetId);
+	$self->row_id($ar->id);
 
     # We used to perform a duplicate artist check here, but that has been removed.
 }
@@ -59,7 +59,7 @@ sub DetermineQuality
 	my $self = shift;
 
 	my $ar = MusicBrainz::Server::Artist->new($self->{DBH});
-	$ar->SetId($self->{rowid});
+	$ar->id($self->{rowid});
 	if ($ar->LoadFromId())
 	{
         return $ar->quality;        
@@ -89,7 +89,7 @@ sub CheckPrerequisites
 	# Load the artist by ID
 	require MusicBrainz::Server::Artist;
 	my $ar = MusicBrainz::Server::Artist->new($self->{DBH});
-	$ar->SetId($rowid);
+	$ar->id($rowid);
 	unless ($ar->LoadFromId)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This artist has been deleted");

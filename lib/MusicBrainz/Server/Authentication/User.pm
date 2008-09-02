@@ -40,7 +40,7 @@ sub new
     bless {
         biography => $user->GetBio,
         homepage  => $user->GetWebURL,
-        id        => $user->GetId,
+        id        => $user->id,
         password  => $user->GetPassword,
         type      => $user->GetUserType,
         username  => $user->GetName,

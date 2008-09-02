@@ -188,12 +188,12 @@ sub UpdateAmazonData
 	my ($coverurl, $asin)  = ($release->coverart_url, $release->asin);
 	my $ret = 0;
 	
-    return $ret unless ($coverurl && $asin && $release->GetId);
+    return $ret unless ($coverurl && $asin && $release->id);
 
 	# make sure the album exists and get current asin and cover data	
 	my $sql = Sql->new($release->{DBH});
 	my $old = $sql->SelectSingleRowArray(
-		"SELECT asin, coverarturl FROM album_amazon_asin WHERE album = ?", $release->GetId
+		"SELECT asin, coverarturl FROM album_amazon_asin WHERE album = ?", $release->id
 	);
 
 	# old data from automatic update script can be either NULL or a real string or /' '{10}/
@@ -208,7 +208,7 @@ sub UpdateAmazonData
 		# check if there is another ASIN AR and update the asin and cover data
 		# using this AR
 		my @altlinks = MusicBrainz::Server::Link->FindLinkedEntities(
-			$release->{DBH}, $release->GetId, 'album', ( 'to_type' => 'url' )
+			$release->{DBH}, $release->id, 'album', ( 'to_type' => 'url' )
 		);
 
 		for my $item (@altlinks)
@@ -229,7 +229,7 @@ sub UpdateAmazonData
 			$sql->Do(
 				qq|DELETE FROM album_amazon_asin
 				   WHERE album = ?;|,
-				$release->GetId
+				$release->id
 			) unless ($oldcoverurl eq "" && $oldasin eq "");
 			$release->coverart_url("");
 			$release->asin("");
@@ -244,7 +244,7 @@ sub UpdateAmazonData
 			qq|INSERT INTO album_amazon_asin
 			   (album, asin, coverarturl, lastupdate)
 			   VALUES (?, ?, ?, now());|,
-			$release->GetId, $asin, $coverurl,
+			$release->id, $asin, $coverurl,
 		);
 	}
 	elsif (($mode == 1 && defined $old && ($oldcoverurl ne $coverurl || $oldasin ne $asin))
@@ -257,7 +257,7 @@ sub UpdateAmazonData
 			qq|UPDATE album_amazon_asin
 			   SET asin = ?, coverarturl = ?, lastupdate = now()
 			   WHERE album = ?;|,
-			$asin, $coverurl, $release->GetId,
+			$asin, $coverurl, $release->id,
 		);
 	}
 
@@ -336,12 +336,12 @@ sub UpdateCoverArtData
 	my $coverurl = $release->coverart_url;
 	my $ret = 0;
 	
-	return $ret unless ($coverurl && $release->GetId);
+	return $ret unless ($coverurl && $release->id);
 
 	# make sure the album exists and get current cover url	
 	my $sql = Sql->new($release->{DBH});
 	my $old = $sql->SelectSingleRowArray(
-		"SELECT coverarturl FROM album_amazon_asin WHERE album = ?", $release->GetId
+		"SELECT coverarturl FROM album_amazon_asin WHERE album = ?", $release->id
 	);
 
 	# old data from automatic update script can be either NULL or a real string or /' '{10}/
@@ -355,7 +355,7 @@ sub UpdateCoverArtData
 
 		# check if there is another coverart AR and update the cover data using this AR
 		my @altlinks = MusicBrainz::Server::Link->FindLinkedEntities(
-			$release->{DBH}, $release->GetId, 'album', ( 'to_type' => 'url' )
+			$release->{DBH}, $release->id, 'album', ( 'to_type' => 'url' )
 		);
 
 		for my $item (@altlinks)
@@ -376,7 +376,7 @@ sub UpdateCoverArtData
 			$sql->Do(
 				qq|DELETE FROM album_amazon_asin
 				   WHERE album = ?;|,
-				$release->GetId
+				$release->id
 			) unless ($oldcoverurl eq "");
 			$release->coverart_url("");
 			$release->asin("");
@@ -391,7 +391,7 @@ sub UpdateCoverArtData
 			qq|INSERT INTO album_amazon_asin
 			   (album, asin, coverarturl, lastupdate)
 			   VALUES (?, '', ?, now())|,
-			$release->GetId, $coverurl
+			$release->id, $coverurl
 		);
 	}
 	elsif (($mode == 1 && defined $old && ($oldcoverurl ne $coverurl))
@@ -404,7 +404,7 @@ sub UpdateCoverArtData
 			qq|UPDATE album_amazon_asin
 			   SET asin = '', coverarturl = ?, lastupdate = now()
 			   WHERE album = ?;|,
-			$coverurl, $release->GetId,
+			$coverurl, $release->id,
 		);
     }
 

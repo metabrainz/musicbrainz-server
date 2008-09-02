@@ -129,7 +129,7 @@ sub serve_from_db
 	{
 		require MusicBrainz::Server::Alias;
 		my $alias = MusicBrainz::Server::Alias->new($mb->{DBH}, "ArtistAlias");
-		my @list = $alias->GetList($ar->GetId);
+		my @list = $alias->GetList($ar->id);
 		$info->{aliases} = \@list;  
 	}
 	

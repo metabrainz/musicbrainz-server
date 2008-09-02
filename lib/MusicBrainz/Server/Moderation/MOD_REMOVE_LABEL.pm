@@ -38,12 +38,12 @@ sub PreInsert
 	my ($self, %opts) = @_;
 
 	my $ar = $opts{'label'} or die;
-	die if $ar->GetId == %ModDefs::DLABEL_ID;
+	die if $ar->id == %ModDefs::DLABEL_ID;
 
 	$self->SetPrev($ar->GetName);
 	$self->table("label");
 	$self->SetColumn("name");
-	$self->row_id($ar->GetId);
+	$self->row_id($ar->id);
 }
 
 sub ApprovedAction
@@ -62,7 +62,7 @@ sub ApprovedAction
 	# if there are not more references to it.
 	require MusicBrainz::Server::Label;
 	my $ar = MusicBrainz::Server::Label->new($this->{DBH});
-	$ar->SetId($rowid);
+	$ar->id($rowid);
 
 	require UserSubscription;
 	my $subs = UserSubscription->new($this->{DBH});
@@ -90,7 +90,7 @@ sub ShowModTypeDelegate
 	my $id = $self->row_id;
 	require MusicBrainz::Server::Label;
 	my $label = MusicBrainz::Server::Label->new($self->{DBH});
-	$label->SetId($id);
+	$label->id($id);
 	my ($title, $name);
 	if ($label->LoadFromId) 
 	{

@@ -63,7 +63,7 @@ sub new_from_release
         cover_art_url      => $release->coverart_url,
         disc_ids           => $release->discid_count,
         first_release_date => $release->GetFirstReleaseDate,
-        id                 => $release->GetId,
+        id                 => $release->id,
         language_code      => $release->language ? $release->language->GetISOCode3T : '',
         language           => $release->language ? $release->language->GetName : '',
         mbid               => $release->mbid,

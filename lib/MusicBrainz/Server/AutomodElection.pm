@@ -50,7 +50,7 @@ use Carp;
 use ModDefs ':vote';
 use UserStuff;
 
-# GetId - see TableBase
+# id - see TableBase
 sub GetCandidate	{ $_[0]{candidate} }
 sub GetProposer		{ $_[0]{proposer} }
 sub GetSeconder1	{ $_[0]{seconder_1} }
@@ -139,7 +139,7 @@ sub _Refresh
 {
 	my $self = shift;
 	my $sql = Sql->new($self->{DBH});
-	my $newself = $self->newFromId($self->GetId)
+	my $newself = $self->newFromId($self->id)
 		or return;
 	%$self = %$newself;
 	$self;
@@ -208,7 +208,7 @@ sub _Timeout
 
 	$sql->Do(
 		"UPDATE automod_election SET status = $STATUS_REJECTED, closetime = NOW() WHERE id = ?",
-		$self->GetId,
+		$self->id,
 	);
 
 	$self->{status} = $STATUS_REJECTED;
@@ -228,7 +228,7 @@ sub _Close
 	$sql->Do(
 		"UPDATE automod_election SET status = ?, closetime = NOW() WHERE id = ?",
 		$self->{status},
-		$self->GetId,
+		$self->id,
 	);
 
 	if ($self->{status} == $STATUS_ACCEPTED)
@@ -273,14 +273,14 @@ sub Propose
 	my $id = $sql->SelectSingleValue(
 		"SELECT id FROM automod_election WHERE candidate = ?
 			AND status IN ($STATUS_AWAITING_SECONDER_1,$STATUS_AWAITING_SECONDER_2,$STATUS_VOTING_OPEN)",
-		$candidate->GetId,
+		$candidate->id,
 	);
 	$@ = "EXISTING_ELECTION $id", return
 		if $id;
 
 	$sql->Do(
 		"INSERT INTO automod_election (candidate, proposer) VALUES (?, ?)",
-		$candidate->GetId,
+		$candidate->id,
 		$proposer,
 	);
 	$id = $sql->GetLastInsertId("automod_election");
@@ -315,7 +315,7 @@ sub Second
 			SET seconder_1 = ?, status = $STATUS_AWAITING_SECONDER_2
 			WHERE id = ? AND status = $STATUS_AWAITING_SECONDER_1",
 		$seconder,
-		$self->GetId,
+		$self->id,
 	) and do {
 		$self->{seconder_1} = $seconder;
 		$self->{status} = $STATUS_AWAITING_SECONDER_2;
@@ -327,7 +327,7 @@ sub Second
 			SET seconder_2 = ?, status = $STATUS_VOTING_OPEN, opentime = NOW()
 			WHERE id = ? AND status = $STATUS_AWAITING_SECONDER_2",
 		$seconder,
-		$self->GetId,
+		$self->id,
 	) and do {
 		$self->{seconder_2} = $seconder;
 		$self->{status} = $STATUS_VOTING_OPEN;
@@ -360,7 +360,7 @@ sub CastVote
 	my $old_vote = $sql->SelectSingleRowHash(
 		"SELECT * FROM automod_election_vote
 			WHERE automod_election = ? AND voter = ?",
-		$self->GetId,
+		$self->id,
 		$voter,
 	);
 
@@ -377,7 +377,7 @@ sub CastVote
 	} else {
 		$sql->Do(
 			"INSERT INTO automod_election_vote (automod_election, voter, vote) VALUES (?, ?, ?)",
-			$self->GetId,
+			$self->id,
 			$voter,
 			$new_vote,
 		);
@@ -394,7 +394,7 @@ sub CastVote
 		novotes = novotes + ? WHERE id = ?",
 		$yesdelta,
 		$nodelta,
-		$self->GetId,
+		$self->id,
 	);
 
 	$@ = ($old_vote ? "VOTE_CHANGED" : "VOTE_CAST");
@@ -420,7 +420,7 @@ sub Cancel
 		"UPDATE automod_election
 			SET status = $STATUS_CANCELLED, closetime = NOW()
 			WHERE id = ? AND status IN ($STATUS_AWAITING_SECONDER_1,$STATUS_AWAITING_SECONDER_2,$STATUS_VOTING_OPEN)",
-		$self->GetId,
+		$self->id,
 	) or die;
 
 	$self->{status} = $STATUS_CANCELLED;
@@ -441,7 +441,7 @@ sub _PrepareMail
 	return if $self->{"_email_prepared"};
 
 	(my $nums = $self->{proposetime}) =~ tr/0-9//cd;
-	my $id = $self->GetId;
+	my $id = $self->id;
 	$self->{message_id} = "<automod-election-$id-$nums\@musicbrainz.org>";
 
 	require UserStuff;
@@ -455,12 +455,12 @@ sub _PrepareMail
 		$self->{$key."_user"} = $them;
 		$self->{$key."_name"} = $them->GetName;
 		$self->{$key."_link"} = sprintf "http://%s/show/user/?userid=%d",
-			&DBDefs::WEB_SERVER, $them->GetId;
+			&DBDefs::WEB_SERVER, $them->id;
 	}
 
 	$self->{subject} = "Automod Election: $self->{candidate_name}";
 	$self->{election_link} = sprintf "http://%s/user/election/show.html?id=%d",
-		&DBDefs::WEB_SERVER, $self->GetId;
+		&DBDefs::WEB_SERVER, $self->id;
 
 	$self->{"_email_prepared"} = 1;
 }
@@ -648,7 +648,7 @@ use base qw( TableBase );
 use Carp;
 use ModDefs ':vote';
 
-# GetId / SetId - see TableBase
+# id / id - see TableBase
 sub GetElection		{ $_[0]{automod_election} }
 sub GetVoter		{ $_[0]{voter} }
 sub GetVote			{ $_[0]{vote} }
@@ -661,7 +661,7 @@ sub _newFromElection
 
 	my $votes = $sql->SelectListOfHashes(
 		"SELECT * FROM automod_election_vote WHERE automod_election = ? ORDER BY votetime",
-		$election->GetId,
+		$election->id,
 	);
 
 	for (@$votes)

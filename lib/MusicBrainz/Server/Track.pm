@@ -37,7 +37,7 @@ use MusicBrainz::Server::Validation qw( unaccent );
 
 sub LinkEntityName { "track" }
 
-sub _GetIdCacheKey
+sub _id_cache_key
 {
     my ($class, $id) = @_;
     "track-id-" . int($id);
@@ -120,18 +120,18 @@ sub LoadFromAlbumJoin
 		$albumjoinid,
 	) or return undef;
 
-	$this->SetId($t->[0]);
+	$this->id($t->[0]);
 	$this->release($t->[1]);
 	return $this->LoadFromId();
 }
 
-# Load a track. Set the track id and the album id via the SetId and release
+# Load a track. Set the track id and the album id via the id and release
 # Accessor functions. Return true on success, undef otherwise
 sub LoadFromId
 {
 	my ($this) = @_;
 
-	my $id = $this->GetId;
+	my $id = $this->id;
 	my $mbid = $this->mbid;
 
 	if (not $id and not $mbid)
@@ -208,7 +208,7 @@ sub LoadFromId
 		my $newid = $this->CheckGlobalIdRedirect($mbid, &TableBase::TABLE_TRACK);
 		if ($newid)
 		{
-			$this->SetId($newid);
+			$this->id($newid);
 			$this->mbid(undef);
 			return $this->LoadFromId;
 		}
@@ -233,7 +233,7 @@ sub GetMetadataFromIdAndAlbum
     $album = "Unknown";
     $seq = 0;
 
-    $this->SetId($id);
+    $this->id($id);
     if (!defined $this->LoadFromId())
     {
          return ();
@@ -241,7 +241,7 @@ sub GetMetadataFromIdAndAlbum
 
 	require MusicBrainz::Server::Artist;
     my $ar = MusicBrainz::Server::Artist->new($this->{DBH});
-    $ar->SetId($this->artist());
+    $ar->id($this->artist());
     if (!defined $ar->LoadFromId())
     {
          return ();
@@ -311,7 +311,7 @@ sub Insert
 		return undef;
 	}
 
-    my $album = $al->GetId;
+    my $album = $al->id;
     
 	# we allow releases attributed to other artists
 	# than VARTIST_ID to have different track artists.
@@ -319,7 +319,7 @@ sub Insert
 	# should be used to attribute the track to.
 	# -- (keschte)    
     my $artist = ($al->artist() == &ModDefs::VARTIST_ID or
-    			  defined $ar) ? $ar->GetId() : $al->artist();
+    			  defined $ar) ? $ar->id() : $al->artist();
 
 	if (not $artist)
 	{
@@ -376,7 +376,7 @@ sub UpdateName
 {
 	my $self = shift;
 
-	my $id = $self->GetId
+	my $id = $self->id
 		or croak "Missing track ID in UpdateName";
 	my $name = $self->GetName;
 	defined($name) && $name ne ""
@@ -405,7 +405,7 @@ sub RebuildWordList
     require SearchEngine;
     my $engine = SearchEngine->new($this->{DBH}, 'track');
     $engine->AddWordRefs(
-		$this->GetId,
+		$this->id,
 		$this->GetName,
 		1, # remove other words
     );
@@ -419,7 +419,7 @@ sub UpdateArtist
 	$sql->Do(
 		"UPDATE track SET artist = ? WHERE id = ?",
 		$self->artist,
-		$self->GetId,
+		$self->id,
 	);
 }
 
@@ -431,7 +431,7 @@ sub UpdateLength
 	$sql->Do(
 		"UPDATE track SET length = ? WHERE id = ?",
 		$self->length,
-		$self->GetId,
+		$self->id,
 	);
 } 
 
@@ -451,7 +451,7 @@ sub RemoveFromAlbum
 {
 	my $self = shift;
 
-	my $id = $self->GetId
+	my $id = $self->id
 		or croak "Missing track ID in RemoveFromAlbum";
 	my $alid = $self->release
 		or croak "Missing album ID in RemoveFromAlbum";
@@ -469,48 +469,48 @@ sub Remove
 {
     my ($this) = @_;
 
-    return undef if (!defined $this->GetId());
+    return undef if (!defined $this->id());
 
     my $sql = Sql->new($this->{DBH});
 
     my $refcount = $sql->SelectSingleValue(
 		"SELECT COUNT(*) FROM albumjoin WHERE track = ?",
-		$this->GetId,
+		$this->id,
     );
     if ($refcount > 0)
     {
         print STDERR "DELETE: refcount = $refcount on track delete " .
-                     $this->GetId() . "\n";
+                     $this->id() . "\n";
         return undef
     }
 
 	require MusicBrainz::Server::TRM;
     my $trm = MusicBrainz::Server::TRM->new($this->{DBH});
-    $trm->RemoveByTrackId($this->GetId());
+    $trm->RemoveByTrackId($this->id());
 
 	require MusicBrainz::Server::PUID;
     my $puid = MusicBrainz::Server::PUID->new($this->{DBH});
-    $puid->RemoveByTrackId($this->GetId());
+    $puid->RemoveByTrackId($this->id());
 
 	# Remove relationships
 	require MusicBrainz::Server::Link;
 	my $link = MusicBrainz::Server::Link->new($this->{DBH});
-	$link->RemoveByTrack($this->GetId());
+	$link->RemoveByTrack($this->id());
 
     # Remove tags
 	require MusicBrainz::Server::Tag;
 	my $tag = MusicBrainz::Server::Tag->new($sql->{DBH});
-	$tag->RemoveTracks($this->GetId);
+	$tag->RemoveTracks($this->id);
 
 	# Remove references from track words table
 	require SearchEngine;
 	my $engine = SearchEngine->new($this->{DBH}, 'track');
-	$engine->RemoveObjectRefs($this->GetId());
+	$engine->RemoveObjectRefs($this->id());
 
-    $this->RemoveGlobalIdRedirect($this->GetId, &TableBase::TABLE_TRACK);
+    $this->RemoveGlobalIdRedirect($this->id, &TableBase::TABLE_TRACK);
 
-    print STDERR "DELETE: Remove track " . $this->GetId() . "\n";
-    $sql->Do("DELETE FROM track WHERE id = ?", $this->GetId);
+    print STDERR "DELETE: Remove track " . $this->id() . "\n";
+    $sql->Do("DELETE FROM track WHERE id = ?", $this->id);
 
     return 1;
 }
@@ -524,7 +524,7 @@ sub GetAlbumInfo
    if ($sql->Select(qq|select album, name, sequence, GID, attributes, quality
                          from AlbumJoin, Album
                         where AlbumJoin.album = Album.id and
-                              track = | . $this->GetId()))
+                              track = | . $this->id()))
    {
        for(;@row = $sql->NextRow();)
        {

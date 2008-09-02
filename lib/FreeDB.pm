@@ -377,7 +377,7 @@ sub InsertForModeration
 
     if (defined $aliasid)
     {
-        $ar->SetId($aliasid);
+        $ar->id($aliasid);
         if ($ar->LoadFromId())
         {
             $info->{artist} = $ar->GetName();

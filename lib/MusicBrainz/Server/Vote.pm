@@ -31,7 +31,7 @@ use base qw( TableBase );
 use Carp;
 use ModDefs ':vote', 'STATUS_OPEN';
 
-# GetId / SetId - see TableBase
+# id / id - see TableBase
 sub moderation_id
 {
     my ($self, $new_id) = @_;

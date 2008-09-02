@@ -31,13 +31,13 @@ use base qw( TableBase );
 use Carp;
 use Encode qw( decode );
 
-# GetId / SetId - see TableBase
+# id / id - see TableBase
 # GetName / SetName - see TableBase
 sub GetISOCode3T	{ $_[0]{isocode_3t} }
 sub GetISOCode3B	{ $_[0]{isocode_3b} }
 sub GetISOCode2		{ $_[0]{isocode_2} }
 
-sub _GetIdCacheKey
+sub _id_cache_key
 {
 	my ($class, $id) = @_;
 	"language-id-" . int($id);
@@ -57,7 +57,7 @@ sub newFromId
 	$self = $self->new(shift) if not ref $self;
 	my $id = shift;
 
-	my $key = $self->_GetIdCacheKey($id);
+	my $key = $self->_id_cache_key($id);
 	require MusicBrainz::Server::Cache;
 	my $obj = MusicBrainz::Server::Cache->get($key);
 
@@ -267,7 +267,7 @@ sub Menu
 	my @languages = All(@_);
 	
 	my @menu = map {
-		[ $_->GetId(), $_->GetName() ]
+		[ $_->id(), $_->GetName() ]
 	} @languages;
 
 	unshift @menu, [ '', "I don't know" ];

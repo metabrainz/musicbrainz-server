@@ -41,10 +41,10 @@ sub PreInsert
 	my $al = $opts{'album'} or die;
 
 	$self->artist($tr->artist);
-	$self->SetPrev($tr->GetName . "\n" . $al->GetId . "\n" . $al->IsNonAlbumTracks . "\n" . $tr->sequence . "\n" . $tr->length);
+	$self->SetPrev($tr->GetName . "\n" . $al->id . "\n" . $al->IsNonAlbumTracks . "\n" . $tr->sequence . "\n" . $tr->length);
 	$self->table("track");
 	$self->SetColumn("name");
-	$self->row_id($tr->GetId);
+	$self->row_id($tr->id);
 }
 
 sub PostLoad
@@ -72,7 +72,7 @@ sub DetermineQuality
 	my $self = shift;
 
 	my $rel = MusicBrainz::Server::Release->new($self->{DBH});
-	$rel->SetId($self->{albumid});
+	$rel->id($self->{albumid});
 	if ($rel->LoadFromId())
 	{
         return $rel->quality;        
@@ -86,7 +86,7 @@ sub ApprovedAction
 
 	require MusicBrainz::Server::Track;
 	my $track = MusicBrainz::Server::Track->new($this->{DBH});
-	$track->SetId($this->row_id);
+	$track->id($this->row_id);
 	$track->release($this->{'prev.albumid'});
 
 	# Remove the album join for this track
@@ -104,7 +104,7 @@ sub ApprovedAction
 	# Try to remove the release if it's a "non-album" release
 	require MusicBrainz::Server::Release;
 	my $release = MusicBrainz::Server::Release->new($this->{DBH});
-	$release->SetId($this->{'prev.albumid'});
+	$release->id($this->{'prev.albumid'});
 	if ($release->LoadFromId)
 	{
 		$release->Remove

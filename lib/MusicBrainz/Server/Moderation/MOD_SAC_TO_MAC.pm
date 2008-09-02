@@ -50,7 +50,7 @@ sub PreInsert
 	$self->table("album");
 	$self->SetColumn("artist");
 	$self->artist($al->artist);
-	$self->row_id($al->GetId);
+	$self->row_id($al->id);
 	$self->SetPrev($ar->GetName);
 	$self->SetNew($movetova);
 }
@@ -71,14 +71,14 @@ sub DetermineQuality
 	my $level = &ModDefs::QUALITY_UNKNOWN_MAPPED;
 
 	my $rel = MusicBrainz::Server::Release->new($self->{DBH});
-	$rel->SetId($self->{rowid});
+	$rel->id($self->{rowid});
 	if ($rel->LoadFromId())
 	{
 		$level = $rel->quality > $level ? $rel->quality : $level;
     }
 
 	my $ar = MusicBrainz::Server::Artist->new($self->{DBH});
-	$ar->SetId($rel->artist);
+	$ar->id($rel->artist);
 	if ($ar->LoadFromId())
 	{
         $level = $ar->quality > $level ? $ar->quality : $level;
@@ -94,7 +94,7 @@ sub CheckPrerequisites
 	# Load the album by ID
 	require MusicBrainz::Server::Release;
 	my $release = MusicBrainz::Server::Release->new($self->{DBH});
-	$release->SetId($self->row_id);
+	$release->id($self->row_id);
 	unless ($release->LoadFromId)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This release has been deleted");

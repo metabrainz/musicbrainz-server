@@ -100,7 +100,7 @@ sub new_from_artist
 
     $class->new({
         end_date    => $artist->end_date, 
-        id          => $artist->GetId,
+        id          => $artist->id,
         mbid        => $artist->mbid,
         name        => $artist->GetName,
         quality     => ModDefs::GetQualityText($artist->quality),

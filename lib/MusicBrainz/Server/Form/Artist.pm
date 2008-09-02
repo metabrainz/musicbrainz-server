@@ -136,7 +136,7 @@ sub update_model {
 
     my %moderation;
     $moderation{DBH} = $self->context->mb->{DBH};
-    $moderation{uid} = $user->GetId;
+    $moderation{uid} = $user->id;
     $moderation{privs} = $user->GetPrivs;
 
     my ($begin, $end) =
@@ -178,7 +178,7 @@ sub update_model {
 
     my @mods = Moderation->InsertModeration(%moderation);
 
-    $mods[0]->InsertNote($user->GetId, $self->value('edit_note'))
+    $mods[0]->InsertNote($user->id, $self->value('edit_note'))
         if $mods[0] and $self->value('edit_note') =~ /\S/;
 
     return \@mods;

@@ -314,7 +314,7 @@ sub DetermineQuality
     my $self = shift;
 
     my $rel = MusicBrainz::Server::Release->new($self->{DBH});
-    $rel->SetId($self->{rowid});
+    $rel->id($self->{rowid});
     if ($rel->LoadFromId())
     {
         return $rel->quality;        
@@ -336,7 +336,7 @@ sub DeniedAction
 	{
 		require MusicBrainz::Server::Release;
 		my $al = MusicBrainz::Server::Release->new($self->{DBH});
-		$al->SetId($album);
+		$al->id($album);
 		$al->Remove;
 
 		if (my $artist = $new->{'ArtistId'})
@@ -345,7 +345,7 @@ sub DeniedAction
 			{
 				require MusicBrainz::Server::Artist;
 				my $ar = MusicBrainz::Server::Artist->new($self->{DBH});
-				$ar->SetId($artist);
+				$ar->id($artist);
 				$ar->Remove;
 			}
 		}

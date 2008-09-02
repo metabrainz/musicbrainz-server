@@ -49,14 +49,14 @@ sub PreInsert
 
 	for (@albums)
 	{
-		die "Release #" . ($_->GetId) . " passed twice to " . $self->Token
-			if $seen{$_->GetId}++;
+		die "Release #" . ($_->id) . " passed twice to " . $self->Token
+			if $seen{$_->id}++;
 	}
 
 	my %new = (
 		map {
 			(
-				"AlbumId$_"		=> $albums[$_]->GetId,
+				"AlbumId$_"		=> $albums[$_]->id,
 				"AlbumName$_"	=> $albums[$_]->GetName,
 			)
 		} 0 .. $#albums
@@ -68,7 +68,7 @@ sub PreInsert
 	$self->artist($into->artist);
 	$self->table("album");
 	$self->SetColumn("id");
-	$self->row_id($into->GetId);
+	$self->row_id($into->id);
 	$self->SetNew($self->ConvertHashToNew(\%new));
 }
 
@@ -117,7 +117,7 @@ sub DetermineQuality
     {
         my $rel = MusicBrainz::Server::Release->new($self->{DBH});
         last if (!exists $new->{"AlbumId$i"});
-        $rel->SetId($new->{"AlbumId$i"});
+        $rel->id($new->{"AlbumId$i"});
         if ($rel->LoadFromId())
         {
             $artistid = $rel->artist() if ($artistid < 0);
@@ -129,7 +129,7 @@ sub DetermineQuality
     {
         # Check the artist its going to
         my $ar = MusicBrainz::Server::Artist->new($self->{DBH});
-        $ar->SetId($artistid);
+        $ar->id($artistid);
         if ($ar->LoadFromId())
         {
             $quality = $ar->quality > $quality ? $ar->quality : $quality;
@@ -156,7 +156,7 @@ sub AdjustModPending
 
 	for my $album ($self->{'new_into'}, @{ $self->{'new_albums'} })
 	{
-		$al->SetId($album->{'id'});
+		$al->id($album->{'id'});
 		$al->UpdateModPending($adjust);
 	}
 }
@@ -167,7 +167,7 @@ sub ApprovedAction
 
 	require MusicBrainz::Server::Release;
 	my $al = MusicBrainz::Server::Release->new($self->{DBH});
-	$al->SetId($self->{'new_into'}{'id'});
+	$al->id($self->{'new_into'}{'id'});
 
 	unless ($al->LoadFromId)
 	{

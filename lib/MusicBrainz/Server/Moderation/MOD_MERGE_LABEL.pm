@@ -40,10 +40,10 @@ sub PreInsert
 	my $source = $opts{'source'} or die;
 	my $target = $opts{'target'} or die;
 
-	die if $source->GetId == DLABEL_ID;
-	die if $target->GetId == DLABEL_ID;
+	die if $source->id == DLABEL_ID;
+	die if $target->id == DLABEL_ID;
 
-	if ($source->GetId == $target->GetId)
+	if ($source->id == $target->id)
 	{
 		$self->SetError("Source and destination labels are the same!");
 		die $self;
@@ -51,11 +51,11 @@ sub PreInsert
 
 	my %new;
 	$new{"LabelName"} = $target->GetName;
-	$new{"LabelId"} = $target->GetId;
+	$new{"LabelId"} = $target->id;
 
 	$self->table("label");
 	$self->SetColumn("name");
-	$self->row_id($source->GetId);
+	$self->row_id($source->id);
 	$self->SetPrev($source->GetName);
 	$self->SetNew($self->ConvertHashToNew(\%new));
 }
@@ -95,7 +95,7 @@ sub AdjustModPending
 	for my $labelid ($self->row_id, $self->{"new.id"})
 	{
 		defined($labelid) or next;
-		$ar->SetId($labelid);
+		$ar->id($labelid);
 		$ar->LoadFromId();
 		$ar->UpdateModPending($adjust);
 	}
@@ -115,7 +115,7 @@ sub CheckPrerequisites
 
 	if (my $newid = $self->{"new.id"})
 	{
-		$newar->SetId($newid);
+		$newar->id($newid);
 		unless ($newar->LoadFromId)
 		{
 			$self->InsertNote(MODBOT_MODERATOR, "The target label has been deleted");
@@ -135,7 +135,7 @@ sub CheckPrerequisites
 	# Load old label by ID
 	require MusicBrainz::Server::Label;
 	my $oldar = MusicBrainz::Server::Label->new($self->{DBH});
-	$oldar->SetId($rowid);
+	$oldar->id($rowid);
 	unless ($oldar->LoadFromId)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This label has been deleted");
@@ -150,20 +150,20 @@ sub CheckPrerequisites
 	}
 
 	# You can't merge an label into itself!
-	if ($oldar->GetId == $newar->GetId)
+	if ($oldar->id == $newar->id)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "Source and destination labels are the same!");
 		return STATUS_ERROR;
 	}
 
 	# Disallow various merges involving the "special" labels
-	if ($oldar->GetId == DLABEL_ID)
+	if ($oldar->id == DLABEL_ID)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "You can't merge that label!");
 		return STATUS_ERROR;
 	}
 	
-	if ($newar->GetId == DLABEL_ID)
+	if ($newar->id == DLABEL_ID)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "You can't merge into that label!");
 		return STATUS_ERROR;
@@ -197,7 +197,7 @@ sub ShowModTypeDelegate
 	my $id = $self->row_id;
 	require MusicBrainz::Server::Label;
 	my $label = MusicBrainz::Server::Label->new($self->{DBH});
-	$label->SetId($id);
+	$label->id($id);
 	my ($title, $name);
 	if ($label->LoadFromId) 
 	{

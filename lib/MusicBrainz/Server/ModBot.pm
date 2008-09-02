@@ -151,7 +151,7 @@ sub CheckModerations
 		$mod->{__eval__} = $mod->GetStatus();
 		$mods{$row[0]} = $mod;
 
-		print localtime() . " : Evaluate Mod: " . $mod->GetId() . "\n"
+		print localtime() . " : Evaluate Mod: " . $mod->id() . "\n"
 			if $fDebug;
 
 		# See if this mod has been marked for deletion
@@ -339,7 +339,7 @@ sub CheckModerations
 
 		printf STDERR "%s : An error occurred while trying to set mod #%d to %s (%s).  The error was:\n",
 			scalar(localtime),
-			$mod->GetId,
+			$mod->id,
 			$status_name_from_number{ $mod->{__eval__} },
 			$actiondesc;
 
@@ -375,7 +375,7 @@ sub CheckModerations
 
 		if ($newstate == STATUS_APPLIED)
 		{
-			print localtime() . " : Applying mod #" . $mod->GetId . "\n"
+			print localtime() . " : Applying mod #" . $mod->id . "\n"
 				if $fVerbose;
 			next if $fDryRun;
 
@@ -393,12 +393,12 @@ sub CheckModerations
 				# (could have been "approved" after the start of ModBot)
 				if ($sql->SelectSingleValue('
 						SELECT id FROM moderation_open WHERE id = ? FOR UPDATE', 
-						$mod->GetId))
+						$mod->id))
 				{
 					$status = $mod->CheckPrerequisites;
 					if (defined $status)
 					{
-						print localtime() . " : Closing mod #" . $mod->GetId()
+						print localtime() . " : Closing mod #" . $mod->id()
 							. " (" . $status_name_from_number{$status} . ")\n";
 
 						$mod->SetStatus($status);
@@ -429,7 +429,7 @@ sub CheckModerations
 
 		if ($newstate == STATUS_DELETED)
 		{
-			print localtime() . " : Deleting mod #" . $mod->GetId() . "\n"
+			print localtime() . " : Deleting mod #" . $mod->id() . "\n"
 				if $fVerbose;
 			next if $fDryRun;
 
@@ -459,7 +459,7 @@ sub CheckModerations
 
 		if ($newstate != STATUS_EVALNOCHANGE)
 		{
-			print localtime() . " : Denying mod #" . $mod->GetId()
+			print localtime() . " : Denying mod #" . $mod->id()
 				. " (". $status_name_from_number{$newstate} . ")\n"
 				if $fVerbose;
 			next if $fDryRun;
@@ -492,7 +492,7 @@ sub CheckModerations
 		# Otherwise: no change.  Check to see if the moderation should remain
 		# open.
 		{
-			print localtime() . " : Checking mod #" . $mod->GetId()
+			print localtime() . " : Checking mod #" . $mod->id()
 				. " prerequisites\n"
 				if $fDebug;
 			next if $fDryRun;
@@ -509,12 +509,12 @@ sub CheckModerations
 				# (could have been "approved" after the start of ModBot)
 				if ($sql->SelectSingleValue('
 						SELECT id FROM moderation_open WHERE id = ? FOR UPDATE', 
-						$mod->GetId))
+						$mod->id))
 				{
 					my $status = $mod->CheckPrerequisites;
 					if (defined $status)
 					{
-						print localtime() . " : Closing mod #" . $mod->GetId()
+						print localtime() . " : Closing mod #" . $mod->id()
 							. " (" . $status_name_from_number{$status} . ")\n";
     
 						$mod->SetStatus($status);
@@ -583,7 +583,7 @@ sub CheckModificationForFailedDependencies
 	  	# FIXME this regex looks too slack for my liking
 		if ($mod->GetNew() =~ m/Dep$i=(.*)/m)
 		{
-			#print localtime() . " : Mod: " . $mod->GetId() . " depmod: $1\n"
+			#print localtime() . " : Mod: " . $mod->id() . " depmod: $1\n"
 			#	if $fDebug;
 			$depmod = $modhash->{$1};
 			if (defined $depmod)
@@ -639,7 +639,7 @@ sub UserGrantedAutoModerator
 	$sql->Do(
 		"UPDATE moderation_open SET yesvotes = 100"
 		. " WHERE moderator = ? AND type IN ($types)",
-		$user->GetId,
+		$user->id,
 	);
 }
 

@@ -69,7 +69,7 @@ sub new
 
 sub Table			{ $_[0]{_table} }
 
-# Get/SetId implemented by TableBase
+# Get/id implemented by TableBase
 sub Links			{ wantarray ? @{ $_[0]{_links} } : $_[0]{_links} }
 sub Types			{ wantarray ? @{ $_[0]{_types} } : $_[0]{_types} }
 sub GetNumberOfLinks{ scalar @{ $_[0]{_types} } }
@@ -452,7 +452,7 @@ sub Exists
 	}
 	$row or return undef;
 
-	$self->SetId($row->{'id'});
+	$self->id($row->{'id'});
 	$self->mbid($row->{'mbid'});
 	$self->has_mod_pending($row->{'modpending'});
 
@@ -475,12 +475,12 @@ sub Insert
 			 or return undef;
 		
 		 $$entities[1]->{obj} = $urlobj;
-		 $$entities[1]->{id} = $urlobj->GetId;
+		 $$entities[1]->{id} = $urlobj->id;
 	}
 
 	# Make a $self which contains all of the desired properties
 	$self = $self->new($self->{DBH}, scalar($link_type->Types));
-	$self->SetLinkType($link_type->GetId);
+	$self->SetLinkType($link_type->id);
 	$self->SetLinks([ map { $_->{id} } @$entities ]);
 	$self->begin_date($begindate);
 	$self->end_date($enddate);
@@ -501,7 +501,7 @@ sub Insert
 		$enddate || undef,
 	);
 
-	$self->SetId($sql->GetLastInsertId($self->{_table}));
+	$self->id($sql->GetLastInsertId($self->{_table}));
 	$self->has_mod_pending(0);
 
 	$self;
@@ -518,7 +518,7 @@ sub Update
 		$self->begin_date || undef,
 		$self->end_date || undef,
 		$self->GetLinkType,
-		$self->GetId,
+		$self->id,
 	) or return undef;
 
 	return 1;
@@ -531,19 +531,19 @@ sub Delete
 	my $sql = Sql->new($self->{DBH});
 	$sql->Do(
 		"DELETE FROM $self->{_table} WHERE id = ?",
-		$self->GetId,
+		$self->id,
 	);
 
     # If the latter entity is a URL, delete URL
     if ($self->{_types}->[1] eq 'url')
 	{
 	     my $urlobj = MusicBrainz::Server::URL->new($self->{DBH});
-		 $urlobj->SetId($self->{link1});
+		 $urlobj->id($self->{link1});
          $urlobj->Remove();
 	}
 
 	my $attr = MusicBrainz::Server::Attribute->new($self->{DBH}, $self->{_types});
-	$attr = $attr->newFromLinkId($self->GetId());
+	$attr = $attr->newFromLinkId($self->id());
 	$attr->Delete() if ($attr);
 
 	return 1;
@@ -716,7 +716,7 @@ sub _Remove
 		my $rows = $sql->SelectListOfHashes("SELECT id, link0, link1 FROM $table WHERE $link = ?", $entityid);
 		foreach my $row (@$rows)
 		{
-			$self->SetId($row->{id});
+			$self->id($row->{id});
 			$self->{link0} = $row->{link0};
 			$self->{link1} = $row->{link1};
 			$self->Delete();

@@ -38,14 +38,14 @@ sub PreInsert
 	my ($self, %opts) = @_;
 
 	my $ar = $opts{'artist'} or die;
-	die if $ar->GetId == VARTIST_ID;
-	die if $ar->GetId == DARTIST_ID;
+	die if $ar->id == VARTIST_ID;
+	die if $ar->id == DARTIST_ID;
 
-	$self->artist($ar->GetId);
+	$self->artist($ar->id);
 	$self->SetPrev($ar->GetName);
 	$self->table("artist");
 	$self->SetColumn("name");
-	$self->row_id($ar->GetId);
+	$self->row_id($ar->id);
 }
 
 sub DetermineQuality
@@ -53,7 +53,7 @@ sub DetermineQuality
     my $self = shift;
 
     my $ar = MusicBrainz::Server::Artist->new($self->{DBH});
-    $ar->SetId($self->{artist});
+    $ar->id($self->{artist});
     if ($ar->LoadFromId())
     {
         return $ar->quality;        
@@ -77,7 +77,7 @@ sub ApprovedAction
 	# if there are not more references to it.
 	require MusicBrainz::Server::Artist;
 	my $ar = MusicBrainz::Server::Artist->new($this->{DBH});
-	$ar->SetId($rowid);
+	$ar->id($rowid);
 
 	require UserSubscription;
 	my $subs = UserSubscription->new($this->{DBH});

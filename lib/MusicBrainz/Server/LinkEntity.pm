@@ -99,7 +99,7 @@ sub URLFromTypeAndId
 sub Transform
 {
 	shift;
-	map { +{ type => $_->LinkEntityName, id => $_->GetId } } @_;
+	map { +{ type => $_->LinkEntityName, id => $_->id } } @_;
 }
 
 ################################################################################
@@ -134,7 +134,7 @@ sub newFromId
 	my ($class, $dbh, $id) = @_;
 	require MusicBrainz::Server::Release;
 	my $object = MusicBrainz::Server::Release->new($dbh);
-	$object->SetId($id);
+	$object->id($id);
 	$object->LoadFromId or return undef;
 	$object;
 }
@@ -167,7 +167,7 @@ sub newFromId
 	my ($class, $dbh, $id) = @_;
 	require MusicBrainz::Server::Artist;
 	my $object = MusicBrainz::Server::Artist->new($dbh);
-	$object->SetId($id);
+	$object->id($id);
 	$object->LoadFromId or return undef;
 	$object;
 }
@@ -200,7 +200,7 @@ sub newFromId
 	my ($class, $dbh, $id) = @_;
 	require MusicBrainz::Server::Track;
 	my $object = MusicBrainz::Server::Track->new($dbh);
-	$object->SetId($id);
+	$object->id($id);
 	$object->LoadFromId or return undef;
 	$object;
 }

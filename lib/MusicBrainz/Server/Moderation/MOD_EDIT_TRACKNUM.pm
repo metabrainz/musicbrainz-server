@@ -58,15 +58,15 @@ sub PostLoad
 	
 	if ($self->{'trackexists'} = $track->LoadFromAlbumJoin($self->row_id))
 	{
-		$self->{'trackid'} = $track->GetId;
+		$self->{'trackid'} = $track->id;
 		$self->{'trackname'} = $track->GetName;
  
 		require MusicBrainz::Server::Release;
 		my $release = MusicBrainz::Server::Release->new($self->{DBH});
-		$release->SetId($track->release);
+		$release->id($track->release);
 		if ($self->{'albumexists'} = $release->LoadFromId)
 		{
-			$self->{'albumid'} = $release->GetId;
+			$self->{'albumid'} = $release->id;
 			$self->{'albumname'} = $release->GetName;
 		}
 	}
@@ -80,7 +80,7 @@ sub DetermineQuality
 	if ($self->{'albumexists'})
 	{
         my $rel = MusicBrainz::Server::Release->new($self->{DBH});
-        $rel->SetId($self->{albumid});
+        $rel->id($self->{albumid});
         if ($rel->LoadFromId())
         {
             return $rel->quality;        
@@ -89,7 +89,7 @@ sub DetermineQuality
 
     # if that fails, go by the artist
     my $ar = MusicBrainz::Server::Artist->new($self->{DBH});
-    $ar->SetId($self->{artist});
+    $ar->id($self->{artist});
     if ($ar->LoadFromId())
     {
         return $ar->quality;        

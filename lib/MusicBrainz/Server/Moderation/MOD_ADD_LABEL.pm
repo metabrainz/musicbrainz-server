@@ -96,7 +96,7 @@ sub PreInsert
 		my $subs = UserSubscription->new($self->{DBH});
 		$subs->SetUser($self->moderator);
 		my $label = MusicBrainz::Server::Label->new($self->{DBH});
-		$label->SetId($labelid);
+		$label->id($labelid);
 		$subs->SubscribeLabels(($label))
 			if ($label->LoadFromId);
     }
@@ -154,7 +154,7 @@ sub ShowModTypeDelegate
 	my $id = $self->row_id;
 	require MusicBrainz::Server::Label;
 	my $label = MusicBrainz::Server::Label->new($self->{DBH});
-	$label->SetId($id);
+	$label->id($id);
 	my ($title, $name);
 	if ($label->LoadFromId) 
 	{

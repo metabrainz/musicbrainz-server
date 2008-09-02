@@ -43,7 +43,7 @@ sub PreInsert
 	$self->SetPrev($alias->GetName);
 	$self->table("labelalias");
 	$self->SetColumn("name");
-	$self->row_id($alias->GetId);
+	$self->row_id($alias->id);
 }
 
 sub ApprovedAction
@@ -53,7 +53,7 @@ sub ApprovedAction
 	require MusicBrainz::Server::Alias;
 	my $al = MusicBrainz::Server::Alias->new($this->{DBH});
 	$al->table("labelalias");
-	$al->SetId($this->row_id);
+	$al->id($this->row_id);
 
   	unless ($al->LoadFromId)
 	{

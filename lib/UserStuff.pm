@@ -104,7 +104,7 @@ sub GetWebURLComplete
 	$_;
 }
 
-sub _GetIdCacheKey
+sub _id_cache_key
 {
 	my ($class, $id) = @_;
 	"moderator-id-" . int($id);
@@ -120,14 +120,14 @@ sub InvalidateCache
 {
 	my $self = shift;
 	require MusicBrainz::Server::Cache;
-	MusicBrainz::Server::Cache->delete($self->_GetIdCacheKey($self->GetId));
+	MusicBrainz::Server::Cache->delete($self->_id_cache_key($self->id));
 	MusicBrainz::Server::Cache->delete($self->_GetNameCacheKey($self->GetName));
 }
 
 sub Refresh
 {
 	my $self = shift;
-	my $newself = $self->newFromId($self->GetId)
+	my $newself = $self->newFromId($self->id)
 		or return;
 	%$self = %$newself;
 }
@@ -138,7 +138,7 @@ sub newFromId
 	$this = $this->new(shift) if not ref $this;
 	my $uid = shift;
 
-	my $key = $this->_GetIdCacheKey($uid);
+	my $key = $this->_id_cache_key($uid);
 	require MusicBrainz::Server::Cache;
 	my $obj = MusicBrainz::Server::Cache->get($key);
 
@@ -195,7 +195,7 @@ sub newFromName
 	# We can't store DBH in the cache...
 	delete $obj->{DBH} if $obj;
 	MusicBrainz::Server::Cache->set($key, \$obj);
-	MusicBrainz::Server::Cache->set($obj->_GetIdCacheKey($obj->GetId), \$obj) if $obj;
+	MusicBrainz::Server::Cache->set($obj->_id_cache_key($obj->id), \$obj) if $obj;
 	$obj->{DBH} = $this->{DBH} if $obj;
 
 	return $obj;
@@ -260,7 +260,7 @@ sub Current
 	# cause this object to be silently "upgraded" by fetching
 	# the full user record from the database.
 	# To do so manually use:
-	# $user = $user->newFromId($user->GetId) if $user;
+	# $user = $user->newFromId($user->id) if $user;
 
 	my $s = $this->GetSession;
 	$s->{uid} or return undef;
@@ -350,7 +350,7 @@ sub CreateLogin
 
 				my $uid = $sql->GetLastInsertId("Moderator");
 				require MusicBrainz::Server::Cache;
-				MusicBrainz::Server::Cache->delete($this->_GetIdCacheKey($uid));
+				MusicBrainz::Server::Cache->delete($this->_id_cache_key($uid));
 
 				# No need to flush the by-name cache: this newFromId call will fill in
 				# the correct value
@@ -414,7 +414,7 @@ sub IsNewbie
 		"SELECT NOW() < membersince + INTERVAL '2 weeks'
 		FROM	moderator
 		WHERE	id = ?",
-		$self->GetId,
+		$self->id,
 	);
 }
 
@@ -423,7 +423,7 @@ sub SetUserInfo
 {
 	my ($self, %opts) = @_;
 
-	my $uid = $self->GetId;
+	my $uid = $self->id;
 	if (not $uid)
 	{
 		carp "No user ID in SetUserInfo";
@@ -486,7 +486,7 @@ sub GetSubscribers
 {
 	my $self = shift;
 	require UserSubscription;
-	return UserSubscription->GetSubscribersForEditor($self->{DBH}, $self->GetId);
+	return UserSubscription->GetSubscribersForEditor($self->{DBH}, $self->id);
 }
 
 sub MakeAutoModerator
@@ -544,7 +544,7 @@ sub ChangePassword
 				"UPDATE moderator SET password = ?
 					WHERE id = ?",
 				$newpass1,
-				$self->GetId,
+				$self->id,
 			);
 		},
 	);
@@ -626,7 +626,7 @@ sub GetUserType
 sub IsSpecialEditor
 {
 	my $self = shift;
-	my $id = $self->GetId;
+	my $id = $self->id;
 
 	return $id == &ModDefs::ANON_MODERATOR
 		or $id == &ModDefs::FREEDB_MODERATOR
@@ -743,10 +743,10 @@ sub GetEmailActivationLink
 	my ($self, $email) = @_;
 
 	my $t = time;
-	my $chk = $self->GetVerifyChecksum($email, $self->GetId, $t);
+	my $chk = $self->GetVerifyChecksum($email, $self->id, $t);
 
 	"http://" . &DBDefs::WEB_SERVER . "/user/verifyemail.html"
-		. "?userid=" . $self->GetId
+		. "?userid=" . $self->id
 		. "&email=" . uri_escape($email)
 		. "&time=$t"
 		. "&chk=" . uri_escape($chk)
@@ -867,7 +867,7 @@ EOF
 	
 		$body .= <<EOF;
 If you would like to respond, please reply to this message or visit
-http://${\ DBDefs::WEB_SERVER() }/user/mod_email.html?uid=${\ $self->GetId } to send editor
+http://${\ DBDefs::WEB_SERVER() }/user/mod_email.html?uid=${\ $self->id } to send editor
 '$fromname' an e-mail.
 EOF
 	
@@ -877,13 +877,13 @@ EOF
 	
 		$body .= <<EOF;
 If you would like to respond, please visit
-http://${\ DBDefs::WEB_SERVER() }/user/mod_email.html?uid=${\ $self->GetId } to send editor
+http://${\ DBDefs::WEB_SERVER() }/user/mod_email.html?uid=${\ $self->id } to send editor
 '$fromname' an e-mail.
 Please do not respond to this e-mail.
 EOF
 	
 	} 
-	elsif ($self->GetId != &ModDefs::MODBOT_MODERATOR) 
+	elsif ($self->id != &ModDefs::MODBOT_MODERATOR) 
 	{
 	
 		$body .= <<EOF;
@@ -951,7 +951,7 @@ sub SendModNoteToUser
 	my $edit_user = $opts{'mod_user'};
 	my $note_text = $opts{'note_text'};
 
-	my $editid = $edit->GetId;
+	my $editid = $edit->id;
 	my $fromname = $self->GetName;
 
 	my $body = <<EOF;
@@ -997,7 +997,7 @@ sub SendModNoteToFellowNoter
 	my $other_user = $opts{'other_user'};
 	my $note_text = $opts{'note_text'};
 
-	my $editid = $edit->GetId;
+	my $editid = $edit->id;
 	my $fromname = $self->GetName;
 
 	my $body = <<EOF;
@@ -1155,7 +1155,7 @@ sub SetSession
 
 	$session->{user} = $self->GetName;
 	$session->{privs} = $self->GetPrivs;
-	$session->{uid} = $self->GetId;
+	$session->{uid} = $self->id;
 	$session->{expire} = time() + &DBDefs::WEB_SESSION_SECONDS_TO_LIVE;
 	$session->{has_confirmed_email} = ($self->GetEmail ? 1 : 0);
 
@@ -1166,7 +1166,7 @@ sub SetSession
 	require UserPreference;
 	UserPreference::LoadForUser($self->Current);
 
-	eval { $self->_SetLastLoginDate($self->GetId) };
+	eval { $self->_SetLastLoginDate($self->id) };
 }
 
 # Given that we've just successfully logged in, set a non-session cookie

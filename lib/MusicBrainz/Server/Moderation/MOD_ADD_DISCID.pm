@@ -63,7 +63,7 @@ sub PreInsert
 
 	my %new = (
 		AlbumName		=> $al->GetName,
-		AlbumId			=> $al->GetId,
+		AlbumId			=> $al->id,
 		FullTOC			=> $toc,
 		CDTOCId			=> $tocid,
 	);

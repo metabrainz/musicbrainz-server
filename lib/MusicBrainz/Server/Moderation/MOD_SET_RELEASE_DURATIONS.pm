@@ -56,7 +56,7 @@ sub PreInsert
          WHERE t.id = j.track
            AND j.album = ?
       ORDER BY j.sequence",
-       $release->GetId,
+       $release->id,
     );
     my $prevdurs;
     foreach (@$tracks)
@@ -73,7 +73,7 @@ sub PreInsert
 
     my %new = (
            NewDurs => $newdurs,
-           CDTOCId => $cdtoc->GetId
+           CDTOCId => $cdtoc->id
     );
 
     $self->SetNew($self->ConvertHashToNew(\%new));
@@ -81,7 +81,7 @@ sub PreInsert
 	$self->artist($release->artist);
 	$self->table("album");
 	$self->SetColumn("cdtoc.text");
-	$self->row_id($release->GetId);
+	$self->row_id($release->id);
 }
 
 sub PostLoad
@@ -98,7 +98,7 @@ sub DetermineQuality
 	my $self = shift;
 
 	my $rel = MusicBrainz::Server::Release->new($self->{DBH});
-	$rel->SetId($self->{rowid});
+	$rel->id($self->{rowid});
 	if ($rel->LoadFromId())
 	{
         return $rel->quality;        
@@ -113,7 +113,7 @@ sub CheckPrerequisites
 	# Load the album by ID
 	require MusicBrainz::Server::Release;
 	my $release = MusicBrainz::Server::Release->new($self->{DBH});
-	$release->SetId($self->row_id);
+	$release->id($self->row_id);
 	unless ($release->LoadFromId)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This release has been deleted");
@@ -155,7 +155,7 @@ sub ApprovedAction
          WHERE t.id = j.track
            AND j.album = ?
       ORDER BY j.sequence",
-       $release->GetId,
+       $release->id,
     );
 
     for my $t (@$tracks)

@@ -63,7 +63,7 @@ sub PreInsert
 
 	use MusicBrainz::Server::Release;
 	my %new = (
-		albumid => $al->GetId,
+		albumid => $al->id,
 		albumname => $al->GetName,
 	);	
 
@@ -71,12 +71,12 @@ sub PreInsert
 	$i = 0;
 	for my $row (@adds)
 	{
-		die unless $row->release == $al->GetId;
+		die unless $row->release == $al->id;
 		$row->InsertSelf;
 		$new{"add".$i++} = sprintf "d=%s c=%d id=%d l=%d n=%s b=%s f=%d",
 			$row->sort_date,
 			$row->country,
-			$row->GetId,
+			$row->id,
 			$row->GetLabel,
 			_EncodeText($row->cat_no),
 			_EncodeText($row->barcode),
@@ -87,12 +87,12 @@ sub PreInsert
 	for my $row (@edits)
 	{	
 		my $obj = $row->{"object"};
-		die unless $obj->release == $al->GetId;
+		die unless $obj->release == $al->id;
 
 		my $old = sprintf "d=%s c=%d id=%d l=%d n=%s b=%s f=%d",
 			$obj->sort_date,
 			$obj->country,
-			$obj->GetId,
+			$obj->id,
 			$obj->GetLabel,
 			_EncodeText($obj->cat_no),
 			_EncodeText($obj->barcode),
@@ -119,11 +119,11 @@ sub PreInsert
 	$i = 0;	
 	for my $row (@removes)
 	{
-		die unless $row->release == $al->GetId;
+		die unless $row->release == $al->id;
 		$new{"remove".$i++} = sprintf "d=%s c=%d id=%d l=%d n=%s b=%s f=%d",
 			$row->sort_date,
 			$row->country,
-			$row->GetId,
+			$row->id,
 			$row->GetLabel,
 			_EncodeText($row->cat_no),
 			_EncodeText($row->barcode),
@@ -137,7 +137,7 @@ sub PreInsert
 	$self->SetPrev($al->GetName);
 	$self->table("album");
 	$self->SetColumn("releases");
-	$self->row_id($al->GetId);
+	$self->row_id($al->id);
 	$self->SetNew($self->ConvertHashToNew(\%new));
 }
 
@@ -197,7 +197,7 @@ sub DetermineQuality
 	my $self = shift;
 
 	my $rel = MusicBrainz::Server::Release->new($self->{DBH});
-	$rel->SetId($self->{rowid});
+	$rel->id($self->{rowid});
 	if ($rel->LoadFromId())
 	{
         return $rel->quality;        
@@ -259,7 +259,7 @@ sub AdjustModPending
 	{
 		for my $t (@{ $self->{$list} })
 		{
-			$rel->SetId($t->{"id"});
+			$rel->id($t->{"id"});
 			$rel->UpdateModPending($adjust);
 		}
 	}

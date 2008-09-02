@@ -41,15 +41,15 @@ sub PreInsert
 	my $newname = $opts{'newname'};
 	$newname =~ /\S/ or die;
 
-	die if $ar->GetId == VARTIST_ID;
-	die if $ar->GetId == DARTIST_ID;
+	die if $ar->id == VARTIST_ID;
+	die if $ar->id == DARTIST_ID;
 
-	$self->artist($ar->GetId);
+	$self->artist($ar->id);
 	$self->SetPrev($ar->sort_name);
 	$self->SetNew($newname);
 	$self->table("artist");
 	$self->SetColumn("sortname");
-	$self->row_id($ar->GetId);
+	$self->row_id($ar->id);
 }
 
 sub DetermineQuality
@@ -57,7 +57,7 @@ sub DetermineQuality
 	my $self = shift;
 
 	my $ar = MusicBrainz::Server::Artist->new($self->{DBH});
-	$ar->SetId($self->{rowid});
+	$ar->id($self->{rowid});
 	if ($ar->LoadFromId())
 	{
         return $ar->quality;        
@@ -86,7 +86,7 @@ sub ApprovedAction
 
 	require MusicBrainz::Server::Artist;
 	my $artist = MusicBrainz::Server::Artist->new($this->{DBH});
-	$artist->SetId($rowid);
+	$artist->id($rowid);
 
 	unless ($artist->LoadFromId)
 	{

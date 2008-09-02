@@ -45,7 +45,7 @@ sub PreInsert
 	$self->SetNew($newname);
 	$self->table("labelalias");
 	$self->SetColumn("name");
-	$self->row_id($al->GetId);
+	$self->row_id($al->id);
 }
 
 sub IsAutoEdit
@@ -61,7 +61,7 @@ sub CheckPrerequisites
 
 	require MusicBrainz::Server::Alias;
 	my $alias = MusicBrainz::Server::Alias->new($self->{DBH}, "labelalias");
-	$alias->SetId($self->row_id);
+	$alias->id($self->row_id);
 
 	unless ($alias->LoadFromId)
 	{

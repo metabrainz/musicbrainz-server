@@ -299,9 +299,9 @@ sub OutputTrackRDF
 
     require MusicBrainz::Server::TRM;
     $gu = MusicBrainz::Server::TRM->new($this->{DBH});
-    if ($track->GetId())
+    if ($track->id())
     {
-	@TRM = $gu->GetTRMFromTrackId($track->GetId());
+	@TRM = $gu->GetTRMFromTrackId($track->id());
 	if (scalar(@TRM) > 0)
 	{
 	    $out .=   $this->BeginDesc("mm:trmidList");
@@ -572,13 +572,13 @@ sub CreateFileLookup
            $tr = $this->GetFromCache('track', $id->{id});
            if (defined $tr)
            {
-               if ($ar->GetId() == ModDefs::VARTIST_ID)
+               if ($ar->id() == ModDefs::VARTIST_ID)
                {
                    my $artist;
 
 		   require MusicBrainz::Server::Artist;
                    $artist = MusicBrainz::Server::Artist->new($this->{DBH});
-                   $artist->SetId($tr->artist());
+                   $artist->id($tr->artist());
                    $artist->LoadFromId();
                    $this->AddToCache(0, 'artist', $artist);
                    $out .= $this->OutputArtistRDF({ obj=>$artist });
@@ -603,7 +603,7 @@ sub CreateFileLookup
        $out .=    $this->Element("mq:track", "", "rdf:resource", $this->{baseuri}. "/track/" . $tr->mbid());
        $out .= $this->EndDesc("mq:Result");
 
-       my $tracknum = $al->GetTrackSequence($tr->GetId());
+       my $tracknum = $al->GetTrackSequence($tr->id());
        $out .= $this->OutputArtistRDF({ obj=>$ar });
        $out .= $this->OutputAlbumRDF({ obj=>$al, _track=> [ $tr->mbid(), $tracknum ] });
        $out .= $this->OutputTrackRDF({ obj=>$tr });
@@ -750,10 +750,10 @@ sub CreateRelationshipList
     {
         my $temp;
 
-	my $otype = $item->{"link" . (($item->{link0_id} == $obj->GetId && $item->{link0_type} eq $type) ? 1 : 0) . "_type"};
-	my $oid = $item->{"link" . (($item->{link0_id} == $obj->GetId && $item->{link0_type} eq $type) ? 1 : 0) . "_id"};
+	my $otype = $item->{"link" . (($item->{link0_id} == $obj->id && $item->{link0_type} eq $type) ? 1 : 0) . "_type"};
+	my $oid = $item->{"link" . (($item->{link0_id} == $obj->id && $item->{link0_type} eq $type) ? 1 : 0) . "_id"};
 
-	if ($item->{link0_id} == $obj->GetId && $item->{link0_type} eq $type)
+	if ($item->{link0_id} == $obj->id && $item->{link0_type} eq $type)
 	{
 	     my $ref = { 
 	    	         type =>$item->{"link1_type"},
@@ -797,19 +797,19 @@ sub CreateRelationshipList
 	if ($type eq 'artist')
 	{
 	    $temp = MusicBrainz::Server::Artist->new($this->{DBH});
-	    $temp->SetId($id);
+	    $temp->id($id);
 	    die if (!$temp->LoadFromId());
             $out .= $this->OutputArtistRDF({ obj=> $temp });
 	} elsif ($type eq 'album')
 	{
 	    $temp = MusicBrainz::Server::Release->new($this->{DBH});
-	    $temp->SetId($id);
+	    $temp->id($id);
 	    die if (!$temp->LoadFromId());
             $out .= $this->OutputAlbumRDF({ obj=> $temp });
 	} elsif ($type eq 'track')
 	{
 	    $temp = MusicBrainz::Server::Track->new($this->{DBH});
-	    $temp->SetId($id);
+	    $temp->id($id);
 	    die if (!$temp->LoadFromId());
             $out .= $this->OutputTrackRDF({ obj=> $temp });
 	}

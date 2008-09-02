@@ -234,14 +234,14 @@ sub _Insert
     if (exists $info->{artistid})
     {
         # If we're given an artist id, load the artist and get the name
-        $ar->SetId($info->{artistid});
+        $ar->id($info->{artistid});
         if (!defined $ar->LoadFromId())
         {
             die "Insert failed: Could not load artist: $info->{artistid}\n";
         }
 
         $artist = $ar->GetName();
-        $artistid = $ar->GetId();
+        $artistid = $ar->id();
         $sortname = $ar->sort_name();
     }
     else
@@ -275,14 +275,14 @@ sub _Insert
         if (exists $info->{albumid})
         {
             # If we're given an album id, load the album and get the name
-            $al->SetId($info->{albumid});
+            $al->id($info->{albumid});
             if (!defined $al->LoadFromId())
             {
                 die "Insert failed: Could not load given albumid.\n";
             }
     
             $album = $al->GetName();
-            $albumid = $al->GetId();
+            $albumid = $al->id();
         }
         else
         {
@@ -469,7 +469,7 @@ TRACK:
             {
                 my $newtrm;
                 
-                $newtrm = $trm->Insert($track->{trmid}, $albumtrack->GetId());
+                $newtrm = $trm->Insert($track->{trmid}, $albumtrack->id());
                 if (defined $newtrm)
                 {
                     $track->{trm_insertid} = $newtrm if ($trm->GetNewInsert());
@@ -483,7 +483,7 @@ TRACK:
             {
                 my $newpuid;
                 
-                $newpuid = $puid->Insert($track->{puid}, $albumtrack->GetId());
+                $newpuid = $puid->Insert($track->{puid}, $albumtrack->id());
                 if (defined $newpuid)
                 {
                     $track->{puid_insertid} = $newpuid if ($puid->GetNewInsert());
@@ -555,14 +555,14 @@ TRACK:
         	$track_artistid != VARTIST_ID and
         	$track_artistid != DARTIST_ID) 
         {
-            $ar->SetId($track_artistid);
+            $ar->id($track_artistid);
             if (!defined $ar->LoadFromId())
             {
                 die "Track Insert failed: Could not load artist: $info->{artistid}\n";
             }
 
 			# insert track using the verified track artist            
-            $mar->SetId($track_artistid);
+            $mar->id($track_artistid);
             $trackid = $tr->Insert($al, $mar);
             $track->{track_insertid} = $trackid if ($tr->GetNewInsert());
         }
@@ -623,7 +623,7 @@ TRACK:
 		$rel->format($release->{format});
 		$rel->InsertSelf();
 
-		$release->{release_insertid} = $rel->GetId();
+		$release->{release_insertid} = $rel->id();
 	}
 
     return 1;

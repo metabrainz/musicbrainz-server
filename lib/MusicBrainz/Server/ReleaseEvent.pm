@@ -94,7 +94,7 @@ sub IsValidFormat
 # Properties
 ################################################################################
 
-# GetId / SetId - see TableBase
+# id / id - see TableBase
 
 sub release
 {
@@ -108,7 +108,7 @@ sub Release
 {
 	my $self = shift;
 	my $c = MusicBrainz::Server::Release->new($self->{DBH});
-	$c->SetId($self->release);
+	$c->id($self->release);
 	$c->LoadFromId or return undef;
 	$c;
 }
@@ -152,7 +152,7 @@ sub Label
 {
 	my $self = shift;
 	my $c = MusicBrainz::Server::Label->new($self->{DBH});
-	$c->SetId($self->GetLabel);
+	$c->id($self->GetLabel);
 	$c->LoadFromId or return undef;
 	$c;
 }
@@ -210,7 +210,7 @@ sub sort_date
 
 sub ToString { 
 	my $self = shift;
-	return 	"ReleaseEvent { Id: " . $self->GetId . 
+	return 	"ReleaseEvent { Id: " . $self->id . 
 			", Release: " . $self->release . 
 			", Date: " . $self->{"releasedate"} . 
 			", Country: ".$self->country .
@@ -272,7 +272,7 @@ sub InsertSelf
 		$self->barcode || undef,
 		$self->format || undef,
 	);
-	$self->SetId($sql->GetLastInsertId("release"));
+	$self->id($sql->GetLastInsertId("release"));
 }
 
 sub Update
@@ -293,7 +293,7 @@ sub Update
 		$self->cat_no || undef,
 		$self->barcode || undef,
 		$self->format || undef,
-		$self->GetId,
+		$self->id,
 	);
 }
 
@@ -301,7 +301,7 @@ sub UpdateModPending
 {
 	my ($self, $adjust) = @_;
 
-	my $id = $self->GetId
+	my $id = $self->id
 		or croak "Missing release ID in UpdateModPending";
 	defined($adjust)
 		or croak "Missing adjustment in UpdateModPending";

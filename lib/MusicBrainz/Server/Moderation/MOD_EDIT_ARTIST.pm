@@ -40,7 +40,7 @@ sub PreInsert
 	my $ar = $opts{'artist'} or die;
 
 	die $self->SetError('Editing this artist is not allowed'),
-		if $ar->GetId() == VARTIST_ID or $ar->GetId() == DARTIST_ID;
+		if $ar->id() == VARTIST_ID or $ar->id() == DARTIST_ID;
 
 	my $name = $opts{'name'};
 	my $sortname = $opts{'sortname'};
@@ -116,12 +116,12 @@ sub PreInsert
 	$prev{'BeginDate'} = $ar->begin_date() if exists $new{'BeginDate'};
 	$prev{'EndDate'} = $ar->end_date() if exists $new{'EndDate'};
 
-	$self->artist($ar->GetId);
+	$self->artist($ar->id);
 	$self->SetPrev($self->ConvertHashToNew(\%prev));
 	$self->SetNew($self->ConvertHashToNew(\%new));
 	$self->table("artist");
 	$self->SetColumn("name");
-	$self->row_id($ar->GetId);
+	$self->row_id($ar->id);
 }
 
 # Specialized version of MusicBrainz::Server::Validation::MakeDBDateStr:
@@ -147,7 +147,7 @@ sub DetermineQuality
 	my $self = shift;
 
 	my $ar = MusicBrainz::Server::Artist->new($self->{DBH});
-	$ar->SetId($self->{rowid});
+	$ar->id($self->{rowid});
 	if ($ar->LoadFromId())
 	{
         return $ar->quality;        
@@ -203,7 +203,7 @@ sub CheckPrerequisites
 	# Load the artist by ID
 	require MusicBrainz::Server::Artist;
 	my $ar = MusicBrainz::Server::Artist->new($self->{DBH});
-	$ar->SetId($artist_id);
+	$ar->id($artist_id);
 	unless ($ar->LoadFromId)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This artist has been deleted.");
@@ -248,7 +248,7 @@ sub DeniedAction
 	{
 		require MusicBrainz::Server::Artist;
 		my $ar = MusicBrainz::Server::Artist->new($self->{DBH});
-		$ar->SetId($artist);
+		$ar->id($artist);
 		$ar->Remove;
    }
 }

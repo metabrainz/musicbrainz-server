@@ -54,7 +54,7 @@ sub PreInsert
 	$self->table("album");
 	$self->SetColumn("artist");
 	$self->artist($release->artist);
-	$self->row_id($release->GetId);
+	$self->row_id($release->id);
 	$self->SetPrev($artist->GetName);
 	$self->SetNew($new);
 }
@@ -85,21 +85,21 @@ sub DetermineQuality
     my $level = &ModDefs::QUALITY_UNKNOWN_MAPPED;
 
 	my $rel = MusicBrainz::Server::Release->new($self->{DBH});
-	$rel->SetId($self->{rowid});
+	$rel->id($self->{rowid});
 	if ($rel->LoadFromId())
 	{
 		$level = $rel->quality > $level ? $rel->quality : $level;
     }
 
 	my $ar = MusicBrainz::Server::Artist->new($self->{DBH});
-	$ar->SetId($rel->artist);
+	$ar->id($rel->artist);
 	if ($ar->LoadFromId())
 	{
         $level = $ar->quality > $level ? $ar->quality : $level;
     }
 
 	$ar = MusicBrainz::Server::Artist->new($self->{DBH});
-	$ar->SetId($self->{'new.artistid'});
+	$ar->id($self->{'new.artistid'});
 	if ($ar->LoadFromId())
 	{
         $level = $ar->quality > $level ? $ar->quality : $level;
@@ -123,7 +123,7 @@ sub PreDisplay
 	# load album name
 	require MusicBrainz::Server::Release;
 	my $release = MusicBrainz::Server::Release->new($this->{DBH});
-	$release->SetId($this->row_id);
+	$release->id($this->row_id);
 	if ($release->LoadFromId)
 	{
 		$this->{'albumname'} = $release->GetName;
@@ -134,7 +134,7 @@ sub PreDisplay
 		{
 			require MusicBrainz::Server::Artist;
 			$newartist = MusicBrainz::Server::Artist->new($this->{DBH});
-			$newartist->SetId($release->artist);
+			$newartist->id($release->artist);
 				
 			# FIXME is the name = new.sortname comparison necessary?
 			if ($newartist->LoadFromId 
@@ -156,7 +156,7 @@ sub PreDisplay
 	{
 		my $oar = MusicBrainz::Server::Artist->new($this->{DBH});
 		# the old one ...
-		$oar->SetId($this->artist);
+		$oar->id($this->artist);
 		$oar->LoadFromId
 			and $this->{'old.res'} = $oar->resolution;
 
@@ -168,7 +168,7 @@ sub PreDisplay
 		{
 			if (!defined $newartist) {
 				$newartist = MusicBrainz::Server::Artist->new($this->{DBH});
-				$newartist->SetId($this->{'new.artistid'});
+				$newartist->id($this->{'new.artistid'});
 				$newartist->LoadFromId;
 			}
 			my $res = $newartist->resolution;
@@ -185,7 +185,7 @@ sub CheckPrerequisites
 	{
 		require MusicBrainz::Server::Artist;
 		my $artist = MusicBrainz::Server::Artist->new($self->{DBH});
-		$artist->SetId($id);
+		$artist->id($id);
 		unless ($artist->LoadFromId)
 		{
 			$self->InsertNote(MODBOT_MODERATOR, "This artist has been deleted");

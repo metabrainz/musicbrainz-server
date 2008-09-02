@@ -20,7 +20,7 @@ sub new_from_url
 
     return $class->new({
         url         => $url->GetURL,
-        id          => $url->GetId,
+        id          => $url->id,
         mbid        => $url->mbid,
         description => $url->GetDesc,
 

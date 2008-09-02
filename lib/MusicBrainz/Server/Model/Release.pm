@@ -157,10 +157,10 @@ sub _build_sort_keys
     {
         my ($type, $status) = $release->release_type_and_status;
 
-        $release->SetMultipleTrackArtists($release->artist != $release->GetId() ? 1 : 0);
+        $release->SetMultipleTrackArtists($release->artist != $release->id() ? 1 : 0);
         $release->{_firstreleasedate_} = ($release->GetFirstReleaseDate || "9999-99-99");
         $release->{_is_va_}       = ($release->artist == &ModDefs::VARTIST_ID) or
-                                    ($release->artist != $release->GetId());
+                                    ($release->artist != $release->id());
         $release->{_is_nonalbum_} = $type && $type == MusicBrainz::Server::Release::RELEASE_ATTR_NONALBUMTRACKS;
         $release->{_section_key_} = (defined $type ? $release->{_is_va_} . " " . $type : $release->{_is_va});
         $release->{_name_sort_}   = lc decode "utf-8", $release->GetName;
@@ -235,7 +235,7 @@ sub _sort_albums
         ($a->{trackcount}         cmp $b->{trackcount}),
         ($b->{trmidcount}         cmp $a->{trmidcount}),
         ($b->{puidcount}          cmp $a->{puidcount}),
-        ($a->GetId                cmp $b->GetId),
+        ($a->id                cmp $b->id),
     );
     
     for (@predicates) { return $_ if $_; }

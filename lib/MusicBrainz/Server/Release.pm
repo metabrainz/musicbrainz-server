@@ -281,7 +281,7 @@ sub FindNonAlbum
 	map {
 		my $id = $_;
 		my $o = $this->new($this->{DBH});
-		$o->SetId($id);
+		$o->id($id);
 		$o->LoadFromId
 			or die;
 		$o;
@@ -313,7 +313,7 @@ sub CombineNonAlbums
 	@tracks = sort {
 		$a->{_name} cmp $b->{_name}
 			or
-		$a->GetId <=> $b->GetId
+		$a->id <=> $b->id
 	} @tracks;
 
 	$tracks[$_-1]{_new_sequence} = $_
@@ -328,12 +328,12 @@ sub CombineNonAlbums
 		$sql->Do(
 			"UPDATE albumjoin SET album = ?, sequence = ?
 				WHERE track = ? AND album = ?",
-			$album->GetId,
+			$album->id,
 			$t->{_new_sequence},
-			$t->GetId,
+			$t->id,
 			$t->release,
 		) or die sprintf 'Failed to move track %d from release %d to %d',
-			$t->GetId, $t->release, $album->GetId;
+			$t->id, $t->release, $album->id;
 	}
 
 	# Delete the other albums
@@ -380,7 +380,7 @@ sub GetNextFreeTrackId
 	my $sql = Sql->new($self->{DBH});
 	my $used = $sql->SelectSingleColumnArray(
 		"SELECT sequence FROM albumjoin WHERE album = ?",
-		$self->GetId,
+		$self->id,
 	);
 	my %used = map { $_=>1 } @$used;
 
@@ -443,7 +443,7 @@ sub Remove
     my ($this) = @_;
     my ($sql, $album, @row);
 
-    $album = $this->GetId();
+    $album = $this->id();
     return if (!defined $album);
   
     $sql = Sql->new($this->{DBH});
@@ -464,7 +464,7 @@ sub Remove
          {
              print STDERR "DELETE: Removed albumjoin " . $row[0] . "\n";
              $sql->Do("DELETE FROM albumjoin WHERE track = ?", $row[0]);
-             $tr->SetId($row[0]);
+             $tr->id($row[0]);
              $tr->Remove();
          }
     }
@@ -478,12 +478,12 @@ sub Remove
     # Remove tags
 	require MusicBrainz::Server::Tag;
 	my $tag = MusicBrainz::Server::Tag->new($sql->{DBH});
-	$tag->RemoveReleases($this->GetId);
+	$tag->RemoveReleases($this->id);
 
     # Remove references from album words table
 	require SearchEngine;
     my $engine = SearchEngine->new($this->{DBH}, 'album');
-    $engine->RemoveObjectRefs($this->GetId());
+    $engine->RemoveObjectRefs($this->id());
 
     require MusicBrainz::Server::Annotation;
     MusicBrainz::Server::Annotation->DeleteRelease($this->{DBH}, $album);
@@ -503,7 +503,7 @@ sub LoadAlbumMetadata
 
 	my $row = $sql->SelectSingleRowHash(
 		"SELECT * FROM albummeta WHERE id = ?",
-		$this->GetId,
+		$this->id,
 	);
 
 	if ($row)
@@ -516,7 +516,7 @@ sub LoadAlbumMetadata
 		$this->{coverarturl} = $row->{coverarturl};
 		$this->{asin} = $row->{asin};
 	} else {
-		cluck "No albummeta row for album #".$this->GetId;
+		cluck "No albummeta row for album #".$this->id;
 		delete @$this{qw( trackcount discidcount trmidcount puidcount firstreleasedate )};
 		return 0;
 	}
@@ -625,7 +625,7 @@ sub release_ids_from_track_id
 	@$r;
 }
 
-# Load an album record. Set the album id via the SetId accessor
+# Load an album record. Set the album id via the id accessor
 # returns 1 on success, undef otherwise. Access the artist info via the
 # accessor functions.
 sub LoadFromId
@@ -633,10 +633,10 @@ sub LoadFromId
 	my ($this, $loadmeta) = @_;
 	my ($idcol, $idval);
 
-	if ($this->GetId)
+	if ($this->id)
 	{
 		$idcol = "id";
-		$idval = $this->GetId;
+		$idval = $this->id;
 	}
 	elsif ($this->mbid)
 	{
@@ -747,7 +747,7 @@ sub LoadTracks
 	{
 		return $sql->SelectSingleValue(
 			"SELECT COUNT(*) FROM albumjoin WHERE album = ?",
-			$this->GetId,
+			$this->id,
 		);
 	}
 
@@ -778,7 +778,7 @@ sub LoadTracks
 		{
 			require MusicBrainz::Server::Track;
 			$track = MusicBrainz::Server::Track->new($this->{DBH});
-			$track->SetId($row[0]);
+			$track->id($row[0]);
 			$track->SetName($row[1]);
 			$track->artist($row[2]);
 			$track->sequence($row[3]);
@@ -803,7 +803,7 @@ sub ReleaseEvents
 	my ($self, $loadlabels) = @_;
 	require MusicBrainz::Server::ReleaseEvent;
 	my $rel = MusicBrainz::Server::ReleaseEvent->new($self->{DBH});
-	$rel->newFromRelease($self->GetId, $loadlabels);
+	$rel->newFromRelease($self->id, $loadlabels);
 }
 
 sub GetDiscIDs
@@ -880,7 +880,7 @@ sub LoadTRMCount
 		WHERE	albumjoin.album = ?
 		AND		albumjoin.track = trmjoin.track
 	   	GROUP BY albumjoin.track",
-		$this->GetId,
+		$this->id,
 	);
 
 	+{
@@ -904,7 +904,7 @@ sub LoadPUIDCount
 		WHERE	albumjoin.album = ?
 		AND		albumjoin.track = puidjoin.track
 	   	GROUP BY albumjoin.track",
-		$this->GetId,
+		$this->id,
 	);
 
 	+{
@@ -929,7 +929,7 @@ sub LoadLatestTrackAnnos
 		AND     albumjoin.track = annotation.rowid
 		AND     annotation.type = " . &MusicBrainz::Server::Annotation::TRACK_ANNOTATION .
 		"ORDER BY annotation.created ASC",
-		$self->GetId,
+		$self->id,
 	);
 
 	+{
@@ -969,7 +969,7 @@ sub MergeReleases
 		$sql->Do(
 			"UPDATE album SET artist = ? WHERE id = ?",
 			VARTIST_ID,
-			$this->GetId,
+			$this->id,
 		);
    }
 
@@ -987,7 +987,7 @@ sub MergeReleases
 
    foreach $id (@list)
    {
-       $al->SetId($id);
+       $al->id($id);
        next if (!defined $al->LoadFromId());
 
        @tracks = $al->LoadTracks();
@@ -997,8 +997,8 @@ sub MergeReleases
            {
                 # We already have that track. Move any existing TRMs/PUIDs
                 # to the existing track
-				my $old = $tr->GetId;
-				my $new = $merged{$tr->sequence()}->GetId;
+				my $old = $tr->id;
+				my $new = $merged{$tr->sequence()}->id;
 
 				require MusicBrainz::Server::TRM;
 				my $trm = MusicBrainz::Server::TRM->new($this->{DBH});
@@ -1021,8 +1021,8 @@ sub MergeReleases
                 # We don't already have that track
                 $sql->Do(
 					"UPDATE albumjoin SET album = ? WHERE track = ?",
-					$this->GetId,
-					$tr->GetId,
+					$this->id,
+					$tr->id,
 				);
                 $merged{$tr->sequence()} = $tr;
            }
@@ -1033,7 +1033,7 @@ sub MergeReleases
                 $sql->Do(
 					"UPDATE track SET artist = ? WHERE id = ?",
 					$this->artist,
-					$tr->GetId,
+					$tr->id,
 				);
            }                
        }
@@ -1043,24 +1043,24 @@ sub MergeReleases
 
 		# Also merge the Discids
 		require MusicBrainz::Server::ReleaseCDTOC;
-		MusicBrainz::Server::ReleaseCDTOC->MergeReleases($this->{DBH}, $id, $this->GetId);
+		MusicBrainz::Server::ReleaseCDTOC->MergeReleases($this->{DBH}, $id, $this->id);
 
 		# And the releases
 		require MusicBrainz::Server::ReleaseEvent;
 		my $rel = MusicBrainz::Server::ReleaseEvent->new($sql->{DBH});
-		$rel->MoveFromReleaseToRelease($id, $this->GetId);
+		$rel->MoveFromReleaseToRelease($id, $this->id);
 
 		# And the annotations
 		require MusicBrainz::Server::Annotation;
-		MusicBrainz::Server::Annotation->MergeReleases($this->{DBH}, $id, $this->GetId, artistid => $this->artist);
+		MusicBrainz::Server::Annotation->MergeReleases($this->{DBH}, $id, $this->id, artistid => $this->artist);
 
 		# And the ARs
-		$link->MergeReleases($id, $this->GetId);
+		$link->MergeReleases($id, $this->id);
 
 		# ... and the tags
-		$tag->MergeReleases($id, $this->GetId);
+		$tag->MergeReleases($id, $this->id);
 
-        $this->SetGlobalIdRedirect($id, $al->mbid, $this->GetId, &TableBase::TABLE_RELEASE);
+        $this->SetGlobalIdRedirect($id, $al->mbid, $this->id, &TableBase::TABLE_RELEASE);
 
        # Then, finally remove what is left of the old album
        $al->Remove();
@@ -1203,7 +1203,7 @@ sub UpdateName
 {
 	my $self = shift;
 
-	my $id = $self->GetId
+	my $id = $self->id
 		or croak "Missing album ID in RemoveFromAlbum";
 	my $name = $self->GetName;
 	defined($name) && $name ne ""
@@ -1229,7 +1229,7 @@ sub UpdateQuality
 {
 	my $self = shift;
 
-	my $id = $self->GetId
+	my $id = $self->id
 		or croak "Missing artist ID in UpdateQuality";
 
 	my $sql = Sql->new($self->{DBH});
@@ -1249,7 +1249,7 @@ sub RebuildWordList
     require SearchEngine;
     my $engine = SearchEngine->new($this->{DBH}, 'album');
     $engine->AddWordRefs(
-		$this->GetId,
+		$this->id,
 		$this->GetName,
 		1, # remove other words
     );
@@ -1264,7 +1264,7 @@ sub UpdateAttributes
 	$sql->Do(
 		"UPDATE album SET attributes = ? WHERE id = ?",
 		"{$attr}",
-		$this->GetId,
+		$this->id,
 	);
 }
 
@@ -1277,7 +1277,7 @@ sub UpdateLanguageAndScript
 		"UPDATE album SET language = ?, script = ? WHERE id = ?",
 		$this->language_id || undef,
 		$this->script_id || undef,
-		$this->GetId,
+		$this->id,
 	);
 
 	# also adjust the language of all pending moderations for this album
@@ -1286,7 +1286,7 @@ sub UpdateLanguageAndScript
 		"UPDATE moderation_open SET language = ? "
 		. "WHERE tab = 'album' AND rowid = ? AND type = ? ",
 		$this->language_id || undef,
-		$this->GetId,
+		$this->id,
 		&ModDefs::MOD_ADD_RELEASE, 
 	);
 }
@@ -1295,7 +1295,7 @@ sub UpdateModPending
 {
 	my ($self, $adjust) = @_;
 
-	my $id = $self->GetId
+	my $id = $self->id
 		or croak "Missing album ID in UpdateModPending";
 	defined($adjust)
 		or croak "Missing adjustment in UpdateModPending";
@@ -1312,7 +1312,7 @@ sub UpdateAttributesModPending
 {
 	my ($self, $adjust) = @_;
 
-	my $id = $self->GetId
+	my $id = $self->id
 		or croak "Missing album ID in UpdateAttributesModPending";
 	defined($adjust)
 		or croak "Missing adjustment in UpdateAttributesModPending";
@@ -1329,7 +1329,7 @@ sub UpdateLanguageModPending
 {
 	my ($self, $adjust) = @_;
 
-	my $id = $self->GetId
+	my $id = $self->id
 		or croak "Missing album ID in UpdateLanguageModPending";
 	defined($adjust)
 		or croak "Missing adjustment in UpdateLanguageModPending";
@@ -1347,7 +1347,7 @@ sub UpdateQualityModPending
 {
 	my ($self, $adjust) = @_;
 
-	my $id = $self->GetId
+	my $id = $self->id
 		or croak "Missing album ID in UpdateQualityModPending";
 	defined($adjust)
 		or croak "Missing adjustment in UpdateQualityModPending";
@@ -1374,7 +1374,7 @@ sub GetTrackSequence
 	my $sql = Sql->new($this->{DBH});
 	$sql->SelectSingleValue(
 		"SELECT sequence FROM albumjoin WHERE album = ? AND track = ?",
-		$this->GetId,
+		$this->id,
 		$trackid,
 	);
 }

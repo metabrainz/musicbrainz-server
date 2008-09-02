@@ -63,7 +63,7 @@ sub PreInsert
 	MusicBrainz::Server::Validation::TrimInPlace($attribute);
 
 	my $c = $parent->GetNamedChild($name);
-	if ($c and $c->GetId != $node->GetId)
+	if ($c and $c->id != $node->id)
 	{
 		my $note = "There is already a link type called '$name' here";
 		$self->SetError($note);
@@ -73,7 +73,7 @@ sub PreInsert
 	$self->artist(DARTIST_ID);
 	$self->table($node->{_table}); # FIXME internal field
 	$self->SetColumn("name");
-	$self->row_id($node->GetId);
+	$self->row_id($node->id);
 	$self->SetPrev($node->GetName);
 
 	my %new = (
@@ -98,7 +98,7 @@ sub PreInsert
 		old_priority		=> $node->GetPriority,
 	);
 
-	$node->SetParentId($parent->GetId); 
+	$node->SetParentId($parent->id); 
 	$node->SetName($name);
 	$node->SetLinkPhrase($linkphrase);
 	$node->SetReverseLinkPhrase($rlinkphrase);
@@ -141,7 +141,7 @@ sub DeniedAction
 
 	my $name = $self->GetPrev;
 	my $c = $node->Parent->GetNamedChild($name);
-	if ($c and $c->GetId != $node->GetId)
+	if ($c and $c->id != $node->id)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "There is already a link type called '$name' here");
 		return;

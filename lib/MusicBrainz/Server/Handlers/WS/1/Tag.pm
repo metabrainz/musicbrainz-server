@@ -211,7 +211,7 @@ sub print_xml_post
     } 
 
     my $tag = MusicBrainz::Server::Tag->new($mb->{DBH});
-    $tag->Update($tags, $us->GetId, $entity, $obj->GetId);
+    $tag->Update($tags, $us->id, $entity, $obj->id);
 
 	print '<?xml version="1.0" encoding="UTF-8"?>';
 	print '<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"/>';
@@ -259,7 +259,7 @@ sub serve_from_db
     }
 
 	my $tag = MusicBrainz::Server::Tag->new($maindb->{DBH});
-	my $tags = $tag->GetRawTagsForEntity($entity_type, $obj->GetId, $user->GetId);
+	my $tags = $tag->GetRawTagsForEntity($entity_type, $obj->id, $user->id);
 
 	my $printer = sub {
 		print_xml($tags);

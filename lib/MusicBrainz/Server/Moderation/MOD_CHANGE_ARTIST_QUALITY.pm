@@ -40,12 +40,12 @@ sub PreInsert
 	my $artist = $opts{'artist'} or die;
 	my $quality = $opts{'quality'};
 
-	$self->artist($artist->GetId);
+	$self->artist($artist->id);
 	$self->SetPrev($artist->quality);
 	$self->SetNew($quality);
 	$self->table("artist");
 	$self->SetColumn("quality");
-	$self->row_id($artist->GetId);
+	$self->row_id($artist->id);
 }
 
 sub PostLoad
@@ -62,7 +62,7 @@ sub CheckPrerequisites
 	# Load the album by ID
 	require MusicBrainz::Server::Artist;
 	my $artist = MusicBrainz::Server::Artist->new($self->{DBH});
-	$artist->SetId($self->row_id);
+	$artist->id($self->row_id);
 	unless ($artist->LoadFromId)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This artist has been deleted");
@@ -95,7 +95,7 @@ sub AdjustModPending
 
 	require MusicBrainz::Server::Artist;
 	my $ar = MusicBrainz::Server::Artist->new($self->{DBH});
-	$ar->SetId($self->row_id);
+	$ar->id($self->row_id);
 	$ar->LoadFromId;
 	$ar->UpdateQualityModPending($adjust);
 }

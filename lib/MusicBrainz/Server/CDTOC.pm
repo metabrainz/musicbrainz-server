@@ -49,7 +49,7 @@ use TableBase;
 # Properties
 ################################################################################
 
-# GetId - see TableBase
+# id - see TableBase
 sub disc_id         { $_[0]{discid} }
 sub freedb_id		{ $_[0]{freedbid} }
 sub first_track	{ 1 }

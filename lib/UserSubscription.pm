@@ -162,7 +162,7 @@ sub SubscribeArtists
 
 	for my $artist (@artists)
 	{
-		my $artistid = $artist->GetId;
+		my $artistid = $artist->id;
 		die if $artistid == &ModDefs::VARTIST_ID;
 		die if $artistid == &ModDefs::DARTIST_ID;
 		push @artistids, $artistid;
@@ -209,7 +209,7 @@ sub UnsubscribeArtists
 
 	for my $artist (@artists)
 	{
-		my $artistid = $artist->GetId;
+		my $artistid = $artist->id;
 		# die if $artistid == &ModDefs::VARTIST_ID;
 		# die if $artistid == &ModDefs::DARTIST_ID;
 		push @artistids, $artistid;
@@ -279,7 +279,7 @@ sub SubscribeLabels
 
 	for my $label (@labels)
 	{
-		my $labelid = $label->GetId;
+		my $labelid = $label->id;
 		die if $labelid == &ModDefs::DLABEL_ID;
 		push @labelids, $labelid;
 	}
@@ -325,7 +325,7 @@ sub UnsubscribeLabels
 
 	for my $label (@labels)
 	{
-		my $labelid = $label->GetId;
+		my $labelid = $label->id;
 		# die if $labelid == &ModDefs::DARTIST_ID;
 		push @labelids, $labelid;
 	}
@@ -394,7 +394,7 @@ sub SubscribeEditors
 
 	for my $editor (@editors)
 	{
-		my $editorid = $editor->GetId;
+		my $editorid = $editor->id;
 		push @editorids, $editorid;
 	}
 
@@ -439,7 +439,7 @@ sub UnsubscribeEditors
 
 	for my $editor (@editors)
 	{
-		my $editorid = $editor->GetId;
+		my $editorid = $editor->id;
 		push @editorids, $editorid;
 	}
 
@@ -472,8 +472,8 @@ sub ArtistBeingDeleted
 	$sql->Do(
 		"UPDATE moderator_subscribe_artist
 		SET deletedbymod = ? WHERE artist = ?",
-		$moderation->GetId,
-		$artist->GetId,
+		$moderation->id,
+		$artist->id,
 	);
 }
 
@@ -485,8 +485,8 @@ sub ArtistBeingMerged
 	$sql->Do(
 		"UPDATE moderator_subscribe_artist
 		SET mergedbymod = ? WHERE artist = ?",
-		$moderation->GetId,
-		$artist->GetId,
+		$moderation->id,
+		$artist->id,
 	);
 }
 
@@ -502,8 +502,8 @@ sub LabelBeingDeleted
 	$sql->Do(
 		"UPDATE moderator_subscribe_label
 		SET deletedbymod = ? WHERE label = ?",
-		$moderation->GetId,
-		$label->GetId,
+		$moderation->id,
+		$label->id,
 	);
 }
 
@@ -515,8 +515,8 @@ sub LabelBeingMerged
 	$sql->Do(
 		"UPDATE moderator_subscribe_label
 		SET mergedbymod = ? WHERE label = ?",
-		$moderation->GetId,
-		$label->GetId,
+		$moderation->id,
+		$label->id,
 	);
 }
 
@@ -584,7 +584,7 @@ sub _ProcessUserSubscriptions
 	$user = $user->newFromId($self->GetUser);
 
 	printf "Processing subscriptions for #%d '%s'\n",
-		$user->GetId, $user->GetName,
+		$user->id, $user->GetName,
 		if $self->{'verbose'};
 
 	my $subs = $self->GetSubscribedArtists;
@@ -601,7 +601,7 @@ sub _ProcessUserSubscriptions
 	unless ($user->GetEmail and $user->GetEmailConfirmDate)
 	{
 		printf "Skipping subscriptions for user #%d '%s' because they have no confirmed e-mail address\n",
-			$user->GetId, $user->GetName
+			$user->id, $user->GetName
 			if $self->{'verbose'};
 		# Instead of returning here, we just empty the list of subscriptions.
 		# Thus we don't go to all the trouble of looking for edits, and
@@ -818,7 +818,7 @@ EOF
 	if ($self->{'dryrun'})
 	{
 		printf "The following e-mail would be sent to #%d '%s':\n",
-			$user->GetId, $user->GetName;
+			$user->id, $user->GetName;
 		$mail->print;
 		return;
 	}

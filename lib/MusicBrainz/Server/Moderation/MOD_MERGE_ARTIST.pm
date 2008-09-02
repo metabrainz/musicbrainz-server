@@ -40,11 +40,11 @@ sub PreInsert
 	my $source = $opts{'source'} or die;
 	my $target = $opts{'target'} or die;
 
-	die if $source->GetId == VARTIST_ID;
-	die if $source->GetId == DARTIST_ID;
-	die if $target->GetId == DARTIST_ID;
+	die if $source->id == VARTIST_ID;
+	die if $source->id == DARTIST_ID;
+	die if $target->id == DARTIST_ID;
 
-	if ($source->GetId == $target->GetId)
+	if ($source->id == $target->id)
 	{
 		$self->SetError("Source and destination artists are the same!");
 		die $self;
@@ -52,12 +52,12 @@ sub PreInsert
 
 	my %new;
 	$new{"ArtistName"} = $target->GetName;
-	$new{"ArtistId"} = $target->GetId;
+	$new{"ArtistId"} = $target->id;
 
 	$self->table("artist");
 	$self->SetColumn("name");
-	$self->artist($source->GetId);
-	$self->row_id($source->GetId);
+	$self->artist($source->id);
+	$self->row_id($source->id);
 	$self->SetPrev($source->GetName);
 	$self->SetNew($self->ConvertHashToNew(\%new));
 }
@@ -93,12 +93,12 @@ sub DetermineQuality
 
     my $quality = -2;
 	my $ar = MusicBrainz::Server::Artist->new($self->{DBH});
-	$ar->SetId($self->{"new.id"});
+	$ar->id($self->{"new.id"});
 	if ($ar->LoadFromId())
 	{
         $quality = $ar->quality;        
     }
-	$ar->SetId($self->{rowid});
+	$ar->id($self->{rowid});
 	if ($ar->LoadFromId())
 	{
         $quality = $quality > $ar->quality ? $quality : $ar->quality;
@@ -120,7 +120,7 @@ sub AdjustModPending
 	for my $artistid ($self->row_id, $self->{"new.id"})
 	{
 		defined($artistid) or next;
-		$ar->SetId($artistid);
+		$ar->id($artistid);
 		$ar->LoadFromId();
 		$ar->UpdateModPending($adjust);
 	}
@@ -140,7 +140,7 @@ sub CheckPrerequisites
 
 	if (my $newid = $self->{"new.id"})
 	{
-		$newar->SetId($newid);
+		$newar->id($newid);
 		unless ($newar->LoadFromId)
 		{
 			$self->InsertNote(MODBOT_MODERATOR, "The target artist has been deleted");
@@ -160,7 +160,7 @@ sub CheckPrerequisites
 	# Load old artist by ID
 	require MusicBrainz::Server::Artist;
 	my $oldar = MusicBrainz::Server::Artist->new($self->{DBH});
-	$oldar->SetId($rowid);
+	$oldar->id($rowid);
 	unless ($oldar->LoadFromId)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This artist has been deleted");
@@ -175,20 +175,20 @@ sub CheckPrerequisites
 	}
 
 	# You can't merge an artist into itself!
-	if ($oldar->GetId == $newar->GetId)
+	if ($oldar->id == $newar->id)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "Source and destination artists are the same!");
 		return STATUS_ERROR;
 	}
 
 	# Disallow various merges involving the "special" artists
-	if ($oldar->GetId == VARTIST_ID or $oldar->GetId == DARTIST_ID)
+	if ($oldar->id == VARTIST_ID or $oldar->id == DARTIST_ID)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "You can't merge that artist!");
 		return STATUS_ERROR;
 	}
 	
-	if ($newar->GetId == DARTIST_ID)
+	if ($newar->id == DARTIST_ID)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "You can't merge into that artist!");
 		return STATUS_ERROR;

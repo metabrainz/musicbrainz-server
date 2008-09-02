@@ -156,7 +156,7 @@ sub IsValidType
    }
 }
 
-sub _GetIdCacheKey
+sub _id_cache_key
 {
     my ($class, $id) = @_;
     "artist-id-" . int($id);
@@ -171,7 +171,7 @@ sub _GetMBIDCacheKey
 sub InvalidateCache
 {
     my $self = shift;
-    MusicBrainz::Server::Cache->delete($self->_GetIdCacheKey($self->GetId));
+    MusicBrainz::Server::Cache->delete($self->_id_cache_key($self->id));
     MusicBrainz::Server::Cache->delete($self->_GetMBIDCacheKey($self->mbid));
 }
 
@@ -202,11 +202,11 @@ sub Insert
         my $ar_list = $this->select_artists_by_name($name);
 		foreach my $ar (@$ar_list)
 		{
-	    	return $ar->GetId if ($ar->GetName() eq $name);
+	    	return $ar->id if ($ar->GetName() eq $name);
         }
 		foreach my $ar (@$ar_list)
 		{
-	    	return $ar->GetId if (lc($ar->GetName()) eq lc($name));
+	    	return $ar->id if (lc($ar->GetName()) eq lc($name));
         }
     }
 
@@ -252,7 +252,7 @@ sub Insert
     $this->{new_insert} = 1;
     $this->{id} = $artist;
 
-    MusicBrainz::Server::Cache->delete($this->_GetIdCacheKey($artist));
+    MusicBrainz::Server::Cache->delete($this->_id_cache_key($artist));
     MusicBrainz::Server::Cache->delete($this->_GetMBIDCacheKey($mbid));
 
     # Add search engine tokens.
@@ -270,7 +270,7 @@ sub Remove
 {
     my ($this) = @_;
 
-    return if (!defined $this->GetId());
+    return if (!defined $this->id());
 
     my $sql = Sql->new($this->{DBH});
     my $refcount;
@@ -282,11 +282,11 @@ sub Remove
     # See if there are any tracks that needs this artist
     $refcount = $sql->SelectSingleValue(
 	"SELECT COUNT(*) FROM track WHERE artist = ?",
-	$this->GetId,
+	$this->id,
     );
     if ($refcount > 0)
     {
-        print STDERR "Cannot remove artist ". $this->GetId() .
+        print STDERR "Cannot remove artist ". $this->id() .
             ". $refcount tracks still depend on it.\n";
         return undef;
     }
@@ -294,50 +294,50 @@ sub Remove
     # See if there are any albums that needs this artist
     $refcount = $sql->SelectSingleValue(
 	"SELECT COUNT(*) FROM album WHERE artist = ?",
-	$this->GetId,
+	$this->id,
     );
     if ($refcount > 0)
     {
-        print STDERR "Cannot remove artist ". $this->GetId() .
+        print STDERR "Cannot remove artist ". $this->id() .
             ". $refcount albums still depend on it.\n";
         return undef;
     }
 
-    $sql->Do("DELETE FROM artistalias WHERE ref = ?", $this->GetId);
+    $sql->Do("DELETE FROM artistalias WHERE ref = ?", $this->id);
     $sql->Do(
 		"DELETE FROM artist_relation WHERE artist = ? OR ref = ?",
-		$this->GetId, $this->GetId,
+		$this->id, $this->id,
     );
     $sql->Do(
 		"UPDATE moderation_closed SET artist = ? WHERE artist = ?",
-		&ModDefs::DARTIST_ID, $this->GetId,
+		&ModDefs::DARTIST_ID, $this->id,
     );
     $sql->Do(
 		"UPDATE moderation_open SET artist = ? WHERE artist = ?",
-		&ModDefs::DARTIST_ID, $this->GetId,
+		&ModDefs::DARTIST_ID, $this->id,
     );
 
 	# Remove relationships
 	require MusicBrainz::Server::Link;
 	my $link = MusicBrainz::Server::Link->new($this->{DBH});
-	$link->RemoveByArtist($this->GetId);
+	$link->RemoveByArtist($this->id);
 
     # Remove tags
 	require MusicBrainz::Server::Tag;
 	my $tag = MusicBrainz::Server::Tag->new($sql->{DBH});
-	$tag->RemoveArtists($this->GetId);
+	$tag->RemoveArtists($this->id);
 
     # Remove references from artist words table
     require SearchEngine;
     my $engine = SearchEngine->new($this->{DBH}, 'artist');
-    $engine->RemoveObjectRefs($this->GetId());
+    $engine->RemoveObjectRefs($this->id());
 
     require MusicBrainz::Server::Annotation;
-    MusicBrainz::Server::Annotation->DeleteArtist($this->{DBH}, $this->GetId);
+    MusicBrainz::Server::Annotation->DeleteArtist($this->{DBH}, $this->id);
 
-    $this->RemoveGlobalIdRedirect($this->GetId, &TableBase::TABLE_ARTIST);
+    $this->RemoveGlobalIdRedirect($this->id, &TableBase::TABLE_ARTIST);
 
-    $sql->Do("DELETE FROM artist WHERE id = ?", $this->GetId);
+    $sql->Do("DELETE FROM artist WHERE id = ?", $this->id);
     $this->InvalidateCache;
 
     return 1;
@@ -352,8 +352,8 @@ sub MergeInto
     my $subs = UserSubscription->new($old->{DBH});
     $subs->ArtistBeingMerged($old, $mod);
 
-    my $o = $old->GetId;
-    my $n = $new->GetId;
+    my $o = $old->id;
+    my $n = $new->id;
 
     require MusicBrainz::Server::Annotation;
     MusicBrainz::Server::Annotation->MergeArtists($old->{DBH}, $o, $n);
@@ -384,7 +384,7 @@ sub MergeInto
     $alb->CombineNonAlbums(@non)
 	if @non > 1;
 	
-    $old->SetGlobalIdRedirect($old->GetId, $old->mbid, $new->GetId, &TableBase::TABLE_ARTIST);
+    $old->SetGlobalIdRedirect($old->id, $old->mbid, $new->id, &TableBase::TABLE_ARTIST);
 
     # Insert the old name as an alias for the new one
     # TODO this is often a bad idea - remove this code?
@@ -407,7 +407,7 @@ sub UpdateName
     $sql->Do(
 	"UPDATE artist SET name = ? WHERE id = ?",
 	$name,
-	$this->GetId,
+	$this->id,
     ) or return 0;
 
     $this->InvalidateCache;
@@ -431,7 +431,7 @@ sub UpdateSortName
 	"UPDATE artist SET sortname = ?, page = ? WHERE id = ?",
 	$name,
 	$page,
-	$this->GetId,
+	$this->id,
     ) or return 0;
 
     $this->InvalidateCache;
@@ -447,7 +447,7 @@ sub UpdateQuality
 {
 	my $self = shift;
 
-	my $id = $self->GetId
+	my $id = $self->id
 		or croak "Missing artist ID in UpdateQuality";
 
 	my $sql = Sql->new($self->{DBH});
@@ -499,7 +499,7 @@ sub Update
     # there is nothing to change, exit.
     return 1 unless $attrlist;
 
-    $sql->Do("UPDATE artist SET $attrlist WHERE id = ?", @values, $this->GetId)
+    $sql->Do("UPDATE artist SET $attrlist WHERE id = ?", @values, $this->id)
 		or return 0;
     $this->InvalidateCache;
 
@@ -515,7 +515,7 @@ sub UpdateModPending
 {
     my ($self, $adjust) = @_;
 
-    my $id = $self->GetId
+    my $id = $self->id
 		or croak "Missing artist ID in UpdateModPending";
     defined($adjust)
 		or croak "Missing adjustment in UpdateModPending";
@@ -534,7 +534,7 @@ sub UpdateQualityModPending
 {
     my ($self, $adjust) = @_;
 
-    my $id = $self->GetId
+    my $id = $self->id
 		or croak "Missing artist ID in UpdateQualityModPending";
     defined($adjust)
 		or croak "Missing adjustment in UpdateQualityModPending";
@@ -560,13 +560,13 @@ sub RebuildWordList
     require MusicBrainz::Server::Alias;
     my $al = MusicBrainz::Server::Alias->new($this->{DBH});
     $al->table("ArtistAlias");
-    my @aliases = $al->GetList($this->GetId);
+    my @aliases = $al->GetList($this->id);
     @aliases = map { $_->[1] } @aliases;
 
     require SearchEngine;
     my $engine = SearchEngine->new($this->{DBH}, 'artist');
     $engine->AddWordRefs(
-		$this->GetId,
+		$this->id,
 		[ $this->GetName, @aliases ],
 		1, # remove other words
     );
@@ -609,7 +609,7 @@ sub RebuildWordListForAll
 
 	eval {
 	    my $ar = MusicBrainz::Server::Artist->new($mb_w->{DBH});
-	    $ar->SetId($id);
+	    $ar->id($id);
 	    if ($ar->LoadFromId)
 	    {
 		$ar->RebuildWordList;
@@ -723,7 +723,7 @@ sub select_artists_by_name
     {
         my $ar = MusicBrainz::Server::Artist->new($this->{DBH});
 
-		$ar->SetId($row->{id});
+		$ar->id($row->{id});
 		$ar->mbid($row->{gid});
 		$ar->SetName($row->{name});
 		$ar->sort_name($row->{sortname});
@@ -768,7 +768,7 @@ sub select_artists_by_sort_name
     {
         my $ar = MusicBrainz::Server::Artist->new($this->{DBH});
 
-		$ar->SetId($row->{id});
+		$ar->id($row->{id});
 		$ar->mbid($row->{gid});
 		$ar->SetName($row->{name});
 		$ar->sort_name($row->{sortname});
@@ -793,7 +793,7 @@ sub LoadFromId
     my $this = shift;
     my $id;
 
-    if ($id = $this->GetId)
+    if ($id = $this->id)
     {
 		my $obj = $this->newFromId($id)
 	    or return undef;
@@ -820,7 +820,7 @@ sub newFromId
     $this = $this->new(shift) if not ref $this;
     my $id = shift;
 
-    my $key = $this->_GetIdCacheKey($id);
+    my $key = $this->_id_cache_key($id);
     my $obj = MusicBrainz::Server::Cache->get($key);
 
     if ($obj)
@@ -890,7 +890,7 @@ sub newFromMBId
     # We can't store DBH in the cache...
     delete $obj->{DBH} if $obj;
     MusicBrainz::Server::Cache->set($key, \$obj);
-    MusicBrainz::Server::Cache->set($obj->_GetIdCacheKey($obj->GetId), \$obj)
+    MusicBrainz::Server::Cache->set($obj->_id_cache_key($obj->id), \$obj)
 		if $obj;
     $obj->{DBH} = $this->{DBH} if $obj;
 
@@ -952,7 +952,7 @@ sub artist_browse_selection
 # retreive the set of albums by this artist. Returns an array of 
 # references to Album objects. Refer to the Album object for details.
 # The returned array is empty on error. Multiple artist albums are
-# also returned by this query. Use SetId() to set the id of artist
+# also returned by this query. Use id() to set the id of artist
 sub select_releases
 {
    my ($this, $novartist, $loadmeta, $onlyvartist) = @_;
@@ -985,7 +985,7 @@ sub select_releases
             {
                 require MusicBrainz::Server::Release;
                 $album = MusicBrainz::Server::Release->new($this->{DBH});
-                $album->SetId($row[0]);
+                $album->id($row[0]);
                 $album->SetName($row[1]);
                 $album->has_mod_pending($row[2]);
                 $album->artist($this->{id});
@@ -1048,7 +1048,7 @@ sub select_releases
         {
 			require MusicBrainz::Server::Release;
             $album = MusicBrainz::Server::Release->new($this->{DBH});
-            $album->SetId($row[0]);
+            $album->id($row[0]);
             $album->artist($row[1]);
             $album->SetName($row[2]);
             $album->has_mod_pending($row[3]);
@@ -1190,7 +1190,7 @@ sub GetSubscribers
 {
     my $self = shift;
     require UserSubscription;
-    return UserSubscription->GetSubscribersForArtist($self->{DBH}, $self->GetId);
+    return UserSubscription->GetSubscribersForArtist($self->{DBH}, $self->id);
 }
 
 sub InUse
@@ -1200,31 +1200,31 @@ sub InUse
 
     return 1 if $sql->SelectSingleValue(
 		"SELECT 1 FROM album WHERE artist = ? LIMIT 1",
-		$self->GetId,
+		$self->id,
     );
     return 1 if $sql->SelectSingleValue(
 		"SELECT 1 FROM track WHERE artist = ? LIMIT 1",
-		$self->GetId,
+		$self->id,
     );
     return 1 if $sql->SelectSingleValue(
 		"SELECT 1 FROM l_album_artist WHERE link1 = ? LIMIT 1",
-		$self->GetId,
+		$self->id,
     );
     return 1 if $sql->SelectSingleValue(
 		"SELECT 1 FROM l_artist_artist WHERE link1 = ? LIMIT 1",
-		$self->GetId,
+		$self->id,
     );
     return 1 if $sql->SelectSingleValue(
 		"SELECT 1 FROM l_artist_artist WHERE link0 = ? LIMIT 1",
-		$self->GetId,
+		$self->id,
     );
     return 1 if $sql->SelectSingleValue(
 		"SELECT 1 FROM l_artist_track WHERE link0 = ? LIMIT 1",
-		$self->GetId,
+		$self->id,
     );
     return 1 if $sql->SelectSingleValue(
 		"SELECT 1 FROM l_artist_url WHERE link0 = ? LIMIT 1",
-		$self->GetId,
+		$self->id,
     );
     return 0;
 }

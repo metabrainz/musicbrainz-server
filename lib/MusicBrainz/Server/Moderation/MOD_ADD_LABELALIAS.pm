@@ -45,7 +45,7 @@ sub PreInsert
 	$self->SetNew($newalias);
 	$self->table("label");
 	$self->SetColumn("name");
-	$self->row_id($ar->GetId);
+	$self->row_id($ar->id);
 }
 
 sub CheckPrerequisites
@@ -55,7 +55,7 @@ sub CheckPrerequisites
 	# Check that the referenced label is still around
 	require MusicBrainz::Server::Label;
 	my $ar = MusicBrainz::Server::Label->new($self->{DBH});
-	$ar->SetId($self->row_id);
+	$ar->id($self->row_id);
 	unless ($ar->LoadFromId)
 	{
 		$self->InsertNote(
@@ -105,7 +105,7 @@ sub ShowModTypeDelegate
 	my $id = $self->row_id;
 	require MusicBrainz::Server::Label;
 	my $label = MusicBrainz::Server::Label->new($self->{DBH});
-	$label->SetId($id);
+	$label->id($id);
 	my ($title, $name);
 	if ($label->LoadFromId) 
 	{

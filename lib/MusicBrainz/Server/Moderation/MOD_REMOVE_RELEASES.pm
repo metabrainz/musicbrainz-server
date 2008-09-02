@@ -53,7 +53,7 @@ sub PreInsert
 	for my $seq (0 .. $#$albums)
 	{
 		my $al = $albums->[$seq];
-		$new{"AlbumId$seq"} = $al->GetId;
+		$new{"AlbumId$seq"} = $al->id;
 		$new{"AlbumName$seq"} = $al->GetName;
 		++$artists{$al->artist};
 	}
@@ -65,7 +65,7 @@ sub PreInsert
 	);
 	$self->table("album");
 	$self->SetColumn("id");
-	$self->row_id($albums->[0]->GetId); # misleading
+	$self->row_id($albums->[0]->id); # misleading
 	$self->SetNew($self->ConvertHashToNew(\%new));
 }
 
@@ -101,7 +101,7 @@ sub DetermineQuality
     if (scalar(@$new_albums) == 1)
     {
         my $rel = MusicBrainz::Server::Release->new($self->{DBH});
-        $rel->SetId($new_albums->[0]->{id});
+        $rel->id($new_albums->[0]->{id});
         if ($rel->LoadFromId())
         {
             $quality_level = $rel->quality;        
@@ -118,7 +118,7 @@ sub AdjustModPending
 
 	for my $t (@{ $self->{'new_albums'} })
 	{
-		$al->SetId($t->{'id'});
+		$al->id($t->{'id'});
 		$al->UpdateModPending($adjust);
 	}
 }
@@ -131,7 +131,7 @@ sub ApprovedAction
 
 	for my $t (@{ $self->{'new_albums'} })
 	{
-		$al->SetId($t->{'id'});
+		$al->id($t->{'id'});
 		$al->Remove;
 	}
 

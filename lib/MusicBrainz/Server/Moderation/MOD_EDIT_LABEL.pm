@@ -40,7 +40,7 @@ sub PreInsert
 	my $ar = $opts{'label'} or die;
 
 	die $self->SetError('Editing this label is not allowed'),
-		if $ar->GetId() == &ModDefs::DLABEL_ID;
+		if $ar->id() == &ModDefs::DLABEL_ID;
 
 	my $name = $opts{'name'};
 	my $sortname = $opts{'sortname'};
@@ -137,7 +137,7 @@ sub PreInsert
 	$self->SetNew($self->ConvertHashToNew(\%new));
 	$self->table("label");
 	$self->SetColumn("name");
-	$self->row_id($ar->GetId);
+	$self->row_id($ar->id);
 }
 
 # Specialized version of MusicBrainz::Server::Validation::MakeDBDateStr:
@@ -210,7 +210,7 @@ sub CheckPrerequisites
 	# Load the label by ID
 	require MusicBrainz::Server::Label;
 	my $ar = MusicBrainz::Server::Label->new($self->{DBH});
-	$ar->SetId($label_id);
+	$ar->id($label_id);
 	unless ($ar->LoadFromId)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This label has been deleted.");
@@ -255,7 +255,7 @@ sub DeniedAction
 	{
 		require MusicBrainz::Server::Label;
 		my $ar = MusicBrainz::Server::Label->new($self->{DBH});
-		$ar->SetId($label);
+		$ar->id($label);
 		$ar->Remove;
    }
 }
@@ -267,7 +267,7 @@ sub ShowModTypeDelegate
 	my $id = $self->row_id;
 	require MusicBrainz::Server::Label;
 	my $label = MusicBrainz::Server::Label->new($self->{DBH});
-	$label->SetId($id);
+	$label->id($id);
 	my ($title, $name);
 	if ($label->LoadFromId) 
 	{

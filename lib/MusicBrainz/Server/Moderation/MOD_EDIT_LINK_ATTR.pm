@@ -47,7 +47,7 @@ sub PreInsert
 	die if $name eq "";
 
 	my $c = $parent->GetNamedChild($name);
-	if ($c and $c->GetId != $node->GetId)
+	if ($c and $c->id != $node->id)
 	{
 		my $note = "There is already an attribute called '$name' here";
 		$self->SetError($note);
@@ -57,7 +57,7 @@ sub PreInsert
 	$self->artist(DARTIST_ID);
 	$self->table($node->{_table});
 	$self->SetColumn("name");
-	$self->row_id($node->GetId);
+	$self->row_id($node->id);
 	my $prev = $node->GetName . " (" . $node->GetDescription . ")";
     $prev = substr($prev, 0, 251) . " ..." if (length($prev) > 255);
 	$self->SetPrev($prev);
@@ -71,7 +71,7 @@ sub PreInsert
 		old_childorder	=> $node->GetChildOrder,
 	);
 
-	$node->SetParentId($parent->GetId);
+	$node->SetParentId($parent->id);
 	$node->SetName($name);
 	$node->SetDescription($desc);
 	$node->SetChildOrder($childorder);
@@ -108,7 +108,7 @@ sub DeniedAction
 
 	my $name = $self->GetPrev;
 	my $c = $node->Parent->GetNamedChild($name);
-	if ($c and $c->GetId != $node->GetId)
+	if ($c and $c->id != $node->id)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "There is already a link attribute called '$name' here");
 		return;

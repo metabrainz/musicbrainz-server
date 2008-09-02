@@ -170,7 +170,7 @@ sub serve_from_db
             foreach my $id (@$albumids)
             {
                 $al = MusicBrainz::Server::Release->new($mb->{DBH});
-                $al->SetId($id);
+                $al->id($id);
                 return undef unless $al->LoadFromId(1);
                 push @albums, $al;
             }
@@ -180,7 +180,7 @@ sub serve_from_db
     if (@albums && !$ar && $inc & INC_ARTIST || $inc & INC_TRACKS)
     {
         $ar = MusicBrainz::Server::Artist->new($mb->{DBH});
-        $ar->SetId($al->artist);
+        $ar->id($al->artist);
         $ar->LoadFromId();
     }
 

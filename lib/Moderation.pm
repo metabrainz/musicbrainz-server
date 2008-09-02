@@ -552,7 +552,7 @@ my %ChangeNames = (
 sub Refresh
 {
 	my $self = shift;
-	my $newself = $self->CreateFromId($self->GetId);
+	my $newself = $self->CreateFromId($self->id);
 	%$self = %$newself;
 }
 
@@ -886,7 +886,7 @@ sub CreateFromId
         $edit = $this->CreateModerationObject($row[5]);
         if (defined $edit)
         {
-			$edit->SetId($row[0]);
+			$edit->id($row[0]);
 			$edit->table($row[1]);
 			$edit->SetColumn($row[2]);
 			$edit->row_id($row[3]);
@@ -1153,7 +1153,7 @@ sub InsertModeration
 		MusicBrainz::Server::Cache->delete("Moderation-id-range");
 		MusicBrainz::Server::Cache->delete("Moderation-open-id-range");
 		#print STDERR "Inserted as moderation #$insertid\n";
-		$this->SetId($insertid);
+		$this->id($insertid);
 
 		# Check to see if this moderation should be approved immediately 
 		require UserStuff;
@@ -1335,7 +1335,7 @@ sub moderation_list
 			next;
 		}
 
-		$edit->SetId($r->{id});
+		$edit->id($r->{id});
 		$edit->artist($r->{artist});
 		$edit->moderator($r->{moderator});
 		$edit->table($r->{tab});
@@ -1391,7 +1391,7 @@ sub moderation_list
 		if (not defined $artist_cache{$artistid})
 		{
 			my $artist = MusicBrainz::Server::Artist->new($this->{DBH});
-			$artist->SetId($artistid);
+			$artist->id($artistid);
 			if ($artist->LoadFromId())
 			{
 				$artist_cache{$artistid} = $artist;
@@ -1406,7 +1406,7 @@ sub moderation_list
 		# Find vote
 		if ($edit->GetVote == VOTE_UNKNOWN and $voter)
 		{
-			my $thevote = $vote->GetLatestVoteFromUser($edit->GetId, $voter);
+			my $thevote = $vote->GetLatestVoteFromUser($edit->id, $voter);
 			$edit->SetVote($thevote);
 		}
 	}
@@ -1440,7 +1440,7 @@ sub CloseModeration
    	$sql->Do(
 		"UPDATE moderation_open SET status = ? WHERE id = ?",
 		$status,
-		$this->GetId,
+		$this->id,
 	);
 
 	MusicBrainz::Server::Cache->delete("Moderation-open-id-range");
@@ -1460,7 +1460,7 @@ sub RemoveModeration
 			"UPDATE moderation_open SET status = ?
 			WHERE id = ? AND moderator = ? AND status = ?",
 	   		&ModDefs::STATUS_TOBEDELETED,
-			$this->GetId,
+			$this->id,
 			$uid,
 	   		&ModDefs::STATUS_OPEN,
 		);
@@ -1474,7 +1474,7 @@ sub Notes
 	my $self = shift;
 	require MusicBrainz::Server::ModerationNote;
 	my $notes = MusicBrainz::Server::ModerationNote->new($self->{DBH});
-	$notes->newFromModerationId($self->GetId);
+	$notes->newFromModerationId($self->id);
 }
 
 sub InsertNote
@@ -1492,7 +1492,7 @@ sub Votes
 	my $self = shift;
 	require MusicBrainz::Server::Vote;
 	my $votes = MusicBrainz::Server::Vote->new($self->{DBH});
-	$votes->newFromModerationId($self->GetId);
+	$votes->newFromModerationId($self->id);
 }
 
 sub VoteFromUser
@@ -1502,7 +1502,7 @@ sub VoteFromUser
 	my $votes = MusicBrainz::Server::Vote->new($self->{DBH});
 	# The number of votes per mod is small, so we may as well just retrieve
 	# all votes for the mod, then find the one we want.
-	my @votes = $votes->newFromModerationId($self->GetId);
+	my @votes = $votes->newFromModerationId($self->id);
 	# Pick the most recent vote from this user
 	(my $thevote) = reverse grep { $_->GetUserId == $uid } @votes;
 	$thevote;
@@ -1520,10 +1520,10 @@ sub FirstNoVote
 	my $send_mail = UserPreference::get_for_user('mail_on_first_no_vote', $editor);
 	$send_mail or return;
 
-	my $url = "http://" . &DBDefs::WEB_SERVER . "/show/edit/?editid=" . $self->GetId;
+	my $url = "http://" . &DBDefs::WEB_SERVER . "/show/edit/?editid=" . $self->id;
 
 	my $body = <<EOF;
-Editor '${\ $voter->GetName }' has voted against your edit #${\ $self->GetId }.
+Editor '${\ $voter->GetName }' has voted against your edit #${\ $self->id }.
 ------------------------------------------------------------------------
 If you would like to respond to this vote, please add your note at:
 $url
@@ -1541,7 +1541,7 @@ EOF
 		# To: $self (automatic)
 		"Reply-To"	=> 'MusicBrainz Support <support@musicbrainz.org>',
 		Subject		=> "Someone has voted against your edit",
-		References	=> '<edit-'.$self->GetId.'@'.&DBDefs::WEB_SERVER.'>',
+		References	=> '<edit-'.$self->id.'@'.&DBDefs::WEB_SERVER.'>',
 		Type		=> "text/plain",
 		Encoding	=> "quoted-printable",
 		Data		=> $body,
@@ -1704,10 +1704,10 @@ sub ShowModType
 	{
 		require MusicBrainz::Server::Track;
 		my $track = MusicBrainz::Server::Track->new($this->{DBH});
-		$track->SetId($this->{"trackid"});
+		$track->id($this->{"trackid"});
 		if ($this->{"exists-track"} = $track->LoadFromId)
 		{
-			$this->{"trackid"} = $track->GetId;
+			$this->{"trackid"} = $track->id;
 			$this->{"trackname"} = $track->GetName;
 			$this->{"trackseq"} = $track->sequence;
 			
@@ -1725,10 +1725,10 @@ sub ShowModType
 	{
 		require MusicBrainz::Server::Release;
 		my $release = MusicBrainz::Server::Release->new($this->{DBH});
-		$release->SetId($this->{"albumid"});
+		$release->id($this->{"albumid"});
 		if ($this->{"exists-album"} = $release->LoadFromId)
 		{
-			$this->{"albumid"} = $release->GetId;
+			$this->{"albumid"} = $release->id;
 			$this->{"albumname"} = $release->GetName;
 			$this->{"trackcount"} = $release->track_count;
 			$this->{"isnonalbum"} = $release->IsNonAlbumTracks;

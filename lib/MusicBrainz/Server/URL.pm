@@ -51,7 +51,7 @@ sub LoadFromId
     my $self = shift;
     my $id;
 
-    if ($id = $self->GetId)
+    if ($id = $self->id)
     {
         my $url = $self->newFromId($id)
             or return undef;
@@ -129,8 +129,8 @@ sub Insert
 	# Check to make sure we don't already have self in the database
 	if (my $other = $self->newFromURL($url))
 	{
-		$sql->Do("UPDATE url SET refcount = refcount + 1 WHERE id = ?", $other->GetId);
-		$self->{id} = $other->GetId;
+		$sql->Do("UPDATE url SET refcount = refcount + 1 WHERE id = ?", $other->id);
+		$self->{id} = $other->id;
 		$self->{url} = $other->GetURL;
 		$self->{desc} = $other->GetDesc;
 		return 1;
@@ -156,7 +156,7 @@ sub UpdateURL
 	my $self = shift;
 	my $otherref = shift;
 
-	my $id = $self->GetId
+	my $id = $self->id
 		or croak "Missing url ID in UpdateURL";
 	my $url = $self->GetURL;
 	defined($url) && $url ne ""
@@ -171,7 +171,7 @@ sub UpdateURL
 
 	if (my $other = $self->newFromURL($url))
 	{
-		if ($other->GetId != $self->GetId)
+		if ($other->id != $self->id)
 		{
 			$$otherref = $other if $otherref;
 			$! = EEXIST;
@@ -222,7 +222,7 @@ sub Remove
 
 	my $sql = Sql->new($self->{DBH});
 
-	my $id = $self->GetId
+	my $id = $self->id
 		or croak "Missing ID in Remove";
 
 	if (!defined $self->{refcount})
@@ -232,12 +232,12 @@ sub Remove
 	}
 	if ($self->{refcount} > 1)
 	{
-		$sql->Do("UPDATE url SET refcount = refcount - 1 WHERE id = ?", $self->GetId)
+		$sql->Do("UPDATE url SET refcount = refcount - 1 WHERE id = ?", $self->id)
 			or return undef;
 	}
 	else
 	{
-		$sql->Do("DELETE FROM url WHERE id = ?", $self->GetId)
+		$sql->Do("DELETE FROM url WHERE id = ?", $self->id)
 			or return undef;
 	}
 

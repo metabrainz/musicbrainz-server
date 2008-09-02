@@ -43,7 +43,7 @@ sub PreInsert
 	$self->SetPrev($al->GetName);
 	$self->table("album");
 	$self->SetColumn("name");
-	$self->row_id($al->GetId);
+	$self->row_id($al->id);
 }
 
 sub PostLoad
@@ -58,7 +58,7 @@ sub DetermineQuality
 	my $self = shift;
 
 	my $rel = MusicBrainz::Server::Release->new($self->{DBH});
-	$rel->SetId($self->{rowid});
+	$rel->id($self->{rowid});
 	if ($rel->LoadFromId())
 	{
         return $rel->quality;        
@@ -72,7 +72,7 @@ sub ApprovedAction
 
 	require MusicBrainz::Server::Release;
 	my $al = MusicBrainz::Server::Release->new($this->{DBH});
-	$al->SetId($this->row_id);
+	$al->id($this->row_id);
 
 	unless ($al->Remove)
 	{

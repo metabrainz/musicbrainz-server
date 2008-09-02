@@ -71,7 +71,7 @@ sub PreInsert
 	my $oldal = $opts{'oldalbum'} or die;
 	my $newal = $opts{'newalbum'} or die;
 
-	if ($oldal->GetId == $newal->GetId)
+	if ($oldal->id == $newal->id)
 	{
 		$self->SetError("Source and destination releases are the same!");
 		die $self;
@@ -84,7 +84,7 @@ sub PreInsert
 	}
 
 	require MusicBrainz::Server::ReleaseCDTOC;
-	my $alcdtoc = MusicBrainz::Server::ReleaseCDTOC->newFromReleaseAndCDTOC($self->{DBH}, $oldal, $cdtoc->GetId);
+	my $alcdtoc = MusicBrainz::Server::ReleaseCDTOC->newFromReleaseAndCDTOC($self->{DBH}, $oldal, $cdtoc->id);
 	if (not $alcdtoc)
 	{
 		$self->SetError("Old release / CD TOC not found");
@@ -98,17 +98,17 @@ sub PreInsert
 
 	$self->table("album_cdtoc");
 	$self->SetColumn("album");
-	$self->row_id($alcdtoc->GetId);
+	$self->row_id($alcdtoc->id);
 	$self->artist($oldal->artist);
-	$self->SetPrev($oldal->GetId);
+	$self->SetPrev($oldal->id);
 
 	my %new = (
 		OldAlbumName	=> $oldal->GetName,
-		NewAlbumId		=> $newal->GetId,
+		NewAlbumId		=> $newal->id,
 		NewAlbumName	=> $newal->GetName,
 		DiscId			=> $cdtoc->disc_id,
 		FullTOC			=> $cdtoc->toc,
-		CDTOCId			=> $cdtoc->GetId,
+		CDTOCId			=> $cdtoc->id,
 		AlreadyThere	=> $already_there ? 1 : 0,
 	);
 
@@ -133,7 +133,7 @@ sub DetermineQuality
 
 	my $rel = MusicBrainz::Server::Release->new($self->{DBH});
 	my $new = $self->{'new_unpacked'};
-	$rel->SetId($new->{NewAlbumId});
+	$rel->id($new->{NewAlbumId});
 	if ($rel->LoadFromId())
 	{
         return $rel->quality;        
@@ -177,7 +177,7 @@ sub DeniedAction
 	# (the mod is applied, we need to revert it when it is voted down)
 	require MusicBrainz::Server::Release;
 	my $oldal = MusicBrainz::Server::Release->new($self->{DBH});
-	$oldal->SetId($self->GetPrev);
+	$oldal->id($self->GetPrev);
 	unless ($oldal->LoadFromId)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "The source release has been deleted");
@@ -188,7 +188,7 @@ sub DeniedAction
 	# Check that the new album still exists
 	require MusicBrainz::Server::Release;
 	my $al = MusicBrainz::Server::Release->new($self->{DBH});
-	$al->SetId($new->{NewAlbumId});
+	$al->id($new->{NewAlbumId});
 	unless ($al->LoadFromId)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "The destination release has been deleted");

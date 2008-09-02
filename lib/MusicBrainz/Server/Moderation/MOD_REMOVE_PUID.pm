@@ -53,7 +53,7 @@ sub PreInsert
 	my $clientversion = $puidobj->FindPUIDClientVersion($puid);
 
 	my %new = (
-		TrackId => $track->GetId,
+		TrackId => $track->id,
 		ClientVersion => $clientversion,
 	);
 
@@ -83,11 +83,11 @@ sub DetermineQuality
 
     # Attempt to find the right release this track is attached to.
     my $tr = MusicBrainz::Server::Track->new($self->{DBH});
-    $tr->SetId($self->{"trackid"});
+    $tr->id($self->{"trackid"});
     if ($tr->LoadFromId())
     {
         my $rel = MusicBrainz::Server::Release->new($self->{DBH});
-        $rel->SetId($tr->release());
+        $rel->id($tr->release());
         if ($rel->LoadFromId())
         {
             return $rel->quality;        
@@ -96,7 +96,7 @@ sub DetermineQuality
 
     # if that fails, go by the artist
     my $ar = MusicBrainz::Server::Artist->new($self->{DBH});
-    $ar->SetId($tr->artist());
+    $ar->id($tr->artist());
     if ($ar->LoadFromId())
     {
         return $ar->quality;        
@@ -122,7 +122,7 @@ sub DeniedAction
 
 	require MusicBrainz::Server::Track;
 	my $track = MusicBrainz::Server::Track->new($self->{DBH});
-	$track->SetId($trackid);
+	$track->id($trackid);
 	unless ($track->LoadFromId)
 	{
 		$self->InsertNote(

@@ -57,7 +57,7 @@ sub PreInsert
         $self->{DBH},
         scalar($newlinktype->Types)
     );
-    $attr = $attr->newFromLinkId($link->GetId());
+    $attr = $attr->newFromLinkId($link->id());
     ($oldlinkphrase, $dummy) = $attr->ReplaceAttributes($oldlinkphrase, '');
     $attr->attributes([map { $_->{value} } @$newattrs]);
     ($newlinkphrase, $dummy) = $attr->ReplaceAttributes($newlinkphrase, '');
@@ -68,7 +68,7 @@ sub PreInsert
 		# Don't assign the edit to VA if we don't have to
 		if ($artistid == VARTIST_ID && @$entities[1]->{type} eq 'artist')
 		{
-			$self->artist(@$entities[1]->{obj}->GetId);
+			$self->artist(@$entities[1]->{obj}->id);
 		}
 		else
 		{
@@ -77,15 +77,15 @@ sub PreInsert
 	} 
 	elsif (@$entities[0]->{type} ne 'label')
 	{
-	    $self->artist(@$entities[0]->{obj}->GetId);
+	    $self->artist(@$entities[0]->{obj}->id);
 	}
 
     $self->table($link->Table);
     $self->SetColumn("id");
-    $self->row_id($link->GetId);
+    $self->row_id($link->id);
 
     my %new = (
-        linkid=>$link->GetId,
+        linkid=>$link->id,
         oldlinktypeid=>$oldlinktype->{id},
         newlinktypeid=>$newlinktype->{id},
         oldlinktypephrase=>$oldlinkphrase,
@@ -128,7 +128,7 @@ sub DetermineQuality
     if ($new->{newentity0type} eq 'album' || $new->{newentity1type} eq 'album')
     {
         my $rel = MusicBrainz::Server::Release->new($self->{DBH});
-        $rel->SetId($new->{newentity0type} eq 'album' ? $new->{newentity0id} : $new->{newentity1id});
+        $rel->id($new->{newentity0type} eq 'album' ? $new->{newentity0id} : $new->{newentity1id});
         if ($rel->LoadFromId())
         {
             return $rel->quality;        
@@ -137,7 +137,7 @@ sub DetermineQuality
     elsif ($new->{newentity0type} eq 'artist' || $new->{newentity1type} eq 'artist')
     {
         my $rel = MusicBrainz::Server::Artist->new($self->{DBH});
-        $rel->SetId($new->{newentity0type} eq 'artist' ? $new->{newentity0id} : $new->{newentity1id});
+        $rel->id($new->{newentity0type} eq 'artist' ? $new->{newentity0id} : $new->{newentity1id});
         if ($rel->LoadFromId())
         {
             return $rel->quality;        
@@ -225,7 +225,7 @@ sub ApprovedAction
 		my $attr = MusicBrainz::Server::Attribute->new(
 			$self->{DBH},
 			[$new->{oldentity0type}, $new->{oldentity1type}],
-			$link->GetId
+			$link->id
 		);
 		if ($attr)
 		{
@@ -259,7 +259,7 @@ sub ApprovedAction
 		if ($new->{newlinktypeid} != $asintypeid)
 		{
 			my $al = MusicBrainz::Server::Release->new($self->{DBH});
-			$al->SetId($new->{oldentity0id});
+			$al->id($new->{oldentity0id});
 
             MusicBrainz::Server::CoverArt->UpdateAmazonData($al, -1)
 				if ($al->LoadFromId(1));
@@ -271,7 +271,7 @@ sub ApprovedAction
 	{
 		# reverse case, link type changed _to_ Amazon AR
 		my $al = MusicBrainz::Server::Release->new($self->{DBH});
-		$al->SetId($new->{newentity0id});
+		$al->id($new->{newentity0id});
         MusicBrainz::Server::CoverArt->ParseAmazonURL($new->{newentity1name}, $al);
 		
 		# insert the asin data or ignore if already present

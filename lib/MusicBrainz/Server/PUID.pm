@@ -55,7 +55,7 @@ sub GetTrackIdsFromPUID
 	);
 }
 
-sub GetIdFromPUID
+sub id_from_puid
 {
 	my ($this, $PUID) = @_;
 	my $sql = Sql->new($this->{DBH});
@@ -100,7 +100,7 @@ sub Insert
     my ($this, $PUID, $trackid, $clientver) = @_;
 
     my $sql = Sql->new($this->{DBH});
-    my $id = $this->GetIdFromPUID($PUID);
+    my $id = $this->id_from_puid($PUID);
     $this->{new_insert} = 0;
 
     if (!defined $id)
@@ -163,11 +163,11 @@ sub Remove
     my ($this) = @_;
     my ($sql);
 
-    return undef if (!defined $this->GetId());
+    return undef if (!defined $this->id());
   
     $sql = Sql->new($this->{DBH});
-    $sql->Do("DELETE FROM puidjoin WHERE puid = ?", $this->GetId);
-    $sql->Do("DELETE FROM puid WHERE id = ?", $this->GetId);
+    $sql->Do("DELETE FROM puidjoin WHERE puid = ?", $this->id);
+    $sql->Do("DELETE FROM puid WHERE id = ?", $this->id);
 
     return 1;
 }

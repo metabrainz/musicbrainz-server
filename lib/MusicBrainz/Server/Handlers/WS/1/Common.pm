@@ -329,7 +329,7 @@ sub xml_artist
 	
 	if ($inc & INC_TAGS)
     {
-        xml_tags($ar->{DBH}, 'artist', $ar->GetId);
+        xml_tags($ar->{DBH}, 'artist', $ar->id);
     }
     if (defined $info)
     {
@@ -386,7 +386,7 @@ sub xml_release
     xml_artist($ar, 0) if ($inc & INC_ARTIST && $ar);
     xml_release_events($al, $inc) if ($inc & INC_RELEASEINFO || $inc & INC_COUNTS);
     xml_discs($al, $inc) if ($inc & INC_DISCS || $inc & INC_COUNTS);
-    xml_tags($al->{DBH}, 'release', $al->GetId) if ($inc & INC_TAGS);
+    xml_tags($al->{DBH}, 'release', $al->id) if ($inc & INC_TAGS);
     if ($inc & INC_TRACKS || $inc & INC_COUNTS && $ar)
     {
         xml_track_list($ar, $al, $inc) 
@@ -470,7 +470,7 @@ sub xml_release_events
 			{
 				print '>';
 				my $label = MusicBrainz::Server::Label->new($rel->{DBH});
-				$label->SetId($rel->GetLabel);
+				$label->id($rel->GetLabel);
 				$label->mbid($rel->label_mbid);
 				$label->SetName($rel->label_name);
 				xml_label($label, $inc);
@@ -540,11 +540,11 @@ sub xml_track_list
         foreach my $tr (@$tracks)
         {
 
-            if ($ar->GetId != $tr->artist)
+            if ($ar->id != $tr->artist)
             {
                 my $ar;
                 $ar = MusicBrainz::Server::Artist->new($tr->{DBH});
-                $ar->SetId($tr->artist);
+                $ar->id($tr->artist);
                 $ar->LoadFromId();
                 xml_track($ar, $tr, $tr_inc);
             }
@@ -595,7 +595,7 @@ sub xml_track
     }
     xml_puid($tr) if ($inc & INC_PUIDS);
     xml_relations($tr, 'track', $inc) if ($inc & INC_ARTISTREL || $inc & INC_LABELREL || $inc & INC_RELEASEREL || $inc & INC_TRACKREL || $inc & INC_URLREL);
-    xml_tags($tr->{DBH}, 'track', $tr->GetId) if ($inc & INC_TAGS);
+    xml_tags($tr->{DBH}, 'track', $tr->id) if ($inc & INC_TAGS);
     print '</track>';
 
     return undef;
@@ -608,7 +608,7 @@ sub xml_puid
 
     my $id;
     my $puid = MusicBrainz::Server::PUID->new($tr->{DBH});
-    my @PUID = $puid->GetPUIDFromTrackId($tr->GetId);
+    my @PUID = $puid->GetPUIDFromTrackId($tr->id);
     return undef if (scalar(@PUID) == 0);
     print '<puid-list>';
     foreach $id (@PUID)
@@ -663,7 +663,7 @@ sub xml_label
    }
 
     xml_relations($ar, 'label', $inc) if ($inc & INC_ARTISTREL || $inc & INC_LABELREL || $inc & INC_RELEASEREL || $inc & INC_TRACKREL || $inc & INC_URLREL);
-    xml_tags($ar->{DBH}, 'label', $ar->GetId) if ($inc & INC_TAGS);
+    xml_tags($ar->{DBH}, 'label', $ar->id) if ($inc & INC_TAGS);
     print "</label>";
 
     return undef;
@@ -705,7 +705,7 @@ sub load_object
         else
         {
             my $temp = MusicBrainz::Server::Artist->new($dbh);
-            MusicBrainz::Server::Validation::IsGUID($id) ? $temp->mbid($id) : $temp->SetId($id);
+            MusicBrainz::Server::Validation::IsGUID($id) ? $temp->mbid($id) : $temp->id($id);
             die "Could not load artist $id\n" if (!$temp->LoadFromId());
             $cache->{$k} = $temp;
             return $temp;
@@ -721,7 +721,7 @@ sub load_object
         else
         {
             my $temp = MusicBrainz::Server::Label->new($dbh);
-            MusicBrainz::Server::Validation::IsGUID($id) ? $temp->mbid($id) : $temp->SetId($id);
+            MusicBrainz::Server::Validation::IsGUID($id) ? $temp->mbid($id) : $temp->id($id);
             die "Could not load label $id\n" if (!$temp->LoadFromId());
             $cache->{$k} = $temp;
             return $temp;
@@ -737,7 +737,7 @@ sub load_object
         else
         {
             $temp = MusicBrainz::Server::Release->new($dbh);
-            MusicBrainz::Server::Validation::IsGUID($id) ? $temp->mbid($id) : $temp->SetId($id);
+            MusicBrainz::Server::Validation::IsGUID($id) ? $temp->mbid($id) : $temp->id($id);
             die "Could not load release $id\n" if (!$temp->LoadFromId());
             $cache->{$k} = $temp;
             return $temp;
@@ -753,7 +753,7 @@ sub load_object
         else
         {
             $temp = MusicBrainz::Server::Track->new($dbh);
-            MusicBrainz::Server::Validation::IsGUID($id) ? $temp->mbid($id) : $temp->SetId($id);
+            MusicBrainz::Server::Validation::IsGUID($id) ? $temp->mbid($id) : $temp->id($id);
             die "Could not load track $id\n" if (!$temp->LoadFromId());
             $cache->{$k} = $temp;
             return $temp;
@@ -767,7 +767,7 @@ sub xml_relations
     my ($obj, $type, $inc) = @_;
 
     require MusicBrainz::Server::Link;
-    my @links = MusicBrainz::Server::Link->FindLinkedEntities($obj->{DBH}, $obj->GetId, $type);
+    my @links = MusicBrainz::Server::Link->FindLinkedEntities($obj->{DBH}, $obj->id, $type);
     my (%rels);
     $rels{artist} = [];
     $rels{album} = [];
@@ -776,10 +776,10 @@ sub xml_relations
     {
         my $temp;
 
-        my $otype = $item->{"link" . (($item->{link0_id} == $obj->GetId && $item->{link0_type} eq $type) ? 1 : 0) . "_type"};
-        my $oid = $item->{"link" . (($item->{link0_id} == $obj->GetId && $item->{link0_type} eq $type) ? 1 : 0) . "_id"};
+        my $otype = $item->{"link" . (($item->{link0_id} == $obj->id && $item->{link0_type} eq $type) ? 1 : 0) . "_type"};
+        my $oid = $item->{"link" . (($item->{link0_id} == $obj->id && $item->{link0_type} eq $type) ? 1 : 0) . "_id"};
 
-        if ($item->{link0_id} == $obj->GetId && $item->{link0_type} eq $type)
+        if ($item->{link0_id} == $obj->id && $item->{link0_type} eq $type)
         {
              if (($inc & INC_ARTISTREL && $item->{link1_type} eq 'artist') ||
                  ($inc & INC_RELEASEREL && $item->{link1_type} eq 'album') ||

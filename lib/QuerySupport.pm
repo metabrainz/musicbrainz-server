@@ -527,7 +527,7 @@ sub SubmitTRMList
 	{
 	    # print STDERR "Unknown MB Track Id: $trackid\n";
 	} else {
-	    push @links, { trmid => $trmid, trackid => $trackobj->GetId };
+	    push @links, { trmid => $trmid, trackid => $trackobj->id };
 	}
    }
 
@@ -621,7 +621,7 @@ sub SubmitTRMFeedback
 	} else {
 	    require MusicBrainz::Server::TRM;
 	    my $trmobj = MusicBrainz::Server::TRM->new($sql->{DBH});
-	    $trmobj->IncrementUsageCount($trmid, $trackobj->GetId);
+	    $trmobj->IncrementUsageCount($trmid, $trackobj->id);
 	}
    }
 
@@ -1220,7 +1220,7 @@ sub artist_relationships
     }
 
     my $sql = Sql->new($dbh);
-    my @links = MusicBrainz::Server::Link->FindLinkedEntities($dbh, $ar->GetId, 'artist');
+    my @links = MusicBrainz::Server::Link->FindLinkedEntities($dbh, $ar->id, 'artist');
 
     return $rdf->CreateRelationshipList($parser, $ar, 'artist', \@links);
 }
@@ -1245,7 +1245,7 @@ sub GetAlbumRelationships
     }
 
     my $sql = Sql->new($dbh);
-    my @links = MusicBrainz::Server::Link->FindLinkedEntities($dbh, $al->GetId, 'album');
+    my @links = MusicBrainz::Server::Link->FindLinkedEntities($dbh, $al->id, 'album');
 
     return $rdf->CreateRelationshipList($parser, $al, 'album', \@links);
 }
@@ -1270,7 +1270,7 @@ sub GetTrackRelationships
     }
 
     my $sql = Sql->new($dbh);
-    my @links = MusicBrainz::Server::Link->FindLinkedEntities($dbh, $tr->GetId, 'track');
+    my @links = MusicBrainz::Server::Link->FindLinkedEntities($dbh, $tr->id, 'track');
 
     return $rdf->CreateRelationshipList($parser, $tr, 'track', \@links);
 }

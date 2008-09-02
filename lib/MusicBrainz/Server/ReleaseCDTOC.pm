@@ -41,7 +41,7 @@ use MusicBrainz::Server::LogFile qw( lprint lprintf );
 # Properties
 ################################################################################
 
-# GetId / SetId - see TableBase
+# id / id - see TableBase
 sub release_id	{ $_[0]{album} }
 sub GetCDTOCId	{ $_[0]{cdtoc} }
 # GetModPending / SetModPending - see TableBase
@@ -71,7 +71,7 @@ sub _release
 
 	require MusicBrainz::Server::Release;
 	my $release = MusicBrainz::Server::Release->new($self->{DBH});
-	$release->SetId($id);
+	$release->id($id);
 	$release->LoadFromId
 		and return $release;
 
@@ -104,7 +104,7 @@ sub newFromCDTOC
 	my $self = shift;
 	$self = $self->new(shift) if not ref $self;
 	my $cdtoc = shift;
-	my $id = (ref($cdtoc) ? $cdtoc->GetId : $cdtoc);
+	my $id = (ref($cdtoc) ? $cdtoc->id : $cdtoc);
 
 	my $sql = Sql->new($self->{DBH});
 	my $rows = $sql->SelectListOfHashes(
@@ -125,7 +125,7 @@ sub newFromRelease
 	my $self = shift;
 	$self = $self->new(shift) if not ref $self;
 	my $album = shift;
-	my $id = (ref($album) ? $album->GetId : $album);
+	my $id = (ref($album) ? $album->id : $album);
 
 	my $sql = Sql->new($self->{DBH});
 	my $rows = $sql->SelectListOfHashes(
@@ -164,9 +164,9 @@ sub newFromReleaseAndCDTOC
 	my $self = shift;
 	$self = $self->new(shift) if not ref $self;
 	my $album = shift;
-	my $albumid = (ref($album) ? $album->GetId : $album);
+	my $albumid = (ref($album) ? $album->id : $album);
 	my $cdtoc = shift;
-	my $cdtocid = (ref($cdtoc) ? $cdtoc->GetId : $cdtoc);
+	my $cdtocid = (ref($cdtoc) ? $cdtoc->id : $cdtoc);
 
 	my $sql = Sql->new($self->{DBH});
 	my $row = $sql->SelectSingleRowHash(
@@ -319,7 +319,7 @@ sub GenerateAlbumFromDiscid
 		for my $id (@$albumids)
 		{
 			my $al = MusicBrainz::Server::Release->new($self->{DBH});
-			$al->SetId($id);
+			$al->id($id);
 			$al->LoadFromId();
 			push @mbids, $al->mbid;
 		}
@@ -382,7 +382,7 @@ sub Insert
 	my $album = shift;
 	my $toc = shift;
 	my %opts = @_;
-	$album = $album->GetId if ref $album;
+	$album = $album->id if ref $album;
 	die "Expected a TOC string, not a '$toc'" if ref $toc;
 
 	require MusicBrainz::Server::CDTOC;
@@ -413,7 +413,7 @@ sub MoveToRelease
 {
 	my ($self, $album, $already_there_flagref) = @_;
 	my $sql = Sql->new($self->{DBH});
-	$album = $album->GetId if ref $album;
+	$album = $album->id if ref $album;
 
 	$$already_there_flagref = 0
 		if $already_there_flagref;
@@ -428,13 +428,13 @@ sub MoveToRelease
 			AND cdtoc = ?
 		)",
 		$album,
-		$self->GetId,
+		$self->id,
 		$album,
 		$self->GetCDTOCId,
 	) and return;
 
 	# Otherwise, it's already there; just delete this one
-	$sql->Do("DELETE FROM album_cdtoc WHERE id = ?", $self->GetId);
+	$sql->Do("DELETE FROM album_cdtoc WHERE id = ?", $self->id);
 	$$already_there_flagref = 1
 		if $already_there_flagref;
 }
@@ -445,8 +445,8 @@ sub MergeReleases
 	$self = $self->new(shift) if not ref $self;
 	my $oldalbum = shift;
 	my $newalbum = shift;
-	$oldalbum = $oldalbum->GetId if ref $oldalbum;
-	$newalbum = $newalbum->GetId if ref $newalbum;
+	$oldalbum = $oldalbum->id if ref $oldalbum;
+	$newalbum = $newalbum->id if ref $newalbum;
 
 	my $sql = Sql->new($self->{DBH});
 	$sql->Do(
@@ -467,8 +467,8 @@ sub Remove
 	my $self = shift;
 
 	my $sql = Sql->new($self->{DBH});
-    print STDERR "DELETE: Removed album_cdtoc where id was " . $self->GetId . "\n";
-	$sql->Do("DELETE FROM album_cdtoc WHERE id = ?", $self->GetId);
+    print STDERR "DELETE: Removed album_cdtoc where id was " . $self->id . "\n";
+	$sql->Do("DELETE FROM album_cdtoc WHERE id = ?", $self->id);
 	# TODO remove unused cdtoc?
 }
 

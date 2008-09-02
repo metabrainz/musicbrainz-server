@@ -49,7 +49,7 @@ sub PreInsert
 	$self->artist(DARTIST_ID);
 	$self->table($node->{_table}); 
 	$self->SetColumn("name");
-	$self->row_id($node->GetId);
+	$self->row_id($node->id);
 	$self->SetPrev($node->GetName . " (" . $node->GetDescription . ")");
 
 	my %new = (

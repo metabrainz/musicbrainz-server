@@ -46,7 +46,7 @@ sub PreInsert
 	$self->SetNew($newname);
 	$self->table("track");
 	$self->SetColumn("name");
-	$self->row_id($track->GetId);
+	$self->row_id($track->id);
 }
 
 sub IsAutoEdit
@@ -78,11 +78,11 @@ sub DetermineQuality
 
     # Attempt to find the right release this track is attached to.
 	my $tr = MusicBrainz::Server::Track->new($self->{DBH});
-    $tr->SetId($self->{trackid});
+    $tr->id($self->{trackid});
 	if ($tr->LoadFromId())
 	{
         my $rel = MusicBrainz::Server::Release->new($self->{DBH});
-        $rel->SetId($tr->release());
+        $rel->id($tr->release());
         if ($rel->LoadFromId())
         {
             return $rel->quality;        
@@ -91,7 +91,7 @@ sub DetermineQuality
 
     # if that fails, go by the artist
     my $ar = MusicBrainz::Server::Artist->new($self->{DBH});
-    $ar->SetId($tr->artist());
+    $ar->id($tr->artist());
     if ($ar->LoadFromId())
     {
         return $ar->quality;        
@@ -107,7 +107,7 @@ sub CheckPrerequisites
 	# Load the track by ID
 	require MusicBrainz::Server::Track;
 	my $track = MusicBrainz::Server::Track->new($self->{DBH});
-	$track->SetId($self->row_id);
+	$track->id($self->row_id);
 	unless ($track->LoadFromId)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This track has been deleted");

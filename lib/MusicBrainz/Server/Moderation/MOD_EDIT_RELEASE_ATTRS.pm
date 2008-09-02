@@ -79,7 +79,7 @@ sub PreInsert
 		my $prev = join ",", $al->attributes;
 		next if $prev eq $new{'Attributes'};
 
-		$new{"AlbumId$seq"} = $al->GetId;
+		$new{"AlbumId$seq"} = $al->id;
 		$new{"AlbumName$seq"} = $al->GetName;
 		$new{"Prev$seq"} = $prev;
 
@@ -104,7 +104,7 @@ sub PreInsert
 	# if in single edit mod, file moderation under release object.
 	# If all n releases are stored under artist x use this
 	# artist as the moderation artist, else VA.
-	$self->row_id($albums->[0]->GetId) if ($seq == 1);
+	$self->row_id($albums->[0]->id) if ($seq == 1);
 	$self->artist(
 		keys(%artists) > 1
 			? &ModDefs::VARTIST_ID
@@ -113,7 +113,7 @@ sub PreInsert
 
 	$self->table("album");
 	$self->SetColumn("id");
-	$self->row_id($albums->[0]->GetId);
+	$self->row_id($albums->[0]->id);
 	$self->SetNew($self->ConvertHashToNew(\%new));
 
 	# This mod is immediately applied, and undone later if rejected.
@@ -163,7 +163,7 @@ sub DetermineQuality
     if (scalar(@{$self->{'new_albums'}}) == 1)
     {
         my $rel = MusicBrainz::Server::Release->new($self->{DBH});
-        $rel->SetId($self->{new_albums}->[0]->{id});
+        $rel->id($self->{new_albums}->[0]->{id});
         if ($rel->LoadFromId())
         {
             $quality_level = $rel->quality;        
@@ -199,7 +199,7 @@ sub AdjustModPending
 
 	for my $album (@{ $self->{'new_albums'} })
 	{
-		$al->SetId($album->{'id'});
+		$al->id($album->{'id'});
 		$al->UpdateAttributesModPending($adjust);
 	}
 }
@@ -217,7 +217,7 @@ sub DeniedAction
 
  	for my $t (@{ $self->{'new_albums'} })
 	{
-		$al->SetId($t->{'id'});
+		$al->id($t->{'id'});
 		$al->LoadFromId;
 		$al->attributes(split /,/, $t->{'prev'});
   		$al->UpdateAttributes;

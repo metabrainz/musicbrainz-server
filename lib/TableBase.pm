@@ -67,14 +67,12 @@ sub SetDBH
     $_[0]->{DBH} = $_[1]; 
 }
 
-sub GetId
+sub id
 {
-   return $_[0]->{id};
-}
+    my ($self, $new_id) = @_;
 
-sub SetId
-{
-   $_[0]->{id} = $_[1];
+    if (defined $new_id) { $self->{id} = $new_id; }
+    return $self->{id};
 }
 
 sub GetName

@@ -46,7 +46,7 @@ sub PreInsert
 	$self->SetNew($newname);
 	$self->table("album");
 	$self->SetColumn("name");
-	$self->row_id($release->GetId);
+	$self->row_id($release->id);
 }
 
 sub PostLoad
@@ -61,7 +61,7 @@ sub DetermineQuality
 	my $self = shift;
 
 	my $rel = MusicBrainz::Server::Release->new($self->{DBH});
-	$rel->SetId($self->{albumid});
+	$rel->id($self->{albumid});
 	if ($rel->LoadFromId())
 	{
         return $rel->quality;        
@@ -83,7 +83,7 @@ sub CheckPrerequisites
 	# Load the album by ID
 	require MusicBrainz::Server::Release;
 	my $release = MusicBrainz::Server::Release->new($self->{DBH});
-	$release->SetId($self->row_id);
+	$release->id($self->row_id);
 	unless ($release->LoadFromId)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This release has been deleted");

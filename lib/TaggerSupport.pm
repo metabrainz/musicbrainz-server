@@ -366,7 +366,7 @@ sub ArtistSearch
        $this->{artist} = $$artists[0];
        return (ARTISTID, [ 
                            $this->SetSim(ARTISTID, {
-                             id=>$this->{artist}->GetId(),
+                             id=>$this->{artist}->id(),
                              mbid=>$this->{artist}->mbid(), 
                              name=>$this->{artist}->GetName(),
                              resolution=>$this->{artist}->resolution(),
@@ -377,7 +377,7 @@ sub ArtistSearch
    {
        foreach my $item (@$artists)
        {
-           push @ids, { id=>$item->GetId(),
+           push @ids, { id=>$item->id(),
                       name=>$item->GetName(),
                   sortname=>$item->sort_name(),
                       mbid=>$item->mbid(),
@@ -402,7 +402,7 @@ sub ArtistSearch
    {
        my $row = $engine->NextRow;
 
-       $ar->SetId($row->{'artistid'});
+       $ar->id($row->{'artistid'});
        if (defined $ar->LoadFromId())
        {
            $this->{artist} = $ar;     
@@ -411,7 +411,7 @@ sub ArtistSearch
            return (ARTISTID | FUZZY, 
                              [ 
                               $this->SetSim(ARTISTID, { 
-                                 id=>$ar->GetId(),
+                                 id=>$ar->id(),
                                  mbid=>$ar->mbid(), 
                                  name=>$ar->GetName(),
                                  resolution=>$ar->resolution(),
@@ -468,7 +468,7 @@ sub AlbumSearch
    # first check, if there are any exact matches for artist & album
    require MusicBrainz::Server::Release;
    $al = MusicBrainz::Server::Release->new($this->{DBH});
-   $al->artist($ar->GetId());
+   $al->artist($ar->id());
    my (@aids) = $al->GetAlbumListFromName($name);
 
    my @albums;
@@ -519,7 +519,7 @@ sub AlbumSearch
            }
            push @ids, $this->SetSim(ALBUMID, { 
                         artist=>$ar->GetName(),
-                        id=>$al->GetId(),
+                        id=>$al->id(),
                         name=>$al->GetName(),
                         mbid=>$al->mbid(),
                         album_tracks=>$al->track_count(),
@@ -565,7 +565,7 @@ sub AlbumSearch
            }
            push @ids, $this->SetSim(ALBUMID, { 
                         artist=>$ar->GetName(),
-                        id=>$al->GetId(),
+                        id=>$al->id(),
                         name=>$al->GetName(),
                         mbid=>$al->mbid(),
                         album_tracks=>$al->track_count(),
@@ -621,7 +621,7 @@ sub AlbumTrackSearch
    $sql = Sql->new($this->{DBH});
    if ($sql->Select(qq|select track.id, track.gid, track.name, track.length
                from Track 
-               where track.artist = | . $ar->GetId()))
+               where track.artist = | . $ar->id()))
    {
        my (@row, $namesim, $lensim, $sim);
 
@@ -775,7 +775,7 @@ sub TrackSearch
    $sql = Sql->new($this->{DBH});
    if ($sql->Select(qq|select track.id, track.gid, track.name, track.length, albumjoin.sequence
                          from Track, AlbumJoin 
-                        where albumjoin.album = | . $al->GetId() . qq| and
+                        where albumjoin.album = | . $al->id() . qq| and
                               albumjoin.track = track.id|))
    {
        my (@row, $namesim, $lensim, $sim);
@@ -803,7 +803,7 @@ sub TrackSearch
 
            push @ids, $this->SetSim(TRACKID, { id=>$row[0],
                         artist=>$ar->GetName(),
-                        albumid=>$al->GetId(),
+                        albumid=>$al->id(),
                         album=>$al->GetName(),
                         name=>$row[2], 
                         mbid=>$row[1],
@@ -829,7 +829,7 @@ sub VariousArtistSearch
 
    require MusicBrainz::Server::Artist;
    $ar = MusicBrainz::Server::Artist->new($this->{DBH});
-   $ar->SetId(&ModDefs::VARTIST_ID);
+   $ar->id(&ModDefs::VARTIST_ID);
    $ar->LoadFromId();
    $this->{artist} = $ar;     
 
@@ -851,7 +851,7 @@ sub VariousArtistSearch
    {
        my $row = $engine->NextRow;
 
-       $al->SetId($row->{'albumid'});
+       $al->id($row->{'albumid'});
        if (defined $al->LoadFromId())
        {
            $this->{artistid} = &ModDefs::VARTIST_MBID;
@@ -861,7 +861,7 @@ sub VariousArtistSearch
            return (ALBUMID, 
                              [ 
                               $this->SetSim(ALBUMID, { 
-                                 id=>$al->GetId(),
+                                 id=>$al->id(),
                                  artist=>$ar->GetName(),
                                  mbid=>$al->mbid(), 
                                  name=>$al->GetName(),

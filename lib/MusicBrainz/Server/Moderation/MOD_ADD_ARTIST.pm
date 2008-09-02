@@ -102,7 +102,7 @@ sub PreInsert
 		my $subs = UserSubscription->new($self->{DBH}); 
 		$subs->SetUser($self->moderator);
 		my $artist = MusicBrainz::Server::Artist->new($self->{DBH});
-		$artist->SetId($info{'artist_insertid'});
+		$artist->id($info{'artist_insertid'});
 		$subs->SubscribeArtists(($artist))
 			if ($artist->LoadFromId);
     }

@@ -73,7 +73,7 @@ sub new
 sub GetParentId		{ $_[0]->{parent} }
 sub SetParentId		{ $_[0]->{parent} = $_[1] }
 sub Parent			{ $_[0]->newFromId($_[0]->GetParentId) }
-sub Children		{ $_[0]->newFromParentId($_[0]->GetId) }
+sub Children		{ $_[0]->newFromParentId($_[0]->id) }
 sub GetDescription	{ return $_[0]->{description}; }
 sub SetDescription	{ $_[0]->{description} = $_[1]; }
 sub GetChildOrder	{ $_[0]->{childorder} }
@@ -149,7 +149,7 @@ sub newFromParentIdAndChildName
 ################################################################################
 
 sub Root { $_[0]->newFromId(0) or die }
-sub IsRoot { $_[0]->GetId == 0 }
+sub IsRoot { $_[0]->id == 0 }
 
 sub PathFromRoot
 {
@@ -160,7 +160,7 @@ sub PathFromRoot
 	{
 		unshift @path, $self;
 		last if $self->IsRoot;
-		last if $root and $self->GetId == $root->GetId;
+		last if $root and $self->id == $root->id;
 		$self = $self->Parent;
 	}
 
@@ -170,7 +170,7 @@ sub PathFromRoot
 sub GetNamedChild
 {
 	my ($self, $childname) = @_;
-	$self->newFromParentIdAndChildName($self->GetId, $childname);
+	$self->newFromParentIdAndChildName($self->id, $childname);
 }
 
 sub HasChildren
@@ -180,7 +180,7 @@ sub HasChildren
 
 	my $value = $sql->SelectSingleValue(
 		"select count(*) from link_attribute_type where parent = ?",
-		$self->GetId,
+		$self->id,
 	);
 	return $value > 0;
 }
@@ -196,7 +196,7 @@ sub AddChild
 	my $sql = Sql->new($self->{DBH});
 	$sql->Do(
 		"INSERT INTO link_attribute_type (parent, name, mbid, description, childorder) VALUES (?, ?, ?, ?, ?)",
-		$self->GetId,
+		$self->id,
 		$childname,
 		TableBase::CreateNewGlobalId(),
 		$desc,
@@ -212,7 +212,7 @@ sub InUse
 
 	my $value = $sql->SelectSingleValue(
 		"select count(*) from link_attribute where attribute_type = ?",
-		$self->GetId,
+		$self->id,
 	);
 	return $value > 0;
 }
@@ -225,7 +225,7 @@ sub Delete
 	# false.  If not, this statement might fail (FK violation).
 	$sql->Do(
 		"DELETE FROM link_attribute_type WHERE id = ?",
-		$self->GetId,
+		$self->id,
 	);
 }
 
@@ -239,7 +239,7 @@ sub Update
 		$self->GetChildOrder,
 		$self->GetName,
 		$self->GetDescription,
-		$self->GetId,
+		$self->id,
 	);
 }
 

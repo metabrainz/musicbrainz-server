@@ -52,7 +52,7 @@ sub PreInsert
 	my $artist;
 	# Get the artist from artist ARs
 	my @links = MusicBrainz::Server::Link->FindLinkedEntities(
-		$self->{DBH}, $urlobj->GetId, 'url', ('to_type' => 'artist')
+		$self->{DBH}, $urlobj->id, 'url', ('to_type' => 'artist')
 	);
 	$artist = $links[0]->{link0_id}
 		if (@links);
@@ -60,12 +60,12 @@ sub PreInsert
 	if (!$artist)
 	{
 		@links = MusicBrainz::Server::Link->FindLinkedEntities(
-			$self->{DBH}, $urlobj->GetId, 'url', ('to_type' => 'album')
+			$self->{DBH}, $urlobj->id, 'url', ('to_type' => 'album')
 		);
 		if (@links)
 		{
 			my $album = MusicBrainz::Server::Release->new($self->{DBH});
-			$album->SetId($links[0]->{link0_id});
+			$album->id($links[0]->{link0_id});
 			$artist = $album->artist
 				if ($album->LoadFromId(0));
 		}
@@ -74,12 +74,12 @@ sub PreInsert
 	if (!$artist)
 	{
 		@links = MusicBrainz::Server::Link->FindLinkedEntities(
-			$self->{DBH}, $urlobj->GetId, 'url', ('to_type' => 'track')
+			$self->{DBH}, $urlobj->id, 'url', ('to_type' => 'track')
 		);
 		if (@links)
 		{
 			my $track = MusicBrainz::Server::Track->new($self->{DBH});
-			$track->SetId($links[0]->{link0_id});
+			$track->id($links[0]->{link0_id});
 			$artist = $track->artist
 				if ($track->LoadFromId(0));
 		}
@@ -90,7 +90,7 @@ sub PreInsert
 	$self->SetNew($self->ConvertHashToNew(\%new));
 	$self->table("url");
 	$self->SetColumn("url");
-	$self->row_id($urlobj->GetId);
+	$self->row_id($urlobj->id);
 }
 
 sub PostLoad
@@ -112,7 +112,7 @@ sub DetermineQuality
     if (@links)
     {
         my $album = MusicBrainz::Server::Release->new($self->{DBH});
-        $album->SetId($links[0]->{link0_id});
+        $album->id($links[0]->{link0_id});
         return $album->quality
             if ($album->LoadFromId(0));
     }
@@ -123,7 +123,7 @@ sub DetermineQuality
     if (@links)
     {
         my $ar = MusicBrainz::Server::Artist->new($self->{DBH});
-        $ar->SetId($links[0]->{link0_id});
+        $ar->id($links[0]->{link0_id});
         return $ar->quality
             if ($ar->LoadFromId(0));
     }
@@ -152,7 +152,7 @@ sub ApprovedAction
 	$urlobj->UpdateURL;
 
 	my @links = MusicBrainz::Server::Link->FindLinkedEntities(
-			$self->{DBH}, $urlobj->GetId, 'url', ('to_type' => 'album')
+			$self->{DBH}, $urlobj->id, 'url', ('to_type' => 'album')
 	);
     for my $link (@links)
 	{
@@ -162,7 +162,7 @@ sub ApprovedAction
             $link->{link1_type} eq 'url')
         {
             my $al = MusicBrainz::Server::Release->new($self->{DBH});
-            $al->SetId($link->{link0_id});
+            $al->id($link->{link0_id});
             if ($al->LoadFromId(1))
             {
                 MusicBrainz::Server::CoverArt->ParseAmazonURL($link->{link0_name}, $al);
@@ -176,7 +176,7 @@ sub ApprovedAction
             $link->{link1_type} eq 'url')
         {
             my $al = MusicBrainz::Server::Release->new($self->{DBH});
-            $al->SetId($link->{link0_id});
+            $al->id($link->{link0_id});
             if ($al->LoadFromId(1))
             {
                 MusicBrainz::Server::CoverArt->ParseCoverArtURL($link->{link0_name}, $al);

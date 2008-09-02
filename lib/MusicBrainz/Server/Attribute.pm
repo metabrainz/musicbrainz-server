@@ -69,7 +69,7 @@ sub new
 ################################################################################
 
 sub Table		  	 { $_[0]{table} }
-# Get/SetId implemented by TableBase
+# Get/id implemented by TableBase
 sub GetNumAttributes { scalar(@{$_[0]{attributes}}) }
 sub GetAttributeType { $_[0]{attribute_type} }
 

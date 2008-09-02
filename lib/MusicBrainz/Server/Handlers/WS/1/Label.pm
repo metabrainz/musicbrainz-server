@@ -126,7 +126,7 @@ sub serve_from_db
 	if ($inc & INC_ALIASES) {
         require MusicBrainz::Server::Alias;
         my $alias = MusicBrainz::Server::Alias->new($mb->{DBH}, "LabelAlias");
-        my @list = $alias->GetList($ar->GetId);
+        my @list = $alias->GetList($ar->id);
         $info->{aliases} = \@list;
     }
 
