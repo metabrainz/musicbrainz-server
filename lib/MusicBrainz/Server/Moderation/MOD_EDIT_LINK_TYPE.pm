@@ -93,7 +93,7 @@ sub PreInsert
 		old_linkphrase		=> $node->GetLinkPhrase,
 		old_rlinkphrase		=> $node->GetReverseLinkPhrase,
 		old_shortlinkphrase	=> $node->GetShortLinkPhrase,
-		old_description		=> $node->GetDescription,
+		old_description		=> $node->description,
 		old_attribute		=> $node->attributes,
 		old_priority		=> $node->GetPriority,
 	);
@@ -103,7 +103,7 @@ sub PreInsert
 	$node->SetLinkPhrase($linkphrase);
 	$node->SetReverseLinkPhrase($rlinkphrase);
 	$node->SetShortLinkPhrase($shortlinkphrase);
-	$node->SetDescription($description);
+	$node->description($description);
 	$node->attributes($attribute);
 	$node->SetChildOrder($childorder);
 	$node->SetPriority($priority);

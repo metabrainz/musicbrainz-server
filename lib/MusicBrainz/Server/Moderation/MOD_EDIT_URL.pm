@@ -46,8 +46,8 @@ sub PreInsert
 	$new{'Desc'} = $desc;
 	
 	my %prev;
-	$prev{'URL'} = $urlobj->GetURL;
-	$prev{'Desc'} = $urlobj->GetDesc;
+	$prev{'URL'} = $urlobj->url;
+	$prev{'Desc'} = $urlobj->desc;
 
 	my $artist;
 	# Get the artist from artist ARs
@@ -141,14 +141,14 @@ sub ApprovedAction
 		$self->InsertNote(MODBOT_MODERATOR, "This URL has been deleted");
 		return STATUS_FAILEDPREREQ;
 	}
-	if ($urlobj->GetURL ne $self->{'prev_unpacked'}{'URL'} || $urlobj->GetDesc ne $self->{'prev_unpacked'}{'Desc'})
+	if ($urlobj->url ne $self->{'prev_unpacked'}{'URL'} || $urlobj->desc ne $self->{'prev_unpacked'}{'Desc'})
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This URL has already been changed");
 		return STATUS_FAILEDPREREQ;
 	}
 
-	$urlobj->SetURL($self->{'new_unpacked'}{'URL'});
-	$urlobj->SetDesc($self->{'new_unpacked'}{'Desc'});
+	$urlobj->url($self->{'new_unpacked'}{'URL'});
+	$urlobj->desc($self->{'new_unpacked'}{'Desc'});
 	$urlobj->UpdateURL;
 
 	my @links = MusicBrainz::Server::Link->FindLinkedEntities(

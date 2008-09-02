@@ -40,11 +40,27 @@ sub new
 }
 
 # Artist specific accessor function. Others are inherted from TableBase
-sub SetURL { $_[0]->{url} = $_[1]; }
-sub GetURL { return $_[0]->{url}; }
-sub SetDesc { $_[0]->{desc} = $_[1]; }
-sub GetDesc { return $_[0]->{desc}; }
-sub name { return $_[0]->GetURL; }
+sub url
+{
+    my ($self, $new_url) = @_;
+
+    if (defined $new_url) { $self->{url} = $new_url; }
+    return $self->{url};
+}
+
+sub desc
+{
+    my ($self, $new_desc) = @_;
+
+    if (defined $new_desc) { $self->{desc} = $new_desc; }
+    return $self->{desc};
+}
+
+sub name
+{
+    my ($self) = @_;
+    return $_[0]->url;
+}
 
 sub LoadFromId
 {
@@ -131,8 +147,8 @@ sub Insert
 	{
 		$sql->Do("UPDATE url SET refcount = refcount + 1 WHERE id = ?", $other->id);
 		$self->{id} = $other->id;
-		$self->{url} = $other->GetURL;
-		$self->{desc} = $other->GetDesc;
+		$self->{url} = $other->url;
+		$self->{desc} = $other->desc;
 		return 1;
 	}
 
@@ -158,10 +174,10 @@ sub UpdateURL
 
 	my $id = $self->id
 		or croak "Missing url ID in UpdateURL";
-	my $url = $self->GetURL;
+	my $url = $self->url;
 	defined($url) && $url ne ""
 		or croak "Missing url in UpdateURL";
-	my $desc = $self->GetDesc;
+	my $desc = $self->desc;
 
 	MusicBrainz::Server::Validation::TrimInPlace($url);
 

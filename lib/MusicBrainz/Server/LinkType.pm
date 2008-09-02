@@ -107,8 +107,14 @@ sub GetLinkPhrase   { $_[0]->{linkphrase} }
 sub SetLinkPhrase   { $_[0]->{linkphrase} = $_[1]; }
 sub GetReverseLinkPhrase   { $_[0]->{rlinkphrase} }
 sub SetReverseLinkPhrase   { $_[0]->{rlinkphrase} = $_[1]; }
-sub GetDescription         { $_[0]->{description} }
-sub SetDescription         { $_[0]->{description} = $_[1]; }
+
+sub description
+{
+    my ($self, $new_desc) = @_;
+
+    if (defined $new_desc) { $self->{description} = $new_desc; }
+    return $self->{description};
+}
 
 sub attributes
 {
@@ -305,7 +311,7 @@ sub Update
 		$self->name,
 		$self->GetLinkPhrase,
 		$self->GetReverseLinkPhrase,
-		$self->GetDescription,
+		$self->description,
 		$self->attributes,
 		$self->GetShortLinkPhrase,
 		$self->GetPriority,

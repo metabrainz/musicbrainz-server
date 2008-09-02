@@ -19,10 +19,10 @@ sub new_from_url
     my ($class, $url) = @_;
 
     return $class->new({
-        url         => $url->GetURL,
+        url         => $url->url,
         id          => $url->id,
         mbid        => $url->mbid,
-        description => $url->GetDesc,
+        description => $url->desc,
 
         _u          => $url,
     });

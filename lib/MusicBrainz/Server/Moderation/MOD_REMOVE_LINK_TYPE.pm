@@ -65,7 +65,7 @@ sub PreInsert
 		old_name        => $node->name(),
 		old_linkphrase  => $node->GetLinkPhrase(),
 		old_rlinkphrase => $node->GetReverseLinkPhrase(),
-		old_description => $node->GetDescription(),
+		old_description => $node->description(),
 		old_attribute   => $node->attributes(),
 	);
 

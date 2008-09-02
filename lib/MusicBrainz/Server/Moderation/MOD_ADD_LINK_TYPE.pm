@@ -87,7 +87,7 @@ sub PreInsert
 		linkphrase		=> $child->GetLinkPhrase,
 		rlinkphrase		=> $child->GetReverseLinkPhrase,
 		shortlinkphrase	=> $child->GetShortLinkPhrase,
-		description		=> $child->GetDescription,
+		description		=> $child->description,
 		attribute		=> $child->attributes,
 		priority		=> $child->GetPriority,
 	);

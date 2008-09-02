@@ -50,7 +50,7 @@ sub PreInsert
 	$self->table($node->{_table}); 
 	$self->SetColumn("name");
 	$self->row_id($node->id);
-	$self->SetPrev($node->name . " (" . $node->GetDescription . ")");
+	$self->SetPrev($node->name . " (" . $node->description . ")");
 
 	my %new = (
 		name    => $node->name(),

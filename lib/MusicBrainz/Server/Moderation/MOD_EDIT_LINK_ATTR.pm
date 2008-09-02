@@ -58,7 +58,7 @@ sub PreInsert
 	$self->table($node->{_table});
 	$self->SetColumn("name");
 	$self->row_id($node->id);
-	my $prev = $node->name . " (" . $node->GetDescription . ")";
+	my $prev = $node->name . " (" . $node->description . ")";
     $prev = substr($prev, 0, 251) . " ..." if (length($prev) > 255);
 	$self->SetPrev($prev);
 
@@ -73,7 +73,7 @@ sub PreInsert
 
 	$node->SetParentId($parent->id);
 	$node->name($name);
-	$node->SetDescription($desc);
+	$node->description($desc);
 	$node->SetChildOrder($childorder);
 	$node->Update;
 

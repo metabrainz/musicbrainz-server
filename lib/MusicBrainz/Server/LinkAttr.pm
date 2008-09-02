@@ -70,12 +70,18 @@ sub new
 # Properties
 ################################################################################
 
+sub description
+{
+    my ($self, $new_desc) = @_;
+
+    if (defined $new_desc) { $self->{description} = $new_desc; }
+    return $self->{description};
+}
+
 sub GetParentId		{ $_[0]->{parent} }
 sub SetParentId		{ $_[0]->{parent} = $_[1] }
 sub Parent			{ $_[0]->newFromId($_[0]->GetParentId) }
 sub Children		{ $_[0]->newFromParentId($_[0]->id) }
-sub GetDescription	{ return $_[0]->{description}; }
-sub SetDescription	{ $_[0]->{description} = $_[1]; }
 sub GetChildOrder	{ $_[0]->{childorder} }
 sub SetChildOrder	{ $_[0]->{childorder} = $_[1] }
 
@@ -238,7 +244,7 @@ sub Update
 		$self->GetParentId,
 		$self->GetChildOrder,
 		$self->name,
-		$self->GetDescription,
+		$self->description,
 		$self->id,
 	);
 }
