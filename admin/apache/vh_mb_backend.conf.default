@@ -1,0 +1,112 @@
+# vi: set ts=4 sw=4 ft=apache :
+
+<VirtualHost *:*>
+	# TODO: Enter the name of your server.  You should have two names
+	# available: one for web browsing (HTML), and one for web services (RDF).
+	ServerName www.musicbrainz.example.com
+	ServerAlias rdf.musicbrainz.example.com
+
+	# TODO: This needs to point to where the htdocs are
+	DocumentRoot "/home/httpd/musicbrainz/mb_server/htdocs"
+	# TODO: This needs to point to where the cgi-bin scripts are
+	Alias /cgi-bin/ "/home/httpd/musicbrainz/mb_server/cgi-bin/"
+
+	DefaultType text/html
+
+	# TODO: This directory needs to be the same as DocumentRoot above
+	<Directory /home/httpd/musicbrainz/mb_server/htdocs>
+		<Files "*.html">
+			SetHandler perl-script
+			PerlHandler MusicBrainz::Server::Mason
+		</Files>
+	</Directory>
+
+	<Location /cgi-bin>
+	   SetHandler  perl-script
+	   PerlHandler Apache::Registry
+	   Options +ExecCGI
+	</Location>
+
+	PerlModule Apache::DBI
+	# TODO: Where to find startup.pl
+	PerlRequire /home/httpd/musicbrainz/mb_server/admin/apache/startup.pl
+
+	# Most of the URL rewriting is done by this:
+	PerlTransHandler MusicBrainz::Server::Handlers::TransHandler
+
+	# But some is done here:
+	RewriteEngine on
+	# Include rewrite-rules shared by backend and frontend ;
+	# Should be commented if you run the server with a backend and a frontend
+	Include /home/httpd/musicbrainz/mb_server/admin/apache/rewrite.conf
+
+	# Uncomment this line to automatically reload modified Perl modules
+	# without having to restart Apache.
+	#PerlInitHandler Apache::Reload
+
+	# new web service rules -- these should probably be moved into the Handlers.pm module
+	PerlModule MusicBrainz::Server::Handlers::WS::1::Artist
+	<Location /ws/1/artist>
+		SetHandler perl-script
+		PerlHandler MusicBrainz::Server::Handlers::WS::1::Artist
+	</Location>
+
+	PerlModule MusicBrainz::Server::Handlers::WS::1::Label
+	<Location /ws/1/label>
+		SetHandler perl-script
+		PerlHandler MusicBrainz::Server::Handlers::WS::1::Label
+	</Location>
+
+	PerlModule MusicBrainz::Server::Handlers::WS::1::Release
+	<Location /ws/1/release>
+		SetHandler perl-script
+		PerlHandler MusicBrainz::Server::Handlers::WS::1::Release
+	</Location>
+
+	PerlModule MusicBrainz::Server::Handlers::WS::1::Track
+	<Location /ws/1/track>
+		SetHandler perl-script
+		PerlHandler MusicBrainz::Server::Handlers::WS::1::Track
+
+		PerlAuthenHandler MusicBrainz::Server::Handlers::WS::1::Auth
+		Require valid-user
+		AuthType Digest
+		AuthName "musicbrainz.org"
+		PerlSetVar DigestRealm "musicbrainz.org"
+	</Location>
+
+	PerlModule MusicBrainz::Server::Handlers::WS::1::User
+	<Location /ws/1/user>
+		PerlHandler MusicBrainz::Server::Handlers::WS::1::User
+		SetHandler perl-script
+
+		PerlAuthenHandler MusicBrainz::Server::Handlers::WS::1::Auth
+		Require valid-user
+		AuthType Digest
+		AuthName "musicbrainz.org"
+		PerlSetVar DigestRealm "musicbrainz.org"
+	</Location>
+
+	PerlModule MusicBrainz::Server::Handlers::WS::1::Tag
+	<Location /ws/1/tag>
+		SetHandler perl-script
+		PerlHandler MusicBrainz::Server::Handlers::WS::1::Tag
+    
+		PerlAuthenHandler MusicBrainz::Server::Handlers::WS::1::Auth
+		Require valid-user
+		AuthType Digest
+		AuthName "musicbrainz.org"
+		PerlSetVar DigestRealm "musicbrainz.org"
+	</Location>
+
+	PerlModule MusicBrainz::Server::Handlers::WS::Private::Lookup
+	<Location /ws/priv/lookup>
+		SetHandler perl-script
+		PerlHandler MusicBrainz::Server::Handlers::WS::Private::Lookup
+	</Location>
+
+</VirtualHost>
+
+PerlRestartHandler MusicBrainz::Server::LogFile::RestartHandler
+
+# eof
