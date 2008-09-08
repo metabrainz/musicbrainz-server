@@ -27,7 +27,7 @@
 	#
 </%perl>
 
-	<& /comp/header, nosidebar => 1, @_ &>
+	<& /comp/header, nosidebar => 1, nosmallfonts => 0, noentityicons => 0, @_ &>
 
 	<div style="margin: 2em">
 
