@@ -207,9 +207,7 @@ sub AddReleaseWithId
 {
 	my($releaseId, $collectionId, $rawdbh) = @_;
 	
-	
 	my $rawsql=Sql->new($rawdbh);
-	
 	
 	eval
 	{
@@ -217,28 +215,24 @@ sub AddReleaseWithId
 		$rawsql->Quiet(1);
 		
 		# add MBID to the collection
-		$rawsql->Do('INSERT INTO collection_has_release_joinasd (collection_info, album) VALUES (?, ?)', $collectionId, $releaseId);
-		
-		# increase add count
-		#$this->{addAlbum_insertCount}++;
+		$rawsql->Do('INSERT INTO collection_has_release_join (collection_info, album) VALUES (?, ?)', $collectionId, $releaseId);
 	};
 	
 	if($@)
 	{			
-		if($@ =~ /duplicate/) # it is a duplicate... add it to the array of duplicates
+		if($@ =~ /duplicate/) # it is a duplicate...
 		{
-			my $err = "$@";
-			use Carp qw( cluck );
-			cluck $err;
-			die($err);
-			#push(@{$this->{addAlbum_duplicateArray}}, $mbid);
+
 		}
 		else
 		{
-			die($@);
+			my $err = $@;
+			use Carp qw( cluck );
+			cluck $err;
+			die($err);
 		}
 		
-		$rawsql->Rollback();	
+		$rawsql->Rollback();
 	}
 	else
 	{

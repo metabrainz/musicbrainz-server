@@ -76,7 +76,7 @@
 		
 		if($addtocollection == 1)
 		{
-			MusicBrainz::Server::Collection::AddReleaseWithId($mbraw->{DBH}, $releaseid, $collectionId, $mbid);
+			MusicBrainz::Server::Collection::AddReleaseWithId($releaseid, $collectionId, $mbraw->{DBH}, $mbid);
 		}
 		else
 		{
