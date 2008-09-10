@@ -32,6 +32,7 @@
 	$offset => undef
 	$page => undef
 	$pagesize => undef
+	$show_freedb => undef
 
 	$report_title => "Browse results"
 	$report_text => ""
@@ -95,6 +96,11 @@
 		<tr class="header">
 			<td class="left padright">Artist Name</td>
 			<td class="left padright">Release Name</td>
+%			if ($show_freedb)
+%			{
+			<td class="left padright">Tracks</td>
+			<td class="left padright">FreeDB Search Link</td>
+%			}				
 		</tr>
 
 %		for my $i (0 .. $pagesize-1)
@@ -117,6 +123,16 @@
 					name => $row->{album_name},
 					modpending => $row->{'album_modpending'},
 					strong => 0 &></td>
+%			if ($show_freedb)
+%			{
+			<td><% $row->{album_tracks} |n %></td>
+			<td class="left padright">
+%				my $artist = MusicBrainz::Server::LuceneSearch::EscapeQuery($row->{'artist_name'});
+%				my $release = MusicBrainz::Server::LuceneSearch::EscapeQuery($row->{'album_name'});
+%				my $query =	"artist:(".$artist.") title:(".$release.") " . ($row->{album_tracks} ? "tracks:".$row->{album_tracks} : "");	
+				<a href="/search/textsearch.html?type=freedb&query=<% uri_escape($query) %>&adv=on&handlearguments=1">Search in FreeDb</a>
+			</td>
+%			}				
 		</tr>
 
 % 		}

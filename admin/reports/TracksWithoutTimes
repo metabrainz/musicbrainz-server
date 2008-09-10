@@ -46,9 +46,11 @@ sub GatherData
 			ar.modpending AS artist_modpending,
 			al.id AS album_id,
 			al.name AS album_name,
-			al.modpending AS album_modpending
+			al.modpending AS album_modpending,
+			am.tracks AS album_tracks
 		FROM
 			artist ar, album al,
+			albummeta am,
 			(SELECT
 				DISTINCT aj.album
 			FROM
@@ -60,6 +62,7 @@ sub GatherData
 		WHERE
 			q.album = al.id
 			AND al.artist = ar.id
+			AND am.id = al.id
 		ORDER BY
 			LOWER(ar.sortname), LOWER(al.name)
 EOF

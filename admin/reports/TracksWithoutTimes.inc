@@ -38,6 +38,8 @@
 		qq! This report lists all releases which contain tracks
 			where the track time is not set.!;
 
+	$ARGS{"show_freedb"} = 1;
+
 	$m->comp("/reports/show_albums.inc", %ARGS);
 
 </%perl>
