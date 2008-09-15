@@ -283,6 +283,7 @@ sub GetMissingMBIDs
 		for my $attribute (@showTypes)
 		{
 			$showAttributesCondition .= ' AND ' . $attribute . ' <> ALL (album.attributes[2:5])';
+			print STDERR "\n\nshowTypes:".Dumper(@showTypes)."\n\n";
 		}
 		
 		print STDERR "\n $showAttributesCondition \n";
