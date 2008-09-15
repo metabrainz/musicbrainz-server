@@ -208,6 +208,7 @@ sub AddReleaseWithId
 	my($releaseId, $collectionId, $rawdbh) = @_;
 	
 	my $rawsql=Sql->new($rawdbh);
+	print STDERR "\n\n\n\n THE VALUES: $collectionId $releaseId \n\n";
 	
 	eval
 	{

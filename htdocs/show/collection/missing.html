@@ -65,7 +65,7 @@ my $collectionInfo = MusicBrainz::Server::CollectionInfo->new($session{uid}, $mb
 # if a release id is specified in in the removerelease get variable remove this release from collection
 if(defined($addrelease))
 {
-	MusicBrainz::Server::Collection::AddReleaseWithId($mbraw->{DBH}, $addrelease, $collectionId);
+	MusicBrainz::Server::Collection::AddReleaseWithId($addrelease, $collectionId, $mbraw->{DBH});
 }
 
 
