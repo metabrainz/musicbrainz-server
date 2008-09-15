@@ -310,7 +310,9 @@ sub GetShowTypes
 	$showTypesPrefString =~ s/^\{(.*)\}$/$1/;
 	my @showTypesPref = split(',', $showTypesPrefString); # ref to array containing identifiers of types to show currently in the prefs
 	
-	return @showTypesPref;
+	#print STDERR "\n\nshowTypes: $showTypes \n showTypesPref:".Dumper(@showTypesPref)."\n\n\n";
+	
+	return \@showTypesPref;
 }
 
 
