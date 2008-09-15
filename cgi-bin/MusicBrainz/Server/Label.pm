@@ -868,7 +868,7 @@ sub GetLabelDisplayList
 # The returned array is empty on error.
 sub GetReleases
 {
-	my ($this) = @_;
+	my ($this, $loadmeta) = @_;
 	my $sql = Sql->new($this->{DBH});
 	my $query = qq/
 		SELECT
@@ -885,7 +885,9 @@ sub GetReleases
 			tracks,
 			discids,
 			puids,
-			artist.name as artistname
+			artist.name as artistname,
+			rating,
+			rating_count
 		FROM
 			release, album, albummeta, artist
 		WHERE
@@ -916,6 +918,8 @@ sub GetReleases
 			$album->{discidcount} = $row[11];
 			$album->{puidcount} = $row[12] || 0;
 			$album->{artistname} = $row[13];
+			$album->{rating} = $row[14];
+			$album->{rating_count} = $row[15];
 			push @albums, $album;
 		}
 	}

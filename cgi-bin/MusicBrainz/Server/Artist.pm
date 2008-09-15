@@ -981,7 +981,8 @@ sub GetReleases
        {
            $query = qq/select album.id, name, modpending, GID, attributes,
                               language, script, quality, modpending_qual, tracks, discids, 
-                              firstreleasedate, coverarturl, asin, puids
+                              firstreleasedate, coverarturl, asin, puids,
+                              rating, rating_count
                        from Album, Albummeta 
                        where artist=$this->{id} and albummeta.id = album.id/;
        }
@@ -1018,6 +1019,8 @@ sub GetReleases
                     $album->{coverarturl} = $row[12]||"";
                     $album->{asin} = $row[13]||"";
                     $album->{puidcount} = $row[14]||0;
+                    $album->{rating} = $row[15]||0;
+                    $album->{rating_count} = $row[16]||0;
                 }
 
                 push @albums, $album;

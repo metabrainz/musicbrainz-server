@@ -538,6 +538,8 @@ sub LoadAlbumMetadata
 		$this->{firstreleasedate} = $row->{firstreleasedate} || "";
 		$this->{coverarturl} = $row->{coverarturl};
 		$this->{asin} = $row->{asin};
+		$this->{rating} = $row->{rating} || 0;
+		$this->{rating_count} = $row->{rating_count} || 0;
 	} else {
 		cluck "No albummeta row for album #".$this->GetId;
 		delete @$this{qw( trackcount discidcount puidcount firstreleasedate )};
@@ -662,7 +664,7 @@ sub LoadFromId
 	my $row = $sql->SelectSingleRowArray(
 		"SELECT	a.id, name, gid, modpending, artist, attributes, "
 		. "       language, script, modpending_lang, quality, modpending_qual"
-		. ($loadmeta ? ", tracks, discids, firstreleasedate,coverarturl,asin,puids" : "")
+		. ($loadmeta ? ", tracks, discids, firstreleasedate,coverarturl,asin,puids,rating,rating_count" : "")
 		. " FROM album a"
 		. ($loadmeta ? " INNER JOIN albummeta m ON m.id = a.id" : "")
 		. " WHERE	a.$idcol = ?",
@@ -680,7 +682,7 @@ sub LoadFromId
 		$row = $sql->SelectSingleRowArray(
 			"SELECT	a.id, name, gid, modpending, artist, attributes, "
 			. "       language, script, modpending_lang, quality, modpending_qual"
-			. ($loadmeta ? ", tracks, discids, firstreleasedate,coverarturl,asin,puids" : "")
+			. ($loadmeta ? ", tracks, discids, firstreleasedate,coverarturl,asin,puids,rating,rating_count" : "")
 			. " FROM album a"
 			. ($loadmeta ? " INNER JOIN albummeta m ON m.id = a.id" : "")
 			. " WHERE	a.id = ?",
@@ -711,6 +713,8 @@ sub LoadFromId
 		$this->{coverarturl}=$row->[14] || "";
 		$this->{asin}=$row->[15] || "";
 		$this->{puidcount}		= $row->[16];
+		$this->{rating}			= $row->[17];
+		$this->{rating_count}	= $row->[18];
 	}
 
 	1;
@@ -746,7 +750,7 @@ sub GetAlbumListFromName
 # The array is empty if there are no tracks or on error
 sub LoadTracks
 {
-	my ($this) = @_;
+	my ($this, $loadmeta) = @_;
 	my (@info, $query, $sql, @row, $track);
 
 	$sql = Sql->new($this->{DBH});
@@ -770,12 +774,15 @@ sub LoadTracks
 					Artist.name, 
 					Track.gid,
 					AlbumJoin.album
+		/. ($loadmeta ? ", rating, rating_count" : "") .qq/
 			from 
 				Track, AlbumJoin, Artist 
+		/. ($loadmeta ? ", track_meta" : "") .qq/
 			where 
 				AlbumJoin.track = Track.id and 
 				AlbumJoin.album = ? and 
 				Track.Artist = Artist.id
+		/. ($loadmeta ? "and track.id = track_meta.id" : "") .qq/
 			order by /;
 	
 	$query .= $this->IsNonAlbumTracks() ? " Track.name " : " AlbumJoin.sequence ";
@@ -796,6 +803,13 @@ sub LoadTracks
 			$track->SetArtistName($row[7]);
 			$track->SetMBId($row[8]);
 			$track->SetRelease($row[9]);
+
+            if (defined $loadmeta && $loadmeta)
+            {
+                $track->{rating} = $row[10];
+                $track->{rating_cournt} = $row[11];
+			}
+
 			push @info, $track;
 		}
 	}
