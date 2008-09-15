@@ -68,6 +68,7 @@
 	$showtrackartiststoggle => 0
 
     $folksonomy => 0
+	$showratings => 0
 
 </%args>
 <%perl>
@@ -78,7 +79,7 @@
 	$mb = $m->comp("/comp/dblogin") if (not defined $mb);
 
 	# always load multiple artist tracks
-	my @info = ($tracks ? @$tracks : $album->LoadTracks());
+	my @info = ($tracks ? @$tracks : $album->LoadTracks(1));
 
 	if ($showcollapsed)
 	{
@@ -100,7 +101,8 @@
 				link => $url,
 				showtag => $showtag,
 				tagchecked => $tagchecked,
-                folksonomy => $folksonomy
+                folksonomy => $folksonomy,
+				showratings => $showratings,
 			);
 	}
 	else
@@ -116,7 +118,8 @@
 				showrelationships => $showrelationships,
 				showtrackartiststoggle => $showtrackartiststoggle,
 				showrelationshipstoggle => $showrelationshipstoggle,
-                folksonomy => $folksonomy
+                folksonomy => $folksonomy,
+				showratings => $showratings,
 			);
 	}
 
@@ -148,7 +151,8 @@
 				mbt => $mbt,
 				showtrackartists => $showtrackartists,
 				showrelationships => $showrelationships,
-				highlightonly => $highlightonly
+				highlightonly => $highlightonly,
+				showratings => $showratings,
 			);
 		}
 	}

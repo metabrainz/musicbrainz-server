@@ -32,6 +32,8 @@
 
 <& /comp/sidebar, pagetitle => ($is_me ? "My" : $user->GetName . "'s") . " Ratings" &>
 
+	<script type="text/javascript" src="/scripts/ratings.js"></script>
+
 [ Show ratings for:
 % if ($show ne 'all') {
     <a href="/user/ratings/?userid=<% $userid %>&amp;show=all">all</a> |
@@ -72,7 +74,7 @@
 							name => $entity->{"name"}
 						&></td>
 						<td><& /comp/ratingsbox, entity_id => $entity->{"id"}, entity_type => $type, 
-                                short => 1,
+                                small => 1,
                                 rating => { rating => $entity->{"rating"} } &></td>
 					</tr>
 %				}

@@ -264,6 +264,9 @@
 				<th>Language</th>
 				<th><a href="<% $labelurl %>?order=date">Date</a></th>
 				<th><a href="<% $labelurl %>?order=catno">Catalog #</a></th>
+% 		if (UserPreference::get("show_ratings")) {
+				<th><a href="<% $labelurl %>?order=catno">Rating</a></th>
+%		}
 				<th><a href="<% $labelurl %>?order=artist">Artist</a></th>
 				<th><a href="<% $labelurl %>?order=title">Title</a></th>
 			</td>
@@ -290,6 +293,15 @@
 <td class="lang"><& /comp/language, $album->GetLanguage, $album->GetScript &></td>
 <td class="rdate"><& /comp/releasedate, $album->{releasedate} &></td>
 <td class="catno"><% $album->{catno} %></td>
+%				 	if (UserPreference::get("show_ratings")) {
+<td class="">
+	<& /comp/ratingsbox, 
+		"entity_id" => $album->GetId, 
+		"entity_type" => "release", 
+		"small" => 1, 
+		"rating" => { "rating" => $album->{"rating"}} &>
+</td>
+%					}
 <td class="rname"><a href="/show/artist/?artistid=<% $album->GetArtist %>"><% $album->{artistname} %></a></td>
 <td class="rname">
 %					if ($session{tport}) {
