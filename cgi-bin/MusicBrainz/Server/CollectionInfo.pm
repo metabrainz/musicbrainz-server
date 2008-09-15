@@ -288,6 +288,7 @@ sub GetMissingMBIDs
 		
 		print STDERR "\n $showAttributesCondition \n";
 		
+		print STDERR "\n\n\n\n\n\n\ncount:".@$showTypes."\n\n\n\n\n";
 		
 		if(@{$hasReleaseIds})
 		{		
