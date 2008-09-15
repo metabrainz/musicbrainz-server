@@ -45,7 +45,7 @@
 	my @showTypes; # array containing the release types to display releases of
 	my $ignoreTypes = MusicBrainz::Server::CollectionPreference::GetTypeIdentifiers(); # hash containing types to ignore, and dummy values
 	my $releaseTypes = MusicBrainz::Server::CollectionPreference::GetReleaseTypes();
-	my $releaseTypes = MusicBrainz::Server::CollectionPreference::GetStatusTypes();
+	my $statusTypes = MusicBrainz::Server::CollectionPreference::GetStatusTypes();
 	
 	
 	print STDERR 'IGNORED types:'.Dumper(values(%$ignoreTypes));
@@ -170,10 +170,10 @@
 		<br/>
 		<div>
 			I want to be notified and see missing releases of the following status:
-%		for my $key (keys %{$releaseTypes})
+%		for my $key (keys %{$statusTypes})
 %		{
 			<div>
-				<input type="checkbox" name="<%perl>$m->out($releaseTypes->{$key}[0]);</%perl>" id="pref_<%perl>$m->out($releaseTypes->{$key}[0]);</%perl>"<%perl>$m->out(' value="' . $key . '"');
+				<input type="checkbox" name="<%perl>$m->out($statusTypes->{$key}[0]);</%perl>" id="pref_<%perl>$m->out($statusTypes->{$key}[0]);</%perl>"<%perl>$m->out(' value="' . $key . '"');
 				
 				if($show_type{$key} != 1)
 				{
@@ -186,9 +186,9 @@
 				
 				</%perl>/>
 				<label for="<%perl>
-					$m->out('pref_'.$releaseTypes->{$key}[0]);
+					$m->out('pref_'.$statusTypes->{$key}[0]);
 				</%perl>">
-%					$m->out($releaseTypes->{$key}[1]);# . ' - ' . $releaseTypes{$key}[2];
+%					$m->out($statusTypes->{$key}[1]);# . ' - ' . $statusTypes{$key}[2];
 </label>
 			</div>
 %		}
