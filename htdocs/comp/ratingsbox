@@ -64,7 +64,7 @@
 %		{
 			Your rating: <span id="USER-RATING::<% $entity_type ."::". $entity_id %>"><% $user_rating || "none" %></span> - 
 %		}
-			Votes: <span id="VOTES-RATING::<% $entity_type ."::". $entity_id %>"><% $rating->{"rating_count"} %></span> )
+			Votes: <span id="VOTES-RATING::<% $entity_type ."::". $entity_id %>"><% $rating->{"rating_count"} || "0" %></span> )
 	</small>
 %	}
 

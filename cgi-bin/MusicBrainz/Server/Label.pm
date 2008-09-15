@@ -299,6 +299,11 @@ sub Remove
 	my $tag = MusicBrainz::Server::Tag->new($sql->{DBH});
 	$tag->RemoveLabels($this->GetId);
 
+    # Remove ratings
+	require MusicBrainz::Server::Rating;
+	my $ratings = MusicBrainz::Server::Rating->new($sql->{DBH});
+	$ratings->RemoveLabels($this->GetId);
+
 	# Remove references from label words table
 	require SearchEngine;
 	my $engine = SearchEngine->new($this->{DBH}, 'label');
@@ -338,6 +343,10 @@ sub MergeInto
 	require MusicBrainz::Server::Tag;
 	my $tag = MusicBrainz::Server::Tag->new($sql->{DBH});
 	$tag->MergeLabels($o, $n);
+
+	require MusicBrainz::Server::Rating;
+	my $ratings = MusicBrainz::Server::Rating->new($sql->{DBH});
+	$ratings->MergeLabels($o, $n);
 
 	$sql->Do("UPDATE release           SET label = ? WHERE label = ?", $n, $o);
 	$sql->Do("UPDATE moderation_closed SET rowid = ? WHERE tab = 'label' AND rowid = ?", $n, $o);

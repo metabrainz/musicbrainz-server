@@ -59,12 +59,12 @@ sub Update
  			
 		# Update the aggregate rating
 		my $rating_sum;
-		($rating_count, $rating_sum) = @{
-			$rawdb->SelectSingleRowArray("SELECT count(rating), sum(rating) 
-            								FROM $assoc_table_raw
- 	                                        WHERE $entity_type = ? GROUP BY $entity_type", $entity_id)
-		};
-		$rating = ($rating_count eq 0) ? undef : $rating_sum/$rating_count;
+		my $row = $rawdb->SelectSingleRowArray("SELECT count(rating), sum(rating) 
+    	    								FROM $assoc_table_raw
+ 	    	                                WHERE $entity_type = ? GROUP BY $entity_type", $entity_id);
+		($rating_count, $rating_sum) = ($row ? @$row : (undef, undef));
+
+		$rating = ($rating_count ? $rating_sum/$rating_count : undef);
 
 		$maindb->Do("UPDATE $assoc_table 
 	        	       	SET rating_count = ?, rating = ? 
@@ -121,16 +121,16 @@ sub Merge
         }
     }
 
-    # Delete unused ratings (only in raw B, triggers should handle ratings deletion in main DB)
+    # Delete unused ratings (only raw ones, triggers should handle deletion of ratings in main DB)
     $rawdb->Do("DELETE FROM $assoc_table_raw WHERE $entity_type = ?", $old_entity_id);
 
 	# Update the aggregate rating
-	my ($rating_count, $rating_sum) = @{
-		$rawdb->SelectSingleRowArray("SELECT count(rating), sum(rating) 
+	my $row = $rawdb->SelectSingleRowArray("SELECT count(rating), sum(rating) 
         								FROM $assoc_table_raw
- 	                                    WHERE $entity_type = ? GROUP BY $entity_type", $new_entity_id)
-	};
-	my $rating = ($rating_count eq 0 ? undef : $rating_sum/$rating_count);
+ 	                                    WHERE $entity_type = ? GROUP BY $entity_type", $new_entity_id);
+	my ($rating_count, $rating_sum) = ($row ? @$row : (undef, undef));
+
+	my $rating = ($rating_count ? $rating_sum/$rating_count : undef);
 
 	$maindb->Do("UPDATE $assoc_table 
         	       	SET rating_count = ?, rating = ? 
@@ -160,6 +160,43 @@ sub MergeLabels
 {
 	my ($self, $oldid, $newid) = @_;
 	$self->Merge("label", $oldid, $newid);
+}
+
+sub Remove
+{
+	my ($self, $entity_type, $id) = @_;
+
+	my $assoc_table_raw = $entity_type . '_rating_raw';
+    my $rawdb = $Moderation::DBConnections{RAWDATA};
+
+    # Delete unused raw ratings (aggregate ratings will be removed by triggers)
+    $rawdb->Do("DELETE FROM $assoc_table_raw WHERE $entity_type = ?", $id);
+
+    return 1;
+}
+
+sub RemoveReleases
+{
+	my ($self, $id) = @_;
+	$self->Remove("release", $id);
+}
+
+sub RemoveTracks
+{
+	my ($self, $id) = @_;
+	$self->Remove("track", $id);
+}
+
+sub RemoveArtists
+{
+	my ($self, $id) = @_;
+	$self->Remove("artist", $id);
+}
+
+sub RemoveLabels
+{
+	my ($self, $id) = @_;
+	$self->Remove("label", $id);
 }
 
 sub GetRatingForEntity

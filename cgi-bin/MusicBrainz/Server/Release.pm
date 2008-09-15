@@ -504,6 +504,11 @@ sub Remove
 	my $tag = MusicBrainz::Server::Tag->new($sql->{DBH});
 	$tag->RemoveReleases($this->GetId);
 
+    # Remove ratings
+	require MusicBrainz::Server::Rating;
+	my $ratings = MusicBrainz::Server::Rating->new($sql->{DBH});
+	$ratings->RemoveReleases($this->GetId);
+
     # Remove references from album words table
 	require SearchEngine;
     my $engine = SearchEngine->new($this->{DBH}, 'album');
@@ -983,6 +988,9 @@ sub MergeReleases
 	require MusicBrainz::Server::Tag;
 	my $tag = MusicBrainz::Server::Tag->new($sql->{DBH});
 
+	require MusicBrainz::Server::Rating;
+	my $ratings = MusicBrainz::Server::Rating->new($sql->{DBH});
+
    foreach $id (@list)
    {
        $al->SetId($id);
@@ -1007,6 +1015,9 @@ sub MergeReleases
 
 				# Move tags
 				$tag->MergeTracks($old, $new);
+
+				# Move ratings
+				$ratings->MergeTracks($old, $new);
 
                 $this->SetGlobalIdRedirect($old, $tr->GetMBId, $new, &TableBase::TABLE_TRACK);
            }
@@ -1053,6 +1064,9 @@ sub MergeReleases
 
 		# ... and the tags
 		$tag->MergeReleases($id, $this->GetId);
+
+		# ... and the ratings
+		$ratings->MergeReleases($id, $this->GetId);
 
         $this->SetGlobalIdRedirect($id, $al->GetMBId, $this->GetId, &TableBase::TABLE_RELEASE);
 
