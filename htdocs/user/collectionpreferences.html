@@ -22,9 +22,6 @@
 #	$id: $
 #____________________________________________________________________________
 
-
-
-
 	# Set up page
 	my $mbro = $m->comp("/comp/dblogin");
 	$m->comp("/comp/sidebar-notitle", pagetitle => 'Collection Preferences');
@@ -47,23 +44,16 @@
 	my $releaseTypes = MusicBrainz::Server::CollectionPreference::GetReleaseTypes();
 	my $statusTypes = MusicBrainz::Server::CollectionPreference::GetStatusTypes();
 	
-	
-	print STDERR 'IGNORED types:'.Dumper(values(%$ignoreTypes));
-
-
 	if($r->method eq 'POST')
 	{
 		for my $key ($preferences->valid_keys())
 		{
 			my $value = $ARGS{$key};
 			
-			
-			
 			# check if it is a release type checkbox. they are treated differently
 			# store it in a scalar and then store this entire scalar
 			if($key =~ /type_/)
 			{
-				print STDERR "value:$value";
 				if(defined($value))
 				{
 					push(@showTypes, $value);
@@ -86,26 +76,18 @@
 				$preferences->set($key, $value);
 			}
 		}
-		
-		print STDERR 'selected types:'.Dumper(@showTypes);
-		print STDERR 'ignored types:'.Dumper(values(%$ignoreTypes));
-		#$preferences->SetShowTypes(\@showTypes);
+
 		my @ignore = values(%$ignoreTypes);
 		$preferences->SetShowTypes(\@ignore);
 	}
 	
-	
-	
-	
-	# get types for the checkboxes that should be checked
-	my @showTypesPref = $preferences->GetShowTypes(); # array containing identifiers of types to show currently in the prefs
-	
-	# make a hash out of @showTypesPref for checking if values exist
+    # get types for the checkboxes that should be checked
+    my @showTypesPref = $preferences->GetShowTypes(); # array containing identifiers of types to show currently in the prefs
+    # make a hash out of @showTypesPref for checking if values exist
     my %show_type = undef;
     for (@showTypesPref) { $show_type{$_} = 1; }
 
 </%perl>
-
 
 <form method="post" action="/user/collectionpreferences.html" id="CollectionPreferencesForm">
 	<& /comp/tablebegin, title => "New releases" &>
@@ -127,7 +109,6 @@
 			<%perl>
 				my $user = UserStuff->new($mbro->{DBH});
 				$user = $user->newFromId($session{uid});
-				print STDERR 'confirm:'.$user->GetEmailStatus();
 				if($user->GetEmailStatus() eq "confirmed")
 				{
 			</%perl>
@@ -145,7 +126,7 @@
 	<& /comp/tablebegin, title => "Display status and release types" &>
 		<div>
 			I want to be notified and see missing releases of the following type:
-%		for my $key (keys %{$releaseTypes})
+%		for my $key (&MusicBrainz::Server::Release::RELEASE_ATTR_ALBUM..&MusicBrainz::Server::Release::RELEASE_ATTR_OTHER)
 %		{
 			<div>
 				<input type="checkbox" name="<%perl>$m->out($releaseTypes->{$key}[0]);</%perl>" id="pref_<%perl>$m->out($releaseTypes->{$key}[0]);</%perl>"<%perl>$m->out(' value="' . $key . '"');
@@ -170,7 +151,7 @@
 		<br/>
 		<div>
 			I want to be notified and see missing releases of the following status:
-%		for my $key (keys %{$statusTypes})
+%		for my $key (&MusicBrainz::Server::Release::RELEASE_ATTR_OFFICIAL..&MusicBrainz::Server::Release::RELEASE_ATTR_PSEUDO_RELEASE)
 %		{
 			<div>
 				<input type="checkbox" name="<%perl>$m->out($statusTypes->{$key}[0]);</%perl>" id="pref_<%perl>$m->out($statusTypes->{$key}[0]);</%perl>"<%perl>$m->out(' value="' . $key . '"');
