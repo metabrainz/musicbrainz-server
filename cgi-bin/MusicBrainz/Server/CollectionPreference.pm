@@ -280,7 +280,7 @@ sub SetShowTypes
 	eval
 	{
 		$rawsql->Begin();
-		$rawsql->Do("UPDATE collection_info SET showattributes = '{" . join(',', @{$showTypes}) . "}' WHERE id = ?", $this->{collectionId});
+		$rawsql->Do("UPDATE collection_info SET ignoreattributes = '{" . join(',', @{$showTypes}) . "}' WHERE id = ?", $this->{collectionId});
 	};
 	
 	if($@)
@@ -303,7 +303,7 @@ sub GetShowTypes
 	my $rawsql = Sql->new($this->{RAWDBH});
 	
 
-	my $showTypes = $rawsql->SelectSingleValue('SELECT showattributes FROM collection_info WHERE id = ?', $this->{collectionId});
+	my $showTypes = $rawsql->SelectSingleValue('SELECT ignoreattributes FROM collection_info WHERE id = ?', $this->{collectionId});
 	
 	# convert to {1,2,3} formatted string to array
 	my $showTypesPrefString = $showTypes;
