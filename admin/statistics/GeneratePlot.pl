@@ -187,6 +187,8 @@ count_and_delta("count.moderation.open");
 count_and_delta("count.vote");
 count_and_delta("count.tag");
 count_and_delta("count.tag.raw");
+count_and_delta("count.rating");
+count_and_delta("count.rating.raw");
 
 # Disconnect
 $mb->Logout;
