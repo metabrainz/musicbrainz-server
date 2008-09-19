@@ -114,37 +114,6 @@ function MbUI() {
 	};
 
 	/**
-	 * Returns the elements with classname equal to className,
-	 * child of object parent if provided,
-	 * and with name equal to tagName if provided.
-	 *
-	 * @param	className	the html entity class name.
-	 * @param	parent		parent object, or document if not given
-	 * @param	tagName		the html entity name (optionnal).
-	 **/
-
-	this.getByClassName = function(className, parent, tagName) {
-		mb.log.enter(this.GID, "getByClassName");
-		var list = [];
-		if (className) {
-			parent = (parent || document);
-			tagName = (tagName || "*");
-
-			var tags = parent.getElementsByTagName(tagName);
-			var reg = new RegExp("(^|\\s)" +className+ "(\\s|$)");
-			for(var i=0; i<tags.length; i++) {
-				var item = tags[i];
-				if(reg.test(item.className)){
-					list.push(item);
-				}
-			}
-		} else {
-			mb.log.error("Required parameter $ was null", "className");
-		}
-		return mb.log.exit(list);
-	};
-
-	/**
 	 * Updates the display style for the given element
 	 **/
 	this.setDisplay = function(el, flag) {
