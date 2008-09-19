@@ -20,8 +20,7 @@
 |                                                                             |
 \----------------------------------------------------------------------------*/
 
-function
-JSVoting ()
+MusicBrainz.JSVoting = function()
 {
 
    // ----------------------------------------------------------------------------
@@ -37,6 +36,13 @@ JSVoting ()
    this.addnote_msg = "Add note";
    this.delnote_msg = "Del note";
 
+   this.vote_inputs = {
+    "yes": new Array(),
+    "no": new Array(),
+    "abs": new Array(),
+    "novote": new Array()
+   };
+
    // ----------------------------------------------------------------------------
    // member functions
    // ----------------------------------------------------------------------------
@@ -46,19 +52,66 @@ JSVoting ()
    * and add the toggle link and change vote handler.
    */
    this.initialise = function () {
-      mb.log.enter (this.CN, "initialise");
-	
-	var votecells = mb.ui.getByClassName("vote", mb.ui.get("content-td"), "td");
-	for (var i = 0; i < votecells.length; i++) {
-		var inputs = mb.ui.getByTag("input", votecells[i]);
+     mb.log.enter (this.CN, "initialise");
+
+	 // Set up "ALL VOTES" controls if flag is here
+	 var showAllVotes = ($("JSVoting::ShowAllVotes") && $("JSVoting::ShowAllVotes").value == 1);
+	 if (showAllVotes) {
+	 
+	 	var voteTypes = ["Yes=yes", "No=no", "Abs=abs", "None=novote"];
+
+	 	vote_display = function(vote_type) {
+			var voteName, voteValue;
+			[voteName, voteValue] = vote_type.split('=');
+			return TD(null, 
+					LABEL({'for': 'rowidOverride-'+voteValue},
+					 INPUT({'type': 'radio', 'name': 'rowidOverride', 'id': 'rowidOverride-'+voteValue, 'value': voteValue}),
+					 BR(), voteName
+					)
+			);
+		 }
+		
+		var	allVotesTR = TR({'class': 'showedit', 'id': 'votechoice-override'},
+			TD(),
+			TD({'align': 'right'}, STRONG("ALL VOTES:")),
+			TD({'class': 'vote'},
+				TABLE({'class': 'votechoice votechoice4'},
+					TR(null, map(vote_display, ["Yes=yes", "No=no", "Abs=abs", "None=novote"]))
+				)
+			)
+		);
+		insertSiblingNodesBefore(getFirstElementByTagAndClassName('tr', null, $("editlist")), allVotesTR);
+
+	 }
+
+	 // Iterate over all votes radio inputs in order to:
+	 // 1. connect to each one a handler for "onclick" signal
+	 // 2. store all inputs in vote_inputs to access them easily later
+	 // 3. set initial color according to current vote
+     var votecells = getElementsByTagAndClassName("td", "vote", $("content-td"));
+	 for (var i = 0; i < votecells.length; i++) {
+		var inputs = votecells[i].getElementsByTagName("input");
 		for (var j = 0; j < inputs.length; j++) {
-			inputs[j].onclick = function onclick(event) {
-				return jsvoting.captureVoteChange(this);
-			};
+            if (inputs[j].type != "radio") continue;
+
+            var results;
+            if (results = inputs[j].id.match(/^rowid([0-9]+)-(.*)$/)) {
+				connect(inputs[j], "onclick", this, this.captureVoteChange);
+				
+				// Store in vote_inputs
+                if (results[2] in this.vote_inputs) {
+                    this.vote_inputs[results[2]].push(inputs[j]);
+                }
+            } else if (inputs[j].id.match(/^rowidOverride-(.*)$/)) {
+                inputs[j].checked = false;
+				connect(inputs[j], "onclick", this, this.captureAllVotesChange);
+            }
 		}
+		// Set initial color
 		this.setVoteColor(votecells[i]);
 	}
 
+      setDisplayForElement("", $("votechoice-override"));
       mb.log.exit ();
    };
 
@@ -71,28 +124,28 @@ JSVoting ()
 
 	if (editid == null) 
 	{
-		// Single edit review page ( from comp/showmoddetail)
-		addNoteLink = mb.ui.get("addnote-top");
-		otherAddNoteLink = mb.ui.get("addnote-bottom");
-		noteBlock = mb.ui.get("noteblock");
-		noteText = mb.ui.get("notetext");
+		// Single edit review page (from comp/showmoddetail)
+		addNoteLink = $("addnote-top");
+		otherAddNoteLink = $("addnote-bottom");
+		noteBlock = $("noteblock");
+		noteText = $("notetext");
 	} 
 	else 
 	{
-		// Multiple edits review page ( from comp/showmod)
+		// Multiple edits review page (from comp/showmod)
 		var baseId = "rowid"+editid+"-";
-		addNoteLink = mb.ui.get(baseId+"addnote");
+		addNoteLink = $(baseId+"addnote");
 		otherAddNoteLink = null;
-		noteBlock = mb.ui.get(baseId+"noteblock");
-		noteText = mb.ui.get(baseId+"notetext");
+		noteBlock = $(baseId+"noteblock");
+		noteText = $(baseId+"notetext");
 	}
 		
 	if (noteBlock && noteText)
 	{
 		if (addNoteLink.innerHTML == this.addnote_msg)
 		{
-			// show the note block
-				mb.ui.setDisplay(noteBlock, true);
+				// show the note block
+				setDisplayForElement("", noteBlock);
 				addNoteLink.innerHTML = this.delnote_msg;
 				// set cursor focus to note textarea
 				noteText.focus();
@@ -100,7 +153,7 @@ JSVoting ()
 			else if (addNoteLink.innerHTML == this.delnote_msg)
 			{
 				// hide the note block
-				mb.ui.setDisplay(noteBlock, false);
+				hideElement(noteBlock);
 				addNoteLink.innerHTML = this.addnote_msg;
 				// erase contents of note textarea
 				noteText.value = "";
@@ -113,9 +166,9 @@ JSVoting ()
 		}
         
         // Hack for inline edits
-        if(window.parent && mb.ui.get("RelatedModsBox", window.parent.document))
+        if(window.parent && window.parent.document.getElementById("RelatedModsBox"))
         {
-            var iframe = mb.ui.getByTag("iframe", mb.ui.get("RelatedModsBox", window.parent.document))[0];
+            var iframe = window.parent.document.getElementById("RelatedModsBox").getElementsByTagName("iframe")[0];
             if (window.parent.resizeFrameAsRequired && iframe)
             {
                 window.parent.resizeFrameAsRequired(iframe);
@@ -126,10 +179,28 @@ JSVoting ()
    /**
    * Change listener on radio input buttons.
    */
-   this.captureVoteChange = function (el) {
+   this.captureVoteChange = function (ev) {
+    var el = ev.target();
 	var results;
 	if (el.name && (results = el.name.match(/^rowid([0-9]+)$/))) {
 		this.updateVoteColor(el);
+	}
+   };
+
+   /**
+   * Change listener on change all votes radio input buttons.
+   */
+   this.captureAllVotesChange = function (ev) {
+    var el = ev.target();
+	var results;
+	if (results = el.id.match(/^rowidOverride-(.*)$/)) {
+        var type = results[1];
+        for ( var i = 0; i < this.vote_inputs[type].length; i++ ) {
+            var input =  this.vote_inputs[type][i];
+            input.checked = true;
+            this.updateVoteColor(input);
+        }
+	    this.updateVoteColor(el);
 	}
    };
 
@@ -182,5 +253,5 @@ JSVoting ()
 
 
 // register class...
-var jsvoting = new JSVoting ();
+var jsvoting = new MusicBrainz.JSVoting ();
 mb.registerDOMReadyAction (new MbEventAction (jsvoting.GID, "initialise", "Setting up jsvoting functions"));
