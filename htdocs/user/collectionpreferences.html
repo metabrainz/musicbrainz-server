@@ -83,9 +83,12 @@
 	
     # get types for the checkboxes that should be checked
     my @showTypesPref = $preferences->GetShowTypes(); # array containing identifiers of types to show currently in the prefs
+    
     # make a hash out of @showTypesPref for checking if values exist
-    my %show_type = undef;
-    for (@showTypesPref) { $show_type{$_} = 1; }
+    my $show_type = {};
+    for (@showTypesPref) {
+    	$show_type->{$_} = 1;
+    }
 
 </%perl>
 
@@ -130,7 +133,7 @@
 %		{
 			<div>
 				<input type="checkbox" name="<%perl>$m->out($releaseTypes->{$key}[0]);</%perl>" id="pref_<%perl>$m->out($releaseTypes->{$key}[0]);</%perl>"<%perl>$m->out(' value="' . $key . '"');
-				if($show_type{$key} != 1)
+				if($show_type->{$key} != 1)
 				{
 					$m->out(' checked="checked" ');
 				}
@@ -156,7 +159,7 @@
 			<div>
 				<input type="checkbox" name="<%perl>$m->out($statusTypes->{$key}[0]);</%perl>" id="pref_<%perl>$m->out($statusTypes->{$key}[0]);</%perl>"<%perl>$m->out(' value="' . $key . '"');
 				
-				if($show_type{$key} != 1)
+				if($show_type->{$key} != 1)
 				{
 					$m->out(' checked="checked" ');
 				}
