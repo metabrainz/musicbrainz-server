@@ -943,8 +943,7 @@ CREATE TABLE track
 
 CREATE TABLE track_meta
 (
-    id                  INTEGER NOT NULL,
-    lastupdate          TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    id                  INTEGER NOT NULL
 );
 
 CREATE TABLE track_tag
