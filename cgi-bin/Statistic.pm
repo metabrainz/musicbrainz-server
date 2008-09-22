@@ -250,6 +250,83 @@ my %stats = (
 		},
 	},
 
+	"count.quality.album.high" => {
+		DESC => "Count of high quality releases",
+		CALC => sub {
+			my ($self, $sql) = @_;
+
+			my $data = $sql->SelectListOfLists(
+				"SELECT quality, COUNT(*) FROM album GROUP BY quality",
+			);
+
+			my %dist = map { @$_ } @$data;
+			# Transfer unknown quality count to the level represented by &ModDefs::QUALITY_UNKNOWN_MAPPED
+			# but still keep unknown quality count on its own, for reference
+			$dist{&ModDefs::QUALITY_UNKNOWN_MAPPED} += $dist{&ModDefs::QUALITY_UNKNOWN};
+
+			+{
+				"count.quality.album.high"		=> $dist{&ModDefs::QUALITY_HIGH}	|| 0,
+				"count.quality.album.low"		=> $dist{&ModDefs::QUALITY_LOW}		|| 0,
+				"count.quality.album.normal"	=> $dist{&ModDefs::QUALITY_NORMAL}	|| 0,
+				"count.quality.album.unknown"	=> $dist{&ModDefs::QUALITY_UNKNOWN}	|| 0,
+			};
+		},
+	},
+	"count.quality.album.low" => {
+		DESC => "Count of low quality releases",
+		PREREQ => [qw[ count.quality.album.high ]],
+		PREREQ_ONLY => 1,
+	},
+	"count.quality.album.normal" => {
+		DESC => "Count of normal quality releases",
+		PREREQ => [qw[ count.quality.album.high ]],
+		PREREQ_ONLY => 1,
+	},
+	"count.quality.album.unknown" => {
+		DESC => "Count of unknow quality releases",
+		PREREQ => [qw[ count.quality.album.high ]],
+		PREREQ_ONLY => 1,
+	},
+
+	"count.quality.artist.high" => {
+		DESC => "Count of high quality releases",
+		CALC => sub {
+			my ($self, $sql) = @_;
+
+			my $data = $sql->SelectListOfLists(
+				"SELECT quality, COUNT(*) FROM artist GROUP BY quality",
+			);
+
+			my %dist = map { @$_ } @$data;
+
+			# Transfer unknown quality count to the level represented by &ModDefs::QUALITY_UNKNOWN_MAPPED
+			# but still keep unknown quality count on its own, for reference
+			$dist{&ModDefs::QUALITY_UNKNOWN_MAPPED} += $dist{&ModDefs::QUALITY_UNKNOWN};
+
+			+{
+				"count.quality.artist.high"		=> $dist{&ModDefs::QUALITY_HIGH}	|| 0,
+				"count.quality.artist.low"		=> $dist{&ModDefs::QUALITY_LOW}		|| 0,
+				"count.quality.artist.normal"	=> $dist{&ModDefs::QUALITY_NORMAL}	|| 0,
+				"count.quality.artist.unknown"	=> $dist{&ModDefs::QUALITY_UNKNOWN}	|| 0,
+			};
+		},
+	},
+	"count.quality.artist.low" => {
+		DESC => "Count of low quality artists",
+		PREREQ => [qw[ count.quality.artist.high ]],
+		PREREQ_ONLY => 1,
+	},
+	"count.quality.artist.normal" => {
+		DESC => "Count of normal quality artists",
+		PREREQ => [qw[ count.quality.artist.high ]],
+		PREREQ_ONLY => 1,
+	},
+	"count.quality.artist.unknown" => {
+		DESC => "Count of unknow quality artists",
+		PREREQ => [qw[ count.quality.artist.high ]],
+		PREREQ_ONLY => 1,
+	},
+
 	"count.puid.Ntracks" => {
 		DESC => "Distribution of tracks per PUID (collisions)",
 		CALC => sub {

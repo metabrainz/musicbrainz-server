@@ -202,6 +202,39 @@ my $pc = sub
 </table>
 <& /comp/tableend &>
 
+% $gattrs->{"id"} = "DataQualityStats";
+<& /comp/tablebegin, title=>'Data Quality', gattrs=>$gattrs &>
+<table class="StatsTable" style="width: 100%">
+	<col />
+	<col style="width: 6em" />
+	<col style="width: 4em" />
+	<tr>
+		<th class="StatName">Artists</th>
+		<td class="NumberCell"><% $stats{"count.artist"} %></td>
+		<td>&nbsp;</td>
+	</tr>
+% for (qw( high normal low )) {
+	<tr>
+		<th class="StatName">&nbsp; <% $_ %></th>
+		<td class="NumberCell"><% $stats{"count.quality.artist.".$_} %></td>
+		<td class="NumberCell"><% &$pc(@stats{ "count.quality.artist.${_}", "count.artist" }) %></td>
+	</tr>
+% }
+	<tr>
+		<th class="StatName">Releases</th>
+		<td class="NumberCell"><% $stats{"count.album"} %></td>
+		<td>&nbsp;</td>
+	</tr>
+% for (qw( high normal low )) {
+	<tr>
+		<th class="StatName">&nbsp; <% $_ %></th>
+		<td class="NumberCell"><% $stats{"count.quality.album.".$_} %></td>
+		<td class="NumberCell"><% &$pc(@stats{ "count.quality.album.${_}", "count.album" }) %></td>
+	</tr>
+% }
+</table>
+<& /comp/tableend &>
+
 % $gattrs->{"id"} = "ModeratorStats";
 <& /comp/tablebegin, title=>'Moderators', gattrs=>$gattrs &>
 <table class="StatsTable" style="width: 100%">
