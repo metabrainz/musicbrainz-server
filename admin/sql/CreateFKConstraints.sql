@@ -50,6 +50,11 @@ ALTER TABLE artistalias
     FOREIGN KEY (ref)
     REFERENCES artist(id);
 
+ALTER TABLE artist_meta
+    	ADD CONSTRAINT fk_artist_meta_artist
+    	FOREIGN KEY (id)
+    	REFERENCES artist(id);
+    	
 ALTER TABLE artist_relation
     ADD CONSTRAINT artist_relation_fk_artist1
     FOREIGN KEY (artist)
@@ -111,6 +116,11 @@ ALTER TABLE label
     FOREIGN KEY (country)
     REFERENCES country(id);
 
+ALTER TABLE label_meta
+    	ADD CONSTRAINT fk_label_meta_label
+    	FOREIGN KEY (id)
+    	REFERENCES label(id);
+    	
 ALTER TABLE labelalias
     ADD CONSTRAINT labelalias_fk_ref
     FOREIGN KEY (ref)
@@ -575,6 +585,11 @@ ALTER TABLE track
     FOREIGN KEY (artist)
     REFERENCES artist(id);
 
+ALTER TABLE track_meta
+    	ADD CONSTRAINT fk_track_meta_track
+    	FOREIGN KEY (id)
+    	REFERENCES track(id);
+    	
 ALTER TABLE track_tag
     ADD CONSTRAINT fk_track_tag_track
     FOREIGN KEY (track)

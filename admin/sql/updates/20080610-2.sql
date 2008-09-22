@@ -9,5 +9,21 @@ BEGIN;
 -- create functions
 -- create triggers
 
+-- foreign keys
+ALTER TABLE artist_meta
+    	ADD CONSTRAINT fk_artist_meta_artist
+    	FOREIGN KEY (id)
+    	REFERENCES artist(id);
+    	
+ALTER TABLE label_meta
+    	ADD CONSTRAINT fk_label_meta_label
+    	FOREIGN KEY (id)
+    	REFERENCES label(id);
+    	
+ALTER TABLE track_meta
+    	ADD CONSTRAINT fk_track_meta_track
+    	FOREIGN KEY (id)
+    	REFERENCES track(id);
+    	
 COMMIT;
 
