@@ -277,7 +277,7 @@ sub GetMissingMBIDs
 		print STDERR "GetShowTypes:".Dumper($this->{preferences}->GetShowTypes());
 		
 		
-		my $showTypes = $this->{preferences}->GetShowTypes();
+		my $showTypes = [ $this->{preferences}->GetShowTypes() ];
 		my $showAttributesCondition = '';
 		
 		for my $attribute (@$showTypes)
