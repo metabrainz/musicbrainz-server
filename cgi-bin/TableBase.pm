@@ -115,6 +115,17 @@ sub SetModPending
    $_[0]->{modpending} = $_[1];
 }
 
+sub GetLastUpdate
+{
+    return "" if ($_[0]->{lastupdate} =~ /^1970-01-01/);
+    return $_[0]->{lastupdate};
+}
+
+sub SetLastUpdate
+{
+   $_[0]->{lastupdate} = $_[1];
+}
+
 sub GetNewInsert
 {
    return $_[0]->{new_insert};

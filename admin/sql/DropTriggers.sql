@@ -34,9 +34,5 @@ DROP TRIGGER a_del_label_tag ON label_tag;
 DROP TRIGGER a_idu_artist ON artist;
 DROP TRIGGER a_idu_track ON track;
 DROP TRIGGER a_idu_label ON label;
-DROP TRIGGER a_idu_artist_meta ON artist_meta;
-DROP TRIGGER a_idu_track_meta ON track_meta;
-DROP TRIGGER a_idu_label_meta ON label_meta;
-DROP TRIGGER a_idu_albummeta ON albummeta;
 
 -- vi: set ts=4 sw=4 et :

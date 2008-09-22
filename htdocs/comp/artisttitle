@@ -52,6 +52,8 @@
 	my $end = $artist->GetEndDate;
 	my $resolution = $artist->GetResolution;
 	my $quality = ModDefs::GetQualityText($artist->GetQuality);
+    $artist->LoadLastUpdate();
+	my $lastupdate = "(updated " . MusicBrainz::Server::DateTime::format_datetime_since($artist->GetLastUpdate()) . ")";
 
 	# compile begin- and end dates
 	$begin = MusicBrainz::Server::Validation::MakeDisplayDateStr($begin);
@@ -103,6 +105,8 @@
 	$qtxt .= ucfirst($quality) . " data quality";
 	$qtxt .= qq!</span>! 
         if ($artist->GetQualityModPending);
+
+
     push @info, $qtxt;
 	$m->out(join(', ', @info));
 	$m->out('<br />')
@@ -200,7 +204,8 @@
 		{
 			$m->out(qq!<a href="/login.html">Log in</a> to edit this!);
 		}
-		$m->out(qq! ]</td></tr>!);
+		$m->out(" ] " . $lastupdate);
+		$m->out(qq!</td></tr>!);
 	}
 
 	# Row 4: relationship links

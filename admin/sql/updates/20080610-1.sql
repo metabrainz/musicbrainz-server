@@ -17,8 +17,7 @@ CREATE TABLE label_meta
 
 CREATE TABLE track_meta
 (
-    id          INTEGER NOT NULL,
-    lastupdate  TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    id          INTEGER NOT NULL
 );
 
 ALTER TABLE albummeta  ADD COLUMN lastupdate          TIMESTAMP WITH TIME ZONE DEFAULT NOW();

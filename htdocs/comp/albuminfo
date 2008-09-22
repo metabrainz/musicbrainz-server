@@ -43,6 +43,9 @@
 	# use proper terminology.
 	$release ||= $album;
 
+	$release->LoadLastUpdate();
+	my $lastupdate = MusicBrainz::Server::DateTime::format_datetime_since($release->GetLastUpdate());
+
 </%perl>
 
 	<& /comp/tablebegin, title => "Release information" &>
@@ -59,6 +62,12 @@
 					<& /comp/linkdoc, "MusicBrainzIdentifier", "MBID" &>:</td>
 				<td>
 					<% $release->GetMBId %></td>
+			</tr>
+			<tr>
+				<td class="label">
+					Last updated:</td>
+				<td>
+					<% $lastupdate %></td>
 			</tr>
 
 %	if (not $short)

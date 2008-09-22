@@ -1240,5 +1240,13 @@ sub InUse
     return 0;
 }
 
+sub LoadLastUpdate
+{
+    my $self = shift;
+
+	my $sql = Sql->new($self->{DBH});
+	$self->{lastupdate} = $sql->SelectSingleValue("SELECT lastupdate FROM artist_meta WHERE id = ?", $self->{id});
+}
+
 1;
 # eof Artist.pm

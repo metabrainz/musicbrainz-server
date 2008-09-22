@@ -29,7 +29,8 @@ CREATE TABLE album
     script              INTEGER, -- references script
     modpending_lang     INTEGER,
     quality             SMALLINT DEFAULT -1,
-    modpending_qual     INTEGER DEFAULT 0
+    modpending_qual     INTEGER DEFAULT 0,
+    dateadded           TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE album_amazon_asin
@@ -106,8 +107,8 @@ CREATE TABLE artist
 
 CREATE TABLE artist_meta
 (
-    id          INTEGER NOT NULL,
-    lastupdate  TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    id                  INTEGER NOT NULL,
+    lastupdate          TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE artistalias
@@ -237,8 +238,8 @@ CREATE TABLE label
 
 CREATE TABLE label_meta
 (
-    id          INTEGER NOT NULL,
-    lastupdate  TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    id                  INTEGER NOT NULL,
+    lastupdate          TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE label_tag
@@ -942,15 +943,15 @@ CREATE TABLE track
 
 CREATE TABLE track_meta
 (
-    id          INTEGER NOT NULL,
-    lastupdate  TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    id                  INTEGER NOT NULL,
+    lastupdate          TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE track_tag
 (
-     track               INTEGER NOT NULL,
-     tag                 INTEGER NOT NULL,
-     count               INTEGER NOT NULL
+    track               INTEGER NOT NULL,
+    tag                 INTEGER NOT NULL,
+    count               INTEGER NOT NULL
 );
 
 CREATE TABLE trackwords

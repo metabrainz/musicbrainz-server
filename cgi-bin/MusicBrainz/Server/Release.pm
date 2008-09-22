@@ -1507,5 +1507,13 @@ sub _GetTrackNumbersHash
 	\%h;
 }
 
+sub LoadLastUpdate
+{
+    my $self = shift;
+
+	my $sql = Sql->new($self->{DBH});
+	$self->{lastupdate} = $sql->SelectSingleValue("SELECT lastupdate FROM albummeta WHERE id = ?", $self->{id});
+}
+
 1;
 # eof Album.pm

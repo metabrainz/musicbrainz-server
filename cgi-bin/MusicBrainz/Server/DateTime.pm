@@ -150,5 +150,72 @@ sub format_datetime
 	return(@r);
 }
 
+sub format_datetime_since
+{
+	# This component accepts a list of absolute times and converts each one to the
+	# user's preferred date/time format, in their preferred time zone.
+
+	# The input times can be in one of two formats: just an integer (seconds since
+	# the epoch), or in Postgres format: "2003-01-25 22:06:54.82141+00" (in which
+	# case, the seconds decimal point and everything following it will be
+	# ignored).  So in this case, make sure that the time values you're passing in
+	# are in UTC.
+
+    eval {
+        require Time::Duration;
+    };
+    return format_datetime($_[0]) if ($@);
+
+	require UserPreference;
+	my $fmt = UserPreference::get('datetimeformat');
+	my $tz = UserPreference::get('timezone');
+
+	# Allow overrides by passing a hash reference as the first parameter.
+	if (@_ and ref($_[0]) eq "HASH")
+	{
+		my $opts = shift;
+		$fmt = $opts->{"datetimeformat"} if $opts->{"datetimeformat"};
+		$tz = $opts->{"tz"} if $opts->{"tz"};
+	}
+
+	require POSIX;
+
+	my $r = eval
+	{
+		local $ENV{TZ};
+
+		# Convert any stringy times into integers
+		$ENV{TZ} = 'UTC';
+		POSIX::tzset();
+
+		my $seconds = 0;
+		for (@_)
+		{
+			my @bits = /\A(\d\d\d\d)-(\d\d)-(\d\d) (\d\d):(\d\d):(\d\d)\b/;
+			
+			if (@bits)
+			{
+				$bits[0] -= 1900;
+				--$bits[1];
+				$seconds = POSIX::mktime(reverse @bits);
+			}
+		}
+
+		# Now convert the integers to the local formatted time
+		$ENV{TZ} = $tz;
+		POSIX::tzset();
+
+		return "" if (!$seconds);
+
+	    Time::Duration::duration(time() - $seconds, 1) . " ago";
+	};
+
+	my $err = $@;
+	POSIX::tzset();
+	die $err if $err;
+
+	return $r;
+}
+
 1;
 # eof DateTime.pm

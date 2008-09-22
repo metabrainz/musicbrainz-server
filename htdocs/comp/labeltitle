@@ -54,6 +54,9 @@
 	my $end = $label->GetEndDate;
 	my $resolution = $label->GetResolution;
 
+    $label->LoadLastUpdate();
+	my $lastupdate = "(updated " . MusicBrainz::Server::DateTime::format_datetime_since($label->GetLastUpdate()) . ")";
+
 	# compile begin- and end dates
 	$begin = MusicBrainz::Server::Validation::MakeDisplayDateStr($begin);
 	$end = MusicBrainz::Server::Validation::MakeDisplayDateStr($end);
@@ -70,7 +73,6 @@
 	{
 		$date_str = "end $end";
 	}
-
 
 	$m->out(qq!<table class="artisttitle">!);
 
@@ -110,6 +112,7 @@
 			$m->out(", ") if ($type);
 		}
 		$m->out("Type: $type_name") if ($type);
+
 		$m->out("<br />");
 	}
 	$m->out($m->interp->apply_escapes($sortname, 'h')) if ($name ne $sortname);
@@ -161,7 +164,7 @@
 		{
 			$m->out(qq!<a href="/login.html">Log in</a> to edit this!);
 		}
-		$m->out(qq! ]</td></tr>!);
+		$m->out(qq! ] ! . $lastupdate . qq!</td></tr>!);
 	}
 
 	$m->out(qq!</table>!);

@@ -10,9 +10,6 @@ CREATE TRIGGER a_upd_album after update on album
 CREATE TRIGGER a_del_album after DELETE ON album 
     FOR EACH ROW EXECUTE PROCEDURE delete_album_meta();
 
-CREATE TRIGGER a_idu_albummeta AFTER INSERT OR DELETE OR UPDATE ON albummeta 
-    FOR EACH ROW EXECUTE PROCEDURE a_idu_entity_meta();
-
 CREATE TRIGGER a_ins_albumjoin AFTER INSERT ON albumjoin
     FOR EACH ROW EXECUTE PROCEDURE a_ins_albumjoin();
 CREATE TRIGGER a_upd_albumjoin AFTER UPDATE ON albumjoin
@@ -30,8 +27,6 @@ CREATE TRIGGER a_del_album_cdtoc AFTER DELETE ON album_cdtoc
 -- Artist
 CREATE TRIGGER a_idu_artist AFTER INSERT OR DELETE OR UPDATE ON artist 
     FOR EACH ROW EXECUTE PROCEDURE a_idu_entity();
-CREATE TRIGGER a_idu_artist_meta AFTER INSERT OR DELETE OR UPDATE ON artist_meta 
-    FOR EACH ROW EXECUTE PROCEDURE a_idu_entity_meta();
 
 -- Moderations
 CREATE TRIGGER a_upd_moderation_open AFTER UPDATE ON moderation_open
@@ -58,8 +53,6 @@ CREATE TRIGGER a_del_album_amazon_asin AFTER DELETE ON album_amazon_asin
 -- Label
 CREATE TRIGGER a_idu_label AFTER INSERT OR DELETE OR UPDATE ON label 
     FOR EACH ROW EXECUTE PROCEDURE a_idu_entity();
-CREATE TRIGGER a_idu_label_meta AFTER INSERT OR DELETE OR UPDATE ON label_meta 
-    FOR EACH ROW EXECUTE PROCEDURE a_idu_entity_meta();
 
 -- PUIDs
 CREATE TRIGGER a_ins_puidjoin AFTER INSERT ON puidjoin
@@ -96,7 +89,5 @@ CREATE TRIGGER a_del_label_tag AFTER DELETE ON label_tag
 -- Tracks
 CREATE TRIGGER a_idu_track AFTER INSERT OR DELETE OR UPDATE ON track 
     FOR EACH ROW EXECUTE PROCEDURE a_idu_entity();
-CREATE TRIGGER a_idu_track_meta AFTER INSERT OR DELETE OR UPDATE ON track_meta 
-    FOR EACH ROW EXECUTE PROCEDURE a_idu_entity_meta();
 
 -- vi: set ts=4 sw=4 et :
