@@ -46,7 +46,7 @@
 
     <span class="inline-rating">
     	<ul class="star-rating<% $small ? " small-star" : "" %>">
-    		<li id="<% "RATING::" . $entity_type ."::". $entity_id %>" class="current-rating" style="width:<% ($rating->{"rating"}/5*100) %>%;" />
+    		<li id="<% "RATING::" . $entity_type ."::". $entity_id %>" class="current-rating" style="width:<% ($rating->{"rating"}/5*100) %>%;">Current rating: <% $rating->{"rating"} %></li>
 %			foreach my $rate (sort keys %css_classes)
 %			{
         	<li>
@@ -67,7 +67,5 @@
 			Votes: <span id="VOTES-RATING::<% $entity_type ."::". $entity_id %>"><% $rating->{"rating_count"} || "0" %></span> )
 	</small>
 %	}
-
-</%perl>
 
 %# vi: set ts=4 sw=4 ft=mason :
