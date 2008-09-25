@@ -7,6 +7,7 @@ use base 'Catalyst::Controller';
 
 use MusicBrainz::Server::Adapter qw(Google);
 use ModDefs;
+use UserSubscription;
 
 =head1 NAME
 
@@ -305,10 +306,78 @@ Allow a moderator to subscribe to this artist
 
 =cut
 
-sub subscribe : Local
+sub subscribe : Chained('artist')
 {
     my ($self, $c) = @_;
-    die "This is a stub method";
+    my $artist = $c->stash->{artist};
+
+    $c->forward('/user/login');
+
+    my $us = UserSubscription->new($c->mb->{DBH});
+    $us->SetUser($c->user->get_user->id);
+    $us->SubscribeArtists($artist);
+
+    $c->forward('show_subscriptions');
+}
+
+=head2 unsubscribe
+
+Unsubscribe from an artist
+
+=cut
+
+sub unsubscribe : Chained('artist')
+{
+    my ($self, $c) = @_;
+    my $artist = $c->stash->{artist};
+
+    $c->forward('/user/login');
+
+    my $us = UserSubscription->new($c->mb->{DBH});
+    $us->SetUser($c->user->get_user->id);
+    $us->UnsubscribeArtists($artist);
+
+    $c->forward('show_subscriptions');
+}
+
+=head2 show_subscriptions
+
+Show all users who are subscribed to this artist, and have stated they
+wish their subscriptions to be public
+
+=cut
+
+sub show_subscriptions : Private
+{
+    my ($self, $c) = @_;
+    my $artist = $c->stash->{artist};
+
+    my @all_users = $artist->GetSubscribers;
+    
+    my @public_users;
+    my $anonymous_subscribers;
+
+    for my $uid (@all_users)
+    {
+        my $user = $c->model('User')->load_user({ id => $uid });
+
+        my $public = UserPreference::get_for_user("subscriptions_public", $user->get_user);
+        my $is_me  = $c->user_exists && $c->user->id == $user->id;
+        
+        if ($public || $is_me)
+        {
+            push @public_users, $user;
+        }
+        else
+        {
+            $anonymous_subscribers++;
+        }
+    }
+
+    $c->stash->{subscribers          } = \@public_users;
+    $c->stash->{anonymous_subscribers} = $anonymous_subscribers;
+
+    $c->stash->{template} = 'artist/subscribe.tt';
 }
 
 =head2 add_release

@@ -1,0 +1,9 @@
+[%- WRAPPER 'artist/layout.tt' title='Subscribed editors' -%]
+[%- WRAPPER 'components/box.tt' header='Editors subscribed to this artist' -%]
+
+[%- FOREACH ed IN subscribers -%]
+  [% ed.username %]
+[%- END -%]
+
+[%- END -%]
+[%- END -%]
