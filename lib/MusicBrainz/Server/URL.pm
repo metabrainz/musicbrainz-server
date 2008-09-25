@@ -31,6 +31,8 @@ use DBDefs;
 use Carp qw( carp croak cluck );
 use Errno qw( EEXIST );
 
+sub entity_type { "url" }
+
 sub new
 {
 	my ($class, $dbh) = @_;

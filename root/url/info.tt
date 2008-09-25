@@ -8,7 +8,7 @@
 
     <tr>
       <th>Description:</th>
-      <td>[%- (url.description || "This url has no description") | html -%]</td>
+      <td>[%- (url.desc || "This url has no description") | html -%]</td>
     </tr>
 
     <tr>
