@@ -4,7 +4,7 @@
     <table class="details">
       <tr>
         <th>Full TOC:</th>
-        <td>[% cdtoc.cdtoc %]</td>
+        <td>[% cdtoc.toc %]</td>
       </tr>
       <tr>
         <th>[% INCLUDE "components/doc-link.tt" to="DiscID" text="Disc ID" %]:</th>
@@ -49,15 +49,15 @@
               </tr>
             </thead>
             <tbody>
-              [% FOREACH track=cdtoc.tracks %]
+              [% FOREACH track=cdtoc.track_statistics %]
               <tr>
                 <td>[% track.number %]</td>
-                <td>[% track.start.time %]</td>
-                <td>[% track.start.sectors %]</td>
-                <td>[% track.length.time %]</td>
-                <td>[% track.length.sectors %]</td>
-                <td>[% track.end.time %]</td>
-                <td>[% track.end.sectors %]</td>
+                <td>[% track.start %]</td>
+                <td>[% track.start %]</td>
+                <td>[% track.length %]</td>
+                <td>[% track.length %]</td>
+                <td>[% track.end %]</td>
+                <td>[% track.end %]</td>
               </tr>
               [% END %]
             </tbody>

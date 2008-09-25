@@ -7,7 +7,6 @@ use base 'MusicBrainz::Server::Model::Base';
 
 use Carp;
 use MusicBrainz::Server::CDTOC;
-use MusicBrainz::Server::Facade::CdToc;
 
 sub load_for_release
 {
@@ -15,9 +14,7 @@ sub load_for_release
 
     my $disc_ids = $release->get_release->GetDiscIDs;
 
-    [ map {
-        MusicBrainz::Server::Facade::CdToc->new_from_cdtoc($_->GetCDTOC)
-    } @$disc_ids ];
+    return [ map { $_->GetCDTOC } @$disc_ids ];
 }
 
 sub load
@@ -27,14 +24,14 @@ sub load
     my $cdtoc = MusicBrainz::Server::CDTOC->newFromId($self->dbh, $id)
         or croak "Could not load CDTOC with id $id";
 
-    return MusicBrainz::Server::Facade::CdToc->new_from_cdtoc($cdtoc);
+    return $cdtoc;
 }
 
 sub get_attached_release_ids
 {
     my ($self, $cdtoc) = @_;
 
-    my $all_cdtocs = $cdtoc->get_cdtoc->release_cdtocs;
+    my $all_cdtocs = $cdtoc->release_cdtocs;
     return [ map { $_->release_id } @{$all_cdtocs} ];
 }
 

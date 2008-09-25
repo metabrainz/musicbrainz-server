@@ -45,6 +45,8 @@ use TableBase;
 	);
 }
 
+sub entity_type { "cdtoc" }
+
 ################################################################################
 # Properties
 ################################################################################
@@ -64,6 +66,37 @@ sub leadout_offset{ $_[0]{leadoutoffset} }
 sub track_offsets	{ $_[0]{_trackoffsets} ||= $_[0]->_DeriveTrackOffsets }
 sub toc			{ $_[0]{_toc} ||= $_[0]->_DeriveTOC }
 sub track_lengths	{ $_[0]{_tracklengths} ||= $_[0]->_DeriveTrackLengths }
+
+sub track_statistics
+{
+	my $self = shift;
+
+    my $offsets = $self->track_offsets;
+    my $lengths = $self->track_lengths;
+
+	my $tracks = [];
+
+	for my $n ($self->first_track .. $self->last_track)
+	{
+        my $start  = $offsets->[$n-1];
+        my $length = $lengths->[$n-1];
+
+        push @{$tracks}, {
+            number   => $n,
+            start    => $start,
+            length   => $length,
+            end      => $start + $length,
+        };
+	}
+
+	return $tracks;
+}
+
+sub duration
+{
+	my $self = shift;
+	return $self->leadout_offset / 75 * 1000;
+}
 
 sub _DeriveTrackOffsets
 {
