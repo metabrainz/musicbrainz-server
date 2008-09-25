@@ -8,7 +8,6 @@ use base 'MusicBrainz::Server::Model::Base';
 use Carp;
 use MusicBrainz::Server::Adapter 'LoadEntity';
 use MusicBrainz::Server::Artist;
-use MusicBrainz::Server::Facade::Artist;
 
 =head2 load $id
 
@@ -23,7 +22,7 @@ sub load
     my $artist = new MusicBrainz::Server::Artist($self->dbh);
     LoadEntity($artist, $id);
 
-    MusicBrainz::Server::Facade::Artist->new_from_artist($artist);
+    return $artist;
 }
 
 sub find_similar_artists
@@ -33,17 +32,14 @@ sub find_similar_artists
     croak "No artist was provided"
         unless ref $artist;
 
-    croak "Artist was not constructed via a database lookup"
-        unless ref $artist->{_a};
-
-    my $similar_artists = $artist->{_a}->GetRelations;
+    my $similar_artists = $artist->GetRelations;
 
     return [ map {
-        MusicBrainz::Server::Facade::Artist->new( {
+        +{
             name   => $_->{name},
             mbid   => $_->{mbid},
             weight => $_->{weight},
-        } );
+        };
     } @$similar_artists ];
 }
 

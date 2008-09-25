@@ -48,7 +48,7 @@ use Exporter;
 	modtype		=> _get(qr/^MOD_/),
 	modstatus	=> _get(qr/^STATUS_/),
 	vote		=> _get(qr/^VOTE_/),
-	all		    => @subs,
+	all		    => [ @subs ],
 );
 
 @EXPORT = @subs;

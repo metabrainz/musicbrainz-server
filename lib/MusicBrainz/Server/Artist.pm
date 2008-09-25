@@ -51,6 +51,8 @@ my %ArtistTypeNames = (
    ARTIST_TYPE_GROUP . "" => [ 'Group', 'Founded', 'Dissolved' ],
 );
 
+sub entity_type { "artist" }
+
 # Artist specific accessor function. Others are inherted from TableBase 
 sub sort_name
 {
@@ -121,6 +123,19 @@ sub end_date_ymd
     
     return ('', '', '') unless $self->end_date();
     return map { $_ == 0 ? '' : $_ } split(m/-/, $self->end_date);
+}
+
+
+=head2 has_complete_date_range
+
+Returns true if the artist has both a start and end date; false otherwise
+
+=cut
+
+sub has_complete_date_range
+{
+    my $self = shift;
+	return $self->begin_date && $self->end_date;
 }
 
 sub quality
@@ -1191,6 +1206,18 @@ sub GetSubscribers
     my $self = shift;
     require UserSubscription;
     return UserSubscription->GetSubscribersForArtist($self->{DBH}, $self->id);
+}
+
+=head2 subscriber_count
+
+Get's the amount of moderators subscribed to this artist
+
+=cut
+
+sub subscriber_count
+{
+	my $self = shift;
+	return scalar $self->GetSubscribers;
 }
 
 sub InUse

@@ -5,7 +5,7 @@ use warnings;
 
 use base 'MusicBrainz::Server::Model::Base';
 
-use MusicBrainz::Server::Facade::Annotation;
+use MusicBrainz::Server::Annotation;
 
 sub load_latest_annotation
 {

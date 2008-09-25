@@ -9,7 +9,6 @@ use Carp;
 use Encode 'decode';
 use MusicBrainz::Server::Adapter 'LoadEntity';
 use MusicBrainz::Server::Country;
-use MusicBrainz::Server::Facade::Artist;
 use MusicBrainz::Server::Facade::ReleaseEvent;
 use MusicBrainz::Server::Link;
 use MusicBrainz::Server::Release;
@@ -62,10 +61,10 @@ sub load_for_label
         map {
             my $export = MusicBrainz::Server::Facade::Release->new_from_release($_);
 
-            $export->{artist} = MusicBrainz::Server::Facade::Artist->new({
+            $export->{artist} = {
                 name => $_->{artistname},
                 mbid => $_->artist
-            });
+            };
 
             $export->{catalog_number} = $_->{catno};
 
@@ -79,7 +78,7 @@ sub load_for_artist
 {
     my ($self, $artist, $show_all) = @_;
 
-    my @releases = $artist->get_artist->select_releases(!$show_all, 1);
+    my @releases = $artist->select_releases(!$show_all, 1);
 
     if (!$show_all)
     {
@@ -103,7 +102,7 @@ sub load_for_artist
 
         if (scalar @releases == 0)
         {
-            @releases = $artist->get_artist->select_releases(0, 1, $onlyHasVAReleases);
+            @releases = $artist->select_releases(0, 1, $onlyHasVAReleases);
         }
     }
 
@@ -140,10 +139,10 @@ sub find_linked_albums
             link_phrase  => $_->{linkphrase}, 
         });
 
-        $stash_release->{artist} = MusicBrainz::Server::Facade::Artist->new({
+        $stash_release->{artist} = {
             name => $_->{artist_name},
             id => $_->{artist_id},
-        });
+        };
 
         $stash_release;
     } @raw_releases ];

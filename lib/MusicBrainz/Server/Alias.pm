@@ -305,7 +305,7 @@ sub LoadFull
    my (@info, $query, $sql, @row, $alias);
 
    $sql = Sql->new($this->{DBH});
-   $query = qq|select id, name, ref, lastused, timesused 
+   $query = qq|select id, name, ref, lastused, timesused
                  from $this->{table}
                 where ref = $artist
              order by lower(name), name|;

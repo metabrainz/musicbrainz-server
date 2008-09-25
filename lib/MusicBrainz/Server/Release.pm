@@ -233,7 +233,7 @@ sub attributes
 
     # Shift off the mod pending indicator
     shift @attrs;
-    return @attrs;
+    return \@attrs;
 }
 
 sub release_type_and_status

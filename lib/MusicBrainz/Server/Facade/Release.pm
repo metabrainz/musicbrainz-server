@@ -6,7 +6,6 @@ use warnings;
 use base 'Class::Accessor';
 
 use Carp;
-use MusicBrainz::Server::Facade::Artist;
 use MusicBrainz::Server::Release;
 
 __PACKAGE__->mk_accessors( qw{

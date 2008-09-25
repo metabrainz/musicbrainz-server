@@ -20,10 +20,10 @@
   <div class="info">
     [% IF artist.sort_name != artist.name %][% artist.sort_name | html %]<br />[% END %]
 
-    [%- IF artist.complete_date_range -%]
-      [% artist.start_date %] - [% artist.end_date %]<br/>
-    [%- ELSIF artist.start_date -%]
-      Began: [% artist.start_date -%]<br />
+    [%- IF artist.has_complete_date_range -%]
+      [% artist.begin_date %] - [% artist.end_date %]<br/>
+    [%- ELSIF artist.begin_date -%]
+      Began: [% artist.begin_date -%]<br />
     [%- ELSIF artist.end_date -%]
       End: [% artist.end_date -%]<br />
     [%- END -%]

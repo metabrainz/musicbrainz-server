@@ -1,4 +1,4 @@
-#!/usr/bin/perl -w
+#!/usr/bin/perl
 # vi: set ts=4 sw=4 :
 #____________________________________________________________________________
 #
@@ -25,25 +25,29 @@
 
 package MusicBrainz::Server::Annotation;
 
-use TableBase;
-{ our @ISA = qw( TableBase Exporter ) }
+use strict;
+use warnings;
+
+BEGIN
+{
+    use TableBase;
+    { our @ISA = qw( TableBase Exporter ) }
+
+    use Exporter;
+    our @EXPORT_OK = qw(
+        ARTIST_ANNOTATION
+        RELEASE_ANNOTATION
+        LABEL_ANNOTATION
+        TRACK_ANNOTATION
+    );
+
+    our %EXPORT_TAGS = (
+        type => [qw( ARTIST_ANNOTATION RELEASE_ANNOTATION LABEL_ANNOTATION TRACK_ANNOTATION )],
+    );
+}
 
 use ModDefs qw( :artistid MODBOT_MODERATOR );
 
-use Exporter;
-BEGIN {
-	our @EXPORT_OK = qw(
-		ARTIST_ANNOTATION
-		RELEASE_ANNOTATION
-		LABEL_ANNOTATION
-		TRACK_ANNOTATION
-	);
-	our %EXPORT_TAGS = (
-		type => [qw( ARTIST_ANNOTATION RELEASE_ANNOTATION LABEL_ANNOTATION TRACK_ANNOTATION )],
-	);
-}
-
-use strict;
 use Carp qw( cluck croak );
 use Encode qw( encode decode );
 use Text::WikiFormat;
