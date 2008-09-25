@@ -42,7 +42,7 @@ use constant TABLE_LABEL => 4;
 
 sub entity_type
 {
-    my ($self, $new_type) = shift;
+    my ($self, $new_type) = @_;
 
     if (defined $new_type) { $self->{_ent_type} = $new_type; }
     return $self->{_ent_type} || '';
