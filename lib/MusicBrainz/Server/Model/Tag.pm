@@ -7,7 +7,6 @@ use base 'MusicBrainz::Server::Model::Base';
 
 use Carp;
 use List::Util qw(min max sum);
-use MusicBrainz::Server::Facade::Entity;
 use MusicBrainz::Server::Tag;
 
 =head2 top_tags
@@ -46,11 +45,11 @@ sub tagged_entities
     my ($entities, $count) = $t->GetEntitiesForTag($entity_type, $tag, $limit, $offset);
 
     return [ map {
-        MusicBrainz::Server::Facade::Entity->new( {
-            mbid        => $_->{gid},
-            entity_type => $entity_type,
-            name        => $_->{name},
-        });
+        my $ent = TableBase->new;
+        $ent->mbid($_->{gid});
+        $ent->entity_type($entity_type);
+        $ent->name($_->{name});
+        $ent;
     } @$entities ];
 }
 

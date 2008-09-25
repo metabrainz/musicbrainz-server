@@ -40,6 +40,14 @@ use constant TABLE_ARTIST => 2;
 use constant TABLE_TRACK => 3;
 use constant TABLE_LABEL => 4;
 
+sub entity_type
+{
+    my ($self, $new_type) = shift;
+
+    if (defined $new_type) { $self->{_ent_type} = $new_type; }
+    return $self->{_ent_type} || '';
+}
+
 sub new
 {
     my ($class, $dbh) = @_;
