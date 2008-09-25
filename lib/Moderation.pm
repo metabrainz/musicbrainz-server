@@ -29,7 +29,7 @@ use TableBase;
 use strict;
 use Carp;
 use DBDefs;
-use ModDefs ':all';
+use ModDefs ':DEFAULT';
 use MusicBrainz::Server::Validation qw( unaccent );
 use Encode qw( encode decode );
 use utf8;

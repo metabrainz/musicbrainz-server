@@ -28,10 +28,12 @@ package ModDefs;
 my $stash = \%ModDefs::;
 my @subs = grep {
     my $glob = $stash->{$_};
-    defined *{$glob}{CODE};
+    ref $glob eq 'GLOB' && defined *{$glob}{CODE};
 } sort keys %$stash;
 
-my $get = sub {
+@subs = keys %ModDefs::;
+
+sub _get {
     my $re = shift;
     [ grep { $_ =~ $re } @subs ];
 };
@@ -40,15 +42,16 @@ use Exporter;
 @ISA = qw( Exporter );
 
 %EXPORT_TAGS = (
-	artistid	=> &$get(qr/^[VD]ARTIST_(MB)?ID$/),
-	labelid		=> &$get(qr/^[D]LABEL_(MB)?ID$/),
-	userid		=> &$get(qr/^\w+_MODERATOR$/),
-	modtype		=> &$get(qr/^MOD_/),
-	modstatus	=> &$get(qr/^STATUS_/),
-	vote		=> &$get(qr/^VOTE_/),
-	all		=> \@subs,
+	artistid	=> _get(qr/^[VD]ARTIST_(MB)?ID$/),
+	labelid		=> _get(qr/^[D]LABEL_(MB)?ID$/),
+	userid		=> _get(qr/^\w+_MODERATOR$/),
+	modtype		=> _get(qr/^MOD_/),
+	modstatus	=> _get(qr/^STATUS_/),
+	vote		=> _get(qr/^VOTE_/),
+	all		    => @subs,
 );
 
+@EXPORT = @subs;
 @EXPORT_OK = @subs;
 
 use strict;
