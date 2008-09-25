@@ -50,7 +50,7 @@ sub create
 {
     my ($self, $username, $password) = @_;
 
-    my $user_stuff = UserStuff->new($self->mbh);
+    my $user_stuff = UserStuff->new($self->dbh);
     my ($user_obj, $error_messages) = $user_stuff->CreateLogin($username, $password);
 
     return undef

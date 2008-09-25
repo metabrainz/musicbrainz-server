@@ -351,6 +351,56 @@ sub donate : Local
     die "Not implemented";
 }
 
+=head2 verify
+
+Verify the email address (this is the URL handed out in "verify your email
+address" emails)
+
+=cut
+
+sub verify : Local
+{
+    my ($self, $c) = @_;
+
+    my $user_id = $c->request->query_params->{user};
+    my $email   = $c->request->query_params->{email};
+    my $time    = $c->request->query_params->{time};
+    my $key     = $c->request->query_params->{chk};
+
+    die "The user ID is missing or, is in an invalid format"
+        unless MusicBrainz::Server::Validation::IsNonNegInteger($user_id) && $user_id;
+
+    die "The email address is missing"
+        unless $email;
+
+    die "The time is missing, or is in an invalid format"
+        unless MusicBrainz::Server::Validation::IsNonNegInteger($time) && $time;
+
+    die "The key is missing"
+        unless $key;
+
+    my $ui = UserStuff->new($c->mb->{DBH});
+    die "The checksum is invalid, please double check your email"
+        unless $ui->GetVerifyChecksum($email, $user_id, $time) eq $key;
+
+    if (($time + DBDefs::EMAIL_VERIFICATION_TIMEOUT) < time)
+    {
+        die "Sorry, this email verification link has expired";
+    }
+    else
+    {
+        my $user = $c->model('User')->load_user({ id => $user_id });
+
+        die "User with id $user_id could not be found"
+            unless $user;
+
+        $user->get_user->SetUserInfo(email => $email)
+            or die "Could not update user information";
+
+        $c->stash->{template} = 'user/verified.tt';
+    }
+}
+
 =head1 LICENSE 
 
 This software is provided "as is", without warranty of any kind, express or

@@ -331,15 +331,6 @@ sub CreateLogin
 		}
 		else
 		{
-			if ($pwd eq "")
-			{
-				push @messages, "Please enter a password";
-			}
-			elsif ($pwd ne $pwd2)
-			{
-				push @messages, "The given passwords do not match. ";
-			}
-
 			# if user was validated.
 			if (@messages == 0)
 			{
