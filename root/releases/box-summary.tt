@@ -4,8 +4,8 @@
       [% IF release.puid_count %][% release.puid_count %]&nbsp;<img src="/static/images/puid.gif" alt="PUIDs" />[% END %]
     </div>
     <div class="right">
-      [ [% release.quality %] data quality ] |
-      [ [% release.language %], [% release.script %] ] |
-      [ [% release.release_type_name %], [% release.release_status_name %] ]
+      [ [% data_quality(release.quality) %] data quality ] |
+      [ [% release.language.name %], [% release.script.name %] ] |
+      [ [% release_attribute(release.release_type) %], [% release_attribute(release.release_status) %] ]
     </div>
   </div>

@@ -678,7 +678,7 @@ sub LoadFromId
 	$this->{mbid}				= $row->[2];
 	$this->{modpending}			= $row->[3];
 	$this->{artist}				= $row->[4]; 
-	$this->{attrs}				= [ $row->[5] =~ /(\d+)/g ];
+	$this->{attrs}				= $row->[5];
 	$this->{language}			= $row->[6];
 	$this->{script}				= $row->[7];
 	$this->{modpending_lang}	= $row->[8];

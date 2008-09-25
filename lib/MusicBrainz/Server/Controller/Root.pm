@@ -97,6 +97,13 @@ sub end : ActionClass('RenderView')
             tz             => $prefs->get('timezone')
         }, @_);
     };
+
+    # For displaying release attributes
+    $c->stash->{release_attribute}        = \&MusicBrainz::Server::Release::attribute_name;
+    $c->stash->{plural_release_attribute} = \&MusicBrainz::Server::Release::attribute_name_as_plural;
+
+    # Working with quality levels
+    $c->stash->{data_quality} = \&ModDefs::GetQualityText;
 }
 
 =head css
