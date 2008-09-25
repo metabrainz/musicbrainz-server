@@ -1,0 +1,42 @@
+[% WRAPPER 'artist/layout.tt' title="Merge" %]
+[% WRAPPER 'components/box.tt' header="Merge ${artist.name} into another artist" %]
+
+<ul>
+  <li>
+    This wizard allows you to merge the artist
+    [%- INCLUDE "components/entity-link.tt" entity=artist -%] into another artist.
+    Please read the guideline on
+    [%- INCLUDE "components/doc-link.tt" to="HowToMergeArtists" text="how to merge artists" -%]
+    and the general
+    [%- INCLUDE "components/doc-link.tt" to="StyleGuidelines" text="style guidelines" -%]
+    before entering this edit.
+  </li>
+
+  <li>
+    Please enter the [%- INCLUDE "components/doc-link.tt" to="ArtistName" text="artist name" -%]
+    of the artist you would like to merge this artist into, and press
+    <em>search</em> to start the search.
+  </li>
+
+  <li>
+    When you have found the artist that you would like to merge
+    [%- INCLUDE "components/entity-link.tt" entity=artist -%] into, please follow the link
+    and you will be forwarded to the next step of the wizard
+  </li>
+</ul>
+
+[%- WRAPPER "forms/form.tt" -%]
+  [%- INCLUDE "forms/widget.tt" widget=form.field('query') label="Artist" -%]
+  [%- INCLUDE "forms/submit.tt" label="Search" %]
+[%- END -%]
+
+[%- IF artists.size -%]
+  <ul>
+  [%- FOREACH search_artist=artists -%]
+    <li><a href="[% entity_url(artist, 'merge_into', search_artist.mbid) %]">[% search_artist.name %]</a></li>
+  [%- END -%]
+  </ul>
+[%- END -%]
+
+[% END %]
+[% END %]

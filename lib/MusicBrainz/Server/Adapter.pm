@@ -84,24 +84,23 @@ parameters for the end of the URL.
 
 sub EntityUrl
 {
-    my ($c, $entity, $action, $query_params) = @_;
+    my ($c, $entity, $action, @args) = @_;
 
-    my $url = '';
+    # Determine the type of the entity - thus which control to use
     my $type = $entity->entity_type;
 
+    # Now find the controller
     my $controller = $c->controller("MusicBrainz::Server::Controller::" . ucfirst($type))
         or die "$type is not a valid type";
 
+    # Lookup the action
     my $catalyst_action = $controller->action_for($action)
         or die "$action is not a valid action for the controller $type";
 
-    $query_params ||= {};
-
-    my $id = $entity->can('mbid') && $entity->mbid ? $entity->mbid
-           : $entity->can('id')   && $entity->id   ? $entity->id
-           :                                         '';
-
-    return $c->uri_for($catalyst_action, [ $id ], $query_params);
+    # Parse capture arguments.
+    my $id = $entity->mbid || $entity->id;
+ 
+    return $c->uri_for($catalyst_action, [ $id ], @args);
 }
 
 =head2 Google $query.

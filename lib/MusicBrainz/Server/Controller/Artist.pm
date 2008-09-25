@@ -294,10 +294,67 @@ Merge 2 artists into a single artist
 
 =cut
 
-sub merge : Local
+sub merge : Chained('artist')
 {
     my ($self, $c) = @_;
-    die "This is a stub method";
+
+    $c->forward('/user/login');
+
+    use MusicBrainz::Server::Form::Search::Artist;
+    my $form = new MusicBrainz::Server::Form::Search::Artist;
+
+    if ($c->form_posted && $form->validate($c->req->params))
+    {
+        my $artist = $c->stash->{artist};
+
+        my $artists = $artist->select_artists_by_name($form->value('query'));
+        $c->stash->{artists} = $artists;
+    }
+
+    $c->stash->{form    } = $form;
+    $c->stash->{template} = 'artist/merge_search.tt';
+}
+
+sub merge_into : Chained('artist') PathPart('merge-into') Args(1)
+{
+    my ($self, $c, $new_mbid) = @_;
+
+    $c->forward('/user/login');
+
+    use MusicBrainz::Server::Form;
+    my $form = new MusicBrainz::Server::Form(profile => {
+            required => { edit_note => 'TextArea' },
+        });
+
+    my $new_artist = $c->model('Artist')->load($new_mbid);
+    $c->stash->{new_artist} = $new_artist;
+
+    if ($c->form_posted)
+    {
+        require Moderation;
+        my @mods = Moderation->InsertModeration(
+            DBH   => $c->mb->{DBH},
+            uid   => $c->user->id,
+            privs => $c->user->privs,
+            type  => ModDefs::MOD_MERGE_ARTIST,
+
+            source => $c->stash->{artist},
+            target => $new_artist,
+        );
+
+        if (@mods)
+        {
+            $mods[0]->InsertNote($c->user->id, $form->value('edit_note'))
+                if $form->value('edit_note') =~ /\S/;
+
+            $c->flash->{ok} = "Thanks, your artist edit has been entered " .
+                              "into the moderation queue";
+
+            $c->detach('/artist/show', $c->stash->{artist}->mbid);
+        }
+    }
+
+    $c->stash->{template} = 'artist/merge.tt';
 }
 
 =head2 subscribe
