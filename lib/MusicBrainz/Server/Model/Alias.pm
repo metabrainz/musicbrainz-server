@@ -16,13 +16,9 @@ sub load_for_entity
     my $table = "${type}Alias";
 
     my $alias   = MusicBrainz::Server::Alias->new($self->dbh, $table);
-    my @aliases = $alias->GetList($entity->id);
+    my $aliases = $alias->LoadFull($entity->id);
 
-    [ map { MusicBrainz::Server::Facade::Alias->new({
-        last_used  => $_->[3],
-        times_used => $_->[2] || 0,
-        name       => $_->[1],
-    }) } @aliases ];
+    return $aliases;
 }
 
 1;
