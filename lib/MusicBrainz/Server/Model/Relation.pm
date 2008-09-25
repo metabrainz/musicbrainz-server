@@ -5,7 +5,6 @@ use warnings;
 
 use base 'MusicBrainz::Server::Model::Base';
 
-use MusicBrainz::Server::Facade::Link;
 use MusicBrainz::Server::Link;
 
 sub load_relations
@@ -168,13 +167,16 @@ sub _export_link
     my $type = $link->{"${linkType}_type"};
     $type = 'release' if $type eq 'album';
 
-    return MusicBrainz::Server::Facade::Link->new({
-        name        => $name,
-        entity_type => $type,
-        mbid        => $link->{"${linkType}_mbid"},
-        url         => $url,
-        resolution  => $link->{"${linkType}_resolution"},
-    });
+    my $l = TableBase->new;
+    $l->name($name);
+    $l->entity_type($type);
+    $l->mbid($link->{"${linkType}_mbid"});
+
+    # TODO Not a brilliant solution...
+    $l->{url} = $url;
+    $l->{resolution} = $link->{"${linkType}_resolution"};
+
+    return $l;
 }
 
 1;
