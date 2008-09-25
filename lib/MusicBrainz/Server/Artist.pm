@@ -1005,7 +1005,6 @@ sub select_releases
                 $album->has_mod_pending($row[2]);
                 $album->artist($this->{id});
                 $album->mbid($row[3]);
-                $row[4] =~ s/^\{(.*)\}$/$1/;
                 $album->{attrs} = $row[4];
                 $album->language_id($row[5]);
                 $album->script_id($row[6]);
@@ -1068,8 +1067,7 @@ sub select_releases
             $album->name($row[2]);
             $album->has_mod_pending($row[3]);
             $album->mbid($row[4]);
-            $row[5] =~ s/^\{(.*)\}$/$1/;
-            $album->{attrs} = [ split /,/, $row[5] ];
+            $album->{attrs} = $row[5];
 			$album->language_id($row[6]);
 			$album->script_id($row[7]);
 			$album->quality($row[8]);
