@@ -28,8 +28,8 @@
         </td>
         <td class="date">[% item.first_release_date | release_date %]</td>
         <td class="language">
-            <abbr title="[% item.language %] / [% item.script %]">
-            [% item.language_code %]
+            <abbr title="[% item.language.name %] / [% item.script.name %]">
+            [% item.language.iso_code_3t %]
             </abbr>
         </td>
         <td>[% INCLUDE "components/entity-link.tt" entity=item icon=0 %]</td>

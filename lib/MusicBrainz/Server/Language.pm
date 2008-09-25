@@ -33,9 +33,9 @@ use Encode qw( decode );
 
 # id / id - see TableBase
 # name / name - see TableBase
-sub iso_code_3t	{ $_[0]{isocode_3t} }
-sub iso_code_3b	{ $_[0]{isocode_3b} }
-sub iso_code_2		{ $_[0]{isocode_2} }
+sub iso_code_3t { $_[0]{isocode_3t} }
+sub iso_code_3b { $_[0]{isocode_3b} }
+sub iso_code_2  { $_[0]{isocode_2} }
 
 sub _id_cache_key
 {
