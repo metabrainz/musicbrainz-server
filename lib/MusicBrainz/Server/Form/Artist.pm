@@ -41,18 +41,22 @@ sub profile
 {
     return {
         required => {
-            name => 'Text',
-            sortname => 'Text',
+            name        => 'Text',
+            sortname    => 'Text',
             artist_type => 'Select'
         },
         optional => {
-            start => '+MusicBrainz::Server::Form::Field::Date',
-            end => '+MusicBrainz::Server::Form::Field::Date',
+            start     => '+MusicBrainz::Server::Form::Field::Date',
+            end       => '+MusicBrainz::Server::Form::Field::Date',
             edit_note => 'TextArea',
 
             # We make this required if duplicates are found,
             # or if a resolution is present when we edit the artist.
-            resolution => 'Text'
+            resolution => {
+                type             => 'Text',
+                required_message => 'An artist with this name already exists. '.
+                                    'Please enter a comment about this artist for disambiguation',
+            },
         }
     };
 }
@@ -63,10 +67,42 @@ Options used for the "artist type" combo field.
 
 =cut
 
-sub options_artist_type {
+sub options_artist_type
+{
     [ MusicBrainz::Server::Artist::ARTIST_TYPE_PERSON, "Person",
       MusicBrainz::Server::Artist::ARTIST_TYPE_GROUP, "Group",
       MusicBrainz::Server::Artist::ARTIST_TYPE_UNKNOWN, "Unknown" ]
+}
+
+=head2 model_validate
+
+If the new artist name already exists, make sure that the resolution field
+is required
+
+=cut
+
+sub model_validate
+{
+    my $self = shift;
+
+    my $mb = new MusicBrainz;
+    $mb->Login;
+
+    my $artist = MusicBrainz::Server::Artist->new($mb->{DBH});
+    my $artists = $artist->select_artists_by_name($self->value('name'));
+
+    my @dupes;
+    for my $possible_dupe (@$artists)
+    {
+        push @dupes, $possible_dupe
+            if ($possible_dupe->id != $self->item_id);
+    }
+
+    if (scalar @dupes)
+    {
+        $self->field('resolution')->required(1);
+        $self->field('resolution')->validate_field;
+    }
 }
 
 =head2 init_item
@@ -76,7 +112,8 @@ artist so we can fill the form fields.
 
 =cut
 
-sub init_item {
+sub init_item
+{
     my $self = shift;
     my $id = $self->item_id;
 
@@ -96,7 +133,8 @@ Initialize the value for a form field, given the name of the field.
 
 =cut
 
-sub init_value {
+sub init_value
+{
     my ($self, $field, $item) = @_;
     $item ||= $self->item;
 
@@ -128,11 +166,12 @@ entered via the moderation system.
 
 =cut 
 
-sub update_model {
+sub update_model
+{
     my $self = shift;
     my $item = $self->item;
 
-    my $user = $self->context->user->get_object;
+    my $user = $self->context->user->get_user;
 
     my %moderation;
     $moderation{DBH} = $self->context->mb->{DBH};
@@ -190,7 +229,8 @@ A small helper method to validate the form and update the database if validation
 
 =cut
 
-sub update_from_form {
+sub update_from_form
+{
     my ($self, $data) = @_;
 
     return unless $self->validate($data);
