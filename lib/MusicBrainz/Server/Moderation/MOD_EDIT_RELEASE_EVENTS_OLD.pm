@@ -77,7 +77,7 @@ sub PreInsert
 			$row->sort_date,
 			$row->country,
 			$row->id,
-			$row->GetLabel,
+			$row->label->id,
 			_EncodeText($row->cat_no),
 			_EncodeText($row->barcode),
 			$row->format;
@@ -93,7 +93,7 @@ sub PreInsert
 			$obj->sort_date,
 			$obj->country,
 			$obj->id,
-			$obj->GetLabel,
+			$obj->label->id,
 			_EncodeText($obj->cat_no),
 			_EncodeText($obj->barcode),
 			$obj->format;
@@ -108,7 +108,7 @@ sub PreInsert
 		my $new = sprintf "nd=%s nc=%d nl=%d nn=%s nb=%s nf=%d",
 			$obj->sort_date,
 			$obj->country,
-			$obj->GetLabel,
+			$obj->label->id,
 			_EncodeText($obj->cat_no),
 			_EncodeText($obj->barcode),
 			$obj->format;
@@ -124,7 +124,7 @@ sub PreInsert
 			$row->sort_date,
 			$row->country,
 			$row->id,
-			$row->GetLabel,
+			$row->label->id,
 			_EncodeText($row->cat_no),
 			_EncodeText($row->barcode),
 			$row->format;
@@ -309,7 +309,7 @@ sub ApprovedAction
 
 		if ($r->country != $t->{'c'}
 			or $r->sort_date ne $t->{'d'}
-			or $r->GetLabel != $t->{'l'}
+			or $r->label->id != $t->{'l'}
 			or $r->cat_no ne $t->{'n'}
 			or $r->barcode ne $t->{'b'}
 			or $r->format != $t->{'f'})

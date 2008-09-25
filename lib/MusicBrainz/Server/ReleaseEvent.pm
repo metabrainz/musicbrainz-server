@@ -104,13 +104,12 @@ sub release
     return $self->{album};
 }
 
-sub Release
+sub label
 {
-	my $self = shift;
-	my $c = MusicBrainz::Server::Release->new($self->{DBH});
-	$c->id($self->release);
-	$c->LoadFromId or return undef;
-	$c;
+    my ($self, $new_label) = @_;
+
+    if (defined $new_label) { $self->{_label} = $new_label; }
+    return $self->{_label};
 }
 
 sub country
@@ -144,30 +143,6 @@ sub barcode
     if (defined $new_barcode) { $self->{barcode} = $new_barcode; }
     return $self->{barcode};
 }
-
-sub GetLabel	{ $_[0]{label} }
-sub SetLabel	{ $_[0]{label} = $_[1] }
-
-sub Label
-{
-	my $self = shift;
-	my $c = MusicBrainz::Server::Label->new($self->{DBH});
-	$c->id($self->GetLabel);
-	$c->LoadFromId or return undef;
-	$c;
-}
-
-# This doesn't have to always contain the actual label name. Use it
-# only on instances loaded by newFromRelease.
-sub label_name
-{
-    my ($self, $new_name) = @_;
-
-    if (defined $new_name) { $self->{labelname} = $new_name; }
-    return $self->{labelname};
-}
-
-sub label_mbid	{ $_[0]{labelgid} }
 
 sub format
 {
@@ -248,10 +223,37 @@ sub newFromRelease
 	{
 		$query = "SELECT * FROM release WHERE album = ? ORDER BY releasedate, country";
 	}
-	map { $self->_new_from_row($_) }
+	map { $self->_new_from_row($_, $loadlabels) }
 		@{
 			$sql->SelectListOfHashes($query, $album),
 		};
+}
+
+sub _new_from_row
+{
+    my ($self, $row, $has_label_info) = @_;
+
+    my $event = MusicBrainz::Server::ReleaseEvent->new($self->{DBH});
+
+    my $label = MusicBrainz::Server::Label->new($self->{DBH});
+    $label->id($row->{label});
+
+    if ($has_label_info)
+    {
+        $label->name($row->{labelname});
+        $label->mbid($row->{labelgid});
+    }
+
+    $event->id($row->{id});
+    $event->release($row->{album});
+    $event->country($row->{country});
+    $event->date(split m/-/, $row->{releasedate});
+    $event->label($label);
+    $event->cat_no($row->{catno});
+    $event->barcode($row->{barcode});
+    $event->format($row->{format});
+
+    return $event;
 }
 
 ################################################################################
@@ -267,7 +269,7 @@ sub InsertSelf
 		$self->release,
 		$self->country,
 		$self->sort_date,
-		$self->GetLabel || undef,
+		$self->label->id || undef,
 		$self->cat_no || undef,
 		$self->barcode || undef,
 		$self->format || undef,
@@ -289,7 +291,7 @@ sub Update
 		"UPDATE release SET country = ?, releasedate = ?, label = ?, catno = ?, barcode = ?, format = ? WHERE id = ?",
 		$self->country,
 		$self->sort_date,
-		$self->GetLabel || undef,
+		$self->label->id || undef,
 		$self->cat_no || undef,
 		$self->barcode || undef,
 		$self->format || undef,

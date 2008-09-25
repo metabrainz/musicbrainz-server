@@ -466,14 +466,10 @@ sub xml_release_events
 			printf ' catalog-number="%s"', xml_escape($rel->cat_no) if $rel->cat_no;
 			printf ' barcode="%s"', xml_escape($rel->barcode) if $rel->barcode;
 			printf ' format="%s"', xml_escape($formatNames{$rel->format}) if $rel->format;
-			if (($inc & INC_LABELS) && $rel->GetLabel)
+			if (($inc & INC_LABELS) && $rel->label->id)
 			{
 				print '>';
-				my $label = MusicBrainz::Server::Label->new($rel->{DBH});
-				$label->id($rel->GetLabel);
-				$label->mbid($rel->label_mbid);
-				$label->name($rel->label_name);
-				xml_label($label, $inc);
+				xml_label($rel->label, $inc);
 				print '</event>';
 			}
 			else
