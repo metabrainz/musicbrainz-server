@@ -590,7 +590,7 @@ sub puid_count
 # Returns the first release date for this album or undef on error
 # If there is no first release date (i.e. there are no releases), then the
 # empty string is returned.
-sub GetFirstReleaseDate
+sub first_release_date
 {
 	my ($this) = @_;
 	$this->{id} or return undef;
@@ -603,9 +603,9 @@ sub GetFirstReleaseDate
 
 # Fetches the first release date as a triple of integers.  Missing parts are
 # zero.
-sub GetFirstReleaseDateYMD
+sub first_release_date_ymd
 {
-	map { 0+$_ } split '-', ($_[0]->GetFirstReleaseDate || "0-0-0");
+	map { 0+$_ } split '-', ($_[0]->first_release_date || "0-0-0");
 }
 
 # This function takes a track id and returns an array of album ids

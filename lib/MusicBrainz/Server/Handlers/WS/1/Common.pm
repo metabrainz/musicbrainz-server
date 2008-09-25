@@ -346,7 +346,7 @@ sub xml_artist
             if (scalar(@filtered))
             {
                 print '<release-list>';
-                foreach my $al (sort { $a->GetFirstReleaseDate() cmp $b->GetFirstReleaseDate() } @filtered)
+                foreach my $al (sort { $a->first_release_date() cmp $b->first_release_date() } @filtered)
                 {
                     xml_release($ar, $al, $inc);
                 }

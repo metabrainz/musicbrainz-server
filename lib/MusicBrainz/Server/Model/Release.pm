@@ -151,7 +151,7 @@ sub _build_sort_keys
         my ($type, $status) = $release->release_type_and_status;
 
         $release->SetMultipleTrackArtists($release->artist != $release->id() ? 1 : 0);
-        $release->{_firstreleasedate_} = ($release->GetFirstReleaseDate || "9999-99-99");
+        $release->{_firstreleasedate_} = ($release->first_release_date || "9999-99-99");
         $release->{_is_va_}       = ($release->artist == &ModDefs::VARTIST_ID) or
                                     ($release->artist != $release->id());
         $release->{_is_nonalbum_} = $type && $type == MusicBrainz::Server::Release::RELEASE_ATTR_NONALBUMTRACKS;
