@@ -102,7 +102,7 @@ sub register : Local
                                                  $form->value('password'));
 
         my $email            = $form->value('email');
-        my $could_send_email = $new_user->get_user->SendVerificationEmail($email);
+        my $could_send_email = $new_user->SendVerificationEmail($email);
 
         $c->authenticate({ username => $new_user->username,
                            password => $new_user->password });
@@ -182,7 +182,7 @@ sub forgotPassword : Local
             my $user = $c->model('User')->load_user({ username => $username });
             if ($user)
             {
-                $user->get_user->SendPasswordReminder
+                $user->SendPasswordReminder
                     or die "Could not send password reminder";
 
                 $c->flash->{ok} = "A password reminder has been sent to you. Please check your inbox for more details";
@@ -243,9 +243,9 @@ sub change_password : Local
     {
         if ($form->value('old_password') eq $c->user->password)
         {
-            $c->user->get_user->ChangePassword( $form->value('old_password'),
-                                                  $form->value('new_password'),
-                                                  $form->value('confirm_new_password') );
+            $c->user->ChangePassword( $form->value('old_password'),
+                                      $form->value('new_password'),
+                                      $form->value('confirm_new_password') );
 
             $c->flash->{ok} = "Your password has been successfully changed";
         }
@@ -394,7 +394,7 @@ sub verify : Local
         die "User with id $user_id could not be found"
             unless $user;
 
-        $user->get_user->SetUserInfo(email => $email)
+        $user->SetUserInfo(email => $email)
             or die "Could not update user information";
 
         $c->stash->{template} = 'user/verified.tt';

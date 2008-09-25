@@ -25,10 +25,11 @@
 
 package MusicBrainz::Server::Moderator;
 
-use TableBase;
-{ our @ISA = qw( TableBase ) }
+use base qw(TableBase Catalyst::Authentication::User);
 
 use strict;
+use warnings;
+
 use DBDefs;
 use MusicBrainz::Server::Validation;
 use URI::Escape qw( uri_escape );
@@ -57,6 +58,9 @@ use constant DEFAULT_SEARCH_LIMIT => 0;
 
 use constant PERMANENT_COOKIE_NAME => "remember_login";
 use constant LOOKUPS_PER_NAG       => 5;
+
+# For Catalyst::Plugin::Authentication
+sub supported_features { return { session => 1 }; }
 
 sub password
 {
@@ -173,6 +177,16 @@ sub web_url_complete
 	return "mailto:$_" if /\@/;
 	$_ = "http://$_";
 	$_;
+}
+
+sub get
+{
+    my ($self, $prop) = @_;
+
+    if ($self->can($prop))
+    {
+        return $self->$prop;
+    }
 }
 
 sub _id_cache_key
@@ -1432,9 +1446,15 @@ sub NagCheck
     my $days = 0.0;
     if ($nag)
     {
-        use LWP::Simple;
+        use LWP::UserAgent;
         use URI::Escape;
-        $days = get('http://metabrainz.org/cgi-bin/nagcheck_days?moderator=' . uri_escape($self->name));
+
+        my $agent = new LWP::UserAgent;
+        $agent->timeout(2);
+
+        my $response = $agent->get('http://metabrainz.org/cgi-bin/nagcheck_days?moderator=' . uri_escape($self->name));
+
+        $days = $response->content;
         if ($days =~ /\s*([-01]+),([-0-9.]+)\s*/) 
         {
             $nag = $1;

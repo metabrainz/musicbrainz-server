@@ -5,8 +5,6 @@ use warnings;
 
 use base 'MusicBrainz::Server::Model::Base';
 
-use MusicBrainz::Server::Authentication::User;
-
 use Carp;
 
 sub load_user
@@ -31,9 +29,7 @@ sub load_user
         $user = $us->newFromId($opts->{id});
     }
 
-    my $ret = MusicBrainz::Server::Authentication::User->new($user);
-
-    return $ret;
+    return $user;
 }
 
 sub get_preferences_hash
@@ -56,7 +52,7 @@ sub create
     return undef
         unless @$error_messages == 0;
 
-    return MusicBrainz::Server::Authentication::User->new($user_obj);
+    return $user_obj;
 }
 
 sub find_by_email
@@ -66,7 +62,7 @@ sub find_by_email
     my $user_stuff = new MusicBrainz::Server::Moderator($self->dbh);
     my $usernames = $user_stuff->LookupNameByEmail($email);
 
-    return [ map { MusicBrainz::Server::Authentication::User->new($_) } @$usernames ];
+    return $usernames;
 }
 
 1;

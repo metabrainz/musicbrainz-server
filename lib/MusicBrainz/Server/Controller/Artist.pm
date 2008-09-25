@@ -314,7 +314,7 @@ sub subscribe : Chained('artist')
     $c->forward('/user/login');
 
     my $us = UserSubscription->new($c->mb->{DBH});
-    $us->SetUser($c->user->get_user->id);
+    $us->SetUser($c->user->id);
     $us->SubscribeArtists($artist);
 
     $c->forward('show_subscriptions');
@@ -334,7 +334,7 @@ sub unsubscribe : Chained('artist')
     $c->forward('/user/login');
 
     my $us = UserSubscription->new($c->mb->{DBH});
-    $us->SetUser($c->user->get_user->id);
+    $us->SetUser($c->user->id);
     $us->UnsubscribeArtists($artist);
 
     $c->forward('show_subscriptions');
@@ -361,7 +361,7 @@ sub show_subscriptions : Private
     {
         my $user = $c->model('User')->load_user({ id => $uid });
 
-        my $public = UserPreference::get_for_user("subscriptions_public", $user->get_user);
+        my $public = UserPreference::get_for_user("subscriptions_public", $user);
         my $is_me  = $c->user_exists && $c->user->id == $user->id;
         
         if ($public || $is_me)

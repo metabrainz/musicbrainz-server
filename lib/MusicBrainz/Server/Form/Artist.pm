@@ -171,7 +171,7 @@ sub update_model
     my $self = shift;
     my $item = $self->item;
 
-    my $user = $self->context->user->get_user;
+    my $user = $self->context->user;
 
     my %moderation;
     $moderation{DBH} = $self->context->mb->{DBH};
