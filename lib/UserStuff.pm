@@ -58,32 +58,103 @@ use constant DEFAULT_SEARCH_LIMIT => 0;
 use constant PERMANENT_COOKIE_NAME => "remember_login";
 use constant LOOKUPS_PER_NAG       => 5;
 
-sub GetPassword			{ $_[0]{password} }
-sub SetPassword			{ $_[0]{password} = $_[1] }
-sub GetPrivs			{ $_[0]{privs} }
-sub SetPrivs			{ $_[0]{privs} = $_[1] }
-sub GetModsAccepted		{ $_[0]{modsaccepted} }
-sub SetModsAccepted		{ $_[0]{modsaccepted} = $_[1] }
-sub GetAutoModsAccepted	{ $_[0]{automodsaccepted} }
-sub SetAutoModsAccepted	{ $_[0]{automodsaccepted} = $_[1] }
-sub GetModsRejected		{ $_[0]{modsrejected} }
-sub SetModsRejected		{ $_[0]{modsrejected} = $_[1] }
-sub GetModsFailed		{ $_[0]{modsfailed} }
-sub SetModsFailed		{ $_[0]{modsfailed} = $_[1] }
-sub GetEmail			{ $_[0]{email} }
-sub SetEmail			{ $_[0]{email} = $_[1] }
-sub GetWebURL			{ $_[0]{weburl} }
-sub SetWebURL			{ $_[0]{weburl} = $_[1] }
-sub GetBio				{ $_[0]{bio} }
-sub SetBio				{ $_[0]{bio} = $_[1] }
-sub GetMemberSince		{ $_[0]{membersince} }
-sub SetMemberSince		{ $_[0]{membersince} = $_[1] }
-sub GetEmailConfirmDate	{ $_[0]{emailconfirmdate} }
-sub SetEmailConfirmDate	{ $_[0]{emailconfirmdate} = $_[1] }
-sub GetLastLoginDate	{ $_[0]{lastlogindate} }
-sub SetLastLoginDate	{ $_[0]{lastlogindate} = $_[1] }
+sub password
+{
+    my ($self, $new_password) = @_;
 
-sub GetEmailStatus
+    if (defined $new_password) { $self->{password} = $new_password; }
+    return $self->{password};
+}
+
+sub privs
+{
+    my ($self, $new_privs) = @_;
+
+    if (defined $new_privs) { $self->{privs} = $new_privs; }
+    return $self->{privs};
+}
+
+sub mods_accepted
+{
+    my ($self, $new_mods) = @_;
+
+    if (defined $new_mods) { $self->{modsaccepted} = $new_mods; }
+    return $self->{modsaccepted};
+}
+
+sub auto_mods_accepted
+{
+    my ($self, $new_mods) = @_;
+
+    if (defined $new_mods) { $self->{automodsaccepted} = $new_mods; }
+    return $self->{automodsaccepted};
+}
+
+sub mods_rejected
+{
+    my ($self, $new_rejected) = @_;
+
+    if (defined $new_rejected) { $self->{modsrejected} = $new_rejected; }
+    return $self->{modsrejected};
+}
+
+sub mods_failed
+{
+    my ($self, $new_failed) = @_;
+
+    if (defined $new_failed) { $self->{modsfailed} = $new_failed; }
+    return $self->{modsfailed};
+}
+
+sub email
+{
+    my ($self, $new_email) = @_;
+
+    if (defined $new_email) { $self->{email} = $new_email; }
+    return $self->{email};
+}
+
+sub email_confirmation_date
+{
+    my ($self, $new_date) = @_;
+
+    if (defined $new_date) { $self->{emailconfirmdate} = $new_date; }
+    return $self->{emailconfirmdate};
+}
+
+sub web_url
+{
+    my ($self, $new_url) = @_;
+
+    if (defined $new_url) { $self->{weburl} = $new_url; }
+    return $self->{weburl};
+}
+
+sub biography
+{
+    my ($self, $new_bio) = @_;
+
+    if (defined $new_bio) { $self->{bio} = $new_bio; }
+    return $self->{bio};
+}
+
+sub member_since
+{
+    my ($self, $new_date) = @_;
+
+    if (defined $new_date) { $self->{membersince} = $new_date; }
+    return $self->{membersince};
+}
+
+sub last_login_date
+{
+    my ($self, $new_date) = @_;
+
+    if (defined $new_date) { $self->{lastlogindate} = $new_date; }
+    return $self->{lastlogindate};
+}
+
+sub email_status
 {
 	my $self = shift;
 	my ($e, $d) = @$self{qw( email emailconfirmdate )};
@@ -92,7 +163,7 @@ sub GetEmailStatus
 	return "missing";
 }
 
-sub GetWebURLComplete
+sub web_url_complete
 {
 	local $_ = $_[0]{weburl}
 		or return undef;
@@ -290,11 +361,11 @@ sub Login
 
 	return if $self->IsSpecialEditor;
 
-	return if $self->GetPassword eq LOCKED_OUT_PASSWORD;
+	return if $self->password eq LOCKED_OUT_PASSWORD;
 
 	# Maybe this should be unicode, but a byte-by-byte comparison of passwords
 	# is probably not a bad thing.
-	return unless $self->GetPassword eq $pwd;
+	return unless $self->password eq $pwd;
 
 	return $self;
 }
@@ -467,7 +538,7 @@ sub SetUserInfo
 	$self->Refresh if $ok;
 
 	my $session = $self->GetSession;
-	$session->{has_confirmed_email} = ($self->GetEmail ? 1 : 0)
+	$session->{has_confirmed_email} = ($self->email ? 1 : 0)
 		if exists $session->{has_confirmed_email};
 
 	$ok;
@@ -484,12 +555,12 @@ sub MakeAutoModerator
 {
 	my $self = shift;
 
-	return if $self->IsAutoEditor($self->GetPrivs);
+	return if $self->IsAutoEditor($self->privs);
 
 	my $sql = Sql->new($self->{DBH});
 	$sql->AutoTransaction(
 		sub {
-			$self->SetUserInfo(privs => $self->GetPrivs | AUTOMOD_FLAG);
+			$self->SetUserInfo(privs => $self->privs | AUTOMOD_FLAG);
 		},
 	);
 }
@@ -589,7 +660,7 @@ sub DescribePasswordConditions
 sub GetUserType
 {
 	my ($this, $privs) = @_;
-	$privs = $this->GetPrivs if not defined $privs;
+	$privs = $this->privs if not defined $privs;
 
 	my $type = "";
 
@@ -680,7 +751,7 @@ sub IsMBIDSubmitter
 sub CheckEMailAddress
 {
 	my ($this, $email) = @_;
-	$email = $this->GetEmail
+	$email = $this->email
 		if not defined $email;
 
 	return 0 if ($email =~ /\@localhost$/);
@@ -715,7 +786,7 @@ sub GetRealAddressHeader
 	require MusicBrainz::Server::Mail;
 	MusicBrainz::Server::Mail->format_address_line(
 		$self->name,
-		$self->GetEmail,
+		$self->email,
 	);
 }
 
@@ -751,7 +822,7 @@ sub SendPasswordReminder
 	my $self = shift;
 
 	my $username = $self->name;
-	my $pass = $self->GetPassword;
+	my $pass = $self->password;
 
 	my $body = <<EOF;
 Hello.  Someone, probably you, asked that your MusicBrainz password be sent
@@ -850,8 +921,8 @@ $message
 ------------------------------------------------------------------------
 EOF
 
-	$revealaddress = 0 unless $self->GetEmail;
-	$sendcopy = 0 unless $self->GetEmail;
+	$revealaddress = 0 unless $self->email;
+	$sendcopy = 0 unless $self->email;
 
 	if ($revealaddress)
 	{
@@ -863,7 +934,7 @@ http://${\ DBDefs::WEB_SERVER() }/user/mod_email.html?uid=${\ $self->id } to sen
 EOF
 	
 	} 
-	elsif ($self->GetEmail) 
+	elsif ($self->email) 
 	{
 	
 		$body .= <<EOF;
@@ -1006,7 +1077,7 @@ If you would prefer not to receive these e-mails, please adjust your
 preferences accordingly at http://${\ DBDefs::WEB_SERVER() }/user/preferences.html
 EOF
 
-	$opts{'revealaddress'} = 0 unless $self->GetEmail;
+	$opts{'revealaddress'} = 0 unless $self->email;
 
 	require MusicBrainz::Server::Mail;
 	my $mail = MusicBrainz::Server::Mail->new(
@@ -1042,7 +1113,7 @@ sub SendFormattedEmail
 		or croak "Must specify 'entity' OR 'text'";
 
 	my $from = $opts{'from'} || 'noreply@musicbrainz.org';
-	my $to = $opts{'to'} || $self->GetEmail;
+	my $to = $opts{'to'} || $self->email;
 	$to or die "No e-mail address available for user " . $self->name;
 
 	require MusicBrainz::Server::Mail;
@@ -1145,10 +1216,10 @@ sub SetSession
 	$self->EnsureSessionOpen;
 
 	$session->{user} = $self->name;
-	$session->{privs} = $self->GetPrivs;
+	$session->{privs} = $self->privs;
 	$session->{uid} = $self->id;
 	$session->{expire} = time() + &DBDefs::WEB_SESSION_SECONDS_TO_LIVE;
-	$session->{has_confirmed_email} = ($self->GetEmail ? 1 : 0);
+	$session->{has_confirmed_email} = ($self->email ? 1 : 0);
 
 	require Moderation;
 	my $mod = Moderation->new($self->{DBH});
@@ -1157,7 +1228,7 @@ sub SetSession
 	require UserPreference;
 	UserPreference::LoadForUser($self->Current);
 
-	eval { $self->_SetLastLoginDate($self->id) };
+	eval { $self->_update_last_login_date($self->id) };
 }
 
 # Given that we've just successfully logged in, set a non-session cookie
@@ -1172,7 +1243,7 @@ sub SetPermanentCookie
 	my ($this, %opts) = @_;
 	my $r = Apache->request;
 
-	my ($username, $password) = ($this->name, $this->GetPassword);
+	my ($username, $password) = ($this->name, $this->password);
 
 	# There are (will be) multiple formats to this cookie.  This is format #2.
 	# See TryAutoLogin.
@@ -1327,7 +1398,7 @@ sub TryAutoLogin
 	1;
 }
 
-sub _SetLastLoginDate
+sub _update_last_login_date
 {
 	my ($self, $uid) = @_;
 	my $sql = Sql->new($self->{DBH});
@@ -1349,7 +1420,7 @@ sub NagCheck
 	my ($self) = @_;
 
     my $nag = 1;
-    my $privs = $self->GetPrivs;
+    my $privs = $self->privs;
     $nag = 0 if ($self->DontNag($privs) || $self->IsAutoEditor($privs) || $self->IsLinkModerator($privs));
 
     my @types;

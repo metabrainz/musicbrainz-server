@@ -56,7 +56,7 @@ sub handler
         $r->note_digest_auth_failure;
         return AUTH_REQUIRED;
     }
-    my $digest = md5_hex($r->user.":$realm:".$us->GetPassword);
+    my $digest = md5_hex($r->user.":$realm:".$us->password);
     if (!$r->compare_digest_response($response, $digest))
     {
         #print STDERR "Bad password\n";

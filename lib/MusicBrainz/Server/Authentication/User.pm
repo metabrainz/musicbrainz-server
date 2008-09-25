@@ -38,26 +38,26 @@ sub new
         unless ref $user;
 
     bless {
-        biography => $user->GetBio,
-        homepage  => $user->GetWebURL,
+        biography => $user->biography,
+        homepage  => $user->web_url,
         id        => $user->id,
-        password  => $user->GetPassword,
+        password  => $user->password,
         type      => $user->GetUserType,
         username  => $user->name,
 
         has_public_subscriptions => UserPreference::get_for_user('subscriptions_public', $user),
         subscriber_count         => scalar $user->GetSubscribers,
 
-        email_verification_date => $user->GetEmailConfirmDate,
-        email                   => $user->GetEmail,
+        email_verification_date => $user->email_confirmation_date,
+        email                   => $user->email,
 
-        member_since           => $user->GetMemberSince,
-        accepted_non_autoedits => $user->GetModsAccepted,
-        accepted_autoedits     => $user->GetAutoModsAccepted,
-        edits_voted_down       => $user->GetModsRejected,
-        edits_failed           => $user->GetModsFailed,
+        member_since           => $user->member_since,
+        accepted_non_autoedits => $user->mods_accepted,
+        accepted_autoedits     => $user->auto_mods_accepted,
+        edits_voted_down       => $user->mods_rejected,
+        edits_failed           => $user->mods_failed,
 
-        privileges => $user->GetPrivs,
+        privileges => $user->privs,
 
         _u => $user,
     }, $class;

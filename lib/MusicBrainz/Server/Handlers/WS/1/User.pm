@@ -106,10 +106,10 @@ sub print_xml
     $us = $us->newFromName($user) or die "Cannot load user.\n";
 
     my @types;
-    push @types, "AutoEditor" if ($us->IsAutoEditor($us->GetPrivs));
-    push @types, "RelationshipEditor" if $us->IsLinkModerator($us->GetPrivs);
-    push @types, "Bot" if $us->IsBot($us->GetPrivs);
-    push @types, "NotNaggable" if $us->DontNag($us->GetPrivs);
+    push @types, "AutoEditor" if ($us->IsAutoEditor($us->privs));
+    push @types, "RelationshipEditor" if $us->IsLinkModerator($us->privs);
+    push @types, "Bot" if $us->IsBot($us->privs);
+    push @types, "NotNaggable" if $us->DontNag($us->privs);
     my ($nag, $days) = $us->NagCheck;
 
 	print '<?xml version="1.0" encoding="UTF-8"?>';

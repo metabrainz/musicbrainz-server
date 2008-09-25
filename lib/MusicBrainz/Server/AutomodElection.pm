@@ -263,7 +263,7 @@ sub Propose
 	my $sql = Sql->new($self->{DBH});
 
 	$@ = "ALREADY_AN_AUTOMOD", return
-		if $candidate->IsAutoEditor($candidate->GetPrivs);
+		if $candidate->IsAutoEditor($candidate->privs);
 
 	$@ = "INELIGIBLE", return
 		if $self->is_user_ineligible($candidate);
@@ -606,7 +606,7 @@ sub _SendMail
 	my ($self, %opts) = @_;
 
 	my $candidate = $self->{candidate_user};
-	my $has_email = $candidate->GetEmail;
+	my $has_email = $candidate->email;
 
 	$opts{Subject} ||= $self->{subject};
 	$opts{Sender} ||= 'Webserver <webserver@musicbrainz.org>';
@@ -633,7 +633,7 @@ sub _SendMail
 		'returning-officer@musicbrainz.org',
 		[
 			'musicbrainz-automods@lists.musicbrainz.org',
-			($has_email ? ($candidate->GetEmail) : ()),
+			($has_email ? ($candidate->email) : ()),
 		]
 	);
 }

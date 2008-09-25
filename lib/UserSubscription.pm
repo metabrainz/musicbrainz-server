@@ -598,7 +598,7 @@ sub _ProcessUserSubscriptions
 		return;
 	}
 
-	unless ($user->GetEmail and $user->GetEmailConfirmDate)
+	unless ($user->email and $user->email_confirmation_date)
 	{
 		printf "Skipping subscriptions for user #%d '%s' because they have no confirmed e-mail address\n",
 			$user->id, $user->name

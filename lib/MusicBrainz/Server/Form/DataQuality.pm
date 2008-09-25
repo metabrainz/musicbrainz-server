@@ -96,7 +96,7 @@ sub update_model
     my %moderation;
     $moderation{DBH  } = $self->context->mb->{DBH};
     $moderation{uid  } = $user->id;
-    $moderation{privs} = $user->GetPrivs;
+    $moderation{privs} = $user->privs;
 
     use Switch;
     switch ($item->entity_type)

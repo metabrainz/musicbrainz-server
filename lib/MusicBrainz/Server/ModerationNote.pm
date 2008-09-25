@@ -167,7 +167,7 @@ sub Insert
 		next if $noteuid == $moderation->moderator;
 
 		# Also not unless they've got a confirmed e-mail address
-		next unless $mod_user->GetEmail and $mod_user->GetEmailConfirmDate;
+		next unless $mod_user->email and $mod_user->email_confirmation_date;
 
 		$note_user->SendModNoteToUser(
 			mod => $moderation,
@@ -192,7 +192,7 @@ sub Insert
 		my $other_user = $ui->newFromId($uid)
 			or die;
 
-		next unless $other_user->GetEmail and $other_user->GetEmailConfirmDate;
+		next unless $other_user->email and $other_user->email_confirmation_date;
 
 		require UserPreference;
 		UserPreference::get_for_user("mail_notes_if_i_noted", $other_user)
@@ -225,7 +225,7 @@ sub Insert
 		my $other_user = $ui->newFromId($uid)
 			or die;
 
-		next unless $other_user->GetEmail and $other_user->GetEmailConfirmDate;
+		next unless $other_user->email and $other_user->email_confirmation_date;
 
 		require UserPreference;
 		UserPreference::get_for_user("mail_notes_if_i_voted", $other_user)
