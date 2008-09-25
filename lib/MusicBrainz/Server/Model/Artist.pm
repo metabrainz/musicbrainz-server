@@ -8,6 +8,7 @@ use base 'MusicBrainz::Server::Model::Base';
 use Carp;
 use MusicBrainz::Server::Adapter 'LoadEntity';
 use MusicBrainz::Server::Artist;
+use SearchEngine;
 
 =head2 load $id
 
@@ -41,6 +42,32 @@ sub find_similar_artists
             weight => $_->{weight},
         };
     } @$similar_artists ];
+}
+
+sub direct_search
+{
+    my ($self, $query) = @_;
+
+    my $engine = new SearchEngine($self->context->mb->{DBH}, 'artist');
+    $engine->Search(query => $query, limit => 0);
+
+    return undef
+        unless $engine->Result != &SearchEngine::SEARCHRESULT_NOQUERY;
+
+    my @artists;
+
+    while(my $row = $engine->NextRow)
+    {
+        my $artist = new MusicBrainz::Server::Artist($self->context->mb->{DBH});
+        $artist->id($row->{artistid});
+        $artist->name($row->{artistname});
+        $artist->sort_name($row->{artistsortname});
+        $artist->resolution($row->{artistresolution});
+
+        push @artists, $artist;
+    }
+
+    return \@artists;
 }
 
 1;

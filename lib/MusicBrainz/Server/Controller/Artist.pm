@@ -307,7 +307,7 @@ sub merge : Chained('artist')
     {
         my $artist = $c->stash->{artist};
 
-        my $artists = $artist->select_artists_by_name($form->value('query'));
+        my $artists = $c->model('Artist')->direct_search($form->value('query'));
         $c->stash->{artists} = $artists;
     }
 
