@@ -15,9 +15,9 @@ sub load_latest_annotation
     $annotation->entity_id($entity->entity_type, $entity->id);
 
     $annotation->GetLatestAnnotation
-        or return;
+        or return undef;
 
-    return MusicBrainz::Server::Facade::Annotation->new_from_annotation($annotation);
+    return $annotation;
 }
 
 1;
