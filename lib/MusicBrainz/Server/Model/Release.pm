@@ -125,12 +125,11 @@ sub find_linked_albums
 
     return [ map
     {
-        my $stash_release = MusicBrainz::Server::Facade::Release->new({
-            name         => $_->{name},
-            id           => $_->{id},
-            year         => substr($_->{date}, 0, 4) || '?',
-            link_phrase  => $_->{linkphrase}, 
-        });
+        my $stash_release = Release->new(undef);
+	$stash_release->name($_->{name});
+	$stash_release->id($_->{id});
+	$stash_release->year(substr($_->{date}, 0, 4) || '?');
+	$stash_release->{link_phrase} = $_->{linkphrase};
 
         $stash_release->{artist} = {
             name => $_->{artist_name},
