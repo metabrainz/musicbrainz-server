@@ -1006,7 +1006,7 @@ sub select_releases
                 $album->artist($this->{id});
                 $album->mbid($row[3]);
                 $row[4] =~ s/^\{(.*)\}$/$1/;
-                $album->{attrs} = [ split /,/, $row[4] ];
+                $album->{attrs} = $row[4];
                 $album->language_id($row[5]);
                 $album->script_id($row[6]);
                 $album->quality($row[7]);

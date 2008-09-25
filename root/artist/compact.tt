@@ -13,8 +13,8 @@
             [% item.track_count %]&nbsp;<img src="/static/images/notes.gif" alt="Tracks" />
         </td>
         <td class="discids">
-          [% IF item.disc_ids %]
-            [% item.disc_ids %]&nbsp;<img src="/static/images/cd.gif" alt="Disc IDs" />
+          [% IF item.discid_count %]
+            [% item.discid_count %]&nbsp;<img src="/static/images/cd.gif" alt="Disc IDs" />
           [% END %]
         </td>
         <td class="puids">
@@ -23,7 +23,7 @@
           [% END %]
         </td>
         <td class="status">
-            [% item.release_status_name %]
+            [% release_attribute(item.release_type_and_status.1) %]
         </td>
         <td class="date">[% item.first_release_date | release_date %]</td>
         <td class="language">

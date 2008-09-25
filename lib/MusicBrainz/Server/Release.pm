@@ -241,7 +241,7 @@ sub attributes
 sub release_type_and_status
 {
 	my $self = shift;
-	my $attrs = shift || [ $self->attributes ];
+	my $attrs = shift || $self->attributes;
 	my ($type, $status);
 	for (@$attrs)
 	{

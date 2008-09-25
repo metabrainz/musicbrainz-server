@@ -47,6 +47,7 @@ sub artist : Chained('/') CaptureArgs(1)
         }
 
         $c->stash->{artist} = $artist;
+        $c->stash->{release_attribute} = sub { MusicBrainz::Server::Release->attribute_name($_[0]) };
     }
     else
     {
