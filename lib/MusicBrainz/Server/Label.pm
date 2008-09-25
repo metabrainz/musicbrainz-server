@@ -39,6 +39,7 @@ use POSIX qw(:locale_h);
 use Encode qw( decode encode );
 
 sub LinkEntityName { "label" }
+sub entity_type { "label" }
 
 use constant LABEL_TYPE_UNKNOWN					=> 0;
 use constant LABEL_TYPE_DISTRIBUTOR				=> 1;
@@ -144,6 +145,11 @@ sub end_date_name
    return 'End Date';
 }
 
+sub has_complete_date
+{
+    my $self = shift;
+    return $self->begin_date && $self->end_date;
+}
 
 sub resolution
 {
@@ -926,6 +932,12 @@ sub GetSubscribers
 	my $self = shift;
 	require UserSubscription;
 	return UserSubscription->GetSubscribersForLabel($self->{DBH}, $self->id);
+}
+
+sub subscriber_count
+{
+	my $self = shift;
+	return scalar $self->GetSubscribers;
 }
 
 sub InUse

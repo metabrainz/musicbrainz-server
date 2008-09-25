@@ -15,11 +15,11 @@
   </div>
   <div class="info">
     [%- IF label.has_complete_date -%]
-      [% label.founded %] - [% label.dissolved %]<br/>
-    [%- ELSIF label.founded -%]
-      Founded: [% label.founded -%]<br />
-    [%- ELSIF label.dissolved -%]
-      Dissolved: [% label.dissolved -%]<br />
+      [% label.begin_date %] - [% label.end_date %]<br/>
+    [%- ELSIF label.begin_date -%]
+      Founded: [% label.begin_date -%]<br />
+    [%- ELSIF label.end_date -%]
+      Dissolved: [% label.end_date -%]<br />
     [%- END -%]
   </div>
   <div class="infoLinks"> Info: [% INCLUDE "components/piped-list.tt" list=info_links %]</div>

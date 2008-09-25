@@ -53,7 +53,7 @@ sub load_for_label
 {
     my ($self, $label) = @_;
 
-    my @releases = $label->get_label->select_releases;
+    my @releases = $label->select_releases;
 
     for (@releases) { _build_sort_keys($_); }
     
@@ -61,10 +61,9 @@ sub load_for_label
         map {
             my $export = MusicBrainz::Server::Facade::Release->new_from_release($_);
 
-            $export->{artist} = {
-                name => $_->{artistname},
-                mbid => $_->artist
-            };
+            $export->{artist} = MusicBrainz::Server::Artist->new($label->{DBH});
+	    $export->{artist}->name($_->{artistname});
+	    $export->{artist}->mbid($_->artist);
 
             $export->{catalog_number} = $_->{catno};
 

@@ -7,7 +7,6 @@ use base 'MusicBrainz::Server::Model::Base';
 
 use Carp;
 use MusicBrainz::Server::Adapter 'LoadEntity';
-use MusicBrainz::Server::Facade::Label;
 
 sub load
 {
@@ -16,7 +15,7 @@ sub load
     my $label = MusicBrainz::Server::Label->new($self->dbh);
     LoadEntity($label, $id);
 
-    MusicBrainz::Server::Facade::Label->new_from_label($label);
+    return $label;
 }
 
 1;

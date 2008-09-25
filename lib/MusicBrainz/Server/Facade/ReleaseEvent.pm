@@ -18,16 +18,17 @@ sub new_from_event
 {
     my ($class, $event) = @_;
 
+    my $label = MusicBrainz::Server::Label->new(undef);
+    $label->name($event->label_name);
+    $label->mbid($event->label_mbid);
+
     return $class->new({
         catalog_number => $event->cat_no,
         country        => $event->country,
         date           => $event->sort_date,
         format         => $event->format ? $event->format_name : "",
         barcode        => $event->barcode,
-        label          => MusicBrainz::Server::Facade::Label->new({
-            name => $event->label_name,
-            mbid => $event->label_mbid,
-        }),
+        label          => $label,
     });
 }
 
