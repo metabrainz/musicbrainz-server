@@ -856,9 +856,9 @@ sub GetAutomoderatorList
    my ($sql);
 
    $sql = Sql->new($this->{DBH});
-   require UserStuff;
+   require MusicBrainz::Server::Moderator;
    return $sql->SelectSingleColumnArray("select name from moderator where privs & " .
-                                        &UserStuff::AUTOMOD_FLAG . " > 0 order by name");
+                                        &MusicBrainz::Server::Moderator::AUTOMOD_FLAG . " > 0 order by name");
 }
 
 # This function will load a change from the database and return
@@ -1156,8 +1156,8 @@ sub InsertModeration
 		$this->id($insertid);
 
 		# Check to see if this moderation should be approved immediately 
-		require UserStuff;
-		my $ui = UserStuff->new($this->{DBH});
+		require MusicBrainz::Server::Moderator;
+		my $ui = MusicBrainz::Server::Moderator->new($this->{DBH});
 		my $isautoeditor = $ui->IsAutoEditor($privs);
 
 		my $autoedit = 0;
@@ -1188,8 +1188,8 @@ sub InsertModeration
 				$insertid,
 			);
 
-			require UserStuff;
-			my $user = UserStuff->new($this->{DBH});
+			require MusicBrainz::Server::Moderator;
+			my $user = MusicBrainz::Server::Moderator->new($this->{DBH});
 			$user->CreditModerator($this->{moderator}, $status, $autoedit);
 
 			MusicBrainz::Server::Cache->delete("Moderation-open-id-range");
@@ -1369,8 +1369,8 @@ sub moderation_list
 	my %artist_cache;
 	
 	# Cache editors by name
-	require UserStuff;
-	my $user = UserStuff->new($this->{DBH});
+	require MusicBrainz::Server::Moderator;
+	my $user = MusicBrainz::Server::Moderator->new($this->{DBH});
 	my %editor_cache;
 		
 	require MusicBrainz::Server::Vote;
@@ -1512,9 +1512,9 @@ sub FirstNoVote
 {
 	my ($self, $voter_uid) = @_;
 
-	require UserStuff;
-	my $editor = UserStuff->newFromId($self->{DBH}, $self->moderator);
-	my $voter = UserStuff->newFromId($self->{DBH}, $voter_uid);
+	require MusicBrainz::Server::Moderator;
+	my $editor = MusicBrainz::Server::Moderator->newFromId($self->{DBH}, $self->moderator);
+	my $voter = MusicBrainz::Server::Moderator->newFromId($self->{DBH}, $voter_uid);
 
 	require UserPreference;
 	my $send_mail = UserPreference::get_for_user('mail_on_first_no_vote', $editor);

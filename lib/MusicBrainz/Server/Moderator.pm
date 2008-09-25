@@ -23,7 +23,7 @@
 #   $Id$
 #____________________________________________________________________________
 
-package UserStuff;
+package MusicBrainz::Server::Moderator;
 
 use TableBase;
 { our @ISA = qw( TableBase ) }
@@ -345,7 +345,7 @@ sub Current
 	$this->_new_from_row(\%u);
 }
 
-# Called by UserStuff->TryAutoLogin and bare/login.html.
+# Called by MusicBrainz::Server::Moderator->TryAutoLogin and bare/login.html.
 # The RDF stuff uses a different mechanism.
 
 sub Login
@@ -1290,8 +1290,8 @@ sub ClearPermanentCookie
 
 # If we're not logged in, but the PERMANENT_COOKIE_NAME cookie is set,
 # then try logging in using those credentials.
-# Can be called either as: UserStuff->new($dbh)->TryAutoLogin($cookies)
-# or as: UserStuff->TryAutoLogin($cookies)
+# Can be called either as: MusicBrainz::Server::Moderator->new($dbh)->TryAutoLogin($cookies)
+# or as: MusicBrainz::Server::Moderator->TryAutoLogin($cookies)
 
 sub TryAutoLogin
 {
@@ -1445,4 +1445,4 @@ sub NagCheck
 }
 
 1;
-# eof UserStuff.pm
+# eof MusicBrainz::Server::Moderator.pm

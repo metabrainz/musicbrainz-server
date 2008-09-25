@@ -48,8 +48,8 @@ sub handler
     my $mb = MusicBrainz->new;
 	$mb->Login(db => 'READWRITE');
 
-    require UserStuff;
-    my $us = UserStuff->new($mb->{DBH});
+    require MusicBrainz::Server::Moderator;
+    my $us = MusicBrainz::Server::Moderator->new($mb->{DBH});
     if (!($us = $us->newFromName($r->user)))
     {
         #print STDERR "User not found: '$r->user'\n";

@@ -8,7 +8,7 @@ use base 'MusicBrainz::Server::Form';
 use MusicBrainz;
 use MusicBrainz::Server::Country;
 use UserPreference;
-use UserStuff;
+use MusicBrainz::Server::Moderator;
 
 =head1 NAME
 

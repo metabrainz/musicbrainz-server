@@ -101,8 +101,8 @@ sub print_xml
 	$mb->Login(db => 'READWRITE');
 	require MusicBrainz::Server::Artist;
 
-    require UserStuff;
-    my $us = UserStuff->new($mb->{DBH});
+    require MusicBrainz::Server::Moderator;
+    my $us = MusicBrainz::Server::Moderator->new($mb->{DBH});
     $us = $us->newFromName($user) or die "Cannot load user.\n";
 
     my @types;

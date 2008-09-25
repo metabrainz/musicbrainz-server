@@ -3,7 +3,7 @@ package MusicBrainz::Server::Form::User::ForgotPassword;
 use strict;
 use warnings;
 
-use UserStuff;
+use MusicBrainz::Server::Moderator;
 
 use base 'MusicBrainz::Server::Form';
 
@@ -55,7 +55,7 @@ sub model_validate
     my $user;
     if ($self->value('username'))
     {
-        my $us = new UserStuff($self->context->mb->{DBH});
+        my $us = new MusicBrainz::Server::Moderator($self->context->mb->{DBH});
         $user = $us->newFromName($self->value('username'));
 
         $self->field('username')->add_error('This username does not exist')

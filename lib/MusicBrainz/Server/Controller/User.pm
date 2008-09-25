@@ -7,7 +7,7 @@ use base 'Catalyst::Controller';
 
 use MusicBrainz;
 use UserPreference;
-use UserStuff;
+use MusicBrainz::Server::Moderator;
 
 =head1 NAME
 
@@ -379,7 +379,7 @@ sub verify : Local
     die "The key is missing"
         unless $key;
 
-    my $ui = UserStuff->new($c->mb->{DBH});
+    my $ui = MusicBrainz::Server::Moderator->new($c->mb->{DBH});
     die "The checksum is invalid, please double check your email"
         unless $ui->GetVerifyChecksum($email, $user_id, $time) eq $key;
 

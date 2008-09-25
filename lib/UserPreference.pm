@@ -532,8 +532,8 @@ sub SaveForUser
 	my $uid = $user->id
 		or return;
 
-	require UserStuff;
-	my $s = UserStuff->GetSession;
+	require MusicBrainz::Server::Moderator;
+	my $s = MusicBrainz::Server::Moderator->GetSession;
 	tied %$s
 		or carp("UserPreference::SaveForUser called, but %session is not tied"), return;
 

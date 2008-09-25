@@ -19,7 +19,7 @@ sub load_user
     croak 'Opts must contain either username or user id'
         unless (defined $opts->{username}) || (defined $opts->{id});
 
-    my $us = new UserStuff($self->dbh);
+    my $us = new MusicBrainz::Server::Moderator($self->dbh);
     my $user;
 
     if (defined $opts->{username})
@@ -50,7 +50,7 @@ sub create
 {
     my ($self, $username, $password) = @_;
 
-    my $user_stuff = UserStuff->new($self->dbh);
+    my $user_stuff = MusicBrainz::Server::Moderator->new($self->dbh);
     my ($user_obj, $error_messages) = $user_stuff->CreateLogin($username, $password);
 
     return undef
@@ -63,7 +63,7 @@ sub find_by_email
 {
     my ($self, $email) = @_;
 
-    my $user_stuff = new UserStuff($self->dbh);
+    my $user_stuff = new MusicBrainz::Server::Moderator($self->dbh);
     my $usernames = $user_stuff->LookupNameByEmail($email);
 
     return [ map { MusicBrainz::Server::Authentication::User->new($_) } @$usernames ];
