@@ -2,7 +2,7 @@
 
 [% BLOCK group_head %]
   [%- last_year = '.' -%]
-  <h2 class="compactreleasetype">[% item.link_phrase | ucfirst %]</h2>
+  <h2 class="compactreleasetype">[% item.link | ucfirst %]</h2>
   <table class="appears">
     <thead>
       <tr>
@@ -20,7 +20,7 @@
           [% item.year %]
         </td>
         <td>[% INCLUDE "components/entity-link.tt" entity=item.artist %]</td>
-        <td>[% INCLUDE "components/entity-link.tt" entity=item %]</td>
+        <td>[% INCLUDE "components/entity-link.tt" entity=item.release %]</td>
       </tr>
       [%- last_year = item.year -%]
 [% END %]
@@ -30,6 +30,6 @@
 </table>
 [% END %]
 
-[% INCLUDE "components/grouped.tt" items=releases group_var='link_phrase' %]
+[% INCLUDE "components/grouped.tt" items=releases group_var='link' %]
 
 [%- END -%]

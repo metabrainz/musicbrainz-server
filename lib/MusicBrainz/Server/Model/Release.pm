@@ -125,18 +125,20 @@ sub find_linked_albums
 
     return [ map
     {
-        my $stash_release = Release->new(undef);
-	$stash_release->name($_->{name});
-	$stash_release->id($_->{id});
-	$stash_release->year(substr($_->{date}, 0, 4) || '?');
-	$stash_release->{link_phrase} = $_->{linkphrase};
+        my $stash_release = MusicBrainz::Server::Release->new(undef);
+        $stash_release->name($_->{name});
+        $stash_release->id($_->{id});
 
-        $stash_release->{artist} = {
-            name => $_->{artist_name},
-            id => $_->{artist},
+        my $stash_artist = MusicBrainz::Server::Artist->new;
+        $stash_artist->id($_->{artist});
+        $stash_artist->name($_->{artist_name});
+
+        {
+            release => $stash_release,
+            year    => (substr $_->{date}, 0, 4) || '',
+            artist  => $stash_artist,
+            link    => $_->{linkphrase},
         };
-
-        $stash_release;
     } @raw_releases ];
 }
 

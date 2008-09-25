@@ -5,6 +5,7 @@ use warnings;
 
 use base 'Catalyst::Controller';
 
+use MusicBrainz::Server::Adapter qw(Google);
 use ModDefs;
 
 =head1 NAME
