@@ -67,6 +67,8 @@ use constant RELEASE_ATTR_SECTION_TYPE_END     => RELEASE_ATTR_OTHER;
 use constant RELEASE_ATTR_SECTION_STATUS_START => RELEASE_ATTR_OFFICIAL;
 use constant RELEASE_ATTR_SECTION_STATUS_END   => RELEASE_ATTR_PSEUDO_RELEASE;
 
+sub entity_type { "release" }
+
 my %AlbumAttributeNames = (
     0 => [ "Non-Album Track", "Non-Album Tracks", "(Special case)"],
     1 => [ "Album", "Albums", "An album release primarily consists of previously unreleased material. This includes album re-issues, with or without bonus tracks."],

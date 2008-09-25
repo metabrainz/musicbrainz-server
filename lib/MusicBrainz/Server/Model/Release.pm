@@ -18,7 +18,7 @@ sub load_events
 {
     my ($self, $release) = @_;
 
-    my @events = $release->get_release->ReleaseEvents(1);
+    my @events = $release->ReleaseEvents(1);
 
     my $country_obj = MusicBrainz::Server::Country->new($self->dbh);
     my %county_names;
@@ -46,7 +46,7 @@ sub load
     my $release = MusicBrainz::Server::Release->new($self->dbh);
     LoadEntity($release, $id);
 
-    return MusicBrainz::Server::Facade::Release->new_from_release($release);
+    return $release;
 }
 
 sub load_for_label
@@ -59,7 +59,7 @@ sub load_for_label
     
     return [
         map {
-            my $export = MusicBrainz::Server::Facade::Release->new_from_release($_);
+            my $export = $_;
 
             $export->{artist} = MusicBrainz::Server::Artist->new($label->{DBH});
 	    $export->{artist}->name($_->{artistname});
@@ -107,10 +107,7 @@ sub load_for_artist
 
     for my $release (@releases) { _build_sort_keys($release) }
 
-    return [
-        map { MusicBrainz::Server::Facade::Release->new_from_release($_) }
-            sort _sort_albums @releases 
-    ];
+    return [ sort _sort_albums @releases ];
 }
 
 sub find_linked_albums
@@ -140,7 +137,7 @@ sub find_linked_albums
 
         $stash_release->{artist} = {
             name => $_->{artist_name},
-            id => $_->{artist_id},
+            id => $_->{artist},
         };
 
         $stash_release;

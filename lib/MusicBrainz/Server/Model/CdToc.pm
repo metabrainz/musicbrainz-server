@@ -12,7 +12,7 @@ sub load_for_release
 {
     my ($self, $release) = @_;
 
-    my $disc_ids = $release->get_release->GetDiscIDs;
+    my $disc_ids = $release->GetDiscIDs;
 
     return [ map { $_->GetCDTOC } @$disc_ids ];
 }

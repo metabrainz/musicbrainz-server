@@ -6,7 +6,6 @@ use warnings;
 use base 'MusicBrainz::Server::Model::Base';
 
 use MusicBrainz::Server::Facade::Link;
-use MusicBrainz::Server::Facade::Release;
 use MusicBrainz::Server::Link;
 
 sub load_relations
@@ -128,7 +127,7 @@ sub _export_link
             case("amazon asin")
             {
                 my ($asin) =
-                MusicBrainz::Server::CoverArt->ParseAmazonURL($link->{link1_name}, $entity->get_release);
+                MusicBrainz::Server::CoverArt->ParseAmazonURL($link->{link1_name}, $entity);
                 $name = $asin;
             }
 
@@ -140,7 +139,7 @@ sub _export_link
             case("cover art link")
             {
                 my ($new_name, $coverurl, $new_url) =
-                MusicBrainz::Server::CoverArt->ParseCoverArtURL($link->{link1_name}, $entity->get_release);
+                MusicBrainz::Server::CoverArt->ParseCoverArtURL($link->{link1_name}, $entity);
                 
                 $name = $new_name
                     if $new_name;

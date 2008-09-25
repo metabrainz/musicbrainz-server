@@ -22,8 +22,8 @@ sub load_from_release
 {
     my ($self, $release) = @_;
 
-    my @tracks = $release->get_release->LoadTracks;
-    my $puid_counts = $release->get_release->LoadPUIDCount;
+    my @tracks = $release->LoadTracks;
+    my $puid_counts = $release->LoadPUIDCount;
 
     return [ map
     {
