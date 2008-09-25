@@ -104,6 +104,15 @@ sub end : ActionClass('RenderView')
 
     # Working with quality levels
     $c->stash->{data_quality} = \&ModDefs::GetQualityText;
+
+    # Displaying track lengths
+    $c->stash->{track_length} =\&MusicBrainz::Server::Track::FormatTrackLength;
+
+    $c->stash->{artist_type} = \&MusicBrainz::Server::Artist::type_name;
+    $c->stash->{begin_date_name} = \&MusicBrainz::Server::Artist::begin_date_name;
+    $c->stash->{end_date_name  } = \&MusicBrainz::Server::Artist::end_date_name;
+
+    $c->stash->{date} = \&MusicBrainz::Server::Validation::MakeDisplayDateStr;
 }
 
 =head css

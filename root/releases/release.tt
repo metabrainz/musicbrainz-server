@@ -31,7 +31,7 @@
           <td class="artist">[% INCLUDE "components/entity-link.tt" noicon=1 entity=track.artist %]</td>
           [%- END -%]
 
-          <td class="duration">[% track.length %]</td>
+          <td class="duration">[% track_length(track.length) %]</td>
 
           [%- IF c.user_exists -%]
           <td class="editinglinks">
@@ -51,7 +51,7 @@
     [%- FOREACH discid = disc_ids -%]
       <tr>
         <td>Disc ID: <a href="[% entity_url(discid, 'show') %]">[% discid.disc_id %]</a></td>
-        <td style="width: 20pt;">[% discid.duration %]</td>
+        <td style="width: 20pt;">[% track_length(discid.duration) %]</td>
       </tr>
     [%- END -%]
     </table>
