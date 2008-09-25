@@ -30,23 +30,27 @@
 /*
  * Generic Forms
  */
-#content form.generic p {
+#content form.generic div.row {
     clear: both;
-}
-#content form.generic .labelRight {
-    margin-left: 110pt;
+    margin-bottom: 4pt;
 }
 
 #content form.generic label {
     float: left;
     text-align: right;
-    margin-right: 10pt;
     width: 100pt;
 }
 
+#content form.generic div.input,
 #content form.generic .labelRight {
     margin-left: 110pt;
 }
+
+#content form.generic .labelRight .input {
+    margin-left: 0;
+    display: inline; 
+}
+
 #content form.generic .labelRight label {
     width: auto;
     float: none;

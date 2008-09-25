@@ -13,15 +13,24 @@
     [% value %]
   </textarea>
 [%- ELSIF type == 'select' -%]
-  <select id="[% id %]"
-          name="[% name %]"
-          [% extra_attributes %]>
-  [%- FOREACH option IN widget.options -%]
-    <option value="[% option.value %]" [%- IF widget.value == option.value -%]selected="selected"[%- END -%]>
-      [% option.label %]
-    </option>
+  [%- IF widget.select_widget == 'radio' -%]
+    [%- FOREACH option IN widget.options -%]
+      <input type="radio" id="[% id %]" name="[% name %]"
+             [%- IF widget.value == option.value -%]checked="checked"[%- END -%]
+             value="[% option.value %]"/>
+      [% option.label %]<br/>
+    [%- END -%]
+  [%- ELSE -%]
+    <select id="[% id %]"
+            name="[% name %]"
+            [% extra_attributes %]>
+    [%- FOREACH option IN widget.options -%]
+      <option value="[% option.value %]" [%- IF widget.value == option.value -%]selected="selected"[%- END -%]>
+        [% option.label %]
+      </option>
+    [%- END -%]
+    </select>
   [%- END -%]
-  </select>
 [%- ELSIF type == 'date' %]
   <input size="4" type="text" name="[% name %]_year"  id="[% id %]_year"  value="[% widget.date.year %]"  [% extra_attributes %] />
   <input size="2" type="text" name="[% name %]_month" id="[% id %]_month" value="[% widget.date.month %]" [% extra_attributes %] />

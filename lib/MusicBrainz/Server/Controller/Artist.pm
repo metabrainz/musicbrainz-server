@@ -348,6 +348,41 @@ sub add_non_album : Local
     die "This is a stub method";
 }
 
+=head2 change_quality
+
+Change the data quality of this artist
+
+=cut
+
+sub change_quality : Chained('artist')
+{
+    my ($self, $c, $mbid) = @_;
+
+    $c->forward('/user/login');
+
+    my $artist = $c->stash->{artist};
+
+    use MusicBrainz::Server::Form::DataQuality;
+
+    my $form = new MusicBrainz::Server::Form::DataQuality($artist->id);
+    $form->context($c);
+
+    $c->stash->{form} = $form;
+
+    if ($c->form_posted)
+    {
+        if ($form->update_from_form($c->req->params))
+        {
+            $c->flash->{ok} = "Thanks, your artist edit has been entered " .
+                              "into the moderation queue";
+
+            $c->detach('/artist/show', $mbid);
+        }
+    }
+
+    $c->stash->{template} = 'artist/quality.tt';
+}
+
 =head1 LICENSE 
 
 This software is provided "as is", without warranty of any kind, express or
