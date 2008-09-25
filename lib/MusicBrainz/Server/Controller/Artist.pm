@@ -364,10 +364,8 @@ sub change_quality : Chained('artist')
 
     use MusicBrainz::Server::Form::DataQuality;
 
-    my $form = new MusicBrainz::Server::Form::DataQuality($artist->id);
+    my $form = new MusicBrainz::Server::Form::DataQuality($artist);
     $form->context($c);
-
-    $c->stash->{form} = $form;
 
     if ($c->form_posted)
     {
@@ -380,6 +378,7 @@ sub change_quality : Chained('artist')
         }
     }
 
+    $c->stash->{form}     = $form;
     $c->stash->{template} = 'artist/quality.tt';
 }
 

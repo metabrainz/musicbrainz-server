@@ -142,6 +142,42 @@ sub show : Chained('release') PathPart('')
     $c->stash->{template} = 'releases/show.tt';
 }
 
+=head2 WRITE METHODS
+
+=head2 change_quality
+
+Change the data quality of a release
+
+=cut
+
+sub change_quality : Chained('release')
+{
+    my ($self, $c, $mbid) = @_;
+
+    $c->forward('/user/login');
+
+    my $release = $c->stash->{release};
+
+    use MusicBrainz::Server::Form::DataQuality;
+    
+    my $form = new MusicBrainz::Server::Form::DataQuality($release);
+    $form->context($c);
+
+    if ($c->form_posted)
+    {
+        if ($form->update_from_form($c->req->params))
+        {
+            $c->flash->{ok} = "Thanks, your release edit has been entered " .
+                              "into the moderation queue";
+
+            $c->detach('/release/show', $mbid);
+        }
+    }
+
+    $c->stash->{form}     = $form;
+    $c->stash->{template} = 'releases/quality.tt';
+}
+
 =head1 LICENSE
 
 This software is provided "as is", without warranty of any kind, express or

@@ -1,0 +1,5 @@
+[% WRAPPER 'layout.tt' %]
+[% WRAPPER 'components/box.tt' header="Email address verified" %]
+<p>Thank you, your email address has now been verified!</p>
+[% END %]
+[% END %]
