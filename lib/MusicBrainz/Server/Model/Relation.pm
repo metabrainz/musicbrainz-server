@@ -14,6 +14,9 @@ sub load_relations
     my $type = $entity->entity_type;
     if ($type eq 'release') { $type = 'album' }
 
+    die 'Cannot load relations without an entity type!'
+        if $type eq '';
+
     my $link  = MusicBrainz::Server::Link->new($self->dbh);
     my @links = $link->FindLinkedEntities($entity->id, $type, %opts);
 

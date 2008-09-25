@@ -36,6 +36,7 @@ use ModDefs;
 use MusicBrainz::Server::Validation qw( unaccent );
 
 sub LinkEntityName { "track" }
+sub entity_type { "track" }
 
 sub _id_cache_key
 {

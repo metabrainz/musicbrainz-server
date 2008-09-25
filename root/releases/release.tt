@@ -19,7 +19,7 @@
     <tbody>
       [%- FOREACH track=tracks -%]
         <tr>
-          <td class="number">[% track.number %]</td>
+          <td class="number">[% track.sequence %]</td>
           <td class="title">
             [% INCLUDE "components/entity-link.tt" entity=track noicon=1 %]
             [% INCLUDE "components/relations.tt" source=track relations=track.relations justlist=1
@@ -31,7 +31,7 @@
           <td class="artist">[% INCLUDE "components/entity-link.tt" noicon=1 entity=track.artist %]</td>
           [%- END -%]
 
-          <td class="duration">[% track.duration %]</td>
+          <td class="duration">[% track.length %]</td>
 
           [%- IF c.user_exists -%]
           <td class="editinglinks">

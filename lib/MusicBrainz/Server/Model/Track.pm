@@ -27,7 +27,7 @@ sub load_from_release
     return [ map
     {
         my $track = $_;
-        $track->puid_count($puid_counts->{ $track->id });
+        $track->{puid_count} = $puid_counts->{ $track->id };
 
         $track;
     } @tracks ];
