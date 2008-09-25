@@ -536,13 +536,10 @@ sub xml_track_list
         foreach my $tr (@$tracks)
         {
 
-            if ($ar->id != $tr->artist)
+            if ($ar->id != $tr->artist->id)
             {
-                my $ar;
-                $ar = MusicBrainz::Server::Artist->new($tr->{DBH});
-                $ar->id($tr->artist);
-                $ar->LoadFromId();
-                xml_track($ar, $tr, $tr_inc);
+                $tr->artist->LoadFromId();
+                xml_track($tr->artist, $tr, $tr_inc);
             }
             else
             {

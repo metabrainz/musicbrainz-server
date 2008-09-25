@@ -59,15 +59,6 @@ sub artist
     return $self->{artist};
 }
 
-# This is only used for tracks from multiple artist albums
-sub artist_name
-{
-    my ($self, $new_name) = @_;
-
-    if (defined $new_name) { $self->{artistname} = $new_name; }
-    return $self->{artistname};
-}
-
 sub release
 {
     my ($self, $new_release) = @_;
@@ -218,9 +209,12 @@ sub LoadFromId
 	$row or return undef;
 
 	@$this{qw(
-		id name mbid sequence length artist modpending
+		id name mbid sequence length modpending
 		albumjoinmodpending sequenceid album
 	)} = @$row;
+
+    my $artist = MusicBrainz::Server::Artist->new($this->{DBH});
+    $artist->id($row->[5]);
 
 	1;
 }
@@ -241,8 +235,7 @@ sub GetMetadataFromIdAndAlbum
     }
 
 	require MusicBrainz::Server::Artist;
-    my $ar = MusicBrainz::Server::Artist->new($this->{DBH});
-    $ar->id($this->artist());
+    my $ar = $this->artist;
     if (!defined $ar->LoadFromId())
     {
          return ();
@@ -419,7 +412,7 @@ sub UpdateArtist
 
 	$sql->Do(
 		"UPDATE track SET artist = ? WHERE id = ?",
-		$self->artist,
+		$self->artist->id,
 		$self->id,
 	);
 }

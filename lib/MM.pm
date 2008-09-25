@@ -145,7 +145,7 @@ sub CreateDenseTrackList
 
 	require MusicBrainz::Server::Artist;
 	my $ar = MusicBrainz::Server::Artist->new($this->{DBH});
-	$ar->id($tr->artist());
+	$ar->id($tr->artist->id);
 	# TODO This is complaining about the ID being undef
 	$ar->LoadFromId();
 
@@ -215,7 +215,7 @@ sub CreateDenseAlbum
 	    if ($is_va)
 	    {
 		my $var = MusicBrainz::Server::Artist->new($this->{DBH});
-		$var->id($tr->artist);
+		$var->id($tr->artist->id);
 		if ($var->LoadFromId)
 		{
 		    $this->AddToCache(0, 'artist', $var);
@@ -589,7 +589,7 @@ sub _GetAlbumReferences
 	    if ($is_va)
 	    {
 		$info{type} = 'artist';
-		$info{id} = $track->artist();
+		$info{id} = $track->artist->id;
 		$info{obj} = undef;
 		push @ret, {%info};
 	    }
@@ -616,7 +616,7 @@ sub _GetTrackReferences
 
     # TODO: Should the TRM output also be a seperate depth?
     $info{type} = 'artist';
-    $info{id} = $track->artist();
+    $info{id} = $track->artist->id;
     $info{tracknum} = $track->sequence();
     $info{obj} = undef;
     push @ret, {%info};

@@ -40,7 +40,7 @@ sub PreInsert
 	my $track = $opts{'track'} or die;
 	my $newseq = $opts{'newseq'} or die;
 
-	$self->artist($track->artist);
+	$self->artist($track->artist->id);
 	$self->SetPrev($track->sequence);
 	$self->SetNew(0+$newseq);
 	$self->table("albumjoin");

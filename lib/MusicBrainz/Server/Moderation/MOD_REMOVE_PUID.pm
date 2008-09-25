@@ -44,7 +44,7 @@ sub PreInsert
 	$self->table("puidjoin");
 	$self->SetColumn("id");
 	$self->row_id($puidjoinid);
-	$self->artist($track->artist);
+	$self->artist($track->artist->id);
 	$self->SetPrev($puid);
 
 	# Save the PUID's clientversion in case we need to re-add it
@@ -95,8 +95,7 @@ sub DetermineQuality
     }
 
     # if that fails, go by the artist
-    my $ar = MusicBrainz::Server::Artist->new($self->{DBH});
-    $ar->id($tr->artist());
+    my $ar = $tr->artist;
     if ($ar->LoadFromId())
     {
         return $ar->quality;        

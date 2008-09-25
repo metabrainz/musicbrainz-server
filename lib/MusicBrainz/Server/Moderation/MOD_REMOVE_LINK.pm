@@ -46,7 +46,8 @@ sub PreInsert
 
 	if ($types->[0] eq 'album' || $types->[0] eq 'track')
 	{
-	    $self->artist($ents[0]->artist);
+        my $id = $types->[0] eq 'track' ? $ents[0]->artist->id : $ents[0]->artist;
+	    $self->artist($id);
 	}
 	elsif ($types->[0] ne 'label')
 	{

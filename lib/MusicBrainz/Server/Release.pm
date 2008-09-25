@@ -770,16 +770,20 @@ sub LoadTracks
 	{
 		for(;@row = $sql->NextRow();)
 		{
+            require MusicBrainz::Server::Artist;
+            my $ta = MusicBrainz::Server::Artist->new($this->{DBH});
+            $ta->id($row[2]);
+            $ta->name($row[7]);
+
 			require MusicBrainz::Server::Track;
 			$track = MusicBrainz::Server::Track->new($this->{DBH});
 			$track->id($row[0]);
 			$track->name($row[1]);
-			$track->artist($row[2]);
+			$track->artist($ta);
 			$track->sequence($row[3]);
 			$track->length($row[4]);
 			$track->has_mod_pending($row[5]);
 			$track->SetAlbumJoinModPending($row[6]);
-			$track->artist_name($row[7]);
 			$track->mbid($row[8]);
 			$track->release($row[9]);
 			push @info, $track;
@@ -853,7 +857,7 @@ sub HasMultipleTrackArtists
 		$tracks = $self->GetTracks;
 		foreach my $t (@$tracks) 
 		{
-			$ar{$t->artist} = 1;
+			$ar{$t->artist->id} = 1;
 		}
 		$self->{"_isva"} = (keys %ar > 1);
 	}

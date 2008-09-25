@@ -273,7 +273,7 @@ sub OutputTrackRDF
     }
 
     $track = $ref->{obj};
-    $artist = $this->GetFromCache('artist', $track->artist()); 
+    $artist = $this->GetFromCache('artist', $track->artist->id);
 
     $out  = $this->BeginDesc("mm:Track", $this->GetBaseURI() .
                             "/track/" . $track->mbid());
@@ -578,7 +578,7 @@ sub CreateFileLookup
 
 		   require MusicBrainz::Server::Artist;
                    $artist = MusicBrainz::Server::Artist->new($this->{DBH});
-                   $artist->id($tr->artist());
+                   $artist->id($tr->artist->id);
                    $artist->LoadFromId();
                    $this->AddToCache(0, 'artist', $artist);
                    $out .= $this->OutputArtistRDF({ obj=>$artist });

@@ -44,7 +44,7 @@ sub PreInsert
 	$self->table("trmjoin");
 	$self->SetColumn("id");
 	$self->row_id($trmjoinid);
-	$self->artist($track->artist);
+	$self->artist($track->artist->id);
 	$self->SetPrev($trm);
 
 	# Save the TRM's clientversion in case we need to re-add it
@@ -95,8 +95,7 @@ sub DetermineQuality
     }
 
     # if that fails, go by the artist
-    my $ar = MusicBrainz::Server::Artist->new($self->{DBH});
-    $ar->id($tr->artist());
+    my $ar = $tr->artist();
     if ($ar->LoadFromId())
     {
         return $ar->quality;        

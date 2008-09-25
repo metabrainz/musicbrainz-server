@@ -33,7 +33,7 @@ sub track : Chained CaptureArgs(1)
     my $track = $c->model('Track')->load($mbid);
 
     $c->stash->{track}  = $track;
-    $c->stash->{artist} = $c->model('Artist')->load($track->artist_id);
+    $c->stash->{artist} = $c->model('Artist')->load($track->artist->id);
 }
 
 =head2 relations

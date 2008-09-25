@@ -136,9 +136,7 @@ sub PreDisplay
 		# try to guess artist id.
 		if (!$this->{'new.exists'})
 		{
-			require MusicBrainz::Server::Artist;
-			$newartist = MusicBrainz::Server::Artist->new($this->{DBH});
-			$newartist->id($track->artist);
+			$newartist = $track->artist;
 			if ($newartist->LoadFromId and
 				$newartist->name eq $this->{'new.name'})
 			{
@@ -196,7 +194,7 @@ sub CheckPrerequisites
 	}
 
 	# Check that its artist has not changed
-	if ($track->artist != $self->artist)
+	if ($track->artist->id != $self->artist)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This track has already been moved to another artist");
 		return STATUS_FAILEDPREREQ;
@@ -245,7 +243,7 @@ sub ApprovedAction
 	require MusicBrainz::Server::Track;
 	my $track = MusicBrainz::Server::Track->new($this->{DBH});
 	$track->id($this->row_id);
-	$track->artist($artistid);
+	$track->artist->id($artistid);
 	$track->UpdateArtist
 		or die "Failed to update track in MOD_CHANGE_TRACK_ARTIST";
 

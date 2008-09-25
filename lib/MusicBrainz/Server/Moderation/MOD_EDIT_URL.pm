@@ -80,7 +80,7 @@ sub PreInsert
 		{
 			my $track = MusicBrainz::Server::Track->new($self->{DBH});
 			$track->id($links[0]->{link0_id});
-			$artist = $track->artist
+			$artist = $track->artist->id
 				if ($track->LoadFromId(0));
 		}
 	}

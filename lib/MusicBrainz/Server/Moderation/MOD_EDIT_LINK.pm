@@ -64,7 +64,8 @@ sub PreInsert
 
 	if (@$entities[0]->{type} eq 'album' || @$entities[0]->{type} eq 'track')
 	{
-		my $artistid = @$entities[0]->{obj}->artist;
+		my $artistid = @$entities[0]->{type} eq 'track' ? @$entities[0]->{obj}->artist->id
+                     :                                    @$entities[0]->{obj}->artist;
 		# Don't assign the edit to VA if we don't have to
 		if ($artistid == VARTIST_ID && @$entities[1]->{type} eq 'artist')
 		{
