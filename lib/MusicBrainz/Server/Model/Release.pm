@@ -9,7 +9,6 @@ use Carp;
 use Encode 'decode';
 use MusicBrainz::Server::Adapter 'LoadEntity';
 use MusicBrainz::Server::Country;
-use MusicBrainz::Server::Facade::ReleaseEvent;
 use MusicBrainz::Server::Link;
 use MusicBrainz::Server::Release;
 use MusicBrainz::Server::Validation;
@@ -24,17 +23,15 @@ sub load_events
     my %county_names;
 
     return [ map {
-        my $rel = MusicBrainz::Server::Facade::ReleaseEvent->new_from_event($_);
-
-        my $cid = $rel->country;
-        $rel->country(
+        my $cid = $_->country;
+        $_->country(
             $county_names{$cid} ||= do {
                 my $country = $country_obj->newFromId($cid);
                 $country ? $country->name : "?";
             }
         );
 
-        $rel;
+        $_;
     } @events ];
 
 }
