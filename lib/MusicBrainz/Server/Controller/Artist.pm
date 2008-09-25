@@ -287,6 +287,67 @@ sub edit : Chained('artist')
     $c->stash->{template} = 'artist/edit.tt';
 }
 
+=head2 merge
+
+Merge 2 artists into a single artist
+
+=cut
+
+sub merge : Local
+{
+    my ($self, $c) = @_;
+    die "This is a stub method";
+}
+
+=head2 subscribe
+
+Allow a moderator to subscribe to this artist
+
+=cut
+
+sub subscribe : Local
+{
+    my ($self, $c) = @_;
+    die "This is a stub method";
+}
+
+=head2 add_release
+
+Add a release to this artist
+
+=cut
+
+sub add_release : Local
+{
+    my ($self, $c) = @_;
+    die "This is a stub method";
+}
+
+=head2 import
+
+Import a release from another source (such as FreeDB)
+
+=cut
+
+sub import : Local
+{
+    my ($self, $c) = @_;
+    die "This is a stub method";
+}
+
+=head2 add_non_album
+
+Add non-album tracks to this artist (creating the special non-album
+release if necessary)
+
+=cut
+
+sub add_non_album : Local
+{
+    my ($self, $c) = @_;
+    die "This is a stub method";
+}
+
 =head1 LICENSE 
 
 This software is provided "as is", without warranty of any kind, express or

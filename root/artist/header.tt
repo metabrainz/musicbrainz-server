@@ -37,12 +37,12 @@
     Edit:
     [%- IF c.user_exists -%]
       [%- edit_links = [
-           { link => c.uri_for('/artist/edit', artist.mbid), text => "Edit Artist" },
-           { link => c.uri_for('/artist/merge', artist.mbid), text => "Merge Into" },
-           { link => c.uri_for('/artist/subscribe', artist.mbid), text => "Subscribe" },
-           { link => c.uri_for('/artist/add-release', artist.mbid), text => "Add Release" },
-           { link => c.uri_for('/artist/import', artist.mbid), text => "Import Release" },
-           { link => "", text => "Add Non-Album Tracks" },
+           { link => entity_url(artist, 'edit'), text => "Edit Artist" },
+           { link => entity_url(artist, 'merge'), text => "Merge Into" },
+           { link => entity_url(artist, 'subscribe'), text => "Subscribe" },
+           { link => entity_url(artist, 'add_release'), text => "Add Release" },
+           { link => entity_url(artist, 'import'), text => "Import Release" },
+           { link => entity_url(artist, 'add_non_album'), text => "Add Non-Album Tracks" },
            { link => c.uri_for("/artist/quality", artist.mbid), text => "Change Data Quality" },
          ]
       -%]
