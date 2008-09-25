@@ -180,7 +180,7 @@ sub ConvertToText
 
 	join ", ",
 		map {
-			$al->attribute_name($_)
+            MusicBrainz::Server::Release::attribute_name($_)
 		} @_;
 }
 

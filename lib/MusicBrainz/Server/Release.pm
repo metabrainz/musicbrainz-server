@@ -206,20 +206,9 @@ sub script
 	return MusicBrainz::Server::Script->newFromId($self->{DBH}, $id);
 }
 
-sub attribute_name
-{
-   return $AlbumAttributeNames{$_[1]}->[0];
-}
-
-sub attribute_name_as_plural
-{
-   return $AlbumAttributeNames{$_[1]}->[1];
-}
-
-sub attribute_description
-{
-   return $AlbumAttributeNames{$_[1]}->[2];
-}
+sub attribute_name           { $AlbumAttributeNames{$_[0]}->[0]; }
+sub attribute_name_as_plural { $AlbumAttributeNames{$_[0]}->[1]; }
+sub attribute_description    { $AlbumAttributeNames{$_[0]}->[2];}
 
 sub attributes
 {
@@ -251,6 +240,9 @@ sub release_type_and_status
 	}
 	($type, $status);
 }
+
+sub release_type   { ($_[0]->release_type_and_status)[0] }
+sub release_status { ($_[0]->release_type_and_status)[1] }
 
 sub attribute_list
 {

@@ -405,8 +405,8 @@ sub xml_release_type
 	my $al = $_[0];
 
 	my ($type, $status) = $al->release_type_and_status;
-	$type = (defined $type ? $al->attribute_name($type) : "");
-	$status = (defined $status ? $al->attribute_name($status) : "");
+	$type = (defined $type ? MusicBrainz::Server::Release::attribute_name($type) : "");
+	$status = (defined $status ? MusicBrainz::Server::Release::attribute_name($status) : "");
 
     $type =~ s/-//g;
     $status =~ s/-//g;

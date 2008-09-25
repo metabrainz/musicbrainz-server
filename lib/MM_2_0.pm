@@ -128,12 +128,12 @@ sub OutputAlbumRDF
         if ($attr >= MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_TYPE_START && 
             $attr <= MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_TYPE_END)
         {
-           $out .= $this->Element("rdf:type", "", "rdf:resource", $this->GetMMNamespace() . $album->attribute_name($attr));
+           $out .= $this->Element("rdf:type", "", "rdf:resource", $this->GetMMNamespace() . MusicBrainz::Server::Release::attribute_name($attr));
         }
         elsif ($attr >= MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_STATUS_START && 
                $attr <= MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_STATUS_END)
         {
-           $out .= $this->Element("mm:release", "", "rdf:resource", $this->GetMMNamespace() . $album->attribute_name($attr));
+           $out .= $this->Element("mm:release", "", "rdf:resource", $this->GetMMNamespace() . MusicBrainz::Server::Release::attribute_name($attr));
         }
     }
 

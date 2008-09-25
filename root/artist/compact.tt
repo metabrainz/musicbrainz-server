@@ -2,7 +2,8 @@
 
 [% BLOCK group_head %]
   <h2 class="compactreleasetype">
-    [% IF item.artist_id != artist.id; "Various Artist "; END %] [% item.release_type_plural %]</h2>
+    [% IF item.artist != artist.id; "Various Artist "; END %]
+    [% plural_release_attribute(item.release_type) %]</h2>
   <table class="releases">
     <tbody>
 [% END %]
@@ -23,7 +24,7 @@
           [% END %]
         </td>
         <td class="status">
-            [% release_attribute(item.release_type_and_status.1) %]
+            [% release_attribute(item.release_status) %]
         </td>
         <td class="date">[% item.first_release_date | release_date %]</td>
         <td class="language">
