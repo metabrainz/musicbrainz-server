@@ -1,0 +1,2 @@
+<input type="[% type %]" name="[% name %]" id="[% id %]" value="[% value %]"
+       size="[% widget.size %]" [% extra_attributes %] />

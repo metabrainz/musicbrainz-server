@@ -6,41 +6,4 @@
     style = widget.style
     extra_attributes = "class=\"${style} ${error_class}\""-%]
 
-[%- IF type == 'textarea' -%]
-  <textarea name="[% name %]"
-            id="[% id %]"
-            [% extra_attributes %]>
-    [% value %]
-  </textarea>
-[%- ELSIF type == 'select' -%]
-  [%- IF widget.select_widget == 'radio' -%]
-    [%- FOREACH option IN widget.options -%]
-      <input type="radio" id="[% id %]" name="[% name %]"
-             [%- IF widget.value == option.value -%]checked="checked"[%- END -%]
-             value="[% option.value %]"/>
-      [% option.label %]<br/>
-    [%- END -%]
-  [%- ELSE -%]
-    <select id="[% id %]"
-            name="[% name %]"
-            [% extra_attributes %]>
-    [%- FOREACH option IN widget.options -%]
-      <option value="[% option.value %]" [%- IF widget.value == option.value -%]selected="selected"[%- END -%]>
-        [% option.label %]
-      </option>
-    [%- END -%]
-    </select>
-  [%- END -%]
-[%- ELSIF type == 'date' %]
-  <input size="4" type="text" name="[% name %]_year"  id="[% id %]_year"  value="[% widget.date.year %]"  [% extra_attributes %] />
-  <input size="2" type="text" name="[% name %]_month" id="[% id %]_month" value="[% widget.date.month %]" [% extra_attributes %] />
-  <input size="2" type="text" name="[% name %]_day"  id="[% id %]_day"    value="[% widget.date.day %]"   [% extra_attributes %] />
-[%- ELSIF type == 'checkbox' %]
-  <input type="[% type %]" name="[% name %]" id="[% id %]" [% IF value %]checked="checked"[% END %] [% extra_attributes %] />
-[%- ELSIF type == 'compound' -%]
-  [%- FOREACH sub_field IN widget.sub_form.sorted_fields -%]
-    [%- INCLUDE 'forms/input.tt' widget=sub_field prefix="${name}_" -%]
-  [%- END -%]
-[%- ELSE -%]
-  <input type="[% type %]" name="[% name %]" id="[% id %]" value="[% value %]" size="[% widget.size %]" [% extra_attributes %] />
-[%- END -%]
+[%- INCLUDE "forms/widgets/${type}.tt" -%]

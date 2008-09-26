@@ -1,0 +1,3 @@
+<input type="[% type %]" name="[% name %]" id="[% id %]"
+       [% IF value %]checked="checked"[% END %]
+       [% extra_attributes %] />
