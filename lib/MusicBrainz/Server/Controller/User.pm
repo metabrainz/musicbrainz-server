@@ -63,7 +63,14 @@ sub login : Local
             if( $c->authenticate({ username => $username,
                                    password => $password }) )
             {
-                $c->response->redirect($c->req->referer);
+                my $dest = $c->req->referer;
+                my $uri = $c->uri_for('/user/login');
+
+                if ($dest =~ /$uri/) {
+                    $dest = $c->session->{_user_login_old_redir};
+                }
+
+                $c->response->redirect($dest);
                 $c->detach;
             }
             else
@@ -72,6 +79,7 @@ sub login : Local
             }
         }
 
+        $c->session->{_user_login_old_redir} = $c->req->referer;
         $c->stash->{template} = 'user/login.tt';
 
         # Have to make sure we detach
