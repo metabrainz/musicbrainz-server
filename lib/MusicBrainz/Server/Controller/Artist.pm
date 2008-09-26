@@ -5,7 +5,7 @@ use warnings;
 
 use base 'Catalyst::Controller';
 
-use MusicBrainz::Server::Adapter qw(Google);
+use MusicBrainz::Server::Adapter qw(EntityUrl Google);
 use ModDefs;
 use UserSubscription;
 
@@ -468,10 +468,28 @@ release if necessary)
 
 =cut
 
-sub add_non_album : Local
+sub add_non_album : Chained('artist')
 {
     my ($self, $c) = @_;
-    die "This is a stub method";
+
+    $c->forward('/user/login');
+
+    my $artist = $c->stash->{artist};
+
+    use MusicBrainz::Server::Form::AddNonAlbumTrack;
+    my $form = MusicBrainz::Server::Form::AddNonAlbumTrack->new($artist);
+    $form->context($c);
+
+    if ($c->form_posted && $form->update_from_form($c->req->params))
+    {
+        $c->flash->{ok} = 'Thanks, your edit has been entered into the moderation queue';
+
+        $c->response->redirect(EntityUrl($artist, 'show'));
+        $c->detach;
+    }
+
+    $c->stash->{form    } = $form;
+    $c->stash->{template} = 'artist/add-non-album.tt';
 }
 
 =head2 change_quality

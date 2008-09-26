@@ -1,0 +1,11 @@
+[%- WRAPPER 'artist/layout.tt' title='Add non-album track' -%]
+[%- WRAPPER 'components/box.tt' header='Add non-album track' -%]
+
+[%- WRAPPER 'forms/form.tt' -%]
+  [%- INCLUDE 'forms/widget.tt' widget=form.field('track') label='Track' -%]
+  [%- INCLUDE 'forms/edit-note.tt' -%]
+  [%- INCLUDE 'forms/submit.tt' label="Add Track" -%]
+[%- END -%]
+
+[%- END -%]
+[%- END -%]
