@@ -67,7 +67,7 @@ sub login : Local
                 my $uri = $c->uri_for('/user/login');
 
                 if ($dest =~ /$uri/) {
-                    $dest = $c->session->{_user_login_old_redir};
+                    $dest = $c->flash->{_user_login_old_redir} || $dest;
                 }
 
                 $c->response->redirect($dest);
@@ -79,7 +79,7 @@ sub login : Local
             }
         }
 
-        $c->session->{_user_login_old_redir} = $c->req->referer;
+        $c->flash->{_user_login_old_redir} = $c->req->referer;
         $c->stash->{template} = 'user/login.tt';
 
         # Have to make sure we detach
