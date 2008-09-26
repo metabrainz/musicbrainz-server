@@ -208,13 +208,19 @@ sub LoadFromId
 
 	$row or return undef;
 
-	@$this{qw(
-		id name mbid sequence length modpending
-		albumjoinmodpending sequenceid album
-	)} = @$row;
-
     my $artist = MusicBrainz::Server::Artist->new($this->{DBH});
+
+    $this->artist($artist);
+    $this->id($row->[0]);
+    $this->name($row->[1]);
+    $this->mbid($row->[2]);
+    $this->sequence($row->[3]);
+    $this->length($row->[4]);
     $artist->id($row->[5]);
+    $this->has_mod_pending($row->[6]);
+    $this->SetAlbumJoinModPending($row->[7]);
+    $this->sequence_id($row->[8]);
+    $this->release($row->[9]);
 
 	1;
 }

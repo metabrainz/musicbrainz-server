@@ -64,7 +64,9 @@ sub details : Chained('track')
 
     $c->stash->{relations} = $c->model('Relation')->load_relations($track);
     $c->stash->{tags}      = $c->model('Tag')->top_tags($track);
-    $c->stash->{release}   = $c->model('Release')->load($track->release_id);
+
+    warn '!*!*!*!* '. $track->release;
+    $c->stash->{release}   = $c->model('Release')->load($track->release);
 
     $c->stash->{template} = 'track/info.tt';
 }
