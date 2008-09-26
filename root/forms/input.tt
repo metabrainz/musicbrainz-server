@@ -1,5 +1,5 @@
-[%- name = widget.name
-    id = "${prefix}id_${widget.name}"
+[%- name = "${widget.full_name}"
+    id = "id_$name"
     type = widget.widget
     value = widget.input || widget.value
     error_class = widget.errors.size ? "error" : ""
@@ -37,6 +37,10 @@
   <input size="2" type="text" name="[% name %]_day"  id="[% id %]_day"    value="[% widget.date.day %]"   [% extra_attributes %] />
 [%- ELSIF type == 'checkbox' %]
   <input type="[% type %]" name="[% name %]" id="[% id %]" [% IF value %]checked="checked"[% END %] [% extra_attributes %] />
+[%- ELSIF type == 'compound' -%]
+  [%- FOREACH sub_field=widget.sub_form.fields -%]
+    [%- INCLUDE 'forms/input.tt' widget=sub_field prefix="${name}_" -%]
+  [%- END -%]
 [%- ELSE -%]
   <input type="[% type %]" name="[% name %]" id="[% id %]" value="[% value %]" [% extra_attributes %] />
 [%- END -%]

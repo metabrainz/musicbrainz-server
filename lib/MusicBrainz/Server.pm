@@ -47,7 +47,8 @@ __PACKAGE__->config(
         FILTERS => {
             'mb_date' => \&MusicBrainz::Server::Filters::date,
             'release_date' => \&MusicBrainz::Server::Filters::release_date,
-        }
+        },
+        RECURSION => 1,
     },
 );
 
