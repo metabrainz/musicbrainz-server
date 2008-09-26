@@ -64,6 +64,9 @@
 		<script type="text/javascript" src="/scripts/popup.js?t=<% $mtime_popupjs %>"></script>
 		<script type="text/javascript" src="/scripts/overlib.js?t=<% $mtime_overlibjs %>"></script>
 		<script type="text/javascript" src="/scripts/MochiKit/MochiKit.js?t=<% $mtime_mochikitjs %>"></script>
+		<!--[if lt IE 7]>
+		<script type="text/javascript" src="/scripts/ie-specific.js"></script>
+		<![endif]-->
 
 		<meta http-equiv="expires" content="1" />
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />

@@ -554,6 +554,11 @@ table.releasetracks tr.highlight td.links a {
 	font-weight: normal; 
 }
 
+table.releasetracks tr.track:hover,
+table.releasetracks tr.track-hover { 
+	background : #FFFFCC; 
+}
+
 /* ------------------------------------------------------------------------- 
 	* Release DiscIDs rows
 	* ---------------------------------------------------------------------- */
