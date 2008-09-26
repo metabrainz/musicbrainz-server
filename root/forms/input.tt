@@ -38,9 +38,9 @@
 [%- ELSIF type == 'checkbox' %]
   <input type="[% type %]" name="[% name %]" id="[% id %]" [% IF value %]checked="checked"[% END %] [% extra_attributes %] />
 [%- ELSIF type == 'compound' -%]
-  [%- FOREACH sub_field=widget.sub_form.fields -%]
+  [%- FOREACH sub_field IN widget.sub_form.sorted_fields -%]
     [%- INCLUDE 'forms/input.tt' widget=sub_field prefix="${name}_" -%]
   [%- END -%]
 [%- ELSE -%]
-  <input type="[% type %]" name="[% name %]" id="[% id %]" value="[% value %]" [% extra_attributes %] />
+  <input type="[% type %]" name="[% name %]" id="[% id %]" value="[% value %]" size="[% widget.size %]" [% extra_attributes %] />
 [%- END -%]

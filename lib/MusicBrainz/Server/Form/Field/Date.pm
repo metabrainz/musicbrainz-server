@@ -3,7 +3,7 @@ package MusicBrainz::Server::Form::Field::Date;
 use strict;
 use warnings;
 
-use base 'Form::Processor::Field';
+use base 'MusicBrainz::Server::Form::Field::Compound';
 
 use MusicBrainz::Server::Validation;
 
@@ -17,13 +17,30 @@ A field for entering dates in 3 separate fields.
 
 =head1 METHODS
 
-=head2 init_widget
-
-This field has type 'date' - we specialise on this in the forms/input.tt template
-
 =cut
 
-sub init_widget { 'date' }
+sub profile
+{
+    return {
+        optional => {
+            year => {
+                type  => 'Integer',
+                order => 1,
+                size  => 4,
+            },
+            month => {
+                type  => 'Integer',
+                order => 2,
+                size  => 2,
+            },
+            day  => {
+                type  => 'Integer',
+                order => 3,
+                size  => 2,
+            },
+        }
+    }
+}
 
 =head2 input_to_value
 
@@ -32,13 +49,19 @@ scalar value and store it in the fields value property.
 
 =cut
 
-sub input_to_value {
-    my ($self, %date) = @_;
+sub input_to_value
+{
+    my $self = shift;
+
+    $self->SUPER::input_to_value;
+
+    my $old_value = $self->value;
+
     $self->value(
         MusicBrainz::Server::Validation::MakeDBDateStr(
-            $date{year},
-            $date{month},
-            $date{day}
+            $old_value->{year},
+            $old_value->{month},
+            $old_value->{day}
         )
     );
 }
@@ -49,59 +72,27 @@ Validate that what was entered was indeed a valid date.
 
 =cut
 
-sub validate_field {
+sub validate
+{
     my $self = shift;
 
-    my $params = $self->form->params;
-    my $name = $self->name;
+    return unless $self->SUPER::validate(scalar $self->form->params);
 
-    my %date;
-    for my $field ( qw/ year month day / )
-    {
-        my $value = $params->{$name . "_" . $field};
-        next unless $value;
+    return $self->add_error($self->required_text)
+        if $self->required && !$self->sub_form->value('year');
 
-        unless ($value =~ /^\d+$/) {
-            $self->add_error('Date can only contain numeric values');
-            return;
-        }
+    warn "Year: " . $self->sub_form->field('year')->input;
 
-        $date{$field} = $value;
-    }
+    return $self->add_error('Invalid date')
+        unless MusicBrainz::Server::Validation::IsValidDateOrEmpty(
+            $self->sub_form->value('year'),
+            $self->sub_form->value('month'),
+            $self->sub_form->value('day'),
+        );
 
-    if ($self->required && !($date{year}))
-    {
-        $self->add_error($self->required_text);
-        return;
-    }
+    $self->input_to_value;
 
-    unless(MusicBrainz::Server::Validation::IsValidDateOrEmpty($date{year}, $date{month}, $date{day}))
-    {
-        $self->add_error('Invalid date');
-        return;
-    }
-
-    $self->input_to_value(%date);
-
-    1;
-}
-
-=head2 date
-
-Return the components of this field, split into a hash for easy use in templates.
-
-=cut
-
-sub date {
-    my $self = shift;
-  
-    my @split = map { $_ == '00' ? '' : $_} split(m/-/, $self->value || '');
-
-    return {
-        year => $split[0],
-        month => $split[1],
-        day => $split[2]
-    };
+    return 1;
 }
 
 =head1 LICENSE 
