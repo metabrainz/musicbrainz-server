@@ -130,6 +130,50 @@ sub edit : Chained('track')
     $c->stash->{template} = 'track/edit.tt';
 }
 
+sub remove : Chained('track')
+{
+    my ($self, $c) = @_;
+
+    $c->forward('/user/login');
+
+    use MusicBrainz::Server::Form;
+    my $form = MusicBrainz::Server::Form->new(profile => {
+            optional => { edit_note => 'TextArea' },
+        });
+
+    if ($c->form_posted)
+    {
+        my $track   = $c->stash->{track};
+        my $release = $c->model('Release')->load($track->release);
+
+        require Moderation;
+        my @mods = Moderation->InsertModeration(
+            DBH   => $c->mb->{DBH},
+            uid   => $c->user->id,
+            privs => $c->user->privs,
+            type  => ModDefs::MOD_REMOVE_TRACK,
+
+            track => $track,
+            album => $release,
+        );
+
+        if (scalar @mods)
+        {
+            $mods[0]->InsertNote($c->user->id, $form->value('edit_note'))
+                if $form->value('edit_note') =~ /\S/;
+
+            $c->flash->{ok} = "Thanks, your track edit has been entered " .
+                              "into the moderation queue";
+
+            use MusicBrainz::Server::Adapter qw(EntityUrl);
+            $c->response->redirect(EntityUrl($c, $release, 'show'));
+        }
+    }
+
+    $c->stash->{form    } = $form;
+    $c->stash->{template} = 'track/remove.tt';
+}
+
 =head1 LICENSE
 
 This software is provided "as is", without warranty of any kind, express or

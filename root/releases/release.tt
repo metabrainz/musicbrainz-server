@@ -35,7 +35,10 @@
 
           [%- IF c.user_exists -%]
           <td class="editinglinks">
-            Editing links
+            [%- track_edit_links = [
+                   { link => entity_url(track, 'remove'), text => "Remove" }
+               ] -%]
+            [%- INCLUDE "components/piped-list.tt" list=track_edit_links -%]
           </td>
           [%- END -%]
         </tr>
