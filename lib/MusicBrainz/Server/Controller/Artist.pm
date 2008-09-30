@@ -300,8 +300,8 @@ sub merge : Chained('artist')
 
     $c->forward('/user/login');
 
-    use MusicBrainz::Server::Form::Search::Artist;
-    my $form = new MusicBrainz::Server::Form::Search::Artist;
+    use MusicBrainz::Server::Form::Search::Query;
+    my $form = new MusicBrainz::Server::Form::Search::Query;
 
     if ($c->form_posted && $form->validate($c->req->params))
     {

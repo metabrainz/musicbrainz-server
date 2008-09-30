@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Form::Search::Label;
+package MusicBrainz::Server::Form::Search::Query;
 
 use base 'MusicBrainz::Server::Form';
 

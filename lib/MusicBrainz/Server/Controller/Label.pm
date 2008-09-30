@@ -144,8 +144,8 @@ sub merge : Chained('label')
 
     $c->forward('/user/login');
 
-    use MusicBrainz::Server::Form::Search::Label;
-    my $form = new MusicBrainz::Server::Form::Search::Label;
+    use MusicBrainz::Server::Form::Search::Query;
+    my $form = new MusicBrainz::Server::Form::Search::Query;
 
     if ($c->form_posted && $form->validate($c->req->params))
     {
