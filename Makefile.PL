@@ -5,13 +5,9 @@ name 'musicbrainz';
 all_from 'lib/MusicBrainz/Server.pm';
 
 requires 'Algorithm::Diff';
-requires 'Apache::AuthDigest';
-requires 'Apache::Session';
-requires 'Apache::Session::File';
 requires 'Cache::Memcached';
 requires 'Catalyst::Action::RenderView';
 requires 'Catalyst::Component::ACCEPT_CONTEXT';
-requires 'Catalyst::Model::Adaptor';
 requires 'Catalyst::Plugin::Authentication';
 requires 'Catalyst::Plugin::ConfigLoader';
 requires 'Catalyst::Plugin::Session::State::Cookie';
@@ -36,8 +32,12 @@ requires 'String::ShellQuote';
 requires 'String::Similarity';
 requires 'Text::Unaccent';
 requires 'Text::WikiFormat';
-requires 'XML::RSS';
+requires 'XML::Feed';
 requires 'YAML';
+
+recommends 'Apache::AuthDigest';
+recommends 'Apache::Session';
+recommends 'Apache::Session::File';
 
 catalyst;
 
