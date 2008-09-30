@@ -204,6 +204,75 @@ sub edit_title : Chained('release')
     $c->stash->{template} = 'releases/edit-title.tt';
 }
 
+sub move : Chained('release')
+{
+    my ($self, $c) = @_;
+
+    $c->forward('/user/login');
+
+    my $release = $c->stash->{release};
+
+    use MusicBrainz::Server::Form::Search::Query;
+    my $form = new MusicBrainz::Server::Form::Search::Query;
+
+    if ($c->form_posted && $form->validate($c->req->params))
+    {
+        my $artists = $c->model('Artist')->direct_search($form->value('query'));
+        $c->stash->{artists} = $artists;
+    }
+
+    $c->stash->{form    } = $form;
+    $c->stash->{template} = 'releases/move.tt';
+}
+
+sub move_to : Chained('release') Args(1)
+{
+    my ($self, $c, $new_artist) = @_;
+
+    $c->forward('/user/login');
+
+    my $release = $c->stash->{release};
+
+    my $new_artist = $c->model('Artist')->load($new_artist);
+    $c->stash->{new_artist} = $new_artist;
+
+    use MusicBrainz::Server::Form::MoveRelease;
+    my $form = new MusicBrainz::Server::Form::MoveRelease($release);
+    $form->context($c);
+
+    if ($c->form_posted && $form->validate($c->req->params))
+    {
+        my $user       = $c->user;
+        my $old_artist = $c->model('Artist')->load($release->artist);
+
+        my @mods = Moderation->InsertModeration(
+            DBH   => $c->mb->{DBH},
+            uid   => $user->id,
+            privs => $user->privs,
+            type  => ModDefs::MOD_MOVE_RELEASE,
+
+            album              => $release,
+            oldartist          => $old_artist,
+            artistname         => $new_artist->name,
+            artistsortname     => $new_artist->sort_name,
+            artistid           => $new_artist->id,
+            movetracks         => $form->value('move_tracks'),
+        );
+
+        if (scalar @mods)
+        {
+            $mods[0]->InsertNote($user->id, $form->value('edit_note'))
+                if $mods[0] and $form->value('edit_note') =~ /\S/;
+
+            $c->response->redirect($c->entity_url($release, 'show'));
+            $c->detach;
+        }
+    }
+
+    $c->stash->{form    } = $form;
+    $c->stash->{template} = 'releases/confirm_move.tt';
+}
+
 =head1 LICENSE
 
 This software is provided "as is", without warranty of any kind, express or
