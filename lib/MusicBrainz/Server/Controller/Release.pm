@@ -170,7 +170,8 @@ sub change_quality : Chained('release')
             $c->flash->{ok} = "Thanks, your release edit has been entered " .
                               "into the moderation queue";
 
-            $c->detach('/release/show', $mbid);
+            $c->response->redirect($c->entity_url($release, 'show'));
+            $c->detach;
         }
     }
 

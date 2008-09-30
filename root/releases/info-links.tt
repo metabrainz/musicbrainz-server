@@ -1,32 +1,32 @@
 [%- info_links = [
-        { link => entity_url(release, 'perma'), text => "Permanent link" },
-        { link => entity_url(release, 'details'), text => "Details" },
-        { link => entity_url(release, 'tags'), text => "Tags" },
+        { link => c.entity_url(release, 'perma'), text => "Permanent link" },
+        { link => c.entity_url(release, 'details'), text => "Details" },
+        { link => c.entity_url(release, 'tags'), text => "Tags" },
 
         {
-            link => entity_url(release, 'show', { artist => 1, rel = show_relationships }),
+            link => c.entity_url(release, 'show', { artist => 1, rel = show_relationships }),
             text => "Show artists",
             hide => show_artists,
         },
         {
-            link => entity_url(release, 'show', { artist => 0, rel = show_relationships }),
+            link => c.entity_url(release, 'show', { artist => 0, rel = show_relationships }),
             text => "Hide artists",
             hide => !show_artists,
         },
 
 
         {
-            link => entity_url(release, 'show', { rel => 1, artist = show_artists }),
+            link => c.entity_url(release, 'show', { rel => 1, artist = show_artists }),
             text => "Show relationships",
             hide => show_relationships,
         },
         {
-            link => entity_url(release, 'show', { rel => 0, artist = show_artists }),
+            link => c.entity_url(release, 'show', { rel => 0, artist = show_artists }),
             text => "Hide relationships",
             hide => !show_relationships,
         },
 
-        { link => entity_url(release, 'google'), text => "Search Google" },
+        { link => c.entity_url(release, 'google'), text => "Search Google" },
     ] -%]
 
     <div class="infoLinks">

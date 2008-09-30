@@ -30,7 +30,7 @@
     [%- n = relations.size - maximum -%]
     <div class="more_relationships">
       [% n %] relationship[% n > 1 ? "s" : "" %] not shown.
-    <a href="[% entity_url(source, 'relations') %]">View all relationships&hellip;</a>
+    <a href="[% c.entity_url(source, 'relations') %]">View all relationships&hellip;</a>
     </div>
   [%- END -%]
 [%- END -%]

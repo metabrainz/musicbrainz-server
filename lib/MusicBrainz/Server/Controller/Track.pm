@@ -121,7 +121,8 @@ sub edit : Chained('track')
         if($form->update_from_form($c->req->params))
         {
             $c->flash->{ok} = "Thank you, your edits have been added to the queue";
-            $c->detach($self->action_for('show'), [ $track->id ]);
+            $c->response->redirect($c->entity_url($track, 'show'));
+            $c->detach;
         }
     }
 
@@ -163,8 +164,8 @@ sub remove : Chained('track')
             $c->flash->{ok} = "Thanks, your track edit has been entered " .
                               "into the moderation queue";
 
-            use MusicBrainz::Server::Adapter qw(EntityUrl);
-            $c->response->redirect(EntityUrl($c, $release, 'show'));
+            $c->response->redirect($c->entity_url($release, 'show'));
+            $c->detach;
         }
     }
 

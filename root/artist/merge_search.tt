@@ -25,7 +25,7 @@
   </li>
 </ul>
 
-[%- BLOCK create_link; entity_url(artist, 'merge_into', entity.mbid); END -%]
+[%- BLOCK create_link; c.entity_url(artist, 'merge_into', entity.mbid); END -%]
 [%- INCLUDE "components/search.tt" entities=artists search_label="Artist" -%]
 
 [% END %]

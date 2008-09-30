@@ -1,10 +1,10 @@
 [%- info_links = [
-     { link => entity_url(label, 'perma'), text => "Permenant link" },
-     { link => entity_url(label, 'details'), text => "Details" },
-     { link => entity_url(label, 'aliases'), text => "Aliases" },
-     { link => entity_url(label, 'tags'), text => "Tags" },
-     { link => entity_url(label, 'show'), text => "Releases" },
-     { link => entity_url(label, 'google'), text => "Search Google" }
+     { link => c.entity_url(label, 'perma'), text => "Permenant link" },
+     { link => c.entity_url(label, 'details'), text => "Details" },
+     { link => c.entity_url(label, 'aliases'), text => "Aliases" },
+     { link => c.entity_url(label, 'tags'), text => "Tags" },
+     { link => c.entity_url(label, 'show'), text => "Releases" },
+     { link => c.entity_url(label, 'google'), text => "Search Google" }
    ]
 -%]
 

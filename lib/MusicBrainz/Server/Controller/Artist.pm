@@ -5,7 +5,7 @@ use warnings;
 
 use base 'Catalyst::Controller';
 
-use MusicBrainz::Server::Adapter qw(EntityUrl Google);
+use MusicBrainz::Server::Adapter qw(Google);
 use ModDefs;
 use UserSubscription;
 
@@ -240,8 +240,14 @@ sub create : Local
             # the new artist
             my $addmod = grep { $_->Type eq ModDefs::MOD_ADD_ARTIST } @$mods;
 
-            $c->detach('/artist/show', $addmod->row_id)
-                if $addmod;
+            die "Artist could not be created"
+                unless $addmod;
+
+            # we can't use entity_url because that would require loading the new artist
+            # or creating a mock artist - both are messier than this slightly
+            # hacky solution
+            $c->response->redirect($c->uri_for('/artist/show', $addmod->row_id));
+            $c->detach;
         }
     }
 
@@ -281,7 +287,8 @@ sub edit : Chained('artist')
             $c->flash->{ok} = "Thanks, your artist edit has been entered " .
                               "into the moderation queue";
 
-            $c->detach('/artist/show', $mbid);
+            $c->response->redirect($c->entity_url($artist, 'show'));
+            $c->detach;
         }
     }
 
@@ -350,7 +357,8 @@ sub merge_into : Chained('artist') PathPart('merge-into') Args(1)
             $c->flash->{ok} = "Thanks, your artist edit has been entered " .
                               "into the moderation queue";
 
-            $c->detach('/artist/show', $c->stash->{artist}->mbid);
+            $c->response->redirect($c->entity_url($new_artist, 'show'));
+            $c->detach;
         }
     }
 
@@ -484,7 +492,7 @@ sub add_non_album : Chained('artist')
     {
         $c->flash->{ok} = 'Thanks, your edit has been entered into the moderation queue';
 
-        $c->response->redirect(EntityUrl($artist, 'show'));
+        $c->response->redirect($c->entity_url($artist, 'show'));
         $c->detach;
     }
 
@@ -518,7 +526,8 @@ sub change_quality : Chained('artist')
             $c->flash->{ok} = "Thanks, your artist edit has been entered " .
                               "into the moderation queue";
 
-            $c->detach('/artist/show', $mbid);
+            $c->response->redirect($c->entity_url($artist, 'show'));
+            $c->detach;
         }
     }
 

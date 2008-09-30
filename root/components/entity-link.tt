@@ -2,9 +2,9 @@
 [%#- escapes! -%]
 [%- IF entity.entity_type == "url" -%]
   <a href="[% (entity.url || entity.name) %]">[% (entity.name || entity.url) | truncate(53) | html %]</a>
-  [<a href="[% entity_url(entity, 'info') %]">info</a>]
+  [<a href="[% c.entity_url(entity, 'info') %]">info</a>]
 [%- ELSE -%]
-  <a href="[% entity_url(entity, 'show') %]">
+  <a href="[% c.entity_url(entity, 'show') %]">
     [%- UNLESS noicon -%]<span class="[% entity.entity_type %]_icon">[%- END -%]
     [% entity.name | html %]
     [%- UNLESS noicon -%]</span>[%- END -%]</a>

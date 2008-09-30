@@ -194,7 +194,7 @@ sub merge_into : Chained('label') PathPart('into') Args(1)
             $c->flash->{ok} = "Thanks, your label edit has been entered " .
                               "into the moderation queue";
 
-            $c->response->redirect(EntityUrl($c, $new_label, 'show'));
+            $c->response->redirect($c->entity_url($new_label, 'show'));
             $c->detach;
         }
     }

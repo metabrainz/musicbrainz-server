@@ -99,6 +99,27 @@ sub mb_logout {
     }
 }
 
+sub entity_url
+{
+    my ($self, $entity, $action, @args) = @_;
+
+    # Determine the type of the entity - thus which control to use
+    my $type = $entity->entity_type;
+
+    # Now find the controller
+    my $controller = $self->controller("MusicBrainz::Server::Controller::" . ucfirst($type))
+        or die "$type is not a valid type";
+
+    # Lookup the action
+    my $catalyst_action = $controller->action_for($action)
+        or die "$action is not a valid action for the controller $type";
+
+    # Parse capture arguments.
+    my $id = $entity->mbid || $entity->id;
+ 
+    return $self->uri_for($catalyst_action, [ $id ], @args);
+}
+
 
 =head1 NAME
 

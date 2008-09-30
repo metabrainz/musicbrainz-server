@@ -6,7 +6,7 @@ Tags:
     [%- END -%]
 
     [%- IF tags.size > 3 -%]
-      <a href="[% entity_url(source, 'tags') %]">more&hellip;</a>
+      <a href="[% c.entity_url(source, 'tags') %]">more&hellip;</a>
     [%- END -%]
 [%- ELSE -%]
   (none)
