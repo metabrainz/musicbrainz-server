@@ -5,6 +5,8 @@ use warnings;
 
 use base 'Catalyst::Controller';
 
+use MusicBrainz::Server::Adapter qw(EntityUrl);
+
 =head1 NAME
 
 MusicBrainz::Server::Controller::Label
@@ -130,6 +132,74 @@ sub details : Chained('label')
 {
     my ($self, $c) = @_;
     $c->stash->{template} = 'label/details.tt';
+}
+
+=head2 WRITE METHODS
+
+=cut
+
+sub merge : Chained('label')
+{
+    my ($self, $c) = @_;
+
+    $c->forward('/user/login');
+
+    use MusicBrainz::Server::Form::Search::Label;
+    my $form = new MusicBrainz::Server::Form::Search::Label;
+
+    if ($c->form_posted && $form->validate($c->req->params))
+    {
+        my $label = $c->stash->{label};
+
+        my $labels = $c->model('Label')->direct_search($form->value('query'));
+        $c->stash->{labels} = $labels;
+    }
+
+    $c->stash->{form    } = $form;
+    $c->stash->{template} = 'label/merge_search.tt';
+}
+
+sub merge_into : Chained('label') PathPart('into') Args(1)
+{
+    my ($self, $c, $new_mbid) = @_;
+
+    $c->forward('/user/login');
+
+    use MusicBrainz::Server::Form;
+    my $form = new MusicBrainz::Server::Form(profile => {
+            required => { edit_note => 'TextArea' },
+        });
+
+    my $new_label = $c->model('Label')->load($new_mbid);
+    $c->stash->{new_label} = $new_label;
+
+    if ($c->form_posted)
+    {
+        require Moderation;
+        my @mods = Moderation->InsertModeration(
+            DBH   => $c->mb->{DBH},
+            uid   => $c->user->id,
+            privs => $c->user->privs,
+            type  => ModDefs::MOD_MERGE_LABEL,
+
+            source => $c->stash->{label},
+            target => $new_label,
+        );
+
+        if (@mods)
+        {
+            $mods[0]->InsertNote($c->user->id, $form->value('edit_note'))
+                if $form->value('edit_note') =~ /\S/;
+
+            $c->flash->{ok} = "Thanks, your label edit has been entered " .
+                              "into the moderation queue";
+
+            $c->response->redirect(EntityUrl($c, $new_label, 'show'));
+            $c->detach;
+        }
+    }
+
+    $c->stash->{template} = 'label/merge.tt';
 }
 
 1;
