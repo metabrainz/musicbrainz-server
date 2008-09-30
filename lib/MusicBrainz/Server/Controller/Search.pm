@@ -149,6 +149,11 @@ sub external : Local
         my $ua = LWP::UserAgent->new;
         $ua->timeout (2);
         
+        if (DBDefs::PROXY_ENABLE)
+        {
+            $ua->proxy([ 'http' ], sprintf('http://%s:%i', DBDefs::PROXY_HOST, DBDefs::PROXY_PORT));
+        }
+
         # Dispatch the search request.
         my $response = $ua->get($search_url);
         unless ($response->is_success)
