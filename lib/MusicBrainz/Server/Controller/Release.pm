@@ -179,6 +179,31 @@ sub change_quality : Chained('release')
     $c->stash->{template} = 'releases/quality.tt';
 }
 
+sub edit_title : Chained('release')
+{
+    my ($self, $c) = @_;
+
+    $c->forward('/user/login');
+
+    my $release = $c->stash->{release};
+
+    use MusicBrainz::Server::Form::ReleaseTitle;
+    my $form = new MusicBrainz::Server::Form::ReleaseTitle($release);
+    $form->context($c);
+
+    if ($c->form_posted && $form->update_from_form($c->req->params))
+    {
+        $c->flash->{ok} = "Thanks, your release edit has been entered " .
+                          "into the moderation queue";
+
+        $c->response->redirect($c->entity_url($release, 'show'));
+        $c->detach;
+    }
+
+    $c->stash->{form    } = $form;
+    $c->stash->{template} = 'releases/edit-title.tt';
+}
+
 =head1 LICENSE
 
 This software is provided "as is", without warranty of any kind, express or

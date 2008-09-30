@@ -1,0 +1,21 @@
+[% WRAPPER 'releases/layout.tt' %]
+[% WRAPPER 'components/box.tt' header="Edit release title" %]
+
+<ul>
+  <li>
+    This form allows you to edit the
+    [% INCLUDE "components/doc-link.tt" to="ReleaseTitle" text="title of this release" %].
+    Please read the
+    [% INCLUDE "components/doc-link.tt" to="StyleGuidelines" text="style guidelines" %]
+    before entering any edits.
+  </li>
+</ul>
+
+[% WRAPPER "forms/form.tt" %]
+  [% INCLUDE "forms/widget.tt" widget=form.field('title') label="Title:" %]
+  [% INCLUDE "forms/edit-note.tt" %]
+  [% INCLUDE "forms/submit.tt" label="Enter edit" %]
+[% END %]
+
+[% END %]
+[% END %]
