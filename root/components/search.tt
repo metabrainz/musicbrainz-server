@@ -1,0 +1,12 @@
+[%- WRAPPER "forms/form.tt" -%]
+  [%- INCLUDE "forms/widget.tt" widget=form.field('query') label=search_label -%]
+  [%- INCLUDE "forms/submit.tt" label="Search" %]
+[%- END -%]
+
+[%- IF entities.size -%]
+  <ul>
+  [%- FOREACH entity=entities -%]
+    <li><a href="[% INCLUDE create_link entity=entity %]">[% entity.name %]</a></li>
+  [%- END -%]
+  </ul>
+[%- END -%]

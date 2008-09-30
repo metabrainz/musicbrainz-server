@@ -25,18 +25,8 @@
   </li>
 </ul>
 
-[%- WRAPPER "forms/form.tt" -%]
-  [%- INCLUDE "forms/widget.tt" widget=form.field('query') label="Label" -%]
-  [%- INCLUDE "forms/submit.tt" label="Search" %]
-[%- END -%]
-
-[%- IF labels.size -%]
-  <ul>
-  [%- FOREACH search_label=labels -%]
-    <li><a href="[% entity_url(label, 'merge_into', search_label.mbid) %]">[% search_label.name %]</a></li>
-  [%- END -%]
-  </ul>
-[%- END -%]
+[%- BLOCK create_link; entity_url(label, 'merge_into', entity.mbid); END -%]
+[%- INCLUDE "components/search.tt" entities=labels search_label="Label" -%]
 
 [% END %]
 [% END %]

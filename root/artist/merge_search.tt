@@ -25,18 +25,8 @@
   </li>
 </ul>
 
-[%- WRAPPER "forms/form.tt" -%]
-  [%- INCLUDE "forms/widget.tt" widget=form.field('query') label="Artist" -%]
-  [%- INCLUDE "forms/submit.tt" label="Search" %]
-[%- END -%]
-
-[%- IF artists.size -%]
-  <ul>
-  [%- FOREACH search_artist=artists -%]
-    <li><a href="[% entity_url(artist, 'merge_into', search_artist.mbid) %]">[% search_artist.name %]</a></li>
-  [%- END -%]
-  </ul>
-[%- END -%]
+[%- BLOCK create_link; entity_url(artist, 'merge_into', entity.mbid); END -%]
+[%- INCLUDE "components/search.tt" entities=artists search_label="Artist" -%]
 
 [% END %]
 [% END %]

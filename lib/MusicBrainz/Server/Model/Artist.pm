@@ -60,6 +60,7 @@ sub direct_search
     {
         my $artist = new MusicBrainz::Server::Artist($self->context->mb->{DBH});
         $artist->id($row->{artistid});
+        $artist->mbid($row->{artistgid});
         $artist->name($row->{artistname});
         $artist->sort_name($row->{artistsortname});
         $artist->resolution($row->{artistresolution});
