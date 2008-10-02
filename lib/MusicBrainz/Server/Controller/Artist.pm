@@ -68,7 +68,6 @@ sub similar : Chained('artist')
     my $artist = $c->stash->{artist};
 
     $c->stash->{similar_artists} = $c->model('Artist')->find_similar_artists($artist);
-    $c->stash->{template}        = 'artist/similar.tt';
 }
 
 =head2 google
@@ -97,7 +96,6 @@ sub tags : Chained('artist')
     my $artist = $c->stash->{artist};
 
     $c->stash->{tagcloud} = $c->model('Tag')->generate_tag_cloud($artist);
-    $c->stash->{template} = 'artist/tags.tt';
 }
 
 =head2 relations
@@ -112,7 +110,6 @@ sub relations : Chained('artist')
     my $artist = $c->stash->{artist};
 
     $c->stash->{relations} = $c->model('Relation')->load_relations($artist, to_type => [ 'artist', 'url', 'label', 'album' ]);
-    $c->stash->{template}  = 'artist/relations.tt';
 }
 
 =head2 appearances
@@ -128,7 +125,6 @@ sub appearances : Chained('artist')
     my $artist = $c->stash->{artist};
 
     $c->stash->{releases} = $c->model('Release')->find_linked_albums($artist);
-    $c->stash->{template} = 'artist/appearances.tt';
 }
 
 =head2 perma
@@ -137,11 +133,8 @@ Display the perma-link for a given artist.
 
 =cut
 
-sub perma : Chained('artist')
-{
-    my ($self, $c) = @_;
-    $c->stash->{template} = 'artist/perma.tt';
-}
+# Empty because everything we need is in added to the stash with sub artist.
+sub perma : Chained('artist') { }
 
 =head2 details
 
@@ -149,11 +142,8 @@ Display detailed information about a specific artist.
 
 =cut
 
-sub details : Chained('artist')
-{
-    my ($self, $c) = @_;
-    $c->stash->{template} = 'artist/details.tt';
-}
+# Empty because everything we need is in added to the stash with sub artist.
+sub details : Chained('artist') { }
 
 =head2 aliases
 
@@ -167,7 +157,6 @@ sub aliases : Chained('artist')
     my $artist = $c->stash->{artist};
 
     $c->stash->{aliases}  = $c->model('Alias')->load_for_entity($artist);
-    $c->stash->{template} = 'artist/aliases.tt';
 }
 
 =head2 show
