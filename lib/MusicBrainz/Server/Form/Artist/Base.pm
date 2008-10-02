@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Form::Artist;
+package MusicBrainz::Server::Form::Artist::Base;
 
 use strict;
 use warnings;
@@ -21,14 +21,6 @@ This handles the validation of form fields, along with inserting the
 new data into the database appropriatly.
 
 =head1 METHODS
-
-=head2 name
-
-Gets the name of this form.
-
-=cut
-
-sub name { 'edit_artist' }
 
 =head2 profile
 
@@ -129,73 +121,6 @@ sub init_value
             return $resolution;
         };
     }
-}
-
-=head2 update_model
-
-Updates the information in the MusicBrainz database.
-
-If an artist was not originally provided, this creates a new artist. If
-an artist was provided, it updates that given artist. All edits are
-entered via the moderation system.
-
-=cut 
-
-sub update_model
-{
-    my $self = shift;
-    my $item = $self->item;
-
-    my $user = $self->context->user;
-
-    my %moderation;
-    $moderation{DBH} = $self->context->mb->{DBH};
-    $moderation{uid} = $user->id;
-    $moderation{privs} = $user->privs;
-
-    my ($begin, $end) =
-        (
-            [ map {$_ == '00' ? '' : $_} (split m/-/, $self->value('start') || '') ],
-            [ map {$_ == '00' ? '' : $_} (split m/-/, $self->value('end') || '') ],
-        );
-
-    # Split these into 2 separate conditions because the keys are slightly different
-    # and the default values are also slightly different.
-    if(defined $item)
-    {
-        # An artist was passed when we created the form, so this is an update edit
-        $moderation{type} = ModDefs::MOD_EDIT_ARTIST;
-
-        $moderation{artist} = $item;
-        $moderation{name} = $self->value('name') || $item->name;
-        $moderation{sortname} = $self->value('sortname') || $item->sort_name;
-        $moderation{artist_type} = $self->value('artist_type') || $item->type;
-        $moderation{resolution} = $self->value('resolution') || $item->resolution;
-
-        $moderation{begindate} = $begin;
-        $moderation{enddate} = $end;
-    }
-    else
-    {
-        # No artist was passed, so we are creating a new artist.
-        $moderation{type} = ModDefs::MOD_ADD_ARTIST;
-
-        $moderation{name} = $self->value('name');
-        $moderation{sortname} = $self->value('sortname');
-        $moderation{mbid} = '';
-        $moderation{artist_type} = $self->value('artist_type');
-        $moderation{artist_resolution} = $self->value('resolution') || '';
-
-        $moderation{artist_begindate} = $begin;
-        $moderation{artist_enddate} = $end;
-    }
-
-    my @mods = Moderation->InsertModeration(%moderation);
-
-    $mods[0]->InsertNote($user->id, $self->value('edit_note'))
-        if $mods[0] and $self->value('edit_note') =~ /\S/;
-
-    return \@mods;
 }
 
 =head2 update_from_form

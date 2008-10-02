@@ -97,24 +97,9 @@ sub update_model
     $moderation{DBH  } = $self->context->mb->{DBH};
     $moderation{uid  } = $user->id;
     $moderation{privs} = $user->privs;
+    $moderation{quality} = $self->value('quality');
 
-    use Switch;
-    switch ($item->entity_type)
-    {
-        case ("artist")
-        {
-            $moderation{type   } = ModDefs::MOD_CHANGE_ARTIST_QUALITY;
-            $moderation{artist } = $item;
-            $moderation{quality} = $self->value('quality');
-        }
-
-        case ("release")
-        {
-            $moderation{type    } = ModDefs::MOD_CHANGE_RELEASE_QUALITY;
-            $moderation{releases} = [ $item ];
-            $moderation{quality } = $self->value('quality');
-        }
-    }
+    %moderation = %{ $self->build_moderation };
 
     my @mods = Moderation->InsertModeration(%moderation);
 
@@ -122,21 +107,6 @@ sub update_model
         if $mods[0] and $self->value('edit_note') =~ /\S/;
     
     return \@mods;
-}
-
-=head2 update_from_form
-
-A small helper method to validate the form and update the database if
-validation succeeds in one easy call.
-
-=cut
-
-sub update_from_form
-{
-    my ($self, $data) = @_;
-
-    return unless $self->validate($data);
-    $self->update_model;
 }
 
 =head1 LICENSE 

@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Form::AddNonAlbumTrack;
+package MusicBrainz::Server::Form::Artist::AddNonAlbumTrack;
 
 use strict;
 use warnings;
@@ -22,7 +22,7 @@ sub profile
     }
 }
 
-sub update_model
+sub add_track
 {
     my $self = shift;
 
@@ -51,20 +51,6 @@ sub update_model
     {
         die "Could not insert track";
     }
-}
-
-=head2 update_from_form
-
-A small helper method to validate the form and update the database if validation succeeds in one easy call.
-
-=cut
-
-sub update_from_form
-{
-    my ($self, $data) = @_;
-
-    return unless $self->validate($data);
-    $self->update_model;
 }
 
 1;

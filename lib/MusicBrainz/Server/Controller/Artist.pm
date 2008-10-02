@@ -210,37 +210,28 @@ sub create : Local
 
     $c->forward('/user/login');
 
-    use MusicBrainz::Server::Form::Artist;
-
-    my $form = new MusicBrainz::Server::Form::Artist;
+    my $form = $c->form(undef, 'Artist::Create');
     $form->context($c);
 
-    $c->stash->{form} = $form;
+    return unless $c->form_posted && $form->validate($c->req->params);
 
-    if ($c->form_posted)
-    {
-        if (my $mods = $form->update_from_form($c->req->params))
-        {
-            $c->flash->{ok} = "Thanks! The artist has been added to the " .
-                              "database, and we have redirected you to " .
-                              "their landing page";
+    my $mods = $form->create_artist($c->req->params);
 
-            # Make sure that the moderation did go through, and redirect to
-            # the new artist
-            my $addmod = grep { $_->Type eq ModDefs::MOD_ADD_ARTIST } @$mods;
+    $c->flash->{ok} = "Thanks! The artist has been added to the " .
+                      "database, and we have redirected you to " .
+                      "their landing page";
 
-            die "Artist could not be created"
-                unless $addmod;
+    # Make sure that the moderation did go through, and redirect to
+    # the new artist
+    my @add_mods = grep { $_->type eq ModDefs::MOD_ADD_ARTIST } @$mods;
 
-            # we can't use entity_url because that would require loading the new artist
-            # or creating a mock artist - both are messier than this slightly
-            # hacky solution
-            $c->response->redirect($c->uri_for('/artist/show', $addmod->row_id));
-            $c->detach;
-        }
-    }
+    die "Artist could not be created"
+        unless @add_mods;
 
-    $c->stash->{template} = 'artist/create.tt';
+    # we can't use entity_url because that would require loading the new artist
+    # or creating a mock artist - both are messier than this slightly
+    # hacky solution
+    $c->response->redirect($c->uri_for('/artist', $add_mods[0]->row_id));
 }
 
 =head2 edit
@@ -262,26 +253,17 @@ sub edit : Chained('artist')
 
     my $artist = $c->stash->{artist};
 
-    use MusicBrainz::Server::Form::Artist;
-
-    my $form = new MusicBrainz::Server::Form::Artist($artist->id);
+    my $form = $c->form($artist, 'Artist::Edit');
     $form->context($c);
 
-    $c->stash->{form} = $form;
+    return unless $c->form_posted && $form->validate($c->req->params);
 
-    if ($c->form_posted)
-    {
-        if ($form->update_from_form($c->req->params))
-        {
-            $c->flash->{ok} = "Thanks, your artist edit has been entered " .
-                              "into the moderation queue";
+    $form->update_model($artist);
 
-            $c->response->redirect($c->entity_url($artist, 'show'));
-            $c->detach;
-        }
-    }
+    $c->flash->{ok} = "Thanks, your artist edit has been entered " .
+                      "into the moderation queue";
 
-    $c->stash->{template} = 'artist/edit.tt';
+    $c->response->redirect($c->entity_url($artist, 'show'));
 }
 
 =head2 merge
@@ -295,20 +277,15 @@ sub merge : Chained('artist')
     my ($self, $c) = @_;
 
     $c->forward('/user/login');
-
-    use MusicBrainz::Server::Form::Search::Query;
-    my $form = new MusicBrainz::Server::Form::Search::Query;
-
-    if ($c->form_posted && $form->validate($c->req->params))
-    {
-        my $artist = $c->stash->{artist};
-
-        my $artists = $c->model('Artist')->direct_search($form->value('query'));
-        $c->stash->{artists} = $artists;
-    }
-
-    $c->stash->{form    } = $form;
     $c->stash->{template} = 'artist/merge_search.tt';
+
+    my $form = $c->form(undef, 'Search::Query');
+
+    return unless $c->form_posted && $form->validate($c->req->params);
+    
+    my $artist  = $c->stash->{artist};
+    my $artists = $c->model('Artist')->direct_search($form->value('query'));
+    $c->stash->{artists} = $artists;
 }
 
 sub merge_into : Chained('artist') PathPart('merge-into') Args(1)
@@ -317,41 +294,23 @@ sub merge_into : Chained('artist') PathPart('merge-into') Args(1)
 
     $c->forward('/user/login');
 
-    use MusicBrainz::Server::Form;
-    my $form = new MusicBrainz::Server::Form(profile => {
-            required => { edit_note => 'TextArea' },
-        });
-
+    my $artist     = $c->stash->{artist};
     my $new_artist = $c->model('Artist')->load($new_mbid);
+
+    my $form = $c->form($artist, 'Artist::Merge');
+    $form->context($c);
+
     $c->stash->{new_artist} = $new_artist;
+    $c->stash->{template  } = 'artist/merge.tt';
 
-    if ($c->form_posted)
-    {
-        require Moderation;
-        my @mods = Moderation->InsertModeration(
-            DBH   => $c->mb->{DBH},
-            uid   => $c->user->id,
-            privs => $c->user->privs,
-            type  => ModDefs::MOD_MERGE_ARTIST,
+    return unless $c->form_posted && $form->validate($c->req->params);
 
-            source => $c->stash->{artist},
-            target => $new_artist,
-        );
+    $form->perform_merge($new_artist);
 
-        if (@mods)
-        {
-            $mods[0]->InsertNote($c->user->id, $form->value('edit_note'))
-                if $form->value('edit_note') =~ /\S/;
+    $c->flash->{ok} = "Thanks, your artist edit has been entered " .
+                      "into the moderation queue";
 
-            $c->flash->{ok} = "Thanks, your artist edit has been entered " .
-                              "into the moderation queue";
-
-            $c->response->redirect($c->entity_url($new_artist, 'show'));
-            $c->detach;
-        }
-    }
-
-    $c->stash->{template} = 'artist/merge.tt';
+    $c->response->redirect($c->entity_url($new_artist, 'show'));
 }
 
 =head2 subscribe
@@ -472,21 +431,17 @@ sub add_non_album : Chained('artist')
     $c->forward('/user/login');
 
     my $artist = $c->stash->{artist};
-
-    use MusicBrainz::Server::Form::AddNonAlbumTrack;
-    my $form = MusicBrainz::Server::Form::AddNonAlbumTrack->new($artist);
+    
+    my $form = $c->form($artist, 'Artist::AddNonAlbumTrack');
     $form->context($c);
 
-    if ($c->form_posted && $form->update_from_form($c->req->params))
-    {
-        $c->flash->{ok} = 'Thanks, your edit has been entered into the moderation queue';
+    return unless $c->form_posted && $form->validate($c->req->params);
 
-        $c->response->redirect($c->entity_url($artist, 'show'));
-        $c->detach;
-    }
+    $form->add_track;
 
-    $c->stash->{form    } = $form;
-    $c->stash->{template} = 'artist/add-non-album.tt';
+    $c->flash->{ok} = 'Thanks, your edit has been entered into the moderation queue';
+
+    $c->response->redirect($c->entity_url($artist, 'show'));
 }
 
 =head2 change_quality
@@ -503,25 +458,17 @@ sub change_quality : Chained('artist')
 
     my $artist = $c->stash->{artist};
 
-    use MusicBrainz::Server::Form::DataQuality;
-
-    my $form = new MusicBrainz::Server::Form::DataQuality($artist);
+    my $form = $c->form($artist, 'Artist::DataQuality');
     $form->context($c);
 
-    if ($c->form_posted)
-    {
-        if ($form->update_from_form($c->req->params))
-        {
-            $c->flash->{ok} = "Thanks, your artist edit has been entered " .
-                              "into the moderation queue";
+    return unless $c->form_posted && $form->validate($c->req->params);
 
-            $c->response->redirect($c->entity_url($artist, 'show'));
-            $c->detach;
-        }
-    }
+    $form->update_model;
 
-    $c->stash->{form}     = $form;
-    $c->stash->{template} = 'artist/quality.tt';
+    $c->flash->{ok} = "Thanks, your artist edit has been entered " .
+                      "into the moderation queue";
+
+    $c->response->redirect($c->entity_url($artist, 'show'));
 }
 
 =head1 LICENSE 
