@@ -54,7 +54,7 @@ sub login : Local
 
         if ($c->form_posted) 
         {
-            return unless $form->validate($c->request->parameters));
+            return unless $form->validate($c->request->parameters);
 
             my ($username, $password) = ( $form->value("username"),
                                           $form->value("password") );

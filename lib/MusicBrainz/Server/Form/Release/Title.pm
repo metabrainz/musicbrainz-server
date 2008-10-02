@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Form::ReleaseTitle;
+package MusicBrainz::Server::Form::Release::Title;
 
 use strict;
 use warnings;

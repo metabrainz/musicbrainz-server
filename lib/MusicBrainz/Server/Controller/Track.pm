@@ -124,7 +124,7 @@ sub remove : Chained('track')
 
     my $track   = $c->stash->{track};
 
-    my $form = $c->form($track, 'Track::Remove')
+    my $form = $c->form($track, 'Track::Remove');
     $form->context($c);
 
     return unless $c->form_posted && $form->validate($c->req->params);
@@ -132,7 +132,7 @@ sub remove : Chained('track')
     $c->flash->{ok} = "Thanks, your track edit has been entered " .
                       "into the moderation queue";
 
-    $c->response->redirect($c->entity_url($release, 'show'));
+    $c->response->redirect($c->entity_url($c->stash->{release}, 'show'));
 }
 
 =head1 LICENSE
