@@ -27,6 +27,8 @@ Session::State::Cookie
 Session::Store::FastMmap
 
 Authentication
+
+Form::Processor
 /;
 
 our $VERSION = '0.01';
@@ -49,6 +51,7 @@ __PACKAGE__->config(
             'release_date' => \&MusicBrainz::Server::Filters::release_date,
         },
         RECURSION => 1,
+        TEMPLATE_EXTENSION => '.tt',
     },
 );
 
@@ -68,12 +71,14 @@ __PACKAGE__->config->{'Plugin::Authentication'} = {
     }
 };
 
+__PACKAGE__->config->{form} => {
+    no_fillin       => 1,
+    pre_load_forms  => 1,
+    form_name_space => 'MusicBrainz::Server::Forms',
+};
+
 # Start the application
 __PACKAGE__->setup();
-
-sub form_posted {
-    return shift->request->method eq 'POST'
-}
 
 sub dispatch {
     my $self = shift;

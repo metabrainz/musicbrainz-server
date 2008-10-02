@@ -10,6 +10,7 @@ requires 'Catalyst::Action::RenderView';
 requires 'Catalyst::Component::ACCEPT_CONTEXT';
 requires 'Catalyst::Plugin::Authentication';
 requires 'Catalyst::Plugin::ConfigLoader';
+requires 'Catalyst::Plugin::Form::Processor';
 requires 'Catalyst::Plugin::Session::State::Cookie';
 requires 'Catalyst::Plugin::Session::Store::FastMmap';
 requires 'Catalyst::Plugin::StackTrace';
