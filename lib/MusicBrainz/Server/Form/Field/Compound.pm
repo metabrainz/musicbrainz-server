@@ -56,4 +56,39 @@ sub input_to_value
     $self->value(\%values);
 }
 
+=head2 value
+
+Setting the value attemps to the value of the compound field's subfields.
+
+=cut
+
+sub value
+{
+    my $self  = shift;
+    my ($obj) = @_;
+
+    # The best we can do is attempt to set each field's value
+    # to the value of that attribute in the value object
+    if (defined $obj && ref $obj ne 'HASH')
+    {
+        for my $field ($self->sub_form->fields)
+        {
+            my $name  = $field->name;
+            my $value = $self->field_value($name, $obj);
+
+            unless (defined $value)
+            {
+                $value = $obj->$name
+                    if $obj->can($name);
+            }
+
+            $field->value($value);
+        }
+    }
+
+    return $self->SUPER::value(@_);
+}
+
+sub field_value { undef; }
+
 1;

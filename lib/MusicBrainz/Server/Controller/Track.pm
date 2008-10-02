@@ -112,6 +112,8 @@ sub edit : Chained('track')
 
     return unless $c->form_posted && $form->validate($c->req->params);
 
+    $form->update_model;
+
     $c->flash->{ok} = "Thank you, your edits have been added to the queue";
     $c->response->redirect($c->entity_url($track, 'show'));
 }
@@ -129,10 +131,14 @@ sub remove : Chained('track')
 
     return unless $c->form_posted && $form->validate($c->req->params);
 
+    my $release = $c->stash->{release};
+
+    $form->remove_from_release($release);
+
     $c->flash->{ok} = "Thanks, your track edit has been entered " .
                       "into the moderation queue";
 
-    $c->response->redirect($c->entity_url($c->stash->{release}, 'show'));
+    $c->response->redirect($c->entity_url($release, 'show'));
 }
 
 =head1 LICENSE

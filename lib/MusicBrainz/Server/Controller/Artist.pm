@@ -215,7 +215,7 @@ sub create : Local
 
     return unless $c->form_posted && $form->validate($c->req->params);
 
-    my $mods = $form->create_artist($c->req->params);
+    my $mods = $form->create_artist;
 
     $c->flash->{ok} = "Thanks! The artist has been added to the " .
                       "database, and we have redirected you to " .

@@ -98,7 +98,7 @@ sub external : Local
 
     my $form = $c->form(undef, 'Search::External');
 
-    return unless $c->form_posted && $form->validate($c->req->query_params);
+    return unless $form->validate($c->req->query_params);
 
     use URI::Escape qw( uri_escape );
     use POSIX qw(ceil floor);

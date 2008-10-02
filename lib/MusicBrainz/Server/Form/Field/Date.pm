@@ -95,6 +95,21 @@ sub validate
     return 1;
 }
 
+sub field_value
+{
+    my ($self, $field_name, $data_object) = @_;
+
+    my @components =  map { $_ == 0 ? '' : $_ } split(m/-/, $data_object);
+
+    use Switch;
+    switch ($field_name)
+    {
+        case ('year')  { return $components[0]; }
+        case ('month') { return $components[1]; }
+        case ('day')   { return $components[2]; }
+    }
+}
+
 =head1 LICENSE 
 
 This software is provided "as is", without warranty of any kind, express or

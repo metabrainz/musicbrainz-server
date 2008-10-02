@@ -5,6 +5,8 @@ use warnings;
 
 use base 'MusicBrainz::Server::Form::Field::Compound';
 
+use MusicBrainz::Server::Track;
+
 use Rose::Object::MakeMethods::Generic(
     boolean => [ with_track_number => { default => 1 } ],
 );
@@ -45,6 +47,19 @@ sub profile
     }
 
     return $profile;
+}
+
+sub field_value
+{
+    my ($self, $field_name, $track) = @_;
+
+    use Switch;
+    switch ($field_name)
+    {
+        case ('number')   { return $track->sequence; }
+        case ('name')     { return $track->name; }
+        case ('duration') { return MusicBrainz::Server::Track::FormatTrackLength($track->length); }
+    }
 }
 
 1;
