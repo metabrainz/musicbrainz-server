@@ -577,14 +577,14 @@ sub _Merge
 		. "\n\n"
 		. $old_latest->text;
 
-	require MusicBrainz::Server::Moderator;
+	require MusicBrainz::Server::Editor;
 
 	if ($type == ARTIST_ANNOTATION)
 	{
 		my @mods = Moderation->InsertModeration(
 			DBH	=> $self->{DBH},
 			uid	=> MODBOT_MODERATOR,
-			privs => MusicBrainz::Server::Moderator->AUTOMOD_FLAG,
+			privs => MusicBrainz::Server::Editor->AUTOMOD_FLAG,
 			type => &ModDefs::MOD_ADD_ARTIST_ANNOTATION,
 			# --
 			artistid => $new_id,
@@ -599,7 +599,7 @@ sub _Merge
 		my @mods = Moderation->InsertModeration(
 			DBH	=> $self->{DBH},
 			uid	=> MODBOT_MODERATOR,
-			privs => MusicBrainz::Server::Moderator->AUTOMOD_FLAG,
+			privs => MusicBrainz::Server::Editor->AUTOMOD_FLAG,
 			type => &ModDefs::MOD_ADD_RELEASE_ANNOTATION,
 			# --
 			artistid => $artist_id,

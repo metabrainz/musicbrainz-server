@@ -156,7 +156,7 @@ sub Insert
 	my %done;
 	$done{$noteuid} = 1;
 
-	my $ui = MusicBrainz::Server::Moderator->new($self->{DBH});
+	my $ui = MusicBrainz::Server::Editor->new($self->{DBH});
 	my $mod_user = $ui->newFromId($moderation->moderator)
 		or die;
 	my $note_user = $ui->newFromId($noteuid)

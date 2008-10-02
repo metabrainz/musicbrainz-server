@@ -190,7 +190,7 @@ sub handler
 	# Drop the session if expired
 	if ($tied and $session{expire} and time() > $session{expire})
 	{
-		MusicBrainz::Server::Moderator->EnsureSessionClosed;
+		MusicBrainz::Server::Editor->EnsureSessionClosed;
 	}
 
 	if (my $ipmask = $session{'ipmask'})
@@ -201,14 +201,14 @@ sub handler
 		{
 			$tied = undef;
 			untie %session;
-			MusicBrainz::Server::Moderator->ClearSessionCookie;
+			MusicBrainz::Server::Editor->ClearSessionCookie;
 		}
 	}
 
 	# If we're not logged in, try and log in now using the "permanent" cookie.
 	# Note that the condition ("unless") isn't strictly required; it's a
 	# minor optimisation.
-	MusicBrainz::Server::Moderator->TryAutoLogin(\%cookies)
+	MusicBrainz::Server::Editor->TryAutoLogin(\%cookies)
 		unless $tied and $session{uid};
 
     if ($tied)

@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 use MusicBrainz;
-use MusicBrainz::Server::Moderator;
+use MusicBrainz::Server::Editor;
 
 use base 'MusicBrainz::Server::Form';
 
@@ -82,7 +82,7 @@ sub model_validate
     my $mb = new MusicBrainz;
     $mb->Login;
 
-    my $us = new MusicBrainz::Server::Moderator($mb->{DBH});
+    my $us = new MusicBrainz::Server::Editor($mb->{DBH});
     my $user = $us->newFromName($self->value('username'));
 
     $self->field('username')->add_error('This username is already taken')

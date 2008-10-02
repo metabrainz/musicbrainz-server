@@ -175,8 +175,8 @@ sub print_xml_post
 	my $mb = MusicBrainz->new;
 	$mb->Login();
 
-	require MusicBrainz::Server::Moderator;
-	my $us = MusicBrainz::Server::Moderator->new($mb->{DBH});
+	require MusicBrainz::Server::Editor;
+	my $us = MusicBrainz::Server::Editor->new($mb->{DBH});
 	$us = $us->newFromName($user) or die "Cannot load user.\n";
 
     require Sql;
@@ -226,8 +226,8 @@ sub serve_from_db
 	$main->Login();
 	my $maindb = Sql->new($main->{DBH});
 
-	require MusicBrainz::Server::Moderator;
-	my $user = MusicBrainz::Server::Moderator->new($maindb->{DBH});
+	require MusicBrainz::Server::Editor;
+	my $user = MusicBrainz::Server::Editor->new($maindb->{DBH});
 	$user = $user->newFromName($user_name) or die "Cannot load user.\n";
 
     require MusicBrainz::Server::Artist;

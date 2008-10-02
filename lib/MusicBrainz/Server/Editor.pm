@@ -23,7 +23,7 @@
 #   $Id$
 #____________________________________________________________________________
 
-package MusicBrainz::Server::Moderator;
+package MusicBrainz::Server::Editor;
 
 use base qw(TableBase Catalyst::Authentication::User);
 
@@ -359,7 +359,7 @@ sub Current
 	$this->_new_from_row(\%u);
 }
 
-# Called by MusicBrainz::Server::Moderator->TryAutoLogin and bare/login.html.
+# Called by MusicBrainz::Server::Editor->TryAutoLogin and bare/login.html.
 # The RDF stuff uses a different mechanism.
 
 sub Login
@@ -1304,8 +1304,8 @@ sub ClearPermanentCookie
 
 # If we're not logged in, but the PERMANENT_COOKIE_NAME cookie is set,
 # then try logging in using those credentials.
-# Can be called either as: MusicBrainz::Server::Moderator->new($dbh)->TryAutoLogin($cookies)
-# or as: MusicBrainz::Server::Moderator->TryAutoLogin($cookies)
+# Can be called either as: MusicBrainz::Server::Editor->new($dbh)->TryAutoLogin($cookies)
+# or as: MusicBrainz::Server::Editor->TryAutoLogin($cookies)
 
 sub TryAutoLogin
 {
@@ -1465,4 +1465,4 @@ sub NagCheck
 }
 
 1;
-# eof MusicBrainz::Server::Moderator.pm
+# eof MusicBrainz::Server::Editor.pm

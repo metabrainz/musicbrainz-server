@@ -579,8 +579,8 @@ sub _ProcessUserSubscriptions
 {
 	my $self = shift;
 
-	require MusicBrainz::Server::Moderator;
-	my $user = MusicBrainz::Server::Moderator->new($self->{DBH});
+	require MusicBrainz::Server::Editor;
+	my $user = MusicBrainz::Server::Editor->new($self->{DBH});
 	$user = $user->newFromId($self->GetUser);
 
 	printf "Processing subscriptions for #%d '%s'\n",

@@ -644,10 +644,10 @@ sub AuthenticateQuery
        return $rdf->ErrorRDF(&DBDefs::DB_READ_ONLY_MESSAGE)
    }
 
-   require MusicBrainz::Server::Moderator;
-   $us = MusicBrainz::Server::Moderator->new($dbh);
+   require MusicBrainz::Server::Editor;
+   $us = MusicBrainz::Server::Editor->new($dbh);
    ($pass, $uid) = $us->GetUserPasswordAndId($username);
-   if (not defined($pass) or $pass eq MusicBrainz::Server::Moderator->LOCKED_OUT_PASSWORD)
+   if (not defined($pass) or $pass eq MusicBrainz::Server::Editor->LOCKED_OUT_PASSWORD)
    {
        return $rdf->ErrorRDF("Unknown user.")
    }

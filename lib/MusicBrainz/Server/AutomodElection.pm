@@ -48,7 +48,7 @@ my %descstatus = (
 use base qw( TableBase );
 use Carp;
 use ModDefs ':vote';
-use MusicBrainz::Server::Moderator;
+use MusicBrainz::Server::Editor;
 
 # id - see TableBase
 sub GetCandidate	{ $_[0]{candidate} }
@@ -444,8 +444,8 @@ sub _PrepareMail
 	my $id = $self->id;
 	$self->{message_id} = "<automod-election-$id-$nums\@musicbrainz.org>";
 
-	require MusicBrainz::Server::Moderator;
-	my $us = MusicBrainz::Server::Moderator->new($self->{DBH});
+	require MusicBrainz::Server::Editor;
+	my $us = MusicBrainz::Server::Editor->new($self->{DBH});
 	for my $key (qw( candidate proposer seconder_1 seconder_2 ))
 	{
 		my $id = $self->{$key}

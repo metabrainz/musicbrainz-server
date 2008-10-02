@@ -362,8 +362,8 @@ sub CheckModerations
 
 	# Now run through each mod and do whatever's necessary; namely, nothing,
 	# approve, deny, or delete.
-	require MusicBrainz::Server::Moderator;
-	my $user = MusicBrainz::Server::Moderator->new($this->{DBH});
+	require MusicBrainz::Server::Editor;
+	my $user = MusicBrainz::Server::Editor->new($this->{DBH});
 
 	foreach my $key (reverse sort { $a <=> $b} keys %mods)
 	{
