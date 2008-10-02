@@ -1,2 +1,2 @@
 [% INCLUDE "components/relations.tt" source=release %]
-[% INCLUDE "releases/release.tt" %]
+[% INCLUDE "release/release.tt" %]

@@ -1,4 +1,4 @@
-[% WRAPPER 'releases/layout.tt' %]
+[% WRAPPER 'release/layout.tt' %]
 [% WRAPPER 'components/box.tt' header='Move release to another artist' %]
 
 <ul>

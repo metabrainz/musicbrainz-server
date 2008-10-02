@@ -42,11 +42,7 @@ Display permalink information for a release
 
 =cut
 
-sub perma : Chained('release')
-{
-    my ($self, $c) = @_;
-    $c->stash->{template} = 'releases/perma.tt';
-}
+sub perma : Chained('release') { }
 
 =head2 details
 
@@ -54,11 +50,7 @@ Display detailed information about a release
 
 =cut
 
-sub details : Chained('release')
-{
-    my ($self, $c) = @_;
-    $c->stash->{template} = 'releases/details.tt';
-}
+sub details : Chained('release') { }
 
 =head2 google
 
@@ -86,7 +78,6 @@ sub tags : Chained('release')
     my $release = $c->stash->{release};
 
     $c->stash->{tagcloud} = $c->model('Tag')->generate_tag_cloud($release);
-    $c->stash->{template} = 'releases/tags.tt';
 }
 
 =head2 relations
@@ -101,8 +92,6 @@ sub relations : Chained('release')
     my $release = $c->stash->{release};
 
     $c->stash->{relations}      = $c->model('Relation')->load_relations($release);
-
-    $c->stash->{template} = 'releases/relations.tt';
 }
 
 =head2 show
@@ -138,8 +127,6 @@ sub show : Chained('release') PathPart('')
 
         $_;
     } @$releases ];
-
-    $c->stash->{template} = 'releases/show.tt';
 }
 
 =head2 WRITE METHODS
@@ -158,25 +145,17 @@ sub change_quality : Chained('release')
 
     my $release = $c->stash->{release};
 
-    use MusicBrainz::Server::Form::DataQuality;
-    
-    my $form = new MusicBrainz::Server::Form::DataQuality($release);
+    my $form = $c->form($release, 'Release::DataQuality');
     $form->context($c);
 
-    if ($c->form_posted)
-    {
-        if ($form->update_from_form($c->req->params))
-        {
-            $c->flash->{ok} = "Thanks, your release edit has been entered " .
-                              "into the moderation queue";
+    return unless $c->form_posted && $form->validate($c->req->params);
 
-            $c->response->redirect($c->entity_url($release, 'show'));
-            $c->detach;
-        }
-    }
+    $form->update_model;
 
-    $c->stash->{form}     = $form;
-    $c->stash->{template} = 'releases/quality.tt';
+    $c->flash->{ok} = "Thanks, your release edit has been entered " .
+                      "into the moderation queue";
+
+    $c->response->redirect($c->entity_url($release, 'show'));
 }
 
 sub edit_title : Chained('release')
@@ -187,21 +166,17 @@ sub edit_title : Chained('release')
 
     my $release = $c->stash->{release};
 
-    use MusicBrainz::Server::Form::ReleaseTitle;
-    my $form = new MusicBrainz::Server::Form::ReleaseTitle($release);
+    my $form = $c->form($release, 'Release::Title');
     $form->context($c);
 
-    if ($c->form_posted && $form->update_from_form($c->req->params))
-    {
-        $c->flash->{ok} = "Thanks, your release edit has been entered " .
-                          "into the moderation queue";
+    return unless $c->form_posted && $form->validate($c->req->params);
 
-        $c->response->redirect($c->entity_url($release, 'show'));
-        $c->detach;
-    }
+    $form->update_model;
+    
+    $c->flash->{ok} = "Thanks, your release edit has been entered " .
+                      "into the moderation queue";
 
-    $c->stash->{form    } = $form;
-    $c->stash->{template} = 'releases/edit-title.tt';
+    $c->response->redirect($c->entity_url($release, 'show'));
 }
 
 sub move : Chained('release')
@@ -212,17 +187,12 @@ sub move : Chained('release')
 
     my $release = $c->stash->{release};
 
-    use MusicBrainz::Server::Form::Search::Query;
-    my $form = new MusicBrainz::Server::Form::Search::Query;
+    my $form = $c->form(undef, 'Search::Query');
 
-    if ($c->form_posted && $form->validate($c->req->params))
-    {
-        my $artists = $c->model('Artist')->direct_search($form->value('query'));
-        $c->stash->{artists} = $artists;
-    }
+    return unless $c->form_posted && $form->validate($c->req->params);
 
-    $c->stash->{form    } = $form;
-    $c->stash->{template} = 'releases/move.tt';
+    my $artists = $c->model('Artist')->direct_search($form->value('query'));
+    $c->stash->{artists} = $artists;
 }
 
 sub move_to : Chained('release') Args(1)
@@ -233,44 +203,18 @@ sub move_to : Chained('release') Args(1)
 
     my $release = $c->stash->{release};
 
+    my $old_artist = $c->model('Artist')->load($release->artist);
     my $new_artist = $c->model('Artist')->load($new_artist);
     $c->stash->{new_artist} = $new_artist;
 
-    use MusicBrainz::Server::Form::MoveRelease;
-    my $form = new MusicBrainz::Server::Form::MoveRelease($release);
+    my $form = $c->form($release, 'Release::Move');
     $form->context($c);
 
-    if ($c->form_posted && $form->validate($c->req->params))
-    {
-        my $user       = $c->user;
-        my $old_artist = $c->model('Artist')->load($release->artist);
+    $c->stash->{template} = 'release/confirm_move.tt';
 
-        my @mods = Moderation->InsertModeration(
-            DBH   => $c->mb->{DBH},
-            uid   => $user->id,
-            privs => $user->privs,
-            type  => ModDefs::MOD_MOVE_RELEASE,
+    return unless $c->form_posted && $form->validate($c->req->params);
 
-            album              => $release,
-            oldartist          => $old_artist,
-            artistname         => $new_artist->name,
-            artistsortname     => $new_artist->sort_name,
-            artistid           => $new_artist->id,
-            movetracks         => $form->value('move_tracks'),
-        );
-
-        if (scalar @mods)
-        {
-            $mods[0]->InsertNote($user->id, $form->value('edit_note'))
-                if $mods[0] and $form->value('edit_note') =~ /\S/;
-
-            $c->response->redirect($c->entity_url($release, 'show'));
-            $c->detach;
-        }
-    }
-
-    $c->stash->{form    } = $form;
-    $c->stash->{template} = 'releases/confirm_move.tt';
+    $c->response->redirect($c->entity_url($release, 'show'));
 }
 
 =head1 LICENSE

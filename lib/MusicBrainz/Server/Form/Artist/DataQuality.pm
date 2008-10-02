@@ -2,6 +2,8 @@ package MusicBrainz::Server::Form::Artist::DataQuality;
 
 use base 'MusicBrainz::Server::Form::DataQuality';
 
+use ModDefs;
+
 sub build_moderation
 {
     my ($self, $current_moderation) = @_;

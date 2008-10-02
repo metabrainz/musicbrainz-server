@@ -36,11 +36,7 @@ Display details about a permanant link to this label.
 
 =cut
 
-sub perma : Chained('label')
-{
-    my ($self, $c) = @_;
-    $c->stash->{template} = 'label/perma.tt';
-}
+sub perma : Chained('label') { }
 
 =head2 aliases
 
@@ -54,7 +50,6 @@ sub aliases : Chained('label')
     my $label = $c->stash->{label};
 
     $c->stash->{aliases}  = $c->model('Alias')->load_for_entity($label);
-    $c->stash->{template} = 'label/aliases.tt';
 }
 
 =head2 tags
@@ -69,7 +64,6 @@ sub tags : Chained('label')
     my $label = $c->stash->{label};
 
     $c->stash->{tagcloud} = $c->model('Tag')->generate_tag_cloud($label);
-    $c->stash->{template} = 'label/tags.tt';
 }
 
 =head2 google
@@ -98,8 +92,6 @@ sub relations : Chained('label')
     my $label = $c->stash->{_label};
   
     $c->stash->{relations} = load_relations($label);
-
-    $c->stash->{template}  = 'label/relations.tt';
 }
 
 =head2 show
@@ -112,14 +104,12 @@ that have been released through this label
 sub show : PathPart('') Chained('label')
 {
     my ($self, $c) = @_;
-    my $label = $c->stash->{label};
 
+    my $label    = $c->stash->{label};
     my $releases = $c->model('Release')->load_for_label($label);
+
     $c->stash->{releases}  = $releases;
-
     $c->stash->{relations} = $c->model('Relation')->load_relations($label);
-
-    $c->stash->{template} = 'label/show.tt';
 }
 
 =head2 details
@@ -128,11 +118,7 @@ Display detailed information about a given label
 
 =cut
 
-sub details : Chained('label')
-{
-    my ($self, $c) = @_;
-    $c->stash->{template} = 'label/details.tt';
-}
+sub details : Chained('label') { }
 
 =head2 WRITE METHODS
 
@@ -144,19 +130,14 @@ sub merge : Chained('label')
 
     $c->forward('/user/login');
 
-    use MusicBrainz::Server::Form::Search::Query;
-    my $form = new MusicBrainz::Server::Form::Search::Query;
+    my $form = $c->form(undef, 'Search::Query');
 
-    if ($c->form_posted && $form->validate($c->req->params))
-    {
-        my $label = $c->stash->{label};
+    return unless $c->form_posted && $form->validate($c->req->params);
+    
+    my $label = $c->stash->{label};
 
-        my $labels = $c->model('Label')->direct_search($form->value('query'));
-        $c->stash->{labels} = $labels;
-    }
-
-    $c->stash->{form    } = $form;
-    $c->stash->{template} = 'label/merge_search.tt';
+    my $labels = $c->model('Label')->direct_search($form->value('query'));
+    $c->stash->{labels} = $labels;
 }
 
 sub merge_into : Chained('label') PathPart('into') Args(1)
@@ -165,41 +146,23 @@ sub merge_into : Chained('label') PathPart('into') Args(1)
 
     $c->forward('/user/login');
 
-    use MusicBrainz::Server::Form;
-    my $form = new MusicBrainz::Server::Form(profile => {
-            required => { edit_note => 'TextArea' },
-        });
-
+    my $label     = $c->stash->{label};
     my $new_label = $c->model('Label')->load($new_mbid);
     $c->stash->{new_label} = $new_label;
 
-    if ($c->form_posted)
-    {
-        require Moderation;
-        my @mods = Moderation->InsertModeration(
-            DBH   => $c->mb->{DBH},
-            uid   => $c->user->id,
-            privs => $c->user->privs,
-            type  => ModDefs::MOD_MERGE_LABEL,
-
-            source => $c->stash->{label},
-            target => $new_label,
-        );
-
-        if (@mods)
-        {
-            $mods[0]->InsertNote($c->user->id, $form->value('edit_note'))
-                if $form->value('edit_note') =~ /\S/;
-
-            $c->flash->{ok} = "Thanks, your label edit has been entered " .
-                              "into the moderation queue";
-
-            $c->response->redirect($c->entity_url($new_label, 'show'));
-            $c->detach;
-        }
-    }
+    my $form = $c->form($label, 'Label::Merge');
+    $form->context($c);
 
     $c->stash->{template} = 'label/merge.tt';
+
+    return unless $c->form_posted && $form->validate($c->req->params);
+
+    my @mods = $form->perform_merge($new_label);
+
+    $c->flash->{ok} = "Thanks, your label edit has been entered " .
+                      "into the moderation queue";
+
+    $c->response->redirect($c->entity_url($new_label, 'show'));
 }
 
 1;

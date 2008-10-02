@@ -1,3 +1,0 @@
-[% WRAPPER "releases/layout.tt" title="Tags for ${release.name}" %]
-[% INCLUDE "tag/entity-tags.tt" entity=release %]
-[% END %]

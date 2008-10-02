@@ -48,7 +48,6 @@ sub relations : Chained('track')
     my $track = $c->stash->{track};
 
     $c->stash->{relations} = $c->model('Relation')->load_relations($track);
-    $c->stash->{template}  = 'track/relations.tt';
 }
 
 =head2 details
@@ -65,8 +64,7 @@ sub details : Chained('track')
     $c->stash->{relations} = $c->model('Relation')->load_relations($track);
     $c->stash->{tags}      = $c->model('Tag')->top_tags($track);
     $c->stash->{release}   = $c->model('Release')->load($track->release);
-
-    $c->stash->{template} = 'track/info.tt';
+    $c->stash->{template}  = 'track/details.tt';
 }
 
 sub show : Chained('track') PathPart('')
@@ -81,7 +79,6 @@ sub tags : Chained('track')
     my $track = $c->stash->{track};
 
     $c->stash->{tags}     = $c->model('Tag')->generate_tag_cloud($track);
-    $c->stash->{template} = 'track/tags.tt';
 }
 
 sub google : Chained('track')
@@ -110,23 +107,13 @@ sub edit : Chained('track')
 
     my $track = $c->stash->{track};
 
-    use MusicBrainz::Server::Form::Track;
-    my $form = new MusicBrainz::Server::Form::Track($track);
+    my $form = $c->form($track, 'Track::Edit');
     $form->context($c);
 
-    $c->stash->{form} = $form;
+    return unless $c->form_posted && $form->validate($c->req->params);
 
-    if($c->form_posted)
-    {
-        if($form->update_from_form($c->req->params))
-        {
-            $c->flash->{ok} = "Thank you, your edits have been added to the queue";
-            $c->response->redirect($c->entity_url($track, 'show'));
-            $c->detach;
-        }
-    }
-
-    $c->stash->{template} = 'track/edit.tt';
+    $c->flash->{ok} = "Thank you, your edits have been added to the queue";
+    $c->response->redirect($c->entity_url($track, 'show'));
 }
 
 sub remove : Chained('track')
@@ -135,42 +122,17 @@ sub remove : Chained('track')
 
     $c->forward('/user/login');
 
-    use MusicBrainz::Server::Form;
-    my $form = MusicBrainz::Server::Form->new(profile => {
-            optional => { edit_note => 'TextArea' },
-        });
+    my $track   = $c->stash->{track};
 
-    if ($c->form_posted)
-    {
-        my $track   = $c->stash->{track};
-        my $release = $c->model('Release')->load($track->release);
+    my $form = $c->form($track, 'Track::Remove')
+    $form->context($c);
 
-        require Moderation;
-        my @mods = Moderation->InsertModeration(
-            DBH   => $c->mb->{DBH},
-            uid   => $c->user->id,
-            privs => $c->user->privs,
-            type  => ModDefs::MOD_REMOVE_TRACK,
+    return unless $c->form_posted && $form->validate($c->req->params);
 
-            track => $track,
-            album => $release,
-        );
+    $c->flash->{ok} = "Thanks, your track edit has been entered " .
+                      "into the moderation queue";
 
-        if (scalar @mods)
-        {
-            $mods[0]->InsertNote($c->user->id, $form->value('edit_note'))
-                if $form->value('edit_note') =~ /\S/;
-
-            $c->flash->{ok} = "Thanks, your track edit has been entered " .
-                              "into the moderation queue";
-
-            $c->response->redirect($c->entity_url($release, 'show'));
-            $c->detach;
-        }
-    }
-
-    $c->stash->{form    } = $form;
-    $c->stash->{template} = 'track/remove.tt';
+    $c->response->redirect($c->entity_url($release, 'show'));
 }
 
 =head1 LICENSE

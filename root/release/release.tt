@@ -1,13 +1,13 @@
 <div class="release">
-  [% INCLUDE "releases/box-header.tt" %]
+  [% INCLUDE "release/box-header.tt" %]
   <div class="release_top">
     [%- IF release.has_artwork -%]
       <div class="artwork">
         <img src="[% release.cover_url %]"> 
       </div>
     [%- END -%]
-    [% INCLUDE "releases/info-links.tt" %]
-    [% INCLUDE "releases/edit-links.tt" %]
+    [% INCLUDE "release/info-links.tt" %]
+    [% INCLUDE "release/edit-links.tt" %]
     [% IF tags %]
     <div class="releasetags">
       [% INCLUDE "tag/summary.tt" tags=tags source=release %]
@@ -47,7 +47,7 @@
     </tbody>
   </table>
   [% END %]
-  [% INCLUDE "releases/box-summary.tt" %]
+  [% INCLUDE "release/box-summary.tt" %]
 
  [%- IF disc_ids.size -%]
   <div class="release_discids">

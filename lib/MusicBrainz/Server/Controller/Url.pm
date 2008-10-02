@@ -43,8 +43,6 @@ sub info : Chained('url')
     my $url = $c->stash->{url};
 
     $c->stash->{relations} = $c->model('Relation')->load_relations($url);
-
-    $c->stash->{template} = 'url/info.tt';
 }
 
 =head1 LICENSE

@@ -1,4 +1,4 @@
 [% WRAPPER "layout.tt" title="Tags for ${release.name}" %]
-[% INCLUDE "releases/header.tt" %]
+[% INCLUDE "release/header.tt" %]
 [% content %]
 [% END %]

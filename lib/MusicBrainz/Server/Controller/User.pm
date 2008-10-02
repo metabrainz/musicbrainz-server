@@ -50,13 +50,12 @@ sub login : Local
 
     unless ($c->user_exists)
     {
-        use MusicBrainz::Server::Form::User::Login;
+        my $form = $c->form(undef, 'User::Login');
 
-        my $form = MusicBrainz::Server::Form::User::Login->new;
-        $c->stash->{form} = $form;
-
-        if ($c->form_posted && $form->validate($c->request->parameters))
+        if ($c->form_posted) 
         {
+            return unless $form->validate($c->request->parameters));
+
             my ($username, $password) = ( $form->value("username"),
                                           $form->value("password") );
 
@@ -78,11 +77,14 @@ sub login : Local
                 $c->stash->{errors} = ['Username/password combination invalid'];
             }
         }
+        else
+        {
+            # The form was not posted, so we should store the referer
+            $c->flash->{_user_login_old_redir} = $c->req->referer;
+        }
 
-        $c->flash->{_user_login_old_redir} = $c->req->referer;
-        $c->stash->{template} = 'user/login.tt';
-
-        # Have to make sure we detach
+        # If we got this far we need to show the form (to login, or to fix
+        # login form errors)
         $c->detach;
     }
 }
@@ -99,26 +101,21 @@ sub register : Local
 {
     my ($self, $c) = @_;
 
-    use MusicBrainz::Server::Form::User::Register;
-
-    my $form = MusicBrainz::Server::Form::User::Register->new;
+    my $form = $c->form(undef, 'User::Register');
     $c->stash->{form} = $form;
 
-    if($c->form_posted && $form->validate($c->request->parameters))
-    {
-        my $new_user = $c->model('User')->create($form->value('username'),
-                                                 $form->value('password'));
+    return unless $c->form_posted && $form->validate($c->request->parameters);
 
-        my $email            = $form->value('email');
-        my $could_send_email = $new_user->SendVerificationEmail($email);
+    my $new_user = $c->model('User')->create($form->value('username'),
+                                             $form->value('password'));
 
-        $c->authenticate({ username => $new_user->username,
-                           password => $new_user->password });
+    my $email            = $form->value('email');
+    my $could_send_email = $new_user->SendVerificationEmail($email);
 
-        $c->detach('registered', $could_send_email, $email);
-    }
+    $c->authenticate({ username => $new_user->username,
+                       password => $new_user->password });
 
-    $c->stash->{template} = 'user/register.tt';
+    $c->detach('registered', $could_send_email, $email);
 }
 
 =head2 registered
@@ -152,53 +149,48 @@ sub forgotPassword : Local
 {
     my ($self, $c) = @_;
 
-    use MusicBrainz::Server::Form::User::ForgotPassword;
-
-    my $form = new MusicBrainz::Server::Form::User::ForgotPassword;
+    my $form = $c->form(undef, 'User::ForgotPassword');
     $form->context($c);
-    $c->stash->{form} = $form;
 
-    if ($c->form_posted && $form->validate($c->req->params))
+    return unless $c->form_posted && $form->validate($c->req->params);
+
+    my ($email, $username) = ( $form->value('email'),
+                               $form->value('username') );
+
+    if ($email)
     {
-        my ($email, $username) = ( $form->value('email'),
-                                   $form->value('username') );
-
-        if ($email)
+        my $usernames = $c->model('User')->find_by_email($email);
+        if(scalar @$usernames)
         {
-            my $usernames = $c->model('User')->find_by_email($email);
-            if(scalar @$usernames)
+            foreach $username (@$usernames)
             {
-                foreach $username (@$usernames)
+                my $user = $c->model('User')->load_user({ username => $username });
+                if ($user)
                 {
-                    my $user = $c->model('User')->load_user({ username => $username });
-                    if ($user)
-                    {
-                        $user->SendPasswordReminder
-                            or die "Could not send password reminder";
-                    }
+                    $user->SendPasswordReminder
+                        or die "Could not send password reminder";
                 }
+            }
 
-                $c->flash->{ok} = "A password reminder has been sent to you. Please check your inbox for more details";
-            }
-            else
-            {
-                $c->field('email')->add_error('We could not find any users registered with this email address');
-            }
+            $c->flash->{ok} = "A password reminder has been sent to you."
+                            . "Please check your inbox for more details";
         }
-        elsif ($username)
+        else
         {
-            my $user = $c->model('User')->load_user({ username => $username });
-            if ($user)
-            {
-                $user->SendPasswordReminder
-                    or die "Could not send password reminder";
-
-                $c->flash->{ok} = "A password reminder has been sent to you. Please check your inbox for more details";
-            }
+            $c->field('email')->add_error('We could not find any users registered with this email address');
         }
     }
+    elsif ($username)
+    {
+        my $user = $c->model('User')->load_user({ username => $username });
+        if ($user)
+        {
+            $user->SendPasswordReminder
+                or die "Could not send password reminder";
 
-    $c->stash->{template} = 'user/forgot.tt';
+            $c->flash->{ok} = "A password reminder has been sent to you. Please check your inbox for more details";
+        }
+    }
 }
 
 =head2 editProfile
@@ -214,21 +206,17 @@ sub edit_profile : Local
 
     $c->forward('login');
 
-    use MusicBrainz::Server::Form::User::EditProfile;
+    my $form = $c->form($c->user, 'User::EditProfile');
+    $form->context($c->user);
 
-    my $form = new MusicBrainz::Server::Form::User::EditProfile($c->user);
-    $c->stash->{form} = $form;
+    return unless $c->form_posted && $form->validate($c->req->params);
 
-    if ($c->form_posted)
-    {
-        $c->flash->{ok} = "Your profile has been sucessfully updated"
-            if $form->update_from_form ($c->req->params);
-    }
+    $form->update_model;
 
-    $c->stash->{template} = 'user/edit.tt';
+    $c->flash->{ok} = "Your profile has been sucessfully updated";
 }
 
-=head2 changePassword
+=head2 change_password
 
 Allow users to change their password. This displays a form prompting
 for their old password and a new password (with confirmation), which
@@ -242,28 +230,21 @@ sub change_password : Local
 
     $c->forward('login');
 
-    use MusicBrainz::Server::Form::User::ChangePassword;
+    my $form = $c->form(undef, 'User::ChangePassword');
 
-    my $form = new MusicBrainz::Server::Form::User::ChangePassword;
-    $c->stash->{form} = $form;
-
-    if ($c->form_posted && $form->validate($c->req->params))
+    return unless $c->form_posted && $form->validate($c->req->params);
+    if ($form->value('old_password') eq $c->user->password)
     {
-        if ($form->value('old_password') eq $c->user->password)
-        {
-            $c->user->ChangePassword( $form->value('old_password'),
-                                      $form->value('new_password'),
-                                      $form->value('confirm_new_password') );
+        $c->user->ChangePassword( $form->value('old_password'),
+                                  $form->value('new_password'),
+                                  $form->value('confirm_new_password') );
 
-            $c->flash->{ok} = "Your password has been successfully changed";
-        }
-        else
-        {
-            $form->field('old_password')->add_error("Old password is incorrect.");
-        }
+        $c->flash->{ok} = "Your password has been successfully changed";
     }
-
-    $c->stash->{template} = 'user/changePassword.tt';
+    else
+    {
+        $form->field('old_password')->add_error("Old password is incorrect.");
+    }
 }
 
 =head2 profile

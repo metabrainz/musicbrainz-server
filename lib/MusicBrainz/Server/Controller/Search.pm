@@ -30,28 +30,29 @@ sub simple : Local
 
     use MusicBrainz::Server::Form::Search::Simple;
 
-    my $form = new MusicBrainz::Server::Form::Search::Simple;
+    my $form = $c->form(undef, "Search::Simple");
 
-    if ($form->validate($c->req->query_params))
+    if(!$form->validate($c->req->query_params))
     {
-        my ($type, $query) = (  $form->value('type'),
-                                $form->value('query')   );
-
-        $c->session->{last_simple_search} = $type;
-
-        # Use the 'editor' action for searching for moderators,
-        # otherwise search using the external search engine
-        if ($type eq 'editor')
-        {
-            $c->detach("editor", [ $query ]);
-        }
-        else
-        {
-            $c->detach("external");
-        }
+        $c->response->redirect($c->request->referer);
+        $c->detach;
     }
 
-    $c->forward("external");
+    my ($type, $query) = (  $form->value('type'),
+                            $form->value('query')   );
+
+    $c->session->{last_simple_search} = $type;
+
+    # Use the 'editor' action for searching for moderators,
+    # otherwise search using the external search engine
+    if ($type eq 'editor')
+    {
+        $c->detach("editor", [ $query ]);
+    }
+    else
+    {
+        $c->detach("external");
+    }
 }
 
 =head2 editor
@@ -65,7 +66,7 @@ no moderator could be found, the user is informed.
 
 =cut
 
-sub editor : Local
+sub editor : Private
 {
     my ($self, $c, $query) = @_;
 
@@ -95,177 +96,155 @@ sub external : Local
 {
     my ($self, $c) = @_;
 
-    # This will be set if we were forwarded from the simple search
-    my $form = $c->stash->{form};
+    my $form = $c->form(undef, 'Search::External');
 
-    # Otherwise create a new form
-    unless ($form)
+    return unless $c->form_posted && $form->validate($c->req->query_params);
+
+    use URI::Escape qw( uri_escape );
+    use POSIX qw(ceil floor);
+
+    my $type   = $form->value('type');
+    my $query  = $form->value('query');
+    my $offset = $c->request->query_params->{offset} || 0;
+    my $limit  = $form->value('limit') || 25;
+
+    if ($query eq '!!!' and $type eq 'artist')
     {
-        use MusicBrainz::Server::Form::Search::External;
-
-        $form = new MusicBrainz::Server::Form::Search::External;
-        $c->stash->{form} = $form;
+        $query = 'chkchkchk';
     }
 
-    if ($form->validate($c->req->query_params))
+    unless ($form->value('enable_advanced'))
     {
-        use URI::Escape qw( uri_escape );
-        use POSIX qw(ceil floor);
+        use MusicBrainz::Server::LuceneSearch;
+        
+        $query = MusicBrainz::Server::LuceneSearch::EscapeQuery($query);
 
-        my $type   = $form->value('type');
-        my $query  = $form->value('query');
-        my $offset = $c->request->query_params->{offset} || 0;
-        my $limit  = $form->value('limit') || 25;
-
-        if ($query eq '!!!' and $type eq 'artist')
+        if ($type eq 'artist')
         {
-            $query = 'chkchkchk';
+            $query = "artist:($query)(sortname:($query) alias:($query) !artist:($query))";
         }
+    }
 
-        unless ($form->value('enable_advanced'))
-        {
-            use MusicBrainz::Server::LuceneSearch;
-            
-            $query = MusicBrainz::Server::LuceneSearch::EscapeQuery($query);
-
-            if ($type eq 'artist')
-            {
-                $query = "artist:($query)(sortname:($query) alias:($query) !artist:($query))";
-            }
-        }
+    $query = uri_escape($query);
     
-        $query = uri_escape($query);
-        
-        my $search_url = sprintf("http://%s/ws/1/%s/?query=%s&offset=%s&max=%s",
-                                     DBDefs::LUCENE_SERVER,
-                                     $type,
-                                     $query,
-                                     $offset,
-                                     $limit,);
-        use LWP::UserAgent;
-        
-        warn "Search is: $search_url";
+    my $search_url = sprintf("http://%s/ws/1/%s/?query=%s&offset=%s&max=%s",
+                                 DBDefs::LUCENE_SERVER,
+                                 $type,
+                                 $query,
+                                 $offset,
+                                 $limit,);
+    use LWP::UserAgent;
+    
+    my $ua = LWP::UserAgent->new;
+    $ua->timeout (2);
+    
+    if (DBDefs::PROXY_ENABLE)
+    {
+        $ua->proxy([ 'http' ], sprintf('http://%s:%i', DBDefs::PROXY_HOST, DBDefs::PROXY_PORT));
+    }
 
-        my $ua = LWP::UserAgent->new;
-        $ua->timeout (2);
-        
-        if (DBDefs::PROXY_ENABLE)
+    # Dispatch the search request.
+    my $response = $ua->get($search_url);
+    unless ($response->is_success)
+    {
+        # Something went wrong with the search
+        my $template = 'search/error/';
+
+        # Switch on the response code to decide which template to provide
+        use Switch;
+        switch ($response->code)
         {
-            $ua->proxy([ 'http' ], sprintf('http://%s:%i', DBDefs::PROXY_HOST, DBDefs::PROXY_PORT));
+            case 404 { $template .= 'no-results.tt'; }
+            case 403 { $template .= 'no-info.tt'; };
+            case 500 { $template .= 'internal-error.tt'; }
+            case 400 { $template .= 'invalid.tt'; }
+
+            else { $template .= 'general.tt'; }
         }
 
-        # Dispatch the search request.
-        my $response = $ua->get($search_url);
-        unless ($response->is_success)
+        $c->stash->{content}  = $response->content;
+        $c->stash->{query}    = $query;
+        $c->stash->{type}     = $type;
+        $c->stash->{template} = $template;
+
+        $c->detach;
+    }
+    else
+    {
+        my $results = $response->content;
+
+        # Because this branch has a different url scheme, we need to
+        # update the URLs.
+        # TODO Update when this branch is live in Xapian's code base.
+        $results =~ s/\.html//g;
+
+        # Parse information about total results
+        my ($redirect, $total_hits);
+        if ($results =~ /<!--\s+(.*?)\s+-->/s)
         {
-            # Something went wrong with the search
-            my $template = 'search/error/';
-
-            # Switch on the response code to decide which template to provide
+            my $comments = $1;
+            
             use Switch;
-            switch ($response->code)
+            foreach my $comment (split(/\n/, $comments))
             {
-                case 404 { $template .= 'no-results.tt'; }
-                case 403 { $template .= 'no-info.tt'; };
-                case 500 { $template .= 'internal-error.tt'; }
-                case 400 { $template .= 'invalid.tt'; }
+                my ($key, $value) = split(/=/, $comment, 2);
 
-                else { $template .= 'general.tt'; }
+                switch ($key)
+                {
+                    case ('hits')     { $total_hits = $value; }
+                    case ('redirect') { $redirect   = $value; }
+                }
             }
+        }
 
-            $c->stash->{content}  = $response->content;
-            $c->stash->{query}    = $query;
-            $c->stash->{type}     = $type;
-            $c->stash->{template} = $template;
+        # If the user searches for annotations, they will get the results in wikiformat - we need to
+        # convert this to HTML.
+        while ($results =~ /%WIKIBEGIN%(.*?)%WIKIEND%/s) 
+        {
+            use Text::WikiFormat;
+            use DBDefs;
 
+            my $temp = Text::WikiFormat::format($1, {}, { prefix => "http://".DBDefs::WIKITRANS_SERVER, extended => 1, absolute_links => 1, implicit_links => 0 });
+            $results =~ s/%WIKIBEGIN%(.*?)%WIKIEND%/$temp/s;
+        } 
+
+        if ($redirect && $total_hits == 1 &&
+            ($type eq 'artist' || $type eq 'release' || $type eq 'label'))
+        {
+            my $type_controller = $c->controller($type);
+            my $action = $type_controller->action_for('show');
+
+            $c->res->redirect($c->uri_for($action, [ $redirect ]));
             $c->detach;
         }
-        else
-        {
-            my $results = $response->content;
 
-            # Because this branch has a different url scheme, we need to
-            # update the URLs.
-            # TODO Update when this branch is live in Xapian's code base.
-            $results =~ s/\.html//g;
+        my $total_pages = ceil($total_hits / $limit);
 
-            # Parse information about total results
-            my ($redirect, $total_hits);
-            if ($results =~ /<!--\s+(.*?)\s+-->/s)
-            {
-                my $comments = $1;
-                
-                use Switch;
-                foreach my $comment (split(/\n/, $comments))
-                {
-                    my ($key, $value) = split(/=/, $comment, 2);
+        $c->stash->{current_page} = floor($offset / $limit) + 1;
+        $c->stash->{total_pages}  = $total_pages;
+        $c->stash->{offset}       = $offset;
+        $c->stash->{total_hits}   = $total_hits;
+        $c->stash->{results}      = $results;
 
-                    switch ($key)
-                    {
-                        case ('hits')     { $total_hits = $value; }
-                        case ('redirect') { $redirect   = $value; }
-                    }
-                }
-            }
+        $c->stash->{url_for_page} = sub {
+            my $page_number = shift;
+            $page_number    = $page_number - 1;
 
-            # If the user searches for annotations, they will get the results in wikiformat - we need to
-            # convert this to HTML.
-            for(;;) 
-            {
-                if ($results =~ /%WIKIBEGIN%(.*?)%WIKIEND%/s) 
-                {
-                    use Text::WikiFormat;
-                    use DBDefs;
+            my $new_offset  = $page_number * $limit;
 
-                    my $temp = Text::WikiFormat::format($1, {}, { prefix => "http://".DBDefs::WIKITRANS_SERVER, extended => 1, absolute_links => 1, implicit_links => 0 });
-                    $results =~ s/%WIKIBEGIN%(.*?)%WIKIEND%/$temp/s;
-                } 
-                else 
-                {    
-                    last; 
-                }
-            }
+            my $min_offset  = 0;
+            my $max_offset  = ($c->stash->{total_pages} - 1) * $limit;
 
-            if ($redirect && $total_hits == 1 &&
-                ($type eq 'artist' || $type eq 'release' || $type eq 'label'))
-            {
-                my $type_controller = $c->controller($type);
-                my $action = $type_controller->action_for('show');
+            $new_offset = $new_offset < $min_offset ? $min_offset
+                        : $new_offset > $max_offset ? $max_offset
+                        :                             $new_offset;
 
-                $c->res->redirect($c->uri_for($action, [ $redirect ]));
-                $c->detach;
-            }
-    
-            my $total_pages = ceil($total_hits / $limit);
+            my $query = $c->req->query_params;
+            $query->{offset} = $page_number * $limit;
 
-            $c->stash->{current_page} = floor($offset / $limit) + 1;
-            $c->stash->{total_pages}  = $total_pages;
-            $c->stash->{offset}       = $offset;
-            $c->stash->{total_hits}   = $total_hits;
-            $c->stash->{results}      = $results;
-
-            $c->stash->{url_for_page} = sub {
-                my $page_number = shift;
-                $page_number    = $page_number - 1;
-
-                my $new_offset  = $page_number * $limit;
-
-                my $min_offset  = 0;
-                my $max_offset  = ($c->stash->{total_pages} - 1) * $limit;
-
-                $new_offset = $new_offset < $min_offset ? $min_offset
-                            : $new_offset > $max_offset ? $max_offset
-                            :                             $new_offset;
-
-                my $query = $c->req->query_params;
-                $query->{offset} = $page_number * $limit;
-
-                $c->uri_for('/search/external', $query);
-            };
-        }
+            $c->uri_for('/search/external', $query);
+        };
     }
-
-    $c->stash->{template} = 'search/external.tt';
 }
 
 =head1 LICENSE

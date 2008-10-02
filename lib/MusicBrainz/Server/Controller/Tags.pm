@@ -60,8 +60,6 @@ sub display : Path
     }
 
     $c->stash->{tag} = $tag;
-
-    $c->stash->{template} = 'tag/display.tt';
 }
 
 =head2 entity
@@ -97,8 +95,6 @@ sub all : Local
     my ($self, $c) = @_;
 
     $c->stash->{tagcloud} = $c->model('Tag')->generate_tag_cloud();
-    
-    $c->stash->{template} = 'tag/all.tt';
 }
 
 =head1 LICENSE

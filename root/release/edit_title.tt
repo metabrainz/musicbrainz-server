@@ -1,4 +1,4 @@
-[% WRAPPER 'releases/layout.tt' %]
+[% WRAPPER 'release/layout.tt' %]
 [% WRAPPER 'components/box.tt' header="Edit release title" %]
 
 <ul>

@@ -1,4 +1,4 @@
-[%- WRAPPER 'releases/layout.tt' title="Change Data Quality" -%]
+[%- WRAPPER 'release/layout.tt' title="Change Data Quality" -%]
 [%- WRAPPER 'components/box.tt' header="Change Data Quality" -%]
 
 <p>The data quality for [%- INCLUDE "components/entity-link.tt" entity=release -%] is currently:

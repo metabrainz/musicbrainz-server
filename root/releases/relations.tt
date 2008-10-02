@@ -1,3 +1,0 @@
-[%- WRAPPER 'releases/layout.tt' title="Relationships for \"${release.name}\"" -%]
-[%- INCLUDE "components/relations.tt" source=release showall=1 -%]
-[%- END -%]
