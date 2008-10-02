@@ -269,16 +269,17 @@ Installation:
      which MUST be changed for you to run a server (SMTP_SECRET_CHECKSUM);
      most of the settings you can probably leave unchanged if you wish.
 
-   admin/startup.pl
+   admin/apache/startup.pl
      NOTE: You can find a default version of startup.pl in startup.pl.default;
            copy this to startup.pl and edit this.
 
      There's only one thing to change here, namely the "use lib" line,
      which is marked with a "TODO" comment.
 
-   admin/vh_httpd.conf
-     NOTE: You can find a default version of vh_httpd.conf in vh_httpd.conf.default;
-           copy this to vh_httpd.conf and edit this.
+   admin/apache/vh_mb_backend.conf
+     NOTE: You can find a default version of vh_mb_backend.conf in
+           vh_mb_backend.conf.default; copy this to vh_mb_backend.conf and
+           edit this.
 
      This contains many things to customize - look for the TODO comments,
      which point out things that you might need to change.
@@ -315,10 +316,10 @@ Installation:
 
 NOTE: Steps 6 - 8 are optional for database only slaves!
 	
-6) Configure Apache to use Mason.  In the admin directory you will find
-   the vh_httpd.conf file, which is a VirtualHost fragment for Apache's
+6) Configure Apache to use Mason.  In the admin/apache directory you will find
+   the vh_mb_backend.conf file, which is a VirtualHost fragment for Apache's
    httpd.conf file.  I suggest you run MusicBrainz as a virtual host.
-   You should only have to import vh_httpd.conf into your virtualhosts section
+   You should only have to import vh_mb_backend.conf into your virtualhosts section
    of your httpd.conf file.  In the admin directory you'll also find
    startup.pl, which is the mod_perl startup file.  You should have already
    customised these two files in step 3.

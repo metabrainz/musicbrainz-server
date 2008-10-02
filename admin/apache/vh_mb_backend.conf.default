@@ -36,6 +36,7 @@
 
 	# But some is done here:
 	RewriteEngine on
+	# TODO:
 	# Include rewrite-rules shared by backend and frontend ;
 	# Should be commented if you run the server with a backend and a frontend
 	Include /home/httpd/musicbrainz/mb_server/admin/apache/rewrite.conf
