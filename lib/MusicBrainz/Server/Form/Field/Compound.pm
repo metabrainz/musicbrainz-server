@@ -79,7 +79,7 @@ sub value
             unless (defined $value)
             {
                 $value = $obj->$name
-                    if $obj->can($name);
+                    if $obj && $obj->can($name);
             }
 
             $field->value($value);

@@ -165,4 +165,20 @@ sub merge_into : Chained('label') PathPart('into') Args(1)
     $c->response->redirect($c->entity_url($new_label, 'show'));
 }
 
+sub edit : Chained('label')
+{
+    my ($self, $c) = @_;
+
+    $c->forward('/user/login');
+
+    my $label = $c->stash->{label};
+
+    my $form = $c->form($label, 'Label::Edit');
+    $form->context($c);
+
+    return unless $c->form_posted && $form->validate($c->req->params);
+
+    $form->update_model;
+}
+
 1;

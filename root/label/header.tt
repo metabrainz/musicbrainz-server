@@ -23,12 +23,18 @@
     [%- END -%]
   </div>
   <div class="infoLinks"> Info: [% INCLUDE "components/piped-list.tt" list=info_links %]</div>
+
   <div class="editLinks">
     Edit:
     [%- IF c.user_exists -%]
-
+      [%- edit_links = [
+           { link => c.entity_url(label, 'edit'), text => "Edit Label" },
+           { link => c.entity_url(label, 'merge'), text => "Merge Into" },
+         ]
+      -%]
+      [% INCLUDE "components/piped-list.tt" list=edit_links %]
     [%- ELSE -%]
-      Please <a herf="[% c.uri_for('/user/login') %]">login</a> to edit this label
+      Please <a href="[% c.uri_for('/user/login') %]">log in</a> to edit this label
     [%- END -%]
   </div>
 </div>
