@@ -186,4 +186,30 @@ sub edit : Chained('label')
     $c->response->redirect($c->entity_url($label, 'show'));
 }
 
+sub create : Local
+{
+    my ($self, $c) = @_;
+
+    $c->forward('/user/login');
+
+    my $form = $c->form(undef, 'Label::Create');
+    $form->context($c);
+
+    return unless $c->form_posted && $form->validate($c->req->params);
+
+    my $mods = $form->update_model;
+
+    # Make sure that the moderation did go through, and redirect to
+    # the new artist
+    my @add_mods = grep { $_->type eq ModDefs::MOD_ADD_LABEL } @$mods;
+
+    die "Label could not be created"
+        unless @add_mods;
+
+    # we can't use entity_url because that would require loading the new artist
+    # or creating a mock artist - both are messier than this slightly
+    # hacky solution
+    $c->response->redirect($c->uri_for('/label', $add_mods[0]->row_id));
+}
+
 1;
