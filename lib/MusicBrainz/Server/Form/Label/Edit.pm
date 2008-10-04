@@ -92,4 +92,41 @@ sub init_value
     $self->SUPER::init_value(@_);
 }
 
+sub update_model
+{
+    my $self = shift;
+
+    my $label = $self->item;
+    my $user  = $self->context->user;
+
+    my ($begin, $end) =
+        (
+            [ map {$_ == '00' ? '' : $_} (split m/-/, $self->value('begin_date') || '') ],
+            [ map {$_ == '00' ? '' : $_} (split m/-/, $self->value('end_date')   || '') ],
+        );
+
+    my @mods = Moderation->InsertModeration(
+        DBH   => $self->context->mb->{DBH},
+        uid   => $user->id,
+        privs => $user->privs,
+        type  => ModDefs::MOD_EDIT_LABEL,
+
+        label      => $label,
+        name       => $self->value('name')        || $label->name,
+        sortname   => $self->value('sort_name')   || $label->sort_name,
+        labeltype  => $self->value('type')        || $label->type,
+        resolution => $self->value('resolution')  || $label->resolution,
+        country    => $self->value('country')     || $label->country,
+        labelcode  => $self->value('label_code')  || $label->label_code || '',
+
+        begindate => $begin,
+        enddate   => $end,
+    );
+
+    $mods[0]->InsertNote($user->id, $self->value('edit_note'))
+        if $mods[0] and $self->value('edit_note') =~ /\S/;
+
+    return \@mods;
+}
+
 1;

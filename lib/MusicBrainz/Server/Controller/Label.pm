@@ -179,6 +179,11 @@ sub edit : Chained('label')
     return unless $c->form_posted && $form->validate($c->req->params);
 
     $form->update_model;
+
+    $c->flash->{ok} = "Thanks, your label edit has been entered " .
+                      "into the moderation queue";
+
+    $c->response->redirect($c->entity_url($label, 'show'));
 }
 
 1;
