@@ -490,6 +490,37 @@ sub SetUserInfo
 	$ok;
 }
 
+sub Remove
+{
+	my ($self) = @_;
+	my %opts;
+
+	return "No user loaded." if (!defined $self->GetId());
+
+	$opts{email} = '';
+	$opts{name} = "Deleted User #" . $self->GetId();
+	$opts{weburl} = "";
+	$opts{bio} = "";
+	$opts{password} = "";
+
+	my $us = UserSubscription->new($self->{DBH});
+	my $sql = Sql->new($self->{DBH});
+	eval
+	{
+		$sql->Begin;
+		$self->SetUserInfo(%opts);
+		$us->RemoveSubscriptionsForModerator($self->GetId());
+		$sql->Commit;
+	};
+	if ($@)
+	{
+		my $err = $@;
+		$sql->Rollback();
+		return $err;
+	}
+	undef;
+}
+
 sub GetSubscribers
 {
 	my $self = shift;
@@ -1425,4 +1456,4 @@ sub NagCheck
 }
 
 1;
-# eof UserStuff.pm
+

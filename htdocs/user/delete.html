@@ -47,32 +47,22 @@
 	}
 
 	my $user;
+	my $mb = $m->comp("/comp/dblogin");
 	if (MusicBrainz::Server::Validation::IsSingleLineString($username))
 	{
-		my $mb = $m->comp("/comp/dblogin");
 		my $ui = UserStuff->new($mb->{DBH});
 
 		$user = $ui->newFromName($username)
-			or return $m->comp(".ShowError", qq!Editor with <strong>username</strong> "$username" not found!);
+			or return $m->comp(".ShowError", qq!Editor "$username" not found!);
 	}
 
 	$m->comp("/comp/sidebar", title => "Delete editor");
 	if ($confirm)
 	{
-		my %opts;
-		$opts{email} = '';
-		$opts{name} = "Deleted User #" . $user->GetId();
-		$opts{weburl} = "";
-		$opts{bio} = "";
-		$opts{password} = "";
-
-		eval
+		my $err = $user->Remove();
+		if ($err)
 		{
-			$user->SetUserInfo(%opts);
-		};
-		if ($@)
-		{
-			$m->out("Error occured. You suck:" . $@);
+			$m->out("Error occured. You suck: $err");
 		}
 		else
 		{
