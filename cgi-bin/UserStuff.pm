@@ -48,6 +48,7 @@ use constant LINK_MODERATOR_FLAG => 8;
 use constant DONT_NAG_FLAG => 16;
 use constant WIKI_TRANSCLUSION_FLAG => 32;
 use constant MBID_SUBMITTER_FLAG => 64;
+use constant ACCOUNT_ADMIN_FLAG => 128;
 
 use constant SEARCHRESULT_SUCCESS => 1;
 use constant SEARCHRESULT_NOQUERY => 2;
@@ -411,6 +412,8 @@ sub IsNewbie
 	my $self = shift;
 	my $sql = Sql->new($self->{DBH});
 
+	return 0 if (&DBDefs::REPLICATION_TYPE != &MusicBrainz::Server::Replication::RT_MASTER);
+
 	return $sql->SelectSingleValue(
 		"SELECT NOW() < membersince + INTERVAL '2 weeks'
 		FROM	moderator
@@ -460,6 +463,10 @@ sub SetUserInfo
 	$query .= " privs = ?,",
 		push @args, $opts{privs}
 		if defined $opts{privs};
+
+	$query .= " password = ?,",
+		push @args, $opts{password}
+		if defined $opts{password};
 
 	$query =~ s/,$//
 		or return; # no changed fields
@@ -646,6 +653,9 @@ sub GetUserType
 	$type .= ', MB ID Submitter'
 		if ($this->IsMBIDSubmitter($privs));
 
+	$type .= ', account admin'
+		if ($this->IsAccountAdmin($privs));
+
 	$type = "Normal User"
 		if ($type eq "");
 
@@ -711,11 +721,20 @@ sub IsMBIDSubmitter
 	return ($privs & MBID_SUBMITTER_FLAG) > 0;
 }
 
+sub IsAccountAdmin
+{
+	my ($this, $privs) = @_;
+
+	return ($privs & ACCOUNT_ADMIN_FLAG) > 0;
+}
+
 # User can vote if they have at least 10 accepted edits and a confirmed
 # e-mail address.
 sub CanVote
 {
 	my $session = GetSession();
+
+	return 1 if (&DBDefs::REPLICATION_TYPE != &MusicBrainz::Server::Replication::RT_MASTER);
 
 	return ($session->{has_confirmed_email} > 0) && ($session->{editsaccepted} > 10);
 }

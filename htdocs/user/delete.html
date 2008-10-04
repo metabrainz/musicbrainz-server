@@ -1,0 +1,133 @@
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# This page allows a user to verify their e-mail address.
+	#
+	# $Id: verifyemail.html 8548 2006-10-19 07:41:02Z dave $
+	#
+</%perl>
+<%args>
+
+	$username => ""
+	$confirm => 0
+
+</%args>
+<%perl>
+
+	$m->comp("/comp/checkloggedin", 1, 1,
+		"You must log in to view this page.",
+	) or return;
+
+	return $m->comp("/comp/layout/badarguments",
+		text => "This page needs the username argument.") if (!$username);
+
+	if (!UserStuff->IsAccountAdmin($session{privs}))
+	{
+		return $m->comp(".ShowError", "You are not an account administrator. You cannot delete other users. Shame on you!!");
+	}
+
+	my $user;
+	if (MusicBrainz::Server::Validation::IsSingleLineString($username))
+	{
+		my $mb = $m->comp("/comp/dblogin");
+		my $ui = UserStuff->new($mb->{DBH});
+
+		$user = $ui->newFromName($username)
+			or return $m->comp(".ShowError", qq!Editor with <strong>username</strong> "$username" not found!);
+	}
+
+	$m->comp("/comp/sidebar", title => "Delete editor");
+	if ($confirm)
+	{
+		my %opts;
+		$opts{email} = '';
+		$opts{name} = "Deleted User #" . $user->GetId();
+		$opts{weburl} = "";
+		$opts{bio} = "";
+		$opts{password} = "";
+
+		eval
+		{
+			$user->SetUserInfo(%opts);
+		};
+		if ($@)
+		{
+			$m->out("Error occured. You suck:" . $@);
+		}
+		else
+		{
+			$m->out("User deleted.");
+		}
+	}
+	else
+	{
+</%perl>
+		<form method="post" action="/user/delete.html" id="registerform">
+			<table class="formstyle">
+
+				<tr>
+					<td class="label">Username:</td>
+					<td class="field"><% $user->GetName() %></td>
+				</tr>
+				<tr>
+					<td class="label">Id:</td>
+					<td class="field"><% $user->GetId() %></td>
+				</tr>
+				<tr>
+					<td class="label">E-Mail:</td>
+					<td class="field"><% $user->GetEmail() %></td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+					<td class="field">
+					    <p>
+						Are you sure you want to delete this user?
+						</p>
+					</td>	
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+					<td class="field">
+						<input type="submit" name="submitvalue" value="Cancel" />
+						<input type="submit" name="submitvalue" value="Delete User &raquo;" />
+						<input type="hidden" name="confirm" value="1" /></td>
+						<input type="hidden" name="username" value="<% $username %>" /></td>
+				</tr>
+			</table>
+		</form>
+%   }
+
+<%def .ShowError>
+%   my $error = shift;
+
+    <& /comp/sidebar, title => "Delete editor" &>
+
+        <p>Error: <% $error %></p>
+
+    <& /comp/footer &>
+
+</%def>
+
+<& /comp/footer &>
+
+%# vi: set ts=4 sw=4 ft=mason :

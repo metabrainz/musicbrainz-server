@@ -84,6 +84,7 @@
 	my $my_userid = $session{uid} || 0;
 	my $is_me = ($userid == $my_userid);
 
+	my $can_admin_users = UserStuff->IsAccountAdmin($session{privs});
 	my $can_nominate = (
 		not $is_me
 		and UserStuff->IsAutoEditor($session{privs})
@@ -146,6 +147,11 @@
 %		{
 					| <a href="/user/election/propose.html?username=<% uri_escape($user->GetName)
 						%>">Nominate for AutoEditor</a>
+% 		}
+% 		if ($can_admin_users)
+%		{
+					| <a href="/user/delete.html?username=<% uri_escape($user->GetName)
+						%>">Delete</a>
 % 		}
 % 	}
 				</td>
