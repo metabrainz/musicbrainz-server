@@ -5,8 +5,6 @@ use warnings;
 
 use base 'Catalyst::Controller';
 
-use MusicBrainz::Server::Adapter qw(EntityUrl);
-
 =head1 NAME
 
 MusicBrainz::Server::Controller::Label
