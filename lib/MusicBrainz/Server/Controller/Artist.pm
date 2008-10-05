@@ -330,7 +330,7 @@ sub subscribe : Chained('artist')
     $us->SetUser($c->user->id);
     $us->SubscribeArtists($artist);
 
-    $c->forward('show_subscriptions');
+    $c->forward('subscriptions');
 }
 
 =head2 unsubscribe
@@ -350,7 +350,7 @@ sub unsubscribe : Chained('artist')
     $us->SetUser($c->user->id);
     $us->UnsubscribeArtists($artist);
 
-    $c->forward('show_subscriptions');
+    $c->forward('subscriptions');
 }
 
 =head2 show_subscriptions
@@ -360,9 +360,12 @@ wish their subscriptions to be public
 
 =cut
 
-sub show_subscriptions : Private
+sub subscriptions : Chained('artist')
 {
     my ($self, $c) = @_;
+
+    $c->forward('/user/login');
+
     my $artist = $c->stash->{artist};
 
     my @all_users = $artist->GetSubscribers;
@@ -376,6 +379,8 @@ sub show_subscriptions : Private
 
         my $public = UserPreference::get_for_user("subscriptions_public", $user);
         my $is_me  = $c->user_exists && $c->user->id == $user->id;
+
+        if ($is_me) { $c->stash->{user_subscribed} = $is_me; }
         
         if ($public || $is_me)
         {

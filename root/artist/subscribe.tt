@@ -1,9 +1,25 @@
 [%- WRAPPER 'artist/layout.tt' title='Subscribed editors' -%]
 [%- WRAPPER 'components/box.tt' header='Editors subscribed to this artist' -%]
 
-[%- FOREACH ed IN subscribers -%]
-  [% ed.username %]
-[%- END -%]
+<p>
+  [% IF subscribers.size %]
+    [%- FOREACH ed IN subscribers -%]
+      [% ed.name %]
+    [%- END -%]
+  [% ELSE %]
+    There are no users currently subscribed to this artist.
+  [% END %]
+</p>
+
+[% IF anonymous_subscribers %]
+<p>There are also [% anonymous_subscribers %] anonymous subscribers</p>
+[% END %]
+
+[% IF user_subscribed %] 
+  <a href="[% c.entity_url(artist, 'unsubscribe') %]">Unsubscribe from this artist.</a>
+[% ELSE %]
+  <a href="[% c.entity_url(artist, 'subscribe') %]">Subscribe to this artist.</a>
+[% END %]
 
 [%- END -%]
 [%- END -%]
