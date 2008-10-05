@@ -10,7 +10,7 @@ sub entity : Chained('/') PathPart('relate') CaptureArgs(2)
     my ($self, $c, $type, $id) = @_;
 
     die "$type is not a valid entity type"
-        unless MusicBrainz::Server::LinkEntity->IsValidType($type);
+        unless MusicBrainz::Server::LinkEntity->IsValidType($type eq 'release' ? 'album' : $type);
 
     $c->stash->{entity} = $c->model(ucfirst $type)->load($id);
 }

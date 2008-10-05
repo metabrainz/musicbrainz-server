@@ -46,6 +46,7 @@ sub options_type
 
     my $entity = $self->item;
     my $type   = $entity->entity_type;
+    $type =~ s/release/album/; # TODO terminology hack...
 
     my $mb = new MusicBrainz;
     $mb->Login;
@@ -85,14 +86,17 @@ sub form_relationship
     my $source = $self->item;
     my $user   = $self->context->user;
 
-    my $lt = new MusicBrainz::Server::LinkType($self->context->mb->{DBH}, [$source->entity_type, 'url']);
+    my $type = $source->entity_type;
+    $type =~ s/release/album/; # TODO terminology hack...
+
+    my $lt = new MusicBrainz::Server::LinkType($self->context->mb->{DBH}, [ $type, 'url']);
 
     my ($linkid, $linkattributes, $linkdesc) = split /\|/, $self->value('type');
     my $link = $lt->newFromId($linkid);
 
     my @links;
     push @links, {
-        type => $source->entity_type,
+        type => $type,
         id   => $source->id,
         obj  => $source,
         name => $source->name,
