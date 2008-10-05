@@ -24,8 +24,13 @@ sub url : Chained('entity')
     my $entity = $c->stash->{entity};
 
     my $form = $c->form($entity, 'Relate::Url');
+    $form->context($c);
 
     return unless $c->form_posted && $form->validate($c->req->params);
+
+    $form->form_relationship;
+
+    $c->response->redirect($c->entity_url($entity, 'relations'));
 }
 
 1;

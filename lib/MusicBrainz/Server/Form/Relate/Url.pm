@@ -78,4 +78,52 @@ sub options_type
     return \@options;
 }
 
+sub form_relationship
+{
+    my ($self) = @_;
+
+    my $source = $self->item;
+    my $user   = $self->context->user;
+
+    my $lt = new MusicBrainz::Server::LinkType($self->context->mb->{DBH}, [$source->entity_type, 'url']);
+
+    my ($linkid, $linkattributes, $linkdesc) = split /\|/, $self->value('type');
+    my $link = $lt->newFromId($linkid);
+
+    my @links;
+    push @links, {
+        type => $source->entity_type,
+        id   => $source->id,
+        obj  => $source,
+        name => $source->name,
+    };
+    push @links, {
+        type => "url",
+        id   => undef,
+        obj  => undef,
+        name => $self->value('url'),
+        url  => $self->value('url'),
+        desc => $self->value('description') || '',
+    };
+
+    my @mods = Moderation->InsertModeration(
+        DBH   => $self->context->mb->{DBH},
+        uid   => $user->id,
+        privs => $user->privs,
+        type  => ModDefs::MOD_ADD_LINK,
+
+        entities => \@links,
+        linktype => $link,
+        url      => $self->value('url'),
+    );
+
+    if (scalar @mods)
+    {
+        $mods[0]->InsertNote($user->id, $self->value('edit_note'))
+            if $mods[0] and $self->value('edit_note') =~ /\S/;
+    }
+
+    return \@mods;
+}
+
 1;
