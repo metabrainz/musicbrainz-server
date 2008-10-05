@@ -214,6 +214,8 @@ sub move_to : Chained('release') Args(1)
 
     return unless $c->form_posted && $form->validate($c->req->params);
 
+    $form->move($new_artist);
+
     $c->response->redirect($c->entity_url($release, 'show'));
 }
 

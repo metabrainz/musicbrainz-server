@@ -20,7 +20,7 @@ sub profile
 
 sub move
 {
-    my ($self) = @_;
+    my ($self, $new_artist) = @_;
 
     my $release = $self->item;
     my $user    = $self->context->user;
@@ -34,29 +34,19 @@ sub move
 
         album          => $release,
         oldartist      => $artist,
-        artistname     => $artist->name,
-        artistsortname => $artist->sort_name,
-        artistid       => $artist->id,
+        artistname     => $new_artist->name,
+        artistsortname => $new_artist->sort_name,
+        artistid       => $new_artist->id,
         movetracks     => $self->value('move_tracks'),
     );
 
     if (scalar @mods)
     {
-        $mods[0]->InsertNote($user->id, $form->value('edit_note'))
-            if $mods[0] and $form->value('edit_note') =~ /\S/;
+        $mods[0]->InsertNote($user->id, $self->value('edit_note'))
+            if $mods[0] and $self->value('edit_note') =~ /\S/;
     }
 
     return \@mods;
-}
-
-sub update_from_form
-{
-    my $self = shift;
-
-    return unless $self->validate(@_);
-    $self->update_model;
-
-    return 1;
 }
 
 1;
