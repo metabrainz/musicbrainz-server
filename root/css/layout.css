@@ -26,6 +26,15 @@ a:hover {
     text-decoration: underline;
 }
 
+a.mp { background: #FFFFCC; }
+
+div.status_ok {
+    margin-bottom: 10pt;
+    padding: 2pt;
+    background: #CCFFCC;
+    border: 1px solid black;
+}
+
 /*
  * Header
  */
