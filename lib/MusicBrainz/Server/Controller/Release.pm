@@ -217,6 +217,24 @@ sub move_to : Chained('release') Args(1)
     $c->response->redirect($c->entity_url($release, 'show'));
 }
 
+sub remove : Chained('release')
+{
+    my ($self, $c) = @_;
+
+    $c->forward('/user/login');
+
+    my $release = $c->stash->{release};
+
+    my $form = $c->form($release, 'Release::Remove');
+    $form->context($c);
+
+    return unless $c->form_posted && $form->validate($c->req->params);
+
+    $form->remove_release;
+
+    $c->response->redirect($c->entity_url($release, 'show'));
+}
+
 =head1 LICENSE
 
 This software is provided "as is", without warranty of any kind, express or
