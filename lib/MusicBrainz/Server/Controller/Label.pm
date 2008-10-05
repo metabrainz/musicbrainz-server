@@ -210,4 +210,89 @@ sub create : Local
     $c->response->redirect($c->uri_for('/label', $add_mods[0]->row_id));
 }
 
+=head2 subscribe
+
+Allow a moderator to subscribe to this label
+
+=cut
+
+sub subscribe : Chained('label')
+{
+    my ($self, $c) = @_;
+    my $label = $c->stash->{label};
+
+    $c->forward('/user/login');
+
+    my $us = UserSubscription->new($c->mb->{DBH});
+    $us->SetUser($c->user->id);
+    $us->SubscribeLabels($label);
+
+    $c->forward('subscriptions');
+}
+
+=head2 unsubscribe
+
+Unsubscribe from a label
+
+=cut
+
+sub unsubscribe : Chained('label')
+{
+    my ($self, $c) = @_;
+    my $label = $c->stash->{label};
+
+    $c->forward('/user/login');
+
+    my $us = UserSubscription->new($c->mb->{DBH});
+    $us->SetUser($c->user->id);
+    $us->UnsubscribeLabels($label);
+
+    $c->forward('subscriptions');
+}
+
+=head2 show_subscriptions
+
+Show all users who are subscribed to this label, and have stated they
+wish their subscriptions to be public
+
+=cut
+
+sub subscriptions : Chained('label')
+{
+    my ($self, $c) = @_;
+
+    $c->forward('/user/login');
+
+    my $label = $c->stash->{label};
+
+    my @all_users = $label->GetSubscribers;
+    
+    my @public_users;
+    my $anonymous_subscribers;
+
+    for my $uid (@all_users)
+    {
+        my $user = $c->model('User')->load_user({ id => $uid });
+
+        my $public = UserPreference::get_for_user("subscriptions_public", $user);
+        my $is_me  = $c->user_exists && $c->user->id == $user->id;
+
+        if ($is_me) { $c->stash->{user_subscribed} = $is_me; }
+        
+        if ($public || $is_me)
+        {
+            push @public_users, $user;
+        }
+        else
+        {
+            $anonymous_subscribers++;
+        }
+    }
+
+    $c->stash->{subscribers          } = \@public_users;
+    $c->stash->{anonymous_subscribers} = $anonymous_subscribers;
+
+    $c->stash->{template} = 'label/subscriptions.tt';
+}
+
 1;

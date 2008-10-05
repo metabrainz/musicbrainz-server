@@ -1,0 +1,25 @@
+[%- WRAPPER 'label/layout.tt' title='Subscribed editors' -%]
+[%- WRAPPER 'components/box.tt' header='Editors subscribed to this label' -%]
+
+<p>
+  [% IF subscribers.size %]
+    [%- FOREACH ed IN subscribers -%]
+      [% ed.name %]
+    [%- END -%]
+  [% ELSE %]
+    There are no users currently subscribed to this label.
+  [% END %]
+</p>
+
+[% IF anonymous_subscribers %]
+<p>There are also [% anonymous_subscribers %] anonymous subscribers</p>
+[% END %]
+
+[% IF user_subscribed %] 
+  <a href="[% c.entity_url(label, 'unsubscribe') %]">Unsubscribe from this label.</a>
+[% ELSE %]
+  <a href="[% c.entity_url(label, 'subscribe') %]">Subscribe to this label.</a>
+[% END %]
+
+[%- END -%]
+[%- END -%]
