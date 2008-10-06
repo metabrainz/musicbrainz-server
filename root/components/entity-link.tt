@@ -9,4 +9,5 @@
     [%- UNLESS noicon -%]<span class="[% entity.entity_type %]_icon">[%- END -%]
     [% entity.name | html %]
     [%- UNLESS noicon -%]</span>[%- END -%]</a>
+    [% IF entity.resolution%] ([% entity.resolution | html %])[% END %]
 [%- END -%]

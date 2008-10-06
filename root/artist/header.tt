@@ -14,7 +14,6 @@
 
   <div class="title artist">
     [% INCLUDE "components/entity-link.tt" entity=artist noicon=1 %]
-    [%- IF artist.resolution; "(${artist.resolution})" | html; END -%]
   </div>
   
   <div class="info">

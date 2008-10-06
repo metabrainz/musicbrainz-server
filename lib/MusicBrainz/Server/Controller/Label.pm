@@ -127,15 +127,7 @@ sub merge : Chained('label')
     my ($self, $c) = @_;
 
     $c->forward('/user/login');
-
-    my $form = $c->form(undef, 'Search::Query');
-
-    return unless $c->form_posted && $form->validate($c->req->params);
-    
-    my $label = $c->stash->{label};
-
-    my $labels = $c->model('Label')->direct_search($form->value('query'));
-    $c->stash->{labels} = $labels;
+    $c->forward('/search/filter_label');
 }
 
 sub merge_into : Chained('label') PathPart('into') Args(1)

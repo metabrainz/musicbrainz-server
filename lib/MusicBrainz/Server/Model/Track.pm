@@ -29,6 +29,7 @@ sub load_from_release
         my $track = $_;
         $track->{puid_count} = $puid_counts->{ $track->id };
 
+        $track->artist->LoadFromId;
         $track;
     } @tracks ];
 }

@@ -277,15 +277,7 @@ sub merge : Chained('artist')
     my ($self, $c) = @_;
 
     $c->forward('/user/login');
-    $c->stash->{template} = 'artist/merge_search.tt';
-
-    my $form = $c->form(undef, 'Search::Query');
-
-    return unless $c->form_posted && $form->validate($c->req->params);
-    
-    my $artist  = $c->stash->{artist};
-    my $artists = $c->model('Artist')->direct_search($form->value('query'));
-    $c->stash->{artists} = $artists;
+    $c->forward('/search/filter_artist');
 }
 
 sub merge_into : Chained('artist') PathPart('merge-into') Args(1)

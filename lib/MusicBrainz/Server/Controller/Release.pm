@@ -184,15 +184,7 @@ sub move : Chained('release')
     my ($self, $c) = @_;
 
     $c->forward('/user/login');
-
-    my $release = $c->stash->{release};
-
-    my $form = $c->form(undef, 'Search::Query');
-
-    return unless $c->form_posted && $form->validate($c->req->params);
-
-    my $artists = $c->model('Artist')->direct_search($form->value('query'));
-    $c->stash->{artists} = $artists;
+    $c->forward('/search/filter_artist');
 }
 
 sub move_to : Chained('release') Args(1)

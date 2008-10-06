@@ -145,17 +145,11 @@ sub change_artist : Chained('track')
 {
     my ($self, $c) = @_;
 
-    $c->forward('/user/login');
-
-    my $form = $c->form(undef, 'Search::Query');
-    $form->context($c);
-
     $c->stash->{template} = 'track/change_artist_search.tt';
 
-    return unless $c->form_posted && $form->validate($c->req->params);
+    $c->forward('/user/login');
+    $c->forward('/search/filter_artist');
 
-    my $artists = $c->model('Artist')->direct_search($form->value('query'));
-    $c->stash->{artists} = $artists;
 }
 
 sub confirm_change_artist : Chained('track') Args(1)

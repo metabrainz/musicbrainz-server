@@ -247,6 +247,30 @@ sub external : Local
     }
 }
 
+sub filter_artist : Private
+{
+    my ($self, $c) = @_;
+
+    my $form = $c->form(undef, 'Search::Query');
+
+    return unless $c->form_posted && $form->validate($c->req->params);
+
+    my $artists = $c->model('Artist')->direct_search($form->value('query'));
+    $c->stash->{artists} = $artists;
+}
+
+sub filter_label : Private
+{
+    my ($self, $c) = @_;
+
+    my $form = $c->form(undef, 'Search::Query');
+
+    return unless $c->form_posted && $form->validate($c->req->params);
+
+    my $labels = $c->model('label')->direct_search($form->value('query'));
+    $c->stash->{labels} = $labels;
+}
+
 =head1 LICENSE
 
 This software is provided "as is", without warranty of any kind, express or
