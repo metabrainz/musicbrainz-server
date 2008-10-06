@@ -85,6 +85,7 @@ sub login : Local
 
         # If we got this far we need to show the form (to login, or to fix
         # login form errors)
+        $c->stash->{template} = 'user/login.tt';
         $c->detach;
     }
 }

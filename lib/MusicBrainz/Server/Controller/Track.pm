@@ -124,14 +124,14 @@ sub remove : Chained('track')
 
     $c->forward('/user/login');
 
-    my $track   = $c->stash->{track};
+    my $track = $c->stash->{track};
 
     my $form = $c->form($track, 'Track::Remove');
     $form->context($c);
 
     return unless $c->form_posted && $form->validate($c->req->params);
 
-    my $release = $c->stash->{release};
+    my $release = $c->model('Release')->load($track->release);
 
     $form->remove_from_release($release);
 
