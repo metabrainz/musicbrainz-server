@@ -141,6 +141,47 @@ sub remove : Chained('track')
     $c->response->redirect($c->entity_url($release, 'show'));
 }
 
+sub change_artist : Chained('track')
+{
+    my ($self, $c) = @_;
+
+    $c->forward('/user/login');
+
+    my $form = $c->form(undef, 'Search::Query');
+    $form->context($c);
+
+    $c->stash->{template} = 'track/change_artist_search.tt';
+
+    return unless $c->form_posted && $form->validate($c->req->params);
+
+    my $artists = $c->model('Artist')->direct_search($form->value('query'));
+    $c->stash->{artists} = $artists;
+}
+
+sub confirm_change_artist : Chained('track') Args(1)
+{
+    my ($self, $c, $new_artist) = @_;
+
+    $c->forward('/user/login');
+
+    my $track      = $c->stash->{track};
+    my $new_artist = $c->model('Artist')->load($new_artist);
+    $c->stash->{new_artist} = $new_artist;
+
+    my $form = $c->form($track, 'Track::ChangeArtist');
+    $form->context($c);
+
+    $c->stash->{template} = 'track/change_artist.tt';
+
+    return unless $c->form_posted && $form->validate($c->req->params);
+
+    my $release = $c->model('Release')->load($track->release);
+
+    $form->change_artist($new_artist);
+
+    $c->response->redirect($c->entity_url($release, 'show'));
+}
+
 =head1 LICENSE
 
 This software is provided "as is", without warranty of any kind, express or
