@@ -229,6 +229,38 @@ sub remove : Chained('release')
     $c->response->redirect($c->entity_url($release, 'show'));
 }
 
+sub convert_to_single_artist : Chained('release')
+{
+    my ($self, $c) = @_;
+
+    $c->stash->{template} = 'release/convert_to_single_search.tt';
+
+    $c->forward('/user/login');
+    $c->forward('/search/filter_artist');
+}
+
+sub confirm_convert_to_single_artist : Chained('release') Args(1)
+{
+    my ($self, $c, $new_artist) = @_;
+
+    $c->forward('/user/login');
+
+    $c->stash->{template} = 'release/convert_to_single_artist.tt';
+
+    my $release    = $c->stash->{release};
+    my $new_artist = $c->model('Artist')->load($new_artist);
+    $c->stash->{new_artist} = $new_artist;
+
+    my $form = $c->form($release, 'Release::ConvertToSingleArtist');
+    $form->context($c);
+
+    return unless $c->form_posted && $form->validate($c->req->params);
+
+    $form->set_artist($new_artist);
+
+    $c->response->redirect($c->entity_url($release, 'show'));
+}
+
 =head1 LICENSE
 
 This software is provided "as is", without warranty of any kind, express or

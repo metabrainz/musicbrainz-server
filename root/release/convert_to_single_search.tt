@@ -1,0 +1,8 @@
+[% WRAPPER 'release/layout.tt' %]
+[% WRAPPER 'components/box.tt' header="Convert release to a single artist" %]
+
+[% BLOCK create_link; c.entity_url(release, 'confirm_convert_to_single_artist', entity.mbid); END %]
+[% INCLUDE "components/search.tt" search_label="Artist" entities=artists %]
+
+[% END %]
+[% END %]
