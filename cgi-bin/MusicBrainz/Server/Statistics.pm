@@ -182,6 +182,7 @@ sub GetEditStats
 	my %data;
 
 	my $sql = Sql->new($self->{DBH});
+	$maxitems = 10 if (!defined $maxitems);
 
 	# Average edit life in the last 14 days
 	$data{edit_life_14_days} = $sql->SelectSingleValue("SELECT to_char(AVG(m.duration), 'DD HH') FROM (
@@ -203,6 +204,54 @@ sub GetEditStats
 
 	return \%data;
 }
+
+sub GetRecentReleases
+{
+    my ($self, $maxitems) = @_;
+	my %data;
+
+	$maxitems = 10 if (!defined $maxitems);
+	my $sql = Sql->new($self->{DBH});
+	return $sql->SelectListOfLists("SELECT album.gid, album.name, artist.gid, artist.name, releasedate
+									  FROM release, artist, album 
+									 WHERE release.album = album.id 
+									   AND album.artist = artist.id 
+									   AND releasedate < now() 
+					              ORDER BY releasedate DESC 
+								     LIMIT ?", $maxitems);
+}
+
+sub GetUpcomingReleases
+{
+    my ($self, $maxitems) = @_;
+	my %data;
+
+	$maxitems = 10 if (!defined $maxitems);
+	my $sql = Sql->new($self->{DBH});
+	return $sql->SelectListOfLists("SELECT album.gid, album.name, artist.gid, artist.name, releasedate
+									  FROM release, artist, album 
+									 WHERE release.album = album.id 
+									   AND album.artist = artist.id 
+									   AND releasedate >= now() 
+					              ORDER BY releasedate 
+								     LIMIT ?", $maxitems);
+}
+
+sub GetRecentlyDeceased
+{
+    my ($self, $maxitems) = @_;
+	my %data;
+
+	$maxitems = 10 if (!defined $maxitems);
+	my $sql = Sql->new($self->{DBH});
+	return $sql->SelectListOfLists("SELECT gid, name, enddate, begindate 
+									  FROM artist 
+									 WHERE type = 1 
+									   AND enddate != '' 
+					              ORDER BY enddate DESC
+								     LIMIT ?", $maxitems);
+}
+
 
 1;
 # eof Statistics.pm
