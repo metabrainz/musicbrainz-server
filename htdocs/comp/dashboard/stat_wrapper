@@ -1,0 +1,54 @@
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# Cache statistics components and display updated <time> ago info
+	#
+	# $Id: sidemenu-panel-topvoters 8548 2006-10-19 07:41:02Z dave $
+	#
+</%perl>
+<%args>
+	$type
+	$busy_lock
+	$expire
+</%args>
+<%perl>
+
+my $edits = $m->cache->get("dashboard-$type", busy_lock=>$busy_lock);
+if (!defined $edits)
+{
+	$edits = $m->scomp("/comp/dashboard/$type") ;
+	$m->cache->set("dashboard-$type", $edits, $expire);
+}
+
+$m->out($edits);
+
+my $co = $m->cache->get_object("dashboard-$type");
+if ($co)
+{
+	$m->out('<p style="color: grey; font-size: x-small;">Updated ');
+	$m->out(&MusicBrainz::Server::DateTime::format_datetime_since($co->get_created_at()));
+	$m->out('</p>');
+}
+
+</%perl>
+%# vi: set ts=4 sw=4 ft=mason :

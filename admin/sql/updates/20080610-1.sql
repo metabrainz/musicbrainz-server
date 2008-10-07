@@ -32,4 +32,13 @@ ALTER TABLE artist_meta ADD CONSTRAINT artist_meta_pkey PRIMARY KEY(id);
 ALTER TABLE label_meta ADD CONSTRAINT label_meta_pkey PRIMARY KEY(id);
 ALTER TABLE track_meta ADD CONSTRAINT track_meta_pkey PRIMARY KEY(id);
 
+-- indexes
+CREATE INDEX albummeta_lastupdate ON albummeta (lastupdate);
+CREATE INDEX label_meta_lastupdate ON label_meta (lastupdate);
+CREATE INDEX artist_meta_lastupdate ON artist_meta (lastupdate);
+
+-- Create an index on the closed moderation expiretime so we can get some stats
+CREATE INDEX moderation_closed_idx_closetime ON moderation_closed (closetime);
+CREATE INDEX moderation_closed_idx_opentime ON moderation_closed (opentime);
+
 COMMIT;

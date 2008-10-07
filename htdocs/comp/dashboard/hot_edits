@@ -1,0 +1,117 @@
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# Render hot edits, need love edits and expired edits. This component self-caches.
+	#
+	# $Id: sidemenu-panel-topvoters 8548 2006-10-19 07:41:02Z dave $
+	#
+</%perl>
+<%perl>
+
+my $mb = $m->comp("/comp/dblogin");
+my $stats = MusicBrainz::Server::Statistics->new($mb->{DBH});
+my $hot = $stats->GetHotEdits();
+my $needlove = $stats->GetNeedLoveEdits();
+my $expired = $stats->GetExpiredEdits();
+
+</%perl>
+
+%#  Hot edits -- edits that have had many comments/votes
+	<table style="background-color: #fafafa; border: 1px #000000 solid;">
+	<tr><td>Hot edits</td><td>"Need love" edits</td><td>Expired edits</td></tr>
+	<tr>
+	<td valign="top" style="border-right: 1px grey solid;">
+		<table>
+			<tr>
+				<th>Edit #</th>
+				<th>Comments</th>
+				<th>Votes</th>
+				<th>Expire</th>
+			</tr>
+
+%	foreach my $row (@$hot) {
+			<tr>
+				<td><a href="/show/edit/?editid=<% $row->[0] %>"><% $row->[0] %></a></td>
+				<td><% $row->[2] %></td>
+				<td><% $row->[3] %></td>
+%   if ($row->[5] < 0) {
+				<td><% MusicBrainz::Server::DateTime::format_datetime_since($row->[4]) %></td>
+%   } else {
+				<td><% MusicBrainz::Server::DateTime::format_datetime_until($row->[4]) %></td>
+%   }
+			</tr>
+%   }
+			<tr>
+				<td colspan="3">
+				[ <a href="dashboard.html?type=hot">see more hot edits</a> ]
+				</td>
+			</tr>
+		</table>
+	</td">
+
+%#   Need love edits -- edits that have had not votes yes, but are close to expiring
+	<td valign="top" style="border-right: 1px grey solid;">
+		<table>
+			<tr>
+				<th>Edit #</th>
+				<th>Expires</th>
+			</tr>
+
+%	foreach my $row (@$needlove) {
+			<tr>
+				<td><a href="/show/edit/?editid=<% $row->[0] %>"><% $row->[0] %></a></td>
+				<td><% MusicBrainz::Server::DateTime::format_datetime_until($row->[1]) %></td>
+			</tr>
+%   }
+			<tr>
+				<td colspan="3">
+				[ <a href="dashboard.html?type=needlove">see more need love edits</a> ]
+				</td>
+			</tr>
+		</table>
+    </td>
+
+%#  Expired edits. Expired edits that have not had any votes yet
+	<td valign="top">
+		<table>
+			<tr>
+				<th>Edit #</th>
+				<th>Expired</th>
+			</tr>
+
+%	foreach my $row (@$expired) {
+			<tr>
+				<td><a href="/show/edit/?editid=<% $row->[0] %>"><% $row->[0] %></a></td>
+				<td><% MusicBrainz::Server::DateTime::format_datetime_since($row->[1]) %></td>
+			</tr>
+%   }
+			<tr>
+				<td colspan="3">
+				[ <a href="dashboard.html?type=expired">see more expired edits</a> ]
+				</td>
+			</tr>
+		</table>
+    </td>
+	</tr>
+    </table>
+%# vi: set ts=4 sw=4 ft=mason :

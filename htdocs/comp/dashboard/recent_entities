@@ -1,0 +1,55 @@
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# This component render the recently changed entities. Caches itself.
+	#
+	# $Id: sidemenu-panel-topvoters 8548 2006-10-19 07:41:02Z dave $
+	#
+</%perl>
+<%perl>
+
+my $mb = $m->comp("/comp/dblogin");
+my $stats = MusicBrainz::Server::Statistics->new($mb->{DBH});
+my $edit_stats = $stats->GetEditStats();
+
+my $artists = $stats->GetLastUpdates("artist", 10);
+my $releases = $stats->GetLastUpdates("release", 10);
+my $labels = $stats->GetLastUpdates("label", 10);
+
+</%perl>
+
+	<table style="background-color: #fafafa; border: 1px #000000 solid;">
+	<tr>
+		<td valign="top" style="border-right: 1px grey solid;">
+		<& /comp/dashboard/entities_list, data => $artists, type => 'artist' &>
+		</td>
+		<td valign="top" style="border-right: 1px grey solid;">
+		<& /comp/dashboard/entities_list, data => $releases, type => 'release' &>
+		</td>
+		<td valign="top">
+		<& /comp/dashboard/entities_list, data => $labels, type => 'label' &>
+		</td>
+	</tr>
+	</table>
+
+%# vi: set ts=4 sw=4 ft=mason :

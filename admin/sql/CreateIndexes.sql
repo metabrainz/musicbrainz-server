@@ -14,6 +14,7 @@ CREATE INDEX album_nameindex ON album (name);
 CREATE INDEX album_pageindex ON album (page);
 
 CREATE INDEX album_amazon_asin_asin ON album_amazon_asin (asin);
+CREATE INDEX albummeta_lastupdate ON albummeta (lastupdate);
 
 CREATE UNIQUE INDEX album_cdtoc_albumcdtoc ON album_cdtoc (album, cdtoc);
 
@@ -30,6 +31,8 @@ CREATE UNIQUE INDEX artist_gidindex ON artist (gid);
 CREATE INDEX artist_nameindex ON artist (name);
 CREATE INDEX artist_pageindex ON artist (page);
 CREATE INDEX artist_sortnameindex ON artist (sortname);
+
+CREATE INDEX artist_meta_lastupdate ON artist_meta (lastupdate);
 
 CREATE INDEX artist_relation_artist ON artist_relation (artist);
 CREATE INDEX artist_relation_ref ON artist_relation (ref);
@@ -81,6 +84,8 @@ CREATE INDEX labelwords_labelidindex ON labelwords (labelid);
 CREATE INDEX labelalias_nameindex ON labelalias (name);
 CREATE INDEX labelalias_refindex ON labelalias (ref);
 
+CREATE INDEX label_meta_lastupdate ON label_meta (lastupdate);
+
 CREATE INDEX label_tag_idx_label ON label_tag (label);
 CREATE INDEX label_tag_idx_tag ON label_tag (tag);
 
@@ -124,7 +129,9 @@ CREATE UNIQUE INDEX lt_url_url_idx_mbid ON lt_url_url (mbid);
 CREATE UNIQUE INDEX lt_url_url_idx_parent_name ON lt_url_url (parent, name);
 
 CREATE INDEX moderation_closed_idx_artist ON moderation_closed (artist);
+CREATE INDEX moderation_closed_idx_opentime ON moderation_closed (opentime);
 CREATE INDEX moderation_closed_idx_expiretime ON moderation_closed (expiretime);
+CREATE INDEX moderation_closed_idx_closetime ON moderation_closed (closetime);
 CREATE INDEX moderation_closed_idx_moderator ON moderation_closed (moderator);
 CREATE INDEX moderation_closed_idx_rowid ON moderation_closed (rowid);
 CREATE INDEX moderation_closed_idx_status ON moderation_closed (status);
