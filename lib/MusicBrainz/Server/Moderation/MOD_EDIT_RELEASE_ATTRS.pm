@@ -76,7 +76,7 @@ sub PreInsert
 	{
 		die "Cannot edit attributes of 'non-album tracks' release"
 			if $al->IsNonAlbumTracks;
-		my $prev = join ",", $al->attributes;
+		my $prev = join ",", @{ $al->attributes };
 		next if $prev eq $new{'Attributes'};
 
 		$new{"AlbumId$seq"} = $al->id;

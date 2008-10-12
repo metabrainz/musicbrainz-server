@@ -261,6 +261,31 @@ sub confirm_convert_to_single_artist : Chained('release') Args(1)
     $c->response->redirect($c->entity_url($release, 'show'));
 }
 
+sub edit_attributes : Chained('release')
+{
+    my ($self, $c) = @_;
+
+    $c->forward('/user/login');
+
+    my $release = $c->stash->{release};
+
+    my $form = $c->form($release, 'Release::EditAttributes');
+    $form->context($c);
+
+    if ($c->req->query_params->{all})
+    {
+        $c->stash->{all} = 1;
+        $form->show_everything(1);
+        $form->build_form;
+    }
+
+    return unless $c->form_posted && $form->validate($c->req->params);
+
+    $form->update_model;
+
+    $c->response->redirect($c->entity_url($release, 'show'));
+}
+
 =head1 LICENSE
 
 This software is provided "as is", without warranty of any kind, express or

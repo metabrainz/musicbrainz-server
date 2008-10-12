@@ -1,0 +1,29 @@
+[%- WRAPPER 'release/layout.tt' -%]
+[%- WRAPPER 'components/box.tt' header='Edit Release Attributes' -%]
+
+[%- WRAPPER 'forms/form.tt' -%]
+  <fieldset>
+    <legend>Release Type &amp; Status</legend>
+    [%- INCLUDE 'forms/widget.tt' widget=form.field('type') label="Release Type:" -%]
+    [%- INCLUDE 'forms/widget.tt' widget=form.field('status') label="Release Status:" -%]
+  </fieldset>
+
+  <fieldset>
+    <legend>Release Language</legend>
+    [%- INCLUDE 'forms/widget.tt' widget=form.field('language') label="Language:" -%]
+    [%- INCLUDE 'forms/widget.tt' widget=form.field('script') label="Script:" -%]
+
+    [% UNLESS all %]
+      <p class="labelRight">
+        Currently only showing the most common languages and scripts.
+        <a href="?all=1">Show all</a>
+      </p>
+    [% END %]
+  </fieldset>
+
+  [% INCLUDE 'forms/edit-note.tt' %]
+  [% INCLUDE 'forms/submit.tt' label='Enter Edit' %]
+[%- END -%]
+
+[%- END -%]
+[%- END -%]

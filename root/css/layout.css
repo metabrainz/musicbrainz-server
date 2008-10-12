@@ -194,13 +194,13 @@ div.status_ok {
 /*
  * Boxes
  */
-div.box, #content form fieldset {
+div.box {
     border: 1px solid #FFBB55;
     margin-bottom: 16pt;
     overflow: auto;
 }
 
-div.box h2, #content form legend {
+div.box h2 {
     border-bottom: 1px solid #FFBB55;
     margin: 0;
     padding: 2pt 4pt;

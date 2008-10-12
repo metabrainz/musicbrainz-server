@@ -5,7 +5,12 @@
     </div>
     <div class="right">
       [ [% data_quality(release.quality) %] data quality ] |
-      [ [% release.language.name %], [% release.script.name %] ] |
-      [ [% release_attribute(release.release_type) %], [% release_attribute(release.release_status) %] ]
+      <span class="[% release.language_has_mod_pending ? 'mp' : '' %]">
+        [ [% release.language.name || '?' %], [% release.script.name || '?' %] ] |
+      </span>
+      <span class="[% release.attributes_have_mod_pending ? 'mp' : '' %]">
+        [ [% release_attribute(release.release_type) || '?' %],
+          [% release_attribute(release.release_status) || '?' %] ]
+      </span>
     </div>
   </div>

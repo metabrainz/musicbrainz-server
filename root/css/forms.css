@@ -57,3 +57,22 @@
     text-align: left;
     margin: 0;
 }
+
+#content form.generic select
+{
+    width: 150pt;
+}
+
+#content form fieldset 
+{
+    padding: 0;
+    border: none;
+    border-top: 1px solid #FFBB55;
+    padding-top: 10pt;
+    margin-bottom: 15pt;
+}
+#content form fieldset legend
+{
+    font-weight: bold;
+    border-bottom: 2px solid #FFBB55;
+}
