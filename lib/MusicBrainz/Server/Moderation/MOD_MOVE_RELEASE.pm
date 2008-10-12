@@ -23,15 +23,44 @@
 #   $Id$
 #____________________________________________________________________________
 
-use strict;
-
 package MusicBrainz::Server::Moderation::MOD_MOVE_RELEASE;
 
-use ModDefs qw( :modstatus MODBOT_MODERATOR );
+use strict;
+use warnings;
+
 use base 'Moderation';
 
+use ModDefs qw( :modstatus MODBOT_MODERATOR );
+
 sub Name { "Move Release" }
-(__PACKAGE__)->RegisterHandler;
+sub id   { 8 }
+
+sub edit_conditions
+{
+    return {
+        ModDefs::QUALITY_LOW => {
+            duration     => 4,
+            votes        => 1,
+            expireaction => ModDefs::EXPIRE_ACCEPT,
+            autoedit     => 0,
+            name         => $_[0]->Name,
+        },  
+        ModDefs::QUALITY_NORMAL => {
+            duration     => 14,
+            votes        => 3,
+            expireaction => ModDefs::EXPIRE_ACCEPT,
+            autoedit     => 1,
+            name         => $_[0]->Name,
+        },
+        ModDefs::QUALITY_HIGH => {
+            duration     => 14,
+            votes        => 4,
+            expireaction => ModDefs::EXPIRE_REJECT,
+            autoedit     => 0,
+            name         => $_[0]->Name,
+        },
+    }
+}
 
 # PLEASE NOTE that MOD_MOVE_RELEASE is almost exactly the same as MOD_MAC_TO_SAC
 

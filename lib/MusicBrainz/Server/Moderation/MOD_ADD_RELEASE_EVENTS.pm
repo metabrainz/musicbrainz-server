@@ -35,8 +35,34 @@ use base qw(
 sub Token() { "MOD_ADD_RELEASE_EVENTS" }
 sub Type() { &ModDefs::MOD_ADD_RELEASE_EVENTS }
 sub Name { "Add Release Events" }
+sub id   { 49 }
 
-(__PACKAGE__)->RegisterHandler;
+sub edit_conditions
+{
+    return {
+        ModDefs::QUALITY_LOW => {
+            duration     => 4,
+            votes        => 1,
+            expireaction => ModDefs::EXPIRE_ACCEPT,
+            autoedit     => 1,
+            name         => $_[0]->Name,
+        },  
+        ModDefs::QUALITY_NORMAL => {
+            duration     => 14,
+            votes        => 3,
+            expireaction => ModDefs::EXPIRE_ACCEPT,
+            autoedit     => 1,
+            name         => $_[0]->Name,
+        },
+        ModDefs::QUALITY_HIGH => {
+            duration     => 14,
+            votes        => 4,
+            expireaction => ModDefs::EXPIRE_REJECT,
+            autoedit     => 0,
+            name         => $_[0]->Name,
+        },
+    }
+}
 
 # MOD_EDIT_RELEASE_EVENTS_OLD does all the work
 

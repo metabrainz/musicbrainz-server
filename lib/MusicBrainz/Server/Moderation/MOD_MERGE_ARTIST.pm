@@ -23,15 +23,71 @@
 #   $Id$
 #____________________________________________________________________________
 
-use strict;
-
 package MusicBrainz::Server::Moderation::MOD_MERGE_ARTIST;
 
-use ModDefs qw( :artistid :modstatus MODBOT_MODERATOR );
+use strict;
+use warnings;
+
 use base 'Moderation';
 
+use ModDefs qw( :artistid :modstatus MODBOT_MODERATOR );
+
 sub Name { "Merge Artists" }
-(__PACKAGE__)->RegisterHandler;
+sub id   { 6 }
+
+sub edit_conditions
+{
+    return {
+        ModDefs::QUALITY_LOW => {
+            duration     => 4,
+            votes        => 1,
+            expireaction => ModDefs::EXPIRE_ACCEPT,
+            autoedit     => 0,
+            name         => $_[0]->Name,
+        },  
+        ModDefs::QUALITY_NORMAL => {
+            duration     => 14,
+            votes        => 3,
+            expireaction => ModDefs::EXPIRE_ACCEPT,
+            autoedit     => 0,
+            name         => $_[0]->Name,
+        },
+        ModDefs::QUALITY_HIGH => {
+            duration     => 14,
+            votes        => 4,
+            expireaction => ModDefs::EXPIRE_REJECT,
+            autoedit     => 0,
+            name         => $_[0]->Name,
+        },
+    }
+}
+
+sub edit_conditions
+{
+    return {
+        ModDefs::QUALITY_LOW => {
+            duration     => 4,
+            votes        => 1,
+            expireaction => ModDefs::EXPIRE_ACCEPT,
+            autoedit     => 1,
+            name         => $_[0]->Name,
+        },  
+        ModDefs::QUALITY_NORMAL => {
+            duration     => 14,
+            votes        => 3,
+            expireaction => ModDefs::EXPIRE_ACCEPT,
+            autoedit     => 1,
+            name         => $_[0]->Name,
+        },
+        ModDefs::QUALITY_HIGH => {
+            duration     => 14,
+            votes        => 4,
+            expireaction => ModDefs::EXPIRE_REJECT,
+            autoedit     => 0,
+            name         => $_[0]->Name,
+        },
+    }
+}
 
 sub PreInsert
 {

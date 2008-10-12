@@ -35,6 +35,7 @@ use base qw(
 sub Token() { "MOD_EDIT_RELEASE_EVENTS" }
 sub Type() { &ModDefs::MOD_EDIT_RELEASE_EVENTS }
 sub Name { "Edit Release Events" }
+sub id { 50 }
 
 (__PACKAGE__)->RegisterHandler;
 

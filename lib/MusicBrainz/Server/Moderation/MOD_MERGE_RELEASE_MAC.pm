@@ -23,9 +23,10 @@
 #   $Id$
 #____________________________________________________________________________
 
-use strict;
-
 package MusicBrainz::Server::Moderation::MOD_MERGE_RELEASE_MAC;
+
+use strict;
+use warnings;
 
 use ModDefs;
 use base qw(
@@ -40,7 +41,7 @@ sub Token() { "MOD_MERGE_RELEASE_MAC" }
 sub Type() { &ModDefs::MOD_MERGE_RELEASE_MAC }
 
 sub Name { "Merge Releases (Various Artists)" }
-(__PACKAGE__)->RegisterHandler;
+sub id   { 25 }
 
 # MOD_MERGE_RELEASE does all the work
 

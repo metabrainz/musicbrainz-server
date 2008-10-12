@@ -23,15 +23,17 @@
 #   $Id: MOD_CHANGE_RELEASE_QUALITY.pm 8551 2006-10-19 20:10:48Z robert $
 #____________________________________________________________________________
 
-use strict;
-
 package MusicBrainz::Server::Moderation::MOD_CHANGE_RELEASE_QUALITY;
 
-use ModDefs qw( :modstatus MODBOT_MODERATOR );
+use strict;
+use warnings;
+
 use base 'Moderation';
 
+use ModDefs qw( :modstatus MODBOT_MODERATOR );
+
 sub Name { "Change Release Quality" }
-(__PACKAGE__)->RegisterHandler;
+sub id   { 63 }
 
 sub PreInsert
 {

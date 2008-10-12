@@ -23,16 +23,45 @@
 #   $Id$
 #____________________________________________________________________________
 
-use strict;
-
 package MusicBrainz::Server::Moderation::MOD_ADD_ARTIST_ANNOTATION;
+
+use strict;
+use warnings;
+
+use base 'Moderation';
 
 use ModDefs;
 use MusicBrainz::Server::Annotation ':type';
-use base 'Moderation';
 
 sub Name { "Add Artist Annotation" }
-(__PACKAGE__)->RegisterHandler;
+sub id   { 30 }
+
+sub edit_conditions
+{
+    return {
+        ModDefs::QUALITY_LOW => {
+            duration     => 0,
+            votes        => 0,
+            expireaction => ModDefs::EXPIRE_ACCEPT,
+            autoedit     => 1,
+            name         => $_[0]->Name,
+        },  
+        ModDefs::QUALITY_NORMAL => {
+            duration     => 0,
+            votes        => 0,
+            expireaction => ModDefs::EXPIRE_ACCEPT,
+            autoedit     => 1,
+            name         => $_[0]->Name,
+        },
+        ModDefs::QUALITY_HIGH => {
+            duration     => 0,
+            votes        => 0,
+            expireaction => ModDefs::EXPIRE_REJECT,
+            autoedit     => 1,
+            name         => $_[0]->Name,
+        },
+    }
+}
 
 sub PreInsert
 {

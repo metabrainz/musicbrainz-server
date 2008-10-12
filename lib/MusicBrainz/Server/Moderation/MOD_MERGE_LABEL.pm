@@ -31,7 +31,34 @@ use ModDefs qw( :labelid :modstatus MODBOT_MODERATOR );
 use base 'Moderation';
 
 sub Name { "Merge Labels" }
-(__PACKAGE__)->RegisterHandler;
+sub id { 58 }
+
+sub edit_conditions
+{
+    return {
+        ModDefs::QUALITY_LOW => {
+            duration     => 4,
+            votes        => 1,
+            expireaction => ModDefs::EXPIRE_ACCEPT,
+            autoedit     => 0,
+            name         => $_[0]->Name,
+        },  
+        ModDefs::QUALITY_NORMAL => {
+            duration     => 14,
+            votes        => 3,
+            expireaction => ModDefs::EXPIRE_ACCEPT,
+            autoedit     => 0,
+            name         => $_[0]->Name,
+        },
+        ModDefs::QUALITY_HIGH => {
+            duration     => 14,
+            votes        => 4,
+            expireaction => ModDefs::EXPIRE_ACCEPT,
+            autoedit     => 0,
+            name         => $_[0]->Name,
+        },
+    }
+}
 
 sub PreInsert
 {

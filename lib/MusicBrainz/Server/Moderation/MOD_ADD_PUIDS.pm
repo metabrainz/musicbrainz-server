@@ -31,7 +31,34 @@ use ModDefs;
 use base 'Moderation';
 
 sub Name { "Add PUIDs" }
-(__PACKAGE__)->RegisterHandler;
+sub id { 47 }
+
+sub edit_conditions
+{
+    return {
+        ModDefs::QUALITY_LOW => {
+            duration     => 0,
+            votes        => 0,
+            expireaction => ModDefs::EXPIRE_ACCEPT,
+            autoedit     => 1,
+            name         => $_[0]->Name,
+        },  
+        ModDefs::QUALITY_NORMAL => {
+            duration     => 0,
+            votes        => 0,
+            expireaction => ModDefs::EXPIRE_ACCEPT,
+            autoedit     => 1,
+            name         => $_[0]->Name,
+        },
+        ModDefs::QUALITY_HIGH => {
+            duration     => 0,
+            votes        => 0,
+            expireaction => ModDefs::EXPIRE_REJECT,
+            autoedit     => 0,
+            name         => $_[0]->Name,
+        },
+    }
+}
 
 sub PreInsert
 {
