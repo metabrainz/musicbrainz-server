@@ -25,10 +25,10 @@
 
 package MusicBrainz::Server::Track;
 
-use TableBase;
-{ our @ISA = qw( TableBase ) }
-
 use strict;
+use warnings;
+
+use base 'TableBase';
 
 use Carp qw( carp croak );
 use DBDefs;

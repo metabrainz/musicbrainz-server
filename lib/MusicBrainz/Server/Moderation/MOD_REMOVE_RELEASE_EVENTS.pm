@@ -23,14 +23,16 @@
 #   $Id: MOD_MERGE_RELEASE_MAC.pm 7397 2006-05-01 12:56:48Z keschte $
 #____________________________________________________________________________
 
-use strict;
-
 package MusicBrainz::Server::Moderation::MOD_REMOVE_RELEASE_EVENTS;
 
-use ModDefs;
+use strict;
+use warnings;
+
 use base qw(
 	MusicBrainz::Server::Moderation::MOD_EDIT_RELEASE_EVENTS_OLD
 );
+
+use ModDefs;
 
 sub Token() { "MOD_REMOVE_RELEASE_EVENTS" }
 sub Type() { &ModDefs::MOD_REMOVE_RELEASE_EVENTS }

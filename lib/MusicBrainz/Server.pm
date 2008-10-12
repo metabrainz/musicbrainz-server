@@ -71,7 +71,7 @@ __PACKAGE__->config->{'Plugin::Authentication'} = {
     }
 };
 
-__PACKAGE__->config->{form} => {
+__PACKAGE__->config->{'form'} = {
     no_fillin       => 1,
     pre_load_forms  => 1,
     form_name_space => 'MusicBrainz::Server::Forms',

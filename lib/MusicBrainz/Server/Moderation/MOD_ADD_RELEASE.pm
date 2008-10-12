@@ -227,41 +227,37 @@ sub PreInsert
 
 	# Now we actually insert the album and tracks,
 	# and maybe also some artists, a disc ID, TRMs etc.
-	{
-		require Insert;
-		my $in = Insert->new($self->{DBH});
+    require Insert;
+    my $in = Insert->new($self->{DBH});
 
-		if (my $d = DebugLog->open)
-		{
-			$d->stamp;
-			$d->dumper([$in, \%info], ['in', 'info']);
-			$d->close;
-		}
-	
-		unless (defined $in->Insert(\%info))
-		{
-			$self->SetError($in->GetError);
-			die $self;
-		}
+    if (my $d = DebugLog->open)
+    {
+        $d->stamp;
+        $d->dumper([$in, \%info], ['in', 'info']);
+        $d->close;
+    }
 
-		use DebugLog;
-		if (my $d = DebugLog->open)
-		{
-			$d->stamp;
-			$d->dumper([$in, \%info], ['in', 'info']);
-			$d->close;
-		}
-	}
+    unless (defined $in->Insert(\%info))
+    {
+        $self->SetError($in->GetError);
+        die $self;
+    }
+
+    use DebugLog;
+    if (my $d = DebugLog->open)
+    {
+        $d->stamp;
+        $d->dumper([$in, \%info], ['in', 'info']);
+        $d->close;
+    }
 
 	# Store all the insert IDs
 
 	# Previously this was conditional, but AFAICT not having a new album ID
 	# must be a fatal error, right?
-	{
-		my $albumid = $info{'album_insertid'}
-			or die;
-		$new{"AlbumId"} = $albumid;
-	}
+    my $albumid = $info{'album_insertid'}
+        or die;
+    $new{"AlbumId"} = $albumid;
 
 	if (my $id = $info{artist_insertid})
 	{

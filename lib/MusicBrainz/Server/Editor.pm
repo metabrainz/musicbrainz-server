@@ -586,12 +586,12 @@ sub CreditModerator
 	my $self = $this->newFromId($uid)
 		or die;
 
-	use ModDefs qw( STATUS_FAILEDVOTE STATUS_APPLIED );
+	use ModDefs;
 
 	my $column = (
-		($status == STATUS_FAILEDVOTE)
+		($status == ModDefs::STATUS_FAILEDVOTE)
 			? "modsrejected"
-			: ($status == STATUS_APPLIED)
+			: ($status == ModDefs::STATUS_APPLIED)
 				? ($isautoeditor ? "automodsaccepted" : "modsaccepted")
 				: "modsfailed"
 	);

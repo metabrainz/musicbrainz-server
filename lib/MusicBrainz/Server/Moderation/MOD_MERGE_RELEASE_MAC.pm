@@ -28,10 +28,11 @@ package MusicBrainz::Server::Moderation::MOD_MERGE_RELEASE_MAC;
 use strict;
 use warnings;
 
-use ModDefs;
 use base qw(
 	MusicBrainz::Server::Moderation::MOD_MERGE_RELEASE
 );
+
+use ModDefs;
 
 # Workaround: when Moderation.pm evaluates these two methods it installs them
 # as constants for speed.  However since it then installs our parent-class'

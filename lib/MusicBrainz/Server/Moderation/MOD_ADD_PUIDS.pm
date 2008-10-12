@@ -23,12 +23,14 @@
 #   $Id$
 #____________________________________________________________________________
 
-use strict;
-
 package MusicBrainz::Server::Moderation::MOD_ADD_PUIDS;
 
-use ModDefs;
+use strict;
+use warnings;
+
 use base 'Moderation';
+
+use ModDefs;
 
 sub Name { "Add PUIDs" }
 sub moderation_id { 47 }
@@ -59,6 +61,8 @@ sub edit_conditions
         },
     }
 }
+
+sub allow_for_any_editor { 1 }
 
 sub PreInsert
 {

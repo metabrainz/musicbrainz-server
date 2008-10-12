@@ -23,12 +23,14 @@
 #   $Id$
 #____________________________________________________________________________
 
-use strict;
-
 package MusicBrainz::Server::Moderation::MOD_EDIT_RELEASE_ATTRS;
 
-use ModDefs;
+use strict;
+use warnings;
+
 use base 'Moderation';
+
+use ModDefs;
 
 sub Name { "Edit Release Attributes" }
 sub moderation_id   { 26 }

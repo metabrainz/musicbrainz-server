@@ -23,11 +23,12 @@
 #   $Id$
 #____________________________________________________________________________
 
-use strict;
-
 package Insert;
 
-use ModDefs qw( VARTIST_ID DARTIST_ID ANON_MODERATOR MODBOT_MODERATOR MOD_ADD_RELEASE );
+use strict;
+use warnings;
+
+use ModDefs qw( :artistid :userid );
 
 sub new
 {
@@ -652,17 +653,18 @@ sub InsertAlbumModeration
     {
 		require Moderation;
 		# FIXME "artist" is undef.  Does this matter?
+        # TODO Ignore the above, this is old school
 		my @mods = Moderation->InsertModeration(
 			DBH	=> $this->{DBH},
 			uid	=> $moderator || ANON_MODERATOR,
 			privs => $privs || 0,
-			type => MOD_ADD_RELEASE,
+			type => Moderation->edit_type('MOD_ADD_RELEASE'),
 			#
 			%opts,
 			artist => $artist,
 		);
 
-		(my $mod) = grep { $_->Type == MOD_ADD_RELEASE } @mods
+		(my $mod) = grep { $_->isa(Moderation->get_registered_class('MOD_ADD_RELEASE')) } @mods
 			or die;
 
 		$mod->InsertNote(

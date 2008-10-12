@@ -23,12 +23,14 @@
 #   $Id$
 #____________________________________________________________________________
 
-use strict;
-
 package MusicBrainz::Server::Moderation::MOD_REMOVE_PUID;
 
-use ModDefs;
+use strict;
+use warnings;
+
 use base 'Moderation';
+
+use ModDefs;
 
 sub Name { "Remove PUID" }
 sub moderation_id { 46 }

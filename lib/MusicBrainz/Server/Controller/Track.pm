@@ -154,12 +154,12 @@ sub change_artist : Chained('track')
 
 sub confirm_change_artist : Chained('track') Args(1)
 {
-    my ($self, $c, $new_artist) = @_;
+    my ($self, $c, $mbid) = @_;
 
     $c->forward('/user/login');
 
     my $track      = $c->stash->{track};
-    my $new_artist = $c->model('Artist')->load($new_artist);
+    my $new_artist = $c->model('Artist')->load($mbid);
     $c->stash->{new_artist} = $new_artist;
 
     my $form = $c->form($track, 'Track::ChangeArtist');

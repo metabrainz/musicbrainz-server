@@ -31,6 +31,7 @@ use ModDefs qw( :modstatus MODBOT_MODERATOR );
 use base 'Moderation';
 
 sub Name { "Edit Release Events (old version)" }
+sub moderation_id { undef; }
 
 sub edit_conditions
 {

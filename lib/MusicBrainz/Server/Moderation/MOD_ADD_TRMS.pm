@@ -27,11 +27,14 @@ use strict;
 
 package MusicBrainz::Server::Moderation::MOD_ADD_TRMS;
 
-use ModDefs;
 use base 'Moderation';
 
+use ModDefs;
+
 sub Name { "Add TRMs" }
-(__PACKAGE__)->RegisterHandler;
+sub moderation_id { 27 }
+
+sub allow_for_any_editor { 1 }
 
 sub PreInsert
 {

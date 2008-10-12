@@ -35,6 +35,12 @@ use ModDefs qw( :modstatus MODBOT_MODERATOR );
 sub Name { "Change Artist Quality" }
 sub moderation_id { 52 }
 
+sub determine_edit_conditions
+{
+    my $self = shift;
+    return $self->Moderation::GetQualityChangeDefs($self->GetQualityChangeDirection);
+}
+
 sub PreInsert
 {
 	my ($self, %opts) = @_;

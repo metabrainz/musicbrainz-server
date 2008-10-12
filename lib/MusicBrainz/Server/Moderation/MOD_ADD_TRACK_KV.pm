@@ -31,7 +31,7 @@ use warnings;
 use base 'Moderation';
 
 use ModDefs;
-use Carp qw( croak );
+use Carp;
 
 sub Name { "Add Track" }
 sub moderation_id   { 18 }

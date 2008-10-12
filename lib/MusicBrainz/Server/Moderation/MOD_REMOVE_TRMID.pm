@@ -23,15 +23,17 @@
 #   $Id$
 #____________________________________________________________________________
 
-use strict;
-
 package MusicBrainz::Server::Moderation::MOD_REMOVE_TRMID;
 
-use ModDefs;
+use strict;
+use warnings;
+
 use base 'Moderation';
 
+use ModDefs;
+
 sub Name { "Remove TRM ID" }
-(__PACKAGE__)->RegisterHandler;
+sub moderation_id { 22 }
 
 sub PreInsert
 {
