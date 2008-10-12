@@ -35,7 +35,7 @@ use MusicBrainz::Server::Link;
 use MusicBrainz::Server::Attribute;
 
 sub Name { "Add Relationship" }
-sub id   { 33 }
+sub moderation_id   { 33 }
 
 sub edit_conditions
 {

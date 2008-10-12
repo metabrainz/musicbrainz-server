@@ -33,7 +33,7 @@ use base 'Moderation';
 use ModDefs;
 
 sub Name { "Remove Releases" }
-sub id   { 24 }
+sub moderation_id   { 24 }
 
 sub edit_conditions
 {

@@ -33,7 +33,7 @@ use base 'Moderation';
 use ModDefs;
 
 sub Name { "Add Artist" }
-sub id   { 17 }
+sub moderation_id   { 17 }
 
 sub edit_conditions
 {

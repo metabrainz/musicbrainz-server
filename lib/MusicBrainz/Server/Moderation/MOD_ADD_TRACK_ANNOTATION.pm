@@ -34,7 +34,7 @@ use ModDefs;
 use MusicBrainz::Server::Annotation ':type';
 
 sub Name { "Add Track Annotation" }
-sub id   { 64 }
+sub moderation_id   { 64 }
 
 sub edit_conditions
 {

@@ -33,7 +33,7 @@ use MusicBrainz::Server::Link;
 use MusicBrainz::Server::CoverArt;
 
 sub Name { "Remove Relationship" }
-sub id   { 35 }
+sub moderation_id   { 35 }
 
 sub edit_conditions
 {
@@ -42,7 +42,7 @@ sub edit_conditions
             duration     => 4,
             votes        => 1,
             expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 1,
+            autoedit     => 0,
             name         => $_[0]->Name,
         },  
         ModDefs::QUALITY_NORMAL => {

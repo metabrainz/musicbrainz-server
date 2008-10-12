@@ -31,7 +31,7 @@ use ModDefs qw( :modstatus MODBOT_MODERATOR );
 use base 'Moderation';
 
 sub Name { "Edit URL" }
-sub id { 59 }
+sub moderation_id { 59 }
 
 sub edit_conditions
 {

@@ -31,7 +31,7 @@ use ModDefs qw( :modstatus MODBOT_MODERATOR );
 use base 'Moderation';
 
 sub Name { "Edit Track Time" }
-sub id   { 45 }
+sub moderation_id   { 45 }
 
 sub edit_conditions
 {

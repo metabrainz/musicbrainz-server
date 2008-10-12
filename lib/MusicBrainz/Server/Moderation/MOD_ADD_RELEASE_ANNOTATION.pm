@@ -32,7 +32,7 @@ use MusicBrainz::Server::Annotation 'RELEASE_ANNOTATION';
 use base 'Moderation';
 
 sub Name { "Add Release Annotation" }
-sub id   { 31 }
+sub moderation_id   { 31 }
 
 sub edit_conditions
 {

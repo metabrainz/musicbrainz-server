@@ -31,7 +31,7 @@ use ModDefs qw( :modstatus DARTIST_ID MODBOT_MODERATOR );
 use base 'Moderation';
 
 sub Name { "Edit Relationship Attribute" }
-sub id   { 42 }
+sub moderation_id   { 42 }
 
 sub edit_conditions
 {

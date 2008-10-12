@@ -33,7 +33,7 @@ use base 'Moderation';
 use ModDefs qw( :artistid :modstatus MODBOT_MODERATOR );
 
 sub Name { "Convert Release to Multiple Artists" }
-sub id   { 9 }
+sub moderation_id   { 9 }
 
 sub edit_conditions
 {

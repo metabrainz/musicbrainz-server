@@ -33,7 +33,7 @@ use base 'Moderation';
 use ModDefs;
 
 sub Name { "Add Label" }
-sub id   { 54 }
+sub moderation_id   { 54 }
 
 sub edit_conditions
 {

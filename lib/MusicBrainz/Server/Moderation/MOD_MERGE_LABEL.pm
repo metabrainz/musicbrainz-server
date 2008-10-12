@@ -31,7 +31,7 @@ use ModDefs qw( :labelid :modstatus MODBOT_MODERATOR );
 use base 'Moderation';
 
 sub Name { "Merge Labels" }
-sub id { 58 }
+sub moderation_id { 58 }
 
 sub edit_conditions
 {

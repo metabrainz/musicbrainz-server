@@ -32,7 +32,7 @@ use base 'Moderation';
 use MusicBrainz::Server::Link;
 
 sub Name { "Edit Relationship" }
-sub id   { 34 }
+sub moderation_id   { 34 }
 
 sub edit_conditions
 {

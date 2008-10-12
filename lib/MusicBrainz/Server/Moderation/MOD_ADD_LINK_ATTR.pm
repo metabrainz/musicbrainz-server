@@ -33,7 +33,7 @@ use base 'Moderation';
 use ModDefs qw( :modstatus DARTIST_ID MODBOT_MODERATOR );
 
 sub Name { "Add Relationship Attribute" }
-sub id   { 41 }
+sub moderation_id   { 41 }
 
 sub edit_conditions
 {

@@ -34,7 +34,7 @@ use Sql;
 use MusicBrainz::Server::Track;
 
 sub Name { "Set Release Durations" }
-sub id { 53 }
+sub moderation_id { 53 }
 
 sub edit_conditions
 {

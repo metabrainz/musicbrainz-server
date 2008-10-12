@@ -33,7 +33,7 @@ use base 'Moderation';
 use ModDefs qw( :modstatus :artistid MODBOT_MODERATOR MOD_MERGE_ARTIST );
 
 sub Name { "Edit Artist Name" }
-sub id   { 1 }
+sub moderation_id   { 1 }
 
 sub edit_conditions
 {

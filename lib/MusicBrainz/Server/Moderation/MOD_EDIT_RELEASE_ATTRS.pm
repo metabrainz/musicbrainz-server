@@ -31,7 +31,7 @@ use ModDefs;
 use base 'Moderation';
 
 sub Name { "Edit Release Attributes" }
-sub id   { 26 }
+sub moderation_id   { 26 }
 
 sub edit_conditions
 {

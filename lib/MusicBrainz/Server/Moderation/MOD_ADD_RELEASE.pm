@@ -33,7 +33,7 @@ use base 'Moderation';
 use ModDefs;
 
 sub Name { "Add Release" }
-sub id   { 16 }
+sub moderation_id   { 16 }
 
 sub edit_conditions
 {

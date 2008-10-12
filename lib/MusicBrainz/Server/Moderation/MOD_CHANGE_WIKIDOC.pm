@@ -31,7 +31,7 @@ use ModDefs qw( :modstatus :artistid MODBOT_MODERATOR VARTIST_ID );
 use base 'Moderation';
 
 sub Name { "Change Wikidoc" }
-sub id { 48 }
+sub moderation_id { 48 }
 
 sub edit_conditions
 {

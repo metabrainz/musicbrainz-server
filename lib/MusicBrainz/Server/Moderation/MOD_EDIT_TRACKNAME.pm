@@ -33,7 +33,7 @@ use base 'Moderation';
 use ModDefs qw( :modstatus MODBOT_MODERATOR );
 
 sub Name { "Edit Track Name" }
-sub id   { 4 }
+sub moderation_id   { 4 }
 
 sub edit_conditions
 {

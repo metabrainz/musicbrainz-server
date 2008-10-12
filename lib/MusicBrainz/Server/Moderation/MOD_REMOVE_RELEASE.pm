@@ -33,7 +33,7 @@ use base 'Moderation';
 use ModDefs qw( :modstatus MODBOT_MODERATOR );
 
 sub Name { "Remove Release" }
-sub id   { 12 }
+sub moderation_id   { 12 }
 
 sub edit_conditions
 {

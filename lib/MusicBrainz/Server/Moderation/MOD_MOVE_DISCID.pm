@@ -33,7 +33,7 @@ use base 'Moderation';
 use ModDefs qw( :modstatus MODBOT_MODERATOR );
 
 sub Name { "Move Disc ID" }
-sub id   { 21 }
+sub moderation_id   { 21 }
 
 sub edit_conditions
 {

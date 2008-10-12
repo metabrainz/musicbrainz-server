@@ -33,7 +33,7 @@ use base 'Moderation';
 use ModDefs qw( :modstatus MODBOT_MODERATOR );
 
 sub Name { "Add Label Alias" }
-sub id   { 60 }
+sub moderation_id   { 60 }
 
 sub edit_conditions
 {

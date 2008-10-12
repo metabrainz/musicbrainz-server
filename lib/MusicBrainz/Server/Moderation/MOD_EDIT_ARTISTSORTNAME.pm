@@ -33,7 +33,7 @@ use base 'Moderation';
 use ModDefs qw( :modstatus :artistid MODBOT_MODERATOR );
 
 sub Name { "Edit Artist Sortname" }
-sub id   { 2 }
+sub moderation_id   { 2 }
 
 sub edit_conditions
 {

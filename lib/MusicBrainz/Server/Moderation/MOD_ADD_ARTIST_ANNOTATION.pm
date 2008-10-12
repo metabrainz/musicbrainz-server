@@ -34,7 +34,7 @@ use ModDefs;
 use MusicBrainz::Server::Annotation ':type';
 
 sub Name { "Add Artist Annotation" }
-sub id   { 30 }
+sub moderation_id   { 30 }
 
 sub edit_conditions
 {

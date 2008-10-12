@@ -34,7 +34,7 @@ use ModDefs qw( :modstatus MODBOT_MODERATOR VARTIST_ID );
 use Carp;
 
 sub Name { "Convert Release to Single Artist" }
-sub id   { 13 }
+sub moderation_id   { 13 }
 
 sub edit_conditions
 {

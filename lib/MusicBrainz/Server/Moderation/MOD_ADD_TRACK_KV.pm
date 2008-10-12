@@ -34,7 +34,7 @@ use ModDefs;
 use Carp qw( croak );
 
 sub Name { "Add Track" }
-sub id   { 18 }
+sub moderation_id   { 18 }
 
 sub edit_conditions
 {

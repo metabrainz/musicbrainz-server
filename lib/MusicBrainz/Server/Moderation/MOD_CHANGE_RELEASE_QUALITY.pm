@@ -33,7 +33,7 @@ use base 'Moderation';
 use ModDefs qw( :modstatus MODBOT_MODERATOR );
 
 sub Name { "Change Release Quality" }
-sub id   { 63 }
+sub moderation_id   { 63 }
 
 sub PreInsert
 {

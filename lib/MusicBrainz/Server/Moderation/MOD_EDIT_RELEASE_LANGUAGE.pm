@@ -31,7 +31,7 @@ use ModDefs qw( :modstatus MODBOT_MODERATOR );
 use base 'Moderation';
 
 sub Name { "Edit Release Language" }
-sub id { 44 }
+sub moderation_id { 44 }
 
 sub edit_conditions
 {

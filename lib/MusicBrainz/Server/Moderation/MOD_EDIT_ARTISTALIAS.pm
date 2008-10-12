@@ -31,7 +31,7 @@ use ModDefs qw( :modstatus MODBOT_MODERATOR );
 use base 'Moderation';
 
 sub Name { "Edit Artist Alias" }
-sub id   { 28 }
+sub moderation_id   { 28 }
 
 sub edit_conditions
 {

@@ -31,7 +31,7 @@ use ModDefs qw( :modstatus MODBOT_MODERATOR );
 use base 'Moderation';
 
 sub Name { "Edit Label" }
-sub id { 55 }
+sub moderation_id { 55 }
 
 sub edit_conditions
 {

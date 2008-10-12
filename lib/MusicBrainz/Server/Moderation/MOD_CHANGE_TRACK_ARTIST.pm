@@ -31,7 +31,7 @@ use ModDefs qw( :artistid :modstatus MODBOT_MODERATOR );
 use base 'Moderation';
 
 sub Name { "Change Track Artist" }
-(__PACKAGE__)->RegisterHandler;
+sub moderation_id { 10 } 
 
 sub PreInsert
 {

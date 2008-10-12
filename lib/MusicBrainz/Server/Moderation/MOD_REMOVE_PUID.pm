@@ -31,7 +31,7 @@ use ModDefs;
 use base 'Moderation';
 
 sub Name { "Remove PUID" }
-sub id { 46 }
+sub moderation_id { 46 }
 
 sub edit_conditions
 {

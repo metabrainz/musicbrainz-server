@@ -31,7 +31,7 @@ use ModDefs qw( :modstatus MODBOT_MODERATOR );
 use base 'Moderation';
 
 sub Name { "Remove Label Alias" }
-sub id   { 62}
+sub moderation_id   { 62}
 
 sub edit_conditions
 {
@@ -53,8 +53,8 @@ sub edit_conditions
         ModDefs::QUALITY_HIGH => {
             duration     => 14,
             votes        => 4,
-            expireaction => ModDefs::EXPIRE_REJECT,
-            autoedit     => 1,
+            expireaction => ModDefs::EXPIRE_ACCEPT,
+            autoedit     => 0,
             name         => $_[0]->Name,
         },
     }

@@ -35,7 +35,7 @@ use base qw(
 sub Token() { "MOD_ADD_RELEASE_EVENTS" }
 sub Type() { &ModDefs::MOD_ADD_RELEASE_EVENTS }
 sub Name { "Add Release Events" }
-sub id   { 49 }
+sub moderation_id   { 49 }
 
 sub edit_conditions
 {

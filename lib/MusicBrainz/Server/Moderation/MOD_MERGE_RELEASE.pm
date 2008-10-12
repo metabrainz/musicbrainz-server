@@ -35,7 +35,7 @@ use base 'Moderation';
 use ModDefs qw( :modstatus MODBOT_MODERATOR MOD_MERGE_RELEASE_MAC );
 
 sub Name { "Merge Releases" }
-sub id   { 23 }
+sub moderation_id   { 23 }
 
 sub edit_conditions
 {

@@ -33,7 +33,7 @@ use base 'Moderation';
 use ModDefs qw( :modstatus :artistid MODBOT_MODERATOR );
 
 sub Name { "Remove Artist" }
-sub id   { 19 }
+sub moderation_id   { 19 }
 
 sub edit_conditions
 {

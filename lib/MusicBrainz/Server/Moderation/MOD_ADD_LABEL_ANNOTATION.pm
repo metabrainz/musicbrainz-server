@@ -34,7 +34,7 @@ use ModDefs;
 use MusicBrainz::Server::Annotation ':type';
 
 sub Name { "Add Label Annotation" }
-sub id   { 57 }
+sub moderation_id   { 57 }
 
 sub edit_conditions
 {

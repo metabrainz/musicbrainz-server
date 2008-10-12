@@ -31,7 +31,7 @@ use ModDefs qw( :modstatus MODBOT_MODERATOR );
 use base 'Moderation';
 
 sub Name { "Remove Label" }
-sub id { 56 }
+sub moderation_id { 56 }
 
 sub edit_conditions
 {

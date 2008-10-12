@@ -33,7 +33,7 @@ use base 'Moderation';
 use ModDefs;
 
 sub Name { "Add Track (old version)" }
-sub id   { 7 }
+sub moderation_id   { 7 }
 
 sub edit_conditions
 {

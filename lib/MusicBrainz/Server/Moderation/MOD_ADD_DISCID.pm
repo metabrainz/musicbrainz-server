@@ -33,7 +33,7 @@ use base 'Moderation';
 use ModDefs qw( :modstatus MODBOT_MODERATOR );
 
 sub Name { "Add Disc ID" }
-sub id   { 32 }
+sub moderation_id   { 32 }
 
 sub edit_conditions
 {
@@ -42,7 +42,7 @@ sub edit_conditions
             duration     => 0,
             votes        => 0,
             expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 0,
+            autoedit     => 1,
             name         => $_[0]->Name,
         },  
         ModDefs::QUALITY_NORMAL => {
