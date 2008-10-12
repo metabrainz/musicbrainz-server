@@ -10,7 +10,7 @@ use ModDefs;
 
 sub remove_from_release
 {
-    my ($self, $release) = shift;
+    my ($self, $release) = @_;
     
     my $user  = $self->context->user;
     my $track = $self->item;
@@ -27,8 +27,8 @@ sub remove_from_release
 
     if (scalar @mods)
     {
-        $mods[0]->InsertNote($c->user->id, $form->value('edit_note'))
-            if $form->value('edit_note') =~ /\S/;
+        $mods[0]->InsertNote($user->id, $self->value('edit_note'))
+            if $self->value('edit_note') =~ /\S/;
     }
 
     return \@mods;
