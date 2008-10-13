@@ -110,7 +110,7 @@ my %incShortcuts =
     'label-rels'         => INC_LABELREL,
     'track-level-rels'   => INC_TRACKLVLRELS,
     'tags'               => INC_TAGS,
-    'rating'             => INC_RATING
+    'rating'             => INC_RATING,
 );
 
 my %typeShortcuts =
@@ -529,7 +529,7 @@ sub xml_track_list
 	require MusicBrainz::Server::Track;
 	my ($ar, $al, $inc) = @_;
 
-    my $tr_inc_mask = INC_TAGS;
+    my $tr_inc_mask = INC_TAGS | INC_RATING;
     $tr_inc_mask |= INC_MASK_RELS
         if ($inc & INC_TRACKLVLRELS);
     my $tr_inc = $inc & $tr_inc_mask;
@@ -707,7 +707,7 @@ sub xml_rating
     my $rt = MusicBrainz::Server::Rating->new($dbh);
     my $rating = $rt->GetRatingForEntity($entity, $id);
 
-    print '<rating votes-count="'. $rating->{rating_count} .'">'. $rating->{rating} .'</rating>';
+    print '<rating votes-count="'. ($rating->{rating_count} || 0) .'">'. $rating->{rating} .'</rating>';
     return undef;
 }
 
