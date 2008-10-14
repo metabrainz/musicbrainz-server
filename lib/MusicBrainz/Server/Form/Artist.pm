@@ -164,7 +164,7 @@ sub update_model
     if(defined $item)
     {
         # An artist was passed when we created the form, so this is an update edit
-        $moderation{type} = Moderation->get_registered_class('MOD_EDIT_ARTIST')->id;
+        $moderation{type} = ModDefs::MOD_EDIT_ARTIST;
 
         $moderation{artist} = $item;
         $moderation{name} = $self->value('name') || $item->name;
@@ -178,7 +178,7 @@ sub update_model
     else
     {
         # No artist was passed, so we are creating a new artist.
-        $moderation{type} = Moderation->get_registered_class('MOD_ADD_ARTIST')->id;
+        $moderation{type} = ModDefs::MOD_ADD_ARTIST;
 
         $moderation{name} = $self->value('name');
         $moderation{sortname} = $self->value('sortname');

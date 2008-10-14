@@ -34,34 +34,7 @@ use Sql;
 use MusicBrainz::Server::Track;
 
 sub Name { "Set Release Durations" }
-sub moderation_id { 53 }
-
-sub edit_conditions
-{
-    return {
-        ModDefs::QUALITY_LOW => {
-            duration     => 4,
-            votes        => 1,
-            expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 1,
-            name         => $_[0]->Name,
-        },  
-        ModDefs::QUALITY_NORMAL => {
-            duration     => 14,
-            votes        => 3,
-            expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 1,
-            name         => $_[0]->Name,
-        },
-        ModDefs::QUALITY_HIGH => {
-            duration     => 14,
-            votes        => 4,
-            expireaction => ModDefs::EXPIRE_REJECT,
-            autoedit     => 0,
-            name         => $_[0]->Name,
-        },
-    }
-}
+(__PACKAGE__)->RegisterHandler;
 
 sub TrackLengthsFromTOC
 {
@@ -103,11 +76,11 @@ sub PreInsert
            CDTOCId => $cdtoc->id
     );
 
-    $self->new_data($self->ConvertHashToNew(\%new));
-	$self->previous_data($prevdurs);
+    $self->SetNew($self->ConvertHashToNew(\%new));
+	$self->SetPrev($prevdurs);
 	$self->artist($release->artist);
 	$self->table("album");
-	$self->column("cdtoc.text");
+	$self->SetColumn("cdtoc.text");
 	$self->row_id($release->id);
 }
 
@@ -115,7 +88,7 @@ sub PostLoad
 {
 	my $self = shift;
 
-	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->new_data)
+	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->GetNew)
 		or die;
 	($self->{"albumid"}, $self->{"checkexists-album"}) = ($self->row_id, 1);
 } 

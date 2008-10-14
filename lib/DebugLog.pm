@@ -24,9 +24,9 @@
 #   $Id$
 #____________________________________________________________________________
 
-package DebugLog;
-
 use strict;
+
+package DebugLog;
 
 sub open
 {

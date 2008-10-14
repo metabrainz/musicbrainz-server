@@ -31,7 +31,7 @@ use ModDefs qw( :artistid :modstatus MODBOT_MODERATOR );
 use base 'Moderation';
 
 sub Name { "Change Track Artist" }
-sub moderation_id { 10 } 
+(__PACKAGE__)->RegisterHandler;
 
 sub PreInsert
 {
@@ -44,11 +44,11 @@ sub PreInsert
 	my $newartistid = $opts{'artistid'} or die;
 
 	$self->table("track");
-	$self->column("artist");
+	$self->SetColumn("artist");
 	$self->row_id($tr->id);
 	$self->artist($ar->id);
-	$self->previous_data($ar->name);
-	$self->new_data($sortname . "\n" . $name . "\n" . $newartistid);
+	$self->SetPrev($ar->name);
+	$self->SetNew($sortname . "\n" . $name . "\n" . $newartistid);
 }
 
 sub PostLoad
@@ -56,7 +56,7 @@ sub PostLoad
 	my $this = shift;
 	
 	# parse new into fields
-	my ($sortname, $name, $newid) = split /\n/, $this->new_data;
+	my ($sortname, $name, $newid) = split /\n/, $this->GetNew;
 	$name = $sortname if not defined $name;
 
 	@$this{qw( new.sortname new.name new.id )} = ($sortname, $name, $newid);

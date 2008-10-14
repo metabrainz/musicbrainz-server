@@ -23,12 +23,11 @@
 #   $Id$
 #____________________________________________________________________________
 
+use strict;
+
 package Insert;
 
-use strict;
-use warnings;
-
-use ModDefs qw( :artistid :userid );
+use ModDefs qw( VARTIST_ID DARTIST_ID ANON_MODERATOR MODBOT_MODERATOR MOD_ADD_RELEASE );
 
 sub new
 {
@@ -314,7 +313,7 @@ sub _Insert
         {
             die "Insert failed: Cannot insert artist.\n";
         }
-        $info->{artist_insertid} = $artistid if ($ar->new_insert());
+        $info->{artist_insertid} = $artistid if ($ar->GetNewInsert());
     }
     $info->{_artistid} = $artistid;
 
@@ -378,7 +377,7 @@ sub _Insert
            {
                die "Insert failed: cannot insert new album.\n";
            }
-           $info->{album_insertid} = $albumid if ($al->new_insert());
+           $info->{album_insertid} = $albumid if ($al->GetNewInsert());
         }
         else
         {
@@ -399,7 +398,7 @@ sub _Insert
                {
                    die "Insert failed: cannot insert new album.\n";
                }
-               $info->{album_insertid} = $albumid if ($al->new_insert());
+               $info->{album_insertid} = $albumid if ($al->GetNewInsert());
            }
            else
            {
@@ -473,7 +472,7 @@ TRACK:
                 $newtrm = $trm->Insert($track->{trmid}, $albumtrack->id());
                 if (defined $newtrm)
                 {
-                    $track->{trm_insertid} = $newtrm if ($trm->new_insert());
+                    $track->{trm_insertid} = $newtrm if ($trm->GetNewInsert());
                 }
                 
                 next TRACK;
@@ -487,7 +486,7 @@ TRACK:
                 $newpuid = $puid->Insert($track->{puid}, $albumtrack->id());
                 if (defined $newpuid)
                 {
-                    $track->{puid_insertid} = $newpuid if ($puid->new_insert());
+                    $track->{puid_insertid} = $newpuid if ($puid->GetNewInsert());
                 }
                 
                 next TRACK;
@@ -536,7 +535,7 @@ TRACK:
             {
                 die "Track Insert failed: Cannot insert artist.\n";
             }
-            if ($ar->new_insert())
+            if ($ar->GetNewInsert())
             {
                 #print STDERR "Inserted artist: $track_insertartistid\n";
                 $track->{artist_insertid} = $track_insertartistid 
@@ -565,7 +564,7 @@ TRACK:
 			# insert track using the verified track artist            
             $mar->id($track_artistid);
             $trackid = $tr->Insert($al, $mar);
-            $track->{track_insertid} = $trackid if ($tr->new_insert());
+            $track->{track_insertid} = $trackid if ($tr->GetNewInsert());
         }
         else
         {
@@ -587,7 +586,7 @@ TRACK:
             my $newtrm = $trm->Insert($track->{trmid}, $trackid);
             if (defined $newtrm)
             {
-                $track->{trm_insertid} = $newtrm if ($trm->new_insert());
+                $track->{trm_insertid} = $newtrm if ($trm->GetNewInsert());
             }
         }
         
@@ -597,7 +596,7 @@ TRACK:
             my $newpuid = $puid->Insert($track->{puid}, $trackid);
             if (defined $newpuid)
             {
-                $track->{puid_insertid} = $newpuid if ($puid->new_insert());
+                $track->{puid_insertid} = $newpuid if ($puid->GetNewInsert());
             }
         }
     }
@@ -653,18 +652,17 @@ sub InsertAlbumModeration
     {
 		require Moderation;
 		# FIXME "artist" is undef.  Does this matter?
-        # TODO Ignore the above, this is old school
 		my @mods = Moderation->InsertModeration(
 			DBH	=> $this->{DBH},
 			uid	=> $moderator || ANON_MODERATOR,
 			privs => $privs || 0,
-			type => Moderation->edit_type('MOD_ADD_RELEASE'),
+			type => MOD_ADD_RELEASE,
 			#
 			%opts,
 			artist => $artist,
 		);
 
-		(my $mod) = grep { $_->isa(Moderation->get_registered_class('MOD_ADD_RELEASE')) } @mods
+		(my $mod) = grep { $_->Type == MOD_ADD_RELEASE } @mods
 			or die;
 
 		$mod->InsertNote(

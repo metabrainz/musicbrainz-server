@@ -23,21 +23,18 @@
 #   $Id: MOD_MERGE_RELEASE_MAC.pm 7397 2006-05-01 12:56:48Z keschte $
 #____________________________________________________________________________
 
+use strict;
+
 package MusicBrainz::Server::Moderation::MOD_EDIT_RELEASE_EVENTS;
 
-use strict;
-use warnings;
-
+use ModDefs;
 use base qw(
 	MusicBrainz::Server::Moderation::MOD_EDIT_RELEASE_EVENTS_OLD
 );
 
-use ModDefs;
-
 sub Token() { "MOD_EDIT_RELEASE_EVENTS" }
 sub Type() { &ModDefs::MOD_EDIT_RELEASE_EVENTS }
 sub Name { "Edit Release Events" }
-sub moderation_id { 50 }
 
 (__PACKAGE__)->RegisterHandler;
 

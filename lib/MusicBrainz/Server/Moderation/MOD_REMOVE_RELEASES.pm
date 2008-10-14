@@ -23,44 +23,15 @@
 #   $Id$
 #____________________________________________________________________________
 
+use strict;
+
 package MusicBrainz::Server::Moderation::MOD_REMOVE_RELEASES;
 
-use strict;
-use warnings;
-
+use ModDefs;
 use base 'Moderation';
 
-use ModDefs;
-
 sub Name { "Remove Releases" }
-sub moderation_id   { 24 }
-
-sub edit_conditions
-{
-    return {
-        ModDefs::QUALITY_LOW => {
-            duration     => 4,
-            votes        => 1,
-            expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 1,
-            name         => $_[0]->Name,
-        },  
-        ModDefs::QUALITY_NORMAL => {
-            duration     => 14,
-            votes        => 3,
-            expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 0,
-            name         => $_[0]->Name,
-        },
-        ModDefs::QUALITY_HIGH => {
-            duration     => 14,
-            votes        => 4,
-            expireaction => ModDefs::EXPIRE_REJECT,
-            autoedit     => 0,
-            name         => $_[0]->Name,
-        },
-    }
-}
+(__PACKAGE__)->RegisterHandler;
 
 sub PreInsert
 {
@@ -93,16 +64,16 @@ sub PreInsert
 			: $albums->[0]->artist
 	);
 	$self->table("album");
-	$self->column("id");
+	$self->SetColumn("id");
 	$self->row_id($albums->[0]->id); # misleading
-	$self->new_data($self->ConvertHashToNew(\%new));
+	$self->SetNew($self->ConvertHashToNew(\%new));
 }
 
 sub PostLoad
 {
 	my $self = shift;
 
-	my $new = $self->{'new_unpacked'} = $self->ConvertNewToHash($self->new_data)
+	my $new = $self->{'new_unpacked'} = $self->ConvertNewToHash($self->GetNew)
 		or die;
 
 	my @albums;

@@ -176,10 +176,8 @@ sub Do
 		my $err = $@;
 
 		$this->{ERR} = $this->{DBH}->errstr;
-        my $error = sprintf("Failed Query:\n\t%s\n\t%s\n$err\n",
-                            $query, join(qw{ }, @params), $err);
-    	cluck($error)
-	    	unless ($this->{Quiet});
+		cluck("Failed query:\n	'$query'\n	(@params)\n$err\n")
+			unless ($this->{Quiet});
 		die $err;
 	}
 	return 0+$ret;
@@ -405,11 +403,6 @@ sub SelectSingleColumnArray
 {
 	my ($this, $query, @params) = @_;
 
-    if (!defined $this->{DBH})
-    {
-        croak "Cannot select with a DBH";
-    }
-
 	my $col = eval
 	{
 		my $tt = Sql::Timer->new($query, \@params) if SQL_DEBUG;
@@ -436,10 +429,7 @@ sub SelectSingleColumnArray
 
 	my $err = $@;
 	$this->{ERR} = $this->{DBH}->errstr;
-
-    my $error = sprintf("Failed Query:\n\t%s\n\t%s\n%s\n", $query,
-                        join(qw{ }, @params), $err);
-	cluck($error)
+	cluck("Failed query:\n	'$query'\n	(@params)\n$err\n")
 		unless ($this->{Quiet});
 	die $err;
 }

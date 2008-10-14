@@ -23,44 +23,15 @@
 #   $Id$
 #____________________________________________________________________________
 
+use strict;
+
 package MusicBrainz::Server::Moderation::MOD_REMOVE_TRACK;
 
-use strict;
-use warnings;
-
+use ModDefs qw( :modstatus MODBOT_MODERATOR );
 use base 'Moderation';
 
-use ModDefs qw( :modstatus MODBOT_MODERATOR );
-
 sub Name { "Remove Track" }
-sub moderation_id   { 11 }
-
-sub edit_conditions
-{
-    return {
-        ModDefs::QUALITY_LOW => {
-            duration     => 4,
-            votes        => 1,
-            expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 0,
-            name         => $_[0]->Name,
-        },  
-        ModDefs::QUALITY_NORMAL => {
-            duration     => 14,
-            votes        => 3,
-            expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 0,
-            name         => $_[0]->Name,
-        },
-        ModDefs::QUALITY_HIGH => {
-            duration     => 14,
-            votes        => 4,
-            expireaction => ModDefs::EXPIRE_REJECT,
-            autoedit     => 0,
-            name         => $_[0]->Name,
-        },
-    }
-}
+(__PACKAGE__)->RegisterHandler;
 
 sub PreInsert
 {
@@ -70,9 +41,9 @@ sub PreInsert
 	my $al = $opts{'album'} or die;
 
 	$self->artist($tr->artist->id);
-	$self->previous_data($tr->name . "\n" . $al->id . "\n" . $al->IsNonAlbumTracks . "\n" . $tr->sequence . "\n" . $tr->length);
+	$self->SetPrev($tr->name . "\n" . $al->id . "\n" . $al->IsNonAlbumTracks . "\n" . $tr->sequence . "\n" . $tr->length);
 	$self->table("track");
-	$self->column("name");
+	$self->SetColumn("name");
 	$self->row_id($tr->id);
 }
 
@@ -84,7 +55,7 @@ sub PostLoad
 			   prev.albumid 
 			   prev.isnonalbumtracks 
 			   prev.trackseq 
-			   prev.tracklength)} = split /\n/, $self->previous_data;
+			   prev.tracklength)} = split /\n/, $self->GetPrev;
 
 	# attempt to load the release/track entities from the values
 	# stored in this edit type. (@see Moderation::ShowModType method)

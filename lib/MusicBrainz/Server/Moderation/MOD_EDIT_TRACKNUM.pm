@@ -23,44 +23,15 @@
 #   $Id$
 #____________________________________________________________________________
 
+use strict;
+
 package MusicBrainz::Server::Moderation::MOD_EDIT_TRACKNUM;
 
-use strict;
-use warnings;
-
+use ModDefs qw( :modstatus MODBOT_MODERATOR );
 use base 'Moderation';
 
-use ModDefs qw( :modstatus MODBOT_MODERATOR );
-
 sub Name { "Edit Track Number" }
-sub moderation_id   { 5 }
-
-sub edit_conditions
-{
-    return {
-        ModDefs::QUALITY_LOW => {
-            duration     => 4,
-            votes        => 1,
-            expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 1,
-            name         => $_[0]->Name,
-        },  
-        ModDefs::QUALITY_NORMAL => {
-            duration     => 14,
-            votes        => 3,
-            expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 1,
-            name         => $_[0]->Name,
-        },
-        ModDefs::QUALITY_HIGH => {
-            duration     => 14,
-            votes        => 4,
-            expireaction => ModDefs::EXPIRE_REJECT,
-            autoedit     => 0,
-            name         => $_[0]->Name,
-        },
-    }
-}
+(__PACKAGE__)->RegisterHandler;
 
 sub PreInsert
 {
@@ -70,10 +41,10 @@ sub PreInsert
 	my $newseq = $opts{'newseq'} or die;
 
 	$self->artist($track->artist->id);
-	$self->previous_data($track->sequence);
-	$self->new_data(0+$newseq);
+	$self->SetPrev($track->sequence);
+	$self->SetNew(0+$newseq);
 	$self->table("albumjoin");
-	$self->column("sequence");
+	$self->SetColumn("sequence");
 	$self->row_id($track->sequence_id);
 }
 
@@ -139,7 +110,7 @@ sub ApprovedAction
 		return STATUS_FAILEDPREREQ;
 	}
 
-	unless ($track->sequence == $this->previous_data)
+	unless ($track->sequence == $this->GetPrev)
 	{
 		$this->InsertNote(MODBOT_MODERATOR, "This track has already been renumbered");
 		return STATUS_FAILEDDEP;
@@ -149,7 +120,7 @@ sub ApprovedAction
 	# (but if you do that, it makes it very hard to swap/rotate
 	# tracks within an album).
 
-	$track->sequence($this->new_data);
+	$track->sequence($this->GetNew);
 	$track->UpdateSequence;
 
 	STATUS_APPLIED;

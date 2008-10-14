@@ -55,12 +55,12 @@ sub GetCandidate	{ $_[0]{candidate} }
 sub GetProposer		{ $_[0]{proposer} }
 sub GetSeconder1	{ $_[0]{seconder_1} }
 sub GetSeconder2	{ $_[0]{seconder_2} }
-sub status		{ $_[0]{status} }
-sub yes_votes		{ $_[0]{yesvotes} }
-sub no_votes		{ $_[0]{novotes} }
+sub GetStatus		{ $_[0]{status} }
+sub GetYesVotes		{ $_[0]{yesvotes} }
+sub GetNoVotes		{ $_[0]{novotes} }
 sub GetProposeTime	{ $_[0]{proposetime} }
-sub open_time		{ $_[0]{opentime} }
-sub close_time	{ $_[0]{closetime} }
+sub GetOpenTime		{ $_[0]{opentime} }
+sub GetCloseTime	{ $_[0]{closetime} }
 
 sub GetElections
 {
@@ -145,10 +145,10 @@ sub _Refresh
 	$self;
 }
 
-sub status_name
+sub GetStatusName
 {
 	my ($self, $status) = @_;
-	$status = $self->status unless defined $status;
+	$status = $self->GetStatus unless defined $status;
 	$descstatus{$status};
 }
 
@@ -222,7 +222,7 @@ sub _Close
 	my $self = shift;
 	my $sql = Sql->new($self->{DBH});
 
-	$self->{status} = (($self->yes_votes > $self->no_votes) ? $STATUS_ACCEPTED : $STATUS_REJECTED);
+	$self->{status} = (($self->GetYesVotes > $self->GetNoVotes) ? $STATUS_ACCEPTED : $STATUS_REJECTED);
 	# NOTE closetime not set
 
 	$sql->Do(
@@ -414,7 +414,7 @@ sub Cancel
 		unless $self->GetProposer == $canceller;
 
 	$@ = "VOTING_CLOSED", return
-		if $self->status =~ /^($STATUS_ACCEPTED|$STATUS_REJECTED|$STATUS_CANCELLED)$/o;
+		if $self->GetStatus =~ /^($STATUS_ACCEPTED|$STATUS_REJECTED|$STATUS_CANCELLED)$/o;
 
 	$sql->Do(
 		"UPDATE automod_election

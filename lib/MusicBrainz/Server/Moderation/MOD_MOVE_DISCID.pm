@@ -23,44 +23,15 @@
 #   $Id$
 #____________________________________________________________________________
 
+use strict;
+
 package MusicBrainz::Server::Moderation::MOD_MOVE_DISCID;
 
-use strict;
-use warnings;
-
+use ModDefs qw( :modstatus MODBOT_MODERATOR );
 use base 'Moderation';
 
-use ModDefs qw( :modstatus MODBOT_MODERATOR );
-
 sub Name { "Move Disc ID" }
-sub moderation_id   { 21 }
-
-sub edit_conditions
-{
-    return {
-        ModDefs::QUALITY_LOW => {
-            duration     => 4,
-            votes        => 1,
-            expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 1,
-            name         => $_[0]->Name,
-        },  
-        ModDefs::QUALITY_NORMAL => {
-            duration     => 14,
-            votes        => 3,
-            expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 1,
-            name         => $_[0]->Name,
-        },
-        ModDefs::QUALITY_HIGH => {
-            duration     => 14,
-            votes        => 4,
-            expireaction => ModDefs::EXPIRE_REJECT,
-            autoedit     => 0,
-            name         => $_[0]->Name,
-        },
-    }
-}
+(__PACKAGE__)->RegisterHandler;
 
 =pod
 
@@ -126,10 +97,10 @@ sub PreInsert
 	$alcdtoc->MoveToRelease($newal, \$already_there);
 
 	$self->table("album_cdtoc");
-	$self->column("album");
+	$self->SetColumn("album");
 	$self->row_id($alcdtoc->id);
 	$self->artist($oldal->artist);
-	$self->previous_data($oldal->id);
+	$self->SetPrev($oldal->id);
 
 	my %new = (
 		OldAlbumName	=> $oldal->name,
@@ -141,18 +112,18 @@ sub PreInsert
 		AlreadyThere	=> $already_there ? 1 : 0,
 	);
 
-	$self->new_data($self->ConvertHashToNew(\%new));
+	$self->SetNew($self->ConvertHashToNew(\%new));
 }
 
 sub PostLoad
 {
 	my $self = shift;
-	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->new_data)
+	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->GetNew)
 		or die;
 		
 	# verify if release still exists in Moderation.ShowModType method.
 	my $new = $self->{'new_unpacked'};
-	($self->{"albumid"}, $self->{"checkexists-album"}) = ($self->previous_data, 1);			
+	($self->{"albumid"}, $self->{"checkexists-album"}) = ($self->GetPrev, 1);			
 	($self->{"albumname"}) = ($new->{"OldAlbumName"});			
 }
 
@@ -198,7 +169,7 @@ sub DeniedAction
 	my $album_cdtoc = MusicBrainz::Server::ReleaseCDTOC->newFromId($self->{DBH}, $self->row_id)
 		or do {
 			$self->InsertNote(MODBOT_MODERATOR, "This disc ID has been deleted");
-			$self->status(STATUS_FAILEDDEP);
+			$self->SetStatus(STATUS_FAILEDDEP);
 			return;
 		};
 
@@ -206,11 +177,11 @@ sub DeniedAction
 	# (the mod is applied, we need to revert it when it is voted down)
 	require MusicBrainz::Server::Release;
 	my $oldal = MusicBrainz::Server::Release->new($self->{DBH});
-	$oldal->id($self->previous_data);
+	$oldal->id($self->GetPrev);
 	unless ($oldal->LoadFromId)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "The source release has been deleted");
-		$self->status(STATUS_FAILEDDEP);
+		$self->SetStatus(STATUS_FAILEDDEP);
 		return;
 	}
 
@@ -221,19 +192,19 @@ sub DeniedAction
 	unless ($al->LoadFromId)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "The destination release has been deleted");
-		$self->status(STATUS_FAILEDDEP);
+		$self->SetStatus(STATUS_FAILEDDEP);
 		return;
 	}
 
 	if ($new->{"AlreadyThere"})
 	{
 		# Create a new association between the old album and FullTOC
-		MusicBrainz::Server::ReleaseCDTOC->Insert($self->{DBH}, $self->previous_data, $new->{"FullTOC"});
+		MusicBrainz::Server::ReleaseCDTOC->Insert($self->{DBH}, $self->GetPrev, $new->{"FullTOC"});
 	} else {
 		# Move the row back to the old album
 		my $alcdtoc = MusicBrainz::Server::ReleaseCDTOC->newFromId($self->{DBH}, $self->row_id)
 			or return;
-		$alcdtoc->MoveToRelease($self->previous_data);
+		$alcdtoc->MoveToRelease($self->GetPrev);
 	}
 }
 

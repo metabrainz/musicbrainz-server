@@ -23,44 +23,15 @@
 #   $Id$
 #____________________________________________________________________________
 
+use strict;
+
 package MusicBrainz::Server::Moderation::MOD_EDIT_RELEASE_ATTRS;
 
-use strict;
-use warnings;
-
+use ModDefs;
 use base 'Moderation';
 
-use ModDefs;
-
 sub Name { "Edit Release Attributes" }
-sub moderation_id   { 26 }
-
-sub edit_conditions
-{
-    return {
-        ModDefs::QUALITY_LOW => {
-            duration     => 4,
-            votes        => 1,
-            expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 1,
-            name         => $_[0]->Name,
-        },  
-        ModDefs::QUALITY_NORMAL => {
-            duration     => 14,
-            votes        => 3,
-            expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 1,
-            name         => $_[0]->Name,
-        },
-        ModDefs::QUALITY_HIGH => {
-            duration     => 14,
-            votes        => 4,
-            expireaction => ModDefs::EXPIRE_REJECT,
-            autoedit     => 0,
-            name         => $_[0]->Name,
-        },
-    }
-}
+(__PACKAGE__)->RegisterHandler;
 
 =pod
 
@@ -141,9 +112,9 @@ sub PreInsert
 	);
 
 	$self->table("album");
-	$self->column("id");
+	$self->SetColumn("id");
 	$self->row_id($albums->[0]->id);
-	$self->new_data($self->ConvertHashToNew(\%new));
+	$self->SetNew($self->ConvertHashToNew(\%new));
 
 	# This mod is immediately applied, and undone later if rejected.
  	for my $al (@$albums)
@@ -163,7 +134,7 @@ sub PostLoad
 {
 	my $self = shift;
 
-	my $new = $self->{'new_unpacked'} = $self->ConvertNewToHash($self->new_data)
+	my $new = $self->{'new_unpacked'} = $self->ConvertNewToHash($self->GetNew)
 		or die;
 
 	my @albums;
@@ -175,7 +146,7 @@ sub PostLoad
 		my $name = $new->{"AlbumName$i"};
 		defined($name) or last;
 		my $prev = $new->{"Prev$i"};
-		$prev = $self->previous_data unless defined $prev;
+		$prev = $self->GetPrev unless defined $prev;
 
 		push @albums, { id => $id, name => $name, prev => $prev };
 	}

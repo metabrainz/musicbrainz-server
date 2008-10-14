@@ -23,44 +23,15 @@
 #   $Id$
 #____________________________________________________________________________
 
+use strict;
+
 package MusicBrainz::Server::Moderation::MOD_EDIT_TRACKNAME;
 
-use strict;
-use warnings;
-
+use ModDefs qw( :modstatus MODBOT_MODERATOR );
 use base 'Moderation';
 
-use ModDefs qw( :modstatus MODBOT_MODERATOR );
-
 sub Name { "Edit Track Name" }
-sub moderation_id   { 4 }
-
-sub edit_conditions
-{
-    return {
-        ModDefs::QUALITY_LOW => {
-            duration     => 4,
-            votes        => 1,
-            expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 1,
-            name         => $_[0]->Name,
-        },  
-        ModDefs::QUALITY_NORMAL => {
-            duration     => 14,
-            votes        => 3,
-            expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 1,
-            name         => $_[0]->Name,
-        },
-        ModDefs::QUALITY_HIGH => {
-            duration     => 14,
-            votes        => 4,
-            expireaction => ModDefs::EXPIRE_REJECT,
-            autoedit     => 0,
-            name         => $_[0]->Name,
-        },
-    }
-}
+(__PACKAGE__)->RegisterHandler;
 
 sub PreInsert
 {
@@ -71,17 +42,17 @@ sub PreInsert
 	$newname =~ /\S/ or die;
 
 	$self->artist($track->artist->id);
-	$self->previous_data($track->name);
-	$self->new_data($newname);
+	$self->SetPrev($track->name);
+	$self->SetNew($newname);
 	$self->table("track");
-	$self->column("name");
+	$self->SetColumn("name");
 	$self->row_id($track->id);
 }
 
 sub IsAutoEdit
 {
 	my $this = shift;
-	my ($old, $new) = $this->_normalise_strings($this->previous_data, $this->new_data);
+	my ($old, $new) = $this->_normalise_strings($this->GetPrev, $this->GetNew);
 	$old eq $new;
 }
 
@@ -143,14 +114,14 @@ sub CheckPrerequisites
 	}
 
 	# Check that its name has not changed
-	if ($track->name ne $self->previous_data)
+	if ($track->name ne $self->GetPrev)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This track has already been renamed");
 		return STATUS_FAILEDPREREQ;
 	}
 
 	# FIXME utf-8 length required
-	if (length($self->new_data) > 255)
+	if (length($self->GetNew) > 255)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This name is too long - the maximum allowed length is 255 characters");
 		return STATUS_ERROR;
@@ -172,7 +143,7 @@ sub ApprovedAction
 	my $track = $this->{_track}
 		or die;
 
-	$track->name($this->new_data);
+	$track->name($this->GetNew);
 	$track->UpdateName;
 
 	STATUS_APPLIED;

@@ -107,7 +107,7 @@ sub has_mod_pending
     return $self->{modpending};
 }
 
-sub new_insert
+sub GetNewInsert
 {
    return $_[0]->{new_insert};
 }

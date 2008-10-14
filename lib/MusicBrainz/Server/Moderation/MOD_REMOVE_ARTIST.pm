@@ -23,44 +23,15 @@
 #   $Id$
 #____________________________________________________________________________
 
+use strict;
+
 package MusicBrainz::Server::Moderation::MOD_REMOVE_ARTIST;
 
-use strict;
-use warnings;
-
+use ModDefs qw( :modstatus :artistid MODBOT_MODERATOR );
 use base 'Moderation';
 
-use ModDefs qw( :modstatus :artistid MODBOT_MODERATOR );
-
 sub Name { "Remove Artist" }
-sub moderation_id   { 19 }
-
-sub edit_conditions
-{
-    return {
-        ModDefs::QUALITY_LOW => {
-            duration     => 4,
-            votes        => 1,
-            expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 1,
-            name         => $_[0]->Name,
-        },  
-        ModDefs::QUALITY_NORMAL => {
-            duration     => 14,
-            votes        => 3,
-            expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 1,
-            name         => $_[0]->Name,
-        },
-        ModDefs::QUALITY_HIGH => {
-            duration     => 14,
-            votes        => 4,
-            expireaction => ModDefs::EXPIRE_REJECT,
-            autoedit     => 0,
-            name         => $_[0]->Name,
-        },
-    }
-}
+(__PACKAGE__)->RegisterHandler;
 
 sub PreInsert
 {
@@ -71,9 +42,9 @@ sub PreInsert
 	die if $ar->id == DARTIST_ID;
 
 	$self->artist($ar->id);
-	$self->previous_data($ar->name);
+	$self->SetPrev($ar->name);
 	$self->table("artist");
-	$self->column("name");
+	$self->SetColumn("name");
 	$self->row_id($ar->id);
 }
 

@@ -23,44 +23,15 @@
 #   $Id$
 #____________________________________________________________________________
 
+use strict;
+
 package MusicBrainz::Server::Moderation::MOD_REMOVE_PUID;
 
-use strict;
-use warnings;
-
+use ModDefs;
 use base 'Moderation';
 
-use ModDefs;
-
 sub Name { "Remove PUID" }
-sub moderation_id { 46 }
-
-sub edit_conditions
-{
-    return {
-        ModDefs::QUALITY_LOW => {
-            duration     => 4,
-            votes        => 1,
-            expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 1,
-            name         => $_[0]->Name,
-        },  
-        ModDefs::QUALITY_NORMAL => {
-            duration     => 14,
-            votes        => 3,
-            expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 1,
-            name         => $_[0]->Name,
-        },
-        ModDefs::QUALITY_HIGH => {
-            duration     => 14,
-            votes        => 4,
-            expireaction => ModDefs::EXPIRE_REJECT,
-            autoedit     => 0,
-            name         => $_[0]->Name,
-        },
-    }
-}
+(__PACKAGE__)->RegisterHandler;
 
 sub PreInsert
 {
@@ -71,10 +42,10 @@ sub PreInsert
 	my $puidjoinid = $opts{'puidjoinid'} or die;
 
 	$self->table("puidjoin");
-	$self->column("id");
+	$self->SetColumn("id");
 	$self->row_id($puidjoinid);
 	$self->artist($track->artist->id);
-	$self->previous_data($puid);
+	$self->SetPrev($puid);
 
 	# Save the PUID's clientversion in case we need to re-add it
 	require MusicBrainz::Server::PUID;
@@ -86,7 +57,7 @@ sub PreInsert
 		ClientVersion => $clientversion,
 	);
 
-	$self->new_data($self->ConvertHashToNew(\%new));
+	$self->SetNew($self->ConvertHashToNew(\%new));
 
 	# This is one of those mods where we give the user instant gratification,
 	# then undo the mod later if it's rejected.
@@ -98,7 +69,7 @@ sub PreInsert
 sub PostLoad
 {
 	my $self = shift;
-	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->new_data)
+	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->GetNew)
 		or die;
 		
 	my $new = $self->{'new_unpacked'};
@@ -162,7 +133,7 @@ sub DeniedAction
 
 	require MusicBrainz::Server::PUID;
 	my $t = MusicBrainz::Server::PUID->new($self->{DBH});
-	my $id = $t->Insert($self->previous_data, $trackid, $new->{'ClientVersion'});
+	my $id = $t->Insert($self->GetPrev, $trackid, $new->{'ClientVersion'});
 
 	# The above Insert can fail, usually if the row in the "puid" table
 	# needed to be re-inserted but we neglected to save the clientversion

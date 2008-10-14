@@ -23,44 +23,15 @@
 #   $Id$
 #____________________________________________________________________________
 
+use strict;
+
 package MusicBrainz::Server::Moderation::MOD_REMOVE_DISCID;
 
-use strict;
-use warnings;
-
+use ModDefs qw( :modstatus MODBOT_MODERATOR );
 use base 'Moderation';
 
-use ModDefs qw( :modstatus MODBOT_MODERATOR );
-
 sub Name { "Remove Disc ID" }
-sub moderation_id   { 20 }
-
-sub edit_conditions
-{
-    return {
-        ModDefs::QUALITY_LOW => {
-            duration     => 4,
-            votes        => 1,
-            expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 1,
-            name         => $_[0]->Name,
-        },  
-        ModDefs::QUALITY_NORMAL => {
-            duration     => 14,
-            votes        => 3,
-            expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 0,
-            name         => $_[0]->Name,
-        },
-        ModDefs::QUALITY_HIGH => {
-            duration     => 14,
-            votes        => 4,
-            expireaction => ModDefs::EXPIRE_REJECT,
-            autoedit     => 0,
-            name         => $_[0]->Name,
-        },
-    }
-}
+(__PACKAGE__)->RegisterHandler;
 
 =pod
 
@@ -101,10 +72,10 @@ sub PreInsert
 	}
 
 	$self->table("album_cdtoc");
-	$self->column("album");
+	$self->SetColumn("album");
 	$self->row_id($alcdtoc->id);
 	$self->artist($oldrelease->artist);
-	$self->previous_data($cdtoc->disc_id);
+	$self->SetPrev($cdtoc->disc_id);
 
 	my %new = (
 		AlbumName => $oldrelease->name,
@@ -112,7 +83,7 @@ sub PreInsert
 		FullTOC => $cdtoc->toc,
 		CDTOCId => $cdtoc->id,
 	);
-	$self->new_data($self->ConvertHashToNew(\%new));
+	$self->SetNew($self->ConvertHashToNew(\%new));
 }
 
 sub PostLoad
@@ -122,7 +93,7 @@ sub PostLoad
 	# 1. the word "DELETE"
 	# 2. blank
 	# 3. a hash of AlbumName,AlbumId,FullTOC,CDTOCId.
-	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->new_data)
+	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->GetNew)
 		|| {};
 		
 	# verify if release still exists in Moderation.ShowModType method.

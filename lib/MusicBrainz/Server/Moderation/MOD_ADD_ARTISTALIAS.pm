@@ -23,44 +23,15 @@
 #   $Id$
 #____________________________________________________________________________
 
+use strict;
+
 package MusicBrainz::Server::Moderation::MOD_ADD_ARTISTALIAS;
 
-use strict;
-use warnings;
-
+use ModDefs qw( :modstatus MODBOT_MODERATOR );
 use base 'Moderation';
 
-use ModDefs qw( :modstatus MODBOT_MODERATOR );
-
 sub Name { "Add Artist Alias" }
-sub moderation_id   { 15 }
-
-sub edit_conditions
-{
-    return {
-        ModDefs::QUALITY_LOW => {
-            duration     => 4,
-            votes        => 1,
-            expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 1,
-            name         => $_[0]->Name,
-        },  
-        ModDefs::QUALITY_NORMAL => {
-            duration     => 14,
-            votes        => 3,
-            expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 1,
-            name         => $_[0]->Name,
-        },
-        ModDefs::QUALITY_HIGH => {
-            duration     => 14,
-            votes        => 4,
-            expireaction => ModDefs::EXPIRE_REJECT,
-            autoedit     => 0,
-            name         => $_[0]->Name,
-        },
-    }
-}
+(__PACKAGE__)->RegisterHandler;
 
 sub PreInsert
 {
@@ -70,7 +41,7 @@ sub PreInsert
 	my $newalias = $opts{'newalias'};
 	defined $newalias or die;
 
-	# Check that the alias $self->new_data does not exist
+	# Check that the alias $self->GetNew does not exist
 	require MusicBrainz::Server::Alias;
 	my $al = MusicBrainz::Server::Alias->new($self->{DBH});
 	$al->table("ArtistAlias");
@@ -89,10 +60,10 @@ sub PreInsert
 	}
 
 	$self->artist($ar->id);
-	$self->previous_data($ar->name);
-	$self->new_data($newalias);
+	$self->SetPrev($ar->name);
+	$self->SetNew($newalias);
 	$self->table("artist");
-	$self->column("name");
+	$self->SetColumn("name");
 	$self->row_id($ar->id);
 }
 
@@ -126,17 +97,17 @@ sub CheckPrerequisites
 		return STATUS_FAILEDPREREQ;
 	}
 
-	# Check that the alias $self->new_data does not exist
+	# Check that the alias $self->GetNew does not exist
 	require MusicBrainz::Server::Alias;
 	my $al = MusicBrainz::Server::Alias->new($self->{DBH});
 	$al->table("ArtistAlias");
 
-	if (my $other = $al->newFromName($self->new_data))
+	if (my $other = $al->newFromName($self->GetNew))
 	{
 		my $url = "http://" . &DBDefs::WEB_SERVER
 			. "/showaliases.html?artistid=" . $other->row_id;
 
-		my $note = "There is already an alias called '".$self->new_data."'"
+		my $note = "There is already an alias called '".$self->GetNew."'"
 			. " (see $url)"
 			. " - duplicate aliases are not yet supported";
 
@@ -159,7 +130,7 @@ sub ApprovedAction
 	$al->table("ArtistAlias");
 
 	my $other;
-	if ($al->Insert($self->row_id, $self->new_data, \$other))
+	if ($al->Insert($self->row_id, $self->GetNew, \$other))
 	{
 		return STATUS_APPLIED;
 	}
@@ -172,7 +143,7 @@ sub ApprovedAction
 	{
 		my $url = "http://" . &DBDefs::WEB_SERVER
 			. "/showaliases.html?artistid=" . $other->row_id;
-		my $newname = $self->new_data;
+		my $newname = $self->GetNew;
 		$message = "There is already an alias called '$newname' (see $url)"
 			. " - duplicate aliases are not yet supported";
 	}

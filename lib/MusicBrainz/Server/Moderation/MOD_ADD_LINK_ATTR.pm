@@ -23,44 +23,15 @@
 #   $Id$
 #____________________________________________________________________________
 
+use strict;
+
 package MusicBrainz::Server::Moderation::MOD_ADD_LINK_ATTR;
 
-use strict;
-use warnings;
-
+use ModDefs qw( :modstatus DARTIST_ID MODBOT_MODERATOR );
 use base 'Moderation';
 
-use ModDefs qw( :modstatus DARTIST_ID MODBOT_MODERATOR );
-
 sub Name { "Add Relationship Attribute" }
-sub moderation_id   { 41 }
-
-sub edit_conditions
-{
-    return {
-        ModDefs::QUALITY_LOW => {
-            duration     => 4,
-            votes        => 1,
-            expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 1,
-            name         => $_[0]->Name,
-        },  
-        ModDefs::QUALITY_NORMAL => {
-            duration     => 14,
-            votes        => 3,
-            expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 1,
-            name         => $_[0]->Name,
-        },
-        ModDefs::QUALITY_HIGH => {
-            duration     => 14,
-            votes        => 4,
-            expireaction => ModDefs::EXPIRE_REJECT,
-            autoedit     => 0,
-            name         => $_[0]->Name,
-        },
-    }
-}
+(__PACKAGE__)->RegisterHandler;
 
 sub PreInsert
 {
@@ -85,7 +56,7 @@ sub PreInsert
 
 	$self->artist(DARTIST_ID);
 	$self->table($parent->{_table});
-	$self->column("name");
+	$self->SetColumn("name");
 	$self->row_id($child->id);
 
 	my %new = (
@@ -97,13 +68,13 @@ sub PreInsert
 		parent_name => $parent->name,
 	);
 
-	$self->new_data($self->ConvertHashToNew(\%new));
+	$self->SetNew($self->ConvertHashToNew(\%new));
 }
 
 sub PostLoad
 {
 	my $self = shift;
-	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->new_data)
+	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->GetNew)
 		or die;
 }
 

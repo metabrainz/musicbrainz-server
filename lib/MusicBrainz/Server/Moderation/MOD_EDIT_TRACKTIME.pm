@@ -31,34 +31,7 @@ use ModDefs qw( :modstatus MODBOT_MODERATOR );
 use base 'Moderation';
 
 sub Name { "Edit Track Time" }
-sub moderation_id   { 45 }
-
-sub edit_conditions
-{
-    return {
-        ModDefs::QUALITY_LOW => {
-            duration     => 4,
-            votes        => 1,
-            expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 1,
-            name         => $_[0]->Name,
-        },  
-        ModDefs::QUALITY_NORMAL => {
-            duration     => 14,
-            votes        => 3,
-            expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 1,
-            name         => $_[0]->Name,
-        },
-        ModDefs::QUALITY_HIGH => {
-            duration     => 14,
-            votes        => 4,
-            expireaction => ModDefs::EXPIRE_REJECT,
-            autoedit     => 0,
-            name         => $_[0]->Name,
-        },
-    }
-}
+(__PACKAGE__)->RegisterHandler;
 
 sub PreInsert
 {
@@ -68,10 +41,10 @@ sub PreInsert
 	my $newlength = $opts{'newlength'};
 
 	$self->artist($track->artist->id);
-	$self->previous_data($track->length);
-	$self->new_data(0+$newlength);
+	$self->SetPrev($track->length);
+	$self->SetNew(0+$newlength);
 	$self->table("track");
-	$self->column("length");
+	$self->SetColumn("length");
 	$self->row_id($track->id);
 }
 
@@ -127,7 +100,7 @@ sub IsAutoEdit
 {
 	my $self = shift;
 
-	return $self->previous_data == 0 && $self->new_data != 0;
+	return $self->GetPrev == 0 && $self->GetNew != 0;
 }
 
 sub ApprovedAction
@@ -143,13 +116,13 @@ sub ApprovedAction
 		return STATUS_FAILEDPREREQ;
 	}
 
-	unless ($track->length == $self->previous_data)
+	unless ($track->length == $self->GetPrev)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "Track time has already been changed");
 		return STATUS_FAILEDDEP;
 	}
 	
-	$track->length($self->new_data);
+	$track->length($self->GetNew);
 	$track->UpdateLength;
 
 	STATUS_APPLIED;

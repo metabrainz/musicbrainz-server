@@ -31,34 +31,7 @@ use ModDefs qw( :modstatus :artistid MODBOT_MODERATOR VARTIST_ID );
 use base 'Moderation';
 
 sub Name { "Change Wikidoc" }
-sub moderation_id { 48 }
-
-sub edit_conditions
-{
-    return {
-        ModDefs::QUALITY_LOW => {
-            duration     => 4,
-            votes        => 1,
-            expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 1,
-            name         => $_[0]->Name,
-        },  
-        ModDefs::QUALITY_NORMAL => {
-            duration     => 14,
-            votes        => 3,
-            expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 1,
-            name         => $_[0]->Name,
-        },
-        ModDefs::QUALITY_HIGH => {
-            duration     => 14,
-            votes        => 4,
-            expireaction => ModDefs::EXPIRE_REJECT,
-            autoedit     => 0,
-            name         => $_[0]->Name,
-        },
-    }
-}
+(__PACKAGE__)->RegisterHandler;
 
 sub PreInsert
 {
@@ -76,18 +49,18 @@ sub PreInsert
 	$new{'Rev'} = $rev;
 
 	$self->artist(VARTIST_ID);
-	$self->previous_data($self->ConvertHashToNew(\%prev));
-	$self->new_data($self->ConvertHashToNew(\%new));
+	$self->SetPrev($self->ConvertHashToNew(\%prev));
+	$self->SetNew($self->ConvertHashToNew(\%new));
 	$self->table("artist");
-	$self->column("name");
+	$self->SetColumn("name");
 	$self->row_id(VARTIST_ID);
 }
 
 sub PostLoad
 {
 	my $self = shift;
-	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->new_data()) or die;
-	$self->{'prev_unpacked'} = $self->ConvertNewToHash($self->previous_data()) or die;
+	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->GetNew()) or die;
+	$self->{'prev_unpacked'} = $self->ConvertNewToHash($self->GetPrev()) or die;
 }
 
 1;

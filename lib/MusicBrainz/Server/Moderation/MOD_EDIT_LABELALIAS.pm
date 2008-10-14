@@ -23,43 +23,15 @@
 #   $Id$
 #____________________________________________________________________________
 
-package MusicBrainz::Server::Moderation::MOD_EDIT_LABELALIAS;
-
 use strict;
-use warnings;
+
+package MusicBrainz::Server::Moderation::MOD_EDIT_LABELALIAS;
 
 use ModDefs qw( :modstatus MODBOT_MODERATOR );
 use base 'Moderation';
 
 sub Name { "Edit Label Alias" }
-sub moderation_id   { 61 }
-
-sub edit_conditions
-{
-    return {
-        ModDefs::QUALITY_LOW => {
-            duration     => 4,
-            votes        => 1,
-            expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 1,
-            name         => $_[0]->Name,
-        },  
-        ModDefs::QUALITY_NORMAL => {
-            duration     => 14,
-            votes        => 3,
-            expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 1,
-            name         => $_[0]->Name,
-        },
-        ModDefs::QUALITY_HIGH => {
-            duration     => 14,
-            votes        => 4,
-            expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 0,
-            name         => $_[0]->Name,
-        },
-    }
-}
+(__PACKAGE__)->RegisterHandler;
 
 sub PreInsert
 {
@@ -69,17 +41,17 @@ sub PreInsert
 	my $newname = $opts{'newname'};
 	$newname =~ /\S/ or die;
 
-	$self->previous_data($al->name);
-	$self->new_data($newname);
+	$self->SetPrev($al->name);
+	$self->SetNew($newname);
 	$self->table("labelalias");
-	$self->column("name");
+	$self->SetColumn("name");
 	$self->row_id($al->id);
 }
 
 sub IsAutoEdit
 {
 	my $self = shift;
-	my ($old, $new) = $self->_normalise_strings($self->previous_data, $self->new_data);
+	my ($old, $new) = $self->_normalise_strings($self->GetPrev, $self->GetNew);
 	$old eq $new;
 }
 
@@ -97,7 +69,7 @@ sub CheckPrerequisites
 		return STATUS_FAILEDPREREQ;
 	}
 	
-	unless ($alias->name eq $self->previous_data)
+	unless ($alias->name eq $self->GetPrev)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This alias has already been changed");
 		return STATUS_FAILEDDEP;
@@ -119,7 +91,7 @@ sub ApprovedAction
 	my $alias = $self->{_alias}
 		or die;
 
-	$alias->name($self->new_data);
+	$alias->name($self->GetNew);
 	my $other;
 	if ($alias->UpdateName(\$other))
 	{

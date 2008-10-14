@@ -23,44 +23,15 @@
 #   $Id$
 #____________________________________________________________________________
 
+use strict;
+
 package MusicBrainz::Server::Moderation::MOD_ADD_RELEASE;
 
-use strict;
-use warnings;
-
+use ModDefs;
 use base 'Moderation';
 
-use ModDefs;
-
 sub Name { "Add Release" }
-sub moderation_id   { 16 }
-
-sub edit_conditions
-{
-    return {
-        ModDefs::QUALITY_LOW => {
-            duration     => 4,
-            votes        => 1,
-            expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 1,
-            name         => $_[0]->Name,
-        },  
-        ModDefs::QUALITY_NORMAL => {
-            duration     => 14,
-            votes        => 3,
-            expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 1,
-            name         => $_[0]->Name,
-        },
-        ModDefs::QUALITY_HIGH => {
-            duration     => 14,
-            votes        => 4,
-            expireaction => ModDefs::EXPIRE_REJECT,
-            autoedit     => 0,
-            name         => $_[0]->Name,
-        },
-    }
-}
+(__PACKAGE__)->RegisterHandler;
 
 sub _DecodeText
 {
@@ -78,7 +49,7 @@ sub PreInsert
 	my %new = %opts;
 	
 	$self->table("album");
-	$self->column("name");
+	$self->SetColumn("name");
 	
 	# Force a deliberately bad value to start with - this makes it obvious if
 	# we somehow fail to insert a good value later on.
@@ -227,37 +198,41 @@ sub PreInsert
 
 	# Now we actually insert the album and tracks,
 	# and maybe also some artists, a disc ID, TRMs etc.
-    require Insert;
-    my $in = Insert->new($self->{DBH});
+	{
+		require Insert;
+		my $in = Insert->new($self->{DBH});
 
-    if (my $d = DebugLog->open)
-    {
-        $d->stamp;
-        $d->dumper([$in, \%info], ['in', 'info']);
-        $d->close;
-    }
+		if (my $d = DebugLog->open)
+		{
+			$d->stamp;
+			$d->dumper([$in, \%info], ['in', 'info']);
+			$d->close;
+		}
+	
+		unless (defined $in->Insert(\%info))
+		{
+			$self->SetError($in->GetError);
+			die $self;
+		}
 
-    unless (defined $in->Insert(\%info))
-    {
-        $self->SetError($in->GetError);
-        die $self;
-    }
-
-    use DebugLog;
-    if (my $d = DebugLog->open)
-    {
-        $d->stamp;
-        $d->dumper([$in, \%info], ['in', 'info']);
-        $d->close;
-    }
+		use DebugLog;
+		if (my $d = DebugLog->open)
+		{
+			$d->stamp;
+			$d->dumper([$in, \%info], ['in', 'info']);
+			$d->close;
+		}
+	}
 
 	# Store all the insert IDs
 
 	# Previously this was conditional, but AFAICT not having a new album ID
 	# must be a fatal error, right?
-    my $albumid = $info{'album_insertid'}
-        or die;
-    $new{"AlbumId"} = $albumid;
+	{
+		my $albumid = $info{'album_insertid'}
+			or die;
+		$new{"AlbumId"} = $albumid;
+	}
 
 	if (my $id = $info{artist_insertid})
 	{
@@ -315,13 +290,13 @@ sub PreInsert
 		if $artistmodid;
 
 	# Only one thing left to do...
-	$self->new_data($self->ConvertHashToNew(\%new));
+	$self->SetNew($self->ConvertHashToNew(\%new));
 }
 
 sub PostLoad
 {
 	my $self = shift;
-	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->new_data)
+	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->GetNew)
 		or die;
 		
 	# extract albumid from new_unpacked hash

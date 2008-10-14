@@ -23,45 +23,16 @@
 #   $Id$
 #____________________________________________________________________________
 
-package MusicBrainz::Server::Moderation::MOD_ADD_RELEASE_ANNOTATION;
-
 use strict;
-use warnings;
 
-use base 'Moderation';
+package MusicBrainz::Server::Moderation::MOD_ADD_RELEASE_ANNOTATION;
 
 use ModDefs;
 use MusicBrainz::Server::Annotation 'RELEASE_ANNOTATION';
+use base 'Moderation';
 
 sub Name { "Add Release Annotation" }
-sub moderation_id   { 31 }
-
-sub edit_conditions
-{
-    return {
-        ModDefs::QUALITY_LOW => {
-            duration     => 0,
-            votes        => 0,
-            expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 1,
-            name         => $_[0]->Name,
-        },  
-        ModDefs::QUALITY_NORMAL => {
-            duration     => 0,
-            votes        => 0,
-            expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 1,
-            name         => $_[0]->Name,
-        },
-        ModDefs::QUALITY_HIGH => {
-            duration     => 0,
-            votes        => 0,
-            expireaction => ModDefs::EXPIRE_REJECT,
-            autoedit     => 1,
-            name         => $_[0]->Name,
-        },
-    }
-}
+(__PACKAGE__)->RegisterHandler;
 
 sub PreInsert
 {
@@ -78,9 +49,9 @@ sub PreInsert
 	);
 
 	$self->artist($artistid);
-	$self->new_data($self->ConvertHashToNew(\%new));
+	$self->SetNew($self->ConvertHashToNew(\%new));
 	$self->table('album');
-	$self->column('annotation.text');
+	$self->SetColumn('annotation.text');
 	$self->row_id($albumid);
 }
 
@@ -117,7 +88,7 @@ sub ApprovedAction
 {
 	my $self = shift;
 
-	my $new = $self->ConvertNewToHash($self->new_data());
+	my $new = $self->ConvertNewToHash($self->GetNew());
 	my $changelog = $new->{ChangeLog};
 	my $text = $new->{Text};
 

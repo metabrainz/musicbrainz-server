@@ -23,44 +23,15 @@
 #   $Id$
 #____________________________________________________________________________
 
+use strict;
+
 package MusicBrainz::Server::Moderation::MOD_EDIT_ARTISTSORTNAME;
 
-use strict;
-use warnings;
-
+use ModDefs qw( :modstatus :artistid MODBOT_MODERATOR );
 use base 'Moderation';
 
-use ModDefs qw( :modstatus :artistid MODBOT_MODERATOR );
-
 sub Name { "Edit Artist Sortname" }
-sub moderation_id   { 2 }
-
-sub edit_conditions
-{
-    return {
-        ModDefs::QUALITY_LOW => {
-            duration     => 4,
-            votes        => 1,
-            expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 1,
-            name         => $_[0]->Name,
-        },  
-        ModDefs::QUALITY_NORMAL => {
-            duration     => 14,
-            votes        => 3,
-            expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 1,
-            name         => $_[0]->Name,
-        },
-        ModDefs::QUALITY_HIGH => {
-            duration     => 14,
-            votes        => 4,
-            expireaction => ModDefs::EXPIRE_REJECT,
-            autoedit     => 0,
-            name         => $_[0]->Name,
-        },
-    }
-}
+(__PACKAGE__)->RegisterHandler;
 
 sub PreInsert
 {
@@ -74,10 +45,10 @@ sub PreInsert
 	die if $ar->id == DARTIST_ID;
 
 	$self->artist($ar->id);
-	$self->previous_data($ar->sort_name);
-	$self->new_data($newname);
+	$self->SetPrev($ar->sort_name);
+	$self->SetNew($newname);
 	$self->table("artist");
-	$self->column("sortname");
+	$self->SetColumn("sortname");
 	$self->row_id($ar->id);
 }
 
@@ -97,7 +68,7 @@ sub DetermineQuality
 sub IsAutoEdit
 {
 	my $this = shift;
-	my ($old, $new) = $this->_normalise_strings($this->previous_data, $this->new_data);
+	my ($old, $new) = $this->_normalise_strings($this->GetPrev, $this->GetNew);
 	$old eq $new;
 }
 
@@ -123,13 +94,13 @@ sub ApprovedAction
 		return STATUS_FAILEDPREREQ;
 	}
 	
-	unless ($artist->sort_name eq $this->previous_data)
+	unless ($artist->sort_name eq $this->GetPrev)
 	{
 		$this->InsertNote(MODBOT_MODERATOR, "This artist's sortname has already been changed");
 		return STATUS_FAILEDDEP;
 	}
 
-	$artist->UpdateSortName($this->new_data)
+	$artist->UpdateSortName($this->GetNew)
 		or die "Failed to update artist in MOD_EDIT_ARTISTSORTNAME";
 
 	STATUS_APPLIED;

@@ -23,42 +23,15 @@
 #   $Id$
 #____________________________________________________________________________
 
-package MusicBrainz::Server::Moderation::MOD_EDIT_ARTISTALIAS;
-
 use strict;
+
+package MusicBrainz::Server::Moderation::MOD_EDIT_ARTISTALIAS;
 
 use ModDefs qw( :modstatus MODBOT_MODERATOR );
 use base 'Moderation';
 
 sub Name { "Edit Artist Alias" }
-sub moderation_id   { 28 }
-
-sub edit_conditions
-{
-    return {
-        ModDefs::QUALITY_LOW => {
-            duration     => 4,
-            votes        => 1,
-            expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 1,
-            name         => $_[0]->Name,
-        },  
-        ModDefs::QUALITY_NORMAL => {
-            duration     => 14,
-            votes        => 3,
-            expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 1,
-            name         => $_[0]->Name,
-        },
-        ModDefs::QUALITY_HIGH => {
-            duration     => 14,
-            votes        => 4,
-            expireaction => ModDefs::EXPIRE_REJECT,
-            autoedit     => 0,
-            name         => $_[0]->Name,
-        },
-    }
-}
+(__PACKAGE__)->RegisterHandler;
 
 sub PreInsert
 {
@@ -69,10 +42,10 @@ sub PreInsert
 	$newname =~ /\S/ or die;
 
 	$self->artist($al->row_id);
-	$self->previous_data($al->name);
-	$self->new_data($newname);
+	$self->SetPrev($al->name);
+	$self->SetNew($newname);
 	$self->table("artistalias");
-	$self->column("name");
+	$self->SetColumn("name");
 	$self->row_id($al->id);
 
 	# Currently there's a unique index on artistalias.name.
@@ -109,7 +82,7 @@ sub DetermineQuality
 sub IsAutoEdit
 {
 	my $self = shift;
-	my ($old, $new) = $self->_normalise_strings($self->previous_data, $self->new_data);
+	my ($old, $new) = $self->_normalise_strings($self->GetPrev, $self->GetNew);
 	$old eq $new;
 }
 
@@ -127,7 +100,7 @@ sub CheckPrerequisites
 		return STATUS_FAILEDPREREQ;
 	}
 	
-	unless ($alias->name eq $self->previous_data)
+	unless ($alias->name eq $self->GetPrev)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This alias has already been changed");
 		return STATUS_FAILEDDEP;
@@ -149,7 +122,7 @@ sub ApprovedAction
 	my $alias = $self->{_alias}
 		or die;
 
-	$alias->name($self->new_data);
+	$alias->name($self->GetNew);
 	my $other;
 	if ($alias->UpdateName(\$other))
 	{
@@ -164,7 +137,7 @@ sub ApprovedAction
 	{
 		my $url = "http://" . &DBDefs::WEB_SERVER
 			. "/showaliases.html?artistid=" . $other->row_id;
-		my $newname = $self->new_data;
+		my $newname = $self->GetNew;
 		$message = "There is already an alias called '$newname' (see $url)"
 			. " - duplicate aliases are not yet supported";
 	}

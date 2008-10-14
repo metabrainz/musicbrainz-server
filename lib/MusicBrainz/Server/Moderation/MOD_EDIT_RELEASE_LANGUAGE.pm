@@ -31,34 +31,7 @@ use ModDefs qw( :modstatus MODBOT_MODERATOR );
 use base 'Moderation';
 
 sub Name { "Edit Release Language" }
-sub moderation_id { 44 }
-
-sub edit_conditions
-{
-    return {
-        ModDefs::QUALITY_LOW => {
-            duration     => 4,
-            votes        => 1,
-            expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 1,
-            name         => $_[0]->Name,
-        },  
-        ModDefs::QUALITY_NORMAL => {
-            duration     => 14,
-            votes        => 3,
-            expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 1,
-            name         => $_[0]->Name,
-        },
-        ModDefs::QUALITY_HIGH => {
-            duration     => 14,
-            votes        => 4,
-            expireaction => ModDefs::EXPIRE_REJECT,
-            autoedit     => 0,
-            name         => $_[0]->Name,
-        },
-    }
-}
+(__PACKAGE__)->RegisterHandler;
 
 sub PreInsert
 {
@@ -117,8 +90,8 @@ sub PreInsert
 	);
 	
 	$self->table("album");
-	$self->column("id");
-	$self->new_data($self->ConvertHashToNew(\%new));
+	$self->SetColumn("id");
+	$self->SetNew($self->ConvertHashToNew(\%new));
 	$self->language_id($languageid) if $languageid;
 }
 
@@ -126,7 +99,7 @@ sub IsAutoEdit
 {
 	my $self = shift;
 
-	my $new = $self->ConvertNewToHash($self->new_data);
+	my $new = $self->ConvertNewToHash($self->GetNew);
 
 	return $new->{can_automod};
 }
@@ -135,7 +108,7 @@ sub IsAutoEdit
 sub PostLoad
 {
 	my $self = shift;
-	my $new = $self->ConvertNewToHash($self->new_data);
+	my $new = $self->ConvertNewToHash($self->GetNew);
 	my @albums;
 
 	for (my $i = 0; defined $new->{"AlbumId$i"}; $i++)
@@ -190,7 +163,7 @@ sub AdjustModPending
 sub CheckPrerequisites
 {
 	my $self = shift;
-	my $new = $self->ConvertNewToHash($self->new_data)
+	my $new = $self->ConvertNewToHash($self->GetNew)
 		or die;
 
 	my @albums;

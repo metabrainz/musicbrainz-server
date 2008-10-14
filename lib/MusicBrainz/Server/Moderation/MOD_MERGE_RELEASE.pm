@@ -23,46 +23,17 @@
 #   $Id$
 #____________________________________________________________________________
 
-package MusicBrainz::Server::Moderation::MOD_MERGE_RELEASE;
-
 use strict;
-use warnings;
 
-use base 'Moderation';
+package MusicBrainz::Server::Moderation::MOD_MERGE_RELEASE;
 
 # NOTE!  This module also handles MOD_MERGE_RELEASE_MAC
 
 use ModDefs qw( :modstatus MODBOT_MODERATOR MOD_MERGE_RELEASE_MAC );
+use base 'Moderation';
 
 sub Name { "Merge Releases" }
-sub moderation_id   { 23 }
-
-sub edit_conditions
-{
-    return {
-        ModDefs::QUALITY_LOW => {
-            duration     => 4,
-            votes        => 1,
-            expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 0,
-            name         => $_[0]->Name,
-        },  
-        ModDefs::QUALITY_NORMAL => {
-            duration     => 14,
-            votes        => 3,
-            expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 0,
-            name         => $_[0]->Name,
-        },
-        ModDefs::QUALITY_HIGH => {
-            duration     => 14,
-            votes        => 4,
-            expireaction => ModDefs::EXPIRE_REJECT,
-            autoedit     => 0,
-            name         => $_[0]->Name,
-        },
-    }
-}
+(__PACKAGE__)->RegisterHandler;
 
 sub PreInsert
 {
@@ -96,16 +67,16 @@ sub PreInsert
 
 	$self->artist($into->artist);
 	$self->table("album");
-	$self->column("id");
+	$self->SetColumn("id");
 	$self->row_id($into->id);
-	$self->new_data($self->ConvertHashToNew(\%new));
+	$self->SetNew($self->ConvertHashToNew(\%new));
 }
 
 sub PostLoad
 {
 	my $self = shift;
 
-	my $new = $self->{'new_unpacked'} = $self->ConvertNewToHash($self->new_data)
+	my $new = $self->{'new_unpacked'} = $self->ConvertNewToHash($self->GetNew)
 		or die;
 
 	my $into = $self->{'new_into'} = {
@@ -137,7 +108,7 @@ sub DetermineQuality
 {
 	my $self = shift;
 
-	my $new = $self->{'new_unpacked'} = $self->ConvertNewToHash($self->new_data)
+	my $new = $self->{'new_unpacked'} = $self->ConvertNewToHash($self->GetNew)
 		or die;
 
     my $quality = &ModDefs::QUALITY_UNKNOWN_MAPPED;

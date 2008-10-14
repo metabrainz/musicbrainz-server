@@ -25,19 +25,18 @@
 
 package MusicBrainz::Server::Artist;
 
+use TableBase;
+{ our @ISA = qw( TableBase ) }
+
 use strict;
-use warnings;
-
-use base 'TableBase';
-
 use Carp qw( carp cluck croak );
 use DBDefs;
-use Encode qw( decode encode );
-use LocaleSaver;
-use MusicBrainz::Server::Cache;
-use MusicBrainz::Server::Validation qw( unaccent );
-use POSIX qw(:locale_h);
 use String::Similarity;
+use MusicBrainz::Server::Validation qw( unaccent );
+use MusicBrainz::Server::Cache;
+use LocaleSaver;
+use POSIX qw(:locale_h);
+use Encode qw( decode encode );
 
 sub LinkEntityName { "artist" }
 

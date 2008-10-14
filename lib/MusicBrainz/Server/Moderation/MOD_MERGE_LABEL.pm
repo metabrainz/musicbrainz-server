@@ -31,34 +31,7 @@ use ModDefs qw( :labelid :modstatus MODBOT_MODERATOR );
 use base 'Moderation';
 
 sub Name { "Merge Labels" }
-sub moderation_id { 58 }
-
-sub edit_conditions
-{
-    return {
-        ModDefs::QUALITY_LOW => {
-            duration     => 4,
-            votes        => 1,
-            expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 0,
-            name         => $_[0]->Name,
-        },  
-        ModDefs::QUALITY_NORMAL => {
-            duration     => 14,
-            votes        => 3,
-            expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 0,
-            name         => $_[0]->Name,
-        },
-        ModDefs::QUALITY_HIGH => {
-            duration     => 14,
-            votes        => 4,
-            expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 0,
-            name         => $_[0]->Name,
-        },
-    }
-}
+(__PACKAGE__)->RegisterHandler;
 
 sub PreInsert
 {
@@ -81,10 +54,10 @@ sub PreInsert
 	$new{"LabelId"} = $target->id;
 
 	$self->table("label");
-	$self->column("name");
+	$self->SetColumn("name");
 	$self->row_id($source->id);
-	$self->previous_data($source->name);
-	$self->new_data($self->ConvertHashToNew(\%new));
+	$self->SetPrev($source->name);
+	$self->SetNew($self->ConvertHashToNew(\%new));
 }
 
 sub PostLoad
@@ -97,12 +70,12 @@ sub PostLoad
 	# "$sortname\n$name"
 	# or hash structure (containing at least two \n characters).
 
-	my $unpacked = $self->ConvertNewToHash($self->new_data);
+	my $unpacked = $self->ConvertNewToHash($self->GetNew);
 
 	unless ($unpacked)
 	{
 		# Name can be missing
-		@$self{qw( new.sortname new.name )} = split /\n/, $self->new_data;
+		@$self{qw( new.sortname new.name )} = split /\n/, $self->GetNew;
 
 		$self->{'new.name'} = $self->{'new.sortname'}
 			unless defined $self->{'new.name'}
@@ -132,7 +105,7 @@ sub CheckPrerequisites
 {
 	my $self = shift;
 
-	my $prevval = $self->previous_data;
+	my $prevval = $self->GetPrev;
 	my $rowid = $self->row_id;
 	my $name = $self->{'new.name'};
 	#my $sortname = $self->{'new.sortname'};

@@ -31,34 +31,7 @@ use ModDefs qw( :modstatus MODBOT_MODERATOR );
 use base 'Moderation';
 
 sub Name { "Edit Release Events (old version)" }
-sub moderation_id { undef; }
-
-sub edit_conditions
-{
-    return {
-        ModDefs::QUALITY_LOW => {
-            duration     => 4,
-            votes        => 1,
-            expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 1,
-            name         => $_[0]->Name,
-        },  
-        ModDefs::QUALITY_NORMAL => {
-            duration     => 14,
-            votes        => 3,
-            expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 1,
-            name         => $_[0]->Name,
-        },
-        ModDefs::QUALITY_HIGH => {
-            duration     => 14,
-            votes        => 4,
-            expireaction => ModDefs::EXPIRE_REJECT,
-            autoedit     => 0,
-            name         => $_[0]->Name,
-        },
-    }
-}
+(__PACKAGE__)->RegisterHandler;
 
 sub _EncodeText
 {
@@ -161,11 +134,11 @@ sub PreInsert
 		unless @adds or @edits or @removes;
 
 	$self->artist($al->artist);
-	$self->previous_data($al->name);
+	$self->SetPrev($al->name);
 	$self->table("album");
-	$self->column("releases");
+	$self->SetColumn("releases");
 	$self->row_id($al->id);
-	$self->new_data($self->ConvertHashToNew(\%new));
+	$self->SetNew($self->ConvertHashToNew(\%new));
 }
 
 sub PostLoad
@@ -173,7 +146,7 @@ sub PostLoad
 	my $self = shift;
 	my (@adds, @edits, @removes);
 	
-	$self->{"new_unpacked"} = $self->ConvertNewToHash($self->new_data)
+	$self->{"new_unpacked"} = $self->ConvertNewToHash($self->GetNew)
 		or die;
 
 	# extract albumid and changed release events from new_unpacked hash

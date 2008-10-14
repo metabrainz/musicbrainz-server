@@ -23,23 +23,15 @@
 #   $Id: MOD_CHANGE_RELEASE_QUALITY.pm 8551 2006-10-19 20:10:48Z robert $
 #____________________________________________________________________________
 
+use strict;
+
 package MusicBrainz::Server::Moderation::MOD_CHANGE_RELEASE_QUALITY;
 
-use strict;
-use warnings;
-
+use ModDefs qw( :modstatus MODBOT_MODERATOR );
 use base 'Moderation';
 
-use ModDefs qw( :modstatus MODBOT_MODERATOR );
-
 sub Name { "Change Release Quality" }
-sub moderation_id   { 63 }
-
-sub determine_edit_conditions
-{
-    my $self = shift;
-    return $self->Moderation::quality_change_defs($self->GetQualityChangeDirection);
-}
+(__PACKAGE__)->RegisterHandler;
 
 sub PreInsert
 {
@@ -90,14 +82,14 @@ sub PreInsert
 	);
 	
 	$self->table("album");
-	$self->column("id");
-	$self->new_data($self->ConvertHashToNew(\%new));
+	$self->SetColumn("id");
+	$self->SetNew($self->ConvertHashToNew(\%new));
 }
 
 sub PostLoad
 {
 	my $self = shift;
-	my $new = $self->ConvertNewToHash($self->new_data);
+	my $new = $self->ConvertNewToHash($self->GetNew);
 	my @releases;
     my $l = &ModDefs::QUALITY_HIGH;
     my $quality;
@@ -134,7 +126,7 @@ sub GetQualityChangeDirection
 sub CheckPrerequisites
 {
 	my $self = shift;
-	my $new = $self->ConvertNewToHash($self->new_data)
+	my $new = $self->ConvertNewToHash($self->GetNew)
 		or die;
 
 	my @releases;
@@ -184,7 +176,7 @@ sub CheckPrerequisites
 sub AdjustModPending
 {
 	my ($self, $adjust) = @_;
-	my $new = $self->ConvertNewToHash($self->new_data)
+	my $new = $self->ConvertNewToHash($self->GetNew)
 		or die;
 
 	my @releases;

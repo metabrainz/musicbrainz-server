@@ -33,34 +33,7 @@ use MusicBrainz::Server::Link;
 use MusicBrainz::Server::CoverArt;
 
 sub Name { "Remove Relationship" }
-sub moderation_id   { 35 }
-
-sub edit_conditions
-{
-    return {
-        ModDefs::QUALITY_LOW => {
-            duration     => 4,
-            votes        => 1,
-            expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 0,
-            name         => $_[0]->Name,
-        },  
-        ModDefs::QUALITY_NORMAL => {
-            duration     => 14,
-            votes        => 3,
-            expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 0,
-            name         => $_[0]->Name,
-        },
-        ModDefs::QUALITY_HIGH => {
-            duration     => 14,
-            votes        => 4,
-            expireaction => ModDefs::EXPIRE_REJECT,
-            autoedit     => 0,
-            name         => $_[0]->Name,
-        },
-    }
-}
+(__PACKAGE__)->RegisterHandler;
 
 sub PreInsert
 {
@@ -81,7 +54,7 @@ sub PreInsert
 	    $self->artist($ents[0]->id);
 	}
 	$self->table($link->Table);
-	$self->column("id");
+	$self->SetColumn("id");
 	$self->row_id($link->id);
 
 	require MusicBrainz::Server::LinkType;
@@ -109,13 +82,13 @@ sub PreInsert
 		begindate=>$link->begin_date(),
 		enddate=>$link->end_date(),
 	);
-	$self->new_data($self->ConvertHashToNew(\%new));
+	$self->SetNew($self->ConvertHashToNew(\%new));
 }
 
 sub PostLoad
 {
 	my $self = shift;
-	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->new_data)
+	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->GetNew)
 		or die;
 }
 

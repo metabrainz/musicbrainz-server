@@ -29,11 +29,11 @@ sub add_track
     my $artist = $self->item;
     my $user   = $self->context->user;
 
-    my $edit = Moderation->new('MOD_ADD_TRACK_KV');
-
-    my @mods = $edit->insert(
+    my @mods = Moderation->InsertModeration(
         DBH   => $self->context->mb->{DBH},
-        user  => $user,
+        uid   => $user->id,
+        privs => $user->privs,
+        type  => ModDefs::MOD_ADD_TRACK_KV,
 
         artist      => $artist,
         trackname   => $self->value('track')->{name},

@@ -23,23 +23,15 @@
 #   $Id: MOD_EDIT_RELEASE_NAME.pm 8492 2006-09-26 22:44:39Z robert $
 #____________________________________________________________________________
 
+use strict;
+
 package MusicBrainz::Server::Moderation::MOD_CHANGE_ARTIST_QUALITY;
 
-use strict;
-use warnings;
-
+use ModDefs qw( :modstatus MODBOT_MODERATOR );
 use base 'Moderation';
 
-use ModDefs qw( :modstatus MODBOT_MODERATOR );
-
 sub Name { "Change Artist Quality" }
-sub moderation_id { 52 }
-
-sub determine_edit_conditions
-{
-    my $self = shift;
-    return $self->Moderation::quality_change_defs($self->GetQualityChangeDirection);
-}
+(__PACKAGE__)->RegisterHandler;
 
 sub PreInsert
 {
@@ -49,10 +41,10 @@ sub PreInsert
 	my $quality = $opts{'quality'};
 
 	$self->artist($artist->id);
-	$self->previous_data($artist->quality);
-	$self->new_data($quality);
+	$self->SetPrev($artist->quality);
+	$self->SetNew($quality);
 	$self->table("artist");
-	$self->column("quality");
+	$self->SetColumn("quality");
 	$self->row_id($artist->id);
 }
 
@@ -78,7 +70,7 @@ sub CheckPrerequisites
 	}
 
 	# Check that it hasn't been locked
-	if ($artist->quality == $self->new_data)
+	if ($artist->quality == $self->GetNew)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This artist is already set to quality level " . ModDefs::GetQualityText($artist->quality));
 		return STATUS_FAILEDPREREQ;
@@ -94,7 +86,7 @@ sub GetQualityChangeDirection
 {
 	my $self = shift;
 
-    return $self->new_data  > $self->previous_data;
+    return $self->GetNew  > $self->GetPrev;
 }   
 
 sub AdjustModPending
@@ -116,7 +108,7 @@ sub ApprovedAction
 	return $status if $status;
 
 	my $artist = $this->{_artist};
-	$artist->quality($this->new_data);
+	$artist->quality($this->GetNew);
 	$artist->UpdateQuality;
 
 	STATUS_APPLIED;

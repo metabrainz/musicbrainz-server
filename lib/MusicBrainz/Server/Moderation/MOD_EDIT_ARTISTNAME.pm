@@ -23,44 +23,15 @@
 #   $Id$
 #____________________________________________________________________________
 
+use strict;
+
 package MusicBrainz::Server::Moderation::MOD_EDIT_ARTISTNAME;
 
-use strict;
-use warnings;
-
+use ModDefs qw( :modstatus :artistid MODBOT_MODERATOR MOD_MERGE_ARTIST );
 use base 'Moderation';
 
-use ModDefs qw( :modstatus :artistid MODBOT_MODERATOR MOD_MERGE_ARTIST );
-
 sub Name { "Edit Artist Name" }
-sub moderation_id   { 1 }
-
-sub edit_conditions
-{
-    return {
-        ModDefs::QUALITY_LOW => {
-            duration     => 4,
-            votes        => 1,
-            expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 1,
-            name         => $_[0]->Name,
-        },  
-        ModDefs::QUALITY_NORMAL => {
-            duration     => 14,
-            votes        => 3,
-            expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 1,
-            name         => $_[0]->Name,
-        },
-        ModDefs::QUALITY_HIGH => {
-            duration     => 14,
-            votes        => 4,
-            expireaction => ModDefs::EXPIRE_REJECT,
-            autoedit     => 0,
-            name         => $_[0]->Name,
-        },
-    }
-}
+(__PACKAGE__)->RegisterHandler;
 
 sub PreInsert
 {
@@ -74,10 +45,10 @@ sub PreInsert
 	die if $ar->id == DARTIST_ID;
 
 	$self->artist($ar->id);
-	$self->previous_data($ar->name);
-	$self->new_data($newname);
+	$self->SetPrev($ar->name);
+	$self->SetNew($newname);
 	$self->table("artist");
-	$self->column("name");
+	$self->SetColumn("name");
 	$self->row_id($ar->id);
 
     # We used to perform a duplicate artist check here, but that has been removed.
@@ -99,7 +70,7 @@ sub DetermineQuality
 sub IsAutoEdit
 {
 	my $this = shift;
-	my ($old, $new) = $this->_normalise_strings($this->previous_data, $this->new_data);
+	my ($old, $new) = $this->_normalise_strings($this->GetPrev, $this->GetNew);
 	$old eq $new;
 }
 
@@ -126,7 +97,7 @@ sub CheckPrerequisites
 	}
 
 	# Check that its name has not changed
-	if ($ar->name ne $self->previous_data)
+	if ($ar->name ne $self->GetPrev)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This artist has already been renamed");
 		return STATUS_FAILEDPREREQ;
@@ -146,7 +117,7 @@ sub ApprovedAction
 	return $status if $status;
 
 	my $artist = $this->{_artist};
-	$artist->UpdateName($this->new_data)
+	$artist->UpdateName($this->GetNew)
 		or die "Failed to update artist in MOD_EDIT_ARTISTNAME";
 
 	STATUS_APPLIED;

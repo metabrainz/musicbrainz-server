@@ -23,17 +23,15 @@
 #   $Id$
 #____________________________________________________________________________
 
+use strict;
+
 package MusicBrainz::Server::Moderation::MOD_REMOVE_TRMID;
 
-use strict;
-use warnings;
-
+use ModDefs;
 use base 'Moderation';
 
-use ModDefs;
-
 sub Name { "Remove TRM ID" }
-sub moderation_id { 22 }
+(__PACKAGE__)->RegisterHandler;
 
 sub PreInsert
 {
@@ -44,10 +42,10 @@ sub PreInsert
 	my $trmjoinid = $opts{'trmjoinid'} or die;
 
 	$self->table("trmjoin");
-	$self->column("id");
+	$self->SetColumn("id");
 	$self->row_id($trmjoinid);
 	$self->artist($track->artist->id);
-	$self->previous_data($trm);
+	$self->SetPrev($trm);
 
 	# Save the TRM's clientversion in case we need to re-add it
 	require MusicBrainz::Server::TRM;
@@ -59,7 +57,7 @@ sub PreInsert
 		ClientVersion => $clientversion,
 	);
 
-	$self->new_data($self->ConvertHashToNew(\%new));
+	$self->SetNew($self->ConvertHashToNew(\%new));
 
 	# This is one of those mods where we give the user instant gratification,
 	# then undo the mod later if it's rejected.
@@ -71,7 +69,7 @@ sub PreInsert
 sub PostLoad
 {
 	my $self = shift;
-	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->new_data)
+	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->GetNew)
 		or die;
 		
 	my $new = $self->{'new_unpacked'};
@@ -135,7 +133,7 @@ sub DeniedAction
 
 	require MusicBrainz::Server::TRM;
 	my $t = MusicBrainz::Server::TRM->new($self->{DBH});
-	my $id = $t->Insert($self->previous_data, $trackid, $new->{'ClientVersion'});
+	my $id = $t->Insert($self->GetPrev, $trackid, $new->{'ClientVersion'});
 
 	# The above Insert can fail, usually if the row in the "trm" table
 	# needed to be re-inserted but we neglected to save the clientversion

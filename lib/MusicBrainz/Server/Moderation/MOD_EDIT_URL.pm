@@ -31,34 +31,7 @@ use ModDefs qw( :modstatus MODBOT_MODERATOR );
 use base 'Moderation';
 
 sub Name { "Edit URL" }
-sub moderation_id { 59 }
-
-sub edit_conditions
-{
-    return {
-        ModDefs::QUALITY_LOW => {
-            duration     => 4,
-            votes        => 1,
-            expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 1,
-            name         => $_[0]->Name,
-        },  
-        ModDefs::QUALITY_NORMAL => {
-            duration     => 14,
-            votes        => 3,
-            expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 1,
-            name         => $_[0]->Name,
-        },
-        ModDefs::QUALITY_HIGH => {
-            duration     => 14,
-            votes        => 4,
-            expireaction => ModDefs::EXPIRE_REJECT,
-            autoedit     => 0,
-            name         => $_[0]->Name,
-        },
-    }
-}
+(__PACKAGE__)->RegisterHandler;
 
 sub PreInsert
 {
@@ -113,10 +86,10 @@ sub PreInsert
 	}
 
 	$self->artist($artist) if $artist;
-	$self->previous_data($self->ConvertHashToNew(\%prev));
-	$self->new_data($self->ConvertHashToNew(\%new));
+	$self->SetPrev($self->ConvertHashToNew(\%prev));
+	$self->SetNew($self->ConvertHashToNew(\%new));
 	$self->table("url");
-	$self->column("url");
+	$self->SetColumn("url");
 	$self->row_id($urlobj->id);
 }
 
@@ -124,8 +97,8 @@ sub PostLoad
 {
 	my $self = shift;
 	$self->{'_urlobj'} = MusicBrainz::Server::URL->newFromId($self->{DBH}, $self->row_id);
-	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->new_data()) or die;
-	$self->{'prev_unpacked'} = $self->ConvertNewToHash($self->previous_data()) or die;
+	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->GetNew()) or die;
+	$self->{'prev_unpacked'} = $self->ConvertNewToHash($self->GetPrev()) or die;
 }
 
 sub DetermineQuality

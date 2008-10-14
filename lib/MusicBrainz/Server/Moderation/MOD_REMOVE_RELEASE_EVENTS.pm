@@ -23,48 +23,20 @@
 #   $Id: MOD_MERGE_RELEASE_MAC.pm 7397 2006-05-01 12:56:48Z keschte $
 #____________________________________________________________________________
 
+use strict;
+
 package MusicBrainz::Server::Moderation::MOD_REMOVE_RELEASE_EVENTS;
 
-use strict;
-use warnings;
-
+use ModDefs;
 use base qw(
 	MusicBrainz::Server::Moderation::MOD_EDIT_RELEASE_EVENTS_OLD
 );
 
-use ModDefs;
-
 sub Token() { "MOD_REMOVE_RELEASE_EVENTS" }
 sub Type() { &ModDefs::MOD_REMOVE_RELEASE_EVENTS }
 sub Name { "Remove Release Events" }
-sub moderation_id { 51 }
 
-sub edit_conditions
-{
-    return {
-        ModDefs::QUALITY_LOW => {
-            duration     => 4,
-            votes        => 1,
-            expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 0,
-            name         => $_[0]->Name,
-        },  
-        ModDefs::QUALITY_NORMAL => {
-            duration     => 14,
-            votes        => 3,
-            expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 0,
-            name         => $_[0]->Name,
-        },
-        ModDefs::QUALITY_HIGH => {
-            duration     => 14,
-            votes        => 4,
-            expireaction => ModDefs::EXPIRE_REJECT,
-            autoedit     => 0,
-            name         => $_[0]->Name,
-        },
-    }
-}
+(__PACKAGE__)->RegisterHandler;
 
 # MOD_EDIT_RELEASE_EVENTS_OLD does all the work
 

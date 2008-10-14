@@ -23,46 +23,16 @@
 #   $Id: MOD_ADD_TRACK_ANNOTATION.pm 8903 2007-03-12 07:43:40Z robert $
 #____________________________________________________________________________
 
-package MusicBrainz::Server::Moderation::MOD_ADD_TRACK_ANNOTATION;
-
 use strict;
-use warnings;
 
-use base 'Moderation';
+package MusicBrainz::Server::Moderation::MOD_ADD_TRACK_ANNOTATION;
 
 use ModDefs;
 use MusicBrainz::Server::Annotation ':type';
+use base 'Moderation';
 
 sub Name { "Add Track Annotation" }
-sub moderation_id   { 64 }
-
-sub edit_conditions
-{
-    return {
-        ModDefs::QUALITY_LOW => {
-            duration     => 0,
-            votes        => 0,
-            expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 1,
-            name         => $_[0]->Name,
-        },  
-        ModDefs::QUALITY_NORMAL => {
-            duration     => 0,
-            votes        => 0,
-            expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 1,
-            name         => $_[0]->Name,
-        },
-        ModDefs::QUALITY_HIGH => {
-            duration     => 0,
-            votes        => 0,
-            expireaction => ModDefs::EXPIRE_REJECT,
-            autoedit     => 1,
-            name         => $_[0]->Name,
-        },
-    }
-}
-
+(__PACKAGE__)->RegisterHandler;
 
 sub PreInsert
 {
@@ -79,9 +49,9 @@ sub PreInsert
 	);
 
 	$self->artist($artistid);
-	$self->new_data($self->ConvertHashToNew(\%new));
+	$self->SetNew($self->ConvertHashToNew(\%new));
 	$self->table('track');
-	$self->column('annotation.text');
+	$self->SetColumn('annotation.text');
 	$self->row_id($trackid);
 }
 
@@ -118,7 +88,7 @@ sub ApprovedAction
 {
 	my $self = shift;
 
-	my $new = $self->ConvertNewToHash($self->new_data());
+	my $new = $self->ConvertNewToHash($self->GetNew());
 	my $changelog = $new->{ChangeLog};
 	my $text = $new->{Text};
 

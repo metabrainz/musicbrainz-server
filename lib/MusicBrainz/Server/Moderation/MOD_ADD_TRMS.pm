@@ -27,14 +27,11 @@ use strict;
 
 package MusicBrainz::Server::Moderation::MOD_ADD_TRMS;
 
+use ModDefs;
 use base 'Moderation';
 
-use ModDefs;
-
 sub Name { "Add TRMs" }
-sub moderation_id { 27 }
-
-sub allow_for_any_editor { 1 }
+(__PACKAGE__)->RegisterHandler;
 
 sub PreInsert
 {
@@ -44,7 +41,7 @@ sub PreInsert
 	my $links = $opts{'links'} or die;
 
 	$self->table('TRM');
-	$self->column('trm');
+	$self->SetColumn('trm');
 
 	my $new = "ClientVersion=$client\n";
 
@@ -58,14 +55,14 @@ sub PreInsert
 		++$i;
 	}
 
-	$self->new_data($new);
+	$self->SetNew($new);
 }
 
 sub PostLoad
 {
 	my $self = shift;
 
-	my $new = $self->{'new_unpacked'} = $self->ConvertNewToHash($self->new_data)
+	my $new = $self->{'new_unpacked'} = $self->ConvertNewToHash($self->GetNew)
 		or die;
 
 	my @list;

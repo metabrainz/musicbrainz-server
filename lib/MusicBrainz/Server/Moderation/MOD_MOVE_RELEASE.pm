@@ -23,44 +23,15 @@
 #   $Id$
 #____________________________________________________________________________
 
+use strict;
+
 package MusicBrainz::Server::Moderation::MOD_MOVE_RELEASE;
 
-use strict;
-use warnings;
-
+use ModDefs qw( :modstatus MODBOT_MODERATOR );
 use base 'Moderation';
 
-use ModDefs qw( :modstatus MODBOT_MODERATOR );
-
 sub Name { "Move Release" }
-sub moderation_id   { 8 }
-
-sub edit_conditions
-{
-    return {
-        ModDefs::QUALITY_LOW => {
-            duration     => 4,
-            votes        => 1,
-            expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 0,
-            name         => $_[0]->Name,
-        },  
-        ModDefs::QUALITY_NORMAL => {
-            duration     => 14,
-            votes        => 3,
-            expireaction => ModDefs::EXPIRE_ACCEPT,
-            autoedit     => 1,
-            name         => $_[0]->Name,
-        },
-        ModDefs::QUALITY_HIGH => {
-            duration     => 14,
-            votes        => 4,
-            expireaction => ModDefs::EXPIRE_REJECT,
-            autoedit     => 0,
-            name         => $_[0]->Name,
-        },
-    }
-}
+(__PACKAGE__)->RegisterHandler;
 
 # PLEASE NOTE that MOD_MOVE_RELEASE is almost exactly the same as MOD_MAC_TO_SAC
 
@@ -81,11 +52,11 @@ sub PreInsert
 	$new .= "\n$movetracks";
 	
 	$self->table("album");
-	$self->column("artist");
+	$self->SetColumn("artist");
 	$self->artist($release->artist);
 	$self->row_id($release->id);
-	$self->previous_data($artist->name);
-	$self->new_data($new);
+	$self->SetPrev($artist->name);
+	$self->SetNew($new);
 }
 
 sub PostLoad
@@ -93,7 +64,7 @@ sub PostLoad
 	my $this = shift;
 
 	# new.name might be undef (in which case, name==sortname)
-  	@$this{qw( new.sortname new.name new.artistid new.movetracks)} = split /\n/, $this->new_data;
+  	@$this{qw( new.sortname new.name new.artistid new.movetracks)} = split /\n/, $this->GetNew;
 
     # If the name was blank and the new artist id ended up in its slot, swap the two values
 	if ($this->{'new.name'} =~ /^\d+$/ && !defined $this->{'new.artistid'})
@@ -180,7 +151,7 @@ sub PreDisplay
 	}
 
 	# load artist resolutions if new and old artist have the same name
-	my $pat = $this->previous_data;
+	my $pat = $this->GetPrev;
 	if ($this->{'new.name'} =~ /^\Q$pat\E$/i)
 	{
 		my $oar = MusicBrainz::Server::Artist->new($this->{DBH});
