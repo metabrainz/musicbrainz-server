@@ -161,11 +161,11 @@ sub PreInsert
 		unless @adds or @edits or @removes;
 
 	$self->artist($al->artist);
-	$self->SetPrev($al->name);
+	$self->previous_data($al->name);
 	$self->table("album");
-	$self->SetColumn("releases");
+	$self->column("releases");
 	$self->row_id($al->id);
-	$self->SetNew($self->ConvertHashToNew(\%new));
+	$self->new_data($self->ConvertHashToNew(\%new));
 }
 
 sub PostLoad
@@ -173,7 +173,7 @@ sub PostLoad
 	my $self = shift;
 	my (@adds, @edits, @removes);
 	
-	$self->{"new_unpacked"} = $self->ConvertNewToHash($self->GetNew)
+	$self->{"new_unpacked"} = $self->ConvertNewToHash($self->new_data)
 		or die;
 
 	# extract albumid and changed release events from new_unpacked hash

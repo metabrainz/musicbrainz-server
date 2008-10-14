@@ -107,7 +107,7 @@ my @QualityChangeDefs =
 # We'll store database handles that have open transactions in this hash for easy access.
 local %Moderation::DBConnections = ();
 
-sub GetQualityChangeDefs
+sub quality_change_defs
 {
     return $QualityChangeDefs[$_[0]];
 }
@@ -166,54 +166,44 @@ sub moderator
     return $self->{moderator};
 }
 
-sub GetExpired
+sub expired
 {
-   return $_[0]->{isexpired};
+    my ($self, $new_expired) = @_;
+
+    if (defined $new_expired) { $self->{isexpired} = $new_expired; }
+    return $self->{isexpired};
 }
 
-sub SetExpired
+sub grace_period_expired
 {
-   $_[0]->{isexpired} = $_[1];
+    my ($self, $new_expired) = @_;
+
+    if (defined $new_expired) { $self->{isgraceexpired} = $new_expired; }
+    return $self->{isgraceexpired};
 }
 
-sub GetGracePeriodExpired
+sub open_time
 {
-   return $_[0]->{isgraceexpired};
+    my ($self, $new_time) = @_;
+
+    if (defined $new_time) { $self->{opentime} = $new_time; }
+    return $new_time;
 }
 
-sub SetGracePeriodExpired
+sub close_time
 {
-   $_[0]->{isgraceexpired} = $_[1];
+    my ($self, $new_time) = @_;
+
+    if (defined $new_time) { $self->{closetime} = $new_time; }
+    return $self->{closetime};
 }
 
-sub GetOpenTime
+sub expire_time
 {
-   return $_[0]->{opentime};
-}
+    my ($self, $new_time) = @_;
 
-sub SetOpenTime
-{
-   $_[0]->{opentime} = $_[1];
-}
-
-sub GetCloseTime
-{
-   return $_[0]->{closetime};
-}
-
-sub SetCloseTime
-{
-   $_[0]->{closetime} = $_[1];
-}
-
-sub GetExpireTime
-{
-   return $_[0]->{expiretime};
-}
-
-sub SetExpireTime
-{
-   $_[0]->{expiretime} = $_[1];
+    if (defined $new_time) { $self->{expiretime} = $new_time; }
+    return $self->{expiretime};
 }
 
 sub type
@@ -224,14 +214,12 @@ sub type
     return $self->{type};
 }
 
-sub GetStatus
+sub status
 {
-   return $_[0]->{status};
-}
+    my ($self, $new_status) = @_;
 
-sub SetStatus
-{
-   $_[0]->{status} = $_[1];
+    if (defined $new_status) { $self->{status} = $new_status; }
+    return $self->{status};
 }
 
 sub language_id
@@ -262,7 +250,7 @@ sub quality
     return $self->{quality};
 }
 
-sub IsOpen
+sub is_open
 {
     my $self = @_;
     
@@ -318,24 +306,20 @@ sub artist
     return $self->{artist};
 }
 
-sub GetYesVotes
+sub yes_votes
 {
-   return $_[0]->{yesvotes};
+    my ($self, $new_yes) = @_;
+
+    if (defined $new_yes) { $self->{yesvotes} = $new_yes; }
+    return $self->{yesvotes};
 }
 
-sub SetYesVotes
+sub no_votes
 {
-   $_[0]->{yesvotes} = $_[1];
-}
+    my ($self, $new_no) = @_;
 
-sub GetNoVotes
-{
-   return $_[0]->{novotes};
-}
-
-sub SetNoVotes
-{
-   $_[0]->{novotes} = $_[1];
+    if (defined $new_no) { $self->{novotes} = $new_no; }
+    return $self->{novotes};
 }
 
 sub table
@@ -346,14 +330,12 @@ sub table
     return $self->{table};
 }
 
-sub GetColumn
+sub column
 {
-   return $_[0]->{column};
-}
+    my ($self, $new_column) = @_;
 
-sub SetColumn
-{
-   $_[0]->{column} = $_[1];
+    if (defined $new_column) { $self->{column} = $new_column; }
+    return $self->{column};
 }
 
 sub row_id
@@ -364,32 +346,28 @@ sub row_id
     return $self->{rowid};
 }
 
-sub GetDepMod
+sub dep_mod
 {
-   return $_[0]->{depmod};
+    my ($self, $new_dep_mod) = @_;
+
+    if ($new_dep_mod) { $self->{depmod} = $new_dep_mod; }
+    return $self->{depmod};
 }
 
-sub SetDepMod
+sub previous_data
 {
-   $_[0]->{depmod} = $_[1];
+    my ($self, $new_previous_data) = @_;
+
+    if (defined $new_previous_data) { $self->{prev} = $new_previous; }
+    return $self->{prev};
 }
 
-sub GetPrev
-{
-   return $_[0]->{prev};
-}
-
-sub SetPrev
-{
-   $_[0]->{prev} = $_[1];
-}
-
-sub GetNew
+sub new_data
 {
    return $_[0]->{new};
 }
 
-sub SetNew
+sub new_data
 {
    $_[0]->{new} = $_[1];
 }
@@ -499,29 +477,29 @@ sub CreateFromId
         {
 			$edit->id($row[0]);
 			$edit->table($row[1]);
-			$edit->SetColumn($row[2]);
+			$edit->column($row[2]);
 			$edit->row_id($row[3]);
 			$edit->artist($row[4]);
 			$edit->type($row[5]);
-			$edit->SetPrev($row[6]);
-			$edit->SetNew($row[7]);
-			$edit->SetExpireTime($row[8]);
+			$edit->previous_data($row[6]);
+			$edit->new_data($row[7]);
+			$edit->expire_time($row[8]);
 			$edit->moderator_name($row[9]);
-			$edit->SetYesVotes($row[10]);
-			$edit->SetNoVotes($row[11]);
+			$edit->yes_votes($row[10]);
+			$edit->no_votes($row[11]);
 			$edit->artist_name($row[12]);
 			$edit->artist_sort_name($row[13]);
 			$edit->artist_resolution($row[14]);
-			$edit->SetStatus($row[15]);
+			$edit->status($row[15]);
 			$edit->SetVote(&ModDefs::VOTE_UNKNOWN);
-			$edit->SetDepMod($row[17]);
+			$edit->dep_mod($row[17]);
 			$edit->moderator($row[18]);
 			$edit->SetAutomod($row[19]);
 			$edit->language_id($row[20]);
-			$edit->SetOpenTime($row[21]);
-			$edit->SetCloseTime($row[22]);
-			$edit->SetExpired($row[23]);
-			$edit->SetGracePeriodExpired($row[24]);
+			$edit->open_time($row[21]);
+			$edit->close_time($row[22]);
+			$edit->expired($row[23]);
+			$edit->grace_period_expired($row[24]);
 			$edit->PostLoad;
        }
    }
@@ -684,11 +662,11 @@ sub insert
 		# these default column values as appropriate:
 		$self->artist(&ModDefs::VARTIST_ID); #TODO no, artist takes refs now, not ids
 		$self->table("");
-		$self->SetColumn("");
+		$self->column("");
 		$self->row_id(0);
-		$self->SetDepMod(0);
-		$self->SetPrev("");
-		$self->SetNew("");
+		$self->dep_mod(0);
+		$self->previous_data("");
+		$self->new_data("");
 		$self->PreInsert(%opts);
 
 		goto SUPPRESS_INSERT
@@ -722,10 +700,10 @@ sub insert
                 ?,
                 ?, NOW() + INTERVAL ?, 0, 0, 0, ?
             )",
-            $self->table, $self->GetColumn, $self->row_id,
-            $self->GetPrev, $self->GetNew,
+            $self->table, $self->column, $self->row_id,
+            $self->previous_data, $self->new_data,
             $opts{user}->id, $self->artist, $self->moderation_id,
-            $self->GetDepMod,
+            $self->dep_mod,
             ModDefs::STATUS_OPEN, sprintf("%d days", $level->{duration}),
             $self->language_id
 		);
@@ -896,22 +874,22 @@ sub moderation_list
 		$edit->artist($r->{artist});
 		$edit->moderator($r->{moderator});
 		$edit->table($r->{tab});
-		$edit->SetColumn($r->{col});
+		$edit->column($r->{col});
 		$edit->type($r->{type});
-		$edit->SetStatus($r->{status});
+		$edit->status($r->{status});
 		$edit->row_id($r->{rowid});
-		$edit->SetPrev($r->{prevvalue});
-		$edit->SetNew($r->{newvalue});
-		$edit->SetYesVotes($r->{yesvotes});
-		$edit->SetNoVotes($r->{novotes});
-		$edit->SetDepMod($r->{depmod});
+		$edit->previous_data($r->{prevvalue});
+		$edit->new_data($r->{newvalue});
+		$edit->yes_votes($r->{yesvotes});
+		$edit->no_votes($r->{novotes});
+		$edit->dep_mod($r->{depmod});
 		$edit->SetAutomod($r->{automod});
-		$edit->SetOpenTime($r->{opentime});
-		$edit->SetCloseTime($r->{closetime});
-		$edit->SetExpireTime($r->{expiretime});
+		$edit->open_time($r->{opentime});
+		$edit->close_time($r->{closetime});
+		$edit->expire_time($r->{expiretime});
 		$edit->language_id($r->{language});
 
-		$edit->SetExpired($r->{expired});
+		$edit->expired($r->{expired});
 		$edit->SetVote($r->{vote});
 
 		push @edits, $edit;
@@ -1008,7 +986,7 @@ sub RemoveModeration
 {
    my ($this, $uid) = @_;
   
-   if ($this->GetStatus() == &ModDefs::STATUS_OPEN)
+   if ($this->status() == &ModDefs::STATUS_OPEN)
    {
 		# Set the status to be deleted.  The ModBot will clean it up
 		# on its next pass.
@@ -1448,7 +1426,7 @@ sub ShowNewValue
 ################################################################################
 
 # PostLoad is called after an object of this class has been instantiated
-# and its fields have been set via ->SetPrev, ->SetNew etc.  The class should
+# and its fields have been set via ->previous_data, ->new_data etc.  The class should
 # then prepare any internal fields it requires, e.g. parse 'prev' and 'new'
 # into various internal fields.  An exception should be thrown if appropriate,
 # e.g. if 'prev' or 'new' don't parse as required.  The return value is

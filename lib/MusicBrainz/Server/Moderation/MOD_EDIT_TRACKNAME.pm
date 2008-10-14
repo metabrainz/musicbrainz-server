@@ -71,17 +71,17 @@ sub PreInsert
 	$newname =~ /\S/ or die;
 
 	$self->artist($track->artist->id);
-	$self->SetPrev($track->name);
-	$self->SetNew($newname);
+	$self->previous_data($track->name);
+	$self->new_data($newname);
 	$self->table("track");
-	$self->SetColumn("name");
+	$self->column("name");
 	$self->row_id($track->id);
 }
 
 sub IsAutoEdit
 {
 	my $this = shift;
-	my ($old, $new) = $this->_normalise_strings($this->GetPrev, $this->GetNew);
+	my ($old, $new) = $this->_normalise_strings($this->previous_data, $this->new_data);
 	$old eq $new;
 }
 
@@ -143,14 +143,14 @@ sub CheckPrerequisites
 	}
 
 	# Check that its name has not changed
-	if ($track->name ne $self->GetPrev)
+	if ($track->name ne $self->previous_data)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This track has already been renamed");
 		return STATUS_FAILEDPREREQ;
 	}
 
 	# FIXME utf-8 length required
-	if (length($self->GetNew) > 255)
+	if (length($self->new_data) > 255)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This name is too long - the maximum allowed length is 255 characters");
 		return STATUS_ERROR;
@@ -172,7 +172,7 @@ sub ApprovedAction
 	my $track = $this->{_track}
 		or die;
 
-	$track->name($this->GetNew);
+	$track->name($this->new_data);
 	$track->UpdateName;
 
 	STATUS_APPLIED;

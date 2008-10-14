@@ -74,10 +74,10 @@ sub PreInsert
 	die if $ar->id == DARTIST_ID;
 
 	$self->artist($ar->id);
-	$self->SetPrev($ar->sort_name);
-	$self->SetNew($newname);
+	$self->previous_data($ar->sort_name);
+	$self->new_data($newname);
 	$self->table("artist");
-	$self->SetColumn("sortname");
+	$self->column("sortname");
 	$self->row_id($ar->id);
 }
 
@@ -97,7 +97,7 @@ sub DetermineQuality
 sub IsAutoEdit
 {
 	my $this = shift;
-	my ($old, $new) = $this->_normalise_strings($this->GetPrev, $this->GetNew);
+	my ($old, $new) = $this->_normalise_strings($this->previous_data, $this->new_data);
 	$old eq $new;
 }
 
@@ -123,13 +123,13 @@ sub ApprovedAction
 		return STATUS_FAILEDPREREQ;
 	}
 	
-	unless ($artist->sort_name eq $this->GetPrev)
+	unless ($artist->sort_name eq $this->previous_data)
 	{
 		$this->InsertNote(MODBOT_MODERATOR, "This artist's sortname has already been changed");
 		return STATUS_FAILEDDEP;
 	}
 
-	$artist->UpdateSortName($this->GetNew)
+	$artist->UpdateSortName($this->new_data)
 		or die "Failed to update artist in MOD_EDIT_ARTISTSORTNAME";
 
 	STATUS_APPLIED;

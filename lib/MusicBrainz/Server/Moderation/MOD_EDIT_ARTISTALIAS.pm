@@ -69,10 +69,10 @@ sub PreInsert
 	$newname =~ /\S/ or die;
 
 	$self->artist($al->row_id);
-	$self->SetPrev($al->name);
-	$self->SetNew($newname);
+	$self->previous_data($al->name);
+	$self->new_data($newname);
 	$self->table("artistalias");
-	$self->SetColumn("name");
+	$self->column("name");
 	$self->row_id($al->id);
 
 	# Currently there's a unique index on artistalias.name.
@@ -109,7 +109,7 @@ sub DetermineQuality
 sub IsAutoEdit
 {
 	my $self = shift;
-	my ($old, $new) = $self->_normalise_strings($self->GetPrev, $self->GetNew);
+	my ($old, $new) = $self->_normalise_strings($self->previous_data, $self->new_data);
 	$old eq $new;
 }
 
@@ -127,7 +127,7 @@ sub CheckPrerequisites
 		return STATUS_FAILEDPREREQ;
 	}
 	
-	unless ($alias->name eq $self->GetPrev)
+	unless ($alias->name eq $self->previous_data)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This alias has already been changed");
 		return STATUS_FAILEDDEP;
@@ -149,7 +149,7 @@ sub ApprovedAction
 	my $alias = $self->{_alias}
 		or die;
 
-	$alias->name($self->GetNew);
+	$alias->name($self->new_data);
 	my $other;
 	if ($alias->UpdateName(\$other))
 	{
@@ -164,7 +164,7 @@ sub ApprovedAction
 	{
 		my $url = "http://" . &DBDefs::WEB_SERVER
 			. "/showaliases.html?artistid=" . $other->row_id;
-		my $newname = $self->GetNew;
+		my $newname = $self->new_data;
 		$message = "There is already an alias called '$newname' (see $url)"
 			. " - duplicate aliases are not yet supported";
 	}

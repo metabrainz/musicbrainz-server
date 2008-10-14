@@ -125,7 +125,7 @@ use constant STATUS_FAILEDDEP			=> 4;
 # There was an internal error. :-(
 use constant STATUS_ERROR				=> 5;
 
-# The Moderation system fails a moderation if the previous value field
+# The Moderation system fails a moderation if the previous_data value field
 # does not match up with the data currently in the rol/col.
 use constant STATUS_FAILEDPREREQ		=> 6;
 

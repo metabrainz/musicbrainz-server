@@ -78,7 +78,7 @@ sub PostLoad
 		new.trackname new.tracknum
 		new.album
 		new.artistname new.artistsortname
-	)} = split /\n/, $self->GetNew;
+	)} = split /\n/, $self->new_data;
 }
 
 sub ApprovedAction

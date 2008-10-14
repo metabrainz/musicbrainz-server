@@ -81,10 +81,10 @@ sub PreInsert
 	$new{"LabelId"} = $target->id;
 
 	$self->table("label");
-	$self->SetColumn("name");
+	$self->column("name");
 	$self->row_id($source->id);
-	$self->SetPrev($source->name);
-	$self->SetNew($self->ConvertHashToNew(\%new));
+	$self->previous_data($source->name);
+	$self->new_data($self->ConvertHashToNew(\%new));
 }
 
 sub PostLoad
@@ -97,12 +97,12 @@ sub PostLoad
 	# "$sortname\n$name"
 	# or hash structure (containing at least two \n characters).
 
-	my $unpacked = $self->ConvertNewToHash($self->GetNew);
+	my $unpacked = $self->ConvertNewToHash($self->new_data);
 
 	unless ($unpacked)
 	{
 		# Name can be missing
-		@$self{qw( new.sortname new.name )} = split /\n/, $self->GetNew;
+		@$self{qw( new.sortname new.name )} = split /\n/, $self->new_data;
 
 		$self->{'new.name'} = $self->{'new.sortname'}
 			unless defined $self->{'new.name'}
@@ -132,7 +132,7 @@ sub CheckPrerequisites
 {
 	my $self = shift;
 
-	my $prevval = $self->GetPrev;
+	my $prevval = $self->previous_data;
 	my $rowid = $self->row_id;
 	my $name = $self->{'new.name'};
 	#my $sortname = $self->{'new.sortname'};

@@ -81,7 +81,7 @@ sub PreInsert
 	    $self->artist($ents[0]->id);
 	}
 	$self->table($link->Table);
-	$self->SetColumn("id");
+	$self->column("id");
 	$self->row_id($link->id);
 
 	require MusicBrainz::Server::LinkType;
@@ -109,13 +109,13 @@ sub PreInsert
 		begindate=>$link->begin_date(),
 		enddate=>$link->end_date(),
 	);
-	$self->SetNew($self->ConvertHashToNew(\%new));
+	$self->new_data($self->ConvertHashToNew(\%new));
 }
 
 sub PostLoad
 {
 	my $self = shift;
-	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->GetNew)
+	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->new_data)
 		or die;
 }
 

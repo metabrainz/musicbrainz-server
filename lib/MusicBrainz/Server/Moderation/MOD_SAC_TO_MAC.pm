@@ -77,11 +77,11 @@ sub PreInsert
 	}
 
 	$self->table("album");
-	$self->SetColumn("artist");
+	$self->column("artist");
 	$self->artist($al->artist);
 	$self->row_id($al->id);
-	$self->SetPrev($ar->name);
-	$self->SetNew($movetova);
+	$self->previous_data($ar->name);
+	$self->new_data($movetova);
 }
 
 sub PostLoad

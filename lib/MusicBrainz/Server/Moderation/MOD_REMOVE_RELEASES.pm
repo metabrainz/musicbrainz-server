@@ -93,16 +93,16 @@ sub PreInsert
 			: $albums->[0]->artist
 	);
 	$self->table("album");
-	$self->SetColumn("id");
+	$self->column("id");
 	$self->row_id($albums->[0]->id); # misleading
-	$self->SetNew($self->ConvertHashToNew(\%new));
+	$self->new_data($self->ConvertHashToNew(\%new));
 }
 
 sub PostLoad
 {
 	my $self = shift;
 
-	my $new = $self->{'new_unpacked'} = $self->ConvertNewToHash($self->GetNew)
+	my $new = $self->{'new_unpacked'} = $self->ConvertNewToHash($self->new_data)
 		or die;
 
 	my @albums;

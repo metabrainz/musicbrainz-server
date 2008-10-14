@@ -72,7 +72,7 @@ sub PreInsert
 	my $links = $opts{'links'} or die;
 
 	$self->table('PUID');
-	$self->SetColumn('puid');
+	$self->column('puid');
 
 	my $new = "ClientVersion=$client\n";
 
@@ -86,14 +86,14 @@ sub PreInsert
 		++$i;
 	}
 
-	$self->SetNew($new);
+	$self->new_data($new);
 }
 
 sub PostLoad
 {
 	my $self = shift;
 
-	my $new = $self->{'new_unpacked'} = $self->ConvertNewToHash($self->GetNew)
+	my $new = $self->{'new_unpacked'} = $self->ConvertNewToHash($self->new_data)
 		or die;
 
 	my @list;

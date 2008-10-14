@@ -150,16 +150,16 @@ sub PreInsert
 	$new{'LabelId'} = $labelid;
 
 	$self->table('label');
-	$self->SetColumn('name');
+	$self->column('name');
 	$self->row_id($labelid);
-	$self->SetNew($self->ConvertHashToNew(\%new));
+	$self->new_data($self->ConvertHashToNew(\%new));
 }
 
 sub PostLoad
 {
 	my $self = shift;
 	$self->{'dont-display-artist'} = 1;
-	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->GetNew)
+	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->new_data)
 		or die;
 }
 

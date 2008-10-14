@@ -85,7 +85,7 @@ sub PreInsert
 
 	$self->artist(DARTIST_ID);
 	$self->table($parent->{_table});
-	$self->SetColumn("name");
+	$self->column("name");
 	$self->row_id($child->id);
 
 	my %new = (
@@ -97,13 +97,13 @@ sub PreInsert
 		parent_name => $parent->name,
 	);
 
-	$self->SetNew($self->ConvertHashToNew(\%new));
+	$self->new_data($self->ConvertHashToNew(\%new));
 }
 
 sub PostLoad
 {
 	my $self = shift;
-	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->GetNew)
+	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->new_data)
 		or die;
 }
 

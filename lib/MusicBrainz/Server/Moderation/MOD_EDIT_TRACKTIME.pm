@@ -68,10 +68,10 @@ sub PreInsert
 	my $newlength = $opts{'newlength'};
 
 	$self->artist($track->artist->id);
-	$self->SetPrev($track->length);
-	$self->SetNew(0+$newlength);
+	$self->previous_data($track->length);
+	$self->new_data(0+$newlength);
 	$self->table("track");
-	$self->SetColumn("length");
+	$self->column("length");
 	$self->row_id($track->id);
 }
 
@@ -127,7 +127,7 @@ sub IsAutoEdit
 {
 	my $self = shift;
 
-	return $self->GetPrev == 0 && $self->GetNew != 0;
+	return $self->previous_data == 0 && $self->new_data != 0;
 }
 
 sub ApprovedAction
@@ -143,13 +143,13 @@ sub ApprovedAction
 		return STATUS_FAILEDPREREQ;
 	}
 
-	unless ($track->length == $self->GetPrev)
+	unless ($track->length == $self->previous_data)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "Track time has already been changed");
 		return STATUS_FAILEDDEP;
 	}
 	
-	$track->length($self->GetNew);
+	$track->length($self->new_data);
 	$track->UpdateLength;
 
 	STATUS_APPLIED;

@@ -75,22 +75,22 @@ sub PreInsert
 
 	$self->artist(DARTIST_ID);
 	$self->table($node->{_table}); 
-	$self->SetColumn("name");
+	$self->column("name");
 	$self->row_id($node->id);
-	$self->SetPrev($node->name . " (" . $node->description . ")");
+	$self->previous_data($node->name . " (" . $node->description . ")");
 
 	my %new = (
 		name    => $node->name(),
 	);
 
 	$node->Delete;
-	$self->SetNew($self->ConvertHashToNew(\%new));
+	$self->new_data($self->ConvertHashToNew(\%new));
 }
 
 sub PostLoad
 {
 	my $self = shift;
-	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->GetNew)
+	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->new_data)
 		or die;
 }
 

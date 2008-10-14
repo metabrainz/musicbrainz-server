@@ -70,10 +70,10 @@ sub PreInsert
 	my $newseq = $opts{'newseq'} or die;
 
 	$self->artist($track->artist->id);
-	$self->SetPrev($track->sequence);
-	$self->SetNew(0+$newseq);
+	$self->previous_data($track->sequence);
+	$self->new_data(0+$newseq);
 	$self->table("albumjoin");
-	$self->SetColumn("sequence");
+	$self->column("sequence");
 	$self->row_id($track->sequence_id);
 }
 
@@ -139,7 +139,7 @@ sub ApprovedAction
 		return STATUS_FAILEDPREREQ;
 	}
 
-	unless ($track->sequence == $this->GetPrev)
+	unless ($track->sequence == $this->previous_data)
 	{
 		$this->InsertNote(MODBOT_MODERATOR, "This track has already been renumbered");
 		return STATUS_FAILEDDEP;
@@ -149,7 +149,7 @@ sub ApprovedAction
 	# (but if you do that, it makes it very hard to swap/rotate
 	# tracks within an album).
 
-	$track->sequence($this->GetNew);
+	$track->sequence($this->new_data);
 	$track->UpdateSequence;
 
 	STATUS_APPLIED;

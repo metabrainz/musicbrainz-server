@@ -86,7 +86,7 @@ sub PreInsert
 	}
 
 	$self->table("album_cdtoc");
-	$self->SetColumn("album");
+	$self->column("album");
 	$self->row_id($rowid);
 	$self->artist($al->artist);
 
@@ -97,13 +97,13 @@ sub PreInsert
 		CDTOCId			=> $tocid,
 	);
 
-	$self->SetNew($self->ConvertHashToNew(\%new));
+	$self->new_data($self->ConvertHashToNew(\%new));
 }
 
 sub PostLoad
 {
 	my $self = shift;
-	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->GetNew)
+	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->new_data)
 		or die;
 
 	# extract trackid, albumid from new_unpacked hash

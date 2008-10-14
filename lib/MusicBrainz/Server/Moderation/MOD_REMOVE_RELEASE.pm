@@ -69,9 +69,9 @@ sub PreInsert
 	my $al = $opts{'album'} or die;
 
 	$self->artist($al->artist);
-	$self->SetPrev($al->name);
+	$self->previous_data($al->name);
 	$self->table("album");
-	$self->SetColumn("name");
+	$self->column("name");
 	$self->row_id($al->id);
 }
 

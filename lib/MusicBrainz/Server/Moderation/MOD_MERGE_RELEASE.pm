@@ -96,16 +96,16 @@ sub PreInsert
 
 	$self->artist($into->artist);
 	$self->table("album");
-	$self->SetColumn("id");
+	$self->column("id");
 	$self->row_id($into->id);
-	$self->SetNew($self->ConvertHashToNew(\%new));
+	$self->new_data($self->ConvertHashToNew(\%new));
 }
 
 sub PostLoad
 {
 	my $self = shift;
 
-	my $new = $self->{'new_unpacked'} = $self->ConvertNewToHash($self->GetNew)
+	my $new = $self->{'new_unpacked'} = $self->ConvertNewToHash($self->new_data)
 		or die;
 
 	my $into = $self->{'new_into'} = {
@@ -137,7 +137,7 @@ sub DetermineQuality
 {
 	my $self = shift;
 
-	my $new = $self->{'new_unpacked'} = $self->ConvertNewToHash($self->GetNew)
+	my $new = $self->{'new_unpacked'} = $self->ConvertNewToHash($self->new_data)
 		or die;
 
     my $quality = &ModDefs::QUALITY_UNKNOWN_MAPPED;

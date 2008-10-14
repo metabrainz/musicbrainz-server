@@ -117,8 +117,8 @@ sub PreInsert
 	);
 	
 	$self->table("album");
-	$self->SetColumn("id");
-	$self->SetNew($self->ConvertHashToNew(\%new));
+	$self->column("id");
+	$self->new_data($self->ConvertHashToNew(\%new));
 	$self->language_id($languageid) if $languageid;
 }
 
@@ -126,7 +126,7 @@ sub IsAutoEdit
 {
 	my $self = shift;
 
-	my $new = $self->ConvertNewToHash($self->GetNew);
+	my $new = $self->ConvertNewToHash($self->new_data);
 
 	return $new->{can_automod};
 }
@@ -135,7 +135,7 @@ sub IsAutoEdit
 sub PostLoad
 {
 	my $self = shift;
-	my $new = $self->ConvertNewToHash($self->GetNew);
+	my $new = $self->ConvertNewToHash($self->new_data);
 	my @albums;
 
 	for (my $i = 0; defined $new->{"AlbumId$i"}; $i++)
@@ -190,7 +190,7 @@ sub AdjustModPending
 sub CheckPrerequisites
 {
 	my $self = shift;
-	my $new = $self->ConvertNewToHash($self->GetNew)
+	my $new = $self->ConvertNewToHash($self->new_data)
 		or die;
 
 	my @albums;

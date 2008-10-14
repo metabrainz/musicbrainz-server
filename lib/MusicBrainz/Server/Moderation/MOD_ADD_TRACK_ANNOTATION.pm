@@ -79,9 +79,9 @@ sub PreInsert
 	);
 
 	$self->artist($artistid);
-	$self->SetNew($self->ConvertHashToNew(\%new));
+	$self->new_data($self->ConvertHashToNew(\%new));
 	$self->table('track');
-	$self->SetColumn('annotation.text');
+	$self->column('annotation.text');
 	$self->row_id($trackid);
 }
 
@@ -118,7 +118,7 @@ sub ApprovedAction
 {
 	my $self = shift;
 
-	my $new = $self->ConvertNewToHash($self->GetNew());
+	my $new = $self->ConvertNewToHash($self->new_data());
 	my $changelog = $new->{ChangeLog};
 	my $text = $new->{Text};
 

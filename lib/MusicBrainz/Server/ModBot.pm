@@ -118,7 +118,7 @@ sub CheckModerations
         if ($mod->type == &Moderation::MOD_CHANGE_RELEASE_QUALITY ||
             $mod->type == &Moderation::MOD_CHANGE_ARTIST_QUALITY)
         {
-            $level = Moderation::GetQualityChangeDefs($mod->GetQualityChangeDirection);
+            $level = Moderation::quality_change_defs($mod->GetQualityChangeDirection);
         }
         else
         {
@@ -139,7 +139,7 @@ sub CheckModerations
 		}
 
 		# Check if this mod wasn't approved
-		if ($mod->GetStatus() == STATUS_APPLIED)
+		if ($mod->status() == STATUS_APPLIED)
 		{
 			# The mod is already closed. Leave it alone
 			print localtime() . " : Mod #$mod->{id} is already closed\n"
@@ -148,14 +148,14 @@ sub CheckModerations
 		}
 
 		# Save the loaded modules for later
-		$mod->{__eval__} = $mod->GetStatus();
+		$mod->{__eval__} = $mod->status();
 		$mods{$row[0]} = $mod;
 
 		print localtime() . " : Evaluate Mod: " . $mod->id() . "\n"
 			if $fDebug;
 
 		# See if this mod has been marked for deletion
-		if ($mod->GetStatus() == STATUS_TOBEDELETED)
+		if ($mod->status() == STATUS_TOBEDELETED)
 		{
 			# Change the status to deleted. 
 			print localtime() . " : EvalChange: $mod->{id} to be deleted\n"
@@ -175,7 +175,7 @@ sub CheckModerations
 		}
 
 		# Check to see if this change has another change that it depends on
-		if (defined $mod->GetDepMod() && $mod->GetDepMod() > 0)
+		if (defined $mod->dep_mod() && $mod->dep_mod() > 0)
 		{
 			my $depmod;
 
@@ -183,7 +183,7 @@ sub CheckModerations
 			# have been loaded (or in this case, all preceding mods have
 			# already been loaded) check to see if the dep mod around.
 			# If not, its been closed. If so, check its status directly.
-			$depmod = $mods{$mod->GetDepMod()};
+			$depmod = $mods{$mod->dep_mod()};
 			if (defined $depmod)
 			{
 				print localtime() . " : DepMod status: " . $depmod->{__eval__} . "\n"
@@ -210,7 +210,7 @@ sub CheckModerations
 			else
 			{
 				# If we can't find it, we need to load the status by hand.
-				my $dep_status = $this->moderation_status($mod->GetDepMod());
+				my $dep_status = $this->moderation_status($mod->dep_mod());
 				if ($dep_status != STATUS_APPLIED)
 				{
 					print localtime() . " : EvalChange: Disk dep failed\n"
@@ -223,13 +223,13 @@ sub CheckModerations
 		}
 
 		# Let's deal with expired mods first.
-		if ($mod->GetExpired)
+		if ($mod->expired)
 		{
 			# Have there been any (non-abstaining) votes?
-			if ($mod->GetYesVotes or $mod->GetNoVotes)
+			if ($mod->yes_votes or $mod->no_votes)
 			{
 				# Are there more yes votes than no votes?
-				if ($mod->GetYesVotes() > $mod->GetNoVotes())
+				if ($mod->yes_votes() > $mod->no_votes())
 				{
 					print localtime() . " : EvalChange: expire and approved\n"
 						if $fDebug;
@@ -261,7 +261,7 @@ sub CheckModerations
 			# If the grace period has expired, then let it in.  No-one
 			# objected, and the original moderator wanted it it.  That's a
 			# majority of 1.
-			if ($mod->GetGracePeriodExpired)
+			if ($mod->grace_period_expired)
 			{
 				print localtime() . " : EvalChange: grace period exceeded, approved\n"
 					if $fDebug;
@@ -295,8 +295,8 @@ sub CheckModerations
 		# Not expired.
 
 		# Are the number of required unanimous votes present?
-		if ($mod->GetYesVotes() >= $level->{votes} && 
-			$mod->GetNoVotes() == 0)
+		if ($mod->yes_votes() >= $level->{votes} && 
+			$mod->no_votes() == 0)
 		{
 			print localtime() . " : EvalChange: unanimous yes\n"
 				if $fDebug;
@@ -305,8 +305,8 @@ sub CheckModerations
 			next;
 		}
 
-		if ($mod->GetNoVotes() >= $level->{votes} && 
-			$mod->GetYesVotes() == 0)
+		if ($mod->no_votes() >= $level->{votes} && 
+			$mod->yes_votes() == 0)
 		{
 			print localtime() . " : EvalChange: unanimous no\n"
 				if $fDebug;
@@ -401,16 +401,16 @@ sub CheckModerations
 						print localtime() . " : Closing mod #" . $mod->id()
 							. " (" . $status_name_from_number{$status} . ")\n";
 
-						$mod->SetStatus($status);
+						$mod->status($status);
 						$mod->DeniedAction;
-						$status = $mod->GetStatus;
+						$status = $mod->status;
 						$mod->CloseModeration($status);
 						$user->CreditModerator($mod->moderator, $status);
 						--$count{STATUS_APPLIED};
 						++$count{$status};
 					} else {
 						$status = $mod->ApprovedAction;
-						$mod->SetStatus($status);
+						$mod->status($status);
 						$user->CreditModerator($mod->moderator, $status);
 						$mod->CloseModeration($status);
 					}
@@ -441,9 +441,9 @@ sub CheckModerations
                 $Moderation::DBConnections{READWRITE} = $sql;
                 $Moderation::DBConnections{RAWDATA} = $vertsql;
 
-				$mod->SetStatus($newstate);
+				$mod->status($newstate);
 				$mod->DeniedAction;
-				$newstate = $mod->GetStatus;
+				$newstate = $mod->status;
 				$mod->CloseModeration($newstate);
 
                 delete $Moderation::DBConnections{READWRITE};
@@ -472,9 +472,9 @@ sub CheckModerations
                 $Moderation::DBConnections{READWRITE} = $sql;
                 $Moderation::DBConnections{RAWDATA} = $vertsql;
 
-				$mod->SetStatus($newstate);
+				$mod->status($newstate);
 				$mod->DeniedAction;
-				$newstate = $mod->GetStatus;
+				$newstate = $mod->status;
 				$user->CreditModerator($mod->moderator, $newstate);
 				$mod->CloseModeration($newstate);
 
@@ -517,9 +517,9 @@ sub CheckModerations
 						print localtime() . " : Closing mod #" . $mod->id()
 							. " (" . $status_name_from_number{$status} . ")\n";
     
-						$mod->SetStatus($status);
+						$mod->status($status);
 						$mod->DeniedAction;
-						$status = $mod->GetStatus;
+						$status = $mod->status;
 						$mod->CloseModeration($status);
 						$user->CreditModerator($mod->moderator, $status);
 						++$count{$status};
@@ -581,7 +581,7 @@ sub CheckModificationForFailedDependencies
 	for($i = 0;; $i++)
 	{
 	  	# FIXME this regex looks too slack for my liking
-		if ($mod->GetNew() =~ m/Dep$i=(.*)/m)
+		if ($mod->new_data() =~ m/Dep$i=(.*)/m)
 		{
 			#print localtime() . " : Mod: " . $mod->id() . " depmod: $1\n"
 			#	if $fDebug;

@@ -135,7 +135,7 @@ sub PreInsert
 	return $self->SuppressInsert() if keys %new == 0;
 
 
-	# record previous values if we set their corresponding attributes
+	# record previous_data values if we set their corresponding attributes
 	my %prev;
 
 	$prev{'ArtistName'} = $ar->name() if exists $new{'ArtistName'};
@@ -146,10 +146,10 @@ sub PreInsert
 	$prev{'EndDate'} = $ar->end_date() if exists $new{'EndDate'};
 
 	$self->artist($ar->id);
-	$self->SetPrev($self->ConvertHashToNew(\%prev));
-	$self->SetNew($self->ConvertHashToNew(\%new));
+	$self->previous_data($self->ConvertHashToNew(\%prev));
+	$self->new_data($self->ConvertHashToNew(\%new));
 	$self->table("artist");
-	$self->SetColumn("name");
+	$self->column("name");
 	$self->row_id($ar->id);
 }
 
@@ -167,8 +167,8 @@ sub MakeDateStr
 sub PostLoad
 {
 	my $self = shift;
-	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->GetNew()) or die;
-	$self->{'prev_unpacked'} = $self->ConvertNewToHash($self->GetPrev()) or die;
+	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->new_data()) or die;
+	$self->{'prev_unpacked'} = $self->ConvertNewToHash($self->previous_data()) or die;
 }
 
 sub DetermineQuality

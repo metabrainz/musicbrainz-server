@@ -83,11 +83,11 @@ sub PreInsert
 
 	$self->artist(DARTIST_ID);
 	$self->table($node->{_table});
-	$self->SetColumn("name");
+	$self->column("name");
 	$self->row_id($node->id);
 	my $prev = $node->name . " (" . $node->description . ")";
     $prev = substr($prev, 0, 251) . " ..." if (length($prev) > 255);
-	$self->SetPrev($prev);
+	$self->previous_data($prev);
 
 	my %new = (
 		name        	=> $name,
@@ -104,13 +104,13 @@ sub PreInsert
 	$node->SetChildOrder($childorder);
 	$node->Update;
 
-	$self->SetNew($self->ConvertHashToNew(\%new));
+	$self->new_data($self->ConvertHashToNew(\%new));
 }
 
 sub PostLoad
 {
 	my $self = shift;
-	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->GetNew)
+	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->new_data)
 		or die;
 }
 
@@ -133,7 +133,7 @@ sub DeniedAction
 		return;
 	}
 
-	my $name = $self->GetPrev;
+	my $name = $self->previous_data;
 	my $c = $node->Parent->named_child($name);
 	if ($c and $c->id != $node->id)
 	{

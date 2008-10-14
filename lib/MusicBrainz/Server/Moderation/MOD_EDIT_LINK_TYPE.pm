@@ -99,9 +99,9 @@ sub PreInsert
 
 	$self->artist(DARTIST_ID);
 	$self->table($node->{_table}); # FIXME internal field
-	$self->SetColumn("name");
+	$self->column("name");
 	$self->row_id($node->id);
-	$self->SetPrev($node->name);
+	$self->previous_data($node->name);
 
 	my %new = (
 		parent				=> $parent->name, 
@@ -136,13 +136,13 @@ sub PreInsert
 	$node->SetPriority($priority);
 	$node->Update;
 
-	$self->SetNew($self->ConvertHashToNew(\%new));
+	$self->new_data($self->ConvertHashToNew(\%new));
 }
 
 sub PostLoad
 {
 	my $self = shift;
-	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->GetNew)
+	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->new_data)
 		or die;
 }
 
@@ -166,7 +166,7 @@ sub DeniedAction
 		return;
 	}
 
-	my $name = $self->GetPrev;
+	my $name = $self->previous_data;
 	my $c = $node->Parent->named_child($name);
 	if ($c and $c->id != $node->id)
 	{

@@ -38,7 +38,7 @@ sub moderation_id   { 63 }
 sub determine_edit_conditions
 {
     my $self = shift;
-    return $self->Moderation::GetQualityChangeDefs($self->GetQualityChangeDirection);
+    return $self->Moderation::quality_change_defs($self->GetQualityChangeDirection);
 }
 
 sub PreInsert
@@ -90,14 +90,14 @@ sub PreInsert
 	);
 	
 	$self->table("album");
-	$self->SetColumn("id");
-	$self->SetNew($self->ConvertHashToNew(\%new));
+	$self->column("id");
+	$self->new_data($self->ConvertHashToNew(\%new));
 }
 
 sub PostLoad
 {
 	my $self = shift;
-	my $new = $self->ConvertNewToHash($self->GetNew);
+	my $new = $self->ConvertNewToHash($self->new_data);
 	my @releases;
     my $l = &ModDefs::QUALITY_HIGH;
     my $quality;
@@ -134,7 +134,7 @@ sub GetQualityChangeDirection
 sub CheckPrerequisites
 {
 	my $self = shift;
-	my $new = $self->ConvertNewToHash($self->GetNew)
+	my $new = $self->ConvertNewToHash($self->new_data)
 		or die;
 
 	my @releases;
@@ -184,7 +184,7 @@ sub CheckPrerequisites
 sub AdjustModPending
 {
 	my ($self, $adjust) = @_;
-	my $new = $self->ConvertNewToHash($self->GetNew)
+	my $new = $self->ConvertNewToHash($self->new_data)
 		or die;
 
 	my @releases;

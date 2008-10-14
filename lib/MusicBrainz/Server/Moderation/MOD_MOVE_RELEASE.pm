@@ -81,11 +81,11 @@ sub PreInsert
 	$new .= "\n$movetracks";
 	
 	$self->table("album");
-	$self->SetColumn("artist");
+	$self->column("artist");
 	$self->artist($release->artist);
 	$self->row_id($release->id);
-	$self->SetPrev($artist->name);
-	$self->SetNew($new);
+	$self->previous_data($artist->name);
+	$self->new_data($new);
 }
 
 sub PostLoad
@@ -93,7 +93,7 @@ sub PostLoad
 	my $this = shift;
 
 	# new.name might be undef (in which case, name==sortname)
-  	@$this{qw( new.sortname new.name new.artistid new.movetracks)} = split /\n/, $this->GetNew;
+  	@$this{qw( new.sortname new.name new.artistid new.movetracks)} = split /\n/, $this->new_data;
 
     # If the name was blank and the new artist id ended up in its slot, swap the two values
 	if ($this->{'new.name'} =~ /^\d+$/ && !defined $this->{'new.artistid'})
@@ -180,7 +180,7 @@ sub PreDisplay
 	}
 
 	# load artist resolutions if new and old artist have the same name
-	my $pat = $this->GetPrev;
+	my $pat = $this->previous_data;
 	if ($this->{'new.name'} =~ /^\Q$pat\E$/i)
 	{
 		my $oar = MusicBrainz::Server::Artist->new($this->{DBH});

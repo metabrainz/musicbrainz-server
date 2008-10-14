@@ -141,9 +141,9 @@ sub PreInsert
 	);
 
 	$self->table("album");
-	$self->SetColumn("id");
+	$self->column("id");
 	$self->row_id($albums->[0]->id);
-	$self->SetNew($self->ConvertHashToNew(\%new));
+	$self->new_data($self->ConvertHashToNew(\%new));
 
 	# This mod is immediately applied, and undone later if rejected.
  	for my $al (@$albums)
@@ -163,7 +163,7 @@ sub PostLoad
 {
 	my $self = shift;
 
-	my $new = $self->{'new_unpacked'} = $self->ConvertNewToHash($self->GetNew)
+	my $new = $self->{'new_unpacked'} = $self->ConvertNewToHash($self->new_data)
 		or die;
 
 	my @albums;
@@ -175,7 +175,7 @@ sub PostLoad
 		my $name = $new->{"AlbumName$i"};
 		defined($name) or last;
 		my $prev = $new->{"Prev$i"};
-		$prev = $self->GetPrev unless defined $prev;
+		$prev = $self->previous_data unless defined $prev;
 
 		push @albums, { id => $id, name => $name, prev => $prev };
 	}

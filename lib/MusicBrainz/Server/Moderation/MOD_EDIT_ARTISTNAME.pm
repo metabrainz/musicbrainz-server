@@ -74,10 +74,10 @@ sub PreInsert
 	die if $ar->id == DARTIST_ID;
 
 	$self->artist($ar->id);
-	$self->SetPrev($ar->name);
-	$self->SetNew($newname);
+	$self->previous_data($ar->name);
+	$self->new_data($newname);
 	$self->table("artist");
-	$self->SetColumn("name");
+	$self->column("name");
 	$self->row_id($ar->id);
 
     # We used to perform a duplicate artist check here, but that has been removed.
@@ -99,7 +99,7 @@ sub DetermineQuality
 sub IsAutoEdit
 {
 	my $this = shift;
-	my ($old, $new) = $this->_normalise_strings($this->GetPrev, $this->GetNew);
+	my ($old, $new) = $this->_normalise_strings($this->previous_data, $this->new_data);
 	$old eq $new;
 }
 
@@ -126,7 +126,7 @@ sub CheckPrerequisites
 	}
 
 	# Check that its name has not changed
-	if ($ar->name ne $self->GetPrev)
+	if ($ar->name ne $self->previous_data)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This artist has already been renamed");
 		return STATUS_FAILEDPREREQ;
@@ -146,7 +146,7 @@ sub ApprovedAction
 	return $status if $status;
 
 	my $artist = $this->{_artist};
-	$artist->UpdateName($this->GetNew)
+	$artist->UpdateName($this->new_data)
 		or die "Failed to update artist in MOD_EDIT_ARTISTNAME";
 
 	STATUS_APPLIED;

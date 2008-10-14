@@ -314,7 +314,7 @@ sub _Insert
         {
             die "Insert failed: Cannot insert artist.\n";
         }
-        $info->{artist_insertid} = $artistid if ($ar->GetNewInsert());
+        $info->{artist_insertid} = $artistid if ($ar->new_insert());
     }
     $info->{_artistid} = $artistid;
 
@@ -378,7 +378,7 @@ sub _Insert
            {
                die "Insert failed: cannot insert new album.\n";
            }
-           $info->{album_insertid} = $albumid if ($al->GetNewInsert());
+           $info->{album_insertid} = $albumid if ($al->new_insert());
         }
         else
         {
@@ -399,7 +399,7 @@ sub _Insert
                {
                    die "Insert failed: cannot insert new album.\n";
                }
-               $info->{album_insertid} = $albumid if ($al->GetNewInsert());
+               $info->{album_insertid} = $albumid if ($al->new_insert());
            }
            else
            {
@@ -473,7 +473,7 @@ TRACK:
                 $newtrm = $trm->Insert($track->{trmid}, $albumtrack->id());
                 if (defined $newtrm)
                 {
-                    $track->{trm_insertid} = $newtrm if ($trm->GetNewInsert());
+                    $track->{trm_insertid} = $newtrm if ($trm->new_insert());
                 }
                 
                 next TRACK;
@@ -487,7 +487,7 @@ TRACK:
                 $newpuid = $puid->Insert($track->{puid}, $albumtrack->id());
                 if (defined $newpuid)
                 {
-                    $track->{puid_insertid} = $newpuid if ($puid->GetNewInsert());
+                    $track->{puid_insertid} = $newpuid if ($puid->new_insert());
                 }
                 
                 next TRACK;
@@ -536,7 +536,7 @@ TRACK:
             {
                 die "Track Insert failed: Cannot insert artist.\n";
             }
-            if ($ar->GetNewInsert())
+            if ($ar->new_insert())
             {
                 #print STDERR "Inserted artist: $track_insertartistid\n";
                 $track->{artist_insertid} = $track_insertartistid 
@@ -565,7 +565,7 @@ TRACK:
 			# insert track using the verified track artist            
             $mar->id($track_artistid);
             $trackid = $tr->Insert($al, $mar);
-            $track->{track_insertid} = $trackid if ($tr->GetNewInsert());
+            $track->{track_insertid} = $trackid if ($tr->new_insert());
         }
         else
         {
@@ -587,7 +587,7 @@ TRACK:
             my $newtrm = $trm->Insert($track->{trmid}, $trackid);
             if (defined $newtrm)
             {
-                $track->{trm_insertid} = $newtrm if ($trm->GetNewInsert());
+                $track->{trm_insertid} = $newtrm if ($trm->new_insert());
             }
         }
         
@@ -597,7 +597,7 @@ TRACK:
             my $newpuid = $puid->Insert($track->{puid}, $trackid);
             if (defined $newpuid)
             {
-                $track->{puid_insertid} = $newpuid if ($puid->GetNewInsert());
+                $track->{puid_insertid} = $newpuid if ($puid->new_insert());
             }
         }
     }
