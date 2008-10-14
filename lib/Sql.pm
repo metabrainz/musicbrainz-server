@@ -176,7 +176,8 @@ sub Do
 		my $err = $@;
 
 		$this->{ERR} = $this->{DBH}->errstr;
-        my $error = "Failed Query:\n\t".$query."\n\t".join(qw{,}, @params)."\n$err\n";
+        my $error = sprintf("Failed Query:\n\t%s\n\t%s\n$err\n",
+                            $query, join(qw{ }, @params), $err);
     	cluck($error)
 	    	unless ($this->{Quiet});
 		die $err;
@@ -436,7 +437,8 @@ sub SelectSingleColumnArray
 	my $err = $@;
 	$this->{ERR} = $this->{DBH}->errstr;
 
-    my $error = "Failed Query:\n\t".$query."\n\t".join(qw{,}, @params)."\n$err\n";
+    my $error = sprintf("Failed Query:\n\t%s\n\t%s\n%s\n", $query,
+                        join(qw{ }, @params), $err);
 	cluck($error)
 		unless ($this->{Quiet});
 	die $err;

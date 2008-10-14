@@ -37,24 +37,23 @@ use MusicBrainz::Server::Validation qw( unaccent );
 use utf8;
 use UNIVERSAL::require;
 
-my @moderations = File::Find::Rule->file->name('MOD_*.pm')->in(@INC);
-
-for my $mod_file (@moderations)
+BEGIN
 {
-    my $mod = $mod_file;
-    $mod =~ s/\//::/g;
-    $mod =~ s/.*(MusicBrainz::Server::Moderation::.*).pm$/$1/g;
+    my @moderations = File::Find::Rule->file->name('MOD_*.pm')->in(@INC);
 
-    my $mod_name = $mod;
-    $mod_name =~ s/.*::(.*)$/$1/g;
-
-    unless (defined __PACKAGE__->get_registered_class($mod_name))
+    for my $mod_file (@moderations)
     {
-        $mod->require;
-        my $id = $mod::moderation_id;
+        my $mod = $mod_file;
+        $mod =~ s/\//::/g;
+        $mod =~ s/.*(MusicBrainz::Server::Moderation::.*).pm$/$1/g;
 
-        __PACKAGE__->register_factory_type($mod_name => $mod);
-        __PACKAGE__->register_factory_type($id => $mod) if defined $id;
+        my $mod_name = $mod;
+        $mod_name =~ s/.*::(.*)$/$1/g;
+
+        unless (defined __PACKAGE__->get_registered_class($mod_name))
+        {
+            __PACKAGE__->register_factory_type($mod_name => $mod);
+        }
     }
 }
 
@@ -187,7 +186,7 @@ sub open_time
     my ($self, $new_time) = @_;
 
     if (defined $new_time) { $self->{opentime} = $new_time; }
-    return $new_time;
+    return $self->{opentime};
 }
 
 sub close_time
@@ -358,18 +357,16 @@ sub previous_data
 {
     my ($self, $new_previous_data) = @_;
 
-    if (defined $new_previous_data) { $self->{prev} = $new_previous; }
+    if (defined $new_previous_data) { $self->{prev} = $new_previous_data; }
     return $self->{prev};
 }
 
 sub new_data
 {
-   return $_[0]->{new};
-}
+    my ($self, $new_data) = @_;
 
-sub new_data
-{
-   $_[0]->{new} = $_[1];
+    if (defined $new_data) { $self->{new} = $new_data; }
+    return $self->{new};
 }
 
 sub GetVote

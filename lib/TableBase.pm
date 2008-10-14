@@ -52,8 +52,6 @@ sub new
 {
     my ($class, $dbh) = @_;
 
-    use Data::Dumper; warn Dumper \@_;
-
     bless {
 	DBH => $dbh,
     }, ref($class) || $class;
