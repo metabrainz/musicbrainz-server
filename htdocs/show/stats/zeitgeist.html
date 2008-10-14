@@ -1,0 +1,161 @@
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# Groovy graphs for viewing database statistics
+	#
+	# $Id: permlink.html 8548 2006-10-19 07:41:02Z dave $
+	#
+</%perl>
+<%perl>
+
+my $head = <<'EOT';
+<script type="text/javascript" src="http://static.simile.mit.edu/timeplot/api/1.0/timeplot-api.js"></script>
+<script language="javascript" type="text/javascript">
+var timeplot = null;
+
+var types = 
+{
+	artist   : [ "Artist and release", 
+					[
+						["artists", "count.artist"],
+						["releases", "count.album"],
+						["releases w/ discid", "count.album.has_discid"],
+						["VA releases", "count.album.various"],
+					]
+			   ],
+	track    : [ "Track and PUID", 
+					[
+						[ "tracks", "count.track"],
+						[ "puid ids", "count.puid"],
+						[ "tracks w/ puid", "count.track.has_puid"],
+						[ "trm ids", "count.trm"],
+						[ "tracks w/ trm", "count.track.has_trm"],
+					]
+			   ],
+	editact  : [ "Edit activity", 
+					[
+						[ "voted last week", "count.moderator.votelastweek" ],
+						[ "edited last week", "count.moderator.editlastweek" ],
+					]
+               ],
+	edits    : [ "Open edits", 
+					[
+						[ "open edits", "count.moderation.open"]
+					]
+			   ]
+};
+
+var colors = ['#FF0000', '#00FF00', '#0000FF', '#00FFFF', '#FF00FF'];
+
+function onLoad() 
+{
+	loadGraph("artist");
+}
+
+function loadGraph(type)
+{
+	plots = types[type][1];
+	title = types[type][0];
+	series = [];
+	for(i = 0; i < plots.length; i++)
+	{
+		series[i] = plots[i][1];
+	}
+
+	var eventSource = new Timeplot.DefaultEventSource();
+
+	var valueGeometry = new Timeplot.DefaultValueGeometry({
+			gridColor: "#000000",
+			axisLabelsPlacement: "left",
+			});
+	var timeGeometry = new Timeplot.DefaultTimeGeometry({
+			gridColor: "#000000",
+			axisLabelsPlacement: "top"
+			});
+	var plotInfo = [];
+
+	for(i = 0; i < series.length; i++)
+	{
+	   plotInfo[i] = Timeplot.createPlotInfo({
+		  id: "plot" + (i+1),
+		  dataSource: new Timeplot.ColumnSource(eventSource,1+i),
+		  valueGeometry: valueGeometry,
+		  timeGeometry: timeGeometry,
+		  lineColor: colors[i],
+		  showValues: true
+		});
+	}
+
+	timeplot = Timeplot.create(document.getElementById("stats-timeplot"), plotInfo);
+	timeplot.loadText("zeitgeist-data.html?series=" + series.join(","), ",", eventSource);
+
+	textContent = document.getElementById('stats-timeplot-title')
+	textContent.firstChild.data=title;
+
+	var legend = "";
+	for(i = 0; i < plots.length; i++)
+	{
+		node = document.getElementById('legend-color-' + i)
+	    node.style.backgroundColor= colors[i];
+		node = document.getElementById('legend-text-' + i)
+	    node.firstChild.data= " " + plots[i][0] + " ";
+	}
+}
+
+var resizeTimerID = null;
+function onResize() {
+    if (resizeTimerID == null) {
+        resizeTimerID = window.setTimeout(function() {
+            resizeTimerID = null;
+            timeplot.repaint();
+        }, 100);
+    }
+}
+</script>
+EOT
+</%perl>
+
+<& /comp/sidebar, pagetitle => "Database statistics", body=>'onload="onLoad();" onresize="onResize();"', head => $head &>
+
+<p>
+View [ <a href="#" onclick="loadGraph('artist');">artist/album graph</a> |
+<a href="#" onclick="loadGraph('track');">track/puid graph</a> |
+<a href="#" onclick="loadGraph('editact');">edit activity</a> |
+<a href="#" onclick="loadGraph('edits');">open edits</a> ]
+</p>
+<br/>
+
+<div id="stats-timeplot-title"> </div>
+<div id="stats-timeplot" style="height:200px;"></div>
+<div id="stats-timeplot-legend">
+<span id="legend-color-0">&nbsp;</span><span id="legend-text-0"> </span> 
+<span id="legend-color-1">&nbsp;</span><span id="legend-text-1"> </span> 
+<span id="legend-color-2">&nbsp;</span><span id="legend-text-2"> </span> 
+<span id="legend-color-3">&nbsp;</span><span id="legend-text-3"> </span> 
+<span id="legend-color-4">&nbsp;</span><span id="legend-text-4"> </span> 
+</div>
+
+
+<& /comp/footer &>
+
+%# vi: set ts=4 sw=4 ft=mason :
