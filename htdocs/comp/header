@@ -4,6 +4,7 @@
 	$nosidebar => 0
 	$notopbar => 0
 	$head => undef
+	$body => ""
 
 	$nosmallfonts
 	$noentityicons
@@ -75,8 +76,8 @@
 % 	$m->out($head) if defined $head and not ref $head;
 
 	</head>
-	<body>
-		<div id="overDiv" style="position: absolute; visibility: hidden; z-index: 1000"></div>
+	<body <% $body |n %>>
+		<div id="overDiv" style="position: absolute; visibility: hidden; z-index: 1000" ></div>
 
 % 	unless ($notopbar)
 %	{

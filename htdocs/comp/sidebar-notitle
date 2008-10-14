@@ -2,6 +2,7 @@
 
 	$pagetitle
 	$spacing => 10
+	$body => ""
 
 </%args>
 

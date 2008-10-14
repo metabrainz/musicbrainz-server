@@ -40,5 +40,7 @@ CREATE INDEX artist_meta_lastupdate ON artist_meta (lastupdate);
 -- Create an index on the closed moderation expiretime so we can get some stats
 CREATE INDEX moderation_closed_idx_closetime ON moderation_closed (closetime);
 CREATE INDEX moderation_closed_idx_opentime ON moderation_closed (opentime);
+CREATE INDEX release_releasedate ON release (releasedate);
+
 
 COMMIT;

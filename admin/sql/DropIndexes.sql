@@ -123,6 +123,7 @@ DROP INDEX puidjoin_trackindex;
 DROP INDEX puidjoin_puidtrack;
 DROP INDEX release_album;
 DROP INDEX release_label;
+DROP INDEX release_releasedate;
 DROP INDEX release_tag_idx_release;
 DROP INDEX release_tag_idx_tag;
 DROP INDEX script_isocode;

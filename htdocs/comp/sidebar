@@ -2,8 +2,9 @@
 
 	$title => ""
 	$pagetitle => ""
+	$body => ""
+	$head => undef	
 
-	$head => undef		# TODO: remove me.
 	$uri => ""			# not used anymore (?)
 
 	# the next parameters are set by /comp/sidebar-notitle
@@ -33,7 +34,8 @@
 		head => $head,
 		nosidebar => $nosidebar,
 		nosmallfonts => $nosmallfonts,
-		noentityicons => $noentityicons
+		noentityicons => $noentityicons,
+		body => $body
 	);
 
 	# inline style _width_ is explicitly needed, because javascript toggle

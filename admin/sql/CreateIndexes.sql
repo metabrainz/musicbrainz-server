@@ -169,6 +169,7 @@ CREATE UNIQUE INDEX puidjoin_stat_puidjoin_idindex ON puidjoin_stat (puidjoin_id
 
 CREATE INDEX release_album ON release (album);
 CREATE INDEX release_label ON release (label);
+CREATE INDEX release_releasedate ON release (releasedate);
 
 CREATE INDEX release_tag_idx_release ON release_tag (release);
 CREATE INDEX release_tag_idx_tag ON release_tag (tag);

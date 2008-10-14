@@ -86,8 +86,7 @@ CREATE TRIGGER a_ins_label_tag AFTER INSERT ON label_tag
 CREATE TRIGGER a_del_label_tag AFTER DELETE ON label_tag
     FOR EACH ROW EXECUTE PROCEDURE a_del_tag();
 
--- Tracks
-CREATE TRIGGER a_idu_track AFTER INSERT OR DELETE OR UPDATE ON track 
+CREATE TRIGGER a_idu_track AFTER INSERT OR DELETE OR UPDATE ON track
     FOR EACH ROW EXECUTE PROCEDURE a_idu_entity();
 
 -- vi: set ts=4 sw=4 et :

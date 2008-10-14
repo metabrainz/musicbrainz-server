@@ -32,24 +32,63 @@ use TableBase;
 { our @ISA = qw( Exporter TableBase ) }
 use Sql;
 use Data::Dumper;
+use POSIX;
 
 sub GetStats
 {
-    my ($self, $grouping, $column) = @_;
+    my ($self, $list) = @_;
 	my $sql = Sql->new($self->{DBH});
 
-	my $counts = $sql->SelectListOfLists("SELECT extract(epoch from snapshotdate) AS epoch,
-         										 round(AVG(value)) AS value
-			                                FROM historicalstat 
-									  	   WHERE name = ?
-								        GROUP by snapshotdate, date_part(?, snapshotdate) 
-   									    ORDER BY snapshotdate", $column, $grouping);
-	my @data;
-	for(0..scalar(@$counts)-1)
-	{   
-	    push @data, "[" . $counts->[$_][0] . ",".$counts->[$_][1]."]";
-	}   
-	return join(",", @data);
+	print STDERR "Stats: $list\n";
+
+	my @columns = split(',', $list);
+
+    my @data;
+	my %ret;
+	foreach my $column (@columns)
+	{
+		if ($sql->Select("SELECT d.date, ROUND(AVG(d.value)) FROM (
+													SELECT to_char(snapshotdate, 'YYYY-WW') AS date, value 
+													  FROM historicalstat 
+													 WHERE name =  ?
+												  GROUP by snapshotdate, value 
+												  ORDER BY snapshotdate) AS d 
+										 GROUP BY d.date 
+										 ORDER BY d.date", $column))
+		{
+			my @row;
+			while(@row = $sql->NextRow)
+			{
+				my ($year, $week) = split('-', $row[0]);
+
+				# Convert week of year to epoch and then to an actual date
+				my $epoch = mktime (0, 0, 0, 1, 0, $year - 1900, 0, 0);
+				my @data = gmtime($epoch + ($week * 7 * 24 * 60 * 60));
+				my $date = sprintf("%04d-%02d-%02d", (1900 + $data[5]), ($data[4]+1), $data[3]);
+				$ret{$date} = () if (!exists $ret{$date});
+				$ret{$date}->{$column} = $row[1];
+			}
+			$sql->Finish;
+		}
+	}
+
+	my $out;
+	foreach my $key (sort keys %ret)
+	{
+		my @row;
+		foreach my $column (@columns)
+		{
+			if (!exists $ret{$key}->{$column})
+			{
+				push @row, 0;
+				next;
+			}
+			push @row, $ret{$key}->{$column};
+		}
+		$out .= "$key," . join(",", @row) . "\n";
+	}
+
+	return $out;
 }
 
 # This function fetches the latest changed rows from a given entity. Supported entities are
@@ -212,12 +251,12 @@ sub GetRecentReleases
 
 	$maxitems = 10 if (!defined $maxitems);
 	my $sql = Sql->new($self->{DBH});
-	return $sql->SelectListOfLists("SELECT album.gid, album.name, artist.gid, artist.name, releasedate
+	return $sql->SelectListOfLists("SELECT DISTINCT ON (releasedate, album.gid) album.gid, album.name, artist.gid, artist.name, releasedate
 									  FROM release, artist, album 
 									 WHERE release.album = album.id 
 									   AND album.artist = artist.id 
 									   AND releasedate < now() 
-					              ORDER BY releasedate DESC 
+					              ORDER BY releasedate DESC, album.gid
 								     LIMIT ?", $maxitems);
 }
 
@@ -228,12 +267,12 @@ sub GetUpcomingReleases
 
 	$maxitems = 10 if (!defined $maxitems);
 	my $sql = Sql->new($self->{DBH});
-	return $sql->SelectListOfLists("SELECT album.gid, album.name, artist.gid, artist.name, releasedate
+	return $sql->SelectListOfLists("SELECT DISTINCT ON (releasedate, album.gid) album.gid, album.name, artist.gid, artist.name, releasedate
 									  FROM release, artist, album 
 									 WHERE release.album = album.id 
 									   AND album.artist = artist.id 
 									   AND releasedate >= now() 
-					              ORDER BY releasedate 
+					              ORDER BY releasedate, album.gid 
 								     LIMIT ?", $maxitems);
 }
 

@@ -104,6 +104,7 @@ create or replace function insert_album_meta () returns TRIGGER as $$
 begin 
     insert into albummeta (id, tracks, discids, puids, lastupdate) values (NEW.id, 0, 0, 0, now()); 
     insert into album_amazon_asin (album, lastupdate) values (NEW.id, '1970-01-01 00:00:00'); 
+    PERFORM propagate_lastupdate(NEW.id, CAST('album' AS name));
     
     return NEW; 
 end; 
@@ -116,6 +117,7 @@ begin
         update album_amazon_asin set lastupdate = '1970-01-01 00:00:00' where album = NEW.id; 
     end if;
     UPDATE albummeta SET lastupdate = now() WHERE id = NEW.id; 
+    PERFORM propagate_lastupdate(NEW.id, CAST('album' AS name));
    return NULL;
 end;
 $$ language 'plpgsql';
@@ -136,14 +138,23 @@ create or replace function a_idu_entity () returns TRIGGER as $$
 begin 
     IF (TG_OP = 'INSERT') 
     THEN
-        EXECUTE 'INSERT INTO ' || TG_RELNAME || '_meta (id) VALUES (' || NEW.id || ')';
+        IF (TG_RELNAME != 'track')
+        THEN
+            EXECUTE 'INSERT INTO ' || TG_RELNAME || '_meta (id) VALUES (' || NEW.id || ')';
+        END IF;
         PERFORM propagate_lastupdate(NEW.id, TG_RELNAME);
     ELSIF (TG_OP = 'DELETE') 
     THEN
-        EXECUTE 'DELETE FROM ' || TG_RELNAME || '_meta WHERE id = ' || OLD.id;
+        IF (TG_RELNAME != 'track')
+        THEN
+            EXECUTE 'DELETE FROM ' || TG_RELNAME || '_meta WHERE id = ' || OLD.id;
+        END IF;
     ELSIF (TG_OP = 'UPDATE')
     THEN
-        EXECUTE 'UPDATE ' || TG_RELNAME || '_meta SET lastupdate = now() WHERE id = ' || NEW.id; 
+        IF (TG_RELNAME != 'track')
+        THEN
+            EXECUTE 'UPDATE ' || TG_RELNAME || '_meta SET lastupdate = now() WHERE id = ' || NEW.id; 
+        END IF;
         PERFORM propagate_lastupdate(NEW.id, TG_RELNAME);
     END IF;
     RETURN NULL; 
@@ -167,7 +178,7 @@ begin
             -- Skip Various artists
             AND id <> 1; 
         -- update the label
-        UPDATE label_meta SET lastupdate = NOW() WHERE album IN (
+        UPDATE label_meta SET lastupdate = NOW() WHERE id IN (
             SELECT label FROM release where album = entity_id);
 
     ELSIF (relname = 'artist') THEN
@@ -177,17 +188,10 @@ begin
                         UNION 
                          SELECT DISTINCT albumjoin.album 
                            FROM album, albumjoin, track
-                          WHERE album.artist = 1 
+                          WHERE album.artist != entity_id
                             AND album.id = albumjoin.album
                             AND track.artist = entity_id
-                            AND track.id = albumjoin.track
-                        UNION
-                         SELECT DISTINCT album.id 
-                           FROM album, albumjoin, track 
-                          WHERE album.id = albumjoin.album 
-                            AND albumjoin.track = track.id 
-                            AND album.artist = entity_id 
-                       GROUP BY track.artist, album.id);
+                            AND track.id = albumjoin.track);
         -- update the releases
         UPDATE albummeta SET lastupdate = NOW() WHERE id = ANY(id_list);
 
@@ -225,25 +229,24 @@ begin
            SELECT distinct label FROM release where album = ANY(id_list));
         -- update artist (all track artists for VA releases)
         UPDATE artist_meta SET lastupdate = NOW() WHERE id IN (
-           SELECT DISTINCT track.artist 
-             FROM album, albumjoin, track 
-            WHERE album.artist = 1 
-              AND albumjoin.album = album.id
-              AND albumjoin.track = track.id
-              AND album = ANY(id_list)
-          UNION
-           SELECT DISTINCT track.artist 
-             FROM album, albumjoin, track 
-            WHERE album.id = albumjoin.album 
-              AND albumjoin.track = track.id 
-              AND album.id = ANY(id_list)
-         GROUP BY track.artist);
+            SELECT DISTINCT track.artist
+              FROM album, albumjoin, track
+             WHERE album.artist != entity_id
+               AND albumjoin.album = album.id
+               AND albumjoin.track = track.id
+               AND album = ANY(id_list)
+           UNION
+            SELECT DISTINCT album.artist
+              FROM album
+              WHERE album.id = ANY(id_list));
+--        UPDATE artist_meta SET lastupdate = NOW() WHERE id <> 1 AND id IN (
+--           SELECT DISTINCT album.artist
+--                     FROM album
+--                     WHERE album.id = ANY(id_list));
 
     ELSIF (relname = 'release') THEN
 
-        -- luks says: you might want to skip VA in the 'release' section
-        -- ruaok says: huh? not sure what that means.
-        updated_album := (SELECT distinct album FROM release WHERE id = entity_id);
+        updated_album := (SELECT album FROM release WHERE id = entity_id);
 
         -- update the release for this release event
         UPDATE albummeta SET lastupdate = NOW() WHERE id = updated_album;
@@ -253,8 +256,8 @@ begin
            SELECT distinct label FROM release WHERE album = updated_album);
 
         -- update the artists for this release event
-        UPDATE artist_meta SET lastupdate = NOW() WHERE id IN (
-           SELECT distinct artist FROM album WHERE album = updated_album);
+        UPDATE artist_meta SET lastupdate = NOW() WHERE id <> 1 AND id IN (
+           SELECT artist FROM album WHERE album = updated_album);
 
     END IF;
 end; 
