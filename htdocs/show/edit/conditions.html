@@ -69,12 +69,15 @@ for(0..1)
 $m->out('</table><br/>');
 
 </%perl>
-<p style="margin-bottom: 1em;">
-For each edit type and each quality level the table below shows the voting 
-period that an edit will remain open for, the number of unanimous votes required 
-to shortcut the edit period, what happens if the edit expires but has no votes, 
-and whether or not an edit is considered an <& /comp/linkdoc, "AutoEdit", "auto-edit" &> for an <&/comp/linkdoc, "AutoEditor", "auto-editor" &>.
+<p>
+For each edit type and each quality level the table below shows:
 </p>
+<ul>
+	<li> the voting period that an edit will remain open for, </li>
+	<li> the number of unanimous votes required to shortcut the edit period, </li>
+	<li> what happens if the edit expires but has no votes, </li>
+	<li> and whether or not an edit is considered an <& /comp/linkdoc, "AutoEdit", "auto-edit" &> for an <&/comp/linkdoc, "AutoEditor", "auto-editor" &>.
+</ul>
 
 <%perl>
 
@@ -176,7 +179,7 @@ $m->out('</table><br/>');
 
 <p>
 	<span id="note-1" class="superscript">1</span> Voting period in days<br />
-	<span id="note-2" class="superscript">2</span> Unanimous votes<br />
+	<span id="note-2" class="superscript">2</span> Unanimous votes required to shortcut the edit period<br />
 	<span id="note-3" class="superscript">3</span> Expire action when edit has no votes (abstain votes excluded)<br />
 	<span id="note-4" class="superscript">3</span> <& /comp/linkdoc, "AutoEdit", "auto-edit" &> for all users
 </p>
