@@ -35,17 +35,23 @@ sub show : Chained('moderation')
         $c->stash->{track} = $track;
     }
 
-    unless ($moderation->{dont-display-artist})
+    if (defined $moderation->{'albumid'})
+    {
+        my $release = $c->model('Release')->load($moderation->{'albumid'});
+        $c->stash->{release} = $release;
+    }
+
+    unless ($moderation->{'dont-display-artist'})
     {
         my $artist = $c->model('Artist')->load($moderation->artist);
         $c->stash->{artist} = $artist;
     }
 
-    if (defined $this->{'albumid'})
-    {
-        my $release = $c->model('Release')->load($moderation->{'albumid'});
-        $c->stash->{release} = $release;
-    }
+
+    my $comp = ref $moderation;
+    $comp =~ s/.*::MOD_(.*)/$1/;
+
+    $c->stash->{mod_template} = lc $comp;
 }
 
 1;

@@ -1,0 +1,3 @@
+[%- data = [
+    { label => 'Name:', new => moderation.new_unpacked.ArtistName },
+] -%]

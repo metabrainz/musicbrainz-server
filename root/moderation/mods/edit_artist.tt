@@ -1,0 +1,25 @@
+<table>
+  <tr>
+    <th rowspan="2">Name</th>
+    <td>[% moderation.new_unpacked.ArtistName %]</td>
+  </tr>
+  <tr>
+    <td>[% moderation.prev_unpacked.ArtistName %]</td>
+  </tr>
+
+  <tr>
+    <th rowspan="2">Sortname:</th>
+    <td>[% moderation.new_unpacked.SortName %]</td>
+  </tr>
+  <tr>
+    <td>[% moderation.prev_unpacked.SortName %]</td>
+  </tr>
+
+  <tr>
+    <th rowspan="2">Resolution</th>
+    <td>[% moderation.new_unpacked.Resolution %]</td>
+  </tr>
+  <tr>
+    <td>[% moderation.prev_unpacked.Resolution %]</td>
+  </tr>
+</table>
