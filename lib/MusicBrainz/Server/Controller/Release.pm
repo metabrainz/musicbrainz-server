@@ -150,7 +150,7 @@ sub change_quality : Chained('release')
 
     return unless $c->form_posted && $form->validate($c->req->params);
 
-    $form->update_model;
+    $form->insert;
 
     $c->flash->{ok} = "Thanks, your release edit has been entered " .
                       "into the moderation queue";
@@ -171,7 +171,7 @@ sub edit_title : Chained('release')
 
     return unless $c->form_posted && $form->validate($c->req->params);
 
-    $form->update_model;
+    $form->insert;
     
     $c->flash->{ok} = "Thanks, your release edit has been entered " .
                       "into the moderation queue";
@@ -206,7 +206,7 @@ sub move_to : Chained('release') Args(1)
 
     return unless $c->form_posted && $form->validate($c->req->params);
 
-    $form->move($new_artist);
+    $form->insert($new_artist);
 
     $c->response->redirect($c->entity_url($release, 'show'));
 }
@@ -224,7 +224,7 @@ sub remove : Chained('release')
 
     return unless $c->form_posted && $form->validate($c->req->params);
 
-    $form->remove_release;
+    $form->insert;
 
     $c->response->redirect($c->entity_url($release, 'show'));
 }
@@ -256,7 +256,7 @@ sub confirm_convert_to_single_artist : Chained('release') Args(1)
 
     return unless $c->form_posted && $form->validate($c->req->params);
 
-    $form->set_artist($new_artist);
+    $form->insert($new_artist);
 
     $c->response->redirect($c->entity_url($release, 'show'));
 }

@@ -2,14 +2,17 @@ package MusicBrainz::Server::Form::Release::DataQuality;
 
 use base 'MusicBrainz::Server::DataQuality';
 
-sub build_moderation
+sub mod_type { ModDefs::MOD_CHANGE_RELEASE_QUALITY }
+
+sub build_options
 {
-    my ($self, $current_moderation) = @_;
+    my $self = shift;
 
-    $current_moderation->{type}     = ModDefs::MOD_CHANGE_RELEASE_QUALITY;
-    $current_moderation->{releases} = [ $self->item ];
-
-    return $current_moderation;
+    return {
+        type     => ModDefs::MOD_CHANGE_RELEASE_QUALITY,
+        releases => [ $self->item ],
+        quality  => $self->value('quality'),
+    };
 }
 
 1;
