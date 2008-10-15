@@ -18,11 +18,24 @@
 			or return $m->comp("/comp/error", "There is no user with id #$userid", 1, 1);
 	}
 
-	my $t = MusicBrainz::Server::Tag->new($mb->{DBH});
-	my $tags = $t->GetRawTagHash($userid);
+	my $private = $is_me ? 0 : not UserPreference::get_for_user("tags_public", $user);
+
+	my ($t, $tags);
+	unless ($private)
+	{
+		$t = MusicBrainz::Server::Tag->new($mb->{DBH});
+		$tags = $t->GetRawTagHash($userid);
+	}
 </%perl>
 
 <& /comp/sidebar, pagetitle => ($is_me ? "My" : $user->GetName . "'s") . " Tags" &>
+
+% if ($private)
+% {
+	<h3><% $user->GetName %>'s tags are private.</h3>
+% }
+% else
+% {
 
 <div class="TagsBox">
 <p style="margin-bottom: 1em;">
@@ -30,6 +43,7 @@
 </p>
 </div>
 
+% }
 <& /comp/footer &>
 
 %# vi: set ts=4 sw=4 ft=mason :

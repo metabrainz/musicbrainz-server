@@ -27,6 +27,8 @@
 			or return $m->comp("/comp/error", "There is no user with id #$userid", 1, 1);
 	}
 
+	my $private = $is_me ? 0 : not UserPreference::get_for_user("tags_public", $user);
+
 	my $t = MusicBrainz::Server::Tag->new($mb->{DBH});
 	my ($entities, $numitems);
 
@@ -77,6 +79,13 @@
     <a href="/user/tags/tag.html?userid=<% $userid %>&amp;tag=<% uri_escape($tag) %>&mp;show=track">tracks</a> ]
 % }
 
+% if ($private)
+% {
+    <h3><% $user->GetName %>'s tags are private.</h3>
+% }
+% else
+% {
+
 %	my @types = ($show eq 'all') ? ("artist", "label", "release", "track") : ($show);
 %	my $limit = ($show eq 'all') ? 10 : 100;
 %	for my $type (@types) {
@@ -111,6 +120,7 @@
 %			}
 %		}
 %	}
+% }
 
 <& /comp/footer &>
 
