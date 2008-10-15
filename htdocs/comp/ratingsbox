@@ -57,15 +57,17 @@
 %			}
     	</ul>
     </span>
-%	if ($detailled)
-%	{
-	<small>(
-%		if ($session{uid})
-%		{
-			Your rating: <span id="USER-RATING::<% $entity_type ."::". $entity_id %>"><% $user_rating || "none" %></span> - 
-%		}
-			Votes: <span id="VOTES-RATING::<% $entity_type ."::". $entity_id %>"><% $rating->{"rating_count"} || "0" %></span> )
-	</small>
-%	}
+<%perl>
+	if ($detailled)
+	{
+		$m->out("<small>(");
+		if ($session{uid})
+		{
+			$m->out("Your rating: <span id='USER-RATING::$entity_type::$entity_id'>". ($user_rating || "none") ."</span> - ");
+		}
+		$m-out("Votes: <span id='VOTES-RATING::$entity_type::$entity_id'>". ($rating->{"rating_count"} || "0") ."</span>)";
+		$->out("</small>");
+	}
+</%perl>
 
 %# vi: set ts=4 sw=4 ft=mason :
