@@ -113,6 +113,16 @@ sub insert
 
     my @mods = Moderation->InsertModeration(%opts);
 
+    my @edit_fields = grep { $_->name eq 'edit_note' } @{ $self->fields };
+    if (scalar @mods && scalar @edit_fields)
+    {
+        my $field = $edit_fields[0];
+
+        $mods[0]->InsertNote($user->id, $field->value('edit_note'))
+            if $mods[0] and $field->value('edit_note') =~ /\S/;
+
+    }
+
     return @mods;
 }
 
