@@ -5,12 +5,13 @@ use warnings;
 
 use base 'MusicBrainz::Server::Form::Label::Base';
 
-sub build_moderation
+sub mod_type { ModDefs::MOD_ADD_LABEL }
+
+sub build_options
 {
     my $self = shift;
 
     my $label = $self->item;
-    my $user  = $self->context->user;
 
     my ($begin, $end) =
         (
@@ -18,9 +19,7 @@ sub build_moderation
             [ map {$_ == '00' ? '' : $_} (split m/-/, $self->value('end_date')   || '') ],
         );
 
-    return (
-        type => ModDefs::MOD_ADD_LABEL,
-
+    return {
         name             => $self->value('name'),
         sortname         => $self->value('sort_name'),
         labeltype        => $self->value('type'),
@@ -30,7 +29,7 @@ sub build_moderation
 
         label_begindate => $begin,
         label_enddate   => $end,
-    );
+    };
 }
 
 1;

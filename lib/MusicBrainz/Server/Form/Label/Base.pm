@@ -3,7 +3,7 @@ package MusicBrainz::Server::Form::Label::Base;
 use strict;
 use warnings;
 
-use base 'MusicBrainz::Server::Form';
+use base 'MusicBrainz::Server::Form::EditForm';
 
 sub profile
 {
@@ -93,39 +93,6 @@ sub init_value
     }
 
     $self->SUPER::init_value(@_);
-}
-
-sub update_model
-{
-    my $self = shift;
-
-    my $label = $self->item;
-    my $user  = $self->context->user;
-
-    my ($begin, $end) =
-        (
-            [ map {$_ == '00' ? '' : $_} (split m/-/, $self->value('begin_date') || '') ],
-            [ map {$_ == '00' ? '' : $_} (split m/-/, $self->value('end_date')   || '') ],
-        );
-
-    my %moderation;
-    $moderation{DBH}   = $self->context->mb->{DBH};
-    $moderation{uid}   = $user->id;
-    $moderation{privs} = $user->privs;
-
-    my %extra = $self->build_moderation;
-
-    while(my ($key, $value) = each %extra)
-    {
-        $moderation{$key} = $value;
-    }
-
-    my @mods = Moderation->InsertModeration(%moderation);
-
-    $mods[0]->InsertNote($user->id, $self->value('edit_note'))
-        if $mods[0] and $self->value('edit_note') =~ /\S/;
-
-    return \@mods;
 }
 
 1;

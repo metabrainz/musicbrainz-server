@@ -11,7 +11,6 @@
 <div class="entity_header">
   <div class="title label">
     [% INCLUDE "components/entity-link.tt" entity=label noicon=1 %]
-    [% IF label.resolution; "(${label.resolution})" | html; END %]
   </div>
   <div class="info">
     [%- IF label.has_complete_date -%]

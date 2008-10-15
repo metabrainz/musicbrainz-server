@@ -147,7 +147,7 @@ sub merge_into : Chained('label') PathPart('into') Args(1)
 
     return unless $c->form_posted && $form->validate($c->req->params);
 
-    my @mods = $form->perform_merge($new_label);
+    my @mods = $form->insert($new_label);
 
     $c->flash->{ok} = "Thanks, your label edit has been entered " .
                       "into the moderation queue";
@@ -168,7 +168,7 @@ sub edit : Chained('label')
 
     return unless $c->form_posted && $form->validate($c->req->params);
 
-    $form->update_model;
+    $form->insert;
 
     $c->flash->{ok} = "Thanks, your label edit has been entered " .
                       "into the moderation queue";
@@ -187,11 +187,11 @@ sub create : Local
 
     return unless $c->form_posted && $form->validate($c->req->params);
 
-    my $mods = $form->update_model;
+    my @mods = $form->insert;
 
     # Make sure that the moderation did go through, and redirect to
     # the new artist
-    my @add_mods = grep { $_->type eq ModDefs::MOD_ADD_LABEL } @$mods;
+    my @add_mods = grep { $_->type eq ModDefs::MOD_ADD_LABEL } @mods;
 
     die "Label could not be created"
         unless @add_mods;
