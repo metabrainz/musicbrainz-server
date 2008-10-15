@@ -133,7 +133,7 @@ sub remove : Chained('track')
 
     my $release = $c->model('Release')->load($track->release);
 
-    $form->remove_from_release($release);
+    $form->insert($release);
 
     $c->flash->{ok} = "Thanks, your track edit has been entered " .
                       "into the moderation queue";
@@ -171,7 +171,7 @@ sub confirm_change_artist : Chained('track') Args(1)
 
     my $release = $c->model('Release')->load($track->release);
 
-    $form->change_artist($new_artist);
+    $form->insert($new_artist);
 
     $c->response->redirect($c->entity_url($release, 'show'));
 }
