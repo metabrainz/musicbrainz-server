@@ -25,6 +25,8 @@
 		$user = UserStuff->newFromId($mb->{DBH}, $userid)
 			or return $m->comp("/comp/error", "There is no user with id #$userid", 1, 1);
 	}
+    
+    my $private = $is_me ? 0 : (not UserPreference::get_for_user("rating_public", $user));
 
 	my $rt = MusicBrainz::Server::Rating->new($mb->{DBH});
 
@@ -58,6 +60,13 @@
 % } else {
     <a href="/user/ratings/?userid=<% $userid %>&mp;show=track">tracks</a> ]
 % }
+
+% if ($private)
+% {
+    <h3><% $user->GetName %>'s ratings are private.</h3>
+% }
+% else
+% {
 
 %	my @types = ($show eq 'all') ? ("artist", "label", "release", "track") : ($show);
 %	my $limit = ($show eq 'all') ? 10 : 100;
@@ -95,6 +104,7 @@
 %			}
 %		}
 %	}
+% }
 
 <& /comp/footer &>
 
