@@ -1,0 +1,81 @@
+[%- WRAPPER 'layout.tt' title="Moderation #${moderation.id}" -%]
+[%- WRAPPER 'components/box.tt' header="Moderation #${moderation.id}" -%]
+
+<table>
+  <tr>
+    <th>Editor:</th>
+    <td>[%- moderation.moderator_name -%]</td>
+  </tr>
+
+  <tr>
+    <th>Edit ID:</th>
+    <td>[% moderation.id %]</td>
+  </tr>
+
+  <tr>
+    <th>Status:</th>
+    <td>[% moderation.GetChangeName %]</td>
+  </tr>
+
+  <tr>
+    <th>Opened:</th>
+    <td>[% moderation.GetOpenTime %]</td>
+  </tr>
+
+  <tr>
+    <th>Expires:</th>
+    <td>[% moderation.GetExpireTime %]</td>
+  </tr>
+
+  <tr>
+    <th>Closed:</th>
+    <td>[% moderation.GetCloseTime || "-" %]</td>
+  </tr>
+
+  <tr>
+    <th>Conditions:</th>
+    <td>
+      [% data_quality(moderation.quality) %] data quality,
+      [% expire_action(moderation.GetExpireAction) %] on expiration,
+      [% moderation.GetNumVotesNeeded %] to accept/reject.
+    </td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <th>Edit:</th>
+    <td>
+      <table>
+        <tr>
+          <th>Type:</th>
+          <td>[%- moderation.Name -%]</td>
+        </tr>
+
+        [%- IF artist -%]
+        <tr>
+          <th>Artist:</th>
+          <td>[%- INCLUDE 'components/entity-link.tt' entity=artist -%]</td>
+        </tr>
+        [%- END -%]
+
+        [%- IF release -%]
+        <tr>
+          <th>Release:</th>
+          <td>[%- INCLUDE 'components/entity-link.tt' entity=release -%]</td>
+        </tr>
+        [%- END -%]
+
+        [%- IF track -%]
+        <tr>
+          <th></th>
+          <td>[%- INCLUDE 'components/entity-link.tt' entity=track -%]</td>
+        </tr>
+        [%- END -%]
+      </table>
+    </td>
+  </tr>
+</table>
+
+[%- END -%]
+[%- END -%]
