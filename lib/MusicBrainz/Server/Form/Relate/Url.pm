@@ -3,7 +3,7 @@ package MusicBrainz::Server::Form::Relate::Url;
 use strict;
 use warnings;
 
-use base 'MusicBrainz::Server::Form';
+use base 'MusicBrainz::Server::Form::EditForm';
 
 use MusicBrainz;
 use MusicBrainz::Server::LinkType;
@@ -79,12 +79,13 @@ sub options_type
     return \@options;
 }
 
-sub form_relationship
+sub mod_type { ModDefs::MOD_ADD_LINK }
+
+sub build_options
 {
     my ($self) = @_;
 
     my $source = $self->item;
-    my $user   = $self->context->user;
 
     my $type = $source->entity_type;
     $type =~ s/release/album/; # TODO terminology hack...
@@ -110,24 +111,11 @@ sub form_relationship
         desc => $self->value('description') || '',
     };
 
-    my @mods = Moderation->InsertModeration(
-        DBH   => $self->context->mb->{DBH},
-        uid   => $user->id,
-        privs => $user->privs,
-        type  => ModDefs::MOD_ADD_LINK,
-
+    return {
         entities => \@links,
         linktype => $link,
         url      => $self->value('url'),
-    );
-
-    if (scalar @mods)
-    {
-        $mods[0]->InsertNote($user->id, $self->value('edit_note'))
-            if $mods[0] and $self->value('edit_note') =~ /\S/;
-    }
-
-    return \@mods;
+    };
 }
 
 1;

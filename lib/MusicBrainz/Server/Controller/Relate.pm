@@ -28,7 +28,7 @@ sub url : Chained('entity')
 
     return unless $c->form_posted && $form->validate($c->req->params);
 
-    $form->form_relationship;
+    $form->insert;
 
     $c->response->redirect($c->entity_url($entity, 'relations'));
 }
@@ -46,7 +46,7 @@ sub cc : Chained('entity')
 
     return unless $c->form_posted && $form->validate($c->req->params);
 
-    $form->add_relationship;
+    $form->insert;
 
     $c->response->redirect($c->entity_url($entity, 'relations'));
 }

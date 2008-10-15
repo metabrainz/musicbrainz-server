@@ -3,7 +3,7 @@ package MusicBrainz::Server::Form::Relate::AddCCLicense;
 use strict;
 use warnings;
 
-use base 'MusicBrainz::Server::Form';
+use base 'MusicBrainz::Server::Form::EditForm';
 
 use MusicBrainz;
 use MusicBrainz::Server::LinkAttr;
@@ -55,12 +55,13 @@ sub options_license
     return map { $_->id . "|" => $_->name } @cclics;
 }
 
-sub add_relationship
+sub mod_type { ModDefs::MOD_ADD_LINK }
+
+sub build_options
 {
     my $self = shift;
 
     my $entity = $self->item;
-    my $user   = $self->context->user;
 
     my $linktypeid = $entity->entity_type eq 'release' ? 32
                    : $entity->entity_type eq 'track'   ? 21
@@ -93,12 +94,7 @@ sub add_relationship
 
     my ($license) = split /\|/, $self->value('license');
 
-    my @mods = Moderation->InsertModeration(
-        DBH   => $self->context->mb->{DBH},
-        uid   => $user->id,
-        privs => $user->privs,
-        type  => ModDefs::MOD_ADD_LINK,
-
+    return {
         entities   => \@links,
         linktype   => $linktype,
         url        => $self->value('url'),
@@ -106,15 +102,7 @@ sub add_relationship
             name  => 'license',
             value => $license,
         } ]
-    );
-
-    if (scalar @mods)
-    {
-        $mods[0]->InsertNote($user->id, $self->value('edit_note'))
-            if $mods[0] and $self->value('edit_note') =~ /\S/;
     };
-
-    return \@mods;
 }
 
 1;
