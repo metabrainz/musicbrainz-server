@@ -1216,4 +1216,13 @@ table.Subs tr.r1 td {
    font-size: 8pt;
 }
 
+/* Styles for the zeitgeist */
+#stats-timeplot-title {
+	font-weight: bold;
+}
+#stats-timeplot-legend a {
+   text-decoration: none;
+   color: #000000;
+}
+
 /* vi: set ts=4 sw=4 ft=mason : */

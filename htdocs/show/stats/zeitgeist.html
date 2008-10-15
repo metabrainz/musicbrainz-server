@@ -39,8 +39,9 @@ var types =
 					[
 						["artists", "count.artist"],
 						["releases", "count.album"],
-						["releases w/ discid", "count.album.has_discid"],
 						["VA releases", "count.album.various"],
+						["releases w/ discid", "count.album.has_discid"],
+						["discids", "count.discid"],
 					]
 			   ],
 	track    : [ "Track and PUID", 
@@ -52,20 +53,36 @@ var types =
 						[ "tracks w/ trm", "count.track.has_trm"],
 					]
 			   ],
-	editact  : [ "Edit activity", 
+	edit     : [ "Edit activity", 
 					[
-						[ "voted last week", "count.moderator.votelastweek" ],
-						[ "edited last week", "count.moderator.editlastweek" ],
+						[ "open edits", "count.moderation.open"],
+						[ "voted per week", "count.moderator.votelastweek" ],
+						[ "edited per week", "count.moderator.editlastweek" ],
 					]
                ],
-	edits    : [ "Open edits", 
+	ar       : [ "Advanced relationships", 
 					[
-						[ "open edits", "count.moderation.open"]
+						[ "artist-artist", "count.ar.links.l_artist_artist"],
+						[ "artist-url", "count.ar.links.l_artist_url"],
+						[ "artist-track", "count.ar.links.l_artist_track"],
+						[ "label-url", "count.ar.links.l_label_url"],
+						[ "track-track", "count.ar.links.l_track_track"]
+					]
+			   ],
+	tag      : [ "Tags", 
+					[
+						[ "artist tags", "count.tag.raw.artist"],
+						[ "release tags", "count.tag.raw.release"],
+						[ "track tags", "count.tag.raw.artist"],
+						[ "label tags", "count.tag.raw.label"],
 					]
 			   ]
 };
 
-var colors = ['#FF0000', '#00FF00', '#0000FF', '#00FFFF', '#FF00FF'];
+var maxPlotLines = 5;
+var colors = ['#F7A11A', '#846DA3', '#0CC92F', '#C90C19', '#45B6CE'];
+var linesVisible = [1, 1, 1, 1, 1];
+var currentType = 0;
 
 function onLoad() 
 {
@@ -74,6 +91,17 @@ function onLoad()
 
 function loadGraph(type)
 {
+	for(i = 0; i < maxPlotLines; i++)
+	    linesVisible[i] = 1;
+	currentType = type;
+
+	plotGraph();
+}
+
+function plotGraph()
+{
+	type = currentType;
+
 	plots = types[type][1];
 	title = types[type][0];
 	series = [];
@@ -83,6 +111,7 @@ function loadGraph(type)
 	}
 
 	var eventSource = new Timeplot.DefaultEventSource();
+	var historySource = new Timeplot.DefaultEventSource();
 
 	var valueGeometry = new Timeplot.DefaultValueGeometry({
 			gridColor: "#000000",
@@ -93,21 +122,30 @@ function loadGraph(type)
 			axisLabelsPlacement: "top"
 			});
 	var plotInfo = [];
+	var plotCount = 0;
 
 	for(i = 0; i < series.length; i++)
 	{
-	   plotInfo[i] = Timeplot.createPlotInfo({
-		  id: "plot" + (i+1),
-		  dataSource: new Timeplot.ColumnSource(eventSource,1+i),
-		  valueGeometry: valueGeometry,
-		  timeGeometry: timeGeometry,
-		  lineColor: colors[i],
-		  showValues: true
-		});
+		if (linesVisible[i])
+		{
+		   plotInfo[plotCount++] = Timeplot.createPlotInfo({
+			  id: "plot" + (i+1),
+			  dataSource: new Timeplot.ColumnSource(eventSource,1+i),
+			  valueGeometry: valueGeometry,
+			  timeGeometry: timeGeometry,
+			  lineColor: colors[i],
+			});
+		}
 	}
+	plotInfo[plotCount++] = Timeplot.createPlotInfo({
+		      id: "hist_plot",
+			  timeGeometry: timeGeometry,
+			  eventSource: historySource,
+		      lineColor: "#EDA5C2"});
 
 	timeplot = Timeplot.create(document.getElementById("stats-timeplot"), plotInfo);
 	timeplot.loadText("zeitgeist-data.html?series=" + series.join(","), ",", eventSource);
+	timeplot.loadXML("mb_history.xml", historySource);
 
 	textContent = document.getElementById('stats-timeplot-title')
 	textContent.firstChild.data=title;
@@ -119,7 +157,31 @@ function loadGraph(type)
 	    node.style.backgroundColor= colors[i];
 		node = document.getElementById('legend-text-' + i)
 	    node.firstChild.data= " " + plots[i][0] + " ";
+		if (linesVisible[i])
+		{
+			node.style.color = '#000000';
+		}
+		else
+		{
+			node.style.color = '#999999';
+		}
 	}
+	for(i = plots.length; i < maxPlotLines; i++)
+	{
+		node = document.getElementById('legend-color-' + i)
+	    node.style.backgroundColor= '#FFFFFF';
+		node = document.getElementById('legend-text-' + i)
+	    node.firstChild.data= " ";
+	}
+}
+
+function toggle(plotNum)
+{
+	if (plotNum < 0 || plotNum >= maxPlotLines)
+		return;
+
+	linesVisible[plotNum] = !linesVisible[plotNum];
+	plotGraph();
 }
 
 var resizeTimerID = null;
@@ -135,26 +197,31 @@ function onResize() {
 EOT
 </%perl>
 
-<& /comp/sidebar, pagetitle => "Database statistics", body=>'onload="onLoad();" onresize="onResize();"', head => $head &>
+<& /comp/sidebar, pagetitle => "MusicBrainz Zeitgeist", body=>'onload="onLoad();" onresize="onResize();"', head => $head &>
 
 <p>
-View [ <a href="#" onclick="loadGraph('artist');">artist/album graph</a> |
-<a href="#" onclick="loadGraph('track');">track/puid graph</a> |
-<a href="#" onclick="loadGraph('editact');">edit activity</a> |
-<a href="#" onclick="loadGraph('edits');">open edits</a> ]
+View [ <a href="#" onclick="loadGraph('artist');">artist/album</a> |
+<a href="#" onclick="loadGraph('track');">track/puid</a> |
+<a href="#" onclick="loadGraph('edit');">edit activity</a> |
+<a href="#" onclick="loadGraph('ar');">advanced relationships</a> |
+<a href="#" onclick="loadGraph('tag');">tags</a> ]
 </p>
 <br/>
 
 <div id="stats-timeplot-title"> </div>
 <div id="stats-timeplot" style="height:200px;"></div>
 <div id="stats-timeplot-legend">
-<span id="legend-color-0">&nbsp;</span><span id="legend-text-0"> </span> 
-<span id="legend-color-1">&nbsp;</span><span id="legend-text-1"> </span> 
-<span id="legend-color-2">&nbsp;</span><span id="legend-text-2"> </span> 
-<span id="legend-color-3">&nbsp;</span><span id="legend-text-3"> </span> 
-<span id="legend-color-4">&nbsp;</span><span id="legend-text-4"> </span> 
+<span id="legend-color-0">&nbsp;</span><a id="legend-text-0" href="#" onclick="toggle(0);" class="shownplotline"> </a> 
+<span id="legend-color-1">&nbsp;</span><a id="legend-text-1" href="#" onclick="toggle(1);" class="shownplotline"> </a> 
+<span id="legend-color-2">&nbsp;</span><a id="legend-text-2" href="#" onclick="toggle(2);" class="shownplotline"> </a> 
+<span id="legend-color-3">&nbsp;</span><a id="legend-text-3" href="#" onclick="toggle(3);" class="shownplotline"> </a> 
+<span id="legend-color-4">&nbsp;</span><a id="legend-text-4" href="#" onclick="toggle(4);" class="shownplotline"> </a> 
 </div>
+<br/>
 
+<p style="font-size: x-small; color: #999999">
+Tip: Click on the legend to show/hide plot lines.
+</p>
 
 <& /comp/footer &>
 
