@@ -1218,11 +1218,13 @@ table.Subs tr.r1 td {
 
 /* Styles for the zeitgeist */
 #stats-timeplot-title {
-	font-weight: bold;
+   font-weight: bold;
 }
 #stats-timeplot-legend a {
    text-decoration: none;
    color: #000000;
 }
-
+#stats-timeplot-link-to-this {
+   float: right;
+}
 /* vi: set ts=4 sw=4 ft=mason : */

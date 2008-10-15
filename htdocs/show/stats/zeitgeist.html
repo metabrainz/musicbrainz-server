@@ -26,6 +26,10 @@
 	# $Id: permlink.html 8548 2006-10-19 07:41:02Z dave $
 	#
 </%perl>
+<%args>
+	$type => 'artist'
+	$lines => '11111'
+</%args>
 <%perl>
 
 my $head = <<'EOT';
@@ -84,15 +88,21 @@ var colors = ['#F7A11A', '#846DA3', '#0CC92F', '#C90C19', '#45B6CE'];
 var linesVisible = [1, 1, 1, 1, 1];
 var currentType = 0;
 
-function onLoad() 
+function loadGraph(type, showLines)
 {
-	loadGraph("artist");
-}
+	if (showLines == null)
+	{
+		for(i = 0; i < maxPlotLines; i++)
+			linesVisible[i] = 1;
+	}
+	else
+	{
+		for(i = 0; i < maxPlotLines; i++)
+			linesVisible[i] = (showLines[i] == '1');
+	}
 
-function loadGraph(type)
-{
-	for(i = 0; i < maxPlotLines; i++)
-	    linesVisible[i] = 1;
+	if (types[type] == null)
+		type = 'artist';
 	currentType = type;
 
 	plotGraph();
@@ -110,6 +120,7 @@ function plotGraph()
 		series[i] = plots[i][1];
 	}
 
+	// set up the plot
 	var eventSource = new Timeplot.DefaultEventSource();
 	var historySource = new Timeplot.DefaultEventSource();
 
@@ -143,6 +154,7 @@ function plotGraph()
 			  eventSource: historySource,
 		      lineColor: "#EDA5C2"});
 
+	// Now create the actual plot
 	timeplot = Timeplot.create(document.getElementById("stats-timeplot"), plotInfo);
 	timeplot.loadText("zeitgeist-data.html?series=" + series.join(","), ",", eventSource);
 	timeplot.loadXML("mb_history.xml", historySource);
@@ -150,6 +162,7 @@ function plotGraph()
 	textContent = document.getElementById('stats-timeplot-title')
 	textContent.firstChild.data=title;
 
+	// Update the legend
 	var legend = "";
 	for(i = 0; i < plots.length; i++)
 	{
@@ -173,6 +186,13 @@ function plotGraph()
 		node = document.getElementById('legend-text-' + i)
 	    node.firstChild.data= " ";
 	}
+
+	// Update the link to this link
+	node = document.getElementById('stats-timeplot-link-to-this')
+	href = "?type=" + type + "&lines=";
+	for(i = 0; i < maxPlotLines; i++)
+		href += linesVisible[i] ? '1' : '0';
+	node.href = href
 }
 
 function toggle(plotNum)
@@ -197,7 +217,7 @@ function onResize() {
 EOT
 </%perl>
 
-<& /comp/sidebar, pagetitle => "MusicBrainz Zeitgeist", body=>'onload="onLoad();" onresize="onResize();"', head => $head &>
+<& /comp/sidebar, pagetitle => "MusicBrainz Zeitgeist", body=>'onload="loadGraph(\''.$type.'\', \''.$lines.'\');" onresize="onResize();"', head => $head &>
 
 <p>
 View [ <a href="#" onclick="loadGraph('artist');">artist/album</a> |
@@ -210,6 +230,7 @@ View [ <a href="#" onclick="loadGraph('artist');">artist/album</a> |
 
 <div id="stats-timeplot-title"> </div>
 <div id="stats-timeplot" style="height:200px;"></div>
+<a id="stats-timeplot-link-to-this" href="#">link to this graph</a>
 <div id="stats-timeplot-legend">
 <span id="legend-color-0">&nbsp;</span><a id="legend-text-0" href="#" onclick="toggle(0);" class="shownplotline"> </a> 
 <span id="legend-color-1">&nbsp;</span><a id="legend-text-1" href="#" onclick="toggle(1);" class="shownplotline"> </a> 
