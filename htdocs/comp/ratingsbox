@@ -6,10 +6,11 @@
 
     $detailled => 0		# Display all ratings information (loaded from DB): aggregate rating, ratings count, user rating (will be loaded from DB)
     $rating => undef    # Allow passing a rating hash to avoid loading from DB 
+
+    $allow_rating => 1
 </%args>
 
 <%perl>
-
 	# Check argument
     MusicBrainz::Server::Validation::IsNonNegInteger($entity_id) && $entity_id
         or return $m->comp("/comp/layout/badarguments", text => "Argument entity_id is required");
@@ -39,8 +40,10 @@
 
     my $rate_url = "/bare/rate.html?entity_id=$entity_id&entity_type=$entity_type&url=". $r->uri()."?".$r->args() ."&rating=";
     my %css_classes = ();
+
 	# Allow changing rate only if user is logged
-    %css_classes = ( 1 => "one", 2 => "two", 3 => "three", 4 => "four", 5 => "five" ) if ($session{uid});
+	$allow_rating &&= defined $session{uid};	
+	%css_classes = ( 1 => "one", 2 => "two", 3 => "three", 4 => "four", 5 => "five" ) if ($allow_rating);
 
 </%perl>
 

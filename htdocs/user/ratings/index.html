@@ -26,7 +26,7 @@
 			or return $m->comp("/comp/error", "There is no user with id #$userid", 1, 1);
 	}
     
-    my $private = $is_me ? 0 : (not UserPreference::get_for_user("rating_public", $user));
+    my $private = $is_me ? 0 : not UserPreference::get_for_user("ratings_public", $user);
 
 	my $rt = MusicBrainz::Server::Rating->new($mb->{DBH});
 
@@ -84,7 +84,9 @@
 						&></td>
 						<td><& /comp/ratingsbox, entity_id => $entity->{"id"}, entity_type => $type, 
                                 small => 1,
-                                rating => { rating => $entity->{"rating"} } &></td>
+                                rating => { rating => $entity->{"rating"} },
+                                allow_rating => $is_me,
+                            &></td>
 					</tr>
 %				}
 			</table>
