@@ -5,7 +5,7 @@ use warnings;
 
 use Moderation;
 
-use base 'MusicBrainz::Server::Form';
+use base 'MusicBrainz::Server::Form::EditForm';
 
 =head1 NAME
 
@@ -77,36 +77,6 @@ sub init_value
                    :                                            $item->quality;
         }
     }
-}
-
-=head2 update_model
-
-Creates a Moderation to update the entities data quality, and enters it
-into the database
-
-=cut
-
-sub update_model
-{
-    my $self = shift;
-    my $item = $self->item;
-
-    my $user = $self->context->user;
-
-    my %moderation;
-    $moderation{DBH  } = $self->context->mb->{DBH};
-    $moderation{uid  } = $user->id;
-    $moderation{privs} = $user->privs;
-    $moderation{quality} = $self->value('quality');
-
-    %moderation = %{ $self->build_moderation };
-
-    my @mods = Moderation->InsertModeration(%moderation);
-
-    $mods[0]->InsertNote($user->id, $self->value('edit_note'))
-        if $mods[0] and $self->value('edit_note') =~ /\S/;
-    
-    return \@mods;
 }
 
 =head1 LICENSE 

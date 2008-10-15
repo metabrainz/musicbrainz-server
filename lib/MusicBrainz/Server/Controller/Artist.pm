@@ -200,7 +200,7 @@ is validated and if validation succeeds, the artist is entered into the
 MusicBrainz database.
 
 The heavy work validating the form and entering data into the database
-is done via L<MusicBrainz::Server::Form::Artist;
+is done via L<MusicBrainz::Server::Form::Artist>
 
 =cut
 
@@ -215,7 +215,7 @@ sub create : Local
 
     return unless $c->form_posted && $form->validate($c->req->params);
 
-    my $mods = $form->create_artist;
+    my @mods = $form->insert;
 
     $c->flash->{ok} = "Thanks! The artist has been added to the " .
                       "database, and we have redirected you to " .
@@ -223,7 +223,7 @@ sub create : Local
 
     # Make sure that the moderation did go through, and redirect to
     # the new artist
-    my @add_mods = grep { $_->type eq ModDefs::MOD_ADD_ARTIST } @$mods;
+    my @add_mods = grep { $_->type eq ModDefs::MOD_ADD_ARTIST } @mods;
 
     die "Artist could not be created"
         unless @add_mods;
@@ -258,7 +258,7 @@ sub edit : Chained('artist')
 
     return unless $c->form_posted && $form->validate($c->req->params);
 
-    $form->update_model($artist);
+    $form->insert;
 
     $c->flash->{ok} = "Thanks, your artist edit has been entered " .
                       "into the moderation queue";
@@ -278,6 +278,8 @@ sub merge : Chained('artist')
 
     $c->forward('/user/login');
     $c->forward('/search/filter_artist');
+
+    $c->stash->{template} = 'artist/merge_search.tt';
 }
 
 sub merge_into : Chained('artist') PathPart('merge-into') Args(1)
@@ -297,7 +299,7 @@ sub merge_into : Chained('artist') PathPart('merge-into') Args(1)
 
     return unless $c->form_posted && $form->validate($c->req->params);
 
-    $form->perform_merge($new_artist);
+    $form->insert($new_artist);
 
     $c->flash->{ok} = "Thanks, your artist edit has been entered " .
                       "into the moderation queue";
@@ -434,7 +436,7 @@ sub add_non_album : Chained('artist')
 
     return unless $c->form_posted && $form->validate($c->req->params);
 
-    $form->add_track;
+    $form->insert;
 
     $c->flash->{ok} = 'Thanks, your edit has been entered into the moderation queue';
 
@@ -460,7 +462,7 @@ sub change_quality : Chained('artist')
 
     return unless $c->form_posted && $form->validate($c->req->params);
 
-    $form->update_model;
+    $form->insert;
 
     $c->flash->{ok} = "Thanks, your artist edit has been entered " .
                       "into the moderation queue";

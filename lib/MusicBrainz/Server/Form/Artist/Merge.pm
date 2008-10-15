@@ -3,7 +3,7 @@ package MusicBrainz::Server::Form::Artist::Merge;
 use strict;
 use warnings;
 
-use base 'MusicBrainz::Server::Form';
+use base 'MusicBrainz::Server::Form::EditForm';
 
 use Moderation;
 use ModDefs;
@@ -17,25 +17,18 @@ sub profile
     };
 }
 
-sub perform_merge
+sub mod_type { ModDefs::MOD_MERGE_ARTIST }
+
+sub build_options
 {
     my ($self, $target) = @_;
 
     my $source = $self->item;
-    my $user   = $self->context->user;
 
-    my @mods = Moderation->InsertModeration(
-        DBH   => $self->context->mb->{DBH},
-        uid   => $user->id,
-        privs => $user->privs,
-        type  => ModDefs::MOD_MERGE_ARTIST,
-
+    return {
         source => $source,
         target => $target,
-    );
-    
-    $mods[0]->InsertNote($user->id, $self->value('edit_note'))
-        if $self->value('edit_note') =~ /\S/;
+    }
 }
 
 1;

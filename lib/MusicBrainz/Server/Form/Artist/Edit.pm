@@ -5,12 +5,13 @@ use warnings;
 
 use base 'MusicBrainz::Server::Form::Artist::Base';
 
-sub update_model
+sub mod_type { ModDefs::MOD_EDIT_ARTIST }
+
+sub build_options
 {
     my $self = shift;
     
     my $artist = $self->item;
-    my $user   = $self->context->user;
 
     my ($begin, $end) =
         (
@@ -18,12 +19,7 @@ sub update_model
             [ map {$_ == '00' ? '' : $_} (split m/-/, $self->value('end') || '') ],
         );
 
-    my @mods = Moderation->InsertModeration(
-        DBH   => $self->context->mb->{DBH},
-        uid   => $user->id,
-        privs => $user->privs,
-        type  => ModDefs::MOD_EDIT_ARTIST,
-
+    return {
         artist      => $artist,
         name        => $self->value('name')        || $artist->name,
         sortname    => $self->value('sortname')    || $artist->sort_name,
@@ -32,12 +28,7 @@ sub update_model
 
         begindate => $begin,
         enddate   => $end,
-    );
-
-    $mods[0]->InsertNote($user->id, $self->value('edit_note'))
-        if $mods[0] and $self->value('edit_note') =~ /\S/;
-
-    return \@mods;
+    };
 }
 
 1;

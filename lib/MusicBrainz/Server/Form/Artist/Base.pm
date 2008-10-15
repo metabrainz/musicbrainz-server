@@ -3,7 +3,7 @@ package MusicBrainz::Server::Form::Artist::Base;
 use strict;
 use warnings;
 
-use base 'MusicBrainz::Server::Form';
+use base 'MusicBrainz::Server::Form::EditForm';
 
 use ModDefs;
 use Moderation;
@@ -121,20 +121,6 @@ sub init_value
             return $resolution;
         };
     }
-}
-
-=head2 update_from_form
-
-A small helper method to validate the form and update the database if validation succeeds in one easy call.
-
-=cut
-
-sub update_from_form
-{
-    my ($self, $data) = @_;
-
-    return unless $self->validate($data);
-    $self->update_model;
 }
 
 =head1 LICENSE 

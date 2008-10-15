@@ -3,7 +3,7 @@ package MusicBrainz::Server::Form::Artist::AddNonAlbumTrack;
 use strict;
 use warnings;
 
-use base 'MusicBrainz::Server::Form';
+use base 'MusicBrainz::Server::Form::EditForm';
 
 sub profile
 {
@@ -22,34 +22,17 @@ sub profile
     }
 }
 
-sub add_track
+sub mod_type { ModDefs::MOD_ADD_TRACK_KV }
+
+sub build_options
 {
     my $self = shift;
-
     my $artist = $self->item;
-    my $user   = $self->context->user;
 
-    my @mods = Moderation->InsertModeration(
-        DBH   => $self->context->mb->{DBH},
-        uid   => $user->id,
-        privs => $user->privs,
-        type  => ModDefs::MOD_ADD_TRACK_KV,
-
+    return {
         artist      => $artist,
         trackname   => $self->value('track')->{name},
         tracklength => $self->value('track')->{duration} || 0,
-    );
-
-    if (scalar @mods)
-    {
-        $mods[0]->InsertNote($user->id, $self->value('edit_note'))
-            if $mods[0] and $self->value('edit_note') =~ /\S/;
-
-        return \@mods;
-    }
-    else
-    {
-        die "Could not insert track";
     }
 }
 

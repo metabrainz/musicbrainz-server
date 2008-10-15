@@ -4,14 +4,16 @@ use base 'MusicBrainz::Server::Form::DataQuality';
 
 use ModDefs;
 
-sub build_moderation
+sub mod_type { ModDefs::MOD_CHANGE_ARTIST_QUALITY; }
+
+sub build_options
 {
-    my ($self, $current_moderation) = @_;
+    my $self = shift;
 
-    $current_moderation->{type}    = ModDefs::MOD_CHANGE_ARTIST_QUALITY;
-    $current_moderation->{artist}  = $self->item;
-
-    return $current_moderation;
+    return {
+        artist  => $self->item,
+        quality => $self->value('quality'),
+    };
 }
 
 1;

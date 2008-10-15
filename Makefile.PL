@@ -23,6 +23,7 @@ requires 'DBI';
 requires 'Devel::Peek';
 requires 'Digest::MD5';
 requires 'Digest::SHA1';
+requires 'Email::Date::Format';
 requires 'Email::Valid';
 requires 'Form::Processor';
 requires 'JSON';
