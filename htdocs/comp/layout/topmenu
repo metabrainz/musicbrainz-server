@@ -47,7 +47,7 @@
 			{ name => "History",				url => "/doc/MusicBrainzHistory" },
 			{ name => "Licenses",				url => "/doc/MusicBrainzLicense" },
 			{ name => "Social Contract",		url => "/doc/SocialContract" },
-			{ name => "Zeitgeist",				url => "/show/stats/zeitgeist.html" },
+			{ name => "Timeline",				url => "/show/stats/timeline.html" },
 			{ name => "Statistics",				url => "/show/stats/" },
 			{ name => "Development",			url => "/doc/Development" },
 			{ name => "Logos",					url => "/doc/MusicBrainzLogo" },

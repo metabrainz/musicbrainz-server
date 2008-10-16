@@ -160,7 +160,7 @@ function plotGraph()
 
 	// Now create the actual plot
 	timeplot = Timeplot.create(document.getElementById("stats-timeplot"), plotInfo);
-	timeplot.loadText("zeitgeist-data.html?series=" + series.join(","), ",", eventSource);
+	timeplot.loadText("timeline-data.html?series=" + series.join(","), ",", eventSource);
 	timeplot.loadXML("mb_history.xml", historySource);
 
 	textContent = document.getElementById('stats-timeplot-title')
@@ -221,7 +221,7 @@ function onResize() {
 EOT
 </%perl>
 
-<& /comp/sidebar, pagetitle => "MusicBrainz Zeitgeist", body=>'onload="loadGraph(\''.$type.'\', \''.$lines.'\');" onresize="onResize();"', head => $head &>
+<& /comp/sidebar, pagetitle => "MusicBrainz Timeline", body=>'onload="loadGraph(\''.$type.'\', \''.$lines.'\');" onresize="onResize();"', head => $head &>
 
 
 <p>

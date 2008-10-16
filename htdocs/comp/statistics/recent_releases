@@ -52,7 +52,7 @@ my $recent = $stats->GetRecentReleases();
 %   }
 		<tr>
 			<td colspan="3">
-			[ <a href="zeitgeist.html?type=recent">see more recent releases</a> ]
+			[ <a href="timeline.html?type=recent">see more recent releases</a> ]
 			</td>
 		</tr>
 	</table>

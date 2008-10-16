@@ -52,7 +52,7 @@ my $upcoming = $stats->GetUpcomingReleases();
 %   }
 		<tr>
 			<td colspan="3">
-			[ <a href="zeitgeist.html?type=upcoming">see more upcoming releases</a> ]
+			[ <a href="timeline.html?type=upcoming">see more upcoming releases</a> ]
 			</td>
 		</tr>
 	</table>

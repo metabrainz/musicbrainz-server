@@ -52,7 +52,7 @@ my $deceased = $stats->GetRecentlyDeceased();
 %   }
 		<tr>
 			<td colspan="3">
-			[ <a href="zeitgeist.html?type=deceased">see more recently deceased artists</a> ]
+			[ <a href="timeline.html?type=deceased">see more recently deceased artists</a> ]
 			</td>
 		</tr>
 	</table>
