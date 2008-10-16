@@ -41,6 +41,7 @@
 		{ name => "About",					url => "/doc/AboutMusicBrainz" },
 		[
 			{ name => "About MusicBrainz",		url => "/doc/AboutMusicBrainz" },
+			{ name => "MusicBrainz Zeitgeist",	url => "/show/stats/zeitgeist.html" },
 			{ name => "Mirrors",				url => "/doc/MirrorServer" },
 			{ name => "People",					url => "/doc/MusicBrainzBio" },
 			{ name => "Privacy",				url => "/doc/MusicBrainzPrivacyPolicy" },
