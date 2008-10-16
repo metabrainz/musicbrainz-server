@@ -1,9 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <data>
-    <event start="Oct 13 2003" title="Edit search" link="http://blog.musicbrainz.org/?p=18">
+    <event start="Jan 21 2003" title="TRM collisions" link="http://blog.musicbrainz.org/?p=4">
+	Added support for improved TRM collision handling in the classic tagger.
+    </event>
+    <event start="Mar 02 2003" title="Cleanup" link="http://blog.musicbrainz.org/?p=4">
+	Bug fix/cleanup release.
+    </event>
+    <event start="Mar 29 2003" title="Dedicated database server" link="http://blog.musicbrainz.org/?p=5">
+	MusicBrainz gets its first dedicated database server.
+    </event>
+    <event start="Apr 05 2003" title="Improved search" link="http://blog.musicbrainz.org/?p=6">
+	Improved search/cleanup.
+    </event>
+    <event start="Jun 07 2003" title="Cleanup" link="http://blog.musicbrainz.org/?p=9">
+	Cleanup release.
+    </event>
+    <event start="Jun 15 2003" title="Cleanup" link="http://blog.musicbrainz.org/?p=10">
+	Cleanup release.
+    </event>
+    <event start="Jun 30 2003" title="Artist subscriptions" link="http://blog.musicbrainz.org/?p=11">
+	Artist subscriptions
+    </event>
+    <event start="Jun 30 2003" title="Bug fixes" link="http://blog.musicbrainz.org/?p=13">
+	Bug fix/cleanup release.
+    </event>
+    <event start="Jul 25 2003" title="Bug fixes" link="http://blog.musicbrainz.org/?p=15">
+	Bug fix/cleanup release.
+    </event>
+    <event start="Sep 04 2003" title="Bug fixes" link="http://blog.musicbrainz.org/?p=16">
+	Bug fix/cleanup release.
+    </event>
+    <event start="Oct 13 2003" title="Non album tracks" link="http://blog.musicbrainz.org/?p=18">
     Non album tracks are released.
     </event>
-    <event start="Oct 19 2003" title="Edit search" link="http://blog.musicbrainz.org/?p=19">
+    <event start="Oct 19 2003" title="Release editor" link="http://blog.musicbrainz.org/?p=19">
     Release editor and Guess Case released.
     </event>
     <event start="Nov 10 2003" title="Edit search" link="http://blog.musicbrainz.org/?p=21">
@@ -52,6 +82,9 @@
     <event start="Jan 08 2006" title="SG5 Fixes" link="http://blog.musicbrainz.org/?p=142">
 	Style Guideline 5 workaround introduced and unused TRMs pruned from the database.
     </event>
+    <event start="Jan 20 2007" title="MetaBrainz signs first customer" link="http://blog.musicbrainz.org/?p=148">
+	Linkara Musica becomes first commercial customer of MetaBrainz.
+    </event>
     <event start="Feb 27 2006" title="MusicBrainz Move" link="http://blog.musicbrainz.org/?p=155">
 	MusicBrainz moved to Digital West Networks in San Luis Obispo.
     </event>
@@ -62,12 +95,39 @@
 	MusicBrainz partners with MusicIP and starts using MusicDNS's PUID acoustic fingerprints.
     </event>
     <event start="Jul 12 2006" title="Release editor" link="http://blog.musicbrainz.org/?p=184">
-	An improved release editor and a new site design are released and welcomed with a Great Debate.
+	An improved release editor and a new site design are released.
+    </event>
+    <event start="Aug 15 2006" title="Great Dispute" link="http://wiki.musicbrainz.org/GreatDispute">
+	A rift in the MusicBrainz community leads to a Great Dispute.
+    </event>
+    <event start="Dec 17 2006" title="Search improvements" link="http://blog.musicbrainz.org/?p=229">
+	The search features and web service improvements are released.
     </event>
     <event start="Apr 01 2007" title="Labels/data quality" link="http://blog.musicbrainz.org/?p=252">
 	Support for Labels and data quality are released.
     </event>
+    <event start="Jun 28 2007" title="BBC partners with MetaBrainz" link="http://blog.musicbrainz.org/?p=274">
+	The BBC becomes a MetaBrainz customer and starts using MusicBrainz data.
+    </event>
     <event start="Oct 17 2007" title="Tags" link="http://blog.musicbrainz.org/?p=287">
 	Folksonomy tagging, editor subscriptions are released.
+    </event>
+    <event start="Nov 07 2007" title="Last.fm" link="http://blog.musicbrainz.org/?p=294">
+	Last.fm signs up with MetaBrainz and starts using MusicBrainz data.
+    </event>
+    <event start="Apr 01 2008" title="MetaWeb signed" link="http://blog.musicbrainz.org/?p=316">
+	MetaWeb comes MusicBrainz data user.
+    </event>
+    <event start="Apr 21 2008" title="SoC 2008" link="http://blog.musicbrainz.org/?p=317">
+	MetaBrainz accepts three students for Google Summer of Code.
+    </event>
+    <event start="Jul 30 2008" title="BBC dynamic artist pages" link="http://blog.musicbrainz.org/?p=337">
+	BBC launches the dynamic artist pages based on MusicBrainz data.
+    </event>
+    <event start="Sep 01 2008" title="Amazon betas SoundUnwound" link="http://blog.musicbrainz.org/?p=344">
+	Amazon betas <a href="http://soundunwound.com">SoundUnwound</a> with data from MusicBrainz.
+    </event>
+    <event start="Sep 23 2008" title="MetaBrainz hires Oliver Charles" link="http://blog.musicbrainz.org/?p=346">
+	Oliver Charles becomes employee #1 of MetaBrainz Foundation.
     </event>
 </data>
