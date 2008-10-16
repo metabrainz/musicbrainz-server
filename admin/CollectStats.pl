@@ -33,8 +33,8 @@ $mb = MusicBrainz->new;
 $mb->Login;
 $sql = Sql->new($mb->{DBH});
 
-use Statistic;
-my $s = Statistic->new($mb->{DBH});
+use MusicBrainz::Server::Statistic;
+my $s = MusicBrainz::Server::Statistic->new($mb->{DBH});
 
 $sql->Begin;
 $s->RecalculateAll;

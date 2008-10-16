@@ -32,6 +32,10 @@
 </%args>
 <%perl>
 
+my $mb = $m->comp("/comp/dblogin", quiet=>1);
+my $stat = MusicBrainz::Server::Statistic->new($mb->{DBH});
+my $time = $m->comp("/comp/datetime", $stat->LastRefreshed);
+
 my $head = <<'EOT';
 <script type="text/javascript" src="http://static.simile.mit.edu/timeplot/api/1.0/timeplot-api.js"></script>
 <script language="javascript" type="text/javascript">
@@ -219,6 +223,7 @@ EOT
 
 <& /comp/sidebar, pagetitle => "MusicBrainz Zeitgeist", body=>'onload="loadGraph(\''.$type.'\', \''.$lines.'\');" onresize="onResize();"', head => $head &>
 
+
 <p>
 View [ <a href="#" onclick="loadGraph('artist');">artist/album</a> |
 <a href="#" onclick="loadGraph('track');">track/puid</a> |
@@ -229,6 +234,7 @@ View [ <a href="#" onclick="loadGraph('artist');">artist/album</a> |
 <br/>
 
 <div id="stats-timeplot-title"> </div>
+<div class="lastupdated">last updated <% MusicBrainz::Server::DateTime::format_datetime_since($time) %></div>
 <div id="stats-timeplot" style="height:200px;"></div>
 <a id="stats-timeplot-link-to-this" href="#">link to this graph</a>
 <div id="stats-timeplot-legend">
@@ -243,6 +249,7 @@ View [ <a href="#" onclick="loadGraph('artist');">artist/album</a> |
 <p style="font-size: x-small; color: #999999">
 Tip: Click on the legend to show/hide plot lines and click the red vertical lines for information on events.
 </p>
+
 
 <& /comp/footer &>
 

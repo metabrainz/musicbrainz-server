@@ -35,11 +35,11 @@
 
 % if (!$date and !$type) {
 
-    <& /comp/dashboard/stat_wrapper, type=> 'upcoming_releases', expire => '1 hour', busy_lock => '1min' &>
+    <& /comp/statistics/stat_wrapper, type=> 'upcoming_releases', expire => '1 hour', busy_lock => '1min' &>
 	<br/>
-    <& /comp/dashboard/stat_wrapper, type=> 'recent_releases', expire => '1 hour', busy_lock => '1min' &>
+    <& /comp/statistics/stat_wrapper, type=> 'recent_releases', expire => '1 hour', busy_lock => '1min' &>
 	<br/>
-    <& /comp/dashboard/stat_wrapper, type=> 'recently_deceased', expire => '1 hour', busy_lock => '1min' &>
+    <& /comp/statistics/stat_wrapper, type=> 'recently_deceased', expire => '1 hour', busy_lock => '1min' &>
 
 % } else {
    <p>Coming soon!</p>

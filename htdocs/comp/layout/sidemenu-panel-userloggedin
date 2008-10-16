@@ -78,6 +78,8 @@
 %	}
 
 			<li>
+				<a title="Dashboard" href="/show/stats/dashboard.html">Dashboard</a></li>
+			<li>
 				<a title="Make a donation" href="http://metabrainz.org/donate">Donate!</a></li>
 		</ul>
 	</div>

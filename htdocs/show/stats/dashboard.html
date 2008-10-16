@@ -35,11 +35,11 @@
 
 % if (!$date and !$type) {
 
-    <& /comp/dashboard/stat_wrapper, type=> 'edit_stats', expire => '24 hours', busy_lock => '10min' &>
+    <& /comp/statistics/stat_wrapper, type=> 'edit_stats', expire => '24 hours', busy_lock => '10min' &>
 	<br/>
-    <& /comp/dashboard/stat_wrapper, type=> 'hot_edits', expire => '10 min', busy_lock => '1min' &>
+    <& /comp/statistics/stat_wrapper, type=> 'hot_edits', expire => '10 min', busy_lock => '1min' &>
 	<br/>
-    <& /comp/dashboard/stat_wrapper, type=> 'recent_entities', expire => '5 min', busy_lock => '1min' &>
+    <& /comp/statistics/stat_wrapper, type=> 'recent_entities', expire => '5 min', busy_lock => '1min' &>
 
 % } else {
    <p>Coming soon!</p>

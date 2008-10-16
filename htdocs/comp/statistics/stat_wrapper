@@ -36,7 +36,7 @@
 my $edits = $m->cache->get("dashboard-$type", busy_lock=>$busy_lock);
 if (!defined $edits)
 {
-	$edits = $m->scomp("/comp/dashboard/$type") ;
+	$edits = $m->scomp("/comp/statistics/$type") ;
 	$m->cache->set("dashboard-$type", $edits, $expire);
 }
 
@@ -45,7 +45,7 @@ $m->out($edits);
 my $co = $m->cache->get_object("dashboard-$type");
 if ($co)
 {
-	$m->out('<p style="color: grey; font-size: x-small;">Updated ');
+	$m->out('<p class="lastupdated">Updated ');
 	$m->out(&MusicBrainz::Server::DateTime::format_datetime_since($co->get_created_at()));
 	$m->out('</p>');
 }

@@ -14,7 +14,7 @@ if (&DBDefs::REPLICATION_TYPE == RT_SLAVE)
 } 
 
 my $mb = $m->comp("/comp/dblogin", quiet=>1);
-my $stat = Statistic->new($mb->{DBH});
+my $stat = MusicBrainz::Server::Statistic->new($mb->{DBH});
 
 if ($fCallingSelf)
 {
@@ -405,51 +405,7 @@ my $pc = sub
 
 </div>
 
-<p>
-	Here are some graphs over a few of the above statistics over time.
-	Each one is presented as a simple count, followed by a "delta" plot
-	showing how the weekly change rate.
-</p>
-
 <%perl>
-
-for my $n (qw(
-	count.artist
-	count.album
-	count.track
-	count.label
-	count.puid
-	count.discid
-	count.ar.links
-	count.tag
-	count.tag.raw
-	count.moderator
-	count.moderation
-	count.vote
-)) {
-	$m->out(qq{
-		<div style="border: 0; width: 80%; border-top: 3px double #999;
-			margin: 1em"></div>
-		<div>
-			<img id="plot.$n" src="generated/plot_$n.png" alt="$n" />
-		</div>
-		<div>
-			<img id="plot.$n.delta" src="generated/plot_${n}_delta.png" alt="$n" />
-		</div>
-	});
-}
-
-for my $n (qw(
-	count.moderation.open
-)) {
-	$m->out(qq{
-		<div style="border: 0; width: 80%; border-top: 3px double #999;
-			margin: 1em"></div>
-		<div>
-			<img id="plot.$n" src="generated/plot_$n.png" alt="$n" />
-		</div>
-	});
-}
 
 $mb->Logout();
 
@@ -458,26 +414,44 @@ $mb->Logout();
 }
 else
 {
-	$m->comp("/comp/sidebar", title=>'Database Stats', expand=>'about');
+	$m->comp("/comp/sidebar", title=>'Database Statistics', expand=>'about');
 
 	my $time = $m->comp("/comp/datetime", $stat->LastRefreshed);
 	</%perl>
 
 	<p>
-		These statistics represent provide aggregate data on various things in the
-	 	MusicBrainz database. They were last refreshed <% $time %>.
+	[ <a href="zeitgeist.html">Zeitgeist</a>
+	| <a href="dashboard.html">Dashboard</a> 
+	| <a href="musicnewz.html">Music Newz</a> 
+	| <a href="http://musicbrainz.org/usage/">Web Stats</a>
+	| <a href="http://musicbrainz.org/mrtg/">System monitoring</a> ]
 	</p>
+	<br/>
 	<p>
-		See also our <a href="http://musicbrainz.org/usage/">Web Stats</a> pages, and our
-		<a href="http://musicbrainz.org/mrtg/">system monitoring</a> pages.
+		These tabular statistics below provide aggregate data on various things in the
+	 	MusicBrainz database. For an interactive graph of this data, please see the 
+		<a href="zeitgeist.html">MusicBrainz Zeitgeist</a>.  For a look at recent changes 
+		and interesting edits in the database, check out the <a href="dashboard.html">Dashboard</a>. 
 	</p>
+	<br/>
+	<p>
+		See also our <a href="http://musicbrainz.org/usage/">Web Stats</a> pages that show
+		how much web traffic MusicBrainz handles, and our 
+		<a href="http://musicbrainz.org/mrtg/">system monitoring</a> pages that give 
+		information about the health of our servers.
+	</p>
+	<br/>
+	<p class="lastupdated">
+	 	last updated <% MusicBrainz::Server::DateTime::format_datetime_since($time) %>
+	</p>
+	<br/>
 	<%perl>
 
 	my $result = $m->cache->get("anyoldkey");
 
 	if (!$result)
 	{
-		$result = $m->scomp("stats.html", $sMagicWord);
+		$result = $m->scomp("index.html", $sMagicWord);
 		$m->cache->set('anyoldkey', $result, '1 hour');
 	}
 

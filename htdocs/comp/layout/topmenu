@@ -41,15 +41,15 @@
 		{ name => "About",					url => "/doc/AboutMusicBrainz" },
 		[
 			{ name => "About MusicBrainz",		url => "/doc/AboutMusicBrainz" },
-			{ name => "MusicBrainz Zeitgeist",	url => "/show/stats/zeitgeist.html" },
 			{ name => "Mirrors",				url => "/doc/MirrorServer" },
 			{ name => "People",					url => "/doc/MusicBrainzBio" },
 			{ name => "Privacy",				url => "/doc/MusicBrainzPrivacyPolicy" },
 			{ name => "History",				url => "/doc/MusicBrainzHistory" },
 			{ name => "Licenses",				url => "/doc/MusicBrainzLicense" },
 			{ name => "Social Contract",		url => "/doc/SocialContract" },
+			{ name => "Zeitgeist",				url => "/show/stats/zeitgeist.html" },
+			{ name => "Statistics",				url => "/show/stats/" },
 			{ name => "Development",			url => "/doc/Development" },
-			{ name => "Server Statistics",		url => "/doc/ServerStatistics" },
 			{ name => "Logos",					url => "/doc/MusicBrainzLogo" },
 			{ name => "AutoEditor Elections",	url => "/user/election/" },
 			[
@@ -65,6 +65,7 @@
 		{ name => "News",					url => "/news/index.html" },
 		[
 			{ name => "General News",			url => "/news/index.html" },
+			{ name => "Music Newz",				url => "/show/stats/musicnewz.html" },
 			{ name => "Blog",					url => "http://blog.musicbrainz.org/" },
 			{ name => "Server",					url => "/news/server.html" },
 			{ name => "libmusicbrainz",			url => "/news/client.html" },
@@ -218,7 +219,8 @@
 
 			] : [],
 			{ name => "Review/Vote on Edits",	url => "/mod/search/select-filter.html" },
-			{ name => "Edit Conditions", url => "/show/edit/conditions.html" },
+			{ name => "Dashboard",				url => "/show/stats/dashboard.html" },
+			{ name => "Edit Conditions",		url => "/show/edit/conditions.html" },
 			[
 				{ url => "/mod/search/pre/new.html" },
 				{ url => "/mod/search/pre/subscriptions.html" },

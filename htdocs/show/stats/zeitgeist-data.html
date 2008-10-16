@@ -37,7 +37,7 @@ my $data = $m->cache->get("zeigeist-$series", busy_lock=>'30 sec');
 if (!defined $data)
 {
 	my $mb = $m->comp("/comp/dblogin");
-	my $stats = MusicBrainz::Server::Statistics->new($mb->{DBH});
+	my $stats = MusicBrainz::Server::Statistic->new($mb->{DBH});
 
 	$data = $stats->GetStats($series);
     $m->cache->set("zeigeist-$series", $data, "2h");

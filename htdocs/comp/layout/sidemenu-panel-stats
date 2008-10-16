@@ -46,7 +46,7 @@
 	# the statistics. The results are cached for
 	# 24 hours.
 	my $mb = $m->comp("/comp/dblogin", quiet => 1);
-	my $stat = Statistic->new($mb->{DBH});
+	my $stat = MusicBrainz::Server::Statistic->new($mb->{DBH});
 	my %stats = %{ $stat->FetchAllAsHashRef };
 
 	for ([ "Artists", $stats{'count.artist'} ],

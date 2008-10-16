@@ -1227,4 +1227,9 @@ table.Subs tr.r1 td {
 #stats-timeplot-link-to-this {
    float: right;
 }
+.lastupdated {
+   color: grey; 
+   font-size: x-small;
+}
+
 /* vi: set ts=4 sw=4 ft=mason : */

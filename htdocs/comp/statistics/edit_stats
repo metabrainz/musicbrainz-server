@@ -30,7 +30,7 @@
 <%perl>
 
 my $mb = $m->comp("/comp/dblogin");
-my $stats = MusicBrainz::Server::Statistics->new($mb->{DBH});
+my $stats = MusicBrainz::Server::Statistic->new($mb->{DBH});
 my $edit_stats = $stats->GetEditStats();
 
 </%perl>
