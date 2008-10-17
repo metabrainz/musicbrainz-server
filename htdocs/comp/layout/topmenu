@@ -345,7 +345,13 @@
 			{ url => "/edit/albumbatch/merge.html" },
 			{ url => "/edit/albumbatch/remove.html" },
 		],
-		
+                { name => "Collection",			url => "/show/collection/" }, 
+                [
+			{ name => "My Collection",			url => "/show/collection/index.html" },
+			{ name => "Missing releases",		url => "/show/collection/missing.html",		login => 1 },
+			{ name => "Collection Artists",		url => "/show/collection/artists.html",	login => 1 },
+			{ name => "Collection Preferences",	url => "/user/collectionpreferences.html",	login => 1 },
+		],
 		{ name => "Account",			url => "/show/user/index.html" },
 		[
 			{ name => "Edit Account",			url => "/user/edit.html",					login => 1 },
@@ -411,16 +417,6 @@
 		],
 	);
 	
-	# only display collection menu if user is logged on
-	#if($session{uid})
-	#{
-		splice(@topmenu_tree, 10, 0, { name => "Collection",			url => "/show/collection/" }, [
-			{ name => "Collection",				url => "/show/collection/index.html",		login => 1 },
-			{ name => "Missing releases",		url => "/show/collection/missing.html",		login => 1 },
-			{ name => "Collection Preferences",	url => "/user/collectionpreferences.html",	login => 1 },
-			{ name => "Artists",				url => "/show/collection/artists.html",	login => 1 },
-		]);
-	#}
 	
 	%urlmap = ();
 	%urlmap2 = ();
