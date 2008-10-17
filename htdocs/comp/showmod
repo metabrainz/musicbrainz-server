@@ -20,6 +20,8 @@
 	my $time = ($is_open ? $edit->GetExpireTime : $edit->GetCloseTime);
 	$time = $m->comp("/comp/datetime", $time);
 	$time =~ s/ /&nbsp;/gi;
+	
+	my $editid = $edit->GetId;
 
 	# Rough sketch of the layout of a moderation row:
 
@@ -63,8 +65,8 @@
 				<tr>
 					<td class="lblinfo">Edit ID: </td>
 					<td>
-						<a href="/show/edit/?editid=<% $edit->GetId %>"
-							title="View details of this edit"><% $edit->GetId %></a></td>
+						<a href="/show/edit/?editid=<% $editid %>"
+							title="View details of this edit"><% $editid %></a></td>
 				</tr>
 
 % 	if ($edit->GetLanguageId)
@@ -106,7 +108,7 @@
 
 %	}
 
-		[ <a href="/mod/addnote.html?modid=<% $edit->GetId %>" onclick="MyWindow=window.open('/mod/addnote.html?modid=<% $edit->GetId %>','AddNote','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=500,height=200'); return false;">Add note</a>
+		[ <a href="/mod/addnote.html?modid=<% $editid %>" id="rowid<% $editid %>-addnote" onclick="jsvoting.toggleNoteText(<% $editid %>); return false;">Add note</a>
 
 % 	my $url = uri_escape($r->uri.'?'.$r->args);
 % 	if ($is_open and
@@ -115,14 +117,14 @@
 %		$edit->IsAutoEditType($edit->GetType))
 %	{
 
-			   | <a href="/mod/approve.html?editid=<% $edit->GetId %>&amp;url=<% $url %>">Approve</a>
+			   | <a href="/mod/approve.html?editid=<% $editid %>&amp;url=<% $url %>">Approve</a>
 
 %	}
 
 %	if ($is_mine and $is_open)
 %	{
 
-				| <a href="/mod/remove.html?editid=<% $edit->GetId %>&amp;url=<% $url %>">Cancel edit</a>
+				| <a href="/mod/remove.html?editid=<% $editid %>&amp;url=<% $url %>">Cancel edit</a>
 
 % 	}
 
@@ -172,23 +174,21 @@
 		</td>
 	</tr>
 
-%	if (@$notes)
-%	{
+	<tr class="showedit"<% !@$notes ? " style=\"display: none\" id=\"rowid".$editid."-noteblock\"" : "" |n %>>
 
-	<tr class="showedit">
 		<td colspan="3" class="notes">
 
 			 Notes:<br />
 
 			 <table class="noteslist" style="width: 100%">
 
-%		my $i = 0;
-%		for my $note (@$notes)
-%		{
-%			my ($strong, $title) = (0, "Voter");
-%			($strong, $title) = (1, "Editor") if ($note->GetUserId == $edit->GetModerator);
+%	my $i = 0;
+%	for my $note (@$notes)
+%	{
+%		my ($strong, $title) = (0, "Voter");
+%		($strong, $title) = (1, "Editor") if ($note->GetUserId == $edit->GetModerator);
 
-				<tr class="noteslist <% $i++ == 0 ? "first" : $i++ % 2 == 0 ? "even" : "odd" %>">
+				<tr class="noteslist <% $i == 0 ? "first" : ($i % 2 == 0 ? "even" : "odd") %>">
 					<td class="noter">
 						<& /comp/linkuser,
 							id => $note->GetUserId,
@@ -199,28 +199,45 @@
 							title => $title &>:</td>
 					<td class="text">
 
-%			if ($note->GetNoteTime ne "")
-%			{
+%		if ($note->GetNoteTime ne "")
+%		{
 
 						<span class="date"><% $m->comp("/comp/datetime", $note->GetNoteTime) %></span>
 
-%			}
+%		}
 
-%			$m->out(qq!<span class="modbot">!) if ($note->GetUserId	== &ModDefs::MODBOT_MODERATOR);
+%		$m->out(qq!<span class="modbot">!) if ($note->GetUserId	== &ModDefs::MODBOT_MODERATOR);
 
 						<% $note->GetTextAsHTML |n %>
 
-%			$m->out(qq!</span>!) if ($note->GetUserId == &ModDefs::MODBOT_MODERATOR);
+%		$m->out(qq!</span>!) if ($note->GetUserId == &ModDefs::MODBOT_MODERATOR);
 
 					</td>
 				</tr>
 
-%		}
+%		$i++;
+%	}
 
+%	# Add user's own note box to end of list of edits
+%	my ($strong, $title) = (0, "Voter");
+%	($strong, $title) = (1, "Editor") if $is_mine;
+
+				<tr class="noteslist <% $i == 0 ? "first" : ($i % 2 == 0 ? "even" : "odd") %>"<% @$notes ? " style=\"display: none\" id=\"rowid".$editid."-noteblock\"" : "" |n %>>
+
+					<td class="noter">
+						<& /comp/linkuser,
+							id => $session{"uid"},
+							name => $session{"user"},
+							strong => $strong,
+							icon => 0,
+							shorten => 0,
+							title => $title &>:</td>
+					<td class="text">
+						<textarea name="rowid<% $editid %>-notetext" id="rowid<% $editid %>-notetext" rows="5" cols="40" style="width: 100%"></textarea>
+					</td>
+				</tr>
 			</table>
 		</td>
 	</tr>
-
-%	}
 
 %# vi: set ts=4 sw=4 ft=mason :

@@ -68,7 +68,6 @@
 			sidebar_panel_user
 			nosidebar
 			vote_abs_default
-			vote_show_novote
 			mail_notes_if_i_noted
 			mail_notes_if_i_voted
 			mail_on_first_no_vote
@@ -197,14 +196,6 @@
 						/>
 					<label for="pref_vote_abs_default">
 						Abstain by default.</label>
-				</div>
-
-				<div>
-					<input type="checkbox" name="vote_show_novote" id="pref_vote_show_novote"
-%						$m->out(UserPreference::get('vote_show_novote') ? ' checked="checked" ' : "");
-						/>
-					<label for="pref_vote_show_novote">
-						Show the "No Vote" option.</label>
 				</div>
 
 				<div>

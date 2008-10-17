@@ -110,14 +110,13 @@ sub mark_up_text_as_html
 
 sub Insert
 {
-	my ($self, $moderation, $noteuid, $text, %opts) = @_;
+	my ($self, $modid, $noteuid, $text, %opts) = @_;
    	my $sql = Sql->new($self->{DBH});
-
-	my $modid = $moderation->GetId;
 
 	# Make sure we have the most up-to-date status, so we get the correct
 	# table (open/closed)
-	$moderation = $moderation->CreateFromId($moderation->GetId);
+	my $moderation = Moderation->new($self->{DBH});
+	$moderation = $moderation->CreateFromId($modid);
 	my $openclosed = ($moderation->IsOpen ? "open" : "closed");
 
 

@@ -37,7 +37,7 @@
 </%args>
 <%perl>
 
-	my $show_novote = (!$inline and UserPreference::get("vote_show_novote"));
+	my $show_novote = !$inline;
 	my $default = (UserPreference::get("vote_abs_default") ? "abs" : "novote");
 
 	if (defined $vote)
@@ -68,7 +68,7 @@
 
 %	}
 
-%	for ("Yes=yes", "No=no", "Abs=abs", "No&nbsp;vote=novote")
+%	for ("Yes=yes", "No=no", "Abs=abs", "None=novote")
 %	{
 %		my ($display, $key) = split /=/;
 %		next if ($key eq "novote" and not $show_novote);

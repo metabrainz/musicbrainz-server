@@ -42,27 +42,53 @@
 		"abs"	=> &ModDefs::VOTE_ABS,
 	);
 
-	# build votes hash from the rowid{editid} parameters.
-	my %votes;
-	while (my ($key, $vote) = each %ARGS)
+	# build votes hash from the rowid{editid} parameters,
+	# and notes hash from the rowid{editid}-notetext parameters.
+	my (%votes, %notes);
+	while (my ($key, $value) = each %ARGS)
 	{
-		my ($editid) = $key =~ /^rowid(\d+)$/
-			or next;
-		$vote = $votemap{$vote};
-		$votes{$editid} = $vote
-			if defined $vote;
+		my $editid;
+		if (($editid) = $key =~ /^rowid(\d+)$/)
+		{
+			my $vote = $votemap{$value};
+			$votes{$editid} = $vote
+				if defined $vote;
+		} 
+		elsif (($editid) = $key =~ /^rowid(\d+)-notetext$/)
+		{
+			$notes{$editid} = $value
+				if $value =~ /\S/;
+		}
 	}
-	%votes or return $m->comp("/comp/redirect", $url);
+	%votes or %notes or return $m->comp("/comp/redirect", $url);
 
 	my $mb = $m->comp("/comp/dblogin");
-	my $v = MusicBrainz::Server::Vote->new($mb->{DBH});
 	my $sql = Sql->new($mb->{DBH});
-	eval
+
+	if (%votes)
 	{
-		$sql->Begin;
-		$v->InsertVotes(\%votes, $session{uid});
-		$sql->Commit;
-	};
+		my $v = MusicBrainz::Server::Vote->new($mb->{DBH});
+		eval
+		{
+			$sql->Begin;
+			$v->InsertVotes(\%votes, $session{uid});
+			$sql->Commit;
+		};
+	}
+
+	if (%notes)
+	{
+		my $n = MusicBrainz::Server::ModerationNote->new($mb->{DBH});
+		eval
+		{
+			$sql->Begin;
+			while (my ($editid, $note) = each %notes)
+			{
+				$n->Insert($editid, $session{uid}, $note);
+			}
+			$sql->Commit;
+		};
+	}
 
 	if ($@)
 	{

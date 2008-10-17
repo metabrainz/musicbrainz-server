@@ -51,7 +51,7 @@
 			</tr>
 			<tr>
 				<td class="label">Edit ID:</td>
-				<td><% $edit->GetId %></td>
+				<td><% $id %></td>
 			</tr>
 			<tr>
 				<td class="label">Status:</td>
@@ -168,13 +168,13 @@
 					<form method="post" action="/bare/vote.html">
 						<table>
 							<tr>
-								<td>
+								<td class="vote">
 									<& /mod/voting-buttons.inc,
 										edit => $edit,
 										vote => ($my_vote ? $my_vote->GetVote : undef),
 										labelnextline => 1 &></td>
 								<td>
-									<input type="hidden" name="url" value="/show/edit/?editid=<% $edit->GetId %>" />
+									<input type="hidden" name="url" value="/show/edit/?editid=<% $id %>" />
 									<input type="submit" value="<% $my_vote ? "Change your vote &raquo;" : "Enter vote &raquo;" |n %>" /></td>
 							</tr>
 						</table>
@@ -245,11 +245,7 @@
 				<td class="label">Edit notes:</td>
 				<td>
 					[
-						<a href="/mod/addnote.html?editid=<% $edit->GetId %>"
-							onclick="MyWindow=window.open('/mod/addnote.html?editid=<% $edit->GetId %>',
-								'AddNote',
-								'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=500,height=200'); return false;"
-							>Add note</a>
+						<a href="/mod/addnote.html?editid=<% $id %>" id="addnote-top" onclick="jsvoting.toggleNoteText(); return false;">Add note</a>
 
 %						$m->out("&nbsp;|&nbsp;") if (@statuslinks);
 
@@ -258,16 +254,16 @@
 				</td>
 			</tr>
 
+%	my $i = 0;
 %	if (my @notes = $edit->Notes)
 %	{
 
-%		my $i = 0;
 %		for my $note (@notes)
 %		{
 %			my ($strong, $title) = (0, "Voter");
 %			($strong, $title) = (1, "Editor") if ($note->GetUserId == $edit->GetModerator);
 
-			<tr class="noteslist <% $i++ == 0 ? "first" : $i++ % 2 == 0 ? "even" : "odd" %>">
+			<tr class="noteslist <% $i == 0 ? "first" : $i % 2 == 0 ? "even" : "odd" %>">
 				<td class="noter">
 					<& /comp/linkuser,
 						id => $note->GetUserId,
@@ -295,7 +291,8 @@
 
 				</td>
 			</tr>
-
+			
+%			$i++;
 %		}
 %	}
 %	else
@@ -308,15 +305,41 @@
 
 %	}
 
+%	# Add user's own note box to end of list of edits
+%	my ($strong, $title) = (0, "Voter");
+%	($strong, $title) = (1, "Editor") if $my_mod;
+
+			<tr class="noteslist <% $i == 0 ? "first" : ($i % 2 == 0 ? "even" : "odd") %>" style="display: none" id="noteblock">
+
+				<td class="noter">
+					<& /comp/linkuser,
+						id => $my_uid,
+						name => $session{"user"},
+						strong => $strong,
+						icon => 0,
+						shorten => 0,
+						title => $title &>:</td>
+				<td class="text">
+					<form method="post" action="/mod/addnote.html">
+					<textarea name="notetext" id="notetext" rows="5" cols="40" style="width: 100%"></textarea>
+					<p style="margin: 0pt; text-align: right;">
+						<input type="hidden" value="<% $id %>" name="editid"/>
+						<input type="submit" value="Add Note »" name="submitvalue"/>
+						<input type="submit" value="Cancel" onclick="jsvoting.toggleNoteText(); return false;" />
+					</p>
+					</form>
+				</td>
+			</tr>
+
+
+
 			<tr class="top">
 				<td>&nbsp;</td>
 				<td>
 					[
-						<a href="/mod/addnote.html?editid=<% $edit->GetId %>"
-							onclick="MyWindow=window.open('/mod/addnote.html?editid=<% $edit->GetId %>',
-								'AddNote',
-								'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=500,height=200'); return false;"
-							>Add note</a><%perl>
+						<a href="/mod/addnote.html?editid=<% $id %>" id="addnote-bottom" onclick="jsvoting.toggleNoteText(); return false;">Add note</a>
+
+						<%perl>
 
 						$m->out("&nbsp;|&nbsp;") if (@statuslinks);
 						$m->out(join "&nbsp;|&nbsp;", @statuslinks);

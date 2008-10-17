@@ -157,10 +157,9 @@
 % 	if (@$edits)
 %	{
 
-
 	<form method="post" action="/bare/vote.html">
 
-		<table class="editlist">
+		<table class="editlist" id="editlist">
 
 <%perl>
 		for my $obj (@$edits)
@@ -176,17 +175,11 @@
 
 		</table>
 
-% 		if ($show_button)
-%		{
-
 		<div style="text-align: right; margin-bottom: 20px">
-			Click here to vote on the items on this page:
-
+			Click here to <% $show_button ? "vote" : "submit notes" %> on the items on this page:
 			<input type="hidden" name="url" value="<% $r->uri() . "?" . $r->args() %>" />
-			<input type="submit" name="submit" value="Enter votes &raquo;" />
+			<input type="submit" name="submit" value="Continue &raquo;" />
 		</div>
-
-%		}
 
 	</form>
 
@@ -215,6 +208,23 @@
 %		}
 
 		<& /comp/js/diffcollapse &>
+
+<%perl>
+		# Show "All votes" controls if:
+		# 1. Editor has the rigths to use it (currently AutoEditor, this may change...)
+		# 2. There are open edits not belonging to the current user in the edits list to display
+		if (UserStuff->IsAutoEditor($session{privs})) 
+		{
+			my $has_open_edits_by_others = 0;
+			$has_open_edits_by_others ||= ($_->GetStatus == &ModDefs::STATUS_OPEN) && ($_->GetModerator != $session{"uid"}) foreach @$edits;
+			if($has_open_edits_by_others)
+			{
+				$m->out(qq!<input type="hidden" id="JSVoting::ShowAllVotes" value="1"/>!);
+			}
+		}
+</%perl>
+
+		<script type="text/javascript" src="/scripts/jsvoting.js"></script>
 
 % 	}
 
