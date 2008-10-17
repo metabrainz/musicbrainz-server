@@ -261,7 +261,7 @@ sub print_xml
 
 	print '<?xml version="1.0" encoding="UTF-8"?>';
 	print '<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">';
-	print '<rating>'. $rating .'</rating>' if ($rating);
+	print '<user-rating>'. $rating .'</user-rating>' if ($rating);
 	print '</metadata>';
 }
 

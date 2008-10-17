@@ -31,13 +31,20 @@ use Apache::Constants qw( OK AUTH_REQUIRED SERVER_ERROR NOT_FOUND FORBIDDEN);
 use Apache::File ();
 use Apache::AuthDigest::API;
 use Digest::MD5 qw(md5_hex);
+use MusicBrainz::Server::Handlers::WS::1::Common qw( :DEFAULT apply_rate_limit );
 
 sub handler
 {
     my $r = Apache::AuthDigest::API->new(shift);
+    my %args; { no warnings; %args = $r->args };
+    my ($inc) = convert_inc($args{inc});
 
-    # Track GET operations do not need to be auth'ed -- pass em along.
-    return OK if ($r->method eq "GET" && $r->uri =~ /^\/ws\/1\/track/);
+    # Artist, Label, Release & Track in GET mode don't require authentication
+    # unless user data (tags, ratings) are requested
+    return OK if($r->method eq "GET" 
+        && $r->uri =~ /^\/ws\/1\/(artist|label|release|track)/
+        && not ($inc & INC_USER_TAGS)
+        && not ($inc & INC_USER_RATINGS) );
 
     my ($status, $response) = $r->get_digest_auth_response;
     return $status unless $status == OK;

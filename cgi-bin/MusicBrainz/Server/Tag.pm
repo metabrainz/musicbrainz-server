@@ -463,7 +463,7 @@ sub GetRawTagsForEntity
 		                                     FROM $assoc_table
 		                                    WHERE $assoc_table.$entity_type = ?
                                               AND $assoc_table.moderator = ?", $entity_id, $moderator_id);
-    return [{}] if (scalar(@$rows) == 0);
+    return [] if (scalar(@$rows) == 0);
 
 	$rows = $maindb->SelectListOfHashes("SELECT tag.id, tag.name
   	                                       FROM tag
