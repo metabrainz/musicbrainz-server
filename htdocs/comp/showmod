@@ -145,7 +145,7 @@
 
 %	if (not $is_mine and
 %		$is_open and
-%		$session{"has_confirmed_email"})
+%		($session{"has_confirmed_email"} || &DBDefs::REPLICATION_TYPE != &MusicBrainz::Server::Replication::RT_MASTER))
 %	{
 %		$$voteflag = 1 if $voteflag;
 
