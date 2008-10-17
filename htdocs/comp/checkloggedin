@@ -14,7 +14,7 @@
 
 	# if the user is logged in, and has a confirmed e-mail address,
 	# the component returns true.
-	return 1 if ($session{uid} and $hasConfirmedEmail);
+	return 1 if ($session{uid} and ($hasConfirmedEmail or &DBDefs::REPLICATION_TYPE != &MusicBrainz::Server::Replication::RT_MASTER));
 
 </%perl>
 

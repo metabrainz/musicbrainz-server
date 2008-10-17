@@ -160,7 +160,7 @@
 
 		<% $changename |n %>
 
-%		unless ($session{"has_confirmed_email"})
+%		if (!$session{has_confirmed_email} && &DBDefs::REPLICATION_TYPE == &MusicBrainz::Server::Replication::RT_MASTER)
 %		{
 
 			<span style="font-size: 8pt;">
