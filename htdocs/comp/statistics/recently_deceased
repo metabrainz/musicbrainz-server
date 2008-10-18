@@ -26,16 +26,21 @@
 	# $Id: sidemenu-panel-topvoters 8548 2006-10-19 07:41:02Z dave $
 	#
 </%perl>
+<%args>
+	$maxitems => 20
+	$offset => 0
+	$pager => 0
+</%args>
 <%perl>
 
 my $mb = $m->comp("/comp/dblogin");
 my $stats = MusicBrainz::Server::Statistic->new($mb->{DBH});
-my $deceased = $stats->GetRecentlyDeceased();
+my ($deceased, $numitems) = $stats->GetRecentlyDeceased($maxitems, $offset);
 
 </%perl>
 
 %#  recently deceased artists
-	<p>Recently deceased artists</p>
+	<h3>Recently deceased artists</h3>
 	<table style="background-color: #fafafa; border: 1px #000000 solid; padding: 10px;">
 		<tr>
 			<th>Artist</th>
@@ -50,11 +55,22 @@ my $deceased = $stats->GetRecentlyDeceased();
 			<td><% $row->[3] %></td>
 		</tr>
 %   }
+%   if ($pager) {
+        <tr>
+            <td colspan="5">
+			   <& /comp/pageselector, offset => $offset, pagesize => $maxitems, 
+			                          url => '/show/stats/musicnewz.html',
+									  args => {type=>'recently_deceased'},
+									  numitems => $numitems &>
+            </td>
+        </tr>
+%   } else {
 		<tr>
 			<td colspan="3">
-			[ <a href="timeline.html?type=deceased">see more recently deceased artists</a> ]
+			[ <a href="musicnewz.html?type=recently_deceased">see more recently deceased artists</a> ]
 			</td>
 		</tr>
+%	}
 	</table>
 
 %# vi: set ts=4 sw=4 ft=mason :

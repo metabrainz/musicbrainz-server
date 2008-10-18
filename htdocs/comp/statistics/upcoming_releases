@@ -26,35 +26,53 @@
 	# $Id: sidemenu-panel-topvoters 8548 2006-10-19 07:41:02Z dave $
 	#
 </%perl>
+<%args>
+	$offset => 0
+	$maxitems => 25
+	$pager => 0
+</%args>
 <%perl>
 
 my $mb = $m->comp("/comp/dblogin");
 my $stats = MusicBrainz::Server::Statistic->new($mb->{DBH});
-my $upcoming = $stats->GetUpcomingReleases();
+my ($upcoming, $numitems) = $stats->GetUpcomingReleases($maxitems, $offset);
 
 </%perl>
 
 %#  Upcoming releases
-	<p>Upcoming releases</p>
-	<table style="background-color: #fafafa; border: 1px #000000 solid; padding: 10px;">
+	<h3>Upcoming releases</h3>
+	<table style="width: 100%; background-color: #fafafa; border: 1px #000000 solid; padding: 10px;">
 		<tr>
 			<th>Release</th>
 			<th>Artist</th>
-			<th>Date</th>
+			<th>Country/Date</th>
+			<th>Format</th>
 		</tr>
 
 %	foreach my $row (@$upcoming) {
 		<tr>
 			<td><a href="/release/<% $row->[0] %>.html"><% $row->[1] %></a></td>
 			<td><a href="/artist/<% $row->[2] %>.html"><% $row->[3] %></a></td>
-			<td><% $row->[4] %></td>
+			<td><% $row->[5] %> <% $row->[4] %></td>
+			<td><% $row->[6] %></td>
 		</tr>
 %   }
-		<tr>
-			<td colspan="3">
-			[ <a href="timeline.html?type=upcoming">see more upcoming releases</a> ]
-			</td>
-		</tr>
+%   if ($pager) {
+        <tr>
+            <td colspan="5">
+			   <& /comp/pageselector, offset => $offset, pagesize => $maxitems, 
+			                          url => '/show/stats/musicnewz.html',
+									  args => {type=>'upcoming_releases'},
+									  numitems => $numitems &>
+            </td>
+        </tr>
+%   } else {
+        <tr>
+            <td colspan="5">
+            [ <a href="musicnewz.html?type=upcoming_releases">see more upcoming releases</a> ]
+            </td>
+        </tr>
+%	}
 	</table>
 
 %# vi: set ts=4 sw=4 ft=mason :

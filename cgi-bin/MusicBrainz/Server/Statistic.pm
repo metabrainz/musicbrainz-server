@@ -30,6 +30,7 @@ use TableBase;
 use strict;
 use ModDefs;
 use Sql;
+use MusicBrainz::Server::Cache;
 
 sub new
 {
@@ -1009,49 +1010,137 @@ sub GetEditStats
 
 sub GetRecentReleases
 {
-    my ($self, $maxitems) = @_;
+    my ($self, $maxitems, $offset) = @_;
 	my %data;
 
 	$maxitems = 10 if (!defined $maxitems);
 	my $sql = Sql->new($self->{DBH});
-	return $sql->SelectListOfLists("SELECT DISTINCT ON (releasedate, album.gid) album.gid, album.name, artist.gid, artist.name, releasedate
-									  FROM release, artist, album 
-									 WHERE release.album = album.id 
+	my $list = $sql->SelectListOfLists("SELECT album.gid, album.name, artist.gid, artist.name, releasedate, isocode AS country, format 
+									  FROM release, album, artist, country 
+									 WHERE album.id IN (
+									        SELECT album 
+											  FROM release 
+											 WHERE releasedate <= now() 
+										  ORDER BY releasedate DESC, album
+										     LIMIT ? 
+										    OFFSET ?) 
+									   AND release.album = album.id 
+									   AND release.country = country.id 
 									   AND album.artist = artist.id 
-									   AND releasedate < now() 
-					              ORDER BY releasedate DESC, album.gid
-								     LIMIT ?", $maxitems);
+									   AND releasedate <= now() 
+								  ORDER BY releasedate DESC, album.id, country, format", $maxitems, $offset);
+
+	# Query and cache the total number of releases we have for the last 6 months
+	my $obj = MusicBrainz::Server::Cache->get("statistics-num-recent-releases");
+	if (!$obj)
+	{
+		my $sql = Sql->new($self->{DBH});
+		$obj = $sql->SelectSingleValue("SELECT count(*) 
+		                                  FROM release 
+										 WHERE releasedate <= now() 
+										   AND now() - to_timestamp(releasedate, 'YYYY-MM-DD') < interval '6 months'");
+		MusicBrainz::Server::Cache->set("statistics-num-release-events", $obj, 5 * 60);
+	}
+
+	return ($list, $obj);
 }
 
 sub GetUpcomingReleases
 {
-    my ($self, $maxitems) = @_;
+    my ($self, $maxitems, $offset) = @_;
 	my %data;
 
 	$maxitems = 10 if (!defined $maxitems);
 	my $sql = Sql->new($self->{DBH});
-	return $sql->SelectListOfLists("SELECT DISTINCT ON (releasedate, album.gid) album.gid, album.name, artist.gid, artist.name, releasedate
-									  FROM release, artist, album 
-									 WHERE release.album = album.id 
+	my $list = $sql->SelectListOfLists("SELECT album.gid, album.name, artist.gid, artist.name, releasedate, isocode AS country, format 
+									  FROM release, album, artist, country 
+									 WHERE album.id IN (
+									        SELECT album 
+											  FROM release 
+											 WHERE releasedate > now() 
+										  ORDER BY releasedate, album
+										     LIMIT ? 
+										    OFFSET ?) 
+									   AND release.album = album.id 
+									   AND release.country = country.id 
 									   AND album.artist = artist.id 
-									   AND releasedate >= now() 
-					              ORDER BY releasedate, album.gid 
-								     LIMIT ?", $maxitems);
+									   AND releasedate > now() 
+								  ORDER BY releasedate, album.id, country, format", $maxitems, $offset);
+
+	# Query and cache the total number of releases we have for the last 6 months
+	my $obj = MusicBrainz::Server::Cache->get("statistics-num-upcoming-releases");
+	if (!$obj)
+	{
+		my $sql = Sql->new($self->{DBH});
+		$obj = $sql->SelectSingleValue("SELECT count(*) 
+		                                  FROM release 
+										 WHERE releasedate > now()");
+		MusicBrainz::Server::Cache->set("statistics-num-upcoming-events", $obj, 5 * 60);
+	}
+
+	return ($list, $obj);
 }
 
 sub GetRecentlyDeceased
 {
-    my ($self, $maxitems) = @_;
+    my ($self, $maxitems, $offset) = @_;
 	my %data;
 
 	$maxitems = 10 if (!defined $maxitems);
 	my $sql = Sql->new($self->{DBH});
-	return $sql->SelectListOfLists("SELECT gid, name, enddate, begindate 
+	my $list = $sql->SelectListOfLists("SELECT gid, name, enddate, begindate 
 									  FROM artist 
 									 WHERE type = 1 
 									   AND enddate != '' 
 					              ORDER BY enddate DESC
-								     LIMIT ?", $maxitems);
+								     LIMIT ?
+								    OFFSET ?", $maxitems, $offset);
+
+	# Query and cache the total number of deaths we had in the last 6 months
+	my $obj = MusicBrainz::Server::Cache->get("statistics-num-recently-deceased");
+	if (!$obj)
+	{
+		my $sql = Sql->new($self->{DBH});
+		$obj = $sql->SelectSingleValue("SELECT count(*) 
+		                                  FROM artist 
+										 WHERE enddate != '' 
+										   AND enddate <= now() 
+										   AND type = 1
+										   AND now() - to_timestamp(enddate, 'YYYY-MM-DD') < interval '6 months'");
+		MusicBrainz::Server::Cache->set("statistics-num-recently-deceased", $obj, 5 * 60);
+	}
+	return ($list, $obj);
+}
+
+sub GetRecentlyBrokenUp
+{
+    my ($self, $maxitems, $offset) = @_;
+	my %data;
+
+	$maxitems = 10 if (!defined $maxitems);
+	my $sql = Sql->new($self->{DBH});
+	my $list = $sql->SelectListOfLists("SELECT gid, name, enddate, begindate 
+									  FROM artist 
+									 WHERE type = 2 
+									   AND enddate != '' 
+					              ORDER BY enddate DESC
+								     LIMIT ?
+								    OFFSET ?", $maxitems, $offset);
+
+	# Query and cache the total number of deaths we had in the last 6 months
+	my $obj = MusicBrainz::Server::Cache->get("statistics-num-recently-brokenup");
+	if (!$obj)
+	{
+		my $sql = Sql->new($self->{DBH});
+		$obj = $sql->SelectSingleValue("SELECT count(*) 
+		                                  FROM artist 
+										 WHERE enddate != '' 
+										   AND enddate <= now() 
+										   AND type = 2
+										   AND now() - to_timestamp(enddate, 'YYYY-MM-DD') < interval '6 months'");
+		MusicBrainz::Server::Cache->set("statistics-num-recently-brokenup", $obj, 5 * 60);
+	}
+	return ($list, $obj);
 }
 1;
 # vi: set ts=4 sw=4 :

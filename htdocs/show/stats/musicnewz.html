@@ -29,20 +29,41 @@
 <%args>
 	$date => ''
 	$type => ''
+	$offset => 0
 </%args>
 
-<& /comp/sidebar, pagetitle => "Music Newz" &>
+<& /comp/sidebar-notitle, pagetitle => "Music Newz" &>
 
 % if (!$date and !$type) {
 
-    <& /comp/statistics/stat_wrapper, type=> 'upcoming_releases', expire => '1 hour', busy_lock => '1min' &>
-	<br/>
-    <& /comp/statistics/stat_wrapper, type=> 'recent_releases', expire => '1 hour', busy_lock => '1min' &>
-	<br/>
-    <& /comp/statistics/stat_wrapper, type=> 'recently_deceased', expire => '1 hour', busy_lock => '1min' &>
+	<h1>Music Newz</h1>
 
+	<table>
+	<tr>
+		<td colspan="2">
+			<& /comp/statistics/stat_wrapper, type=> 'upcoming_releases', expire => '1 hour', busy_lock => '1min' &>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<& /comp/statistics/stat_wrapper, type=> 'recent_releases', expire => '1 hour', busy_lock => '1min' &>
+		</td>
+	</tr>
+	<tr>
+		<td>
+		    <& /comp/statistics/stat_wrapper, type=> 'recently_deceased', expire => '1 hour', busy_lock => '1min' &>
+		</td>
+		<td>
+		    <& /comp/statistics/stat_wrapper, type=> 'recently_brokenup', expire => '1 hour', busy_lock => '1min' &>
+		</td>
+	</tr>
+	</tr>
+	</table>
+
+% } elsif ($type eq 'upcoming_releases' || $type eq 'recent_releases' || $type eq 'recently_deceased'  || $type eq 'recently_brokenup') {
+%    $m->comp("/comp/statistics/$type", maxitems => 25, offset => $offset, pager => 1);
 % } else {
-   <p>Coming soon!</p>
+	<p>Say what, Willis?</p>
 % }
 
 <& /comp/footer &>
