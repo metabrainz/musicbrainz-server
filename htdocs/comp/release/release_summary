@@ -35,8 +35,11 @@
 	$showeditlinks
 	$showtrackartists
 
+	$showratings => 0
 </%args>
 <%perl>
+
+    $showratings &&= UserPreference::get("show_ratings");
 
 	my $release = $album;
 
@@ -79,6 +82,15 @@
 							<% $puids %>
 							<img src="/images/puid.gif" width="35" height="13" alt="PUID" title="This release has <% $puids %> PUIDs" />
 						</span>
+% 	}
+%	if (defined $release->{rating} && $showratings)
+%	{
+		<& /comp/ratingsbox, 
+			entity_type => "release",
+			entity_id => $release->GetId,
+			rating => { "rating" => $release->{"rating"}},
+			small => 1,
+		&>
 % 	}
 
 					</td>

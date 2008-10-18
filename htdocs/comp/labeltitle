@@ -74,6 +74,8 @@
 		$date_str = "end $end";
 	}
 
+	$m->out(qq!<script type="text/javascript" src="/scripts/ratings.js"></script>!);
+
 	$m->out(qq!<table class="artisttitle">!);
 
 	# Row 1: the label name (link) and sortname
@@ -85,7 +87,9 @@
 	$m->out(qq!  <span class="mp">!) if ($label->GetModPending);
 	$m->out($m->interp->apply_escapes($name, 'h'));
 	$m->out(qq!  </span>!) if ($label->GetModPending);
-	$m->out(qq!</a></td></tr>!);
+	$m->out(qq!</a>!);
+	$m->comp("/comp/ratingsbox", entity_type => "label", entity_id => $id, detailled => 1);
+	$m->out(qq!</td></tr>!);
 
 	# info box, a) resolution b) start-end date c) label-type d) sortname
 	$m->out(qq!<tr>!);

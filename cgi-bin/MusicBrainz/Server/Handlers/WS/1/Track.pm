@@ -174,8 +174,9 @@ sub serve_from_db
         $ar = undef unless $ar->LoadFromId(1);
     }
 
+	my $user = get_user($r->user, $inc); 
 	my $printer = sub {
-		print_xml($mbid, $inc, $ar, $tr);
+		print_xml($mbid, $inc, $ar, $tr, $user);
 	};
 
 	send_response($r, $printer);
@@ -184,11 +185,11 @@ sub serve_from_db
 
 sub print_xml
 {
-	my ($mbid, $inc, $ar, $tr) = @_;
+	my ($mbid, $inc, $ar, $tr, $user) = @_;
 
 	print '<?xml version="1.0" encoding="UTF-8"?>';
 	print '<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">';
-    print xml_track($ar, $tr, $inc);
+    print xml_track($ar, $tr, $inc, $user);
 	print '</metadata>';
 }
 

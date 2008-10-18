@@ -79,6 +79,7 @@ require MusicBrainz::Server::Markup;
 require MusicBrainz::Server::ModerationNote;
 require MusicBrainz::Server::NewsFeed;
 require MusicBrainz::Server::PagedReport;
+require MusicBrainz::Server::Rating;
 require MusicBrainz::Server::ReleaseEvent;
 require MusicBrainz::Server::Replication;
 require MusicBrainz::Server::Script;

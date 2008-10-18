@@ -35,6 +35,7 @@ our @EXPORT = qw(convert_inc bad_req send_response check_types
                  xml_artist xml_release xml_track xml_search xml_escape
                  xml_label
                  get_type_and_status_from_inc get_release_type
+                 get_user
 );
 push @EXPORT, grep /^INC_/, keys %$stash;
 our %EXPORT_TAGS = (
@@ -54,30 +55,33 @@ use MusicBrainz::Server::ReleaseEvent;
 use MusicBrainz::Server::Country;
 use MusicBrainz::Server::LuceneSearch;
 
-use constant INC_ARTIST       => 0x000001;
-use constant INC_COUNTS       => 0x000002;
-use constant INC_LIMIT        => 0x000004;
-use constant INC_TRACKS       => 0x000008;
-use constant INC_DURATION     => 0x000010;
-use constant INC_ARTISTREL    => 0x000020;
-use constant INC_RELEASEREL   => 0x000040;
-use constant INC_DISCS        => 0x000080;
-use constant INC_TRACKREL     => 0x000100;
-use constant INC_URLREL       => 0x000200;
-use constant INC_RELEASEINFO  => 0x000400;
-use constant INC_ARTISTID     => 0x000800;
-use constant INC_RELEASEID    => 0x001000;
-use constant INC_TRACKID      => 0x002000;
-use constant INC_TITLE        => 0x004000;
-use constant INC_TRACKNUM     => 0x008000;
-use constant INC_TRMIDS       => 0x010000;
-use constant INC_RELEASES     => 0x020000;
-use constant INC_PUIDS        => 0x040000;
-use constant INC_ALIASES      => 0x080000;
-use constant INC_LABELS       => 0x100000;
-use constant INC_LABELREL     => 0x200000;
-use constant INC_TRACKLVLRELS => 0x400000;
-use constant INC_TAGS         => 0x800000;
+use constant INC_ARTIST       => 0x0000001;
+use constant INC_COUNTS       => 0x0000002;
+use constant INC_LIMIT        => 0x0000004;
+use constant INC_TRACKS       => 0x0000008;
+use constant INC_DURATION     => 0x0000010;
+use constant INC_ARTISTREL    => 0x0000020;
+use constant INC_RELEASEREL   => 0x0000040;
+use constant INC_DISCS        => 0x0000080;
+use constant INC_TRACKREL     => 0x0000100;
+use constant INC_URLREL       => 0x0000200;
+use constant INC_RELEASEINFO  => 0x0000400;
+use constant INC_ARTISTID     => 0x0000800;
+use constant INC_RELEASEID    => 0x0001000;
+use constant INC_TRACKID      => 0x0002000;
+use constant INC_TITLE        => 0x0004000;
+use constant INC_TRACKNUM     => 0x0008000;
+use constant INC_TRMIDS       => 0x0010000;
+use constant INC_RELEASES     => 0x0020000;
+use constant INC_PUIDS        => 0x0040000;
+use constant INC_ALIASES      => 0x0080000;
+use constant INC_LABELS       => 0x0100000;
+use constant INC_LABELREL     => 0x0200000;
+use constant INC_TRACKLVLRELS => 0x0400000;
+use constant INC_TAGS         => 0x0800000;
+use constant INC_RATINGS      => 0x1000000;
+use constant INC_USER_TAGS    => 0x2000000;
+use constant INC_USER_RATINGS => 0x4000000;
 
 use constant INC_MASK_RELS    => INC_ARTISTREL | INC_RELEASEREL | INC_TRACKREL | INC_URLREL | INC_LABELREL;
 
@@ -108,7 +112,10 @@ my %incShortcuts =
     'labels'             => INC_LABELS,
     'label-rels'         => INC_LABELREL,
     'track-level-rels'   => INC_TRACKLVLRELS,
-    'tags'               => INC_TAGS
+    'tags'               => INC_TAGS,
+    'ratings'            => INC_RATINGS,
+    'user-tags'          => INC_USER_TAGS,
+    'user-ratings'       => INC_USER_RATINGS,
 );
 
 my %typeShortcuts =
@@ -221,6 +228,24 @@ sub get_type_and_status_from_inc
     return ({ type=>$type, status=>$status, va=>$va }, join(' ', @reallybad));
 }
 
+sub get_user
+{
+    my ($username, $inc) = @_;
+
+    my $user = undef;
+    if ($inc & INC_USER_TAGS || $inc & INC_USER_RATINGS)
+    {
+        require MusicBrainz;
+        my $mb = MusicBrainz->new;
+        $mb->Login(db => 'READWRITE');
+
+        require UserStuff;
+        $user = UserStuff->new($mb->{DBH});
+        $user = $user->newFromName($username) or die "Cannot load user.\n";
+    }
+    return $user;
+}
+
 sub bad_req
 {
 	my ($r, $error) = @_;
@@ -299,7 +324,7 @@ sub send_response
 
 sub xml_artist
 {
-	my ($ar, $inc, $info) = @_;
+	my ($ar, $inc, $info, $user) = @_;
 
 	printf '<artist id="%s"', $ar->GetMBId;
     printf ' type="%s"', &MusicBrainz::Server::Artist::GetTypeName($ar->GetType()) if ($ar->GetType);
@@ -331,6 +356,18 @@ sub xml_artist
     {
         xml_tags($ar->{DBH}, 'artist', $ar->GetId);
     }
+	if ($inc & INC_RATINGS)
+    {
+        xml_rating($ar->{DBH}, 'artist', $ar->GetId);
+    }
+	if ($inc & INC_USER_TAGS)
+    {
+        xml_user_tags($ar->{DBH}, 'artist', $ar->GetId, $user);
+    }
+	if ($inc & INC_USER_RATINGS)
+    {
+        xml_user_rating($ar->{DBH}, 'artist', $ar->GetId, $user);
+    }
     if (defined $info)
     {
         my @albums = $ar->GetReleases(!$info->{va}, 1, $info->{va});
@@ -348,7 +385,7 @@ sub xml_artist
                 print '<release-list>';
                 foreach my $al (sort { $a->GetFirstReleaseDate() cmp $b->GetFirstReleaseDate() } @filtered)
                 {
-                    xml_release($ar, $al, $inc);
+                    xml_release($ar, $al, $inc, undef, undef, $user);
                 }
                 print '</release-list>';
             }
@@ -362,7 +399,7 @@ sub xml_artist
 
 sub xml_release
 {
-	my ($ar, $al, $inc, $tnum, $showscore) = @_;
+	my ($ar, $al, $inc, $tnum, $showscore, $user) = @_;
 
     print '<release id="' . $al->GetMBId . '"';
     xml_release_type($al);
@@ -387,9 +424,12 @@ sub xml_release
     xml_release_events($al, $inc) if ($inc & INC_RELEASEINFO || $inc & INC_COUNTS);
     xml_discs($al, $inc) if ($inc & INC_DISCS || $inc & INC_COUNTS);
     xml_tags($al->{DBH}, 'release', $al->GetId) if ($inc & INC_TAGS);
+    xml_user_tags($al->{DBH}, 'release', $al->GetId, $user) if ($inc & INC_USER_TAGS);
+    xml_rating($al->{DBH}, 'release', $al->GetId) if ($inc & INC_RATINGS);
+    xml_user_rating($al->{DBH}, 'release', $al->GetId, $user) if ($inc & INC_USER_RATINGS);
     if ($inc & INC_TRACKS || $inc & INC_COUNTS && $ar)
     {
-        xml_track_list($ar, $al, $inc) 
+        xml_track_list($ar, $al, $inc, $user); 
     }
     elsif (defined $tnum)
     {
@@ -520,9 +560,9 @@ sub xml_discs
 sub xml_track_list
 {
 	require MusicBrainz::Server::Track;
-	my ($ar, $al, $inc) = @_;
+	my ($ar, $al, $inc, $user) = @_;
 
-    my $tr_inc_mask = INC_TAGS;
+    my $tr_inc_mask = INC_TAGS | INC_RATINGS | INC_USER_TAGS | INC_USER_RATINGS;
     $tr_inc_mask |= INC_MASK_RELS
         if ($inc & INC_TRACKLVLRELS);
     my $tr_inc = $inc & $tr_inc_mask;
@@ -546,11 +586,11 @@ sub xml_track_list
                 $ar = MusicBrainz::Server::Artist->new($tr->{DBH});
                 $ar->SetId($tr->GetArtist);
                 $ar->LoadFromId();
-                xml_track($ar, $tr, $tr_inc);
+                xml_track($ar, $tr, $tr_inc, $user);
             }
             else
             {
-                xml_track(undef, $tr, $tr_inc);
+                xml_track(undef, $tr, $tr_inc, $user);
             }
         }
         print '</track-list>';
@@ -561,7 +601,7 @@ sub xml_track_list
 sub xml_track
 {
 	require MusicBrainz::Server::Track;
-	my ($ar, $tr, $inc) = @_;
+	my ($ar, $tr, $inc, $user) = @_;
 
 
 	printf '<track id="%s"', $tr->GetMBId;
@@ -587,7 +627,7 @@ sub xml_track
                 $al->SetMBId($i->[3]);
                 if ($al->LoadFromId())
                 {
-                    xml_release($ar, $al, 0, $i->[2]) 
+                    xml_release($ar, $al, 0, $i->[2], undef, $user) 
                 }
             }
             print '</release-list>';
@@ -596,6 +636,9 @@ sub xml_track
     xml_puid($tr) if ($inc & INC_PUIDS);
     xml_relations($tr, 'track', $inc) if ($inc & INC_ARTISTREL || $inc & INC_LABELREL || $inc & INC_RELEASEREL || $inc & INC_TRACKREL || $inc & INC_URLREL);
     xml_tags($tr->{DBH}, 'track', $tr->GetId) if ($inc & INC_TAGS);
+    xml_user_tags($tr->{DBH}, 'track', $tr->GetId, $user) if ($inc & INC_USER_TAGS);
+    xml_rating($tr->{DBH}, 'track', $tr->GetId) if ($inc & INC_RATINGS);
+    xml_user_rating($tr->{DBH}, 'track', $tr->GetId, $user) if ($inc & INC_USER_RATINGS);
     print '</track>';
 
     return undef;
@@ -623,7 +666,7 @@ sub xml_puid
 
 sub xml_label
 {
-    my ($ar, $inc, $info) = @_;
+    my ($ar, $inc, $info, $user) = @_;
 
     printf '<label id="%s"', $ar->GetMBId;
     if ($ar->GetType)
@@ -664,6 +707,9 @@ sub xml_label
 
     xml_relations($ar, 'label', $inc) if ($inc & INC_ARTISTREL || $inc & INC_LABELREL || $inc & INC_RELEASEREL || $inc & INC_TRACKREL || $inc & INC_URLREL);
     xml_tags($ar->{DBH}, 'label', $ar->GetId) if ($inc & INC_TAGS);
+    xml_user_tags($ar->{DBH}, 'label', $ar->GetId, $user) if ($inc & INC_USER_TAGS);
+    xml_rating($ar->{DBH}, 'label', $ar->GetId) if ($inc & INC_RATINGS);
+    xml_user_rating($ar->{DBH}, 'label', $ar->GetId, $user) if ($inc & INC_USER_RATINGS);
     print "</label>";
 
     return undef;
@@ -687,6 +733,57 @@ sub xml_tags
         print '<tag count="' . $t->{count} . '">' . xml_escape($t->{name}) . '</tag>';
     }
     print '</tag-list>';
+    return undef;
+}
+
+sub xml_user_tags
+{
+    require MusicBrainz::Server::Tag;
+	my ($dbh, $entity, $id, $user) = @_;
+
+    return if not defined $user; 
+
+    my $tag = MusicBrainz::Server::Tag->new($dbh);
+    my $tags = $tag->GetRawTagsForEntity($entity, $id, $user->GetId);
+
+    return undef if (scalar(@$tags) == 0);
+
+    print '<user-tag-list>';
+    foreach my $t (@$tags)
+    {
+        print '<user-tag>' . xml_escape($t->{name}) . '</user-tag>';
+    }
+    print '</user-tag-list>';
+    return undef;
+}
+
+sub xml_rating
+{
+    require MusicBrainz::Server::Rating;
+	my ($dbh, $entity, $id) = @_;
+
+    my $rt = MusicBrainz::Server::Rating->new($dbh);
+    my $rating = $rt->GetRatingForEntity($entity, $id);
+
+    return undef unless $rating->{rating};
+
+    print '<rating votes-count="'. $rating->{rating_count} .'">'. $rating->{rating} .'</rating>';
+    return undef;
+}
+
+sub xml_user_rating
+{
+    require MusicBrainz::Server::Rating;
+	my ($dbh, $entity, $id, $user) = @_;
+
+    return undef if not defined $user;
+
+    my $rt = MusicBrainz::Server::Rating->new($dbh);
+    my $rating = $rt->GetUserRatingForEntity($entity, $id, $user->GetId);
+
+    return undef unless $rating;
+
+    print '<user-rating>'. $rating .'</user-rating>';
     return undef;
 }
 

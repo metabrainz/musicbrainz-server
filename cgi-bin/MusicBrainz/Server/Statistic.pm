@@ -676,6 +676,7 @@ my %stats = (
 		PREREQ_ONLY => 1,
 	},
 
+	# Tags
 	"count.tag" => {
 		DESC => "Count of all tags",
 		SQL => "SELECT COUNT(*) FROM tag",
@@ -712,6 +713,109 @@ my %stats = (
 		},
 	},
 
+	# Ratings
+	"count.rating.artist" => {
+		DESC => "Count of artist ratings",
+		CALC => sub {
+			my ($self, $sql) = @_;
+
+			my $data = $sql->SelectSingleRowArray(
+				"SELECT COUNT(*), SUM(rating_count) FROM artist_meta WHERE rating_count > 0",
+			);
+
+			+{
+				"count.rating.artist"		=> $data->[0]	|| 0,
+				"count.rating.raw.artist"	=> $data->[1]	|| 0,
+			};
+		},
+	},
+	"count.rating.raw.artist" => {
+		DESC => "Count of all artist raw ratings",
+		PREREQ => [qw[ count.rating.artist ]],
+		PREREQ_ONLY => 1,
+	},
+	"count.rating.release" => {
+		DESC => "Count of release ratings",
+		CALC => sub {
+			my ($self, $sql) = @_;
+
+			my $data = $sql->SelectSingleRowArray(
+				"SELECT COUNT(*), SUM(rating_count) FROM albummeta WHERE rating_count > 0",
+			);
+
+			+{
+				"count.rating.release"		=> $data->[0]	|| 0,
+				"count.rating.raw.release"	=> $data->[1]	|| 0,
+			};
+		},
+	},
+	"count.rating.raw.release" => {
+		DESC => "Count of all release raw ratings",
+		PREREQ => [qw[ count.rating.release ]],
+		PREREQ_ONLY => 1,
+	},
+	"count.rating.track" => {
+		DESC => "Count of track ratings",
+		CALC => sub {
+			my ($self, $sql) = @_;
+
+			my $data = $sql->SelectSingleRowArray(
+				"SELECT COUNT(*), SUM(rating_count) FROM track_meta WHERE rating_count > 0",
+			);
+
+			+{
+				"count.rating.track"		=> $data->[0]	|| 0,
+				"count.rating.raw.track"	=> $data->[1]	|| 0,
+			};
+		},
+	},
+	"count.rating.raw.track" => {
+		DESC => "Count of all track raw ratings",
+		PREREQ => [qw[ count.rating.track ]],
+		PREREQ_ONLY => 1,
+	},
+	"count.rating.label" => {
+		DESC => "Count of label ratings",
+		CALC => sub {
+			my ($self, $sql) = @_;
+
+			my $data = $sql->SelectSingleRowArray(
+				"SELECT COUNT(*), SUM(rating_count)	FROM label_meta WHERE rating_count > 0",
+			);
+
+			+{
+				"count.rating.label"		=> $data->[0]	|| 0,
+				"count.rating.raw.label"	=> $data->[1]	|| 0,
+			};
+		},
+	},
+	"count.rating.raw.label" => {
+		DESC => "Count of all label raw ratings",
+		PREREQ => [qw[ count.rating.label ]],
+		PREREQ_ONLY => 1,
+	},
+	"count.rating" => {
+		DESC => "Count of all ratings",
+		PREREQ => [qw[ count.rating.artist count.rating.label count.rating.release count.rating.track ]],
+		CALC => sub {
+			my ($self, $sql) = @_;
+			return $self->Fetch('count.rating.artist') + 
+			       $self->Fetch('count.rating.label') +
+			       $self->Fetch('count.rating.release') +
+			       $self->Fetch('count.rating.track');
+		},
+	},
+	"count.rating.raw" => {
+		DESC => "Count of all raw ratings",
+		PREREQ => [qw[ count.rating.raw.artist count.rating.raw.label count.rating.raw.release count.rating.raw.track ]],
+		CALC => sub {
+			my ($self, $sql) = @_;
+			return $self->Fetch('count.rating.raw.artist') + 
+			       $self->Fetch('count.rating.raw.label') +
+			       $self->Fetch('count.rating.raw.release') +
+			       $self->Fetch('count.rating.raw.track');
+		},
+	},
 );
 
 sub RecalculateStat

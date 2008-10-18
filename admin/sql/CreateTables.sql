@@ -67,7 +67,9 @@ CREATE TABLE albummeta
     firstreleasedate    CHAR(10),
     asin                CHAR(10),
     coverarturl         VARCHAR(255),
-    lastupdate          TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    lastupdate          TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    rating              REAL,
+    rating_count        INTEGER
 );
 
 CREATE TABLE albumwords
@@ -108,7 +110,9 @@ CREATE TABLE artist
 CREATE TABLE artist_meta
 (
     id                  INTEGER NOT NULL,
-    lastupdate          TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    lastupdate          TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    rating              REAL,
+    rating_count        INTEGER
 );
 
 CREATE TABLE artistalias
@@ -239,7 +243,9 @@ CREATE TABLE label
 CREATE TABLE label_meta
 (
     id                  INTEGER NOT NULL,
-    lastupdate          TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    lastupdate          TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    rating              REAL,
+    rating_count        INTEGER
 );
 
 CREATE TABLE label_tag
@@ -943,7 +949,9 @@ CREATE TABLE track
 
 CREATE TABLE track_meta
 (
-    id                  INTEGER NOT NULL
+    id                  INTEGER NOT NULL,
+    rating              REAL,
+    rating_count        INTEGER
 );
 
 CREATE TABLE track_tag

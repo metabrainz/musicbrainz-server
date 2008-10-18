@@ -299,6 +299,11 @@ sub Remove
 	my $tag = MusicBrainz::Server::Tag->new($sql->{DBH});
 	$tag->RemoveLabels($this->GetId);
 
+    # Remove ratings
+	require MusicBrainz::Server::Rating;
+	my $ratings = MusicBrainz::Server::Rating->new($sql->{DBH});
+	$ratings->RemoveLabels($this->GetId);
+
 	# Remove references from label words table
 	require SearchEngine;
 	my $engine = SearchEngine->new($this->{DBH}, 'label');
@@ -338,6 +343,10 @@ sub MergeInto
 	require MusicBrainz::Server::Tag;
 	my $tag = MusicBrainz::Server::Tag->new($sql->{DBH});
 	$tag->MergeLabels($o, $n);
+
+	require MusicBrainz::Server::Rating;
+	my $ratings = MusicBrainz::Server::Rating->new($sql->{DBH});
+	$ratings->MergeLabels($o, $n);
 
 	$sql->Do("UPDATE release           SET label = ? WHERE label = ?", $n, $o);
 	$sql->Do("UPDATE moderation_closed SET rowid = ? WHERE tab = 'label' AND rowid = ?", $n, $o);
@@ -868,7 +877,7 @@ sub GetLabelDisplayList
 # The returned array is empty on error.
 sub GetReleases
 {
-	my ($this) = @_;
+	my ($this, $loadmeta) = @_;
 	my $sql = Sql->new($this->{DBH});
 	my $query = qq/
 		SELECT
@@ -885,7 +894,9 @@ sub GetReleases
 			tracks,
 			discids,
 			puids,
-			artist.name as artistname
+			artist.name as artistname,
+			rating,
+			rating_count
 		FROM
 			release, album, albummeta, artist
 		WHERE
@@ -916,6 +927,8 @@ sub GetReleases
 			$album->{discidcount} = $row[11];
 			$album->{puidcount} = $row[12] || 0;
 			$album->{artistname} = $row[13];
+			$album->{rating} = $row[14];
+			$album->{rating_count} = $row[15];
 			push @albums, $album;
 		}
 	}

@@ -1,0 +1,76 @@
+<%args>
+    $entity_id
+    $entity_type
+
+	$small => 0			# Small or big ratings stars
+
+    $detailled => 0		# Display all ratings information (loaded from DB): aggregate rating, ratings count, user rating (will be loaded from DB)
+    $rating => undef    # Allow passing a rating hash to avoid loading from DB 
+
+    $allow_rating => 1
+</%args>
+
+<%perl>
+	# Check argument
+    MusicBrainz::Server::Validation::IsNonNegInteger($entity_id) && $entity_id
+        or return $m->comp("/comp/layout/badarguments", text => "Argument entity_id is required");
+
+	# Respect show_ratings preference
+	return unless UserPreference::get("show_ratings");
+
+	my ($mb, $ratings);
+    if (not defined($rating))
+    {
+        # Instantiate MusicBrainz object
+        $mb = $m->comp("/comp/dblogin");
+
+        require MusicBrainz::Server::Rating;
+        $ratings = MusicBrainz::Server::Rating->new($mb->{DBH});
+
+        $rating = $ratings->GetRatingForEntity($entity_type, $entity_id);
+    }
+
+	my $user_rating;
+	if($detailled && $session{uid})
+	{
+		$mb or $mb = $m->comp("/comp/dblogin");
+		$ratings or $ratings = MusicBrainz::Server::Rating->new($mb->{DBH});
+		$user_rating = $ratings->GetUserRatingForEntity($entity_type, $entity_id, $session{uid});
+	}
+
+    my $rate_url = "/bare/rate.html?entity_id=$entity_id&entity_type=$entity_type&url=". $r->uri()."?".$r->args() ."&rating=";
+    my %css_classes = ();
+
+	# Allow changing rate only if user is logged
+	$allow_rating &&= defined $session{uid};	
+	%css_classes = ( 1 => "one", 2 => "two", 3 => "three", 4 => "four", 5 => "five" ) if ($allow_rating);
+
+</%perl>
+
+    <span class="inline-rating">
+    	<ul class="star-rating<% $small ? " small-star" : "" %>">
+    		<li id="<% "RATING::" . $entity_type ."::". $entity_id %>" class="current-rating" style="width:<% ($rating->{"rating"}/5*100) %>%;">Current rating: <% $rating->{"rating"} %></li>
+%			foreach my $rate (sort keys %css_classes)
+%			{
+        	<li>
+				<a 	href="<% $rate_url . $rate %>"
+					id="<% "RATE::" . $entity_type ."::". $entity_id ."::". $rate %>"
+					class="<% $css_classes{$rate} %>-star<% ($rate>1)?"s":"" %>"><% $rate %></a> 
+			</li>
+%			}
+    	</ul>
+    </span>
+<%perl>
+	if ($detailled)
+	{
+		$m->out("<small>(");
+		if ($session{uid})
+		{
+			$m->out("Your rating: <span id='USER-RATING::$entity_type::$entity_id'>". ($user_rating || "none") ."</span> - ");
+		}
+		$m->out("Votes: <span id='VOTES-RATING::$entity_type::$entity_id'>". ($rating->{"rating_count"} || "0") ."</span>)");
+		$m->out("</small>");
+	}
+</%perl>
+
+%# vi: set ts=4 sw=4 ft=mason :

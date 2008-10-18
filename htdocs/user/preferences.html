@@ -76,8 +76,10 @@
 			release_show_annotationlinks
 			show_inline_mods
 			show_inline_mods_random
+			show_ratings
 			subscriptions_public
 			tags_public
+			ratings_public
 			auto_subscribe
 			css_noentityicons
 			css_nosmallfonts
@@ -525,6 +527,12 @@
 						releases <img src="/images/entity/release_small.gif" alt="" /> and tracks
 						<img src="/images/entity/track_small.gif" alt="" />.</label><br />
 
+					<label for="pref_show_ratings"><input type="checkbox" name="show_ratings"
+						id="pref_show_ratings"
+%						$m->out(UserPreference::get('show_ratings') ? ' checked="checked" ' : "");
+						/>
+						Show ratings.</label><br />
+
 					<label for="pref_css_nosmallfonts"><input type="checkbox" name="css_nosmallfonts"
 						id="pref_css_nosmallfonts"
 %						$m->out(UserPreference::get('css_nosmallfonts') ? ' checked="checked" ' : "");
@@ -550,8 +558,13 @@
 					<label for="pref_tags_public"><input type="checkbox" name="tags_public" id="pref_tags_public"
 %						$m->out(UserPreference::get('tags_public') ? ' checked="checked" ' : "");
 						/>
-					Allow other users to see <a href="/doc/FolksonomyTagging"
-						>folksonomy tags</a>.</label>
+					Allow other users to see my <& /comp/linkdoc, "FolksonomyTagging", "folksonomy tags", 0, 0 &>.</label>
+				</div>
+				<div>
+					<label for="pref_ratings_public"><input type="checkbox" name="ratings_public" id="pref_ratings_public"
+%						$m->out(UserPreference::get('ratings_public') ? ' checked="checked" ' : "");
+						/>
+					Allow other users to see my <& /comp/linkdoc, "RatingSystem", "ratings", 0, 0 &>.</label>
 				</div>
 
 			<& /comp/tableend &>

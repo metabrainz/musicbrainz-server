@@ -82,10 +82,11 @@ sub handler
 
 	if (my $st = apply_rate_limit($r)) { return $st }
 
+	my $user = get_user($r->user, $inc); 
 	my $status = eval {
 		# Try to serve the request from the database
 		{
-			my $status = serve_from_db($r, $mbid, $inc, $info);
+			my $status = serve_from_db($r, $mbid, $inc, $info, $user);
 			return $status if defined $status;
 		}
         undef;
@@ -111,7 +112,7 @@ sub handler
 
 sub serve_from_db
 {
-	my ($r, $mbid, $inc, $info) = @_;
+	my ($r, $mbid, $inc, $info, $user) = @_;
 
 	my $ar;
 	my $al;
@@ -134,7 +135,7 @@ sub serve_from_db
 	}
 	
 	my $printer = sub {
-		print_xml($mbid, $inc, $ar, $info);
+		print_xml($mbid, $inc, $ar, $info, $user);
 	};
 
 	send_response($r, $printer);
@@ -143,11 +144,11 @@ sub serve_from_db
 
 sub print_xml
 {
-	my ($mbid, $inc, $ar, $info) = @_;
+	my ($mbid, $inc, $ar, $info, $user) = @_;
 
 	print '<?xml version="1.0" encoding="UTF-8"?>';
 	print '<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">';
-    print xml_artist($ar, $inc, $info);
+    print xml_artist($ar, $inc, $info, $user);
 	print '</metadata>';
 }
 

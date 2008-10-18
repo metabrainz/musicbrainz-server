@@ -38,6 +38,8 @@
 	my $mbid = $track->GetMBId;
 	my $name = $track->GetName;
 
+	$m->out(qq!<script type="text/javascript" src="/scripts/ratings.js"></script>!);
+
 	$m->out(qq!<table class="artisttitle">!);
 
 	# Row 1: the track name (link) and sortname
@@ -49,7 +51,9 @@
 	$m->out(qq!  <span class="mp">!) if ($track->GetModPending);
 	$m->out($m->interp->apply_escapes($name, 'h'));
 	$m->out(qq!  </span>!) if ($track->GetModPending);
-	$m->out(qq!</a></td></tr>!);
+	$m->out(qq!</a>!);
+	$m->comp("/comp/ratingsbox", entity_type => "track", entity_id => $id, detailled => 1);
+	$m->out(qq!</td></tr>!);
 
 	# Info box, a) resolution b) start-end date c) track-type d) sortname
 	$m->out('<tr><td class="info">by <a href="/artist/'.$artist->GetMBId.'">');

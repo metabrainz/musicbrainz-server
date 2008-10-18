@@ -50,18 +50,36 @@
 	<Location /ws/1/artist>
 		SetHandler perl-script
 		PerlHandler MusicBrainz::Server::Handlers::WS::1::Artist
+
+		PerlAuthenHandler MusicBrainz::Server::Handlers::WS::1::Auth
+		Require valid-user
+		AuthType Digest
+		AuthName "musicbrainz.org"
+		PerlSetVar DigestRealm "musicbrainz.org"
 	</Location>
 
 	PerlModule MusicBrainz::Server::Handlers::WS::1::Label
 	<Location /ws/1/label>
 		SetHandler perl-script
 		PerlHandler MusicBrainz::Server::Handlers::WS::1::Label
+
+		PerlAuthenHandler MusicBrainz::Server::Handlers::WS::1::Auth
+		Require valid-user
+		AuthType Digest
+		AuthName "musicbrainz.org"
+		PerlSetVar DigestRealm "musicbrainz.org"
 	</Location>
 
 	PerlModule MusicBrainz::Server::Handlers::WS::1::Release
 	<Location /ws/1/release>
 		SetHandler perl-script
 		PerlHandler MusicBrainz::Server::Handlers::WS::1::Release
+
+		PerlAuthenHandler MusicBrainz::Server::Handlers::WS::1::Auth
+		Require valid-user
+		AuthType Digest
+		AuthName "musicbrainz.org"
+		PerlSetVar DigestRealm "musicbrainz.org"
 	</Location>
 
 	PerlModule MusicBrainz::Server::Handlers::WS::1::Track
@@ -93,6 +111,18 @@
 		SetHandler perl-script
 		PerlHandler MusicBrainz::Server::Handlers::WS::1::Tag
     
+		PerlAuthenHandler MusicBrainz::Server::Handlers::WS::1::Auth
+		Require valid-user
+		AuthType Digest
+		AuthName "musicbrainz.org"
+		PerlSetVar DigestRealm "musicbrainz.org"
+	</Location>
+
+	PerlModule MusicBrainz::Server::Handlers::WS::1::Rating
+	<Location /ws/1/rating>
+		SetHandler perl-script
+		PerlHandler MusicBrainz::Server::Handlers::WS::1::Rating
+
 		PerlAuthenHandler MusicBrainz::Server::Handlers::WS::1::Auth
 		Require valid-user
 		AuthType Digest

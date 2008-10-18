@@ -76,6 +76,7 @@
 		$date_str = "Dissolved: $end" if $type == &MusicBrainz::Server::Artist::ARTIST_TYPE_GROUP;
 	}
 
+	$m->out(qq!<script type="text/javascript" src="/scripts/ratings.js"></script>!);
 
 	$m->out(qq!<table class="artisttitle">!);
 
@@ -88,7 +89,9 @@
 	$m->out(qq!  <span class="mp">!) if ($artist->GetModPending);
 	$m->out($m->interp->apply_escapes($name, 'h'));
 	$m->out(qq!  </span>!) if ($artist->GetModPending);
-	$m->out(qq!</a></td></tr>!);
+	$m->out(qq!</a>!);
+	$m->comp("/comp/ratingsbox", entity_type => "artist", entity_id => $id, detailled => 1);
+	$m->out(qq!</td></tr>!);
 
 	# Info box, a) resolution b) start-end date c) artist-type d) sortname
 	$m->out('<tr><td class="info">');

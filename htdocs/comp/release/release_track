@@ -44,7 +44,8 @@
 	$mbt
 	$showtrackartists
 	$showrelationships
-
+	
+	$showratings => 0
 </%args>
 <%perl>
 
@@ -112,6 +113,17 @@
 	if ($hasannotation)
 	{
 		$m->out(qq!&nbsp;<img src="/images/annotation.gif" alt="Annotation" width="57" height="13" title="This track has an annotation" />&nbsp;!);
+	}
+
+	# render ratings
+	if ($showratings && $track->GetId)
+	{
+		$m->comp("/comp/ratingsbox", 
+				"entity_type" => "track",
+				"entity_id"	=> $track->GetId,
+				"small"	=> 1,
+				"rating" => { "rating" => $track->{"rating"}, "rating_count" => $track->{"rating_count"} }
+		);
 	}
 
 	if ($track->GetId && $showrelationships)

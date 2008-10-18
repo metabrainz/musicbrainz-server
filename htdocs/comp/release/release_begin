@@ -49,11 +49,13 @@
 	$tagchecked => 0
     
     $folksonomy => 0
+    $showratings => 0
 
 </%args>
 <%perl>
 
 	$release ||= $album;
+	$showratings &&= UserPreference::get("show_ratings");
 
 	my $artistid = $release->GetArtist;
 	my $releaseid = $release->GetId;
@@ -246,6 +248,18 @@
 			$m->out(qq!&nbsp;] ! . $lastupdate . qq!</td></tr>!);
 		}
 
+        # rating
+        if ($showratings && defined $release->{rating})
+        {
+            $m->out(qq!<tr><td class="rating"> Rating: !);
+            $m->comp("/comp/ratingsbox", entity_type=>'release', 
+                        entity_id=>$release->GetId,
+                        rating => { "rating" => $release->{"rating"}},
+                        small => 1,
+                        detailled => 1,
+            );
+            $m->out(qq!</td></tr>!);
+        }
         # folksonomy tags
         if ($folksonomy)
         {

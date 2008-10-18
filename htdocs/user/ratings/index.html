@@ -1,0 +1,113 @@
+<%args>
+    $show => 'all'
+    $offset => 0
+	$userid => $session{uid}
+</%args>
+
+<%perl>
+
+	MusicBrainz::Server::Validation::IsNonNegInteger($offset)
+		or return $m->comp("/comp/layout/badarguments",
+			text => "The argument <strong>offset</strong> has wrong format.");
+
+	($show eq 'all' || $show eq 'artist' || $show eq 'label' || $show eq 'track' || $show eq 'release')
+		or return $m->comp("/comp/layout/badarguments",
+			text => "The argument <strong>show</strong> must be all, artist, label, track or release.");
+
+	# Instantiate MusicBrainz object
+	my $mb = $m->comp("/comp/dblogin");
+	$m->comp("/comp/checkloggedin", 1, 1, undef, 1)
+		or return;
+
+	my $user;
+	my $is_me = ($userid == $session{uid});
+	if (!$is_me) {
+		$user = UserStuff->newFromId($mb->{DBH}, $userid)
+			or return $m->comp("/comp/error", "There is no user with id #$userid", 1, 1);
+	}
+    
+    my $private = $is_me ? 0 : not UserPreference::get_for_user("ratings_public", $user);
+
+	my $rt = MusicBrainz::Server::Rating->new($mb->{DBH});
+
+</%perl>
+
+<& /comp/sidebar, pagetitle => ($is_me ? "My" : $user->GetName . "'s") . " Ratings" &>
+
+	<script type="text/javascript" src="/scripts/ratings.js"></script>
+
+[ Show ratings for:
+% if ($show ne 'all') {
+    <a href="/user/ratings/?userid=<% $userid %>&amp;show=all">all</a> |
+% }
+% if ($show eq 'artist') {
+    artists |
+% } else {
+    <a href="/user/ratings/?userid=<% $userid %>&amp;show=artist">artists</a> |
+% }
+% if ($show eq 'label') {
+    labels |
+% } else {
+    <a href="/user/ratings/?userid=<% $userid %>&amp;show=label">labels</a> |
+% }
+% if ($show eq 'release') {
+    releases |
+% } else {
+    <a href="/user/ratings/?userid=<% $userid %>&amp;show=release">releases</a> |
+% }
+% if ($show eq 'track') {
+    tracks ]
+% } else {
+    <a href="/user/ratings/?userid=<% $userid %>&mp;show=track">tracks</a> ]
+% }
+
+% if ($private)
+% {
+    <h3><% $user->GetName %>'s ratings are private.</h3>
+% }
+% else
+% {
+
+%	my @types = ($show eq 'all') ? ("artist", "label", "release", "track") : ($show);
+%	my $limit = ($show eq 'all') ? 10 : 100;
+%	for my $type (@types) {
+		<h2><% ucfirst($type) %>s</h2>
+%		my ($rated_entities, $numitems) = $rt->GetEntitiesRatingsForUser($type, $userid, $limit, $offset);
+%		if ($numitems) {
+			<table>
+%				for my $entity (@$rated_entities) {
+					<tr>
+						<td><& "/comp/link".$type,
+							id => $entity->{"id"},
+							mbid => $entity->{"gid"},
+							name => $entity->{"name"}
+						&></td>
+						<td><& /comp/ratingsbox, entity_id => $entity->{"id"}, entity_type => $type, 
+                                small => 1,
+                                rating => { rating => $entity->{"rating"} },
+                                allow_rating => $is_me,
+                            &></td>
+					</tr>
+%				}
+			</table>
+%		}
+%		if ($numitems > $limit) {
+%			if ($show eq 'all') {
+				<p><a href="/user/ratings/?userid=<% $userid %>&show=<% $type %>">More...</a></p>
+%			}
+%			else {
+				<& /comp/browse/pageselector, numitems => $numitems,
+					offset=> $offset,
+					numlinks => 6,
+					pagesize=> $limit,
+					url => "/user/ratings/",
+					args => { "show" => $type, "userid" => $userid }
+				&>
+%			}
+%		}
+%	}
+% }
+
+<& /comp/footer &>
+
+%# vi: set ts=4 sw=4 ft=mason :

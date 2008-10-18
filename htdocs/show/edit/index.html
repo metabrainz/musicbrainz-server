@@ -99,12 +99,11 @@
 				$sql->Rollback;
 				$vertsql->Rollback;
 
-				</%perl>
-				<div style="color: red">
-					<p>Error applying edit:</p>
-					<pre><% $err %></pre>
-				</div>
-				<%perl>
+				$m->comp("/comp/layout/error/",
+					title => "Error applying edit:",
+					text => "<pre>$err</pre>",
+				);
+				return undef;
 			};
 
 			$edit = Moderation->new($mb->{DBH});

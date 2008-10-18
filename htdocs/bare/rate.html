@@ -1,0 +1,60 @@
+<%args>
+    $entity_id
+    $entity_type
+    $rating
+
+	$url => ""
+	$json => 0
+</%args>
+
+<%perl>
+
+	# make sure we have a logged in user.
+	$m->comp("/comp/checkloggedin", 1, 1) or return;
+
+    # Check argument
+    MusicBrainz::Server::Validation::IsNonNegInteger($entity_id) && $entity_id
+        or return $m->comp("/comp/layout/badarguments", text => "Argument entity_id is required");
+
+    MusicBrainz::Server::Validation::IsNonNegInteger($rating)
+        or return $m->comp("/comp/layout/badarguments", text => "Argument rating is required");
+
+	defined($entity_type) and $entity_type =~ /\A(artist|release|label|track)\z/
+		or return $m->comp("/comp/layout/badarguments", text => "Argument entity_type is incorrect");
+    
+	# Instantiate MusicBrainz object
+    my $mb = $m->comp("/comp/dblogin");
+	
+	# Rate
+    my $ratings = MusicBrainz::Server::Rating->new($mb->{DBH});
+    my ($global_rating, $rating_count) = $ratings->Update($entity_type, $entity_id, $session{uid}, $rating);
+
+	$mb->Logout();
+	
+	# Return result as JSON object if json has been requested
+	if ($json)
+	{
+		my $result = {
+			"entitytype" => $entity_type,
+			"entityid" => $entity_id,
+			"rating" => $global_rating,
+			"rating_count" => $rating_count,
+			"userid" => $session{uid},
+			"user_rating" => $rating,
+		};
+
+		use JSON;
+		my $json = new JSON;
+		$r->content_type("text/plain; charset=utf-8");
+		$m->out($json->objToJson($result));
+	}
+
+	# Redirect to url
+	if ($url)
+	{
+		return $m->comp("/comp/redirect", $url);
+	}
+
+</%perl>
+
+%# vi: set ts=4 sw=4 ft=mason :

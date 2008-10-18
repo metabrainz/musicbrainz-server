@@ -66,8 +66,12 @@ my $pc = sub
 		<td class="NumberCell"><% $stats{"count.ar.links"} %></td>
 	</tr>
 	<tr>
-		<th class="StatName">Tags</th>
+		<th class="StatName">Tags (raw / agg)</th>
 		<td class="NumberCell"><% $stats{"count.tag.raw"} %> / <% $stats{"count.tag"} %></td>
+	</tr>
+	<tr>
+		<th class="StatName">Ratings (raw / agg)</th>
+		<td class="NumberCell"><% $stats{"count.rating.raw"} %> / <% $stats{"count.rating"} %></td>
 	</tr>
 	<tr>
 		<th class="StatName">PUIDs</th>

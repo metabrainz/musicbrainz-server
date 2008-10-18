@@ -475,6 +475,11 @@ table.releaselinks td.tags {
 	border-top: 1px solid #000;
 }
 
+/* ratings, bluishgreen */
+table.releaselinks td.rating {
+	background-color: #F0F6FF; color: #000;
+	border-top: 1px solid #000;
+}
 
 /* ------------------------------------------------------------------------- 
 	* Release Tracks table

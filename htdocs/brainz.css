@@ -6,6 +6,7 @@
 @import url(css/framework.css);
 @import url(css/main.css);
 @import url(css/navigation.css);
+@import url(css/rating.css);
 
 /* handy Vim command to strip the timestamps before committing to CVS:
 %s/?t=\w\+//

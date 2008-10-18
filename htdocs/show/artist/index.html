@@ -389,6 +389,9 @@
 					<col style="text-align: center" />
 					<col style="text-align: center" />
 					<col style="text-align: center" />
+% 	if (UserPreference::get("show_ratings")) {
+					<col style="text-align: center" />
+%	}
 %	if ($session{uid}) {
 					<col style="width: 3em" />
 %	}
@@ -457,6 +460,15 @@
 </%perl></td>
 <td class="rdate"><& /comp/releasedate, $album->GetFirstReleaseDateYMD &></td>
 <td class="lang"><& /comp/language, $album->GetLanguage, $album->GetScript &></td>
+% 	if (UserPreference::get("show_ratings")) {
+<td class="">
+	<& /comp/ratingsbox, 
+		"entity_id" => $album->GetId, 
+		"entity_type" => "release", 
+		"small" => 1, 
+		"rating" => { "rating" => $album->{"rating"}} &>
+</td>
+%	}
 %	if ($session{uid}) {
 <td class="rtag">
 %	if (!$album->IsNonAlbumTracks) {
@@ -491,6 +503,7 @@
 						 showcollapsed => 1,
 						 showids => 0,
 						 showtag => 1,
+						 showratings => 1,
 						 mbt => $mbt,
 						 ex => $ex);
                 }
@@ -498,7 +511,9 @@
                 {
                      $m->comp("/comp/albumcollapsed",
 						 album => $album, artist => $artist,
-						 ex => $ex, showids => 0, showtag => 1, short=>$short);
+						 ex => $ex, showids => 0, showtag => 1, short=>$short,
+						 showratings => 1,
+						 );
                 }
             }
 
