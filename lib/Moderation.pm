@@ -501,6 +501,8 @@ my @QualityChangeDefs =
 # We'll store database handles that have open transactions in this hash for easy access.
 local %Moderation::DBConnections = ();
 
+sub entity_type { 'moderation' }
+
 sub GetQualityChangeDefs
 {
     return $QualityChangeDefs[$_[0]];

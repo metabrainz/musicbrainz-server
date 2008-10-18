@@ -1,0 +1,58 @@
+[%- WRAPPER 'layout.tt' title='Open Moderations' -%]
+
+<table>
+[%- FOREACH moderation=edits -%]
+  <tr class="seperator">
+    <td colspan="3">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>
+      <table>
+        <tr>
+          <th>Editor:</th>
+          <td>[% moderation.moderator %]</td>
+        </tr>
+        <tr>
+          <th>Edit ID:</th>
+          <td><a href="[%- entity_url(moderation, 'show') -%]">[% moderation.id %]</a></td>
+        </tr>
+
+        [%- IF moderation.language -%]
+        <tr>
+          <th>Language:</th>
+          <td>[% moderation.language.name %]</td>
+        </tr>
+        [%- END -%]
+
+        <tr>
+          <th>Expired</th>
+          <td>[% moderation.GetExpireTime %]</td>
+        </tr>
+      </table>
+    </td>
+    
+    <td>
+      <table>
+        <tr>
+          <th>Type:</th>
+          <td>[% moderation.Name %]</td>
+        </tr>
+      </table>
+    </td>
+    <td>
+      [% links = [
+         { link => '', text => 'Add note' },
+         { link => '', text => 'Approve' },
+      ] %]
+      [%- INCLUDE "components/piped-list.tt" list=links -%]
+    </td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td></td>
+    <td></td>
+  </tr>
+[%- END -%]
+</table>
+
+[%- END -%]

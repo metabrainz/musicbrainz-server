@@ -180,4 +180,17 @@ sub reject : Chained('moderation')
     $c->forward('show');
 }
 
+=head2 open
+
+Show a list of open moderations
+
+=cut
+
+sub open : Local
+{
+    my ($self, $c) = @_;
+
+    $c->stash->{edits} = $c->model('Moderation')->list_open(25, 0);
+}
+
 1;
