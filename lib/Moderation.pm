@@ -795,38 +795,6 @@ sub SetVote
    $_[0]->{vote} = $_[1];
 }
 
-sub artist_name
-{
-    my ($self, $new_name) = @_;
-
-    if (defined $new_name) { $self->{artistname} = $new_name; }
-    return $self->{artistname};
-}
-
-sub artist_sort_name
-{
-    my ($self, $new_sort) = @_;
-
-    if (defined $new_sort) { $self->{artistsortname} = $new_sort; }
-    return $self->{artistsortname};
-}
-
-sub artist_resolution
-{
-    my ($self, $new_resolution) = @_;
-
-    if (defined $new_resolution) { $self->{artistresolution} = $new_resolution; }
-    return $self->{artistresolution};
-}
-
-sub moderator_name
-{
-    my ($self, $new_name) = @_;
-
-    if (defined $new_name) { $self->{moderatorname} = $new_name; }
-    return $self->{moderatorname};
-}
-
 sub GetAutomod
 {
    return $_[0]->{automod};
@@ -888,25 +856,31 @@ sub CreateFromId
         $edit = $this->CreateModerationObject($row[5]);
         if (defined $edit)
         {
+            my $artist = new MusicBrainz::Server::Artist($this->{DBH});
+            $artist->id($row[4]);
+            $artist->name($row[12]);
+            $artist->sort_name($row[13]);
+            $artist->resolution($row[14]);
+
+            my $moderator = new MusicBrainz::Server::Editor($this->{DBH});
+            $moderator->id($row[18]);
+            $moderator->name($row[9]);
+
 			$edit->id($row[0]);
 			$edit->table($row[1]);
 			$edit->SetColumn($row[2]);
 			$edit->row_id($row[3]);
-			$edit->artist($row[4]);
+			$edit->artist($artist);
 			$edit->type($row[5]);
 			$edit->SetPrev($row[6]);
 			$edit->SetNew($row[7]);
 			$edit->SetExpireTime($row[8]);
-			$edit->moderator_name($row[9]);
 			$edit->SetYesVotes($row[10]);
 			$edit->SetNoVotes($row[11]);
-			$edit->artist_name($row[12]);
-			$edit->artist_sort_name($row[13]);
-			$edit->artist_resolution($row[14]);
 			$edit->SetStatus($row[15]);
 			$edit->SetVote(&ModDefs::VOTE_UNKNOWN);
 			$edit->SetDepMod($row[17]);
-			$edit->moderator($row[18]);
+			$edit->moderator($moderator);
 			$edit->SetAutomod($row[19]);
 			$edit->language_id($row[20]);
 			$edit->SetOpenTime($row[21]);
@@ -1038,7 +1012,7 @@ sub InsertModeration
 	if (ref $class)
 	{
 		$opts{DBH} = $class->{DBH};
-		$opts{uid} = $class->moderator;
+		$opts{uid} = $class->moderator->id;
 		$opts{privs} = $class->{_privs_};
 	}
 
@@ -1057,17 +1031,19 @@ sub InsertModeration
 		my $this = $editclass->new($opts{'DBH'} || die "No DBH passed");
 		$this->type($this->Type);
 
-		$this->moderator($opts{'uid'} or die "No uid passed");
-		defined($privs = $opts{'privs'}) or die;
+        die "No editor passed"
+            unless $opts{moderator};
 
-		delete @opts{qw( type DBH uid privs )};
+		$this->moderator($opts{moderator});
+
+		delete @opts{qw( type DBH moderator )};
 
 		$this;
 	};
 
 	# Save $privs in $self so that if a nested ->InsertModeration is called,
 	# we know what privs to use (see above).
-	$this->{_privs_} = $privs;
+	$this->{_privs_} = $this->moderator->privs;
 
 	# The list of moderations inserted by this call.
 	my @inserted_moderations;
@@ -1089,11 +1065,13 @@ sub InsertModeration
 
 	eval
 	{
-
 		# The PreInsert method must perform any work it needs to - e.g. inserting
 		# records which maybe ->DeniedAction will delete later - and then override
 		# these default column values as appropriate:
-		$this->artist(&ModDefs::VARTIST_ID);
+        my $artist = new MusicBrainz::Server::Artist($this->{DBH});
+        $artist->id(ModDefs::VARTIST_ID);
+
+		$this->artist($artist);
 		$this->table("");
 		$this->SetColumn("");
 		$this->row_id(0);
@@ -1145,7 +1123,7 @@ sub InsertModeration
             )",
             $this->table, $this->GetColumn, $this->row_id,
             $this->GetPrev, $this->GetNew,
-            $this->moderator, $this->artist, $this->type,
+            $this->moderator->id, $this->artist->id, $this->type,
             $this->GetDepMod,
             &ModDefs::STATUS_OPEN, sprintf("%d days", $level->{duration}),
             $this->language_id
@@ -1337,9 +1315,17 @@ sub moderation_list
 			next;
 		}
 
+        my $artist = new MusicBrainz::Server::Artist($this->{DBH});
+        $artist->id($r->{artist});
+        $artist->LoadFromId;
+
+        my $moderator = new MusicBrainz::Server::Editor($this->{DBH});
+        $moderator->id($r->{moderator});
+        $moderator = $moderator->newFromId($moderator->id);
+
 		$edit->id($r->{id});
-		$edit->artist($r->{artist});
-		$edit->moderator($r->{moderator});
+		$edit->artist($artist);
+		$edit->moderator($moderator);
 		$edit->table($r->{tab});
 		$edit->SetColumn($r->{col});
 		$edit->type($r->{type});
@@ -1366,45 +1352,12 @@ sub moderation_list
 
 	$sql->Finish;
 
-	# Fetch artists, and cache by artistid.
-	require MusicBrainz::Server::Artist;
-	my %artist_cache;
-	
 	# Cache editors by name
-	require MusicBrainz::Server::Editor;
-	my $user = MusicBrainz::Server::Editor->new($this->{DBH});
-	my %editor_cache;
-		
 	require MusicBrainz::Server::Vote;
 	my $vote = MusicBrainz::Server::Vote->new($this->{DBH});
 
 	for my $edit (@edits)
 	{
-		# Fetch editor into cache if not loaded before.
-		my $uid = $edit->moderator;
-		$editor_cache{$uid} = do {
-			my $u = $user->newFromId($uid);
-			$u ? $u->name : "?";
-		} unless defined $editor_cache{$uid};
-		$edit->moderator_name($editor_cache{$uid});
-
-		# Fetch artist into cache if not loaded before.
-		my $artistid = $edit->artist;
-		if (not defined $artist_cache{$artistid})
-		{
-			my $artist = MusicBrainz::Server::Artist->new($this->{DBH});
-			$artist->id($artistid);
-			if ($artist->LoadFromId())
-			{
-				$artist_cache{$artistid} = $artist;
-			} 
-		}
-		
-		my $artist = $artist_cache{$artistid};
-		$edit->artist_name($artist ? $artist->name : "?");
-		$edit->artist_sort_name($artist ? $artist->sort_name : "?");
-		$edit->artist_resolution($artist ? $artist->resolution : "?");
-
 		# Find vote
 		if ($edit->GetVote == VOTE_UNKNOWN and $voter)
 		{
@@ -1677,201 +1630,6 @@ sub Type
 	die $@ if $@;
 
 	$type;
-}
-
-sub GetComponent
-{
-	my ($self, $mason) = @_;
-	my $token = $self->Token;
-	$mason->fetch_comp("/comp/moderation/$token")
-		or die "Failed to find Mason component for $token";
-}
-
-# This function will get called from the html pages to output the
-# contents of the moderation type field.
-sub ShowModType
-{
-	my ($this, $mason, $showeditlinks) = splice(@_, 0, 3);
-	
-	#use MusicBrainz qw( encode_entities );
-	
-	# default exists is to check if the given name is set
-	# in the values hash.
-	($this->{"exists-album"}, $this->{"exists-track"}) =  ($this->{"albumname"}, $this->{"trackname"});
-
-	# attempt to load track entity, and see if it still exists.
-	# --- this flag was set in the individual PostLoad
-	#     implementations of the edit types
-	if ($this->{"checkexists-track"} && defined $this->{"trackid"})
-	{
-		require MusicBrainz::Server::Track;
-		my $track = MusicBrainz::Server::Track->new($this->{DBH});
-		$track->id($this->{"trackid"});
-		if ($this->{"exists-track"} = $track->LoadFromId)
-		{
-			$this->{"trackid"} = $track->id;
-			$this->{"trackname"} = $track->name;
-			$this->{"trackseq"} = $track->sequence;
-			
-			# assume that the release needs to be loaded from
-			# the album-track core relationship, if it not
-			# has been set explicitly.
-			$this->{"albumid"} = $track->release if ($this->{"checkexists-album"} && not defined $this->{"albumid"});
-		}
-	}
-	
-	# attempt to load release entity, and see if it still exists
-	# --- this flag was set in the individual PostLoad
-	#     implementations of the edit types	
-	if ($this->{"checkexists-album"} && defined $this->{"albumid"})
-	{
-		require MusicBrainz::Server::Release;
-		my $release = MusicBrainz::Server::Release->new($this->{DBH});
-		$release->id($this->{"albumid"});
-		if ($this->{"exists-album"} = $release->LoadFromId)
-		{
-			$this->{"albumid"} = $release->id;
-			$this->{"albumname"} = $release->name;
-			$this->{"trackcount"} = $release->track_count;
-			$this->{"isnonalbum"} = $release->IsNonAlbumTracks;
-		}	
-	}
-	
-	# do not display release if we have a batch edit type
-	$this->{"albumid"} = undef 
-		if ($this->type == &ModDefs::MOD_REMOVE_RELEASES or
-			$this->type == &ModDefs::MOD_MERGE_RELEASE or
-			$this->type == &ModDefs::MOD_MERGE_RELEASE_MAC or
-			$this->type == &ModDefs::MOD_EDIT_RELEASE_LANGUAGE or
-			$this->type == &ModDefs::MOD_EDIT_RELEASE_ATTRS);
-	
-	$mason->out(qq!<table class="edittype">!);
-
-	# output edittype as wikidoc link
-	$mason->out(qq!<tr class="entity"><td class="lbl">Type:</td><td>!);
-	my $docname = $this->Name."Edit";
-	$docname =~ s/\s//g;
-	$mason->comp("/comp/linkdoc", $docname, $this->Name);
-	if ($this->GetAutomod)
-	{
-		$mason->out(qq! &nbsp; <small>(<a href="/doc/AutoEdit">Autoedit</a>)</small>!);
- 	}
- 	
-	# if current/total number of tracks is available, show the info...
-	# ...but do not show sequence number for non-album tracks
-	my $seq = "";
-	if (!$this->{"isnonalbum"})
-	{
-		$seq = ($this->{"trackseq"} 
-			? " &nbsp; <small>(Track: " . $this->{"trackseq"} 
-				  . ($this->{"trackcount"} 
-					? "/".$this->{"trackcount"}
-					: "")
-				  . ")</small>"
-			: "");	
-	}
-	$mason->out(qq!$seq</td></tr>!);
-	
-
-	# output the artist this edit is listed under.
-	if (!$this->{'dont-display-artist'})
-	{
-		$mason->out(qq!<tr class="entity"><td class="lbl">Artist:</td>!);
-		$mason->out(qq!<td>!);
-		$mason->comp("/comp/linkartist", 
-			id => $this->artist, 
-			name => $this->artist_name, 
-			sortname => $this->artist_sort_name, 
-			resolution => $this->artist_resolution,
-			strong => 0
-		);
-		$mason->out(qq!</td>!);
-		if ($showeditlinks)
-		{
-			$mason->out(qq!<td class="editlinks">!);
-			$mason->comp("/comp/linkedits", type => "artist", id => $this->artist, explain => 1);
-			$mason->out(qq!</td>!);
-		}
-		$mason->out(qq!</tr>!);	
-	}
-	
-	
-	# output the release this edit is listed under.
-	if (defined $this->{"albumid"})
-	{
-		my ($id, $name, $title) = ($this->{"albumid"}, $this->{"albumname"}, undef);
-		if (not $this->{"exists-album"})
-		{
-			$name = "This release has been removed" if (not defined $name);
-			$title = "This release has been removed, Id: $id";
-			$id = -1;	
-		}
-		
-		$mason->out(qq!<tr class="entity"><td class="lbl">Release:</td>!);	
-		$mason->out(qq!<td>!);
-		$mason->comp("/comp/linkrelease", id => $id, name => $name, title => $title, strong => 0);
-		$mason->out(qq!</td>!);
-		if ($showeditlinks)
-		{
-			$mason->out(qq!<td class="editlinks">!);
-			$mason->comp("/comp/linkedits", type => "release", id => $id, explain => 1);
-			$mason->out(qq!</td>!);
-		}
-		$mason->out(qq!</tr>!);	
-	}
-
-	# output the track this edit is listed under.
-	if (defined $this->{"trackid"})
-	{
-		my ($id, $name, $title) = ($this->{"trackid"}, $this->{"trackname"}, undef);
-		if (not $this->{"exists-track"})
-		{
-			$name = "This track has been removed" if (not defined $name);
-			$title = "This track has been removed, Id: $id";
-			$id = -1;
-		}
-		$mason->out(qq!<tr class="entity"><td class="lbl">Track:</td>!);	
-		$mason->out(qq!<td>!);
-		$mason->comp("/comp/linktrack", id => $id, name => $name, title => $title, strong => 0);
-		$mason->out(qq!</td>!);
-		if ($showeditlinks)
-		{
-			$mason->out(qq!<td class="editlinks">!);
-			$mason->comp("/comp/linkedits", type => "track", id => $id, explain => 1);
-			$mason->out(qq!</td>!);
-		}
-		$mason->out(qq!</tr>!);		
-	}	
-	
-	# call delegate method that can be overriden by the edit types
-	# to provide additional links to entities.
-	$this->ShowModTypeDelegate($mason);
-	
-	# close the table.
-	$mason->out(qq!</table>!);
-}
-
-# This method can be overridden by subclasses to display additional rows
-# in the table rendered by ShowModType.
-sub ShowModTypeDelegate
-{
-	my ($this, $mason) = (shift, shift);
-	
-	# do something, or not.
-}
-
-sub ShowPreviousValue
-{
-	my ($this, $mason) = splice(@_, 0, 2);
-	my $c = $this->GetComponent($mason);
-	$c->call_method("ShowPreviousValue", $this, @_);
-}
-
-sub ShowNewValue
-{
-	my ($this, $mason) = splice(@_, 0, 2);
-	my $c = $this->GetComponent($mason);
-	$c->call_method("ShowNewValue", $this, @_);
 }
 
 ################################################################################

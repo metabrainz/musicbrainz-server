@@ -1,0 +1,36 @@
+table.moderation_list {
+    border: 1px solid black;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table.moderation_list tr {
+    border-bottom: 1px solid black;
+}
+
+table.moderation_list td {
+    border-right: 1px solid black;
+    vertical-align: top;
+}
+
+table.moderation_list td td {
+    border: none;
+}
+
+table.moderation_list tr.seperator {
+    height: 5px;
+    background-color: #ffba58;
+}
+
+table.moderation_list td.under_info {
+    background: #ffecd6;
+}
+
+table.moderation_list td.changes {
+    background: #f0efff;
+}
+
+table.moderation_list .actions {
+    text-align: center;
+    vertical-align: middle;
+}

@@ -1,16 +1,20 @@
 [%- WRAPPER 'layout.tt' title='Open Moderations' -%]
 
-<table>
+<table class="moderation_list">
 [%- FOREACH moderation=edits -%]
   <tr class="seperator">
-    <td colspan="3">&nbsp;</td>
+    <td colspan="3"></td>
   </tr>
   <tr>
     <td>
-      <table>
+      <table class="details">
         <tr>
-          <th>Editor:</th>
-          <td>[% moderation.moderator %]</td>
+          <th style="width: 70pt;">Editor:</th>
+          <td>
+            <a href="[% c.uri_for('/user/profile', moderation.moderator.name) %]">
+              [% moderation.moderator.name %]
+            </a>
+          </td>
         </tr>
         <tr>
           <th>Edit ID:</th>
@@ -26,20 +30,15 @@
 
         <tr>
           <th>Expired</th>
-          <td>[% moderation.GetExpireTime %]</td>
+          <td>[% user_date(moderation.GetExpireTime) %]</td>
         </tr>
       </table>
     </td>
     
     <td>
-      <table>
-        <tr>
-          <th>Type:</th>
-          <td>[% moderation.Name %]</td>
-        </tr>
-      </table>
+      [% INCLUDE "moderation/info.tt" %]
     </td>
-    <td>
+    <td class="actions">
       [% links = [
          { link => '', text => 'Add note' },
          { link => '', text => 'Approve' },
@@ -48,8 +47,8 @@
     </td>
   </tr>
   <tr>
-    <td>&nbsp;</td>
-    <td></td>
+    <td class="under_info">&nbsp;</td>
+    <td class="changes">&nbsp;</td>
     <td></td>
   </tr>
 [%- END -%]

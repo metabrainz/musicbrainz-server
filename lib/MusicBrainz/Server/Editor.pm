@@ -62,6 +62,8 @@ use constant LOOKUPS_PER_NAG       => 5;
 # For Catalyst::Plugin::Authentication
 sub supported_features { return { session => 1 }; }
 
+sub entity_type { 'user' }
+
 sub password
 {
     my ($self, $new_password) = @_;

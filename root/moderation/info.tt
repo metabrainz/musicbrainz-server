@@ -1,0 +1,27 @@
+<table>
+    <tr>
+      <th>Type:</th>
+      <td>[%- moderation.Name -%]</td>
+    </tr>
+
+    [%- IF moderation.artist -%]
+    <tr>
+      <th>Artist:</th>
+      <td>[%- INCLUDE 'components/entity-link.tt' entity=moderation.artist -%]</td>
+    </tr>
+    [%- END -%]
+
+    [%- IF release -%]
+    <tr>
+      <th>Release:</th>
+      <td>[%- INCLUDE 'components/entity-link.tt' entity=moderation.release -%]</td>
+    </tr>
+    [%- END -%]
+
+    [%- IF track -%]
+    <tr>
+      <th></th>
+      <td>[%- INCLUDE 'components/entity-link.tt' entity=moderation.track -%]</td>
+    </tr>
+    [%- END -%]
+</table>

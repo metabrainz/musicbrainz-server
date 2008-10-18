@@ -46,33 +46,7 @@
   <tr>
     <th>Edit:</th>
     <td>
-      <table>
-        <tr>
-          <th>Type:</th>
-          <td>[%- moderation.Name -%]</td>
-        </tr>
-
-        [%- IF artist -%]
-        <tr>
-          <th>Artist:</th>
-          <td>[%- INCLUDE 'components/entity-link.tt' entity=artist -%]</td>
-        </tr>
-        [%- END -%]
-
-        [%- IF release -%]
-        <tr>
-          <th>Release:</th>
-          <td>[%- INCLUDE 'components/entity-link.tt' entity=release -%]</td>
-        </tr>
-        [%- END -%]
-
-        [%- IF track -%]
-        <tr>
-          <th></th>
-          <td>[%- INCLUDE 'components/entity-link.tt' entity=track -%]</td>
-        </tr>
-        [%- END -%]
-      </table>
+    [% INCLUDE "moderation/info.tt" %]
     </td>
   </tr>
 </table>
