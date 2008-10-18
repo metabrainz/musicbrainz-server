@@ -1,0 +1,11 @@
+<table class="details">
+  <tr>
+    <th>Name:</th>
+    <td>[% new.LabelName %]</td>
+  </tr>
+
+  <tr>
+    <th>Sort Name:</th>
+    <td>[% new.SortName %]</td>
+  </tr>
+</table>

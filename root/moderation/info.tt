@@ -1,10 +1,10 @@
-<table>
+<table class="details">
     <tr>
       <th>Type:</th>
       <td>[%- moderation.Name -%]</td>
     </tr>
 
-    [%- IF moderation.artist -%]
+    [%- IF moderation.artist AND moderation.show_artist -%]
     <tr>
       <th>Artist:</th>
       <td>[%- INCLUDE 'components/entity-link.tt' entity=moderation.artist -%]</td>
@@ -14,14 +14,14 @@
     [%- IF release -%]
     <tr>
       <th>Release:</th>
-      <td>[%- INCLUDE 'components/entity-link.tt' entity=moderation.release -%]</td>
+      <td>[%- INCLUDE 'components/entity-link.tt' entity=release -%]</td>
     </tr>
     [%- END -%]
 
     [%- IF track -%]
     <tr>
-      <th></th>
-      <td>[%- INCLUDE 'components/entity-link.tt' entity=moderation.track -%]</td>
+      <th>Track:</th>
+      <td>[%- INCLUDE 'components/entity-link.tt' entity=track -%]</td>
     </tr>
     [%- END -%]
 </table>

@@ -575,6 +575,14 @@ sub expired
     return $self->{isexpired};
 }
 
+sub show_artist
+{
+    my ($self, $new_show_artist) = @_;
+
+    if (defined $new_show_artist) { $self->{'dont-display-artist'} = !$new_show_artist; }
+    return !$self->{'dont-display-artist'};
+}
+
 sub grace_period_expired
 {
     my ($self, $new_expired) = @_;

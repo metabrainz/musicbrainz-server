@@ -238,6 +238,9 @@ table.details th {
     padding-right: 10pt;
 }
 
+/* Nested details tables look dumb */
+table.details table.details th { font-weight: normal; }
+
 #sidebar_search label {
     float: left;
     width: 30pt;
@@ -275,4 +278,10 @@ table.details th {
 .paginator li.current {
     background: #FFBA58;
     font-weight: bold;
+}
+
+hr {
+    height: 1px;
+    border: none;
+    border-top: 1px dotted #aaa;
 }

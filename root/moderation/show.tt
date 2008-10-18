@@ -1,10 +1,10 @@
 [%- WRAPPER 'layout.tt' title="Moderation #${moderation.id}" -%]
 [%- WRAPPER 'components/box.tt' header="Moderation #${moderation.id}" -%]
 
-<table>
+<table class="details">
   <tr>
-    <th>Editor:</th>
-    <td>[%- moderation.moderator_name -%]</td>
+    <th style="width: 100pt">Editor:</th>
+    <td>[%- moderation.moderator.name -%]</td>
   </tr>
 
   <tr>
@@ -19,17 +19,18 @@
 
   <tr>
     <th>Opened:</th>
-    <td>[% moderation.GetOpenTime %]</td>
+    <td>[% user_date(moderation.open_time) %]</td>
   </tr>
 
   <tr>
     <th>Expires:</th>
-    <td>[% moderation.GetExpireTime %]</td>
+    <td>[% user_date(moderation.expire_time) %]</td>
   </tr>
 
   <tr>
     <th>Closed:</th>
-    <td>[% moderation.GetCloseTime || "-" %]</td>
+    [% moderation.close_time %]
+    <td>[% user_date(moderation.close_time || "-") %]</td>
   </tr>
 
   <tr>
@@ -42,21 +43,28 @@
   </tr>
 </table>
 
-<table>
+<hr />
+
+<table class="details">
   <tr>
-    <th>Edit:</th>
+    <th style="width: 100pt; vertical-align: top;">Edit:</th>
     <td>
-    [% INCLUDE "moderation/info.tt" %]
+      [% INCLUDE "moderation/info.tt" %]
     </td>
   </tr>
 </table>
 
-<table>
+<table class="details">
   <tr>
-    <th>Changes:</th>
-    <td>[%- PROCESS "moderation/mods/${mod_template}.tt" -%]</td>
+    <th style="width: 100pt; vertical-align: top;">Changes:</th>
+    <td>
+      [%- PROCESS "moderation/mods/${mod_template}.tt" new=moderation.new_unpacked
+                                                       prev=moderation.prev_unpacked -%]
+    </td>
   </tr>
 </table>
+
+<hr />
 
 [%- END -%]
 [%- END -%]

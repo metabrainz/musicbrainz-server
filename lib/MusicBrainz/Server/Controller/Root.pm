@@ -88,6 +88,8 @@ sub end : ActionClass('RenderView')
 
     # Effectivly a date filter:
     $c->stash->{user_date} = sub {
+        return unless ('' ne $_[0]);
+
         use UserPreference;
 
         my $prefs = $c->model('User')->get_preferences_hash($c->user);

@@ -64,8 +64,7 @@ sub show : Chained('moderation')
 
     unless ($moderation->{'dont-display-artist'})
     {
-        my $artist = $c->model('Artist')->load($moderation->artist);
-        $c->stash->{artist} = $artist;
+        $c->stash->{artist} = $moderation->artist;
     }
 
 
