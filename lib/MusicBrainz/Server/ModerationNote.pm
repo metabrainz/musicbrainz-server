@@ -264,5 +264,13 @@ sub newFromModerationIds
 	map { $self->_new_from_row($_) } @$data;
 }
 
+sub user
+{
+    my ($self) = @_;
+    
+    my $user = new MusicBrainz::Server::Editor($self->{DBH});
+    return $user->newFromId($self->GetUserId);
+}
+
 1;
 # eof ModerationNote.pm

@@ -51,6 +51,12 @@
     <td class="changes">&nbsp;</td>
     <td></td>
   </tr>
+
+  [% IF moderation.Notes.size %]
+  <tr>
+    <td colspan="3">[% INCLUDE "moderation/notes.tt" %]</td>
+  </tr>
+  [% END %]
 [%- END -%]
 </table>
 

@@ -66,5 +66,7 @@
 
 <hr />
 
+[% INCLUDE "moderation/notes.tt" %]
+
 [%- END -%]
 [%- END -%]
