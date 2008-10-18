@@ -56,9 +56,9 @@ sub PreInsert
 
 	$self->artist(DARTIST_ID);
 	$self->table($node->{_table}); # FIXME internal field
-	$self->SetColumn("name");
+	$self->column("name");
 	$self->row_id($node->id);
-	$self->SetPrev($node->name);
+	$self->previous_data($node->name);
 
 	my %new = (
 		types 	        => $linktype,

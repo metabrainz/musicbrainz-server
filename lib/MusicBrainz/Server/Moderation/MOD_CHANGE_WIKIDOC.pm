@@ -49,10 +49,10 @@ sub PreInsert
 	$new{'Rev'} = $rev;
 
 	$self->artist(VARTIST_ID);
-	$self->SetPrev($self->ConvertHashToNew(\%prev));
+	$self->previous_data($self->ConvertHashToNew(\%prev));
 	$self->SetNew($self->ConvertHashToNew(\%new));
 	$self->table("artist");
-	$self->SetColumn("name");
+	$self->column("name");
 	$self->row_id(VARTIST_ID);
 }
 
@@ -60,7 +60,7 @@ sub PostLoad
 {
 	my $self = shift;
 	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->GetNew()) or die;
-	$self->{'prev_unpacked'} = $self->ConvertNewToHash($self->GetPrev()) or die;
+	$self->{'prev_unpacked'} = $self->ConvertNewToHash($self->previous_data()) or die;
 }
 
 1;

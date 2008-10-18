@@ -49,7 +49,7 @@ sub PreInsert
 	my %new = %opts;
 	
 	$self->table("album");
-	$self->SetColumn("name");
+	$self->column("name");
 	
 	# Force a deliberately bad value to start with - this makes it obvious if
 	# we somehow fail to insert a good value later on.

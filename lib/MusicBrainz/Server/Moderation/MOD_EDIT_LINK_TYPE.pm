@@ -72,9 +72,9 @@ sub PreInsert
 
 	$self->artist(DARTIST_ID);
 	$self->table($node->{_table}); # FIXME internal field
-	$self->SetColumn("name");
+	$self->column("name");
 	$self->row_id($node->id);
-	$self->SetPrev($node->name);
+	$self->previous_data($node->name);
 
 	my %new = (
 		parent				=> $parent->name, 
@@ -139,7 +139,7 @@ sub DeniedAction
 		return;
 	}
 
-	my $name = $self->GetPrev;
+	my $name = $self->previous_data;
 	my $c = $node->Parent->named_child($name);
 	if ($c and $c->id != $node->id)
 	{

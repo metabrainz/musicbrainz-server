@@ -48,9 +48,9 @@ sub PreInsert
 
 	$self->artist(DARTIST_ID);
 	$self->table($node->{_table}); 
-	$self->SetColumn("name");
+	$self->column("name");
 	$self->row_id($node->id);
-	$self->SetPrev($node->name . " (" . $node->description . ")");
+	$self->previous_data($node->name . " (" . $node->description . ")");
 
 	my %new = (
 		name    => $node->name(),

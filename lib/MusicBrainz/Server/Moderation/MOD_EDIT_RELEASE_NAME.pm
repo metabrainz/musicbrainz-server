@@ -42,10 +42,10 @@ sub PreInsert
 	$newname =~ /\S/ or die;
 
 	$self->artist($release->artist);
-	$self->SetPrev($release->name);
+	$self->previous_data($release->name);
 	$self->SetNew($newname);
 	$self->table("album");
-	$self->SetColumn("name");
+	$self->column("name");
 	$self->row_id($release->id);
 }
 
@@ -72,7 +72,7 @@ sub DetermineQuality
 sub IsAutoEdit
 {
 	my $this = shift;
-	my ($old, $new) = $this->_normalise_strings($this->GetPrev, $this->GetNew);
+	my ($old, $new) = $this->_normalise_strings($this->previous_data, $this->GetNew);
 	$old eq $new;
 }
 
@@ -91,7 +91,7 @@ sub CheckPrerequisites
 	}
 
 	# Check that its name has not changed
-	if ($release->name ne $self->GetPrev)
+	if ($release->name ne $self->previous_data)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This release has already been renamed");
 		return STATUS_FAILEDPREREQ;

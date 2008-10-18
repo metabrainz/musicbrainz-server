@@ -52,10 +52,10 @@ sub PreInsert
 	$new .= "\n$movetracks";
 	
 	$self->table("album");
-	$self->SetColumn("artist");
+	$self->column("artist");
 	$self->artist($release->artist);
 	$self->row_id($release->id);
-	$self->SetPrev($artist->name);
+	$self->previous_data($artist->name);
 	$self->SetNew($new);
 }
 
@@ -151,7 +151,7 @@ sub PreDisplay
 	}
 
 	# load artist resolutions if new and old artist have the same name
-	my $pat = $this->GetPrev;
+	my $pat = $this->previous_data;
 	if ($this->{'new.name'} =~ /^\Q$pat\E$/i)
 	{
 		my $oar = MusicBrainz::Server::Artist->new($this->{DBH});

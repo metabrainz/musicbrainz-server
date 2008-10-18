@@ -41,17 +41,17 @@ sub PreInsert
 	my $newname = $opts{'newname'};
 	$newname =~ /\S/ or die;
 
-	$self->SetPrev($al->name);
+	$self->previous_data($al->name);
 	$self->SetNew($newname);
 	$self->table("labelalias");
-	$self->SetColumn("name");
+	$self->column("name");
 	$self->row_id($al->id);
 }
 
 sub IsAutoEdit
 {
 	my $self = shift;
-	my ($old, $new) = $self->_normalise_strings($self->GetPrev, $self->GetNew);
+	my ($old, $new) = $self->_normalise_strings($self->previous_data, $self->GetNew);
 	$old eq $new;
 }
 
@@ -69,7 +69,7 @@ sub CheckPrerequisites
 		return STATUS_FAILEDPREREQ;
 	}
 	
-	unless ($alias->name eq $self->GetPrev)
+	unless ($alias->name eq $self->previous_data)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This alias has already been changed");
 		return STATUS_FAILEDDEP;

@@ -41,10 +41,10 @@ sub PreInsert
 	my $newseq = $opts{'newseq'} or die;
 
 	$self->artist($track->artist->id);
-	$self->SetPrev($track->sequence);
+	$self->previous_data($track->sequence);
 	$self->SetNew(0+$newseq);
 	$self->table("albumjoin");
-	$self->SetColumn("sequence");
+	$self->column("sequence");
 	$self->row_id($track->sequence_id);
 }
 
@@ -110,7 +110,7 @@ sub ApprovedAction
 		return STATUS_FAILEDPREREQ;
 	}
 
-	unless ($track->sequence == $this->GetPrev)
+	unless ($track->sequence == $this->previous_data)
 	{
 		$this->InsertNote(MODBOT_MODERATOR, "This track has already been renumbered");
 		return STATUS_FAILEDDEP;

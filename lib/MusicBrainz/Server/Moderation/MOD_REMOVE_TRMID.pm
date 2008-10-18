@@ -42,10 +42,10 @@ sub PreInsert
 	my $trmjoinid = $opts{'trmjoinid'} or die;
 
 	$self->table("trmjoin");
-	$self->SetColumn("id");
+	$self->column("id");
 	$self->row_id($trmjoinid);
 	$self->artist($track->artist->id);
-	$self->SetPrev($trm);
+	$self->previous_data($trm);
 
 	# Save the TRM's clientversion in case we need to re-add it
 	require MusicBrainz::Server::TRM;
@@ -133,7 +133,7 @@ sub DeniedAction
 
 	require MusicBrainz::Server::TRM;
 	my $t = MusicBrainz::Server::TRM->new($self->{DBH});
-	my $id = $t->Insert($self->GetPrev, $trackid, $new->{'ClientVersion'});
+	my $id = $t->Insert($self->previous_data, $trackid, $new->{'ClientVersion'});
 
 	# The above Insert can fail, usually if the row in the "trm" table
 	# needed to be re-inserted but we neglected to save the clientversion

@@ -123,7 +123,7 @@ sub PreInsert
 	$new{'ArtistId'} = $info{'artist_insertid'};
 
 	$self->table('artist');
-	$self->SetColumn('name');
+	$self->column('name');
 	$self->artist($info{'artist_insertid'});
 	$self->row_id($info{'artist_insertid'});
 	$self->SetNew($self->ConvertHashToNew(\%new));

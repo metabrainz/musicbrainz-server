@@ -67,7 +67,7 @@ sub PreInsert
 
 	$self->artist($into->artist);
 	$self->table("album");
-	$self->SetColumn("id");
+	$self->column("id");
 	$self->row_id($into->id);
 	$self->SetNew($self->ConvertHashToNew(\%new));
 }

@@ -134,9 +134,9 @@ sub PreInsert
 		unless @adds or @edits or @removes;
 
 	$self->artist($al->artist);
-	$self->SetPrev($al->name);
+	$self->previous_data($al->name);
 	$self->table("album");
-	$self->SetColumn("releases");
+	$self->column("releases");
 	$self->row_id($al->id);
 	$self->SetNew($self->ConvertHashToNew(\%new));
 }

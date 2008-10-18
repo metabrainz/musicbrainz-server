@@ -52,7 +52,7 @@ sub PreInsert
     $new .= "\n$movetracks";
 
 	$self->table("album");
-	$self->SetColumn("artist");
+	$self->column("artist");
 	$self->artist($al->artist);
 	$self->row_id($al->id);
 	$self->SetNew($new);

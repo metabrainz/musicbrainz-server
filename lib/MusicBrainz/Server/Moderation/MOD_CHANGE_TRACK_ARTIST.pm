@@ -44,10 +44,10 @@ sub PreInsert
 	my $newartistid = $opts{'artistid'} or die;
 
 	$self->table("track");
-	$self->SetColumn("artist");
+	$self->column("artist");
 	$self->row_id($tr->id);
 	$self->artist($ar->id);
-	$self->SetPrev($ar->name);
+	$self->previous_data($ar->name);
 	$self->SetNew($sortname . "\n" . $name . "\n" . $newartistid);
 }
 

@@ -112,7 +112,7 @@ sub PreInsert
 	);
 
 	$self->table("album");
-	$self->SetColumn("id");
+	$self->column("id");
 	$self->row_id($albums->[0]->id);
 	$self->SetNew($self->ConvertHashToNew(\%new));
 
@@ -146,7 +146,7 @@ sub PostLoad
 		my $name = $new->{"AlbumName$i"};
 		defined($name) or last;
 		my $prev = $new->{"Prev$i"};
-		$prev = $self->GetPrev unless defined $prev;
+		$prev = $self->previous_data unless defined $prev;
 
 		push @albums, { id => $id, name => $name, prev => $prev };
 	}

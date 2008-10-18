@@ -51,7 +51,7 @@ sub PreInsert
 	$self->artist($artistid);
 	$self->SetNew($self->ConvertHashToNew(\%new));
 	$self->table('track');
-	$self->SetColumn('annotation.text');
+	$self->column('annotation.text');
 	$self->row_id($trackid);
 }
 

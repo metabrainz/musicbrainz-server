@@ -56,7 +56,7 @@ sub PreInsert
 
 	$self->artist(DARTIST_ID);
 	$self->table($parent->{_table});
-	$self->SetColumn("name");
+	$self->column("name");
 	$self->row_id($child->id);
 
 	my %new = (

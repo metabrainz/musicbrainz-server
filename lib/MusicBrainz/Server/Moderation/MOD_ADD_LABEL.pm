@@ -121,7 +121,7 @@ sub PreInsert
 	$new{'LabelId'} = $labelid;
 
 	$self->table('label');
-	$self->SetColumn('name');
+	$self->column('name');
 	$self->row_id($labelid);
 	$self->SetNew($self->ConvertHashToNew(\%new));
 }

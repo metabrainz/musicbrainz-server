@@ -42,17 +42,17 @@ sub PreInsert
 	$newname =~ /\S/ or die;
 
 	$self->artist($track->artist->id);
-	$self->SetPrev($track->name);
+	$self->previous_data($track->name);
 	$self->SetNew($newname);
 	$self->table("track");
-	$self->SetColumn("name");
+	$self->column("name");
 	$self->row_id($track->id);
 }
 
 sub IsAutoEdit
 {
 	my $this = shift;
-	my ($old, $new) = $this->_normalise_strings($this->GetPrev, $this->GetNew);
+	my ($old, $new) = $this->_normalise_strings($this->previous_data, $this->GetNew);
 	$old eq $new;
 }
 
@@ -114,7 +114,7 @@ sub CheckPrerequisites
 	}
 
 	# Check that its name has not changed
-	if ($track->name ne $self->GetPrev)
+	if ($track->name ne $self->previous_data)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This track has already been renamed");
 		return STATUS_FAILEDPREREQ;

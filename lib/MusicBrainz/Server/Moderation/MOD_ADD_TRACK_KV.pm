@@ -147,10 +147,10 @@ sub PreInsert
 	$new{"NewArtistId"} = $newartistid if ($newartistid);
 
 	$self->table("track");
-	$self->SetColumn("name");
+	$self->column("name");
 	$self->artist($artistid); # use track artist (or release artist if no track artist)
 	$self->row_id($newtrackid);
-	$self->SetPrev($release->name);
+	$self->previous_data($release->name);
 	$self->SetNew($self->ConvertHashToNew(\%new));
 }
 

@@ -54,7 +54,7 @@ sub PreInsert
 	    $self->artist($ents[0]->id);
 	}
 	$self->table($link->Table);
-	$self->SetColumn("id");
+	$self->column("id");
 	$self->row_id($link->id);
 
 	require MusicBrainz::Server::LinkType;

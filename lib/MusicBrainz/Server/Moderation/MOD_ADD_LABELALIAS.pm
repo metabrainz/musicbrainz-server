@@ -41,10 +41,10 @@ sub PreInsert
 	my $newalias = $opts{'newalias'};
 	defined $newalias or die;
 
-	$self->SetPrev($ar->name);
+	$self->previous_data($ar->name);
 	$self->SetNew($newalias);
 	$self->table("label");
-	$self->SetColumn("name");
+	$self->column("name");
 	$self->row_id($ar->id);
 }
 

@@ -40,9 +40,9 @@ sub PreInsert
 	my $ar = $opts{'label'} or die;
 	die if $ar->id == %ModDefs::DLABEL_ID;
 
-	$self->SetPrev($ar->name);
+	$self->previous_data($ar->name);
 	$self->table("label");
-	$self->SetColumn("name");
+	$self->column("name");
 	$self->row_id($ar->id);
 }
 

@@ -41,10 +41,10 @@ sub PreInsert
 	my $quality = $opts{'quality'};
 
 	$self->artist($artist->id);
-	$self->SetPrev($artist->quality);
+	$self->previous_data($artist->quality);
 	$self->SetNew($quality);
 	$self->table("artist");
-	$self->SetColumn("quality");
+	$self->column("quality");
 	$self->row_id($artist->id);
 }
 
@@ -86,7 +86,7 @@ sub GetQualityChangeDirection
 {
 	my $self = shift;
 
-    return $self->GetNew  > $self->GetPrev;
+    return $self->GetNew  > $self->previous_data;
 }   
 
 sub AdjustModPending

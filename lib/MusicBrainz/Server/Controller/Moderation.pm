@@ -106,7 +106,7 @@ sub approve : Chained('moderation')
     $Moderation::DBConnections{RAWDATA} = $vertsql;
 
     my $status = $moderation->ApprovedAction;
-    $moderation->SetStatus($status);
+    $moderation->status($status);
 
     my $user = $c->model('User')->load_user({ id => $moderation->moderator });
     $user->CreditModerator($moderation->moderator, $status);
@@ -158,7 +158,7 @@ sub reject : Chained('moderation')
     $Moderation::DBConnections{RAWDATA} = $vertsql;
 
     my $status = $moderation->DeniedAction;
-    $moderation->SetStatus($status);
+    $moderation->status($status);
 
     my $user = $c->model('User')->load_user({ id => $moderation->moderator });
     $user->CreditModerator($moderation->moderator, $status);

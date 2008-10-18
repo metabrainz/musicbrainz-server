@@ -117,10 +117,10 @@ sub PreInsert
 	$prev{'EndDate'} = $ar->end_date() if exists $new{'EndDate'};
 
 	$self->artist($ar->id);
-	$self->SetPrev($self->ConvertHashToNew(\%prev));
+	$self->previous_data($self->ConvertHashToNew(\%prev));
 	$self->SetNew($self->ConvertHashToNew(\%new));
 	$self->table("artist");
-	$self->SetColumn("name");
+	$self->column("name");
 	$self->row_id($ar->id);
 }
 
@@ -139,7 +139,7 @@ sub PostLoad
 {
 	my $self = shift;
 	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->GetNew()) or die;
-	$self->{'prev_unpacked'} = $self->ConvertNewToHash($self->GetPrev()) or die;
+	$self->{'prev_unpacked'} = $self->ConvertNewToHash($self->previous_data()) or die;
 }
 
 sub DetermineQuality

@@ -30,6 +30,7 @@ use strict;
 use Carp;
 use DBDefs;
 use ModDefs ':DEFAULT';
+use MusicBrainz::Server::Language;
 use MusicBrainz::Server::Validation qw( unaccent );
 use Encode qw( encode decode );
 use utf8;
@@ -566,54 +567,44 @@ sub moderator
     return $self->{moderator};
 }
 
-sub GetExpired
+sub expired
 {
-   return $_[0]->{isexpired};
+    my ($self, $new_expired) = @_;
+
+    if (defined $new_expired) { $self->{isexpired} = $new_expired; }
+    return $self->{isexpired};
 }
 
-sub SetExpired
+sub grace_period_expired
 {
-   $_[0]->{isexpired} = $_[1];
+    my ($self, $new_expired) = @_;
+
+    if (defined $new_expired) { $self->{isgraceexpired} = $new_expired; }
+    return $self->{isgraceexpired};
 }
 
-sub GetGracePeriodExpired
+sub open_time
 {
-   return $_[0]->{isgraceexpired};
+    my ($self, $new_time) = @_;
+
+    if (defined $new_time) { $self->{opentime} = $new_time; }
+    return $self->{opentime};
 }
 
-sub SetGracePeriodExpired
+sub close_time
 {
-   $_[0]->{isgraceexpired} = $_[1];
+    my ($self, $new_time) = @_;
+
+    if (defined $new_time) { $self->{closetime} = $new_time; }
+    return $self->{closetime};
 }
 
-sub GetOpenTime
+sub expire_time
 {
-   return $_[0]->{opentime};
-}
+    my ($self, $new_time) = @_;
 
-sub SetOpenTime
-{
-   $_[0]->{opentime} = $_[1];
-}
-
-sub GetCloseTime
-{
-   return $_[0]->{closetime};
-}
-
-sub SetCloseTime
-{
-   $_[0]->{closetime} = $_[1];
-}
-
-sub GetExpireTime
-{
-   return $_[0]->{expiretime};
-}
-
-sub SetExpireTime
-{
-   $_[0]->{expiretime} = $_[1];
+    if (defined $new_time) { $self->{expiretime} = $new_time; }
+    return $self->{expiretime};
 }
 
 sub type
@@ -624,30 +615,20 @@ sub type
     return $self->{type};
 }
 
-sub GetStatus
+sub status
 {
-   return $_[0]->{status};
-}
+    my ($self, $new_status) = @_;
 
-sub SetStatus
-{
-   $_[0]->{status} = $_[1];
-}
-
-sub language_id
-{
-    my ($self, $new_id) = @_;
-
-    if (defined $new_id) { $self->{language} = $new_id; }
-    return $self->{language};
+    if (defined $new_status) { $self->{status} = $new_status; }
+    return $self->{status};
 }
 
 sub language
 {
-	my $self = shift;
-	my $id = $self->language_id or return undef;
-	require MusicBrainz::Server::Language;
-	return MusicBrainz::Server::Language->newFromId($self->{DBH}, $id);
+    my ($self, $new_language) = @_;
+
+    if (defined $new_language) { $self->{language} = $new_language; }
+    return $self->{language};
 }
 
 sub quality
@@ -662,9 +643,9 @@ sub quality
     return $self->{quality};
 }
 
-sub IsOpen { $_[0]{status} == STATUS_OPEN or $_[0]{status} == STATUS_TOBEDELETED }
+sub is_open { $_[0]{status} == STATUS_OPEN or $_[0]{status} == STATUS_TOBEDELETED }
 
-sub IsAutoEditType
+sub is_auto_edit_type
 {
    my ($this, $type) = @_;
    if ($this->type == MOD_CHANGE_RELEASE_QUALITY ||
@@ -676,7 +657,7 @@ sub IsAutoEditType
    return $level->{autoedit};
 }
 
-sub GetNumVotesNeeded
+sub num_votes_needed
 {
    my ($this) = @_;
 
@@ -689,7 +670,7 @@ sub GetNumVotesNeeded
    return $level->{votes};
 }
 
-sub GetExpireAction
+sub expire_action
 {
    my ($this) = @_;
    if ($this->type == MOD_CHANGE_RELEASE_QUALITY ||
@@ -709,24 +690,20 @@ sub artist
     return $self->{artist};
 }
 
-sub GetYesVotes
+sub yes_votes
 {
-   return $_[0]->{yesvotes};
+    my ($self, $new_votes) = @_;
+
+    if (defined $new_votes) { $self->{yesvotes} = $new_votes; }
+    return $self->{yesvotes};
 }
 
-sub SetYesVotes
+sub no_votes
 {
-   $_[0]->{yesvotes} = $_[1];
-}
+    my ($self, $new_votes) = @_;
 
-sub GetNoVotes
-{
-   return $_[0]->{novotes};
-}
-
-sub SetNoVotes
-{
-   $_[0]->{novotes} = $_[1];
+    if (defined $new_votes) { $self->{novotes} = $new_votes; }
+    return $self->{novotes};
 }
 
 sub table
@@ -737,14 +714,12 @@ sub table
     return $self->{table};
 }
 
-sub GetColumn
+sub column
 {
-   return $_[0]->{column};
-}
+    my ($self, $new_column) = @_;
 
-sub SetColumn
-{
-   $_[0]->{column} = $_[1];
+    if (defined $new_column) { $self->{column} = $new_column; }
+    return $self->{column};
 }
 
 sub row_id
@@ -755,24 +730,20 @@ sub row_id
     return $self->{rowid};
 }
 
-sub GetDepMod
+sub dep_mod
 {
-   return $_[0]->{depmod};
+    my ($self, $new_mod) = @_;
+
+    if (defined $new_mod) { $self->{depmod} = @_; }
+    return $self->{depmod};
 }
 
-sub SetDepMod
+sub previous_data
 {
-   $_[0]->{depmod} = $_[1];
-}
+    my ($self, $new_data) = @_;
 
-sub GetPrev
-{
-   return $_[0]->{prev};
-}
-
-sub SetPrev
-{
-   $_[0]->{prev} = $_[1];
+    if (defined $new_data) { $self->{prev} = $new_data; }
+    return $self->{prev};
 }
 
 sub GetNew
@@ -866,27 +837,30 @@ sub CreateFromId
             $moderator->id($row[18]);
             $moderator->name($row[9]);
 
+            my $language = new MusicBrainz::Server::Language($this->{DBH});
+            $language->id($row[20]);
+
 			$edit->id($row[0]);
 			$edit->table($row[1]);
-			$edit->SetColumn($row[2]);
+			$edit->column($row[2]);
 			$edit->row_id($row[3]);
 			$edit->artist($artist);
 			$edit->type($row[5]);
-			$edit->SetPrev($row[6]);
+			$edit->previous_data($row[6]);
 			$edit->SetNew($row[7]);
-			$edit->SetExpireTime($row[8]);
-			$edit->SetYesVotes($row[10]);
-			$edit->SetNoVotes($row[11]);
-			$edit->SetStatus($row[15]);
+			$edit->expire_time($row[8]);
+			$edit->yes_votes($row[10]);
+			$edit->no_votes($row[11]);
+			$edit->status($row[15]);
 			$edit->SetVote(&ModDefs::VOTE_UNKNOWN);
-			$edit->SetDepMod($row[17]);
+			$edit->dep_mod($row[17]);
 			$edit->moderator($moderator);
 			$edit->SetAutomod($row[19]);
-			$edit->language_id($row[20]);
-			$edit->SetOpenTime($row[21]);
-			$edit->SetCloseTime($row[22]);
-			$edit->SetExpired($row[23]);
-			$edit->SetGracePeriodExpired($row[24]);
+			$edit->language($language);
+			$edit->open_time($row[21]);
+			$edit->close_time($row[22]);
+			$edit->expired($row[23]);
+			$edit->grace_period_expired($row[24]);
 			$edit->PostLoad;
        }
    }
@@ -1073,10 +1047,10 @@ sub InsertModeration
 
 		$this->artist($artist);
 		$this->table("");
-		$this->SetColumn("");
+		$this->column("");
 		$this->row_id(0);
-		$this->SetDepMod(0);
-		$this->SetPrev("");
+		$this->dep_mod(0);
+		$this->previous_data("");
 		$this->SetNew("");
 		$this->PreInsert(%opts);
 
@@ -1121,12 +1095,12 @@ sub InsertModeration
                 ?,
                 ?, NOW() + INTERVAL ?, 0, 0, 0, ?
             )",
-            $this->table, $this->GetColumn, $this->row_id,
-            $this->GetPrev, $this->GetNew,
+            $this->table, $this->column, $this->row_id,
+            $this->previous_data, $this->GetNew,
             $this->moderator->id, $this->artist->id, $this->type,
-            $this->GetDepMod,
+            $this->dep_mod,
             &ModDefs::STATUS_OPEN, sprintf("%d days", $level->{duration}),
-            $this->language_id
+            $this->language->id
 		);
 
 		my $insertid = $sql->GetLastInsertId("moderation_open");
@@ -1323,26 +1297,28 @@ sub moderation_list
         $moderator->id($r->{moderator});
         $moderator = $moderator->newFromId($moderator->id);
 
+        my $language = MusicBrainz::Server::Language->newFromId($this->{DBH}, $r->{language});
+
 		$edit->id($r->{id});
 		$edit->artist($artist);
 		$edit->moderator($moderator);
 		$edit->table($r->{tab});
-		$edit->SetColumn($r->{col});
+		$edit->column($r->{col});
 		$edit->type($r->{type});
-		$edit->SetStatus($r->{status});
+		$edit->status($r->{status});
 		$edit->row_id($r->{rowid});
-		$edit->SetPrev($r->{prevvalue});
+		$edit->previous_data($r->{prevvalue});
 		$edit->SetNew($r->{newvalue});
-		$edit->SetYesVotes($r->{yesvotes});
-		$edit->SetNoVotes($r->{novotes});
-		$edit->SetDepMod($r->{depmod});
+		$edit->yes_votes($r->{yesvotes});
+		$edit->no_votes($r->{novotes});
+		$edit->dep_mod($r->{depmod});
 		$edit->SetAutomod($r->{automod});
-		$edit->SetOpenTime($r->{opentime});
-		$edit->SetCloseTime($r->{closetime});
-		$edit->SetExpireTime($r->{expiretime});
-		$edit->language_id($r->{language});
+		$edit->open_time($r->{opentime});
+		$edit->close_time($r->{closetime});
+		$edit->expire_time($r->{expiretime});
+		$edit->language($language);
 
-		$edit->SetExpired($r->{expired});
+		$edit->expired($r->{expired});
 		$edit->SetVote($r->{vote});
 
 		push @edits, $edit;
@@ -1406,7 +1382,7 @@ sub RemoveModeration
 {
    my ($this, $uid) = @_;
   
-   if ($this->GetStatus() == &ModDefs::STATUS_OPEN)
+   if ($this->status() == &ModDefs::STATUS_OPEN)
    {
 		# Set the status to be deleted.  The ModBot will clean it up
 		# on its next pass.
@@ -1651,7 +1627,7 @@ sub Type
 ################################################################################
 
 # PostLoad is called after an object of this class has been instantiated
-# and its fields have been set via ->SetPrev, ->SetNew etc.  The class should
+# and its fields have been set via ->previous_data, ->SetNew etc.  The class should
 # then prepare any internal fields it requires, e.g. parse 'prev' and 'new'
 # into various internal fields.  An exception should be thrown if appropriate,
 # e.g. if 'prev' or 'new' don't parse as required.  The return value is

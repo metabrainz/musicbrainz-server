@@ -42,10 +42,10 @@ sub PreInsert
 	my $puidjoinid = $opts{'puidjoinid'} or die;
 
 	$self->table("puidjoin");
-	$self->SetColumn("id");
+	$self->column("id");
 	$self->row_id($puidjoinid);
 	$self->artist($track->artist->id);
-	$self->SetPrev($puid);
+	$self->previous_data($puid);
 
 	# Save the PUID's clientversion in case we need to re-add it
 	require MusicBrainz::Server::PUID;
@@ -133,7 +133,7 @@ sub DeniedAction
 
 	require MusicBrainz::Server::PUID;
 	my $t = MusicBrainz::Server::PUID->new($self->{DBH});
-	my $id = $t->Insert($self->GetPrev, $trackid, $new->{'ClientVersion'});
+	my $id = $t->Insert($self->previous_data, $trackid, $new->{'ClientVersion'});
 
 	# The above Insert can fail, usually if the row in the "puid" table
 	# needed to be re-inserted but we neglected to save the clientversion

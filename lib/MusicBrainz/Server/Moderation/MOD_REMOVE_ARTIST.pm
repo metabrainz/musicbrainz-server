@@ -42,9 +42,9 @@ sub PreInsert
 	die if $ar->id == DARTIST_ID;
 
 	$self->artist($ar->id);
-	$self->SetPrev($ar->name);
+	$self->previous_data($ar->name);
 	$self->table("artist");
-	$self->SetColumn("name");
+	$self->column("name");
 	$self->row_id($ar->id);
 }
 

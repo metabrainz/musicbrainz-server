@@ -49,7 +49,7 @@ sub PreInsert
 
 	$self->SetNew($self->ConvertHashToNew(\%new));
 	$self->table('label');
-	$self->SetColumn('annotation.text');
+	$self->column('annotation.text');
 	$self->row_id($labelid);
 }
 

@@ -56,11 +56,11 @@ sub PreInsert
 
 	$self->artist(DARTIST_ID);
 	$self->table($node->{_table});
-	$self->SetColumn("name");
+	$self->column("name");
 	$self->row_id($node->id);
 	my $prev = $node->name . " (" . $node->description . ")";
     $prev = substr($prev, 0, 251) . " ..." if (length($prev) > 255);
-	$self->SetPrev($prev);
+	$self->previous_data($prev);
 
 	my %new = (
 		name        	=> $name,
@@ -106,7 +106,7 @@ sub DeniedAction
 		return;
 	}
 
-	my $name = $self->GetPrev;
+	my $name = $self->previous_data;
 	my $c = $node->Parent->named_child($name);
 	if ($c and $c->id != $node->id)
 	{

@@ -41,9 +41,9 @@ sub PreInsert
 	my $al = $opts{'album'} or die;
 
 	$self->artist($tr->artist->id);
-	$self->SetPrev($tr->name . "\n" . $al->id . "\n" . $al->IsNonAlbumTracks . "\n" . $tr->sequence . "\n" . $tr->length);
+	$self->previous_data($tr->name . "\n" . $al->id . "\n" . $al->IsNonAlbumTracks . "\n" . $tr->sequence . "\n" . $tr->length);
 	$self->table("track");
-	$self->SetColumn("name");
+	$self->column("name");
 	$self->row_id($tr->id);
 }
 
@@ -55,7 +55,7 @@ sub PostLoad
 			   prev.albumid 
 			   prev.isnonalbumtracks 
 			   prev.trackseq 
-			   prev.tracklength)} = split /\n/, $self->GetPrev;
+			   prev.tracklength)} = split /\n/, $self->previous_data;
 
 	# attempt to load the release/track entities from the values
 	# stored in this edit type. (@see Moderation::ShowModType method)

@@ -54,9 +54,9 @@ sub PreInsert
 	$new{"LabelId"} = $target->id;
 
 	$self->table("label");
-	$self->SetColumn("name");
+	$self->column("name");
 	$self->row_id($source->id);
-	$self->SetPrev($source->name);
+	$self->previous_data($source->name);
 	$self->SetNew($self->ConvertHashToNew(\%new));
 }
 
@@ -105,7 +105,7 @@ sub CheckPrerequisites
 {
 	my $self = shift;
 
-	my $prevval = $self->GetPrev;
+	my $prevval = $self->previous_data;
 	my $rowid = $self->row_id;
 	my $name = $self->{'new.name'};
 	#my $sortname = $self->{'new.sortname'};

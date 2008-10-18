@@ -90,7 +90,7 @@ sub PreInsert
 	);
 	
 	$self->table("album");
-	$self->SetColumn("id");
+	$self->column("id");
 	$self->SetNew($self->ConvertHashToNew(\%new));
 	$self->language_id($languageid) if $languageid;
 }
