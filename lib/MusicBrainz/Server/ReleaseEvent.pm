@@ -68,12 +68,10 @@ my %ReleaseFormatNames = (
 sub release_formats
 {
 	my @types;
-	my $type = ["", ""];
-	push @types, $type;
+
 	for (my $id = 1; $id <= LAST_RELEASE_FORMAT; $id++)
 	{
-		$type = [$id, $ReleaseFormatNames{$id}];
-		push @types, $type;
+		push @types, ($id, $ReleaseFormatNames{$id});
 	}
 	return \@types;
 }

@@ -9,7 +9,7 @@
     <select id="[% id %]"
             name="[% name %]"
             [% extra_attributes %]>
-    [%- FOREACH option IN widget.options -%]
+    [%- FOREACH option=widget.options -%]
         <option value="[% option.value %]"
                 [%- IF widget.value == option.value -%]selected="selected"[%- END -%]>
             [% option.label %]

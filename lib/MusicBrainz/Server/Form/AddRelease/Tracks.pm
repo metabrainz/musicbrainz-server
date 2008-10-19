@@ -9,9 +9,13 @@ sub profile
 {
     return {
         required => {
-            title => 'Text',
-            artist => 'Text',
+            title   => 'Text',
+            artist  => 'Text',
+            event_1 => '+MusicBrainz::Server::Form::Field::ReleaseEvent',
         },
+        optional => {
+            edit_note => 'TextArea',
+        }
     };
 }
 

@@ -23,6 +23,15 @@ sub init
             profile      => $profile
         )
     );
+
+    for my $field ($self->sub_form->fields)
+    {
+        my $method = 'options_' . $field->name;
+        if ($self->can($method))
+        {
+            $self->sub_form->load_field_options($field, $self->$method);
+        }
+    }
 }
 
 sub validate

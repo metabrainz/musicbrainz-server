@@ -534,6 +534,29 @@ sub add_release_tracks : Private
 
     $c->stash->{template} = 'add_release/tracks.tt';
 
+    $c->detach unless $c->form_posted &&
+                      $c->req->params->{step} == 1 &&
+                      $form->validate($c->req->params);
+
+    $c->stash->{can_preview} = 1;
+
+    # Create a mock up release to see how this /could/ look.
+    my $mock_release = new MusicBrainz::Server::Release($c->mb->{DBH});
+    $mock_release->name($form->value('title'));
+
+    my @form_tracks;
+    for my $i (1 .. $c->stash->{track_count})
+    {
+        push @form_tracks, $form->value("track_$i");
+    }
+
+    my $tracks = map {
+        my $track = new MusicBrainz::Server::Track($c->mb->{DBH});
+        $track->name($_->{title});
+    } @form_tracks;
+
+    $c->stash->{preview} = $mock_release;
+    $c->stash->{preview_tracks} = $mock_release;
 }
 
 =head1 LICENSE 
