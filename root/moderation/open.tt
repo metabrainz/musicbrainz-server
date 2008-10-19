@@ -29,8 +29,8 @@
         [%- END -%]
 
         <tr>
-          <th>Expired</th>
-          <td>[% user_date(moderation.GetExpireTime) %]</td>
+          <th>Expired:</th>
+          <td>[% user_date(moderation.expire_time) %]</td>
         </tr>
       </table>
     </td>
@@ -49,7 +49,28 @@
   <tr>
     <td class="under_info">&nbsp;</td>
     <td class="changes">&nbsp;</td>
-    <td></td>
+    <td class="vote_choice">
+      <table>
+        <tr>
+        [%- options = [
+            { label => 'Yes',     value => 'y', id => 'yes' },
+            { label => 'No',      value => 'n', id => 'no' },
+            { label => 'Abstain', value => 'a', id => 'abs' },
+            { label => 'No Vote', value => '',  id => 'nv' },
+        ] -%]
+        [% FOR opt=options %]
+          <td>
+            <input id="id_vote_[% opt.id %]_[% moderation.id %]"
+                   name="vote_[% moderation.id %]"
+                   type="radio" value="[% opt.value %]" /><br />
+            <label for="id_vote_[% opt.id %]_[% moderation.id %]">
+              [% opt.label %]
+            </label>
+          </td>
+        [% END %]
+        </tr>
+      </table>
+    </td>
   </tr>
 
   [% IF moderation.Notes.size %]

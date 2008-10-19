@@ -75,6 +75,30 @@ sub show : Chained('moderation')
     $c->stash->{mod_template} = lc $comp;
 }
 
+=head2 add_note
+
+Add a moderation note to an existing edit
+
+=cut
+
+sub add_note : Chained('moderation')
+{
+    my ($self, $c) = @_;
+
+    $c->forward('/user/login');
+
+    my $moderation = $c->stash->{moderation};
+
+    my $form = $c->form($moderation, 'Moderation::AddNote');
+    $form->context($c);
+
+    return unless $c->form_posted && $form->validate($c->req->params);
+
+    $form->insert;
+
+    $c->response->redirect($c->entity_url($moderation, 'show'));
+}
+
 =head2 approve
 
 Approve action for staging servers (not available on master servers).

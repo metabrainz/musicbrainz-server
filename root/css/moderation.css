@@ -53,3 +53,14 @@ table.moderation_list .actions {
     text-align: right;
     padding-right: 10pt;
 }
+
+.vote_choice {
+    text-align: center;
+}
+
+.vote_choice table {
+    width: 100%;
+}
+.vote_choice td {
+    width: 25%;
+}
