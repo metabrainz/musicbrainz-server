@@ -244,6 +244,8 @@ sub external : Local
 
             $c->uri_for('/search/external', $query);
         };
+
+        $c->stash->{template} = 'search/external.tt';
     }
 }
 

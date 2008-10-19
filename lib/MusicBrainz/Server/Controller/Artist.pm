@@ -470,6 +470,66 @@ sub change_quality : Chained('artist')
     $c->response->redirect($c->entity_url($artist, 'show'));
 }
 
+=head2 add_release
+
+Allow users to add a new release to this artist.
+
+This is a multipage wizard which consists of specifying the track count,
+then the track information. Following screens allow the user to confirm
+the artists/labels (or create them), and then finally enter an edit note.
+
+=cut
+
+sub add_release : Chained('artist')
+{
+    my ($self, $c) = @_;
+
+    my $step = $c->req->params->{step} || 0;
+    $c->session->{wizard__step} = $step;
+
+    use Switch 'fallthrough';
+    switch ($step)
+    {
+        case 0
+        {
+            $c->forward('add_release_track_count');
+
+            # Step one was submitted and validated, lets move to the next step
+            $c->stash->{wizard__step}++;
+            $c->forward('add_release_tracks');
+        }
+
+        case 1
+        {
+            $c->forward('add_release_tracks');
+        }
+
+        case 2
+        {
+
+        }
+    }
+}
+
+sub add_release_track_count : Private
+{
+    my ($self, $c) = @_;
+
+    my $form = $c->form(undef, 'AddRelease::TrackCount');
+    $c->stash->{template} = 'add_release/track_count.tt';
+
+    $c->detach unless $c->form_posted && $form->validate($c->req->params);
+
+    $c->session->{wizard__add_release__track_count} = $form->value('track_count');
+}
+
+sub add_release_tracks : Private
+{
+    my ($self, $c) = @_;
+
+    $c->stash->{template} = 'add_release/tracks.tt';
+}
+
 =head1 LICENSE 
 
 This software is provided "as is", without warranty of any kind, express or

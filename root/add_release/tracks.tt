@@ -1,0 +1,7 @@
+[% WRAPPER 'layout.tt' title='Add Tracks' %]
+[% WRAPPER 'components/box.tt' header='Add Tracks' %]
+
+Hello!
+
+[% END %]
+[% END %]
