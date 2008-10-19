@@ -1599,6 +1599,16 @@ sub Token
 	$token;
 }
 
+sub template
+{
+    my ($self) = @_;
+
+    my $comp = ref $self;
+    $comp =~ s/.*::MOD_(.*)/$1/;
+
+    return lc $comp;
+}
+
 sub Type
 {
 	my $self = shift;

@@ -67,12 +67,7 @@ sub show : Chained('moderation')
         $c->stash->{artist} = $moderation->artist;
     }
 
-
-    my $comp = ref $moderation;
-    $comp =~ s/.*::MOD_(.*)/$1/;
-
-    $c->stash->{template    } = 'moderation/show.tt';
-    $c->stash->{mod_template} = lc $comp;
+    $c->stash->{template} = 'moderation/show.tt';
 }
 
 =head2 add_note
