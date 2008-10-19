@@ -495,7 +495,7 @@ sub add_release : Chained('artist')
             $c->forward('add_release_track_count');
 
             # Step one was submitted and validated, lets move to the next step
-            $c->stash->{wizard__step}++;
+            $c->stash->{wizard__step} = 1;
             $c->forward('add_release_tracks');
         }
 
@@ -527,7 +527,13 @@ sub add_release_tracks : Private
 {
     my ($self, $c) = @_;
 
+    my $form = $c->form(undef, 'AddRelease::Tracks');
+
+    $c->stash->{track_count} = $c->session->{wizard__add_release__track_count};
+    $form->add_tracks($c->stash->{track_count});
+
     $c->stash->{template} = 'add_release/tracks.tt';
+
 }
 
 =head1 LICENSE 

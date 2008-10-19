@@ -1,7 +1,19 @@
 [% WRAPPER 'layout.tt' title='Add Tracks' %]
 [% WRAPPER 'components/box.tt' header='Add Tracks' %]
 
-Hello!
+[% WRAPPER 'forms/form.tt' %]
+  <fieldset>
+    <legend>Release Information</legend>
+    [% INCLUDE 'forms/widget.tt' widget=form.field('title') label='Title:' %]
+    [% INCLUDE 'forms/widget.tt' widget=form.field('artist') label='Artist:' %]
+  </fieldset>
+
+  <fieldset>
+    <legend>Tracks</legend>
+    [% FOR i=[1..track_count] %]
+      [% INCLUDE 'forms/widget.tt' widget=form.field("track_$i") label='Track:' %]
+    [% END %]
+[% END %]
 
 [% END %]
 [% END %]
