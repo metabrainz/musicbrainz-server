@@ -1,0 +1,27 @@
+<%doc>
+	Show a tag cloud of related tags.
+</%doc>
+
+<%args>
+	$tag
+</%args>
+
+<%perl>
+	my $mb = $m->comp("/comp/dblogin");
+	my $t = MusicBrainz::Server::Tag->new($mb->{DBH});
+	my $tags = $t->GetRelatedTagHash($tag, 100);
+</%perl>
+
+<& /comp/sidebar, pagetitle => "Tags related to “$tag”" &>
+
+<& /show/tag/tagheader.inc, tag => $tag &>
+
+<div class="TagsBox">
+<p style="margin-bottom: 1em;">
+	<% $t->GenerateTagCloud($tags, "all", 12, 25) | n %>
+</p>
+</div>
+
+<& /comp/footer &>
+
+%# vi: set ts=4 sw=4 ft=mason :

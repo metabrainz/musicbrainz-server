@@ -83,6 +83,7 @@ ALTER TABLE script ADD CONSTRAINT script_pkey PRIMARY KEY (id);
 ALTER TABLE script_language ADD CONSTRAINT script_language_pkey PRIMARY KEY (id);
 ALTER TABLE stats ADD CONSTRAINT stats_pkey PRIMARY KEY (id);
 ALTER TABLE tag ADD CONSTRAINT tag_pkey PRIMARY KEY (id);
+ALTER TABLE tag_relation ADD CONSTRAINT tag_relation_pkey PRIMARY KEY (tag1, tag2);
 ALTER TABLE track ADD CONSTRAINT track_pkey PRIMARY KEY (id);
 ALTER TABLE track_meta ADD CONSTRAINT track_meta_pkey PRIMARY KEY(id);
 ALTER TABLE track_tag ADD CONSTRAINT track_tag_pkey PRIMARY KEY (track, tag);

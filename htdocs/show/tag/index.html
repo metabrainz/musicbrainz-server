@@ -22,7 +22,7 @@
     if (!$tag)
     {
         </%perl>
-        <& /comp/sidebar, pagetitle => "Tag details" &>
+        <& /comp/sidebar, pagetitle => "Find tag" &>
 
         <form method="post" action="/show/tag/index.html">
         <p>
@@ -38,33 +38,9 @@
     }
 </%perl>
 
-<& /comp/sidebar, pagetitle => "Tag details: $tag" &>
+<& /comp/sidebar, pagetitle => "Tag “$tag”" &>
 
-[ <a href="/show/tag/all.html">Show all tags</a> |
- show tag <% $tag %> for:
-% if ($show ne 'all') {
-    <a href="/show/tag/?tag=<% uri_escape($tag) %>&amp;show=all">all</a> |
-% }
-% if ($show eq 'artist') {
-    artists |
-% } else {
-    <a href="/show/tag/?tag=<% uri_escape($tag) %>&amp;show=artist">artists</a> |
-% }
-% if ($show eq 'label') {
-    labels |
-% } else {
-    <a href="/show/tag/?tag=<% uri_escape($tag) %>&amp;show=label">labels</a> |
-% }
-% if ($show eq 'release') {
-    releases |
-% } else {
-    <a href="/show/tag/?tag=<% uri_escape($tag) %>&amp;show=release">releases</a> |
-% }
-% if ($show eq 'track') {
-    tracks ]
-% } else {
-    <a href="/show/tag/?tag=<% uri_escape($tag) %>&amp;show=track">tracks</a> ]
-% }
+<& /show/tag/tagheader.inc, tag => $tag, show => $show &>
 
 %	my @types = ($show eq 'all') ? ("artist", "label", "release", "track") : ($show);
 %	my $limit = ($show eq 'all') ? 10 : 100;

@@ -123,6 +123,8 @@ ALTER TABLE release_tag DROP CONSTRAINT fk_release_tag_tag;
 ALTER TABLE label DROP CONSTRAINT label_fk_country;
 ALTER TABLE script_language DROP CONSTRAINT script_language_fk_language;
 ALTER TABLE script_language DROP CONSTRAINT script_language_fk_script;
+ALTER TABLE tag_relation DROP CONSTRAINT tag_relation_fk_tag1;
+ALTER TABLE tag_relation DROP CONSTRAINT tag_relation_fk_tag2;
 ALTER TABLE track DROP CONSTRAINT track_fk_artist;
 ALTER TABLE track_meta DROP CONSTRAINT track_meta_fk_track;
 ALTER TABLE track_tag DROP CONSTRAINT fk_track_tag_track;

@@ -395,6 +395,28 @@ sub GetTagHash
 	return \%tags;
 }
 
+# Get a hash of { tag1 => weight, tag2 => weight } value of tags related to `$tag`.
+sub GetRelatedTagHash
+{
+	my ($self, $tag, $limit) = @_;
+
+	my $sql = Sql->new($self->GetDBH());
+	my $rows = $sql->SelectListOfLists("
+		SELECT
+			t2.name, tr.weight
+		FROM
+			tag t1
+			JOIN tag_relation tr ON t1.id = tr.tag1 OR t1.id = tr.tag2
+			JOIN tag t2 ON t1.id != t2.id AND (t2.id = tr.tag1 OR t2.id = tr.tag2)
+		WHERE
+			t1.name = ?
+		ORDER BY tr.weight DESC
+		LIMIT ?", $tag, $limit);
+
+	my %tags = map { $_->[0] => $_->[1] } @$rows;
+	return \%tags;
+}
+
 # Get a hash of { tag1 => count, tag2 => count } value from user's tags.
 sub GetRawTagHash
 {

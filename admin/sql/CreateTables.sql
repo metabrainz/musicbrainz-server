@@ -931,9 +931,17 @@ CREATE TABLE stats
 
 CREATE TABLE tag
 (
-     id                  SERIAL,
-     name                VARCHAR(255) NOT NULL,
-     refcount            INTEGER NOT NULL DEFAULT 0
+    id                  SERIAL,
+    name                VARCHAR(255) NOT NULL,
+    refcount            INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE tag_relation
+(
+    tag1                INTEGER NOT NULL, -- references tag
+    tag2                INTEGER NOT NULL, -- references tag
+    weight              INTEGER NOT NULL,
+    CHECK (tag1 < tag2)
 );
 
 CREATE TABLE track
