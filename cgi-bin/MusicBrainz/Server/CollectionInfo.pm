@@ -346,8 +346,13 @@ sub GetNewReleases
 		# Select new releases
 		# New release == added after last check and release date within a week
 		# ...so users are notified about new releases a week in advance
-		$newReleases = $rosql->SelectSingleColumnArray("SELECT id FROM album WHERE dateadded > ? AND artist IN (" . join(',', @{$watchArtists}) . ") AND id IN (SELECT id FROM albummeta WHERE to_timestamp(firstreleasedate, 'YYYY-MM-DD') > (CURRENT_TIMESTAMP - '7 days'::INTERVAL)) LIMIT 10", $this->GetLastCheck());
-		#$newReleases = $rosql->SelectSingleColumnArray('');
+		$newReleases = $rosql->SelectSingleColumnArray("
+			SELECT id 
+			FROM album INNER JOIN albummeta ON (album.id = albummeta.id)
+			WHERE artist IN (" . join(',', @{$watchArtists}) . ") 
+				AND to_timestamp(firstreleasedate, 'YYYY-MM-DD') > (CURRENT_TIMESTAMP - '7 days'::INTERVAL)
+				AND dateadded > ?
+			LIMIT 10", $this->GetLastCheck());
 	}
 	
 	else
