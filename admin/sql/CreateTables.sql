@@ -29,8 +29,7 @@ CREATE TABLE album
     script              INTEGER, -- references script
     modpending_lang     INTEGER,
     quality             SMALLINT DEFAULT -1,
-    modpending_qual     INTEGER DEFAULT 0,
-    dateadded           TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    modpending_qual     INTEGER DEFAULT 0
 );
 
 CREATE TABLE album_amazon_asin
@@ -68,6 +67,7 @@ CREATE TABLE albummeta
     asin                CHAR(10),
     coverarturl         VARCHAR(255),
     lastupdate          TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    dateadded           TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     rating              REAL,
     rating_count        INTEGER
 );

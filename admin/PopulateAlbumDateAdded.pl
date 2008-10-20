@@ -41,9 +41,9 @@ my $set = 0;
 my $chunks = shift;
 $chunks = 50 if (!$chunks);
 
-if ($sql->Select("SELECT rowid, opentime FROM moderation_all, album 
+if ($sql->Select("SELECT rowid, opentime FROM moderation_all, albummeta 
                    WHERE dateadded = '1970-01-01 00:00:00-00' 
-				     AND album.id = moderation_all.rowid 
+				     AND albummeta.id = moderation_all.rowid 
 					 AND type = 16
       			ORDER BY rowid"))
 {
@@ -54,7 +54,7 @@ if ($sql->Select("SELECT rowid, opentime FROM moderation_all, album
 		eval
 		{
             $sql->Begin;
-            $sql->Do("UPDATE album SET dateadded = ? WHERE id = ?", $row[1], $row[0]);
+            $sql->Do("UPDATE albummeta SET dateadded = ? WHERE id = ?", $row[1], $row[0]);
 			$sql->Commit;
 		};
 		if ($@)
