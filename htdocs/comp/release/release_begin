@@ -249,12 +249,11 @@
 		}
 
         # rating
-        if ($showratings && defined $release->{rating})
+        if ($showratings)
         {
             $m->out(qq!<tr><td class="rating"> Rating: !);
             $m->comp("/comp/ratingsbox", entity_type=>'release', 
                         entity_id=>$release->GetId,
-                        rating => { "rating" => $release->{"rating"}},
                         small => 1,
                         detailled => 1,
             );

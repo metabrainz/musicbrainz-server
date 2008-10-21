@@ -135,7 +135,7 @@ specific notes about a server type, the instructions apply to all server types.
        Digest::SHA1
        Digest::MD5 (should be included in Bundle::Apache)
        HTTP::Negotiate
-       JSON
+       JSON (version 2.x)
        Language::Guess (see notes below about seed data for this module)
        MIME::Lite
        Storable

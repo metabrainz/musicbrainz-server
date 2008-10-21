@@ -213,7 +213,7 @@ sub serve_from_db
 
 	# convert literal object to json notation
 	my $json = new JSON;
-	my $js = $json->objToJson($obj);
+	my $js = $json->encode($obj);
 
 	# send the response
 	

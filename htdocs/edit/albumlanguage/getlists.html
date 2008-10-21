@@ -29,7 +29,7 @@
 	use JSON;
 	my $json = new JSON;
 	$r->content_type("text/plain; charset=utf-8");
-	$m->out($json->objToJson($result));
+	$m->out($json->encode($result));
 
 </%perl>
 
