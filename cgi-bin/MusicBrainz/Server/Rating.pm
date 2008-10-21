@@ -3,6 +3,7 @@
 #
 #   MusicBrainz -- the open internet music database
 #
+#   Copyright (C) 2007 Sharon Myrtle Paradesi
 #   Copyright (C) 2008 Aurelien Mino
 #
 #   This program is free software; you can redistribute it and/or modify

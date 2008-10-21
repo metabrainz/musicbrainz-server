@@ -541,8 +541,11 @@ my @group_derived = qw(
 	albummeta
 	albumwords
 	annotation
+	artist_meta
 	artistwords
+	label_meta
 	labelwords
+	track_meta
 	trackwords
 	wordlist
 	);

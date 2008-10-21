@@ -84,7 +84,15 @@ var types =
 						[ "track tags", "count.tag.raw.artist"],
 						[ "label tags", "count.tag.raw.label"],
 					]
-			   ]
+			   ],
+	rating   : [ "Ratings", 
+					[
+						[ "artist ratings", "count.rating.raw.artist"],
+						[ "release ratings", "count.rating.raw.release"],
+						[ "track ratings", "count.rating.raw.artist"],
+						[ "label ratings", "count.rating.raw.label"],
+					]
+			   ],
 };
 
 var maxPlotLines = 5;
@@ -229,7 +237,8 @@ View [ <a href="#" onclick="loadGraph('artist');">artist/album</a> |
 <a href="#" onclick="loadGraph('track');">track/puid</a> |
 <a href="#" onclick="loadGraph('edit');">edit activity</a> |
 <a href="#" onclick="loadGraph('ar');">advanced relationships</a> |
-<a href="#" onclick="loadGraph('tag');">tags</a> ]
+<a href="#" onclick="loadGraph('tag');">tags</a> |
+<a href="#" onclick="loadGraph('rating');">ratings</a> ]
 </p>
 <br/>
 
