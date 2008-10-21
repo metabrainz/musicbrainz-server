@@ -121,11 +121,15 @@ my $rawdbh = $rawmb->{DBH};
 # This hash indicates which tables may need to be pulled from a vertical DB
 my %table_db_mapping =
 (
-    'artist_tag_raw'  =>  { dbh => $rawdbh, sql => $rawsql },
-    'release_tag_raw' =>  { dbh => $rawdbh, sql => $rawsql },
-    'track_tag_raw'   =>  { dbh => $rawdbh, sql => $rawsql },
-    'label_tag_raw'   =>  { dbh => $rawdbh, sql => $rawsql },
-    '_default_'       =>  { dbh => $dbh, sql => $sql } 
+	'artist_rating_raw'		=>	{ dbh => $rawdbh, sql => $rawsql },
+	'artist_tag_raw'		=>	{ dbh => $rawdbh, sql => $rawsql },
+	'release_rating_raw'	=>	{ dbh => $rawdbh, sql => $rawsql },
+	'release_tag_raw'		=>	{ dbh => $rawdbh, sql => $rawsql },
+	'track_rating_raw'		=>	{ dbh => $rawdbh, sql => $rawsql },
+	'track_tag_raw'			=>	{ dbh => $rawdbh, sql => $rawsql },
+	'label_rating_raw'		=>	{ dbh => $rawdbh, sql => $rawsql },
+	'label_tag_raw'			=>	{ dbh => $rawdbh, sql => $rawsql },
+	'_default_'				=>	{ dbh => $dbh, sql => $sql } 
 );
 
 my @tables = qw(
@@ -140,6 +144,7 @@ my @tables = qw(
 	artist_meta
 	artist_relation
 	artistalias
+	artist_rating_raw
 	artist_tag
 	artist_tag_raw
 	artistwords
@@ -149,6 +154,7 @@ my @tables = qw(
 	clientversion
 	country
 	currentstat
+	editor_subscribe_editor
 	historicalstat
 	gid_redirect
 	l_album_album
@@ -168,6 +174,7 @@ my @tables = qw(
 	l_url_url
 	label
 	label_meta
+	label_rating_raw
 	label_tag
 	label_tag_raw
 	labelalias
@@ -204,14 +211,16 @@ my @tables = qw(
 	puidjoin_stat
 	puid_stat
 	release
+	release_rating_raw
 	release_tag
 	release_tag_raw
 	script
 	script_language
 	stats
-    tag
+	tag
 	track
 	track_meta
+	track_rating_raw
 	track_tag
 	track_tag_raw
 	trackwords
@@ -306,9 +315,9 @@ sub table_rowcount
 	my $table = shift;
 	$table =~ s/_sanitised$//;
 
-    # Get the right sql module
-    my $sql = $table_db_mapping{'_default_'}->{'sql'};
-    $sql = $table_db_mapping{$table}->{'sql'} if (exists $table_db_mapping{$table});
+	# Get the right sql module
+	my $sql = $table_db_mapping{'_default_'}->{'sql'};
+	$sql = $table_db_mapping{$table}->{'sql'} if (exists $table_db_mapping{$table});
 	$sql->SelectSingleValue(
 		"SELECT reltuples FROM pg_class WHERE relname = ? LIMIT 1",
 		$table,
@@ -319,11 +328,11 @@ sub dumptable
 {
 	my $table = shift;
 
-    # Get the right sql/dbh module
-    my $sql = $table_db_mapping{'_default_'}->{'sql'};
-    $sql = $table_db_mapping{$table}->{'sql'} if (exists $table_db_mapping{$table});
-    my $dbh = $table_db_mapping{'_default_'}->{'dbh'};
-    $dbh = $table_db_mapping{$table}->{'dbh'} if (exists $table_db_mapping{$table});
+	# Get the right sql/dbh module
+	my $sql = $table_db_mapping{'_default_'}->{'sql'};
+	$sql = $table_db_mapping{$table}->{'sql'} if (exists $table_db_mapping{$table});
+	my $dbh = $table_db_mapping{'_default_'}->{'dbh'};
+	$dbh = $table_db_mapping{$table}->{'dbh'} if (exists $table_db_mapping{$table});
 
 	open(DUMP, ">$dir/mbdump/$table")
 		or die $!;
@@ -482,9 +491,8 @@ my @group_core = qw(
 	album_cdtoc
 	artist
 	artistalias
-    artist_tag
 	cdtoc
-    clientversion
+	clientversion
 	country
 	gid_redirect
 	l_album_album
@@ -503,7 +511,6 @@ my @group_core = qw(
 	l_track_url
 	l_url_url
 	label
-	label_tag
 	labelalias
 	language
 	link_attribute
@@ -526,13 +533,10 @@ my @group_core = qw(
 	puid
 	puidjoin
 	release
-    release_tag
 	replication_control
 	script
 	script_language
-    tag
 	track
-	track_tag
 	url
 	);
 
@@ -542,10 +546,15 @@ my @group_derived = qw(
 	albumwords
 	annotation
 	artist_meta
+	artist_tag
 	artistwords
 	label_meta
+	label_tag
 	labelwords
+	release_tag
+	tag
 	track_meta
+	track_tag
 	trackwords
 	wordlist
 	);
@@ -580,15 +589,20 @@ my @group_artistrelation = qw(
 
 my @group_modprivate = qw(
 	album_amazon_asin
-    artist_tag_raw
+	artist_rating_raw
+	artist_tag_raw
 	automod_election_vote
-    label_tag_raw
-    release_tag_raw
+	editor_subscribe_editor
+	label_rating_raw
+	label_tag_raw
+	release_rating_raw
+	release_tag_raw
 	moderator
 	moderator_preference
 	moderator_subscribe_artist
 	moderator_subscribe_label
-    track_tag_raw
+	track_rating_raw
+	track_tag_raw
 );
 
 use File::Copy qw( copy );
@@ -688,10 +702,10 @@ sub optimise_replication_tables
 
 sub copy_readme
 {
-    my $svn_url = `svn info | grep "URL:" | colrm 1 5`;
-    chomp($svn_url);
+	my $svn_url = `svn info | grep "URL:" | colrm 1 5`;
+	chomp($svn_url);
 
-    my $text = <<END;
+	my $text = <<END;
 The files in this directory are snapshots of the MusicBrainz database,
 in a format suitable for import into a PostgreSQL database. To import
 them, you need a compatible version of the MusicBrainz server software.
@@ -703,7 +717,7 @@ svn co $svn_url mb_server
 
 After that, follow the instructions given in mb_server/INSTALL.
 END
-    writefile("README", $text);
+	writefile("README", $text);
 }
 
 # eof ExportAllTables
