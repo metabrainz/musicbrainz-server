@@ -130,6 +130,17 @@
 		PerlSetVar DigestRealm "musicbrainz.org"
 	</Location>
 
+	<Location /ws/1/collection>
+	        SetHandler perl-script
+	        PerlHandler MusicBrainz::Server::Handlers::WS::1::Collection
+		PerlAuthenHandler MusicBrainz::Server::Handlers::WS::1::Auth
+		
+		Require valid-user
+		AuthType Digest
+		AuthName "musicbrainz.org"
+		PerlSetVar DigestRealm "musicbrainz.org"
+	</Location>
+
 	PerlModule MusicBrainz::Server::Handlers::WS::Private::Lookup
 	<Location /ws/priv/lookup>
 		SetHandler perl-script

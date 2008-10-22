@@ -66,6 +66,7 @@ require MusicBrainz::Server::Cache;
 require MusicBrainz::Server::CDTOC;
 require MusicBrainz::Server::Collection;
 require MusicBrainz::Server::CollectionInfo;
+require MusicBrainz::Server::CollectionPreferences;
 require MusicBrainz::Server::Country;
 require MusicBrainz::Server::CoverArt;
 require MusicBrainz::Server::DateTime;
