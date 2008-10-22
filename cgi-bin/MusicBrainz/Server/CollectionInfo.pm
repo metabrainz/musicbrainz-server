@@ -273,9 +273,6 @@ sub GetMissingMBIDs
 		my $result;
 		my $hasIdsQueryString;
 		
-		#print STDERR "preferences:".Dumper($this->{preferences})."\n";
-		print STDERR "GetShowTypes:".Dumper($this->{preferences}->GetShowTypes());
-		
 		
 		my $showTypes = [ $this->{preferences}->GetShowTypes() ];
 		my $showAttributesCondition = '';
@@ -283,12 +280,8 @@ sub GetMissingMBIDs
 		for my $attribute (@$showTypes)
 		{
 			$showAttributesCondition .= ' AND ' . $attribute . ' <> ALL (album.attributes[2:5])';
-			#print STDERR "\n\nshowTypes:".Dumper(@$showTypes)."\n\n";
 		}
 		
-		print STDERR "\n $showAttributesCondition \n";
-		
-		print STDERR "\n\n\n\n\n\n\ncount:".@$showTypes."\n\n\n\n\n";
 		
 		if(@{$hasReleaseIds})
 		{		
@@ -298,8 +291,6 @@ sub GetMissingMBIDs
 		if(@{$displayMissingOfArtists} && @$showTypes)
 		{
 			my $query = "SELECT DISTINCT ON (artist.name, album.name) album.gid FROM album INNER JOIN albummeta ON (album.id = albummeta.id) INNER JOIN artist ON (album.artist = artist.id) WHERE album.artist IN (". join(',', @{$displayMissingOfArtists}).")" . $hasIdsQueryString . " AND album.name != '[non-album tracks]' ORDER BY artist.name, album.name, albummeta.firstreleasedate DESC";
-			
-			print STDERR "query: $query";
 		
 			return $rosql->SelectSingleColumnArray($query);
 		}

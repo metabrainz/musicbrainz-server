@@ -275,7 +275,6 @@ sub SetShowTypes
 	
 	my $rawsql=Sql->new($this->{RAWDBH});
 	
-	print STDERR 'inserting:'. Dumper($showTypes);
 	
 	eval
 	{
@@ -310,23 +309,8 @@ sub GetShowTypes
 	$showTypesPrefString =~ s/^\{(.*)\}$/$1/;
 	my @showTypesPref = split(',', $showTypesPrefString); # ref to array containing identifiers of types to show currently in the prefs
 	
-	#print STDERR "\n\nshowTypes: $showTypes \n showTypesPref:".Dumper(@showTypesPref)."\n\n\n";
-	
 	return @showTypesPref;
 }
-
-
-sub ArtistInMissingList
-{
-	my ($this, $artistId) = @_;
-	#print '<br/>list:'.Dumper($this->{prefs});
-	#return exists $this->{artistsMissing}->{$artistId};
-	return 1;
-}
-
-
-
-
 
 
 

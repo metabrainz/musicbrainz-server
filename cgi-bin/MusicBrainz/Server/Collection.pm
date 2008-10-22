@@ -141,7 +141,6 @@ sub AddRelease
 	
 	my $rosql=Sql->new($this->{RODBH});
 	my $rawsql=Sql->new($this->{RAWDBH});
-	print STDERR "adding $mbid \n";
 	
 	# make sure this is valid format for a mbid
 	if(MusicBrainz::Server::Validation::IsGUID($mbid))
@@ -173,18 +172,11 @@ sub AddRelease
 		{			
 			if($@ =~ /duplicate/) # it is a duplicate... add it to the array of duplicates
 			{
-				#my $err = "$@";
-				#use Carp qw( cluck );
-				#cluck $err;
-				#die($err);
-				print STDERR 'CATCHED CATCHED                 CATCHED';
 				push(@{$this->{addAlbum_duplicateArray}}, $mbid);
 			}
 			else
 			{
-				print STDERR '                         NOT CATCHED                      NOT CATCHED                   NOT CATCHED          ';
 				$this->{invalidMBIdCount}++;
-				#die($@);
 			}
 			
 			$rawsql->Rollback();	
@@ -296,50 +288,7 @@ sub RemoveRelease
 	{
 		$this->{removeAlbum_invalidMBIDCount}++; # increase invalid mbid count
 	}
-	
-	
-	# $this->{removeAlbum_removeCount}++;
 }
-
-
-
-
-#----------------------------
-# static subs
-#----------------------------
-
-#sub AddReleaseWithId
-#{
-#	my ($rawdbh, $releaseId, $collectionId) = @_;
-#	
-#	my $rawsql = Sql->new($rawdbh);
-#	
-#	print STDERR "INSERTING: $releaseId into $rawdbh collection $collectionId";
-#	eval
-#	{
-#		$rawsql->Begin();
-#		
-#		$rawsql->Do('INSERT INTO collection_has_release_join (collection_info, album) VALUES(?, ?)', $collectionId, $releaseId);
-#	};
-#	
-#	if($@)
-#	{
-#		# ignore duplicate errors
-#		if($@ =~ /duplicate/)
-#		{
-#			$rawsql->Rollback();
-#		}
-#		else
-#		{
-#			$rawsql->Rollback();
-#			die($@);
-#		}
-#	}
-#	else
-#	{
-#		$rawsql->Commit();
-#	}
-#}
 
 
 
@@ -355,7 +304,6 @@ sub RemoveReleaseWithId
 		
 		# make sure there is a release with the mbid in the database
 		my $deleteResult = $rawsql->Do("DELETE FROM collection_has_release_join WHERE album = ? AND collection_info = ?", $releaseId, $collectionId);
-		print STDERR "DELETING RELEASE $releaseId FROM $collectionId";
 	};
 	
 	if($@)

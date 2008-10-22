@@ -50,7 +50,7 @@ my $sqlro = Sql->new($mbro->{DBH});
 # select all collections that shall receive notifications by e-mail
 my $collections = $sqlraw->SelectSingleColumnArray('SELECT id FROM collection_info WHERE emailnotifications = TRUE');
 
-print 'collections:'.Dumper($collections);
+#print 'collections:'.Dumper($collections);
 
 # iterate over all collections to be notified and send out e-mails(if any new releases)
 foreach my $currentCollectionId (@$collections)
@@ -72,11 +72,11 @@ foreach my $currentCollectionId (@$collections)
 	
 	my $userId = $currentCollection->GetUserId();
 	
-	print "count: $count \n";
+	#print "count: $count \n";
 	
 	if($count>0) # notifications should be sent
 	{
-		print 'SENDING NOTIFICATION';
+		#print 'SENDING NOTIFICATION';
 		sendMail($currentCollection, $newReleases, $userId, $mbro->{DBH});
 	}
 }
@@ -91,7 +91,7 @@ sub sendMail
 	
 	#my $user = UserStuff->newFromId();
 	
-	print Dumper(@$releaseIds);
+	#print Dumper(@$releaseIds);
 	my $subject = 'New releases';
 	my $message = '<html><body>The following releases are about to be released:<br/>';
 	
@@ -103,7 +103,7 @@ sub sendMail
 		$release->LoadFromId();
 		
 		
-		print $release->GetName()."\n";
+		#print $release->GetName()."\n";
 		
 		$message = $message . '<a href="' . $release->GetInfoURL() . '">' . $release->GetName() . '</a><br/>';
 	}
@@ -136,7 +136,7 @@ sub sendMail
 	#$user->SendFormattedEmail(entity => $mail);
 	
 	
-	print $message;
+	#print $message;
 }
 
 

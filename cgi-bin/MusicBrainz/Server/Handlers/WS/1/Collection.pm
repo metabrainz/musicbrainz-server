@@ -161,8 +161,6 @@ sub print_collection_xml
 	print '<?xml version="1.0" encoding="UTF-8"?>';
 	print '<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">';
 	print '<release-list>';
-	
-	print STDERR Dumper($collectionInfo->GetHasMBIDs());
 		
 	for my $mbid (@{$collectionInfo->GetHasMBIDs()})
 	{
