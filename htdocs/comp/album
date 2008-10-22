@@ -69,10 +69,13 @@
 
     $folksonomy => 0
 	$showratings => 0
+    
+    $addtocollection => undef
+    
+    $short => undef
 
 </%args>
 <%perl>
-
 	$showtrackartists = 0 if (not defined $showtrackartists);
 	$showrelationships = 1 if (not defined $showrelationships);
 
@@ -103,6 +106,9 @@
 				tagchecked => $tagchecked,
                 folksonomy => $folksonomy,
 				showratings => $showratings,
+                addtocollection => $addtocollection,
+                ex => $ex,
+                short => $short
 			);
 	}
 	else
@@ -120,6 +126,9 @@
 				showrelationshipstoggle => $showrelationshipstoggle,
                 folksonomy => $folksonomy,
 				showratings => $showratings,
+                addtocollection => $addtocollection,
+                ex => $ex,
+                short => $short
 			);
 	}
 

@@ -47,13 +47,18 @@
 
 	$showtag => 0
 	$tagchecked => 0
-    
+
     $folksonomy => 0
     $showratings => 0
 
+    $addtocollection => undef
+
+    $ex => ""
+
+    $short => undef
+
 </%args>
 <%perl>
-
 	$release ||= $album;
 	$showratings &&= UserPreference::get("show_ratings");
 
@@ -63,6 +68,25 @@
 	my $name = $release->GetName;
 	my $nonalbum = $release->IsNonAlbumTracks;
 	my $exists = MusicBrainz::Server::Validation::IsNonNegInteger($release->GetId) && $release->GetId;
+	my $mb = $m->comp("/comp/dblogin");
+	my $mbraw = MusicBrainz->new();
+	$mbraw->Login(db => 'RAWDATA');
+	my $collectionId = MusicBrainz::Server::CollectionInfo::GetCollectionIdForUser($session{'uid'}, $mbraw->{DBH});
+
+	# add or remove release from collection if requested
+	if(defined($addtocollection))
+	{
+		MusicBrainz::Server::CollectionInfo::AssureCollection($session{'uid'}, $mbraw->{DBH});
+		
+		if($addtocollection == 1)
+		{
+			MusicBrainz::Server::Collection::AddReleaseWithId($releaseid, $collectionId, $mbraw->{DBH}, $mbid);
+		}
+		else
+		{
+			MusicBrainz::Server::Collection::RemoveReleaseWithId($mbraw->{DBH}, $releaseid, $collectionId);
+		}
+	}
 
     $release->LoadLastUpdate();
 	my $lastupdate = "(updated " . MusicBrainz::Server::DateTime::format_datetime_since($artist->GetLastUpdate()) . ")";
@@ -174,8 +198,6 @@
 		# annotation links
  		if ($editlinkprereq and UserPreference::get("release_show_annotationlinks"))
  		{
- 			my $mb = $m->comp("/comp/dblogin");
-
 			# load the annotation from the database
 			my $annotation = MusicBrainz::Server::Annotation->new($mb->{DBH});
 			$annotation->SetRelease($releaseid);
@@ -266,6 +288,49 @@
             $m->comp("/comp/toptags", type=>'release', id=>$release->GetId);
             $m->out(qq!</td></tr>!);
         }
+        
+        # collection links
+        if($session{uid})
+        {
+        	my $currentpath;
+        	
+        	# set the path to where the user should be redirected after clicking link
+        	if($ENV{'SCRIPT_NAME'} eq '/show/artist/index.html')
+        	{
+        		$currentpath = '/show/artist/';
+        	}
+        	else
+        	{
+        		$currentpath = '/show/release/';
+        	}
+        	
+	        $m->out(qq!<tr><td class="collection">Collection: !);
+	        if(MusicBrainz::Server::CollectionInfo::HasRelease($mbraw->{DBH}, $collectionId, $releaseid))
+	        {
+	        	#$ARGS{compact}
+	        	if($ENV{'SCRIPT_NAME'} eq '/show/artist/index.html')
+	        	{
+	        		$m->out(qq!<a href="/show/artist/?artistid=$artistid&ex=$ex&short=$short&compact=$ARGS{compact}&addtocollection=0">Remove release from collection</a>!);
+	        	}
+	        	else
+	        	{
+	        		$m->out(qq!<a href="/show/release/?releaseid=$releaseid&addtocollection=0">Remove release from collection</a>!);
+	        	}
+	        }
+	        else
+	        {
+	        	if($ENV{'SCRIPT_NAME'} eq '/show/artist/index.html')
+	        	{
+	        		$m->out(qq!<a href="/show/artist/?artistid=$artistid&ex=$ex&short=$short&compact=$ARGS{compact}&addtocollection=1">Add release to collection</a>!);
+	        	}
+	        	else
+	        	{
+	        		$m->out(qq!<a href="/show/release/?releaseid=$releaseid&addtocollection=1">Add release to collection</a>!);
+	        	}
+	        }
+	        $m->out(qq!</td></tr>!);
+        }
+        
 
 		$m->out(qq!</table>!);
 		$m->out(qq!</td>!);

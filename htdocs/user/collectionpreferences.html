@@ -1,0 +1,187 @@
+<%perl>
+#____________________________________________________________________________
+#
+#	MusicBrainz -- the open music metadata database
+#
+#	Copyright (C) 2001 Robert Kaye
+#
+#	This program is free software; you can redistribute it and/or modify
+#	it under the terms of the GNU General Public License as published by
+#	the Free Software Foundation; either version 2 of the License, or
+#	(at your option) any later version.
+#
+#	This program is distributed in the hope that it will be useful,
+#	but WITHOUT ANY WARRANTY; without even the implied warranty of
+#	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#	GNU General Public License for more details.
+#
+#	You should have received a copy of the GNU General Public License
+#	along with this program; if not, write to the Free Software
+#	Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+#	$id: $
+#____________________________________________________________________________
+
+	# Set up page
+	my $mbro = $m->comp("/comp/dblogin");
+	$m->comp("/comp/sidebar-notitle", pagetitle => 'Collection Preferences');
+	
+	# Make sure user is logged on
+	$m->comp("/comp/checkloggedin", 1, 1, "You need to be logged in to modify your collection preferences.", 1) or return;
+	
+	# Log on to raw database
+	require MusicBrainz;
+	my $mbraw = MusicBrainz->new();
+	$mbraw->Login(db => 'RAWDATA');
+	
+	# make sure the user has a collection_info tuple
+	MusicBrainz::Server::CollectionInfo::AssureCollection($session{uid}, $mbraw->{DBH});
+	
+	require MusicBrainz::Server::CollectionPreference;
+	my $preferences = MusicBrainz::Server::CollectionPreference->new($mbro->{DBH}, $mbraw->{DBH}, $session{uid});
+	my @showTypes; # array containing the release types to display releases of
+	my $ignoreTypes = MusicBrainz::Server::CollectionPreference::GetTypeIdentifiers(); # hash containing types to ignore, and dummy values
+	my $releaseTypes = MusicBrainz::Server::CollectionPreference::GetReleaseTypes();
+	my $statusTypes = MusicBrainz::Server::CollectionPreference::GetStatusTypes();
+	
+	if($r->method eq 'POST')
+	{
+		for my $key ($preferences->valid_keys())
+		{
+			my $value = $ARGS{$key};
+			
+			# check if it is a release type checkbox. they are treated differently
+			# store it in a scalar and then store this entire scalar
+			if($key =~ /type_/)
+			{
+				if(defined($value))
+				{
+					push(@showTypes, $value);
+					delete $ignoreTypes->{$value};
+				}
+			}
+			else
+			{
+				# convert the value from "on" or empty to a boolean value
+				if($value eq 'on')
+				{
+					$value = 1;
+				}
+				elsif($value eq '')
+				{
+					$value = 0;
+				}
+				
+				
+				$preferences->set($key, $value);
+			}
+		}
+
+		my @ignore = values(%$ignoreTypes);
+		$preferences->SetShowTypes(\@ignore);
+	}
+	
+    # get types for the checkboxes that should be checked
+    my @showTypesPref = $preferences->GetShowTypes(); # array containing identifiers of types to show currently in the prefs
+    
+    # make a hash out of @showTypesPref for checking if values exist
+    my $show_type = {};
+    for (@showTypesPref) {
+    	$show_type->{$_} = 1;
+    }
+
+</%perl>
+
+<form method="post" action="/user/collectionpreferences.html" id="CollectionPreferencesForm">
+	<& /comp/tablebegin, title => "New releases" &>
+		<div>
+			How far in advance would you like to be notified about upcoming releases?
+			<select name="notificationinterval">
+				<& /comp/options,
+					[
+						[ 1, "A day" ],
+						[ 7, "A week" ],
+						[ 14, "Two weeks" ],
+						[ 31, "A month" ],
+					],
+					$preferences->get('notificationinterval') &>
+			</select>
+		</div>
+		
+		<div>
+			<%perl>
+				my $user = UserStuff->new($mbro->{DBH});
+				$user = $user->newFromId($session{uid});
+				if($user->GetEmailStatus() eq "confirmed")
+				{
+			</%perl>
+			<input type="checkbox" name="emailnotifications" id="pref_emailnotifications"
+%				$m->out($preferences->get('emailnotifications')==1 ? ' checked="checked" ' : "" );
+				/>
+			<label for="pref_vote_abs_default">
+				E-mail notifications about upcoming releases.</label>
+%				}
+		</div>
+	<& /comp/tableend &>
+	
+	
+	
+	<& /comp/tablebegin, title => "Display status and release types" &>
+		<div>
+			I want to be notified and see missing releases of the following type:
+%		for my $key (&MusicBrainz::Server::Release::RELEASE_ATTR_ALBUM..&MusicBrainz::Server::Release::RELEASE_ATTR_OTHER)
+%		{
+			<div>
+				<input type="checkbox" name="<%perl>$m->out($releaseTypes->{$key}[0]);</%perl>" id="pref_<%perl>$m->out($releaseTypes->{$key}[0]);</%perl>"<%perl>$m->out(' value="' . $key . '"');
+				if($show_type->{$key} != 1)
+				{
+					$m->out(' checked="checked" ');
+				}
+				else
+				{
+					$m->out('');
+				}
+				
+				</%perl>/>
+				<label for="<%perl>
+					$m->out('pref_'.$releaseTypes->{$key}[0]);
+				</%perl>">
+%					$m->out($releaseTypes->{$key}[1]);# . ' - ' . $releaseTypes{$key}[2];
+</label>
+			</div>
+%		}
+		</div>
+		<br/>
+		<div>
+			I want to be notified and see missing releases of the following status:
+%		for my $key (&MusicBrainz::Server::Release::RELEASE_ATTR_OFFICIAL..&MusicBrainz::Server::Release::RELEASE_ATTR_PSEUDO_RELEASE)
+%		{
+			<div>
+				<input type="checkbox" name="<%perl>$m->out($statusTypes->{$key}[0]);</%perl>" id="pref_<%perl>$m->out($statusTypes->{$key}[0]);</%perl>"<%perl>$m->out(' value="' . $key . '"');
+				
+				if($show_type->{$key} != 1)
+				{
+					$m->out(' checked="checked" ');
+				}
+				else
+				{
+					$m->out('');
+				}
+				
+				</%perl>/>
+				<label for="<%perl>
+					$m->out('pref_'.$statusTypes->{$key}[0]);
+				</%perl>">
+%					$m->out($statusTypes->{$key}[1]);# . ' - ' . $statusTypes{$key}[2];
+</label>
+			</div>
+%		}
+		</div>
+	<& /comp/tableend &>
+
+	<input type="submit" value="Update &raquo;" />
+	
+</form>
+
+<& /comp/footer &>
+

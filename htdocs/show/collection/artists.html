@@ -1,0 +1,172 @@
+<%perl>
+#____________________________________________________________________________
+#
+#	MusicBrainz -- the open music metadata database
+#
+#	Copyright (C) 2001 Robert Kaye
+#
+#	This program is free software; you can redistribute it and/or modify
+#	it under the terms of the GNU General Public License as published by
+#	the Free Software Foundation; either version 2 of the License, or
+#	(at your option) any later version.
+#
+#	This program is distributed in the hope that it will be useful,
+#	but WITHOUT ANY WARRANTY; without even the implied warranty of
+#	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#	GNU General Public License for more details.
+#
+#	You should have received a copy of the GNU General Public License
+#	along with this program; if not, write to the Free Software
+#	Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+#	$id: $
+#____________________________________________________________________________
+</%perl>
+
+<%args>
+	$dontwatchartist => undef,
+	$dontshowmissingofartist => undef
+</%args>
+
+
+<%perl>
+	# Set up page
+	$m->comp("/comp/sidebar-notitle", pagetitle => 'Collection artists');
+	
+	# Make sure user is logged on
+	$m->comp("/comp/checkloggedin", 1, 1, "You need to be logged in to view collection artists.", 1) or return;
+	
+	# Log on to database
+	require MusicBrainz;
+	my $mbro = $m->comp("/comp/dblogin");
+	my $mbraw = MusicBrainz->new();
+	$mbraw->Login(db => 'RAWDATA');
+	
+	# make sure the user has a collection_info tuple
+	MusicBrainz::Server::CollectionInfo::AssureCollection($session{uid}, $mbraw->{DBH});
+	
+	my $preferences = MusicBrainz::Server::CollectionPreference->new($mbro->{DBH}, $mbraw->{DBH}, $session{uid});
+	
+	
+	
+	# remove artists as requested
+	if(defined($dontwatchartist))
+	{
+		MusicBrainz::Server::CollectionPreference::ArtistDontWatch($dontwatchartist, $session{uid});
+	}
+	elsif(defined($dontshowmissingofartist))
+	{
+		MusicBrainz::Server::CollectionPreference::ArtistDontShowMissing($dontshowmissingofartist, $session{uid});
+	}
+</%perl>
+
+
+<%perl>
+my $collectionInfo = MusicBrainz::Server::CollectionInfo->new($session{uid}, $mbro->{DBH}, $mbraw->{DBH}, $preferences);
+
+
+# get lists of artists
+my $showMissingOfArtists = $collectionInfo->GetShowMissingArtists();
+my $watchArtists = $collectionInfo->GetWatchArtists();
+
+
+my $missingCount = @$showMissingOfArtists;
+my $watchCount = @$watchArtists;
+
+
+
+require Sql;
+my $rosql = Sql->new($mbro->{DBH});
+
+use MusicBrainz::Server::Release;
+
+
+</%perl>
+
+<& /comp/tablebegin, title => "Displaying missing releases of artists" &>
+%	if($missingCount == 0)
+%	{
+%		$m->out('Here are artists that you have chosen to see missing releases in your collection of are displayed. To add an artist go to that artist\'s page and click <i>Display missing releases</i>.<br/><br/>More information about what this is and how to use it is available in the wiki: <a href="http://wiki.musicbrainz.org/MusicCollectionIntroduction">http://wiki.musicbrainz.org/MusicCollectionIntroduction</a>');
+%	}
+%	else
+%	{
+<table id="CompactReleaseList">
+	<tr>
+		<td><b>Artist name</b></td>
+		<td><b>Remove</b></td>
+	</tr>
+
+
+<%perl>
+
+my $showrownum=0;
+
+for my $artistId (@{$showMissingOfArtists})
+{
+	# load artist
+	my $artist = MusicBrainz::Server::Artist->new($mbro->{DBH});
+	$artist->SetId($artistId);
+	$artist->LoadFromId();
+	
+	
+	$m->out('<tr class="'.('ev', 'od')[$showrownum % 2].'">');
+	$m->out('<td><a href="/artist/' . $artist->GetMBId() . '.html">' . $artist->GetName() . '</a></td>');
+	$m->out('<td><a href="/show/collection/artists.html?dontshowmissingofartist=' . $artist->GetId() . '">remove</a></td>');
+	$m->out('</tr>');
+
+	$showrownum++;
+}
+
+$m->out('</table>');
+
+}
+</%perl>
+
+<& /comp/tableend &>
+
+
+
+
+<& /comp/tablebegin, title => "Notify me about new releases from artists" &>
+%	if($watchCount == 0)
+%	{
+%		$m->out('Artists you have chosen to be notified about new releases of are listed here. To add an artist go to that artist\'s page and click <i>Notify me on new releases</i>.<br/><br/>More information about what this is and how to use it is available in the wiki: <a href="http://wiki.musicbrainz.org/MusicCollectionIntroduction">http://wiki.musicbrainz.org/MusicCollectionIntroduction</a>');
+%	}
+%	else
+%	{
+<table id="CompactReleaseList">
+	<tr>
+		<td><b>Artist name</b></td>
+		<td><b>Remove</b></td>
+	</tr>
+	
+	<%perl>
+
+my $missingrownum=0;
+
+for my $artistId (@{$watchArtists})
+{
+	# load artist
+	my $artist = MusicBrainz::Server::Artist->new($mbro->{DBH});
+	$artist->SetId($artistId);
+	$artist->LoadFromId();
+	
+	
+	$m->out('<tr class="'.('ev', 'od')[$missingrownum % 2].'">');
+	$m->out('<td><a href="/artist/' . $artist->GetMBId() . '.html">' . $artist->GetName() . '</a></td>');
+	$m->out('<td><a href="/show/collection/artists.html?dontwatchartist=' . $artist->GetId() . '">remove</a></td>');
+	$m->out('</tr>');
+
+	$missingrownum++;
+}
+	
+	</%perl>
+
+
+%	$m->out('</table>');
+%	}
+
+<& /comp/tableend &>
+
+<& /comp/footer &>
+

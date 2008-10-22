@@ -1,5 +1,5 @@
 
-% 	unless ($session{has_confirmed_email})
+% 	if (!$session{has_confirmed_email} && &DBDefs::REPLICATION_TYPE == &MusicBrainz::Server::Replication::RT_MASTER)
 %	{
 
 	<div style="margin: 20px 0px; border: 1px dotted red; padding: 5px">

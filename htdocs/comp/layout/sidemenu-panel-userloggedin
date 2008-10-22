@@ -32,6 +32,8 @@
 			<li>
 				<a href="/show/user/">My Profile</a></li>
 			<li>
+				<a href="/show/collection/">My Collection</a></li>
+			<li>
 				<a href="/logout.html">Logout</a></li>
 			<li>
 				<a href="/user/preferences.html">Preferences</a></li>

@@ -41,10 +41,14 @@
 	$remrel => -1
 	$remtype => ""
 	$arcancel => 0
+	
+	$notify => undef
+	$dispmissing => undef
+	
+	$addtocollection => undef
 
 </%args>
 <%perl>
-
 	# check arguments
 	if ($mbid ne "")
 	{
@@ -154,7 +158,7 @@
     # show any related moderations so people can vote on them
  	$m->comp("/comp/relmods", artistid => $artist->GetId);
 
-    $m->comp("/comp/artisttitle", artist => $artist);
+    $m->comp("/comp/artisttitle", artist => $artist, notify => $notify, dispmissing => $dispmissing);
 
 	$m->comp(
 		"/edit/annotation/latest",
@@ -505,7 +509,9 @@
 						 showtag => 1,
 						 showratings => 1,
 						 mbt => $mbt,
-						 ex => $ex);
+						 ex => $ex,
+						 addtocollection => $addtocollection,
+        				 short => $short);
                 }
                 else
                 {
@@ -513,6 +519,7 @@
 						 album => $album, artist => $artist,
 						 ex => $ex, showids => 0, showtag => 1, short=>$short,
 						 showratings => 1,
+						 addtocollection => $addtocollection,
 						 );
                 }
             }

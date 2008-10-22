@@ -1,0 +1,141 @@
+<%perl>
+# vi: set ts=4 sw=4 :
+#____________________________________________________________________________
+#
+#	MusicBrainz -- the open music metadata database
+#
+#	Copyright (C) 2001 Robert Kaye
+#
+#	This program is free software; you can redistribute it and/or modify
+#	it under the terms of the GNU General Public License as published by
+#	the Free Software Foundation; either version 2 of the License, or
+#	(at your option) any later version.
+#
+#	This program is distributed in the hope that it will be useful,
+#	but WITHOUT ANY WARRANTY; without even the implied warranty of
+#	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#	GNU General Public License for more details.
+#
+#	You should have received a copy of the GNU General Public License
+#	along with this program; if not, write to the Free Software
+#	Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+#	$id: $
+#____________________________________________________________________________
+</%perl>
+
+<%args>
+	$addrelease => undef
+</%args>
+
+<%perl>
+	# Set up page
+	$m->comp("/comp/sidebar-notitle", pagetitle => 'Collection');
+	
+	# Make sure user is logged on
+	$m->comp("/comp/checkloggedin", 1, 1, "You need to be logged in to view your collection.", 1) or return;
+	
+	# Log on to database
+	require MusicBrainz;
+	my $mbro = $m->comp("/comp/dblogin");
+	my $mbraw = MusicBrainz->new();
+	$mbraw->Login(db => 'RAWDATA');
+	
+	# make sure the user has a collection_info tuple
+	MusicBrainz::Server::CollectionInfo::AssureCollection($session{uid}, $mbraw->{DBH});
+	
+	my $collectionId = MusicBrainz::Server::CollectionInfo::GetCollectionIdForUser($session{uid}, $mbraw->{DBH});
+	
+</%perl>
+
+
+
+
+<& /comp/tablebegin, title => "Missing releases" &>
+
+
+<%perl>
+my $preferences = MusicBrainz::Server::CollectionPreference->new($mbro->{DBH}, $mbraw->{DBH}, $session{uid});
+my $collectionInfo = MusicBrainz::Server::CollectionInfo->new($session{uid}, $mbro->{DBH}, $mbraw->{DBH}, $preferences);
+
+
+
+
+
+# if a release id is specified in in the removerelease get variable remove this release from collection
+if(defined($addrelease))
+{
+	MusicBrainz::Server::Collection::AddReleaseWithId($addrelease, $collectionId, $mbraw->{DBH});
+}
+
+
+
+my $releases = $collectionInfo->GetMissingMBIDs();
+
+my $count = @$releases;
+
+if($count == 0)
+{
+	print 'This page displays missing releases of selected artists. There are no missing releases to diplay. Either you have not selected any artists to view missing releases of or you have full discographies of selected artists. You can select artists to see missing releases of by going to the artist page and clicking <i>Notify me on new releases</i>.';
+}
+else
+{
+
+</%perl>
+
+
+<table id="CompactReleaseList">
+	<tr>
+		<td><b>Artist</b></td>
+		<td><b>Release name</b></td>
+		<td><b>Release date</b></td>
+		<td><b>Track count</b></td>
+		<td><b>Add release</b></td>
+	</tr>
+
+
+<%perl>
+
+require Sql;
+my $rosql = Sql->new($mbro->{DBH});
+
+use MusicBrainz::Server::Release;
+
+my $rownum=0;
+
+for my $mbid (@{$releases})
+{
+	# load Release object
+	my $release = MusicBrainz::Server::Release->new($mbro->{DBH});
+	$release->SetMBId($mbid);
+	$release->LoadFromId();
+	
+	# load the artist of this release
+	my $artist = MusicBrainz::Server::Artist->new($mbro->{DBH});
+	$artist->SetId($release->GetArtist());
+	$artist->LoadFromId();
+	
+	
+	print '<tr class="'.('ev', 'od')[$rownum % 2].'">';
+	print '<td><a href="/artist/' . $artist->GetMBId() . '.html">' . $artist->GetName() . '</a></td>';
+	print '<td><a href="/release/' . $release->GetMBId(). '.html">' .$release->GetName() .'</a></td>';
+	#print '<td>'. $release->GetFirstReleaseDate() .'</td>';
+</%perl>
+	<td><& /comp/releasedate, $release->GetFirstReleaseDateYMD &></td>
+<%perl>
+	print '<td>'. $release->GetTrackCount() .'</td>';
+	print '<td><a href="/show/collection/missing.html?addrelease=' . $release->GetId() . '">Add to collection</a></td>';
+	print '</tr>';
+
+	$rownum++;
+}
+
+}
+</%perl>
+</table>
+
+
+<& /comp/tableend &>
+
+<& /comp/footer &>
+

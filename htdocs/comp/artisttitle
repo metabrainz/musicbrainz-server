@@ -21,7 +21,7 @@
 	#
 	# Summary:
 	# -----------------------------------------------------------------------------
-	# Render the artist title box.
+	# Render the artist title box.$
 	#
 	# $Id$
 	#
@@ -34,9 +34,17 @@
 	$showlinks => undef		# show info links
 	$showmodlinks => 1		# show editing links.
 							# -- TODO: rename to showeditlinks
+							
+	$notify => undef
+	$dispmissing => undef
 
 </%args>
 <%perl>
+
+	# Log on to the read only and raw databases
+	my $mbro = $m->comp("/comp/dblogin");
+	my $mbraw = MusicBrainz->new();
+	$mbraw->Login(db => 'RAWDATA');
 
 	# preferred way of calling this component,
 	# backwards compability.
@@ -74,6 +82,43 @@
 		$date_str = "End: $end";
 		$date_str = "Deceased: $end" if $type == &MusicBrainz::Server::Artist::ARTIST_TYPE_PERSON;
 		$date_str = "Dissolved: $end" if $type == &MusicBrainz::Server::Artist::ARTIST_TYPE_GROUP;
+	}
+	
+	
+	if(defined($notify))
+	{
+		# make sure the user has a collection_info tuple
+		MusicBrainz::Server::CollectionInfo::AssureCollection($session{uid}, $mbraw->{DBH});
+			
+		if($notify == 1)
+		{
+			# Make sure user is logged on
+			$m->comp("/comp/checkloggedin", 1, 1, "You need to be logged in to modify your collection preferences.", 1) or return;
+	
+			MusicBrainz::Server::CollectionPreference::ArtistWatch($artist->GetId(), $session{uid});
+		}
+		elsif($notify == 0)
+		{
+			MusicBrainz::Server::CollectionPreference::ArtistDontWatch($artist->GetId(), $session{uid});
+		}
+	}
+	
+	if(defined($dispmissing))
+	{
+		# make sure the user has a collection_info tuple
+		MusicBrainz::Server::CollectionInfo::AssureCollection($session{uid}, $mbraw->{DBH});
+		
+		if($dispmissing == 1)
+		{
+			# Make sure user is logged on
+			$m->comp("/comp/checkloggedin", 1, 1, "You need to be logged in to modify your collection preferences.", 1) or return;
+			
+			MusicBrainz::Server::CollectionPreference::ArtistMissing($artist->GetId(), $session{uid});
+		}
+		elsif($dispmissing == 0)
+		{
+			MusicBrainz::Server::CollectionPreference::ArtistDontShowMissing($artist->GetId(), $session{uid});
+		}
 	}
 
 	$m->out(qq!<script type="text/javascript" src="/scripts/ratings.js"></script>!);
@@ -157,7 +202,7 @@
 		$m->out(qq! ]</td></tr>!);
 	}
 
-
+	
 	# Row 3: editing links
 	if ($showmodlinks)
 	{
@@ -187,8 +232,8 @@
 				$m->out(sprintf qq! | <a href="/freedb/freedb.html?search=%s">Import release</a>!, uri_escape($name));
 
 				require MusicBrainz::Server::Release;
-				my $mb = $m->comp("/comp/dblogin");
-				my $al = MusicBrainz::Server::Release->new($mb->{DBH});
+				#my $mb = $m->comp("/comp/dblogin");
+				my $al = MusicBrainz::Server::Release->new($mbro->{DBH});
 				if (my @non = $al->FindNonAlbum($id))
 				{
 					my $nonid = $non[0]->GetMBId;
@@ -219,6 +264,34 @@
 		$m->out(qq!Relationships: [ !);
 		$m->out(qq!<a href="/show/artist/?artistid=$id&addrel=1">Use this artist in a relationship</a>!);
 		$m->out(qq! | <a href="/edit/relationship/addurl.html?type=artist&id=$id&name=! . uri_escape($name) . qq!">Relate to URL</a>!);
+		$m->out(qq! ]</td></tr>!);
+	}
+	
+	# Row 5: Collection links
+	
+	
+	if($session{uid})
+	{
+		$m->out(qq!<tr>!);
+		$m->out(qq!<td colspan="2" class="collection">!);
+		$m->out(qq!Collection: [ !);
+		if(MusicBrainz::Server::CollectionInfo::NotifyUserAboutNewFromArtist($id, $session{uid}, $mbraw->{DBH}))
+		{
+			$m->out(qq!<a href="?artistid=$id&notify=0">Do not notify me on new releases</a> | !);
+		}
+		else
+		{
+			$m->out(qq!<a href="?artistid=$id&notify=1">Notify me on new releases</a> | !);
+		}
+		
+		if(MusicBrainz::Server::CollectionInfo::ShowMissingOfArtistToUser($id, $session{uid}, $mbraw->{DBH}))
+		{
+			$m->out(qq!<a href="?artistid=$id&dispmissing=0">Do not display missing releases</a>!);
+		}
+		else
+		{
+			$m->out(qq!<a href="?artistid=$id&dispmissing=1">Display missing releases</a>!);
+		}
 		$m->out(qq! ]</td></tr>!);
 	}
 

@@ -34,18 +34,18 @@
 	$showtag => 0
 	$showreleases => 0
     $short => 1
+    $addtocollection => undef
 
     $showratings => 0
 </%args>
 <%perl>
-
+	my $untouchedex = $ex;
 	my $trackcount = $album->GetTrackCount();
 	my $link = "/show/artist/?artistid=" . $artist->GetId() . "&ex=";
 
 	$ex .= "," . $album->GetId();
 	$ex =~ s/^,//g;
 	$link .= $ex . "&short=$short&compact=0#al" . $album->GetId();
-
 	$m->comp("/comp/release/release_begin",
 		album => $album,
 		artist => $artist,
@@ -54,7 +54,9 @@
 		showeditlinks => 0,
 		showtrackartists => 0,
 		link => $link,
-		showtag => $showtag
+		showtag => $showtag,
+		ex => $untouchedex,
+		addtocollection => $addtocollection
 	);
 
 	$m->comp("/comp/release/release_summary",
