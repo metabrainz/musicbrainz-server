@@ -47,14 +47,17 @@
 
 	$showtag => 0
 	$tagchecked => 0
-    
+
     $folksonomy => 0
-    
+
     $addtocollection => undef
+
+    $ex => ""
+
+    $short => undef
 
 </%args>
 <%perl>
-
 	$release ||= $album;
 
 	my $artistid = $release->GetArtist;
@@ -67,7 +70,6 @@
 	my $mbraw = MusicBrainz->new();
 	$mbraw->Login(db => 'RAWDATA');
 	my $collectionId = MusicBrainz::Server::CollectionInfo::GetCollectionIdForUser($session{'uid'}, $mbraw->{DBH});
-
 
 	# add or remove release from collection if requested
 	if(defined($addtocollection))
@@ -274,14 +276,41 @@
         # collection links
         if($session{uid})
         {
+        	my $currentpath;
+        	
+        	# set the path to where the user should be redirected after clicking link
+        	if($ENV{'SCRIPT_NAME'} eq '/show/artist/index.html')
+        	{
+        		$currentpath = '/show/artist/';
+        	}
+        	else
+        	{
+        		$currentpath = '/show/release/';
+        	}
+        	
 	        $m->out(qq!<tr><td class="collection">Collection: !);
 	        if(MusicBrainz::Server::CollectionInfo::HasRelease($mbraw->{DBH}, $collectionId, $releaseid))
 	        {
-	        	$m->out(qq!<a href="/show/release/?releaseid=$releaseid&addtocollection=0">Remove release from collection</a>!);
+	        	#$ARGS{compact}
+	        	if($ENV{'SCRIPT_NAME'} eq '/show/artist/index.html')
+	        	{
+	        		$m->out(qq!<a href="/show/artist/?artistid=$artistid&ex=$ex&short=$short&compact=$ARGS{compact}&addtocollection=0">Remove release from collection</a>!);
+	        	}
+	        	else
+	        	{
+	        		$m->out(qq!<a href="/show/release/?releaseid=$releaseid&addtocollection=0">Remove release from collection</a>!);
+	        	}
 	        }
 	        else
 	        {
-	        	$m->out(qq!<a href="/show/release/?releaseid=$releaseid&addtocollection=1">Add release to collection</a>!);
+	        	if($ENV{'SCRIPT_NAME'} eq '/show/artist/index.html')
+	        	{
+	        		$m->out(qq!<a href="/show/artist/?artistid=$artistid&ex=$ex&short=$short&compact=$ARGS{compact}&addtocollection=1">Add release to collection</a>!);
+	        	}
+	        	else
+	        	{
+	        		$m->out(qq!<a href="/show/release/?releaseid=$releaseid&addtocollection=1">Add release to collection</a>!);
+	        	}
 	        }
 	        $m->out(qq!</td></tr>!);
         }

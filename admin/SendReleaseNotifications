@@ -93,7 +93,7 @@ sub sendMail
 	
 	print Dumper(@$releaseIds);
 	my $subject = 'New releases';
-	my $message = '<html><body>The following releases are about to be released:\n';
+	my $message = '<html><body>The following releases are about to be released:<br/>';
 	
 	
 	for my $releaseId (@{$releaseIds})

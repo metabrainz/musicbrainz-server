@@ -44,10 +44,11 @@
 	
 	$notify => undef
 	$dispmissing => undef
+	
+	$addtocollection => undef
 
 </%args>
 <%perl>
-
 	# check arguments
 	if ($mbid ne "")
 	{
@@ -495,13 +496,16 @@
 						 showids => 0,
 						 showtag => 1,
 						 mbt => $mbt,
-						 ex => $ex);
+						 ex => $ex,
+						 addtocollection => $addtocollection,
+        				 short => $short);
                 }
                 else
                 {
                      $m->comp("/comp/albumcollapsed",
 						 album => $album, artist => $artist,
-						 ex => $ex, showids => 0, showtag => 1, short=>$short);
+						 ex => $ex, showids => 0, showtag => 1, short=>$short,
+						 addtocollection => $addtocollection);
                 }
             }
 
