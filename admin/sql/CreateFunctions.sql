@@ -34,11 +34,8 @@ declare
 
 begin
 
-   table_count := (SELECT count(*) FROM pg_class WHERE relname = ''albummeta'');
-   if table_count > 0 then
-       raise notice ''Dropping existing albummeta table'';
-       drop table albummeta;
-   end if;
+   raise notice ''Truncating table albummeta'';
+   truncate table albummeta;
 
    raise notice ''Counting tracks'';
    create temporary table albummeta_tracks as select album.id, count(albumjoin.album) 
@@ -59,15 +56,16 @@ begin
         FROM    release
         GROUP BY album;
 
-   raise notice ''Creating albummeta table'';
-   create table albummeta as
+   raise notice ''Filling albummeta table'';
+   insert into albummeta (id, tracks, discids, puids, firstreleasedate, asin, coverarturl, dateadded)
    select a.id,
             COALESCE(t.count, 0) AS tracks,
             COALESCE(d.count, 0) AS discids,
             COALESCE(p.count, 0) AS puids,
             r.firstreleasedate,
             aws.asin,
-            aws.coverarturl
+            aws.coverarturl,
+            timestamp ''1970-01-01 00:00:00-00''
     FROM    album a
             LEFT JOIN albummeta_tracks t ON t.id = a.id
             LEFT JOIN albummeta_discids d ON d.id = a.id
@@ -75,16 +73,6 @@ begin
             LEFT JOIN albummeta_firstreleasedate r ON r.id = a.id
             LEFT JOIN album_amazon_asin aws on aws.album = a.id
             ;
-
-    ALTER TABLE albummeta ALTER COLUMN id SET NOT NULL;
-    ALTER TABLE albummeta ALTER COLUMN tracks SET NOT NULL;
-    ALTER TABLE albummeta ALTER COLUMN discids SET NOT NULL;
-    ALTER TABLE albummeta ALTER COLUMN puids SET NOT NULL;
-    -- firstreleasedate stays "WITH NULL"
-    -- asin stays "WITH NULL"
-    -- coverarturl stays "WITH NULL"
-
-   ALTER TABLE albummeta ADD CONSTRAINT albummeta_pkey PRIMARY KEY (id);
 
    drop table albummeta_tracks;
    drop table albummeta_discids;
