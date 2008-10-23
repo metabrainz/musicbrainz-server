@@ -44,15 +44,15 @@ my ($deceased, $numitems) = $stats->GetRecentlyDeceased($maxitems, $offset);
 	<table style="background-color: #fafafa; border: 1px #000000 solid; padding: 10px;">
 		<tr>
 			<th>Artist</th>
-			<th>Died</th>
 			<th>Born</th>
+			<th>Died</th>
 		</tr>
 
 %	foreach my $row (@$deceased) {
 		<tr>
 			<td><a href="/artist/<% $row->[0] %>.html"><% $row->[1] %></a></td>
-			<td><% $row->[2] %></td>
 			<td><% $row->[3] %></td>
+			<td><% $row->[2] %></td>
 		</tr>
 %   }
 %   if ($pager) {

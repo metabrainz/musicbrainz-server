@@ -51,8 +51,8 @@ my ($brokenup, $numitems) = $stats->GetRecentlyBrokenUp($maxitems, $offset);
 %	foreach my $row (@$brokenup) {
 		<tr>
 			<td><a href="/artist/<% $row->[0] %>.html"><% $row->[1] %></a></td>
-			<td><% $row->[2] %></td>
 			<td><% $row->[3] %></td>
+			<td><% $row->[2] %></td>
 		</tr>
 %   }
 %   if ($pager) {
@@ -67,7 +67,7 @@ my ($brokenup, $numitems) = $stats->GetRecentlyBrokenUp($maxitems, $offset);
 %   } else {
 		<tr>
 			<td colspan="3">
-			[ <a href="musicnewz.html?type=recently_brokenup">see more recently broken up group</a> ]
+			[ <a href="musicnewz.html?type=recently_brokenup">see more recently broken up groups</a> ]
 			</td>
 		</tr>
 %	}
