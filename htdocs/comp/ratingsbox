@@ -66,9 +66,9 @@
 		$m->out("<small>(");
 		if ($session{uid})
 		{
-			$m->out("Your rating: <span id='USER-RATING::$entity_type::$entity_id'>". ($user_rating || "none") ."</span> - ");
+			$m->out("Your rating: <span id='USER-RATING::". $entity_type ."::". $entity_id ."'>". ($user_rating || "none") ."</span> - ");
 		}
-		$m->out("Votes: <span id='VOTES-RATING::$entity_type::$entity_id'>". ($rating->{"rating_count"} || "0") ."</span>)");
+		$m->out("Votes: <span id='VOTES-RATING::". $entity_type ."::". $entity_id ."'>". ($rating->{"rating_count"} || "0") ."</span>)");
 		$m->out("</small>");
 	}
 </%perl>
