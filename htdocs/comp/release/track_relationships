@@ -73,7 +73,7 @@
 	my $name = $track->GetName;
 	my $relationships = $m->comp("/comp/loadrelationships", $mb, $id, "track");
 
-	$m->comp("/comp/relationship/relationshiplist", id => $id,
+	$m->comp("/comp/relationship/relationshiplist", mb => $mb, id => $id,
 	         relationships => $relationships, max_lines => 4,
 	         max_links_per_line => 4, type => "track", track => 1);
 

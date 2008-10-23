@@ -39,6 +39,7 @@
 	$modlinks => 0
 	$returnto => 0
 	$release => undef
+	$mb
 
 </%args>
 <%perl>
@@ -79,14 +80,14 @@
 	{
 		if (($total_links > 1) || $track || ($modlinks && $expanded))
 		{
-			$m->comp("/comp/relationship/outputentity", item => $relationships->[0], index => 0, name => $name)
+			$m->comp("/comp/relationship/outputentity", mb => $mb, item => $relationships->[0], index => 0, name => $name)
 				if !$track;
 			$m->out($track ? '<table class="relationships">' : ':<table width="100%">');
 		}
 		else
 		{
 			$m->out('<div>');
-			$m->comp("/comp/relationship/outputentity", item => $relationships->[0], index => 0, name => $name)
+			$m->comp("/comp/relationship/outputentity", mb => $mb, item => $relationships->[0], index => 0, name => $name)
 				if !$track;
 		}
 
@@ -135,7 +136,7 @@
 							$m->out(', ');
 						}
 					}
-					$m->comp("/comp/relationship/outputentity", item => $line->[$j], index => 1, name => $name, release => $release);
+					$m->comp("/comp/relationship/outputentity", mb => $mb, item => $line->[$j], index => 1, name => $name, release => $release);
 					$j++;
 				}
 

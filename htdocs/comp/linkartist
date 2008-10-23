@@ -109,9 +109,9 @@
 	if ($showresolution && $resolution ne "")
 	{
 		$m->out(qq! <span class="artistresolution">!);
-		$m->out(sprintf qq! (%s) !,
+		$m->out(sprintf qq! (%s)!,
 						$m->interp->apply_escapes($resolution, 'h'));
-		$m->out(qq! </span>!);
+		$m->out(qq!</span>!);
 	}
 
 </%perl>

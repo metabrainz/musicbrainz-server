@@ -33,6 +33,7 @@
 	$index
 	$name
     $release => 0
+	$mb => undef
 
 </%args>
 <%perl>
@@ -66,6 +67,66 @@
 		   $e_inttype eq "track")
 	{
 		$m->comp("/comp/link$e_inttype", id => $e_id, name => $e_name);
+
+		# Add more info to make explicit the relationship
+		#       le_artist                 ce_artist
+		#          |                          |
+		#   (linked_entity) <---AR---> (current_entity)
+		#                                    ^^^^
+		#                 entity we're outputing (release or track)
+
+		# Entity we are outputing
+		my ($current_entity, $ce_artist);
+		if ($e_inttype eq "release")
+		{
+			$current_entity = MusicBrainz::Server::Release->new($mb->{DBH});
+		}
+		elsif ($e_inttype eq "track")
+		{
+			$current_entity = MusicBrainz::Server::Track->new($mb->{DBH});
+		}
+		$current_entity->SetId($e_id);
+		$current_entity->LoadFromId();
+		$ce_artist = $current_entity->GetArtist;
+			
+		# Entity at the other endpoint ("linked entity")
+		my $lprefix = "link" . (1-$index) . "_";
+		my $le_id = $item->{$lprefix . "id"};
+		my $le_type = ($item->{$lprefix . "type"} eq "album" ? "release" : $item->{$lprefix . "type"});
+
+		# Find the artist related to the linked entity
+		my $le_artist = undef;
+		if ($le_type eq "track" or $le_type eq "release")
+		{
+			my $linked_entity;
+			if ($le_type eq "track")
+			{
+				$linked_entity = MusicBrainz::Server::Track->new($mb->{DBH});
+			} 
+			elsif ($le_type eq "release")
+			{
+				$linked_entity = MusicBrainz::Server::Release->new($mb->{DBH});
+			}
+			$linked_entity->SetId($le_id);
+			$linked_entity->LoadFromId();
+			$le_artist = $linked_entity->GetArtist;
+		}
+		elsif ($le_type eq "artist")
+		{
+			$le_artist = $le_id;
+		}
+
+		# Add "by <Artist>" to output, unless both artists are identical
+		if ($le_artist ne $ce_artist)
+		{
+			my $artist = MusicBrainz::Server::Artist->new($mb->{DBH});
+			$artist->SetId($ce_artist);
+			$artist->LoadFromId();
+
+			$m->out("&nbsp;by&nbsp;");
+			$m->comp("/comp/linkartist", artist => $artist, icon => 0);
+		}
+		
 	}
 	elsif ($e_type eq "url")
 	{

@@ -115,6 +115,7 @@ else
 
 	my $typeshow = $type eq "album" ? "release" : $type;
 	$m->comp("/comp/relationship/relationshiplist", id => $id,
+	         mb => $mb,
 	         relationships => \@links,
 	         max_lines => ($expanded || $isrelpage) ? 100000 : 4,
 	         max_links_per_line => ($expanded || $isrelpage) ? 100000 : 4,
