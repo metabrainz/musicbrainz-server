@@ -101,11 +101,6 @@ sub handler_post
     my $entity = $apr->param('entity');
     my $id = $apr->param('id');
     my $tags = $apr->param('tags');
-    my $type = $apr->param('type');
-    if (!defined($type) || $type ne 'xml')
-    {
-		return bad_req($r, "Invalid content type. Must be set to xml.");
-	}
 
     if (!MusicBrainz::Server::Validation::IsGUID($id) || 
         ($entity ne 'artist' && $entity ne 'release' && $entity ne 'track' && $entity ne 'label'))
