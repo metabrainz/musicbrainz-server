@@ -60,11 +60,6 @@ CREATE UNIQUE INDEX collection_discography_artist_join_combined_index ON collect
 CREATE UNIQUE INDEX collection_ignore_release_combined_index ON collection_ignore_release_join (collection_info, album);
 CREATE UNIQUE INDEX collection_watch_artist_combined_index ON collection_watch_artist_join (collection_info, artist);
 
-CREATE INDEX collection_has_release_join_collection_info ON collection_has_release_join (collection_info);
-CREATE INDEX collection_ignore_release_join_collection_info ON collection_ignore_release_join (collection_info);
-CREATE INDEX collection_discography_artist_join_collection_info ON collection_discography_artist_join (collection_info);
-CREATE INDEX collection_watch_artist_join_collection_info ON collection_watch_artist_join (collection_info);
-
 CREATE INDEX collection_has_release_join_album ON collection_has_release_join (album);
 CREATE INDEX collection_ignore_release_join_album ON collection_ignore_release_join (album);
 CREATE INDEX collection_discography_artist_join_artist ON collection_discography_artist_join (artist);
