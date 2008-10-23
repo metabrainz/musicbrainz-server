@@ -948,7 +948,7 @@ CREATE TABLE track
 (
     id                  SERIAL,
     artist              INTEGER NOT NULL, -- references artist
-    name                VARCHAR(255) NOT NULL,
+    name                TEXT NOT NULL,
     gid                 CHAR(36) NOT NULL, 
     length              INTEGER DEFAULT 0,
     year                INTEGER DEFAULT 0,

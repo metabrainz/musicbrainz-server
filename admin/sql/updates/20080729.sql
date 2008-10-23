@@ -19,4 +19,7 @@ CREATE VIEW moderation_all AS
 ALTER TABLE albummeta ADD COLUMN dateadded TIMESTAMP WITH TIME ZONE DEFAULT '1970-01-01 00:00:00-00';
 ALTER TABLE albummeta ALTER COLUMN dateadded SET DEFAULT now();
 
+-- Change the track name to TEXT to allow longer than 255 char titles
+ALTER TABLE track ALTER COLUMN name TYPE TEXT;
+
 COMMIT;
