@@ -85,7 +85,7 @@ elsif (!defined $query || $query eq '' || !defined $id || $id eq '')
 else
 {
     $mb = new MusicBrainz(1);
-    if (!$mb->Login(1))
+    if (!$mb->Login())
     {
         $out = print $rdf->ErrorRDF("Database Error: ".$DBI::errstr.")");
     }
