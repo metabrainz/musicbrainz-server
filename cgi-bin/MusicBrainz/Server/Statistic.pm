@@ -907,8 +907,6 @@ sub GetStats
     my ($self, $list) = @_;
 	my $sql = Sql->new($self->{DBH});
 
-	print STDERR "Stats: $list\n";
-
 	my @columns = split(',', $list);
 
     my @data;
@@ -936,8 +934,8 @@ sub GetStats
 				$ret{$date} = () if (!exists $ret{$date});
 				$ret{$date}->{$column} = $row[1];
 			}
-			$sql->Finish;
 		}
+		$sql->Finish;
 	}
 
 	my $out;
