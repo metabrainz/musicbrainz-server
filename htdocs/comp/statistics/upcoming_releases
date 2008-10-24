@@ -61,7 +61,7 @@ my ($upcoming, $numitems) = $stats->GetUpcomingReleases($maxitems, $offset);
         <tr>
             <td colspan="5">
 			   <& /comp/pageselector, offset => $offset, pagesize => $maxitems, 
-			                          url => '/show/stats/musicnewz.html',
+			                          url => '/show/stats/musicnews.html',
 									  args => {type=>'upcoming_releases'},
 									  numitems => $numitems &>
             </td>
@@ -69,7 +69,7 @@ my ($upcoming, $numitems) = $stats->GetUpcomingReleases($maxitems, $offset);
 %   } else {
         <tr>
             <td colspan="5">
-            [ <a href="musicnewz.html?type=upcoming_releases">see more upcoming releases</a> ]
+            [ <a href="musicnews.html?type=upcoming_releases">see more upcoming releases</a> ]
             </td>
         </tr>
 %	}

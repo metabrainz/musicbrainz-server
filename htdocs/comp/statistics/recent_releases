@@ -61,7 +61,7 @@ my ($recent, $numitems) = $stats->GetRecentReleases($maxitems, $offset);
         <tr>
             <td colspan="5">
 			   <& /comp/pageselector, offset => $offset, pagesize => $maxitems, 
-			                          url => '/show/stats/musicnewz.html',
+			                          url => '/show/stats/musicnews.html',
 									  args => {type=>'recent_releases'},
 									  numitems => $numitems &>
             </td>
@@ -69,7 +69,7 @@ my ($recent, $numitems) = $stats->GetRecentReleases($maxitems, $offset);
 %   } else {
 		<tr>
 			<td colspan="3">
-			[ <a href="musicnewz.html?type=recent_releases">see more recent releases</a> ]
+			[ <a href="musicnews.html?type=recent_releases">see more recent releases</a> ]
 			</td>
 		</tr>
 %	}

@@ -65,7 +65,7 @@
 		{ name => "News",					url => "/news/index.html" },
 		[
 			{ name => "General News",			url => "/news/index.html" },
-			{ name => "Music Newz",				url => "/show/stats/musicnewz.html" },
+			{ name => "Music News",				url => "/show/stats/musicnews.html" },
 			{ name => "Blog",					url => "http://blog.musicbrainz.org/" },
 			{ name => "Server",					url => "/news/server.html" },
 			{ name => "libmusicbrainz",			url => "/news/client.html" },
