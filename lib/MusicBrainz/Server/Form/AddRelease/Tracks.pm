@@ -29,7 +29,14 @@ sub add_tracks
         $track_field->sub_form->field('number')->value($i);
         $track_field->required(1);
 
+        my $artist_field = $self->make_field("artist_$i", 'Text');
+        $artist_field->required(1);
+
+        my $artist_id = $self->make_field("artist_id_$i", 'Integer');
+
         $self->add_field($track_field);
+        $self->add_field($artist_field);
+        $self->add_field($artist_id);
     }
 }
 

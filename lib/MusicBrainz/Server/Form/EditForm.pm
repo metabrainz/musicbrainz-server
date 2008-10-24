@@ -98,10 +98,9 @@ sub insert
     my $user = $self->context->user;
 
     my %opts = (
-        DBH   => $self->context->mb->{DBH},
-        uid   => $user->id,
-        privs => $user->privs,
-        type  => $self->mod_type,
+        DBH       => $self->context->mb->{DBH},
+        moderator => $user,
+        type      => $self->mod_type,
     );
 
     my $mod_opts = $self->build_options(@args);
@@ -118,8 +117,8 @@ sub insert
     {
         my $field = $edit_fields[0];
 
-        $mods[0]->InsertNote($user->id, $field->value('edit_note'))
-            if $mods[0] and $field->value('edit_note') =~ /\S/;
+        $mods[0]->InsertNote($user->id, $self->value('edit_note'))
+            if $mods[0] and $self->value('edit_note') =~ /\S/;
 
     }
 

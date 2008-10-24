@@ -170,6 +170,7 @@ sub Do
 		my $sth = $this->{DBH}->$prepare($query);
 		utf8::downgrade($_) for @params;
 		$sth->execute(@params);
+		carp("Failed query:\n	'$query'\n	(@params)\n\n")
 	};
 	if ($@)
 	{

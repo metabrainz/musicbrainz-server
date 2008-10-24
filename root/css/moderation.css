@@ -53,6 +53,7 @@ table.moderation_list .actions {
     width: 100pt;
     text-align: right;
     padding-right: 10pt;
+    vertical-align: top;
 }
 
 .vote_choice {

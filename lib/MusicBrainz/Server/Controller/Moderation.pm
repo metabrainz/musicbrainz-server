@@ -29,9 +29,7 @@ called on its own.
 sub moderation : Chained CaptureArgs(1)
 {
     my ($self, $c, $mod_id) = @_;
-
-    my $moderation = $c->model('Moderation')->load($mod_id);
-    $c->stash->{moderation} = $moderation;
+    $c->stash->{moderation} = $c->model('Moderation')->load($mod_id);
 }
 
 =head2 list
@@ -46,28 +44,14 @@ sub show : Chained('moderation')
 
     $c->forward('/user/login');
 
+    my $add_note = $c->form(undef, 'Moderation::AddNote');
+    my $vote     = $c->form(undef, 'Moderation::Vote');
+
+    $c->stash->{add_note} = $add_note;
+    $c->stash->{vote    } = $vote;
+
     $c->stash->{expire_action} = \&ModDefs::GetExpireActionText;
-
-    my $moderation = $c->stash->{moderation};
-
-    if (defined $moderation->{'trackid'})
-    {
-        my $track = $c->model('Track')->load($moderation->{'trackid'});
-        $c->stash->{track} = $track;
-    }
-
-    if (defined $moderation->{'albumid'})
-    {
-        my $release = $c->model('Release')->load($moderation->{'albumid'});
-        $c->stash->{release} = $release;
-    }
-
-    unless ($moderation->{'dont-display-artist'})
-    {
-        $c->stash->{artist} = $moderation->artist;
-    }
-
-    $c->stash->{template} = 'moderation/show.tt';
+    $c->stash->{template     } = 'moderation/show.tt';
 }
 
 =head2 add_note
@@ -92,6 +76,31 @@ sub add_note : Chained('moderation')
     $form->insert;
 
     $c->response->redirect($c->entity_url($moderation, 'show'));
+}
+
+=head2 vote
+
+POST only method to enter votes on a moderation
+
+=cut
+
+sub vote : Chained('moderation')
+{
+    my ($self, $c) = @_;
+
+    $c->forward('/user/login');
+
+    my $moderation = $c->stash->{moderation};
+
+    my $form = $c->form($moderation, 'Moderation::Vote');
+    $form->context($c);
+
+    if ($c->form_posted && $form->validate($c->req->params))
+    {
+        $form->vote;
+    }
+
+    $c->detach('show');
 }
 
 =head2 approve

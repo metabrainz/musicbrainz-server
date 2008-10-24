@@ -538,25 +538,51 @@ sub add_release_tracks : Private
                       $c->req->params->{step} == 1 &&
                       $form->validate($c->req->params);
 
-    $c->stash->{can_preview} = 1;
 
-    # Create a mock up release to see how this /could/ look.
-    my $mock_release = new MusicBrainz::Server::Release($c->mb->{DBH});
-    $mock_release->name($form->value('title'));
-
-    my @form_tracks;
-    for my $i (1 .. $c->stash->{track_count})
+    my @unconfirmed;
+    for my $i (1 .. $track_count)
     {
-        push @form_tracks, $form->value("track_$i");
+        unless ($form->value("artist_id_$i"))
+        {
+            push @unconfirmed, $form->value("artist_$i");
+        }
     }
+    $c->session->{wizard__add_release__unconfirmed_artists} = \@unconfirmed;
+}
 
-    my $tracks = map {
-        my $track = new MusicBrainz::Server::Track($c->mb->{DBH});
-        $track->name($_->{title});
-    } @form_tracks;
+sub add_release_confirm_artists : Private
+{
+    my ($self, $c) = @_;
 
-    $c->stash->{preview} = $mock_release;
-    $c->stash->{preview_tracks} = $mock_release;
+    my $unconfirmed_artists = $c->session->{wizard__add_release__unconfirmed_artists};
+
+    if (scalar @$unconfirmed_artists)
+    {
+        $c->stash->{template} = 'add_release/search_artist.tt';
+        $c->detach('/search/filter_artist');
+    }
+    else
+    {
+
+    }
+}
+
+sub add_alias : Chained('artist')
+{
+    my ($self, $c) = @_;
+
+    $c->forward('/user/login');
+
+    my $artist = $c->stash->{artist};
+
+    my $form = $c->form($artist, 'Artist::AddAlias');
+    $form->context($c);
+
+    return unless $c->form_posted && $form->validate($c->req->params);
+
+    $form->insert;
+
+    $c->response->redirect($c->entity_url($artist, 'aliases'));
 }
 
 =head1 LICENSE 

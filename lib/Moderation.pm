@@ -694,9 +694,58 @@ sub artist
 {
     my ($self, $new_artist) = @_;
 
-    if (defined $new_artist) { $self->{artist} = $new_artist; }
+    if (defined $new_artist)
+    {
+        if (ref $new_artist)
+        {
+            $self->{artist} = $new_artist;
+        }
+        else
+        {
+            $self->{artist} = new MusicBrainz::Server::Artist($self->{DBH});
+            $self->{artist}->id($new_artist);
+        }
+    }
+
     return $self->{artist};
 }
+
+sub track
+{
+    my ($self, $new_track) = @_;
+
+    if (defined $new_track) { $self->{trackid} = $new_track; }
+
+    # This wouldn't need to be so funky if we actually used accessors...
+    if (defined $new_track ||
+        (!defined $self->{track} && defined $self->{trackid}))
+    {
+        # TODO track should get and set Track objects, not ids!
+        $self->{track} = MusicBrainz::Server::Track->new($self->{DBH});
+        $self->{track}->id($self->{trackid});
+        $self->{track}->LoadFromId;
+    }
+
+    return $self->{track};
+}
+
+sub release
+{
+    my ($self, $new_release) = @_;
+
+    if (defined $new_release) { $self->{albumid} = $new_release; }
+
+    if (defined $new_release || (!defined $self->{release} && defined $self->{albumid}))
+    {
+        # TODO release should get and set Release objects, not ids!
+        $self->{release} = MusicBrainz::Server::Release->new($self->{DBH});
+        $self->{release}->id($self->{albumid});
+        $self->{release}->LoadFromId;
+    }
+
+    return $self->{release};
+}
+
 
 sub yes_votes
 {
@@ -1089,6 +1138,9 @@ sub InsertModeration
 			$d->close;
 		}
 
+        croak "No moderator" unless $this->moderator;
+        croak "No artist" unless $this->artist;
+
 		$sql->Do(
             "INSERT INTO moderation_open (
                 tab, col, rowid,
@@ -1108,7 +1160,7 @@ sub InsertModeration
             $this->moderator->id, $this->artist->id, $this->type,
             $this->dep_mod,
             &ModDefs::STATUS_OPEN, sprintf("%d days", $level->{duration}),
-            $this->language->id
+            defined $this->language ? $this->language->id : undef
 		);
 
 		my $insertid = $sql->GetLastInsertId("moderation_open");
@@ -1152,7 +1204,7 @@ sub InsertModeration
 
 			require MusicBrainz::Server::Editor;
 			my $user = MusicBrainz::Server::Editor->new($this->{DBH});
-			$user->CreditModerator($this->{moderator}, $status, $autoedit);
+			$user->CreditModerator($this->{moderator}->id, $status, $autoedit);
 
 			MusicBrainz::Server::Cache->delete("Moderation-open-id-range");
 			MusicBrainz::Server::Cache->delete("Moderation-closed-id-range");

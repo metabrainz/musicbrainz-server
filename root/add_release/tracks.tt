@@ -12,6 +12,8 @@
     <legend>Tracks</legend>
     [% FOR i=[1..track_count] %]
       [% INCLUDE 'forms/widget.tt' widget=form.field("track_$i") label='Track:' %]
+      [% INCLUDE 'forms/widget.tt' widget=form.field("artist_$i") label='Artist:' %]
+      <br />
     [% END %]
   </fieldset>
 
@@ -32,7 +34,7 @@
 
 [% IF can_preview %]
   [% WRAPPER 'components/box.tt' header='Preview' %]
-    [% INCLUDE 'release/release.tt' release=preview tracks=preview_tracks %]
+    [% INCLUDE 'release/release.tt' release=preview tracks=preview_tracks no_edit_tracks=1 %]
   [% END %]
 [% END %]
 [% END %]

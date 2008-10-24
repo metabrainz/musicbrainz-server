@@ -49,8 +49,9 @@
   <tr>
     <td class="under_info">&nbsp;</td>
     <td class="changes">
-      [% INCLUDE "moderation/mods/${moderation.template}.tt" new=moderation.new_unpacked
-                                                            prev=moderation.prev_unpacked %]
+      [% INCLUDE "moderation/mods/${moderation.template}.tt"
+                  new=(moderation.new_unpacked  || moderation.new) 
+                 prev=(moderation.prev_unpacked || moderation.prev) %]
     </td>
     <td class="vote_choice">
       <table>

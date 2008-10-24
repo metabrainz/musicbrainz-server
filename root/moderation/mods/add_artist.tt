@@ -1,3 +1,6 @@
-[%- data = [
-    { label => 'Name', new => moderation.new_unpacked.ArtistName },
-] -%]
+<table class="details">
+  <tr>
+    <th>Name:</th>
+    <td>[% new.ArtistName %]</td>
+  </tr>
+</table>

@@ -1,6 +1,6 @@
 <table class="details">
     <tr>
-      <th>Type:</th>
+      <th style="width: 70pt;">Type:</th>
       <td>[%- moderation.Name -%]</td>
     </tr>
 
@@ -11,17 +11,17 @@
     </tr>
     [%- END -%]
 
-    [%- IF release -%]
+    [%- IF moderation.release -%]
     <tr>
       <th>Release:</th>
-      <td>[%- INCLUDE 'components/entity-link.tt' entity=release -%]</td>
+      <td>[%- INCLUDE 'components/entity-link.tt' entity=moderation.release -%]</td>
     </tr>
     [%- END -%]
 
-    [%- IF track -%]
+    [%- IF moderation.track -%]
     <tr>
       <th>Track:</th>
-      <td>[%- INCLUDE 'components/entity-link.tt' entity=track -%]</td>
+      <td>[%- INCLUDE 'components/entity-link.tt' entity=moderation.track -%]</td>
     </tr>
     [%- END -%]
 </table>

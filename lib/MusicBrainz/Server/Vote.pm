@@ -58,8 +58,14 @@ sub InsertVotes
 
 	while (my ($modid, $vote) = each %$votes)
 	{
-		next unless $vote == VOTE_YES or $vote == VOTE_NO or $vote == VOTE_ABS;
-		$self->_InsertVote($uid, $modid, $vote, $allow_selfvoting);
+	    if ($vote == VOTE_YES or $vote == VOTE_NO or $vote == VOTE_ABS)
+        {
+		    $self->_InsertVote($uid, $modid, $vote, $allow_selfvoting);
+        }
+        else
+        {
+            carp "$vote is not a valid choice (for moderation $modid)";
+        }
 	}
 }
 

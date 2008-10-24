@@ -71,7 +71,7 @@ sub PreInsert
 		die 'Invalid end date' unless MusicBrainz::Server::Validation::IsValidDate(@$enddate);
 		$enddate_str = MusicBrainz::Server::Validation::MakeDBDateStr(@$enddate);
 	}
-	
+    	
 	# Prepare the data that Insert needs.
 	#
 	my %info = (
