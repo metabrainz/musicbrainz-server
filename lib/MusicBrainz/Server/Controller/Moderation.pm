@@ -135,8 +135,8 @@ sub approve : Chained('moderation')
     my $status = $moderation->ApprovedAction;
     $moderation->status($status);
 
-    my $user = $c->model('User')->load_user({ id => $moderation->moderator });
-    $user->CreditModerator($moderation->moderator, $status);
+    my $user = $moderation->moderator;
+    $user->CreditModerator($user->id, $status);
 
     $moderation->CloseModeration($status);
 
@@ -216,6 +216,8 @@ Show a list of open moderations
 sub open : Local
 {
     my ($self, $c) = @_;
+
+    $c->forward('/user/login');
 
     $c->stash->{edits} = $c->model('Moderation')->list_open(25, 0);
 }
