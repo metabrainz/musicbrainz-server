@@ -86,7 +86,6 @@ sub handler
         my ($info, $bad) = get_type_and_status_from_inc($args{releasetypes} or "");
 
         my $limit = $args{limit};
-        $limit = 25 if ($limit < 1 || $limit > 100);
         my $count = $args{count} or 0;
         my $discids = $args{discids} or 0;
         my $date = $args{date} or "";

@@ -68,7 +68,6 @@ sub handler
         my $name = $args{name} or "";
         my $limit = $args{limit};
         my $offset = $args{offset} or 0;
-        $limit = 25 if ($limit < 1 || $limit > 100);
         my $query = $args{query} or "";
 
 		if (my $st = apply_rate_limit($r)) { return $st }

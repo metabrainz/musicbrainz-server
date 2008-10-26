@@ -83,7 +83,6 @@ sub handler
         my $tnum = -1;
         $tnum = $args{tracknumber} + 1 if ($args{tracknumber} =~ /^\d+$/);
         my $limit = $args{limit};
-        $limit = 25 if ($limit < 1 || $limit > 100);
 
         my $artistid = $args{artistid};
         if ($artistid && !MusicBrainz::Server::Validation::IsGUID($artistid))
