@@ -71,8 +71,6 @@ sub handler
         $limit = 25 if ($limit < 1 || $limit > 100);
         my $query = $args{query} or "";
 
-		return bad_req($r, "Must specify a name OR query argument for label collections.") if ($name eq '' && $query eq '');
-		return bad_req($r, "Must specify a name OR query argument for label collections. Not both.") if ($name && $query);
 		if (my $st = apply_rate_limit($r)) { return $st }
         return xml_search($r, { type => 'label', label => $name, limit => $limit, offset => $offset, query => $query });
     }

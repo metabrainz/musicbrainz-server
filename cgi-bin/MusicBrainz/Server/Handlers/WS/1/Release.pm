@@ -96,8 +96,6 @@ sub handler
 
         $artist = "" if ($artistid);
 
-		return bad_req($r, "Must specify a title OR query argument for release collections. Not both.") if ($title && $query);
-
 		if (my $st = apply_rate_limit($r)) { return $st }
 
         return xml_search($r, {type=>'release', artist=>$artist, release=>$title, offset=>$offset,

@@ -1139,8 +1139,9 @@ sub xml_search
         die "Incorrect search type: $type\n";
     }
 
-    # In case we have a blank query, we must remove the AND at the beginning
     $query =~ s/^ AND //;
+    # In case we have a blank query
+    return bad_req($r, "Must specify a least one parameter (other than 'limit', 'offset' or empty 'query') for collections query.") if $query =~ /^\s*$/;
 
 # return service_unavail($r, "Sorry, the search server is down");
     use URI::Escape qw( uri_escape );

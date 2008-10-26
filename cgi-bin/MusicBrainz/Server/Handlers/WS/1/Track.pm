@@ -79,9 +79,6 @@ sub handler
         my $count = $args{count} or 0;
         my $releasetype = $args{releasetype} or -1;
 
-		return bad_req($r, "Must specify a title OR query argument for track collections. Not both.") if ($title && $query);
-		return bad_req($r, "Must specify a title or query argument for track collections.") if (!$title && !$query);
-
         my $duration = $args{duration} or 0;
         my $tnum = -1;
         $tnum = $args{tracknumber} + 1 if ($args{tracknumber} =~ /^\d+$/);
