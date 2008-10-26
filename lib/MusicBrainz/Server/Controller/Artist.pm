@@ -484,77 +484,23 @@ sub add_release : Chained('artist')
 {
     my ($self, $c) = @_;
 
-    my $step = $c->req->params->{step} || 0;
-    $c->session->{wizard__step} = $step;
+    my $system        = $c->session->{wizard} || {};
+    my $current_state = $c->session->{wizard_step} || 'MusicBrainz::Server::AddRelease::TrackCount';
 
-    use Switch 'fallthrough';
-    switch ($step)
+    # Where are we?
+    $current_state->require;
+    my $state = $current_state->new($c, $system);
+
+    while(defined $state)
     {
-        case 0
-        {
-            $c->forward('add_release_track_count');
+        $c->session->{wizard_step} = ref $state;
+        $c->stash->{template} = "add_release/" . $state->template;
 
-            # Step one was submitted and validated, lets move to the next step
-            $c->stash->{wizard__step} = 1;
-            $c->forward('add_release_tracks');
-        }
-
-        case 1
-        {
-            $c->forward('add_release_tracks');
-        }
-
-        case 2
-        {
-
-        }
+        $state->init;
+        $state = $state->execute;
     }
-}
 
-sub add_release_track_count : Private
-{
-    my ($self, $c) = @_;
-
-    my $form = $c->form(undef, 'AddRelease::TrackCount');
-    $c->stash->{template} = 'add_release/track_count.tt';
-
-    $c->detach unless $c->form_posted && $form->validate($c->req->params);
-
-    $c->session->{wizard__add_release__track_count} = $form->value('track_count');
-}
-
-sub add_release_tracks : Private
-{
-    my ($self, $c) = @_;
-
-    my $form = $c->form(undef, 'AddRelease::Tracks');
-
-    $c->stash->{track_count} = $c->session->{wizard__add_release__track_count};
-    $form->add_tracks($c->stash->{track_count});
-
-    $c->stash->{template} = 'add_release/tracks.tt';
-
-    $c->detach unless $c->form_posted &&
-                      $c->req->params->{step} == 1 &&
-                      $form->validate($c->req->params);
-
-}
-
-sub add_release_confirm_artists : Private
-{
-    my ($self, $c) = @_;
-
-    my $unconfirmed_artists = $c->session->{wizard__add_release__unconfirmed_artists};
-
-    if (scalar @$unconfirmed_artists)
-    {
-        $c->stash->{template} = 'add_release/search_artist.tt';
-        $c->detach('/search/filter_artist');
-    }
-    else
-    {
-
-    }
+    $c->session->{wizard} = $system;
 }
 
 sub add_alias : Chained('artist')
