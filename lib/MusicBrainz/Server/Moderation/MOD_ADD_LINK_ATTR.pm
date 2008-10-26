@@ -68,13 +68,13 @@ sub PreInsert
 		parent_name => $parent->name,
 	);
 
-	$self->SetNew($self->ConvertHashToNew(\%new));
+	$self->new_data($self->ConvertHashToNew(\%new));
 }
 
 sub PostLoad
 {
 	my $self = shift;
-	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->GetNew)
+	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->new_data)
 		or die;
 }
 

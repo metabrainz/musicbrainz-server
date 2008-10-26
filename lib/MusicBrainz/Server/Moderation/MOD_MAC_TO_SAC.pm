@@ -55,7 +55,7 @@ sub PreInsert
 	$self->column("artist");
 	$self->artist($al->artist);
 	$self->row_id($al->id);
-	$self->SetNew($new);
+	$self->new_data($new);
 }
 
 sub PostLoad
@@ -63,7 +63,7 @@ sub PostLoad
 	my $self = shift;
 
 	# new.name might be undef (in which case, name==sortname)
-  	@$self{qw( new.sortname new.name new.artistid new.movetracks)} = split /\n/, $self->GetNew;
+  	@$self{qw( new.sortname new.name new.artistid new.movetracks)} = split /\n/, $self->new_data;
 
     # If the name was blank and the new artist id ended up in its slot, swap the two values
     if ($self->{'new.name'} =~ /\A\d+\z/ && !defined $self->{'new.artistid'})

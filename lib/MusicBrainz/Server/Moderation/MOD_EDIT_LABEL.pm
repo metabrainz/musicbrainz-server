@@ -134,7 +134,7 @@ sub PreInsert
 	$prev{'EndDate'} = $ar->end_date() if exists $new{'EndDate'};
 
 	$self->previous_data($self->ConvertHashToNew(\%prev));
-	$self->SetNew($self->ConvertHashToNew(\%new));
+	$self->new_data($self->ConvertHashToNew(\%new));
 	$self->table("label");
 	$self->column("name");
 	$self->row_id($ar->id);
@@ -155,7 +155,7 @@ sub PostLoad
 {
 	my $self = shift;
 	$self->{'dont-display-artist'} = 1;
-	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->GetNew()) or die;
+	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->new_data()) or die;
 	$self->{'prev_unpacked'} = $self->ConvertNewToHash($self->previous_data()) or die;
 }
 

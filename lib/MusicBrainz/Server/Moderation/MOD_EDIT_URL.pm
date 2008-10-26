@@ -87,7 +87,7 @@ sub PreInsert
 
 	$self->artist($artist) if $artist;
 	$self->previous_data($self->ConvertHashToNew(\%prev));
-	$self->SetNew($self->ConvertHashToNew(\%new));
+	$self->new_data($self->ConvertHashToNew(\%new));
 	$self->table("url");
 	$self->column("url");
 	$self->row_id($urlobj->id);
@@ -97,7 +97,7 @@ sub PostLoad
 {
 	my $self = shift;
 	$self->{'_urlobj'} = MusicBrainz::Server::URL->newFromId($self->{DBH}, $self->row_id);
-	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->GetNew()) or die;
+	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->new_data()) or die;
 	$self->{'prev_unpacked'} = $self->ConvertNewToHash($self->previous_data()) or die;
 }
 

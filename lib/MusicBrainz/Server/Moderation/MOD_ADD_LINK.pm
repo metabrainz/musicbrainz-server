@@ -115,7 +115,7 @@ sub PreInsert
 	);
 	$new{url} = $url if ($url);
 
-	$self->SetNew($self->ConvertHashToNew(\%new));
+	$self->new_data($self->ConvertHashToNew(\%new));
 
 	# finally some special ASIN URL handling (update album_amazon_asin table data)
 	if ($linktype->{id} == MusicBrainz::Server::CoverArt->asin_link_type_id($self->{DBH}) &&
@@ -151,7 +151,7 @@ sub PreInsert
 sub PostLoad
 {
 	my $self = shift;
-	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->GetNew)
+	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->new_data)
 		or die;
 }
 

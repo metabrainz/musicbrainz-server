@@ -138,7 +138,7 @@ sub PreInsert
 	$self->table("album");
 	$self->column("releases");
 	$self->row_id($al->id);
-	$self->SetNew($self->ConvertHashToNew(\%new));
+	$self->new_data($self->ConvertHashToNew(\%new));
 }
 
 sub PostLoad
@@ -146,7 +146,7 @@ sub PostLoad
 	my $self = shift;
 	my (@adds, @edits, @removes);
 	
-	$self->{"new_unpacked"} = $self->ConvertNewToHash($self->GetNew)
+	$self->{"new_unpacked"} = $self->ConvertNewToHash($self->new_data)
 		or die;
 
 	# extract albumid and changed release events from new_unpacked hash

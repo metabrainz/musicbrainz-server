@@ -42,7 +42,7 @@ sub PreInsert
 
 	$self->artist($track->artist->id);
 	$self->previous_data($track->length);
-	$self->SetNew(0+$newlength);
+	$self->new_data(0+$newlength);
 	$self->table("track");
 	$self->column("length");
 	$self->row_id($track->id);
@@ -100,7 +100,7 @@ sub IsAutoEdit
 {
 	my $self = shift;
 
-	return $self->previous_data == 0 && $self->GetNew != 0;
+	return $self->previous_data == 0 && $self->new_data != 0;
 }
 
 sub ApprovedAction
@@ -122,7 +122,7 @@ sub ApprovedAction
 		return STATUS_FAILEDDEP;
 	}
 	
-	$track->length($self->GetNew);
+	$track->length($self->new_data);
 	$track->UpdateLength;
 
 	STATUS_APPLIED;

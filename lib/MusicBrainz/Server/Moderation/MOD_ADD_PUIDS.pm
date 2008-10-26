@@ -55,14 +55,14 @@ sub PreInsert
 		++$i;
 	}
 
-	$self->SetNew($new);
+	$self->new_data($new);
 }
 
 sub PostLoad
 {
 	my $self = shift;
 
-	my $new = $self->{'new_unpacked'} = $self->ConvertNewToHash($self->GetNew)
+	my $new = $self->{'new_unpacked'} = $self->ConvertNewToHash($self->new_data)
 		or die;
 
 	my @list;

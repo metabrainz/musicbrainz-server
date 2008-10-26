@@ -42,7 +42,7 @@ sub PreInsert
 
 	$self->artist($artist->id);
 	$self->previous_data($artist->quality);
-	$self->SetNew($quality);
+	$self->new_data($quality);
 	$self->table("artist");
 	$self->column("quality");
 	$self->row_id($artist->id);
@@ -70,7 +70,7 @@ sub CheckPrerequisites
 	}
 
 	# Check that it hasn't been locked
-	if ($artist->quality == $self->GetNew)
+	if ($artist->quality == $self->new_data)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This artist is already set to quality level " . ModDefs::GetQualityText($artist->quality));
 		return STATUS_FAILEDPREREQ;
@@ -86,7 +86,7 @@ sub GetQualityChangeDirection
 {
 	my $self = shift;
 
-    return $self->GetNew  > $self->previous_data;
+    return $self->new_data  > $self->previous_data;
 }   
 
 sub AdjustModPending
@@ -108,7 +108,7 @@ sub ApprovedAction
 	return $status if $status;
 
 	my $artist = $this->{_artist};
-	$artist->quality($this->GetNew);
+	$artist->quality($this->new_data);
 	$artist->UpdateQuality;
 
 	STATUS_APPLIED;

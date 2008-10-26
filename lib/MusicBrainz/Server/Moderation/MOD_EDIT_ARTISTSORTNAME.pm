@@ -46,7 +46,7 @@ sub PreInsert
 
 	$self->artist($ar->id);
 	$self->previous_data($ar->sort_name);
-	$self->SetNew($newname);
+	$self->new_data($newname);
 	$self->table("artist");
 	$self->column("sortname");
 	$self->row_id($ar->id);
@@ -68,7 +68,7 @@ sub DetermineQuality
 sub IsAutoEdit
 {
 	my $this = shift;
-	my ($old, $new) = $this->_normalise_strings($this->previous_data, $this->GetNew);
+	my ($old, $new) = $this->_normalise_strings($this->previous_data, $this->new_data);
 	$old eq $new;
 }
 
@@ -100,7 +100,7 @@ sub ApprovedAction
 		return STATUS_FAILEDDEP;
 	}
 
-	$artist->UpdateSortName($this->GetNew)
+	$artist->UpdateSortName($this->new_data)
 		or die "Failed to update artist in MOD_EDIT_ARTISTSORTNAME";
 
 	STATUS_APPLIED;

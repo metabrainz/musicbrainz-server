@@ -112,13 +112,13 @@ sub PreInsert
 		AlreadyThere	=> $already_there ? 1 : 0,
 	);
 
-	$self->SetNew($self->ConvertHashToNew(\%new));
+	$self->new_data($self->ConvertHashToNew(\%new));
 }
 
 sub PostLoad
 {
 	my $self = shift;
-	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->GetNew)
+	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->new_data)
 		or die;
 		
 	# verify if release still exists in Moderation.ShowModType method.

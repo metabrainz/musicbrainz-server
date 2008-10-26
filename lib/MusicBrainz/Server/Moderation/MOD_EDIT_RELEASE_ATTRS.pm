@@ -114,7 +114,7 @@ sub PreInsert
 	$self->table("album");
 	$self->column("id");
 	$self->row_id($albums->[0]->id);
-	$self->SetNew($self->ConvertHashToNew(\%new));
+	$self->new_data($self->ConvertHashToNew(\%new));
 
 	# This mod is immediately applied, and undone later if rejected.
  	for my $al (@$albums)
@@ -134,7 +134,7 @@ sub PostLoad
 {
 	my $self = shift;
 
-	my $new = $self->{'new_unpacked'} = $self->ConvertNewToHash($self->GetNew)
+	my $new = $self->{'new_unpacked'} = $self->ConvertNewToHash($self->new_data)
 		or die;
 
 	my @albums;

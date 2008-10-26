@@ -126,7 +126,7 @@ sub PreInsert
 	$self->column('name');
 	$self->artist($info{'artist_insertid'});
 	$self->row_id($info{'artist_insertid'});
-	$self->SetNew($self->ConvertHashToNew(\%new));
+	$self->new_data($self->ConvertHashToNew(\%new));
 }
 
 sub IsAutoEdit { 1 }
@@ -134,7 +134,7 @@ sub IsAutoEdit { 1 }
 sub PostLoad
 {
 	my $self = shift;
-	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->GetNew)
+	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->new_data)
 		or die;
 }
 

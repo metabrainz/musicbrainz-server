@@ -42,7 +42,7 @@ sub PreInsert
 	$newname =~ /\S/ or die;
 
 	$self->previous_data($al->name);
-	$self->SetNew($newname);
+	$self->new_data($newname);
 	$self->table("labelalias");
 	$self->column("name");
 	$self->row_id($al->id);
@@ -51,7 +51,7 @@ sub PreInsert
 sub IsAutoEdit
 {
 	my $self = shift;
-	my ($old, $new) = $self->_normalise_strings($self->previous_data, $self->GetNew);
+	my ($old, $new) = $self->_normalise_strings($self->previous_data, $self->new_data);
 	$old eq $new;
 }
 
@@ -91,7 +91,7 @@ sub ApprovedAction
 	my $alias = $self->{_alias}
 		or die;
 
-	$alias->name($self->GetNew);
+	$alias->name($self->new_data);
 	my $other;
 	if ($alias->UpdateName(\$other))
 	{

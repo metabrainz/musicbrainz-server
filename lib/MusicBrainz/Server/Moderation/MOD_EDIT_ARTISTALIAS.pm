@@ -43,7 +43,7 @@ sub PreInsert
 
 	$self->artist($al->row_id);
 	$self->previous_data($al->name);
-	$self->SetNew($newname);
+	$self->new_data($newname);
 	$self->table("artistalias");
 	$self->column("name");
 	$self->row_id($al->id);
@@ -82,7 +82,7 @@ sub DetermineQuality
 sub IsAutoEdit
 {
 	my $self = shift;
-	my ($old, $new) = $self->_normalise_strings($self->previous_data, $self->GetNew);
+	my ($old, $new) = $self->_normalise_strings($self->previous_data, $self->new_data);
 	$old eq $new;
 }
 
@@ -122,7 +122,7 @@ sub ApprovedAction
 	my $alias = $self->{_alias}
 		or die;
 
-	$alias->name($self->GetNew);
+	$alias->name($self->new_data);
 	my $other;
 	if ($alias->UpdateName(\$other))
 	{
@@ -137,7 +137,7 @@ sub ApprovedAction
 	{
 		my $url = "http://" . &DBDefs::WEB_SERVER
 			. "/showaliases.html?artistid=" . $other->row_id;
-		my $newname = $self->GetNew;
+		my $newname = $self->new_data;
 		$message = "There is already an alias called '$newname' (see $url)"
 			. " - duplicate aliases are not yet supported";
 	}

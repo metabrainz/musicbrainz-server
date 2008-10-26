@@ -43,7 +43,7 @@ sub PreInsert
 
 	$self->artist($release->artist);
 	$self->previous_data($release->name);
-	$self->SetNew($newname);
+	$self->new_data($newname);
 	$self->table("album");
 	$self->column("name");
 	$self->row_id($release->id);
@@ -72,7 +72,7 @@ sub DetermineQuality
 sub IsAutoEdit
 {
 	my $this = shift;
-	my ($old, $new) = $this->_normalise_strings($this->previous_data, $this->GetNew);
+	my ($old, $new) = $this->_normalise_strings($this->previous_data, $this->new_data);
 	$old eq $new;
 }
 
@@ -98,7 +98,7 @@ sub CheckPrerequisites
 	}
 
 	# FIXME utf-8 length required
-	if (length($self->GetNew) > 255)
+	if (length($self->new_data) > 255)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This name is too long - the maximum allowed length is 255 characters");
 		return STATUS_ERROR;
@@ -118,7 +118,7 @@ sub ApprovedAction
 	return $status if $status;
 
 	my $release = $this->{_album};
-	$release->name($this->GetNew);
+	$release->name($this->new_data);
 	$release->UpdateName;
 
 	STATUS_APPLIED;

@@ -42,7 +42,7 @@ sub PreInsert
 
 	$self->artist($track->artist->id);
 	$self->previous_data($track->sequence);
-	$self->SetNew(0+$newseq);
+	$self->new_data(0+$newseq);
 	$self->table("albumjoin");
 	$self->column("sequence");
 	$self->row_id($track->sequence_id);
@@ -120,7 +120,7 @@ sub ApprovedAction
 	# (but if you do that, it makes it very hard to swap/rotate
 	# tracks within an album).
 
-	$track->sequence($this->GetNew);
+	$track->sequence($this->new_data);
 	$track->UpdateSequence;
 
 	STATUS_APPLIED;

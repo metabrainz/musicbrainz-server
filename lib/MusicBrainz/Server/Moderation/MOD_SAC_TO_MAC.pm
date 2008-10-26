@@ -52,7 +52,7 @@ sub PreInsert
 	$self->artist($al->artist);
 	$self->row_id($al->id);
 	$self->previous_data($ar->name);
-	$self->SetNew($movetova);
+	$self->new_data($movetova);
 }
 
 sub PostLoad

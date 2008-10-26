@@ -76,7 +76,7 @@ sub PreInsert
            CDTOCId => $cdtoc->id
     );
 
-    $self->SetNew($self->ConvertHashToNew(\%new));
+    $self->new_data($self->ConvertHashToNew(\%new));
 	$self->previous_data($prevdurs);
 	$self->artist($release->artist);
 	$self->table("album");
@@ -88,7 +88,7 @@ sub PostLoad
 {
 	my $self = shift;
 
-	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->GetNew)
+	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->new_data)
 		or die;
 	($self->{"albumid"}, $self->{"checkexists-album"}) = ($self->row_id, 1);
 } 

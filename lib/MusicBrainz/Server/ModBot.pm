@@ -581,7 +581,7 @@ sub CheckModificationForFailedDependencies
 	for($i = 0;; $i++)
 	{
 	  	# FIXME this regex looks too slack for my liking
-		if ($mod->GetNew() =~ m/Dep$i=(.*)/m)
+		if ($mod->new_data() =~ m/Dep$i=(.*)/m)
 		{
 			#print localtime() . " : Mod: " . $mod->id() . " depmod: $1\n"
 			#	if $fDebug;

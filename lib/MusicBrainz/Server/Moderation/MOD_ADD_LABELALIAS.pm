@@ -42,7 +42,7 @@ sub PreInsert
 	defined $newalias or die;
 
 	$self->previous_data($ar->name);
-	$self->SetNew($newalias);
+	$self->new_data($newalias);
 	$self->table("label");
 	$self->column("name");
 	$self->row_id($ar->id);
@@ -86,7 +86,7 @@ sub ApprovedAction
 	$al->table("LabelAlias");
 
 	my $other;
-	if ($al->Insert($self->row_id, $self->GetNew, \$other, 1))
+	if ($al->Insert($self->row_id, $self->new_data, \$other, 1))
 	{
 		return STATUS_APPLIED;
 	}

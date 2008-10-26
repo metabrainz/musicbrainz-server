@@ -56,7 +56,7 @@ sub PreInsert
 	$self->artist($release->artist);
 	$self->row_id($release->id);
 	$self->previous_data($artist->name);
-	$self->SetNew($new);
+	$self->new_data($new);
 }
 
 sub PostLoad
@@ -64,7 +64,7 @@ sub PostLoad
 	my $this = shift;
 
 	# new.name might be undef (in which case, name==sortname)
-  	@$this{qw( new.sortname new.name new.artistid new.movetracks)} = split /\n/, $this->GetNew;
+  	@$this{qw( new.sortname new.name new.artistid new.movetracks)} = split /\n/, $this->new_data;
 
     # If the name was blank and the new artist id ended up in its slot, swap the two values
 	if ($this->{'new.name'} =~ /^\d+$/ && !defined $this->{'new.artistid'})

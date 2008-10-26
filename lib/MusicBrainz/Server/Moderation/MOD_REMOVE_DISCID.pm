@@ -83,7 +83,7 @@ sub PreInsert
 		FullTOC => $cdtoc->toc,
 		CDTOCId => $cdtoc->id,
 	);
-	$self->SetNew($self->ConvertHashToNew(\%new));
+	$self->new_data($self->ConvertHashToNew(\%new));
 }
 
 sub PostLoad
@@ -93,7 +93,7 @@ sub PostLoad
 	# 1. the word "DELETE"
 	# 2. blank
 	# 3. a hash of AlbumName,AlbumId,FullTOC,CDTOCId.
-	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->GetNew)
+	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->new_data)
 		|| {};
 		
 	# verify if release still exists in Moderation.ShowModType method.

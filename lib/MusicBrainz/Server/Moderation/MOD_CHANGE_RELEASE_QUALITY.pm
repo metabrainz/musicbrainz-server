@@ -83,13 +83,13 @@ sub PreInsert
 	
 	$self->table("album");
 	$self->column("id");
-	$self->SetNew($self->ConvertHashToNew(\%new));
+	$self->new_data($self->ConvertHashToNew(\%new));
 }
 
 sub PostLoad
 {
 	my $self = shift;
-	my $new = $self->ConvertNewToHash($self->GetNew);
+	my $new = $self->ConvertNewToHash($self->new_data);
 	my @releases;
     my $l = &ModDefs::QUALITY_HIGH;
     my $quality;
@@ -126,7 +126,7 @@ sub GetQualityChangeDirection
 sub CheckPrerequisites
 {
 	my $self = shift;
-	my $new = $self->ConvertNewToHash($self->GetNew)
+	my $new = $self->ConvertNewToHash($self->new_data)
 		or die;
 
 	my @releases;
@@ -176,7 +176,7 @@ sub CheckPrerequisites
 sub AdjustModPending
 {
 	my ($self, $adjust) = @_;
-	my $new = $self->ConvertNewToHash($self->GetNew)
+	my $new = $self->ConvertNewToHash($self->new_data)
 		or die;
 
 	my @releases;

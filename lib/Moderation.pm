@@ -904,7 +904,7 @@ sub CreateFromId
 			$edit->artist($artist);
 			$edit->type($row[5]);
 			$edit->previous_data($row[6]);
-			$edit->SetNew($row[7]);
+			$edit->new_data($row[7]);
 			$edit->expire_time($row[8]);
 			$edit->yes_votes($row[10]);
 			$edit->no_votes($row[11]);
@@ -1108,7 +1108,7 @@ sub InsertModeration
 		$this->row_id(0);
 		$this->dep_mod(0);
 		$this->previous_data("");
-		$this->SetNew("");
+		$this->new_data("");
 		$this->PreInsert(%opts);
 
 		goto SUPPRESS_INSERT if $this->{suppress_insert};
@@ -1156,7 +1156,7 @@ sub InsertModeration
                 ?, NOW() + INTERVAL ?, 0, 0, 0, ?
             )",
             $this->table, $this->column, $this->row_id,
-            $this->previous_data, $this->GetNew,
+            $this->previous_data, $this->new_data,
             $this->moderator->id, $this->artist->id, $this->type,
             $this->dep_mod,
             &ModDefs::STATUS_OPEN, sprintf("%d days", $level->{duration}),
@@ -1368,7 +1368,7 @@ sub moderation_list
 		$edit->status($r->{status});
 		$edit->row_id($r->{rowid});
 		$edit->previous_data($r->{prevvalue});
-		$edit->SetNew($r->{newvalue});
+		$edit->new_data($r->{newvalue});
 		$edit->yes_votes($r->{yesvotes});
 		$edit->no_votes($r->{novotes});
 		$edit->dep_mod($r->{depmod});
@@ -1697,7 +1697,7 @@ sub Type
 ################################################################################
 
 # PostLoad is called after an object of this class has been instantiated
-# and its fields have been set via ->previous_data, ->SetNew etc.  The class should
+# and its fields have been set via ->previous_data, ->new_data etc.  The class should
 # then prepare any internal fields it requires, e.g. parse 'prev' and 'new'
 # into various internal fields.  An exception should be thrown if appropriate,
 # e.g. if 'prev' or 'new' don't parse as required.  The return value is

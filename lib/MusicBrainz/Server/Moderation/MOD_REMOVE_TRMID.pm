@@ -57,7 +57,7 @@ sub PreInsert
 		ClientVersion => $clientversion,
 	);
 
-	$self->SetNew($self->ConvertHashToNew(\%new));
+	$self->new_data($self->ConvertHashToNew(\%new));
 
 	# This is one of those mods where we give the user instant gratification,
 	# then undo the mod later if it's rejected.
@@ -69,7 +69,7 @@ sub PreInsert
 sub PostLoad
 {
 	my $self = shift;
-	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->GetNew)
+	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->new_data)
 		or die;
 		
 	my $new = $self->{'new_unpacked'};

@@ -41,7 +41,7 @@ sub PreInsert
 	my $newalias = $opts{'newalias'};
 	defined $newalias or die;
 
-	# Check that the alias $self->GetNew does not exist
+	# Check that the alias $self->new_data does not exist
 	require MusicBrainz::Server::Alias;
 	my $al = MusicBrainz::Server::Alias->new($self->{DBH});
 	$al->table("ArtistAlias");
@@ -61,7 +61,7 @@ sub PreInsert
 
 	$self->artist($ar->id);
 	$self->previous_data($ar->name);
-	$self->SetNew($newalias);
+	$self->new_data($newalias);
 	$self->table("artist");
 	$self->column("name");
 	$self->row_id($ar->id);
@@ -97,17 +97,17 @@ sub CheckPrerequisites
 		return STATUS_FAILEDPREREQ;
 	}
 
-	# Check that the alias $self->GetNew does not exist
+	# Check that the alias $self->new_data does not exist
 	require MusicBrainz::Server::Alias;
 	my $al = MusicBrainz::Server::Alias->new($self->{DBH});
 	$al->table("ArtistAlias");
 
-	if (my $other = $al->newFromName($self->GetNew))
+	if (my $other = $al->newFromName($self->new_data))
 	{
 		my $url = "http://" . &DBDefs::WEB_SERVER
 			. "/showaliases.html?artistid=" . $other->row_id;
 
-		my $note = "There is already an alias called '".$self->GetNew."'"
+		my $note = "There is already an alias called '".$self->new_data."'"
 			. " (see $url)"
 			. " - duplicate aliases are not yet supported";
 
@@ -130,7 +130,7 @@ sub ApprovedAction
 	$al->table("ArtistAlias");
 
 	my $other;
-	if ($al->Insert($self->row_id, $self->GetNew, \$other))
+	if ($al->Insert($self->row_id, $self->new_data, \$other))
 	{
 		return STATUS_APPLIED;
 	}
@@ -143,7 +143,7 @@ sub ApprovedAction
 	{
 		my $url = "http://" . &DBDefs::WEB_SERVER
 			. "/showaliases.html?artistid=" . $other->row_id;
-		my $newname = $self->GetNew;
+		my $newname = $self->new_data;
 		$message = "There is already an alias called '$newname' (see $url)"
 			. " - duplicate aliases are not yet supported";
 	}

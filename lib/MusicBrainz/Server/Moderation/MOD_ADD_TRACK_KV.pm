@@ -151,13 +151,13 @@ sub PreInsert
 	$self->artist($artistid); # use track artist (or release artist if no track artist)
 	$self->row_id($newtrackid);
 	$self->previous_data($release->name);
-	$self->SetNew($self->ConvertHashToNew(\%new));
+	$self->new_data($self->ConvertHashToNew(\%new));
 }
 
 sub PostLoad
 {
 	my $self = shift;
-	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->GetNew)
+	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->new_data)
 		or die;
 		
 	# extract trackid, albumid from new_unpacked hash

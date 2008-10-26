@@ -290,13 +290,13 @@ sub PreInsert
 		if $artistmodid;
 
 	# Only one thing left to do...
-	$self->SetNew($self->ConvertHashToNew(\%new));
+	$self->new_data($self->ConvertHashToNew(\%new));
 }
 
 sub PostLoad
 {
 	my $self = shift;
-	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->GetNew)
+	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->new_data)
 		or die;
 		
 	# extract albumid from new_unpacked hash
