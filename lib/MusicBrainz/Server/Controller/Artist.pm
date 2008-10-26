@@ -538,16 +538,6 @@ sub add_release_tracks : Private
                       $c->req->params->{step} == 1 &&
                       $form->validate($c->req->params);
 
-
-    my @unconfirmed;
-    for my $i (1 .. $track_count)
-    {
-        unless ($form->value("artist_id_$i"))
-        {
-            push @unconfirmed, $form->value("artist_$i");
-        }
-    }
-    $c->session->{wizard__add_release__unconfirmed_artists} = \@unconfirmed;
 }
 
 sub add_release_confirm_artists : Private

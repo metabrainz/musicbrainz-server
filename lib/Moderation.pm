@@ -803,14 +803,12 @@ sub previous_data
     return $self->{prev};
 }
 
-sub GetNew
+sub new_data
 {
-   return $_[0]->{new};
-}
+    my ($self, $new_data) = @_;
 
-sub SetNew
-{
-   $_[0]->{new} = $_[1];
+    if (defined $new_data) { $self->{new} = $new_data; }
+    return $self->{new};
 }
 
 sub GetVote

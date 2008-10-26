@@ -50,8 +50,8 @@
     <td class="under_info">&nbsp;</td>
     <td class="changes">
       [% INCLUDE "moderation/mods/${moderation.template}.tt"
-                  new=(moderation.new_unpacked  || moderation.new) 
-                 prev=(moderation.prev_unpacked || moderation.prev) %]
+                  new=(moderation.new_unpacked  || moderation.new_data) 
+                 prev=(moderation.prev_unpacked || moderation.prev_data) %]
     </td>
     <td class="vote_choice">
       <table>
