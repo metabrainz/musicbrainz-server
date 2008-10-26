@@ -485,11 +485,11 @@ sub add_release : Chained('artist')
     my ($self, $c) = @_;
 
     my $system        = $c->session->{wizard} || {};
-    my $current_state = $c->session->{wizard_step} || 'MusicBrainz::Server::AddRelease::TrackCount';
+    my $current_state = $c->session->{wizard_step} ||
+                        'MusicBrainz::Server::Controller::AddRelease::TrackCount';
 
     # Where are we?
-    $current_state->require;
-    my $state = $current_state->new($c, $system);
+    my $state = $c->comp($current_state);
 
     while(defined $state)
     {
@@ -497,7 +497,10 @@ sub add_release : Chained('artist')
         $c->stash->{template} = "add_release/" . $state->template;
 
         $state->init;
-        $state = $state->execute;
+        my $next_state = $state->execute;
+
+        last unless defined $next_state;
+        $state = $c->comp("MusicBrainz::Server::Controller::AddRelease::$next_state");
     }
 
     $c->session->{wizard} = $system;

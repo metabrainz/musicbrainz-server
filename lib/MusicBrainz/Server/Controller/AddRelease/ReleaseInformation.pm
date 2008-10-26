@@ -1,16 +1,16 @@
-package MusicBrainz::Server::AddRelease::ReleaseInformation;
+package MusicBrainz::Server::Controller::AddRelease::ReleaseInformation;
 
 use strict;
 use warnings;
 
-use base 'MusicBrainz::Server::AddRelease::State';
+use base 'MusicBrainz::Server::Controller::AddRelease';
 
 sub init
 {
     my $self = shift;
 
-    my $c = $self->{c};
-    my $s = $self->{system};
+    my $c = $self->context;
+    my $s = $self->system;
 
     $self->{form} = $c->form(undef, 'AddRelease::Tracks');
 
