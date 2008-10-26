@@ -6,6 +6,7 @@ use warnings;
 use base 'Catalyst::Controller';
 
 use DBDefs;
+use MusicBrainz::Server::Vote;
 
 =head1 NAME
 
@@ -45,10 +46,8 @@ sub show : Chained('moderation')
     $c->forward('/user/login');
 
     my $add_note = $c->form(undef, 'Moderation::AddNote');
-    my $vote     = $c->form(undef, 'Moderation::Vote');
 
     $c->stash->{add_note} = $add_note;
-    $c->stash->{vote    } = $vote;
 
     $c->stash->{expire_action} = \&ModDefs::GetExpireActionText;
     $c->stash->{template     } = 'moderation/show.tt';
@@ -84,23 +83,44 @@ POST only method to enter votes on a moderation
 
 =cut
 
-sub vote : Chained('moderation')
+sub enter_votes : Local
 {
     my ($self, $c) = @_;
 
     $c->forward('/user/login');
 
-    my $moderation = $c->stash->{moderation};
+    return unless $c->form_posted;
 
-    my $form = $c->form($moderation, 'Moderation::Vote');
-    $form->context($c);
+    my %votes;
 
-    if ($c->form_posted && $form->validate($c->req->params))
+    while(my ($field, $vote) = each %{ $c->req->params })
     {
-        $form->vote;
+        my ($id) = $field =~ m/vote_(\d+)/;
+        if (defined $id)
+        {
+            $votes{$id} = $vote;
+        }
     }
 
-    $c->detach('show');
+    my $sql  = new Sql($c->mb->{DBH});
+    my $vote = new MusicBrainz::Server::Vote($c->mb->{DBH});
+    
+    eval
+    {
+        $sql->Begin;
+        $vote->InsertVotes(\%votes, $c->user->id);
+        $sql->Commit;
+    };
+
+    if ($@)
+    {
+        my $err = $@;
+        $sql->Rollback;
+
+        die "Could not enter vote: $err";
+    }
+
+    $c->forward('/moderation/open');
 }
 
 =head2 approve
@@ -219,7 +239,8 @@ sub open : Local
 
     $c->forward('/user/login');
 
-    $c->stash->{edits} = $c->model('Moderation')->list_open(25, 0);
+    $c->stash->{template} = 'moderation/open.tt';
+    $c->stash->{edits   } = $c->model('Moderation')->list_open(25, 0);
 }
 
 1;

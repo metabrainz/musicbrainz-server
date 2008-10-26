@@ -1,5 +1,6 @@
 [%- WRAPPER 'layout.tt' title='Open Moderations' -%]
 
+[% WRAPPER 'forms/form.tt' quiet=1 custom=1 action=c.uri_for('/moderation/enter_votes') %]
 <table class="moderation_list">
 [%- FOREACH moderation=edits -%]
   <tr class="seperator">
@@ -54,26 +55,7 @@
                  prev=(moderation.prev_unpacked || moderation.prev_data) %]
     </td>
     <td class="vote_choice">
-      <table>
-        <tr>
-        [%- options = [
-            { label => 'Yes',     value => 'y', id => 'yes' },
-            { label => 'No',      value => 'n', id => 'no' },
-            { label => 'Abstain', value => 'a', id => 'abs' },
-            { label => 'No Vote', value => '',  id => 'nv' },
-        ] -%]
-        [% FOR opt=options %]
-          <td>
-            <input id="id_vote_[% opt.id %]_[% moderation.id %]"
-                   name="vote_[% moderation.id %]"
-                   type="radio" value="[% opt.value %]" /><br />
-            <label for="id_vote_[% opt.id %]_[% moderation.id %]">
-              [% opt.label %]
-            </label>
-          </td>
-        [% END %]
-        </tr>
-      </table>
+      [% INCLUDE "moderation/vote_options.tt" %]
     </td>
   </tr>
 
@@ -84,5 +66,11 @@
   [% END %]
 [%- END -%]
 </table>
+
+<div style="text-align: right;">
+  [% INCLUDE 'forms/submit.tt' label='Enter votes' %]
+</div>
+
+[% END %]
 
 [%- END -%]

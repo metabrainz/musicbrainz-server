@@ -58,6 +58,7 @@ table.moderation_list .actions {
 
 .vote_choice {
     text-align: center;
+    min-width: 150pt;
 }
 
 .vote_choice table {

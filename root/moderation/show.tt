@@ -71,9 +71,8 @@
     <th>My Vote</th>
     <td>
       <p></p>
-      [% WRAPPER 'forms/form.tt' quiet=1 custom=1 action=c.entity_url(moderation, 'vote') %]
-        [% INCLUDE 'forms/widget.tt' widget=vote.field('choice') %]
-        [% INCLUDE 'forms/submit.tt' label="Enter Vote" %]
+      [% WRAPPER 'forms/form.tt' quiet=1 custom=1 action=c.uri_for('/moderation/enter_votes') %]
+      [% INCLUDE 'moderation/vote_options.tt' %]
       [% END %]
     </td>
   </tr>
