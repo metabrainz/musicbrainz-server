@@ -71,6 +71,10 @@
             {
                 $query = "release:($query)(barcode:($query) !release:($query))";
             }
+            elsif ($session{"as_type"} eq 'label')
+            {
+                $query = "label:($query)(code:($query) !label:($query))";
+            }
         }
 
 		my $docurl = 	'http://'
