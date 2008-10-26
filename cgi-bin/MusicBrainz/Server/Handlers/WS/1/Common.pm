@@ -1071,11 +1071,11 @@ sub xml_search
         {
             $query .= " AND asin:" . $args->{asin};
         }
-        if ($args->{lang} > 0)
+        if ($args->{lang})
         {
             $query .= " AND lang:" . $args->{lang};
         }
-        if ($args->{script} > 0)
+        if ($args->{script})
         {
             $query .= " AND script:" . $args->{script};
         }
