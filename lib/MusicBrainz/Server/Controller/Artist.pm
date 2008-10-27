@@ -484,26 +484,93 @@ sub add_release : Chained('artist')
 {
     my ($self, $c) = @_;
 
+    $c->forward('/user/login');
+
     my $system        = $c->session->{wizard} || {};
-    my $current_state = $c->session->{wizard_step} ||
-                        'MusicBrainz::Server::Controller::AddRelease::TrackCount';
+    my $current_state = $c->session->{wizard_steap} ||
+                        'add_release_track_count';
 
-    # Where are we?
-    my $state = $c->comp($current_state);
+    $c->forward($current_state);
+}
 
-    while(defined $state)
+sub add_release_track_count : Private
+{
+    my ($self, $c) = @_;
+
+    $c->session->{wizard_step} = 'add_release_track_count';
+
+    my $form = $c->form(undef, 'AddRelease::TrackCount');
+    $c->stash->{template} = 'add_release/track_count.tt';
+
+    return unless $c->form_posted &&
+                  $form->validate($c->req->params);
+
+    $c->session->{wizard}->{track_count} = $form->value('track_count');
+
+    $c->forward('add_release_information');
+}
+
+sub add_release_information :Private
+{
+    my ($self, $c) = @_;
+
+    $c->session->{wizard_step} = 'add_release_information';
+
+    my $form = $c->form(undef, 'AddRelease::Tracks');
+
+    my $track_count = $c->session->{wizard}->{track_count};
+    $c->stash->{track_count} = $track_count;
+
+    $form->add_tracks($track_count);
+
+    $c->stash->{template} = 'add_release/tracks.tt';
+
+    return unless $c->form_posted &&
+                  $form->validate($c->req->params);
+    
+    $c->session->{wizard}->{tracks} = [];
+    $c->session->{wizard}->{artist} = { name => $form->value('artist') };
+
+    for my $i (1 .. $track_count)
     {
-        $c->session->{wizard_step} = ref $state;
-        $c->stash->{template} = "add_release/" . $state->template;
+        my $track = $form->value("track_$i");
+        $track->{artist} = { name => $form->value("artist_$i") };
 
-        $state->init;
-        my $next_state = $state->execute;
-
-        last unless defined $next_state;
-        $state = $c->comp("MusicBrainz::Server::Controller::AddRelease::$next_state");
+        push @{ $c->session->{wizard}->{tracks} }, $track;
     }
 
-    $c->session->{wizard} = $system;
+    $c->forward('add_release_confirm_artists');
+}
+
+sub add_release_confirm_artists : Private
+{
+    my ($self, $c) = @_;
+
+    $c->session->{wizard_step} = 'add_release_confirm_artists';
+
+    my $id = $c->req->query_params->{id};
+
+    my $track_number;
+
+    # Make sure we have some artists to confirm:
+    for my $i (1 .. $self->system->{track_count} )
+    {
+        unless (defined $self->system->{tracks}->[$i - 1]->{artist}->{id})
+        {
+            $track_number = $i - 1;
+            last;
+        }
+    }
+
+    $c->forward('add_release_track_count') unless defined $track_number;
+
+    if (defined $id)
+    {
+        $self->system->{tracks}->[$track_number]->{artist}->{id} = $id;
+    }
+    
+    # The user has not made a choice, handle searching still
+    $c->forward('/search/filter_artist');
 }
 
 sub add_alias : Chained('artist')

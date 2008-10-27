@@ -1,0 +1,6 @@
+[% WRAPPER "layout.tt" %]
+[% WRAPPER 'components/box.tt' header='Confirm artist' %]
+  [% BLOCK create_link; "?id=${entity.id}"; END %]
+  [% INCLUDE "components/search.tt" entities=artists search_label="Artist:" %]
+[% END %]
+[% END %]
