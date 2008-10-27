@@ -1,5 +1,4 @@
-[% META title = "Donations" %]
-[% WRAPPER "layout.tt" %]
+[% WRAPPER "layout.tt" title="Donations" %]
 
 <h2>Donations</h2>
 

@@ -2,7 +2,7 @@
 [% META title = "User Profile" %]
 [% META extra_css = "user.css" %]
 
-[% WRAPPER "layout.tt" %]
+[% WRAPPER "layout.tt" title="Editor \"$profile.name\"" %]
 
 [% BLOCK property %]
   <dt>[% name %]:</dt>

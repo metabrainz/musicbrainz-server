@@ -1,4 +1,4 @@
-[% WRAPPER 'layout.tt' %]
+[% WRAPPER 'layout.tt' title="Account Created" %]
 
 [% WRAPPER 'components/box.tt' header="Account Created" %]
   <p>Congratulations, your new account has been created and you are now logged into MusicBrainz!</p>

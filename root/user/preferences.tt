@@ -4,7 +4,7 @@
   [% END %]
 [% END %]
 
-[% WRAPPER "layout.tt" %]
+[% WRAPPER "layout.tt" title="Preferences" %]
 
 [% WRAPPER "forms/form.tt" custom=1 %]
 

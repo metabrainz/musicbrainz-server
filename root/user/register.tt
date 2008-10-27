@@ -1,4 +1,4 @@
-[% WRAPPER "layout.tt" %]
+[% WRAPPER "layout.tt" title="Create an Account" %]
 
 [% WRAPPER "components/box.tt" header="Create an Account" %]
 <ul>

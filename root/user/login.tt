@@ -1,5 +1,4 @@
-[% META title = "Login" %]
-[% WRAPPER "layout.tt" %]
+[% WRAPPER "layout.tt" title="Login" %]
 
 [% WRAPPER "components/box.tt" header="Login" %]
   <p>Please login using the form below. Note that the password field <em>is</em> case sensitive.</p>
