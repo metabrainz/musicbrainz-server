@@ -22,4 +22,7 @@ ALTER TABLE albummeta ALTER COLUMN dateadded SET DEFAULT now();
 -- Change the track name to TEXT to allow longer than 255 char titles
 ALTER TABLE track ALTER COLUMN name TYPE TEXT;
 
+-- Delete users preference 'vote_show_novote' (ticket #2569)
+DELETE FROM moderator_preference WHERE name = 'vote_show_novote';
+
 COMMIT;
