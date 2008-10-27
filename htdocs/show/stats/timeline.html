@@ -49,7 +49,7 @@ var types =
 						["releases", "count.album"],
 						["VA releases", "count.album.various"],
 						["releases w/ discid", "count.album.has_discid"],
-						["discids", "count.discid"],
+						["discids", "count.discid"]
 					]
 			   ],
 	track    : [ "Track and PUID", 
@@ -58,22 +58,31 @@ var types =
 						[ "puid ids", "count.puid"],
 						[ "tracks w/ puid", "count.track.has_puid"],
 						[ "trm ids", "count.trm"],
-						[ "tracks w/ trm", "count.track.has_trm"],
+						[ "tracks w/ trm", "count.track.has_trm"]
 					]
 			   ],
 	edit     : [ "Edit activity", 
 					[
 						[ "open edits", "count.moderation.open"],
-						[ "voted per week", "count.moderator.votelastweek" ],
-						[ "edited per week", "count.moderator.editlastweek" ],
+						[ "active editors per week", "count.moderator.editlastweek" ],
+						[ "active voters per week", "count.moderator.votelastweek" ]
 					]
                ],
-	ar       : [ "Advanced relationships", 
+	ar1      : [ "Artist & label relationships", 
 					[
 						[ "artist-artist", "count.ar.links.l_artist_artist"],
 						[ "artist-url", "count.ar.links.l_artist_url"],
-						[ "artist-track", "count.ar.links.l_artist_track"],
-						[ "label-url", "count.ar.links.l_label_url"],
+						[ "label-label", "count.ar.links.l_label_label"],
+						[ "label-url", "count.ar.links.l_label_url"]
+					]
+			   ],
+	ar2      : [ "Release & track relationships", 
+					[
+						[ "album-artist", "count.ar.links.l_album_artist"],
+						[ "album-url", "count.ar.links.l_album_url"],
+						[ "track-artist", "count.ar.links.l_artist_track"],
+						[ "track-url", "count.ar.links.l_track_url"],
+						[ "album-album", "count.ar.links.l_album_album"],
 						[ "track-track", "count.ar.links.l_track_track"]
 					]
 			   ],
@@ -81,23 +90,23 @@ var types =
 					[
 						[ "artist tags", "count.tag.raw.artist"],
 						[ "release tags", "count.tag.raw.release"],
-						[ "track tags", "count.tag.raw.artist"],
-						[ "label tags", "count.tag.raw.label"],
+						[ "track tags", "count.tag.raw.track"],
+						[ "label tags", "count.tag.raw.label"]
 					]
 			   ],
 	rating   : [ "Ratings", 
 					[
 						[ "artist ratings", "count.rating.raw.artist"],
 						[ "release ratings", "count.rating.raw.release"],
-						[ "track ratings", "count.rating.raw.artist"],
-						[ "label ratings", "count.rating.raw.label"],
+						[ "track ratings", "count.rating.raw.track"],
+						[ "label ratings", "count.rating.raw.label"]
 					]
 			   ],
 };
 
-var maxPlotLines = 5;
-var colors = ['#F7A11A', '#846DA3', '#0CC92F', '#C90C19', '#45B6CE'];
-var linesVisible = [1, 1, 1, 1, 1];
+var maxPlotLines = 6;
+var colors = ['#F7A11A', '#846DA3', '#0CC92F', '#C90C19', '#45B6CE', '#FF00FF'];
+var linesVisible = [1, 1, 1, 1, 1, 1];
 var currentType = 0;
 
 function loadGraph(type, showLines)
@@ -236,7 +245,8 @@ EOT
 View [ <a href="#" onclick="loadGraph('artist');">artist/album</a> |
 <a href="#" onclick="loadGraph('track');">track/puid</a> |
 <a href="#" onclick="loadGraph('edit');">edit activity</a> |
-<a href="#" onclick="loadGraph('ar');">advanced relationships</a> |
+<a href="#" onclick="loadGraph('ar1');">artist/label relationships</a> |
+<a href="#" onclick="loadGraph('ar2');">release/track relationships</a> |
 <a href="#" onclick="loadGraph('tag');">tags</a> |
 <a href="#" onclick="loadGraph('rating');">ratings</a> ]
 </p>
@@ -252,6 +262,7 @@ View [ <a href="#" onclick="loadGraph('artist');">artist/album</a> |
 <span id="legend-color-2">&nbsp;</span><a id="legend-text-2" href="#" onclick="toggle(2);" class="shownplotline"> </a> 
 <span id="legend-color-3">&nbsp;</span><a id="legend-text-3" href="#" onclick="toggle(3);" class="shownplotline"> </a> 
 <span id="legend-color-4">&nbsp;</span><a id="legend-text-4" href="#" onclick="toggle(4);" class="shownplotline"> </a> 
+<span id="legend-color-5">&nbsp;</span><a id="legend-text-5" href="#" onclick="toggle(5);" class="shownplotline"> </a> 
 </div>
 <br/>
 
