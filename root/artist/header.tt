@@ -39,7 +39,7 @@
            { link => c.entity_url(artist, 'edit'), text => "Edit Artist" },
            { link => c.entity_url(artist, 'merge'), text => "Merge Into" },
            { link => c.entity_url(artist, 'subscribe'), text => "Subscribe" },
-           { link => c.entity_url(artist, 'add_release'), text => "Add Release" },
+#           { link => c.entity_url(artist, 'add_release'), text => "Add Release" },
            { link => c.entity_url(artist, 'add_alias'), text => "Add Alias" },
            { link => c.entity_url(artist, 'import'), text => "Import Release" },
            { link => c.entity_url(artist, 'add_non_album'), text => "Add Non-Album Tracks" },

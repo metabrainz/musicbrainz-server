@@ -283,7 +283,7 @@ sub PreInsert
 	(my $artistmodid) = $sql->SelectSingleValue(
 		"SELECT id FROM moderation_open WHERE type = " . &ModDefs::MOD_ADD_ARTIST
 		. " AND rowid = ?",
-		$self->artist,
+		$self->artist->id,
 	);
 
 	$new{"Dep0"} = $artistmodid

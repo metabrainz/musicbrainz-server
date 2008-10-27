@@ -20,7 +20,7 @@ MusicBrainz::Server::EditForm - base for forms that enter moderations
     sub build_options
     {
         my $self = shift;
-        return ( artist => $self->item );
+        return { artist => $self->item };
     }
 
     sub profile

@@ -3,7 +3,11 @@ package MusicBrainz::Server::Form::AddRelease::Tracks;
 use strict;
 use warnings;
 
-use base 'MusicBrainz::Server::Form';
+use base 'MusicBrainz::Server::Form::EditForm';
+
+use Rose::Object::MakeMethods::Generic(
+    scalar => [ 'track_count' ]
+);
 
 sub profile
 {
@@ -22,6 +26,7 @@ sub profile
 sub add_tracks
 {
     my ($self, $count) = @_;
+    $self->track_count($count);
 
     for my $i (1..$count)
     {
@@ -35,6 +40,26 @@ sub add_tracks
         $self->add_field($track_field);
         $self->add_field($artist_field);
     }
+}
+
+sub mod_type { ModDefs::MOD_ADD_RELEASE }
+
+sub build_options
+{
+    my ($self, $artists_id_map) = @_;
+
+    my $opts = {
+        AlbumName => $self->value('title'),
+        artist    => $self->item->id,
+    };
+
+    for my $i (1 .. $self->track_count)
+    {
+        $opts->{"Track$i"}    = $self->value("track_$i")->{name};
+        $opts->{"ArtistID$i"} = $artists_id_map->{"artist_$i"}->{id};
+    }
+
+    return $opts;
 }
 
 1;

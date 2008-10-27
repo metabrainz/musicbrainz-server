@@ -5,6 +5,8 @@ use warnings;
 
 use base qw(Catalyst::Controller);
 
+use MusicBrainz::Server::Release;
+
 =head2 _current_step
 
 Change the current step of the wizard, but do not cause the wizard to be refreshed
@@ -98,7 +100,7 @@ sub add_release_information : Private
 {
     my ($self, $c) = @_;
 
-    my $form = $c->form(undef, 'AddRelease::Tracks');
+    my $form = $c->form($c->stash->{artist}, 'AddRelease::Tracks');
     my $w = $self->_wizard_data($c);
 
     if (!$c->form_posted)
@@ -114,10 +116,15 @@ sub add_release_information : Private
 
     $c->stash->{template} = 'add_release/tracks.tt';
 
-    return unless $c->form_posted &&
-                  $form->validate($c->req->params);
-
-    $w->{release_info} = $c->req->params;
+    if (!$c->form_posted)
+    {
+        return unless $form->validate($w->{release_info});
+    }
+    else
+    {
+        return unless $form->validate($c->req->params);
+        $w->{release_info} = $c->req->params;
+    }
 
     for my $i (1 .. $track_count)
     {
@@ -131,17 +138,28 @@ sub add_release_information : Private
         }
     }
 
-    $self->_change_step($c, 'add_release_confirm_artists');
+    if (scalar keys %{ $w->{unconfirmed_artists} })
+    {
+        $self->_change_step($c, 'add_release_confirm_artists');
+    }
+    else
+    {
+        $form->context($c);
+        $form->insert($w->{confirmed_artists});
+    }
 }
 
 sub add_release_confirm_artists : Private
 {
     my ($self, $c) = @_;
 
-    my $unconfirmed = $self->_wizard_data($c)->{unconfirmed_artists};
+    my $w           = $self->_wizard_data($c);
+    my $unconfirmed = $w->{unconfirmed_artists};
 
-    $self->_change_step($c, 'add_release_information')
-        unless (scalar keys %$unconfirmed);
+    if (scalar keys %$unconfirmed == 0)
+    {
+        $self->_change_step($c, 'add_release_information');
+    }
 
     # Choose who to confirm
     my $key = (keys %$unconfirmed)[0];
@@ -155,15 +173,17 @@ sub add_release_confirm_artists : Private
 
         delete $unconfirmed->{$key};
 
-        $self->_wizard_data($c)->{confirmed_artists}->{$key}->{name} = $artist->name;
-        $self->_wizard_data($c)->{confirmed_artists}->{$key}->{id  } = $id;
+        $w->{confirmed_artists}->{$key}->{name} = $artist->name;
+        $w->{confirmed_artists}->{$key}->{id  } = $id;
+
+        $w->{release_info}->{$key} = $artist->name;
 
         $self->_change_step($c, 'add_release_confirm_artists');
     }
 
     $c->forward('/search/filter_artist');
 
-    $c->stash->{confirming} = $self->_wizard_data($c)->{release_info}->{$key};
+    $c->stash->{confirming} = $w->{release_info}->{$key};
     $c->stash->{key       } = $key;
 
     $c->stash->{template  } = 'add_release/confirm_artist.tt';
