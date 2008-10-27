@@ -392,18 +392,6 @@ sub subscriptions : Chained('artist')
     $c->stash->{template} = 'artist/subscribe.tt';
 }
 
-=head2 add_release
-
-Add a release to this artist
-
-=cut
-
-sub add_release : Local
-{
-    my ($self, $c) = @_;
-    die "This is a stub method";
-}
-
 =head2 import
 
 Import a release from another source (such as FreeDB)
@@ -468,109 +456,6 @@ sub change_quality : Chained('artist')
                       "into the moderation queue";
 
     $c->response->redirect($c->entity_url($artist, 'show'));
-}
-
-=head2 add_release
-
-Allow users to add a new release to this artist.
-
-This is a multipage wizard which consists of specifying the track count,
-then the track information. Following screens allow the user to confirm
-the artists/labels (or create them), and then finally enter an edit note.
-
-=cut
-
-sub add_release : Chained('artist')
-{
-    my ($self, $c) = @_;
-
-    $c->forward('/user/login');
-
-    my $system        = $c->session->{wizard} || {};
-    my $current_state = $c->session->{wizard_steap} ||
-                        'add_release_track_count';
-
-    $c->forward($current_state);
-}
-
-sub add_release_track_count : Private
-{
-    my ($self, $c) = @_;
-
-    $c->session->{wizard_step} = 'add_release_track_count';
-
-    my $form = $c->form(undef, 'AddRelease::TrackCount');
-    $c->stash->{template} = 'add_release/track_count.tt';
-
-    return unless $c->form_posted &&
-                  $form->validate($c->req->params);
-
-    $c->session->{wizard}->{track_count} = $form->value('track_count');
-
-    $c->forward('add_release_information');
-}
-
-sub add_release_information :Private
-{
-    my ($self, $c) = @_;
-
-    $c->session->{wizard_step} = 'add_release_information';
-
-    my $form = $c->form(undef, 'AddRelease::Tracks');
-
-    my $track_count = $c->session->{wizard}->{track_count};
-    $c->stash->{track_count} = $track_count;
-
-    $form->add_tracks($track_count);
-
-    $c->stash->{template} = 'add_release/tracks.tt';
-
-    return unless $c->form_posted &&
-                  $form->validate($c->req->params);
-    
-    $c->session->{wizard}->{tracks} = [];
-    $c->session->{wizard}->{artist} = { name => $form->value('artist') };
-
-    for my $i (1 .. $track_count)
-    {
-        my $track = $form->value("track_$i");
-        $track->{artist} = { name => $form->value("artist_$i") };
-
-        push @{ $c->session->{wizard}->{tracks} }, $track;
-    }
-
-    $c->forward('add_release_confirm_artists');
-}
-
-sub add_release_confirm_artists : Private
-{
-    my ($self, $c) = @_;
-
-    $c->session->{wizard_step} = 'add_release_confirm_artists';
-
-    my $id = $c->req->query_params->{id};
-
-    my $track_number;
-
-    # Make sure we have some artists to confirm:
-    for my $i (1 .. $self->system->{track_count} )
-    {
-        unless (defined $self->system->{tracks}->[$i - 1]->{artist}->{id})
-        {
-            $track_number = $i - 1;
-            last;
-        }
-    }
-
-    $c->forward('add_release_track_count') unless defined $track_number;
-
-    if (defined $id)
-    {
-        $self->system->{tracks}->[$track_number]->{artist}->{id} = $id;
-    }
-    
-    # The user has not made a choice, handle searching still
-    $c->forward('/search/filter_artist');
 }
 
 sub add_alias : Chained('artist')
