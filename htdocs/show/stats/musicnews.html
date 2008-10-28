@@ -41,20 +41,20 @@
 	<table>
 	<tr>
 		<td colspan="2">
-			<& /comp/statistics/stat_wrapper, type=> 'upcoming_releases', expire => '1 hour', busy_lock => '1min' &>
+			<& /comp/statistics/upcoming_releases, maxitems => 10 &>
 		</td>
 	</tr>
 	<tr>
 		<td colspan="2">
-			<& /comp/statistics/stat_wrapper, type=> 'recent_releases', expire => '1 hour', busy_lock => '1min' &>
+			<& /comp/statistics/recent_releases, maxitems => 10 &>
 		</td>
 	</tr>
 	<tr>
 		<td>
-		    <& /comp/statistics/stat_wrapper, type=> 'recently_deceased', expire => '1 hour', busy_lock => '1min' &>
+		    <& /comp/statistics/recently_deceased, maxitems => 10 &>
 		</td>
 		<td>
-		    <& /comp/statistics/stat_wrapper, type=> 'recently_brokenup', expire => '1 hour', busy_lock => '1min' &>
+		    <& /comp/statistics/recently_brokenup, maxitems => 10 &>
 		</td>
 	</tr>
 	</tr>

@@ -35,7 +35,8 @@
 
 my $mb = $m->comp("/comp/dblogin");
 my $stats = MusicBrainz::Server::Statistic->new($mb->{DBH});
-my ($upcoming, $numitems) = $stats->GetUpcomingReleases($maxitems, $offset);
+my ($upcoming, $numitems, $timestamp) = $stats->GetUpcomingReleases($maxitems, $offset);
+$timestamp = MusicBrainz::Server::DateTime::format_datetime_since($timestamp);
 
 </%perl>
 
@@ -74,5 +75,6 @@ my ($upcoming, $numitems) = $stats->GetUpcomingReleases($maxitems, $offset);
         </tr>
 %	}
 	</table>
+	<p class="lastupdated">Updated <% $timestamp %></p>
 
 %# vi: set ts=4 sw=4 ft=mason :

@@ -35,7 +35,8 @@
 
 my $mb = $m->comp("/comp/dblogin");
 my $stats = MusicBrainz::Server::Statistic->new($mb->{DBH});
-my ($brokenup, $numitems) = $stats->GetRecentlyBrokenUp($maxitems, $offset);
+my ($brokenup, $numitems, $timestamp) = $stats->GetRecentlyBrokenUp($maxitems, $offset);
+$timestamp = MusicBrainz::Server::DateTime::format_datetime_since($timestamp);
 
 </%perl>
 
@@ -72,5 +73,6 @@ my ($brokenup, $numitems) = $stats->GetRecentlyBrokenUp($maxitems, $offset);
 		</tr>
 %	}
 	</table>
+	<p class="lastupdated">Updated <% $timestamp %></p>
 
 %# vi: set ts=4 sw=4 ft=mason :
