@@ -14,7 +14,6 @@ sub profile
     return {
         required => {
             title   => 'Text',
-            artist  => 'Text',
             event_1 => '+MusicBrainz::Server::Form::Field::ReleaseEvent',
         },
         optional => {
@@ -57,6 +56,7 @@ sub build_options
     {
         $opts->{"Track$i"}    = $self->value("track_$i")->{name};
         $opts->{"ArtistID$i"} = $artists_id_map->{"artist_$i"}->{id};
+        $opts->{"TrackDur$i"} = $self->value("track_$i")->{duration};
     }
 
     return $opts;

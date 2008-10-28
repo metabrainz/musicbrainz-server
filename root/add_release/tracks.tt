@@ -5,7 +5,11 @@
   <fieldset>
     <legend>Release Information</legend>
     [% INCLUDE 'forms/widget.tt' widget=form.field('title') label='Title:' %]
-    [% INCLUDE 'forms/widget.tt' widget=form.field('artist') label='Artist:' %]
+    
+    <div class="row">
+      <label class="required">Artist:</label>
+      <div class="input">[% INCLUDE 'components/entity-link.tt' entity=artist %]</div>
+    </div>
   </fieldset>
 
   <fieldset>

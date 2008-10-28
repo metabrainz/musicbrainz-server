@@ -103,12 +103,6 @@ sub add_release_information : Private
     my $form = $c->form($c->stash->{artist}, 'AddRelease::Tracks');
     my $w = $self->_wizard_data($c);
 
-    if (!$c->form_posted)
-    {
-        # Try and pre fill with information in the session
-        $form->field('artist')->value($w->{artist}->{name});
-    }
-
     my $track_count = $w->{track_count};
     $c->stash->{track_count} = $track_count;
 
@@ -116,11 +110,11 @@ sub add_release_information : Private
 
     $c->stash->{template} = 'add_release/tracks.tt';
 
-    if (!$c->form_posted)
+    if (!$c->form_posted && $w->{release_info})
     {
         return unless $form->validate($w->{release_info});
     }
-    else
+    elsif ($c->form_posted)
     {
         return unless $form->validate($c->req->params);
         $w->{release_info} = $c->req->params;
@@ -142,10 +136,20 @@ sub add_release_information : Private
     {
         $self->_change_step($c, 'add_release_confirm_artists');
     }
-    else
+    elsif ($c->form_posted)
     {
         $form->context($c);
-        $form->insert($w->{confirmed_artists});
+        my @mods = $form->insert($w->{confirmed_artists});
+
+        delete $c->session->{wizard};
+        delete $c->session->{wizard_step};
+
+        my @add_mods = grep { $_->type eq ModDefs::MOD_ADD_RELEASE } @mods;
+
+        die "Release could not be created"
+            unless @add_mods;
+
+        $c->response->redirect($c->uri_for('/release', $add_mods[0]->row_id));
     }
 }
 
