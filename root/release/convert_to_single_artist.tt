@@ -1,4 +1,4 @@
-[%- WRAPPER 'release/layout.tt' -%]
+[%- WRAPPER 'release/layout.tt' title="Convert to single artist" -%]
 [%- WRAPPER 'components/box.tt' header='Convert to single artist' -%]
 
 [%- WRAPPER 'forms/form.tt' -%]

@@ -1,4 +1,4 @@
-[% WRAPPER 'track/layout.tt' %]
+[% WRAPPER 'track/layout.tt' title="Edit Track" %]
 [% WRAPPER 'components/box.tt' header="Edit track number, name and duration" %]
 
 [% WRAPPER 'forms/form.tt' %]

@@ -1,4 +1,4 @@
-[% WRAPPER 'release/layout.tt' %]
+[% WRAPPER 'release/layout.tt' title="Move release to another artist" %]
 [% WRAPPER 'components/box.tt' header="Move release to another artist" %]
 
 [% BLOCK create_link; c.entity_url(release, 'move_to', entity.mbid); END %]

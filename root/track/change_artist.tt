@@ -1,4 +1,4 @@
-[%- WRAPPER 'track/layout.tt' -%]
+[%- WRAPPER 'track/layout.tt' title="Change Track Artist" -%]
 [%- WRAPPER 'components/box.tt' header='Change track artist' -%]
 
 [%- WRAPPER 'forms/form.tt' -%]

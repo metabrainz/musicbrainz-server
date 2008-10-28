@@ -1,4 +1,4 @@
-[% WRAPPER "layout.tt" %]
+[% WRAPPER "layout.tt" title="Create Relationship: Relate to URL" %]
 [% WRAPPER 'components/box.tt' header="Relate ${entity.entity_type} to URL" %]
 
 <ul>

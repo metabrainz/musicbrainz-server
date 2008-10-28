@@ -1,4 +1,4 @@
-[%- WRAPPER 'track/layout.tt' -%]
+[%- WRAPPER 'track/layout.tt' title="Change Track Artist" -%]
 [%- WRAPPER 'components/box.tt' header='Change track artist' -%]
 
 [% BLOCK create_link; c.entity_url(track, 'confirm_change_artist', entity.mbid); END %]

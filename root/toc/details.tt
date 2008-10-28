@@ -1,4 +1,4 @@
-[%- WRAPPER 'layout.tt' -%]
+[%- WRAPPER 'layout.tt' title="CD Table of Contents Information" -%]
 
   [% WRAPPER 'components/box.tt' header="CD Table of Contents Information" %]
     <table class="details">

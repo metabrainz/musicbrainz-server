@@ -1,7 +1,6 @@
-[% META title = "Welcome to MusicBrainz!" %]
 [% META extra_css = "index.css" %]
 
-[% WRAPPER "layout.tt" %]
+[% WRAPPER "layout.tt" title="Welcome to Musicbrainz!" %]
 
 <div id="rightSide">
   <h1>News</h1>
