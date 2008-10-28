@@ -185,6 +185,13 @@ sub move : Chained('release')
 
     $c->forward('/user/login');
     $c->forward('/search/filter_artist');
+
+    my $result = $c->stash->{search_result};
+    if (defined $result)
+    {
+        my $release = $c->stash->{release};
+        $c->response->redirect($c->entity_url($release, 'move_to', $result->id));
+    }
 }
 
 sub move_to : Chained('release') Args(1)
@@ -237,6 +244,15 @@ sub convert_to_single_artist : Chained('release')
 
     $c->forward('/user/login');
     $c->forward('/search/filter_artist');
+
+    my $result = $c->stash->{search_result};
+    if (defined $result)
+    {
+        my $release = $c->stash->{release};
+        $c->response->redirect($c->entity_url($release,
+					      'confirm_convert_to_single_artist',
+					      $result->id));
+    }
 }
 
 sub confirm_convert_to_single_artist : Chained('release') Args(1)

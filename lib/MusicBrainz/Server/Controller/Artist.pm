@@ -279,7 +279,17 @@ sub merge : Chained('artist')
     $c->forward('/user/login');
     $c->forward('/search/filter_artist');
 
-    $c->stash->{template} = 'artist/merge_search.tt';
+    my $target = $c->stash->{search_result};
+    if (defined $target)
+    {
+        my $artist = $c->stash->{artist};
+        $c->response->redirect($c->entity_url($artist, 'merge_into',
+					      $target->id));
+    }
+    else
+    {
+        $c->stash->{template} = 'artist/merge_search.tt';
+    }
 }
 
 sub merge_into : Chained('artist') PathPart('merge-into') Args(1)

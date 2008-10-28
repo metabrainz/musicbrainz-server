@@ -1,12 +1,20 @@
 [%- WRAPPER "forms/form.tt" -%]
   [%- INCLUDE "forms/widget.tt" widget=form.field('query') label=search_label -%]
   [%- INCLUDE "forms/submit.tt" label="Search" %]
-[%- END -%]
+[% END %]
 
-[%- IF entities.size -%]
-  <ul>
-  [%- FOREACH entity=entities -%]
-    <li><a href="[% INCLUDE create_link entity=entity %]">[% entity.name %]</a></li>
+[%- IF entities && entities.size -%]
+  [% WRAPPER "forms/form.tt" quiet=1 %]
+    <p>
+      We have found the following results. Please select one of the following,
+      or you can refine your query
+    </p>
+    [%- FOREACH entity=entities -%]
+    <div class="row labelRight">
+      <input type="radio" name="search_id" value="[% entity.id %]">
+      <label for="id_search_[% entity.id %]">[% entity.name %]</label>
+    </div>
+    [% END %]
+    [%- INCLUDE "forms/submit.tt" label="Select" -%]
   [%- END -%]
-  </ul>
 [%- END -%]

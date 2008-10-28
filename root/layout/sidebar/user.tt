@@ -3,9 +3,9 @@
   <li><a href="[% c.uri_for('/user/logout') %]">Logout</a></li>
   <li><a href="[% c.uri_for('/user/preferences') %]">Preferences</a></li>
   <li>
-    <a href="/bad_link">Votes on Edits</a>
+    <a href="[% c.uri_for('/moderation/open') %]">Votes on Edits</a>
     <ul>
-      <li><a href="/bad_link">Subscribed</a></li>
+      <li><a href="[% c.uri_for('/moderation/subscribed') %]">Subscribed</a></li>
     </ul>
   </li>
   <li><a href="http://metabrainz.org/donate">Donate!</a></li>

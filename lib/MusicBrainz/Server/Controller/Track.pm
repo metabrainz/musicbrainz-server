@@ -145,11 +145,20 @@ sub change_artist : Chained('track')
 {
     my ($self, $c) = @_;
 
-    $c->stash->{template} = 'track/change_artist_search.tt';
-
     $c->forward('/user/login');
     $c->forward('/search/filter_artist');
 
+    my $result = $c->stash->{search_result};
+    if (defined $result)
+    {
+        my $track = $c->stash->{track};
+        $c->response->redirect($c->entity_url($track, 'confirm_change_artist',
+					      $result->id));
+    }
+    else
+    {
+        $c->stash->{template} = 'track/change_artist_search.tt';
+    }
 }
 
 sub confirm_change_artist : Chained('track') Args(1)

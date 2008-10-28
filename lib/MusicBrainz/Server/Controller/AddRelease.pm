@@ -160,6 +160,7 @@ sub add_release_confirm_artists : Private
     my $w           = $self->_wizard_data($c);
     my $unconfirmed = $w->{unconfirmed_artists};
 
+    # Do we actually have any artists to confirm?
     if (scalar keys %$unconfirmed == 0)
     {
         $self->_change_step($c, 'add_release_information');
@@ -168,29 +169,27 @@ sub add_release_confirm_artists : Private
     # Choose who to confirm
     my $key = (keys %$unconfirmed)[0];
 
-    my $id      = $c->req->query_params->{id};
-    my $for_key = $c->req->query_params->{for};
+    # Forward to do the artist filter
+    # TODO Could do with a way to pre-fill the query?
+    $c->forward('/search/filter_artist');
 
-    if (defined $id && $for_key eq $key)
+    my $artist = $c->stash->{search_result};
+    if (defined $artist)
     {
-        my $artist = $c->model('Artist')->load($id);
-
-        delete $unconfirmed->{$key};
-
         $w->{confirmed_artists}->{$key}->{name} = $artist->name;
-        $w->{confirmed_artists}->{$key}->{id  } = $id;
+        $w->{confirmed_artists}->{$key}->{id  } = $artist->id;
 
         $w->{release_info}->{$key} = $artist->name;
 
+        delete $unconfirmed->{$key};
         $self->_change_step($c, 'add_release_confirm_artists');
     }
-
-    $c->forward('/search/filter_artist');
-
-    $c->stash->{confirming} = $w->{release_info}->{$key};
-    $c->stash->{key       } = $key;
-
-    $c->stash->{template  } = 'add_release/confirm_artist.tt';
+    else
+    {
+        $c->stash->{confirming} = $w->{release_info}->{$key};
+        $c->stash->{key       } = $key;
+        $c->stash->{template  } = 'add_release/confirm_artist.tt';
+    }
 }
 
 =head2 restart

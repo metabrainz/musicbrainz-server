@@ -249,16 +249,58 @@ sub external : Local
     }
 }
 
+=head2 filter_artist
+
+Provide a form for users to search for an artist. This is a 3 stage form.
+
+=over 4
+
+=item First, the user is presented with the form and enters a query
+
+=item Then the user is presented with a list of search results
+
+=item Finally, the user selects a result and may continue.
+
+=back
+
+To retrieve the item that the user has selected, you should use the
+C<state> method of the current context. For example:
+
+    $c->forward('/search/fitler_artist');
+    if (defined $c->state)
+    {
+        # Do stuff with the artist
+    }
+    else
+    {
+        # No search result yet, probably want to wait
+        # until we have an artist
+    }
+
+=cut
+
 sub filter_artist : Private
 {
     my ($self, $c) = @_;
 
     my $form = $c->form(undef, 'Search::Query');
 
-    return unless $c->form_posted && $form->validate($c->req->params);
+    if ($c->form_posted)
+    {
+        my $id = $c->req->params->{search_id};
+        if (defined $id)
+        {
+            $c->stash->{search_result} = $c->model('Artist')->load($id);
+        }
+        else
+        {
+           return unless $form->validate($c->req->params);
+           my $artists = $c->model('Artist')->direct_search($form->value('query'));
+           $c->stash->{artists} = $artists;
 
-    my $artists = $c->model('Artist')->direct_search($form->value('query'));
-    $c->stash->{artists} = $artists;
+	   return;
+        }
+    }
 }
 
 sub filter_label : Private
