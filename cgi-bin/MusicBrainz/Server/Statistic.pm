@@ -476,6 +476,18 @@ my %stats = (
 		PREREQ => [qw[ count.moderation.open ]],
 		PREREQ_ONLY => 1,
 	},
+	"count.moderation.perday" => {
+		DESC => "Count of edits per day",
+		SQL => "SELECT count(id) FROM moderation_all
+				WHERE opentime >= (now() - interval '1 day')
+					and moderator not in (". &ModDefs::FREEDB_MODERATOR .", ". &ModDefs::MODBOT_MODERATOR .")",
+	},
+	"count.moderation.perweek" => {
+		DESC => "Count of edits per week",
+		SQL => "SELECT count(id) FROM moderation_all
+				WHERE opentime >= (now() - interval '7 days')
+					and moderator not in (". &ModDefs::FREEDB_MODERATOR .", ". &ModDefs::MODBOT_MODERATOR .")",
+	},
 
 	"count.vote.yes" => {
 		DESC => "Count of 'yes' votes",
@@ -504,6 +516,18 @@ my %stats = (
 		DESC => "Count of 'abstain' votes",
 		PREREQ => [qw[ count.vote.yes ]],
 		PREREQ_ONLY => 1,
+	},
+	"count.vote.perday" => {
+		DESC => "Count of votes per day",
+		SQL => "SELECT count(id) FROM vote_all
+				WHERE votetime >= (now() - interval '1 day')
+					and vote <> ". &ModDefs::VOTE_ABS,
+	},
+	"count.vote.perweek" => {
+		DESC => "Count of votes per week",
+		SQL => "SELECT count(id) FROM vote_all
+				WHERE votetime >= (now() - interval '7 days')
+					and vote <> ". &ModDefs::VOTE_ABS,
 	},
 
 	# count active moderators in last week(?)
