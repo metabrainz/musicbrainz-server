@@ -60,8 +60,8 @@ sub default : Path
 {
     my ($self, $c) = @_;
     
-    $c->response->body('Page not found');
-    $c->response->status(404);    
+    $c->response->status(404);
+    $c->stash->{template} = 'main/404.tt';
 }
 
 =head2 end
