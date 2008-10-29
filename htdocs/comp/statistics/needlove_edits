@@ -35,49 +35,31 @@
 
 my $mb = $m->comp("/comp/dblogin");
 my $stats = MusicBrainz::Server::Statistic->new($mb->{DBH});
-my ($hot, $numitems, $timestamp) = $stats->GetHotEdits($maxitems, $offset);
+my ($needlove, $numitems, $timestamp) = $stats->GetNeedLoveEdits($maxitems, $offset);
 $timestamp = MusicBrainz::Server::DateTime::format_datetime_since($timestamp);
 
 </%perl>
 
-%#  Hot edits -- edits that have had many comments/votes
-<h3>Hot edits</h3>
+%#   Need love edits -- edits that have had not votes yes, but are close to expiring
+<h3>Need love edits</h3>
 <table width="100%" style="background-color: #fafafa; border: 1px #000000 solid;">
 	<tr>
-		<td><b>Edit</b></th>
-		<td><b>Comments</b></th>
-		<td><b>Votes</b></th>
-		<td><b>Expire</b></th>
+		<td><b>Edit</b></td>
+		<td><b>Expires</b></td>
 	</tr>
 
-%	foreach my $row (@$hot) {
+%	foreach my $row (@$needlove) {
 	<tr>
 		<td><a href="/show/edit/?editid=<% $row->[0] %>"><% $pager ? '#'.$row->[0].' - ' : '' %><% $row->[1] %></a></td>
-		<td><% $row->[2] %></td>
-		<td><% $row->[3] %></td>
-%   if ($row->[5] < 0) {
-		<td><% MusicBrainz::Server::DateTime::format_datetime_since($row->[4]) %></td>
-%   } else {
-		<td><% MusicBrainz::Server::DateTime::format_datetime_until($row->[4]) %></td>
-%   }
+		<td><% MusicBrainz::Server::DateTime::format_datetime_until($row->[2]) %></td>
 	</tr>
 %   }
-%   if ($pager) {
-        <tr>
-            <td colspan="5">
-			   <& /comp/pageselector, offset => $offset, pagesize => $maxitems, 
-			                          url => '/show/stats/dashboard.html',
-									  args => {type=>'hot_edits'},
-									  numitems => $numitems &>
-            </td>
-        </tr>
-%   } else {
-		<tr>
-			<td colspan="3">
-			[ <a href="dashboard.html?type=hot_edits">see more hot edits</a> ]
-			</td>
-		</tr>
-%	}
+	<tr>
+		<td colspan="3">
+		[ <a href="dashboard.html?type=needlove_edits">see more need love edits</a> ]
+		</td>
+	</tr>
 </table>
 <p class="lastupdated">Updated <% $timestamp %></p>
+
 %# vi: set ts=4 sw=4 ft=mason :

@@ -27,22 +27,74 @@
 	#
 </%perl>
 <%args>
-	$date => ''
 	$type => ''
+	$offset => 0
+	$date => ''
 </%args>
 
-<& /comp/sidebar, pagetitle => "MusicBrainz Dashboard" &>
+<& /comp/sidebar-notitle, pagetitle => "MusicBrainz Dashboard" &>
 
-% if (!$date and !$type) {
 
-    <& /comp/statistics/stat_wrapper, type=> 'edit_stats', expire => '24 hours', busy_lock => '10min' &>
+% if (!$type) {
+
+	<h1>Music Dashboard</h1>
+
+    <& /comp/statistics/edit_stats &>
+    <table width="100%">
+	    <tr>
+		    <td valign="top" width="40%">
+				<& /comp/statistics/hot_edits, maxitems => 10 &>
+			</td>
+		    <td valign="top" width="30%">
+				<& /comp/statistics/needlove_edits, maxitems => 10 &>
+			</td>
+		    <td valign="top" width="30%">
+				<& /comp/statistics/expired_edits, maxitems => 10 &>
+			</td>
+		</tr>
+	</table>
 	<br/>
-    <& /comp/statistics/stat_wrapper, type=> 'hot_edits', expire => '10 min', busy_lock => '1min' &>
-	<br/>
-    <& /comp/statistics/stat_wrapper, type=> 'recent_entities', expire => '5 min', busy_lock => '1min' &>
+    <table width="100%">
+	    <tr>
+		    <td valign="top" width="30%">
+				<& /comp/statistics/lu_artists, maxitems => 10 &>
+			</td>
+		    <td valign="top" width="40%">
+				<& /comp/statistics/lu_releases, maxitems => 10 &>
+			</td>
+		    <td valign="top" width="30%">
+				<& /comp/statistics/lu_labels, maxitems => 10 &>
+			</td>
+		</tr>
+	</table>
 
+% } elsif ($type eq 'hot_edits' || $type eq 'needlove_edits' || $type eq 'expired_edits' ||
+%		   $type eq 'recent_artists' || $type eq 'recent_releases' || $type eq 'recent_labels') {
+	<p> [
+	<a href="dashboard.html">Dashboard</a> 
+%   if ($type ne 'hot_edits') {
+		| <a href="dashboard.html?type=hot_edits">Hot edits</a> 
+%   }
+%   if ($type ne 'needlove_edits') {
+		| <a href="dashboard.html?type=needlove_edits">Need love edits</a> 
+%   }
+%   if ($type ne 'expired_edits') {
+		| <a href="dashboard.html?type=expired_edits">Expired edits</a> 
+%   }
+%   if ($type ne 'recent_artists' || $date) {
+		| <a href="dashboard.html?type=recent_artists">Recently changed artists</a> 
+%   }
+%   if ($type ne 'recent_releases' || $date) {
+		| <a href="dashboard.html?type=recent_releases">Recently changed releases</a> 
+%   }
+%   if ($type ne 'recent_labels' || $date) {
+		| <a href="dashboard.html?type=recent_labels">Recently changed labels</a> 
+%   }
+	]</p>
+%    $type =~ s/recent_//;
+%    $m->comp("/comp/statistics/lu_$type", maxitems => 25, offset => $offset, pager => 1, date => $date);
 % } else {
-   <p>Coming soon!</p>
+	<p>Say what, Willis?</p>
 % }
 
 <& /comp/footer &>

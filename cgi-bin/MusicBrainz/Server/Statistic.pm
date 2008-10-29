@@ -31,6 +31,7 @@ use strict;
 use ModDefs;
 use Sql;
 use MusicBrainz::Server::Cache;
+use Data::Dumper;
 
 sub new
 {
@@ -981,157 +982,281 @@ sub GetStats
 	return $out;
 }
 
-# This function fetches the latest changed rows from a given entity. Supported entities are
-# "artist", "release", "label". Returned is a refrence to an array of (aritst mbid, artist name, update timestamp).
-sub GetLastUpdates
-{
-    my ($self, $entity, $maxitems) = @_;
-	my $sql = Sql->new($self->{DBH});
-
-	$maxitems = 10 if (!defined $maxitems);
-
-    my $meta_entity;
-	if ($entity eq "release")
-	{
-		$entity = "album";
-		$meta_entity = "albummeta";
-	}
-	else
-	{
-		$meta_entity = $entity . "_meta";
-	}
-
-	my $data = $sql->SelectListOfLists("SELECT gid, name, lastupdate 
-	                                      FROM $entity, $meta_entity  
-										 WHERE $entity.id = $meta_entity.id 
-										   AND lastupdate IN (SELECT DISTINCT lastupdate 
-										                                 FROM $meta_entity 
-																	 ORDER BY lastupdate DESC 
-																	    LIMIT ?)
-									  ORDER BY lastupdate DESC
-									     LIMIT 100", $maxitems);
-
-    my (@ret, $row);
-	my $items = [];
-	my $last;
-    foreach $row (@$data)
-	{
-	    if ($last ne $row->[2])
-		{
-			push @ret, [$last, $items] if (scalar(@$items));
-			$last = $row->[2];
-			$items = [];
-		}
-		push @$items, [$row->[0], $row->[1]];
-	}
-	push @ret, [$last, $items] if (scalar(@$items));
-
-	return \@ret;
-}
-
-sub GetHotEdits
-{
-    my ($self, $maxitems) = @_;
-	my $sql = Sql->new($self->{DBH});
-
-	$maxitems = 10 if (!defined $maxitems);
-
-	my $data = $sql->SelectListOfLists(
-		"SELECT c.cmod as edit, c.ctype, comments, votes, c.expiretime, 
-		        CAST((EXTRACT(EPOCH FROM c.expiretime) - EXTRACT(EPOCH FROM now())) AS INTEGER) AS t 
-			   FROM (
-						  SELECT moderation_open.id AS cmod, moderation_open.type AS ctype, 
-						         COUNT(moderation_note_open.id) AS comments, expiretime
-							FROM moderation_open, moderation_note_open 
-						   WHERE moderation_note_open.moderation = moderation_open.id 
-						GROUP BY moderation_open.id, ctype, expiretime
-						ORDER BY comments DESC
-						   LIMIT ?  
-					) AS c, 
-					(
-						  SELECT moderation_open.id AS nmod, moderation_open.type AS vtype, 
-						         count(vote_open.id) AS votes, expiretime
-							FROM moderation_open, vote_open 
-						   WHERE moderation_open.id = vote_open.moderation 
-						GROUP BY moderation_open.id, vtype, expiretime
-						ORDER BY votes desc
-						   LIMIT ?  
-					) AS v
-			  WHERE c.cmod = v.nmod 
-		   ORDER BY votes + comments DESC 
-		      LIMIT ?", ($maxitems * 10), ($maxitems *10), $maxitems);
-	return $data;
-}
-
-sub GetNeedLoveEdits
-{
-    my ($self, $maxitems) = @_;
-	my $sql = Sql->new($self->{DBH});
-
-	$maxitems = 10 if (!defined $maxitems);
-
-	my $data = $sql->SelectListOfLists(
-	    "SELECT moderation_open.id, expiretime, CAST((EXTRACT(EPOCH FROM expiretime) - EXTRACT(EPOCH FROM now())) AS INTEGER) AS t 
-		   FROM moderation_open 
-	  LEFT JOIN vote_open 
-	         ON moderation_open.id = vote_open.moderation 
-		    AND vote_open.id IS NULL 
-		  WHERE expiretime > now()
-       GROUP BY t, moderation_open.id, moderation_open.expiretime
-	   ORDER BY t desc 
-	      limit ?", $maxitems);
-	   
-	return $data;
-}
-  
-sub GetExpiredEdits
-{
-    my ($self, $maxitems) = @_;
-	my $sql = Sql->new($self->{DBH});
-
-	$maxitems = 10 if (!defined $maxitems);
-
-	my $data = $sql->SelectListOfLists(
-	    "SELECT moderation_open.id, expiretime, CAST((EXTRACT(EPOCH FROM expiretime) - EXTRACT(EPOCH FROM now())) AS INTEGER) AS t 
-		   FROM moderation_open 
-	  LEFT JOIN vote_open 
-	         ON moderation_open.id = vote_open.moderation 
-		    AND vote_open.id IS NULL 
-		  WHERE expiretime <= now()
-       GROUP BY t, moderation_open.id, moderation_open.expiretime
-	   ORDER BY t desc 
-	      limit ?", $maxitems);
-	   
-	return $data;
-}
-
 sub GetEditStats
 {
-    my ($self, $maxitems) = @_;
+    my ($self) = @_;
 	my %data;
 
 	my $sql = Sql->new($self->{DBH});
-	$maxitems = 10 if (!defined $maxitems);
 
+	my $obj = MusicBrainz::Server::Cache->get("statistics-edit-stats");
+	my ($data, $timestamp) = ($obj->[0], $obj->[1]);
+	return ($data, $timestamp) if (defined $data);
+
+	$data = {};
 	# Average edit life in the last 14 days
-	$data{edit_life_14_days} = $sql->SelectSingleValue("SELECT to_char(AVG(m.duration), 'DD HH') FROM (
+	$data->{edit_life_14_days} = $sql->SelectSingleValue("SELECT to_char(AVG(m.duration), 'DD HH') FROM (
                                                        SELECT closetime - opentime AS duration 
 														 FROM moderation_closed 
 														WHERE opentime != closetime 
 														  AND closetime - opentime < interval '14 days' 
 												     ORDER BY closetime desc) as m");
-	$data{edit_life_14_days} =~ s/(\d\d) (\d\d)/$1 days $2 hours/;
+	$data->{edit_life_14_days} =~ s/(\d\d) (\d\d)/$1 days $2 hours/;
 
 	# Edits by <timeperiod>
-	#$data{edits_by_week_4_weeks} = $sql->SelectListOfLists("select date_trunc('month', closetime) as date, count(id) as edits from moderation_closed group by date");
+	#$data->{edits_by_week_4_weeks} = $sql->SelectListOfLists("select date_trunc('month', closetime) as date, count(id) as edits from moderation_closed group by date");
 
 	# Edits in the last <timeperiod>
-	$data{edits_in_24_hours} = $sql->SelectSingleValue("select count(id) as edits from moderation_closed where closetime >= now() - interval '1 day'");
+	$data->{edits_in_24_hours} = $sql->SelectSingleValue("select count(id) as edits from moderation_closed where closetime >= now() - interval '1 day'");
 
 	# Edits in the last <timeperiod>
-	$data{edits_in_30_days} = $sql->SelectSingleValue("select count(id) as edits from moderation_closed where closetime >= now() - interval '30 day'");
+	$data->{edits_in_30_days} = $sql->SelectSingleValue("select count(id) as edits from moderation_closed where closetime >= now() - interval '30 day'");
 
-	return \%data;
+    $timestamp = time();
+	MusicBrainz::Server::Cache->set("statistics-edit-stats", [$data, $timestamp], 60 * 60 * 24);
+
+	return ($data, $timestamp);
+}
+
+sub GetHotEdits
+{
+    my ($self, $maxitems, $offset) = @_;
+	my $sql = Sql->new($self->{DBH});
+
+	$maxitems = 10 if (!defined $maxitems);
+
+	my $obj = MusicBrainz::Server::Cache->get("statistics-hot-edits");
+	my ($hot, $numitems, $timestamp) = ($obj->[0], $obj->[1], $obj->[2]);
+
+	if (!defined $hot)
+	{
+		$hot = $sql->SelectListOfLists(
+			"SELECT c.cmod as edit, c.ctype, comments, votes, c.expiretime, 
+					CAST((EXTRACT(EPOCH FROM c.expiretime) - EXTRACT(EPOCH FROM now())) AS INTEGER) AS t 
+				   FROM (
+							  SELECT moderation_open.id AS cmod, moderation_open.type AS ctype, 
+									 COUNT(moderation_note_open.id) AS comments, expiretime
+								FROM moderation_open, moderation_note_open 
+							   WHERE moderation_note_open.moderation = moderation_open.id 
+							GROUP BY moderation_open.id, ctype, expiretime
+							ORDER BY comments DESC
+							   LIMIT 500  
+						) AS c, 
+						(
+							  SELECT moderation_open.id AS nmod, moderation_open.type AS vtype, 
+									 count(vote_open.id) AS votes, expiretime
+								FROM moderation_open, vote_open 
+							   WHERE moderation_open.id = vote_open.moderation 
+							GROUP BY moderation_open.id, vtype, expiretime
+							ORDER BY votes desc
+							   LIMIT 500
+						) AS v
+				  WHERE c.cmod = v.nmod 
+				    AND c.comments > 2
+			   ORDER BY votes + comments DESC");
+
+		my $moderation = Moderation->new($self->{DBH});
+		for(0..scalar(@$hot)-1)
+		{
+			my $obj = $moderation->CreateModerationObject($hot->[$_][1]);
+			$hot->[$_][1] = $obj->Name();
+		}
+
+		$timestamp = time();
+		$numitems = scalar(@$hot);
+		MusicBrainz::Server::Cache->set("statistics-hot-edits", [$hot, $numitems, $timestamp], 5 * 60);
+	}   
+
+	splice(@$hot, 0, $offset) if ($offset);
+	splice(@$hot, $maxitems) if (scalar(@$hot) > $maxitems);
+
+	return ($hot, $numitems, $timestamp);
+}
+
+sub GetNeedLoveEdits
+{
+    my ($self, $maxitems, $offset) = @_;
+	my $sql = Sql->new($self->{DBH});
+
+	$maxitems = 10 if (!defined $maxitems);
+
+	my $obj = MusicBrainz::Server::Cache->get("statistics-needlove-edits");
+	my ($needlove, $numitems, $timestamp) = ($obj->[0], $obj->[1], $obj->[2]);
+	if (!defined $needlove)
+	{
+		$needlove = $sql->SelectListOfLists(
+			"SELECT moderation_open.id, moderation_open.type, expiretime, CAST((EXTRACT(EPOCH FROM expiretime) - EXTRACT(EPOCH FROM now())) AS INTEGER) AS t 
+			   FROM moderation_open 
+		  LEFT JOIN vote_open 
+				 ON moderation_open.id = vote_open.moderation 
+				AND vote_open.id IS NULL 
+			  WHERE expiretime > now()
+		   GROUP BY t, moderation_open.id, moderation_open.type, moderation_open.expiretime
+		   ORDER BY t desc
+		      LIMIT 500");
+
+		my $moderation = Moderation->new($self->{DBH});
+		for(0..scalar(@$needlove)-1)
+		{
+			my $obj = $moderation->CreateModerationObject($needlove->[$_][1]);
+			$needlove->[$_][1] = $obj->Name();
+		}
+
+		$timestamp = time();
+		$numitems = scalar(@$needlove);
+		MusicBrainz::Server::Cache->set("statistics-needlove-edits", [$needlove, $numitems, $timestamp], 5 * 60);
+
+	}   
+
+	splice(@$needlove, 0, $offset) if ($offset);
+	splice(@$needlove, $maxitems) if (scalar(@$needlove) > $maxitems);
+
+	return ($needlove, $numitems, $timestamp);
+}
+  
+sub GetExpiredEdits
+{
+    my ($self, $maxitems, $offset) = @_;
+	my $sql = Sql->new($self->{DBH});
+
+	$maxitems = 10 if (!defined $maxitems);
+
+	my $obj = MusicBrainz::Server::Cache->get("statistics-expired-edits");
+	my ($expired, $numitems, $timestamp) = ($obj->[0], $obj->[1], $obj->[2]);
+	if (!defined $expired)
+	{
+		$expired = $sql->SelectListOfLists(
+			"SELECT moderation_open.id, moderation_open.type, expiretime, CAST((EXTRACT(EPOCH FROM expiretime) - EXTRACT(EPOCH FROM now())) AS INTEGER) AS t 
+			   FROM moderation_open 
+		  LEFT JOIN vote_open 
+				 ON moderation_open.id = vote_open.moderation 
+				AND vote_open.id IS NULL 
+			  WHERE expiretime <= now()
+		   GROUP BY t, moderation_open.id, moderation_open.type, moderation_open.expiretime
+		   ORDER BY t desc
+			  LIMIT 500");
+
+		my $moderation = Moderation->new($self->{DBH});
+		for(0..scalar(@$expired)-1)
+		{
+			my $obj = $moderation->CreateModerationObject($expired->[$_][1]);
+			$expired->[$_][1] = $obj->Name();
+		}
+
+		$timestamp = time();
+		$numitems = scalar(@$expired);
+		MusicBrainz::Server::Cache->set("statistics-expired-edits", [$expired, $numitems, $timestamp], 5 * 60);
+	}   
+
+	splice(@$expired, 0, $offset) if ($offset);
+	splice(@$expired, $maxitems) if (scalar(@$expired) > $maxitems);
+
+	return ($expired, $numitems, $timestamp);
+}
+
+# This function fetches the latest changed rows from a given entity. Supported entities are
+# "artist", "release", "label". Returned is a refrence to an array of (aritst mbid, artist name, update timestamp).
+sub GetLastUpdates
+{
+    my ($self, $entity, $maxitems, $offset) = @_;
+	my $cachekey;
+	my $sql = Sql->new($self->{DBH});
+
+	$maxitems = 10 if (!defined $maxitems);
+
+	$cachekey = "statistics-lu-$entity";
+	my $obj = MusicBrainz::Server::Cache->get($cachekey);
+	my ($lu, $numitems, $timestamp) = ($obj->[0], $obj->[1], $obj->[2]);
+	if (!defined $lu)
+	{
+		my $meta_entity;
+		if ($entity eq "release")
+		{
+			$entity = "album";
+			$meta_entity = "albummeta";
+		}
+		else
+		{
+			$meta_entity = $entity . "_meta";
+		}
+
+		my $data = $sql->SelectListOfLists("SELECT gid, name, lastupdate 
+											  FROM $entity, $meta_entity  
+											 WHERE $entity.id = $meta_entity.id 
+											   AND lastupdate IN (SELECT DISTINCT lastupdate 
+																			 FROM $meta_entity 
+																		 ORDER BY lastupdate DESC 
+																			LIMIT 500)
+										  ORDER BY lastupdate DESC
+										     LIMIT 500");
+
+		my (@ret, $row);
+		my $items = [];
+		my $last;
+		foreach $row (@$data)
+		{
+			if ($last ne $row->[2])
+			{
+				push @ret, [$last, $items] if (scalar(@$items));
+				$last = $row->[2];
+				$items = [];
+			}
+			push @$items, [$row->[0], $row->[1]];
+		}
+		push @ret, [$last, $items] if (scalar(@$items));
+		$lu = \@ret;
+
+		$timestamp = time();
+		$numitems = scalar(@$lu);
+		MusicBrainz::Server::Cache->set($cachekey, [$lu, $numitems, $timestamp], 5 * 60);
+	}
+
+	splice(@$lu, 0, $offset) if ($offset);
+	splice(@$lu, $maxitems) if (scalar(@$lu) > $maxitems);
+
+	return ($lu, $numitems, $timestamp);
+}
+
+sub GetLastUpdatesByDate
+{
+    my ($self, $entity, $date, $maxitems, $offset) = @_;
+	my $cachekey;
+	my $sql = Sql->new($self->{DBH});
+
+	$maxitems = 10 if (!defined $maxitems);
+
+	$cachekey = "statistics-lu-$entity-$date";
+	my $obj = MusicBrainz::Server::Cache->get($cachekey);
+	my ($lu, $numitems, $timestamp) = ($obj->[0], $obj->[1], $obj->[2]);
+	if (!defined $lu)
+	{
+		my $meta_entity;
+		if ($entity eq "release")
+		{
+			$entity = "album";
+			$meta_entity = "albummeta";
+		}
+		else
+		{
+			$meta_entity = $entity . "_meta";
+		}
+
+		$lu = $sql->SelectListOfLists("SELECT gid, name, lastupdate 
+											  FROM $entity, $meta_entity  
+											 WHERE $entity.id = $meta_entity.id 
+											   AND lastupdate = timestamp ?
+										  ORDER BY lastupdate DESC
+										     LIMIT 500", $date);
+
+		$timestamp = time();
+		$numitems = scalar(@$lu);
+		MusicBrainz::Server::Cache->set($cachekey, [$lu, $numitems, $timestamp], 10 * 60);
+	}
+
+	splice(@$lu, 0, $offset) if ($offset);
+	splice(@$lu, $maxitems) if (scalar(@$lu) > $maxitems);
+
+	return ($lu, $numitems, $timestamp);
 }
 
 sub GetRecentReleases

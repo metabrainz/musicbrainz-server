@@ -27,14 +27,13 @@
 	#
 </%perl>
 <%args>
-	$date => ''
 	$type => ''
 	$offset => 0
 </%args>
 
 <& /comp/sidebar-notitle, pagetitle => "Music News" &>
 
-% if (!$date and !$type) {
+% if (!$type) {
 
 	<h1>Music News</h1>
 

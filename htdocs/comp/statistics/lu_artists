@@ -26,30 +26,35 @@
 	# $Id: sidemenu-panel-topvoters 8548 2006-10-19 07:41:02Z dave $
 	#
 </%perl>
+<%args>
+	$offset => 0
+	$maxitems => 25
+	$pager => 0
+	$date => ''
+</%args>
 <%perl>
 
 my $mb = $m->comp("/comp/dblogin");
 my $stats = MusicBrainz::Server::Statistic->new($mb->{DBH});
-my $edit_stats = $stats->GetEditStats();
-
-my $artists = $stats->GetLastUpdates("artist", 10);
-my $releases = $stats->GetLastUpdates("release", 10);
-my $labels = $stats->GetLastUpdates("label", 10);
+my ($artists, $numitems, $timestamp);
+if ($date)
+{
+	($artists, $numitems, $timestamp) = $stats->GetLastUpdatesByDate("artist", $date, $maxitems, $offset);
+}
+else
+{
+	($artists, $numitems, $timestamp) = $stats->GetLastUpdates("artist", $maxitems, $offset);
+}
+$timestamp = MusicBrainz::Server::DateTime::format_datetime_since($timestamp);
 
 </%perl>
 
-	<table style="background-color: #fafafa; border: 1px #000000 solid;">
-	<tr>
-		<td valign="top" style="border-right: 1px grey solid;">
-		<& /comp/statistics/entities_list, data => $artists, type => 'artist' &>
-		</td>
-		<td valign="top" style="border-right: 1px grey solid;">
-		<& /comp/statistics/entities_list, data => $releases, type => 'release' &>
-		</td>
-		<td valign="top">
-		<& /comp/statistics/entities_list, data => $labels, type => 'label' &>
-		</td>
-	</tr>
-	</table>
+% if ($date) {
+	<h3>Artists changed <% MusicBrainz::Server::DateTime::format_datetime_since($date) %></h3>
+% } else {
+	<h3>Recently changed artists</h3>
+% }
+<& /comp/statistics/entities_list, data => $artists, numitems => $numitems, offset => $offset, 
+                                   type => 'artist', timestamp => $timestamp, pager => $pager, date => $date &>
 
 %# vi: set ts=4 sw=4 ft=mason :

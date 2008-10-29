@@ -29,30 +29,67 @@
 <%args>
 	$data
 	$type 
+	$timestamp
+	$pager => 0
+	$numitems
+	$maxitems => 25
+	$offset => 0
+	$date => ''
 </%args>
 
 <%perl>
-my ($item, $count, $date);
+my ($item, $count, $name);
+$name = "recent_$type" . "s";
+
+my $args = {type=>$name};
+$args->{date} = $date if ($date);
 </%perl>
 
-<p>recently changed <% $type %>s:</p>
-<table>
-<tr> <th>Last updated</th> <th><% ucfirst($type) %></th> </tr>
-% foreach $date (@$data) {
+<table style="width: 100%; background-color: #fafafa; border: 1px #000000 solid; padding: 10px;">
+<tr> 
+	<td><b><% ucfirst($type) %></b></td> 
+%	if (!$date) {
+		<td><b>Updated</b></td>
+%	}
+</tr>
+% foreach $item (@$data) {
     <tr>
-	    <td valign="top"><% MusicBrainz::Server::DateTime::format_datetime_since($date->[0]) %></td>
 	    <td>
-%       $count = 0;
-%       foreach $item (@{$date->[1]}) {
-		    <span class="link<% $type %>-icon"><a href="/<% $type %>/<% $item->[0] %>.html"><% $item->[1] %></a></span><br/>
-%			if ($count++ == 2) {
-				[ <a href="/show/stats/dashboard.html?date=<% $date->[0] %>&type=<% $type %>">See all 
-				<% scalar(@{$date->[1]}) %> items</a> ]
-%				last;
+%		if ($date) {
+			<span class="link<% $type %>-icon"><a href="/<% $type %>/<% $item->[0] %>.html"><% $item->[1] %></a></span><br/>
+%		} else {
+%			$count = 0;
+%			foreach $date (@{$item->[1]}) {
+				<span class="link<% $type %>-icon"><a href="/<% $type %>/<% $date->[0] %>.html"><% $date->[1] %></a></span><br/>
+%				if ($count++ == 2) {
+					[ <a href="/show/stats/dashboard.html?date=<% uri_escape($item->[0]) %>&type=recent_<% $type %>s">See all 
+					<% scalar(@{$item->[1]}) %> items</a> ]
+%					last;
+%				}
 %			}
 %		}
 		</td>
+%		if (!$date) {
+		    <td valign="top" NOWRAP><% MusicBrainz::Server::DateTime::format_datetime_since($item->[0]) %></td>
+%		}
     </tr>
 % }
+%   if ($pager) {
+        <tr>
+            <td colspan="5">
+			   <& /comp/pageselector, offset => $offset, pagesize => $maxitems, 
+			                          url => '/show/stats/dashboard.html',
+									  args => $args,
+									  numitems => $numitems &>
+            </td>
+        </tr>
+%   } else {
+        <tr>
+            <td colspan="5">
+            [ <a href="dashboard.html?type=<% $name %>">see more recently changed <% $type . "s" %></a> ]
+            </td>
+        </tr>
+%	}
 </table>
+<p class="lastupdated">Updated <% $timestamp %></p>
 %# vi: set ts=4 sw=4 ft=mason :

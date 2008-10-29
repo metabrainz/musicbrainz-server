@@ -35,46 +35,38 @@
 
 my $mb = $m->comp("/comp/dblogin");
 my $stats = MusicBrainz::Server::Statistic->new($mb->{DBH});
-my ($hot, $numitems, $timestamp) = $stats->GetHotEdits($maxitems, $offset);
+my ($expired, $numitems, $timestamp) = $stats->GetExpiredEdits($maxitems, $offset);
 $timestamp = MusicBrainz::Server::DateTime::format_datetime_since($timestamp);
 
 </%perl>
 
-%#  Hot edits -- edits that have had many comments/votes
-<h3>Hot edits</h3>
+%#  Expired edits. Expired edits that have not had any votes yet
+<h3>Expired edits</h3>
 <table width="100%" style="background-color: #fafafa; border: 1px #000000 solid;">
 	<tr>
-		<td><b>Edit</b></th>
-		<td><b>Comments</b></th>
-		<td><b>Votes</b></th>
-		<td><b>Expire</b></th>
+		<td><b>Edit</b></td>
+		<td><b>Expired</b></td>
 	</tr>
 
-%	foreach my $row (@$hot) {
+% foreach my $row (@$expired) {
 	<tr>
 		<td><a href="/show/edit/?editid=<% $row->[0] %>"><% $pager ? '#'.$row->[0].' - ' : '' %><% $row->[1] %></a></td>
-		<td><% $row->[2] %></td>
-		<td><% $row->[3] %></td>
-%   if ($row->[5] < 0) {
-		<td><% MusicBrainz::Server::DateTime::format_datetime_since($row->[4]) %></td>
-%   } else {
-		<td><% MusicBrainz::Server::DateTime::format_datetime_until($row->[4]) %></td>
-%   }
+		<td><% MusicBrainz::Server::DateTime::format_datetime_since($row->[2]) %></td>
 	</tr>
-%   }
+% }
 %   if ($pager) {
         <tr>
             <td colspan="5">
 			   <& /comp/pageselector, offset => $offset, pagesize => $maxitems, 
 			                          url => '/show/stats/dashboard.html',
-									  args => {type=>'hot_edits'},
+									  args => {type=>'expired_edits'},
 									  numitems => $numitems &>
             </td>
         </tr>
 %   } else {
 		<tr>
 			<td colspan="3">
-			[ <a href="dashboard.html?type=hot_edits">see more hot edits</a> ]
+			[ <a href="dashboard.html?type=expired_edits">see more expired edits</a> ]
 			</td>
 		</tr>
 %	}
