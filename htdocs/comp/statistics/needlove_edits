@@ -54,10 +54,23 @@ $timestamp = MusicBrainz::Server::DateTime::format_datetime_since($timestamp);
 		<td><% MusicBrainz::Server::DateTime::format_datetime_until($row->[2]) %></td>
 	</tr>
 %   }
+%   if ($pager) {
+        <tr>
+            <td colspan="2">
+			   <& /comp/pageselector, offset => $offset, pagesize => $maxitems, 
+			                          url => '/show/stats/dashboard.html',
+									  args => {type=>'needlove_edits'},
+									  numitems => $numitems &>
+            </td>
+        </tr>
+%   } else {
+		<tr>
+			<td colspan="2">
+			[ <a href="dashboard.html?type=needlove_edits">see more need love edits</a> ]
+			</td>
+		</tr>
+%	}
 	<tr>
-		<td colspan="3">
-		[ <a href="dashboard.html?type=needlove_edits">see more need love edits</a> ]
-		</td>
 	</tr>
 </table>
 <p class="lastupdated">Updated <% $timestamp %></p>

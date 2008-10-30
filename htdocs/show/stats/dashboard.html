@@ -91,11 +91,13 @@
 		| <a href="dashboard.html?type=recent_labels">Recently changed labels</a> 
 %   }
 	]</p>
-%    $type =~ s/recent_//;
-%    $m->comp("/comp/statistics/lu_$type", maxitems => 25, offset => $offset, pager => 1, date => $date);
-% } else {
-	<p>Say what, Willis?</p>
-% }
+%   if ($type eq 'hot_edits' || $type eq 'needlove_edits' || $type eq 'expired_edits') {
+%		$m->comp("/comp/statistics/$type", maxitems => 25, offset => $offset, pager => 1, date => $date);
+%   } else {
+%		$type =~ s/recent_//;
+%		$m->comp("/comp/statistics/lu_$type", maxitems => 25, offset => $offset, pager => 1, date => $date);
+%	} 
+% } 
 
 <& /comp/footer &>
 %# vi: set ts=4 sw=4 ft=mason :
