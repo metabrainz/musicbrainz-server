@@ -1,8 +1,8 @@
-[% WRAPPER "layout.tt" title="Donations" %]
+[% WRAPPER "layout.tt" title="Donation check" %]
 
-<h2>Donations</h2>
+<h2>Donation check</h2>
 
-[% IF donateinfo.nag %]
+[% IF nag > 0 %]
     <p>
     We have not received a donation from you recently. If you have just made a PayPal donation,
     we have not received a notification from PayPal yet. Please wait a few minutes and reload this page to check again.
@@ -13,8 +13,8 @@
     </p>
 [% ELSE %]
     <p>Thank you for contributing to Musicbrainz.</p>
-    [% IF donateinfo.days %]
-        <p>You won't be nagged for another [% donateinfo.days %] days.</p>
+    [% IF days %]
+        <p>You won't be nagged for another [% days %] days.</p>
     [% ELSE %]
         <p>You'll never be nagged again!</p>
     [% END %]

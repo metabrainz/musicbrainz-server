@@ -2,5 +2,5 @@
   <li><a href="[% c.uri_for('/user/login') %]">Login</a></li>
   <li><a href="[% c.uri_for('/user/register') %]">Register</a></li>
   <li><a href="[% c.uri_for('/user/forgotPassword') %]">Forgot Password</a></li>
-  <li><a href="[% c.uri_for('/user/donate') %]">Donate!</a></li>
+  <li><a href="http://metabrainz.org/donate">Donate!</a></li>
 </ul>
