@@ -338,13 +338,12 @@ Check the status of donations and ask for one.
 sub donate : Local
 {
     my ($self, $c) = @_;
+
+    $c->forward('/user/login');
+
     my $user = $c->user;
-
-    $c->response->redirect($c->uri_for('/user/login'))
-        unless $user;
-
     my @donateinfo = MusicBrainz::Server::Editor::NagCheck($user);
-    
+
     $c->stash->{nag} = $donateinfo[0];
     $c->stash->{days} = int($donateinfo[1]);
     $c->stash->{template} = 'user/donate.tt';
