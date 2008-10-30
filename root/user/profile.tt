@@ -20,7 +20,7 @@
 %]
 
 [% edit_account_options = [
-     { link => c.uri_for('/user/editProfile'), text => "Edit" },
+     { link => c.uri_for('/user/edit'), text => "Edit" },
      { link => c.uri_for('/user/changePassword'), text => "Change Password" },
      { link => c.uri_for('/user/preferences'), text => "Preferences" },
      { link => c.uri_for('/user/donate'), text => "Check Donation Status" },

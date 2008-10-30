@@ -11,6 +11,10 @@
     [% INCLUDE "forms/widget.tt" widget=form.field('rememberMe') label="Log in permenantly" %]
     [% INCLUDE "forms/widget.tt" widget=form.field('singleIp') label="Only from this IP address" %]
   [% END %]
+  <ul>
+    <li><a href="[% c.uri_for('/user/register') %]">Create a new account</a></li>
+    <li><a href="[% c.uri_for('/user/forgotPassword') %]">Forgot your password?</a></li>
+  </ul>
 [% END %]
 
 [% END %]

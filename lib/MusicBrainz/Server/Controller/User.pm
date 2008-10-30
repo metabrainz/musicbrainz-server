@@ -101,6 +101,10 @@ new user.
 sub register : Local
 {
     my ($self, $c) = @_;
+    if ($c->user_exists)
+    {
+        $c->detach('profile');
+    }
 
     my $form = $c->form(undef, 'User::Register');
     $c->stash->{form} = $form;
@@ -194,14 +198,14 @@ sub forgotPassword : Local
     }
 }
 
-=head2 editProfile
+=head2 edit
 
 Display a form to allow users to edit their profile, or (if a POST
 request is received), update the profile data in the database.
 
 =cut
 
-sub edit_profile : Local
+sub edit : Local
 {
     my ($self, $c) = @_;
 
@@ -217,7 +221,7 @@ sub edit_profile : Local
     $c->flash->{ok} = "Your profile has been sucessfully updated";
 }
 
-=head2 change_password
+=head2 changePassword
 
 Allow users to change their password. This displays a form prompting
 for their old password and a new password (with confirmation), which
@@ -225,7 +229,7 @@ when use to update the database data when we receive a valid POST request.
 
 =cut
 
-sub change_password : Local
+sub changePassword : Local
 {
     my ($self, $c) = @_;
 

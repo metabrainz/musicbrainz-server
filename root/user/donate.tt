@@ -1,7 +1,6 @@
 [% WRAPPER "layout.tt" title="Donation check" %]
 
-<h2>Donation check</h2>
-
+[% WRAPPER "components/box.tt" header="Donation Check" %]
 [% IF nag > 0 %]
     <p>
     We have not received a donation from you recently. If you have just made a PayPal donation,
@@ -18,6 +17,7 @@
     [% ELSE %]
         <p>You'll never be nagged again!</p>
     [% END %]
+[% END %]
 [% END %]
 
 [% END %]
