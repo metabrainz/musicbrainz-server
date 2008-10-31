@@ -128,6 +128,14 @@ sub merge : Chained('label')
 
     $c->forward('/user/login');
     $c->forward('/search/filter_label');
+
+    my $result = $c->stash->{search_result};
+    if (defined $result)
+    {
+        my $label = $c->stash->{label};
+	$c->response->redirect($c->entity_url($label, 'merge_into',
+					      $result->id));
+    }
 }
 
 sub merge_into : Chained('label') PathPart('into') Args(1)

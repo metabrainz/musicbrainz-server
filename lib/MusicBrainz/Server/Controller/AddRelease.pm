@@ -132,25 +132,39 @@ sub add_release_information : Private
         }
     }
 
-    if (scalar keys %{ $w->{unconfirmed_artists} })
+    # TODO support multiple release events
+    for my $i (1 .. 1)
     {
-        $self->_change_step($c, 'add_release_confirm_artists');
+        my $key           = "event_$i.label";
+	my $current_value = $w->{release_info}->{$key};
+
+        if ($current_value ne $w->{confirmed_labels}->{$key}->{name})
+	{
+            $w->{unconfirmed_labels} ||= {};
+            $w->{unconfirmed_labels}->{$key} = $current_value;
+        }
     }
-    elsif ($c->form_posted)
-    {
-        $form->context($c);
-        my @mods = $form->insert($w->{confirmed_artists});
 
-        delete $c->session->{wizard};
-        delete $c->session->{wizard_step};
+    $self->_change_step($c, 'add_release_confirm_artists')
+        if scalar keys %{ $w->{unconfirmed_artists} };
 
-        my @add_mods = grep { $_->type eq ModDefs::MOD_ADD_RELEASE } @mods;
+    $self->_change_step($c, 'add_release_confirm_labels')
+        if scalar keys %{ $w->{unconfirmed_labels} };
 
-        die "Release could not be created"
-            unless @add_mods;
+    return unless $c->form_posted;
 
-        $c->response->redirect($c->uri_for('/release', $add_mods[0]->row_id));
-    }
+    $form->context($c);
+    my @mods = $form->insert($w->{confirmed_artists});
+
+    delete $c->session->{wizard};
+    delete $c->session->{wizard_step};
+
+    my @add_mods = grep { $_->type eq ModDefs::MOD_ADD_RELEASE } @mods;
+
+    die "Release could not be created"
+        unless @add_mods;
+
+    $c->response->redirect($c->uri_for('/release', $add_mods[0]->row_id));
 }
 
 sub add_release_confirm_artists : Private
@@ -163,7 +177,7 @@ sub add_release_confirm_artists : Private
     # Do we actually have any artists to confirm?
     if (scalar keys %$unconfirmed == 0)
     {
-        $self->_change_step($c, 'add_release_information');
+        $self->_change_step($c, 'add_release_confirm_labels');
     }
 
     # Choose who to confirm
@@ -187,8 +201,39 @@ sub add_release_confirm_artists : Private
     else
     {
         $c->stash->{confirming} = $w->{release_info}->{$key};
-        $c->stash->{key       } = $key;
         $c->stash->{template  } = 'add_release/confirm_artist.tt';
+    }
+}
+
+sub add_release_confirm_labels : Private
+{
+   my ($self, $c) = @_;
+
+   my $w           = $self->_wizard_data($c);
+   my $unconfirmed = $w->{unconfirmed_labels};
+
+   if (scalar keys %$unconfirmed == 0)
+   {
+       $self->_change_step($c, 'add_release_information');
+   }
+
+   my $key = (keys %$unconfirmed)[0];
+
+   $c->forward('/search/filter_label');
+   my $label = $c->stash->{search_result};
+   if (defined $label)
+   {
+        $w->{confirmed_labels}->{$key}->{name} = $label->name;
+        $w->{confirmed_labels}->{$key}->{id  } = $label->id;
+
+        $w->{release_info}->{$key} = $label->name;
+
+        delete $unconfirmed->{$key};
+    }
+    else
+    {
+        $c->stash->{confirming} = $w->{release_info}->{$key};
+        $c->stash->{template  } = 'add_release/confirm_label.tt';
     }
 }
 

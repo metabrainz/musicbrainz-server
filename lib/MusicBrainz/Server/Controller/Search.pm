@@ -309,10 +309,22 @@ sub filter_label : Private
 
     my $form = $c->form(undef, 'Search::Query');
 
-    return unless $c->form_posted && $form->validate($c->req->params);
+    if ($c->form_posted)
+    {
+        my $id = $c->req->params->{search_id};
+        if (defined $id)
+        {
+            $c->stash->{search_result} = $c->model('Label')->load($id);
+        }
+        else
+        {
+           return unless $form->validate($c->req->params);
+           my $labels = $c->model('Label')->direct_search($form->value('query'));
+           $c->stash->{labels} = $labels;
 
-    my $labels = $c->model('label')->direct_search($form->value('query'));
-    $c->stash->{labels} = $labels;
+	   return;
+        }
+    }
 }
 
 =head1 LICENSE
