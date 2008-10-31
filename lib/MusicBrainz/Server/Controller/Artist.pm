@@ -468,6 +468,12 @@ sub change_quality : Chained('artist')
     $c->response->redirect($c->entity_url($artist, 'show'));
 }
 
+=head2 add_alias
+
+Allow users to add an alias to this artist
+
+=cut
+
 sub add_alias : Chained('artist')
 {
     my ($self, $c) = @_;
@@ -482,6 +488,31 @@ sub add_alias : Chained('artist')
     return unless $c->form_posted && $form->validate($c->req->params);
 
     $form->insert;
+
+    $c->response->redirect($c->entity_url($artist, 'aliases'));
+}
+
+=head2 remove_alias
+
+Allow users to remove an alias from an artist
+
+=cut
+
+sub remove_alias : Chained('artist') Args(1)
+{
+    my ($self, $c, $alias_id) = @_;
+
+    my $artist = $c->stash->{artist};
+    my $alias  = $c->model('Alias')->load($artist, $alias_id);
+
+    $c->stash->{alias} = $alias;
+
+    my $form = $c->form($artist, 'Artist::RemoveAlias');
+    $form->context($c);
+
+    return unless $c->form_posted && $form->validate($c->req->params);
+
+    $form->insert($alias);
 
     $c->response->redirect($c->entity_url($artist, 'aliases'));
 }

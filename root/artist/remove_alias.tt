@@ -1,0 +1,10 @@
+[% WRAPPER 'artist/layout.tt' title='Remove Alias' %]
+[% WRAPPER 'components/box.tt' header='Confirm alias removal' %]
+
+[% WRAPPER 'forms/form.tt' %]
+  [% INCLUDE 'forms/edit-note.tt' %]
+  [% INCLUDE 'forms/submit.tt' label='Enter edit' %]
+[% END %]
+
+[% END %]
+[% END %]

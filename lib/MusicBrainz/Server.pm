@@ -121,7 +121,7 @@ sub entity_url
 
     # Parse capture arguments.
     my $id = $entity->mbid || $entity->id;
- 
+
     return $self->uri_for($catalyst_action, [ $id ], @args);
 }
 

@@ -20,4 +20,19 @@ sub load_for_entity
     return $aliases;
 }
 
+sub load
+{
+    my ($self, $entity, $id) = @_;
+
+    my $type = (ucfirst $entity->entity_type);
+    my $table = "${type}Alias";
+
+    my $alias = new MusicBrainz::Server::Alias($self->dbh, $table);
+    $alias->id($id);
+
+    $alias->LoadFromId;
+
+    return $alias;
+}
+
 1;

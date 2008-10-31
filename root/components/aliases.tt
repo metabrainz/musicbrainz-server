@@ -14,6 +14,11 @@
         <td>[% alias.name | html %]</td>
         <td>[% alias.useCount | html %]</td>
         <td>[% IF alias.used %][% alias.lastUsed | mb_date %][% ELSE %]never[% END %]</td>
+        [% IF c.user_exists %]
+        <td>
+          <a href="[% c.entity_url(artist, 'remove_alias', alias.id) %]">Remove</a>
+        </td>
+        [% END %]
       </tr>
     [%- END -%]
     </tbody>
