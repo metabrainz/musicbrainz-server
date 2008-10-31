@@ -1,5 +1,7 @@
 [% WRAPPER "layout.tt" title="Confirm artist" %]
 [% WRAPPER 'components/box.tt' header='Confirm artist' %]
+[% INCLUDE 'add_release/bread_crumbs.tt' %]
+
   <p>
     Please confirm the artist "[% confirming %]" by searching below.
     If searching yields no useful results, you can <a href="?add=1">add a new artist</a>

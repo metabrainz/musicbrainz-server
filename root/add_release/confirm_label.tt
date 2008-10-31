@@ -1,0 +1,11 @@
+[% WRAPPER "layout.tt" title="Confirm label" %]
+[% WRAPPER 'components/box.tt' header='Confirm label' %]
+[% INCLUDE 'add_release/bread_crumbs.tt' %]
+
+  <p>
+    Please confirm the label "[% confirming %]" by searching below.
+  </p>
+
+  [% INCLUDE "components/search.tt" entities=labels search_label="Label:" %]
+[% END %]
+[% END %]

@@ -18,7 +18,7 @@ sub _current_step
     my ($self, $c, $new_step) = @_;
 
     if (defined $new_step) { $c->session->{wizard_step} = $new_step; }
-    return $c->session->{wizard_step};
+    return $c->session->{wizard_step} || 'add_release_track_count';
 }
 
 =head2 _change_step
@@ -35,6 +35,7 @@ sub _change_step
 
     $self->_current_step($c, $new_step);
     $c->response->redirect($c->req->uri);
+    $c->detach;
 }
 
 =head2 _wizard_data
@@ -66,7 +67,9 @@ sub add_release : Chained('/artist/artist')
     my ($self, $c) = @_;
 
     $c->forward('/user/login');
-    $c->forward($self->_current_step($c) || 'add_release_track_count');
+
+    $c->stash->{current_action} = $self->_current_step($c);
+    $c->forward($self->_current_step($c));
 }
 
 =head2 add_release_track_count
@@ -229,6 +232,7 @@ sub add_release_confirm_labels : Private
         $w->{release_info}->{$key} = $label->name;
 
         delete $unconfirmed->{$key};
+        $self->_change_step($c, 'add_release_information');
     }
     else
     {

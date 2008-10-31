@@ -286,3 +286,16 @@ hr {
     border: none;
     border-top: 1px dotted #aaa;
 }
+
+.wizard_breadcrumbs li {
+    display: inline;
+    background: #eee;
+    color: #aaa;
+    padding: 2pt 5pt;
+    border: 1px solid #aaa;
+}
+
+.wizard_breadcrumbs li.complete {
+    background: black;
+    color: white;
+}

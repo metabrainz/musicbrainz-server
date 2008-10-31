@@ -1,5 +1,7 @@
 [% WRAPPER 'layout.tt' title='Add Release' %]
 [% WRAPPER 'components/box.tt' header='Add Release' %]
+[% INCLUDE 'add_release/bread_crumbs.tt' %]
+
 [% WRAPPER 'forms/form.tt' %]
   [% INCLUDE 'forms/widget.tt' widget=form.field('track_count') label='Track count:' %]
   [% INCLUDE 'forms/submit.tt' label='Next' %]
