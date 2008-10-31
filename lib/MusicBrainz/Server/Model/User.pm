@@ -7,7 +7,7 @@ use base 'MusicBrainz::Server::Model::Base';
 
 use Carp;
 
-sub load_user
+sub load
 {
     my ($self, $opts) = @_;
 

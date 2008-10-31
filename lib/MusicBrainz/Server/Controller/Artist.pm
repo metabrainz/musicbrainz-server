@@ -379,7 +379,7 @@ sub subscriptions : Chained('artist')
 
     for my $uid (@all_users)
     {
-        my $user = $c->model('User')->load_user({ id => $uid });
+        my $user = $c->model('User')->load({ id => $uid });
 
         my $public = UserPreference::get_for_user("subscriptions_public", $user);
         my $is_me  = $c->user_exists && $c->user->id == $user->id;

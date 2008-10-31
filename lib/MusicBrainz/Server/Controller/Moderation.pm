@@ -207,7 +207,7 @@ sub reject : Chained('moderation')
     my $status = $moderation->DeniedAction;
     $moderation->status($status);
 
-    my $user = $c->model('User')->load_user({ id => $moderation->moderator });
+    my $user = $c->model('User')->load({ id => $moderation->moderator });
     $user->CreditModerator($moderation->moderator, $status);
 
     $moderation->CloseModeration($status);

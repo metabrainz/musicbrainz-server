@@ -6,8 +6,8 @@ use warnings;
 use base 'Catalyst::Controller';
 
 use MusicBrainz;
-use UserPreference;
 use MusicBrainz::Server::Editor;
+use UserPreference;
 
 =head1 NAME
 
@@ -150,7 +150,7 @@ their password.
 
 =cut
 
-sub forgotPassword : Local
+sub forgot_password : Local
 {
     my ($self, $c) = @_;
 
@@ -169,7 +169,7 @@ sub forgotPassword : Local
         {
             foreach $username (@$usernames)
             {
-                my $user = $c->model('User')->load_user({ username => $username });
+                my $user = $c->model('User')->load({ username => $username });
                 if ($user)
                 {
                     $user->SendPasswordReminder
@@ -187,7 +187,7 @@ sub forgotPassword : Local
     }
     elsif ($username)
     {
-        my $user = $c->model('User')->load_user({ username => $username });
+        my $user = $c->model('User')->load({ username => $username });
         if ($user)
         {
             $user->SendPasswordReminder
@@ -229,7 +229,7 @@ when use to update the database data when we receive a valid POST request.
 
 =cut
 
-sub changePassword : Local
+sub change_password : Local
 {
     my ($self, $c) = @_;
 
@@ -258,27 +258,17 @@ Display a users profile page.
 
 =cut 
 
-sub profile : Local
+sub profile : Local Args(1)
 {
     my ($self, $c, $user_name) = @_;
 
-    my $user;
-    
-    if ($c->user_exists)
+    my $user = $c->model('User')->load({ username => $user_name });
+
+    if (!defined $user)
     {
-        $user = $c->user;
-    }
-    else
-    {
-        if ($user_name)
-        {
-            $user = $c->model('User')->load_user({ username => $user_name });
-        }
-        else
-        {
-            $c->response->redirect($c->uri_for('/user/login'));
-            $c->detach();
-        }
+        $c->response->status(404);
+        $c->error("User with user name $user_name not found");
+        $c->detach;
     }
 
     if ($c->user_exists && $c->user->id eq $user->id)
@@ -286,11 +276,7 @@ sub profile : Local
         $c->stash->{viewing_own_profile} = 1;
     }
 
-    die "The user with username '" . $user_name . "' could not be found"
-        unless $user;
-
-    $c->stash->{profile} = $user;
-
+    $c->stash->{user    } = $user;
     $c->stash->{template} = 'user/profile.tt';
 }
 
@@ -391,7 +377,7 @@ sub verify : Local
     }
     else
     {
-        my $user = $c->model('User')->load_user({ id => $user_id });
+        my $user = $c->model('User')->load({ id => $user_id });
 
         die "User with id $user_id could not be found"
             unless $user;
@@ -403,7 +389,7 @@ sub verify : Local
     }
 }
 
-=head1 LICENSE 
+=head1 LICENSE
 
 This software is provided "as is", without warranty of any kind, express or
 implied, including  but not limited  to the warranties of  merchantability,

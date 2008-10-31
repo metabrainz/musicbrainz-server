@@ -12,7 +12,7 @@ sub new
 sub find_user
 {
     my ($self, $authinfo, $c) = @_;
-    return $c->model('User')->load_user({ username => $authinfo->{username} });
+    return $c->model('User')->load({ username => $authinfo->{username} });
 }
 
 sub for_session
@@ -24,7 +24,7 @@ sub for_session
 sub from_session
 {
     my ($self, $c, $frozen_user) = @_;
-    return $c->model('User')->load_user({ id => $frozen_user });
+    return $c->model('User')->load({ id => $frozen_user });
 }
 
 1;
