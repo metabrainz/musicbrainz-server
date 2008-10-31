@@ -517,7 +517,35 @@ sub remove_alias : Chained('artist') Args(1)
     $c->response->redirect($c->entity_url($artist, 'aliases'));
 }
 
-=head1 LICENSE 
+=head2 edit_alias
+
+Alow users to edit an alias for an artist
+
+=cut
+
+sub edit_alias : Chained('artist') Args(1)
+{
+
+    my ($self, $c, $alias_id) = @_;
+
+    my $artist = $c->stash->{artist};
+    my $alias  = $c->model('Alias')->load($artist, $alias_id);
+
+    $c->stash->{alias} = $alias;
+
+    my $form = $c->form($alias, 'Artist::EditAlias');
+    $form->context($c);
+
+    $c->stash->{template} = 'artist/add_alias.tt';
+
+    return unless $c->form_posted && $form->validate($c->req->params);
+
+    $form->insert($artist);
+
+    $c->response->redirect($c->entity_url($artist, 'aliases'));
+}
+
+=head1 LICENSE
 
 This software is provided "as is", without warranty of any kind, express or
 implied, including  but not limited  to the warranties of  merchantability,

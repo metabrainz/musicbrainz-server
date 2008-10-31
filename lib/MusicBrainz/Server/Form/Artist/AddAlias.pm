@@ -25,9 +25,6 @@ sub build_options
 
     my $source = $self->item;
 
-    my $type = $source->entity_type;
-    $type =~ s/release/album/; # TODO terminology hack...
-
     return {
         artist   => $source,
         newalias => $self->value('alias'),
