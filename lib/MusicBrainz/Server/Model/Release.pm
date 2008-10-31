@@ -13,6 +13,19 @@ use MusicBrainz::Server::Link;
 use MusicBrainz::Server::Release;
 use MusicBrainz::Server::Validation;
 
+sub find_similar_releases
+{
+    my ($self, $artist, $release_title, $track_count) = @_;
+
+    my @possible = $artist->HasAlbum($release_title, .8);
+    my @similar  = grep {
+        $_->LoadFromId;
+        $_->track_count == $track_count;
+    } @possible;
+
+    return \@similar;
+  }
+
 sub load_events
 {
     my ($self, $release) = @_;

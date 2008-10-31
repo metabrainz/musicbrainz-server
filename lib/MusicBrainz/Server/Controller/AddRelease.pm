@@ -123,6 +123,10 @@ sub add_release_information : Private
         $w->{release_info} = $c->req->params;
     }
 
+    # If we get here, then the user has submitted the release information
+    # form, and the information is valid. Now we need to confirm artists,
+    # labels, and check for duplicates
+
     for my $i (1 .. $track_count)
     {
         my $key        = "artist_$i";
@@ -147,6 +151,9 @@ sub add_release_information : Private
             $w->{unconfirmed_labels}->{$key} = $current_value;
         }
     }
+
+    $self->_change_step($c, 'add_release_check_dupes')
+        unless $w->{checked_dupes};
 
     $self->_change_step($c, 'add_release_confirm_artists')
         if scalar keys %{ $w->{unconfirmed_artists} };
@@ -239,6 +246,29 @@ sub add_release_confirm_labels : Private
         $c->stash->{confirming} = $w->{release_info}->{$key};
         $c->stash->{template  } = 'add_release/confirm_label.tt';
     }
+}
+
+sub add_release_check_dupes : Private
+{
+    my ($self, $c) = @_;
+
+    my $artist = $c->stash->{artist};
+    my $w      = $self->_wizard_data($c);
+
+    my $similar = $c->model('Release')->find_similar_releases($artist,
+                       $w->{release_info}->{title}, $w->{track_count});
+
+    if (scalar @$similar && !$c->form_posted)
+    {
+        $c->stash->{similar } = $similar;
+	$c->stash->{template} = 'add_release/check_dupes.tt';
+    }
+    else
+    {
+        $w->{checked_dupes} = 1;
+        $self->_change_step($c, 'add_release_information');
+    }
+
 }
 
 =head2 restart

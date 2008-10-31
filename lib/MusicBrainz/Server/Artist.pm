@@ -1102,27 +1102,25 @@ sub HasAlbum
 
    # First, pull in the single artist albums
    $sql = Sql->new($this->{DBH});
-   if ($sql->Select(qq/select id, name 
-			             from Album 
-						where artist=$this->{id} 
-				     order by lower(name), name/))
+   if ($sql->Select(qq/SELECT id, name
+			 FROM Album
+			WHERE artist=$this->{id}
+                     ORDER BY lower(name), name/))
    {
         while(@row = $sql->NextRow)
         {
-			my $name = decode("utf-8", $row[1]);
+            my $name = decode("utf-8", $row[1]);
+	    my $sim = lc $name eq lc $albumname ? 1
+	            :                             similarity($albumname, $name);
 
-            if (lc($name) eq lc($albumname))
-            {
-                push @matches, { id=>$row[0], match=>1, name=>$row[1] };
-            }
-            else
-            {
-                $sim = similarity($albumname, $name);
-                if ($sim >= $threshold)
-                {
-                    push @matches, { id=>$row[0], match=>$sim, name=>$row[1] };
-                }
-            }
+	    next unless $sim >= $threshold;
+
+	    my $release = new MusicBrainz::Server::Release($this->{DBH});
+	    $release->id($row[0]);
+	    $release->name($row[1]);
+	    $release->{match} = $sim;
+
+	    push @matches, $release;
         }
    }
 
@@ -1141,20 +1139,17 @@ sub HasAlbum
 
         while(@row = $sql->NextRow)
         {
-			my $name = decode("utf-8", $row[1]);
+	    my $name = decode("utf-8", $row[1]);
+	    my $sim = lc $name eq lc $albumname ? 1
+	            :                             similarity($albumname, $name);
 
-            if (lc($name) eq lc($albumname))
-            {
-                push @matches, { id=>$row[0], match=>1, name=>$row[1] };
-            }
-            else
-            {
-                $sim = similarity($albumname, $name);
-                if ($sim >= $threshold)
-                {
-                    push @matches, { id=>$row[0], match=>$sim, name=>$row[1] };
-                }
-            }
+	    next unless $sim >= $threshold;
+
+	    my $release = new MusicBrainz::Server::Release($this->{DBH});
+	    $release->id($row[0]);
+	    $release->name($row[1]);
+
+            push @matches, $release;
         }
         $sql->Finish;
    }
