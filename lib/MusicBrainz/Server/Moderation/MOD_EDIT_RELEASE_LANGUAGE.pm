@@ -88,11 +88,17 @@ sub PreInsert
 			? &ModDefs::VARTIST_ID
 			: $albums->[0]->artist
 	);
-	
+
 	$self->table("album");
 	$self->column("id");
 	$self->new_data($self->ConvertHashToNew(\%new));
-	$self->language_id($languageid) if $languageid;
+
+        if ($languageid)
+        {
+	    my $language = new MusicBrainz::Server::Language($self->{DBH});
+            $language->id($languageid);
+	    $self->language($language);
+	}
 }
 
 sub IsAutoEdit

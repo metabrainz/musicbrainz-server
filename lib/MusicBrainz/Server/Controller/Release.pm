@@ -288,13 +288,6 @@ sub edit_attributes : Chained('release')
     my $form = $c->form($release, 'Release::EditAttributes');
     $form->context($c);
 
-    if ($c->req->query_params->{all})
-    {
-        $c->stash->{all} = 1;
-        $form->show_everything(1);
-        $form->build_form;
-    }
-
     return unless $c->form_posted && $form->validate($c->req->params);
 
     $form->update_model;

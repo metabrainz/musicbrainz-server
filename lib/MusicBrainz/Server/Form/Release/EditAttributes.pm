@@ -116,10 +116,9 @@ sub update_model
         $release->script->id   != $self->value('script'))
     {
         @mods = Moderation->InsertModeration(
-            DBH   => $self->context->mb->{DBH},
-            uid   => $user->id,
-            privs => $user->privs,
-            type  => ModDefs::MOD_EDIT_RELEASE_LANGUAGE,
+            DBH       => $self->context->mb->{DBH},
+            moderator => $user,
+            type      => ModDefs::MOD_EDIT_RELEASE_LANGUAGE,
 
             albums   => [ $release ],
             language => $self->value('language'),
@@ -137,10 +136,9 @@ sub update_model
         $release->release_status != $self->value('status'))
     {
         @mods = Moderation->InsertModeration(
-            DBH   => $self->context->mb->{DBH},
-            uid   => $user->id,
-            privs => $user->privs,
-            type  => ModDefs::MOD_EDIT_RELEASE_ATTRS,
+            DBH       => $self->context->mb->{DBH},
+            moderator => $user,
+            type      => ModDefs::MOD_EDIT_RELEASE_ATTRS,
 
             albums      => [ $release ],
             attr_type   => $self->value('type'),
