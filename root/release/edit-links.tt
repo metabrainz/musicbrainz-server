@@ -7,6 +7,8 @@
               { link => '', text => 'Relate to URL' },
               { link => '', text => 'Add CC license' },
               { link => c.entity_url(release, 'move'), text => 'Move' },
+              { link => c.entity_url(release, 'edit_title'), text => 'Edit Title' },
+              { link => c.entity_url(release, 'remove'), text => 'Remove' },
             ] -%]
         [% INCLUDE "components/piped-list.tt" list=edit_links %]
       [%- ELSE -%]
