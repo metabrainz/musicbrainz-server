@@ -13,9 +13,8 @@ sub update_model
     my $user  = $self->context->user;
 
     my %mod_base = (
-        DBH   => $self->context->mb->{DBH},
-        uid   => $user->id,
-        privs => $user->privs,
+        DBH       => $self->context->mb->{DBH},
+        moderator => $user,
 
         track => $track,
     );
