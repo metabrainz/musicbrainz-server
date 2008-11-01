@@ -89,7 +89,15 @@ with one space.
 Examples:
 
     $duck->say("Yo!") # Method call, no leading space
-    if ($foo eq $bar) # Control keyword, 1 leading space
+
+    if ($moose > $ponies) # Control keyword, 1 leading space
+    {
+        print "Yay \o/";
+    }
+    else
+    {
+        print "Wrong. Moose should be better than ponies";
+    }
 
 Never "pad" parenthesis out with spaces.
 
