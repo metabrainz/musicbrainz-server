@@ -1,24 +1,25 @@
 [%- info_links = [
-     { link => c.entity_url(track, 'details'), text => "Details" },
-     { link => c.entity_url(track, 'relations'), text => "Relations" },
-     { link => c.entity_url(track, 'tags'), text => "Tags" },
-     { link => c.entity_url(track, 'google'), text => "Search Google" }
-   ]
--%]
+    { link => c.entity_url(track, 'details'), text => "Details" },
+    { link => c.entity_url(track, 'relations'), text => "Relations" },
+    { link => c.entity_url(track, 'tags'), text => "Tags" },
+    { link => c.entity_url(track, 'google'), text => "Search Google" }
+] -%]
 
 <div class="entity_header">
-  <div class="title track">
-    [% INCLUDE "components/entity-link.tt" entity=track noicon=1 %]
-  </div>
+    <div class="title track">
+        [% INCLUDE "components/entity-link.tt" entity=track noicon=1 %]
+    </div>
 
-  <div class="info">
-    by [% INCLUDE "components/entity-link.tt" entity=artist noicon=1 %]
-  </div>
+    <div class="info">
+        by [% INCLUDE "components/entity-link.tt" entity=artist noicon=1 %]
+    </div>
 
-  <div class="infoLinks"> Info: [% INCLUDE "components/piped-list.tt" list=info_links %]</div>
+    <div class="infoLinks">
+        Info: [% INCLUDE "components/piped-list.tt" list=info_links %]
+    </div>
 
-  <div class="editLinks">
-    Edit: 
-      Please <a href="[% c.uri_for('/user/login') %]">log in</a> to edit this artist
-  </div>
+    <div class="editLinks">
+        Edit: 
+        Please <a href="[% c.uri_for('/user/login') %]">log in</a> to edit this artist
+    </div>
 </div>

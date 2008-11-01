@@ -5,96 +5,102 @@
 [% WRAPPER "layout.tt" title="Editor \"$user.name\"" %]
 
 [% BLOCK property %]
-  <dt>[% name %]:</dt>
-  <dd>[% content %]</dd>
+    <dt>[% name %]:</dt>
+    <dd>[% content %]</dd>
 [% END %]
 
 [% review_options = [
-     { link => "", text => "Votes" },
-     { link => "", text => "Edits" },
-     { link => "", text => "Open Edits" },
-     { link => "", text => "Failed Edits" },
-     { link => "", text => "Cancelled Edits" },
-     { link => "", text => "Subscriptions", hide => not (viewing_own_profile or user.public_subscriptions) },
-   ]
-%]
+    { link => "", text => "Votes" },
+    { link => "", text => "Edits" },
+    { link => "", text => "Open Edits" },
+    { link => "", text => "Failed Edits" },
+    { link => "", text => "Cancelled Edits" },
+    { link => "", text => "Subscriptions", hide => not (viewing_own_profile or user.public_subscriptions) },
+] %]
 
 [% edit_account_options = [
-     { link => c.uri_for('/user/edit'), text => "Edit" },
-     { link => c.uri_for('/user/change_password'), text => "Change Password" },
-     { link => c.uri_for('/user/preferences'), text => "Preferences" },
-     { link => c.uri_for('/user/donate'), text => "Check Donation Status" },
-   ]
-%]
+    { link => c.uri_for('/user/edit'), text => "Edit" },
+    { link => c.uri_for('/user/change_password'), text => "Change Password" },
+    { link => c.uri_for('/user/preferences'), text => "Preferences" },
+    { link => c.uri_for('/user/donate'), text => "Check Donation Status" },
+] %]
 
 [% WRAPPER "components/box.tt" header="Editor \"$user.name\"" %]
-  <h3>General Information:</h3>
-  <dl>
-    [% INCLUDE "components/piped-list.tt" list=review_options
-         WRAPPER property name="Review" %]
+    <h3>General Information:</h3>
+    <dl>
+    [% INCLUDE "components/piped-list.tt" list=review_options WRAPPER property name="Review" %]
 
-    [% INCLUDE "components/piped-list.tt" list=edit_account_options
-         WRAPPER property name="Edit My Account" IF viewing_own_profile %]
-	
+    [% INCLUDE "components/piped-list.tt" list=edit_account_options WRAPPER property name="Edit My Account" IF viewing_own_profile %]
+
     [% IF (not viewing_own_profile) %]
-      [% WRAPPER property name="Contact"%]
-        <a href="[% c.uri_for('/user/contact', user.name) %]">Send e-mail</a>
-      [% END %]
+        [% WRAPPER property name="Contact"%]
+            <a href="[% c.uri_for('/user/contact', user.name) %]">Send e-mail</a>
+        [% END %]
     [% END %]
-    
+
     [% user.name | html_entity WRAPPER property name="Name" %]
 
     [% (user.type or "Unknown") | html_entity WRAPPER property name="User type" %]
 
     [% WRAPPER property name="E-mail" %]
-      [% IF viewing_own_profile %]
-        [% (user.email.address or "[None]") | html_entity %]
-      [% ELSE %]
-        [Hidden]
-      [% END %]
-      
-      [% IF user.email_verification_date %]
-        (verified [% user_date(user.email_verification_date) %])
-      [% ELSE %]
-        [% IF viewing_own_profile %](<em>unverified!</em>)[% END %]
-      [% END %]
+        [% IF viewing_own_profile %]
+            [% (user.email.address or "[None]") | html_entity %]
+        [% ELSE %]
+            [Hidden]
+        [% END %]
+
+        [% IF user.email_verification_date %]
+            (verified [% user_date(user.email_verification_date) %])
+        [% ELSE %]
+            [% IF viewing_own_profile %]
+                (<em>unverified!</em>)
+            [% END %]
+        [% END %]
     [% END %]
-	
+
     [% WRAPPER property name="Homepage" %]
-      [% IF user.hompage %]
-      <a href="[% user.homepage | url %]">[% user.homepage | html_entity %]</a>
-      [% ELSE %][None][% END %]
+        [% IF user.hompage %]
+            <a href="[% user.homepage | url %]">[% user.homepage | html_entity %]</a>
+        [% ELSE %]
+            [None]
+        [% END %]
     [% END %]
-	
+
     [% WRAPPER property name="Bio" %]
-    <div class="bio">
-    [% (user.biography or "[None]") | html_entity %]
-    </div>
+        <div class="bio">
+        [% (user.biography or "[None]") | html_entity %]
+        </div>
     [% END %]
-	
+
     [% WRAPPER property name="Subscriptions" %]
-      [% viewing_own_profile ? "Your" : user.name | html_entity %] subscriptions are [% user.public_subscriptions ? "public" : "private" %]
+        [% viewing_own_profile ? "Your" : user.name | html_entity %] subscriptions are [% user.public_subscriptions ? "public" : "private" %]
     [% END %]
-	
+
     [% WRAPPER property name="Subscribers" %]
-      [% user.subscriber_count %] (<a href="/bad_link">view all</a>)
+        [% user.subscriber_count %] (<a href="/bad_link">view all</a>)
     [% END %]
-  </dl>
+    </dl>
   
- <h3>User Statistics</h3>
- <dl>
-   [% WRAPPER property name="Member Since" %]
-     [% IF user.name == "Rob" %]The Dawn of the project
-     [% ELSIF user.is_special %]N/A
-     [% ELSIF user.charter %]charter member
-     [% ELSE %][% user_date(user.member_since) %]
-     [% END %]
-   [% END %]
-   [% user.accepted_non_autoedits WRAPPER property name="Accepted Non-autoedits" %]
-   [% user.accepted_autoedits     WRAPPER property name="Autoedits" %]
-   [% user.edits_voted_down       WRAPPER property name="Edits Voted Down" %]
-   [% user.edits_failed           WRAPPER property name="Edits Failed" %]
- </dl>
+    <h3>User Statistics</h3>
+    <dl>
+    [% WRAPPER property name="Member Since" %]
+        [% IF user.name == "Rob" %]
+            The Dawn of the project
+        [% ELSIF user.is_special %]
+            N/A
+        [% ELSIF user.charter %]
+            charter member
+        [% ELSE %]
+            [% user_date(user.member_since) %]
+        [% END %]
+    [% END %]
+    
+    [% user.accepted_non_autoedits WRAPPER property name="Accepted Non-autoedits" %]
+    [% user.accepted_autoedits     WRAPPER property name="Autoedits" %]
+    [% user.edits_voted_down       WRAPPER property name="Edits Voted Down" %]
+    [% user.edits_failed           WRAPPER property name="Edits Failed" %]
+    </dl>
+
 [% END %]
 
 [% END %]

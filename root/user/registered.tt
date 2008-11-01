@@ -1,19 +1,15 @@
 [% WRAPPER 'layout.tt' title="Account Created" %]
 
 [% WRAPPER 'components/box.tt' header="Account Created" %]
-  <p>Congratulations, your new account has been created and you are now logged into MusicBrainz!</p>
-  
-  <p>Please <a href="[% c.uri_for('/user/edit') %]">update your profile</a> when you get time, to
-    let other editors know a bit more about you.</p>
-  
-  [% IF emailed %]
-    <p>Since you have provided an email address, an email verification mail has been sent to
-      <code>[% email_address %]</code>. Please check your mailbox and click on the link in the email to
-      verify the new email address.</p>
-  [% END %]
+    <p>Congratulations, your new account has been created and you are now logged into MusicBrainz!</p>
 
-  <p>You may proceed to <a href="[% c.uri_for('/user/profile') %]">your user profile</a>, or maybe
-    you want to [% INCLUDE 'components/doc-link.tt' to="HowEditingWorks" text="start editing!" %]</p>
+    <p>Please <a href="[% c.uri_for('/user/edit') %]">update your profile</a> when you get time, to let other editors know a bit more about you.</p>
+
+    [% IF emailed %]
+        <p>Since you have provided an email address, an email verification mail has been sent to <code>[% email_address %]</code>. Please check your mailbox and click on the link in the email to verify the new email address.</p>
+    [% END %]
+
+    <p>You may proceed to <a href="[% c.uri_for('/user/profile') %]">your user profile</a>, or maybe you want to [% INCLUDE 'components/doc-link.tt' to="HowEditingWorks" text="start editing!" %]</p>
 [% END %]
 
 [% END %]

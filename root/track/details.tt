@@ -1,66 +1,65 @@
 [%- WRAPPER 'track/layout.tt' -%]
-  [% INCLUDE "components/relations.tt" source=track %]
+[% INCLUDE "components/relations.tt" source=track %]
 
-  <div class="TagsBox">
-  [% INCLUDE "tag/summary.tt" %]
-  </div>
+<div class="TagsBox">
+    [% INCLUDE "tag/summary.tt" %]
+</div>
 
-  [% WRAPPER "components/box.tt" header="Track Information" %]
-  <table class="details">
+[% WRAPPER "components/box.tt" header="Track Information" %]
+    <table class="details">
     <tr>
-      <th>[% INCLUDE "components/doc-link.tt" to="TrackTitle" text="Title" %]:</th>
-      <td>[% INCLUDE "components/entity-link.tt" entity=track %]</td>
+        <th>[% INCLUDE "components/doc-link.tt" to="TrackTitle" text="Title" %]:</th>
+        <td>[% INCLUDE "components/entity-link.tt" entity=track %]</td>
     </tr>
-
     <tr>
-      <th>[% INCLUDE "components/doc-link.tt" to="MusicBrainzIdentifier" text="MBID" %]:</th>
-      <td>[% track.mbid %]</td>
+        <th>[% INCLUDE "components/doc-link.tt" to="MusicBrainzIdentifier" text="MBID" %]:</th>
+        <td>[% track.mbid %]</td>
     </tr>
-
     <tr>
-      <th>Permanent Link:</th>
-      <td>
+        <th>Permanent Link:</th>
+        <td>
         [% link = "http://musicbrainz.org/track/${track.mbid}.html" %]
         <a href="[% link %]">[% link | html %]</a>
-      </td>
+        </td>
     </tr>
-  </table>
-  [% END %]
+    </table>
+[% END %]
 
-  [% WRAPPER "components/box.tt" header="Artist Information" %]
-  <table class="details">
+[% WRAPPER "components/box.tt" header="Artist Information" %]
+    <table class="details">
     <tr>
-      <th>[%- INCLUDE "components/doc-link.tt" to="ArtistName" text="Name" -%]:</th>
-      <td>
+        <th>[%- INCLUDE "components/doc-link.tt" to="ArtistName" text="Name" -%]:</th>
+        <td>
         [% INCLUDE "components/entity-link.tt" entity=artist %]
         [% IF artist.resolution %]
-          ([% artist.resolution %])
+            ([% artist.resolution %])
         [% END %]
-      </td>
+        </td>
     </tr>
     <tr>
-      <th>[%- INCLUDE "components/doc-link.tt" to="MusicBrainzIdentifier" text="MBID" -%]:</th>
-      <td>[% artist.mbid %]</td>
+        <th>[%- INCLUDE "components/doc-link.tt" to="MusicBrainzIdentifier" text="MBID" -%]:</th>
+        <td>[% artist.mbid %]</td>
     </tr>
-  </table>
-  [% END %]
+    </table>
+[% END %]
 
-  [% WRAPPER "components/box.tt" header="Release Information" %]
-  <table class="details">
+[% WRAPPER "components/box.tt" header="Release Information" %]
+    <table class="details">
     <tr>
-      <th>[%- INCLUDE "components/doc-link.tt" to="ReleaseTitle" text="Title" -%]:</th>
-      <td>
+        <th>[%- INCLUDE "components/doc-link.tt" to="ReleaseTitle" text="Title" -%]:</th>
+        <td>
         [% INCLUDE "components/entity-link.tt" entity=release %]
-      </td>
+        </td>
     </tr>
     <tr>
-      <th>[%- INCLUDE "components/doc-link.tt" to="MusicBrainzIdentifier" text="MBID" -%]:</th>
-      <td>[% release.mbid %]</td>
+        <th>[%- INCLUDE "components/doc-link.tt" to="MusicBrainzIdentifier" text="MBID" -%]:</th>
+        <td>[% release.mbid %]</td>
     </tr>
     <tr>
-      <th>Track Number:</th>
-      <td>[% track.number %]</td>
+        <th>Track Number:</th>
+        <td>[% track.number %]</td>
     </tr>
-  </table>
-  [% END %]
+    </table>
+[% END %]
+  
 [% END %]

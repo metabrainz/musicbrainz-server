@@ -2,21 +2,16 @@
 [% WRAPPER "components/box.tt" header="Edit Profile" %]
 
 <ul>
-  <li>
-    See also your <a href="[% c.uri_for('/user/preferences') %]">user preferences</a>, which
-    includes your privacy settings.
-  </li>
-  <li>
-    If you would like to delete your account, please see the FAQ entry:
-    [% INCLUDE "components/doc-link.tt" to="AccountFAQ" text="How do I delete my account?" %]
-  </li>
+    <li>See also your <a href="[% c.uri_for('/user/preferences') %]">user preferences</a>, which includes your privacy settings.</li>
+    <li>If you would like to delete your account, please see the FAQ entry: 
+    [% INCLUDE "components/doc-link.tt" to="AccountFAQ" text="How do I delete my account?" %]</li>
 </ul>
 
 [% WRAPPER "forms/form.tt" %]
-  [% INCLUDE "forms/widget.tt" widget=form.field('email') label="E-mail address:" %]
-  [% INCLUDE "forms/widget.tt" widget=form.field('homepage') label="Homepage:" %]
-  [% INCLUDE "forms/widget.tt" widget=form.field('biography') label="Biography:" %]
-  [% INCLUDE "forms/submit.tt" label="Update Profile" %]
+    [% INCLUDE "forms/widget.tt" widget=form.field('email') label="E-mail address:" %]
+    [% INCLUDE "forms/widget.tt" widget=form.field('homepage') label="Homepage:" %]
+    [% INCLUDE "forms/widget.tt" widget=form.field('biography') label="Biography:" %]
+    [% INCLUDE "forms/submit.tt" label="Update Profile" %]
 [% END %]
 
 [% END %]
