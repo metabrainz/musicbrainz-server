@@ -8,7 +8,6 @@
     [%- ELSE -%]
        [%#- Has to be on one line so we don't mess up the spacing with the comma :x -%]
        [%- INCLUDE "components/entity-link.tt" -%]
-       [%- " (${entity.resolution})" | html IF entity.resolution -%]
        [%- loop.count == (loop.size - 1) ? " and " : !loop.last ? "," : "" -%]
     [%- END -%]
   [%- END -%]
