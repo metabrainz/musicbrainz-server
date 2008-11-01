@@ -17,8 +17,8 @@
         [% IF c.user_exists %]
         <td>
           [% links = [
-                 { link => c.entity_url(artist, 'remove_alias', alias.id), text => "Remove", }
-                 { link => c.entity_url(artist, 'edit_alias', alias.id), text => "Edit", }
+                 { link => c.entity_url(entity, 'remove_alias', alias.id), text => "Remove", }
+                 { link => c.entity_url(entity, 'edit_alias', alias.id), text => "Edit", }
              ] %]
           [% INCLUDE "components/piped-list.tt" list=links %]
         </td>
