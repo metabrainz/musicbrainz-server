@@ -315,7 +315,25 @@ sub add_alias : Chained('label')
     $c->response->redirect($c->entity_url($label, 'aliases'));
 }
 
- 
+sub edit_alias : Chained('label') Args(1)
+{
+    my ($self, $c, $alias_id) = @_;
+
+    $c->forward('/user/login');
+
+    my $label = $c->stash->{label};
+    my $alias = $c->model('Alias')->load($label, $alias_id);
+
+    my $form = $c->form($alias, 'Label::EditAlias');
+    $form->context($c);
+
+    return unless $c->form_posted && $form->validate($c->req->params);
+
+    $form->insert($label);
+
+    $c->response->redirect($c->entity_url($label, 'aliases'));
+}
+
 sub remove_alias : Chained('label') Args(1)
 {
     my ($self, $c, $alias_id) = @_;
