@@ -27,6 +27,22 @@ Always start Perl modules using the following template:
 This ensures that everything has warnings, and is compiled such that all
 variables must be defined before use (really helps on typos).
 
+=head2 Flow control
+
+When using postfix if/unless stamements, these should B<only> be used if
+the preceeding code would cause the subroutine to terminate.
+
+Examples:
+
+    die "OMG NO" if $foo;        # Good, will cause the subroutine to terminate
+    my $blah = 5 unless $shiney; # Bad, does not affect flow
+
+When choosing to use C<if> or C<unless> statements, use this reasoning:
+if some code should happen in almost all cases, use C<unless>. If some code
+is only going to happen in edge cases, then use C<if>. This matches the way
+we speak, and makes scanning code much easier. So don't just use C<unless> to
+save negating a boolean expression!
+
 =head1 NAMING CONVENTIONS
 
 =head2 Subroutines
