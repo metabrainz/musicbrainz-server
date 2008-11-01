@@ -25,7 +25,6 @@
   </li>
 </ul>
 
-[%- BLOCK create_link; c.entity_url(label, 'merge_into', entity.mbid); END -%]
 [%- INCLUDE "components/search.tt" entities=labels search_label="Label" -%]
 
 [% END %]

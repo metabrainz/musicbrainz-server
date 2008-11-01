@@ -129,6 +129,8 @@ sub merge : Chained('label')
     $c->forward('/user/login');
     $c->forward('/search/filter_label');
 
+    $c->stash->{template} = 'label/merge_search.tt';
+
     my $result = $c->stash->{search_result};
     if (defined $result)
     {

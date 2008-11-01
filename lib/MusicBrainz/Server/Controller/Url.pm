@@ -45,6 +45,30 @@ sub info : Chained('url')
     $c->stash->{relations} = $c->model('Relation')->load_relations($url);
 }
 
+=head2 edit
+
+Edit the details of an already existing link
+
+=cut
+
+sub edit : Chained('url')
+{
+    my ($self, $c) = @_;
+
+    $c->forward('/user/login');
+
+    my $url = $c->stash->{url};
+
+    my $form = $c->form($url, 'Url::Edit');
+    $form->context($c);
+
+    return unless $c->form_posted && $form->validate($c->req->params);
+
+    $form->insert;
+
+    $c->response->redirect($c->entity_url($url, 'info'));
+}
+
 =head1 LICENSE
 
 This software is provided "as is", without warranty of any kind, express or
