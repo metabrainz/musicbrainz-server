@@ -1,15 +1,12 @@
 <ul>
-  <li><a href="http://musicbrainz.org/">Master Server</a></li>
-  <li>[% INCLUDE "components/doc-link.tt" to="MirrorServer" text="Find a Mirror" %]</li>
-  <li><a href="http://metabrainz.org/">MetaBrainz</a></li>
-  <li><a href="http://blog.musicbrainz.org/">Brainz Blog</a></li>
-  <li><a href="http://musicbrainz.org/doc/MailingList">Mailing Lists</a></li>
-  <li><a href="http://forums.musicbrainz.org/">Forums</a></li>
-  <li>
-    <a href="http://chatlogs.musicbrainz.org/">
-      <acronym title="Internet Relay Chat">IRC</acronym> Chat Logs</a>
-  </li>
-  <li><a href="http://wiki.musicbrainz.org/">Wiki</a></li>
-  <li><a href="http://cafepress.com/musicbrainz">Stuff to Buy</a></li>
-  <li><a href="http://musicbrainz.org/bugs">Bug Tracker</a></li>
+    <li><a href="http://musicbrainz.org/">Master Server</a></li>
+    <li>[% INCLUDE "components/doc-link.tt" to="MirrorServer" text="Find a Mirror" %]</li>
+    <li><a href="http://metabrainz.org/">MetaBrainz</a></li>
+    <li><a href="http://blog.musicbrainz.org/">Brainz Blog</a></li>
+    <li><a href="http://musicbrainz.org/doc/MailingList">Mailing Lists</a></li>
+    <li><a href="http://forums.musicbrainz.org/">Forums</a></li>
+    <li><a href="http://chatlogs.musicbrainz.org/"> <acronym title="Internet Relay Chat">IRC</acronym> Chat Logs</a></li>
+    <li><a href="http://wiki.musicbrainz.org/">Wiki</a></li>
+    <li><a href="http://cafepress.com/musicbrainz">Stuff to Buy</a></li>
+    <li><a href="http://musicbrainz.org/bugs">Bug Tracker</a></li>
 </ul>

@@ -2,38 +2,38 @@
 	  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
-  <head>
+<head>
     <meta http-equiv="expires" content="1" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  
+
     <title>[% title %][% " - " IF title %]MusicBrainz.org</title>
-    
+
     <link rel="stylesheet" type="text/css" href="/main.css" />
 
     [%- IF template.extra_css -%]
-    <link rel="stylesheet" type="text/css" href="/static/styles/extra/[% template.extra_css %]" />
+        <link rel="stylesheet" type="text/css" href="/static/styles/extra/[% template.extra_css %]" />
     [%- END -%]
 
     <link rel="search" type="application/opensearchdescription+xml" title="MusicBrainz: Artist" href="/search/plugins/opensearch/musicbrainzartist.xml" />
     <link rel="search" type="application/opensearchdescription+xml" title="MusicBrainz: Label" href="/search/plugins/opensearch/musicbrainzlabel.xml" />
     <link rel="search" type="application/opensearchdescription+xml" title="MusicBrainz: Release" href="/search/plugins/opensearch/musicbrainzrelease.xml" />
     <link rel="search" type="application/opensearchdescription+xml" title="MusicBrainz: Track" href="/search/plugins/opensearch/musicbrainztrack.xml" />
-  </head>
+</head>
 
-  <body>
+<body>
     [%- INCLUDE "layout/header.tt" -%]
 
     <div id="container">
-      <div id="content">
-        [%- IF c.flash.ok -%]
+    <div id="content">
+    [%- IF c.flash.ok -%]
         <div class="status_ok">[% c.flash.ok %]</div>
-        [%- END -%]
-        [% content %]
-      </div>
+    [%- END -%]
+    [% content %]
+    </div>
     </div>
 
     [%- INCLUDE "layout/sidebar.tt" -%]
 
     [%- INCLUDE "layout/footer-bar.tt" -%]
-  </body>
+</body>
 </html>
