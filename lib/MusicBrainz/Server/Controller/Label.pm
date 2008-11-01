@@ -268,7 +268,7 @@ sub subscriptions : Chained('label')
     my $label = $c->stash->{label};
 
     my @all_users = $label->GetSubscribers;
-    
+
     my @public_users;
     my $anonymous_subscribers;
 
@@ -280,7 +280,7 @@ sub subscriptions : Chained('label')
         my $is_me  = $c->user_exists && $c->user->id == $user->id;
 
         if ($is_me) { $c->stash->{user_subscribed} = $is_me; }
-        
+
         if ($public || $is_me)
         {
             push @public_users, $user;
@@ -295,6 +295,24 @@ sub subscriptions : Chained('label')
     $c->stash->{anonymous_subscribers} = $anonymous_subscribers;
 
     $c->stash->{template} = 'label/subscriptions.tt';
+}
+
+sub add_alias : Chained('label')
+{
+    my ($self, $c) = @_;
+
+    $c->forward('/user/login');
+
+    my $label = $c->stash->{label};
+
+    my $form = $c->form($label, 'Label::AddAlias');
+    $form->context($c);
+
+    return unless $c->form_posted && $form->validate($c->req->params);
+
+    $form->insert;
+
+    $c->response->redirect($c->entity_url($label, 'aliases'));
 }
 
 1;

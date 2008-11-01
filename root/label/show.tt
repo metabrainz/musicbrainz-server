@@ -19,7 +19,7 @@
   [%- FOREACH release=releases -%]
     <tr[% ' class="odd"' IF loop.count % 2 == 0 %]>
       <td class="tracks">[% release.track_count %]&nbsp;<img src="/static/images/notes.gif" alt="Tracks" /></td>
-      <td class="status">[% release.release_status_name %]</td>
+      <td class="status">[% release_attribute(release.release_status) %]</td>
       <td class="language">
         <abbr title="[% release.language %] / [% release.script %]">
           [% release.language_code %]
