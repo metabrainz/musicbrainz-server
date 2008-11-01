@@ -329,7 +329,7 @@ sub donate : Local
 {
     my ($self, $c) = @_;
 
-    $c->forward('/user/login');
+    $c->forward('login');
 
     my $user = $c->user;
     my @donateinfo = MusicBrainz::Server::Editor::NagCheck($user);
