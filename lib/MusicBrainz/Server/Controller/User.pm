@@ -34,7 +34,7 @@ sub index : Private
     my ($self, $c) = @_;
 
     $c->forward('login');
-    $c->detach('profile');
+    $c->detach('profile', [ $c->user->name ]);
 }
 
 =head2 login
