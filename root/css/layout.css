@@ -300,3 +300,80 @@ hr {
     background: black;
     color: white;
 }
+
+#menu_bar {
+    clear: both;
+    overflow: hidden;
+    margin: 0;
+    background: #ffbb55;
+    border-bottom: 1px solid #000;
+}
+
+#menu_bar,
+#menu_bar ul {
+    margin: 0;
+    padding: 0;
+}
+
+#menu_bar li {
+    float: left;
+    list-style-type: none;
+    background: url(/static/images/black_pixel.gif) repeat-y top left;
+}
+
+#menu_bar li.first {
+    margin-left: 130px;
+}
+
+#menu_bar li.last {
+    border-right: 1px solid #000;
+}
+
+#menu_bar a {
+    font-weight: bold;
+}
+
+#menu_bar a:hover {
+    color: black;
+    text-decoration: underline;
+}
+
+#menu_bar li a {
+    padding: .2em 1em;
+    display: block;
+    background: none;
+    color: black;
+}
+
+#menu_bar li a:hover,
+#menu_bar li a.selected {
+    background: #7777aa url(/static/images/black_pixel.gif) repeat-y top left;
+    color: white;
+}
+
+#menu_bar li ul {
+    position: absolute;
+    left: -999em;
+    background: #F0EFFF;
+    border: 1px solid black;
+}
+
+#menu_bar li ul li {
+     background: none;
+     float: none;
+     margin: 0;
+     border-bottom: 1px dotted #bbb;
+     border-right: none;
+}
+#menu_bar li ul li:hover {
+    background: #E0DEEE;
+}
+#menu_bar li ul li a:hover {
+    background: none;
+    color: black
+}
+
+#menu_bar li:hover ul,
+#menu_bar li.sfhover ul {
+    left: auto;
+}

@@ -306,7 +306,6 @@ sub PostLoad
 	# attempt to load the release entitiy from the value
 	# stored in this edit type. (@see Moderation::ShowModType)
 	($self->{"albumid"}, $self->{"checkexists-album"}) = ($releaseid, 1);
-
 }
 
 sub DetermineQuality
