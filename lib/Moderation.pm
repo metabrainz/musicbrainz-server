@@ -1313,6 +1313,19 @@ sub OpenModCountByModerator
 	);
 }
 
+sub OpenModCountAll
+{
+    my $self = shift;
+
+    my $sql = Sql->new($self->{DBH});
+
+    return $sql->SelectSingleValue(
+        "SELECT COUNT(*) FROM moderation_open
+         WHERE status = ?",
+        ModDefs::STATUS_OPEN
+    );
+}
+
 # This function returns the list of moderations to
 # be shown on one moderation page.  It returns an array
 # of references to Moderation objects.

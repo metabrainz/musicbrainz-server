@@ -30,4 +30,12 @@ sub list_open
     return $edits;
 }
 
+sub count_open
+{
+    my ($self) = @_;
+
+    my $edit = new Moderation($self->dbh);
+    return $edit->OpenModCountAll;
+}
+
 1;

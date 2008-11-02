@@ -5,7 +5,8 @@
     <li><a href="[% url_for_page(1) %]">&laquo;</a></li>
     <li><a href="[% url_for_page(current_page - 1) %]">&lt;</a></li>
   [% END %]
-  [% FOREACH page=[current_page..total_pages] %]
+  [% start=(current_page - 3) > 0 ? (current_page - 3) : 1;
+     FOREACH page=[start..total_pages] %]
     [% LAST IF loop.count > 5 %]
     <li[% IF current_page == page; ' class="current"'; END %]><a href="[% url_for_page(page) %]">[% page %]</a></li>
   [% END %]

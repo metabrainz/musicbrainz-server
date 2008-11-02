@@ -104,7 +104,7 @@ sub enter_votes : Local
 
     my $sql  = new Sql($c->mb->{DBH});
     my $vote = new MusicBrainz::Server::Vote($c->mb->{DBH});
-    
+
     eval
     {
         $sql->Begin;
@@ -239,8 +239,37 @@ sub open : Local
 
     $c->forward('/user/login');
 
+    use POSIX qw/ceil floor/;
+
+    my $offset = $c->req->query_params->{offset} || 0;
+    my $limit  = $c->req->query_params->{limit} || 25;
+
+    $limit = $limit > 100 ? 100 : $limit;
+    $limit = $limit < 25  ? 25  : $limit;
+
+    $offset = $offset < 0 ? 0 : $offset;
+
+    my $current_page = floor($offset / $limit) + 1;
+
+    my $edits      = $c->model('Moderation')->list_open($limit, $offset);
+    my $total_open = $c->model('Moderation')->count_open();
+
+    $c->stash->{current_page} = $current_page;
+    $c->stash->{total_pages}  = ceil($total_open / $limit);
+    $c->stash->{url_for_page} = sub {
+        my $page_number = shift; # Page number, 0 base
+	$page_number--;
+
+        my $new_offset = $page_number * $limit;
+
+        my $query = $c->req->query_params;
+        $query->{offset} = $new_offset;
+
+	$c->uri_for('/moderation/open', $query);
+    };
+
     $c->stash->{template} = 'moderation/open.tt';
-    $c->stash->{edits   } = $c->model('Moderation')->list_open(25, 0);
+    $c->stash->{edits   } = $edits;
 }
 
 1;

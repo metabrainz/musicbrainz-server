@@ -1,5 +1,7 @@
 [%- WRAPPER 'layout.tt' title='Open Moderations' -%]
 
+[% INCLUDE "components/paginator.tt" %]
+
 [% WRAPPER 'forms/form.tt' quiet=1 custom=1 action=c.uri_for('/moderation/enter_votes') %]
 <table class="moderation_list">
 [%- FOREACH moderation=edits -%]
