@@ -42,6 +42,7 @@ div.status_ok {
     background: #736DAB;
     border-bottom: 1px solid #000;
     margin: 0; padding: 0;
+    position: relative;
 }
 
 /*
@@ -301,12 +302,18 @@ hr {
     color: white;
 }
 
+#header img#brainz {
+    position: absolute;
+    bottom: 0px;
+    width: 130px;
+}
+
 #menu_bar {
     clear: both;
     overflow: hidden;
     margin: 0;
     background: #ffbb55;
-    border-bottom: 1px solid #000;
+    border-top: 1px solid #000;
 }
 
 #menu_bar,

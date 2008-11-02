@@ -22,7 +22,6 @@
 
 <body>
     [%- INCLUDE "layout/header.tt" -%]
-    [%- INCLUDE "layout/menu.tt" -%]
 
     <div id="container">
     <div id="content">
