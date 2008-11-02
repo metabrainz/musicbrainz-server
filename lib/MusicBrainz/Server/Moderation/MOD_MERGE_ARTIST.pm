@@ -64,27 +64,32 @@ sub PreInsert
 
 sub PostLoad
 {
-	my $self = shift;
+    my $self = shift;
 
-	# Possible formats of "new":
-	# "$sortname"
-	# "$sortname\n$name"
-	# or hash structure (containing at least two \n characters).
+    # Possible formats of "new":
+    # "$sortname"
+    # "$sortname\n$name"
+    # or hash structure (containing at least two \n characters).
 
-	my $unpacked = $self->ConvertNewToHash($self->new_data);
+    my $unpacked = $self->ConvertNewToHash($self->new_data);
 
-	unless ($unpacked)
-	{
-		# Name can be missing
-		@$self{qw( new.sortname new.name )} = split /\n/, $self->new_data;
+    if (!$unpacked)
+    {
+        # Name can be missing
+        @$self{qw( new.sortname new.name )} = split /\n/, $self->new_data;
 
-		$self->{'new.name'} = $self->{'new.sortname'}
-			unless defined $self->{'new.name'}
-			and $self->{'new.name'} =~ /\S/;
-	} else {
-		$self->{"new.name"} = $unpacked->{"ArtistName"};
-		$self->{"new.id"} = $unpacked->{"ArtistId"};
-	}
+        $self->{'new.name'} = $self->{'new.sortname'}
+            unless defined $self->{'new.name'}
+                       and $self->{'new.name'} =~ /\S/;
+    }
+    else
+    {
+        my $artist = new MusicBrainz::Server::Artist($self->{DBH});
+        $artist->id($unpacked->{"ArtistId"});
+        $artist->LoadFromId;
+
+        $self->new_data($artist);
+    }
 }
 
 sub DetermineQuality

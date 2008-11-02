@@ -1,0 +1,6 @@
+<table class="details">
+    <tr>
+        <th>Artist:</th>
+        <td>[%- INCLUDE 'components/entity-link.tt' entity=new -%]</td>
+    </tr>
+</table>

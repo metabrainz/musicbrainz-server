@@ -91,7 +91,6 @@ sub PostLoad
 
         $self->new_data($label);
     }
-
 }
 
 sub AdjustModPending
