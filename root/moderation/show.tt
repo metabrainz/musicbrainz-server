@@ -58,8 +58,8 @@
   <tr>
     <th style="vertical-align: top;">Changes:</th>
     <td>
-      [%- PROCESS "moderation/mods/${moderation.template}.tt" new=moderation.new_unpacked
-                                                             prev=moderation.prev_unpacked -%]
+      [%- PROCESS "moderation/mods/${moderation.template}.tt" new=(moderation.new_unpacked || moderation.new_data)
+                                                             prev=(moderation.prev_unpacked || moderation.previous_data) -%]
     </td>
   </tr>
 </table>

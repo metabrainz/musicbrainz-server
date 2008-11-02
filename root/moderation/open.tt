@@ -52,7 +52,7 @@
     <td class="changes">
       [% INCLUDE "moderation/mods/${moderation.template}.tt"
                   new=(moderation.new_unpacked  || moderation.new_data) 
-                 prev=(moderation.prev_unpacked || moderation.prev_data) %]
+                 prev=(moderation.prev_unpacked || moderation.previous_data) %]
     </td>
     <td class="vote_choice">
       [% INCLUDE "moderation/vote_options.tt" %]
