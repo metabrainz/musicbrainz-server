@@ -1,17 +1,8 @@
-<table class="details">
-  <tr>
-    <th>Name:</th>
-    <td>
-      <div>[% prev.LabelName %]</div>
-      <div>[% new.LabelName %]</div>
-    </td>
-  </tr>
-
-  <tr>
-    <th>Sort Name:</th>
-    <td>
-      <div>[% prev.SortName %]</div>
-      <div>[% new.SortName %]</div>
-    </td>
-  </tr>
-</table>
+[%- INCLUDE 'moderation/mods/diff_table.tt' changes=[
+        { label='Name', new=new.LabelName, prev=prev.LabelName },
+        { label='Sort name', new=new.SortName, prev=prev.SortName },
+        { label='Label code', new=new.LabelCode, prev=prev.LabelCode },
+        { label='Country', new=new.Country, prev=prev.Country },
+        { label='Founded', new=new.BeginDate, prev=prev.BeginDate },
+        { label='Dissolved', new=new.EndDate, prev=prev.EndDate }
+    ] -%]
