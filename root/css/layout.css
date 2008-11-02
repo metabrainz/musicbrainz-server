@@ -237,6 +237,7 @@ table.details th {
     text-align: right;
     min-width: 70pt;
     padding-right: 10pt;
+    vertical-align: top;
 }
 
 /* Nested details tables look dumb */

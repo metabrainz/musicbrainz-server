@@ -1,0 +1,13 @@
+<table class="details">
+     [% FOR change=changes %]
+          [% IF change.new != change.prev %]
+              <tr>
+                  <th>[% change.label %]:</th>
+                  <td class="change">
+                      <span class="new">[% change.new || "%&nbsp;" %]</span><br />
+                      <span class="prev">[% change.prev || "&nbsp;" %]</span>
+                  </td> 
+              </tr>
+          [% END %]
+     [% END %]
+</table>

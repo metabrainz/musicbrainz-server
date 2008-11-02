@@ -67,3 +67,17 @@ table.moderation_list .actions {
 .vote_choice td {
     width: 25%;
 }
+
+.change {
+    line-height: 175%;
+}
+
+.change .new {
+    background: #EEFFEE;
+    border: 1px solid #88FF88;
+}
+
+.change .prev {
+    background: #FFEEEE;
+    border: 1px solid #FF8888;
+}
