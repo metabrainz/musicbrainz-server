@@ -62,28 +62,36 @@ sub PreInsert
 
 sub PostLoad
 {
-	my $self = shift;
-	$self->{'dont-display-artist'} = 1;
+    my $self = shift;
 
-	# Possible formats of "new":
-	# "$sortname"
-	# "$sortname\n$name"
-	# or hash structure (containing at least two \n characters).
+    $self->{'dont-display-artist'} = 1;
+    $self->{'labelid'} = $self->row_id;
 
-	my $unpacked = $self->ConvertNewToHash($self->new_data);
+    # Possible formats of "new":
+    # "$sortname"
+    # "$sortname\n$name"
+    # or hash structure (containing at least two \n characters).
 
-	unless ($unpacked)
-	{
-		# Name can be missing
-		@$self{qw( new.sortname new.name )} = split /\n/, $self->new_data;
+    my $unpacked = $self->ConvertNewToHash($self->new_data);
 
-		$self->{'new.name'} = $self->{'new.sortname'}
-			unless defined $self->{'new.name'}
-			and $self->{'new.name'} =~ /\S/;
-	} else {
-		$self->{"new.name"} = $unpacked->{"LabelName"};
-		$self->{"new.id"} = $unpacked->{"LabelId"};
-	}
+    if (!$unpacked)
+    {
+        # Name can be missing
+        @$self{qw( new.sortname new.name )} = split /\n/, $self->new_data;
+
+        $self->{'new.name'} = $self->{'new.sortname'}
+            unless defined $self->{'new.name'}
+                       and $self->{'new.name'} =~ /\S/;
+    }
+    else
+    {
+        my $label = new MusicBrainz::Server::Label($self->{DBH});
+        $label->id($unpacked->{"LabelId"});
+        $label->LoadFromId;
+
+        $self->new_data($label);
+    }
+
 }
 
 sub AdjustModPending

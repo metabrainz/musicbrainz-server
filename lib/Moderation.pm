@@ -746,6 +746,22 @@ sub release
     return $self->{release};
 }
 
+sub label
+{
+    my ($self, $new_label) = @_;
+
+    if (defined $new_label) { $self->{labelid} = $new_label; }
+
+    if (defined $new_label || (!defined $self->{label} && defined $self->{labelid}))
+    {
+        # TODO release should get and set Release objects, not ids!
+        $self->{label} = MusicBrainz::Server::Label->new($self->{DBH});
+        $self->{label}->id($self->{labelid});
+        $self->{label}->LoadFromId;
+    }
+
+    return $self->{label};
+}
 
 sub yes_votes
 {

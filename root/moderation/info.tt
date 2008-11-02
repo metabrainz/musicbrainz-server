@@ -24,4 +24,11 @@
       <td>[%- INCLUDE 'components/entity-link.tt' entity=moderation.track -%]</td>
     </tr>
     [%- END -%]
+
+    [%- IF moderation.label -%]
+    <tr>
+      <th>Label:</th>
+      <td>[%- INCLUDE 'components/entity-link.tt' entity=moderation.label -%]</td>
+    </tr>
+    [%- END -%]
 </table>
