@@ -17,7 +17,7 @@
     </li>
     
     <li>
-        <a href="[% c.uri_for('/news') %]">News</a>
+        <a href="http://blog.musicbrainz.org">News</a>
         <ul>
             <li><a href="http://blog.musicbrainz.org">General News</a></li>
             <li><a href="http://blog.musicbrainz.org?cat=3">Server</a></li>
@@ -70,6 +70,7 @@
         </ul>
     </li>
 
+[%- IF c.user_exists -%]
     <li>
         <a href="[% c.uri_for('/user/profile', c.user.name) %]">Account</a>
         <ul>
@@ -82,6 +83,16 @@
 	    <li><a href="[% c.uri_for('/user/logout') %]">Logout</a></li>
         </ul>
     </li>
+[%- ELSE -%]
+    <li>
+        <a href="[% c.uri_for('/user/login') %]">Account</a>
+        <ul>
+	    <li><a href="[% c.uri_for('/user/register') %]">Create an Account</a></li>
+	    <li><a href="[% c.uri_for('/user/login') %]">Login</a></li>
+	    <li><a href="[% c.uri_for('/user/forgot_password') %]">Forgot Password</a></li>
+        </ul>
+    </li>
+[%- END -%]
 
     <li>
         [%- INCLUDE 'components/doc-link.tt' to='HowToContribute' text='Contribute' -%]
