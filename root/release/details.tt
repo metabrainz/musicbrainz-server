@@ -1,23 +1,23 @@
 [%- WRAPPER "release/layout.tt" title="Details" -%]
+
 [%- WRAPPER "components/box.tt" header="Release details" -%]
-  <table class="details">
-      <tr>
+<table class="details">
+    <tr>
         <th>[% INCLUDE "components/doc-link.tt" to="ReleaseTitle" text="Title" %]:</th>
-        <td>
-          [% INCLUDE "components/entity-link.tt" entity=release %]
-        </td>
-      </tr>
-      <tr>
+        <td>[% INCLUDE "components/entity-link.tt" entity=release %]</td>
+    </tr>
+    <tr>
         <th>[% INCLUDE "components/doc-link.tt" to="MusicBrainzIdentifier" text="MBID" %]:</th>
         <td>[% release.mbid %]</td>
-      </tr>
-      </tr>
+    </tr>
+    <tr>
         <th>Permanent link:</th>
         <td>
-          [% perma="http://musicbrainz.org/release/${release.mbid}" %]
-          <a href="[% perma | url %]">[% perma | html %]</a>
+        [% perma="http://musicbrainz.org/release/${release.mbid}" %]
+        <a href="[% perma | url %]">[% perma | html %]</a>
         </td>
-      </tr>
-  </table>
+    </tr>
+</table>
 [%- END -%]
+
 [%- END -%]

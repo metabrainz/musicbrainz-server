@@ -1,24 +1,24 @@
 [%- WRAPPER "layout.tt" -%]
-[%- FOREACH group=tag_types -%]
-  <h2>[%- group.type | ucfirst -%]</h2>
 
-  [%- IF group.entities.size -%]
-    <table>
-    [%- FOREACH entity=group.entities -%]
-      <tr>
-        <td>[% INCLUDE "components/entity-link.tt" %]</td>
-        <td>[% entity.amount %]</td>
-      </tr>
+[%- FOREACH group=tag_types -%]
+    <h2>[%- group.type | ucfirst -%]</h2>
+
+    [%- IF group.entities.size -%]
+        <table>
+        [%- FOREACH entity=group.entities -%]
+            <tr>
+            <td>[% INCLUDE "components/entity-link.tt" %]</td>
+            <td>[% entity.amount %]</td>
+            </tr>
+        [%- END -%]
+        </table>
+        [%- IF group.more -%]
+            <p>There are more [% group.type %]s tagged with "[% tag | html %]."
+            <a href="[% c.uri_for('/tags', tag, group.type) %]">View all [% group.type %]s&hellip;</a></p>
+        [%- END -%]
+    [%- ELSE -%]
+        <p>No [% group.type %]s have been tagged with "[% tag | html %]"</p>
     [%- END -%]
-    </table>
-    [%- IF group.more -%]
-      <p>
-        There are more [% group.type %]s tagged with "[% tag | html %]."
-        <a href="[% c.uri_for('/tags', tag, group.type) %]">View all [% group.type %]s&hellip;</a>
-      </p>
-    [%- END -%]
-  [%- ELSE -%]
-    <p>No [% group.type %]s have been tagged with "[% tag | html %]"</p>
-  [%- END -%]
 [%- END -%]
+
 [%- END -%]

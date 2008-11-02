@@ -2,26 +2,26 @@
 [% WRAPPER 'components/box.tt' header="Relate ${entity.entity_type} to URL" %]
 
 <ul>
-  <li>
-    Select the URL relationship type and enter the URL below. Please note that the URL
-    must be a valid URL, including the http:// or ftp:// protocol portion of the URL
-  </li>
-  <li>
-    <strong>You may not link to digital audio files or sites where unauthorized copies of
-    copyrighted works can be downloaded.</strong> If you would like to link directly to a
-    downloadable music track, please ensure that the music is licensed under some free
-    license like the <a href="http://creativecommons.org">Creative Commons licenses</a>,
-    <a href="http://www.eff.org/IP/Open_licenses/eff_oal.php">EFF's Open Audio license</a>,
-    or is otherwise legally downloadable for free.
-  </li>
+    <li>
+        Select the URL relationship type and enter the URL below. Please note that the URL
+        must be a valid URL, including the http:// or ftp:// protocol portion of the URL
+    </li>
+    <li>
+        <strong>You may not link to digital audio files or sites where unauthorized copies of
+        copyrighted works can be downloaded.</strong> If you would like to link directly to a
+        downloadable music track, please ensure that the music is licensed under some free
+        license like the <a href="http://creativecommons.org">Creative Commons licenses</a>,
+        <a href="http://www.eff.org/IP/Open_licenses/eff_oal.php">EFF's Open Audio license</a>,
+        or is otherwise legally downloadable for free.
+    </li>
 </ul>
 
 [% WRAPPER "forms/form.tt" %]
-  [% INCLUDE "forms/widget.tt" widget=form.field('type') label="Type" %]
-  [% INCLUDE "forms/widget.tt" widget=form.field('url') label="URL" %]
-  [% INCLUDE "forms/widget.tt" widget=form.field('description') label="Description"%]
-  [% INCLUDE "forms/edit-note.tt" %]
-  [% INCLUDE "forms/submit.tt" label="Add relationship" %]
+    [% INCLUDE "forms/widget.tt" widget=form.field('type') label="Type" %]
+    [% INCLUDE "forms/widget.tt" widget=form.field('url') label="URL" %]
+    [% INCLUDE "forms/widget.tt" widget=form.field('description') label="Description"%]
+    [% INCLUDE "forms/edit-note.tt" %]
+    [% INCLUDE "forms/submit.tt" label="Add relationship" %]
 [% END %]
 
 [% END %]

@@ -1,11 +1,11 @@
 [% WRAPPER "layout.tt" title="Search" %]
 
 [% WRAPPER "components/box.tt" header="Search Results" %]
-  [% INCLUDE "components/paginator.tt" %]
+    [% INCLUDE "components/paginator.tt" %]
 
-  [% results %]
+    [% results %]
   
-  [% INCLUDE "components/paginator.tt" %]
+    [% INCLUDE "components/paginator.tt" %]
 [% END IF results%]
 
 [% INCLUDE "search/form.tt" %]

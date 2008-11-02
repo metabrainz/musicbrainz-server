@@ -1,16 +1,18 @@
-  <div class="releaseinfo">
+<div class="releaseinfo">
     <div class="tracks">
-      [% release.track_count %]&nbsp;<img src="/static/images/notes.gif" alt="Tracks" />
-      [% IF release.puid_count %][% release.puid_count %]&nbsp;<img src="/static/images/puid.gif" alt="PUIDs" />[% END %]
+        [% release.track_count %]&nbsp;<img src="/static/images/notes.gif" alt="Tracks" />
+        [% IF release.puid_count %]
+            [% release.puid_count %]&nbsp;<img src="/static/images/puid.gif" alt="PUIDs" />
+        [% END %]
     </div>
     <div class="right">
-      [ [% data_quality(release.quality) %] data quality ] |
-      <span class="[% release.language_has_mod_pending ? 'mp' : '' %]">
-        [ [% release.language.name || '?' %], [% release.script.name || '?' %] ] |
-      </span>
-      <span class="[% release.attributes_have_mod_pending ? 'mp' : '' %]">
-        [ [% release_attribute(release.release_type) || '?' %],
-          [% release_attribute(release.release_status) || '?' %] ]
-      </span>
+        [ [% data_quality(release.quality) %] data quality ] |
+        <span class="[% release.language_has_mod_pending ? 'mp' : '' %]">
+            [ [% release.language.name || '?' %], [% release.script.name || '?' %] ] |
+        </span>
+        <span class="[% release.attributes_have_mod_pending ? 'mp' : '' %]">
+            [ [% release_attribute(release.release_type) || '?' %],
+            [% release_attribute(release.release_status) || '?' %] ]
+        </span>
     </div>
-  </div>
+</div>

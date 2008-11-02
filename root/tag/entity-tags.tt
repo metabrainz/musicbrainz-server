@@ -1,8 +1,8 @@
 [% WRAPPER "components/box.tt" header="Tags" %]
 [%- IF tagcloud.size -%] 
-  <p>[% INCLUDE "components/entity-link.tt" %] has been tagged with the following:</p>
-  [% INCLUDE "tag/cloud.tt" %]
+    <p>[% INCLUDE "components/entity-link.tt" %] has been tagged with the following:</p>
+    [% INCLUDE "tag/cloud.tt" %]
 [%- ELSE -%]
-  <p>[% INCLUDE "components/entity-link.tt" %] has not been tagged.</p>
+    <p>[% INCLUDE "components/entity-link.tt" %] has not been tagged.</p>
 [%- END -%]
 [% END %]
