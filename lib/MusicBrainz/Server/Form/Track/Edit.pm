@@ -26,7 +26,7 @@ sub update_model
     {
         my %moderation = %mod_base;
         $moderation{type}   = ModDefs::MOD_EDIT_TRACKNUM;
-        $moderation{newseq} = $self->value('track');
+        $moderation{newseq} = $self->value('track')->{number};
 
         my @mods = Moderation->InsertModeration(%moderation);
         $mods[0]->InsertNote($user->id, $self->value('edit_note'))
