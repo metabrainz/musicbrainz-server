@@ -104,42 +104,19 @@ sub DetermineQuality
 
 sub PreDisplay
 {
-	my $this = shift;
-	
-	# flag indicates: new artist already in DB
-	$this->{'new.exists'} = (defined $this->{'new.artistid'} && $this->{'new.artistid'} > 0);
+    my $self = shift;
 
-	# old mods had only the name in 'newvalue' which is assigned to new.sortname
-	$this->{'new.name'} = $this->{'new.sortname'}
-		unless (defined $this->{'new.name'});
+    my $artist = new MusicBrainz::Server::Artist($self->{DBH});
+    $artist->name($self->{'new.name'});
+    $artist->sort_name($self->{'new.sortvalue'});
+    $artist->id($self->{'new.artistid'});
 
-	# load album name
-	require MusicBrainz::Server::Release;
-	my $al = MusicBrainz::Server::Release->new($this->{DBH});
-	$al->id($this->row_id);
-	if ($al->LoadFromId)
-	{
-		$this->{'albumname'} = $al->name;
+    if (defined $self->{'new.artistid'} && $self->{'new.artistid'} > 0)
+    {
+        $artist->LoadFromId;
+    }
 
-		# try to guess the artist id for old moderations which only had the
-		# name in 'newvalue'
-		# if the current artist of the album has the same name as new.name
-		# then assume that it is the artist used in the old moderation
-		# (when this causes false assumptions, remove the followig lines)
-		if (!$this->{'new.exists'})
-		{
-			require MusicBrainz::Server::Artist;
-			my $ar = MusicBrainz::Server::Artist->new($this->{DBH});
-			$ar->id($al->artist);
-			if ($ar->LoadFromId 
-				&& $ar->name eq $this->{'new.name'})
-			{
-				$this->{'new.artistid'} = $ar->id;
-				$this->{'new.exists'} = 1;
-				$this->{'new.sortname'} = $ar->sort_name;
-			}
-		}
-	}
+    $self->new_data($artist);
 }
 
 sub CheckPrerequisites
