@@ -12,7 +12,7 @@
     [%- FOREACH entity=entities -%]
     <div class="row labelRight">
       <input type="radio" name="search_id" value="[% entity.id %]">
-      <label for="id_search_[% entity.id %]">[% entity.name %]</label>
+      <label for="id_search_[% entity.id %]">[%- INCLUDE 'components/entity-link.tt' %]</label>
     </div>
     [% END %]
     [%- INCLUDE "forms/submit.tt" label="Select" -%]
