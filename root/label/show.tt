@@ -3,6 +3,8 @@
 [%- INCLUDE "components/relations.tt" source=label -%]
 
 <h2 class="compactreleasetype">Releases</h2>
+
+[%- IF releases.size -%]
 <table class="releases">
   <thead>
     <tr>
@@ -35,4 +37,8 @@
   [%- END -%]
   </tbody>
 </table>
+[%- ELSE -%]
+  <p>This label does not currently have any releases.</p>
+[%- END -%]
+
 [% END %]
