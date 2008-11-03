@@ -1,10 +1,10 @@
 [% WRAPPER "components/box.tt" header="Search" %]
     <div class="searchform">
     [% WRAPPER "forms/form.tt" action=c.uri_for('/search/external') method='get' %]
-        [% INCLUDE "forms/widget.tt" widget=form.field('query') label="Search for:" %]
-        [% INCLUDE "forms/widget.tt" widget=form.field('type')  label="Type:" %]
-        [% INCLUDE "forms/widget.tt" widget=form.field('limit') label="Limit to:" %]
-        [% INCLUDE "forms/widget.tt" widget=form.field('enable_advanced') label="Use advanced query syntax:" %]
+        [% INCLUDE "forms/widget.tt" widget=form.field('query') label="Search for" %]
+        [% INCLUDE "forms/widget.tt" widget=form.field('type')  label="Type" %]
+        [% INCLUDE "forms/widget.tt" widget=form.field('limit') label="Limit to" %]
+        [% INCLUDE "forms/widget.tt" widget=form.field('enable_advanced') label="Use advanced query syntax" %]
 
         [% INCLUDE "forms/submit.tt" label="Search" %]
     [% END %]

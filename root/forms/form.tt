@@ -12,4 +12,8 @@
     </ul>
   [%- END -%]
   [% content %]
+  [%- IF moderation -%]
+    [%- INCLUDE 'forms/edit-note.tt' -%]
+    [%- INCLUDE 'forms/submit.tt' -%]
+  [%- END -%]
 </form>
