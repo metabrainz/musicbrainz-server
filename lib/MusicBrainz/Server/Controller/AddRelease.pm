@@ -113,7 +113,7 @@ sub add_release_information : Private
 
     $c->stash->{template} = 'add_release/tracks.tt';
 
-    if (!$c->form_posted && $w->{release_info})
+    if (!$c->form_posted && scalar keys %{ $w->{release_info} })
     {
         return unless $form->validate($w->{release_info});
     }

@@ -1,34 +1,42 @@
 <ul>
+[%- IF new -%]
+  <li>You are about to add an artist to MusicBrainz.</li>
+[%- END -%]
   <li>
     Please read the
     [%- INCLUDE "components/doc-link.tt" to="StyleGuideline" text="Style Guidelines" -%],
-    then use the fields below to update the information of this artist.
+    then provide the necessary information about the new artist below.
   </li>
   <li>
-    If one or more artists with the same name already exist in the database, you will be prompted to
-    add a comment to this artist that will allow users to distinguish this entry from the other
+    If one or more artists with the same name already exist in the database, you
+    will be prompted to add a comment to this artist that will allow users to
+    distinguish this entry from the other
     artist(s) with the same name (see
     [%- INCLUDE "components/doc-link.tt" to="ArtistComment" text="ArtistComment" -%]).
   </li>
   <li>
-    Please note that casing of the artist is taken into account when determining the need for a
-    comment; The two Artists <em>somename</em> and <em>Somename</em> are not the same.
+    Please note that casing of the artist is taken into account when determining
+    the need for a comment; The two artists <em>some name</em> and
+    <em>Some Name</em> are not the same.
   </li>
 </ul>
 
-[%- WRAPPER "forms/form.tt" -%]
-  [%- INCLUDE "forms/widget.tt" widget=form.field("artist_type") label="Type" -%]
-  
-  [%- INCLUDE "forms/widget.tt" widget=form.field("name") label="Name" -%]
-  [%- INCLUDE "forms/widget.tt" widget=form.field("sortname") label="Sort Name" -%]
-
-  [%- INCLUDE "forms/widget.tt" widget=form.field("start") label="Start" -%]
-  [%- INCLUDE "forms/widget.tt" widget=form.field("end") label="End" -%]
-
-  [%- IF form.field("resolution").required -%]
-    [%- INCLUDE "forms/widget.tt" widget=form.field("resolution") label="Resolution" -%]
+[%- WRAPPER "forms/form.tt" moderation=1 -%]
+  [%- WRAPPER 'forms/fieldset.tt' legend='Artist Details' -%]
+    [%- INCLUDE "forms/widget.tt" widget=form.field("artist_type") label="Type" -%]
+    [%- INCLUDE "forms/widget.tt" widget=form.field("name") label="Name" -%]
+    [%- INCLUDE "forms/widget.tt" widget=form.field("sortname") label="Sort Name" -%]
+    [%- IF form.field("resolution").required -%]
+      [%- INCLUDE "forms/widget.tt" widget=form.field("resolution") label="Resolution" -%]
+    [%- END -%]
   [%- END -%]
- 
-  [%- INCLUDE "forms/edit-note.tt" -%]
-  [%- INCLUDE "forms/submit.tt" label="Update" -%]
+
+  [%- WRAPPER 'forms/fieldset.tt' legend='Date Period' -%]
+    <p>
+      Dates are in the format YYYY-MM-DD. Partial dates such as YYYY-MM or just
+      YYYY are OK, or you can omit the date entirely.
+    </p>
+    [%- INCLUDE "forms/widget.tt" widget=form.field("start") label="Start" -%]
+    [%- INCLUDE "forms/widget.tt" widget=form.field("end") label="End" -%]
+  [%- END -%]
 [% END %]

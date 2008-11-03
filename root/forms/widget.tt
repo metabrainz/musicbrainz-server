@@ -2,16 +2,8 @@
 
 [%- id = "id_${widget.name}" -%]
 
-[%- IF widget.widget == 'checkbox' -%]
-  <div class="labelRight row">
-    <div class="input">[% INCLUDE "forms/input.tt" %]</div>
-    [% INCLUDE "forms/label.tt" IF label %]
-[%- ELSE -%]
-  <div class="row">
-    [% INCLUDE "forms/label.tt" IF label%]
-    <div class="input">[% INCLUDE "forms/input.tt" %]</div>
-[%- END -%]
-</div>
+[%- INCLUDE 'forms/input.tt' WRAPPER 'forms/row.tt'
+        right=(widget.widget == 'checkbox') -%]
 
 [%- IF widget.errors.size -%]
 <ul class="labelRight">

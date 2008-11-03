@@ -2,12 +2,12 @@
 [%#- escapes! -%]
 [%- mpclass = entity.has_mod_pending ? ' class="mp"' : '' -%]
 [%- IF entity.entity_type == "url" -%]
-  <a href="[% (entity.url || entity.name) %]"[% mpclass %]>[% (entity.name || entity.url) | truncate(53) | html %]</a>
-  [<a href="[% c.entity_url(entity, 'info') %]">info</a>]
+  <a href="[%- (entity.url || entity.name) -%]"[%- mpclass -%]>[%- (entity.name || entity.url) | truncate(53) | html -%]</a>
+  [<a href="[%- c.entity_url(entity, 'info') -%]">info</a>]
 [%- ELSE -%]
-  <a href="[% c.entity_url(entity, 'show') %]"[% mpclass %]>
-    [%- UNLESS noicon -%]<span class="[% entity.entity_type %]_icon">[%- END -%]
-    [% entity.name | html %]
+  <a href="[%- c.entity_url(entity, 'show') -%]"[%- mpclass -%]>
+    [%- UNLESS noicon -%]<span class="[%- entity.entity_type -%]_icon">[%- END -%]
+    [%- entity.name | html -%]
     [%- UNLESS noicon -%]</span>[%- END -%]</a>
-    [% IF entity.resolution%] ([% entity.resolution | html %])[% END %]
+    [%- IF entity.resolution -%] ([%- entity.resolution | html -%])[%- END -%]
 [%- END -%]

@@ -33,8 +33,14 @@ sub profile
 {
     return {
         required => {
-            name        => 'Text',
-            sortname    => 'Text',
+            name        => {
+                type => 'Text',
+                size => 50,
+            },
+            sortname    => {
+                type => 'Text',
+                size => 50,
+            },
             artist_type => 'Select'
         },
         optional => {
@@ -48,6 +54,7 @@ sub profile
                 type             => 'Text',
                 required_message => 'An artist with this name already exists. '.
                                     'Please enter a comment about this artist for disambiguation',
+                size             => 50,
             },
         }
     };

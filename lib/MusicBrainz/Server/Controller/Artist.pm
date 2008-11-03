@@ -536,7 +536,7 @@ sub edit_alias : Chained('artist') Args(1)
     my $form = $c->form($alias, 'Artist::EditAlias');
     $form->context($c);
 
-    $c->stash->{template} = 'artist/add_alias.tt';
+    $c->stash->{template} = 'artist/edit_alias.tt';
 
     return unless $c->form_posted && $form->validate($c->req->params);
 

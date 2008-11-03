@@ -1,7 +1,5 @@
 [% WRAPPER "artist/layout.tt" title="Edit" %]
 [% WRAPPER "components/box.tt" header="Edit ${artist.name}" %]
-
 [% INCLUDE "artist/edit_form.tt" %]
-
 [% END %]
 [% END %]

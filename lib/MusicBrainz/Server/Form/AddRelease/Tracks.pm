@@ -33,7 +33,7 @@ sub add_tracks
         $track_field->sub_form->field('number')->value($i);
         $track_field->required(1);
 
-        my $artist_field = $self->make_field("artist_$i", 'Text');
+        my $artist_field = $self->make_field("artist_$i", { type => 'Text', size => 50 });
         $artist_field->required(1);
 
         $self->add_field($track_field);

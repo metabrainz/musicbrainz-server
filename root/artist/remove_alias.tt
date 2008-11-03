@@ -1,10 +1,31 @@
-[% WRAPPER 'artist/layout.tt' title='Remove Alias' %]
-[% WRAPPER 'components/box.tt' header='Confirm alias removal' %]
+[%- WRAPPER 'artist/layout.tt' title='Remove Alias' -%]
+[%- WRAPPER 'components/box.tt' header='Confirm alias removal' -%]
 
-[% WRAPPER 'forms/form.tt' %]
-  [% INCLUDE 'forms/edit-note.tt' %]
-  [% INCLUDE 'forms/submit.tt' label='Enter edit' %]
-[% END %]
+<ul>
+  <li>
+    Please review the documentation about
+    [% INCLUDE 'components/doc-link.tt' to='ArtistAlias' text='artist aliases' -%],
+    before entering this edit.
+  </li>
+  <li>
+    Are you sure you want to remove the alias
+    [%- INCLUDE 'components/entity-link.tt' entity=alias -%], which points to
+    the artist
+    [%- INCLUDE 'components/entity-link.tt' entity=artist -%]?
+  </li>
+  <li>
+    If you added this alias by mistake, please follow the instructions about
+    [%- INCLUDE 'components/doc-link.tt' to='HowToCancelEdits'
+            text='how to cancel pending edits' -%].
+    Removing pending edits, rather than entering new edits helps reducing
+    the amount of open edits in the system.
+  </li>
+  <li>
+    Cancelling a pending edit will take effect within an hour, while removing
+    an artist alias has to be voted on according to the voting process.
+  </li>
+</ul>
 
-[% END %]
-[% END %]
+[%- INCLUDE 'forms/form.tt' moderation=1 -%]
+[%- END -%]
+[%- END -%]

@@ -2,8 +2,23 @@
 [% WRAPPER 'components/box.tt' header='Add Release' %]
 [% INCLUDE 'add_release/bread_crumbs.tt' %]
 
+<ul>
+  <li>
+    You are about to manually add a release to the artist
+    [%- INCLUDE 'components/entity-link.tt' entity=artist -%].
+    Did you know that you can import releases from the
+    <a href="[% c.uri_for('/release/import') %]">FreeDB database</a>?
+  </li>
+  <li>
+    Please read the
+    [% INCLUDE 'components/doc-link.tt' text='style guidelines' to='StyleGuidelines' %]
+    first, then enter the number of tracks on this release to
+    begin the add release wizard.
+  </li>
+</ul>
+
 [% WRAPPER 'forms/form.tt' %]
-  [% INCLUDE 'forms/widget.tt' widget=form.field('track_count') label='Track count:' %]
+  [% INCLUDE 'forms/widget.tt' widget=form.field('track_count') label='Track count' %]
   [% INCLUDE 'forms/submit.tt' label='Next' %]
 [% END %]
 [% END %]
