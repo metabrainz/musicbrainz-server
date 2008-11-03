@@ -57,7 +57,7 @@
     </tr>
     <tr>
         <th>Track Number:</th>
-        <td>[% track.number %]</td>
+        <td>[% track.sequence %]</td>
     </tr>
     </table>
 [% END %]
