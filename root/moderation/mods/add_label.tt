@@ -1,6 +1,7 @@
 [%- INCLUDE 'moderation/mods/diff_table.tt' changes=[
         { label='Name', new=new.LabelName },
         { label='Sort name', new=new.SortName },
+        { label='Resolution', new=new.Resolution },
         { label='Label code', new=new.LabelCode },
         { label='Country', new=new.Conutry },
         { label='Founded', new=new.BeginDate },

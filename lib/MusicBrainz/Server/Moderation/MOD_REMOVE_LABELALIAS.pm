@@ -46,6 +46,19 @@ sub PreInsert
 	$self->row_id($alias->id);
 }
 
+sub PostLoad
+{
+    my $self = shift;
+
+    require MusicBrainz::Server::Alias;
+    my $alias = MusicBrainz::Server::Alias->new($self->{DBH}, "labelalias");
+    $alias->id($self->row_id);
+    $alias->LoadFromId;
+
+    $self->{'dont-display-artist'} = 1;
+    $self->{'labelid'} = $alias->row_id;
+}
+
 sub ApprovedAction
 {
 	my $this = shift;

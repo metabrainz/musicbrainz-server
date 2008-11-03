@@ -157,6 +157,7 @@ sub PostLoad
 	$self->{'dont-display-artist'} = 1;
 	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->new_data()) or die;
 	$self->{'prev_unpacked'} = $self->ConvertNewToHash($self->previous_data()) or die;
+	$self->{'labelid'} = $self->row_id;
 }
 
 sub IsAutoEdit
