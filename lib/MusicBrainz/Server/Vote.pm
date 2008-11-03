@@ -223,20 +223,13 @@ sub TopVoters
 {
 	my ($self, %opts) = @_;
 
-	my $nl = $opts{namelimit} || 11;
-	$nl = 6 if $nl < 6;
-	my $nl2 = $nl-3;
-
 	$opts{rowlimit} ||= 5;
 	$opts{interval} ||= "1 week";
 
 	my $sql = Sql->new($self->{DBH});
 
 	$sql->SelectListOfHashes(
-		"SELECT	m.id, m.name,
-				CASE WHEN LENGTH(name)<=$nl THEN name ELSE SUBSTR(name, 1, $nl2) || '...' END
-				AS nametrunc,
-				COUNT(*) AS num
+		"SELECT	m.id, m.name, COUNT(*) AS num
 		FROM	vote_all v, moderator m
 		WHERE	v.moderator = m.id
 		AND 	v.vote != " . VOTE_ABS . "

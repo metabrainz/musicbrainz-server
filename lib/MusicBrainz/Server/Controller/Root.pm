@@ -9,6 +9,7 @@ use base 'Catalyst::Controller';
 use DBDefs;
 use MusicBrainz::Server::Adapter qw( EntityUrl );
 use MusicBrainz::Server::Replication ':replication_type';
+use Statistic;
 
 #
 # Sets the actions in this controller to be registered with no prefix
@@ -81,6 +82,24 @@ sub end : ActionClass('RenderView')
     my $simpleSearch = new MusicBrainz::Server::Form::Search::Simple;
     $simpleSearch->field('type')->value($c->session->{last_simple_search} || 'artist');
     $c->stash->{sidebar_search} = $simpleSearch;
+
+    # Sidebar stats
+    $c->stash->{'top_voters'} = $c->model('Moderation')->top_voters(5);
+
+    my $stat  = Statistic->new($c->mb->{DBH});
+    my $stats = $stat->FetchAllAsHashRef;
+
+    $c->stash->{'server_stats'} = {
+        artists  => $stats->{'count.artist'},
+        releases => $stats->{'count.album'},
+        labels   => $stats->{'count.label'},
+        tracks   => $stats->{'count.track'},
+        links    => $stats->{'count.ar.links'},
+        disc_ids => $stats->{'count.discid'},
+        puids    => $stats->{'count.puid'},
+        edits    => $stats->{'count.moderation'},
+        editors  => $stats->{'count.moderator'},
+    };
 
     # For linking to entities
     $c->stash(entity_url => sub { EntityUrl($c, @_); }); 

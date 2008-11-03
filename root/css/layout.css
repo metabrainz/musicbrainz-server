@@ -178,6 +178,17 @@ div.status_ok {
     padding-left: 10pt;
 }
 
+#sidebar table.details th,
+#sidebar table.details td {
+    min-width: 10pt;
+    font-size: 8pt;
+    padding: 0;
+}
+
+#sidebar table.details td {
+    padding-left: 5pt;
+}
+
 /*
  * Content
  */

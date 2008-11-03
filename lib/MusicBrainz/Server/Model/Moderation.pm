@@ -5,6 +5,9 @@ use warnings;
 
 use base 'MusicBrainz::Server::Model::Base';
 
+use Moderation;
+use MusicBrainz::Server::Vote;
+
 sub load
 {
     my ($self, $id) = @_;
@@ -36,6 +39,18 @@ sub count_open
 
     my $edit = new Moderation($self->dbh);
     return $edit->OpenModCountAll;
+}
+
+sub top_voters
+{
+    my $self = shift;
+    my ($limit) = @_;
+
+    my $vote = MusicBrainz::Server::Vote->new($self->dbh);
+    return $vote->TopVoters(
+         rowlimit => $limit,
+         interval => "1 Week",
+    );
 }
 
 1;
