@@ -1,57 +1,58 @@
 [%- DEFAULT maximum=4 -%]
 [%- BLOCK relation_group -%]
-  [% ar.connector | html %]
-  [%- FOREACH entity IN ar.entities -%]
-    [%- IF loop.count > 4 && !showall -%]
-       &hellip;
-       [%- LAST -%]
-    [%- ELSE -%]
-       [%#- Has to be on one line so we don't mess up the spacing with the comma :x -%]
-       [%- INCLUDE "components/entity-link.tt" -%]
-       [%- loop.count == (loop.size - 1) ? " and " : !loop.last ? "," : "" -%]
+    [% ar.connector | html %]
+    [%- FOREACH entity IN ar.entities -%]
+        [%- IF loop.count > 4 && !showall -%]
+           &hellip;
+           [%- LAST -%]
+        [%- ELSE -%]
+           [%#- Has to be on one line so we don't mess up the spacing with the comma :x -%]
+           [%- INCLUDE "components/entity-link.tt" -%]
+           [%- loop.count == (loop.size - 1) ? " and " : !loop.last ? "," : "" -%]
+        [%- END -%]
     [%- END -%]
-  [%- END -%]
-       [% "from ${ar.start_date}" IF ar.start_date %]
-       [% "until ${ar.end_date}" IF ar.end_date %]
+    [% "from ${ar.start_date}" IF ar.start_date %]
+    [% "until ${ar.end_date}" IF ar.end_date %]
 [%- END -%]
+
 [%- BLOCK list -%]
-  [%- IF relations.size > 1 OR nocompact -%]
-  <ul class="relations_list">
-    [%- FOREACH ar IN relations -%]
-      [%- LAST IF loop.count > maximum && !showall -%]
-      <li>[%- PROCESS relation_group -%]</li>
+    [%- IF relations.size > 1 OR nocompact -%]
+        <ul class="relations_list">
+        [%- FOREACH ar IN relations -%]
+            [%- LAST IF loop.count > maximum && !showall -%]
+            <li>[%- PROCESS relation_group -%]</li>
+        [%- END -%]
+        </ul>
+    [%- ELSIF relations.size == 1 -%] 
+        [%- PROCESS relation_group ar=relations.first -%]
     [%- END -%]
-  </ul>
-  [%- ELSIF relations.size == 1 -%] 
-    [%- PROCESS relation_group ar=relations.first -%]
-  [%- END -%]
-  [%- IF relations.size > maximum  && !showall -%]
-    [%- n = relations.size - maximum -%]
-    <div class="more_relationships">
-      [% n %] relationship[% n > 1 ? "s" : "" %] not shown.
-    <a href="[% c.entity_url(source, 'relations') %]">View all relationships&hellip;</a>
-    </div>
-  [%- END -%]
+    [%- IF relations.size > maximum  && !showall -%]
+        [%- n = relations.size - maximum -%]
+        <div class="more_relationships">
+            [% n %] relationship[% n > 1 ? "s" : "" %] not shown.
+            <a href="[% c.entity_url(source, 'relations') %]">View all relationships&hellip;</a>
+        </div>
+    [%- END -%]
 [%- END -%]
 
 [%- UNLESS justlist -%]
 [%- IF showall -%]<h1>Relationships for [% source.entity_type %] "[% source.name %]"</h1>[% END %]
 <div class="RelationshipBox">
-  [%- IF relations.size -%]
-    [%- INCLUDE "components/entity-link.tt" entity=source -%][% relations.size > 1 ? ":" : "" %]
-    [%- PROCESS list -%]
-  [%- ELSE -%]
-    [%- INCLUDE "components/entity-link.tt" entity=source -%] has no relations.
-  [%- END -%]
+    [%- IF relations.size -%]
+        [%- INCLUDE "components/entity-link.tt" entity=source -%][% relations.size > 1 ? ":" : "" %]
+        [%- PROCESS list -%]
+    [%- ELSE -%]
+        [%- INCLUDE "components/entity-link.tt" entity=source -%] has no relations.
+    [%- END -%]
 
-  [%- links = [
-          { link => c.uri_for(c.controller('relate').action_for('url'),
-                              [ source.entity_type, source.mbid ]),
+    [%- links = [
+        { link => c.uri_for(c.controller('relate').action_for('url'),
+            [ source.entity_type, source.mbid ]),
             text  => 'Relate to URL' },
-          { link => c.entity_url(source, 'relations'), text => 'View Relationships' },
-      ] -%]
-  <div>[%- INCLUDE 'components/piped-list.tt' list=links -%]</div>
+        { link => c.entity_url(source, 'relations'), text => 'View Relationships' },
+    ] -%]
+    <div>[%- INCLUDE 'components/piped-list.tt' list=links -%]</div>
 </div>
 [%- ELSE -%]
-  [%- PROCESS list -%]
+    [%- PROCESS list -%]
 [%- END -%]

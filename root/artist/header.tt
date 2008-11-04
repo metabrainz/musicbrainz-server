@@ -1,55 +1,53 @@
 [%- info_links = [
-     { link => c.entity_url(artist, 'aliases'), text => "Aliases" },
-     { link => c.entity_url(artist, 'appearances'), text => "Appears on" },
-     { link => c.entity_url(artist, 'details'), text => "Details" },
-     { link => c.entity_url(artist, 'perma'), text => "Permanent link" },
-     { link => c.entity_url(artist, 'show'), text => "Releases" },
-     { link => c.entity_url(artist, 'google'), text => "Search Google" }
-     { link => c.entity_url(artist, 'similar'), text => "Similar artists" },
-     { link => c.entity_url(artist, 'tags'), text => "Tags" },
-   ]
--%]
+    { link => c.entity_url(artist, 'aliases'), text => "Aliases" },
+    { link => c.entity_url(artist, 'appearances'), text => "Appears on" },
+    { link => c.entity_url(artist, 'details'), text => "Details" },
+    { link => c.entity_url(artist, 'perma'), text => "Permanent link" },
+    { link => c.entity_url(artist, 'show'), text => "Releases" },
+    { link => c.entity_url(artist, 'google'), text => "Search Google" }
+    { link => c.entity_url(artist, 'similar'), text => "Similar artists" },
+    { link => c.entity_url(artist, 'tags'), text => "Tags" },
+] -%]
 
 <div class="entity_header">
 
-  <div class="title artist">
-    [% INCLUDE "components/entity-link.tt" entity=artist noicon=1 %]
-  </div>
+    <div class="title artist">
+        [% INCLUDE "components/entity-link.tt" entity=artist noicon=1 %]
+    </div>
   
-  <div class="info">
-    [% IF artist.sort_name != artist.name %][% artist.sort_name | html %]<br />[% END %]
+    <div class="info">
+        [% IF artist.sort_name != artist.name %][% artist.sort_name | html %]<br />[% END %]
 
-    [%- IF artist.has_complete_date_range -%]
-      [% date(artist.begin_date) %] - [% date(artist.end_date) %]<br/>
-    [%- ELSIF artist.begin_date -%]
-      begin_date_name(artist.type): [% date(artist.begin_date) -%]<br />
-    [%- ELSIF artist.end_date -%]
-      end_date_name(artist.type): [% date(artist.end_date) -%]<br />
-    [%- END -%]
+        [%- IF artist.has_complete_date_range -%]
+            [% date(artist.begin_date) %] - [% date(artist.end_date) %]<br/>
+        [%- ELSIF artist.begin_date -%]
+            [% begin_date_name(artist.type) %]: [% date(artist.begin_date) -%]<br />
+        [%- ELSIF artist.end_date -%]
+            [% end_date_name(artist.type) %]: [% date(artist.end_date) -%]<br />
+        [%- END -%]
 
-    Type: [%- artist_type(artist.type) -%], [%- data_quality(artist.quality) -%] data quality<br />
-  </div>
-  
-  <div class="infoLinks"> Info: [% INCLUDE "components/piped-list.tt" list=info_links %]</div>
+        Type: [%- artist_type(artist.type) -%], [%- data_quality(artist.quality) -%] data quality<br />
+    </div>
 
-  <div class="editLinks">
-    Edit:
-    [%- IF c.user_exists -%]
-      [%- edit_links = [
-           { link => c.entity_url(artist, 'add_alias'), text => "Add Alias" },
-           { link => c.entity_url(artist, 'add_non_album'), text => "Add Non-Album Tracks" },
-#           { link => c.entity_url(artist, 'add_release'), text => "Add Release" },
-           { link => c.entity_url(artist, 'change_quality'), text => "Change Data Quality" },
-           { link => c.entity_url(artist, 'edit'), text => "Edit Artist" },
-           { link => c.entity_url(artist, 'import'), text => "Import Release" },
-           { link => c.entity_url(artist, 'merge'), text => "Merge Into" },
-           { link => c.entity_url(artist, 'subscribe'), text => "Subscribe" },
-         ]
-      -%]
-      [% INCLUDE "components/piped-list.tt" list=edit_links %]
-    [%- ELSE -%]
-      Please <a href="[% c.uri_for('/user/login') %]">log in</a> to edit this artist
-    [%- END -%]
-  </div>
+    <div class="infoLinks"> Info: [% INCLUDE "components/piped-list.tt" list=info_links %]</div>
+
+    <div class="editLinks">
+        Edit:
+        [%- IF c.user_exists -%]
+            [%- edit_links = [
+                { link => c.entity_url(artist, 'add_alias'), text => "Add Alias" },
+                { link => c.entity_url(artist, 'add_non_album'), text => "Add Non-Album Tracks" },
+#               { link => c.entity_url(artist, 'add_release'), text => "Add Release" },
+                { link => c.entity_url(artist, 'change_quality'), text => "Change Data Quality" },
+                { link => c.entity_url(artist, 'edit'), text => "Edit Artist" },
+                { link => c.entity_url(artist, 'import'), text => "Import Release" },
+                { link => c.entity_url(artist, 'merge'), text => "Merge Into" },
+                { link => c.entity_url(artist, 'subscribe'), text => "Subscribe" },
+            ] -%]
+            [% INCLUDE "components/piped-list.tt" list=edit_links %]
+        [%- ELSE -%]
+            Please <a href="[% c.uri_for('/user/login') %]">log in</a> to edit this artist
+        [%- END -%]
+    </div>
 
 </div>

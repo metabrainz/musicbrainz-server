@@ -3,47 +3,47 @@
 [% INCLUDE 'add_release/bread_crumbs.tt' %]
 
 <p>
-  The fields below allow you to enter track information, and to select track artists.
-  Unless the release has attached Disc IDs, you can remove tracks by activating the
-  remove button on the left of the track title fields. If you are editing a various
-  artists release, or if you have choosen to display the track artists, you can
-  activate the change button of the artists you would like to change. The page will
-  present you choices of existing track artists, once you click on the button
-  Continue ».
+    The fields below allow you to enter track information, and to select track artists.
+    Unless the release has attached Disc IDs, you can remove tracks by activating the
+    remove button on the left of the track title fields. If you are editing a various
+    artists release, or if you have choosen to display the track artists, you can
+    activate the change button of the artists you would like to change. The page will
+    present you choices of existing track artists, once you click on the button
+    Continue ».
 </p>
 <p>
-  Please use the Guess Case buttons (or the Guess All  button for all fields) to
-  fix common style errors.
+    Please use the Guess Case buttons (or the Guess All  button for all fields) to
+    fix common style errors.
 </p>
 
 [%- WRAPPER 'forms/form.tt' moderation=1 -%]
-  [%- WRAPPER 'forms/fieldset.tt' legend='Release Information' -%]
-    [%- WRAPPER 'forms/row.tt' label='Artist' -%]
-      [% INCLUDE 'components/entity-link.tt' entity=artist %]
+    [%- WRAPPER 'forms/fieldset.tt' legend='Release Information' -%]
+        [%- WRAPPER 'forms/row.tt' label='Artist' -%]
+            [% INCLUDE 'components/entity-link.tt' entity=artist %]
+        [%- END -%]
+        [%- INCLUDE 'forms/widget.tt' widget=form.field('title') label='Title' -%]
     [%- END -%]
-    [%- INCLUDE 'forms/widget.tt' widget=form.field('title') label='Title' -%]
-  [%- END -%]
 
-  [%- WRAPPER 'forms/fieldset.tt' legend='Tracks' %]
-    [%- FOR i=[1..track_count] -%]
-      [%- INCLUDE 'forms/widget.tt' widget=form.field("track_$i") label='Track' -%]
-      [%- INCLUDE 'forms/widget.tt' widget=form.field("artist_$i") label='Artist' -%]
-      <br />
+    [%- WRAPPER 'forms/fieldset.tt' legend='Tracks' %]
+        [%- FOR i=[1..track_count] -%]
+            [%- INCLUDE 'forms/widget.tt' widget=form.field("track_$i") label='Track' -%]
+            [%- INCLUDE 'forms/widget.tt' widget=form.field("artist_$i") label='Artist' -%]
+            <br />
+        [%- END -%]
     [%- END -%]
-  [%- END -%]
 
-  [%- WRAPPER 'forms/fieldset.tt' legend='Release Events' -%]
-    [% INCLUDE 'forms/widget.tt' widget=form.field('event_1') label='Release Event' %]
-  [%- END -%]
+    [%- WRAPPER 'forms/fieldset.tt' legend='Release Events' -%]
+        [% INCLUDE 'forms/widget.tt' widget=form.field('event_1') label='Release Event' %]
+    [%- END -%]
 
-  <input type="hidden" name="step" value="1" />
+    <input type="hidden" name="step" value="1" />
 [%- END -%]
 
 [%- END- %]
 
 [% IF can_preview %]
-  [% WRAPPER 'components/box.tt' header='Preview' %]
-    [% INCLUDE 'release/release.tt' release=preview tracks=preview_tracks no_edit_tracks=1 %]
-  [% END %]
+    [% WRAPPER 'components/box.tt' header='Preview' %]
+        [% INCLUDE 'release/release.tt' release=preview tracks=preview_tracks no_edit_tracks=1 %]
+    [% END %]
 [% END %]
 [% END %]

@@ -7,8 +7,8 @@
 [%- INCLUDE "components/entity-link.tt" entity=new_label -%]?</p>
 
 [%- WRAPPER "forms/form.tt" -%]
-  [% INCLUDE "forms/edit-note.tt" %]
-  [% INCLUDE "forms/submit.tt" label="Enter Edit" %]
+    [% INCLUDE "forms/edit-note.tt" %]
+    [% INCLUDE "forms/submit.tt" label="Enter Edit" %]
 [%- END -%]
 
 [% END %]

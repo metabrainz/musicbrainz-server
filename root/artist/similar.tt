@@ -1,19 +1,19 @@
 [%- WRAPPER "artist/layout.tt" title="Similar Artists" -%]
 [%- WRAPPER "components/box.tt" header="Similar Artists" -%]
 [%- IF similar_artists.size -%]
-<table style="width: 100%">
-  [%- FOREACH similar=similar_artists -%]
-  <tr>
-    <td style="width: 40pt;">[%- similar.weight -%]0%</td>
-    <td>[%- INCLUDE "components/entity-link.tt" entity=similar -%]</td>
-  </tr>
-  [%- END -%]
-</table>
+    <table style="width: 100%">
+        [%- FOREACH similar=similar_artists -%]
+            <tr>
+                <td style="width: 40pt;">[%- similar.weight -%]0%</td>
+                <td>[%- INCLUDE "components/entity-link.tt" entity=similar -%]</td>
+            </tr>
+        [%- END -%]
+    </table>
 [%- ELSE -%]
-  <p>
-    Sorry, we do not have any data about similar artists for
-    [% INCLUDE "components/entity-link.tt" entity=artist %].
-  </p>
+    <p>
+        Sorry, we do not have any data about similar artists for
+        [% INCLUDE "components/entity-link.tt" entity=artist %].
+    </p>
 [%- END -%]
 [%- END -%]
 [%- END -%]

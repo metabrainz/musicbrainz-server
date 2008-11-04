@@ -1,4 +1,4 @@
 <fieldset>
-  <legend>[%- legend -%]</legend>
-  [%- content -%]
+    <legend>[%- legend -%]</legend>
+    [%- content -%]
 </fieldset>

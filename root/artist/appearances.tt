@@ -1,32 +1,32 @@
 [%- WRAPPER "artist/layout.tt" title="Appearances" -%]
 
 [% BLOCK group_head %]
-  [%- last_year = '.' -%]
-  <h2 class="compactreleasetype">[% item.link | ucfirst %]</h2>
-  <table class="appears">
+    [%- last_year = '.' -%]
+    <h2 class="compactreleasetype">[% item.link | ucfirst %]</h2>
+    <table class="appears">
     <thead>
-      <tr>
-        <th class="year">Year</th>
-        <th class="artist">Artist</th>
-        <th class="title">Release Title</th>
-      </tr>
+        <tr>
+            <th class="year">Year</th>
+            <th class="artist">Artist</th>
+            <th class="title">Release Title</th>
+        </tr>
     </thead>
     <tbody>
 [% END %]
 
 [% BLOCK group_item %]
-      <tr>
+    <tr>
         <td class="year[% item.year == last_year && item.year != '?' ? ' timeline' : '' -%]">
-          [% item.year %]
+            [% item.year %]
         </td>
         <td>[% INCLUDE "components/entity-link.tt" entity=item.artist %]</td>
         <td>[% INCLUDE "components/entity-link.tt" entity=item.release %]</td>
-      </tr>
-      [%- last_year = item.year -%]
+    </tr>
+    [%- last_year = item.year -%]
 [% END %]
 
 [% BLOCK group_foot %]
-  </tbody>
+    </tbody>
 </table>
 [% END %]
 

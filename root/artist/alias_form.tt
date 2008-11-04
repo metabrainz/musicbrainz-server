@@ -1,18 +1,18 @@
 <ul>
-  <li>
-    MusicBrainz uses artist aliases mainly as variant names or search hints.
-    If you see a misspelled alias here, it's most likely listed on purpose and
-    should not be renamed.  See the documentation about
-    [%- INCLUDE 'components/doc-link.tt' to='ArtistAlias' text='artist aliases' -%]
-    for more details.
-  </li>
-  <li>
-    Please note that aliases are currently <strong>required to be unique
-    for all artists</strong>. You can circumvent this limitation by adding
-    a comment to the alias, preferably in parentheses.
-  </li>
+    <li>
+        MusicBrainz uses artist aliases mainly as variant names or search hints.
+        If you see a misspelled alias here, it's most likely listed on purpose and
+        should not be renamed.  See the documentation about
+        [%- INCLUDE 'components/doc-link.tt' to='ArtistAlias' text='artist aliases' -%]
+        for more details.
+    </li>
+    <li>
+        Please note that aliases are currently <strong>required to be unique
+        for all artists</strong>. You can circumvent this limitation by adding
+        a comment to the alias, preferably in parentheses.
+    </li>
 </ul>
 
 [%- INCLUDE 'forms/widget.tt' widget=form.field('alias') label='Alias'
-      WRAPPER 'forms/fieldset.tt' legend='Alias'
-      WRAPPER 'forms/form.tt' moderation=1 -%]
+    WRAPPER 'forms/fieldset.tt' legend='Alias'
+    WRAPPER 'forms/form.tt' moderation=1 -%]

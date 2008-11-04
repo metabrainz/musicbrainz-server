@@ -1,3 +1,3 @@
 [%- FOREACH sub_field IN widget.sub_form.sorted_fields -%]
-  [%- INCLUDE 'forms/input.tt' widget=sub_field -%]
+    [%- INCLUDE 'forms/input.tt' widget=sub_field -%]
 [%- END -%]

@@ -2,11 +2,11 @@
 [% WRAPPER 'components/box.tt' header='Confirm artist' %]
 [% INCLUDE 'add_release/bread_crumbs.tt' %]
 
-  <p>
-    Please confirm the artist "[% confirming %]" by searching below.
-    If searching yields no useful results, you can <a href="?add=1">add a new artist</a>
-  </p>
-  [% BLOCK create_link; "?id=${entity.id}&for=${key}"; END %]
-  [% INCLUDE "components/search.tt" entities=artists search_label="Artist:" %]
+    <p>
+        Please confirm the artist "[% confirming %]" by searching below.
+        If searching yields no useful results, you can <a href="?add=1">add a new artist</a>
+    </p>
+    [% BLOCK create_link; "?id=${entity.id}&for=${key}"; END %]
+    [% INCLUDE "components/search.tt" entities=artists search_label="Artist:" %]
 [% END %]
 [% END %]

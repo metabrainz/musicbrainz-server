@@ -3,19 +3,19 @@
 [% INCLUDE 'add_release/bread_crumbs.tt' %]
 
 <p>
-  We found the following similar releases already in our database. Did you mean
-  to enter one of the following? If you are sure that your release is different,
-  please confirm by selecting the button below
+    We found the following similar releases already in our database. Did you mean
+    to enter one of the following? If you are sure that your release is different,
+    please confirm by selecting the button below
 </p>
 
 <ul>
 [% FOR release=similar %]
-  <li>[% INCLUDE 'components/entity-link.tt' entity=release %]</li>
+    <li>[% INCLUDE 'components/entity-link.tt' entity=release %]</li>
 [% END %]
 <ul>
 
 [% WRAPPER 'forms/form.tt' %]
-  [% INCLUDE 'forms/submit.tt' label="No, my release is not one of the above" %]
+    [% INCLUDE 'forms/submit.tt' label="No, my release is not one of the above" %]
 [% END %]
 
 [% END %]

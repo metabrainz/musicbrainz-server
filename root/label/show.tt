@@ -5,40 +5,40 @@
 <h2 class="compactreleasetype">Releases</h2>
 
 [%- IF releases.size -%]
-<table class="releases">
-  <thead>
-    <tr>
-      <th class="tracks"></th>
-      <th class="status">Status</th>
-      <th class="language">Language</th>
-      <th class="date">Date</th>
-      <th class="catalog">Catalog #</th>
-      <th class="artist">Artist</th>
-      <th class="title">Title</th>
-    </tr>
-  </thead>
-  <tbody>
-  [%- FOREACH release=releases -%]
-    <tr[% ' class="odd"' IF loop.count % 2 == 0 %]>
-      <td class="tracks">[% release.track_count %]&nbsp;<img src="/static/images/notes.gif" alt="Tracks" /></td>
-      <td class="status">[% release_attribute(release.release_status) %]</td>
-      <td class="language">
-        <abbr title="[% release.language %] / [% release.script %]">
-          [% release.language_code %]
-        </abbr>
-      </td>
-      <td class="date">
-        [% release.first_release_date | release_date %]
-      </td>
-      <td class="catalog">[% release.catalog_number %]</td>
-      <td class="artist">[% INCLUDE "components/entity-link.tt" entity=release.artist %]</td>
-      <td class="name">[% INCLUDE "components/entity-link.tt" entity=release %]</td>
-    </tr>
-  [%- END -%]
-  </tbody>
-</table>
+    <table class="releases">
+    <thead>
+        <tr>
+            <th class="tracks"></th>
+            <th class="status">Status</th>
+            <th class="language">Language</th>
+            <th class="date">Date</th>
+            <th class="catalog">Catalog #</th>
+            <th class="artist">Artist</th>
+            <th class="title">Title</th>
+        </tr>
+    </thead>
+    <tbody>
+    [%- FOREACH release=releases -%]
+        <tr[% ' class="odd"' IF loop.count % 2 == 0 %]>
+            <td class="tracks">[% release.track_count %]&nbsp;<img src="/static/images/notes.gif" alt="Tracks" /></td>
+            <td class="status">[% release_attribute(release.release_status) %]</td>
+            <td class="language">
+                <abbr title="[% release.language %] / [% release.script %]">
+                    [% release.language_code %]
+                </abbr>
+            </td>
+            <td class="date">
+                [% release.first_release_date | release_date %]
+            </td>
+            <td class="catalog">[% release.catalog_number %]</td>
+            <td class="artist">[% INCLUDE "components/entity-link.tt" entity=release.artist %]</td>
+            <td class="name">[% INCLUDE "components/entity-link.tt" entity=release %]</td>
+        </tr>
+    [%- END -%]
+    </tbody>
+    </table>
 [%- ELSE -%]
-  <p>This label does not currently have any releases.</p>
+    <p>This label does not currently have any releases.</p>
 [%- END -%]
 
 [% END %]

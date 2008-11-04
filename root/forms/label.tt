@@ -1,3 +1,3 @@
 <label for="id_[% widget.name %]" class="[% widget.required_text %][% widget.errors.size ? " error" : "" %]">
-  [% label %]:
+    [% label %]:
 </label>
