@@ -7,72 +7,71 @@
 [% WRAPPER 'forms/form.tt' quiet=1 custom=1 action=c.uri_for('/moderation/enter_votes') %]
 <table class="moderation_list">
 [%- FOREACH moderation=edits -%]
-  <tr class="seperator">
-    <td colspan="3"></td>
-  </tr>
-  <tr>
-    <td>
-      <table class="details">
+    <tr class="seperator">
+        <td colspan="3"></td>
+    </tr>
+    <tr>
+        <td>
+        <table class="details">
         <tr>
-          <th style="width: 70pt;">Editor:</th>
-          <td>
-            <a href="[% c.uri_for('/user/profile', moderation.moderator.name) %]">
-              [% moderation.moderator.name %]
-            </a>
-          </td>
+            <th style="width: 70pt;">Editor:</th>
+            <td>
+                <a href="[% c.uri_for('/user/profile', moderation.moderator.name) %]">
+                [% moderation.moderator.name %]</a>
+            </td>
         </tr>
         <tr>
-          <th>Edit ID:</th>
-          <td><a href="[%- entity_url(moderation, 'show') -%]">[% moderation.id %]</a></td>
+            <th>Edit ID:</th>
+            <td><a href="[%- entity_url(moderation, 'show') -%]">[% moderation.id %]</a></td>
         </tr>
 
         [%- IF moderation.language -%]
         <tr>
-          <th>Language:</th>
-          <td>[% moderation.language.name %]</td>
+            <th>Language:</th>
+            <td>[% moderation.language.name %]</td>
         </tr>
         [%- END -%]
 
         <tr>
-          <th>Expired:</th>
-          <td>[% user_date(moderation.expire_time) %]</td>
+            <th>Expired:</th>
+            <td>[% user_date(moderation.expire_time) %]</td>
         </tr>
-      </table>
-    </td>
+        </table>
+        </td>
     
-    <td>
-      [% INCLUDE "moderation/info.tt" %]
-    </td>
-    <td class="actions">
-      [% links = [
-         { link => c.entity_url(moderation, 'add_note'), text => 'Add note' },
-         { link => c.entity_url(moderation, 'approve'),  text => 'Approve' },
-      ] %]
-      [%- INCLUDE "components/piped-list.tt" list=links -%]
-    </td>
-  </tr>
-  <tr>
-    <td class="under_info">&nbsp;</td>
-    <td class="changes">
-      [% INCLUDE "moderation/mods/${moderation.template}.tt"
+        <td>
+            [% INCLUDE "moderation/info.tt" %]
+        </td>
+        <td class="actions">
+            [% links = [
+                { link => c.entity_url(moderation, 'add_note'), text => 'Add note' },
+                { link => c.entity_url(moderation, 'approve'),  text => 'Approve' },
+            ] %]
+            [%- INCLUDE "components/piped-list.tt" list=links -%]
+        </td>
+    </tr>
+    <tr>
+        <td class="under_info">&nbsp;</td>
+        <td class="changes">
+            [% INCLUDE "moderation/mods/${moderation.template}.tt"
                   new=(moderation.new_unpacked  || moderation.new_data) 
                  prev=(moderation.prev_unpacked || moderation.previous_data) %]
-    </td>
-    <td class="vote_choice">
-      [% INCLUDE "moderation/vote_options.tt" %]
-    </td>
-  </tr>
+        </td>
+        <td class="vote_choice">
+            [% INCLUDE "moderation/vote_options.tt" %]
+        </td>
+    </tr>
 
-  [% IF moderation.Notes.size %]
-  <tr>
-    <td colspan="3">[% INCLUDE "moderation/notes.tt" %]</td>
-  </tr>
-  [% END %]
+    [% IF moderation.Notes.size %]
+    <tr>
+        <td colspan="3">[% INCLUDE "moderation/notes.tt" %]</td>
+    </tr>
+    [% END %]
 [%- END -%]
 </table>
 
 <div style="text-align: right;">
-  [% INCLUDE 'forms/submit.tt' label='Enter votes' %]
+    [% INCLUDE 'forms/submit.tt' label='Enter votes' %]
 </div>
 
 [% INCLUDE "components/paginator.tt" %]

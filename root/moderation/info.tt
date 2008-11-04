@@ -1,34 +1,34 @@
 <table class="details">
     <tr>
-      <th style="width: 70pt;">Type:</th>
-      <td>[%- moderation.Name -%]</td>
+        <th style="width: 70pt;">Type:</th>
+        <td>[%- moderation.Name -%]</td>
     </tr>
 
     [%- IF moderation.artist AND moderation.show_artist -%]
-    <tr>
-      <th>Artist:</th>
-      <td>[%- INCLUDE 'components/entity-link.tt' entity=moderation.artist -%]</td>
-    </tr>
+        <tr>
+            <th>Artist:</th>
+            <td>[%- INCLUDE 'components/entity-link.tt' entity=moderation.artist -%]</td>
+        </tr>
     [%- END -%]
 
     [%- IF moderation.release -%]
-    <tr>
-      <th>Release:</th>
-      <td>[%- INCLUDE 'components/entity-link.tt' entity=moderation.release -%]</td>
-    </tr>
+        <tr>
+            <th>Release:</th>
+            <td>[%- INCLUDE 'components/entity-link.tt' entity=moderation.release -%]</td>
+        </tr>
     [%- END -%]
 
     [%- IF moderation.track -%]
-    <tr>
-      <th>Track:</th>
-      <td>[%- INCLUDE 'components/entity-link.tt' entity=moderation.track -%]</td>
-    </tr>
+        <tr>
+            <th>Track:</th>
+            <td>[%- INCLUDE 'components/entity-link.tt' entity=moderation.track -%]</td>
+        </tr>
     [%- END -%]
 
     [%- IF moderation.label -%]
-    <tr>
-      <th>Label:</th>
-      <td>[%- INCLUDE 'components/entity-link.tt' entity=moderation.label -%]</td>
-    </tr>
+        <tr>
+            <th>Label:</th>
+            <td>[%- INCLUDE 'components/entity-link.tt' entity=moderation.label -%]</td>
+        </tr>
     [%- END -%]
 </table>

@@ -1,6 +1,6 @@
 <table class="details">
-  <tr>
-    <th>Name:</th>
-    <td>[% new.ArtistName %]</td>
-  </tr>
+    <tr>
+        <th>Name:</th>
+        <td>[% new.ArtistName %]</td>
+    </tr>
 </table>

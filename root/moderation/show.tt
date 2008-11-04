@@ -2,80 +2,78 @@
 [%- WRAPPER 'components/box.tt' header="Moderation #${moderation.id}" -%]
 
 <table class="details">
-  <tr>
-    <th>Editor:</th>
-    <td>[%- moderation.moderator.name -%]</td>
-  </tr>
+    <tr>
+        <th>Editor:</th>
+        <td>[%- moderation.moderator.name -%]</td>
+    </tr>
 
-  <tr>
-    <th>Edit ID:</th>
-    <td>[% moderation.id %]</td>
-  </tr>
+    <tr>
+        <th>Edit ID:</th>
+        <td>[% moderation.id %]</td>
+    </tr>
 
-  <tr>
-    <th>Status:</th>
-    <td>[% moderation.GetChangeName %]</td>
-  </tr>
+    <tr>
+        <th>Status:</th>
+        <td>[% moderation.GetChangeName %]</td>
+    </tr>
 
-  <tr>
-    <th>Opened:</th>
-    <td>[% user_date(moderation.open_time) %]</td>
-  </tr>
+    <tr>
+        <th>Opened:</th>
+        <td>[% user_date(moderation.open_time) %]</td>
+    </tr>
 
-  <tr>
-    <th>Expires:</th>
-    <td>[% user_date(moderation.expire_time) %]</td>
-  </tr>
+    <tr>
+        <th>Expires:</th>
+        <td>[% user_date(moderation.expire_time) %]</td>
+    </tr>
 
-  <tr>
-    <th>Closed:</th>
-    [% moderation.close_time %]
-    <td>[% user_date(moderation.close_time || "-") %]</td>
-  </tr>
+    <tr>
+        <th>Closed:</th>
+        [% moderation.close_time %]
+        <td>[% user_date(moderation.close_time || "-") %]</td>
+    </tr>
 
-  <tr>
-    <th>Conditions:</th>
-    <td>
-      [% data_quality(moderation.quality) %] data quality,
-      [% expire_action(moderation.GetExpireAction) %] on expiration,
-      [% moderation.GetNumVotesNeeded %] to accept/reject.
-    </td>
-  </tr>
+    <tr>
+        <th>Conditions:</th>
+        <td>
+            [% data_quality(moderation.quality) %] data quality,
+            [% expire_action(moderation.GetExpireAction) %] on expiration,
+            [% moderation.GetNumVotesNeeded %] to accept/reject.
+        </td>
+    </tr>
 </table>
 
 <hr />
 
 <table class="details">
-  <tr>
-    <th style="vertical-align: top;">Edit:</th>
-    <td>
-      [% INCLUDE "moderation/info.tt" %]
-    </td>
-  </tr>
+    <tr>
+        <th style="vertical-align: top;">Edit:</th>
+        <td>[% INCLUDE "moderation/info.tt" %]</td>
+    </tr>
 </table>
 
 <table class="details">
-  <tr>
-    <th style="vertical-align: top;">Changes:</th>
-    <td>
-      [%- PROCESS "moderation/mods/${moderation.template}.tt" new=(moderation.new_unpacked || moderation.new_data)
+    <tr>
+        <th style="vertical-align: top;">Changes:</th>
+        <td>
+        [%- PROCESS "moderation/mods/${moderation.template}.tt" new=(moderation.new_unpacked || moderation.new_data)
                                                              prev=(moderation.prev_unpacked || moderation.previous_data) -%]
-    </td>
-  </tr>
+        </td>
+    </tr>
 </table>
 
 <hr />
 
 <table class="details">
-  <tr>
-    <th>My Vote</th>
-    <td>
-      <p></p>
-      [% WRAPPER 'forms/form.tt' quiet=1 custom=1 action=c.uri_for('/moderation/enter_votes') %]
-      [% INCLUDE 'moderation/vote_options.tt' %]
-      [% END %]
-    </td>
-  </tr>
+    <tr>
+        <th>My Vote</th>
+        <td>
+            <p></p>
+            [% WRAPPER 'forms/form.tt' quiet=1 custom=1 action=c.uri_for('/moderation/enter_votes') %]
+                [% INCLUDE 'moderation/vote_options.tt' %]
+            [% END %]
+        </td>
+    </tr>
 </table>
 
 <hr />
@@ -87,8 +85,8 @@
 
 <h4>Add Note</h4>
 [% WRAPPER 'forms/form.tt' action=c.entity_url(moderation, 'add_note') %]
-  [% INCLUDE 'forms/edit-note.tt' form=add_note %]
-  [% INCLUDE 'forms/submit.tt' label='Add Note' %]
+    [% INCLUDE 'forms/edit-note.tt' form=add_note %]
+    [% INCLUDE 'forms/submit.tt' label='Add Note' %]
 [% END %]
 
 [%- END -%]

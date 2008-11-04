@@ -1,20 +1,20 @@
 [%- stats = {
-        'Artists'  => server_stats.artists,
-        'Releases' => server_stats.releases,
-        'Labels'  => server_stats.labels,
-        'Tracks' => server_stats.tracks,
-        'Links' => server_stats.links,
-        'Disc IDs' => server_stats.disc_ids,
-        'PUIDs' => server_stats.puids,
-        'Edits' => server_stats.edits,
-        'Editors' => server_stats.editors,
-    } -%]
+    'Artists'  => server_stats.artists,
+    'Releases' => server_stats.releases,
+    'Labels'  => server_stats.labels,
+    'Tracks' => server_stats.tracks,
+    'Links' => server_stats.links,
+    'Disc IDs' => server_stats.disc_ids,
+    'PUIDs' => server_stats.puids,
+    'Edits' => server_stats.edits,
+    'Editors' => server_stats.editors,
+} -%]
 
 <table class="details">
-  [%- FOR stat=stats.keys.sort -%]
-  <tr>
-    <th>[% stat %]</th>
-    <td>[% stats.$stat %]</td>
-  </tr>
-  [%- END -%]
+    [%- FOR stat=stats.keys.sort -%]
+    <tr>
+        <th>[% stat %]</th>
+        <td>[% stats.$stat %]</td>
+    </tr>
+    [%- END -%]
 </table>

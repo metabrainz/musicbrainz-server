@@ -1,11 +1,11 @@
 <table class="details">
-  <tr>
-    <th>Title:</th>
-    <td>[% new.TrackName %]</td>
-  </tr>
+    <tr>
+        <th>Title:</th>
+        <td>[% new.TrackName %]</td>
+    </tr>
 
-  <tr>
-    <th>Length:</th>
-    <td>[% track_length(new.TrackLength) %]</td>
-  </tr>
+    <tr>
+        <th>Length:</th>
+        <td>[% track_length(new.TrackLength) %]</td>
+    </tr>
 </table>
