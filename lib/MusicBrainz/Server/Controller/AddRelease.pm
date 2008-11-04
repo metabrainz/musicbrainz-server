@@ -6,6 +6,8 @@ use warnings;
 use base qw(Catalyst::Controller);
 
 use MusicBrainz::Server::Release;
+use MusicBrainz::Server::ReleaseEvent;
+use MusicBrainz::Server::Track;
 
 =head2 _current_step
 
@@ -103,30 +105,56 @@ sub add_release_information : Private
 {
     my ($self, $c) = @_;
 
-    my $form = $c->form($c->stash->{artist}, 'AddRelease::Tracks');
-    my $w = $self->_wizard_data($c);
+    my $artist = $c->stash->{artist};
+
+    my $form = $c->form($artist, 'AddRelease::Tracks');
+    my $w    = $self->_wizard_data($c);
 
     my $track_count = $w->{track_count};
     $c->stash->{track_count} = $track_count;
 
-    $form->add_tracks($track_count);
+    $form->add_tracks($track_count, $artist);
 
     $c->stash->{template} = 'add_release/tracks.tt';
 
     if (!$c->form_posted && scalar keys %{ $w->{release_info} })
     {
+        # User has not posted the form on this request, but we
+        # do have saved data
         return unless $form->validate($w->{release_info});
     }
     elsif ($c->form_posted)
     {
+        # User has posted the form, try and validate
         return unless $form->validate($c->req->params);
+
+        # Store the valid posted data
         $w->{release_info} = $c->req->params;
     }
+
+    # And wait for the form to be posted...
+    return unless $c->form_posted;
+
+    # ----------------
 
     # If we get here, then the user has submitted the release information
     # form, and the information is valid. Now we need to confirm artists,
     # labels, and check for duplicates
 
+    # If we have no unconfirmed artist data, then let's pre-fill confirmed
+    # artists to the artist we are adding a release for (good guess, if the
+    # user changes the artist name, they have to reconfirm that artist)
+    if (!exists $w->{unconfirmed_artists})
+    {
+        my $artist = $c->stash->{artist};
+        for my $i (1 .. $track_count)
+	{
+            $w->{confirmed_artists}->{"artist_$i"}->{name} = $artist->name;
+            $w->{confirmed_artists}->{"artist_$i"}->{id  } = $artist->id;
+	  }
+    }
+
+    # Check for any artist names that require reconfirmation
     for my $i (1 .. $track_count)
     {
         my $key        = "artist_$i";
@@ -152,6 +180,8 @@ sub add_release_information : Private
         }
     }
 
+    # Run this first because it only depends on release title
+    # and track count atm
     $self->_change_step($c, 'add_release_check_dupes')
         unless $w->{checked_dupes};
 
@@ -161,9 +191,68 @@ sub add_release_information : Private
     $self->_change_step($c, 'add_release_confirm_labels')
         if scalar keys %{ $w->{unconfirmed_labels} };
 
+    $self->_change_step($c, 'add_release_confirm')
+}
+
+sub add_release_confirm : Private
+{
+    my ($self, $c) = @_;
+
+    my $artist = $c->stash->{artist};
+    my $w      = $self->_wizard_data($c);
+
+    my $form = $c->form($artist, 'AddRelease::Tracks');
+    $form->add_tracks($w->{track_count}, $artist);
+    $form->context($c);
+
+    $c->stash->{template} = 'add_release/confirm.tt';
+
+    return unless $form->validate($w->{release_info});
+
+    # Construct a preview release
+    my $preview_release = MusicBrainz::Server::Release->new($c->mb->{DBH});
+    $preview_release->name($form->value('title'));
+
+    my @tracks;
+    for my $i (1 .. $w->{track_count})
+    {
+        my $track = MusicBrainz::Server::Track->new($c->mb->{DBH});
+        $track->name($form->value("track_$i")->{name});
+        $track->sequence($i);
+        $track->length($form->value("track_$i")->{duration});
+
+        push @tracks, $track;
+    }
+
+    my @events;
+    # TODO Again... multiple release events
+    for my $i (1 .. 1)
+    {
+        my $label = MusicBrainz::Server::Label->new($c->mb->{DBH});
+        $label->id($w->{confirmed_labels}->{"event_$i"}->{id});
+        $label->name($w->{confirmed_labels}->{"event_$i"}->{name});
+
+        my $event = MusicBrainz::Server::ReleaseEvent->new($c->mb->{DBH});
+        $event->cat_no($form->value("event_$i")->{catalog});
+        $event->label($label);
+        $event->sort_date($form->value("event_$i")->{date});
+        $event->barcode($form->value("event_$i")->{barcode});
+
+        push @events, $event;
+    }
+
+    $c->stash->{preview       } = $preview_release;
+    $c->stash->{preview_tracks} = \@tracks;
+    $c->stash->{preview_events} = \@events;
+
     return unless $c->form_posted;
 
-    $form->context($c);
+    if ($c->req->params->{submit} eq 'Keep Editing')
+    {
+        $w->{release_info}->{edit_note} = $c->req->params->{edit_note};
+        $self->_change_step($c, 'add_release_information');
+    }
+
     my @mods = $form->insert($w->{confirmed_artists});
 
     delete $c->session->{wizard};
@@ -239,7 +328,7 @@ sub add_release_confirm_labels : Private
         $w->{release_info}->{$key} = $label->name;
 
         delete $unconfirmed->{$key};
-        $self->_change_step($c, 'add_release_information');
+        $self->_change_step($c, 'add_release_confirm');
     }
     else
     {
@@ -277,14 +366,14 @@ Restart the add_release wizard
 
 =cut
 
-sub restart : Chained('/artist/artist') PathPart('add_release/restart')
+sub cancel : Chained('/artist/artist') PathPart('add_release/restart')
 {
     my ($self, $c) = @_;
 
     delete $c->session->{wizard};
     delete $c->session->{wizard_step};
 
-    $c->forward('add_release');
+    $c->response->redirect($c->entity_url($c->stash->{artist}, 'show'));
 }
 
 1;

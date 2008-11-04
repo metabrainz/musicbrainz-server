@@ -8,8 +8,8 @@
             </div>
         [%- END -%]
         
-        [% INCLUDE "release/info-links.tt" %]
-        [% INCLUDE "release/edit-links.tt" %]
+        [% INCLUDE "release/info-links.tt" UNLESS no_info_links %]
+        [% INCLUDE "release/edit-links.tt" UNLESS no_edit_links %]
         
         [% IF tags %]
             <div class="releasetags">

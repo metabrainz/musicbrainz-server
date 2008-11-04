@@ -4,6 +4,7 @@
 	      { action => 'add_release_confirm_artists', name => 'Confirm Artists'},
 	      { action => 'add_release_confirm_labels', name => 'Confirm Labels'},
 	      { action => 'add_release_dupes', name => 'Check For Duplicates' },
+              { action => 'add_release_confirm', name => 'Confirm' },
 	   ] %]
 
 <ol class="wizard_breadcrumbs">

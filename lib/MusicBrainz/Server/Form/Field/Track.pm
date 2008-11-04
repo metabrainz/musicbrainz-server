@@ -34,7 +34,10 @@ sub profile
 
     my $profile = {
         required => {
-            name   => 'Text',
+            name   => {
+                type => 'Text',
+                size => 35,
+            }
         },
         optional => {
             duration => '+MusicBrainz::Server::Form::Field::Time',

@@ -13,7 +13,10 @@ sub profile
 {
     return {
         required => {
-            title   => 'Text',
+            title   => {
+                type => 'Text',
+                size => 50,
+            },
             event_1 => '+MusicBrainz::Server::Form::Field::ReleaseEvent',
         },
         optional => {
@@ -24,7 +27,7 @@ sub profile
 
 sub add_tracks
 {
-    my ($self, $count) = @_;
+    my ($self, $count, $artist) = @_;
     $self->track_count($count);
 
     for my $i (1..$count)
@@ -35,6 +38,7 @@ sub add_tracks
 
         my $artist_field = $self->make_field("artist_$i", { type => 'Text', size => 50 });
         $artist_field->required(1);
+        $artist_field->value($artist->name);
 
         $self->add_field($track_field);
         $self->add_field($artist_field);
