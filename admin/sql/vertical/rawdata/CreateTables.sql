@@ -1,5 +1,17 @@
 \set ON_ERROR_STOP 1
 BEGIN;
+   	
+CREATE TABLE release_raw
+(
+	id					SERIAL,
+	title				VARCHAR(255) NOT NULL,
+	artist				VARCHAR(255),
+	added				TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+	lastmodified		TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+	lookupcount			INTEGER DEFAULT 0,
+	modifycount			INTEGER DEFAULT 0,
+	source				INTEGER DEFAULT 0
+);
 
 CREATE TABLE artist_rating_raw
 (
@@ -7,54 +19,22 @@ CREATE TABLE artist_rating_raw
     editor              INTEGER NOT NULL,
     rating              INTEGER NOT NULL
 );
-   	
+
 CREATE TABLE artist_tag_raw
 (
-    artist              INTEGER NOT NULL,
-    tag                 INTEGER NOT NULL,
-    moderator           INTEGER NOT NULL
+	artist				INTEGER NOT NULL,
+	tag					INTEGER NOT NULL,
+	moderator			INTEGER NOT NULL
 );
 
-CREATE TABLE release_rating_raw
+CREATE TABLE cdtoc_raw
 (
-    release             INTEGER NOT NULL,
-    editor              INTEGER NOT NULL,
-    rating              INTEGER NOT NULL
-);
-   	
-CREATE TABLE release_tag_raw
-(
-    release             INTEGER NOT NULL,
-    tag                 INTEGER NOT NULL,
-    moderator           INTEGER NOT NULL
-);
-
-CREATE TABLE track_rating_raw
-(
-    track               INTEGER NOT NULL,
-    editor              INTEGER NOT NULL,
-    rating              INTEGER NOT NULL
-);
-   	
-CREATE TABLE track_tag_raw
-(
-    track               INTEGER NOT NULL,
-    tag                 INTEGER NOT NULL,
-    moderator           INTEGER NOT NULL
-);
-
-CREATE TABLE label_rating_raw
-(
-    label               INTEGER NOT NULL,
-    editor              INTEGER NOT NULL,
-    rating              INTEGER NOT NULL
-);
-   	
-CREATE TABLE label_tag_raw
-(
-    label               INTEGER NOT NULL,
-    tag                 INTEGER NOT NULL,
-    moderator           INTEGER NOT NULL
+	id					SERIAL,
+	album				INTEGER NOT NULL, -- references release_raw
+	discid				CHAR(28) NOT NULL,
+	trackcount			INTEGER NOT NULL,
+	leadoutoffset		INTEGER NOT NULL,
+	trackoffset			INTEGER[] NOT NULL
 );
 
 CREATE TABLE collection_info
@@ -103,6 +83,57 @@ CREATE TABLE collection_has_release_join
 	id					SERIAL,
 	collection_info		INTEGER NOT NULl, -- references collection_info
 	album				INTEGER NOT NULL -- references album
+);
+   	
+CREATE TABLE label_rating_raw
+(
+    label               INTEGER NOT NULL,
+    editor              INTEGER NOT NULL,
+    rating              INTEGER NOT NULL
+);
+   	
+CREATE TABLE label_tag_raw
+(
+	label				INTEGER NOT NULL,
+	tag					INTEGER NOT NULL,
+	moderator			INTEGER NOT NULL
+);
+
+CREATE TABLE release_rating_raw
+(
+    release             INTEGER NOT NULL,
+    editor              INTEGER NOT NULL,
+    rating              INTEGER NOT NULL
+);
+
+CREATE TABLE release_tag_raw
+(
+	release				INTEGER NOT NULL,
+	tag					INTEGER NOT NULL,
+	moderator			INTEGER NOT NULL
+);
+
+CREATE TABLE track_raw
+(	
+	id					SERIAL,
+	album				INTEGER NOT NULL,	   -- references release_raw
+	title				VARCHAR(255) NOT NULL,
+	artist				VARCHAR(255),		   -- For VA albums, otherwise empty
+	sequence			INTEGER NOT NULL
+);	
+
+CREATE TABLE track_rating_raw
+(
+    track               INTEGER NOT NULL,
+    editor              INTEGER NOT NULL,
+    rating              INTEGER NOT NULL
+);
+
+CREATE TABLE track_tag_raw
+(
+	track				INTEGER NOT NULL,
+	tag					INTEGER NOT NULL,
+	moderator			INTEGER NOT NULL
 );
 
 COMMIT;

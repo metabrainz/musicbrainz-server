@@ -60,6 +60,7 @@
 				my $duration = MusicBrainz::Server::Track::FormatTrackLength($cdtoc->GetLeadoutOffset / 75 * 1000);
 				my $id_numtracks = $cdtoc->GetTrackCount;
 				my $discid = $cdtoc->GetDiscID;
+				my $degraded = $cdtoc->IsDegraded;
 				my $mismatch = (defined $id_numtracks and
 							 	$id_numtracks != $release->GetTrackCount);
 
@@ -72,6 +73,9 @@
 %				$m->out(qq!<span class="mp">!) if ($id->GetModPending);
 
 						<a href="/show/cdtoc/?cdtocid=<% $cdtoc->GetId %>"><% $discid %></a>
+%				if ($degraded) {
+                       (<a href="/doc/DegradedTOCs">degraded</a>)
+%				}
 
 %				# print a warning if the toc has different number of tracks
 %				# than the release.

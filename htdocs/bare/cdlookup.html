@@ -187,15 +187,34 @@
 
 </%perl>
 
-		<& /comp/sidebar-notitle, pagetitle => "Lookup returned no matches" &>
-		<& /comp/tablebegin, title => "Lookup returned no matches" &>
+		<& /comp/sidebar-notitle, pagetitle => "CD not found" &>
+		<& /comp/tablebegin, title => "CD not found" &>
 
-			MusicBrainz doesn't currently have any releases which have this TOC: <br />
+			MusicBrainz doesn't currently have any CDs which have this TOC: <br />
 
 			<div style="border: 1px dotted #999; margin-top: 10px; margin-bottom: 10px; padding: 5px;">
 				<% $toc %>
 			</div>
+%       if (!exists $session{uid} && $discid ne '' && $toc ne '') {
+			<p style="float: right; margin: .5em"><a href="http://flickr.com/photos/pinkangelbabe/427255017/" border="0"><img src="/images/redblue.jpg" title="Which one will you choose?" alt="red or blue?"></a></p>
+	        <p>
+		    Please consider adding this release/CD to MusicBrainz. To add this CD, please choose one of the following
+			two methods:
+			</p>
 
+			<ol>
+			<li>Become part of MusicBrainz by creating an account and <a href="/doc/HowEditingWorks">reading 
+		     	up on our process</a> for submitting information to MusicBrainz. Find out how we peer review entered data
+			    to create the most accurate music database on the internet. If this appeals to you,
+			    continue with the account creation/login/submission process below. Or,<br/><br/></li>
+			<li>You can enter the data from the CD as it appears on the CD itself and not worry about
+			    becoming a part of MusicBrainz. CDs entered in this method will still be available
+				to client programs. However, it won't be included in the main MusicBrainz database until
+				an editor decides to take your submitted information, ensures it meets our standards
+				and inserts it into the main database. <br/><br/><a href="/edit/rawcd/add.html?id=<% $discid %>&toc=<% $toc %>">
+				Submit this CD using the simple method</a>.</li>
+			</ol>
+%       } 
 		<& .ShowSubmitForm, \%info &>
 
 <%perl>

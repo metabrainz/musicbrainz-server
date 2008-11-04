@@ -1,0 +1,83 @@
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# Show database details of top active RawCDs.
+	#
+	# $Id: index.html 8548 2006-10-19 07:41:02Z dave $
+	#
+</%perl>
+<%args>
+	$count => undef
+	$offset => 0
+	$maxitems => 25
+</%args>
+<%perl>
+
+	# Instantiate MusicBrainz object
+	my $mb = MusicBrainz->new;
+	$mb->Login(db => "RAWDATA");
+
+	my $rc = MusicBrainz::Server::RawCD->new($mb->{DBH});
+    my ($data, $numitems, $timestamp) = $rc->GetActiveCDs($maxitems, $offset);
+	$timestamp = MusicBrainz::Server::DateTime::format_datetime_since($timestamp);
+
+</%perl>
+<& /comp/sidebar, title => "Most active RawCDs" &>
+
+%	if (scalar(@$data)) {
+		<table width="100%" style="background-color: #fafafa; border: 1px #000000 solid;">
+			<tr>
+			<td><b>Title</b></td>
+			<td><b>Artist</b></td>
+			<td><b>Added</b></td>
+			<td><b>Modified</b></td>
+			<td><b>Lookup<br/>count</b></td>
+			<td><b>Modify<br/>count</b></td>
+			</tr>
+%		foreach my $row (@{$data}) {
+			<tr>
+			<td><% $row->{title} %></td>
+			<td><% $row->{artist} || "Various Artists" %></td>
+			<td><% MusicBrainz::Server::DateTime::format_datetime_since($row->{added}) %></td>
+			<td><% MusicBrainz::Server::DateTime::format_datetime_since($row->{lastmodified}) %></td>
+			<td><% $row->{lookupcount} %></td>
+			<td><% $row->{modifycount} %></td>
+			<td><a href="/edit/rawcd/import.html?rawcdid=<% $row->{id} %>">import</a></td>
+			</tr>
+%		}
+		<tr>
+			<td colspan="7">
+				<& /comp/pageselector, offset => $offset, pagesize => $maxitems,
+										url => '/show/rawcd/index.html',
+										numitems => $numitems &>
+			</td>
+		</tr>
+		</table>
+		<p class="lastupdated">Updated <% $timestamp %></p>
+%	} else {
+		<p>There are now Raw CDs to show.</p>
+%	}
+
+<& /comp/footer &>
+
+%# vi: set ts=4 sw=4 ft=mason :

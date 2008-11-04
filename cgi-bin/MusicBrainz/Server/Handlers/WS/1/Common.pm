@@ -33,7 +33,7 @@ require Exporter;
 our @ISA = qw(Exporter);
 our @EXPORT = qw(convert_inc bad_req send_response check_types
                  xml_artist xml_release xml_track xml_search xml_escape
-                 xml_label
+                 xml_label xml_rawcd
                  get_type_and_status_from_inc get_release_type
                  get_user
 );
@@ -988,6 +988,25 @@ sub xml_relations
         }
         print '</relation-list>';
     }
+}
+
+sub xml_rawcd
+{
+	my ($cd) = @_;
+
+    print '<release><title>' . xml_escape($cd->{title}) . '</title>';
+	print '<artist><name>'. xml_escape($cd->{artist}) . '</name></artist>' if ($cd->{artist});
+	print '<track-list>';
+	foreach my $tr (@{$cd->{tracks}})
+	{
+	    print '<track><title>' . xml_escape($tr->{title}) . '</title>';
+	    print '<duration>' . xml_escape($tr->{duration}) . '</duration>';
+	    print '<artist><name>' . xml_escape($tr->{artist}) . '</name></artist>' if ($tr->{artist});
+	    print '</track>';
+	}
+	print '</track-list>';
+    
+	print '</release>';
 }
 
 sub xml_search

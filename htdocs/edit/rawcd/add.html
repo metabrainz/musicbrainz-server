@@ -1,0 +1,368 @@
+<%perl>
+	# -----------------------------------------------------------------------------
+	#								Musicbrainz.org
+	#						 Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited	to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the	use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires	that the final product, software derivate from
+	#  the original  source or any	software  utilizing a GPL  component, such	as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# This page is the entry point for a the raw Add Release workflow.
+	#
+	# $Id: add.html 8548 2006-10-19 07:41:02Z dave $
+	#
+</%perl>
+<%args>
+
+	$id => ''
+	$toc => ''
+
+	$artistname => ''
+	$releasename => ''
+	$va => undef
+
+	$submit => 0
+	$exists => 0
+	$freedb => 0
+
+</%args>
+<%perl>
+
+	use Data::Dumper;
+	my $error;
+	my @tracks;
+	my @artists;
+	for(my $i = 1;;$i++)
+	{
+		last if (!exists $m->request_args->{"track$i"});
+		my $tmp = $m->request_args->{"track$i"};
+		$tmp =~ s/^\s+(.*?)\s+$/$1/;
+		push @tracks, $tmp;
+
+		$tmp = $m->request_args->{"artistname$i"};
+		$tmp =~ s/^\s+(.*?)\s+$/$1/;
+		push @artists, $tmp;
+	}
+	$releasename =~ s/^\s+(.*?)\s+$/$1/;
+	$artistname =~ s/^\s+(.*?)\s+$/$1/;
+
+	$m->comp("/comp/sidebar-notitle", pagetitle => "Add a CD");
+
+	return $m->comp("/comp/badargs", 0, 1)
+		if (!$id || !$toc);
+	
+	my %check = MusicBrainz::Server::CDTOC::ParseTOC(undef, $toc);
+	if ($check{discid} ne $id)
+	{
+		return $m->comp(
+			"/comp/error",
+			"You supplied an invalid TOC/Disc Id combination.",
+			0, 1,
+		);
+	}
+
+	my $mb = MusicBrainz->new;
+	$mb->Login(db => "RAWDATA");
+
+	my $rc = MusicBrainz::Server::RawCD->new($mb->{DBH});
+	my $cd;
+
+	if ($freedb)
+	{
+		my $fb = FreeDB->new($mb->{DBH});
+		my $data =$fb->Lookup($id, $toc);
+		if ($data)
+		{
+			$artistname = $data->{artist};
+			$releasename = $data->{album};
+			my $index = 0;
+			foreach my $tr (@{$data->{tracks}})
+			{
+				$tracks[$index++] = $tr->{track};
+			}
+		}
+		$submit = 0;
+	}
+
+	if ($artistname ne '' && $va)
+	{
+		$submit = 0;
+		$error = "You must leave the <b>CD Artist</b> blank for a multple artists CD.";
+	}
+	if ($submit)
+	{	
+		$exists = 0;
+		# Look up the CD, to see if we have it
+		$cd = $rc->Lookup($id);
+		if ($cd)
+		{
+			# We have it, so set a flag to update and not insert
+			$exists = 1;
+		}
+		else
+		{
+			$cd = {};
+			$cd->{tracks} = [];
+		}
+
+		$cd->{artist} = $va ? '' : $artistname;
+		$cd->{title} = $releasename;
+		$cd->{discid} = $id;
+		$cd->{toc} = $toc;
+		for(1..$check{tracks}) 
+		{
+			$cd->{tracks}->[$_-1]->{title} = $tracks[$_-1];
+			$cd->{tracks}->[$_-1]->{artist} = $va ? $artists[$_-1] : '';
+		}
+
+		if ($exists)
+		{
+			$error = $rc->Update($cd);
+		}
+		else
+		{
+			$error = $rc->Insert($cd);
+		}	
+		if (!$error)
+		{
+			$m->comp("/comp/sidebar", title => ($exists ? "CD Updated" : "CD Added"));
+			$m->out("<p>Thank you for adding/checking the information for this CD. You can now request " .
+					"this CD via your client.</p>");
+			$m->comp("/comp/footer");
+			return;
+		}
+	}
+	elsif (!$freedb)
+	{
+		$cd = $rc->Lookup($id);
+		if ($cd)
+		{
+			$artistname = $cd->{artist};
+			$releasename = $cd->{title};
+
+			for(1..$check{tracks}) 
+			{
+				push @tracks, $cd->{tracks}->[$_-1]->{title};
+				push @artists, $cd->{tracks}->[$_-1]->{artist};
+				$va = 1 if ($cd->{tracks}->[$_-1]->{artist});
+			}
+			$exists = 1;
+
+			# This is the first time we loaded the page, so update the lookup count
+			$rc->IncrementLookupCount($cd->{id});
+		}
+	}
+
+	my $guesstxt = "For CDs in English, click on the Guess Case buttons to guess the case for the field " .
+				   "or click on Guess All to guess the case for the entire CD. ";
+</%perl>
+
+	<& /comp/layout/editformbegin, title => "Add CD" &>
+
+		<form method="post" name="AddRawCD" action="/edit/rawcd/add.html">
+		<div id="editsuite-content" class="editsuite"></div>
+			<table class="formstyle" width="100%">
+				<tr>
+					<td class="instructions">
+						<ul>
+							<li>
+								Please enter the CD's title and artist, then enter each of the track
+								titles.
+							</li>
+							<li>
+								Match the capitalization (case) of the artist, title and tracks as closely
+								as what is printed on the CD.
+								<script language="JavaScript" type="text/javascript">
+								document.write("<% $guesstxt %>");
+								</script>
+							</li>
+							<noscript>
+							<li>
+								Since you do not have JavaScript enabled, you need to take care which fields to
+								fill out in this form. To submit a CD with only one artist for all the tracks:
+								Enter the CD artist, but leave the artists for each of the tracks empty. For a CD
+								with multiple artists, the reverse applies: Leave the CD artist blank, but provide 
+								an artist for each of the tracks.
+							</li>
+							</noscript>
+							<li>
+								You can also import the CD information from <a href="http://freedb.org">FreeDB</a>
+								by clicking on the <em>FreeDB Import</em> button. Not all CDs will be available
+								in FreeDB.
+							</li>
+% if ($exists) {
+							<li>
+								This CD has been submitted before, but has not been accepted into the
+								main MusicBrainz database. In order to give this CD a higher priority
+								for peer review and acceptance into the database, please review the
+								information below. Please fix any mistakes you may find and then click Submit.
+							</li>
+% }
+						</ul>
+					</td>
+				</tr>
+			</table>
+
+			<table class="formstyle">
+
+%	if ($error)
+%	{
+				<tr>
+					<td>&nbsp;</td>
+					<td class="error">
+						<& /comp/form/feedbackbox, "warning",
+							"Your form submission contains errors:<br/>$error" &>
+					</td>
+				</tr>
+
+%	}
+				<tr>
+					<td class="label">
+						<label for="id_releasename">CD Title:</label></td>
+					<td>
+						<input	type="text" name="releasename" id="id_releasename" class="textfield"
+								size="30" value="<% $releasename %>" />
+						<input type="button" id="BTN_ALBUM::releasename" class="button hidden"/>
+					</td>
+				</tr>
+				<tr>
+					<td class="label">
+						<div id="artistname_label<% $_ %>">
+							<label for="id_artistname">CD Artist:</label></td>
+						</div>
+					<td>
+						<div id="artistname_field<% $_ %>">
+							<input	type="text" name="artistname" id="id_artistname" class="textfield"
+									size="30" value="<% $artistname %>" />
+							<input type="button" id="BTN_ARTIST::artistname" class="button hidden"/>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td class="label">
+						<label for="va">Multiple<br/>artists:</label></td>
+					<td>
+						<input	type="checkbox" name="va" id="va_checkbox"
+								size="30" value="1" onclick="vaswitch()" <% $va ? 'checked="1"' : '' %>"/>
+						<input	type="hidden" id="va_swap" value="<% $artistname %>" />
+						This CD has tracks from more than one artist (e.g. most compilation CDs).<br/>
+						<noscript>
+						If your CD has multiple artists, leave the artist field above empty and fill in the artist fields below
+						</noscript>
+					</td>
+				</tr>
+%	for(1..$check{tracks}) {
+				<tr>
+					<td class="label">
+						<label for="track<% $_ %>">Track <% $_ %>:</label></td>
+					<td>
+						<input	type="text" name="track<% $_ %>" id="track<% $_ %>" class="textfield"
+								size="30" value="<% $tracks[$_ - 1] %>" /> 
+						<input type="button" id="BTN_TRACK::track<% $_ %>" class="button hidden"/>
+					</td>
+				<tr>
+				</tr>
+					<td class="label">
+						<div id="arlabel<% $_ %>">
+							<label for="artistname<% $_ %>">Artist <% $_ %>:</label>
+						</div>
+					</td>
+					<td>
+						<div id="arfield<% $_ %>">
+							<input	type="text" name="artistname<% $_ %>" id="id_artistname<% $_ %>" class="textfield"
+									size="30" value="<% $artists[$_ - 1] %>" />
+							<input type="button" id="BTN_ARTIST::artistname<% $_ %>" class="button hidden"/>
+						</div>
+					</td>
+				</tr>
+%	}
+				<tr>
+					<td class="label">&nbsp;</td>
+					<td>
+						<input type="button" id="BTN_ALL" class="button hidden"/>
+						<input type="submit" value="FreeDB import" name="freedb"/>
+						<input type="submit" class="button" value="Submit &raquo;" />
+					</td>
+				</tr>
+			</table>
+
+			<div>
+				<& /comp/form/hiddenfield, "submit", "1" &>
+				<& /comp/form/hiddenfield, "id", $id &>
+				<& /comp/form/hiddenfield, "toc", $toc &>
+				<& /comp/form/hiddenfield, "exists", $exists &>
+				<& /comp/form/focusfield, "releasename" &>
+			</div>
+		</form>
+
+	<& /comp/layout/editformend &>
+
+<script language="JavaScript" type="text/javascript" src="/scripts/editsuite.js"></script>
+<script language="JavaScript" type="text/javascript">
+	document.getElementById("es.gc-tr-expanded").style.display = "none";
+	document.getElementById("es.ur-tr-expanded").style.display = "none";
+</script>
+<script language="JavaScript" type="text/javascript">
+function enable(mode)
+{
+	for(i = 1;; i++)
+	{
+		obj = document.getElementById("arfield" + i);
+		if (obj)
+			obj.style.display = mode ? "inline" : "none";
+		else
+			break;
+		obj = document.getElementById("arlabel" + i);
+		if (obj)
+			obj.style.display = mode ? "inline" : "none";
+	}
+	obj = document.getElementById("artistname_label");
+	if (obj)
+		obj.style.display = mode ? "none" : "inline";
+	obj = document.getElementById("artistname_field");
+	if (obj)
+		obj.style.display = mode ? "none" : "inline";
+}
+
+function vaswitch()
+{
+	ar = document.getElementById("id_artistname");
+	swap = document.getElementById("va_swap");
+	va = document.getElementById("va_checkbox");
+	if (va.checked)
+	{
+		swap.value = ar.value;
+		ar.value = "";
+		enable(true);
+		ar.disabled = true;
+	}
+	else
+	{
+		ar.value = swap.value;
+		enable(false);
+		ar.disabled = false;
+	}
+};
+function onload()
+{
+	vaswitch(false);
+}
+</script>
+
+<& /comp/footer &>
+
+%# vi: set ts=4 sw=4 ft=mason :

@@ -31,7 +31,6 @@ use strict;
 use ModDefs;
 use Sql;
 use MusicBrainz::Server::Cache;
-use Data::Dumper;
 
 sub new
 {

@@ -48,6 +48,7 @@
 	
 	$notify => undef
 	$dispmissing => undef
+	$showdiscids => $session{"showdiscids"}
 
 </%args>
 <%perl>
@@ -149,7 +150,7 @@
 	<& /comp/album,
 		album => $release,
 		artist => $artist,
-		showids => 1,
+		showids => $showdiscids,
 		showtag => 1,
 		showreleases => 1,
 		showtrackartiststoggle => 1,
@@ -157,6 +158,7 @@
         folksonomy => 1,
 		showratings => 1,
         addtocollection => $addtocollection,
+		showdiscidstoggle => 1,
 	&>
 
 	<& /comp/js/diffcollapse, JSCollapse => 0 &>

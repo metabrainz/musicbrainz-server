@@ -25,6 +25,7 @@ ALTER TABLE automod_election DROP CONSTRAINT automod_election_fk_seconder_1;
 ALTER TABLE automod_election DROP CONSTRAINT automod_election_fk_seconder_2;
 ALTER TABLE automod_election_vote DROP CONSTRAINT automod_election_vote_fk_automod_election;
 ALTER TABLE automod_election_vote DROP CONSTRAINT automod_election_vote_fk_voter;
+ALTER TABLE cdtoc_virtual DROP CONSTRAINT cdtoc_virtual_fk_album;
 ALTER TABLE label_meta DROP CONSTRAINT fk_label_meta_track;
 ALTER TABLE labelwords DROP CONSTRAINT labelwords_fk_labelid;
 ALTER TABLE labelalias DROP CONSTRAINT labelalias_fk_ref;

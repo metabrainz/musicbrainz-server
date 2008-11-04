@@ -32,6 +32,7 @@ use constant LOOKUP_AT_FREEDB => 1;
 use constant AUTO_FREEDB_IMPORTS => 0;
 
 use TableBase;
+use DBDefs;
 { our @ISA = qw( TableBase ) }
 
 use MusicBrainz::Server::CDTOC ':hashlength';
@@ -311,7 +312,7 @@ sub GenerateAlbumFromDiscid
 
 	# Check to see if the album is in the main database
 	my $albumids = $self->GetReleaseIDsFromDiscID($discid);
-
+    # If we found something, return it
 	if (@$albumids)
 	{
 		my @mbids;
@@ -339,6 +340,7 @@ sub GenerateAlbumFromDiscid
 			if DEBUG_GENERATE_FROM_DISCID;
 		return $rdf->CreateStatus(0);
 	}
+
 
 	if (LOOKUP_AT_FREEDB)
 	{
@@ -400,13 +402,25 @@ sub Insert
 	if (my $t = $opts{'added'}) { $$t = not $id }
 	return $id if $id;
 
-	return $sql->InsertRow(
+	my $ret = $sql->InsertRow(
 		"album_cdtoc",
 		{
 			album	=> $album,
 			cdtoc	=> $tocid,
 		},
 	);
+
+	# Remove the Raw CD
+	require MusicBrainz::Server::RawCD;
+	my $rawdb = $Moderation::DBConnections{RAWDATA};
+	my $rc = MusicBrainz::Server::RawCD->new($rawdb->{DBH});
+	my %info = MusicBrainz::Server::CDTOC->ParseTOC($toc);
+	my $rawcd = $rc->Lookup($info{discid});
+
+	# Pass in the rawdb object that has the transaction open
+	$rc->Remove($rawcd->{id}, $rawdb);
+
+    return $ret;
 }
 
 sub MoveToRelease
@@ -430,8 +444,8 @@ sub MoveToRelease
 		$album,
 		$self->GetId,
 		$album,
-		$self->GetCDTOCId,
-	) and return;
+		$self->GetCDTOCId,) 
+    and return;
 
 	# Otherwise, it's already there; just delete this one
 	$sql->Do("DELETE FROM album_cdtoc WHERE id = ?", $self->GetId);
@@ -464,7 +478,7 @@ sub MergeReleases
 
 sub Remove
 {
-	my $self = shift;
+	my ($self) = @_;
 
 	my $sql = Sql->new($self->{DBH});
     print STDERR "DELETE: Removed album_cdtoc where id was " . $self->GetId . "\n";
@@ -479,7 +493,6 @@ sub RemoveAlbum
 	my $album = shift;
 
 	my $sql = Sql->new($self->{DBH});
-    print STDERR "DELETE: Removed album_cdtoc where album was " . $album . "\n";
 	$sql->Do("DELETE FROM album_cdtoc WHERE album = ?", $album);
 	# TODO remove unused cdtoc?
 }

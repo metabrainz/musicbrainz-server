@@ -42,6 +42,9 @@
 	$showrelationships => $session{"showrelationships"}
 	$showrelationshipstoggle => 0
 
+	$showdiscids => $session{"showdiscids"}
+	$showdiscidstoggle => 0
+
 	$link => ""
 	$linktype => ""
 
@@ -166,6 +169,7 @@
 
 			# only show the track artists toggle function if the page using the /comp/album
 			# parameter handles the arguments
+# RUAOK: This causes the tracks to be loaded twice. FIXME
 			if ($showtrackartiststoggle && !$release->HasMultipleTrackArtists && !$nonalbum)
 			{
 				my $newtext = ($showtrackartists ? "Hide" : "Show")."&nbsp;artists";
@@ -180,6 +184,15 @@
 				my $newtext = ($showrelationships ? "Hide" : "Show")."&nbsp;relationships";
 				my $newvalue = ($showrelationships ? 0 : 1);
 				$m->out(qq! | <a href="/show/release/?releaseid=$releaseid&amp;showrelationships=$newvalue">$newtext</a>!);
+			}
+
+			# only show the cdtoc toggle function if the page using the /comp/album
+			# parameter handles the arguments
+			if ($showdiscidstoggle)
+			{
+				my $newtext = ($showdiscids ? "Hide" : "Show")."&nbsp;discids";
+				my $newvalue = ($showdiscids ? 0 : 1);
+				$m->out(qq! | <a href="/show/release/?releaseid=$releaseid&amp;showdiscids=$newvalue">$newtext</a>!);
 			}
 			
 			$m->out(qq! | !);

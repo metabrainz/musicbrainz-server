@@ -1,0 +1,118 @@
+<%perl>
+	# -----------------------------------------------------------------------------
+	#								Musicbrainz.org
+	#						 Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited	to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the	use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires	that the final product, software derivate from
+	#  the original  source or any	software  utilizing a GPL  component, such	as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# Show database details of top active RawCDs.
+	#
+	# $Id: index.html 8548 2006-10-19 07:41:02Z dave $
+	#
+</%perl>
+<%args>
+	$rawcdid => undef
+
+	# fields set by /comp/artistfilter
+	$search => ""
+	$artistfilter_newartistid => ""
+	$newartistid => ""
+
+	$submitvalue => ""
+</%args>
+<%perl>
+
+	# only allow logged-in users to see this page.
+	$m->comp("/comp/checkloggedin", 1, 1)
+			or return;
+
+	# Instantiate MusicBrainz object
+	my $mb = MusicBrainz->new;
+	$mb->Login(db => "RAWDATA");
+
+	my $rc = MusicBrainz::Server::RawCD->new($mb->{DBH});
+	MusicBrainz::Server::Validation::IsNonNegInteger($rawcdid)
+		or return $m->comp("/comp/layout/badarguments",
+			text => "You need to specify a valid import argument.");
+
+	my $rawcd = $rc->Load($rawcdid);
+	if (!$rawcd)
+	{
+		return $m->comp("/comp/layout/badarguments",
+			text => "Invalid import argument. No such RawCD.");
+	}
+	return $m->comp("/comp/redirect", "/show/rawcd") if ($submitvalue =~ /Cancel/);
+	return $m->comp("/comp/redirect", "/edit/artist/add.html?initial_name=" . uri_escape($search) .
+									  "&returnurl=" . uri_escape("/edit/rawcd/import.html?rawcdid=$rawcdid&artistfilter_newartistid=")) 
+		   if ($submitvalue =~ /Add/);
+	
+	my $num = scalar(@{$rawcd->{tracks}});
+	my $hasmult = 0;
+	for(0..$num)
+	{
+		if ($rawcd->{tracks}->[$_]->{artist})
+		{
+			$hasmult = 1;
+			$artistfilter_newartistid = 1;
+			last;
+		}
+	}
+	if ($hasmult || $submitvalue =~ /Select/ || $submitvalue =~ /SUBMIT_ADDARTIST_DONE/)
+	{
+		my $url = "/cdi/enter.html?tracks=$num";
+		my $toc = $rawcd->{cdtoc}->{trackoffset};
+		$toc =~ s/\{(.*?)\}/$1/;
+		$toc =~ s/,/+/g;
+		$toc = "1+$rawcd->{cdtoc}->{trackcount}+$rawcd->{cdtoc}->{leadoutoffset}+$toc";
+
+		$url .= "&artistid=$artistfilter_newartistid";
+		$url .= "&releasename=" . uri_escape($rawcd->{title});
+		$url .= "&hasmultipletrackartists=$hasmult" ;
+		$url .= "&toc=$toc";
+		$url .= "&discid=" . uri_escape($rawcd->{cdtoc}->{discid});
+		for(0..$num)
+		{
+			$url .= "&track$_=" . uri_escape($rawcd->{tracks}->[$_]->{title});
+			$url .= "&tr$_"."_artistname=" . uri_escape($rawcd->{tracks}->[$_]->{artist}) if ($hasmult);
+		}
+
+		return $m->comp("/comp/redirect", $url);
+	}
+</%perl>
+
+	<& /comp/sidebar-notitle, pagetitle => "Select artist" &>
+	<& /comp/layout/editformbegin, title => "Import RawCD: Select artist" &>
+	<form method="post" action="/edit/rawcd/import.html" id="ConfirmForm">
+	<script type="text/javascript" src="/scripts/editsuite.js"></script>
+	<table class="formstyle">
+		<tr class="top">
+		   <td>Select the appropriate artist for this Raw CD:</td>
+		</tr>
+		<& /comp/artistfilter,
+		   search => $search,
+		   defaultquery => $rawcd->{artist},
+		   submitvalue => $submitvalue,
+		&>
+	</table>
+	<input type="hidden" name="rawcdid" value="<% $rawcdid %>"/>
+	</form>
+	<& /comp/layout/editformend &>
+	<& /comp/footer &>
+
+%# vi: set ts=4 sw=4 ft=mason :

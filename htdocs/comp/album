@@ -66,6 +66,7 @@
 	# the "show release" page.
 	$showrelationshipstoggle => 0
 	$showtrackartiststoggle => 0
+	$showdiscidstoggle => 0
 
     $folksonomy => 0
 	$showratings => 0
@@ -128,7 +129,9 @@
 				showratings => $showratings,
                 addtocollection => $addtocollection,
                 ex => $ex,
-                short => $short
+                short => $short,
+		        showdiscids => $showids,
+				showdiscidstoggle => $showdiscidstoggle,
 			);
 	}
 
