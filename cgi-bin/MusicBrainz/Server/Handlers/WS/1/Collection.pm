@@ -107,10 +107,6 @@ sub handler
 	elsif(@addAlbums){
 		$collection->AddAlbums(@addAlbums);
 		
-		if($collection->{invalidMBIdCount})
-		{
-			return bad_req($r, 'One or more of the supplied MBIds are invalid. Either it do not exist or it is not a release MBId.');
-		}
 		$printer = sub {
 			print_manipulate_xml($collection);
 		};
