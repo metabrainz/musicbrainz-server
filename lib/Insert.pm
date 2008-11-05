@@ -614,10 +614,13 @@ TRACK:
 			die "Skipped Insert: Release country is required\n";
 		}
 
+                my $label = MusicBrainz::Server::Label->new($this->{DBH});
+                $label->id($release->{label});
+
 		$rel->release($albumid);
 		$rel->date(@ymd);
 		$rel->country($release->{country});
-		$rel->SetLabel($release->{label});
+		$rel->label($label);
 		$rel->cat_no($release->{catno});
 		$rel->barcode($release->{barcode});
 		$rel->format($release->{format});

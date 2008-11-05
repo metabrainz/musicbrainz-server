@@ -283,7 +283,7 @@ sub add_release_confirm : Private
         $self->_change_step($c, 'add_release_information');
     }
 
-    my @mods = $form->insert($w->{confirmed_artists});
+    my @mods = $form->insert($w->{confirmed_artists}, $w->{confirmed_labels});
 
     delete $c->session->{wizard};
     delete $c->session->{wizard_step};
