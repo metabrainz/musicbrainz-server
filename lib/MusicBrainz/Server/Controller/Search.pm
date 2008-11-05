@@ -211,7 +211,9 @@ sub external : Local
         if ($redirect && $total_hits == 1 &&
             ($type eq 'artist' || $type eq 'release' || $type eq 'label'))
         {
-            my $type_controller = $c->controller($type);
+            my $type_controller = $c->controller(
+                "MusicBrainz::Server::Controller::" . ucfirst($type)
+            );
             my $action = $type_controller->action_for('show');
 
             $c->res->redirect($c->uri_for($action, [ $redirect ]));
