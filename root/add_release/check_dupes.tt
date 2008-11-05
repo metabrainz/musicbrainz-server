@@ -1,4 +1,4 @@
-[% WRAPPER 'layout.tt' title='Check Duplicates' %]
+[% WRAPPER 'artist/layout.tt' title='Check Duplicates' %]
 [% WRAPPER 'components/box.tt' header='Duplicate Releases' %]
 [% INCLUDE 'add_release/bread_crumbs.tt' %]
 
@@ -8,15 +8,14 @@
     please confirm by selecting the button below
 </p>
 
-<ul>
-[% FOR release=similar %]
-    <li>[% INCLUDE 'components/entity-link.tt' entity=release %]</li>
-[% END %]
-<ul>
+[% INCLUDE 'release/release.tt' release=release.release
+    tracks=release.tracks release_events=release.events
+    show_artists=1
+    FOR release=similar %]
 
-[% WRAPPER 'forms/form.tt' %]
-    [% INCLUDE 'forms/submit.tt' label="No, my release is not one of the above" %]
-[% END %]
+[% INCLUDE 'forms/submit.tt'
+    label="No, my release is not one of the above"
+    WRAPPER 'forms/form.tt' %]
 
 [% END %]
 [% END %]

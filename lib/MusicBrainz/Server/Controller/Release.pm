@@ -121,12 +121,12 @@ sub show : Chained('release') PathPart('')
     $c->stash->{release_events} = $c->model('Release')->load_events($release);
 
     # Load the tracks, and relationships for tracks if we need them
-    my $releases = $c->model('Track')->load_from_release($release);
+    my $tracks = $c->model('Track')->load_from_release($release);
     $c->stash->{tracks} = [ map {
         if ($show_rels) { $_->{relations} = $c->model('Relation')->load_relations($_); }
 
         $_;
-    } @$releases ];
+    } @$tracks ];
 }
 
 =head2 WRITE METHODS

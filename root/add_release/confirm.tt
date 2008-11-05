@@ -12,7 +12,8 @@
 [%- WRAPPER 'components/box.tt' header='Preview' -%]
     [%- INCLUDE 'release/release.tt' release=preview
         tracks=preview_tracks no_info_links=1 no_edit_links=1
-        release_events=preview_events -%]
+        release_events=preview_events
+        show_artists=1 -%]
 [%- END -%]
 
 [%- END -%]

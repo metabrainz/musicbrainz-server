@@ -220,6 +220,7 @@ sub add_release_confirm : Private
         $track->name($form->value("track_$i")->{name});
         $track->sequence($i);
         $track->length($form->value("track_$i")->{duration});
+        $track->artist($c->model('Artist')->load($w->{confirmed_artists}->{"artist_$i"}->{id}));
 
         push @tracks, $track;
     }
@@ -228,6 +229,8 @@ sub add_release_confirm : Private
     # TODO Again... multiple release events
     for my $i (1 .. 1)
     {
+        my $event = $form->value("event_$i") or next;
+
         my $label = MusicBrainz::Server::Label->new($c->mb->{DBH});
         $label->id($w->{confirmed_labels}->{"event_$i"}->{id});
         $label->name($w->{confirmed_labels}->{"event_$i"}->{name});
@@ -349,7 +352,19 @@ sub add_release_check_dupes : Private
 
     if (scalar @$similar && !$c->form_posted)
     {
-        $c->stash->{similar } = $similar;
+        $c->stash->{similar } = [];
+	for my $similar (@$similar)
+        {
+            my $release = $similar;
+            $release->LoadFromId;
+
+            push @{ $c->stash->{similar} }, {
+                release => $release,
+                tracks  => $c->model('Track')->load_from_release($release),
+                events  => $c->model('Release')->load_events($release),
+            };
+        }
+
 	$c->stash->{template} = 'add_release/check_dupes.tt';
     }
     else
