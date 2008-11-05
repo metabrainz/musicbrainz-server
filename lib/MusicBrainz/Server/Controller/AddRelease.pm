@@ -5,6 +5,7 @@ use warnings;
 
 use base qw(Catalyst::Controller);
 
+use MusicBrainz::Server::Country;
 use MusicBrainz::Server::Release;
 use MusicBrainz::Server::ReleaseEvent;
 use MusicBrainz::Server::Track;
@@ -91,6 +92,7 @@ sub add_release_track_count : Private
                   $form->validate($c->req->params);
 
     $self->_wizard_data($c)->{track_count} = $form->value('track_count');
+    $self->_wizard_data($c)->{event_count} = 1;
 
     $self->_change_step($c, 'add_release_information');
 }
@@ -111,9 +113,13 @@ sub add_release_information : Private
     my $w    = $self->_wizard_data($c);
 
     my $track_count = $w->{track_count};
+    my $event_count = $w->{event_count};
+
     $c->stash->{track_count} = $track_count;
+    $c->stash->{event_count} = $event_count;
 
     $form->add_tracks($track_count, $artist);
+    $form->add_events($event_count);
 
     $c->stash->{template} = 'add_release/tracks.tt';
 
@@ -129,7 +135,20 @@ sub add_release_information : Private
         return unless $form->validate($c->req->params);
 
         # Store the valid posted data
+        $c->req->params->{more_events} = undef; # Bit of a hack...
         $w->{release_info} = $c->req->params;
+
+        if ($form->value('more_events'))
+        {
+            $c->stash->{event_count} = ++$w->{event_count};
+
+            $form->add_field($form->make_field(
+                "event_" . $w->{event_count},
+                '+MusicBrainz::Server::Form::Field::ReleaseEvent'
+            ));
+
+            return;
+        }
     }
 
     # And wait for the form to be posted...
@@ -168,7 +187,7 @@ sub add_release_information : Private
     }
 
     # TODO support multiple release events
-    for my $i (1 .. 1)
+    for my $i (1 .. $event_count)
     {
         my $key           = "event_$i.label";
 	my $current_value = $w->{release_info}->{$key};
@@ -203,6 +222,7 @@ sub add_release_confirm : Private
 
     my $form = $c->form($artist, 'AddRelease::Tracks');
     $form->add_tracks($w->{track_count}, $artist);
+    $form->add_events($w->{event_count});
     $form->context($c);
 
     $c->stash->{template} = 'add_release/confirm.tt';
@@ -226,20 +246,27 @@ sub add_release_confirm : Private
     }
 
     my @events;
-    # TODO Again... multiple release events
-    for my $i (1 .. 1)
+    for my $i (1 .. $w->{event_count})
     {
-        my $event = $form->value("event_$i") or next;
+        my $event_hash = $form->value("event_$i") or next;
+        my $event      = MusicBrainz::Server::ReleaseEvent->new($c->mb->{DBH});
 
-        my $label = MusicBrainz::Server::Label->new($c->mb->{DBH});
-        $label->id($w->{confirmed_labels}->{"event_$i"}->{id});
-        $label->name($w->{confirmed_labels}->{"event_$i"}->{name});
+        my $label_id = $w->{confirmed_labels}->{"event_$i.label"}->{id};
+        if ($label_id)
+        {
+            $event->label($c->model('Label')->load($label_id));
+        }
 
-        my $event = MusicBrainz::Server::ReleaseEvent->new($c->mb->{DBH});
-        $event->cat_no($form->value("event_$i")->{catalog});
-        $event->label($label);
-        $event->sort_date($form->value("event_$i")->{date});
-        $event->barcode($form->value("event_$i")->{barcode});
+        my $country_id = $event_hash->{country};
+        if ($country_id)
+        {
+            $event->country(MusicBrainz::Server::Country->newFromId($c->mb->{DBH}, $country_id)->name);
+        }
+
+        $event->sort_date($event_hash->{date});
+        $event->cat_no   ($event_hash->{catalog});
+        $event->barcode  ($event_hash->{barcode});
+        $event->format   ($event_hash->{format});
 
         push @events, $event;
     }
@@ -331,7 +358,7 @@ sub add_release_confirm_labels : Private
         $w->{release_info}->{$key} = $label->name;
 
         delete $unconfirmed->{$key};
-        $self->_change_step($c, 'add_release_confirm');
+        $self->_change_step($c, 'add_release_confirm_labels');
     }
     else
     {
@@ -370,7 +397,7 @@ sub add_release_check_dupes : Private
     else
     {
         $w->{checked_dupes} = 1;
-        $self->_change_step($c, 'add_release_information');
+        $self->_change_step($c, 'add_release_confirm_artists');
     }
 
 }

@@ -33,7 +33,9 @@
     [%- END -%]
 
     [%- WRAPPER 'forms/fieldset.tt' legend='Release Events' -%]
-        [% INCLUDE 'forms/widget.tt' widget=form.field('event_1') label='Release Event' %]
+        [% INCLUDE 'forms/widget.tt' widget=form.field("event_${i}") label='Release Event'
+           FOR i=[1 .. event_count] %]
+        [%- INCLUDE 'forms/widget.tt' widget=form.field("more_events") label='Add more release events' -%]
     [%- END -%]
 
     <input type="hidden" name="step" value="1" />

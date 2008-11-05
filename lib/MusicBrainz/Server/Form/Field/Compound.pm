@@ -34,6 +34,27 @@ sub init
     }
 }
 
+sub name
+{
+    my $self = shift;
+
+    if (scalar @_)
+    {
+        # Setting name? Let Form::Processor::Field do that
+        $self->SUPER::name(@_);
+    }
+    else
+    {
+        # Getting name - act more like full_name
+        my $name = $self->SUPER::name;
+
+        my $form = $self->form           || return $name;
+        my $parent = $form->parent_field || return $name;
+
+        return $parent->full_name . qw{.} . $name;
+    }
+}
+
 sub validate
 {
     my $self = shift;
@@ -60,7 +81,7 @@ sub input_to_value
 {
     my $self  = shift;
 
-    my %values = map { $_->name => $_->value } @{ $self->sub_form->fields };
+    my %values = map { $_->SUPER::name => $_->value } @{ $self->sub_form->fields };
 
     $self->value(\%values);
 }

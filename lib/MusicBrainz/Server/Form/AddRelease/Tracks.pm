@@ -6,7 +6,7 @@ use warnings;
 use base 'MusicBrainz::Server::Form::EditForm';
 
 use Rose::Object::MakeMethods::Generic(
-    scalar => [ 'track_count' ]
+    scalar => [ 'track_count', 'event_count' ]
 );
 
 sub profile
@@ -20,7 +20,8 @@ sub profile
             event_1 => '+MusicBrainz::Server::Form::Field::ReleaseEvent',
         },
         optional => {
-            edit_note => 'TextArea',
+            edit_note   => 'TextArea',
+            more_events => 'Checkbox',
         }
     };
 }
@@ -42,6 +43,18 @@ sub add_tracks
 
         $self->add_field($track_field);
         $self->add_field($artist_field);
+    }
+}
+
+sub add_events
+{
+    my ($self, $count) = @_;
+    $self->event_count($count);
+
+    for my $i (1 .. $count)
+    {
+        my $event_field = $self->make_field("event_$i", '+MusicBrainz::Server::Form::Field::ReleaseEvent');
+        $self->add_field($event_field);
     }
 }
 
