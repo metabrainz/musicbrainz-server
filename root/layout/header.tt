@@ -1,5 +1,5 @@
 <div id="header">
     <a href="/"><img src="/static/images/musicbrainz-text.gif" alt="MusicBrainz"/></a>
     [%- INCLUDE 'layout/menu.tt' -%]
-    <img id="brainz" src="/static/images/brainz.png" />
+    <img id="brainz" src="/static/images/brainzheader.png" />
 </div>
