@@ -49,6 +49,62 @@
 
 </%args>
 <%perl>
+	# Log on to the raw database
+	my $mbraw = MusicBrainz->new();
+	$mbraw->Login(db => 'RAWDATA');
+	
+	print STDERR $ENV{'HTTP_REFERER'}."  \n";
+	# deal with user's request for collection artist manipulation
+	if(defined($notify))
+	{
+		# make sure the user has a collection_info tuple
+		MusicBrainz::Server::CollectionInfo::AssureCollection($session{uid}, $mbraw->{DBH});
+			
+		if($notify == 1)
+		{
+			# Make sure user is logged on
+			$m->comp("/comp/checkloggedin", 1, 1, "You need to be logged in to modify your collection preferences.", 1) or return;
+			print STDERR 'inserting artistid '.$artistid.'  session '.$session{uid}."          \n\n";
+			MusicBrainz::Server::CollectionPreference::ArtistWatch($artistid, $session{uid});
+		}
+		elsif($notify == 0)
+		{
+			MusicBrainz::Server::CollectionPreference::ArtistDontWatch($artistid, $session{uid});
+		}
+	}
+	
+	if(defined($dispmissing))
+	{
+		# make sure the user has a collection_info tuple
+		MusicBrainz::Server::CollectionInfo::AssureCollection($session{uid}, $mbraw->{DBH});
+		
+		if($dispmissing == 1)
+		{
+			# Make sure user is logged on
+			$m->comp("/comp/checkloggedin", 1, 1, "You need to be logged in to modify your collection preferences.", 1) or return;
+			
+			MusicBrainz::Server::CollectionPreference::ArtistMissing($artistid, $session{uid});
+		}
+		elsif($dispmissing == 0)
+		{
+			MusicBrainz::Server::CollectionPreference::ArtistDontShowMissing($artistid, $session{uid});
+		}
+	}
+	
+	# If user modified artist collection stuff, send user back to the page where this request was sent from
+	if($ENV{'HTTP_REFERER'} =~ m/([a-z0-9]{8})-([a-z0-9]{4})-([a-z0-9]{4})-([a-z0-9]{4})-([a-z0-9]{12})/ || $ENV{'HTTP_REFERER'} eq '')
+	{
+		# already at page, dont do anything
+		print STDERR 'DO NOTHING';
+		print STDERR "MATCH\nMATCH\nMATCH!!";
+	}
+	elsif(defined($notify))
+	{
+		# redirect user to last page
+		print STDERR 'REDIRECT';
+		$m->redirect($ENV{'HTTP_REFERER'});
+	}
+	
 	# check arguments
 	if ($mbid ne "")
 	{
@@ -157,8 +213,8 @@
 
     # show any related moderations so people can vote on them
  	$m->comp("/comp/relmods", artistid => $artist->GetId);
-
-    $m->comp("/comp/artisttitle", artist => $artist, notify => $notify, dispmissing => $dispmissing);
+ 
+    $m->comp("/comp/artisttitle", artist => $artist);
 
 	$m->comp(
 		"/edit/annotation/latest",
