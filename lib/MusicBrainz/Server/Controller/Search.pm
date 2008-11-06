@@ -134,14 +134,10 @@ sub external : Local
                                  $offset,
                                  $limit,);
     use LWP::UserAgent;
-    
+
     my $ua = LWP::UserAgent->new;
     $ua->timeout (2);
-    
-    if (DBDefs::PROXY_ENABLE)
-    {
-        $ua->proxy([ 'http' ], sprintf('http://%s:%i', DBDefs::PROXY_HOST, DBDefs::PROXY_PORT));
-    }
+    $ua->env_proxy;
 
     # Dispatch the search request.
     my $response = $ua->get($search_url);
