@@ -26,7 +26,7 @@
 use strict;
 
 use FindBin;
-use lib "$FindBin::Bin/../cgi-bin";
+use lib "$FindBin::Bin/../../../cgi-bin";
 
 use DBDefs;
 use MusicBrainz;
@@ -39,7 +39,7 @@ my $sql = Sql->new($mb->{DBH});
 
 my $set = 0;
 my $chunks = shift;
-$chunks = 50 if (!$chunks);
+$chunks = 100000 if (!$chunks);
 
 if ($sql->Select("SELECT rowid, opentime FROM moderation_all, albummeta 
                    WHERE dateadded = '1970-01-01 00:00:00-00' 

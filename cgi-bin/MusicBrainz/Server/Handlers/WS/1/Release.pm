@@ -161,10 +161,6 @@ sub handler_post
 	my $toc = $apr->param('toc');
     my $client = $apr->param('client');
 
-	if (!defined($type) || $type ne 'xml')
-	{
-		return bad_req($r, "Invalid content type. Must be set to xml.");
-	}
 	if (!defined($client) || $client eq '')
 	{
 		return bad_req($r, "You must provide a client id in order to submit Raw CDs.");

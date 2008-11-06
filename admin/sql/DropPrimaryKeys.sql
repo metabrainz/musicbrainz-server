@@ -18,7 +18,6 @@ ALTER TABLE artistwords DROP CONSTRAINT artistwords_pkey;
 ALTER TABLE automod_election DROP CONSTRAINT automod_election_pkey;
 ALTER TABLE automod_election_vote DROP CONSTRAINT automod_election_vote_pkey;
 ALTER TABLE cdtoc DROP CONSTRAINT cdtoc_pkey;
-ALTER TABLE cdtoc_virtual DROP CONSTRAINT cdtoc_virtual_pkey;
 ALTER TABLE clientversion DROP CONSTRAINT clientversion_pkey;
 ALTER TABLE country DROP CONSTRAINT country_pkey;
 ALTER TABLE currentstat DROP CONSTRAINT currentstat_pkey;

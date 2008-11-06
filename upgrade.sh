@@ -12,6 +12,9 @@ echo `date` : Upgrading to RELEASE-20081123-BRANCH
 [ "$REPLICATION_TYPE" = "$RT_MASTER" ] && echo `date` : Drop replication triggers
 [ "$REPLICATION_TYPE" = "$RT_MASTER" ] && ./admin/psql READWRITE < ./admin/sql/updates/20070401-1.sql
 
+echo `date` : Adding RawCD support
+./admin/psql READWRITE < ./admin/sql/updates/20071212-1.sql
+
 echo `date` : Adding AR improvements
 ./admin/psql READWRITE < ./admin/sql/updates/20080201-1.sql
 
@@ -44,6 +47,8 @@ echo `date` : Add tags relation support to database
 
 # Drop the functions and triggers in order to fix the one wrong PUID update function
 echo `date` : Re loading functions
+# RAUOK: We've got a minor issue here. We're dropping the triggers from the current codebase which attempts
+#        to drop triggers and functions that don't exist. This shouldn't be a problem, but it would be good to check
 [ "$REPLICATION_TYPE" != "$RT_SLAVE" ] && ./admin/psql READWRITE < ./admin/sql/DropTriggers.sql
 ./admin/psql READWRITE < ./admin/sql/DropFunctions.sql
 ./admin/psql READWRITE < ./admin/sql/CreateFunctions.sql

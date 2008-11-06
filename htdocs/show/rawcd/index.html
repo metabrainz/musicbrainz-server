@@ -53,8 +53,20 @@
 			<td><b>Modified</b></td>
 			<td><b>Lookup<br/>count</b></td>
 			<td><b>Modify<br/>count</b></td>
+%			if ($session{uid}) {
+				<td><b>Import</b></td>
+%			}
 			</tr>
 %		foreach my $row (@{$data}) {
+%			$row->{trackoffset} =~ s/^{(.*?)}$/$1/g;
+%			$row->{trackoffset} =~ s/,/+/g;
+%			my $url = "/bare/cdlookup.html?discid=" . $row->{discid} . 
+%						"&toc=1+" . $row->{trackcount} . "+" . $row->{leadoutoffset} . "+" .$row->{trackoffset};
+%			if ($row->{artist}) {
+%				$url .=	"&artist=" . uri_escape($row->{artist});
+%			} else {
+%				$url .=	"&release=" . uri_escape($row->{title});
+%			}
 			<tr>
 			<td><% $row->{title} %></td>
 			<td><% $row->{artist} || "Various Artists" %></td>
@@ -62,7 +74,10 @@
 			<td><% MusicBrainz::Server::DateTime::format_datetime_since($row->{lastmodified}) %></td>
 			<td><% $row->{lookupcount} %></td>
 			<td><% $row->{modifycount} %></td>
-			<td><a href="/edit/rawcd/import.html?rawcdid=<% $row->{id} %>">import</a></td>
+%			if ($session{uid}) {
+				<td><a href="/edit/rawcd/import.html?rawcdid=<% $row->{id} %>">release</a></td>
+				<td><a href="<% $url %>">Disc Id</a></td>
+%			}
 			</tr>
 %		}
 		<tr>

@@ -42,6 +42,10 @@
 	# tracks can be passed too, but we'll ignore it
 	$tracks => ""
 
+	# For pre-populating the search boxes
+	$artist => ""
+	$release => ""
+
 </%args>
 <%perl>
 
@@ -65,6 +69,8 @@
 			? ($discid = $info{discid}) # ensure discid matches toc
 			: ($toc = undef); # discard invalid toc
 	}
+	$info{artist} = $artist;
+	$info{release} = $release;
 
 	# if neither discid nor toc are provided, abort.
 	if (not defined $freedbid and
@@ -291,6 +297,8 @@
 <%def .ShowSubmitForm>
 % 	my $info = shift;
 % 	my $url = "/bare/cdlookup.html?toc=" . uri_escape($info->{'toc'});
+% 	my $artist = $info->{'artist'};
+% 	my $release = $info->{'release'};
 
 	<& /comp/tableend &>
 
@@ -340,7 +348,7 @@
 				<td>
 					<form method="post" action="/cdi/searchartist.html">
 						<div>
-							<input type="text" name="search" size="30" />
+							<input type="text" name="search" value="<% $artist %>" size="30" />
 							<input type="submit" value="Search &raquo;" />
 							<input type="hidden" name="discid" value="<% $info->{'discid'} %>" />
 							<input type="hidden" name="toc" value="<% $info->{'toc'} %>" />
@@ -362,7 +370,7 @@
 				<td>
 					<form method="post" action="/cdi/searchrelease.html">
 						<div>
-							<input type="text" name="search" size="30" />
+							<input type="text" name="search" value="<% $release %>" size="30" />
 							<input type="submit" value="Search &raquo;" />
 							<input type="hidden" name="discid" value="<% $info->{'discid'} %>" />
 							<input type="hidden" name="toc" value="<% $info->{'toc'} %>" />

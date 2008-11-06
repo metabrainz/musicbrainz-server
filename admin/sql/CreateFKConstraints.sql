@@ -111,11 +111,6 @@ ALTER TABLE automod_election_vote
     FOREIGN KEY (voter)
     REFERENCES moderator(id);
 
-ALTER TABLE cdtoc_virtual
-    ADD CONSTRAINT cdtoc_virtual_fk_album
-    FOREIGN KEY (album)
-    REFERENCES album(id);
-
 ALTER TABLE label
     ADD CONSTRAINT label_fk_country
     FOREIGN KEY (country)

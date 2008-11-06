@@ -129,11 +129,13 @@ sub GetActiveCDs
 
 	if (!$active)
 	{
-		$active = $sql->SelectListOfHashes("SELECT id, title, artist, added, lastmodified,
+		$active = $sql->SelectListOfHashes("SELECT release_raw.id, title, artist, added, lastmodified,
 											lookupcount, modifycount,
-			                                (lookupcount + modifycount) AS count 
-			                           FROM release_raw 
-								      WHERE lookupcount + modifycount > 0
+			                                (lookupcount + modifycount) AS count,
+											discid, trackcount, leadoutoffset, trackoffset
+			                           FROM release_raw, cdtoc_raw
+								      WHERE release_raw.id = cdtoc_raw.album
+									    AND lookupcount + modifycount > 0
 								   ORDER BY count desc
 							          LIMIT 1000");
 		$timestamp = time();
@@ -143,6 +145,9 @@ sub GetActiveCDs
 
 	splice(@$active, 0, $offset) if ($offset);
 	splice(@$active, $maxitems) if (scalar(@$active) > $maxitems);
+
+	use Data::Dumper;
+	print STDERR Dumper($active);
 
 	return ($active, $numitems, $timestamp);
 }

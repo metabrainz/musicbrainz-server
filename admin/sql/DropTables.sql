@@ -16,7 +16,6 @@ DROP TABLE artist_relation;
 DROP TABLE automod_election;
 DROP TABLE automod_election_vote;
 DROP TABLE cdtoc;
-DROP TABLE cdtoc_virtual;
 DROP TABLE clientversion;
 DROP TABLE country;
 DROP TABLE currentstat;

@@ -335,7 +335,7 @@ sub print_xml_post
         if ($@)
         {
             print STDERR "Cannot insert PUID: $@\n";
-            die("Cannot write PUIDs to database.\n")
+            die("Cannot write PUIDs to database. Make sure you are submitting a valid list of TRACK ids.\n")
         }
     }
 

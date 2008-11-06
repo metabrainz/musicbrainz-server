@@ -195,15 +195,6 @@ CREATE TABLE cdtoc
     degraded            BOOLEAN NOT NULL DEFAULT FALSE
 );
 
-CREATE TABLE cdtoc_virtual
-(
-    id                  SERIAL,
-    album               INTEGER NOT NULL, -- references album.id
-    trackcount          INTEGER NOT NULL,
-    leadoutoffset       INTEGER NOT NULL,
-    trackoffset         INTEGER[] NOT NULL
-);
-
 CREATE TABLE clientversion
 (
     id                  SERIAL,

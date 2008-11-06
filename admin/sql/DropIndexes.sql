@@ -29,8 +29,6 @@ DROP INDEX cdtoc_discid;
 DROP INDEX cdtoc_freedbid;
 DROP INDEX cdtoc_toc;
 DROP INDEX cdtoc_trackoffset;
-DROP INDEX cdtoc_virtual_toc;
-DROP INDEX cdtoc_virtual_trackoffset;
 DROP INDEX clientversion_version;
 DROP INDEX country_isocode;
 DROP INDEX country_name;

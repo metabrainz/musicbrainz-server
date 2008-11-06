@@ -1,18 +1,6 @@
 \set ON_ERROR_STOP 1
 BEGIN;
    	
-CREATE TABLE release_raw
-(
-	id					SERIAL,
-	title				VARCHAR(255) NOT NULL,
-	artist				VARCHAR(255),
-	added				TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-	lastmodified		TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-	lookupcount			INTEGER DEFAULT 0,
-	modifycount			INTEGER DEFAULT 0,
-	source				INTEGER DEFAULT 0
-);
-
 CREATE TABLE artist_rating_raw
 (
     artist              INTEGER NOT NULL,
@@ -104,6 +92,18 @@ CREATE TABLE release_rating_raw
     release             INTEGER NOT NULL,
     editor              INTEGER NOT NULL,
     rating              INTEGER NOT NULL
+);
+
+CREATE TABLE release_raw
+(
+	id					SERIAL,
+	title				VARCHAR(255) NOT NULL,
+	artist				VARCHAR(255),
+	added				TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+	lastmodified		TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+	lookupcount			INTEGER DEFAULT 0,
+	modifycount			INTEGER DEFAULT 0,
+	source				INTEGER DEFAULT 0
 );
 
 CREATE TABLE release_tag_raw

@@ -50,9 +50,6 @@ CREATE INDEX cdtoc_freedbid ON cdtoc (freedbid);
 CREATE INDEX cdtoc_trackoffset ON cdtoc (trackoffset);
 CREATE UNIQUE INDEX cdtoc_toc ON cdtoc (trackcount, leadoutoffset, trackoffset);
 
-CREATE INDEX cdtoc_virtual_trackoffset ON cdtoc_virtual (trackoffset);
-CREATE UNIQUE INDEX cdtoc_virtual_toc ON cdtoc_virtual (trackcount, leadoutoffset, trackoffset);
-
 CREATE UNIQUE INDEX clientversion_version ON clientversion (version);
 
 CREATE UNIQUE INDEX country_isocode ON country (isocode);
