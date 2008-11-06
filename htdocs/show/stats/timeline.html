@@ -103,7 +103,7 @@ var types =
 						[ "track ratings", "count.rating.raw.track"],
 						[ "label ratings", "count.rating.raw.label"]
 					]
-			   ],
+			   ]
 };
 
 var maxPlotLines = 6;
@@ -121,7 +121,7 @@ function loadGraph(type, showLines)
 	else
 	{
 		for(i = 0; i < maxPlotLines; i++)
-			linesVisible[i] = (showLines[i] == '1');
+			linesVisible[i] = (showLines.charAt(i) == '1');
 	}
 
 	if (types[type] == null)
@@ -149,7 +149,7 @@ function plotGraph()
 
 	var valueGeometry = new Timeplot.DefaultValueGeometry({
 			gridColor: "#000000",
-			axisLabelsPlacement: "left",
+			axisLabelsPlacement: "left"
 			});
 	var timeGeometry = new Timeplot.DefaultTimeGeometry({
 			gridColor: "#000000",
@@ -167,7 +167,7 @@ function plotGraph()
 			  dataSource: new Timeplot.ColumnSource(eventSource,1+i),
 			  valueGeometry: valueGeometry,
 			  timeGeometry: timeGeometry,
-			  lineColor: colors[i],
+			  lineColor: colors[i]
 			});
 		}
 	}
@@ -182,7 +182,7 @@ function plotGraph()
 	timeplot.loadText("timeline-data.html?series=" + series.join(","), ",", eventSource);
 	timeplot.loadXML("mb_history.xml", historySource);
 
-	textContent = document.getElementById('stats-timeplot-title')
+	textContent = document.getElementById('stats-timeplot-title');
 	textContent.firstChild.data=title;
 
 	// Update the legend
@@ -254,7 +254,7 @@ View [ <a href="#" onclick="loadGraph('artist');">artist/album</a> |
 </p>
 <br/>
 
-<div id="stats-timeplot-title"> </div>
+<div id="stats-timeplot-title">&nbsp;</div>
 <div class="lastupdated">last updated <% MusicBrainz::Server::DateTime::format_datetime_since($time) %></div>
 <div id="stats-timeplot" style="height:200px;"></div>
 <a id="stats-timeplot-link-to-this" href="#">link to this graph</a>
