@@ -46,6 +46,7 @@ my @all = qw(
 	admin/reports/BadWin32CDTOCs
 	admin/reports/BadAmazonURLs
 	admin/reports/BrokenDiscIDs
+	admin/reports/DiscIDsWithManyReleases
 	admin/reports/DuplicateAlbums
 	admin/reports/DuplicateArtists.pl
 	admin/reports/DuplicateArtists2
