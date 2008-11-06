@@ -86,7 +86,8 @@ use MusicBrainz::Server::Release;
 <& /comp/tablebegin, title => "Displaying missing releases of artists" &>
 %	if($missingCount == 0)
 %	{
-%		$m->out('Here are artists that you have chosen to see missing releases in your collection of are displayed. To add an artist go to that artist\'s page and click <i>Display missing releases</i>.<br/><br/>More information about what this is and how to use it is available in the wiki: <a href="http://wiki.musicbrainz.org/MusicCollectionIntroduction">http://wiki.musicbrainz.org/MusicCollectionIntroduction</a>');
+%		$m->out('<p>You are not currently displaying missing releases from any artists.</p>');
+%		$m->out('<p>An artist will be listed here when you have chosen to see missing releases from that artist in your collection\'s <a href="missing.html">Missing Releases</a> feature. To add an artist go to that artist\'s page and click <i>Display missing releases</i>.</p><p>Read more about this at <a href="/doc/MusicCollectionIntroduction">MusicCollectionIntroduction</a></p>');
 %	}
 %	else
 %	{
@@ -130,7 +131,8 @@ $m->out('</table>');
 <& /comp/tablebegin, title => "Notify me about new releases from artists" &>
 %	if($watchCount == 0)
 %	{
-%		$m->out('Artists you have chosen to be notified about new releases of are listed here. To add an artist go to that artist\'s page and click <i>Notify me on new releases</i>.<br/><br/>More information about what this is and how to use it is available in the wiki: <a href="http://wiki.musicbrainz.org/MusicCollectionIntroduction">http://wiki.musicbrainz.org/MusicCollectionIntroduction</a>');
+%		$m->out('<p>You are not currently being notified of new releases for any artists.</p>');
+%		$m->out('<p>An artist will be listed here when you have chosen to be notified about new releases of that artist. To add an artist go to that artist\'s page and click <i>Notify me on new releases</i>.</p><p>Read more about this at <a href="/doc/MusicCollectionIntroduction">MusicCollectionIntroduction</a></p>');
 %	}
 %	else
 %	{
