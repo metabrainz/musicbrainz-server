@@ -489,6 +489,17 @@ my %stats = (
 					and moderator not in (". &ModDefs::FREEDB_MODERATOR .", ". &ModDefs::MODBOT_MODERATOR .")",
 	},
 
+	"count.rawcd" => {
+		DESC => "Count of all RawCDs",
+		SQL => "SELECT COUNT(*) FROM release_raw",
+		RAWDATA_DB => 1,
+	},
+	"count.rawcd.track" => {
+		DESC => "Count of all RawCDs tracks",
+		SQL => "SELECT COUNT(*) FROM track_raw",
+		RAWDATA_DB => 1,
+	},
+
 	"count.vote.yes" => {
 		DESC => "Count of 'yes' votes",
 		CALC => sub {
