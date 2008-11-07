@@ -31,14 +31,14 @@ use lib "$FindBin::Bin/../cgi-bin";
 use DBDefs;
 use MusicBrainz;
 use Sql;
-use MusicBrainz::Server::RawCD;
+use MusicBrainz::Server::CDStub;
 use MusicBrainz::Server::CDTOC;
 
 my $mb = MusicBrainz->new;
 $mb->Login(db => "RAWDATA");
 my $sql = Sql->new($mb->{DBH});
 
-my $rc = MusicBrainz::Server::RawCD->new($mb->{DBH});
+my $rc = MusicBrainz::Server::CDStub->new($mb->{DBH});
 
 my $line;
 my $data = ();
@@ -52,7 +52,7 @@ while($line = <>)
 		my %tocdata = MusicBrainz::Server::CDTOC::ParseTOC(undef, $data->{toc});
 		if (%tocdata)
 		{
-	        $data->{source} = MusicBrainz::Server::RawCD::RAWCD_SOURCE_CDBABY;
+	        $data->{source} = MusicBrainz::Server::CDStub::CDSTUB_SOURCE_CDBABY;
 			$data->{discid} = $tocdata{discid};
 
 			if (!$rc->Lookup($data->{discid}))
