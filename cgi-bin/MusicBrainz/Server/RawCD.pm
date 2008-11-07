@@ -23,7 +23,7 @@
 #   $Id: CDTOC.pm 8551 2006-10-19 20:10:48Z robert $
 #____________________________________________________________________________
 #
-#   RawCD is a "Wisdom of Crowds" place where people who do not care
+#   CD Stub is a "Wisdom of Crowds" place where people who do not care
 #   to be part of MusicBrainz (read: don't want to put in the effort to
 #   learn about and participate in) but who care about getting metadata
 #   for their CD so they can listen to/rip the CD.
@@ -31,7 +31,7 @@
 
 use strict;
 
-package MusicBrainz::Server::RawCD;
+package MusicBrainz::Server::CDStub;
 
 use Exporter;
 use TableBase;
@@ -42,9 +42,9 @@ use MusicBrainz::Server::CDTOC;
 use MusicBrainz::Server::Cache;
 
 # Constants for the release_raw source column
-use constant RAWCD_SOURCE_USERS     => 0;
-use constant RAWCD_SOURCE_CDBABY    => 1;
-use constant RAWCD_SOURCE_JAMENDO   => 2;
+use constant CDSTUB_SOURCE_USERS     => 0;
+use constant CDSTUB_SOURCE_CDBABY    => 1;
+use constant CDSTUB_SOURCE_JAMENDO   => 2;
 
 # Given a discid or cdtoc_raw rowid, load the raw release
 sub Lookup
@@ -70,7 +70,7 @@ sub Lookup
 	return $self->Load($releaseid);
 }
 
-# Given an releaseid, return the RawCD
+# Given an releaseid, return the CDStub
 sub Load
 {
 	my $self = shift;
@@ -124,7 +124,7 @@ sub GetActiveCDs
 
 	$maxitems = 25 if ($maxitems <= 0 || $maxitems > 1000);
 
-	my $obj = MusicBrainz::Server::Cache->get("rawcd-active-cds");
+	my $obj = MusicBrainz::Server::Cache->get("cdstubs-active-cds");
 	my ($active, $numitems, $timestamp) = ($obj->[0], $obj->[1], $obj->[2]);
 
 	if (!$active)
@@ -140,7 +140,7 @@ sub GetActiveCDs
 							          LIMIT 1000");
 		$timestamp = time();
 		$numitems = scalar(@$active);
-        MusicBrainz::Server::Cache->set("statistics-hot-edits", [$active, $numitems, $timestamp], 5 * 60);
+        MusicBrainz::Server::Cache->set("cdstubs-active-cds", [$active, $numitems, $timestamp], 5 * 60);
     }
 
 	splice(@$active, 0, $offset) if ($offset);
@@ -238,7 +238,7 @@ sub Update
 	my $self = shift;
 	my $data = shift;
   
-    # TODO: Do not allow updates of third party RawCDs
+    # TODO: Do not allow updates of third party CD Stubs
 
     # Sanity check the data that was passed in
 	my ($err, $total, $tocdata) = $self->_CheckData($data);
@@ -298,4 +298,4 @@ sub Remove
 }
 
 1;
-# eof RawCD.pm
+# eof CDStub.pm
