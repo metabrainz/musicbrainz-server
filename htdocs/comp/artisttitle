@@ -211,7 +211,7 @@
 		{
 			$m->out(qq!<a href="/login.html">Log in</a> to edit this!);
 		}
-		$m->out(" ] " . $lastupdate);
+		$m->out(' ] <span class="lastupdated">' . $lastupdate . "</span>");
 		$m->out(qq!</td></tr>!);
 	}
 
