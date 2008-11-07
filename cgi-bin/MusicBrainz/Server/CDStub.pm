@@ -115,7 +115,7 @@ sub IncrementLookupCount
 	$sql->Do("UPDATE release_raw SET lookupcount = lookupcount + 1 WHERE id = ?", $id);
 }
 
-# Get list of most "active" Raw CDs
+# Get list of most "active" CD Stubs
 sub GetActiveCDs
 {
 	my ($self, $maxitems, $offset) = @_;

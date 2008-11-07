@@ -410,7 +410,7 @@ sub Insert
 		},
 	);
 
-	# Remove the Raw CD
+	# Remove the CD Stub
 	require MusicBrainz::Server::CDStub;
 	my $rawdb = $Moderation::DBConnections{RAWDATA};
 	my $rc = MusicBrainz::Server::CDStub->new($rawdb->{DBH});

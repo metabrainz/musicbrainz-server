@@ -162,13 +162,13 @@ sub handler_post
 
 	if (!defined($client) || $client eq '')
 	{
-		return bad_req($r, "You must provide a client id in order to submit Raw CDs.");
+		return bad_req($r, "You must provide a client id in order to submit CD Stubs.");
 	}
 
 	# Ensure that we're not a replicated server and that we were given a client version
 	if (&DBDefs::REPLICATION_TYPE == &DBDefs::RT_SLAVE)
 	{
-		return bad_req($r, "You cannot submit raw cds to a slave server.");
+		return bad_req($r, "You cannot submit cd stubs to a slave server.");
 	}
 
 	my (@artists, @tracks);
@@ -218,7 +218,7 @@ sub handler_post
 	my $cd = $rc->Lookup($discid);
 	if ($cd)
 	{
-		return bad_req($r, "This Raw CD already exists.");
+		return bad_req($r, "This CD Stub already exists.");
 	}
 	$cd = {};
 	$cd->{title} = $title;
