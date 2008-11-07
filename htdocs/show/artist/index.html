@@ -53,7 +53,6 @@
 	my $mbraw = MusicBrainz->new();
 	$mbraw->Login(db => 'RAWDATA');
 	
-	print STDERR $ENV{'HTTP_REFERER'}."  \n";
 	# deal with user's request for collection artist manipulation
 	if(defined($notify))
 	{
@@ -64,7 +63,6 @@
 		{
 			# Make sure user is logged on
 			$m->comp("/comp/checkloggedin", 1, 1, "You need to be logged in to modify your collection preferences.", 1) or return;
-			print STDERR 'inserting artistid '.$artistid.'  session '.$session{uid}."          \n\n";
 			MusicBrainz::Server::CollectionPreference::ArtistWatch($artistid, $session{uid});
 		}
 		elsif($notify == 0)
@@ -95,13 +93,10 @@
 	if($ENV{'HTTP_REFERER'} =~ m/([a-z0-9]{8})-([a-z0-9]{4})-([a-z0-9]{4})-([a-z0-9]{4})-([a-z0-9]{12})/ || $ENV{'HTTP_REFERER'} eq '')
 	{
 		# already at page, dont do anything
-		print STDERR 'DO NOTHING';
-		print STDERR "MATCH\nMATCH\nMATCH!!";
 	}
 	elsif(defined($notify))
 	{
 		# redirect user to last page
-		print STDERR 'REDIRECT';
 		$m->redirect($ENV{'HTTP_REFERER'});
 	}
 	
