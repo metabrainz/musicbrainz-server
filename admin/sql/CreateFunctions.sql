@@ -126,17 +126,11 @@ create or replace function a_idu_entity () returns TRIGGER as $$
 begin 
     IF (TG_OP = 'INSERT') 
     THEN
-        IF (TG_RELNAME != 'track')
-        THEN
-            EXECUTE 'INSERT INTO ' || TG_RELNAME || '_meta (id) VALUES (' || NEW.id || ')';
-        END IF;
+        EXECUTE 'INSERT INTO ' || TG_RELNAME || '_meta (id) VALUES (' || NEW.id || ')';
         PERFORM propagate_lastupdate(NEW.id, TG_RELNAME);
     ELSIF (TG_OP = 'DELETE') 
     THEN
-        IF (TG_RELNAME != 'track')
-        THEN
-            EXECUTE 'DELETE FROM ' || TG_RELNAME || '_meta WHERE id = ' || OLD.id;
-        END IF;
+        EXECUTE 'DELETE FROM ' || TG_RELNAME || '_meta WHERE id = ' || OLD.id;
     ELSIF (TG_OP = 'UPDATE')
     THEN
         IF (TG_RELNAME != 'track')
