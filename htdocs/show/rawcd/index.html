@@ -21,7 +21,7 @@
 	#
 	# Summary:
 	# -----------------------------------------------------------------------------
-	# Show database details of top active RawCDs.
+	# Show database details of top active CD Stub.
 	#
 	# $Id: index.html 8548 2006-10-19 07:41:02Z dave $
 	#
@@ -37,12 +37,12 @@
 	my $mb = MusicBrainz->new;
 	$mb->Login(db => "RAWDATA");
 
-	my $rc = MusicBrainz::Server::RawCD->new($mb->{DBH});
+	my $rc = MusicBrainz::Server::CDStub->new($mb->{DBH});
     my ($data, $numitems, $timestamp) = $rc->GetActiveCDs($maxitems, $offset);
 	$timestamp = MusicBrainz::Server::DateTime::format_datetime_since($timestamp);
 
 </%perl>
-<& /comp/sidebar, title => "Most active RawCDs" &>
+<& /comp/sidebar, title => "Most active CD Stubs" &>
 
 %	if (scalar(@$data)) {
 		<table width="100%" style="background-color: #fafafa; border: 1px #000000 solid;">
@@ -75,7 +75,7 @@
 			<td><% $row->{lookupcount} %></td>
 			<td><% $row->{modifycount} %></td>
 %			if ($session{uid}) {
-				<td><a href="/edit/rawcd/import.html?rawcdid=<% $row->{id} %>">release</a></td>
+				<td><a href="/edit/cdstub/import.html?cdstubid=<% $row->{id} %>">release</a></td>
 				<td><a href="<% $url %>">Disc Id</a></td>
 %			}
 			</tr>
@@ -83,7 +83,7 @@
 		<tr>
 			<td colspan="7">
 				<& /comp/pageselector, offset => $offset, pagesize => $maxitems,
-										url => '/show/rawcd/index.html',
+										url => '/show/cdstub/index.html',
 										numitems => $numitems &>
 			</td>
 		</tr>

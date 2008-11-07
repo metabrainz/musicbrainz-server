@@ -81,7 +81,7 @@ require MusicBrainz::Server::Mail;
 require MusicBrainz::Server::Markup;
 require MusicBrainz::Server::ModerationNote;
 require MusicBrainz::Server::NewsFeed;
-require MusicBrainz::Server::RawCD;
+require MusicBrainz::Server::CDStub;
 require MusicBrainz::Server::PagedReport;
 require MusicBrainz::Server::Rating;
 require MusicBrainz::Server::ReleaseEvent;

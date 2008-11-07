@@ -33,7 +33,7 @@ require Exporter;
 our @ISA = qw(Exporter);
 our @EXPORT = qw(convert_inc bad_req send_response check_types
                  xml_artist xml_release xml_track xml_search xml_escape
-                 xml_label xml_rawcd
+                 xml_label xml_cdstub
                  get_type_and_status_from_inc get_release_type
                  get_user
 );
@@ -990,7 +990,7 @@ sub xml_relations
     }
 }
 
-sub xml_rawcd
+sub xml_cdstub
 {
 	my ($cd) = @_;
 

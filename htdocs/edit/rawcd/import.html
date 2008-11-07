@@ -21,13 +21,13 @@
 	#
 	# Summary:
 	# -----------------------------------------------------------------------------
-	# Show database details of top active RawCDs.
+	# Show database details of top active CD Stubs.
 	#
 	# $Id: index.html 8548 2006-10-19 07:41:02Z dave $
 	#
 </%perl>
 <%args>
-	$rawcdid => undef
+	$cdstubid => undef
 
 	# fields set by /comp/artistfilter
 	$search => ""
@@ -46,27 +46,27 @@
 	my $mb = MusicBrainz->new;
 	$mb->Login(db => "RAWDATA");
 
-	my $rc = MusicBrainz::Server::RawCD->new($mb->{DBH});
-	MusicBrainz::Server::Validation::IsNonNegInteger($rawcdid)
+	my $rc = MusicBrainz::Server::CDStub->new($mb->{DBH});
+	MusicBrainz::Server::Validation::IsNonNegInteger($cdstubid)
 		or return $m->comp("/comp/layout/badarguments",
 			text => "You need to specify a valid import argument.");
 
-	my $rawcd = $rc->Load($rawcdid);
-	if (!$rawcd)
+	my $cdstub = $rc->Load($cdstubid);
+	if (!$cdstub)
 	{
 		return $m->comp("/comp/layout/badarguments",
-			text => "Invalid import argument. No such RawCD.");
+			text => "Invalid import argument. No such CD Stub.");
 	}
-	return $m->comp("/comp/redirect", "/show/rawcd") if ($submitvalue =~ /Cancel/);
+	return $m->comp("/comp/redirect", "/show/cdstub") if ($submitvalue =~ /Cancel/);
 	return $m->comp("/comp/redirect", "/edit/artist/add.html?initial_name=" . uri_escape($search) .
-									  "&returnurl=" . uri_escape("/edit/rawcd/import.html?rawcdid=$rawcdid&artistfilter_newartistid=")) 
+									  "&returnurl=" . uri_escape("/edit/cdstub/import.html?cdstubid=$cdstubid&artistfilter_newartistid=")) 
 		   if ($submitvalue =~ /Add/);
 	
-	my $num = scalar(@{$rawcd->{tracks}});
+	my $num = scalar(@{$cdstub->{tracks}});
 	my $hasmult = 0;
 	for(0..$num)
 	{
-		if ($rawcd->{tracks}->[$_]->{artist})
+		if ($cdstub->{tracks}->[$_]->{artist})
 		{
 			$hasmult = 1;
 			$artistfilter_newartistid = 1;
@@ -76,20 +76,20 @@
 	if ($hasmult || $submitvalue =~ /Select/ || $submitvalue =~ /SUBMIT_ADDARTIST_DONE/)
 	{
 		my $url = "/cdi/enter.html?tracks=$num";
-		my $toc = $rawcd->{cdtoc}->{trackoffset};
+		my $toc = $cdstub->{cdtoc}->{trackoffset};
 		$toc =~ s/\{(.*?)\}/$1/;
 		$toc =~ s/,/+/g;
-		$toc = "1+$rawcd->{cdtoc}->{trackcount}+$rawcd->{cdtoc}->{leadoutoffset}+$toc";
+		$toc = "1+$cdstub->{cdtoc}->{trackcount}+$cdstub->{cdtoc}->{leadoutoffset}+$toc";
 
 		$url .= "&artistid=$artistfilter_newartistid";
-		$url .= "&releasename=" . uri_escape($rawcd->{title});
+		$url .= "&releasename=" . uri_escape($cdstub->{title});
 		$url .= "&hasmultipletrackartists=$hasmult" ;
 		$url .= "&toc=$toc";
-		$url .= "&discid=" . uri_escape($rawcd->{cdtoc}->{discid});
+		$url .= "&discid=" . uri_escape($cdstub->{cdtoc}->{discid});
 		for(0..$num)
 		{
-			$url .= "&track$_=" . uri_escape($rawcd->{tracks}->[$_]->{title});
-			$url .= "&tr$_"."_artistname=" . uri_escape($rawcd->{tracks}->[$_]->{artist}) if ($hasmult);
+			$url .= "&track$_=" . uri_escape($cdstub->{tracks}->[$_]->{title});
+			$url .= "&tr$_"."_artistname=" . uri_escape($cdstub->{tracks}->[$_]->{artist}) if ($hasmult);
 		}
 
 		return $m->comp("/comp/redirect", $url);
@@ -97,8 +97,8 @@
 </%perl>
 
 	<& /comp/sidebar-notitle, pagetitle => "Select artist" &>
-	<& /comp/layout/editformbegin, title => "Import RawCD: Select artist" &>
-	<form method="post" action="/edit/rawcd/import.html" id="ConfirmForm">
+	<& /comp/layout/editformbegin, title => "Import CD Stub: Select artist" &>
+	<form method="post" action="/edit/cdstub/import.html" id="ConfirmForm">
 	<script type="text/javascript" src="/scripts/editsuite.js"></script>
 	<table class="formstyle">
 		<tr class="top">
@@ -106,11 +106,11 @@
 		</tr>
 		<& /comp/artistfilter,
 		   search => $search,
-		   defaultquery => $rawcd->{artist},
+		   defaultquery => $cdstub->{artist},
 		   submitvalue => $submitvalue,
 		&>
 	</table>
-	<input type="hidden" name="rawcdid" value="<% $rawcdid %>"/>
+	<input type="hidden" name="cdstubid" value="<% $cdstubid %>"/>
 	</form>
 	<& /comp/layout/editformend &>
 	<& /comp/footer &>

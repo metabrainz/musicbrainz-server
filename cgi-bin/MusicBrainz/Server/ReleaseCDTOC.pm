@@ -411,14 +411,14 @@ sub Insert
 	);
 
 	# Remove the Raw CD
-	require MusicBrainz::Server::RawCD;
+	require MusicBrainz::Server::CDStub;
 	my $rawdb = $Moderation::DBConnections{RAWDATA};
-	my $rc = MusicBrainz::Server::RawCD->new($rawdb->{DBH});
+	my $rc = MusicBrainz::Server::CDStub->new($rawdb->{DBH});
 	my %info = MusicBrainz::Server::CDTOC->ParseTOC($toc);
-	my $rawcd = $rc->Lookup($info{discid});
+	my $cdstub = $rc->Lookup($info{discid});
 
 	# Pass in the rawdb object that has the transaction open
-	$rc->Remove($rawcd->{id}, $rawdb);
+	$rc->Remove($cdstub->{id}, $rawdb);
 
     return $ret;
 }

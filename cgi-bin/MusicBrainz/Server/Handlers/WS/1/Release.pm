@@ -210,11 +210,11 @@ sub handler_post
 
 	if (my $st = apply_rate_limit($r)) { return $st }
 
-	require MusicBrainz::Server::RawCD;
+	require MusicBrainz::Server::CDStub;
 	my $mb = MusicBrainz->new;
 	$mb->Login(db => "RAWDATA");
 
-	my $rc = MusicBrainz::Server::RawCD->new($mb->{DBH});
+	my $rc = MusicBrainz::Server::CDStub->new($mb->{DBH});
 	my $cd = $rc->Lookup($discid);
 	if ($cd)
 	{
@@ -256,7 +256,7 @@ sub serve_from_db
 	require MusicBrainz::Server::Release;
 
 	my @releases;
-	my $rawcd;
+	my $cdstub;
 	$al = MusicBrainz::Server::Release->new($mb->{DBH});
     if ($mbid)
     {
@@ -285,20 +285,20 @@ sub serve_from_db
 		}
 		else
 		{
-			# See if the have the CD in the RawCD store
+			# See if the have the CD in the CDStub store
 			my $raw = MusicBrainz->new;
 			$raw->Login(db => 'RAWDATA');
-			require MusicBrainz::Server::RawCD;
-			my $rc = MusicBrainz::Server::RawCD->new($raw->{DBH});
-			$rawcd = $rc->Lookup($cdid);
-			$rc->IncrementLookupCount($rawcd->{id}) if $rawcd;
-			if (!$rawcd || $rawcd->{age} > SERVE_CRAP_FOR_THESE_MANY_DAYS)
+			require MusicBrainz::Server::CDStub;
+			my $rc = MusicBrainz::Server::CDStub->new($raw->{DBH});
+			$cdstub = $rc->Lookup($cdid);
+			$rc->IncrementLookupCount($cdstub->{id}) if $cdstub;
+			if (!$cdstub || $cdstub->{age} > SERVE_CRAP_FOR_THESE_MANY_DAYS)
 			{
-				$rawcd = undef;
+				$cdstub = undef;
 			}
 		}
 	}
-    if (@releases && !$ar && !$rawcd && ($inc & INC_ARTIST || $inc & INC_TRACKS))
+    if (@releases && !$ar && !$cdstub && ($inc & INC_ARTIST || $inc & INC_TRACKS))
     {
         $ar = MusicBrainz::Server::Artist->new($mb->{DBH});
         $ar->SetId($al->GetArtist);
@@ -306,7 +306,7 @@ sub serve_from_db
     }
 
 	my $printer = sub {
-		print_xml($mbid, $ar, \@releases, $inc, $is_coll, $rawcd, $user);
+		print_xml($mbid, $ar, \@releases, $inc, $is_coll, $cdstub, $user);
 	};
 
 	send_response($r, $printer);
@@ -322,7 +322,7 @@ sub print_xml
 	print '<release-list>' if (scalar(@$releases) > 1 || $is_coll);
 	if ($cd)
 	{
-		xml_rawcd($cd);
+		xml_cdstub($cd);
 	}
 	else
 	{

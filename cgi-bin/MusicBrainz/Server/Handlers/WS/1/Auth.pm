@@ -46,7 +46,7 @@ sub handler
         && not ($inc & INC_USER_TAGS)
         && not ($inc & INC_USER_RATINGS) );
 	
-	# Allow POSTing of RawCDs to release
+	# Allow POSTing CDStubs to release
     return OK if($r->method eq "POST" 
         && $r->uri =~ /^\/ws\/1\/release/);
 

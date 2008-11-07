@@ -78,7 +78,7 @@
 	my $mb = MusicBrainz->new;
 	$mb->Login(db => "RAWDATA");
 
-	my $rc = MusicBrainz::Server::RawCD->new($mb->{DBH});
+	my $rc = MusicBrainz::Server::CDStub->new($mb->{DBH});
 	my $cd;
 
 	if ($freedb)
@@ -173,7 +173,7 @@
 
 	<& /comp/layout/editformbegin, title => "Add CD" &>
 
-		<form method="post" name="AddRawCD" action="/edit/rawcd/add.html">
+		<form method="post" name="AddCDStub" action="/edit/cdstub/add.html">
 		<div id="editsuite-content" class="editsuite"></div>
 			<table class="formstyle" width="100%">
 				<tr>

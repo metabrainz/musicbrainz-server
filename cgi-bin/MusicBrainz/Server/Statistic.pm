@@ -489,13 +489,13 @@ my %stats = (
 					and moderator not in (". &ModDefs::FREEDB_MODERATOR .", ". &ModDefs::MODBOT_MODERATOR .")",
 	},
 
-	"count.rawcd" => {
-		DESC => "Count of all RawCDs",
+	"count.cdstub" => {
+		DESC => "Count of all CD Stubs",
 		SQL => "SELECT COUNT(*) FROM release_raw",
 		RAWDATA_DB => 1,
 	},
-	"count.rawcd.track" => {
-		DESC => "Count of all RawCDs tracks",
+	"count.cdstub.track" => {
+		DESC => "Count of all CD Stub tracks",
 		SQL => "SELECT COUNT(*) FROM track_raw",
 		RAWDATA_DB => 1,
 	},
