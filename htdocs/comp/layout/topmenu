@@ -201,6 +201,7 @@
 				{ url => "/reports/generated/AlbumsToConvert/index.html" },
 				{ url => "/reports/generated/BadWin32CDTOCs/index.html" },
 				{ url => "/reports/generated/BrokenDiscIDs/index.html" },
+				{ url => "/reports/generated/DiscIDsWithManyReleases/index.html" },
 				{ url => "/reports/generated/DuplicateAlbums/index.html" },
 				{ url => "/reports/generated/DuplicateArtists/index.html" },
 				{ url => "/reports/generated/DuplicateArtists2/index.html" },
@@ -364,6 +365,9 @@
 				{ url => "/user/verifyemail.html" },
 				{ url => "/user/sendverification.html" },
 				{ url => "/user/register-done.html" },
+				{ url => "/user/ratings/index.html" },
+				{ url => "/user/tags/index.html" },
+				{ url => "/user/tags/tag.html" },
 			],
 
 			{ name => "Create Account",		url => "/user/register.html", 				login => 0 },
