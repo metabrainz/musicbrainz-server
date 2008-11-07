@@ -37,7 +37,7 @@ CREATE INDEX release_tag_raw_idx_moderator ON release_tag_raw (moderator);
 CREATE INDEX track_rating_raw_idx_track ON track_rating_raw (track);
 CREATE INDEX track_rating_raw_idx_editor ON track_rating_raw (editor);
     	
-CREATE INDEX track_raw_idx_album ON track_raw (album);
+CREATE INDEX track_raw_idx_release ON track_raw (release);
 
 CREATE INDEX track_tag_raw_idx_track ON track_tag_raw (track);
 CREATE INDEX track_tag_raw_idx_tag ON track_tag_raw (tag);

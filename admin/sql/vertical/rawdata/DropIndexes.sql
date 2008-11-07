@@ -29,7 +29,7 @@ DROP INDEX release_tag_raw_idx_moderator;
 DROP INDEX track_rating_raw_idx_track;
 DROP INDEX track_rating_raw_idx_editor;
     	
-DROP INDEX track_raw_idx_album;
+DROP INDEX track_raw_idx_release;
 
 DROP INDEX track_tag_raw_idx_track;
 DROP INDEX track_tag_raw_idx_tag;

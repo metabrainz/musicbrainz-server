@@ -18,7 +18,7 @@ CREATE TABLE artist_tag_raw
 CREATE TABLE cdtoc_raw
 (
 	id					SERIAL,
-	album				INTEGER NOT NULL, -- references release_raw
+	release				INTEGER NOT NULL, -- references release_raw
 	discid				CHAR(28) NOT NULL,
 	trackcount			INTEGER NOT NULL,
 	leadoutoffset		INTEGER NOT NULL,
@@ -116,7 +116,7 @@ CREATE TABLE release_tag_raw
 CREATE TABLE track_raw
 (	
 	id					SERIAL,
-	album				INTEGER NOT NULL,	   -- references release_raw
+	release				INTEGER NOT NULL,	   -- references release_raw
 	title				VARCHAR(255) NOT NULL,
 	artist				VARCHAR(255),		   -- For VA albums, otherwise empty
 	sequence			INTEGER NOT NULL

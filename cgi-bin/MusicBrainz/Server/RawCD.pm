@@ -23,7 +23,7 @@
 #   $Id: CDTOC.pm 8551 2006-10-19 20:10:48Z robert $
 #____________________________________________________________________________
 #
-#   RawAlbum is a "Wisdom of Crowds" place where people who do not care
+#   RawCD is a "Wisdom of Crowds" place where people who do not care
 #   to be part of MusicBrainz (read: don't want to put in the effort to
 #   learn about and participate in) but who care about getting metadata
 #   for their CD so they can listen to/rip the CD.
@@ -46,49 +46,49 @@ use constant RAWCD_SOURCE_USERS     => 0;
 use constant RAWCD_SOURCE_CDBABY    => 1;
 use constant RAWCD_SOURCE_JAMENDO   => 2;
 
-# Given a discid or cdtoc_raw rowid, load the raw album
+# Given a discid or cdtoc_raw rowid, load the raw release
 sub Lookup
 {
 	my $self = shift;
 	my $id = shift;
 	my $sql = Sql->new($self->{DBH});
 
-	my $albumid;
+	my $releaseid;
     if (MusicBrainz::Server::Validation::IsNonNegInteger($id))
 	{
-		$albumid = $sql->SelectSingleValue("SELECT album FROM cdtoc_raw WHERE id = ?", $id);
+		$releaseid = $sql->SelectSingleValue("SELECT release FROM cdtoc_raw WHERE id = ?", $id);
     }
 	elsif (length($id) == &MusicBrainz::Server::CDTOC::CDINDEX_ID_LENGTH)
 	{
-		$albumid = $sql->SelectSingleValue("SELECT album FROM cdtoc_raw WHERE discid = ?", $id);
+		$releaseid = $sql->SelectSingleValue("SELECT release FROM cdtoc_raw WHERE discid = ?", $id);
     }
 	else
 	{
 		return undef;
     }
 
-	return $self->Load($albumid);
+	return $self->Load($releaseid);
 }
 
-# Given an albumid, return the RawCD
+# Given an releaseid, return the RawCD
 sub Load
 {
 	my $self = shift;
-	my $albumid = shift;
+	my $releaseid = shift;
 	my $sql = Sql->new($self->{DBH});
 
     my $data = $sql->SelectSingleRowHash("SELECT *, date_part('days', now() - lastmodified) as age 
                                             FROM release_raw
-                                           WHERE id = ?", $albumid);
+                                           WHERE id = ?", $releaseid);
 	return undef if (!defined $data);
 
 	$data->{tracks} = $sql->SelectListOfHashes("SELECT id, sequence, title, artist 
 			                                      FROM track_raw
-												 WHERE album = ?
-									          ORDER BY sequence", $albumid);
+												 WHERE release = ?
+									          ORDER BY sequence", $releaseid);
 	return undef if (!defined $data->{tracks});
 
-	$data->{cdtoc} = $sql->SelectSingleRowHash("SELECT * FROM cdtoc_raw WHERE album = ?", $albumid);
+	$data->{cdtoc} = $sql->SelectSingleRowHash("SELECT * FROM cdtoc_raw WHERE release = ?", $releaseid);
 	return undef if (!defined $data->{cdtoc});
 
 	my $toc = "1 " . scalar(@{$data->{tracks}}) . " " . $data->{cdtoc}->{leadoutoffset} . " " . $data->{cdtoc}->{trackoffset};
@@ -104,7 +104,7 @@ sub Load
 	return $data;
 };
 
-# Given a raw album id, increment the lookup count
+# Given a raw release id, increment the lookup count
 sub IncrementLookupCount
 {
 	my $self = shift;
@@ -134,7 +134,7 @@ sub GetActiveCDs
 			                                (lookupcount + modifycount) AS count,
 											discid, trackcount, leadoutoffset, trackoffset
 			                           FROM release_raw, cdtoc_raw
-								      WHERE release_raw.id = cdtoc_raw.album
+								      WHERE release_raw.id = cdtoc_raw.release
 									    AND lookupcount + modifycount > 0
 								   ORDER BY count desc
 							          LIMIT 1000");
@@ -166,7 +166,7 @@ sub _CheckData
 	}
 
 	return ("No artist names provided.", 0, 0) if ((!exists $data->{artist} || !$data->{artist}) && $artists == 0);
-	return ("Not all tracks specify an artist.", 0, 0) if ($artists != $total);
+	return ("Not all tracks specify an artist.", 0, 0) if ($artists && $artists != $total);
 
 	# If the release artist is given AND artists are given for each track, clear the release artist
 	$data->{artist} = "" if ($artists == $total && $data->{artist});
@@ -183,16 +183,16 @@ sub _CheckData
     return ("", $total, \%tocdata);
 }
 
-# Add a new raw album to the DB. Pass in a hash ref with the following keys:
-#   title => string of the title of the album
-#   artist => string of the name of the artist of this album. If VA, leave blank
+# Add a new raw release to the DB. Pass in a hash ref with the following keys:
+#   title => string of the title of the release
+#   artist => string of the name of the artist of this release. If VA, leave blank
 #   toc => the CD toc for this release (in string TOC format)
 #   discid => The discid for this release.
 #   tracks => a ref of an array of hashrefs with the following keys:
-#      artist => the name of the artist for this track. Ignored if artist is given for album.
+#      artist => the name of the artist for this track. Ignored if artist is given for release.
 #      title => the title of the track.
 
-# Insert a new raw album
+# Insert a new raw release
 sub Insert
 {
 	my $self = shift;
@@ -202,19 +202,19 @@ sub Insert
 	my ($err, $total, $tocdata) = $self->_CheckData($data);
 	return $err if ($err);
 
-    # Now go insert the album
+    # Now go insert the release
 	my $sql = Sql->new($self->{DBH});
 	eval
 	{
 		$sql->Begin;
 		$sql->Do("INSERT INTO release_raw (title, artist) values (?,?)", $data->{title}, $data->{artist});
 		my $alid = $sql->GetLastInsertId("release_raw");
-		$sql->Do("INSERT INTO cdtoc_raw (album, discid, trackcount, leadoutoffset, trackoffset) values (?, ?, ?, ?, ?)",
+		$sql->Do("INSERT INTO cdtoc_raw (release, discid, trackcount, leadoutoffset, trackoffset) values (?, ?, ?, ?, ?)",
 				$alid, $data->{discid}, $total, $tocdata->{leadoutoffset}, "{".join(',',@{$tocdata->{trackoffsets}})."}");
 		my $index = 1;
 		foreach my $ref (@{$data->{tracks}})
 		{
-			$sql->Do("INSERT INTO track_raw (album, title, artist, sequence) values (?, ?, ?, ?)",
+			$sql->Do("INSERT INTO track_raw (release, title, artist, sequence) values (?, ?, ?, ?)",
 					$alid, $ref->{title}, $ref->{artist}, $index++);
 		}
 
@@ -230,8 +230,8 @@ sub Insert
 	}
 }
 
-# Update a raw album. The data argument should be a ref to a hash with the same keys as the
-# Insert function, except that a key id must be included that gives the id of the album to update,
+# Update a raw release. The data argument should be a ref to a hash with the same keys as the
+# Insert function, except that a key id must be included that gives the id of the release to update,
 # and that each track item also needs an id key.
 sub Update
 {
@@ -245,9 +245,9 @@ sub Update
 	return $err if ($err);
 
 	my $alid = $data->{id};
-	return "No album id given" if (!MusicBrainz::Server::Validation::IsNonNegInteger($alid));
+	return "No release id given" if (!MusicBrainz::Server::Validation::IsNonNegInteger($alid));
 
-    # Now go update the album
+    # Now go update the release
 	my $sql = Sql->new($self->{DBH});
 	eval
 	{
@@ -259,7 +259,7 @@ sub Update
 		# Update lastmodified
 		$sql->Do("UPDATE cdtoc_raw 
 				     SET discid = ?, trackcount = ?, leadoutoffset = ?, trackoffset = ?
-				   WHERE album = ?",
+				   WHERE release = ?",
 				$data->{discid}, $total, $tocdata->{leadoutoffset}, "{".join(',',@{$tocdata->{trackoffsets}})."}", $alid);
 		my $index = 1;
 		foreach my $ref (@{$data->{tracks}})
@@ -287,13 +287,13 @@ sub Remove
 	my $alid = shift;
 	my $sql= shift;
 
-	return "No album id given" if (!MusicBrainz::Server::Validation::IsNonNegInteger($alid));
+	return "No release id given" if (!MusicBrainz::Server::Validation::IsNonNegInteger($alid));
 
-    # Now go remove the album
+    # Now go remove the release
     # We use no Begin/Commit block here since this function should only be called as part of
     # a larger transaction. (e.g. MOD_ADD_ALBUM)
-	$sql->Do("DELETE FROM cdtoc_raw WHERE album = ?", $alid);
-	$sql->Do("DELETE FROM track_raw WHERE album = ?", $alid);
+	$sql->Do("DELETE FROM cdtoc_raw WHERE release = ?", $alid);
+	$sql->Do("DELETE FROM track_raw WHERE release = ?", $alid);
 	$sql->Do("DELETE FROM release_raw WHERE id = ?", $alid);
 }
 

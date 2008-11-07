@@ -211,6 +211,8 @@ sub CreateRelations
 	RunSQLScript($RAWDATA, "vertical/rawdata/CreateIndexes.sql", "Creating raw indexes ...");
 	RunSQLScript($READWRITE, "CreateFKConstraints.sql", "Adding foreign key constraints ...")
 	    unless $REPTYPE == RT_SLAVE;
+	RunSQLScript($READWRITE, "vertical/rawdata/CreateFKConstraints.sql", "Adding raw foreign key constraints ...")
+	    unless $REPTYPE == RT_SLAVE;
 
     print localtime() . " : Setting initial sequence values ...\n";
     system($^X, "$FindBin::Bin/SetSequences.pl");
