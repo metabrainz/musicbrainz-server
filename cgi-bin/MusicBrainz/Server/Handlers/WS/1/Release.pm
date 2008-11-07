@@ -155,7 +155,6 @@ sub handler_post
 	# POST http://server/ws/1/release/?type=xml&client=<client>&title=<title>&toc=<toc>&track0=<track0>&artist0=<artist1>&track1=<track1>...
 
 	my $apr = Apache::Request->new($r);
-	my $type = $apr->param('type');
 	my $title = $apr->param('title');
 	my $discid = $apr->param('discid');
 	my $toc = $apr->param('toc');
@@ -186,13 +185,13 @@ sub handler_post
 		my $data = { title => $tmp };
 		$num++;
 
-		if (!$artist)
+		$tmp = $apr->param("artist$_");
+		if ($tmp)
 		{
-			$tmp = $apr->param("artist$_");
-			return bad_req($r, "Artist for track $_ is missing.") if (!$tmp);
 			$tmp =~ s/^\s*?(.*?)\s*$/$1/;
 			$data->{artist} = $tmp;
 		}
+
 		push @tracks, $data;
 	}
 
@@ -226,16 +225,8 @@ sub handler_post
 	$cd->{tracks} = \@tracks;
 	$cd->{discid} = $discid;
 	$cd->{toc} = $toc;
-	if ($artist)
-	{
-		$cd->{artist} = $artist;
-		$cd->{artists} = [];
-	}
-	else
-	{
-		$cd->{artist} = undef;
-		$cd->{artists} = \@artists;
-	}
+	$cd->{artist} = $artist;
+
 	my $error = $rc->Insert($cd);
 	if ($error)
 	{

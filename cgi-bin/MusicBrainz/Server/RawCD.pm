@@ -146,9 +146,6 @@ sub GetActiveCDs
 	splice(@$active, 0, $offset) if ($offset);
 	splice(@$active, $maxitems) if (scalar(@$active) > $maxitems);
 
-	use Data::Dumper;
-	print STDERR Dumper($active);
-
 	return ($active, $numitems, $timestamp);
 }
 
@@ -169,16 +166,10 @@ sub _CheckData
 	}
 
 	return ("No artist names provided.", 0, 0) if ((!exists $data->{artist} || !$data->{artist}) && $artists == 0);
-	return ("Not all tracks specify an artist.", 0, 0) if ((!exists $data->{artist} || !$data->{artist}) && $artists != $total);
+	return ("Not all tracks specify an artist.", 0, 0) if ($artists != $total);
 
-	# If the album artist is given, clear our the track artists
-	if ($artists && $data->{artist})
-	{
-	    foreach my $ref (@{$data->{tracks}})
-		{
-	        $ref->{artist} = "";
-		}
-    }
+	# If the release artist is given AND artists are given for each track, clear the release artist
+	$data->{artist} = "" if ($artists == $total && $data->{artist});
 
 	return ("Not all tracks have a title.", 0, 0) if ($tracks != $total);
 	return ("Missing Disc Id.", 0, 0) if (!exists $data->{discid} || !$data->{discid});
