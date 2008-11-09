@@ -3,18 +3,17 @@ package MusicBrainz::Server::Form::Label::RemoveAlias;
 use strict;
 use warnings;
 
-use base 'MusicBrainz::Server::Form::EditNote';
+use base 'MusicBrainz::Server::Form::Confirm';
 
-sub mod_type { ModDefs::MOD_REMOVE_LABELALIAS }
-
-sub build_options
+sub remove_from
 {
-    my ($self, $alias) = @_;
+    my ($self, $label) = @_;
 
-    return {
-        label => $self->item,
-        alias => $alias
-    };
+    $self->context->model('Label')->remove_alias(
+        $label,
+        $self->item,
+        $self->value('edit_note')
+    );
 }
 
 1;

@@ -60,7 +60,7 @@ sub PreInsert
 	$self->new_data($self->ConvertHashToNew(\%new));
 }
 
-sub PostLoad
+sub PreDisplay
 {
     my $self = shift;
 

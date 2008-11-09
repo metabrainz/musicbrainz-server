@@ -3,32 +3,17 @@ package MusicBrainz::Server::Form::Label::AddAlias;
 use strict;
 use warnings;
 
-use base 'MusicBrainz::Server::Form::EditForm';
+use base 'MusicBrainz::Server::Form::Alias';
 
-sub profile
+sub create_for
 {
-    return {
-        required => {
-            alias => 'Text',
-        },
-        optional => {
-            edit_note => 'TextArea',
-        }
-    }
-}
+    my ($self, $label) = @_;
 
-sub mod_type { ModDefs::MOD_ADD_LABELALIAS }
-
-sub build_options
-{
-    my ($self) = @_;
-
-    my $source = $self->item;
-
-    return {
-        label    => $source,
-        newalias => $self->value('alias'),
-    }
+    $self->context->model('Label')->add_alias(
+        $label,
+        $self->value('alias'),
+        $self->value('edit_note'),
+    );
 }
 
 1;

@@ -5,31 +5,22 @@ use warnings;
 
 use base 'MusicBrainz::Server::Form::Label::Base';
 
-sub mod_type { ModDefs::MOD_ADD_LABEL }
-
-sub build_options
+sub create
 {
     my $self = shift;
 
-    my $label = $self->item;
+    return $self->context->model('Label')->create(
+        $self->value('edit_note'),
 
-    my ($begin, $end) =
-        (
-            [ map {$_ == '00' ? '' : $_} (split m/-/, $self->value('begin_date') || '') ],
-            [ map {$_ == '00' ? '' : $_} (split m/-/, $self->value('end_date')   || '') ],
-        );
-
-    return {
-        name             => $self->value('name'),
-        sortname         => $self->value('sort_name'),
-        labeltype        => $self->value('type'),
-        label_resolution => $self->value('resolution'),
-        label_country    => $self->value('country'),
-        labelcode        => $self->value('label_code'),
-
-        label_begindate => $begin,
-        label_enddate   => $end,
-    };
+        name       => $self->value('name'),
+        sort_name  => $self->value('sort_name'),
+        type       => $self->value('type'),
+        resolution => $self->value('resolution'),
+        begin_date => $self->value('begin_date'),
+        end_date   => $self->value('end_date'),
+        country    => $self->value('country'),
+        label_code => $self->value('label_code'),
+    );
 }
 
 1;

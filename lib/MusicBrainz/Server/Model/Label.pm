@@ -47,4 +47,129 @@ sub direct_search
     return \@labels;
 }
 
+sub merge
+{
+    my ($self, $source, $target, $edit_note) = @_;
+
+    $self->context->model('Moderation')->insert(
+        $edit_note,
+
+        type => ModDefs::MOD_MERGE_LABEL,
+
+        source => $source,
+        target => $target
+    );
+}
+
+sub edit
+{
+    my ($self, $label, $edit_note, %opts) = @_;
+
+    my ($begin, $end) =
+        (
+            [ map {$_ == '00' ? '' : $_} (split m/-/, $opts{begin_date} || '') ],
+            [ map {$_ == '00' ? '' : $_} (split m/-/, $opts{end_date}   || '') ],
+        );
+
+    $self->context->model('Moderation')->insert(
+        $edit_note,
+
+        type => ModDefs::MOD_EDIT_LABEL,
+
+        label      => $label,
+        name       => $opts{name}        || $label->name,
+        sortname   => $opts{sort_name}   || $label->sort_name,
+        labeltype  => $opts{type}        || $label->type,
+        resolution => $opts{resolution}  || $label->resolution,
+        country    => $opts{country}     || $label->country,
+        labelcode  => $opts{label_code}  || $label->label_code || '',
+
+        begindate => $begin,
+        enddate   => $end,
+    );
+}
+
+sub create
+{
+    my ($self, $edit_note, %opts) = @_;
+
+    my ($begin, $end) =
+        (
+            [ map {$_ == '00' ? '' : $_} (split m/-/, $opts{begin_date} || '') ],
+            [ map {$_ == '00' ? '' : $_} (split m/-/, $opts{end_date}   || '') ],
+        );
+
+    my @mods = $self->context->model('Moderation')->insert(
+        $edit_note,
+
+        type => ModDefs::MOD_ADD_LABEL,
+
+        name       => $opts{name},
+        sortname   => $opts{sort_name},
+        labeltype  => $opts{type},
+        resolution => $opts{resolution} || '',
+        country    => $opts{country},
+        labelcode  => $opts{label_code} || '',
+
+        begindate => $begin,
+        enddate   => $end,
+    );
+
+    my @created_mods = grep { $_->type eq ModDefs::MOD_ADD_LABEL } @mods;
+    my $created_mod = $created_mods[0];
+
+    return unless $created_mod;
+
+    my $label = new MusicBrainz::Server::Label($self->context->mb->{DBH});
+    $label->id($created_mod->row_id);
+    $label->name($opts{name});
+    $label->sort_name($opts{sort_name});
+    $label->resolution($opts{resolution});
+
+    return $label;
+}
+
+sub add_alias
+{
+     my ($self, $label, $alias, $edit_note) = @_;
+
+     $self->context->model('Moderation')->insert(
+          $edit_note,
+
+          type => ModDefs::MOD_ADD_LABELALIAS,
+
+          label    => $label,
+          newalias => $alias,
+     );
+}
+
+sub edit_alias
+{
+     my ($self, $label, $alias, $new_name, $edit_note) = @_;
+
+     $self->context->model('Moderation')->insert(
+         $edit_note,
+
+         type => ModDefs::MOD_EDIT_LABELALIAS,
+
+         label   => $label,
+         alias   => $alias,
+         newname => $new_name,
+     );
+}
+
+sub remove_alias
+{
+    my ($self, $label, $alias, $edit_note) = @_;
+
+    $self->context->model('Moderation')->insert(
+        $edit_note,
+
+        type => ModDefs::MOD_REMOVE_LABELALIAS,
+
+        label => $label,
+        alias => $alias,
+    );
+}
+
 1;

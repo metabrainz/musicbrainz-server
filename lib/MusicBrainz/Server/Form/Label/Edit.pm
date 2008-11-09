@@ -5,34 +5,23 @@ use warnings;
 
 use base 'MusicBrainz::Server::Form::Label::Base';
 
-sub mod_type { ModDefs::MOD_EDIT_LABEL }
-
-sub build_options
+sub edit
 {
-    my $self = shift;
+    my ($self) = @_;
 
-    my $label = $self->item;
+    $self->context->model('Label')->edit(
+        $self->item,
+        $self->value('edit_note'),
 
-    my ($begin, $end) =
-        (
-            [ map {$_ == '00' ? '' : $_} (split m/-/, $self->value('begin_date') || '') ],
-            [ map {$_ == '00' ? '' : $_} (split m/-/, $self->value('end_date')   || '') ],
-        );
-
-    return {
-        type => ModDefs::MOD_EDIT_LABEL,
-
-        label      => $label,
-        name       => $self->value('name')        || $label->name,
-        sortname   => $self->value('sort_name')   || $label->sort_name,
-        labeltype  => $self->value('type')        || $label->type,
-        resolution => $self->value('resolution')  || $label->resolution,
-        country    => $self->value('country')     || $label->country,
-        labelcode  => $self->value('label_code')  || $label->label_code || '',
-
-        begindate => $begin,
-        enddate   => $end,
-    };
+        name       => $self->value('name'),
+        sort_name  => $self->value('sort_name'),
+        type       => $self->value('type'),
+        resolution => $self->value('resolution'),
+        country    => $self->value('country'),
+        labelcode  => $self->value('label_code'),
+        begin_date => $self->value('begin_date'),
+        end_date   => $self->value('end_date'),
+    );
 }
 
 1;

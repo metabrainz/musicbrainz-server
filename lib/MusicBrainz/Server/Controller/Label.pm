@@ -141,7 +141,7 @@ sub merge : Chained('load')
     }
 }
 
-sub merge_into : Chained('load') PathPart('into') Args(1)
+sub merge_into : Chained('load') PathPart('into') Args(1) Form('Label::Merge')
 {
     my ($self, $c, $new_mbid) = @_;
 
@@ -151,14 +151,14 @@ sub merge_into : Chained('load') PathPart('into') Args(1)
     my $new_label = $c->model('Label')->load($new_mbid);
     $c->stash->{new_label} = $new_label;
 
-    my $form = $c->form($label, 'Label::Merge');
-    $form->context($c);
+    my $form = $self->form;
+    $form->init($label);
 
     $c->stash->{template} = 'label/merge.tt';
 
-    return unless $c->form_posted && $form->validate($c->req->params);
+    return unless $self->submit_and_validate($c);
 
-    my @mods = $form->insert($new_label);
+    $form->merge_into($new_label);
 
     $c->flash->{ok} = "Thanks, your label edit has been entered " .
                       "into the moderation queue";
@@ -166,7 +166,7 @@ sub merge_into : Chained('load') PathPart('into') Args(1)
     $c->response->redirect($c->entity_url($new_label, 'show'));
 }
 
-sub edit : Chained('load')
+sub edit : Chained('load') Form
 {
     my ($self, $c) = @_;
 
@@ -174,12 +174,12 @@ sub edit : Chained('load')
 
     my $label = $self->entity;
 
-    my $form = $c->form($label, 'Label::Edit');
-    $form->context($c);
+    my $form = $self->form;
+    $form->init($label);
 
-    return unless $c->form_posted && $form->validate($c->req->params);
+    return unless $self->submit_and_validate($c);
 
-    $form->insert;
+    $form->edit;
 
     $c->flash->{ok} = "Thanks, your label edit has been entered " .
                       "into the moderation queue";
@@ -187,30 +187,22 @@ sub edit : Chained('load')
     $c->response->redirect($c->entity_url($label, 'show'));
 }
 
-sub create : Local
+sub create : Local Form
 {
     my ($self, $c) = @_;
 
     $c->forward('/user/login');
 
-    my $form = $c->form(undef, 'Label::Create');
-    $form->context($c);
+    my $form = $self->form;
 
-    return unless $c->form_posted && $form->validate($c->req->params);
+    return unless $self->submit_and_validate($c);
 
-    my @mods = $form->insert;
+    my $created_label = $form->create;
 
-    # Make sure that the moderation did go through, and redirect to
-    # the new artist
-    my @add_mods = grep { $_->type eq ModDefs::MOD_ADD_LABEL } @mods;
-
-    die "Label could not be created"
-        unless @add_mods;
-
-    # we can't use entity_url because that would require loading the new artist
-    # or creating a mock artist - both are messier than this slightly
-    # hacky solution
-    $c->response->redirect($c->uri_for('/label', $add_mods[0]->row_id));
+    if (defined $created_label)
+    {
+        $c->response->redirect($c->entity_url($created_label, 'show'));
+    }
 }
 
 =head2 subscribe
@@ -298,25 +290,24 @@ sub subscriptions : Chained('load')
     $c->stash->{template} = 'label/subscriptions.tt';
 }
 
-sub add_alias : Chained('load')
+sub add_alias : Chained('load') Form
 {
     my ($self, $c) = @_;
 
     $c->forward('/user/login');
 
+    my $form = $self->form;
+
+    return unless $self->submit_and_validate($c);
+
     my $label = $self->entity;
 
-    my $form = $c->form($label, 'Label::AddAlias');
-    $form->context($c);
-
-    return unless $c->form_posted && $form->validate($c->req->params);
-
-    $form->insert;
+    $form->create_for($label);
 
     $c->response->redirect($c->entity_url($label, 'aliases'));
 }
 
-sub edit_alias : Chained('load') Args(1)
+sub edit_alias : Chained('load') Args(1) Form
 {
     my ($self, $c, $alias_id) = @_;
 
@@ -325,17 +316,17 @@ sub edit_alias : Chained('load') Args(1)
     my $label = $self->entity;
     my $alias = $c->model('Alias')->load($label, $alias_id);
 
-    my $form = $c->form($alias, 'Label::EditAlias');
-    $form->context($c);
+    my $form = $self->form;
+    $form->init($alias);
 
-    return unless $c->form_posted && $form->validate($c->req->params);
+    return unless $self->submit_and_validate($c);
 
-    $form->insert($label);
+    $form->edit_for($label);
 
     $c->response->redirect($c->entity_url($label, 'aliases'));
 }
 
-sub remove_alias : Chained('load') Args(1)
+sub remove_alias : Chained('load') Args(1) Form
 {
     my ($self, $c, $alias_id) = @_;
 
@@ -344,12 +335,12 @@ sub remove_alias : Chained('load') Args(1)
     my $label = $self->entity;
     my $alias = $c->model('Alias')->load($label, $alias_id);
 
-    my $form = $c->form($label, 'Label::RemoveAlias');
-    $form->context($c);
+    my $form = $self->form;
+    $form->init($alias);
 
-    return unless $c->form_posted && $form->validate($c->req->params);
+    return unless $self->submit_and_validate($c);
 
-    $form->insert($alias);
+    $form->remove_from($label);
 
     $c->response->redirect($c->entity_url($label, 'aliases'));
 }
