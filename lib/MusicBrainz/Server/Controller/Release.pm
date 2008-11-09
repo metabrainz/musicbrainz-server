@@ -141,7 +141,7 @@ Change the data quality of a release
 
 =cut
 
-sub change_quality : Chained('release')
+sub change_quality : Chained('release') Form('DataQuality')
 {
     my ($self, $c, $mbid) = @_;
 
@@ -149,12 +149,12 @@ sub change_quality : Chained('release')
 
     my $release = $self->entity;
 
-    my $form = $c->form($release, 'Release::DataQuality');
-    $form->context($c);
+    my $form = $self->form;
+    $form->init($release);
 
-    return unless $c->form_posted && $form->validate($c->req->params);
+    return unless $self->submit_and_validate($c);
 
-    $form->insert;
+    $form->change_quality($c->model('Release'));
 
     $c->flash->{ok} = "Thanks, your release edit has been entered " .
                       "into the moderation queue";

@@ -13,6 +13,20 @@ use MusicBrainz::Server::Link;
 use MusicBrainz::Server::Release;
 use MusicBrainz::Server::Validation;
 
+sub change_quality
+{
+    my ($self, $release, $new_quality, $edit_note) = @_;
+
+    $self->context->model('Moderation')->insert(
+        $edit_note,
+
+        type => ModDefs::MOD_CHANGE_RELEASE_QUALITY,
+
+        releases => [ $release ],
+        quality  => $new_quality,
+    );
+}
+
 sub find_similar_releases
 {
     my ($self, $artist, $release_title, $track_count) = @_;
