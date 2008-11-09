@@ -5,7 +5,7 @@ use warnings;
 
 use Moderation;
 
-use base 'MusicBrainz::Server::Form::EditForm';
+use base 'MusicBrainz::Server::Form';
 
 =head1 NAME
 
@@ -79,7 +79,16 @@ sub init_value
     }
 }
 
-=head1 LICENSE 
+sub change_quality
+{
+    my $self = shift;
+    my $controller = shift;
+
+    $controller->change_quality($self->item, $self->value('quality'),
+        $self->value('edit_note'));
+}
+
+=head1 LICENSE
 
 This software is provided "as is", without warranty of any kind, express or
 implied, including  but not limited  to the warranties of  merchantability,

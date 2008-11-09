@@ -207,34 +207,26 @@ is done via L<MusicBrainz::Server::Form::Artist>
 
 =cut
 
-sub create : Local
+sub create : Local Form
 {
     my ($self, $c) = @_;
 
     $c->forward('/user/login');
 
-    my $form = $c->form(undef, 'Artist::Create');
-    $form->context($c);
+    my $form = $self->form;
 
-    return unless $c->form_posted && $form->validate($c->req->params);
+    return unless $self->submit_and_validate($c);
 
-    my @mods = $form->insert;
+    my $created_artist = $form->create;
 
-    $c->flash->{ok} = "Thanks! The artist has been added to the " .
-                      "database, and we have redirected you to " .
-                      "their landing page";
+    if ($created_artist)
+    {
+        $c->flash->{ok} = "Thanks! The artist has been added to the " .
+                          "database, and we have redirected you to " .
+                          "their landing page";
 
-    # Make sure that the moderation did go through, and redirect to
-    # the new artist
-    my @add_mods = grep { $_->type eq ModDefs::MOD_ADD_ARTIST } @mods;
-
-    die "Artist could not be created"
-        unless @add_mods;
-
-    # we can't use entity_url because that would require loading the new artist
-    # or creating a mock artist - both are messier than this slightly
-    # hacky solution
-    $c->response->redirect($c->uri_for('/artist', $add_mods[0]->row_id));
+        $c->response->redirect($c->entity_url($created_artist, 'show'));
+    }
 }
 
 =head2 edit
@@ -246,27 +238,25 @@ the current artist data. When a POST request is received, the data is
 validated and if it passed validation is the updated data is entered
 into the MusicBrainz database.
 
-=cut 
+=cut
 
-sub edit : Chained('artist')
+sub edit : Chained('artist') Form
 {
     my ($self, $c, $mbid) = @_;
-    
+
     $c->forward('/user/login');
 
-    my $artist = $c->stash->{artist};
+    my $form = $self->form;
+    $form->init($self->entity);
 
-    my $form = $c->form($artist, 'Artist::Edit');
-    $form->context($c);
+    return unless $self->submit_and_validate($c);
 
-    return unless $c->form_posted && $form->validate($c->req->params);
-
-    $form->insert;
+    $form->apply_edit;
 
     $c->flash->{ok} = "Thanks, your artist edit has been entered " .
                       "into the moderation queue";
 
-    $c->response->redirect($c->entity_url($artist, 'show'));
+    $c->response->redirect($c->entity_url($self->entity, 'show'));
 }
 
 =head2 merge
@@ -285,7 +275,7 @@ sub merge : Chained('artist')
     my $target = $c->stash->{search_result};
     if (defined $target)
     {
-        my $artist = $c->stash->{artist};
+        my $artist = $self->entity;
         $c->response->redirect($c->entity_url($artist, 'merge_into',
 					      $target->id));
     }
@@ -296,23 +286,24 @@ sub merge : Chained('artist')
 }
 
 sub merge_into : Chained('artist') PathPart('merge-into') Args(1)
+                 Form('Artist::Merge')
 {
     my ($self, $c, $new_mbid) = @_;
 
     $c->forward('/user/login');
 
-    my $artist     = $c->stash->{artist};
+    my $form       = $self->form;
+    my $artist     = $self->entity;
     my $new_artist = $c->model('Artist')->load($new_mbid);
-
-    my $form = $c->form($artist, 'Artist::Merge');
-    $form->context($c);
 
     $c->stash->{new_artist} = $new_artist;
     $c->stash->{template  } = 'artist/merge.tt';
 
-    return unless $c->form_posted && $form->validate($c->req->params);
+    $form->init($artist);
 
-    $form->insert($new_artist);
+    return unless $self->submit_and_validate($c);
+
+    $form->merge_into($new_artist);
 
     $c->flash->{ok} = "Thanks, your artist edit has been entered " .
                       "into the moderation queue";
@@ -376,7 +367,7 @@ sub subscriptions : Chained('artist')
     my $artist = $c->stash->{artist};
 
     my @all_users = $artist->GetSubscribers;
-    
+
     my @public_users;
     my $anonymous_subscribers;
 
@@ -388,7 +379,7 @@ sub subscriptions : Chained('artist')
         my $is_me  = $c->user_exists && $c->user->id == $user->id;
 
         if ($is_me) { $c->stash->{user_subscribed} = $is_me; }
-        
+
         if ($public || $is_me)
         {
             push @public_users, $user;
@@ -424,20 +415,20 @@ release if necessary)
 
 =cut
 
-sub add_non_album : Chained('artist')
+sub add_non_album : Chained('artist') Form
 {
     my ($self, $c) = @_;
 
     $c->forward('/user/login');
 
-    my $artist = $c->stash->{artist};
-    
-    my $form = $c->form($artist, 'Artist::AddNonAlbumTrack');
-    $form->context($c);
+    my $artist = $self->entity;
 
-    return unless $c->form_posted && $form->validate($c->req->params);
+    my $form = $self->form;
+    $form->init($artist);
 
-    $form->insert;
+    return unless $self->submit_and_validate($c);
+
+    $form->add_track;
 
     $c->flash->{ok} = 'Thanks, your edit has been entered into the moderation queue';
 
@@ -450,20 +441,20 @@ Change the data quality of this artist
 
 =cut
 
-sub change_quality : Chained('artist')
+sub change_quality : Chained('artist') Form('DataQuality')
 {
-    my ($self, $c, $mbid) = @_;
+    my ($self, $c) = @_;
 
     $c->forward('/user/login');
 
-    my $artist = $c->stash->{artist};
+    my $artist = $self->entity;
 
-    my $form = $c->form($artist, 'Artist::DataQuality');
-    $form->context($c);
+    my $form = $self->form;
+    $form->init($artist);
 
-    return unless $c->form_posted && $form->validate($c->req->params);
+    return unless $self->submit_and_validate($c);
 
-    $form->insert;
+    $form->change_quality($c->model('Artist'));
 
     $c->flash->{ok} = "Thanks, your artist edit has been entered " .
                       "into the moderation queue";
@@ -477,22 +468,22 @@ Allow users to add an alias to this artist
 
 =cut
 
-sub add_alias : Chained('artist')
+sub add_alias : Chained('artist') Form
 {
     my ($self, $c) = @_;
 
     $c->forward('/user/login');
 
-    my $artist = $c->stash->{artist};
+    my $form = $self->form;
 
-    my $form = $c->form($artist, 'Artist::AddAlias');
-    $form->context($c);
+    return unless $self->submit_and_validate($c);
 
-    return unless $c->form_posted && $form->validate($c->req->params);
+    $form->create_for($self->entity);
 
-    $form->insert;
+    $c->flash->{ok} = "Thanks, your artist edit has been entered " .
+                      "into the moderation queue";
 
-    $c->response->redirect($c->entity_url($artist, 'aliases'));
+    $c->response->redirect($c->entity_url($self->entity, 'aliases'));
 }
 
 =head2 remove_alias
@@ -501,21 +492,24 @@ Allow users to remove an alias from an artist
 
 =cut
 
-sub remove_alias : Chained('artist') Args(1)
+sub remove_alias : Chained('artist') Args(1) Form
 {
     my ($self, $c, $alias_id) = @_;
 
-    my $artist = $c->stash->{artist};
+    my $artist = $self->entity;
     my $alias  = $c->model('Alias')->load($artist, $alias_id);
 
     $c->stash->{alias} = $alias;
 
-    my $form = $c->form($artist, 'Artist::RemoveAlias');
-    $form->context($c);
+    my $form = $self->form;
+    $form->init($alias);
 
-    return unless $c->form_posted && $form->validate($c->req->params);
+    return unless $self->submit_and_validate($c);
 
-    $form->insert($alias);
+    $form->remove_from($artist);
+
+    $c->flash->{ok} = "Thanks, your artist edit has been entered " .
+                      "into the moderation queue";
 
     $c->response->redirect($c->entity_url($artist, 'aliases'));
 }
@@ -526,24 +520,25 @@ Alow users to edit an alias for an artist
 
 =cut
 
-sub edit_alias : Chained('artist') Args(1)
+sub edit_alias : Chained('artist') Args(1) Form
 {
-
     my ($self, $c, $alias_id) = @_;
 
     my $artist = $c->stash->{artist};
     my $alias  = $c->model('Alias')->load($artist, $alias_id);
 
-    $c->stash->{alias} = $alias;
+    my $form = $self->form;
+    $form->init($alias);
 
-    my $form = $c->form($alias, 'Artist::EditAlias');
-    $form->context($c);
-
+    $c->stash->{alias   } = $alias;
     $c->stash->{template} = 'artist/edit_alias.tt';
 
-    return unless $c->form_posted && $form->validate($c->req->params);
+    return unless $self->submit_and_validate($c);
 
-    $form->insert($artist);
+    $form->edit_for($artist);
+
+    $c->flash->{ok} = "Thanks, your artist edit has been entered " .
+                      "into the moderation queue";
 
     $c->response->redirect($c->entity_url($artist, 'aliases'));
 }

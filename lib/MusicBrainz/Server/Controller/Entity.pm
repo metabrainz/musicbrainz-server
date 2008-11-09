@@ -6,6 +6,9 @@ use warnings;
 use base qw/Catalyst::Controller Class::Accessor/;
 
 __PACKAGE__->mk_accessors(qw/ entity form /);
+__PACKAGE__->config(
+    form_namespace => 'MusicBrainz::Server::Form'
+);
 
 sub create_action
 {
@@ -14,11 +17,12 @@ sub create_action
 
     if (exists $args{attributes}{'Form'})
     {
+        $args{_attr_params} = delete $args{attributes}{'Form'};
         push @{ $args{attributes}{ActionClass} },
             'MusicBrainz::Server::Action::Form';
     }
 
-    $self->SUPER::create_action(@_);
+    $self->SUPER::create_action(%args);
 }
 
 sub load : Chained('base') PathPart('') CaptureArgs(1)

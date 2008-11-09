@@ -5,30 +5,22 @@ use warnings;
 
 use base 'MusicBrainz::Server::Form::Artist::Base';
 
-sub mod_type { ModDefs::MOD_EDIT_ARTIST }
-
-sub build_options
+sub apply_edit
 {
-    my $self = shift;
-    
+    my ($self) = @_;
     my $artist = $self->item;
 
-    my ($begin, $end) =
-        (
-            [ map {$_ == '00' ? '' : $_} (split m/-/, $self->value('start') || '') ],
-            [ map {$_ == '00' ? '' : $_} (split m/-/, $self->value('end') || '') ],
-        );
+    $self->context->model('Artist')->edit(
+        $artist,
+        $self->value('edit_note'),
 
-    return {
-        artist      => $artist,
         name        => $self->value('name')        || $artist->name,
-        sortname    => $self->value('sortname')    || $artist->sort_name,
-        artist_type => $self->value('artist_type') || $artist->type,
+        sort_name   => $self->value('sortname')    || $artist->sort_name,
+        type        => $self->value('artist_type') || $artist->type,
         resolution  => $self->value('resolution')  || $artist->resolution,
-
-        begindate => $begin,
-        enddate   => $end,
-    };
+        begin       => $self->value('start'),
+        end         => $self->value('end'),
+    );
 }
 
 1;

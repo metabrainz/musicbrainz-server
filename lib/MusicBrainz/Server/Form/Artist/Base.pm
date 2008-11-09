@@ -3,7 +3,7 @@ package MusicBrainz::Server::Form::Artist::Base;
 use strict;
 use warnings;
 
-use base 'MusicBrainz::Server::Form::EditForm';
+use base 'MusicBrainz::Server::Form';
 
 use ModDefs;
 use Moderation;

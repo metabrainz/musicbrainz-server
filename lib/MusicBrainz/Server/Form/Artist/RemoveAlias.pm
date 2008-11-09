@@ -3,18 +3,17 @@ package MusicBrainz::Server::Form::Artist::RemoveAlias;
 use strict;
 use warnings;
 
-use base 'MusicBrainz::Server::Form::EditNote';
+use base 'MusicBrainz::Server::Form::Confirm';
 
-sub mod_type { ModDefs::MOD_REMOVE_ARTISTALIAS }
-
-sub build_options
+sub remove_from
 {
-    my ($self, $alias) = @_;
+    my ($self, $artist) = @_;
 
-    return {
-        artist => $self->item,
-        alias  => $alias
-    };
+    $self->context->model('Artist')->remove_alias(
+        $artist,
+        $self->item,
+        $self->value('edit_note')
+    );
 }
 
 1;

@@ -3,32 +3,17 @@ package MusicBrainz::Server::Form::Artist::Merge;
 use strict;
 use warnings;
 
-use base 'MusicBrainz::Server::Form::EditForm';
+use base 'MusicBrainz::Server::Form::Confirm';
 
-use Moderation;
-use ModDefs;
-
-sub profile
+sub merge_into
 {
-    return {
-        required => {
-            edit_note => 'TextArea',
-        }
-    };
-}
+    my ($self, $new_artist) = @_;
 
-sub mod_type { ModDefs::MOD_MERGE_ARTIST }
-
-sub build_options
-{
-    my ($self, $target) = @_;
-
-    my $source = $self->item;
-
-    return {
-        source => $source,
-        target => $target,
-    }
+    $self->context->model('Artist')->merge(
+        $self->item,
+        $new_artist,
+        $self->value('edit_note')
+    );
 }
 
 1;

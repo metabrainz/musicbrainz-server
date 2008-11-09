@@ -3,7 +3,7 @@ package MusicBrainz::Server::Form::Alias;
 use strict;
 use warnings;
 
-use base 'MusicBrainz::Server::Form::EditForm';
+use base 'MusicBrainz::Server::Form';
 
 sub profile
 {

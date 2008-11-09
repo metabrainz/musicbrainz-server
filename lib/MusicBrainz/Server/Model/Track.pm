@@ -34,4 +34,19 @@ sub load_from_release
     } @tracks ];
 }
 
+sub add_non_album_track
+{
+    my ($self, $artist, $track, $edit_note) = @_;
+
+    $self->context->model('Moderation')->insert(
+        $edit_note,
+
+        type => ModDefs::MOD_ADD_TRACK_KV,
+
+        artist      => $artist,
+        trackname   => $track->name,
+        tracklength => $track->length || 0,
+    );
+}
+
 1;

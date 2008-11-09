@@ -5,17 +5,16 @@ use warnings;
 
 use base 'MusicBrainz::Server::Form::Alias';
 
-sub mod_type { ModDefs::MOD_EDIT_ARTISTALIAS }
-
-sub build_options
+sub edit_for
 {
     my ($self, $artist) = @_;
 
-    return {
-        artist  => $artist,
-        alias   => $self->item,
-        newname => $self->value('alias'),
-    };
+    $self->context->model('Artist')->update_alias(
+        $artist,
+        $self->item,
+        $self->value('alias'),
+        $self->value('edit_note')
+    );
 }
 
 1;

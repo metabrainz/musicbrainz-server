@@ -19,6 +19,22 @@ sub load
     return $edit;
 }
 
+sub insert
+{
+    my ($self, $edit_note, %opts) = @_;
+
+    $opts{moderator} = $self->context->user;
+    $opts{DBH}       = $self->context->mb->{DBH};
+
+    my @mods = Moderation->InsertModeration(%opts);
+    if (scalar @mods && $edit_note =~ /\S/)
+    {
+        $mods[0]->InsertNote($self->context->user->id, $edit_note)
+    }
+
+    return @mods;
+}
+
 sub list_open
 {
     my ($self, $max, $offset) = @_;
