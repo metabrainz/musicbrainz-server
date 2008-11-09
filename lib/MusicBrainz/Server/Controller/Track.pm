@@ -40,7 +40,7 @@ Chained action to load a track and it's artist.
 
 =cut
 
-sub track : Chained CaptureArgs(1)
+sub track : Chained('load') PathPart('') CaptureArgs(0)
 {
     my ($self, $c, $mbid) = @_;
     $c->stash->{artist} = $c->model('Artist')->load($self->entity->artist->id);
@@ -103,7 +103,7 @@ Edit track details (sequence number, track time and title)
 
 =cut
 
-sub edit : Chained('track')
+sub edit : Chained('track') Form
 {
     my ($self, $c) = @_;
 
@@ -111,18 +111,18 @@ sub edit : Chained('track')
 
     my $track = $self->entity;
 
-    my $form = $c->form($track, 'Track::Edit');
-    $form->context($c);
+    my $form = $self->form;
+    $form->init($track);
 
-    return unless $c->form_posted && $form->validate($c->req->params);
+    return unless $self->submit_and_validate($c);
 
-    $form->update_model;
+    $form->edit;
 
     $c->flash->{ok} = "Thank you, your edits have been added to the queue";
     $c->response->redirect($c->entity_url($track, 'show'));
 }
 
-sub remove : Chained('track')
+sub remove : Chained('track') Form
 {
     my ($self, $c) = @_;
 
@@ -130,14 +130,14 @@ sub remove : Chained('track')
 
     my $track = $self->entity;
 
-    my $form = $c->form($track, 'Track::Remove');
-    $form->context($c);
+    my $form = $self->form;
+    $form->init($track);
 
-    return unless $c->form_posted && $form->validate($c->req->params);
+    return unless $self->submit_and_validate($c);
 
     my $release = $c->model('Release')->load($track->release);
 
-    $form->insert($release);
+    $form->remove_from_release($release);
 
     $c->flash->{ok} = "Thanks, your track edit has been entered " .
                       "into the moderation queue";
@@ -166,6 +166,7 @@ sub change_artist : Chained('track')
 }
 
 sub confirm_change_artist : Chained('track') Args(1)
+    Form('Track::ChangeArtist')
 {
     my ($self, $c, $new_artist) = @_;
 
@@ -175,16 +176,16 @@ sub confirm_change_artist : Chained('track') Args(1)
     my $new_artist = $c->model('Artist')->load($new_artist);
     $c->stash->{new_artist} = $new_artist;
 
-    my $form = $c->form($track, 'Track::ChangeArtist');
-    $form->context($c);
+    my $form = $self->form;
+    $form->init($track);
 
     $c->stash->{template} = 'track/change_artist.tt';
 
-    return unless $c->form_posted && $form->validate($c->req->params);
+    return unless $self->submit_and_validate($c);
 
     my $release = $c->model('Release')->load($track->release);
 
-    $form->insert($new_artist);
+    $form->change_artist($new_artist);
 
     $c->response->redirect($c->entity_url($release, 'show'));
 }

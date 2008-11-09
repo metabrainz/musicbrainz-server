@@ -71,7 +71,7 @@ sub DetermineQuality
 	my $ar = MusicBrainz::Server::Artist->new($self->{DBH});
 
     # Check the old artist
-	$ar->id($self->{artist});
+	$ar = $self->{artist};
 	if ($ar->LoadFromId())
 	{
 		$level = $ar->quality > $level ? $ar->quality : $level;
@@ -153,7 +153,7 @@ sub PreDisplay
 
 	# the old one ...
 	my $oldartist = MusicBrainz::Server::Artist->new($this->{DBH});
-	$oldartist->id($this->artist);
+	$oldartist = $this->artist;
 	if ($this->{"old.exists"} = $oldartist->LoadFromId)
 	{
 		$this->{"old.resolution"} = $oldartist->resolution;

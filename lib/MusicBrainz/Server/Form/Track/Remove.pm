@@ -3,23 +3,17 @@ package MusicBrainz::Server::Form::Track::Remove;
 use strict;
 use warnings;
 
-use base 'MusicBrainz::Server::Form::EditNote';
+use base 'MusicBrainz::Server::Form::Confirm';
 
-use Moderation;
-use ModDefs;
-
-sub mod_type { ModDefs::MOD_REMOVE_TRACK }
-
-sub build_options
+sub remove_from_release
 {
     my ($self, $release) = @_;
-    
-    my $track = $self->item;
 
-    return {
-        track => $track,
-        album => $release,
-    };
+    $self->context->model('Track')->remove_from_release(
+	$self->item,
+	$release,
+	$self->value('edit_note'),
+    );
 }
 
 1;
