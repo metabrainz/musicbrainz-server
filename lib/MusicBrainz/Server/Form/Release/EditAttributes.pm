@@ -106,53 +106,21 @@ sub init_value
 sub update_model
 {
     my $self = shift;
-
-    my $user    = $self->context->user;
     my $release = $self->item;
 
-    my @mods;
-    
-    if ($release->language->id != $self->value('language') ||
-        $release->script->id   != $self->value('script'))
-    {
-        @mods = Moderation->InsertModeration(
-            DBH       => $self->context->mb->{DBH},
-            moderator => $user,
-            type      => ModDefs::MOD_EDIT_RELEASE_LANGUAGE,
+    $self->context->model('Release')->update_language(
+        $release,
+        $self->value('language'),
+        $self->value('script'),
+        $self->value('edit_note'),
+    );
 
-            albums   => [ $release ],
-            language => $self->value('language'),
-            script   => $self->value('script'),
-        );
-
-        if (scalar @mods)
-        {
-            $mods[0]->InsertNote($user->id, $self->value('edit_note'))
-                if $mods[0] and $self->value('edit_note') =~ /\S/;
-        }
-    }
-
-    if ($release->release_type   != $self->value('type') ||
-        $release->release_status != $self->value('status'))
-    {
-        @mods = Moderation->InsertModeration(
-            DBH       => $self->context->mb->{DBH},
-            moderator => $user,
-            type      => ModDefs::MOD_EDIT_RELEASE_ATTRS,
-
-            albums      => [ $release ],
-            attr_type   => $self->value('type'),
-            attr_status => $self->value('status'),
-        );
-
-        if (scalar @mods)
-        {
-            $mods[0]->InsertNote($user->id, $self->value('edit_note'))
-                if $mods[0] and $self->value('edit_note') =~ /\S/;
-        }
-    }
-
-    return \@mods;
+    $self->context->model('Release')->update_attributes(
+        $release,
+        $self->value('type'),
+        $self->value('status'),
+        $self->value('edit_note'),
+    );
 }
 
 1;

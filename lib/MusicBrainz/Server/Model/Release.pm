@@ -27,6 +27,107 @@ sub change_quality
     );
 }
 
+sub edit_title
+{
+    my ($self, $release, $new_title, $edit_note) = @_;
+
+    $self->context->model('Moderation')->insert(
+        $edit_note,
+
+        type => ModDefs::MOD_EDIT_RELEASE_NAME,
+
+        album   => $release,
+        newname => $new_title,
+    );
+}
+
+sub change_artist
+{
+    my $self = shift;
+    my ($release, $old_artist, $new_artist, $edit_note, %opts) = @_;
+
+    $self->context->model('Moderation')->insert(
+        $edit_note,
+
+        type => ModDefs::MOD_MOVE_RELEASE,
+
+        album          => $release,
+        oldartist      => $old_artist,
+        artistname     => $new_artist->name,
+        artistsortname => $new_artist->sort_name,
+        artistid       => $new_artist->id,
+        movetracks     => $opts{change_track_artist} || 0,
+    );
+}
+
+sub remove
+{
+    my ($self, $release, $edit_note) = @_;
+
+    $self->context->model('Moderation')->insert(
+        $edit_note,
+        
+        type => ModDefs::MOD_REMOVE_RELEASE,
+
+        album => $release
+    );
+}
+
+sub update_language
+{
+    my ($self, $release, $language, $script, $edit_note) = @_;
+
+    if ($release->language->id != $language ||
+        $release->script->id   != $script)
+    {
+        $self->context->model('Moderation')->insert(
+            $edit_note,
+        
+            type => ModDefs::MOD_EDIT_RELEASE_LANGUAGE,
+            
+            albums   => [ $release ],
+            language => $language,
+            script   => $script,
+        );
+    }
+}
+
+sub update_attributes
+{
+    my ($self, $release, $release_type, $release_status, $edit_note) = @_;
+
+    if ($release->release_type   != $release_type ||
+        $release->release_status != $release_status)
+    {
+        $self->context->model('Moderation')->insert(
+            $edit_note,
+            
+            type      => ModDefs::MOD_EDIT_RELEASE_ATTRS,
+
+            albums      => [ $release ],
+            attr_type   => $release_type,
+            attr_status => $release_status,
+        );
+    }
+}
+
+sub convert
+{
+    my ($self, $release, $new_artist, $edit_note) = @_;
+
+    $self->context->model('Moderation')->insert(
+        $edit_note,
+
+        type => ModDefs::MOD_MAC_TO_SAC,
+
+        album          => $release,
+        artistsortname => $new_artist->sort_name,
+        artistname     => $new_artist->name,
+        artistid       => $new_artist->id,
+        movetracks     => 1,
+    );
+}
+
 sub find_similar_releases
 {
     my ($self, $artist, $release_title, $track_count) = @_;

@@ -1,9 +1,9 @@
-package MusicBrainz::Server::Form::Release::Title;
+package MusicBrainz::Server::Form::Release::EditTitle;
 
 use strict;
 use warnings;
 
-use base 'MusicBrainz::Server::Form::EditForm';
+use base 'MusicBrainz::Server::Form';
 
 sub profile
 {
@@ -28,18 +28,15 @@ sub init_value
     }
 }
 
-sub mod_type { ModDefs::MOD_EDIT_RELEASE_NAME }
-
-sub build_options
+sub edit_title
 {
-    my $self = shift;
+    my ($self) = @_;
 
-    my $release = $self->item;
-
-    return {
-        album   => $release,
-        newname => $self->value('title'),
-    };
+    $self->context->model('Release')->edit_title(
+        $self->item,
+        $self->value('title'),
+        $self->value('edit_note')
+    );
 }
 
 1;

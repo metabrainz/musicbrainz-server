@@ -162,7 +162,7 @@ sub change_quality : Chained('release') Form('DataQuality')
     $c->response->redirect($c->entity_url($release, 'show'));
 }
 
-sub edit_title : Chained('release')
+sub edit_title : Chained('release') Form
 {
     my ($self, $c) = @_;
 
@@ -170,12 +170,12 @@ sub edit_title : Chained('release')
 
     my $release = $self->entity;
 
-    my $form = $c->form($release, 'Release::Title');
-    $form->context($c);
+    my $form = $self->form;
+    $form->init($release);
 
     return unless $c->form_posted && $form->validate($c->req->params);
 
-    $form->insert;
+    $form->edit_title;
     
     $c->flash->{ok} = "Thanks, your release edit has been entered " .
                       "into the moderation queue";
@@ -198,7 +198,7 @@ sub move : Chained('release')
     }
 }
 
-sub move_to : Chained('release') Args(1)
+sub move_to : Chained('release') Args(1) Form('Release::Move')
 {
     my ($self, $c, $new_artist) = @_;
 
@@ -210,19 +210,19 @@ sub move_to : Chained('release') Args(1)
     my $new_artist = $c->model('Artist')->load($new_artist);
     $c->stash->{new_artist} = $new_artist;
 
-    my $form = $c->form($release, 'Release::Move');
-    $form->context($c);
+    my $form = $self->form;
+    $form->init($release);
 
     $c->stash->{template} = 'release/confirm_move.tt';
 
-    return unless $c->form_posted && $form->validate($c->req->params);
+    return unless $self->submit_and_validate($c);
 
-    $form->insert($new_artist);
+    $form->move($old_artist, $new_artist);
 
     $c->response->redirect($c->entity_url($release, 'show'));
 }
 
-sub remove : Chained('release')
+sub remove : Chained('release') Form
 {
     my ($self, $c) = @_;
 
@@ -230,12 +230,12 @@ sub remove : Chained('release')
 
     my $release = $self->entity;
 
-    my $form = $c->form($release, 'Release::Remove');
-    $form->context($c);
+    my $form = $self->form;
+    $form->init($release);
 
-    return unless $c->form_posted && $form->validate($c->req->params);
+    return unless $self->submit_and_validate($c);
 
-    $form->insert;
+    $form->remove;
 
     $c->response->redirect($c->entity_url($release, 'show'));
 }
@@ -276,12 +276,12 @@ sub confirm_convert_to_single_artist : Chained('release') Args(1)
 
     return unless $c->form_posted && $form->validate($c->req->params);
 
-    $form->insert($new_artist);
+    $form->convert($new_artist);
 
     $c->response->redirect($c->entity_url($release, 'show'));
 }
 
-sub edit_attributes : Chained('release')
+sub edit_attributes : Chained('release') Form
 {
     my ($self, $c) = @_;
 
@@ -289,8 +289,8 @@ sub edit_attributes : Chained('release')
 
     my $release = $self->entity;
 
-    my $form = $c->form($release, 'Release::EditAttributes');
-    $form->context($c);
+    my $form = $self->form;
+    $form->init($release);
 
     return unless $c->form_posted && $form->validate($c->req->params);
 

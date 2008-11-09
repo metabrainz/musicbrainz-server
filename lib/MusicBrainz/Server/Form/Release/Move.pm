@@ -3,10 +3,7 @@ package MusicBrainz::Server::Form::Release::Move;
 use strict;
 use warnings;
 
-use base 'MusicBrainz::Server::Form::EditForm';
-
-use ModDefs;
-use Moderation;
+use base 'MusicBrainz::Server::Form';
 
 sub profile
 {
@@ -18,22 +15,17 @@ sub profile
     };
 }
 
-sub mod_type { ModDefs::MOD_MOVE_RELEASE }
-
-sub build_options
+sub move
 {
-    my ($self, $new_artist) = @_;
+    my ($self, $from, $to) = @_;
 
-    my $release = $self->item;
-
-    return {
-        album          => $release,
-        oldartist      => $artist,
-        artistname     => $new_artist->name,
-        artistsortname => $new_artist->sort_name,
-        artistid       => $new_artist->id,
-        movetracks     => $self->value('move_tracks'),
-    };
+    $self->context->model('Release')->change_artist(
+        $self->item,
+        $from,
+        $to,
+        $self->value('edit_note'),
+        change_track_artist => $self->value('move_tracks'),
+    );
 }
 
 1;
