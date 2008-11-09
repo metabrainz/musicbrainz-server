@@ -3,7 +3,12 @@ package MusicBrainz::Server::Controller::Artist;
 use strict;
 use warnings;
 
-use base 'Catalyst::Controller';
+use base 'MusicBrainz::Server::Controller::Entity';
+
+__PACKAGE__->config(
+    model       => 'Artist',
+    entity_name => 'artist',
+);
 
 use MusicBrainz::Server::Adapter qw(Google);
 use ModDefs;
@@ -21,37 +26,35 @@ L<MusicBrainz::Server::Artist> entities - both read and write. It provides
 views to the artist data itself, and a means to navigate to a release
 that is attributed to a certain artist.
 
-=head1 METHODS
+=head1 ACTIONS
 
 =head2 READ ONLY PAGES
 
 The follow pages can are all read only.
 
-=head2 artist
+=head2 base
 
-Private chained action for loading enough information on the artist header
+Base action to specify that all actions live in the C<artist>
+namespace
 
 =cut
 
-sub artist : Chained('/') CaptureArgs(1)
+sub base : Chained('/') PathPart('artist') CaptureArgs(0) { }
+
+=head2 artist
+
+Extends loading by disallowing the access of the special artist
+C<DELETED_ARTIST>.
+
+=cut
+
+sub artist : Chained('load') PathPart('') CaptureArgs(0)
 {
-    my ($self, $c, $mbid) = @_;
+    my ($self, $c) = @_;
 
-    if (defined $mbid)
+    if ($self->entity->id == ModDefs::DARTIST_ID)
     {
-        my $artist = $c->model('Artist')->load($mbid);
-
-        if ($artist->id == ModDefs::DARTIST_ID)
-        {
-            $c->error("You cannot view the special artist 'DELETED ARTIST'");
-            $c->detach;
-        }
-
-        $c->stash->{artist} = $artist;
-    }
-    else
-    {
-        $c->error("No MBID/row ID given.");
+        $c->error("You cannot view the special artist 'DELETED ARTIST'");
         $c->detach;
     }
 }
@@ -65,7 +68,7 @@ Display artists similar to this artist
 sub similar : Chained('artist')
 {
     my ($self, $c) = @_;
-    my $artist = $c->stash->{artist};
+    my $artist = $self->entity;
 
     $c->stash->{similar_artists} = $c->model('Artist')->find_similar_artists($artist);
 }
@@ -79,7 +82,7 @@ Search Google for this artist
 sub google : Chained('artist')
 {
     my ($self, $c) = @_;
-    my $artist = $c->stash->{artist};
+    my $artist = $self->entity;
 
     $c->response->redirect(Google($artist->name));
 }
@@ -93,7 +96,7 @@ Show all of this artists tags
 sub tags : Chained('artist')
 {
     my ($self, $c) = @_;
-    my $artist = $c->stash->{artist};
+    my $artist = $self->entity;
 
     $c->stash->{tagcloud} = $c->model('Tag')->generate_tag_cloud($artist);
 }
@@ -107,7 +110,7 @@ Shows all the entities (except track) that this artist is related to.
 sub relations : Chained('artist')
 {
     my ($self, $c) = @_;
-    my $artist = $c->stash->{artist};
+    my $artist = $self->entity;
 
     $c->stash->{relations} = $c->model('Relation')->load_relations($artist, to_type => [ 'artist', 'url', 'label', 'album' ]);
 }
@@ -122,7 +125,7 @@ relations.
 sub appearances : Chained('artist')
 {
     my ($self, $c) = @_;
-    my $artist = $c->stash->{artist};
+    my $artist = $self->entity;
 
     $c->stash->{releases} = $c->model('Release')->find_linked_albums($artist);
 }
@@ -154,7 +157,7 @@ Display all aliases of an artist, along with usage information.
 sub aliases : Chained('artist')
 {
     my ($self, $c) = @_;
-    my $artist = $c->stash->{artist};
+    my $artist = $self->entity;
 
     $c->stash->{aliases}  = $c->model('Alias')->load_for_entity($artist);
 }
@@ -172,7 +175,7 @@ folksonomy information (tags).
 sub show : PathPart('') Chained('artist')
 {
     my ($self, $c) = @_;
-    my $artist = $c->stash->{artist};
+    my $artist = $self->entity;
 
     my $show_all = $c->req->query_params->{show_all} || 0;
 
