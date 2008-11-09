@@ -3,7 +3,12 @@ package MusicBrainz::Server::Controller::Track;
 use strict;
 use warnings;
 
-use base 'Catalyst::Controller';
+use base 'MusicBrainz::Server::Controller::Entity';
+
+__PACKAGE__->config(
+    entity_name => 'track',
+    model       => 'Track',
+);
 
 use MusicBrainz::Server::Adapter qw(Google);
 use MusicBrainz::Server::Track;
@@ -20,20 +25,25 @@ Handles user interaction with C<MusicBrainz::Server::Track> entities.
 
 =head2 READ ONLY METHODS
 
+=head2 base
+
+Base action to specify that all actions live in the C<label>
+namespace
+
+=cut
+
+sub base : Chained('/') PathPart('track') CaptureArgs(0) { }
+
 =head2 track
 
-Chained action to load a track
+Chained action to load a track and it's artist.
 
 =cut
 
 sub track : Chained CaptureArgs(1)
-{ 
+{
     my ($self, $c, $mbid) = @_;
-
-    my $track = $c->model('Track')->load($mbid);
-
-    $c->stash->{track}  = $track;
-    $c->stash->{artist} = $c->model('Artist')->load($track->artist->id);
+    $c->stash->{artist} = $c->model('Artist')->load($self->entity->artist->id);
 }
 
 =head2 relations
@@ -45,9 +55,7 @@ Shows all relations to a given track
 sub relations : Chained('track')
 {
     my ($self, $c, $mbid) = @_;
-    my $track = $c->stash->{track};
-
-    $c->stash->{relations} = $c->model('Relation')->load_relations($track);
+    $c->stash->{relations} = $c->model('Relation')->load_relations($self->entity);
 }
 
 =head2 details
@@ -59,7 +67,7 @@ Show details of a track
 sub details : Chained('track')
 {
     my ($self, $c) = @_;
-    my $track = $c->stash->{track};
+    my $track = $self->entity;
 
     $c->stash->{relations} = $c->model('Relation')->load_relations($track);
     $c->stash->{tags}      = $c->model('Tag')->top_tags($track);
@@ -76,17 +84,13 @@ sub show : Chained('track') PathPart('')
 sub tags : Chained('track')
 {
     my ($self, $c, $mbid) = @_;
-    my $track = $c->stash->{track};
-
-    $c->stash->{tags}     = $c->model('Tag')->generate_tag_cloud($track);
+    $c->stash->{tags} = $c->model('Tag')->generate_tag_cloud($self->entity);
 }
 
 sub google : Chained('track')
 {
     my ($self, $c) = @_;
-    my $track = $c->stash->{track};
-
-    $c->response->redirect(Google($track->name));
+    $c->response->redirect(Google($self->entity->name));
 }
 
 =head2 DESTRUCTIVE METHODS
@@ -105,7 +109,7 @@ sub edit : Chained('track')
 
     $c->forward('/user/login');
 
-    my $track = $c->stash->{track};
+    my $track = $self->entity;
 
     my $form = $c->form($track, 'Track::Edit');
     $form->context($c);
@@ -124,7 +128,7 @@ sub remove : Chained('track')
 
     $c->forward('/user/login');
 
-    my $track = $c->stash->{track};
+    my $track = $self->entity;
 
     my $form = $c->form($track, 'Track::Remove');
     $form->context($c);
@@ -151,7 +155,7 @@ sub change_artist : Chained('track')
     my $result = $c->stash->{search_result};
     if (defined $result)
     {
-        my $track = $c->stash->{track};
+        my $track = $self->entity;
         $c->response->redirect($c->entity_url($track, 'confirm_change_artist',
 					      $result->id));
     }
@@ -167,7 +171,7 @@ sub confirm_change_artist : Chained('track') Args(1)
 
     $c->forward('/user/login');
 
-    my $track      = $c->stash->{track};
+    my $track      = $self->entity;
     my $new_artist = $c->model('Artist')->load($new_artist);
     $c->stash->{new_artist} = $new_artist;
 
