@@ -3,7 +3,12 @@ package MusicBrainz::Server::Controller::Label;
 use strict;
 use warnings;
 
-use base 'Catalyst::Controller';
+use base 'MusicBrainz::Server::Controller::Entity';
+
+__PACKAGE__->config(
+    model       => 'Label',
+    entity_name => 'label',
+);
 
 =head1 NAME
 
@@ -15,18 +20,14 @@ Handles user interaction with label entities
 
 =head1 METHODS
 
-=head2 label
+=head2 base
 
-Chained action to load the label into the stash.
+Base action to specify that all actions live in the C<label>
+namespace
 
 =cut
 
-sub label : Chained CaptureArgs(1)
-{
-    my ($self, $c, $mbid) = @_;
-
-    $c->stash->{label} = $c->model('Label')->load($mbid);
-}
+sub base : Chained('/') PathPart('label') CaptureArgs(0) { }
 
 =head2 perma
 
@@ -34,7 +35,7 @@ Display details about a permanant link to this label.
 
 =cut
 
-sub perma : Chained('label') { }
+sub perma : Chained('load') { }
 
 =head2 aliases
 
@@ -42,10 +43,10 @@ Display all aliases for a label
 
 =cut
 
-sub aliases : Chained('label')
+sub aliases : Chained('load')
 {
     my ($self, $c) = @_;
-    my $label = $c->stash->{label};
+    my $label = $self->entity;
 
     $c->stash->{aliases}  = $c->model('Alias')->load_for_entity($label);
 }
@@ -56,10 +57,10 @@ Display a tag-cloud of tags for a label
 
 =cut
 
-sub tags : Chained('label')
+sub tags : Chained('load')
 {
     my ($self, $c) = @_;
-    my $label = $c->stash->{label};
+    my $label = $self->entity;
 
     $c->stash->{tagcloud} = $c->model('Tag')->generate_tag_cloud($label);
 }
@@ -70,10 +71,10 @@ Redirect to Google and search for this label (using MusicBrainz colours).
 
 =cut
 
-sub google : Chained('label')
+sub google : Chained('load')
 {
     my ($self, $c) = @_;
-    my $label = $c->stash->{label};
+    my $label = $self->entity;
 
     $c->response->redirect(Google($label->name));
 }
@@ -84,11 +85,11 @@ Show all relations to this label
 
 =cut
 
-sub relations : Chained('label')
+sub relations : Chained('load')
 {
     my ($self, $c) = @_;
     my $label = $c->stash->{_label};
-  
+
     $c->stash->{relations} = load_relations($label);
 }
 
@@ -99,11 +100,11 @@ that have been released through this label
 
 =cut
 
-sub show : PathPart('') Chained('label')
+sub show : PathPart('') Chained('load')
 {
     my ($self, $c) = @_;
 
-    my $label    = $c->stash->{label};
+    my $label    = $self->entity;
     my $releases = $c->model('Release')->load_for_label($label);
 
     $c->stash->{releases}  = $releases;
@@ -116,13 +117,13 @@ Display detailed information about a given label
 
 =cut
 
-sub details : Chained('label') { }
+sub details : Chained('load') { }
 
 =head2 WRITE METHODS
 
 =cut
 
-sub merge : Chained('label')
+sub merge : Chained('load')
 {
     my ($self, $c) = @_;
 
@@ -134,19 +135,19 @@ sub merge : Chained('label')
     my $result = $c->stash->{search_result};
     if (defined $result)
     {
-        my $label = $c->stash->{label};
+        my $label = $self->entity;
 	$c->response->redirect($c->entity_url($label, 'merge_into',
 					      $result->id));
     }
 }
 
-sub merge_into : Chained('label') PathPart('into') Args(1)
+sub merge_into : Chained('load') PathPart('into') Args(1)
 {
     my ($self, $c, $new_mbid) = @_;
 
     $c->forward('/user/login');
 
-    my $label     = $c->stash->{label};
+    my $label     = $self->entity;
     my $new_label = $c->model('Label')->load($new_mbid);
     $c->stash->{new_label} = $new_label;
 
@@ -165,13 +166,13 @@ sub merge_into : Chained('label') PathPart('into') Args(1)
     $c->response->redirect($c->entity_url($new_label, 'show'));
 }
 
-sub edit : Chained('label')
+sub edit : Chained('load')
 {
     my ($self, $c) = @_;
 
     $c->forward('/user/login');
 
-    my $label = $c->stash->{label};
+    my $label = $self->entity;
 
     my $form = $c->form($label, 'Label::Edit');
     $form->context($c);
@@ -218,10 +219,10 @@ Allow a moderator to subscribe to this label
 
 =cut
 
-sub subscribe : Chained('label')
+sub subscribe : Chained('load')
 {
     my ($self, $c) = @_;
-    my $label = $c->stash->{label};
+    my $label = $self->entity;
 
     $c->forward('/user/login');
 
@@ -238,10 +239,10 @@ Unsubscribe from a label
 
 =cut
 
-sub unsubscribe : Chained('label')
+sub unsubscribe : Chained('load')
 {
     my ($self, $c) = @_;
-    my $label = $c->stash->{label};
+    my $label = $self->entity;
 
     $c->forward('/user/login');
 
@@ -259,13 +260,13 @@ wish their subscriptions to be public
 
 =cut
 
-sub subscriptions : Chained('label')
+sub subscriptions : Chained('load')
 {
     my ($self, $c) = @_;
 
     $c->forward('/user/login');
 
-    my $label = $c->stash->{label};
+    my $label = $self->entity;
 
     my @all_users = $label->GetSubscribers;
 
@@ -297,13 +298,13 @@ sub subscriptions : Chained('label')
     $c->stash->{template} = 'label/subscriptions.tt';
 }
 
-sub add_alias : Chained('label')
+sub add_alias : Chained('load')
 {
     my ($self, $c) = @_;
 
     $c->forward('/user/login');
 
-    my $label = $c->stash->{label};
+    my $label = $self->entity;
 
     my $form = $c->form($label, 'Label::AddAlias');
     $form->context($c);
@@ -315,13 +316,13 @@ sub add_alias : Chained('label')
     $c->response->redirect($c->entity_url($label, 'aliases'));
 }
 
-sub edit_alias : Chained('label') Args(1)
+sub edit_alias : Chained('load') Args(1)
 {
     my ($self, $c, $alias_id) = @_;
 
     $c->forward('/user/login');
 
-    my $label = $c->stash->{label};
+    my $label = $self->entity;
     my $alias = $c->model('Alias')->load($label, $alias_id);
 
     my $form = $c->form($alias, 'Label::EditAlias');
@@ -334,13 +335,13 @@ sub edit_alias : Chained('label') Args(1)
     $c->response->redirect($c->entity_url($label, 'aliases'));
 }
 
-sub remove_alias : Chained('label') Args(1)
+sub remove_alias : Chained('load') Args(1)
 {
     my ($self, $c, $alias_id) = @_;
 
     $c->forward('/user/login');
 
-    my $label = $c->stash->{label};
+    my $label = $self->entity;
     my $alias = $c->model('Alias')->load($label, $alias_id);
 
     my $form = $c->form($label, 'Label::RemoveAlias');
