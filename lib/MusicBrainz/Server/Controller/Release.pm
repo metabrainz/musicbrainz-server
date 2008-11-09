@@ -3,7 +3,12 @@ package MusicBrainz::Server::Controller::Release;
 use strict;
 use warnings;
 
-use base 'Catalyst::Controller';
+use base 'MusicBrainz::Server::Controller::Entity';
+
+__PACKAGE__->config(
+    entity_name => 'release',
+    model       => 'Release',
+);
 
 use MusicBrainz::Server::Adapter qw(Google);
 
@@ -20,20 +25,25 @@ releases, editing releases and creating new releases.
 
 =head1 METHODS
 
-=head2 release
+=head2 base
 
-Chained action to load the release
+Base action to specify that all actions live in the C<label>
+namespace
 
 =cut
 
-sub release : Chained CaptureArgs(1)
+sub base : Chained('/') PathPart('release') CaptureArgs(0) { }
+
+=head2 release
+
+Chained action to load the release and artist
+
+=cut
+
+sub release : Chained('load') PathPart('') CaptureArgs(0)
 {
-    my ($self, $c, $mbid) = @_;
-
-    my $release = $c->model('Release')->load($mbid);
-
-    $c->stash->{release}        = $release;
-    $c->stash->{release_artist} = $c->model('Artist')->load($release->artist); 
+    my ($self, $c) = @_;
+    $c->stash->{release_artist} = $c->model('Artist')->load($self->entity->artist); 
 }
 
 =head2 perma
@@ -61,9 +71,7 @@ Redirect to Google and search for this release's name.
 sub google : Chained('release')
 {
     my ($self, $c) = @_;
-    my $release = $c->stash->{release};
-
-    $c->response->redirect(Google($release->name));
+    $c->response->redirect(Google($self->entity->name));
 }
 
 =head2 tags
@@ -75,9 +83,7 @@ Show all of this release's tags
 sub tags : Chained('release')
 {
     my ($self, $c) = @_;
-    my $release = $c->stash->{release};
-
-    $c->stash->{tagcloud} = $c->model('Tag')->generate_tag_cloud($release);
+    $c->stash->{tagcloud} = $c->model('Tag')->generate_tag_cloud($self->entity);
 }
 
 =head2 relations
@@ -89,9 +95,7 @@ Show all relationships attached to this release
 sub relations : Chained('release')
 {
     my ($self, $c) = @_;
-    my $release = $c->stash->{release};
-
-    $c->stash->{relations}      = $c->model('Relation')->load_relations($release);
+    $c->stash->{relations} = $c->model('Relation')->load_relations($self->entity);
 }
 
 =head2 show
@@ -107,7 +111,7 @@ tags, tracklisting, release events, etc.
 sub show : Chained('release') PathPart('')
 {
     my ($self, $c) = @_;
-    my $release = $c->stash->{release};
+    my $release = $self->entity;
 
     my $show_rels = $c->req->query_params->{rel} || 1;
 
@@ -143,7 +147,7 @@ sub change_quality : Chained('release')
 
     $c->forward('/user/login');
 
-    my $release = $c->stash->{release};
+    my $release = $self->entity;
 
     my $form = $c->form($release, 'Release::DataQuality');
     $form->context($c);
@@ -164,7 +168,7 @@ sub edit_title : Chained('release')
 
     $c->forward('/user/login');
 
-    my $release = $c->stash->{release};
+    my $release = $self->entity;
 
     my $form = $c->form($release, 'Release::Title');
     $form->context($c);
@@ -189,7 +193,7 @@ sub move : Chained('release')
     my $result = $c->stash->{search_result};
     if (defined $result)
     {
-        my $release = $c->stash->{release};
+        my $release = $self->entity;
         $c->response->redirect($c->entity_url($release, 'move_to', $result->id));
     }
 }
@@ -200,7 +204,7 @@ sub move_to : Chained('release') Args(1)
 
     $c->forward('/user/login');
 
-    my $release = $c->stash->{release};
+    my $release = $self->entity;
 
     my $old_artist = $c->model('Artist')->load($release->artist);
     my $new_artist = $c->model('Artist')->load($new_artist);
@@ -224,7 +228,7 @@ sub remove : Chained('release')
 
     $c->forward('/user/login');
 
-    my $release = $c->stash->{release};
+    my $release = $self->entity;
 
     my $form = $c->form($release, 'Release::Remove');
     $form->context($c);
@@ -248,7 +252,7 @@ sub convert_to_single_artist : Chained('release')
     my $result = $c->stash->{search_result};
     if (defined $result)
     {
-        my $release = $c->stash->{release};
+        my $release = $self->entity;
         $c->response->redirect($c->entity_url($release,
 					      'confirm_convert_to_single_artist',
 					      $result->id));
@@ -263,7 +267,7 @@ sub confirm_convert_to_single_artist : Chained('release') Args(1)
 
     $c->stash->{template} = 'release/convert_to_single_artist.tt';
 
-    my $release    = $c->stash->{release};
+    my $release    = $self->entity;
     my $new_artist = $c->model('Artist')->load($new_artist);
     $c->stash->{new_artist} = $new_artist;
 
@@ -283,7 +287,7 @@ sub edit_attributes : Chained('release')
 
     $c->forward('/user/login');
 
-    my $release = $c->stash->{release};
+    my $release = $self->entity;
 
     my $form = $c->form($release, 'Release::EditAttributes');
     $form->context($c);
