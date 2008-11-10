@@ -43,7 +43,7 @@
 	}
 	elsif ($entitytype eq "label") {
 		$m->comp("/comp/sidebar-notitle", pagetitle => "$title: " . $entity->GetName);
-		$m->comp("/comp/labeltitle", label => $entity, showratings => 1, $showratings => 1);
+		$m->comp("/comp/labeltitle", label => $entity, showratings => 1);
 	}
 	elsif ($entitytype eq "release") {
 		$m->comp("/comp/sidebar-notitle", pagetitle => "$title: " . $entity->GetName);

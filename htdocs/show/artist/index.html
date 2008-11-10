@@ -209,7 +209,7 @@
     # show any related moderations so people can vote on them
  	$m->comp("/comp/relmods", artistid => $artist->GetId);
  
-    $m->comp("/comp/artisttitle", artist => $artist, $showratings => 1);
+    $m->comp("/comp/artisttitle", artist => $artist, showratings => 1);
 
 	$m->comp(
 		"/edit/annotation/latest",

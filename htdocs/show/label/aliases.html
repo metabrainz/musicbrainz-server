@@ -47,7 +47,7 @@
 	my $title = "Aliases for label: ".$label->GetName;
 
 	$m->comp("/comp/sidebar-notitle", pagetitle => $title);
-	$m->comp("/comp/labeltitle", label => $label, $showratings => 1);
+	$m->comp("/comp/labeltitle", label => $label, showratings => 1);
 
 	my $alias = MusicBrainz::Server::Alias->new($mb->{DBH}, "LabelAlias");
 	my @list = $alias->GetList($label->GetId);
