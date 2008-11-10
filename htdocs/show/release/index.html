@@ -95,7 +95,7 @@
 %# 	show any related moderations so people can vote on them
 	<& /comp/relmods, artistid => $release->GetArtist() &>
 
-	<& /comp/artisttitle, artist => $artist, notify => $notify, dispmissing => $dispmissing &>
+	<& /comp/artisttitle, artist => $artist, notify => $notify, dispmissing => $dispmissing, showratings => 1 &>
 
 <%perl>
 

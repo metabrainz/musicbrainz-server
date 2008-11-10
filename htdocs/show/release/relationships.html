@@ -65,8 +65,8 @@
 
 
 	my $artist = $m->comp("/comp/loadartist", $mb, $release->GetArtist());
-	$m->comp("/comp/artisttitle", artist => $artist, link => 0, showmodlinks => 0);
-	$m->comp("/comp/album", artist => $artist, album => $release, showreleases => 1, showlinks => 1);
+	$m->comp("/comp/artisttitle", artist => $artist, link => 0, showmodlinks => 0, showratings => 1);
+	$m->comp("/comp/album", artist => $artist, album => $release, showreleases => 1, showlinks => 1, showratings => 1);
 
 	$m->comp("/comp/footer");
 

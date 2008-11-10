@@ -109,7 +109,7 @@
 <& "/comp/sidebar-notitle", pagetitle => $artist->GetName() . " - Track and Release Relationships"  &>
 <& "/comp/relmods", artistid => $artist->GetId &>
 
-<& "/comp/artisttitle", artist => $artist &>
+<& "/comp/artisttitle", artist => $artist, showratings => 1 &>
 
 <p>
 	All tracks and releases <& "/comp/linkartist", artist => $artist &> appears on.

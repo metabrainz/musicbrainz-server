@@ -50,7 +50,7 @@
 	my $title = ("Relationships for label: " . $label->GetName());
 	$m->comp("/comp/sidebar", pagetitle => $title);
 
-	$m->comp("/comp/labeltitle", label => $label);
+	$m->comp("/comp/labeltitle", label => $label, $showratings => 1);
 
 	$m->comp("/comp/ar/AddRelationship", id => $label->GetId, type => "label", name => $label->GetName)
 		if ($addrel);

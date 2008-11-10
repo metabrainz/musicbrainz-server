@@ -47,7 +47,7 @@
 	my $title = "Aliases for artist: ".$artist->GetName;
 
 	$m->comp("/comp/sidebar-notitle", pagetitle => $title);
-	$m->comp("/comp/artisttitle", artist => $artist);
+	$m->comp("/comp/artisttitle", artist => $artist, showratings => 1);
 
 	my $alias = MusicBrainz::Server::Alias->new($mb->{DBH}, "ArtistAlias");
 	my @list = $alias->GetList($artist->GetId);

@@ -39,22 +39,22 @@
 
 	if ($entitytype eq "artist") {
 		$m->comp("/comp/sidebar-notitle", pagetitle => "$title: " . $entity->GetName);
-		$m->comp("/comp/artisttitle", artist => $entity);
+		$m->comp("/comp/artisttitle", artist => $entity, showratings => 1);
 	}
 	elsif ($entitytype eq "label") {
 		$m->comp("/comp/sidebar-notitle", pagetitle => "$title: " . $entity->GetName);
-		$m->comp("/comp/labeltitle", label => $entity);
+		$m->comp("/comp/labeltitle", label => $entity, showratings => 1, $showratings => 1);
 	}
 	elsif ($entitytype eq "release") {
 		$m->comp("/comp/sidebar-notitle", pagetitle => "$title: " . $entity->GetName);
 		my $artist = $m->comp("/comp/loadartist", $mb, $entity->GetArtist);
-		$m->comp("/comp/artisttitle", artist => $artist);
-		$m->comp("/comp/album", artist=>$artist, album => $entity, highlightonly=>1);
+		$m->comp("/comp/artisttitle", artist => $artist, showratings => 1);
+		$m->comp("/comp/album", artist=>$artist, album => $entity, highlightonly => 1, showratings => 1);
 	}
 	else {
 		$m->comp("/comp/sidebar-notitle", pagetitle => "$title: " . $entity->GetName);
 		my $artist = $m->comp("/comp/loadartist", $mb, $entity->GetArtist);
-		$m->comp("/comp/tracktitle", track => $entity, artist => $artist);
+		$m->comp("/comp/tracktitle", track => $entity, artist => $artist, showratings => 1);
 	}
 
 </%perl>

@@ -58,7 +58,7 @@
 
 	$m->comp("/comp/sidebar-notitle", pagetitle => $title);
 
-	$m->comp("/comp/artisttitle", artist => $artist);
+	$m->comp("/comp/artisttitle", artist => $artist, showratings => 1);
 
 	if ($all) {
 </%perl>

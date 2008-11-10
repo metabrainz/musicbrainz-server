@@ -33,7 +33,7 @@ $artist->LoadFromId()
 		title => '' 
 	&>
 
-	<& /comp/artisttitle, artist=>$artist &>
+	<& /comp/artisttitle, artist=>$artist, showratings => 1 &>
 
 	<& /comp/subscribersbox, artist=>$artist, title=>'Editors subscribed to this artist' &>
 

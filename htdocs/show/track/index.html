@@ -102,7 +102,7 @@
 
 
 	<& /comp/sidebar-notitle, pagetitle => "Track details: " . $track->GetName &>
-	<& /comp/tracktitle, artist=>$artist, track=>$track &>
+	<& /comp/tracktitle, artist=>$artist, track=>$track, $showratings => 1 &>
 
 %	# show any related moderations so people can vote on them
 	<& /comp/relmods, artistid => $artist->GetId &>

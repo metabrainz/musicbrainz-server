@@ -43,7 +43,7 @@
 	my $artist = $m->comp("/comp/loadartist", $mb, $artistid);
 
 	$m->comp("/comp/sidebar-notitle", pagetitle => ("Similar artists: " . $artist->GetName) );
-	$m->comp("/comp/artisttitle", artist => $artist);
+	$m->comp("/comp/artisttitle", artist => $artist, showratings => 1);
 	$m->comp("/comp/tablebegin", title => "Similar Artists");
 
 	my $relations = $artist->GetRelations();
