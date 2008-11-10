@@ -55,7 +55,7 @@ my @CoverArtSites =
    {
        name       => 'archive.org',
        domain     => 'archive.org',
-       regexp     => '^(.*)$',
+       regexp     => '^(.*\.(jpg|jpeg|png|gif))$',
        imguri     => '$1',
        releaseuri => '',
    },

@@ -267,6 +267,7 @@ function ARFrontEnd() {
 			field.value = field.value.replace(/^http:\/\/([^.]+\.)?discogs\.com/, "http://www.discogs.com");
 		} else if (v.match(this.urlRegExps.archive)) {
 			field.value = field.value.replace(/\/http:\/\//, "/");
+			field.value = field.value.replace(/http:\/\/(.*)\.archive.org\/\d\/items\/(.*)\/(.*)/, "http://www.archive.org/download/$2/$3");
 		} else if (v.match(this.urlRegExps.jamendo)) {
 			field.value = field.value.replace(/jamendo\.com\/\w\w\/album\//, "jamendo.com/album/");
 			field.value = field.value.replace(/img\.jamendo\.com\/albums\/(\d+)\/covers\/\d+\.\d+\.jpg/, "www.jamendo.com/album/$1/");
