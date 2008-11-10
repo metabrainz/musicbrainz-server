@@ -64,15 +64,14 @@
 		],
 		{ name => "News",					url => "/news/index.html" },
 		[
-			{ name => "General News",			url => "/news/index.html" },
+			{ name => "General News",			url => "http://blog.musicbrainz.org/" },
+			{ name => "In the Press",			url => "/doc/MusicBrainzPress" },
 			{ name => "Music News",				url => "/show/stats/musicnews.html" },
-			{ name => "Blog",					url => "http://blog.musicbrainz.org/" },
+			{ name => "Picard",					url => "/news/picard.html" },
 			{ name => "Server",					url => "/news/server.html" },
 			{ name => "libmusicbrainz",			url => "/news/client.html" },
 			{ name => "libtunepimp",			url => "/news/tunepimp.html" },
 			{ name => "WindowsTagger",			url => "/news/tagger.html" },
-			{ name => "Picard",					url => "/news/picard.html" },
-			{ name => "In the Press",			url => "/doc/MusicBrainzPress" },
 		],
 		{ name => "Products",				url => "/doc/Products" },
 		[
