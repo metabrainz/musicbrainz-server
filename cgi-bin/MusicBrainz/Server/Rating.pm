@@ -263,6 +263,33 @@ sub GetUserRatingForEntity
 	return $rating;
 }
 
+sub LoadUserRatingForEntities
+{
+	my ($entity_type, $entities, $userid) = @_;
+
+	require MusicBrainz; 
+	my $ratings = MusicBrainz->new; 
+	$ratings->Login(db => 'RAWDATA'); 
+	my $rawdb = Sql->new($ratings->{DBH});
+
+	my $assoc_table_raw = $entity_type . '_rating_raw';  
+
+	my @entities_ids = map ($_->GetId, @$entities);
+
+	my $user_ratings = $rawdb->SelectListOfLists("SELECT $entity_type, rating
+			FROM $assoc_table_raw
+			WHERE $entity_type IN (". join(', ', @entities_ids) .") 
+				AND editor = ?", $userid);
+	return undef if (scalar(@$user_ratings) == 0);
+
+	my %user_ratings = map { $_->[0] => $_->[1] } @$user_ratings;
+
+	foreach my $entity (@$entities)
+	{
+		$entity->{user_rating} = $user_ratings{$entity->GetId};
+	}
+}
+
 sub CancelRating
 {
 	my ($self, $entity_type, $entity_id, $userid) = @_;

@@ -273,6 +273,7 @@
     else
     {
 		@albums = $artist->GetReleases($short, 1);
+		MusicBrainz::Server::Rating::LoadUserRatingForEntities("release", \@albums, $session{uid}) if ($session{uid} && UserPreference::get("show_ratings"));
 
         # filter out non album, EP and single releases if in short listing
         if ($short)
@@ -518,10 +519,12 @@
 % 	if (UserPreference::get("show_ratings")) {
 <td class="">
 	<& /comp/ratingsbox, 
-		"entity_id" => $album->GetId, 
-		"entity_type" => "release", 
-		"small" => 1, 
-		"rating" => { "rating" => $album->{"rating"}} &>
+		entity_id => $album->GetId, 
+		entity_type => "release", 
+		small => 1, 
+		rating => $album->{rating},
+		user_rating => $album->{user_rating},
+	&>
 </td>
 %	}
 %	if ($session{uid}) {

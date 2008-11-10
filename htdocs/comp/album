@@ -84,7 +84,9 @@
 
 	# always load multiple artist tracks
 	my @info = ($tracks ? @$tracks : $album->LoadTracks(1));
-
+	MusicBrainz::Server::Rating::LoadUserRatingForEntities("track", \@info, $session{uid}) 
+		if ($session{uid} && UserPreference::get("show_ratings") && $showratings);
+	
 	if ($showcollapsed)
 	{
 		my ($id, $url);

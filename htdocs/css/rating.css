@@ -2,6 +2,7 @@
 .star-rating a:hover,
 .star-rating a:active,
 .star-rating a:focus,
+.star-rating .current-user-rating,
 .star-rating .current-rating{
 	background: url('../images/rating_star.gif') left -1000px repeat-x;
 }
@@ -14,7 +15,7 @@
 	list-style:none;
 	margin:0;
 	padding:0;
-	background-position: left top;
+	background-position: 0px 0px;
 }
 
 .star-rating li{
@@ -22,6 +23,7 @@
 }
 
 .star-rating a, 
+.star-rating .current-user-rating,
 .star-rating .current-rating{
 	position:absolute;
 	top:0;
@@ -35,7 +37,7 @@
 }
 
 .star-rating a:hover{
-	background-position: left bottom;
+	background-position: 0px -25px;
 }
 
 .star-rating a.one-star{
@@ -65,7 +67,12 @@
 
 .star-rating .current-rating{
 	z-index:1;
-	background-position: left center;
+	background-position: 0px -75px;
+}	
+
+.star-rating .current-user-rating{
+	z-index:1;
+	background-position: 0px -50px;
 }	
 
 /* for an inline rater */
@@ -86,8 +93,21 @@
 .small-star a:hover,
 .small-star a:active,
 .small-star a:focus,
+.small-star .current-user-rating,
 .small-star .current-rating{
 	background-image: url('../images/rating_star_small.gif');
 	line-height: 10px;
 	height: 10px;
+}
+
+.small-star a:hover{
+	background-position: 0px -20px;
+}
+
+.small-star .current-rating{
+	background-position: 0px -30px;
+}
+
+.small-star .current-user-rating{
+	background-position: 0px -10px;
 }

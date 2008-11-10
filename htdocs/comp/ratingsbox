@@ -1,74 +1,92 @@
 <%args>
-    $entity_id
-    $entity_type
+	$entity_id
+	$entity_type
 
-	$small => 0			# Small or big ratings stars
+	$small => 0				# Small or big ratings stars
+	$detailled => 0			# Display detailled information (votes count, community/user rating, ...)
 
-    $detailled => 0		# Display all ratings information (loaded from DB): aggregate rating, ratings count, user rating (will be loaded from DB)
-    $rating => undef    # Allow passing a rating hash to avoid loading from DB 
+	$rating => undef		# Communtiy rating for this entity		|
+	$rating_count => undef	# Votes count for this entity			|- information will be loaded if needed
+	$user_rating => undef	# Current user rating for this entity	|
 
-    $allow_rating => 1
+	$allow_rating => 1
 </%args>
 
 <%perl>
+	$allow_rating &&= defined $session{uid};
+
 	# Check argument
-    MusicBrainz::Server::Validation::IsNonNegInteger($entity_id) && $entity_id
-        or return $m->comp("/comp/layout/badarguments", text => "Argument entity_id is required");
+	MusicBrainz::Server::Validation::IsNonNegInteger($entity_id) && $entity_id
+		or return $m->comp("/comp/layout/badarguments", text => "Argument entity_id is required");
 
 	# Respect show_ratings preference
 	return unless UserPreference::get("show_ratings");
 
 	my ($mb, $ratings);
-    if (not defined($rating))
-    {
-        # Instantiate MusicBrainz object
-        $mb = $m->comp("/comp/dblogin");
 
-        require MusicBrainz::Server::Rating;
-        $ratings = MusicBrainz::Server::Rating->new($mb->{DBH});
-
-        $rating = $ratings->GetRatingForEntity($entity_type, $entity_id);
-    }
-
-	my $user_rating;
-	if($detailled && $session{uid})
+	# Load entity community rating info if needed
+	if (not defined($rating) && $detailled)
 	{
 		$mb or $mb = $m->comp("/comp/dblogin");
 		$ratings or $ratings = MusicBrainz::Server::Rating->new($mb->{DBH});
+
+		my $ratingInfo = $ratings->GetRatingForEntity($entity_type, $entity_id);
+		$rating = $ratingInfo->{"rating"};
+		$rating_count = $ratingInfo->{"rating_count"};
+	}
+
+	# Load user rating if needed
+	if($session{uid} && not defined($user_rating))
+	{
+		$mb or $mb = $m->comp("/comp/dblogin");
+		$ratings or $ratings = MusicBrainz::Server::Rating->new($mb->{DBH});
+
 		$user_rating = $ratings->GetUserRatingForEntity($entity_type, $entity_id, $session{uid});
 	}
 
-    my $rate_url = "/bare/rate.html?entity_id=$entity_id&entity_type=$entity_type&url=". $r->uri()."?".$r->args() ."&rating=";
-    my %css_classes = ();
+	# Prepare stuff for generating html
+	my $rate_url = "/bare/rate.html?entity_id=$entity_id&entity_type=$entity_type&url=". $r->uri()."?".$r->args() ."&rating=";
 
+	my %css_classes = ();
 	# Allow changing rate only if user is logged
-	$allow_rating &&= defined $session{uid};	
 	%css_classes = ( 1 => "one", 2 => "two", 3 => "three", 4 => "four", 5 => "five" ) if ($allow_rating);
 
 </%perl>
 
-    <span class="inline-rating">
-    	<ul class="star-rating<% $small ? " small-star" : "" %>">
-    		<li id="<% "RATING::" . $entity_type ."::". $entity_id %>" class="current-rating" style="width:<% ($rating->{"rating"}/5*100) %>%;">Current rating: <% $rating->{"rating"} %></li>
-%			foreach my $rate (sort keys %css_classes)
-%			{
-        	<li>
+	<span class="inline-rating">
+		<ul class="star-rating<% $small ? " small-star" : "" %>">
+
+%	# Current rating (community or user one)
+%	if ($user_rating)
+%	{
+			<li id="<% "RATING::" . $entity_type ."::". $entity_id %>" class="current-user-rating" style="width:<% ($user_rating/5*100) %>%;">Current rating: <% $user_rating %></li>
+%	}
+%	else
+%	{
+			<li id="<% "RATING::" . $entity_type ."::". $entity_id %>" class="current-rating" style="width:<% ($rating/5*100) %>%;">Current rating: <% $rating %></li>
+%	}	
+
+%	# Rating choices (0-5)
+%	foreach my $rate (sort keys %css_classes)
+%	{
+			<li>
 				<a 	href="<% $rate_url . $rate %>"
 					id="<% "RATE::" . $entity_type ."::". $entity_id ."::". $rate %>"
 					class="<% $css_classes{$rate} %>-star<% ($rate>1)?"s":"" %>"><% $rate %></a> 
 			</li>
-%			}
-    	</ul>
-    </span>
+%	}
+		</ul>
+	</span>
 <%perl>
 	if ($detailled)
 	{
 		$m->out("<small>(");
-		if ($session{uid})
-		{
-			$m->out("Your rating: <span id='USER-RATING::". $entity_type ."::". $entity_id ."'>". ($user_rating || "none") ."</span> - ");
-		}
-		$m->out("Votes: <span id='VOTES-RATING::". $entity_type ."::". $entity_id ."'>". ($rating->{"rating_count"} || "0") ."</span>)");
+
+		# Display community rating if user has already rated this entity
+		$m->out("Community rating: <span id='COMMUNITY-RATING::". $entity_type ."::". $entity_id ."'>". 
+			($rating ? sprintf("%.2f", $rating) : "none") ."</span> - ");
+
+		$m->out("Votes: <span id='VOTES-RATING::". $entity_type ."::". $entity_id ."'>". ($rating_count || "0") ."</span>)");
 		$m->out("</small>");
 	}
 </%perl>

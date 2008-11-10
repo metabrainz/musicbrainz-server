@@ -84,7 +84,7 @@
 						&></td>
 						<td><& /comp/ratingsbox, entity_id => $entity->{"id"}, entity_type => $type, 
                                 small => 1,
-                                rating => { rating => $entity->{"rating"} },
+                                user_rating => $entity->{"rating"},
                                 allow_rating => $is_me,
                             &></td>
 					</tr>

@@ -72,6 +72,7 @@
 				text => "The special label DELETED_LABEL cannot be shown.");
 
 	my @albums = $label->GetReleases;
+	MusicBrainz::Server::Rating::LoadUserRatingForEntities("release", \@albums, $session{uid}) if ($session{uid} && UserPreference::get("show_ratings"));
 	
 	my $CheckAttributes = sub
 	{
@@ -296,10 +297,12 @@
 %				 	if (UserPreference::get("show_ratings")) {
 <td class="">
 	<& /comp/ratingsbox, 
-		"entity_id" => $album->GetId, 
-		"entity_type" => "release", 
-		"small" => 1, 
-		"rating" => { "rating" => $album->{"rating"}} &>
+		entity_id => $album->GetId, 
+		entity_type => "release", 
+		small => 1, 
+		rating => $album->{rating},
+		user_rating => $album->{user_rating},
+	&>
 </td>
 %					}
 <td class="rname"><a href="/show/artist/?artistid=<% $album->GetArtist %>"><% $album->{artistname} %></a></td>

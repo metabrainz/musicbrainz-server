@@ -119,10 +119,11 @@
 	if ($showratings && $track->GetId)
 	{
 		$m->comp("/comp/ratingsbox", 
-				"entity_type" => "track",
-				"entity_id"	=> $track->GetId,
-				"small"	=> 1,
-				"rating" => { "rating" => $track->{"rating"}, "rating_count" => $track->{"rating_count"} }
+				entity_type => "track",
+				entity_id	=> $track->GetId,
+				small	=> 1,
+				rating => $track->{rating},
+				user_rating => $track->{user_rating},
 		);
 	}
 

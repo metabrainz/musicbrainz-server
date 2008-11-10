@@ -8,7 +8,6 @@ MusicBrainz.RatingsUpdater = function()
 			var links = entities_to_rate[i].getElementsByTagName("a");
 			for (var j = 0; j < links.length; j++) {
 				connect(links[j], "onclick", this, this.rate);
-				//links[j].href = "#";
 			}
 		}
 	};
@@ -32,20 +31,29 @@ MusicBrainz.RatingsUpdater = function()
 
 	this.updateRatingStars = function(entitytype, entityid, newRatingInfo)
 	{
-		// Global rating
+
 		var rating = $("RATING::"+entitytype+"::"+entityid);
-		rating.style.width = newRatingInfo.rating/5*100+'%';
-		
+		// If user has canceled his rating, display community ratings
+		if (newRatingInfo.user_rating == 0) {
+			rating.className = "current-rating";
+			rating.style.width = newRatingInfo.rating/5*100+'%';
+		} 
+		// Otherwise, display only his rating
+		else {
+			rating.className = "current-user-rating";
+			rating.style.width = newRatingInfo.user_rating/5*100+'%';
+		}
+
 		// Votes
 		var totalVotes = $("VOTES-RATING::"+entitytype+"::"+entityid);
 		if (totalVotes) {
 			totalVotes.innerHTML = newRatingInfo.rating_count;
 		}
 
-		// User rating
-		var userRating = $("USER-RATING::"+entitytype+"::"+entityid);
-		if (userRating) {
-			userRating.innerHTML = newRatingInfo.user_rating;
+		// Community rating
+		var communityRating = $("COMMUNITY-RATING::"+entitytype+"::"+entityid);
+		if (communityRating) {
+			communityRating.innerHTML = newRatingInfo.rating;
 		}
 	}
 

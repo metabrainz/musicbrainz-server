@@ -83,12 +83,13 @@
 							<img src="/images/puid.gif" width="35" height="13" alt="PUID" title="This release has <% $puids %> PUIDs" />
 						</span>
 % 	}
-%	if (defined $release->{rating} && $showratings)
+%	if ($showratings)
 %	{
 		<& /comp/ratingsbox, 
 			entity_type => "release",
 			entity_id => $release->GetId,
-			rating => { "rating" => $release->{"rating"}},
+			rating => $release->{rating},
+			user_rating => $release->{user_rating},
 			small => 1,
 		&>
 % 	}
