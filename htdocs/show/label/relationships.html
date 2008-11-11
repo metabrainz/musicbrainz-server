@@ -48,9 +48,18 @@
 	my $label = $m->comp("/comp/loadlabel", $mb, $labelid);
 
 	my $title = ("Relationships for label: " . $label->GetName());
-	$m->comp("/comp/sidebar", pagetitle => $title);
+	$m->comp("/comp/sidebar-notitle", pagetitle => $title);
 
 	$m->comp("/comp/labeltitle", label => $label, showratings => 1);
+
+	</%perl>
+
+	<div class="TagsBox">
+		Label tags:
+		<& /comp/toptags, type=>'label', id=>$label->GetId &>
+	</div>
+
+	<%perl>
 
 	$m->comp("/comp/ar/AddRelationship", id => $label->GetId, type => "label", name => $label->GetName)
 		if ($addrel);

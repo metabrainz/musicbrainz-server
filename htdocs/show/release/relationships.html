@@ -48,7 +48,10 @@
 	my $release = $m->comp("/comp/loadrelease", $mb, $releaseid);
 
 	my $title = ("Relationships for release: " . $release->GetName());
-	$m->comp("/comp/sidebar", pagetitle => $title);
+	$m->comp("/comp/sidebar-notitle", pagetitle => $title);
+
+	my $artist = $m->comp("/comp/loadartist", $mb, $release->GetArtist());
+	$m->comp("/comp/artisttitle", artist => $artist, link => 0, showmodlinks => 0, showratings => 1);
 
 	$m->comp("/comp/ar/AddRelationship", id => $release->GetId, type => "album", name => $release->GetName)
 		if ($addrel);
@@ -63,10 +66,7 @@
              name => $release->GetName, modlinks => 1, isrelpage => 1,
              expanded => $expanded, release=>$release);
 
-
-	my $artist = $m->comp("/comp/loadartist", $mb, $release->GetArtist());
-	$m->comp("/comp/artisttitle", artist => $artist, link => 0, showmodlinks => 0, showratings => 1);
-	$m->comp("/comp/album", artist => $artist, album => $release, showreleases => 1, showlinks => 1, showratings => 1);
+	$m->comp("/comp/album", artist => $artist, album => $release, showreleases => 1, showlinks => 1, folksonomy => 1, showratings => 1);
 
 	$m->comp("/comp/footer");
 

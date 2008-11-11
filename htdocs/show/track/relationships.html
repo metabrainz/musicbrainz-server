@@ -46,10 +46,23 @@
 
 	my $mb = $m->comp("/comp/dblogin");
 	my $track = $m->comp("/comp/loadtrack", $mb, $trackid);
+	
+	# load artist from trackartist
+	my $artist = $m->comp("/comp/loadartist", $mb, $track->GetArtist);
 
 	my $title = ("Relationships for track: " . $track->GetName());
-	$m->comp("/comp/sidebar", pagetitle => $title);
+	$m->comp("/comp/sidebar-notitle", pagetitle => $title);
 
+	$m->comp("/comp/tracktitle", artist => $artist, track => $track, showratings => 1);
+
+	</%perl>
+
+	<div class="TagsBox">
+		Track tags: 
+		<& /comp/toptags, type=>'track', id=>$track->GetId &>
+	</div>
+
+	<%perl>
 
 	$m->comp("/comp/ar/AddRelationship", id => $track->GetId, type => "track", name => $track->GetName)
 		if ($addrel);
@@ -86,7 +99,6 @@
 		}
 	}
 
-	my $artist = $m->comp("/comp/loadartist", $mb, $track->GetArtist());
 	$m->comp("/comp/artistinfo", artist => $artist);
 
 	$m->comp("/comp/footer");

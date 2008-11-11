@@ -60,6 +60,15 @@
 
 	$m->comp("/comp/artisttitle", artist => $artist, showratings => 1);
 
+	</%perl>
+
+	<div class="TagsBox">
+		Artist tags:
+		<& /comp/toptags, type=>'artist', id=>$artist->GetId &>
+	</div>
+
+	<%perl>
+
 	if ($all) {
 </%perl>
 <p style="margin-bottom: 1em;">
