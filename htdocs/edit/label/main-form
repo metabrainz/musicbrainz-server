@@ -194,20 +194,32 @@
 					</div></td></tr>
 %	}
 
+	<tr>
+		<td>&nbsp;</td>
+		<td class="formsection">
+			The comment field is used to differentiate between labels with the same, <br/>
+			or confusingly similar, names.</td>
+	</tr>
 
-% 	if (@dupes or $resolution)
+% 	if (defined $label)
 %	{
-
-		<tr>
-			<td class="label">
-				<label for="editlabel_resolution">Comment:</label></td>
-			<td class="field">
-				<input type="text" name="resolution" class="textfield"
-					id="editlabel_resolution" size="50" maxlength="64"
-					value="<% $resolution %>" /></td>
-		</tr>
-
+	<tr>
+		<td class="label">
+			<label>Current Comment:</label></td>
+		<td class="field">
+			<div class="oldtextfield"><% $label->GetResolution() || "(none)" %></div></td>
+	</tr>
 % 	}
+
+	<tr>
+		<td class="label">
+			<label for="editlabel_resolution">Comment:</label></td>
+		<td class="field">
+			<input type="text" name="resolution" class="textfield"
+				id="editlabel_resolution" size="50" maxlength="64"
+				value="<% $resolution %>" /></td>
+	</tr>
+
 % 	if (@dupes)
 %	{
 
