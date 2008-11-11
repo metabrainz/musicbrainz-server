@@ -1,11 +1,3 @@
-#
-# TODO:
-# check values
-# make another new sub which does not get values from db, as the values are known from POST data(when sent)
-#
-
-
-
 #!/usr/bin/perl -w
 # vi: set ts=4 sw=4 :
 #____________________________________________________________________________
@@ -31,15 +23,15 @@
 #	$id: $
 #____________________________________________________________________________
 
+# TODO:
+# check values
+# make another new sub which does not get values from db, as the values are known from POST data(when sent)
 
 use strict;
 
 package MusicBrainz::Server::CollectionPreference;
 
 use Carp qw( carp );
-
-
-
 
 =head1 NAME
 
@@ -51,9 +43,6 @@ Has subs for setting and getting collection preference values.
 
 =head1 METHODS
 
-
-
-
 =head2 new $rodbh, $rawdbh, $userId
 Create a CollectionPreference object. Load preferences for user with id C<$userId>.
 =cut
@@ -61,11 +50,9 @@ sub new
 {
 	my ($this, $rodbh, $rawdbh, $userId) = @_;
 	
-	
 	# get collection id
 	my $rawsql = Sql->new($rawdbh);
 	my $collectionId = $rawsql->SelectSingleValue('SELECT id FROM collection_info WHERE moderator=?', $userId);
-	
 	
 	my $object=bless(
 	{
@@ -84,9 +71,7 @@ sub new
 	my $releaseTypes = MusicBrainz::Server::CollectionPreference::GetReleaseTypes();
 	my $statusTypes = MusicBrainz::Server::CollectionPreference::GetStatusTypes();
 	
-	
 	my $selectprefs;
-	
 	eval
 	{
 		$rawsql->Begin();
@@ -104,13 +89,11 @@ sub new
 		$rawsql->Commit();
 	}
 	
-	
 	# add valid keys
 	my $prefs = {
 		'emailnotifications' => {'KEY' => 'emailnotifications', VALUE => $selectprefs->{emailnotifications}, 'CHECK' => sub { check_int(1,31,@_) }},
 		'notificationinterval' => {'KEY' => 'notificationinterval', VALUE => $selectprefs->{notificationinterval}, 'CHECK' => \&check_bool}
 	};
-	
 	
 	# iterate over the release types and add those as valid keys with a dummy value
 	for my $key (keys %{$releaseTypes})
@@ -124,52 +107,25 @@ sub new
 		$prefs->{$statusTypes->{$key}[0]} = {'KEY' => $statusTypes->{$key}[0], 'VALUE' => undef, 'CHECK' => undef};
 	}
 	
-	
-	
 	$object->{prefs} = $prefs;
-	
-	
 	
 	return $object;
 }
-
-
 
 # remove or rewrite
 sub addpref
 {
 	my ($this, $key, $value, $check) = @_;
-	
-	
 	my $prefs = $this->{prefs};
 	
-	
 	$this->{prefs}{$key} = {KEY => $key, VALUE => $value, CHECK => $check};
-	
-	
-	
-	
-#	my ($key, $defaultvalue, $checksub) = @_;
-#
-#	defined($checksub->($defaultvalue))
-#		or warn "Default value '$defaultvalue' for preference '$key' is not valid";
-#
-#	$prefs{$key} = {
-#		KEY		=> $key,
-#		DEFAULT	=> $defaultvalue,
-#		CHECK	=> $checksub,
-#	};
 }
-
 
 sub valid_keys {
 	my ($this) = @_;
 	my $prefs=$this->{prefs};
-	
 	return keys %$prefs;
 }
-
-
 
 ################################################################################
 # get, set, load, save
@@ -186,11 +142,8 @@ sub get
 	my $info = $this->{prefs}->{$key}
 		or carp("CollectionPreference::get called with invalid key '$key'"), return undef;
 	
-	
 	return $info->{VALUE};
 }
-
-
 
 =head2 set $key, $value
 Set preference with key C<$key> to value C<$value> in this object and in the db.
@@ -213,14 +166,9 @@ sub set
 	my $info=$prefs->{$key}
 		or carp("CollectionPreference::get called with invalid key '$key'"), return undef;
 	
-	
-	
 	my $oldkey = $info->{KEY};
 	my $oldvalue = $info->{VALUE};
 	my $oldcheck = $info->{CHECK};
-	
-	
-	
 	
 	eval
 	{
@@ -243,28 +191,7 @@ sub set
 				
 		$rawsql->Commit();
 	}
-
-
-
-
-
-
-
-#	my ($key, $value) = @_;
-#	my $info = $prefs{$key}
-#		or carp("CollectionPreference::set called with invalid key '$key'"), return;
-#	my $newvalue = $info->{CHECK}->($value);
-#	defined $newvalue
-#		or carp("UserPreference::set called with invalid value '$value' for key '$key'"), return;
-#		
-#	
-#	# Update preference in database
-#	print 'UPDATE';
 }
-
-
-
-
 
 =head2 SetShowTypes $showTypes
 Sets which release and status types the user want to see missing releases of and be notified about new releases of. C<$showTypes> is an array reference for an array containing type identifiers to display.
@@ -275,13 +202,11 @@ sub SetShowTypes
 	
 	my $rawsql=Sql->new($this->{RAWDBH});
 	
-	
 	eval
 	{
 		$rawsql->Begin();
 		$rawsql->Do("UPDATE collection_info SET ignoreattributes = '{" . join(',', @{$showTypes}) . "}' WHERE id = ?", $this->{collectionId});
 	};
-	
 	if($@)
 	{
 		$rawsql->Rollback();
@@ -292,8 +217,6 @@ sub SetShowTypes
 		$rawsql->Commit();
 	}
 }
-
-
 
 sub GetShowTypes
 {
@@ -312,12 +235,9 @@ sub GetShowTypes
 	return @showTypesPref;
 }
 
-
-
 #--------------------------------------------------
 # Static subs
 #--------------------------------------------------
-
 
 =head2 ArtistWatch $artistId, $userId
 Specifies that user with id C<$userId> want to watch for new releases of artist with id C<$artistId>.
@@ -336,7 +256,6 @@ sub ArtistWatch
 	eval
 	{
 		$rawsql->Begin();
-		#$rawsql->Quiet(1);
 		$rawsql->Do('INSERT INTO collection_watch_artist_join (collection_info, artist) VALUES (?, ?)', $collectionId, $artistId);
 	};
 	
@@ -358,8 +277,6 @@ sub ArtistWatch
 		$rawsql->Commit();
 	}
 }
-
-
 
 =head2 ArtistDontWatch $artistId, $userId
 Specifies that user with id C<$userId> do not want to watch for new releases of artist with id C<$artistId>.
@@ -391,8 +308,6 @@ sub ArtistDontWatch
 		$rawsql->Commit();
 	}
 }
-
-
 
 =head2 ArtistsDontShowMissing $artistId, $userId
 Specifies that user with id C<$userId> want to see missing releases of artist with id C<$artistId>.
@@ -436,8 +351,6 @@ sub ArtistMissing
 	}
 }
 
-
-
 =head2 ArtistDontShowMissing $artistId, $userId
 Specifies that user with id C<$userId> do not want to see missing releases of artist with id C<$artistId>.
 =cut
@@ -471,8 +384,6 @@ sub ArtistDontShowMissing
 	}
 }
 
-
-
 =head2 GetReleaseTypes
 Returns a reference to a hash with info about the different release types.
 =cut
@@ -496,9 +407,6 @@ sub GetReleaseTypes
 	return \%releaseTypes;
 }
 
-
-
-
 sub GetStatusTypes
 {
 	my %statusTypes = (
@@ -510,8 +418,6 @@ sub GetStatusTypes
 	
 	return \%statusTypes;
 }
-
-
 
 sub GetTypeIdentifiers
 {
@@ -537,7 +443,5 @@ sub GetTypeIdentifiers
 	return \%types;
 }
 
-
-
 1;
-
+# vi: set ts=4 sw=4 :

@@ -1,11 +1,4 @@
-#
-# TODO:
-# look up when use/require should be used
-# get some stuff from the CollectionPreference object instead of doing new queries in here
-#
-
 #!/usr/bin/perl -w
-# vi: set ts=4 sw=4 :
 #____________________________________________________________________________
 #
 #	MusicBrainz -- the open music metadata database
@@ -29,13 +22,13 @@
 #	$id: $
 #____________________________________________________________________________
 
-
 use strict;
 
 package MusicBrainz::Server::CollectionInfo;
 
-
-
+# TODO:
+# look up when use/require should be used
+# get some stuff from the CollectionPreference object instead of doing new queries in here
 
 =head2 new $userId, $rodbh, $rawdbh, $preferences
 Create a CollectionInfo object for user with id C<$userId>.
@@ -44,13 +37,9 @@ sub new
 {
 	my ($this, $userId, $rodbh, $rawdbh, $preferences)=@_;
 	
-	
 	my $sql = Sql->new($rawdbh);
 	
 	my $result=$sql->SelectSingleRowHash("SELECT * FROM collection_info WHERE moderator=?", $userId);
-	
-	
-	
 	bless(
 	{
 		userId			=> $userId,
@@ -64,8 +53,6 @@ sub new
 	}, $this);
 }
 
-
-
 =head2 newFromCollectionId $collectionId, $rodbh, $rawdbh, $preferences
 Create a CollectionInfo object for the collection C<$collectionId>.
 =cut
@@ -73,13 +60,8 @@ sub newFromCollectionId
 {
 	my ($this, $collectionId, $rodbh, $rawdbh, $preferences)=@_;
 	
-	
 	my $sql = Sql->new($rawdbh);
-	
 	my $userId=$sql->SelectSingleValue("SELECT moderator FROM collection_info WHERE id=?", $collectionId);
-	
-	
-	
 	bless(
 	{
 		userId			=> $userId,
@@ -93,13 +75,6 @@ sub newFromCollectionId
 	}, $this);
 }
 
-
-sub newMissingCollectionInfo
-{
-}
-
-
-
 =head2 GetUserId
 Returns userId.
 =cut
@@ -110,22 +85,18 @@ sub GetUserId
 	return 0;
 }
 
-
 =head2 GetHasReleaseIds $artistId
 Returns a reference to an array containing id's of all releases in collection.
 =cut
 sub GetHasReleaseIds
 {
 	my ($this) = @_;
-	
 	my $rawsql = Sql->new($this->{RAWDBH});
-	
-	my $hasReleaseIds = $rawsql->SelectSingleColumnArray('SELECT album FROM collection_has_release_join WHERE collection_info = ?', $this->{collectionId});
-	
+	my $hasReleaseIds = $rawsql->SelectSingleColumnArray('SELECT album
+															FROM collection_has_release_join 
+														   WHERE collection_info = ?', $this->{collectionId});
 	return $hasReleaseIds;
 }
-
-
 
 =head2 GetHasMBIDs $artistId
 Returns MBIds of all releases in collection.
@@ -134,18 +105,15 @@ sub GetHasMBIDs
 {
 	my ($this) = @_;
 	
-	
-	
 	# create Sql objects
 	require Sql;
 	my $rosql = Sql->new($this->{RODBH});
 	my $rawsql = Sql->new($this->{RAWDBH});
 	
 	# get id's of all releases in collection
-	#my $result = $rawsql->SelectSingleColumnArray('SELECT collection_has_release_join.album FROM collection_has_release_join, album, artist INNER JOIN album ON (collection_has_release_join.album = album.id) INNER JOIN artist ON (album.artist = artist.id) WHERE collection_info = ?', $this->{collectionId});
-	my $result = $rawsql->SelectSingleColumnArray('SELECT album FROM collection_has_release_join WHERE collection_info = ?', $this->{collectionId});
-	
-	
+	my $result = $rawsql->SelectSingleColumnArray('SELECT album 
+													 FROM collection_has_release_join 
+												    WHERE collection_info = ?', $this->{collectionId});
 	if(@{$result} == 0) # 0 results
 	{
 		return [];
@@ -155,16 +123,15 @@ sub GetHasMBIDs
 		# get MBID's for all releases in collection
 		my $mbids; # for storing the result
 		
-		my $releaseQuery='SELECT album.gid FROM album INNER JOIN artist ON (album.artist = artist.id) WHERE album.id IN(' . join(',', @{$result}) . ') ORDER BY artist.name, album.name';
+		my $releaseQuery='SELECT album.gid 
+							FROM album INNER JOIN artist ON (album.artist = artist.id) 
+						   WHERE album.id IN(' . join(',', @{$result}) . ') ORDER BY artist.name, album.name';
 		
 		$mbids = $rosql->SelectSingleColumnArray($releaseQuery);
-		
 		
 		return $mbids;
 	}
 }
-
-
 
 =head2 GetShowMissingArtists
 Returns 
@@ -172,15 +139,13 @@ Returns
 sub GetShowMissingArtists
 {
 	my ($this) = @_;
-	
 	my $rawsql = Sql->new($this->{RAWDBH});
-	
-	my $displayMissingOfArtists = $rawsql->SelectSingleColumnArray('SELECT artist FROM collection_discography_artist_join WHERE collection_info = ?', $this->{collectionId});
+	my $displayMissingOfArtists = $rawsql->SelectSingleColumnArray('SELECT artist 
+																	  FROM collection_discography_artist_join 
+																	 WHERE collection_info = ?', $this->{collectionId});
 	
 	return $displayMissingOfArtists;
 }
-
-
 
 =head2 GetWatchArtists
 Returns a reference to an array containing id's of
@@ -188,28 +153,26 @@ Returns a reference to an array containing id's of
 sub GetWatchArtists
 {
 	my ($this) = @_;
-	
 	my $rawsql = Sql->new($this->{RAWDBH});
-	
-	my $watchArtists = $rawsql->SelectSingleColumnArray('SELECT artist FROM collection_watch_artist_join WHERE collection_info = ?', $this->{collectionId});
+	my $watchArtists = $rawsql->SelectSingleColumnArray('SELECT artist 
+														   FROM collection_watch_artist_join 
+														  WHERE collection_info = ?', $this->{collectionId});
 	
 	return $watchArtists;
 }
-
-
 
 # Should missing releases of specified artist be displayed to specified user?
 sub ShowMissingOfArtistToUser
 {
 	my ($artistId, $userId, $rawdbh) = @_;
-	
 	my $collectionId = MusicBrainz::Server::CollectionInfo::GetCollectionIdForUser($userId, $rawdbh);
-	
 	
 	# Check if the user has selected to see missing releases of the artist
 	my $rawsql = Sql->new($rawdbh);
-	my $result = $rawsql->SelectSingleValue('SELECT artist FROM collection_discography_artist_join WHERE collection_info = ? AND artist = ?', $collectionId, $artistId);
-	
+	my $result = $rawsql->SelectSingleValue('SELECT artist 
+										       FROM collection_discography_artist_join 
+											  WHERE collection_info = ? 
+											    AND artist = ?', $collectionId, $artistId);
 	
 	if($result == undef)
 	{
@@ -220,23 +183,19 @@ sub ShowMissingOfArtistToUser
 		return 1;
 	}
 }
-
-
-
 
 # Should the user be notified about new releases from this artist?
 sub NotifyUserAboutNewFromArtist
 {
 	my ($artistId, $userId, $rawdbh) = @_;
 	
-	
 	my $collectionId = MusicBrainz::Server::CollectionInfo::GetCollectionIdForUser($userId, $rawdbh);
-	
-	
 	# Check if the user has selected to be notified about new releases from this artist
 	my $rawsql = Sql->new($rawdbh);
-	my $result = $rawsql->SelectSingleValue('SELECT artist FROM collection_watch_artist_join WHERE collection_info = ? AND artist = ?', $collectionId, $artistId);
-	
+	my $result = $rawsql->SelectSingleValue('SELECT artist 
+											   FROM collection_watch_artist_join 
+											  WHERE collection_info = ? 
+											    AND artist = ?', $collectionId, $artistId);
 	
 	if($result == undef)
 	{
@@ -247,9 +206,6 @@ sub NotifyUserAboutNewFromArtist
 		return 1;
 	}
 }
-
-
-
 
 sub GetMissingMBIDs
 {
@@ -257,9 +213,7 @@ sub GetMissingMBIDs
 	
 	my $rosql = Sql->new($this->{RODBH});
 	my $rawsql = Sql->new($this->{RAWDBH});
-	
 	my $displayMissingOfArtists = $this->GetShowMissingArtists();
-	
 	my $count = @$displayMissingOfArtists;
 	
 	if($count == 0)
@@ -282,7 +236,6 @@ sub GetMissingMBIDs
 			$showAttributesCondition .= ' AND ' . $attribute . ' <> ALL (album.attributes[2:5])';
 		}
 		
-		
 		if(@{$hasReleaseIds})
 		{		
 			$hasIdsQueryString = ' AND album.id NOT IN (' . join(',', @{$hasReleaseIds}) . ') AND album.id NOT IN (SELECT id FROM album WHERE name IN (SELECT name FROM album WHERE id IN (' . join(',', @{$hasReleaseIds}) . ')) AND artist IN (SELECT artist FROM album WHERE id IN(' . join(',', @{$hasReleaseIds}) . ')))' . $showAttributesCondition;
@@ -290,7 +243,12 @@ sub GetMissingMBIDs
 		
 		if(@{$displayMissingOfArtists} && @$showTypes)
 		{
-			my $query = "SELECT DISTINCT ON (artist.name, album.name) album.gid FROM album INNER JOIN albummeta ON (album.id = albummeta.id) INNER JOIN artist ON (album.artist = artist.id) WHERE album.artist IN (". join(',', @{$displayMissingOfArtists}).")" . $hasIdsQueryString . " AND album.name != '[non-album tracks]' ORDER BY artist.name, album.name, albummeta.firstreleasedate DESC";
+			my $query = "SELECT DISTINCT ON (artist.name, album.name) album.gid 
+						   FROM album INNER JOIN albummeta ON (album.id = albummeta.id) 
+									  INNER JOIN artist ON (album.artist = artist.id) 
+						  WHERE album.artist IN (". join(',', @{$displayMissingOfArtists}).")" . $hasIdsQueryString . " 
+						    AND album.name != '[non-album tracks]' 
+					   ORDER BY artist.name, album.name, albummeta.firstreleasedate DESC";
 		
 			return $rosql->SelectSingleColumnArray($query);
 		}
@@ -306,30 +264,16 @@ sub GetMissingMBIDs
 sub GetMissingMBIDsForArtist
 {
 	my ($this, $artistId) = @_;
-	
 	my $rosql = Sql->new($this->{RODBH});
-		
-	my $result = $rosql->SelectListOfHashes("SELECT gid FROM album WHERE artist=", $artistId);
-	
-	use Data::Dumper;
-	print Dumper($result);
+	return $rosql->SelectListOfHashes("SELECT gid FROM album WHERE artist=", $artistId);
 }
-
-
-
 
 sub GetNewReleases
 {
 	my ($this) = @_;
-	
 	my $rosql = Sql->new($this->{RODBH});
-	
 	my $lastCheck = $this->GetLastCheck();
-	
 	my $watchArtists = $this->GetWatchArtists();
-	
-	print 'watchArtists:'.Dumper($watchArtists);
-	
 	my $newReleases;
 	
 	if(@{$watchArtists})
@@ -339,11 +283,11 @@ sub GetNewReleases
 		# ...so users are notified about new releases a week in advance
 		$newReleases = $rosql->SelectSingleColumnArray("
 			SELECT id 
-			FROM album INNER JOIN albummeta ON (album.id = albummeta.id)
-			WHERE artist IN (" . join(',', @{$watchArtists}) . ") 
-				AND to_timestamp(firstreleasedate, 'YYYY-MM-DD') > (CURRENT_TIMESTAMP - '7 days'::INTERVAL)
-				AND dateadded > ?
-			LIMIT 10", $this->GetLastCheck());
+			  FROM album INNER JOIN albummeta ON (album.id = albummeta.id)
+			 WHERE artist IN (" . join(',', @{$watchArtists}) . ") 
+			   AND to_timestamp(firstreleasedate, 'YYYY-MM-DD') > (CURRENT_TIMESTAMP - '7 days'::INTERVAL)
+			   AND dateadded > ?
+			 LIMIT 10", $this->GetLastCheck());
 	}
 	
 	else
@@ -351,30 +295,21 @@ sub GetNewReleases
 		$newReleases = [];
 	}
 	
-	print 'last check: '.$this->GetLastCheck();
-	
 	return $newReleases;
 }
-
-
 
 sub GetLastCheck
 {
 	my ($this) = @_;
-	
 	my $rawsql = Sql->new($this->{RAWDBH});
-	
 	my $lastCheck = $rawsql->SelectSingleValue('SELECT lastcheck FROM collection_info WHERE id = ?', $this->{collectionId});
 	
 	return $lastCheck;
 }
 
-
-
 sub UpdateLastCheck
 {
 	my ($this) = @_;
-	
 	my $rawsql = Sql->new($this->{RAWDBH});
 	
 	eval
@@ -382,7 +317,6 @@ sub UpdateLastCheck
 		$rawsql->Begin();
 		$rawsql->Do('UPDATE collection_info SET lastcheck = CURRENT_TIMESTAMP WHERE id = ?', $this->{collectionId});
 	};
-	
 	if($@)
 	{
 		$rawsql->Rollback();
@@ -393,8 +327,6 @@ sub UpdateLastCheck
 		$rawsql->Commit();
 	}
 }
-
-
 
 #----------------------------
 # static subs
@@ -408,18 +340,11 @@ sub AssureCollection
 {
 	my ($userId, $rawdbh) = @_;
 	
-	if(HasCollection($userId, $rawdbh))
+	if(!HasCollection($userId, $rawdbh))
 	{
-		#print 'HAS COLLECTION';
-	}
-	else
-	{
-		#print 'DO NOT HAVE COLLECTION';
 		CreateCollection($userId, $rawdbh);
 	}
 }
-
-
 
 =head2 HasCollection $userId, $rawdbh
 Check if user with id C<$userId> has a collection_info tuple.
@@ -434,8 +359,6 @@ sub HasCollection
 	return $sql->SelectSingleValue("SELECT COUNT(*) FROM collection_info WHERE moderator=?", $userId);
 }
 
-
-
 =head2 CreateCollection $userId, $rawdbh
 Create a collection_info tuple for the specified user.
 =cut
@@ -444,9 +367,6 @@ sub CreateCollection
 	my ($userId, $rawdbh) = @_;
 	
 	my $rawsql = Sql->new($rawdbh);
-	
-	
-	
 	eval
 	{
 		$rawsql->Begin();
@@ -464,17 +384,13 @@ sub CreateCollection
 	}	
 }
 
-
-
 =head2 GetCollectionIdForUser $userId, $rawdbh
 Get the id of the collection_info tuple corresponding to the specified user.
 =cut
 sub GetCollectionIdForUser
 {
 	my ($userId, $rawdbh) = @_;
-	
 	my $sqlraw = Sql->new($rawdbh);
-	
 	my $collectionId = $sqlraw->SelectSingleValue("SELECT id FROM collection_info WHERE moderator=?", $userId);
 	
 	return $collectionId;
@@ -484,30 +400,22 @@ sub GetCollectionIdForUser
 sub GetUserIdForCollection
 {
 	my ($collectionId, $rawdbh) = @_;
-	
 	my $sqlraw = Sql->new($rawdbh);
-	
 	my $userId = $sqlraw->SelectSingleValue('SELECT moderator FROM collection_info WHERE id = ?', $collectionId);
 	
 	return $userId;
 }
 
-
-
 sub HasRelease
 {
 	my ($rawdbh, $collectionId, $releaseId) = @_;
-	
 	my $rawsql = Sql->new($rawdbh);
-	
-	
 	my $count;
 	
-
-	$count = $rawsql->SelectSingleValue('SELECT COUNT(*) FROM collection_has_release_join WHERE collection_info = ? AND album = ?', $collectionId, $releaseId);
-	
-	
-	
+	$count = $rawsql->SelectSingleValue('SELECT COUNT(*) 
+										   FROM collection_has_release_join 
+										  WHERE collection_info = ? 
+										    AND album = ?', $collectionId, $releaseId);
 	if($count>0)
 	{
 		return 1;
@@ -518,6 +426,5 @@ sub HasRelease
 	}
 }
 
-
-
 1;
+# vi: set ts=4 sw=4 :

@@ -15,7 +15,7 @@ CREATE TABLE collection_info
 	emailnotifications				BOOLEAN DEFAULT TRUE, -- send notifications by e-mail?
 	notificationinterval			INTEGER DEFAULT 7, -- specifies how many days in advance of a release date the user want to be notified
 	ignorecollectionattributes		INTEGER[], -- list of attributes to ignore when displaying missing releases
-	ignoreattributes				INTEGER[] DEFAULT '{0,3,4,5,6,7,8,9,10,11,101,102,103}' -- list of attributes to ignore releases of
+	ignoreattributes				INTEGER[] DEFAULT '{0,2,3,4,5,6,7,8,9,10,11,101,102,103}' -- list of attributes to ignore releases of
 );
 
 CREATE TABLE collection_ignore_time_range
@@ -73,3 +73,4 @@ ALTER TABLE collection_ignore_release_join ADD CONSTRAINT collection_ignore_rele
 ALTER TABLE collection_has_release_join ADD CONSTRAINT collection_has_release_join_pkey PRIMARY KEY (id);
 
 COMMIT;
+-- vi: set ts=4 sw=4 et :

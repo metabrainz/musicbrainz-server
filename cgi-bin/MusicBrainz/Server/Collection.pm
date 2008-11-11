@@ -1,5 +1,4 @@
 #!/usr/bin/perl -w
-# vi: set ts=4 sw=4 :
 #____________________________________________________________________________
 #
 #	MusicBrainz -- the open music metadata database
@@ -31,23 +30,9 @@ use Data::Dumper;
 
 package MusicBrainz::Server::Collection;
 
-
-
-
 require Exporter;
 our @ISA = qw(Exporter);
 our @EXPORT_OK = qw(addtracks removetracks);
-
-
-my $sql; #database handle
-
-my $collectionId; #the logged on user
-#my @duplicateIds; #List of redundant MBID's
-my @notExistingIds;
-my $addAlbum_insertCount=0;
-
-
-
 
 =head1 NAME
 
@@ -88,8 +73,6 @@ sub new
 	}, $this);
 }
 
-
-
 =head2 addAlbums @albums
 Add the albums in C<@albums> to this collection.
 =cut
@@ -97,12 +80,7 @@ Add the albums in C<@albums> to this collection.
 sub AddAlbums {
 	my ($this, @albums) = @_;
 	
-	
 	$this->{addAlbum} = 1;
-	
-	$collectionId = $this->{collectionId};
-	
-	
 	
 	#iterate over the album MBID's to be added
 	foreach my $item (@albums)
@@ -110,10 +88,8 @@ sub AddAlbums {
 		$this->AddRelease($item);
 	}
 	
-	
 	1;
 }
-
 
 =head2 removeAlbums @albums
 Remove the albums in C<@albums> from this collection.
@@ -123,14 +99,11 @@ sub RemoveAlbums
 	my ($this, @albums) = @_;
 	
 	$this->{removeAlbum}=1;
-	
 	foreach my $item (@albums)
 	{
 		$this->RemoveRelease($item);
 	}
 }
-
-
 
 =head2 addRelease $mbid
 Add the release with MBId C<$mbid> to collection.
@@ -147,10 +120,8 @@ sub AddRelease
 	{
 		my $releaseId;
 		
-		
 		# get album id
 		$releaseId = $rosql->SelectSingleValue("SELECT id FROM album WHERE gid = ?", $mbid);
-				
 		
 		eval
 		{
@@ -192,15 +163,12 @@ sub AddRelease
 	}
 }
 
-
-
 # static
 sub AddReleaseWithId
 {
 	my($releaseId, $collectionId, $rawdbh) = @_;
 	
 	my $rawsql=Sql->new($rawdbh);
-	
 	eval
 	{
 		$rawsql->Begin();
@@ -209,7 +177,6 @@ sub AddReleaseWithId
 		# add MBID to the collection
 		$rawsql->Do('INSERT INTO collection_has_release_join (collection_info, album) VALUES (?, ?)', $collectionId, $releaseId);
 	};
-	
 	if($@)
 	{			
 		if($@ =~ /duplicate/) # it is a duplicate...
@@ -230,10 +197,7 @@ sub AddReleaseWithId
 	{
 		$rawsql->Commit();
 	}
-
 }
-
-
 
 =head2 removeRelease $mbid
 Remove realease with MBId C<$mbid> from collection
@@ -250,20 +214,14 @@ sub RemoveRelease
 		my $rawsql = Sql->new($this->{RAWDBH});
 		my $rosql = Sql->new($this->{RODBH});
 		
-		
-		
 		# get id for realease with specified mbid
 		my $albumId = $rosql->SelectSingleValue("SELECT id FROM album WHERE gid = ?", $mbid);
-		
-		
 		eval
 		{
 			$rawsql->Begin();
 			
 			# make sure there is a release with the mbid in the database
 			my $deleteResult = $rawsql->Do("DELETE FROM collection_has_release_join WHERE album = ? AND collection_info = ?", $albumId, $this->{collectionId});
-			
-			
 			if($deleteResult == 1) # successfully deleted
 			{
 				# increase remove count
@@ -290,14 +248,11 @@ sub RemoveRelease
 	}
 }
 
-
-
 sub RemoveReleaseWithId
 {
 	my ($rawdbh, $releaseId, $collectionId) = @_;
 	
 	my $rawsql = Sql->new($rawdbh);
-	
 	eval
 	{
 		$rawsql->Begin();
@@ -305,7 +260,6 @@ sub RemoveReleaseWithId
 		# make sure there is a release with the mbid in the database
 		my $deleteResult = $rawsql->Do("DELETE FROM collection_has_release_join WHERE album = ? AND collection_info = ?", $releaseId, $collectionId);
 	};
-	
 	if($@)
 	{
 		$rawsql->Rollback();
@@ -318,5 +272,5 @@ sub RemoveReleaseWithId
 	}
 }
 
-
 1;
+# vi: set ts=4 sw=4 :
