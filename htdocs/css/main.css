@@ -1016,10 +1016,13 @@ table.annotation ul {
     width: 49%;
 }
 a.MyTag {
-    color: #e9ba58;
+    color: #e858ce;
+	font-style: italic;
+
 }
 a.MyTag:hover {
-    color: #ffba58;
+    color: #c838ae;
+	font-style: italic;
 }
 
 /* Box with a title (e.g. login) */
