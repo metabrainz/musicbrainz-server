@@ -72,6 +72,8 @@
 			<li>
 				<a 	href="<% $rate_url . $rate %>"
 					id="<% "RATE::" . $entity_type ."::". $entity_id ."::". $rate %>"
+					alt="Rate this <% $entity_type %>: <% $rate %>"
+					title="Rate this <% $entity_type %>: <% $rate %>"
 					class="<% $css_classes{$rate} %>-star<% ($rate>1)?"s":"" %>"><% $rate %></a> 
 			</li>
 %	}
