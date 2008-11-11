@@ -7,17 +7,18 @@
 <%init>
     my $mb = $m->comp("/comp/dblogin");
     my $t = MusicBrainz::Server::Tag->new($mb->{DBH});
-    my $tags = $t->GetTagHashForEntity($type, $id, $num + 1);
-    my $more = scalar(keys %$tags) > $num;
+    my $tags = $t->GetTagsForEntity($type, $id, $num + 1);
+    my $more = scalar(@$tags) > $num;
 </%init>
 
 <%perl>
     my @out;
-    foreach my $k (sort { $tags->{$b} <=> $tags->{$a}; } keys %{$tags})
+    foreach my $k (@{$tags})
     {
-        push @out, "<a href=\"/show/tag/?tag=" . uri_escape($k) . "&show=$type\">$k</a>";
+        push @out, "<a href=\"/show/tag/?tag=" . uri_escape($k->{name}) . "&show=$type\">".$k->{name}."</a>";
     }
     pop @out if ($more);
+    $m->out('<div style="display: inline" id="toptags">');
     if (scalar(@out))
     {
         $m->out(join(", ", @out));
@@ -30,9 +31,28 @@
     {
         $m->out(", <a href=\"/show/$type/tags.html?id=$id\">more...</a>") 
     }
-    else
-    {
-        $m->out(" - <a href=\"/show/$type/tags.html?id=$id&amp;showform=1\">Tag this $type</a>") 
-    }
+    $m->out('</div> | ');
+	if ($session{uid})
+	{
+ 		my $rawtags = $t->GetRawTagsForEntity($type, $id, $session{uid});
+		@out = ();
+		foreach my $k (@{$rawtags})
+		{
+			push @out, $k->{name};
+		}
 </%perl>
+		<form action="" method="post" style="display: inline">
+			Tag this <input type="text" cols="20" id="rawtags" name="rawtags" value="<% join ", ", @out %>" />
+			<input type="submit" value="Tag" id="tag" class="<% $type %>::<% $id %>" />
+			<input type="hidden" name="update" value="1" />
+			<input type="hidden" name="id" value="<% $id %>" />
+		</form>
+<%perl>
+	}
+	else
+	{
+		$m->out('[ <a href="/login.html">Log in</a> to tag this ]') 
+	}
+</%perl>
+<script type="text/javascript" src="/scripts/applytag.js"></script>
 %# vi: set ts=4 sw=4 ft=mason :

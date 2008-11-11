@@ -231,17 +231,8 @@
 
 		</%perl>
 		<div class="TagsBox">
-%	if (@links)
-%	{
-            <div class="RelatedArtists">
-                Related artists:
-                <% join ', ', @links | n %>
-            </div>
-%	}
-            <div class="ArtistTags">
                 Artist tags: 
                 <& /comp/toptags, type=>'artist', id=>$artist->GetId &>
-            </div>
         </div>
         <div style="clear: both;"/>
 		<%perl>

@@ -1,0 +1,30 @@
+<%args>
+	$entitytype
+	$entityid
+	$tags
+	$num => 5
+</%args>
+
+<%perl>
+	my $mb = $m->comp("/comp/dblogin");
+    $m->comp("/comp/checkloggedin", 1, 1, undef, 1)
+		or return;
+	
+	my $t = MusicBrainz::Server::Tag->new($mb->{DBH});
+	$t->Update($tags, $session{uid}, $entitytype, $entityid);
+
+	my $tag = $t->GetTagsForEntity($entitytype, $entityid, $num + 1);
+	my $result = {
+		"entitytype" => $entitytype,
+		"entityid" => $entityid,
+		"tags" => $tag
+	};
+
+	use JSON;
+	my $json = new JSON;
+	$r->content_type("text/plain; charset=utf-8");
+	$m->out($json->encode($result));
+
+</%perl>
+
+%# vi: set ts=4 sw=4 ft=mason :

@@ -369,14 +369,16 @@ sub RemoveLabels
 
 sub GetTagsForEntity
 {
-	my ($self, $entity_type, $entity_id) = @_;
+	my ($self, $entity_type, $entity_id, $max) = @_;
 
    	my $sql = Sql->new($self->GetDBH());
 	my $assoc_table = $entity_type . '_tag';
 	my $rows = $sql->SelectListOfHashes("SELECT tag.id, tag.name, count
 		                                   FROM tag, $assoc_table
 		                                  WHERE tag.id = $assoc_table.tag 
-                                            AND $assoc_table.$entity_type = ?", $entity_id);
+                                            AND $assoc_table.$entity_type = ?
+									   ORDER BY count DESC, tag.name
+									      LIMIT ?", $entity_id, $max);
 	return $rows;
 }
 

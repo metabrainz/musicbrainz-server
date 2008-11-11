@@ -1,6 +1,6 @@
 <%args>
 	$id => ""
-	$showform => 1
+	$showform => 0
 	$newtags => undef
 	$update => undef
 </%args>
