@@ -267,6 +267,9 @@ sub LoadUserRatingForEntities
 {
 	my ($entity_type, $entities, $userid) = @_;
 
+	# If there are no entities, return
+	return undef if (scalar(@$entities) == 0);
+
 	require MusicBrainz; 
 	my $ratings = MusicBrainz->new; 
 	$ratings->Login(db => 'RAWDATA'); 
