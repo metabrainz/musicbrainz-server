@@ -13,7 +13,7 @@ echo `date` : Upgrading to RELEASE-20081123-BRANCH
 [ "$REPLICATION_TYPE" = "$RT_MASTER" ] && ./admin/psql READWRITE < ./admin/sql/updates/20070401-1.sql
 
 echo `date` : Adding CD Stub support
-./admin/psql READWRITE < ./admin/sql/updates/20071212-1.sql
+./admin/psql RAWDATA < ./admin/sql/updates/20071212-1.sql
 
 echo `date` : Adding AR improvements
 ./admin/psql READWRITE < ./admin/sql/updates/20080201-1.sql
