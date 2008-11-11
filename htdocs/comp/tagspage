@@ -77,7 +77,7 @@
 				<ul>
                 <li>Tags are comma separated.</li>
                 <li>Only letters, numbers, spaces and - are allowed.</li>
-				<li>See <& /comp/linkdoc, "FolksonomyTaggingSyntax", "tag syntax"  &> for details.</li>
+				<li>See <& /comp/linkdoc, "FolksonomyTaggingSyntax", "tag syntax"  &> for details and international issues.</li>
                 <li>To clear your tags, empty the text box and click Tag.</li>
                 </ul>
             </div>
