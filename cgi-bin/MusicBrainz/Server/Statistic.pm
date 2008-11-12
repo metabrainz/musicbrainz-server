@@ -1009,6 +1009,7 @@ sub GetEditStats
                                                        SELECT closetime - opentime AS duration 
 														 FROM moderation_closed 
 														WHERE opentime != closetime 
+														  AND automod = 0
 														  AND closetime - opentime < interval '14 days' 
 												     ORDER BY closetime desc) as m");
 	$data->{edit_life_14_days} =~ s/(\d\d) (\d\d)/$1 days $2 hours/;
