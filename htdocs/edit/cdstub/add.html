@@ -80,6 +80,7 @@
 
 	my $rc = MusicBrainz::Server::CDStub->new($mb->{DBH});
 	my $cd;
+	my $freedbnotfound = 0;
 
 	if ($freedb)
 	{
@@ -94,6 +95,10 @@
 			{
 				$tracks[$index++] = $tr->{track};
 			}
+		}
+		else
+		{
+			$freedbnotfound = 1;
 		}
 		$submit = 0;
 	}
@@ -177,13 +182,29 @@
 		<form method="post" name="AddCDStub" action="/edit/cdstub/add.html">
 		<div id="editsuite-content" class="editsuite"></div>
 			<table class="formstyle" width="100%">
+% if ($freedbnotfound) {
+				<tr>
+					<td class="error">
+						This CD was not found at FreeDB.<br/><br/>
+					</td>
+				</tr>
+% }
 				<tr>
 					<td class="instructions">
 						<ul>
+% if ($exists) {
+							<li>
+								This CD has been submitted before, but has not been accepted into the
+								main MusicBrainz database. In order to give this CD a higher priority
+								for peer review and acceptance into the database, please review the
+								information below. Please fix any mistakes you may find and then click Submit.
+							</li>
+% } else {
 							<li>
 								Please enter the CD's title and artist, then enter each of the track
 								titles.
 							</li>
+% }
 							<li>
 								Match the capitalization (case) of the artist, title and tracks as closely
 								as what is printed on the CD.
@@ -205,18 +226,16 @@
 								by clicking on the <em>FreeDB Import</em> button. Not all CDs will be available
 								in FreeDB.
 							</li>
-% if ($exists) {
-							<li>
-								This CD has been submitted before, but has not been accepted into the
-								main MusicBrainz database. In order to give this CD a higher priority
-								for peer review and acceptance into the database, please review the
-								information below. Please fix any mistakes you may find and then click Submit.
-							</li>
-% }
 						</ul>
 					</td>
 				</tr>
+				<tr>
+					<td class="instructions">
+						<input type="submit" value="FreeDB import" name="freedb"/>
+					</td>
+				</tr>
 			</table>
+
 
 			<table class="formstyle">
 
@@ -295,7 +314,6 @@
 					<td class="label">&nbsp;</td>
 					<td>
 						<input type="button" id="BTN_ALL" class="button hidden"/>
-						<input type="submit" value="FreeDB import" name="freedb"/>
 						<input type="submit" class="button" value="Submit &raquo;" />
 					</td>
 				</tr>
