@@ -385,7 +385,7 @@
 		{ name => "Contribute",				url => "/doc/HowToContribute" },
 		[
 			{ name => "How to Contribute",		url => "/doc/HowToContribute" },
-			{ name => "Sponsors",				url => "/doc/CorporateSponsors" },
+			{ name => "Sponsors",				url => "http://metabrainz.org/about/supporters.html" },
 			{ name => "Help Wanted",			url => "/doc/HelpWanted" },
 			{ name => "Development",			url => "/doc/Development" },
 			{ name => "Docs",					url => "/doc/MusicBrainzDocumentation" },
