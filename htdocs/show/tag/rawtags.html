@@ -2,7 +2,6 @@
 	$entitytype
 	$entityid
 </%args>
-
 <%perl>
 
 	my $mb = $m->comp("/comp/dblogin");
@@ -19,10 +18,10 @@
 	};
 
 	use JSON;
+	use Encode;
 	my $json = new JSON;
 	$r->content_type("text/plain; charset=utf-8");
-	$m->out($json->encode($result));
+	$m->out(Encode::decode "utf-8", $json->utf8(0)->encode($result));
 
 </%perl>
-
 %# vi: set ts=4 sw=4 ft=mason :

@@ -30,6 +30,7 @@ package MusicBrainz::Server::Handlers::WS::Private::Lookup;
 use Apache::Constants qw( );
 use Apache::File ();
 use JSON;
+use Encode;
 
 sub handler
 {
@@ -213,7 +214,7 @@ sub serve_from_db
 
 	# convert literal object to json notation
 	my $json = new JSON;
-	my $js = $json->encode($obj);
+	my $js = Encode::decode "utf-8", $json->utf8(0)->encode($obj);
 
 	# send the response
 	
