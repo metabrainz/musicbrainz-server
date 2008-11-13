@@ -142,6 +142,7 @@
 			$m->comp("/comp/sidebar", title => ($exists ? "CD Updated" : "CD Added"));
 			$m->out("<p>Thank you for adding/checking the information for this CD. You can now request " .
 					"this CD via your client.</p>");
+			$m->comp("/comp/release/cdstub", discid => $id, data => $cd);
 			$m->comp("/comp/footer");
 			return;
 		}

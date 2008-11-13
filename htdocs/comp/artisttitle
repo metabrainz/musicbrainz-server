@@ -56,9 +56,14 @@
 	my $begin = $artist->GetBeginDate;
 	my $end = $artist->GetEndDate;
 	my $resolution = $artist->GetResolution;
-	my $quality = ModDefs::GetQualityText($artist->GetQuality);
-    $artist->LoadLastUpdate();
-	my $lastupdate = "(updated " . MusicBrainz::Server::DateTime::format_datetime_since($artist->GetLastUpdate()) . ")";
+	my $quality = "";
+	my $lastupdate = "";
+	if ($mbid)
+	{
+		$quality = ModDefs::GetQualityText($artist->GetQuality);
+		$artist->LoadLastUpdate();
+		$lastupdate = "(updated " . MusicBrainz::Server::DateTime::format_datetime_since($artist->GetLastUpdate()) . ")";
+	}
 
 	# compile begin- and end dates
 	$begin = MusicBrainz::Server::Validation::MakeDisplayDateStr($begin);
@@ -108,12 +113,15 @@
 		if $date_str;
 	push @info, "Type: $type_name"
 		if $type;
-	$qtxt = qq!<span class="mp">! 
-        if ($artist->GetQualityModPending);
-	$qtxt .= ucfirst($quality) . " data quality";
-	$qtxt .= qq!</span>! 
-        if ($artist->GetQualityModPending);
 
+	if ($quality)
+	{
+		$qtxt = qq!<span class="mp">! 
+			if ($artist->GetQualityModPending);
+		$qtxt .= ucfirst($quality) . " data quality";
+		$qtxt .= qq!</span>! 
+			if ($artist->GetQualityModPending);
+	}
 
     push @info, $qtxt;
 	$m->out(join(', ', @info));
@@ -230,7 +238,7 @@
 	# Row 5: Collection links
 	
 	
-	if($session{uid})
+	if($showlinks && $session{uid})
 	{
 		$m->out(qq!<tr>!);
 		$m->out(qq!<td colspan="2" class="collection">!);

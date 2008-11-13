@@ -68,7 +68,7 @@
 %				$url .=	"&release=" . uri_escape($row->{title});
 %			}
 			<tr>
-			<td><% $row->{title} %></td>
+			<td><a href="index.html?discid=<% $row->{discid} %>" title="View this CD Stub"><% $row->{title} %></a></td>
 			<td><% $row->{artist} || "Various Artists" %></td>
 			<td><% MusicBrainz::Server::DateTime::format_datetime_since($row->{added}) %></td>
 			<td><% MusicBrainz::Server::DateTime::format_datetime_since($row->{lastmodified}) %></td>
@@ -83,7 +83,7 @@
 		<tr>
 			<td colspan="7">
 				<& /comp/pageselector, offset => $offset, pagesize => $maxitems,
-										url => '/show/cdstub/index.html',
+										url => '/show/cdstub/topstubs.html',
 										numitems => $numitems &>
 			</td>
 		</tr>

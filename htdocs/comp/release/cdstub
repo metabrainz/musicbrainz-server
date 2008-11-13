@@ -1,0 +1,87 @@
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2001 Robert Kaye
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# Show a CD Stub.
+	#
+	# $Id: index.html 8548 2006-10-19 07:41:02Z dave $
+	#
+</%perl>
+<%args>
+	$discid => ''
+	$data => undef
+</%args>
+<%perl>
+
+	# Instantiate MusicBrainz object
+	my $mb = MusicBrainz->new;
+	$mb->Login(db => "RAWDATA");
+
+	my $rc = MusicBrainz::Server::CDStub->new($mb->{DBH});
+    $data = $rc->Load($discid) if (!defined $data);
+
+	my $toc = "1+" . $data->{cdtoc}->{trackcount} . "+" .
+		$data->{cdtoc}->{leadoutoffset} . "+" .
+		substr($data->{cdtoc}->{trackoffset}, 1, -1);
+	$toc =~ s/,/+/g;
+
+	my $ar = MusicBrainz::Server::Artist->new($mb->{DBH});
+	if ($data->{artist})
+	{
+		$ar->SetName($data->{artist});
+		$ar->SetSortName($data->{artist});
+	}
+	else
+	{	
+		$ar->SetName("Various Artists");
+		$ar->SetSortName("Various Artists");
+	}
+</%perl>
+
+<& /comp/artisttitle, artist => $ar, showmodlinks => 0, showrating => 0, showlinks => 0 &>
+
+<table class="releasebegin">
+<tr class="title">
+	<td class="title"><span><% $data->{title} %></span></td>
+</tr>
+</table>
+<table class="releasetracks">
+%	for(my $i = 0; $i < scalar(@{$data->{tracks}}); $i++) {
+		<tr class="releasetracks">
+			<td class="no"><% ($i + 1) %></td>
+			<td class="title"><% $data->{tracks}->[$i]->{title} %></td>
+%			if ($data->{tracks}->[$i]->{artist}) {
+				<td class="artist"><% $data->{tracks}->[$i]->{artist} %></td>
+%			}
+			<td class="length"><% MusicBrainz::Server::Track::FormatTrackLength(($data->{tracks}->[$i]->{duration} / 75) * 1000) %></td>
+		</tr>
+%	}
+</table>
+
+<br/>
+<p>
+<a href="/edit/cdstub/add.html?exists=1&id=<% $data->{cdtoc}->{discid} %>&toc=<% $toc %>">Edit this CD Stub</a>.
+</p>
+
+<& /comp/footer &>
+
+%# vi: set ts=4 sw=4 ft=mason :

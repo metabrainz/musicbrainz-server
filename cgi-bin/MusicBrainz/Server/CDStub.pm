@@ -70,12 +70,25 @@ sub Lookup
 	return $self->Load($releaseid);
 }
 
-# Given an releaseid, return the CDStub
+# Given an releaseid or a discid, return the CDStub
 sub Load
 {
 	my $self = shift;
-	my $releaseid = shift;
+	my $id = shift;
 	my $sql = Sql->new($self->{DBH});
+	my $releaseid;
+
+	if (length($id) == MusicBrainz::Server::CDTOC::CDINDEX_ID_LENGTH)
+	{
+		$releaseid = $sql->SelectSingleValue("SELECT release
+												FROM cdtoc_raw
+											   WHERE discid = ?", $id);
+		return undef if (!defined $releaseid);
+	}
+	else
+	{
+		$releaseid = $id;
+	}
 
     my $data = $sql->SelectSingleRowHash("SELECT *, date_part('days', now() - lastmodified) as age 
                                             FROM release_raw

@@ -57,7 +57,7 @@
 		return $m->comp("/comp/layout/badarguments",
 			text => "Invalid import argument. No such CD Stub.");
 	}
-	return $m->comp("/comp/redirect", "/show/cdstub") if ($submitvalue =~ /Cancel/);
+	return $m->comp("/comp/redirect", "/show/cdstub/topstubs.html") if ($submitvalue =~ /Cancel/);
 	return $m->comp("/comp/redirect", "/edit/artist/add.html?initial_name=" . uri_escape($search) .
 									  "&returnurl=" . uri_escape("/edit/cdstub/import.html?cdstubid=$cdstubid&artistfilter_newartistid=")) 
 		   if ($submitvalue =~ /Add/);

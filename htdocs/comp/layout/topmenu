@@ -272,7 +272,10 @@
 				{ url => "/freedb/import.html" },
 				{ url => "/freedb/review.html" },
 			],
-			{ name => "Most Active CD Stubs",			url => "/show/cdstub/index.html" },
+			{ name => "Most Active CD Stubs",			url => "/show/cdstub/topstubs.html" },
+			[
+				{ url => "/show/cdstub/index.html" },
+			],
 
 			# edit wiki transclusion
 			{ url => "/edit/wikitransclusion/transclusion.html" },
