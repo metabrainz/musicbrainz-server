@@ -442,7 +442,7 @@ sub _PrepareMail
 
 	(my $nums = $self->{proposetime}) =~ tr/0-9//cd;
 	my $id = $self->GetId;
-	$self->{message_id} = "<automod-election-$id-$nums\@musicbrainz.org>";
+	$self->{message_id} = "<autoeditor-election-$id-$nums\@musicbrainz.org>";
 
 	require UserStuff;
 	my $us = UserStuff->new($self->{DBH});
@@ -458,7 +458,7 @@ sub _PrepareMail
 			&DBDefs::WEB_SERVER, $them->GetId;
 	}
 
-	$self->{subject} = "Automod Election: $self->{candidate_name}";
+	$self->{subject} = "Autoeditor Election: $self->{candidate_name}";
 	$self->{election_link} = sprintf "http://%s/user/election/show.html?id=%d",
 		&DBDefs::WEB_SERVER, $self->GetId;
 
@@ -475,7 +475,7 @@ sub SendProposalEmail
 	$self->_SendMail(
 		is_reply	=> 0,
 		Data		=> <<EOF,
-A new candidate has been put forward for automoderator status:
+A new candidate has been put forward for autoeditor status:
 
 Candidate: $self->{candidate_name}
            $self->{candidate_link}
