@@ -27,6 +27,8 @@
 				<td>
 					<input type="radio" name="sitesearch" value="musicbrainz.org" checked="checked" />
 						All MusicBrainz sites <br />
+					<input type="radio" name="sitesearch" value="musicbrainz.org/doc" />
+						MusicBrainz Documentation <br />
 					<input type="radio" name="sitesearch" value="wiki.musicbrainz.org" />
 						MusicBrainz Wiki <br />
 					<input type="radio" name="sitesearch" value="lists.musicbrainz.org" />
@@ -37,10 +39,9 @@
 						MusicBrainz Blog <br />
 
 %   				# See http://www.google.com/services/free.html
-%					# -- turned off the customization for now.
 %					# <input type="hidden" name="cof" value="GIMP:#b78242;T:#000000;LW:604;ALC:#00FFFF;L:http://www.musicbrainz.org/images/google.png;GFNT:#CCCCC;LC:#736DAB;LH:89;BGC:#FFFFFF;AH:center;VLC:#734D8B;GALT:#b78242;AWFID:f7ac0473f1a88aef;" />
 
-					<input type="hidden" name="domains" value="musicbrainz.org;www.musicbrainz.org;wiki.musicbrainz.org;lists.musicbrainz.org;chatlogs.musicbrainz.org;blog.musicbrainz.org" />
+					<input type="hidden" name="domains" value="musicbrainz.org;musicbrainz.org/doc;wiki.musicbrainz.org;lists.musicbrainz.org;chatlogs.musicbrainz.org;blog.musicbrainz.org" />
 					<input type="hidden" name="ie" value="utf-8" />
 					<input type="hidden" name="oe" value="utf-8" />
 				</td>
