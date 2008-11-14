@@ -213,14 +213,14 @@ begin
         UPDATE artist_meta SET lastupdate = NOW() WHERE id IN (
             SELECT DISTINCT track.artist
               FROM album, albumjoin, track
-             WHERE album.artist != entity_id
-               AND albumjoin.album = album.id
+             WHERE albumjoin.album = album.id
                AND albumjoin.track = track.id
                AND album = ANY(id_list)
            UNION
             SELECT DISTINCT album.artist
               FROM album
-              WHERE album.id = ANY(id_list));
+              WHERE album.id = ANY(id_list))
+                AND album.artist != 1;
 --        UPDATE artist_meta SET lastupdate = NOW() WHERE id <> 1 AND id IN (
 --           SELECT DISTINCT album.artist
 --                     FROM album
