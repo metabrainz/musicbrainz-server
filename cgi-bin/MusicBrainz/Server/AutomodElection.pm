@@ -42,7 +42,7 @@ my %descstatus = (
 	$STATUS_AWAITING_SECONDER_2	=> "awaiting 2nd seconder",
 	$STATUS_VOTING_OPEN			=> "voting open",
 	$STATUS_ACCEPTED			=> "accepted",
-	$STATUS_REJECTED			=> "rejected",
+	$STATUS_REJECTED			=> "declined",
 	$STATUS_CANCELLED			=> "cancelled",
 );
 use base qw( TableBase );
@@ -553,7 +553,7 @@ sub SendRejectedEmail
 		is_reply	=> 1,
 		Data		=> <<EOF,
 Voting in this election is now closed: the proposal to make
-$self->{candidate_name} an auto-moderator was rejected.
+$self->{candidate_name} an auto-moderator was declined.
 
 Details:
 $self->{election_link}
