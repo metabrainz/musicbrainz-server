@@ -28,7 +28,7 @@ MusicBrainz.TagApply = function()
 		);
 		
 		var url = "/show/tag/applytags.html?entitytype=" + entitytype + "&entityid=" + entityid +
-		          "&tags=" + escape(tags);
+		          "&tags=" + encodeURI(tags);
 		var d = loadJSONDoc(url);
 		d.addCallback(bind(this.showForm, this, entitytype, entityid));
 		d.addErrback(bind(this.showError, this, entitytype, entityid));
