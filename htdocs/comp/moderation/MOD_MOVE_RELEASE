@@ -69,19 +69,26 @@
 
 <%perl>
 
-	$artist->SetId($this->{'new.artistid'});
-	if ($artist->LoadFromId)
+	if ($this->{'new.artistid'})
 	{
-		$m->comp("/comp/linkartist", artist => $artist, strong => 0);
+		$artist->SetId($this->{'new.artistid'});
+		if ($artist->LoadFromId)
+		{
+			$m->comp("/comp/linkartist", artist => $artist, strong => 0);
+		}
+		else
+		{
+			$m->comp("/comp/linkartist",
+				id => $this->{'new.artistid'},
+				name => $this->{'new.name'},
+				sortname => $this->{'new.sortname'},
+				resolution => $this->{'new.res'},
+				strong => 0);
+		}
 	}
 	else
 	{
-		$m->comp("/comp/linkartist",
-			id => $this->{'new.artistid'},
-			name => $this->{'new.name'},
-			sortname => $this->{'new.sortname'},
-			resolution => $this->{'new.res'},
-			strong => 0);
+		$m->out($this->{'new.name'});
 	}
 
 </%perl>

@@ -98,12 +98,15 @@ sub DetermineQuality
         $level = $ar->GetQuality() > $level ? $ar->GetQuality() : $level;
     }
 
-	$ar = MusicBrainz::Server::Artist->new($self->{DBH});
-	$ar->SetId($self->{'new.artistid'});
-	if ($ar->LoadFromId())
+	if ($self->{'new.artistid'})
 	{
-        $level = $ar->GetQuality() > $level ? $ar->GetQuality() : $level;
-    }
+		$ar = MusicBrainz::Server::Artist->new($self->{DBH});
+		$ar->SetId($self->{'new.artistid'});
+		if ($ar->LoadFromId())
+		{
+			$level = $ar->GetQuality() > $level ? $ar->GetQuality() : $level;
+		}
+	}
 
     return $level;
 }
