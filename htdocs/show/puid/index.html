@@ -113,9 +113,9 @@
 			my %artists;
 			my %releases;
 
-			for my $trackid (@$ids)
+			for my $info (@$ids)
 			{
-				my @releases = $release->GetReleaseIdsFromTrackId($trackid);
+				my @releases = $release->GetReleaseIdsFromTrackId($info->{track});
 				for my $releaseid (@releases)
 				{
 					$releases{$releaseid} ||= do {
@@ -139,7 +139,7 @@
 						or next;
 
 					$artist->{_my_releases_}{$releaseid} ||= $release;
-					$release->{_my_tracks_}{$trackid} = 1;
+					$release->{_my_tracks_}{$info->{track}} = $info->{puidjoin};
 				}
 			}
 
@@ -169,14 +169,35 @@
 						[ $_, $n ];
 					} @release;
 
+				$m->out("<table>");
 				for my $release (@release)
 				{
+					$m->out('<tr><td width="90%">');
 					$m->comp("/comp/album",
 						album => $release, artist => $artist,
 						showlinks => 0, showmodlinks => 0, showrelationships => 0,
 						highlighttracks	=> $release->{_my_tracks_}, highlightonly => $matchesonly,
 					);
+					$m->out("</td><td>");
+					if ($session{uid}) 
+					{
+						for my $tr (keys %{$release->{_my_tracks_}})
+						{
+							my $seq;
+							foreach my $t (@{$release->{_tracks}})
+							{
+								if ($t->{id} ==$tr)
+								{
+									$seq = $t->{sequence};
+									last;
+								}
+							}
+							$m->out('<a href="/edit/puid/remove.html?trackid='. $tr.'&puid='. $puid .'&PUIDjoin='.$release->{_my_tracks_}->{$tr}.'">Remove PUID from track '.$seq.'</a>');
+						}
+					}
+					$m->out("</td></tr>");
 				}
+				$m->out("</table>");
 			}
 		}
 
