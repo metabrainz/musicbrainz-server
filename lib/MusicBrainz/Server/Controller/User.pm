@@ -3,7 +3,7 @@ package MusicBrainz::Server::Controller::User;
 use strict;
 use warnings;
 
-use base 'Catalyst::Controller';
+use base 'MusicBrainz::Server::Controller::Entity';
 
 use MusicBrainz;
 use MusicBrainz::Server::Editor;
@@ -204,16 +204,16 @@ request is received), update the profile data in the database.
 
 =cut
 
-sub edit : Local
+sub edit : Local Form('User::EditProfile')
 {
     my ($self, $c) = @_;
 
     $c->forward('login');
 
-    my $form = $c->form($c->user, 'User::EditProfile');
-    $form->context($c->user);
+    my $form = $self->form;
+    $form->init($c->user);
 
-    return unless $c->form_posted && $form->validate($c->req->params);
+    return unless $self->submit_and_validate($c);
 
     $form->update_model;
 

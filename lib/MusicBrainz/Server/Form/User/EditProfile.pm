@@ -50,11 +50,15 @@ Initialize the value of the form fields from the users current information
 sub init_value
 {
     my ($self, $field, $item) = @_;
-    $item = $item->get_object;
+    my $item ||= $self->item;
 
-    return unless defined $item;
-
-    return $item->get($field->name);
+    use Switch;
+    switch ($field->name)
+    {
+	case ('email')     { return $item->email; }
+	case ('homepage')  { return $item->web_url; }
+	case ('biography') { return $item->biography; }
+    }
 }
 
 =head2 update_model
@@ -71,10 +75,10 @@ sub update_model
     my %opts = (
         email => $self->value('email'),
         bio => $self->value('biography'),
-        weburl => $self->value('weburl')
+        weburl => $self->value('homepage')
     );
 
-    $self->item->get_object->SetUserInfo(%opts)
+    $self->item->SetUserInfo(%opts)
         or carp ("Could not update user profile");
 
     return 1;
@@ -90,7 +94,7 @@ sub update_from_form {
     my ($self, $data) = @_;
 
     $self->update_model
-        unless $self->validate ($data);   
+        unless $self->validate ($data);
 }
 
 =head1 LICENSE 

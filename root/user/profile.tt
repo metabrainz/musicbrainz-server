@@ -59,8 +59,8 @@
     [% END %]
 
     [% WRAPPER property name="Homepage" %]
-        [% IF user.hompage %]
-            <a href="[% user.homepage | url %]">[% user.homepage | html_entity %]</a>
+        [% IF user.web_url %]
+            <a href="[% user.web_url | url %]">[% user.web_url | html_entity %]</a>
         [% ELSE %]
             [None]
         [% END %]
