@@ -985,6 +985,9 @@ sub MergeReleases
    require MusicBrainz::Server::Link;
    my $link = MusicBrainz::Server::Link->new($sql->{DBH});
 
+	require MusicBrainz::Server::PUID;
+	my $puid = MusicBrainz::Server::PUID->new($this->{DBH});
+
 	require MusicBrainz::Server::Tag;
 	my $tag = MusicBrainz::Server::Tag->new($sql->{DBH});
 
@@ -1006,8 +1009,14 @@ sub MergeReleases
 				my $old = $tr->GetId;
 				my $new = $merged{$tr->GetSequence()}->GetId;
 
-				require MusicBrainz::Server::PUID;
-				my $puid = MusicBrainz::Server::PUID->new($this->{DBH});
+				# Track duration
+				if ($merged{$tr->GetSequence()}->GetLength == 0 && $tr->GetLength != 0)
+				{
+					$merged{$tr->GetSequence()}->SetLength($tr->GetLength);
+					$merged{$tr->GetSequence()}->UpdateLength();
+				}
+				
+				# Move PUIDs
 				$puid->MergeTracks($old, $new);
 				
 				# Move relationships
