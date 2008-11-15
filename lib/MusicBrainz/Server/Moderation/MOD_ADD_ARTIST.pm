@@ -47,7 +47,7 @@ sub PreInsert
 
 	MusicBrainz::Server::Validation::TrimInPlace($name) if defined $name;
 	$name =~ /\S/ or die $self->SetError('Artist name not set');;
-	
+
 	MusicBrainz::Server::Validation::TrimInPlace($sortname) if defined $sortname;
 	$sortname = $name if not defined $sortname or $sortname eq "";
 

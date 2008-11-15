@@ -304,10 +304,8 @@ sub add_release_confirm_artists : Form('Artist::Create')
     my $unconfirmed = $w->{unconfirmed_artists};
 
     # Do we actually have any artists to confirm?
-    if (scalar keys %$unconfirmed == 0)
-    {
-        $self->_change_step($c, 'add_release_confirm_labels');
-    }
+    $self->_change_step($c, 'add_release_confirm_labels')
+        if (scalar keys %$unconfirmed == 0);
 
     # Choose who to confirm
     my $key = (keys %$unconfirmed)[0];
@@ -346,22 +344,37 @@ sub add_release_confirm_artists : Form('Artist::Create')
     $self->_change_step($c, 'add_release_confirm_artists');
 }
 
-sub add_release_confirm_labels : Private
+sub add_release_confirm_labels : Form('Label::Create')
 {
    my ($self, $c) = @_;
 
    my $w           = $self->_wizard_data($c);
    my $unconfirmed = $w->{unconfirmed_labels};
 
-   if (scalar keys %$unconfirmed == 0)
-   {
-       $self->_change_step($c, 'add_release_information');
-   }
+   $self->_change_step($c, 'add_release_information')
+       if (scalar keys %$unconfirmed == 0);
 
    my $key = (keys %$unconfirmed)[0];
 
    $c->forward('/search/filter_label');
+
+   $c->stash->{confirming} = $w->{release_info}->{$key};
+   $c->stash->{template  } = 'add_release/confirm_label.tt';
+
+   my $form = $self->form;
+   $c->stash->{create_label} = $form;
+
+   return unless $c->form_posted;
+
    my $label = $c->stash->{search_result};
+
+   if (!defined $label)
+   {
+	return unless $form->validate($c->req->params);
+
+	$label = $form->create;
+   }
+
    if (defined $label)
    {
         $w->{confirmed_labels}->{$key}->{name} = $label->name;
@@ -371,12 +384,7 @@ sub add_release_confirm_labels : Private
 
         delete $unconfirmed->{$key};
         $self->_change_step($c, 'add_release_confirm_labels');
-    }
-    else
-    {
-        $c->stash->{confirming} = $w->{release_info}->{$key};
-        $c->stash->{template  } = 'add_release/confirm_label.tt';
-    }
+   }
 }
 
 sub add_release_check_dupes : Private

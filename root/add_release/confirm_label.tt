@@ -8,4 +8,6 @@
 
     [% INCLUDE "components/search.tt" entities=labels search_label="Label" %]
 [% END %]
+
+[%- INCLUDE 'label/edit_form.tt' form=create_label -%]
 [% END %]
