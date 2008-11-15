@@ -254,6 +254,41 @@
 			</tr>
 
 			<tr class="top">
+				<td class="label">Collection:</td>
+				<td>
+					<table border="0" cellspacing="0" cellpadding="0">
+						<tr>
+							<td>
+								<form method="post" action="/edit/albumbatch/collection.html">
+									<div>
+
+% 	for (@releaseids) { $m->comp("/comp/form/hiddenfield", "releaseid", $_); }
+
+										<input type="hidden" name="addtocollection" value="1" />
+										<input type="hidden" name="url" value="<% $referer %>" />
+										<input type="submit" value="Add to collection &raquo;" />
+									</div>
+								</form>
+							</td>
+							<td>
+								<form method="post" action="/edit/albumbatch/collection.html">
+									<div>
+
+% 	for (@releaseids) { $m->comp("/comp/form/hiddenfield", "releaseid", $_); }
+
+										<input type="hidden" name="addtocollection" value="0" />
+										<input type="hidden" name="url" value="<% $referer %>" />
+										<input type="submit" value="Remove from collection &raquo;" />
+									</div>
+								</form>
+							</td>
+						</tr>
+					</table>
+					Add or remove this releases from your collection.
+				</td>
+			</tr>
+
+			<tr class="top">
 				<td class="label">Cancel:</td>
 				<td>
 					<form method="post" action="/edit/albumbatch/cancel.html">

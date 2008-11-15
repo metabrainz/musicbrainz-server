@@ -1,0 +1,77 @@
+<%perl>
+	# -----------------------------------------------------------------------------
+	#                               Musicbrainz.org
+	#                        Copyright (c) 2008 Aurelien Mino
+	# -----------------------------------------------------------------------------
+	#  This software is provided "as is", without warranty of any kind, express or
+	#  implied, including  but not limited  to the warranties of  merchantability,
+	#  fitness for a particular purpose and noninfringement. In no event shall the
+	#  authors or  copyright  holders be  liable for any claim,  damages or  other
+	#  liability, whether  in an  action of  contract, tort  or otherwise, arising
+	#  from,  out of  or in  connection with  the software or  the  use  or  other
+	#  dealings in the software.
+	#
+	#  GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
+	#  Permits anyone the right to use and modify the software without limitations
+	#  as long as proper  credits are given  and the original  and modified source
+	#  code are included. Requires  that the final product, software derivate from
+	#  the original  source or any  software  utilizing a GPL  component, such  as
+	#  this, is also licensed under the GPL license.
+	# -----------------------------------------------------------------------------
+	#
+	# Summary:
+	# -----------------------------------------------------------------------------
+	# This page allows to add or remove one or more releases from collection.
+	#
+	# $Id: merge.html 9763 2008-03-11 11:32:23Z luks $
+	#
+</%perl>
+<%args>
+
+	@releaseid => ()
+	$addtocollection
+	$url => ""
+
+</%args>
+
+<%perl>
+
+	# only logged in users can see this page
+	$m->comp("/comp/checkloggedin", 1, 1)
+		or return;
+
+	my $mb = $m->comp("/comp/dblogin");
+
+	for my $releaseid (@releaseid)
+	{
+		MusicBrainz::Server::Validation::IsNonNegInteger($releaseid) && $releaseid
+			or return $m->comp("/comp/layout/badarguments",
+				text => "One of the provided releaseids is invalid.");
+	}
+
+	my $mbraw = MusicBrainz->new();
+	$mbraw->Login(db => 'RAWDATA');
+	my $collectionId = MusicBrainz::Server::CollectionInfo::GetCollectionIdForUser($session{'uid'}, $mbraw->{DBH});
+
+	MusicBrainz::Server::CollectionInfo::AssureCollection($session{'uid'}, $mbraw->{DBH});
+		
+	if($addtocollection == 1)
+	{
+ 		for (@releaseid)
+		{
+			MusicBrainz::Server::Collection::AddReleaseWithId($_, $collectionId, $mbraw->{DBH});
+ 		}
+	}
+	elsif ($addtocollection == 0)
+	{
+ 		for (@releaseid)
+		{
+			MusicBrainz::Server::Collection::RemoveReleaseWithId($mbraw->{DBH}, $_, $collectionId);
+		}
+	}
+
+	return $m->comp("/comp/redirect", $url);
+
+</%perl>
+
+%# vi: set ts=4 sw=4 ft=mason :
