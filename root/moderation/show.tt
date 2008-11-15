@@ -69,7 +69,8 @@
         <th>My Vote</th>
         <td>
             <p></p>
-            [% WRAPPER 'forms/form.tt' quiet=1 custom=1 action=c.uri_for('/moderation/enter_votes') %]
+            [% WRAPPER 'forms/form.tt' quiet=1 custom=1 action=c.uri_for('/moderation/enter_votes')
+	        moderation=undef %]
                 [% INCLUDE 'moderation/vote_options.tt' %]
             [% END %]
         </td>
@@ -84,8 +85,8 @@
 <hr />
 
 <h4>Add Note</h4>
-[% WRAPPER 'forms/form.tt' action=c.entity_url(moderation, 'add_note') %]
-    [% INCLUDE 'forms/edit-note.tt' form=add_note %]
+[% WRAPPER 'forms/form.tt' action=c.entity_url(moderation, 'add_note') moderation=undef %]
+    [% INCLUDE 'forms/edit-note.tt' form=add_note hide_help=1 %]
     [% INCLUDE 'forms/submit.tt' label='Add Note' %]
 [% END %]
 

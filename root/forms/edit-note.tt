@@ -1,5 +1,6 @@
 [%- DEFAULT field=form.field("edit_note") -%]
 [%- WRAPPER 'forms/fieldset.tt' legend='Edit Note' -%]
+    [%- UNLESS hide_help -%]
     <p>
         <strong>About edit notes:</strong>
         Please note that it is highly recommended to enter a edit note. If you do
@@ -10,6 +11,7 @@
         on how long edits stay open and how many votes are required for it to pass
         unanimously, please see our edit conditions page.
     </p>
+    [%- END -%]
     <div class="row">
         <label for="id_[% field.name %]" class="[% field.required_text %]">Edit Note:</label>
         <div class="input">

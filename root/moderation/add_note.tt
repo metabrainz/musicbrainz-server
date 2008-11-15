@@ -1,7 +1,7 @@
 [% WRAPPER 'layout.tt' title="Add Note" %]
 
 [% WRAPPER 'components/box.tt' header='Add Note' %]
-    [% WRAPPER 'forms/form.tt' %]
+    [% WRAPPER 'forms/form.tt' moderation=undef quiet=1 %]
         [% INCLUDE 'forms/edit-note.tt' %]
         [% INCLUDE 'forms/submit.tt' label="Add Note" %]
     [% END %]
