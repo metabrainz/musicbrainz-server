@@ -101,10 +101,9 @@ new user.
 sub register : Local
 {
     my ($self, $c) = @_;
-    if ($c->user_exists)
-    {
-        $c->detach('profile');
-    }
+
+    $c->detach('profile', [ $c->user->name ])
+	if $c->user_exists;
 
     my $form = $c->form(undef, 'User::Register');
     $c->stash->{form} = $form;
