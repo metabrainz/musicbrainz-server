@@ -1,3 +1,5 @@
+\set ON_ERROR_STOP 1
+
 BEGIN;
 
 ----------------------------------------
@@ -203,3 +205,5 @@ ORDER BY tr.weight DESC;
 */
 
 COMMIT;
+
+VACUUM ANALYZE tag_relation;

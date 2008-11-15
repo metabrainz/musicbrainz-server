@@ -96,6 +96,9 @@ echo `date`" : Processing subscriptions"
 # Add missing track lengths
 ./admin/cleanup/FixTrackLength.pl
 
+# Recalculate related tags
+./admin/CalculateRelatedTags.sh
+
 echo `date`" : Nightly jobs complete!"
 
 # eof
