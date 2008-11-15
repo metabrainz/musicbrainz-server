@@ -12,6 +12,9 @@ echo `date` : Upgrading to RELEASE-20081123-BRANCH
 [ "$REPLICATION_TYPE" = "$RT_MASTER" ] && echo `date` : Drop replication triggers
 [ "$REPLICATION_TYPE" = "$RT_MASTER" ] && ./admin/psql READWRITE < ./admin/sql/updates/20070401-1.sql
 
+echo `date` : Update script, language and country tables
+./admin/psql READWRITE < ./admin/sql/updates/20081115-1.sql
+
 echo `date` : Adding CD Stub support
 ./admin/psql RAWDATA < ./admin/sql/updates/20071212-1.sql
 
