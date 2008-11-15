@@ -219,12 +219,8 @@ begin
            UNION
             SELECT DISTINCT album.artist
               FROM album
-              WHERE album.id = ANY(id_list))
-                AND album.artist != 1;
---        UPDATE artist_meta SET lastupdate = NOW() WHERE id <> 1 AND id IN (
---           SELECT DISTINCT album.artist
---                     FROM album
---                     WHERE album.id = ANY(id_list));
+              WHERE album.id = ANY(id_list)
+                AND album.artist != 1);
 
     ELSIF (relname = 'release') THEN
 
