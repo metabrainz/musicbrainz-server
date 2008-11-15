@@ -200,13 +200,13 @@
 								to distinguish this artist from
 % 		if ($many)
 % 		{
-								the other artists with the same name
+								the other artists with the same name.
 % 		}
 % 		else
 % 		{
 								the other artist called <% $dupes[0]->GetName %>.
 %		}
-							.</li>
+							</li>
 							<li>
 								Confirm by activating the checkbox below that you have read,
 								and understood how we distinguish duplicate artists above and
