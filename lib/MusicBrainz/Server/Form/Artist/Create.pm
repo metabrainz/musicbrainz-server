@@ -11,13 +11,12 @@ sub create
 
     return $self->context->model('Artist')->create(
         $self->value('edit_note'),
-        {
-            name       => $self->value('name'),
-            sort_name  => $self->value('sortname'),
-            begin_date => $self->value('start'),
-            end_date   => $self->value('end'),
-            resolution => $self->value('resolution'),
-        },
+
+	name       => $self->value('name'),
+	sort_name  => $self->value('sortname'),
+	begin_date => $self->value('start'),
+	end_date   => $self->value('end'),
+	resolution => $self->value('resolution'),
     );
 }
 

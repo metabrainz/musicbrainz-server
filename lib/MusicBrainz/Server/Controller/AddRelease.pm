@@ -3,7 +3,7 @@ package MusicBrainz::Server::Controller::AddRelease;
 use strict;
 use warnings;
 
-use base qw(Catalyst::Controller);
+use base qw(MusicBrainz::Server::Controller::Entity);
 
 use MusicBrainz::Server::Country;
 use MusicBrainz::Server::Release;
@@ -296,7 +296,7 @@ sub add_release_confirm : Private
     $c->response->redirect($c->uri_for('/release', $add_mods[0]->row_id));
 }
 
-sub add_release_confirm_artists : Private
+sub add_release_confirm_artists : Form('Artist::Create')
 {
     my ($self, $c) = @_;
 
@@ -312,26 +312,38 @@ sub add_release_confirm_artists : Private
     # Choose who to confirm
     my $key = (keys %$unconfirmed)[0];
 
+    # Give them a form to add new artist:
+    my $form = $self->form;
+    $c->stash->{create_artist} = $form;
+
     # Forward to do the artist filter
     # TODO Could do with a way to pre-fill the query?
     $c->forward('/search/filter_artist');
 
+    $c->stash->{confirming} = $w->{release_info}->{$key};
+    $c->stash->{template  } = 'add_release/confirm_artist.tt';
+
+    return unless $c->form_posted;
+
     my $artist = $c->stash->{search_result};
-    if (defined $artist)
-    {
-        $w->{confirmed_artists}->{$key}->{name} = $artist->name;
-        $w->{confirmed_artists}->{$key}->{id  } = $artist->id;
 
-        $w->{release_info}->{$key} = $artist->name;
-
-        delete $unconfirmed->{$key};
-        $self->_change_step($c, 'add_release_confirm_artists');
-    }
-    else
+    if (!defined $artist)
     {
-        $c->stash->{confirming} = $w->{release_info}->{$key};
-        $c->stash->{template  } = 'add_release/confirm_artist.tt';
+	# No luck with search, maybe they submitted the create
+	# artist form?
+	return unless $form->validate($c->req->params);
+
+	# Success!
+	$artist = $form->create;
     }
+
+    $w->{confirmed_artists}->{$key}->{name} = $artist->name;
+    $w->{confirmed_artists}->{$key}->{id  } = $artist->id;
+
+    $w->{release_info}->{$key} = $artist->name;
+
+    delete $unconfirmed->{$key};
+    $self->_change_step($c, 'add_release_confirm_artists');
 }
 
 sub add_release_confirm_labels : Private

@@ -8,4 +8,8 @@
     [% BLOCK create_link; "?id=${entity.id}&for=${key}"; END %]
     [% INCLUDE "components/search.tt" entities=artists search_label="Artist" %]
 [% END %]
+
+[% WRAPPER 'components/box.tt' header='Add New Artist' %]
+    [%- INCLUDE 'artist/edit_form.tt' form=create_artist -%]
+[% END %]
 [% END %]
