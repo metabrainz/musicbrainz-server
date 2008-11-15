@@ -103,10 +103,10 @@ sub DetermineQuality
 sub PreDisplay
 {
 	my $this = shift;
-	
+
 	# flag indicates: new artist already in DB
 	$this->{'new.exists'} = (defined $this->{'new.id'} && $this->{'new.id'} > 0);
-	
+
 	# old mods had only the name in 'newvalue' which is assigned to new.sortname
 	$this->{'new.name'} = $this->{'new.sortname'}
 		unless (defined $this->{'new.name'});
@@ -116,11 +116,11 @@ sub PreDisplay
 	$this->{"trackid"} = $this->row_id;
 	$this->{"exists-track"} = 0;
 	$this->{"checkexists-track"} = 0;
-	
-	# load track name, and try to guess the artist id for old 
+
+	# load track name, and try to guess the artist id for old
 	# edits which only had the name in 'newvalue'
 	require MusicBrainz::Server::Track;
-	my $newartist; 
+	my $newartist;
 	my $track = MusicBrainz::Server::Track->new($this->{DBH});
 	$track->id($this->{"trackid"});
 	if ($track->LoadFromId)
@@ -128,11 +128,13 @@ sub PreDisplay
 		$this->{"trackname"} = $track->name;
 		$this->{"exists-track"} = 1;
 
-		# since the track exists, we can see if can load the 
+		# since the track exists, we can see if can load the
 		# corresponding release.
-		$this->{"albumid"} = $track->release; 
-		$this->{"checkexists-album"} = 1; 
-				
+		$this->{"albumid"} = $track->release;
+		$this->{"checkexists-album"} = 1;
+
+		my $artist = $track->artist;
+
 		# try to guess artist id.
 		if (!$this->{'new.exists'})
 		{
@@ -158,6 +160,7 @@ sub PreDisplay
 	{
 		$this->{"old.resolution"} = $oldartist->resolution;
 		$this->{"old.sortname"} = $oldartist->sort_name;
+		$this->previous_data($oldartist);
 	}
 
 	# ... and the new resolution if artist is in the DB
@@ -173,6 +176,7 @@ sub PreDisplay
 		{
 			my $res = $newartist->resolution;
 			$this->{'new.resolution'} = ($res eq "" ? undef : $res);
+			$this->new_data($newartist);
 		}
 	}
 }

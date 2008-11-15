@@ -52,7 +52,7 @@ sub login : Local
     {
         my $form = $c->form(undef, 'User::Login');
 
-        if ($c->form_posted) 
+        if ($c->form_posted)
         {
             return unless $form->validate($c->request->parameters);
 
