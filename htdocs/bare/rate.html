@@ -3,7 +3,6 @@
     $entity_type
     $rating
 
-	$url => ""
 	$json => 0
 </%args>
 
@@ -47,12 +46,14 @@
 		my $json = new JSON;
 		$r->content_type("text/plain; charset=utf-8");
 		$m->out($json->encode($result));
+		return;
 	}
 
-	# Redirect to url
-	if ($url)
+	# Otherwise, redirect to referer
+	my $referer = $r->headers_in->{"Referer"} || "";
+	if ($referer)
 	{
-		return $m->comp("/comp/redirect", $url);
+		return $m->comp("/comp/redirect", $referer);
 	}
 
 </%perl>

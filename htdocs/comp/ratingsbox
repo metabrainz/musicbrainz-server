@@ -45,7 +45,7 @@
 	}
 
 	# Prepare stuff for generating html
-	my $rate_url = "/bare/rate.html?entity_id=$entity_id&entity_type=$entity_type&url=". $r->uri()."?".$r->args() ."&rating=";
+	my $rate_url = "/bare/rate.html?entity_id=$entity_id&entity_type=$entity_type&rating=";
 
 	my %css_classes = ();
 	# Allow changing rate only if user is logged
