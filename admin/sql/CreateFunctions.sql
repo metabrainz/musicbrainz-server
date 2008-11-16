@@ -110,27 +110,17 @@ begin
 end;
 $$ language 'plpgsql';
 
-create or replace function delete_album_meta () returns TRIGGER as '
-begin
-   delete from albummeta where id = OLD.id;
-   delete from album_amazon_asin where album = OLD.id;
-   return OLD;
-end;
-' language 'plpgsql';
-
 --'-----------------------------------------------------------------
 -- Keep rows in <entity>_meta table in sync with table <entity>
+-- Deletion is done by cascade with foreign keys
 --'-----------------------------------------------------------------
 
-create or replace function a_idu_entity () returns TRIGGER as $$
+create or replace function a_iu_entity () returns TRIGGER as $$
 begin 
     IF (TG_OP = 'INSERT') 
     THEN
         EXECUTE 'INSERT INTO ' || TG_RELNAME || '_meta (id) VALUES (' || NEW.id || ')';
         PERFORM propagate_lastupdate(NEW.id, TG_RELNAME);
-    ELSIF (TG_OP = 'DELETE') 
-    THEN
-        EXECUTE 'DELETE FROM ' || TG_RELNAME || '_meta WHERE id = ' || OLD.id;
     ELSIF (TG_OP = 'UPDATE')
     THEN
         IF (TG_RELNAME != 'track')
@@ -219,8 +209,9 @@ begin
            UNION
             SELECT DISTINCT album.artist
               FROM album
-              WHERE album.id = ANY(id_list)
-                AND album.artist != 1);
+              WHERE album.id = ANY(id_list))
+           -- Skip Various artists
+           AND id != 1;
 
     ELSIF (relname = 'release') THEN
 

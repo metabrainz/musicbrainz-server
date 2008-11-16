@@ -4,7 +4,6 @@ DROP FUNCTION join_append(VARCHAR, VARCHAR);
 DROP FUNCTION fill_album_meta();
 DROP FUNCTION insert_album_meta();
 DROP FUNCTION update_album_meta();
-DROP FUNCTION delete_album_meta();
 DROP FUNCTION a_ins_albumjoin();
 DROP FUNCTION a_upd_albumjoin();
 DROP FUNCTION a_del_albumjoin();
@@ -24,6 +23,6 @@ DROP FUNCTION a_del_album_amazon_asin ();
 DROP FUNCTION a_ins_puidjoin();
 DROP FUNCTION a_upd_puidjoin();
 DROP FUNCTION a_del_puidjoin();
-DROP FUNCTION a_idu_entity();
+DROP FUNCTION a_iu_entity();
 
 -- vi: set ts=4 sw=4 et :

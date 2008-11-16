@@ -10,7 +10,7 @@ ALTER TABLE album_cdtoc DROP CONSTRAINT album_cdtoc_fk_album;
 ALTER TABLE album_cdtoc DROP CONSTRAINT album_cdtoc_fk_cdtoc;
 ALTER TABLE albumjoin DROP CONSTRAINT albumjoin_fk_album;
 ALTER TABLE albumjoin DROP CONSTRAINT albumjoin_fk_track;
--- albummeta ?
+ALTER TABLE albummeta DROP CONSTRAINT albummeta_fk_album;
 ALTER TABLE albumwords DROP CONSTRAINT albumwords_fk_albumid;
 ALTER TABLE artist_meta DROP CONSTRAINT fk_artist_meta_artist;
 ALTER TABLE artist_relation DROP CONSTRAINT artist_relation_fk_artist1;
