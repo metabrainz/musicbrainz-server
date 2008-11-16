@@ -1253,55 +1253,41 @@ sub SetSession
 
 sub SetPermanentCookie
 {
-    eval { require Apache; };
-    return if $@;
+    my ($self, $c, %opts) = @_;
+    my ($username, $password) = ($self->name, $self->password);
 
-	my ($this, %opts) = @_;
-	my $r = Apache->request;
+    # There are (will be) multiple formats to this cookie.  This is format #2.
+    # See TryAutoLogin.
+    my $pass_sha1 = sha1_base64($password . "\t" . &DBDefs::SMTP_SECRET_CHECKSUM);
+    my $expirytime = time() + 86400 * 365;
 
-	my ($username, $password) = ($this->name, $this->password);
+    my $ipmask = "";
+    $ipmask = $c->req->address
+	if $opts{only_this_ip};
 
-	# There are (will be) multiple formats to this cookie.  This is format #2.
-	# See TryAutoLogin.
-	my $pass_sha1 = sha1_base64($password . "\t" . &DBDefs::SMTP_SECRET_CHECKSUM);
-	my $expirytime = time() + 86400 * 365;
+    my $value = "2\t$username\t$pass_sha1\t$expirytime\t$ipmask";
+    $value .= "\t" . sha1_base64($value . &DBDefs::SMTP_SECRET_CHECKSUM);
 
-	my $ipmask = "";
-	$ipmask = $r->connection->remote_ip
-		if $opts{only_this_ip};
-
-	my $value = "2\t$username\t$pass_sha1\t$expirytime\t$ipmask";
-	$value .= "\t" . sha1_base64($value . &DBDefs::SMTP_SECRET_CHECKSUM);
-
-	my $cookie = new CGI::Cookie(
-		-name	=> &PERMANENT_COOKIE_NAME,
-		-value	=> $value,
-		-path	=> '/',
-		-domain	=> &DBDefs::SESSION_DOMAIN,
-		-expires=> '+1y',
-	);
-
-	$r->headers_out->add('Set-Cookie' => $cookie);
+    $c->response->cookies->{&PERMANENT_COOKIE_NAME} = {
+        value   => $value,
+        path    => '/',
+        domain  => &DBDefs::SESSION_DOMAIN,
+        expires => '+1y',
+    };
 }
 
 # Deletes the cookie set by SetPermanentCookie
 
 sub ClearPermanentCookie
 {
-    eval { require Apache; };
-    return if $@;
+    my ($self, $c) = @_;
 
-	my $r = Apache->request;
-
-	my $cookie = new CGI::Cookie(
-		-name	=> &PERMANENT_COOKIE_NAME,
-		-value	=> "",
-		-path	=> '/',
-		-domain	=> &DBDefs::SESSION_DOMAIN,
-		-expires=> '-1d',
-	);
-
-	$r->headers_out->add('Set-Cookie' => $cookie);
+    $c->response->cookies->{&PERMANENT_COOKIE_NAME} = {
+        value   => "",
+        path    => '/',
+        domain  => &DBDefs::SESSION_DOMAIN,
+        expires => '-1d',
+    };
 }
 
 # If we're not logged in, but the PERMANENT_COOKIE_NAME cookie is set,
@@ -1311,107 +1297,100 @@ sub ClearPermanentCookie
 
 sub TryAutoLogin
 {
-    eval { require Apache; };
-    return if $@;
+    my ($self, $c) = @_;
 
-	my ($self, $cookies) = @_;
-	my $mb;
+    # Already logged in?
+    return 1 if $c->user_exists;
 
-	# Already logged in?
-	my $session = GetSession();
-	return if $session->{uid};
+    # Get the permanent cookie
+    my $cookie = $c->req->cookies->{&PERMANENT_COOKIE_NAME}
+	or return;
 
-	my $r = Apache->request;
+    $cookie = $cookie->value;
 
-	# Get the permanent cookie
-	my $c = $cookies->{&PERMANENT_COOKIE_NAME}
-		or return;
+    my $delete_cookie = 0;
 
-	my $delete_cookie = 0;
-	for (1)
-	{
-		my ($user, $password);
+    # If we were called as a class method, instantiate an object
+    if (not ref $self)
+    {
+	$self = $self->new($c->mb->{DBH});
+    }
 
-		my ($my_ip, $ipmask);
+    for (1)
+    {
+	my ($user, $password);
+	my ($my_ip, $ipmask);
 
-		# Format 1: plaintext user + password
-		if ($c =~ /^1\t(.*?)\t(.*)$/)
-		{
-			$user = $1;
-			$password = $2;
-		}
-		# Format 2: username, sha1(password + secret), expiry time,
-		# IP address mask, sha1(previous fields + secret)
-		elsif ($c =~ /^2\t(.*?)\t(\S+)\t(\d+)\t(\S*)\t(\S+)$/)
-		{
-			($user, my $pass_sha1, my $expiry, $ipmask, my $sha1)
-				= ($1, $2, $3, $4, $5);
-
-			my $correct_sha1 = sha1_base64("2\t$1\t$2\t$3\t$4" . &DBDefs::SMTP_SECRET_CHECKSUM);
-			$delete_cookie = 1, last
-				unless $sha1 eq $correct_sha1;
-
-			$delete_cookie = 1, last
-				if time() > $expiry;
-
-			if ($ipmask)
-			{
-				my $my_ip = $r->connection->remote_ip;
-				$delete_cookie = 1, last
-					unless $my_ip eq $ipmask;
-			}
-
-			# If we were called as a class method, instantiate an object
-			if (not ref $self)
-			{
-				$mb = MusicBrainz->new;
-				$mb->Login;
-				$self = $self->new($mb->{DBH});
-			}
-			my ($correct_password, $userid) = $self->GetUserPasswordAndId($user);
-			$delete_cookie = 1, last
-				if $correct_password eq LOCKED_OUT_PASSWORD;
-
-			my $correct_pass_sha1 = sha1_base64($correct_password . "\t" . &DBDefs::SMTP_SECRET_CHECKSUM);
-			$delete_cookie = 1, last
-				unless $pass_sha1 eq $correct_pass_sha1;
-
-			$password = $correct_password;
-		}
-		else
-		{
-			#warn "Didn't recognise permanent cookie format";
-		}
-		# TODO add other formats: e.g. sha1(password), tied to IP, etc
-
-		defined($user) and defined($password)
-			or $delete_cookie = 1, last;
-
-		# If we were called as a class method, instantiate an object
-		if (not ref $self)
-		{
-			$mb = MusicBrainz->new;
-			$mb->Login;
-			$self = $self->new($mb->{DBH});
-		}
-
-		# Try logging in with these credentials
-		my $userobj = $self->Login($user, $password)
-			or $delete_cookie = 1, last;
-
-		$userobj->SetSession;
-		my $session = GetSession();
-		$session->{'ipmask'} = $ipmask;
+	# Format 1: plaintext user + password
+	if ($c =~ /^1\t(.*?)\t(.*)$/)
+        {
+	    $user = $1;
+	    $password = $2;
 	}
 
-	# If the cookie proved invalid, we now delete it
-	if ($delete_cookie)
-	{
-		$self->ClearPermanentCookie;
-		return;
-	}
+	# Format 2: username, sha1(password + secret), expiry time,
+	# IP address mask, sha1(previous fields + secret)
+	elsif ($cookie =~ /^2\t(.*?)\t(\S+)\t(\d+)\t(\S*)\t(\S+)$/)
+        {
+	    ($user, my $pass_sha1, my $expiry, $ipmask, my $sha1)
+		= ($1, $2, $3, $4, $5);
 
-	1;
+	    my $correct_sha1 = sha1_base64("2\t$user\t$pass_sha1\t$expiry\t$ipmask" . &DBDefs::SMTP_SECRET_CHECKSUM);
+
+	    $delete_cookie = 1, last
+		unless $sha1 eq $correct_sha1;
+
+	    $delete_cookie = 1, last
+		if time() > $expiry;
+
+	    if ($ipmask)
+	    {
+		my $my_ip = $c->req->address;
+
+		$delete_cookie = 1, last
+		    if $my_ip ne $ipmask;
+	    }
+
+	    my ($correct_password, $userid) = $self->GetUserPasswordAndId($user);
+	    $delete_cookie = 1, last
+		if $correct_password eq LOCKED_OUT_PASSWORD;
+
+	    my $correct_pass_sha1 = sha1_base64($correct_password . "\t" . &DBDefs::SMTP_SECRET_CHECKSUM);
+	    $delete_cookie = 1, last
+		unless $pass_sha1 eq $correct_pass_sha1;
+
+	    $password = $correct_password;
+	}
+	else
+        {
+	    #warn "Didn't recognise permanent cookie format";
+	    $delete_cookie = 1;
+	    last;
+	}
+	# TODO add other formats: e.g. sha1(password), tied to IP, etc
+
+	defined($user) and defined($password)
+	or $delete_cookie = 1, last;
+
+	# Try logging in with these credentials
+	$c->authenticate({
+	    username => $user,
+	    password => $password,
+	})
+	    or $delete_cookie = 1;
+
+	$c->session->{'__user_ipmask'} = $ipmask;
+	last;
+    }
+
+    # If the cookie proved invalid, we now delete it
+    if ($delete_cookie)
+    {
+	$self->ClearPermanentCookie($c);
+	return;
+    }
+
+    return 1;
 }
 
 sub _update_last_login_date

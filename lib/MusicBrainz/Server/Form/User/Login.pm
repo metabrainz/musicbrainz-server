@@ -41,13 +41,13 @@ sub profile
             },
         },
         optional => {
-            singleIp => 'Checkbox',
-            rememberMe => 'Checkbox',
+            single_ip => 'Checkbox',
+            remember_me => 'Checkbox',
         }
     }
 }
 
-=head1 LICENSE 
+=head1 LICENSE
 
 This software is provided "as is", without warranty of any kind, express or
 implied, including  but not limited  to the warranties of  merchantability,

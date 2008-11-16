@@ -44,50 +44,55 @@ we validate this login data, and attempt to log the user in.
 
 =cut
 
-sub login : Local
+sub login : Form('User::Login')
 {
     my ($self, $c) = @_;
 
-    unless ($c->user_exists)
+    return 1
+        if MusicBrainz::Server::Editor->TryAutoLogin($c);
+
+    return 1
+        if $c->user_exists;
+
+    my $form = $self->form;
+    $c->stash->{template} = 'user/login.tt';
+
+    $c->detach unless $self->submit_and_validate($c);
+
+    my ($username, $password) = ( $form->value("username"),
+                                  $form->value("password") );
+
+    if( !$c->authenticate({ username => $username,
+                            password => $password }) )
     {
-        my $form = $c->form(undef, 'User::Login');
-
-        if ($c->form_posted)
-        {
-            return unless $form->validate($c->request->parameters);
-
-            my ($username, $password) = ( $form->value("username"),
-                                          $form->value("password") );
-
-            if( $c->authenticate({ username => $username,
-                                   password => $password }) )
-            {
-                my $dest = $c->req->referer;
-                my $uri = $c->uri_for('/user/login');
-
-                if ($dest =~ /$uri/) {
-                    $dest = $c->flash->{_user_login_old_redir} || $dest;
-                }
-
-                $c->response->redirect($dest);
-                $c->detach;
-            }
-            else
-            {
-                $c->stash->{errors} = ['Username/password combination invalid'];
-            }
-        }
-        else
-        {
-            # The form was not posted, so we should store the referer
-            $c->flash->{_user_login_old_redir} = $c->req->referer;
-        }
-
-        # If we got this far we need to show the form (to login, or to fix
-        # login form errors)
-        $c->stash->{template} = 'user/login.tt';
+        $c->stash->{errors} = ['Username/password combination invalid'];
         $c->detach;
     }
+    else
+    {
+        if ($form->value('remember_me'))
+        {
+            $c->user->SetPermanentCookie($c,
+                only_this_ip => $form->value('single_ip'));
+        }
+    }
+}
+
+sub login_form : Local Path('login')
+{
+    my ($self, $c) = @_;
+
+    my $referer = $c->req->referer;
+    if (!defined $c->session->{__login_dest})
+    {
+        $c->session->{__login_dest} = $referer;
+    }
+
+    $c->forward('/user/login');
+
+    $referer = $c->session->{__login_dest};
+    $c->session->{__login_dest} = undef;
+    $c->response->redirect($referer);
 }
 
 =head2 register
@@ -103,7 +108,7 @@ sub register : Local
     my ($self, $c) = @_;
 
     $c->detach('profile', [ $c->user->name ])
-	if $c->user_exists;
+        if $c->user_exists;
 
     my $form = $c->form(undef, 'User::Register');
     $c->stash->{form} = $form;
@@ -289,8 +294,13 @@ sub logout : Local
 {
     my ($self, $c) = @_;
 
-    $c->logout;
-    $c->response->redirect($c->uri_for('/user/login'));
+    if ($c->user_exists)
+    {
+        $c->user->ClearPermanentCookie($c);
+        $c->logout;
+    }
+
+    $c->response->redirect($c->uri_for('/'));
 }
 
 =head2 preferences
