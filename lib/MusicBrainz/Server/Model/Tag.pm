@@ -29,6 +29,14 @@ sub top_tags
     [ sort { $tag_hash->{$b} <=> $tag_hash->{$a}; } keys %{$tag_hash} ];
 }
 
+sub raw_tags
+{
+    my ($self, $entity, $user) = @_;
+
+    my $t = MusicBrainz::Server::Tag->new($self->context->mb->{DBH});
+    return $t->GetRawTagsForEntity($entity->entity_type, $entity->id, $user->id);
+}
+
 sub tagged_entities
 {
     my ($self, $tag, $entity_type, $limit, $offset) = @_;
@@ -64,7 +72,7 @@ sub generate_tag_cloud
 
     my @counts = sort { $a <=> $b} values %$tags;
     my $ntags  = scalar @counts;
-    
+
     # No tags, nothing to do!
     return if $ntags == 0;
 
@@ -76,7 +84,7 @@ sub generate_tag_cloud
     my $med = $ntags % 2
         ? $counts[(($ntags + 1) / 2) - 1]
         : ($counts[($ntags / 2) - 1] + $counts[$ntags / 2]) / 2;
-    
+
     $avg /= $max;
     $med /= $max;
 
@@ -110,6 +118,15 @@ sub generate_tag_cloud
     }
 
     return \@ret;
+}
+
+sub update_user_tags
+{
+    my $self = shift;
+    my ($entity, $user, $new_tags) = @_;
+
+    my $t = MusicBrainz::Server::Tag->new($self->context->mb->{DBH});
+    $t->Update($new_tags, $user->id, $entity->entity_type, $entity->id);
 }
 
 1;

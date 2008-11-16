@@ -1,5 +1,3 @@
 <textarea name="[% name %]"
-        id="[% id %]"
-        [% extra_attributes %]>
-    [% value %]
-</textarea>
+        id="[% id %]" cols="50" rows="5"
+        [% extra_attributes %]>[% value %]</textarea>

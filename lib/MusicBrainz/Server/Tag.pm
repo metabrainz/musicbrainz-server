@@ -74,6 +74,7 @@ sub Update
 	# make sure the list contains only unique tags
 	@new_tags = keys %{{ map { $_ => 1 } @new_tags }};
 
+
     require MusicBrainz;
     my $maindb = Sql->new($self->{DBH});
 

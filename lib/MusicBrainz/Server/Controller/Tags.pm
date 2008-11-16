@@ -33,7 +33,7 @@ sub display : Path
 
     $c->detach('all')
         unless($tag);
-    
+
     $type ||= 'all';
     unless ($type eq 'all'      ||
             $type eq 'artist'   ||
@@ -46,7 +46,7 @@ sub display : Path
 
     my @display_types = $type ne 'all' ? ($type)
                       :                  ('artist', 'label', 'release', 'track');
-    
+
     my $limit = ($type eq 'all') ? 10 : 100;
     my $offset = 0;
 
@@ -60,6 +60,7 @@ sub display : Path
     }
 
     $c->stash->{tag} = $tag;
+    $c->stash->{template} = 'tag/display.tt';
 }
 
 =head2 entity
@@ -95,6 +96,7 @@ sub all : Local
     my ($self, $c) = @_;
 
     $c->stash->{tagcloud} = $c->model('Tag')->generate_tag_cloud();
+    $c->stash->{template} = 'tag/all.tt';
 }
 
 =head1 LICENSE
