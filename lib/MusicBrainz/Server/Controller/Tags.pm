@@ -3,7 +3,7 @@ package MusicBrainz::Server::Controller::Tags;
 use strict;
 use warnings;
 
-use base 'Catalyst::Controller';
+use base 'MusicBrainz::Server::Controller::Entity';
 
 use MusicBrainz::Server::Artist;
 use MusicBrainz::Server::Label;
@@ -69,10 +69,25 @@ Used for tag information applied to a specific MusicBrainz entity.
 
 =cut
 
-sub entity : PathPart('tags') Chained CaptureArgs(2)
+sub entity : Form('Tag::Tags')
 {
-    my ($self, $c, $type, $mbid) = @_;
-    $c->stash->{entity}  = $c->model(ucfirst $type)->load($mbid);
+    my ($self, $c, $entity) = @_;
+
+    my $form = $self->form;
+
+    if ($c->user_exists)
+    {
+	my $rawtags = $c->model('Tag')->raw_tags($entity, $c->user);
+	$form->field('tags')->value(join ",", map { $_->{name} } @$rawtags);
+
+	if ($self->submit_and_validate($c))
+        {
+	    $c->model('Tag')->update_user_tags($entity, $c->user, $form->value('tags') || '');
+	}
+    }
+
+    $c->stash->{tagcloud} = $c->model('Tag')->generate_tag_cloud($entity);
+    $c->stash->{template} = 'tag/tags.tt';
 }
 
 =head2 new

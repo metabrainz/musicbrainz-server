@@ -60,9 +60,7 @@ Display a tag-cloud of tags for a label
 sub tags : Chained('load')
 {
     my ($self, $c) = @_;
-    my $label = $self->entity;
-
-    $c->stash->{tagcloud} = $c->model('Tag')->generate_tag_cloud($label);
+    $c->forward('/tags/entity', [ $self->entity ]);
 }
 
 =head2 google

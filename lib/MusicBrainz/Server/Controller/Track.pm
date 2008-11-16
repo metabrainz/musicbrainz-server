@@ -84,7 +84,7 @@ sub show : Chained('track') PathPart('')
 sub tags : Chained('track')
 {
     my ($self, $c, $mbid) = @_;
-    $c->stash->{tags} = $c->model('Tag')->generate_tag_cloud($self->entity);
+    $c->forward('/tags/entity', [ $self->entity ]);
 }
 
 sub google : Chained('track')

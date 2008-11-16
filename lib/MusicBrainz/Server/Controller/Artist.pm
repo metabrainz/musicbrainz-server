@@ -93,25 +93,10 @@ Show all of this artists tags
 
 =cut
 
-sub tags : Chained('artist') Form
+sub tags : Chained('artist')
 {
     my ($self, $c) = @_;
-
-    my $artist = $self->entity;
-    my $form   = $self->form;
-
-    if ($c->user_exists)
-    {
-	my $rawtags = $c->model('Tag')->raw_tags($artist, $c->user);
-	$form->field('tags')->value(join ",", map { $_->{name} } @$rawtags);
-
-	if ($self->submit_and_validate($c))
-        {
-	    $c->model('Tag')->update_user_tags($artist, $c->user, $form->value('tags') || '');
-	}
-    }
-
-    $c->stash->{tagcloud} = $c->model('Tag')->generate_tag_cloud($artist);
+    $c->forward('/tags/entity', [ $self->entity ]);
 }
 
 =head2 relations

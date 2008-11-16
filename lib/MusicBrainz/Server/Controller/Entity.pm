@@ -33,6 +33,7 @@ sub load : Chained('base') PathPart('') CaptureArgs(1)
 
    $self->entity($entity);
    $c->stash->{$self->{entity_name}} = $entity;
+   $c->stash->{entity} = $entity;
 }
 
 sub submit_and_validate

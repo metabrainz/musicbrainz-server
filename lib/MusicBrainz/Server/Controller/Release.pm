@@ -83,7 +83,7 @@ Show all of this release's tags
 sub tags : Chained('release')
 {
     my ($self, $c) = @_;
-    $c->stash->{tagcloud} = $c->model('Tag')->generate_tag_cloud($self->entity);
+    $c->forward('/tags/entity', [ $self->entity ]);
 }
 
 =head2 relations

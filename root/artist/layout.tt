@@ -1,3 +1,4 @@
+[%- DEFAULT artist=entity -%]
 [%- WRAPPER "layout.tt" title="${artist.name} - ${title}" -%]
 [%- INCLUDE "artist/header.tt" -%]
 [%- content -%]
