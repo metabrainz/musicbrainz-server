@@ -86,7 +86,6 @@ fi
 
 if [ "$REPLICATION_TYPE" = "$RT_MASTER" ]
 then
-	# FIXME!  Creating triggers that we didn't drop earlier!
 	echo `date` : Create replication triggers
 	./admin/psql READWRITE < ./admin/sql/CreateReplicationTriggers.sql
 fi
