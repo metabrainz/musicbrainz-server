@@ -533,7 +533,7 @@ sub SendAcceptedEmail
 		is_reply	=> 1,
 		Data		=> <<EOF,
 Voting in this election is now closed: $self->{candidate_name} has been
-accepted as an auto-moderator.  Congratulations!
+accepted as an auto-editor.  Congratulations!
 
 Details:
 $self->{election_link}
@@ -553,7 +553,7 @@ sub SendRejectedEmail
 		is_reply	=> 1,
 		Data		=> <<EOF,
 Voting in this election is now closed: the proposal to make
-$self->{candidate_name} an auto-moderator was declined.
+$self->{candidate_name} an auto-editor was declined.
 
 Details:
 $self->{election_link}
