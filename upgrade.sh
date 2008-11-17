@@ -16,7 +16,6 @@ then
 fi
 
 echo `date` : Update script, language and country tables
-# FIXME!  Doesn't exist!
 ./admin/psql READWRITE < ./admin/sql/updates/20081115-1.sql
 
 echo `date` : Adding CD Stub support
