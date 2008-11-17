@@ -74,7 +74,7 @@
 					<tr>
 						<td colspan="2"></td>
 						<td><& /comp/linkdoc, "ReleaseDate", "Date", 0, 1 &> <strong>(<abbr title="Year">Y</abbr>/<abbr title="Month">M</abbr>/<abbr title="Day">D</abbr>):</td>
-						<td><& /comp/linkdoc, "ReleaseDate", "Date", 0, 1 &>:</td>
+						<td><& /comp/linkdoc, "ReleaseCountry", "Country", 0, 1 &>:</td>
 						<td colspan="2"><& /comp/linkdoc, "Label", "Label", 0, 1 &></td>
 						<td><& /comp/linkdoc, "ReleaseCatalogNumber", "Catalog #", 0, 1 &>:</td>
 						<td><& /comp/linkdoc, "BarCode", "Barcode", 0, 1 &>:</td>
