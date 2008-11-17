@@ -31,46 +31,15 @@ use lib "$FindBin::Bin/../../../cgi-bin";
 use DBDefs;
 use MusicBrainz;
 use Sql;
-use MusicBrainz::Server::URL;
 
 my $mb = MusicBrainz->new;
 $mb->Login();
 my $sql = Sql->new($mb->{DBH});
 
-my $set = 0;
-my $chunks = shift;
-$chunks = 100000 if (!$chunks);
+$sql->Begin;
+$sql->Do("create temporary table tmp_album_opentime as SELECT rowid as id, min(opentime) as opentime FROM moderation_all WHERE type = 16 and rowid > 0 group by rowid");
+$sql->Do("alter table tmp_album_opentime add constraint tmp_album_opentime_pk primary key (id)");
+$sql->Do("update albummeta set dateadded = t.opentime from tmp_album_opentime t where t.id=albummeta.id");
+$sql->Commit;
 
-if ($sql->Select("SELECT rowid, opentime FROM moderation_all, albummeta 
-                   WHERE dateadded = '1970-01-01 00:00:00-00' 
-				     AND albummeta.id = moderation_all.rowid 
-					 AND type = 16
-      			ORDER BY rowid"))
-{
-    my @row;
-
-	while(@row = $sql->NextRow)
-	{
-		eval
-		{
-            $sql->Begin;
-            $sql->Do("UPDATE albummeta SET dateadded = ? WHERE id = ?", $row[1], $row[0]);
-			$sql->Commit;
-		};
-		if ($@)
-		{
-			my $err = $@;
-
-			print $err;
-			$sql->Rollback;
-			last;
-		}
-		$set++;
-		if ($set % $chunks == 0)
-		{
-			print "Updated to row $row[0]\n";
-			sleep(1) 
-		}
-	}
-    $sql->Finish;
-}
+# eof
