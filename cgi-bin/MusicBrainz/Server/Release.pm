@@ -1552,5 +1552,32 @@ sub LoadLastUpdate
 	$self->{lastupdate} = $sql->SelectSingleValue("SELECT lastupdate FROM albummeta WHERE id = ?", $self->{id});
 }
 
+sub LoadFromRow {
+	my ($self, $row, $prefix) = @_;
+
+	$prefix ||= '';
+	$self->SetId($row->{"${prefix}id"});
+	$self->SetMBId($row->{"${prefix}gid"});
+	$self->SetName($row->{"${prefix}name"});
+	$self->SetArtist($row->{"${prefix}artist"});
+	$self->{attrs} = [ $row->{"${prefix}attributes"} =~ /(\d+)/g ];
+	$self->SetModPending($row->{"${prefix}modpending"});
+	$self->SetLanguageId($row->{"${prefix}language"});
+	$self->SetScriptId($row->{"${prefix}script"});
+	$self->SetLanguageModPending($row->{"${prefix}modpending_lang"});
+	$self->SetQuality($row->{"${prefix}quality"});
+	$self->SetQualityModPending($row->{"${prefix}modpending_qual"});
+
+    # Meta information
+	$self->{trackcount}		= $row->{"${prefix}trackcount"};
+	$self->{discidcount}	= $row->{"${prefix}discidcount"};
+	$self->{firstreleasedate}= $row->{"${prefix}firstreleasedate"} || "";
+	$self->{coverarturl}    = $row->{"${prefix}coverarturl"} || "";
+	$self->{asin}           = $row->{"${prefix}asin"} || "";
+	$self->{puidcount}		= $row->{"${prefix}puidcount"};
+	$self->{rating}			= $row->{"${prefix}rating"};
+	$self->{rating_count}	= $row->{"${prefix}rating_count"};
+}
+
 1;
 # eof Album.pm
