@@ -74,6 +74,7 @@
 
 		require LWP::UserAgent;
 		my $ua = LWP::UserAgent->new(max_redirect => 0);
+		$ua->env_proxy;
 		my $response = $ua->get($docurl);
 
 		# The wiki search provides a fuzzy search, so we provide a search string,

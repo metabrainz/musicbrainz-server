@@ -100,6 +100,7 @@ sub Load
 	}
 	else {
 		my $ua = LWP::UserAgent->new(timeout => 5);
+		$ua->env_proxy;
 		my $response = $ua->get($url);
 		return undef unless $response->is_success();
 		my $rss_doc = $response->content();

@@ -1173,6 +1173,7 @@ sub xml_search
 
     require LWP::UserAgent;
     my $ua = LWP::UserAgent->new;
+    $ua->env_proxy;
     my $response = $ua->get($url);
 	$ua->timeout(2);
     if ( $response->is_success )

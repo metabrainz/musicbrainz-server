@@ -131,6 +131,7 @@ sub _Retrieve_no_cache
 
     require LWP::UserAgent;
     my $ua = LWP::UserAgent->new(max_redirect => 0);
+	$ua->env_proxy;
     my $response = $ua->get($url);
 
     if (!$response->is_success)

@@ -159,6 +159,7 @@
 
 		require LWP::UserAgent;
 		my $ua = LWP::UserAgent->new;
+        $ua->env_proxy;
 		$ua->timeout(2);
 		my $response = $ua->get($docurl);
 		if (!$response->is_success)
