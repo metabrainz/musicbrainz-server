@@ -46,8 +46,8 @@ sub GetTrackIdsFromPUID
  	my ($this, $PUID) = @_;
 	my $sql = Sql->new($this->{DBH});
 
-	$sql->SelectSingleColumnArray(
-		"SELECT	puidjoin.track
+	$sql->SelectListOfHashes(
+		"SELECT	puidjoin.track as track, puidjoin.id as puidjoin
 		FROM	puid, puidjoin
 		WHERE	puid.puid = ?
 		AND		puidjoin.puid = puid.id",
