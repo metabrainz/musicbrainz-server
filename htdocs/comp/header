@@ -33,7 +33,6 @@
 	$m->clear_buffer;
 
 </%perl>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" >
 	<head>
@@ -55,6 +54,7 @@
 
 		<link rel="stylesheet" type="text/css" href="/css/print.css?t=<% $mtime_print %>" media="print" />
 		<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="apple-touch-icon" href="/images/apple-touch-icon.png"/>
 
 		<link rel="search" type="application/opensearchdescription+xml" title="MusicBrainz: Artist" href="/search/plugins/opensearch/musicbrainzartist.xml" />
 		<link rel="search" type="application/opensearchdescription+xml" title="MusicBrainz: Label" href="/search/plugins/opensearch/musicbrainzlabel.xml" />
