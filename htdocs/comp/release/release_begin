@@ -92,7 +92,7 @@
 	}
 
     $release->LoadLastUpdate();
-	my $lastupdate = "(updated " . MusicBrainz::Server::DateTime::format_datetime_since($artist->GetLastUpdate()) . ")";
+	my $lastupdate = "(updated " . MusicBrainz::Server::DateTime::format_datetime_since($release->GetLastUpdate()) . ")";
 
 </%perl>
 
