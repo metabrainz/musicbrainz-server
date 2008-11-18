@@ -3,8 +3,7 @@ Install instructions for the MusicBrainz Server: (TemplateToolkit flavour)
 
 These are advanced install instructions for running the Template Toolkit
 flavour of mb_server. At the time of writing, this is solely for development
-purposes and are based on an install already running your bog standard flavour
-of mb_server (see INSTALL and INSTALL.advanced).
+purposes.
 
 For the most part, you need only install the perl modules described under 
 section 4) of the  Requirements to run a basic webserver. For instructions on
@@ -21,39 +20,14 @@ codebase.
 	You can check your version of Perl via "perl -v". As per INSTALL, 5.8 is
 	required for its unicode awesomeness.
 	
-2)	Template Toolkit
+2)	Various perl modules
 
-	Template Toolkit can be installed via Cpan by issuing "sudo cpan Template".
-	
-	For more specific details on installing Template Toolkit, please refer to
-	the Template Toolkit site; 
-	http://template-toolkit.org/download/index.html#section_0
-	
-3)	Various perl modules
+	Various perl modules are needed. They can be installed by running
+    Makefile.PL in the directory root. To use this Makefile.PL you
+    need the Module::Install module from CPAN.
 
-	Various perl modules, specific to the Template Toolkit version of mb_server
-	are needed. They can be installed by issuing "cpan <module name>". The 
-	module name IS case sensitive and it is suggested to use the default answers
-	to any questions cpan may throw your way. To automate this, enter:
-	PERL_MM_USE_DEFAULT=1 cpan <module name>
-	
-	Module names:
-		
-		Catalyst::Devel
-		Catalyst::Plugin::FormBuilder
-		Catalyst::Plugin::Session::Store::FastMmap
-		Catalyst::Plugin::Session::State::Cookie
-		Catalyst::Plugin::StackTrace
-		Catalyst::Plugin::Authentication
-		Catalyst::View::TT
-		Catalyst::Component::ACCEPT_CONTEXT
-		Cache::Memcached
-        Email::Valid
-        Form::Processor
-
-    This list may not be up to date - so you should use the Makefile.PL to double check:
-
-        perl Makefile.PL
+        perl -MCPAN -e 'install Module::Install'
+        perl ./Makefile.PL
 
 Setting up & running:
 
@@ -67,12 +41,11 @@ Setting up & running:
 	mbserver@moosebox:~/mb_server$ cp lib/DBDefs.pm.default lib/DBDefs.pm
 	
 	Edit the newly copied DBDefs.pm as need be. For the most part, it should be
-	fine to use as is. Refer to INSTALL for more indepth about this, and how it
-	ties in with running a copy of the MusicBrainz database.
+	fine to use as is. Refer to INSTALL for more indepth info about this, and 
+    how it ties in with running a copy of the MusicBrainz database.
 	
 3) Run the startup script
 
-	
 	mbserver@moosebox:~/mb_server$ ./script/musicbrainz_server.pl -r
 
 4) Sacrifice the blood of several ponies
@@ -81,5 +54,3 @@ Setting up & running:
 	
 Visiting http://your.machines.ip.address:3000 should now present you with a Template
 Toolkit based version of mb_server.
-
-One may now wallow in one's own crapulence.
