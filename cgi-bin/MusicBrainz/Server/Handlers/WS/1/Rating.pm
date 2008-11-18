@@ -35,19 +35,27 @@ use Apache::Constants qw( OK BAD_REQUEST DECLINED SERVER_ERROR NOT_FOUND FORBIDD
 use MusicBrainz::Server::Rating;
 use Data::Dumper;
 
+use constant MAX_RATINGS_PER_REQUEST => 20;
+
 sub handler
 {
 	my ($r) = @_;
 	# URLs are of the form:
-	# POST http://server/ws/1/rating/?entity=<entity>&id=<id>&rating=<rating>
 	# GET  http://server/ws/1/rating/?entity=<entity>&id=<id>
+	# POST http://server/ws/1/rating/?entity=<entity>&id=<id>&rating=<rating>
+	# POST http://server/ws/1/rating/?entity.0=<entity>&id.0=<mbid>&rating.0=<rating>&entity.1=<entity>&id.1=<mbid>&rating.1=<rating>..
 
-    return handler_post($r) if ($r->method eq "POST");
+	my $apr = Apache::Request->new($r);
+    if ($r->method eq "POST")
+	{
+		my $entity = $apr->param('entity.0');
+		return handler_post_multiple($r, $apr) if ($entity);
+		return handler_post($r, $apr);
+	}
 
 	return bad_req($r, "Only GET or POST is acceptable")
 		unless $r->method eq "GET";
 
-	my $apr = Apache::Request->new($r);
 	my $user = $r->user;
 	my $entity = $apr->param('entity');
 	my $id = $apr->param('id');
@@ -93,12 +101,11 @@ sub handler
 sub handler_post
 {
     my $r = shift;
+    my $apr = shift;
 
 	# URLs are of the form:
 	# POST http://server/ws/1/rating/?name=<user_name>&entity=<entity>&id=<id>&rating=<rating>
 
-
-    my $apr = Apache::Request->new($r);
     my $user = $r->user;
     my $entity = $apr->param('entity');
     my $id = $apr->param('id');
@@ -120,7 +127,85 @@ sub handler_post
     {
 		# Try to serve the request from the database
 		{
-			my $status = serve_from_db_post($r, $user, $entity, $id, $rating);
+			my $status = serve_from_db_post($r, $user, [{entity => $entity, id => $id, rating => $rating}]);
+			return $status if defined $status;
+		}
+        undef;
+	};
+
+	if ($@)
+	{
+		my $error = "$@";
+        print STDERR "WS Error: $error\n";
+		$r->status(SERVER_ERROR);
+		$r->content_type("text/plain; charset=utf-8");
+		$r->print($error."\015\012") unless $r->header_only;
+		return SERVER_ERROR;
+	}
+    if (!defined $status)
+    {
+        $r->status(NOT_FOUND);
+        return NOT_FOUND;
+    }
+
+	return OK;
+}
+
+# handle multiple entities per post
+sub handler_post_multiple
+{
+    my $r = shift;
+    my $apr = shift;
+
+	# URLs are of the form:
+	# POST http://server/ws/1/rating/?entity.0=<entity>&id.0=<mbid>&rating.0=<rating>&entity.1=<entity>&id.1=<mbid>&rating.1=<rating>..
+
+    my $user = $r->user;
+	my @batch;
+
+    # Ensure that the login name is the same as the resource requested 
+    if ($r->user ne $user)
+    {
+		$r->status(FORBIDDEN);
+        return FORBIDDEN;
+    }
+
+    # Ensure that we're not a replicated server and that we were given a client version
+    if (&DBDefs::REPLICATION_TYPE == &DBDefs::RT_SLAVE)
+    {
+		return bad_req($r, "You cannot submit ratings to a slave server.");
+    }
+
+	my ($entity, $id, $rating, $count);
+	for($count = 0;; $count++)
+	{
+		my $entity = $apr->param("entity.$count");
+		my $id = $apr->param("id.$count");
+		my $rating = $apr->param("rating.$count");
+
+		last if (!$entity || !$id || !$rating);
+
+		if (!MusicBrainz::Server::Validation::IsGUID($id) || 
+			($entity ne 'artist' && $entity ne 'release' && $entity ne 'track' && $entity ne 'label'))
+		{
+			return bad_req($r, "Invalid MBID/entity for set $count.");
+		}
+		push @batch, { entity => $entity, id => $id, rating => $rating };
+	}
+	if (!$count)
+	{
+		return bad_req($r, "No valid ratings were specified in this request.");
+	}
+	if ($count > MAX_RATINGS_PER_REQUEST)
+	{
+		return bad_req($r, "Too many ratings for one request. Max " . MAX_RATINGS_PER_REQUEST . " ratings per request.");
+	}
+
+	my $status = eval 
+    {
+		# Try to serve the request from the database
+		{
+			my $status = serve_from_db_post($r, $user, \@batch);
 			return $status if defined $status;
 		}
         undef;
@@ -146,10 +231,10 @@ sub handler_post
 
 sub serve_from_db_post
 {
-	my ($r, $user, $entity, $id, $rating) = @_;
+	my ($r, $user, $ratings) = @_;
 
 	my $printer = sub {
-		process_user_input($user, $entity, $id, $rating);
+		process_user_input($r, $user, $ratings);
 	};
 
 	send_response($r, $printer);
@@ -158,7 +243,7 @@ sub serve_from_db_post
 
 sub process_user_input
 {
-	my ($user, $entity, $id, $rating) = @_;
+	my ($r, $user, $ratings) = @_;
 
 	require MusicBrainz;
 	my $mb = MusicBrainz->new;
@@ -176,32 +261,37 @@ sub process_user_input
     require MusicBrainz::Server::Label;
     require MusicBrainz::Server::Track;
 
-    my $obj;
-    if ($entity eq 'artist')
-    {
-        $obj = MusicBrainz::Server::Artist->new($sql->{DBH});
-    }
-    elsif ($entity eq 'release')
-    {
-        $obj = MusicBrainz::Server::Release->new($sql->{DBH});
-    }
-    elsif ($entity eq 'track')
-    {
-        $obj = MusicBrainz::Server::Track->new($sql->{DBH});
-    }
-    elsif ($entity eq 'label')
-    {
-        $obj = MusicBrainz::Server::Label->new($sql->{DBH});
-    }
-    $obj->SetMBId($id);
-    unless ($obj->LoadFromId)
-    {
-        die "Cannot load entity. Bad entity id given?"
-    } 
+	my ($obj, $count);
+	foreach my $rating (@{$ratings})
+	{
+		if ($rating->{entity} eq 'artist')
+		{
+			$obj = MusicBrainz::Server::Artist->new($sql->{DBH});
+		}
+		elsif ($rating->{entity} eq 'release')
+		{
+			$obj = MusicBrainz::Server::Release->new($sql->{DBH});
+		}
+		elsif ($rating->{entity} eq 'track')
+		{
+			$obj = MusicBrainz::Server::Track->new($sql->{DBH});
+		}
+		elsif ($rating->{entity} eq 'label')
+		{
+			$obj = MusicBrainz::Server::Label->new($sql->{DBH});
+		}
+		$obj->SetMBId($rating->{id});
+		unless ($obj->LoadFromId)
+		{
+			return bad_req($r, "Cannot load " . $rating->{entity} . ' ' . $rating->{id} . ". Bad entity id given?");
+		} 
 
-    my $ratings = MusicBrainz::Server::Rating->new($mb->{DBH});
-    $ratings->Update($entity, $obj->GetId, $us->GetId, $rating);
-	print STDERR "Executed Successfully!\n";
+		my $ratings = MusicBrainz::Server::Rating->new($mb->{DBH});
+		$ratings->Update($rating->{entity}, $obj->GetId, $us->GetId, $rating->{rating});
+	}
+
+	print '<?xml version="1.0" encoding="UTF-8"?>';
+	print '<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"/>';
 }
 
 sub serve_from_db
