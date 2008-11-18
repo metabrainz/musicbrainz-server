@@ -52,8 +52,8 @@ $timestamp = MusicBrainz::Server::DateTime::format_datetime_since($timestamp);
 %	foreach my $row (@$brokenup) {
 		<tr>
 			<td><a href="/artist/<% $row->[0] %>.html"><% $row->[1] %></a></td>
-			<td><% $row->[3] %></td>
-			<td><% $row->[2] %></td>
+			<td><% MusicBrainz::Server::Validation::MakeDisplayDateStr($row->[3]) %></td>
+			<td><% MusicBrainz::Server::Validation::MakeDisplayDateStr($row->[2]) %></td>
 		</tr>
 %   }
 %   if ($pager) {

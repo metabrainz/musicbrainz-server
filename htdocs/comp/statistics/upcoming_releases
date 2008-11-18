@@ -54,7 +54,7 @@ $timestamp = MusicBrainz::Server::DateTime::format_datetime_since($timestamp);
 		<tr>
 			<td><a href="/release/<% $row->[0] %>.html"><% $row->[1] %></a></td>
 			<td><a href="/artist/<% $row->[2] %>.html"><% $row->[3] %></a></td>
-			<td><% $row->[5] %> <% $row->[4] %></td>
+			<td><% $row->[5] %> <% MusicBrainz::Server::Validation::MakeDisplayDateStr($row->[4]) %></td>
 			<td><% MusicBrainz::Server::ReleaseEvent::GetReleaseFormatName($row->[6]) %></td>
 		</tr>
 %   }
