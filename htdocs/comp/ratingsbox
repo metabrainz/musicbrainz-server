@@ -5,9 +5,9 @@
 	$small => 0				# Small or big ratings stars
 	$detailled => 0			# Display detailled information (votes count, community/user rating, ...)
 
-	$rating => undef		# Communtiy rating for this entity		|
-	$rating_count => undef	# Votes count for this entity			|- information will be loaded if needed
-	$user_rating => undef	# Current user rating for this entity	|
+	$rating => -1			# Communtiy rating for this entity		|
+	$rating_count => 0		# Votes count for this entity			|- information will be loaded if needed
+	$user_rating => -1		# Current user rating for this entity	|
 
 	$allow_rating => 1
 </%args>
@@ -25,7 +25,7 @@
 	my ($mb, $ratings);
 
 	# Load entity community rating info if needed
-	if (not defined($rating) && $detailled)
+	if ($rating == -1 && $detailled)
 	{
 		$mb or $mb = $m->comp("/comp/dblogin");
 		$ratings or $ratings = MusicBrainz::Server::Rating->new($mb->{DBH});
@@ -36,7 +36,7 @@
 	}
 
 	# Load user rating if needed
-	if($session{uid} && not defined($user_rating))
+	if($session{uid} && $user_rating == -1)
 	{
 		$mb or $mb = $m->comp("/comp/dblogin");
 		$ratings or $ratings = MusicBrainz::Server::Rating->new($mb->{DBH});
