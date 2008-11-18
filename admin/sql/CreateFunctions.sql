@@ -100,12 +100,15 @@ $$ language 'plpgsql';
 
 create or replace function update_album_meta () returns TRIGGER as $$
 begin
-    if NEW.name != OLD.name 
-    then
-        update album_amazon_asin set lastupdate = '1970-01-01 00:00:00' where album = NEW.id; 
-    end if;
-    UPDATE albummeta SET lastupdate = now() WHERE id = NEW.id; 
-    PERFORM propagate_lastupdate(NEW.id, CAST('album' AS name));
+    IF (NEW.name != OLD.name) 
+    THEN
+        UPDATE album_amazon_asin SET lastupdate = '1970-01-01 00:00:00' WHERE album = NEW.id; 
+    END IF;
+    IF (NEW.modpending = OLD.modpending)
+    THEN
+        UPDATE albummeta SET lastupdate = now() WHERE id = NEW.id; 
+        PERFORM propagate_lastupdate(NEW.id, CAST('album' AS name));
+    END IF;
    return NULL;
 end;
 $$ language 'plpgsql';
@@ -123,11 +126,14 @@ begin
         PERFORM propagate_lastupdate(NEW.id, TG_RELNAME);
     ELSIF (TG_OP = 'UPDATE')
     THEN
-        IF (TG_RELNAME != 'track')
+        IF (NEW.modpending = OLD.modpending)
         THEN
-            EXECUTE 'UPDATE ' || TG_RELNAME || '_meta SET lastupdate = now() WHERE id = ' || NEW.id; 
-        END IF;
-        PERFORM propagate_lastupdate(NEW.id, TG_RELNAME);
+            IF (TG_RELNAME != 'track')
+            THEN
+                EXECUTE 'UPDATE ' || TG_RELNAME || '_meta SET lastupdate = now() WHERE id = ' || NEW.id; 
+            END IF;
+            PERFORM propagate_lastupdate(NEW.id, TG_RELNAME);
+        END IF;             
     END IF;
     RETURN NULL; 
 end; 
@@ -481,6 +487,7 @@ $$ LANGUAGE 'plpgsql';
 CREATE OR REPLACE FUNCTION a_del_release () RETURNS TRIGGER AS $$
 BEGIN
     EXECUTE set_album_firstreleasedate(OLD.album);
+    PERFORM propagate_lastupdate(OLD.album, CAST('album' AS name));
     RETURN OLD;
 END;
 $$ LANGUAGE 'plpgsql';
