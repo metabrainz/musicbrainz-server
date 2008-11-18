@@ -326,7 +326,7 @@ sub print_xml
 	}
 	else
 	{
-		xml_release($ar, $_, $inc, undef, $is_coll) foreach(@$releases);
+		xml_release($ar, $_, $inc, undef, $is_coll, $user) foreach(@$releases);
 	}
 	print '</release-list>' if (scalar(@$releases) > 1 || $is_coll);
 	print '</metadata>';
