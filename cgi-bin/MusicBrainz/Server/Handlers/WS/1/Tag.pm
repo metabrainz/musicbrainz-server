@@ -241,7 +241,7 @@ sub serve_from_db_post
 	my ($r, $user, $tags) = @_;
 
 	my $printer = sub {
-		print_xml_post($user, $tags);
+		print_xml_post($r, $user, $tags);
 	};
 
 	send_response($r, $printer);
@@ -250,7 +250,7 @@ sub serve_from_db_post
 
 sub print_xml_post
 {
-	my ($user, $tags) = @_;
+	my ($r, $user, $tags) = @_;
 
 	# Login to the tags DB
 	require MusicBrainz;
@@ -292,7 +292,7 @@ sub print_xml_post
 		$obj->SetMBId($tag->{id});
 		unless ($obj->LoadFromId)
 		{
-			die "Cannot load entity. Bad entity id given?"
+			return bad_req($r, "Cannot load " . $tag->{entity} . ' ' . $tag->{id} . ". Bad entity id given?");
 		} 
 
 		my $t = MusicBrainz::Server::Tag->new($mb->{DBH});
