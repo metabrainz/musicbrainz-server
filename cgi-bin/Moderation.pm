@@ -1078,13 +1078,19 @@ sub InsertModeration
 	my @inserted_moderations;
 	$this->{inserted_moderations} = \@inserted_moderations;
 
-	my $sql = Sql->new($this->{DBH});
-    my $vertmb = new MusicBrainz;
-    $vertmb->Login(db => 'RAWDATA');
-    my $vertsql = Sql->new($vertmb->{DBH});
-
-    if (!$notrans)
+	my ($sql, $vertsql);
+    if ($notrans)
+	{
+        $sql = $Moderation::DBConnections{READWRITE};
+        $vertsql = $Moderation::DBConnections{RAWDATA};
+	}
+	else
     {
+		$sql = Sql->new($this->{DBH});
+		my $vertmb = new MusicBrainz;
+		$vertmb->Login(db => 'RAWDATA');
+		$vertsql = Sql->new($vertmb->{DBH});
+
         $sql->Begin;
         $vertsql->Begin;
 
