@@ -60,7 +60,6 @@
 		show_info => 0,
 		header => "Annotation"
 	&>
-    <br/>
 	<& "/comp/album",
 		artist => $ar,
 		album => $release,
