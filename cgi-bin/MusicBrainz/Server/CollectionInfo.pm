@@ -133,6 +133,49 @@ sub GetHasMBIDs
 	}
 }
 
+=head2 GetHasReleases
+Returns all releases in collection as objects MusicBrainz::Server::Release.
+=cut
+sub GetHasReleases
+{
+	my ($this) = @_;
+	
+	# create Sql objects
+	require Sql;
+	my $rosql = Sql->new($this->{RODBH});
+	my $rawsql = Sql->new($this->{RAWDBH});
+	
+	# get id's of all releases in collection
+	my $releaseids = $rawsql->SelectSingleColumnArray('SELECT album 
+													 FROM collection_has_release_join 
+												    WHERE collection_info = ?', $this->{collectionId});
+	if(@{$releaseids} == 0) 
+	{
+		return [];
+	}
+	else
+	{	
+	    my @releases;
+		
+		my $releaseQuery = 'SELECT album.id, album.gid, album.name, album.artist, 
+                                attributes, album.modpending, language, script, modpending_lang, album.quality, album.modpending_qual,
+                                tracks as trackcount, firstreleasedate, rating, rating_count
+							FROM album 
+                                INNER JOIN artist ON (album.artist = artist.id)
+                                LEFT JOIN albummeta ON (album.id = albummeta.id)
+						   WHERE album.id IN(' . join(',', @{$releaseids}) . ') ORDER BY artist.name, album.name';
+		
+		my $rows = $rosql->SelectListOfHashes($releaseQuery);
+	    for my $row (@$rows)
+        {
+	        my $release = MusicBrainz::Server::Release->new($this->{RODBH});
+            $release->LoadFromRow($row);
+            push @releases, $release;
+        }
+		return \@releases;
+	}
+}
+
 =head2 GetShowMissingArtists
 Returns 
 =cut

@@ -25,6 +25,10 @@
 
 <%args>
 	$removerelease => undef
+
+    $offset => 0
+    $limit => 25
+    $page => undef
 </%args>
 
 
@@ -36,6 +40,18 @@
 	# Make sure user is logged on
 	$m->comp("/comp/checkloggedin", 1, 1, "You need to be logged in to view your collection.", 1) or return;
 	
+	# validate "limit" parameter
+	MusicBrainz::Server::Validation::IsNonNegInteger($limit)
+		or return $m->comp("/comp/layout/badarguments",
+			text => "The argument <strong>limit</strong> is missing or has a wrong format.");
+
+	# validate "offset" parameter
+	$offset = ($page - 1) * $limit
+		if (defined $page);
+	MusicBrainz::Server::Validation::IsNonNegInteger($offset)
+		or return $m->comp("/comp/layout/badarguments",
+			text => "The argument <strong>offset</strong> is missing or has a wrong format.");
+
 	# Log on to database
 	require MusicBrainz;
 	my $mbro = $m->comp("/comp/dblogin");
@@ -70,10 +86,10 @@
 	use MusicBrainz::Server::CollectionInfo;
 	my $preferences = MusicBrainz::Server::CollectionPreference->new($rodbh, $rawdbh, $session{uid});
 	my $collectionInfo = MusicBrainz::Server::CollectionInfo->new($session{uid}, $rodbh, $rawdbh, $preferences);
-	my $releases = $collectionInfo->GetHasMBIDs();
-	my $count = @$releases;
+	my $releases = $collectionInfo->GetHasReleases();
+	MusicBrainz::Server::Rating::LoadUserRatingForEntities("release", $releases, $session{uid}) if ($session{uid} && UserPreference::get("show_ratings"));
 	
-	if($count == 0) # Check if there are releases to display
+	if(scalar(@$releases) == 0) # Check if there are releases to display
 	{		
 		print 'This page displays releases that you own. You have not added any releases yet. To do so visit a release page and click the <i>Add release to collection</i> link. More information about what this is and how to use it is available in the wiki: <a href="http://wiki.musicbrainz.org/MusicCollectionIntroduction">http://wiki.musicbrainz.org/MusicCollectionIntroduction</a>';
 	}
@@ -82,15 +98,38 @@
 		my $rownum=0;
 </%perl>
 
+<script type="text/javascript" src="/scripts/ratings.js"></script>
+
+<& /comp/browse/pageselector, 
+    numitems => scalar(@$releases),
+	offset => $offset, 
+	numlinks => 6,
+	pagesize => $limit,
+	url => "/show/collection/index.html",
+&>
 
 <table id="CompactReleaseList">
-	<col style="text-align: right" />
-	<col style="text-align: right" />
-	<col style="text-align: right" />
-	<col style="text-align: center" />
-	<col style="text-align: center" />
-	<col style="text-align: center" />
-	<col />
+		<thead>
+			<tr>
+				<th>Artist</th>
+				<th>Release</th>
+				<th>Release date</th>
+				<th>Tracks</th>
+% 	if (UserPreference::get("show_ratings")) {
+				<th>Ratings</th>
+%	}
+				<th></th>
+			</tr>
+		</thead>
+	<!--
+	<col style="text-align: right;" />
+	<col style="text-align: right;" />
+	<col style="text-align: right;" />
+	<col style="text-align: center;" />
+% 	if (UserPreference::get("show_ratings")) {
+	<col style="text-align: center;" />
+%	}
+	<col style="text-align: center;" />
 	
 	
 	<tr>
@@ -98,55 +137,52 @@
 		<td><b>Release name</b></td>
 		<td><b>Release date</b></td>
 		<td><b>Track count</b></td>
+% 	if (UserPreference::get("show_ratings")) {
+		<td><b>Rating</b></td>
+%	}
 		<td><b>Remove</b></td>
 	</tr>
+	-->
 
 
 <%perl>
 
-
-use MusicBrainz::Server::Release;
-
-
-for my $mbid (@{$releases})
+my $end = $offset + $limit > @$releases ? @$releases : $offset + $limit;
+for (my $row = $offset; $row < $end; $row++)
 {
-	# load Release object
-
-        
-	my $release = MusicBrainz::Server::Release->new($rodbh);
-	$release->SetMBId($mbid);
-	$release->LoadFromId();
-
+    my $release = $releases->[$row];
 	my $artist = MusicBrainz::Server::Artist->new($rodbh);
 	$artist->SetId($release->GetArtist());
 	$artist->LoadFromId();
 	
-	print '<tr class="'.('ev', 'od')[$rownum % 2].'">';
-	print '<td><a href="/artist/'.$artist->GetMBId.'.html">'.$artist->GetName().'</a></td>';
-	print '<td><a href="/release/'.$release->GetMBId.'.html">'. $release->GetName() .'</a></td>';
-	
-	# why do this following commented line print the release date further up in the document?
-	#print '<td>'. $m->comp('/comp/releasedate', $release->GetFirstReleaseDateYMD) .'</td>';
 </%perl>
-	<td><& /comp/releasedate, $release->GetFirstReleaseDateYMD &></td>
+
+	<tr class="<% ('ev', 'od')[$rownum % 2] %>">
+	    <td> <& /comp/linkartist, artist => $artist &> </td>
+        <td> <& /comp/linkrelease, release => $release &> </td>
+	    <td> <& /comp/releasedate, $release->GetFirstReleaseDateYMD &> </td>
+    	<td> <% $release->GetTrackCount() %> </td>
+% 	if (UserPreference::get("show_ratings")) {
+    	<td class=""> <& /comp/ratingsbox, entity_type => 'release',
+                entity_id => $release->GetId,
+                small => 1,
+                rating => $release->{rating},
+                user_rating => $release->{user_rating},
+            &></td>
+%	}
+    	<td> <a href="/show/collection/?removerelease=<% $release->GetId() %>">remove</a> </td>
+    </tr>
+
 <%perl>
-	print '<td>'. $release->GetTrackCount() .'</td>';
-	print '<td><a href="/show/collection/?removerelease=' . $release->GetId() . '">remove</a></td>';
-	print '</tr>';
 
 	$rownum++;
 }
 
-
 print '</table>';
-
 
 }
 
-
-
 </%perl>
-
 
 <& /comp/tableend &>
 
