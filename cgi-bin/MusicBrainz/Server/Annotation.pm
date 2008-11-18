@@ -512,6 +512,12 @@ sub MergeReleases
 	$self->_Merge(RELEASE_ANNOTATION, @_);
 }
 
+sub MergeTracks
+{
+	my $self = shift;
+	$self->_Merge(TRACK_ANNOTATION, @_);
+}
+
 sub _Merge
 {
 	my $self = shift;
@@ -584,8 +590,23 @@ sub _Merge
 			changelog => "Result of artist merge",
             notrans => 1
 		);
-	} elsif ($type == RELEASE_ANNOTATION) {
-
+	} 
+	elsif ($type == LABEL_ANNOTATION) 
+	{
+		my @mods = Moderation->InsertModeration(
+			DBH	=> $self->{DBH},
+			uid	=> MODBOT_MODERATOR,
+			privs => UserStuff->AUTOMOD_FLAG,
+			type => &ModDefs::MOD_ADD_LABEL_ANNOTATION,
+			# --
+			labelid => $new_id,
+			text => $text,
+			changelog => "Result of label merge",
+            notrans => 1
+		);
+	} 
+	elsif ($type == RELEASE_ANNOTATION) 
+	{
 		my $artist_id = $opts{artistid} or die;
 
 		my @mods = Moderation->InsertModeration(
@@ -599,6 +620,23 @@ sub _Merge
 			text => $text,
 			changelog => "Result of album merge",
             notrans => 1
+		);
+	}
+	elsif ($type == TRACK_ANNOTATION) 
+	{
+		my $artist_id = $opts{artistid} or die;
+
+		my @mods = Moderation->InsertModeration(
+			DBH	=> $self->{DBH},
+			uid	=> MODBOT_MODERATOR,
+			privs => UserStuff->AUTOMOD_FLAG,
+			type => &ModDefs::MOD_ADD_TRACK_ANNOTATION,
+			# --
+			artistid => $artist_id,
+			trackid => $new_id,
+			text => $text,
+			changelog => "Result of track merge",
+			notrans => 1
 		);
 	}
 }

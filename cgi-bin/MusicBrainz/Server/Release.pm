@@ -994,6 +994,9 @@ sub MergeReleases
 	require MusicBrainz::Server::Rating;
 	my $ratings = MusicBrainz::Server::Rating->new($sql->{DBH});
 
+	require MusicBrainz::Server::Annotation;
+	my $annotation = MusicBrainz::Server::Annotation->new($this->{DBH});
+
    foreach $id (@list)
    {
        $al->SetId($id);
@@ -1027,6 +1030,9 @@ sub MergeReleases
 
 				# Move ratings
 				$ratings->MergeTracks($old, $new);
+
+				# Merge annotations
+				$annotation->MergeTracks($old, $new, artistid => $merged{$tr->GetSequence()}->GetArtist);
 
                 $this->SetGlobalIdRedirect($old, $tr->GetMBId, $new, &TableBase::TABLE_TRACK);
            }
@@ -1065,8 +1071,7 @@ sub MergeReleases
 		$rel->MoveFromReleaseToRelease($id, $this->GetId);
 
 		# And the annotations
-		require MusicBrainz::Server::Annotation;
-		MusicBrainz::Server::Annotation->MergeReleases($this->{DBH}, $id, $this->GetId, artistid => $this->GetArtist);
+		$annotation->MergeReleases($id, $this->GetId, artistid => $this->GetArtist);
 
 		# And the ARs
 		$link->MergeReleases($id, $this->GetId);
