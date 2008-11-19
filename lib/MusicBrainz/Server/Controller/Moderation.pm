@@ -3,7 +3,7 @@ package MusicBrainz::Server::Controller::Moderation;
 use strict;
 use warnings;
 
-use base 'Catalyst::Controller';
+use base 'MusicBrainz::Server::Controller';
 
 use DBDefs;
 use MusicBrainz::Server::Vote;

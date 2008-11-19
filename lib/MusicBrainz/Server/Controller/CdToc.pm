@@ -3,7 +3,7 @@ package MusicBrainz::Server::Controller::CdToc;
 use strict;
 use warnings;
 
-use base 'Catalyst::Controller';
+use base 'MusicBrainz::Server::Controller';
 
 sub cdtoc : Chained CaptureArgs(1)
 {

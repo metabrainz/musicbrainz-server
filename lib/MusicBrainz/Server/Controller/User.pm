@@ -3,7 +3,7 @@ package MusicBrainz::Server::Controller::User;
 use strict;
 use warnings;
 
-use base 'MusicBrainz::Server::Controller::Entity';
+use base 'MusicBrainz::Server::Controller';
 
 use MusicBrainz;
 use MusicBrainz::Server::Editor;

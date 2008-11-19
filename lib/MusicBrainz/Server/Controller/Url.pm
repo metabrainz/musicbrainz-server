@@ -3,7 +3,7 @@ package MusicBrainz::Server::Controller::Url;
 use strict;
 use warnings;
 
-use base 'Catalyst::Controller';
+use base 'MusicBrainz::Server::Controller';
 
 =head1 NAME
 

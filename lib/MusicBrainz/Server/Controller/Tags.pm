@@ -3,7 +3,7 @@ package MusicBrainz::Server::Controller::Tags;
 use strict;
 use warnings;
 
-use base 'MusicBrainz::Server::Controller::Entity';
+use base 'MusicBrainz::Server::Controller';
 
 use MusicBrainz::Server::Artist;
 use MusicBrainz::Server::Label;

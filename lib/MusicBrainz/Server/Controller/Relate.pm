@@ -3,7 +3,7 @@ package MusicBrainz::Server::Controller::Relate;
 use strict;
 use warnings;
 
-use base 'Catalyst::Controller';
+use base 'MusicBrainz::Server::Controller';
 
 sub entity : Chained('/') PathPart('relate') CaptureArgs(2)
 {

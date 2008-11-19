@@ -3,7 +3,7 @@ package MusicBrainz::Server::Controller::Label;
 use strict;
 use warnings;
 
-use base 'MusicBrainz::Server::Controller::Entity';
+use base 'MusicBrainz::Server::Controller';
 
 __PACKAGE__->config(
     model       => 'Label',

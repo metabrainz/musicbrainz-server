@@ -3,7 +3,7 @@ package MusicBrainz::Server::Controller::Doc;
 use strict;
 use warnings;
 
-use base 'Catalyst::Controller';
+use base 'MusicBrainz::Server::Controller';
 
 sub show : Path('')
 {

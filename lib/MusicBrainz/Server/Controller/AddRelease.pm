@@ -3,7 +3,7 @@ package MusicBrainz::Server::Controller::AddRelease;
 use strict;
 use warnings;
 
-use base qw(MusicBrainz::Server::Controller::Entity);
+use base 'MusicBrainz::Server::Controller';
 
 use MusicBrainz::Server::Country;
 use MusicBrainz::Server::Release;

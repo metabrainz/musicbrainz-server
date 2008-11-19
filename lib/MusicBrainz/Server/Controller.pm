@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Controller::Entity;
+package MusicBrainz::Server::Controller;
 
 use strict;
 use warnings;
