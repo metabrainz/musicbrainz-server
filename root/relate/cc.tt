@@ -1,4 +1,4 @@
-[% WRAPPER 'layout.tt' title="Add a Creative Commons License" %]
+[% WRAPPER "${entity.entity_type}/layout.tt" title="Add a Creative Commons License" %]
 [% WRAPPER 'components/box.tt' header='Add a Creative Commons License' %]
 
 <p>

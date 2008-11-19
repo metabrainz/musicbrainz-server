@@ -45,7 +45,28 @@
         [%- INCLUDE "components/entity-link.tt" entity=source -%] has no relations.
     [%- END -%]
 
+    [%- IF current_relationship -%]
+        <hr/>
+	<p>Create a relationship with:</p>
+	<ul>
+   	    <li>[%- INCLUDE "components/entity-link.tt" entity=current_relationship -%]</li>
+	</ul>
+    [%- END -%]
+
     [%- links = [
+    	{ link => c.uri_for(c.controller('relate').action_for('store'),
+	    [ source.entity_type, source.mbid ]),
+	    text => "Use this ${source.entity_type} in a relationship" },
+
+	{ link => c.uri_for('relate/cancel'),
+	    text => 'Cancel',
+	    hide => !current_relationship },
+	{ link => c.uri_for(c.controller('relate').action_for('create'),
+	    [ current_relationship.entity_type, current_relationship.mbid ],
+	    source.entity_type, source.mbid),
+	    text => 'Create relationship',
+	    hide => current_relationship.id == source.id },
+
         { link => c.uri_for(c.controller('relate').action_for('url'),
             [ source.entity_type, source.mbid ]),
             text  => 'Relate to URL' },

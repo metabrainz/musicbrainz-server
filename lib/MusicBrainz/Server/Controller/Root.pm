@@ -60,9 +60,21 @@ this means serving a 404 error page.
 sub default : Path
 {
     my ($self, $c) = @_;
-    
+
     $c->response->status(404);
     $c->stash->{template} = 'main/404.tt';
+}
+
+sub begin : Private
+{
+    my ($self, $c) = @_;
+
+    # Load current relationship
+    my $rel = $c->session->{current_relationship};
+    if ($rel)
+    {
+	$c->stash->{current_relationship} = $c->model($rel->{type})->load($rel->{id});
+    }
 }
 
 =head2 end
@@ -71,7 +83,7 @@ Attempt to render a view, if needed. This will also set up some global variables
 context containing important information about the server used on the majority of templates,
 and also the current user.
 
-=cut 
+=cut
 
 sub end : ActionClass('RenderView')
 {

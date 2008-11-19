@@ -50,4 +50,24 @@ sub cc : Chained('entity')
 
     $c->response->redirect($c->entity_url($entity, 'relations'));
 }
+
+sub store : Chained('entity')
+{
+    my ($self, $c) = @_;
+    $c->session->{current_relationship} = {
+	id   => $c->stash->{entity}->id,
+	type => $c->stash->{entity}->entity_type,
+    };
+
+    $c->response->redirect($c->req->referer);
+}
+
+sub create : Chained('entity') PathPart('to') Args(2)
+{
+    my ($self, $c, $dest_type, $dest_id) = @_;
+
+    die "$dest_type is not a valid entity type"
+        unless MusicBrainz::Server::LinkEntity->IsValidType($dest_type eq 'release' ? 'album' : $dest_type);
+}
+
 1;
