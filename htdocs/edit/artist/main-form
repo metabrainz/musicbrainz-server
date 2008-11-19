@@ -196,16 +196,17 @@
 
 						<ul style="margin-top: 5px">
 							<li>
-								You are <strong>required</strong> to enter a comment which allows
-								to distinguish this artist from
+								You are <em>required</em> to enter a comment which allows
+								users to distinguish this artist from
 % 		if ($many)
 % 		{
-								the other artists with the same name.
+								the other artists with the same name,
 % 		}
 % 		else
 % 		{
-								the other artist called <% $dupes[0]->GetName %>.
+								the other artist called <% $dupes[0]->GetName %>,
 %		}
+							if the final artist name is similar to an existing artist.	
 							</li>
 							<li>
 								Confirm by activating the checkbox below that you have read,
