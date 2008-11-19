@@ -321,14 +321,17 @@ sub GetNewReleases
 	
 	if(@{$watchArtists})
 	{
-		# Select new releases
-		# New release == added after last check and release date within a week
-		# ...so users are notified about new releases a week in advance
+		# We want to know about future releases, and things that have
+		# just been released, but not things that were released
+		# ages_ago (even if they've only just been added to MB).
+
+		my $ages_ago = "CURRENT_TIMESTAMP - '7 days'::INTERVAL";
+
 		$newReleases = $rosql->SelectSingleColumnArray("
 			SELECT id 
 			FROM album INNER JOIN albummeta ON (album.id = albummeta.id)
 			WHERE artist IN (" . join(',', @{$watchArtists}) . ") 
-				AND to_timestamp(firstreleasedate, 'YYYY-MM-DD') > (CURRENT_TIMESTAMP - '7 days'::INTERVAL)
+				AND to_timestamp(firstreleasedate, 'YYYY-MM-DD') > ($ages_ago)
 				AND dateadded > ?
 		", $this->GetLastCheck());
 	}
