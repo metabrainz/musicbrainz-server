@@ -49,4 +49,28 @@ sub with_mod_fields
     };
 }
 
+sub check_volatile_prefs
+{
+    my $self = shift;
+    my $c = shift;
+
+    my %fields = map { $_->name => 1 } @{ $self->fields };
+    if ($fields{as_auto_editor})
+    {
+        use MusicBrainz::Server::Editor;
+        my $p = 0 + $c->session->{session_privs};
+        if ($self->value('as_auto_editor'))
+        {
+            $p |= MusicBrainz::Server::Editor::AUTOMOD_FLAG;
+        }
+        else
+        {
+            $p &= ~(MusicBrainz::Server::Editor::AUTOMOD_FLAG);
+        }
+
+        $c->session->{session_privs} = $p;
+        $c->user->privs($p);
+    }
+}
+
 1;

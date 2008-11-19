@@ -36,10 +36,29 @@ sub load : Chained('base') PathPart('') CaptureArgs(1)
    $c->stash->{entity} = $entity;
 }
 
+=head2 submit_and_validate
+
+Submit a form, and modify volatile privileges from form data. This
+could mean changing the users temporary session privileges (disabling
+auto-editing, for example).
+=cut
+
 sub submit_and_validate
 {
     my ($self, $c) = @_;
-    return $c->form_posted && $self->form->validate($c->req->params);
+    if($c->form_posted && $self->form->validate($c->req->params))
+    {
+        if ($self->form->isa('MusicBrainz::Server::Form'))
+        {
+            $self->form->check_volatile_prefs($c);
+        }
+
+        return 1;
+    }
+    else
+    {
+        return;
+    }
 }
 
 1;
