@@ -212,10 +212,6 @@
 			unless grep { $_ } ($begindate_y, $begindate_m, $begindate_d);
 		($enddate_y, $enddate_m, $enddate_d) = $label->GetEndDateYMD()
 			unless grep { $_ } ($enddate_y, $enddate_m, $enddate_d);
-
-		# tick confirm checkbox by default if the label already
-		# has a resolution
-		$confirm = 1 if ($label->GetResolution() ne "");
 	}
 
 </%perl>

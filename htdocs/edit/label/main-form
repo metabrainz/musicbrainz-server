@@ -175,16 +175,17 @@
 
 						<ul style="margin-top: 5px">
 							<li>
-								You are <strong>required</strong> to enter a comment which allows
-								to distinguish this label from
+								You are <em>required</em> to enter a comment which allows
+								users to distinguish this label from
 % 		if ($many)
 % 		{
-								the other labels with the same name.
+								the other labels with the same name,
 % 		}
 % 		else
 % 		{
-								the other label called <% $dupes[0]->GetName %>.
+								the other label called <% $dupes[0]->GetName %>,
 %		}
+							if the final label name is similar to an existing label.	
 							</li>
 							<li>
 								Confirm by activating the checkbox below that you have read,
