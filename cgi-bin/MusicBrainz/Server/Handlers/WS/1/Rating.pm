@@ -332,7 +332,7 @@ sub serve_from_db
     $obj->SetMBId($entity_id);
     unless ($obj->LoadFromId)
     {
-        die "Cannot load entity. Bad entity id given?"
+		return bad_req($r, "Cannot load $entity_type $entity_id. Bad entity id given?");
     }
 
 	my $rt = MusicBrainz::Server::Rating->new($maindb->{DBH});
