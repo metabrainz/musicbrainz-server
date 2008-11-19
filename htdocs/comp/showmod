@@ -117,7 +117,7 @@
 %		$edit->IsAutoEditType($edit->GetType))
 %	{
 
-			   | <a href="/mod/approve.html?editid=<% $editid %>&amp;url=<% $url %>">Approve</a>
+			   | <a href="/mod/approve.html?editid=<% $editid %>">Approve</a>
 
 %	}
 
