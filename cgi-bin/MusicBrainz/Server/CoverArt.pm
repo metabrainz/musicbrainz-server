@@ -87,6 +87,20 @@ my @CoverArtSites =
        imguri     => 'http://www.encyclopedisque.fr/images/imgdb/thumb250/$2.jpg',
        releaseuri => 'http://www.encyclopedisque.fr/',
    },
+   { 
+       name       => 'Thastrom',
+       domain     => 'www.thastrom.se',
+       regexp     => '^(.*)$',
+       imguri     => '$1',
+       releaseuri => '',
+   },
+   { 
+       name       => 'Universal Poplab',
+       domain     => 'www.universalpoplab.com',
+       regexp     => '^(.*)$',
+       imguri     => '$1',
+       releaseuri => '',
+   },
 );
 
 # amazon image file names are unique on all servers and constructed like
