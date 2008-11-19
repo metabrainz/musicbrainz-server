@@ -2,10 +2,15 @@
 
 <h1>Browse Edits</h1>
 
-[% INCLUDE "components/paginator.tt" %]
+[%- BLOCK url_for_page; url_for_page(page); END -%]
+[%- MACRO paginator
+        INCLUDE "components/paginator.tt" -%]
+
+[%- paginator -%]
 
 [%- WRAPPER 'forms/form.tt' quiet=1 custom=1 action=c.uri_for('/moderation/enter_votes')
     moderation=undef -%]
+
 <table class="moderation_list">
 [%- FOREACH moderation=edits -%]
     <tr class="seperator">
@@ -75,8 +80,7 @@
     [% INCLUDE 'forms/submit.tt' label='Enter votes' %]
 </div>
 
-[% INCLUDE "components/paginator.tt" %]
+[%- paginator -%]
 
-[% END %]
-
+[%- END -%]
 [%- END -%]
