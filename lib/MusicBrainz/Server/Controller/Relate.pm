@@ -15,7 +15,7 @@ sub entity : Chained('/') PathPart('relate') CaptureArgs(2)
     $c->stash->{entity} = $c->model(ucfirst $type)->load($id);
 }
 
-sub url : Chained('entity')
+sub url : Chained('entity') Form
 {
     my ($self, $c) = @_;
 
@@ -23,12 +23,12 @@ sub url : Chained('entity')
 
     my $entity = $c->stash->{entity};
 
-    my $form = $c->form($entity, 'Relate::Url');
-    $form->context($c);
+    my $form = $self->form;
+    $form->init($entity);
 
-    return unless $c->form_posted && $form->validate($c->req->params);
+    return unless $self->submit_and_validate($c);
 
-    $form->insert;
+    $form->create_relationship;
 
     $c->response->redirect($c->entity_url($entity, 'relations'));
 }

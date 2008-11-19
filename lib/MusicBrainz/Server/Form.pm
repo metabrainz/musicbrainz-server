@@ -54,6 +54,9 @@ sub check_volatile_prefs
     my $self = shift;
     my $c = shift;
 
+    return unless $c->user_exists &&
+        $c->user->IsAutoEditor($c->session->{orig_privs});
+
     my %fields = map { $_->name => 1 } @{ $self->fields };
     if ($fields{as_auto_editor})
     {

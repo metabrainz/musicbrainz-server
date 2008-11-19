@@ -92,6 +92,45 @@ sub load_relations
     return \@grouped_relations;
 }
 
+sub relate_to_url
+{
+    my ($self, $entity, $url, $link_type, $description, $edit_note) = @_;
+
+    my $type = $entity->entity_type;
+    $type =~ s/release/album/; # TODO terminology hack...
+
+    my $lt = MusicBrainz::Server::LinkType->new($self->context->mb->{DBH}, [ $type, 'url']);
+
+    my ($linkid, $linkattributes, $linkdesc) = split /\|/, $link_type;
+    my $link = $lt->newFromId($linkid);
+
+    my @links;
+    push @links, {
+        type => $type,
+        id   => $entity->id,
+        obj  => $entity,
+        name => $entity->name,
+    };
+    push @links, {
+        type => "url",
+        id   => undef,
+        obj  => undef,
+        name => $url,
+        url  => $url,
+        desc => $description || '',
+    };
+
+    $self->context->model('Moderation')->insert(
+        $edit_note,
+
+        type => ModDefs::MOD_ADD_LINK,
+
+        entities => \@links,
+        linktype => $link,
+        url      => $url,
+    );
+}
+
 =head2 INTERNAL METHODS
 
 =head2 _export_link $link, [$index]

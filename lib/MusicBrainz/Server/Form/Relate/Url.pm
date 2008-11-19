@@ -3,7 +3,7 @@ package MusicBrainz::Server::Form::Relate::Url;
 use strict;
 use warnings;
 
-use base 'MusicBrainz::Server::Form::EditForm';
+use base 'MusicBrainz::Server::Form';
 
 use MusicBrainz;
 use MusicBrainz::Server::LinkType;
@@ -43,6 +43,8 @@ sub options_type
 {
     my $self = shift;
 
+    return unless $self->item;
+
     my $entity = $self->item;
     my $type   = $entity->entity_type;
     $type =~ s/release/album/; # TODO terminology hack...
@@ -78,43 +80,17 @@ sub options_type
     return \@options;
 }
 
-sub mod_type { ModDefs::MOD_ADD_LINK }
-
-sub build_options
+sub create_relationship
 {
-    my ($self) = @_;
+    my $self = shift;
 
-    my $source = $self->item;
-
-    my $type = $source->entity_type;
-    $type =~ s/release/album/; # TODO terminology hack...
-
-    my $lt = new MusicBrainz::Server::LinkType($self->context->mb->{DBH}, [ $type, 'url']);
-
-    my ($linkid, $linkattributes, $linkdesc) = split /\|/, $self->value('type');
-    my $link = $lt->newFromId($linkid);
-
-    my @links;
-    push @links, {
-        type => $type,
-        id   => $source->id,
-        obj  => $source,
-        name => $source->name,
-    };
-    push @links, {
-        type => "url",
-        id   => undef,
-        obj  => undef,
-        name => $self->value('url'),
-        url  => $self->value('url'),
-        desc => $self->value('description') || '',
-    };
-
-    return {
-        entities => \@links,
-        linktype => $link,
-        url      => $self->value('url'),
-    };
+    $self->context->model('Relation')->relate_to_url(
+        $self->item,
+        $self->value('url'),
+        $self->value('type'),
+        $self->value('description'),
+        $self->value('edit_note')
+    );
 }
 
 1;
