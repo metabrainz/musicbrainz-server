@@ -328,11 +328,11 @@ sub GetNewReleases
 		my $ages_ago = "CURRENT_TIMESTAMP - '7 days'::INTERVAL";
 
 		$newReleases = $rosql->SelectSingleColumnArray("
-			SELECT id 
+			SELECT album.id 
 			FROM album INNER JOIN albummeta ON (album.id = albummeta.id)
-			WHERE artist IN (" . join(',', @{$watchArtists}) . ") 
-				AND to_timestamp(firstreleasedate, 'YYYY-MM-DD') > ($ages_ago)
-				AND dateadded > ?
+			WHERE album.artist IN (" . join(',', @{$watchArtists}) . ") 
+				AND to_timestamp(albummeta.firstreleasedate, 'YYYY-MM-DD') > ($ages_ago)
+				AND albummeta.dateadded > ?
 		", $this->GetLastCheck());
 	}
 	
