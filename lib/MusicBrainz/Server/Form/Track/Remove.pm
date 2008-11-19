@@ -3,7 +3,7 @@ package MusicBrainz::Server::Form::Track::Remove;
 use strict;
 use warnings;
 
-use base 'MusicBrainz::Server::Form::Confirm';
+use base 'MusicBrainz::Server::Form';
 
 sub remove_from_release
 {

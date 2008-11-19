@@ -3,11 +3,11 @@ package MusicBrainz::Server::Form::Label::Base;
 use strict;
 use warnings;
 
-use base 'MusicBrainz::Server::Form::EditForm';
+use base 'MusicBrainz::Server::Form';
 
 sub profile
 {
-    return {
+    shift->with_mod_fields({
         required => {
             name       => 'Text',
             sort_name  => 'Text',
@@ -17,7 +17,6 @@ sub profile
             begin_date => '+MusicBrainz::Server::Form::Field::Date',
             end_date   => '+MusicBrainz::Server::Form::Field::Date',
             label_code => '+MusicBrainz::Server::Form::Field::LabelCode',
-            edit_note  => 'TextArea',
             country    => 'Select',
 
             # We make this required if duplicates are found,
@@ -28,7 +27,7 @@ sub profile
                                     'Please enter a comment about this label for disambiguation',
             },
         }
-    };
+    });
 }
 
 sub options_country

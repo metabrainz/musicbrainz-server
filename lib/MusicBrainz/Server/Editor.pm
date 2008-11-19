@@ -715,7 +715,8 @@ sub IsAutoEditor
 {
 	my ($this, $privs) = @_;
 
-	return ($privs & AUTOMOD_FLAG) > 0;
+        return defined $privs ? return ($privs & AUTOMOD_FLAG) > 0
+                              : $this->IsAutoEditor($this->privs || 0);
 }
 
 sub IsBot

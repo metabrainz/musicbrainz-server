@@ -47,16 +47,41 @@ sub display : Path
     my @display_types = $type ne 'all' ? ($type)
                       :                  ('artist', 'label', 'release', 'track');
 
-    my $limit = ($type eq 'all') ? 10 : 100;
-    my $offset = 0;
+    my $limit  = ($type eq 'all') ? 10 : 100;
+    my $offset = $c->req->query_params->{offset} || 0;
+    $offset = $offset >= 0 ? $offset : 0;
+
+    $c->stash->{offset} = $offset;
 
     $c->stash->{tag_types} = [];
     for my $tag_type (@display_types)
     {
+	my ($tags, $count) = $c->model('Tag')->tagged_entities(
+            $tag, $tag_type, $limit, $offset
+        );
+
+        use POSIX qw(ceil floor);
+
+        my $total_pages = ceil($count / $limit);
+
         push @{ $c->stash->{tag_types} }, {
-            type     => $tag_type,
-            entities => $c->model('Tag')->tagged_entities($tag, $tag_type, $limit, $offset),
-        }
+            type         => $tag_type,
+            entities     => $tags,
+            current_page => floor($offset / $limit) + 1,
+            total_pages  => $total_pages,
+
+            url_for_page => sub {
+                my $page_number = shift;
+                $page_number = $page_number - 1;
+
+                my $new_offset  = $page_number * $limit;
+
+                my $query = $c->req->query_params;
+                $query->{offset} = $page_number * $limit;
+
+                $c->uri_for('/tags', $tag, $tag_type, $query);
+            }
+        };
     }
 
     $c->stash->{tag} = $tag;

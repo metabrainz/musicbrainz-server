@@ -81,8 +81,6 @@ sub validate
     return $self->add_error($self->required_text)
         if $self->required && !$self->sub_form->value('year');
 
-    warn "Year: " . $self->sub_form->field('year')->input;
-
     return $self->add_error('Invalid date')
         unless MusicBrainz::Server::Validation::IsValidDateOrEmpty(
             $self->sub_form->value('year'),
@@ -110,7 +108,7 @@ sub field_value
     }
 }
 
-=head1 LICENSE 
+=head1 LICENSE
 
 This software is provided "as is", without warranty of any kind, express or
 implied, including  but not limited  to the warranties of  merchantability,

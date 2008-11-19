@@ -1,5 +1,6 @@
 [%- WRAPPER 'artist/layout.tt' title='Add Alias' -%]
-[%- WRAPPER 'components/box.tt' header="Add Alias" -%]
-    [%- INCLUDE 'artist/alias_form.tt' -%]
-[%- END -%]
+
+[%- INCLUDE 'artist/alias_form.tt'
+    WRAPPER 'components/box.tt' header="Add Alias" -%]
+
 [%- END -%]

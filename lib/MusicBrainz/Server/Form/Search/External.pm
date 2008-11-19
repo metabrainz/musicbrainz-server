@@ -3,11 +3,12 @@ package MusicBrainz::Server::Form::Search::External;
 use strict;
 use warnings;
 
-use base 'Form::Processor';
+use base 'MusicBrainz::Server::Form';
 
 sub name { 'search_external' }
 
-sub profile {
+sub profile
+{
     return {
         required => {
             type  => 'Select',
@@ -20,7 +21,8 @@ sub profile {
     }
 }
 
-sub options_type {
+sub options_type
+{
     return [
         'artist'     => 'Artists',
         'label'      => 'Labels',
@@ -31,7 +33,8 @@ sub options_type {
     ];
 }
 
-sub options_limit {
+sub options_limit
+{
     return map { $_ => "Up to $_" } (25, 50, 100);
 }
 

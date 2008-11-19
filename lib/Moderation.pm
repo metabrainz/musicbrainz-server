@@ -1080,6 +1080,7 @@ sub InsertModeration
             unless $opts{moderator};
 
 		$this->moderator($opts{moderator});
+                $privs = $this->moderator->privs;
 
 		delete @opts{qw( type DBH moderator )};
 

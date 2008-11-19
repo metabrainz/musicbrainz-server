@@ -10,16 +10,15 @@ use MusicBrainz::Server::LinkType;
 
 sub profile
 {
-    return {
+    shift->with_mod_fields({
         required => {
             url  => '+MusicBrainz::Server::Form::Field::URL',
             type => 'Select',
         },
         optional => {
             description => 'TextArea',
-            edit_note   => 'TextArea',
         }
-    }
+    });
 }
 
 sub validate_type

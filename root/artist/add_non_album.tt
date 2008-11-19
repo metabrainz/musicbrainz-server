@@ -27,9 +27,9 @@
 
 [%- WRAPPER 'forms/form.tt' moderation=1 -%]
     [%- WRAPPER 'forms/fieldset.tt' legend='Tracks' -%]
-        [%- WRAPPER 'forms/row.tt' label='Artist' -%]
-            [%- INCLUDE 'components/entity-link.tt' entity=artist -%]
-        [%- END -%]
+        [%- INCLUDE 'components/entity-link.tt' entity=artist
+                WRAPPER 'forms/row.tt' label='Artist' -%]
+
         [%- INCLUDE 'forms/widget.tt' widget=form.field('track') label='Track' -%]
     [%- END -%]
 [%- END -%]

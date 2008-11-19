@@ -4,7 +4,9 @@
     [% INCLUDE "components/paginator.tt" %]
 
     [% results %]
-  
+
+    [%# Yes, this is ugly... TODO Better solution? -%]
+    [%- BLOCK url_for_page; url_for_page(page); END -%]
     [% INCLUDE "components/paginator.tt" %]
 [% END IF results%]
 

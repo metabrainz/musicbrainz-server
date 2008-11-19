@@ -3,7 +3,7 @@ package MusicBrainz::Server::Form::Search::Simple;
 use strict;
 use warnings;
 
-use base 'Form::Processor';
+use base 'MusicBrainz::Server::Form';
 
 sub name { 'search_user' }
 

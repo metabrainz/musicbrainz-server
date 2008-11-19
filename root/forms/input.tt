@@ -6,4 +6,6 @@
     style = widget.style
     extra_attributes = "class=\"${style} ${error_class}\""-%]
 
+[%- IF type -%]
 [%- INCLUDE "forms/widgets/${type}.tt" -%]
+[%- ELSE; "Warning: unknown widget type?"; END -%]

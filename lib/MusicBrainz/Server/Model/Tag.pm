@@ -52,13 +52,13 @@ sub tagged_entities
 
     my ($entities, $count) = $t->GetEntitiesForTag($entity_type, $tag, $limit, $offset);
 
-    return [ map {
+    return ([ map {
         my $ent = TableBase->new;
         $ent->mbid($_->{gid});
         $ent->entity_type($entity_type);
         $ent->name($_->{name});
         $ent;
-    } @$entities ];
+    } @$entities ], $count);
 }
 
 sub generate_tag_cloud

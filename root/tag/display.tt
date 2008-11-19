@@ -1,9 +1,20 @@
 [%- WRAPPER "layout.tt" -%]
+[%#- To generate the page url for pagination  -#%]
+[%- BLOCK url_for_page; group.url_for_page(page); END -%]
+
+[%#- Include the pagination control -#%]
+[%- BLOCK paginator -%]
+    [%- INCLUDE 'components/paginator.tt'
+        total_pages  = group.total_pages
+        current_page = group.current_page -%]
+[%- END -%]
 
 [%- FOREACH group=tag_types -%]
     <h2>[%- group.type | ucfirst -%]</h2>
 
     [%- IF group.entities.size -%]
+        [%- INCLUDE paginator -%]
+
         <table>
         [%- FOREACH entity=group.entities -%]
             <tr>
@@ -12,10 +23,9 @@
             </tr>
         [%- END -%]
         </table>
-        [%- IF group.more -%]
-            <p>There are more [% group.type %]s tagged with "[% tag | html %]."
-            <a href="[% c.uri_for('/tags', tag, group.type) %]">View all [% group.type %]s&hellip;</a></p>
-        [%- END -%]
+
+        [%- INCLUDE paginator -%]
+        
     [%- ELSE -%]
         <p>No [% group.type %]s have been tagged with "[% tag | html %]"</p>
     [%- END -%]

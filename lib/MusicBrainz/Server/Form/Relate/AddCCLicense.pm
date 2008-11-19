@@ -3,7 +3,7 @@ package MusicBrainz::Server::Form::Relate::AddCCLicense;
 use strict;
 use warnings;
 
-use base 'MusicBrainz::Server::Form::EditForm';
+use base 'MusicBrainz::Server::Form';
 
 use MusicBrainz;
 use MusicBrainz::Server::LinkAttr;
@@ -11,15 +11,12 @@ use MusicBrainz::Server::LinkType;
 
 sub profile
 {
-    return {
+    shift->with_mod_fields({
         required => {
             license => 'Select',
             url     => '+MusicBrainz::Server::Form::Field::URL',
         },
-        optional => {
-            edit_note => 'TextArea',
-        }
-    };
+    });
 }
 
 sub options_license

@@ -16,17 +16,14 @@ use Rose::Object::MakeMethods::Generic(
 
 sub profile
 {
-    return {
+    shift->with_mod_fields({
         required => {
             type     => 'Select',
             status   => 'Select',
             language => 'Select',
             script   => 'Select',
         },
-        optional => {
-            edit_note => 'TextArea',
-        }
-    };
+    });
 }
 
 sub options_type

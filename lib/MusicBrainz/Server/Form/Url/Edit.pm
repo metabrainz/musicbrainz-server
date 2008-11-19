@@ -3,19 +3,18 @@ package MusicBrainz::Server::Form::Url::Edit;
 use strict;
 use warnings;
 
-use base 'MusicBrainz::Server::Form::EditForm';
+use base 'MusicBrainz::Server::Form';
 
 sub profile
 {
-    return {
+    shift->with_mod_fileds({
         required => {
             url  => '+MusicBrainz::Server::Form::Field::URL',
         },
         optional => {
             description => 'TextArea',
-            edit_note   => 'TextArea',
         },
-    };
+    });
 }
 
 sub mod_type { ModDefs::MOD_EDIT_URL }

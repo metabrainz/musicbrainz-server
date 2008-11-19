@@ -7,7 +7,7 @@ use base 'MusicBrainz::Server::Form';
 
 sub profile
 {
-    return {
+    shift->with_mod_fields({
         required => {
             track => {
                 type => '+MusicBrainz::Server::Form::Field::Track',
@@ -16,10 +16,7 @@ sub profile
                 with_track_number => 0,
             }
         },
-        optional => {
-            edit_note => 'TextArea',
-        }
-    }
+    });
 }
 
 sub add_track

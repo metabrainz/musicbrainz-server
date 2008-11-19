@@ -75,6 +75,21 @@ sub begin : Private
     {
 	$c->stash->{current_relationship} = $c->model($rel->{type})->load($rel->{id});
     }
+
+    # Update volatile user preferences
+    if ($c->user_exists)
+    {
+        if (!defined $c->session->{orig_privs})
+        {
+            $c->session->{orig_privs} = $c->user->privs;
+        }
+
+        if ($c->user->IsAutoEditor($c->session->{orig_privs}) &&
+                defined $c->session->{session_privs})
+        {
+            $c->user->privs($c->session->{session_privs});
+        }
+    }
 }
 
 =head2 end

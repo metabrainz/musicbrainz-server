@@ -3,7 +3,16 @@ package MusicBrainz::Server::Form::Moderation::AddNote;
 use strict;
 use warnings;
 
-use base 'MusicBrainz::Server::Form::EditNote';
+use base 'MusicBrainz::Server::Form';
+
+sub profile
+{
+    return {
+        required => {
+            edit_note => 'TextArea',
+        }
+    };
+}
 
 sub insert
 {

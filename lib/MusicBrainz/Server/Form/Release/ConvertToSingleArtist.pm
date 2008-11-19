@@ -3,7 +3,7 @@ package MusicBrainz::Server::Form::Release::ConvertToSingleArtist;
 use strict;
 use warnings;
 
-use base 'MusicBrainz::Server::Form::Confirm';
+use base 'MusicBrainz::Server::Form';
 
 sub convert
 {

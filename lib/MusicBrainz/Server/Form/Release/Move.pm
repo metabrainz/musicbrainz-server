@@ -7,12 +7,11 @@ use base 'MusicBrainz::Server::Form';
 
 sub profile
 {
-    return {
+    shift->with_mod_fields({
         optional => {
-            edit_note => 'TextArea',
             move_tracks => 'Checkbox',
         }
-    };
+    });
 }
 
 sub move

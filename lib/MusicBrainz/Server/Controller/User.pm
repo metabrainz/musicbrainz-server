@@ -44,7 +44,7 @@ we validate this login data, and attempt to log the user in.
 
 =cut
 
-sub login : Form('User::Login')
+sub login : Private
 {
     my ($self, $c) = @_;
 
@@ -54,8 +54,10 @@ sub login : Form('User::Login')
     return 1
         if $c->user_exists;
 
-    my $form = $self->form;
+    use MusicBrainz::Server::Form::User::Login;
+    my $form = $self->form(MusicBrainz::Server::Form::User::Login->new());
     $c->stash->{template} = 'user/login.tt';
+    $c->stash->{form} = $self->form;
 
     $c->detach unless $self->submit_and_validate($c);
 
@@ -260,7 +262,7 @@ sub change_password : Local
 
 Display a users profile page.
 
-=cut 
+=cut
 
 sub profile : Local Args(1)
 {
@@ -298,6 +300,9 @@ sub logout : Local
     {
         $c->user->ClearPermanentCookie($c);
         $c->logout;
+
+        delete $c->session->{orig_privs};
+        delete $c->session->{session_privs};
     }
 
     $c->response->redirect($c->uri_for('/'));

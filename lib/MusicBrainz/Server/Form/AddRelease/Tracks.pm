@@ -11,7 +11,7 @@ use Rose::Object::MakeMethods::Generic(
 
 sub profile
 {
-    return {
+    shift->with_mod_fields({
         required => {
             title   => {
                 type => 'Text',
@@ -20,10 +20,9 @@ sub profile
             event_1 => '+MusicBrainz::Server::Form::Field::ReleaseEvent',
         },
         optional => {
-            edit_note   => 'TextArea',
             more_events => 'Checkbox',
         }
-    };
+    });
 }
 
 sub add_tracks

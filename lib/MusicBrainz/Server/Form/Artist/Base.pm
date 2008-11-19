@@ -31,7 +31,7 @@ required and optional fields.
 
 sub profile
 {
-    return {
+    shift->with_mod_fields({
         required => {
             name        => {
                 type => 'Text',
@@ -46,7 +46,6 @@ sub profile
         optional => {
             start     => '+MusicBrainz::Server::Form::Field::Date',
             end       => '+MusicBrainz::Server::Form::Field::Date',
-            edit_note => 'TextArea',
 
             # We make this required if duplicates are found,
             # or if a resolution is present when we edit the artist.
@@ -57,7 +56,7 @@ sub profile
                 size             => 50,
             },
         }
-    };
+    });
 }
 
 =head2 options_artist_type

@@ -2,19 +2,19 @@
     <ul class="paginator">
         <li class="counter">Page [% current_page %] of [% total_pages %]</li>
         [% IF current_page > 1 %]
-            <li><a href="[% url_for_page(1) %]">&laquo;</a></li>
-            <li><a href="[% url_for_page(current_page - 1) %]">&lt;</a></li>
+            <li><a href="[% INCLUDE url_for_page page=1 %]">&laquo;</a></li>
+            <li><a href="[% INCLUDE url_for_page page=(current_page - 1) %]">&lt;</a></li>
         [% END %]
         
         [% start=(current_page - 3) > 0 ? (current_page - 3) : 1;
          FOREACH page=[start..total_pages] %]
             [% LAST IF loop.count > 5 %]
-            <li[% IF current_page == page; ' class="current"'; END %]><a href="[% url_for_page(page) %]">[% page %]</a></li>
+            <li[% IF current_page == page; ' class="current"'; END %]><a href="[% INCLUDE url_for_page %]">[% page %]</a></li>
         [% END %]
         
         [% IF current_page != total_pages %]
-            <li><a href="[% url_for_page(current_page + 1) %]">&gt;</a></li>
-            <li><a href="[% url_for_page(total_pages) %]">&raquo;</a></li>
+            <li><a href="[% INCLUDE url_for_page page=current_page + 1 %]">&gt;</a></li>
+            <li><a href="[% INCLUDE url_for_page page=total_pages %]">&raquo;</a></li>
         [% END %]
     </ul>
 [% END %]

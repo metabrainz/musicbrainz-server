@@ -7,20 +7,17 @@ use base 'MusicBrainz::Server::Form';
 
 sub profile
 {
-    return {
+    shift->with_mod_fields({
         required => {
             title => 'Text',
         },
-        optional => {
-            edit_note => 'TextArea',
-        },
-    }
+    });
 }
 
 sub init_value
 {
     my ($self, $field, $item) = @_;
-    
+
     use Switch;
     switch ($field->name)
     {

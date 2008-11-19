@@ -9,14 +9,11 @@ use MusicBrainz::Server::Track;
 
 sub profile
 {
-    return {
+    shift->with_mod_fields({
         required => {
             track => '+MusicBrainz::Server::Form::Field::Track',
         },
-        optional => {
-            edit_note => 'TextArea',
-        }
-    }
+    });
 }
 
 sub init_value

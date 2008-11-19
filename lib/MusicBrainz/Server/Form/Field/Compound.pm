@@ -18,7 +18,7 @@ sub init
     my $profile = $self->profile;
 
     $self->sub_form(
-        MusicBrainz::Server::Form->new(
+        Form::Processor->new(
             parent_field => $self,
             profile      => $profile
         )

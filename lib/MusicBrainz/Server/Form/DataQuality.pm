@@ -33,17 +33,14 @@ Returns a list of required and optional fields to change data quality
 
 sub profile
 {
-    return {
+    shift->with_mod_fields({
         required => {
             quality => {
                 type             => 'Select',
                 auto_widget_size => 3, # Force radio buttons, select_widget wasn't working
             }
         },
-        optional => {
-            edit_note => 'TextArea'
-        },
-    };
+    });
 }
 
 sub options_quality

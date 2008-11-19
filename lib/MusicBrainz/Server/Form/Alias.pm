@@ -7,17 +7,14 @@ use base 'MusicBrainz::Server::Form';
 
 sub profile
 {
-    return {
+    shift->with_mod_fields({
         required => {
             alias => {
                 type => 'Text',
                 size => 50,
             },
         },
-        optional => {
-            edit_note => 'TextArea',
-        }
-    }
+    });
 }
 
 sub init_value

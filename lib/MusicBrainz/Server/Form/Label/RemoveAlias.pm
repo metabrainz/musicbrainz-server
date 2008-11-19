@@ -3,7 +3,7 @@ package MusicBrainz::Server::Form::Label::RemoveAlias;
 use strict;
 use warnings;
 
-use base 'MusicBrainz::Server::Form::Confirm';
+use base 'MusicBrainz::Server::Form';
 
 sub remove_from
 {
