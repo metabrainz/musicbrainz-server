@@ -1198,7 +1198,7 @@ sub GetLastUpdates
 																			 FROM $meta_entity 
 																		 ORDER BY lastupdate DESC 
 																			LIMIT 500)
-										  ORDER BY lastupdate DESC
+										  ORDER BY lastupdate DESC, name
 										     LIMIT 500");
 
 		my (@ret, $row);
@@ -1256,7 +1256,7 @@ sub GetLastUpdatesByDate
 											  FROM $entity, $meta_entity  
 											 WHERE $entity.id = $meta_entity.id 
 											   AND lastupdate = timestamp ?
-										  ORDER BY lastupdate DESC
+										  ORDER BY name
 										     LIMIT 500", $date);
 
 		$timestamp = time();

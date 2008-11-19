@@ -42,31 +42,37 @@ $timestamp = MusicBrainz::Server::DateTime::format_datetime_since($timestamp);
 
 %#  Expired edits. Expired edits that have not had any votes yet
 <h3>Expired edits</h3>
-<table width="100%" style="background-color: #fafafa; border: 1px #000000 solid;">
+<table class="datatable">
 	<tr>
 		<td><b>Edit</b></td>
 		<td><b>Expired</b></td>
 	</tr>
 
 % foreach my $row (@$expired) {
-	<tr>
+    <tr class="datatable<% ("odd", "even")[++$. % 2] %>">
 		<td><a href="/show/edit/?editid=<% $row->[0] %>"><% $pager ? '#'.$row->[0].' - ' : '' %><% $row->[1] %></a></td>
 		<td><% MusicBrainz::Server::DateTime::format_datetime_since($row->[2]) %></td>
 	</tr>
 % }
 %   if ($pager) {
-        <tr>
-            <td colspan="5">
-			   <& /comp/pageselector, offset => $offset, pagesize => $maxitems, 
-			                          url => '/show/stats/dashboard.html',
-									  args => {type=>'expired_edits'},
-									  numitems => $numitems &>
-            </td>
-        </tr>
+%		if ($numitems > $maxitems) {
+			<tr class="datatablefooter">
+				<td colspan="5">
+				   <& /comp/pageselector, offset => $offset, pagesize => $maxitems, 
+										  url => '/show/stats/dashboard.html',
+										  args => {type=>'expired_edits'},
+										  numitems => $numitems &>
+				</td>
+			</tr>
+%		}
 %   } else {
-		<tr>
+        <tr class="datatablefooter">
 			<td colspan="3">
-			[ <a href="dashboard.html?type=expired_edits">see more expired edits</a> ]
+%			if ($numitems) {
+				<a href="dashboard.html?type=expired_edits">see more expired edits</a>
+%			} else {
+				There are no expired edits. Woot!
+%			}
 			</td>
 		</tr>
 %	}

@@ -42,7 +42,7 @@ $timestamp = MusicBrainz::Server::DateTime::format_datetime_since($timestamp);
 
 %#  Hot edits -- edits that have had many comments/votes
 <h3>Hot edits</h3>
-<table width="100%" style="background-color: #fafafa; border: 1px #000000 solid;">
+<table class="datatable">
 	<tr>
 		<td><b>Edit</b></th>
 		<td><b>Comments</b></th>
@@ -51,7 +51,7 @@ $timestamp = MusicBrainz::Server::DateTime::format_datetime_since($timestamp);
 	</tr>
 
 %	foreach my $row (@$hot) {
-	<tr>
+    <tr class="datatable<% ("odd", "even")[++$. % 2] %>">
 		<td><a href="/show/edit/?editid=<% $row->[0] %>"><% $pager ? '#'.$row->[0].' - ' : '' %><% $row->[1] %></a></td>
 		<td><% $row->[2] %></td>
 		<td><% $row->[3] %></td>
@@ -63,18 +63,24 @@ $timestamp = MusicBrainz::Server::DateTime::format_datetime_since($timestamp);
 	</tr>
 %   }
 %   if ($pager) {
-        <tr>
-            <td colspan="5">
-			   <& /comp/pageselector, offset => $offset, pagesize => $maxitems, 
-			                          url => '/show/stats/dashboard.html',
-									  args => {type=>'hot_edits'},
-									  numitems => $numitems &>
-            </td>
-        </tr>
+%		if ($numitems > $maxitems) {
+			<tr class="datatablefooter">
+				<td colspan="4">
+				   <& /comp/pageselector, offset => $offset, pagesize => $maxitems, 
+										  url => '/show/stats/dashboard.html',
+										  args => {type=>'hot_edits'},
+										  numitems => $numitems &>
+				</td>
+			</tr>
+%		}
 %   } else {
-		<tr>
-			<td colspan="3">
-			[ <a href="dashboard.html?type=hot_edits">see more hot edits</a> ]
+        <tr class="datatablefooter">
+			<td colspan="4">
+%			if ($numitems) {
+				<a href="dashboard.html?type=hot_edits">see more hot edits</a>
+%			} else {
+				There are no hot edits.
+%			}
 			</td>
 		</tr>
 %	}

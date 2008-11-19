@@ -42,51 +42,68 @@ my ($item, $count, $name);
 $name = "recent_$type" . "s";
 
 my $args = {type=>$name};
+my $coutn = 0;
 $args->{date} = $date if ($date);
 </%perl>
 
-<table style="width: 100%; background-color: #fafafa; border: 1px #000000 solid; padding: 10px;">
+<table class="datatable">
 <tr> 
 	<td><b><% ucfirst($type) %></b></td> 
 %	if (!$date) {
-		<td><b>Updated</b></td>
+		<td><b>Age</b></td>
+%		if ($pager) {
+			<td><b>Last updated</b></td>
+%		}
 %	}
 </tr>
 % foreach $item (@$data) {
-    <tr>
-	    <td>
+%	$count++;
+    <tr class="datatable<% ("odd", "even")[++$. % 2] %>">
+
+	    <td width="75%">
 %		if ($date) {
 			<span class="link<% $type %>-icon"><a href="/<% $type %>/<% $item->[0] %>.html"><% $item->[1] %></a></span><br/>
 %		} else {
 %			$count = 0;
 %			foreach $date (@{$item->[1]}) {
 				<span class="link<% $type %>-icon"><a href="/<% $type %>/<% $date->[0] %>.html"><% $date->[1] %></a></span><br/>
-%				if ($count++ == 2) {
-					[ <a href="/show/stats/dashboard.html?date=<% uri_escape($item->[0]) %>&type=recent_<% $type %>s">See all 
-					<% scalar(@{$item->[1]}) %> items</a> ]
+%				if ($count++ == 2 && scalar(@{$item->[1]}) > 3) {
 %					last;
 %				}
 %			}
 %		}
 		</td>
 %		if (!$date) {
-		    <td valign="top" NOWRAP><% MusicBrainz::Server::DateTime::format_datetime_since($item->[0]) %></td>
+		    <td valign="top" align="center" NOWRAP>
+				<% MusicBrainz::Server::DateTime::format_datetime_since($item->[0]) %>
+%			if (scalar(@{$item->[1]}) > 3) {
+				<br/><br/><a href="/show/stats/dashboard.html?date=<% uri_escape($item->[0]) %>&type=recent_<% $type %>s">See all 
+				<% scalar(@{$item->[1]}) %> items</a>
+%			}
+			</td>
+%			if ($pager) {
+				<td valign="top" align="center" NOWRAP>
+					<% MusicBrainz::Server::DateTime::format_datetime($item->[0]) %>
+				</td>
+%			}
 %		}
     </tr>
 % }
 %   if ($pager) {
-        <tr>
-            <td colspan="5">
-			   <& /comp/pageselector, offset => $offset, pagesize => $maxitems, 
-			                          url => '/show/stats/dashboard.html',
-									  args => $args,
-									  numitems => $numitems &>
-            </td>
-        </tr>
+%		if ($numitems > $maxitems) {
+			<tr class="datatablefooter">
+				<td colspan="5">
+				   <& /comp/pageselector, offset => $offset, pagesize => $maxitems, 
+										  url => '/show/stats/dashboard.html',
+										  args => $args,
+										  numitems => $numitems &>
+				</td>
+			</tr>
+%		}
 %   } else {
-        <tr>
+        <tr class="datatablefooter">
             <td colspan="5">
-            [ <a href="dashboard.html?type=<% $name %>">see more recently changed <% $type . "s" %></a> ]
+            <a href="dashboard.html?type=<% $name %>">see more recently changed <% $type . "s" %></a>
             </td>
         </tr>
 %	}

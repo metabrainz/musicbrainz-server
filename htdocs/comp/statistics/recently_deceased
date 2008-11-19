@@ -42,7 +42,7 @@ $timestamp = MusicBrainz::Server::DateTime::format_datetime_since($timestamp);
 
 %#  recently deceased artists
 	<h3>Recently deceased artists</h3>
-	<table style="background-color: #fafafa; border: 1px #000000 solid; padding: 10px;">
+	<table class="datatable">
 		<tr>
 			<th>Artist</th>
 			<th>Born</th>
@@ -50,25 +50,31 @@ $timestamp = MusicBrainz::Server::DateTime::format_datetime_since($timestamp);
 		</tr>
 
 %	foreach my $row (@$deceased) {
-		<tr>
+		<tr class="datatable<% ("odd", "even")[++$. % 2] %>">
 			<td><a href="/artist/<% $row->[0] %>.html"><% $row->[1] %></a></td>
 			<td><% MusicBrainz::Server::Validation::MakeDisplayDateStr($row->[3]) %></td>
 			<td><% MusicBrainz::Server::Validation::MakeDisplayDateStr($row->[2]) %></td>
 		</tr>
 %   }
 %   if ($pager) {
-        <tr>
-            <td colspan="5">
-			   <& /comp/pageselector, offset => $offset, pagesize => $maxitems, 
-			                          url => '/show/stats/musicnews.html',
-									  args => {type=>'recently_deceased'},
-									  numitems => $numitems &>
-            </td>
-        </tr>
+%		if ($numitems > $maxitems) {
+			<tr class="datatablefooter">
+				<td colspan="5">
+				   <& /comp/pageselector, offset => $offset, pagesize => $maxitems, 
+										  url => '/show/stats/musicnews.html',
+										  args => {type=>'recently_deceased'},
+										  numitems => $numitems &>
+				</td>
+			</tr>
+%		}
 %   } else {
-		<tr>
+        <tr class="datatablefooter">
 			<td colspan="3">
-			[ <a href="musicnews.html?type=recently_deceased">see more recently deceased artists</a> ]
+%			if ($numitems) {
+				<a href="musicnews.html?type=recently_deceased">see more recently deceased artists</a>
+%			} else {
+				There are no recently deceased artists.
+%			}
 			</td>
 		</tr>
 %	}

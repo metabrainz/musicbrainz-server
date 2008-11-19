@@ -33,7 +33,7 @@ $urlqs .= $qsargs . "&"
 </%perl>
 
 <table width="100%" style="margin: 0.2em 0"><tr>
-<td align="center" valign="middle" NOWRAP>
+<td align="center" valign="middle" style="border: none" NOWRAP>
 <form method="get" action="<% $url %>">
 	<& /comp/args-to-hidden-fields.inc, %$args &>
 	[ Page
@@ -49,7 +49,7 @@ $urlqs .= $qsargs . "&"
 	of <% $pagecount %> ]
 </form>
 </td>
-<td align="center" valign="middle">
+<td align="center" valign="middle" style="border: none">
 % if ($index > 0) {
     <a href="<% $urlqs %>offset=0"
     	title="first page"

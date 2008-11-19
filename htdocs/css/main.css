@@ -893,6 +893,30 @@ table.topmods tr.topmodsnone {
 	text-align: center 
 }
 
+
+/* Music news and dashboard */
+table.datatable { 
+	border-collapse: collapse;
+	width: 100%
+}
+table.datatable tr.header td { 
+	font-weight: bold;
+}
+
+table.datatable tr td, table.datatable tr th { 
+	padding: 0.2em .5em 0.2em .5em; 
+	border: 1px solid #999;
+}
+
+table.datatable tr.datatableodd, table.datatable th.datatableodd, table.datatable td.datatableodd { 
+	background-color: #eee; color: #000; 
+}
+
+table.datatable tr.datatablefooter { 
+	text-align: center;
+}
+
+
 /* /search/textsearch.html */
 table.searchresults { 
 	border-collapse: collapse; 

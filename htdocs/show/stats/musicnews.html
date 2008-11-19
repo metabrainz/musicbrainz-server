@@ -37,22 +37,24 @@
 
 	<h1>Music News</h1>
 
-	<table>
+	<table width="100%">
 	<tr>
-		<td colspan="2">
+		<td colspan="3">
 			<& /comp/statistics/upcoming_releases, maxitems => 10 &>
 		</td>
 	</tr>
 	<tr>
-		<td colspan="2">
+		<td colspan="3">
 			<& /comp/statistics/recent_releases, maxitems => 10 &>
 		</td>
 	</tr>
 	<tr>
-		<td>
+		<td width="49%">
 		    <& /comp/statistics/recently_deceased, maxitems => 10 &>
 		</td>
-		<td>
+		<td width="2%">
+		</td>
+		<td width="49%">
 		    <& /comp/statistics/recently_brokenup, maxitems => 10 &>
 		</td>
 	</tr>
