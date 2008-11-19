@@ -1,6 +1,7 @@
 [%#- The formatting on this is crazy, but we need to make sure no white space -%]
 [%#- escapes! -%]
 [%- mpclass = entity.has_mod_pending ? ' class="mp"' : '' -%]
+[%- IF entity -%]
 [%- IF entity.entity_type == "url" -%]
     <a href="[%- (entity.url || entity.name) -%]"[%- mpclass -%]>[%- (entity.name || entity.url) | truncate(53) | html -%]</a>
     [<a href="[%- c.entity_url(entity, 'info') -%]">info</a>]
@@ -10,4 +11,5 @@
         [%- entity.name | html -%]
         [%- UNLESS noicon -%]</span>[%- END -%]</a>
         [%- IF entity.resolution -%] ([%- entity.resolution | html -%])[%- END -%]
+[%- END -%]
 [%- END -%]

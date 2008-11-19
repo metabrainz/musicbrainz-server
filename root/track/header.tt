@@ -15,9 +15,11 @@
         [% INCLUDE "components/entity-link.tt" entity=track noicon=1 %]
     </div>
 
+    [%- IF artist -%]
     <div class="info">
         by [% INCLUDE "components/entity-link.tt" entity=artist noicon=1 %]
     </div>
+    [%- END -%]
 
     <div class="infoLinks">
         Info: [% INCLUDE "components/piped-list.tt" list=info_links %]

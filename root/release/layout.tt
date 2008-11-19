@@ -1,3 +1,4 @@
+[%- DEFAULT release=entity -%]
 [% WRAPPER "layout.tt" title="Tags for ${release.name}" %]
 [% INCLUDE "release/header.tt" %]
 [% content %]
