@@ -126,7 +126,7 @@
 				$artist->LoadFromId();
 
 				$m->out("&nbsp;by&nbsp;");
-				$m->comp("/comp/linkartist", artist => $artist, icon => 0);
+				$m->comp("/comp/linkartist", artist => $artist);
 			}
 		}		
 	}
