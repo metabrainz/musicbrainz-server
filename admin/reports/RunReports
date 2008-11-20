@@ -42,6 +42,10 @@ mkdir $outputdir
 	or die "mkdir: $!\n";
 
 my @all = qw(
+	admin/reports/ArtistsThatShouldBeGroups
+	);
+
+my @_all = qw(
 	admin/reports/AlbumsToConvert.pl
 	admin/reports/BadWin32CDTOCs
 	admin/reports/BadAmazonURLs
