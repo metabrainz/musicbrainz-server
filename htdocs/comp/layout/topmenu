@@ -76,12 +76,6 @@
 			[
 				{ url => "/doc/CdLookupTool" },
 			],
-			{ name => "Classic Tagger",			url => "/doc/ClassicTagger" },
-			[
-				{ url => "/doc/ClassicTaggerDownload" },
-				{ url => "/doc/ClassicTaggerTutorial" },
-				{ url => "/doc/ClassicTaggerQuickStart" },
-			],
 			{ name => "Picard Tagger",			url => "/doc/PicardTagger" },
 				{ url => "/doc/PicardDownload" },
 				{ url => "/doc/PicardTutorial" },
