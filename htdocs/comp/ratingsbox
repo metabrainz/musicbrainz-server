@@ -85,10 +85,10 @@
 		$m->out("<small>(");
 
 		# Display community rating if user has already rated this entity
-		$m->out("Community rating: <span id='COMMUNITY-RATING::". $entity_type ."::". $entity_id ."'>". 
-			($rating ? sprintf("%.2f", $rating) : "none") ."</span> - ");
+		$m->out("Average rating: <span id='COMMUNITY-RATING::". $entity_type ."::". $entity_id ."'>". 
+			($rating ? int($rating*100)/100 : "none") ."</span>, ");
 
-		$m->out("Votes: <span id='VOTES-RATING::". $entity_type ."::". $entity_id ."'>". ($rating_count || "0") ."</span>)");
+		$m->out("rated <span id='VOTES-RATING::". $entity_type ."::". $entity_id ."'>". ($rating_count || "0") ." time". ($rating_count == 1 ? "" : "s") ."</span>)");
 		$m->out("</small>");
 	}
 </%perl>

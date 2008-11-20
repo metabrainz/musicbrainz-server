@@ -47,13 +47,13 @@ MusicBrainz.RatingsUpdater = function()
 		// Votes
 		var totalVotes = $("VOTES-RATING::"+entitytype+"::"+entityid);
 		if (totalVotes) {
-			totalVotes.innerHTML = newRatingInfo.rating_count;
+			totalVotes.innerHTML = newRatingInfo.rating_count + " time" + (newRatingInfo.rating_count == 1 ? "" : "s");
 		}
 
-		// Community rating
+		// Average rating
 		var communityRating = $("COMMUNITY-RATING::"+entitytype+"::"+entityid);
 		if (communityRating) {
-			communityRating.innerHTML = newRatingInfo.rating;
+			communityRating.innerHTML = Math.round(newRatingInfo.rating*100)/100;
 		}
 	}
 
