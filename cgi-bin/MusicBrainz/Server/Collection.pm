@@ -272,5 +272,35 @@ sub RemoveReleaseWithId
 	}
 }
 
+# This function is called from Moderation when changes are applied to the DB
+sub RemoveArtistFromCollections
+{
+	my ($self, $artistid) = @_;
+
+    my $rawdb = $Moderation::DBConnections{RAWDATA};
+	$rawdb->Do("DELETE FROM collection_watch_artist_join WHERE artist = ?", $artistid);
+	$rawdb->Do("DELETE FROM collection_discography_artist_join WHERE artist = ?", $artistid);
+}
+
+# This function is called from Moderation when changes are applied to the DB
+sub RemoveReleaseFromCollections
+{
+	my ($self, $releaseid) = @_;
+
+    my $rawdb = $Moderation::DBConnections{RAWDATA};
+	$rawdb->Do("DELETE FROM collection_has_release_join WHERE album = ?", $releaseid);
+	$rawdb->Do("DELETE FROM collection_ignore_release_join WHERE album = ?", $releaseid);
+}
+
+# This function is called from Moderation when changes are applied to the DB
+sub MergeReleases
+{
+	my ($self, $old, $new) = @_;
+
+    my $rawdb = $Moderation::DBConnections{RAWDATA};
+	$rawdb->Do("UPDATE collection_has_release_join SET album = ? WHERE album = ?", $new, $old);
+	$rawdb->Do("UPDATE collection_ignore_release_join SET album = ? WHERE album = ?", $new, $old);
+}
+
 1;
 # vi: set ts=4 sw=4 :

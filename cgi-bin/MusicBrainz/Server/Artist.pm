@@ -345,6 +345,11 @@ sub Remove
 	my $ratings = MusicBrainz::Server::Rating->new($sql->{DBH});
 	$ratings->RemoveArtists($this->GetId);
 
+    # Remove collection items
+	require MusicBrainz::Server::Collection;
+	my $coll = MusicBrainz::Server::Collection->new($sql->{DBH});
+	$coll->RemoveArtistFromCollections($this->GetId);
+
     # Remove references from artist words table
     require SearchEngine;
     my $engine = SearchEngine->new($this->{DBH}, 'artist');
