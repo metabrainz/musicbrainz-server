@@ -28,7 +28,7 @@
 	$removerelease => undef
 
     $offset => 0
-    $limit => 25
+    $limit => 50
     $page => undef
 </%args>
 
@@ -36,7 +36,7 @@
 <%perl>
 	
 	# Set up page
-	$m->comp("/comp/sidebar-notitle", pagetitle => 'Collection');
+	$m->comp("/comp/sidebar", pagetitle => 'My Music Collection');
 	
 	# Make sure user is logged on
 	$m->comp("/comp/checkloggedin", 1, 1, "You need to be logged in to view your collection.", 1) or return;
@@ -75,14 +75,6 @@
 		MusicBrainz::Server::Collection::RemoveReleaseWithId($rawdbh, $removerelease, $collectionId);
 	}
 	
-	
-</%perl>
-	
-<& /comp/tablebegin, title => "Music in collection" &>
-	
-<%perl>
-	
-	
 	# Get all releases in collection
 	use MusicBrainz::Server::CollectionInfo;
 	my $preferences = MusicBrainz::Server::CollectionPreference->new($rodbh, $rawdbh, $session{uid});
@@ -90,105 +82,87 @@
 	my $releases = $collectionInfo->GetHasReleases();
 	MusicBrainz::Server::Rating::LoadUserRatingForEntities("release", $releases, $session{uid}) if ($session{uid} && UserPreference::get("show_ratings"));
 	
-	if(scalar(@$releases) == 0) # Check if there are releases to display
-	{		
-		print '<p>Your collection is empty.</p>';
-		print 'This page displays releases that you own. To do so visit a release page and click the '.
-			  '<i>Add release to collection</i> link. More information about what this is and how to use '.
-			  'it is available in the wiki: '. 
-			  '<a href="http://wiki.musicbrainz.org/MusicCollectionIntroduction">http://wiki.musicbrainz.org/MusicCollectionIntroduction</a></p>';
-	}
-	else
-	{
-		my $rownum=0;
 </%perl>
 
 <script type="text/javascript" src="/scripts/ratings.js"></script>
 
-<& /comp/browse/pageselector, 
-    numitems => scalar(@$releases),
-	offset => $offset, 
-	numlinks => 6,
-	pagesize => $limit,
-	url => "/show/collection/index.html",
-&>
+<p>This page displays releases that you own. To add releases, visit a release page and click the <i>Add release to collection</i> link.</p>
+<p>More information about what this is and how to use it is available in our    
+<& /comp/linkdoc, "MusicCollectionIntroduction", "documentation about Collection" &></p>
 
-<table id="CompactReleaseList">
-		<thead>
-			<tr>
-				<th>Artist</th>
-				<th>Release</th>
-				<th>Release date</th>
-				<th>Tracks</th>
-% 	if (UserPreference::get("show_ratings")) {
-				<th>Ratings</th>
-%	}
-				<th></th>
-			</tr>
-		</thead>
-	<!--
-	<col style="text-align: right;" />
-	<col style="text-align: right;" />
-	<col style="text-align: right;" />
-	<col style="text-align: center;" />
-% 	if (UserPreference::get("show_ratings")) {
-	<col style="text-align: center;" />
-%	}
-	<col style="text-align: center;" />
-	
-	
+<h3 style="text-align: center;">
+	<% (scalar(@$releases) == 0) ? "Your collection is empty." : "You have ". scalar(@$releases) ." releases in your collection" %>
+</h3>
+
+%	if(scalar(@$releases)) {
+
+<h2>Releases</h2>
+
+<table id="CompactReleaseList" style="width: 100%;">
 	<tr>
-		<td><b>Artist</b></td>
-		<td><b>Release name</b></td>
-		<td><b>Release date</b></td>
-		<td><b>Track count</b></td>
-% 	if (UserPreference::get("show_ratings")) {
-		<td><b>Rating</b></td>
-%	}
-		<td><b>Remove</b></td>
+		<th align="left">Artist</th>
+		<th align="left">Release</th>
+		<th align="left">Type</th>
+		<th align="left">Date</th>
+		<th align="left">Tracks</th>
+%		if (UserPreference::get("show_ratings")) {
+		<th align="left">Ratings</th>
+%		}
+		<th />
 	</tr>
-	-->
-
 
 <%perl>
 
-my $end = $offset + $limit > @$releases ? @$releases : $offset + $limit;
-for (my $row = $offset; $row < $end; $row++)
-{
-    my $release = $releases->[$row];
-	my $artist = MusicBrainz::Server::Artist->new($rodbh);
-	$artist->SetId($release->GetArtist());
-	$artist->LoadFromId();
+	my $rownum = 0;
+	my $end = $offset + $limit > @$releases ? @$releases : $offset + $limit;
+
+	for (my $row = $offset; $row < $end; $row++)
+	{
+		my $release = $releases->[$row];
+		my $artist = MusicBrainz::Server::Artist->new($rodbh);
+		$artist->SetId($release->GetArtist());
+		$artist->LoadFromId();
+		my ($release_type) = $release->GetReleaseTypeAndStatus;
+		$release_type = $release->GetAttributeName($release_type);
 	
 </%perl>
 
 	<tr class="<% ('ev', 'od')[$rownum % 2] %>">
 	    <td> <& /comp/linkartist, artist => $artist &> </td>
         <td> <& /comp/linkrelease, release => $release &> </td>
-	    <td> <& /comp/releasedate, $release->GetFirstReleaseDateYMD &> </td>
-    	<td> <% $release->GetTrackCount() %> </td>
-% 	if (UserPreference::get("show_ratings")) {
-    	<td class=""> <& /comp/ratingsbox, entity_type => 'release',
+    	<td> <% $release_type %> </td>
+	    <td class="rdate"> <& /comp/releasedate, $release->GetFirstReleaseDateYMD &> </td>
+    	<td style="text-align: center;"> <% $release->GetTrackCount() %> <img alt="Tracks" src="/images/notes.gif"/></td>
+
+%		if (UserPreference::get("show_ratings")) {
+
+    	<td style="text-align: center; padding: 0px; margin: 0px;"> <& /comp/ratingsbox, entity_type => 'release',
                 entity_id => $release->GetId,
                 small => 1,
                 rating => $release->{rating},
                 user_rating => $release->{user_rating},
             &></td>
-%	}
+
+%		}
     	<td> <a href="/show/collection/?removerelease=<% $release->GetId() %>">remove</a> </td>
     </tr>
 
-<%perl>
+%		$rownum++;
+%	}
 
-	$rownum++;
-}
+</table>
 
-print '</table>';
+%	 if (scalar(@$releases) > $limit) {
 
-}
+	<& /comp/browse/pageselector, 
+		numitems => scalar(@$releases),
+		offset => $offset, 
+		numlinks => 6,
+		pagesize => $limit,
+		url => "/show/collection/",
+	&>
 
-</%perl>
-
-<& /comp/tableend &>
+%	}
+% }
 
 <& /comp/footer &>
