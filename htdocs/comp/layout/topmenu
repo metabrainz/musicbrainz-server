@@ -269,6 +269,8 @@
 			{ name => "Most Active CD Stubs",			url => "/show/cdstub/topstubs.html" },
 			[
 				{ url => "/show/cdstub/index.html" },
+				{ url => "/edit/cdstub/add.html" },
+				{ url => "/edit/cdstub/import.html" },
 			],
 
 			# edit wiki transclusion

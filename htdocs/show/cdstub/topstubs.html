@@ -42,10 +42,12 @@
 	$timestamp = MusicBrainz::Server::DateTime::format_datetime_since($timestamp);
 
 </%perl>
-<& /comp/sidebar, title => "Most active CD Stubs" &>
+<& /comp/sidebar-notitle, pagetitle => "Most active CD Stubs" &>
+
 
 %	if (scalar(@$data)) {
-		<table width="100%" style="background-color: #fafafa; border: 1px #000000 solid;">
+	<& /comp/tablebegin, title => "Most active CD Stubs" &>
+		<table class="searchresults">
 			<tr>
 			<td><b>Title</b></td>
 			<td><b>Artist</b></td>
@@ -67,7 +69,7 @@
 %			} else {
 %				$url .=	"&release=" . uri_escape($row->{title});
 %			}
-			<tr>
+			<tr class="searchresults<% ("odd", "even")[++$. % 2] %>">
 			<td><a href="index.html?discid=<% $row->{discid} %>" title="View this CD Stub"><% $row->{title} %></a></td>
 			<td><% $row->{artist} || "Various Artists" %></td>
 			<td><% MusicBrainz::Server::DateTime::format_datetime_since($row->{added}) %></td>
@@ -75,8 +77,8 @@
 			<td><% $row->{lookupcount} %></td>
 			<td><% $row->{modifycount} %></td>
 %			if ($session{uid}) {
-				<td><a href="/edit/cdstub/import.html?cdstubid=<% $row->{id} %>">release</a></td>
-				<td><a href="<% $url %>">Disc Id</a></td>
+				<td><a href="/edit/cdstub/import.html?cdstubid=<% $row->{id} %>">release</a>
+				| <a href="<% $url %>">disc id</a></td>
 %			}
 			</tr>
 %		}
@@ -88,10 +90,14 @@
 			</td>
 		</tr>
 		</table>
+		<& /comp/tableend &>
 		<p class="lastupdated">Updated <% $timestamp %></p>
 %	} else {
+		<& /comp/tablebegin, title => "No CD Stubs" &>
 		<p>There are no CD Stubs to show.</p>
+		<& /comp/tableend &>
 %	}
+
 
 <& /comp/footer &>
 

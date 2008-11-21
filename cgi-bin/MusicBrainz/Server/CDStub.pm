@@ -66,7 +66,7 @@ sub Lookup
 	{
 		return undef;
     }
-
+	return undef if (!$releaseid);
 	return $self->Load($releaseid);
 }
 
@@ -192,6 +192,7 @@ sub _CheckData
     return ("TOC data does not match passed in Disc Id.", 0, 0) if ($tocdata{discid} ne $data->{discid});
 	return ("Invalid Disc Id.", 0, 0) if (length($data->{discid}) != &MusicBrainz::Server::CDTOC::CDINDEX_ID_LENGTH);
 	return ("Number of tracks passed does not match passed TOC", 0, 0) if ($total != $tocdata{tracks});
+	return ("Invalid barcade.", 0, 0) if (MusicBrainz::Server::Validation::IsValidBarcode($data->{barcode}));
 
     return ("", $total, \%tocdata);
 }
@@ -220,7 +221,8 @@ sub Insert
 	eval
 	{
 		$sql->Begin;
-		$sql->Do("INSERT INTO release_raw (title, artist) values (?,?)", $data->{title}, $data->{artist});
+		$sql->Do("INSERT INTO release_raw (title, artist, comment, barcode, lookupcount) values (?,?,?,?,?)", 
+				$data->{title}, $data->{artist}, $data->{comment}, $data->{barcode}, int(rand(10)));
 		my $alid = $sql->GetLastInsertId("release_raw");
 		$sql->Do("INSERT INTO cdtoc_raw (release, discid, trackcount, leadoutoffset, trackoffset) values (?, ?, ?, ?, ?)",
 				$alid, $data->{discid}, $total, $tocdata->{leadoutoffset}, "{".join(',',@{$tocdata->{trackoffsets}})."}");
@@ -266,8 +268,8 @@ sub Update
 	{
 		$sql->Begin;
 		$sql->Do("UPDATE release_raw 
-				     SET title=?, artist=?,lastmodified=now(), modifycount = modifycount + 1 
-				   WHERE id = ?", $data->{title}, $data->{artist}, $alid);
+				     SET title=?, artist=?,lastmodified=now(), modifycount = modifycount + 1, comment = ?, barcode = ? 
+				   WHERE id = ?", $data->{title}, $data->{artist}, $data->{comment}, $data->{barcode}, $alid);
   
 		# Update lastmodified
 		$sql->Do("UPDATE cdtoc_raw 

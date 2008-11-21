@@ -34,6 +34,8 @@
 	$artistname => ''
 	$releasename => ''
 	$va => undef
+	$comment => ''
+	$barcode => ''
 
 	$submit => 0
 	$exists => 0
@@ -115,8 +117,6 @@
 		$cd = $rc->Lookup($id);
 		if ($cd)
 		{
-			# We have it, so set a flag to update and not insert
-			$exists = 1;
 		}
 		else
 		{
@@ -128,6 +128,8 @@
 		$cd->{title} = $releasename;
 		$cd->{discid} = $id;
 		$cd->{toc} = $toc;
+		$cd->{barcode} = $barcode;
+		$cd->{comment} = $comment;
 		for(1..$check{tracks}) 
 		{
 			$cd->{tracks}->[$_-1]->{title} = $tracks[$_-1];
@@ -144,7 +146,7 @@
 		}	
 		if (!$error)
 		{
-			$m->comp("/comp/sidebar", title => ($exists ? "CD Updated" : "CD Added"));
+			$m->comp("/comp/sidebar", title => ($exists ? "CD Stub Updated" : "CD Stub Added"));
 			$m->out("<p>Thank you for adding/checking the information for this CD. You can now request " .
 					"this CD via your client.</p>");
 			$m->comp("/comp/release/cdstub", discid => $id, data => $cd);
@@ -159,6 +161,8 @@
 		{
 			$artistname = $cd->{artist};
 			$releasename = $cd->{title};
+			$comment = $cd->{comment};
+			$barcode = $cd->{barcode};
 
 			for(1..$check{tracks}) 
 			{
@@ -310,6 +314,30 @@
 					</td>
 				</tr>
 %	}
+				<tr>
+					<td class="label">
+						<div id="barcode_label<% $_ %>">
+							<label for="id_barcode">Barcode:</label></td>
+						</div>
+					<td>
+						<div id="barcode_field<% $_ %>">
+							<input	type="text" name="barcode" id="id_barcode" class="textfield"
+									size="30" value="<% $barcode %>" />
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td class="label">
+						<div id="comment_label<% $_ %>">
+							<label for="id_comment">Comment:</label></td>
+						</div>
+					<td>
+						<div id="comment_field<% $_ %>">
+							<input	type="text" name="comment" id="id_comment" class="textfield"
+									size="30" value="<% $comment %>" />
+						</div>
+					</td>
+				</tr>
 				<tr>
 					<td class="label">&nbsp;</td>
 					<td>

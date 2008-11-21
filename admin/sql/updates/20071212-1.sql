@@ -21,7 +21,9 @@ CREATE TABLE release_raw
     lastmodified        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     lookupcount         INTEGER DEFAULT 0,
     modifycount         INTEGER DEFAULT 0,
-    source		INTEGER DEFAULT 0
+    source		INTEGER DEFAULT 0,
+    barcode             VARCHAR(255),
+    comment             VARCHAR(255)
 );
 
 CREATE TABLE track_raw

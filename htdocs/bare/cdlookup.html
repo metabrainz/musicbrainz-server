@@ -187,21 +187,49 @@
 			}
 		}
 
-		# No releases.  Perhaps the user wants to enter one?
+		# Check for CD Stubs
+		my $stub;
 		if (not @$releaseids)
 		{
+			my $raw = MusicBrainz->new;
+			$raw->Login(db => "RAWDATA");
+			require MusicBrainz::Server::CDStub;
+			my $cs = MusicBrainz::Server::CDStub->new($raw->{DBH});
+			$stub = $cs->Lookup($discid);
+		}
 
+		if ($stub && exists $session{uid})
+		{
 </%perl>
-
+			<& /comp/sidebar-notitle, pagetitle => "CD Stub found" &>
+			<& /comp/tablebegin, title => "CD Stub found" &>
+			<p>
+				A CD Stub was found. You can:
+			</p>
+			<ul>
+				<li><a href="/edit/cdstub/import.html?cdstubid=<% $stub->{id} %>">Import this CD Stub into MusicBrainz</a></li>
+				<li>Attach this disc id to an existing release by continuing below.</li>
+			</ul>
+			<& .ShowSubmitForm, \%info &>
+<%perl>
+		}
+		# No releases.  Perhaps the user wants to enter one?
+		elsif (not @$releaseids)
+		{
+</%perl>
 		<& /comp/sidebar-notitle, pagetitle => "CD not found" &>
 		<& /comp/tablebegin, title => "CD not found" &>
 
-			MusicBrainz doesn't currently have any CDs which have this TOC: <br />
+%			if ($stub) {
+				MusicBrainz only has a CD Stub for this CD. 
+%			} else {
+				MusicBrainz doesn't currently have any CDs which have this TOC: <br />
+%			}
 
 			<div style="border: 1px dotted #999; margin-top: 10px; margin-bottom: 10px; padding: 5px;">
 				<% $toc %>
 			</div>
-%       if (!exists $session{uid} && $discid ne '' && $toc ne '') {
+%       if (!exists $session{uid}) {
 			<p style="float: right; margin: .5em"><a href="http://flickr.com/photos/pinkangelbabe/427255017/" border="0"><img src="/images/redblue.jpg" title="Which one will you choose?" alt="red or blue?"></a></p>
 	        <p>
 		    Please consider adding this release/CD to MusicBrainz. To add this CD, please choose one of the following

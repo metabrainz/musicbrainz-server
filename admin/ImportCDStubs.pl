@@ -43,6 +43,7 @@ my $rc = MusicBrainz::Server::CDStub->new($mb->{DBH});
 my $line;
 my $data = ();
 my ($k, $v);
+my ($count, $error, $invalidtoc); 
 
 while($line = <>)
 {
@@ -60,17 +61,21 @@ while($line = <>)
 				my $err = $rc->Insert($data);
 				if ($err)
 				{
-					print "Error inserting cd ".$data->{cdbaby}.": $err\n";
+					#print "Error inserting cd ".$data->{comment}.": $err\n";
+					$error++;
 				}
 			    else
 			    {
-				    print "Inserted $data->{title} by $data->{artist}\n";
+					#print "Inserted $data->{title} by $data->{artist}\n";
+					$count++;
+					print "Inserted $count cds.\n" if ($count % 1000 == 0);
 			    }
 			}
 		}
 		else
 		{
-			print "Invalid toc for cd ".$data->{cdbaby}.": $data->{toc}\n";
+			#print "Invalid toc for cd ".($data->{cdbaby} || '').": " . ($data->{toc} || '') . "\n";
+			$invalidtoc++;
 		}
 
 		$data = ();
@@ -78,9 +83,11 @@ while($line = <>)
 	}
 
 	($k, $v) = split /=/, $line, 2;
-	$data->{cdbaby} = $v if ($k eq 'cdbaby');
 	$data->{artist} = $v if ($k eq 'artist');
 	$data->{title} = $v if ($k eq 'album');
 	$data->{toc} = $v if ($k eq 'toc');
+	$data->{barcode} = $v if ($k eq 'barcode');
+	$data->{comment} = $v if ($k eq 'comment');
 	$data->{tracks}->[$1]->{title} = $v if ($k =~ /^track(\d+)/);
 }
+print "Imported $count CDs. Encountered $invalidtoc invalid tocs and $error insert errors."
