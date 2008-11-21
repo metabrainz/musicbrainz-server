@@ -302,7 +302,7 @@ sub encode_entities
 {
 	${ $_[0] } =~ s/([<>"'&])/$ent{$1}/go, return
 		if not defined wantarray;
-	my $t = $_[0];
+	my $t = $_[0] || '';
 	$t =~ s/([<>"'&])/$ent{$1}/go;
 	$t;
 }
