@@ -57,7 +57,7 @@ begin
         GROUP BY album;
 
    raise notice ''Filling albummeta table'';
-   insert into albummeta (id, tracks, discids, puids, firstreleasedate, asin, coverarturl, dateadded)
+   insert into albummeta (id, tracks, discids, puids, firstreleasedate, asin, coverarturl, dateadded, lastupdate)
    select a.id,
             COALESCE(t.count, 0) AS tracks,
             COALESCE(d.count, 0) AS discids,
@@ -65,7 +65,8 @@ begin
             r.firstreleasedate,
             aws.asin,
             aws.coverarturl,
-            timestamp ''1970-01-01 00:00:00-00''
+            timestamp ''1970-01-01 00:00:00-00'',
+            NULL
     FROM    album a
             LEFT JOIN albummeta_tracks t ON t.id = a.id
             LEFT JOIN albummeta_discids d ON d.id = a.id

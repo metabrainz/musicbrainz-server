@@ -68,8 +68,6 @@ fi
 
 # Drop the functions and triggers in order to fix the one wrong PUID update function
 echo `date` : Re loading functions
-# RAUOK: We've got a minor issue here. We're dropping the triggers from the current codebase which attempts
-#        to drop triggers and functions that don't exist. This shouldn't be a problem, but it would be good to check
 
 if [ "$REPLICATION_TYPE" != "$RT_SLAVE" ]
 then

@@ -92,7 +92,7 @@
 	}
 
     $release->LoadLastUpdate();
-	my $lastupdate = "(updated " . MusicBrainz::Server::DateTime::format_datetime_since($release->GetLastUpdate()) . ")";
+	my $lastupdate = MusicBrainz::Server::DateTime::format_datetime_since($release->GetLastUpdate());
 
 </%perl>
 
@@ -280,7 +280,9 @@
 			{
 				$m->out(qq!<a href="/login.html">Log in</a> to edit this!);
  			}
-			$m->out(qq!&nbsp;] <span class="lastupdated">! . $lastupdate . qq!</span></td></tr>!);
+			$m->out(qq!&nbsp;]!);
+			$m->out(qq! <span class="lastupdated">(updated ! . $lastupdate . qq!)</span>!) if ($lastupdate);
+			$m->out(qq!</td></tr>!)
 		}
 
         # rating

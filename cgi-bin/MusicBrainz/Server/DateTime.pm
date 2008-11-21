@@ -295,5 +295,13 @@ sub make_duration_cute
 	return Time::Duration::duration($dur, 1) . " ago";
 }
 
+sub last_update
+{
+	my ($t) = @_;
+
+	return undef if (!$t);
+	return format_datetime_since($t);
+}
+
 1;
 # eof DateTime.pm

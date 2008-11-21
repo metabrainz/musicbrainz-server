@@ -103,7 +103,11 @@ $args->{date} = $date if ($date);
 %   } else {
         <tr class="datatablefooter">
             <td colspan="5">
-            <a href="dashboard.html?type=<% $name %>">see more recently changed <% $type . "s" %></a>
+%			if ($numitems) {
+				<a href="dashboard.html?type=<% $name %>">see more recently changed <% $type . "s" %></a>
+%			} else {
+				The are no recently changed <% $type . "s" %>.
+%			}
             </td>
         </tr>
 %	}

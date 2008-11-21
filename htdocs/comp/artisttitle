@@ -62,7 +62,7 @@
 	{
 		$quality = ModDefs::GetQualityText($artist->GetQuality);
 		$artist->LoadLastUpdate();
-		$lastupdate = "(updated " . MusicBrainz::Server::DateTime::format_datetime_since($artist->GetLastUpdate()) . ")";
+		$lastupdate = MusicBrainz::Server::DateTime::last_update($artist->GetLastUpdate());
 	}
 
 	# compile begin- and end dates
@@ -220,7 +220,8 @@
 		{
 			$m->out(qq!<a href="/login.html">Log in</a> to edit this!);
 		}
-		$m->out(' ] <span class="lastupdated">' . $lastupdate . "</span>");
+		$m->out(' ]');
+		$m->out(' <span class="lastupdated">(updated ' . $lastupdate . ")</span>") if ($lastupdate);
 		$m->out(qq!</td></tr>!);
 	}
 

@@ -33,7 +33,7 @@
 
 </%args>
 % $label->LoadLastUpdate();
-% my $lastupdate = MusicBrainz::Server::DateTime::format_datetime_since($label->GetLastUpdate());
+% my $lastupdate = MusicBrainz::Server::DateTime::last_update($label->GetLastUpdate());
 
 	<& /comp/tablebegin, title => "Label information" &>
 
@@ -50,12 +50,14 @@
 				<td>
 					<% $label->GetMBId %></td>
 			</tr>
-			<tr>
-				<td class="label">
-					Last updated:</td>
-				<td>
-					<% $lastupdate %></td>
-			</tr>
+%			if ($lastupdate) {
+				<tr>
+					<td class="label">
+						Last updated:</td>
+					<td>
+						<% $lastupdate %></td>
+				</tr>
+%			}
 
 %	if (not $short)
 %	{

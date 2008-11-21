@@ -56,7 +56,7 @@
 	my $resolution = $label->GetResolution;
 
     $label->LoadLastUpdate();
-	my $lastupdate = "(updated " . MusicBrainz::Server::DateTime::format_datetime_since($label->GetLastUpdate()) . ")";
+	my $lastupdate = MusicBrainz::Server::DateTime::last_update($label->GetLastUpdate());
 
 	# compile begin- and end dates
 	$begin = MusicBrainz::Server::Validation::MakeDisplayDateStr($begin);
@@ -169,7 +169,8 @@
 		{
 			$m->out(qq!<a href="/login.html">Log in</a> to edit this!);
 		}
-		$m->out(qq! ] <span class="lastupdated">! . $lastupdate . qq!</span></td></tr>!);
+		$m->out(qq! ] !);
+		$m->out(qq! <span class="lastupdated">(updated ! . $lastupdate . qq!)</span></td></tr>!) if ($lastupdate);
 	}
 
 	$m->out(qq!</table>!);
