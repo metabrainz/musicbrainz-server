@@ -6,13 +6,13 @@ BEGIN;
 CREATE TABLE artist_meta
 (
     id          INTEGER NOT NULL,
-    lastupdate  TIMESTAMP WITH TIME ZONE DEFAULT NULL
+    lastupdate  TIMESTAMP WITH TIME ZONE DEFAULT now()
 );
 
 CREATE TABLE label_meta
 (
     id          INTEGER NOT NULL,
-    lastupdate  TIMESTAMP WITH TIME ZONE DEFAULT NULL
+    lastupdate  TIMESTAMP WITH TIME ZONE DEFAULT now()
 );
 
 CREATE TABLE track_meta
@@ -23,14 +23,12 @@ CREATE TABLE track_meta
 ALTER TABLE albummeta  ADD COLUMN lastupdate          TIMESTAMP WITH TIME ZONE DEFAULT NULL;
 
 -- Initial population
-INSERT INTO artist_meta (id) SELECT id FROM artist;
-INSERT INTO label_meta (id) SELECT id FROM label;
+INSERT INTO artist_meta (id, lastupdate) SELECT id, NULL FROM artist;
+INSERT INTO label_meta (id, lastupdate) SELECT id, NULL FROM label;
 INSERT INTO track_meta (id) SELECT id FROM track;
 
 -- Change the default values
 ALTER TABLE albummeta ALTER COLUMN lastupdate SET DEFAULT NOW();
-ALTER TABLE artist_meta ALTER COLUMN lastupdate SET DEFAULT NOW();
-ALTER TABLE label_meta ALTER COLUMN lastupdate SET DEFAULT NOW();
 
 -- primary keys
 ALTER TABLE artist_meta ADD CONSTRAINT artist_meta_pkey PRIMARY KEY(id);
