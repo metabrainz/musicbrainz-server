@@ -345,15 +345,16 @@
 				my $new_delete = $ARGS{"trackdel$t"};
 				my $new_artistid = $ARGS{sprintf "tr%d_artistid", $t};
 
+                                my $is_new_track = $new_id eq '';
+
 				# prepare Track object
-				my $track;
-				if ($new_id) 
+				my $track = MusicBrainz::Server::Track->new($mb->{DBH});
+                                $track->SetRelease($releaseid);
+				unless ($is_new_track)
 				{
-					$track = MusicBrainz::Server::Track->new($mb->{DBH});
-					$track->SetId($new_id);
-					$track->SetRelease($releaseid);
+					$track->SetId($orig_id);
 					$track->LoadFromId
-						or die "Error loading track\n";
+						or die "Error loading track $new_id\n";
 				}
 
 				# MOD_REMOVE_TRACK
@@ -371,8 +372,10 @@
 						# TODO depmod on $modid ?
 					);
 				}
-				else
+                                # We're editing an already existing track
+				elsif (!$is_new_track)
 				{
+                                    warn "Track $new_seq is not new";
 					# MOD_EDIT_TRACKNUM
 					if (defined $orig_seq and $orig_seq ne $new_seq)
 					{
@@ -408,34 +411,11 @@
 							# TODO depmod on $modid ?
 						);
 					}
-
-					# MOD_ADD_TRACK_KV / MOD_EDIT_TRACKNAME
-					# Insert add track name edit if the old name was "" and the new name is not ""
-					# Insert edit track name edit if the old name was not ""
-					if ($orig_track ne $new_track)
-					{
-						if (!defined $orig_track)
-						{
-							# make sure we don't insert empty new tracks.
-							if ($new_track ne "")
-							{
-								push @insertededits, Moderation->InsertModeration(
-									DBH	=> $mb->{DBH},
-									uid	=> $session{uid},
-									privs => $session{privs},
-									type => &ModDefs::MOD_ADD_TRACK_KV,
-									# --
-									album => $release,
-									trackname => $new_track,
-									tracknum => $new_seq,
-									tracklength => MusicBrainz::Server::Track::UnformatTrackLength($new_length),
-									artistid => $new_artistid,
-								);
-							}
-						}
-						else
-						{
-							push @insertededits, Moderation->InsertModeration(
+                                        # MOD_EDIT_TRACKNAME
+                                        # Insert edit track name edit if the old name was not ""
+                                        if ($orig_track ne $new_track)
+                                        {
+                                                push @insertededits, Moderation->InsertModeration(
 								DBH	=> $mb->{DBH},
 								uid	=> $session{uid},
 								privs => $session{privs},
@@ -444,10 +424,9 @@
 								track => $track,
 								newname => $new_track,
 							);
-						}
-					}
+                                        }
 
-					# MOD_EDIT_TRACKTIME
+                                        # MOD_EDIT_TRACKTIME
 					# Insert edit track length edit if requested
 					if ($orig_length != $new_length)
 					{
@@ -459,6 +438,28 @@
 							# --
 							track => $track,
 							newlength => $new_length,
+						);
+					}
+                                }
+                                else
+                                {
+
+					# MOD_ADD_TRACK_KV
+					# Insert add track name edit if the old name was "" and the new name is not ""
+					# make sure we don't insert empty new tracks.
+					if ($new_track ne "")
+					{
+						push @insertededits, Moderation->InsertModeration(
+							DBH	=> $mb->{DBH},
+							uid	=> $session{uid},
+							privs => $session{privs},
+							type => &ModDefs::MOD_ADD_TRACK_KV,
+							# --
+							album => $release,
+							trackname => $new_track,
+							tracknum => $new_seq,
+							tracklength => $new_length,
+							artistid => $new_artistid,
 						);
 					}
 				}
