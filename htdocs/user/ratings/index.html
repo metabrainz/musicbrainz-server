@@ -87,6 +87,9 @@
                                 user_rating => $entity->{"rating"},
                                 allow_rating => $is_me,
                             &></td>
+%			if($is_me) {
+						<td style="padding-left: 15px;"><a href="/bare/rate.html?entity_type=<% $type %>&entity_id=<% $entity->{"id"} %>&rating=0">Cancel</a></td>
+%			}
 					</tr>
 %				}
 			</table>
