@@ -57,7 +57,7 @@
 %	{
 
 		<tr>
-			<td class="lbl">Change:</td>
+			<td class="lbl">Old:</td>
 			<td class="field">
 				<& /comp/releasedate, $t->{"d"} &> - <& .ShowCountryName, $t->{"c"} &>
 %				if ($t->{"l"})
@@ -82,7 +82,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td>&nbsp;</td>
+			<td class="lbl">New:</td>
 			<td class="field">
 				<& /comp/releasedate, $t->{"nd"} &> - <& .ShowCountryName, $t->{"nc"} &>
 %				if ($t->{"nl"})

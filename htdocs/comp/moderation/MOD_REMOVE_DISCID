@@ -37,11 +37,11 @@
 
 	<table class="editfields" style="width:100%">
 		<tr>
-			<td class="lbl">Disc ID:</td>
+			<td class="lbl">Remove:</td>
 
 % 	if (my $cdtocid = $new->{"CDTOCId"})
 %	{
-			<td><a href="/show/cdtoc/?cdtocid=<% $cdtocid %>"><% $this->GetPrev %></a></td>
+			<td>Disc ID <a href="/show/cdtoc/?cdtocid=<% $cdtocid %>"><% $this->GetPrev %></a></td>
 % 	}
 %	else
 %	{

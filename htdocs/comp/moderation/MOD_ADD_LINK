@@ -39,7 +39,7 @@
 % 	if ($new->{entity1type} ne "url")
 %	{
 
-		<& /comp/ar/ShowEntityLink,
+		Add: <& /comp/ar/ShowEntityLink,
 			id => $new->{entity0id},
 			type => $new->{entity0type},
 			name => $new->{entity0name},
@@ -59,7 +59,7 @@
 %	else
 %	{
 
-		<& /comp/ar/ShowEntityLink,
+		Add: <& /comp/ar/ShowEntityLink,
 			id => $new->{entity0id},
 			type => $new->{entity0type},
 			name => $new->{entity0name},

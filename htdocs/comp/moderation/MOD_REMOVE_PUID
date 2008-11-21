@@ -40,8 +40,8 @@
 
 		<table class="editfields">
 			<tr>
-				<td class="lbl">PUID:</td>
-				<td><& /comp/linkfingerprint,
+				<td class="lbl">Remove:</td>
+				<td>PUID <& /comp/linkfingerprint,
 					type => "puid",
 					id => $this->GetPrev,
 					name => $this->GetPrev &>
