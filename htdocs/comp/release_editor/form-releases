@@ -50,7 +50,7 @@
 		$ARGS{"rev_day-$j"} = "";
 		$ARGS{"rev_country-$j"} = "";
 		$ARGS{"rev_catno-$j"} = "";
-		$ARGS{"rev_barcode-$j"} = "";
+		$ARGS{"rev_barcode-$j"} = "" || $ARGS{"barcode"};
 		$ARGS{"rev_label-$j"} = "";
 	}
 
