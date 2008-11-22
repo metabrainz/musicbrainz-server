@@ -76,6 +76,7 @@
 	if ($hasmult || $submitvalue =~ /Select/ || $submitvalue =~ /SUBMIT_ADDARTIST_DONE/)
 	{
 		my $url = "/cdi/enter.html?tracks=$num";
+		my $barcode = $cdstub->{barcode};
 		my $toc = $cdstub->{cdtoc}->{trackoffset};
 		$toc =~ s/\{(.*?)\}/$1/;
 		$toc =~ s/,/+/g;
@@ -85,8 +86,9 @@
 		$url .= "&releasename=" . uri_escape($cdstub->{title});
 		$url .= "&hasmultipletrackartists=$hasmult" ;
 		$url .= "&toc=$toc";
+		$url .= "&barcode=$barcode";
 		$url .= "&discid=" . uri_escape($cdstub->{cdtoc}->{discid});
-		for(0..$num)
+		for(0..$num-1)
 		{
 			$url .= "&track$_=" . uri_escape($cdstub->{tracks}->[$_]->{title});
 			$url .= "&tr$_"."_artistname=" . uri_escape($cdstub->{tracks}->[$_]->{artist}) if ($hasmult);
