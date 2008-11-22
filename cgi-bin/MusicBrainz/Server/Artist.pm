@@ -401,6 +401,10 @@ sub MergeInto
 	my $ratings = MusicBrainz::Server::Rating->new($sql->{DBH});
 	$ratings->MergeArtists($o, $n);
 
+	require MusicBrainz::Server::Collection;
+	my $coll = MusicBrainz::Server::Collection->new($sql->{DBH});
+	$coll->MergeArtists($o, $n);
+
     $sql->Do("DELETE FROM artist     WHERE id   = ?", $o);
     $old->InvalidateCache;
 

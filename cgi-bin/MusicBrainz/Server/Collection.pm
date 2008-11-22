@@ -293,6 +293,16 @@ sub RemoveReleaseFromCollections
 }
 
 # This function is called from Moderation when changes are applied to the DB
+sub MergeArtists
+{
+	my ($self, $old, $new) = @_;
+
+    my $rawdb = $Moderation::DBConnections{RAWDATA};
+	$rawdb->Do("UPDATE collection_watch_artist_join SET artist = ? WHERE artist = ?", $new, $old);
+	$rawdb->Do("UPDATE collection_discography_artist_join SET artist = ? WHERE artist = ?", $new, $old);
+}
+
+# This function is called from Moderation when changes are applied to the DB
 sub MergeReleases
 {
 	my ($self, $old, $new) = @_;
