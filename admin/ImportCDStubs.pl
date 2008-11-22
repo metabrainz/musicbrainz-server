@@ -34,16 +34,21 @@ use Sql;
 use MusicBrainz::Server::CDStub;
 use MusicBrainz::Server::CDTOC;
 
+my $rw = MusicBrainz->new;
+$rw->Login();
+my $rwsql = Sql->new($rw->{DBH});
+
 my $mb = MusicBrainz->new;
 $mb->Login(db => "RAWDATA");
 my $sql = Sql->new($mb->{DBH});
 
 my $rc = MusicBrainz::Server::CDStub->new($mb->{DBH});
+my $cdtoc = MusicBrainz::Server::CDTOC->new($rw->{DBH});
 
 my $line;
 my $data = ();
 my ($k, $v);
-my ($count, $error, $invalidtoc); 
+my ($count, $error, $invalidtoc, $have); 
 
 while($line = <>)
 {
@@ -56,7 +61,7 @@ while($line = <>)
 	        $data->{source} = MusicBrainz::Server::CDStub::CDSTUB_SOURCE_CDBABY;
 			$data->{discid} = $tocdata{discid};
 
-			if (!$rc->Lookup($data->{discid}))
+			if (!$rc->Lookup($data->{discid}) && !scalar(@{$cdtoc->newFromDiscID($data->{discid})}))
 			{
 				my $err = $rc->Insert($data);
 				if ($err)
@@ -70,6 +75,10 @@ while($line = <>)
 					$count++;
 					print "Inserted $count cds.\n" if ($count % 1000 == 0);
 			    }
+			}
+			else
+			{
+				$have++;
 			}
 		}
 		else
@@ -90,4 +99,4 @@ while($line = <>)
 	$data->{comment} = $v if ($k eq 'comment');
 	$data->{tracks}->[$1]->{title} = $v if ($k =~ /^track(\d+)/);
 }
-print "Imported $count CDs. Encountered $invalidtoc invalid tocs and $error insert errors."
+print "Imported $count CDs. Already had $have CDs. Encountered $invalidtoc invalid tocs and $error insert errors."
