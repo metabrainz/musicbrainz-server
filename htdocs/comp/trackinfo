@@ -41,12 +41,6 @@
 					<& /comp/linkdoc, "TrackTitle", "Title" &>:</td>
 				<td>
 					<& /comp/linktrack, track => $track &>
-%					if ($session{tport}) {
-					<a href="http://127.0.0.1:<% $session{tport} %>/opentrack?id=<% $track->GetMBId %>&amp;t=<% time %>"
-						target="hiddeniframe" title="Open in tagger"><img
-						align="absmiddle" src="/images/mblookup-tagger.png"
-						alt="Open in tagger" /></a>
-%					}
 				</td>
 			</tr>
 			<tr>
