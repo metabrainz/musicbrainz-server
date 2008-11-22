@@ -55,6 +55,13 @@
 		$ar->SetName("Various Artists");
 		$ar->SetSortName("Various Artists");
 	}
+
+	my $url = "/bare/cdlookup.html?discid=" . $data->{cdtoc}->{discid} .  "&toc=$toc";
+	if ($data->{artist}) {
+		$url .=	"&artist=" . uri_escape($data->{artist});
+	} else {
+		$url .=	"&release=" . uri_escape($data->{title});
+	}
 </%perl>
 
 <& /comp/artisttitle, artist => $ar, showmodlinks => 0, showrating => 0, showlinks => 0 &>
@@ -89,7 +96,9 @@
 
 <br/>
 <p>
-<a href="/edit/cdstub/add.html?exists=1&id=<% $data->{cdtoc}->{discid} %>&toc=<% $toc %>">Edit this CD Stub</a>.
+[ <a href="/edit/cdstub/add.html?exists=1&id=<% $data->{cdtoc}->{discid} %>&toc=<% $toc %>">Edit this CD Stub</a>.
+| <a href="/edit/cdstub/import.html?cdstubid=<% $data->{id} %>">Import CD Stub</a>
+| <a href="<% $url %>">Import Disc Id</a> ]
 </p>
 
 <& /comp/footer &>
