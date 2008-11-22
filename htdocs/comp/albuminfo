@@ -55,7 +55,14 @@
 				<td class="label">
 					<& /comp/linkdoc, "ReleaseTitle", "Title" &>:</td>
 				<td>
-					<& /comp/linkrelease, release => $release &></td>
+					<& /comp/linkrelease, release => $release &>
+%					if ($session{tport}) {
+					<a href="http://127.0.0.1:<% $session{tport} %>/openalbum?id=<% $release->GetMBId %>&amp;t=<% time %>"
+						target="hiddeniframe" title="Open in tagger"><img
+						align="absmiddle" src="/images/mblookup-tagger.png"
+						alt="Open in tagger" /></a>
+%					}
+				</td>
 			</tr>
 			<tr>
 				<td class="label">
