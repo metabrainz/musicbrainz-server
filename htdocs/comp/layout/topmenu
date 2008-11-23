@@ -115,6 +115,9 @@
 			{ name => "Live Data-Feed",		url => "/doc/LiveDataFeed" },
 			{ name => "3rd Party",			url => "/doc/MusicBrainzEnabledApplications" },
 			{ name => "Web Service",		url => "/doc/WebService" },
+			[
+				{ url => "/doc/XMLWebService" },
+			],
 			{ name => "FreeDB gateway",		url => "/doc/FreeDBGateway" },
 
 		],
