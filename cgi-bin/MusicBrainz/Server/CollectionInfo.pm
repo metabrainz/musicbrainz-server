@@ -163,7 +163,7 @@ sub GetHasReleases
 							FROM album 
                                 INNER JOIN artist ON (album.artist = artist.id)
                                 LEFT JOIN albummeta ON (album.id = albummeta.id)
-						   WHERE album.id IN(' . join(',', @{$releaseids}) . ') ORDER BY artist.name, album.name';
+						   WHERE album.id IN(' . join(',', @{$releaseids}) . ') ORDER BY artist.sortname, album.name';
 		
 		my $rows = $rosql->SelectListOfHashes($releaseQuery);
 	    for my $row (@$rows)
