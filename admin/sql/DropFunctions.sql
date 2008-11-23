@@ -16,6 +16,7 @@ DROP FUNCTION set_album_firstreleasedate(INTEGER);
 DROP FUNCTION a_ins_release();
 DROP FUNCTION a_upd_release();
 DROP FUNCTION a_del_release();
+DROP FUNCTION b_del_release();
 DROP FUNCTION set_album_asin(INTEGER);
 DROP FUNCTION a_ins_album_amazon_asin ();
 DROP FUNCTION a_upd_album_amazon_asin ();

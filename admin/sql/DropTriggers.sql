@@ -15,6 +15,7 @@ DROP TRIGGER b_iu_release ON release;
 DROP TRIGGER a_ins_release ON release;
 DROP TRIGGER a_upd_release ON release;
 DROP TRIGGER a_del_release ON release;
+DROP TRIGGER b_del_release ON release;
 DROP TRIGGER a_ins_album_amazon_asin ON album_amazon_asin;
 DROP TRIGGER a_upd_album_amazon_asin ON album_amazon_asin;
 DROP TRIGGER a_del_album_amazon_asin ON album_amazon_asin;
