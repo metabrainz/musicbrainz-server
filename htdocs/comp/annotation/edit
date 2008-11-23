@@ -49,6 +49,19 @@
 	my $not_most_recent = 0;
 	my $origtext;
 
+        my $current_annotation = MusicBrainz::Server::Annotation->new($mb->{DBH});
+        my $setter = "Set" . ucfirst $entitytype2;
+        if ($current_annotation->can($setter))
+        {
+            $current_annotation->SetRelease($id);
+            $current_annotation->GetLatestAnnotation;
+        }
+        else
+        {
+            # Can't see why this would happen, but it's best to be on the safe side
+            $current_annotation = undef;
+        }
+
 	if (MusicBrainz::Server::Validation::IsNonNegInteger($annotationid))
 {
 		my $old = MusicBrainz::Server::Annotation->new($mb->{DBH});
@@ -63,6 +76,11 @@
 		my $all_ids = MusicBrainz::Server::Annotation->GetAnnotationIDsForEntity($entity, $annotationtype);
 		$not_most_recent = 1
 			if $all_ids->[0] != $annotationid;
+
+                if ($old->GetId ne $current_annotation->GetId)
+                {
+                    $origtext = $current_annotation->GetText;
+                }
 }
 
 	$defaulttext = "" if (not defined $defaulttext);
