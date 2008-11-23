@@ -421,7 +421,7 @@ sub xml_release
     print "<asin>$asin</asin>" if $asin;
 
     xml_artist($ar, 0) if ($inc & INC_ARTIST && $ar);
-    xml_release_events($al, 0) if ($inc & INC_RELEASEINFO || $inc & INC_COUNTS);
+    xml_release_events($al, $inc) if ($inc & INC_RELEASEINFO || $inc & INC_COUNTS);
     xml_discs($al, $inc) if ($inc & INC_DISCS || $inc & INC_COUNTS);
     xml_tags($al->{DBH}, 'release', $al->GetId) if ($inc & INC_TAGS);
     xml_user_tags($al->{DBH}, 'release', $al->GetId, $user) if ($inc & INC_USER_TAGS);
