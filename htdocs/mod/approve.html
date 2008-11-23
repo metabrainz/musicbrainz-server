@@ -34,6 +34,7 @@
 	$notetext => ""
 	$url => ""
 	$submitvalue => ""
+        $inline => 0
 
 </%args>
 <%perl>
@@ -171,7 +172,11 @@
 
 </%perl>
 
-<& /comp/sidebar-notitle, pagetitle => "Approve edit" &>
+% if ($inline) {
+    <& /comp/header_inline, title => "Approve edit", nosmallfonts => 1, noentityicons => 0 &>
+% } else {
+    <& /comp/sidebar-notitle, pagetitle => "Approve edit" &>
+% }
 
 	<& /comp/tablebegin, title => "Approve edit" &>
 
@@ -240,6 +245,10 @@
 
 	<& /comp/js/diffcollapse &>
 
-<& /comp/footer &>
+% if ($inline) {
+    <& /comp/footer_inline &>
+% } else {
+    <& /comp/footer &>
+% }
 
 %# vi: set ts=4 sw=4 ft=mason :

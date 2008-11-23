@@ -34,6 +34,7 @@
 	$notetext => ""
 	$submitvalue => ""
 	$url => "/mod/search/pre/moderator.html"
+        $inline => 0
 
 </%args>
 <%perl>
@@ -102,11 +103,15 @@
 		return undef;
 	}
 
-
-	$m->comp("/comp/sidebar-notitle", pagetitle => "Confirm edit removal");
-	$m->comp("/comp/tablebegin", title => "Confirm edit removal");
-
 </%perl>
+
+% if ($inline) {
+    <& /comp/header_inline, title => "Confirm edit removal", nosmallfonts => 1, noentityicons => 0 &>
+% } else {
+    <& /comp/sidebar-notitle, pagetitle => "Confirm edit removal" &>
+% }
+
+    	<& /comp/tablebegin, title => "Confirm edit removal" &>
 
 	<form method="post" action="/mod/remove.html" id="ConfirmForm">
 
@@ -167,6 +172,10 @@
 
 	<& /comp/js/diffcollapse &>
 
-<& /comp/footer &>
+% if ($inline) {
+    <& /comp/footer_inline &>
+% } else {
+    <& /comp/footer &>
+% }
 
 %# vi: set ts=4 sw=4 ft=mason :

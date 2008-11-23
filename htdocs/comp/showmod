@@ -116,15 +116,14 @@
 %		 UserStuff->IsAutoEditor($session{"privs"})) and
 %		$edit->IsAutoEditType($edit->GetType))
 %	{
-
-			   | <a href="/mod/approve.html?editid=<% $editid %>">Approve</a>
+			   | <a href="/mod/approve.html?editid=<% $editid %>&amp;url=<% $url %>&amp;inline=<% $inline %>" target="_self">Approve</a>
 
 %	}
 
 %	if ($is_mine and $is_open)
 %	{
 
-				| <a href="/mod/remove.html?editid=<% $editid %>&amp;url=<% $url %>">Cancel edit</a>
+				| <a href="/mod/remove.html?editid=<% $editid %>&amp;url=<% $url %>" target="_self">Cancel edit</a>
 
 % 	}
 
