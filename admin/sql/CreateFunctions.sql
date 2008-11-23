@@ -295,17 +295,19 @@ $$ language 'plpgsql';
 -- Changes to album_cdtoc could cause changes to albummeta.discids
 --'-----------------------------------------------------------------
 
-create or replace function a_ins_album_cdtoc () returns trigger as '
+create or replace function a_ins_album_cdtoc () returns trigger as $$ 
 begin
     UPDATE  albummeta
-    SET     discids = discids + 1
+    SET     discids = discids + 1,
+            lastupdate = now()
     WHERE   id = NEW.album;
+    PERFORM propagate_lastupdate(NEW.album, CAST('album' AS name));
 
     return NULL;
 end;
-' language 'plpgsql';
+$$ language 'plpgsql';
 --'--
-create or replace function a_upd_album_cdtoc () returns trigger as '
+create or replace function a_upd_album_cdtoc () returns trigger as $$
 begin
     if NEW.album = OLD.album
     then
@@ -313,26 +315,32 @@ begin
     end if;
 
     UPDATE  albummeta
-    SET     discids = discids - 1
+    SET     discids = discids - 1,
+            lastupdate = now()
     WHERE   id = OLD.album;
+    PERFORM propagate_lastupdate(OLD.album, CAST('album' AS name));
 
     UPDATE  albummeta
-    SET     discids = discids + 1
+    SET     discids = discids + 1,
+            lastupdate = now()
     WHERE   id = NEW.album;
+    PERFORM propagate_lastupdate(NEW.album, CAST('album' AS name));
 
     return NULL;
 end;
-' language 'plpgsql';
+$$ language 'plpgsql';
 --'--
-create or replace function a_del_album_cdtoc () returns trigger as '
+create or replace function a_del_album_cdtoc () returns trigger as $$
 begin
     UPDATE  albummeta
-    SET     discids = discids - 1
+    SET     discids = discids - 1,
+            lastupdate = now()
     WHERE   id = OLD.album;
+    PERFORM propagate_lastupdate(OLD.album, CAST('album' AS name));
 
     return NULL;
 end;
-' language 'plpgsql';
+$$ language 'plpgsql';
 
 
 --'-----------------------------------------------------------------
