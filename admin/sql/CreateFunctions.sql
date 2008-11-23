@@ -148,7 +148,7 @@ end;
 $$ language 'plpgsql';
 
 --'-----------------------------------------------------------------
--- Propagates changes on <entity>_meta to linked entities metadata 
+-- Propagates changes on entity to linked entities 
 --'-----------------------------------------------------------------
 create or replace function propagate_lastupdate (entity_id integer, relname name) returns VOID as $$
 declare
@@ -251,50 +251,69 @@ $$ language 'plpgsql';
 -- and/or albummeta.puids and/or albummeta.puids
 --'-----------------------------------------------------------------
 
-create or replace function a_ins_albumjoin () returns trigger as '
+create or replace function a_ins_albumjoin () returns trigger as $$
 begin
     UPDATE  albummeta
     SET     tracks = tracks + 1,
-            puids = puids + (SELECT COUNT(*) FROM puidjoin WHERE track = NEW.track),
-            lastupdate = now()
+            puids = puids + (SELECT COUNT(*) FROM puidjoin WHERE track = NEW.track)
     WHERE   id = NEW.album;
+    PERFORM propagate_lastupdate(NEW.track, CAST('track' AS name));
 
     return NULL;
 end;
-' language 'plpgsql';
+$$ language 'plpgsql';
 --'--
-create or replace function a_upd_albumjoin () returns trigger as '
+create or replace function a_upd_albumjoin () returns trigger as $$
 begin
     if NEW.album = OLD.album AND NEW.track = OLD.track
     then
-        return NULL;
+        -- Sequence has been changed
+        IF (NEW.modpending = OLD.modpending) 
+        THEN
+            PERFORM propagate_lastupdate(OLD.track, CAST('track' AS name));
+        END IF;
+
+    elsif NEW.track = OLD.track
+    then
+        -- A track is moved from an album to another one
+        UPDATE  albummeta
+        SET     tracks = tracks - 1,
+                puids = puids - (SELECT COUNT(*) FROM puidjoin WHERE track = OLD.track),
+                lastupdate = now()
+        WHERE   id = OLD.album;
+        -- For the old album we can't do anything better than propagete lastupdate at the album level
+        PERFORM propagate_lastupdate(OLD.album, CAST('album' AS name));
+
+        UPDATE  albummeta
+        SET     tracks = tracks + 1,
+                puids = puids + (SELECT COUNT(*) FROM puidjoin WHERE track = NEW.track)
+        WHERE   id = NEW.album;
+        PERFORM propagate_lastupdate(NEW.track, CAST('track' AS name));
+
+    elsif NEW.album = OLD.album
+    then
+        -- TODO: should not happen yet
     end if;
-
-    UPDATE  albummeta
-    SET     tracks = tracks - 1,
-            puids = puids - (SELECT COUNT(*) FROM puidjoin WHERE track = OLD.track),
-            lastupdate = now()
-    WHERE   id = OLD.album;
-
-    UPDATE  albummeta
-    SET     tracks = tracks + 1,
-            puids = puids + (SELECT COUNT(*) FROM puidjoin WHERE track = NEW.track),
-            lastupdate = now()
-    WHERE   id = NEW.album;
 
     return NULL;
 end;
-' language 'plpgsql';
+$$ language 'plpgsql';
 --'--
 create or replace function a_del_albumjoin () returns trigger as $$
 begin
     UPDATE  albummeta
     SET     tracks = tracks - 1,
-            puids = puids - (SELECT COUNT(*) FROM puidjoin WHERE track = OLD.track),
-            lastupdate = now()
+            puids = puids - (SELECT COUNT(*) FROM puidjoin WHERE track = OLD.track)
     WHERE   id = OLD.album;
 
     return NULL;
+end;
+$$ language 'plpgsql';
+
+create or replace function b_del_albumjoin () returns TRIGGER as $$
+begin 
+    PERFORM propagate_lastupdate(OLD.track, CAST('track' AS name));
+    RETURN OLD; 
 end;
 $$ language 'plpgsql';
 

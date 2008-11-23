@@ -7,6 +7,7 @@ DROP FUNCTION update_album_meta();
 DROP FUNCTION a_ins_albumjoin();
 DROP FUNCTION a_upd_albumjoin();
 DROP FUNCTION a_del_albumjoin();
+DROP FUNCTION b_del_albumjoin();
 DROP FUNCTION a_ins_album_cdtoc();
 DROP FUNCTION a_upd_album_cdtoc();
 DROP FUNCTION a_del_album_cdtoc();

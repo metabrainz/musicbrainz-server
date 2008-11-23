@@ -16,6 +16,8 @@ CREATE TRIGGER a_upd_albumjoin AFTER UPDATE ON albumjoin
     FOR EACH ROW EXECUTE PROCEDURE a_upd_albumjoin();
 CREATE TRIGGER a_del_albumjoin AFTER DELETE ON albumjoin
     FOR EACH ROW EXECUTE PROCEDURE a_del_albumjoin();
+CREATE TRIGGER b_del_albumjoin BEFORE DELETE ON albumjoin
+    FOR EACH ROW EXECUTE PROCEDURE b_del_albumjoin();
 
 CREATE TRIGGER a_ins_album_cdtoc AFTER INSERT ON album_cdtoc
     FOR EACH ROW EXECUTE PROCEDURE a_ins_album_cdtoc();
