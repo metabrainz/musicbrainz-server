@@ -91,6 +91,8 @@ END
 {
 	if ($erase_tmpdir_on_exit and not $fKeepFiles and defined($dir) and -d $dir and -d "$dir/mbdump")
 	{
+		print localtime() . " : Disk space just before erasing tmp dir:\n";
+		system "/bin/df -m";
 		print localtime() . " : Erasing $dir\n";
 		system "/bin/rm", "-rf", $dir;
 	}
