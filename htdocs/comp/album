@@ -45,6 +45,7 @@
 	$showreleases => 0
 	$tagchecked => 0
 	$tracks => undef
+        $showheader => 0
 	$releaseevents => undef
 
 	$mbt => $session{"mbt"}
@@ -135,6 +136,18 @@
 		        showdiscids => $showids,
 				showdiscidstoggle => $showdiscidstoggle,
 			);
+
+                if ($showheader)
+                {
+                    </%perl>
+                    <tr class="track">
+                      <td class="no"><strong>#</strong></td>
+                      <td class="title"><strong>Title</strong></td>
+                      <td class="artist"><strong>Artist</strong></td>
+                      <td class="length"><strong>Length</strong></td>
+                    </tr>
+                    <%perl>
+                }
 	}
 
 	my $puidcounts = $album->LoadPUIDCount();
