@@ -124,4 +124,11 @@
 
 </%perl>
 
+% 	if (0)
+%	{ # Insert news here....
+
+		  <p style="border: 2px dotted red; padding: 1em; margin: 1em">
+[Insert your message here]
+          </p>
+%	}
 %# vi: set ts=4 sw=4 ft=mason :

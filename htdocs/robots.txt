@@ -6,6 +6,7 @@ Disallow: /artistrel.html
 Disallow: /bare/
 Disallow: /browseartists.html
 Disallow: /browselabels.html
+Disallow: /browselabels.html
 Disallow: /browsevarious.html
 Disallow: /cdi/
 Disallow: /comp/

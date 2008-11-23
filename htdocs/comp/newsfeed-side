@@ -25,7 +25,7 @@
 
 					<div class="newsarticle">
 						<b><% $item->GetTitle() %></b> &mdash;
-						<% $item->GetDescription() %>
+						<% $item->GetDescription() |n  %>
 						<div class="datetime">Posted: <% $item->GetDateTimeString() %></div>
 						<div class="readmore">&raquo; <a href="<% $item->GetLink() %>">read more</a></div>
 					</div>

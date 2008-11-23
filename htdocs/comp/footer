@@ -69,6 +69,11 @@
 						<a href="http://www.gnu.org/copyleft/gpl.html"><acronym title="General Public License">GPL</acronym></a></td>
 					<td class="text">
 						<a href="http://www.gnu.org/copyleft/lesser.html"><acronym title="Lesser General Public License">LGPL</acronym></a></td>
+				    <td class="icon">
+					 <a href="http://opendefinition.org/">
+					   <img alt="This material is Open Knowledge" border="0"
+					     src="/images/ok_80x15_grey.png" /></a>
+					</td>
 					<td class="icon">
 						<a href="http://validator.w3.org/check?uri=referer"><img
 							src="/images/icon/valid-xhtml11-wm.png"

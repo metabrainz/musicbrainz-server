@@ -134,7 +134,7 @@ sub Create
     else
     {
         $sysname = $createdb . "_SYSTEM";
-		$sysname = "SYSTEM" if not defined MusicBrainz::Server::Database->get($sysname);
+	$sysname = "SYSTEM" if not defined MusicBrainz::Server::Database->get($sysname);
     }
 
     my $db = MusicBrainz::Server::Database->get($createdb);

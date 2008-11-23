@@ -41,6 +41,8 @@ disabled by default.
 @ARGV == 1 or die "Usage: $0 PORT\n";
 my ($port) = @ARGV;
 
+my $verbose = $ENV{VERBOSE};
+
 use IO::Socket::INET;
 my $sock = IO::Socket::INET->new(
 	Proto => 'udp',
@@ -67,7 +69,8 @@ for (;;)
 		die "recv: $!";
 	}
 
-	print ">> $request\n";
+	print ">> $request\n"
+		if $verbose;
 	my $reply = process_request($request, $peer);
 	if (not defined $reply)
 	{
@@ -96,26 +99,34 @@ sub process_request
 		# each key.  The idea is that this makes it easier to adjust the
 		# limits on the fly - simply tweak this script and restart it.
 
-		my ($over_limit, $rate, $limit, $period);
+		my ($over_limit, $rate, $limit, $period, $strict);
 
 		{
 			# MusicBrainz::Server::Mason
-			($limit, $period) = (30, 30), last
+			($limit, $period, $strict) = (13, 10, 1), last
 				if $key =~ /^mason ip=(\d+\.\d+\.\d+\.\d+)$/;
 
 			# MusicBrainz::Server::Handlers::WS::1::Common
-			($limit, $period) = (40, 30), last
+			($limit, $period, $strict) = (13, 10, 1), last
 				if $key =~ /^ws ip=(\d+\.\d+\.\d+\.\d+)$/;
+
+			# MusicBrainz::Server::Handlers::WS::1::Common
+			($limit, $period, $strict) = (500, 10, 0), last
+				if $key =~ /^ws global$/;
 
 			# Default is to allow everything
 			($over_limit, $rate, $limit, $period) = (0, 0, 1, 1);
 		}
 
-		($over_limit, $rate) = do_ratelimit($limit, $period, $key, 1, 0)
+		($over_limit, $rate) = do_ratelimit($limit, $period, $key, 1, $strict)
 			if not defined $over_limit;
 
 		return sprintf "ok %s %.1f %.1f %d",
 			($over_limit ? "Y" : "N"), $rate, $limit, $period;
+	}
+	elsif ($request =~ /^get_size$/)
+	{
+		return get_size();
 	}
 
 	return undef;
@@ -127,9 +138,9 @@ use Carp qw( croak );
 # changed to something DBM-ish if that proves necessary.
 my %hash;
 
-sub show_size
+sub get_size
 {
-	printf "size=%s keys=%d\n", scalar(%hash), scalar(keys %hash);
+	sprintf "size=%s keys=%d", scalar(%hash), scalar(keys %hash);
 }
 
 # Idea and logic stolen from exim4 (acl.c, acl_ratelimit)
@@ -140,7 +151,8 @@ sub do_ratelimit
 	$period > 0 or croak "Bad period";
 
 	printf "ratelimit condition limit=%.0f period=%.0f key=%s\n",
-		$limit, $period, $key;
+		$limit, $period, $key,
+		if $verbose;
 
 	use Time::HiRes qw( time );
 	my $now = time();
@@ -150,7 +162,8 @@ sub do_ratelimit
 
 	if (not(my $data = $hash{$key}))
 	{
-		printf "ratelimit initializing new key's data\n";
+		printf "ratelimit initializing new key's data\n"
+			if $verbose;
 		$dbd_time = $now;
 		$dbd_rate = 0;
 	}
@@ -175,8 +188,8 @@ sub do_ratelimit
 		$hash{$key} = [ $dbd_time, $dbd_rate ];
 	}
 
-	printf "ratelimit computed rate=%s key=%s\n", $dbd_rate, $key;
-	show_size();
+	printf "ratelimit computed rate=%s key=%s\n", $dbd_rate, $key
+		if $verbose;
 
 	return(wantarray ? ($over_limit, $dbd_rate) : $over_limit);
 }

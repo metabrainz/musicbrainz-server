@@ -55,6 +55,9 @@ specific notes about a server type, the instructions apply to all server types.
 
 1) PostgreSQL 8.1 or later
 
+   Due to some UNICODE incompatibilities between Postgres 8.1 and earlier
+   versions, Postgres 8.1 is now required since the main server runs 8.1
+
    Locales
 
    If you have trouble importing the data because "create unique index"
@@ -94,7 +97,7 @@ specific notes about a server type, the instructions apply to all server types.
 	   connect as "postgres" (e.g. the "postgres" OS user):
 
 	   # as "postgres":
-	   ./admin/InitDb.pl --createdb
+	   ./admin/InitDb.pl --createdb --empty-database
 
 	   # as your MusicBrainz OS user:
 	   ./admin/InitDb.pl --import mbdump*.tar.bz2

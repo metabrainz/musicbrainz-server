@@ -767,6 +767,9 @@ sub CanVote
 
 	return 1 if (&DBDefs::REPLICATION_TYPE != &MusicBrainz::Server::Replication::RT_MASTER);
 
+	# If the user is not trusted, do not let them vote
+	return 0 if (IsUntrusted(0, $session->{privs}));
+
 	return ($session->{has_confirmed_email} > 0) && ($session->{editsaccepted} > 10);
 }
 

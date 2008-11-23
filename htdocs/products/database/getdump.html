@@ -51,24 +51,8 @@
 % 	}
 %	else
 %	{
-%		my @latest = glob("/var/ftp/pub/musicbrainz/data/fullexport/latest-is-*");
-%		my $latest;
-%		$latest = $1 if (@latest==1 and $latest[0] =~ /latest-is-(\d{8}-\d{6})$/);
-%		if ($latest)
-%		{
-%			# we've found the latest-is file, redirect the user
-%			# to the ftpmirror choosing page.
 %			return $m->comp("/comp/redirect",
-%				"/ftpmirror/pub/musicbrainz/data/fullexport/$latest/$file");
-%		}
-%		else
-%		{
-
-		<strong>Error:</strong> Could not get info from the <code>latest-is</code> tag on the ftp server.
-		Please go to the <a href="ftp://ftp.musicbrainz.org/pub/musicbrainz/data/fullexport/">the latest fullexport</a>
-		directory on the ftp server and download it from there.
-
-%		}
+%				"/ftpmirror/pub/musicbrainz/data/fullexport");
 %	}
 
 	<& /comp/tableend &>

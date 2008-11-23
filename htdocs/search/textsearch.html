@@ -126,7 +126,7 @@
 				<& /comp/tableend &>
 
 %			}
-%			elsif ($response->code == 403)
+%			elsif ($response->code == 400)
 %			{
 	            <& /comp/sidebar-notitle, pagetitle => "Indexed Search" &>
 				<& /comp/tablebegin, title => "Not enough information given" &>
@@ -159,7 +159,7 @@
 				<& /comp/tableend &>
 %               MusicBrainz::Server::LogFile::lprint("textsearch", "Search server returned 500: " . $response->content);
 %			}
-%			elsif ($response->code == 400)
+%			elsif ($response->code == 403)
 %			{
 	            <& /comp/sidebar-notitle, pagetitle => "Indexed Search" &>
 				<& /comp/tablebegin, title => "Error" &>

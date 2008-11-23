@@ -43,8 +43,8 @@ use constant RELEASE_FORMAT_REEL_TO_REEL	=> 10;
 use constant RELEASE_FORMAT_DAT				=> 11;
 use constant RELEASE_FORMAT_DIGITAL			=> 12;
 use constant RELEASE_FORMAT_OTHER			=> 13;
-use constant RELEASE_FORMAT_WAX_CYLINDER	=> 13;
-use constant RELEASE_FORMAT_PIANO_ROLL  	=> 14;
+use constant RELEASE_FORMAT_WAX_CYLINDER	=> 14;
+use constant RELEASE_FORMAT_PIANO_ROLL  	=> 15;
 use constant LAST_RELEASE_FORMAT			=> 15;
 
 my %ReleaseFormatNames = (
