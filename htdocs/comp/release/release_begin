@@ -74,13 +74,12 @@
 	my $mb = $m->comp("/comp/dblogin");
 	my $mbraw = MusicBrainz->new();
 	$mbraw->Login(db => 'RAWDATA');
+	MusicBrainz::Server::CollectionInfo::AssureCollection($session{'uid'}, $mbraw->{DBH});
 	my $collectionId = MusicBrainz::Server::CollectionInfo::GetCollectionIdForUser($session{'uid'}, $mbraw->{DBH});
 
 	# add or remove release from collection if requested
 	if(defined($addtocollection))
 	{
-		MusicBrainz::Server::CollectionInfo::AssureCollection($session{'uid'}, $mbraw->{DBH});
-		
 		if($addtocollection == 1)
 		{
 			MusicBrainz::Server::Collection::AddReleaseWithId($releaseid, $collectionId, $mbraw->{DBH}, $mbid);
