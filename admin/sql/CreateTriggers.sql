@@ -39,6 +39,8 @@ CREATE TRIGGER a_upd_release AFTER UPDATE ON release
     FOR EACH ROW EXECUTE PROCEDURE a_upd_release();
 CREATE TRIGGER a_del_release AFTER DELETE ON release
     FOR EACH ROW EXECUTE PROCEDURE a_del_release();
+CREATE TRIGGER b_del_release BEFORE DELETE ON release
+    FOR EACH ROW EXECUTE PROCEDURE b_del_release();
 
 -- album_amazon_asin
 CREATE TRIGGER a_ins_album_amazon_asin AFTER INSERT ON album_amazon_asin

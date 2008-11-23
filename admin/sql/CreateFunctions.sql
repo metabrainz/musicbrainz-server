@@ -233,7 +233,7 @@ begin
 
         -- update the artists for this release event
         UPDATE artist_meta SET lastupdate = NOW() WHERE id <> 1 AND id IN (
-           SELECT artist FROM album WHERE album = updated_album);
+           SELECT artist FROM album WHERE id = updated_album);
 
     END IF;
 end; 
@@ -468,19 +468,25 @@ END;
 CREATE OR REPLACE FUNCTION a_ins_release () RETURNS TRIGGER AS $$
 BEGIN
     EXECUTE set_album_firstreleasedate(NEW.album);
-    PERFORM propagate_lastupdate(NEW.album, CAST('album' AS name));
+    PERFORM propagate_lastupdate(NEW.id, CAST('release' AS name));
     RETURN NEW;
 END;
 $$ LANGUAGE 'plpgsql';
 
 CREATE OR REPLACE FUNCTION a_upd_release () RETURNS TRIGGER AS $$
 BEGIN
-    EXECUTE set_album_firstreleasedate(NEW.album);
-    IF (OLD.album != NEW.album)
+    IF (OLD.modpending = NEW.modpending)
     THEN
-        EXECUTE set_album_firstreleasedate(OLD.album);
+        EXECUTE set_album_firstreleasedate(NEW.album);
+        PERFORM propagate_lastupdate(NEW.id, CAST('release' AS name));
+
+        IF (OLD.album != NEW.album)
+        THEN
+            EXECUTE set_album_firstreleasedate(OLD.album);
+            -- propagate_lastupdate not called since OLD.album is probably
+            -- being merged in NEW.album
+        END IF;
     END IF;
-    PERFORM propagate_lastupdate(NEW.album, CAST('album' AS name));
     RETURN NEW;
 END;
 $$ LANGUAGE 'plpgsql';
@@ -488,7 +494,13 @@ $$ LANGUAGE 'plpgsql';
 CREATE OR REPLACE FUNCTION a_del_release () RETURNS TRIGGER AS $$
 BEGIN
     EXECUTE set_album_firstreleasedate(OLD.album);
-    PERFORM propagate_lastupdate(OLD.album, CAST('album' AS name));
+    RETURN OLD;
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION b_del_release () RETURNS TRIGGER AS $$
+BEGIN
+    PERFORM propagate_lastupdate(OLD.id, CAST('release' AS name));
     RETURN OLD;
 END;
 $$ LANGUAGE 'plpgsql';
@@ -577,6 +589,10 @@ BEGIN
     RETURN NULL;
 END;
 ' LANGUAGE 'plpgsql';
+
+--'-----------------------------------------------------------------------------------
+-- Maintain Tags refcount
+--'-----------------------------------------------------------------------------------
 
 create or replace function a_ins_tag () returns trigger as '
 begin
