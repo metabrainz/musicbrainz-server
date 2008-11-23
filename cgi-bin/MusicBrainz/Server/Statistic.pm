@@ -1357,13 +1357,13 @@ sub GetRecentlyDeceased
 										  FROM artist 
 										 WHERE type = 1 
 										   AND enddate != '' 
+										   AND now() - to_timestamp(enddate, 'YYYY-MM-DD') < interval '12 months'
 									  ORDER BY enddate DESC");
 
 		$timestamp = time();
 		$numitems = $sql->SelectSingleValue("SELECT count(*) 
 		                                  FROM artist 
 										 WHERE enddate != '' 
-										   AND enddate <= now() 
 										   AND type = 1
 										   AND now() - to_timestamp(enddate, 'YYYY-MM-DD') < interval '12 months'");
 		MusicBrainz::Server::Cache->set("statistics-recently-deceased", [$deceased, $numitems, $timestamp], 60 * 60);
@@ -1390,6 +1390,8 @@ sub GetRecentlyBrokenUp
 									  FROM artist 
 									 WHERE type = 2 
 									   AND enddate != '' 
+									   AND enddate <= now()
+									   AND now() - to_timestamp(enddate, 'YYYY-MM-DD') < interval '12 months'
 					              ORDER BY enddate DESC");
 
 		$timestamp = time();
