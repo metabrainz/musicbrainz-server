@@ -97,6 +97,7 @@
 	: not $annotationtext =~ /\S/
 	);
 
+
 	if ($submitvalue ne "")
 {
 		my $url = "/show/$entitytype2/?${entitytype2}id=$id";

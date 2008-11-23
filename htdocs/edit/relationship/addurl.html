@@ -34,6 +34,7 @@
 	$url => undef
 	$desc => undef
 	$linktype => undef
+        $allow_any => undef
 
 	$submitvalue => ""
 	$notetext => undef
@@ -42,6 +43,8 @@
 <%perl>
 
     use URI::Escape qw( uri_escape );
+
+    my $show_force = 0;
 
 	# only logged in users may see this page
 	$m->comp("/comp/checkloggedin", 1, 1)
@@ -142,6 +145,17 @@
 				if (!defined $url || !MusicBrainz::Server::URL->IsLegalURL($url));
 			push @errors, "Please select a subtype of the currently selected relationship type.<br/> The selected relationship type is only used for grouping sub-types."
 				if (!$linkdesc && $linktype);
+
+                        if ($linktype == MusicBrainz::Server::CoverArt->GetCoverArtLinkTypeId($mb->{DBH}) &&
+                                !MusicBrainz::Server::CoverArt->IsValidCoverArtURL($url) &&
+                                !$allow_any)
+                        {
+                            push @errors, "Sorry, but that is not a valid cover art URL. Only URLs matching the following patterns ".
+                                "are currently accepted:<ul><li>".join("</li><li>",MusicBrainz::Server::CoverArt->GetValidRegExps)."</li></ul>.".
+                                " Please see <a href=\"http://wiki.musicbrainz.org/CoverArtSites\">CoverArtSites</a> in the wiki for more".
+                                " information";
+                            $show_force = 1;
+                        }
 
 			if (@errors == 0)
 			{
@@ -285,6 +299,19 @@
 					<td class="field">
 						<input type="text" name="url" size="60" value="<% $url or 'http://' %>" /> (<b>required</b>)</td>
 				</tr>
+
+% if ($show_force) {
+				<tr class="spaced">
+					<td>&nbsp;</td>
+                                        <td class="field">
+                                            <input name="allow_any"
+% if ($allow_any) {
+                                                 checked="checked"
+% }
+                                                 type="checkbox" value="1" />
+                                            <label>Force this url to be allowed</label></td>
+				</tr>
+% }
 
 				<tr class="spaced">
 					<td>&nbsp;</td>

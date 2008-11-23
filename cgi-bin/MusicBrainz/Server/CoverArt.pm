@@ -41,14 +41,14 @@ my @CoverArtSites =
    {
        name       => "CD Baby",
        domain     => "cdbaby.com",
-       regexp     => 'http://cdbaby.com/cd/(\w)(\w)(\w*)',
+       regexp     => 'http://cdbaby\.com/cd/(\w)(\w)(\w*)',
        imguri     => 'http://cdbaby.name/$1/$2/$1$2$3.jpg',
        releaseuri => 'http://cdbaby.com/cd/$1$2$3/from/musicbrainz',
    },
    {
        name       => "CD Baby",
        domain     => "cdbaby.name",
-       regexp     => "http://cdbaby.name/([a-z0-9])/([a-z0-9])/([A-Za-z0-9]*).jpg",
+       regexp     => "http://cdbaby\.name/([a-z0-9])/([a-z0-9])/([A-Za-z0-9]*).jpg",
        imguri     => 'http://cdbaby.name/$1/$2/$3.jpg',
        releaseuri => 'http://cdbaby.com/cd/$3/from/musicbrainz',
    },
@@ -62,7 +62,7 @@ my @CoverArtSites =
    {
        name       => "Jamendo",
        domain     => "www.jamendo.com",
-       regexp     => 'http://www.jamendo.com/(\w\w/)?album/(\d+)',
+       regexp     => 'http://www\.jamendo\.com/(\w\w/)?album/(\d+)',
        imguri     => 'http://img.jamendo.com/albums/$2/covers/1.200.jpg',
        releaseuri => 'http://www.jamendo.com/album/$2',
    },
@@ -76,7 +76,7 @@ my @CoverArtSites =
    { 
        name       => 'www.ozon.ru',
        domain     => 'www.ozon.ru',
-       regexp     => 'http://www.ozon.ru/context/detail/id/(\d+)',
+       regexp     => 'http://www.ozon\.ru/context/detail/id/(\d+)',
        imguri     => '',
        releaseuri => 'http://www.ozon.ru/context/detail/id/$1/?partner=musicbrainz',
    },
@@ -441,7 +441,7 @@ sub GetCoverArtLinkTypeId
 {
 	my $self = shift;
 	return $COVERART_LINK_TYPE_ID if (defined $COVERART_LINK_TYPE_ID);
-	
+
 	# try to extract the id from the DB
 	my $dbh = (ref $self ? $self->{DBH} : shift);
 
@@ -450,6 +450,21 @@ sub GetCoverArtLinkTypeId
 		if (defined $sql);
 
 	return $COVERART_LINK_TYPE_ID;
+}
+
+sub IsValidCoverArtURL
+{
+    my ($self, $url) = @_;
+
+    my ($sitename,,) = MusicBrainz::Server::CoverArt->ParseCoverArtURL($url);
+    return $sitename eq "" ? 0 : 1;
+}
+
+# Return a list of acceptable cover art uri regexps.
+sub GetValidRegExps
+{
+    my $self = shift;
+    return grep { $_ ne '^(.*)$' } map $_->{regexp}, @CoverArtSites;
 }
 
 1;
