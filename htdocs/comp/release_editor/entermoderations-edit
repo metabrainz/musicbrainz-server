@@ -375,7 +375,6 @@
                                 # We're editing an already existing track
 				elsif (!$is_new_track)
 				{
-                                    warn "Track $new_seq is not new";
 					# MOD_EDIT_TRACKNUM
 					if (defined $orig_seq and $orig_seq ne $new_seq)
 					{
