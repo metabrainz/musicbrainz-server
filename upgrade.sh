@@ -12,7 +12,7 @@ echo `date` : Upgrading to RELEASE-20081123-BRANCH
 if [ "$REPLICATION_TYPE" = "$RT_MASTER" ]
 then
 	echo `date` : Drop replication triggers
-	./admin/psql READWRITE < ./admin/sql/updates/20081123.sql
+	./admin/psql READWRITE < ./admin/sql/DropReplicationTriggers.sql
 fi
 
 echo `date` : Update script, language and country tables
