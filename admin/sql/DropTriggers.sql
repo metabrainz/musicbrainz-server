@@ -4,6 +4,7 @@
 
 DROP TRIGGER a_upd_album ON album;
 DROP TRIGGER a_ins_album ON album;
+DROP TRIGGER b_del_album ON album;
 DROP TRIGGER a_del_albumjoin ON albumjoin;
 DROP TRIGGER a_upd_albumjoin ON albumjoin;
 DROP TRIGGER a_ins_albumjoin ON albumjoin;

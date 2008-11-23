@@ -140,6 +140,13 @@ begin
 end; 
 $$ language 'plpgsql';
 
+create or replace function b_del_entity () returns TRIGGER as $$
+begin 
+    PERFORM propagate_lastupdate(OLD.id, TG_RELNAME);
+    RETURN OLD; 
+end;
+$$ language 'plpgsql';
+
 --'-----------------------------------------------------------------
 -- Propagates changes on <entity>_meta to linked entities metadata 
 --'-----------------------------------------------------------------
@@ -502,13 +509,6 @@ $$ LANGUAGE 'plpgsql';
 CREATE OR REPLACE FUNCTION a_del_release () RETURNS TRIGGER AS $$
 BEGIN
     EXECUTE set_album_firstreleasedate(OLD.album);
-    RETURN OLD;
-END;
-$$ LANGUAGE 'plpgsql';
-
-CREATE OR REPLACE FUNCTION b_del_release () RETURNS TRIGGER AS $$
-BEGIN
-    PERFORM propagate_lastupdate(OLD.id, CAST('release' AS name));
     RETURN OLD;
 END;
 $$ LANGUAGE 'plpgsql';

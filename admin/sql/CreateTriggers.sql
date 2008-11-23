@@ -7,6 +7,8 @@ CREATE TRIGGER a_ins_album AFTER INSERT ON album
     FOR EACH ROW EXECUTE PROCEDURE insert_album_meta();
 CREATE TRIGGER a_upd_album after update on album 
     FOR EACH ROW EXECUTE PROCEDURE update_album_meta();
+CREATE TRIGGER b_del_album BEFORE DELETE ON album 
+    FOR EACH ROW EXECUTE PROCEDURE b_del_entity();
 
 CREATE TRIGGER a_ins_albumjoin AFTER INSERT ON albumjoin
     FOR EACH ROW EXECUTE PROCEDURE a_ins_albumjoin();
@@ -40,7 +42,7 @@ CREATE TRIGGER a_upd_release AFTER UPDATE ON release
 CREATE TRIGGER a_del_release AFTER DELETE ON release
     FOR EACH ROW EXECUTE PROCEDURE a_del_release();
 CREATE TRIGGER b_del_release BEFORE DELETE ON release
-    FOR EACH ROW EXECUTE PROCEDURE b_del_release();
+    FOR EACH ROW EXECUTE PROCEDURE b_del_entity();
 
 -- album_amazon_asin
 CREATE TRIGGER a_ins_album_amazon_asin AFTER INSERT ON album_amazon_asin
@@ -86,6 +88,7 @@ CREATE TRIGGER a_ins_label_tag AFTER INSERT ON label_tag
 CREATE TRIGGER a_del_label_tag AFTER DELETE ON label_tag
     FOR EACH ROW EXECUTE PROCEDURE a_del_tag();
 
+-- Track
 CREATE TRIGGER a_iu_track AFTER INSERT OR UPDATE ON track
     FOR EACH ROW EXECUTE PROCEDURE a_iu_entity();
 
