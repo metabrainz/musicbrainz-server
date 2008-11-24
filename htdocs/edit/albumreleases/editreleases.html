@@ -129,6 +129,10 @@
 				@$rel{qw( year month day )} = ($y, "", "");
 			}
 		}
+		elsif ($y eq "")
+		{
+			@$rel{qw( year month day )} = ("", "", "");
+		}
 
 		# Check the barcode
 		$rel->{barcode} =~ s/(-|\s)+//g;
@@ -144,8 +148,7 @@
 		}
 
 		delete $ARGS{'continue'}
-			if not $rel->{country}
-			or not $rel->{year};
+			if not $rel->{country};
 	}
 
 	@$releases = grep {
@@ -210,7 +213,6 @@
 	<script type="text/javascript" src="/scripts/jsselect.js"></script>
 	<script type="text/javascript" src="/scripts/labeleditors.js"></script>
 	<script type="text/javascript" src="/scripts/editreleasesconfig.js"></script>
-	<script type="text/javascript" src="validate.js"></script>
 
 	<form method="post"
 		action="/edit/albumreleases/editreleases.html"

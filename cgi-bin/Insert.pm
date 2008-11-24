@@ -579,9 +579,9 @@ TRACK:
 	{
 		delete $release->{release_insertid};
 
-		my @ymd = MusicBrainz::Server::Validation::IsValidDate(
-					@$release{qw( year month day )})
-			or die "Skipped Insert: Invalid release date\n";
+		my @ymd = MusicBrainz::Server::Validation::IsValidDateOrEmpty(
+					$release->{year}, $release->{month}, $release->{day})
+					or die "Skipped Insert: Invalid release date\n";
 
 		if (!exists $release->{country} || $release->{country} eq '')
 		{

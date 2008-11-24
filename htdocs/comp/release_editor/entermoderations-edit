@@ -218,7 +218,7 @@
 							);
 
 						# we insist on a valid date
-						my @ymd = MusicBrainz::Server::Validation::IsValidDate($rev_year, $rev_month, $rev_day)
+						my @ymd = MusicBrainz::Server::Validation::IsValidDateOrEmpty($rev_year, $rev_month, $rev_day)
 							or return $m->comp("/comp/error",
 								"Error: invalid release date",
 								0, 1,

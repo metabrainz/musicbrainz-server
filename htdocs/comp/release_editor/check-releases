@@ -80,7 +80,7 @@
 				}
 
 				# flag a bad date if the validation returns false
-				my @ymd = MusicBrainz::Server::Validation::IsValidDate($rev_year, $rev_month, $rev_day)
+				my @ymd = MusicBrainz::Server::Validation::IsValidDateOrEmpty($rev_year, $rev_month, $rev_day)
 					or $h{"baddate$j"} = 1;
 			}
 			
