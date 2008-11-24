@@ -202,7 +202,7 @@ sub SetShowTypes
 	eval
 	{
 		$rawsql->Begin();
-		$rawsql->Do("UPDATE collection_info SET ignoreattributes = '{" . join(',', @{$showTypes}) . "}' WHERE id = ?", $this->{collectionId});
+		$rawsql->Do("UPDATE collection_info SET ignoreattributes = '{" . join(',', sort @{$showTypes}) . "}' WHERE id = ?", $this->{collectionId});
 	};
 	if($@)
 	{
@@ -227,7 +227,7 @@ sub GetShowTypes
 	# convert to {1,2,3} formatted string to array
 	my $showTypesPrefString = $showTypes;
 	$showTypesPrefString =~ s/^\{(.*)\}$/$1/;
-	my @showTypesPref = split(',', $showTypesPrefString); # ref to array containing identifiers of types to show currently in the prefs
+	my @showTypesPref = sort split(',', $showTypesPrefString); # ref to array containing identifiers of types to show currently in the prefs
 	
 	return @showTypesPref;
 }
@@ -323,16 +323,11 @@ sub ArtistMissing
 	
 	if($@)
 	{
-		# do not care about duplicate error. it is caused by a user reloading page when a GET variable is set to add this artist
-		if($@ =~ /duplicate/)
-		{
-			$rawsql->Rollback();
-		}
-		else
-		{
-			$rawsql->Rollback();
-			die('Could not add artist to list of artists being watched');
-		}
+                $rawsql->Rollback();
+
+                # do not care about duplicate error. it is caused by a user reloading page when a GET variable is set to add this artist
+                die('Could not add artist to list of artists being watched')
+                    unless ($@ =~ /duplicate/);
 	}
 	else
 	{
