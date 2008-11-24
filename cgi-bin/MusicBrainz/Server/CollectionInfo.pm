@@ -174,6 +174,8 @@ sub GetWatchArtists
 sub ShowMissingOfArtistToUser
 {
 	my ($artistId, $collectionId, $rawdbh) = @_;
+
+	return 0 if (!defined $collectionId);
 	
 	# Check if the user has selected to see missing releases of the artist
 	my $rawsql = Sql->new($rawdbh);
@@ -196,6 +198,8 @@ sub ShowMissingOfArtistToUser
 sub NotifyUserAboutNewFromArtist
 {
 	my ($artistId, $collectionId, $rawdbh) = @_;
+
+	return 0 if (!defined $collectionId);
 	
 	# Check if the user has selected to be notified about new releases from this artist
 	my $rawsql = Sql->new($rawdbh);
@@ -370,6 +374,18 @@ sub CreateCollection
 	return $id;
 }
 
+sub AssureCollectionIdForUser
+{
+	my ($userId, $rawdbh) = @_;
+
+	my $collectionId = GetCollectionIdForUser($userId, $rawdbh);
+	if (!$collectionId)
+	{
+		$collectionId = CreateCollection($userId, $rawdbh);
+	}
+	return $collectionId;
+}
+
 =head2 GetCollectionIdForUser $userId, $rawdbh
 Get the id of the collection_info tuple corresponding to the specified user.
 =cut
@@ -378,10 +394,7 @@ sub GetCollectionIdForUser
 	my ($userId, $rawdbh) = @_;
 
 	my $rawsql = Sql->new($rawdbh);
-	my $id = $rawsql->SelectSingleValue("SELECT id FROM collection_info WHERE moderator=?", $userId);
-	$id = CreateCollection($userId, $rawdbh) if (!$id);
-
-	return $id;
+	return $rawsql->SelectSingleValue("SELECT id FROM collection_info WHERE moderator=?", $userId);
 }
 
 sub GetUserIdForCollection
@@ -398,6 +411,8 @@ sub HasRelease
 	my ($rawdbh, $collectionId, $releaseId) = @_;
 	my $rawsql = Sql->new($rawdbh);
 	my $count;
+
+	return 0 if (!defined $collectionId);
 	
 	$count = $rawsql->SelectSingleValue('SELECT COUNT(*) 
 										   FROM collection_has_release_join 

@@ -82,7 +82,7 @@
 		# add or remove release from collection if requested
 		if(defined($addtocollection))
 		{
-			$session{collectionid} = MusicBrainz::Server::CollectionInfo::GetCollectionIdForUser($session{uid}, $mbraw->{DBH}) 
+			$session{collectionid} = MusicBrainz::Server::CollectionInfo::AssureCollectionIdForUser($session{uid}, $mbraw->{DBH}) 
 				if (!$session{collectionid});
 			if($addtocollection == 1)
 			{
@@ -324,6 +324,8 @@
         	}
         	
 	        $m->out(qq!<tr><td class="collection">Collection: !);
+			$session{collectionid} = MusicBrainz::Server::CollectionInfo::GetCollectionIdForUser($session{uid}, $mbraw->{DBH}) 
+				if (!exists $session{collectionid});
 	        if(MusicBrainz::Server::CollectionInfo::HasRelease($mbraw->{DBH}, $session{collectionid}, $releaseid))
 	        {
 	        	#$ARGS{compact}

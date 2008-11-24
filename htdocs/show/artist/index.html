@@ -59,7 +59,7 @@
 		# deal with user's request for collection artist manipulation
 		if(defined($notify))
 		{
-			$session{collectionid} = MusicBrainz::Server::CollectionInfo::GetCollectionIdForUser($session{uid}, $mbraw->{DBH}) 
+			$session{collectionid} = MusicBrainz::Server::CollectionInfo::AssureCollectionIdForUser($session{uid}, $mbraw->{DBH}) 
 				if (!$session{collectionid});
 			if($notify == 1)
 			{

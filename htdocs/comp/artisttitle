@@ -234,8 +234,6 @@
 	}
 	
 	# Row 5: Collection links
-	
-	
 	if($showlinks && $session{uid})
 	{
 		$m->out(qq!<tr>!);
@@ -245,7 +243,7 @@
 		my $mbraw = MusicBrainz->new();
 		$mbraw->Login(db => 'RAWDATA');
 		$session{collectionid} = MusicBrainz::Server::CollectionInfo::GetCollectionIdForUser($session{uid}, $mbraw->{DBH}) 
-			if (!$session{collectionid});
+			if (!exists $session{collectionid});
 
 		if(MusicBrainz::Server::CollectionInfo::NotifyUserAboutNewFromArtist($id, $session{collectionid}, $mbraw->{DBH}))
 		{

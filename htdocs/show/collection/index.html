@@ -62,7 +62,7 @@
 	my $rawdbh = $mbraw->{DBH};
 	my $rodbh = $mbro->{DBH};
 	
-	$session{collectionid} = MusicBrainz::Server::CollectionInfo::GetCollectionIdForUser($session{uid}, $mbraw->{DBH}) 
+	$session{collectionid} = MusicBrainz::Server::CollectionInfo::AssureCollectionIdForUser($session{uid}, $mbraw->{DBH}) 
 		if (!$session{collectionid});
 
 	# if a release id is specified in in the removerelease get variable remove this release from collection
