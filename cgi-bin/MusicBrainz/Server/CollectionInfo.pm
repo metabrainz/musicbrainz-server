@@ -207,8 +207,7 @@ sub ShowMissingOfArtistToUser
     my $result = $rawsql->SelectSingleValue('SELECT artist
                                                FROM collection_discography_artist_join
                                               WHERE collection_info = ?AND artist = ?', $collectionId, $artistId);
-
-    return $result != undef;
+	return (defined $result);
 }
 
 # Should the user be notified about new releases from this artist?
@@ -226,7 +225,7 @@ sub NotifyUserAboutNewFromArtist
                                               WHERE collection_info = ?
                                                 AND artist = ?', $collectionId, $artistId);
 
-    return $result != undef;
+	return (defined $result);
 }
 
 sub GetMissingMBIDs
