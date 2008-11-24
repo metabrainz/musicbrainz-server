@@ -152,7 +152,7 @@ sub print_collection_xml
 {
 	my ($collectionId, $rodbh, $rawdbh) = @_;
 	
-	my $collectionInfo = MusicBrainz::Server::CollectionInfo->newFromCollectionId($collectionId, $rodbh, $rawdbh, undef);
+	my $collectionInfo = MusicBrainz::Server::CollectionInfo->new($collectionId, $rodbh, $rawdbh, undef);
 	
 	print '<?xml version="1.0" encoding="UTF-8"?>';
 	print '<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">';
