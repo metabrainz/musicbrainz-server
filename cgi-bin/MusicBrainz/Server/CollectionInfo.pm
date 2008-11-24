@@ -31,18 +31,16 @@ package MusicBrainz::Server::CollectionInfo;
 # get some stuff from the CollectionPreference object instead of doing new queries in here
 
 =head2 new $userId, $rodbh, $rawdbh, $preferences
-Create a CollectionInfo object for user with id C<$userId>.
+Create a CollectionInfo object for user with id C<$collectionId>.
 =cut
 sub new
 {
-	my ($this, $userId, $rodbh, $rawdbh, $preferences)=@_;
+	my ($this, $collectionId, $rodbh, $rawdbh, $preferences)=@_;
 	
 	my $sql = Sql->new($rawdbh);
-	
-	my $result=$sql->SelectSingleRowHash("SELECT * FROM collection_info WHERE moderator=?", $userId);
+	my $result=$sql->SelectSingleRowHash("SELECT * FROM collection_info WHERE id=?", $collectionId);
 	bless(
 	{
-		userId			=> $userId,
 		RODBH			=> $rodbh, # read only database
 		RAWDBH			=> $rawdbh, # raw database
 		preferences		=> $preferences,
@@ -51,38 +49,6 @@ sub new
 		missingReleases	=> undef
 		#artistHash		=> {}
 	}, $this);
-}
-
-=head2 newFromCollectionId $collectionId, $rodbh, $rawdbh, $preferences
-Create a CollectionInfo object for the collection C<$collectionId>.
-=cut
-sub newFromCollectionId
-{
-	my ($this, $collectionId, $rodbh, $rawdbh, $preferences)=@_;
-	
-	my $sql = Sql->new($rawdbh);
-	my $userId=$sql->SelectSingleValue("SELECT moderator FROM collection_info WHERE id=?", $collectionId);
-	bless(
-	{
-		userId			=> $userId,
-		RODBH			=> $rodbh, # read only database
-		RAWDBH			=> $rawdbh, # raw database
-		preferences		=> $preferences,
-		collectionId	=> $collectionId,
-		hasReleases		=> undef, # lets see if this and missingReleases will be used
-		missingReleases	=> undef
-		#artistHash		=> {}
-	}, $this);
-}
-
-=head2 GetUserId
-Returns userId.
-=cut
-sub GetUserId
-{
-	my ($this) = @_;
-	
-	return 0;
 }
 
 =head2 GetHasReleaseIds $artistId
@@ -207,8 +173,7 @@ sub GetWatchArtists
 # Should missing releases of specified artist be displayed to specified user?
 sub ShowMissingOfArtistToUser
 {
-	my ($artistId, $userId, $rawdbh) = @_;
-	my $collectionId = MusicBrainz::Server::CollectionInfo::GetCollectionIdForUser($userId, $rawdbh);
+	my ($artistId, $collectionId, $rawdbh) = @_;
 	
 	# Check if the user has selected to see missing releases of the artist
 	my $rawsql = Sql->new($rawdbh);
@@ -230,9 +195,8 @@ sub ShowMissingOfArtistToUser
 # Should the user be notified about new releases from this artist?
 sub NotifyUserAboutNewFromArtist
 {
-	my ($artistId, $userId, $rawdbh) = @_;
+	my ($artistId, $collectionId, $rawdbh) = @_;
 	
-	my $collectionId = MusicBrainz::Server::CollectionInfo::GetCollectionIdForUser($userId, $rawdbh);
 	# Check if the user has selected to be notified about new releases from this artist
 	my $rawsql = Sql->new($rawdbh);
 	my $result = $rawsql->SelectSingleValue('SELECT artist 
@@ -378,32 +342,6 @@ sub UpdateLastCheck
 # static subs
 #----------------------------
 
-=head2 AssureCollection $userId, $rawdbh
-Assure that the user with id C<$userId> has a collection tuple. If it does not have one yet - create it.
-This sub should be called from every page/module that require the user to have a collection.
-=cut
-sub AssureCollection
-{
-	my ($userId, $rawdbh) = @_;
-	
-	if(!HasCollection($userId, $rawdbh))
-	{
-		CreateCollection($userId, $rawdbh);
-	}
-}
-
-=head2 HasCollection $userId, $rawdbh
-Check if user with id C<$userId> has a collection_info tuple.
-Returns true or false.
-=cut
-sub HasCollection
-{
-	my ($userId, $rawdbh) = @_;
-	
-	my $sql = Sql->new($rawdbh);
-		
-	return $sql->SelectSingleValue("SELECT COUNT(*) FROM collection_info WHERE moderator=?", $userId);
-}
 
 =head2 CreateCollection $userId, $rawdbh
 Create a collection_info tuple for the specified user.
@@ -413,12 +351,13 @@ sub CreateCollection
 	my ($userId, $rawdbh) = @_;
 	
 	my $rawsql = Sql->new($rawdbh);
+	my $id;
 	eval
 	{
 		$rawsql->Begin();
 		$rawsql->Do("INSERT INTO collection_info (moderator, publiccollection, emailnotifications) VALUES (?, TRUE, TRUE)", $userId);
+		$id = $rawsql->GetLastInsertId('collection_info');
 	};
-	
 	if($@)
 	{
 		$rawsql->Rollback();
@@ -428,6 +367,7 @@ sub CreateCollection
 	{
 		$rawsql->Commit();
 	}	
+	return $id;
 }
 
 =head2 GetCollectionIdForUser $userId, $rawdbh
@@ -436,12 +376,13 @@ Get the id of the collection_info tuple corresponding to the specified user.
 sub GetCollectionIdForUser
 {
 	my ($userId, $rawdbh) = @_;
-	my $sqlraw = Sql->new($rawdbh);
-	my $collectionId = $sqlraw->SelectSingleValue("SELECT id FROM collection_info WHERE moderator=?", $userId);
-	
-	return $collectionId;
-}
 
+	my $rawsql = Sql->new($rawdbh);
+	my $id = $rawsql->SelectSingleValue("SELECT id FROM collection_info WHERE moderator=?", $userId);
+	$id = CreateCollection($userId, $rawdbh) if (!$id);
+
+	return $id;
+}
 
 sub GetUserIdForCollection
 {

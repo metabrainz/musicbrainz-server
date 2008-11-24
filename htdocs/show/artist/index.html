@@ -49,43 +49,41 @@
 
 </%args>
 <%perl>
-	# Log on to the raw database
-	my $mbraw = MusicBrainz->new();
-	$mbraw->Login(db => 'RAWDATA');
-	
-	# deal with user's request for collection artist manipulation
-	if(defined($notify))
+
+	if ($session{uid})
 	{
-		# make sure the user has a collection_info tuple
-		MusicBrainz::Server::CollectionInfo::AssureCollection($session{uid}, $mbraw->{DBH});
-			
-		if($notify == 1)
-		{
-			# Make sure user is logged on
-			$m->comp("/comp/checkloggedin", 1, 1, "You need to be logged in to modify your collection preferences.", 1) or return;
-			MusicBrainz::Server::CollectionPreference::ArtistWatch($artistid, $session{uid});
-		}
-		elsif($notify == 0)
-		{
-			MusicBrainz::Server::CollectionPreference::ArtistDontWatch($artistid, $session{uid});
-		}
-	}
-	
-	if(defined($dispmissing))
-	{
-		# make sure the user has a collection_info tuple
-		MusicBrainz::Server::CollectionInfo::AssureCollection($session{uid}, $mbraw->{DBH});
+		# Log on to the raw database
+		my $mbraw = MusicBrainz->new();
+		$mbraw->Login(db => 'RAWDATA');
 		
-		if($dispmissing == 1)
+		# deal with user's request for collection artist manipulation
+		if(defined($notify))
 		{
-			# Make sure user is logged on
-			$m->comp("/comp/checkloggedin", 1, 1, "You need to be logged in to modify your collection preferences.", 1) or return;
-			
-			MusicBrainz::Server::CollectionPreference::ArtistMissing($artistid, $session{uid});
+			$session{collectionid} = MusicBrainz::Server::CollectionInfo::GetCollectionIdForUser($session{uid}, $mbraw->{DBH}) 
+				if (!$session{collectionid});
+			if($notify == 1)
+			{
+				MusicBrainz::Server::CollectionPreference::ArtistWatch($artistid, $session{collectionid});
+			}
+			elsif($notify == 0)
+			{
+				MusicBrainz::Server::CollectionPreference::ArtistDontWatch($artistid, $session{collectionid});
+			}
 		}
-		elsif($dispmissing == 0)
+		
+		if(defined($dispmissing))
 		{
-			MusicBrainz::Server::CollectionPreference::ArtistDontShowMissing($artistid, $session{uid});
+			$session{collectionid} = MusicBrainz::Server::CollectionInfo::GetCollectionIdForUser($session{uid}, $mbraw->{DBH}) 
+				if (!$session{collectionid});
+			
+			if($dispmissing == 1)
+			{
+				MusicBrainz::Server::CollectionPreference::ArtistMissing($artistid, $session{collectionid});
+			}
+			elsif($dispmissing == 0)
+			{
+				MusicBrainz::Server::CollectionPreference::ArtistDontShowMissing($artistid, $session{collectionid});
+			}
 		}
 	}
 	

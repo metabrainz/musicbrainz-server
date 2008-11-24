@@ -29,7 +29,6 @@ package MusicBrainz::Server::Rating;
 
 use base qw( TableBase ); 
 use Carp; 
-use Data::Dumper;
 use List::Util qw( min max sum );
 use URI::Escape qw( uri_escape ); 
 use MusicBrainz::Server::Validation qw( encode_entities ); 

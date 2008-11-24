@@ -26,7 +26,6 @@ use TableBase;
 { our @ISA = qw( TableBase ) }
 
 use strict;
-use Data::Dumper;
 
 package MusicBrainz::Server::Collection;
 
