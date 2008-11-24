@@ -61,6 +61,7 @@
 		{
 			$session{collectionid} = MusicBrainz::Server::CollectionInfo::AssureCollectionIdForUser($session{uid}, $mbraw->{DBH}) 
 				if (!$session{collectionid});
+			
 			if($notify == 1)
 			{
 				MusicBrainz::Server::CollectionPreference::ArtistWatch($artistid, $session{collectionid});
@@ -73,7 +74,7 @@
 		
 		if(defined($dispmissing))
 		{
-			$session{collectionid} = MusicBrainz::Server::CollectionInfo::GetCollectionIdForUser($session{uid}, $mbraw->{DBH}) 
+			$session{collectionid} = MusicBrainz::Server::CollectionInfo::AssureCollectionIdForUser($session{uid}, $mbraw->{DBH}) 
 				if (!$session{collectionid});
 			
 			if($dispmissing == 1)
