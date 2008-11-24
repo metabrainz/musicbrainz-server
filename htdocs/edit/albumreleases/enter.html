@@ -69,7 +69,7 @@
 
 		if ($rel->{"new"})
 		{
-			next unless $rel->{"year"} and $rel->{"country"};
+			next unless $rel->{"country"};
 			push @adds, $revnew;
 
 			$m->out("Add Release Event: " . $revnew->ToString . "<br/>")
