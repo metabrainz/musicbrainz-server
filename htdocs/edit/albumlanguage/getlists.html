@@ -9,13 +9,13 @@
 	my $mb = $m->comp("/comp/dblogin");
 
 	my @scripts = MusicBrainz::Server::Script->Menu($mb->{DBH},
-		minimum_frequency => ( $expand_lists ? 0 : 4 ),
+		minimum_frequency => ( $expand_lists ? 2 : 4 ),
 		include => $script_curr
 	);
 	unshift @scripts, [ "-1", "Select script..." ];
 
 	my @languages = MusicBrainz::Server::Language->Menu($mb->{DBH},
-		minimum_frequency => ( $expand_lists ? 0 : 2 ),
+		minimum_frequency => ( $expand_lists ? 1 : 2 ),
 		include => $language_curr
 	);
 	unshift @languages, [ "-1", "Select language..." ];

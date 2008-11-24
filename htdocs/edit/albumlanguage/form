@@ -49,7 +49,7 @@
 	# compile list of scripts, be sure to include
 	# the current value (if compact list is shown)
 	my @scripts = MusicBrainz::Server::Script->Menu($mb->{DBH},
-		minimum_frequency => ( $expand_lists ? 0 : 4 ),
+		minimum_frequency => ( $expand_lists ? 2 : 4 ),
 		include => $script_curr
 	);
 	unshift @scripts, [ "-1", "Select script..." ];
