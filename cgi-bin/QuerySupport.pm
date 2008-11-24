@@ -406,5 +406,125 @@ sub TrackInfoFromTRMId
     return $rdf->CreateStatus(0);
 }
 
+# This function will also soon be depricated. As soon as MB Tagger 0.10.x becomes
+# completely irrelevant this function can go.
+sub QuickTrackInfoFromTrackId
+{
+   my ($dbh, $parser, $rdf, $tid, $aid) = @_;
+
+   return $rdf->ErrorRDF("No track and/or album id given.")
+      if (!defined $tid || $tid eq '' || !defined $aid || $aid eq '');
+   return undef if (!defined $dbh);
+
+    require MusicBrainz::Server::Release;
+    my $album = MusicBrainz::Server::Release->new($dbh);
+    $album->SetMBId($aid);
+    unless ($album->LoadFromId)
+    {
+        return $rdf->ErrorRDF("Cannot load given album.");
+    }
+
+    my $sql = Sql->new($dbh);
+    my $data = $sql->SelectSingleRowArray(
+	"SELECT track.name,
+	       	artist.name,
+		album.name,
+		albumjoin.sequence,
+		track.length,
+		album.artist,
+		artist.gid,
+		artist.sortname,
+		album.attributes
+	FROM	track, albumjoin, album, artist
+	WHERE	track.gid = ?
+	AND	album.gid = ?
+	AND	albumjoin.album = album.id
+	AND	albumjoin.track = track.id
+	AND	artist.id = track.artist",
+	$tid,
+	$aid,
+    );
+
+    unless ($data)
+    {
+     	return $rdf->ErrorRDF("Cannot load given album.");
+    }
+
+    my @data = @$data;
+   my @attrs = ( $data[8] =~ /(\d+)/g );
+   shift @attrs;
+
+   my $out = $rdf->BeginRDFObject;
+   $out .= $rdf->BeginDesc("mq:Result");
+   $out .= $rdf->Element("mq:status", "OK");
+   $out .= $rdf->Element("mq:artistName", $data[1]);
+   $out .= $rdf->Element("mm:artistid", $data[6]);
+   $out .= $rdf->Element("mm:sortName", $data[7]);
+   $out .= $rdf->Element("mq:albumName", $data[2]);
+   $out .= $rdf->Element("mq:trackName", $data[0]);
+   $out .= $rdf->Element("mm:trackNum", $data[3]);
+   if ($data[4] != 0)
+   {
+        $out .= $rdf->Element("mm:duration", $data[4]);
+   }
+
+   # This is a total hack, RDF wise speaking. This is to bridge the gap
+   # for the MB Tagger 0.10.0 series. Once the new cross platform tagger
+   # is out, this function will go away.
+   if ($data[5] == &ModDefs::VARTIST_ID)
+   {
+        $out .= $rdf->Element("mm:albumArtist", &ModDefs::VARTIST_MBID);
+   }
+
+   foreach my $attr (@attrs)
+   {
+       if ($attr >= MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_TYPE_START &&
+           $attr <= MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_TYPE_END)
+       {
+          $out .= $rdf->Element("mm:releaseType", "", "rdf:resource", $rdf->GetMMNamespace() .
+                                 "Type" . $album->GetAttributeName($attr));
+       }
+       elsif ($attr >= MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_STATUS_START &&
+              $attr <= MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_STATUS_END)
+       {
+          $out .= $rdf->Element("mm:releaseStatus", "", "rdf:resource", $rdf->GetMMNamespace() .
+                                 "Status" . $album->GetAttributeName($attr));
+       }
+   }
+
+   my (@releases, $releasedate);
+   @releases = $album->ReleaseEvents;
+   if (@releases)
+   {
+       require MusicBrainz::Server::Country;
+       my $country_obj = MusicBrainz::Server::Country->new($album->{DBH});
+
+       $out .= $rdf->BeginDesc("mm:releaseDateList");
+       $out .= $rdf->BeginSeq();
+       for my $rel (@releases)
+       {
+            my $cid = $rel->GetCountry;
+            my $c = $country_obj->newFromId($cid);
+            my ($year, $month, $day) = $rel->GetYMD();
+
+            $releasedate = $year;
+            $releasedate .= sprintf "-%02d", $month if ($month != 0);
+            $releasedate .= sprintf "-%02d", $day if ($day != 0);
+            $out .= $rdf->BeginElement("rdf:li");
+            $out .= $rdf->BeginElement("mm:ReleaseDate");
+            $out .= $rdf->Element("dc:date", $releasedate);
+            $out .= $rdf->Element("mm:country", $c ? $c->GetISOCode : "?");
+            $out .= $rdf->EndElement("mm:ReleaseDate");
+            $out .= $rdf->EndElement("rdf:li");
+        }
+        $out .= $rdf->EndSeq();
+        $out .= $rdf->EndDesc("mm:releaseDateList");
+   }
+
+   $out .= $rdf->EndDesc("mq:Result");
+   $out .= $rdf->EndRDFObject;
+
+   return $out;
+}
 1;
 # eof QuerySupport.pm
