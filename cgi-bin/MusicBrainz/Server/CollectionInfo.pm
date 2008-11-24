@@ -248,7 +248,7 @@ sub GetMissingMBIDs
         my $hasIdsQueryString;
         for my $attribute (@$showTypes)
         {
-            $hasIdsQueryString .= $attribute . ' <> ALL (album.attributes[2:5])';
+            $hasIdsQueryString .= ' AND ' . $attribute . ' <> ALL (album.attributes[2:5])';
         }
 
         if(@$hasReleaseIds)
