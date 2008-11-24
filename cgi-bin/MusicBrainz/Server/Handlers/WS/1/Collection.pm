@@ -84,7 +84,7 @@ sub handler
 	
 	
 	# make sure the user has a collection_info tuple
-	MusicBrainz::Server::CollectionInfo::AssureCollection($userId, $mbraw->{DBH});
+	MusicBrainz::Server::CollectionInfo::AssureCollectionIdForUser($userId, $mbraw->{DBH});
 	
 	# get collection_info id
 	my $collectionId = MusicBrainz::Server::CollectionInfo::GetCollectionIdForUser($userId, $mbraw->{DBH});
