@@ -273,6 +273,7 @@ sub GetMissingMBIDs
             return $rosql->SelectSingleColumnArray($query);
         }
     }
+	return [];
 }
 
 sub GetMissingMBIDsForArtist
