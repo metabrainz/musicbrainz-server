@@ -43,12 +43,12 @@
 
 	$showtrackartists => $session{"showtrackartists"}
 	$showrelationships => $session{"showrelationships"}
+	$showdiscids => $session{"showdiscids"}
 	
 	$addtocollection => undef
 	
 	$notify => undef
 	$dispmissing => undef
-	$showdiscids => 1
 
 </%args>
 <%perl>
@@ -81,6 +81,10 @@
 	# get passed in or default "show track relationships" setting , and write to session
 	$showrelationships = 1 if (not defined $showrelationships);
 	UserStuff::EnsureSessionOpen(), $session{"showrelationships"} = $showrelationships;
+
+	# get passed in or default "show discids" setting , and write to session
+	$showdiscids = 1 if (not defined $showdiscids);
+	UserStuff::EnsureSessionOpen(), $session{"showdiscids"} = $showdiscids;
 
 	# Instantiate MusicBrainz object, and load release entities
 	my $mb = $m->comp("/comp/dblogin");
