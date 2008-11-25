@@ -89,14 +89,18 @@ sub DetermineQuality
 	if ($rel->LoadFromId())
 	{
 		$level = $rel->GetQuality() > $level ? $rel->GetQuality() : $level;
-    }
+	}
+	else
+	{
+    	return $level;
+	}
 
 	my $ar = MusicBrainz::Server::Artist->new($self->{DBH});
 	$ar->SetId($rel->GetArtist);
 	if ($ar->LoadFromId())
 	{
-        $level = $ar->GetQuality() > $level ? $ar->GetQuality() : $level;
-    }
+		$level = $ar->GetQuality() > $level ? $ar->GetQuality() : $level;
+	}
 
 	if ($self->{'new.artistid'})
 	{
@@ -183,6 +187,7 @@ sub PreDisplay
 sub CheckPrerequisites
 {
 	my $self = shift;
+	my $sql = Sql->new($self->{DBH});
 
 	if (my $id = $self->{'new.artistid'})
 	{
@@ -195,6 +200,16 @@ sub CheckPrerequisites
 			return STATUS_FAILEDPREREQ;
 		}
 	}
+
+	# Check album is still where it used to be
+	$sql->SelectSingleValue(
+		"SELECT 1 FROM album WHERE id = ? AND artist = ?",
+		$self->GetRowId,
+		$self->GetArtist,
+	) or do {
+		$self->InsertNote(MODBOT_MODERATOR, "This release has already been deleted or moved");
+		return STATUS_FAILEDPREREQ;
+	};
 
 	return undef;
 }
