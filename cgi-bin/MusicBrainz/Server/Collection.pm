@@ -187,7 +187,7 @@ sub AddReleaseWithId
         # Error occured, but it's not about duplicates...
         unless ($@ =~ /duplicate/)
         {
-            croak $@;
+            die $@;
         }
 
         $rawsql->Rollback();
