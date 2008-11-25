@@ -54,8 +54,6 @@ sub new
 {
     my($this, $rodbh, $rawdbh, $collectionId) = @_;
 
-	die if (!defined $collectionId);
-
     bless {
         RODBH                        => $rodbh,
         RAWDBH                       => $rawdbh,
@@ -270,7 +268,7 @@ sub RemoveReleaseWithId
 # This function is called from Moderation when changes are applied to the DB
 sub RemoveArtistFromCollections
 {
-    my ($self, $artistid) = @_;
+    my ($artistid) = @_;
 
     my $rawdb = $Moderation::DBConnections{RAWDATA};
     $rawdb->Do("DELETE FROM collection_watch_artist_join WHERE artist = ?", $artistid);
@@ -280,7 +278,7 @@ sub RemoveArtistFromCollections
 # This function is called from Moderation when changes are applied to the DB
 sub RemoveReleaseFromCollections
 {
-    my ($self, $releaseid) = @_;
+    my ($releaseid) = @_;
 
     my $rawdb = $Moderation::DBConnections{RAWDATA};
     $rawdb->Do("DELETE FROM collection_has_release_join WHERE album = ?", $releaseid);
@@ -290,7 +288,7 @@ sub RemoveReleaseFromCollections
 # This function is called from Moderation when changes are applied to the DB
 sub MergeArtists
 {
-    my ($self, $old, $new) = @_;
+    my ($old, $new) = @_;
 
     my $rawdb = $Moderation::DBConnections{RAWDATA};
     $rawdb->Do("UPDATE collection_watch_artist_join SET artist = ? WHERE artist = ?", $new, $old);
@@ -300,7 +298,7 @@ sub MergeArtists
 # This function is called from Moderation when changes are applied to the DB
 sub MergeReleases
 {
-    my ($self, $old, $new) = @_;
+    my ($old, $new) = @_;
 
     my $rawdb = $Moderation::DBConnections{RAWDATA};
     $rawdb->Do("UPDATE collection_has_release_join SET album = ? WHERE album = ?", $new, $old);
