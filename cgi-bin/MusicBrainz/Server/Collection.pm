@@ -54,24 +54,12 @@ sub new
 {
     my($this, $rodbh, $rawdbh, $collectionId) = @_;
 
+	die if (!defined $collectionId);
+
     bless {
         RODBH                        => $rodbh,
         RAWDBH                       => $rawdbh,
         collectionId                 => $collectionId,
-
-        # Pretty sure these can all be deleted, as these would be
-        # defaults anyway...
-        addAlbum                     => 0, # 0=havent touched add album stuff. 1=has done so
-        addAlbum_duplicateArray      => [ ],
-        addAlbum_notExistingArray    => [ ],
-        addAlbum_insertCount         => 0,
-        addAlbum_invalidMBIDCount    => 0,
-        removeAlbum                  => 0, # 0=havent touched remove album stuff. 1=has done so
-        removeAlbum_notExistingArray => [ ],
-        removeAlbum_removeCount      => 0,
-        removeAlbum_invalidMBIDCount => 0,
-        invalidMBIdCount             => 0,
-        MBIdArray                    => ()
     }, $this;
 }
 
