@@ -46,6 +46,7 @@
 	$dispmissing => undef
 	
 	$addtocollection => undef
+	$addtocollectionid => undef
 
 </%args>
 <%perl>
@@ -383,7 +384,6 @@
 			<form method="post" action="/edit/albumbatch/done.html">
             <& /comp/framedboxbegin, width => "100%" &>
             <& /comp/modnotice &>
-
             <table width="100%">
             <tr>
 % unless ($fCompact) {
@@ -554,7 +554,7 @@
 						 showratings => 1,
 						 mbt => $mbt,
 						 ex => $ex,
-						 addtocollection => $addtocollection,
+						 addtocollection => $addtocollectionid == $album->GetId ? $addtocollection : undef,
         				 short => $short);
                 }
                 else
@@ -563,7 +563,7 @@
 						 album => $album, artist => $artist,
 						 ex => $ex, showids => 0, showtag => 1, short=>$short,
 						 showratings => 1,
-						 addtocollection => $addtocollection,
+						 addtocollection => $addtocollectionid == $album->GetId ? $addtocollection : undef,
 						 );
                 }
             }

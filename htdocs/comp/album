@@ -88,6 +88,7 @@
 	MusicBrainz::Server::Rating::LoadUserRatingForEntities("track", \@info, $session{uid}) 
 		if ($session{uid} && UserPreference::get("show_ratings") && $showratings);
 	
+	my $untouchedex = $ex;
 	if ($showcollapsed)
 	{
 		my ($id, $url);
@@ -111,7 +112,7 @@
                 folksonomy => $folksonomy,
 				showratings => $showratings,
                 addtocollection => $addtocollection,
-                ex => $ex,
+                ex => $untouchedex,
                 short => $short
 			);
 	}
@@ -131,7 +132,7 @@
                 folksonomy => $folksonomy,
 				showratings => $showratings,
                 addtocollection => $addtocollection,
-                ex => $ex,
+                ex => $untouchedex,
                 short => $short,
 		        showdiscids => $showids,
 				showdiscidstoggle => $showdiscidstoggle,

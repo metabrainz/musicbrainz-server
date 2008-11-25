@@ -331,7 +331,7 @@
 	        	#$ARGS{compact}
 	        	if($ENV{'SCRIPT_NAME'} eq '/show/artist/index.html')
 	        	{
-	        		$m->out(qq!<a href="/show/artist/?artistid=$artistid&ex=$ex&short=$short&compact=$ARGS{compact}&addtocollection=0">Remove release from collection</a>!);
+	        		$m->out(qq!<a href="/show/artist/?artistid=$artistid&ex=$ex&short=$short&compact=$ARGS{compact}&addtocollection=0&addtocollectionid=$releaseid">Remove release from collection</a>!);
 	        	}
 	        	else
 	        	{
@@ -342,7 +342,7 @@
 	        {
 	        	if($ENV{'SCRIPT_NAME'} eq '/show/artist/index.html')
 	        	{
-	        		$m->out(qq!<a href="/show/artist/?artistid=$artistid&ex=$ex&short=$short&compact=$ARGS{compact}&addtocollection=1">Add release to collection</a>!);
+	        		$m->out(qq!<a href="/show/artist/?artistid=$artistid&ex=$ex&short=$short&compact=$ARGS{compact}&addtocollection=1&addtocollectionid=$releaseid">Add release to collection</a>!);
 	        	}
 	        	else
 	        	{
