@@ -107,7 +107,7 @@
 %		}
 %		if ($numitems > $limit) {
 %			if ($show eq 'all') {
-				<p><a href="/show/tag/?tag=<% uri_escape($tag) %>&show=<% $type %>">More...</a></p>
+				<p><a href="/user/tags/tag.html?userid=<% $userid %>&amp;tag=<% uri_escape($tag) %>&mp;show=<% $type %>">More...</a></p>
 %			}
 %			else {
 				<& /comp/browse/pageselector, numitems => $numitems,
