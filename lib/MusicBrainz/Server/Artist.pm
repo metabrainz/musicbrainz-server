@@ -982,7 +982,7 @@ sub select_releases
        if (defined $loadmeta && $loadmeta)
        {
            $query = qq/select album.id, name, modpending, GID, attributes,
-                              language, script, quality, modpending_qual, tracks, discids, trmids,
+                              language, script, quality, modpending_qual, tracks, discids,
                               firstreleasedate, coverarturl, asin, puids
                        from Album, Albummeta 
                        where artist=$this->{id} and albummeta.id = album.id/;
