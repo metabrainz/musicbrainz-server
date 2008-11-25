@@ -63,7 +63,6 @@
 </%args>
 <%perl>
 	$release ||= $album;
-	$showratings &&= UserPreference::get("show_ratings");
 
 	my $artistid = $release->GetArtist;
 	my $releaseid = $release->GetId;
@@ -73,6 +72,12 @@
 	my $exists = MusicBrainz::Server::Validation::IsNonNegInteger($release->GetId) && $release->GetId;
 	my $mb = $m->comp("/comp/dblogin");
 	my $mbraw;
+
+	# Don't show ratings for NonAlbumTracks
+	$showratings &&= not $nonalbum;
+	
+	# Don't show tags for NonAlbumTracks
+	$folksonomy &&= not $nonalbum;
 
 	if ($session{uid})
 	{
@@ -169,7 +174,7 @@
 			$m->out(qq!Release: [ !);
 			$m->out(qq!   <a href="/show/permlink.html?id=$mbid&amp;type=release" title="Link to this release">Link to this</a>!);
 			$m->out(qq! | <a href="/show/release/details.html?releaseid=$releaseid">Details</a>!);
-			$m->out(qq! | <a href="/show/release/tags.html?id=$releaseid">Tags</a>!);
+			$m->out(qq! | <a href="/show/release/tags.html?id=$releaseid">Tags</a>!) if $folksonomy;
 
 			# only show the track artists toggle function if the page using the /comp/album
 			# parameter handles the arguments
@@ -309,7 +314,7 @@
         }
         
         # collection links
-        if($session{uid})
+        if($session{uid} && not $nonalbum)
         {
         	my $currentpath;
         	

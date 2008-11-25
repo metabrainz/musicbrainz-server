@@ -506,17 +506,21 @@
 </%perl></td>
 <td class="rdate"><& /comp/releasedate, $album->GetFirstReleaseDateYMD &></td>
 <td class="lang"><& /comp/language, $album->GetLanguage, $album->GetScript &></td>
+
 % 	if (UserPreference::get("show_ratings")) {
 <td class="">
-	<& /comp/ratingsbox, 
-		entity_id => $album->GetId, 
-		entity_type => "release", 
-		small => 1, 
-		rating => $album->{rating},
-		user_rating => $album->{user_rating},
-	&>
+%		unless ($album->IsNonAlbumTracks) {
+			<& /comp/ratingsbox, 
+				entity_id => $album->GetId, 
+				entity_type => "release", 
+				small => 1, 
+				rating => $album->{rating},
+				user_rating => $album->{user_rating},
+			&>
+%		}
 </td>
 %	}
+
 %	if ($session{uid}) {
 <td class="rtag">
 %	if (!$album->IsNonAlbumTracks) {
