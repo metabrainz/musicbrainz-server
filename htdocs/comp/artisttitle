@@ -112,7 +112,7 @@
 		$m->out(qq!</a>!);
 		
 	}
-	$m->comp("/comp/ratingsbox", entity_type => "artist", entity_id => $id, detailled => 1) if $showratings;
+	$m->comp("/comp/ratingsbox", entity_type => "artist", entity_id => $id, detailled => 1) if $showratings && ($artist->GetId != &ModDefs::VARTIST_ID);
 	$m->out(qq!</td></tr>!);
 
 	# Info box, a) resolution b) start-end date c) artist-type d) sortname
@@ -249,7 +249,7 @@
 	}
 	
 	# Row 5: Collection links
-	if($showlinks && $session{uid})
+	if($showlinks && $session{uid} && ($artist->GetId != &ModDefs::VARTIST_ID))
 	{
 		$m->out(qq!<tr>!);
 		$m->out(qq!<td colspan="2" class="collection">!);
