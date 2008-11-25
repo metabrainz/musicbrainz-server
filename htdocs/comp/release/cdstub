@@ -101,6 +101,4 @@
 | <a href="<% $url %>">Import Disc Id</a> ]
 </p>
 
-<& /comp/footer &>
-
 %# vi: set ts=4 sw=4 ft=mason :
