@@ -82,7 +82,7 @@
 		}
 
 		if (UserPreference::get("sidebar_panel_stats") && &DBDefs::REPLICATION_TYPE != RT_SLAVE) {
-			$m->comp("/comp/layout/sidebar-section", title => "Server Stats", link => "/stats.html");
+			$m->comp("/comp/layout/sidebar-section", title => "Server Stats", link => "/show/stats/");
 			$m->comp("/comp/layout/sidemenu-panel-stats");
 		}
 

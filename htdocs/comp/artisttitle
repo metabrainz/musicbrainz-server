@@ -90,13 +90,28 @@
 	# Row 1: the artist name (link) and sortname
 	$m->out(qq!<tr valign="top">!);
 	$m->out(qq!<td class="icon" rowspan="2">!);
-	$m->out(qq!  <a href="/artist/$mbid.html" title="Go to the artist page"><img src="/images/aicon_lg.png" alt="" /></a></td>!);
-	$m->out(qq!<td class="title">!);
-	$m->out(qq!  <a href="/artist/$mbid.html" title="Go to the artist page">!);
-	$m->out(qq!  <span class="mp">!) if ($artist->GetModPending);
-	$m->out($m->interp->apply_escapes($name, 'h'));
-	$m->out(qq!  </span>!) if ($artist->GetModPending);
-	$m->out(qq!</a>!);
+	if ($mbid)
+	{
+		$m->out(qq!  <a href="/artist/$mbid.html" title="Go to the artist page"><img src="/images/aicon_lg.png" alt="" /></a></td>!);
+		$m->out(qq!<td class="title">!);
+		$m->out(qq!  <a href="/artist/$mbid.html" title="Go to the artist page">!);
+		$m->out(qq!  <span class="mp">!) if ($artist->GetModPending);
+		$m->out($m->interp->apply_escapes($name, 'h'));
+		$m->out(qq!  </span>!) if ($artist->GetModPending);
+		$m->out(qq!</a>!);
+	}
+	else
+	{
+		my $escaped_name = $m->interp->apply_escapes($name, 'h');
+		$m->out(qq!  <img src="/images/aicon_lg.png" alt="" /></td>!);
+		$m->out(qq!<td class="title">!);
+		$m->out(qq!  <a href="/search/textsearch.html?query=$escaped_name&type=artist&limit=&handlearguments=1">!);
+		$m->out(qq!  <span class="mp">!) if ($artist->GetModPending);
+		$m->out($escaped_name);
+		$m->out(qq!  </span>!) if ($artist->GetModPending);
+		$m->out(qq!</a>!);
+		
+	}
 	$m->comp("/comp/ratingsbox", entity_type => "artist", entity_id => $id, detailled => 1) if $showratings;
 	$m->out(qq!</td></tr>!);
 
