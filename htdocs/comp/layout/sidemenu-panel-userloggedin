@@ -43,8 +43,6 @@
 %		: "/mod/search/pre/new.html");
 
 			<li>
-				<a title="Dashboard" href="/show/stats/dashboard.html">Dashboard</a></li>
-			<li>
 				<a href="<% $votelink %>">Vote on Edits</a></li>
 			<li><small>
 				<a href="/mod/search/pre/subscriptions.html"><strong>&middot;</strong> Subscribed artists</a></small></li>
