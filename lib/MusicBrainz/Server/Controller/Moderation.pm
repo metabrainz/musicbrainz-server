@@ -45,7 +45,7 @@ sub show : Chained('moderation')
 
     $c->forward('/user/login');
 
-    my $add_note = $c->form(undef, 'Moderation::AddNote');
+    my $add_note = MusicBrainz::Server::Form::Moderation::AddNote->new;
 
     $c->stash->{add_note} = $add_note;
 
@@ -59,7 +59,7 @@ Add a moderation note to an existing edit
 
 =cut
 
-sub add_note : Chained('moderation')
+sub add_note : Chained('moderation') Form
 {
     my ($self, $c) = @_;
 
@@ -67,8 +67,8 @@ sub add_note : Chained('moderation')
 
     my $moderation = $c->stash->{moderation};
 
-    my $form = $c->form($moderation, 'Moderation::AddNote');
-    $form->context($c);
+    my $form = $self->form;
+    $form->init($moderation);
 
     return unless $c->form_posted && $form->validate($c->req->params);
 

@@ -81,11 +81,11 @@ First step in the add release wizard, requesting a track count from the user
 
 =cut
 
-sub add_release_track_count : Private
+sub add_release_track_count : Form('AddRelease::TrackCount')
 {
     my ($self, $c) = @_;
 
-    my $form = $c->form(undef, 'AddRelease::TrackCount');
+    my $form = $self->form;
     $c->stash->{template} = 'add_release/track_count.tt';
 
     return unless $c->form_posted &&
@@ -103,14 +103,16 @@ This step requests information about the release
 
 =cut
 
-sub add_release_information : Private
+sub add_release_information : Form('AddRelease::Tracks')
 {
     my ($self, $c) = @_;
 
     my $artist = $c->stash->{artist};
 
-    my $form = $c->form($artist, 'AddRelease::Tracks');
+    my $form = $self->form;
     my $w    = $self->_wizard_data($c);
+
+    $form->init($artist);
 
     my $track_count = $w->{track_count};
     my $event_count = $w->{event_count};
@@ -213,14 +215,16 @@ sub add_release_information : Private
     $self->_change_step($c, 'add_release_confirm')
 }
 
-sub add_release_confirm : Private
+sub add_release_confirm : Form('AddRelease::Tracks')
 {
     my ($self, $c) = @_;
 
     my $artist = $c->stash->{artist};
     my $w      = $self->_wizard_data($c);
 
-    my $form = $c->form($artist, 'AddRelease::Tracks');
+    my $form = $self->form;
+    $form->init($artist);
+
     $form->add_tracks($w->{track_count}, $artist);
     $form->add_events($w->{event_count});
     $form->context($c);

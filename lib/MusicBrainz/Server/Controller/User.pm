@@ -105,17 +105,16 @@ new user.
 
 =cut
 
-sub register : Local
+sub register : Local Form
 {
     my ($self, $c) = @_;
 
     $c->detach('profile', [ $c->user->name ])
         if $c->user_exists;
 
-    my $form = $c->form(undef, 'User::Register');
-    $c->stash->{form} = $form;
+    my $form = $self->form;
 
-    return unless $c->form_posted && $form->validate($c->request->parameters);
+    return unless $self->submit_and_validate($c);
 
     my $new_user = $c->model('User')->create($form->value('username'),
                                              $form->value('password'));
@@ -160,10 +159,9 @@ sub forgot_password : Local
 {
     my ($self, $c) = @_;
 
-    my $form = $c->form(undef, 'User::ForgotPassword');
-    $form->context($c);
+    my $form = $self->form;
 
-    return unless $c->form_posted && $form->validate($c->req->params);
+    return unless $self->submit_and_validate($c);
 
     my ($email, $username) = ( $form->value('email'),
                                $form->value('username') );
@@ -235,15 +233,16 @@ when use to update the database data when we receive a valid POST request.
 
 =cut
 
-sub change_password : Local
+sub change_password : Local Form
 {
     my ($self, $c) = @_;
 
     $c->forward('login');
 
-    my $form = $c->form(undef, 'User::ChangePassword');
+    my $form = $self->form;
 
-    return unless $c->form_posted && $form->validate($c->req->params);
+    return unless $self->submit_and_validate($c);
+
     if ($form->value('old_password') eq $c->user->password)
     {
         $c->user->ChangePassword( $form->value('old_password'),

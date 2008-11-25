@@ -33,7 +33,7 @@ sub url : Chained('entity') Form
     $c->response->redirect($c->entity_url($entity, 'relations'));
 }
 
-sub cc : Chained('entity')
+sub cc : Chained('entity') Form('Relate::AddCCLicense')
 {
     my ($self, $c) = @_;
 
@@ -41,8 +41,8 @@ sub cc : Chained('entity')
 
     my $entity = $c->stash->{entity};
 
-    my $form = $c->form($entity, 'Relate::AddCCLicense');
-    $form->context($c);
+    my $form = $self->form;
+    $form->init($entity);
 
     return unless $c->form_posted && $form->validate($c->req->params);
 

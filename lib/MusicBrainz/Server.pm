@@ -27,8 +27,6 @@ Session::State::Cookie
 Session::Store::FastMmap
 
 Authentication
-
-Form::Processor
 /;
 
 our $VERSION = '0.01';

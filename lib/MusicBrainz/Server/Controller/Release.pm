@@ -260,6 +260,7 @@ sub convert_to_single_artist : Chained('release')
 }
 
 sub confirm_convert_to_single_artist : Chained('release') Args(1)
+    Form('Release::ConvertToSingleArtist')
 {
     my ($self, $c, $new_artist) = @_;
 
@@ -271,8 +272,8 @@ sub confirm_convert_to_single_artist : Chained('release') Args(1)
     my $new_artist = $c->model('Artist')->load($new_artist);
     $c->stash->{new_artist} = $new_artist;
 
-    my $form = $c->form($release, 'Release::ConvertToSingleArtist');
-    $form->context($c);
+    my $form = $self->form;
+    $form->init($release);
 
     return unless $c->form_posted && $form->validate($c->req->params);
 

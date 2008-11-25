@@ -51,7 +51,7 @@ Edit the details of an already existing link
 
 =cut
 
-sub edit : Chained('url')
+sub edit : Chained('url') Form
 {
     my ($self, $c) = @_;
 
@@ -59,8 +59,8 @@ sub edit : Chained('url')
 
     my $url = $c->stash->{url};
 
-    my $form = $c->form($url, 'Url::Edit');
-    $form->context($c);
+    my $form = $self->form;
+    $form->init($url);
 
     return unless $c->form_posted && $form->validate($c->req->params);
 

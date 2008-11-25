@@ -24,13 +24,13 @@ to whichever specific search action the search type maps to.
 
 =cut
 
-sub simple : Local
+sub simple : Local Form
 {
     my ($self, $c) = @_;
 
     use MusicBrainz::Server::Form::Search::Simple;
 
-    my $form = $c->form(undef, "Search::Simple");
+    my $form = $self->form;
 
     if(!$form->validate($c->req->query_params))
     {
@@ -92,11 +92,11 @@ towards Xapian).
 
 =cut
 
-sub external : Local
+sub external : Local Form
 {
     my ($self, $c) = @_;
 
-    my $form = $c->form(undef, 'Search::External');
+    my $form = $self->form;
 
     return unless $form->validate($c->req->query_params);
 
@@ -277,11 +277,11 @@ C<state> method of the current context. For example:
 
 =cut
 
-sub filter_artist : Private
+sub filter_artist : Private Form('Search::Query')
 {
     my ($self, $c) = @_;
 
-    my $form = $c->form(undef, 'Search::Query');
+    my $form = $self->form;
 
     if ($c->form_posted)
     {
@@ -301,11 +301,11 @@ sub filter_artist : Private
     }
 }
 
-sub filter_label : Private
+sub filter_label : Private Form('Search::Query')
 {
     my ($self, $c) = @_;
 
-    my $form = $c->form(undef, 'Search::Query');
+    my $form = $self->form;
 
     if ($c->form_posted)
     {
