@@ -123,6 +123,19 @@ sub entity_url
     return $self->uri_for($catalyst_action, [ $id ], @args);
 }
 
+=head2 form_posted
+
+This returns true if the request was a post request.
+
+=cut
+
+sub form_posted
+{
+    my $c = shift;
+
+    return $c->req->method eq 'POST';
+}
+
 
 =head1 NAME
 
