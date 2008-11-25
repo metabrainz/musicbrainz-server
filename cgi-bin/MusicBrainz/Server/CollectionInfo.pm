@@ -370,11 +370,19 @@ sub CreateCollection
         $rawsql->Do("INSERT INTO collection_info (moderator, publiccollection, emailnotifications) VALUES (?, TRUE, TRUE)", $userId);
         $id = $rawsql->GetLastInsertId('collection_info');
     };
-
     if($@)
     {
-        $rawsql->Rollback();
-        die($@);
+		# This is a hack -- this should never happen, but it does. The entire collections code needs a thorough review. :-(
+		if($@ =~ /duplicate/)
+		{
+			$rawsql->Rollback();
+			return GetCollectionIdForUser($userId, $rawdbh);
+		}
+		else
+		{
+			$rawsql->Rollback();
+			die($@);
+		}
     }
     else
     {
