@@ -122,7 +122,7 @@ sub register : Local Form
     my $email            = $form->value('email');
     my $could_send_email = $new_user->SendVerificationEmail($email);
 
-    $c->authenticate({ username => $new_user->username,
+    $c->authenticate({ username => $new_user->name,
                        password => $new_user->password });
 
     $c->detach('registered', $could_send_email, $email);
