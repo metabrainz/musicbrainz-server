@@ -96,7 +96,7 @@
 
 <br/>
 <p>
-[ <a href="/edit/cdstub/add.html?exists=1&id=<% $data->{cdtoc}->{discid} %>&toc=<% $toc %>">Edit this CD Stub</a>.
+[ <a href="/edit/cdstub/add.html?exists=1&id=<% $data->{cdtoc}->{discid} %>&toc=<% $toc %>">Edit this CD Stub</a>
 | <a href="/edit/cdstub/import.html?cdstubid=<% $data->{id} %>">Import CD Stub</a>
 | <a href="<% $url %>">Import Disc Id</a> ]
 </p>
