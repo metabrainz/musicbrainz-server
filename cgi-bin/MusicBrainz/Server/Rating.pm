@@ -62,7 +62,7 @@ sub Update
 				FROM $assoc_table_raw
 				WHERE $entity_type = ? AND editor = ?", $entity_id, $userid);
 
-		if($whetherrated)
+		if(defined $whetherrated)
 		{
 			# Already rated - so update
 			if($new_rating)
@@ -79,9 +79,10 @@ sub Update
 		}
 		else
 		{
-			# Not rated - so insert raw rating values
+			# Not rated - so insert raw rating value, unless rating = 0
 			$rawdb->Do("INSERT into $assoc_table_raw ($entity_type, rating, editor) 
-			        	 values (?, ?, ?)", $entity_id, $new_rating, $userid);
+			        	 values (?, ?, ?)", $entity_id, $new_rating, $userid)
+				unless ($new_rating == 0);
 		}
 			
 		# Update the aggregate rating
