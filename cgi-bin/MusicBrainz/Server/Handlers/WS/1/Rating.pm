@@ -183,7 +183,7 @@ sub handler_post_multiple
 		my $id = $apr->param("id.$count");
 		my $rating = $apr->param("rating.$count");
 
-		last if (!$entity || !$id || !$rating);
+		last if (not defined $entity || not defined $id || not defined $rating);
 
 		if (!MusicBrainz::Server::Validation::IsGUID($id) || 
 			($entity ne 'artist' && $entity ne 'release' && $entity ne 'track' && $entity ne 'label'))
