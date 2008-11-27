@@ -75,7 +75,7 @@ DROP TRIGGER "reptg_script_language" ON "script_language";
 DROP TRIGGER "reptg_stats" ON "stats";
 DROP TRIGGER "reptg_tag" ON "tag";
 DROP TRIGGER "reptg_track" ON "track";
-DROP TRIGGER "reptg_track_meta" "track_meta";
+DROP TRIGGER "reptg_track_meta" ON "track_meta";
 DROP TRIGGER "reptg_track_tag" ON "track_tag";
 DROP TRIGGER "reptg_trackwords" ON "trackwords";
 DROP TRIGGER "reptg_url" ON "url";
