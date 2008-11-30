@@ -19,7 +19,14 @@ MusicBrainz.RatingsUpdater = function()
 		var t = link.id.split("::");
 		var entitytype = t[1];
 		var entityid = t[2];
-		var rating = t[3];
+		var selectedRating = t[3];
+
+		// Determine if selectedRating equals the current user rating.
+		// If it does, that means user want to unrate this entity
+		var liCurrentRating = $("RATING::"+entitytype+"::"+entityid);
+		var currentUserRating = (liCurrentRating.className == "current-user-rating") ? liCurrentRating.innerHTML : null;
+
+		var rating = (selectedRating == currentUserRating) ? 0 : selectedRating;
 
 		var url = "/bare/rate.html?entity_type=" + entitytype + "&entity_id=" + entityid 
 				+ "&rating=" + rating + "&json=1";
@@ -36,24 +43,36 @@ MusicBrainz.RatingsUpdater = function()
 		// If user has canceled his rating, display community ratings
 		if (newRatingInfo.user_rating == 0) {
 			rating.className = "current-rating";
+			rating.innerHTML = newRatingInfo.rating;
 			rating.style.width = newRatingInfo.rating/5*100+'%';
 		} 
 		// Otherwise, display only his rating
 		else {
 			rating.className = "current-user-rating";
+			rating.innerHTML = newRatingInfo.user_rating;
 			rating.style.width = newRatingInfo.user_rating/5*100+'%';
+		}
+		
+		// Update alt/title of rating links
+		for (var i=1 ; i<=5 ; i++) {
+			var rateLink = $("RATE::"+entitytype+"::"+entityid+"::"+i);
+			var text = (i == newRatingInfo.user_rating) ? "Unrate this "+entitytype : "Rate this "+entitytype+": "+i;
+			rateLink.alt = text;
+			rateLink.title = text;
 		}
 
 		// Votes
 		var totalVotes = $("VOTES-RATING::"+entitytype+"::"+entityid);
 		if (totalVotes) {
-			totalVotes.innerHTML = newRatingInfo.rating_count + " time" + (newRatingInfo.rating_count == 1 ? "" : "s");
+			totalVotes.innerHTML = (newRatingInfo.rating_count ? newRatingInfo.rating_count : 0)
+				+ " time" + (newRatingInfo.rating_count == 1 ? "" : "s");
 		}
 
 		// Average rating
 		var communityRating = $("COMMUNITY-RATING::"+entitytype+"::"+entityid);
 		if (communityRating) {
-			communityRating.innerHTML = Math.round(newRatingInfo.rating*100)/100;
+			var rt = Math.round(newRatingInfo.rating*100)/100;
+			communityRating.innerHTML = (rt == 0) ? "none" : rt;
 		}
 	}
 
