@@ -336,22 +336,22 @@
 	        	#$ARGS{compact}
 	        	if($ENV{'SCRIPT_NAME'} eq '/show/artist/index.html')
 	        	{
-	        		$m->out(qq!<a href="/show/artist/?artistid=$artistid&ex=$ex&short=$short&compact=$ARGS{compact}&addtocollection=0&addtocollectionid=$releaseid">Remove release from collection</a>!);
+	        		$m->out(qq!<a href="/show/artist/?artistid=$artistid&amp;ex=$ex&amp;short=$short&amp;compact=$ARGS{compact}&amp;addtocollection=0&amp;addtocollectionid=$releaseid">Remove release from collection</a>!);
 	        	}
 	        	else
 	        	{
-	        		$m->out(qq!<a href="/show/release/?releaseid=$releaseid&addtocollection=0">Remove release from collection</a>!);
+	        		$m->out(qq!<a href="/show/release/?releaseid=$releaseid&amp;addtocollection=0">Remove release from collection</a>!);
 	        	}
 	        }
 	        else
 	        {
 	        	if($ENV{'SCRIPT_NAME'} eq '/show/artist/index.html')
 	        	{
-	        		$m->out(qq!<a href="/show/artist/?artistid=$artistid&ex=$ex&short=$short&compact=$ARGS{compact}&addtocollection=1&addtocollectionid=$releaseid">Add release to collection</a>!);
+	        		$m->out(qq!<a href="/show/artist/?artistid=$artistid&amp;ex=$ex&amp;short=$short&amp;compact=$ARGS{compact}&amp;addtocollection=1&amp;addtocollectionid=$releaseid">Add release to collection</a>!);
 	        	}
 	        	else
 	        	{
-	        		$m->out(qq!<a href="/show/release/?releaseid=$releaseid&addtocollection=1">Add release to collection</a>!);
+	        		$m->out(qq!<a href="/show/release/?releaseid=$releaseid&amp;addtocollection=1">Add release to collection</a>!);
 	        	}
 	        }
 	        $m->out(qq!</td></tr>!);

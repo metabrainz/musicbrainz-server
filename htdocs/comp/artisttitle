@@ -262,20 +262,20 @@
 
 		if(MusicBrainz::Server::CollectionInfo::NotifyUserAboutNewFromArtist($id, $session{collectionid}, $mbraw->{DBH}))
 		{
-			$m->out(qq!<a href="/artist/$mbid.html?artistid=$id&notify=0">Do not notify me on new releases</a> | !);
+			$m->out(qq!<a href="/artist/$mbid.html?artistid=$id&amp;notify=0">Do not notify me on new releases</a> | !);
 		}
 		else
 		{
-			$m->out(qq!<a href="/artist/$mbid.html?artistid=$id&notify=1">Notify me on new releases</a> | !);
+			$m->out(qq!<a href="/artist/$mbid.html?artistid=$id&amp;notify=1">Notify me on new releases</a> | !);
 		}
 		
 		if(MusicBrainz::Server::CollectionInfo::ShowMissingOfArtistToUser($id, $session{collectionid}, $mbraw->{DBH}))
 		{
-			$m->out(qq!<a href="/artist/$mbid.html?artistid=$id&dispmissing=0">Do not display missing releases</a>!);
+			$m->out(qq!<a href="/artist/$mbid.html?artistid=$id&amp;dispmissing=0">Do not display missing releases</a>!);
 		}
 		else
 		{
-			$m->out(qq!<a href="/artist/$mbid.html?artistid=$id&dispmissing=1">Display missing releases</a>!);
+			$m->out(qq!<a href="/artist/$mbid.html?artistid=$id&amp;dispmissing=1">Display missing releases</a>!);
 		}
 		$m->out(qq! ]</td></tr>!);
 	}
