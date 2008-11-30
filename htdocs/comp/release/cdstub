@@ -39,6 +39,24 @@
 	my $rc = MusicBrainz::Server::CDStub->new($mb->{DBH});
     $data = $rc->Load($discid) if (!defined $data);
 
+	# check if we got data
+	if (not defined $data)
+	{
+		my $text;
+		if (defined $discid)
+		{
+			$text = "No CDStub found with the given " . $m->scomp("/comp/linkdoc", "DiscID", "Disc ID") . " <code>$discid</code>."
+					. " It has probably been imported in MusicBrainz (<a href='/bare/cdlookup.html?id=$discid'>find it</a>)";
+		}
+		else
+		{
+			$text = "No such CDStub found. It has probably been imported in MusicBrainz";
+		}
+		return $m->comp("/comp/layout/badarguments",
+			title => "CDStub not found",
+			text => $text);
+	}
+
 	my $toc = "1+" . $data->{cdtoc}->{trackcount} . "+" .
 		$data->{cdtoc}->{leadoutoffset} . "+" .
 		substr($data->{cdtoc}->{trackoffset}, 1, -1);
