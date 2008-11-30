@@ -192,7 +192,7 @@ sub _CheckData
     return ("TOC data does not match passed in Disc Id.", 0, 0) if ($tocdata{discid} ne $data->{discid});
 	return ("Invalid Disc Id.", 0, 0) if (length($data->{discid}) != &MusicBrainz::Server::CDTOC::CDINDEX_ID_LENGTH);
 	return ("Number of tracks passed does not match passed TOC", 0, 0) if ($total != $tocdata{tracks});
-	return ("Invalid barcade.", 0, 0) if (MusicBrainz::Server::Validation::IsValidBarcode($data->{barcode}));
+	return ("Invalid barcode.", 0, 0) if (MusicBrainz::Server::Validation::IsValidBarcode($data->{barcode}));
 
     return ("", $total, \%tocdata);
 }
