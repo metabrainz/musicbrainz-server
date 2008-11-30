@@ -53,7 +53,7 @@
 
 </%perl>
 
-	<div class="inline-rating">
+	<span class="inline-rating">
 		<ul class="star-rating<% $small ? " small-star" : "" %>">
 
 %	# Current rating (community or user one)
@@ -78,7 +78,7 @@
 			</li>
 %	}
 		</ul>
-	</div>
+	</span>
 <%perl>
 	if ($detailled)
 	{
