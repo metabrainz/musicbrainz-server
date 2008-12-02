@@ -77,7 +77,7 @@
 			<td><% $row->{lookupcount} %></td>
 			<td><% $row->{modifycount} %></td>
 %			if ($session{uid}) {
-				<td><a href="/edit/cdstub/import.html?cdstubid=<% $row->{id} %>">release</a>
+				<td style="white-space: nowrap;"><a href="/edit/cdstub/import.html?cdstubid=<% $row->{id} %>">release</a>
 				| <a href="<% $url %>">disc id</a></td>
 %			}
 			</tr>
