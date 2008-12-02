@@ -57,7 +57,7 @@
 		<ul class="star-rating<% $small ? " small-star" : "" %>">
 
 %	# Current rating (community or user one)
-%	if ($user_rating)
+%	if ($user_rating > 0)
 %	{
 			<li id="<% "RATING::" . $entity_type ."::". $entity_id %>" class="current-user-rating" style="width:<% ($user_rating/5*100) %>%;"><% $user_rating %></li>
 %	}
