@@ -99,14 +99,27 @@ my $rawmb = new MusicBrainz;
 $rawmb->Login(db => 'RAWDATA');
 my $rawsql = Sql->new($rawmb->{DBH});   
 
-# This hash indicates which tables may need to be pulled from a vertical DB
+# This hash indicates which tables may need to be pushed to a vertical DB
 my %table_db_mapping =
 (
-    'artist_tag_raw'  =>  $rawsql,
-    'release_tag_raw' =>  $rawsql,
-    'track_tag_raw'   =>  $rawsql,
-    'label_tag_raw'   =>  $rawsql,
-    '_default_'       =>  $sql
+	'artist_rating_raw'						=>	$rawsql,
+	'artist_tag_raw'						=>	$rawsql,
+	'cdtoc_raw'								=>	$rawsql,
+	'collection_discography_artist_join'	=>  $rawsql,
+	'collection_has_release_join'			=>  $rawsql,
+	'collection_ignore_release_join'		=>  $rawsql,
+	'collection_ignore_time_range'			=>  $rawsql,
+	'collection_info'						=>  $rawsql,
+	'collection_watch_artist_join'			=>  $rawsql,
+	'release_rating_raw'					=>	$rawsql,
+	'release_tag_raw'						=>	$rawsql,
+	'release_raw'							=>	$rawsql,
+	'track_rating_raw'						=>	$rawsql,
+	'track_raw'								=>	$rawsql,
+	'track_tag_raw'							=>	$rawsql,
+	'label_rating_raw'						=>	$rawsql,
+	'label_tag_raw'							=>	$rawsql,
+	'_default_'								=>	$sql 
 );
 
 my @tar_to_extract;
@@ -346,15 +359,24 @@ sub ImportAllTables
 		artist_meta
 		artist_relation
 		artistalias
+		artist_rating_raw
 		artist_tag
 		artist_tag_raw
 		artistwords
 		automod_election
 		automod_election_vote
 		cdtoc
+		cdtoc_raw
 		clientversion
 		country
+		collection_discography_artist_join
+		collection_has_release_join
+		collection_ignore_release_join
+		collection_ignore_time_range
+		collection_info
+		collection_watch_artist_join
 		currentstat
+		editor_subscribe_editor
 		gid_redirect
 		historicalstat
 		l_album_album
@@ -374,6 +396,7 @@ sub ImportAllTables
 		l_url_url
 		label
 		label_meta
+		label_rating_raw
 		label_tag
 		label_tag_raw
 		labelalias
@@ -410,6 +433,8 @@ sub ImportAllTables
 		puidjoin_stat
 		puid_stat
 		release
+		release_rating_raw
+		release_raw
 		release_tag
 		release_tag_raw
 		replication_control
@@ -419,6 +444,8 @@ sub ImportAllTables
         tag
 		track
 		track_meta
+		track_rating_raw
+		track_raw
 		track_tag
 		track_tag_raw
 		trackwords
