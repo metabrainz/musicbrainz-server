@@ -151,13 +151,14 @@ sub handler_post
 	my $r = shift;
 
 	# URLs are of the form:
-	# POST http://server/ws/1/release/?type=xml&client=<client>&title=<title>&artist=<sa-artist>&toc=<toc>&track0=<track1>&track1=<track1>...
-	# POST http://server/ws/1/release/?type=xml&client=<client>&title=<title>&toc=<toc>&track0=<track0>&artist0=<artist1>&track1=<track1>...
+	# POST http://server/ws/1/release/?client=<client>&title=<title>&artist=<sa-artist>&toc=<toc>&discid=<discid>&barcode=<barcode>&track0=<track1>&track1=<track1>...
+	# POST http://server/ws/1/release/?client=<client>&title=<title>&toc=<toc>&discid=<discid>&barcode=<barcode>&track0=<track0>&artist0=<artist1>&track1=<track1>...
 
 	my $apr = Apache::Request->new($r);
 	my $title = $apr->param('title');
 	my $discid = $apr->param('discid');
 	my $toc = $apr->param('toc');
+	my $barcode = $apr->param('barcode');
     my $client = $apr->param('client');
 
 	if (!defined($client) || $client eq '')
@@ -225,6 +226,7 @@ sub handler_post
 	$cd->{tracks} = \@tracks;
 	$cd->{discid} = $discid;
 	$cd->{toc} = $toc;
+	$cd->{barcode} = $barcode;
 	$cd->{artist} = $artist;
 
 	my $error = $rc->Insert($cd);

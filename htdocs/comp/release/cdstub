@@ -77,6 +77,7 @@
 	my $url = "/bare/cdlookup.html?discid=" . $data->{cdtoc}->{discid} .  "&toc=$toc";
 	$url .=	"&artist=" . uri_escape($data->{artist}) if ($data->{artist});
 	$url .=	"&release=" . uri_escape($data->{title});
+	$url .=	"&barcode=" . uri_escape($data->{barcode}) if ($data->{barcode});
 
 	my $query;
 	$query .= "artist:(". MusicBrainz::Server::LuceneSearch::EscapeQuery($data->{artist}) .") " if ($data->{artist});
