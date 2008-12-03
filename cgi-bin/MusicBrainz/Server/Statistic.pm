@@ -490,8 +490,13 @@ my %stats = (
 	},
 
 	"count.cdstub" => {
-		DESC => "Count of all CD Stubs",
+		DESC => "Count of all existing CD Stubs",
 		SQL => "SELECT COUNT(*) FROM release_raw",
+		RAWDATA_DB => 1,
+	},
+	"count.cdstub.submitted" => {
+		DESC => "Count of all submitted CD Stubs",
+		SQL => "SELECT MAX(id) FROM release_raw",
 		RAWDATA_DB => 1,
 	},
 	"count.cdstub.track" => {
