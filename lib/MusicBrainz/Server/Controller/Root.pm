@@ -111,14 +111,23 @@ sub end : ActionClass('RenderView')
     $simpleSearch->field('type')->value($c->session->{last_simple_search} || 'artist');
     $c->stash->{sidebar_search} = $simpleSearch;
 
-    # Sidebar stats
-    $c->stash->{'top_voters'} = $c->model('Moderation')->top_voters(5);
+    # Voters
+    my $voters = MusicBrainz::Server::Cache->get('sidebar-voters');
 
-    my $stat  = Statistic->new($c->mb->{DBH});
+    if (!$voters)
+    {
+        $voters = $c->model('Moderation')->top_voters(5);
+        MusicBrainz::Server::Cache->set('sidebar-voters', $voters);
+    }
+
+    $c->stash->{'top_voters'} = $voters;
+
+    # Sidebar stats
     my $stats = MusicBrainz::Server::Cache->get('sidebar-statistics');
 
     if (!$stats)
     {
+        my $stat  = Statistic->new($c->mb->{DBH});
         $stats = $stat->FetchAllAsHashRef;
         MusicBrainz::Server::Cache->set('sidebar-statistics', $stats);
     }
