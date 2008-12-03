@@ -92,7 +92,7 @@ towards Xapian).
 
 =cut
 
-sub external : Local Form
+sub external : Local Form('Search::External')
 {
     my ($self, $c) = @_;
 
