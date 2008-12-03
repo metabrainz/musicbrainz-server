@@ -8,6 +8,7 @@ use base 'Catalyst::Controller';
 # Import MusicBrainz libraries
 use DBDefs;
 use MusicBrainz::Server::Adapter qw( EntityUrl );
+use MusicBrainz::Server::Cache;
 use MusicBrainz::Server::Replication ':replication_type';
 use Statistic;
 
@@ -114,7 +115,13 @@ sub end : ActionClass('RenderView')
     $c->stash->{'top_voters'} = $c->model('Moderation')->top_voters(5);
 
     my $stat  = Statistic->new($c->mb->{DBH});
-    my $stats = $stat->FetchAllAsHashRef;
+    my $stats = MusicBrainz::Server::Cache->get('sidebar-statistics');
+
+    if (!$stats)
+    {
+        $stats = $stat->FetchAllAsHashRef;
+        MusicBrainz::Server::Cache->set('sidebar-statistics', $stats);
+    }
 
     $c->stash->{'server_stats'} = {
         artists  => $stats->{'count.artist'},
