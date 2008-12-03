@@ -8,11 +8,11 @@ use Getopt::Long;
 use Pod::Usage;
 use FindBin;
 use lib "$FindBin::Bin/../lib";
-use musicbrainz;
+use MusicBrainz::Server;
 
 my $help = 0;
 my ( $listen, $nproc, $pidfile, $manager, $detach, $keep_stderr );
- 
+
 GetOptions(
     'help|?'      => \$help,
     'listen|l=s'  => \$listen,
@@ -25,10 +25,10 @@ GetOptions(
 
 pod2usage(1) if $help;
 
-musicbrainz->run( 
-    $listen, 
+MusicBrainz::Server->run(
+    $listen,
     {   nproc   => $nproc,
-        pidfile => $pidfile, 
+        pidfile => $pidfile,
         manager => $manager,
         detach  => $detach,
 	keep_stderr => $keep_stderr,
