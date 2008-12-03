@@ -51,7 +51,7 @@
 				<td class="label">
 					FreeDB ID:</td>
 				<td>
-					<a href="http://www.freedb.org/freedb_discid_check.php/?discid=<% $cdtoc->GetFreeDBID %>"><% $cdtoc->GetFreeDBID %></a>
+					<a href="/search/textsearch.html?query=<% uri_escape("discid:(".$cdtoc->GetFreeDBID.")") %>&type=freedb&adv=on&handlearguments=1"><% $cdtoc->GetFreeDBID %></a>
 				   	(<a href="/bare/cdlookup.html?id=<%$cdtoc->GetFreeDBID %>">find other releases with this FreeDB ID</a>)
 				</td>
 			</tr>
