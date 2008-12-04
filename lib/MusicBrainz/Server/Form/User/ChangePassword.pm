@@ -3,7 +3,7 @@ package MusicBrainz::Server::Form::User::ChangePassword;
 use strict;
 use warnings;
 
-use base 'Form::Processor';
+use base 'MusicBrainz::Server::Form';
 
 =head1 NAME
 
