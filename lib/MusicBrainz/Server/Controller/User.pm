@@ -155,7 +155,7 @@ their password.
 
 =cut
 
-sub forgot_password : Local
+sub forgot_password : Local Form
 {
     my ($self, $c) = @_;
 
