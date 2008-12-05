@@ -45,6 +45,7 @@ sub show : Chained('moderation')
 
     $c->forward('/user/login');
 
+    use MusicBrainz::Server::Form::Moderation::AddNote;
     my $add_note = MusicBrainz::Server::Form::Moderation::AddNote->new;
 
     $c->stash->{add_note} = $add_note;

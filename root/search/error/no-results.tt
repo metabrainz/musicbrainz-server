@@ -1,6 +1,6 @@
 [% WRAPPER "search/error/wrapper.tt" %]
 <p>
-    Sorry, but your query (<code>[% query | html %]</code>) did not
+    Sorry, but your query (<code>[% form.value('query') | html %]</code>) did not
     match any [% type %]s. Please check you used the correct spelling,
     and sometimes searching for fewer or different words may help.
 </p>
