@@ -66,6 +66,7 @@ my @all = qw(
 	admin/reports/TracksNamedWithSequence.pl
 	admin/reports/TracksWithManyPUIDs
 	admin/reports/TracksWithoutTimes
+	admin/reports/TracksWithSequenceIssues
 	admin/reports/WrongCharset
 );
 
