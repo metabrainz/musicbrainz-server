@@ -91,6 +91,24 @@ sub process_request
 {
 	my ($request, $peer) = @_;
 
+	my $id;
+	if ($request =~ /\A(\d+) (.*)/s)
+	{
+		$id = $1;
+		$request = $2;
+	}
+
+	my $response = process_request_2($request, $peer);
+
+	$response = "$id $response" if defined $id;
+
+	return $response;
+}
+
+sub process_request_2
+{
+	my ($request, $peer) = @_;
+
 	if ($request =~ /^over_limit (.*)$/)
 	{
 		my $key = $1;

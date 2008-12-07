@@ -87,7 +87,15 @@ require IO::Socket::INET;
 			PeerAddr	=> $server,
 		);
 	}
+
+	sub force_close
+	{
+		close $last_socket if $last_socket;
+		$last_socket = undef;
+	}
 }
+
+our $id = 0;
 
 sub simple_test
 {
@@ -97,7 +105,9 @@ sub simple_test
 	defined($server) or return;
 	my $sock = $class->get_socket($server);
 
-	my $request = "over_limit $key";
+	{ use integer; ++$id; $id &= 0xFFFF }
+
+	my $request = "$id over_limit $key";
 	my $r;
 
 	$r = send($sock, $request, 0);
@@ -122,6 +132,12 @@ sub simple_test
 	if (not defined $r)
 	{
 		# Receive error
+		return;
+	}
+
+	unless ($data =~ s/\A($id) //)
+	{
+		force_close();
 		return;
 	}
 
