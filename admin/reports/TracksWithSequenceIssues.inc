@@ -32,10 +32,10 @@
 <%perl>
 
 	$ARGS{"report_title"} =
-		qq!Releases with tracks sequence issues!;
+		qq!Releases with tracks numbers issues!;
 
 	$ARGS{"report_text"} =
-		qq! This report lists all releases whose tracks sequences are not continious or with duplicated track sequences.!;
+		qq! This report lists all releases whose tracks sequences are not continious (e.g. there is no "track 2"), or with duplicated track sequences (e.g. there are two "track 4"s).!;
 
 	$m->comp("/reports/show_albums.inc", %ARGS);
 
