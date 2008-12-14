@@ -277,7 +277,7 @@ C<state> method of the current context. For example:
 
 =cut
 
-sub filter_artist : Private Form('Search::Query')
+sub filter_artist : Form('Search::Query')
 {
     my ($self, $c) = @_;
 
@@ -301,7 +301,7 @@ sub filter_artist : Private Form('Search::Query')
     }
 }
 
-sub filter_label : Private Form('Search::Query')
+sub filter_label : Form('Search::Query')
 {
     my ($self, $c) = @_;
 
