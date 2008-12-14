@@ -62,7 +62,6 @@ CREATE TABLE albummeta
     id                  INTEGER NOT NULL,
     tracks              INTEGER DEFAULT 0,
     discids             INTEGER DEFAULT 0,
-    trmids              INTEGER DEFAULT 0,
     puids               INTEGER DEFAULT 0,
     firstreleasedate    CHAR(10),
     asin                CHAR(10),
@@ -904,7 +903,6 @@ CREATE TABLE stats
     albums              INTEGER NOT NULL, 
     tracks              INTEGER NOT NULL, 
     discids             INTEGER NOT NULL, 
-    trmids              INTEGER NOT NULL, 
     moderations         INTEGER NOT NULL, 
     votes               INTEGER NOT NULL, 
     moderators          INTEGER NOT NULL, 
@@ -940,38 +938,6 @@ CREATE TABLE trackwords
 (
     wordid              INTEGER NOT NULL,
     trackid             INTEGER NOT NULL
-);
-
-CREATE TABLE trm
-(
-    id                  SERIAL,
-    trm                 CHAR(36) NOT NULL,
-    lookupcount         INTEGER NOT NULL DEFAULT 0, -- updated via trigger
-    version             INTEGER NOT NULL -- references clientversion
-);
-
-CREATE TABLE trm_stat
-(
-    id                  SERIAL,
-    trm_id              INTEGER NOT NULL, -- references trm
-    month_id            INTEGER NOT NULL,
-    lookupcount         INTEGER NOT NULL DEFAULT 0
-);
-
-CREATE TABLE trmjoin
-(
-    id                  SERIAL,
-    trm                 INTEGER NOT NULL, -- references trm
-    track               INTEGER NOT NULL, -- references track
-    usecount            INTEGER DEFAULT 0 -- updated via trigger
-);
-
-CREATE TABLE trmjoin_stat
-(
-    id                  SERIAL,
-    trmjoin_id          INTEGER NOT NULL, -- references trmjoin
-    month_id            INTEGER NOT NULL,
-    usecount            INTEGER NOT NULL DEFAULT 0
 );
 
 CREATE TABLE url

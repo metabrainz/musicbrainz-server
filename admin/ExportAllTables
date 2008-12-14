@@ -212,10 +212,6 @@ my @tables = qw(
 	track_tag
 	track_tag_raw
 	trackwords
-	trm
-	trmjoin
-	trmjoin_stat
-	trm_stat
 	url
 	vote_closed
 	vote_open
@@ -534,8 +530,6 @@ my @group_core = qw(
     tag
 	track
 	track_tag
-	trm
-	trmjoin
 	url
 	);
 
@@ -558,10 +552,6 @@ my @group_stats = qw(
 	puid_stat
 	puidjoin_stat
 	puid_stat
-	trmjoin_stat
-	trm_stat
-	trmjoin_stat
-	trm_stat
 );
 
 my @group_moderation = qw(

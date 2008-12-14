@@ -160,7 +160,7 @@ sub OutputAlbumRDF
 sub OutputTrackRDF
 {
     my ($this, $ref) = @_;
-    my ($out, $artist, @TRM, $gu, $track, $trm);
+    my ($out, $artist,$track);
 
     if (!defined $this->GetBaseURI())
     {
@@ -168,9 +168,6 @@ sub OutputTrackRDF
     }
 
     $track = $ref->{obj};
-    require MusicBrainz::Server::TRM;
-    $gu = MusicBrainz::Server::TRM->new($this->{DBH});
-    @TRM = $gu->GetTRMFromTrackId($track->id());
 
     $artist = $this->GetFromCache('artist', $track->artist()); 
     return "" if (!defined $artist);
@@ -186,10 +183,6 @@ sub OutputTrackRDF
     if ($track->length() != 0) 
     {
         $out .=   $this->Element("mm:duration", $track->length());
-    }
-    foreach $trm (@TRM)
-    {
-        $out .= $this->Element("mm:trmid", $trm->{TRM});
     }
     $out .= $this->EndDesc("mm:Track");
 
@@ -213,8 +206,6 @@ sub CreateMetadataExchange
        unless !defined $data[2] || $data[2] eq '';
    $rdf .= $this->Element("mm:trackNum", $data[3])
        unless !defined $data[3] || $data[3] == 0;
-   $rdf .= $this->Element("mm:trmid", "", TRM=>$data[4])
-       unless !defined $data[4] || $data[4] eq '';
    $rdf .= $this->Element("mm:issued", $data[6])
        unless !defined $data[6] || $data[6] == 0;
    $rdf .= $this->Element("mm:genre", $data[7])
@@ -298,17 +289,6 @@ sub CreateAuthenticateResponse
    $rdf .= $this->EndRDFObject();
 
    return $rdf;
-}
-
-sub GetTRMTrackIdPair
-{
-   my ($this, $parser, $uri, $i) = @_;
-   my $ns = $this->GetMMNamespace(); 
-
-   my $trackid = $parser->Extract($uri, "${ns}trmList [$i] ${ns}trackid");
-   my $trmid = $parser->Extract($uri, "${ns}trmList [$i] ${ns}trmid");
-
-   return ($trackid, $trmid);
 }
 
 1;

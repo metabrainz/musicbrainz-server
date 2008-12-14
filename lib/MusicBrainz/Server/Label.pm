@@ -877,7 +877,6 @@ sub select_releases
 			catno,
 			tracks,
 			discids,
-			trmids,
 			puids,
 			artist.name as artistname
 		FROM
@@ -905,18 +904,17 @@ sub select_releases
 			$album->language_id($row[6]);
 			$album->script_id($row[7]);
 			$album->{releasedate} = $row[8];
-			$album->{catno} = $row[9];
-			$album->{trackcount} = $row[10];
+			$album->{catno}       = $row[9];
+			$album->{trackcount}  = $row[10];
 			$album->{discidcount} = $row[11];
-			$album->{trmidcount} = $row[12];
-			$album->{puidcount} = $row[13] || 0;
-			$album->{artistname} = $row[14];
+			$album->{puidcount}   = $row[12] || 0;
+			$album->{artistname}  = $row[13];
 			push @albums, $album;
 		}
 	}
 	$sql->Finish;
 	return @albums;
-} 
+}
 
 sub XML_URL
 {

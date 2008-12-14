@@ -184,15 +184,6 @@ CREATE INDEX track_tag_idx_tag ON track_tag (tag);
 
 CREATE INDEX trackwords_trackidindex ON trackwords (trackid);
 
-CREATE UNIQUE INDEX trm_trmindex ON trm (trm);
-
-CREATE UNIQUE INDEX trm_stat_trm_idindex ON trm_stat (trm_id, month_id);
-
-CREATE INDEX trmjoin_trackindex ON trmjoin (track);
-CREATE UNIQUE INDEX trmjoin_trmtrack ON trmjoin (trm, track);
-
-CREATE UNIQUE INDEX trmjoin_stat_trmjoin_idindex ON trmjoin_stat (trmjoin_id, month_id);
-
 CREATE UNIQUE INDEX url_idx_gid ON url (gid);
 CREATE UNIQUE INDEX url_idx_url ON url (url);
 

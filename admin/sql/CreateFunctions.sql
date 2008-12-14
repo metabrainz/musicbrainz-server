@@ -48,11 +48,6 @@ begin
    create temporary table albummeta_discids as select album.id, count(album_cdtoc.album) 
                 from album left join album_cdtoc on album.id = album_cdtoc.album group by album.id;
 
-   raise notice ''Counting trmids'';
-   create temporary table albummeta_trmids as select album.id, count(trmjoin.track) 
-                from album, albumjoin left join trmjoin on albumjoin.track = trmjoin.track 
-                where album.id = albumjoin.album group by album.id;
-
    raise notice ''Counting puids'';
    create temporary table albummeta_puids as select album.id, count(puidjoin.track) 
                 from album, albumjoin left join puidjoin on albumjoin.track = puidjoin.track 
@@ -69,7 +64,6 @@ begin
    select a.id,
             COALESCE(t.count, 0) AS tracks,
             COALESCE(d.count, 0) AS discids,
-            COALESCE(m.count, 0) AS trmids,
             COALESCE(p.count, 0) AS puids,
             r.firstreleasedate,
             aws.asin,
@@ -77,7 +71,6 @@ begin
     FROM    album a
             LEFT JOIN albummeta_tracks t ON t.id = a.id
             LEFT JOIN albummeta_discids d ON d.id = a.id
-            LEFT JOIN albummeta_trmids m ON m.id = a.id
             LEFT JOIN albummeta_puids p ON p.id = a.id
             LEFT JOIN albummeta_firstreleasedate r ON r.id = a.id
             LEFT JOIN album_amazon_asin aws on aws.album = a.id
@@ -86,7 +79,6 @@ begin
     ALTER TABLE albummeta ALTER COLUMN id SET NOT NULL;
     ALTER TABLE albummeta ALTER COLUMN tracks SET NOT NULL;
     ALTER TABLE albummeta ALTER COLUMN discids SET NOT NULL;
-    ALTER TABLE albummeta ALTER COLUMN trmids SET NOT NULL;
     ALTER TABLE albummeta ALTER COLUMN puids SET NOT NULL;
     -- firstreleasedate stays "WITH NULL"
     -- asin stays "WITH NULL"
@@ -96,7 +88,6 @@ begin
 
    drop table albummeta_tracks;
    drop table albummeta_discids;
-   drop table albummeta_trmids;
    drop table albummeta_puids;
    drop table albummeta_firstreleasedate;
 
@@ -111,7 +102,7 @@ end;
 
 create or replace function insert_album_meta () returns TRIGGER as '
 begin 
-    insert into albummeta (id, tracks, discids, trmids, puids) values (NEW.id, 0, 0, 0, 0); 
+    insert into albummeta (id, tracks, discids, puids) values (NEW.id, 0, 0, 0); 
     insert into album_amazon_asin (album, lastupdate) values (NEW.id, \'1970-01-01 00:00:00\'); 
     
     return NEW; 
@@ -138,14 +129,13 @@ end;
 
 --'-----------------------------------------------------------------
 -- Changes to albumjoin could cause changes to albummeta.tracks
--- and/or albummeta.trmids and/org albummeta.puids
+-- and/or albummeta.puids and/org albummeta.puids
 --'-----------------------------------------------------------------
 
 create or replace function a_ins_albumjoin () returns trigger as '
 begin
     UPDATE  albummeta
     SET     tracks = tracks + 1,
-            trmids = trmids + (SELECT COUNT(*) FROM trmjoin WHERE track = NEW.track),
             puids = puids + (SELECT COUNT(*) FROM puidjoin WHERE track = NEW.track)
     WHERE   id = NEW.album;
 
@@ -162,13 +152,11 @@ begin
 
     UPDATE  albummeta
     SET     tracks = tracks - 1,
-            trmids = trmids - (SELECT COUNT(*) FROM trmjoin WHERE track = OLD.track),
             puids = puids - (SELECT COUNT(*) FROM puidjoin WHERE track = OLD.track)
     WHERE   id = OLD.album;
 
     UPDATE  albummeta
     SET     tracks = tracks + 1,
-            trmids = trmids + (SELECT COUNT(*) FROM trmjoin WHERE track = NEW.track),
             puids = puids + (SELECT COUNT(*) FROM puidjoin WHERE track = NEW.track)
     WHERE   id = NEW.album;
 
@@ -180,7 +168,6 @@ create or replace function a_del_albumjoin () returns trigger as '
 begin
     UPDATE  albummeta
     SET     tracks = tracks - 1,
-            trmids = trmids - (SELECT COUNT(*) FROM trmjoin WHERE track = OLD.track),
             puids = puids - (SELECT COUNT(*) FROM puidjoin WHERE track = OLD.track)
     WHERE   id = OLD.album;
 
@@ -230,51 +217,6 @@ begin
     return NULL;
 end;
 ' language 'plpgsql';
-
---'-----------------------------------------------------------------
--- Changes to trmjoin could cause changes to albummeta.trmids
---'-----------------------------------------------------------------
-
-create or replace function a_ins_trmjoin () returns trigger as '
-begin
-    UPDATE  albummeta
-    SET     trmids = trmids + 1
-    WHERE   id IN (SELECT album FROM albumjoin WHERE track = NEW.track);
-
-    return NULL;
-end;
-' language 'plpgsql';
---'--
-create or replace function a_upd_trmjoin () returns trigger as '
-begin
-    if NEW.track = OLD.track
-    then
-        return NULL;
-    end if;
-
-    UPDATE  albummeta
-    SET     trmids = trmids - 1
-    WHERE   id IN (SELECT album FROM albumjoin WHERE track = OLD.track);
-
-    UPDATE  albummeta
-    SET     trmids = trmids + 1
-    WHERE   id IN (SELECT album FROM albumjoin WHERE track = NEW.track);
-
-    return NULL;
-end;
-' language 'plpgsql';
---'--
-create or replace function a_del_trmjoin () returns trigger as '
-begin
-    UPDATE  albummeta
-    SET     trmids = trmids - 1
-    WHERE   id IN (SELECT album FROM albumjoin WHERE track = OLD.track);
-
-    return NULL;
-end;
-' language 'plpgsql';
-
-
 
 
 --'-----------------------------------------------------------------
@@ -470,50 +412,6 @@ CREATE OR REPLACE FUNCTION a_del_album_amazon_asin () RETURNS TRIGGER AS '
 BEGIN
     EXECUTE set_album_asin(OLD.album);
     RETURN OLD;
-END;
-' LANGUAGE 'plpgsql';
-
---'-----------------------------------------------------------------------------------
--- Changes to trm_stat/trmjoin_stat causes changes to trm.lookupcount/trmjoin.usecount
---'-----------------------------------------------------------------------------------
-
-CREATE OR REPLACE FUNCTION a_idu_trm_stat () RETURNS trigger AS '
-BEGIN
-    IF (TG_OP = ''INSERT'' OR TG_OP = ''UPDATE'')
-    THEN
-        UPDATE trm SET lookupcount = (SELECT COALESCE(SUM(trm_stat.lookupcount), 0) FROM trm_stat WHERE trm_id = NEW.trm_id) WHERE id = NEW.trm_id;
-        IF (TG_OP = ''UPDATE'')
-        THEN
-            IF (NEW.trm_id != OLD.trm_id)
-            THEN
-                UPDATE trm SET lookupcount = (SELECT COALESCE(SUM(trm_stat.lookupcount), 0) FROM trm_stat WHERE trm_id = OLD.trm_id) WHERE id = OLD.trm_id;
-            END IF;
-        END IF;
-    ELSE
-        UPDATE trm SET lookupcount = (SELECT COALESCE(SUM(trm_stat.lookupcount), 0) FROM trm_stat WHERE trm_id = OLD.trm_id) WHERE id = OLD.trm_id;
-    END IF;
-
-    RETURN NULL;
-END;
-' LANGUAGE 'plpgsql';
-
-CREATE OR REPLACE FUNCTION a_idu_trmjoin_stat () RETURNS trigger AS '
-BEGIN
-    IF (TG_OP = ''INSERT'' OR TG_OP = ''UPDATE'')
-    THEN
-        UPDATE trmjoin SET usecount = (SELECT COALESCE(SUM(trmjoin_stat.usecount), 0) FROM trmjoin_stat WHERE trmjoin_id = NEW.trmjoin_id) WHERE id = NEW.trmjoin_id;
-        IF (TG_OP = ''UPDATE'')
-        THEN
-            IF (NEW.trmjoin_id != OLD.trmjoin_id)
-            THEN
-                UPDATE trmjoin SET usecount = (SELECT COALESCE(SUM(trmjoin_stat.usecount), 0) FROM trmjoin_stat WHERE trmjoin_id = OLD.trmjoin_id) WHERE id = OLD.trmjoin_id;
-            END IF;
-        END IF;
-    ELSE
-        UPDATE trmjoin SET usecount = (SELECT COALESCE(SUM(trmjoin_stat.usecount), 0) FROM trmjoin_stat WHERE trmjoin_id = OLD.trmjoin_id) WHERE id = OLD.trmjoin_id;
-    END IF;
-
-    RETURN NULL;
 END;
 ' LANGUAGE 'plpgsql';
 

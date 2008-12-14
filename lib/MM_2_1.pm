@@ -265,7 +265,7 @@ sub OutputAlbumRDF
 sub OutputTrackRDF
 {
     my ($this, $ref, $album) = @_;
-    my ($out, $artist, @TRM, $gu, $track, $trm);
+    my ($out, $artist, $gu, $track);
 
     if (!defined $this->GetBaseURI())
     {
@@ -297,26 +297,6 @@ sub OutputTrackRDF
     $out .= $this->OutputRelationships($ref->{_relationships})
         if (exists $ref->{_relationships});
 
-    require MusicBrainz::Server::TRM;
-    $gu = MusicBrainz::Server::TRM->new($this->{DBH});
-    if ($track->id())
-    {
-	@TRM = $gu->GetTRMFromTrackId($track->id());
-	if (scalar(@TRM) > 0)
-	{
-	    $out .=   $this->BeginDesc("mm:trmidList");
-	    $out .=   $this->BeginBag();
-
-	    foreach $trm (@TRM)
-	    {
-		$out .= $this->Element("rdf:li", "", "rdf:resource", 
-			$this->{baseuri} . "/trmid/" . $trm->{TRM});
-	    }
-
-	    $out .=   $this->EndBag();
-	    $out .=   $this->EndDesc("mm:trmidList");
-	}
-    }
     $out .= $this->EndDesc("mm:Track");
 
 
@@ -656,17 +636,6 @@ sub CreateFileLookup
    $out .= $this->EndRDFObject;
 
    return $out;
-}
-
-sub GetTRMTrackIdPair
-{
-    my ($this, $parser, $uri, $i) = @_;
-    my $ns = $this->GetMMNamespace(); 
-    
-    my $trackid = $parser->Extract($uri, "${ns}trmidList [$i] ${ns}trackid");
-    my $trmid = $parser->Extract($uri, "${ns}trmidList [$i] ${ns}trmid");
-    
-    return ($trackid, $trmid);
 }
 
 sub OutputRelationships

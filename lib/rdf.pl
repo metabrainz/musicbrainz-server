@@ -37,7 +37,7 @@ my %Queries =
    artist => \&QuerySupport::GetArtistByGlobalId,
    album => \&QuerySupport::GetAlbumByGlobalId,
    track => \&QuerySupport::GetTrackByGlobalId,
-   trmid => \&QuerySupport::GetTrackByTRM,
+   trmid => \&QuerySupport::GoodRiddance,
 );
 
 $depth = 2;

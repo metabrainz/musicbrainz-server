@@ -981,18 +981,18 @@ sub select_releases
        # First, pull in the single artist albums
        if (defined $loadmeta && $loadmeta)
        {
-           $query = qq/select album.id, name, modpending, GID, attributes,
+           $query = qq/SELECT album.id, name, modpending, GID, attributes,
                               language, script, quality, modpending_qual, tracks, discids,
                               firstreleasedate, coverarturl, asin, puids
-                       from Album, Albummeta 
-                       where artist=$this->{id} and albummeta.id = album.id/;
+                        FROM Album, Albummeta
+                       WHERE artist=$this->{id} AND albummeta.id = album.id/;
        }
        else
        {
-           $query = qq/select album.id, name, modpending, GID,
+           $query = qq/SELECT album.id, name, modpending, GID,
                               attributes, language, script, quality, modpending_qual
-                       from Album 
-                       where artist=$this->{id}/;
+                         FROM Album
+                        WHERE artist=$this->{id}/;
        }
        if ($sql->Select($query))
        {
@@ -1013,13 +1013,12 @@ sub select_releases
 
                 if (defined $loadmeta && $loadmeta)
                 {
-                    $album->{trackcount} = $row[9];
-                    $album->{discidcount} = $row[10];
-                    $album->{trmidcount} = $row[11];
-                    $album->{firstreleasedate} = $row[12]||"";
-                    $album->{coverarturl} = $row[13]||"";
-                    $album->{asin} = $row[14]||"";
-                    $album->{puidcount} = $row[15]||0;
+                    $album->{trackcount}       = $row[9];
+                    $album->{discidcount}      = $row[10];
+                    $album->{firstreleasedate} = $row[11] || "";
+                    $album->{coverarturl}      = $row[12] || "";
+                    $album->{asin}             = $row[13] || "";
+                    $album->{puidcount}        = $row[14] || 0;
                 }
 
                 push @albums, $album;
@@ -1034,33 +1033,33 @@ sub select_releases
    # then, pull in the multiple artist albums
    if (defined $loadmeta && $loadmeta)
    {
-       $query = qq/select album.id, album.artist, name, modpending, GID, attributes, language,
-                          script, quality, modpending_qual, tracks, discids, trmids, firstreleasedate, puids
-                         from album, albummeta 
-                        where album.artist != $this->{id} and 
-                              albummeta.id = album.id and
-                              album.id in (select distinct albumjoin.album 
-                                       from albumjoin, track 
-                                       where track.artist = $this->{id} and 
-                                            albumjoin.track = track.id)/;
+       $query = qq/SELECT album.id, album.artist, name, modpending, GID, attributes, language,
+                          script, quality, modpending_qual, tracks, discids, firstreleasedate, puids
+                     FROM album, albummeta
+                    WHERE album.artist != $this->{id} AND
+                          albummeta.id = album.id AND
+                          album.id IN (SELECT DISTINCT albumjoin.album
+                                         FROM albumjoin, track
+                                        WHERE track.artist = $this->{id} AND
+                                              albumjoin.track = track.id)/;
    }
    else
    {
-       $query = qq/select album.id, album.artist, name, modpending, GID,
+       $query = qq/SELECT album.id, album.artist, name, modpending, GID,
                           attributes, language, script, quality, modpending_qual
-                         from album
-                        where album.artist != $this->{id} and 
-                              album.id in (select distinct albumjoin.album 
-                                       from albumjoin, track 
-                                      where track.artist = $this->{id} and 
-                                            albumjoin.track = track.id)/;
+                     FROM album
+                    WHERE album.artist != $this->{id} AND
+                          album.id IN (SELECT DISTINCT albumjoin.album
+                                         FROM albumjoin, track
+                                        WHERE track.artist = $this->{id} AND
+                                              albumjoin.track = track.id)/;
    }
 
    if ($sql->Select($query))
    {
         while(@row = $sql->NextRow)
         {
-			require MusicBrainz::Server::Release;
+            require MusicBrainz::Server::Release;
             $album = MusicBrainz::Server::Release->new($this->{DBH});
             $album->id($row[0]);
             $album->artist($row[1]);
@@ -1068,18 +1067,17 @@ sub select_releases
             $album->has_mod_pending($row[3]);
             $album->mbid($row[4]);
             $album->{attrs} = $row[5];
-			$album->language_id($row[6]);
-			$album->script_id($row[7]);
-			$album->quality($row[8]);
-			$album->quality_has_mod_pending($row[9]);
+            $album->language_id($row[6]);
+            $album->script_id($row[7]);
+            $album->quality($row[8]);
+            $album->quality_has_mod_pending($row[9]);
 
             if (defined $loadmeta && $loadmeta)
             {
-                $album->{trackcount} = $row[10];
-                $album->{discidcount} = $row[11];
-                $album->{trmidcount} = $row[12];
-                $album->{firstreleasedate} = $row[13]||"";
-                $album->{puidcount} = $row[14]||0;
+                $album->{trackcount}       = $row[10];
+                $album->{discidcount}      = $row[11];
+                $album->{firstreleasedate} = $row[12] || "";
+                $album->{puidcount}        = $row[13] || 0;
             }
 
             push @albums, $album;

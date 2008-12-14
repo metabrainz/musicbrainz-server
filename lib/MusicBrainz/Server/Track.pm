@@ -228,7 +228,7 @@ sub LoadFromId
 sub GetMetadataFromIdAndAlbum
 {
     my ($this, $id, $albumname) = @_;
-    my (@row, $sql, $artist, $album, $seq, @TRM);
+    my (@row, $sql, $artist, $album, $seq);
 
     $artist = "Unknown";
     $album = "Unknown";
@@ -240,17 +240,9 @@ sub GetMetadataFromIdAndAlbum
          return ();
     }
 
-	require MusicBrainz::Server::Artist;
+    require MusicBrainz::Server::Artist;
     my $ar = $this->artist;
     if (!defined $ar->LoadFromId())
-    {
-         return ();
-    }
-
-	require MusicBrainz::Server::TRM;
-    my $trm = MusicBrainz::Server::TRM->new($this->{DBH});
-    @TRM = $trm->GetTRMFromTrackId($id);
-    if (scalar(@TRM) == 0)
     {
          return ();
     }
@@ -292,7 +284,7 @@ sub GetMetadataFromIdAndAlbum
     }
 	$sql->Finish;
 
-    return ($this->name(), $ar->name(), $album, $seq, $TRM[0]->{TRM});
+    return ($this->name(), $ar->name(), $album, $seq, "");
 }
 
 # This function inserts a new track. A properly initialized/loaded album
@@ -484,11 +476,7 @@ sub Remove
         return undef
     }
 
-	require MusicBrainz::Server::TRM;
-    my $trm = MusicBrainz::Server::TRM->new($this->{DBH});
-    $trm->RemoveByTrackId($this->id());
-
-	require MusicBrainz::Server::PUID;
+    require MusicBrainz::Server::PUID;
     my $puid = MusicBrainz::Server::PUID->new($this->{DBH});
     $puid->RemoveByTrackId($this->id());
 

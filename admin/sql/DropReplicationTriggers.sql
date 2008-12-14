@@ -70,8 +70,6 @@ DROP TRIGGER "reptg_script_language" ON "script_language";
 DROP TRIGGER "reptg_stats" ON "stats";
 DROP TRIGGER "reptg_track" ON "track";
 DROP TRIGGER "reptg_trackwords" ON "trackwords";
-DROP TRIGGER "reptg_trm" ON "trm";
-DROP TRIGGER "reptg_trmjoin" ON "trmjoin";
 DROP TRIGGER "reptg_url" ON "url";
 DROP TRIGGER "reptg_gid_redirect" ON "gid_redirect";
 -- Not replicated: vote_closed, vote_open

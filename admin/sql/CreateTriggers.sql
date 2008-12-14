@@ -22,16 +22,6 @@ CREATE TRIGGER a_upd_album_cdtoc AFTER UPDATE ON album_cdtoc
 CREATE TRIGGER a_del_album_cdtoc AFTER DELETE ON album_cdtoc
     FOR EACH ROW EXECUTE PROCEDURE a_del_album_cdtoc();
 
-CREATE TRIGGER a_ins_trmjoin AFTER INSERT ON trmjoin
-    FOR EACH ROW EXECUTE PROCEDURE a_ins_trmjoin();
-CREATE TRIGGER a_del_trmjoin AFTER DELETE ON trmjoin
-    FOR EACH ROW EXECUTE PROCEDURE a_del_trmjoin();
-
-CREATE TRIGGER a_idu_trm_stat AFTER INSERT OR DELETE OR UPDATE ON trm_stat
-    FOR EACH ROW EXECUTE PROCEDURE a_idu_trm_stat();
-CREATE TRIGGER a_idu_trmjoin_stat AFTER INSERT OR DELETE OR UPDATE ON trmjoin_stat
-    FOR EACH ROW EXECUTE PROCEDURE a_idu_trmjoin_stat();
-
 CREATE TRIGGER a_upd_moderation_open AFTER UPDATE ON moderation_open
     FOR EACH ROW EXECUTE PROCEDURE after_update_moderation_open();
 

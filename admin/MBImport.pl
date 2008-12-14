@@ -419,10 +419,6 @@ sub ImportAllTables
 		track_tag
 		track_tag_raw
 		trackwords
-		trm
-		trmjoin
-		trmjoin_stat
-		trm_stat
 		url
 		vote_closed
 		vote_open

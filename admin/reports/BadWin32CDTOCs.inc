@@ -62,7 +62,7 @@
 
 <& /comp/sidebar-notitle, pagetitle => "Incorrect DiscIDs submitted by Windows clients " &>
 
-	<& /comp/tablebegin, title => "Releases with duplicate TRMs for different tracks" &>
+	<& /comp/tablebegin, title => "Incorrect DiscIDs submitted by Windows clients" &>
 		<ul>
 			<li> This report lists pairs of CD TOCs which are identical except for the
     			leadout offset, which differs by exactly two seconds.</li>
