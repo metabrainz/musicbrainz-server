@@ -3,7 +3,7 @@
 [% WRAPPER "components/box.tt" header="Login" %]
     <p>Please login using the form below. Note that the password field <em>is</em> case sensitive.</p>
 
-    [% WRAPPER "forms/form.tt" %]
+    [% WRAPPER "forms/form.tt" moderation=0 %]
         [% INCLUDE "forms/widget.tt" widget=form.field('username') label="Username" %]
         [% INCLUDE "forms/widget.tt" widget=form.field('password') label="Password" %]
         [% INCLUDE "forms/submit.tt" label="Log In" %]
