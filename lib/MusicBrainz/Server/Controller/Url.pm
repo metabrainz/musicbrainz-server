@@ -39,7 +39,19 @@ Provides information about a given link
 
 sub info : Chained('url')
 {
-    my ($self, $c, $mbid) = @_;
+    my ($self, $c) = @_;
+    $c->forward('relations');
+}
+
+=head2 relations
+
+List all relations of a url
+
+=cut
+
+sub relations : Chained('url')
+{
+    my ($self, $c) = @_;
     my $url = $c->stash->{url};
 
     $c->stash->{relations} = $c->model('Relation')->load_relations($url);
