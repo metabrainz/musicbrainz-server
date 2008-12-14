@@ -71,6 +71,37 @@
             [% INCLUDE "components/doc-link.tt" to="MusicBrainzTagger" text="Read more about our taggers." %]
         </p>
         <p>
+            <div>
+            <a href="/doc/PicardDownload" title="Download Picard">
+                <img src="/static/images/download.gif" alt="[download]" />
+            </a>
+            <a href="/doc/PicardDownload" title="Download Picard">
+                Download Picard
+            </a> 
+            [Windows/Linux]
+            </div>
+            
+            <div>
+            <a href="http://www.magic-tagger.com/bin/magic_tagger.exe" title="Download Magic-Tagger">
+                <img src="/static/images/download.gif" alt="[download]" />
+            </a>
+            <a href="http://www.magic-tagger.com/bin/magic_tagger.exe" title="Download Magic-Tagger">
+                Download Magic-Tagger
+            </a>
+            [Windows -- <a href="http://www.magic-tagger.com">More info...</a>]
+            </div>
+            
+            <div>
+            <a href="http://www.jthink.net/jaikoz/jsp/download/start.jsp" title="Download Jaikoz Tag Editor">
+                <img src="/static/images/download.gif" alt="[download]" />
+            </a>
+            <a href="http://www.jthink.net/jaikoz/jsp/download/start.jsp" title="Download Jaikoz Tag Editor">
+                Download Jaikoz Tag Editor
+            </a> 
+            [Windows, Linux, Mac OS X -- <a href="http://www.jthink.net/jaikoz">More info...</a>]
+            </div>
+        </p>
+        <p>
             Alternatively, you might just want to <a href="/search.html">search</a> or <a href="/browseartists.html">browse</a>
             the MusicBrainz database. If you spot a mistake, or something that is missing, you can even
             [% INCLUDE "components/doc-link.tt" to="HowEditingWorks" text="edit or add more data!" %]
