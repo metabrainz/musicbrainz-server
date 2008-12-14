@@ -371,6 +371,7 @@ sub check_in
 ################################################################################
 # get, set, load, save
 ################################################################################
+
 =head2 C<newFromUser>
 
 Instantiate a new UserPreference object for a specific user.
@@ -469,7 +470,9 @@ sub set
 Save the user preferences to the database
 
 =cut
-sub save {
+
+sub save
+{
     my $self = shift;
     my $uid = $self->{uid};
 
@@ -495,7 +498,7 @@ sub save {
     };
 }
 
-sub LoadForUser#{{{
+sub LoadForUser
 {
 	my ($user) = @_;
 
@@ -523,7 +526,7 @@ sub LoadForUser#{{{
 	}
 
     return $preferences;
-}#}}}
+}
 
 sub SaveForUser
 {

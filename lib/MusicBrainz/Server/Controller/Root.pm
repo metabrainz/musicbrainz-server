@@ -154,11 +154,20 @@ sub end : ActionClass('RenderView')
 
         use UserPreference;
 
-        my $prefs = $c->model('User')->get_preferences_hash($c->user);
+        my ($date_time_format, $time_zone);
+
+        if ($c->user_exists)
+        {
+            my $prefs = $c->model('User')->get_preferences_hash($c->user);
+            $prefs->load;
+
+            $date_time_format = $prefs->get('datetimeformat');
+            $time_zone        = $prefs->get('timezone');
+        }
 
         MusicBrainz::Server::DateTime::format_datetime( {
-            datetimeformat => $prefs->get('datetimeformat'),
-            tz             => $prefs->get('timezone')
+            datetimeformat => $date_time_format,
+            tz             => $time_zone,
         }, @_);
     };
 
