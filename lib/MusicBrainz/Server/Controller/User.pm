@@ -119,33 +119,115 @@ sub register : Local Form
     my $new_user = $c->model('User')->create($form->value('username'),
                                              $form->value('password'));
 
-    my $email            = $form->value('email');
-    my $could_send_email = $new_user->SendVerificationEmail($email);
+    my $email = $form->value('email');
 
     $c->authenticate({ username => $new_user->name,
                        password => $new_user->password });
 
-    $c->detach('registered', $could_send_email, $email);
+    my $email_sent = undef;
+    if ($email)
+    {
+        $self->_send_confirmation_email($c, $new_user, $email);
+        $email_sent = scalar @{ $c->error } == 0;
+    }
+
+    $c->stash->{email_sent} = defined $email && scalar @{ $c->error } == 0;
+    $c->stash->{template}   = 'user/registered.tt';
 }
 
-=head2 registered
+=head2 _send_confirmation_email
 
-Called when a user has completed registration. We use this to notify
-the user that everything went ok.
+Send out an email allowing users to confirm their email address
 
 =cut
 
-sub registered : Private
+sub _send_confirmation_email
 {
-    my ($self, $c, $couldSend, $email) = @_;
+    my ($self, $c, $user, $email) = @_;
 
-    $c->stash->{emailed} = $couldSend;
-    $c->stash->{email}   = $email;
+    my $time     = time;
+    my $checksum = $self->_checksum($email, $user->id, $time);
 
-    $c->stash->{template} = 'user/registered.tt';
+    $c->stash->{verification_link} = $c->uri_for('/user/verify', {
+        userid => $user->id,
+        email  => $email,
+        time   => $time,
+        chk    => $checksum,
+    });
+
+    $c->stash->{email} = {
+        header => [
+            'Reply-To' => 'MusicBrainz Support <support@musicbrainz.org>',
+        ],
+        to           => $email,
+        from         => 'MusicBrainz <webserver@musicbrainz.org>',
+        subject	     => 'Please verify your e-mail address',
+        content_type => 'text/plain',
+        template     => 'email/confirm_address.tt',
+    };
+
+    $c->forward($c->view('Email::Template'));
 }
 
-=head2 forgotPassword
+sub _checksum
+{
+    my ($self, $email, $uid, $time) = @_;
+
+    use Digest::SHA1 qw(sha1_base64);
+    return sha1_base64("$email $uid $time " . DBDefs::SMTP_SECRET_CHECKSUM);
+}
+
+=head2 verify
+
+Verify the email address (this is the URL handed out in "verify your email
+address" emails)
+
+=cut
+
+sub verify : Local
+{
+    my ($self, $c) = @_;
+
+    my $user_id = $c->request->query_params->{userid};
+    my $email   = $c->request->query_params->{email};
+    my $time    = $c->request->query_params->{time};
+    my $key     = $c->request->query_params->{chk};
+
+    die "The user ID is missing or, is in an invalid format"
+        unless MusicBrainz::Server::Validation::IsNonNegInteger($user_id) && $user_id;
+
+    die "The email address is missing"
+        unless $email;
+
+    die "The time is missing, or is in an invalid format"
+        unless MusicBrainz::Server::Validation::IsNonNegInteger($time) && $time;
+
+    die "The key is missing"
+        unless $key;
+
+    die "The checksum is invalid, please double check your email"
+        unless $self->_checksum($email, $user_id, $time) eq $key;
+
+    if (($time + DBDefs::EMAIL_VERIFICATION_TIMEOUT) < time)
+    {
+        die "Sorry, this email verification link has expired";
+    }
+    else
+    {
+        my $user = $c->model('User')->load({ id => $user_id });
+
+        die "User with id $user_id could not be found"
+            unless $user;
+
+        $user->SetUserInfo(email => $email)
+            or die "Could not update user information";
+        $user->email($email);
+
+        $c->stash->{template} = 'user/verified.tt';
+    }
+}
+
+=head2 forgot_password
 
 Allow users to retrieve their password if they have forgotten it.
 
@@ -166,6 +248,8 @@ sub forgot_password : Local Form
     my ($email, $username) = ( $form->value('email'),
                                $form->value('username') );
 
+    my $user = undef;
+
     if ($email)
     {
         my $usernames = $c->model('User')->find_by_email($email);
@@ -173,16 +257,9 @@ sub forgot_password : Local Form
         {
             foreach $username (@$usernames)
             {
-                my $user = $c->model('User')->load({ username => $username });
-                if ($user)
-                {
-                    $user->SendPasswordReminder
-                        or die "Could not send password reminder";
-                }
+                $user = $c->model('User')->load({ username => $username });
+                last if defined $user;
             }
-
-            $c->flash->{ok} = "A password reminder has been sent to you."
-                            . "Please check your inbox for more details";
         }
         else
         {
@@ -191,14 +268,27 @@ sub forgot_password : Local Form
     }
     elsif ($username)
     {
-        my $user = $c->model('User')->load({ username => $username });
-        if ($user)
-        {
-            $user->SendPasswordReminder
-                or die "Could not send password reminder";
+        $user = $c->model('User')->load({ username => $username });
+    }
 
-            $c->flash->{ok} = "A password reminder has been sent to you. Please check your inbox for more details";
-        }
+    if (defined $user)
+    {
+        $c->stash->{username} = $user->name;
+        $c->stash->{password} = $user->password;
+
+        $c->stash->{email} = {
+            header => [
+                'Reply-To' => 'MusicBrainz Support <support@musicbrainz.org>',
+            ],
+            from     => 'MusicBrainz <webserver@musicbrainz.org>',
+            to       => $user->email,
+            subject  => 'Your MusicBrainz account',
+            content_type => 'text/plain',
+
+            template => 'email/forgot_password.tt',
+        };
+
+        $c->forward($c->view('Email::Template'));
     }
 }
 
@@ -225,7 +315,7 @@ sub edit : Local Form('User::EditProfile')
     $c->flash->{ok} = "Your profile has been sucessfully updated";
 }
 
-=head2 changePassword
+=head2 change_password
 
 Allow users to change their password. This displays a form prompting
 for their old password and a new password (with confirmation), which
@@ -350,56 +440,6 @@ sub donate : Local
     $c->stash->{nag} = $donateinfo[0];
     $c->stash->{days} = int($donateinfo[1]);
     $c->stash->{template} = 'user/donate.tt';
-}
-
-=head2 verify
-
-Verify the email address (this is the URL handed out in "verify your email
-address" emails)
-
-=cut
-
-sub verify : Local
-{
-    my ($self, $c) = @_;
-
-    my $user_id = $c->request->query_params->{user};
-    my $email   = $c->request->query_params->{email};
-    my $time    = $c->request->query_params->{time};
-    my $key     = $c->request->query_params->{chk};
-
-    die "The user ID is missing or, is in an invalid format"
-        unless MusicBrainz::Server::Validation::IsNonNegInteger($user_id) && $user_id;
-
-    die "The email address is missing"
-        unless $email;
-
-    die "The time is missing, or is in an invalid format"
-        unless MusicBrainz::Server::Validation::IsNonNegInteger($time) && $time;
-
-    die "The key is missing"
-        unless $key;
-
-    my $ui = MusicBrainz::Server::Editor->new($c->mb->{DBH});
-    die "The checksum is invalid, please double check your email"
-        unless $ui->GetVerifyChecksum($email, $user_id, $time) eq $key;
-
-    if (($time + DBDefs::EMAIL_VERIFICATION_TIMEOUT) < time)
-    {
-        die "Sorry, this email verification link has expired";
-    }
-    else
-    {
-        my $user = $c->model('User')->load({ id => $user_id });
-
-        die "User with id $user_id could not be found"
-            unless $user;
-
-        $user->SetUserInfo(email => $email)
-            or die "Could not update user information";
-
-        $c->stash->{template} = 'user/verified.tt';
-    }
 }
 
 =head1 LICENSE

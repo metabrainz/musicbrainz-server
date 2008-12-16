@@ -1,0 +1,12 @@
+This is the a verification e-mail for your MusicBrainz account.
+Please click on the link below to verify your e-mail address:
+
+[% verification_link %]
+
+If clicking the link directly does not work, you may need to manually
+cut and paste the link into the location bar of your preferred web
+browser.
+
+Thanks for using MusicBrainz!
+
+-- The MusicBrainz Team

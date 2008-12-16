@@ -25,16 +25,15 @@
 
 package MusicBrainz::Server::Editor;
 
-use base qw(TableBase Catalyst::Authentication::User);
-
 use strict;
 use warnings;
+
+use base qw/TableBase Catalyst::Authentication::User/;
 
 use DBDefs;
 use MusicBrainz::Server::Validation;
 use URI::Escape qw( uri_escape );
 use CGI::Cookie;
-use Digest::SHA1 qw(sha1_base64);
 use Carp;
 use String::Similarity;
 use Encode qw( decode );
@@ -807,115 +806,7 @@ sub GetRealAddressHeader
 	);
 }
 
-# Sanity check
-die "SMTP_SECRET_CHECKSUM not set"
-	if &DBDefs::SMTP_SECRET_CHECKSUM eq "";
-
-sub GetVerifyChecksum
-{
-	my ($this, $email, $uid, $time) = @_;
-	sha1_base64("$email $uid $time " . &DBDefs::SMTP_SECRET_CHECKSUM);
-}
-
-sub GetEmailActivationLink
-{
-	my ($self, $email) = @_;
-
-	my $t = time;
-	my $chk = $self->GetVerifyChecksum($email, $self->id, $t);
-
-	"http://" . &DBDefs::WEB_SERVER . "/user/verifyemail.html"
-		. "?userid=" . $self->id
-		. "&email=" . uri_escape($email)
-		. "&time=$t"
-		. "&chk=" . uri_escape($chk)
-		;
-}
-
-# Send a user their password.
-
-sub SendPasswordReminder
-{
-	my $self = shift;
-
-	my $username = $self->name;
-	my $pass = $self->password;
-
-	my $body = <<EOF;
-Hello.  Someone, probably you, asked that your MusicBrainz password be sent
-to you via e-mail.
-
-Your MusicBrainz user name is "$username"
-Your MusicBrainz password is "$pass"
-
-To log in to MusicBrainz, please use this link:
-http://${\ DBDefs::WEB_SERVER() }/login.html
-
-If you still have problems logging in, please drop us a line - see
-http://${\ DBDefs::WEB_SERVER() }/support/contact.html
-for details.
-
--- The MusicBrainz Team
-EOF
-
-	require MusicBrainz::Server::Mail;
-	my $mail = MusicBrainz::Server::Mail->new(
-		# Sender: not required
-		From		=> 'MusicBrainz <webserver@musicbrainz.org>',
-		# To: $self (automatic)
-		"Reply-To"	=> 'MusicBrainz Support <support@musicbrainz.org>',
-		Subject		=> "Your MusicBrainz account",
-		Type		=> "text/plain",
-		Encoding	=> "quoted-printable",
-		Data		=> $body,
-	);
-    $mail->attr("content-type.charset" => "utf-8");
-
-	$self->SendFormattedEmail(entity => $mail);
-}
-
-# Send an address verification e-mail for a user to the specified address.
-# Used by htdocs/(createlogin|login|moderator).html
-# and htdocs/user/sendverification.html
-
-sub SendVerificationEmail
-{
-	my ($self, $email) = @_;
-
-	my $url = $self->GetEmailActivationLink($email);
-
-	my $body = <<EOF;
-This is the a verification e-mail for your MusicBrainz account.
-Please click on the link below to verify your e-mail address:
-
-$url
-
-If clicking the link directly does not work, you may need to manually cut and paste
-the link into the location bar of your preferred web browser.
-
-Thanks for using MusicBrainz!
-
--- The MusicBrainz Team
-EOF
-
-	require MusicBrainz::Server::Mail;
-	my $mail = MusicBrainz::Server::Mail->new(
-		Sender		=> 'MusicBrainz Server <webserver@musicbrainz.org>',
-		From		=> 'MusicBrainz <noreply@musicbrainz.org>',
-		To			=> MusicBrainz::Server::Mail->format_address_line($self->name, $email),
-		"Reply-To"	=> 'MusicBrainz Support <support@musicbrainz.org>',
-		Subject		=> "Please verify your e-mail address",
-		Type		=> "text/plain",
-		Encoding	=> "quoted-printable",
-		Data		=> $body,
-	);
-    $mail->attr("content-type.charset" => "utf-8");
-
-	$self->SendFormattedEmail(entity => $mail, to => $email);
-}
-
 # User $self wants to send an ad-hoc message to $other_user.
-
 sub SendMessageToUser
 {
 	my ($self, %opts) = @_;
