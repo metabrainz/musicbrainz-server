@@ -115,30 +115,39 @@ sub GetSubscribersForEditor
 # Managing a user's subscription list
 ################################################################################
 
-sub GetSubscribedArtists
+sub subscribed_artists
 {
-	my ($self) = @_;
-	my $uid = $self->GetUser or die;
-	my $sql = Sql->new($self->{DBH});
+    my ($self) = @_;
+    my $uid = $self->GetUser or die;
+    my $sql = Sql->new($self->{DBH});
 
-	my $rows = $sql->SelectListOfHashes(
-		"SELECT s.*, a.name, a.sortname, a.resolution
-		FROM moderator_subscribe_artist s
-		LEFT JOIN artist a ON a.id = s.artist
-		WHERE s.moderator = ?
-		ORDER BY a.sortname, s.artist",
-		$uid,
-	);
+    my $rows = $sql->SelectListOfHashes(
+        "SELECT s.*, a.name, a.sortname, a.resolution
+           FROM moderator_subscribe_artist s
+      LEFT JOIN artist a ON a.id = s.artist
+          WHERE s.moderator = ?
+       ORDER BY a.sortname, s.artist",
+        $uid,
+    );
 
-	@$rows = map { $_->[0] }
-		sort { $a->[1] cmp $b->[1] }
-		map {
-			my $row = $_;
-			my $name = MusicBrainz::Server::Validation::NormaliseSortText($row->{'sortname'});
-			[ $row, $name ];
-		} @$rows;
+    return [
+        map {
+            my $artist = MusicBrainz::Server::Artist->new($self->{DBH});
 
-	return $rows;
+            $artist->id($_->[0]->{artist});
+            $artist->name($_->[0]->{name});
+            $artist->sort_name($_->[0]->{sortname});
+            $artist->resolution($_->[0]->{resolutionname});
+
+            $artist;
+        }
+            sort { $a->[1] cmp $b->[1] }
+                map {
+                    my $row = $_;
+                    my $name = MusicBrainz::Server::Validation::NormaliseSortText($row->{'sortname'});
+                    [ $row, $name ];
+                } @$rows
+    ];
 }
 
 sub GetNumSubscribedArtists

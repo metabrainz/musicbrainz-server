@@ -1,0 +1,28 @@
+[%- WRAPPER 'layout.tt' title='Subscriptions' -%]
+[%- WRAPPER 'components/box.tt' header='Your Subscriptions' -%]
+<p>
+    You are currently subscribed to <strong>[% artist_count %]</strong> artists,
+    <strong>[% label_count %]</strong> labels and <strong>[% editor_count %]</strong> editors.
+</p>
+<p>
+    To unsubscribe, activate the checkbox next to the artists, labels or editors you would like
+    to unsubscribe from, then <em>Unsubscribe</em> below. To subscribe to an artist, a label or an editor,
+    use the "Subscribe" link on the artist's, label's or editor's page. 
+</p>
+
+<h3>[% type | ucfirst %]s</h3>
+[%- WRAPPER 'forms/form.tt' custom=1 -%]
+<ul>
+    [%- FOREACH entity IN entities -%]
+        <li>
+            <input type="checkbox" name="id" value="[% entity.id %]" id="[% type %].[% entity.id %]" />
+            <label for="[% type %].[% entity.id %]">[%- INCLUDE 'components/entity-link.tt' -%]</label>
+        </li>
+    [%- END -%]
+</ul>
+
+[%- INCLUDE 'forms/submit.tt' label="Unsubscribe" -%]
+[%- END -%]
+
+[%- END -%]
+[%- END -%]

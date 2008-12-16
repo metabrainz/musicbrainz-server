@@ -374,6 +374,49 @@ sub profile : Local Args(1)
     $c->stash->{template} = 'user/profile.tt';
 }
 
+=head2 subscriptions
+
+View all subscriptions
+
+=cut
+
+sub subscriptions : Local
+{
+    my ($self, $c, $type) = @_;
+
+    $c->forward('/user/login');
+
+    if ($type ne 'artist' || $type ne 'label' || $type ne 'editor')
+    {
+        $type = 'artist';
+    }
+
+    $c->stash->{type} = $type;
+    $c->stash->{entities} = $c->model('Subscription')->users_subscribed_entities($c->user, $type);
+
+    $c->stash->{artist_count} = $c->model('Subscription')->user_artist_count($c->user);
+    $c->stash->{label_count } = $c->model('Subscription')->user_label_count($c->user);
+    $c->stash->{editor_count} = $c->model('Subscription')->user_editor_count($c->user);
+
+    return unless $c->form_posted;
+
+    # Make sure we have a list of IDs
+    my $ids = $c->req->params->{id};
+    $ids    = ref $ids ? $ids : [ $ids ];
+
+    my @entities = map
+        {
+            my $artist = MusicBrainz::Server::Artist->new($c->mb->{DBH});
+            $artist->id($_);
+
+            $artist;
+        } @$ids;
+
+    $c->model('Subscription')->unsubscribe_from_entities($c->user, [ @entities ]);
+
+    $c->response->redirect($c->req->uri);
+}
+
 =head2 logout
 
 Logout the current user. Has no effect if the user is already logged out.
