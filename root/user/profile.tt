@@ -44,16 +44,18 @@
 
     [% WRAPPER property name="E-mail" %]
         [% IF viewing_own_profile %]
-            [% (user.email.address or "[None]") | html_entity %]
+            [% (user.email or "[None]") | html_entity %]
         [% ELSE %]
             [Hidden]
         [% END %]
 
-        [% IF user.email_verification_date %]
-            (verified [% user_date(user.email_verification_date) %])
-        [% ELSE %]
-            [% IF viewing_own_profile %]
-                (<em>unverified!</em>)
+        [% IF user.email %]
+            [% IF user.email_verification_date %]
+                (verified [% user_date(user.email_verification_date) %])
+            [% ELSE %]
+                [% IF viewing_own_profile %]
+                    (<em>unverified!</em>)
+                [% END %]
             [% END %]
         [% END %]
     [% END %]
