@@ -62,6 +62,14 @@ sub store : Chained('entity')
     $c->response->redirect($c->req->referer);
 }
 
+sub cancel : Local
+{
+    my ($self, $c) = @_;
+
+    $c->session->{current_relationship} = undef;
+    $c->response->redirect($c->req->referer);
+}
+
 sub create : Chained('entity') PathPart('to') Args(2)
 {
     my ($self, $c, $dest_type, $dest_id) = @_;

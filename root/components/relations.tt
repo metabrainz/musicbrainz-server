@@ -58,7 +58,7 @@
 	    [ source.entity_type, source.mbid ]),
 	    text => "Use this ${source.entity_type} in a relationship" },
 
-	{ link => c.uri_for('relate/cancel'),
+	{ link => c.uri_for('/relate/cancel'),
 	    text => 'Cancel',
 	    hide => !current_relationship },
 	{ link => c.uri_for(c.controller('relate').action_for('create'),
