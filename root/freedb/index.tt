@@ -1,0 +1,30 @@
+[%- WRAPPER 'layout.tt' title='FreeDB Search & Import' -%]
+[%- WRAPPER 'components/box.tt' header='FreeDB Search & Import' -%]
+
+<p>
+    With the lack of searching at FreeDB, we've stopped using their search
+    function and added our own FreeDB search functions. You can now search
+    FreeDB releases from any indexed search table or use the shortcut form
+    below. Alternatively if you already know the category/id of the CD
+    you'd like to import, you can also do that below
+</p>
+
+[%- WRAPPER 'forms/form.tt' action=c.uri_for('/search/external') method='get' -%]
+    [%- WRAPPER 'forms/fieldset.tt' legend='Search' -%]
+        <p>Enter the release title of artist name to search for possible releases:</p>
+        [%- INCLUDE 'forms/widget.tt' widget=search.field('query') label='Query' -%]
+        <input type="hidden" name="type" value="freedb" />
+        [%- INCLUDE 'forms/submit.tt' label='Search' -%]
+    [%- END -%]
+[%- END -%]
+
+[%- WRAPPER 'forms/form.tt' -%]
+    [%- WRAPPER 'forms/fieldset.tt' legend='Direct Import' -%]
+        <p>Enter the category/id of the CD you want to import (e.g. <code>rock/a10bda0b</code>):</p>
+        [%- INCLUDE 'forms/widget.tt' widget=import.field('query') label='ID' -%]
+        [%- INCLUDE 'forms/submit.tt' label='Import' -%]
+    [%- END -%]
+[%- END -%]
+
+[%- END -%]
+[%- END -%]

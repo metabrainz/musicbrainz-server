@@ -1,0 +1,28 @@
+[%- WRAPPER 'layout.tt' header='Import FreeDB Release' -%]
+[%- WRAPPER 'components/box.tt' header='Select Artist Type' -%]
+
+<ul>
+    <li>
+        <strong>Single artist or various artists?</strong>
+        Are the tracks of this release credited to a single artist,
+        or more than one? Please read the release artist style for
+        instructions on how to select the proper release artist.
+    </li>
+</ul>
+
+[% WRAPPER 'forms/form.tt' %]
+    [% WRAPPER 'forms/row.tt' label='Preview' %]
+        [% single_artist %]
+        [%- INCLUDE 'release/release.tt' no_edit_links=1
+            no_info_links=1 no_edit_tracks=1 -%]
+    [% END %]
+
+    [% WRAPPER 'forms/row.tt' label='Preview' %]
+        Various Artists
+        [%- INCLUDE 'release/release.tt' no_edit_links=1
+            no_info_links=1 no_edit_tracks=1 -%]
+    [% END %]
+[% END %]
+
+[%- END -%]
+[%- END -%]
