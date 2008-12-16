@@ -6,6 +6,7 @@
 
 [% WRAPPER "layout.tt" title="Preferences" %]
 
+[% WRAPPER "components/box.tt"  header="Preferences" %]
 [% WRAPPER "forms/form.tt" custom=1 %]
 
 [% IF form.has_error %]
@@ -28,8 +29,7 @@
     [% fields = [
         { widget = 'mod_add_album_inline', label = 'For "Add Release" edits, show the whole release...' },
         { widget = 'mod_add_album_link', label = 'and show editing links.' },
-        { widget = 'navbar_mod_show_select_page' label = 'Make the "Vote on Edits" link in the sidebar go to this page instead of the "New
-        edits" list.' }
+        { widget = 'navbar_mod_show_select_page' label = 'Make the "Vote on Edits" link in the sidebar go to this page instead of the "New edits" list.' }
     ] %]
     [% PROCESS fields %] 
     <p>
@@ -71,7 +71,7 @@
         { widget = 'release_show_relationshipslinks', label = 'Show the add/edit relationships links in the release header.' },
         { widget = 'release_show_annotationlinks', label = 'Show the add/edit relationships links in the release header.' },
         { widget = 'show_amazon_coverart', label = 'Show Amazon.com cover art and buy links.' },
-        { widget = 'use_amazon_store', label = 'Your preferred Amazon Store:' },
+        { widget = 'use_amazon_store', label = 'Your preferred Amazon Store' },
     ] %]
 [% PROCESS fields %]
 </fieldset>
@@ -79,8 +79,8 @@
 <fieldset>
     <legend>Country</legend>
     [% fields = [
-        { widget = 'default_country', label = 'When adding a new release, pick this country by default:' },
-        { widget = 'google_domain', label = 'Your preferred Google domain:' },
+        { widget = 'default_country', label = 'When adding a new release, pick this country by default' },
+        { widget = 'google_domain', label = 'Your preferred Google domain' },
     ] %]
     [% PROCESS fields %]
 </fieldset>
@@ -89,7 +89,7 @@
     <legend>Date/time display</legend>
     [% fields = [
         { widget = 'datetimeformat', label = 'Your preferred date/time format' },
-        { widget = 'timezone', label = 'Your preferred time zone:' },
+        { widget = 'timezone', label = 'Your preferred time zone' },
     ] %]
     [% PROCESS fields %]
 </fieldset>
@@ -97,8 +97,8 @@
 <fieldset>
     <legend>Topmenu configuration</legend>
     [% fields = [
-        { widget = 'topmenu_submenu_types' label = 'The menu which is placed on top of the pages features multiple ways of navigating the site. You can choose which menu type (or both) you\'d like to see if you are logged in:' },
-        { widget = 'topmenu_dropdown_trigger', label = 'If you selected an option which includes the Dropdown menus  above, you can choose how they get activated:' }
+        { widget = 'topmenu_submenu_types' label = 'The menu which is placed on top of the pages features multiple ways of navigating the site. You can choose which menu type (or both) you\'d like to see if you are logged in' },
+        { widget = 'topmenu_dropdown_trigger', label = 'If you selected an option which includes the Dropdown menus  above, you can choose how they get activated' }
     ] %]
     [% PROCESS fields %]
 </fieldset>
@@ -121,6 +121,7 @@
 </fieldset>
 
 [% INCLUDE "forms/submit.tt" label="Update Preferences" %]
+[% END %]
 [% END %]
 
 [% END %]
