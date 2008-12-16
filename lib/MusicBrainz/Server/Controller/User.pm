@@ -445,23 +445,18 @@ Change the users preferences
 
 =cut
 
-sub preferences : Local
+sub preferences : Local Form
 {
     my ($self, $c) = @_;
 
     $c->forward('login');
 
-    my $user  = $c->user;
+    my $form = $self->form;
+    $form->init($c->user->id);
 
-    use MusicBrainz::Server::Form::User::Preferences;
+    return unless $self->submit_and_validate($c);
 
-    my $form = MusicBrainz::Server::Form::User::Preferences->new($user->id);
-    $c->stash->{form} = $form;
-
-    $form->update_from_form ($c->req->params)
-        if($c->form_posted);
-
-    $c->stash->{template} = 'user/preferences.tt';
+    $form->update_from_form ($c->req->params);
 }
 
 =head2 donate
