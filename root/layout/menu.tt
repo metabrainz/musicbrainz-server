@@ -47,7 +47,6 @@
     <li>
         <a href="[% c.uri_for('/search') %]">Search</a>
         <ul>
-            <li><a href="[% c.uri_for('/search') %]">Search</a></li>
 	    <li><a href="[% c.uri_for('/search/links') %]">Links</a></li>
 	    <li><a href="[% c.uri_for('/moderation/search') %]">Edits</a></li>
 	    <li><a href="[% c.uri_for('/browse/artist') %]">Browse Artists</a></li>
