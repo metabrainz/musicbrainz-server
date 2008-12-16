@@ -33,6 +33,7 @@ use base qw/TableBase Catalyst::Authentication::User/;
 use DBDefs;
 use MusicBrainz::Server::Validation;
 use URI::Escape qw( uri_escape );
+use Digest::SHA1 qw/sha1_base64/;
 use CGI::Cookie;
 use Carp;
 use String::Similarity;

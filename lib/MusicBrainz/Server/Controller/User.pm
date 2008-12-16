@@ -5,6 +5,7 @@ use warnings;
 
 use base 'MusicBrainz::Server::Controller';
 
+use Digest::SHA1 qw(sha1_base64);
 use MusicBrainz;
 use MusicBrainz::Server::Editor;
 use UserPreference;
@@ -172,8 +173,6 @@ sub _send_confirmation_email
 sub _checksum
 {
     my ($self, $email, $uid, $time) = @_;
-
-    use Digest::SHA1 qw(sha1_base64);
     return sha1_base64("$email $uid $time " . DBDefs::SMTP_SECRET_CHECKSUM);
 }
 
