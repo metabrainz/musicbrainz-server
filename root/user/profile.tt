@@ -10,11 +10,11 @@
 [% END %]
 
 [% review_options = [
-    { link => "", text => "Votes" },
-    { link => "", text => "Edits" },
-    { link => "", text => "Open Edits" },
-    { link => "", text => "Failed Edits" },
-    { link => "", text => "Cancelled Edits" },
+    { link => c.uri_for("/review/$user.name/votes"), text => "Votes" },
+    { link => c.uri_for("/review/$user.name/edits"), text => "Edits" },
+    { link => c.uri_for("/review/$user.name/open"), text => "Open Edits" },
+    { link => c.uri_for("/review/$user.name/failed"), text => "Failed Edits" },
+    { link => c.uri_for("/review/$user.name/cancelled"), text => "Cancelled Edits" },
     { link => "", text => "Subscriptions", hide => not (viewing_own_profile or user.public_subscriptions) },
 ] %]
 

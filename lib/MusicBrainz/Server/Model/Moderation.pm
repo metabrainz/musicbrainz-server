@@ -71,6 +71,23 @@ sub voted_on
     return $edits;
 }
 
+sub users_edits
+{
+    my ($self, $user, $max, $offset) = @_;
+
+    $max ||= 50;
+    $offset ||= 0;
+
+    my $edit = Moderation->new($self->dbh);
+    my ($result, $edits) = $edit->moderation_list(
+        "SELECT m.*, NOW() > m.expiretime AS expired
+           FROM moderation_all m
+          WHERE m.moderator = " . $user->id . "
+       ORDER BY m.id DESC", undef, $offset, $max);
+
+    return $edits;
+}
+
 sub count_open
 {
     my ($self) = @_;

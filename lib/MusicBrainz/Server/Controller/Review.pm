@@ -20,4 +20,12 @@ sub votes : Chained('user')
     $c->stash->{template} = 'moderation/open.tt';
 }
 
+sub edits : Chained('user')
+{
+    my ($self, $c) = @_;
+
+    $c->stash->{edits} = $c->model('Moderation')->users_edits($c->stash->{user});
+    $c->stash->{template} = 'moderation/open.tt';
+}
+
 1;
