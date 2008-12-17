@@ -73,17 +73,31 @@ sub voted_on
 
 sub users_edits
 {
-    my ($self, $user, $max, $offset) = @_;
+    my ($self, $user, $type, $max, $offset) = @_;
 
     $max ||= 50;
     $offset ||= 0;
 
+    my @status = $type eq 'closed'    ? ( ModDefs::STATUS_APPLIED )
+               : $type eq 'failed'    ? ( ModDefs::STATUS_FAILEDVOTE, ModDefs::STATUS_FAILEDDEP, ModDefs::STATUS_FAILEDPREREQ )
+               : $type eq 'open'      ? ( ModDefs::STATUS_OPEN )
+               : $type eq 'cancelled' ? ( ModDefs::STATUS_DELETED )
+               : $type eq 'all'       ? ( ModDefs::STATUS_OPEN, ModDefs::STATUS_APPLIED )
+               :                        ( ModDefs::STATUS_OPEN, ModDefs::STATUS_APPLIED );
+
+    my $table = $type eq 'open'   ? 'open'
+              : $type eq 'closed' || $type eq 'failed' || $type eq 'cancelled' ? 'closed'
+              : $type eq 'all' ? 'all'
+              : 'all';
+
+    my $query = "SELECT m.*, NOW() > m.expiretime AS expired
+                   FROM moderation_$table m
+                  WHERE m.moderator = " . $user->id . "
+                    AND m.status IN ( ". join(",",@status) .")
+               ORDER BY m.id DESC";
+
     my $edit = Moderation->new($self->dbh);
-    my ($result, $edits) = $edit->moderation_list(
-        "SELECT m.*, NOW() > m.expiretime AS expired
-           FROM moderation_all m
-          WHERE m.moderator = " . $user->id . "
-       ORDER BY m.id DESC", undef, $offset, $max);
+    my ($result, $edits) = $edit->moderation_list($query, undef, $offset, $max);
 
     return $edits;
 }
