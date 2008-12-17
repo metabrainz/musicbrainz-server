@@ -39,12 +39,34 @@ sub list_open
 {
     my ($self, $max, $offset) = @_;
 
+    $max ||= 50;
+    $offset ||= 0;
+
     my $edit = new Moderation($self->dbh);
     my ($result, $edits) = $edit->moderation_list(q{
               SELECT m.*, NOW()>m.expiretime AS expired
                 FROM moderation_open m
             ORDER BY m.id DESC
         }, undef, $offset, $max);
+
+    return $edits;
+}
+
+sub voted_on
+{
+    my ($self, $user, $max, $offset) = @_;
+
+    $max ||= 50;
+    $offset ||= 0;
+
+    my $edit = Moderation->new($self->dbh);
+    my ($result, $edits) = $edit->moderation_list(
+        "SELECT m.*, NOW() > m.expiretime AS expired
+           FROM moderation_all m
+     INNER JOIN vote_all v ON v.moderation = m.id
+            AND v.moderator = " . $user->id . "
+        AND NOT v.superseded
+       ORDER BY m.id DESC", undef, $offset, $max);
 
     return $edits;
 }
