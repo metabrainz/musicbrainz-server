@@ -1,6 +1,6 @@
 [% META extra_css = "index.css" %]
 
-[% WRAPPER "layout.tt" title="Welcome to Musicbrainz!" %]
+[% WRAPPER "layout.tt" title="Welcome to MusicBrainz!" %]
 
 <div id="rightSide">
     <h1>News</h1>
@@ -48,7 +48,7 @@
         <p>
             If you want to edit the MusicBrainz data, you will need to go to the
             <a href="http://musicbrainz.org/">
-            <img src="/images/icon/extlink.gif" alt="" width="12" /> musicbrainz.org main server</a>.
+            <img src="/images/icon/extlink.gif" alt="" width="12" /> MusicBrainz.org main server</a>.
         </p>
         [% END %]
     [% END %]
@@ -66,7 +66,7 @@
 
     [% WRAPPER "components/box.tt" header="Use MusicBrainz" %]
         <p>
-            You can use Musicbrainz right now to automatically identify and label your music files - all you have to do is
+            You can use MusicBrainz right now to automatically identify and label your music files - all you have to do is
             download and run a MusicBrainz enabled tagger.
             [% INCLUDE "components/doc-link.tt" to="MusicBrainzTagger" text="Read more about our taggers." %]
         </p>

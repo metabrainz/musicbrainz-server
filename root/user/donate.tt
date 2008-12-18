@@ -11,7 +11,7 @@
     donated, but you're still being nagged, please <a href="/doc/ContactUs">contact us</a>.
     </p>
 [% ELSE %]
-    <p>Thank you for contributing to Musicbrainz.</p>
+    <p>Thank you for contributing to MusicBrainz.</p>
     [% IF days %]
         <p>You won't be nagged for another [% days %] days.</p>
     [% ELSE %]
