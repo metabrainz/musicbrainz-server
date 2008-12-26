@@ -70,7 +70,7 @@ sub cancel : Local
     $c->response->redirect($c->req->referer);
 }
 
-sub create : Chained('entity') PathPart('to') Args(2)
+sub create : Chained('entity') PathPart('to') Args(2) Form
 {
     my ($self, $c, $dest_type, $dest_id) = @_;
 
@@ -85,28 +85,40 @@ sub create : Chained('entity') PathPart('to') Args(2)
 
     die "Cannot relate an entity to itself"
 	if $source->id eq $dest->id;
+}
 
-    my $form = MusicBrainz::Server::Form->new(
-	profile => {
-	    required => {
-		begin => '+MusicBrainz::Server::Form::Field::Date',
-		end   => '+MusicBrainz::Server::Form::Field::Date',
-		type  => 'Select',
-	    },
-	    optional => {
-		edit_note  => 'TextArea',
-		additional => 'Checkbox',
-		co         => 'Checkbox',
-		executive  => 'Checkbox',
-		guest      => 'Checkbox',
-		orchestra  => 'Select',
-		instrument => 'Select',
-		vocals     => 'Select',
-	    },
-	},
-    );
+sub edit_all : Local
+{
+    my ($self, $c, $type, $id) = @_;
 
-    $c->stash->{form} = $form;
+    $c->forward('/user/login');
+
+    my $entity = $c->model($type)->load($id);
+
+    $c->stash->{entity   } = $entity;
+    $c->stash->{relations} = $c->model('Relation')->load_relations($entity, to_type => [ 'artist', 'url', 'label', 'album' ]);
+}
+
+sub remove : Local Args(3) Form
+{
+    my ($self, $c, $source_type, $dest_type, $rel_id) = @_;
+
+    $c->forward('/user/login');
+
+    my $relationship = $c->model('Relation')->load($source_type, $dest_type, $rel_id);
+
+    my $source = $c->model($source_type)->load($relationship->{link0});
+    my $dest   = $c->model($dest_type)->load($relationship->{link1});
+
+    $c->stash->{relationship} = $relationship;
+    $c->stash->{source}       = $source;
+    $c->stash->{dest}         = $dest;
+
+    return unless $self->submit_and_validate($c);
+
+    $c->model('Relation')->remove_link($source, $dest, $rel_id, $self->form->value('edit_note'));
+
+    $c->response->redirect($c->entity_url($source, 'show'));
 }
 
 1;

@@ -5,7 +5,37 @@ use warnings;
 
 use base 'MusicBrainz::Server::Model::Base';
 
+use MusicBrainz;
 use MusicBrainz::Server::Link;
+
+sub load
+{
+    my ($self, $source_type, $dest_type, $id) = @_;
+
+    # Shudder
+    $source_type =~ s/release/album/;
+    $dest_type   =~ s/release/album/;
+
+    my $link = MusicBrainz::Server::Link->new($self->dbh, [ $source_type, $dest_type ]);
+    $link = $link->newFromId($id);
+
+    return $link;
+}
+
+sub remove_link
+{
+    my ($self, $source, $dest, $rel_id, $edit_note) = @_;
+
+    my $link = $self->load($source->entity_type, $dest->entity_type, $rel_id);
+
+    $self->context->model('Moderation')->insert($
+        $edit_note,
+        type => ModDefs::MOD_REMOVE_LINK,
+
+        link => $link,
+        types => [ $source->entity_type, $dest->entity_type ]
+    );
+}
 
 sub load_relations
 {
@@ -82,6 +112,7 @@ sub load_relations
                 start_date => $link->{begindate},
                 end_date   => $link->{enddate},
                 entities   => [],
+                link       => $link,
             };
             push @grouped_relations, $current_group;
         }

@@ -1,0 +1,32 @@
+[%- WRAPPER "$source.entity_type/layout.tt" title="Remove Relationship" entity=source -%]
+
+[%- WRAPPER 'components/box.tt' header="Remove Relationship" -%]
+<ul>
+    <li>
+        Are you sure you want to remove the
+        [% start_type %]-to-[% end_type %] relationship
+        from [%- INCLUDE "components/entity-link.tt" entity=source -%] to
+        [%- INCLUDE "components/entity-link.tt" entity=dest -%]?
+    </li>
+    <li>
+        If you added this relationship by mistake, please follow the
+        instructions in
+        [% INCLUDE "components/doc-link.tt" to='HowToCancelEdits' text='how to cancel pending edits' -%],
+        to cancel the pending
+        [% INCLUDE "components/doc-link.tt" to='AddRelationshipEdit' text='add relationship edit' -%]
+        of this relationship.
+        Removing pending edits, rather than entering new edits helps
+        reducing the amount of open edits in the System.
+    </li>
+    <li>
+        The removal of pending edits is immediate, while the the
+        [% INCLUDE "components/doc-link.tt" to='RemoveRelationshipEdit' -%]
+        has to be voted on according to the
+        [% INCLUDE "components/doc-link.tt" to='VotingProcess' text='voting process' -%].
+    </li>
+</ul>
+
+[%- INCLUDE 'forms/form.tt' moderation=1 -%]
+
+[%- END -%]
+[%- END -%]
