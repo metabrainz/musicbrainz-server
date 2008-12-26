@@ -97,10 +97,10 @@
         [% END %]
     [% END %]
     
-    [% user.accepted_non_autoedits WRAPPER property name="Accepted Non-autoedits" %]
-    [% user.accepted_autoedits     WRAPPER property name="Autoedits" %]
-    [% user.edits_voted_down       WRAPPER property name="Edits Voted Down" %]
-    [% user.edits_failed           WRAPPER property name="Edits Failed" %]
+    [% user.mods_accepted      WRAPPER property name="Accepted Non-autoedits" %]
+    [% user.auto_mods_accepted WRAPPER property name="Autoedits" %]
+    [% user.mods_rejected      WRAPPER property name="Edits Voted Down" %]
+    [% user.mods_failed        WRAPPER property name="Edits Failed" %]
     </dl>
 
 [% END %]
