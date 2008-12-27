@@ -12,7 +12,7 @@
 </ul>
 
 [% WRAPPER "forms/form.tt" %]
-    [% INCLUDE "forms/widget.tt" widget=form.field('title') label="Title:" %]
+    [% INCLUDE "forms/widget.tt" widget=form.field('title') label="Title" %]
     [% INCLUDE "forms/edit-note.tt" %]
     [% INCLUDE "forms/submit.tt" label="Enter edit" %]
 [% END %]
