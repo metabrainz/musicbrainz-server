@@ -150,6 +150,38 @@ sub subscribed_artists
     ];
 }
 
+sub is_subscribed_to_artist
+{
+    my ($self, $artist) = @_;
+
+    my $uid = $self->GetUser or die;
+    my $sql = Sql->new($self->{DBH});
+
+    return $sql->SelectSingleValue(
+        "SELECT COUNT(*)
+           FROM moderator_subscribe_artist
+          WHERE moderator = ?
+            AND artist = ?",
+        $uid, $artist->id
+    );
+}
+
+sub is_subscribed_to_label
+{
+    my ($self, $label) = @_;
+
+    my $uid = $self->GetUser or die;
+    my $sql = Sql->new($self->{DBH});
+
+    return $sql->SelectSingleValue(
+        "select COUNT(*)
+           FROM moderator_subscribe_label
+          WHERE moderator = ?
+            AND label = ?",
+        $uid, $label->id
+    );
+}
+
 sub GetNumSubscribedArtists
 {
 	my ($self) = @_;

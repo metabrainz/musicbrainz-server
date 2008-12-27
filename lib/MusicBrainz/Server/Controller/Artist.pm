@@ -57,6 +57,9 @@ sub artist : Chained('load') PathPart('') CaptureArgs(0)
         $c->error("You cannot view the special artist 'DELETED ARTIST'");
         $c->detach;
     }
+
+    $c->stash->{subscribed} = $c->model('Subscription')->
+        is_user_subscribed_to_entity($c->user, $self->entity);
 }
 
 =head2 similar
@@ -325,6 +328,7 @@ sub subscribe : Chained('artist')
     my $us = UserSubscription->new($c->mb->{DBH});
     $us->SetUser($c->user->id);
     $us->SubscribeArtists($artist);
+    $c->stash->{subscribed} = 1;
 
     $c->forward('subscriptions');
 }
@@ -345,11 +349,12 @@ sub unsubscribe : Chained('artist')
     my $us = UserSubscription->new($c->mb->{DBH});
     $us->SetUser($c->user->id);
     $us->UnsubscribeArtists($artist);
+    $c->stash->{subscribed} = undef;
 
     $c->forward('subscriptions');
 }
 
-=head2 show_subscriptions
+=head2 subscriptions
 
 Show all users who are subscribed to this artist, and have stated they
 wish their subscriptions to be public

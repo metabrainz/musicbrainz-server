@@ -29,13 +29,21 @@ namespace
 
 sub base : Chained('/') PathPart('label') CaptureArgs(0) { }
 
+sub label : Chained('load') PathPart('') CaptureArgs(0)
+{
+    my ($self, $c) = @_;
+
+    $c->stash->{subscribed} = $c->model('Subscription')->
+        is_user_subscribed_to_entity($c->user, $self->entity);
+}
+
 =head2 perma
 
 Display details about a permanant link to this label.
 
 =cut
 
-sub perma : Chained('load') { }
+sub perma : Chained('label') { }
 
 =head2 aliases
 
@@ -43,7 +51,7 @@ Display all aliases for a label
 
 =cut
 
-sub aliases : Chained('load')
+sub aliases : Chained('label')
 {
     my ($self, $c) = @_;
     my $label = $self->entity;
@@ -57,7 +65,7 @@ Display a tag-cloud of tags for a label
 
 =cut
 
-sub tags : Chained('load')
+sub tags : Chained('label')
 {
     my ($self, $c) = @_;
     $c->forward('/tags/entity', [ $self->entity ]);
@@ -69,7 +77,7 @@ Redirect to Google and search for this label (using MusicBrainz colours).
 
 =cut
 
-sub google : Chained('load')
+sub google : Chained('label')
 {
     my ($self, $c) = @_;
     my $label = $self->entity;
@@ -83,7 +91,7 @@ Show all relations to this label
 
 =cut
 
-sub relations : Chained('load')
+sub relations : Chained('label')
 {
     my ($self, $c) = @_;
     my $label = $c->stash->{_label};
@@ -98,7 +106,7 @@ that have been released through this label
 
 =cut
 
-sub show : PathPart('') Chained('load')
+sub show : PathPart('') Chained('label')
 {
     my ($self, $c) = @_;
 
@@ -115,13 +123,13 @@ Display detailed information about a given label
 
 =cut
 
-sub details : Chained('load') { }
+sub details : Chained('label') { }
 
 =head2 WRITE METHODS
 
 =cut
 
-sub merge : Chained('load')
+sub merge : Chained('label')
 {
     my ($self, $c) = @_;
 
@@ -139,7 +147,7 @@ sub merge : Chained('load')
     }
 }
 
-sub merge_into : Chained('load') PathPart('into') Args(1) Form('Label::Merge')
+sub merge_into : Chained('label') PathPart('into') Args(1) Form('Label::Merge')
 {
     my ($self, $c, $new_mbid) = @_;
 
@@ -164,7 +172,7 @@ sub merge_into : Chained('load') PathPart('into') Args(1) Form('Label::Merge')
     $c->response->redirect($c->entity_url($new_label, 'show'));
 }
 
-sub edit : Chained('load') Form
+sub edit : Chained('label') Form
 {
     my ($self, $c) = @_;
 
@@ -209,7 +217,7 @@ Allow a moderator to subscribe to this label
 
 =cut
 
-sub subscribe : Chained('load')
+sub subscribe : Chained('label')
 {
     my ($self, $c) = @_;
     my $label = $self->entity;
@@ -219,6 +227,7 @@ sub subscribe : Chained('load')
     my $us = UserSubscription->new($c->mb->{DBH});
     $us->SetUser($c->user->id);
     $us->SubscribeLabels($label);
+    $c->stash->{subscribed} = 1;
 
     $c->forward('subscriptions');
 }
@@ -229,7 +238,7 @@ Unsubscribe from a label
 
 =cut
 
-sub unsubscribe : Chained('load')
+sub unsubscribe : Chained('label')
 {
     my ($self, $c) = @_;
     my $label = $self->entity;
@@ -239,6 +248,7 @@ sub unsubscribe : Chained('load')
     my $us = UserSubscription->new($c->mb->{DBH});
     $us->SetUser($c->user->id);
     $us->UnsubscribeLabels($label);
+    $c->stash->{subscribed} = undef;
 
     $c->forward('subscriptions');
 }
@@ -250,7 +260,7 @@ wish their subscriptions to be public
 
 =cut
 
-sub subscriptions : Chained('load')
+sub subscriptions : Chained('label')
 {
     my ($self, $c) = @_;
 
@@ -288,7 +298,7 @@ sub subscriptions : Chained('load')
     $c->stash->{template} = 'label/subscriptions.tt';
 }
 
-sub add_alias : Chained('load') Form
+sub add_alias : Chained('label') Form
 {
     my ($self, $c) = @_;
 
@@ -305,7 +315,7 @@ sub add_alias : Chained('load') Form
     $c->response->redirect($c->entity_url($label, 'aliases'));
 }
 
-sub edit_alias : Chained('load') Args(1) Form
+sub edit_alias : Chained('label') Args(1) Form
 {
     my ($self, $c, $alias_id) = @_;
 
@@ -324,7 +334,7 @@ sub edit_alias : Chained('load') Args(1) Form
     $c->response->redirect($c->entity_url($label, 'aliases'));
 }
 
-sub remove_alias : Chained('load') Args(1) Form
+sub remove_alias : Chained('label') Args(1) Form
 {
     my ($self, $c, $alias_id) = @_;
 
