@@ -20,7 +20,10 @@
             <li>
                 <h3>[% post.title %]</h3>
                 [% post.summary.body %]
-                <p>Posted: [% post.issued %]</p>
+                <p style="text-align: right;">
+                    Posted: [% post.issued %]<br/>
+                    <a href="[% post.link %]">Read more&hellip;</a>
+                </p>
             </li>
         [% END %]
         </ul>
