@@ -44,6 +44,7 @@
                 { link => c.entity_url(artist, 'merge'), text => "Merge Into" },
                 { link => c.entity_url(artist, 'subscribe'), text => "Subscribe", hide => subscribed },
                 { link => c.entity_url(artist, 'unsubscribe'), text => "Unsubscribe", hide => !subscribed },
+                { link => c.entity_url(artist, 'subscriptions'), text => "View Subscriptions" },
             ] -%]
             [% subscribed %]
             [% INCLUDE "components/piped-list.tt" list=edit_links %]
