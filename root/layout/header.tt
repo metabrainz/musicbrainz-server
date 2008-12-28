@@ -1,7 +1,7 @@
 <div id="header">
-    <a href="/"><img src="/static/images/musicbrainz-text.gif" alt="MusicBrainz"/></a>
+    <a href="[% c.uri_for('/') %]"><img src="/static/images/musicbrainz-text.gif" alt="MusicBrainz"/></a>
     [%- INCLUDE 'layout/menu.tt' -%]
-    <a href="/">
+    <a href="[% c.uri_for('/') %]">
     <img id="brainz" src="/static/images/brainzheader.png" />
     </a>
 </div>

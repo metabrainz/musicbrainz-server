@@ -79,7 +79,7 @@
     [% END %]
 
     [% WRAPPER property name="Subscribers" %]
-        [% user.subscriber_count %] (<a href="/bad_link">view all</a>)
+        [% user.subscriber_count %] (<a href="[% c.uri_for('/bad_link') %]">view all</a>)
     [% END %]
     </dl>
   
