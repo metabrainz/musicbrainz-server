@@ -22,13 +22,44 @@
 </ul>
 
 [%- WRAPPER "forms/form.tt" moderation=1 -%]
+    [%- IF form.field("confirmed").required -%]
+        [%- WRAPPER 'forms/fieldset.tt' legend='Are you sure?' -%]
+        <p>
+            <strong class="warning">Warning:</strong>
+            You are attempting to add the artist &quot;[% form.value('name') %]&quot;,
+            which appears to be very similar, if not exactly the same as these existing artists:
+        </p>
+        [%- BLOCK show_dupe -%]
+        <li>[%- INCLUDE "components/entity-link.tt" entity=dupe -%]</li>
+        [%- END -%]
+        <ul>
+            [%- PROCESS show_dupe FOREACH dupe=dupes -%]
+        </ul>
+        <p>
+        If you are certain that you want to add this artist, then:
+        </p>
+        <ul>
+            <li>
+                You are required to enter a comment which allows users
+                to distinguish this artist from the other artists with the same
+                name, if the final artist name is similar to an existing artist.
+            </li>
+            <li>
+                Confirm by activating the checkbox below that you have read, and
+                understood how we distinguish duplicate artists above and you know
+                what you are doing.
+            </li>
+        </ul>
+
+        [%- INCLUDE "forms/widget.tt" widget=form.field("confirmed") label="Yes, I am sure and I know what I am doing." -%]
+        [%- END -%]
+    [%- END -%]
+
     [%- WRAPPER 'forms/fieldset.tt' legend='Artist Details' -%]
         [%- INCLUDE "forms/widget.tt" widget=form.field("artist_type") label="Type" -%]
         [%- INCLUDE "forms/widget.tt" widget=form.field("name") label="Name" -%]
         [%- INCLUDE "forms/widget.tt" widget=form.field("sortname") label="Sort Name" -%]
-        [%- IF form.field("resolution").required -%]
-            [%- INCLUDE "forms/widget.tt" widget=form.field("resolution") label="Resolution" -%]
-        [%- END -%]
+        [%- INCLUDE "forms/widget.tt" widget=form.field("resolution") label="Comment" -%]
     [%- END -%]
 
     [%- WRAPPER 'forms/fieldset.tt' legend='Date Period' -%]

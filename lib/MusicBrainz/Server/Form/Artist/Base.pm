@@ -47,14 +47,16 @@ sub profile
             start     => '+MusicBrainz::Server::Form::Field::Date',
             end       => '+MusicBrainz::Server::Form::Field::Date',
 
-            # We make this required if duplicates are found,
-            # or if a resolution is present when we edit the artist.
             resolution => {
-                type             => 'Text',
+                type => 'Text',
+                size => 50,
                 required_message => 'An artist with this name already exists. '.
-                                    'Please enter a comment about this artist for disambiguation',
-                size             => 50,
+                                    'Please enter a comment to disambiguate this artist '.
+                                    'from other artists with the name',
             },
+
+            # We make this required if duplicates are found
+            confirmed => 'Checkbox',
         }
     });
 }
@@ -95,6 +97,8 @@ sub model_validate
 
     if (scalar @dupes)
     {
+        $self->field('confirmed')->required(1);
+
         $self->field('resolution')->required(1);
         $self->field('resolution')->validate_field;
     }

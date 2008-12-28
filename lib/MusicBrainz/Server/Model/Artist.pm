@@ -26,6 +26,20 @@ sub load
     return $artist;
 }
 
+=head2 search_by_name $name
+
+Search for all artists with the exact name C<$name>.
+
+=cut
+
+sub search_by_name
+{
+    my ($self, $name) = @_;
+
+    my $artist = MusicBrainz::Server::Artist->new($self->dbh);
+    return $artist->select_artists_by_name($name);
+}
+
 =head2 create
 
 Create an artist and enter a moderation in the moderation queue

@@ -44,7 +44,8 @@ sub base : Chained('/') PathPart('artist') CaptureArgs(0) { }
 =head2 artist
 
 Extends loading by disallowing the access of the special artist
-C<DELETED_ARTIST>.
+C<DELETED_ARTIST>, and fetching any extra data required in
+the artist header.
 
 =cut
 
@@ -216,6 +217,13 @@ sub create : Local Form
 
     my $form = $self->form;
 
+    if ($c->form_posted) {
+        $form->validate($c->req->params);
+        
+        my $dupes = $c->model('Artist')->search_by_name($form->value('name'));
+        $c->stash->{dupes} = $dupes;
+    }
+
     return unless $self->submit_and_validate($c);
 
     my $created_artist = $form->create;
@@ -249,6 +257,15 @@ sub edit : Chained('artist') Form
 
     my $form = $self->form;
     $form->init($self->entity);
+
+    my $form = $self->form;
+
+    if ($c->form_posted) {
+        $form->validate($c->req->params);
+        
+        my $dupes = $c->model('Artist')->search_by_name($form->value('name'));
+        $c->stash->{dupes} = [ grep { $_->id != $self->entity->id } @$dupes ];
+    }
 
     return unless $self->submit_and_validate($c);
 
