@@ -6,13 +6,14 @@
 }
 
 #content form .error {
-    color: #ff0000;
+    color: #ff3333;
 }
 
 #content form input.error,
 #content form textarea.error,
 #content form select.error {
     background: #ffcccc;
+    border: 1px dotted #ff8888;
 }
 
 #content form input.field_type_duration
@@ -67,11 +68,15 @@
 {
     padding: 0;
     border: none;
-    border-bottom: 1px solid #FFBB55;
-    padding-bottom: 10pt;
+    border-top: 1px solid #FFBB55;
+    padding: 10pt;
     margin-bottom: 5pt;
 }
 #content form fieldset legend
 {
     font-weight: bold;
+    font-size: 14pt;
+    line-height: 16pt;
+    padding: 0 5pt;
+    border-bottom: 2px solid #FFBB55;
 }
