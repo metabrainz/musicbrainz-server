@@ -34,7 +34,7 @@ Returns a hash of required and optional form fields
 sub profile {
     return {
         optional => {
-            email => 'Email',
+            email => '+MusicBrainz::Server::Form::Field::Email',
             homepage => 'URL',
             biography => 'TextArea'
         }

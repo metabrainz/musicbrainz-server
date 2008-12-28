@@ -35,7 +35,7 @@ sub profile {
     return {
         optional => {
             username => 'Text',
-            email => 'Email',
+            email => '+MusicBrainz::Server::Form::Field::Email',
         }
     };
 }

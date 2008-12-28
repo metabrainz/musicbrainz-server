@@ -48,7 +48,7 @@ sub profile {
             },
         },
         optional => {
-            email => 'Email'
+            email => '+MusicBrainz::Server::Form::Field::Email'
         }
     };
 }
