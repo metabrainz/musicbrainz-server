@@ -14,10 +14,10 @@
         <link rel="stylesheet" type="text/css" href="/static/styles/extra/[% template.extra_css %]" />
     [%- END -%]
 
-    <link rel="search" type="application/opensearchdescription+xml" title="MusicBrainz: Artist" href="/search/plugins/opensearch/musicbrainzartist.xml" />
-    <link rel="search" type="application/opensearchdescription+xml" title="MusicBrainz: Label" href="/search/plugins/opensearch/musicbrainzlabel.xml" />
-    <link rel="search" type="application/opensearchdescription+xml" title="MusicBrainz: Release" href="/search/plugins/opensearch/musicbrainzrelease.xml" />
-    <link rel="search" type="application/opensearchdescription+xml" title="MusicBrainz: Track" href="/search/plugins/opensearch/musicbrainztrack.xml" />
+    <link rel="search" type="application/opensearchdescription+xml" title="MusicBrainz: Artist" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_artist.xml') %]" />
+    <link rel="search" type="application/opensearchdescription+xml" title="MusicBrainz: Label" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_label.xml') %]" />
+    <link rel="search" type="application/opensearchdescription+xml" title="MusicBrainz: Release" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_release.xml') %]" />
+    <link rel="search" type="application/opensearchdescription+xml" title="MusicBrainz: Track" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_track.xml') %]" />
 </head>
 
 <body>
