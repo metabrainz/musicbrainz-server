@@ -3,7 +3,7 @@ package MusicBrainz::Server::Model::Subscription;
 use strict;
 use warnings;
 
-use base 'MusicBrainz::Server::Model::Base';
+use base 'MusicBrainz::Server::Model';
 
 use UserSubscription;
 

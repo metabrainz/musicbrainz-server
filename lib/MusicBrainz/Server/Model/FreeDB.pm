@@ -3,7 +3,7 @@ package MusicBrainz::Server::Model::FreeDB;
 use strict;
 use warnings;
 
-use base 'MusicBrainz::Server::Model::Base';
+use base 'MusicBrainz::Server::Model';
 
 use FreeDB;
 

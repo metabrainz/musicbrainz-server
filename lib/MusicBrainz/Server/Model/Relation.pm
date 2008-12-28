@@ -3,7 +3,7 @@ package MusicBrainz::Server::Model::Relation;
 use strict;
 use warnings;
 
-use base 'MusicBrainz::Server::Model::Base';
+use base 'MusicBrainz::Server::Model';
 
 use MusicBrainz;
 use MusicBrainz::Server::Link;
