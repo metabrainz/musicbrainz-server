@@ -319,7 +319,18 @@ sub conditions : Local
             
             +{
                 title => ModDefs::GetModCategoryTitle($_),
-                edits => [ 
+                edits => [
+                    sort { $a->{name} cmp $b->{name} }
+                    grep {
+                        my $name = $_->{name};
+                        my %bad_names = (
+                            'Edit Release Events (old version)' => 1,
+                            'Add Track (old version)' => 1,
+                            'Edit Artist Name' => 1,
+                            'Edit Artist Sortname' => 1
+                        );
+                        not $bad_names{$name};
+                    }
                     map {
                         my $edit_type = $_;
                         
