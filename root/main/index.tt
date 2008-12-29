@@ -40,7 +40,8 @@
         <p>
             Unless you want to be testing the latest and greatest MusicBrainz features
             you probably want to go to the <a href="http://musicbrainz.org/">
-            <img src="/static/images/icon/extlink.gif" alt="External Website" /> musicbrainz.org main
+            <img src="[% c.uri_for('/static/images/icon/extlink.gif') %]" alt="External Website" /> 
+            musicbrainz.org main
             server</a>.
         </p>
         [% END %]
@@ -51,7 +52,7 @@
         <p>
             If you want to edit the MusicBrainz data, you will need to go to the
             <a href="http://musicbrainz.org/">
-            <img src="/images/icon/extlink.gif" alt="" width="12" /> MusicBrainz.org main server</a>.
+            <img src="[% c.uri_for('/images/icon/extlink.gif') %]" alt="" width="12" /> MusicBrainz.org main server</a>.
         </p>
         [% END %]
     [% END %]
@@ -63,7 +64,7 @@
             a client program - for example, a CD player program can use MusicBrainz to identify CDs and provide
             information about the CD, about the artist or about related information. You can also use the MusicBrainz
             Tagger to automatically identify and clean up the metadata tags in your digital music collections. Find
-            out more in the introduction.
+            out more in the <a href="[% c.uri_for('/doc/AboutMusicBrainz') %]">introduction</a>.
         </p>
     [% END %]
 
@@ -75,10 +76,10 @@
         </p>
         <p>
             <div>
-            <a href="/doc/PicardDownload" title="Download Picard">
-                <img src="/static/images/download.gif" alt="[download]" />
+            <a href="[% c.uri_for('/doc/PicardDownload') %]" title="Download Picard">
+                <img src="[% c.uri_for('/static/images/download.gif') %]" alt="[download]" />
             </a>
-            <a href="/doc/PicardDownload" title="Download Picard">
+            <a href="[% c.uri_for('/doc/PicardDownload') %]" title="Download Picard">
                 Download Picard
             </a> 
             [Windows/Linux]
@@ -86,7 +87,7 @@
             
             <div>
             <a href="http://www.magic-tagger.com/bin/magic_tagger.exe" title="Download Magic-Tagger">
-                <img src="/static/images/download.gif" alt="[download]" />
+                <img src="[% c.uri_for('/static/images/download.gif') %]" alt="[download]" />
             </a>
             <a href="http://www.magic-tagger.com/bin/magic_tagger.exe" title="Download Magic-Tagger">
                 Download Magic-Tagger
@@ -96,7 +97,7 @@
             
             <div>
             <a href="http://www.jthink.net/jaikoz/jsp/download/start.jsp" title="Download Jaikoz Tag Editor">
-                <img src="/static/images/download.gif" alt="[download]" />
+                <img src="[% c.uri_for('/static/images/download.gif') %]" alt="[download]" />
             </a>
             <a href="http://www.jthink.net/jaikoz/jsp/download/start.jsp" title="Download Jaikoz Tag Editor">
                 Download Jaikoz Tag Editor
@@ -105,7 +106,7 @@
             </div>
         </p>
         <p>
-            Alternatively, you might just want to <a href="/search.html">search</a> or <a href="/browseartists.html">browse</a>
+            Alternatively, you might just want to <a href="[% c.uri_for('/search') %]">search</a> or <a href="/browseartists.html">browse</a>
             the MusicBrainz database. If you spot a mistake, or something that is missing, you can even
             [% INCLUDE "components/doc-link.tt" to="HowEditingWorks" text="edit or add more data!" %]
         </p>
@@ -127,12 +128,12 @@
         <ul>
             <li>Please download and use Picard. By doing so, you will be using and adding to the MusicBrainz database.</li>
             <li>
-	            <a href="/search.html">Search</a> or <a href="/browseartists.html">browse</a> the MusicBrainz data for
-	            your favourite artists, or for your <a href="/browsevarious.html">favourite releases</a>.
+	            <a href="[% c.uri_for('/search') %]">Search</a> or <a href="[% c.uri_for('/browse/artist') %]">browse</a> the MusicBrainz data for
+	            your favourite artists, or for your <a href="[% c.uri_for('/browse/release') %]">favourite releases</a>.
             </li>
             <li>
 	            If you spot something that is wrong, poorly entered or just plain missing, please
-	            <a href="/user/register.html">register</a> and
+	            <a href="[% c.uri_for('/user/register') %]">register</a> and
 	            [% INCLUDE "components/doc-link.tt" to="HowEditingWorks" text="edit the data" %]
             </li>
         </ul>

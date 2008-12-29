@@ -11,16 +11,16 @@
 [% BLOCK group_item %]
     <tr[% ' class="odd"' IF loop.count % 2 == 0 %]>
         <td class="tracks">
-            [% item.track_count %]&nbsp;<img src="/static/images/notes.gif" alt="Tracks" />
+            [% item.track_count %]&nbsp;<img src="[% c.uri_for('/static/images/notes.gif') %]" alt="Tracks" />
         </td>
         <td class="discids">
             [% IF item.discid_count %]
-                [% item.discid_count %]&nbsp;<img src="/static/images/cd.gif" alt="Disc IDs" />
+                [% item.discid_count %]&nbsp;<img src="[% c.uri_for('/static/images/cd.gif') %]" alt="Disc IDs" />
             [% END %]
         </td>
         <td class="puids">
             [% IF item.puid_count %]
-                [% item.puid_count %]&nbsp;<img src="/static/images/puid.gif" alt="PUIDs" />
+                [% item.puid_count %]&nbsp;<img src="[% c.uri_for('/static/images/puid.gif') %]" alt="PUIDs" />
             [% END %]
         </td>
         <td class="status">

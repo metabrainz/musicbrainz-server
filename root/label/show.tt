@@ -20,7 +20,7 @@
     <tbody>
     [%- FOREACH release=releases -%]
         <tr[% ' class="odd"' IF loop.count % 2 == 0 %]>
-            <td class="tracks">[% release.track_count %]&nbsp;<img src="/static/images/notes.gif" alt="Tracks" /></td>
+            <td class="tracks">[% release.track_count %]&nbsp;<img src="[% c.uri_for('/static/images/notes.gif') %]" alt="Tracks" /></td>
             <td class="status">[% release_attribute(release.release_status) %]</td>
             <td class="language">
                 <abbr title="[% release.language %] / [% release.script %]">
