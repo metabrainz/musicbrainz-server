@@ -273,4 +273,74 @@ sub open : Local
     $c->stash->{edits   } = $edits;
 }
 
+=head2 conditions
+
+Display a table of all edit types, and their relative conditions
+for acceptance
+
+=cut
+
+sub conditions : Local
+{
+    my ($self, $c) = @_;
+    
+    my @qualities = (
+        ModDefs::QUALITY_LOW,
+        ModDefs::QUALITY_NORMAL,
+        ModDefs::QUALITY_HIGH,
+    );
+    $c->stash->{quality_levels} = \@qualities;
+    
+    $c->stash->{qualities} = [ map {
+        ModDefs::GetQualityText($_)
+    } @qualities ];
+    
+    $c->stash->{quality_changes} = [
+        map {
+            my $level = Moderation::GetQualityChangeDefs($_);
+            
+            +{
+                name            => $_ == 0 ? 'Lower Quality' : 'Raise Quality',
+                voting_period   => $level->{duration},
+                unanimous_votes => $level->{votes},
+                expire_action   => ModDefs::GetExpireActionText($level->{expireaction}),
+                is_autoedit     => $level->{autoedit},
+            }
+        }
+        (0, 1)
+    ];
+    
+    my %categories = ModDefs::GetModCategories();
+    my @edits      = Moderation::GetEditTypes();
+    
+    $c->stash->{categories} = [
+        map {
+            my $cat = $_;
+            
+            +{
+                title => ModDefs::GetModCategoryTitle($_),
+                edits => [ 
+                    map {
+                        my $edit_type = $_;
+                        
+                        my $hash = +{
+                            map { $_ => Moderation::GetEditLevelDefs($_, $edit_type) }
+                                @qualities
+                        };
+                        $hash->{name}     = Moderation::GetEditLevelDefs(ModDefs::QUALITY_NORMAL, $edit_type)->{name};
+                        $hash->{criteria} = $categories{$edit_type}->{criteria};
+                        
+                        $hash;
+                    }
+                    grep { $categories{$_}->{category} == $cat } @edits ],
+            };
+        } (
+            ModDefs::CAT_ARTIST,
+            ModDefs::CAT_RELEASE,
+            ModDefs::CAT_DEPENDS,
+            ModDefs::CAT_NONE,
+        )
+    ];
+}
+
 1;

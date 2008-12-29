@@ -1,0 +1,6 @@
+[%- MACRO comma_list(items) BLOCK %]
+    [%- FOREACH item IN items -%]
+        [%- item -%]
+        [%- loop.count == (loop.size - 1) ? " and " : !loop.last ? ", " : "" -%]
+    [%- END -%]
+[%- END -%]
