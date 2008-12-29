@@ -3,10 +3,10 @@
     [%- IF (NOT quiet) AND (form.profile.required.size) -%]
         <p>Fields that are <span class="required">bold</span> are required.</p>
     [%- END -%]
-    [%- IF errors.size -%]
+    [%- IF form.general_errors.size -%]
         <p>Sorry - some errors were present in the data you provided!</p>
         <ul class="error">
-        [% FOREACH error=errors %]
+        [% FOREACH error=form.general_errors %]
             <li>[% error | html %]</li>
         [% END %]
         </ul>

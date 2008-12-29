@@ -68,7 +68,7 @@ sub login : Private
     if( !$c->authenticate({ username => $username,
                             password => $password }) )
     {
-        $c->stash->{errors} = ['Username/password combination invalid'];
+        $form->add_general_error('Username/password combination invalid');
         $c->detach;
     }
     else

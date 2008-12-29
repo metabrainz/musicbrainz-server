@@ -1,5 +1,6 @@
 <div id="sidebar_search">
-    [% WRAPPER "forms/form.tt" action=c.uri_for('/search/simple') quiet=1 method="get" moderation=undef %]
+    [% WRAPPER "forms/form.tt" action=c.uri_for('/search/simple')
+       quiet=1 method="get" moderation=undef form=sidebar_search %]
         [% INCLUDE "forms/widget.tt" widget=sidebar_search.field('type') label="Type" %]
         [% INCLUDE "forms/widget.tt" widget=sidebar_search.field('query') label="Query" %]
         [% INCLUDE "forms/submit.tt" label="Search" %]

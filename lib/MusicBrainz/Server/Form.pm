@@ -5,6 +5,13 @@ use warnings;
 
 use base 'Form::Processor';
 
+use Rose::Object::MakeMethods::Generic(
+    array => [
+        general_errors => {  },
+        add_general_error => { interface => 'push', hash_key => 'general_errors' },
+    ],
+);
+
 sub profile
 {
     return shift->with_mod_fields({});
