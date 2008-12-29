@@ -1,0 +1,17 @@
+MusicBrainz editor '[% c.user.name %]' has sent you the following message:
+------------------------------------------------------------------------
+[% message %]
+------------------------------------------------------------------------
+
+[%- IF c.user.email -%]
+If you would like to respond, please [%- IF reveal_address -%]reply to this message or [%- END %]visit
+[% c.uri_for('/user/contact', c.user.name) %]
+to send editor '[% user.name %]' an e-mail.
+[%- ELSE -%]
+Unfortunately, the editor '[% c.user.name %]' has not supplied their e-mail address,
+therefore you cannot reply to them.
+[%- END -%]
+
+[% UNLESS reveal_address %]
+Please do not respond to this e-mail.
+[%- END -%]

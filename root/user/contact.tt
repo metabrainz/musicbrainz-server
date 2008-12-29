@@ -1,0 +1,14 @@
+[%- WRAPPER 'layout.tt' title="Send a message to $user.name" -%]
+[%- WRAPPER 'components/box.tt' header="Email $user.name" -%]
+    [%- WRAPPER 'forms/form.tt' -%]
+        [%- user.name WRAPPER 'forms/row.tt' label='To' -%]
+        [% INCLUDE 'forms/widget.tt' widget=form.field('subject') label='Subject' -%]
+        [% INCLUDE 'forms/widget.tt' widget=form.field('body') label='Message' -%]
+
+        [% INCLUDE 'forms/widget.tt' widget=form.field('reveal_address') label='Reveal my e-mail address' -%]
+        [% INCLUDE 'forms/widget.tt' widget=form.field('send_to_self') label='Send a copy to my own e-mail address' -%]
+
+        [% INCLUDE 'forms/submit.tt' label='Send Message' -%]
+    [%- END -%]
+[%- END -%]
+[%- END -%]

@@ -162,7 +162,7 @@ sub _send_confirmation_email
         ],
         to           => $email,
         from         => 'MusicBrainz <webserver@musicbrainz.org>',
-        subject	     => 'Please verify your e-mail address',
+        subject      => 'Please verify your e-mail address',
         content_type => 'text/plain',
         template     => 'email/confirm_address.tt',
     };
@@ -372,6 +372,65 @@ sub profile : Local Args(1)
 
     $c->stash->{user    } = $user;
     $c->stash->{template} = 'user/profile.tt';
+}
+
+=head2 contact
+
+Allows users to contact other users via email
+
+=cut
+
+sub contact : Local Args(1) Form
+{
+    my ($self, $c, $user_name) = @_;
+
+    $c->forward('login');
+
+    my $user = $c->model('User')->load({ username => $user_name });
+
+    if (!defined $user)
+    {
+        $c->response->status(404);
+        $c->error("User with user name $user_name not found");
+        $c->detach;
+    }
+
+    unless ($user->CheckEMailAddress) {
+        die "User has not got an e-mail address attached to their account";
+    }
+
+    $c->stash->{user} = $user;
+
+    return unless $self->submit_and_validate($c);
+
+    my $form = $self->form;
+    my $reveal_address = $form->value('reveal_address');
+
+    $c->stash->{message}        = $form->value('body');
+    $c->stash->{reveal_address} = $reveal_address;
+    
+    $c->stash->{email} = {
+        to      => $user->email,
+        sender  => 'MusicBrainz Server <webserver@musicbrainz.org>',
+        subject => $form->value('subject'),
+        
+        template => 'email/internal_email.tt',
+    };
+
+    if ($reveal_address)
+    {
+        $c->stash->{email}->{from} = sprintf("%s <%s>", $c->user->name, $c->user->email);
+    }
+    else
+    {
+        $c->stash->{email}->{header} => [
+            'Reply-To' => 'Nobody <noreply@musicbrainz.org>',
+        ],
+        $c->stash->{email}->{from} = sprintf('%s <%s@users.musicbrainz.org>', $c->user->name, $c->user->name)
+    }
+    
+    $c->forward($c->view('Email::Template'));
+    $c->stash->{template} = 'user/email_sent.tt';
 }
 
 =head2 subscriptions
