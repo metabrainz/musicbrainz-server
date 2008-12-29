@@ -83,16 +83,13 @@
             <tr>                
                 [%- FOREACH quality IN qualities -%]
                     [%- WRAPPER th_cell -%]
-                        Voting Period
-                        <sup><a href="#note.1">1</a></sup>
+                        Voting Period<sup><a href="#note.1">1</a></sup>
                     [%- END -%]
                     [%- WRAPPER th_cell -%]
-                        Votes
-                        <sup><a href="#note.2">2</a></sup>
+                        Votes<sup><a href="#note.2">2</a></sup>
                     [%- END -%]
                     [%- WRAPPER th_cell -%]
-                        Expire Action
-                        <sup><a href="#note.3">3</a></sup>
+                        Expire Action<sup><a href="#note.3">3</a></sup>
                     [%- END -%]
                     [% 'Is Auto Edit?' WRAPPER th_cell -%]
                 [%- END -%]
@@ -108,20 +105,31 @@
             
             [%- FOREACH edit IN category.edits %]
             <tr>
-                <th>[% edit.name %]</th>
+                [%- always_auto = edit.1.duration == 0 -%]
+                
+                <th>
+                    [% edit.name -%]
+                    [%- IF always_auto %]<sup><a href="#note.4">4</a></sup>[% END -%]
+                </th>
                 [%- BLOCK cell -%]
                 <td class="[% loop.count % 2 == 0 ? 'even_col' : 'odd_col' %]">
                     [%- content -%]
                 </td>
                 [%- END -%]
-                
+
                 [%- FOREACH quality IN quality_levels %]
                     [%- e = edit.$quality -%]
-                    
-                    [% e.duration WRAPPER cell%]
-                    [% e.votes WRAPPER cell %]
-                    [% e.expireaction WRAPPER cell %]
-                    [% e.autoedit ? "Yes" : "No" WRAPPER cell %]
+                    [%- IF always_auto -%]
+                        [% '-' WRAPPER cell %]
+                        [% '-' WRAPPER cell %]
+                        [% 'N/A' WRAPPER cell %]
+                        [% 'N/A' WRAPPER cell %]
+                    [%- ELSE -%]
+                        [% e.duration WRAPPER cell %]
+                        [% e.votes WRAPPER cell %]
+                        [% e.expireaction WRAPPER cell %]
+                        [% e.autoedit ? "Yes" : "No" WRAPPER cell %]
+                    [%- END -%]
                 [%- END -%]
                 
                 <td>[% edit.criteria %]</td>
