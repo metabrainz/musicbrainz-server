@@ -61,7 +61,7 @@ sub voted_on
 
     my $edit = Moderation->new($self->dbh);
     my ($result, $edits) = $edit->moderation_list(
-        "SELECT m.*, NOW() > m.expiretime AS expired
+        "SELECT m.*, NOW() > m.expiretime AS expired, v.vote
            FROM moderation_all m
      INNER JOIN vote_all v ON v.moderation = m.id
             AND v.moderator = " . $user->id . "

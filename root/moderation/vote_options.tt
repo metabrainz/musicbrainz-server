@@ -1,3 +1,7 @@
+[%- IF moderation.GetVote.defined -%]
+    Their vote: [% vote(moderation.GetVote) %]<br />
+[%- END -%]
+
 [%- IF moderation.is_open -%]
     [%- UNLESS moderation.moderator.id == c.user.id-%]
         <table class="vote_choice">

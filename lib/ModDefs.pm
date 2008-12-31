@@ -232,6 +232,20 @@ use constant VOTE_NOTVOTED				=> -2;
 # vote outcome from the moderation specifically.
 use constant VOTE_UNKNOWN				=> -3;
 
+my %VoteNames = (
+    VOTE_NO  . ""      => "no",
+    VOTE_YES . ""      => "yes",
+    VOTE_ABS . ""      => "abstain",
+    VOTE_NOTVOTED . "" => "not voted",
+    VOTE_UNKNOWN  . "" => "unknown",
+);
+
+sub vote_name
+{
+    my $vote = shift;
+    return $VoteNames{$vote} || $VoteNames{VOTE_UNKNOWN};
+} 
+
 { my $c; sub type_as_hashref   { $c ||= _hash(qr/^MOD_/   ) } }
 { my $c; sub status_as_hashref { $c ||= _hash(qr/^STATUS_/) } }
 { my $c; sub vote_as_hashref   { $c ||= _hash(qr/^VOTE_/  ) } }
