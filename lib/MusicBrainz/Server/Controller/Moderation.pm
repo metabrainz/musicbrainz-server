@@ -99,7 +99,10 @@ sub enter_votes : Local
         my ($id) = $field =~ m/vote_(\d+)/;
         if (defined $id)
         {
-            $votes{$id} = $vote;
+            $votes{$id} = $vote eq 'y' ? ModDefs::VOTE_YES
+                        : $vote eq 'n' ? ModDefs::VOTE_NO
+                        : $vote eq 'a' ? ModDefs::VOTE_ABS
+                        : ModDefs::VOTE_NOTVOTED;
         }
     }
 

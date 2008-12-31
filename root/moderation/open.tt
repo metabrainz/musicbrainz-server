@@ -49,6 +49,9 @@
             [% INCLUDE "moderation/info.tt" %]
         </td>
         <td class="actions">
+            [% moderation.yes_votes %] yes :
+            [% moderation.no_votes %] no<br/>
+            
             [% links = [
                 { link => c.entity_url(moderation, 'add_note'), text => 'Add note' },
                 { link => c.entity_url(moderation, 'approve'),  text => 'Approve' },

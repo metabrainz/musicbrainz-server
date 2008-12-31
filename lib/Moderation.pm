@@ -1516,8 +1516,10 @@ sub FirstNoVote
 	my ($self, $voter_uid) = @_;
 
 	require MusicBrainz::Server::Editor;
-	my $editor = MusicBrainz::Server::Editor->newFromId($self->{DBH}, $self->moderator);
+	my $editor = MusicBrainz::Server::Editor->newFromId($self->{DBH}, $self->moderator->id);
 	my $voter = MusicBrainz::Server::Editor->newFromId($self->{DBH}, $voter_uid);
+	
+	return;
 
 	require UserPreference;
 	my $send_mail = UserPreference::get_for_user('mail_on_first_no_vote', $editor);
