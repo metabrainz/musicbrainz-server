@@ -60,9 +60,9 @@
         [%- INCLUDE 'components/doc-link.tt' to='HowEditingWorks' text='Editing' -%]
         <ul>
             <li>[%- INCLUDE 'components/doc-link.tt' to='HowEditingWorks' text='About Editing' -%]</li>
-            <li><a href="[% c.uri_for('/reports') %]">Editing Suggestions</a></li>
+            <li><a href="[% c.uri_for('/moderation/reports') %]">Editing Suggestions</a></li>
 	    <li><a href="[% c.uri_for('/moderation/open') %]">Review/Vote on Edits</a></li>
-	    <li><a href="[% c.uri_for('/moderation/edit_conditions') %]">Edit Conditions</a></li>
+	    <li><a href="[% c.uri_for('/moderation/conditions') %]">Edit Conditions</a></li>
 	    <li><a href="[% c.uri_for('/artist/create') %]">Add Artist</a></li>
 	    <li><a href="[% c.uri_for('/label/create') %]">Add Label</a></li>
 	    <li><a href="[% c.uri_for('/release/freedb_import') %]">FreeDB Import</a></li>

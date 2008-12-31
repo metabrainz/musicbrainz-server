@@ -4,8 +4,8 @@
               <tr>
                   <th>[% change.label %]:</th>
                   <td class="change">
-                      [% UNLESS no_prev %]<span class="prev">[% change.prev || "&nbsp;" %]</span>[% END %]
-                      [% UNLESS no_new %]<span class="new">[% change.new || "&nbsp;" %]</span><br />[% END %]
+                      [% UNLESS no_prev %]<span class="prev">[% change.prev || "&nbsp;" %]</span><br />[% END %]
+                      [% UNLESS no_new %]<span class="new">[% change.new || "&nbsp;" %]</span>[% END %]
                   </td> 
               </tr>
           [% END %]
