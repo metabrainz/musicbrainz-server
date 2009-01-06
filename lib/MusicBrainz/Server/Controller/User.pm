@@ -445,11 +445,6 @@ sub subscriptions : Local
 
     $c->forward('/user/login');
 
-    if ($type ne 'artist' || $type ne 'label' || $type ne 'editor')
-    {
-        $type = 'artist';
-    }
-
     $c->stash->{type} = $type;
     $c->stash->{entities} = $c->model('Subscription')->users_subscribed_entities($c->user, $type);
 
@@ -465,13 +460,24 @@ sub subscriptions : Local
 
     my @entities = map
         {
-            my $artist = MusicBrainz::Server::Artist->new($c->mb->{DBH});
-            $artist->id($_);
+            my $class = "MusicBrainz::Server::" . ucfirst($type);
+            my $obj = $class->new($c->mb->{DBH});
+            $obj->id($_);
 
-            $artist;
+            $obj;
         } @$ids;
 
-    $c->model('Subscription')->unsubscribe_from_entities($c->user, [ @entities ]);
+    use Switch;
+    switch($type)
+    {
+        case ('artist') {
+            $c->model('Subscription')->unsubscribe_from_artists($c->user, [ @entities ]);
+        }
+        
+        case ('label') {
+            $c->model('Subscription')->unsubscribe_from_labels($c->user, [ @entities ]);
+        }
+    }
 
     $c->response->redirect($c->req->uri);
 }

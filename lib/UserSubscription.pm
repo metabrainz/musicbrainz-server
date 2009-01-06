@@ -273,7 +273,7 @@ sub UnsubscribeArtists
 	1;
 }
 
-sub GetSubscribedLabels
+sub subscribed_labels
 {
 	my ($self) = @_;
 	my $uid = $self->GetUser or die;
@@ -288,7 +288,16 @@ sub GetSubscribedLabels
 		$uid,
 	);
 
-	@$rows = map { $_->[0] }
+	@$rows =
+	    map {
+	        my $label = MusicBrainz::Server::Label->new;
+	        $label->id($_->[0]->{label});
+	        $label->name($_->[0]->{name});
+	        $label->sort_name($_->[0]->{sortname});
+	        $label->resolution($_->[0]->{resolution});
+	        
+	        $label;
+	    }
 		sort { $a->[1] cmp $b->[1] }
 		map {
 			my $row = $_;

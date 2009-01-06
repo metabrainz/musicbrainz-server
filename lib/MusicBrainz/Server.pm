@@ -50,6 +50,7 @@ __PACKAGE__->config(
         },
         RECURSION => 1,
         TEMPLATE_EXTENSION => '.tt',
+        PLUGIN_BASE => 'MusicBrainz::Server::Plugin',
     },
 );
 

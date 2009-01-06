@@ -148,29 +148,6 @@ sub end : ActionClass('RenderView')
     $c->stash(entity_url => sub { EntityUrl($c, @_); }); 
     $c->stash->{server_details}->{version} = &DBDefs::VERSION;
 
-    # Effectivly a date filter:
-    $c->stash->{user_date} = sub {
-        return unless ('' ne $_[0]);
-
-        use UserPreference;
-
-        my ($date_time_format, $time_zone);
-
-        if ($c->user_exists)
-        {
-            my $prefs = $c->model('User')->get_preferences_hash($c->user);
-            $prefs->load;
-
-            $date_time_format = $prefs->get('datetimeformat');
-            $time_zone        = $prefs->get('timezone');
-        }
-
-        MusicBrainz::Server::DateTime::format_datetime( {
-            datetimeformat => $date_time_format,
-            tz             => $time_zone,
-        }, @_);
-    };
-
     # For displaying release attributes
     $c->stash->{release_attribute}        = \&MusicBrainz::Server::Release::attribute_name;
     $c->stash->{plural_release_attribute} = \&MusicBrainz::Server::Release::attribute_name_as_plural;

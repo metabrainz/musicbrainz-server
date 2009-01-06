@@ -14,7 +14,14 @@ sub users_subscribed_entities
     my $us = UserSubscription->new($self->context->mb->{DBH});
     $us->SetUser($user->id);
 
-    return $us->subscribed_artists;
+    use Switch;
+    switch ($type)
+    {
+        case ('artist') { return $us->subscribed_artists; }
+        case ('label')  { return $us->subscribed_labels; }
+    }
+    
+    return;
 }
 
 sub user_artist_count
@@ -47,7 +54,7 @@ sub user_editor_count
     return $us->GetNumSubscribedEditors;
 }
 
-sub unsubscribe_from_entities
+sub unsubscribe_from_artists
 {
     my ($self, $user, $entities) = @_;
 
@@ -55,6 +62,16 @@ sub unsubscribe_from_entities
     $us->SetUser($user->id);
 
     $us->UnsubscribeArtists(@$entities);
+}
+
+sub unsubscribe_from_labels
+{
+    my ($self, $user, $entities) = @_;
+
+    my $us = UserSubscription->new($self->context->mb->{DBH});
+    $us->SetUser($user->id);
+
+    $us->UnsubscribeLabels(@$entities);
 }
 
 sub is_user_subscribed_to_entity
