@@ -1,56 +1,69 @@
-Install instructions for the MusicBrainz Server: (TemplateToolkit flavour)
---------------------------------------------------------------------------
+Installing mb_server
+--------------------
 
-These are advanced install instructions for running the Template Toolkit
-flavour of mb_server. At the time of writing, this is solely for development
-purposes.
+mb_server is the web front end to the MusicBrainz data (as displayed at
+http://musicbrainz.org/), and this document explains how you can get everything
+up and running.
 
-For the most part, you need only install the perl modules described under 
-section 4) of the  Requirements to run a basic webserver. For instructions on
-setting up the database that powers mb_server, look at INSTALL and 
-INSTALL.advanced again.
+We've tried to make installation as painless as possible, but first - a few
+prerequisites:
 
-Requisites:
+Prequisites
+-----------
 
-These are requisites specific to the Template Toolkit version of the mb_server
-codebase.
+1)	Perl 5.8.0
 
-1)	Perl 5.8
-
-	You can check your version of Perl via "perl -v". As per INSTALL, 5.8 is
-	required for its unicode awesomeness.
+	Perl 5.8.0 (minimum) is required. You can use Perl 5.10.0, but be aware that it
+	has some quirks in handling subroutine attributes, which can make debugging
+	difficult in a few cases.
 	
-2)	Various perl modules
+	You can check your installed version of Perl with:
+	
+	    perl -v
+	
+2)  Postgres 8.2
 
-	Various perl modules are needed. They can be installed by running
-    Makefile.PL in the directory root. To use this Makefile.PL you
-    need the Module::Install module from CPAN.
+    This is to set up the MusicBrainz database
 
-        perl -MCPAN -e 'install Module::Install'
-        perl ./Makefile.PL
-
-Setting up & running:
+Getting going
+-------------
 
 1) Make a checkout of the code.
 
-	mbserver@moosebox:~$ svn co http://svn.musicbrainz.org/mb_server/branches/TemplateToolkit mb_server
+    svn co http://svn.musicbrainz.org/mb_server/branches/TemplateToolkit mb_server-tt
 	
-2) Set up database stuff
+2) Configure the server
 
-	mbserver@moosebox:~$ cd mb_server
-	mbserver@moosebox:~/mb_server$ cp lib/DBDefs.pm.default lib/DBDefs.pm
+	cd mb_server-tt
+	cp lib/DBDefs.pm.default lib/DBDefs.pm
 	
 	Edit the newly copied DBDefs.pm as need be. For the most part, it should be
 	fine to use as is. Refer to INSTALL for more indepth info about this, and 
     how it ties in with running a copy of the MusicBrainz database.
 	
-3) Run the startup script
+3) Install prerequisite Perl modules
 
-	mbserver@moosebox:~/mb_server$ ./script/musicbrainz_server.pl -r
+    The Module::Install module reads a file called Makefile.PL to create a standard
+    Makefile. This Makefile can then be used to install dependant Perl modules. First,
+    make sure you have inc-Module-Install on your system:
 
-4) Sacrifice the blood of several ponies
+        perl -MCPAN -e 'install Module::Install'
+            
+    Now, build the Makefile, and install dependancies (if necessary)
+    
+        perl ./Makefile.PL
+        sudo make installdeps
 
-	Moose are much better than ponies. Everyone loves moose.
+        This will generate a standard Makefile, which you can use to install dependancies:
+
+4) Start the development server
+
+	./script/musicbrainz_server.pl -r
 	
 Visiting http://your.machines.ip.address:3000 should now present you with a Template
 Toolkit based version of mb_server.
+
+If, however, this *doesn't* happen - please contact aCiD2 on IRC, or file a bug at
+http://bugs.musicbrainz.org.
+
+Good luck, and happy hacking!
