@@ -56,12 +56,44 @@ Getting going
 
         This will generate a standard Makefile, which you can use to install dependancies:
 
-4) Start the development server
+4) Create the databases
 
-	./script/musicbrainz_server.pl -r
+	You have 2 options when it comes to databases. You can either opt for a clean database,
+	with just the schema (useful for developers with little free diskspace), or you can use
+	a copy of the MusicBrainz data.
 	
-Visiting http://your.machines.ip.address:3000 should now present you with a Template
-Toolkit based version of mb_server.
+	a) Using Clean Databases
+	
+		To use clean databases, all you need to do is run:
+		
+			./admin/InitDb.pl --createdb --clean
+		
+	b) Using Database Dumps
+	
+		MusicBrainz frequently do full dumps of the database, which you can import to your own
+		local database. This is the best option for long term developers. The database dumps are
+		stored at
+		
+			ftp://ftp.musicbrainz.org/pub/musicbrainz/data/fullexport
+		
+		To get going, all you need is the mbdump.tar.bz2 archive, but you can grab whichever dumps
+		suit your needs. Assuming the dumps have been downloaded to `/tmp/dumps/' you can then
+		import with:
+		
+			./admin/InitDb.pl --createdb --import /tmp/dumps/mbdump*.tar.bz2 --echo
+			
+		--echo just gives us a bit more feedback, in case this goes wrong - you can leave it off.
+		Remember to change the paths to your mbdump*.tar.bz2 files, if they are not in /tmp/dumps/.
+
+5) Start the development server
+
+	You should now have everything ready to run the development server! The development server is
+	a lightweight HTTP server, that gives good debug output, and is much more convenient than having
+	to set up a full blown stack. Just run:
+
+		./script/musicbrainz_server.pl -r
+	
+	Visiting http://your.machines.ip.address:3000 should now present you with the mb_server frontend.
 
 If, however, this *doesn't* happen - please contact aCiD2 on IRC, or file a bug at
 http://bugs.musicbrainz.org.
