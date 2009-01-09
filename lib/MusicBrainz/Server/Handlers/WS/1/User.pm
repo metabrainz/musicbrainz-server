@@ -106,9 +106,9 @@ sub print_xml
     $us = $us->newFromName($user) or die "Cannot load user.\n";
 
     my @types;
-    push @types, "AutoEditor" if ($us->IsAutoEditor($us->privs));
-    push @types, "RelationshipEditor" if $us->IsLinkModerator($us->privs);
-    push @types, "Bot" if $us->IsBot($us->privs);
+    push @types, "AutoEditor" if ($us->is_auto_editor($us->privs));
+    push @types, "RelationshipEditor" if $us->is_link_moderator($us->privs);
+    push @types, "Bot" if $us->is_bot($us->privs);
     push @types, "NotNaggable" if $us->DontNag($us->privs);
     my ($nag, $days) = $us->NagCheck;
 

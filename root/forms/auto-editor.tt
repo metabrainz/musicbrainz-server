@@ -1,4 +1,4 @@
-[%- IF c.user.IsAutoEditor(c.session.orig_privs) -%]
+[%- IF c.user.is_auto_editor(c.session.orig_privs) -%]
 [%- WRAPPER 'forms/fieldset.tt' legend='Autoeditor' -%]
     <p>
       <strong>Auto editor privileges</strong>: If you untick this checkbox, this

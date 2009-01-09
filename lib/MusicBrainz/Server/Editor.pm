@@ -375,7 +375,7 @@ sub Login
 	my $self = $this->newFromName($user)
 		or return;
 
-	return if $self->IsSpecialEditor;
+	return if $self->is_special_editor;
 
 	return if $self->password eq LOCKED_OUT_PASSWORD;
 
@@ -571,7 +571,7 @@ sub MakeAutoModerator
 {
 	my $self = shift;
 
-	return if $self->IsAutoEditor($self->privs);
+	return if $self->is_auto_editor($self->privs);
 
 	my $sql = Sql->new($self->{DBH});
 	$sql->AutoTransaction(
@@ -673,35 +673,7 @@ sub DescribePasswordConditions
 		. " neither all letters nor all numbers.";
 }
 
-sub GetUserType
-{
-	my ($this, $privs) = @_;
-	$privs = $this->privs if not defined $privs;
-
-	my $type = "";
-
-	$type = '<a href="/doc/AutoEditor">AutoEditor</a>'
-		if ($this->IsAutoEditor($privs));
-
-	$type = "Internal/Bot User"
-		if ($this->IsBot($privs));
-
-	$type .= ', <a href="/doc/RelationshipEditor">RelationshipEditor</a>'
-		if ($this->IsLinkModerator($privs));
-
-	$type .= ', <a href="/doc/TransclusionEditor">TransclusionEditor</a>'
-		if ($this->IsWikiTranscluder($privs));
-
-	$type .= ', MB ID Submitter'
-		if ($this->IsMBIDSubmitter($privs));
-
-	$type = "Normal User"
-		if ($type eq "");
-
-	return $type;
-}
-
-sub IsSpecialEditor
+sub is_special_editor
 {
 	my $self = shift;
 	my $id = $self->id;
@@ -711,53 +683,54 @@ sub IsSpecialEditor
 		or $id == &ModDefs::MODBOT_MODERATOR;
 }
 
-sub IsAutoEditor
+sub is_auto_editor
 {
 	my ($this, $privs) = @_;
-
-        return defined $privs ? return ($privs & AUTOMOD_FLAG) > 0
-                              : $this->IsAutoEditor($this->privs || 0);
+	$privs ||= $this->privs;
+	
+	warn $privs;
+    return ($privs & AUTOMOD_FLAG) > 0;
 }
 
-sub IsBot
+sub is_bot
 {
 	my ($this, $privs) = @_;
-
+	$privs ||= $this->privs;
 	return ($privs & BOT_FLAG) > 0;
 }
 
-sub IsUntrusted
+sub is_untrusted
 {
 	my ($this, $privs) = @_;
-
+	$privs ||= $this->privs;
 	return ($privs & UNTRUSTED_FLAG) > 0;
 }
 
-sub IsLinkModerator
+sub is_link_moderator
 {
 	my ($this, $privs) = @_;
-
+	$privs ||= $this->privs;
 	return ($privs & LINK_MODERATOR_FLAG) > 0;
 }
 
 sub DontNag
 {
 	my ($this, $privs) = @_;
-
+	$privs ||= $this->privs;
 	return ($privs & DONT_NAG_FLAG) > 0;
 }
 
-sub IsWikiTranscluder
+sub is_wiki_transcluder
 {
 	my ($this, $privs) = @_;
-
+	$privs ||= $this->privs;
 	return ($privs & WIKI_TRANSCLUSION_FLAG) > 0;
 }
 
-sub IsMBIDSubmitter
+sub is_mbid_submitter
 {
 	my ($this, $privs) = @_;
-
+	$privs ||= $this->privs;
 	return ($privs & MBID_SUBMITTER_FLAG) > 0;
 }
 
@@ -1309,12 +1282,12 @@ sub NagCheck
 
     my $nag = 1;
     my $privs = $self->privs;
-    $nag = 0 if ($self->DontNag($privs) || $self->IsAutoEditor($privs) || $self->IsLinkModerator($privs));
+    $nag = 0 if ($self->DontNag($privs) || $self->is_auto_editor($privs) || $self->is_link_moderator($privs));
 
     my @types;
-    push @types, "AutoEditor" if ($self->IsAutoEditor($privs));
-    push @types, "RelationshipEditor" if $self->IsLinkModerator($privs);
-    push @types, "Bot" if $self->IsBot($privs);
+    push @types, "AutoEditor" if ($self->is_auto_editor($privs));
+    push @types, "RelationshipEditor" if $self->is_link_moderator($privs);
+    push @types, "Bot" if $self->is_bot($privs);
     push @types, "NotNaggable" if $self->DontNag($privs);
 
     my $days = 0.0;

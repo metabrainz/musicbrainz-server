@@ -253,7 +253,7 @@ use ModDefs ':userid';
 sub is_user_ineligible
 {
 	my ($self, $user) = @_;
-	return 1 if $user->IsSpecialEditor;
+	return 1 if $user->is_special_editor;
 	0;
 }
 
@@ -263,7 +263,7 @@ sub Propose
 	my $sql = Sql->new($self->{DBH});
 
 	$@ = "ALREADY_AN_AUTOMOD", return
-		if $candidate->IsAutoEditor($candidate->privs);
+		if $candidate->is_auto_editor($candidate->privs);
 
 	$@ = "INELIGIBLE", return
 		if $self->is_user_ineligible($candidate);

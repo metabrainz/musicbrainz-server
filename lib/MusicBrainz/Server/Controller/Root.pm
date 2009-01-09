@@ -85,7 +85,7 @@ sub begin : Private
             $c->session->{orig_privs} = $c->user->privs;
         }
 
-        if ($c->user->IsAutoEditor($c->session->{orig_privs}) &&
+        if ($c->user->is_auto_editor($c->session->{orig_privs}) &&
                 defined $c->session->{session_privs})
         {
             $c->user->privs($c->session->{session_privs});

@@ -1,6 +1,6 @@
 [% USE date %]
-[% META title = "User Profile" %]
 [% META extra_css = "user.css" %]
+[% PROCESS 'components/comma-list.tt' %]
 
 [% WRAPPER "layout.tt" title="Editor \"$user.name\"" %]
 
@@ -40,7 +40,18 @@
 
     [% user.name | html_entity WRAPPER property name="Name" %]
 
-    [% (user.type or "Unknown") | html_entity WRAPPER property name="User type" %]
+    [% WRAPPER property name="User type" %]
+		[% types = [] %]
+		[% MACRO doc_link(to, text) INCLUDE 'components/doc-link.tt' %]
+		
+        [% types.push(doc_link('AutoEditor', 'Auto-Editor')) IF user.is_auto_editor %]
+		[% types.push("Internal/Bot") IF user.is_bot %]
+		[% types.push(doc_link('RelationshipEditor', 'Relationship Editor')) IF user.is_link_moderator %]
+		[% types.push(doc_link('TransclusionEditor', 'Transclusion Editor')) IF user.is_wiki_transcluder %]
+		
+		[% types.push('Normal User') IF types.size == 0 %]
+		[% comma_list(types) %]
+    [% END %]
 
     [% WRAPPER property name="E-mail" %]
         [% IF viewing_own_profile %]

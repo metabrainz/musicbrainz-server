@@ -1173,7 +1173,7 @@ sub InsertModeration
 		# Check to see if this moderation should be approved immediately 
 		require MusicBrainz::Server::Editor;
 		my $ui = MusicBrainz::Server::Editor->new($this->{DBH});
-		my $isautoeditor = $ui->IsAutoEditor($privs);
+		my $isautoeditor = $ui->is_auto_editor($privs);
 
 		my $autoedit = 0;
 
@@ -1188,7 +1188,7 @@ sub InsertModeration
 		                  and $level->{autoedit});
 
 		# If the editor is untrusted, undo the auto edit
-		$autoedit = 0 if ($ui->IsUntrusted($privs) and $this->type != &ModDefs::MOD_ADD_PUIDS);
+		$autoedit = 0 if ($ui->is_untrusted($privs) and $this->type != &ModDefs::MOD_ADD_PUIDS);
 
 		# If it is autoedit, then approve the edit and credit the editor
 		if ($autoedit)
