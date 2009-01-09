@@ -445,6 +445,8 @@ sub subscriptions : Local
 
     $c->forward('/user/login');
 
+	$type ||= 'artist';
+
     $c->stash->{type} = $type;
     $c->stash->{entities} = $c->model('Subscription')->users_subscribed_entities($c->user, $type);
 
