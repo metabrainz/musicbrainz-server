@@ -33,8 +33,11 @@ sub label : Chained('load') PathPart('') CaptureArgs(0)
 {
     my ($self, $c) = @_;
 
-    $c->stash->{subscribed} = $c->model('Subscription')->
-        is_user_subscribed_to_entity($c->user, $self->entity);
+	if ($c->user_exists)
+	{
+    	$c->stash->{subscribed} = $c->model('Subscription')->
+        	is_user_subscribed_to_entity($c->user, $self->entity);
+	}
 }
 
 =head2 perma
