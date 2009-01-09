@@ -97,9 +97,7 @@ Show all relations to this label
 sub relations : Chained('label')
 {
     my ($self, $c) = @_;
-    my $label = $c->stash->{_label};
-
-    $c->stash->{relations} = load_relations($label);
+    $c->stash->{relations} = $c->model('Relation')->load_relations($self->entity);
 }
 
 =head2 show
