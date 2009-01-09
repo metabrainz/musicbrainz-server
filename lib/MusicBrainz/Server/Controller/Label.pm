@@ -118,6 +118,7 @@ sub show : PathPart('') Chained('label')
 
     $c->stash->{releases}  = $releases;
     $c->stash->{relations} = $c->model('Relation')->load_relations($label);
+	$c->stash->{annotation} = $c->model('Annotation')->load_latest_annotation($label);
 }
 
 =head2 details

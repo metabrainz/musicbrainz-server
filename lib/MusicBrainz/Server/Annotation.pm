@@ -107,7 +107,7 @@ sub change_log
 
 sub entity_id
 {
-    my ($self, $new_id, $entity_type) = @_;
+    my ($self, $entity_type, $new_id) = @_;
 
     if (defined $new_id and defined $entity_type)
     {
@@ -340,47 +340,49 @@ sub LoadFromId
 sub GetLatestAnnotation
 {
 	my $self = shift;
-
+	
 	my $sql = Sql->new($self->{DBH});
-	my $row = undef;
-        if (&DBDefs::REPLICATION_TYPE == RT_SLAVE) {
-
-		$row = $sql->SelectSingleRowArray(
-			  "SELECT	a.id, a.moderator, a.text, a.created, "
-			. "		a.moderation, a.changelog "
-			. "FROM		annotation a "
-			. "WHERE	a.rowid = ? AND a.type = ? "
-			. "ORDER BY	a.id DESC "
-			. "LIMIT 1 ",
-			$self->{rowid},
-			$self->{type},
-		) or return undef;
-	} else {
-		$row = $sql->SelectSingleRowArray(
-			  "SELECT       a.id, a.moderator, a.text, a.created, "
-			. "             a.moderation, a.changelog, m.name "
-			. "FROM         annotation a, moderator m "
-			. "WHERE        a.rowid = ? AND a.type = ? AND a.moderator = m.id "
-			. "ORDER BY     a.id DESC "
-			. "LIMIT 1 ",
-			$self->{rowid},
-			$self->{type},
-	        ) or return undef;
+	
+	my $query = undef;
+    if (&DBDefs::REPLICATION_TYPE == RT_SLAVE)
+	{
+		$query = q{
+			SELECT a.id, a.moderator, a.text, a.created,
+				   a.moderation, a.changelog
+              FROM annotation a
+             WHERE a.rowid = ? AND a.type = ?
+          ORDER BY a.id DESC
+             LIMIT 1
+			};
 	}
-
-	$self->{id}			= $row->[0];
-	$self->{moderator}		= $row->[1];
-	$self->{text}			= $row->[2];
-	$self->{creation_time}		= $row->[3];
-	$self->{moderation}		= $row->[4];
-	$self->{changelog}		= $row->[5];
-	if (&DBDefs::REPLICATION_TYPE == RT_SLAVE) {
-		$self->{moderator_name}		= undef;
-	} else {
-		$self->{moderator_name}		= $row->[6];
+	else
+	{
+		$query = q{
+			SELECT a.id, a.moderator, a.text, a.created,
+			       a.moderation, a.changelog, m.name
+			  FROM annotation a, moderator m
+             WHERE a.rowid = ? AND a.type = ?
+               AND a.moderator = m.id
+          ORDER BY a.id DESC
+             LIMIT 1
+			};
 	}
+	
+	my $row = $sql->SelectSingleRowArray(
+		$query,
+		$self->{rowid},
+		$self->{type},
+	) or return undef;
 
-	return 1;
+	$self->{id}             = $row->[0];
+	$self->{moderator}      = $row->[1];
+	$self->{text}           = $row->[2];
+	$self->{creation_time}  = $row->[3];
+	$self->{moderation}     = $row->[4];
+	$self->{changelog}      = $row->[5];
+	$self->{moderator_name} = $row->[6];
+	
+	return $self;
 }
 
 # Insert an annotation. Moderator and release have to be set.
