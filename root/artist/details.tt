@@ -26,7 +26,7 @@
     </tr>
     <tr>
         <th>Subscriber Count :</th>
-        <td>[% artist.subscriber_count %]</td>
+        <td>[% artist.subscribers.size %]</td>
     </tr>
 </table>
 [% END %]

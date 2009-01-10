@@ -389,7 +389,7 @@ sub subscriptions : Chained('artist')
 
     my $artist = $c->stash->{artist};
 
-    my @all_users = $artist->GetSubscribers;
+    my @all_users = $artist->subscribers;
 
     my @public_users;
     my $anonymous_subscribers;

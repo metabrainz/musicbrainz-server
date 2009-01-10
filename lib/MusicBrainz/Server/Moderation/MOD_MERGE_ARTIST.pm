@@ -153,7 +153,7 @@ sub CheckPrerequisites
 		}
 	} else {
 		# Load new artist by name
-		my $artists = $newar->select_artists_by_name($name);
+		my $artists = $newar->find_artists_by_name($name);
 		if (scalar(@$artists) == 0)
 		{
 			$self->InsertNote(MODBOT_MODERATOR, "Artist '$name' not found - it has been deleted or renamed");

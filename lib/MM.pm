@@ -523,7 +523,7 @@ sub _artistReferences
 	return ();
     }
 
-    @albums = $artist->select_releases();
+    @albums = $artist->releases();
     foreach $album (@albums)
     {
 	next if not defined $album;

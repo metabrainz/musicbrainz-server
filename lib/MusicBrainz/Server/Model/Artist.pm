@@ -38,7 +38,7 @@ sub search_by_name
     my ($self, $name) = @_;
 
     my $artist = MusicBrainz::Server::Artist->new($self->dbh);
-    return $artist->select_artists_by_name($name);
+    return $artist->find_artists_by_name($name);
 }
 
 =head2 create
@@ -204,7 +204,7 @@ sub find_similar_artists
     croak "No artist was provided"
         unless ref $artist;
 
-    my $similar_artists = $artist->GetRelations;
+    my $similar_artists = $artist->relations;
 
     return [ map {
         +{

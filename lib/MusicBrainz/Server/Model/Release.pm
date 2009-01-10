@@ -132,7 +132,7 @@ sub find_similar_releases
 {
     my ($self, $artist, $release_title, $track_count) = @_;
 
-    my @possible = $artist->HasAlbum($release_title, .8);
+    my @possible = $artist->has_release($release_title, .8);
     my @similar  = grep {
         $_->LoadFromId;
         $_->track_count == $track_count;
@@ -202,7 +202,7 @@ sub load_for_artist
 {
     my ($self, $artist, $show_all) = @_;
 
-    my @releases = $artist->select_releases(!$show_all, 1);
+    my @releases = $artist->releases(!$show_all, 1);
 
     if (!$show_all)
     {
@@ -226,7 +226,7 @@ sub load_for_artist
 
         if (scalar @releases == 0)
         {
-            @releases = $artist->select_releases(0, 1, $onlyHasVAReleases);
+            @releases = $artist->releases(0, 1, $onlyHasVAReleases);
         }
     }
 

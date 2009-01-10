@@ -1,44 +1,15 @@
-#!/usr/bin/perl -w
-# vi: set ts=4 sw=4 :
-#____________________________________________________________________________
-#
-#   MusicBrainz -- the open internet music database
-#
-#   Copyright (C) 2000 Robert Kaye
-#
-#   This program is free software; you can redistribute it and/or modify
-#   it under the terms of the GNU General Public License as published by
-#   the Free Software Foundation; either version 2 of the License, or
-#   (at your option) any later version.
-#
-#   This program is distributed in the hope that it will be useful,
-#   but WITHOUT ANY WARRANTY; without even the implied warranty of
-#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#   GNU General Public License for more details.
-#
-#   You should have received a copy of the GNU General Public License
-#   along with this program; if not, write to the Free Software
-#   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-#
-#   $Id$
-#____________________________________________________________________________
-
 package MusicBrainz::Server::Artist;
+use Moose;
+extends 'TableBase';
 
-use TableBase;
-{ our @ISA = qw( TableBase ) }
-
-use strict;
 use Carp qw( carp cluck croak );
 use DBDefs;
-use String::Similarity;
-use MusicBrainz::Server::Validation qw( unaccent );
-use MusicBrainz::Server::Cache;
-use LocaleSaver;
-use POSIX qw(:locale_h);
 use Encode qw( decode encode );
-
-sub LinkEntityName { "artist" }
+use LocaleSaver;
+use MusicBrainz::Server::Cache;
+use MusicBrainz::Server::Validation qw( unaccent );
+use POSIX qw(:locale_h);
+use String::Similarity;
 
 use constant ARTIST_TYPE_UNKNOWN	=> 0;
 use constant ARTIST_TYPE_PERSON		=> 1;
@@ -47,84 +18,180 @@ use constant ARTIST_TYPE_GROUP		=> 2;
 # The uncessary ."" tricks perl into using the constant value rather than its name as the hash key. Lame.
 my %ArtistTypeNames = (
    ARTIST_TYPE_UNKNOWN . "" => [ 'Unknown', 'Begin Date', 'End Date' ],
-   ARTIST_TYPE_PERSON . "" => [ 'Person', 'Born', 'Deceased' ],
-   ARTIST_TYPE_GROUP . "" => [ 'Group', 'Founded', 'Dissolved' ],
+   ARTIST_TYPE_PERSON  . "" => [ 'Person', 'Born', 'Deceased' ],
+   ARTIST_TYPE_GROUP   . "" => [ 'Group', 'Founded', 'Dissolved' ],
 );
 
+sub LinkEntityName { "artist" }
 sub entity_type { "artist" }
 
-# Artist specific accessor function. Others are inherted from TableBase 
-sub sort_name
-{
-    my ($self, $new_sort_name) = @_;
+=head1 SLOTS
 
-    if (defined $new_sort_name) { $self->{sortname} = $new_sort_name; }
-    return $self->{sortname};
-}
+=head2 sort_name
 
-sub type
-{
-    my ($self, $new_type) = @_;
+The name used to sort this artist
 
-    if (defined $new_type) { $self->{type} = $new_type; }
-    return defined $self->{type} ? $self->{type} : 0;
-}
+=cut
+
+has 'sort_name' => (
+	is  => 'rw',
+	init_arg => 'sortname',
+);
+
+=head2 type
+
+The type of this artist
+
+=cut
+
+has 'type' => (
+	is  => 'rw',
+);
+
+=head2 resolution
+
+Returns a short comment, usually used for disambiguation against similarly named artists,
+about this artist.
+
+=cut
+
+has 'resolution' => (
+	is  => 'rw',
+);
+
+=head2 begin_date
+
+The date this artist was born, or the group was founded.
+
+=cut
+
+has 'begin_date' => (
+	is  => 'rw',
+	init_arg => 'begindate'
+);
+
+=head2 end_date
+
+The date this artist deceased, or the group disbanded.
+
+=cut
+
+has 'end_date' => (
+	is  => 'rw',
+	init_arg => 'enddate'
+);
+
+=head2 quality
+
+The quality level of this artist
+
+=cut
+
+has 'quality' => (
+	is => 'rw'
+);
+
+=head2 quality_has_mod_pending
+
+Whether the quality level of this artist has pending edits in the edit queue
+
+=cut
+
+has 'quality_has_mod_pending' => (
+	is  => 'rw',
+	init_arg => 'modpending_qual'
+);
+
+=head1 METHODS
+
+=head2 TEMPLATE HELPERS
+
+=head3 type_name [$type]
+
+Returns a human readable string of an artist type.
+
+If called as an object method, the C<type> of this object will be used. Else, the
+type passed as $type will be used.
+
+=cut
 
 sub type_name
 {
-   return $ArtistTypeNames{$_[0]}->[0];
+	my $type = shift;
+	$type = ref $type ? $type->type : $type;
+	
+	$ArtistTypeNames{$type}->[0];
 }
+
+=head3 begin_date_name
+
+Return a human readable string of the 'begin date' of this artist, depending on the artist type.
+
+Follows the same calling conventions as L<type_name>.
+
+=cut
 
 sub begin_date_name
 {
-   return $ArtistTypeNames{$_[0]}->[1] || 'Begin Date';
+	my $type = shift;
+	$type = ref $type ? $type->type : $type;
+	
+	return $ArtistTypeNames{$type}->[1] || 'Begin Date';
 }
+
+=head3 end_date_name
+
+Return a human readable string of the 'begin date' of this artist, depending on the artist type.
+
+Follows the same calling conventions as L<type_name>.
+
+=cut
 
 sub end_date_name
 {
-   return $ArtistTypeNames{$_[0]}->[2] || 'End Date';
+	my $type = shift;
+	$type = ref $type ? $type->type : $type;
+	
+	return $ArtistTypeNames{$type}->[2] || 'End Date';
 }
 
-sub resolution
-{
-    my ($self, $new_resolution) = @_;
+=head2 PACKAGE METHODS
 
-    if (defined $new_resolution) { $self->{resolution} = $new_resolution; }
-    return defined $self->{resolution} ? $self->{resolution} : '';
-}
+=head3 is_valid_type $type
 
-sub begin_date
-{
-    my ($self, $new_date) = @_;
+Check if a given C<$type> is a valid artist type
 
-    if (defined $new_date) { $self->{begindate} = $new_date; }
-    return defined $self->{begindate} ? $self->{begindate} : '';
-}
+=cut
+
+sub is_valid_type { return defined $ArtistTypeNames{shift}; }
+
+=head2 begin_date_ymd
+
+Returns the begin date of an artist, as a list.
+
+=cut
 
 sub begin_date_ymd
 {
     my $self = shift;
 
-    return ('', '', '') unless $self->begin_date();
+    return ('', '', '') unless $self->begin_date;
     return map { $_ == 0 ? '' : $_ } split(m/-/, $self->begin_date);
 }
 
-sub end_date
-{
-    my ($self, $new_date) = @_;
+=head2 end_date_ymd
 
-    if (defined $new_date) { $self->{enddate} = $new_date; }
-    return defined $self->{enddate} ? $self->{enddate} : '';
-}
+Returns the end date of an artist, as a list.
+
+=cut
 
 sub end_date_ymd
 {
     my $self = shift;
     
-    return ('', '', '') unless $self->end_date();
+    return ('', '', '') unless $self->end_date;
     return map { $_ == 0 ? '' : $_ } split(m/-/, $self->end_date);
 }
-
 
 =head2 has_complete_date_range
 
@@ -138,156 +205,122 @@ sub has_complete_date_range
 	return $self->begin_date && $self->end_date;
 }
 
-sub quality
-{
-    my ($self, $new_quality) = @_;
-
-    if (defined $new_quality) { $self->{quality} = $new_quality; }
-    return $self->{quality};
-}
-
-sub quality_has_mod_pending
-{
-    my ($self, $new_val) = @_;
-
-    if (defined $new_val) { $self->{modpending_qual} = $new_val; }
-    return $self->{modpending_qual};
-}
-
-sub IsValidType
-{
-   my $type = shift;
-
-   if ( defined $type and $type ne ""
-		and ($type == ARTIST_TYPE_UNKNOWN or 
-			 $type == ARTIST_TYPE_PERSON or 
-			 $type == ARTIST_TYPE_GROUP) )
-   {
-      return 1;
-   }
-   else
-   {
-      return 0;
-   }
-}
-
 sub _id_cache_key
 {
     my ($class, $id) = @_;
     "artist-id-" . int($id);
 }
 
-sub _GetMBIDCacheKey
+sub _mbid_cache_key
 {
     my ($class, $mbid) = @_;
     "artist-mbid-" . lc $mbid;
 }
 
-sub InvalidateCache
+sub _invalidate_cache
 {
     my $self = shift;
     MusicBrainz::Server::Cache->delete($self->_id_cache_key($self->id));
-    MusicBrainz::Server::Cache->delete($self->_GetMBIDCacheKey($self->mbid));
+    MusicBrainz::Server::Cache->delete($self->_mbid_cache_key($self->mbid));
 }
 
+=head2 Insert
 
-# Insert an artist into the DB and return the artist id. Returns undef
-# on error. The name and sortname of this artist must be set via the accesor
-# functions.
+Insert an artist into the DB and return the artist id. Returns undef on error.
+The name and sortname of this artist must be set via the accesor functions.
+
+=cut
+
 sub Insert
 {
-    my ($this, %opts) = @_;
-    $this->{new_insert} = 0;
+    my ($self, %opts) = @_;
+
+    $self->{new_insert} = 0;
 
     # Check name and sortname
-    defined(my $name = $this->name)
-	or return undef;
-    my $sortname = $this->sort_name;
-    $sortname = $name if not defined $sortname;
+	my $name = $self->name;
+	my $sort_name = $self->sort_name || $name;
+	
+	$name or return undef;
 
-    MusicBrainz::Server::Validation::TrimInPlace($name, $sortname);
-    $this->name($name);
-    $this->sort_name($sortname);
+    MusicBrainz::Server::Validation::TrimInPlace($name, $sort_name);
+    $self->name($name);
+    $self->sort_name($sort_name);
 
-    my $sql = Sql->new($this->dbh);
+    my $sql = Sql->new($self->dbh);
     my $artist;
 
-    if (!$this->resolution())
+    if (!$self->resolution)
     {
-        my $ar_list = $this->select_artists_by_name($name);
-		foreach my $ar (@$ar_list)
-		{
-	    	return $ar->id if ($ar->name() eq $name);
-        }
-		foreach my $ar (@$ar_list)
-		{
-	    	return $ar->id if (lc($ar->name()) eq lc($name));
-        }
+		my $ar_list = $self->find_artists_by_name($name);
+		my @dupes = grep { lc $_->name eq lc $name } @$ar_list;
+		
+		if (scalar @dupes) {
+			return $dupes[0]->id;
+		}
     }
 
     unless ($opts{no_alias})
     {
 		# Check to see if the artist has an alias.
 		require MusicBrainz::Server::Alias;
-		my $alias = MusicBrainz::Server::Alias->new($this->dbh);
-		$alias->{table} = "ArtistAlias";
+		my $alias = MusicBrainz::Server::Alias->new(
+			$self->dbh,
+			table => 'ArtistAlias'
+		);
+		
 		$artist = $alias->Resolve($name);
-		return $artist if (defined $artist);
+		return $artist
+			if defined $artist;
     }
 
-    my $page = $this->CalculatePageIndex($this->{sortname});
-    my $mbid;
-	if ($opts{mbid})
-	{
-		$mbid = $opts{mbid};
-	}
-	else
-	{
-		$mbid = $this->CreateNewGlobalId;
-	}
-    $this->mbid($mbid);
+    my $page = $self->CalculatePageIndex($self->sort_name);
+    $self->mbid($opts{mbid} ? $opts{mbid} : $self->CreateNewGlobalId);
 
-    $sql->Do(
-	qq|INSERT INTO artist
+    $sql->Do(qq{
+		INSERT INTO artist
 		    (name, sortname, gid, type, resolution,
 		     begindate, enddate, modpending, page)
-	    VALUES (?, ?, ?, ?, ?, ?, ?, 0, ?)|,
-		$this->name(),
-		$this->sort_name(),
-		$this->mbid,
-		$this->type() || undef,
-		$this->resolution() || undef,
-		$this->begin_date() || undef,
-		$this->end_date() || undef,
+	    VALUES (?, ?, ?, ?, ?, ?, ?, 0, ?)
+	},
+		$self->name,
+		$self->sort_name,
+		$self->mbid,
+		$self->type || undef,
+		$self->resolution || undef,
+		$self->begin_date || undef,
+		$self->end_date || undef,
 		$page,
     );
 
+    $self->id($sql->GetLastInsertId('Artist'));
+    $self->{new_insert} = 1;
 
-    $artist = $sql->GetLastInsertId('Artist');
-    $this->{new_insert} = 1;
-    $this->{id} = $artist;
-
-    MusicBrainz::Server::Cache->delete($this->_id_cache_key($artist));
-    MusicBrainz::Server::Cache->delete($this->_GetMBIDCacheKey($mbid));
+	$self->_invalidate_cache;
 
     # Add search engine tokens.
     # TODO This should be in a trigger if we ever get a real DB.
-
     require SearchEngine;
-    my $engine = SearchEngine->new($this->dbh, 'artist');
-    $engine->AddWordRefs($artist,$this->{name});
+    my $engine = SearchEngine->new($self->dbh, 'artist');
+    $engine->AddWordRefs($artist, $self->{name});
 
-    return $artist;
+    return $self->id;
 }
 
-# Remove an artist from the database. Set the id via the accessor function.
+=head2
+
+Remove an artist from the database. Set the id via the accessor function.
+
+=cut
+
 sub Remove
 {
-    my ($this) = @_;
+    my ($self) = @_;
 
-    return if (!defined $this->id());
+    return
+		unless defined $self->id;
 
-    my $sql = Sql->new($this->dbh);
+    my $sql = Sql->new($self->dbh);
     my $refcount;
 
     # XXX: When are we allowed to delete an artist?  See also $artist->InUse.
@@ -296,64 +329,67 @@ sub Remove
 
     # See if there are any tracks that needs this artist
     $refcount = $sql->SelectSingleValue(
-	"SELECT COUNT(*) FROM track WHERE artist = ?",
-	$this->id,
+		"SELECT COUNT(*) FROM track WHERE artist = ?",
+		$self->id,
     );
     if ($refcount > 0)
     {
-        print STDERR "Cannot remove artist ". $this->id() .
+        print STDERR "Cannot remove artist ". $self->id .
             ". $refcount tracks still depend on it.\n";
-        return undef;
+        return;
     }
 
     # See if there are any albums that needs this artist
     $refcount = $sql->SelectSingleValue(
-	"SELECT COUNT(*) FROM album WHERE artist = ?",
-	$this->id,
+		"SELECT COUNT(*) FROM album WHERE artist = ?",
+		$self->id,
     );
     if ($refcount > 0)
     {
-        print STDERR "Cannot remove artist ". $this->id() .
+        print STDERR "Cannot remove artist ". $self->id .
             ". $refcount albums still depend on it.\n";
         return undef;
     }
 
-    $sql->Do("DELETE FROM artistalias WHERE ref = ?", $this->id);
+    $sql->Do(
+		"DELETE FROM artistalias WHERE ref = ?",
+		$self->id
+	);
     $sql->Do(
 		"DELETE FROM artist_relation WHERE artist = ? OR ref = ?",
-		$this->id, $this->id,
+		$self->id, $self->id,
     );
     $sql->Do(
 		"UPDATE moderation_closed SET artist = ? WHERE artist = ?",
-		&ModDefs::DARTIST_ID, $this->id,
+		&ModDefs::DARTIST_ID, $self->id,
     );
     $sql->Do(
 		"UPDATE moderation_open SET artist = ? WHERE artist = ?",
-		&ModDefs::DARTIST_ID, $this->id,
+		&ModDefs::DARTIST_ID, $self->id,
     );
 
 	# Remove relationships
 	require MusicBrainz::Server::Link;
-	my $link = MusicBrainz::Server::Link->new($this->dbh);
-	$link->RemoveByArtist($this->id);
+	my $link = MusicBrainz::Server::Link->new($self->dbh);
+	$link->RemoveByArtist($self->id);
 
     # Remove tags
 	require MusicBrainz::Server::Tag;
-	my $tag = MusicBrainz::Server::Tag->new($sql->{dbh});
-	$tag->RemoveArtists($this->id);
+	my $tag = MusicBrainz::Server::Tag->new($self->dbh);
+	$tag->RemoveArtists($self->id);
 
     # Remove references from artist words table
     require SearchEngine;
-    my $engine = SearchEngine->new($this->dbh, 'artist');
-    $engine->RemoveObjectRefs($this->id());
+    my $engine = SearchEngine->new($self->dbh, 'artist');
+    $engine->RemoveObjectRefs($self->id());
 
     require MusicBrainz::Server::Annotation;
-    MusicBrainz::Server::Annotation->DeleteArtist($this->{dbh}, $this->id);
+    MusicBrainz::Server::Annotation->DeleteArtist($self->dbh, $self->id);
 
-    $this->RemoveGlobalIdRedirect($this->id, &TableBase::TABLE_ARTIST);
+    $self->RemoveGlobalIdRedirect($self->id, &TableBase::TABLE_ARTIST);
 
-    $sql->Do("DELETE FROM artist WHERE id = ?", $this->id);
-    $this->InvalidateCache;
+    $sql->Do("DELETE FROM artist WHERE id = ?", $self->id);
+    $self->_invalidate_cache;
 
     return 1;
 }
@@ -361,141 +397,145 @@ sub Remove
 sub MergeInto
 {
     my ($old, $new, $mod) = @_;
-    my $sql = Sql->new($old->{dbh});
+    my $sql = Sql->new($old->dbh);
 
     require UserSubscription;
-    my $subs = UserSubscription->new($old->{dbh});
+    my $subs = UserSubscription->new($old->dbh);
     $subs->ArtistBeingMerged($old, $mod);
 
     my $o = $old->id;
     my $n = $new->id;
 
     require MusicBrainz::Server::Annotation;
-    MusicBrainz::Server::Annotation->MergeArtists($old->{dbh}, $o, $n);
+    MusicBrainz::Server::Annotation->MergeArtists($old->dbh, $o, $n);
 
-    $sql->Do("UPDATE artist_relation SET artist = ? WHERE artist = ?", $n, $o);
-    $sql->Do("UPDATE artist_relation SET ref    = ? WHERE ref    = ?", $n, $o);
-    $sql->Do("UPDATE album           SET artist = ? WHERE artist = ?", $n, $o);
-    $sql->Do("UPDATE track           SET artist = ? WHERE artist = ?", $n, $o);
+    $sql->Do("UPDATE artist_relation   SET artist = ? WHERE artist = ?", $n, $o);
+    $sql->Do("UPDATE artist_relation   SET ref    = ? WHERE ref    = ?", $n, $o);
+    $sql->Do("UPDATE album             SET artist = ? WHERE artist = ?", $n, $o);
+    $sql->Do("UPDATE track             SET artist = ? WHERE artist = ?", $n, $o);
     $sql->Do("UPDATE moderation_closed SET artist = ? WHERE artist = ?", $n, $o);
-    $sql->Do("UPDATE moderation_open SET artist = ? WHERE artist = ?", $n, $o);
-    $sql->Do("UPDATE artistalias     SET ref    = ? WHERE ref    = ?", $n, $o);
-	
-	require MusicBrainz::Server::Link;
-	my $link = MusicBrainz::Server::Link->new($sql->{dbh});
-	$link->MergeArtists($o, $n);
+    $sql->Do("UPDATE moderation_open   SET artist = ? WHERE artist = ?", $n, $o);
+    $sql->Do("UPDATE artistalias       SET ref    = ? WHERE ref    = ?", $n, $o);
 
-	require MusicBrainz::Server::Tag;
-	my $tag = MusicBrainz::Server::Tag->new($sql->{dbh});
-	$tag->MergeArtists($o, $n);
+    require MusicBrainz::Server::Link;
+    my $link = MusicBrainz::Server::Link->new($old->dbh);
+    $link->MergeArtists($o, $n);
 
-    $sql->Do("DELETE FROM artist     WHERE id   = ?", $o);
-    $old->InvalidateCache;
+    require MusicBrainz::Server::Tag;
+    my $tag = MusicBrainz::Server::Tag->new($old->dbh);
+    $tag->MergeArtists($o, $n);
+
+    $sql->Do("DELETE FROM artist WHERE id   = ?", $o);
+    $old->_invalidate_cache;
 
     # Merge any non-album tracks albums together
     require MusicBrainz::Server::Release;
-    my $alb = MusicBrainz::Server::Release->new($old->{dbh});
+    my $alb = MusicBrainz::Server::Release->new($old->dbh);
     my @non = $alb->FindNonAlbum($n);
     $alb->CombineNonAlbums(@non)
-	if @non > 1;
-	
+        if @non > 1;
+
     $old->SetGlobalIdRedirect($old->id, $old->mbid, $new->id, &TableBase::TABLE_ARTIST);
 
     # Insert the old name as an alias for the new one
     # TODO this is often a bad idea - remove this code?
     require MusicBrainz::Server::Alias;
-    my $al = MusicBrainz::Server::Alias->new($old->{dbh});
+    my $al = MusicBrainz::Server::Alias->new($old->dbh);
     $al->table("ArtistAlias");
     $al->Insert($n, $old->name);
 
     # Invalidate the new artist as well
-    $new->InvalidateCache;
+    $new->_invalidate_cache;
 }
 
 sub UpdateName
 {
-    my ($this, $name) = @_;
-    MusicBrainz::Server::Validation::TrimInPlace($name);
+    my ($self, $new_name) = @_;
+    MusicBrainz::Server::Validation::TrimInPlace($new_name);
 
-    my $sql = Sql->new($this->dbh);
+    my $sql = Sql->new($self->dbh);
 
     $sql->Do(
-	"UPDATE artist SET name = ? WHERE id = ?",
-	$name,
-	$this->id,
-    ) or return 0;
+        "UPDATE artist SET name = ? WHERE id = ?",
+        $new_name,
+        $self->id,
+    ) or return;
 
-    $this->InvalidateCache;
+    $self->_invalidate_cache;
 
     # Update the search engine
-    $this->name($name);
-    $this->RebuildWordList;
+    $self->name($new_name);
+    $self->RebuildWordList;
 
-    1;
+    return 1;
 }
 
 sub UpdateSortName
 {
-    my ($this, $name) = @_;
-    MusicBrainz::Server::Validation::TrimInPlace($name);
+    my ($self, $new_sort_name) = @_;
+    MusicBrainz::Server::Validation::TrimInPlace($new_sort_name);
 
-    my $page = $this->CalculatePageIndex($name);
-    my $sql = Sql->new($this->dbh);
+    my $page = $self->CalculatePageIndex($new_sort_name);
+    my $sql = Sql->new($self->dbh);
 
     $sql->Do(
-	"UPDATE artist SET sortname = ?, page = ? WHERE id = ?",
-	$name,
-	$page,
-	$this->id,
-    ) or return 0;
+        "UPDATE artist SET sortname = ?, page = ? WHERE id = ?",
+        $new_sort_name,
+        $page,
+        $self->id,
+    ) or return;
 
-    $this->InvalidateCache;
+    $self->_invalidate_cache;
 
     # Update the search engine
-    $this->sort_name($name);
-    $this->RebuildWordList;
+    $self->sort_name($new_sort_name);
+    $self->RebuildWordList;
 
-    1;
+    return 1;
 }
 
 sub UpdateQuality
 {
-	my $self = shift;
+    my ($self, $new_quality) = @_;
 
-	my $id = $self->id
-		or croak "Missing artist ID in UpdateQuality";
+    my $id = $self->id
+        or croak "Missing artist ID in UpdateQuality";
 
-	my $sql = Sql->new($self->dbh);
-	$sql->Do(
-		"UPDATE artist SET quality = ? WHERE id = ?",
-		$self->{quality},
-		$id,
-	);
-    $self->InvalidateCache;
+    my $sql = Sql->new($self->dbh);
+    $sql->Do(
+        "UPDATE artist SET quality = ? WHERE id = ?",
+        $new_quality,
+        $id,
+    );
+
+    $self->_invalidate_cache;
+    $self->quality($new_quality);
+    
+    return 1;
 }
 
 sub Update
 {
-    my ($this, $new) = @_;
+    my ($self, $new) = @_;
 
-    my $name = $new->{ArtistName};
-    my $sortname = $new->{SortName};
+    my $name      = $new->{ArtistName};
+    my $sort_name = $new->{SortName};
 
-    my $sql = Sql->new($this->dbh);
+    my $sql = Sql->new($self->dbh);
 
     my %update;
-    $update{name} = $new->{ArtistName} if exists $new->{ArtistName};
-    $update{sortname} = $new->{SortName} if exists $new->{SortName};
-    $update{type} = $new->{Type} if exists $new->{Type};
+    $update{name}       = $new->{ArtistName} if exists $new->{ArtistName};
+    $update{sortname}   = $new->{SortName}   if exists $new->{SortName};
+    $update{type}       = $new->{Type}       if exists $new->{Type};
     $update{resolution} = $new->{Resolution} if exists $new->{Resolution};
-    $update{begindate} = $new->{BeginDate} if exists $new->{BeginDate};
-    $update{enddate} = $new->{EndDate} if exists $new->{EndDate};
-    $update{quality} = $new->{Quality} if exists $new->{Quality};
+    $update{begindate}  = $new->{BeginDate}  if exists $new->{BeginDate};
+    $update{enddate}    = $new->{EndDate}    if exists $new->{EndDate};
+    $update{quality}    = $new->{Quality}    if exists $new->{Quality};
 
-    if (exists $update{'sortname'})
+    if (exists $update{sortname})
     {
-		my $page = $this->CalculatePageIndex($update{'sortname'});
-		$update{'page'} = $page;
+		my $page = $self->CalculatePageIndex($update{sortname});
+		$update{page} = $page;
     }
 
     # We map the following attributes to NULL
@@ -514,14 +554,15 @@ sub Update
     # there is nothing to change, exit.
     return 1 unless $attrlist;
 
-    $sql->Do("UPDATE artist SET $attrlist WHERE id = ?", @values, $this->id)
+    $sql->Do("UPDATE artist SET $attrlist WHERE id = ?", @values, $self->id)
 		or return 0;
-    $this->InvalidateCache;
+
+    $self->_invalidate_cache;
 
     # Update the search engine
-    $this->name($name) if exists $update{name};
-    $this->sort_name($sortname) if exists $update{sortname};
-    $this->RebuildWordList;
+    $self->name($name) if exists $update{name};
+    $self->sort_name($sort_name) if exists $update{sortname};
+    $self->RebuildWordList;
 
     return 1;
 }
@@ -531,18 +572,19 @@ sub UpdateModPending
     my ($self, $adjust) = @_;
 
     my $id = $self->id
-		or croak "Missing artist ID in UpdateModPending";
+        or croak "Missing artist ID in UpdateModPending";
+
     defined($adjust)
-		or croak "Missing adjustment in UpdateModPending";
+        or croak "Missing adjustment in UpdateModPending";
 
     my $sql = Sql->new($self->dbh);
     $sql->Do(
-		"UPDATE artist SET modpending = NUMERIC_LARGER(modpending+?, 0) WHERE id = ?",
-		$adjust,
-		$id,
+        "UPDATE artist SET modpending = NUMERIC_LARGER(modpending+?, 0) WHERE id = ?",
+        $adjust,
+        $id,
     );
 
-    $self->InvalidateCache;
+    $self->_invalidate_cache;
 }
 
 sub UpdateQualityModPending
@@ -550,355 +592,278 @@ sub UpdateQualityModPending
     my ($self, $adjust) = @_;
 
     my $id = $self->id
-		or croak "Missing artist ID in UpdateQualityModPending";
+        or croak "Missing artist ID in UpdateQualityModPending";
+        
     defined($adjust)
-		or croak "Missing adjustment in UpdateQualityModPending";
+        or croak "Missing adjustment in UpdateQualityModPending";
 
     my $sql = Sql->new($self->dbh);
     $sql->Do(
-		"UPDATE artist SET modpending_qual = NUMERIC_LARGER(modpending_qual+?, 0) WHERE id = ?",
-		$adjust,
-		$id,
+        "UPDATE artist SET modpending_qual = NUMERIC_LARGER(modpending_qual+?, 0) WHERE id = ?",
+        $adjust,
+        $id,
     );
 
-    $self->InvalidateCache;
+    $self->_invalidate_cache;
 }
 
-# The artist name has changed, or an alias has been removed
-# (or possibly, in the future, been changed).  Rebuild the words for this
-# artist.
+=head2 RebuildWorldList
+
+The artist name has changed, or an alias has been removed
+(or possibly, in the future, been changed).  Rebuild the words for this
+artist.
+
+=cut
 
 sub RebuildWordList
 {
-    my ($this) = @_;
+    my $self = shift;
 
     require MusicBrainz::Server::Alias;
-    my $al = MusicBrainz::Server::Alias->new($this->dbh);
-    $al->table("ArtistAlias");
-    my @aliases = $al->GetList($this->id);
-    @aliases = map { $_->[1] } @aliases;
+    my $al = MusicBrainz::Server::Alias->new($self->dbh, table => 'ArtistAlias');
+
+    my @aliases = map { $_->[1] } $al->GetList($self->id);
 
     require SearchEngine;
-    my $engine = SearchEngine->new($this->dbh, 'artist');
+    my $engine = SearchEngine->new($self->dbh, 'artist');
     $engine->AddWordRefs(
-		$this->id,
-		[ $this->name, @aliases ],
-		1, # remove other words
+        $self->id,
+        [ $self->name, @aliases ],
+        1, # remove other words
     );
 }
 
-sub RebuildWordListForAll
+=head2 find_artists_by_name
+
+Return an arrayref of artists that match a given query
+
+=cut
+
+sub find_artists_by_name
 {
-    my $class = shift;
+    my ($self, $name) = @_;
 
-    my $mb_r = MusicBrainz->new; $mb_r->Login; my $sql_r = Sql->new($mb_r->{dbh});
-    my $mb_w = MusicBrainz->new; $mb_w->Login; my $sql_w = Sql->new($mb_w->{dbh});
-
-    $sql_r->Select("SELECT id FROM artist");
-    my $rows = $sql_r->Rows;
-
-    my @notloaded;
-    my @failed;
-    my $noerrcount = 0;
-    my $n = 0;
-    $| = 1;
-
-    use Time::HiRes qw( gettimeofday tv_interval );
-    my $fProgress = 1;
-    my $t1 = [gettimeofday];
-    my $interval;
-
-    my $p = sub {
-    	my ($pre, $post) = @_;
-	no integer;
-	printf $pre."%9d %3d%% %9d".$post,
-    	    $n, int(100 * $n / $rows),
-	    $n / ($interval||1);
-    };
-
-    $p->("", "") if $fProgress;
-
-    while ((my $id) = $sql_r->NextRow)
+    MusicBrainz::Server::Validation::TrimInPlace($name);
+    if (!defined $name || $name eq "")
     {
-	$sql_w->Begin;
-
-	eval {
-	    my $ar = MusicBrainz::Server::Artist->new($mb_w->{dbh});
-	    $ar->id($id);
-	    if ($ar->LoadFromId)
-	    {
-		$ar->RebuildWordList;
-	    } else {
-		push @notloaded, $id;
-	    }
-	    $sql_w->Commit;
-	};
-
-	if (my $err = $@)
-	{
-	    eval { $sql_w->Rollback };
-	    push @failed, $id;
-	    warn "$err\n";
-	} else {
-	    ++$noerrcount;
-	}
-
-	++$n;
-	unless ($n & 0x3F)
-	{
-    	    $interval = tv_interval($t1);
-	    $p->("\r", "") if $fProgress;
-	}
+        carp "Missing artistname in find_artists_by_name";
+        return [];
     }
 
-    $sql_r->Finish;
-    $interval = tv_interval($t1);
-    $p->(($fProgress ? "\r" : ""), sprintf(" %.2f sec\n", $interval));
-
-    printf "Total: %d  Errors: %d  Not loaded: %d  Success: %d\n",
-	$n, 0+@failed, 0+@notloaded, $noerrcount-@notloaded;
-}
-
-# Return a hash of hashes for artists that match the given artist name
-sub select_artists_by_name
-{
-    my ($this, $artistname) = @_;
-
-    MusicBrainz::Server::Validation::TrimInPlace($artistname) if defined $artistname;
-    if (not defined $artistname or $artistname eq "")
-    {
-		carp "Missing artistname in select_artists_by_name";
-		return [];
-    }
-
-    my $sql = Sql->new($this->dbh);
+    my $sql = Sql->new($self->dbh);
     my $artists;
     {
-		# First, try exact match on name
-		$artists = $sql->SelectListOfHashes(
-	    "SELECT id, name, gid, modpending, sortname,
-			resolution, begindate, enddate, type, quality, modpending_qual
-	    FROM artist WHERE name = ?",
-	    $artistname,
-	);
-	last if scalar(@$artists);
+        # First, try exact match on name
+        $artists = $sql->SelectListOfHashes(
+            "SELECT id, name, gid, modpending, sortname,
+                    resolution, begindate, enddate, type, quality, modpending_qual
+               FROM artist
+              WHERE name = ?",
+            $name,
+        );
+        last if scalar(@$artists);
 
-	# Search using 'ilike' is expensive, so try the usual capitalisations
-	# first using the index.
-	# TODO a much better long-term solution would be to have a "searchname"
-	# column on the table which is effectively "lc unac artist.name", then
-	# search on that.
-	my $lc = lc decode "utf-8", $artistname;
-	my $uc = uc $lc;
-	(my $tc = $lc) =~ s/\b(\w)/uc $1/eg;
-	(my $fwu = $lc) =~ s/\A(\S+)/uc $1/e;
+        # Search using 'ilike' is expensive, so try the usual capitalisations
+        # first using the index.
+        # TODO a much better long-term solution would be to have a "searchname"
+        # column on the table which is effectively "lc unac artist.name", then
+        # search on that.
+        my $lc = lc decode "utf-8", $name;
+        my $uc = uc $lc;
+        (my $tc = $lc) =~ s/\b(\w)/uc $1/eg;
+        (my $fwu = $lc) =~ s/\A(\S+)/uc $1/e;
 
-	$artists = $sql->SelectListOfHashes(
-	    "SELECT id, name, gid, modpending, sortname,
-			resolution, begindate, enddate, type, quality, modpending_qual
-	    FROM artist WHERE name IN (?, ?, ?, ?)",
-	    encode("utf-8", $uc),
-	    encode("utf-8", $lc),
-	    encode("utf-8", $tc),
-	    encode("utf-8", $fwu),
-	);
-	last if scalar(@$artists);
+        $artists = $sql->SelectListOfHashes(
+            "SELECT id, name, gid, modpending, sortname,
+                    resolution, begindate, enddate, type, quality, modpending_qual
+               FROM artist
+              WHERE name IN (?, ?, ?, ?)",
+            encode("utf-8", $uc),
+            encode("utf-8", $lc),
+            encode("utf-8", $tc),
+            encode("utf-8", $fwu),
+        );
+        last if scalar(@$artists);
 
-	# Next, try a full case-insensitive search
-	$artists = $sql->SelectListOfHashes(
-	    "SELECT id, name, gid, modpending, sortname,
-			resolution, begindate, enddate, type, quality, modpending_qual
-	    FROM artist WHERE LOWER(name) = LOWER(?)",
-	    $artistname,
-	);
-	last if scalar(@$artists);
+        # Next, try a full case-insensitive search
+        $artists = $sql->SelectListOfHashes(
+            "SELECT id, name, gid, modpending, sortname,
+                    resolution, begindate, enddate, type, quality, modpending_qual
+               FROM artist
+              WHERE LOWER(name) = LOWER(?)",
+            $name,
+        );
+        last if scalar(@$artists);
+    };
 
     # If that failed, then try to find the artist by sortname
-	$artists = $this->select_artists_by_sort_name($artistname)
-		and return $artists;
+    $artists = $self->find_artists_by_sort_name($name)
+        and return $artists;
 
     # If that failed too, then try the artist aliases
-	require MusicBrainz::Server::Alias;
-    my $alias = MusicBrainz::Server::Alias->new($this->dbh, "artistalias");
+    require MusicBrainz::Server::Alias;
+    my $alias = MusicBrainz::Server::Alias->new($self->dbh, table => "artistalias");
 
-    if (my $artist = $alias->Resolve($artistname))
-	{
-	    $artists = $sql->SelectListOfHashes(
-			"SELECT id, name, gid, modpending, sortname, 
-				resolution, begindate, enddate, type, quality, modpending_qual
-			FROM artist WHERE id = ?",
-			$artist,
-	    );
-	}
-    }
-    return [] if (!defined $artists || !scalar(@$artists));
-
-    my @results;
-    foreach my $row (@$artists)
+    if (my $artist = $alias->Resolve($name))
     {
-        my $ar = MusicBrainz::Server::Artist->new($this->dbh);
-
-		$ar->id($row->{id});
-		$ar->mbid($row->{gid});
-		$ar->name($row->{name});
-		$ar->sort_name($row->{sortname});
-		$ar->has_mod_pending($row->{modpending});
-		$ar->resolution($row->{resolution});
-		$ar->begin_date($row->{begindate});
-		$ar->end_date($row->{enddate});
-		$ar->type($row->{type});
-		$ar->quality($row->{quality});
-		$ar->quality_has_mod_pending($row->{modpending_qual});
-
-        push @results, $ar;
+        $artists = $sql->SelectListOfHashes(
+            "SELECT id, name, gid, modpending, sortname, 
+                    resolution, begindate, enddate, type, quality, modpending_qual
+               FROM artist
+              WHERE id = ?",
+            $artist,
+        );
     }
-    return \@results;
+
+    return []
+        if !defined $artists || !scalar(@$artists);
+
+    my @results = map { MusicBrainz::Server::Artist->new($self->dbh, $_) } @$artists;
+    return [ @results ];
 }
 
-# Return a hash of hashes for artists that match the given artist's sortname
-sub select_artists_by_sort_name
-{
-    my ($this, $sortname) = @_;
+=head2
 
-    MusicBrainz::Server::Validation::TrimInPlace($sortname) if defined $sortname;
-    if (not defined $sortname or $sortname eq "")
+Return a ArrayRef of artists that match the given artist's sort name.
+
+=cut
+
+sub find_artists_by_sort_name
+{
+    my ($self, $sort_name) = @_;
+
+    MusicBrainz::Server::Validation::TrimInPlace($sort_name)
+        if defined $sort_name;
+
+    if (not defined $sort_name or $sort_name eq "")
     {
-		carp "Missing sortname in select_artists_by_sort_name";
-		return [];
+        carp "Missing sortname in find_artists_by_sort_name";
+        return [];
     }
 
-    my $sql = Sql->new($this->dbh);
+    my $sql = Sql->new($self->dbh);
 
     my $artists = $sql->SelectListOfHashes(
-		"SELECT	id, name, gid, modpending, sortname,
-		resolution, begindate, enddate, type, quality, modpending_qual
-		FROM	artist
-		WHERE	LOWER(sortname) = LOWER(?)",
-		$sortname,
+        "SELECT id, name, gid, modpending, sortname,
+                resolution, begindate, enddate, type, quality, modpending_qual
+           FROM artist
+          WHERE LOWER(sortname) = LOWER(?)",
+        $sort_name,
     );
     scalar(@$artists) or return [];
 
-    my @results;
-    foreach my $row (@$artists)
-    {
-        my $ar = MusicBrainz::Server::Artist->new($this->dbh);
-
-		$ar->id($row->{id});
-		$ar->mbid($row->{gid});
-		$ar->name($row->{name});
-		$ar->sort_name($row->{sortname});
-		$ar->resolution($row->{resolution});
-		$ar->begin_date($row->{begindate});
-		$ar->end_date($row->{enddate});
-		$ar->has_mod_pending($row->{modpending});
-		$ar->type($row->{type});
-		$ar->quality($row->{quality});
-		$ar->quality_has_mod_pending($row->{modpending_qual});
-
-        push @results, $ar;
-    }
-    return \@results;
+    my @results = map { MusicBrainz::Server::Artist->new($self->dbh, $_) } @$artists;
+    return [ @results ];
 }
 
-# Load an artist record given an artist id, or an MB Id
-# returns 1 on success, undef otherwise. Access the artist info via the
-# accessor functions.
+=head2 LoadFromId
+
+Load an artist record given an artist id, or an MB Id
+returns 1 on success, undef otherwise. Access the artist info via the
+accessor functions.
+
+=cut
+
 sub LoadFromId
 {
-    my $this = shift;
+    my $self = shift;
     my $id;
 
-    if ($id = $this->id)
+    if ($id = $self->id)
     {
-		my $obj = $this->newFromId($id)
-	    or return undef;
-		%$this = %$obj;
-		return 1;
+        my $obj = $self->load_from_id($id)
+            or return undef;
+        
+        %$self = %$obj;
+        return 1;
     }
-    elsif ($id = $this->mbid)
+    elsif ($id = $self->mbid)
     {
-		my $obj = $this->newFromMBId($id)
-	    or return undef;
-		%$this = %$obj;
-		return 1;
+        my $obj = $self->load_from_mbid($id)
+            or return undef;
+
+        %$self = %$obj;
+        return 1;
     }
     else
     {
-       	cluck "MusicBrainz::Server::Artist::LoadFromId is called with no ID / MBID\n";
-       	return undef;
+        cluck "MusicBrainz::Server::Artist::LoadFromId is called with no ID / MBID\n";
+        return;
     }
 }
 
-sub newFromId
+sub load_from_id
 {
-    my $this = shift;
-    $this = $this->new(shift) if not ref $this;
+    my $self = shift;
+    $self = $self->new(shift) if not ref $self;
+
     my $id = shift;
 
-    my $key = $this->_id_cache_key($id);
+    my $key = $self->_id_cache_key($id);
     my $obj = MusicBrainz::Server::Cache->get($key);
 
     if ($obj)
     {
-       	$$obj->dbh($this->dbh) if $$obj;
-		return $$obj;
+        $$obj->dbh($self->dbh) if $$obj;
+        return $$obj;
     }
 
-    my $sql = Sql->new($this->dbh);
+    my $sql = Sql->new($self->dbh);
 
-    $obj = $this->_new_from_row(
-		$sql->SelectSingleRowHash(
-			"SELECT * FROM artist WHERE id = ?",
-				$id,
-		),
+    $obj = $self->_new_from_row(
+        $sql->SelectSingleRowHash(
+            "SELECT * FROM artist WHERE id = ?",
+            $id,
+        ),
     );
 
-    $obj->{mbid} = delete $obj->{gid} if $obj;
+    $obj->mbid($obj->{gid}) if $obj;
 
     # We can't store DBH in the cache...
     delete $obj->{dbh} if $obj;
     MusicBrainz::Server::Cache->set($key, \$obj);
-    MusicBrainz::Server::Cache->set($obj->_GetMBIDCacheKey($obj->mbid), \$obj)
-		if $obj;
-    $obj->dbh($this->dbh) if $obj;
+    MusicBrainz::Server::Cache->set($obj->_mbid_cache_key($obj->mbid), \$obj)
+        if $obj;
+    $obj->dbh($self->dbh) if $obj;
 
     return $obj;
 }
 
-sub newFromMBId
+sub load_from_mbid
 {
-    my $this = shift;
-    $this = $this->new(shift) if not ref $this;
+    my $self = shift;
+    $self = $self->new(shift) if not ref $self;
+
     my $id = shift;
 
-    my $key = $this->_GetMBIDCacheKey($id);
+    my $key = $self->_mbid_cache_key($id);
     my $obj = MusicBrainz::Server::Cache->get($key);
 
     if ($obj)
     {
-       	$$obj->dbh($this->dbh) if $$obj;
-		return $$obj;
+        $$obj->dbh($self->dbh) if $$obj;
+        return $$obj;
     }
 
-    my $sql = Sql->new($this->dbh);
+    my $sql = Sql->new($self->dbh);
 
-    $obj = $this->_new_from_row(
-		$sql->SelectSingleRowHash(
-			"SELECT * FROM artist WHERE gid = ?",
-			$id,
-		),
+    $obj = $self->_new_from_row(
+        $sql->SelectSingleRowHash(
+            "SELECT * FROM artist WHERE gid = ?",
+            $id,
+        ),
     );
 
-	if (!$obj)
-	{
-		my $newid = $this->CheckGlobalIdRedirect($id, &TableBase::TABLE_ARTIST);
-		if ($newid)
-		{
-			$obj = $this->_new_from_row(
-				$sql->SelectSingleRowHash("SELECT * FROM artist WHERE id = ?", $newid)
-			);
-		}
-	}
+    if (!$obj)
+    {
+        my $newid = $self->CheckGlobalIdRedirect($id, &TableBase::TABLE_ARTIST);
+        if ($newid)
+        {
+            $obj = $self->_new_from_row(
+                $sql->SelectSingleRowHash("SELECT * FROM artist WHERE id = ?", $newid)
+            );
+        }
+    }
 
     $obj->{mbid} = delete $obj->{gid} if $obj;
 
@@ -906,16 +871,21 @@ sub newFromMBId
     delete $obj->{dbh} if $obj;
     MusicBrainz::Server::Cache->set($key, \$obj);
     MusicBrainz::Server::Cache->set($obj->_id_cache_key($obj->id), \$obj)
-		if $obj;
-    $obj->dbh($this->dbh) if $obj;
+        if $obj;
+    $obj->dbh($self->dbh) if $obj;
 
     return $obj;
 }
 
-# Pull back a section of artist names for the browse artist display.
-# Given an index character ($ind), a page offset ($offset) 
-# it will return an array of references to an array
-# of artistid, sortname, modpending. The array is empty on error.
+=head2 artist_browse_selection
+
+Pull back a section of artist names for the browse artist display.
+Given an index character ($ind), a page offset ($offset) 
+it will return an array of references to an array
+of artistid, sortname, modpending. The array is empty on error.
+
+=cut
+
 sub artist_browse_selection
 {
    my ($this, $ind, $offset) = @_;
@@ -964,11 +934,16 @@ sub artist_browse_selection
    return ($max_artists, @info);
 }
 
-# retreive the set of albums by this artist. Returns an array of 
-# references to Album objects. Refer to the Album object for details.
-# The returned array is empty on error. Multiple artist albums are
-# also returned by this query. Use id() to set the id of artist
-sub select_releases
+=head2 releases
+
+Retreive the set of albums by this artist. Returns an array of 
+references to Album objects. Refer to the Album object for details.
+The returned array is empty on error. Multiple artist albums are
+also returned by this query. Use id() to set the id of artist
+
+=cut
+
+sub releases
 {
    my ($this, $novartist, $loadmeta, $onlyvartist) = @_;
    my (@albums, $sql, @row, $album, $query);
@@ -1089,9 +1064,14 @@ sub select_releases
    return @albums;
 } 
 
-# Checks to see if an album by the given name exists. If no exact match is
-# found, then it will attempt a fuzzy match
-sub HasAlbum
+=head2 has_release
+
+Checks to see if a release by the given name exists. If no exact match is
+found, then it will attempt a fuzzy match
+
+=cut
+
+sub has_release
 {
    my ($this, $albumname, $threshold) = @_;
    my (@albums, $sql, @row, $album, @matches, $sim);
@@ -1155,7 +1135,7 @@ sub HasAlbum
    return @matches;
 }
 
-sub GetRelations
+sub relations
 {
    my ($this) = @_;
    my (@albums, $sql, @row, $album);
@@ -1183,69 +1163,36 @@ sub GetRelations
     );
 } 
 
-sub XML_URL
-{
-	my $this = shift;
-	sprintf "http://%s/ws/1/artist/%s?type=xml&inc=aliases",
-		&DBDefs::RDF_SERVER,
-		$this->mbid,
-	;
-}
-
-sub GetSubscribers
+sub subscribers
 {
     my $self = shift;
     require UserSubscription;
     return UserSubscription->GetSubscribersForArtist($self->{dbh}, $self->id);
 }
 
-=head2 subscriber_count
+=head1 LICENSE
 
-Get's the amount of moderators subscribed to this artist
+MusicBrainz -- the open internet music database
+
+Copyright (C) 2000 Robert Kaye
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 =cut
 
-sub subscriber_count
-{
-	my $self = shift;
-	return scalar $self->GetSubscribers;
-}
-
-sub InUse
-{
-    my ($self) = @_;
-    my $sql = Sql->new($self->dbh);
-
-    return 1 if $sql->SelectSingleValue(
-		"SELECT 1 FROM album WHERE artist = ? LIMIT 1",
-		$self->id,
-    );
-    return 1 if $sql->SelectSingleValue(
-		"SELECT 1 FROM track WHERE artist = ? LIMIT 1",
-		$self->id,
-    );
-    return 1 if $sql->SelectSingleValue(
-		"SELECT 1 FROM l_album_artist WHERE link1 = ? LIMIT 1",
-		$self->id,
-    );
-    return 1 if $sql->SelectSingleValue(
-		"SELECT 1 FROM l_artist_artist WHERE link1 = ? LIMIT 1",
-		$self->id,
-    );
-    return 1 if $sql->SelectSingleValue(
-		"SELECT 1 FROM l_artist_artist WHERE link0 = ? LIMIT 1",
-		$self->id,
-    );
-    return 1 if $sql->SelectSingleValue(
-		"SELECT 1 FROM l_artist_track WHERE link0 = ? LIMIT 1",
-		$self->id,
-    );
-    return 1 if $sql->SelectSingleValue(
-		"SELECT 1 FROM l_artist_url WHERE link0 = ? LIMIT 1",
-		$self->id,
-    );
-    return 0;
-}
-
+no Moose;
+__PACKAGE__->meta->make_immutable;
 1;
 # eof Artist.pm

@@ -86,7 +86,7 @@ sub model_validate
     my $self = shift;
 
     my $artist = MusicBrainz::Server::Artist->new($self->context->mb->{dbh});
-    my $artists = $artist->select_artists_by_name($self->value('name'));
+    my $artists = $artist->find_artists_by_name($self->value('name'));
 
     my @dupes;
     for my $possible_dupe (@$artists)

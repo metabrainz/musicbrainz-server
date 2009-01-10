@@ -108,8 +108,7 @@ sub ApprovedAction
 	return $status if $status;
 
 	my $artist = $this->{_artist};
-	$artist->quality($this->new_data);
-	$artist->UpdateQuality;
+	$artist->UpdateQuality($this->new_data);
 
 	STATUS_APPLIED;
 }

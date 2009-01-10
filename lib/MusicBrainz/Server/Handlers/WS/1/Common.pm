@@ -333,7 +333,7 @@ sub xml_artist
     }
     if (defined $info)
     {
-        my @albums = $ar->select_releases(!$info->{va}, 1, $info->{va});
+        my @albums = $ar->releases(!$info->{va}, 1, $info->{va});
         if (scalar(@albums) && ($info->{type} != -1 || $info->{status} != -1))
         {
             my @filtered;

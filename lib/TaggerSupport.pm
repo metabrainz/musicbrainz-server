@@ -338,7 +338,7 @@ sub ArtistSearch
    require MusicBrainz::Server::Artist;
    $ar = MusicBrainz::Server::Artist->new($this->dbh);
 
-   my $artists = $ar->select_artists_by_name($name);
+   my $artists = $ar->find_artists_by_name($name);
    if (scalar(@$artists) == 1)
    {
        $this->{artist} = $$artists[0];
@@ -465,7 +465,7 @@ sub AlbumSearch
        }
    } else {
        # get the complete album list from artist
-       @albums = $ar->select_releases(0, 1);
+       @albums = $ar->releases(0, 1);
    }
    
    if (scalar(@albums) == 0)

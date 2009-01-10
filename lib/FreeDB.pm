@@ -385,8 +385,8 @@ sub InsertForModeration
         }
     }
 
-    my $artists = $ar->select_artists_by_name($info->{artist});
-    $artists = $ar->select_artists_by_sort_name($info->{artist}) if (!scalar(@$artists));
+    my $artists = $ar->find_artists_by_name($info->{artist});
+    $artists = $ar->find_artists_by_sort_name($info->{artist}) if (!scalar(@$artists));
     if (scalar(@$artists))
     {
         my (@albums, $al);
@@ -404,7 +404,7 @@ sub InsertForModeration
         }
 
 	my $album = lc(decode "utf-8", $info->{album});
-        @albums = $ar->select_releases();
+        @albums = $ar->releases;
         foreach $al (@albums)
         {
    	    my $thisname = lc(decode "utf-8", $al->name);
