@@ -29,18 +29,18 @@
     <li>
         [%- INCLUDE 'components/doc-link.tt' to='Products' text='Products' -%]
         <ul>
-            <li>[%- INCLUDE 'components/doc-link.tt' to='ClassicTagger' text='Classic Tagger' -%]</li>
-            <li>[%- INCLUDE 'components/doc-link.tt' to='PicardTagger' text='Picard Tagger' -%]</li>
-            <li>[%- INCLUDE 'components/doc-link.tt' to='Magic Tagger' text='Magic Tagger' -%]</li>
-            <li>[%- INCLUDE 'components/doc-link.tt' to='JaikozMP3TagEditor' text='Jaikoz Tag Editor' -%]</li>
             <li>[%- INCLUDE 'components/doc-link.tt' to='libmusicbrainz' text='libmusicbrainz' -%]</li>
             <li>[%- INCLUDE 'components/doc-link.tt' to='libtunepimp' text='libtunepimp' -%]</li>
             <li>[%- INCLUDE 'components/doc-link.tt' to='Server' text='Server' -%]</li>
             <li>[%- INCLUDE 'components/doc-link.tt' to='Database' text='Database' -%]</li>
             <li>[%- INCLUDE 'components/doc-link.tt' to='LiveDataFeed' text='LiveDataFeed' -%]</li>
-            <li>[%- INCLUDE 'components/doc-link.tt' to='MusicBrainzEnabledApplications' text='3<sup>rd</sup> Party' -%]</li>
             <li>[%- INCLUDE 'components/doc-link.tt' to='WebService' text='Web Service' -%]</li>
-            <li>[%- INCLUDE 'components/doc-link.tt' to='FreeDBGateway' text='FreeDB Gateway' -%]</li>
+            <li class="seperator">[%- INCLUDE 'components/doc-link.tt' to='FreeDBGateway' text='FreeDB Gateway' -%]</li>
+            <li>[%- INCLUDE 'components/doc-link.tt' to='MusicBrainzEnabledApplications' text='3<sup>rd</sup> Party' -%]</li>
+            <li>[%- INCLUDE 'components/doc-link.tt' to='ClassicTagger' text='Classic Tagger' -%]</li>
+            <li>[%- INCLUDE 'components/doc-link.tt' to='JaikozMP3TagEditor' text='Jaikoz Tag Editor' -%]</li>
+            <li>[%- INCLUDE 'components/doc-link.tt' to='Magic Tagger' text='Magic Tagger' -%]</li>
+            <li>[%- INCLUDE 'components/doc-link.tt' to='PicardTagger' text='Picard Tagger' -%]</li>
         </ul>
     </li>
 

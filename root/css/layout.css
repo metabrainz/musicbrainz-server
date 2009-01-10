@@ -347,6 +347,10 @@ hr {
     background: url(/static/images/black_pixel.gif) repeat-y top left;
 }
 
+#menu_bar li li.seperator {
+	border-bottom: 1px solid #bbb;
+}
+
 #menu_bar li.first {
     margin-left: 130px;
 }
