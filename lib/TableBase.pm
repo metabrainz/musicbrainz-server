@@ -1,36 +1,13 @@
-#____________________________________________________________________________
-#
-#   MusicBrainz -- the open internet music database
-#
-#   Copyright (C) 2000 Robert Kaye
-#
-#   This program is free software; you can redistribute it and/or modify
-#   it under the terms of the GNU General Public License as published by
-#   the Free Software Foundation; either version 2 of the License, or
-#   (at your option) any later version.
-#
-#   This program is distributed in the hope that it will be useful,
-#   but WITHOUT ANY WARRANTY; without even the implied warranty of
-#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#   GNU General Public License for more details.
-#
-#   You should have received a copy of the GNU General Public License
-#   along with this program; if not, write to the Free Software
-#   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-#
-#   $Id$
-#____________________________________________________________________________
-
 package TableBase;
+use Moose;
 
-use strict;
 use DBDefs;
+use Encode qw( decode );
+use LocaleSaver;
+use MusicBrainz::Server::Validation qw( unaccent );
+use POSIX qw(:locale_h);
 use Sql;
 use Text::Unaccent;
-use LocaleSaver;
-use POSIX qw(:locale_h);
-use Encode qw( decode );
-use MusicBrainz::Server::Validation qw( unaccent );
 
 use constant MAX_PAGE_INDEX_LEVELS => 6;
 use constant NUM_BITS_PAGE_INDEX => 5;
@@ -40,69 +17,111 @@ use constant TABLE_ARTIST => 2;
 use constant TABLE_TRACK => 3;
 use constant TABLE_LABEL => 4;
 
-sub entity_type
-{
-    my ($self, $new_type) = @_;
+=head1 NAME
 
-    if (defined $new_type) { $self->{_ent_type} = $new_type; }
-    return $self->{_ent_type} || '';
+TableBase - base for all MusicBrainz entities
+
+=head1 SYNOPSIS
+
+	package MyEntity;
+	use Moose;
+	extends 'TableBase';
+	
+	has '
+
+=head1 DESCRIPTION
+
+This class serves as a base class for all of the main MusicBrainz entities
+
+=head1 SLOTS
+
+=head2 entity_type
+
+A string representation of this type of entity, commonly used to get the assossciated table back.
+
+=cut
+
+has 'entity_type' => (
+	is => 'rw'
+);
+
+=head2 dbh
+
+The database handle that this object was initialized with.
+
+=cut
+
+has 'dbh' => (
+	is => 'rw'
+);
+
+=head2 id
+
+The row id of this entity
+
+=cut
+
+has 'id' => (
+	isa => 'Int',
+	is => 'rw'
+);
+
+=head2 mbid
+
+A unique global-identifier assossciated with this entity.
+
+=cut
+
+has 'mbid' => (
+	isa      => 'Str',
+	is       => 'rw',
+);
+
+=head2 name
+
+The name of this entity
+
+=cut
+
+has 'name' => (
+	isa => 'Str',
+	is => 'rw'
+);
+
+=head2 has_mod_pending
+
+Boolean, whether this entity has edits pending in the edit queue
+
+=cut
+
+has 'has_mod_pending' => ( isa => 'Bool', is => 'rw' );
+
+sub BUILDARGS
+{
+	my ($self, $dbh, @rest) = @_;
+	
+	my $hash = scalar @rest == 1 && ref $rest[0] eq 'HASH' ? $rest[0] : { @rest };
+	$hash->{dbh} = $dbh;
+	
+	return $hash;
 }
 
-sub new
+# Hack so _new_from_row works
+sub BUILD
 {
-    my ($class, $dbh) = @_;
+	my ($self, $args) = @_;
 
-    bless {
-	dbh => $dbh,
-    }, ref($class) || $class;
+	my %arguments = %$args;
+ 	my @extra = grep { !exists $self->{$_} } keys %arguments;
+ 	@{$self}{@extra} = @arguments{@extra};
+
+	return $self;
 }
 
 sub _new_from_row
 {
-	my ($this, $row) = @_;
-	$row or return undef;
-	$row->{dbh} = $this->dbh;
-	bless $row, ref($this) || $this;
-}
-
-sub dbh
-{
-	my ($self, $new_value) = @_;
-	
-	if (defined $new_value) { $self->{dbh} = $new_value; }
-	return $self->{dbh};
-}
-
-sub id
-{
-    my ($self, $new_id) = @_;
-
-    if (defined $new_id) { $self->{id} = $new_id; }
-    return $self->{id};
-}
-
-sub name
-{
-    my ($self, $new_name) = @_;
-
-    if (defined $new_name) { $self->{name} = $new_name; }
-    return $self->{name};
-}
-
-sub mbid
-{
-    my ($self, $new_mbid) = @_;
-    
-    if (defined $new_mbid) { $self->{mbid} = $new_mbid; }
-    return $self->{mbid};
-}
-
-sub has_mod_pending
-{
-    my ($self, $new_pending) = @_;
-
-    if (defined $new_pending) { $self->{modpending} = $new_pending; }
-    return $self->{modpending};
+	my ($self, $row) = @_;
+	return $self->new($self->dbh, $row);
 }
 
 sub GetNewInsert
@@ -191,4 +210,6 @@ sub CalculatePageIndex
     return $path;
 }
 
+no Moose;
+__PACKAGE__->meta->make_immutable;
 1;

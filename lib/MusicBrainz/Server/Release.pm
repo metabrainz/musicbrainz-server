@@ -661,7 +661,7 @@ sub LoadFromId
 	$this->{id}              = $row->[0];
 	$this->{name}            = $row->[1];
 	$this->{mbid}            = $row->[2];
-	$this->{modpending}      = $row->[3];
+	$this->has_mod_pending($row->[3]);
 	$this->{artist}          = $row->[4];
 	$this->{attrs}           = $row->[5];
 	$this->{language}        = $row->[6];
@@ -1129,7 +1129,7 @@ sub GetVariousDisplayList
 		$al->{id}              = $row->[0];
 		$al->{name}            = $row->[1];
 		$al->{mbid}            = $row->[2];
-		$al->{modpending}      = $row->[3];
+		$al->has_mod_pending($row->[3]);
 		$al->{artistid}        = $row->[4];
 		$al->{artistname}      = $row->[5];
 		$al->{attrs}           = [ $row->[6] =~ /(\d+)/g ];
