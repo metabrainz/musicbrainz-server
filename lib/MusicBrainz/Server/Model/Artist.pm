@@ -6,6 +6,7 @@ use warnings;
 use base 'MusicBrainz::Server::Model';
 
 use Carp;
+use MusicBrainz::Server::Validation 'encode_entities';
 use MusicBrainz::Server::Adapter 'LoadEntity';
 use MusicBrainz::Server::Artist;
 use SearchEngine;
@@ -239,6 +240,25 @@ sub direct_search
     }
 
     return \@artists;
+}
+
+sub get_browse_selection
+{
+	my ($self, $index, $offset) = @_;
+	
+	my $ar = MusicBrainz::Server::Artist->new($self->dbh);
+	my ($count, @artists) = $ar->artist_browse_selection($index, $offset);
+	
+	@artists = map {
+		my $artist = MusicBrainz::Server::Artist->new($self->dbh);
+		$artist->id($_->[0]);
+		$artist->name(encode_entities($_->[1]));
+		$artist->has_mod_pending($_->[2]);
+		
+		$artist;
+	} @artists;
+	
+	return ($count, [ @artists ]);
 }
 
 1;

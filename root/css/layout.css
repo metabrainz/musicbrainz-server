@@ -443,3 +443,12 @@ table.statistics td.odd_col {
 table.statistics tr.separator th {
     background: #d0d0d0;
 }
+
+table.browse {
+	margin: auto;
+}
+
+table.browse td {
+	text-align: center;
+	padding: 0pt 4pt;
+}

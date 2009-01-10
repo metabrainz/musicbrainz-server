@@ -1,0 +1,36 @@
+[% WRAPPER "components/box.tt" header="Browse" %]
+	[% MACRO append_link(char) BLOCK;
+		c.uri_for('/browse', type, "${index}${char}");
+	END %]
+	[% BLOCK characters %]
+		[% FOR char IN chars %]
+		<td>
+			<a href="[% append_link(char) %]">
+				[% char | upper %]</a>
+		</td>
+		[% END %]
+	[% END %]
+	
+	<table class="browse">
+		<tr>
+			<td>
+				<a href="#">symbol</a>
+			</td>
+			[% chars = [
+				'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
+				'j', 'k', 'l', 'm' ]
+			%]
+			[% PROCESS characters %]
+		</tr>
+		<tr>
+			<td>
+				<a href="[% append_link(' ') %]">space</a>
+			</td>
+			[% chars = [
+				'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
+				'w', 'x', 'y', 'z' ]
+			%]
+			[% PROCESS characters %]
+		</tr>
+	</table>
+[% END %]

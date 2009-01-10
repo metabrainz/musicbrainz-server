@@ -1,0 +1,15 @@
+[% WRAPPER 'layout.tt' title='Browse Artists' %]
+
+[% INCLUDE "browse/page_selector.tt" %]
+
+<h1>Artists starting with &quot;[% index | upper | html %]&quot;</h1>
+[% WRAPPER 'components/box.tt' header="Found ${num} artists" %]
+	<ol>
+		[% FOR artist IN artists %]
+		<li class="column[%column %]">
+			[% INCLUDE "components/entity-link.tt" entity=artist %]
+		</li>
+		[% END %]
+	</ol>
+[% END %]
+[% END %]
