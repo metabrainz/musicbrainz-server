@@ -113,7 +113,7 @@ sub show : Chained('release') PathPart('')
     my ($self, $c) = @_;
     my $release = $self->entity;
 
-    my $show_rels = $c->req->query_params->{rel} || 1;
+    my $show_rels = $c->req->query_params->{rel};
 
     $c->stash->{show_artists}       = $c->req->query_params->{artist};
     $c->stash->{show_relationships} = defined $show_rels ? $show_rels : 1;

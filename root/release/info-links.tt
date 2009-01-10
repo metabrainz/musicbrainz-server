@@ -3,22 +3,22 @@
     { link => c.entity_url(release, 'details'), text => "Details" },
     { link => c.entity_url(release, 'tags'), text => "Tags" },
     {
-        link => c.entity_url(release, 'show', { artist => 1, rel = show_relationships }),
+        link => c.req.uri_with(artist => 1),
         text => "Show artists",
         hide => show_artists,
     },
     {
-        link => c.entity_url(release, 'show', { artist => 0, rel = show_relationships }),
+        link => c.req.uri_with(artist => 0),
         text => "Hide artists",
         hide => !show_artists,
     },
     {
-        link => c.entity_url(release, 'show', { rel => 1, artist = show_artists }),
+        link => c.req.uri_with(rel => 1),
         text => "Show relationships",
         hide => show_relationships,
     },
     {
-        link => c.entity_url(release, 'show', { rel => 0, artist = show_artists }),
+        link => c.req.uri_with(rel => 0),
         text => "Hide relationships",
         hide => !show_relationships,
     },
