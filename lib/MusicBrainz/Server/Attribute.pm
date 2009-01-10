@@ -86,9 +86,9 @@ sub _new_from_attribute_ids
 	{
 		$self->{$k} = $v;
 	}
-	$self->{'link'} = $linkid;
-	$self->{'attributes'} = $attrs;
-	$self->{'DBH'} = $this->dbh;
+	$self->{link} = $linkid;
+	$self->{attributes} = $attrs;
+	$self->{dbh} = $this->dbh;
 
 	bless $self, ref($this) || $this;
 }

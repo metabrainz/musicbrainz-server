@@ -1059,7 +1059,7 @@ sub InsertModeration
 		my $editclass = $class->ClassFromType($t)
 			or die "No such moderation type #$t";
 
-		my $this = $editclass->new($opts{'DBH'} || die "No DBH passed");
+		my $this = $editclass->new($opts{dbh} || die "No DBH passed");
 		$this->type($this->Type);
 
         die "No editor passed"
