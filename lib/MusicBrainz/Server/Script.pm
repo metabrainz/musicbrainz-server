@@ -61,7 +61,7 @@ sub newFromId
 
 	if ($obj)
 	{
-		$$obj->{DBH} = $self->{DBH} if $$obj;
+		$$obj->SetDBH($self->GetDBH) if $$obj;
 		return $$obj;
 	}
 
@@ -77,7 +77,7 @@ sub newFromId
 	# We can't store DBH in the cache...
 	delete $obj->{DBH} if $obj;
 	MusicBrainz::Server::Cache->set($key, \$obj);
-	$obj->{DBH} = $self->{DBH} if $obj;
+	$obj->SetDBH($self->GetDBH) if $obj;
 
 	return $obj;
 }
@@ -101,7 +101,7 @@ sub All
 	{
 		@$obj = grep { $_->{frequency} >= $minfreq or $_->{id} == $include } @$obj
 			if defined $minfreq;
-		$_->{DBH} = $self->{DBH} for @$obj;
+		$_->SetDBH($self->GetDBH) for @$obj;
 		return @$obj;
 	}
 
@@ -118,7 +118,7 @@ sub All
 	# We can't store DBH in the cache...
 	delete $_->{DBH} for @list;
 	MusicBrainz::Server::Cache->set($key, \@list);
-	$_->{DBH} = $self->{DBH} for @list;
+	$_->SetDBH($self->GetDBH) for @list;
 
 	@list = grep { $_->{frequency} >= $minfreq or $_->{id} == $include } @list
 		if defined $minfreq;

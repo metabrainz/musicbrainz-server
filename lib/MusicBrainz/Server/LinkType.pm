@@ -165,7 +165,7 @@ sub _new_from_row
 		$self->{$k} = $v
 			if substr($k, 0, 1) eq "_";
 	}
-	$self->{DBH} = $this->{DBH};
+	$self->SetDBH($this->GetDBH);
 
 	bless $self, ref($this) || $this;
 }

@@ -61,7 +61,7 @@ sub _new_from_row
 {
 	my ($this, $row) = @_;
 	$row or return undef;
-	$row->{DBH} = $this->{DBH};
+	$row->SetDBH($this->GetDBH);
 	bless $row, ref($this) || $this;
 }
 

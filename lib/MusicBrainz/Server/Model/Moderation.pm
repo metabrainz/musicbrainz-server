@@ -24,7 +24,7 @@ sub insert
     my ($self, $edit_note, %opts) = @_;
 
     $opts{moderator} = $self->context->user;
-    $opts{DBH}       = $self->context->mb->{DBH};
+    $opts{DBH}($self->context->mb->GetDBH);
 
     my @mods = Moderation->InsertModeration(%opts);
     if (scalar @mods && $edit_note =~ /\S/)

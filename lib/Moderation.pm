@@ -1042,7 +1042,7 @@ sub InsertModeration
 	# field).
 	if (ref $class)
 	{
-		$opts{DBH} = $class->{DBH};
+		$optsSetDBH($class->GetDBH);
 		$opts{uid} = $class->moderator->id;
 		$opts{privs} = $class->{_privs_};
 	}

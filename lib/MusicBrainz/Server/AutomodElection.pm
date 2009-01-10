@@ -73,7 +73,7 @@ sub GetElections
 
 	for (@$rows)
 	{
-		$_->{DBH} = $self->{DBH};
+		$_->SetDBH($self->GetDBH);
 		bless $_, ref($self);
 	}
 
@@ -99,7 +99,7 @@ sub GetPendingElections
 ELECTION:
 	for my $el (@$rows)
 	{
-		$el->{DBH} = $self->{DBH};
+		$el->SetDBH($self->GetDBH);
 		bless $el, ref($self);
 
 		no warnings;
@@ -131,7 +131,7 @@ sub newFromId
 		$id,
 	) or return undef;
 
-	$row->{DBH} = $self->{DBH};
+	$row->SetDBH($self->GetDBH);
 	bless $row, ref($self);
 }
 
@@ -180,7 +180,7 @@ sub DoCloseElections
 
 			for my $election (@$to_timeout)
 			{
-				$election->{DBH} = $self->{DBH};
+				$election->SetDBH($self->GetDBH);
 				bless $election, ref($self);
 				$election->_Timeout;
 			}
@@ -193,7 +193,7 @@ sub DoCloseElections
 
 			for my $election (@$to_close)
 			{
-				$election->{DBH} = $self->{DBH};
+				$election->SetDBH($self->GetDBH);
 				bless $election, ref($self);
 				$election->_Close;
 			}
@@ -666,7 +666,7 @@ sub _newFromElection
 
 	for (@$votes)
 	{
-		$_->{DBH} = $election->{DBH};
+		$_->SetDBH($election->GetDBH);
 		bless $_, $class;
 	}
 
