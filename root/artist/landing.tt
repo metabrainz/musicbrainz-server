@@ -10,7 +10,7 @@
         You are viewing all releases by [% artist.name %]. You can also choose to view only
         <strong><a href="[% c.entity_url(artist, 'show', { show_all => 0 }) %]">albums, EPs, singles and compilations by this artist</a></strong>.
     [%- ELSE -%]
-        You are viewing a small selection of this releases by [% artist.name %]. You can also choose to
+        You are viewing a small selection of releases by [% artist.name %]. You can also choose to
         <strong><a href="[% c.entity_url(artist, 'show', { show_all => 1 }) %]">show all releases</a></strong>.
     [%- END -%]
 </div>
