@@ -338,6 +338,8 @@ sub is_timeout
 sub SelectSingleRowHash
 {
 	my ($this, $query, @params) = @_;
+	
+	croak "No DBH!" unless $this->{DBH};
 
 	my $row = eval
 	{
@@ -371,6 +373,8 @@ sub SelectSingleRowHash
 sub SelectSingleRowArray
 {
 	my ($this, $query, @params) = @_;
+	
+	croak "No DBH!" unless $this->{DBH};
 
 	my $row = eval
 	{
@@ -403,6 +407,8 @@ sub SelectSingleRowArray
 sub SelectSingleColumnArray
 {
 	my ($this, $query, @params) = @_;
+	
+	croak "No DBH!" unless $this->{DBH};
 
 	my $col = eval
 	{
@@ -441,6 +447,9 @@ sub SelectSingleColumnArray
 sub SelectSingleValue
 {
 	my ($this, $query, @params) = @_;
+	
+	croak "No DBH!" unless $this->{DBH};
+	
 	my $row = $this->SelectSingleRowArray($query, @params);
 	$row or return undef;
 
@@ -457,6 +466,8 @@ sub SelectSingleValue
 sub SelectListOfLists
 {
 	my ($this, $query, @params) = @_;
+	
+	croak "No DBH!" unless $this->{DBH};
 
 	my $data = eval
 	{
@@ -494,6 +505,8 @@ sub SelectListOfLists
 sub SelectListOfHashes
 {
 	my ($this, $query, @params) = @_;
+	
+	croak "No DBH!" unless $this->{DBH};
 
 	my $data = eval
 	{

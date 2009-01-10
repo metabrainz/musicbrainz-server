@@ -46,14 +46,10 @@ sub new
 
 sub dbh
 {
-	my ($self) = @_;
-	return $self->{DBH};
-}
-
-sub dbh
-{
 	my ($self, $new_value) = @_;
-	$self->{DBH} = $new_value;
+	
+	if (defined $new_value) { $self->{DBH} = $new_value; }
+	return $self->{DBH};
 }
 
 sub Login

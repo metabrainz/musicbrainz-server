@@ -57,7 +57,7 @@ sub newFromId
 
     if ($obj)
     {
-       	$$obj->dbh($self->GetDBH) if $$obj;
+       	$$obj->dbh($self->dbh) if $$obj;
 		return $$obj;
     }
 
@@ -73,7 +73,7 @@ sub newFromId
     # We can't store DBH in the cache...
     delete $obj->{DBH} if $obj;
     MusicBrainz::Server::Cache->set($key, \$obj);
-    $obj->dbh($self->GetDBH) if $obj;
+    $obj->dbh($self->dbh) if $obj;
 
     return $obj;
 }
@@ -88,7 +88,7 @@ sub All
 
     if ($obj)
     {
-		$_->dbh($self->GetDBH) for @$obj;
+		$_->dbh($self->dbh) for @$obj;
 		return @$obj;
     }
 
@@ -104,7 +104,7 @@ sub All
     # We can't store DBH in the cache...
     delete $_->{DBH} for @list;
     MusicBrainz::Server::Cache->set($key, \@list);
-    $_->dbh($self->GetDBH) for @list;
+    $_->dbh($self->dbh) for @list;
 
 	return @list;
 }

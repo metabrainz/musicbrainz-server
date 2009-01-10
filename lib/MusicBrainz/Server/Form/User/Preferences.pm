@@ -225,7 +225,7 @@ sub update_model {
 
     my $mb = new MusicBrainz;
     $mb->Login();
-    $self->item->dbh($mb->GetDBH);
+    $self->item->dbh($mb->dbh);
 
     for my $field ($self->fields)
     {

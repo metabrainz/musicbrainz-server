@@ -733,7 +733,7 @@ sub newFromId
 
 	if ($obj)
 	{
-		$$obj->dbh($this->GetDBH) if $$obj;
+		$$obj->dbh($this->dbh) if $$obj;
 		return $$obj;
 	}
 
@@ -752,7 +752,7 @@ sub newFromId
 	MusicBrainz::Server::Cache->set($key, \$obj);
 	MusicBrainz::Server::Cache->set($obj->_GetMBIDCacheKey($obj->mbid), \$obj)
 		if $obj;
-	$obj->dbh($this->GetDBH) if $obj;
+	$obj->dbh($this->dbh) if $obj;
 
 	return $obj;
 }
@@ -768,7 +768,7 @@ sub newFromMBId
 
     if ($obj)
     {
-       	$$obj->dbh($this->GetDBH) if $$obj;
+       	$$obj->dbh($this->dbh) if $$obj;
 	return $$obj;
     }
 
@@ -799,7 +799,7 @@ sub newFromMBId
     MusicBrainz::Server::Cache->set($key, \$obj);
     MusicBrainz::Server::Cache->set($obj->_id_cache_key($obj->id), \$obj)
 	if $obj;
-    $obj->dbh($this->GetDBH) if $obj;
+    $obj->dbh($this->dbh) if $obj;
 
     return $obj;
 }

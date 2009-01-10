@@ -61,18 +61,16 @@ sub _new_from_row
 {
 	my ($this, $row) = @_;
 	$row or return undef;
-	$row->{DBH} = $this->GetDBH;
+	$row->{DBH} = $this->dbh;
 	bless $row, ref($this) || $this;
 }
 
 sub dbh
 {
-    return $_[0]->{DBH}; 
-}
-
-sub dbh
-{
-    $_[0]->{DBH} = $_[1]; 
+	my ($self, $new_value) = @_;
+	
+	if (defined $new_value) { $self->{DBH} = $new_value; }
+	return $self->{DBH};
 }
 
 sub id

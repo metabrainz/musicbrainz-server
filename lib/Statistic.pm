@@ -35,14 +35,12 @@ sub new
 	return bless $this, $type;
 }
 
-sub dbh {
-	my ($self) = @_;
+sub dbh
+{
+	my ($self, $new_value) = @_;
+	
+	if (defined $new_value) { $self->{DBH} = $new_value; }
 	return $self->{DBH};
-}
-
-sub dbh {
-	my ($self, $dbh) = @_;
-	$self->{DBH} = $dbh;
 }
 
 # Fetch current stat(s)
