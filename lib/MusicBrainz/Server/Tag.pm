@@ -76,7 +76,7 @@ sub Update
 
 
     require MusicBrainz;
-    my $maindb = Sql->new($self->GetDBH);
+    my $maindb = Sql->new($self->dbh);
 
     my $tags = MusicBrainz->new;
     $tags->Login(db => 'RAWDATA');
@@ -372,7 +372,7 @@ sub GetTagsForEntity
 {
 	my ($self, $entity_type, $entity_id) = @_;
 
-   	my $sql = Sql->new($self->GetDBH());
+   	my $sql = Sql->new($self->dbh());
 	my $assoc_table = $entity_type . '_tag';
 	my $rows = $sql->SelectListOfHashes("SELECT tag.id, tag.name, count
 		                                   FROM tag, $assoc_table
@@ -386,7 +386,7 @@ sub GetTagHash
 {
 	my ($self, $limit) = @_;
 
-	my $sql = Sql->new($self->GetDBH());
+	my $sql = Sql->new($self->dbh());
 	my $rows = $sql->SelectListOfLists("SELECT name, refcount AS count
 		                                  FROM tag
 		                              ORDER BY refcount DESC
@@ -402,7 +402,7 @@ sub GetTagHashForEntity
 {
 	my ($self, $entity_type, $entity_id, $limit) = @_;
 
-	my $sql = Sql->new($self->GetDBH());
+	my $sql = Sql->new($self->dbh());
 	my $assoc_table = $entity_type . '_tag';
 	my $rows = $sql->SelectListOfLists("SELECT tag.name, count
 		                                  FROM tag, $assoc_table
@@ -419,7 +419,7 @@ sub GetRawTagsForEntity
 {
 	my ($self, $entity_type, $entity_id, $moderator_id) = @_;
 
-	my $maindb = Sql->new($self->GetDBH());
+	my $maindb = Sql->new($self->dbh());
 
 	my $tags = MusicBrainz->new;
     $tags->Login(db => 'RAWDATA');
@@ -443,7 +443,7 @@ sub GetEditorsForEntityAndTag
 {
 	my ($self, $entity_type, $entity_id, $tag) = @_;
 
-	my $maindb = Sql->new($self->GetDBH());
+	my $maindb = Sql->new($self->dbh());
 
 	my $tags = MusicBrainz->new;
     $tags->Login(db => 'RAWDATA');
@@ -476,7 +476,7 @@ sub GetEntitiesForTag
 {
 	my ($self, $entity_type, $tag, $limit, $offset) = @_;
 
-   	my $sql = Sql->new($self->GetDBH());
+   	my $sql = Sql->new($self->dbh());
 	my $assoc_table = $entity_type . '_tag';
 	my $entity_table = $entity_type eq "release" ? "album" : $entity_type;
 	

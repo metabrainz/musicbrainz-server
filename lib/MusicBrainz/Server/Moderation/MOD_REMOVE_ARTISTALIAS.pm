@@ -64,7 +64,7 @@ sub ApprovedAction
 	my $this = shift;
 
 	require MusicBrainz::Server::Alias;
-	my $al = MusicBrainz::Server::Alias->new($this->GetDBH);
+	my $al = MusicBrainz::Server::Alias->new($this->dbh);
 	$al->table("ArtistAlias");
 	$al->id($this->row_id);
 

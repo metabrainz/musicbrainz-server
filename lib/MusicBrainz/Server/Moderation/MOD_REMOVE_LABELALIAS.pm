@@ -51,7 +51,7 @@ sub PostLoad
     my $self = shift;
 
     require MusicBrainz::Server::Alias;
-    my $alias = MusicBrainz::Server::Alias->new($self->GetDBH, "labelalias");
+    my $alias = MusicBrainz::Server::Alias->new($self->dbh, "labelalias");
     $alias->id($self->row_id);
     $alias->LoadFromId;
 
@@ -64,7 +64,7 @@ sub ApprovedAction
 	my $this = shift;
 
 	require MusicBrainz::Server::Alias;
-	my $al = MusicBrainz::Server::Alias->new($this->GetDBH);
+	my $al = MusicBrainz::Server::Alias->new($this->dbh);
 	$al->table("labelalias");
 	$al->id($this->row_id);
 

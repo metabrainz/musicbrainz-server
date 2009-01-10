@@ -79,7 +79,7 @@ sub new
 
     $self->Table(shift);
 
-    my $sql = Sql->new($self->GetDBH);
+    my $sql = Sql->new($self->dbh);
     $self->{SQL} = $sql;
 
     return $self;
@@ -397,7 +397,7 @@ sub Search
 
     my $table = $self->Table;
 
-    my $sql = Sql->new($self->GetDBH);
+    my $sql = Sql->new($self->dbh);
     my $counts = $sql->SelectListOfLists(
 	"SELECT id, word, ${table}usecount
 	FROM wordlist WHERE
@@ -494,7 +494,7 @@ sub Search
 	    if ($r->{'numartistaliases'})
 	    {
 		require MusicBrainz::Server::Alias;
-		my $al = MusicBrainz::Server::Alias->new($self->GetDBH, "ArtistAlias");
+		my $al = MusicBrainz::Server::Alias->new($self->dbh, "ArtistAlias");
 		my $aliases = $al->LoadFull($r->{'artistid'});
 
 		for my $alias (@$aliases)
@@ -510,7 +510,7 @@ sub Search
 	    if ($r->{'numlabelaliases'})
 	    {
 		require MusicBrainz::Server::Alias;
-		my $al = MusicBrainz::Server::Alias->new($self->GetDBH, "labelalias");
+		my $al = MusicBrainz::Server::Alias->new($self->dbh, "labelalias");
 		my $aliases = $al->LoadFull($r->{'labelid'});
 
 		for my $alias (@$aliases)

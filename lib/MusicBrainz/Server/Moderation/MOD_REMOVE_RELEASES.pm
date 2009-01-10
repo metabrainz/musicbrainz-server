@@ -100,7 +100,7 @@ sub DetermineQuality
     my $new_albums = $self->{new_albums};
     if (scalar(@$new_albums) == 1)
     {
-        my $rel = MusicBrainz::Server::Release->new($self->GetDBH);
+        my $rel = MusicBrainz::Server::Release->new($self->dbh);
         $rel->id($new_albums->[0]->{id});
         if ($rel->LoadFromId())
         {
@@ -114,7 +114,7 @@ sub AdjustModPending
 {
 	my ($self, $adjust) = @_;
 	require MusicBrainz::Server::Release;
-	my $al = MusicBrainz::Server::Release->new($self->GetDBH);
+	my $al = MusicBrainz::Server::Release->new($self->dbh);
 
 	for my $t (@{ $self->{'new_albums'} })
 	{
@@ -127,7 +127,7 @@ sub ApprovedAction
 {
 	my $self = shift;
 	require MusicBrainz::Server::Release;
- 	my $al = MusicBrainz::Server::Release->new($self->GetDBH);
+ 	my $al = MusicBrainz::Server::Release->new($self->dbh);
 
 	for my $t (@{ $self->{'new_albums'} })
 	{

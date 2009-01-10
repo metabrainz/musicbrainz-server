@@ -265,7 +265,7 @@ sub FindNonAlbum
 	my ($this, $artist) = @_;
 	$artist ||= $this->artist;
 
-	my $sql = Sql->new($this->GetDBH);
+	my $sql = Sql->new($this->dbh);
 	my $ids = $sql->SelectSingleColumnArray(
 		"SELECT id FROM album WHERE artist = ?
 		AND attributes[2] = " . &RELEASE_ATTR_NONALBUMTRACKS,
@@ -274,7 +274,7 @@ sub FindNonAlbum
 
 	map {
 		my $id = $_;
-		my $o = $this->new($this->GetDBH);
+		my $o = $this->new($this->dbh);
 		$o->id($id);
 		$o->LoadFromId
 			or die;
@@ -371,7 +371,7 @@ sub GetNextFreeTrackId
 	my $self = shift;
 	$self->IsNonAlbumTracks or die;
 
-	my $sql = Sql->new($self->GetDBH);
+	my $sql = Sql->new($self->dbh);
 	my $used = $sql->SelectSingleColumnArray(
 		"SELECT sequence FROM albumjoin WHERE album = ?",
 		$self->id,
@@ -396,7 +396,7 @@ sub Insert
     return undef if (!exists $this->{artist} || $this->{artist} eq '');
     return undef if (!exists $this->{name} || $this->{name} eq '');
 
-    my $sql = Sql->new($this->GetDBH);
+    my $sql = Sql->new($this->dbh);
     my $id = $this->CreateNewGlobalId();
     my $attrs = "{" . join(',', @{ $this->{attrs} }) . "}";
     my $page = $this->CalculatePageIndex($this->{name});
@@ -440,7 +440,7 @@ sub Remove
     $album = $this->id();
     return if (!defined $album);
   
-    $sql = Sql->new($this->GetDBH);
+    $sql = Sql->new($this->dbh);
     require MusicBrainz::Server::ReleaseCDTOC;
 	MusicBrainz::Server::ReleaseCDTOC->RemoveAlbum($this->{DBH}, $album);
 
@@ -453,7 +453,7 @@ sub Remove
                          where AlbumJoin.album = $album|))
     {
 		require MusicBrainz::Server::Track;
-         my $tr = MusicBrainz::Server::Track->new($this->GetDBH);
+         my $tr = MusicBrainz::Server::Track->new($this->dbh);
          while(@row = $sql->NextRow)
          {
              print STDERR "DELETE: Removed albumjoin " . $row[0] . "\n";
@@ -466,7 +466,7 @@ sub Remove
 
 	# Remove relationships
 	require MusicBrainz::Server::Link;
-	my $link = MusicBrainz::Server::Link->new($this->GetDBH);
+	my $link = MusicBrainz::Server::Link->new($this->dbh);
 	$link->RemoveByRelease($album);
 
     # Remove tags
@@ -476,7 +476,7 @@ sub Remove
 
     # Remove references from album words table
 	require SearchEngine;
-    my $engine = SearchEngine->new($this->GetDBH, 'album');
+    my $engine = SearchEngine->new($this->dbh, 'album');
     $engine->RemoveObjectRefs($this->id());
 
     require MusicBrainz::Server::Annotation;
@@ -493,7 +493,7 @@ sub Remove
 sub LoadAlbumMetadata
 {
  	my ($this) = @_;
-	my $sql = Sql->new($this->GetDBH);
+	my $sql = Sql->new($this->dbh);
 
 	my $row = $sql->SelectSingleRowHash(
 		"SELECT * FROM albummeta WHERE id = ?",
@@ -590,7 +590,7 @@ sub first_release_date_ymd
 sub release_ids_from_track_id
 {
 	my ($this, $trackid) = @_;
-	my $sql = Sql->new($this->GetDBH);
+	my $sql = Sql->new($this->dbh);
 
 	my $r = $sql->SelectSingleColumnArray(
 		"SELECT	a.id
@@ -628,7 +628,7 @@ sub LoadFromId
 		return undef;
 	}
 
-	my $sql = Sql->new($this->GetDBH);
+	my $sql = Sql->new($this->dbh);
 	my $row = $sql->SelectSingleRowArray(
 		"SELECT	a.id, name, gid, modpending, artist, attributes, "
 		. "       language, script, modpending_lang, quality, modpending_qual"
@@ -694,7 +694,7 @@ sub GetAlbumListFromName
 
    return undef if (!exists $this->{artist} || $this->{artist} eq '');
 
-   $sql = Sql->new($this->GetDBH);
+   $sql = Sql->new($this->dbh);
    if ($sql->Select("select gid, name
                          from Album
                         where name = ? and
@@ -719,7 +719,7 @@ sub LoadTracks
 	my ($this) = @_;
 	my (@info, $query, $sql, @row, $track);
 
-	$sql = Sql->new($this->GetDBH);
+	$sql = Sql->new($this->dbh);
   
 	if (not wantarray)
 	{
@@ -755,12 +755,12 @@ sub LoadTracks
 		for(;@row = $sql->NextRow();)
 		{
             require MusicBrainz::Server::Artist;
-            my $ta = MusicBrainz::Server::Artist->new($this->GetDBH);
+            my $ta = MusicBrainz::Server::Artist->new($this->dbh);
             $ta->id($row[2]);
             $ta->name($row[7]);
 
 			require MusicBrainz::Server::Track;
-			$track = MusicBrainz::Server::Track->new($this->GetDBH);
+			$track = MusicBrainz::Server::Track->new($this->dbh);
 			$track->id($row[0]);
 			$track->name($row[1]);
 			$track->artist($ta);
@@ -784,7 +784,7 @@ sub ReleaseEvents
 {
 	my ($self, $loadlabels) = @_;
 	require MusicBrainz::Server::ReleaseEvent;
-	my $rel = MusicBrainz::Server::ReleaseEvent->new($self->GetDBH);
+	my $rel = MusicBrainz::Server::ReleaseEvent->new($self->dbh);
 	$rel->newFromRelease($self->id, $loadlabels);
 }
 
@@ -854,7 +854,7 @@ sub HasMultipleTrackArtists
 sub LoadPUIDCount
 {
  	my $this = shift;
-	my $sql = Sql->new($this->GetDBH);
+	my $sql = Sql->new($this->dbh);
 
 	my $counts = $sql->SelectListOfLists(
 		"SELECT	albumjoin.track, COUNT(puidjoin.track) AS num_puid
@@ -878,7 +878,7 @@ sub LoadPUIDCount
 sub LoadLatestTrackAnnos
 {
  	my $self = shift;
-	my $sql = Sql->new($self->GetDBH);
+	my $sql = Sql->new($self->dbh);
 	
 	my $annos = $sql->SelectListOfLists(
 		"SELECT albumjoin.track, annotation.text != ''
@@ -920,7 +920,7 @@ sub MergeReleases
       $merged{$tr->sequence()} = $tr;
    }
 
-   $sql = Sql->new($this->GetDBH);
+   $sql = Sql->new($this->dbh);
    # If we're merging into a MAC, then set this album to a MAC album
    if ($intoMAC)
    {
@@ -935,7 +935,7 @@ sub MergeReleases
    my $old_langscript = join " ", ($this->language_id||0), ($this->script_id||0);
 
    require MusicBrainz::Server::Release;
-   $al = MusicBrainz::Server::Release->new($this->GetDBH);
+   $al = MusicBrainz::Server::Release->new($this->dbh);
    
    require MusicBrainz::Server::Link;
    my $link = MusicBrainz::Server::Link->new($sql->{DBH});
@@ -959,7 +959,7 @@ sub MergeReleases
 				my $new = $merged{$tr->sequence()}->id;
 
 				require MusicBrainz::Server::PUID;
-				my $puid = MusicBrainz::Server::PUID->new($this->GetDBH);
+				my $puid = MusicBrainz::Server::PUID->new($this->dbh);
 				$puid->MergeTracks($old, $new);
 				
 				# Move relationships
@@ -1089,7 +1089,7 @@ sub GetVariousDisplayList
 	# But for now, we always retrieve all the matching albums (ugh), sort them
 	# ourselves, then apply the range filter.
 
-	my $sql = Sql->new($this->GetDBH);
+	my $sql = Sql->new($this->dbh);
 	my $rows = $sql->SelectListOfLists($query);
 	my $num_albums = @$rows;
 
@@ -1122,7 +1122,7 @@ sub GetVariousDisplayList
 		my $row = $_;
 
 		require MusicBrainz::Server::Release;
-		my $al = MusicBrainz::Server::Release->new($this->GetDBH);
+		my $al = MusicBrainz::Server::Release->new($this->dbh);
 
 		$al->{_debug_sortname} = shift @$row;
 
@@ -1165,7 +1165,7 @@ sub UpdateName
 	MusicBrainz::Server::Validation::TrimInPlace($name);
 	my $page = $self->CalculatePageIndex($name);
 
-	my $sql = Sql->new($self->GetDBH);
+	my $sql = Sql->new($self->dbh);
 	$sql->Do(
 		"UPDATE album SET name = ?, page = ? WHERE id = ?",
 		$name,
@@ -1185,7 +1185,7 @@ sub UpdateQuality
 	my $id = $self->id
 		or croak "Missing artist ID in UpdateQuality";
 
-	my $sql = Sql->new($self->GetDBH);
+	my $sql = Sql->new($self->dbh);
 	$sql->Do(
 		"UPDATE album SET quality = ? WHERE id = ?",
 		$self->{quality},
@@ -1200,7 +1200,7 @@ sub RebuildWordList
     my ($this) = @_;
 
     require SearchEngine;
-    my $engine = SearchEngine->new($this->GetDBH, 'album');
+    my $engine = SearchEngine->new($this->dbh, 'album');
     $engine->AddWordRefs(
 		$this->id,
 		$this->name,
@@ -1213,7 +1213,7 @@ sub UpdateAttributes
 	my ($this) = @_;
 
 	my $attr = join ',', @{ $this->{attrs} };
-	my $sql = Sql->new($this->GetDBH);
+	my $sql = Sql->new($this->dbh);
 	$sql->Do(
 		"UPDATE album SET attributes = ? WHERE id = ?",
 		"{$attr}",
@@ -1225,7 +1225,7 @@ sub UpdateLanguageAndScript
 {
 	my $this = shift;
 
-	my $sql = Sql->new($this->GetDBH);
+	my $sql = Sql->new($this->dbh);
 	$sql->Do(
 		"UPDATE album SET language = ?, script = ? WHERE id = ?",
 		$this->language_id || undef,
@@ -1253,7 +1253,7 @@ sub UpdateModPending
 	defined($adjust)
 		or croak "Missing adjustment in UpdateModPending";
 
-	my $sql = Sql->new($self->GetDBH);
+	my $sql = Sql->new($self->dbh);
 	$sql->Do(
 		"UPDATE album SET modpending = NUMERIC_LARGER(modpending+?, 0) WHERE id = ?",
 		$adjust,
@@ -1270,7 +1270,7 @@ sub UpdateAttributesModPending
 	defined($adjust)
 		or croak "Missing adjustment in UpdateAttributesModPending";
 
-	my $sql = Sql->new($self->GetDBH);
+	my $sql = Sql->new($self->dbh);
 	$sql->Do(
 		"UPDATE album SET attributes[1] = NUMERIC_LARGER(attributes[1]+?, 0) WHERE id = ?",
 		$adjust,
@@ -1287,7 +1287,7 @@ sub UpdateLanguageModPending
 	defined($adjust)
 		or croak "Missing adjustment in UpdateLanguageModPending";
 
-	my $sql = Sql->new($self->GetDBH);
+	my $sql = Sql->new($self->dbh);
 	$sql->Do(<<'EOF', $adjust, $id);
 		UPDATE	album
 		SET		modpending_lang
@@ -1305,7 +1305,7 @@ sub UpdateQualityModPending
 	defined($adjust)
 		or croak "Missing adjustment in UpdateQualityModPending";
 
-	my $sql = Sql->new($self->GetDBH);
+	my $sql = Sql->new($self->dbh);
 	$sql->Do(
 		"UPDATE album SET modpending_qual = NUMERIC_LARGER(modpending_qual+?, 0) WHERE id = ?",
 		$adjust,
@@ -1324,7 +1324,7 @@ sub GetTrackSequence
         return undef;
 	}
 
-	my $sql = Sql->new($this->GetDBH);
+	my $sql = Sql->new($this->dbh);
 	$sql->SelectSingleValue(
 		"SELECT sequence FROM albumjoin WHERE album = ? AND track = ?",
 		$this->id,

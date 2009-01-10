@@ -162,7 +162,7 @@ sub DetermineQuality
     my $quality_level = &ModDefs::QUALITY_NORMAL;
     if (scalar(@{$self->{'new_albums'}}) == 1)
     {
-        my $rel = MusicBrainz::Server::Release->new($self->GetDBH);
+        my $rel = MusicBrainz::Server::Release->new($self->dbh);
         $rel->id($self->{new_albums}->[0]->{id});
         if ($rel->LoadFromId())
         {
@@ -176,7 +176,7 @@ sub ConvertToText
 {
 	my $self = shift;
 	require MusicBrainz::Server::Release;
-	my $al = MusicBrainz::Server::Release->new($self->GetDBH);
+	my $al = MusicBrainz::Server::Release->new($self->dbh);
 
 	join ", ",
 		map {
@@ -195,7 +195,7 @@ sub AdjustModPending
 	# Now though we apply the modpending change to all affected releases.
 
 	require MusicBrainz::Server::Release;
-	my $al = MusicBrainz::Server::Release->new($self->GetDBH);
+	my $al = MusicBrainz::Server::Release->new($self->dbh);
 
 	for my $album (@{ $self->{'new_albums'} })
 	{
@@ -213,7 +213,7 @@ sub DeniedAction
 {
 	my $self = shift;
 	require MusicBrainz::Server::Release;
-	my $al = MusicBrainz::Server::Release->new($self->GetDBH);
+	my $al = MusicBrainz::Server::Release->new($self->dbh);
 
  	for my $t (@{ $self->{'new_albums'} })
 	{

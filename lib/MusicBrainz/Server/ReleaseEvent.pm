@@ -121,7 +121,7 @@ sub country
 sub Country
 {
 	my $self = shift;
-	my $c = MusicBrainz::Server::Country->new($self->GetDBH);
+	my $c = MusicBrainz::Server::Country->new($self->dbh);
 	$c = $c->newFromId($self->country);
 	$c;
 }
@@ -197,7 +197,7 @@ sub ToString {
 sub newFromId
 {
 	my ($self, $id) = @_;
-   	my $sql = Sql->new($self->GetDBH);
+   	my $sql = Sql->new($self->dbh);
 	$self->_new_from_row(
 		$sql->SelectSingleRowHash(
 			"SELECT * FROM release WHERE id = ?",
@@ -209,7 +209,7 @@ sub newFromId
 sub newFromRelease
 {
 	my ($self, $album, $loadlabels) = @_;
-	my $sql = Sql->new($self->GetDBH);
+	my $sql = Sql->new($self->dbh);
 	my $query;
 	if ($loadlabels) 
 	{
@@ -231,9 +231,9 @@ sub _new_from_row
 {
     my ($self, $row, $has_label_info) = @_;
 
-    my $event = MusicBrainz::Server::ReleaseEvent->new($self->GetDBH);
+    my $event = MusicBrainz::Server::ReleaseEvent->new($self->dbh);
 
-    my $label = MusicBrainz::Server::Label->new($self->GetDBH);
+    my $label = MusicBrainz::Server::Label->new($self->dbh);
     $label->id($row->{label});
 
     if ($has_label_info)
@@ -261,7 +261,7 @@ sub _new_from_row
 sub InsertSelf
 {
 	my $self = shift;
-   	my $sql = Sql->new($self->GetDBH);
+   	my $sql = Sql->new($self->dbh);
 	$sql->Do(
 		"INSERT INTO release (album, country, releasedate, label, catno, barcode, format) VALUES (?, ?, ?, ?, ?, ?, ?)",
 		$self->release,
@@ -278,7 +278,7 @@ sub InsertSelf
 sub Update
 {
 	my ($self, %new) = @_;
-   	my $sql = Sql->new($self->GetDBH);
+   	my $sql = Sql->new($self->dbh);
 	$self->country($new{"country"});
 	$self->sort_date($new{"date"});
 	$self->SetLabel($new{"label"});
@@ -306,7 +306,7 @@ sub UpdateModPending
 	defined($adjust)
 		or croak "Missing adjustment in UpdateModPending";
 
-	my $sql = Sql->new($self->GetDBH);
+	my $sql = Sql->new($self->dbh);
 	$sql->Do(
 		"UPDATE release SET modpending = NUMERIC_LARGER(modpending+?, 0) WHERE id = ?",
 		$adjust,
@@ -317,7 +317,7 @@ sub UpdateModPending
 sub RemoveById
 {
 	my ($self, $id) = @_;
-   	my $sql = Sql->new($self->GetDBH);
+   	my $sql = Sql->new($self->dbh);
 	$sql->Do(
 		"DELETE FROM release WHERE id = ?",
 		$id,
@@ -327,7 +327,7 @@ sub RemoveById
 sub RemoveByRelease
 {
 	my ($self, $albumid) = @_;
-   	my $sql = Sql->new($self->GetDBH);
+   	my $sql = Sql->new($self->dbh);
 	$sql->Do(
 		"DELETE FROM release WHERE album = ?",
 		$albumid,
@@ -337,7 +337,7 @@ sub RemoveByRelease
 sub MoveFromReleaseToRelease
 {
 	my ($self, $fromalbumid, $toalbumid) = @_;
-   	my $sql = Sql->new($self->GetDBH);
+   	my $sql = Sql->new($self->dbh);
 	$sql->Do(
 		"UPDATE release SET album = ? WHERE album = ?",
 		$toalbumid,

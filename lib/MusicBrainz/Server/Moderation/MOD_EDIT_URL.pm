@@ -64,7 +64,7 @@ sub PreInsert
 		);
 		if (@links)
 		{
-			my $album = MusicBrainz::Server::Release->new($self->GetDBH);
+			my $album = MusicBrainz::Server::Release->new($self->dbh);
 			$album->id($links[0]->{link0_id});
 			$artist = $album->artist
 				if ($album->LoadFromId(0));
@@ -78,7 +78,7 @@ sub PreInsert
 		);
 		if (@links)
 		{
-			my $track = MusicBrainz::Server::Track->new($self->GetDBH);
+			my $track = MusicBrainz::Server::Track->new($self->dbh);
 			$track->id($links[0]->{link0_id});
 			$artist = $track->artist->id
 				if ($track->LoadFromId(0));
@@ -111,7 +111,7 @@ sub DetermineQuality
     # See if we have an album url link
     if (@links)
     {
-        my $album = MusicBrainz::Server::Release->new($self->GetDBH);
+        my $album = MusicBrainz::Server::Release->new($self->dbh);
         $album->id($links[0]->{link0_id});
         return $album->quality
             if ($album->LoadFromId(0));
@@ -122,7 +122,7 @@ sub DetermineQuality
     );
     if (@links)
     {
-        my $ar = MusicBrainz::Server::Artist->new($self->GetDBH);
+        my $ar = MusicBrainz::Server::Artist->new($self->dbh);
         $ar->id($links[0]->{link0_id});
         return $ar->quality
             if ($ar->LoadFromId(0));
@@ -161,7 +161,7 @@ sub ApprovedAction
             $link->{link0_type} eq 'album' &&
             $link->{link1_type} eq 'url')
         {
-            my $al = MusicBrainz::Server::Release->new($self->GetDBH);
+            my $al = MusicBrainz::Server::Release->new($self->dbh);
             $al->id($link->{link0_id});
             if ($al->LoadFromId(1))
             {
@@ -175,7 +175,7 @@ sub ApprovedAction
             $link->{link0_type} eq 'album' &&
             $link->{link1_type} eq 'url')
         {
-            my $al = MusicBrainz::Server::Release->new($self->GetDBH);
+            my $al = MusicBrainz::Server::Release->new($self->dbh);
             $al->id($link->{link0_id});
             if ($al->LoadFromId(1))
             {

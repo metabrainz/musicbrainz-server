@@ -87,7 +87,7 @@ sub PreInsert
 	$info{'artist_mbid'} = $mbid if defined $mbid;
 
 	require Insert;
-	my $in = Insert->new($self->GetDBH);
+	my $in = Insert->new($self->dbh);
 	my $ans = $in->Insert(\%info);
 
 	# TODO I'm not sure this path is ever used - I think $ans is always true.
@@ -99,9 +99,9 @@ sub PreInsert
 
 	if (UserPreference::get('auto_subscribe'))
 	{
-		my $subs = UserSubscription->new($self->GetDBH); 
+		my $subs = UserSubscription->new($self->dbh); 
 		$subs->SetUser($self->moderator);
-		my $artist = MusicBrainz::Server::Artist->new($self->GetDBH);
+		my $artist = MusicBrainz::Server::Artist->new($self->dbh);
 		$artist->id($info{'artist_insertid'});
 		$subs->SubscribeArtists(($artist))
 			if ($artist->LoadFromId);

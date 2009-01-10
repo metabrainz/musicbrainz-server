@@ -54,7 +54,7 @@ sub PostLoad
 	
 	# load track and release object
 	require MusicBrainz::Server::Track;
-	my $track = MusicBrainz::Server::Track->new($self->GetDBH);
+	my $track = MusicBrainz::Server::Track->new($self->dbh);
 	
 	if ($self->{'trackexists'} = $track->LoadFromAlbumJoin($self->row_id))
 	{
@@ -62,7 +62,7 @@ sub PostLoad
 		$self->{'trackname'} = $track->name;
  
 		require MusicBrainz::Server::Release;
-		my $release = MusicBrainz::Server::Release->new($self->GetDBH);
+		my $release = MusicBrainz::Server::Release->new($self->dbh);
 		$release->id($track->release);
 		if ($self->{'albumexists'} = $release->LoadFromId)
 		{
@@ -79,7 +79,7 @@ sub DetermineQuality
     # see if we loaded the album
 	if ($self->{'albumexists'})
 	{
-        my $rel = MusicBrainz::Server::Release->new($self->GetDBH);
+        my $rel = MusicBrainz::Server::Release->new($self->dbh);
         $rel->id($self->{albumid});
         if ($rel->LoadFromId())
         {
@@ -88,7 +88,7 @@ sub DetermineQuality
     }
 
     # if that fails, go by the artist
-    my $ar = MusicBrainz::Server::Artist->new($self->GetDBH);
+    my $ar = MusicBrainz::Server::Artist->new($self->dbh);
     $ar->id($self->{artist});
     if ($ar->LoadFromId())
     {
@@ -103,7 +103,7 @@ sub ApprovedAction
 	my $this = shift;
 
 	require MusicBrainz::Server::Track;
-	my $track = MusicBrainz::Server::Track->new($this->GetDBH);
+	my $track = MusicBrainz::Server::Track->new($this->dbh);
 	unless ($track->LoadFromAlbumJoin($this->row_id))
 	{
 		$this->InsertNote(MODBOT_MODERATOR, "This track has been deleted");

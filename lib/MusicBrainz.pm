@@ -44,13 +44,13 @@ sub new
 # Database connect / disconnect
 ################################################################################
 
-sub GetDBH
+sub dbh
 {
 	my ($self) = @_;
 	return $self->{DBH};
 }
 
-sub SetDBH
+sub dbh
 {
 	my ($self, $new_value) = @_;
 	$self->{DBH} = $new_value;
@@ -113,7 +113,7 @@ sub Login
 	if (not $tied->{'_mb_prepared_connection_'})
 	{
 		require Sql;
-		my $sql = Sql->new($this->GetDBH);
+		my $sql = Sql->new($this->dbh);
 
 		$sql->AutoCommit(1);
 		$sql->Do("SET TIME ZONE 'UTC'");

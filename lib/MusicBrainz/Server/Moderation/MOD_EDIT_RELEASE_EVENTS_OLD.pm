@@ -196,7 +196,7 @@ sub DetermineQuality
 {
 	my $self = shift;
 
-	my $rel = MusicBrainz::Server::Release->new($self->GetDBH);
+	my $rel = MusicBrainz::Server::Release->new($self->dbh);
 	$rel->id($self->{rowid});
 	if ($rel->LoadFromId())
 	{
@@ -253,7 +253,7 @@ sub AdjustModPending
 {
 	my ($self, $adjust) = @_;
 	require MusicBrainz::Server::ReleaseEvent;
-	my $rel = MusicBrainz::Server::ReleaseEvent->new($self->GetDBH);
+	my $rel = MusicBrainz::Server::ReleaseEvent->new($self->dbh);
 
 	for my $list (qw( adds edits removes ))
 	{
@@ -269,13 +269,13 @@ sub ApprovedAction
 {
 	my $self = shift;
 	require MusicBrainz::Server::ReleaseEvent;
-	my $release = MusicBrainz::Server::ReleaseEvent->new($self->GetDBH);
+	my $release = MusicBrainz::Server::ReleaseEvent->new($self->dbh);
 
 	require MusicBrainz::Server::Country;
-	my $country = MusicBrainz::Server::Country->new($self->GetDBH);
+	my $country = MusicBrainz::Server::Country->new($self->dbh);
 
 	require MusicBrainz::Server::Label;
-	my $label = MusicBrainz::Server::Label->new($self->GetDBH);
+	my $label = MusicBrainz::Server::Label->new($self->dbh);
 
 	my @notes;
 	my $ok = 0;
@@ -347,7 +347,7 @@ sub DeniedAction
 {
 	my $self = shift;
 	require MusicBrainz::Server::ReleaseEvent;
-	my $release = MusicBrainz::Server::ReleaseEvent->new($self->GetDBH);
+	my $release = MusicBrainz::Server::ReleaseEvent->new($self->dbh);
 
 	# Remove the "adds" list
 	for my $t (@{ $self->{"adds"} })

@@ -72,7 +72,7 @@ sub PreDisplay
 	my $this = shift;
 
 	# load annotation data
-	my $an = MusicBrainz::Server::Annotation->new($this->GetDBH);
+	my $an = MusicBrainz::Server::Annotation->new($this->dbh);
 	$an->moderation($this->id());
 	if ($an->LoadFromId())
 	{
@@ -93,7 +93,7 @@ sub ApprovedAction
 	my $text = $new->{Text};
 
 	require MusicBrainz::Server::Annotation;
-	my $an = MusicBrainz::Server::Annotation->new($self->GetDBH);
+	my $an = MusicBrainz::Server::Annotation->new($self->dbh);
 
 	$an->moderator($self->moderator());
 	$an->moderation($self->id());

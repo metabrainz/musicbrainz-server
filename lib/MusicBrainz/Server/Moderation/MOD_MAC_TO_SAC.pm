@@ -84,7 +84,7 @@ sub DetermineQuality
 
 	my $level = &ModDefs::QUALITY_UNKNOWN_MAPPED;
 
-	my $rel = MusicBrainz::Server::Release->new($self->GetDBH);
+	my $rel = MusicBrainz::Server::Release->new($self->dbh);
 	$rel->id($self->{rowid});
 	if ($rel->LoadFromId())
 	{
@@ -92,7 +92,7 @@ sub DetermineQuality
     }
 
     # Check the artist its going to
-	my $ar = MusicBrainz::Server::Artist->new($self->GetDBH);
+	my $ar = MusicBrainz::Server::Artist->new($self->dbh);
 	$ar->id($self->{'new.artistid'});
 	if ($ar->LoadFromId())
 	{
@@ -127,7 +127,7 @@ sub CheckPrerequisites
 
 	# Load the album by ID
 	require MusicBrainz::Server::Release;
-	my $al = MusicBrainz::Server::Release->new($self->GetDBH);
+	my $al = MusicBrainz::Server::Release->new($self->dbh);
 	$al->id($rowid);
 	unless ($al->LoadFromId)
 	{
@@ -150,7 +150,7 @@ sub CheckPrerequisites
 sub ApprovedAction
 {
 	my $this = shift;
-	my $sql = Sql->new($this->GetDBH);
+	my $sql = Sql->new($this->dbh);
 
 	my $status = $this->CheckPrerequisites;
 	return $status if $status;
@@ -182,7 +182,7 @@ sub ApprovedAction
 	{
 		# No such artist, so create one
 		require MusicBrainz::Server::Artist;
-		my $ar = MusicBrainz::Server::Artist->new($this->GetDBH);
+		my $ar = MusicBrainz::Server::Artist->new($this->dbh);
 		$ar->name($name);
 		$ar->sort_name($this->{'new.sortname'});
 		$newid = $ar->Insert(no_alias => 1);

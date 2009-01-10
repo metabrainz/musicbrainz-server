@@ -210,7 +210,7 @@ sub CheckPrerequisites
 
 	# Load the label by ID
 	require MusicBrainz::Server::Label;
-	my $ar = MusicBrainz::Server::Label->new($self->GetDBH);
+	my $ar = MusicBrainz::Server::Label->new($self->dbh);
 	$ar->id($label_id);
 	unless ($ar->LoadFromId)
 	{
@@ -255,7 +255,7 @@ sub DeniedAction
 	if (my $label = $new->{'LabelId'})
 	{
 		require MusicBrainz::Server::Label;
-		my $ar = MusicBrainz::Server::Label->new($self->GetDBH);
+		my $ar = MusicBrainz::Server::Label->new($self->dbh);
 		$ar->id($label);
 		$ar->Remove;
    }
@@ -267,7 +267,7 @@ sub ShowModTypeDelegate
 	$m->out('<tr class="entity"><td class="lbl">Label:</td><td>');
 	my $id = $self->row_id;
 	require MusicBrainz::Server::Label;
-	my $label = MusicBrainz::Server::Label->new($self->GetDBH);
+	my $label = MusicBrainz::Server::Label->new($self->dbh);
 	$label->id($id);
 	my ($title, $name);
 	if ($label->LoadFromId) 

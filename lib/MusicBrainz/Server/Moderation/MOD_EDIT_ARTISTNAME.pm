@@ -58,7 +58,7 @@ sub DetermineQuality
 {
 	my $self = shift;
 
-	my $ar = MusicBrainz::Server::Artist->new($self->GetDBH);
+	my $ar = MusicBrainz::Server::Artist->new($self->dbh);
 	$ar->id($self->{rowid});
 	if ($ar->LoadFromId())
 	{
@@ -88,7 +88,7 @@ sub CheckPrerequisites
 
 	# Load the artist by ID
 	require MusicBrainz::Server::Artist;
-	my $ar = MusicBrainz::Server::Artist->new($self->GetDBH);
+	my $ar = MusicBrainz::Server::Artist->new($self->dbh);
 	$ar->id($rowid);
 	unless ($ar->LoadFromId)
 	{

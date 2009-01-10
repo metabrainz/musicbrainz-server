@@ -231,11 +231,11 @@ sub newFromId
 
 	if ($obj)
 	{
-		$$obj->SetDBH($this->GetDBH) if $$obj;
+		$$obj->dbh($this->GetDBH) if $$obj;
 		return $$obj;
 	}
 
-	my $sql = Sql->new($this->GetDBH);
+	my $sql = Sql->new($this->dbh);
 
 	$obj = $this->_new_from_row(
 		$sql->SelectSingleRowHash(
@@ -249,7 +249,7 @@ sub newFromId
 	MusicBrainz::Server::Cache->set($key, \$obj);
 	MusicBrainz::Server::Cache->set($obj->_name_cache_key($obj->name), \$obj)
 		if $obj;
-	$obj->SetDBH($this->GetDBH) if $obj;
+	$obj->dbh($this->GetDBH) if $obj;
 
 	return $obj;
 }
@@ -266,11 +266,11 @@ sub newFromName
 
 	if ($obj)
 	{
-		$$obj->SetDBH($this->GetDBH) if $$obj;
+		$$obj->dbh($this->GetDBH) if $$obj;
 		return $$obj;
 	}
 
-	my $sql = Sql->new($this->GetDBH);
+	my $sql = Sql->new($this->dbh);
 
 	$obj = $this->_new_from_row(
 		$sql->SelectSingleRowHash(
@@ -283,7 +283,7 @@ sub newFromName
 	delete $obj->{DBH} if $obj;
 	MusicBrainz::Server::Cache->set($key, \$obj);
 	MusicBrainz::Server::Cache->set($obj->_id_cache_key($obj->id), \$obj) if $obj;
-	$obj->SetDBH($this->GetDBH) if $obj;
+	$obj->dbh($this->GetDBH) if $obj;
 
 	return $obj;
 }
@@ -303,7 +303,7 @@ sub coalesce
 sub search
 {
 	my ($this, %opts) = @_;
-	my $sql = Sql->new($this->GetDBH);
+	my $sql = Sql->new($this->dbh);
 
     my $query = coalesce($opts{'query'}, "");
     my $limit = coalesce($opts{'limit'}, DEFAULT_SEARCH_LIMIT, 0);
@@ -370,7 +370,7 @@ sub Login
 	$this = $this->new(shift) if not ref $this;
 	my ($user, $pwd) = @_;
 
-	my $sql = Sql->new($this->GetDBH);
+	my $sql = Sql->new($this->dbh);
 
 	my $self = $this->newFromName($user)
 		or return;
@@ -398,7 +398,7 @@ sub CreateLogin
 	my ($this, $user, $pwd, $pwd2) = @_;
 	my ($sql, $uid, $newuser, @messages);
 
-	$sql = Sql->new($this->GetDBH);
+	$sql = Sql->new($this->dbh);
 	$sql->Begin;
 
 	if ($user eq "")
@@ -458,7 +458,7 @@ sub GetUserPasswordAndId
 		return undef;
     }
 
-	my $sql = Sql->new($this->GetDBH);
+	my $sql = Sql->new($this->dbh);
 
 	my $row = $sql->SelectSingleRowArray(
 		"SELECT password, id FROM moderator WHERE name = ?",
@@ -473,7 +473,7 @@ sub GetUserPasswordAndId
 sub LookupNameByEmail
 {
 	my ($this, $email) = @_;
-	my $sql = Sql->new($this->GetDBH);
+	my $sql = Sql->new($this->dbh);
 
 	return $sql->SelectSingleColumnArray(
 		"SELECT name
@@ -486,7 +486,7 @@ sub LookupNameByEmail
 sub IsNewbie
 {
 	my $self = shift;
-	my $sql = Sql->new($self->GetDBH);
+	my $sql = Sql->new($self->dbh);
 
 	return $sql->SelectSingleValue(
 		"SELECT NOW() < membersince + INTERVAL '2 weeks'
@@ -508,7 +508,7 @@ sub SetUserInfo
 		return undef;
 	}
 
-	my $sql = Sql->new($self->GetDBH);
+	my $sql = Sql->new($self->dbh);
 
 	my $query = "UPDATE moderator SET";
 	my @args;
@@ -573,7 +573,7 @@ sub MakeAutoModerator
 
 	return if $self->is_auto_editor($self->privs);
 
-	my $sql = Sql->new($self->GetDBH);
+	my $sql = Sql->new($self->dbh);
 	$sql->AutoTransaction(
 		sub {
 			$self->SetUserInfo(privs => $self->privs | AUTOMOD_FLAG);
@@ -598,7 +598,7 @@ sub CreditModerator
 				: "modsfailed"
 	);
 
- 	my $sql = Sql->new($this->GetDBH);
+ 	my $sql = Sql->new($this->dbh);
 	$sql->Do(
 		"UPDATE moderator SET $column = $column + 1 WHERE id = ?",
 		$uid,
@@ -615,7 +615,7 @@ sub ChangePassword
 {
 	my ($self, $oldpassword, $newpass1, $newpass2) = @_;
 	
-    my $sql = Sql->new($self->GetDBH);
+    my $sql = Sql->new($self->dbh);
 	my $ok = $sql->AutoTransaction(
 		sub {
 			$sql->Do(
@@ -1104,7 +1104,7 @@ sub SetSession
 	$session->{has_confirmed_email} = ($self->email ? 1 : 0);
 
 	require Moderation;
-	my $mod = Moderation->new($self->GetDBH);
+	my $mod = Moderation->new($self->dbh);
 	$session->{moderation_id_start} = $mod->GetMaxModID;
 
 	require UserPreference;
@@ -1262,7 +1262,7 @@ sub TryAutoLogin
 sub _update_last_login_date
 {
 	my ($self, $uid) = @_;
-	my $sql = Sql->new($self->GetDBH);
+	my $sql = Sql->new($self->dbh);
 
 	$sql->AutoTransaction(sub {
 		$sql->Do(

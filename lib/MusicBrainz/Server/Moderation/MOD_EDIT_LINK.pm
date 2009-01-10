@@ -128,7 +128,7 @@ sub DetermineQuality
     my $new = $self->{'new_unpacked'};
     if ($new->{newentity0type} eq 'album' || $new->{newentity1type} eq 'album')
     {
-        my $rel = MusicBrainz::Server::Release->new($self->GetDBH);
+        my $rel = MusicBrainz::Server::Release->new($self->dbh);
         $rel->id($new->{newentity0type} eq 'album' ? $new->{newentity0id} : $new->{newentity1id});
         if ($rel->LoadFromId())
         {
@@ -137,7 +137,7 @@ sub DetermineQuality
     }
     elsif ($new->{newentity0type} eq 'artist' || $new->{newentity1type} eq 'artist')
     {
-        my $rel = MusicBrainz::Server::Artist->new($self->GetDBH);
+        my $rel = MusicBrainz::Server::Artist->new($self->dbh);
         $rel->id($new->{newentity0type} eq 'artist' ? $new->{newentity0id} : $new->{newentity1id});
         if ($rel->LoadFromId())
         {
@@ -158,7 +158,7 @@ sub CheckPrerequisites
 	my $link;
 	{
 		require MusicBrainz::Server::Link;
-		my $l = MusicBrainz::Server::Link->new($self->GetDBH, \@types);
+		my $l = MusicBrainz::Server::Link->new($self->dbh, \@types);
 		$l = $l->newFromId($new->{"linkid"});
 		$link = $l, last if $l;
 
@@ -202,7 +202,7 @@ sub CheckPrerequisites
 	# Does the target link type exist?
 	{
 		require MusicBrainz::Server::LinkType;
-		my $lt = MusicBrainz::Server::LinkType->new($self->GetDBH, \@types);
+		my $lt = MusicBrainz::Server::LinkType->new($self->dbh, \@types);
 		$lt = $lt->newFromId($new->{"newlinktypeid"});
 		last if $lt;
 
@@ -219,7 +219,7 @@ sub ApprovedAction
 	my $new = $self->{'new_unpacked'};
 	my $asintypeid = MusicBrainz::Server::CoverArt->asin_link_type_id($self->{DBH});
 
-	my $link = MusicBrainz::Server::Link->new($self->GetDBH, [$new->{oldentity0type}, $new->{oldentity1type}]);
+	my $link = MusicBrainz::Server::Link->new($self->dbh, [$new->{oldentity0type}, $new->{oldentity1type}]);
 	$link = $link->newFromId($new->{linkid});
 	if ($link)
 	{
@@ -259,7 +259,7 @@ sub ApprovedAction
 		# must be checked as well when implemented
 		if ($new->{newlinktypeid} != $asintypeid)
 		{
-			my $al = MusicBrainz::Server::Release->new($self->GetDBH);
+			my $al = MusicBrainz::Server::Release->new($self->dbh);
 			$al->id($new->{oldentity0id});
 
             MusicBrainz::Server::CoverArt->UpdateAmazonData($al, -1)
@@ -271,7 +271,7 @@ sub ApprovedAction
 			 $new->{newentity1type} eq 'url')
 	{
 		# reverse case, link type changed _to_ Amazon AR
-		my $al = MusicBrainz::Server::Release->new($self->GetDBH);
+		my $al = MusicBrainz::Server::Release->new($self->dbh);
 		$al->id($new->{newentity0id});
         MusicBrainz::Server::CoverArt->ParseAmazonURL($new->{newentity1name}, $al);
 		

@@ -61,7 +61,7 @@ sub CheckPrerequisites
 
 	# Load the album by ID
 	require MusicBrainz::Server::Artist;
-	my $artist = MusicBrainz::Server::Artist->new($self->GetDBH);
+	my $artist = MusicBrainz::Server::Artist->new($self->dbh);
 	$artist->id($self->row_id);
 	unless ($artist->LoadFromId)
 	{
@@ -94,7 +94,7 @@ sub AdjustModPending
 	my ($self, $adjust) = @_;
 
 	require MusicBrainz::Server::Artist;
-	my $ar = MusicBrainz::Server::Artist->new($self->GetDBH);
+	my $ar = MusicBrainz::Server::Artist->new($self->dbh);
 	$ar->id($self->row_id);
 	$ar->LoadFromId;
 	$ar->UpdateQualityModPending($adjust);

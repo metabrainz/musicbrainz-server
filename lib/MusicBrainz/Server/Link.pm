@@ -92,7 +92,7 @@ sub SetLinks
 sub LinkType
 {
 	my $self = shift;
-	my $l = MusicBrainz::Server::LinkType->new($self->GetDBH, $self->{_types});
+	my $l = MusicBrainz::Server::LinkType->new($self->dbh, $self->{_types});
 	$l->newFromId($self->GetLinkType);
 }
 
@@ -167,7 +167,7 @@ sub _new_from_row
 		$self->{$k} = $v
 			if substr($k, 0, 1) eq "_";
 	}
-	$self->{DBH} = $this->GetDBH;
+	$self->{DBH} = $this->dbh;
 
 	my $n = scalar @{ $self->{_types} };
 	$self->{_links} = [ map { $self->{"link$_"} } 0..$n-1 ];
@@ -178,7 +178,7 @@ sub _new_from_row
 sub newFromId
 {
 	my ($self, $id) = @_;
-	my $sql = Sql->new($self->GetDBH);
+	my $sql = Sql->new($self->dbh);
 	my $row = $sql->SelectSingleRowHash(
 		"SELECT * FROM $self->{_table} WHERE id = ?",
 		$id,
@@ -189,7 +189,7 @@ sub newFromId
 sub newFromMBId
 {
 	my ($self, $id) = @_;
-	my $sql = Sql->new($self->GetDBH);
+	my $sql = Sql->new($self->dbh);
 	my $row = $sql->SelectSingleRowHash(
 		"SELECT * FROM $self->{_table} WHERE mbid = ?",
 		$id,
@@ -214,7 +214,7 @@ sub FindLinkedEntities
 		@entity_list = MusicBrainz::Server::LinkEntity->Types;
 	}
 
-	my $sql = Sql->new($self->GetDBH);
+	my $sql = Sql->new($self->dbh);
     my @links;
 
 	foreach my $item (@entity_list)
@@ -366,7 +366,7 @@ sub FindLinkedAlbums
 {
 	my ($self, $entitytype, $entityid) = @_;
 	
-	my $sql = Sql->new($self->GetDBH);
+	my $sql = Sql->new($self->dbh);
 
 	my (@albums, $links);
 
@@ -419,7 +419,7 @@ sub FindLinkedAlbums
 sub Exists
 {
 	my $self = shift;
-	my $sql = Sql->new($self->GetDBH);
+	my $sql = Sql->new($self->dbh);
 
 	my $datewhere = "";
 
@@ -469,7 +469,7 @@ sub Insert
     # If the latter entity is a URL, then insert the URL and fix up the entity data
 	if ($$entities[1]->{type} eq 'url' and not $entities->[1]{'id'})
 	{
-	     my $urlobj = MusicBrainz::Server::URL->new($self->GetDBH);
+	     my $urlobj = MusicBrainz::Server::URL->new($self->dbh);
 		 
 		 $urlobj->Insert($$entities[1]->{url}, $$entities[1]->{desc}) 
 			 or return undef;
@@ -479,7 +479,7 @@ sub Insert
 	}
 
 	# Make a $self which contains all of the desired properties
-	$self = $self->new($self->GetDBH, scalar($link_type->Types));
+	$self = $self->new($self->dbh, scalar($link_type->Types));
 	$self->SetLinkType($link_type->id);
 	$self->SetLinks([ map { $_->{id} } @$entities ]);
 	$self->begin_date($begindate);
@@ -488,7 +488,7 @@ sub Insert
     return undef
 	    if ($self->Exists);
 
-	my $sql = Sql->new($self->GetDBH);
+	my $sql = Sql->new($self->dbh);
 	$sql->Do(
 		"INSERT INTO $self->{_table} (link_type"
 		. (join "", map { ", $_" } $self->_GetLinkFields)
@@ -511,7 +511,7 @@ sub Update
 {
 	my $self = shift;
 
-	my $sql = Sql->new($self->GetDBH);
+	my $sql = Sql->new($self->dbh);
 	$sql->Do(
 		"UPDATE $self->{_table} SET link0 = ?, link1 = ?, begindate = ?, enddate = ?, link_type = ? where id = ?",
 		$self->Links,
@@ -528,7 +528,7 @@ sub Delete
 {
 	my $self = shift;
 
-	my $sql = Sql->new($self->GetDBH);
+	my $sql = Sql->new($self->dbh);
 	$sql->Do(
 		"DELETE FROM $self->{_table} WHERE id = ?",
 		$self->id,
@@ -537,12 +537,12 @@ sub Delete
     # If the latter entity is a URL, delete URL
     if ($self->{_types}->[1] eq 'url')
 	{
-	     my $urlobj = MusicBrainz::Server::URL->new($self->GetDBH);
+	     my $urlobj = MusicBrainz::Server::URL->new($self->dbh);
 		 $urlobj->id($self->{link1});
          $urlobj->Remove();
 	}
 
-	my $attr = MusicBrainz::Server::Attribute->new($self->GetDBH, $self->{_types});
+	my $attr = MusicBrainz::Server::Attribute->new($self->dbh, $self->{_types});
 	$attr = $attr->newFromLinkId($self->id());
 	$attr->Delete() if ($attr);
 
@@ -582,7 +582,7 @@ sub _Merge
 	my ($self, $oldid, $newid, $type) = @_;
 	
 	my @entity_list = MusicBrainz::Server::LinkEntity->Types;
-	my $sql = Sql->new($self->GetDBH);
+	my $sql = Sql->new($self->dbh);
 
 	# First delete all relationships between both entities.
 	my $table = "l_" . $type . "_" . $type;
@@ -638,7 +638,7 @@ sub _Merge
 			if (defined $newlinkid)
 			{
 				# Merge attributes
-				my $attr = MusicBrainz::Server::Attribute->new($self->GetDBH, [$link0_type, $link1_type]);
+				my $attr = MusicBrainz::Server::Attribute->new($self->dbh, [$link0_type, $link1_type]);
 				$attr->MergeLinks($row->{id}, $newlinkid);
 
 				push @delete, $row->{id};
@@ -707,7 +707,7 @@ sub _Remove
 		}
 	}
 
-	my $sql = Sql->new($self->GetDBH);
+	my $sql = Sql->new($self->dbh);
 	foreach my $row (@tables)
 	{
 		my ($table, $type1, $type2, $link) = @$row;
@@ -741,7 +741,7 @@ sub _link_type_matches_entities
 sub CountLinksByType
 {
 	my $self = shift;
-	my $sql = Sql->new($self->GetDBH);
+	my $sql = Sql->new($self->dbh);
 	return $sql->SelectSingleValue(
 		"SELECT COUNT(*) FROM ".$self->Table
 	);

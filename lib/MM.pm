@@ -139,18 +139,18 @@ sub CreateDenseTrackList
     for my $id (@{$gids})
     {
     	require MusicBrainz::Server::Track;
-     	my $tr = MusicBrainz::Server::Track->new($this->GetDBH);
+     	my $tr = MusicBrainz::Server::Track->new($this->dbh);
       	$tr->mbid($id);
        	$tr->LoadFromId();
 
 	require MusicBrainz::Server::Artist;
-	my $ar = MusicBrainz::Server::Artist->new($this->GetDBH);
+	my $ar = MusicBrainz::Server::Artist->new($this->dbh);
 	$ar->id($tr->artist->id);
 	# TODO This is complaining about the ID being undef
 	$ar->LoadFromId();
 
 	require MusicBrainz::Server::Release;
-	my $al = MusicBrainz::Server::Release->new($this->GetDBH);
+	my $al = MusicBrainz::Server::Release->new($this->dbh);
 	my @ids = $al->release_ids_from_track_id($tr->id());
 	$al->id($ids[0]);
 	# TODO this is complaining that the album ID is false
@@ -193,12 +193,12 @@ sub CreateDenseAlbum
     for my $id (@$gids)
     {
 	require MusicBrainz::Server::Release;
-	my $al = MusicBrainz::Server::Release->new($this->GetDBH);
+	my $al = MusicBrainz::Server::Release->new($this->dbh);
 	$al->mbid($id);
 	$al->LoadFromId(1);
 
 	require MusicBrainz::Server::Artist;
-	my $ar = MusicBrainz::Server::Artist->new($this->GetDBH);
+	my $ar = MusicBrainz::Server::Artist->new($this->dbh);
 	$ar->id($al->artist);
 	$ar->LoadFromId;
 	$this->AddToCache(0, 'artist', $ar);
@@ -214,7 +214,7 @@ sub CreateDenseAlbum
 	{
 	    if ($is_va)
 	    {
-		my $var = MusicBrainz::Server::Artist->new($this->GetDBH);
+		my $var = MusicBrainz::Server::Artist->new($this->dbh);
 		$var->id($tr->artist->id);
 		if ($var->LoadFromId)
 		{
@@ -431,17 +431,17 @@ sub LoadObject
     if ($type eq 'artist')
     {
        	require MusicBrainz::Server::Artist;
-	$obj = MusicBrainz::Server::Artist->new($this->GetDBH);
+	$obj = MusicBrainz::Server::Artist->new($this->dbh);
     }
     elsif ($type eq 'album')
     {
        	require MusicBrainz::Server::Release;
-	$obj = MusicBrainz::Server::Release->new($this->GetDBH);
+	$obj = MusicBrainz::Server::Release->new($this->dbh);
     }
     elsif ($type eq 'track')
     {
        	require MusicBrainz::Server::Track;
-	$obj = MusicBrainz::Server::Track->new($this->GetDBH);
+	$obj = MusicBrainz::Server::Track->new($this->dbh);
     }
     return undef if (not defined $obj);
 

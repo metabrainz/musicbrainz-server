@@ -209,7 +209,7 @@ sub Insert
     $this->name($name);
     $this->sort_name($sortname);
 
-    my $sql = Sql->new($this->GetDBH);
+    my $sql = Sql->new($this->dbh);
     my $artist;
 
     if (!$this->resolution())
@@ -229,7 +229,7 @@ sub Insert
     {
 		# Check to see if the artist has an alias.
 		require MusicBrainz::Server::Alias;
-		my $alias = MusicBrainz::Server::Alias->new($this->GetDBH);
+		my $alias = MusicBrainz::Server::Alias->new($this->dbh);
 		$alias->{table} = "ArtistAlias";
 		$artist = $alias->Resolve($name);
 		return $artist if (defined $artist);
@@ -274,7 +274,7 @@ sub Insert
     # TODO This should be in a trigger if we ever get a real DB.
 
     require SearchEngine;
-    my $engine = SearchEngine->new($this->GetDBH, 'artist');
+    my $engine = SearchEngine->new($this->dbh, 'artist');
     $engine->AddWordRefs($artist,$this->{name});
 
     return $artist;
@@ -287,7 +287,7 @@ sub Remove
 
     return if (!defined $this->id());
 
-    my $sql = Sql->new($this->GetDBH);
+    my $sql = Sql->new($this->dbh);
     my $refcount;
 
     # XXX: When are we allowed to delete an artist?  See also $artist->InUse.
@@ -334,7 +334,7 @@ sub Remove
 
 	# Remove relationships
 	require MusicBrainz::Server::Link;
-	my $link = MusicBrainz::Server::Link->new($this->GetDBH);
+	my $link = MusicBrainz::Server::Link->new($this->dbh);
 	$link->RemoveByArtist($this->id);
 
     # Remove tags
@@ -344,7 +344,7 @@ sub Remove
 
     # Remove references from artist words table
     require SearchEngine;
-    my $engine = SearchEngine->new($this->GetDBH, 'artist');
+    my $engine = SearchEngine->new($this->dbh, 'artist');
     $engine->RemoveObjectRefs($this->id());
 
     require MusicBrainz::Server::Annotation;
@@ -417,7 +417,7 @@ sub UpdateName
     my ($this, $name) = @_;
     MusicBrainz::Server::Validation::TrimInPlace($name);
 
-    my $sql = Sql->new($this->GetDBH);
+    my $sql = Sql->new($this->dbh);
 
     $sql->Do(
 	"UPDATE artist SET name = ? WHERE id = ?",
@@ -440,7 +440,7 @@ sub UpdateSortName
     MusicBrainz::Server::Validation::TrimInPlace($name);
 
     my $page = $this->CalculatePageIndex($name);
-    my $sql = Sql->new($this->GetDBH);
+    my $sql = Sql->new($this->dbh);
 
     $sql->Do(
 	"UPDATE artist SET sortname = ?, page = ? WHERE id = ?",
@@ -465,7 +465,7 @@ sub UpdateQuality
 	my $id = $self->id
 		or croak "Missing artist ID in UpdateQuality";
 
-	my $sql = Sql->new($self->GetDBH);
+	my $sql = Sql->new($self->dbh);
 	$sql->Do(
 		"UPDATE artist SET quality = ? WHERE id = ?",
 		$self->{quality},
@@ -481,7 +481,7 @@ sub Update
     my $name = $new->{ArtistName};
     my $sortname = $new->{SortName};
 
-    my $sql = Sql->new($this->GetDBH);
+    my $sql = Sql->new($this->dbh);
 
     my %update;
     $update{name} = $new->{ArtistName} if exists $new->{ArtistName};
@@ -535,7 +535,7 @@ sub UpdateModPending
     defined($adjust)
 		or croak "Missing adjustment in UpdateModPending";
 
-    my $sql = Sql->new($self->GetDBH);
+    my $sql = Sql->new($self->dbh);
     $sql->Do(
 		"UPDATE artist SET modpending = NUMERIC_LARGER(modpending+?, 0) WHERE id = ?",
 		$adjust,
@@ -554,7 +554,7 @@ sub UpdateQualityModPending
     defined($adjust)
 		or croak "Missing adjustment in UpdateQualityModPending";
 
-    my $sql = Sql->new($self->GetDBH);
+    my $sql = Sql->new($self->dbh);
     $sql->Do(
 		"UPDATE artist SET modpending_qual = NUMERIC_LARGER(modpending_qual+?, 0) WHERE id = ?",
 		$adjust,
@@ -573,13 +573,13 @@ sub RebuildWordList
     my ($this) = @_;
 
     require MusicBrainz::Server::Alias;
-    my $al = MusicBrainz::Server::Alias->new($this->GetDBH);
+    my $al = MusicBrainz::Server::Alias->new($this->dbh);
     $al->table("ArtistAlias");
     my @aliases = $al->GetList($this->id);
     @aliases = map { $_->[1] } @aliases;
 
     require SearchEngine;
-    my $engine = SearchEngine->new($this->GetDBH, 'artist');
+    my $engine = SearchEngine->new($this->dbh, 'artist');
     $engine->AddWordRefs(
 		$this->id,
 		[ $this->name, @aliases ],
@@ -671,7 +671,7 @@ sub select_artists_by_name
 		return [];
     }
 
-    my $sql = Sql->new($this->GetDBH);
+    my $sql = Sql->new($this->dbh);
     my $artists;
     {
 		# First, try exact match on name
@@ -719,7 +719,7 @@ sub select_artists_by_name
 
     # If that failed too, then try the artist aliases
 	require MusicBrainz::Server::Alias;
-    my $alias = MusicBrainz::Server::Alias->new($this->GetDBH, "artistalias");
+    my $alias = MusicBrainz::Server::Alias->new($this->dbh, "artistalias");
 
     if (my $artist = $alias->Resolve($artistname))
 	{
@@ -736,7 +736,7 @@ sub select_artists_by_name
     my @results;
     foreach my $row (@$artists)
     {
-        my $ar = MusicBrainz::Server::Artist->new($this->GetDBH);
+        my $ar = MusicBrainz::Server::Artist->new($this->dbh);
 
 		$ar->id($row->{id});
 		$ar->mbid($row->{gid});
@@ -767,7 +767,7 @@ sub select_artists_by_sort_name
 		return [];
     }
 
-    my $sql = Sql->new($this->GetDBH);
+    my $sql = Sql->new($this->dbh);
 
     my $artists = $sql->SelectListOfHashes(
 		"SELECT	id, name, gid, modpending, sortname,
@@ -781,7 +781,7 @@ sub select_artists_by_sort_name
     my @results;
     foreach my $row (@$artists)
     {
-        my $ar = MusicBrainz::Server::Artist->new($this->GetDBH);
+        my $ar = MusicBrainz::Server::Artist->new($this->dbh);
 
 		$ar->id($row->{id});
 		$ar->mbid($row->{gid});
@@ -840,11 +840,11 @@ sub newFromId
 
     if ($obj)
     {
-       	$$obj->SetDBH($this->GetDBH) if $$obj;
+       	$$obj->dbh($this->GetDBH) if $$obj;
 		return $$obj;
     }
 
-    my $sql = Sql->new($this->GetDBH);
+    my $sql = Sql->new($this->dbh);
 
     $obj = $this->_new_from_row(
 		$sql->SelectSingleRowHash(
@@ -860,7 +860,7 @@ sub newFromId
     MusicBrainz::Server::Cache->set($key, \$obj);
     MusicBrainz::Server::Cache->set($obj->_GetMBIDCacheKey($obj->mbid), \$obj)
 		if $obj;
-    $obj->SetDBH($this->GetDBH) if $obj;
+    $obj->dbh($this->GetDBH) if $obj;
 
     return $obj;
 }
@@ -876,11 +876,11 @@ sub newFromMBId
 
     if ($obj)
     {
-       	$$obj->SetDBH($this->GetDBH) if $$obj;
+       	$$obj->dbh($this->GetDBH) if $$obj;
 		return $$obj;
     }
 
-    my $sql = Sql->new($this->GetDBH);
+    my $sql = Sql->new($this->dbh);
 
     $obj = $this->_new_from_row(
 		$sql->SelectSingleRowHash(
@@ -907,7 +907,7 @@ sub newFromMBId
     MusicBrainz::Server::Cache->set($key, \$obj);
     MusicBrainz::Server::Cache->set($obj->_id_cache_key($obj->id), \$obj)
 		if $obj;
-    $obj->SetDBH($this->GetDBH) if $obj;
+    $obj->dbh($this->GetDBH) if $obj;
 
     return $obj;
 }
@@ -923,7 +923,7 @@ sub artist_browse_selection
 
    return if length($ind) <= 0;
 
-   $sql = Sql->new($this->GetDBH);
+   $sql = Sql->new($this->dbh);
 
    use locale;
    # TODO set LC_COLLATE too?
@@ -975,7 +975,7 @@ sub select_releases
 
    return @albums if (defined $novartist && $novartist && defined $onlyvartist && $onlyvartist);
 
-   $sql = Sql->new($this->GetDBH);
+   $sql = Sql->new($this->dbh);
    if (!defined $onlyvartist || !$onlyvartist)
    {
        # First, pull in the single artist albums
@@ -999,7 +999,7 @@ sub select_releases
             while(@row = $sql->NextRow)
             {
                 require MusicBrainz::Server::Release;
-                $album = MusicBrainz::Server::Release->new($this->GetDBH);
+                $album = MusicBrainz::Server::Release->new($this->dbh);
                 $album->id($row[0]);
                 $album->name($row[1]);
                 $album->has_mod_pending($row[2]);
@@ -1060,7 +1060,7 @@ sub select_releases
         while(@row = $sql->NextRow)
         {
             require MusicBrainz::Server::Release;
-            $album = MusicBrainz::Server::Release->new($this->GetDBH);
+            $album = MusicBrainz::Server::Release->new($this->dbh);
             $album->id($row[0]);
             $album->artist($row[1]);
             $album->name($row[2]);
@@ -1099,7 +1099,7 @@ sub HasAlbum
    $albumname = decode("utf-8", $albumname);
 
    # First, pull in the single artist albums
-   $sql = Sql->new($this->GetDBH);
+   $sql = Sql->new($this->dbh);
    if ($sql->Select(qq/SELECT id, name
 			 FROM Album
 			WHERE artist=$this->{id}
@@ -1162,7 +1162,7 @@ sub GetRelations
 
    return undef if (!defined $this->{id});
 
-   $sql = Sql->new($this->GetDBH);
+   $sql = Sql->new($this->dbh);
    return $sql->SelectListOfHashes(
 		"
 		SELECT a.name, a.id, t.weight
@@ -1214,7 +1214,7 @@ sub subscriber_count
 sub InUse
 {
     my ($self) = @_;
-    my $sql = Sql->new($self->GetDBH);
+    my $sql = Sql->new($self->dbh);
 
     return 1 if $sql->SelectSingleValue(
 		"SELECT 1 FROM album WHERE artist = ? LIMIT 1",

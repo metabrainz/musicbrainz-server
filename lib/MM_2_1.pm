@@ -557,7 +557,7 @@ sub CreateFileLookup
                    my $artist;
 
 		   require MusicBrainz::Server::Artist;
-                   $artist = MusicBrainz::Server::Artist->new($this->GetDBH);
+                   $artist = MusicBrainz::Server::Artist->new($this->dbh);
                    $artist->id($tr->artist->id);
                    $artist->LoadFromId();
                    $this->AddToCache(0, 'artist', $artist);
@@ -765,19 +765,19 @@ sub CreateRelationshipList
 	my ($type, $id) = split '-', $item;
 	if ($type eq 'artist')
 	{
-	    $temp = MusicBrainz::Server::Artist->new($this->GetDBH);
+	    $temp = MusicBrainz::Server::Artist->new($this->dbh);
 	    $temp->id($id);
 	    die if (!$temp->LoadFromId());
             $out .= $this->OutputArtistRDF({ obj=> $temp });
 	} elsif ($type eq 'album')
 	{
-	    $temp = MusicBrainz::Server::Release->new($this->GetDBH);
+	    $temp = MusicBrainz::Server::Release->new($this->dbh);
 	    $temp->id($id);
 	    die if (!$temp->LoadFromId());
             $out .= $this->OutputAlbumRDF({ obj=> $temp });
 	} elsif ($type eq 'track')
 	{
-	    $temp = MusicBrainz::Server::Track->new($this->GetDBH);
+	    $temp = MusicBrainz::Server::Track->new($this->dbh);
 	    $temp->id($id);
 	    die if (!$temp->LoadFromId());
             $out .= $this->OutputTrackRDF({ obj=> $temp });

@@ -61,16 +61,16 @@ sub _new_from_row
 {
 	my ($this, $row) = @_;
 	$row or return undef;
-	$row->SetDBH($this->GetDBH);
+	$row->{DBH} = $this->GetDBH;
 	bless $row, ref($this) || $this;
 }
 
-sub GetDBH
+sub dbh
 {
     return $_[0]->{DBH}; 
 }
 
-sub SetDBH
+sub dbh
 {
     $_[0]->{DBH} = $_[1]; 
 }
@@ -126,7 +126,7 @@ sub CheckGlobalIdRedirect
 {
     my ($this, $gid, $tbl) = @_;
     
-    my $sql = Sql->new($this->GetDBH);
+    my $sql = Sql->new($this->dbh);
     return $sql->SelectSingleValue("SELECT newid FROM gid_redirect WHERE gid = ? AND tbl = ?", $gid, $tbl) or undef;
 }
 
@@ -134,7 +134,7 @@ sub SetGlobalIdRedirect
 {
     my ($this, $id, $gid, $newid, $tbl) = @_;
     
-    my $sql = Sql->new($this->GetDBH);
+    my $sql = Sql->new($this->dbh);
     # Update existing redirects
     $sql->Do("UPDATE gid_redirect SET newid = ? WHERE newid = ? AND tbl = ?", $newid, $id, $tbl);
     # Add a new redirect
@@ -145,7 +145,7 @@ sub RemoveGlobalIdRedirect
 {
     my ($this, $newid, $tbl) = @_;
     
-    my $sql = Sql->new($this->GetDBH);
+    my $sql = Sql->new($this->dbh);
     # Remove existing redirects
     $sql->Do("DELETE FROM gid_redirect WHERE newid = ? AND tbl = ?", $newid, $tbl);
 }

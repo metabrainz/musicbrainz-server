@@ -75,7 +75,7 @@ sub times_used
 sub LoadFromId
 {
     my ($this) = @_;
-    my $sql = Sql->new($this->GetDBH);
+    my $sql = Sql->new($this->dbh);
    
     my $table = lc $this->table;
     my $row = $sql->SelectSingleRowArray(
@@ -98,7 +98,7 @@ sub Insert
 {
 	my ($this, $id, $name, $otherref, $allowdupe) = @_;
 
-    my $sql = Sql->new($this->GetDBH);
+    my $sql = Sql->new($this->dbh);
     my $table = lc $this->table;
     $sql->Do("LOCK TABLE $table IN EXCLUSIVE MODE");
 
@@ -124,13 +124,13 @@ sub Insert
     if ($table eq 'artistalias')
     {
         require SearchEngine;
-        my $engine = SearchEngine->new($this->GetDBH, 'artist');
+        my $engine = SearchEngine->new($this->dbh, 'artist');
         $engine->AddWordRefs($id,$name);
     }
     elsif ($table eq 'labelalias')
     {
         require SearchEngine;
-        my $engine = SearchEngine->new($this->GetDBH, 'label');
+        my $engine = SearchEngine->new($this->dbh, 'label');
         $engine->AddWordRefs($id,$name);
     }
 
@@ -154,7 +154,7 @@ sub UpdateName
 
     MusicBrainz::Server::Validation::TrimInPlace($name);
 
-	my $sql = Sql->new($self->GetDBH);
+	my $sql = Sql->new($self->dbh);
     my $table = lc $self->table;
 
     $sql->Do("LOCK TABLE $table IN EXCLUSIVE MODE");
@@ -180,7 +180,7 @@ sub UpdateName
     {
         # Update the search engine
         require MusicBrainz::Server::Artist;
-        my $artist = MusicBrainz::Server::Artist->new($self->GetDBH);
+        my $artist = MusicBrainz::Server::Artist->new($self->dbh);
         $artist->id($rowid);
         $artist->LoadFromId;
         $artist->RebuildWordList;
@@ -202,7 +202,7 @@ sub newFromName
         return undef;
     }
 
-    my $sql = Sql->new($self->GetDBH);
+    my $sql = Sql->new($self->dbh);
 
     my $row = $sql->SelectSingleRowHash(
         "SELECT * FROM $self->{table}
@@ -212,7 +212,7 @@ sub newFromName
     ) or return undef;
 
     $row->{rowid} = delete $row->{'ref'};
-    $row->{DBH} = $self->GetDBH;
+    $row->{DBH} = $self->dbh;
     bless $row, ref($self);
 }
 
@@ -227,7 +227,7 @@ sub Resolve
         return undef;
     }
 
-    my $sql = Sql->new($this->GetDBH);
+    my $sql = Sql->new($this->dbh);
 
     my $row = $sql->SelectSingleRowArray(
         "SELECT ref, id FROM $this->{table}
@@ -251,7 +251,7 @@ sub Remove
     my $this = shift;
     my $parent = $this->Parent;
 
-    my $sql = Sql->new($this->GetDBH);
+    my $sql = Sql->new($this->dbh);
     $sql->Do("DELETE FROM $this->{table} WHERE id = ?", $this->id)
         or return undef;
 
@@ -264,7 +264,7 @@ sub UpdateLastUsedDate
 {
     my ($self, $id, $timestr, $timesused) = @_;
     $timesused ||= 1;
-    my $sql = Sql->new($self->GetDBH);
+    my $sql = Sql->new($self->dbh);
 
     $sql->Do("
         UPDATE $self->{table}
@@ -284,7 +284,7 @@ sub UpdateLastUsedDate
 sub GetList
 {
     my ($this, $id) = @_;
-    my $sql = Sql->new($this->GetDBH);
+    my $sql = Sql->new($this->dbh);
 
     my $data = $sql->SelectListOfLists(
         "SELECT id, Name, TimesUsed, LastUsed, ModPending
@@ -304,7 +304,7 @@ sub LoadFull
    my ($this, $artist) = @_;
    my (@info, $query, $sql, @row, $alias);
 
-   $sql = Sql->new($this->GetDBH);
+   $sql = Sql->new($this->dbh);
    $query = qq|select id, name, ref, lastused, timesused
                  from $this->{table}
                 where ref = $artist
@@ -315,7 +315,7 @@ sub LoadFull
        for(;@row = $sql->NextRow();)
        {
            require MusicBrainz::Server::Alias;
-           $alias = MusicBrainz::Server::Alias->new($this->GetDBH);
+           $alias = MusicBrainz::Server::Alias->new($this->dbh);
            $alias->{table} = $this->{table};
            $alias->id($row[0]);
            $alias->name($row[1]);
@@ -346,7 +346,7 @@ sub Parent
     my $this = shift;
     my $parentclass = $this->ParentClass;
     eval "require $parentclass; 1" or die $@;
-    my $parent = $parentclass->new($this->GetDBH);
+    my $parent = $parentclass->new($this->dbh);
     $parent->id($this->row_id);
     $parent->LoadFromId
         or die "Couldn't load $parentclass #" . $this->row_id;

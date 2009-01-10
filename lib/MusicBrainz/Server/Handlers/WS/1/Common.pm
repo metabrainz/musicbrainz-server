@@ -631,7 +631,7 @@ sub xml_label
     print '<disambiguation>' . xml_escape($ar->resolution()) . '</disambiguation>' if ($ar->resolution());
     if ($ar->country())
     {
-        my $c = MusicBrainz::Server::Country->new($ar->GetDBH);
+        my $c = MusicBrainz::Server::Country->new($ar->dbh);
         $c = $c->newFromId($ar->country);
         print '<country>' . xml_escape($c->GetISOCode) . '</country>';
     }

@@ -52,7 +52,7 @@ sub DetermineQuality
 {
     my $self = shift;
 
-    my $ar = MusicBrainz::Server::Artist->new($self->GetDBH);
+    my $ar = MusicBrainz::Server::Artist->new($self->dbh);
     $ar->id($self->{artist});
     if ($ar->LoadFromId())
     {
@@ -76,11 +76,11 @@ sub ApprovedAction
 	# Now remove the Artist. The Artist will only be removed
 	# if there are not more references to it.
 	require MusicBrainz::Server::Artist;
-	my $ar = MusicBrainz::Server::Artist->new($this->GetDBH);
+	my $ar = MusicBrainz::Server::Artist->new($this->dbh);
 	$ar->id($rowid);
 
 	require UserSubscription;
-	my $subs = UserSubscription->new($this->GetDBH);
+	my $subs = UserSubscription->new($this->dbh);
 	$subs->ArtistBeingDeleted($ar, $this);
 
 	unless (defined $ar->Remove)

@@ -369,8 +369,8 @@ sub InsertForModeration
 
     require MusicBrainz::Server::Alias;
     require MusicBrainz::Server::Artist;
-    $alias = MusicBrainz::Server::Alias->new($this->GetDBH);
-    $ar = MusicBrainz::Server::Artist->new($this->GetDBH);
+    $alias = MusicBrainz::Server::Alias->new($this->dbh);
+    $ar = MusicBrainz::Server::Artist->new($this->dbh);
 
     # Check to see if the artist has an alias.
     $alias->{table} = "ArtistAlias";
@@ -417,7 +417,7 @@ sub InsertForModeration
 		    return if $al->IsNonAlbumTracks;
 
 		    require Sql;
-                    my $sql = Sql->new($this->GetDBH);
+                    my $sql = Sql->new($this->dbh);
 
 		    my $ret = eval {
                         $sql->Begin();
@@ -471,7 +471,7 @@ sub InsertForModeration
     }
 
     require Insert;
-    $in = Insert->new($this->GetDBH);
+    $in = Insert->new($this->dbh);
 
     # returns ($artistid, $albumid, $mods);
     $in->InsertAlbumModeration($new, FREEDB_MODERATOR, 0);

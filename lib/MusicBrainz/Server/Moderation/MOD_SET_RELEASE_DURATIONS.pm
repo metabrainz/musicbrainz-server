@@ -49,7 +49,7 @@ sub PreInsert
 	my $release = $opts{'release'} or die;
 	my $cdtoc = $opts{'cdtoc'} or die;
 
-    my $sql = Sql->new($self->GetDBH);
+    my $sql = Sql->new($self->dbh);
     my $tracks = $sql->SelectListOfHashes(
        "SELECT t.id, t.length, j.sequence
           FROM track t, albumjoin j
@@ -97,7 +97,7 @@ sub DetermineQuality
 {
 	my $self = shift;
 
-	my $rel = MusicBrainz::Server::Release->new($self->GetDBH);
+	my $rel = MusicBrainz::Server::Release->new($self->dbh);
 	$rel->id($self->{rowid});
 	if ($rel->LoadFromId())
 	{
@@ -112,7 +112,7 @@ sub CheckPrerequisites
 
 	# Load the album by ID
 	require MusicBrainz::Server::Release;
-	my $release = MusicBrainz::Server::Release->new($self->GetDBH);
+	my $release = MusicBrainz::Server::Release->new($self->dbh);
 	$release->id($self->row_id);
 	unless ($release->LoadFromId)
 	{
@@ -148,7 +148,7 @@ sub ApprovedAction
     my $cdtoc = $this->{_cdtoc};
     my @durs = TrackLengthsFromTOC($cdtoc);
 
-    my $sql = Sql->new($this->GetDBH);
+    my $sql = Sql->new($this->dbh);
     my $tracks = $sql->SelectListOfHashes(
        "SELECT t.id, t.length, j.sequence
           FROM track t, albumjoin j

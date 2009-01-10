@@ -100,7 +100,7 @@ sub _new_from_row
 		$self->{$k} = $v
 			if substr($k, 0, 1) eq "_";
 	}
-	$self->{DBH} = $this->GetDBH;
+	$self->{DBH} = $this->dbh;
 
 	bless $self, ref($this) || $this;
 }
@@ -108,7 +108,7 @@ sub _new_from_row
 sub newFromId
 {
 	my ($self, $id) = @_;
-	my $sql = Sql->new($self->GetDBH);
+	my $sql = Sql->new($self->dbh);
 	my $row = $sql->SelectSingleRowHash(
 		"SELECT * FROM link_attribute_type WHERE id = ?",
 		$id,
@@ -119,7 +119,7 @@ sub newFromId
 sub newFromMBId
 {
 	my ($self, $id) = @_;
-	my $sql = Sql->new($self->GetDBH);
+	my $sql = Sql->new($self->dbh);
 	my $row = $sql->SelectSingleRowHash(
 		"SELECT * FROM link_attribute_type WHERE mbid = ?",
 		$id,
@@ -130,7 +130,7 @@ sub newFromMBId
 sub newFromParentId
 {
 	my ($self, $parentid) = @_;
-	my $sql = Sql->new($self->GetDBH);
+	my $sql = Sql->new($self->dbh);
 	my $rows = $sql->SelectListOfHashes(
 		"SELECT * FROM link_attribute_type WHERE parent = ? AND id != parent ORDER BY childorder, name",
 		$parentid,
@@ -141,7 +141,7 @@ sub newFromParentId
 sub newFromParentIdAndChildName
 {
 	my ($self, $parentid, $childname) = @_;
-	my $sql = Sql->new($self->GetDBH);
+	my $sql = Sql->new($self->dbh);
 	my $row = $sql->SelectSingleRowHash(
 		"SELECT * FROM link_attribute_type WHERE parent = ? AND LOWER(name) = LOWER(?)",
 		$parentid,
@@ -182,7 +182,7 @@ sub named_child
 sub HasChildren
 {
 	my $self = shift;
-	my $sql = Sql->new($self->GetDBH);
+	my $sql = Sql->new($self->dbh);
 
 	my $value = $sql->SelectSingleValue(
 		"select count(*) from link_attribute_type where parent = ?",
@@ -199,7 +199,7 @@ sub HasChildren
 sub AddChild
 {
 	my ($self, $childname, $desc, $childorder) = @_;
-	my $sql = Sql->new($self->GetDBH);
+	my $sql = Sql->new($self->dbh);
 	$sql->Do(
 		"INSERT INTO link_attribute_type (parent, name, mbid, description, childorder) VALUES (?, ?, ?, ?, ?)",
 		$self->id,
@@ -214,7 +214,7 @@ sub AddChild
 sub InUse 
 { 
 	my $self = shift;
-	my $sql = Sql->new($self->GetDBH);
+	my $sql = Sql->new($self->dbh);
 
 	my $value = $sql->SelectSingleValue(
 		"select count(*) from link_attribute where attribute_type = ?",
@@ -226,7 +226,7 @@ sub InUse
 sub Delete
 {
 	my $self = shift;
-	my $sql = Sql->new($self->GetDBH);
+	my $sql = Sql->new($self->dbh);
 	# Here we trust that the caller has tested "InUse", and found it to be
 	# false.  If not, this statement might fail (FK violation).
 	$sql->Do(
@@ -238,7 +238,7 @@ sub Delete
 sub Update
 {
 	my $self = shift;
-	my $sql = Sql->new($self->GetDBH);
+	my $sql = Sql->new($self->dbh);
 	$sql->Do(
 		"UPDATE link_attribute_type SET parent = ?, childorder = ?, name = ?, description = ? WHERE id = ?",
 		$self->GetParentId,

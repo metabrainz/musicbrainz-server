@@ -57,7 +57,7 @@ sub DetermineQuality
 {
 	my $self = shift;
 
-	my $rel = MusicBrainz::Server::Release->new($self->GetDBH);
+	my $rel = MusicBrainz::Server::Release->new($self->dbh);
 	$rel->id($self->{rowid});
 	if ($rel->LoadFromId())
 	{
@@ -71,7 +71,7 @@ sub ApprovedAction
 	my $this = shift;
 
 	require MusicBrainz::Server::Release;
-	my $al = MusicBrainz::Server::Release->new($this->GetDBH);
+	my $al = MusicBrainz::Server::Release->new($this->dbh);
 	$al->id($this->row_id);
 
 	unless ($al->Remove)

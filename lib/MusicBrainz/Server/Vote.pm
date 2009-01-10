@@ -72,7 +72,7 @@ sub InsertVotes
 sub _InsertVote
 {
 	my ($self, $uid, $modid, $vote, $allow_selfvoting) = @_;
-	my $sql = Sql->new($self->GetDBH);
+	my $sql = Sql->new($self->dbh);
 
 	# Lock the table so that the select-old / insert-new are atomic
 	$sql->Do("LOCK TABLE vote_open IN EXCLUSIVE MODE");
@@ -132,7 +132,7 @@ sub _InsertVote
 	if ($vote == VOTE_NO and $mod_row->{novotes} == 0)
 	{
 		require Moderation;
-		my $t = Moderation->new($self->GetDBH);
+		my $t = Moderation->new($self->dbh);
 		my $edit = $t->CreateFromId($modid);
 		$edit->FirstNoVote($uid);
 	}
@@ -141,7 +141,7 @@ sub _InsertVote
 sub newFromModerationId
 {
     my ($self, $modid) = @_;
-	my $sql = Sql->new($self->GetDBH);
+	my $sql = Sql->new($self->dbh);
 
 	my $data = $sql->SelectListOfHashes(
 		"SELECT	v.*, u.name AS user
@@ -158,7 +158,7 @@ sub newFromModerationId
 sub GetLatestVoteFromUser
 {
 	my ($self, $modid, $uid) = @_;
-	my $sql = Sql->new($self->GetDBH);
+	my $sql = Sql->new($self->dbh);
 
 	$sql->SelectSingleValue(
 		"SELECT COALESCE(vote, ?) FROM vote_all WHERE moderation = ? AND moderator = ?
@@ -179,7 +179,7 @@ sub AllVotesForUser_as_hashref
 	my $data = MusicBrainz::Server::Cache->get($key);
 	return $data if $data;
 
-	my $sql = Sql->new($self->GetDBH);
+	my $sql = Sql->new($self->dbh);
 
 	my $rows = $sql->SelectListOfLists(
 		"SELECT vote, COUNT(*) FROM vote_all WHERE moderator = ? GROUP BY vote",
@@ -201,7 +201,7 @@ sub RecentVotesForUser_as_hashref
 	my $data = MusicBrainz::Server::Cache->get($key);
 	return $data if $data;
 
-	my $sql = Sql->new($self->GetDBH);
+	my $sql = Sql->new($self->dbh);
 
 	my $rows = $sql->SelectListOfLists(
 		"SELECT vote, COUNT(*) FROM vote_all WHERE moderator = ?
@@ -226,7 +226,7 @@ sub TopVoters
 	$opts{rowlimit} ||= 5;
 	$opts{interval} ||= "1 week";
 
-	my $sql = Sql->new($self->GetDBH);
+	my $sql = Sql->new($self->dbh);
 
 	$sql->SelectListOfHashes(
 		"SELECT	m.id, m.name, COUNT(*) AS num

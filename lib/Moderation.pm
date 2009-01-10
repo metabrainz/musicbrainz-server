@@ -707,7 +707,7 @@ sub track
         (!defined $self->{track} && defined $self->{trackid}))
     {
         # TODO track should get and set Track objects, not ids!
-        $self->{track} = MusicBrainz::Server::Track->new($self->GetDBH);
+        $self->{track} = MusicBrainz::Server::Track->new($self->dbh);
         $self->{track}->id($self->{trackid});
         $self->{track}->LoadFromId;
     }
@@ -724,7 +724,7 @@ sub release
     if (defined $new_release || (!defined $self->{release} && defined $self->{albumid}))
     {
         # TODO release should get and set Release objects, not ids!
-        $self->{release} = MusicBrainz::Server::Release->new($self->GetDBH);
+        $self->{release} = MusicBrainz::Server::Release->new($self->dbh);
         $self->{release}->id($self->{albumid});
         $self->{release}->LoadFromId;
     }
@@ -741,7 +741,7 @@ sub label
     if (defined $new_label || (!defined $self->{label} && defined $self->{labelid}))
     {
         # TODO release should get and set Release objects, not ids!
-        $self->{label} = MusicBrainz::Server::Label->new($self->GetDBH);
+        $self->{label} = MusicBrainz::Server::Label->new($self->dbh);
         $self->{label}->id($self->{labelid});
         $self->{label}->LoadFromId;
     }
@@ -853,7 +853,7 @@ sub GetAutomoderatorList
    my ($this) = @_;
    my ($sql);
 
-   $sql = Sql->new($this->GetDBH);
+   $sql = Sql->new($this->dbh);
    require MusicBrainz::Server::Editor;
    return $sql->SelectSingleColumnArray("select name from moderator where privs & " .
                                         &MusicBrainz::Server::Editor::AUTOMOD_FLAG . " > 0 order by name");
@@ -877,7 +877,7 @@ sub CreateFromId
                where  Moderator.id = moderator and m.artist = 
                       Artist.id and m.id = ?/;
 
-   $sql = Sql->new($this->GetDBH);
+   $sql = Sql->new($this->dbh);
    if ($sql->Select($query, &DBDefs::MOD_PERIOD_GRACE, $id))
    {
         @row = $sql->NextRow();
@@ -938,7 +938,7 @@ sub iiMinMaxID
 	my $key = "Moderation" . ($open ? "-open" : defined($open) ? "-closed" : "") . "-id-range";
 	if (my $t = MusicBrainz::Server::Cache->get($key)) { return @$t }
 
-	my $sql = Sql->new($self->GetDBH);
+	my $sql = Sql->new($self->dbh);
 	my ($min, $max) = $sql->GetColumnRange(
 		($open ? "moderation_open"
 		: defined($open) ? "moderation_closed"
@@ -970,7 +970,7 @@ sub iFindByTime
 	}
 
 	my ($iMin, $iMax) = $self->iiMinMaxID('open' => $opts{'open'});
-	my $sql = Sql->new($self->GetDBH);
+	my $sql = Sql->new($self->dbh);
 
 	my $gettime = sub {
 		$sql->SelectSingleValue(
@@ -1029,7 +1029,7 @@ sub CreateModerationObject
 	my ($this, $type) = @_;
 	my $class = $this->ClassFromType($type)
 		or die "Unknown moderation type $type";
-	$class->new($this->GetDBH);
+	$class->new($this->dbh);
 }
 
 # Insert a new moderation into the database.
@@ -1042,7 +1042,7 @@ sub InsertModeration
 	# field).
 	if (ref $class)
 	{
-		$opts{DBH} = $class->GetDBH;
+		$opts{DBH} = $class->dbh;
 		$opts{uid} = $class->moderator->id;
 		$opts{privs} = $class->{_privs_};
 	}
@@ -1081,7 +1081,7 @@ sub InsertModeration
 	my @inserted_moderations;
 	$this->{inserted_moderations} = \@inserted_moderations;
 
-	my $sql = Sql->new($this->GetDBH);
+	my $sql = Sql->new($this->dbh);
     my $vertmb = new MusicBrainz;
     $vertmb->Login(db => 'RAWDATA');
     my $vertsql = Sql->new($vertmb->{DBH});
@@ -1172,7 +1172,7 @@ sub InsertModeration
 
 		# Check to see if this moderation should be approved immediately 
 		require MusicBrainz::Server::Editor;
-		my $ui = MusicBrainz::Server::Editor->new($this->GetDBH);
+		my $ui = MusicBrainz::Server::Editor->new($this->dbh);
 		my $isautoeditor = $ui->is_auto_editor($privs);
 
 		my $autoedit = 0;
@@ -1202,7 +1202,7 @@ sub InsertModeration
 			);
 
 			require MusicBrainz::Server::Editor;
-			my $user = MusicBrainz::Server::Editor->new($this->GetDBH);
+			my $user = MusicBrainz::Server::Editor->new($this->dbh);
 			$user->CreditModerator($this->{moderator}->id, $status, $autoedit);
 
 			MusicBrainz::Server::Cache->delete("Moderation-open-id-range");
@@ -1273,7 +1273,7 @@ sub GetMaxModID
 sub OpenModsByType_as_hashref
 {
 	my $self = shift;
-	my $sql = Sql->new($self->GetDBH);
+	my $sql = Sql->new($self->dbh);
 
 	my $rows = $sql->SelectListOfLists(
 		"SELECT type, COUNT(*) FROM moderation_open
@@ -1289,7 +1289,7 @@ sub OpenModCountByModerator
 {
 	my $self = shift;
 	my $editor = shift;
-	my $sql = Sql->new($self->GetDBH);
+	my $sql = Sql->new($self->dbh);
 
 	return $sql->SelectSingleValue(
 		"SELECT COUNT(*) FROM moderation_open
@@ -1302,7 +1302,7 @@ sub OpenModCountAll
 {
     my $self = shift;
 
-    my $sql = Sql->new($self->GetDBH);
+    my $sql = Sql->new($self->dbh);
 
     return $sql->SelectSingleValue(
         "SELECT COUNT(*) FROM moderation_open
@@ -1320,7 +1320,7 @@ sub moderation_list
 	my ($this, $query, $voter, $index, $num) = @_;
 	$query or return SEARCHRESULT_NOQUERY;
 
-	my $sql = Sql->new($this->GetDBH);
+	my $sql = Sql->new($this->dbh);
 
     $sql->AutoCommit;
 	$sql->Do("SET SESSION STATEMENT_TIMEOUT = " . int(DEFAULT_SEARCH_TIMEOUT*1000));
@@ -1402,7 +1402,7 @@ sub moderation_list
 
 	# Cache editors by name
 	require MusicBrainz::Server::Vote;
-	my $vote = MusicBrainz::Server::Vote->new($this->GetDBH);
+	my $vote = MusicBrainz::Server::Vote->new($this->dbh);
 
 	for my $edit (@edits)
 	{
@@ -1439,7 +1439,7 @@ sub CloseModeration
 	$this->AdjustModPending(-1);
 
  	# Set the status in the Moderation row
-  	my $sql = Sql->new($this->GetDBH);
+  	my $sql = Sql->new($this->dbh);
    	$sql->Do(
 		"UPDATE moderation_open SET status = ? WHERE id = ?",
 		$status,
@@ -1458,7 +1458,7 @@ sub RemoveModeration
    {
 		# Set the status to be deleted.  The ModBot will clean it up
 		# on its next pass.
-		my $sql = Sql->new($this->GetDBH);
+		my $sql = Sql->new($this->dbh);
 		$sql->Do(
 			"UPDATE moderation_open SET status = ?
 			WHERE id = ? AND moderator = ? AND status = ?",
@@ -1476,7 +1476,7 @@ sub Notes
 {
 	my $self = shift;
 	require MusicBrainz::Server::ModerationNote;
-	my $notes = MusicBrainz::Server::ModerationNote->new($self->GetDBH);
+	my $notes = MusicBrainz::Server::ModerationNote->new($self->dbh);
 	$notes->newFromModerationId($self->id);
 }
 
@@ -1484,7 +1484,7 @@ sub InsertNote
 {
 	my $self = shift;
 	require MusicBrainz::Server::ModerationNote;
-	my $notes = MusicBrainz::Server::ModerationNote->new($self->GetDBH);
+	my $notes = MusicBrainz::Server::ModerationNote->new($self->dbh);
 	$notes->Insert($self, @_);
 }
 
@@ -1494,7 +1494,7 @@ sub Votes
 {
 	my $self = shift;
 	require MusicBrainz::Server::Vote;
-	my $votes = MusicBrainz::Server::Vote->new($self->GetDBH);
+	my $votes = MusicBrainz::Server::Vote->new($self->dbh);
 	$votes->newFromModerationId($self->id);
 }
 
@@ -1502,7 +1502,7 @@ sub VoteFromUser
 {
 	my ($self, $uid) = @_;
 	require MusicBrainz::Server::Vote;
-	my $votes = MusicBrainz::Server::Vote->new($self->GetDBH);
+	my $votes = MusicBrainz::Server::Vote->new($self->dbh);
 	# The number of votes per mod is small, so we may as well just retrieve
 	# all votes for the mod, then find the one we want.
 	my @votes = $votes->newFromModerationId($self->id);
@@ -1569,7 +1569,7 @@ sub TopModerators
 	$opts{rowlimit} ||= 5;
 	$opts{interval} ||= "1 week";
 
-	my $sql = Sql->new($self->GetDBH);
+	my $sql = Sql->new($self->dbh);
 
 	$sql->SelectListOfHashes(
 		"SELECT	u.id, u.name,
@@ -1599,7 +1599,7 @@ sub TopAcceptedModeratorsAllTime
 
 	$opts{rowlimit} ||= 5;
 
-	my $sql = Sql->new($self->GetDBH);
+	my $sql = Sql->new($self->dbh);
 
 	$sql->SelectListOfHashes(
 		"SELECT	id, name,
@@ -1749,7 +1749,7 @@ sub AdjustModPending
 	my ($this, $adjust) = @_;
         my $table = lc $this->table;
 
-        my $sql = Sql->new($this->GetDBH);
+        my $sql = Sql->new($this->dbh);
         $sql->Do(
             "UPDATE $table SET modpending = modpending + ? WHERE id = ?",
             $adjust,

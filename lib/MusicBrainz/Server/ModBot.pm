@@ -84,14 +84,14 @@ sub CheckModerations
 	}
 
 	require Moderation;
-	my $basemod = Moderation->new($this->GetDBH);
+	my $basemod = Moderation->new($this->dbh);
 
 	print localtime() . " : Finding open and to-be-deleted moderations ...\n"
 		if $fVerbose;
 
     my ($sql, $vertsql, $vertmb);
 
-	$sql = Sql->new($this->GetDBH);
+	$sql = Sql->new($this->dbh);
     $vertmb = new MusicBrainz;
     $vertmb->Login(db => 'RAWDATA');
     $vertsql = Sql->new($vertmb->{DBH});
@@ -274,7 +274,7 @@ sub CheckModerations
 			# some more (the grace period).
 			my $subscribers = $artist_subscribers{$mod->artist} ||= do {
 				require UserSubscription;
-				my $us = UserSubscription->new($this->GetDBH);
+				my $us = UserSubscription->new($this->dbh);
 				[ $us->GetSubscribersForArtist($mod->artist) ];
 			};
 
@@ -363,7 +363,7 @@ sub CheckModerations
 	# Now run through each mod and do whatever's necessary; namely, nothing,
 	# approve, deny, or delete.
 	require MusicBrainz::Server::Editor;
-	my $user = MusicBrainz::Server::Editor->new($this->GetDBH);
+	my $user = MusicBrainz::Server::Editor->new($this->dbh);
 
 	foreach my $key (reverse sort { $a <=> $b} keys %mods)
 	{
@@ -577,7 +577,7 @@ sub CheckModificationForFailedDependencies
 	my ($this, $mod, $modhash) = @_;
 	my ($sql, $status, $i, $depmod); 
 
-	$sql = Sql->new($this->GetDBH);
+	$sql = Sql->new($this->dbh);
 	for($i = 0;; $i++)
 	{
 	  	# FIXME this regex looks too slack for my liking
@@ -614,7 +614,7 @@ sub CheckModificationForFailedDependencies
 sub moderation_status
 {
  	my ($this, $id) = @_;
-	my $sql = Sql->new($this->GetDBH);
+	my $sql = Sql->new($this->dbh);
 
 	my $status = $sql->SelectSingleValue(
 		"SELECT status FROM moderation_all WHERE id = ?",
@@ -627,11 +627,11 @@ sub moderation_status
 sub UserGrantedAutoModerator
 {
 	my ($self, $user) = @_;
-	my $sql = Sql->new($self->GetDBH);
+	my $sql = Sql->new($self->dbh);
 	
 	# Which mod types get automodded?
 	require Moderation;
-	my $mod = Moderation->new($self->GetDBH);
+	my $mod = Moderation->new($self->dbh);
 	my @autotypes = grep { $mod->is_auto_edit_type($_) } values %{ ModDefs->type_as_hashref };
 	my $types = join ",", @autotypes;
 

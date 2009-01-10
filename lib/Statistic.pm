@@ -35,12 +35,12 @@ sub new
 	return bless $this, $type;
 }
 
-sub GetDBH {
+sub dbh {
 	my ($self) = @_;
 	return $self->{DBH};
 }
 
-sub SetDBH {
+sub dbh {
 	my ($self, $dbh) = @_;
 	$self->{DBH} = $dbh;
 }
@@ -54,7 +54,7 @@ sub Fetch
 	my ($self, @names) = @_;
 	return unless @names;
 
-	my $sql = Sql->new($self->GetDBH);
+	my $sql = Sql->new($self->dbh);
 
 	my %s;
 	@s{@names} = ();
@@ -86,7 +86,7 @@ sub FetchAllAsHashRef
 {
 	my $self = shift;
 
-	my $sql = Sql->new($self->GetDBH);
+	my $sql = Sql->new($self->dbh);
 
 	my $data = $sql->SelectListOfLists(
 		"SELECT name, value FROM currentstat",
@@ -103,7 +103,7 @@ sub FetchAllAsHashRef
 sub Update
 {
 	my $self = shift;
-	my $sql = Sql->new($self->GetDBH);
+	my $sql = Sql->new($self->dbh);
 
 	$sql->Do("LOCK TABLE currentstat IN EXCLUSIVE MODE");
 
@@ -131,7 +131,7 @@ sub Update
 sub LastRefreshed
 {
 	my $self = shift;
-	my $sql = Sql->new($self->GetDBH);
+	my $sql = Sql->new($self->dbh);
 	$sql->SelectSingleValue("SELECT MIN(lastupdated) FROM currentstat");
 }
 
@@ -141,7 +141,7 @@ sub LastRefreshed
 sub TakeSnapshot
 {
 	my $self = shift;
-	my $sql = Sql->new($self->GetDBH);
+	my $sql = Sql->new($self->dbh);
 
 	my $date = $sql->SelectSingleValue("SELECT current_date");
 
@@ -645,7 +645,7 @@ my %stats = (
 sub RecalculateStat
 {
 	my ($self, $name) = @_;
-	my $sql = Sql->new($self->GetDBH);
+	my $sql = Sql->new($self->dbh);
 
 	my $vertmb = new MusicBrainz;
 	$vertmb->Login(db => 'RAWDATA');

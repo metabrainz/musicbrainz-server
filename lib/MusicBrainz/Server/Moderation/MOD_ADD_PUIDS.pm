@@ -87,7 +87,7 @@ sub ApprovedAction
 	my $self = shift;
 
 	require MusicBrainz::Server::PUID;
-	my $puid = MusicBrainz::Server::PUID->new($self->GetDBH);
+	my $puid = MusicBrainz::Server::PUID->new($self->dbh);
 	my $clientVersion = $self->{'new_unpacked'}{'ClientVersion'};
 
 	for (@{ $self->{'new_list'} })

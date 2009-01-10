@@ -94,7 +94,7 @@ sub IsAutoEdit
 sub AdjustModPending
 {
 	my ($self, $adjust) = @_;
-	my $sql = Sql->new($self->GetDBH);
+	my $sql = Sql->new($self->dbh);
 	$sql->Do(
 		"UPDATE album_cdtoc SET modpending = modpending + ? WHERE id = ?",
 		$adjust,

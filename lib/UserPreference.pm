@@ -401,7 +401,7 @@ sub load
     my $self = shift;
     my $uid = $self->{uid};
 
-    my $sql = Sql->new($self->GetDBH);
+    my $sql = Sql->new($self->dbh);
     my $rows = $sql->SelectListOfLists(
         "SELECT name, value FROM moderator_preference WHERE moderator = ?",
         $uid,
@@ -476,7 +476,7 @@ sub save
     my $self = shift;
     my $uid = $self->{uid};
 
-    my $sql = Sql->new($self->GetDBH);
+    my $sql = Sql->new($self->dbh);
     my $wrap_transaction = $sql->{DBH}{AutoCommit};
 
     eval {

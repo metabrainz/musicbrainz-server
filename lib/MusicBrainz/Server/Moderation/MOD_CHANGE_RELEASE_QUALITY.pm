@@ -136,7 +136,7 @@ sub CheckPrerequisites
 	for (my $i = 0; defined $new->{"ReleaseId$i"}; $i++)
 	{
 		my $id = $new->{"ReleaseId$i"};
-		my $al = MusicBrainz::Server::Release->new($self->GetDBH);
+		my $al = MusicBrainz::Server::Release->new($self->dbh);
 		$al->id($id);
 
 		unless ( $al->LoadFromId )
@@ -186,7 +186,7 @@ sub AdjustModPending
 	for (my $i = 0; defined $new->{"ReleaseId$i"}; $i++)
 	{
 		my $id = $new->{"ReleaseId$i"};
-		my $al = MusicBrainz::Server::Release->new($self->GetDBH);
+		my $al = MusicBrainz::Server::Release->new($self->dbh);
 		$al->id($id);
 	    $al->LoadFromId;
      	$al->UpdateQualityModPending($adjust)

@@ -44,7 +44,7 @@ sub SetPUID
 sub GetTrackIdsFromPUID
 {
  	my ($this, $PUID) = @_;
-	my $sql = Sql->new($this->GetDBH);
+	my $sql = Sql->new($this->dbh);
 
 	$sql->SelectSingleColumnArray(
 		"SELECT	puidjoin.track
@@ -58,7 +58,7 @@ sub GetTrackIdsFromPUID
 sub id_from_puid
 {
 	my ($this, $PUID) = @_;
-	my $sql = Sql->new($this->GetDBH);
+	my $sql = Sql->new($this->dbh);
 	$sql->SelectSingleValue("SELECT id FROM puid WHERE puid = ?", lc $PUID);
 }
 
@@ -74,7 +74,7 @@ sub GetPUIDFromTrackId
 		return;
 	}
 
-	my $sql = Sql->new($this->GetDBH);
+	my $sql = Sql->new($this->dbh);
 
 	my $data = $sql->SelectListOfLists(
 		"SELECT	t.puid, j.id, t.lookupcount, j.usecount
@@ -99,7 +99,7 @@ sub Insert
 {
     my ($this, $PUID, $trackid, $clientver) = @_;
 
-    my $sql = Sql->new($this->GetDBH);
+    my $sql = Sql->new($this->dbh);
     my $id = $this->id_from_puid($PUID);
     $this->{new_insert} = 0;
 
@@ -149,7 +149,7 @@ sub FindPUIDClientVersion
 {
 	my ($self, $puid) = @_;
 	$puid = $self->GetPUID if not defined $puid;
-	my $sql = Sql->new($self->GetDBH);
+	my $sql = Sql->new($self->dbh);
 	$sql->SelectSingleValue(
 		"SELECT cv.version FROM puid t, clientversion cv
 		WHERE t.puid = ? AND cv.id = t.version",
@@ -165,7 +165,7 @@ sub Remove
 
     return undef if (!defined $this->id());
   
-    $sql = Sql->new($this->GetDBH);
+    $sql = Sql->new($this->dbh);
     $sql->Do("DELETE FROM puidjoin WHERE puid = ?", $this->id);
     $sql->Do("DELETE FROM puid WHERE id = ?", $this->id);
 
@@ -177,7 +177,7 @@ sub RemoveByTrackId
 {
     my ($this, $trackid) = @_;
     return undef if (!defined $trackid);
-    my $sql = Sql->new($this->GetDBH);
+    my $sql = Sql->new($this->dbh);
 
 	my $rows = $sql->SelectListOfLists(
 		"SELECT id, puid FROM puidjoin WHERE track = ?", $trackid,
@@ -206,7 +206,7 @@ sub RemovePUIDByPUIDJoin
 {
     my ($this, $joinid) = @_;
     return undef if (!defined $joinid);
-	my $sql = Sql->new($this->GetDBH);
+	my $sql = Sql->new($this->dbh);
 
 	my $oldpuid = $sql->SelectSingleValue(
 		"SELECT puid FROM puidjoin WHERE id = ?", $joinid,
@@ -241,7 +241,7 @@ sub UpdateLookupCount
 {
 	my ($self, $puid, $timesused) = @_;
 	$timesused ||= 1;
-    my $sql = Sql->new($self->GetDBH);
+    my $sql = Sql->new($self->dbh);
 
 	my $id = $sql->SelectSingleValue(
 		"SELECT id FROM puid WHERE puid = ?", $puid,
@@ -275,7 +275,7 @@ sub UpdateUsageCount
 {
 	my ($self, $puid, $trackid, $timesused) = @_;
 	$timesused ||= 1;
-    my $sql = Sql->new($self->GetDBH);
+    my $sql = Sql->new($self->dbh);
 
 	my $joinid = $sql->SelectSingleValue(
 		"select puidjoin.id 
@@ -301,7 +301,7 @@ sub UpdateUsageCount
 sub MergeTracks
 {
 	my ($self, $fromtrack, $totrack) = @_;
-    my $sql = Sql->new($self->GetDBH);
+    my $sql = Sql->new($self->dbh);
 
 	my $puidjoins = $sql->SelectListOfHashes(
 		"SELECT * FROM puidjoin WHERE track = ?",

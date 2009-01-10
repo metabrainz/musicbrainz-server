@@ -49,7 +49,7 @@ sub PreInsert
 
 	# Save the PUID's clientversion in case we need to re-add it
 	require MusicBrainz::Server::PUID;
-	my $puidobj = MusicBrainz::Server::PUID->new($self->GetDBH);
+	my $puidobj = MusicBrainz::Server::PUID->new($self->dbh);
 	my $clientversion = $puidobj->FindPUIDClientVersion($puid);
 
 	my %new = (
@@ -62,7 +62,7 @@ sub PreInsert
 	# This is one of those mods where we give the user instant gratification,
 	# then undo the mod later if it's rejected.
 	require MusicBrainz::Server::PUID;
-	my $t = MusicBrainz::Server::PUID->new($self->GetDBH);
+	my $t = MusicBrainz::Server::PUID->new($self->dbh);
 	$t->RemovePUIDByPUIDJoin($self->row_id);
 }
 
@@ -82,11 +82,11 @@ sub DetermineQuality
     my $self = shift;
 
     # Attempt to find the right release this track is attached to.
-    my $tr = MusicBrainz::Server::Track->new($self->GetDBH);
+    my $tr = MusicBrainz::Server::Track->new($self->dbh);
     $tr->id($self->{"trackid"});
     if ($tr->LoadFromId())
     {
-        my $rel = MusicBrainz::Server::Release->new($self->GetDBH);
+        my $rel = MusicBrainz::Server::Release->new($self->dbh);
         $rel->id($tr->release());
         if ($rel->LoadFromId())
         {
@@ -120,7 +120,7 @@ sub DeniedAction
 		or return;
 
 	require MusicBrainz::Server::Track;
-	my $track = MusicBrainz::Server::Track->new($self->GetDBH);
+	my $track = MusicBrainz::Server::Track->new($self->dbh);
 	$track->id($trackid);
 	unless ($track->LoadFromId)
 	{
@@ -132,7 +132,7 @@ sub DeniedAction
 	}
 
 	require MusicBrainz::Server::PUID;
-	my $t = MusicBrainz::Server::PUID->new($self->GetDBH);
+	my $t = MusicBrainz::Server::PUID->new($self->dbh);
 	my $id = $t->Insert($self->previous_data, $trackid, $new->{'ClientVersion'});
 
 	# The above Insert can fail, usually if the row in the "puid" table

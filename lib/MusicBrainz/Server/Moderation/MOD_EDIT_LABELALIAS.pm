@@ -53,7 +53,7 @@ sub PostLoad
     my $self = shift;
 
     require MusicBrainz::Server::Alias;
-    my $alias = MusicBrainz::Server::Alias->new($self->GetDBH, "labelalias");
+    my $alias = MusicBrainz::Server::Alias->new($self->dbh, "labelalias");
     $alias->id($self->row_id);
     $alias->LoadFromId;
 
@@ -73,7 +73,7 @@ sub CheckPrerequisites
 	my $self = shift;
 
 	require MusicBrainz::Server::Alias;
-	my $alias = MusicBrainz::Server::Alias->new($self->GetDBH, "labelalias");
+	my $alias = MusicBrainz::Server::Alias->new($self->dbh, "labelalias");
 	$alias->id($self->row_id);
 
 	unless ($alias->LoadFromId)
