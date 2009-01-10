@@ -7,6 +7,7 @@ use base 'MusicBrainz::Server::Model';
 
 use Carp;
 use MusicBrainz::Server::Adapter 'LoadEntity';
+use MusicBrainz::Server::Validation 'encode_entities';
 use SearchEngine;
 
 sub load
@@ -170,6 +171,25 @@ sub remove_alias
         label => $label,
         alias => $alias,
     );
+}
+
+sub get_browse_selection
+{
+	my ($self, $index, $offset) = @_;
+	
+	my $la = MusicBrainz::Server::Label->new($self->dbh);
+	my ($count, @labels) = $la->label_browse_selection($index, $offset);
+	
+	@labels = map {
+		my $label = MusicBrainz::Server::Label->new($self->dbh);
+		$label->id($_->[0]);
+		$label->name(encode_entities($_->[1]));
+		$label->has_mod_pending($_->[2]);
+		
+		$label;
+	} @labels;
+	
+	return ($count, [ @labels ]);
 }
 
 1;

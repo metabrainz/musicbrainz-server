@@ -808,7 +808,7 @@ sub newFromMBId
 # Given an index character ($ind), a page offset ($offset) 
 # it will return an array of references to an array
 # of labelid, sortname, modpending. The array is empty on error.
-sub GetLabelDisplayList
+sub label_browse_selection
 {
    my ($this, $ind, $offset) = @_;
    my ($query, @info, @row, $sql, $page, $page_max, $ind_max, $un, $max_labels); 
