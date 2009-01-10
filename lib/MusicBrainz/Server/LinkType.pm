@@ -173,7 +173,7 @@ sub _new_from_row
 sub newFromId
 {
 	my ($self, $id) = @_;
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 	my $row = $sql->SelectSingleRowHash(
 		"SELECT * FROM $self->{_table} WHERE id = ?",
 		$id,
@@ -184,7 +184,7 @@ sub newFromId
 sub newFromMBId
 {
 	my ($self, $id) = @_;
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 	my $row = $sql->SelectSingleRowHash(
 		"SELECT * FROM $self->{_table} WHERE mbid = ?",
 		$id,
@@ -195,7 +195,7 @@ sub newFromMBId
 sub newFromParentId
 {
 	my ($self, $parentid) = @_;
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 	my $rows = $sql->SelectListOfHashes(
 		"SELECT * FROM $self->{_table} WHERE parent = ? AND id != parent ORDER BY childorder, name",
 		$parentid,
@@ -206,7 +206,7 @@ sub newFromParentId
 sub newFromParentIdAndChildName
 {
 	my ($self, $parentid, $childname) = @_;
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 	my $row = $sql->SelectSingleRowHash(
 		"SELECT * FROM $self->{_table} WHERE parent = ? AND LOWER(name) = LOWER(?)",
 		$parentid,
@@ -253,7 +253,7 @@ sub AddChild
 {
 	my ($self, $childname, $linkphrase, $rlinkphrase, $description,
 		$attribute, $childorder, $shortlinkphrase, $priority) = @_;
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 	$sql->Do(
 		"INSERT INTO $self->{_table} (
 			parent, name, linkphrase, rlinkphrase, description, attribute,
@@ -276,7 +276,7 @@ sub AddChild
 sub InUse 
 { 
 	my $self = shift;
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 	my $table = "l_" . join "_", @{$self->{_types}};
 
 	my $value = $sql->SelectSingleValue(
@@ -289,7 +289,7 @@ sub InUse
 sub Delete
 {
 	my $self = shift;
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 	# Here we trust that the caller has tested "InUse", and found it to be
 	# false.  If not, this statement might fail (FK violation).
 	$sql->Do(
@@ -301,7 +301,7 @@ sub Delete
 sub Update
 {
 	my $self = shift;
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 	$sql->Do(
 		"UPDATE $self->{_table} SET parent = ?, childorder = ?, name = ?,
 			linkphrase = ?, rlinkphrase = ?, description = ?,

@@ -96,7 +96,7 @@ sub _new_from_attribute_ids
 sub newFromLinkId
 {
 	my ($self, $linkid) = @_;
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 	my $attrs = $sql->SelectSingleColumnArray(
 		"SELECT attribute_type FROM $self->{table} WHERE link = ? AND link_type = ?",
 		$linkid, $self->{type}
@@ -111,7 +111,7 @@ sub attributes
     if (defined $new_attrs) { $self->{attributes} = $new_attrs; }
 
     my @attributes;
-    my $link_attr = MusicBrainz::Server::LinkAttr->new($self->{DBH});
+    my $link_attr = MusicBrainz::Server::LinkAttr->new($self->GetDBH);
     
     foreach my $attr (@{ $self->{attributes} })
     {
@@ -137,7 +137,7 @@ sub ReplaceAttributes
 {
 	my ($self, $phrase, $rphrase) = @_;
 
-    my $linkattr = MusicBrainz::Server::LinkAttr->new($self->{DBH});
+    my $linkattr = MusicBrainz::Server::LinkAttr->new($self->GetDBH);
 	my %temp;
 	foreach my $attr (@{$self->{attributes}})
 	{
@@ -233,7 +233,7 @@ sub _replace_attributes
 sub Exists
 {
 	my $self = shift;
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 
 	my $row = $sql->SelectSingleValue(
 			"SELECT count(*) FROM $self->{table} WHERE link = ? AND link_type = ?",
@@ -250,7 +250,7 @@ sub Insert
     return undef
 	    if ($self->Exists);
 
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 	foreach my $attr (@$attrs)
 	{
 		$sql->Do(
@@ -273,7 +273,7 @@ sub Delete
 {
 	my $self = shift;
 
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 	$sql->Do(
 		"DELETE FROM $self->{table} where link = ? and link_type = ?",
         $self->{'link'}, $self->{'type'}
@@ -290,7 +290,7 @@ sub MergeLinks
 {
 	my ($self, $oldid, $newid) = @_;
 	
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 	my $rows = $sql->SelectListOfHashes(
 		"SELECT * FROM $self->{table} WHERE link = ? AND link_type = ?",
 		$oldid, $self->{type});

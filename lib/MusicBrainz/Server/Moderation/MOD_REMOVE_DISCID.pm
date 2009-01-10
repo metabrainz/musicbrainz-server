@@ -106,7 +106,7 @@ sub DetermineQuality
 {
 	my $self = shift;
 
-	my $rel = MusicBrainz::Server::Release->new($self->{DBH});
+	my $rel = MusicBrainz::Server::Release->new($self->GetDBH);
 	$rel->id($self->{albumid});
 	if ($rel->LoadFromId())
 	{
@@ -121,7 +121,7 @@ sub DetermineQuality
 sub AdjustModPending
 {
 	my ($self, $adjust) = @_;
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 	$sql->Do(
 		"UPDATE album_cdtoc SET modpending = modpending + ? WHERE id = ?",
 		$adjust,

@@ -197,7 +197,7 @@ sub Lookup
 sub LookupPUIDCollisions
 {
    my ($this, $puid) = @_;
-   my $sql = Sql->new($this->{DBH});
+   my $sql = Sql->new($this->GetDBH);
 
    my $data = $sql->SelectListOfHashes(
    	"SELECT DISTINCT
@@ -336,7 +336,7 @@ sub ArtistSearch
    return (0, []) if (!$name);
 
    require MusicBrainz::Server::Artist;
-   $ar = MusicBrainz::Server::Artist->new($this->{DBH});
+   $ar = MusicBrainz::Server::Artist->new($this->GetDBH);
 
    my $artists = $ar->select_artists_by_name($name);
    if (scalar(@$artists) == 1)
@@ -367,7 +367,7 @@ sub ArtistSearch
    }
 
    require SearchEngine;
-   my $engine = SearchEngine->new($this->{DBH}, 'artist');
+   my $engine = SearchEngine->new($this->GetDBH, 'artist');
 
    $engine->Search(
 	query => $name,
@@ -434,7 +434,7 @@ sub AlbumSearch
    else
    {
        require MusicBrainz::Server::Artist;
-       $ar = MusicBrainz::Server::Artist->new($this->{DBH});
+       $ar = MusicBrainz::Server::Artist->new($this->GetDBH);
        $ar->mbid($artistId);
        if (!defined $ar->LoadFromId())
        {
@@ -445,7 +445,7 @@ sub AlbumSearch
 
    # first check, if there are any exact matches for artist & album
    require MusicBrainz::Server::Release;
-   $al = MusicBrainz::Server::Release->new($this->{DBH});
+   $al = MusicBrainz::Server::Release->new($this->GetDBH);
    $al->artist($ar->id());
    my (@aids) = $al->GetAlbumListFromName($name);
 
@@ -456,7 +456,7 @@ sub AlbumSearch
        # (just a speed-up)
        foreach my $aid (@aids)
        {
-           $al = MusicBrainz::Server::Release->new($this->{DBH});
+           $al = MusicBrainz::Server::Release->new($this->GetDBH);
            $al->mbid($aid->{mbid});
            if ($al->LoadFromId)
            {
@@ -578,7 +578,7 @@ sub AlbumTrackSearch
    else
    {
 	require MusicBrainz::Server::Artist;
-       $ar = MusicBrainz::Server::Artist->new($this->{DBH});
+       $ar = MusicBrainz::Server::Artist->new($this->GetDBH);
        $ar->mbid($artistId);
        if (!defined $ar->LoadFromId())
        {
@@ -594,7 +594,7 @@ sub AlbumTrackSearch
        $altname = $1;
    }
 
-   $sql = Sql->new($this->{DBH});
+   $sql = Sql->new($this->GetDBH);
    if ($sql->Select(qq|select track.id, track.gid, track.name, track.length
                from Track 
                where track.artist = | . $ar->id()))
@@ -651,7 +651,7 @@ sub AlbumTrackSearch
    $query .= ")";
 
 
-   $sql = Sql->new($this->{DBH});
+   $sql = Sql->new($this->GetDBH);
    if ($sql->Select($query))
    {
        my (@row, $namesim, $numsim);
@@ -713,7 +713,7 @@ sub TrackSearch
    else
    {
 	require MusicBrainz::Server::Artist;
-       $ar = MusicBrainz::Server::Artist->new($this->{DBH});
+       $ar = MusicBrainz::Server::Artist->new($this->GetDBH);
        $ar->mbid($artistId);
        if (!defined $ar->LoadFromId())
        {
@@ -729,7 +729,7 @@ sub TrackSearch
    else
    {
 	require MusicBrainz::Server::Release;
-       $al = MusicBrainz::Server::Release->new($this->{DBH});
+       $al = MusicBrainz::Server::Release->new($this->GetDBH);
        $al->mbid($albumId);
        if (!defined $al->LoadFromId())
        {
@@ -745,7 +745,7 @@ sub TrackSearch
        $altname = $1;
    }
 
-   $sql = Sql->new($this->{DBH});
+   $sql = Sql->new($this->GetDBH);
    if ($sql->Select(qq|select track.id, track.gid, track.name, track.length, albumjoin.sequence
                          from Track, AlbumJoin 
                         where albumjoin.album = | . $al->id() . qq| and
@@ -801,16 +801,16 @@ sub VariousArtistSearch
    my ($al, @ids, $ar);
 
    require MusicBrainz::Server::Artist;
-   $ar = MusicBrainz::Server::Artist->new($this->{DBH});
+   $ar = MusicBrainz::Server::Artist->new($this->GetDBH);
    $ar->id(&ModDefs::VARTIST_ID);
    $ar->LoadFromId();
    $this->{artist} = $ar;     
 
    require MusicBrainz::Server::Release;
-   $al = MusicBrainz::Server::Release->new($this->{DBH});
+   $al = MusicBrainz::Server::Release->new($this->GetDBH);
 
    require SearchEngine;
-   my $engine = SearchEngine->new($this->{DBH}, 'album');
+   my $engine = SearchEngine->new($this->GetDBH, 'album');
 
    $engine->Search(
 	query => $name,

@@ -206,7 +206,7 @@ sub Insert
 	MusicBrainz::Server::Validation::TrimInPlace($name);
 	$this->name($name);
 
-	my $sql = Sql->new($this->{DBH});
+	my $sql = Sql->new($this->GetDBH);
 	my $label;
 
 	if (!$this->resolution())
@@ -255,7 +255,7 @@ sub Insert
     # TODO This should be in a trigger if we ever get a real DB.
 
     require SearchEngine;
-    my $engine = SearchEngine->new($this->{DBH}, 'label');
+    my $engine = SearchEngine->new($this->GetDBH, 'label');
     $engine->AddWordRefs($label,$this->{name});
 
     return $label;
@@ -268,7 +268,7 @@ sub Remove
 
 	return if (!defined $this->id());
 
-	my $sql = Sql->new($this->{DBH});
+	my $sql = Sql->new($this->GetDBH);
 
 	# See if there are any release events that needs this label
 	my $refcount = $sql->SelectSingleValue(
@@ -284,7 +284,7 @@ sub Remove
 
 	# Remove relationships
 	require MusicBrainz::Server::Link;
-	my $link = MusicBrainz::Server::Link->new($this->{DBH});
+	my $link = MusicBrainz::Server::Link->new($this->GetDBH);
 	$link->RemoveByLabel($this->id);
 
     # Remove tags
@@ -294,7 +294,7 @@ sub Remove
 
 	# Remove references from label words table
 	require SearchEngine;
-	my $engine = SearchEngine->new($this->{DBH}, 'label');
+	my $engine = SearchEngine->new($this->GetDBH, 'label');
 	$engine->RemoveObjectRefs($this->id());
 
 	require MusicBrainz::Server::Annotation;
@@ -358,7 +358,7 @@ sub Update
 
     my $name = $new->{LabelName};
 
-    my $sql = Sql->new($this->{DBH});
+    my $sql = Sql->new($this->GetDBH);
 
     my %update;
     $update{name} = $new->{LabelName} if exists $new->{LabelName};
@@ -415,7 +415,7 @@ sub UpdateModPending
     defined($adjust)
 	or croak "Missing adjustment in UpdateModPending";
 
-    my $sql = Sql->new($self->{DBH});
+    my $sql = Sql->new($self->GetDBH);
     $sql->Do(
 	"UPDATE label SET modpending = NUMERIC_LARGER(modpending+?, 0) WHERE id = ?",
 	$adjust,
@@ -434,13 +434,13 @@ sub RebuildWordList
 	my ($this) = @_;
 
 	require MusicBrainz::Server::Alias;
-	my $al = MusicBrainz::Server::Alias->new($this->{DBH});
+	my $al = MusicBrainz::Server::Alias->new($this->GetDBH);
 	$al->table("LabelAlias");
 	my @aliases = $al->GetList($this->id);
 	@aliases = map { $_->[1] } @aliases;
 
 	require SearchEngine;
-	my $engine = SearchEngine->new($this->{DBH}, 'label');
+	my $engine = SearchEngine->new($this->GetDBH, 'label');
 	$engine->AddWordRefs(
 		$this->id,
 		[ $this->name, @aliases ],
@@ -532,7 +532,7 @@ sub GetLabelsFromName
 		return [];
 	}
 
-	my $sql = Sql->new($this->{DBH});
+	my $sql = Sql->new($this->GetDBH);
 	my $labels;
     {
 		# First, try exact match on name
@@ -578,7 +578,7 @@ sub GetLabelsFromName
 
 		# If that failed too, then try the artist aliases
 		require MusicBrainz::Server::Alias;
-		my $alias = MusicBrainz::Server::Alias->new($this->{DBH}, "labelalias");
+		my $alias = MusicBrainz::Server::Alias->new($this->GetDBH, "labelalias");
 		if (my $label = $alias->Resolve($labelname))
 		{
 	    	$labels = $sql->SelectListOfHashes(
@@ -593,7 +593,7 @@ sub GetLabelsFromName
 	my @results;
 	foreach my $row (@$labels)
 	{
-		my $ar = MusicBrainz::Server::Label->new($this->{DBH});
+		my $ar = MusicBrainz::Server::Label->new($this->GetDBH);
 		$ar->id($row->{id});
 		$ar->mbid($row->{gid});
 		$ar->name($row->{name});
@@ -622,7 +622,7 @@ sub GetLabelsFromSortname
 		return [];
 }
 
-	my $sql = Sql->new($this->{DBH});
+	my $sql = Sql->new($this->GetDBH);
 
 	my $labels = $sql->SelectListOfHashes(
 		"SELECT id, name, gid, modpending, sortname, country,
@@ -635,7 +635,7 @@ sub GetLabelsFromSortname
 	my @results;
 	foreach my $row (@$labels)
 {
-		my $ar = MusicBrainz::Server::Label->new($this->{DBH});
+		my $ar = MusicBrainz::Server::Label->new($this->GetDBH);
 		$ar->id($row->{id});
 		$ar->mbid($row->{gid});
 		$ar->name($row->{name});
@@ -663,7 +663,7 @@ sub GetLabelsFromCode
 		return [];
 	}
 
-	my $sql = Sql->new($this->{DBH});
+	my $sql = Sql->new($this->GetDBH);
 
 	my $labels = $sql->SelectListOfHashes(
 		"SELECT id, name, gid, modpending, sortname, country,
@@ -676,7 +676,7 @@ sub GetLabelsFromCode
 	my @results;
 	foreach my $row (@$labels)
 	{
-		my $ar = MusicBrainz::Server::Label->new($this->{DBH});
+		my $ar = MusicBrainz::Server::Label->new($this->GetDBH);
 		$ar->id($row->{id});
 		$ar->mbid($row->{gid});
 		$ar->name($row->{name});
@@ -737,7 +737,7 @@ sub newFromId
 		return $$obj;
 	}
 
-	my $sql = Sql->new($this->{DBH});
+	my $sql = Sql->new($this->GetDBH);
 
 	$obj = $this->_new_from_row(
 		$sql->SelectSingleRowHash(
@@ -772,7 +772,7 @@ sub newFromMBId
 	return $$obj;
     }
 
-    my $sql = Sql->new($this->{DBH});
+    my $sql = Sql->new($this->GetDBH);
 
     $obj = $this->_new_from_row(
 	$sql->SelectSingleRowHash(
@@ -815,7 +815,7 @@ sub GetLabelDisplayList
 
    return if length($ind) <= 0;
 
-   $sql = Sql->new($this->{DBH});
+   $sql = Sql->new($this->GetDBH);
 
    use locale;
    # TODO set LC_COLLATE too?
@@ -862,7 +862,7 @@ sub GetLabelDisplayList
 sub select_releases
 {
 	my ($this) = @_;
-	my $sql = Sql->new($this->{DBH});
+	my $sql = Sql->new($this->GetDBH);
 	my $query = qq/
 		SELECT
 			album.id,
@@ -893,7 +893,7 @@ sub select_releases
 		while(my @row = $sql->NextRow)
 		{
 			require MusicBrainz::Server::Release;
-			my $album = MusicBrainz::Server::Release->new($this->{DBH});
+			my $album = MusicBrainz::Server::Release->new($this->GetDBH);
 			$album->id($row[0]);
 			$album->artist($row[1]);
 			$album->name($row[2]);
@@ -941,7 +941,7 @@ sub subscriber_count
 sub InUse
 {
 	my ($self) = @_;
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 
 	return 1 if $sql->SelectSingleValue(
 		"SELECT 1 FROM release WHERE label = ? LIMIT 1",

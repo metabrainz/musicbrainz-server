@@ -102,7 +102,7 @@ sub DetermineQuality
 
     if ($new->{entity0type} eq 'album' || $new->{entity1type} eq 'album')
     {
-        my $rel = MusicBrainz::Server::Release->new($self->{DBH});
+        my $rel = MusicBrainz::Server::Release->new($self->GetDBH);
         $rel->id($new->{entity0type} eq 'album' ? $new->{entity0id} : $new->{entity1id});
         if ($rel->LoadFromId())
         {
@@ -111,7 +111,7 @@ sub DetermineQuality
     }
     elsif ($new->{entity0type} eq 'artist' || $new->{entity1type} eq 'artist')
     {
-        my $rel = MusicBrainz::Server::Artist->new($self->{DBH});
+        my $rel = MusicBrainz::Server::Artist->new($self->GetDBH);
         $rel->id($new->{entity0type} eq 'artist' ? $new->{entity0id} : $new->{entity1id});
         if ($rel->LoadFromId())
         {
@@ -128,7 +128,7 @@ sub ApprovedAction
 
 	require MusicBrainz::Server::Link;
 
-	my $link = MusicBrainz::Server::Link->new($self->{DBH}, [$new->{entity0type}, $new->{entity1type}]);
+	my $link = MusicBrainz::Server::Link->new($self->GetDBH, [$new->{entity0type}, $new->{entity1type}]);
 	$link or return STATUS_ERROR;
 
 	unless ($link = $link->newFromId($new->{linkid}))
@@ -148,7 +148,7 @@ sub ApprovedAction
 		$new->{entity0type} eq 'album' &&
 		$new->{entity1type} eq 'url')
 	{
-		my $al = MusicBrainz::Server::Release->new($self->{DBH});
+		my $al = MusicBrainz::Server::Release->new($self->GetDBH);
 		$al->id($new->{entity0id});
         MusicBrainz::Server::CoverArt->UpdateAmazonData($al, -1)
 			if ($al->LoadFromId(1));
@@ -157,7 +157,7 @@ sub ApprovedAction
 		$new->{entity0type} eq 'album' &&
 		$new->{entity1type} eq 'url')
 	{
-		my $al = MusicBrainz::Server::Release->new($self->{DBH});
+		my $al = MusicBrainz::Server::Release->new($self->GetDBH);
 		$al->id($new->{entity0id});
         MusicBrainz::Server::CoverArt->UpdateCoverArtData($al, -1)
 			if ($al->LoadFromId(1));

@@ -61,11 +61,11 @@ sub ApprovedAction
 	# Now remove the Label. The Label will only be removed
 	# if there are not more references to it.
 	require MusicBrainz::Server::Label;
-	my $ar = MusicBrainz::Server::Label->new($this->{DBH});
+	my $ar = MusicBrainz::Server::Label->new($this->GetDBH);
 	$ar->id($rowid);
 
 	require UserSubscription;
-	my $subs = UserSubscription->new($this->{DBH});
+	my $subs = UserSubscription->new($this->GetDBH);
 	$subs->LabelBeingDeleted($ar, $this);
 
 	unless (defined $ar->Remove)
@@ -89,7 +89,7 @@ sub ShowModTypeDelegate
 	$m->out('<tr class="entity"><td class="lbl">Label:</td><td>');
 	my $id = $self->row_id;
 	require MusicBrainz::Server::Label;
-	my $label = MusicBrainz::Server::Label->new($self->{DBH});
+	my $label = MusicBrainz::Server::Label->new($self->GetDBH);
 	$label->id($id);
 	my ($title, $name);
 	if ($label->LoadFromId) 

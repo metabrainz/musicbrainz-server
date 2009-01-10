@@ -76,7 +76,7 @@ sub Update
 
 
     require MusicBrainz;
-    my $maindb = Sql->new($self->{DBH});
+    my $maindb = Sql->new($self->GetDBH);
 
     my $tags = MusicBrainz->new;
     $tags->Login(db => 'RAWDATA');

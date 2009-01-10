@@ -105,7 +105,7 @@ sub SetAlbumJoinModPending
 sub LoadFromAlbumJoin
 {
 	my ($this, $albumjoinid) = @_;
-	my $sql = Sql->new($this->{DBH});
+	my $sql = Sql->new($this->GetDBH);
 
 	my $t = $sql->SelectSingleRowArray(
 		"SELECT track, album FROM albumjoin WHERE id = ?",
@@ -132,7 +132,7 @@ sub LoadFromId
 		return undef;
 	}
 
-	my $sql = Sql->new($this->{DBH});
+	my $sql = Sql->new($this->GetDBH);
 	my $row;
 
 	if (my $albumid = $this->{album})
@@ -208,7 +208,7 @@ sub LoadFromId
 
 	$row or return undef;
 
-    my $artist = MusicBrainz::Server::Artist->new($this->{DBH});
+    my $artist = MusicBrainz::Server::Artist->new($this->GetDBH);
 
     $this->artist($artist);
     $this->id($row->[0]);
@@ -247,7 +247,7 @@ sub GetMetadataFromIdAndAlbum
          return ();
     }
 
-    $sql = Sql->new($this->{DBH});
+    $sql = Sql->new($this->GetDBH);
     if ($sql->Select(qq/select name, sequence
                           from Album, AlbumJoin
                          where AlbumJoin.track = $id and
@@ -319,7 +319,7 @@ sub Insert
 		return undef;
 	}
 
-    my $sql = Sql->new($this->{DBH});
+    my $sql = Sql->new($this->GetDBH);
 
 	my $track = $sql->SelectSingleValue(
 		"SELECT	track.id
@@ -376,7 +376,7 @@ sub UpdateName
 
     MusicBrainz::Server::Validation::TrimInPlace($name);
 
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 	$sql->Do(
 		"UPDATE track SET name = ? WHERE id = ?",
 		$name,
@@ -395,7 +395,7 @@ sub RebuildWordList
     my ($this) = @_;
 
     require SearchEngine;
-    my $engine = SearchEngine->new($this->{DBH}, 'track');
+    my $engine = SearchEngine->new($this->GetDBH, 'track');
     $engine->AddWordRefs(
 		$this->id,
 		$this->name,
@@ -406,7 +406,7 @@ sub RebuildWordList
 sub UpdateArtist
 {
 	my $self = shift;
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 
 	$sql->Do(
 		"UPDATE track SET artist = ? WHERE id = ?",
@@ -418,7 +418,7 @@ sub UpdateArtist
 sub UpdateLength
 {
         my $self = shift;
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 
 	$sql->Do(
 		"UPDATE track SET length = ? WHERE id = ?",
@@ -430,7 +430,7 @@ sub UpdateLength
 sub UpdateSequence
 {
 	my $self = shift;
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 
 	$sql->Do(
 		"UPDATE albumjoin SET sequence = ? WHERE id = ?",
@@ -448,7 +448,7 @@ sub RemoveFromAlbum
 	my $alid = $self->release
 		or croak "Missing album ID in RemoveFromAlbum";
 
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 	$sql->Do(
 		"DELETE FROM albumjoin WHERE track = ? AND album = ?",
 		$id,
@@ -463,7 +463,7 @@ sub Remove
 
     return undef if (!defined $this->id());
 
-    my $sql = Sql->new($this->{DBH});
+    my $sql = Sql->new($this->GetDBH);
 
     my $refcount = $sql->SelectSingleValue(
 		"SELECT COUNT(*) FROM albumjoin WHERE track = ?",
@@ -477,12 +477,12 @@ sub Remove
     }
 
     require MusicBrainz::Server::PUID;
-    my $puid = MusicBrainz::Server::PUID->new($this->{DBH});
+    my $puid = MusicBrainz::Server::PUID->new($this->GetDBH);
     $puid->RemoveByTrackId($this->id());
 
 	# Remove relationships
 	require MusicBrainz::Server::Link;
-	my $link = MusicBrainz::Server::Link->new($this->{DBH});
+	my $link = MusicBrainz::Server::Link->new($this->GetDBH);
 	$link->RemoveByTrack($this->id());
 
     # Remove tags
@@ -492,7 +492,7 @@ sub Remove
 
 	# Remove references from track words table
 	require SearchEngine;
-	my $engine = SearchEngine->new($this->{DBH}, 'track');
+	my $engine = SearchEngine->new($this->GetDBH, 'track');
 	$engine->RemoveObjectRefs($this->id());
 
     $this->RemoveGlobalIdRedirect($this->id, &TableBase::TABLE_TRACK);
@@ -508,7 +508,7 @@ sub GetAlbumInfo
    my ($this) = @_;
    my ($sql, @row, @info);
 
-   $sql = Sql->new($this->{DBH});
+   $sql = Sql->new($this->GetDBH);
    if ($sql->Select(qq|select album, name, sequence, GID, attributes, quality
                          from AlbumJoin, Album
                         where AlbumJoin.album = Album.id and

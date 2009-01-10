@@ -235,7 +235,7 @@ sub newFromId
 		return $$obj;
 	}
 
-	my $sql = Sql->new($this->{DBH});
+	my $sql = Sql->new($this->GetDBH);
 
 	$obj = $this->_new_from_row(
 		$sql->SelectSingleRowHash(
@@ -270,7 +270,7 @@ sub newFromName
 		return $$obj;
 	}
 
-	my $sql = Sql->new($this->{DBH});
+	my $sql = Sql->new($this->GetDBH);
 
 	$obj = $this->_new_from_row(
 		$sql->SelectSingleRowHash(
@@ -303,7 +303,7 @@ sub coalesce
 sub search
 {
 	my ($this, %opts) = @_;
-	my $sql = Sql->new($this->{DBH});
+	my $sql = Sql->new($this->GetDBH);
 
     my $query = coalesce($opts{'query'}, "");
     my $limit = coalesce($opts{'limit'}, DEFAULT_SEARCH_LIMIT, 0);
@@ -370,7 +370,7 @@ sub Login
 	$this = $this->new(shift) if not ref $this;
 	my ($user, $pwd) = @_;
 
-	my $sql = Sql->new($this->{DBH});
+	my $sql = Sql->new($this->GetDBH);
 
 	my $self = $this->newFromName($user)
 		or return;
@@ -398,7 +398,7 @@ sub CreateLogin
 	my ($this, $user, $pwd, $pwd2) = @_;
 	my ($sql, $uid, $newuser, @messages);
 
-	$sql = Sql->new($this->{DBH});
+	$sql = Sql->new($this->GetDBH);
 	$sql->Begin;
 
 	if ($user eq "")
@@ -458,7 +458,7 @@ sub GetUserPasswordAndId
 		return undef;
     }
 
-	my $sql = Sql->new($this->{DBH});
+	my $sql = Sql->new($this->GetDBH);
 
 	my $row = $sql->SelectSingleRowArray(
 		"SELECT password, id FROM moderator WHERE name = ?",
@@ -473,7 +473,7 @@ sub GetUserPasswordAndId
 sub LookupNameByEmail
 {
 	my ($this, $email) = @_;
-	my $sql = Sql->new($this->{DBH});
+	my $sql = Sql->new($this->GetDBH);
 
 	return $sql->SelectSingleColumnArray(
 		"SELECT name
@@ -486,7 +486,7 @@ sub LookupNameByEmail
 sub IsNewbie
 {
 	my $self = shift;
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 
 	return $sql->SelectSingleValue(
 		"SELECT NOW() < membersince + INTERVAL '2 weeks'
@@ -508,7 +508,7 @@ sub SetUserInfo
 		return undef;
 	}
 
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 
 	my $query = "UPDATE moderator SET";
 	my @args;
@@ -573,7 +573,7 @@ sub MakeAutoModerator
 
 	return if $self->is_auto_editor($self->privs);
 
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 	$sql->AutoTransaction(
 		sub {
 			$self->SetUserInfo(privs => $self->privs | AUTOMOD_FLAG);
@@ -598,7 +598,7 @@ sub CreditModerator
 				: "modsfailed"
 	);
 
- 	my $sql = Sql->new($this->{DBH});
+ 	my $sql = Sql->new($this->GetDBH);
 	$sql->Do(
 		"UPDATE moderator SET $column = $column + 1 WHERE id = ?",
 		$uid,
@@ -615,7 +615,7 @@ sub ChangePassword
 {
 	my ($self, $oldpassword, $newpass1, $newpass2) = @_;
 	
-    my $sql = Sql->new($self->{DBH});
+    my $sql = Sql->new($self->GetDBH);
 	my $ok = $sql->AutoTransaction(
 		sub {
 			$sql->Do(
@@ -1104,7 +1104,7 @@ sub SetSession
 	$session->{has_confirmed_email} = ($self->email ? 1 : 0);
 
 	require Moderation;
-	my $mod = Moderation->new($self->{DBH});
+	my $mod = Moderation->new($self->GetDBH);
 	$session->{moderation_id_start} = $mod->GetMaxModID;
 
 	require UserPreference;
@@ -1262,7 +1262,7 @@ sub TryAutoLogin
 sub _update_last_login_date
 {
 	my ($self, $uid) = @_;
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 
 	$sql->AutoTransaction(sub {
 		$sql->Do(

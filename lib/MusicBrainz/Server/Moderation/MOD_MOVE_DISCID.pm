@@ -131,7 +131,7 @@ sub DetermineQuality
 {
 	my $self = shift;
 
-	my $rel = MusicBrainz::Server::Release->new($self->{DBH});
+	my $rel = MusicBrainz::Server::Release->new($self->GetDBH);
 	my $new = $self->{'new_unpacked'};
 	$rel->id($new->{NewAlbumId});
 	if ($rel->LoadFromId())
@@ -146,7 +146,7 @@ sub DetermineQuality
 sub AdjustModPending
 {
 	my ($self, $adjust) = @_;
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 	$sql->Do(
 		"UPDATE album_cdtoc SET modpending = modpending + ? WHERE id = ?",
 		$adjust,
@@ -176,7 +176,7 @@ sub DeniedAction
 	# Check that the old album still exists
 	# (the mod is applied, we need to revert it when it is voted down)
 	require MusicBrainz::Server::Release;
-	my $oldal = MusicBrainz::Server::Release->new($self->{DBH});
+	my $oldal = MusicBrainz::Server::Release->new($self->GetDBH);
 	$oldal->id($self->previous_data);
 	unless ($oldal->LoadFromId)
 	{
@@ -187,7 +187,7 @@ sub DeniedAction
 
 	# Check that the new album still exists
 	require MusicBrainz::Server::Release;
-	my $al = MusicBrainz::Server::Release->new($self->{DBH});
+	my $al = MusicBrainz::Server::Release->new($self->GetDBH);
 	$al->id($new->{NewAlbumId});
 	unless ($al->LoadFromId)
 	{

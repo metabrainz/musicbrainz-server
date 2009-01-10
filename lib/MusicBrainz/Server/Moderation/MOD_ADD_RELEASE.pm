@@ -200,7 +200,7 @@ sub PreInsert
 	# and maybe also some artists, a disc ID, etc.
 	{
 		require Insert;
-		my $in = Insert->new($self->{DBH});
+		my $in = Insert->new($self->GetDBH);
 
 		if (my $d = DebugLog->open)
 		{
@@ -279,7 +279,7 @@ sub PreInsert
 
 	# Add a dependency on a pending MOD_ADD_ARTIST if there is one
 
-	my $sql = Sql->new($self->{DBH}); 
+	my $sql = Sql->new($self->GetDBH); 
 	(my $artistmodid) = $sql->SelectSingleValue(
 		"SELECT id FROM moderation_open WHERE type = " . &ModDefs::MOD_ADD_ARTIST
 		. " AND rowid = ?",
@@ -312,7 +312,7 @@ sub DetermineQuality
 {
     my $self = shift;
 
-    my $rel = MusicBrainz::Server::Release->new($self->{DBH});
+    my $rel = MusicBrainz::Server::Release->new($self->GetDBH);
     $rel->id($self->{rowid});
     if ($rel->LoadFromId())
     {
@@ -334,7 +334,7 @@ sub DeniedAction
 	if (my $album = $new->{'AlbumId'})
 	{
 		require MusicBrainz::Server::Release;
-		my $al = MusicBrainz::Server::Release->new($self->{DBH});
+		my $al = MusicBrainz::Server::Release->new($self->GetDBH);
 		$al->id($album);
 		$al->Remove;
 
@@ -343,7 +343,7 @@ sub DeniedAction
 			if ($artist != &ModDefs::VARTIST_ID)
 			{
 				require MusicBrainz::Server::Artist;
-				my $ar = MusicBrainz::Server::Artist->new($self->{DBH});
+				my $ar = MusicBrainz::Server::Artist->new($self->GetDBH);
 				$ar->id($artist);
 				$ar->Remove;
 			}

@@ -77,7 +77,7 @@ sub PreInsert
 	die 'Invalid label code'
 		if ($labelcode && not MusicBrainz::Server::Validation::IsValidLabelCode($labelcode));
 
-	my $label = MusicBrainz::Server::Label->new($self->{DBH});
+	my $label = MusicBrainz::Server::Label->new($self->GetDBH);
 	$label->name($name);
 	$label->sort_name($sortname);
 	$label->type($type);
@@ -93,9 +93,9 @@ sub PreInsert
 
 	if (UserPreference::get('auto_subscribe'))
 	{
-		my $subs = UserSubscription->new($self->{DBH});
+		my $subs = UserSubscription->new($self->GetDBH);
 		$subs->SetUser($self->moderator);
-		my $label = MusicBrainz::Server::Label->new($self->{DBH});
+		my $label = MusicBrainz::Server::Label->new($self->GetDBH);
 		$label->id($labelid);
 		$subs->SubscribeLabels(($label))
 			if ($label->LoadFromId);
@@ -154,7 +154,7 @@ sub ShowModTypeDelegate
 	$m->out('<tr class="entity"><td class="lbl">Label:</td><td>');
 	my $id = $self->row_id;
 	require MusicBrainz::Server::Label;
-	my $label = MusicBrainz::Server::Label->new($self->{DBH});
+	my $label = MusicBrainz::Server::Label->new($self->GetDBH);
 	$label->id($id);
 	my ($title, $name);
 	if ($label->LoadFromId) 

@@ -97,7 +97,7 @@ sub DetermineQuality
 	my $self = shift;
 
     my $quality = -2;
-	my $ar = MusicBrainz::Server::Artist->new($self->{DBH});
+	my $ar = MusicBrainz::Server::Artist->new($self->GetDBH);
 	$ar->id($self->{"new.id"});
 	if ($ar->LoadFromId())
 	{
@@ -120,7 +120,7 @@ sub AdjustModPending
 {
 	my ($self, $adjust) = @_;
 	require MusicBrainz::Server::Artist;
-	my $ar = MusicBrainz::Server::Artist->new($self->{DBH});
+	my $ar = MusicBrainz::Server::Artist->new($self->GetDBH);
 
 	for my $artistid ($self->row_id, $self->{"new.id"})
 	{
@@ -141,7 +141,7 @@ sub CheckPrerequisites
 	#my $sortname = $self->{'new.sortname'};
 
 	require MusicBrainz::Server::Artist;
-	my $newar = MusicBrainz::Server::Artist->new($self->{DBH});
+	my $newar = MusicBrainz::Server::Artist->new($self->GetDBH);
 
 	if (my $newid = $self->{"new.id"})
 	{
@@ -164,7 +164,7 @@ sub CheckPrerequisites
 
 	# Load old artist by ID
 	require MusicBrainz::Server::Artist;
-	my $oldar = MusicBrainz::Server::Artist->new($self->{DBH});
+	my $oldar = MusicBrainz::Server::Artist->new($self->GetDBH);
 	$oldar->id($rowid);
 	unless ($oldar->LoadFromId)
 	{

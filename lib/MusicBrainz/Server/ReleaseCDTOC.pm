@@ -70,7 +70,7 @@ sub _release
 	my $id = $self->release_id;
 
 	require MusicBrainz::Server::Release;
-	my $release = MusicBrainz::Server::Release->new($self->{DBH});
+	my $release = MusicBrainz::Server::Release->new($self->GetDBH);
 	$release->id($id);
 	$release->LoadFromId
 		and return $release;
@@ -89,7 +89,7 @@ sub newFromId
 	$self = $self->new(shift) if not ref $self;
 	my $id = shift;
 
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 	my $row = $sql->SelectSingleRowHash(
 		"SELECT * FROM album_cdtoc WHERE id = ?", $id,
 	) or return undef;
@@ -106,7 +106,7 @@ sub newFromCDTOC
 	my $cdtoc = shift;
 	my $id = (ref($cdtoc) ? $cdtoc->id : $cdtoc);
 
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 	my $rows = $sql->SelectListOfHashes(
 		"SELECT * FROM album_cdtoc WHERE cdtoc = ?", $id,
 	);
@@ -127,7 +127,7 @@ sub newFromRelease
 	my $album = shift;
 	my $id = (ref($album) ? $album->id : $album);
 
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 	my $rows = $sql->SelectListOfHashes(
 		"SELECT	j.id AS j_id,
 				j.album AS j_album,
@@ -140,7 +140,7 @@ sub newFromRelease
 		$id,
 	);
 
-	my $cdtoc = MusicBrainz::Server::CDTOC->new($self->{DBH});
+	my $cdtoc = MusicBrainz::Server::CDTOC->new($self->GetDBH);
 	for (@$rows)
 	{
 		my %j = (
@@ -168,7 +168,7 @@ sub newFromReleaseAndCDTOC
 	my $cdtoc = shift;
 	my $cdtocid = (ref($cdtoc) ? $cdtoc->id : $cdtoc);
 
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 	my $row = $sql->SelectSingleRowHash(
 		"SELECT	j.id AS j_id,
 				j.album AS j_album,
@@ -183,7 +183,7 @@ sub newFromReleaseAndCDTOC
 		$cdtocid,
 	) or return undef;
 
-	$cdtoc = MusicBrainz::Server::CDTOC->new($self->{DBH});
+	$cdtoc = MusicBrainz::Server::CDTOC->new($self->GetDBH);
 	for ($row)
 	{
 		my %j = (
@@ -218,7 +218,7 @@ sub _newFromHash
 	);
 	return [] unless length($id) == $correct_length;
 
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 	my $rows = $sql->SelectListOfHashes(
 		"SELECT	j.id AS j_id,
 				j.album AS j_album,
@@ -231,7 +231,7 @@ sub _newFromHash
 		$id,
 	);
 
-	my $cdtoc = MusicBrainz::Server::CDTOC->new($self->{DBH});
+	my $cdtoc = MusicBrainz::Server::CDTOC->new($self->GetDBH);
 	for (@$rows)
 	{
 		my %j = (
@@ -266,7 +266,7 @@ sub _releaseIDsFromHash
 	);
 	return [] unless length($id) == $correct_length;
 
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 	$sql->SelectSingleColumnArray(
 		"SELECT DISTINCT album
 		FROM	album_cdtoc, cdtoc
@@ -318,7 +318,7 @@ sub GenerateAlbumFromDiscid
 
 		for my $id (@$albumids)
 		{
-			my $al = MusicBrainz::Server::Release->new($self->{DBH});
+			my $al = MusicBrainz::Server::Release->new($self->GetDBH);
 			$al->id($id);
 			$al->LoadFromId();
 			push @mbids, $al->mbid;
@@ -344,7 +344,7 @@ sub GenerateAlbumFromDiscid
 	{
 		# Let's pull the records from FreeDB and insert it into the db if we find it
 		require FreeDB;
-		my $fd = FreeDB->new($self->{DBH});
+		my $fd = FreeDB->new($self->GetDBH);
 		my $ref = $fd->Lookup($discid, $toc);
 
 		if (defined $ref)
@@ -389,7 +389,7 @@ sub Insert
 	my $tocid = MusicBrainz::Server::CDTOC->GetOrInsertTOC($self->{DBH}, $toc);
 	if (my $t = $opts{'tocid'}) { $$t = $tocid }
 
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 	$sql->Do("LOCK TABLE album_cdtoc IN EXCLUSIVE MODE");
 
 	my $id = $sql->SelectSingleValue(
@@ -412,7 +412,7 @@ sub Insert
 sub MoveToRelease
 {
 	my ($self, $album, $already_there_flagref) = @_;
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 	$album = $album->id if ref $album;
 
 	$$already_there_flagref = 0
@@ -448,7 +448,7 @@ sub MergeReleases
 	$oldalbum = $oldalbum->id if ref $oldalbum;
 	$newalbum = $newalbum->id if ref $newalbum;
 
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 	$sql->Do(
 		"UPDATE album_cdtoc SET album = ? WHERE album = ?
 			AND cdtoc NOT IN (SELECT cdtoc FROM album_cdtoc t WHERE album = ?)",
@@ -466,7 +466,7 @@ sub Remove
 {
 	my $self = shift;
 
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
     print STDERR "DELETE: Removed album_cdtoc where id was " . $self->id . "\n";
 	$sql->Do("DELETE FROM album_cdtoc WHERE id = ?", $self->id);
 	# TODO remove unused cdtoc?
@@ -478,7 +478,7 @@ sub RemoveAlbum
 	$self = $self->new(shift) if not ref $self;
 	my $album = shift;
 
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
     print STDERR "DELETE: Removed album_cdtoc where album was " . $album . "\n";
 	$sql->Do("DELETE FROM album_cdtoc WHERE album = ?", $album);
 	# TODO remove unused cdtoc?

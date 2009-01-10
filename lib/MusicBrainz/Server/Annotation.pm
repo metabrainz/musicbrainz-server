@@ -293,7 +293,7 @@ sub LoadFromId
 		$id = $self->{moderation};
 	}
 
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 	my $row = undef;
         use MusicBrainz::Server::Replication 'RT_SLAVE';
         if (&DBDefs::REPLICATION_TYPE == RT_SLAVE) {
@@ -341,7 +341,7 @@ sub GetLatestAnnotation
 {
 	my $self = shift;
 	
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 	
 	my $query = undef;
     if (&DBDefs::REPLICATION_TYPE == RT_SLAVE)
@@ -397,7 +397,7 @@ sub Insert
 		if $self->{type} == ARTIST_ANNOTATION
 		and ($self->{rowid} == VARTIST_ID or $self->{rowid} == DARTIST_ID);
 
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 
 	$sql->Do(
 		  "INSERT INTO annotation "
@@ -531,7 +531,7 @@ sub _Merge
 	my $new_id = shift;
 	my %opts = @_;
 
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 
 	# If the target artist is VARTIST_ID, simply delete any old annotations.
 	if ($type == ARTIST_ANNOTATION and $old_id == VARTIST_ID)
@@ -546,14 +546,14 @@ sub _Merge
 
 	# Get latest annotation for "old".  If there are no annotations, there is
 	# nothing to do.
-	my $old_latest = (ref $self)->new($self->{DBH});
+	my $old_latest = (ref $self)->new($self->GetDBH);
 	$old_latest->{type} = $type;
 	$old_latest->{rowid} = $old_id;
 	$old_latest->GetLatestAnnotation
 		or return;
 	
 	# Get latest annotation for "new".
-	my $new_latest = (ref $self)->new($self->{DBH});
+	my $new_latest = (ref $self)->new($self->GetDBH);
 	$new_latest->{type} = $type;
 	$new_latest->{rowid} = $new_id;
 	$new_latest->GetLatestAnnotation
@@ -639,7 +639,7 @@ sub _Delete
 	my $old_id = shift;
 
 	# Delete the data
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 	$sql->Do(
 		"DELETE FROM annotation WHERE type = ? AND rowid = ?",
 		$type,

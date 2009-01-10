@@ -115,7 +115,7 @@ sub DetermineQuality
     my $artistid = -1;
     for(my $i = 0;;$i++)
     {
-        my $rel = MusicBrainz::Server::Release->new($self->{DBH});
+        my $rel = MusicBrainz::Server::Release->new($self->GetDBH);
         last if (!exists $new->{"AlbumId$i"});
         $rel->id($new->{"AlbumId$i"});
         if ($rel->LoadFromId())
@@ -128,7 +128,7 @@ sub DetermineQuality
     if ($artistid > 0)
     {
         # Check the artist its going to
-        my $ar = MusicBrainz::Server::Artist->new($self->{DBH});
+        my $ar = MusicBrainz::Server::Artist->new($self->GetDBH);
         $ar->id($artistid);
         if ($ar->LoadFromId())
         {
@@ -147,7 +147,7 @@ sub AdjustModPending
 {
 	my ($self, $adjust) = @_;
 	require MusicBrainz::Server::Release;
-	my $al = MusicBrainz::Server::Release->new($self->{DBH});
+	my $al = MusicBrainz::Server::Release->new($self->GetDBH);
 
 	# Prior to the ModerationClasses2 branch, the "mod pending" change would
 	# only be applied to the album listed in $self->row_id, i.e. the target
@@ -166,7 +166,7 @@ sub ApprovedAction
  	my $self = shift;
 
 	require MusicBrainz::Server::Release;
-	my $al = MusicBrainz::Server::Release->new($self->{DBH});
+	my $al = MusicBrainz::Server::Release->new($self->GetDBH);
 	$al->id($self->{'new_into'}{'id'});
 
 	unless ($al->LoadFromId)

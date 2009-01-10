@@ -101,7 +101,7 @@ sub Login
 	if (not $tied->{'_mb_prepared_connection_'})
 	{
 		require Sql;
-		my $sql = Sql->new($this->{DBH});
+		my $sql = Sql->new($this->GetDBH);
 
 		$sql->AutoCommit(1);
 		$sql->Do("SET TIME ZONE 'UTC'");

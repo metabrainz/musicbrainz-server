@@ -146,7 +146,7 @@ sub DetermineQuality
 {
 	my $self = shift;
 
-	my $ar = MusicBrainz::Server::Artist->new($self->{DBH});
+	my $ar = MusicBrainz::Server::Artist->new($self->GetDBH);
 	$ar->id($self->{rowid});
 	if ($ar->LoadFromId())
 	{
@@ -202,7 +202,7 @@ sub CheckPrerequisites
 
 	# Load the artist by ID
 	require MusicBrainz::Server::Artist;
-	my $ar = MusicBrainz::Server::Artist->new($self->{DBH});
+	my $ar = MusicBrainz::Server::Artist->new($self->GetDBH);
 	$ar->id($artist_id);
 	unless ($ar->LoadFromId)
 	{
@@ -247,7 +247,7 @@ sub DeniedAction
 	if (my $artist = $new->{'ArtistId'})
 	{
 		require MusicBrainz::Server::Artist;
-		my $ar = MusicBrainz::Server::Artist->new($self->{DBH});
+		my $ar = MusicBrainz::Server::Artist->new($self->GetDBH);
 		$ar->id($artist);
 		$ar->Remove;
    }

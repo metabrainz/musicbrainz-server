@@ -43,7 +43,7 @@ sub PreInsert
 
 	# Check that the alias $self->new_data does not exist
 	require MusicBrainz::Server::Alias;
-	my $al = MusicBrainz::Server::Alias->new($self->{DBH});
+	my $al = MusicBrainz::Server::Alias->new($self->GetDBH);
 	$al->table("ArtistAlias");
 
 	if (my $other = $al->newFromName($newalias))
@@ -71,7 +71,7 @@ sub DetermineQuality
 {
 	my $self = shift;
 
-	my $ar = MusicBrainz::Server::Artist->new($self->{DBH});
+	my $ar = MusicBrainz::Server::Artist->new($self->GetDBH);
 	$ar->id($self->{rowid});
 	if ($ar->LoadFromId())
 	{
@@ -86,7 +86,7 @@ sub CheckPrerequisites
 
 	# Check that the referenced artist is still around
 	require MusicBrainz::Server::Artist;
-	my $ar = MusicBrainz::Server::Artist->new($self->{DBH});
+	my $ar = MusicBrainz::Server::Artist->new($self->GetDBH);
 	$ar->id($self->row_id);
 	unless ($ar->LoadFromId)
 	{
@@ -99,7 +99,7 @@ sub CheckPrerequisites
 
 	# Check that the alias $self->new_data does not exist
 	require MusicBrainz::Server::Alias;
-	my $al = MusicBrainz::Server::Alias->new($self->{DBH});
+	my $al = MusicBrainz::Server::Alias->new($self->GetDBH);
 	$al->table("ArtistAlias");
 
 	if (my $other = $al->newFromName($self->new_data))
@@ -126,7 +126,7 @@ sub ApprovedAction
 	return $status if $status;
 
 	require MusicBrainz::Server::Alias;
-	my $al = MusicBrainz::Server::Alias->new($self->{DBH});
+	my $al = MusicBrainz::Server::Alias->new($self->GetDBH);
 	$al->table("ArtistAlias");
 
 	my $other;

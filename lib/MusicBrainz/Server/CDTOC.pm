@@ -134,7 +134,7 @@ sub newFromId
 	$self = $self->new(shift) if not ref $self;
 	my $id = shift;
 
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 	my $row = $sql->SelectSingleRowHash(
 		"SELECT * FROM cdtoc WHERE id = ?", $id,
 	) or return undef;
@@ -152,7 +152,7 @@ sub newFromTOC
 		or die "Attempt to look up invalid TOC ($tocstr)\n";
 	my $trackoffset = "{".join(",", @{ $info{trackoffsets} })."}";
 
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 
 	# Select on discid (for speed; this is indexed).
 	# Then compare all the fields which make up the TOC.
@@ -177,7 +177,7 @@ sub newFromDiscID
 	$self = $self->new(shift) if not ref $self;
 	my $discid = shift;
 
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 	my $rows = $sql->SelectListOfHashes(
 		"SELECT * FROM cdtoc WHERE discid = ?", $discid,
 	);
@@ -192,7 +192,7 @@ sub newFromFreeDBID
 	$self = $self->new(shift) if not ref $self;
 	my $freedbid = shift;
 
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 	my $rows = $sql->SelectListOfHashes(
 		"SELECT * FROM cdtoc WHERE freedbid = ?", $freedbid,
 	);
@@ -221,7 +221,7 @@ sub GetOrInsertTOC
 		or die "Attempt to insert invalid TOC ($tocstr)\n";
 	my $trackoffset = "{".join(",", @{ $info{trackoffsets} })."}";
 	
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 	$sql->Do("LOCK TABLE cdtoc IN EXCLUSIVE MODE");
 
 	# Select on discid (for speed; this is indexed).

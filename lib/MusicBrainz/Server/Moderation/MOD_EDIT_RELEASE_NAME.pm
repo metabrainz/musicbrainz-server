@@ -60,7 +60,7 @@ sub DetermineQuality
 {
 	my $self = shift;
 
-	my $rel = MusicBrainz::Server::Release->new($self->{DBH});
+	my $rel = MusicBrainz::Server::Release->new($self->GetDBH);
 	$rel->id($self->{albumid});
 	if ($rel->LoadFromId())
 	{
@@ -82,7 +82,7 @@ sub CheckPrerequisites
 
 	# Load the album by ID
 	require MusicBrainz::Server::Release;
-	my $release = MusicBrainz::Server::Release->new($self->{DBH});
+	my $release = MusicBrainz::Server::Release->new($self->GetDBH);
 	$release->id($self->row_id);
 	unless ($release->LoadFromId)
 	{

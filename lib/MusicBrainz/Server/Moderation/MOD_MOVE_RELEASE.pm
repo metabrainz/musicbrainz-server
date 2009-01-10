@@ -84,21 +84,21 @@ sub DetermineQuality
 
     my $level = &ModDefs::QUALITY_UNKNOWN_MAPPED;
 
-	my $rel = MusicBrainz::Server::Release->new($self->{DBH});
+	my $rel = MusicBrainz::Server::Release->new($self->GetDBH);
 	$rel->id($self->{rowid});
 	if ($rel->LoadFromId())
 	{
 		$level = $rel->quality > $level ? $rel->quality : $level;
     }
 
-	my $ar = MusicBrainz::Server::Artist->new($self->{DBH});
+	my $ar = MusicBrainz::Server::Artist->new($self->GetDBH);
 	$ar->id($rel->artist);
 	if ($ar->LoadFromId())
 	{
         $level = $ar->quality > $level ? $ar->quality : $level;
     }
 
-	$ar = MusicBrainz::Server::Artist->new($self->{DBH});
+	$ar = MusicBrainz::Server::Artist->new($self->GetDBH);
 	$ar->id($self->{'new.artistid'});
 	if ($ar->LoadFromId())
 	{
@@ -122,7 +122,7 @@ sub PreDisplay
 	my $newartist;		
 	# load album name
 	require MusicBrainz::Server::Release;
-	my $release = MusicBrainz::Server::Release->new($this->{DBH});
+	my $release = MusicBrainz::Server::Release->new($this->GetDBH);
 	$release->id($this->row_id);
 	if ($release->LoadFromId)
 	{
@@ -133,7 +133,7 @@ sub PreDisplay
 		if (!$this->{'new.exists'})
 		{
 			require MusicBrainz::Server::Artist;
-			$newartist = MusicBrainz::Server::Artist->new($this->{DBH});
+			$newartist = MusicBrainz::Server::Artist->new($this->GetDBH);
 			$newartist->id($release->artist);
 				
 			# FIXME is the name = new.sortname comparison necessary?
@@ -154,7 +154,7 @@ sub PreDisplay
 	my $pat = $this->previous_data;
 	if ($this->{'new.name'} =~ /^\Q$pat\E$/i)
 	{
-		my $oar = MusicBrainz::Server::Artist->new($this->{DBH});
+		my $oar = MusicBrainz::Server::Artist->new($this->GetDBH);
 		# the old one ...
 		$oar->id($this->artist);
 		$oar->LoadFromId
@@ -167,7 +167,7 @@ sub PreDisplay
 		if ($this->{'new.exists'})
 		{
 			if (!defined $newartist) {
-				$newartist = MusicBrainz::Server::Artist->new($this->{DBH});
+				$newartist = MusicBrainz::Server::Artist->new($this->GetDBH);
 				$newartist->id($this->{'new.artistid'});
 				$newartist->LoadFromId;
 			}
@@ -184,7 +184,7 @@ sub CheckPrerequisites
 	if (my $id = $self->{'new.artistid'})
 	{
 		require MusicBrainz::Server::Artist;
-		my $artist = MusicBrainz::Server::Artist->new($self->{DBH});
+		my $artist = MusicBrainz::Server::Artist->new($self->GetDBH);
 		$artist->id($id);
 		unless ($artist->LoadFromId)
 		{
@@ -199,7 +199,7 @@ sub CheckPrerequisites
 sub ApprovedAction
 {
 	my $this = shift;
-	my $sql = Sql->new($this->{DBH});
+	my $sql = Sql->new($this->GetDBH);
 
 	# Check album is still where it used to be
 	$sql->SelectSingleValue(
@@ -236,7 +236,7 @@ sub ApprovedAction
 	{
 		# No such artist, so create one
 		require MusicBrainz::Server::Artist;
-		my $artist = MusicBrainz::Server::Artist->new($this->{DBH});
+		my $artist = MusicBrainz::Server::Artist->new($this->GetDBH);
 		$artist->name($name);
 		$artist->sort_name($this->{'new.sortname'});
 		$newid = $artist->Insert(no_alias => 1);

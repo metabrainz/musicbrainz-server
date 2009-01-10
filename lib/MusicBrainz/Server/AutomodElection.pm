@@ -65,7 +65,7 @@ sub close_time	{ $_[0]{closetime} }
 sub GetElections
 {
 	my $self = shift;
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 
 	my $rows = $sql->SelectListOfHashes(
 		"SELECT * FROM automod_election ORDER BY proposetime DESC",
@@ -87,7 +87,7 @@ sub GetPendingElections
 {
 	my $self = shift;
 	my $uid = shift;
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 
 	my $rows = $sql->SelectListOfHashes(
 		"SELECT * FROM automod_election"
@@ -124,7 +124,7 @@ ELECTION:
 sub newFromId
 {
 	my ($self, $id) = @_;
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 
 	my $row = $sql->SelectSingleRowHash(
 		"SELECT * FROM automod_election WHERE id = ?",
@@ -138,7 +138,7 @@ sub newFromId
 sub _Refresh
 {
 	my $self = shift;
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 	my $newself = $self->newFromId($self->id)
 		or return;
 	%$self = %$newself;
@@ -166,7 +166,7 @@ sub GetVotes
 sub DoCloseElections
 {
 	my $self = shift;
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 
 	$sql->AutoTransaction(
 		sub {
@@ -204,7 +204,7 @@ sub DoCloseElections
 sub _Timeout
 {
 	my $self = shift;
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 
 	$sql->Do(
 		"UPDATE automod_election SET status = $STATUS_REJECTED, closetime = NOW() WHERE id = ?",
@@ -220,7 +220,7 @@ sub _Timeout
 sub _Close
 {
 	my $self = shift;
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 
 	$self->{status} = (($self->yes_votes > $self->no_votes) ? $STATUS_ACCEPTED : $STATUS_REJECTED);
 	# NOTE closetime not set
@@ -260,7 +260,7 @@ sub is_user_ineligible
 sub Propose
 {
 	my ($self, $proposer, $candidate) = @_;
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 
 	$@ = "ALREADY_AN_AUTOMOD", return
 		if $candidate->is_auto_editor($candidate->privs);
@@ -293,7 +293,7 @@ sub Propose
 sub Second
 {
 	my ($self, $seconder) = @_;
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 
 	$sql->Do("LOCK TABLE automod_election IN EXCLUSIVE MODE");
 	$self->_Refresh
@@ -341,7 +341,7 @@ sub Second
 sub CastVote
 {
 	my ($self, $voter, $new_vote) = @_;
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 
 	$sql->Do("LOCK TABLE automod_election, automod_election_vote IN EXCLUSIVE MODE");
 	$self->_Refresh
@@ -404,7 +404,7 @@ sub CastVote
 sub Cancel
 {
 	my ($self, $canceller) = @_;
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 
 	$sql->Do("LOCK TABLE automod_election IN EXCLUSIVE MODE");
 	$self->_Refresh
@@ -445,7 +445,7 @@ sub _PrepareMail
 	$self->{message_id} = "<automod-election-$id-$nums\@musicbrainz.org>";
 
 	require MusicBrainz::Server::Editor;
-	my $us = MusicBrainz::Server::Editor->new($self->{DBH});
+	my $us = MusicBrainz::Server::Editor->new($self->GetDBH);
 	for my $key (qw( candidate proposer seconder_1 seconder_2 ))
 	{
 		my $id = $self->{$key}

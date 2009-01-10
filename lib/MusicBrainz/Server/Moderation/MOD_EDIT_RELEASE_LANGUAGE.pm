@@ -141,7 +141,7 @@ sub DetermineQuality
     # Take the quality level from the first release or set to normal for multiple releases
     if (scalar(@{$self->{'_new_albums'}}) == 1)
     {
-        my $rel = MusicBrainz::Server::Release->new($self->{DBH});
+        my $rel = MusicBrainz::Server::Release->new($self->GetDBH);
         $rel->id($self->{_new_albums}->[0]->{id});
         if ($rel->LoadFromId())
         {
@@ -157,7 +157,7 @@ sub AdjustModPending
 	my $albums = $self->{_new_albums};
 
 	require MusicBrainz::Server::Release;
-	my $al = MusicBrainz::Server::Release->new($self->{DBH});
+	my $al = MusicBrainz::Server::Release->new($self->GetDBH);
 
 	foreach my $album ( @$albums )
 	{
@@ -179,7 +179,7 @@ sub CheckPrerequisites
 	for (my $i = 0; defined $new->{"AlbumId$i"}; $i++)
 	{
 		my $id = $new->{"AlbumId$i"};
-		my $al = MusicBrainz::Server::Release->new($self->{DBH});
+		my $al = MusicBrainz::Server::Release->new($self->GetDBH);
 		$al->id($id);
 
 		unless ( $al->LoadFromId )

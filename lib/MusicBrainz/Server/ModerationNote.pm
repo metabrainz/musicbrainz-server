@@ -123,7 +123,7 @@ sub mark_up_text_as_html
 sub Insert
 {
 	my ($self, $moderation, $noteuid, $text, %opts) = @_;
-   	my $sql = Sql->new($self->{DBH});
+   	my $sql = Sql->new($self->GetDBH);
 
 	my $modid = $moderation->id;
 
@@ -156,7 +156,7 @@ sub Insert
 	my %done;
 	$done{$noteuid} = 1;
 
-	my $ui = MusicBrainz::Server::Editor->new($self->{DBH});
+	my $ui = MusicBrainz::Server::Editor->new($self->GetDBH);
 	my $mod_user = $moderation->moderator
 		or die;
 	my $note_user = $ui->newFromId($noteuid)
@@ -209,7 +209,7 @@ sub Insert
 
 	# Do any voters want to receive this note?
 	require MusicBrainz::Server::Vote;
-	my $v = MusicBrainz::Server::Vote->new($self->{DBH});
+	my $v = MusicBrainz::Server::Vote->new($self->GetDBH);
 	my @votes = $v->newFromModerationId($moderation->id);
 
 	for my $vote (@votes)
@@ -246,7 +246,7 @@ sub newFromModerationIds
 {
 	my ($self, @ids) = @_;
 	@ids or return;
-   	my $sql = Sql->new($self->{DBH});
+   	my $sql = Sql->new($self->GetDBH);
 
 	# NOTE: must allow at least however many we show on moderatepage
 	# (see limit of mods_per_page preference, currently 25).

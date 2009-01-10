@@ -71,7 +71,7 @@ sub DetermineQuality
 {
 	my $self = shift;
 
-	my $rel = MusicBrainz::Server::Release->new($self->{DBH});
+	my $rel = MusicBrainz::Server::Release->new($self->GetDBH);
 	$rel->id($self->{albumid});
 	if ($rel->LoadFromId())
 	{
@@ -85,7 +85,7 @@ sub ApprovedAction
 	my $this = shift;
 
 	require MusicBrainz::Server::Track;
-	my $track = MusicBrainz::Server::Track->new($this->{DBH});
+	my $track = MusicBrainz::Server::Track->new($this->GetDBH);
 	$track->id($this->row_id);
 	$track->release($this->{'prev.albumid'});
 
@@ -103,7 +103,7 @@ sub ApprovedAction
 
 	# Try to remove the release if it's a "non-album" release
 	require MusicBrainz::Server::Release;
-	my $release = MusicBrainz::Server::Release->new($this->{DBH});
+	my $release = MusicBrainz::Server::Release->new($this->GetDBH);
 	$release->id($this->{'prev.albumid'});
 	if ($release->LoadFromId)
 	{

@@ -70,14 +70,14 @@ sub DetermineQuality
 
 	my $level = &ModDefs::QUALITY_UNKNOWN_MAPPED;
 
-	my $rel = MusicBrainz::Server::Release->new($self->{DBH});
+	my $rel = MusicBrainz::Server::Release->new($self->GetDBH);
 	$rel->id($self->{rowid});
 	if ($rel->LoadFromId())
 	{
 		$level = $rel->quality > $level ? $rel->quality : $level;
     }
 
-	my $ar = MusicBrainz::Server::Artist->new($self->{DBH});
+	my $ar = MusicBrainz::Server::Artist->new($self->GetDBH);
 	$ar->id($rel->artist);
 	if ($ar->LoadFromId())
 	{
@@ -93,7 +93,7 @@ sub CheckPrerequisites
 
 	# Load the album by ID
 	require MusicBrainz::Server::Release;
-	my $release = MusicBrainz::Server::Release->new($self->{DBH});
+	my $release = MusicBrainz::Server::Release->new($self->GetDBH);
 	$release->id($self->row_id);
 	unless ($release->LoadFromId)
 	{
@@ -131,7 +131,7 @@ sub ApprovedAction
 	my $status = $self->CheckPrerequisites;
 	return $status if $status;
 
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
  	$sql->Do(
 		"UPDATE album SET artist = ? WHERE id = ? AND artist = ?",
 		&ModDefs::VARTIST_ID,

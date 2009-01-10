@@ -98,7 +98,7 @@ sub newFromId
 	$self = $self->new(shift) if not ref $self;
 	my $id = shift;
 
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 
 	my $row = $sql->SelectSingleRowHash(
 		"SELECT id, gid AS mbid, url, description, refcount, modpending
@@ -120,7 +120,7 @@ sub newFromMBId
 	$self = $self->new(shift) if not ref $self;
 	my $id = shift;
 
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 
 	my $row = $sql->SelectSingleRowHash(
 		"SELECT id, gid AS mbid, url, description, refcount, modpending
@@ -140,7 +140,7 @@ sub Insert
 {
 	my ($self, $url, $desc) = @_;
 
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 
 	$sql->Do("LOCK TABLE url IN EXCLUSIVE MODE");
 
@@ -183,7 +183,7 @@ sub UpdateURL
 
 	MusicBrainz::Server::Validation::TrimInPlace($url);
 
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 
 	$sql->Do("LOCK TABLE url IN EXCLUSIVE MODE");
 
@@ -220,7 +220,7 @@ sub newFromURL
 		return undef;
 	}
 
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 
 	my $row = $sql->SelectSingleRowHash(
 		"SELECT * FROM url
@@ -238,7 +238,7 @@ sub Remove
 {
 	my $self = shift;
 
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 
 	my $id = $self->id
 		or croak "Missing ID in Remove";

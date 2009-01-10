@@ -45,7 +45,7 @@ sub GetSubscribersForArtist
 	my $artist = shift;
 
 	return if not defined wantarray;
-    my $sql = Sql->new($self->{DBH});
+    my $sql = Sql->new($self->GetDBH);
 
     return $sql->SelectSingleValue(
 		"SELECT COUNT(*) FROM moderator_subscribe_artist WHERE artist = ?",
@@ -71,7 +71,7 @@ sub GetSubscribersForLabel
 	my $label = shift;
 
 	return if not defined wantarray;
-    my $sql = Sql->new($self->{DBH});
+    my $sql = Sql->new($self->GetDBH);
 
     return $sql->SelectSingleValue(
 		"SELECT COUNT(*) FROM moderator_subscribe_label WHERE label = ?",
@@ -97,7 +97,7 @@ sub GetSubscribersForEditor
 	my $editor = shift;
 
 	return if not defined wantarray;
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 
 	return $sql->SelectSingleValue(
 		"SELECT COUNT(*) FROM editor_subscribe_editor WHERE subscribededitor = ?",
@@ -119,7 +119,7 @@ sub subscribed_artists
 {
     my ($self) = @_;
     my $uid = $self->GetUser or die;
-    my $sql = Sql->new($self->{DBH});
+    my $sql = Sql->new($self->GetDBH);
 
     my $rows = $sql->SelectListOfHashes(
         "SELECT s.*, a.name, a.sortname, a.resolution
@@ -132,7 +132,7 @@ sub subscribed_artists
 
     return [
         map {
-            my $artist = MusicBrainz::Server::Artist->new($self->{DBH});
+            my $artist = MusicBrainz::Server::Artist->new($self->GetDBH);
 
             $artist->id($_->[0]->{artist});
             $artist->name($_->[0]->{name});
@@ -155,7 +155,7 @@ sub is_subscribed_to_artist
     my ($self, $artist) = @_;
 
     my $uid = $self->GetUser or die;
-    my $sql = Sql->new($self->{DBH});
+    my $sql = Sql->new($self->GetDBH);
 
     return $sql->SelectSingleValue(
         "SELECT COUNT(*)
@@ -171,7 +171,7 @@ sub is_subscribed_to_label
     my ($self, $label) = @_;
 
     my $uid = $self->GetUser or die;
-    my $sql = Sql->new($self->{DBH});
+    my $sql = Sql->new($self->GetDBH);
 
     return $sql->SelectSingleValue(
         "select COUNT(*)
@@ -186,7 +186,7 @@ sub GetNumSubscribedArtists
 {
 	my ($self) = @_;
 	my $uid = $self->GetUser or die;
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 
 	return $sql->SelectSingleValue(
 		"SELECT COUNT(*) FROM moderator_subscribe_artist WHERE moderator = ?",
@@ -209,11 +209,11 @@ sub SubscribeArtists
 		push @artistids, $artistid;
 	}
 
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 
 	$sql->AutoTransaction(sub {
 		require Moderation;
-		my $mod = Moderation->new($self->{DBH});
+		my $mod = Moderation->new($self->GetDBH);
 		my $modid = 0;
 
 		for my $artistid (@artistids)
@@ -256,7 +256,7 @@ sub UnsubscribeArtists
 		push @artistids, $artistid;
 	}
 
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 
 	$sql->AutoTransaction(sub {
 		for my $artistid (@artistids)
@@ -277,7 +277,7 @@ sub subscribed_labels
 {
 	my ($self) = @_;
 	my $uid = $self->GetUser or die;
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 
 	my $rows = $sql->SelectListOfHashes(
 		"SELECT s.*, a.name, a.sortname, a.resolution
@@ -312,7 +312,7 @@ sub GetNumSubscribedLabels
 {
 	my ($self) = @_;
 	my $uid = $self->GetUser or die;
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 
 	return $sql->SelectSingleValue(
 		"SELECT COUNT(*) FROM moderator_subscribe_label WHERE moderator = ?",
@@ -334,11 +334,11 @@ sub SubscribeLabels
 		push @labelids, $labelid;
 	}
 
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 
 	$sql->AutoTransaction(sub {
 		require Moderation;
-		my $mod = Moderation->new($self->{DBH});
+		my $mod = Moderation->new($self->GetDBH);
 		my $modid = 0;
 
 		for my $labelid (@labelids)
@@ -380,7 +380,7 @@ sub UnsubscribeLabels
 		push @labelids, $labelid;
 	}
 
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 
 	$sql->AutoTransaction(sub {
 		for my $labelid (@labelids)
@@ -401,7 +401,7 @@ sub GetSubscribedEditors
 {
 	my ($self) = @_;
 	my $uid = $self->GetUser or die;
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 
 	my $rows = $sql->SelectListOfHashes(
 		"SELECT s.*, m.name
@@ -427,7 +427,7 @@ sub GetNumSubscribedEditors
 {
 	my ($self) = @_;
 	my $uid = $self->GetUser or die;
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 
 	return $sql->SelectSingleValue(
 		"SELECT COUNT(*) FROM editor_subscribe_editor WHERE editor = ?",
@@ -448,11 +448,11 @@ sub SubscribeEditors
 		push @editorids, $editorid;
 	}
 
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 
 	$sql->AutoTransaction(sub {
 		require Moderation;
-		my $mod = Moderation->new($self->{DBH});
+		my $mod = Moderation->new($self->GetDBH);
 		my $modid = 0;
 
 		for my $editorid (@editorids)
@@ -493,7 +493,7 @@ sub UnsubscribeEditors
 		push @editorids, $editorid;
 	}
 
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 
 	$sql->AutoTransaction(sub {
 		for my $editorid (@editorids)
@@ -517,7 +517,7 @@ sub UnsubscribeEditors
 sub ArtistBeingDeleted
 {
 	my ($self, $artist, $moderation) = @_;
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 
 	$sql->Do(
 		"UPDATE moderator_subscribe_artist
@@ -530,7 +530,7 @@ sub ArtistBeingDeleted
 sub ArtistBeingMerged
 {
 	my ($self, $artist, $moderation) = @_;
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 
 	$sql->Do(
 		"UPDATE moderator_subscribe_artist
@@ -547,7 +547,7 @@ sub ArtistBeingMerged
 sub LabelBeingDeleted
 {
 	my ($self, $label, $moderation) = @_;
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 
 	$sql->Do(
 		"UPDATE moderator_subscribe_label
@@ -560,7 +560,7 @@ sub LabelBeingDeleted
 sub LabelBeingMerged
 {
 	my ($self, $label, $moderation) = @_;
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 
 	$sql->Do(
 		"UPDATE moderator_subscribe_label
@@ -578,11 +578,11 @@ sub LabelBeingMerged
 sub ProcessAllSubscriptions
 {
 	my $self = shift;
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 
 	$self->{THRESHOLD_MODID} = do {
 		require Moderation;
-		my $mod = Moderation->new($self->{DBH});
+		my $mod = Moderation->new($self->GetDBH);
 		$mod->GetMaxModID;
 	};
 	defined($self->{THRESHOLD_MODID}) or die;
@@ -630,7 +630,7 @@ sub _ProcessUserSubscriptions
 	my $self = shift;
 
 	require MusicBrainz::Server::Editor;
-	my $user = MusicBrainz::Server::Editor->new($self->{DBH});
+	my $user = MusicBrainz::Server::Editor->new($self->GetDBH);
 	$user = $user->newFromId($self->GetUser);
 
 	printf "Processing subscriptions for #%d '%s'\n",
@@ -664,7 +664,7 @@ sub _ProcessUserSubscriptions
 	my $text = "";
 	my $editorstext = "";
 	my $root = "http://" . &DBDefs::WEB_SERVER;
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 
 	for my $sub (@$subs)
 	{

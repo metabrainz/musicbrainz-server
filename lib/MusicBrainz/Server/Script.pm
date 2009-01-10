@@ -65,7 +65,7 @@ sub newFromId
 		return $$obj;
 	}
 
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 
 	$obj = $self->_new_from_row(
 		$sql->SelectSingleRowHash(
@@ -105,7 +105,7 @@ sub All
 		return @$obj;
 	}
 
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->GetDBH);
 
 	# TODO fix sorting (case-insensitive, etc)
 	my @list = map { $self->_new_from_row($_) }

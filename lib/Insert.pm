@@ -207,16 +207,16 @@ sub _Insert
     }
 
 	require MusicBrainz::Server::Artist;
-    my $ar = MusicBrainz::Server::Artist->new($this->{DBH});
-    my $mar = MusicBrainz::Server::Artist->new($this->{DBH});
+    my $ar = MusicBrainz::Server::Artist->new($this->GetDBH);
+    my $mar = MusicBrainz::Server::Artist->new($this->GetDBH);
 	require MusicBrainz::Server::Release;
-    my $al = MusicBrainz::Server::Release->new($this->{DBH});
+    my $al = MusicBrainz::Server::Release->new($this->GetDBH);
 	require MusicBrainz::Server::Track;
-    my $tr = MusicBrainz::Server::Track->new($this->{DBH});
+    my $tr = MusicBrainz::Server::Track->new($this->GetDBH);
 	require MusicBrainz::Server::PUID;
-    my $puid = MusicBrainz::Server::PUID->new($this->{DBH});
+    my $puid = MusicBrainz::Server::PUID->new($this->GetDBH);
 	require MusicBrainz::Server::ReleaseEvent;
-	my $rel = MusicBrainz::Server::ReleaseEvent->new($this->{DBH});
+	my $rel = MusicBrainz::Server::ReleaseEvent->new($this->GetDBH);
 
 	my $artist;
 	my $artistid;
@@ -580,7 +580,7 @@ TRACK:
 			die "Skipped Insert: Release country is required\n";
 		}
 
-                my $label = MusicBrainz::Server::Label->new($this->{DBH});
+                my $label = MusicBrainz::Server::Label->new($this->GetDBH);
                 $label->id($release->{label});
 
 		$rel->release($albumid);
@@ -606,7 +606,7 @@ sub InsertAlbumModeration
 {
     my ($this, $new, $moderator, $privs, $artist) = @_;
 	require Sql;
-    my $sql = Sql->new($this->{DBH});
+    my $sql = Sql->new($this->GetDBH);
 
 	# TODO: for now, the $new passed in is still the packed string
 	# (key=value\nkey=value\n etc).  Here we parse that back into hash form

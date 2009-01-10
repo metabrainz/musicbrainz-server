@@ -52,7 +52,7 @@ sub PreInsert
 	# Currently there's a unique index on artistalias.name.
 	# Refuse to insert the mod if that index would be violated.
 	require MusicBrainz::Server::Alias;
-	my $test = MusicBrainz::Server::Alias->new($self->{DBH}, 'artistalias');
+	my $test = MusicBrainz::Server::Alias->new($self->GetDBH, 'artistalias');
 
 	if (my $other = $test->newFromName($newname))
 	{
@@ -91,7 +91,7 @@ sub CheckPrerequisites
 	my $self = shift;
 
 	require MusicBrainz::Server::Alias;
-	my $alias = MusicBrainz::Server::Alias->new($self->{DBH}, "artistalias");
+	my $alias = MusicBrainz::Server::Alias->new($self->GetDBH, "artistalias");
 	$alias->id($self->row_id);
 
 	unless ($alias->LoadFromId)

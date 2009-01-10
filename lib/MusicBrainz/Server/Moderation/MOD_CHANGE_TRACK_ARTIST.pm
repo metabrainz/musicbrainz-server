@@ -68,7 +68,7 @@ sub DetermineQuality
 
     my $level = &ModDefs::QUALITY_UNKNOWN_MAPPED;
 
-	my $ar = MusicBrainz::Server::Artist->new($self->{DBH});
+	my $ar = MusicBrainz::Server::Artist->new($self->GetDBH);
 
     # Check the old artist
 	$ar = $self->{artist};
@@ -86,7 +86,7 @@ sub DetermineQuality
     }
 
     # Check any releases that this track is attached to
-	my $tr = MusicBrainz::Server::Track->new($self->{DBH});
+	my $tr = MusicBrainz::Server::Track->new($self->GetDBH);
 	$tr->id($self->{rowid});
     my @albums = $tr->GetAlbumInfo();
     if (@albums)
@@ -121,7 +121,7 @@ sub PreDisplay
 	# edits which only had the name in 'newvalue'
 	require MusicBrainz::Server::Track;
 	my $newartist;
-	my $track = MusicBrainz::Server::Track->new($this->{DBH});
+	my $track = MusicBrainz::Server::Track->new($this->GetDBH);
 	$track->id($this->{"trackid"});
 	if ($track->LoadFromId)
 	{
@@ -154,7 +154,7 @@ sub PreDisplay
 	require MusicBrainz::Server::Artist; 
 
 	# the old one ...
-	my $oldartist = MusicBrainz::Server::Artist->new($this->{DBH});
+	my $oldartist = MusicBrainz::Server::Artist->new($this->GetDBH);
 	$oldartist = $this->artist;
 	if ($this->{"old.exists"} = $oldartist->LoadFromId)
 	{
@@ -168,7 +168,7 @@ sub PreDisplay
 	{
 		if (!defined $newartist)
 		{
-			$newartist = MusicBrainz::Server::Artist->new($this->{DBH});
+			$newartist = MusicBrainz::Server::Artist->new($this->GetDBH);
 			$newartist->id($this->{'new.id'});
 			$this->{'new.exists'} = $newartist->LoadFromId;
 		}
@@ -189,7 +189,7 @@ sub CheckPrerequisites
 
 	# Load the track by ID
 	require MusicBrainz::Server::Track;
-	my $track = MusicBrainz::Server::Track->new($self->{DBH});
+	my $track = MusicBrainz::Server::Track->new($self->GetDBH);
 	$track->id($rowid);
 	unless ($track->LoadFromId)
 	{
@@ -209,7 +209,7 @@ sub CheckPrerequisites
 	if (defined $newid && $newid > 0)
 	{
 		require MusicBrainz::Server::Artist;
-		my $ar = MusicBrainz::Server::Artist->new($self->{DBH});
+		my $ar = MusicBrainz::Server::Artist->new($self->GetDBH);
 		$ar->id($newid);
 		unless ($ar->LoadFromId)
 		{
@@ -238,14 +238,14 @@ sub ApprovedAction
 	else
 	{
 		require MusicBrainz::Server::Artist;
-		my $ar = MusicBrainz::Server::Artist->new($this->{DBH});
+		my $ar = MusicBrainz::Server::Artist->new($this->GetDBH);
 		$ar->name($name);
 		$ar->sort_name($sortname);
 		$artistid = $ar->Insert(no_alias => 1);
 	}
 
 	require MusicBrainz::Server::Track;
-	my $track = MusicBrainz::Server::Track->new($this->{DBH});
+	my $track = MusicBrainz::Server::Track->new($this->GetDBH);
 	$track->id($this->row_id);
 	$track->artist->id($artistid);
 	$track->UpdateArtist
