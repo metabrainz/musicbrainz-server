@@ -19,6 +19,8 @@
         [%- ELSIF label.end_date -%]
             Dissolved: [% label.end_date -%]<br />
         [%- END -%]
+
+		Type: [% label.type_name %], Country: [% label.country_name %]
     </div>
     <div class="infoLinks"> Info: [% INCLUDE "components/piped-list.tt" list=info_links %]</div>
 

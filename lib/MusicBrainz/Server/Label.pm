@@ -103,6 +103,18 @@ sub country
     return $self->{country};
 }
 
+sub country_name
+{
+	my $self = shift;
+
+	unless (defined $self->{country_ref})
+	{
+		$self->{country_ref} = MusicBrainz::Server::Country->newFromId($self->dbh, $self->country);
+	}
+	
+	return $self->{country_ref}->name;
+}
+
 sub type
 {
     my ($self, $new_type) = @_;
@@ -113,7 +125,9 @@ sub type
 
 sub type_name
 {
-   return $LabelTypeNames{$_[0]}->[0];
+	my $type = shift;
+	$type = ref $type ? $type->type : $type;
+	return $LabelTypeNames{$type}->[0];
 }
 
 sub _id_cache_key

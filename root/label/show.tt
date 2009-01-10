@@ -9,7 +9,7 @@
     <table class="releases">
     <thead>
         <tr>
-            <th class="tracks"></th>
+            <th class="tracks">Tracks</th>
             <th class="status">Status</th>
             <th class="language">Language</th>
             <th class="date">Date</th>
