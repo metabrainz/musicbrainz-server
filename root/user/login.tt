@@ -8,7 +8,7 @@
         [% INCLUDE "forms/widget.tt" widget=form.field('password') label="Password" %]
         [% INCLUDE "forms/submit.tt" label="Log In" %]
 
-        [% INCLUDE "forms/widget.tt" widget=form.field('remember_me') label="Log in permenantly" %]
+        [% INCLUDE "forms/widget.tt" widget=form.field('remember_me') label="Log in permenently" %]
         [% INCLUDE "forms/widget.tt" widget=form.field('single_ip') label="Only from this IP address" %]
     [% END %]
     <ul>

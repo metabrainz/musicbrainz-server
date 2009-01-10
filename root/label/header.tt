@@ -1,5 +1,5 @@
 [%- info_links = [
-    { link => c.entity_url(label, 'perma'), text => "Permenant link" },
+    { link => c.entity_url(label, 'perma'), text => "Permenent link" },
     { link => c.entity_url(label, 'details'), text => "Details" },
     { link => c.entity_url(label, 'aliases'), text => "Aliases" },
     { link => c.entity_url(label, 'tags'), text => "Tags" },
