@@ -54,23 +54,34 @@
     [%- END -%]
 
     [%- links = [
-    	{ link => c.uri_for(c.controller('relate').action_for('store'),
-	    [ source.entity_type, source.mbid ]),
-	    text => "Use this ${source.entity_type} in a relationship" },
-
-	{ link => c.uri_for('/relate/cancel'),
-	    text => 'Cancel',
-	    hide => !current_relationship },
-	{ link => c.uri_for(c.controller('relate').action_for('create'),
-	    [ current_relationship.entity_type, current_relationship.mbid ],
-	    source.entity_type, source.mbid),
-	    text => 'Create relationship',
-	    hide => current_relationship.id == source.id },
-
-        { link => c.uri_for(c.controller('relate').action_for('url'),
-            [ source.entity_type, source.mbid ]),
-            text  => 'Relate to URL' },
-        { link => c.entity_url(source, 'relations'), text => 'View Relationships' },
+		{
+			link => c.uri_for(c.controller('relate').action_for('store'),
+				[ source.entity_type, source.mbid ]),
+	    	text => "Use this ${source.entity_type} in a relationship"
+			hide => !c.user_exists,
+		},
+		{
+			link => c.uri_for('/relate/cancel'),
+	    	text => 'Cancel',
+	    	hide => !current_relationship || !c.user_exists,
+		},
+		{
+			link => c.uri_for(c.controller('relate').action_for('create'),
+	    		[ current_relationship.entity_type, current_relationship.mbid ],
+	    		source.entity_type, source.mbid),
+	    	text => 'Create relationship',
+	    	hide => (current_relationship.id == source.id) || !c.user_exists,
+		},
+	    {
+			link => c.uri_for(c.controller('relate').action_for('url'),
+	        	[ source.entity_type, source.mbid ]),
+	        text => 'Relate to URL',
+			hide => !c.user_exists
+		},
+        {
+			link => c.entity_url(source, 'relations'),
+			text => 'View Relationships'
+		},
     ] -%]
     <div>[%- INCLUDE 'components/piped-list.tt' list=links -%]</div>
 </div>

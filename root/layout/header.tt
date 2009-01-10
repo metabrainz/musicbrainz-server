@@ -2,6 +2,6 @@
     <a href="[% c.uri_for('/') %]"><img src="[% c.uri_for('/static/images/musicbrainz-text.gif') %]" alt="MusicBrainz"/></a>
     [%- INCLUDE 'layout/menu.tt' -%]
     <a href="[% c.uri_for('/') %]">
-    <img id="brainz" src="[% c.uri_for('/static/images/brainzheader.png') %]" alt="MusicBrainz"/></a>
+    <img id="brainz" src="[% c.uri_for('/static/images/brainzheader.png') %]" alt="MusicBrainz"/>
     </a>
 </div>
