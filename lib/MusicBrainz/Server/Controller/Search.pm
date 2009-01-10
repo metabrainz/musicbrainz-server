@@ -70,19 +70,11 @@ sub editor : Private
 {
     my ($self, $c, $query) = @_;
 
-    my $user = $c->model('User')->load({ username => $query });
-
-    if(defined $user)
-    {
-        $c->response->redirect($c->uri_for('/user/profile', $user->name));
-        $c->detach;
-    }
-    else
-    {
-        $c->stash->{could_not_find_user} = 1;
-        $c->stash->{query} = $query;
-        $c->stash->{template} = 'search/editor.tt';
-    }
+    my ($result, $users) = $c->model('User')->search($query);
+	$c->stash->{users} = $users;
+	$c->stash->{query} = $query;
+	
+	$c->stash->{template} = 'search/editor.tt';
 }
 
 =head2 external

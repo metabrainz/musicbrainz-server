@@ -65,4 +65,12 @@ sub find_by_email
     return $usernames;
 }
 
+sub search
+{
+	my ($self, $query) = @_;
+	
+	my $editor = MusicBrainz::Server::Editor->new($self->dbh);
+	return $editor->search(query => $query, limit => 0);
+}
+
 1;
