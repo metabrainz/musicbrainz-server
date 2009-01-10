@@ -178,7 +178,7 @@ sub load_for_label
 {
     my ($self, $label) = @_;
 
-    my @releases = $label->select_releases;
+    my @releases = $label->releases;
 
     for (@releases) { _build_sort_keys($_); }
     

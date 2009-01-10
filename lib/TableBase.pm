@@ -73,6 +73,7 @@ A unique global-identifier assossciated with this entity.
 
 has 'mbid' => (
 	is       => 'rw',
+	init_arg => 'gid',
 );
 
 =head2 name
@@ -82,7 +83,6 @@ The name of this entity
 =cut
 
 has 'name' => (
-	isa => 'Str',
 	is => 'rw'
 );
 
@@ -92,7 +92,10 @@ Boolean, whether this entity has edits pending in the edit queue
 
 =cut
 
-has 'has_mod_pending' => ( is => 'rw' );
+has 'has_mod_pending' => (
+    is       => 'rw',
+    init_arg => 'modpending',
+);
 
 sub BUILDARGS
 {

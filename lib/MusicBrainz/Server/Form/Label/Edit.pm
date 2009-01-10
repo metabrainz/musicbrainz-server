@@ -18,7 +18,7 @@ sub edit
         type       => $self->value('type'),
         resolution => $self->value('resolution'),
         country    => $self->value('country'),
-        labelcode  => $self->value('label_code'),
+        label_code => $self->value('label_code'),
         begin_date => $self->value('begin_date'),
         end_date   => $self->value('end_date'),
     );

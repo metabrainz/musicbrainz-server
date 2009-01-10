@@ -270,7 +270,7 @@ sub subscriptions : Chained('label')
 
     my $label = $self->entity;
 
-    my @all_users = $label->GetSubscribers;
+    my @all_users = $label->subscribers;
 
     my @public_users;
     my $anonymous_subscribers;

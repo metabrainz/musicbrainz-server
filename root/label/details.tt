@@ -21,7 +21,7 @@
 
     <tr>
         <th>Subscribers:</th>
-        <td>[% label.subscriber_count %]</td>
+        <td>[% label.subscribers.count %]</td>
     </tr>
 </table>
 [% END %]

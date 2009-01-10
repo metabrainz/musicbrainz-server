@@ -34,7 +34,7 @@ The name used to sort this artist
 =cut
 
 has 'sort_name' => (
-	is  => 'rw',
+	is => 'rw',
 	init_arg => 'sortname',
 );
 
@@ -45,7 +45,7 @@ The type of this artist
 =cut
 
 has 'type' => (
-	is  => 'rw',
+	is => 'rw',
 );
 
 =head2 resolution
@@ -56,7 +56,7 @@ about this artist.
 =cut
 
 has 'resolution' => (
-	is  => 'rw',
+	is => 'rw',
 );
 
 =head2 begin_date
@@ -66,7 +66,7 @@ The date this artist was born, or the group was founded.
 =cut
 
 has 'begin_date' => (
-	is  => 'rw',
+	is => 'rw',
 	init_arg => 'begindate'
 );
 
@@ -77,7 +77,7 @@ The date this artist deceased, or the group disbanded.
 =cut
 
 has 'end_date' => (
-	is  => 'rw',
+	is => 'rw',
 	init_arg => 'enddate'
 );
 
@@ -98,7 +98,7 @@ Whether the quality level of this artist has pending edits in the edit queue
 =cut
 
 has 'quality_has_mod_pending' => (
-	is  => 'rw',
+	is => 'rw',
 	init_arg => 'modpending_qual'
 );
 
@@ -155,6 +155,18 @@ sub end_date_name
 	return $ArtistTypeNames{$type}->[2] || 'End Date';
 }
 
+=head2 has_complete_date_range
+
+Returns true if the artist has both a start and end date; false otherwise
+
+=cut
+
+sub has_complete_date_range
+{
+    my $self = shift;
+	return $self->begin_date && $self->end_date;
+}
+
 =head2 PACKAGE METHODS
 
 =head3 is_valid_type $type
@@ -193,18 +205,6 @@ sub end_date_ymd
     return map { $_ == 0 ? '' : $_ } split(m/-/, $self->end_date);
 }
 
-=head2 has_complete_date_range
-
-Returns true if the artist has both a start and end date; false otherwise
-
-=cut
-
-sub has_complete_date_range
-{
-    my $self = shift;
-	return $self->begin_date && $self->end_date;
-}
-
 sub _id_cache_key
 {
     my ($class, $id) = @_;
@@ -238,10 +238,10 @@ sub Insert
     $self->{new_insert} = 0;
 
     # Check name and sortname
-	my $name = $self->name;
-	my $sort_name = $self->sort_name || $name;
-	
-	$name or return undef;
+    my $name = $self->name;
+    my $sort_name = $self->sort_name || $name;
+
+    $name or return undef;
 
     MusicBrainz::Server::Validation::TrimInPlace($name, $sort_name);
     $self->name($name);
@@ -252,12 +252,12 @@ sub Insert
 
     if (!$self->resolution)
     {
-		my $ar_list = $self->find_artists_by_name($name);
-		my @dupes = grep { lc $_->name eq lc $name } @$ar_list;
-		
-		if (scalar @dupes) {
-			return $dupes[0]->id;
-		}
+        my $ar_list = $self->find_artists_by_name($name);
+        my @dupes = grep { lc $_->name eq lc $name } @$ar_list;
+
+        if (scalar @dupes) {
+            return $dupes[0]->id;
+        }
     }
 
     unless ($opts{no_alias})
