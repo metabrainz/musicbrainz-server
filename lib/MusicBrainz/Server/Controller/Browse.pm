@@ -23,12 +23,12 @@ sub browse : Path('') Local
 	
 	$offset = $offset < 0 ? 0 : $offset;
 	
-	my ($count, $artists) = $c->model($type | ucfirst)->get_browse_selection($index, $offset);
+	my ($count, $entities) = $c->model($type | ucfirst)->get_browse_selection($index, $offset);
 
-	$c->stash->{count}   = $count;
-	$c->stash->{artists} = $artists;
-	$c->stash->{index}   = $index;
-	$c->stash->{type}    = $type;
+	$c->stash->{count}    = $count;
+	$c->stash->{entities} = $entities;
+	$c->stash->{index}    = $index;
+	$c->stash->{type}     = $type;
 }
 
 1;
