@@ -226,7 +226,7 @@ sub subscribe : Chained('label')
 
     $c->forward('/user/login');
 
-    my $us = UserSubscription->new($c->mb->{DBH});
+    my $us = UserSubscription->new($c->mb->{dbh});
     $us->SetUser($c->user->id);
     $us->SubscribeLabels($label);
     $c->stash->{subscribed} = 1;
@@ -247,7 +247,7 @@ sub unsubscribe : Chained('label')
 
     $c->forward('/user/login');
 
-    my $us = UserSubscription->new($c->mb->{DBH});
+    my $us = UserSubscription->new($c->mb->{dbh});
     $us->SetUser($c->user->id);
     $us->UnsubscribeLabels($label);
     $c->stash->{subscribed} = undef;

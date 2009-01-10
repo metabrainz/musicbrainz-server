@@ -82,7 +82,7 @@ sub model_validate
     my $mb = new MusicBrainz;
     $mb->Login;
 
-    my $us = new MusicBrainz::Server::Editor($mb->{DBH});
+    my $us = new MusicBrainz::Server::Editor($mb->{dbh});
     my $user = $us->newFromName($self->value('username'));
 
     $self->field('username')->add_error('This username is already taken')

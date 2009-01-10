@@ -123,7 +123,7 @@ sub CheckPrerequisites
     # Check to make sure the CD TOC still exists
     my $new = $self->{'new_unpacked'};
     my $cdtocid = $new->{CDTOCId};
-    my $cdtoc = MusicBrainz::Server::CDTOC->newFromId($self->{DBH}, $cdtocid);
+    my $cdtoc = MusicBrainz::Server::CDTOC->newFromId($self->{dbh}, $cdtocid);
     if (!defined $cdtocid)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This CD TOC has been deleted");

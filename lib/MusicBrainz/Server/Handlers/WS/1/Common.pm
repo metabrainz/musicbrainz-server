@@ -329,7 +329,7 @@ sub xml_artist
 	
 	if ($inc & INC_TAGS)
     {
-        xml_tags($ar->{DBH}, 'artist', $ar->id);
+        xml_tags($ar->{dbh}, 'artist', $ar->id);
     }
     if (defined $info)
     {
@@ -386,7 +386,7 @@ sub xml_release
     xml_artist($ar, 0) if ($inc & INC_ARTIST && $ar);
     xml_release_events($al, $inc) if ($inc & INC_RELEASEINFO || $inc & INC_COUNTS);
     xml_discs($al, $inc) if ($inc & INC_DISCS || $inc & INC_COUNTS);
-    xml_tags($al->{DBH}, 'release', $al->id) if ($inc & INC_TAGS);
+    xml_tags($al->{dbh}, 'release', $al->id) if ($inc & INC_TAGS);
     if ($inc & INC_TRACKS || $inc & INC_COUNTS && $ar)
     {
         xml_track_list($ar, $al, $inc) 
@@ -435,7 +435,7 @@ sub xml_release_events
 
 	my ($al, $inc) = @_;
     my (@releases) = $al->ReleaseEvents(($inc & INC_LABELS) ? 1 : 0);
-    my $country_obj = MusicBrainz::Server::Country->new($al->{DBH})
+    my $country_obj = MusicBrainz::Server::Country->new($al->{dbh})
        if @releases;
 	
 	my ($xml) = "";
@@ -573,7 +573,7 @@ sub xml_track
         my @albums = $tr->GetAlbumInfo();
         if (scalar(@albums))
         {
-            my $al = MusicBrainz::Server::Release->new($ar->{DBH});
+            my $al = MusicBrainz::Server::Release->new($ar->{dbh});
             print '<release-list>';
             foreach my $i (@albums)
             {
@@ -588,7 +588,7 @@ sub xml_track
     }
     xml_puid($tr) if ($inc & INC_PUIDS);
     xml_relations($tr, 'track', $inc) if ($inc & INC_ARTISTREL || $inc & INC_LABELREL || $inc & INC_RELEASEREL || $inc & INC_TRACKREL || $inc & INC_URLREL);
-    xml_tags($tr->{DBH}, 'track', $tr->id) if ($inc & INC_TAGS);
+    xml_tags($tr->{dbh}, 'track', $tr->id) if ($inc & INC_TAGS);
     print '</track>';
 
     return undef;
@@ -600,7 +600,7 @@ sub xml_puid
 	my ($tr) = @_;
 
     my $id;
-    my $puid = MusicBrainz::Server::PUID->new($tr->{DBH});
+    my $puid = MusicBrainz::Server::PUID->new($tr->{dbh});
     my @PUID = $puid->GetPUIDFromTrackId($tr->id);
     return undef if (scalar(@PUID) == 0);
     print '<puid-list>';
@@ -656,7 +656,7 @@ sub xml_label
    }
 
     xml_relations($ar, 'label', $inc) if ($inc & INC_ARTISTREL || $inc & INC_LABELREL || $inc & INC_RELEASEREL || $inc & INC_TRACKREL || $inc & INC_URLREL);
-    xml_tags($ar->{DBH}, 'label', $ar->id) if ($inc & INC_TAGS);
+    xml_tags($ar->{dbh}, 'label', $ar->id) if ($inc & INC_TAGS);
     print "</label>";
 
     return undef;
@@ -760,7 +760,7 @@ sub xml_relations
     my ($obj, $type, $inc) = @_;
 
     require MusicBrainz::Server::Link;
-    my @links = MusicBrainz::Server::Link->FindLinkedEntities($obj->{DBH}, $obj->id, $type);
+    my @links = MusicBrainz::Server::Link->FindLinkedEntities($obj->{dbh}, $obj->id, $type);
     my (%rels);
     $rels{artist} = [];
     $rels{album} = [];
@@ -855,24 +855,24 @@ sub xml_relations
             if ($rel->{type} eq 'artist')
             {
                 print '>';
-                xml_artist(load_object(\%cache, $obj->{DBH}, $rel->{id}, $rel->{type}, 0));
+                xml_artist(load_object(\%cache, $obj->{dbh}, $rel->{id}, $rel->{type}, 0));
             } 
             elsif ($rel->{type} eq 'album')
             {
                 print '>';
-                my $al = load_object(\%cache, $obj->{DBH}, $rel->{id}, $rel->{type}, 0);
-                my $ar = load_object(\%cache, $obj->{DBH}, $al->artist, 'artist', 0);
+                my $al = load_object(\%cache, $obj->{dbh}, $rel->{id}, $rel->{type}, 0);
+                my $ar = load_object(\%cache, $obj->{dbh}, $al->artist, 'artist', 0);
                 xml_release($ar, $al, 0);
             } 
             elsif ($rel->{type} eq 'label')
             {
                 print '>';
-                xml_label(load_object(\%cache, $obj->{DBH}, $rel->{id}, $rel->{type}, 0));
+                xml_label(load_object(\%cache, $obj->{dbh}, $rel->{id}, $rel->{type}, 0));
             } 
             elsif ($rel->{type} eq 'track')
             {
                 print '>';
-                my $tr = load_object(\%cache, $obj->{DBH}, $rel->{id}, $rel->{type}, 0);
+                my $tr = load_object(\%cache, $obj->{dbh}, $rel->{id}, $rel->{type}, 0);
                 xml_track(undef, $tr, 0);
             }
             else

@@ -245,7 +245,7 @@ sub newFromId
 	);
 
 	# We can't store DBH in the cache...
-	delete $obj->{DBH} if $obj;
+	delete $obj->{dbh} if $obj;
 	MusicBrainz::Server::Cache->set($key, \$obj);
 	MusicBrainz::Server::Cache->set($obj->_name_cache_key($obj->name), \$obj)
 		if $obj;
@@ -280,7 +280,7 @@ sub newFromName
 	);
 
 	# We can't store DBH in the cache...
-	delete $obj->{DBH} if $obj;
+	delete $obj->{dbh} if $obj;
 	MusicBrainz::Server::Cache->set($key, \$obj);
 	MusicBrainz::Server::Cache->set($obj->_id_cache_key($obj->id), \$obj) if $obj;
 	$obj->dbh($this->dbh) if $obj;
@@ -564,7 +564,7 @@ sub GetSubscribers
 {
 	my $self = shift;
 	require UserSubscription;
-	return UserSubscription->GetSubscribersForEditor($self->{DBH}, $self->id);
+	return UserSubscription->GetSubscribersForEditor($self->{dbh}, $self->id);
 }
 
 sub MakeAutoModerator
@@ -1179,7 +1179,7 @@ sub TryAutoLogin
     # If we were called as a class method, instantiate an object
     if (not ref $self)
     {
-	$self = $self->new($c->mb->{DBH});
+	$self = $self->new($c->mb->{dbh});
     }
 
     for (1)

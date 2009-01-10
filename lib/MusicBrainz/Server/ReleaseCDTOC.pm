@@ -58,7 +58,7 @@ sub _GetCDTOC
 	my $self = shift;
 	my $id = $self->GetCDTOCId;
 
-	my $cdtoc = MusicBrainz::Server::CDTOC->newFromId($self->{DBH}, $id);
+	my $cdtoc = MusicBrainz::Server::CDTOC->newFromId($self->{dbh}, $id);
 	$cdtoc or warn "Failed to fetch CDTOC #$id";
 
 	$cdtoc;
@@ -386,7 +386,7 @@ sub Insert
 	die "Expected a TOC string, not a '$toc'" if ref $toc;
 
 	require MusicBrainz::Server::CDTOC;
-	my $tocid = MusicBrainz::Server::CDTOC->GetOrInsertTOC($self->{DBH}, $toc);
+	my $tocid = MusicBrainz::Server::CDTOC->GetOrInsertTOC($self->{dbh}, $toc);
 	if (my $t = $opts{'tocid'}) { $$t = $tocid }
 
 	my $sql = Sql->new($self->dbh);

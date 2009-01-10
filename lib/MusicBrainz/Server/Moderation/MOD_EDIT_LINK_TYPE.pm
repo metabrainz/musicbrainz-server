@@ -128,7 +128,7 @@ sub DeniedAction
 	return $status if $status;
 
 	my $link = MusicBrainz::Server::LinkType->newFromPackedTypes(
-		$self->{DBH},
+		$self->{dbh},
 		$self->{'new_unpacked'}{'types'},
 	);
 

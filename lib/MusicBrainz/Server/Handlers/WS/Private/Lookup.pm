@@ -106,7 +106,7 @@ sub serve_from_db
 	$mb->Login;
 
 	# retrieve the list of entitiesmatching the query $query
-	my $engine = SearchEngine->new($mb->{DBH}, $entitytype);
+	my $engine = SearchEngine->new($mb->{dbh}, $entitytype);
 	$engine->Search(
 		query => $query,
 		limit => 0,

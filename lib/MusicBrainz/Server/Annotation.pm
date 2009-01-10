@@ -442,7 +442,7 @@ sub GetAnnotationIDsForTrack
 sub GetAnnotationIDsForEntity
 {
 	my ($class, $entity, $type) = @_;
-	my $dbh = $entity->{DBH};
+	my $dbh = $entity->{dbh};
 	return $class->_GetAnnotationIDs($dbh, $entity->id, $type);
 }
 
@@ -473,7 +473,7 @@ sub IsForSameObject
 sub GetAllIDs
 {
 	my $self = shift;
-	(ref $self)->_GetAnnotationIDs($self->{DBH}, $self->{rowid}, $self->{type});
+	(ref $self)->_GetAnnotationIDs($self->{dbh}, $self->{rowid}, $self->{type});
 }
 
 # Get the ID of the annotation prior to this one
@@ -492,7 +492,7 @@ sub GetPrevious
 	my $self = shift;
 	my $prev_id = $self->GetPreviousID
 		or return undef;
-	(ref $self)->newFromId($self->{DBH}, $prev_id);
+	(ref $self)->newFromId($self->{dbh}, $prev_id);
 }
 
 sub IsBlank
@@ -584,7 +584,7 @@ sub _Merge
 	if ($type == ARTIST_ANNOTATION)
 	{
 		my @mods = Moderation->InsertModeration(
-			DBH	=> $self->{DBH},
+			dbh	=> $self->{dbh},
 			uid	=> MODBOT_MODERATOR,
 			privs => MusicBrainz::Server::Editor->AUTOMOD_FLAG,
 			type => &ModDefs::MOD_ADD_ARTIST_ANNOTATION,
@@ -599,7 +599,7 @@ sub _Merge
 		my $artist_id = $opts{artistid} or die;
 
 		my @mods = Moderation->InsertModeration(
-			DBH	=> $self->{DBH},
+			dbh	=> $self->{dbh},
 			uid	=> MODBOT_MODERATOR,
 			privs => MusicBrainz::Server::Editor->AUTOMOD_FLAG,
 			type => &ModDefs::MOD_ADD_RELEASE_ANNOTATION,

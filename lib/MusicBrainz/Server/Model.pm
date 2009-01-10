@@ -8,7 +8,7 @@ use base qw/Catalyst::Component::ACCEPT_CONTEXT Catalyst::Model/;
 sub dbh
 {
     my $self = shift;
-    $self->context->mb->{DBH};
+    $self->context->mb->{dbh};
 }
 
 1;

@@ -206,7 +206,7 @@ sub release_cdtocs
 	my $self = shift;
 	$self = $self->new(shift) if not ref $self;
 	require MusicBrainz::Server::ReleaseCDTOC;
-	MusicBrainz::Server::ReleaseCDTOC->newFromCDTOC($self->{DBH}, $self, @_);
+	MusicBrainz::Server::ReleaseCDTOC->newFromCDTOC($self->{dbh}, $self, @_);
 }
 
 ################################################################################

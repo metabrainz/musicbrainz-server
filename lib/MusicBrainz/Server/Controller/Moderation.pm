@@ -106,8 +106,8 @@ sub enter_votes : Local
         }
     }
 
-    my $sql  = new Sql($c->mb->{DBH});
-    my $vote = new MusicBrainz::Server::Vote($c->mb->{DBH});
+    my $sql  = new Sql($c->mb->{dbh});
+    my $vote = new MusicBrainz::Server::Vote($c->mb->{dbh});
 
     eval
     {
@@ -147,8 +147,8 @@ sub approve : Chained('moderation')
     my $vertmb = new MusicBrainz;
     $vertmb->Login(db => 'RAWDATA');
 
-    my $vertsql = Sql->new($vertmb->{DBH});
-    my $sql     = Sql->new($c->mb->{DBH});
+    my $vertsql = Sql->new($vertmb->{dbh});
+    my $sql     = Sql->new($c->mb->{dbh});
 
     $sql->Begin;
     $vertsql->Begin;
@@ -199,8 +199,8 @@ sub reject : Chained('moderation')
     my $vertmb = new MusicBrainz;
     $vertmb->Login(db => 'RAWDATA');
 
-    my $vertsql = Sql->new($vertmb->{DBH});
-    my $sql     = Sql->new($c->mb->{DBH});
+    my $vertsql = Sql->new($vertmb->{dbh});
+    my $sql     = Sql->new($c->mb->{dbh});
 
     $sql->Begin;
     $vertsql->Begin;

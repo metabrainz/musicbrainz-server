@@ -268,7 +268,7 @@ sub user
 {
     my ($self) = @_;
     
-    my $user = new MusicBrainz::Server::Editor($self->{DBH});
+    my $user = new MusicBrainz::Server::Editor($self->{dbh});
     return $user->newFromId($self->GetUserId);
 }
 

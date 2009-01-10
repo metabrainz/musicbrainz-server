@@ -487,7 +487,7 @@ sub Remove
 
     # Remove tags
 	require MusicBrainz::Server::Tag;
-	my $tag = MusicBrainz::Server::Tag->new($sql->{DBH});
+	my $tag = MusicBrainz::Server::Tag->new($sql->{dbh});
 	$tag->RemoveTracks($this->id);
 
 	# Remove references from track words table

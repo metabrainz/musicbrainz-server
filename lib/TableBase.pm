@@ -53,7 +53,7 @@ sub new
     my ($class, $dbh) = @_;
 
     bless {
-	DBH => $dbh,
+	dbh => $dbh,
     }, ref($class) || $class;
 }
 
@@ -61,7 +61,7 @@ sub _new_from_row
 {
 	my ($this, $row) = @_;
 	$row or return undef;
-	$row->{DBH} = $this->dbh;
+	$row->{dbh} = $this->dbh;
 	bless $row, ref($this) || $this;
 }
 
@@ -69,8 +69,8 @@ sub dbh
 {
 	my ($self, $new_value) = @_;
 	
-	if (defined $new_value) { $self->{DBH} = $new_value; }
-	return $self->{DBH};
+	if (defined $new_value) { $self->{dbh} = $new_value; }
+	return $self->{dbh};
 }
 
 sub id

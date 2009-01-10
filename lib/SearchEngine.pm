@@ -73,7 +73,7 @@ sub new
     my $dbh = shift;
 
     my $self = bless {
-	DBH	=> $dbh,
+	dbh	=> $dbh,
 	Table	=> "artist",
     }, $class;
 
@@ -784,7 +784,7 @@ sub RebuildAllIndices
 {
     my $self = shift;
     my $sql = $self->{SQL};
-    my $dbh = $sql->{DBH};
+    my $dbh = $sql->{dbh};
 
     require IO::File;
     my $fh_wordlist = IO::File->new_tmpfile or die $!;

@@ -339,7 +339,7 @@ sub Remove
 
     # Remove tags
 	require MusicBrainz::Server::Tag;
-	my $tag = MusicBrainz::Server::Tag->new($sql->{DBH});
+	my $tag = MusicBrainz::Server::Tag->new($sql->{dbh});
 	$tag->RemoveArtists($this->id);
 
     # Remove references from artist words table
@@ -348,7 +348,7 @@ sub Remove
     $engine->RemoveObjectRefs($this->id());
 
     require MusicBrainz::Server::Annotation;
-    MusicBrainz::Server::Annotation->DeleteArtist($this->{DBH}, $this->id);
+    MusicBrainz::Server::Annotation->DeleteArtist($this->{dbh}, $this->id);
 
     $this->RemoveGlobalIdRedirect($this->id, &TableBase::TABLE_ARTIST);
 
@@ -361,17 +361,17 @@ sub Remove
 sub MergeInto
 {
     my ($old, $new, $mod) = @_;
-    my $sql = Sql->new($old->{DBH});
+    my $sql = Sql->new($old->{dbh});
 
     require UserSubscription;
-    my $subs = UserSubscription->new($old->{DBH});
+    my $subs = UserSubscription->new($old->{dbh});
     $subs->ArtistBeingMerged($old, $mod);
 
     my $o = $old->id;
     my $n = $new->id;
 
     require MusicBrainz::Server::Annotation;
-    MusicBrainz::Server::Annotation->MergeArtists($old->{DBH}, $o, $n);
+    MusicBrainz::Server::Annotation->MergeArtists($old->{dbh}, $o, $n);
 
     $sql->Do("UPDATE artist_relation SET artist = ? WHERE artist = ?", $n, $o);
     $sql->Do("UPDATE artist_relation SET ref    = ? WHERE ref    = ?", $n, $o);
@@ -382,11 +382,11 @@ sub MergeInto
     $sql->Do("UPDATE artistalias     SET ref    = ? WHERE ref    = ?", $n, $o);
 	
 	require MusicBrainz::Server::Link;
-	my $link = MusicBrainz::Server::Link->new($sql->{DBH});
+	my $link = MusicBrainz::Server::Link->new($sql->{dbh});
 	$link->MergeArtists($o, $n);
 
 	require MusicBrainz::Server::Tag;
-	my $tag = MusicBrainz::Server::Tag->new($sql->{DBH});
+	my $tag = MusicBrainz::Server::Tag->new($sql->{dbh});
 	$tag->MergeArtists($o, $n);
 
     $sql->Do("DELETE FROM artist     WHERE id   = ?", $o);
@@ -394,7 +394,7 @@ sub MergeInto
 
     # Merge any non-album tracks albums together
     require MusicBrainz::Server::Release;
-    my $alb = MusicBrainz::Server::Release->new($old->{DBH});
+    my $alb = MusicBrainz::Server::Release->new($old->{dbh});
     my @non = $alb->FindNonAlbum($n);
     $alb->CombineNonAlbums(@non)
 	if @non > 1;
@@ -404,7 +404,7 @@ sub MergeInto
     # Insert the old name as an alias for the new one
     # TODO this is often a bad idea - remove this code?
     require MusicBrainz::Server::Alias;
-    my $al = MusicBrainz::Server::Alias->new($old->{DBH});
+    my $al = MusicBrainz::Server::Alias->new($old->{dbh});
     $al->table("ArtistAlias");
     $al->Insert($n, $old->name);
 
@@ -591,8 +591,8 @@ sub RebuildWordListForAll
 {
     my $class = shift;
 
-    my $mb_r = MusicBrainz->new; $mb_r->Login; my $sql_r = Sql->new($mb_r->{DBH});
-    my $mb_w = MusicBrainz->new; $mb_w->Login; my $sql_w = Sql->new($mb_w->{DBH});
+    my $mb_r = MusicBrainz->new; $mb_r->Login; my $sql_r = Sql->new($mb_r->{dbh});
+    my $mb_w = MusicBrainz->new; $mb_w->Login; my $sql_w = Sql->new($mb_w->{dbh});
 
     $sql_r->Select("SELECT id FROM artist");
     my $rows = $sql_r->Rows;
@@ -623,7 +623,7 @@ sub RebuildWordListForAll
 	$sql_w->Begin;
 
 	eval {
-	    my $ar = MusicBrainz::Server::Artist->new($mb_w->{DBH});
+	    my $ar = MusicBrainz::Server::Artist->new($mb_w->{dbh});
 	    $ar->id($id);
 	    if ($ar->LoadFromId)
 	    {
@@ -856,7 +856,7 @@ sub newFromId
     $obj->{mbid} = delete $obj->{gid} if $obj;
 
     # We can't store DBH in the cache...
-    delete $obj->{DBH} if $obj;
+    delete $obj->{dbh} if $obj;
     MusicBrainz::Server::Cache->set($key, \$obj);
     MusicBrainz::Server::Cache->set($obj->_GetMBIDCacheKey($obj->mbid), \$obj)
 		if $obj;
@@ -903,7 +903,7 @@ sub newFromMBId
     $obj->{mbid} = delete $obj->{gid} if $obj;
 
     # We can't store DBH in the cache...
-    delete $obj->{DBH} if $obj;
+    delete $obj->{dbh} if $obj;
     MusicBrainz::Server::Cache->set($key, \$obj);
     MusicBrainz::Server::Cache->set($obj->_id_cache_key($obj->id), \$obj)
 		if $obj;
@@ -1113,7 +1113,7 @@ sub HasAlbum
 
 	    next unless $sim >= $threshold;
 
-	    my $release = new MusicBrainz::Server::Release($this->{DBH});
+	    my $release = new MusicBrainz::Server::Release($this->{dbh});
 	    $release->id($row[0]);
 	    $release->name($row[1]);
 	    $release->{match} = $sim;
@@ -1143,7 +1143,7 @@ sub HasAlbum
 
 	    next unless $sim >= $threshold;
 
-	    my $release = new MusicBrainz::Server::Release($this->{DBH});
+	    my $release = new MusicBrainz::Server::Release($this->{dbh});
 	    $release->id($row[0]);
 	    $release->name($row[1]);
 
@@ -1196,7 +1196,7 @@ sub GetSubscribers
 {
     my $self = shift;
     require UserSubscription;
-    return UserSubscription->GetSubscribersForArtist($self->{DBH}, $self->id);
+    return UserSubscription->GetSubscribersForArtist($self->{dbh}, $self->id);
 }
 
 =head2 subscriber_count

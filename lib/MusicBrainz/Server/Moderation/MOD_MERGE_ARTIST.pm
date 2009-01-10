@@ -84,7 +84,7 @@ sub PreDisplay
     }
     else
     {
-        my $artist = new MusicBrainz::Server::Artist($self->{DBH});
+        my $artist = new MusicBrainz::Server::Artist($self->{dbh});
         $artist->id($unpacked->{"ArtistId"});
         $artist->LoadFromId;
 

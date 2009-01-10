@@ -49,7 +49,7 @@ sub handler
 	$mb->Login(db => 'READWRITE');
 
     require MusicBrainz::Server::Editor;
-    my $us = MusicBrainz::Server::Editor->new($mb->{DBH});
+    my $us = MusicBrainz::Server::Editor->new($mb->{dbh});
     if (!($us = $us->newFromName($r->user)))
     {
         #print STDERR "User not found: '$r->user'\n";

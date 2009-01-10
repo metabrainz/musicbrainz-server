@@ -176,11 +176,11 @@ sub print_xml_post
 	$mb->Login();
 
 	require MusicBrainz::Server::Editor;
-	my $us = MusicBrainz::Server::Editor->new($mb->{DBH});
+	my $us = MusicBrainz::Server::Editor->new($mb->{dbh});
 	$us = $us->newFromName($user) or die "Cannot load user.\n";
 
     require Sql;
-    my $sql = Sql->new($mb->{DBH});
+    my $sql = Sql->new($mb->{dbh});
 
     require MusicBrainz::Server::Artist;
     require MusicBrainz::Server::Release;
@@ -190,19 +190,19 @@ sub print_xml_post
     my $obj;
     if ($entity eq 'artist')
     {
-        $obj = MusicBrainz::Server::Artist->new($sql->{DBH});
+        $obj = MusicBrainz::Server::Artist->new($sql->{dbh});
     }
     elsif ($entity eq 'release')
     {
-        $obj = MusicBrainz::Server::Release->new($sql->{DBH});
+        $obj = MusicBrainz::Server::Release->new($sql->{dbh});
     }
     elsif ($entity eq 'track')
     {
-        $obj = MusicBrainz::Server::Track->new($sql->{DBH});
+        $obj = MusicBrainz::Server::Track->new($sql->{dbh});
     }
     elsif ($entity eq 'label')
     {
-        $obj = MusicBrainz::Server::Label->new($sql->{DBH});
+        $obj = MusicBrainz::Server::Label->new($sql->{dbh});
     }
     $obj->mbid($id);
     unless ($obj->LoadFromId)
@@ -210,7 +210,7 @@ sub print_xml_post
         die "Cannot load entity. Bad entity id given?"
     } 
 
-    my $tag = MusicBrainz::Server::Tag->new($mb->{DBH});
+    my $tag = MusicBrainz::Server::Tag->new($mb->{dbh});
     $tag->Update($tags, $us->id, $entity, $obj->id);
 
 	print '<?xml version="1.0" encoding="UTF-8"?>';
@@ -224,10 +224,10 @@ sub serve_from_db
 	# Login to the main DB
 	my $main = MusicBrainz->new;
 	$main->Login();
-	my $maindb = Sql->new($main->{DBH});
+	my $maindb = Sql->new($main->{dbh});
 
 	require MusicBrainz::Server::Editor;
-	my $user = MusicBrainz::Server::Editor->new($maindb->{DBH});
+	my $user = MusicBrainz::Server::Editor->new($maindb->{dbh});
 	$user = $user->newFromName($user_name) or die "Cannot load user.\n";
 
     require MusicBrainz::Server::Artist;
@@ -238,19 +238,19 @@ sub serve_from_db
     my $obj;
     if ($entity_type eq 'artist')
     {
-        $obj = MusicBrainz::Server::Artist->new($maindb->{DBH});
+        $obj = MusicBrainz::Server::Artist->new($maindb->{dbh});
     }
     elsif ($entity_type eq 'release')
     {
-        $obj = MusicBrainz::Server::Release->new($maindb->{DBH});
+        $obj = MusicBrainz::Server::Release->new($maindb->{dbh});
     }
     elsif ($entity_type eq 'track')
     {
-        $obj = MusicBrainz::Server::Track->new($maindb->{DBH});
+        $obj = MusicBrainz::Server::Track->new($maindb->{dbh});
     }
     elsif ($entity_type eq 'label')
     {
-        $obj = MusicBrainz::Server::Label->new($maindb->{DBH});
+        $obj = MusicBrainz::Server::Label->new($maindb->{dbh});
     }
     $obj->mbid($entity_id);
     unless ($obj->LoadFromId)
@@ -258,7 +258,7 @@ sub serve_from_db
         die "Cannot load entity. Bad entity id given?"
     }
 
-	my $tag = MusicBrainz::Server::Tag->new($maindb->{DBH});
+	my $tag = MusicBrainz::Server::Tag->new($maindb->{dbh});
 	my $tags = $tag->GetRawTagsForEntity($entity_type, $obj->id, $user->id);
 
 	my $printer = sub {

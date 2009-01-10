@@ -688,7 +688,7 @@ sub artist
         }
         else
         {
-            $self->{artist} = new MusicBrainz::Server::Artist($self->{DBH});
+            $self->{artist} = new MusicBrainz::Server::Artist($self->{dbh});
             $self->{artist}->id($new_artist);
         }
     }
@@ -884,17 +884,17 @@ sub CreateFromId
         $edit = $this->CreateModerationObject($row[5]);
         if (defined $edit)
         {
-            my $artist = new MusicBrainz::Server::Artist($this->{DBH});
+            my $artist = new MusicBrainz::Server::Artist($this->{dbh});
             $artist->id($row[4]);
             $artist->name($row[12]);
             $artist->sort_name($row[13]);
             $artist->resolution($row[14]);
 
-            my $moderator = new MusicBrainz::Server::Editor($this->{DBH});
+            my $moderator = new MusicBrainz::Server::Editor($this->{dbh});
             $moderator->id($row[18]);
             $moderator->name($row[9]);
 
-            my $language = new MusicBrainz::Server::Language($this->{DBH});
+            my $language = new MusicBrainz::Server::Language($this->{dbh});
             $language->id($row[20]);
 
 			$edit->id($row[0]);
@@ -1042,7 +1042,7 @@ sub InsertModeration
 	# field).
 	if (ref $class)
 	{
-		$opts{DBH} = $class->dbh;
+		$opts{dbh} = $class->dbh;
 		$opts{uid} = $class->moderator->id;
 		$opts{privs} = $class->{_privs_};
 	}
@@ -1084,7 +1084,7 @@ sub InsertModeration
 	my $sql = Sql->new($this->dbh);
     my $vertmb = new MusicBrainz;
     $vertmb->Login(db => 'RAWDATA');
-    my $vertsql = Sql->new($vertmb->{DBH});
+    my $vertsql = Sql->new($vertmb->{dbh});
 
     if (!$notrans)
     {
@@ -1100,7 +1100,7 @@ sub InsertModeration
 		# The PreInsert method must perform any work it needs to - e.g. inserting
 		# records which maybe ->DeniedAction will delete later - and then override
 		# these default column values as appropriate:
-        my $artist = new MusicBrainz::Server::Artist($this->{DBH});
+        my $artist = new MusicBrainz::Server::Artist($this->{dbh});
         $artist->id(ModDefs::VARTIST_ID);
 
 		$this->artist($artist);
@@ -1361,15 +1361,15 @@ sub moderation_list
 			next;
 		}
 
-        my $artist = new MusicBrainz::Server::Artist($this->{DBH});
+        my $artist = new MusicBrainz::Server::Artist($this->{dbh});
         $artist->id($r->{artist});
         $artist->LoadFromId;
 
-        my $moderator = new MusicBrainz::Server::Editor($this->{DBH});
+        my $moderator = new MusicBrainz::Server::Editor($this->{dbh});
         $moderator->id($r->{moderator});
         $moderator = $moderator->newFromId($moderator->id);
 
-        my $language = MusicBrainz::Server::Language->newFromId($this->{DBH}, $r->{language});
+        my $language = MusicBrainz::Server::Language->newFromId($this->{dbh}, $r->{language});
 
 		$edit->id($r->{id});
 		$edit->artist($artist);
@@ -1516,8 +1516,8 @@ sub FirstNoVote
 	my ($self, $voter_uid) = @_;
 
 	require MusicBrainz::Server::Editor;
-	my $editor = MusicBrainz::Server::Editor->newFromId($self->{DBH}, $self->moderator->id);
-	my $voter = MusicBrainz::Server::Editor->newFromId($self->{DBH}, $voter_uid);
+	my $editor = MusicBrainz::Server::Editor->newFromId($self->{dbh}, $self->moderator->id);
+	my $voter = MusicBrainz::Server::Editor->newFromId($self->{dbh}, $voter_uid);
 	
 	return;
 

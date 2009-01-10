@@ -108,7 +108,7 @@ sub DeniedAction
 	my $new = $self->{'new_unpacked'};
 
 	my $link = MusicBrainz::Server::LinkType->newFromPackedTypes(
-		$self->{DBH},
+		$self->{dbh},
 		$new->{'types'},
 	);
 	my $child = $link->newFromId($self->row_id);

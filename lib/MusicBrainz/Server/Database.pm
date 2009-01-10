@@ -152,7 +152,7 @@ sub get_last_replication_date
     require MusicBrainz;
     my $mb = MusicBrainz->new;
     $mb->Login;
-    my $sql = Sql->new($mb->{DBH});
+    my $sql = Sql->new($mb->{dbh});
     return $sql->SelectSingleValue("SELECT last_replication_date FROM replication_control");
 }
 

@@ -234,13 +234,13 @@ sub add_release_confirm : Form('AddRelease::Tracks')
     return unless $form->validate($w->{release_info});
 
     # Construct a preview release
-    my $preview_release = MusicBrainz::Server::Release->new($c->mb->{DBH});
+    my $preview_release = MusicBrainz::Server::Release->new($c->mb->{dbh});
     $preview_release->name($form->value('title'));
 
     my @tracks;
     for my $i (1 .. $w->{track_count})
     {
-        my $track = MusicBrainz::Server::Track->new($c->mb->{DBH});
+        my $track = MusicBrainz::Server::Track->new($c->mb->{dbh});
         $track->name($form->value("track_$i")->{name});
         $track->sequence($i);
         $track->length($form->value("track_$i")->{duration});
@@ -253,7 +253,7 @@ sub add_release_confirm : Form('AddRelease::Tracks')
     for my $i (1 .. $w->{event_count})
     {
         my $event_hash = $form->value("event_$i") or next;
-        my $event      = MusicBrainz::Server::ReleaseEvent->new($c->mb->{DBH});
+        my $event      = MusicBrainz::Server::ReleaseEvent->new($c->mb->{dbh});
 
         my $label_id = $w->{confirmed_labels}->{"event_$i.label"}->{id};
         if ($label_id)
@@ -264,7 +264,7 @@ sub add_release_confirm : Form('AddRelease::Tracks')
         my $country_id = $event_hash->{country};
         if ($country_id)
         {
-            $event->country(MusicBrainz::Server::Country->newFromId($c->mb->{DBH}, $country_id)->name);
+            $event->country(MusicBrainz::Server::Country->newFromId($c->mb->{dbh}, $country_id)->name);
         }
 
         $event->sort_date($event_hash->{date});

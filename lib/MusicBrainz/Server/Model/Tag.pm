@@ -33,7 +33,7 @@ sub raw_tags
 {
     my ($self, $entity, $user) = @_;
 
-    my $t = MusicBrainz::Server::Tag->new($self->context->mb->{DBH});
+    my $t = MusicBrainz::Server::Tag->new($self->context->mb->{dbh});
     return $t->GetRawTagsForEntity($entity->entity_type, $entity->id, $user->id);
 }
 
@@ -125,7 +125,7 @@ sub update_user_tags
     my $self = shift;
     my ($entity, $user, $new_tags) = @_;
 
-    my $t = MusicBrainz::Server::Tag->new($self->context->mb->{DBH});
+    my $t = MusicBrainz::Server::Tag->new($self->context->mb->{dbh});
     $t->Update($new_tags, $user->id, $entity->entity_type, $entity->id);
 }
 

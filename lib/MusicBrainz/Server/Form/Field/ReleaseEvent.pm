@@ -48,7 +48,7 @@ sub options_country
     my $mb = new MusicBrainz;
     $mb->Login;
 
-    my $c = MusicBrainz::Server::Country->new($mb->{DBH});
+    my $c = MusicBrainz::Server::Country->new($mb->{dbh});
 
     return map { $_->id => $_->name } $c->All;
 }

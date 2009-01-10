@@ -114,7 +114,7 @@ sub Entity
 	croak "Bad index passed" unless $index >= 0 and $index < $self->GetNumberOfLinks;
 
 	return MusicBrainz::Server::LinkEntity->newFromTypeAndId(
-		$self->{DBH},
+		$self->{dbh},
 		$self->{_types}->[$index],
 		$self->{'link' . $index},
 	);
@@ -167,7 +167,7 @@ sub _new_from_row
 		$self->{$k} = $v
 			if substr($k, 0, 1) eq "_";
 	}
-	$self->{DBH} = $this->dbh;
+	$self->{dbh} = $this->dbh;
 
 	my $n = scalar @{ $self->{_types} };
 	$self->{_links} = [ map { $self->{"link$_"} } 0..$n-1 ];
@@ -344,7 +344,7 @@ sub FindLinkedEntities
 	{
 		if ($link->{link_phrase} =~ /\{.*?\}/)
 		{
-			 my $attr = MusicBrainz::Server::Attribute->new( $self->{DBH}, [$link->{link0_type} , $link->{link1_type}]);
+			 my $attr = MusicBrainz::Server::Attribute->new( $self->{dbh}, [$link->{link0_type} , $link->{link1_type}]);
 			 if ($attr)
 			 {
 			     my $obj = $attr->newFromLinkId($link->{link_id});

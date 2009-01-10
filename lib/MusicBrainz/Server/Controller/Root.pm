@@ -127,7 +127,7 @@ sub end : ActionClass('RenderView')
 
     if (!$stats)
     {
-        my $stat  = Statistic->new($c->mb->{DBH});
+        my $stat  = Statistic->new($c->mb->{dbh});
         $stats = $stat->FetchAllAsHashRef;
         MusicBrainz::Server::Cache->set('sidebar-statistics', $stats);
     }

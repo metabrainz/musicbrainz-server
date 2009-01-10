@@ -85,7 +85,7 @@ sub PreDisplay
     }
     else
     {
-        my $label = new MusicBrainz::Server::Label($self->{DBH});
+        my $label = new MusicBrainz::Server::Label($self->{dbh});
         $label->id($unpacked->{"LabelId"});
         $label->LoadFromId;
 

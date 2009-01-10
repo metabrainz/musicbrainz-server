@@ -55,7 +55,7 @@ sub model_validate
     my $user;
     if ($self->value('username'))
     {
-        my $us = new MusicBrainz::Server::Editor($self->context->mb->{DBH});
+        my $us = new MusicBrainz::Server::Editor($self->context->mb->{dbh});
         $user = $us->newFromName($self->value('username'));
 
         $self->field('username')->add_error('This username does not exist')

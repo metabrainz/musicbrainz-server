@@ -43,7 +43,7 @@ sub InsertDefaultRows
 	$mb->Login;
 
 	require Sql;
-	my $sql = Sql->new($mb->{DBH});
+	my $sql = Sql->new($mb->{dbh});
 	$sql->Begin;
 	$sql->SelectSingleValue("SELECT 1 FROM link_attribute_type WHERE id = 0")
 		or $sql->Do(
@@ -100,7 +100,7 @@ sub _new_from_row
 		$self->{$k} = $v
 			if substr($k, 0, 1) eq "_";
 	}
-	$self->{DBH} = $this->dbh;
+	$self->{dbh} = $this->dbh;
 
 	bless $self, ref($this) || $this;
 }

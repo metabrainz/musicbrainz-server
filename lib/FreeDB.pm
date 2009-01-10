@@ -45,7 +45,7 @@ sub new
     my ($class, $dbh) = @_;
 
     bless {
-	DBH => $dbh,
+	dbh => $dbh,
     }, ref($class) || $class;
 }
 
@@ -423,7 +423,7 @@ sub InsertForModeration
                         $sql->Begin();
 			require Moderation;
 			my @mods = Moderation->InsertModeration(
-			    DBH	=> $this->{DBH},
+			    dbh	=> $this->{dbh},
 			    uid	=> FREEDB_MODERATOR,
 			    privs => 0,
 			    type => &ModDefs::MOD_ADD_DISCID,

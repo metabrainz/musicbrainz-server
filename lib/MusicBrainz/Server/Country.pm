@@ -71,7 +71,7 @@ sub newFromId
 	);
 
     # We can't store DBH in the cache...
-    delete $obj->{DBH} if $obj;
+    delete $obj->{dbh} if $obj;
     MusicBrainz::Server::Cache->set($key, \$obj);
     $obj->dbh($self->dbh) if $obj;
 
@@ -102,7 +102,7 @@ sub All
 		};
 
     # We can't store DBH in the cache...
-    delete $_->{DBH} for @list;
+    delete $_->{dbh} for @list;
     MusicBrainz::Server::Cache->set($key, \@list);
     $_->dbh($self->dbh) for @list;
 

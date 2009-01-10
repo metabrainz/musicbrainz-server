@@ -57,7 +57,7 @@ sub options_language
     my $mb = new MusicBrainz;
     $mb->Login;
 
-    my $lang = MusicBrainz::Server::Language->new($mb->{DBH});
+    my $lang = MusicBrainz::Server::Language->new($mb->{dbh});
     my @languages = $lang->All(minimum_frequency => $self->show_everything ? 0 : 2);
 
     my @options = map { $_->id => $_->name } @languages;
@@ -74,7 +74,7 @@ sub options_script
     my $mb = new MusicBrainz;
     $mb->Login;
 
-    my $script = MusicBrainz::Server::Script->new($mb->{DBH});
+    my $script = MusicBrainz::Server::Script->new($mb->{dbh});
     my @scripts = $script->All(minimum_frequency => $self->show_everything ? 0 : 4);
 
     my @options = map { $_->id => $_->name } @scripts;

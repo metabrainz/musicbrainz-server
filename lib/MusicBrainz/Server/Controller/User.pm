@@ -463,7 +463,7 @@ sub subscriptions : Local
     my @entities = map
         {
             my $class = "MusicBrainz::Server::" . ucfirst($type);
-            my $obj = $class->new($c->mb->{DBH});
+            my $obj = $class->new($c->mb->{dbh});
             $obj->id($_);
 
             $obj;

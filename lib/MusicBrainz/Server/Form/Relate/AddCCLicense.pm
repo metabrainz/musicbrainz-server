@@ -27,7 +27,7 @@ sub options_license
     $mb->Login;
 
     # Load the top level link attributes
-    my $attrType = MusicBrainz::Server::LinkAttr->new($mb->{DBH});
+    my $attrType = MusicBrainz::Server::LinkAttr->new($mb->{dbh});
     my $root = $attrType->Root;
     my @children = $root->Children;
     my @cclics;
@@ -85,7 +85,7 @@ sub build_options
 
     my @types = ($type, 'url');
 
-    my $link = MusicBrainz::Server::LinkType->new($self->context->mb->{DBH}, \@types);
+    my $link = MusicBrainz::Server::LinkType->new($self->context->mb->{dbh}, \@types);
 
     my $linktype = $link->newFromId($linktypeid);
 

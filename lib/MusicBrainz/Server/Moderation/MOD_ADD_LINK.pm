@@ -48,7 +48,7 @@ sub PreInsert
 	my $enddate = &MusicBrainz::Server::Validation::MakeDisplayDateStr(join('-', $opts{'enddate'}->[0], $opts{'enddate'}->[1], $opts{'enddate'}->[2]));
 
 	my $link = MusicBrainz::Server::Link->new(
-		$self->{DBH},
+		$self->{dbh},
 		scalar($linktype->Types),
 	);
 
@@ -61,7 +61,7 @@ sub PreInsert
 
 	my ($linkphrase, $rlinkphrase);
 	my $attr = MusicBrainz::Server::Attribute->new(
-		$self->{DBH},
+		$self->{dbh},
 		scalar($linktype->Types),
 		$link->id
 	);
@@ -118,7 +118,7 @@ sub PreInsert
 	$self->new_data($self->ConvertHashToNew(\%new));
 
 	# finally some special ASIN URL handling (update album_amazon_asin table data)
-	if ($linktype->{id} == MusicBrainz::Server::CoverArt->asin_link_type_id($self->{DBH}) &&
+	if ($linktype->{id} == MusicBrainz::Server::CoverArt->asin_link_type_id($self->{dbh}) &&
 		@$entities[0]->{type} eq 'album' &&
 		@$entities[1]->{type} eq 'url')
 	{
@@ -134,7 +134,7 @@ sub PreInsert
 	}
 
     # now check to see if we need to tinker with generic cover art
-	if ($linktype->{id} == MusicBrainz::Server::CoverArt->GetCoverArtLinkTypeId($self->{DBH}) &&
+	if ($linktype->{id} == MusicBrainz::Server::CoverArt->GetCoverArtLinkTypeId($self->{dbh}) &&
 		@$entities[0]->{type} eq 'album' &&
 		@$entities[1]->{type} eq 'url')
 	{
@@ -195,7 +195,7 @@ sub DeniedAction
 		$link->Delete;
 
 		# remove amazon asin and coverart data as well
-		if ($new->{linktypeid} == MusicBrainz::Server::CoverArt->asin_link_type_id($self->{DBH}) &&
+		if ($new->{linktypeid} == MusicBrainz::Server::CoverArt->asin_link_type_id($self->{dbh}) &&
 			$new->{entity0type} eq 'album' &&
 			$new->{entity1type} eq 'url')
 		{
@@ -204,7 +204,7 @@ sub DeniedAction
             MusicBrainz::Server::CoverArt->UpdateAmazonData($al, -1)
 				if ($al->LoadFromId(1));
 		}
-		if ($new->{linktypeid} == MusicBrainz::Server::CoverArt->GetCoverArtLinkTypeId($self->{DBH}) &&
+		if ($new->{linktypeid} == MusicBrainz::Server::CoverArt->GetCoverArtLinkTypeId($self->{dbh}) &&
 			$new->{entity0type} eq 'album' &&
 			$new->{entity1type} eq 'url')
 		{

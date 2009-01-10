@@ -191,7 +191,7 @@ sub UpdateAmazonData
     return $ret unless ($coverurl && $asin && $release->id);
 
 	# make sure the album exists and get current asin and cover data	
-	my $sql = Sql->new($release->{DBH});
+	my $sql = Sql->new($release->{dbh});
 	my $old = $sql->SelectSingleRowArray(
 		"SELECT asin, coverarturl FROM album_amazon_asin WHERE album = ?", $release->id
 	);
@@ -208,12 +208,12 @@ sub UpdateAmazonData
 		# check if there is another ASIN AR and update the asin and cover data
 		# using this AR
 		my @altlinks = MusicBrainz::Server::Link->FindLinkedEntities(
-			$release->{DBH}, $release->id, 'album', ( 'to_type' => 'url' )
+			$release->{dbh}, $release->id, 'album', ( 'to_type' => 'url' )
 		);
 
 		for my $item (@altlinks)
 		{
-			next unless ($item->{link_id} == MusicBrainz::Server::CoverArt::asin_link_type_id($release->{DBH}));
+			next unless ($item->{link_id} == MusicBrainz::Server::CoverArt::asin_link_type_id($release->{dbh}));
 			
 			($asin, $coverurl,,) = MusicBrainz::Server::CoverArt->ParseAmazonURL($item->{entity1name});
 			next if ($asin eq $oldasin);
@@ -276,7 +276,7 @@ sub asin_link_type_id
 	return $ASIN_LINK_TYPE_ID if (defined $ASIN_LINK_TYPE_ID);
 	
 	# try to extract the id from the DB
-	my $dbh = (ref $self ? $self->{DBH} : shift);
+	my $dbh = (ref $self ? $self->{dbh} : shift);
 
 	my $sql = Sql->new($dbh);
 	$ASIN_LINK_TYPE_ID = $sql->SelectSingleValue("SELECT id FROM lt_album_url WHERE name = 'amazon asin'")
@@ -339,7 +339,7 @@ sub UpdateCoverArtData
 	return $ret unless ($coverurl && $release->id);
 
 	# make sure the album exists and get current cover url	
-	my $sql = Sql->new($release->{DBH});
+	my $sql = Sql->new($release->{dbh});
 	my $old = $sql->SelectSingleRowArray(
 		"SELECT coverarturl FROM album_amazon_asin WHERE album = ?", $release->id
 	);
@@ -355,12 +355,12 @@ sub UpdateCoverArtData
 
 		# check if there is another coverart AR and update the cover data using this AR
 		my @altlinks = MusicBrainz::Server::Link->FindLinkedEntities(
-			$release->{DBH}, $release->id, 'album', ( 'to_type' => 'url' )
+			$release->{dbh}, $release->id, 'album', ( 'to_type' => 'url' )
 		);
 
 		for my $item (@altlinks)
 		{
-			next unless ($item->{link_id} == MusicBrainz::Server::CoverArt::GetCoverArtLinkTypeId($release->{DBH}));
+			next unless ($item->{link_id} == MusicBrainz::Server::CoverArt::GetCoverArtLinkTypeId($release->{dbh}));
 			
 			($dummy, $coverurl,) = MusicBrainz::Server::CoverArt->ParseCoverArtURL($item->{entity1name});
 			next if ($coverurl eq $oldcoverurl);
@@ -422,7 +422,7 @@ sub GetCoverArtLinkTypeId
 	return $COVERART_LINK_TYPE_ID if (defined $COVERART_LINK_TYPE_ID);
 	
 	# try to extract the id from the DB
-	my $dbh = (ref $self ? $self->{DBH} : shift);
+	my $dbh = (ref $self ? $self->{dbh} : shift);
 
 	my $sql = Sql->new($dbh);
 	$COVERART_LINK_TYPE_ID = $sql->SelectSingleValue("SELECT id FROM lt_album_url WHERE name = 'cover art link'")

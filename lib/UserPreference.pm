@@ -384,7 +384,7 @@ sub newFromUser
 
     bless {
         uid => $uid,
-        DBH => $dbh,
+        dbh => $dbh,
         prefs => {},
     }, $class;
 }
@@ -477,7 +477,7 @@ sub save
     my $uid = $self->{uid};
 
     my $sql = Sql->new($self->dbh);
-    my $wrap_transaction = $sql->{DBH}{AutoCommit};
+    my $wrap_transaction = $sql->{dbh}{AutoCommit};
 
     eval {
         $sql->Begin if $wrap_transaction;
@@ -505,7 +505,7 @@ sub LoadForUser
 	my $uid = $user->id
 		or return;
 
-	my $sql = Sql->new($user->{DBH});
+	my $sql = Sql->new($user->{dbh});
 	my $rows = $sql->SelectListOfLists(
 		"SELECT name, value FROM moderator_preference WHERE moderator = ?",
 		$uid,
@@ -540,8 +540,8 @@ sub SaveForUser
 	tied %$s
 		or carp("UserPreference::SaveForUser called, but %session is not tied"), return;
 
-	my $sql = Sql->new($user->{DBH});
-	my $wrap_transaction = $sql->{DBH}{AutoCommit};
+	my $sql = Sql->new($user->{dbh});
+	my $wrap_transaction = $sql->{dbh}{AutoCommit};
 	
 	eval {
 		$sql->Begin if $wrap_transaction;
@@ -575,7 +575,7 @@ sub get_for_user
 	my $info = $prefs{$key}
 		or carp("UserPreference::get called with invalid key '$key'"), return undef;
 
-	my $sql = Sql->new($user->{DBH});
+	my $sql = Sql->new($user->{dbh});
 	my $value = $sql->SelectSingleValue(
 		"SELECT value FROM moderator_preference WHERE moderator = ? AND name = ?",
 		$user->id,

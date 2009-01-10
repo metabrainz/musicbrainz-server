@@ -96,7 +96,7 @@ sub DeniedAction
 	return $status if $status;
 
 	my $link = MusicBrainz::Server::LinkType->new(
-		$self->{DBH},
+		$self->{dbh},
 	);
 
 	my $node = $link->newFromId($self->row_id);

@@ -106,7 +106,7 @@ sub PreDisplay
 {
     my $self = shift;
 
-    my $artist = new MusicBrainz::Server::Artist($self->{DBH});
+    my $artist = new MusicBrainz::Server::Artist($self->{dbh});
     $artist->name($self->{'new.name'});
     $artist->sort_name($self->{'new.sortvalue'});
     $artist->id($self->{'new.artistid'});

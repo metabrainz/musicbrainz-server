@@ -46,12 +46,12 @@ sub new
     my ($class, $dbh) = @_;
 
     bless {
-	DBH => $dbh,
+	dbh => $dbh,
     }, ref($class) || $class;
 }
 
-sub dbh { return $_[0]->{DBH} }
-sub dbh { $_[0]->{DBH} = $_[1] }
+sub dbh { return $_[0]->{dbh} }
+sub dbh { $_[0]->{dbh} = $_[1] }
 
 # Used by MQ_2_1.pm
 sub FileInfoLookup

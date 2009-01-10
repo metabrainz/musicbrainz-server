@@ -37,7 +37,7 @@ sub options_country
     my $mb = new MusicBrainz;
     $mb->Login;
 
-    my $c = MusicBrainz::Server::Country->new($mb->{DBH});
+    my $c = MusicBrainz::Server::Country->new($mb->{dbh});
 
     return map { $_->id => $_->name } $c->All;
 }
@@ -62,7 +62,7 @@ sub model_validate
 {
     my $self = shift;
 
-    my $label  = MusicBrainz::Server::Label->new($self->context->mb->{DBH});
+    my $label  = MusicBrainz::Server::Label->new($self->context->mb->{dbh});
     my $labels = $label->GetLabelsFromName($self->value('name'));
 
     # Filter labels that have the same name but a different id

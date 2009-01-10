@@ -11,7 +11,7 @@ sub users_subscribed_entities
 {
     my ($self, $user, $type) = @_;
 
-    my $us = UserSubscription->new($self->context->mb->{DBH});
+    my $us = UserSubscription->new($self->context->mb->{dbh});
     $us->SetUser($user->id);
 
     use Switch;
@@ -28,7 +28,7 @@ sub user_artist_count
 {
     my ($self, $user) = @_;
 
-    my $us = UserSubscription->new($self->context->mb->{DBH});
+    my $us = UserSubscription->new($self->context->mb->{dbh});
     $us->SetUser($user->id);
 
     return $us->GetNumSubscribedArtists;
@@ -38,7 +38,7 @@ sub user_label_count
 {
     my ($self, $user) = @_;
 
-    my $us = UserSubscription->new($self->context->mb->{DBH});
+    my $us = UserSubscription->new($self->context->mb->{dbh});
     $us->SetUser($user->id);
 
     return $us->GetNumSubscribedLabels;
@@ -48,7 +48,7 @@ sub user_editor_count
 {
     my ($self, $user) = @_;
 
-    my $us = UserSubscription->new($self->context->mb->{DBH});
+    my $us = UserSubscription->new($self->context->mb->{dbh});
     $us->SetUser($user->id);
 
     return $us->GetNumSubscribedEditors;
@@ -58,7 +58,7 @@ sub unsubscribe_from_artists
 {
     my ($self, $user, $entities) = @_;
 
-    my $us = UserSubscription->new($self->context->mb->{DBH});
+    my $us = UserSubscription->new($self->context->mb->{dbh});
     $us->SetUser($user->id);
 
     $us->UnsubscribeArtists(@$entities);
@@ -68,7 +68,7 @@ sub unsubscribe_from_labels
 {
     my ($self, $user, $entities) = @_;
 
-    my $us = UserSubscription->new($self->context->mb->{DBH});
+    my $us = UserSubscription->new($self->context->mb->{dbh});
     $us->SetUser($user->id);
 
     $us->UnsubscribeLabels(@$entities);

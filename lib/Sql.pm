@@ -37,7 +37,7 @@ sub new
 	my ($type, $dbh) = @_;
 	my $this = {};
 
-	$this->{DBH} = $dbh;
+	$this->{dbh} = $dbh;
 	$this->{Quiet} = 0;
 
 	bless $this, ref($type) || $type;
@@ -55,7 +55,7 @@ sub AutoCommit
 {
 	my ($this) = @_;
 	return carp('$sql->AutoCommit called inside a transaction')
-		if not $this->{DBH}{AutoCommit};
+		if not $this->{dbh}{AutoCommit};
     cluck('$sql->AutoCommit called twice')
         if $this->{auto_commit_next_statement};
 	$this->{auto_commit_next_statement} = 1;
@@ -63,13 +63,13 @@ sub AutoCommit
 
 sub IsInTransaction
 {
-	return !$_[0]->{DBH}{AutoCommit};
+	return !$_[0]->{dbh}{AutoCommit};
 }
 
 sub Quote
 {
 	my ($this, $data) = @_;
-	my $r = $this->{DBH}->quote($data);
+	my $r = $this->{dbh}->quote($data);
 	utf8::downgrade($r);
 	$r;
 }
@@ -84,7 +84,7 @@ sub Select
 	$ret = eval
 	{
 		my $tt = Sql::Timer->new($query, \@params) if SQL_DEBUG;
-		$this->{STH} = $this->{DBH}->$prepare($query);
+		$this->{STH} = $this->{dbh}->$prepare($query);
 		$ret = $this->{STH}->execute(@params);
 
 		return $this->{STH}->rows;
@@ -94,7 +94,7 @@ sub Select
 		my $err = $@;
 
 		$this->{STH}->finish;
-		$this->{ERR} = $this->{DBH}->errstr;
+		$this->{ERR} = $this->{dbh}->errstr;
 		cluck("Failed query:\n	'$query'\n	(@params)\n$err\n")
 			unless ($this->{Quiet});
 		die $err;
@@ -149,7 +149,7 @@ sub Do
 	my ($this, $query, @params) = @_;
 	my $ret;
 
-	if ($this->{DBH}{AutoCommit})
+	if ($this->{dbh}{AutoCommit})
 	{
 		# We're not in a transaction.  ->AutoCommit should be true.
 		# (Side-effect: clear ->AutoCommit).
@@ -167,7 +167,7 @@ sub Do
 	{
 		my $tt = Sql::Timer->new($query, \@params) if SQL_DEBUG;
 		utf8::downgrade($query);
-		my $sth = $this->{DBH}->$prepare($query);
+		my $sth = $this->{dbh}->$prepare($query);
 		utf8::downgrade($_) for @params;
 		$sth->execute(@params);
 		carp("Failed query:\n	'$query'\n	(@params)\n\n")
@@ -176,7 +176,7 @@ sub Do
 	{
 		my $err = $@;
 
-		$this->{ERR} = $this->{DBH}->errstr;
+		$this->{ERR} = $this->{dbh}->errstr;
 		cluck("Failed query:\n	'$query'\n	(@params)\n$err\n")
 			unless ($this->{Quiet});
 		die $err;
@@ -228,8 +228,8 @@ sub Begin
 	carp '$sql->Begin called while $sql->AutoCommit still active'
 		if delete $this->{auto_commit_next_statement};
 	croak '$sql->Begin called while already in a transaction'
-        if not $this->{DBH}{AutoCommit};
-	$this->{DBH}->{AutoCommit} = 0;
+        if not $this->{dbh}{AutoCommit};
+	$this->{dbh}->{AutoCommit} = 0;
 }
 
 sub Commit
@@ -237,11 +237,11 @@ sub Commit
 	my $this = $_[0];
 
 	croak '$sql->Commit called without $sql->Begin'
-		if $this->{DBH}->{AutoCommit};
+		if $this->{dbh}->{AutoCommit};
 
 	my $ret = eval
 	{
-		my $rv = $this->{DBH}->commit;
+		my $rv = $this->{dbh}->commit;
 		cluck("Commit failed") if ($rv eq '' && !$this->{Quiet});
 		return $rv;
 	};
@@ -251,11 +251,11 @@ sub Commit
 		my $err = $@;
 		cluck($err) unless ($this->{Quiet});
 		eval { $this->Rollback };
-		$this->{DBH}{AutoCommit} = 1;
+		$this->{dbh}{AutoCommit} = 1;
 		die $err;
 	}
 
-	$this->{DBH}{AutoCommit} = 1;
+	$this->{dbh}{AutoCommit} = 1;
 	return $ret;
 }
 
@@ -264,16 +264,16 @@ sub Rollback
 	my $this = $_[0];
 
 	croak '$sql->Rollback called without $sql->Begin'
-		if $this->{DBH}->{AutoCommit};
+		if $this->{dbh}->{AutoCommit};
 
 	my $ret = eval
 	{
-		my $rv = $this->{DBH}->rollback;
+		my $rv = $this->{dbh}->rollback;
 		cluck("Rollback failed") if ($rv eq '' && !$this->{Quiet});
 		return $rv;
 	};
 
-    $this->{DBH}{AutoCommit} = 1;
+    $this->{dbh}{AutoCommit} = 1;
 
 	if ($@)
 	{
@@ -294,7 +294,7 @@ sub AutoTransaction
 {
 	my ($self, $sub) = @_;
 	# If we're already in a transaction, just run the code.
-	return &$sub if not $self->{DBH}{AutoCommit};
+	return &$sub if not $self->{dbh}{AutoCommit};
 
 	# Otherwise, Begin, run the code, and Commit.  Rollback if anything
 	# false.  Always leave the transaction closed.
@@ -339,12 +339,12 @@ sub SelectSingleRowHash
 {
 	my ($this, $query, @params) = @_;
 	
-	croak "No DBH!" unless $this->{DBH};
+	croak "No DBH!" unless $this->{dbh};
 
 	my $row = eval
 	{
 		my $tt = Sql::Timer->new($query, \@params) if SQL_DEBUG;
-		my $sth = $this->{DBH}->prepare_cached($query);
+		my $sth = $this->{dbh}->prepare_cached($query);
 		my $rv = $sth->execute(@params)
 			or die;
 		my $firstRow = $sth->fetchrow_hashref;
@@ -359,7 +359,7 @@ sub SelectSingleRowHash
 	return $row unless $@;
 
 	my $err = $@;
-	$this->{ERR} = $this->{DBH}->errstr;
+	$this->{ERR} = $this->{dbh}->errstr;
 	cluck("Failed query:\n	'$query'\n	(@params)\n$err\n")
 		unless ($this->{Quiet});
 	die $err;
@@ -374,12 +374,12 @@ sub SelectSingleRowArray
 {
 	my ($this, $query, @params) = @_;
 	
-	croak "No DBH!" unless $this->{DBH};
+	croak "No DBH!" unless $this->{dbh};
 
 	my $row = eval
 	{
 		my $tt = Sql::Timer->new($query, \@params) if SQL_DEBUG;
-		my $sth = $this->{DBH}->prepare_cached($query);
+		my $sth = $this->{dbh}->prepare_cached($query);
 		my $rv = $sth->execute(@params)
 			or die;
 		my $firstRow = $sth->fetchrow_arrayref;
@@ -394,7 +394,7 @@ sub SelectSingleRowArray
 	return $row unless $@;
 
 	my $err = $@;
-	$this->{ERR} = $this->{DBH}->errstr;
+	$this->{ERR} = $this->{dbh}->errstr;
 	cluck("Failed query:\n	'$query'\n	(@params)\n$err\n")
 		unless ($this->{Quiet});
 	die $err;
@@ -408,12 +408,12 @@ sub SelectSingleColumnArray
 {
 	my ($this, $query, @params) = @_;
 	
-	croak "No DBH!" unless $this->{DBH};
+	croak "No DBH!" unless $this->{dbh};
 
 	my $col = eval
 	{
 		my $tt = Sql::Timer->new($query, \@params) if SQL_DEBUG;
-		my $sth = $this->{DBH}->prepare_cached($query);
+		my $sth = $this->{dbh}->prepare_cached($query);
 		my $rv = $sth->execute(@params)
 			or die;
 
@@ -435,7 +435,7 @@ sub SelectSingleColumnArray
 	return $col unless $@;
 
 	my $err = $@;
-	$this->{ERR} = $this->{DBH}->errstr;
+	$this->{ERR} = $this->{dbh}->errstr;
 	cluck("Failed query:\n	'$query'\n	(@params)\n$err\n")
 		unless ($this->{Quiet});
 	die $err;
@@ -448,7 +448,7 @@ sub SelectSingleValue
 {
 	my ($this, $query, @params) = @_;
 	
-	croak "No DBH!" unless $this->{DBH};
+	croak "No DBH!" unless $this->{dbh};
 	
 	my $row = $this->SelectSingleRowArray($query, @params);
 	$row or return undef;
@@ -467,12 +467,12 @@ sub SelectListOfLists
 {
 	my ($this, $query, @params) = @_;
 	
-	croak "No DBH!" unless $this->{DBH};
+	croak "No DBH!" unless $this->{dbh};
 
 	my $data = eval
 	{
 		my $tt = Sql::Timer->new($query, \@params) if SQL_DEBUG;
-		my $sth = $this->{DBH}->prepare_cached($query);
+		my $sth = $this->{dbh}->prepare_cached($query);
 		my $rv = $sth->execute(@params)
 			or croak;
 
@@ -493,7 +493,7 @@ sub SelectListOfLists
 	return $data unless $@;
 
 	my $err = $@;
-	$this->{ERR} = $this->{DBH}->errstr;
+	$this->{ERR} = $this->{dbh}->errstr;
 	cluck("Failed query:\n	'$query'\n	(@params)\n$err\n")
 		unless ($this->{Quiet});
 	die $err;
@@ -506,12 +506,12 @@ sub SelectListOfHashes
 {
 	my ($this, $query, @params) = @_;
 	
-	croak "No DBH!" unless $this->{DBH};
+	croak "No DBH!" unless $this->{dbh};
 
 	my $data = eval
 	{
 		my $tt = Sql::Timer->new($query, \@params) if SQL_DEBUG;
-		my $sth = $this->{DBH}->prepare_cached($query);
+		my $sth = $this->{dbh}->prepare_cached($query);
 		my $rv = $sth->execute(@params)
 			or die;
 
@@ -532,7 +532,7 @@ sub SelectListOfHashes
 	return $data unless $@;
 
 	my $err = $@;
-	$this->{ERR} = $this->{DBH}->errstr;
+	$this->{ERR} = $this->{dbh}->errstr;
 	cluck("Failed query:\n	'$query'\n	(@params)\n$err\n")
 		unless ($this->{Quiet});
 	die $err;

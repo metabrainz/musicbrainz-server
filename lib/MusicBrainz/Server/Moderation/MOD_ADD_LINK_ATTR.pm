@@ -84,7 +84,7 @@ sub DeniedAction
 	my $new = $self->{'new_unpacked'};
 
 	my $link = MusicBrainz::Server::LinkAttr->new(
-		$self->{DBH},
+		$self->{dbh},
 	);
 	my $child = $link->newFromId($self->row_id);
 

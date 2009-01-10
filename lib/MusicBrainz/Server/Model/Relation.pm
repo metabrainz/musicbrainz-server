@@ -130,7 +130,7 @@ sub relate_to_url
     my $type = $entity->entity_type;
     $type =~ s/release/album/; # TODO terminology hack...
 
-    my $lt = MusicBrainz::Server::LinkType->new($self->context->mb->{DBH}, [ $type, 'url']);
+    my $lt = MusicBrainz::Server::LinkType->new($self->context->mb->{dbh}, [ $type, 'url']);
 
     my ($linkid, $linkattributes, $linkdesc) = split /\|/, $link_type;
     my $link = $lt->newFromId($linkid);

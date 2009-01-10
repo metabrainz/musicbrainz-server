@@ -84,7 +84,7 @@ sub PreInsert
 	}
 
 	require MusicBrainz::Server::ReleaseCDTOC;
-	my $alcdtoc = MusicBrainz::Server::ReleaseCDTOC->newFromReleaseAndCDTOC($self->{DBH}, $oldal, $cdtoc->id);
+	my $alcdtoc = MusicBrainz::Server::ReleaseCDTOC->newFromReleaseAndCDTOC($self->{dbh}, $oldal, $cdtoc->id);
 	if (not $alcdtoc)
 	{
 		$self->SetError("Old release / CD TOC not found");
@@ -166,7 +166,7 @@ sub DeniedAction
 
 	# Check that the album_cdtoc row still exists
 	require MusicBrainz::Server::ReleaseCDTOC;
-	my $album_cdtoc = MusicBrainz::Server::ReleaseCDTOC->newFromId($self->{DBH}, $self->row_id)
+	my $album_cdtoc = MusicBrainz::Server::ReleaseCDTOC->newFromId($self->{dbh}, $self->row_id)
 		or do {
 			$self->InsertNote(MODBOT_MODERATOR, "This disc ID has been deleted");
 			$self->status(STATUS_FAILEDDEP);
@@ -199,10 +199,10 @@ sub DeniedAction
 	if ($new->{"AlreadyThere"})
 	{
 		# Create a new association between the old album and FullTOC
-		MusicBrainz::Server::ReleaseCDTOC->Insert($self->{DBH}, $self->previous_data, $new->{"FullTOC"});
+		MusicBrainz::Server::ReleaseCDTOC->Insert($self->{dbh}, $self->previous_data, $new->{"FullTOC"});
 	} else {
 		# Move the row back to the old album
-		my $alcdtoc = MusicBrainz::Server::ReleaseCDTOC->newFromId($self->{DBH}, $self->row_id)
+		my $alcdtoc = MusicBrainz::Server::ReleaseCDTOC->newFromId($self->{dbh}, $self->row_id)
 			or return;
 		$alcdtoc->MoveToRelease($self->previous_data);
 	}

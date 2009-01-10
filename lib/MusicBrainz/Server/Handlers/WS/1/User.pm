@@ -102,7 +102,7 @@ sub print_xml
 	require MusicBrainz::Server::Artist;
 
     require MusicBrainz::Server::Editor;
-    my $us = MusicBrainz::Server::Editor->new($mb->{DBH});
+    my $us = MusicBrainz::Server::Editor->new($mb->{dbh});
     $us = $us->newFromName($user) or die "Cannot load user.\n";
 
     my @types;

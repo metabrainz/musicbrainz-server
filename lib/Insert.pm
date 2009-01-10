@@ -34,7 +34,7 @@ sub new
     my ($type, $dbh) = @_;
 
 	bless {
-		DBH	=> $dbh,
+		dbh	=> $dbh,
 	}, ref($type) || $type;
 }  
 
@@ -340,7 +340,7 @@ sub _Insert
 	{
 		require MusicBrainz::Server::Language;
 		my $l = MusicBrainz::Server::Language->newFromId(
-													$this->{DBH}, $language);
+													$this->{dbh}, $language);
 
 		$language = undef unless defined $l;
 	}
@@ -350,7 +350,7 @@ sub _Insert
 	{
 		require MusicBrainz::Server::Script;
 		my $s = MusicBrainz::Server::Script->newFromId(
-													$this->{DBH}, $script);
+													$this->{dbh}, $script);
 
 		$script = undef unless defined $s;
 	}
@@ -413,7 +413,7 @@ sub _Insert
     if (exists $info->{cdindexid} && exists $info->{toc})
     {
 		require MusicBrainz::Server::ReleaseCDTOC;
-		MusicBrainz::Server::ReleaseCDTOC->Insert($this->{DBH}, $albumid, $info->{toc});
+		MusicBrainz::Server::ReleaseCDTOC->Insert($this->{dbh}, $albumid, $info->{toc});
         $info->{cdindexid_insertid} = $info->{cdindexid};
     }
 
@@ -622,7 +622,7 @@ sub InsertAlbumModeration
 		require Moderation;
 		# FIXME "artist" is undef.  Does this matter?
 		my @mods = Moderation->InsertModeration(
-			DBH	=> $this->{DBH},
+			dbh	=> $this->{dbh},
 			uid	=> $moderator || ANON_MODERATOR,
 			privs => $privs || 0,
 			type => MOD_ADD_RELEASE,

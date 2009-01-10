@@ -54,7 +54,7 @@ sub LoadFiles
 	$mb->Login;
 	
 	require Sql;
-	my $sql = Sql->new($mb->{DBH});
+	my $sql = Sql->new($mb->{dbh});
 
 	local $SIG{INT} = sub { die "SIGINT!\n" };
 
@@ -96,7 +96,7 @@ sub LoadFile
 
 		eval {
 			$sql->Begin;
-			$class->_LoadFromFilehandle($fh, $sql->{DBH}, $seek, \$newseek);
+			$class->_LoadFromFilehandle($fh, $sql->{dbh}, $seek, \$newseek);
 			$sql->Commit;
 		};
 

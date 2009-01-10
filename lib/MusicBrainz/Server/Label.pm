@@ -289,7 +289,7 @@ sub Remove
 
     # Remove tags
 	require MusicBrainz::Server::Tag;
-	my $tag = MusicBrainz::Server::Tag->new($sql->{DBH});
+	my $tag = MusicBrainz::Server::Tag->new($sql->{dbh});
 	$tag->RemoveLabels($this->id);
 
 	# Remove references from label words table
@@ -298,7 +298,7 @@ sub Remove
 	$engine->RemoveObjectRefs($this->id());
 
 	require MusicBrainz::Server::Annotation;
-	MusicBrainz::Server::Annotation->DeleteLabel($this->{DBH}, $this->id);
+	MusicBrainz::Server::Annotation->DeleteLabel($this->{dbh}, $this->id);
 
 	$this->RemoveGlobalIdRedirect($this->id, &TableBase::TABLE_LABEL);
 
@@ -312,24 +312,24 @@ sub Remove
 sub MergeInto
 {
 	my ($old, $new, $mod) = @_;
-	my $sql = Sql->new($old->{DBH});
+	my $sql = Sql->new($old->{dbh});
 
     require UserSubscription;
-    my $subs = UserSubscription->new($old->{DBH});
+    my $subs = UserSubscription->new($old->{dbh});
     $subs->LabelBeingMerged($old, $mod);
 
 	my $o = $old->id;
 	my $n = $new->id;
 
 	require MusicBrainz::Server::Annotation;
-	MusicBrainz::Server::Annotation->MergeLabels($old->{DBH}, $o, $n);
+	MusicBrainz::Server::Annotation->MergeLabels($old->{dbh}, $o, $n);
 
 	require MusicBrainz::Server::Link;
-	my $link = MusicBrainz::Server::Link->new($sql->{DBH});
+	my $link = MusicBrainz::Server::Link->new($sql->{dbh});
 	$link->MergeLabels($o, $n);
 	
 	require MusicBrainz::Server::Tag;
-	my $tag = MusicBrainz::Server::Tag->new($sql->{DBH});
+	my $tag = MusicBrainz::Server::Tag->new($sql->{dbh});
 	$tag->MergeLabels($o, $n);
 
 	$sql->Do("UPDATE release           SET label = ? WHERE label = ?", $n, $o);
@@ -341,7 +341,7 @@ sub MergeInto
 
     # Insert the old name as an alias for the new one
     require MusicBrainz::Server::Alias;
-    my $al = MusicBrainz::Server::Alias->new($old->{DBH});
+    my $al = MusicBrainz::Server::Alias->new($old->{dbh});
     $al->table("labelalias");
     $al->Insert($n, $old->name);
 
@@ -452,8 +452,8 @@ sub RebuildWordListForAll
 {
     my $class = shift;
 
-    my $mb_r = MusicBrainz->new; $mb_r->Login; my $sql_r = Sql->new($mb_r->{DBH});
-    my $mb_w = MusicBrainz->new; $mb_w->Login; my $sql_w = Sql->new($mb_w->{DBH});
+    my $mb_r = MusicBrainz->new; $mb_r->Login; my $sql_r = Sql->new($mb_r->{dbh});
+    my $mb_w = MusicBrainz->new; $mb_w->Login; my $sql_w = Sql->new($mb_w->{dbh});
 
     $sql_r->Select("SELECT id FROM label");
     my $rows = $sql_r->Rows;
@@ -484,7 +484,7 @@ sub RebuildWordListForAll
 	$sql_w->Begin;
 
 	eval {
-	    my $ar = MusicBrainz::Server::Label->new($mb_w->{DBH});
+	    my $ar = MusicBrainz::Server::Label->new($mb_w->{dbh});
 	    $ar->id($id);
 	    if ($ar->LoadFromId)
 	    {
@@ -748,7 +748,7 @@ sub newFromId
 	$obj->{mbid} = delete $obj->{gid} if $obj;
 
 	# We can't store DBH in the cache...
-	delete $obj->{DBH} if $obj;
+	delete $obj->{dbh} if $obj;
 	MusicBrainz::Server::Cache->set($key, \$obj);
 	MusicBrainz::Server::Cache->set($obj->_GetMBIDCacheKey($obj->mbid), \$obj)
 		if $obj;
@@ -795,7 +795,7 @@ sub newFromMBId
     $obj->{mbid} = delete $obj->{gid} if $obj;
 
     # We can't store DBH in the cache...
-    delete $obj->{DBH} if $obj;
+    delete $obj->{dbh} if $obj;
     MusicBrainz::Server::Cache->set($key, \$obj);
     MusicBrainz::Server::Cache->set($obj->_id_cache_key($obj->id), \$obj)
 	if $obj;
@@ -929,7 +929,7 @@ sub GetSubscribers
 {
 	my $self = shift;
 	require UserSubscription;
-	return UserSubscription->GetSubscribersForLabel($self->{DBH}, $self->id);
+	return UserSubscription->GetSubscribersForLabel($self->{dbh}, $self->id);
 }
 
 sub subscriber_count

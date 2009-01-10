@@ -195,7 +195,7 @@ sub language
 	my $self = shift;
 	my $id = $self->language_id or return undef;
 	require MusicBrainz::Server::Language;
-	return MusicBrainz::Server::Language->newFromId($self->{DBH}, $id);
+	return MusicBrainz::Server::Language->newFromId($self->{dbh}, $id);
 }
 
 sub script
@@ -203,7 +203,7 @@ sub script
 	my $self = shift;
 	my $id = $self->script_id or return undef;
 	require MusicBrainz::Server::Script;
-	return MusicBrainz::Server::Script->newFromId($self->{DBH}, $id);
+	return MusicBrainz::Server::Script->newFromId($self->{dbh}, $id);
 }
 
 sub attribute_name           { $AlbumAttributeNames{$_[0]}->[0]; }
@@ -315,7 +315,7 @@ sub CombineNonAlbums
 
 	# Move all the tracks onto the first album
 	my $album = shift @albums;
-	my $sql = Sql->new($album->{DBH});
+	my $sql = Sql->new($album->{dbh});
 
 	for my $t (@tracks)
 	{
@@ -442,11 +442,11 @@ sub Remove
   
     $sql = Sql->new($this->dbh);
     require MusicBrainz::Server::ReleaseCDTOC;
-	MusicBrainz::Server::ReleaseCDTOC->RemoveAlbum($this->{DBH}, $album);
+	MusicBrainz::Server::ReleaseCDTOC->RemoveAlbum($this->{dbh}, $album);
 
     print STDERR "DELETE: Removed release where album was " . $album . "\n";
 	require MusicBrainz::Server::ReleaseEvent;
-	my $rel = MusicBrainz::Server::ReleaseEvent->new($sql->{DBH});
+	my $rel = MusicBrainz::Server::ReleaseEvent->new($sql->{dbh});
 	$rel->RemoveByRelease($album);
 
     if ($sql->Select(qq|select AlbumJoin.track from AlbumJoin 
@@ -471,7 +471,7 @@ sub Remove
 
     # Remove tags
 	require MusicBrainz::Server::Tag;
-	my $tag = MusicBrainz::Server::Tag->new($sql->{DBH});
+	my $tag = MusicBrainz::Server::Tag->new($sql->{dbh});
 	$tag->RemoveReleases($this->id);
 
     # Remove references from album words table
@@ -480,7 +480,7 @@ sub Remove
     $engine->RemoveObjectRefs($this->id());
 
     require MusicBrainz::Server::Annotation;
-    MusicBrainz::Server::Annotation->DeleteRelease($this->{DBH}, $album);
+    MusicBrainz::Server::Annotation->DeleteRelease($this->{dbh}, $album);
 
     $this->RemoveGlobalIdRedirect($album, &TableBase::TABLE_RELEASE);
 
@@ -795,7 +795,7 @@ sub GetDiscIDs
 	$self->{"_discids"} ||= do
 	{
 		require MusicBrainz::Server::ReleaseCDTOC;
-		MusicBrainz::Server::ReleaseCDTOC->newFromRelease($self->{DBH}, $self);
+		MusicBrainz::Server::ReleaseCDTOC->newFromRelease($self->{dbh}, $self);
 	};
 }
 
@@ -938,10 +938,10 @@ sub MergeReleases
    $al = MusicBrainz::Server::Release->new($this->dbh);
    
    require MusicBrainz::Server::Link;
-   my $link = MusicBrainz::Server::Link->new($sql->{DBH});
+   my $link = MusicBrainz::Server::Link->new($sql->{dbh});
 
 	require MusicBrainz::Server::Tag;
-	my $tag = MusicBrainz::Server::Tag->new($sql->{DBH});
+	my $tag = MusicBrainz::Server::Tag->new($sql->{dbh});
 
    foreach $id (@list)
    {
@@ -997,16 +997,16 @@ sub MergeReleases
 
 		# Also merge the Discids
 		require MusicBrainz::Server::ReleaseCDTOC;
-		MusicBrainz::Server::ReleaseCDTOC->MergeReleases($this->{DBH}, $id, $this->id);
+		MusicBrainz::Server::ReleaseCDTOC->MergeReleases($this->{dbh}, $id, $this->id);
 
 		# And the releases
 		require MusicBrainz::Server::ReleaseEvent;
-		my $rel = MusicBrainz::Server::ReleaseEvent->new($sql->{DBH});
+		my $rel = MusicBrainz::Server::ReleaseEvent->new($sql->{dbh});
 		$rel->MoveFromReleaseToRelease($id, $this->id);
 
 		# And the annotations
 		require MusicBrainz::Server::Annotation;
-		MusicBrainz::Server::Annotation->MergeReleases($this->{DBH}, $id, $this->id, artistid => $this->artist);
+		MusicBrainz::Server::Annotation->MergeReleases($this->{dbh}, $id, $this->id, artistid => $this->artist);
 
 		# And the ARs
 		$link->MergeReleases($id, $this->id);

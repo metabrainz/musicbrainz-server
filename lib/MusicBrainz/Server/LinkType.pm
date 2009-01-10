@@ -44,7 +44,7 @@ sub InsertDefaultRows
 	$mb->Login;
 
 	require Sql;
-	my $sql = Sql->new($mb->{DBH});
+	my $sql = Sql->new($mb->{dbh});
 	$sql->Begin;
 
 	my @e = MusicBrainz::Server::LinkEntity->Types;
@@ -165,7 +165,7 @@ sub _new_from_row
 		$self->{$k} = $v
 			if substr($k, 0, 1) eq "_";
 	}
-	$self->{DBH} = $this->dbh;
+	$self->{dbh} = $this->dbh;
 
 	bless $self, ref($this) || $this;
 }

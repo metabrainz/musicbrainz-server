@@ -345,7 +345,7 @@ sub subscribe : Chained('artist')
 
     $c->forward('/user/login');
 
-    my $us = UserSubscription->new($c->mb->{DBH});
+    my $us = UserSubscription->new($c->mb->{dbh});
     $us->SetUser($c->user->id);
     $us->SubscribeArtists($artist);
     $c->stash->{subscribed} = 1;
@@ -366,7 +366,7 @@ sub unsubscribe : Chained('artist')
 
     $c->forward('/user/login');
 
-    my $us = UserSubscription->new($c->mb->{DBH});
+    my $us = UserSubscription->new($c->mb->{dbh});
     $us->SetUser($c->user->id);
     $us->UnsubscribeArtists($artist);
     $c->stash->{subscribed} = undef;

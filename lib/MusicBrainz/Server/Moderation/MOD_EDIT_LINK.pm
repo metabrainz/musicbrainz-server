@@ -54,7 +54,7 @@ sub PreInsert
 
     my $dummy;
     my $attr = MusicBrainz::Server::Attribute->new(
-        $self->{DBH},
+        $self->{dbh},
         scalar($newlinktype->Types)
     );
     $attr = $attr->newFromLinkId($link->id());
@@ -191,7 +191,7 @@ sub CheckPrerequisites
 		my $type = $types[$i];
 		require MusicBrainz::Server::LinkEntity;
 		my $ent = MusicBrainz::Server::LinkEntity->newFromTypeAndId(
-			$self->{DBH}, $type, $newid,
+			$self->{dbh}, $type, $newid,
 		);
 		last if $ent;
 
@@ -217,14 +217,14 @@ sub ApprovedAction
 {
   	my $self = shift;
 	my $new = $self->{'new_unpacked'};
-	my $asintypeid = MusicBrainz::Server::CoverArt->asin_link_type_id($self->{DBH});
+	my $asintypeid = MusicBrainz::Server::CoverArt->asin_link_type_id($self->{dbh});
 
 	my $link = MusicBrainz::Server::Link->new($self->dbh, [$new->{oldentity0type}, $new->{oldentity1type}]);
 	$link = $link->newFromId($new->{linkid});
 	if ($link)
 	{
 		my $attr = MusicBrainz::Server::Attribute->new(
-			$self->{DBH},
+			$self->{dbh},
 			[$new->{oldentity0type}, $new->{oldentity1type}],
 			$link->id
 		);

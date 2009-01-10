@@ -49,7 +49,7 @@ sub new
 {
 	my ($class, $dbh) = @_;
 	bless {
-		DBH => $dbh,
+		dbh => $dbh,
 	}, ref($class) || $class;
 }
 
@@ -94,7 +94,7 @@ sub CheckModerations
 	$sql = Sql->new($this->dbh);
     $vertmb = new MusicBrainz;
     $vertmb->Login(db => 'RAWDATA');
-    $vertsql = Sql->new($vertmb->{DBH});
+    $vertsql = Sql->new($vertmb->{dbh});
 
 	$sql->Select(
 		"SELECT id FROM moderation_open ORDER BY id",

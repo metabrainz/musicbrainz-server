@@ -158,7 +158,7 @@ sub options_default_country {
     my $mb = new MusicBrainz;
     $mb->Login;
 
-    my $countries = MusicBrainz::Server::Country->new($mb->{DBH});
+    my $countries = MusicBrainz::Server::Country->new($mb->{dbh});
 
     my @countries_menu = map {
         $_->id => $_->name
@@ -194,7 +194,7 @@ sub init_item
     my $mb = new MusicBrainz;
     $mb->Login();
 
-    my $prefs = UserPreference->newFromUser($mb->{DBH}, $id);
+    my $prefs = UserPreference->newFromUser($mb->{dbh}, $id);
     return $prefs;
 }
 

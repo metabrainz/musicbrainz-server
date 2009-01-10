@@ -95,7 +95,7 @@ sub PreInsert
 
         if ($languageid)
         {
-	    my $language = new MusicBrainz::Server::Language($self->{DBH});
+	    my $language = new MusicBrainz::Server::Language($self->{dbh});
             $language->id($languageid);
 	    $self->language($language);
 	}

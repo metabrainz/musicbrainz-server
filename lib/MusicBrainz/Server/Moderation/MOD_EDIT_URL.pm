@@ -52,7 +52,7 @@ sub PreInsert
 	my $artist;
 	# Get the artist from artist ARs
 	my @links = MusicBrainz::Server::Link->FindLinkedEntities(
-		$self->{DBH}, $urlobj->id, 'url', ('to_type' => 'artist')
+		$self->{dbh}, $urlobj->id, 'url', ('to_type' => 'artist')
 	);
 	$artist = $links[0]->{link0_id}
 		if (@links);
@@ -60,7 +60,7 @@ sub PreInsert
 	if (!$artist)
 	{
 		@links = MusicBrainz::Server::Link->FindLinkedEntities(
-			$self->{DBH}, $urlobj->id, 'url', ('to_type' => 'album')
+			$self->{dbh}, $urlobj->id, 'url', ('to_type' => 'album')
 		);
 		if (@links)
 		{
@@ -74,7 +74,7 @@ sub PreInsert
 	if (!$artist)
 	{
 		@links = MusicBrainz::Server::Link->FindLinkedEntities(
-			$self->{DBH}, $urlobj->id, 'url', ('to_type' => 'track')
+			$self->{dbh}, $urlobj->id, 'url', ('to_type' => 'track')
 		);
 		if (@links)
 		{
@@ -96,7 +96,7 @@ sub PreInsert
 sub PostLoad
 {
 	my $self = shift;
-	$self->{'_urlobj'} = MusicBrainz::Server::URL->newFromId($self->{DBH}, $self->row_id);
+	$self->{'_urlobj'} = MusicBrainz::Server::URL->newFromId($self->{dbh}, $self->row_id);
 	$self->{'new_unpacked'} = $self->ConvertNewToHash($self->new_data()) or die;
 	$self->{'prev_unpacked'} = $self->ConvertNewToHash($self->previous_data()) or die;
 }
@@ -106,7 +106,7 @@ sub DetermineQuality
 	my $self = shift;
 
     my @links = MusicBrainz::Server::Link->FindLinkedEntities(
-        $self->{DBH}, $self->{rowid}, 'url', ('to_type' => 'album')
+        $self->{dbh}, $self->{rowid}, 'url', ('to_type' => 'album')
     );
     # See if we have an album url link
     if (@links)
@@ -118,7 +118,7 @@ sub DetermineQuality
     }
     # Get the artist from artist ARs
     @links = MusicBrainz::Server::Link->FindLinkedEntities(
-        $self->{DBH}, $self->{rowid}, 'url', ('to_type' => 'artist')
+        $self->{dbh}, $self->{rowid}, 'url', ('to_type' => 'artist')
     );
     if (@links)
     {
@@ -152,12 +152,12 @@ sub ApprovedAction
 	$urlobj->UpdateURL;
 
 	my @links = MusicBrainz::Server::Link->FindLinkedEntities(
-			$self->{DBH}, $urlobj->id, 'url', ('to_type' => 'album')
+			$self->{dbh}, $urlobj->id, 'url', ('to_type' => 'album')
 	);
     for my $link (@links)
 	{
         # update amazon links
-        if ($link->{link_id} == MusicBrainz::Server::CoverArt->asin_link_type_id($self->{DBH}) &&
+        if ($link->{link_id} == MusicBrainz::Server::CoverArt->asin_link_type_id($self->{dbh}) &&
             $link->{link0_type} eq 'album' &&
             $link->{link1_type} eq 'url')
         {
@@ -171,7 +171,7 @@ sub ApprovedAction
         }
 
         # now check to see if we need to tinker with generic cover art
-        if ($link->{link_id} == MusicBrainz::Server::CoverArt->GetCoverArtLinkTypeId($self->{DBH}) &&
+        if ($link->{link_id} == MusicBrainz::Server::CoverArt->GetCoverArtLinkTypeId($self->{dbh}) &&
             $link->{link0_type} eq 'album' &&
             $link->{link1_type} eq 'url')
         {

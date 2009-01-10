@@ -122,7 +122,7 @@ sub OutputAlbumRDF
 
     @releases = $album->ReleaseEvents;
     require MusicBrainz::Server::Country;
-    my $country_obj = MusicBrainz::Server::Country->new($album->{DBH})
+    my $country_obj = MusicBrainz::Server::Country->new($album->{dbh})
        if @releases;
 
     $out  = $this->BeginDesc("mm:Album", $this->GetBaseURI() . "/album/" . $album->mbid())

@@ -23,7 +23,7 @@ sub direct_search
 {
     my ($self, $query) = @_;
 
-    my $engine = new SearchEngine($self->context->mb->{DBH}, 'label');
+    my $engine = new SearchEngine($self->context->mb->{dbh}, 'label');
     $engine->Search(query => $query, limit => 0);
 
     return undef
@@ -33,7 +33,7 @@ sub direct_search
 
     while(my $row = $engine->NextRow)
     {
-        my $label = new MusicBrainz::Server::Label($self->context->mb->{DBH});
+        my $label = new MusicBrainz::Server::Label($self->context->mb->{dbh});
 
         $label->id($row->{labelid});
         $label->mbid($row->{labelgid});
@@ -120,7 +120,7 @@ sub create
 
     return unless $created_mod;
 
-    my $label = new MusicBrainz::Server::Label($self->context->mb->{DBH});
+    my $label = new MusicBrainz::Server::Label($self->context->mb->{dbh});
     $label->id($created_mod->row_id);
     $label->name($opts{name});
     $label->sort_name($opts{sort_name});

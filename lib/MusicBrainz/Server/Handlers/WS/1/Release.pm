@@ -149,7 +149,7 @@ sub serve_from_db
 	require MusicBrainz::Server::Release;
 
     my @albums;
-	$al = MusicBrainz::Server::Release->new($mb->{DBH});
+	$al = MusicBrainz::Server::Release->new($mb->{dbh});
     if ($mbid)
     {
         $al->mbid($mbid);
@@ -163,13 +163,13 @@ sub serve_from_db
         $is_coll = 1;
         $inc = INC_ARTIST | INC_COUNTS | INC_RELEASEINFO;
 
-        my $cd = MusicBrainz::Server::ReleaseCDTOC->new($mb->{DBH});
+        my $cd = MusicBrainz::Server::ReleaseCDTOC->new($mb->{dbh});
         my $albumids = $cd->release_ids_from_discid($cdid);
         if (scalar(@$albumids))
         {
             foreach my $id (@$albumids)
             {
-                $al = MusicBrainz::Server::Release->new($mb->{DBH});
+                $al = MusicBrainz::Server::Release->new($mb->{dbh});
                 $al->id($id);
                 return undef unless $al->LoadFromId(1);
                 push @albums, $al;
@@ -179,7 +179,7 @@ sub serve_from_db
 
     if (@albums && !$ar && $inc & INC_ARTIST || $inc & INC_TRACKS)
     {
-        $ar = MusicBrainz::Server::Artist->new($mb->{DBH});
+        $ar = MusicBrainz::Server::Artist->new($mb->{dbh});
         $ar->id($al->artist);
         $ar->LoadFromId();
     }

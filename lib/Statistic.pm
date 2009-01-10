@@ -31,7 +31,7 @@ sub new
 {
 	my ($type, $dbh) = @_;
 
-	my $this = { DBH => $dbh };
+	my $this = { dbh => $dbh };
 	return bless $this, $type;
 }
 
@@ -39,8 +39,8 @@ sub dbh
 {
 	my ($self, $new_value) = @_;
 	
-	if (defined $new_value) { $self->{DBH} = $new_value; }
-	return $self->{DBH};
+	if (defined $new_value) { $self->{dbh} = $new_value; }
+	return $self->{dbh};
 }
 
 # Fetch current stat(s)
@@ -517,7 +517,7 @@ my %stats = (
 			for my $t (@{ MusicBrainz::Server::LinkEntity->AllLinkTypes })
 			{
 				require MusicBrainz::Server::Link;
-				my $l = MusicBrainz::Server::Link->new($sql->{DBH}, $t);
+				my $l = MusicBrainz::Server::Link->new($sql->{dbh}, $t);
 				my $n = $l->CountLinksByType;
 				$r{"count.ar.links.".$l->Table} = $n;
 				$r{'count.ar.links'} += $n;
@@ -647,7 +647,7 @@ sub RecalculateStat
 
 	my $vertmb = new MusicBrainz;
 	$vertmb->Login(db => 'RAWDATA');
-	my $vertsql = Sql->new($vertmb->{DBH});
+	my $vertsql = Sql->new($vertmb->{dbh});
 
 	my $def = $stats{$name}
 		or warn("Unknown stat name '$name'"), return;

@@ -48,8 +48,8 @@ sub dbh
 {
 	my ($self, $new_value) = @_;
 	
-	if (defined $new_value) { $self->{DBH} = $new_value; }
-	return $self->{DBH};
+	if (defined $new_value) { $self->{dbh} = $new_value; }
+	return $self->{dbh};
 }
 
 sub Login
@@ -90,8 +90,8 @@ sub Login
 	}
 
    require DBI;
-   $this->{DBH} = DBI->connect($db->dbi_args);
-   return 0 if (!$this->{DBH});
+   $this->{dbh} = DBI->connect($db->dbi_args);
+   return 0 if (!$this->{dbh});
 
 	# Since DBD::Pg 1.4, $dbh->prepare uses real PostgreSQL prepared
 	# queries, but the codebase uses some queries that are not valid on
@@ -99,13 +99,13 @@ sub Login
 	require DBD::Pg;
 	if ($DBD::Pg::VERSION >= 1.40)
 	{
-		$this->{DBH}->{pg_server_prepare} = 0;
+		$this->{dbh}->{pg_server_prepare} = 0;
 	}
 
 
 	# Naughty!  Might break in future.  If it does just do the two "SET"
 	# commands every time, like we used to before this was added.
-	my $tied = tied %{ $this->{DBH} };
+	my $tied = tied %{ $this->{dbh} };
 	if (not $tied->{'_mb_prepared_connection_'})
 	{
 		require Sql;
@@ -129,7 +129,7 @@ sub Logout
 {
    my ($this) = @_;
 
-   $this->{DBH}->disconnect() if ($this->{DBH});
+   $this->{dbh}->disconnect() if ($this->{DBH});
 }
 
 sub DESTROY

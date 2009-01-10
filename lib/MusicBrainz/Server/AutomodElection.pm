@@ -73,7 +73,7 @@ sub GetElections
 
 	for (@$rows)
 	{
-		$_->{DBH} = $self->dbh;
+		$_->{dbh} = $self->dbh;
 		bless $_, ref($self);
 	}
 
@@ -99,7 +99,7 @@ sub GetPendingElections
 ELECTION:
 	for my $el (@$rows)
 	{
-		$el->{DBH} = $self->dbh;
+		$el->{dbh} = $self->dbh;
 		bless $el, ref($self);
 
 		no warnings;
@@ -131,7 +131,7 @@ sub newFromId
 		$id,
 	) or return undef;
 
-	$row->{DBH} = $self->dbh;
+	$row->{dbh} = $self->dbh;
 	bless $row, ref($self);
 }
 
@@ -180,7 +180,7 @@ sub DoCloseElections
 
 			for my $election (@$to_timeout)
 			{
-				$election->{DBH} = $self->dbh;
+				$election->{dbh} = $self->dbh;
 				bless $election, ref($self);
 				$election->_Timeout;
 			}
@@ -193,7 +193,7 @@ sub DoCloseElections
 
 			for my $election (@$to_close)
 			{
-				$election->{DBH} = $self->dbh;
+				$election->{dbh} = $self->dbh;
 				bless $election, ref($self);
 				$election->_Close;
 			}
@@ -657,7 +657,7 @@ sub GetVoteTime		{ $_[0]{votetime} }
 sub _newFromElection
 {
 	my ($class, $election) = @_;
-	my $sql = Sql->new($election->{DBH});
+	my $sql = Sql->new($election->{dbh});
 
 	my $votes = $sql->SelectListOfHashes(
 		"SELECT * FROM automod_election_vote WHERE automod_election = ? ORDER BY votetime",
@@ -666,7 +666,7 @@ sub _newFromElection
 
 	for (@$votes)
 	{
-		$_->{DBH} = $election->dbh;
+		$_->{dbh} = $election->dbh;
 		bless $_, $class;
 	}
 

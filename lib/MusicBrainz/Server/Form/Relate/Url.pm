@@ -52,7 +52,7 @@ sub options_type
     my $mb = new MusicBrainz;
     $mb->Login;
 
-    my $lt = new MusicBrainz::Server::LinkType($mb->{DBH}, [ $type, 'url' ]);
+    my $lt = new MusicBrainz::Server::LinkType($mb->{dbh}, [ $type, 'url' ]);
     my $root = $lt->Root;
 
     my @options;

@@ -58,11 +58,11 @@ sub PreInsert
 	$self->row_id($link->id);
 
 	require MusicBrainz::Server::LinkType;
-	my $linktype = MusicBrainz::Server::LinkType->newFromPackedTypes($self->{DBH}, $types->[0].'-'.$types->[1]);
+	my $linktype = MusicBrainz::Server::LinkType->newFromPackedTypes($self->{dbh}, $types->[0].'-'.$types->[1]);
     $linktype = $linktype->newFromId($link->GetLinkType());
 
     my $attr = MusicBrainz::Server::Attribute->new(
-        $self->{DBH},
+        $self->{dbh},
         scalar($linktype->Types)
     );
     $attr = $attr->newFromLinkId($link->id());
@@ -144,7 +144,7 @@ sub ApprovedAction
 	}
 
 	# finally some special ASIN URL handling 
-	if ($new->{linktypeid} == MusicBrainz::Server::CoverArt->asin_link_type_id($self->{DBH}) &&
+	if ($new->{linktypeid} == MusicBrainz::Server::CoverArt->asin_link_type_id($self->{dbh}) &&
 		$new->{entity0type} eq 'album' &&
 		$new->{entity1type} eq 'url')
 	{
@@ -153,7 +153,7 @@ sub ApprovedAction
         MusicBrainz::Server::CoverArt->UpdateAmazonData($al, -1)
 			if ($al->LoadFromId(1));
 	}
-	if ($new->{linktypeid} == MusicBrainz::Server::CoverArt->GetCoverArtLinkTypeId($self->{DBH}) &&
+	if ($new->{linktypeid} == MusicBrainz::Server::CoverArt->GetCoverArtLinkTypeId($self->{dbh}) &&
 		$new->{entity0type} eq 'album' &&
 		$new->{entity1type} eq 'url')
 	{

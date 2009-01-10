@@ -80,7 +80,7 @@ sub Update
 
     my $tags = MusicBrainz->new;
     $tags->Login(db => 'RAWDATA');
-   	my $tagdb = Sql->new($tags->{DBH});   
+   	my $tagdb = Sql->new($tags->{dbh});   
 
     eval
     {
@@ -423,7 +423,7 @@ sub GetRawTagsForEntity
 
 	my $tags = MusicBrainz->new;
     $tags->Login(db => 'RAWDATA');
-	my $tagdb = Sql->new($tags->{DBH});   
+	my $tagdb = Sql->new($tags->{dbh});   
 
 	my $assoc_table = $entity_type . '_tag_raw';
 	my $rows = $tagdb->SelectSingleColumnArray("SELECT DISTINCT tag
@@ -447,7 +447,7 @@ sub GetEditorsForEntityAndTag
 
 	my $tags = MusicBrainz->new;
     $tags->Login(db => 'RAWDATA');
-	my $tagdb = Sql->new($tags->{DBH});   
+	my $tagdb = Sql->new($tags->{dbh});   
 
 	my $tag_id = $maindb->SelectSingleValue("SELECT tag.id
   	                                           FROM tag

@@ -76,7 +76,7 @@ sub create
     if (scalar @add_mods) {
         my $mod = $add_mods[0];
 
-        my $artist = MusicBrainz::Server::Artist->new($self->context->mb->{DBH});
+        my $artist = MusicBrainz::Server::Artist->new($self->context->mb->{dbh});
         $artist->name($artist_opts{name});
         $artist->sort_name($artist_opts{sort_name});
         $artist->type($artist_opts{type});
@@ -218,7 +218,7 @@ sub direct_search
 {
     my ($self, $query) = @_;
 
-    my $engine = new SearchEngine($self->context->mb->{DBH}, 'artist');
+    my $engine = new SearchEngine($self->context->mb->{dbh}, 'artist');
     $engine->Search(query => $query, limit => 0);
 
     return undef
@@ -228,7 +228,7 @@ sub direct_search
 
     while(my $row = $engine->NextRow)
     {
-        my $artist = new MusicBrainz::Server::Artist($self->context->mb->{DBH});
+        my $artist = new MusicBrainz::Server::Artist($self->context->mb->{dbh});
         $artist->id($row->{artistid});
         $artist->mbid($row->{artistgid});
         $artist->name($row->{artistname});

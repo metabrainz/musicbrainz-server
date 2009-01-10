@@ -44,7 +44,7 @@ sub new
 	bless +{}, ref($self) || $self;
 }
 
-sub DBH			: lvalue { $_[0]{DBH} }
+sub DBH			: lvalue { $_[0]{dbh} }
 sub SqlObj		: lvalue { $_[0]{SQL} }
 sub PagedReport	: lvalue { $_[0]{REPORT} }
 sub LogFH		: lvalue { $_[0]{LOG_FH} }
@@ -129,9 +129,9 @@ sub _Init
 	# destroyed, since its DESTROY method disconnects us from the database.
 	$self->{_keep_mb_} = $mb;
 
-	my $sql = Sql->new($mb->{DBH});
+	my $sql = Sql->new($mb->{dbh});
 	$self->SqlObj = $sql;
-	$self->DBH = $mb->{DBH};
+	$self->DBH = $mb->{dbh};
 
 	$self->Init;
 

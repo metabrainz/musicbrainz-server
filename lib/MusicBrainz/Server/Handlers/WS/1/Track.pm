@@ -163,13 +163,13 @@ sub serve_from_db
 	$mb->Login;
 	require MusicBrainz::Server::Track;
 
-	$tr = MusicBrainz::Server::Track->new($mb->{DBH});
+	$tr = MusicBrainz::Server::Track->new($mb->{dbh});
     $tr->mbid($mbid);
 	return undef unless $tr->LoadFromId(1);
 
     if ($inc & INC_ARTIST || $inc & INC_RELEASES)
     {
-        $ar = MusicBrainz::Server::Artist->new($mb->{DBH});
+        $ar = MusicBrainz::Server::Artist->new($mb->{dbh});
         $ar->id($tr->artist->id);
         $ar = undef unless $ar->LoadFromId(1);
     }
@@ -287,17 +287,17 @@ sub print_xml_post
 	$mb->Login(db => 'READWRITE');
 
     require MusicBrainz::Server::Editor;
-    my $us = MusicBrainz::Server::Editor->new($mb->{DBH});
+    my $us = MusicBrainz::Server::Editor->new($mb->{dbh});
     $us = $us->newFromName($user) or die "Cannot load user.\n";
 
     require Sql;
-    my $sql = Sql->new($mb->{DBH});
+    my $sql = Sql->new($mb->{dbh});
 
     # Check each track and then then adjust the list to have the row id of the track
     require MusicBrainz::Server::Track;
     foreach my $pair (@$links)
     {
-        my $tr = MusicBrainz::Server::Track->new($sql->{DBH});
+        my $tr = MusicBrainz::Server::Track->new($sql->{dbh});
         $tr->mbid($pair->{trackmbid});
         unless ($tr->LoadFromId)
         {
@@ -325,7 +325,7 @@ sub print_xml_post
                 else { @thistime = @$links; @$links = () }
 
                 my @mods = Moderation->InsertModeration(
-                    DBH => $mb->{DBH},
+                    dbh => $mb->{dbh},
                     uid => $us->id,
                     privs => 0, # TODO
                     type => &ModDefs::MOD_ADD_PUIDS,
@@ -358,7 +358,7 @@ sub xml_puid
 	$mb->Login;
 
     require Sql;
-    my $sql = Sql->new($mb->{DBH});
+    my $sql = Sql->new($mb->{dbh});
 
     my $rows = $sql->SelectListOfLists("SELECT t.gid, t.name, t.length, t.artist, j.sequence,
                                                a.gid, a.name, a.attributes, a.artist, ar.name, ar.gid, ar.sortname

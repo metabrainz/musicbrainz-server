@@ -45,7 +45,7 @@ sub PreInsert
 	my $added;
 	my $tocid;
 	my $rowid = MusicBrainz::Server::ReleaseCDTOC->Insert(
-		$self->{DBH}, $al, $toc,
+		$self->{dbh}, $al, $toc,
 		added => \$added,
 		tocid => \$tocid,
 	);
@@ -113,7 +113,7 @@ sub DeniedAction
 
 	require MusicBrainz::Server::ReleaseCDTOC;
 
-	my $alcdtoc = MusicBrainz::Server::ReleaseCDTOC->newFromId($self->{DBH}, $self->row_id);
+	my $alcdtoc = MusicBrainz::Server::ReleaseCDTOC->newFromId($self->{dbh}, $self->row_id);
 	if (not $alcdtoc)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This disc ID has already been removed");

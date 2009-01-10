@@ -186,7 +186,7 @@ sub load_for_label
         map {
             my $export = $_;
 
-            $export->{artist} = MusicBrainz::Server::Artist->new($label->{DBH});
+            $export->{artist} = MusicBrainz::Server::Artist->new($label->{dbh});
 	    $export->{artist}->name($_->{artistname});
 	    $export->{artist}->mbid($_->artist);
 
