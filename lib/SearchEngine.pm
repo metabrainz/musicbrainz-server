@@ -85,6 +85,14 @@ sub new
     return $self;
 }
 
+sub dbh
+{
+	my ($self, $new_dbh) = @_;
+	
+	if (defined $new_dbh) { $self->{dbh} = $new_dbh; }
+	return $self->{dbh};
+}
+
 sub Table
 {
     my ($self,$table) = @_;

@@ -91,8 +91,13 @@ sub model_validate
     my @dupes;
     for my $possible_dupe (@$artists)
     {
-        push @dupes, $possible_dupe
-            if ($possible_dupe->id != $self->item_id);
+		if (defined $self->item) {
+        	push @dupes, $possible_dupe
+            	if $possible_dupe->id != $self->item->id;
+		}
+		else {
+			push @dupes, $possible_dupe;
+		}
     }
 
     if (scalar @dupes)

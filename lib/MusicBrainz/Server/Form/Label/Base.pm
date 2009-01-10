@@ -68,7 +68,7 @@ sub model_validate
     # Filter labels that have the same name but a different id
     # if item_id is false, we are probably creating a new label - so count everything as
     # a duplicate
-    my @dupes = grep { ($self->item_id && $_->id != $self->item_id) || 1 } @$labels;
+    my @dupes = grep { defined $self->item ? $_->id != $self->item->id : 1 } @$labels;
 
     if (scalar @dupes)
     {
