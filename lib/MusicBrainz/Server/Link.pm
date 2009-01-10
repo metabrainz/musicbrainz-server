@@ -167,7 +167,7 @@ sub _new_from_row
 		$self->{$k} = $v
 			if substr($k, 0, 1) eq "_";
 	}
-	$self->SetDBH($this->GetDBH);
+	$self->{DBH} = $this->GetDBH;
 
 	my $n = scalar @{ $self->{_types} };
 	$self->{_links} = [ map { $self->{"link$_"} } 0..$n-1 ];

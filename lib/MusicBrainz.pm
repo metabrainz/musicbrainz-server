@@ -44,6 +44,18 @@ sub new
 # Database connect / disconnect
 ################################################################################
 
+sub GetDBH
+{
+	my ($self) = @_;
+	return $self->{DBH};
+}
+
+sub SetDBH
+{
+	my ($self, $new_value) = @_;
+	$self->{DBH} = $new_value;
+}
+
 sub Login
 {
 	my ($this, %opts) = @_;

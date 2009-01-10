@@ -109,7 +109,7 @@ sub newFromId
 
 	$row->{'desc'} = delete $row->{'description'};
 
-	$row->SetDBH($self->GetDBH);
+	$row->{DBH} = $self->GetDBH;
 	bless $row, ref($self);
 	return $row;
 }
@@ -131,7 +131,7 @@ sub newFromMBId
 
 	$row->{'desc'} = delete $row->{'description'};
 
-	$row->SetDBH($self->GetDBH);
+	$row->{DBH} = $self->GetDBH;
 	bless $row, ref($self);
 	return $row;
 }
@@ -230,7 +230,7 @@ sub newFromURL
 	) or return undef;
 
 	$row->{desc} = delete $row->{'description'};
-	$row->SetDBH($self->GetDBH);
+	$row->{DBH} = $self->GetDBH;
 	bless $row, ref($self);
 }
 

@@ -88,7 +88,7 @@ sub _new_from_attribute_ids
 	}
 	$self->{'link'} = $linkid;
 	$self->{'attributes'} = $attrs;
-	$self->SetDBH($this->GetDBH);
+	$self->{'DBH'} = $this->GetDBH;
 
 	bless $self, ref($this) || $this;
 }

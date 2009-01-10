@@ -35,6 +35,16 @@ sub new
 	return bless $this, $type;
 }
 
+sub GetDBH {
+	my ($self) = @_;
+	return $self->{DBH};
+}
+
+sub SetDBH {
+	my ($self, $dbh) = @_;
+	$self->{DBH} = $dbh;
+}
+
 # Fetch current stat(s)
 # $value = $stat->Fetch($name)
 # @values = $stat->Fetch(@names)

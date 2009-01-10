@@ -212,7 +212,7 @@ sub newFromName
     ) or return undef;
 
     $row->{rowid} = delete $row->{'ref'};
-    $row->SetDBH($self->GetDBH);
+    $row->{DBH} = $self->GetDBH;
     bless $row, ref($self);
 }
 
