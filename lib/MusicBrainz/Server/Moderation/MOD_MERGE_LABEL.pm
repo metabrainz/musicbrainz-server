@@ -130,7 +130,7 @@ sub CheckPrerequisites
 		}
 	} else {
 		# Load new label by name
-		my $labels = $newar->GetLabelsFromName($name);
+		my $labels = $newar->find_labels_by_name($name);
 		if (scalar(@$labels) == 0)
 		{
 			$self->InsertNote(MODBOT_MODERATOR, "Label '$name' not found - it has been deleted or renamed");

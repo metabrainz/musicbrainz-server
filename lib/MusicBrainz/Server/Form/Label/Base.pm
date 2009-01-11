@@ -63,7 +63,7 @@ sub model_validate
     my $self = shift;
 
     my $label  = MusicBrainz::Server::Label->new($self->context->mb->{dbh});
-    my $labels = $label->GetLabelsFromName($self->value('name'));
+    my $labels = $label->find_labels_by_name($self->value('name'));
 
     # Filter labels that have the same name but a different id
     # if item_id is false, we are probably creating a new label - so count everything as
