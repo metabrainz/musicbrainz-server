@@ -45,6 +45,9 @@ div.status_ok {
     position: relative;
 }
 
+#header a img { margin-bottom:-4px; }
+#header img#brainz { margin-bottom: 0; }
+
 /*
  * Footer
  */
