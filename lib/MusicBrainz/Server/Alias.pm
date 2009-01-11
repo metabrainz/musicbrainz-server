@@ -1,118 +1,102 @@
-#____________________________________________________________________________
-#
-#   MusicBrainz -- the open internet music database
-#
-#   Copyright (C) 2000 Robert Kaye
-#
-#   This program is free software; you can redistribute it and/or modify
-#   it under the terms of the GNU General Public License as published by
-#   the Free Software Foundation; either version 2 of the License, or
-#   (at your option) any later version.
-#
-#   This program is distributed in the hope that it will be useful,
-#   but WITHOUT ANY WARRANTY; without even the implied warranty of
-#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#   GNU General Public License for more details.
-#
-#   You should have received a copy of the GNU General Public License
-#   along with this program; if not, write to the Free Software
-#   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-#
-#   $Id$
-#____________________________________________________________________________
-
 package MusicBrainz::Server::Alias;
+use Moose;
+extends 'TableBase';
 
-use TableBase;
-{ our @ISA = qw( TableBase ) }
-
-use strict;
-use DBDefs;
 use Carp qw( carp croak );
+use DBDefs;
 use Errno qw( EEXIST );
+use UNIVERSAL::require;
 
-sub new
-{
-    my ($class, $dbh, $table) = @_;
-    my $self = $class->SUPER::new($dbh);
-    $self->{table} = lc $table;
-    $self;
-}
+=head1 SLOTS
 
-# Artist specific accessor function. Others are inherted from TableBase
-sub table
-{
-    my ($self, $new_table) = @_;
+=head2 table
 
-    if (defined $new_table) { $self->{table} = $new_table; }
-    return $self->{table};
-}
+Which alias table to use for lookups
 
-sub row_id
-{
-    my ($self, $new_row_id) = @_;
+=cut
 
-    if (defined $new_row_id) { $self->{rowid} = $new_row_id; }
-    return $self->{rowid};
-}
+has 'table' => (
+    is => 'rw'
+);
 
-sub last_used
-{
-    my ($self, $new_last_used) = @_;
+=head2 row_id
 
-    if (defined $new_last_used) { $self->{lastused} = $new_last_used; }
-    return $self->{lastused};
-}
+The row_id of the real entity this alias points to
 
-sub times_used
-{
-    my ($self, $new_count) = @_;
+=cut
 
-    if (defined $new_count) { $self->{timesused} = $new_count; }
-    return $self->{timesused};
+has 'row_id' => (
+    is => 'rw',
+    init_arg => 'ref'
+);
+
+has 'last_used' => (
+    is => 'rw',
+    init_arg => 'lastused',
+);
+
+has 'times_used' => (
+    is => 'rw',
+    init_arg => 'timesused',
+);
+
+sub BUILDARGS {
+    my ($self, $dbh, $table, @rest) = @_;
+    
+    my $hash = scalar @rest == 1 && ref $rest[0] eq 'HASH' ? $rest[0] : { @rest };;
+    $hash->{dbh}   = $dbh;
+    $hash->{table} = $table;
+    
+    return $hash;
 }
 
 sub LoadFromId
 {
-    my ($this) = @_;
-    my $sql = Sql->new($this->dbh);
+    my $self = shift;
+    
+    my $sql = Sql->new($self->dbh);
    
-    my $table = lc $this->table;
+    my $table = lc $self->table;
     my $row = $sql->SelectSingleRowArray(
         "SELECT id, name, ref, lastused, timesused
-        FROM $table
-        WHERE id = ?",
-        $this->id,
+           FROM $table
+          WHERE id = ?",
+        $self->id,
     ) or return undef;
 
-    @$this{qw(
-        id name rowid lastused timesused
+    @$self{qw(
+        id name row_id last_used times_used
     )} = @$row;
 
     return 1;
 }
 
-# To insert a new alias, this function needs to be passed the alias id
-# and an alias name.
+=head2
+
+To insert a new alias, this function needs to be passed the alias id
+and an alias name.
+
+=cut
+
 sub Insert
 {
-	my ($this, $id, $name, $otherref, $allowdupe) = @_;
+    my ($self, $id, $name, $otherref, $allowdupe) = @_;
 
-    my $sql = Sql->new($this->dbh);
-    my $table = lc $this->table;
+    my $sql = Sql->new($self->dbh);
+    my $table = lc $self->table;
     $sql->Do("LOCK TABLE $table IN EXCLUSIVE MODE");
 
-	if (!$allowdupe)
-	{
-		# Check to make sure we don't already have this in the database
-		if (my $other = $this->newFromName($name))
-		{
-			# Note: this sub used to return the rowid of the existing row
-			$$otherref = $other if $otherref;
-			$! = EEXIST;
-			return 0;
-		}
-	}
+    if (!$allowdupe)
+    {
+        # Check to make sure we don't already have this in the database
+        if (my $other = $self->new_from_name($name))
+        {
+            # Note: this sub used to return the rowid of the existing row
+            $$otherref = $other if $otherref;
+            $! = EEXIST;
+            return 0;
+        }
+    }
 
     $sql->Do(
         "INSERT INTO $table (name, ref, lastused)
@@ -120,21 +104,14 @@ sub Insert
         $name,
         $id,
     );
+    
+    my ($search_table) = ($table =~ /(.*)alias/);
 
-    if ($table eq 'artistalias')
-    {
-        require SearchEngine;
-        my $engine = SearchEngine->new($this->dbh, 'artist');
-        $engine->AddWordRefs($id,$name);
-    }
-    elsif ($table eq 'labelalias')
-    {
-        require SearchEngine;
-        my $engine = SearchEngine->new($this->dbh, 'label');
-        $engine->AddWordRefs($id,$name);
-    }
+    require SearchEngine;
+    my $engine = SearchEngine->new($self->dbh, $search_table);
+    $engine->AddWordRefs($id, $name);
 
-    1;
+    return 1;
 }
 
 sub UpdateName
@@ -143,8 +120,8 @@ sub UpdateName
     my $otherref = shift;
 
     $self->{table}
-		or croak "Missing table in UpdateName";
-	my $id = $self->id
+        or croak "Missing table in UpdateName";
+    my $id = $self->id
 		or croak "Missing alias ID in UpdateName";
 	my $name = $self->name;
 	defined($name) && $name ne ""
@@ -159,7 +136,7 @@ sub UpdateName
 
     $sql->Do("LOCK TABLE $table IN EXCLUSIVE MODE");
 
-    if (my $other = $self->newFromName($name))
+    if (my $other = $self->new_from_name($name))
     {
         if ($other->id != $self->id)
         {
@@ -189,36 +166,37 @@ sub UpdateName
     1;
 }
 
-sub newFromName
+sub new_from_name
 {
     my $self = shift;
-	$self = $self->new(shift, shift) if not ref $self;
+    $self = $self->new(shift, shift) if not ref $self;
     my $name = shift;
 
     MusicBrainz::Server::Validation::TrimInPlace($name) if defined $name;
     if (not defined $name or $name eq "")
     {
-        carp "Missing name in newFromName";
+        carp "Missing name in new_from_name";
         return undef;
     }
 
+    my $table = lc $self->table;
     my $sql = Sql->new($self->dbh);
 
-    my $row = $sql->SelectSingleRowHash(
-        "SELECT * FROM $self->{table}
+    my $row = $sql->SelectSingleRowHash(qq{
+        SELECT *
+          FROM $table
         WHERE LOWER(name) = LOWER(?)
-        LIMIT 1",
+        LIMIT 1
+        },
         $name,
     ) or return undef;
-
-    $row->{rowid} = delete $row->{'ref'};
-    $row->{dbh} = $self->dbh;
-    bless $row, ref($self);
+    
+    return $self->new($self->dbh, $self->table, $row);
 }
 
 sub Resolve
 {
-    my ($this, $name) = @_;
+    my ($self, $name) = @_;
 
     MusicBrainz::Server::Validation::TrimInPlace($name) if defined $name;
     if (not defined $name or $name eq "")
@@ -227,10 +205,10 @@ sub Resolve
         return undef;
     }
 
-    my $sql = Sql->new($this->dbh);
+    my $sql = Sql->new($self->dbh);
 
     my $row = $sql->SelectSingleRowArray(
-        "SELECT ref, id FROM $this->{table}
+        "SELECT ref, id FROM $self->{table}
         WHERE LOWER(name) = LOWER(?)
         LIMIT 1",
         $name,
@@ -239,7 +217,7 @@ sub Resolve
     use MusicBrainz::Server::DeferredUpdate;
     MusicBrainz::Server::DeferredUpdate->Write(
         "Alias::UpdateLookupCount",
-        $this->{table},
+        $self->table,
         $row->[1],
     );
 
@@ -248,11 +226,11 @@ sub Resolve
 
 sub Remove
 {
-    my $this = shift;
-    my $parent = $this->Parent;
+    my $self = shift;
+    my $parent = $self->Parent;
 
-    my $sql = Sql->new($this->dbh);
-    $sql->Do("DELETE FROM $this->{table} WHERE id = ?", $this->id)
+    my $sql = Sql->new($self->dbh);
+    $sql->Do("DELETE FROM $self->{table} WHERE id = ?", $self->id)
         or return undef;
 
     $parent->RebuildWordList;
@@ -281,77 +259,57 @@ sub UpdateLastUsedDate
     );
 }
 
-sub GetList
-{
-    my ($this, $id) = @_;
-    my $sql = Sql->new($this->dbh);
+=head2 LoadFull
 
-    my $data = $sql->SelectListOfLists(
-        "SELECT id, Name, TimesUsed, LastUsed, ModPending
-        FROM $this->{table}
-        WHERE ref = ?
-        ORDER BY TimesUsed DESC",
-        $id,
+Load all the aliases for a given entity and return an array of references to alias
+objects.
+
+=cut
+
+sub load_all
+{
+    my ($self, $id) = @_;
+
+    my $table = lc $self->table;
+
+    my $sql = Sql->new($self->dbh);
+    my $rows = $sql->SelectListOfHashes(qq{
+        SELECT id, name, ref, lastused, timesused
+          FROM $table
+         WHERE ref = ?
+      ORDER BY LOWER(name), name
+        },
+        $id
     );
-
-    @$data;
-}
-
-# Load all the aliases for a given artist and return an array of references to alias
-# objects. Returns undef if error occurs
-sub LoadFull
-{
-   my ($this, $artist) = @_;
-   my (@info, $query, $sql, @row, $alias);
-
-   $sql = Sql->new($this->dbh);
-   $query = qq|select id, name, ref, lastused, timesused
-                 from $this->{table}
-                where ref = $artist
-             order by lower(name), name|;
-
-   if ($sql->Select($query) && $sql->Rows)
-   {
-       for(;@row = $sql->NextRow();)
-       {
-           require MusicBrainz::Server::Alias;
-           $alias = MusicBrainz::Server::Alias->new($this->dbh);
-           $alias->{table} = $this->{table};
-           $alias->id($row[0]);
-           $alias->name($row[1]);
-           $alias->row_id($row[2]);
-           $alias->last_used($row[3]);
-           $alias->times_used($row[4]);
-           push @info, $alias;
-       }
-       $sql->Finish;
-   
-       return \@info;
-   }
-
-   $sql->Finish;
-   return undef;
+    $sql->Finish;
+    
+    return [ map { MusicBrainz::Server::Alias->new($self->dbh, $table, $_) } @$rows ];
 }
 
 sub ParentClass
 {
-    my $this = shift;
-    return "MusicBrainz::Server::Artist" if lc($this->{table}) eq "artistalias";
-    return "MusicBrainz::Server::Label" if lc($this->{table}) eq "labelalias";
-    die "Don't understand Alias where table = $this->{table}";
+    my $self = shift;
+
+    return "MusicBrainz::Server::Artist" if lc($self->{table}) eq "artistalias";
+    return "MusicBrainz::Server::Label"  if lc($self->{table}) eq "labelalias";
+
+    die "Don't understand Alias where table = $self->{table}";
 }
 
 sub Parent
 {
-    my $this = shift;
-    my $parentclass = $this->ParentClass;
-    eval "require $parentclass; 1" or die $@;
-    my $parent = $parentclass->new($this->dbh);
-    $parent->id($this->row_id);
+    my $self = shift;
+    
+    my $class = $self->ParentClass;
+    $class->require;
+    
+    my $parent = $class->new($self->dbh, id => $self->row_id);
     $parent->LoadFromId
-        or die "Couldn't load $parentclass #" . $this->row_id;
-    $parent;
+        or die "Couldn't load $class #" . $self->row_id;
+
+    return $parent;
 }
 
+no Moose;
+__PACKAGE__->meta->make_immutable;
 1;
-# vi: set ts=4 sw=4 et :

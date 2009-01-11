@@ -13,8 +13,8 @@
     [%- FOREACH alias IN aliases -%]
         <tr>
             <td>[% alias.name | html %]</td>
-            <td>[% alias.useCount | html %]</td>
-            <td>[% IF alias.used %][% alias.lastUsed | mb_date %][% ELSE %]never[% END %]</td>
+            <td>[% alias.times_used | html %]</td>
+            <td>-</td>
             [% IF c.user_exists %]
                 <td>
                 [% links = [

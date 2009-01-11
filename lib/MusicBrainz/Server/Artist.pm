@@ -622,7 +622,7 @@ sub RebuildWordList
     require MusicBrainz::Server::Alias;
     my $al = MusicBrainz::Server::Alias->new($self->dbh, table => 'ArtistAlias');
 
-    my @aliases = map { $_->[1] } $al->GetList($self->id);
+    my @aliases = map { $_->name } $al->load_all($self->id);
 
     require SearchEngine;
     my $engine = SearchEngine->new($self->dbh, 'artist');

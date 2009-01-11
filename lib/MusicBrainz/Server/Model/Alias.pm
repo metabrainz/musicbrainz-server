@@ -15,7 +15,7 @@ sub load_for_entity
     my $table = "${type}Alias";
 
     my $alias   = MusicBrainz::Server::Alias->new($self->dbh, $table);
-    my $aliases = $alias->LoadFull($entity->id);
+    my $aliases = $alias->load_all($entity->id);
 
     return $aliases;
 }

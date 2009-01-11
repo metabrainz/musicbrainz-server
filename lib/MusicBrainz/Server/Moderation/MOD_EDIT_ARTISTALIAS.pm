@@ -54,7 +54,7 @@ sub PreInsert
 	require MusicBrainz::Server::Alias;
 	my $test = MusicBrainz::Server::Alias->new($self->dbh, 'artistalias');
 
-	if (my $other = $test->newFromName($newname))
+	if (my $other = $test->new_from_name($newname))
 	{
 		if ($other->id != $al->id)
 		{

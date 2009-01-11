@@ -503,7 +503,7 @@ sub Search
 	    {
 		require MusicBrainz::Server::Alias;
 		my $al = MusicBrainz::Server::Alias->new($self->dbh, "ArtistAlias");
-		my $aliases = $al->LoadFull($r->{'artistid'});
+		my $aliases = $al->load_all($r->{'artistid'});
 
 		for my $alias (@$aliases)
 		{
@@ -519,7 +519,7 @@ sub Search
 	    {
 		require MusicBrainz::Server::Alias;
 		my $al = MusicBrainz::Server::Alias->new($self->dbh, "labelalias");
-		my $aliases = $al->LoadFull($r->{'labelid'});
+		my $aliases = $al->load_all($r->{'labelid'});
 
 		for my $alias (@$aliases)
 		{

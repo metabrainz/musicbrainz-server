@@ -46,7 +46,7 @@ sub PreInsert
 	my $al = MusicBrainz::Server::Alias->new($self->dbh);
 	$al->table("ArtistAlias");
 
-	if (my $other = $al->newFromName($newalias))
+	if (my $other = $al->new_from_name($newalias))
 	{
 		my $url = "http://" . &DBDefs::WEB_SERVER
 			. "/showaliases.html?artistid=" . $other->row_id;
@@ -102,7 +102,7 @@ sub CheckPrerequisites
 	my $al = MusicBrainz::Server::Alias->new($self->dbh);
 	$al->table("ArtistAlias");
 
-	if (my $other = $al->newFromName($self->new_data))
+	if (my $other = $al->new_from_name($self->new_data))
 	{
 		my $url = "http://" . &DBDefs::WEB_SERVER
 			. "/showaliases.html?artistid=" . $other->row_id;

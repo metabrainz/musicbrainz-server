@@ -468,8 +468,8 @@ sub RebuildWordList
     require MusicBrainz::Server::Alias;
     my $al = MusicBrainz::Server::Alias->new($this->dbh);
     $al->table("LabelAlias");
-    my @aliases = $al->GetList($this->id);
-    @aliases = map { $_->[1] } @aliases;
+    my @aliases = $al->load_all($this->id);
+    @aliases = map { $_->name } @aliases;
 
     require SearchEngine;
     my $engine = SearchEngine->new($this->dbh, 'label');
