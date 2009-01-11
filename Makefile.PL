@@ -29,6 +29,7 @@ requires 'Email::Valid';
 requires 'Form::Processor';
 requires 'JSON';
 requires 'MIME::Lite';
+requires 'Moose';
 requires 'OSSP::uuid';
 requires 'parent';
 requires 'String::ShellQuote';
