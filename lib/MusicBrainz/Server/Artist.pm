@@ -888,39 +888,39 @@ of artistid, sortname, modpending. The array is empty on error.
 
 sub artist_browse_selection
 {
-    my ($self, $ind, $offset) = @_;
+    my ($self, $ind, $offset, $limit) = @_;
     
     return unless length($ind) > 0;
+    
+    $limit ||= 50;
     
     my $sql = Sql->new($self->dbh);
     my ($page, $page_max) = $self->CalculatePageIndex($ind);
     
-    my $total_entries = $sql->SelectSingleValue(qq{
-        SELECT COUNT(*)
-          FROM artist
-         WHERE page >= ? AND page <= ?
-        },
-        $page,
-        $page_max
-    );
-    
-    my $rows = $sql->SelectListOfHashes(qq{
+    $sql->Select(qq{
         SELECT id, sortname, modpending, resolution
           FROM artist 
          WHERE page >= ? AND page <= ?
       ORDER BY LOWER(sortname)
-         LIMIT 50
         OFFSET ?
         },
         $page,
         $page_max,
         $offset
-    );
+    ) or return (0, []);
     
-    $rows = [ map { MusicBrainz::Server::Artist->new($self->dbh, $_); } @$rows ];
+    my $total_entries = $sql->Rows + $offset;
     
+    my @rows;
+    for (1 .. $limit)
+    {
+        my $row = $sql->NextRowHashRef
+            or last;
+        push @rows, MusicBrainz::Server::Artist->new($self->dbh, $row);
+    }
+
     $sql->Finish;
-    return ($total_entries, $rows);
+    return ($total_entries, \@rows);
 }
 
 =head2 releases

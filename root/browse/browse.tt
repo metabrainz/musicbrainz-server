@@ -5,6 +5,7 @@
 [% IF entities.size %]
     <h1>[% type | ucfirst %]s starting with &quot;[% index | upper | html %]&quot;</h1>
     [% WRAPPER 'components/box.tt' header="Found ${num} ${type}s" %]
+        [% WRAPPER 'components/with-pager.tt' %]
         <ol>
             [% FOR entity IN entities %]
             <li class="column[%column %]">
@@ -12,6 +13,7 @@
             </li>
             [% END %]
         </ol>
+        [% END %]
     [% END %]
 [% ELSE %]
     [% WRAPPER "components/box.tt" header="Browse ${type}s"%]

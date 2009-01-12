@@ -7,11 +7,11 @@ use base 'MusicBrainz::Server::Controller';
 
 use Data::Page;
 
-sub browse : Path('') Local
+sub browse : Path('')
 {
     my ($self, $c, $type, $index) = @_;
     
-    my $page = $c->req->query_params->{page};
+    my $page = $c->req->query_params->{page} || 1;
     
     # Set up paging
     my $pager = Data::Page->new;
@@ -21,7 +21,7 @@ sub browse : Path('') Local
     # Query for matching entities
     $index = uc $index;
     my ($count, $entities) = $c->model($type | ucfirst)->get_browse_selection($index, ($page - 1) * $pager->entries_per_page);
-    
+
     $pager->total_entries($count);
 
     $c->stash->{count}    = $count;
