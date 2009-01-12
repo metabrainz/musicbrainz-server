@@ -270,6 +270,16 @@ sub find_linked_albums
     } @raw_releases ];
 }
 
+sub get_browse_selection
+{
+    my ($self, $index, $offset) = @_;
+
+    my $ar = MusicBrainz::Server::Release->new($self->dbh);
+    my ($count, $rels) = $ar->browse_selection($index, $offset);
+
+    return ($count, $rels);
+}
+
 sub _build_sort_keys
 {
     my $release = shift;

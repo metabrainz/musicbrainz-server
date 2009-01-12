@@ -1058,98 +1058,38 @@ sub MergeLanguageAndScriptFrom
 # Given an index character ($ind), a page offset ($offset) and a page length
 # ($max_items) it will return an array of references to an array
 # of albumid, sortname, modpending. The array is empty on error.
-sub GetVariousDisplayList
+sub browse_selection
 {
- 	my ($this, $ind, $offset, $limit, $reltype, $relstatus, $artists) = @_;
+    my ($this, $ind, $offset, $limit) = @_;
 
-	# Build a query to fetch the things we need
-	my ($page_min, $page_max) = $this->CalculatePageIndex($ind);
-	my $query = "
-		SELECT a.id, a.name as albumname, a.gid, a.modpending,
-	               a.artist as artistid, ar.name as artistname,
-                       attributes, language, script, modpending_lang,
-                       tracks, discids, firstreleasedate, coverarturl,
-                       asin, puids, a.quality, a.modpending_qual
-                  FROM album a, albummeta m, artist ar
-	  	 WHERE a.page BETWEEN $page_min AND $page_max
-		   AND m.id = a.id
-		   AND a.artist = ar.id
-	";
+    return unless length($ind) > 0;
+    
+    my $sql = Sql->new($this->dbh);
 
-	$artists ||= "";
-	$query .= " AND a.artist = " . VARTIST_ID if $artists eq "";
-	$query .= " AND a.artist != " . VARTIST_ID if $artists eq "single";
-	# the other recognised value is "all".
+    my ($page_min, $page_max) = $this->CalculatePageIndex($ind);    
+    $sql->Select(qq{
+        SELECT gid, name
+          FROM album
+         WHERE page BETWEEN ? AND ?
+      ORDER BY LOWER(name)
+        OFFSET ?
+        },
+        $page_min,
+        $page_max,
+        $offset
+    );
+    
+    my $total_entries = $sql->Rows + $offset;
+    
+    my @rows;
+    for (1 .. ($limit || 50))
+    {
+        my $row = $sql->NextRowHashRef
+            or last;
+        push @rows, MusicBrainz::Server::Release->new($this->dbh, $row);
+    }
 
-	$query .= " AND (attributes[2] = $reltype   OR attributes[3] = $reltype  )" if $reltype;
-	$query .= " AND (attributes[3] = $relstatus OR attributes[2] = $relstatus)" if $relstatus;
-
-	# TODO if we had an album.sortname, we could get the database to do all
-	# the sorting and filtering for us.  e.g. ORDER BY sortname LIMIT 100,25
-	# But for now, we always retrieve all the matching albums (ugh), sort them
-	# ourselves, then apply the range filter.
-
-	my $sql = Sql->new($this->dbh);
-	my $rows = $sql->SelectListOfLists($query);
-	my $num_albums = @$rows;
-
-	# Add a sortname to each row
-	for my $row (@$rows)
-	{
-		my $temp = unaccent($row->[1]); # name
-		$temp = lc decode("utf-8", $temp);
-
-		# Remove all non alpha characters to sort cleaner
-		$temp =~ s/[^[:alnum:][:space]]//g;
-		$temp =~ s/[[:space:]]+/ /g;
-
-		unshift @$row, $temp;
-	}
-
-	# Sort by that sortname
-	{
-		# Here we could "use locale" etc, but we seem to get the best results
-		# by unaccenting and then using a non-locale sort.
-		@$rows = sort { $a->[0] cmp $b->[0] } @$rows;
-	}
-
-	# Limit the rows we return
-	splice @$rows, 0, $offset;
-	splice @$rows, $limit if @$rows > $limit;
-
-	# Turn each one into an Album object
-	my @albums = map {
-		my $row = $_;
-
-		require MusicBrainz::Server::Release;
-		my $al = MusicBrainz::Server::Release->new($this->dbh);
-
-		$al->{_debug_sortname} = shift @$row;
-
-		$al->{id}              = $row->[0];
-		$al->{name}            = $row->[1];
-		$al->{mbid}            = $row->[2];
-		$al->has_mod_pending($row->[3]);
-		$al->{artistid}        = $row->[4];
-		$al->{artistname}      = $row->[5];
-		$al->{attrs}           = [ $row->[6] =~ /(\d+)/g ];
-		$al->{language}        = $row->[7];
-		$al->{script}          = $row->[8];
-		$al->{modpending_lang} = $row->[9];
-
-		$al->{trackcount}       = $row->[10];
-		$al->{discidcount}      = $row->[11];
-		$al->{firstreleasedate}	= $row->[12] || "";
-		$al->{coverarturl}      = $row->[13] || "";
-		$al->{asin}             = $row->[14] || "";
-		$al->{puidcount}        = $row->[15] || 0;
-		$al->{quality}          = $row->[16] || 0;
-		$al->{modpending_qual}  = $row->[17] || 0;
-
-		$al;
-	} @$rows;
-
- 	return ($num_albums, \@albums);
+    return ($total_entries, \@rows);
 }
 
 sub UpdateName

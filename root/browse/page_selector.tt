@@ -14,7 +14,7 @@
 	<table class="browse">
 		<tr>
 			<td>
-				<a href="#">symbol</a>
+				<a href="[% append_link('_') %]">symbol</a>
 			</td>
 			[% chars = [
 				'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',

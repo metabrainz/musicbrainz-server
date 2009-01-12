@@ -20,7 +20,7 @@ sub browse : Path('')
     
     # Query for matching entities
     $index = uc $index;
-    my ($count, $entities) = $c->model($type | ucfirst)->get_browse_selection($index, ($page - 1) * $pager->entries_per_page);
+    my ($count, $entities) = $c->model(ucfirst $type)->get_browse_selection($index, ($page - 1) * $pager->entries_per_page);
 
     $pager->total_entries($count);
 
