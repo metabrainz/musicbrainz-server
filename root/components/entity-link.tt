@@ -8,7 +8,7 @@
 [%- ELSE -%]
     <a href="[%- c.entity_url(entity, 'show') -%]"[%- mpclass -%]>
         [%- UNLESS noicon -%]<span class="[%- entity.entity_type -%]_icon">[%- END -%]
-        [%- entity.name | html -%]
+        [%- (entity.name || entity.sort_name) | html -%]
         [%- UNLESS noicon -%]</span>[%- END -%]</a>
         [%- IF entity.resolution -%] ([%- entity.resolution | html -%])[%- END -%]
 [%- END -%]

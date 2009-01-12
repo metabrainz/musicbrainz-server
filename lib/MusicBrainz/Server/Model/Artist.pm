@@ -244,21 +244,12 @@ sub direct_search
 
 sub get_browse_selection
 {
-	my ($self, $index, $offset) = @_;
-	
-	my $ar = MusicBrainz::Server::Artist->new($self->dbh);
-	my ($count, @artists) = $ar->artist_browse_selection($index, $offset);
-	
-	@artists = map {
-		my $artist = MusicBrainz::Server::Artist->new($self->dbh);
-		$artist->id($_->[0]);
-		$artist->name(encode_entities($_->[1]));
-		$artist->has_mod_pending($_->[2]);
-		
-		$artist;
-	} @artists;
-	
-	return ($count, [ @artists ]);
+    my ($self, $index, $offset) = @_;
+
+    my $ar = MusicBrainz::Server::Artist->new($self->dbh);
+    my ($count, $artists) = $ar->artist_browse_selection($index, $offset);
+
+    return ($count, $artists);
 }
 
 1;

@@ -749,50 +749,39 @@ of labelid, sortname, modpending. The array is empty on error.
 
 sub label_browse_selection
 {
-   my ($this, $ind, $offset) = @_;
-   my ($query, @info, @row, $sql, $page, $page_max, $ind_max, $un, $max_labels); 
+    my ($self, $ind, $offset) = @_;
 
-   return if length($ind) <= 0;
-
-   $sql = Sql->new($this->dbh);
-
-   use locale;
-   # TODO set LC_COLLATE too?
-   my $saver = new LocaleSaver(LC_CTYPE, "en_US.UTF-8");
-  
-   ($page, $page_max) = $this->CalculatePageIndex($ind);
-   $query = qq/select id, sortname, modpending
-                    from Label 
-                   where page >= $page and page <= $page_max/;
-   $max_labels = 0;
-   if ($sql->Select($query))
-   {
-       $max_labels = $sql->Rows();
-       for(;@row = $sql->NextRow;)
-       {
-           my $temp = unaccent($row[1]);
-       $temp = lc decode("utf-8", $temp);
-
-           # Remove all non alpha characters to sort cleaner
-           $temp =~ tr/A-Za-z0-9 //cd;
-
-           # Change space to 0 since perl has some FUNKY collate order
-           $temp =~ tr/ /0/;
-           push @info, [$row[0], $row[1], $row[2], $temp];
-       }
-
-       # This sort is necessary in order for us to get the right
-       # ordering. Unfortunately its sorting a mainly sorted list
-       # and it uses quicksort, which is BAD.
-       @info = sort { $a->[3] cmp $b->[3] } @info;
-       splice @info, 0, $offset;
-
-       # Only return the three things we said we would
-       splice(@$_, 3) for @info;
-   }
-
-   $sql->Finish;   
-   return ($max_labels, @info);
+    return unless length($ind) > 0;
+    
+    my $sql = Sql->new($self->dbh);
+    my ($page, $page_max) = $self->CalculatePageIndex($ind);
+    
+    my $total_entries = $sql->SelectSingleValue(qq{
+        SELECT COUNT(*)
+          FROM label
+         WHERE page >= ? AND page <= ?
+        },
+        $page,
+        $page_max
+    );
+    
+    my $rows = $sql->SelectListOfHashes(qq{
+        SELECT id, gid, sortname
+          FROM label
+         WHERE page >= ? AND page <= ?
+      ORDER BY LOWER(sortname)
+         LIMIT 50
+        OFFSET ?
+        },
+        $page,
+        $page_max,
+        $offset
+    );
+    
+    $rows = [ map { MusicBrainz::Server::Label->new($self->dbh, $_); } @$rows ];
+   
+    $sql->Finish;
+    return ($total_entries, $rows);
 }
 
 =head2 releases

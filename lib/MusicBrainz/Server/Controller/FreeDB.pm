@@ -56,9 +56,10 @@ sub import : Local
     my @durations = split ' ', $freedb_entry->{durations};
 
     require MusicBrainz::Server::Release;
-    my $release = MusicBrainz::Server::Release->new();
-    $release->name($freedb_entry->{album});
-    $release->track_count($track_count);
+    my $release = MusicBrainz::Server::Release->new(undef,
+        name => $freedb_entry->{album},
+        track_count => $track_count,
+    );
 
     require MusicBrainz::Server::Track;
     my @tracks;

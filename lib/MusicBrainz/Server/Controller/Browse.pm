@@ -5,30 +5,30 @@ use warnings;
 
 use base 'MusicBrainz::Server::Controller';
 
+use Data::Page;
+
 sub browse : Path('') Local
 {
-	my ($self, $c, $type, $index) = @_;
-	
-	$index = uc $index;
-	my $page   = $c->req->query_params->{page}   || 0;
-	my $offset = $c->req->query_params->{offset} || 0;
-	
-	# handle offset argument
-	my $max_items = 50;
-	
-	if ($page > 0)
-	{
-		$offset = ($page-1) * $max_items;
-	}
-	
-	$offset = $offset < 0 ? 0 : $offset;
-	
-	my ($count, $entities) = $c->model($type | ucfirst)->get_browse_selection($index, $offset);
+    my ($self, $c, $type, $index) = @_;
+    
+    my $page = $c->req->query_params->{page};
+    
+    # Set up paging
+    my $pager = Data::Page->new;
+    $pager->entries_per_page(50);
+    $pager->current_page($page);
+    
+    # Query for matching entities
+    $index = uc $index;
+    my ($count, $entities) = $c->model($type | ucfirst)->get_browse_selection($index, ($page - 1) * $pager->entries_per_page);
+    
+    $pager->total_entries($count);
 
-	$c->stash->{count}    = $count;
-	$c->stash->{entities} = $entities;
-	$c->stash->{index}    = $index;
-	$c->stash->{type}     = $type;
+    $c->stash->{count}    = $count;
+    $c->stash->{entities} = $entities;
+    $c->stash->{pager}    = $pager;
+    $c->stash->{index}    = $index;
+    $c->stash->{type}     = $type;
 }
 
 1;
