@@ -1,34 +1,18 @@
 [%- WRAPPER "layout.tt" -%]
-[%#- To generate the page url for pagination  -#%]
-[%- BLOCK url_for_page; group.url_for_page(page); END -%]
+    <h2>[%- type | ucfirst -%]s tagged with &quot;[% tag %]&quot;</h2>
 
-[%#- Include the pagination control -#%]
-[%- BLOCK paginator -%]
-    [%- INCLUDE 'components/paginator.tt'
-        total_pages  = group.total_pages
-        current_page = group.current_page -%]
-[%- END -%]
-
-[%- FOREACH group=tag_types -%]
-    <h2>[%- group.type | ucfirst -%]</h2>
-
-    [%- IF group.entities.size -%]
-        [%- INCLUDE paginator -%]
-
-        <table>
-        [%- FOREACH entity=group.entities -%]
-            <tr>
-            <td>[% INCLUDE "components/entity-link.tt" %]</td>
-            <td>[% entity.amount %]</td>
-            </tr>
+    [%- IF entities.size -%]
+        [%- WRAPPER 'components/with-pager.tt' -%]
+            <table>
+            [%- FOREACH entity IN entities -%]
+                <tr>
+                <td>[% INCLUDE "components/entity-link.tt" %]</td>
+                <td>[% entity.amount %]</td>
+                </tr>
+            [%- END -%]
+            </table>
         [%- END -%]
-        </table>
-
-        [%- INCLUDE paginator -%]
-        
     [%- ELSE -%]
         <p>No [% group.type %]s have been tagged with "[% tag | html %]"</p>
     [%- END -%]
-[%- END -%]
-
 [%- END -%]

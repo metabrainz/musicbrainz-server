@@ -1,0 +1,22 @@
+[%- WRAPPER "layout.tt" -%]
+
+[%- FOREACH group=tag_types -%]
+    <h2>[%- group.type | ucfirst -%]</h2>
+
+    [%- IF group.entities.size -%]
+        <table>
+        [%- FOREACH entity=group.entities -%]
+            <tr>
+            <td>[% INCLUDE "components/entity-link.tt" %]</td>
+            <td>[% entity.amount %]</td>
+            </tr>
+        [%- END -%]
+        </table>
+        
+        <p><a href="[% c.uri_for('/tags', tag, group.type) %]">View More</a></p>
+    [%- ELSE -%]
+        <p>No [% group.type %]s have been tagged with "[% tag | html %]"</p>
+    [%- END -%]
+[%- END -%]
+
+[%- END -%]

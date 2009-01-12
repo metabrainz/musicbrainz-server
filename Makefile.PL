@@ -18,6 +18,7 @@ requires 'Catalyst::Plugin::Static::Simple';
 requires 'Catalyst::Runtime' => '5.7012';
 requires 'Catalyst::View::Email';
 requires 'Catalyst::View::TT';
+requires 'Data::Page';
 requires 'Date::Calc';
 requires 'DBD::Pg';
 requires 'DBI';

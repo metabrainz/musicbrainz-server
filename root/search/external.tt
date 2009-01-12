@@ -1,13 +1,7 @@
 [% WRAPPER "layout.tt" title="Search" %]
 
 [% WRAPPER "components/box.tt" header="Search Results" %]
-    [% INCLUDE "components/paginator.tt" %]
-
-    [% results %]
-
-    [%# Yes, this is ugly... TODO Better solution? -%]
-    [%- BLOCK url_for_page; url_for_page(page); END -%]
-    [% INCLUDE "components/paginator.tt" %]
+    [% results WRAPPER 'components/with-pager.tt' %]
 [% END IF results%]
 
 [% INCLUDE "search/form.tt" %]

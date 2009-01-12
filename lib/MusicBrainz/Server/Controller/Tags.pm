@@ -5,6 +5,7 @@ use warnings;
 
 use base 'MusicBrainz::Server::Controller';
 
+use Data::Page;
 use MusicBrainz::Server::Artist;
 use MusicBrainz::Server::Label;
 use MusicBrainz::Server::Release;
@@ -27,64 +28,48 @@ Display all entities that relate to a given tag.
 
 =cut
 
-sub display : Path
+sub display_summary : Path Args(1)
 {
-    my ($self, $c, $tag, $type) = @_;
+    my ($self, $c, $tag) = @_;
 
-    $c->detach('all')
-        unless($tag);
-
-    $type ||= 'all';
-    unless ($type eq 'all'      ||
-            $type eq 'artist'   ||
-            $type eq 'label'    ||
-            $type eq 'track'    ||
-            $type eq 'release')
-    {
-        die "$type is not a valid type of entity";
-    }
-
-    my @display_types = $type ne 'all' ? ($type)
-                      :                  ('artist', 'label', 'release', 'track');
-
-    my $limit  = ($type eq 'all') ? 10 : 100;
-    my $offset = $c->req->query_params->{offset} || 0;
-    $offset = $offset >= 0 ? $offset : 0;
-
-    $c->stash->{offset} = $offset;
-
-    $c->stash->{tag_types} = [];
-    for my $tag_type (@display_types)
-    {
-	my ($tags, $count) = $c->model('Tag')->tagged_entities(
-            $tag, $tag_type, $limit, $offset
+    $c->stash->{tag_types} = [ map {
+        my ($tags, $count) = $c->model('Tag')->tagged_entities(
+            $tag, $_, 10, 0
         );
-
-        use POSIX qw(ceil floor);
-
-        my $total_pages = ceil($count / $limit);
-
-        push @{ $c->stash->{tag_types} }, {
-            type         => $tag_type,
-            entities     => $tags,
-            current_page => floor($offset / $limit) + 1,
-            total_pages  => $total_pages,
-
-            url_for_page => sub {
-                my $page_number = shift;
-                $page_number = $page_number - 1;
-
-                my $new_offset  = $page_number * $limit;
-
-                my $query = $c->req->query_params;
-                $query->{offset} = $page_number * $limit;
-
-                $c->uri_for('/tags', $tag, $tag_type, $query);
-            }
-        };
-    }
+        
+        {
+            type     => $_,
+            entities => $tags,
+        }
+    } qw/artist label release track/ ];
 
     $c->stash->{tag} = $tag;
+    $c->stash->{template} = 'tag/display_summary.tt';
+}
+
+sub display : Path Args(2)
+{
+    my ($self, $c, $tag, $type) = @_;
+    
+    die "$type is not a valid type of entity"
+        unless grep { $type eq $_ } qw/ artist label track release /;
+    
+    my $page = $c->req->params->{page} || 1;
+    
+    my $pager = Data::Page->new;
+    $pager->current_page($page);
+    $pager->entries_per_page(50);
+    
+    my ($tags, $count) = $c->model('Tag')->tagged_entities(
+        $tag, $type, $pager->entries_per_page, ($page - 1) * $pager->entries_per_page
+    );
+    
+    $pager->total_entries($count);
+    
+    $c->stash->{tag}      = $tag;
+    $c->stash->{type}     = $type;
+    $c->stash->{entities} = $tags;
+    $c->stash->{pager}    = $pager;
     $c->stash->{template} = 'tag/display.tt';
 }
 

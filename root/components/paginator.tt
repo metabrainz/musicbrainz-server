@@ -1,20 +1,22 @@
-[% IF total_pages %]
+[% IF pager %]
     <ul class="paginator">
-        <li class="counter">Page [% current_page %] of [% total_pages %]</li>
-        [% IF current_page > 1 %]
-            <li><a href="[% INCLUDE url_for_page page=1 %]">&laquo;</a></li>
-            <li><a href="[% INCLUDE url_for_page page=(current_page - 1) %]">&lt;</a></li>
+        <li class="counter">Page [% pager.current_page %] of [% pager.last_page %]</li>
+        <li><a href="[% c.req.uri_with( page => pager.first_page ) %]">&laquo;</a></li>
+        [% IF pager.previous_page %]
+            <li><a href="[% c.req.uri_with( page => pager.previous_page ) %]">&lt;</a></li>
         [% END %]
-        
-        [% start=(current_page - 3) > 0 ? (current_page - 3) : 1;
-         FOREACH page=[start..total_pages] %]
-            [% LAST IF loop.count > 5 %]
-            <li[% IF current_page == page; ' class="current"'; END %]><a href="[% INCLUDE url_for_page %]">[% page %]</a></li>
+    
+        [% start = (pager.current_page - 2) > 0 ? (pager.current_page - 3) : 1;
+         FOREACH page IN [ start .. pager.last_page ] %]
+            [% LAST IF loop.count > 6 %]
+            <li[% IF pager.current_page == page; ' class="current"'; END %]>
+                <a href="[% c.req.uri_with( page => page ) %]">[% page %]</a>
+            </li>
         [% END %]
-        
-        [% IF current_page != total_pages %]
-            <li><a href="[% INCLUDE url_for_page page=current_page + 1 %]">&gt;</a></li>
-            <li><a href="[% INCLUDE url_for_page page=total_pages %]">&raquo;</a></li>
+
+        [% IF pager.next_page %]
+            <li><a href="[% c.req.uri_with( page => pager.next_page ) %]">&gt;</a></li>
         [% END %]
+        <li><a href="[% c.req.uri_with( page => pager.last_page ) %]">&raquo;</a></li>
     </ul>
 [% END %]

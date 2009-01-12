@@ -5,6 +5,7 @@ use warnings;
 
 use base 'MusicBrainz::Server::Controller';
 
+use Data::Page;
 use DBDefs;
 use MusicBrainz::Server::Vote;
 
@@ -242,36 +243,17 @@ sub open : Local
     my ($self, $c) = @_;
 
     $c->forward('/user/login');
+    
+    my $page = $c->req->{query_params}->{page} || 1;
+    
+    my $pager = Data::Page->new;
+    $pager->entries_per_page(25);
+    $pager->current_page($page);
 
-    use POSIX qw/ceil floor/;
+    my $edits      = $c->model('Moderation')->list_open($pager->entries_per_page, ($page - 1) * $pager->entries_per_page);
+    $pager->total_entries($c->model('Moderation')->count_open);
 
-    my $offset = $c->req->query_params->{offset} || 0;
-    my $limit  = $c->req->query_params->{limit} || 25;
-
-    $limit = $limit > 100 ? 100 : $limit;
-    $limit = $limit < 25  ? 25  : $limit;
-
-    $offset = $offset < 0 ? 0 : $offset;
-
-    my $current_page = floor($offset / $limit) + 1;
-
-    my $edits      = $c->model('Moderation')->list_open($limit, $offset);
-    my $total_open = $c->model('Moderation')->count_open();
-
-    $c->stash->{current_page} = $current_page;
-    $c->stash->{total_pages}  = ceil($total_open / $limit);
-    $c->stash->{url_for_page} = sub {
-        my $page_number = shift; # Page number, 0 base
-	$page_number--;
-
-        my $new_offset = $page_number * $limit;
-
-        my $query = $c->req->query_params;
-        $query->{offset} = $new_offset;
-
-	$c->uri_for('/moderation/open', $query);
-    };
-
+    $c->stash->{pager}    = $pager;
     $c->stash->{template} = 'moderation/open.tt';
     $c->stash->{edits   } = $edits;
 }

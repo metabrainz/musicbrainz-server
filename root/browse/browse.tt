@@ -12,27 +12,6 @@
             </li>
             [% END %]
         </ol>
-        
-        <ul class="paginator">
-            <li class="counter">Page [% pager.current_page %] of [% pager.last_page %]</li>
-            <li><a href="[% c.req.uri_with( page => pager.first_page ) %]">&laquo;</a></li>
-            [% IF pager.previous_page %]
-                <li><a href="[% c.req.uri_with( page => pager.previous_page ) %]">&lt;</a></li>
-            [% END %]
-            
-            [% start = (pager.current_page - 3) > 0 ? (pager.current_page - 3) : 1;
-             FOREACH page IN [ start .. pager.last_page ] %]
-                [% LAST IF loop.count > 5 %]
-                <li[% IF pager.current_page == page; ' class="current"'; END %]>
-                    <a href="[% c.req.uri_with( page => page ) %]">[% page %]</a>
-                </li>
-            [% END %]
-
-            [% IF pager.next_page %]
-                <li><a href="[% c.req.uri_with( page => pager.next_page ) %]">&gt;</a></li>
-            [% END %]
-            <li><a href="[% c.req.uri_with( page => pager.last_page ) %]">&raquo;</a></li>
-        </ul>
     [% END %]
 [% ELSE %]
     [% WRAPPER "components/box.tt" header="Browse ${type}s"%]
