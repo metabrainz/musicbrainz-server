@@ -254,8 +254,26 @@ sub open : Local
     $pager->total_entries($c->model('Moderation')->count_open);
 
     $c->stash->{pager}    = $pager;
-    $c->stash->{template} = 'moderation/open.tt';
     $c->stash->{edits   } = $edits;
+}
+
+=head2 for_type
+
+Show all edits for a certain entity
+
+=cut
+
+sub for_type : Path('entity') Args(2)
+{
+    my ($self, $c, $type, $mbid) = @_;
+    
+    $c->forward('/user/login');
+    
+    my $entity = $c->model(ucfirst $type)->load($mbid);
+    my $edits  = $c->model('Moderation')->edits_for_entity($entity);
+    
+    $c->stash->{edits}  = $edits;
+    $c->stash->{entity} = $entity;
 }
 
 =head2 conditions

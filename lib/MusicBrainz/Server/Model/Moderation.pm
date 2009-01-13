@@ -71,6 +71,23 @@ sub voted_on
     return $edits;
 }
 
+sub edits_for_entity
+{
+    my ($self, $entity, $max, $offset) = @_;
+
+    $max ||= 50;
+    $offset ||= 0;
+
+    my $edit = Moderation->new($self->dbh);
+    my ($result, $edits) = $edit->moderation_list(
+        "SELECT m.*, NOW() > m.expiretime AS expired
+           FROM moderation_all m
+          WHERE m.rowid = " . $entity->id . "
+       ORDER BY m.id DESC", undef, $offset, $max);
+
+    return $edits;
+}
+
 sub users_edits
 {
     my ($self, $user, $type, $max, $offset) = @_;
