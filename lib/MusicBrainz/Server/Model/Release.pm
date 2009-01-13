@@ -272,10 +272,10 @@ sub find_linked_albums
 
 sub get_browse_selection
 {
-    my ($self, $index, $offset) = @_;
+    my ($self, $index, $offset, $artist) = @_;
 
     my $ar = MusicBrainz::Server::Release->new($self->dbh);
-    my ($count, $rels) = $ar->browse_selection($index, $offset);
+    my ($count, $rels) = $ar->browse_selection($index, $offset, $artist);
 
     return ($count, $rels);
 }

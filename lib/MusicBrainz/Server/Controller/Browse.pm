@@ -7,11 +7,12 @@ use base 'MusicBrainz::Server::Controller';
 
 use Data::Page;
 
-sub browse : Path('')
+sub browse : Path('') Args(1)
 {
-    my ($self, $c, $type, $index) = @_;
+    my ($self, $c, $type) = @_;
     
-    my $page = $c->req->query_params->{page} || 1;
+    my $page  = $c->req->query_params->{page} || 1;
+    my $index = $c->req->query_params->{index};
     
     # Set up paging
     my $pager = Data::Page->new;

@@ -1,6 +1,6 @@
 [% WRAPPER "components/box.tt" header="Browse" %]
 	[% MACRO append_link(char) BLOCK;
-		c.uri_for('/browse', type, "${index}${char}");
+		c.req.uri_with( index => "${c.req.query_params.index}${char}", page => 1 );
 	END %]
 	[% BLOCK characters %]
 		[% FOR char IN chars %]

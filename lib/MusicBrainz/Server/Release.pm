@@ -1060,33 +1060,62 @@ sub MergeLanguageAndScriptFrom
 # of albumid, sortname, modpending. The array is empty on error.
 sub browse_selection
 {
-    my ($this, $ind, $offset, $limit) = @_;
+    my ($this, $ind, $offset, $limit, $artist) = @_;
 
     return unless length($ind) > 0;
     
     my $sql = Sql->new($this->dbh);
 
-    my ($page_min, $page_max) = $this->CalculatePageIndex($ind);    
-    $sql->Select(qq{
-        SELECT gid, name
-          FROM album
+    my ($page_min, $page_max) = $this->CalculatePageIndex($ind);
+
+    my $query = qq{
+        SELECT a.id, a.gid, a.name, a.modpending, a.attributes, a.language, a.script,
+               m.firstreleasedate, m.tracks, m.puids, m.discids
+          FROM album a, albummeta m
          WHERE page BETWEEN ? AND ?
-      ORDER BY LOWER(name)
-        OFFSET ?
-        },
+           AND m.id = a.id
+        };
+
+    my @args = (
         $page_min,
         $page_max,
         $offset
     );
+
+    if (defined $artist)
+    {
+        $query .= 'AND artist = ?';
+        push @args, $artist->id;
+    }
     
+    $query .= qq{
+        ORDER BY LOWER(name)
+          OFFSET ?
+    };
+
+    $sql->Select($query, @args);
+
     my $total_entries = $sql->Rows + $offset;
-    
+
     my @rows;
     for (1 .. ($limit || 50))
     {
         my $row = $sql->NextRowHashRef
             or last;
-        push @rows, MusicBrainz::Server::Release->new($this->dbh, $row);
+        
+        # TODO: Moose!
+        my $release = MusicBrainz::Server::Release->new($this->dbh);
+        $release->id($row->{id});
+        $release->name($row->{name});
+        $release->mbid($row->{gid});
+        $release->language_id($row->{language});
+        $release->script_id($row->{script});
+        $release->{firstreleasedate} = $row->{firstreleasedate};
+        $release->{trackcount} = $row->{tracks};
+        $release->{puidcount} = $row->{puidcount};
+        $release->{attrs} = $row->{attributes};
+        
+        push @rows, $release;
     }
 
     return ($total_entries, \@rows);

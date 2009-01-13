@@ -10,6 +10,7 @@ __PACKAGE__->config(
     entity_name => 'artist',
 );
 
+use Data::Page;
 use MusicBrainz::Server::Adapter qw(Google);
 use ModDefs;
 use UserSubscription;
@@ -181,20 +182,57 @@ sub show : PathPart('') Chained('artist')
 {
     my ($self, $c) = @_;
     my $artist = $self->entity;
+    
+    if ($artist->id == ModDefs::VARTIST_ID)
+    {
+        $c->detach('_show_various');
+    }
+    else
+    {
+        my $show_all = $c->req->query_params->{show_all} || 0;
 
-    my $show_all = $c->req->query_params->{show_all} || 0;
+        $c->stash->{tags}       = $c->model('Tag')->top_tags($artist);
+        $c->stash->{releases}   = $c->model('Release')->load_for_artist($artist, $show_all);
+        $c->stash->{relations}  = $c->model('Relation')->load_relations($artist, to_type => [ 'artist', 'url', 'label', 'album' ]);
+        $c->stash->{annotation} = $c->model('Annotation')->load_latest_annotation($artist);
 
-    $c->stash->{tags}       = $c->model('Tag')->top_tags($artist);
-    $c->stash->{releases}   = $c->model('Release')->load_for_artist($artist, $show_all);
-    $c->stash->{relations}  = $c->model('Relation')->load_relations($artist, to_type => [ 'artist', 'url', 'label', 'album' ]);
-    $c->stash->{annotation} = $c->model('Annotation')->load_latest_annotation($artist);
-
-    # Decide how to display the data
-    $c->stash->{template} = defined $c->request->query_params->{full} ? 
-                                'artist/full.tt' :
-                                'artist/compact.tt';
+        # Decide how to display the data
+        $c->stash->{template} = defined $c->request->query_params->{full} ? 
+                                    'artist/full.tt' :
+                                    'artist/compact.tt';
+    }
 }
 
+=head2 _show_various
+
+This internal action handles displaying the various artist browse page,
+as there are simply far too many releases to display on one page
+
+=cut
+
+sub _show_various : Private
+{
+    my ($self, $c) = @_;
+    
+    my $page = $c->req->query_params->{page} || 1;
+    
+    my $pager = Data::Page->new;
+    $pager->entries_per_page(50);
+    $pager->current_page($page);
+    
+    my $index = uc $c->req->query_params->{index} || '';
+    
+    my ($count, $releases) = $c->model('Release')->
+        get_browse_selection($index, ($page - 1) * $pager->entries_per_page );
+
+    $pager->total_entries($count);
+
+    $c->stash->{count}    = $count;
+    $c->stash->{releases} = $releases;
+    $c->stash->{pager}    = $pager;
+    
+    $c->stash->{template} = 'artist/browse_various.tt';
+}
 
 =head2 WRITE METHODS
 
