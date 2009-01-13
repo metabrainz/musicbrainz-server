@@ -245,16 +245,11 @@ sub open : Local
     $c->forward('/user/login');
     
     my $page = $c->req->{query_params}->{page} || 1;
-    
-    my $pager = Data::Page->new;
-    $pager->entries_per_page(25);
-    $pager->current_page($page);
 
-    my $edits      = $c->model('Moderation')->list_open($pager->entries_per_page, ($page - 1) * $pager->entries_per_page);
-    $pager->total_entries($c->model('Moderation')->count_open);
+    my ($edits, $pager)= $c->model('Moderation')->list_open($page);
 
-    $c->stash->{pager}    = $pager;
-    $c->stash->{edits   } = $edits;
+    $c->stash->{pager} = $pager;
+    $c->stash->{edits} = $edits;
 }
 
 =head2 for_type
@@ -269,10 +264,13 @@ sub for_type : Path('entity') Args(2)
     
     $c->forward('/user/login');
     
+    my $page = $c->req->{query_params}->{page} || 1;
+    
     my $entity = $c->model(ucfirst $type)->load($mbid);
-    my $edits  = $c->model('Moderation')->edits_for_entity($entity);
+    my ($edits, $pager) = $c->model('Moderation')->edits_for_entity($entity, $page);
     
     $c->stash->{edits}  = $edits;
+    $c->stash->{pager}  = $pager;
     $c->stash->{entity} = $entity;
 }
 

@@ -1419,7 +1419,7 @@ sub moderation_list
 		$_->PreDisplay;
 	}
 
-	return (SEARCHRESULT_SUCCESS, \@edits, $index+$total_rows);
+	return (SEARCHRESULT_SUCCESS, \@edits, $index + $total_rows);
 }
 
 ################################################################################

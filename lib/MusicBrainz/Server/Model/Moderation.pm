@@ -35,65 +35,64 @@ sub insert
     return @mods;
 }
 
+sub _query_with_pager
+{
+    my ($self, $query, $page, $per_page) = @_;
+    
+    $per_page ||= 50;
+    
+    my $pager = Data::Page->new;
+    $pager->current_page($page);
+    $pager->entries_per_page($per_page);
+    
+    my $edit = new Moderation($self->dbh);
+    my $offset = ($page - 1) * $per_page;
+    my ($result, $edits, $rows) = $edit->moderation_list($query, undef, $offset, $per_page);
+    
+    $pager->total_entries($rows);
+
+    return ($edits, $pager);
+}
+
 sub list_open
 {
-    my ($self, $max, $offset) = @_;
+    my ($self, $page, $per_page) = @_;
 
-    $max ||= 50;
-    $offset ||= 0;
-
-    my $edit = new Moderation($self->dbh);
-    my ($result, $edits) = $edit->moderation_list(q{
+    return $self->_query_with_pager(q{
               SELECT m.*, NOW()>m.expiretime AS expired
                 FROM moderation_open m
             ORDER BY m.id DESC
-        }, undef, $offset, $max);
-
-    return $edits;
+        }, $page, $per_page);
 }
 
 sub voted_on
 {
-    my ($self, $user, $max, $offset) = @_;
-
-    $max ||= 50;
-    $offset ||= 0;
+    my ($self, $user, $page, $per_page) = @_;
 
     my $edit = Moderation->new($self->dbh);
-    my ($result, $edits) = $edit->moderation_list(
+    return $self->_query_with_pager(
         "SELECT m.*, NOW() > m.expiretime AS expired, v.vote
            FROM moderation_all m
      INNER JOIN vote_all v ON v.moderation = m.id
             AND v.moderator = " . $user->id . "
         AND NOT v.superseded
-       ORDER BY m.id DESC", undef, $offset, $max);
-
-    return $edits;
+       ORDER BY m.id DESC", $page, $per_page);
 }
 
 sub edits_for_entity
 {
-    my ($self, $entity, $max, $offset) = @_;
+    my ($self, $entity, $page, $per_page) = @_;
 
-    $max ||= 50;
-    $offset ||= 0;
-
-    my $edit = Moderation->new($self->dbh);
-    my ($result, $edits) = $edit->moderation_list(
+    return $self->_query_with_pager(
         "SELECT m.*, NOW() > m.expiretime AS expired
            FROM moderation_all m
           WHERE m.rowid = " . $entity->id . "
-       ORDER BY m.id DESC", undef, $offset, $max);
-
-    return $edits;
+       ORDER BY m.id DESC", $page, $per_page);
 }
 
 sub users_edits
 {
-    my ($self, $user, $type, $max, $offset) = @_;
-
-    $max ||= 50;
-    $offset ||= 0;
+    my ($self, $user, $type, $page, $per_page) = @_;
 
     my @status = $type eq 'closed'    ? ( ModDefs::STATUS_APPLIED )
                : $type eq 'failed'    ? ( ModDefs::STATUS_FAILEDVOTE, ModDefs::STATUS_FAILEDDEP, ModDefs::STATUS_FAILEDPREREQ )
@@ -107,16 +106,12 @@ sub users_edits
               : $type eq 'all' ? 'all'
               : 'all';
 
-    my $query = "SELECT m.*, NOW() > m.expiretime AS expired
-                   FROM moderation_$table m
-                  WHERE m.moderator = " . $user->id . "
-                    AND m.status IN ( ". join(",",@status) .")
-               ORDER BY m.id DESC";
-
-    my $edit = Moderation->new($self->dbh);
-    my ($result, $edits) = $edit->moderation_list($query, undef, $offset, $max);
-
-    return $edits;
+    return $self->_query_with_pager(
+        "SELECT m.*, NOW() > m.expiretime AS expired
+           FROM moderation_$table m
+          WHERE m.moderator = " . $user->id . "
+            AND m.status IN ( ". join(",",@status) .")
+       ORDER BY m.id DESC", $page, $per_page);
 }
 
 sub count_open

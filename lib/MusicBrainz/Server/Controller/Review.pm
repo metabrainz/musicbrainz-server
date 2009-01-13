@@ -8,6 +8,8 @@ use base 'MusicBrainz::Server::Controller';
 sub user : Chained('/') PathPart('review') CaptureArgs(1)
 {
     my ($self, $c, $user_name) = @_;
+    
+    $c->forward('/user/login');
 
     $c->stash->{user} = $c->model('User')->load({ username => $user_name });
 }
@@ -15,8 +17,13 @@ sub user : Chained('/') PathPart('review') CaptureArgs(1)
 sub votes : Chained('user')
 {
     my ($self, $c) = @_;
+    
+    my $page = $c->req->query_params->{page} || 1;
 
-    $c->stash->{edits} = $c->model('Moderation')->voted_on($c->stash->{user});
+    my ($edits, $pager) = $c->model('Moderation')->voted_on($c->stash->{user}, $page);
+
+    $c->stash->{edits} = $edits;
+    $c->stash->{pager} = $pager;
     $c->stash->{template} = 'moderation/open.tt';
 }
 
@@ -26,7 +33,12 @@ sub edits : Chained('user')
 
     $type ||= 'all';
 
-    $c->stash->{edits} = $c->model('Moderation')->users_edits($c->stash->{user}, $type);
+    my $page = $c->req->query_params->{page} || 1;
+
+    my ($edits, $pager) = $c->model('Moderation')->users_edits($c->stash->{user}, $type);
+
+    $c->stash->{edits} = $edits;
+    $c->stash->{pager} = $pager;
     $c->stash->{template} = 'moderation/open.tt';
 }
 
