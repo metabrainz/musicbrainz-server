@@ -111,7 +111,7 @@ sub GetPageIndex
     my $index;
 
     # Get index from cache, if we have it
-    if (1) #!($index = MusicBrainz::Server::Cache->get(WIKIDOCS_INDEX)))
+    if (!($index = MusicBrainz::Server::Cache->get(WIKIDOCS_INDEX)))
     {
         if (&DBDefs::REPLICATION_TYPE == RT_SLAVE)
         {

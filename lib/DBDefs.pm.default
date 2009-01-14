@@ -132,10 +132,9 @@ sub EMAIL_VERIFICATION_TIMEOUT { 604800 } # one week
 ################################################################################
 # Documentation Server Settings
 ################################################################################
-sub WIKIDOC_SERVER	 { "wikidocs.musicbrainz.org" }
 sub WIKITRANS_SERVER	 { "wiki.musicbrainz.org" }
-sub WIKITRANS_INDEX_FILE { MB_SERVER_ROOT() . "/htdocs/generated/wikitrans-index" }
-sub WIKITRANS_INDEX_URL  { "http://musicbrainz.org/generated/wikitrans-index" }
+sub WIKITRANS_INDEX_FILE { MB_SERVER_ROOT() . "/root/static/wikidocs/index.txt" }
+sub WIKITRANS_INDEX_URL  { "http://musicbrainz.org/static/wikidocs/index.txt" }
 
 ################################################################################
 # Cache Settings
