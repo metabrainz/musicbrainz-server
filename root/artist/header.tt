@@ -37,7 +37,7 @@
             [%- edit_links = [
                 { link => c.entity_url(artist, 'add_alias'), text => "Add Alias" },
                 { link => c.entity_url(artist, 'add_non_album'), text => "Add Non-Album Tracks" },
-#               { link => c.entity_url(artist, 'add_release'), text => "Add Release" },
+                { link => c.uri_for('/artist', artist.mbid || artist.id, 'add_release'), text => "Add Release" },
                 { link => c.entity_url(artist, 'change_quality'), text => "Change Data Quality" },
                 { link => c.entity_url(artist, 'edit'), text => "Edit Artist" },
                 { link => c.entity_url(artist, 'import'), text => "Import Release" },
