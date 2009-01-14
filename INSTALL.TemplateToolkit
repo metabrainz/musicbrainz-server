@@ -85,7 +85,17 @@ Getting going
 		--echo just gives us a bit more feedback, in case this goes wrong - you can leave it off.
 		Remember to change the paths to your mbdump*.tar.bz2 files, if they are not in /tmp/dumps/.
 
-5) Start the development server
+5) Load WikiDocs transclusion file (optional)
+
+	If you would like to have the /doc pages load properly on a RT_STANDALONE installation, follow 
+	these steps:
+
+	       cd <mb_server-tt>/root/static/wikidocs
+	       curl http://musicbrainz.org/generated/wikitrans-index > index.txt
+
+	After this, the documentation index should be loadable.
+
+6) Start the development server
 
 	You should now have everything ready to run the development server! The development server is
 	a lightweight HTTP server, that gives good debug output, and is much more convenient than having
