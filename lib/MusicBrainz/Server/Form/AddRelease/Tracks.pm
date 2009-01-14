@@ -3,7 +3,7 @@ package MusicBrainz::Server::Form::AddRelease::Tracks;
 use strict;
 use warnings;
 
-use base 'MusicBrainz::Server::Form::EditForm';
+use base 'MusicBrainz::Server::Form';
 
 use Rose::Object::MakeMethods::Generic(
     scalar => [ 'track_count', 'event_count' ]
@@ -55,6 +55,13 @@ sub add_events
         my $event_field = $self->make_field("event_$i", '+MusicBrainz::Server::Form::Field::ReleaseEvent');
         $self->add_field($event_field);
     }
+}
+
+sub insert
+{
+    my ($self, $artists_id_map, $labels_id_map) = @_;
+    
+    die "Not yet implemented!";
 }
 
 sub mod_type { ModDefs::MOD_ADD_RELEASE }
