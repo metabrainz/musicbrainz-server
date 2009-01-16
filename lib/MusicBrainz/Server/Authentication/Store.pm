@@ -2,6 +2,7 @@ package MusicBrainz::Server::Authentication::Store;
 
 use strict;
 use warnings;
+use MusicBrainz::Server::Editor;
 
 sub new
 {
@@ -18,13 +19,25 @@ sub find_user
 sub for_session
 {
     my ($self, $c, $user) = @_;
-    return $user->id;
+    return {
+        'id' => $user->id,
+        'privs' => $user->privs,
+        'name' => $user->name,
+        'edits_accepted' => $user->mods_accepted,
+        'has_confirmed_email' => $user->email ? 1 : 0,
+    };
 }
 
 sub from_session
 {
     my ($self, $c, $frozen_user) = @_;
-    return $c->model('User')->load({ id => $frozen_user });
+    my $user = MusicBrainz::Server::Editor->new($c->mb->dbh);
+    $user->id($frozen_user->{id});
+    $user->name($frozen_user->{name});
+    $user->privs($frozen_user->{privs});
+    $user->mods_accepted($frozen_user->{edits_accepted});
+    $user->{has_confirmed_email} = $frozen_user->{has_confirmed_email};
+    return $user;
 }
 
 1;
