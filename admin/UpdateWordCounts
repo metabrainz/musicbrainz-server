@@ -56,12 +56,12 @@ use Sql;
 
 (my $mb1 = MusicBrainz->new)->Login;
 (my $mb2 = MusicBrainz->new)->Login;
-my $sqlRead = Sql->new($mb1->{DBH});
-my $sqlWrite = Sql->new($mb2->{DBH});
+my $sqlRead = Sql->new($mb1->{dbh});
+my $sqlWrite = Sql->new($mb2->{dbh});
 
 if ($do_update) {
 
-my $sth = $sqlWrite->{DBH}->prepare(
+my $sth = $sqlWrite->{dbh}->prepare(
 	"UPDATE wordlist
 	SET artistusecount = ?, albumusecount = ?, trackusecount = ?, labelusecount = ?
 	WHERE id = ?

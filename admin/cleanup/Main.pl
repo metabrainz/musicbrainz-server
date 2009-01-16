@@ -79,7 +79,7 @@ sub Main
     $mb = MusicBrainz->new;
     $mb->Login;
 
-    Cleanup($mb->{DBH}, $fix, $quiet, @ARGV);
+    Cleanup($mb->{dbh}, $fix, $quiet, @ARGV);
 
     # Disconnect
     $mb->Logout;

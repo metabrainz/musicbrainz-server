@@ -35,10 +35,10 @@ use Apache;
 my $mb = MusicBrainz->new();
 $mb->Login;
 
-my $el = MusicBrainz::Server::AutomodElection->new($mb->{DBH});
+my $el = MusicBrainz::Server::AutomodElection->new($mb->{dbh});
 $el->DoCloseElections;
 
-my $mod = MusicBrainz::Server::ModBot->new($mb->{DBH});
+my $mod = MusicBrainz::Server::ModBot->new($mb->{dbh});
 my $r = $mod->CheckModerations(@ARGV);
 
 exit $r;

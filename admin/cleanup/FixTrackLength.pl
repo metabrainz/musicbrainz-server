@@ -62,7 +62,7 @@ EOF
 
 my $mb = MusicBrainz->new;
 $mb->Login;
-my $sql = Sql->new($mb->{DBH});
+my $sql = Sql->new($mb->{dbh});
 $| = 1;
 my $privs = &UserStuff::AUTOMOD_FLAG;
 my $moderator = &ModDefs::MODBOT_MODERATOR;
@@ -93,7 +93,7 @@ for my $album (@$albums)
 	no warnings 'exiting';
 	eval {
 
-		my $tocs = MusicBrainz::Server::ReleaseCDTOC->newFromRelease($mb->{DBH}, $id);
+		my $tocs = MusicBrainz::Server::ReleaseCDTOC->newFromRelease($mb->{dbh}, $id);
 		$_ = $_->GetCDTOC for @$tocs;
 
 		if ($debug)
@@ -133,7 +133,7 @@ for my $album (@$albums)
 		# tracks, and all the tracks have no length.
 		if (@$tocs == 1)
 		{
-			my $release = MusicBrainz::Server::Release->new($mb->{DBH});
+			my $release = MusicBrainz::Server::Release->new($mb->{dbh});
 			$release->SetId($id);
 			$release->SetArtist($album->{artist});
 
@@ -171,7 +171,7 @@ for my $album (@$albums)
 						if $verbose;
 
 					my @mods = Moderation->InsertModeration(
-						DBH => $mb->{DBH},
+						DBH => $mb->{dbh},
 						uid => $moderator,
 						privs => $privs,
 						type => &ModDefs::MOD_SET_RELEASE_DURATIONS,
@@ -253,7 +253,7 @@ for my $album (@$albums)
 					{
 						# TODO? next if $t->{length} > 0;
 						my $new_length = int($average_toc[$t->{sequence}-1]);
-						my $track = MusicBrainz::Server::Track->new($mb->{DBH});
+						my $track = MusicBrainz::Server::Track->new($mb->{dbh});
 						$track->SetId($t->{id});
 						$track->SetArtist($t->{artist});
 						$track->SetLength($t->{length});
@@ -262,7 +262,7 @@ for my $album (@$albums)
 							if $verbose;
 
 						my @mods = Moderation->InsertModeration(
-							DBH => $mb->{DBH},
+							DBH => $mb->{dbh},
 							uid => $moderator,
 							privs => $privs,
 							type => &ModDefs::MOD_EDIT_TRACKTIME,

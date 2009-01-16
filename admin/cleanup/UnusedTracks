@@ -40,11 +40,11 @@ use UserStuff;
 
 my $mb = MusicBrainz->new;
 $mb->Login;
-my $sql = Sql->new($mb->{DBH});
+my $sql = Sql->new($mb->{dbh});
 
 my $mb2 = MusicBrainz->new;
 $mb2->Login;
-my $sqlWrite = Sql->new($mb2->{DBH});
+my $sqlWrite = Sql->new($mb2->{dbh});
 
 my $remove = 1;
 my $verbose;
@@ -117,7 +117,7 @@ while (my ($id) = $sql->NextRow)
 	eval
 	{
 		use MusicBrainz::Server::Track;
-		my $tr = MusicBrainz::Server::Track->new($sqlWrite->{DBH});
+		my $tr = MusicBrainz::Server::Track->new($sqlWrite->{dbh});
 		$tr->SetId($id);
 		$tr->Remove;
 		$sqlWrite->Commit;

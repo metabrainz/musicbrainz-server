@@ -85,7 +85,7 @@ sub GatherData
 
 	for my $album (@album_ids)
 	{
-		my $al = MusicBrainz::Server::Release->new($self->{DBH});
+		my $al = MusicBrainz::Server::Release->new($self->{dbh});
 		$al->SetId($album);
 		$al->LoadFromId or next;
 

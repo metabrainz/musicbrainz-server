@@ -327,8 +327,8 @@ if (!$mb->Login(1))
     exit(0);
 }
 
-$rdf->SetDBH($mb->{DBH});
-$out = $function->($mb->{DBH}, $parser, $rdf, @queryargs, \%session);
+$rdf->SetDBH($mb->{dbh});
+$out = $function->($mb->{dbh}, $parser, $rdf, @queryargs, \%session);
 $mb->Logout;
 
 

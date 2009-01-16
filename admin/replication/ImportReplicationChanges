@@ -70,7 +70,7 @@ $SIG{'INT'} = sub { die "SIGINT\n" };
 
 my $mb = MusicBrainz->new;
 $mb->Login(db => "READWRITE");
-my $sql = Sql->new($mb->{DBH});
+my $sql = Sql->new($mb->{dbh});
 
 for my $arg (@ARGV)
 {
@@ -140,7 +140,7 @@ sub ImportTable
 
 		$sql->Begin;
 		$sql->Do("COPY \"$table\" FROM stdin");
-		my $dbh = $sql->{DBH};
+		my $dbh = $sql->{dbh};
 
 		$p->("", "");
 

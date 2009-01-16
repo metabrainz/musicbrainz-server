@@ -45,7 +45,7 @@ my $verbose = 1;
 
 my $mb = MusicBrainz->new;
 $mb->Login;
-my $sql = Sql->new($mb->{DBH});
+my $sql = Sql->new($mb->{dbh});
 
 $verbose
 	? open(LOG, ">&STDOUT")

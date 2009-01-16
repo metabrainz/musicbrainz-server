@@ -31,10 +31,10 @@ use Sql;
 
 $mb = MusicBrainz->new;
 $mb->Login;
-$sql = Sql->new($mb->{DBH});
+$sql = Sql->new($mb->{dbh});
 
 use Statistic;
-my $s = Statistic->new($mb->{DBH});
+my $s = Statistic->new($mb->{dbh});
 
 $sql->Begin;
 $s->RecalculateAll;

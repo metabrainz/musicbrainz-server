@@ -31,7 +31,7 @@ use SearchEngine;
 my $mb = MusicBrainz->new;
 $mb->Login;
 
-my $engine = SearchEngine->new($mb->{DBH});
+my $engine = SearchEngine->new($mb->{dbh});
 $engine->RebuildAllIndices;
 
 $mb->Logout();

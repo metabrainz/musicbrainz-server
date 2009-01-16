@@ -90,11 +90,11 @@ $SIG{INT} = sub { die "Interrupt\n" } if -t;
 
 my $mb = MusicBrainz->new;
 $mb->Login;
-my $sql = Sql->new($mb->{DBH});
+my $sql = Sql->new($mb->{dbh});
 
 my $threshold_time = time() - 86400 * 60; # 60 days
-my $threshold_mod_id = Moderation->iFindByTime($mb->{DBH}, $threshold_time);
-my ($iMin, $iMax) = Moderation->iiMinMaxID($mb->{DBH});
+my $threshold_mod_id = Moderation->iFindByTime($mb->{dbh}, $threshold_time);
+my ($iMin, $iMax) = Moderation->iiMinMaxID($mb->{dbh});
 $iMin = $start_id if $start_id;
 print localtime() . " : min=$iMin threshold=$threshold_mod_id max=$iMax\n";
 
@@ -239,7 +239,7 @@ sub copy_table_to_fh
 	my $max = 315_000; my $maxline = __LINE__;
 	my $longest = 0;
 
-	my $dbh = $sql->{DBH};
+	my $dbh = $sql->{dbh};
 	while ($dbh->func($buffer, $max, "getline"))
 	{
 		die "\nProbable data truncation!  See $0 line $maxline"

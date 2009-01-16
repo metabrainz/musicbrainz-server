@@ -41,15 +41,15 @@ use UserStuff;
 
 my $mb = MusicBrainz->new;
 $mb->Login;
-my $sql = Sql->new($mb->{DBH});
+my $sql = Sql->new($mb->{dbh});
 
 my $mb2 = MusicBrainz->new;
 $mb2->Login;
-my $sqlWrite = Sql->new($mb2->{DBH});
+my $sqlWrite = Sql->new($mb2->{dbh});
 
 my $vertmb = new MusicBrainz;
 $vertmb->Login(db => 'RAWDATA');
-my $sqlVert = Sql->new($vertmb->{DBH});
+my $sqlVert = Sql->new($vertmb->{dbh});
 
 my $use_auto_mod = 1;
 my $moderator = &ModDefs::MODBOT_MODERATOR;
@@ -61,7 +61,7 @@ GetOptions(
 	"automod!"		=> \$use_auto_mod,
 	"moderator=s"	=> sub {
 		my $user = $_[1];
-		my $u = UserStuff->new($mb->{DBH});
+		my $u = UserStuff->new($mb->{dbh});
 		(undef, my $uid) = $u->GetUserPasswordAndId($user);
 		$uid or die "No such moderator '$user'";
 		$moderator = $uid;
@@ -231,7 +231,7 @@ while (my ($id, $name, $sortname) = $sql->NextRow)
 	eval
 	{
 		use MusicBrainz::Server::Artist;
-		my $ar = MusicBrainz::Server::Artist->new($sqlWrite->{DBH});
+		my $ar = MusicBrainz::Server::Artist->new($sqlWrite->{dbh});
 
 		# No need to load the whole record, hopefully...
 		$ar->SetId($id);
@@ -240,7 +240,7 @@ while (my ($id, $name, $sortname) = $sql->NextRow)
 
 		use Moderation;
 		my @mods = Moderation->InsertModeration(
-			DBH	=> $sqlWrite->{DBH},
+			DBH	=> $sqlWrite->{dbh},
 			uid	=> $moderator,
 			privs => $privs,
 			type => &ModDefs::MOD_REMOVE_ARTIST,

@@ -34,7 +34,7 @@ use Sql;
 
 my $mb = MusicBrainz->new;
 $mb->Login;
-my $sql = Sql->new($mb->{DBH});
+my $sql = Sql->new($mb->{dbh});
 
 # One-off scan, doesn't take too long
 $| = 1;

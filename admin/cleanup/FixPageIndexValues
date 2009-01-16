@@ -73,13 +73,13 @@ EOF
 
 my $mbRead = new MusicBrainz;
 $mbRead->Login;
-my $sqlRead = Sql->new($mbRead->{DBH});
+my $sqlRead = Sql->new($mbRead->{dbh});
 
 my $mbWrite = new MusicBrainz;
 $mbWrite->Login;
-my $sqlWrite = Sql->new($mbWrite->{DBH});
+my $sqlWrite = Sql->new($mbWrite->{dbh});
 
-my $tb = TableBase->new($mbRead->{DBH});
+my $tb = TableBase->new($mbRead->{dbh});
 
 Process("album", "name") if $do{"album"};
 Process("artist", "sortname") if $do{"artist"};
@@ -121,7 +121,7 @@ sub Process
 		printf STDERR "Error fixing %s #%d: %s\n",
 			$table, $id, $@;
 
-		if (not $sqlWrite->{DBH}->{AutoCommit})
+		if (not $sqlWrite->{dbh}->{AutoCommit})
 		{
 			$sqlWrite->Rollback;
 		}

@@ -63,7 +63,7 @@ print RDF (GetLicense());
 $mb = MusicBrainz->new;
 $mb->Login;
 
-$sql = Sql->new($mb->{DBH});
+$sql = Sql->new($mb->{dbh});
 $rdf = MM_2_1->new();
 print RDF $rdf->BeginRDFObject(1);
 print RDF "\n";
@@ -172,8 +172,8 @@ sub DumpAlbums
 	$start = time;
 	$mx = $sql->Rows();
 
-	$album = MusicBrainz::Server::Release->new($sql->{DBH});
-	$sql2 = Sql->new($sql->{DBH});
+	$album = MusicBrainz::Server::Release->new($sql->{dbh});
+	$sql2 = Sql->new($sql->{dbh});
 	$sql2->Select(
 		"SELECT	j.album, t.discid
 		FROM	album_cdtoc j, cdtoc t
@@ -299,7 +299,7 @@ sub DumpTracks
 	$start = time;
 	$mx = $sql->Rows();
 
-	$sql2 = Sql->new($sql->{DBH});
+	$sql2 = Sql->new($sql->{dbh});
 	if (!$sql2->Select(qq|select TRMJoin.track, TRM.trm
 							from TRMJoin, TRM
 						   where TRMJoin.trm = TRM.id

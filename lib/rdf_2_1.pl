@@ -91,14 +91,14 @@ else
     }
     else
     {
-        $rdf->SetDBH($mb->{DBH});
+        $rdf->SetDBH($mb->{dbh});
         if (! exists $Queries{$query})
         {
             $out = $rdf->ErrorRDF("The query type $query not supported.");
         }
         else
         {
-            $out = $Queries{$query}($mb->{DBH}, undef, $rdf, $id);
+            $out = $Queries{$query}($mb->{dbh}, undef, $rdf, $id);
         }
         $mb->Logout;
     }

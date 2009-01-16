@@ -38,12 +38,12 @@ my ($name) = @ARGV;
 
 my $mb = MusicBrainz->new;
 $mb->Login;
-my $sql = Sql->new($mb->{DBH});
+my $sql = Sql->new($mb->{dbh});
 
 eval {
 	$sql->Begin;
 
-	my $u = UserStuff->newFromName($mb->{DBH}, $name);
+	my $u = UserStuff->newFromName($mb->{dbh}, $name);
 	$u or die "User '$name' not found";
 	$u->GetPrivs & &UserStuff::AUTOMOD_FLAG
 		or die "User '$name' is not an automod";
@@ -53,7 +53,7 @@ eval {
 };
 
 my $err = $@;
-print("Rolling back\n"), $sql->Rollback unless $sql->{DBH}{AutoCommit};
+print("Rolling back\n"), $sql->Rollback unless $sql->{dbh}{AutoCommit};
 die $err if $err;
 
 # eof

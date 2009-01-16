@@ -11,14 +11,14 @@ use Sql;
 
 my $mb = new MusicBrainz;
 $mb->Login;
-my $sql = new Sql($mb->{DBH});
+my $sql = new Sql($mb->{dbh});
 
 my $accs = $sql->SelectListOfHashes("SELECT * FROM moderator where email!='' AND emailconfirmdate IS NOT NULL
 	AND id IN (SELECT moderator FROM moderator_subscribe_artist)
 	ORDER BY name");
 # my $accs = $sql->SelectListOfHashes("SELECT * FROM moderator where name='djce'");
 
-my $users = UserStuff->new($mb->{DBH});
+my $users = UserStuff->new($mb->{dbh});
 
 for my $acc (@$accs)
 {

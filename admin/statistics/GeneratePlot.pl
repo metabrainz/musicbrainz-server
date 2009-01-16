@@ -31,7 +31,7 @@ use Sql;
 
 $mb = MusicBrainz->new;
 $mb->Login;
-$sql = Sql->new($mb->{DBH});
+$sql = Sql->new($mb->{dbh});
 
 my $ImageDir = shift;
 -d $ImageDir or die "Usage: GeneratePlot.pl <imagedir>";
