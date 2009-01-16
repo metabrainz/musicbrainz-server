@@ -129,7 +129,7 @@ sub Logout
 {
    my ($this) = @_;
 
-   $this->{dbh}->disconnect() if ($this->{DBH});
+   $this->{dbh}->disconnect() if ($this->{dbh});
 }
 
 sub DESTROY
