@@ -1,1 +1,7 @@
-/* You probably want root/css/*... */
+@import url(styles/layout.css);
+@import url(styles/forms.css);
+@import url(styles/entity.css);
+@import url(styles/release.css);
+@import url(styles/appears.css);
+@import url(styles/search.css);
+@import url(styles/moderation.css);

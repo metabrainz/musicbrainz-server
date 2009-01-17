@@ -8,7 +8,7 @@
 
     <title>[% title %][% " - " IF title %]MusicBrainz.org</title>
 
-    <link rel="stylesheet" type="text/css" href="/main.css" />
+    <link rel="stylesheet" type="text/css" href="/static/main.css" />
 
     [%- IF template.extra_css -%]
         <link rel="stylesheet" type="text/css" href="/static/styles/extra/[% template.extra_css %]" />
