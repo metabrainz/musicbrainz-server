@@ -207,7 +207,7 @@ sub move_to : Chained('release') Args(1) Form('Release::Move')
     my $release = $self->entity;
 
     my $old_artist = $c->model('Artist')->load($release->artist);
-    my $new_artist = $c->model('Artist')->load($new_artist);
+    $new_artist = $c->model('Artist')->load($new_artist);
     $c->stash->{new_artist} = $new_artist;
 
     my $form = $self->form;
@@ -269,7 +269,7 @@ sub confirm_convert_to_single_artist : Chained('release') Args(1)
     $c->stash->{template} = 'release/convert_to_single_artist.tt';
 
     my $release    = $self->entity;
-    my $new_artist = $c->model('Artist')->load($new_artist);
+    $new_artist = $c->model('Artist')->load($new_artist);
     $c->stash->{new_artist} = $new_artist;
 
     my $form = $self->form;

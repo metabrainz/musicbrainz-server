@@ -52,7 +52,7 @@ use Carp qw( cluck croak );
 use Encode qw( encode decode );
 use Text::WikiFormat;
 use DBDefs;
-use Moderation;
+require Moderation; # FIXME? circular dependency
 use MusicBrainz::Server::Validation qw( encode_entities );
 
 use constant ARTIST_ANNOTATION	=>	1;

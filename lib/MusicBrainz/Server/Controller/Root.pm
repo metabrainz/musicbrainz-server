@@ -74,7 +74,7 @@ sub begin : Private
     my $rel = $c->session->{current_relationship};
     if ($rel)
     {
-	$c->stash->{current_relationship} = $c->model($rel->{type})->load($rel->{id});
+	$c->stash->{current_relationship} = $c->model(ucfirst $rel->{type})->load($rel->{id});
     }
 
     # Update volatile user preferences

@@ -98,9 +98,9 @@ sub load_relations
     my $current_group = undef;
     for my $link (@links)
     {
-        if (not defined $current_group or
-            $current_group->{connector}  ne $link->{link_phrase} or
-            $current_group->{start_date} ne $link->{begindate}   or
+        if ((not defined $current_group) ||
+            $current_group->{connector}  ne $link->{link_phrase} ||
+            $current_group->{start_date} ne $link->{begindate}  ||
             $current_group->{end_date}   ne $link->{enddate})
         {
             $link->{begindate} =~ s/\s+$//g;

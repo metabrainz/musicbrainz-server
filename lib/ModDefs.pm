@@ -31,7 +31,7 @@ my @subs = grep {
     ref $glob eq 'GLOB' && defined *{$glob}{CODE};
 } sort keys %$stash;
 
-@subs = keys %ModDefs::;
+@subs = grep !/^BEGIN$/, keys %ModDefs::;
 
 sub _get {
     my $re = shift;

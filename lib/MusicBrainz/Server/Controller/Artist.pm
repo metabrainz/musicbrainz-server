@@ -299,8 +299,6 @@ sub edit : Chained('artist') Form
     my $form = $self->form;
     $form->init($self->entity);
 
-    my $form = $self->form;
-
     if ($c->form_posted) {
         $form->validate($c->req->params);
         

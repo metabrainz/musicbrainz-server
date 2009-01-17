@@ -423,10 +423,10 @@ sub contact : Local Args(1) Form
     }
     else
     {
-        $c->stash->{email}->{header} => [
+        $c->stash->{email}->{header} = {
             'Reply-To' => 'Nobody <noreply@musicbrainz.org>',
-        ],
-        $c->stash->{email}->{from} = sprintf('%s <%s@users.musicbrainz.org>', $c->user->name, $c->user->name)
+        };
+        $c->stash->{email}->{from} = sprintf('%s <%s@users.musicbrainz.org>', $c->user->name, $c->user->name);
     }
     
     $c->forward($c->view('Email::Template'));

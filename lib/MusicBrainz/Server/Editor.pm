@@ -688,7 +688,6 @@ sub is_auto_editor
 	my ($this, $privs) = @_;
 	$privs ||= $this->privs;
 	
-	warn $privs;
     return ($privs & AUTOMOD_FLAG) > 0;
 }
 
