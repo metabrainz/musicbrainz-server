@@ -822,7 +822,7 @@ sub SetMultipleTrackArtists
 # the track artist against each other and the
 # release artist. If any are found, the release needs
 # to be displayed as Various Artists.
-sub HasMultipleTrackArtists
+sub has_multiple_track_artists
 {
 	my $self = shift;
 	my ($tracks, %ar);

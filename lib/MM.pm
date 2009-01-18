@@ -205,7 +205,7 @@ sub CreateDenseAlbum
 
 	require MusicBrainz::Server::Track;
 	my @tracks = $al->LoadTracks;
-	my $is_va = $al->artist == VARTIST_ID || $al->HasMultipleTrackArtists;
+	my $is_va = $al->artist == VARTIST_ID || $al->has_multiple_track_artists;
 
 	my @ids;
 	my %artists;
@@ -555,7 +555,7 @@ sub _GetAlbumReferences
     {
 	my @tracks = $album->LoadTracks();
 	my @trackids;
-	my $is_va = $albumartist == VARTIST_ID || $album->HasMultipleTrackArtists;
+	my $is_va = $albumartist == VARTIST_ID || $album->has_multiple_track_artists;
 	for my $track (@tracks)
 	{
 	    next if not defined $track;

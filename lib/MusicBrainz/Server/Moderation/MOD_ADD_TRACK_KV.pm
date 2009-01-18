@@ -67,7 +67,7 @@ sub PreInsert
 	
 	# TrackArtist
 	my $hastrackartist = $release->artist == &ModDefs::VARTIST_ID or 
-						 $release->HasMultipleTrackArtists;
+						 $release->has_multiple_track_artists;
 	if (not $artistid)
 	{
 		$artistid = $artist->id if ($artist);

@@ -115,7 +115,7 @@ sub show : Chained('release') PathPart('')
 
     my $show_rels = $c->req->query_params->{rel};
 
-    $c->stash->{show_artists}       = $c->req->query_params->{artist};
+    $c->stash->{show_artists}       = $c->req->query_params->{artist} || $release->has_multiple_track_artists;
     $c->stash->{show_relationships} = defined $show_rels ? $show_rels : 1;
 
     $c->stash->{artist}         = $c->model('Artist')->load($release->artist); 

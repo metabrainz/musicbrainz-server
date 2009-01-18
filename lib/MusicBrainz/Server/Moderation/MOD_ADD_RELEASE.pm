@@ -57,7 +57,7 @@ sub PreInsert
 
 	# keys in %new:
 	# |--- EITHER self->artist OR Artist and Sortname
-	# |--- HasMultipleTrackArtists (1|0) 
+	# |--- has_multiple_track_artists (1|0) 
 	#        override the VA release artist
 	#        setting which directs if track artistid's are respected.
 	# |--- AlbumName
@@ -135,7 +135,7 @@ sub PreInsert
 	}
 
 	my @tracks;
-	my $isva = ($new{"HasMultipleTrackArtists"} or
+	my $isva = ($new{"has_multiple_track_artists"} or
 				($new{"artist"} && $new{"artist"} == &ModDefs::VARTIST_ID));
 
 	for (my $i = 1;; $i++)

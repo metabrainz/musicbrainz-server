@@ -138,7 +138,7 @@ sub CheckPrerequisites
 	# album needs to have more than one track artist
 	# if it is not VA to allow a SA-conversion
 	if ($al->artist != VARTIST_ID and 
-		not $al->HasMultipleTrackArtists)
+		not $al->has_multiple_track_artists)
 	{
 		$self->InsertNote(MODBOT_MODERATOR, "This release has already been converted to a single artist");
 		return STATUS_FAILEDPREREQ;
