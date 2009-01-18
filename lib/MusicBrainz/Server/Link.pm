@@ -357,8 +357,8 @@ sub FindLinkedEntities
 				 }
 			 }
 		}
-		$link->{begindate} ||= "0000-00-00";
-		$link->{enddate} ||= "0000-00-00";
+		$link->{begindate} ||= '';
+		$link->{enddate}   ||= '';
 	}
 
     return @links;
