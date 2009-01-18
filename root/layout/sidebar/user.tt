@@ -2,7 +2,7 @@
     <li><a href="[% c.uri_for("/user/profile", c.user.name) %]">My Profile</a></li>
     <li><a href="[% c.uri_for('/user/logout') %]">Logout</a></li>
     <li><a href="[% c.uri_for('/user/preferences') %]">Preferences</a></li>
-    <li><a href="[% c.uri_for('/moderation/open') %]">Votes on Edits</a>
+    <li><a href="[% c.uri_for('/moderation/open') %]">Vote on Edits</a>
         <ul>
             <li><a href="[% c.uri_for('/moderation/subscribed') %]">Subscribed</a></li>
         </ul>
