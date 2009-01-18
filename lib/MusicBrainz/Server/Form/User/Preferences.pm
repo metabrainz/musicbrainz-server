@@ -40,71 +40,62 @@ sub profile
 {
     return {
         optional => {
-            # Voting/edit review pages {{{
-            mod_add_album_inline => 'Checkbox',
-            mod_add_album_link => 'Checkbox',
+            # Voting/edit review pages
+            mod_add_album_inline        => 'Checkbox',
+            mod_add_album_link          => 'Checkbox',
             navbar_mod_show_select_page => 'Checkbox',
-            mods_per_page => 'PosInteger',
-            vote_abs_default => 'Checkbox',
-            vote_show_novote => 'Checkbox',
-            mail_notes_if_i_noted => 'Checkbox',
-            mail_notes_if_i_voted => 'Checkbox',
-            mail_on_first_no_vote => 'Checkbox',
-            show_inline_mods => 'Checkbox',
-            show_inline_mods_random => 'Checkbox',
-            remove_recent_link_on_add => 'Checkbox',
-            auto_subscribe => 'Checkbox',
-            # }}}
+            mods_per_page               => 'PosInteger',
+            vote_abs_default            => 'Checkbox',
+            vote_show_novote            => 'Checkbox',
+            mail_notes_if_i_noted       => 'Checkbox',
+            mail_notes_if_i_voted       => 'Checkbox',
+            mail_on_first_no_vote       => 'Checkbox',
+            show_inline_mods            => 'Checkbox',
+            show_inline_mods_random     => 'Checkbox',
+            remove_recent_link_on_add   => 'Checkbox',
+            auto_subscribe              => 'Checkbox',
 
-            # E-Mailing other editors {{{
+            # E-Mailing other editors
             reveal_address_when_mailing => 'Checkbox',
-            sendcopy_when_mailing => 'Checkbox',
-            # }}}
+            sendcopy_when_mailing       => 'Checkbox',
 
-            # Show artist {{{
+            # Show artist
             releases_show_compact => 'Integer',
-            # }}}
 
-            # Show release {{{
+            # Show release
             release_show_relationshipslinks => 'Checkbox',
-            release_show_annotationlinks => 'Checkbox',
-            show_amazon_coverart => 'Checkbox',
-            use_amazon_store => 'Select',
-            # }}}
+            release_show_annotationlinks    => 'Checkbox',
+            show_amazon_coverart            => 'Checkbox',
+            use_amazon_store                => 'Select',
 
-            # Country {{{
+            # Country
             default_country => 'Select',
-            google_domain => 'Select',
-            # }}}
+            google_domain   => 'Select',
 
-            # Date/time display {{{
+            # Date/time display
             datetimeformat => 'Select',
-            timezone => 'Select',
-            # }}}
+            timezone       => 'Select',
 
-            # Topmenu Configuration {{{
-            topmenu_submenu_types => 'Select',
+            # Topmenu Configuration
+            topmenu_submenu_types    => 'Select',
             topmenu_dropdown_trigger => 'Select',
-            # }}}
 
-            # Use of javascript {{{
+            # Use of javascript
             autofix_open => 'Select',
-            JSMoveFocus => 'Checkbox',
-            JSDiff => 'Checkbox',
-            JSCollapse => 'Checkbox',
-            JSDebug => 'Checkbox',
-            # }}}
+            JSMoveFocus  => 'Checkbox',
+            JSDiff       => 'Checkbox',
+            JSCollapse   => 'Checkbox',
+            JSDebug      => 'Checkbox',
 
-            # Display {{{
-            sidebar_panel_sites => 'Checkbox',
-            sidebar_panel_search => 'Checkbox',
-            sidebar_panel_stats => 'Checkbox',
+            # Display
+            sidebar_panel_sites   => 'Checkbox',
+            sidebar_panel_search  => 'Checkbox',
+            sidebar_panel_stats   => 'Checkbox',
             sidebar_panel_topmods => 'Checkbox',
-            sidebar_panel_user => 'Checkbox',
-            nosidebar => 'Checkbox',
-            css_noentityicons => 'Checkbox',
-            css_nosmallfonts => 'Checkbox',
-            # }}}
+            sidebar_panel_user    => 'Checkbox',
+            nosidebar             => 'Checkbox',
+            css_noentityicons     => 'Checkbox',
+            css_nosmallfonts      => 'Checkbox',
         },
     };
 }
@@ -187,17 +178,6 @@ sub validate_releases_show_compact {
         unless $field->value >= 1 && $field->value <= 100
 }
 
-sub init_item
-{
-    my ($self, $id) = @_;
-
-    my $mb = new MusicBrainz;
-    $mb->Login();
-
-    my $prefs = UserPreference->newFromUser($mb->{dbh}, $id);
-    return $prefs;
-}
-
 =head2 init_value
 
 Initialize the value of a form field from the user preference setting,
@@ -223,13 +203,13 @@ sub update_model {
     my $self = shift;
     my $item = $self->item;
 
-    my $mb = new MusicBrainz;
-    $mb->Login();
+    my $mb = MusicBrainz->new;
+    $mb->Login;
     $self->item->dbh($mb->dbh);
 
     for my $field ($self->fields)
     {
-        $self->item->set ($field->name, $field->value);
+        $self->item->set($field->name, $field->value);
     }
 
     $self->item->save;

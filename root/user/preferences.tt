@@ -1,6 +1,15 @@
 [% BLOCK fields %]
     [% FOREACH field=fields %]
-    [% INCLUDE "forms/widget.tt" widget=form.field(field.widget) label=field.label %]
+        [%- widget = form.field(field.widget) -%]
+        <p>
+        [%- IF widget.widget == 'checkbox' -%]
+            [%- INCLUDE "forms/input.tt" -%]
+            [%- INCLUDE 'forms/label.tt' label=field.label right=1 -%]
+        [%- ELSE -%]
+            [%- INCLUDE 'forms/label.tt' label=field.label -%]
+            [%- INCLUDE "forms/input.tt" -%]
+        [%- END -%]
+        </p>
     [% END %]
 [% END %]
 
@@ -69,7 +78,7 @@
     <legend>Show release</legend>
     [% fields = [
         { widget = 'release_show_relationshipslinks', label = 'Show the add/edit relationships links in the release header.' },
-        { widget = 'release_show_annotationlinks', label = 'Show the add/edit relationships links in the release header.' },
+        { widget = 'release_show_annotationlinks', label = 'Show the add/edit annotation links in the release header.' },
         { widget = 'show_amazon_coverart', label = 'Show Amazon.com cover art and buy links.' },
         { widget = 'use_amazon_store', label = 'Your preferred Amazon Store' },
     ] %]
@@ -97,7 +106,7 @@
 <fieldset>
     <legend>Topmenu configuration</legend>
     [% fields = [
-        { widget = 'topmenu_submenu_types' label = 'The menu which is placed on top of the pages features multiple ways of navigating the site. You can choose which menu type (or both) you\'d like to see if you are logged in' },
+        { widget = 'topmenu_submenu_types' label = "The menu which is placed on top of the pages features multiple ways of navigating the site. You can choose which menu type (or both) you'd like to see if you are logged in" },
         { widget = 'topmenu_dropdown_trigger', label = 'If you selected an option which includes the Dropdown menus  above, you can choose how they get activated' }
     ] %]
     [% PROCESS fields %]

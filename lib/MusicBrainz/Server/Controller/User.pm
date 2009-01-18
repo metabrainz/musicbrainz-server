@@ -522,8 +522,11 @@ sub preferences : Local Form
 
     $c->forward('login');
 
+    my $prefs = UserPreference->newFromUser($c->mb->dbh, $c->user->id);
+    $prefs->load;
+
     my $form = $self->form;
-    $form->init($c->user->id);
+    $form->init($prefs);
 
     return unless $self->submit_and_validate($c);
 

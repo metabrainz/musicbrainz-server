@@ -73,7 +73,7 @@ sub build_options
     my $opts = {
         AlbumName => $self->value('title'),
         artist    => $self->item->id,
-        has_multiple_track_artists => 1,
+        HasMultipleTrackArtists => 1,
     };
 
     for my $i (1 .. $self->track_count)

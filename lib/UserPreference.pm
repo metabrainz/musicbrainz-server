@@ -23,11 +23,25 @@
 #   $Id$
 #____________________________________________________________________________
 
-use strict;
-
 package UserPreference;
+use Moose;
 
 use Carp qw( carp croak );
+
+has 'dbh' => (
+    is => 'rw'
+);
+
+has 'uid' => (
+    is => 'rw'
+);
+
+has 'prefs' => (
+    is => 'rw',
+    default => sub { +{} }
+);
+
+sub id { shift->uid }
 
 ################################################################################
 # These subs are called from outside of this module.
@@ -381,12 +395,18 @@ Instantiate a new UserPreference object for a specific user.
 sub newFromUser
 {
     my ($class, $dbh, $uid) = @_;
+    
+    return $class->new($dbh, $uid);
+}
 
-    bless {
-        uid => $uid,
+sub BUILDARGS
+{
+    my ($self, $dbh, $uid) = @_;
+    
+    return {
         dbh => $dbh,
-        prefs => {},
-    }, $class;
+        uid => $uid,
+    };
 }
 
 =head2 C<load>
@@ -399,7 +419,7 @@ have been made.
 sub load
 {
     my $self = shift;
-    my $uid = $self->{uid};
+    my $uid = $self->uid;
 
     my $sql = Sql->new($self->dbh);
     my $rows = $sql->SelectListOfLists(
@@ -420,7 +440,7 @@ sub load
         defined $newValue
             or carp "Moderator #$uid has invalid saved value '$value' for preference '$key'";
 
-        $self->{prefs}->{$key} = $newValue;
+        $self->prefs->{$key} = $newValue;
     }
 }
 
@@ -438,7 +458,7 @@ sub get
 	my $info = $prefs{$key}
 		or carp("UserPreference::get called with invalid key '$key'"), return undef;
 
-	my $value = $self->{prefs}->{$key};
+	my $value = $self->prefs->{$key};
     $value = defined $value ? $value
            :                  $info->{DEFAULT};
     
@@ -462,7 +482,7 @@ sub set
 	defined $newvalue
 		or carp("UserPreference::set called with invalid value '$value' for key '$key'"), return;
 
-	$self->{prefs}->{$key} = $newvalue;
+	$self->prefs->{$key} = $newvalue;
 }
 
 =head2 C<save>
@@ -474,16 +494,16 @@ Save the user preferences to the database
 sub save
 {
     my $self = shift;
-    my $uid = $self->{uid};
+    my $uid = $self->uid;
 
     my $sql = Sql->new($self->dbh);
-    my $wrap_transaction = $sql->{dbh}{AutoCommit};
+    my $wrap_transaction = $self->dbh->{AutoCommit};
 
     eval {
         $sql->Begin if $wrap_transaction;
 		$sql->Do("DELETE FROM moderator_preference WHERE moderator = ?", $uid);
 
-        while (my ($key, $value) = each %{$self->{prefs}})
+        while (my ($key, $value) = each %{$self->prefs})
         {
             $sql->Do("INSERT INTO moderator_preference (moderator, name, value) VALUES (?, ?, ?)",
                      $uid, $key, $value);
@@ -505,7 +525,7 @@ sub LoadForUser
 	my $uid = $user->id
 		or return;
 
-	my $sql = Sql->new($user->{dbh});
+	my $sql = Sql->new($user->dbh);
 	my $rows = $sql->SelectListOfLists(
 		"SELECT name, value FROM moderator_preference WHERE moderator = ?",
 		$uid,
@@ -540,8 +560,8 @@ sub SaveForUser
 	tied %$s
 		or carp("UserPreference::SaveForUser called, but %session is not tied"), return;
 
-	my $sql = Sql->new($user->{dbh});
-	my $wrap_transaction = $sql->{dbh}{AutoCommit};
+	my $sql = Sql->new($user->dbh);
+	my $wrap_transaction = $sql->dbh->{AutoCommit};
 	
 	eval {
 		$sql->Begin if $wrap_transaction;
@@ -575,7 +595,7 @@ sub get_for_user
 	my $info = $prefs{$key}
 		or carp("UserPreference::get called with invalid key '$key'"), return undef;
 
-	my $sql = Sql->new($user->{dbh});
+	my $sql = Sql->new($user->dbh);
 	my $value = $sql->SelectSingleValue(
 		"SELECT value FROM moderator_preference WHERE moderator = ? AND name = ?",
 		$user->id,
