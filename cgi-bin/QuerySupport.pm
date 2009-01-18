@@ -36,7 +36,6 @@ use TaggerSupport; # for constants
 
 use Carp qw( carp );
 use Digest::SHA1 qw(sha1_hex);
-use Apache::Session::File;
 
 use vars qw(@ISA @EXPORT);
 @ISA    = @ISA    = '';
@@ -242,53 +241,8 @@ sub GoodRiddance
 
 sub AuthenticateQuery
 {
-   my ($dbh, $parser, $rdf, $username) = @_;
-   my ($session_id, $challenge, $us, $data);
-   my ($uid, $digest, $chal_size, $i, $pass);
-
-   if (!defined $username || $username eq '')
-   {
-       return $rdf->ErrorRDF("Invalid/missing user name.")
-   }
-
-   if (&DBDefs::DB_READ_ONLY)
-   {
-       return $rdf->ErrorRDF(&DBDefs::DB_READ_ONLY_MESSAGE)
-   }
-
-   require UserStuff;
-   $us = UserStuff->new($dbh);
-   ($pass, $uid) = $us->GetUserPasswordAndId($username);
-   if (not defined($pass) or $pass eq UserStuff->LOCKED_OUT_PASSWORD)
-   {
-       return $rdf->ErrorRDF("Unknown user.")
-   }
-
-   srand;
-   $chal_size = int(rand 16) + 16;
-   for($i = 0; $i < $chal_size; $i++)
-   {
-       $challenge .= sprintf("%02x", int(rand 256));
-   }
-
-   $data = $challenge . $username . $pass;
-   $digest = sha1_hex($data);
-
-   my %session;
-   tie %session, 'Apache::Session::File', undef, {
-                 Directory => &DBDefs::SESSION_DIR,
-                 LockDirectory   => &DBDefs::LOCK_DIR};
-
-   $session{session_key} = $digest;
-   $session{uid} = $uid;
-   $session{moderator} = $username;
-   $session{expire} = time + &DBDefs::RDF_SESSION_SECONDS_TO_LIVE;
-
-   $session_id = $session{_session_id};
-   untie %session;
-   # print STDERR "Start session: $username $session_id\n";
-
-   return $rdf->CreateAuthenticateResponse($session_id, $challenge);
+	my ($dbh, $parser, $rdf, $username) = @_;
+    return $rdf->ErrorRDF("This Web Service call is no longer used.")
 }
 
 # returns artistList

@@ -174,16 +174,12 @@ sub handler
 
     if (my $c = $cookies{ &DBDefs::SESSION_COOKIE })
     {
+	    my $mod = &DBDefs::SESSION_HANDLER;
+	    eval "require $mod"; 
+	    eval "import $mod";
         $tied = eval
 		{
-			use Apache::Session::File ();
-			tie %session,
-				'Apache::Session::File',
-				$c,
-			{
-				Directory => &DBDefs::SESSION_DIR,
-				LockDirectory => &DBDefs::LOCK_DIR,
-			};
+			tie %session, &DBDefs::SESSION_HANDLER, $c, &DBDefs::SESSION_HANDLER_ARGS;
 		};
     }
 
