@@ -150,7 +150,7 @@ sub country_name
         $self->{country_ref} = MusicBrainz::Server::Country->newFromId($self->dbh, $self->country);
     }
     
-    return $self->{country_ref}->name;
+    return defined $self->{country_ref} ? $self->{country_ref}->name : '';
 }
 
 =head3 type_name

@@ -122,6 +122,7 @@ sub BUILD
 sub _new_from_row
 {
 	my ($self, $row) = @_;
+	return unless $row;
 	return $self->new($self->dbh, $row);
 }
 

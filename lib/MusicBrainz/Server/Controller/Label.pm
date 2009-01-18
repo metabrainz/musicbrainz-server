@@ -32,6 +32,11 @@ sub base : Chained('/') PathPart('label') CaptureArgs(0) { }
 sub label : Chained('load') PathPart('') CaptureArgs(0)
 {
     my ($self, $c) = @_;
+    
+    if ($self->entity->id == ModDefs::DLABEL_ID)
+    {
+        $c->detach('/error_404');
+    }
 
 	if ($c->user_exists)
 	{

@@ -47,20 +47,15 @@ sub LoadEntity
     {
         $entity->mbid($mbid);
     }
-    else
+    elsif (MusicBrainz::Server::Validation::IsNonNegInteger($mbid))
     {
-        if (MusicBrainz::Server::Validation::IsNonNegInteger($mbid))
-        {
-            $entity->id($mbid);
-        }
-        else
-        {
-            croak "$mbid is not a valid MBID or row ID";
-        }
+        $entity->id($mbid);
     }
+    
+    return unless ($entity->id || $entity->mbid);
 
     $entity->LoadFromId(1)
-        or croak "Could not load entity";
+        or return;
 
     return $entity;
 }

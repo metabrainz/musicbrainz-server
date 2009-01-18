@@ -816,6 +816,8 @@ sub load_from_id
             $id,
         ),
     );
+    
+    return unless $obj;
 
     $obj->mbid($obj->{gid}) if $obj;
 
@@ -864,6 +866,8 @@ sub load_from_mbid
             );
         }
     }
+    
+    return unless $obj;
 
     $obj->{mbid} = delete $obj->{gid} if $obj;
 
@@ -949,16 +953,16 @@ sub releases
                               language, script, quality, modpending_qual, tracks, discids,
                               firstreleasedate, coverarturl, asin, puids
                         FROM Album, Albummeta
-                       WHERE artist=$this->{id} AND albummeta.id = album.id/;
+                       WHERE artist = ? AND albummeta.id = album.id/;
        }
        else
        {
            $query = qq/SELECT album.id, name, modpending, GID,
                               attributes, language, script, quality, modpending_qual
                          FROM Album
-                        WHERE artist=$this->{id}/;
+                        WHERE artist = ?/;
        }
-       if ($sql->Select($query))
+       if ($sql->Select($query, $this->id))
        {
             while(@row = $sql->NextRow)
             {

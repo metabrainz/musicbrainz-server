@@ -56,8 +56,7 @@ sub artist : Chained('load') PathPart('') CaptureArgs(0)
 
     if ($self->entity->id == ModDefs::DARTIST_ID)
     {
-        $c->error("You cannot view the special artist 'DELETED ARTIST'");
-        $c->detach;
+        $c->detach('/error_404');
     }
 
 	if ($c->user_exists)

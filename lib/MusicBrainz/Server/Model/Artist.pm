@@ -22,7 +22,7 @@ sub load
     my ($self, $id) = @_;
 
     my $artist = new MusicBrainz::Server::Artist($self->dbh);
-    LoadEntity($artist, $id);
+    LoadEntity($artist, $id) or return;
 
     return $artist;
 }
