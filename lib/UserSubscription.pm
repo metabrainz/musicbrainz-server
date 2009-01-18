@@ -117,37 +117,38 @@ sub GetSubscribersForEditor
 
 sub subscribed_artists
 {
-    my ($self) = @_;
+    my ($self, $page, $per_page) = @_;
     my $uid = $self->GetUser or die;
     my $sql = Sql->new($self->dbh);
 
-    my $rows = $sql->SelectListOfHashes(
+    my $pager = Data::Page->new;
+    $pager->current_page($page);
+    $pager->entries_per_page($per_page);
+
+    my $offset = ($page - 1) * $per_page;
+
+    $sql->Select(
         "SELECT s.*, a.name, a.sortname, a.resolution
            FROM moderator_subscribe_artist s
       LEFT JOIN artist a ON a.id = s.artist
           WHERE s.moderator = ?
-       ORDER BY a.sortname, s.artist",
-        $uid,
+       ORDER BY a.sortname, s.artist
+         OFFSET ?",
+        $uid, $offset
     );
 
-    return [
-        map {
-            my $artist = MusicBrainz::Server::Artist->new($self->dbh);
+    my @entities;
+    for (1 .. $per_page)
+    {
+        my $row = $sql->NextRowHashRef
+            or last;
+        my $artist = MusicBrainz::Server::Artist->new($self->dbh, $row);
+        push @entities, $artist;
+    }
 
-            $artist->id($_->[0]->{artist});
-            $artist->name($_->[0]->{name});
-            $artist->sort_name($_->[0]->{sortname});
-            $artist->resolution($_->[0]->{resolutionname});
+    $pager->total_entries($offset + $sql->Rows);
 
-            $artist;
-        }
-            sort { $a->[1] cmp $b->[1] }
-                map {
-                    my $row = $_;
-                    my $name = MusicBrainz::Server::Validation::NormaliseSortText($row->{'sortname'});
-                    [ $row, $name ];
-                } @$rows
-    ];
+    return (\@entities, $pager);
 }
 
 sub is_subscribed_to_artist
@@ -275,37 +276,38 @@ sub UnsubscribeArtists
 
 sub subscribed_labels
 {
-	my ($self) = @_;
-	my $uid = $self->GetUser or die;
-	my $sql = Sql->new($self->dbh);
+    my ($self, $page, $per_page) = @_;
+    my $uid = $self->GetUser or die;
+    my $sql = Sql->new($self->dbh);
 
-	my $rows = $sql->SelectListOfHashes(
-		"SELECT s.*, a.name, a.sortname, a.resolution
-		FROM moderator_subscribe_label s
-		LEFT JOIN label a ON a.id = s.label
-		WHERE s.moderator = ?
-		ORDER BY a.sortname, s.label",
-		$uid,
-	);
+    my $pager = Data::Page->new;
+    $pager->current_page($page);
+    $pager->entries_per_page($per_page);
 
-	@$rows =
-	    map {
-	        my $label = MusicBrainz::Server::Label->new;
-	        $label->id($_->[0]->{label});
-	        $label->name($_->[0]->{name});
-	        $label->sort_name($_->[0]->{sortname});
-	        $label->resolution($_->[0]->{resolution});
-	        
-	        $label;
-	    }
-		sort { $a->[1] cmp $b->[1] }
-		map {
-			my $row = $_;
-			my $name = MusicBrainz::Server::Validation::NormaliseSortText($row->{'sortname'});
-			[ $row, $name ];
-		} @$rows;
+    my $offset = ($page - 1) * $per_page;
 
-	return $rows;
+    $sql->Select(
+        "SELECT s.*, a.name, a.sortname, a.resolution
+           FROM moderator_subscribe_label s
+      LEFT JOIN label a ON a.id = s.label
+          WHERE s.moderator = ?
+       ORDER BY a.sortname, s.label
+         OFFSET ?",
+        $uid, $offset
+    );
+    
+    my @entities;
+    for (1 .. $per_page)
+    {
+        my $row = $sql->NextRowHashRef
+            or last;
+        my $label = MusicBrainz::Server::Label->new($self->dbh, $row);
+        push @entities, $label;
+    }
+
+    $pager->total_entries($offset + $sql->Rows);
+
+    return (\@entities, $pager);
 }
 
 sub GetNumSubscribedLabels

@@ -9,16 +9,19 @@ use UserSubscription;
 
 sub users_subscribed_entities
 {
-    my ($self, $user, $type) = @_;
+    my ($self, $user, $type, $page, $per_page) = @_;
 
     my $us = UserSubscription->new($self->context->mb->{dbh});
     $us->SetUser($user->id);
 
+    $page ||= 1;
+    $per_page ||= 50;
+
     use Switch;
     switch ($type)
     {
-        case ('artist') { return $us->subscribed_artists; }
-        case ('label')  { return $us->subscribed_labels; }
+        case ('artist') { return $us->subscribed_artists($page, $per_page); }
+        case ('label')  { return $us->subscribed_labels ($page, $per_page); }
     }
     
     return;

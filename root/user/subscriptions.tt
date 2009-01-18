@@ -11,17 +11,19 @@
 </p>
 
 <h3>[% type | ucfirst %]s</h3>
-[%- WRAPPER 'forms/form.tt' custom=1 -%]
-<ul>
-    [%- FOREACH entity IN entities -%]
-        <li>
-            <input type="checkbox" name="id" value="[% entity.id %]" id="[% type %].[% entity.id %]" />
-            <label for="[% type %].[% entity.id %]">[%- INCLUDE 'components/entity-link.tt' -%]</label>
-        </li>
-    [%- END -%]
-</ul>
+[%- WRAPPER 'components/with-pager.tt' -%]
+    [%- WRAPPER 'forms/form.tt' custom=1 -%]
+    <ul>
+        [%- FOREACH entity IN entities -%]
+            <li>
+                <input type="checkbox" name="id" value="[% entity.id %]" id="[% type %].[% entity.id %]" />
+                <label for="[% type %].[% entity.id %]">[%- INCLUDE 'components/entity-link.tt' -%]</label>
+            </li>
+        [%- END -%]
+    </ul>
 
-[%- INCLUDE 'forms/submit.tt' label="Unsubscribe" -%]
+    [%- INCLUDE 'forms/submit.tt' label="Unsubscribe" -%]
+    [%- END -%]
 [%- END -%]
 
 [%- END -%]

@@ -445,10 +445,14 @@ sub subscriptions : Local
 
     $c->forward('/user/login');
 
-	$type ||= 'artist';
+    $type ||= 'artist';
 
-    $c->stash->{type} = $type;
-    $c->stash->{entities} = $c->model('Subscription')->users_subscribed_entities($c->user, $type);
+    my $page = $c->req->query_params->{page} || 1;
+    my ($entities, $pager) = $c->model('Subscription')->users_subscribed_entities($c->user, $type, $page);
+
+    $c->stash->{type}     = $type;
+    $c->stash->{entities} = $entities;
+    $c->stash->{pager}    = $pager;
 
     $c->stash->{artist_count} = $c->model('Subscription')->user_artist_count($c->user);
     $c->stash->{label_count } = $c->model('Subscription')->user_label_count($c->user);
