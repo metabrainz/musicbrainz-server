@@ -59,6 +59,7 @@ sub login : Private
     my $form = $self->form(MusicBrainz::Server::Form::User::Login->new());
     $c->stash->{template} = 'user/login.tt';
     $c->stash->{form} = $self->form;
+    $c->session->{__login_dest} = $c->req->uri;
 
     $c->detach unless $self->submit_and_validate($c);
 
@@ -76,24 +77,27 @@ sub login : Private
         if ($form->value('remember_me'))
         {
             $c->user->SetPermanentCookie($c,
-                only_this_ip => $form->value('single_ip'));
+                only_this_ip => $form->value('single_ip')
+            );
         }
     }
+    
+    $c->response->redirect($c->session->{__login_dest});
+    $c->detach;
 }
 
 sub login_form : Local Path('login')
 {
     my ($self, $c) = @_;
 
-    my $referer = $c->req->referer;
     if (!defined $c->session->{__login_dest})
     {
-        $c->session->{__login_dest} = $referer;
+        $c->session->{__login_dest} = $c->req->referer;
     }
 
     $c->forward('/user/login');
 
-    $referer = $c->session->{__login_dest};
+    my $referer = $c->session->{__login_dest};
     $c->session->{__login_dest} = undef;
     $c->response->redirect($referer);
 }
