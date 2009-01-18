@@ -61,8 +61,8 @@
         [% END %]
 
         [% IF user.email %]
-            [% IF user.email_verification_date %]
-                (verified [% user_date(user.email_verification_date) %])
+            [% IF user.email_confirmation_date %]
+                (verified [% user.email_confirmation_date %])
             [% ELSE %]
                 [% IF viewing_own_profile %]
                     (<em>unverified!</em>)
