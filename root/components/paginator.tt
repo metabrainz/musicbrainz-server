@@ -6,7 +6,7 @@
             <li><a href="[% c.req.uri_with( page => pager.previous_page ) %]">&lt;</a></li>
         [% END %]
     
-        [% start = (pager.current_page - 2) > 0 ? (pager.current_page - 3) : 1;
+        [% start = (pager.current_page - 3) > 0 ? (pager.current_page - 3) : 1;
          FOREACH page IN [ start .. pager.last_page ] %]
             [% LAST IF loop.count > 6 %]
             <li[% IF pager.current_page == page; ' class="current"'; END %]>

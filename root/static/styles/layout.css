@@ -297,11 +297,16 @@ table.details table.details th { font-weight: normal; }
 
 .paginator li a {
     padding: 0pt 5pt;
-    color: #000;
+    color: #777;
     border: 1px solid;
 }
 
-.paginator li.current {
+.paginator li.current a,
+.paginator li a:hover {
+    color: #000;
+}
+
+.paginator li.current a {
     background: #FFBA58;
     font-weight: bold;
 }

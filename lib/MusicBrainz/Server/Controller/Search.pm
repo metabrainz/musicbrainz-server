@@ -97,8 +97,10 @@ sub external : Local Form('Search::External')
 
     my $type   = $form->value('type');
     my $query  = $form->value('query');
-    my $offset = $c->request->query_params->{offset} || 0;
+    
     my $limit  = $form->value('limit') || 25;
+    my $page   = $c->request->query_params->{page} || 1;
+    my $offset = ($page - 1) * $limit;
 
     if ($query eq '!!!' and $type eq 'artist')
     {
@@ -125,6 +127,7 @@ sub external : Local Form('Search::External')
                                  $query,
                                  $offset,
                                  $limit,);
+    warn "Search $search_url";
     use LWP::UserAgent;
 
     my $ua = LWP::UserAgent->new;
@@ -207,33 +210,15 @@ sub external : Local Form('Search::External')
             $c->res->redirect($c->uri_for($action, [ $redirect ]));
             $c->detach;
         }
+        
+        my $pager = Data::Page->new;
+        $pager->current_page($page);
+        $pager->entries_per_page($limit);
+        $pager->total_entries($total_hits);
 
-        my $total_pages = ceil($total_hits / $limit);
-
-        $c->stash->{current_page} = floor($offset / $limit) + 1;
-        $c->stash->{total_pages}  = $total_pages;
-        $c->stash->{offset}       = $offset;
-        $c->stash->{total_hits}   = $total_hits;
-        $c->stash->{results}      = $results;
-
-        $c->stash->{url_for_page} = sub {
-            my $page_number = shift;
-            $page_number    = $page_number - 1;
-
-            my $new_offset  = $page_number * $limit;
-
-            my $min_offset  = 0;
-            my $max_offset  = ($c->stash->{total_pages} - 1) * $limit;
-
-            $new_offset = $new_offset < $min_offset ? $min_offset
-                        : $new_offset > $max_offset ? $max_offset
-                        :                             $new_offset;
-
-            my $query = $c->req->query_params;
-            $query->{offset} = $page_number * $limit;
-
-            $c->uri_for('/search/external', $query);
-        };
+        $c->stash->{pager}   = $pager;
+        $c->stash->{offset}  = $offset;
+        $c->stash->{results} = $results;
 
         $c->stash->{template} = 'search/external.tt';
     }
