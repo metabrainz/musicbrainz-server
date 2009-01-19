@@ -10,13 +10,13 @@
 
     <link rel="stylesheet" type="text/css" href="/static/main.css" />
 
-    [% FOR css IN template.extra_css %]
+    [% FOR css IN extra_css %]
         <link rel="stylesheet" type="text/css" href="/static/styles/extra/[% css %]" />
     [% END %]
     
     <script type="text/javascript" src="/static/scripts/jquery/jquery-1.3.min.js"></script>
     
-    [% FOR js IN template.extra_js %]
+    [% FOR js IN extra_js %]
         <script type="text/javascript" src="/static/scripts/[% js %]"></script>
     [% END %]
 

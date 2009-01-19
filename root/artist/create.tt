@@ -1,4 +1,4 @@
-[% META extra_js = [ "artistform.js" ] %]
+[% extra_js = [ "artistform.js" ] %]
 [%- WRAPPER "layout.tt" title="New Artist" -%]
 [%- WRAPPER "components/box.tt" header="Create new artist" -%]
 [%- INCLUDE "artist/edit_form.tt" new=1 -%]
