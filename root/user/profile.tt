@@ -1,5 +1,5 @@
 [% USE date %]
-[% META extra_css = "user.css" %]
+[% extra_css = "user.css" %]
 [%- PROCESS 'components/comma-list.tt' -%]
 [%- PROCESS 'components/links.tt' -%]
 

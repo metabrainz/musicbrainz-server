@@ -59,7 +59,8 @@ sub login : Private
     my $form = $self->form(MusicBrainz::Server::Form::User::Login->new());
     $c->stash->{template} = 'user/login.tt';
     $c->stash->{form} = $self->form;
-    $c->session->{__login_dest} = $c->req->uri;
+    $c->session->{__login_dest} = $c->req->uri
+        unless defined $c->session->{__login_dest};
 
     $c->detach unless $self->submit_and_validate($c);
 
@@ -82,7 +83,10 @@ sub login : Private
         }
     }
     
-    $c->response->redirect($c->session->{__login_dest});
+    my $redir = $c->session->{__login_dest};
+    $c->session->{__login_dest} = undef;
+    
+    $c->response->redirect($redir);
     $c->detach;
 }
 
@@ -90,16 +94,10 @@ sub login_form : Local Path('login')
 {
     my ($self, $c) = @_;
 
-    if (!defined $c->session->{__login_dest})
-    {
-        $c->session->{__login_dest} = $c->req->referer;
-    }
+    $c->session->{__login_dest} = $c->req->referer
+        unless defined $c->session->{__login_dest};
 
     $c->forward('/user/login');
-
-    my $referer = $c->session->{__login_dest};
-    $c->session->{__login_dest} = undef;
-    $c->response->redirect($referer);
 }
 
 =head2 register
