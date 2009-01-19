@@ -63,11 +63,13 @@
         <ul>
             <li>[%- doc_link('HowEditingWorks', 'About Editing') -%]</li>
             <li><a href="[% c.uri_for('/moderation/reports') %]">Editing Suggestions</a></li>
-	    <li><a href="[% c.uri_for('/moderation/open') %]">Review/Vote on Edits</a></li>
-	    <li><a href="[% c.uri_for('/moderation/conditions') %]">Edit Conditions</a></li>
-	    <li><a href="[% c.uri_for('/artist/create') %]">Add Artist</a></li>
-	    <li><a href="[% c.uri_for('/label/create') %]">Add Label</a></li>
-	    <li><a href="[% c.uri_for('/release/freedb_import') %]">FreeDB Import</a></li>
+            [%- IF c.user_exists -%]
+                <li><a href="[% c.uri_for('/moderation/open') %]">Review/Vote on Edits</a></li>
+                <li><a href="[% c.uri_for('/moderation/conditions') %]">Edit Conditions</a></li>
+                <li><a href="[% c.uri_for('/artist/create') %]">Add Artist</a></li>
+                <li><a href="[% c.uri_for('/label/create') %]">Add Label</a></li>
+                <li><a href="[% c.uri_for('/release/freedb_import') %]">FreeDB Import</a></li>
+            [%- END -%]
         </ul>
     </li>
 
