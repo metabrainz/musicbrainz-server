@@ -1,18 +1,36 @@
-// Is innerHTML standard?  If not, use something like:
-// document.getElementById(...).firstChild.nodeValue = text;
+// Used on: /root/artist/create.tt
+// Used on: /root/artist/edit.tt
+
+/**************************************************
+ *  Attach trigger to the change event for the 
+ *  artist type selector.
+ *************************************************/
+$(document).ready(function(){
+    $('#id_artist_type').change(artistTypeChanged);
+});
+
+/**************************************************
+ *  Changes the label descriptions depending upon
+ *  the artist type.
+ *************************************************/
 function artistChangeBeginEnd(begin, end)
 {
-  document.getElementById('begindate_text').innerHTML = begin;
-  document.getElementById('enddate_text').innerHTML = end;
+    $('#id_label_start').text(begin);
+    $('#id_label_end').text(end);
 }
 
-// See the ARTIST_TYPE_* constants
-function artistTypeChanged(selection)
+/**************************************************
+ *  Sets the label descriptions depending upon
+ *  the artist type.
+ *  Unknown: 0
+ *  Person: 1
+ *  Group: 2
+ *************************************************/
+function artistTypeChanged()
 {
-  switch (selection) {
+  switch ($('#id_artist_type').val()) {
   default:
   case '0':
-  case '3':
     artistChangeBeginEnd('Begin Date', 'End Date');
     break;
   case '1':
