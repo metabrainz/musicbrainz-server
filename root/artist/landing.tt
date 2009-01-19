@@ -1,6 +1,6 @@
 [%- WRAPPER "layout.tt" title=artist.name -%]
 [%- INCLUDE "artist/header.tt" -%]
-[%- INCLUDE "components/annotation.tt" -%]
+[%- INCLUDE "annotation/annotation.tt" parent=artist -%]
 <div class="TagsBox">
     [%- INCLUDE "tag/summary.tt" source=artist -%]
 </div>

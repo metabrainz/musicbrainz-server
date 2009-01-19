@@ -193,7 +193,7 @@ sub show : PathPart('') Chained('artist')
         $c->stash->{tags}       = $c->model('Tag')->top_tags($artist);
         $c->stash->{releases}   = $c->model('Release')->load_for_artist($artist, $show_all);
         $c->stash->{relations}  = $c->model('Relation')->load_relations($artist, to_type => [ 'artist', 'url', 'label', 'album' ]);
-        $c->stash->{annotation} = $c->model('Annotation')->load_latest_annotation($artist);
+        $c->stash->{annotation} = $c->model('Annotation')->load_revision($artist);
 
         # Decide how to display the data
         $c->stash->{template} = defined $c->request->query_params->{full} ? 

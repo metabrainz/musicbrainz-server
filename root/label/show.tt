@@ -3,7 +3,7 @@
 [%- WRAPPER "layout.tt" title=label.name -%]
 [%- INCLUDE "label/header.tt" -%]
 [%- INCLUDE "components/relations.tt" source=label -%]
-[%- INCLUDE "components/annotation.tt" %]
+[%- INCLUDE "annotation/annotation.tt" parent=label %]
 
 <h2 class="compactreleasetype">Releases</h2>
 

@@ -79,8 +79,17 @@ div.annotation div.body,
 div.annotation div.details 
 { padding: 1pt 5pt; }
 
-div.annotation div.details {
+div.annotation div.bar {
     border-top: 1px solid #000;
+    padding: 3pt;
+    background: #eee;
+}
+
+.annotation .details {
+    float: left;
+}
+.annotation .options {
+    text-align: right;
 }
 
 span.artist_icon,

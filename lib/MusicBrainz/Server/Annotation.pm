@@ -403,7 +403,7 @@ sub Insert
 		  "INSERT INTO annotation "
 		. "(moderator, moderation, type, rowid, changelog, text) "
 		. "VALUES (?, ?, ?, ?, ?, ?)",
-		$self->{moderator},
+		$self->{moderator}->id,
 		$self->{moderation},
 		$self->{type},
 		$self->{rowid},
@@ -419,42 +419,15 @@ sub Insert
 # Returns a reference to an array of Annotation IDs for the specified
 # object.
 
-sub GetAnnotationIDsForRelease
+sub GetAnnotationIDs
 {
-	return $_[0]->GetAnnotationIDsForEntity($_[1], RELEASE_ANNOTATION);
-}
+    my $self = shift;
+    my $sql  = Sql->new($self->dbh);
 
-sub GetAnnotationIDsForArtist
-{
-	return $_[0]->GetAnnotationIDsForEntity($_[1], ARTIST_ANNOTATION);
-}
-
-sub GetAnnotationIDsForLabel
-{
-	return $_[0]->GetAnnotationIDsForEntity($_[1], LABEL_ANNOTATION);
-}
-
-sub GetAnnotationIDsForTrack
-{
-	return $_[0]->GetAnnotationIDsForEntity($_[1], TRACK_ANNOTATION);
-}
-
-sub GetAnnotationIDsForEntity
-{
-	my ($class, $entity, $type) = @_;
-	my $dbh = $entity->{dbh};
-	return $class->_GetAnnotationIDs($dbh, $entity->id, $type);
-}
-
-sub _GetAnnotationIDs
-{
-	my ($class, $dbh, $rowid, $type) = @_;
-	my $sql = Sql->new($dbh);
-
-	$sql->SelectSingleColumnArray(
-	  	"SELECT id FROM annotation WHERE rowid = ? AND type = ? ORDER BY id DESC",
-		$rowid, $type,
-	);
+    return $sql->SelectSingleColumnArray(
+        "SELECT id FROM annotation WHERE rowid = ? AND type = ? ORDER BY id DESC",
+        $self->{rowid}, $self->{type},
+    );
 }
 
 ################################################################################

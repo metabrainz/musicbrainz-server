@@ -69,9 +69,9 @@ Options used for the "artist type" combo field.
 
 sub options_artist_type
 {
-    [ MusicBrainz::Server::Artist::ARTIST_TYPE_PERSON, "Person",
-      MusicBrainz::Server::Artist::ARTIST_TYPE_GROUP, "Group",
-      MusicBrainz::Server::Artist::ARTIST_TYPE_UNKNOWN, "Unknown" ]
+    [ MusicBrainz::Server::Artist::ARTIST_TYPE_UNKNOWN, "Unknown",
+      MusicBrainz::Server::Artist::ARTIST_TYPE_PERSON,  "Person",
+      MusicBrainz::Server::Artist::ARTIST_TYPE_GROUP,   "Group" ]
 }
 
 =head2 model_validate
