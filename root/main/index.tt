@@ -1,4 +1,5 @@
 [% META extra_css = "index.css" %]
+[%- PROCESS 'components/links.tt' -%]
 
 [% WRAPPER "layout.tt" title="Welcome to MusicBrainz!" %]
 
@@ -72,7 +73,7 @@
         <p>
             You can use MusicBrainz right now to automatically identify and label your music files - all you have to do is
             download and run a MusicBrainz enabled tagger.
-            [% INCLUDE "components/doc-link.tt" to="MusicBrainzTagger" text="Read more about our taggers." %]
+            [%- doc_link('MusicBrainzTagger', 'Read more about our taggers.') -%]
         </p>
         <p>
             <div>
@@ -108,16 +109,16 @@
         <p>
             Alternatively, you might just want to <a href="[% c.uri_for('/search') %]">search</a> or <a href="/browseartists.html">browse</a>
             the MusicBrainz database. If you spot a mistake, or something that is missing, you can even
-            [% INCLUDE "components/doc-link.tt" to="HowEditingWorks" text="edit or add more data!" %]
+            [%- doc_link('HowEditingWorks', 'edit or add more data!') -%]
         </p>
         <p>
             If you're new to MusicBrainz, please take a moment to read the
-            [% INCLUDE "components/doc-link.tt" to="BeginnersGuide" text="beginners guide" %]
+            [%- doc_link('BeginnersGuide', 'beginners guide') -%]
             before editing the database.
         </p>
         <p>
             If you are a software developer you might want to learn about the
-            [% INCLUDE "components/doc-link.tt" to="libmusicbrainz" text="MusicBrainz client library/SDK" %]. You can use the
+            [%- doc_link('libmusicbrainz', 'MusicBrainz client library/SDK') -%]. You can use the
             library to enable your programs to access the MusicBrainz database, both for looking up data and also for
             submitting new data.
         </p>
@@ -134,7 +135,7 @@
             <li>
 	            If you spot something that is wrong, poorly entered or just plain missing, please
 	            <a href="[% c.uri_for('/user/register') %]">register</a> and
-	            [% INCLUDE "components/doc-link.tt" to="HowEditingWorks" text="edit the data" %]
+	            [%- doc_link('HowEditingWorks', 'edit the data') -%]
             </li>
         </ul>
     [% END %]

@@ -1,3 +1,5 @@
+[%- PROCESS 'components/links.tt' %]
+
 [% WRAPPER "layout.tt" title="$artist.name - Details" %]
 
 [% INCLUDE "artist/header.tt" %]
@@ -5,16 +7,16 @@
 [% WRAPPER "components/box.tt" header="Artist Information" %]
 <table class="details">
     <tr>
-        <th>[%- INCLUDE "components/doc-link.tt" to="ArtistName" text="Name" -%]:</th>
+        <th>[%- doc_link("ArtistName", "Name") -%]:</th>
         <td>
-            [% INCLUDE "components/entity-link.tt" entity=artist %]
+            [% entity_link(artist) %]
             [% IF artist.resolution %]
                 ([% artist.resolution %])
             [% END %]
         </td>
     </tr>
     <tr>
-        <th>[%- INCLUDE "components/doc-link.tt" to="MusicBrainzIdentifier" text="MBID" -%]:</th>
+        <th>[%- doc_link("MusicBrainzIdentifier", "MBID") -%]:</th>
         <td>[% artist.mbid %]</td>
     </tr>
     <tr>

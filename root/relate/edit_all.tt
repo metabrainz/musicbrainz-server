@@ -1,7 +1,9 @@
+[%- PROCESS 'components/links.tt' %]
+
 [% WRAPPER "$entity.entity_type/layout.tt" %]
 
 <div class="RelationshipBox">
-    <p>[%- INCLUDE "components/entity-link.tt" -%]</p>
+    <p>[%- entity_link(entity) -%]</p>
     <ul>
         [%- FOREACH rel IN relations -%]
         [%- FOREACH entity IN rel.entities -%]
@@ -10,7 +12,7 @@
             [ <a href="[% c.uri_for("/relate/edit/$rel_url") %]">edit</a> |
               <a href="[% c.uri_for("/relate/remove/$rel_url") %]">remove</a> ]
             [% rel.connector | html %]
-            [%- INCLUDE 'components/entity-link.tt' -%]
+            [%- entity_link(entity) -%]
         </li>
         [%- END -%]
         [%- END -%]

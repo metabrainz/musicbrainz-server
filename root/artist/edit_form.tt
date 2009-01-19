@@ -1,10 +1,12 @@
+[%- PROCESS 'components/links.tt' %]
+
 <ul>
 [%- IF new -%]
     <li>You are about to add an artist to MusicBrainz.</li>
 [%- END -%]
     <li>
         Please read the
-        [%- INCLUDE "components/doc-link.tt" to="StyleGuideline" text="Style Guidelines" -%],
+        [%- doc_link("StyleGuideline", "Style Guidelines") -%],
         then provide the necessary information about the new artist below.
     </li>
     <li>
@@ -12,7 +14,7 @@
         will be prompted to add a comment to this artist that will allow users to
         distinguish this entry from the other
         artist(s) with the same name (see
-        [%- INCLUDE "components/doc-link.tt" to="ArtistComment" text="ArtistComment" -%]).
+        [%- doc_link("ArtistComment", "ArtistComment") -%]).
     </li>
     <li>
         Please note that casing of the artist is taken into account when determining
@@ -30,7 +32,7 @@
             which appears to be very similar, if not exactly the same as these existing artists:
         </p>
         [%- BLOCK show_dupe -%]
-        <li>[%- INCLUDE "components/entity-link.tt" entity=dupe -%]</li>
+        <li>[%- entity_link(dupe) -%]</li>
         [%- END -%]
         <ul>
             [%- PROCESS show_dupe FOREACH dupe=dupes -%]

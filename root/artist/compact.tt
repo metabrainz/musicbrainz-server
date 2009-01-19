@@ -1,3 +1,5 @@
+[%- PROCESS 'components/links.tt' %]
+
 [%- WRAPPER "artist/landing.tt" -%]
 
 [% BLOCK group_head %]
@@ -32,7 +34,7 @@
                 [% item.language.iso_code_3t %]
             </abbr>
         </td>
-        <td>[% INCLUDE "components/entity-link.tt" entity=item icon=0 %]</td>
+        <td>[% entity_link(item, 1) %]</td>
     </tr>
 [% END %]
 

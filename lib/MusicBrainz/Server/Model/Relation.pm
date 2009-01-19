@@ -167,7 +167,7 @@ sub relate_to_url
 =head2 _export_link $link, [$index]
 
 Export either end of this link as stash data that can be used with
-entity-link.tt
+entity_link()
 
 C<$link >is a hash reference to a AR link (which can be created with
 L<MusicBrainz::Server::Link::FindLinkedEntities>, along with other

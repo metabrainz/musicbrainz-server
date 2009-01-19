@@ -1,4 +1,0 @@
-[%- # Link to a page in the transcluded wiki. -%]
-[%- # Pass the variable "to" to chose which page to link to -%]
-[%- # Use the variable "text" to add human readable text. If you do not pass "text", the "to" variable will be used -%]
-<a href="/doc/[% to %]">[% (text or to) %]</a>

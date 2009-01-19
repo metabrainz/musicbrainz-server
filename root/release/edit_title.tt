@@ -1,12 +1,14 @@
+[%- PROCESS 'components/links.tt' -%]
+
 [% WRAPPER 'release/layout.tt' title="Edit Release title" %]
 [% WRAPPER 'components/box.tt' header="Edit release title" %]
 
 <ul>
     <li>
         This form allows you to edit the
-        [% INCLUDE "components/doc-link.tt" to="ReleaseTitle" text="title of this release" %].
+        [%- doc_link('ReleaseTitle', 'title of this release') -%].
         Please read the
-        [% INCLUDE "components/doc-link.tt" to="StyleGuidelines" text="style guidelines" %]
+        [%- doc_link('StyleGuidelines', 'style guidelines') -%]
         before entering any edits.
     </li>
 </ul>

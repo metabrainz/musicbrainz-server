@@ -1,16 +1,18 @@
+[%- PROCESS 'components/links.tt' -%]
+
 [% WRAPPER 'components/box.tt' header="Edit Label" %]
 
 <ul>
     <li>
         Please read the 
-        [%- INCLUDE "components/doc-link.tt" to="StyleGuideline" text="style guidlines" -%],
+        [%- doc_link("StyleGuideline", "style guidlines") -%],
         then use the fields below to update the information of this label.
     </li>
     <li>
         If one or more labels with the same name already exist in the database, you will be
         prompted to add a comment to this label that will allow users to distinguish this
         entry from the other label(s) with the same name. (see
-        [% INCLUDE 'components/doc-link.tt' to='LabelComment' text='label comment' -%])
+        [% doc_link('LabelComment', 'label comment') -%])
     </li>
     <li>
         Please note that casing of the label is taken into account when determining the need

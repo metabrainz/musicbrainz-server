@@ -208,8 +208,7 @@ sub find_similar_artists
 
     return [ map {
         +{
-            name   => $_->{name},
-            mbid   => $_->{mbid},
+            artist => MusicBrainz::Server::Artist->new($self->dbh, $_),
             weight => $_->{weight},
         };
     } @$similar_artists ];

@@ -1,10 +1,12 @@
+[%- PROCESS 'components/links.tt' -%]
+
 [%- WRAPPER 'artist/layout.tt' title='Add non-album track' -%]
 [%- WRAPPER 'components/box.tt' header='Add non-album track' -%]
 
 <ul>
     <li>
         Please enter the names of the tracks you wish to add as non-album tracks
-        of [%- INCLUDE 'components/entity-link.tt' entity=artist -%].
+        of [% entity_link(artist) %].
         Blank tracks will be ignored, just do not fill anything into the fields
         you do not want to add.
     </li>
@@ -27,7 +29,7 @@
 
 [%- WRAPPER 'forms/form.tt' moderation=1 -%]
     [%- WRAPPER 'forms/fieldset.tt' legend='Tracks' -%]
-        [%- INCLUDE 'components/entity-link.tt' entity=artist
+        [%- entity_link(artist)
                 WRAPPER 'forms/row.tt' label='Artist' -%]
 
         [%- INCLUDE 'forms/widget.tt' widget=form.field('track') label='Track' -%]

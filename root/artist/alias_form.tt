@@ -1,9 +1,11 @@
+[%- PROCESS 'components/links.tt' %]
+
 <ul>
     <li>
         MusicBrainz uses artist aliases mainly as variant names or search hints.
         If you see a misspelled alias here, it's most likely listed on purpose and
         should not be renamed.  See the documentation about
-        [%- INCLUDE 'components/doc-link.tt' to='ArtistAlias' text='artist aliases' -%]
+        [%- doc_link('ArtistAlias', 'artist aliases') -%]
         for more details.
     </li>
     <li>

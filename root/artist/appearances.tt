@@ -1,3 +1,5 @@
+[%- PROCESS 'components/links.tt' -%]
+
 [%- WRAPPER "artist/layout.tt" title="Appearances" -%]
 
 [% BLOCK group_head %]
@@ -19,8 +21,8 @@
         <td class="year[% item.year == last_year && item.year != '?' ? ' timeline' : '' -%]">
             [% item.year %]
         </td>
-        <td>[% INCLUDE "components/entity-link.tt" entity=item.artist %]</td>
-        <td>[% INCLUDE "components/entity-link.tt" entity=item.release %]</td>
+        <td>[% entity_link(item.artist) %]</td>
+        <td>[% entity_link(item.release) %]</td>
     </tr>
     [%- last_year = item.year -%]
 [% END %]

@@ -1,3 +1,5 @@
+[%- PROCESS 'components/links.tt' -%]
+
 [% WRAPPER "layout.tt" title="Donation check" %]
 
 [% WRAPPER "components/box.tt" header="Donation Check" %]
@@ -8,7 +10,7 @@
     </p>
     <p>
     If you would like to make a donation, <a href="http://metabrainz.org/donate">you can do that here</a>. If you've
-    donated, but you're still being nagged, please [% INCLUDE 'components/doc-link.tt' to="ContactUs" text="contact us" %].
+    donated, but you're still being nagged, please [% doc_link("ContactUs", "contact us") %].
     </p>
 [% ELSE %]
     <p>Thank you for contributing to MusicBrainz.</p>

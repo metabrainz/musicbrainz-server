@@ -1,7 +1,9 @@
+[%- PROCESS 'components/links.tt' %]
+
 [%- WRAPPER 'artist/layout.tt' title="Change Data Quality" -%]
 [%- WRAPPER 'components/box.tt' header="Change Data Quality" -%]
 
-<p>The data quality for [%- INCLUDE "components/entity-link.tt" entity=artist -%] is currently:
+<p>The data quality for [%- entity_link(artist) -%] is currently:
 <strong>[%- data_quality(artist.quality) -%]</strong>.</p>
 
 <p>Please select a new data quality level, and enter an edit note to justify this edit.</p>

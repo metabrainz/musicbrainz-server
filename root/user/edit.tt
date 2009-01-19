@@ -1,10 +1,12 @@
+[%- PROCESS 'components/links.tt' -%]
+
 [% WRAPPER "layout.tt" title="Edit Profile" %]
 [% WRAPPER "components/box.tt" header="Edit Profile" %]
 
 <ul>
     <li>See also your <a href="[% c.uri_for('/user/preferences') %]">user preferences</a>, which includes your privacy settings.</li>
     <li>If you would like to delete your account, please see the FAQ entry: 
-    [% INCLUDE "components/doc-link.tt" to="AccountFAQ" text="How do I delete my account?" %]</li>
+    [%- doc_link('AccountFAQ', 'How do I delete my account?') -%]</li>
 </ul>
 
 [% WRAPPER "forms/form.tt" %]

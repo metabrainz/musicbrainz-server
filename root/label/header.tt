@@ -7,9 +7,11 @@
     { link => c.entity_url(label, 'google'), text => "Search Google" }
 ] -%]
 
+[%- PROCESS 'components/links.tt' %]
+
 <div class="entity_header">
     <div class="title label">
-        [% INCLUDE "components/entity-link.tt" entity=label noicon=1 %]
+        [% entity_link(label, 1) %]
     </div>
     <div class="info">
         [%- IF label.has_complete_date -%]

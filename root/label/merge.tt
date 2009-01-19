@@ -1,10 +1,10 @@
+[%- PROCESS 'components/links.tt' %]
+
 [% WRAPPER 'label/layout.tt' title="Merge" %]
 [% WRAPPER 'components/box.tt' header="Merge ${label.name} into ${new_label.name}" %]
 
 <p>Are you sure you want to merge the label
-[%- INCLUDE "components/entity-link.tt" entity=label -%]
- into 
-[%- INCLUDE "components/entity-link.tt" entity=new_label -%]?</p>
+[%- entity_link(label) -%] into [%- entity_link(new_label) -%]?</p>
 
 [%- WRAPPER "forms/form.tt" -%]
     [% INCLUDE "forms/edit-note.tt" %]

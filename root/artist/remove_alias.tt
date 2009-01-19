@@ -1,22 +1,20 @@
+[%- PROCESS 'components/links.tt' %]
+
 [%- WRAPPER 'artist/layout.tt' title='Remove Alias' -%]
 [%- WRAPPER 'components/box.tt' header='Confirm alias removal' -%]
 
 <ul>
     <li>
-        Please review the documentation about
-        [% INCLUDE 'components/doc-link.tt' to='ArtistAlias' text='artist aliases' -%],
+        Please review the documentation about [% doc_link('ArtistAlias', 'artist aliases') -%],
         before entering this edit.
     </li>
     <li>
-        Are you sure you want to remove the alias
-        [%- INCLUDE 'components/entity-link.tt' entity=alias -%], which points to
-        the artist
-        [%- INCLUDE 'components/entity-link.tt' entity=artist -%]?
+        Are you sure you want to remove the alias <strong>[% alias.name %]</strong>, which points to
+        the artist [%- entity_link(artist) -%]?
     </li>
     <li>
         If you added this alias by mistake, please follow the instructions about
-        [%- INCLUDE 'components/doc-link.tt' to='HowToCancelEdits'
-                text='how to cancel pending edits' -%].
+        [% doc_link('HowToCancelEdits', 'how to cancel pending edits') -%].
         Removing pending edits, rather than entering new edits helps reducing
         the amount of open edits in the system.
     </li>

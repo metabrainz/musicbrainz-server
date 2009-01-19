@@ -1,9 +1,11 @@
+[%- PROCESS 'components/links.tt' %]
+
 [% WRAPPER "components/box.tt" header="Tags" %]
 [%- IF tagcloud.size -%] 
-    <p>[% INCLUDE "components/entity-link.tt" %] has been tagged with the following:</p>
+    <p>[% entity_link(entity) %] has been tagged with the following:</p>
     [% INCLUDE "tag/cloud.tt" %]
 [%- ELSE -%]
-    <p>[% INCLUDE "components/entity-link.tt" %] has not been tagged.</p>
+    <p>[% entity_link(entity) %] has not been tagged.</p>
 [%- END -%]
 [% END %]
 

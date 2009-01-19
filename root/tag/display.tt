@@ -1,3 +1,5 @@
+[%- PROCESS 'components/links.tt' %]
+
 [%- WRAPPER "layout.tt" -%]
     <h2>[%- type | ucfirst -%]s tagged with &quot;[% tag %]&quot;</h2>
 
@@ -6,7 +8,7 @@
             <table>
             [%- FOREACH entity IN entities -%]
                 <tr>
-                <td>[% INCLUDE "components/entity-link.tt" %]</td>
+                <td>[% entity_link(entity) %]</td>
                 <td>[% entity.amount %]</td>
                 </tr>
             [%- END -%]

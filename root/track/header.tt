@@ -1,3 +1,5 @@
+[%- PROCESS 'components/links.tt' %]
+
 [%- info_links = [
     { link => c.entity_url(track, 'details'), text => "Details" },
     { link => c.entity_url(track, 'relations'), text => "Relations" },
@@ -12,12 +14,12 @@
 
 <div class="entity_header">
     <div class="title track">
-        [% INCLUDE "components/entity-link.tt" entity=track noicon=1 %]
+        [% entity_link(track, 1) %]
     </div>
 
     [%- IF artist -%]
     <div class="info">
-        by [% INCLUDE "components/entity-link.tt" entity=artist noicon=1 %]
+        by [% entity_link(artist, 1) %]
     </div>
     [%- END -%]
 

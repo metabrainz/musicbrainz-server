@@ -1,10 +1,14 @@
+[%- PROCESS 'components/links.tt' -%]
+
 [% WRAPPER "layout.tt" title="Create an Account" %]
 
 [% WRAPPER "components/box.tt" header="Create an Account" %]
     <ul>
         <li>Please fill out the fields below to create a new MusicBrainz account.</li>
-        <li>Before doing so, please read the [% INCLUDE "components/doc-link.tt" to="CodeOfConduct" text="MusicBrainz Code of Conduct" %].</li>
-        <li>If you have any questions, please review the [% INCLUDE "components/doc-link.tt" to="FrequentlyAskedQuestions" text="Frequently Asked Questions (FAQ)" %], or post it to the appropriate [% INCLUDE "components/doc-link.tt" to="MailingList" text="Mailing List" %].</li>
+        <li>Before doing so, please read the [%- doc_link('CodeOfConduct', 'MusicBrainz Code of Conduct') -%].</li>
+        <li>If you have any questions, please review the
+            [%- doc_link('FrequentlyAskedQuestions', 'Frequently Asked Questions (FAQ)') %],
+            or post it to the appropriate [% doc_link('MailingList', 'Mailing List') -%].</li>
     </ul>
 
     [% WRAPPER "forms/form.tt" %]
@@ -17,10 +21,10 @@
 
     <h3>We respect your privacy</h3>
     <p>Rest assured that we will not pass your e-mail address on to anyone, including other MusicBrainz users, without your most explicit consent. At any time you can fill in your e-mail address if it's currently blank, remove it if it's currently filled in or change from one address to another.</p>
-    <p>[% INCLUDE "components/doc-link.tt" to="MusicBrainzPrivacyPolicy" text="Read on for the full MusicBrainz Privacy Policy" %]</p>
+    <p>[%- doc_link('MusicBrainzPrivacyPolicy', 'Read on for the full MusicBrainz Privacy Policy') -%]</p>
 
     <h3>What your e-mail address will <em>not</em> be used for</h3>
-    <p>We won't send you any newsletters, promotional mailings, etc. If you're interested in receiving information from the MusicBrainz staff and communicating with other users, [% INCLUDE "components/doc-link.tt" to="MailingList" text="please subscribe to our mailing lists" %].</p>
+    <p>We won't send you any newsletters, promotional mailings, etc. If you're interested in receiving information from the MusicBrainz staff and communicating with other users, [%- doc_link('MailingList', 'please subscribe to our mailing lists') -%].</p>
 
     <h3>What your e-mail address <em>will</em> be used for</h3>
     <p>Since some users have unfortunately made lots of questionable edits and could not be contacted to fix their mistakes, we now require a confirmed (i.e. working) e-mail address for all edits made to the database.</p>

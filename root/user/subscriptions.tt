@@ -1,3 +1,5 @@
+[%- PROCESS 'components/links.tt' %]
+
 [%- WRAPPER 'layout.tt' title='Subscriptions' -%]
 [%- WRAPPER 'components/box.tt' header='Your Subscriptions' -%]
 <p>
@@ -17,7 +19,7 @@
         [%- FOREACH entity IN entities -%]
             <li>
                 <input type="checkbox" name="id" value="[% entity.id %]" id="[% type %].[% entity.id %]" />
-                <label for="[% type %].[% entity.id %]">[%- INCLUDE 'components/entity-link.tt' -%]</label>
+                <label for="[% type %].[% entity.id %]">[%- entity_link(entity) -%]</label>
             </li>
         [%- END -%]
     </ul>

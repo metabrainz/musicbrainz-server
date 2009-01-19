@@ -1,15 +1,16 @@
 [%- url = "http://musicbrainz.org/${entity.entity_type}/${entity.mbid}.html" -%]
+[%- PROCESS 'components/links.tt' -%]
 
 [%- WRAPPER 'components/box.tt' header="Link to ${entity.name}" -%]
 <ul>
     <li>
         The permanent link for the MusicBrainz [%- entity.entity_type -%]
-        [%- INCLUDE "components/entity-link.tt" -%]
+        [%- entity_link(entity) -%]
         is <a href="[% url | url %]">[% url | html %]</a>.
     </li>
     <li>
         If you wish to add a permanent link to the MusicBrainz [% entity.entity_type %]
-        [% INCLUDE "components/entity-link.tt" %]
+        [% entity_link(entity) %]
         from your website or weblog, choose one of the link styles below.
     </li>
     <li>
@@ -25,7 +26,7 @@
         <td>
             <p>
                 If you wish to use a text link (e.g.
-                [% INCLUDE "components/entity-link.tt" noicon=1 %]), you can use the following
+                [% entity_link(entity, 1) %]), you can use the following
                 markup:
             </p>
             <textarea cols="60" rows="5" title="Select text">
@@ -38,7 +39,7 @@
         <td>
             <p>
                 If you wish to use a link with an icon (e.g.
-                [% INCLUDE "components/entity-link.tt" %]), you can use the following
+                [% entity_link(entity) %]), you can use the following
                 markup:
             </p>
             <textarea cols="60" rows="5" title="Select text">

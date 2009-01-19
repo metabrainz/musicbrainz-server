@@ -1,3 +1,5 @@
+[%- PROCESS 'components/links.tt' %]
+
 <div class="releasename">
-    [% INCLUDE "components/entity-link.tt" entity=release noicon=1 %]
+    [% entity_link(release, 1) %]
 </div>

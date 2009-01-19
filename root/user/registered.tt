@@ -1,3 +1,5 @@
+[%- PROCESS 'components/links.tt' -%]
+
 [% WRAPPER 'layout.tt' title="Account Created" %]
 
 [% WRAPPER 'components/box.tt' header="Account Created" %]
@@ -9,7 +11,8 @@
         <p>Since you have provided an email address, an email verification mail has been sent to <code>[% email_address %]</code>. Please check your mailbox and click on the link in the email to verify the new email address.</p>
     [% END %]
 
-    <p>You may proceed to <a href="[% c.uri_for('/user/profile') %]">your user profile</a>, or maybe you want to [% INCLUDE 'components/doc-link.tt' to="HowEditingWorks" text="start editing!" %]</p>
+    <p>You may proceed to <a href="[% c.uri_for('/user/profile') %]">your user profile</a>, or maybe you want to
+        [% doc_link("HowEditingWorks", "start editing!") %]</p>
 [% END %]
 
 [% END %]

@@ -1,0 +1,17 @@
+[%- MACRO doc_link(to, text) BLOCK -%]
+    <a href="/doc/[% to %]">[% (text or to) %]</a>
+[%- END -%]
+
+[%- MACRO entity_link(entity, noicon) IF entity -%]
+    [%- mpclass = entity.has_mod_pending ? ' class="mp"' : '' -%]
+    [%- IF entity.entity_type == "url" -%]
+        <a href="[%- (entity.url || entity.name) -%]"[%- mpclass -%]>[%- (entity.name || entity.url) | truncate(53) | html -%]</a>
+        [<a href="[%- c.entity_url(entity, 'info') -%]">info</a>]
+    [%- ELSE -%]
+        <a href="[%- c.entity_url(entity, 'show') -%]"[%- mpclass -%]>
+            [%- UNLESS noicon -%]<span class="[%- entity.entity_type -%]_icon">[%- END -%]
+            [%- (entity.name || entity.sort_name) | html -%]
+            [%- UNLESS noicon -%]</span>[%- END -%]</a>
+            [%- IF entity.resolution -%] ([%- entity.resolution | html -%])[%- END -%]
+    [%- END -%]
+[%- END -%]

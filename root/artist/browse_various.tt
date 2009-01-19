@@ -1,3 +1,5 @@
+[%- PROCESS 'components/links.tt' -%]
+
 [%- WRAPPER 'artist/layout.tt' -%]
     [%- INCLUDE 'browse/page_selector.tt' -%]
     
@@ -17,7 +19,7 @@
                                 [% release.language.iso_code_3t %]
                             </abbr>
                         </td>
-                        <td>[% INCLUDE 'components/entity-link.tt' entity=release %]</td>
+                        <td>[% entity_link(release) %]</td>
                     </tr>
                 [% END %]
             </tbody>

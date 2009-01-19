@@ -9,10 +9,12 @@
     { link => c.entity_url(artist, 'tags'), text => "Tags" },
 ] -%]
 
+[%- PROCESS 'components/links.tt' %]
+
 <div class="entity_header">
 
     <div class="title artist">
-        [% INCLUDE "components/entity-link.tt" entity=artist noicon=1 %]
+        [% entity_link(artist, 1) %]
     </div>
   
     <div class="info">

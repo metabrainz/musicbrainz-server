@@ -1,3 +1,5 @@
+[%- PROCESS 'components/links.tt' %]
+
 <table class="details">
     <tr>
         <th style="width: 70pt;">Type:</th>
@@ -7,28 +9,28 @@
     [%- IF moderation.artist AND moderation.show_artist -%]
         <tr>
             <th>Artist:</th>
-            <td>[%- INCLUDE 'components/entity-link.tt' entity=moderation.artist -%]</td>
+            <td>[%- entity_link(moderation.artist) -%]</td>
         </tr>
     [%- END -%]
 
     [%- IF moderation.release -%]
         <tr>
             <th>Release:</th>
-            <td>[%- INCLUDE 'components/entity-link.tt' entity=moderation.release -%]</td>
+            <td>[%- entity_link(moderation.release) -%]</td>
         </tr>
     [%- END -%]
 
     [%- IF moderation.track -%]
         <tr>
             <th>Track:</th>
-            <td>[%- INCLUDE 'components/entity-link.tt' entity=moderation.track -%]</td>
+            <td>[%- entity_link(moderation.track) -%]</td>
         </tr>
     [%- END -%]
 
     [%- IF moderation.label -%]
         <tr>
             <th>Label:</th>
-            <td>[%- INCLUDE 'components/entity-link.tt' entity=moderation.label -%]</td>
+            <td>[%- entity_link(moderation.label) -%]</td>
         </tr>
     [%- END -%]
 </table>

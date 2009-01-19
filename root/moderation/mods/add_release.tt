@@ -1,6 +1,8 @@
+[%- PROCESS 'components/links.tt' %]
+
 <table class="details">
     <tr>
         <th>New:</th>
-        <td>[%- INCLUDE 'components/entity-link.tt' entity=moderation.release -%]
+        <td>[%- entity_link(moderation.release) -%]
     </tr>
 </table>

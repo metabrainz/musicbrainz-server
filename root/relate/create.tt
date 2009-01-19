@@ -1,11 +1,13 @@
+[%- PROCESS 'components/links.tt' %]
+
 [%- WRAPPER 'layout.tt' title='Create Releationship' -%]
 [%- WRAPPER 'components/box.tt' header="Create Relationship: ${source.entity_type} - ${dest.entity_type}" -%]
 [%- WRAPPER 'forms/form.tt' moderation=1 -%]
     [%- WRAPPER 'forms/fieldset.tt' legend='Relationship' -%]
-        [%- INCLUDE 'components/entity-link.tt' entity=source
+        [%- entity_link(source)
             WRAPPER 'forms/row.tt' label=source.entity_type -%]
 	[%- INCLUDE 'forms/widget.tt' widget=form.field('type') label='Type' -%]
-        [%- INCLUDE 'components/entity-link.tt' entity=dest
+        [%- entity_link(dest)
             WRAPPER 'forms/row.tt' label=dest.entity_type -%]
     [%- END -%]
 

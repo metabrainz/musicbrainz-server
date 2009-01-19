@@ -1,3 +1,5 @@
+[%- PROCESS 'components/links.tt' %]
+
 [% WRAPPER 'layout.tt' title='Add Tracks' %]
 [% WRAPPER 'components/box.tt' header='Add Tracks' %]
 [% INCLUDE 'add_release/bread_crumbs.tt' %]
@@ -18,9 +20,7 @@
 
 [%- WRAPPER 'forms/form.tt' moderation=1 -%]
     [%- WRAPPER 'forms/fieldset.tt' legend='Release Information' -%]
-        [%- WRAPPER 'forms/row.tt' label='Artist' -%]
-            [% INCLUDE 'components/entity-link.tt' entity=artist %]
-        [%- END -%]
+        [%- entity_link(artist) WRAPPER 'forms/row.tt' label='Artist' -%]
         [%- INCLUDE 'forms/widget.tt' widget=form.field('title') label='Title' -%]
     [%- END -%]
 

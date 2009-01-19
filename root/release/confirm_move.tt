@@ -1,12 +1,12 @@
+[%- PROCESS 'components/links.tt' -%]
+
 [% WRAPPER 'release/layout.tt' title="Move release to another artist" %]
 [% WRAPPER 'components/box.tt' header='Move release to another artist' %]
 
 <ul>
     <li>
         Are you sure you want to move the release
-        [% INCLUDE "components/entity-link.tt" entity=release %]
-        to the artist
-        [% INCLUDE "components/entity-link.tt" entity=new_artist %]?
+        [% entity_link(release) %] to the artist [% entity_link(new_artist) %]?
     </li>
 </ul>
 

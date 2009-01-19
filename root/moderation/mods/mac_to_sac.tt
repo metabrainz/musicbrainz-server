@@ -1,6 +1,8 @@
+[%- PROCESS 'components/links.tt' %]
+
 <table class="details">
     <tr>
         <th>Artist:</th>
-        <td>[%- INCLUDE 'components/entity-link.tt' entity=new -%]
+        <td>[%- entity_link(new) -%]
     </tr>
 </table>

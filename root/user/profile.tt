@@ -1,6 +1,7 @@
 [% USE date %]
 [% META extra_css = "user.css" %]
-[% PROCESS 'components/comma-list.tt' %]
+[%- PROCESS 'components/comma-list.tt' -%]
+[%- PROCESS 'components/links.tt' -%]
 
 [% WRAPPER "layout.tt" title="Editor \"$user.name\"" %]
 
@@ -42,7 +43,6 @@
 
     [% WRAPPER property name="User type" %]
 		[% types = [] %]
-		[% MACRO doc_link(to, text) INCLUDE 'components/doc-link.tt' %]
 		
         [% types.push(doc_link('AutoEditor', 'Auto-Editor')) IF user.is_auto_editor %]
 		[% types.push("Internal/Bot") IF user.is_bot %]

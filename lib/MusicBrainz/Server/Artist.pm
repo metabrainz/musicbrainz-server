@@ -1138,7 +1138,7 @@ sub relations
    $sql = Sql->new($this->dbh);
    return $sql->SelectListOfHashes(
 		"
-		SELECT a.name, a.id, t.weight
+		SELECT a.name, a.gid, t.weight
 		FROM (
 			SELECT artist, (SUM(weight)+1)/2 AS weight
 			FROM (

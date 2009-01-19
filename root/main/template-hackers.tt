@@ -26,7 +26,7 @@
 
 <h3>Example</h3>
 <p>
-    Here is a [% INCLUDE "components/doc-link.tt" to="HowEditingWorks" text="a transcluded wiki page" %]. You can alse link to various MusicBrainz entities:
+    Here is a [%- doc_link('HowEditingWorks', 'a transcluded wiki page') -%]. You can alse link to various MusicBrainz entities:
     such as [% INCLUDE "components/entity-link.tt" type="artist" text="the Beatles" mbid="b10bbbfc-cf9e-42e0-be17-e2c3e1d2600d" %]. Linking to releases does
     not require the <code>type</code> to be set to <code>"release"</code>; entity-link.tt specifies the default as <code>type="release"</code>.
 </p>

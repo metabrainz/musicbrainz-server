@@ -1,3 +1,5 @@
+[%- PROCESS 'components/links.tt' %]
+
 [%- WRAPPER "artist/layout.tt" title="Similar Artists" -%]
 [%- WRAPPER "components/box.tt" header="Similar Artists" -%]
 [%- IF similar_artists.size -%]
@@ -5,14 +7,14 @@
         [%- FOREACH similar=similar_artists -%]
             <tr>
                 <td style="width: 40pt;">[%- similar.weight -%]0%</td>
-                <td>[%- INCLUDE "components/entity-link.tt" entity=similar -%]</td>
+                <td> [% entity_link(similar.artist) -%]</td>
             </tr>
         [%- END -%]
     </table>
 [%- ELSE -%]
     <p>
         Sorry, we do not have any data about similar artists for
-        [% INCLUDE "components/entity-link.tt" entity=artist %].
+        [% entity_link(artist) %].
     </p>
 [%- END -%]
 [%- END -%]

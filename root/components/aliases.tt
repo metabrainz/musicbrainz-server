@@ -1,3 +1,5 @@
+[%- PROCESS 'components/links.tt' -%]
+
 [%- WRAPPER "components/box.tt" header="Aliases for ${entity.name}" -%]
 
 [%- IF aliases.size > 0 -%]
@@ -29,7 +31,7 @@
     </tbody>
     </table>
 [%- ELSE -%]
-    <p>[% INCLUDE "components/entity-link.tt" %] has no aliases</p>
+    <p>[% entity_link(entity) %] has no aliases</p>
 [%- END -%]
 
 [%- END -%]

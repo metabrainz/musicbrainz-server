@@ -1,3 +1,5 @@
+[%- PROCESS 'components/links.tt' %]
+
 [%- WRAPPER 'track/layout.tt' -%]
 [% INCLUDE "components/relations.tt" source=track %]
 
@@ -8,11 +10,11 @@
 [% WRAPPER "components/box.tt" header="Track Information" %]
     <table class="details">
     <tr>
-        <th>[% INCLUDE "components/doc-link.tt" to="TrackTitle" text="Title" %]:</th>
-        <td>[% INCLUDE "components/entity-link.tt" entity=track %]</td>
+        <th>[%- doc_link('TrackTitle', 'Title') -%]:</th>
+        <td>[% entity_link(track) %]</td>
     </tr>
     <tr>
-        <th>[% INCLUDE "components/doc-link.tt" to="MusicBrainzIdentifier" text="MBID" %]:</th>
+        <th>[%- doc_link('MusicBrainzIdentifier', 'MBID') -%]:</th>
         <td>[% track.mbid %]</td>
     </tr>
     <tr>
@@ -28,16 +30,16 @@
 [% WRAPPER "components/box.tt" header="Artist Information" %]
     <table class="details">
     <tr>
-        <th>[%- INCLUDE "components/doc-link.tt" to="ArtistName" text="Name" -%]:</th>
+        <th>[%- doc_link("ArtistName", "Name") -%]:</th>
         <td>
-        [% INCLUDE "components/entity-link.tt" entity=artist %]
+        [% entity_link(artist) %]
         [% IF artist.resolution %]
             ([% artist.resolution %])
         [% END %]
         </td>
     </tr>
     <tr>
-        <th>[%- INCLUDE "components/doc-link.tt" to="MusicBrainzIdentifier" text="MBID" -%]:</th>
+        <th>[%- doc_link("MusicBrainzIdentifier", "MBID") -%]:</th>
         <td>[% artist.mbid %]</td>
     </tr>
     </table>
@@ -46,13 +48,13 @@
 [% WRAPPER "components/box.tt" header="Release Information" %]
     <table class="details">
     <tr>
-        <th>[%- INCLUDE "components/doc-link.tt" to="ReleaseTitle" text="Title" -%]:</th>
+        <th>[%- doc_link("ReleaseTitle", "Title") -%]:</th>
         <td>
-        [% INCLUDE "components/entity-link.tt" entity=release %]
+        [% entity_link(release) %]
         </td>
     </tr>
     <tr>
-        <th>[%- INCLUDE "components/doc-link.tt" to="MusicBrainzIdentifier" text="MBID" -%]:</th>
+        <th>[%- doc_link("MusicBrainzIdentifier", "MBID") -%]:</th>
         <td>[% release.mbid %]</td>
     </tr>
     <tr>

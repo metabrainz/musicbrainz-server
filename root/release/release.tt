@@ -1,3 +1,5 @@
+[%- PROCESS 'components/links.tt' %]
+
 <div class="release">
     [% INCLUDE "release/box-header.tt" %]
     
@@ -25,13 +27,13 @@
             <tr>
                 <td class="number">[% track.sequence %]</td>
                 <td class="title">
-                    [% INCLUDE "components/entity-link.tt" entity=track noicon=1 %]
+                    [% entity_link(track, 1) %]
                     [% INCLUDE "components/relations.tt" source=track relations=track.relations justlist=1 nocompact=1
 						 IF track.relations.size AND show_relationships %]
                 </td>
 
                 [%- IF show_artists -%]
-                    <td class="artist">[% INCLUDE "components/entity-link.tt" noicon=1 entity=track.artist %]</td>
+                    <td class="artist">[% entity_link(track.artist, 1) %]</td>
                 [%- END -%]
 
                 <td class="duration">[% track_length(track.length) %]</td>
@@ -83,7 +85,7 @@
                 <tr>
                     <td class="date">[% event.sort_date | release_date %]</td>
                     <td>[% event.country %]</td>
-                    <td>[% INCLUDE "components/entity-link.tt" entity=event.label IF event.label.name %]</td>
+                    <td>[% entity_link(event.label) IF event.label.name %]</td>
                     <td>[% event.cat_no %]</td>
                     <td>[% event.barcode %]</td>
                     <td>[% release_format(event.format) %]</td>

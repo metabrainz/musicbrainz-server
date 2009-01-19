@@ -1,4 +1,6 @@
 [%- DEFAULT maximum=4 -%]
+[%- PROCESS 'components/links.tt' -%]
+
 [%- BLOCK relation_group -%]
     [% ar.connector | html %]
     [%- FOREACH entity IN ar.entities -%]
@@ -7,7 +9,7 @@
            [%- LAST -%]
         [%- ELSE -%]
            [%#- Has to be on one line so we don't mess up the spacing with the comma :x -%]
-           [%- INCLUDE "components/entity-link.tt" -%]
+           [%- entity_link(entity) -%]
            [%- loop.count == (loop.size - 1) ? " and " : !loop.last ? "," : "" -%]
         [%- END -%]
     [%- END -%]
@@ -39,17 +41,17 @@
 [%- IF showall -%]<h1>Relationships for [% source.entity_type %] "[% source.name %]"</h1>[% END %]
 <div class="RelationshipBox">
     [%- IF relations.size -%]
-        [%- INCLUDE "components/entity-link.tt" entity=source -%][% relations.size > 1 ? ":" : "" %]
+        [%- entity_link(source) -%][% relations.size > 1 ? ":" : "" %]
         [%- PROCESS list -%]
     [%- ELSE -%]
-        [%- INCLUDE "components/entity-link.tt" entity=source -%] has no relations.
+        [%- entity_link(source) -%] has no relations.
     [%- END -%]
 
     [%- IF current_relationship -%]
         <hr/>
 	<p>Create a relationship with:</p>
 	<ul>
-   	    <li>[%- INCLUDE "components/entity-link.tt" entity=current_relationship -%]</li>
+   	    <li>[%- entity_link(current_relationship) -%]</li>
 	</ul>
     [%- END -%]
 

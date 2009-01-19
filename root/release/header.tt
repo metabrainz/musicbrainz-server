@@ -1,3 +1,5 @@
+[%- PROCESS 'components/links.tt' %]
+
 [%- info_links = [
     { link => c.entity_url(release, 'perma'), text => "Permanent link" },
     { link => c.entity_url(release, 'details'), text => "Details" },
@@ -8,12 +10,12 @@
 
 <div class="entity_header">
     <div class="title album">
-        [% INCLUDE "components/entity-link.tt" entity=release noicon=1 %]
+        [% entity_link(release, 1) %]
     </div>
 
     [%- IF release_artist -%]
     <div class="info">
-        by [% INCLUDE "components/entity-link.tt" entity=release_artist noicon=1 %]
+        by [% entity_link(release_artist, 1) %]
     </div>
     [%- END -%]
 

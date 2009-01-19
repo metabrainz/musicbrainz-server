@@ -1,3 +1,5 @@
+[%- PROCESS 'components/links.tt' %]
+
 [%- WRAPPER "layout.tt" -%]
 
 [%- FOREACH group=tag_types -%]
@@ -7,7 +9,7 @@
         <table>
         [%- FOREACH entity=group.entities -%]
             <tr>
-            <td>[% INCLUDE "components/entity-link.tt" %]</td>
+            <td>[% entity_link(entity) %]</td>
             <td>[% entity.amount %]</td>
             </tr>
         [%- END -%]

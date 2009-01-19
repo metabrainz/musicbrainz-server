@@ -1,13 +1,15 @@
+[%- PROCESS 'components/links.tt' %]
+
 [%- WRAPPER 'label/layout.tt' title="Details" -%]
 [%- WRAPPER "components/box.tt" header="Details" -%]
 <table class="details">
     <tr>
-        <th>[%- INCLUDE "components/doc-link.tt" to="LabelName" text="Name" -%]:</th>
-        <td>[%- INCLUDE "components/entity-link.tt" entity=label -%]</td>
+        <th>[%- doc_link("LabelName", "Name") -%]:</th>
+        <td>[%- entity_link(label) -%]</td>
     </tr>
 
     <tr>
-        <th>[%- INCLUDE "components/doc-link.tt" to="MusicBrainzIdentifier" text="MBID" -%]:</th>
+        <th>[%- doc_link("MusicBrainzIdentifier", "MBID") -%]:</th>
         <td>[%- label.mbid -%]</td>
     </tr>
 

@@ -1,3 +1,5 @@
+[%- PROCESS 'components/links.tt' %]
+
 [% WRAPPER 'layout.tt' title='Add Release' %]
 [% WRAPPER 'components/box.tt' header='Add Release' %]
 [% INCLUDE 'add_release/bread_crumbs.tt' %]
@@ -5,13 +7,12 @@
 <ul>
     <li>
         You are about to manually add a release to the artist
-        [%- INCLUDE 'components/entity-link.tt' entity=artist -%].
+        [%- entity_link(artist) -%].
         Did you know that you can import releases from the
         <a href="[% c.uri_for('/release/import') %]">FreeDB database</a>?
     </li>
     <li>
-        Please read the
-        [% INCLUDE 'components/doc-link.tt' text='style guidelines' to='StyleGuidelines' %]
+        Please read the [%- doc_link('StyleGuidelines', 'style guidelines') -%]
         first, then enter the number of tracks on this release to
         begin the add release wizard.
     </li>

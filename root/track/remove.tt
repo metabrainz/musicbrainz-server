@@ -1,7 +1,9 @@
+[%- PROCESS 'components/links.tt' -%]
+
 [% WRAPPER 'track/layout.tt' title="Merge" %]
 
 [% WRAPPER 'components/box.tt' header="Remove ${track.name}" %]
-    <p>Are you sure you delete the track [%- INCLUDE "components/entity-link.tt" entity=track -%]? If so, please enter an edit note below</p>
+    <p>Are you sure you delete the track [%- entity_link(track) -%]? If so, please enter an edit note below</p>
 
     [%- WRAPPER "forms/form.tt" -%]
         [% INCLUDE "forms/edit-note.tt" widget=form.field("edit_note") %]

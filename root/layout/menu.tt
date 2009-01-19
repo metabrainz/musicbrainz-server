@@ -1,17 +1,19 @@
+[%- PROCESS 'components/links.tt' -%]
+
 <ul id="menu_bar">
     <li class="first">
-        [%- INCLUDE 'components/doc-link.tt' to='AboutMusicBrainz' text='About' -%]
+        [%- doc_link('AboutMusicBrainz', 'About') -%]
         <ul>
-            <li>[%- INCLUDE 'components/doc-link.tt' to='AboutMusicBrainz' text='About MusicBrainz' -%]</li>
-            <li>[%- INCLUDE 'components/doc-link.tt' to='MirrorServer' text='Mirrors' -%]</li>
-            <li>[%- INCLUDE 'components/doc-link.tt' to='MusicBrainzBio' text='People' -%]</li>
-            <li>[%- INCLUDE 'components/doc-link.tt' to='MusicBrainzPrivacyPolicy' text='Privacy' -%]</li>
-            <li>[%- INCLUDE 'components/doc-link.tt' to='MusicBrainzHistory' text='History' -%]</li>
-            <li>[%- INCLUDE 'components/doc-link.tt' to='MusicBrainzLicense' text='Licenses' -%]</li>
-            <li>[%- INCLUDE 'components/doc-link.tt' to='SocialContract' text='Social Contract' -%]</li>
-            <li>[%- INCLUDE 'components/doc-link.tt' to='Development' text='Development' -%]</li>
-            <li>[%- INCLUDE 'components/doc-link.tt' to='Server Statistics' text='Server Statistics' -%]</li>
-            <li>[%- INCLUDE 'components/doc-link.tt' to='MusicBrainzLogo' text='Logo' -%]</li>
+            <li>[%- doc_link('AboutMusicBrainz', 'About MusicBrainz') -%]</li>
+            <li>[%- doc_link('MirrorServer', 'Mirrors') -%]</li>
+            <li>[%- doc_link('MusicBrainzBio', 'People') -%]</li>
+            <li>[%- doc_link('MusicBrainzPrivacyPolicy', 'Privacy') -%]</li>
+            <li>[%- doc_link('MusicBrainzHistory', 'History') -%]</li>
+            <li>[%- doc_link('MusicBrainzLicense', 'Licenses') -%]</li>
+            <li>[%- doc_link('SocialContract', 'Social Contract') -%]</li>
+            <li>[%- doc_link('Development', 'Development') -%]</li>
+            <li>[%- doc_link('Server Statistics', 'Server Statistics') -%]</li>
+            <li>[%- doc_link('MusicBrainzLogo', 'Logo') -%]</li>
             <li><a href="[% c.uri_for('/user/elections') %]">Autoeditor Elections</a></li>
         </ul>
     </li>
@@ -22,25 +24,25 @@
             <li><a href="http://blog.musicbrainz.org">General News</a></li>
             <li><a href="http://blog.musicbrainz.org?cat=3">Server</a></li>
             <li><a href="http://blog.musicbrainz.org?cat=9">Picard</a></li>
-            <li>[%- INCLUDE 'components/doc-link.tt' to='MusicBrainzPress' text='In the Press' -%]</li>
+            <li>[%- doc_link('MusicBrainzPress', 'In the Press') -%]</li>
         </ul>
     </li>
 
     <li>
-        [%- INCLUDE 'components/doc-link.tt' to='Products' text='Products' -%]
+        [%- doc_link('Products', 'Products') -%]
         <ul>
-            <li>[%- INCLUDE 'components/doc-link.tt' to='libmusicbrainz' text='libmusicbrainz' -%]</li>
-            <li>[%- INCLUDE 'components/doc-link.tt' to='libtunepimp' text='libtunepimp' -%]</li>
-            <li>[%- INCLUDE 'components/doc-link.tt' to='Server' text='Server' -%]</li>
-            <li>[%- INCLUDE 'components/doc-link.tt' to='Database' text='Database' -%]</li>
-            <li>[%- INCLUDE 'components/doc-link.tt' to='LiveDataFeed' text='LiveDataFeed' -%]</li>
-            <li>[%- INCLUDE 'components/doc-link.tt' to='WebService' text='Web Service' -%]</li>
-            <li class="seperator">[%- INCLUDE 'components/doc-link.tt' to='FreeDBGateway' text='FreeDB Gateway' -%]</li>
-            <li>[%- INCLUDE 'components/doc-link.tt' to='MusicBrainzEnabledApplications' text='3<sup>rd</sup> Party' -%]</li>
-            <li>[%- INCLUDE 'components/doc-link.tt' to='ClassicTagger' text='Classic Tagger' -%]</li>
-            <li>[%- INCLUDE 'components/doc-link.tt' to='JaikozMP3TagEditor' text='Jaikoz Tag Editor' -%]</li>
-            <li>[%- INCLUDE 'components/doc-link.tt' to='Magic Tagger' text='Magic Tagger' -%]</li>
-            <li>[%- INCLUDE 'components/doc-link.tt' to='PicardTagger' text='Picard Tagger' -%]</li>
+            <li>[%- doc_link('libmusicbrainz', 'libmusicbrainz') -%]</li>
+            <li>[%- doc_link('libtunepimp', 'libtunepimp') -%]</li>
+            <li>[%- doc_link('Server', 'Server') -%]</li>
+            <li>[%- doc_link('Database', 'Database') -%]</li>
+            <li>[%- doc_link('LiveDataFeed', 'LiveDataFeed') -%]</li>
+            <li>[%- doc_link('WebService', 'Web Service') -%]</li>
+            <li class="seperator">[%- doc_link('FreeDBGateway', 'FreeDB Gateway') -%]</li>
+            <li>[%- doc_link('MusicBrainzEnabledApplications', '3<sup>rd</sup> Party') -%]</li>
+            <li>[%- doc_link('ClassicTagger', 'Classic Tagger') -%]</li>
+            <li>[%- doc_link('JaikozMP3TagEditor', 'Jaikoz Tag Editor') -%]</li>
+            <li>[%- doc_link('Magic Tagger', 'Magic Tagger') -%]</li>
+            <li>[%- doc_link('PicardTagger', 'Picard Tagger') -%]</li>
         </ul>
     </li>
 
@@ -57,9 +59,9 @@
     </li>
 
     <li>
-        [%- INCLUDE 'components/doc-link.tt' to='HowEditingWorks' text='Editing' -%]
+        [%- doc_link('HowEditingWorks', 'Editing') -%]
         <ul>
-            <li>[%- INCLUDE 'components/doc-link.tt' to='HowEditingWorks' text='About Editing' -%]</li>
+            <li>[%- doc_link('HowEditingWorks', 'About Editing') -%]</li>
             <li><a href="[% c.uri_for('/moderation/reports') %]">Editing Suggestions</a></li>
 	    <li><a href="[% c.uri_for('/moderation/open') %]">Review/Vote on Edits</a></li>
 	    <li><a href="[% c.uri_for('/moderation/conditions') %]">Edit Conditions</a></li>
@@ -94,28 +96,28 @@
 [%- END -%]
 
     <li>
-        [%- INCLUDE 'components/doc-link.tt' to='HowToContribute' text='Contribute' -%]
+        [%- doc_link('HowToContribute', 'Contribute') -%]
         <ul>
-            <li>[%- INCLUDE 'components/doc-link.tt' to='HowToContribute' text='How to Contribute' -%]</li>
-            <li>[%- INCLUDE 'components/doc-link.tt' to='CorporateSponsors' text='Sponsors' -%]</li>
-            <li>[%- INCLUDE 'components/doc-link.tt' to='HelpWanted'  text='Help Wanted' -%]</li>
-            <li>[%- INCLUDE 'components/doc-link.tt' to='Development' text='Development' -%]</li>
-            <li>[%- INCLUDE 'components/doc-link.tt' to='Subversion' text='Subversion Access' -%]</li>
-            <li>[%- INCLUDE 'components/doc-link.tt' to='Projects' text='SVN Modules' -%]</li>
+            <li>[%- doc_link('HowToContribute', 'How to Contribute') -%]</li>
+            <li>[%- doc_link('CorporateSponsors', 'Sponsors') -%]</li>
+            <li>[%- doc_link('HelpWanted', 'Help Wanted') -%]</li>
+            <li>[%- doc_link('Development', 'Development') -%]</li>
+            <li>[%- doc_link('Subversion', 'Subversion Access') -%]</li>
+            <li>[%- doc_link('Projects', 'SVN Modules') -%]</li>
             <li><a href="http://bugs.musicbrainz.org/browser">SVN Viewer</a></li>
         </ul>
     </li>
 
     <li class="last">
-        [%- INCLUDE 'components/doc-link.tt' to='ContactUs' text='Help' -%]
+        [%- doc_link('ContactUs', 'Help') -%]
         <ul>
-            <li>[%- INCLUDE 'components/doc-link.tt' to='ContactUs' text='ContactUs' -%]</li>
-            <li>[%- INCLUDE 'components/doc-link.tt' to='FrequentlyAskedQuestions' text='FAQs' -%]</li>
-            <li>[%- INCLUDE 'components/doc-link.tt' to='OfficialStyleGuideline' text='Editing Style' -%]</li>
-            <li>[%- INCLUDE 'components/doc-link.tt' to='MailingList' text='MailingList' -%]</li>
+            <li>[%- doc_link('ContactUs', 'ContactUs') -%]</li>
+            <li>[%- doc_link('FrequentlyAskedQuestions', 'FAQs') -%]</li>
+            <li>[%- doc_link('OfficialStyleGuideline', 'Editing Style') -%]</li>
+            <li>[%- doc_link('MailingList', 'MailingList') -%]</li>
             <li><a href="http://forums.musicbrainz.org">Web Forums</a></li>
             <li><a href="http://bugs.musicbrainz.org">Bugs / RFEs</a></li>
-            <li>[%- INCLUDE 'components/doc-link.tt' to='CopyrightViolationNotice' text='Copyright Issues' -%]</li>
+            <li>[%- doc_link('CopyrightViolationNotice', 'Copyright Issues') -%]</li>
         </ul>
     </li>
 </ul>
