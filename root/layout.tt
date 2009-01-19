@@ -10,9 +10,15 @@
 
     <link rel="stylesheet" type="text/css" href="/static/main.css" />
 
-    [%- IF template.extra_css -%]
-        <link rel="stylesheet" type="text/css" href="/static/styles/extra/[% template.extra_css %]" />
-    [%- END -%]
+    [% FOR css IN template.extra_css %]
+        <link rel="stylesheet" type="text/css" href="/static/styles/extra/[% css %]" />
+    [% END %]
+    
+    <script type="text/javascript" src="/static/scripts/jquery/jquery-1.3.min.js"></script>
+    
+    [% FOR js IN template.extra_js %]
+        <script type="text/javascript" src="/static/scripts/[% js %]"></script>
+    [% END %]
 
     <link rel="search" type="application/opensearchdescription+xml" title="MusicBrainz: Artist" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_artist.xml') %]" />
     <link rel="search" type="application/opensearchdescription+xml" title="MusicBrainz: Label" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_label.xml') %]" />
