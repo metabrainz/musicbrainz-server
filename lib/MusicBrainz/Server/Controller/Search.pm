@@ -91,7 +91,7 @@ sub external : Local Form('Search::External')
     
     $c->stash->{template} = 'search/search.tt';
 
-    return unless $form->validate($c->req->query_params);
+    return unless keys %{ $c->req->query_params } && $form->validate($c->req->query_params);
 
     use URI::Escape qw( uri_escape );
     use POSIX qw(ceil floor);
