@@ -37,7 +37,7 @@ sub profile
             password => {
                 type => 'Text',
                 min_length => 1,
-                widget => 'Password'
+                widget => 'password'
             },
         },
         optional => {

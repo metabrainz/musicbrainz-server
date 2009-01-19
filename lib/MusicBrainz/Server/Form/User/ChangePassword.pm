@@ -38,14 +38,18 @@ sub profile {
             old_password => {
                 type => 'Text',
                 min_length => 1,
-                widget => 'Password'
+                widget => 'password'
             },
             new_password => {
                 type => 'Text',
                 min_length => 1,
-                widget => 'Password'
+                widget => 'password'
             },
-            confirm_new_password => 'Password',
+            confirm_new_password => {
+                type => 'Text',
+                min_length => 1,
+                widget => 'password',
+            },
         },
     };
 }

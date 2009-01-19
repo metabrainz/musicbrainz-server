@@ -334,6 +334,7 @@ sub change_password : Local Form
 
     return unless $self->submit_and_validate($c);
 
+    $c->user->Refresh;
     if ($form->value('old_password') eq $c->user->password)
     {
         $c->user->ChangePassword( $form->value('old_password'),

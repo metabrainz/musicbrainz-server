@@ -84,7 +84,7 @@ sub LoadIndexFromDisk
 
     if (!open(FH, &DBDefs::WIKITRANS_INDEX_FILE))
     {
-        print STDERR "ERROR: Could not open wikitrans index file.\n";
+        print STDERR "ERROR: Could not open wikitrans index file: $!.\n";
         # oops, we blew it for this user -- the file is locked
         return undef;
     }
