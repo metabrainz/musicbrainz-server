@@ -1,0 +1,7 @@
+[% WRAPPER "search/error/wrapper.tt" %]
+<p>
+    Sorry, but your query (<code>[% form.value('query') | html %]</code>) 
+    could not be performed, for some error that we are&#x27;nt quite able to
+    put our finger on.
+</p>
+[% END %]

@@ -34,8 +34,7 @@ sub simple : Local Form
 
     if(!$form->validate($c->req->query_params))
     {
-        $c->response->redirect($c->request->referer);
-        $c->detach;
+        $c->detach('external');
     }
 
     my ($type, $query) = (  $form->value('type'),
@@ -89,6 +88,8 @@ sub external : Local Form('Search::External')
     my ($self, $c) = @_;
 
     my $form = $self->form;
+    
+    $c->stash->{template} = 'search/search.tt';
 
     return unless $form->validate($c->req->query_params);
 
