@@ -25,10 +25,6 @@ make_temp_dir
 # Collect stats
 echo `date`" : Collecting statistics"
 ./admin/CollectStats.pl
-echo `date`" : Plotting statistics"
-./admin/statistics/GeneratePlot.pl "$TEMP_DIR"
-chmod a+r "$TEMP_DIR"/plot*.png
-mv "$TEMP_DIR"/plot*.png "$MB_SERVER_ROOT"/htdocs/generated/
 
 DATETIME=`date +'%Y%m%d-%H%M%S'`
 
@@ -99,6 +95,9 @@ echo `date`" : Processing subscriptions"
 
 # Add missing track lengths
 ./admin/cleanup/FixTrackLength.pl
+
+# Recalculate related tags
+./admin/CalculateRelatedTags.sh
 
 echo `date`" : Nightly jobs complete!"
 

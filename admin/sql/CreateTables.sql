@@ -65,7 +65,11 @@ CREATE TABLE albummeta
     puids               INTEGER DEFAULT 0,
     firstreleasedate    CHAR(10),
     asin                CHAR(10),
-    coverarturl         VARCHAR(255)
+    coverarturl         VARCHAR(255),
+    lastupdate          TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    dateadded           TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    rating              REAL,
+    rating_count        INTEGER
 );
 
 CREATE TABLE albumwords
@@ -101,6 +105,14 @@ CREATE TABLE artist
     type                SMALLINT,
     quality             SMALLINT DEFAULT -1,
     modpending_qual     INTEGER DEFAULT 0
+);
+
+CREATE TABLE artist_meta
+(
+    id                  INTEGER NOT NULL,
+    lastupdate          TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    rating              REAL,
+    rating_count        INTEGER
 );
 
 CREATE TABLE artistalias
@@ -226,6 +238,14 @@ CREATE TABLE label
     begindate           CHAR(10),
     enddate             CHAR(10),
     type                SMALLINT
+);
+
+CREATE TABLE label_meta
+(
+    id                  INTEGER NOT NULL,
+    lastupdate          TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    rating              REAL,
+    rating_count        INTEGER
 );
 
 CREATE TABLE label_tag
@@ -715,7 +735,7 @@ CREATE TABLE moderation_closed
     type                SMALLINT NOT NULL, 
     status              SMALLINT NOT NULL, 
     rowid               INTEGER NOT NULL, 
-    prevvalue           VARCHAR(255) NOT NULL, 
+    prevvalue           TEXT NOT NULL, 
     newvalue            TEXT NOT NULL, 
     yesvotes            INTEGER DEFAULT 0, 
     novotes             INTEGER DEFAULT 0,
@@ -737,7 +757,7 @@ CREATE TABLE moderation_open
     type                SMALLINT NOT NULL, 
     status              SMALLINT NOT NULL, 
     rowid               INTEGER NOT NULL, 
-    prevvalue           VARCHAR(255) NOT NULL, 
+    prevvalue           TEXT NOT NULL, 
     newvalue            TEXT NOT NULL, 
     yesvotes            INTEGER DEFAULT 0, 
     novotes             INTEGER DEFAULT 0,
@@ -911,27 +931,42 @@ CREATE TABLE stats
 
 CREATE TABLE tag
 (
-     id                  SERIAL,
-     name                VARCHAR(255) NOT NULL,
-     refcount            INTEGER NOT NULL DEFAULT 0
+    id                  SERIAL,
+    name                VARCHAR(255) NOT NULL,
+    refcount            INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE tag_relation
+(
+    tag1                INTEGER NOT NULL, -- references tag
+    tag2                INTEGER NOT NULL, -- references tag
+    weight              INTEGER NOT NULL,
+    CHECK (tag1 < tag2)
 );
 
 CREATE TABLE track
 (
     id                  SERIAL,
     artist              INTEGER NOT NULL, -- references artist
-    name                VARCHAR(255) NOT NULL,
+    name                TEXT NOT NULL,
     gid                 CHAR(36) NOT NULL, 
     length              INTEGER DEFAULT 0,
     year                INTEGER DEFAULT 0,
     modpending          INTEGER DEFAULT 0
 );
 
+CREATE TABLE track_meta
+(
+    id                  INTEGER NOT NULL,
+    rating              REAL,
+    rating_count        INTEGER
+);
+
 CREATE TABLE track_tag
 (
-     track               INTEGER NOT NULL,
-     tag                 INTEGER NOT NULL,
-     count               INTEGER NOT NULL
+    track               INTEGER NOT NULL,
+    tag                 INTEGER NOT NULL,
+    count               INTEGER NOT NULL
 );
 
 CREATE TABLE trackwords

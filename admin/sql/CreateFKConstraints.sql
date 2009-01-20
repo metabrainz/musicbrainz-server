@@ -39,6 +39,12 @@ ALTER TABLE albumjoin
     FOREIGN KEY (track)
     REFERENCES track(id);
 
+ALTER TABLE albummeta
+    ADD CONSTRAINT albummeta_fk_album
+    FOREIGN KEY (id)
+    REFERENCES album(id)
+    ON DELETE CASCADE;
+
 ALTER TABLE albumwords
     ADD CONSTRAINT albumwords_fk_albumid
     FOREIGN KEY (albumid)
@@ -50,6 +56,12 @@ ALTER TABLE artistalias
     FOREIGN KEY (ref)
     REFERENCES artist(id);
 
+ALTER TABLE artist_meta
+    ADD CONSTRAINT fk_artist_meta_artist
+    FOREIGN KEY (id)
+    REFERENCES artist(id)
+    ON DELETE CASCADE;
+    	
 ALTER TABLE artist_relation
     ADD CONSTRAINT artist_relation_fk_artist1
     FOREIGN KEY (artist)
@@ -111,6 +123,12 @@ ALTER TABLE label
     FOREIGN KEY (country)
     REFERENCES country(id);
 
+ALTER TABLE label_meta
+   	ADD CONSTRAINT fk_label_meta_label
+   	FOREIGN KEY (id)
+   	REFERENCES label(id)
+    ON DELETE CASCADE;
+    	
 ALTER TABLE labelalias
     ADD CONSTRAINT labelalias_fk_ref
     FOREIGN KEY (ref)
@@ -570,11 +588,29 @@ ALTER TABLE release_tag
     FOREIGN KEY (tag)
     REFERENCES tag(id);
 
+ALTER TABLE tag_relation
+    ADD CONSTRAINT tag_relation_fk_tag1
+    FOREIGN KEY (tag1)
+    REFERENCES tag(id)
+    ON DELETE CASCADE;
+
+ALTER TABLE tag_relation
+    ADD CONSTRAINT tag_relation_fk_tag2
+    FOREIGN KEY (tag2)
+    REFERENCES tag(id)
+    ON DELETE CASCADE;
+
 ALTER TABLE track
     ADD CONSTRAINT track_fk_artist
     FOREIGN KEY (artist)
     REFERENCES artist(id);
 
+ALTER TABLE track_meta
+   	ADD CONSTRAINT fk_track_meta_track
+   	FOREIGN KEY (id)
+   	REFERENCES track(id) 
+    ON DELETE CASCADE;
+    	
 ALTER TABLE track_tag
     ADD CONSTRAINT fk_track_tag_track
     FOREIGN KEY (track)

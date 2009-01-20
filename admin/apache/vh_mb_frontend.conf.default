@@ -1,0 +1,77 @@
+# vi: set ts=4 sw=4 ft=apache :
+
+<VirtualHost *>
+	# TODO: Enter the name of your server.
+	ServerName www.musicbrainz.org
+	ServerAlias mm.musicbrainz.org
+	ServerAlias musicbrainz.org
+	ServerAlias www.musicbrains.org
+	ServerAlias mm.musicbrains.org
+	ServerAlias musicbrains.org
+
+	# TODO: This needs to point to where the htdocs are
+	DocumentRoot /home/httpd/musicbrainz/mb_server/htdocs
+
+	<IfModule mod_expires.c>
+		ExpiresActive on
+		ExpiresByType text/css A2592000
+		ExpiresByType text/javascript A86400
+		ExpiresByType application/x-javascript A86400
+		ExpiresByType image/png A86400
+		ExpiresByType image/gif A86400
+	</IfModule>
+
+	Alias /errors/ /home/mbserver/musicbrainz/content/www/errors/
+	<Directory /home/mbserver/musicbrainz/content/www/errors>
+	    Options -ExecCGI -Indexes
+	    Order deny,allow
+	    Allow from all
+	</Directory>
+	ErrorDocument 403 /errors/403.html
+	ErrorDocument 404 /errors/404.html
+	ErrorDocument 500 /errors/500.html
+	ErrorDocument 502 /errors/502.html
+
+	RewriteEngine on
+	ProxyPreserveHost on
+
+	# The Perl TRM gateway
+	RewriteRule ^/cgi-bin/gateway(/|$) http://127.0.0.1:8080/cgi-bin/gateway;remote_ip=%{REMOTE_ADDR} [P]
+
+	# TODO: Enable this only on musicbrainz.org
+	# If this is a GET request,
+	#RewriteCond %{REQUEST_METHOD} ^GET$
+	# and the client isn't libmusicbrainz (which can't handle redirects),
+	#RewriteCond %{HTTP_USER_AGENT} !libmusicbrainz
+	# and the host isn't "musicbrainz.org",
+	#RewriteCond %{HTTP_HOST} !^musicbrainz\.org$ [NC]
+	# then redirect to "musicbrainz.org".
+	#	RewriteRule ^/(.*)$ http://musicbrainz.org/$1 [R=301,NE,L]
+
+	# Static content (no need to proxy to mod_perl)
+	RewriteRule ^/scripts/		- [L]
+	RewriteRule ^/css/		- [L]
+	RewriteRule ^/errors/		- [L]
+	RewriteRule ^/brainz.css$	- [L]
+	RewriteRule ^/images/		- [L]
+	RewriteRule ^/icons/		- [L]
+	RewriteRule ^/favicon\.ico$	- [L]
+	RewriteRule ^/robots\.txt$	- [L]
+	RewriteRule ^/proxy-status	- [L]
+	RewriteRule ^/~			- [L]
+
+	RewriteRule ^/forbidme$ - [F]
+	Alias /service-offline.html /home/mbserver/musicbrainz/content/www/offline.html
+	RewriteRule ^/service-offline.html$ - [L]
+	Alias /service-restarting.html /home/mbserver/musicbrainz/content/www/restarting.html
+	RewriteRule ^/service-restarting.html$ - [L]
+
+	# Include rewrite-rules shared by backend and frontend
+	Include /home/httpd/musicbrainz/mb_server/admin/apache/rewrite.conf
+
+	# Proxy everything else
+	RewriteRule ^/(.*)$ http://127.0.0.1:8080/$1;remote_ip=%{REMOTE_ADDR} [P]
+
+</VirtualHost>
+
+# vi: set nowrap :

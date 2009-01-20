@@ -1,0 +1,95 @@
+#!/usr/bin/perl -w
+# vi: set ts=4 sw=4 :
+#____________________________________________________________________________
+#
+#   MusicBrainz -- the open internet music database
+#
+#   Copyright (C) 1998 Robert Kaye
+#
+#   This program is free software; you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation; either version 2 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program; if not, write to the Free Software
+#   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+#   $Id$
+#____________________________________________________________________________
+
+use FindBin;
+use lib "$FindBin::Bin/../../cgi-bin";
+
+use strict;
+use warnings;
+
+package DiscIDsWithManyReleases;
+use base qw( MusicBrainz::Server::ReportScript );
+
+sub GatherData
+{
+	my $self = shift;
+	my $sql = $self->SqlObj;
+
+	my $rows = $sql->SelectListOfHashes(<<'EOF');
+		SELECT
+			cd.id as cdtoc_id,
+			cd.discid as disc_id,
+			ar.id as artist_id,
+			ar.name as artist_name,
+			ar.sortname as artist_sortname,
+			ar.resolution as artist_resolution,
+			al.id as release_id,
+			al.name as release_name
+		FROM
+			(SELECT cdtoc FROM album_cdtoc GROUP BY cdtoc HAVING COUNT(cdtoc) > 1) as q
+			INNER JOIN cdtoc cd ON (q.cdtoc = cd.id)
+			INNER JOIN album_cdtoc acd ON (acd.cdtoc = cd.id)
+			INNER JOIN album al ON (acd.album = al.id)
+			INNER JOIN artist ar ON (al.artist = ar.id)
+		WHERE
+			cd.discid NOT IN (
+				SELECT
+					cd2.discid
+				FROM
+					cdtoc cd2
+					INNER JOIN album_cdtoc acd2 ON (acd2.cdtoc = cd2.id)
+					INNER JOIN l_album_album lbb2 ON (lbb2.link1 = acd2.album)
+					INNER JOIN lt_album_album ltbb2 ON (lbb2.link_type = ltbb2.id)
+				WHERE
+					al.id = lbb2.link0
+					AND ltbb2.shortlinkphrase = 'transl-tracklisting'
+			)
+			AND cd.discid NOT IN (
+				SELECT
+					cd3.discid
+				FROM
+					cdtoc cd3
+					INNER JOIN album_cdtoc acd3 ON (acd3.cdtoc = cd3.id)
+					INNER JOIN l_album_album lbb3 ON (lbb3.link0 = acd3.album)
+					INNER JOIN lt_album_album ltbb3 ON (lbb3.link_type = ltbb3.id)
+				WHERE
+					al.id = lbb3.link1
+					AND ltbb3.shortlinkphrase = 'transl-tracklisting'
+			)
+		ORDER BY
+			disc_id
+EOF
+
+	my $report = $self->PagedReport;
+
+	for my $row (@$rows)
+	{
+		$report->Print($row);
+	}
+}
+
+__PACKAGE__->new->RunReport;
+
+# eof DiscIDsWithManyReleases

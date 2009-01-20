@@ -134,7 +134,7 @@ sub Create
     else
     {
         $sysname = $createdb . "_SYSTEM";
-		$sysname = "SYSTEM" if not defined MusicBrainz::Server::Database->get($sysname);
+	$sysname = "SYSTEM" if not defined MusicBrainz::Server::Database->get($sysname);
     }
 
     my $db = MusicBrainz::Server::Database->get($createdb);
@@ -210,6 +210,8 @@ sub CreateRelations
 	RunSQLScript($READWRITE, "CreateIndexes.sql", "Creating indexes ...");
 	RunSQLScript($RAWDATA, "vertical/rawdata/CreateIndexes.sql", "Creating raw indexes ...");
 	RunSQLScript($READWRITE, "CreateFKConstraints.sql", "Adding foreign key constraints ...")
+	    unless $REPTYPE == RT_SLAVE;
+	RunSQLScript($READWRITE, "vertical/rawdata/CreateFKConstraints.sql", "Adding raw foreign key constraints ...")
 	    unless $REPTYPE == RT_SLAVE;
 
     print localtime() . " : Setting initial sequence values ...\n";

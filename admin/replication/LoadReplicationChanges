@@ -149,6 +149,7 @@ use LWP::UserAgent;
 my $ua = LWP::UserAgent->new(
 	agent => '$Id$',
 );
+$ua->env_proxy;
 
 print localtime() . " : Downloading $url to $localfile\n";
 my $resp = $ua->mirror($url, $localfile);

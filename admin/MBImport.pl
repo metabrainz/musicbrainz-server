@@ -343,6 +343,7 @@ sub ImportAllTables
 		albumwords
 		annotation
 		artist
+		artist_meta
 		artist_relation
 		artistalias
 		artist_tag
@@ -372,6 +373,7 @@ sub ImportAllTables
 		l_track_url
 		l_url_url
 		label
+		label_meta
 		label_tag
 		label_tag_raw
 		labelalias
@@ -416,6 +418,7 @@ sub ImportAllTables
 		stats
         tag
 		track
+		track_meta
 		track_tag
 		track_tag_raw
 		trackwords

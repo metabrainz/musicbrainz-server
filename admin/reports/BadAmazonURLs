@@ -44,7 +44,9 @@ sub GatherData
           WHERE link1 = url.id 
             AND link0 = album.id
             AND url ~ 'amazon' 
-            AND url !~ 'http://(www\.)?amazon\.[^/]*/(.*)/[B0][0-9A-Z]{9}(\/){0,1}$'
+            AND url !~ 'amazon\.cn'
+            AND url !~ '^http://www\.amazon\.(com|ca|de|fr|co\.(jp|uk))/gp/product/[0-9A-Z]{10}$'
+          ORDER BY url.id 
 EOF
 
 }

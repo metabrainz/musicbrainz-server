@@ -8,20 +8,54 @@
 
 -- Alphabetical order by table
 
+CREATE INDEX artist_rating_raw_idx_artist ON artist_rating_raw (artist);
+CREATE INDEX artist_rating_raw_idx_editor ON artist_rating_raw (editor);
+    	
 CREATE INDEX artist_tag_raw_idx_artist ON artist_tag_raw (artist);
 CREATE INDEX artist_tag_raw_idx_tag ON artist_tag_raw (tag);
 CREATE INDEX artist_tag_raw_idx_moderator ON artist_tag_raw (moderator);
 
-CREATE INDEX release_tag_raw_idx_release ON release_tag_raw (release);
-CREATE INDEX release_tag_raw_idx_tag ON release_tag_raw (tag);
-CREATE INDEX release_tag_raw_idx_moderator ON release_tag_raw (moderator);
-
-CREATE INDEX track_tag_raw_idx_track ON track_tag_raw (track);
-CREATE INDEX track_tag_raw_idx_tag ON track_tag_raw (tag);
-CREATE INDEX track_tag_raw_idx_moderator ON track_tag_raw (moderator);
+CREATE INDEX release_rating_raw_idx_release ON release_rating_raw (release);
+CREATE INDEX release_rating_raw_idx_editor ON release_rating_raw (editor);
+    	
+CREATE INDEX cdtoc_raw_discid ON cdtoc_raw (discid);
+CREATE INDEX cdtoc_raw_trackoffset ON cdtoc_raw (trackoffset);
+CREATE UNIQUE INDEX cdtoc_raw_toc ON cdtoc_raw (trackcount, leadoutoffset, trackoffset);
 
 CREATE INDEX label_tag_raw_idx_label ON label_tag_raw (label);
 CREATE INDEX label_tag_raw_idx_tag ON label_tag_raw (tag);
 CREATE INDEX label_tag_raw_idx_moderator ON label_tag_raw (moderator);
 
+CREATE INDEX release_raw_idx_lastmodified ON release_raw (lastmodified);
+CREATE INDEX release_raw_idx_lookupcount ON release_raw (lookupcount);
+CREATE INDEX release_raw_idx_modifycount ON release_raw (modifycount);
+
+CREATE INDEX release_tag_raw_idx_release ON release_tag_raw (release);
+CREATE INDEX release_tag_raw_idx_tag ON release_tag_raw (tag);
+CREATE INDEX release_tag_raw_idx_moderator ON release_tag_raw (moderator);
+
+CREATE INDEX track_rating_raw_idx_track ON track_rating_raw (track);
+CREATE INDEX track_rating_raw_idx_editor ON track_rating_raw (editor);
+    	
+CREATE INDEX track_raw_idx_release ON track_raw (release);
+
+CREATE INDEX track_tag_raw_idx_track ON track_tag_raw (track);
+CREATE INDEX track_tag_raw_idx_tag ON track_tag_raw (tag);
+CREATE INDEX track_tag_raw_idx_moderator ON track_tag_raw (moderator);
+
+CREATE INDEX label_rating_raw_idx_label ON label_rating_raw (label);
+CREATE INDEX label_rating_raw_idx_editor ON label_rating_raw (editor);
+
+-- unique indexes so that duplicates are not allowed
+CREATE UNIQUE INDEX collection_has_release_join_combined_index ON collection_has_release_join (collection_info, album);
+CREATE UNIQUE INDEX collection_discography_artist_join_combined_index ON collection_discography_artist_join (collection_info, artist);
+CREATE UNIQUE INDEX collection_ignore_release_combined_index ON collection_ignore_release_join (collection_info, album);
+CREATE UNIQUE INDEX collection_watch_artist_combined_index ON collection_watch_artist_join (collection_info, artist);
+
+CREATE INDEX collection_has_release_join_album ON collection_has_release_join (album);
+CREATE INDEX collection_ignore_release_join_album ON collection_ignore_release_join (album);
+CREATE INDEX collection_discography_artist_join_artist ON collection_discography_artist_join (artist);
+CREATE INDEX collection_watch_artist_join_artist ON collection_watch_artist_join (artist);
+
+CREATE UNIQUE INDEX collection_info_moderator ON collection_info (moderator);
 -- vi: set ts=4 sw=4 et :
