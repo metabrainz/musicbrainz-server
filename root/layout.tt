@@ -10,15 +10,19 @@
 
     <link rel="stylesheet" type="text/css" href="/static/main.css" />
 
-    [% FOR css IN extra_css %]
-        <link rel="stylesheet" type="text/css" href="/static/styles/extra/[% css %]" />
-    [% END %]
-    
     <script type="text/javascript" src="/static/scripts/jquery/jquery-1.3.min.js"></script>
-    
-    [% FOR js IN extra_js %]
-        <script type="text/javascript" src="/static/scripts/[% js %]"></script>
-    [% END %]
+    [% page =  
+    { 
+        css = extra_css.split('\s+') 
+        js = extra_js.split('\s+') 
+    } 
+    %] 
+    [% FOREACH js IN page.js %] 
+        <script type="text/javascript" src="/static/scripts/[% js %]"></script> 
+    [% END %] 
+    [% FOREACH css IN page.css %] 
+        <link rel="stylesheet" type="text/css" href="/static/styles/extra/[% css %]" /> 
+    [% END %] 
 
     <link rel="search" type="application/opensearchdescription+xml" title="MusicBrainz: Artist" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_artist.xml') %]" />
     <link rel="search" type="application/opensearchdescription+xml" title="MusicBrainz: Label" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_label.xml') %]" />
