@@ -271,6 +271,7 @@ addpref('mod_add_album_link', 0, \&check_bool);
 addpref('mods_per_page', 10, sub { check_int(1,25,@_) });
 addpref('navbar_mod_show_select_page', 0, \&check_bool);
 addpref('nosidebar', 0, \&check_bool);
+addpref('show_ratings', 1, \&check_bool);
 addpref('no_sidebar_panels', 0, \&check_bool);
 addpref('release_show_annotationlinks', 0, \&check_bool);
 addpref('release_show_relationshipslinks', 0, \&check_bool);
@@ -289,13 +290,14 @@ addpref('show_inline_mods', 0, \&check_bool);
 addpref('show_inline_mods_random', 0, \&check_bool);
 addpref('subscriptions_public', 1, \&check_bool);
 addpref('tags_public', 1, \&check_bool);
+addpref('ratings_public', 1, \&check_bool);
 addpref('timezone', 'UTC', \&check_timezone);
 addpref('topmenu_submenu_types', 'both', sub { check_in([qw( both dropdownonly staticonly )], @_) });
 addpref('topmenu_dropdown_trigger', 'mouseover', sub { check_in([qw( mouseover click )], @_) });
 addpref('use_amazon_store', 'amazon.com', \&check_amazon_store);
-addpref('vote_abs_default', 1, \&check_bool);
-addpref('vote_show_novote', 0, \&check_bool);
+addpref('vote_abs_default', 0, \&check_bool);
 addpref('auto_subscribe', 0, \&check_bool);
+addpref('email_notify_release', 1, \&check_bool);
 
 sub addpref
 {

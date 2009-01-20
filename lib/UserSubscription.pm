@@ -572,6 +572,19 @@ sub LabelBeingMerged
 	);
 }
 
+# Remove all the subscriptions for a given user. Pass in moderator id. Call 
+# this function in an open transaction.
+sub RemoveSubscriptionsForModerator
+{
+	my $self = shift;
+	my $uid = shift;
+	my $sql = Sql->new($self->{dbh});
+
+	$sql->Do("DELETE FROM moderator_subscribe_artist WHERE moderator = ?", $uid);
+	$sql->Do("DELETE FROM moderator_subscribe_label WHERE moderator = ?", $uid);
+	$sql->Do("DELETE FROM editor_subscribe_editor WHERE editor = ?", $uid);
+}
+
 ################################################################################
 # The Subscription Bot.  This is what checks for edits on your
 # subscribed artists, then e-mails you to let you know.
@@ -752,7 +765,9 @@ sub _ProcessUserSubscriptions
 			if $self->{'verbose'};
 		
 		$editorstext .= "$sub->{'name'} ($open open, $applied applied)\n"
-					 . "$root/mod/search/pre/editor.html"
+					 . "All Edits: $root/mod/search/pre/editor.html"
+					 . "?userid=$sub->{'subscribededitor'}\n"
+					 . "Open Edits: $root/mod/search/pre/editor-open.html"
 					 . "?userid=$sub->{'subscribededitor'}\n\n";
 	}
 

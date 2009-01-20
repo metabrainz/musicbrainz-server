@@ -186,10 +186,10 @@ sub _LoadFromFilehandle
 	print localtime() . " : Stopping at seek=$$newseekref (after $lines lines)\n";
 
 	my $sql = Sql->new($dbh);
+	my ($n, $i, $t0);
 
 	use Time::HiRes qw( gettimeofday tv_interval );
 
-	my ($n, $i, $t0);
 	my $p = sub {
 		my $t = tv_interval($t0);
 		printf "%s : %6d rows ; %3d%% ; %d rows/sec",

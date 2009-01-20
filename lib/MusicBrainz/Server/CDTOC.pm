@@ -58,6 +58,7 @@ sub first_track	{ 1 }
 sub last_track	{ $_[0]{trackcount} }
 sub track_count	{ $_[0]{trackcount} }
 sub leadout_offset{ $_[0]{leadoutoffset} }
+sub IsDegraded      { $_[0]{degraded} }
 
 ################################################################################
 # Derived Properties
@@ -211,6 +212,58 @@ sub release_cdtocs
 
 ################################################################################
 
+sub UpgradeTOC
+{
+	my $self = shift;
+	$self = $self->new(shift) if not ref $self;
+	my $tocstr = shift;
+
+	my %info = $self->ParseTOC($tocstr)
+		or die "Attempt to insert invalid TOC ($tocstr)\n";
+	my $trackoffset = "{".join(",", @{ $info{trackoffsets} })."}";
+	
+	my $sql = Sql->new($self->{dbh});
+	$sql->Do("LOCK TABLE cdtoc IN EXCLUSIVE MODE");
+
+    # See if we have a degraded TOC that we need to update
+    # define the range of acceptable leadouts in order to select all matching TOCS
+    my $leadout_low = $info{leadoutoffset} - 75;
+    my $leadout_hi = $info{leadoutoffset} + 75;
+
+	my $ids = $sql->SelectListOfHashes(
+		"SELECT	id, leadoutoffset FROM cdtoc
+		WHERE	trackcount = ?
+		AND		leadoutoffset >= ?
+		AND		leadoutoffset <= ?
+		AND		trackoffset = ?
+        AND     degraded = 't'
+       ORDER BY abs(leadoutoffset - ?)",
+		$info{tracks},
+		$leadout_low,
+		$leadout_hi,
+		$trackoffset,
+        $info{leadoutoffset}
+	);
+
+    # TODO: Consider duplicates, and cds with the last track a different length
+    if (scalar(@$ids) > 0)
+    {
+        # Upgrade the TOC by setting the correct leadout and updated discid  
+        print STDERR "UPGRADE CDTOC: upgrade cdtoc " . $ids->[0]->{id} . " to $info{discid}\n";
+        $sql->Do("UPDATE cdtoc 
+                     SET discid = ?, 
+                         freedbid = ?,
+                         leadoutoffset = ?, 
+                         degraded = 'f' 
+                   WHERE id = ?", 
+                   $info{discid}, $info{'freedbid'}, $info{leadoutoffset}, $ids->[0]->{id});
+    }
+    else
+    {
+        print STDERR "Given TOC cannot be upgraded\n";
+    }
+}
+
 sub GetOrInsertTOC
 {
 	my $self = shift;
@@ -240,7 +293,7 @@ sub GetOrInsertTOC
 	return $id if $id;
 
 	# Otherwise, we need to insert it.
-	return $sql->InsertRow(
+    return $sql->InsertRow(
 		"cdtoc",
 		{
 			discid			=> $info{'discid'},

@@ -95,6 +95,7 @@ sub All
 	my $include = $opts{'include'};
 
 	my $key = $self->_GetAllCacheKey;
+	require MusicBrainz::Server::Cache;
 	my $obj = MusicBrainz::Server::Cache->get($key);
 
 	if ($obj)

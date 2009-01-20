@@ -69,19 +69,45 @@ package MusicBrainz::Server::RateLimit;
 
 require IO::Socket::INET;
 
+{
+	my $last_server = '';
+	my $last_socket;
+
+	sub get_socket
+	{
+		my ($class, $server) = @_;
+		return $last_socket
+			if $server eq $last_server
+			and $last_socket;
+		close $last_socket if $last_socket;
+
+		$last_server = $server;
+		$last_socket = IO::Socket::INET->new(
+			Proto		=> 'udp',
+			PeerAddr	=> $server,
+		);
+	}
+
+	sub force_close
+	{
+		close $last_socket if $last_socket;
+		$last_socket = undef;
+	}
+}
+
+our $id = 0;
+
 sub simple_test
 {
 	my ($class, $key) = @_;
 
 	my $server = &DBDefs::RATELIMIT_SERVER;
 	defined($server) or return;
+	my $sock = $class->get_socket($server);
 
-	my $sock = IO::Socket::INET->new(
-		Proto		=> 'udp',
-		PeerAddr	=> $server,
-	);
+	{ use integer; ++$id; $id &= 0xFFFF }
 
-	my $request = "over_limit $key";
+	my $request = "$id over_limit $key";
 	my $r;
 
 	$r = send($sock, $request, 0);
@@ -106,6 +132,12 @@ sub simple_test
 	if (not defined $r)
 	{
 		# Receive error
+		return;
+	}
+
+	unless ($data =~ s/\A($id) //)
+	{
+		force_close();
 		return;
 	}
 

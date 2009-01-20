@@ -72,16 +72,16 @@ sub handler
 		fail($r);
 	}
 
-        # And now, the super-fast TRM lookup algorithm...
-        my $bytes = "";
-        $bytes .= chr(rand 256) for 1..64;
-        substr($bytes, 27, 1) = "L";
+	# And now, the super-fast TRM lookup algorithm...
+	my $bytes = "";
+	$bytes .= chr(rand 256) for 1..64;
+	substr($bytes, 27, 1) = "L";
 
 	$r->status(HTTP_OK);
 	$r->send_http_header(RESP_CONTENT_TYPE);
 	$r->print($bytes);
 
-        OK;
+	OK;
 }
 
 sub server_error

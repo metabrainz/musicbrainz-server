@@ -66,8 +66,10 @@ sub PreInsert
 	# |--- Attributes (default: none) (OPTIONAL)
 	# |--- Language (OPTIONAL)
 	# |--- Script (OPTIONAL)
+	# |--- ReleaseId (OPTIONAL -- only for MBID Submitters)
 	# \--- for tracks 1..n:
 	#      |--- Track/n/ 	- name
+	#      |--- TrackID/n/ 	- name  (only used for MBID submitters)
 	#      |--- Artist/n/ 	- ??? id or name ???
 	#      \--- TrackDur/n/ 	- duration in ms ?
 	#
@@ -116,6 +118,10 @@ sub PreInsert
 	  	$info{'cdindexid'} = $new{'CDIndexId'};
 	   	$info{'toc'} = $new{'TOC'};
 	}
+	if (exists $new{'ReleaseId'} && $new{'ReleaseId'})
+	{
+	  	$info{'albumid_supplied'} = $new{'ReleaseId'};
+	}
 
 	if ($new{'NonAlbum'})
 	{
@@ -147,6 +153,11 @@ sub PreInsert
 			track => $name,
 			tracknum => $i,
 		);
+
+		if (exists $new{"TrackID$i"})
+		{
+			$tmp{trackid} = $new{"TrackID$i"};
+		}
 		
 		if ($isva)
 		{

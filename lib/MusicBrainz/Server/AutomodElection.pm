@@ -42,7 +42,7 @@ my %descstatus = (
 	$STATUS_AWAITING_SECONDER_2	=> "awaiting 2nd seconder",
 	$STATUS_VOTING_OPEN			=> "voting open",
 	$STATUS_ACCEPTED			=> "accepted",
-	$STATUS_REJECTED			=> "rejected",
+	$STATUS_REJECTED			=> "declined",
 	$STATUS_CANCELLED			=> "cancelled",
 );
 use base qw( TableBase );
@@ -442,7 +442,7 @@ sub _PrepareMail
 
 	(my $nums = $self->{proposetime}) =~ tr/0-9//cd;
 	my $id = $self->id;
-	$self->{message_id} = "<automod-election-$id-$nums\@musicbrainz.org>";
+	$self->{message_id} = "<autoeditor-election-$id-$nums\@musicbrainz.org>";
 
 	require MusicBrainz::Server::Editor;
 	my $us = MusicBrainz::Server::Editor->new($self->dbh);
@@ -458,7 +458,7 @@ sub _PrepareMail
 			&DBDefs::WEB_SERVER, $them->id;
 	}
 
-	$self->{subject} = "Automod Election: $self->{candidate_name}";
+	$self->{subject} = "Autoeditor Election: $self->{candidate_name}";
 	$self->{election_link} = sprintf "http://%s/user/election/show.html?id=%d",
 		&DBDefs::WEB_SERVER, $self->id;
 
@@ -475,7 +475,7 @@ sub SendProposalEmail
 	$self->_SendMail(
 		is_reply	=> 0,
 		Data		=> <<EOF,
-A new candidate has been put forward for automoderator status:
+A new candidate has been put forward for autoeditor status:
 
 Candidate: $self->{candidate_name}
            $self->{candidate_link}
@@ -533,7 +533,7 @@ sub SendAcceptedEmail
 		is_reply	=> 1,
 		Data		=> <<EOF,
 Voting in this election is now closed: $self->{candidate_name} has been
-accepted as an auto-moderator.  Congratulations!
+accepted as an auto-editor.  Congratulations!
 
 Details:
 $self->{election_link}
@@ -553,7 +553,7 @@ sub SendRejectedEmail
 		is_reply	=> 1,
 		Data		=> <<EOF,
 Voting in this election is now closed: the proposal to make
-$self->{candidate_name} an auto-moderator was rejected.
+$self->{candidate_name} an auto-editor was declined.
 
 Details:
 $self->{election_link}
