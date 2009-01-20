@@ -1,25 +1,25 @@
 [%- info_links = [
-    { link => c.entity_url(release, 'perma'), text => "Permanent link" },
+    { link => c.entity_url(release, 'perma'), text => "Permanent Link" },
     { link => c.entity_url(release, 'details'), text => "Details" },
     { link => c.entity_url(release, 'tags'), text => "Tags" },
     {
         link => c.req.uri_with(artist => 1),
-        text => "Show artists",
+        text => "Show Artists",
         hide => show_artists,
     },
     {
         link => c.req.uri_with(artist => 0),
-        text => "Hide artists",
+        text => "Hide Artists",
         hide => !show_artists,
     },
     {
         link => c.req.uri_with(rel => 1),
-        text => "Show relationships",
+        text => "Show Relationships",
         hide => show_relationships,
     },
     {
         link => c.req.uri_with(rel => 0),
-        text => "Hide relationships",
+        text => "Hide Relationships",
         hide => !show_relationships,
     },
     { link => c.entity_url(release, 'google'), text => "Search Google" },

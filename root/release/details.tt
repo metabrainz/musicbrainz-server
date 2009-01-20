@@ -2,7 +2,7 @@
 
 [%- WRAPPER "release/layout.tt" title="Details" -%]
 
-[%- WRAPPER "components/box.tt" header="Release details" -%]
+[%- WRAPPER "components/box.tt" header="Release Details" -%]
 <table class="details">
     <tr>
         <th>[% doc_link("ReleaseTitle", "Title") %]:</th>

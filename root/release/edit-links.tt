@@ -2,9 +2,9 @@
     Edit: 
     [%- IF c.user_exists -%]
         [%- edit_links = [
-        { link => '', text => 'Add relationship' },
+        { link => '', text => 'Add Relationship' },
         { link => '', text => 'Relate to URL' },
-        { link => '', text => 'Add CC license' },
+        { link => '', text => 'Add CC License' },
         { link => c.entity_url(release, 'move'), text => 'Move' },
         { link => c.entity_url(release, 'edit_title'), text => 'Edit Title' },
         { link => c.entity_url(release, 'remove'), text => 'Remove' },
