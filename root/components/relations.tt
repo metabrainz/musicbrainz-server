@@ -59,7 +59,7 @@
 		{
 			link => c.uri_for(c.controller('relate').action_for('store'),
 				[ source.entity_type, source.mbid ]),
-	    	text => "Use this ${source.entity_type} in a relationship"
+	    	text => "Use this ${source.entity_type} in a Relationship"
 			hide => !c.user_exists,
 		},
 		{
@@ -71,7 +71,7 @@
 			link => c.uri_for(c.controller('relate').action_for('create'),
 	    		[ current_relationship.entity_type, current_relationship.mbid ],
 	    		source.entity_type, source.mbid),
-	    	text => 'Create relationship',
+	    	text => 'Create Relationship',
 	    	hide => (current_relationship.id == source.id) || !c.user_exists,
 		},
 	    {

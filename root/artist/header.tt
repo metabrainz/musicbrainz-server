@@ -2,10 +2,10 @@
     { link => c.entity_url(artist, 'aliases'), text => "Aliases" },
     { link => c.entity_url(artist, 'appearances'), text => "Appears on" },
     { link => c.entity_url(artist, 'details'), text => "Details" },
-    { link => c.entity_url(artist, 'perma'), text => "Permanent link" },
+    { link => c.entity_url(artist, 'perma'), text => "Permanent Link" },
     { link => c.entity_url(artist, 'show'), text => "Releases" },
     { link => c.entity_url(artist, 'google'), text => "Search Google" }
-    { link => c.entity_url(artist, 'similar'), text => "Similar artists" },
+    { link => c.entity_url(artist, 'similar'), text => "Similar Artists" },
     { link => c.entity_url(artist, 'tags'), text => "Tags" },
 ] -%]
 
@@ -43,7 +43,7 @@
                 { link => c.entity_url(artist, 'change_quality'), text => "Change Data Quality" },
                 { link => c.entity_url(artist, 'edit'), text => "Edit Artist" },
                 { link => c.entity_url(artist, 'import'), text => "Import Release" },
-                { link => c.entity_url(artist, 'merge'), text => "Merge Into" },
+                { link => c.entity_url(artist, 'merge'), text => "Merge into" },
                 { link => c.entity_url(artist, 'subscribe'), text => "Subscribe", hide => subscribed },
                 { link => c.entity_url(artist, 'unsubscribe'), text => "Unsubscribe", hide => !subscribed },
                 { link => c.entity_url(artist, 'subscriptions'), text => "View Subscriptions" },
