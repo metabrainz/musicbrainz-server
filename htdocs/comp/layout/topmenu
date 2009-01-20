@@ -213,7 +213,6 @@
 
 			] : [],
 			{ name => "Review/Vote on Edits",	url => "/mod/search/select-filter.html" },
-			{ name => "Dashboard",				url => "/show/stats/dashboard.html" },
 			{ name => "Edit Conditions",		url => "/show/edit/conditions.html" },
 			[
 				{ url => "/mod/search/pre/new.html" },

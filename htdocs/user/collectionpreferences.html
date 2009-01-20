@@ -34,11 +34,11 @@
 	my $mbraw = MusicBrainz->new();
 	$mbraw->Login(db => 'RAWDATA');
 	
-	# make sure the user has a collection_info tuple
-	MusicBrainz::Server::CollectionInfo::AssureCollection($session{uid}, $mbraw->{DBH});
+	$session{collectionid} = MusicBrainz::Server::CollectionInfo::AssureCollectionIdForUser($session{uid}, $mbraw->{DBH}) 
+		if (!$session{collectionid});
 	
 	require MusicBrainz::Server::CollectionPreference;
-	my $preferences = MusicBrainz::Server::CollectionPreference->new($mbro->{DBH}, $mbraw->{DBH}, $session{uid});
+	my $preferences = MusicBrainz::Server::CollectionPreference->new($mbro->{DBH}, $mbraw->{DBH}, $session{collectionid});
 	my @showTypes; # array containing the release types to display releases of
 	my $ignoreTypes = MusicBrainz::Server::CollectionPreference::GetTypeIdentifiers(); # hash containing types to ignore, and dummy values
 	my $releaseTypes = MusicBrainz::Server::CollectionPreference::GetReleaseTypes();

@@ -39,6 +39,24 @@
 	my $rc = MusicBrainz::Server::CDStub->new($mb->{DBH});
     $data = $rc->Load($discid) if (!defined $data);
 
+	# check if we got data
+	if (not defined $data)
+	{
+		my $text;
+		if (defined $discid)
+		{
+			$text = "No CDStub found with the given " . $m->scomp("/comp/linkdoc", "DiscID", "Disc ID") . " <code>$discid</code>."
+					. " It has probably been imported in MusicBrainz (<a href='/bare/cdlookup.html?id=$discid'>find it</a>)";
+		}
+		else
+		{
+			$text = "No such CDStub found. It has probably been imported in MusicBrainz";
+		}
+		return $m->comp("/comp/layout/badarguments",
+			title => "CDStub not found",
+			text => $text);
+	}
+
 	my $toc = "1+" . $data->{cdtoc}->{trackcount} . "+" .
 		$data->{cdtoc}->{leadoutoffset} . "+" .
 		substr($data->{cdtoc}->{trackoffset}, 1, -1);
@@ -57,11 +75,19 @@
 	}
 
 	my $url = "/bare/cdlookup.html?discid=" . $data->{cdtoc}->{discid} .  "&toc=$toc";
-	if ($data->{artist}) {
-		$url .=	"&artist=" . uri_escape($data->{artist});
-	} else {
-		$url .=	"&release=" . uri_escape($data->{title});
-	}
+	$url .=	"&artist=" . uri_escape($data->{artist}) if ($data->{artist});
+	$url .=	"&release=" . uri_escape($data->{title});
+	$url .=	"&barcode=" . uri_escape($data->{barcode}) if ($data->{barcode});
+
+	my $query;
+	$query .= "artist:(". MusicBrainz::Server::LuceneSearch::EscapeQuery($data->{artist}) .") " if ($data->{artist});
+	$query .= "release:(". MusicBrainz::Server::LuceneSearch::EscapeQuery($data->{title}) .") ";
+	$query .= "tracks:(". scalar(@{$data->{tracks}}) .") ";	
+	$query .= "barcode:(". $data->{barcode} .") " if ($data->{barcode});	
+	my $release_search_url = "/search/textsearch.html?query=". uri_escape($query) ."&type=release&handlearguments=1&adv=on";
+
+	my $isva = 0;
+	$isva ||= $_->{artist} foreach @{$data->{tracks}};
 </%perl>
 
 <& /comp/artisttitle, artist => $ar, showmodlinks => 0, showrating => 0, showlinks => 0 &>
@@ -75,7 +101,7 @@
 %	for(my $i = 0; $i < scalar(@{$data->{tracks}}); $i++) {
 		<tr class="releasetracks">
 			<td class="no"><% ($i + 1) %></td>
-			<td class="title"><% $data->{tracks}->[$i]->{title} %></td>
+			<td class="title<% $isva ? " va" : ""%>"><% $data->{tracks}->[$i]->{title} %></td>
 %			if ($data->{tracks}->[$i]->{artist}) {
 				<td class="artist"><% $data->{tracks}->[$i]->{artist} %></td>
 %			}
@@ -96,11 +122,10 @@
 
 <br/>
 <p>
-[ <a href="/edit/cdstub/add.html?exists=1&id=<% $data->{cdtoc}->{discid} %>&toc=<% $toc %>">Edit this CD Stub</a>.
+[ <a href="/edit/cdstub/add.html?exists=1&id=<% $data->{cdtoc}->{discid} %>&toc=<% $toc %>">Edit this CD Stub</a>
 | <a href="/edit/cdstub/import.html?cdstubid=<% $data->{id} %>">Import CD Stub</a>
-| <a href="<% $url %>">Import Disc Id</a> ]
+| <a href="<% $url %>">Import Disc Id</a> 
+| <a href="<% $release_search_url %>">Search this CD in MusicBrainz</a> ]
 </p>
-
-<& /comp/footer &>
 
 %# vi: set ts=4 sw=4 ft=mason :

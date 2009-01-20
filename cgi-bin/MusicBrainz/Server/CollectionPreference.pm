@@ -43,24 +43,21 @@ Has subs for setting and getting collection preference values.
 
 =head1 METHODS
 
-=head2 new $rodbh, $rawdbh, $userId
-Create a CollectionPreference object. Load preferences for user with id C<$userId>.
+=head2 new $rodbh, $rawdbh, $collectionId
+Create a CollectionPreference object. Load preferences for user with id C<$collectionId>.
 =cut
 sub new
 {
-	my ($this, $rodbh, $rawdbh, $userId) = @_;
+	my ($this, $rodbh, $rawdbh, $collectionId) = @_;
 	
 	# get collection id
 	my $rawsql = Sql->new($rawdbh);
-	my $collectionId = $rawsql->SelectSingleValue('SELECT id FROM collection_info WHERE moderator=?', $userId);
-	
 	my $object=bless(
 	{
 		RAWDBH			=> $rawdbh,
 		RODBH			=> $rodbh,
 		prefs			=> {},
 		collectionId	=> $collectionId,
-		userId			=> $userId,
 		hasArtists		=> undef,#$hasArtists # should this even be here!? since selection stuff has been removed from collectionpreferences.html 
 		artistsMissing	=> undef#$artistsMissingHash   # same as above
 	}, $this);
@@ -205,7 +202,7 @@ sub SetShowTypes
 	eval
 	{
 		$rawsql->Begin();
-		$rawsql->Do("UPDATE collection_info SET ignoreattributes = '{" . join(',', @{$showTypes}) . "}' WHERE id = ?", $this->{collectionId});
+		$rawsql->Do("UPDATE collection_info SET ignoreattributes = '{" . join(',', sort @{$showTypes}) . "}' WHERE id = ?", $this->{collectionId});
 	};
 	if($@)
 	{
@@ -230,7 +227,7 @@ sub GetShowTypes
 	# convert to {1,2,3} formatted string to array
 	my $showTypesPrefString = $showTypes;
 	$showTypesPrefString =~ s/^\{(.*)\}$/$1/;
-	my @showTypesPref = split(',', $showTypesPrefString); # ref to array containing identifiers of types to show currently in the prefs
+	my @showTypesPref = sort split(',', $showTypesPrefString); # ref to array containing identifiers of types to show currently in the prefs
 	
 	return @showTypesPref;
 }
@@ -239,19 +236,17 @@ sub GetShowTypes
 # Static subs
 #--------------------------------------------------
 
-=head2 ArtistWatch $artistId, $userId
-Specifies that user with id C<$userId> want to watch for new releases of artist with id C<$artistId>.
+=head2 ArtistWatch $artistId, $collectionId
+Specifies that user with id C<$collectionId> want to watch for new releases of artist with id C<$artistId>.
 =cut
 sub ArtistWatch
 {
-	my ($artistId, $userId) = @_;
+	my ($artistId, $collectionId) = @_;
 	
 	require MusicBrainz;
 	my $mbraw = MusicBrainz->new();
 	$mbraw->Login(db => 'RAWDATA');
 	my $rawsql = Sql->new($mbraw->{DBH});
-	
-	my $collectionId = MusicBrainz::Server::CollectionInfo::GetCollectionIdForUser($userId, $mbraw->{DBH});
 	
 	eval
 	{
@@ -278,19 +273,17 @@ sub ArtistWatch
 	}
 }
 
-=head2 ArtistDontWatch $artistId, $userId
-Specifies that user with id C<$userId> do not want to watch for new releases of artist with id C<$artistId>.
+=head2 ArtistDontWatch $artistId, $collectionId
+Specifies that user with id C<$collectionId> do not want to watch for new releases of artist with id C<$artistId>.
 =cut
 sub ArtistDontWatch
 {
-	my ($artistId, $userId) = @_;
+	my ($artistId, $collectionId) = @_;
 	
 	require MusicBrainz;
 	my $mbraw = MusicBrainz->new();
 	$mbraw->Login(db => 'RAWDATA');
 	my $rawsql = Sql->new($mbraw->{DBH});
-	
-	my $collectionId = MusicBrainz::Server::CollectionInfo::GetCollectionIdForUser($userId, $mbraw->{DBH});
 	
 	eval
 	{
@@ -309,21 +302,17 @@ sub ArtistDontWatch
 	}
 }
 
-=head2 ArtistsDontShowMissing $artistId, $userId
-Specifies that user with id C<$userId> want to see missing releases of artist with id C<$artistId>.
+=head2 ArtistsDontShowMissing $artistId, $collectionId
+Specifies that user with id C<$collectionId> want to see missing releases of artist with id C<$artistId>.
 =cut
 sub ArtistMissing
 {
-	my ($artistId, $userId) = @_;
+	my ($artistId, $collectionId) = @_;
 	
 	require MusicBrainz;
 	my $mbraw = MusicBrainz->new();
 	$mbraw->Login(db => 'RAWDATA');
 	my $rawsql = Sql->new($mbraw->{DBH});
-	
-	use Data::Dumper;
-	
-	my $collectionId = MusicBrainz::Server::CollectionInfo::GetCollectionIdForUser($userId, $mbraw->{DBH});
 	
 	eval
 	{
@@ -334,16 +323,11 @@ sub ArtistMissing
 	
 	if($@)
 	{
-		# do not care about duplicate error. it is caused by a user reloading page when a GET variable is set to add this artist
-		if($@ =~ /duplicate/)
-		{
-			$rawsql->Rollback();
-		}
-		else
-		{
-			$rawsql->Rollback();
-			die('Could not add artist to list of artists being watched');
-		}
+                $rawsql->Rollback();
+
+                # do not care about duplicate error. it is caused by a user reloading page when a GET variable is set to add this artist
+                die('Could not add artist to list of artists being watched')
+                    unless ($@ =~ /duplicate/);
 	}
 	else
 	{
@@ -351,21 +335,17 @@ sub ArtistMissing
 	}
 }
 
-=head2 ArtistDontShowMissing $artistId, $userId
-Specifies that user with id C<$userId> do not want to see missing releases of artist with id C<$artistId>.
+=head2 ArtistDontShowMissing $artistId, $collectionId
+Specifies that user with id C<$collectionId> do not want to see missing releases of artist with id C<$artistId>.
 =cut
 sub ArtistDontShowMissing
 {
-	my ($artistId, $userId) = @_;
+	my ($artistId, $collectionId) = @_;
 	
 	require MusicBrainz;
 	my $mbraw = MusicBrainz->new();
 	$mbraw->Login(db => 'RAWDATA');
 	my $rawsql = Sql->new($mbraw->{DBH});
-	
-	use Data::Dumper;
-	
-	my $collectionId = MusicBrainz::Server::CollectionInfo::GetCollectionIdForUser($userId, $mbraw->{DBH});
 	
 	eval
 	{

@@ -30,6 +30,7 @@
 
 	$discid
 	$toc
+	$barcode
 	$search
 	$tracks => undef
 	$showallreleases => 0
@@ -198,6 +199,7 @@
 						<input type="hidden" name="discid" value="<% $discid %>" />
 						<input type="hidden" name="toc" value="<% $toc %>" />
 						<input type="hidden" name="tracks" value="<% $tracks %>" />
+						<input type="hidden" name="barcode" value="<% $barcode %>" />
 					</div>
 				</form>
 			</td>
@@ -246,6 +248,7 @@
 							<input type="hidden" name="discid" value="<% $discid %>" />
 							<input type="hidden" name="tracks" value="<% $tracks %>" />
 							<input type="hidden" name="toc" value="<% $toc %>" />
+							<input type="hidden" name="barcode" value="<% $barcode %>" />
 						</div>
 					</form>
 				</td>
@@ -276,6 +279,7 @@
 							<input type="hidden" name="tracks" value="<% $tracks %>" />
 							<input type="hidden" name="hasmultipletrackartists" value="0" />
 							<input type="hidden" name="releasename" value="<% $search %>" />
+							<input type="hidden" name="barcode" value="<% $barcode %>" />
 						</div>
 					</form>
 				</td>

@@ -39,8 +39,6 @@
 </%args>
 <%perl>
 
-    $showratings &&= UserPreference::get("show_ratings");
-
 	my $release = $album;
 
 	# track artist are either shown, if there are track artists != release artist
@@ -55,6 +53,10 @@
 	my $puids = $release->GetPuidCount();
 	my $discids = $release->GetDiscidCount();
 	my $quality = ModDefs::GetQualityText($release->GetQuality);
+	my $nonalbum = $release->IsNonAlbumTracks;
+
+	# Don't show ratings for NonAlbumTracks
+	$showratings &&= not $nonalbum;
 
 </%perl>
 
@@ -112,7 +114,6 @@
 
 	# 2. Release Language
 	my $editwhat = "&nbsp;Language";
-	my $nonalbum = $release->IsNonAlbumTracks();
 	if (!$nonalbum)
 	{
 		my $language = $release->GetLanguage;

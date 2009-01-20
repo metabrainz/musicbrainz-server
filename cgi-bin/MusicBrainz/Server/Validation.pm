@@ -156,7 +156,7 @@ sub IsValidDateOrEmpty
 {
 	my ($year, $month, $day) = @_;
 
-	return 1 if $year eq '' and $month eq '' and $day eq '';
+	return (wantarray ? ('', '', '') : 1) if $year eq '' and $month eq '' and $day eq '';
 
 	return IsValidDate($year, $month, $day);
 }

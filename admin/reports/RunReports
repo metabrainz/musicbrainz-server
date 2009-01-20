@@ -53,7 +53,6 @@ my @all = qw(
 	admin/reports/DuplicateArtists.pl
 	admin/reports/DuplicateArtists2
 	admin/reports/DuplicatePUIDsPerAlbum
-	admin/reports/DuplicateTrackNumbers
 	admin/reports/FeaturingArtists
 	admin/reports/NoLanguage
 	admin/reports/NoScript
@@ -66,6 +65,7 @@ my @all = qw(
 	admin/reports/TracksNamedWithSequence.pl
 	admin/reports/TracksWithManyPUIDs
 	admin/reports/TracksWithoutTimes
+	admin/reports/TracksWithSequenceIssues
 	admin/reports/WrongCharset
 );
 

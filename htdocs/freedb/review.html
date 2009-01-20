@@ -80,7 +80,7 @@
 	$release->SetName($releasename);
 	# Hack.  Maybe $release->SetAlbumMeta(...) would be a better method
 	$release->{trackcount} = (@t);
-	$release->{discidcount} = 1;
+	$release->{discidcount} = 0;
 	$release->{trmidcount} = 0;
 	$release->{puidcount} = 0;
 
@@ -202,7 +202,7 @@
 	$release->HasMultipleTrackArtists(1);
 	# Hack.  Maybe $release->SetAlbumMeta(...) would be a better method
 	$release->{trackcount} = (@t);
-	$release->{discidcount} = 1;
+	$release->{discidcount} = 0;
 	$release->{trmidcount} = 0;
 	$release->{puidcount} = 0;
 

@@ -40,7 +40,7 @@ function ARFrontEnd() {
 	this.formsubmitted = null;
 	this.urlRegExps = {
 		amazon:		new RegExp("^(http://)?([^/]+\.)?amazon\.(com|ca|co\.uk|fr|at|de|co\.jp|jp)","i"),
-		discogs:	new RegExp("^(http://)?([^/]+\.)?discogs\.com","i"),
+		discogs:	new RegExp("^(https?://)?([^/]+\.)?discogs\.com","i"),
 		wikipedia:	new RegExp("^(http://)?([^/]+\.)?wikipedia\.","i"),
 		musicmoz:	new RegExp("^(http://)?([^/]+\.)?musicmoz\.","i"),
 		imdb:		new RegExp("^(http://)?([^/]+\.)?imdb\.com","i"),
@@ -264,7 +264,7 @@ function ARFrontEnd() {
 				field.value = "http://www.amazon." + tld + "/gp/product/" + asin;
 			}
 		} else if (v.match(this.urlRegExps.discogs)) {
-			field.value = field.value.replace(/^http:\/\/([^.]+\.)?discogs\.com/, "http://www.discogs.com");
+			field.value = field.value.replace(/^https?:\/\/([^.]+\.)?discogs\.com\/(.*\/(artist|release|label))?/, "http://www.discogs.com/$3");
 		} else if (v.match(this.urlRegExps.archive)) {
 			field.value = field.value.replace(/\/http:\/\//, "/");
 			field.value = field.value.replace(/http:\/\/(.*)\.archive.org\/\d\/items\/(.*)\/(.*)/, "http://www.archive.org/download/$2/$3");

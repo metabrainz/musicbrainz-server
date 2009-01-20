@@ -53,7 +53,7 @@
         my $setter = "Set" . ucfirst $entitytype2;
         if ($current_annotation->can($setter))
         {
-            $current_annotation->SetRelease($id);
+            $current_annotation->$setter($id);
             $current_annotation->GetLatestAnnotation;
         }
         else

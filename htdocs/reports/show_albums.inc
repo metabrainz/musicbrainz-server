@@ -129,7 +129,7 @@
 			<td class="left padright">
 %				my $artist = MusicBrainz::Server::LuceneSearch::EscapeQuery($row->{'artist_name'});
 %				my $release = MusicBrainz::Server::LuceneSearch::EscapeQuery($row->{'album_name'});
-%				my $query =	"artist:(".$artist.") title:(".$release.") " . ($row->{album_tracks} ? "tracks:".$row->{album_tracks} : "");	
+%				my $query =	"artist:(".$artist.") release:(".$release.") " . ($row->{album_tracks} ? "tracks:".$row->{album_tracks} : "");	
 				<a href="/search/textsearch.html?type=freedb&query=<% uri_escape($query) %>&adv=on&handlearguments=1">Search in FreeDb</a>
 			</td>
 %			}				

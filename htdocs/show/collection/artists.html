@@ -42,38 +42,31 @@
 	my $mbraw = MusicBrainz->new();
 	$mbraw->Login(db => 'RAWDATA');
 	
-	# make sure the user has a collection_info tuple
-	MusicBrainz::Server::CollectionInfo::AssureCollection($session{uid}, $mbraw->{DBH});
+	$session{collectionid} = MusicBrainz::Server::CollectionInfo::AssureCollectionIdForUser($session{uid}, $mbraw->{DBH}) 
+     		if (!$session{collectionid});
 	
-	my $preferences = MusicBrainz::Server::CollectionPreference->new($mbro->{DBH}, $mbraw->{DBH}, $session{uid});
-	
-	
-	
+	my $preferences = MusicBrainz::Server::CollectionPreference->new($mbro->{DBH}, $mbraw->{DBH}, $session{collectionid});
 	# remove artists as requested
 	if(defined($dontwatchartist))
 	{
-		MusicBrainz::Server::CollectionPreference::ArtistDontWatch($dontwatchartist, $session{uid});
+		MusicBrainz::Server::CollectionPreference::ArtistDontWatch($dontwatchartist, $session{collectionid});
 	}
 	elsif(defined($dontshowmissingofartist))
 	{
-		MusicBrainz::Server::CollectionPreference::ArtistDontShowMissing($dontshowmissingofartist, $session{uid});
+		MusicBrainz::Server::CollectionPreference::ArtistDontShowMissing($dontshowmissingofartist, $session{collectionid});
 	}
 </%perl>
 
 
 <%perl>
-my $collectionInfo = MusicBrainz::Server::CollectionInfo->new($session{uid}, $mbro->{DBH}, $mbraw->{DBH}, $preferences);
-
+my $collectionInfo = MusicBrainz::Server::CollectionInfo->new($session{collectionid}, $mbro->{DBH}, $mbraw->{DBH}, $preferences);
 
 # get lists of artists
 my $showMissingOfArtists = $collectionInfo->GetShowMissingArtists();
 my $watchArtists = $collectionInfo->GetWatchArtists();
 
-
 my $missingCount = @$showMissingOfArtists;
 my $watchCount = @$watchArtists;
-
-
 
 require Sql;
 my $rosql = Sql->new($mbro->{DBH});
@@ -124,9 +117,6 @@ $m->out('</table>');
 </%perl>
 
 <& /comp/tableend &>
-
-
-
 
 <& /comp/tablebegin, title => "Notify me about new releases from artists" &>
 %	if($watchCount == 0)

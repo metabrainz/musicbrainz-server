@@ -37,7 +37,7 @@ my ($i, $line, $r, $rdf, $out);
 my ($queryname, $querydata, $data, $rdfinput);
 my ($function, @queryargs, $mb, $parser);
 my ($currentURI, $rdfquery, $depth);
-my (%session, $session_id, $session_key, $mustauth);
+my ($mustauth);
 
 my %Queries = 
 (
@@ -130,57 +130,6 @@ sub Output
    }
 }
 
-sub Authenticate
-{
-   my ($session, $session_id, $session_key, $r) = @_;
-
-   if (defined $session_id && $session_id ne '' &&
-       defined $session_key && $session_key ne '')
-   {
-       eval {
-          tie %$session, 'Apache::Session::File', $session_id, {
-                     Directory => &DBDefs::SESSION_DIR,
-                     LockDirectory   => &DBDefs::LOCK_DIR};
-       };
-       if ($@)
-       {
-           undef $session_id;
-           undef $session_key;
-           return "Invalid session id.";
-       }
-       else
-       {
-           if ($session->{session_key} ne $session_key)
-           {
-               tied(%$session)->delete;
-               untie %$session;
-               return "Invalid session key or invalid password.";
-           }
-           if ($session->{expire} < time)
-           {
-               tied(%$session)->delete;
-               untie %$session;
-               return "Session key expired. Please Authenticate again."; 
-           }
-
-           lprint "mq", "Authenticated session $session_id";
-	   $session->{expire} = time() + &DBDefs::RDF_SESSION_SECONDS_TO_LIVE;
-
-	   use URI::Escape qw( uri_escape );
-	   $r->connection->user(uri_escape($session->{moderator}, '^A-Za-z0-9._-'))
-	   	if $r;
-
-           return "";
-       }
-   }
-   else
-   {
-       undef $session_id;
-       undef $session_key;
-       return "Invalid session id and session key provided.";
-   }
-}
-
 require MM_2_0;
 $rdf = MM_2_0->new(0);
 $rdf->SetBaseURI("http://" . $ENV{SERVER_NAME});
@@ -244,31 +193,12 @@ if ($depth > 6)
 }
 $rdf->SetDepth($depth);
 
-$session_id = $parser->Extract($currentURI,
-                'http://musicbrainz.org/mm/mq-1.0#sessionId');
-if (defined $session_id)
-{
-    my $error;
-
-    $session_key = $parser->Extract($currentURI,
-                   'http://musicbrainz.org/mm/mq-1.0#sessionKey');
-
-    $error = Authenticate(\%session, $session_id, $session_key, $r);
-    if ($error ne "")
-    {
-        $out = $rdf->ErrorRDF($error);
-        Output($r, \$out);
-        exit(0);
-    }
-}
-
 # Extract the name of the qyery
 $queryname = $parser->Extract($currentURI,
                  "http://www.w3.org/1999/02/22-rdf-syntax-ns#type");
 if (!defined $queryname)
 {
     $out = $rdf->ErrorRDF("Cannot determine query name.");
-    untie %session unless !defined $session_id;
     Output($r, \$out);
     exit(0);
 }
@@ -280,7 +210,6 @@ if (!exists $Queries{$queryname})
 {
     $out = $rdf->ErrorRDF("Query '$queryname' is not supported.");
     #print STDERR "$out\n\n";
-    untie %session unless !defined $session_id;
     Output($r, \$out);
     exit(0);
 }
@@ -288,13 +217,6 @@ $querydata = $Queries{$queryname};
 
 $function = shift @$querydata;
 $mustauth = shift @$querydata;
-
-if ($mustauth && !defined $session_id)
-{
-    $out = $rdf->ErrorRDF("You must authenticate to use this query.");
-    Output($r, \$out);
-    exit(0);
-}
 
 for(;;)
 {
@@ -322,13 +244,12 @@ $mb = new MusicBrainz(1);
 if (!$mb->Login(1))
 {
     $out = $rdf->ErrorRDF("Database Error: ".$DBI::errstr.")");
-    untie %session unless !defined $session_id;
     Output($r, \$out);
     exit(0);
 }
 
 $rdf->SetDBH($mb->{DBH});
-$out = $function->($mb->{DBH}, $parser, $rdf, @queryargs, \%session);
+$out = $function->($mb->{DBH}, $parser, $rdf, @queryargs, undef);
 $mb->Logout;
 
 
@@ -337,5 +258,4 @@ if (!defined $out)
     $out = $rdf->ErrorRDF("Query failed (no output)");
 }
 
-untie %session unless !defined $session_id;
 Output($r, \$out);

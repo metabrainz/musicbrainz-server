@@ -1,7 +1,8 @@
 <%args>
-    $entity_id
-    $entity_type
-    $rating
+	$entity_id
+	$entity_type
+	$rating
+	$old_rating => undef
 
 	$json => 0
 </%args>
@@ -23,7 +24,10 @@
     
 	# Instantiate MusicBrainz object
     my $mb = $m->comp("/comp/dblogin");
-	
+
+	# Unrate if user used rated again with the same value
+	$rating = 0 if (defined $old_rating && $old_rating == $rating);
+
 	# Rate
     my $ratings = MusicBrainz::Server::Rating->new($mb->{DBH});
     my ($global_rating, $rating_count) = $ratings->Update($entity_type, $entity_id, $session{uid}, $rating);

@@ -29,7 +29,6 @@ package MusicBrainz::Server::Rating;
 
 use base qw( TableBase ); 
 use Carp; 
-use Data::Dumper;
 use List::Util qw( min max sum );
 use URI::Escape qw( uri_escape ); 
 use MusicBrainz::Server::Validation qw( encode_entities ); 
@@ -63,7 +62,7 @@ sub Update
 				FROM $assoc_table_raw
 				WHERE $entity_type = ? AND editor = ?", $entity_id, $userid);
 
-		if($whetherrated)
+		if(defined $whetherrated)
 		{
 			# Already rated - so update
 			if($new_rating)
@@ -80,9 +79,10 @@ sub Update
 		}
 		else
 		{
-			# Not rated - so insert raw rating values
+			# Not rated - so insert raw rating value, unless rating = 0
 			$rawdb->Do("INSERT into $assoc_table_raw ($entity_type, rating, editor) 
-			        	 values (?, ?, ?)", $entity_id, $new_rating, $userid);
+			        	 values (?, ?, ?)", $entity_id, $new_rating, $userid)
+				unless ($new_rating == 0);
 		}
 			
 		# Update the aggregate rating

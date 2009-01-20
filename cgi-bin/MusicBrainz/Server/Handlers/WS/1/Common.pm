@@ -498,9 +498,14 @@ sub xml_release_events
 			my ($editpending) = ($rel->GetModPending ? 'editpending="1"' : '');
 
 			# create a releasedate element
-			print '<event date="';
-			print ($releasedate);
-			print '" country="'; 
+			print '<event';
+			if ($releasedate ne "0")
+			{
+				print ' date="';
+				print ($releasedate);
+				print '"';
+			}
+			print ' country="'; 
 			print ($c ? $c->GetISOCode : "?");
 			print '"';
 			printf ' catalog-number="%s"', xml_escape($rel->GetCatNo) if $rel->GetCatNo;

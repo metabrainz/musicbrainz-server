@@ -31,6 +31,7 @@
 	$discid
 	$toc
 	$releaseid
+	$barcode => undef
 
 </%args>
 <%perl>
@@ -87,6 +88,8 @@
 				album => $release,
 				toc => $toc,
 			);
+			# TODO: Add a user interface to let the editor enter its barcode (choose the release event, ...)
+			$mods[0]->InsertNote(&ModDefs::MODBOT_MODERATOR, "Barcode: $barcode") if ($mods[0] && $barcode);
 		},
 	);
 

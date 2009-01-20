@@ -41,34 +41,22 @@
 	my $mbraw = MusicBrainz->new();
 	$mbraw->Login(db => 'RAWDATA');
 	
-	# make sure the user has a collection_info tuple
-	MusicBrainz::Server::CollectionInfo::AssureCollection($session{uid}, $mbraw->{DBH});
-	
-	my $collectionId = MusicBrainz::Server::CollectionInfo::GetCollectionIdForUser($session{uid}, $mbraw->{DBH});
+	$session{collectionid} = MusicBrainz::Server::CollectionInfo::AssureCollectionIdForUser($session{uid}, $mbraw->{DBH}) 
+		if (!$session{collectionid});
 	
 </%perl>
 
-
-
-
 <& /comp/tablebegin, title => "Missing releases" &>
 
-
 <%perl>
-my $preferences = MusicBrainz::Server::CollectionPreference->new($mbro->{DBH}, $mbraw->{DBH}, $session{uid});
-my $collectionInfo = MusicBrainz::Server::CollectionInfo->new($session{uid}, $mbro->{DBH}, $mbraw->{DBH}, $preferences);
-
-
-
-
+my $preferences = MusicBrainz::Server::CollectionPreference->new($mbro->{DBH}, $mbraw->{DBH}, $session{collectionid});
+my $collectionInfo = MusicBrainz::Server::CollectionInfo->new($session{collectionid}, $mbro->{DBH}, $mbraw->{DBH}, $preferences);
 
 # if a release id is specified in in the removerelease get variable remove this release from collection
 if(defined($addrelease))
 {
-	MusicBrainz::Server::Collection::AddReleaseWithId($addrelease, $collectionId, $mbraw->{DBH});
+	MusicBrainz::Server::Collection::AddReleaseWithId($addrelease, $session{collectionid}, $mbraw->{DBH});
 }
-
-
 
 my $releases = $collectionInfo->GetMissingMBIDs();
 

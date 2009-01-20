@@ -86,15 +86,15 @@ OUTPUT=`
 	nice ./admin/reports/RunReports 2>&1
 ` || echo "$OUTPUT"
 
+# Add missing track lengths
+./admin/cleanup/FixTrackLength.pl
+
 # Process subscriptions
 echo `date`" : Processing subscriptions"
 ./admin/ProcessSubscriptions
 
 # `date`" : Updating language frequencies"
 ./admin/SetLanguageFrequencies
-
-# Add missing track lengths
-./admin/cleanup/FixTrackLength.pl
 
 # Recalculate related tags
 ./admin/CalculateRelatedTags.sh

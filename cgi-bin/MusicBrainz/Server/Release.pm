@@ -511,8 +511,7 @@ sub Remove
 
     # Remove collection items
 	require MusicBrainz::Server::Collection;
-	my $coll = MusicBrainz::Server::Collection->new($sql->{DBH});
-	$coll->RemoveReleaseFromCollections($this->GetId);
+	MusicBrainz::Server::Collection::RemoveReleaseFromCollections($this->GetId);
 
     # Remove references from album words table
 	require SearchEngine;
@@ -1000,7 +999,6 @@ sub MergeReleases
 	my $ratings = MusicBrainz::Server::Rating->new($sql->{DBH});
 
 	require MusicBrainz::Server::Collection;
-	my $coll = MusicBrainz::Server::Collection->new($sql->{DBH});
 
 	require MusicBrainz::Server::Annotation;
 	my $annotation = MusicBrainz::Server::Annotation->new($this->{DBH});
@@ -1091,7 +1089,7 @@ sub MergeReleases
 		$ratings->MergeReleases($id, $this->GetId);
 
 		# Move collection items
-		$coll->MergeReleases($id, $this->GetId);
+		MusicBrainz::Server::Collection::MergeReleases($id, $this->GetId);
 
         $this->SetGlobalIdRedirect($id, $al->GetMBId, $this->GetId, &TableBase::TABLE_RELEASE);
 

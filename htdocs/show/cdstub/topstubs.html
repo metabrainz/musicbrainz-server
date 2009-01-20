@@ -29,18 +29,20 @@
 <%args>
 	$count => undef
 	$offset => 0
-	$maxitems => 25
+	$limit => 25
 </%args>
 <%perl>
+	# Prevent use of too large value for the limit parameter
+	$limit = 25 if $limit > 100;
 
 	# Instantiate MusicBrainz object
 	my $mb = MusicBrainz->new;
 	$mb->Login(db => "RAWDATA");
 
 	my $rc = MusicBrainz::Server::CDStub->new($mb->{DBH});
-    my ($data, $numitems, $timestamp) = $rc->GetActiveCDs($maxitems, $offset);
+    my ($data, $numitems, $timestamp) = $rc->GetActiveCDs($limit, $offset);
 	$timestamp = MusicBrainz::Server::DateTime::format_datetime_since($timestamp);
-
+	
 </%perl>
 <& /comp/sidebar-notitle, pagetitle => "Most active CD Stubs" &>
 
@@ -77,15 +79,16 @@
 			<td><% $row->{lookupcount} %></td>
 			<td><% $row->{modifycount} %></td>
 %			if ($session{uid}) {
-				<td><a href="/edit/cdstub/import.html?cdstubid=<% $row->{id} %>">release</a>
+				<td style="white-space: nowrap;"><a href="/edit/cdstub/import.html?cdstubid=<% $row->{id} %>">release</a>
 				| <a href="<% $url %>">disc id</a></td>
 %			}
 			</tr>
 %		}
 		<tr>
 			<td colspan="7">
-				<& /comp/pageselector, offset => $offset, pagesize => $maxitems,
+				<& /comp/pageselector, offset => $offset, pagesize => $limit,
 										url => '/show/cdstub/topstubs.html',
+										args => { "limit" => $limit },
 										numitems => $numitems &>
 			</td>
 		</tr>

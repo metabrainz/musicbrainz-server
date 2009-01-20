@@ -34,6 +34,7 @@
 	$search => ""
 	$artistid => 0
 	$submitvalue => ""
+	$barcode => undef
 
 </%args>
 <%perl>
@@ -72,6 +73,7 @@
 		delete $args{"search"};
 		delete $args{"artistfilter_newartistid"};
 		delete $args{"artistfilter_field"};
+		delete $args{"barcode"} unless $barcode;
 
 		if ($submitvalue =~ m/Add New Artist/i)
 		{
@@ -129,6 +131,7 @@
 			<input type="hidden" name="discid" value="<% $discid %>" />
 			<input type="hidden" name="toc" value="<% $toc %>" />
 			<input type="hidden" name="tracks" value="<% $tracks %>" />
+			<input type="hidden" name="barcode" value="<% $barcode %>" />
         </form>
 
 	<& /comp/tableend &>

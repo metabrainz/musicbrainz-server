@@ -1185,12 +1185,10 @@ sub EnsureSessionOpen
 	my $session = GetSession();
 	return if tied %$session;
 
-	tie %$session, 'Apache::Session::File', undef,
-	{
-		Directory		=> &DBDefs::SESSION_DIR,
-		LockDirectory	=> &DBDefs::LOCK_DIR,
-	};
-
+	my $mod = &DBDefs::SESSION_HANDLER;
+	eval "require $mod"; 
+	eval "import $mod";
+	tie %$session, &DBDefs::SESSION_HANDLER, undef, &DBDefs::SESSION_HANDLER_ARGS;
 	my $cookie = new CGI::Cookie(
 		-name	=> &DBDefs::SESSION_COOKIE,
 		-value	=> $session->{_session_id},

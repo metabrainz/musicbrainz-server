@@ -347,8 +347,7 @@ sub Remove
 
     # Remove collection items
 	require MusicBrainz::Server::Collection;
-	my $coll = MusicBrainz::Server::Collection->new($sql->{DBH});
-	$coll->RemoveArtistFromCollections($this->GetId);
+	MusicBrainz::Server::Collection::RemoveArtistFromCollections($this->GetId);
 
     # Remove references from artist words table
     require SearchEngine;
@@ -402,8 +401,7 @@ sub MergeInto
 	$ratings->MergeArtists($o, $n);
 
 	require MusicBrainz::Server::Collection;
-	my $coll = MusicBrainz::Server::Collection->new($sql->{DBH});
-	$coll->MergeArtists($o, $n);
+	MusicBrainz::Server::Collection::MergeArtists($o, $n);
 
     $sql->Do("DELETE FROM artist     WHERE id   = ?", $o);
     $old->InvalidateCache;

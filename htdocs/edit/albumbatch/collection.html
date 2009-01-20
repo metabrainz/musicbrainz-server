@@ -51,22 +51,21 @@
 
 	my $mbraw = MusicBrainz->new();
 	$mbraw->Login(db => 'RAWDATA');
-	my $collectionId = MusicBrainz::Server::CollectionInfo::GetCollectionIdForUser($session{'uid'}, $mbraw->{DBH});
-
-	MusicBrainz::Server::CollectionInfo::AssureCollection($session{'uid'}, $mbraw->{DBH});
 		
+	$session{collectionid} = MusicBrainz::Server::CollectionInfo::AssureCollectionIdForUser($session{uid}, $mbraw->{DBH}) 
+		if (!$session{collectionid});
 	if($addtocollection == 1)
 	{
  		for (@releaseid)
 		{
-			MusicBrainz::Server::Collection::AddReleaseWithId($_, $collectionId, $mbraw->{DBH});
+			MusicBrainz::Server::Collection::AddReleaseWithId($_, $session{collectionid}, $mbraw->{DBH});
  		}
 	}
 	elsif ($addtocollection == 0)
 	{
  		for (@releaseid)
 		{
-			MusicBrainz::Server::Collection::RemoveReleaseWithId($mbraw->{DBH}, $_, $collectionId);
+			MusicBrainz::Server::Collection::RemoveReleaseWithId($mbraw->{DBH}, $_, $session{collectionid});
 		}
 	}
 

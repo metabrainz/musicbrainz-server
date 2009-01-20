@@ -46,46 +46,46 @@
 	$dispmissing => undef
 	
 	$addtocollection => undef
+	$addtocollectionid => undef
 
 </%args>
 <%perl>
-	# Log on to the raw database
-	my $mbraw = MusicBrainz->new();
-	$mbraw->Login(db => 'RAWDATA');
-	
-	# deal with user's request for collection artist manipulation
-	if(defined($notify))
+
+	if ($session{uid})
 	{
-		# make sure the user has a collection_info tuple
-		MusicBrainz::Server::CollectionInfo::AssureCollection($session{uid}, $mbraw->{DBH});
-			
-		if($notify == 1)
-		{
-			# Make sure user is logged on
-			$m->comp("/comp/checkloggedin", 1, 1, "You need to be logged in to modify your collection preferences.", 1) or return;
-			MusicBrainz::Server::CollectionPreference::ArtistWatch($artistid, $session{uid});
-		}
-		elsif($notify == 0)
-		{
-			MusicBrainz::Server::CollectionPreference::ArtistDontWatch($artistid, $session{uid});
-		}
-	}
-	
-	if(defined($dispmissing))
-	{
-		# make sure the user has a collection_info tuple
-		MusicBrainz::Server::CollectionInfo::AssureCollection($session{uid}, $mbraw->{DBH});
+		# Log on to the raw database
+		my $mbraw = MusicBrainz->new();
+		$mbraw->Login(db => 'RAWDATA');
 		
-		if($dispmissing == 1)
+		# deal with user's request for collection artist manipulation
+		if(defined($notify))
 		{
-			# Make sure user is logged on
-			$m->comp("/comp/checkloggedin", 1, 1, "You need to be logged in to modify your collection preferences.", 1) or return;
+			$session{collectionid} = MusicBrainz::Server::CollectionInfo::AssureCollectionIdForUser($session{uid}, $mbraw->{DBH}) 
+				if (!$session{collectionid});
 			
-			MusicBrainz::Server::CollectionPreference::ArtistMissing($artistid, $session{uid});
+			if($notify == 1)
+			{
+				MusicBrainz::Server::CollectionPreference::ArtistWatch($artistid, $session{collectionid});
+			}
+			elsif($notify == 0)
+			{
+				MusicBrainz::Server::CollectionPreference::ArtistDontWatch($artistid, $session{collectionid});
+			}
 		}
-		elsif($dispmissing == 0)
+		
+		if(defined($dispmissing))
 		{
-			MusicBrainz::Server::CollectionPreference::ArtistDontShowMissing($artistid, $session{uid});
+			$session{collectionid} = MusicBrainz::Server::CollectionInfo::AssureCollectionIdForUser($session{uid}, $mbraw->{DBH}) 
+				if (!$session{collectionid});
+			
+			if($dispmissing == 1)
+			{
+				MusicBrainz::Server::CollectionPreference::ArtistMissing($artistid, $session{collectionid});
+			}
+			elsif($dispmissing == 0)
+			{
+				MusicBrainz::Server::CollectionPreference::ArtistDontShowMissing($artistid, $session{collectionid});
+			}
 		}
 	}
 	
@@ -384,7 +384,6 @@
 			<form method="post" action="/edit/albumbatch/done.html">
             <& /comp/framedboxbegin, width => "100%" &>
             <& /comp/modnotice &>
-
             <table width="100%">
             <tr>
 % unless ($fCompact) {
@@ -507,17 +506,21 @@
 </%perl></td>
 <td class="rdate"><& /comp/releasedate, $album->GetFirstReleaseDateYMD &></td>
 <td class="lang"><& /comp/language, $album->GetLanguage, $album->GetScript &></td>
+
 % 	if (UserPreference::get("show_ratings")) {
 <td class="">
-	<& /comp/ratingsbox, 
-		entity_id => $album->GetId, 
-		entity_type => "release", 
-		small => 1, 
-		rating => $album->{rating},
-		user_rating => $album->{user_rating},
-	&>
+%		unless ($album->IsNonAlbumTracks) {
+			<& /comp/ratingsbox, 
+				entity_id => $album->GetId, 
+				entity_type => "release", 
+				small => 1, 
+				rating => $album->{rating},
+				user_rating => $album->{user_rating},
+			&>
+%		}
 </td>
 %	}
+
 %	if ($session{uid}) {
 <td class="rtag">
 %	if (!$album->IsNonAlbumTracks) {
@@ -555,7 +558,7 @@
 						 showratings => 1,
 						 mbt => $mbt,
 						 ex => $ex,
-						 addtocollection => $addtocollection,
+						 addtocollection => $addtocollectionid == $album->GetId ? $addtocollection : undef,
         				 short => $short);
                 }
                 else
@@ -564,7 +567,7 @@
 						 album => $album, artist => $artist,
 						 ex => $ex, showids => 0, showtag => 1, short=>$short,
 						 showratings => 1,
-						 addtocollection => $addtocollection,
+						 addtocollection => $addtocollectionid == $album->GetId ? $addtocollection : undef,
 						 );
                 }
             }

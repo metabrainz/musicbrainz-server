@@ -92,41 +92,48 @@
 		$rel->{format} = $format if defined $format;
 
 		# Check the date
-		if ($y >= 1900 and $y<= 2100)
+		if (exists $ARGS{"submitvalue"})
 		{
-			if ($mon and $d)
+			if ($y >= 1900 and $y<= 2100)
 			{
-				require Date::Calc;
-				unless (Date::Calc::check_date($y, $mon, $d))
+				if ($mon and $d)
 				{
-					$m->comp("/comp/sidebar", title => "Date error");
-					</%perl>
-					<p>
-						Sorry, <% "$y-$mon-$d" %> is not a valid date.&nbsp;
-						<a href="javascript:history.back()">Go back and try again</a>.
-					</p>
-					<%perl>
-					$m->comp("/comp/footer");
-					return;
+					require Date::Calc;
+					unless (Date::Calc::check_date($y, $mon, $d))
+					{
+						$m->comp("/comp/sidebar", title => "Date error");
+						</%perl>
+						<p>
+							Sorry, <% "$y-$mon-$d" %> is not a valid date.&nbsp;
+							<a href="javascript:history.back()">Go back and try again</a>.
+						</p>
+						<%perl>
+						$m->comp("/comp/footer");
+						return;
+					}
+					# Check for the amazon bogus release date
+					if (!$force && $y == 1990 && $mon == 10 && $d == 25)
+					{
+						push @errors, qq|Warning! "$y-$mon-$d" is the bogus date that Amazon gives to
+									all releases for which they don't know the actual date. If you're
+									certain that this date is correct, tick the confirmation checkbox
+									below.|;
+						$showforce = 1;
+					}
+					@$rel{qw( year month day )} = ($y, $mon, $d);
 				}
-                # Check for the amazon bogus release date
-				if (!$force && $y == 1990 && $mon == 10 && $d == 25)
+				elsif ($mon and $mon >= 1 and $mon <= 12)
 				{
-					push @errors, qq|Warning! "$y-$mon-$d" is the bogus date that Amazon gives to
-                                all releases for which they don't know the actual date. If you're
-                                certain that this date is correct, tick the confirmation checkbox
-                                below.|;
-					$showforce = 1;
+					@$rel{qw( year month day )} = ($y, $mon, "");
 				}
-				@$rel{qw( year month day )} = ($y, $mon, $d);
+				else
+				{
+					@$rel{qw( year month day )} = ($y, "", "");
+				}
 			}
-			elsif ($mon and $mon >= 1 and $mon <= 12)
+			elsif ($y eq "")
 			{
-				@$rel{qw( year month day )} = ($y, $mon, "");
-			}
-			else
-			{
-				@$rel{qw( year month day )} = ($y, "", "");
+					@$rel{qw( year month day )} = ("", "", "");
 			}
 		}
 
@@ -144,8 +151,7 @@
 		}
 
 		delete $ARGS{'continue'}
-			if not $rel->{country}
-			or not $rel->{year};
+			if not $rel->{country};
 	}
 
 	@$releases = grep {
@@ -210,7 +216,6 @@
 	<script type="text/javascript" src="/scripts/jsselect.js"></script>
 	<script type="text/javascript" src="/scripts/labeleditors.js"></script>
 	<script type="text/javascript" src="/scripts/editreleasesconfig.js"></script>
-	<script type="text/javascript" src="validate.js"></script>
 
 	<form method="post"
 		action="/edit/albumreleases/editreleases.html"

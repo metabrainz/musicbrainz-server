@@ -151,13 +151,15 @@ sub handler_post
 	my $r = shift;
 
 	# URLs are of the form:
-	# POST http://server/ws/1/release/?type=xml&client=<client>&title=<title>&artist=<sa-artist>&toc=<toc>&track0=<track1>&track1=<track1>...
-	# POST http://server/ws/1/release/?type=xml&client=<client>&title=<title>&toc=<toc>&track0=<track0>&artist0=<artist1>&track1=<track1>...
+	# POST http://server/ws/1/release/?client=<client>&title=<title>&artist=<sa-artist>&toc=<toc>&discid=<discid>&barcode=<barcode>&comment=<comment>&track0=<track1>&track1=<track1>...
+	# POST http://server/ws/1/release/?client=<client>&title=<title>&toc=<toc>&discid=<discid>&barcode=<barcode>&comment=<comment>&track0=<track0>&artist0=<artist1>&track1=<track1>...
 
 	my $apr = Apache::Request->new($r);
 	my $title = $apr->param('title');
 	my $discid = $apr->param('discid');
 	my $toc = $apr->param('toc');
+	my $barcode = $apr->param('barcode');
+	my $comment = $apr->param('comment');
     my $client = $apr->param('client');
 
 	if (!defined($client) || $client eq '')
@@ -210,10 +212,21 @@ sub handler_post
 
 	if (my $st = apply_rate_limit($r)) { return $st }
 
-	require MusicBrainz::Server::CDStub;
 	my $mb = MusicBrainz->new;
+	$mb->Login;
+
+	my $rcdtoc = MusicBrainz::Server::ReleaseCDTOC->new($mb->{DBH});
+	my $releaseids = $rcdtoc->GetReleaseIDsFromDiscID($discid);
+	if (scalar(@$releaseids))
+	{
+		return bad_req($r, "A MusicBrainz release already exists with this discid.");
+
+	}
+
+	$mb->Logout;
 	$mb->Login(db => "RAWDATA");
 
+	require MusicBrainz::Server::CDStub;
 	my $rc = MusicBrainz::Server::CDStub->new($mb->{DBH});
 	my $cd = $rc->Lookup($discid);
 	if ($cd)
@@ -225,6 +238,8 @@ sub handler_post
 	$cd->{tracks} = \@tracks;
 	$cd->{discid} = $discid;
 	$cd->{toc} = $toc;
+	$cd->{barcode} = $barcode;
+	$cd->{comment} = $comment;
 	$cd->{artist} = $artist;
 
 	my $error = $rc->Insert($cd);
@@ -272,7 +287,7 @@ sub serve_from_db
 		$inc = INC_ARTIST | INC_COUNTS | INC_RELEASEINFO | INC_TRACKS;
 
         my $cd = MusicBrainz::Server::ReleaseCDTOC->new($mb->{DBH});
-		my $releaseids = $cd->GetReleaseIDsFromDiscID($cdid, $toc);
+		my $releaseids = $cd->GetReleaseIDsFromDiscID($cdid);
 		if (scalar(@$releaseids))
 		{
 			foreach my $id (@$releaseids)

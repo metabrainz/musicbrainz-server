@@ -117,6 +117,7 @@
 		$cd = $rc->Lookup($id);
 		if ($cd)
 		{
+			$exists = 1;
 		}
 		else
 		{
@@ -256,21 +257,21 @@
 %	}
 				<tr>
 					<td class="label">
-						<label for="id_releasename">CD Title:</label></td>
+						<label for="id-releasename">CD Title:</label></td>
 					<td>
-						<input	type="text" name="releasename" id="id_releasename" class="textfield"
+						<input	type="text" name="releasename" id="id-releasename" class="textfield"
 								size="30" value="<% $releasename %>" />
 						<input type="button" id="BTN_ALBUM::releasename" class="button hidden"/>
 					</td>
 				</tr>
 				<tr>
 					<td class="label">
-						<div id="artistname_label<% $_ %>">
-							<label for="id_artistname">CD Artist:</label></td>
+						<div id="artistname-label<% $_ %>">
+							<label for="id-artistname">CD Artist:</label></td>
 						</div>
 					<td>
-						<div id="artistname_field<% $_ %>">
-							<input	type="text" name="artistname" id="id_artistname" class="textfield"
+						<div id="artistname-field<% $_ %>">
+							<input	type="text" name="artistname" id="id-artistname" class="textfield"
 									size="30" value="<% $artistname %>" />
 							<input type="button" id="BTN_ARTIST::artistname" class="button hidden"/>
 						</div>
@@ -280,9 +281,9 @@
 					<td class="label">
 						<label for="va">Multiple<br/>artists:</label></td>
 					<td>
-						<input	type="checkbox" name="va" id="va_checkbox"
-								size="30" value="1" onclick="vaswitch()" <% $va ? 'checked="1"' : '' %>"/>
-						<input	type="hidden" id="va_swap" value="<% $artistname %>" />
+						<input	type="checkbox" name="va" id="va-checkbox"
+								size="30" value="1" onclick="vaswitch()" <% $va ? 'checked="1"' : '' %>/>
+						<input	type="hidden" id="va-swap" value="<% $artistname %>" />
 						This CD has tracks from more than one artist (e.g. most compilation CDs).<br/>
 						<noscript>
 						If your CD has multiple artists, leave the artist field above empty and fill in the artist fields below
@@ -307,7 +308,7 @@
 					</td>
 					<td>
 						<div id="arfield<% $_ %>">
-							<input	type="text" name="artistname<% $_ %>" id="id_artistname<% $_ %>" class="textfield"
+							<input	type="text" name="artistname<% $_ %>" id="id-artistname<% $_ %>" class="textfield"
 									size="30" value="<% $artists[$_ - 1] %>" />
 							<input type="button" id="BTN_ARTIST::artistname<% $_ %>" class="button hidden"/>
 						</div>
@@ -316,24 +317,24 @@
 %	}
 				<tr>
 					<td class="label">
-						<div id="barcode_label<% $_ %>">
-							<label for="id_barcode">Barcode:</label></td>
+						<div id="barcode-label<% $_ %>">
+							<label for="id-barcode">Barcode:</label></td>
 						</div>
 					<td>
-						<div id="barcode_field<% $_ %>">
-							<input	type="text" name="barcode" id="id_barcode" class="textfield"
+						<div id="barcode-field<% $_ %>">
+							<input	type="text" name="barcode" id="id-barcode" class="textfield"
 									size="30" value="<% $barcode %>" />
 						</div>
 					</td>
 				</tr>
 				<tr>
 					<td class="label">
-						<div id="comment_label<% $_ %>">
-							<label for="id_comment">Comment:</label></td>
+						<div id="comment-label<% $_ %>">
+							<label for="id-comment">Comment:</label></td>
 						</div>
 					<td>
-						<div id="comment_field<% $_ %>">
-							<input	type="text" name="comment" id="id_comment" class="textfield"
+						<div id="comment-field<% $_ %>">
+							<input	type="text" name="comment" id="id-comment" class="textfield"
 									size="30" value="<% $comment %>" />
 						</div>
 					</td>
@@ -377,19 +378,19 @@ function enable(mode)
 		if (obj)
 			obj.style.display = mode ? "inline" : "none";
 	}
-	obj = document.getElementById("artistname_label");
+	obj = document.getElementById("artistname-label");
 	if (obj)
 		obj.style.display = mode ? "none" : "inline";
-	obj = document.getElementById("artistname_field");
+	obj = document.getElementById("artistname-field");
 	if (obj)
 		obj.style.display = mode ? "none" : "inline";
 }
 
 function vaswitch()
 {
-	ar = document.getElementById("id_artistname");
-	swap = document.getElementById("va_swap");
-	va = document.getElementById("va_checkbox");
+	var ar = document.getElementById("id-artistname");
+	var swap = document.getElementById("va-swap");
+	var va = document.getElementById("va-checkbox");
 	if (va.checked)
 	{
 		swap.value = ar.value;
@@ -404,7 +405,7 @@ function vaswitch()
 		ar.disabled = false;
 	}
 };
-window.onload = function onload()
+window.onload = function()
 {
 	vaswitch(false);
 }

@@ -57,23 +57,23 @@
 		<ul class="star-rating<% $small ? " small-star" : "" %>">
 
 %	# Current rating (community or user one)
-%	if ($user_rating)
+%	if ($user_rating > 0)
 %	{
-			<li id="<% "RATING::" . $entity_type ."::". $entity_id %>" class="current-user-rating" style="width:<% ($user_rating/5*100) %>%;">Current rating: <% $user_rating %></li>
+			<li id="<% "RATING::" . $entity_type ."::". $entity_id %>" class="current-user-rating" style="width:<% ($user_rating/5*100) %>%;"><% $user_rating %></li>
 %	}
 %	else
 %	{
-			<li id="<% "RATING::" . $entity_type ."::". $entity_id %>" class="current-rating" style="width:<% ($rating/5*100) %>%;">Current rating: <% $rating %></li>
+			<li id="<% "RATING::" . $entity_type ."::". $entity_id %>" class="current-rating" style="width:<% ($rating/5*100) %>%;"><% $rating %></li>
 %	}	
 
 %	# Rating choices (0-5)
 %	foreach my $rate (sort keys %css_classes)
 %	{
 			<li>
-				<a 	href="<% $rate_url . $rate %>"
+				<a 	href="<% $rate_url . $rate . (defined $user_rating ? "&old_rating=$user_rating" : "") %>"
 					id="<% "RATE::" . $entity_type ."::". $entity_id ."::". $rate %>"
-					alt="Rate this <% $entity_type %>: <% $rate %>"
-					title="Rate this <% $entity_type %>: <% $rate %>"
+					alt="<% $rate == $user_rating ? "Unrate this $entity_type" : "Rate this $entity_type: $rate" %>"
+					title="<% $rate == $user_rating ? "Unrate this $entity_type" : "Rate this $entity_type: $rate" %>"
 					class="<% $css_classes{$rate} %>-star<% ($rate>1)?"s":"" %>"><% $rate %></a> 
 			</li>
 %	}

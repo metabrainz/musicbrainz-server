@@ -1,10 +1,9 @@
 #!/usr/bin/perl -w
-# vi: set ts=4 sw=4 :
 #____________________________________________________________________________
 #
 #   MusicBrainz -- the open internet music database
 #
-#   Copyright (C) 1998 Robert Kaye
+#   Copyright (C) 2006 Robert Kaye
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -20,7 +19,7 @@
 #   along with this program; if not, write to the Free Software
 #   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
-#   $Id$
+#   $Id: TracksWithoutTimes 10307 2008-09-10 16:07:46Z murdos $
 #____________________________________________________________________________
 
 use FindBin;
@@ -29,7 +28,7 @@ use lib "$FindBin::Bin/../../cgi-bin";
 use strict;
 use warnings;
 
-package DuplicateTrackNumbers;
+package TracksWithSequenceIssues;
 use base qw( MusicBrainz::Server::ReportScript );
 
 use MusicBrainz::Server::Release;
@@ -39,33 +38,9 @@ sub GatherData
 	my $self = shift;
 
 	my $sql = $self->SqlObj;
-	$sql->Begin;
+	my $nonalbum_name = MusicBrainz::Server::Release::NONALBUMTRACKS_NAME;
 
-	$sql->Do(<<'EOF');
-		SELECT
-			DISTINCT album
-		INTO TEMPORARY TABLE
-			t_badalbums
-		FROM
-			(SELECT
-				album,
-				sequence,
-				COUNT(*)
-			FROM
-				albumjoin
-			GROUP BY
-				album, sequence
-			HAVING COUNT(*) > 1
-		) AS t
-EOF
-
-	# I'm not sure if this is necessary, but it can't really hurt
-	$sql->Do("ALTER TABLE t_badalbums ALTER COLUMN album SET NOT NULL");
-	$sql->Do("ALTER TABLE t_badalbums ADD PRIMARY KEY (album)");
-
-	$sql->Commit;
-
-	$self->GatherDataFromQuery(<<'EOF',
+	$self->GatherDataFromQuery(<<'EOF', [ &MusicBrainz::Server::Release::NONALBUMTRACKS_NAME ]);
 		SELECT
 			ar.id AS artist_id,
 			ar.name AS artist_name,
@@ -76,18 +51,34 @@ EOF
 			al.name AS album_name,
 			al.modpending AS album_modpending
 		FROM
-			artist ar, album al, t_badalbums t
+			artist ar
+			INNER join album al ON (ar.id = al.artist)
+			INNER JOIN albummeta am ON (am.id = al.id)
+			INNER JOIN (SELECT
+				max(sequence) AS lasttrack, album
+			FROM
+				albumjoin aj
+			GROUP BY
+				album
+			) AS q1 ON (al.id = q1.album)
+			LEFT JOIN (SELECT
+				1 as dupes_seq, album
+			FROM
+				albumjoin
+			GROUP BY
+				album, sequence
+			HAVING count(id) > 1
+			) AS q2 ON (al.id = q2.album)
 		WHERE
-			al.id = t.album
-			AND	ar.id = al.artist
-			AND	al.attributes[2] != ?
+			(q1.lasttrack <> am.tracks 
+				OR q2.dupes_seq = 1)
+			AND al.name <> ?
 		ORDER BY
-			ar.sortname, al.name
+			LOWER(ar.sortname), LOWER(al.name)
 EOF
-		[ &MusicBrainz::Server::Release::RELEASE_ATTR_NONALBUMTRACKS ],
-	);
+
 }
 
 __PACKAGE__->new->RunReport;
 
-# eof DuplicateTrackNumbers
+# vi: set ts=4 sw=4 :

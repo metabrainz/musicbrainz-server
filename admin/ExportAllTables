@@ -123,15 +123,24 @@ my $rawdbh = $rawmb->{DBH};
 # This hash indicates which tables may need to be pulled from a vertical DB
 my %table_db_mapping =
 (
-	'artist_rating_raw'		=>	{ dbh => $rawdbh, sql => $rawsql },
-	'artist_tag_raw'		=>	{ dbh => $rawdbh, sql => $rawsql },
-	'release_rating_raw'	=>	{ dbh => $rawdbh, sql => $rawsql },
-	'release_tag_raw'		=>	{ dbh => $rawdbh, sql => $rawsql },
-	'track_rating_raw'		=>	{ dbh => $rawdbh, sql => $rawsql },
-	'track_tag_raw'			=>	{ dbh => $rawdbh, sql => $rawsql },
-	'label_rating_raw'		=>	{ dbh => $rawdbh, sql => $rawsql },
-	'label_tag_raw'			=>	{ dbh => $rawdbh, sql => $rawsql },
-	'_default_'				=>	{ dbh => $dbh, sql => $sql } 
+	'artist_rating_raw'						=>	{ dbh => $rawdbh, sql => $rawsql },
+	'artist_tag_raw'						=>	{ dbh => $rawdbh, sql => $rawsql },
+	'cdtoc_raw'								=>	{ dbh => $rawdbh, sql => $rawsql },
+	'collection_discography_artist_join'	=>  { dbh => $rawdbh, sql => $rawsql },
+	'collection_has_release_join'			=>  { dbh => $rawdbh, sql => $rawsql },
+	'collection_ignore_release_join'		=>  { dbh => $rawdbh, sql => $rawsql },
+	'collection_ignore_time_range'			=>  { dbh => $rawdbh, sql => $rawsql },
+	'collection_info'						=>  { dbh => $rawdbh, sql => $rawsql },
+	'collection_watch_artist_join'			=>  { dbh => $rawdbh, sql => $rawsql },
+	'release_rating_raw'					=>	{ dbh => $rawdbh, sql => $rawsql },
+	'release_tag_raw'						=>	{ dbh => $rawdbh, sql => $rawsql },
+	'release_raw'							=>	{ dbh => $rawdbh, sql => $rawsql },
+	'track_rating_raw'						=>	{ dbh => $rawdbh, sql => $rawsql },
+	'track_raw'								=>	{ dbh => $rawdbh, sql => $rawsql },
+	'track_tag_raw'							=>	{ dbh => $rawdbh, sql => $rawsql },
+	'label_rating_raw'						=>	{ dbh => $rawdbh, sql => $rawsql },
+	'label_tag_raw'							=>	{ dbh => $rawdbh, sql => $rawsql },
+	'_default_'								=>	{ dbh => $dbh, sql => $sql } 
 );
 
 my @tables = qw(

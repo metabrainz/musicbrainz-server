@@ -62,23 +62,19 @@
 	my $rawdbh = $mbraw->{DBH};
 	my $rodbh = $mbro->{DBH};
 	
-	# make sure the user has a collection_info tuple
-	MusicBrainz::Server::CollectionInfo::AssureCollection($session{uid}, $mbraw->{DBH});
-	
-	# get the collection id
-	my $collectionId = MusicBrainz::Server::CollectionInfo::GetCollectionIdForUser($session{uid}, $mbraw->{DBH});
-
+	$session{collectionid} = MusicBrainz::Server::CollectionInfo::AssureCollectionIdForUser($session{uid}, $mbraw->{DBH}) 
+		if (!$session{collectionid});
 
 	# if a release id is specified in in the removerelease get variable remove this release from collection
 	if(defined($removerelease))
 	{
-		MusicBrainz::Server::Collection::RemoveReleaseWithId($rawdbh, $removerelease, $collectionId);
+		MusicBrainz::Server::Collection::RemoveReleaseWithId($rawdbh, $removerelease, $session{collectionid});
 	}
 	
 	# Get all releases in collection
 	use MusicBrainz::Server::CollectionInfo;
-	my $preferences = MusicBrainz::Server::CollectionPreference->new($rodbh, $rawdbh, $session{uid});
-	my $collectionInfo = MusicBrainz::Server::CollectionInfo->new($session{uid}, $rodbh, $rawdbh, $preferences);
+	my $preferences = MusicBrainz::Server::CollectionPreference->new($rodbh, $rawdbh, $session{collectionid});
+	my $collectionInfo = MusicBrainz::Server::CollectionInfo->new($session{collectionid}, $rodbh, $rawdbh, $preferences);
 	my $releases = $collectionInfo->GetHasReleases();
 	MusicBrainz::Server::Rating::LoadUserRatingForEntities("release", $releases, $session{uid}) if ($session{uid} && UserPreference::get("show_ratings"));
 	

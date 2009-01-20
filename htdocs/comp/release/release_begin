@@ -63,7 +63,6 @@
 </%args>
 <%perl>
 	$release ||= $album;
-	$showratings &&= UserPreference::get("show_ratings");
 
 	my $artistid = $release->GetArtist;
 	my $releaseid = $release->GetId;
@@ -72,21 +71,32 @@
 	my $nonalbum = $release->IsNonAlbumTracks;
 	my $exists = MusicBrainz::Server::Validation::IsNonNegInteger($release->GetId) && $release->GetId;
 	my $mb = $m->comp("/comp/dblogin");
-	my $mbraw = MusicBrainz->new();
-	$mbraw->Login(db => 'RAWDATA');
-	MusicBrainz::Server::CollectionInfo::AssureCollection($session{'uid'}, $mbraw->{DBH});
-	my $collectionId = MusicBrainz::Server::CollectionInfo::GetCollectionIdForUser($session{'uid'}, $mbraw->{DBH});
+	my $mbraw;
 
-	# add or remove release from collection if requested
-	if(defined($addtocollection))
+	# Don't show ratings for NonAlbumTracks
+	$showratings &&= not $nonalbum;
+	
+	# Don't show tags for NonAlbumTracks
+	$folksonomy &&= not $nonalbum;
+
+	if ($session{uid})
 	{
-		if($addtocollection == 1)
+		$mbraw = MusicBrainz->new();
+		$mbraw->Login(db => 'RAWDATA');
+
+		# add or remove release from collection if requested
+		if(defined($addtocollection))
 		{
-			MusicBrainz::Server::Collection::AddReleaseWithId($releaseid, $collectionId, $mbraw->{DBH}, $mbid);
-		}
-		else
-		{
-			MusicBrainz::Server::Collection::RemoveReleaseWithId($mbraw->{DBH}, $releaseid, $collectionId);
+			$session{collectionid} = MusicBrainz::Server::CollectionInfo::AssureCollectionIdForUser($session{uid}, $mbraw->{DBH}) 
+				if (!$session{collectionid});
+			if($addtocollection == 1)
+			{
+				MusicBrainz::Server::Collection::AddReleaseWithId($releaseid, $session{collectionid}, $mbraw->{DBH}, $mbid);
+			}
+			else
+			{
+				MusicBrainz::Server::Collection::RemoveReleaseWithId($mbraw->{DBH}, $releaseid, $session{collectionid});
+			}
 		}
 	}
 
@@ -164,7 +174,7 @@
 			$m->out(qq!Release: [ !);
 			$m->out(qq!   <a href="/show/permlink.html?id=$mbid&amp;type=release" title="Link to this release">Link to this</a>!);
 			$m->out(qq! | <a href="/show/release/details.html?releaseid=$releaseid">Details</a>!);
-			$m->out(qq! | <a href="/show/release/tags.html?id=$releaseid">Tags</a>!);
+			$m->out(qq! | <a href="/show/release/tags.html?id=$releaseid">Tags</a>!) if $folksonomy;
 
 			# only show the track artists toggle function if the page using the /comp/album
 			# parameter handles the arguments
@@ -304,7 +314,7 @@
         }
         
         # collection links
-        if($session{uid})
+        if($session{uid} && not $nonalbum)
         {
         	my $currentpath;
         	
@@ -319,27 +329,29 @@
         	}
         	
 	        $m->out(qq!<tr><td class="collection">Collection: !);
-	        if(MusicBrainz::Server::CollectionInfo::HasRelease($mbraw->{DBH}, $collectionId, $releaseid))
+			$session{collectionid} = MusicBrainz::Server::CollectionInfo::GetCollectionIdForUser($session{uid}, $mbraw->{DBH}) 
+				if (!exists $session{collectionid});
+	        if(MusicBrainz::Server::CollectionInfo::HasRelease($mbraw->{DBH}, $session{collectionid}, $releaseid))
 	        {
 	        	#$ARGS{compact}
 	        	if($ENV{'SCRIPT_NAME'} eq '/show/artist/index.html')
 	        	{
-	        		$m->out(qq!<a href="/show/artist/?artistid=$artistid&ex=$ex&short=$short&compact=$ARGS{compact}&addtocollection=0">Remove release from collection</a>!);
+	        		$m->out(qq!<a href="/show/artist/?artistid=$artistid&amp;ex=$ex&amp;short=$short&amp;compact=$ARGS{compact}&amp;addtocollection=0&amp;addtocollectionid=$releaseid">Remove release from collection</a>!);
 	        	}
 	        	else
 	        	{
-	        		$m->out(qq!<a href="/show/release/?releaseid=$releaseid&addtocollection=0">Remove release from collection</a>!);
+	        		$m->out(qq!<a href="/show/release/?releaseid=$releaseid&amp;addtocollection=0">Remove release from collection</a>!);
 	        	}
 	        }
 	        else
 	        {
 	        	if($ENV{'SCRIPT_NAME'} eq '/show/artist/index.html')
 	        	{
-	        		$m->out(qq!<a href="/show/artist/?artistid=$artistid&ex=$ex&short=$short&compact=$ARGS{compact}&addtocollection=1">Add release to collection</a>!);
+	        		$m->out(qq!<a href="/show/artist/?artistid=$artistid&amp;ex=$ex&amp;short=$short&amp;compact=$ARGS{compact}&amp;addtocollection=1&amp;addtocollectionid=$releaseid">Add release to collection</a>!);
 	        	}
 	        	else
 	        	{
-	        		$m->out(qq!<a href="/show/release/?releaseid=$releaseid&addtocollection=1">Add release to collection</a>!);
+	        		$m->out(qq!<a href="/show/release/?releaseid=$releaseid&amp;addtocollection=1">Add release to collection</a>!);
 	        	}
 	        }
 	        $m->out(qq!</td></tr>!);

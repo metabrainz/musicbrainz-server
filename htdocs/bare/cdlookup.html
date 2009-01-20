@@ -42,6 +42,8 @@
 	# tracks can be passed too, but we'll ignore it
 	$tracks => ""
 
+	$barcode => undef
+
 	# For pre-populating the search boxes
 	$artist => ""
 	$release => ""
@@ -71,6 +73,7 @@
 	}
 	$info{artist} = $artist;
 	$info{release} = $release;
+	$info{barcode} = $barcode;
 
 	# if neither discid nor toc are provided, abort.
 	if (not defined $freedbid and
@@ -245,7 +248,7 @@
 			    becoming a part of MusicBrainz. CDs entered in this method will still be available
 				to client programs. However, it won't be included in the main MusicBrainz database until
 				an editor decides to take your submitted information, ensures it meets our standards
-				and inserts it into the main database. <br/><br/><a href="/edit/cdstub/add.html?id=<% $discid %>&toc=<% $toc %>">
+				and inserts it into the main database. <br/><br/><a href="/edit/cdstub/add.html?id=<% $discid %>&toc=<% $toc . ($barcode ? "&barcode=$barcode" : "") %>">
 				Submit this CD using the simple method</a>.</li>
 			</ol>
 %       } 
@@ -381,6 +384,7 @@
 							<input type="hidden" name="discid" value="<% $info->{'discid'} %>" />
 							<input type="hidden" name="toc" value="<% $info->{'toc'} %>" />
 							<input type="hidden" name="tracks" value="<% $info->{'tracks'} %>" />
+							<input type="hidden" name="barcode" value="<% $info->{'barcode'} %>" />
 						</div>
 					</form>
 				</td>
@@ -403,6 +407,7 @@
 							<input type="hidden" name="discid" value="<% $info->{'discid'} %>" />
 							<input type="hidden" name="toc" value="<% $info->{'toc'} %>" />
 							<input type="hidden" name="tracks" value="<% $info->{'tracks'} %>" />
+							<input type="hidden" name="barcode" value="<% $info->{'barcode'} %>" />
 						</div>
 					</form>
 				</td>
