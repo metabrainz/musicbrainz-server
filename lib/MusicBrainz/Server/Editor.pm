@@ -48,6 +48,7 @@ use constant LINK_MODERATOR_FLAG => 8;
 use constant DONT_NAG_FLAG => 16;
 use constant WIKI_TRANSCLUSION_FLAG => 32;
 use constant MBID_SUBMITTER_FLAG => 64;
+use constant ACCOUNT_ADMIN_FLAG => 128;
 
 use constant SEARCHRESULT_SUCCESS => 1;
 use constant SEARCHRESULT_NOQUERY => 2;
@@ -488,6 +489,8 @@ sub IsNewbie
 	my $self = shift;
 	my $sql = Sql->new($self->dbh);
 
+	return 0 if (&DBDefs::REPLICATION_TYPE != &MusicBrainz::Server::Replication::RT_MASTER);
+
 	return $sql->SelectSingleValue(
 		"SELECT NOW() < membersince + INTERVAL '2 weeks'
 		FROM	moderator
@@ -538,6 +541,10 @@ sub SetUserInfo
 		push @args, $opts{privs}
 		if defined $opts{privs};
 
+	$query .= " password = ?,",
+		push @args, $opts{password}
+		if defined $opts{password};
+
 	$query =~ s/,$//
 		or return; # no changed fields
 
@@ -558,6 +565,37 @@ sub SetUserInfo
 		if exists $session->{has_confirmed_email};
 
 	$ok;
+}
+
+sub Remove
+{
+	my ($self) = @_;
+	my %opts;
+
+	return "No user loaded." if (!defined $self->GetId());
+
+	$opts{email} = '';
+	$opts{name} = "Deleted User #" . $self->GetId();
+	$opts{weburl} = "";
+	$opts{bio} = "";
+	$opts{password} = "";
+
+	my $us = UserSubscription->new($self->{dbh});
+	my $sql = Sql->new($self->{dbh});
+	eval
+	{
+		$sql->Begin;
+		$self->SetUserInfo(%opts);
+		$us->RemoveSubscriptionsForModerator($self->GetId());
+		$sql->Commit;
+	};
+	if ($@)
+	{
+		my $err = $@;
+		$sql->Rollback();
+		return $err;
+	}
+	undef;
 }
 
 sub GetSubscribers
@@ -731,6 +769,27 @@ sub is_mbid_submitter
 	my ($this, $privs) = @_;
 	$privs ||= $this->privs;
 	return ($privs & MBID_SUBMITTER_FLAG) > 0;
+}
+
+sub IsAccountAdmin
+{
+	my ($this, $privs) = @_;
+
+	return ($privs & ACCOUNT_ADMIN_FLAG) > 0;
+}
+
+# User can vote if they have at least 10 accepted edits and a confirmed
+# e-mail address.
+sub CanVote
+{
+	my $session = GetSession();
+
+	return 1 if (&DBDefs::REPLICATION_TYPE != &MusicBrainz::Server::Replication::RT_MASTER);
+
+	# If the user is not trusted, do not let them vote
+	return 0 if (IsUntrusted(0, $session->{privs}));
+
+	return ($session->{has_confirmed_email} > 0) && ($session->{editsaccepted} > 10);
 }
 
 ################################################################################
@@ -1041,12 +1100,10 @@ sub EnsureSessionOpen
 	my $session = GetSession();
 	return if tied %$session;
 
-	tie %$session, 'Apache::Session::File', undef,
-	{
-		Directory		=> &DBDefs::SESSION_DIR,
-		LockDirectory	=> &DBDefs::LOCK_DIR,
-	};
-
+	my $mod = &DBDefs::SESSION_HANDLER;
+	eval "require $mod"; 
+	eval "import $mod";
+	tie %$session, &DBDefs::SESSION_HANDLER, undef, &DBDefs::SESSION_HANDLER_ARGS;
 	my $cookie = new CGI::Cookie(
 		-name	=> &DBDefs::SESSION_COOKIE,
 		-value	=> $session->{_session_id},
@@ -1101,6 +1158,7 @@ sub SetSession
 	$session->{uid} = $self->id;
 	$session->{expire} = time() + &DBDefs::WEB_SESSION_SECONDS_TO_LIVE;
 	$session->{has_confirmed_email} = ($self->email ? 1 : 0);
+	$session->{editsaccepted} = $self->mods_accepted;
 
 	require Moderation;
 	my $mod = Moderation->new($self->dbh);
