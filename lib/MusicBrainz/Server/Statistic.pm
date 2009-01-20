@@ -953,7 +953,7 @@ sub GetStatDescription
 sub GetStats
 {
     my ($self, $list) = @_;
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->{dbh});
 
 	my @columns = split(',', $list);
 
@@ -1010,7 +1010,7 @@ sub GetEditStats
     my ($self) = @_;
 	my %data;
 
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->{dbh});
 
 	my $obj = MusicBrainz::Server::Cache->get("statistics-edit-stats");
 	my ($data, $timestamp) = ($obj->[0], $obj->[1]);
@@ -1045,7 +1045,7 @@ sub GetEditStats
 sub GetHotEdits
 {
     my ($self, $maxitems, $offset) = @_;
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->{dbh});
 
 	$maxitems = 10 if (!defined $maxitems);
 
@@ -1079,7 +1079,7 @@ sub GetHotEdits
 				    AND c.comments > 2
 			   ORDER BY votes + comments DESC");
 
-		my $moderation = Moderation->new($self->{DBH});
+		my $moderation = Moderation->new($self->{dbh});
 		for(0..scalar(@$hot)-1)
 		{
 			my $obj = $moderation->CreateModerationObject($hot->[$_][1]);
@@ -1100,7 +1100,7 @@ sub GetHotEdits
 sub GetNeedLoveEdits
 {
     my ($self, $maxitems, $offset) = @_;
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->{dbh});
 
 	$maxitems = 10 if (!defined $maxitems);
 
@@ -1119,7 +1119,7 @@ sub GetNeedLoveEdits
 		   ORDER BY t desc
 		      LIMIT 500");
 
-		my $moderation = Moderation->new($self->{DBH});
+		my $moderation = Moderation->new($self->{dbh});
 		for(0..scalar(@$needlove)-1)
 		{
 			my $obj = $moderation->CreateModerationObject($needlove->[$_][1]);
@@ -1141,7 +1141,7 @@ sub GetNeedLoveEdits
 sub GetExpiredEdits
 {
     my ($self, $maxitems, $offset) = @_;
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->{dbh});
 
 	$maxitems = 10 if (!defined $maxitems);
 
@@ -1160,7 +1160,7 @@ sub GetExpiredEdits
 		   ORDER BY t desc
 			  LIMIT 500");
 
-		my $moderation = Moderation->new($self->{DBH});
+		my $moderation = Moderation->new($self->{dbh});
 		for(0..scalar(@$expired)-1)
 		{
 			my $obj = $moderation->CreateModerationObject($expired->[$_][1]);
@@ -1184,7 +1184,7 @@ sub GetLastUpdates
 {
     my ($self, $entity, $maxitems, $offset) = @_;
 	my $cachekey;
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->{dbh});
 
 	$maxitems = 10 if (!defined $maxitems);
 
@@ -1245,7 +1245,7 @@ sub GetLastUpdatesByDate
 {
     my ($self, $entity, $date, $maxitems, $offset) = @_;
 	my $cachekey;
-	my $sql = Sql->new($self->{DBH});
+	my $sql = Sql->new($self->{dbh});
 
 	$maxitems = 10 if (!defined $maxitems);
 
@@ -1293,7 +1293,7 @@ sub GetRecentReleases
 	my ($recent, $numitems, $timestamp) = ($obj->[0], $obj->[1], $obj->[2]);
 	if (!$recent)
 	{
-		my $sql = Sql->new($self->{DBH});
+		my $sql = Sql->new($self->{dbh});
 		$recent = $sql->SelectListOfLists("SELECT album.gid, album.name, artist.gid, artist.name, releasedate, isocode AS country, format 
 										  FROM release, album, artist, country 
 										 WHERE album.id IN (
@@ -1330,7 +1330,7 @@ sub GetUpcomingReleases
 	my ($upcoming, $numitems, $timestamp) = ($obj->[0], $obj->[1], $obj->[2]);
 	if (!$upcoming)
 	{
-		my $sql = Sql->new($self->{DBH});
+		my $sql = Sql->new($self->{dbh});
 		$upcoming = $sql->SelectListOfLists("SELECT album.gid, album.name, artist.gid, artist.name, releasedate, isocode AS country, format 
 										  FROM release, album, artist, country 
 										 WHERE album.id IN (
@@ -1365,7 +1365,7 @@ sub GetRecentlyDeceased
 	my ($deceased, $numitems, $timestamp) = ($obj->[0], $obj->[1], $obj->[2]);
 	if (!$deceased)
 	{
-		my $sql = Sql->new($self->{DBH});
+		my $sql = Sql->new($self->{dbh});
 		$deceased = $sql->SelectListOfLists("SELECT gid, name, enddate, begindate 
 										  FROM artist 
 										 WHERE type = 1 
@@ -1398,7 +1398,7 @@ sub GetRecentlyBrokenUp
 	my ($brokenup, $numitems, $timestamp) = ($obj->[0], $obj->[1], $obj->[2]);
 	if (!$brokenup)
 	{
-		my $sql = Sql->new($self->{DBH});
+		my $sql = Sql->new($self->{dbh});
 		$brokenup = $sql->SelectListOfLists("SELECT gid, name, enddate, begindate 
 									  FROM artist 
 									 WHERE type = 2 
