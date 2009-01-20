@@ -20,7 +20,7 @@
 [%- ELSE -%]
 	<p>
 		This [% parent.entity_type %] has no annotation.
-		[%- IF c.user_exists -%
+		[%- IF c.user_exists -%]
 			<a href="[% c.uri_for('/annotation', parent.entity_type, parent.mbid, 'edit') %]">Add an annotation</a>
 		[%- END -%]
 	</p>
