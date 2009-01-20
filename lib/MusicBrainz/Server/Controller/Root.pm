@@ -10,7 +10,7 @@ use DBDefs;
 use MusicBrainz::Server::Adapter qw( EntityUrl );
 use MusicBrainz::Server::Cache;
 use MusicBrainz::Server::Replication ':replication_type';
-use Statistic;
+use MusicBrainz::Server::Statistic;
 
 #
 # Sets the actions in this controller to be registered with no prefix
@@ -133,7 +133,7 @@ sub end : ActionClass('RenderView')
 
     if (!$stats)
     {
-        my $stat  = Statistic->new($c->mb->{dbh});
+        my $stat  = MusicBrainz::Server::Statistic->new($c->mb->{dbh});
         $stats = $stat->FetchAllAsHashRef;
         MusicBrainz::Server::Cache->set('sidebar-statistics', $stats);
     }
