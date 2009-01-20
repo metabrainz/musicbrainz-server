@@ -7,16 +7,12 @@
     <thead>
         <tr>
             <th>Alias</th>
-            <th>Times Used</th>
-            <th>Last Used</th>
         </tr>
     </thead>
-    <tbody> 
+    <tbody>
     [%- FOREACH alias IN aliases -%]
         <tr>
             <td>[% alias.name | html %]</td>
-            <td>[% alias.times_used | html %]</td>
-            <td>-</td>
             [% IF c.user_exists %]
                 <td>
                 [% links = [
