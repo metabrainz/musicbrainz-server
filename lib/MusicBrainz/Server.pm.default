@@ -16,6 +16,7 @@ use MusicBrainz;
 #                 directory
 
 use Catalyst qw/
+-Debug
 ConfigLoader
 Static::Simple
 
@@ -23,7 +24,7 @@ StackTrace
 
 Session
 Session::State::Cookie
-Session::Store::Memcached
+Session::Store::FastMmap
 
 Authentication
 /;

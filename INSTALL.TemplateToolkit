@@ -36,10 +36,15 @@ Getting going
 
 	cd mb_server-tt
 	cp lib/DBDefs.pm.default lib/DBDefs.pm
+	cp lib/MusicBrainz/Server.pm.default lib/MusicBrainz/Server.pm
 	
 	Edit the newly copied DBDefs.pm as need be. For the most part, it should be
 	fine to use as is. Refer to INSTALL for more indepth info about this, and 
     how it ties in with running a copy of the MusicBrainz database.
+    
+    You can also edit the new Server.pm. This is mostly for server admins,
+    however - who require different stores for sessions, more control
+    over Debug output - etc. Developers will be OK to leave this as is.
 	
 3) Install prerequisite Perl modules
 
