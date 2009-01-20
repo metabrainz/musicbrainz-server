@@ -490,14 +490,15 @@ END;
 --'-----------------------------------------------------------------
 
 CREATE OR REPLACE FUNCTION set_album_firstreleasedate(INTEGER)
-RETURNS VOID AS '
+RETURNS VOID AS $$
 BEGIN
     UPDATE albummeta SET firstreleasedate = (
         SELECT MIN(releasedate) FROM release WHERE album = $1
+           AND releasedate <> '0000-00-00'
     ), lastupdate = now() WHERE id = $1;
     RETURN;
 END;
-' LANGUAGE 'plpgsql';
+$$ LANGUAGE 'plpgsql';
 
 CREATE OR REPLACE FUNCTION a_ins_release () RETURNS TRIGGER AS $$
 BEGIN

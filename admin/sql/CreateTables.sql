@@ -67,9 +67,9 @@ CREATE TABLE albummeta
     asin                CHAR(10),
     coverarturl         VARCHAR(255),
     lastupdate          TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    dateadded           TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     rating              REAL,
-    rating_count        INTEGER
+    rating_count        INTEGER,
+    dateadded           TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE albumwords
@@ -444,7 +444,6 @@ CREATE TABLE language
      isocode_3b         CHAR(3) NOT NULL, -- ISO 639-2 (B)
      isocode_2          CHAR(2), -- ISO 639
      name               VARCHAR(100) NOT NULL,
-     french_name        VARCHAR(100) NOT NULL,
      frequency          INTEGER NOT NULL DEFAULT 0
 );
 
@@ -904,7 +903,6 @@ CREATE TABLE script
      isocode            CHAR(4) NOT NULL, -- ISO 15924
      isonumber          CHAR(3) NOT NULL, -- ISO 15924
      name               VARCHAR(100) NOT NULL,
-     french_name        VARCHAR(100) NOT NULL,
      frequency          INTEGER NOT NULL DEFAULT 0
 );
 

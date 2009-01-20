@@ -20,23 +20,22 @@
 #   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #____________________________________________________________________________
 #
-#   This report lists releases with duplicate track numbers.
+#   This report lists releases which have tracks with no track time (?:??)
 #
-#   $Id$
+#   $Id: TracksWithoutTimes.inc 10307 2008-09-10 16:07:46Z murdos $
 #____________________________________________________________________________
 #
 </%perl>
 
-<& /comp/sidebar-notitle, pagetitle => "Releases with Duplicate Track Numbers" &>
+<& /comp/sidebar-notitle, pagetitle => "Releases with tracks sequence issues" &>
 
 <%perl>
 
 	$ARGS{"report_title"} =
-		qq!Releases with Duplicate Track Numbers!;
+		qq!Releases with tracks numbers issues!;
 
 	$ARGS{"report_text"} =
-		qq!	This report identifies releases where at least one track
-			number appears more than once (e.g. there are two "track 4"s).!;
+		qq! This report lists all releases whose tracks sequences are not continious (e.g. there is no "track 2"), or with duplicated track sequences (e.g. there are two "track 4"s).!;
 
 	$m->comp("/reports/show_albums.inc", %ARGS);
 
