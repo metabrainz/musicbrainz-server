@@ -6,8 +6,11 @@
     <li>
         You are about to manually add a release to the artist
         [%- entity_link(artist) -%].
+    </li>
+    <li>
         Did you know that you can import releases from the
-        <a href="[% c.uri_for('/release/import') %]">FreeDB database</a>?
+        <a href="[% c.uri_for('/release/import') %]">FreeDB database</a>
+        ([% doc_link('FreeDB', 'read more') %])?
     </li>
     <li>
         Please read the [%- doc_link('StyleGuidelines', 'style guidelines') -%]

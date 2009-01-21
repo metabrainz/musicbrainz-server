@@ -2,19 +2,28 @@
 [% WRAPPER 'components/box.tt' header='Add Tracks' %]
 [% INCLUDE 'add_release/bread_crumbs.tt' %]
 
-<p>
-    The fields below allow you to enter track information, and to select track artists.
-    Unless the release has attached Disc IDs, you can remove tracks by activating the
-    remove button on the left of the track title fields. If you are editing a various
-    artists release, or if you have choosen to display the track artists, you can
-    activate the change button of the artists you would like to change. The page will
-    present you choices of existing track artists, once you click on the button
-    Continue ».
-</p>
-<p>
-    Please use the Guess Case buttons (or the Guess All  button for all fields) to
-    fix common style errors.
-</p>
+<ul>
+    <li>
+        The fields below allow you to enter track information, and to select track artists.
+    </li>
+    <li>
+        Unless the release has attached
+        [%- doc_link("DiscID", "Disc IDs") -%],
+        you can remove tracks by activating the remove button on the left of the track title
+        fields.
+    </li>
+    <li>
+        If you are editing a
+        [%- doc_link("VariousArtistsRelease", "Various Artists Release") -%],
+        or if you have chosen to display the track artists, you can activate the change button
+        of the artists you would like to change. The page will present you choices of existing
+        track artists, once you click on the Enter Edit button.
+    </li>
+    <li>
+        Please use the Guess Case buttons (or the Guess All button for all fields) to
+        fix common style errors.
+    </li>
+</ul>
 
 [%- WRAPPER 'forms/form.tt' moderation=1 -%]
     [%- WRAPPER 'forms/fieldset.tt' legend='Release Information' -%]

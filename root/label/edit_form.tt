@@ -2,7 +2,7 @@
 
 <ul>
     <li>
-        Please read the 
+        Please read the
         [%- doc_link("StyleGuideline", "style guidlines") -%],
         then use the fields below to update the information of this label.
     </li>

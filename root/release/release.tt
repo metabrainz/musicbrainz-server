@@ -1,23 +1,23 @@
 <div class="release">
     [% INCLUDE "release/box-header.tt" %]
-    
+
     <div class="release_top">
         [%- IF release.has_artwork -%]
             <div class="artwork">
                 <img src="[% release.cover_url %]"> 
             </div>
         [%- END -%]
-        
+
         [% INCLUDE "release/info-links.tt" UNLESS no_info_links %]
         [% INCLUDE "release/edit-links.tt" UNLESS no_edit_links %]
-        
+
         [% IF tags %]
             <div class="releasetags">
                 [% INCLUDE "tag/summary.tt" tags=tags source=release %]
             </div>
         [% END %]
     </div>
-    
+
     [% IF tracks.size %]
         <table class="release_tracks" [%- IF release.has_artwork; 'style="border-top: 1px solid black;"'; END -%]>
         <tbody>
@@ -27,7 +27,7 @@
                 <td class="title">
                     [% entity_link(track, 1) %]
                     [% INCLUDE "components/relationships.tt" source=track relations=track.relations justlist=1 nocompact=1
-						 IF track.relations.size AND show_relationships %]
+                        IF track.relations.size AND show_relationships %]
                 </td>
 
                 [%- IF show_artists -%]

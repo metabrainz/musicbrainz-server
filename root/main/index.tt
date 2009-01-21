@@ -12,7 +12,7 @@
             are tax deductible!
         </p>
     [% END %]
-  
+
     [% WRAPPER "components/box.tt" color="purple" header="MusicBrainz Blog" %]
         <ul id="blog">
         [% FOREACH post IN blog.entries %]
@@ -84,7 +84,7 @@
             </a> 
             [Windows/Linux]
             </div>
-            
+
             <div>
             <a href="http://www.magic-tagger.com/bin/magic_tagger.exe" title="Download Magic-Tagger">
                 <img src="[% c.uri_for('/static/images/download.gif') %]" alt="[download]" />
@@ -94,7 +94,7 @@
             </a>
             [Windows -- <a href="http://www.magic-tagger.com">More info...</a>]
             </div>
-            
+
             <div>
             <a href="http://www.jthink.net/jaikoz/jsp/download/start.jsp" title="Download Jaikoz Tag Editor">
                 <img src="[% c.uri_for('/static/images/download.gif') %]" alt="[download]" />
@@ -128,13 +128,14 @@
         <ul>
             <li>Please download and use Picard. By doing so, you will be using and adding to the MusicBrainz database.</li>
             <li>
-	            <a href="[% c.uri_for('/search') %]">Search</a> or <a href="[% c.uri_for('/browse/artist') %]">browse</a> the MusicBrainz data for
-	            your favourite artists, or for your <a href="[% c.uri_for('/browse/release') %]">favourite releases</a>.
+                <a href="[% c.uri_for('/search') %]">Search</a> or <a href="[% c.uri_for('/browse/artist') %]">browse</a>
+                the MusicBrainz data for your favourite artists, or for your
+                <a href="[% c.uri_for('/browse/release') %]">favourite releases</a>.
             </li>
             <li>
-	            If you spot something that is wrong, poorly entered or just plain missing, please
-	            <a href="[% c.uri_for('/user/register') %]">register</a> and
-	            [%- doc_link('HowEditingWorks', 'edit the data') -%]
+                If you spot something that is wrong, poorly entered or just plain missing, please
+                <a href="[% c.uri_for('/user/register') %]">register</a> and
+                [%- doc_link('HowEditingWorks', 'edit the data') -%]
             </li>
         </ul>
     [% END %]

@@ -1,4 +1,4 @@
-[%- url = "http://musicbrainz.org/${entity.entity_type}/${entity.mbid}.html" -%]
+[%- url = "http://musicbrainz.org/${entity.entity_type}/${entity.mbid}" -%]
 
 [%- WRAPPER 'components/box.tt' header="Link to ${entity.name}" -%]
 <ul>
@@ -10,41 +10,40 @@
     <li>
         If you wish to add a permanent link to the MusicBrainz [% entity.entity_type %]
         [% entity_link(entity) %]
-        from your website or weblog, choose one of the link styles below.
+        from your web page or blog, choose one of the link styles below.
     </li>
     <li>
         Just highlight (Ctrl+A) the content in the textbox, and copy (Ctrl+C) and paste (Ctrl+V) it into
-        your webpage or weblog. Alternatively, you can click the right button on the textbox, and click
-        the appropriate function in the popup menu.
+        your web page or blog.
     </li>
 </ul>
 
-<table>
+<p>
+    If you wish to use a text link (e.g. [% entity_link(entity, 1) %]),
+    you can use the following markup:
+</p>
+<table id="id-table-link">
     <tr>
-        <th>Text Link</th>
+        <th>Text Link:</th>
         <td>
-            <p>
-                If you wish to use a text link (e.g.
-                [% entity_link(entity, 1) %]), you can use the following
-                markup:
-            </p>
-            <textarea cols="60" rows="5" title="Select text">
-                &lt;a href=&quot;http://musicbrainz.org/[% entity.entity_type %]/[% entity.mbid %].html&quot; title=&quot;Show [% entity.entity_type %] at MusicBrainz&quot;&gt;[% entity.name | html %]&lt;/a&gt;
+            [%# This is a bit funky, but it's to make sure no extra spaces get added %]
+            <textarea id="id_link" cols="80" rows="5" title="Select text">
+                [%- "<a href=\"$url\">$entity.name</a>" | html %]
             </textarea>
         </td>
     </tr>
+</table>
+
+<p>
+    If you wish to use a link with an icon (e.g. [% entity_link(entity) %]), you can use the following
+    markup:
+</p>
+<table id="id-table-icon-link">
     <tr>
         <th>Text Link</th>
         <td>
-            <p>
-                If you wish to use a link with an icon (e.g.
-                [% entity_link(entity) %]), you can use the following
-                markup:
-            </p>
             <textarea cols="60" rows="5" title="Select text">
-                &lt;a href=&quot;http://musicbrainz.org/[% entity.entity_type %]/[% entity.mbid %].html&quot; title=&quot;Show [% entity.entity_type %]
-                at MusicBrainz&quot;&gt;&lt;img
-                src=&quot;http://musicbrainz.org/static/images/entity/[% entity.entity_type %]_small.gif&quot; /&gt;[% entity.name | html %]&lt;/a&gt;
+                [%- "<a href=\"$url\"><img src=\"http://musicbrainz.org/static/images/entity/${entity.entity_type}_small.gif\" />$entity.name</a>" | html -%]
             </textarea>
         </td>
     </tr>

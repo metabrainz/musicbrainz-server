@@ -1,6 +1,8 @@
 <ul>
     <li>
         MusicBrainz uses artist aliases mainly as variant names or search hints.
+    </li>
+    <li>
         If you see a misspelled alias here, it's most likely listed on purpose and
         should not be renamed.  See the documentation about
         [%- doc_link('ArtistAlias', 'artist aliases') -%]

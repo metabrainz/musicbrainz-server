@@ -1,5 +1,5 @@
 <div class="editLinks">
-    Edit: 
+    Edit:
     [%- IF c.user_exists -%]
         [%- edit_links = [
         { link => '', text => 'Add Relationship' },

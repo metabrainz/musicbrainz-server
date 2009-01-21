@@ -3,10 +3,18 @@
 [% INCLUDE 'add_release/bread_crumbs.tt' %]
 
 <p>
-    We found the following similar releases already in our database. Did you mean
-    to enter one of the following? If you are sure that your release is different,
-    please confirm by selecting the button below
+    We found the following similar releases already in our database.
 </p>
+
+<ul>
+    <li>
+        Did you mean to enter one of the following?
+    </li>
+    <li>
+        If you are sure that your release is different, please confirm by
+        selecting the button below.
+    </li>
+</ul>
 
 [% INCLUDE 'release/release.tt' release=release.release
     tracks=release.tracks release_events=release.events

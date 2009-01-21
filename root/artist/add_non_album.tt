@@ -3,25 +3,35 @@
 
 <ul>
     <li>
-        Please enter the names of the tracks you wish to add as non-album tracks
+        Please enter the names of the tracks you wish to add as
+        [%- doc_link("NonAlbumTrack", "non-album tracks") -%]
         of [% entity_link(artist) %].
-        Blank tracks will be ignored, just do not fill anything into the fields
-        you do not want to add.
+    </li>
+    <li>
+        Blank tracks will be ignored; just leave empty the fields that you do not need.
     </li>
     <li>
         <strong style="color: red;">Important!</strong>
         Non-album tracks are designed for <strong>tracks that have not been released
-        on ANY release</strong>. Demo tracks and promotional tracks that have never
-        been released on a release are good candidates for non-album tracks. Most
-        live versions or singles are released on single CDs. If you want to enter
-        those tracks into MusicBrainz, please enter them normally, or import them
-        from FreeDB instead.
+        on ANY [%- doc_link("Release", "release") -%]
     </li>
     <li>
-        To enter a non-album track you must provide an edit note that lets the voters
-        know why you think this is a non-album track. You're strongly encouraged to
-        include a URL that will allow the voters to evaluate the correctness of this
-        edit.
+        Demo tracks and promotional tracks that have never been released on a release
+        are good candidates for non-album tracks.
+    </li>
+    <li>
+        Most live versions are released on singles. If you want to enter those tracks
+        into MusicBrainz, please enter them as the single release, or import them
+        from [%- doc_link("FreeDB", "FreeDB") -%], instead of adding them as
+        [%- doc_link("NonAlbumTrack", "non-album tracks") -%].
+    </li>
+    <li>
+        To enter a non-album track you must provide an
+        [%- doc_link("EditNote", "edit note") -%]
+        that lets the voters know why you think this is a
+        [%- doc_link("NonAlbumTrack", "non-album track") -%].
+        You are <strong>strongly encouraged</strong> to include a URL that will allow
+        the voters to evaluate the correctness of this edit.
     </li>
 </ul>
 

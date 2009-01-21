@@ -1,5 +1,5 @@
 [%#- The box component is used to section of blocks of text and give them a specific header. By using the box component,
-     you will also produce a box with a style that is consistant with the rest of the MusicBrainz website.
+     you will also produce a box with a style that is consistent with the rest of the MusicBrainz website.
 
      You can specify the following variables:
 

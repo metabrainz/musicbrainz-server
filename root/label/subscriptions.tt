@@ -15,7 +15,7 @@
     <p>There are also [% anonymous_subscribers %] anonymous subscribers</p>
 [% END %]
 
-[% IF user_subscribed %] 
+[% IF user_subscribed %]
     <a href="[% c.entity_url(label, 'unsubscribe') %]">Unsubscribe from this label.</a>
 [% ELSE %]
     <a href="[% c.entity_url(label, 'subscribe') %]">Subscribe to this label.</a>
