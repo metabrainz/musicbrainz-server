@@ -144,12 +144,11 @@ sub GetActiveCDs
 	{
 		$active = $sql->SelectListOfHashes("SELECT release_raw.id, title, artist, added, lastmodified,
 											lookupcount, modifycount,
-			                                (lookupcount + modifycount) AS count,
 											discid, trackcount, leadoutoffset, trackoffset
 			                           FROM release_raw, cdtoc_raw
 								      WHERE release_raw.id = cdtoc_raw.release
 									    AND lookupcount + modifycount > 0
-								   ORDER BY count desc
+								   ORDER BY lookupcount desc, modifycount desc
 							          LIMIT 1000");
 		$timestamp = time();
 		$numitems = scalar(@$active);
