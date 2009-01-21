@@ -1,3 +1,3 @@
 [%- WRAPPER 'artist/layout.tt' title="Relations" -%]
-[%- INCLUDE "components/relations.tt" source=artist showall=1 -%]
+[%- INCLUDE "components/relationships.tt" source=artist showall=1 -%]
 [%- END -%]

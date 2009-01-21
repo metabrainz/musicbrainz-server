@@ -1,7 +1,7 @@
 [%- info_links = [
     { link => c.entity_url(release, 'perma'), text => "Permanent Link" },
     { link => c.entity_url(release, 'details'), text => "Details" },
-    { link => c.entity_url(release, 'relations'), text => "Relations" },
+    { link => c.entity_url(release, 'relations'), text => "Relationships" },
     { link => c.entity_url(release, 'tags'), text => "Tags" },
     { link => c.entity_url(release, 'google'), text => "Search Google" },
 ] -%]

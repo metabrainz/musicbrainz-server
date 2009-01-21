@@ -4,7 +4,7 @@
 <div class="TagsBox">
     [%- INCLUDE "tag/summary.tt" source=artist -%]
 </div>
-[%- INCLUDE "components/relations.tt" source=artist -%]
+[%- INCLUDE "components/relationships.tt" source=artist -%]
 <div style="text-align: center;">
     [%- IF c.req.query_params.show_all -%]
         You are viewing all releases by [% artist.name %]. You can also choose to view only

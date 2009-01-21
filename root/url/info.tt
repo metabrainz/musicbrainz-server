@@ -19,5 +19,5 @@
     </table>
 [%- END -%]
 
-[%- INCLUDE "components/relations.tt" showall=1 source=url -%]
+[%- INCLUDE "components/relationships.tt" showall=1 source=url -%]
 [%- END -%]

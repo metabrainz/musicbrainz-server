@@ -26,7 +26,7 @@
                 <td class="number">[% track.sequence %]</td>
                 <td class="title">
                     [% entity_link(track, 1) %]
-                    [% INCLUDE "components/relations.tt" source=track relations=track.relations justlist=1 nocompact=1
+                    [% INCLUDE "components/relationships.tt" source=track relations=track.relations justlist=1 nocompact=1
 						 IF track.relations.size AND show_relationships %]
                 </td>
 

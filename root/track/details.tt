@@ -1,5 +1,5 @@
 [%- WRAPPER 'track/layout.tt' -%]
-[% INCLUDE "components/relations.tt" source=track %]
+[% INCLUDE "components/relationships.tt" source=track %]
 
 <div class="TagsBox">
     [% INCLUDE "tag/summary.tt" %]

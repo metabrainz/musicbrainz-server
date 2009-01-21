@@ -43,7 +43,7 @@
         [%- entity_link(source) -%][% relations.size > 1 ? ":" : "" %]
         [%- PROCESS list -%]
     [%- ELSE -%]
-        [%- entity_link(source) -%] has no relations.
+        [%- entity_link(source) -%] has no relationships.
     [%- END -%]
 
     [%- IF current_relationship -%]
