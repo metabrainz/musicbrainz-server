@@ -260,12 +260,11 @@ sub AWS_USE_ASSOCIATE_IDS { 1 }
 
 # Use this session setup for simple setups where one web server can
 # handle all the traffic.
-sub SESSION_HANDLER { "Apache::Session::File" }
-sub SESSION_HANDLER_ARGS
+# XXX maybe use Session::Store::File by default?
+sub SESSION_STORE { "Session::Store::FastMmap" }
+sub SESSION_STORE_ARGS
 {
 	{
-		Directory      => &DBDefs::SESSION_DIR,
-		LockDirectory  => &DBDefs::LOCK_DIR,
 	}
 }
 
@@ -273,16 +272,18 @@ sub SESSION_HANDLER_ARGS
 # database so that all web servers have access to the same session data.
 # Note that the session database needs to be created by hand. Its not created
 # as part of the InitDb.pl process!
-#sub SESSION_HANDLER { "Apache::Session::Postgres" }
-#sub SESSION_HANDLER_ARGS
+#sub SESSION_STORE { "Session::Store::DBI" }
+#sub SESSION_STORE_ARGS
 #{
 #	{
-#		DataSource => 'dbi:Pg:dbname=mb_sessions',
-#		UserName   => "musicbrainz_user",
-#		Password   => "",
-#		Commit     => 1
+#		dbi_dsn   => "dbi:Pg:dbname=mb_sessions",
+#		dbi_user  => "musicbrainz_user",
+#		dbi_pass  => "",
+#		dbi_table => "sessions",
 #	}
 #}
+
+sub CATALYST_DEBUG { 1 }
 
 1;
 # eof DBDefs.pm

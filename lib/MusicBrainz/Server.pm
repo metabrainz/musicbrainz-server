@@ -5,6 +5,8 @@ use warnings;
 
 use Catalyst::Runtime '5.70';
 
+use Catalyst;
+use DBDefs;
 use MusicBrainz;
 
 # Set flags and add plugins for the application
@@ -15,8 +17,7 @@ use MusicBrainz;
 # Static::Simple: will serve static files from the application's root 
 #                 directory
 
-use Catalyst qw/
--Debug
+my @args = qw/
 ConfigLoader
 Static::Simple
 
@@ -24,7 +25,6 @@ StackTrace
 
 Session
 Session::State::Cookie
-Session::Store::FastMmap
 
 Authentication
 /;
@@ -77,8 +77,26 @@ __PACKAGE__->config->{form} = {
     form_name_space => 'MusicBrainz::Server::Forms',
 };
 
+push @args, &DBDefs::SESSION_STORE;
+
+__PACKAGE__->config->{session} = &DBDefs::SESSION_STORE_ARGS;
+
+if (&DBDefs::CATALYST_DEBUG) {
+	push @args, "-Debug";
+}
+
+if (&DBDefs::SESSION_COOKIE) {
+	__PACKAGE__->config->{session}{cookie_name} = &DBDefs::SESSION_COOKIE;
+}
+
+if (&DBDefs::SESSION_DOMAIN) {
+	__PACKAGE__->config->{session}{cookie_domain} = &DBDefs::SESSION_DOMAIN;
+}
+
+__PACKAGE__->config->{session}{cookie_expires} = &DBDefs::WEB_SESSION_SECONDS_TO_LIVE;
+
 # Start the application
-__PACKAGE__->setup();
+__PACKAGE__->setup(@args);
 
 sub dispatch {
     my $self = shift;
