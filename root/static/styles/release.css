@@ -34,7 +34,6 @@ div.release_discids table td.duration {
 }
 
 div.release {
-    position: relative;
     border: 1px solid #000;
     margin-bottom: 10px;
 }
