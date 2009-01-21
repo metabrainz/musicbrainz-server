@@ -15,7 +15,7 @@ requires 'Catalyst::Plugin::Session::State::Cookie';
 requires 'Catalyst::Plugin::Session::Store::FastMmap';
 requires 'Catalyst::Plugin::StackTrace';
 requires 'Catalyst::Plugin::Static::Simple';
-requires 'Catalyst::Runtime' => '5.7012';
+requires 'Catalyst::Runtime' => '5.71000';
 requires 'Catalyst::View::Email';
 requires 'Catalyst::View::TT';
 requires 'Data::Page';

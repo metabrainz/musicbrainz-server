@@ -43,6 +43,7 @@ require MusicBrainz::Server::Filters;
 
 __PACKAGE__->config(
     name => 'MusicBrainz::Server',
+    default_view => 'Default',
     "View::Default" => {
         FILTERS => {
             'mb_date' => \&MusicBrainz::Server::Filters::date,
@@ -130,7 +131,7 @@ sub entity_url
     my $type = $entity->entity_type;
 
     # Now find the controller
-    my $controller = $self->controller("MusicBrainz::Server::Controller::" . ucfirst($type))
+    my $controller = $self->controller(ucfirst($type))
         or die "$type is not a valid type";
 
     # Lookup the action
