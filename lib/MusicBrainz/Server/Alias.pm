@@ -259,7 +259,7 @@ sub UpdateLastUsedDate
     );
 }
 
-=head2 LoadFull
+=head2 load_all
 
 Load all the aliases for a given entity and return an array of references to alias
 objects.
@@ -283,7 +283,7 @@ sub load_all
     );
     $sql->Finish;
     
-    return [ map { MusicBrainz::Server::Alias->new($self->dbh, $table, $_) } @$rows ];
+    return map { MusicBrainz::Server::Alias->new($self->dbh, $table, $_) } @$rows;
 }
 
 sub ParentClass

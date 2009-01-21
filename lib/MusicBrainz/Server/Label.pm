@@ -235,7 +235,6 @@ sub Insert
     $self->name($name);
 
     my $sql = Sql->new($self->dbh);
-    my $label;
 
     if (!$self->resolution)
     {
@@ -269,19 +268,19 @@ sub Insert
         $page,
     );
 
-    $label->id($sql->GetLastInsertId('Label'));
+    $self->id($sql->GetLastInsertId('Label'));
     $self->{new_insert} = 1;
 
-    MusicBrainz::Server::Cache->delete($self->_id_cache_key($label));
+    MusicBrainz::Server::Cache->delete($self->_id_cache_key($self->id));
     MusicBrainz::Server::Cache->delete($self->_mbid_cache_key($mbid));
 
     # Add search engine tokens.
     # TODO This should be in a trigger if we ever get a real DB.
     require SearchEngine;
     my $engine = SearchEngine->new($self->dbh, 'label');
-    $engine->AddWordRefs($label,$self->name);
+    $engine->AddWordRefs($self->id, $self->name);
 
-    return $label;
+    return $self->id;
 }
 
 =head2 Remove

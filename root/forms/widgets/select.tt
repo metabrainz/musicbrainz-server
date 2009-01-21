@@ -9,6 +9,9 @@
     <select id="[% id %]"
             name="[% name %]"
             [% extra_attributes %]>
+    [%- UNLESS widget.required -%]
+        <option value="">[ Please make a selection ]</option>
+    [%- END -%]
     [%- FOREACH option=widget.options -%]
         <option value="[% option.value %]"
                 [%- IF widget.value == option.value -%]selected="selected"[%- END -%]>
