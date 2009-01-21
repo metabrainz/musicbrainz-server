@@ -23,7 +23,7 @@ sub edit : Chained('for_entity') PathPart('edit') Form('Annotation::Edit')
 
     return unless $self->submit_and_validate($c);
 
-    $c->model('Annotation')->update_annotation($c->stash->{entity}, $form->value('annotation'),
+    $c->model('Annotation')->update_annotation($c->stash->{entity}, $form->value('annotation') || '',
         $form->value('change_log'), $form->value('edit_note'));
 }
 

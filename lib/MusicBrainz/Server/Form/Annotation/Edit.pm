@@ -8,13 +8,11 @@ use base 'MusicBrainz::Server::Form';
 sub profile
 {
     shift->with_mod_fields({
-        required => {
+        optional => {
             annotation => {
                 type => 'TextArea',
                 style => 'large'
             },
-        },
-        optional => {
             change_log => {
                 type => 'Text',
                 size => 100
