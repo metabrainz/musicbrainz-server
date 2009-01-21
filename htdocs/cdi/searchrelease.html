@@ -319,7 +319,7 @@
 			</tr>
 
 %		my $i = 0;
-%		for my $artist (sort { $a->{"_sortname_"} cmp $b->{"_sortname_"} } values %unusedartists)
+%		OUTER: for my $artist (sort { $a->{"_sortname_"} cmp $b->{"_sortname_"} } values %unusedartists)
 %		{
 %			for my $release (sort { $a->{_name_} cmp $b->{_name_} } @{ $artist->{"_unused_"} })
 %			{
@@ -340,12 +340,13 @@
 							<& /comp/form/hiddenfield, "tracks", $tracks &>
 							<& /comp/form/hiddenfield, "search", $search &>
 							<& /comp/form/hiddenfield, "showallreleases", 1 &>
+							<& /comp/form/hiddenfield, "barcode", $barcode &>
 						</div>
 					</form>
 				</td>
 			</tr>
 
-%						last;
+%						last OUTER;
 %					}
 %				}
 

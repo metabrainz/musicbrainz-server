@@ -34,7 +34,7 @@ MusicBrainz.JSVoting = function()
    // member variables
    // ----------------------------------------------------------------------------
    this.addnote_msg = "Add note";
-   this.delnote_msg = "Del note";
+   this.delnote_msg = "Delete note";
 
    this.vote_inputs = {
     "yes": new Array(),
