@@ -1,5 +1,3 @@
-[%- PROCESS 'components/links.tt' %]
-
 [%- IF c.user.is_auto_editor(c.session.orig_privs) -%]
 [%- WRAPPER 'forms/fieldset.tt' legend='Autoeditor' -%]
     <p>

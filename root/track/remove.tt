@@ -1,5 +1,3 @@
-[%- PROCESS 'components/links.tt' -%]
-
 [% WRAPPER 'track/layout.tt' title="Merge" %]
 
 [% WRAPPER 'components/box.tt' header="Remove ${track.name}" %]

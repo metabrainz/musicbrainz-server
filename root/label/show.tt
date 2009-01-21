@@ -1,5 +1,3 @@
-[%- PROCESS 'components/links.tt' %]
-
 [%- WRAPPER "layout.tt" title=label.name -%]
 [%- INCLUDE "label/header.tt" -%]
 [%- INCLUDE "components/relations.tt" source=label -%]

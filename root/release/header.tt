@@ -1,5 +1,3 @@
-[%- PROCESS 'components/links.tt' %]
-
 [%- info_links = [
     { link => c.entity_url(release, 'perma'), text => "Permanent Link" },
     { link => c.entity_url(release, 'details'), text => "Details" },

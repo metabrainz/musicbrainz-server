@@ -1,5 +1,3 @@
-[%- PROCESS 'components/links.tt' -%]
-
 [%- WRAPPER "forms/form.tt" quiet=1 -%]
     [%- INCLUDE "forms/widget.tt" widget=form.field('query') label=search_label -%]
     [%- INCLUDE "forms/submit.tt" label="Search" %]

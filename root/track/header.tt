@@ -1,5 +1,3 @@
-[%- PROCESS 'components/links.tt' %]
-
 [%- info_links = [
     { link => c.entity_url(track, 'details'), text => "Details" },
     { link => c.entity_url(track, 'relations'), text => "Relations" },

@@ -9,8 +9,6 @@
     { link => c.entity_url(artist, 'tags'), text => "Tags" },
 ] -%]
 
-[%- PROCESS 'components/links.tt' %]
-
 <div class="entity_header">
 
     <div class="title artist">

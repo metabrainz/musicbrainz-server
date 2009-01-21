@@ -1,5 +1,3 @@
-[%- PROCESS 'components/links.tt' %]
-
 [%- WRAPPER "$source.entity_type/layout.tt" title="Remove Relationship" entity=source -%]
 
 [%- WRAPPER 'components/box.tt' header="Remove Relationship" -%]

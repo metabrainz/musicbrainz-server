@@ -1,5 +1,3 @@
-[%- PROCESS 'components/links.tt' %]
-
 [% WRAPPER 'artist/layout.tt' title="Merge" %]
 [% WRAPPER 'components/box.tt' header="Merge ${artist.name} into another artist" %]
 

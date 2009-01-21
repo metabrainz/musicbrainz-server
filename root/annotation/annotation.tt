@@ -1,5 +1,4 @@
 [%- IF annotation.text -%]
-    [% PROCESS 'components/links.tt' %]
 	<div class="annotation">
     	<div class="body">
         	[% annotation.summary_as_html  %]

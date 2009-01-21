@@ -1,5 +1,4 @@
 [%- DEFAULT maximum=4 -%]
-[%- PROCESS 'components/links.tt' -%]
 
 [%- BLOCK relation_group -%]
     [% ar.connector | html %]

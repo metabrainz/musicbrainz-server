@@ -1,5 +1,3 @@
-[%- PROCESS 'components/links.tt' %]
-
 <div class="release">
     [% INCLUDE "release/box-header.tt" %]
     

@@ -15,3 +15,14 @@
             [%- IF entity.resolution -%] ([%- entity.resolution | html -%])[%- END -%]
     [%- END -%]
 [%- END -%]
+
+[%- MACRO comma_list(items) BLOCK %]
+    [%- FOREACH item IN items -%]
+        [%- item -%]
+        [%- loop.count == (loop.size - 1) ? " and " : !loop.last ? ", " : "" -%]
+    [%- END -%]
+[%- END -%]
+
+[%- MACRO form_id(form, field) BLOCK -%]
+form-[% form.name %]-[% field %]
+[%- END -%]

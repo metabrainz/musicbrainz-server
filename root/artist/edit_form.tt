@@ -1,5 +1,3 @@
-[%- PROCESS 'components/links.tt' %]
-
 <ul>
 [%- IF new -%]
     <li>You are about to add an artist to MusicBrainz.</li>

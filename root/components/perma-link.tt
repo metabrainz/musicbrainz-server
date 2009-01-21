@@ -1,5 +1,4 @@
 [%- url = "http://musicbrainz.org/${entity.entity_type}/${entity.mbid}.html" -%]
-[%- PROCESS 'components/links.tt' -%]
 
 [%- WRAPPER 'components/box.tt' header="Link to ${entity.name}" -%]
 <ul>

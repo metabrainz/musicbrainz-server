@@ -7,8 +7,6 @@
     { link => c.entity_url(label, 'google'), text => "Search Google" }
 ] -%]
 
-[%- PROCESS 'components/links.tt' %]
-
 <div class="entity_header">
     <div class="title label">
         [% entity_link(label, 1) %]

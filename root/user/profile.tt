@@ -1,7 +1,5 @@
 [% USE date %]
 [% extra_css = "user.css" %]
-[%- PROCESS 'components/comma-list.tt' -%]
-[%- PROCESS 'components/links.tt' -%]
 
 [% WRAPPER "layout.tt" title="Editor \"$user.name\"" %]
 

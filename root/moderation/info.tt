@@ -1,5 +1,3 @@
-[%- PROCESS 'components/links.tt' %]
-
 <table class="details">
     <tr>
         <th style="width: 70pt;">Type:</th>

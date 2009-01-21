@@ -1,5 +1,3 @@
-[%- PROCESS 'components/links.tt' %]
-
 <ul>
     <li>
         MusicBrainz uses artist aliases mainly as variant names or search hints.

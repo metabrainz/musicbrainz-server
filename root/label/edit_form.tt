@@ -1,5 +1,3 @@
-[%- PROCESS 'components/links.tt' -%]
-
 [% WRAPPER 'components/box.tt' header="Edit Label" %]
 
 <ul>

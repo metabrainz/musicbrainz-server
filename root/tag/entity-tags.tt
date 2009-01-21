@@ -1,5 +1,3 @@
-[%- PROCESS 'components/links.tt' %]
-
 [% WRAPPER "components/box.tt" header="Tags" %]
 [%- IF tagcloud.size -%] 
     <p>[% entity_link(entity) %] has been tagged with the following:</p>

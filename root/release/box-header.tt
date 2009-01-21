@@ -1,5 +1,3 @@
-[%- PROCESS 'components/links.tt' %]
-
 <div class="releasename">
     [% entity_link(release, 1) %]
 </div>

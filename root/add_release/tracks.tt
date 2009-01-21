@@ -1,5 +1,3 @@
-[%- PROCESS 'components/links.tt' %]
-
 [% WRAPPER 'layout.tt' title='Add Tracks' %]
 [% WRAPPER 'components/box.tt' header='Add Tracks' %]
 [% INCLUDE 'add_release/bread_crumbs.tt' %]

@@ -1,5 +1,3 @@
-[%- PROCESS 'components/links.tt' -%]
-
 <ul>
     <li><a href="http://musicbrainz.org/">Master Server</a></li>
     <li>[%- doc_link('MirrorServer', 'Find a Mirror') -%]</li>

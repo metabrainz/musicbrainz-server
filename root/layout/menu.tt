@@ -1,5 +1,3 @@
-[%- PROCESS 'components/links.tt' -%]
-
 <ul id="menu_bar">
     <li class="first">
         [%- doc_link('AboutMusicBrainz', 'About') -%]
