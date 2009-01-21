@@ -76,13 +76,14 @@ div.annotation {
 }
 
 div.annotation div.body,
-div.annotation div.details 
-{ padding: 1pt 5pt; }
+div.annotation div.bar {
+    padding: 1pt 5pt;
+}
 
 div.annotation div.bar {
     border-top: 1px solid #000;
     padding: 3pt;
-    background: #eee;
+    background: #F0EFFF;
 }
 
 .annotation .details {
