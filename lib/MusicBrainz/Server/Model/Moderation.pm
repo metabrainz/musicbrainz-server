@@ -125,12 +125,36 @@ sub count_open
 sub top_voters
 {
     my $self = shift;
-    my ($limit) = @_;
+    my ($limit, $interval) = @_;
+
+    $interval ||= '1 week';
 
     my $vote = MusicBrainz::Server::Vote->new($self->dbh);
     return $vote->TopVoters(
          rowlimit => $limit,
          interval => "1 Week",
+    );
+}
+
+sub top_moderators
+{
+    my ($self, $limit) = @_;
+
+    my $mod = Moderation->new($self->dbh);
+    return $mod->TopModerators(
+         rowlimit  => $limit,
+         namelimit => $limit,
+    );
+}
+
+sub top_moderators_overall
+{
+    my ($self, $limit) = @_;
+
+    my $mod = Moderation->new($self->dbh);
+    return $mod->TopAcceptedModeratorsAllTime(
+         rowlimit  => $limit,
+         namelimit => $limit,
     );
 }
 

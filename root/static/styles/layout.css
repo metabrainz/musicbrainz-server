@@ -418,6 +418,7 @@ hr {
 
 table.statistics {
     border-collapse: collapse;
+    margin-bottom: 12pt;
 }
 
 table.statistics,
