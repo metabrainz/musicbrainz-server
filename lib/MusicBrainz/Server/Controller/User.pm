@@ -377,6 +377,13 @@ sub profile : Local Args(1)
     my $all_votes = $vote->AllVotesForUser_as_hashref($user->id);
     my $recent_votes = $vote->RecentVotesForUser_as_hashref($user->id);
 
+    for ($all_votes, $recent_votes)
+    {
+        my $t = 0;
+        $t += $_ for values %$_;
+        $_->{"TOTAL"} = $t;
+    }
+
     $c->stash->{votes}= [];
     for my $v (
         [ "yes", &ModDefs::VOTE_YES ],
