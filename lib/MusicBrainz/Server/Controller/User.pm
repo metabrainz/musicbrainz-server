@@ -399,8 +399,8 @@ sub profile : Local Args(1)
             recent  => $recent || 0,
             overall => $all    || 0,
             
-            recent_pc  => ($recent / ($recent_votes->{TOTAL} || 1)) * 100,
-            overall_pc => ($all / ($all_votes->{TOTAL} || 1)) * 100,
+            recent_pc  => int(($recent / ($recent_votes->{TOTAL} || 1)) * 100 + 0.5),
+            overall_pc => int(($all / ($all_votes->{TOTAL} || 1)) * 100 + 0.5),
         };
     }
 
