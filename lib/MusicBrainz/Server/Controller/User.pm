@@ -373,6 +373,30 @@ sub profile : Local Args(1)
         $c->stash->{viewing_own_profile} = 1;
     }
 
+    my $vote = MusicBrainz::Server::Vote->new($c->mb->dbh);
+    my $all_votes = $vote->AllVotesForUser_as_hashref($user->id);
+    my $recent_votes = $vote->RecentVotesForUser_as_hashref($user->id);
+
+    $c->stash->{votes}= [];
+    for my $v (
+        [ "yes", &ModDefs::VOTE_YES ],
+        [ "no", &ModDefs::VOTE_NO ],
+        [ "abstain", &ModDefs::VOTE_ABS ],
+        [ "total", "TOTAL" ] 
+    ) {
+        my $recent = $recent_votes->{$v->[1]};
+        my $all    = $all_votes->{$v->[1]};
+
+        push @{ $c->stash->{votes} }, {
+            name    => $v->[0],
+            recent  => $recent || 0,
+            overall => $all    || 0,
+            
+            recent_pc  => ($recent / ($recent_votes->{TOTAL} || 1)) * 100,
+            overall_pc => ($all / ($all_votes->{TOTAL} || 1)) * 100,
+        };
+    }
+
     $c->stash->{user    } = $user;
     $c->stash->{template} = 'user/profile.tt';
 }

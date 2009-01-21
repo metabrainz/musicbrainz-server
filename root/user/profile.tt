@@ -111,6 +111,26 @@
     [% user.mods_rejected      WRAPPER property name="Edits Voted Down" %]
     [% user.mods_failed        WRAPPER property name="Edits Failed" %]
     </dl>
+    
+    <h3>Votes</h3>
+    <table class="statistics">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Last 28 days</th>
+                <th>Overall</th>
+            </tr>
+        </thead>
+        <tbody>
+            [% FOREACH v IN votes %]
+            <tr>
+                <th>[% v.name | ucfirst%]:</th>
+                <td>[% v.recent %] ([% v.recent_pc %]%)</td>
+                <td>[% v.overall %] ([% v.overall_pc %]%)</td>
+            </tr>
+            [% END %]
+        </tbody>
+    </table>
 
 [% END %]
 
