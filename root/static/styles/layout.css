@@ -135,9 +135,13 @@ div.status_ok {
 }
 
 #sidebar input, #sidebar select {
-    background: #eee;
-    border: 1px inset;
-    font-size: 8pt;
+    font-size: 9pt;
+    margin-left: -2px;
+    margin-bottom: 2pt;
+}
+
+#sidebar select {
+    width: 118px;
 }
 
 #sidebar img {
@@ -198,12 +202,21 @@ div.status_ok {
 }
 
 #form-search-external-type,
-#form-search-external-query { width: 112px; }
-#sidebar_search .row { text-align: center; }
+#form-search-external-query {
+    width: 112px;
+}
+
+#sidebar_search .row {
+    text-align: center;
+}
 
 #sidebar .sidebar-toggle {
     border-bottom: 1px solid #000;
     padding: 2pt;
+}
+
+#label-form-search-external-enable-advanced {
+    font-size: 8pt;
 }
 
 /*

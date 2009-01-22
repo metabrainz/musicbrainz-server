@@ -5,11 +5,11 @@
         [% INCLUDE "forms/input.tt" widget=sidebar_search.field('query') form=sidebar_search %]
 
         [%- advanced = sidebar_search.field('enable_advanced') -%]
+        [% INCLUDE "forms/submit.tt" label="Search" %]
+
         [% INCLUDE "forms/input.tt" widget=advanced form=sidebar_search%]
-        <label for="[% form_id(sidebar_search, advanced.name) -%]" class="inline">
+        <label id="label-[% form_id(sidebar_search, advanced.name) -%]" for="[% form_id(sidebar_search, advanced.name) -%]" class="inline">
             [% doc_link('TextSearchSyntax', 'Advanced Query') %]
         </label>
-
-        [% INCLUDE "forms/submit.tt" label="Search" %]
     [% END %]
 </div>

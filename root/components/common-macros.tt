@@ -24,5 +24,5 @@
 [%- END -%]
 
 [%- MACRO form_id(form, field) BLOCK -%]
-form-[% form.name %]-[% field %]
+form-[% form.name %]-[% field.replace('_', '-') %]
 [%- END -%]
