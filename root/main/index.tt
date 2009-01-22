@@ -18,7 +18,7 @@
         [% FOREACH post IN blog.entries %]
             [% LAST IF loop.count > 5 %]
             <li>
-                <h3>[% post.title %]</h3>
+                <h3>[% post.title | html_entity  %]</h3>
                 [% post.summary.body %]
                 <p style="text-align: right;">
                     Posted: [% post.issued %]<br/>
