@@ -94,6 +94,9 @@ sub login_form : Local Path('login')
 {
     my ($self, $c) = @_;
 
+    $c->detach('/user/profile', [ $c->user->name ])
+        if $c->user_exists;
+
     $c->session->{__login_dest} = $c->req->referer
         unless defined $c->session->{__login_dest};
 
