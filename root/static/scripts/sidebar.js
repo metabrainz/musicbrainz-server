@@ -3,7 +3,7 @@
  *************************************************/
 // Store selection in cookie, turn on/off the sidebar
 function flipSidebar() {
-    $(".toggle").toggle();
+        $("span.toggle").toggle();
         switch($.cookie('sidebar'))
         {
             default:
@@ -18,21 +18,22 @@ function flipSidebar() {
                 $('#content').css("margin-top","0px");
         }
 }
+
 $(document).ready(function(){
     // Check that the sidebar is turned on in user
     // preferences).  Does nothing if it is off.
     if ($('#sidebar').length)
         $('#id_toggle_target').append(' \
-            <div id="id_hide_toggle" class="toggle"> \
+            <span id="id_hide_toggle" class="toggle"> \
                 <a href="javascript:flipSidebar()"> \
                     &nbsp;Hide Sidebar \
                 </a> \
-            </div> \
-            <div id="id_show_toggle" style="display:none;" class="toggle"> \
+            </span> \
+            <span id="id_show_toggle" style="display:none;" class="toggle"> \
                 <a href="javascript:flipSidebar()"> \
                     &nbsp;Show Sidebar \
                 </a> \
-            </div> \
+            </span> \
         ');
     // Make show / hide selection persistent
     switch($.cookie('sidebar'))
@@ -43,7 +44,7 @@ $(document).ready(function(){
             break;
         case 'off':
             // Turn on the sidebar, swap toggle text
-            $(".toggle").toggle();
+            $("span.toggle").toggle();
             $('#content').css("margin-left","0px");
             $('#content').css("margin-top","15px");
             break;
