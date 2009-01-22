@@ -1,3 +1,3 @@
-<label id="id_label_[% widget.name %]" for="id_[% widget.name %]" class="[% widget.required_text %][% widget.errors.size ? " error" : "" %]">
+<label id="label-[% form_id(form, widget.full_name) %]" for="[% form_id(form, widget.full_name) %]" error" : "" %]">
     [% label | ucfirst %][% UNLESS right; ':'; END %]
 </label>

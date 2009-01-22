@@ -113,7 +113,7 @@ sub end : ActionClass('RenderView')
 
     # Setup the searchs on the sidebar
     use MusicBrainz::Server::Form::Search::Simple;
-    my $simpleSearch = new MusicBrainz::Server::Form::Search::Simple;
+    my $simpleSearch = new MusicBrainz::Server::Form::Search::External;
     $simpleSearch->field('type')->value($c->session->{last_simple_search} || 'artist');
     $c->stash->{sidebar_search} = $simpleSearch;
 

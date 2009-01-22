@@ -5,7 +5,7 @@ use warnings;
 
 use base 'MusicBrainz::Server::Form';
 
-sub name { 'search_external' }
+sub name { 'search-external' }
 
 sub profile
 {

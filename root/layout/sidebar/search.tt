@@ -1,8 +1,15 @@
 <div id="sidebar_search">
     [% WRAPPER "forms/form.tt" action=c.uri_for('/search/simple')
        quiet=1 method="get" moderation=undef form=sidebar_search %]
-        [% INCLUDE "forms/widget.tt" widget=sidebar_search.field('type') label="Type" %]
-        [% INCLUDE "forms/widget.tt" widget=sidebar_search.field('query') label="Query" %]
+        [% INCLUDE "forms/input.tt" widget=sidebar_search.field('type') form=sidebar_search%]
+        [% INCLUDE "forms/input.tt" widget=sidebar_search.field('query') form=sidebar_search %]
+
+        [%- advanced = sidebar_search.field('enable_advanced') -%]
+        [% INCLUDE "forms/input.tt" widget=advanced form=sidebar_search%]
+        <label for="[% form_id(sidebar_search, advanced.name) -%]" class="inline">
+            [% doc_link('TextSearchSyntax', 'Advanced Query') %]
+        </label>
+
         [% INCLUDE "forms/submit.tt" label="Search" %]
     [% END %]
 </div>

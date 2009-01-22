@@ -1,5 +1,5 @@
 [%- name = "${widget.full_name}"
-    id = "id_$name"
+    id = form_id(form, name)
     type = widget.widget
     value = widget.input || widget.value
     error_class = widget.errors.size ? "error" : ""

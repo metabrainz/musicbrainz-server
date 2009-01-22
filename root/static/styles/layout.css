@@ -134,14 +134,9 @@ div.status_ok {
 }
 
 #sidebar input, #sidebar select {
-    width: 50pt;
     background: #eee;
     border: 1px inset;
     font-size: 8pt;
-}
-
-#sidebar .labelRight {
-    margin-left: 32pt;
 }
 
 #sidebar img {
@@ -200,6 +195,10 @@ div.status_ok {
 #sidebar table.details td {
     padding-left: 5pt;
 }
+
+#form-search-external-type,
+#form-search-external-query { width: 112px; }
+#sidebar_search .row { text-align: center; }
 
 /*
  * Content
@@ -266,22 +265,6 @@ table.details th {
 
 /* Nested details tables look dumb */
 table.details table.details th { font-weight: normal; }
-
-#sidebar_search label {
-    float: left;
-    width: 30pt;
-    margin-right: 2pt;
-    text-align: right;
-}
-
-#sidebar_search input,
-#sidebar_search select {
-    width: 50pt;
-}
-
-#sidebar_search .submit {
-    width: auto;
-}
 
 .paginator ul {
     margin: 0;
