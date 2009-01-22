@@ -41,8 +41,7 @@
             Unless you want to be testing the latest and greatest MusicBrainz features
             you probably want to go to the <a href="http://musicbrainz.org/">
             <img src="[% c.uri_for('/static/images/icon/extlink.gif') %]" alt="External Website" /> 
-            musicbrainz.org main
-            server</a>.
+            MusicBrainz main server</a>.
         </p>
         [% END %]
     [% END %]
@@ -52,7 +51,7 @@
         <p>
             If you want to edit the MusicBrainz data, you will need to go to the
             <a href="http://musicbrainz.org/">
-            <img src="[% c.uri_for('/images/icon/extlink.gif') %]" alt="" width="12" /> MusicBrainz.org main server</a>.
+            <img src="[% c.uri_for('/images/icon/extlink.gif') %]" alt="" width="12" /> MusicBrainz main server</a>.
         </p>
         [% END %]
     [% END %]

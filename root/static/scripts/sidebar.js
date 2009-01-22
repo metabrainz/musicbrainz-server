@@ -1,33 +1,54 @@
-/*----------------------------------------------------------------------------\
-|                              Musicbrainz.org                                |
-|                 Copyright (c) 2005 Stefan Kestenholz (keschte)              |
-|-----------------------------------------------------------------------------|
-| This software is provided "as is", without warranty of any kind, express or |
-| implied, including  but not limited  to the warranties of  merchantability, |
-| fitness for a particular purpose and noninfringement. In no event shall the |
-| authors or  copyright  holders be  liable for any claim,  damages or  other |
-| liability, whether  in an  action of  contract, tort  or otherwise, arising |
-| from,  out of  or in  connection with  the software or  the  use  or  other |
-| dealings in the software.                                                   |
-| - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - |
-| GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt |
-| Permits anyone the right to use and modify the software without limitations |
-| as long as proper  credits are given  and the original  and modified source |
-| code are included. Requires  that the final product, software derivate from |
-| the original  source or any  software  utilizing a GPL  component, such  as |
-| this, is also licensed under the GPL license.                               |
-|                                                                             |
-| $Id$
-\----------------------------------------------------------------------------*/
-
-mb.log.scopeStart("Configuring sidebar...");
-mb.log.enter("sidebar.js", "__init");
-if (mb.ui && mb.sidebar) {
-	var obj;
-	if ((obj = mb.ui.get("sidebar-togglecell")) != null) {
-		obj.innerHTML = mb.sidebar.getUI();
-	}
-	mb.sidebar.init(); 
+/**************************************************
+ *  Adds the show / hide sidebar functionality
+ *************************************************/
+// Store selection in cookie, turn on/off the sidebar
+function flipSidebar() {
+    $(".toggle").toggle();
+        switch($.cookie('sidebar'))
+        {
+            default:
+            case 'on':
+                $.cookie('sidebar', 'off');
+                $('#content').css("margin-left","0px");
+                $('#content').css("margin-top","15px");
+                break;
+            case 'off':
+                $.cookie('sidebar', 'on');
+                $('#content').css("margin-left","140px");
+                $('#content').css("margin-top","0px");
+        }
 }
-mb.log.exit();
-
+$(document).ready(function(){
+    // Check that the sidebar is turned on in user
+    // preferences).  Does nothing if it is off.
+    if ($('#sidebar').length)
+        $('#id_toggle_target').append(' \
+            <div id="id_hide_toggle" class="toggle"> \
+                <a href="javascript:flipSidebar()"> \
+                    &nbsp;Hide Sidebar \
+                </a> \
+            </div> \
+            <div id="id_show_toggle" style="display:none;" class="toggle"> \
+                <a href="javascript:flipSidebar()"> \
+                    &nbsp;Show Sidebar \
+                </a> \
+            </div> \
+        ');
+    // Make show / hide selection persistent
+    switch($.cookie('sidebar'))
+    {
+        default:
+            // Set the cookie the first time
+                $.cookie('sidebar', 'on');
+            break;
+        case 'off':
+            // Turn on the sidebar, swap toggle text
+            $(".toggle").toggle();
+            $('#content').css("margin-left","0px");
+            $('#content').css("margin-top","15px");
+            break;
+            // Turn off the sidebar, swap toggle text
+        case 'on':
+            $('#content').css("margin-top","0px");
+    }
+});

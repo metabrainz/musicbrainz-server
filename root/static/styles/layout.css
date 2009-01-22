@@ -124,13 +124,14 @@ div.status_ok {
     margin-bottom: 20pt;
 }
 
+#sidebar .sidebar-toggle {
+    border-bottom: 1px solid #000;
+    padding: 2pt;
+}
+
 #sidebar .sidebar-module {
     border-bottom: 1px solid #000;
     padding: 6pt;
-}
-
-#sidebar label {
-    font-size: 8pt;
 }
 
 #sidebar input, #sidebar select {
@@ -199,6 +200,11 @@ div.status_ok {
 #form-search-external-type,
 #form-search-external-query { width: 112px; }
 #sidebar_search .row { text-align: center; }
+
+#sidebar .sidebar-toggle {
+    border-bottom: 1px solid #000;
+    padding: 2pt;
+}
 
 /*
  * Content

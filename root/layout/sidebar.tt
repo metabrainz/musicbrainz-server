@@ -1,13 +1,30 @@
 <div id="sidebar">
-    [% INCLUDE "layout/sidebar/sites.tt" WRAPPER "layout/sidebar/section.tt" title="MusicBrainz sites" %]
-    [% IF c.user_exists %]
-        [% INCLUDE "layout/sidebar/user.tt" WRAPPER "layout/sidebar/section.tt" title=c.user.name link="${c.uri_for('/user/')}" %]
-    [% ELSE %]
-        [% INCLUDE "layout/sidebar/login.tt" WRAPPER "layout/sidebar/section.tt" title="Not Logged In" link="${c.uri_for('/user/login')}" %]
-    [% END %]
-    [% INCLUDE "layout/sidebar/search.tt" WRAPPER "layout/sidebar/section.tt" title="Search" %]
-    [% INCLUDE "layout/sidebar/top-voters.tt"
-        WRAPPER "layout/sidebar/section.tt" title="Top Voters" link=c.uri_for('/statistics/top_editors') %]
-    [% INCLUDE "layout/sidebar/stats.tt" WRAPPER "layout/sidebar/section.tt" title="Stats" %]
-    [% INCLUDE "layout/sidebar/partners.tt" WRAPPER "layout/sidebar/section.tt" title="Partners" link="http://metabrainz.org/about/supporters.html" %]
+    [% INCLUDE "layout/sidebar/toggle.tt" %]
+    <span class="toggle">
+        [% INCLUDE "layout/sidebar/sites.tt"
+            WRAPPER "layout/sidebar/section.tt" title="MusicBrainz sites" %]
+
+        [% IF c.user_exists %]
+            [% INCLUDE "layout/sidebar/user.tt"
+                WRAPPER "layout/sidebar/section.tt" title=c.user.name link="${c.uri_for('/user/')}" %]
+        [% ELSE %]
+            [% INCLUDE "layout/sidebar/login.tt"
+                WRAPPER "layout/sidebar/section.tt" title="Not Logged In"
+                    link="${c.uri_for('/user/login')}" %]
+        [% END %]
+
+        [% INCLUDE "layout/sidebar/search.tt"
+            WRAPPER "layout/sidebar/section.tt" title="Search" %]
+
+        [% INCLUDE "layout/sidebar/top-voters.tt"
+            WRAPPER "layout/sidebar/section.tt" title="Top Voters"
+                link=c.uri_for('/statistics/top_editors') %]
+
+        [% INCLUDE "layout/sidebar/stats.tt"
+            WRAPPER "layout/sidebar/section.tt" title="Stats" %]
+
+        [% INCLUDE "layout/sidebar/partners.tt"
+            WRAPPER "layout/sidebar/section.tt" title="Partners"
+                link="http://metabrainz.org/about/supporters.html" %]
+    </span>
 </div>
