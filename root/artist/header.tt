@@ -7,6 +7,7 @@
     { link => c.entity_url(artist, 'google'), text => "Search Google" }
     { link => c.entity_url(artist, 'similar'), text => "Similar Artists" },
     { link => c.entity_url(artist, 'tags'), text => "Tags" },
+    { link => c.uri_for('/moderation/entity/artist', artist.mbid), text => 'View Edits' }
 ] -%]
 
 <div class="entity_header">

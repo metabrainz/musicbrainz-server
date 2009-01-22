@@ -23,6 +23,7 @@
         hide => !show_relationships,
     },
     { link => c.entity_url(release, 'google'), text => "Search Google" },
+    { link => c.uri_for('/moderation/entity/release', release.mbid), text => 'View edits' }
 ] -%]
 
 <div class="infoLinks">

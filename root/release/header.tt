@@ -4,6 +4,7 @@
     { link => c.entity_url(release, 'relations'), text => "Relationships" },
     { link => c.entity_url(release, 'tags'), text => "Tags" },
     { link => c.entity_url(release, 'google'), text => "Search Google" },
+    { link => c.uri_for('/moderation/entity/release', release.mbid), text => 'View Edits' }
 ] -%]
 
 <div class="entity_header">
