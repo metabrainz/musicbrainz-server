@@ -1532,10 +1532,10 @@ Editor '${\ $voter->name }' has voted against your edit #${\ $self->id }.
 ------------------------------------------------------------------------
 If you would like to respond to this vote, please add your note at:
 $url
-Please do not respond to this e-mail.
+Please do not respond to this email.
 
-This e-mail is only sent for the first vote against your edit, not for each
-one. If you would prefer not to receive these e-mails, please adjust your
+This email is only sent for the first vote against your edit, not for each
+one. If you would prefer not to receive these emails, please adjust your
 preferences accordingly at http://${\ DBDefs::WEB_SERVER() }/user/preferences.html
 EOF
 

@@ -62,8 +62,8 @@
 <fieldset>
     <legend>E-mailing other editors</legend>
     [% fields = [
-        { widget = 'reveal_address_when_mailing', label = 'Reveal my e-mail address checked by default' },
-        { widget = 'sendcopy_when_mailing', label = 'Send me a copy to my e-mail address' },
+        { widget = 'reveal_address_when_mailing', label = 'Reveal my email address checked by default' },
+        { widget = 'sendcopy_when_mailing', label = 'Send me a copy to my email address' },
     ] %]
     [% PROCESS fields %]
 </fieldset>

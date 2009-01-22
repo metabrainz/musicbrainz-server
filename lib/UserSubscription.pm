@@ -587,7 +587,7 @@ sub RemoveSubscriptionsForModerator
 
 ################################################################################
 # The Subscription Bot.  This is what checks for edits on your
-# subscribed artists, then e-mails you to let you know.
+# subscribed artists, then emails you to let you know.
 ################################################################################
 
 sub ProcessAllSubscriptions
@@ -665,12 +665,12 @@ sub _ProcessUserSubscriptions
 
 	unless ($user->email and $user->email_confirmation_date)
 	{
-		printf "Skipping subscriptions for user #%d '%s' because they have no confirmed e-mail address\n",
+		printf "Skipping subscriptions for user #%d '%s' because they have no confirmed email address\n",
 			$user->id, $user->name
 			if $self->{'verbose'};
 		# Instead of returning here, we just empty the list of subscriptions.
 		# Thus we don't go to all the trouble of looking for edits, and
-		# we don't send an e-mail, but we *do* update the "lastmodsent" values
+		# we don't send an email, but we *do* update the "lastmodsent" values
 		# for this user.
 		@$subs = ();
 		@$editorsubs = ();
@@ -884,7 +884,7 @@ EOF
 
 	if ($self->{'dryrun'})
 	{
-		printf "The following e-mail would be sent to #%d '%s':\n",
+		printf "The following email would be sent to #%d '%s':\n",
 			$user->id, $user->name;
 		$mail->print;
 		return;

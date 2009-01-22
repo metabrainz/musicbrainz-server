@@ -237,7 +237,7 @@ sub _Close
 		$self->_PrepareMail;
 		my $candidate = $self->{"candidate_user"};
 		$candidate->MakeAutoModerator;
-		# Now the database has been updated, send the e-mail
+		# Now the database has been updated, send the email
 		$self->SendAcceptedEmail;
 	} else {
 		$self->SendRejectedEmail;

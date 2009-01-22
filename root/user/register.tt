@@ -18,19 +18,19 @@
     [% END %]
 
     <h3>We respect your privacy</h3>
-    <p>Rest assured that we will not pass your e-mail address on to anyone, including other MusicBrainz users, without your most explicit consent. At any time you can fill in your e-mail address if it's currently blank, remove it if it's currently filled in or change from one address to another.</p>
+    <p>Rest assured that we will not pass your email address on to anyone, including other MusicBrainz users, without your most explicit consent. At any time you can fill in your email address if it's currently blank, remove it if it's currently filled in or change from one address to another.</p>
     <p>[%- doc_link('MusicBrainzPrivacyPolicy', 'Read on for the full MusicBrainz Privacy Policy') -%]</p>
 
-    <h3>What your e-mail address will <em>not</em> be used for</h3>
+    <h3>What your email address will <em>not</em> be used for</h3>
     <p>We won't send you any newsletters, promotional mailings, etc. If you're interested in receiving information from the MusicBrainz staff and communicating with other users, [%- doc_link('MailingList', 'please subscribe to our mailing lists') -%].</p>
 
-    <h3>What your e-mail address <em>will</em> be used for</h3>
-    <p>Since some users have unfortunately made lots of questionable edits and could not be contacted to fix their mistakes, we now require a confirmed (i.e. working) e-mail address for all edits made to the database.</p>
+    <h3>What your email address <em>will</em> be used for</h3>
+    <p>Since some users have unfortunately made lots of questionable edits and could not be contacted to fix their mistakes, we now require a confirmed (i.e. working) email address for all edits made to the database.</p>
     <ul>
-        <li>When you enter your e-mail address, other editors will be able to send messages to you (likewise, you will be able to send messages to them).</li>
-        <li>Any notes attached to your edits will be e-mailed to you. This enables you to remove, correct or clarify edits which will otherwise be rejected.</li>
+        <li>When you enter your email address, other editors will be able to send messages to you (likewise, you will be able to send messages to them).</li>
+        <li>Any notes attached to your edits will be emailed to you. This enables you to remove, correct or clarify edits which will otherwise be rejected.</li>
         <li>You may choose to "subscribe" (for free) to your favourite artists, in which case MusicBrainz will send you a daily list of edits made to the artists you have subscribed to.</li>
-        <li>In all cases your e-mail address will not be revealed to other MusicBrainz users - they'll only see your user name.</li>
+        <li>In all cases your email address will not be revealed to other MusicBrainz users - they'll only see your user name.</li>
     </ul>
 
 [% END %]

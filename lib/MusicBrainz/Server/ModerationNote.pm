@@ -149,7 +149,7 @@ sub Insert
 		$text,
 	);
 
-	# Should we e-mail the added note to the original moderator?
+	# Should we email the added note to the original moderator?
 	return if $opts{'nosend'};
 
 	# People we might send this note to.
@@ -166,7 +166,7 @@ sub Insert
 		# Not if it's them that just added the note.
 		next if $noteuid == $moderation->moderator;
 
-		# Also not unless they've got a confirmed e-mail address
+		# Also not unless they've got a confirmed email address
 		next unless $mod_user->email and $mod_user->email_confirmation_date;
 
 		$note_user->SendModNoteToUser(

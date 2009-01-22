@@ -39,8 +39,8 @@ sub UserStuff::SendFirstVerificationEmail
 	my $body = fill("", "", <<EOF) . "\n"
 Hello,
 
-This e-mail is about your account at MusicBrainz, "$name".
-According to your account details your e-mail address is
+This email is about your account at MusicBrainz, "$name".
+According to your account details your email address is
 $email,
 so we're just sending you this message so that we can confirm
 that this address is correct.
@@ -55,7 +55,7 @@ If clicking on the link does not work, you may need to cut and paste
 the link into your web browser manually.
 
 If you do not verify your address within 30 days, we will remove the
-e-mail address from your account details.  Your account will still be
+email address from your account details.  Your account will still be
 active though, so you can continue to use MusicBrainz.
 
 Thanks for using MusicBrainz!

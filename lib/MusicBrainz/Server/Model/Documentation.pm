@@ -138,7 +138,7 @@ sub fetch_page
             $page =~ s/&lt;code&gt;/<code>/ig;
             $page =~ s/&lt;\/code&gt;/<\/code>/ig;
 
-            # Obfuscate e-mail addresses
+            # Obfuscate email addresses
             $page =~ s/(\w+)\@(\w+)/$1&#x0040;$2/g;
             $page =~ s/mailto:/mailto&#x3a;/g;
 

@@ -167,7 +167,7 @@ sub _send_confirmation_email
         ],
         to           => $email,
         from         => 'MusicBrainz <webserver@musicbrainz.org>',
-        subject      => 'Please verify your e-mail address',
+        subject      => 'Please verify your email address',
         content_type => 'text/plain',
         template     => 'email/confirm_address.tt',
     };
@@ -433,7 +433,7 @@ sub contact : Local Args(1) Form
     }
 
     unless ($user->CheckEMailAddress) {
-        die "User has not got an e-mail address attached to their account";
+        die "User has not got an email address attached to their account";
     }
 
     $c->stash->{user} = $user;

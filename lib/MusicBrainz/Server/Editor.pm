@@ -779,7 +779,7 @@ sub IsAccountAdmin
 }
 
 # User can vote if they have at least 10 accepted edits and a confirmed
-# e-mail address.
+# email address.
 sub CanVote
 {
 	my $session = GetSession();
@@ -870,7 +870,7 @@ EOF
 		$body .= <<EOF;
 If you would like to respond, please reply to this message or visit
 http://${\ DBDefs::WEB_SERVER() }/user/mod_email.html?uid=${\ $self->id } to send editor
-'$fromname' an e-mail.
+'$fromname' an email.
 EOF
 	
 	} 
@@ -880,8 +880,8 @@ EOF
 		$body .= <<EOF;
 If you would like to respond, please visit
 http://${\ DBDefs::WEB_SERVER() }/user/mod_email.html?uid=${\ $self->id } to send editor
-'$fromname' an e-mail.
-Please do not respond to this e-mail.
+'$fromname' an email.
+Please do not respond to this email.
 EOF
 	
 	} 
@@ -889,9 +889,9 @@ EOF
 	{
 	
 		$body .= <<EOF;
-Unfortunately editor '$fromname' has not supplied their e-mail address,
+Unfortunately editor '$fromname' has not supplied their email address,
 therefore you cannot reply to them.
-Please do not respond to this e-mail.
+Please do not respond to this email.
 EOF
 	}
 
@@ -908,7 +908,7 @@ EOF
 	);
     $mail->attr("content-type.charset" => "utf-8");
 
-	# if the user choose to reveal their e-mail address, override
+	# if the user choose to reveal their email address, override
 	# the Nobody default settings.
 	if ($revealaddress)
 	{
@@ -925,7 +925,7 @@ This is a copy of the message you sent to MusicBrainz editor '$toname':
 ------------------------------------------------------------------------
 $message
 ------------------------------------------------------------------------
-Please do not respond to this e-mail.
+Please do not respond to this email.
 EOF
 
 		my $mail = MusicBrainz::Server::Mail->new(
@@ -963,7 +963,7 @@ $note_text
 ------------------------------------------------------------------------
 If you would like to reply to this note, please add your note at:
 http://${\ DBDefs::WEB_SERVER() }/show/edit/?editid=$editid
-Please do not respond to this e-mail.
+Please do not respond to this email.
 EOF
 
 	require MusicBrainz::Server::Mail;
@@ -1011,9 +1011,9 @@ The original editor was '${\ $edit_user->name }'.
 
 If you would like to reply to this note, please add your note at:
 http://${\ DBDefs::WEB_SERVER() }/show/edit/?editid=$editid
-Please do not respond to this e-mail.
+Please do not respond to this email.
 
-If you would prefer not to receive these e-mails, please adjust your
+If you would prefer not to receive these emails, please adjust your
 preferences accordingly at http://${\ DBDefs::WEB_SERVER() }/user/preferences.html
 EOF
 
@@ -1054,13 +1054,13 @@ sub SendFormattedEmail
 
 	my $from = $opts{'from'} || 'noreply@musicbrainz.org';
 	my $to = $opts{'to'} || $self->email;
-	$to or die "No e-mail address available for user " . $self->name;
+	$to or die "No email address available for user " . $self->name;
 
 	require MusicBrainz::Server::Mail;
 	my $mailer = MusicBrainz::Server::Mail->open(
 		$from,
 		$to,
-	) or die "Could not send the e-mail. Please try again later.";
+	) or die "Could not send the email. Please try again later.";
 
 	if ($opts{'entity'})
 	{
@@ -1080,7 +1080,7 @@ sub SendFormattedEmail
 	}
 
 	my $ok = close $mailer;
-	die "Failed to send the e-mail. Please try again later."
+	die "Failed to send the email. Please try again later."
         unless $ok;
 }
 

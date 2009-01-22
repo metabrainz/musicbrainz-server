@@ -33,7 +33,7 @@
 
     [% IF (not viewing_own_profile) %]
         [% WRAPPER property name="Contact"%]
-            <a href="[% c.uri_for('/user/contact', user.name) %]">Send e-mail</a>
+            <a href="[% c.uri_for('/user/contact', user.name) %]">Send email</a>
         [% END %]
     [% END %]
 

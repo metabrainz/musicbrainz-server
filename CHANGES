@@ -31,7 +31,7 @@ Release 2007-10-07:
     * Guess Case: Don't convert '3 In' (with a space) to '3"'. (#2191)
     * Guess Case: Expand Volume (Vol.) and Part (Pt.) numbers with subtitles. (#2805)
     * Wrong wording in private message copy (when using the option
-     "Send me a copy to my e-mail address"). (#2826)
+     "Send me a copy to my email address"). (#2826)
     * Annotation history: show edits link broken. (#2835)
     * Tagger links on artist view are malformed. (#2819)
     * HTML error on front page. (#2796)
@@ -60,7 +60,7 @@ Release 2007-04-01:
    * JavaScript toolbox for quick AR adding.
    * Adding an artist with 'feat.' in the name will give the user
      an warning. (#787)
-   * Updated e-mail templates. (#2247)
+   * Updated email templates. (#2247)
    * Added a report to show bad Amazon ASIN URLs. (#2525)
    * Track annotations. (#1259)
    * Allow adding an edit note from the "Edit annotation" page. (#2150)
@@ -90,7 +90,7 @@ Release 2007-04-01:
    * When "end date" is incorrect the error message is still about
      "begin date" (#2518)
    * Fixed JavaScript Amazon URL parsing. (#2319, #2524)
-   * Rephrased the "Reveal my e-mail address" option. (#2438)
+   * Rephrased the "Reveal my email address" option. (#2438)
    * Tagger icon shows up before new release is submitted. (#2444)
 
 For a complete list of fixes that went into this release, please see this link:
