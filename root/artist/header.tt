@@ -27,7 +27,8 @@
             [% end_date_name(artist.type) %]: [% date(artist.end_date) -%]<br />
         [%- END -%]
 
-        Type: [%- artist_type(artist.type) -%], [%- data_quality(artist.quality) -%] data quality<br />
+        Type: [%- artist_type(artist.type) || 'unknown' -%],
+        [%- data_quality(artist.quality) -%] data quality<br />
     </div>
 
     <div class="infoLinks"> Info: [% INCLUDE "components/piped-list.tt" list=info_links %]</div>
