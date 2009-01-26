@@ -36,6 +36,13 @@ sub new
 	bless {
 		dbh	=> $dbh,
 	}, ref($type) || $type;
+}
+
+sub dbh
+{
+    my $self = shift;
+    if (@_) { $self->{dbh} = shift; }
+    return $self->{dbh};
 }  
 
 sub GetError

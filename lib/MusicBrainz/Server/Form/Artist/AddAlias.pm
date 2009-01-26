@@ -10,7 +10,7 @@ sub create_for
     my ($self, $artist) = @_;
 
     $self->context->model('Artist')->add_alias(
-        $self->item,
+        $artist,
         $self->value('alias'),
         $self->value('edit_note')
     );

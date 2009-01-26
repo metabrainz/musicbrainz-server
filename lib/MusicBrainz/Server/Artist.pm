@@ -248,7 +248,6 @@ sub Insert
     $self->sort_name($sort_name);
 
     my $sql = Sql->new($self->dbh);
-    my $artist;
 
     if (!$self->resolution)
     {
@@ -269,7 +268,7 @@ sub Insert
 			table => 'ArtistAlias'
 		);
 		
-		$artist = $alias->Resolve($name);
+		my $artist = $alias->Resolve($name);
 		return $artist
 			if defined $artist;
     }
@@ -302,7 +301,7 @@ sub Insert
     # TODO This should be in a trigger if we ever get a real DB.
     require SearchEngine;
     my $engine = SearchEngine->new($self->dbh, 'artist');
-    $engine->AddWordRefs($artist, $self->{name});
+    $engine->AddWordRefs($self->id, $self->{name});
 
     return $self->id;
 }
