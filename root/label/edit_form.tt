@@ -20,18 +20,18 @@
 </ul>
 
 [% WRAPPER 'forms/form.tt' %]
-    [% INCLUDE 'forms/widget.tt' widget=form.field('type') label='Label Type' %]
-    [% INCLUDE 'forms/widget.tt' widget=form.field('name') label='Label Name' %]
-    [% INCLUDE 'forms/widget.tt' widget=form.field('sort_name') label='Sort Name' %]
+    [% INCLUDE 'forms/generic/row.tt' field=form.field('type') label='Label Type' %]
+    [% INCLUDE 'forms/generic/row.tt' field=form.field('name') label='Label Name' %]
+    [% INCLUDE 'forms/generic/row.tt' field=form.field('sort_name') label='Sort Name' %]
 
     [%- IF form.field("resolution").required -%]
-        [%- INCLUDE "forms/widget.tt" widget=form.field("resolution") label="Resolution" -%]
+        [%- INCLUDE "forms/generic/row.tt" field=form.field("resolution") label="Resolution" -%]
     [%- END -%]
 
-    [% INCLUDE 'forms/widget.tt' widget=form.field('label_code') label='Label Code' %]
-    [% INCLUDE 'forms/widget.tt' widget=form.field('country') label='Country' %]
-    [% INCLUDE 'forms/widget.tt' widget=form.field('begin_date') label='Begin Date' %]
-    [% INCLUDE 'forms/widget.tt' widget=form.field('end_date') label='End Date' %]
+    [% INCLUDE 'forms/generic/row.tt' field=form.field('label_code') label='Label Code' %]
+    [% INCLUDE 'forms/generic/row.tt' field=form.field('country') label='Country' %]
+    [% INCLUDE 'forms/generic/row.tt' field=form.field('begin_date') label='Begin Date' %]
+    [% INCLUDE 'forms/generic/row.tt' field=form.field('end_date') label='End Date' %]
     [% INCLUDE 'forms/edit-note.tt' %]
     [% INCLUDE 'forms/submit.tt' label='Enter edit' %]
 [% END %]

@@ -1,5 +1,3 @@
-<div class="row[% right ? ' labelRight' : '' %]">
-    [%- INCLUDE 'forms/label.tt' UNLESS (right OR !label) -%]
-    <div class="input">[%- content -%]</div>
-    [%- INCLUDE 'forms/label.tt' IF (right AND label) -%]
+<div class="row">
+    [%- content -%]
 </div>

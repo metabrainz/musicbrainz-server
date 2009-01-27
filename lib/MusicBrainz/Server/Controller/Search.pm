@@ -263,7 +263,7 @@ sub filter_artist : Form('Search::Query')
 
     if ($c->form_posted)
     {
-        my $id = $c->req->params->{search_id};
+        my $id = $c->req->params->{'search-id'};
         if (defined $id)
         {
             $c->stash->{search_result} = $c->model('Artist')->load($id);
@@ -287,7 +287,7 @@ sub filter_label : Form('Search::Query')
 
     if ($c->form_posted)
     {
-        my $id = $c->req->params->{search_id};
+        my $id = $c->req->params->{'search-id'};
         if (defined $id)
         {
             $c->stash->{search_result} = $c->model('Label')->load($id);

@@ -1,7 +1,7 @@
-[%- IF widget.select_widget == 'radio' -%]
-    [%- FOREACH option IN widget.options -%]
+[%- IF field.select_widget == 'radio' -%]
+    [%- FOREACH option IN field.options -%]
         <input type="radio" id="[% id %]" name="[% name %]"
-               [%- IF widget.value == option.value -%]checked="checked"[%- END -%]
+               [%- IF field.value == option.value -%]checked="checked"[%- END -%]
                value="[% option.value %]" />
         [% option.label %]<br/>
     [%- END -%]
@@ -9,12 +9,12 @@
     <select id="[% id %]"
             name="[% name %]"
             [% extra_attributes %]>
-    [%- UNLESS widget.required -%]
+    [%- UNLESS field.required -%]
         <option value="">[ Please make a selection ]</option>
     [%- END -%]
-    [%- FOREACH option=widget.options -%]
+    [%- FOREACH option=field.options -%]
         <option value="[% option.value %]"
-                [%- IF widget.value == option.value -%]selected="selected"[%- END -%]>
+                [%- IF field.value == option.value -%]selected="selected"[%- END -%]>
             [% option.label %]
         </option>
     [%- END -%]

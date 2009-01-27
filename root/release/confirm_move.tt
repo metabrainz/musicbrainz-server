@@ -9,7 +9,7 @@
 </ul>
 
 [% WRAPPER "forms/form.tt" %]
-    [% INCLUDE "forms/widget.tt" widget=form.field('move_tracks') label="Also change track artists" %]
+    [% INCLUDE "forms/generic/row.tt" field=form.field('move_tracks') label="Also change track artists" %]
     [% INCLUDE "forms/edit-note.tt" %]
     [% INCLUDE "forms/submit.tt" label="Move release" %]
 [% END %]

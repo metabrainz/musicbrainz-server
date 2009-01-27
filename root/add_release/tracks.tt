@@ -28,21 +28,21 @@
 [%- WRAPPER 'forms/form.tt' moderation=1 -%]
     [%- WRAPPER 'forms/fieldset.tt' legend='Release Information' -%]
         [%- entity_link(artist) WRAPPER 'forms/row.tt' label='Artist' -%]
-        [%- INCLUDE 'forms/widget.tt' widget=form.field('title') label='Title' -%]
+        [%- INCLUDE 'forms/generic/row.tt' field=form.field('title') label='Title' -%]
     [%- END -%]
 
     [%- WRAPPER 'forms/fieldset.tt' legend='Tracks' %]
         [%- FOR i=[1..track_count] -%]
-            [%- INCLUDE 'forms/widget.tt' widget=form.field("track_$i") label='Track' -%]
-            [%- INCLUDE 'forms/widget.tt' widget=form.field("artist_$i") label='Artist' -%]
+            [%- INCLUDE 'forms/generic/row.tt' field=form.field("track_$i") label='Track' -%]
+            [%- INCLUDE 'forms/generic/row.tt' field=form.field("artist_$i") label='Artist' -%]
             <br />
         [%- END -%]
     [%- END -%]
 
     [%- WRAPPER 'forms/fieldset.tt' legend='Release Events' -%]
-        [% INCLUDE 'forms/widget.tt' widget=form.field("event_${i}") label='Release Event'
+        [% INCLUDE 'forms/generic/row.tt' field=form.field("event_${i}") label='Release Event'
            FOR i=[1 .. event_count] %]
-        [%- INCLUDE 'forms/widget.tt' widget=form.field("more_events") label='Add more release events' -%]
+        [%- INCLUDE 'forms/generic/row.tt' field=form.field("more_events") label='Add more release events' -%]
     [%- END -%]
 
     <input type="hidden" name="step" value="1" />

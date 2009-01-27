@@ -15,6 +15,6 @@
     </li>
 </ul>
 
-[%- INCLUDE 'forms/widget.tt' widget=form.field('alias') label='Alias'
+[%- INCLUDE 'forms/generic/row.tt' field=form.field('alias') label='Alias'
     WRAPPER 'forms/fieldset.tt' legend='Alias'
     WRAPPER 'forms/form.tt' moderation=1 -%]

@@ -18,9 +18,9 @@
 
 [% WRAPPER "forms/form.tt" moderation=1 %]
     [% WRAPPER "forms/fieldset.tt" legend="URL Details" %]
-        [% INCLUDE "forms/widget.tt" widget=form.field('type') label="Type" %]
-        [% INCLUDE "forms/widget.tt" widget=form.field('url') label="URL" %]
-        [% INCLUDE "forms/widget.tt" widget=form.field('description') label="Description"%]
+        [% INCLUDE "forms/generic/row.tt" field=form.field('type') label="Type" %]
+        [% INCLUDE "forms/generic/row.tt" field=form.field('url') label="URL" %]
+        [% INCLUDE "forms/generic/row.tt" field=form.field('description') label="Description"%]
     [% END %]
 [% END %]
 

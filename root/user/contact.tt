@@ -2,11 +2,11 @@
 [%- WRAPPER 'components/box.tt' header="Email $user.name" -%]
     [%- WRAPPER 'forms/form.tt' -%]
         [%- user.name WRAPPER 'forms/row.tt' label='To' -%]
-        [% INCLUDE 'forms/widget.tt' widget=form.field('subject') label='Subject' -%]
-        [% INCLUDE 'forms/widget.tt' widget=form.field('body') label='Message' -%]
+        [% INCLUDE 'forms/generic/row.tt' field=form.field('subject') label='Subject' -%]
+        [% INCLUDE 'forms/generic/row.tt' field=form.field('body') label='Message' -%]
 
-        [% INCLUDE 'forms/widget.tt' widget=form.field('reveal_address') label='Reveal my email address' -%]
-        [% INCLUDE 'forms/widget.tt' widget=form.field('send_to_self') label='Send a copy to my own email address' -%]
+        [% INCLUDE 'forms/generic/row.tt' field=form.field('reveal_address') label='Reveal my email address' -%]
+        [% INCLUDE 'forms/generic/row.tt' field=form.field('send_to_self') label='Send a copy to my own email address' -%]
 
         [% INCLUDE 'forms/submit.tt' label='Send Message' -%]
     [%- END -%]

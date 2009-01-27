@@ -1,11 +1,13 @@
-[%- name = "${widget.full_name}"
-    id = form_id(form, name)
-    type = widget.widget
-    value = widget.input || widget.value
-    error_class = widget.errors.size ? "error" : ""
-    style = widget.style
-    extra_attributes = "class=\"${style} ${error_class}\""-%]
 
-[%- IF type -%]
-[%- INCLUDE "forms/widgets/${type}.tt" -%]
-[%- ELSE; "Warning: unknown widget type?"; END -%]
+    [%- name = field.full_name ? field.full_name : field;
+        id = form_id(field);
+        type = type || field.widget;
+        value = value || field.input || field.value;
+        class = class _ ' error' IF field.errors.size;
+        extra_attributes = class_html(class);
+    -%]
+
+    [%- IF type -%]
+    [%- INCLUDE "forms/widgets/${type}.tt" -%]
+    [%- ELSE; "Warning: unknown widget type?"; END -%]
+

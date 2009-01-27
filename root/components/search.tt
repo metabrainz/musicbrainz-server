@@ -1,5 +1,5 @@
 [%- WRAPPER "forms/form.tt" quiet=1 -%]
-    [%- INCLUDE "forms/widget.tt" widget=form.field('query') label=search_label -%]
+    [%- INCLUDE "forms/generic/row.tt" field=form.field('query') label=search_label -%]
     [%- INCLUDE "forms/submit.tt" label="Search" %]
 [% END %]
 
@@ -11,11 +11,9 @@
                 or you can refine your query
             </p>
             [%- FOREACH entity=entities -%]
-                [%- WRAPPER 'forms/row.tt' right=1 -%]
-                    <input type="radio" name="search_id" value="[% entity.id %]">
-                    <label for="id_search_[% entity.id %]">
-                        [%- entity_link(entity) %]
-                    </label>
+                [%- WRAPPER 'forms/blank_row.tt' right=1 -%]
+                    [%- INCLUDE 'forms/input.tt' type='radio' field='search-id' value=entity.id -%]
+                    [%- INCLUDE 'forms/label.tt' for='search-id' label=entity_link(entity) -%]
                 [%- END -%]
             [%- END -%]
         [% END %]

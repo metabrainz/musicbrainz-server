@@ -10,10 +10,10 @@
     </ul>
 
     [% WRAPPER "forms/form.tt" %]
-        [% INCLUDE "forms/widget.tt" widget=form.field('username') label="Username" %]
-        [% INCLUDE "forms/widget.tt" widget=form.field('password') label="Password" %]
-        [% INCLUDE "forms/widget.tt" widget=form.field('confirm_password') label="Confirm Password" %]
-        [% INCLUDE "forms/widget.tt" widget=form.field('email') label="Email Address" %]
+        [% INCLUDE "forms/generic/row.tt" field=form.field('username') label="Username" %]
+        [% INCLUDE "forms/generic/row.tt" field=form.field('password') label="Password" %]
+        [% INCLUDE "forms/generic/row.tt" field=form.field('confirm_password') label="Confirm Password" %]
+        [% INCLUDE "forms/generic/row.tt" field=form.field('email') label="Email Address" %]
         [% INCLUDE "forms/submit.tt" label="Create Account" %]
     [% END %]
 

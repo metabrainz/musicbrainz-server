@@ -4,14 +4,14 @@
 [%- WRAPPER 'forms/form.tt' -%]
     <fieldset>
         <legend>Release Type &amp; Status</legend>
-        [%- INCLUDE 'forms/widget.tt' widget=form.field('type') label="Release Type:" -%]
-        [%- INCLUDE 'forms/widget.tt' widget=form.field('status') label="Release Status:" -%]
+        [%- INCLUDE 'forms/generic/row.tt' field=form.field('type') label="Release Type:" -%]
+        [%- INCLUDE 'forms/generic/row.tt' field=form.field('status') label="Release Status:" -%]
     </fieldset>
 
     <fieldset>
         <legend>Release Language</legend>
-        [%- INCLUDE 'forms/widget.tt' widget=form.field('language') label="Language:" -%]
-        [%- INCLUDE 'forms/widget.tt' widget=form.field('script') label="Script:" -%]
+        [%- INCLUDE 'forms/generic/row.tt' field=form.field('language') label="Language:" -%]
+        [%- INCLUDE 'forms/generic/row.tt' field=form.field('script') label="Script:" -%]
 
         [% UNLESS all %]
             <p class="labelRight">

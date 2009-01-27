@@ -4,17 +4,20 @@
     <p>Please login using the form below. Note that the password field <em>is</em> case sensitive.</p>
 
     [% WRAPPER "forms/form.tt" moderation=0 %]
-        [% INCLUDE "forms/widget.tt" widget=form.field('username') label="Username" %]
-        [% INCLUDE "forms/widget.tt" widget=form.field('password') label="Password" %]
+        [% INCLUDE "forms/generic/row.tt" field=form.field('username') label="Username" %]
+        [% INCLUDE "forms/generic/row.tt" field=form.field('password') label="Password" %]
         [% INCLUDE "forms/submit.tt" label="Log In" %]
 
-        [% INCLUDE "forms/widget.tt" widget=form.field('remember_me') label="Log in permanently" %]
-        [% INCLUDE "forms/widget.tt" widget=form.field('single_ip') label="Only from this IP address" %]
+        [% INCLUDE "forms/generic/row.tt" field=form.field('remember_me') label="Log in permanently" %]
+        [% INCLUDE "forms/generic/row.tt" field=form.field('single_ip') label="Only from this IP address" %]
+
+        [% WRAPPER "forms/blank_row.tt" %]
+        <ul>
+            <li><a href="[% c.uri_for('/user/register') %]">Create a new account</a></li>
+            <li><a href="[% c.uri_for('/user/forgotPassword') %]">Forgot your password?</a></li>
+        </ul>
+        [% END %]
     [% END %]
-    <ul>
-        <li><a href="[% c.uri_for('/user/register') %]">Create a new account</a></li>
-        <li><a href="[% c.uri_for('/user/forgotPassword') %]">Forgot your password?</a></li>
-    </ul>
 [% END %]
 
 [% END %]

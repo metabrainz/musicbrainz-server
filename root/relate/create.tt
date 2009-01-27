@@ -4,43 +4,43 @@
     [%- WRAPPER 'forms/fieldset.tt' legend='Relationship' -%]
         [%- entity_link(source)
             WRAPPER 'forms/row.tt' label=source.entity_type -%]
-	[%- INCLUDE 'forms/widget.tt' widget=form.field('type') label='Type' -%]
+	[%- INCLUDE 'forms/generic/row.tt' field=form.field('type') label='Type' -%]
         [%- entity_link(dest)
             WRAPPER 'forms/row.tt' label=dest.entity_type -%]
     [%- END -%]
 
     [%- WRAPPER 'forms/fieldset.tt' legend='Attributes' -%]
-        [%- INCLUDE 'forms/widget.tt' widget=form.field('additional') label='Additional'-%]
+        [%- INCLUDE 'forms/generic/row.tt' field=form.field('additional') label='Additional'-%]
 	<p class="labelRight">
 	  This attribute describes if a particular performance role was considered normal or additional.
 	</p>
 	
-	[%- INCLUDE 'forms/widget.tt' widget=form.field('guest') label='Guest'-%]
+	[%- INCLUDE 'forms/generic/row.tt' field=form.field('guest') label='Guest'-%]
 	<p class="labelRight">
 	  This attribute indicates a 'guest' performance where the performer is not usually part of the band.
 	</p>
 
-	[%- INCLUDE 'forms/widget.tt' widget=form.field('executive') label='Executive'-%]
+	[%- INCLUDE 'forms/generic/row.tt' field=form.field('executive') label='Executive'-%]
 	<p class="labelRight">
 	  For executive producers
 	</p>
 
-	[%- INCLUDE 'forms/widget.tt' widget=form.field('co') label='Co'-%]
+	[%- INCLUDE 'forms/generic/row.tt' field=form.field('co') label='Co'-%]
 	<p class="labelRight">
 	  Co-[role]
 	</p>
 
-	[%- INCLUDE 'forms/widget.tt' widget=form.field('instrument') label='Instrument'-%]
+	[%- INCLUDE 'forms/generic/row.tt' field=form.field('instrument') label='Instrument'-%]
 	<p class="labelRight">
           This attribute describes the possible instruments that can be captured as part of a performance.
 	</p>
 
-	[%- INCLUDE 'forms/widget.tt' widget=form.field('vocals') label='Vocals'-%]
+	[%- INCLUDE 'forms/generic/row.tt' field=form.field('vocals') label='Vocals'-%]
 	<p class="labelRight">
 	  This attribute describes a type of vocal performance.
 	</p>
 
-	[%- INCLUDE 'forms/widget.tt' widget=form.field('orchestra') label='Orchestra'-%]
+	[%- INCLUDE 'forms/generic/row.tt' field=form.field('orchestra') label='Orchestra'-%]
 	<p class="labelRight">
 	  This attribute describes a type of orchestra.
 	</p>
@@ -53,8 +53,8 @@
 	    These dates are optional, and leaving the end date blank indicates that this
 	    relationship is still active today.
 	</p>
-	[%- INCLUDE 'forms/widget.tt' widget=form.field('begin') label="Begin date" -%]
-	[%- INCLUDE 'forms/widget.tt' widget=form.field('end')   label="End date" -%]
+	[%- INCLUDE 'forms/generic/row.tt' field=form.field('begin') label="Begin date" -%]
+	[%- INCLUDE 'forms/generic/row.tt' field=form.field('end')   label="End date" -%]
     [%- END -%]
 [%- END -%]
 [%- END -%]

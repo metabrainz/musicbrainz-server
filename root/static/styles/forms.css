@@ -16,18 +16,6 @@
     border: 1px dotted #ff8888;
 }
 
-#content form input.field_type_duration
-{
-    width: 40pt;
-    text-align: center;
-}
-
-#content form input.field_type_tracknumber
-{
-    width: 20pt;
-    text-align: center;
-}
-
 /*
  * Generic Forms
  */
@@ -39,33 +27,22 @@
 #content form.generic label {
     float: left;
     text-align: right;
-    width: 100pt;
+    width: 90pt;
+    margin-right: 10pt;
 }
 
-#content form.generic div.input,
-#content form.generic .labelRight {
-    margin-left: 110pt;
+#content form.generic div.fields,
+#content form.generic div.no_label,
+#content form.generic ul.errors {
+    margin-left: 100pt;
 }
 
-#content form.generic .labelRight .input {
-    margin-left: 0;
-    display: inline; 
-}
-
-#content form.generic .labelRight label {
+/* Labels that are not the main label for a row (ie, checkbox) */
+#content form.generic .no_label label {
     width: auto;
     float: none;
     text-align: left;
     margin: 0;
-}
-#content form.generic textarea.large {
-    width: 100%;
-    height: 300pt;
-}
-
-#content form.generic select
-{
-    width: 150pt;
 }
 
 #content form fieldset 

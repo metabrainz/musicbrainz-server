@@ -20,7 +20,7 @@
 </ul>
 
 [% WRAPPER 'forms/form.tt' %]
-    [% INCLUDE 'forms/widget.tt' widget=form.field('track_count') label='Track count' %]
+    [% INCLUDE 'forms/generic/row.tt' field=form.field('track_count') label='Track count' %]
     [% INCLUDE 'forms/submit.tt' label='Next' %]
 [% END %]
 [% END %]

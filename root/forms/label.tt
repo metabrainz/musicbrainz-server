@@ -1,3 +1,16 @@
-<label id="label-[% form_id(form, widget.full_name) %]" for="[% form_id(form, widget.full_name) %]" error" : "" %]">
-    [% label | ucfirst %][% UNLESS right; ':'; END %]
-</label>
+[%- classes = class.split('\s+');
+    IF for.form;
+        classes.push(for.required_text);
+        classes.push('error') IF for.errors.size;
+    END;
+-%]
+
+[%- IF for -%]
+    <label id="label-[% form_id(for) %]" for="[% form_id(for) %]" [% class(classes) %]>
+        [% label %]
+    </label>
+[%- ELSE -%]
+    <div class="label">
+        [% label %]
+    </div>
+[%- END -%]

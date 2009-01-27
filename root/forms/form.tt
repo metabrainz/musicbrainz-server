@@ -1,6 +1,5 @@
-[%- DEFAULT method="post" -%]
-<form action="[% action %]" method="[% method %]" [% UNLESS custom %]class="generic"[% END %]>
-    [%- IF (NOT quiet) AND (form.profile.required.size) -%]
+<form action="[% action || c.req.uri %]" method="[% method || 'post' %]" [% UNLESS custom %]class="generic"[% END %]>
+    [%- UNLESS quiet -%]
         <p>Fields that are <span class="required">bold</span> are required.</p>
     [%- END -%]
     [%- IF form.general_errors.size -%]

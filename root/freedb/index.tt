@@ -12,7 +12,7 @@
 [%- WRAPPER 'forms/form.tt' action=c.uri_for('/search/external') method='get' -%]
     [%- WRAPPER 'forms/fieldset.tt' legend='Search' -%]
         <p>Enter the release title of artist name to search for possible releases:</p>
-        [%- INCLUDE 'forms/widget.tt' widget=search.field('query') label='Query' -%]
+        [%- INCLUDE 'forms/generic/row.tt' field=search.field('query') label='Query' -%]
         <input type="hidden" name="type" value="freedb" />
         [%- INCLUDE 'forms/submit.tt' label='Search' -%]
     [%- END -%]
@@ -21,7 +21,7 @@
 [%- WRAPPER 'forms/form.tt' -%]
     [%- WRAPPER 'forms/fieldset.tt' legend='Direct Import' -%]
         <p>Enter the category/id of the CD you want to import (e.g. <code>rock/a10bda0b</code>):</p>
-        [%- INCLUDE 'forms/widget.tt' widget=import.field('query') label='ID' -%]
+        [%- INCLUDE 'forms/generic/row.tt' field=import.field('query') label='ID' -%]
         [%- INCLUDE 'forms/submit.tt' label='Import' -%]
     [%- END -%]
 [%- END -%]

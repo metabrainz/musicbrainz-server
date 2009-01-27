@@ -40,7 +40,7 @@
         [%- entity_link(artist)
                 WRAPPER 'forms/row.tt' label='Artist' -%]
 
-        [%- INCLUDE 'forms/widget.tt' widget=form.field('track') label='Track' -%]
+        [%- INCLUDE 'forms/generic/row.tt' field=form.field('track') label='Track' -%]
     [%- END -%]
 [%- END -%]
 

@@ -11,7 +11,7 @@
     [%- WRAPPER 'components/box.tt' header="Tag this ${entity.entity_type}" -%]
         [%- WRAPPER 'forms/form.tt' -%]
 	    [%- WRAPPER 'forms/fieldset.tt' legend='Tags' -%]
-	        [%- INCLUDE 'forms/widget.tt' widget=form.field('tags') label='Tags' -%]
+	        [%- INCLUDE 'forms/generic/row.tt' field=form.field('tags') label='Tags' -%]
 	        [%- INCLUDE 'forms/submit.tt' label='Tag' -%]
             [%- END -%]
         [%- END -%]

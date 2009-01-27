@@ -23,6 +23,14 @@
     [%- END -%]
 [%- END -%]
 
-[%- MACRO form_id(form, field) BLOCK -%]
-form-[% form.name %]-[% field.replace('_', '-') %]
-[%- END -%]
+[%- MACRO form_id(field)
+    IF field.form;
+        "form-" _ field.form.name _ "-" _ field.name.replace('_', '-');
+    ELSE;
+        "form-$field";
+    END -%]
+
+[%- MACRO class_html(classes)
+    IF classes.size; 'class="' _ classes.join(' ') _ '"';
+    ELSE; '';
+    END -%]

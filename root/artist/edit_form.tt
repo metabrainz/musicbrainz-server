@@ -50,15 +50,15 @@
             </li>
         </ul>
 
-        [%- INCLUDE "forms/widget.tt" widget=form.field("confirmed") label="Yes, I am sure and I know what I am doing." -%]
+        [%- INCLUDE "forms/generic/row.tt" field=form.field("confirmed") label="Yes, I am sure and I know what I am doing." -%]
         [%- END -%]
     [%- END -%]
 
     [%- WRAPPER 'forms/fieldset.tt' legend='Artist Details' -%]
-        [%- INCLUDE "forms/widget.tt" widget=form.field("artist_type") label="Type" -%]
-        [%- INCLUDE "forms/widget.tt" widget=form.field("name") label="Name" -%]
-        [%- INCLUDE "forms/widget.tt" widget=form.field("sortname") label="Sort Name" -%]
-        [%- INCLUDE "forms/widget.tt" widget=form.field("resolution") label="Comment" -%]
+        [%- INCLUDE "forms/generic/row.tt" field=form.field("artist_type") label="Type"-%]
+        [%- INCLUDE "forms/generic/row.tt" field=form.field("name") label="Name"  class="something special"-%]
+        [%- INCLUDE "forms/generic/row.tt" field=form.field("sortname") label="Sort Name" -%]
+        [%- INCLUDE "forms/generic/row.tt" field=form.field("resolution") label="Comment" -%]
     [%- END -%]
 
     [%- WRAPPER 'forms/fieldset.tt' legend='Date Period' -%]
@@ -66,7 +66,7 @@
             Dates are in the format YYYY-MM-DD. Partial dates such as YYYY-MM or just
             YYYY are OK, or you can omit the date entirely.
         </p>
-        [%- INCLUDE "forms/widget.tt" widget=form.field("start") label="Start" -%]
-        [%- INCLUDE "forms/widget.tt" widget=form.field("end") label="End" -%]
+        [%- INCLUDE "forms/generic/row.tt" field=form.field("start") label="Start" -%]
+        [%- INCLUDE "forms/generic/row.tt" field=form.field("end") label="End" -%]
     [%- END -%]
 [% END %]

@@ -6,7 +6,7 @@
       [%- doc_link('AutoEditor', 'auto editor') -%]
       status. You can enable them any time again.
     </p>
-    [%- INCLUDE 'forms/widget.tt' widget=form.field('as_auto_editor')
+    [%- INCLUDE 'forms/generic/row.tt' field=form.field('as_auto_editor')
         label='Enable auto editor priviliges' -%]
 [%- END -%]
 [%- END -%]

@@ -8,9 +8,9 @@
 </ul>
 
 [% WRAPPER "forms/form.tt" %]
-    [% INCLUDE "forms/widget.tt" widget=form.field('email') label="E-mail address" %]
-    [% INCLUDE "forms/widget.tt" widget=form.field('homepage') label="Homepage" %]
-    [% INCLUDE "forms/widget.tt" widget=form.field('biography') label="Biography" %]
+    [% INCLUDE "forms/generic/row.tt" field=form.field('email') label="E-mail address" %]
+    [% INCLUDE "forms/generic/row.tt" field=form.field('homepage') label="Homepage" %]
+    [% INCLUDE "forms/generic/row.tt" field=form.field('biography') label="Biography" %]
     [% INCLUDE "forms/submit.tt" label="Update Profile" %]
 [% END %]
 
