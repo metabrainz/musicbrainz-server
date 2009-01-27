@@ -1,12 +1,12 @@
 [% BLOCK fields %]
-    [% FOREACH field=fields %]
-        [%- widget = form.field(field.widget) -%]
+    [% FOREACH pref=fields %]
+        [%- field = form.field(pref.widget) -%]
         <p>
-        [%- IF widget.widget == 'checkbox' -%]
+        [%- IF field.widget == 'checkbox' -%]
             [%- INCLUDE "forms/input.tt" -%]
-            [%- INCLUDE 'forms/label.tt' label=field.label right=1 -%]
+            [%- INCLUDE 'forms/label.tt' label=pref.label for=field -%]
         [%- ELSE -%]
-            [%- INCLUDE 'forms/label.tt' label=field.label -%]
+            [%- INCLUDE 'forms/label.tt' for=field label=pref.label -%]
             [%- INCLUDE "forms/input.tt" -%]
         [%- END -%]
         </p>
