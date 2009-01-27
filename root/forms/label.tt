@@ -1,4 +1,5 @@
-[%- classes = class.split('\s+');
+[%-
+    classes = [ class.split('\s+') ];
     IF for.form;
         classes.push(for.required_text);
         classes.push('error') IF for.errors.size;
@@ -6,7 +7,7 @@
 -%]
 
 [%- IF for -%]
-    <label id="label-[% form_id(for) %]" for="[% form_id(for) %]" [% class(classes) %]>
+    <label id="label-[% form_id(for) %]" for="[% form_id(for) %]" [% class_html(classes) %]>
         [% label %]
     </label>
 [%- ELSE -%]
