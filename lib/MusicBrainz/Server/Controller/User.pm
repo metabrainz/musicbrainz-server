@@ -55,20 +55,19 @@ sub login : Private
     return 1
         if $c->user_exists;
 
+    $c->log->warn("No user, will redirect to " . $c->session->{__login_dest});
+
     use MusicBrainz::Server::Form::User::Login;
-    my $form = $self->form(MusicBrainz::Server::Form::User::Login->new());
-    $c->stash->{template} = 'user/login.tt';
-    $c->stash->{form} = $self->form;
-    $c->session->{__login_dest} = $c->req->uri
-        unless defined $c->session->{__login_dest};
+    my $form = $self->form(MusicBrainz::Server::Form::User::Login->new);
+
+    $c->stash->{template}         = 'user/login.tt';
+    $c->stash->{form}             = $self->form;
+    $c->session->{__login_dest} ||= $c->req->uri;
 
     $c->detach unless $self->submit_and_validate($c);
 
-    my ($username, $password) = ( $form->value("username"),
-                                  $form->value("password") );
-
-    if( !$c->authenticate({ username => $username,
-                            password => $password }) )
+    if( !$c->authenticate({ username => $form->value("username"),
+                            password => $form->value("password") }) )
     {
         $form->add_general_error('Username/password combination invalid');
         $c->detach;
@@ -83,10 +82,7 @@ sub login : Private
         }
     }
     
-    my $redir = $c->session->{__login_dest};
-    $c->session->{__login_dest} = undef;
-    
-    $c->response->redirect($redir);
+    $c->response->redirect(delete $c->session->{__login_dest});
     $c->detach;
 }
 
@@ -97,8 +93,16 @@ sub login_form : Local Path('login')
     $c->detach('/user/profile', [ $c->user->name ])
         if $c->user_exists;
 
-    $c->session->{__login_dest} = $c->req->referer
-        unless defined $c->session->{__login_dest};
+    unless (defined $c->session->{__login_dest})
+    {
+        # Only redirect to referer if it came from $base
+        # (the hostname of this server)
+        my $base    = $c->req->base;
+        my $referer = $c->req->referer;
+
+        $c->session->{__login_dest} = $referer =~ $base
+            ? $referer : $c->uri_for('/')
+    }
 
     $c->forward('/user/login');
 }
