@@ -15,7 +15,7 @@ sub input_to_value
     $self->value(MusicBrainz::Server::Track::UnformatTrackLength($self->input));
 }
 
-sub style { 'field_type_duration' }
+sub style { 'duration' }
 
 sub validate
 {

@@ -2,7 +2,7 @@
     id = form_id(field);
     type = type || field.widget;
     value = value || field.input || field.value;
-    class = class _ ' error' IF field.errors.size;
+    class = field.errors.size ? "$class error" : class;
     extra_attributes = class_html(class);
 -%]
 

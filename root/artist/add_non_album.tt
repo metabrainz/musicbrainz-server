@@ -13,7 +13,7 @@
     <li>
         <strong style="color: red;">Important!</strong>
         Non-album tracks are designed for <strong>tracks that have not been released
-        on ANY [%- doc_link("Release", "release") -%]
+        on ANY [%- doc_link("Release", "release") -%]</strong>
     </li>
     <li>
         Demo tracks and promotional tracks that have never been released on a release
@@ -37,10 +37,13 @@
 
 [%- WRAPPER 'forms/form.tt' moderation=1 -%]
     [%- WRAPPER 'forms/fieldset.tt' legend='Tracks' -%]
-        [%- entity_link(artist)
-                WRAPPER 'forms/row.tt' label='Artist' -%]
-
-        [%- INCLUDE 'forms/generic/row.tt' field=form.field('track') label='Track' -%]
+        [%- WRAPPER 'forms/row.tt' -%]
+            [%- INCLUDE 'forms/label.tt' label='Artist' -%]
+            <div class="fields">[% entity_link(artist) %]</div>
+        [%- END -%]
+        [%- WRAPPER 'forms/row.tt' -%]
+            [%- INCLUDE 'forms/generic/row.tt' field=form.field('track') label='Track' -%]
+        [%- END -%]
     [%- END -%]
 [%- END -%]
 
