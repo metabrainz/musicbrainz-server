@@ -1,13 +1,12 @@
+[%- name = field.full_name ? field.full_name : field;
+    id = form_id(field);
+    type = type || field.widget;
+    value = value || field.input || field.value;
+    class = class _ ' error' IF field.errors.size;
+    extra_attributes = class_html(class);
+-%]
 
-    [%- name = field.full_name ? field.full_name : field;
-        id = form_id(field);
-        type = type || field.widget;
-        value = value || field.input || field.value;
-        class = class _ ' error' IF field.errors.size;
-        extra_attributes = class_html(class);
-    -%]
-
-    [%- IF type -%]
+[%- IF type -%]
     [%- INCLUDE "forms/widgets/${type}.tt" -%]
-    [%- ELSE; "Warning: unknown widget type?"; END -%]
+[%- ELSE; "Warning: unknown widget type?"; END -%]
 
