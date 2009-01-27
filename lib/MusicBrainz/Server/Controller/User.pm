@@ -103,6 +103,14 @@ sub login_form : Local Path('login')
     }
 
     $c->forward('/user/login');
+
+    if ($c->user_exists)
+    {
+        # As strange as this condition appears, it happens
+        # if users clicks login while being on the login page
+        $c->response->redirect($c->uri_for('/'));
+        $c->detach;
+    }
 }
 
 =head2 register
