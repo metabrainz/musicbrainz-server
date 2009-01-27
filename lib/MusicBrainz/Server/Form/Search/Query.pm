@@ -5,6 +5,8 @@ use base 'MusicBrainz::Server::Form';
 use strict;
 use warnings;
 
+sub name { 'search-query' }
+
 sub profile
 {
     return {

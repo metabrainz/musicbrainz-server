@@ -5,6 +5,8 @@ use warnings;
 
 use base 'MusicBrainz::Server::Form';
 
+sub name { 'convert-to-single-artist' }
+
 sub convert
 {
     my ($self, $new_artist) = @_;

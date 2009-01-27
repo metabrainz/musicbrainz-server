@@ -5,6 +5,8 @@ use warnings;
 
 use base 'MusicBrainz::Server::Form';
 
+sub name { 'remove-release' }
+
 sub remove
 {
     my ($self) = @_;

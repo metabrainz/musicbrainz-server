@@ -23,7 +23,7 @@ Returns the name of this form
 
 =cut
 
-sub name { "data_quality" }
+sub name { 'data-quality' }
 
 =head2 profile
 

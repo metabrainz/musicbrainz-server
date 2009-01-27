@@ -5,6 +5,8 @@ use warnings;
 
 use base 'MusicBrainz::Server::Form';
 
+sub name { 'add-release-track-count' }
+
 sub profile
 {
     return {

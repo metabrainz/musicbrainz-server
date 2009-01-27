@@ -5,6 +5,8 @@ use warnings;
 
 use base 'MusicBrainz::Server::Form';
 
+sub name { 'change-track-artist' }
+
 sub change_artist
 {
     my ($self, $new_artist) = @_;

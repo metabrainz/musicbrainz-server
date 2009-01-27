@@ -9,6 +9,8 @@ use MusicBrainz;
 use MusicBrainz::Server::LinkAttr;
 use MusicBrainz::Server::LinkType;
 
+sub name { 'add-cc-relationship' }
+
 sub profile
 {
     shift->with_mod_fields({

@@ -14,6 +14,8 @@ use Rose::Object::MakeMethods::Generic(
     boolean => [ 'show_everything' ],
 );
 
+sub name { 'edit-release-attributes' }
+
 sub profile
 {
     shift->with_mod_fields({

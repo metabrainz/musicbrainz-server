@@ -9,6 +9,8 @@ use Rose::Object::MakeMethods::Generic(
     scalar => [ 'track_count', 'event_count' ]
 );
 
+sub name { 'add-release-tracks' }
+
 sub profile
 {
     shift->with_mod_fields({

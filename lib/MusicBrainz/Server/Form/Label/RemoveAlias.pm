@@ -5,6 +5,8 @@ use warnings;
 
 use base 'MusicBrainz::Server::Form';
 
+sub name { 'remove-label-alias' }
+
 sub remove_from
 {
     my ($self, $label) = @_;

@@ -5,6 +5,8 @@ use warnings;
 
 use base 'MusicBrainz::Server::Form';
 
+sub name { 'edit-url' }
+
 sub profile
 {
     shift->with_mod_fileds({

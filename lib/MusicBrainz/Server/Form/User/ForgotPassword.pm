@@ -23,7 +23,7 @@ Returns a name for this form
 
 =cut
 
-sub name { 'user_forgot' }
+sub name { 'forgot-password' }
 
 =head2 profile
 

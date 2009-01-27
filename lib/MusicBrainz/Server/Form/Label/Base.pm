@@ -5,6 +5,8 @@ use warnings;
 
 use base 'MusicBrainz::Server::Form';
 
+sub name { 'label' }
+
 sub profile
 {
     shift->with_mod_fields({

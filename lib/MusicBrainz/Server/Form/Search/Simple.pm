@@ -5,7 +5,7 @@ use warnings;
 
 use base 'MusicBrainz::Server::Form';
 
-sub name { 'search_user' }
+sub name { 'simple-search' }
 
 sub profile {
     return {

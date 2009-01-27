@@ -8,6 +8,8 @@ use base 'MusicBrainz::Server::Form';
 use MusicBrainz;
 use MusicBrainz::Server::LinkType;
 
+sub name { 'add-url-relationship' }
+
 sub profile
 {
     shift->with_mod_fields({

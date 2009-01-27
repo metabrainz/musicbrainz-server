@@ -27,7 +27,7 @@ Returns a name for this form
 
 =cut
 
-sub name { 'user_preferences' };
+sub name { 'user-preferences' };
 
 =head2 profile
 

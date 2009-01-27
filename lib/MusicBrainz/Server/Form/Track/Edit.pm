@@ -5,6 +5,8 @@ use warnings;
 
 use base 'MusicBrainz::Server::Form::Track::Base';
 
+sub name { 'edit-track' }
+
 sub edit
 {
     my $self = shift;

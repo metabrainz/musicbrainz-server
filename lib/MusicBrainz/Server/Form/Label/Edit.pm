@@ -5,6 +5,8 @@ use warnings;
 
 use base 'MusicBrainz::Server::Form::Label::Base';
 
+sub name { 'edit-label' }
+
 sub edit
 {
     my ($self) = @_;

@@ -15,16 +15,13 @@ to change password.
 Handles the validation of the change password form. Does not actually
 perform the password changing logic.
 
-=cut
-
-
 =head1 name
 
 Returns the name of this form
 
 =cut
 
-sub name { 'user_changePass' }
+sub name { 'change-password' }
 
 =head1 profile
 

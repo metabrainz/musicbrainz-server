@@ -24,7 +24,7 @@ Returns the name of this form
 
 =cut
 
-sub name { "register"; }
+sub name { 'user-register' }
 
 =head2
 

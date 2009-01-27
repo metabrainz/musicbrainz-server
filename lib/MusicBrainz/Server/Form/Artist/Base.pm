@@ -22,6 +22,14 @@ new data into the database appropriatly.
 
 =head1 METHODS
 
+=head2 name
+
+Returns a unique name for this form
+
+=cut
+
+sub name { 'artist' }
+
 =head2 profile
 
 Returns a hash reference of fields that are in this form, organised by

@@ -5,6 +5,8 @@ use warnings;
 
 use base 'MusicBrainz::Server::Form::Alias';
 
+sub name { 'add-label-alias' }
+
 sub create_for
 {
     my ($self, $label) = @_;

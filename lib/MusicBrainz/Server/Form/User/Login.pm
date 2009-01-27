@@ -21,7 +21,7 @@ Returns a name for this form
 
 =cut
 
-sub name { 'Login' }
+sub name { 'user-login' }
 
 =head2 profile
 

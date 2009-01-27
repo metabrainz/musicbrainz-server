@@ -7,6 +7,8 @@ use base 'MusicBrainz::Server::Form';
 
 use MusicBrainz::Server::Track;
 
+sub name { 'track' }
+
 sub profile
 {
     shift->with_mod_fields({

@@ -5,6 +5,8 @@ use warnings;
 
 use base 'MusicBrainz::Server::Form::Alias';
 
+sub name { 'edit-artist-alias' }
+
 sub edit_for
 {
     my ($self, $artist) = @_;

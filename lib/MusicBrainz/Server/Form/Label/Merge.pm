@@ -5,6 +5,8 @@ use warnings;
 
 use base 'MusicBrainz::Server::Form';
 
+sub name { 'merge-label' }
+
 sub merge_into
 {
     my ($self, $new_label) = @_;

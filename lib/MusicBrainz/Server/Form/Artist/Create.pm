@@ -5,6 +5,8 @@ use warnings;
 
 use base 'MusicBrainz::Server::Form::Artist::Base';
 
+sub name { 'create-artist' }
+
 sub create
 {
     my ($self) = @_;

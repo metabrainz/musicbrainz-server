@@ -23,7 +23,7 @@ Gets the name for this form
 
 =cut
 
-sub name { 'user_edit_profile' }
+sub name { 'edit-profile' }
 
 =head2 profile
 

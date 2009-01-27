@@ -5,12 +5,14 @@ use warnings;
 
 use base 'MusicBrainz::Server::Form';
 
+sub name { 'add-tags' }
+
 sub profile
 {
     return {
-	optional => {
-	    tags => 'TextArea',
-	},
+        optional => {
+            tags => 'TextArea',
+        },
     };
 }
 
