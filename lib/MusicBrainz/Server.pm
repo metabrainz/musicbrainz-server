@@ -129,6 +129,7 @@ sub entity_url
 
     # Determine the type of the entity - thus which control to use
     my $type = $entity->entity_type;
+    $action ||= 'show';
 
     # Now find the controller
     my $controller = $self->controller(ucfirst($type))

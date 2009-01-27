@@ -798,7 +798,7 @@ sub releases
     my $query = qq/
         SELECT
             album.id,
-            artist,
+            artist.gid AS artist,
             album.name,
             album.modpending,
             album.gid,
@@ -832,7 +832,7 @@ sub releases
             $album->has_mod_pending($row[3]);
             $album->mbid($row[4]);
             $row[5] =~ s/^\{(.*)\}$/$1/;
-            $album->{attrs} = [ split /,/, $row[5] ];
+            $album->{attrs} = $row[5];
             $album->language_id($row[6]);
             $album->script_id($row[7]);
             $album->{releasedate} = $row[8];

@@ -36,6 +36,8 @@ use strict;
 use Carp qw( cluck croak );
 use DBDefs;
 use ModDefs qw( VARTIST_ID );
+use MusicBrainz::Server::Language;
+use MusicBrainz::Server::Script;
 use MusicBrainz::Server::Validation qw( unaccent );
 use LocaleSaver;
 use POSIX qw(:locale_h);
@@ -193,17 +195,17 @@ sub asin
 sub language
 {
 	my $self = shift;
-	my $id = $self->language_id or return undef;
-	require MusicBrainz::Server::Language;
-	return MusicBrainz::Server::Language->newFromId($self->{dbh}, $id);
+        return unless $self->language_id;
+        $self->{_cached_language} ||= MusicBrainz::Server::Language->newFromId($self->dbh, $self->language_id);
+	return $self->{_cached_language};
 }
 
 sub script
 {
 	my $self = shift;
 	my $id = $self->script_id or return undef;
-	require MusicBrainz::Server::Script;
-	return MusicBrainz::Server::Script->newFromId($self->{dbh}, $id);
+        $self->{_cached_script} ||= MusicBrainz::Server::Script->newFromId($self->dbh, $id);
+        return $self->{_cached_script};
 }
 
 sub attribute_name           { $AlbumAttributeNames{$_[0]}->[0]; }
