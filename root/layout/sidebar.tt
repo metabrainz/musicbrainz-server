@@ -9,7 +9,7 @@
                 WRAPPER "layout/sidebar/section.tt" title=c.user.name link="${c.uri_for('/user/')}" %]
         [% ELSE %]
             [% INCLUDE "layout/sidebar/login.tt"
-                WRAPPER "layout/sidebar/section.tt" title="Not Logged In"
+                WRAPPER "layout/sidebar/section.tt" title="You are not logged in"
                     link="${c.uri_for('/user/login')}" %]
         [% END %]
 
