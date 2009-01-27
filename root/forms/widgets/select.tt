@@ -1,10 +1,13 @@
 [%- IF field.select_widget == 'radio' -%]
+    <div class="fields">
     [%- FOREACH option IN field.options -%]
-        <input type="radio" id="[% id %]" name="[% name %]"
+        [% r_id = "${id}-${loop.count}" -%]
+        <input type="radio" id="[% r_id %]" name="[% name %]"
                [%- IF field.value == option.value -%]checked="checked"[%- END -%]
                value="[% option.value %]" />
-        [% option.label %]<br/>
+        [%- INCLUDE 'forms/label.tt' for=r_id label=option.label %]<br/>
     [%- END -%]
+    </div>
 [%- ELSE -%]
     <select id="[% id %]"
             name="[% name %]"

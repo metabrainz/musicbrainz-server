@@ -38,7 +38,8 @@
 }
 
 /* Labels that are not the main label for a row (ie, checkbox) */
-#content form.generic .no_label label {
+#content form.generic .no_label label,
+#content form.generic .fields label {
     width: auto;
     float: none;
     text-align: left;
