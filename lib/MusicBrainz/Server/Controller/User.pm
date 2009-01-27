@@ -55,10 +55,8 @@ sub login : Private
     return 1
         if $c->user_exists;
 
-    $c->log->warn("No user, will redirect to " . $c->session->{__login_dest});
-
     use MusicBrainz::Server::Form::User::Login;
-    my $form = $self->form(MusicBrainz::Server::Form::User::Login->new);
+    $self->form(MusicBrainz::Server::Form::User::Login->new);
 
     $c->stash->{template}         = 'user/login.tt';
     $c->stash->{form}             = $self->form;
@@ -66,18 +64,18 @@ sub login : Private
 
     $c->detach unless $self->submit_and_validate($c);
 
-    if( !$c->authenticate({ username => $form->value("username"),
-                            password => $form->value("password") }) )
+    if( !$c->authenticate({ username => $self->form->value("username"),
+                            password => $self->form->value("password") }) )
     {
-        $form->add_general_error('Username/password combination invalid');
+        $self->form->add_general_error('Username/password combination invalid');
         $c->detach;
     }
     else
     {
-        if ($form->value('remember_me'))
+        if ($self->form->value('remember_me'))
         {
             $c->user->SetPermanentCookie($c,
-                only_this_ip => $form->value('single_ip')
+                only_this_ip => $self->form->value('single_ip')
             );
         }
     }
