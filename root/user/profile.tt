@@ -84,7 +84,7 @@
     [% END %]
 
     [% WRAPPER property name="Subscriptions" %]
-        [% viewing_own_profile ? "Your" : user.name | html_entity %] subscriptions are [% user.public_subscriptions ? "public" : "private" %]
+        [% viewing_own_profile ? "Your" : user.name | html_entity %] subscriptions are [% preferences.get('subscriptions_public') ? "public" : "private" %]
     [% END %]
 
     [% WRAPPER property name="Subscribers" %]

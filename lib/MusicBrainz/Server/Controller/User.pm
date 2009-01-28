@@ -422,6 +422,8 @@ sub profile : Local Args(1)
         };
     }
 
+    $c->stash->{preferences} = $c->model('User')->get_preferences_hash($user);
+
     $c->stash->{user    } = $user;
     $c->stash->{template} = 'user/profile.tt';
 }
