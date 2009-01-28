@@ -2,7 +2,9 @@ package MusicBrainz::Server::Authentication::Store;
 
 use strict;
 use warnings;
+
 use MusicBrainz::Server::Editor;
+use UserPreference;
 
 sub new
 {
@@ -19,12 +21,14 @@ sub find_user
 sub for_session
 {
     my ($self, $c, $user) = @_;
+
     return {
         'id' => $user->id,
         'privs' => $user->privs,
         'name' => $user->name,
         'edits_accepted' => $user->mods_accepted,
         'has_confirmed_email' => $user->email ? 1 : 0,
+        'prefs' => $user->preferences->{prefs},
     };
 }
 
@@ -37,6 +41,11 @@ sub from_session
     $user->privs($frozen_user->{privs});
     $user->mods_accepted($frozen_user->{edits_accepted});
     $user->{has_confirmed_email} = $frozen_user->{has_confirmed_email};
+    
+    my $prefs = UserPreference->new;
+    $prefs->{prefs} = $frozen_user->{prefs} || {};
+    $user->preferences($prefs);
+
     return $user;
 }
 

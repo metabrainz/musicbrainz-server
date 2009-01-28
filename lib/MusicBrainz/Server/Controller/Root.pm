@@ -168,8 +168,6 @@ sub end : ActionClass('RenderView')
     $c->stash->{begin_date_name} = \&MusicBrainz::Server::Artist::begin_date_name;
     $c->stash->{end_date_name  } = \&MusicBrainz::Server::Artist::end_date_name;
 
-    $c->stash->{date} = \&MusicBrainz::Server::Validation::MakeDisplayDateStr;
-    
     $c->stash->{vote} = \&ModDefs::vote_name;
 
     $c->stash->{release_format} = \&MusicBrainz::Server::ReleaseEvent::release_format_name;

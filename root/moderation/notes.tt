@@ -6,7 +6,7 @@
             <a href="[% c.uri_for('/user/profile', note.user.name) %]">[% note.user.name %]</a>:
             </td>
             <td>
-            <div class="note_date">[% note.GetNoteTime %]</div>
+            <div class="note_date">[% UserDate.format(note.GetNoteTime) %]</div>
             [% note.text_as_html %]
             </td>
         </tr>

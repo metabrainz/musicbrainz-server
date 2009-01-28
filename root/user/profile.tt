@@ -1,4 +1,3 @@
-[% USE date %]
 [% extra_css = "user.css" %]
 
 [% WRAPPER "layout.tt" title="Editor \"$user.name\"" %]
@@ -14,7 +13,7 @@
     { link => c.uri_for("/review/$user.name/edits/open"), text => "Open Edits" },
     { link => c.uri_for("/review/$user.name/edits/failed"), text => "Failed Edits" },
     { link => c.uri_for("/review/$user.name/edits/cancelled"), text => "Cancelled Edits" },
-    { link => c.uri_for('/user/subscriptions'), text => "Subscriptions", hide => not (viewing_own_profile or user.public_subscriptions) },
+    { link => c.uri_for('/user/subscriptions'), text => "Subscriptions", hide => not (viewing_own_profile or preferences.get('subscriptionspublic')) },
 ] %]
 
 [% edit_account_options = [
@@ -60,7 +59,7 @@
 
         [% IF user.email %]
             [% IF user.email_confirmation_date %]
-                (verified [% user.email_confirmation_date %])
+                (verified [% UserDate.format(user.email_confirmation_date) %])
             [% ELSE %]
                 [% IF viewing_own_profile %]
                     (<em>unverified!</em>)
@@ -102,7 +101,7 @@
         [% ELSIF user.charter %]
             charter member
         [% ELSE %]
-            [% user.member_since %]
+            [% UserDate.format(user.member_since) %]
         [% END %]
     [% END %]
     

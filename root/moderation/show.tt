@@ -19,18 +19,18 @@
 
     <tr>
         <th>Opened:</th>
-        <td>[% user_date(moderation.open_time) %]</td>
+        <td>[% UserDate.format(moderation.open_time) %]</td>
     </tr>
 
     <tr>
         <th>Expires:</th>
-        <td>[% user_date(moderation.expire_time) %]</td>
+        <td>[% UserDate.format(moderation.expire_time) %]</td>
     </tr>
 
     <tr>
         <th>Closed:</th>
         [% moderation.close_time %]
-        <td>[% user_date(moderation.close_time || "-") %]</td>
+        <td>[% UserDate.format(moderation.close_time || "-") %]</td>
     </tr>
 
     <tr>

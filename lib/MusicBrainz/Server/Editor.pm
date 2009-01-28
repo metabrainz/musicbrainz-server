@@ -192,6 +192,19 @@ sub get
     }
 }
 
+sub preferences
+{
+    my $self = shift;
+    if (@_) { $self->{preferences} = shift; }
+    unless ($self->{preferences})
+    {
+        my $prefs = UserPreference->newFromUser($self->dbh, $self->id);
+        $prefs->load;
+        $self->{preferences} = $prefs;
+    }
+    return $self->{preferences};
+}
+
 sub _id_cache_key
 {
 	my ($class, $id) = @_;

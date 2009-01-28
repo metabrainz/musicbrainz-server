@@ -1,3 +1,5 @@
+[% USE UserDate(user.preferences) %]
+
 [%- MACRO doc_link(to, text) BLOCK -%]
     <a href="/doc/[% to %]">[% (text or to) %]</a>
 [%- END -%]

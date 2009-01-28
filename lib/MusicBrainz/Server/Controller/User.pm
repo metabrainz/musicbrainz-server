@@ -585,6 +585,7 @@ sub preferences : Local Form
     return unless $self->submit_and_validate($c);
 
     $form->update_from_form ($c->req->params);
+    $c->persist_user;
 }
 
 =head2 donate
