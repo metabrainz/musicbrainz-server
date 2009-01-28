@@ -71,7 +71,7 @@
 
     [% WRAPPER property name="Homepage" %]
         [% IF user.web_url %]
-            <a href="[% user.web_url | url %]">[% user.web_url | html_entity %]</a>
+            <a href="[% user.web_url | url | html %]">[% user.web_url | html %]</a>
         [% ELSE %]
             [None]
         [% END %]
@@ -102,7 +102,7 @@
         [% ELSIF user.charter %]
             charter member
         [% ELSE %]
-            [% user_date(user.member_since) %]
+            [% user.member_since %]
         [% END %]
     [% END %]
     

@@ -319,7 +319,10 @@ sub edit : Local Form('User::EditProfile')
 
     $c->forward('login');
 
+    # We refresh $c->user as this is no longed loaded from the database
+    # on each request
     my $form = $self->form;
+    $c->user->Refresh;
     $form->init($c->user);
 
     return unless $self->submit_and_validate($c);
@@ -327,6 +330,8 @@ sub edit : Local Form('User::EditProfile')
     $form->update_model;
 
     $c->flash->{ok} = "Your profile has been sucessfully updated";
+    $c->response->redirect('/user/');
+    $c->detach;
 }
 
 =head2 change_password

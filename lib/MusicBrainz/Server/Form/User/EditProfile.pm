@@ -34,8 +34,8 @@ Returns a hash of required and optional form fields
 sub profile {
     return {
         optional => {
-            email => '+MusicBrainz::Server::Form::Field::Email',
-            homepage => 'URL',
+            email     => '+MusicBrainz::Server::Form::Field::Email',
+            homepage  => '+MusicBrainz::Server::Form::Field::URL',
             biography => 'TextArea'
         }
     };
@@ -73,9 +73,9 @@ sub update_model
     my $self = shift;
 
     my %opts = (
-        email => $self->value('email'),
-        bio => $self->value('biography'),
-        weburl => $self->value('homepage')
+        email => $self->value('email')     || '',
+        bio => $self->value('biography')   || '',
+        weburl => $self->value('homepage') || ''
     );
 
     $self->item->SetUserInfo(%opts)

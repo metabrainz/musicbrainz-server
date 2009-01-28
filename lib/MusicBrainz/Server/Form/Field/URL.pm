@@ -13,7 +13,7 @@ sub validate
 
     my $url = $self->input;
 
-    return $self->add_error('Enter a plain url "e.g. http://google.com/"')
+    return $self->add_error('Enter a valid url "e.g. http://google.com/"')
         unless MusicBrainz::Server::URL->IsLegalURL($url);
 
     return 1;
