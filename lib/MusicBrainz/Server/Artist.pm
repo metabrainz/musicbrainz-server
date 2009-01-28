@@ -175,7 +175,11 @@ Check if a given C<$type> is a valid artist type
 
 =cut
 
-sub is_valid_type { return defined $ArtistTypeNames{shift}; }
+sub is_valid_type
+{
+    my $type = shift;
+    return exists $ArtistTypeNames{$type . ""};
+}
 
 =head2 begin_date_ymd
 
@@ -619,7 +623,7 @@ sub RebuildWordList
     my $self = shift;
 
     require MusicBrainz::Server::Alias;
-    my $al = MusicBrainz::Server::Alias->new($self->dbh, table => 'ArtistAlias');
+    my $al = MusicBrainz::Server::Alias->new($self->dbh, 'ArtistAlias');
 
     my @aliases = map { $_->name } $al->load_all($self->id);
 

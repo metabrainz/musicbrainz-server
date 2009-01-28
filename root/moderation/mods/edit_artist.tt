@@ -4,4 +4,5 @@
     { label='Resolution', new=new.Resolution, prev=prev.Resolution },
     { label='Begin Date', new=new.BeginDate, prev=prev.BeginDate },
     { label='End Date', new=new.EndDate, prev=prev.EndDate },
+    { label='Type', new=new.Type, prev=prev.Type },
 ] -%]

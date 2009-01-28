@@ -71,7 +71,7 @@ sub PreInsert
 
 	if ( defined $type )
 	{
-		die $self->SetError('Artist type invalid')
+		die $self->SetError("Artist type $type invalid")
 			unless MusicBrainz::Server::Artist::is_valid_type($type);
 
 		$new{'Type'} = $type if $type != $ar->type();
