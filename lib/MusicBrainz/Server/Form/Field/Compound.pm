@@ -61,10 +61,24 @@ sub validate
 
     my $sub_form_validated = $self->sub_form->validate(scalar $self->form->params);
 
-    return $sub_form_validated
+    return
         unless $sub_form_validated;
 
     return 1;
+}
+
+=head2 errors
+
+Return a list of errors for all sub fields.
+
+=cut
+
+sub errors
+{
+    my $self = shift;
+    return map {
+        $_->errors
+    } $self->sub_form->fields; 
 }
 
 =head2
