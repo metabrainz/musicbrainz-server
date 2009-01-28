@@ -15,7 +15,7 @@
         </tr>
         <tr>
             <th>Edit ID:</th>
-            <td><a href="[%- entity_url(moderation, 'show') -%]">[% moderation.id %]</a></td>
+            <td><a href="[%- c.entity_url(moderation, 'show') -%]">[% moderation.id %]</a></td>
         </tr>
 
         [%- IF moderation.language -%]
