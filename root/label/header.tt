@@ -29,6 +29,7 @@
         Edit:
         [%- IF c.user_exists -%]
             [%- edit_links = [
+	        { link => c.entity_url(label, 'add_alias'), text => "Add Alias" },
                 { link => c.entity_url(label, 'edit'), text => "Edit Label" },
                 { link => c.entity_url(label, 'merge'), text => "Merge Into" },
                 { link => c.entity_url(label, 'subscribe'), text => "Subscribe", hide => subscribed },
