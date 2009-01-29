@@ -80,7 +80,7 @@ sub edit
         label      => $label,
         name       => $opts{name}        || $label->name,
         sortname   => $opts{sort_name}   || $label->sort_name,
-        labeltype  => $opts{type}        || '',
+        labeltype  => exists $opts{type} ? $opts{type} : undef,
         resolution => $opts{resolution}  || '',
         country    => $opts{country}     || '',
         labelcode  => $opts{label_code}  || '',

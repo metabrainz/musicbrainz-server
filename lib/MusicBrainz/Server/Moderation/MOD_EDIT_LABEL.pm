@@ -86,7 +86,7 @@ sub PreInsert
 
 	if ( defined $type )
 	{
-		die $self->SetError('Label type invalid')
+		die $self->SetError("Label type $type invalid")
 			unless MusicBrainz::Server::Label::IsValidType($type);
 
 		$new{'Type'} = $type if $type != $ar->type();

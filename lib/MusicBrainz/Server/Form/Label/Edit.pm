@@ -17,7 +17,7 @@ sub edit
 
         name       => $self->value('name'),
         sort_name  => $self->value('sort_name'),
-        type       => $self->value('type'),
+        type       => $self->value('type') || MusicBrainz::Server::Label::LABEL_TYPE_UNKNOWN,
         resolution => $self->value('resolution'),
         country    => $self->value('country'),
         label_code => $self->value('label_code'),
