@@ -162,7 +162,7 @@ sub coverart_url
 {
     my ($self, $new_url) = @_;
 
-    if (defined $new_url) { $self->{infourl} = $new_url; }
+    if (defined $new_url) { $self->{coverarturl} = $new_url; }
 
     my $cover_url = $self->{coverarturl};
     if ($cover_url)

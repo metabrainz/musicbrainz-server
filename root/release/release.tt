@@ -2,9 +2,15 @@
     [% INCLUDE "release/box-header.tt" %]
 
     <div class="release_top">
-        [%- IF release.has_artwork -%]
+        [%- IF release.coverart_url -%]
             <div class="artwork">
-                <img src="[% release.cover_url %]"> 
+                [%#- This max height will need to expand to the amount of link rows -%]
+                <img style="max-height: 46pt" src="[% release.coverart_url %]">
+		[%- IF release.asin -%]
+                <div class="partners">
+		    Amazon: <a href="[% c.uri_for('/partners', release.coverart_store, release.asin) %]">Info</a>
+		</div>
+		[%- END -%]
             </div>
         [%- END -%]
 

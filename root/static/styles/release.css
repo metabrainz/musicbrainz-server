@@ -44,13 +44,14 @@ div.release .release_top {
 
 div.release .artwork {
     float: right;
-    padding: 10px;
+    padding: 3pt;
+    text-align: center;
+    font-size: 8pt;
 }
 
 div.release .artwork img {
     border: 1px solid black;
-    max-width: 200px;
-    max-height: 200px;
+    max-width: 200pt;
 }
 
 div.release table.release_tracks {
