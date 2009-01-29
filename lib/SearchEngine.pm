@@ -519,9 +519,9 @@ sub Search
 	    {
 		require MusicBrainz::Server::Alias;
 		my $al = MusicBrainz::Server::Alias->new($self->dbh, "labelalias");
-		my $aliases = $al->load_all($r->{'labelid'});
+		my @aliases = $al->load_all($r->{'labelid'});
 
-		for my $alias (@$aliases)
+		for my $alias (@aliases)
 		{
 		    ($tokens, $c1) = $self->Tokenize($alias->name);
 		    push @t, [ $tokens, $c1 ];
