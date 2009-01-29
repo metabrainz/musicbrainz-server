@@ -35,28 +35,42 @@
 
 <fieldset>
     <legend>Voting/edit review pages</legend>
-    [% fields = [
-        { widget = 'mod_add_album_inline', label = 'For "Add Release" edits, show the whole release...' },
-        { widget = 'mod_add_album_link', label = 'and show editing links.' },
+      <p>
+	[%- INCLUDE 'forms/input.tt' field=form.field('mod_add_album_inline') -%]
+	[%- INCLUDE 'forms/label.tt' for=form.field('mod_add_album_inline') label='For "Add Release" edits, show the whole release' -%]
+	<br />
+	<span style="margin-left: 30pt;">
+	  [%- INCLUDE 'forms/input.tt' field=form.field('mod_add_album_link') -%]
+	  [%- INCLUDE 'forms/label.tt' for=form.field('mod_add_album_link') label='&hellip;and show editing links.' -%]
+	</span>
+      </p>
+    [% PROCESS fields fields = [
         { widget = 'navbar_mod_show_select_page' label = 'Make the "Vote on Edits" link in the sidebar go to this page instead of the "New edits" list.' }
     ] %]
-    [% PROCESS fields %] 
     <p>
         [% widget = form.field('mods_per_page') %]
-        Show up to [% INCLUDE "forms/input.tt" %] edits per page (max: 25).
+        Show up to [% INCLUDE "forms/input.tt" for=widget type='text' %] edits per page (max: 25).
     </p>
-    [% fields = [
+    [% PROCESS fields fields = [
         { widget = 'vote_abs_default' label = 'Abstain by default.' },
         { widget = 'vote_show_novote', label = 'Show the "No Vote" option' },
         { widget = 'mail_notes_if_i_noted', label = 'When I add a note to an edit , mail me all future notes for that edit.' },
         { widget = 'mail_notes_if_i_voted', label = 'When I vote on an edit, mail me all future notes for that edit.' },
         { widget = 'mail_on_first_no_vote', label = 'Mail me when one of my edits gets a "no" vote.' },
-        { widget = 'show_inline_mods', label = 'Show inline edits' },
-        { widget = 'show_inline_mods_random', label = 'Show random inline edits' },
+    ] -%]
+    <p>
+      [%- INCLUDE 'forms/input.tt' field=form.field('show_inline_mods') -%]
+      [%- INCLUDE 'forms/label.tt' for=form.field('show_inline_mods') label='Show inline edits' -%]
+      <br />
+      <span style="margin-left: 30pt;">
+	[%- INCLUDE 'forms/input.tt' field=form.field('show_inline_mods_random') -%]
+	[%- INCLUDE 'forms/label.tt' for=form.field('show_inline_mods_random') label='Show random inline edits' -%]
+      </span>
+    </p>
+    [%- PROCESS fields fields = [
         { widget = 'remove_recent_link_on_add', label = 'After creating a new relationship, remove the linked items from my "recently used" list.' },
         { widget = 'auto_subscribe', label = 'Automatically subscribe me to artists or labels I create.' },
     ] %]
-    [% PROCESS fields %]
 </fieldset>
 
 <fieldset>
@@ -70,8 +84,11 @@
 
 <fieldset>
     <legend>Show artist</legend>
-    [% widget = form.field('releases_show_compact') %]
-    <p>Default to a "compact" listing when there are [% INCLUDE "forms/input.tt" %] release or more (allowed range: 1 - 1000).</p>
+    <p>
+      Default to a "compact" listing when there are
+      [% INCLUDE "forms/input.tt" field=form.field('releases_show_compact') type='text' %]
+      release or more (allowed range: 1 - 1000).
+    </p>
 </fieldset>
 
 <fieldset>
@@ -107,7 +124,6 @@
     <legend>Topmenu configuration</legend>
     [% fields = [
         { widget = 'topmenu_submenu_types' label = "The menu which is placed on top of the pages features multiple ways of navigating the site. You can choose which menu type (or both) you'd like to see if you are logged in" },
-        { widget = 'topmenu_dropdown_trigger', label = 'If you selected an option which includes the Dropdown menus  above, you can choose how they get activated' }
     ] %]
     [% PROCESS fields %]
 </fieldset>
@@ -127,7 +143,29 @@
 <fieldset>
     <legend>Display options</legend>
     <h3>Sidebar panels:</h3>
+    <div style="margin-left: 30pt">
+    [%- PROCESS fields fields = [
+        { widget = 'sidebar_panel_sites', label = 'MusicBrainz sites' },
+        { widget = 'sidebar_panel_search', label = 'Search' },
+        { widget = 'sidebar_panel_stats', label = 'Statistics' },
+        { widget = 'sidebar_panel_topmods', label = 'Checkbox', },
+        { widget = 'sidebar_panel_user', label = 'Checkbox' },
+    ] -%]
+    </div>
+
+    [%- PROCESS fields fields = [
+        { widget = 'nosidebar', label = 'Do not show the sidebar (can be faster, but may make the website difficult to navigate)' },
+        { widget = 'css_noentityicons', label = 'Do not show icons next to artists, releases, tracks and labels' },
+        { widget = 'css_nosmallfonts', label = 'Do not use small font sizes' },
+    ] -%]
 </fieldset>
+
+[%- WRAPPER 'forms/fieldset.tt' legend='Privacy' -%]
+  [%- PROCESS fields fields = [
+      { widget = 'subscriptions_public', label='Allow other users to see my subscriptions' },
+      { widget = 'tags_public', label='Allow other users to see my folksonomy tags' },
+  ] -%]
+[%- END -%]
 
 [% INCLUDE "forms/submit.tt" label="Update Preferences" %]
 [% END %]

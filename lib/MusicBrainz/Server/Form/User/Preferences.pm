@@ -96,6 +96,10 @@ sub profile
             nosidebar             => 'Checkbox',
             css_noentityicons     => 'Checkbox',
             css_nosmallfonts      => 'Checkbox',
+
+	    # Privacy
+	    subscriptions_public => 'Checkbox',
+	    tags_public          => 'Checkbox',
         },
     };
 }
