@@ -608,6 +608,39 @@ sub donate : Local
     $c->stash->{template} = 'user/donate.tt';
 }
 
+=head2 adjust_flags
+
+Allow a user to adjust their user flags (only works on test servers)
+
+=cut
+
+sub adjust_flags : Local Form
+{
+    my ($self, $c) = @_;
+
+    use MusicBrainz::Server::Replication ':replication_type';
+    use DBDefs;
+    $c->detach('/error_404')
+        unless (DBDefs::REPLICATION_TYPE == RT_STANDALONE);
+
+    $c->forward('/user/login');
+
+    my $form = $self->form;
+    $c->user->Refresh;
+    $form->init($c->user);
+
+    return unless $self->submit_and_validate($c);
+
+    $c->user->SetUserInfo(
+        privs =>
+            ($form->value('auto_editor') && &MusicBrainz::Server::Editor::AUTOMOD_FLAG) |
+            ($form->value('bot') && &MusicBrainz::Server::Editor::BOT_FLAG) |
+            ($form->value('link_editor') && &MusicBrainz::Server::Editor::LINK_MODERATOR_FLAG) |
+            ($form->value('wiki_transcluder') && &MusicBrainz::Server::Editor::WIKI_TRANSCLUSION_FLAG) |
+            ($form->value('mbid_submitter') && &MusicBrainz::Server::Editor::MBID_SUBMITTER_FLAG)
+    );
+}
+
 =head1 LICENSE
 
 This software is provided "as is", without warranty of any kind, express or
