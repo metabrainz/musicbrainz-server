@@ -10,7 +10,14 @@
 		</td>
 		[% END %]
 	[% END %]
-	
+
+        [%- IF c.req.query_params.index.length > 5 -%]
+        <p>
+            <strong>Note:</strong> You have request to browse using a query of more than 5 charaters.
+            We do not index data at this level of granularity, you may have better luck using
+            the various <a href="[% c.uri_for('/search') %]">search pages</a>
+        </p>
+        [% ELSE %]
 	<table class="browse">
 		<tr>
 			<td>
@@ -33,4 +40,5 @@
 			[% PROCESS characters %]
 		</tr>
 	</table>
+        [% END %]
 [% END %]
