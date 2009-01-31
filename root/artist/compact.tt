@@ -1,9 +1,12 @@
 [%- WRAPPER "artist/landing.tt" -%]
 
 [% BLOCK group_head %]
-<h2 class="compactreleasetype">
-[% IF item.artist != artist.id; "Various Artist "; END %]
-[% plural_release_attribute(item.release_type) %]</h2>
+    <h2 class="compactreleasetype">
+        [%- IF item.release_type %]
+            [% IF item.artist != artist.id; "Various Artist "; END %]
+            [% plural_release_attribute(item.release_type) %]
+        [%- ELSE; "Uncategorized Releases"; END -%]
+    </h2>
 <table class="releases">
         <tbody>
 [% END %]

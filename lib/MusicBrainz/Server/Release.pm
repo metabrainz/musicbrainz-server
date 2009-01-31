@@ -231,16 +231,17 @@ sub attributes
 
 sub release_type_and_status
 {
-	my $self = shift;
-	my $attrs = shift || $self->attributes;
-	my ($type, $status);
-	for (@$attrs)
-	{
-		return () if $_ == RELEASE_ATTR_NONALBUMTRACKS;
-		$type   = $_ if $_ >= RELEASE_ATTR_SECTION_TYPE_START   and $_ <= RELEASE_ATTR_SECTION_TYPE_END;
-		$status = $_ if $_ >= RELEASE_ATTR_SECTION_STATUS_START and $_ <= RELEASE_ATTR_SECTION_STATUS_END;
-	}
-	($type, $status);
+    my $self = shift;
+    my $attrs = shift || $self->attributes;
+    my ($type, $status);
+    for (@$attrs)
+    {
+        return ($_) if $_ == RELEASE_ATTR_NONALBUMTRACKS;
+        $type   = $_ if $_ >= RELEASE_ATTR_SECTION_TYPE_START   and $_ <= RELEASE_ATTR_SECTION_TYPE_END;
+        $status = $_ if $_ >= RELEASE_ATTR_SECTION_STATUS_START and $_ <= RELEASE_ATTR_SECTION_STATUS_END;
+    }
+
+    return ($type, $status);
 }
 
 sub release_type   { ($_[0]->release_type_and_status)[0] }

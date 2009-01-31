@@ -290,37 +290,12 @@ sub _build_sort_keys
         my ($type, $status) = $release->release_type_and_status;
 
         $release->SetMultipleTrackArtists($release->artist != $release->id() ? 1 : 0);
-        $release->{_firstreleasedate_} = ($release->first_release_date || "9999-99-99");
-        $release->{_is_va_}       = ($release->artist == &ModDefs::VARTIST_ID) ||
-                                    ($release->artist != $release->id());
-        $release->{_is_nonalbum_} = $type && $type == MusicBrainz::Server::Release::RELEASE_ATTR_NONALBUMTRACKS;
+        $release->{_is_va_}       = ($release->artist == &ModDefs::VARTIST_ID);
+        $release->{_is_nonalbum_} = defined $type && $type == MusicBrainz::Server::Release::RELEASE_ATTR_NONALBUMTRACKS;
         $release->{_section_key_} = (defined $type ? $release->{_is_va_} . " " . $type : $release->{_is_va});
         $release->{_name_sort_}   = lc decode "utf-8", $release->name;
-        $release->{_attr_type}    = $type;
-        $release->{_attr_status}  = $status;
-
-        for my $attr ($release->attributes)
-        {
-            $release->{_attr_type}   = $attr if ($attr >= MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_TYPE_START &&
-                                                 $attr <= MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_TYPE_END);
-            $release->{_attr_status} = $attr if ($attr >= MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_STATUS_START &&
-                                                 $attr <= MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_STATUS_END);
-            $release->{_attr_type}   = $attr if ($attr == MusicBrainz::Server::Release::RELEASE_ATTR_NONALBUMTRACKS);
-        }
-
-        $release->{_attr_type} = MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_TYPE_END + 1
-            unless defined $release->{_attr_type};
-
-        $release->{_attr_status} = MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_STATUS_END + 1
-            unless defined $release->{_attr_status};
-    }
-    else
-    {
-        $release->{date}        = $release->{begindate};
-        $release->{date}        =~ s/\s+//;
-        $release->{date}        = $release->{firstreleasedate} if !$release->{date};
-        $release->{_sort_date_} = $release->{date} || "9999-99-99";
-        $release->{_name_sort_} = lc decode "utf-8", $release->{name};
+        $release->{_attr_type}    = $type   || MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_TYPE_END + 1;
+        $release->{_attr_status}  = $status || MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_STATUS_END + 1;
     }
 
     $release->{_disc_max_}    = 0;
@@ -359,15 +334,14 @@ sub _sort_albums
         ($a->{_is_va_}            <=> $b->{_is_va_}),
         ($b->{_is_nonalbum_}      <=> $a->{_is_nonalbum_}),
         ($a->{_attr_type}         <=> $b->{_attr_type}),
-        ($a->{_firstreleasedate_} cmp $b->{_firstreleasedate_}),
+        ($a->first_release_date   cmp $b->first_release_date),
         ($a->{_name_sort_}        cmp $b->{_name_sort_}),
         ($a->{_disc_max_}         <=> $b->{_disc_max_}),
         ($a->{_disc_no_}          <=> $b->{_disc_no_}),
         ($a->{_attr_status}       <=> $b->{_attr_status}),
-        ($a->{trackcount}         cmp $b->{trackcount}),
-        ($b->{trmidcount}         cmp $a->{trmidcount}),
-        ($b->{puidcount}          cmp $a->{puidcount}),
-        ($a->id                cmp $b->id),
+        ($a->track_count          cmp $b->track_count),
+        ($b->puid_count           cmp $a->puid_count),
+        ($a->id                   cmp $b->id),
     );
     
     for (@predicates) { return $_ if $_; }
