@@ -305,6 +305,8 @@ sub filter_label : Form('Search::Query')
 
 sub plugins : Local { }
 
+sub links : Local { }
+
 =head1 LICENSE
 
 This software is provided "as is", without warranty of any kind, express or

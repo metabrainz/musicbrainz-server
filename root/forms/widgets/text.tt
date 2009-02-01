@@ -1,2 +1,2 @@
 <input type="[% type %]" name="[% name %]" id="[% id %]" value="[% value %]"
-       size="[% field.size || 30 %]" [% extra_attributes %] />
+       size="[% size || field.size || 30 %]" [% extra_attributes %] />
