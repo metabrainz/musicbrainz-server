@@ -30,6 +30,7 @@ sub options_type
         'track'      => 'Tracks',
         'annotation' => 'Annotations',
         'freedb'     => 'FreeDB',
+        'editor'     => 'Editor',
     ];
 }
 

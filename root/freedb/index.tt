@@ -9,7 +9,7 @@
     you'd like to import, you can also do that below
 </p>
 
-[%- WRAPPER 'forms/form.tt' action=c.uri_for('/search/external') method='get' -%]
+[%- WRAPPER 'forms/form.tt' action=c.uri_for('/search') method='get' -%]
     [%- WRAPPER 'forms/fieldset.tt' legend='Search' -%]
         <p>Enter the release title of artist name to search for possible releases:</p>
         [%- INCLUDE 'forms/generic/row.tt' field=search.field('query') label='Query' -%]

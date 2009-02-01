@@ -1,3 +1,9 @@
-[% WRAPPER 'forms/blank_row.tt' %]
-    <input class="submit" type="submit" value="[% label || 'Enter Edit' %]" name="submit" />
+[% BLOCK button %]
+        <input class="submit" type="submit" value="[% label || 'Enter Edit' %]" name="submit" />
+[% END %]
+
+[%- IF inline -%]
+     [% PROCESS button %]
+[%- ELSE -%]
+     [% PROCESS button WRAPPER 'forms/blank_row.tt' %]
 [% END %]

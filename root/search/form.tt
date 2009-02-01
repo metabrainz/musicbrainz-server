@@ -1,11 +1,11 @@
 [% WRAPPER "components/box.tt" header="Search" %]
     <div class="searchform">
-    [% WRAPPER "forms/form.tt" action=c.uri_for('/search/external') method='get' %]
-        [% INCLUDE "forms/generic/row.tt" field=form.field('query') label="Search for" %]
-        [% INCLUDE "forms/generic/row.tt" field=form.field('type')  label="Type" %]
+    [% WRAPPER "forms/form.tt" action=c.uri_for('/search') method='get' %]
+        [% INCLUDE "forms/generic/row.tt" field=form.field('query') label="Search for" type='text' %]
+        [% INCLUDE "forms/generic/row.tt" field=form.field('type')  label="Type" type='select' %]
         
-        [% INCLUDE "forms/generic/row.tt" field=form.field('limit') label="Limit to" %]
-        [% INCLUDE "forms/generic/row.tt" field=form.field('enable_advanced') label="Use advanced query syntax" %]
+        [% INCLUDE "forms/generic/row.tt" field=form.field('limit') label="Limit to" type='select' %]
+        [% INCLUDE "forms/generic/row.tt" field=form.field('enable_advanced') label="Use advanced query syntax" type='checkbox' %]
 
         [% INCLUDE "forms/submit.tt" label="Search" %]
     [% END %]

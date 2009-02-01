@@ -5,6 +5,9 @@ use warnings;
 
 use base 'MusicBrainz::Server::Controller';
 
+use LWP::UserAgent;
+use URI::Escape qw( uri_escape );
+
 =head1 NAME
 
 MusicBrainz::Server::Controller::Search - Handles searching the database
@@ -16,43 +19,6 @@ artists and releases, but also MusicBrainz specific data, such as editors
 and tags.
 
 =head1 METHODS
-
-=head2 simple
-
-Handle a "simple" search which has a type and a query. This then redirects
-to whichever specific search action the search type maps to.
-
-=cut
-
-sub simple : Local Form
-{
-    my ($self, $c) = @_;
-
-    use MusicBrainz::Server::Form::Search::Simple;
-
-    my $form = $self->form;
-
-    if(!$form->validate($c->req->query_params))
-    {
-        $c->detach('external');
-    }
-
-    my ($type, $query) = (  $form->value('type'),
-                            $form->value('query')   );
-
-    $c->session->{last_simple_search} = $type;
-
-    # Use the 'editor' action for searching for moderators,
-    # otherwise search using the external search engine
-    if ($type eq 'editor')
-    {
-        $c->detach("editor", [ $query ]);
-    }
-    else
-    {
-        $c->detach("external");
-    }
-}
 
 =head2 editor
 
@@ -67,13 +33,11 @@ no moderator could be found, the user is informed.
 
 sub editor : Private
 {
-    my ($self, $c, $query) = @_;
+    my ($self, $c) = @_;
 
-    my ($result, $users) = $c->model('User')->search($query);
-	$c->stash->{users} = $users;
-	$c->stash->{query} = $query;
-	
-	$c->stash->{template} = 'search/editor.tt';
+    my ($result, $users) = $c->model('User')->search($c->stash->{query});
+    $c->stash->{users} = $users;
+    $c->stash->{template} = 'search/editor.tt';
 }
 
 =head2 external
@@ -83,7 +47,7 @@ towards Xapian).
 
 =cut
 
-sub external : Local Form('Search::External')
+sub search : Path('') Form('Search::External')
 {
     my ($self, $c) = @_;
 
@@ -93,11 +57,12 @@ sub external : Local Form('Search::External')
 
     return unless keys %{ $c->req->query_params } && $form->validate($c->req->query_params);
 
-    use URI::Escape qw( uri_escape );
-    use POSIX qw(ceil floor);
-
     my $type   = $form->value('type');
     my $query  = $form->value('query');
+
+    $c->stash->{query} = $query;
+
+    $c->detach('/search/editor') if $type eq 'editor';
     
     my $limit  = $form->value('limit') || 25;
     my $page   = $c->request->query_params->{page} || 1;
@@ -129,7 +94,6 @@ sub external : Local Form('Search::External')
                                  $offset,
                                  $limit,);
     warn "Search $search_url";
-    use LWP::UserAgent;
 
     my $ua = LWP::UserAgent->new;
     $ua->timeout (2);
@@ -258,7 +222,6 @@ C<state> method of the current context. For example:
 sub filter_artist : Form('Search::Query')
 {
     my ($self, $c) = @_;
-
     my $form = $self->form;
 
     if ($c->form_posted)
