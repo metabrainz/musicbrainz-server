@@ -1,0 +1,35 @@
+# Status: Working
+# Mozilla/Netscape 6+ plugin file for searching on musicbrainz.org
+#
+# Created:  December 2, 2004
+# by: Kim Plowright (www.mildlydiverting.com or kim dot plowright at gmail dot com)
+#
+# Last updated: May 8, 2007
+# by: Jan van Thiel (MusicBrainz user: zout)
+
+<search
+ version="7.1"
+ name="MusicBrainz: Release (direct)"
+ description="Direct search for a release on MusicBrainz.org" 
+ action="http://musicbrainz.org/search/oldsearch.html"
+ searchForm="http://musicbrainz.org/search.html"
+ method="GET" >
+
+<input name="query" user="">
+<input name="type" value="release">
+<input name="limit" value="25">
+<input name="handlearguments" value="1">
+
+<interpret 
+ resultListStart="<table border="0" cellspacing="0" cellpadding="4" id="SearchResults">"
+ resultListEnd="</table>"
+ resultItemStart="<td>"
+ resultItemEnd="</td>"
+>
+</search>
+
+<browser
+ update="http://musicbrainz.org/search/plugins/firefox/musicbrainzrelease-old.src" 
+ updateIcon="http://musicbrainz.org/images/licon.png"
+ updateCheckDays="14"
+>
