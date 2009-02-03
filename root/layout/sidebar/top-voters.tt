@@ -1,5 +1,5 @@
 [%- IF top_voters.size -%]
-    <table>
+    <table class="details">
         [%- FOR voter=top_voters -%]
         <tr>
             <th>[%- voter.name | truncate(10) -%]</th>

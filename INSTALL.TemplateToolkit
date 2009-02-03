@@ -95,7 +95,9 @@ Getting going
 	If you would like to have the /doc pages load properly on a RT_STANDALONE installation, follow 
 	these steps:
 
-	       cd <mb_server-tt>/root/static/wikidocs
+               cd <mb_server-tt>
+               mkdir cd root/static/wikidocs
+	       cd root/static/wikidocs
 	       curl http://musicbrainz.org/generated/wikitrans-index > index.txt
 
 	After this, the documentation index should be loadable.
