@@ -13,7 +13,7 @@
             name="[% name %]"
             [% extra_attributes %]>
     [%- UNLESS field.required -%]
-        <option value="">[ Please make a selection ]</option>
+        <option value="">[ [% l('Please make a selection') %] ]</option>
     [%- END -%]
     [%- FOREACH option=field.options -%]
         <option value="[% option.value %]"

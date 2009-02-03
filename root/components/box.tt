@@ -10,9 +10,10 @@
 [%- DEFAULT
     color = 'orange'
 -%]
-
 <div class="box [% color %]">
-    <h2>[% header | html %]</h2>
+    <h2>
+        [% header | html %]
+    </h2>
     <div class="content">
         [% content %]
     </div>

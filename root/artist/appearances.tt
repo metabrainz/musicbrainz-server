@@ -1,35 +1,30 @@
-[%- WRAPPER "artist/layout.tt" title="Appearances" -%]
-
-[% BLOCK group_head %]
-    [%- last_year = '.' -%]
-    <h2 class="compactreleasetype">[% item.link | ucfirst %]</h2>
-    <table class="appears">
-    <thead>
+[%- WRAPPER "artist/layout.tt" title=l('Artist Credits') -%]
+    [% BLOCK group_head %]
+        [%- last_year = '.' -%]
+        <h2 class="compactreleasetype">[% item.link | ucfirst %]</h2>
+        <table class="appears">
+        <thead>
+            <tr>
+                <th class="year">[% l('Year') %]</th>
+                <th class="artist">[% l('Artist') %]</th>
+                <th class="title">[% l('Release Title') %]</th>
+            </tr>
+        </thead>
+    [% END %]
+    [% BLOCK group_item %]
+        <tbody>
         <tr>
-            <th class="year">Year</th>
-            <th class="artist">Artist</th>
-            <th class="title">Release Title</th>
+            <td class="year[% item.year == last_year && item.year != '?' ? ' timeline' : '' -%]">
+                [% item.year %]
+            </td>
+            <td>[% entity_link(item.artist) %]</td>
+            <td>[% entity_link(item.release) %]</td>
         </tr>
-    </thead>
-    <tbody>
-[% END %]
-
-[% BLOCK group_item %]
-    <tr>
-        <td class="year[% item.year == last_year && item.year != '?' ? ' timeline' : '' -%]">
-            [% item.year %]
-        </td>
-        <td>[% entity_link(item.artist) %]</td>
-        <td>[% entity_link(item.release) %]</td>
-    </tr>
-    [%- last_year = item.year -%]
-[% END %]
-
-[% BLOCK group_foot %]
-    </tbody>
-</table>
-[% END %]
-
-[% INCLUDE "components/grouped.tt" items=releases group_var='link' %]
-
+        [%- last_year = item.year -%]
+    [% END %]
+    [% BLOCK group_foot %]
+        </tbody>
+    </table>
+    [% END %]
+    [% INCLUDE "components/grouped.tt" items=releases group_var='link' %]
 [%- END -%]

@@ -1,5 +1,3 @@
-[%- group_last="BURGERS" -%]
-
 [% FOREACH item=items %]
     [% IF item.${group_var} != group_last %]
         [% PROCESS group_foot IF !loop.first %]

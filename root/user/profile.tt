@@ -1,136 +1,172 @@
 [% extra_css = "user.css" %]
-
-[% WRAPPER "layout.tt" title="Editor \"$user.name\"" %]
-
-[% BLOCK property %]
-    <dt>[% name %]:</dt>
-    <dd>[% content %]</dd>
-[% END %]
-
-[% review_options = [
-    { link => c.uri_for("/review/$user.name/votes"), text => "Votes" },
-    { link => c.uri_for("/review/$user.name/edits"), text => "Edits" },
-    { link => c.uri_for("/review/$user.name/edits/open"), text => "Open Edits" },
-    { link => c.uri_for("/review/$user.name/edits/failed"), text => "Failed Edits" },
-    { link => c.uri_for("/review/$user.name/edits/cancelled"), text => "Cancelled Edits" },
-    { link => c.uri_for('/user/subscriptions'), text => "Subscriptions", hide => not (viewing_own_profile or preferences.get('subscriptionspublic')) },
-] %]
-
-[% edit_account_options = [
-    { link => c.uri_for('/user/edit'), text => "Edit" },
-    { link => c.uri_for('/user/change_password'), text => "Change Password" },
-    { link => c.uri_for('/user/preferences'), text => "Preferences" },
-    { link => c.uri_for('/user/donate'), text => "Check Donation Status" },
-] %]
-
-[% WRAPPER "components/box.tt" header="Editor \"$user.name\"" %]
-    <h3>General Information:</h3>
-    <dl>
-    [% INCLUDE "components/piped-list.tt" list=review_options WRAPPER property name="Review" %]
-
-    [% INCLUDE "components/piped-list.tt" list=edit_account_options WRAPPER property name="Edit My Account" IF viewing_own_profile %]
-
-    [% IF (not viewing_own_profile) %]
-        [% WRAPPER property name="Contact"%]
-            <a href="[% c.uri_for('/user/contact', user.name) %]">Send email</a>
-        [% END %]
+[% WRAPPER "layout.tt" title=l("Editor \"{user}\"", {user => $user.name}) %]
+    [% BLOCK property %]
+        <dt>
+            [% name %]:
+        </dt>
+        <dd>
+            [% content %]
+        </dd>
     [% END %]
-
-    [% user.name | html_entity WRAPPER property name="Name" %]
-
-    [% WRAPPER property name="User type" %]
-		[% types = [] %]
-		
-        [% types.push(doc_link('AutoEditor', 'Auto-Editor')) IF user.is_auto_editor %]
-		[% types.push("Internal/Bot") IF user.is_bot %]
-		[% types.push(doc_link('RelationshipEditor', 'Relationship Editor')) IF user.is_link_moderator %]
-		[% types.push(doc_link('TransclusionEditor', 'Transclusion Editor')) IF user.is_wiki_transcluder %]
-		
-		[% types.push('Normal User') IF types.size == 0 %]
-		[% comma_list(types) %]
-    [% END %]
-
-    [% WRAPPER property name="E-mail" %]
-        [% IF viewing_own_profile %]
-            [% (user.email or "[None]") | html_entity %]
-        [% ELSE %]
-            [Hidden]
-        [% END %]
-
-        [% IF user.email %]
-            [% IF user.email_confirmation_date %]
-                (verified [% UserDate.format(user.email_confirmation_date) %])
-            [% ELSE %]
-                [% IF viewing_own_profile %]
-                    (<em>unverified!</em>)
+    [% review_options = [
+        { link => c.uri_for("/review/$user.name/votes"), text => l("Votes") },
+        { link => c.uri_for("/review/$user.name/edits"), text => l("Edits") },
+        { link => c.uri_for("/review/$user.name/edits/open"), text => l("Open Edits") },
+        { link => c.uri_for("/review/$user.name/edits/failed"), text => l("Failed Edits") },
+        { link => c.uri_for("/review/$user.name/edits/cancelled"), text => l("Cancelled Edits") },
+        { link => c.uri_for('/user/subscriptions'), text => l("Subscriptions"), hide => not (viewing_own_profile or user.public_subscriptions) },
+    ] %]
+    [% edit_account_options = [
+        { link => c.uri_for('/user/edit'), text => l("Edit") },
+        { link => c.uri_for('/user/change_password'), text => l("Change Password") },
+        { link => c.uri_for('/user/preferences'), text => l("Preferences") },
+        { link => c.uri_for('/user/donate'), text => l("Check Donation Status") },
+    ] %]
+    [% WRAPPER "components/box.tt" header=l("Editor \"{user}\"", {user => $user.name}) %]
+        <h3>
+            [% l('General Information:') %]
+        </h3>
+        <dl>
+            [% INCLUDE "components/piped-list.tt" list=review_options WRAPPER property name=l("Review") %]
+            [% INCLUDE "components/piped-list.tt" list=edit_account_options WRAPPER property name=l("Edit My Account") IF viewing_own_profile %]
+            [% IF (not viewing_own_profile) %]
+                [% WRAPPER property name=l("Contact") %]
+                    <a href="[% c.uri_for('/user/contact', user.name) %]">
+                        [% l('Send email') %]
+                    </a>
                 [% END %]
             [% END %]
-        [% END %]
-    [% END %]
-
-    [% WRAPPER property name="Homepage" %]
-        [% IF user.web_url %]
-            <a href="[% user.web_url | url | html %]">[% user.web_url | html %]</a>
-        [% ELSE %]
-            [None]
-        [% END %]
-    [% END %]
-
-    [% WRAPPER property name="Bio" %]
-        <div class="bio">
-        [% (user.biography or "[None]") | html_entity %]
-        </div>
-    [% END %]
-
-    [% WRAPPER property name="Subscriptions" %]
-        [% viewing_own_profile ? "Your" : user.name | html_entity %] subscriptions are [% preferences.get('subscriptions_public') ? "public" : "private" %]
-    [% END %]
-
-    [% WRAPPER property name="Subscribers" %]
-        [% user.subscriber_count %] (<a href="[% c.uri_for('/bad_link') %]">view all</a>)
-    [% END %]
-    </dl>
-  
-    <h3>User Statistics</h3>
-    <dl>
-    [% WRAPPER property name="Member Since" %]
-        [% IF user.name == "Rob" %]
-            The Dawn of the project
-        [% ELSIF user.is_special %]
-            N/A
-        [% ELSIF user.charter %]
-            charter member
-        [% ELSE %]
-            [% UserDate.format(user.member_since) %]
-        [% END %]
-    [% END %]
-    
-    [% user.mods_accepted      WRAPPER property name="Accepted Non-autoedits" %]
-    [% user.auto_mods_accepted WRAPPER property name="Autoedits" %]
-    [% user.mods_rejected      WRAPPER property name="Edits Voted Down" %]
-    [% user.mods_failed        WRAPPER property name="Edits Failed" %]
-    </dl>
-    
-    <h3>Votes</h3>
-    <table class="statistics">
-        <thead>
-            <tr>
-                <th></th>
-                <th>Last 28 days</th>
-                <th>Overall</th>
-            </tr>
-        </thead>
-        <tbody>
-            [% FOREACH v IN votes %]
-            <tr>
-                <th>[% v.name | ucfirst%]:</th>
-                <td>[% v.recent %] ([% v.recent_pc %]%)</td>
-                <td>[% v.overall %] ([% v.overall_pc %]%)</td>
-            </tr>
+            [% user.name | html_entity WRAPPER property name=l("Name") %]
+            [% WRAPPER property name=l("User type") %]
+		[% types = [] %]
+                [% types.push(doc_link('AutoEditor', l('AutoEditor'))) IF user.is_auto_editor %]
+		[% types.push("Internal/Bot") IF user.is_bot %]
+		[% types.push(doc_link('RelationshipEditor', l('Relationship Editor'))) IF user.is_link_moderator %]
+		[% types.push(doc_link('TransclusionEditor', l('Transclusion Editor'))) IF user.is_wiki_transcluder %]
+		[% types.push('Normal User') IF types.size == 0 %]
+		[% comma_list(types) %]
             [% END %]
-        </tbody>
-    </table>
-
-[% END %]
-
+            [% WRAPPER property name=l("Email") %]
+                [% IF viewing_own_profile %]
+                    [% (user.email or l("[None]")) | html_entity %]
+                [% ELSE %]
+                    [% l('[Hidden]') %]
+                [% END %]
+                [% IF user.email %]
+                    [% IF user.email_confirmation_date %]
+                        ([% l('verified') %] [% user.email_confirmation_date %])
+                    [% ELSE %]
+                        [% IF viewing_own_profile %]
+                            (<em>[% l('unverified!') %]</em>)
+                        [% END %]
+                    [% END %]
+                [% END %]
+            [% END %]
+            [% WRAPPER property name=l("Homepage") %]
+                [% IF user.web_url %]
+                    <a href="[% user.web_url | url %]">
+                        [% user.web_url | html_entity %]
+                    </a>
+                [% ELSE %]
+                    [% l('[None]') %]
+                [% END %]
+            [% END %]
+            [% WRAPPER property name=l("Bio") %]
+                <div class="bio">
+                    [% (user.biography or l("[None]")) | html_entity %]
+                </div>
+            [% END %]
+            [% WRAPPER property name=l("Subscriptions") %]
+                [% IF user.public_subscriptions == 'public' %]
+                    [% IF viewing_own_profile %]
+                        [% l('Your subscriptions are public.') -%]
+                    [% ELSE %]
+                        [% l('The subscriptions for {user} are public.', {user => html_encode(user.name)}) %]
+                    [% END %]
+                [% ELSE %]
+                    [% IF viewing_own_profile %]
+                        [% l('Your subscriptions are private.') -%]
+                    [% ELSE %]
+                        [% l('The subscriptions for {user} are private.', {user = html_encode(user.name)}) %]
+                    [% END %]
+                [% END %]
+            [% END %]
+            [% WRAPPER property name="Subscribers" %]
+                [% user.subscriber_count %] (<a href="[% c.uri_for('/bad_link') %]">
+                    [% l('view all') %]
+                </a>)
+            [% END %]
+        </dl>
+        <h3>
+            [% l('User Statistics') %]
+        </h3>
+        <dl>
+            [% WRAPPER property name=l("Member Since") %]
+                [% IF user.name == "Rob" %]
+                    [% l('The Dawn of the Project') %]
+                [% ELSIF user.is_special %]
+                    [% l('N/A') %]
+                [% ELSIF user.charter %]
+                    [% l('Charter Member') %]
+                [% ELSE %]
+                    [% user_date(user.member_since) %]
+                [% END %]
+            [% END %]
+            [% add_commas(user.mods_accepted)      WRAPPER property name=l("Accepted Non-AutoEdits") %]
+            [% add_commas(user.auto_mods_accepted) WRAPPER property name=l("AutoEdits") %]
+            [% add_commas(user.mods_rejected)      WRAPPER property name=l("Edits voted down") %]
+            [% add_commas(user.mods_failed)        WRAPPER property name=l("Failed Edits") %]
+        </dl>
+        <h3>
+            [% l('Votes') %]
+        </h3>
+        <table class="statistics" summary="[% l('This table shows a summary of votes cast by this editor.') %]">
+            <caption>
+                [% l('This table shows a summary of votes cast by this editor.') %]
+            </caption>
+            <thead>
+                <tr>
+                    <th id="table_vote_summary_vote">
+                        [% l('Vote') %]
+                    </th>
+                    <th id="table_vote_summary_recent">
+                        [% l('Last 28 days') %]
+                    </th>
+                    <th id="table_vote_summary_overall">
+                        [% l('Overall') %]
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                [% FOREACH v IN votes %]
+                    [% NEXT IF loop.last %]
+                    <tr>
+                        <td style="background: #eee; font-weight: bold;" headers="table_vote_summary_vote">
+                            [% v.name | ucfirst%]
+                        </td>
+                        <td headers="table_vote_summary_recent">
+                            [% add_commas(v.recent) %]&nbsp;&nbsp;([% v.recent_pc %]%)
+                        </td>
+                        <td headers="table_vote_summary_overall">
+                            [% add_commas(v.overall) %]&nbsp;&nbsp;([% v.overall_pc %]%)
+                        </td>
+                    </tr>
+                [% END %]
+            </tbody>
+            <tfoot>
+                [% totals = votes.last %]
+                    <tr>
+                        <td style="background: #eee; font-weight: bold;" headers="table_vote_summary_vote">
+                            [% totals.name | ucfirst%]
+                        </td>
+                        <td style="background: #eee; font-weight: bold; text-align: center;" headers="table_vote_summary_recent">
+                            [% add_commas(totals.recent) %]
+                        </td>
+                        <td style="background: #eee; font-weight: bold; text-align: center;" headers="table_vote_summary_overall">
+                            [% add_commas(totals.overall) %]
+                        </td>
+                    </tr>
+            </tfoot>
+        </table>
+    [% END %]
 [% END %]

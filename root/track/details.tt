@@ -1,65 +1,88 @@
 [%- WRAPPER 'track/layout.tt' -%]
-[% INCLUDE "components/relationships.tt" source=track %]
-
-<div class="TagsBox">
-    [% INCLUDE "tag/summary.tt" %]
-</div>
-
-[% WRAPPER "components/box.tt" header="Track Information" %]
-    <table class="details">
-    <tr>
-        <th>[%- doc_link('TrackTitle', 'Title') -%]:</th>
-        <td>[% entity_link(track) %]</td>
-    </tr>
-    <tr>
-        <th>[%- doc_link('MusicBrainzIdentifier', 'MBID') -%]:</th>
-        <td>[% track.mbid %]</td>
-    </tr>
-    <tr>
-        <th>Permanent Link:</th>
-        <td>
-        [% link = "http://musicbrainz.org/track/${track.mbid}.html" %]
-        <a href="[% link %]">[% link | html %]</a>
-        </td>
-    </tr>
-    </table>
-[% END %]
-
-[% WRAPPER "components/box.tt" header="Artist Information" %]
-    <table class="details">
-    <tr>
-        <th>[%- doc_link("ArtistName", "Name") -%]:</th>
-        <td>
-        [% entity_link(artist) %]
-        [% IF artist.resolution %]
-            ([% artist.resolution %])
-        [% END %]
-        </td>
-    </tr>
-    <tr>
-        <th>[%- doc_link("MusicBrainzIdentifier", "MBID") -%]:</th>
-        <td>[% artist.mbid %]</td>
-    </tr>
-    </table>
-[% END %]
-
-[% WRAPPER "components/box.tt" header="Release Information" %]
-    <table class="details">
-    <tr>
-        <th>[%- doc_link("ReleaseTitle", "Title") -%]:</th>
-        <td>
-        [% entity_link(release) %]
-        </td>
-    </tr>
-    <tr>
-        <th>[%- doc_link("MusicBrainzIdentifier", "MBID") -%]:</th>
-        <td>[% release.mbid %]</td>
-    </tr>
-    <tr>
-        <th>Track Number:</th>
-        <td>[% track.sequence %]</td>
-    </tr>
-    </table>
-[% END %]
-  
+    [% INCLUDE "components/relationships.tt" source=track %]
+    <div class="TagsBox">
+        [% INCLUDE "tag/summary.tt" %]
+    </div>
+    [% WRAPPER "components/box.tt" header=l("Track Information") %]
+        <table class="details">
+            <tr>
+                <th>
+                    [%- doc_link('TrackTitle', l('Title')) -%]:
+                </th>
+                <td>
+                    [% entity_link(track) %]
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    [%- doc_link('MusicBrainzIdentifier', l('MBID')) -%]:
+                </th>
+                <td>
+                    [% track.mbid %]
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    [% l('Permanent Link:') %]
+                </th>
+                <td>
+                    [% link = "http://musicbrainz.org/track/${track.mbid}" %]
+                    <a href="[% link %]">
+                        [% link | html %]
+                    </a>
+                </td>
+            </tr>
+        </table>
+    [% END %]
+    [% WRAPPER "components/box.tt" header=l("Artist Information") %]
+        <table class="details">
+            <tr>
+                <th>
+                    [%- doc_link("ArtistName", l("Name")) -%]:
+                </th>
+                <td>
+                    [% entity_link(artist) %]
+                    [% IF artist.resolution %]
+                        ([% artist.resolution %])
+                    [% END %]
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    [%- doc_link("MusicBrainzIdentifier", l("MBID")) -%]:
+                </th>
+                <td>
+                    [% artist.mbid %]
+                </td>
+            </tr>
+        </table>
+    [% END %]
+    [% WRAPPER "components/box.tt" header=l("Release Information") %]
+        <table class="details">
+            <tr>
+                <th>
+                    [%- doc_link("ReleaseTitle", l("Title")) -%]:
+                </th>
+                <td>
+                    [% entity_link(release) %]
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    [%- doc_link("MusicBrainzIdentifier", l("MBID")) -%]:
+                </th>
+                <td>
+                    [% release.mbid %]
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    [% l('Track Number:') %]
+                </th>
+                <td>
+                    [% track.sequence %]
+                </td>
+            </tr>
+        </table>
+    [% END %]
 [% END %]

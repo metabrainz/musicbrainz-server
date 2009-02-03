@@ -1,23 +1,31 @@
-[%- WRAPPER "layout.tt" title="URL Information" -%]
-
-[%- WRAPPER "components/box.tt" header="URL Information" -%]
-    <table class="details">
-    <tr>
-        <th>URL:</th>
-        <td>[%- entity_link(url) -%]</td>
-    </tr>
-
-    <tr>
-        <th>Description:</th>
-        <td>[%- (url.desc || "This url has no description") | html -%]</td>
-    </tr>
-
-    <tr>
-        <th>[%- doc_link("MusicBrainzIdentifier", "MBID") -%]:</th>
-        <td>[%- url.mbid -%]</td>
-    </tr>
-    </table>
-[%- END -%]
-
-[%- INCLUDE "components/relationships.tt" showall=1 source=url -%]
+[%- WRAPPER "layout.tt" title=l("URL Information") -%]
+    [%- WRAPPER "components/box.tt" header=l("URL Information") -%]
+        <table class="details">
+            <tr>
+                <th>
+                    [%- l('URL:') -%]
+                </th>
+                <td>
+                    [%- entity_link(url) -%]
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    [%- l('Description:') -%]
+                </th>
+                <td>
+                    [%- (url.desc || l("This url has no description")) | html -%]
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    [%- doc_link("MusicBrainzIdentifier", l("MBID")) -%]:
+                </th>
+                <td>
+                    [%- url.mbid -%]
+                </td>
+            </tr>
+        </table>
+    [%- END -%]
+    [%- INCLUDE "components/relationships.tt" showall=1 source=url -%]
 [%- END -%]

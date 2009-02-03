@@ -1,13 +1,14 @@
-Tags:
+[% l('Tags:') %]
 [%- IF tags.size -%]
     [%- FOREACH tag IN tags -%]
         [%- LAST IF loop.count > 3 -%]
         <a href="[% c.uri_for('/tags', tag) %]">[% tag %]</a>[%- "," UNLESS (loop.first AND loop.size == 0) OR (loop.last) -%]
     [%- END -%]
-
     [%- IF tags.size > 3 -%]
-        <a href="[% c.entity_url(source, 'tags') %]">more&hellip;</a>
+        <a href="[% c.entity_url(source, 'tags') %]">
+            [% l('more&hellip;') %]
+        </a>
     [%- END -%]
 [%- ELSE -%]
-    (none)
+    [%- l('(none)') -%]
 [%- END -%]

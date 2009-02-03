@@ -1,51 +1,39 @@
 [%- url = "http://musicbrainz.org/${entity.entity_type}/${entity.mbid}" -%]
-
 [%- WRAPPER 'components/box.tt' header="Link to ${entity.name}" -%]
-<ul>
-    <li>
-        The permanent link for the MusicBrainz [%- entity.entity_type -%]
-        [%- entity_link(entity) -%]
-        is <a href="[% url | url %]">[% url | html %]</a>.
-    </li>
-    <li>
-        If you wish to add a permanent link to the MusicBrainz [% entity.entity_type %]
-        [% entity_link(entity) %]
-        from your web page or blog, choose one of the link styles below.
-    </li>
-    <li>
-        Just highlight (Ctrl+A) the content in the textbox, and copy (Ctrl+C) and paste (Ctrl+V) it into
-        your web page or blog.
-    </li>
-</ul>
-
-<p>
-    If you wish to use a text link (e.g. [% entity_link(entity, 1) %]),
-    you can use the following markup:
-</p>
-<table id="id-table-link">
-    <tr>
-        <th>Text Link:</th>
-        <td>
-            [%# This is a bit funky, but it's to make sure no extra spaces get added %]
-            <textarea id="id_link" cols="80" rows="5" title="Select text">
-                [%- "<a href=\"$url\">$entity.name</a>" | html %]
-            </textarea>
-        </td>
-    </tr>
-</table>
-
-<p>
-    If you wish to use a link with an icon (e.g. [% entity_link(entity) %]), you can use the following
-    markup:
-</p>
-<table id="id-table-icon-link">
-    <tr>
-        <th>Text Link</th>
-        <td>
-            <textarea cols="60" rows="5" title="Select text">
-                [%- "<a href=\"$url\"><img src=\"http://musicbrainz.org/static/images/entity/${entity.entity_type}_small.gif\" />$entity.name</a>" | html -%]
-            </textarea>
-        </td>
-    </tr>
-</table>
+    [%- WRAPPER 'layout/guidelines.tt' -%]
+        [%- create_guideline(l('The permanent link for the MusicBrainz {type} {entity} is <a href="{uri}">{html_uri}</a>.', {type => entity.entity_type, entity => entity_link(entity), uri => url_escape(url), html_uri => html_escape(url)})) -%]
+        [%- create_guideline(l('If you wish to add a permanent link to the MusicBrainz {type} {entity} from your web page or blog, choose one of the link styles below.', {type => entity.entity_type, entity => entity_link(entity)})) %]
+        [%- create_guideline(l('Just highlight (Ctrl+a) the content in the textbox, and copy (Ctrl+c) and paste (Ctrl+v) it into your web page or blog.')) -%]
+    [%- END -%]
+    <p>
+        [% l('If you wish to use a text link (e.g. {entity}, you can use the following markup:', {entity => entity_link(entity, 1)}) %]
+    </p>
+    <table id="id-table-link">
+        <tr>
+            <th>
+                [%- l('Text Link:') -%]
+            </th>
+            <td>
+                [%# This is a bit funky, but it's to make sure no extra spaces get added %]
+                <textarea id="id_link" cols="80" rows="5" title=l('Select text')>
+                    [%- "<a href=\"$url\">$entity.name</a>" | html %]
+                </textarea>
+            </td>
+        </tr>
+    </table>
+    <p>
+        [% l('If you wish to use a link with an icon (e.g. {entity}, you can use the following markup:', {entity => entity_link(entity)}) %]
+    </p>
+    <table id="id-table-icon-link">
+        <tr>
+            <th>
+                [%- l('Text Link') -%]
+            </th>
+            <td>
+                <textarea cols="60" rows="5" title=l('Select text')>
+                    [%- "<a href=\"$url\"><img src=\"http://musicbrainz.org/static/images/entity/${entity.entity_type}_small.gif\" />$entity.name</a>" | html -%]
+                </textarea>
+            </td>
+        </tr>
+    </table>
 [% END %]

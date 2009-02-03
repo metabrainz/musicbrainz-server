@@ -5,7 +5,6 @@
         classes.push('error') IF for.errors.size;
     END;
 -%]
-
 [%- IF for -%]
     <label id="label-[% form_id(for) %]" for="[% form_id(for) %]" [% class_html(classes) %]>
         [% label %]

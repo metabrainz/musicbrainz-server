@@ -1,6 +1,10 @@
 <table class="details">
     <tr>
-        <th>Artist:</th>
-        <td>[%- entity_link(new) -%]
+        <th>
+            [%- l('Artist:') -%]
+        </th>
+        <td>
+            [%- entity_link(new) -%]
+        </td>
     </tr>
 </table>

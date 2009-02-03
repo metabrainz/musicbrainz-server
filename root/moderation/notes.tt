@@ -1,17 +1,24 @@
+[%- USE UserDate(c.user) -%]
 [% IF moderation.Notes %]
     <table class="edit_notes">
-    [% FOR note=moderation.Notes %]
-        <tr>
-            <td class="author">
-            <a href="[% c.uri_for('/user/profile', note.user.name) %]">[% note.user.name %]</a>:
-            </td>
-            <td>
-            <div class="note_date">[% UserDate.format(note.GetNoteTime) %]</div>
-            [% note.text_as_html %]
-            </td>
-        </tr>
-    [% END %]
+        [% FOR note=moderation.Notes %]
+            <tr>
+                <td class="author">
+                    <a href="[% c.uri_for('/user/profile', note.user.name) %]">
+                        [% note.user.name %]
+                    </a>:
+                </td>
+                <td>
+                    <div class="note_date">
+                        [% UserDate.format(note.GetNoteTime) %]
+                    </div>
+                    [% note.text_as_html %]
+                </td>
+            </tr>
+        [% END %]
     </table>
 [% ELSE %]
-    <em>(None)</em>
+    <em>
+        [% l('(None)') %]
+    </em>
 [% END %]

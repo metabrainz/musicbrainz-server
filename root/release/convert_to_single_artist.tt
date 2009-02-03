@@ -1,10 +1,8 @@
-[%- WRAPPER 'release/layout.tt' title="Convert to single artist" -%]
-[%- WRAPPER 'components/box.tt' header='Convert to single artist' -%]
-
-[%- WRAPPER 'forms/form.tt' -%]
-    [%- INCLUDE 'forms/edit-note.tt' -%]
-    [%- INCLUDE 'forms/submit.tt' label='Enter Edit' -%]
-[%- END -%]
-
-[%- END -%]
+[%- WRAPPER 'release/layout.tt' title=l("Convert to single Artist") -%]
+    [%- WRAPPER 'components/box.tt' header=l('Convert to single Artist') -%]
+        [%- WRAPPER 'forms/form.tt' -%]
+            [%- INCLUDE 'forms/edit-note.tt' -%]
+            [%- INCLUDE 'forms/submit.tt' label=l('Enter edit') -%]
+        [%- END -%]
+    [%- END -%]
 [%- END -%]

@@ -115,7 +115,6 @@ The date this label was founded.
 
 has 'begin_date' => (
     is => 'rw',
-    default => '',
     initarg => 'begindate'
 );
 
@@ -127,7 +126,6 @@ The date this label dissolved.
 
 has 'end_date' => (
     is => 'rw',
-    default => '',
     initarg => 'enddate'
 );
 
@@ -172,7 +170,7 @@ Returns true if the label has both a start and end date; false otherwise
 
 =cut
 
-sub has_complete_date
+sub has_complete_date_range
 {
     my $self = shift;
     return $self->begin_date && $self->end_date;

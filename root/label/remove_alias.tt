@@ -1,10 +1,8 @@
-[% WRAPPER 'label/layout.tt' title='Remove alias' %]
-[% WRAPPER 'components/box.tt' header='Remove alias' %]
-
-[% WRAPPER 'forms/form.tt' %]
-    [% INCLUDE 'forms/edit-note.tt' %]
-    [% INCLUDE 'forms/submit.tt' label='Enter edit' %]
-[% END %]
-
-[% END %]
+[% WRAPPER 'label/layout.tt' title=l('Remove Label Alias') %]
+    [% WRAPPER 'components/box.tt' header=l('Remove Label Alias') %]
+        [% WRAPPER 'forms/form.tt' %]
+            [% INCLUDE 'forms/edit-note.tt' %]
+            [% INCLUDE 'forms/submit.tt' label=l('Enter edit') %]
+        [% END %]
+    [% END %]
 [% END %]

@@ -1,10 +1,8 @@
-[%- WRAPPER 'track/layout.tt' title="Change Track Artist" -%]
-
-[%- WRAPPER 'components/box.tt' header='Change track artist' -%]
-    [%- WRAPPER 'forms/form.tt' -%]
-        [%- INCLUDE 'forms/edit-note.tt' -%]
-        [%- INCLUDE 'forms/submit.tt' label='Enter edit' -%]
+[%- WRAPPER 'track/layout.tt' title=l("Change Track Artist") -%]
+    [%- WRAPPER 'components/box.tt' header=l('Change Track Artist') -%]
+        [%- WRAPPER 'forms/form.tt' -%]
+            [%- INCLUDE 'forms/edit-note.tt' -%]
+            [%- INCLUDE 'forms/submit.tt' label=l('Enter edit') -%]
+        [%- END -%]
     [%- END -%]
-[%- END -%]
-
 [%- END -%]

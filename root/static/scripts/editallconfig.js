@@ -338,10 +338,10 @@ function ReleaseEditor() {
 				}
 			}
 		}
-		
+
 		this.labelEditors = new MusicBrainz.InPlaceLabelEditors("rev_label-", "rev_labelname-", "rev_labelorigname-");
 		this.labelEditors.setup();
-		
+
 	};
 
 	this.getLabelFromInput = function(el) {

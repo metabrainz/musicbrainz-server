@@ -23,6 +23,8 @@ Static::Simple
 
 StackTrace
 
+I18N::Gettext
+
 Session
 Session::State::Cookie
 

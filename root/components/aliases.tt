@@ -1,31 +1,33 @@
-[%- WRAPPER "components/box.tt" header="Aliases for ${entity.name}" -%]
-
-[%- IF aliases.size > 0 -%]
-    <table>
-    <thead>
-        <tr>
-            <th>Alias</th>
-        </tr>
-    </thead>
-    <tbody>
-    [%- FOREACH alias IN aliases -%]
-        <tr>
-            <td>[% alias.name | html %]</td>
-            [% IF c.user_exists %]
-                <td>
-                [% links = [
-                    { link => c.entity_url(entity, 'remove_alias', alias.id), text => "Remove", }
-                    { link => c.entity_url(entity, 'edit_alias', alias.id), text => "Edit", }
-                ] %]
-                [% INCLUDE "components/piped-list.tt" list=links %]
-                </td>
-            [% END %]
-        </tr>
+[%- WRAPPER 'components/box.tt' header=l("Aliases for ${entity.name}") -%]
+    [%- IF aliases.size > 0 -%]
+        <table>
+            <thead>
+                <tr>
+                    <th>[% l('Alias') %]</th>
+                </tr>
+            </thead>
+            <tbody>
+            [%- FOREACH alias IN aliases -%]
+                <tr>
+                    <td>
+                        [% alias.name | html %]
+                    </td>
+                    [% IF c.user_exists %]
+                        <td>
+                            [% links = [
+                                { link => c.entity_url(entity, 'remove_alias', alias.id), text => l('Remove'), }
+                                { link => c.entity_url(entity, 'edit_alias', alias.id), text => l('Edit'), }
+                            ] %]
+                            [% INCLUDE 'components/piped-list.tt' list=links %]
+                        </td>
+                    [% END %]
+                </tr>
+            [%- END -%]
+            </tbody>
+        </table>
+    [%- ELSE -%]
+        <p>
+            [%- l('{entity} has no aliases.', {entity => entity_link(entity)}) -%]
+        </p>
     [%- END -%]
-    </tbody>
-    </table>
-[%- ELSE -%]
-    <p>[% entity_link(entity) %] has no aliases</p>
-[%- END -%]
-
 [%- END -%]

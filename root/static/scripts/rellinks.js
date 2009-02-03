@@ -45,9 +45,9 @@ function RelLinks()
 			connect(link, 'onclick', this, partial(this.showPopup, d[1], d[2]));
 			replaceChildNodes(span, ' | ', link);
 		}
-		
+
 	};
-	
+
 	this.showPopup = function(id, type, event)
 	{
 		if (this.popup.style.display != "none") {

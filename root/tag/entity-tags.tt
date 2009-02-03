@@ -1,12 +1,11 @@
 [% WRAPPER "components/box.tt" header="Tags" %]
-[%- IF tagcloud.size -%] 
-    <p>[% entity_link(entity) %] has been tagged with the following:</p>
-    [% INCLUDE "tag/cloud.tt" %]
-[%- ELSE -%]
-    <p>[% entity_link(entity) %] has not been tagged.</p>
-[%- END -%]
+    [%- IF tagcloud.size -%]
+        <p>[% entity_link(entity) %] has been tagged with the following:</p>
+        [% INCLUDE "tag/cloud.tt" %]
+    [%- ELSE -%]
+        <p>[% entity_link(entity) %] currently has no tags.</p>
+    [%- END -%]
 [% END %]
-
 [%- IF c.user_exists -%]
     [%- WRAPPER 'components/box.tt' header="Tag this ${entity.entity_type}" -%]
         [%- WRAPPER 'forms/form.tt' -%]

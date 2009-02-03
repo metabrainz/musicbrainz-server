@@ -1,29 +1,28 @@
-[% WRAPPER 'artist/layout.tt' title='Check Duplicates' %]
-[% WRAPPER 'components/box.tt' header='Duplicate Releases' %]
-[% INCLUDE 'add_release/bread_crumbs.tt' %]
-
-<p>
-    We found the following similar releases already in our database.
-</p>
-
-<ul>
-    <li>
-        Did you mean to enter one of the following?
-    </li>
-    <li>
-        If you are sure that your release is different, please confirm by
-        selecting the button below.
-    </li>
-</ul>
-
-[% INCLUDE 'release/release.tt' release=release.release
-    tracks=release.tracks release_events=release.events
-    show_artists=1
-    FOR release=similar %]
-
-[% INCLUDE 'forms/submit.tt'
-    label="No, my release is not one of the above"
-    WRAPPER 'forms/form.tt' %]
-
-[% END %]
+[% WRAPPER 'artist/layout.tt' title=l('Check Duplicates') %]
+[%# i18n NOTE: Plural text %]
+    [% WRAPPER 'components/box.tt' header=l('Possible duplicate Release(s) found') %]
+        [% INCLUDE 'add_release/bread_crumbs.tt' %]
+        <p>
+[%# i18n NOTE: Plural text %]
+            [% l('We found the following similar Release(s) already in our database:') %]
+        </p>
+        [%- WRAPPER 'layout/guidelines.tt' -%]
+[%# i18n NOTE: Plural text %]
+            [%- create_guideline(l('Were you adding one of the following Release(s) which already is in the database?')) -%]
+            [%- create_guideline(l('If you are sure that your Release is different, please confirm by selecting the button below.')) -%]
+        [%- END -%]
+        [% INCLUDE 'release/release.tt' release=release.release
+            tracks=release.tracks release_events=release.events
+            show_artists=1
+            FOR release=similar %]
+        [%- WRAPPER 'forms/row.tt' %]
+            [% INCLUDE 'forms/submit.tt'
+                label=l('No, my Release is not one of the above')
+                WRAPPER 'forms/form.tt' %]
+[%# NOTE: this next performs an incorrect action! %]
+            [% INCLUDE 'forms/submit.tt'
+                label=l('Yes, my Release is one of the above')
+                WRAPPER 'forms/form.tt' %]
+        [% END %]
+    [% END %]
 [% END %]

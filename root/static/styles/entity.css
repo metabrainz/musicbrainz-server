@@ -5,7 +5,7 @@
 /*
  * Header (ie, artist header, label header)
  */
-.entity_header { 
+.entity_header {
     border: 1px solid #000;
     background-color: #F0EFFF;
     color: #000;
@@ -18,6 +18,10 @@
 .entity_header .title,
 .entity_header .info {
     padding-left: 45px;
+}
+
+.entity_header .infoline {
+    padding-top: .25em;
 }
 
 .entity_header div.title a {
@@ -107,3 +111,9 @@ span.artist_icon { background-image: url("/static/images/entity/artist_small.gif
 span.release_icon { background-image: url("/static/images/entity/release_small.gif"); }
 span.label_icon { background-image: url("/static/images/entity/label_small.gif"); }
 span.track_icon { background-image: url("/static/images/entity/track_small.gif"); }
+
+.lastupdated {
+    color: grey;
+    font-size: x-small;
+}
+

@@ -1,15 +1,13 @@
-[% WRAPPER "artist/layout.tt" title="Confirm artist" %]
-[% WRAPPER 'components/box.tt' header='Confirm artist' %]
-[% INCLUDE 'add_release/bread_crumbs.tt' %]
-    <p>
-        Please confirm the artist "[% confirming %]" by searching below.
-        If searching yields no useful results, you can <a href="?add=1">add a new artist</a>
-    </p>
-    [% BLOCK create_link; "?id=${entity.id}&for=${key}"; END %]
-    [% INCLUDE "components/search.tt" entities=artists search_label="Artist" %]
-[% END %]
-
-[% WRAPPER 'components/box.tt' header='Add New Artist' %]
-    [%- INCLUDE 'artist/edit_form.tt' form=create_artist -%]
-[% END %]
+[% WRAPPER 'artist/layout.tt' title=l('Confirm Artist') %]
+    [% WRAPPER 'components/box.tt' header=l('Confirm Artist') %]
+        [% INCLUDE 'add_release/bread_crumbs.tt' %]
+        <p>
+            [% l('Please search and select the correct artist.  If searching yields no useful results, you can <a href="?add=1">add a new artist</a>') %]
+        </p>
+        [% BLOCK create_link; '?id=${entity.id}&for=${key}'; END %]
+        [% INCLUDE 'components/search.tt' entities=artists search_label=l('Artist') %]
+    [% END %]
+    [% WRAPPER 'components/box.tt' header=l('Add New Artist') %]
+        [%- INCLUDE 'artist/edit_form.tt' form=create_artist -%]
+    [% END %]
 [% END %]

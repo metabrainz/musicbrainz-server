@@ -1,5 +1,4 @@
 [%- DEFAULT maximum=4 -%]
-
 [%- BLOCK relation_group -%]
     [% ar.connector | html %]
     [%- FOREACH entity IN ar.entities -%]
@@ -15,7 +14,6 @@
     [% "from ${ar.start_date}" IF ar.start_date %]
     [% "until ${ar.end_date}" IF ar.end_date %]
 [%- END -%]
-
 [%- BLOCK list -%]
     [%- IF relations.size > 1 OR nocompact -%]
         <ul class="relations_list">
@@ -24,68 +22,73 @@
             <li>[%- PROCESS relation_group -%]</li>
         [%- END -%]
         </ul>
-    [%- ELSIF relations.size == 1 -%] 
+    [%- ELSIF relations.size == 1 -%]
         [%- PROCESS relation_group ar=relations.first -%]
     [%- END -%]
-    [%- IF relations.size > maximum  && !showall -%]
+    [%- IF relations.size > maximum && !showall -%]
         [%- n = relations.size - maximum -%]
         <div class="more_relationships">
-            [% n %] relationship[% n > 1 ? "s" : "" %] not shown.
-            <a href="[% c.entity_url(source, 'relations') %]">View all relationships&hellip;</a>
+            [% ln('{num} relationship not shown', '{num} relationships not shown', n, {num => n}) %]
+            <a href="[% c.entity_url(source, 'relations') %]">[% l('View all relationships&hellip;') %]</a>
         </div>
     [%- END -%]
 [%- END -%]
-
 [%- UNLESS justlist -%]
-[%- IF showall -%]<h1>Relationships for [% source.entity_type %] "[% source.name %]"</h1>[% END %]
-<div class="RelationshipBox">
-    [%- IF relations.size -%]
-        [%- entity_link(source) -%][% relations.size > 1 ? ":" : "" %]
-        [%- PROCESS list -%]
-    [%- ELSE -%]
-        [%- entity_link(source) -%] has no relationships.
+    [%- IF showall -%]
+        <div class="box orange">
+            <h2>
+                [% l("Relationships for ${source.entity_type} ${source.name}") %]
+            </h2>
+        </div>
     [%- END -%]
-
-    [%- IF current_relationship -%]
-        <hr/>
-	<p>Create a relationship with:</p>
-	<ul>
-   	    <li>[%- entity_link(current_relationship) -%]</li>
-	</ul>
-    [%- END -%]
-
-    [%- links = [
-		{
-			link => c.uri_for(c.controller('relate').action_for('store'),
-				[ source.entity_type, source.mbid ]),
-	    	text => "Use this ${source.entity_type} in a Relationship"
-			hide => !c.user_exists,
-		},
-		{
-			link => c.uri_for('/relate/cancel'),
-	    	text => 'Cancel',
-	    	hide => !current_relationship || !c.user_exists,
-		},
-		{
-			link => c.uri_for(c.controller('relate').action_for('create'),
-	    		[ current_relationship.entity_type, current_relationship.mbid ],
-	    		source.entity_type, source.mbid),
-	    	text => 'Create Relationship',
-	    	hide => (current_relationship.id == source.id) || !c.user_exists,
-		},
-	    {
-			link => c.uri_for(c.controller('relate').action_for('url'),
-	        	[ source.entity_type, source.mbid ]),
-	        text => 'Relate to URL',
-			hide => !c.user_exists
-		},
-        {
-			link => c.entity_url(source, 'relations'),
-			text => 'View Relationships'
-		},
-    ] -%]
-    <div>[%- INCLUDE 'components/piped-list.tt' list=links -%]</div>
-</div>
-[%- ELSE -%]
-    [%- PROCESS list -%]
+        <div class="RelationshipBox">
+            [%- IF relations.size -%]
+                [%- entity_link(source) -%][% relations.size > 1 ? ":" : "" %]
+                [%- PROCESS list -%]
+            [%- ELSE -%]
+                [% l(entity_link(source) _ ' has no relationships.') -%]
+            [%- END -%]
+        [%- IF current_relationship -%]
+            <hr/>
+            <p>
+                [% l('Create a relationship with:') %]
+            </p>
+           <ul>
+                <li>[%- entity_link(current_relationship) -%]</li>
+           </ul>
+        [%- END -%]
+        [%- links = [
+            {
+                link => c.uri_for(c.controller('relate').action_for('store'),
+                    [ source.entity_type, source.mbid ]),
+                text => l("Use this ${make_ucfirst(source.entity_type)} in a Relationship")
+                    hide => !c.user_exists,
+                },
+                {
+                link => c.uri_for('/relate/cancel'),
+                    text => l('Cancel'),
+                    hide => !current_relationship || !c.user_exists,
+                },
+                {
+                link => c.uri_for(c.controller('relate').action_for('create'),
+                    [ current_relationship.entity_type, current_relationship.mbid ],
+                    source.entity_type, source.mbid),
+                    text => l('Create Relationship'),
+                    hide => (current_relationship.id == source.id) || !c.user_exists,
+                },
+                {
+                link => c.uri_for(c.controller('relate').action_for('url'),
+                    [ source.entity_type, source.mbid ]),
+                    text => l('Relate to URL'),
+                    hide => !c.user_exists
+                },
+                {
+                link => c.entity_url(source, 'relations'),
+                    text => l('View Relationships')
+            },
+        ] -%]
+        <div>
+            [%- INCLUDE 'components/piped-list.tt' list=links -%]
+        </div>
+        </div>
 [%- END -%]

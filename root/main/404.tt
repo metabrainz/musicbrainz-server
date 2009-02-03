@@ -1,17 +1,14 @@
-[% WRAPPER "layout.tt" title="404: Page Not Found" %]
-
-<h1>Page Not Found</h1>
-<h2>(HTTP code 404)</h2>
-
-<p>The page you requested does not exist.</p>
-
-<p>
-    If you think this is our fault (for example, you found a broken link
-    <i>and the link you found is on our site</i>, then please contact us at
-    <a href="mailto&#x3a;support&#x0040;musicbrainz.org">support&#x0040;musicbrainz.org</a>,
-    or via IRC in
-    <a href="irc://irc.freenode.net/musicbrainz">the #musicbrainz channel</a>
-    on FreeNode.&nbsp; Thank you.
-</p>
-
+[% WRAPPER "layout.tt" title=l("404: Page Not Found") %]
+    <h1>
+        [%- l('Page Not Found') -%]
+    </h1>
+    <h2>
+        [%- l('(HTTP code 404)') -%]
+    </h2>
+    <p>
+        [%- l('The page you requested does not exist.') -%]
+    </p>
+    <p>
+        [%- l('If you think this is our fault (for example, you found a broken link <i>and the link you found is on our site</i>, then please contact us at <a href="mailto&#x3a;support&#x0040;musicbrainz.org">support&#x0040;musicbrainz.org</a>, or via IRC in <a href="irc://irc.freenode.net/musicbrainz">the #musicbrainz channel</a> on FreeNode.&nbsp; Thank you.') -%]
+    </p>
 [% END %]

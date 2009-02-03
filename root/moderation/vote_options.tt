@@ -1,30 +1,29 @@
 [%- IF moderation.GetVote.defined -%]
     Their vote: [% vote(moderation.GetVote) %]<br />
 [%- END -%]
-
 [%- IF moderation.is_open -%]
     [%- UNLESS moderation.moderator.id == c.user.id-%]
         <table class="vote_choice">
             <tr>
                 [%- options = [
-                    { label => 'Yes',     value => 'y', id => 'yes' },
-                    { label => 'No',      value => 'n', id => 'no' },
-                    { label => 'Abstain', value => 'a', id => 'abs' },
-                    { label => 'No Vote', value => '',  id => 'nv' },
+                    { label => l('Yes'),     value => 'y', id => 'yes' },
+                    { label => l('No'),      value => 'n', id => 'no' },
+                    { label => l('Abstain'), value => 'a', id => 'abs' },
+                    { label => l('No Vote'), value => '',  id => 'nv' },
                 ] -%]
                 [% FOR opt=options %]
                     <td>
-                    <input id="id_vote_[% opt.id %]_[% moderation.id %]"
-                    name="vote_[% moderation.id %]"
-                    type="radio" value="[% opt.value %]" /><br />
-                    <label for="id_vote_[% opt.id %]_[% moderation.id %]">
-                    [% opt.label %]
-                    </label>
+                        <input id="id_vote_[% opt.id %]_[% moderation.id %]"
+                            name="vote_[% moderation.id %]"
+                            type="radio" value="[% opt.value %]" /><br />
+                        <label for="id_vote_[% opt.id %]_[% moderation.id %]">
+                            [% opt.label %]
+                        </label>
                     </td>
                 [% END %]
             </tr>
         </table>
     [%- END -%]
 [%- ELSE -%]
-    Change applied
+    [% l('Change applied') %]
 [%- END -%]

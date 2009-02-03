@@ -1,37 +1,33 @@
 [%- info_links = [
-    { link => c.entity_url(track, 'details'), text => "Details" },
-    { link => c.entity_url(track, 'relations'), text => "Relationships" },
-    { link => c.entity_url(track, 'tags'), text => "Tags" },
-    { link => c.entity_url(track, 'google'), text => "Search Google" }
-    { link => c.uri_for('/moderation/entity/track', track.mbid), text => 'View Edits' }
+    { link => c.entity_url(track, 'details'), text => l("Details") },
+    { link => c.entity_url(track, 'relations'), text => l("Relationships") },
+    { link => c.entity_url(track, 'tags'), text => l("Tags") },
+    { link => c.entity_url(track, 'google'), text => l("Search Google") }
+    { link => c.uri_for('/moderation/entity/track', track.mbid), text => l('View Edits') }
 ] -%]
 [%- edit_links = [
-    { link => c.entity_url(track, 'edit'), text => "Edit" },
-    { link => c.entity_url(track, 'remove'), text => "Remove" },
-    { link => c.entity_url(track, 'change_artist'), text => "Change artist" },
+    { link => c.entity_url(track, 'edit'), text => l("Edit") },
+    { link => c.entity_url(track, 'remove'), text => l("Remove") },
+    { link => c.entity_url(track, 'change_artist'), text => l("Change artist") },
 ] -%]
-
 <div class="entity_header">
     <div class="title track">
         [% entity_link(track, 1) %]
     </div>
-
     [%- IF artist -%]
-    <div class="info">
-        by [% entity_link(artist, 1) %]
-    </div>
+        <div class="info">
+            [% l('by [_1]', entity_link(release_artist, 1)) %]
+        </div>
     [%- END -%]
-
     <div class="infoLinks">
         Info: [% INCLUDE "components/piped-list.tt" list=info_links %]
     </div>
-
     <div class="editLinks">
-        Edit: 
+        Edit:
         [%- IF c.user_exists -%]
             [%- INCLUDE 'components/piped-list.tt' list=edit_links -%]
         [%- ELSE -%]
-        Please <a href="[% c.uri_for('/user/login') %]">log in</a> to edit this artist
+        [% l('Please <a href="{uri}">log in</a> to edit this artist', {uri => c.uri_for('/user/login')}) %]
         [%- END -%]
     </div>
 </div>

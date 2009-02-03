@@ -1,9 +1,37 @@
 <ul>
-    <li><a href="http://www.metabrainz.org/donate"><img src="[% c.uri_for('/static/images/sponsors/metabrainz.png') %]" alt="Donate to MusicBrainz!" title="Donate to MusicBrainz!" /></a></li>
-    <li><a href="http://www.google.com"><img src="[% c.uri_for('/static/images/sponsors/googlesponsor.png') %]" alt="Google" title="Google" /></a></li>
-    <li><a href="http://musicip.com"><img src="[% c.uri_for('/static/images/sponsors/musicip.png') %]" alt="MusicIP" title="MusicIP" /></a></li>
-    <li><a href="http://creativecommons.org/"><img src="[% c.uri_for('/static/images/sponsors/cc.png') %]" alt="CC" title="Creative Commons" /></a></li>
-    <li><a href="http://digitalwest.net"><img src="[% c.uri_for('/static/images/sponsors/digitalwest.png') %]" alt="DWNI" title="Digital West Networks Inc." /></a></li>
-    <li><a href="http://osuosl.org/"><img src="[% c.uri_for('/static/images/sponsors/osuosl.png') %]" alt="OSL" title="OSU Open Source Lab" /></a></li>
-    <li><a href="http://metabrainz.org/about/supporters.html">More info...</a></li>
+    <li>
+        <a href="http://www.metabrainz.org/donate">
+            <img src="[% c.uri_for('/static/images/sponsors/metabrainz.png') %]" alt=l("Donate to MusicBrainz!") title=l("Donate to MusicBrainz!") />
+        </a>
+    </li>
+    <li>
+        <a href="http://www.google.com">
+            <img src="[% c.uri_for('/static/images/sponsors/googlesponsor.png') %]" alt=l("Google") title=l("Google") />
+        </a>
+    </li>
+    <li>
+        <a href="http://musicip.com">
+            <img src="[% c.uri_for('/static/images/sponsors/musicip.png') %]" alt=l("MusicIP") title=l("MusicIP") />
+        </a>
+    </li>
+    <li>
+        <a href="http://creativecommons.org/">
+            <img src="[% c.uri_for('/static/images/sponsors/cc.png') %]" alt=l("Creative Commons") title=l("Creative Commons") />
+        </a>
+    </li>
+    <li>
+        <a href="http://digitalwest.net">
+            <img src="[% c.uri_for('/static/images/sponsors/digitalwest.png') %]" alt=l("Digital West Networks Inc.") title=l("Digital West Networks Inc.") />
+        </a>
+    </li>
+    <li>
+        <a href="http://osuosl.org/">
+            <img src="[% c.uri_for('/static/images/sponsors/osuosl.png') %]" alt=l("OSU Open Source Lab") title=l("OSU Open Source Lab") />
+        </a>
+    </li>
+    <li>
+        <a href="http://metabrainz.org/about/supporters.html">
+            [% l('More info&hellip;') %]
+        </a>
+    </li>
 </ul>

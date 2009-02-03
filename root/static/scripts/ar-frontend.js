@@ -169,7 +169,7 @@ function ARFrontEnd() {
 						replaceChildNodes(e, button, INPUT({'type': 'hidden', 'value': '0', 'id': '_linkedit'+index}));
 					}
 				}
-				
+
 
 			} else {
 				mb.log.error("Could not find the hidden field int_typedropdown");
@@ -367,13 +367,13 @@ function ARFrontEnd() {
 		$('_linkeditimg'+idx).src = '/images/release_editor/edit-off.gif';
 		$('AR_ENTITY_'+idx).innerHTML = mb.ui.getEntityLink($('link'+idx+'type').value, $('link'+idx).value, $('link'+idx+'name').value);
 	}
-	
+
 	this.setEntity = function(idx, entity) {
 		$('link'+idx).value = entity.id;
 		$('link'+idx+'name').value = entity.name;
 		arfrontend.makeEntityLink(idx)
 	}
-	
+
 	this.changeEntity = function(idx, type, evt) {
 		var edit = $('_linkedit'+idx);
 		if (edit.value == '0') {
@@ -393,7 +393,7 @@ function ARFrontEnd() {
 			arfrontend.makeEntityLink(idx, edit);
 		}
 	}
-	
+
 	// exit constructor
 	mb.log.exit();
 }

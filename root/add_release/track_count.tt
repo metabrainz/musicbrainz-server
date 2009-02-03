@@ -1,27 +1,14 @@
-[% WRAPPER 'layout.tt' title='Add Release' %]
-[% WRAPPER 'components/box.tt' header='Add Release' %]
-[% INCLUDE 'add_release/bread_crumbs.tt' %]
-
-<ul>
-    <li>
-        You are about to manually add a release to the artist
-        [%- entity_link(artist) -%].
-    </li>
-    <li>
-        Did you know that you can import releases from the
-        <a href="[% c.uri_for('/release/import') %]">FreeDB database</a>
-        ([% doc_link('FreeDB', 'read more') %])?
-    </li>
-    <li>
-        Please read the [%- doc_link('StyleGuidelines', 'style guidelines') -%]
-        first, then enter the number of tracks on this release to
-        begin the add release wizard.
-    </li>
-</ul>
-
-[% WRAPPER 'forms/form.tt' %]
-    [% INCLUDE 'forms/generic/row.tt' field=form.field('track_count') label='Track count' %]
-    [% INCLUDE 'forms/submit.tt' label='Next' %]
-[% END %]
-[% END %]
+[% WRAPPER "artist/layout.tt" title=l('Add Release') %]
+    [% WRAPPER 'components/box.tt' header=l('Number of Tracks on the Release') %]
+        [% INCLUDE 'add_release/bread_crumbs.tt' %]
+        [%- WRAPPER 'layout/guidelines.tt' -%]
+            [%- create_guideline(l('You are about to manually add a {doc_release}.', {doc_release => doc_link('Release', l('Release'))})) -%]
+            [%- create_guideline(l('Did you know that you can <a href={uri}>import Releases</a> from the {doc_freedb}?', {uri => c.uri_for('/release/import'), doc_freedb => doc_link('FreeDB', l('FreeDB database'))})) -%]
+            [%- create_guideline(l('Please read the {doc_styleguide}, then enter the number of Tracks on this Release to begin the add release wizard.', {doc_styleguide => doc_link('StyleGuideline', l('Style Guidelines'))})) -%]
+        [%- END -%]
+        [% WRAPPER 'forms/form.tt' %]
+            [% INCLUDE 'forms/generic/row.tt' field=form.field('track_count') label=l('Track count') %]
+            [% INCLUDE 'forms/submit.tt' label=l('Next') _ ' &raquo;' %]
+        [% END %]
+    [% END %]
 [% END %]

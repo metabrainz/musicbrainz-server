@@ -21,7 +21,7 @@
 \----------------------------------------------------------------------------*/
 
 function ARSearch() {
- 
+
 	// ----------------------------------------------------------------------------
 	// register class/global id
 	// ----------------------------------------------------------------------------
@@ -49,7 +49,7 @@ function ARSearch() {
 	// ----------------------------------------------------------------------------
 	// member functions
 	// ----------------------------------------------------------------------------
-	
+
 	/**
 	 * Document Me!
 	 *
@@ -58,10 +58,10 @@ function ARSearch() {
 	this.handleKeyPressed = function(e) {
 		mb.log.enter(this.GID, "handleKeyPressed");
 		this.eventMode = (e) ? ((e.eventPhase) ? "W3C" : "NN4") : ((window.event) ? "IE" : "unknown");
-		
+
 		// lets try some netscape 4 support, just for fun.
 		if (this.eventMode == "NN4") {
-			document.captureEvents(Event.KEYDOWN); 
+			document.captureEvents(Event.KEYDOWN);
 		}
 		var event = (this.eventMode == "IE" ? window.event : e);
 		var keyCode = (this.eventMode == "IE" ? event.keyCode : event.which);
@@ -75,8 +75,8 @@ function ARSearch() {
 	/**
 	 * Document Me!
 	 *
-	 * @param keyCode	 	 
-	 * @param btnClicked	 	 
+	 * @param keyCode
+	 * @param btnClicked
 	 */
 	this.handleKeyCode = function(keyCode, btnClicked) {
 		mb.log.enter(this.GID, "handleKeyCode");
@@ -84,16 +84,16 @@ function ARSearch() {
 		var retval;
 		var inputFocus = this.inputHasFocus();
 		var selectFocus = this.selectHasFocus();
-		
+
 		mb.log.debug("keyCode=$, focus on=$", keyCode, (inputFocus ? "Input" : selectFocus ? "Dropdown" : "none"));
-		
+
 		if (! (this.theDropdown == null || this.theDropdown.options == null || keyCode == null)) {
 			this.currChar = String.fromCharCode(keyCode);
 			this.currChar = (this.currChar != null ? this.currChar.toLowerCase() : "");
 			this.searchFindNext = false;
 			// window.status = keyCode;
 			if (keyCode == 8 || keyCode == 46) { // 46:DELETE, 8:BACKSPACE
-				if (this.charsArr.length > 1) { // pop one element from 
+				if (this.charsArr.length > 1) { // pop one element from
 					this.updateObjTimeout(this.theDropdown);
 					this.currChar = "";
 					this.currOp = "BACKTRACE";
@@ -107,18 +107,18 @@ function ARSearch() {
 					this.updateStats(this.theDropdown, true); // reset if query = ""
 					retval = true;
 				}
-				
+
 			} else if (keyCode == 27) { // ESC=reset substring
 				this.charsArr = new Array(); // and start from scratch
 				this.currChar = "";
 				this.currOp = "RESET";
 				this.theDropdown.selectedIndex = 0;
 				this.updateStats(this.theDropdown, true);
-				mb.log.debug("", true);			
+				mb.log.debug("", true);
 				retval = false;
-				
+
 			} else if ((btnClicked && keyCode == 39) ||
-					   (selectFocus && keyCode == 39) || 
+					   (selectFocus && keyCode == 39) ||
 					   (inputFocus && keyCode == 40)) { // 39:ARROW_RIGHT, 40:ARROW_DOWN
 				this.updateObjTimeout(this.theDropdown);
 				this.currChar = "FINDNEXT";
@@ -127,9 +127,9 @@ function ARSearch() {
 				this.currentIndex = this.theDropdown.selectedIndex;
 				this.search();
 				retval = false;
-				
+
 			} else if ((btnClicked && keyCode == 37) ||
-					   (selectFocus && keyCode == 37) || 
+					   (selectFocus && keyCode == 37) ||
 					   (inputFocus && keyCode == 38)) { // 37:ARROW_LEFT, ARROW_UP:38
 				this.updateObjTimeout(this.theDropdown);
 				this.currChar = "FINDNEXT";
@@ -138,7 +138,7 @@ function ARSearch() {
 				this.currentIndex = this.theDropdown.selectedIndex;
 				this.search();
 				retval = false;
-				
+
 			} else if ((("abcdefghijklmnopqrstuvwxyz ").indexOf(this.currChar) > -1)) {
 				this.checkObjTimeOut(this.theDropdown);
 				this.charsArr[this.charsArr.length] = this.currChar;
@@ -147,7 +147,7 @@ function ARSearch() {
 				this.lastChar = this.currChar;
 				this.search();
 				retval = inputFocus;
-				
+
 			} else {
 				mb.log.debug("No update required.");
 				retval = true;
@@ -163,12 +163,12 @@ function ARSearch() {
 	/**
 	 * Document Me!
 	 *
-	 * @param theObj	 	 
+	 * @param theObj
 	 */
 	this.checkObjTimeOut = function(theObj) {
 		mb.log.enter(this.GID, "checkObjTimeOut");
 		this.theDropdown = this.getDropDown(theObj);
-		if (this.theDropdown != null) {			
+		if (this.theDropdown != null) {
 			var lastEvent = this.objTimeout[this.theDropdown.id];
 			var now = new Date().getTime();
 			lastEvent = (lastEvent != null ? lastEvent : 0);
@@ -184,12 +184,12 @@ function ARSearch() {
 	/**
 	 * Document Me!
 	 *
-	 * @param theObj	 	 
+	 * @param theObj
 	 */
 	this.updateObjTimeout = function(theObj) {
 		mb.log.enter(this.GID, "updateObjTimeout");
 		this.theDropdown = this.getDropDown(theObj);
-		if (this.theDropdown != null) {			
+		if (this.theDropdown != null) {
 			this.objTimeout[this.theDropdown.id] = new Date().getTime();
 		} else {
 			mb.log.error("theObj is invalid reference: $", this.objToString(theObj));
@@ -200,7 +200,7 @@ function ARSearch() {
 	/**
 	 * Document Me!
 	 *
-	 * @param theObj	 	 
+	 * @param theObj
 	 */
 	this.getDropDown = function(theObj) {
 		mb.log.enter(this.GID, "getDropDown");
@@ -223,7 +223,7 @@ function ARSearch() {
 		} else {
 			mb.log.error("theObj is invalid reference: $", this.objToString(theObj));
 		}
-		
+
 		if (el == null) {
 			mb.log.error("Could not get reference to DropDown with id: $", elid);
 		}
@@ -234,12 +234,12 @@ function ARSearch() {
 	/**
 	 * Document Me!
 	 *
-	 * @param theObj	 	 
+	 * @param theObj
 	 */
 	this.getInputField = function(theObj) {
 		mb.log.enter(this.GID, "getInputField");
 		this.theDropdown = this.getDropDown(theObj);
-		if (this.theDropdown != null) {			
+		if (this.theDropdown != null) {
 			var inputElemId = this.theDropdown.id + "_substr";
 			var inputElem = document.getElementById(inputElemId);
 			if (inputElem != null) {
@@ -257,10 +257,10 @@ function ARSearch() {
 	/**
 	 * Document Me!
 	 */
-	this.inputHasFocus = function() {		
+	this.inputHasFocus = function() {
 		mb.log.enter(this.GID, "inputHasFocus");
-		var retval = ((this.lastFocusObj != null) && 
-					  (this.lastFocusObj.id != null) && 
+		var retval = ((this.lastFocusObj != null) &&
+					  (this.lastFocusObj.id != null) &&
 					  (this.lastFocusObj.id.match(/attr_(instrument|vocal)_\d+_substr/i) != null));
 		mb.log.exit();
 		return retval;
@@ -271,17 +271,17 @@ function ARSearch() {
 	 */
 	this.selectHasFocus = function() {
 		mb.log.enter(this.GID, "selectHasFocus");
-		var retval = ((this.lastFocusObj != null) && 
-					  (this.lastFocusObj.id != null) && 
+		var retval = ((this.lastFocusObj != null) &&
+					  (this.lastFocusObj.id != null) &&
 					  (this.lastFocusObj.id.match(/attr_(instrument|vocal)_\d+/i) != null));
 		mb.log.exit();
 		return retval;
-	};			
+	};
 
 	/**
 	 * Document Me!
 	 *
-	 * @param theObj	 	 
+	 * @param theObj
 	 */
 	this.updateStats = function(theObj, bReset, bOverride) {
 		mb.log.enter(this.GID, "updateStats");
@@ -303,7 +303,7 @@ function ARSearch() {
 	/**
 	 * Document Me!
 	 *
-	 * @param theObj	 	 
+	 * @param theObj
 	 */
 	this.updateDisplay = function(theObj, bReset, bOverride) {
 		mb.log.enter(this.GID, "updateDisplay");
@@ -322,7 +322,7 @@ function ARSearch() {
 	/**
 	 * Document Me!
 	 *
-	 * @param theObj	 	 
+	 * @param theObj
 	 */
 	this.handleFocus = function(theObj) {
 		mb.log.enter(this.GID, "handleFocus");
@@ -332,8 +332,8 @@ function ARSearch() {
 			if (inputElem.value == "Search...") inputElem.value = "";
 			this.theSubstr = (inputElem.value != null ? inputElem.value : "");
 			this.charsArr = this.theSubstr.split("");
-			this.updateStats(theObj, false); 
-			mb.log.debug("Initialized search string: $, focusObj: $", this.theSubstr, this.objToString(this.lastFocusObj));	
+			this.updateStats(theObj, false);
+			mb.log.debug("Initialized search string: $, focusObj: $", this.theSubstr, this.objToString(this.lastFocusObj));
 		} else {
 			mb.log.error("theObj is invalid reference: $, input: $", this.objToString(theObj), this.objToString(inputElem));
 		}
@@ -344,7 +344,7 @@ function ARSearch() {
 	/**
 	 * Document Me!
 	 *
-	 * @param theObj	 	 
+	 * @param theObj
 	 */
 	this.objToString = function(theObj) {
 		return (theObj == null || theObj.id == null ? "null" : theObj.id);
@@ -354,7 +354,7 @@ function ARSearch() {
 	/**
 	 * Document Me!
 	 *
-	 * @param theObj	 	 
+	 * @param theObj
 	 */
 	this.findPrev = function(theObj) {
 		mb.log.enter(this.GID, "findPrev");
@@ -371,7 +371,7 @@ function ARSearch() {
 	/**
 	 * Document Me!
 	 *
-	 * @param theObj	 
+	 * @param theObj
 	 */
 	this.findNext = function(theObj) {
 		mb.log.enter(this.GID, "findNext");
@@ -390,15 +390,15 @@ function ARSearch() {
 	 * has theSubstr as a substring and select
 	 * first found occurence, else select index 0
 	 *
-	 * @param hasWrapped	 
+	 * @param hasWrapped
 	 */
 	this.search = function(hasWrapped) {
 		mb.log.enter(this.GID, "search");
-	
+
 		if (this.theDropdown == null) {
 			mb.log.error("this.theDropdown = null");
 		} else {
-		
+
 			if (this.theSubstr == null || this.theSubstr == "") {
 				mb.log.error("this.theSubstr is empty/null");
 			} else {
@@ -416,43 +416,43 @@ function ARSearch() {
 				var i_min = 0;
 				var i_max = this.theDropdown.options.length - 1;
 				var i = (this.searchFindNext ? this.currentIndex : i_min);
-				
+
 				// print some debug information about the next search turn.
 				mb.log.debug("" + (hasWrapped ? "2nd run" : "1st run") + "---------------------------------------------------------------------------");
 				mb.log.debug("  Q: $, re=$", this.theSubstr, re);
 				mb.log.debug("  OP: $, CHAR: $, LAST: $", this.currOp, this.currChar, this.lastChar);
-				mb.log.debug("  findnext: $ ($), index: $, value: $", 
-					this.searchFindNext, 
+				mb.log.debug("  findnext: $ ($), index: $, value: $",
+					this.searchFindNext,
 					this.searchFindNextAsc ? "asc" : "desc",
 					this.currentIndex,
 					this.currentIndex != -1 ? this.theDropdown.options[this.currentIndex].text : ""
 				);
 
 				// continue until search is interrupted
-				this.interrupted = false;				
+				this.interrupted = false;
 				while (!this.interrupted) {
 					if (this.searchFindNextAsc && i == i_max) {
 						// if ascending search, stop at maximum
-						break; 
+						break;
 					}
 					if (!this.searchFindNextAsc && i == i_min) {
 						// if descending search, stop at minimum
-						break; 
+						break;
 					}
 					i += (this.searchFindNextAsc ? 1 : -1); // if ascending search, +1, else +(-1)
 					if (!(this.searchFindNext && i == this.currentIndex)) {
 						var probe = this.theDropdown.options[i].text;
-						var m = re.exec(probe);						
+						var m = re.exec(probe);
 						if (m != null) {
 							hasMatched = true;
 							if (this.searchFindNext) {
-								if ((this.searchFindNextAsc && i > this.currentIndex) || 
+								if ((this.searchFindNextAsc && i > this.currentIndex) ||
 									(!this.searchFindNextAsc && i < this.currentIndex)) {
 									foundMatch = true; // if we are looking for the next occurence of a substring
 									break; // and the index is bigger than the previous match, end search successful.
 								}
 							} else {
-								foundMatch = true; // if we are looking for a new string and 
+								foundMatch = true; // if we are looking for a new string and
 								break; // it matched, end search successful.
 							}
 						}
@@ -460,7 +460,7 @@ function ARSearch() {
 						hasMatched = true; // if no other entry was matched, remember current entry as the one that has matched.
 					}
 				}
-				
+
 				// log what caused the loop termination, what has happened.
 				mb.log.debug("  this.interrupted: $, hasMatched: $, foundMatch: $, index: $",
 					this.interrupted,
@@ -468,7 +468,7 @@ function ARSearch() {
 					foundMatch,
 					i
 				);
-				
+
 				if (!this.interrupted) { // if search was not interrupted
 					if (foundMatch && i != 0) { // if foundMatch, select index, else 0
 						this.theDropdown.selectedIndex = i;
@@ -500,7 +500,7 @@ function ARSearch() {
 	this.removeAttribute = function(theObj) {
 		mb.log.enter(this.GID, "removeAttribute");
 		this.theDropdown = this.getDropDown(theObj);
-		if (this.theDropdown != null) {		
+		if (this.theDropdown != null) {
 			var nameSplit = this.theDropdown.name.split("_");
 			var attr = nameSplit[1];
 			var index = parseInt(nameSplit[2]);
@@ -510,32 +510,32 @@ function ARSearch() {
 				var elemItem = document.getElementById(this.theDropdown.name + "_item");
 				if (elemItem) {
 					// remove dropdown, previous button, input field, next button and remove button
-					var items = new Array("", "_findprev", "_substr", "_findnext", "_remove"); 
+					var items = new Array("", "_findprev", "_substr", "_findnext", "_remove");
 					for (var i=0; i<items.length; i++) {
 						var childId = 'attr_' + attr + "_" + index + "" + items[i];
 						var elem = document.getElementById(childId);
 						if (elem != null) {
-							try { 
+							try {
 								elemItem.removeChild(elem);
-							} catch (e) { 
-								mb.log.debug("Could not removing id: $ from $", childId, elemItem.id); 
+							} catch (e) {
+								mb.log.debug("Could not removing id: $ from $", childId, elemItem.id);
 							}
 						} else {
 							mb.log.error("Did not find node to delete: $", childId);
 						}
-						if (items[i] == "_remove" && index > 1) { 
+						if (items[i] == "_remove" && index > 1) {
 							var elemBtn = document.getElementById("attr_" + attr + "_" + (index-1) + items[i]);
 							if (elemBtn) elemBtn.style.display = "inline";
-								// hide all remove buttons but the lowest one 
-								// (to prevent the removal of a button from the 
-								//  middle of the list)				
+								// hide all remove buttons but the lowest one
+								// (to prevent the removal of a button from the
+								//  middle of the list)
 						}
 					}
 				}
-				try { 
+				try {
 					elemParent.removeChild(elemItem);
-				} catch (e) { 
-					mb.log.error("Could not remove id: $, from parent: $", elemItem.id, elemParent.id); 
+				} catch (e) {
+					mb.log.error("Could not remove id: $, from parent: $", elemItem.id, elemParent.id);
 				}
 			} else {
 				mb.log.error("Did not find parent; "+this.objToString(theObj));
@@ -558,18 +558,18 @@ function ARSearch() {
 			var attrElement = elements[0];
 			if (attrElement) {
 				var index = this.findAttrIndex(attr);
-				
+
 				// do not add element '0' again
 				if (index != 0) {
 					mb.log.debug("Adding new index: $ to $", index, this.objToString(attrElement));
-					
+
 					// clone dropdown, previous button, input field, next button and remove button
 					var items = new Array("", "_findprev", "_substr", "_findnext", "_remove");
 					var pId = 'attr_' + attr + "_" + index + "_item";
 					var divElem = document.createElement("div");
 					divElem .setAttribute("id", pId);
 					divElem .className = "ar-attribute-item";
-					parent.appendChild(divElem);     
+					parent.appendChild(divElem);
 					for (var i=0; i<items.length; i++) {
 						var childId = 'attr_' + attr + "_0" + items[i];
 						var elem = document.getElementById(childId);
@@ -579,14 +579,14 @@ function ARSearch() {
 							if (newNode != null) {
 								newNode.setAttribute("id", newNodeId);
 								newNode.setAttribute("name", newNodeId);
-								divElem.appendChild(newNode);      
+								divElem.appendChild(newNode);
 								if (items[i] == "_substr") {
 									newNode.value = "Search...";
 								}
-								if (items[i] == "_remove") { 
-									if (index > 1) { 
+								if (items[i] == "_remove") {
+									if (index > 1) {
 										// hide remove button of the previous
-										// dropdown (to prevent the removal of a button from 
+										// dropdown (to prevent the removal of a button from
 										//  the middle of the list)
 										var elemBtn = document.getElementById("attr_" + attr + "_" + (index-1) + items[i]);
 										if (elemBtn) elemBtn.style.display = "none";
@@ -602,7 +602,7 @@ function ARSearch() {
 					}
 				}
 			}
-		} 
+		}
 		mb.log.exit();
 	};
 
@@ -621,8 +621,8 @@ function ARSearch() {
 		mb.log.exit();
 		return index;
 	};
-	
-	
+
+
 
 	/**
 	 * @param attr
@@ -645,15 +645,15 @@ function ARSearch() {
 		}
 	*/
 	};
-	
+
 	/**
 	 * setup the eventModel, and register the keyHandler method.
 	 *
-	 * @param e	 
+	 * @param e
 	 */
 	this.setupForm = function(e) {
 		mb.log.enter(this.GID, "setupForm");
-		
+
 		var obj,list = mb.ui.getByTag("select");
 		for (var i=0; i<list.length; i++) {
 			obj = list[i];
@@ -663,9 +663,9 @@ function ARSearch() {
 			if ((m = id.match(/attr_(instrument|vocal)_(\d+)/)) != null) {
 				var attr = m[1];
 				var index = m[2];
-				
+
 				var el = document.createElement("span");
-				obj.parentNode.appendChild(el);			
+				obj.parentNode.appendChild(el);
 
 				var s = [];
 				s.push('<input type="button" class="relationshipAttributeButton" name="attr_' + attr + '_' + index + '_findprev" ');
@@ -682,9 +682,9 @@ function ARSearch() {
 					s.push('[ <a href="/popup/DropdownSearch" onClick="window.open(\'/popup/DropdownSearch\',\'DropdownSearchHelp\',\'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=275\'); return false;">Help</a> ]');
 				}
 				el.innerHTML = s.join("");
-				
-				
-				/*				
+
+
+				/*
 				var el = document.createElement("input");
 				el.type = "button";
 				el.className = "relationshipAttributeButton";
@@ -694,7 +694,7 @@ function ARSearch() {
 				el.title = "Find previous "+type+" matching the search string";
 				parent.appendChild(el);
 				el.onclick = function(e) { arsearch.findPrev(this); };
-	
+
 				el = document.createElement("input");
 				el.type = "button";
 				el.className = "relationshipAttributeField";
@@ -723,31 +723,31 @@ function ARSearch() {
 				el.value = "Remove";
 				el.title = "Remove this "+type;
 				parent.appendChild(el);
-				el.onclick = function(e) { arsearch.removeAttribute(this); };			
+				el.onclick = function(e) { arsearch.removeAttribute(this); };
 				el.style.display = (index == 0 ? 'none' : 'inline');
-			
+
 				if (index == 0) {
 					el = document.createTextElement("[ ");
 					parent.appendChild(el);
-					
+
 					el = document.createElement("a");
 					el.href = "/popup/DropdownSearch";
 					el.onclick = function (e) {
-						window.open("/popup/DropdownSearch", "DropdownSearchHelp", "toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=275"); 
+						window.open("/popup/DropdownSearch", "DropdownSearchHelp", "toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=275");
 						return false;
 					};
 					el.appendChild(document.createTextElement("Help"));
 					parent.appendChild(el);
-				
-					
+
+
 					el = document.createTextElement(" ]");
-					parent.appendChild(el);					
+					parent.appendChild(el);
 				}
 				*/
-				
-				
-			
-						
+
+
+
+
 /*
 				document.write('<input type="button" class="relationshipAttributeButton" name="attr_' + attr + '_' + index + '_findprev" ');
 				document.write('id="attr_' + attr + '_' + index + '_findprev" value="&laquo;" onClick="this.findPrev(this)" ');
@@ -763,15 +763,15 @@ function ARSearch() {
 					document.write('[ <a href="/popup/DropdownSearch" onClick="MyWindow=window.open(\'/popup/DropdownSearch\',\'DropdownSearchHelp\',\'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=400,height=275\'); return false;">Help</a> ]');
 				}
 				*/
-				
+
 			}
 		}
-		
-		document.onkeydown = function(e) { 
-			arsearch.handleKeyPressed(e); 
+
+		document.onkeydown = function(e) {
+			arsearch.handleKeyPressed(e);
 		};
 		mb.log.exit();
-	};	
+	};
 }
 
 // instantiate, and setup the form.

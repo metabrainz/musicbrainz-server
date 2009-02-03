@@ -31,7 +31,7 @@ $.aqCookie = {
 
          for(var j=0;j<carr.length;j++) {
             var n = carr[j]+'=';
-            if (c.indexOf(n) == 0) 
+            if (c.indexOf(n) == 0)
                hash[carr[j]] = c.substring(n.length,c.length);
          }
       }

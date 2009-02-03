@@ -1,9 +1,6 @@
-[%- WRAPPER 'track/layout.tt' title="Change Track Artist" -%]
-
-[%- WRAPPER 'components/box.tt' header='Change track artist' -%]
-    [% BLOCK create_link; c.entity_url(track, 'confirm_change_artist', entity.mbid); END %]
-    [%- INCLUDE 'components/search.tt' search_label='Artist:' entities=artists -%]
-[%- END -%]
-
-
+[%- WRAPPER 'track/layout.tt' title=l("Change Track Artist") -%]
+    [%- WRAPPER 'components/box.tt' header=l('Change Track Artist') -%]
+        [% BLOCK create_link; c.entity_url(track, 'confirm_change_artist', entity.mbid); END %]
+        [%- INCLUDE 'components/search.tt' search_label=l('Artist:') entities=artists -%]
+    [%- END -%]
 [%- END -%]

@@ -1,49 +1,74 @@
 [%- WRAPPER "artist/landing.tt" -%]
-
-[% BLOCK group_head %]
-    <h2 class="compactreleasetype">
+    [% BLOCK group_head %]
+        <h2 class="compactreleasetype">
         [%- IF item.release_type %]
-            [% IF item.artist != artist.id; "Various Artist "; END %]
+            [% IF item.artist != artist.id; l('Various Artists'); END %]
             [% plural_release_attribute(item.release_type) %]
-        [%- ELSE; "Uncategorized Releases"; END -%]
-    </h2>
-<table class="releases">
-        <tbody>
-[% END %]
-
-[% BLOCK group_item %]
-    <tr[% ' class="odd"' IF loop.count % 2 == 0 %]>
-        <td class="tracks">
-            [% item.track_count %]&nbsp;<img src="[% c.uri_for('/static/images/notes.gif') %]" alt="Tracks" />
-        </td>
-        <td class="discids">
-            [% IF item.discid_count %]
-                [% item.discid_count %]&nbsp;<img src="[% c.uri_for('/static/images/cd.gif') %]" alt="Disc IDs" />
-            [% END %]
-        </td>
-        <td class="puids">
-            [% IF item.puid_count %]
-                [% item.puid_count %]&nbsp;<img src="[% c.uri_for('/static/images/puid.gif') %]" alt="PUIDs" />
-            [% END %]
-        </td>
-        <td class="status">
-            [% release_attribute(item.release_status) %]
-        </td>
-        <td class="date">[% item.first_release_date | release_date %]</td>
-        <td class="language">
-            <abbr title="[% item.language.name %] / [% item.script.name %]">
-                [% item.language.iso_code_3t %]
-            </abbr>
-        </td>
-        <td>[% entity_link(item, 1) %]</td>
-    </tr>
-[% END %]
-
-[% BLOCK group_foot %]
-    </tbody>
-</table>
-[% END %]
-
-[% INCLUDE "components/grouped.tt" items=releases group_var='release_type' %]
-
+        [%- ELSE; l("Uncategorized Releases"); END -%]
+        </h2>
+        <table class="releases" summary="[% l('{release_type} releases by {artist}', {release_type => plural_release_attribute(item.release_type), artist => artist.name}) %]">
+            <caption>
+                [% l('This table displays {type} releases by {artist}', {type => plural_release_attribute(item.release_type), artist => artist.name}) %]
+            </caption>
+            <tr>
+                <th id="table_[% plural_release_attribute(item.release_type) %]_title">
+                    [% l('Release Title') %]
+                </th>
+                <th id="table_[% plural_release_attribute(item.release_type) %]_tracks">
+                    [% l('Tracks') %]
+                </th>
+                <th id="table_[% plural_release_attribute(item.release_type) %]_discids">
+                    [% l('DiscIDs') %]
+                </th>
+                <th id="table_[% plural_release_attribute(item.release_type) %]_puids">
+                    [% l('PUIDs') %]
+                </th>
+                <th id="table_[% plural_release_attribute(item.release_type) %]_status">
+                    [% l('Status') %]
+                </th>
+                <th id="table_[% plural_release_attribute(item.release_type) %]_date" abbr="Release Date">
+                    [% l('Date') %]
+                </th>
+                <th id="table_[% plural_release_attribute(item.release_type) %]_language">
+                    [% l('Language') %]
+                </th>
+            </tr>
+            <tbody>
+    [%- END -%]
+    [%- BLOCK group_item -%]
+        <tr[% ' class="odd"' IF loop.count % 2 == 1 %]>
+            <td headers="table_[% plural_release_attribute(item.release_type) %]_title">
+                [% entity_link(item, 1) %]
+            </td>
+            <td class="tracks" headers="table_[% plural_release_attribute(item.release_type) %]_tracks">
+                [% item.track_count %]&nbsp;<img src="[% c.uri_for('/static/images/notes.gif') %]" alt=l("Tracks") />
+            </td>
+            <td class="discids" headers="table_[% plural_release_attribute(item.release_type) %]_discids">
+                [% IF item.discid_count %]
+                    [% item.discid_count %]&nbsp;<img src="[% c.uri_for('/static/images/cd.gif') %]" alt=l("Disc IDs") />
+                [% END %]
+            </td>
+            <td class="puids" headers="table_[% plural_release_attribute(item.release_type) %]_puids">
+                [% IF item.puid_count %]
+                    [% item.puid_count %]&nbsp;<img src="[% c.uri_for('/static/images/puid.gif') %]" alt=l("PUIDs") />
+                [% END %]
+            </td>
+            <td class="status" headers="table_[% plural_release_attribute(item.release_type) %]_status">
+                [% release_attribute(item.release_status) %]
+            </td>
+            <td class="date" headers="table_[% plural_release_attribute(item.release_type) %]_date">
+                [% item.first_release_date | release_date %]
+            </td>
+            <td class="language" headers="table_[% plural_release_attribute(item.release_type) %]_language">
+                <abbr title="[% item.language.name %] / [% item.script.name %]">
+                    [% item.language.iso_code_3t %]
+                </abbr>
+            </td>
+        </tr>
+    [%- END -%]
+    [% BLOCK group_foot %]
+        </tbody>
+    </table>
+    [% END %]
+    [% INCLUDE "components/grouped.tt" items=releases group_var='release_type' %]
 [% END %]

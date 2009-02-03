@@ -1,94 +1,115 @@
-[%- WRAPPER 'layout.tt' title="Moderation #${moderation.id}" -%]
-[%- WRAPPER 'components/box.tt' header="Moderation #${moderation.id}" -%]
-
-<table class="details">
-    <tr>
-        <th>Editor:</th>
-        <td>[%- moderation.moderator.name -%]</td>
-    </tr>
-
-    <tr>
-        <th>Edit ID:</th>
-        <td>[% moderation.id %]</td>
-    </tr>
-
-    <tr>
-        <th>Status:</th>
-        <td>[% moderation.GetChangeName %]</td>
-    </tr>
-
-    <tr>
-        <th>Opened:</th>
-        <td>[% UserDate.format(moderation.open_time) %]</td>
-    </tr>
-
-    <tr>
-        <th>Expires:</th>
-        <td>[% UserDate.format(moderation.expire_time) %]</td>
-    </tr>
-
-    <tr>
-        <th>Closed:</th>
-        [% moderation.close_time %]
-        <td>[% UserDate.format(moderation.close_time || "-") %]</td>
-    </tr>
-
-    <tr>
-        <th>Conditions:</th>
-        <td>
-            [% data_quality(moderation.quality) %] data quality,
-            [% expire_action(moderation.GetExpireAction) %] on expiration,
-            [% moderation.GetNumVotesNeeded %] to accept/reject.
-        </td>
-    </tr>
-</table>
-
-<hr />
-
-<table class="details">
-    <tr>
-        <th style="vertical-align: top;">Edit:</th>
-        <td>[% INCLUDE "moderation/info.tt" %]</td>
-    </tr>
-</table>
-
-<table class="details">
-    <tr>
-        <th style="vertical-align: top;">Changes:</th>
-        <td>
-        [%- PROCESS "moderation/mods/${moderation.template}.tt" new=(moderation.new_unpacked || moderation.new_data)
-                                                             prev=(moderation.prev_unpacked || moderation.previous_data) -%]
-        </td>
-    </tr>
-</table>
-
-<hr />
-
-<table class="details">
-    <tr>
-        <th>My Vote</th>
-        <td>
-            <p></p>
-            [% WRAPPER 'forms/form.tt' quiet=1 custom=1 action=c.uri_for('/moderation/enter_votes')
-	        moderation=undef %]
-                [% INCLUDE 'moderation/vote_options.tt' %]
-            [% END %]
-        </td>
-    </tr>
-</table>
-
-<hr />
-
-<h4>Edit Notes</h4>
-[% INCLUDE "moderation/notes.tt" %]
-
-<hr />
-
-<h4>Add Note</h4>
-[% WRAPPER 'forms/form.tt' action=c.entity_url(moderation, 'add_note') moderation=undef %]
-    [% INCLUDE 'forms/edit-note.tt' form=add_note hide_help=1 %]
-    [% INCLUDE 'forms/submit.tt' label='Add Note' %]
-[% END %]
-
-[%- END -%]
+[%- WRAPPER 'layout.tt' title=l("Moderation {num}", {num => #${moderation.id}}) -%]
+    [%- WRAPPER 'components/box.tt' header=l("Moderation {id}", {id => #${moderation.id}}) -%]
+        <table class="details">
+            <tr>
+                <th>
+                    [% l('Editor:') %]
+                </th>
+                <td>
+                    [%- moderation.moderator.name -%]
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    [% l('Edit ID:') %]
+                </th>
+                <td>
+                    [% moderation.id %]
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    [% l('Status:') %]
+                </th>
+                <td>
+                    [% moderation.GetChangeName %]
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    [% l('Opened:') %]
+                </th>
+                <td>
+                    [% user_date(moderation.open_time) %]
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    [% l('Expires:') %]
+                </th>
+                <td>
+                    [% user_date(moderation.expire_time) %]
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    [% l('Closed:') %]
+                </th>
+                <td>
+                    [% user_date(moderation.close_time || "-") %]
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    [% l('Conditions:') %]
+                </th>
+                <td>
+                    [% l('{x} data quality', {x => data_quality(moderation.quality)}) %]
+                    [% l('{x} on expiration', {x => expire_action(moderation.GetExpireAction)}) %]
+                    [% l('{x} to accept/reject', {x => moderation.GetNumVotesNeeded}) %]
+                </td>
+            </tr>
+        </table>
+        <hr />
+        <table class="details">
+            <tr>
+                <th style="vertical-align: top;">
+                    [% l('Edit:') %]
+                </th>
+                <td>
+                    [% INCLUDE "moderation/info.tt" %]
+                </td>
+            </tr>
+        </table>
+        <table class="details">
+            <tr>
+                <th style="vertical-align: top;">
+                    [% l('Changes:') %]
+                </th>
+                <td>
+                    [%- PROCESS "moderation/mods/${moderation.template}.tt" new=(moderation.new_unpacked || moderation.new_data)
+                        prev=(moderation.prev_unpacked || moderation.previous_data) -%]
+                </td>
+            </tr>
+        </table>
+        <hr />
+        <table class="details">
+            <tr>
+                <th>
+                    [% l('My Vote') %]
+                </th>
+                <td>
+                    <p>
+                    </p>
+                    [% WRAPPER 'forms/form.tt' quiet=1 custom=1 action=c.uri_for('/moderation/enter_votes')
+                        moderation=undef %]
+                        [% INCLUDE 'moderation/vote_options.tt' %]
+                    [% END %]
+                </td>
+            </tr>
+        </table>
+        <hr />
+        <h4>
+            [% l('Edit Notes') %]
+        </h4>
+        [% INCLUDE "moderation/notes.tt" %]
+        <hr />
+        <h4>
+            [% l('Add Note') %]
+        </h4>
+        [% WRAPPER 'forms/form.tt' action=c.entity_url(moderation, 'add_note') moderation=undef %]
+            [% INCLUDE 'forms/edit-note.tt' form=add_note hide_help=1 %]
+            [% INCLUDE 'forms/submit.tt' label=l('Add Note') %]
+        [% END %]
+    [%- END -%]
 [%- END -%]

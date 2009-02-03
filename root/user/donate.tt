@@ -1,23 +1,25 @@
-[% WRAPPER "layout.tt" title="Donation check" %]
-
-[% WRAPPER "components/box.tt" header="Donation Check" %]
-[% IF nag > 0 %]
-    <p>
-    We have not received a donation from you recently. If you have just made a PayPal donation,
-    we have not received a notification from PayPal yet. Please wait a few minutes and reload this page to check again.
-    </p>
-    <p>
-    If you would like to make a donation, <a href="http://metabrainz.org/donate">you can do that here</a>. If you've
-    donated, but you're still being nagged, please [% doc_link("ContactUs", "contact us") %].
-    </p>
-[% ELSE %]
-    <p>Thank you for contributing to MusicBrainz.</p>
-    [% IF days %]
-        <p>You won't be nagged for another [% days %] days.</p>
-    [% ELSE %]
-        <p>You'll never be nagged again!</p>
+[% WRAPPER "layout.tt" title=l("Donation Check") %]
+    [% WRAPPER "components/box.tt" header=l("Donation Check") %]
+        [% IF nag > 0 %]
+            <p>
+                [%- l('We have not received a donation from you recently. If you have just made a PayPal donation, then we have not received a notification from PayPal yet. Please wait a few minutes and reload this page to check again.') -%]
+            </p>
+            <p>
+                [%- l('If you would like to make a donation, <a href="http://metabrainz.org/donate">you can do that here</a>. If you have donated, but you are still being nagged, please {contact}.', {contact => doc_link("ContactUs", l("contact us"))}) -%]
+            </p>
+        [% ELSE %]
+            <p>
+                [%- l('Thank you for contributing to MusicBrainz.') -%]
+            </p>
+            [% IF days %]
+                <p>
+                    [%- l('You will not be nagged for another {days} days.', {days => days}) -%]
+                </p>
+            [% ELSE %]
+                <p>
+                    [%- l('You will never be nagged again!') -%]
+                </p>
+            [% END %]
+        [% END %]
     [% END %]
-[% END %]
-[% END %]
-
 [% END %]

@@ -1,26 +1,22 @@
-[% WRAPPER "layout.tt" title="Search for an editor" %]
-[% WRAPPER "components/box.tt" header="Search Results" %]
-
-[% IF users.size %]
-	<p>
-		We found the following users that matched your query
-		(<code>[% query | html %]</code>).
-	</p>
-	
-	<ul>
-	[% FOR user IN users %]
-		<li>
-			<a href="[% c.uri_for('/user/profile', user.name) %]">
-				[% user.name %]</a>
-		</li>
-	[% END %]
-	</ul>
-[% ELSE %]
-	<p>
-		Sorry, we could not find any users matching the query
-		<code>[% query | html %]</code>
-	</p>
-[% END %]
-
-[% END %]
+[% WRAPPER "layout.tt" title=l("Search for an editor") %]
+    [% WRAPPER "components/box.tt" header=("Search Results") %]
+        [% IF users.size %]
+            <p>
+                [% l('We found the following users that matched your query for <code>{query}</code>.', {query => html_escape(query)}) %]
+            </p>
+            <ul>
+                [% FOR user IN users %]
+                    <li>
+                        <a href="[% c.uri_for('/user/profile', user.name) %]">
+                            [% user.name %]
+                        </a>
+                    </li>
+                [% END %]
+            </ul>
+        [% ELSE %]
+            <p>
+                [% l('Sorry, we could not find any users matching the query for <code>{query}</code>', {query => html_escape(query)}) %]
+            </p>
+        [% END %]
+    [% END %]
 [% END %]

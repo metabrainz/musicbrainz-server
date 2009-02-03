@@ -1,29 +1,16 @@
-[% WRAPPER 'artist/layout.tt' title="Merge" %]
-[% WRAPPER 'components/box.tt' header="Merge ${artist.name} into another artist" %]
-
-<ul>
-    <li>
-        This wizard allows you to merge the artist [%- entity_link(artist) -%] into another artist.
-    </li>
-    <li>
-        Please read the guideline on [%- doc_link("HowToMergeArtists", "how to merge artists") -%]
-        and the general [%- doc_link("StyleGuidelines", "style guidelines") -%]
-        before entering this edit.
-    </li>
-    <li>
-        Please enter the [%- doc_link("ArtistName", "artist name") -%]
-        of the artist you would like to merge this artist into, and press
-        <em>search</em> to start the search.
-    </li>
-    <li>
-        When you have found the artist that you would like to merge into
-        [%- entity_link(artist) -%], please follow the link and you will
-        be forwarded to the next step of the wizard.
-    </li>
-</ul>
-
-[%- BLOCK create_link; c.entity_url(artist, 'merge_into', entity.mbid); END -%]
-[%- INCLUDE "components/search.tt" entities=artists search_label="Artist" -%]
-
-[% END %]
+[% WRAPPER 'artist/layout.tt' title=l("Merge Artists") %]
+    [% WRAPPER 'components/box.tt' header=l('Merge {artist} into another Artist', {artist => artist.name}) %]
+        [%- WRAPPER 'layout/guidelines.tt' -%]
+            [%- create_guideline(l('This wizard allows you to merge {artist} into another Artist.', {artist => entity_link(artist, 1)})) -%]
+            [%- create_guideline(l('Please read the {doc_styleguide}, then provide the necessary information about the new Artist below.', {doc_styleguide => doc_link('StyleGuideline', l('Style Guidelines'))})) -%]
+            [%- create_guideline(l('Please read the guideline on {doc_merging} before entering this edit.', {doc_merging => doc_link("HowToMergeArtists", l('how to merge Artists'))})) -%]
+            [%- create_guideline(l('Please enter the {name} of the Artist into which you would like to merge this Artist, and press <em>search</em> to start the search.', {name => doc_link('ArtistName', l('artist name'))})) -%]
+            [%- create_guideline(l('When you have found the Artist that you would like to merge into {artist}, please follow the link and you will be forwarded to the next step of the wizard.', {artist => entity_link(artist, 1)})) -%]
+            [%- create_guideline(l('If you added recently added this Artist by mistake, please note that the server automatically removes empty Artists once a day.  There is no need to remove these manually.')) -%]
+        [%- END -%]
+        [%- BLOCK create_link; 
+            c.entity_url(artist, 'merge_into', entity.mbid); 
+            END -%]
+        [%- INCLUDE "components/search.tt" entities=artists search_label=l('Artist') -%]
+    [% END %]
 [% END %]

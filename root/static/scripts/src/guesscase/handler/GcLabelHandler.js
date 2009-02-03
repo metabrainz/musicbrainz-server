@@ -199,7 +199,7 @@ function GcLabelHandler() {
 					append = (", Los" + append); // handle Los xyz -> xyz, Los
 					words[0] = null;
 				}
-				
+
 				mb.log.debug('Sorted words: $, append: $', words, append);
 				var t = [];
 				for (i=0; i<words.length; i++) {

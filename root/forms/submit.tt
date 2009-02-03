@@ -1,7 +1,7 @@
+[%- DEFAULT id="" -%]
 [% BLOCK button %]
-        <input class="submit" type="submit" value="[% label || 'Enter Edit' %]" name="submit" />
+        <input class="submit" type="submit" id="[% id %]" value="[% label || 'Enter Edit' %]" name="submit" />
 [% END %]
-
 [%- IF inline -%]
      [% PROCESS button %]
 [%- ELSE -%]

@@ -1,4 +1,4 @@
-/* 
+/*
  * General Elements
  */
 body {
@@ -26,13 +26,17 @@ a:hover {
     text-decoration: underline;
 }
 
-a.mp { background: #FFFFCC; }
+a.mp { background: #FFFFAA; }
 
 div.status_ok {
     margin-bottom: 10pt;
     padding: 2pt;
     background: #CCFFCC;
     border: 1px solid black;
+}
+
+caption {
+    display: none;
 }
 
 /*
@@ -216,7 +220,7 @@ div.status_ok {
 }
 
 #label-form-search-external-enable-advanced {
-    font-size: 8pt;
+    font-size: 9pt;
 }
 
 /*
@@ -263,10 +267,10 @@ div.box div.content {
     padding: 5pt;
 }
 
-div.bio { 
+div.bio {
     width: 90%;
-    border: 1px dotted #CCC; 
-    padding: 0px 5px 5px 5px; 
+    border: 1px dotted #CCC;
+    padding: 0px 5px 5px 5px;
 }
 
 ul.tagcloud li {
@@ -325,6 +329,7 @@ hr {
     color: #aaa;
     padding: 2pt 5pt;
     border: 1px solid #aaa;
+    font-weight: 700;
 }
 
 .wizard_breadcrumbs li.complete {
@@ -371,6 +376,7 @@ hr {
 
 #menu_bar a {
     font-weight: bold;
+    font-size: 10pt;
 }
 
 #menu_bar a:hover {
@@ -418,47 +424,6 @@ hr {
     left: auto;
 }
 
-table.statistics {
-    border-collapse: collapse;
-    margin-bottom: 12pt;
-}
-
-table.statistics,
-table.statistics td,
-table.statistics th {
-    border: 1px solid #c0c0c0;
-}
-
-table.statistics td,
-table.statistics th {
-    padding: 5pt;
-}
-
-table.statistics th {
-    background: #eee;
-}
-
-table.statistics thead th,
-table.statistics tbody td {
-    text-align: center;
-}
-
-table.statistics th.odd_col {
-    background: #e0e0e0;
-}
-
-table.statistics th.even_col {
-    background: #f3f3f3;
-}
-
-table.statistics td.odd_col {
-    background: #eaeaea;
-}
-
-table.statistics tr.separator th {
-    background: #d0d0d0;
-}
-
 table.browse {
 	margin: auto;
 }
@@ -466,4 +431,13 @@ table.browse {
 table.browse td {
 	text-align: center;
 	padding: 0pt 4pt;
+}
+
+div.two_column_left {
+    width: 48%; 
+}
+
+div.two_column_right {
+    width: 48%; 
+    float: right; 
 }

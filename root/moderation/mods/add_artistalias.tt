@@ -1,6 +1,10 @@
 <table class="details">
     <tr>
-        <th>Alias:</th>
-        <td>[% new %]</td>
+        <th>
+            [% l('Alias:') %]
+        </th>
+        <td>
+            [% new %]
+        </td>
     </tr>
 </table>

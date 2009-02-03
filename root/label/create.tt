@@ -1,3 +1,3 @@
-[% WRAPPER "layout.tt" title="Create Label" %]
-[% INCLUDE "label/edit_form.tt" %]
+[% WRAPPER "layout.tt" title=l('Create Label') %]
+    [% INCLUDE "label/edit_form.tt" %]
 [% END %]

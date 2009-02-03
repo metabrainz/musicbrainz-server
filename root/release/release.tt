@@ -1,6 +1,5 @@
 <div class="release">
     [% INCLUDE "release/box-header.tt" %]
-
     <div class="release_top">
         [%- IF release.coverart_url -%]
             <div class="artwork">
@@ -13,17 +12,14 @@
 		[%- END -%]
             </div>
         [%- END -%]
-
         [% INCLUDE "release/info-links.tt" UNLESS no_info_links %]
         [% INCLUDE "release/edit-links.tt" UNLESS no_edit_links %]
-
         [% IF tags %]
             <div class="releasetags">
                 [% INCLUDE "tag/summary.tt" tags=tags source=release %]
             </div>
         [% END %]
     </div>
-
     [% IF tracks.size %]
         <table class="release_tracks" [%- IF release.has_artwork; 'style="border-top: 1px solid black;"'; END -%]>
         <tbody>
@@ -35,18 +31,15 @@
                     [% INCLUDE "components/relationships.tt" source=track relations=track.relations justlist=1 nocompact=1
                         IF track.relations.size AND show_relationships %]
                 </td>
-
                 [%- IF show_artists -%]
                     <td class="artist">[% entity_link(track.artist, 1) %]</td>
                 [%- END -%]
-
                 <td class="duration">[% track_length(track.length) %]</td>
-
                 [%- IF c.user_exists && !no_edit_tracks-%]
                     <td class="editinglinks">
                         [%- track_edit_links = [
-                            { link => c.entity_url(track, 'edit'), text => "Edit" },
-                            { link => c.entity_url(track, 'remove'), text => "Remove" }
+                            { link => c.entity_url(track, 'edit'), text => l("Edit") },
+                            { link => c.entity_url(track, 'remove'), text => l("Remove") }
                         ] -%]
                         [%- INCLUDE "components/piped-list.tt" list=track_edit_links -%]
                     </td>
@@ -57,42 +50,71 @@
         </table>
     [% END %]
     [% INCLUDE "release/box-summary.tt" %]
-
     [%- IF disc_ids.size -%]
         <div class="release_discids">
         <table style="width: 100%">
         [%- FOREACH discid = disc_ids -%]
             <tr>
-                <td>Disc ID: <a href="[% c.entity_url(discid, 'show') %]">[% discid.disc_id %]</a></td>
-                <td style="width: 20pt;">[% track_length(discid.duration) %]</td>
+                <td>
+                    [% l('Disc ID:') %]
+                    <a href="[% c.entity_url(discid, 'show') %]">
+                        [% discid.disc_id %]
+                    </a>
+                </td>
+                <td style="width: 20pt;">
+                    [% track_length(discid.duration) %]
+                </td>
             </tr>
         [%- END -%]
         </table>
         </div>
     [%- END -%]
-
     [% IF release_events.size %]
         <div class="release_events">
         <table>
         <thead>
             <tr>
-                <th class="date">Date</th>
-                <th>Country</th>
-                <th>Label</th>
-                <th>Catalog #</th>
-                <th>Barcode</th>
-                <th>Format</th>
+                <th class="date">
+                    [% l('Date') %]
+                </th>
+                <th>
+                    [% l('Country') %]
+                </th>
+                <th>
+                    [% l('Label') %]
+                </th>
+                <th>
+                    [% l('Catalog #') %]
+                </th>
+                <th>
+                    [% l('Barcode') %]
+                </th>
+                <th>
+                    [% l('Format') %]
+                </th>
             </tr>
         </thead>
         <tbody>
             [%- FOREACH event=release_events -%]
                 <tr>
-                    <td class="date">[% event.sort_date | release_date %]</td>
-                    <td>[% event.country %]</td>
-                    <td>[% entity_link(event.label) IF event.label.name %]</td>
-                    <td>[% event.cat_no %]</td>
-                    <td>[% event.barcode %]</td>
-                    <td>[% release_format(event.format) %]</td>
+                    <td class="date">
+                        [% event.sort_date | release_date %]
+                    </td>
+                    <td>
+                        [% event.country %]
+                    </td>
+                    <td>
+                        [% entity_link(event.label) IF event.label.name %]
+                    </td>
+                    <td>
+                        [% event.cat_no %]
+                    </td>
+                    <td>
+                        [% event.barcode %]
+                    </td>
+                    <td>
+                        [% release_format(event.format) %]
+                    </td>
                 </tr>
             [%- END -%]
         </tbody>

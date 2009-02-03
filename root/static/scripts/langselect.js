@@ -5,7 +5,7 @@ MusicBrainz.LangSelect = function()
 	{
 		connect('toggle_lang_lists', 'onclick', this, this.reloadOptions);
 	};
-	
+
 	this.reloadOptions = function(ev)
 	{
 		var sel;
@@ -23,7 +23,7 @@ MusicBrainz.LangSelect = function()
 	this.fillOptions = function(doc)
 	{
 		var sel, curr, i;
-		
+
 		sel = $('id_script_new');
 		curr = sel.options[sel.selectedIndex].value;
 		sel.options.length = 0;
@@ -49,7 +49,7 @@ MusicBrainz.LangSelect = function()
 		$('toggle_lang_lists').value = doc.expand_lists ? 'Show reduced lists' : 'Show full lists';
 		document.getElementsByName('expand_lists')[0].value = doc.expand_lists;
 	}
-	
+
 }
 
 var langselect = new MusicBrainz.LangSelect();

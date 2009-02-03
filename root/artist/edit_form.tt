@@ -1,72 +1,45 @@
-<ul>
-[%- IF new -%]
-    <li>You are about to add an artist to MusicBrainz.</li>
+[%- WRAPPER 'layout/guidelines.tt' -%]
+    [%- IF new -%]
+        [%- create_guideline(l('You are about to add an artist to MusicBrainz.')) -%]
+    [%- END -%]
+        [%- create_guideline(l('Please read the {doc_styleguide}, then provide the necessary information about the new artist below.', {doc_styleguide => doc_link('StyleGuideline', l('Style Guidelines'))})) -%]
+        [%- create_guideline(l('If one or more artists with the same name already exist in the database, you will be prompted to {doc_addcomment}, which will allow users to distinguish this entry from the other artist(s) with the same name.', {doc_addcomment => doc_link('ArtistComment', l('add a comment to this artist'))})) -%]
+        [%- create_guideline(l('Please use the Guess Case buttons to fix common style errors. (Available only if you have JavaScript enabled.)')) -%]
 [%- END -%]
-    <li>
-        Please read the
-        [%- doc_link("StyleGuideline", "Style Guidelines") -%],
-        then provide the necessary information about the new artist below.
-    </li>
-    <li>
-        If one or more artists with the same name already exist in the database, you
-        will be prompted to add a comment to this artist that will allow users to
-        distinguish this entry from the other artist(s) with the same name (see
-        [%- doc_link("ArtistComment", "ArtistComment") -%]).
-    </li>
-    <li>
-        Please note that the casing of the artist is taken into account when
-        determining the need for a comment; The two artists <em>some name</em>
-        and <em>Some Name</em> are not the same.
-    </li>
-</ul>
-
-[%- WRAPPER "forms/form.tt" moderation=1 -%]
-    [%- IF form.field("confirmed").required -%]
-        [%- WRAPPER 'forms/fieldset.tt' legend='Are you sure?' -%]
-        <p>
-            <strong class="warning">Warning:</strong>
-            You are attempting to add the artist &quot;[% form.value('name') %]&quot;,
-            which appears to be very similar, if not exactly the same, as these existing artists:
-        </p>
-        [%- BLOCK show_dupe -%]
-        <li>[%- entity_link(dupe) -%]</li>
-        [%- END -%]
-        <ul>
-            [%- PROCESS show_dupe FOREACH dupe=dupes -%]
-        </ul>
-        <p>
-        If you are certain that you want to add this artist, then:
-        </p>
-        <ul>
-            <li>
-                You are required to enter a comment which allows users
-                to distinguish this artist from the other artists with the same
-                name, if the final artist name is similar to an existing artist.
-            </li>
-            <li>
-                Confirm by activating the checkbox below that you have read, and
-                understood, how we distinguish duplicate artists above and that you
-                know what you are doing.
-            </li>
-        </ul>
-
-        [%- INCLUDE "forms/generic/row.tt" field=form.field("confirmed") label="Yes, I am sure and I know what I am doing." -%]
+[%- WRAPPER 'forms/form.tt' moderation=1 -%]
+    [%- IF form.field('confirmed').required -%]
+        [%- WRAPPER 'forms/fieldset.tt' legend=l('Are you sure?') -%]
+            <p>
+                <strong class='warning'>[% l('Warning:') %]</strong>
+                [% l('You are attempting to add an artist which appears to be very similar, if not exactly the same, as these existing artists:') %]
+            </p>
+            [%- BLOCK show_dupe -%]
+                <li>[%- entity_link(dupe) -%]</li>
+            [%- END -%]
+            <ul>
+                [%- PROCESS show_dupe FOREACH dupe=dupes -%]
+            </ul>
+            <p>
+                [% l('If you are certain that you want to add this artist, then:') %]
+            </p>
+            [%- WRAPPER 'layout/guidelines.tt' -%]
+                [%- create_guideline(l('You are required to enter a comment which allows users to distinguish this artist from the other artists with the same name, if the final artist name is similar to an existing artist.')) -%]
+                [%- create_guideline(l('Confirm by activating the checkbox below that you have read {doc_artistcomment}, understood how we distinguish duplicate artists, and that you know what you are doing.', {doc_artistcomment => doc_link('ArtistComment', l('ArtistComment'))})) -%]
+                [%- INCLUDE "forms/generic/row.tt" field=form.field("confirmed") label=l('Yes, I am sure and I know what I am doing.') -%]
+            [%- END -%]
         [%- END -%]
     [%- END -%]
-
     [%- WRAPPER 'forms/fieldset.tt' legend='Artist Details' -%]
-        [%- INCLUDE "forms/generic/row.tt" field=form.field("artist_type") label="Type"-%]
-        [%- INCLUDE "forms/generic/row.tt" field=form.field("name") label="Name"  class="something special"-%]
-        [%- INCLUDE "forms/generic/row.tt" field=form.field("sortname") label="Sort Name" -%]
-        [%- INCLUDE "forms/generic/row.tt" field=form.field("resolution") label="Comment" -%]
+        [%- INCLUDE "forms/generic/row.tt" field=form.field("artist_type") label=l('Type')-%]
+        [%- INCLUDE "forms/generic/row.tt" field=form.field("name") label=l('Name') -%]
+        [%- INCLUDE "forms/generic/row.tt" field=form.field("sortname") label=l('Sort Name') -%]
+        [%- INCLUDE "forms/generic/row.tt" field=form.field("resolution") label=l('Comment') -%]
     [%- END -%]
-
-    [%- WRAPPER 'forms/fieldset.tt' legend='Date Period' -%]
+    [%- WRAPPER 'forms/fieldset.tt' legend=l('Date Period') -%]
         <p>
-            Dates are in the format YYYY-MM-DD. Partial dates such as YYYY-MM or just
-            YYYY are OK, or you can omit the date entirely.
+            [%- l('Dates are in the format YYYY-MM-DD. Partial dates such as YYYY-MM or just YYYY are OK, or you can omit the date entirely.') -%]
         </p>
-        [%- INCLUDE "forms/generic/row.tt" field=form.field("start") label="Start" -%]
-        [%- INCLUDE "forms/generic/row.tt" field=form.field("end") label="End" -%]
+        [%- INCLUDE "forms/generic/row.tt" field=form.field("start") label=l('Start Date') -%]
+        [%- INCLUDE "forms/generic/row.tt" field=form.field("end") label=l('End Date') -%]
     [%- END -%]
-[% END %]
+[%- END -%]

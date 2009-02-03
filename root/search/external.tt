@@ -1,9 +1,6 @@
-[% WRAPPER "layout.tt" title="Search" %]
-
-[% WRAPPER "components/box.tt" header="Search Results" %]
-    [% results WRAPPER 'components/with-pager.tt' %]
-[% END IF results%]
-
-[% INCLUDE "search/form.tt" %]
-
+[% WRAPPER "layout.tt" title=l("Search") %]
+    [% WRAPPER "components/box.tt" header=l("Search Results") %]
+        [% results WRAPPER 'components/with-pager.tt' %]
+    [% END IF results %]
+    [% INCLUDE "search/form.tt" %]
 [% END %]

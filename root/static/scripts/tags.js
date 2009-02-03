@@ -8,7 +8,7 @@ MusicBrainz.TagsEditor = function()
 			return;
 		connect(tagthis, "onclick", this, this.loadForm);
 	};
-	
+
 	this.loadForm = function(ev)
 	{
 		ev.stop();
@@ -24,7 +24,7 @@ MusicBrainz.TagsEditor = function()
 				" Loading..."
 			)
 		);
-		
+
 		var url = "/show/tag/rawtags.html?entitytype=" + entitytype + "&entityid=" + entityid;
 		var d = loadJSONDoc(url);
 		d.addCallback(bind(this.showForm, this, entitytype, entityid));

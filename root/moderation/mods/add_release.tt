@@ -1,6 +1,10 @@
 <table class="details">
     <tr>
-        <th>New:</th>
-        <td>[%- entity_link(moderation.release) -%]
+        <th>
+            [% l('New:') %]
+        </th>
+        <td>
+            [%- entity_link(moderation.release) -%]
+        </td>
     </tr>
 </table>

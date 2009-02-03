@@ -1,58 +1,35 @@
-[% WRAPPER 'layout.tt' title='Add Tracks' %]
-[% WRAPPER 'components/box.tt' header='Add Tracks' %]
-[% INCLUDE 'add_release/bread_crumbs.tt' %]
-
-<ul>
-    <li>
-        The fields below allow you to enter track information, and to select track artists.
-    </li>
-    <li>
-        Unless the release has attached
-        [%- doc_link("DiscID", "Disc IDs") -%],
-        you can remove tracks by activating the remove button on the left of the track title
-        fields.
-    </li>
-    <li>
-        If you are editing a
-        [%- doc_link("VariousArtistsRelease", "Various Artists Release") -%],
-        or if you have chosen to display the track artists, you can activate the change button
-        of the artists you would like to change. The page will present you choices of existing
-        track artists, once you click on the Enter Edit button.
-    </li>
-    <li>
-        Please use the Guess Case buttons (or the Guess All button for all fields) to
-        fix common style errors.
-    </li>
-</ul>
-
-[%- WRAPPER 'forms/form.tt' moderation=1 -%]
-    [%- WRAPPER 'forms/fieldset.tt' legend='Release Information' -%]
-        [%- entity_link(artist) WRAPPER 'forms/row.tt' label='Artist' -%]
-        [%- INCLUDE 'forms/generic/row.tt' field=form.field('title') label='Title' -%]
-    [%- END -%]
-
-    [%- WRAPPER 'forms/fieldset.tt' legend='Tracks' %]
-        [%- FOR i=[1..track_count] -%]
-            [%- INCLUDE 'forms/generic/row.tt' field=form.field("track_$i") label='Track' -%]
-            [%- INCLUDE 'forms/generic/row.tt' field=form.field("artist_$i") label='Artist' -%]
-            <br />
+[% WRAPPER 'layout.tt' title=l('Add Release') %]
+    [% WRAPPER 'components/box.tt' header=l('Add a new Release') %]
+        [% INCLUDE 'add_release/bread_crumbs.tt' %]
+        [%- WRAPPER 'layout/guidelines.tt' -%]
+            [%- create_guideline(l('The fields below allow you to enter information about the title, track title(s), and artist(s) for this release.')) -%]
+            [%- create_guideline(l('Unless the release has attached {discids}, you can remove tracks by activating the remove button on the left of the track title fields.', {discids => doc_link('DiscID', l('Disc IDs'))})) -%]
+            [%- create_guideline(l('If you are editing a {va_release}, or if you have chosen to display the track artists, you can activate the change button of the artists you would like to change. (Available only if you have JavaScript enabled.)  If you have JavaScript disabled, or if you need to add new artists, the next page will let you specify the track artists.', {va_release => doc_link('VariousArtistsRelease', l('Various Artists Release'))})) -%]
+            [%- create_guideline(l('Please use the Guess Case buttons to fix common style errors. (Available only if you have JavaScript enabled.)')) -%]
         [%- END -%]
-    [%- END -%]
-
-    [%- WRAPPER 'forms/fieldset.tt' legend='Release Events' -%]
-        [% INCLUDE 'forms/generic/row.tt' field=form.field("event_${i}") label='Release Event'
-           FOR i=[1 .. event_count] %]
-        [%- INCLUDE 'forms/generic/row.tt' field=form.field("more_events") label='Add more release events' -%]
-    [%- END -%]
-
-    <input type="hidden" name="step" value="1" />
-[%- END -%]
-
-[%- END- %]
-
-[% IF can_preview %]
-    [% WRAPPER 'components/box.tt' header='Preview' %]
-        [% INCLUDE 'release/release.tt' release=preview tracks=preview_tracks no_edit_tracks=1 %]
+        [%- WRAPPER 'forms/form.tt' moderation=1 -%]
+            [%- WRAPPER 'forms/fieldset.tt' legend=l('Release Information') -%]
+                [%- entity_link(artist) WRAPPER 'forms/row.tt' label=l('Artist') -%]
+                [%- INCLUDE 'forms/generic/row.tt' field=form.field('title') label=l('Title') -%]
+            [%- END -%]
+            [%- WRAPPER 'forms/fieldset.tt' legend=l('Tracks') %]
+                [%- FOR i=[1..track_count] -%]
+                    [%- INCLUDE 'forms/generic/row.tt' field=form.field("track_$i") label=l('Track') -%]
+                    [%- INCLUDE 'forms/generic/row.tt' field=form.field("artist_$i") label=l('Artist') -%]
+                    <br />
+                [%- END -%]
+            [%- END -%]
+            [%- WRAPPER 'forms/fieldset.tt' legend=l('Release Events') -%]
+                [% INCLUDE 'forms/generic/row.tt' field=form.field("event_${i}") label=l('Release Event')
+                   FOR i=[1 .. event_count] %]
+                [%- INCLUDE 'forms/generic/row.tt' field=form.field("more_events") label=l('Add more release events') -%]
+            [%- END -%]
+            <input type="hidden" name="step" value="1" />
+        [%- END -%]
+    [%- END- %]
+    [% IF can_preview %]
+        [% WRAPPER 'components/box.tt' header=l('Preview') %]
+            [% INCLUDE 'release/release.tt' release=preview tracks=preview_tracks no_edit_tracks=1 %]
+        [% END %]
     [% END %]
-[% END %]
 [% END %]

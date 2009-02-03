@@ -1,16 +1,16 @@
 <div class="editLinks">
-    Edit:
+    [% l('Edit:') %]
     [%- IF c.user_exists -%]
         [%- edit_links = [
-        { link => '', text => 'Add Relationship' },
-        { link => '', text => 'Relate to URL' },
-        { link => '', text => 'Add CC License' },
-        { link => c.entity_url(release, 'move'), text => 'Move' },
-        { link => c.entity_url(release, 'edit_title'), text => 'Edit Title' },
-        { link => c.entity_url(release, 'remove'), text => 'Remove' },
+        { link => '', text => l('Add Relationship') },
+        { link => '', text => l('Relate to URL') },
+        { link => '', text => l('Add CC License') },
+        { link => c.entity_url(release, 'move'), text => l('Move') },
+        { link => c.entity_url(release, 'edit_title'), text => l('Edit Title') },
+        { link => c.entity_url(release, 'remove'), text => l('Remove') },
         ] -%]
         [% INCLUDE "components/piped-list.tt" list=edit_links %]
     [%- ELSE -%]
-        Please <a href="[% c.uri_for('/user/login') %]">log in</a> to edit this release
+        [% l('Please <a href=\"{uri}\">log in</a> to edit this release', {uri => c.uri_for("/user/login")}) %]
     [%- END -%]
 </div>

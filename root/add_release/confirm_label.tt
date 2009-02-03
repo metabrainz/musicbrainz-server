@@ -1,13 +1,10 @@
-[% WRAPPER "artist/layout.tt" title="Confirm label" %]
-[% WRAPPER 'components/box.tt' header='Confirm label' %]
-[% INCLUDE 'add_release/bread_crumbs.tt' %]
-
-    <p>
-        Please confirm the label "[% confirming %]" by searching below.
-    </p>
-
-    [% INCLUDE "components/search.tt" entities=labels search_label="Label" %]
-[% END %]
-
-[%- INCLUDE 'label/edit_form.tt' form=create_label -%]
+[% WRAPPER "artist/layout.tt" title=l('Confirm Label') %]
+    [% WRAPPER 'components/box.tt' header=l('Confirm Label') %]
+        [% INCLUDE 'add_release/bread_crumbs.tt' %]
+        <p>
+            [% l('Please search and select the correct Label.  If searching yields no useful results, you can use the form below to add a new Label.') %]
+        </p>
+        [% INCLUDE "components/search.tt" entities=labels search_label=l('Label') %]
+    [% END %]
+    [%- INCLUDE 'label/edit_form.tt' form=create_label -%]
 [% END %]

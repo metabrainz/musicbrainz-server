@@ -1,28 +1,45 @@
-[%- WRAPPER 'label/layout.tt' title="Details" -%]
-[%- WRAPPER "components/box.tt" header="Details" -%]
-<table class="details">
-    <tr>
-        <th>[%- doc_link("LabelName", "Name") -%]:</th>
-        <td>[%- entity_link(label) -%]</td>
-    </tr>
-
-    <tr>
-        <th>[%- doc_link("MusicBrainzIdentifier", "MBID") -%]:</th>
-        <td>[%- label.mbid -%]</td>
-    </tr>
-
-    <tr>
-        <th>Permanent link:</th>
-        <td>
-            [%- perma="http://musicbrainz.org/label/${artist.mbid}" -%]
-            <a href="[% perma | url %]">[% perma | html %]</a>
-        </td>
-    </tr>
-
-    <tr>
-        <th>Subscribers:</th>
-        <td>[% label.subscribers.count %]</td>
-    </tr>
-</table>
-[% END %]
+[%- WRAPPER 'label/layout.tt' title=l('Label Details') -%]
+    [%- WRAPPER "components/box.tt" header=l('Label Details') -%]
+        <table class="details">
+            <tr>
+                <th>
+                    [%- doc_link("LabelName", l("Name")) -%]:
+                </th>
+                <td>
+                    [%- entity_link(label) -%]
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    [%- doc_link("MusicBrainzIdentifier", "MBID") -%]:
+                </th>
+                <td>
+                    [%- label.mbid -%]
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    [%- l('Permanent link:') -%]
+                </th>
+                <td>
+                    [%- perma="http://musicbrainz.org/label/${artist.mbid}" -%]
+                    <a href="[% perma | url %]">
+                        [%- html_escape(perma) -%]
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    [%- l('Subscribers:') -%]
+                </th>
+                <td>
+                    [%- IF label.subscribers.size > 0 -%]
+                        [% label.subscribers.size %]
+                    [%- ELSE -%]
+                        0
+                    [%- END -%]
+                </td>
+            </tr>
+        </table>
+    [% END %]
 [% END %]

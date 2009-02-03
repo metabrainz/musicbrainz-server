@@ -1,0 +1,4 @@
+<li>
+    [%- $guideline -%]
+</li>
+

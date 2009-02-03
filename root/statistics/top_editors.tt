@@ -3,39 +3,59 @@
         <table class="statistics">
             <thead>
                 <tr>
-                    <th>Editor</th>
-                    <th>Edits</th>
-                    <th>Open Edits</th>
+                    <th>
+                        [% l('Editor') %]
+                    </th>
+                    <th>
+                        [% l('Edits') %]
+                    </th>
+                    <th>
+                        [% l('Open Edits') %]
+                    </th>
                 </tr>
             </thead>
             <tbody>
                 [%- FOR editor IN data -%]
                 <tr>
-                    <td>[% editor.name %]</td>
-                    <td>[% editor.num %]</td>
-                    <td><a href="[% c.uri_for('/review', editor.name, 'edits/open') %]">View open edits&hellip;</a></td>
+                    <td>
+                        [% editor.name %]
+                    </td>
+                    <td>
+                        [% editor.num %]
+                    </td>
+                    <td>
+                        <a href="[% c.uri_for('/review', editor.name, 'edits/open') %]">
+                            [% l('View open edits&hellip;') %]
+                        </a>
+                    </td>
                 </tr>
                 [%- END -%]
             </tbody>
         </table>
     [% ELSE %]
-        <p>No body!</p>
+        <p>
+            [% l('Nobody!') %]
+        </p>
     [% END %]
 [%- END -%]
-
 [%- WRAPPER 'layout.tt' title='Top Editors'%]
-    <h1>Editor Statistics</h1>
-
-    <h2>Most active editors in the last week (open and accepted edits)</h2>
+    <h1>
+        [% l('Editor Statistics') %]
+</h1>
+    <h2>
+        [% l('Most active editors in the last week (open and accepted edits)') %]
+    </h2>
     [%- PROCESS table data=editors_last_week -%]
-
-    <h2>Most active editors overall (accepted edits)</h2>
+    <h2>
+        [% l('Most active editors overall (accepted edits)') %]
+    </h2>
     [%- PROCESS table data=editors_overall -%]
-
-    <h2>Most active voters in the last week (yes and no votes only)</h2>
+    <h2>
+        [% l('Most active voters in the last week (counting only yes and no votes)') %]
+    </h2>
     [%- PROCESS table data=voters_last_week -%]
-
-    <h2>Most active voters overall (yes and no votes only)</h2>
+    <h2>
+        [% l('Most active voters overall (yes and no votes only)') %]
+    </h2>
     [%- PROCESS table data=voters_overall -%]
-
 [%- END -%]

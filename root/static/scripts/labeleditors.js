@@ -1,10 +1,10 @@
 MusicBrainz.InPlaceLabelEditors = function(labelPrefix, labelNamePrefix, labelOrigNamePrefix)
 {
-	
+
 	this.labelPrefix = labelPrefix;
 	this.labelOrigNamePrefix = labelOrigNamePrefix;
 	this.labelNamePrefix = labelNamePrefix;
-	
+
 	this.setup = function()
 	{
 		var inputs = getElementsByTagAndClassName('input', 'labelname');
@@ -29,7 +29,7 @@ MusicBrainz.InPlaceLabelEditors = function(labelPrefix, labelNamePrefix, labelOr
 			}
 		}
 	}
-	
+
 	this.editLabel = function(id, event)
 	{
 		var edit = $('labeledit'+id);
@@ -76,5 +76,5 @@ MusicBrainz.InPlaceLabelEditors = function(labelPrefix, labelNamePrefix, labelOr
 		$('labeleditimg'+id).src = '/images/release_editor/edit-off.gif';
 		$('labeledit'+id).value = '0';
 	}
-	
+
 }

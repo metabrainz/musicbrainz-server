@@ -21,7 +21,7 @@
 \----------------------------------------------------------------------------*/
 
 /**
- * Load, and write the EditSuite UI to 
+ * Load, and write the EditSuite UI to
  * the defined element in the DOM.
  *
  * @globals es, gc	sets the global variables (es=EditSuite, gc=GuessCase)

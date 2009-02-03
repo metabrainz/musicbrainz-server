@@ -1,51 +1,31 @@
-[%- WRAPPER 'artist/layout.tt' title='Add non-album track' -%]
-[%- WRAPPER 'components/box.tt' header='Add non-album track' -%]
-
-<ul>
-    <li>
-        Please enter the names of the tracks you wish to add as
-        [%- doc_link("NonAlbumTrack", "non-album tracks") -%]
-        of [% entity_link(artist) %].
-    </li>
-    <li>
-        Blank tracks will be ignored; just leave empty the fields that you do not need.
-    </li>
-    <li>
-        <strong style="color: red;">Important!</strong>
-        Non-album tracks are designed for <strong>tracks that have not been released
-        on ANY [%- doc_link("Release", "release") -%]</strong>
-    </li>
-    <li>
-        Demo tracks and promotional tracks that have never been released on a release
-        are good candidates for non-album tracks.
-    </li>
-    <li>
-        Most live versions are released on singles. If you want to enter those tracks
-        into MusicBrainz, please enter them as the single release, or import them
-        from [%- doc_link("FreeDB", "FreeDB") -%], instead of adding them as
-        [%- doc_link("NonAlbumTrack", "non-album tracks") -%].
-    </li>
-    <li>
-        To enter a non-album track you must provide an
-        [%- doc_link("EditNote", "edit note") -%]
-        that lets the voters know why you think this is a
-        [%- doc_link("NonAlbumTrack", "non-album track") -%].
-        You are <strong>strongly encouraged</strong> to include a URL that will allow
-        the voters to evaluate the correctness of this edit.
-    </li>
-</ul>
-
-[%- WRAPPER 'forms/form.tt' moderation=1 -%]
-    [%- WRAPPER 'forms/fieldset.tt' legend='Tracks' -%]
-        [%- WRAPPER 'forms/row.tt' -%]
-            [%- INCLUDE 'forms/label.tt' label='Artist' -%]
-            <div class="fields">[% entity_link(artist) %]</div>
+[%- WRAPPER 'artist/layout.tt' title=l('Add Non-Album Track') -%]
+    [%- WRAPPER 'components/box.tt' header=l('Add Non-Album Track') -%]
+        [%- WRAPPER 'layout/guidelines.tt' -%]
+            [%- create_guideline(l('Please enter the titles of the tracks you wish to add as {nonalbum_doc}.', {nonalbum_doc => doc_link("NonAlbumTrack", l("non-album tracks"))})) -%]
+            [%- create_guideline(l('Blank tracks will be ignored.  Leave empty the fields that you do not need.')) -%]
+            [%- create_guideline(l('You are <strong>strongly encouraged</strong> to include the length of the track, rather than leaving that field blank.')) -%]
+            [%- create_guideline(l('To enter a non-album track you are <strong>required</strong> to provide an {edit_note} which lets the voters know why you think this is a {nonalbum_track}.', {edit_note => doc_link("EditNote", "edit note"), nonalbum_track => doc_link("NonAlbumTrack", l("non-album track"))})) -%]
+            [%- create_guideline(l('You are <strong>strongly encouraged</strong> to include a URL in your edit notes which will allow the voters to evaluate the correctness of this edit.')) -%]
+            <strong style="color: red;">
+                [% l('Important:') %]
+            </strong>
+            [%- WRAPPER 'layout/guidelines.tt' -%]
+                [%- create_guideline(l('Non-album tracks are designed for tracks that have not been released on <strong>ANY</strong> {release}.', {release => doc_link("Release", l("release"))})) -%]
+                [%- create_guideline(l('Demo tracks and promotional tracks that have never been released on a release are good candidates for non-album tracks.')) -%]
+                [%- create_guideline(l('Most live versions are released on singles. If you want to enter those tracks into MusicBrainz, please enter them as the single, or import the single from {freedb}, instead of adding them as {nonalbum_tracks}.', { freedb => doc_link("FreeDB", "FreeDB"), nonalbum_tracks => doc_link("NonAlbumTrack", l("non-album tracks"))})) -%]
+            [%- END -%]
         [%- END -%]
-        [%- WRAPPER 'forms/row.tt' -%]
-            [%- INCLUDE 'forms/generic/row.tt' field=form.field('track') label='Track' -%]
+        [%- WRAPPER 'forms/form.tt' moderation=1 -%]
+            [%- WRAPPER 'forms/fieldset.tt' legend=l('Tracks') -%]
+                [%- WRAPPER 'forms/row.tt' -%]
+                    [%- INCLUDE 'forms/label.tt' label=l('Artist') -%]
+                    <div class="fields">[% entity_link(artist) %]</div>
+                [%- END -%]
+                [%- WRAPPER 'forms/row.tt' -%]
+                    [%- INCLUDE 'forms/generic/row.tt' field=form.field('track') label=l('Track') -%]
+                [%- END -%]        
+            [%- END -%]
         [%- END -%]
     [%- END -%]
 [%- END -%]
 
-[%- END -%]
-[%- END -%]

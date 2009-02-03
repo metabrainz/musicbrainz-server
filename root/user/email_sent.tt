@@ -1,5 +1,7 @@
-[%- WRAPPER 'layout.tt' title='Email Sent' -%]
-[% WRAPPER 'components/box.tt' header='Email Sent' %]
-    <p>Your email has been successfully sent!</p>
-[% END %]
+[%- WRAPPER 'layout.tt' title=l('Email Sent') -%]
+    [% WRAPPER 'components/box.tt' header=l('Email Sent') %]
+        <p>
+            [% l('Your email has been successfully sent!') %]
+        </p>
+    [% END %]
 [%- END -%]

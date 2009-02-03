@@ -1,21 +1,12 @@
-[% WRAPPER 'release/layout.tt' title="Edit Release title" %]
-[% WRAPPER 'components/box.tt' header="Edit release title" %]
-
-<ul>
-    <li>
-        This form allows you to edit the
-        [%- doc_link('ReleaseTitle', 'title of this release') -%].
-        Please read the
-        [%- doc_link('StyleGuidelines', 'style guidelines') -%]
-        before entering any edits.
-    </li>
-</ul>
-
-[% WRAPPER "forms/form.tt" %]
-    [% INCLUDE "forms/generic/row.tt" field=form.field('title') label="Title" %]
-    [% INCLUDE "forms/edit-note.tt" %]
-    [% INCLUDE "forms/submit.tt" label="Enter edit" %]
-[% END %]
-
-[% END %]
+[% WRAPPER 'release/layout.tt' title=l("Edit Release Title") %]
+    [% WRAPPER 'components/box.tt' header=l("Edit Release Title") %]
+        [%- WRAPPER 'layout/guidelines.tt' -%]
+            [%- create_guideline(l('This form allows you to edit the {title}.  Please read the {doc_sg} before entering any edits.', {title => doc_link('ReleaseTitle', l('title of this release')), {doc_sg => doc_link('StyleGuidelines', l('style guidelines'))})) %]
+        [% END %]
+        [% WRAPPER "forms/form.tt" %]
+            [% INCLUDE 'forms/generic/row.tt' field=form.field('title') label=l("Title") %]
+            [% INCLUDE "forms/edit-note.tt" %]
+            [% INCLUDE "forms/submit.tt" label=l("Enter edit") %]
+        [% END %]
+    [% END %]
 [% END %]

@@ -1,17 +1,14 @@
-[%- WRAPPER 'layout.tt' title='Open Moderations' -%]
-
-<h1>Browse Edits</h1>
-[%- WRAPPER "components/with-pager.tt" -%]
-
-[%- WRAPPER 'forms/form.tt' quiet=1 custom=1 action=c.uri_for('/moderation/enter_votes')
-    moderation=undef -%]
-
-[%- INCLUDE 'moderation/list.tt' -%]
-
-<div style="text-align: right;">
-    [% INCLUDE 'forms/submit.tt' label='Enter votes' %]
-</div>
-
-[%- END -%]
-[%- END -%]
+[%- WRAPPER 'layout.tt' title=l('Open Edits') -%]
+    <h1>
+        [% l('Browse Edits') %]
+    </h1>
+    [%- WRAPPER "components/with-pager.tt" -%]
+        [%- WRAPPER 'forms/form.tt' quiet=1 custom=1 action=c.uri_for('/moderation/enter_votes')
+            moderation=undef -%]
+            [%- INCLUDE 'moderation/list.tt' -%]
+            <div style="text-align: right;">
+                [% INCLUDE 'forms/submit.tt' label=l('Enter votes') %]
+            </div>
+        [%- END -%]
+    [%- END -%]
 [%- END -%]

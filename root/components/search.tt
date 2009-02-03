@@ -1,14 +1,13 @@
 [%- WRAPPER "forms/form.tt" quiet=1 -%]
     [%- INCLUDE "forms/generic/row.tt" field=form.field('query') label=search_label -%]
-    [%- INCLUDE "forms/submit.tt" label="Search" %]
+    [%- INCLUDE "forms/submit.tt" label=l('Search') %]
 [% END %]
 
 [%- IF entities && entities.size -%]
     [% WRAPPER "forms/form.tt" quiet=1 %]
-        [%- WRAPPER 'forms/fieldset.tt' legend='Results' -%]
+        [%- WRAPPER 'forms/fieldset.tt' legend=l('Search Results') -%]
             <p>
-                We have found the following results. Please select one of the following,
-                or you can refine your query
+                [% l('We have found the following results. Please select one of the following, or else you can refine your query and search again.') %]
             </p>
             [%- FOREACH entity=entities -%]
                 [%- WRAPPER 'forms/blank_row.tt' right=1 -%]
@@ -17,6 +16,6 @@
                 [%- END -%]
             [%- END -%]
         [% END %]
-        [%- INCLUDE "forms/submit.tt" label="Select" -%]
+        [%- INCLUDE "forms/submit.tt" label=l('Select') -%]
     [%- END -%]
 [%- END -%]

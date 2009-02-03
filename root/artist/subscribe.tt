@@ -1,25 +1,23 @@
-[%- WRAPPER 'artist/layout.tt' title='Subscribed editors' -%]
-[%- WRAPPER 'components/box.tt' header='Editors subscribed to this artist' -%]
-
-<p>
-    [% IF subscribers.size %]
+[%- WRAPPER 'artist/layout.tt' title=l('Subscribed editors') -%]
+    [%- WRAPPER 'components/box.tt' header=l('Editors subscribed to this artist') -%]
+        <p>
+        [% IF subscribers.size %]
         [%- FOREACH ed IN subscribers -%]
-            [% ed.name %]
-        [%- END -%]
-    [% ELSE %]
-        There are no users currently subscribed to this artist.
-    [% END %]
-</p>
-
-[% IF anonymous_subscribers %]
-    <p>There are also [% anonymous_subscribers %] anonymous subscribers</p>
-[% END %]
-
-[% IF user_subscribed %] 
-    <a href="[% c.entity_url(artist, 'unsubscribe') %]">Unsubscribe from this artist.</a>
-[% ELSE %]
-    <a href="[% c.entity_url(artist, 'subscribe') %]">Subscribe to this artist.</a>
-[% END %]
-
-[%- END -%]
+            <a href="[% c.uri_for('/user/profile', ed.name) %]">
+                [% ed.name %]
+            </a>
+            [%- END -%]
+        [% ELSE %]
+            [% l('There are no editors currently subscribed to this artist.') %]
+        [% END %]
+        </p>
+        [% IF anonymous_subscribers %]
+            <p>[% ln('There is also {num} anonymous subscriber', 'There are also {num} anonymous subscribers', anonymous_subscribers, {num => anonymous_subscribers}) %]</p>
+        [% END %]
+        [% IF user_subscribed %]
+            <a href="[% c.entity_url(artist, 'unsubscribe') %]">[% l('Unsubscribe from this artist.') %]</a>
+        [% ELSE %]
+            <a href="[% c.entity_url(artist, 'subscribe') %]">[% l('Subscribe to this artist.') %]</a>
+        [% END %]
+    [%- END -%]
 [%- END -%]

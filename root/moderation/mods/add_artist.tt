@@ -1,6 +1,6 @@
 <table class="details">
     <tr>
-        <th>Name:</th>
+        <th>[% l('Name:') %]</th>
         <td>[% new.ArtistName %]</td>
     </tr>
 </table>

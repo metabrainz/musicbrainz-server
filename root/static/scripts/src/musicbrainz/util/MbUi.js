@@ -247,7 +247,7 @@ function MbUI() {
 			title = (a.title || "");
 			href = (a.href || "");
 			if (title.match(/^POPUP/i) && href != "") {
-				
+
 				// add ispopup=1 to url, such that /comp/header_small is used.
 				if (href.match(/ispopup/) == null) {
 					if (href.match(/\&/) != null) {

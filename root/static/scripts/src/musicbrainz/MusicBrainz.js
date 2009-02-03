@@ -179,7 +179,7 @@ function MusicBrainz() {
 	mb.topmenu = new MbTopMenu();
 	mb.albumart = new MbAlbumArtResizer();
 	mb.diff = new MbDiff();
-	
+
 	// register DOMReady actions...
 	mb.registerDOMReadyAction(
 		new MbEventAction(mb.topmenu.GID, 'setupTopMenu', "Setting up topmenu events.")

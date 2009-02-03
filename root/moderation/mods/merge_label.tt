@@ -1,6 +1,10 @@
 <table class="details">
     <tr>
-        <th>Label:</th>
-        <td>[%- entity_link(new) -%]</td>
+        <th>
+            [%- l('Label:') %]
+        </th>
+        <td>
+            [%- entity_link(new) -%]
+        </td>
     </tr>
 </table>

@@ -1,14 +1,37 @@
+[%- MACRO create_guideline(text) BLOCK -%]
+    <li>
+        [%- text -%]
+    </li>
+[%- END -%]
+
+[%# This next could use localization for alternating comma/period use per locale %]
+[% MACRO add_commas(n) GET n.chunk(-3).join(',') %]
+
+[% MACRO url_escape(url) BLOCK; url | url; END %]
+[% MACRO html_escape(url) BLOCK; url | html; END %]
+[% MACRO make_ucfirst(text) BLOCK; text | ucfirst; END %]
+
+[%- MACRO make_widget(field, label) INCLUDE 'forms/generic/row.tt' field=form.field(field) label=label -%]
+
 [% USE UserDate(user.preferences) %]
 
 [%- MACRO doc_link(to, text) BLOCK -%]
     <a href="/doc/[% to %]">[% (text or to) %]</a>
 [%- END -%]
 
+[% MACRO l(text, args) BLOCK;
+    c.gettext(text, args);
+END; %]
+
+[% MACRO ln(text, args) BLOCK;
+    c.ngettext(text, args);
+END; %]
+
 [%- MACRO entity_link(entity, noicon) IF entity -%]
     [%- mpclass = entity.has_mod_pending ? ' class="mp"' : '' -%]
     [%- IF entity.entity_type == "url" -%]
         <a href="[%- (entity.url || entity.name) -%]"[%- mpclass -%]>[%- (entity.name || entity.url) | truncate(53) | html -%]</a>
-        [<a href="[%- c.entity_url(entity, 'info') -%]">info</a>]
+        [<a href="[%- c.entity_url(entity, 'info') -%]">[% l('info') %]</a>]
     [%- ELSE -%]
         <a href="[%- c.entity_url(entity, 'show') -%]"[%- mpclass -%]>
             [%- UNLESS noicon -%]<span class="[%- entity.entity_type -%]_icon">[%- END -%]
@@ -36,3 +59,19 @@
     IF classes.size; 'class="' _ classes.join(' ') _ '"';
     ELSE; '';
     END -%]
+
+[%# Take type and return pluralized word form, avoids problems with '|% type %|s' #%]
+[%- MACRO get_plural_type(entity) BLOCK %]
+  [% SWITCH entity %]
+    [%   CASE release %]
+           [% l('releases') %]
+    [%   CASE [ artist ] %]
+           [% l('artists') %]
+    [%   CASE [ artist ] %]
+           [% l('labels') %]
+    [%   CASE [ artist ] %]
+           [% l('tracks') %]
+    [% CASE DEFAULT %]
+           [% l('Error: Unknown Type') %]
+    [% END %]
+[% END %]

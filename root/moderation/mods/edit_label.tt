@@ -1,9 +1,8 @@
 [%- INCLUDE 'moderation/mods/diff_table.tt' changes=[
-    { label='Name', new=new.LabelName, prev=prev.LabelName },
-    { label='Type', new=new.Type, prev=prev.Type },
-    { label='Sort name', new=new.SortName, prev=prev.SortName },
-    { label='Label code', new=new.LabelCode, prev=prev.LabelCode },
-    { label='Country', new=new.Country, prev=prev.Country },
-    { label='Founded', new=new.BeginDate, prev=prev.BeginDate },
-    { label='Dissolved', new=new.EndDate, prev=prev.EndDate }
-] -%]
+    { label=l('Name'), new=new.LabelName, prev=prev.LabelName },
+    { label=l('Type'), new=new.Type, prev=prev.Type },
+    { label=l('Sort name'), new=new.SortName, prev=prev.SortName },
+    { label=l('Label code'), new=new.LabelCode, prev=prev.LabelCode },
+    { label=l('Country'), new=new.Country, prev=prev.Country },
+    { label=l('Founded'), new=new.BeginDate, prev=prev.BeginDate },
+    { label=l('Dissolved'), new=new.EndDate, prev=prev.EndDate }

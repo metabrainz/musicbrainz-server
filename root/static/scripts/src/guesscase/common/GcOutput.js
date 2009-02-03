@@ -220,11 +220,11 @@ function GcOutput() {
 	 **/
 	this.capitalizeLastWord = function(overrideCaps) {
 		mb.log.enter(this.GID, "capitalizeLastWord");
-		
+
 		overrideCaps = (overrideCaps != null ? overrideCaps : null);
 		mb.log.debug('Capitalizing last word... index: $: overrideCaps: $', this.getLength()-1, overrideCaps);
 		this.capitalizeWordAtIndex(this.getLength()-1, overrideCaps);
-		
+
 		mb.log.exit();
 	};
 
@@ -234,11 +234,11 @@ function GcOutput() {
 	this.getOutput = function() {
 		mb.log.enter(this.GID, "getOutput");
 		mb.log.debug('Collecting words...');
-		
+
 		// if *not* sentence mode, force caps on last word.
-		gc.f.forceCaps = !gc.getMode().isSentenceCaps(); 
+		gc.f.forceCaps = !gc.getMode().isSentenceCaps();
 		this.capitalizeLastWord();
-		
+
 		this.closeOpenBrackets();
 		var os = gc.u.trim(this._w.join(""));
 		return mb.log.exit(os);

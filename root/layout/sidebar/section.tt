@@ -1,10 +1,12 @@
 <h3>
-[% IF link %]
-    <a href="[% link %]">[% title %]</a>
-[% ELSE %]
-    [% title %]
-[% END %]
+    [% IF link %]
+        <a href="[% link %]">
+            [%- title -%]
+        </a>
+    [% ELSE %]
+        [% title %]
+    [% END %]
 </h3>
 <div class="sidebar-module">
-[% content %]	
+    [%- content -%]
 </div>

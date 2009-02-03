@@ -2,7 +2,7 @@
 // Used on: /root/artist/edit.tt
 
 /**************************************************
- *  Attach trigger to the change event for the 
+ *  Attach trigger to the change event for the
  *  artist type selector.
  *************************************************/
 $(document).ready(function(){

@@ -1,12 +1,12 @@
 [%- WRAPPER 'layout.tt' -%]
-    <h1>Oppps!</h1>
+    <h1>
+        [% l('Ooops!') %]
+    </h1>
     <p>
-        Sorry, it seems like something has gone wrong! Repeating your request may solve this problem,
-        however if it persists - please file a bug report at
-        <a href="http://bugs.musicbrainz.org">our bug tracker</a>.
+        [% l('Sorry, it seems like something has gone wrong! Repeating your request may solve this problem, however if it persists, please file a bug report at <a href="http://bugs.musicbrainz.org">our bug tracker</a>.') %]
     </p>
     <p>
-        The server returned the following error message:
+        [% l('The server returned the following error message:') %]
     </p>
     <blockquote>
         [% message | html %]
