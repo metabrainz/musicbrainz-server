@@ -21,12 +21,7 @@
                     [%- INCLUDE 'forms/label.tt' label=l('Artist') required=1 -%]
                     <div class="fields">[% entity_link(artist) %]</div>
                 [%- END -%]
-                [%- WRAPPER 'forms/row.tt' -%]
-                    [%- WRAPPER 'forms/row.tt' -%]
-                        [%- INCLUDE 'forms/label.tt' label=l('Track') required=1 -%]
-                        [%- INCLUDE 'forms/widgets/track.tt' field=form.field('track') -%]
-                    [%- END -%]
-                [%- END -%]        
+                [%- INCLUDE 'forms/generic/row.tt' field=form.field('track') label=l('Track') type='track' -%]
             [%- END -%]
         [%- END -%]
     [%- END -%]

@@ -6,6 +6,6 @@
     extra_attributes = class_html(class);
 -%]
 [%- IF type -%]
-[%# This next line is a debug message, and shouldn't be translated, as it shouldn't ever be seen anyhow. %]
     [%- INCLUDE "forms/widgets/${type}.tt" -%]
+[%# This next line is a debug message, and shouldn't be translated, as it shouldn't ever be seen anyhow. %]
 [%- ELSE; 'Warning: unknown widget type?'; END -%]

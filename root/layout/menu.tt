@@ -50,11 +50,6 @@
                 </a>
             </li>
             <li>
-                <a href="/news/music_news">
-                    [% l('Music News') %]
-                </a>
-            </li>
-            <li>
                 <a href="http://blog.musicbrainz.org?cat=3">
                     [% l('Server') %]
                 </a>

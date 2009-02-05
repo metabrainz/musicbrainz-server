@@ -39,6 +39,14 @@ caption {
     display: none;
 }
 
+.hidden {
+    display: none;
+}
+
+.displayed {
+    display: inline;
+}
+
 /*
  * Header
  */

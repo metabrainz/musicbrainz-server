@@ -13,7 +13,7 @@
     [%- IF release_artist -%]
         <div class="info">
             <div class='infoline'>
-                [% l('by [_1]', entity_link(release_artist, 1)) %]
+                [% l('by {artist}', {artist => entity_link(release_artist, 1)}) %]
             </div>
         </div>
     [%- END -%]

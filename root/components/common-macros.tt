@@ -23,8 +23,13 @@
     c.gettext(text, args);
 END; %]
 
-[% MACRO ln(text, args) BLOCK;
-    c.ngettext(text, args);
+[%# There is a bug in this implementation fo ngettext that is easier to fix by policy that's why it's not fixed yet.
+The problem surfaces when an unfinished translation file is used, in this case a plural translation would 
+apply language-specific plural construction rules to the untranslated english string. If a translation language has
+more than two plural forms, then the first plural form (germanic plural) is chosen for every form other than the first
+two. %]
+[% MACRO ln(text, plural, num, args) BLOCK;
+    c.ngettext(text, plural, num, args);
 END; %]
 
 [%- MACRO entity_link(entity, noicon) IF entity -%]
