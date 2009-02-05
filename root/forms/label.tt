@@ -3,6 +3,9 @@
     IF for.form;
         classes.push(for.required_text);
         classes.push('error') IF for.errors.size;
+    ELSE;
+        classes.push('label');
+        classes.push('required') IF required;
     END;
 -%]
 [%- IF for -%]
@@ -10,7 +13,7 @@
         [% label %]
     </label>
 [%- ELSE -%]
-    <div class="label">
+    <div [% class_html(classes) %]>
         [% label %]
     </div>
 [%- END -%]
