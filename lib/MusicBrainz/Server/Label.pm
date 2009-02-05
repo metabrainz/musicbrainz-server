@@ -115,7 +115,7 @@ The date this label was founded.
 
 has 'begin_date' => (
     is => 'rw',
-    initarg => 'begindate'
+    init_arg => 'begindate'
 );
 
 =head2 end_date
@@ -126,7 +126,7 @@ The date this label dissolved.
 
 has 'end_date' => (
     is => 'rw',
-    initarg => 'enddate'
+    init_arg => 'enddate'
 );
 
 =head1 METHODS
