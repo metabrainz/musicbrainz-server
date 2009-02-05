@@ -261,9 +261,7 @@ Show all edits for a certain entity
 sub for_type : Path('entity') Args(2)
 {
     my ($self, $c, $type, $mbid) = @_;
-    
-    $c->forward('/user/login');
-    
+
     my $page = $c->req->{query_params}->{page} || 1;
     
     my $entity = $c->model(ucfirst $type)->load($mbid);
