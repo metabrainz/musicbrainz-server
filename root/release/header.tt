@@ -18,7 +18,7 @@
         </div>
     [%- END -%]
     <div class="infoLinks">
-        [% l('Info:') %] [% INCLUDE "components/piped-list.tt" list=info_links %]
+        [% INCLUDE "components/piped-list.tt" caption=l('Info:') list=info_links %]
     </div>
     [% INCLUDE "release/edit-links.tt" %]
 </div>

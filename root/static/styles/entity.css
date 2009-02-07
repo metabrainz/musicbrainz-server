@@ -88,13 +88,14 @@ div.annotation div.bar {
 div.annotation div.bar {
     border-top: 1px solid #000;
     background: #F0EFFF;
+    overflow: auto;
 }
 
 .annotation .details {
     float: left;
 }
 .annotation .options {
-    text-align: right;
+    float: right;
 }
 
 span.artist_icon,

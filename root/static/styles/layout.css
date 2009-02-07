@@ -449,3 +449,33 @@ div.two_column_right {
     width: 48%; 
     float: right; 
 }
+
+.piped_list {
+    overflow: auto;
+    clear: left;
+}
+
+.piped_list .caption {
+    float: left;
+    margin-right: 2pt;
+}
+
+.piped_list .list {
+    overflow: hidden;
+    float: left;
+    padding: 2pt 0pt;
+}
+ 
+.piped_list ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+ 
+.piped_list ul li {
+    border-left: 1px solid #555;
+    line-height: 1em;
+    float: left;
+    margin: 0.1em .5em 0.1em -.5em;
+    padding: 0 0.5em;
+}

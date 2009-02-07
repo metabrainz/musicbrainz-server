@@ -4,13 +4,12 @@
         <div class="release_top">
             [%- INCLUDE 'release/info-links.tt' no_tags=1 no_edit_history=1 -%]
             <div class="editLinks">
-                [% l('Edit:') %]
                 [% IF c.user_exists -%] 
                     [%- INCLUDE 'components/piped-list.tt' list=[
                         { link => c.entity_url(release_artist, 'add_non_album'), text => l('Add Non-Album Tracks') },
                         { link => c.entity_url(release, 'remove'), text => l('Remove') },
                         { link => c.entity_url(release, 'change_quality'), text => l('Change Quality') },
-                    ] -%]
+                    ] caption=l('Edit') -%]
                 [%- ELSE -%]
                     [% l('Please <a href=\"{uri}\">log in</a> to edit this release', {uri => c.uri_for("/user/login")}) %]
                 [%- END -%]

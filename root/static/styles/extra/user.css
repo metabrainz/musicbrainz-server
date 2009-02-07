@@ -16,6 +16,7 @@ dl {
     margin-bottom: 10pt;
     overflow: auto;
 }
+dl .piped_list { clear: none; }
 
 h3 {
     clear: left;

@@ -45,11 +45,9 @@
         </div>    
     </div>
     <div class='infoLinks'>
-        [% l('Info:') %]
-        [% INCLUDE 'components/piped-list.tt' list=info_links %]
+        [% INCLUDE 'components/piped-list.tt' list=info_links caption=l('Info:') %]
     </div>
     <div class='editLinks'>
-        [% l('Edit:') %]
         [%- IF c.user_exists -%]
             [%- edit_links = [
                 { link => c.entity_url(artist, 'add_alias'), text => l('Add Alias') },
@@ -62,7 +60,7 @@
                 { link => c.entity_url(artist, 'unsubscribe'), text => l('Unsubscribe'), hide => !subscribed },
                 { link => c.entity_url(artist, 'merge'), text => l('Merge into another Artist') },
             ] -%]
-            [% INCLUDE 'components/piped-list.tt' list=edit_links %]
+            [% INCLUDE 'components/piped-list.tt' caption=l('Edit:') list=edit_links %]
         [%- ELSE -%]
             [% l('Please <a href={uri}>log in</a> to edit this artist.', {uri = c.uri_for('/user/login')}) %]
         [%- END -%]

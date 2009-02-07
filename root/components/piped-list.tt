@@ -1,6 +1,11 @@
-[%- FOREACH item=list -%]
-    [%- UNLESS item.hide -%]
-        <a href="[% url_escape(item.link) %]">[% html_escape(item.text) %]</a>
-        [% "|" UNLESS loop.last -%]
-    [%- END -%]
-[%- END -%]
+<div class="piped_list">
+    <div class="caption">[% caption %]</div>
+    <div class="list">
+        <ul>
+            [%- FOREACH link IN list -%]
+                [%- NEXT IF link.hide %]
+                <li><a href="[% link.link %]">[% link.text %]</a></li>
+            [%- END -%]
+        </ul>
+    </div>
+</div>
