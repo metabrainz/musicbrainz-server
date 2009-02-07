@@ -1,0 +1,29 @@
+    [% IF tracks.size %]
+        <table class="release_tracks" [%- IF release.has_artwork; 'style="border-top: 1px solid black;"'; END -%]>
+        <tbody>
+        [%- FOREACH track=tracks -%]
+            <tr>
+                [% UNLESS no_track_numbers %]<td class="number">[% track.sequence %]</td>[% END %]
+                <td class="title">
+                    [% entity_link(track, 1) %]
+                    [% INCLUDE "components/relationships.tt" source=track relations=track.relations justlist=1 nocompact=1
+                        IF track.relations.size AND show_relationships %]
+                </td>
+                [%- IF show_artists -%]
+                    <td class="artist">[% entity_link(track.artist, 1) %]</td>
+                [%- END -%]
+                <td class="duration">[% track_length(track.length) %]</td>
+                [%- IF c.user_exists && !no_edit_tracks-%]
+                    <td class="editinglinks">
+                        [%- track_edit_links = [
+                            { link => c.entity_url(track, 'edit'), text => l("Edit") },
+                            { link => c.entity_url(track, 'remove'), text => l("Remove") }
+                        ] -%]
+                        [%- INCLUDE "components/piped-list.tt" list=track_edit_links -%]
+                    </td>
+                [%- END -%]
+            </tr>
+        [%- END -%]
+        </tbody>
+        </table>
+    [% END %]
