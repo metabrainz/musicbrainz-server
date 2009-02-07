@@ -1,29 +1,17 @@
 [%- info_links = [
     { link => c.entity_url(release, 'perma'), text => l("Permanent Link") },
     { link => c.entity_url(release, 'details'), text => l("Details") },
-    { link => c.entity_url(release, 'tags'), text => l("Tags") },
+    { link => c.entity_url(release, 'tags'), text => l("Tags"), hide => no_tags },
     {
-        link => c.req.uri_with(artist => 1),
-        text => l("Show Artists"),
-        hide => show_artists,
+        link => c.req.uri_with(artist => !show_artists),
+        text => show_artists ? l('Hide Artists') : l('Show Artists')
     },
     {
-        link => c.req.uri_with(artist => 0),
-        text => l("Hide Artists"),
-        hide => !show_artists,
-    },
-    {
-        link => c.req.uri_with(rel => 1),
-        text => l("Show Relationships"),
-        hide => show_relationships,
-    },
-    {
-        link => c.req.uri_with(rel => 0),
-        text => l("Hide Relationships"),
-        hide => !show_relationships,
+        link => c.req.uri_with(rel => !show_relationships),
+        text => show_relationships ? l('Hide Relationships') : l('Show Relationships')
     },
     { link => c.entity_url(release, 'google'), text => l("Search Google") },
-    { link => c.uri_for('/moderation/entity/release', release.mbid), text => l('View edits') }
+    { link => c.uri_for('/moderation/entity/release', release.mbid), text => l('View edits'), hide => no_edit_history }
 ] -%]
 <div class="infoLinks">
     [% l('Info:') %] [% INCLUDE "components/piped-list.tt" list=info_links %]

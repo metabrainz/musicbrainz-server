@@ -131,6 +131,9 @@ sub show : Chained('release') PathPart('')
 
         $_;
     } @$tracks ];
+
+    $c->stash->{template} = 'release/nats.tt'
+        if ($release->IsNonAlbumTracks);
 }
 
 =head2 WRITE METHODS

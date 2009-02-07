@@ -6,13 +6,17 @@
         [% END %]
     </div>
     <div class="right">
-        [ [% data_quality(release.quality) %] data quality ] |
+        [ [% data_quality(release.quality) %] data quality ]
+        [% UNLESS no_language %] |
         <span class="[% release.language_has_mod_pending ? 'mp' : '' %]">
             [ [% release.language.name || '?' %], [% release.script.name || '?' %] ] |
         </span>
+        [% END %]
+        [% UNLESS no_type %]
         <span class="[% release.attributes_have_mod_pending ? 'mp' : '' %]">
             [ [% release_attribute(release.release_type) || '?' %],
             [% release_attribute(release.release_status) || '?' %] ]
         </span>
+        [% END %]
     </div>
 </div>
