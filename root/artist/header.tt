@@ -4,7 +4,7 @@
     { link => c.entity_url(artist, 'details'), text => l('Details') },
     { link => c.entity_url(artist, 'perma'), text => l('Permanent Link') },
     { link => c.entity_url(artist, 'show'), text => l('Releases') },
-    { link => c.entity_url(artist, 'show'), text => l('Non-Album Tracks') },
+    { link => c.entity_url(artist, 'nats'), text => l('Non-Album Tracks') },
     { link => c.entity_url(artist, 'google'), text => l('Search Google') }
     { link => c.entity_url(artist, 'similar'), text => l('Similar Artists') },
     { link => c.entity_url(artist, 'tags'), text => l('Tags') },

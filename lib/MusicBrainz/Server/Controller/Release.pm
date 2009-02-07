@@ -111,7 +111,7 @@ tags, tracklisting, release events, etc.
 sub show : Chained('release') PathPart('')
 {
     my ($self, $c) = @_;
-    my $release = $self->entity;
+    my $release = $self->entity || $c->stash->{release};
 
     my $show_rels = $c->req->query_params->{rel};
 

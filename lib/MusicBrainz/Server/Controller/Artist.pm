@@ -167,6 +167,29 @@ sub aliases : Chained('artist')
     $c->stash->{aliases}  = $c->model('Alias')->load_for_entity($artist);
 }
 
+=head2 nats
+
+Show all this artists non-album tracks
+
+=cut
+
+sub nats : Chained('artist')
+{
+    my ($self, $c) = @_;
+
+    $c->stash->{release} = $c->model('Release')->nat_release($self->entity);
+
+    if ($c->stash->{release})
+    {
+        $c->stash->{release_artist} = $self->entity;
+        $c->forward('/release/show');
+    }
+    else
+    {
+        $c->stash->{template} = 'artist/no_nats.tt';
+    }
+}
+
 =head2 show
 
 Shows an artist's main landing page.

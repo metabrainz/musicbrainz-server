@@ -271,6 +271,16 @@ sub find_linked_albums
     } @raw_releases ];
 }
 
+sub nat_release
+{
+    my ($self, $artist) = @_;
+
+    my $rel = MusicBrainz::Server::Release->new($self->dbh);
+    my @nat = $rel->FindNonAlbum($artist->id);
+
+    return $nat[0];
+}
+
 sub get_browse_selection
 {
     my ($self, $index, $offset, $artist) = @_;
