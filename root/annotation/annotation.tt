@@ -10,7 +10,7 @@
         [%- END -%]
         <div class="bar">
             <div class="details">
-                [% l('Annotation last modified at {last_modified}', { last_modified => annotation.creation_time }) %].
+                [% l('Annotation last modified at {last_modified}', { last_modified => UserDate.format(annotation.creation_time) }) %].
             </div>
 
             <div class="options">

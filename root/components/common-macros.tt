@@ -13,7 +13,7 @@
 
 [%- MACRO make_widget(field, label) INCLUDE 'forms/generic/row.tt' field=form.field(field) label=label -%]
 
-[% USE UserDate(user.preferences) %]
+[% USE UserDate(c.user.preferences) %]
 
 [%- MACRO doc_link(to, text) BLOCK -%]
     <a href="/doc/[% to %]">[% (text or to) %]</a>

@@ -22,7 +22,7 @@
         { link => c.uri_for('/user/preferences'), text => l("Preferences") },
         { link => c.uri_for('/user/donate'), text => l("Check Donation Status") },
     ] %]
-    [% WRAPPER "components/box.tt" header=l("Editor \"{user}\"", {user => $user.name}) %]
+    [% WRAPPER "components/box.tt" header=l("Editor \"{user}\"", {user => user.name}) %]
         <h3>
             [% l('General Information:') %]
         </h3>
@@ -54,7 +54,7 @@
                 [% END %]
                 [% IF user.email %]
                     [% IF user.email_confirmation_date %]
-                        ([% l('verified') %] [% user.email_confirmation_date %])
+                        ([% l('verified at {verified}', { verified => UserDate.format(user.email_confirmation_date) }) %])
                     [% ELSE %]
                         [% IF viewing_own_profile %]
                             (<em>[% l('unverified!') %]</em>)
