@@ -1,5 +1,5 @@
-[%- WRAPPER 'layout.tt' title=l("Moderation {num}", {num => #${moderation.id}}) -%]
-    [%- WRAPPER 'components/box.tt' header=l("Moderation {id}", {id => ${moderation.id}}) -%]
+[%- WRAPPER 'layout.tt' title=l("Edit {num}", { num => moderation.id }) -%]
+    [%- WRAPPER 'components/box.tt' header=l("Edit {id}", { id => moderation.id }) -%]
         <table class="details">
             <tr>
                 <th>
@@ -30,7 +30,7 @@
                     [% l('Opened:') %]
                 </th>
                 <td>
-                    [% user_date(moderation.open_time) %]
+                    [% UserDate.format(moderation.open_time) %]
                 </td>
             </tr>
             <tr>
@@ -38,7 +38,7 @@
                     [% l('Expires:') %]
                 </th>
                 <td>
-                    [% user_date(moderation.expire_time) %]
+                    [% UserDate.format(moderation.expire_time) %]
                 </td>
             </tr>
             <tr>
@@ -46,7 +46,7 @@
                     [% l('Closed:') %]
                 </th>
                 <td>
-                    [% user_date(moderation.close_time || "-") %]
+                    [% UserDate.format(moderation.close_time || "-") %]
                 </td>
             </tr>
             <tr>
@@ -86,11 +86,9 @@
         <table class="details">
             <tr>
                 <th>
-                    [% l('My Vote') %]
+                    [% l('My Vote:') %]
                 </th>
                 <td>
-                    <p>
-                    </p>
                     [% WRAPPER 'forms/form.tt' quiet=1 custom=1 action=c.uri_for('/moderation/enter_votes')
                         moderation=undef %]
                         [% INCLUDE 'moderation/vote_options.tt' %]
@@ -104,10 +102,7 @@
         </h4>
         [% INCLUDE "moderation/notes.tt" %]
         <hr />
-        <h4>
-            [% l('Add Note') %]
-        </h4>
-        [% WRAPPER 'forms/form.tt' action=c.entity_url(moderation, 'add_note') moderation=undef %]
+        [% WRAPPER 'forms/form.tt' action=c.entity_url(moderation, 'add_note') moderation=undef quiet=1 %]
             [% INCLUDE 'forms/edit-note.tt' form=add_note hide_help=1 %]
             [% INCLUDE 'forms/submit.tt' label=l('Add Note') %]
         [% END %]

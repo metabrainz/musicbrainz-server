@@ -5,10 +5,10 @@
             </td>
         </tr>
         <tr>
-            <td>
+            <td style="width: 15%">
                 <table class="details">
                     <tr>
-                        <th style="width: 70pt;">
+                        <th>
                             [% l('Editor:') %]
                         </th>
                         <td>
@@ -22,7 +22,7 @@
                             [% l('Edit ID:') %]
                         </th>
                         <td>
-                            <a href="[%- entity_url(moderation, 'show') -%]">
+                            <a href="[%- c.entity_url(moderation, 'show') -%]">
                                 [% moderation.id %]
                             </a>
                         </td>
