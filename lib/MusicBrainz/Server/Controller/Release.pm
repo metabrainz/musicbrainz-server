@@ -123,6 +123,7 @@ sub show : Chained('release') PathPart('')
     $c->stash->{tags}           = $c->model('Tag')->top_tags($release);
     $c->stash->{disc_ids}       = $c->model('CdToc')->load_for_release($release);
     $c->stash->{release_events} = $c->model('Release')->load_events($release);
+    $c->stash->{annotation}     = $c->model('Annotation')->load_latest($release);
 
     # Load the tracks, and relationships for tracks if we need them
     my $tracks = $c->model('Track')->load_from_release($release);
