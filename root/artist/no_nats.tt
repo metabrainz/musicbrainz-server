@@ -1,0 +1,6 @@
+[%- WRAPPER 'artist/layout.tt' title="Non-Album Tracks" -%]
+    [% WRAPPER 'components/box.tt' header='Non-Album Tracks' -%]
+       <p>[% l('{artist} currently has no non-album tracks.', { artist => entity_link(artist) }) %]</p>
+       <p><a href="[% c.entity_url(artist, 'add_non_album') %]">[% l('Add Non-Album Tracks') %]</a>
+    [%- END -%]
+[%- END -%]
