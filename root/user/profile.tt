@@ -1,5 +1,5 @@
 [% extra_css = "user.css" %]
-[% WRAPPER "layout.tt" title=l("Editor \"{user}\"", {user => $user.name}) %]
+[% WRAPPER "layout.tt" title=l("Editor \"{user}\"", {user => user.name}) %]
     [% BLOCK property %]
         <dt>
             [% name %]:
