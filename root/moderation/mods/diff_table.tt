@@ -6,15 +6,15 @@
                     [%- change.label -%]:
                 </th>
                 <td class="change">
-                    [% UNLESS no_prev %]
+                    [% UNLESS no_prev OR prev == '' %]
                         <span class="prev">
-                            [%- change.prev || "&nbsp;" -%]
+                            [%- change.prev -%]
                         </span>
                         <br />
                     [% END %]
-                    [% UNLESS no_new %]
+                    [% UNLESS no_new OR new == '' %]
                         <span class="new">
-                            [%- change.new || "&nbsp;" -%]
+                            [%- change.new -%]
                         </span>
                     [% END %]
                 </td>

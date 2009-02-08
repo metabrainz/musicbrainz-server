@@ -6,3 +6,4 @@
     { label=l('Country'), new=new.Country, prev=prev.Country },
     { label=l('Founded'), new=new.BeginDate, prev=prev.BeginDate },
     { label=l('Dissolved'), new=new.EndDate, prev=prev.EndDate }
+] -%]

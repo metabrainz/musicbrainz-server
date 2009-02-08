@@ -1,5 +1,6 @@
 [%- INCLUDE 'moderation/mods/diff_table.tt' changes=[
     { label=l('Name'), new=new.ArtistName, prev=prev.ArtistName },
+    { label=l('Type'), new=new.Type, prev=prev.Type },
     { label=l('Sort name'), new=new.SortName, prev=prev.SortName },
     { label=l('Resolution'), new=new.Resolution, prev=prev.Resolution },
     { label=l('Begin Date'), new=new.BeginDate, prev=prev.BeginDate },
