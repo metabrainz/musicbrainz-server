@@ -580,7 +580,8 @@ sub preferences : Local Form
 
     return unless $self->submit_and_validate($c);
 
-    $form->update_from_form ($c->req->params);
+    $form->update_from_form($c->req->params);
+    $c->user->preferences($prefs);
     $c->persist_user;
 }
 
