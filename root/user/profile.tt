@@ -73,7 +73,7 @@
             [% END %]
             [% WRAPPER property name=l("Bio") %]
                 <div class="bio">
-                    [% (user.biography or l("[None]")) | html_entity %]
+                    [% html_escape(user.biography or l("[None]")).split("\n").join("<br />") %]
                 </div>
             [% END %]
             [% WRAPPER property name=l("Subscriptions") %]
