@@ -55,13 +55,7 @@ sub profile
             start     => '+MusicBrainz::Server::Form::Field::Date',
             end       => '+MusicBrainz::Server::Form::Field::Date',
 
-            resolution => {
-                type => 'Text',
-                size => 50,
-                required_message => 'An artist with this name already exists. '.
-                                    'Please enter a comment to disambiguate this artist '.
-                                    'from other artists with the name',
-            },
+            resolution => 'Text',
 
             # We make this required if duplicates are found
             confirmed => 'Checkbox',
@@ -138,11 +132,7 @@ sub init_value
         return $item->type case('artist_type');
         return $item->begin_date case('start');
         return $item->end_date case('end');
-        case('resolution') {
-            my $resolution = $item->resolution;
-            $field->required(1) if $resolution;
-            return $resolution;
-        };
+        return $item->resolution case('resolution');
     }
 }
 

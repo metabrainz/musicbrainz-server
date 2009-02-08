@@ -23,7 +23,7 @@ sub apply_edit
         name        => $self->value('name')        || $artist->name,
         sort_name   => $self->value('sortname')    || $artist->sort_name,
         type        => $artist_type,
-        resolution  => $self->value('resolution')  || $artist->resolution,
+        resolution  => $self->value('resolution')  || '',
         begin       => $self->value('start'),
         end         => $self->value('end'),
     );
