@@ -23,7 +23,7 @@
     [%- INCLUDE 'release/tracks.tt' -%]
     [% INCLUDE "release/box-summary.tt" %]
     [%- IF disc_ids.size -%]
-        <div class="release_discids">
+        <div id="release_discids" class="release_discids" style="display: [% show_discids ? 'block' : 'none' %];">
         <table style="width: 100%">
         [%- FOREACH discid = disc_ids -%]
             <tr>

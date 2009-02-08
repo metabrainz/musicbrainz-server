@@ -9,9 +9,11 @@
                     [% INCLUDE "components/relationships.tt" source=track relations=track.relations justlist=1 nocompact=1
                         IF track.relations.size AND show_relationships %]
                 </td>
-                [%- IF show_artists -%]
-                    <td class="artist">[% entity_link(track.artist, 1) %]</td>
-                [%- END -%]
+
+                <td class="artist" style="display: [% show_artists ? 'block' : 'none' %]">
+                    [% entity_link(track.artist, 1) %]
+                </td>
+
                 <td class="duration">[% track_length(track.length) %]</td>
                 [%- IF c.user_exists && !no_edit_tracks-%]
                     <td class="editinglinks">

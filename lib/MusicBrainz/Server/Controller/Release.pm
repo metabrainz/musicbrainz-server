@@ -113,10 +113,12 @@ sub show : Chained('release') PathPart('')
     my ($self, $c) = @_;
     my $release = $self->entity || $c->stash->{release};
 
-    my $show_rels = $c->req->query_params->{rel};
+    my $show_rels  = $c->req->query_params->{rel};
+    my $show_discs = $c->req->query_params->{discids};
 
     $c->stash->{show_artists}       = $c->req->query_params->{artist} || $release->has_multiple_track_artists;
     $c->stash->{show_relationships} = defined $show_rels ? $show_rels : 1;
+    $c->stash->{show_discids}       = defined $show_discs ? $show_discs : 1;
 
     $c->stash->{artist}         = $c->model('Artist')->load($release->artist); 
     $c->stash->{relations}      = $c->model('Relation')->load_relations($release);

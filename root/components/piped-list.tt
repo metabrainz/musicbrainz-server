@@ -4,7 +4,7 @@
         <ul>
             [%- FOREACH link IN list -%]
                 [%- NEXT IF link.hide %]
-                <li><a href="[% link.link %]">[% link.text %]</a></li>
+                <li><a [% link.id.defined ? 'id="' _ link.id _ '"' : '' %] href="[% link.link %]">[% link.text %]</a></li>
             [%- END -%]
         </ul>
     </div>

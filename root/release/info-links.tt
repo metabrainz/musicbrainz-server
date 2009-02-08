@@ -4,11 +4,17 @@
     { link => c.entity_url(release, 'tags'), text => l("Tags"), hide => no_tags },
     {
         link => c.req.uri_with(artist => !show_artists),
-        text => show_artists ? l('Hide Artists') : l('Show Artists')
+        text => show_artists ? l('Hide Artists') : l('Show Artists'),
+        id   => 'toggle_artists',
     },
     {
         link => c.req.uri_with(rel => !show_relationships),
-        text => show_relationships ? l('Hide Relationships') : l('Show Relationships')
+        text => show_relationships ? l('Hide Relationships') : l('Show Relationships'),
+    },
+    {
+        link => c.req.uri_with(discids => !show_discids),
+        text => show_discids ? l('Hide Disc IDs') : l('Show Disc IDs'),
+        id   => 'toggle_discids'
     },
     { link => c.entity_url(release, 'google'), text => l("Search Google") },
     { link => c.uri_for('/moderation/entity/release', release.mbid), text => l('View edits'), hide => no_edit_history }
