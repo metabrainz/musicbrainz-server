@@ -7,6 +7,7 @@
                 </th>
                 <td>
                     [% entity_link(release) %]
+                    [% INCLUDE 'components/tagger.tt' mbid=release.mbid %]
                 </td>
            </tr>
            <tr>

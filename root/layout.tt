@@ -27,6 +27,7 @@
         <link rel="search" type="application/opensearchdescription+xml" title=[% l("MusicBrainz: Track") %] href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_track.xml') %]" />
     </head>
     <body>
+        <iframe name="tagger-iframe" id="tagger-iframe"></iframe>
         [%- INCLUDE "layout/header.tt" -%]
         <div id="container">
         <div id="content">

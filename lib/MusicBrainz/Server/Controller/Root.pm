@@ -97,6 +97,12 @@ sub begin : Private
             $c->user->privs($c->session->{session_privs});
         }
     }
+
+    # Update the tagger port
+    if (exists $c->req->query_params->{tport})
+    {
+        $c->session->{tport} = $c->req->query_params->{tport};
+    }
 }
 
 =head2 end

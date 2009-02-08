@@ -42,9 +42,6 @@
                 </th>
                 <td>
                     [% entity_link(artist) %]
-                    [% IF artist.resolution %]
-                        ([% artist.resolution %])
-                    [% END %]
                 </td>
             </tr>
             <tr>
@@ -65,6 +62,7 @@
                 </th>
                 <td>
                     [% entity_link(release) %]
+                    [% INCLUDE 'components/tagger.tt' mbid=release.mbid %]
                 </td>
             </tr>
             <tr>

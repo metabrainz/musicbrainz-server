@@ -47,6 +47,10 @@ caption {
     display: inline;
 }
 
+#tagger-iframe {
+    display: none;
+}
+
 /*
  * Header
  */
