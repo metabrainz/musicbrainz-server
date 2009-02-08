@@ -20,7 +20,8 @@ sub init
     $self->sub_form(
         Form::Processor->new(
             parent_field => $self,
-            profile      => $profile
+            profile      => $profile,
+            name         => $self->form->name . '-' . $self->name,
         )
     );
 
