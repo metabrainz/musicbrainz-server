@@ -12,7 +12,7 @@
                         { link => c.entity_url(release, 'change_quality'), text => l('Change Quality') },
                     ] caption=l('Edit') -%]
                 [%- ELSE -%]
-                    [% l('Please <a href=\"{uri}\">log in</a> to edit this release', {uri => c.uri_for("/user/login")}) %]
+                    [% l('Please <a href=\"{uri}\">log in</a> to edit this list.', {uri => c.uri_for("/user/login")}) %]
                 [%- END -%]
             </div>
         </div>
