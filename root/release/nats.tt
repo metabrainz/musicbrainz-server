@@ -17,6 +17,6 @@
             </div>
         </div>
         [%- INCLUDE 'release/tracks.tt' no_track_numbers=1 -%]
-        [%- INCLUDE 'release/box-summary.tt' no_type=1 no_language=1 -%]
+        [%- INCLUDE 'release/box-summary.tt' no_type=1 no_language=1 no_dq=1 -%]
     </div>
 [%- END -%]
