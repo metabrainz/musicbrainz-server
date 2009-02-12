@@ -1,4 +1,5 @@
 [%- WRAPPER 'artist/layout.tt' title=release.name -%]
+    [% INCLUDE "annotation/annotation.tt" parent=release %]
     <div class="release">
         [%- INCLUDE 'release/box-header.tt' -%]
         <div class="release_top">
