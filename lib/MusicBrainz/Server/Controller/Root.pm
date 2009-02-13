@@ -156,8 +156,37 @@ sub end : ActionClass('RenderView')
         editors  => $stats->{'count.moderator'},
     };
 
-    # For linking to entities
-    $c->stash->{server_details}->{version} = &DBDefs::VERSION;
+    # Determine which server version to display. If the DBDefs string is empty
+    # attempt to display the current subversion revision
+    if (&DBDefs::VERSION)
+    {
+        $c->stash->{server_details}->{version} = &DBDefs::VERSION;
+    }
+    else
+    {
+        # SVN version
+        my $ver = MusicBrainz::Server::Cache->get('footer-svn-rev');
+        if (!$ver)
+        {
+            $ver = "unknown";
+            if (open(SVN, "svnversion -n |"))
+            {
+                $ver = <SVN>;
+                close(SVN);
+                if ($ver eq "exported")
+                {
+                    $ver = "(not in SVN)" 
+                }
+                else
+                {
+                    $ver =~ s/M$//;
+                    $ver = "r$ver";
+                }
+            }
+            MusicBrainz::Server::Cache->set('footer-svn-rev', $ver, 5 * 60);
+        }
+        $c->stash->{server_details}->{version} =  $ver;
+    }
 
     # For displaying release attributes
     $c->stash->{release_attribute}        = \&MusicBrainz::Server::Release::attribute_name;

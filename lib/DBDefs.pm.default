@@ -200,7 +200,8 @@ sub DB_STAGING_SERVER { "development" }
 
 # This defines the version of the server.  Only used by things which display
 # the server version, e.g. at the foot of each web page.  Basically it can be
-# whatever you want.
+# whatever you want. If you leave it blank, the current subversion revision
+# will be shown (if subversion is in use).
 sub VERSION { "TRUNK" }
 
 # Mods with no votes, for artists which have subscribers, can stay open longer
