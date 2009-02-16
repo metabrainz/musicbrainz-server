@@ -5,6 +5,7 @@
         link => c.req.uri_with(artist => !show_artists),
         text => show_artists ? l('Hide Artists') : l('Show Artists'),
         id   => 'toggle_artists',
+        hide => no_artists
     },
     {
         link => c.req.uri_with(rel => !show_relationships),
@@ -13,9 +14,10 @@
     {
         link => c.req.uri_with(discids => !show_discids),
         text => show_discids ? l('Hide Disc IDs') : l('Show Disc IDs'),
-        id   => 'toggle_discids'
+        id   => 'toggle_discids',
+        hide => no_disc_ids
     },
-    { link => c.entity_url(release, 'google'), text => l("Search Google") },
+    { link => c.entity_url(release, 'google'), text => l("Search Google"), hide => no_google },
     { link => c.uri_for('/moderation/entity/release', release.mbid), text => l('View edits'), hide => no_edit_history }
 ] -%]
 <div class="infoLinks">
