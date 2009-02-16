@@ -11,17 +11,13 @@
         <br />
         <strong>
             <a href="[% c.entity_url(artist, 'show', { show_all => 0 }) %]">
-                [%- l(' View only albums, EPs, singles, and compilations by {artist_name}.', {artist_name => artist.name} ) -%]
-            </a>
-        </strong>
+                [%- l(' View only albums, EPs, singles, and compilations</a></strong> by {artist_name}.', {artist_name => artist.name} ) -%]
     [%- ELSE -%]
         [% l('You are currently viewing only albums, EPs, singles, and compilations by {artist_name}.', {artist_name => artist.name}) %]
         <br />
         <strong>
             <a href="[% c.entity_url(artist, 'show', { show_all => 1 }) %]">
-                [%- l(' View all releases by {artist_name}.', {artist_name => artist.name}) -%]
-            </a>
-        </strong>.
+                [%- l(' View all releases</a></strong> by {artist_name}.', {artist_name => artist.name}) -%]
     [%- END -%]
     </div>
     [%- content -%]

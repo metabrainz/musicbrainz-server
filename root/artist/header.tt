@@ -50,15 +50,15 @@
     <div class='editLinks'>
         [%- IF c.user_exists -%]
             [%- edit_links = [
+                { link => c.entity_url(artist, 'edit'), text => l('Edit Artist') },
+                { link => c.entity_url(artist, 'merge'), text => l('Merge Artist') },
+                { link => c.uri_for('/artist', artist.mbid || artist.id, 'add_release'), text => l('Add Release') },
                 { link => c.entity_url(artist, 'add_alias'), text => l('Add Alias') },
                 { link => c.entity_url(artist, 'add_non_album'), text => l('Add Non-Album Tracks') },
-                { link => c.uri_for('/artist', artist.mbid || artist.id, 'add_release'), text => l('Add Release') },
                 { link => c.entity_url(artist, 'change_quality'), text => l('Change Data Quality') },
-                { link => c.entity_url(artist, 'edit'), text => l('Edit Artist') },
                 { link => c.entity_url(artist, 'import'), text => l('Import Release') },
                 { link => c.entity_url(artist, 'subscribe'), text => l('Subscribe'), hide => subscribed },
-                { link => c.entity_url(artist, 'unsubscribe'), text => l('Unsubscribe'), hide => !subscribed },
-                { link => c.entity_url(artist, 'merge'), text => l('Merge into another Artist') },
+                { link => c.entity_url(artist, 'unsubscribe'), text => l('Unsubscribe'), hide => !subscribed }
             ] -%]
             [% INCLUDE 'components/piped-list.tt' caption=l('Edit:') list=edit_links %]
         [%- ELSE -%]
