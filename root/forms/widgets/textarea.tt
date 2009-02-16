@@ -1,3 +1,2 @@
-<textarea name="[% name %]"
-        id="[% id %]" cols="50" rows="5"
+<textarea name="[% name %]" id="[% id %]"
         [% extra_attributes %]>[% value %]</textarea>

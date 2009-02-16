@@ -69,3 +69,8 @@
  * Custom fields
  */
 #content form input.duration { width: 50pt; }
+
+form textarea.edit-note {
+    width: 45em;
+    height: 12em;
+}

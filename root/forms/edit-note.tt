@@ -6,10 +6,8 @@
         [% l('Please note that it is highly recommended to enter a edit note. If you do so, your edit is more likely to be voted on, and unanimously accepted by the other MusicBrainz editors. If your edit receives the required number of unanimous yes votes, it will be applied instantly, even before the voting period elapses in which edits usually are kept open. For detailed information on how long edits stay open and how many votes are required for it to pass unanimously, please see our edit conditions page.') %]
     </p>
     [%- END -%]
-    <div class="row">
-        <label for="id_[% field.name %]" class="[% field.required_text %]">[% l('Edit Note:') %]</label>
-        <div class="input">
-            <textarea name="[% field.name %]" rows="10" cols="100"></textarea>
-        </div>
-    </div>
+    [%- WRAPPER 'forms/row.tt' -%]
+        [%- INCLUDE 'forms/label.tt' label=l('Edit Note') -%]
+        [%- INCLUDE 'forms/input.tt' class='edit-note' -%]
+    [%- END -%]
 [%- END -%]
