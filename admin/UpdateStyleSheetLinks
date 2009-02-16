@@ -25,7 +25,7 @@
 use strict;
 
 use FindBin;
-use lib "$FindBin::Bin/../cgi-bin";
+use lib "$FindBin::Bin/../lib";
 
 use DBDefs;
 chdir &DBDefs::HTDOCS_ROOT or die $!;

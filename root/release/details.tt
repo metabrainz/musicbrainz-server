@@ -1,0 +1,36 @@
+[%- WRAPPER 'release/layout.tt' title=l('Details') -%]
+    [%- WRAPPER 'components/box.tt' header=l('Release Details') -%]
+        <table class='details'>
+            <tr>
+                <th>
+                    [% doc_link('ReleaseTitle', l('Title')) %]:
+                </th>
+                <td>
+                    [% entity_link(release) %]
+                    [% INCLUDE 'components/tagger.tt' mbid=release.mbid %]
+                </td>
+           </tr>
+           <tr>
+               <th>
+                   [% doc_link('MusicBrainzIdentifier', l('MBID')) %]:
+               </th>
+               <td>
+                   [% release.mbid %]
+               </td>
+            </tr>
+            <tr>
+                <th>
+                    [%- l('Permanent link:') -%]
+                </th>
+                <td>
+                    [%- perma="http://musicbrainz.org/release/${release.mbid}" -%]
+                    <a href='[% perma | url %]'>
+                        [% perma | html %]
+                    </a>
+                </td>
+            </tr>
+        </table>
+    [%- END -%]
+
+    [%- INCLUDE 'components/perma-link.tt' entity=release -%]
+[%- END -%]

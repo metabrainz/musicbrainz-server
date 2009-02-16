@@ -1,0 +1,23 @@
+[%- info_links = [
+    { link => c.entity_url(release, 'details'), text => l("Details / Link") },
+    { link => c.entity_url(release, 'relations'), text => l("Relationships") },
+    { link => c.entity_url(release, 'tags'), text => l("Tags") },
+    { link => c.entity_url(release, 'google'), text => l("Search Google") },
+    { link => c.uri_for('/moderation/entity/release', release.mbid), text => l('View Edits') }
+] -%]
+<div class="entity_header">
+    <div class="title album">
+        [% entity_link(release, 1) %]
+    </div>
+    [%- IF release_artist -%]
+        <div class="info">
+            <div class='infoline'>
+                [% l('by {artist}', {artist => entity_link(release_artist, 1)}) %]
+            </div>
+        </div>
+    [%- END -%]
+    <div class="infoLinks">
+        [% INCLUDE "components/piped-list.tt" caption=l('Info:') list=info_links %]
+    </div>
+    [% INCLUDE "release/edit-links.tt" %]
+</div>

@@ -28,7 +28,7 @@
 use strict;
 
 use FindBin;
-use lib "$FindBin::Bin/../../../cgi-bin";
+use lib "$FindBin::Bin/../../../lib";
 
 use DBDefs;
 use MusicBrainz;
@@ -38,7 +38,7 @@ use MusicBrainz::Server::CDTOC;
 $| = 1 if -t STDOUT;
 
 my $mb = MusicBrainz->new; $mb->Login;
-my $sql = Sql->new($mb->{DBH});
+my $sql = Sql->new($mb->{dbh});
 
 $sql->Begin;
 

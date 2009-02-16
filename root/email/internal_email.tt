@@ -1,0 +1,19 @@
+[% l('MusicBrainz editor {name} has sent you the following message:', {name => c.user.name}) %]
+------------------------------------------------------------------------
+[% message %]
+------------------------------------------------------------------------
+
+[%- IF c.user.email -%]
+    [%# Redundancy in the following, but it allows for translations to make much more contextual sense.  %]
+    [%- IF reveal_address -%]
+        [% l('If you would like to respond, please reply to this message or visit {editor} to send editor {name} an email.', {editor => c.uri_for('/user/contact', c.user.name), name => user.name}) %]
+    [%- ELSE -%]
+        [% l('If you would like to respond, please reply to this message or visit {editor} to send editor {name} an email.', {editor => c.uri_for('/user/contact', c.user.name), name => user.name}) %]
+    [%- END %]
+[%- ELSE -%]
+    [% l('Unfortunately, the editor {name} has not supplied their email address, therefore you cannot reply to them.', {name => c.user.name}) %]
+[%- END -%]
+
+[% UNLESS reveal_address %]
+    [% l('Please do not respond to this email.') %]
+[%- END -%]

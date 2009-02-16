@@ -1,0 +1,4 @@
+[%- INCLUDE 'moderation/mods/diff_table.tt' changes=[
+    { label=l('URL'), new=new.URL, prev=prev.URL },
+    { label=l('Description'), new=new.Desc, prev=prev.Desc },
+] -%]

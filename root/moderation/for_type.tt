@@ -1,0 +1,7 @@
+[%- WRAPPER "${entity.entity_type}/layout.tt" -%]
+    <h1>
+        [% l('Edits for {entity}', {entity => html_escape(entity.name)}) %]
+    </h1>
+    [%- INCLUDE 'moderation/list.tt'
+        WRAPPER 'components/with-pager.tt'-%]
+[%- END -%]

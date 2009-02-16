@@ -1,0 +1,5 @@
+[%- DEFAULT label=entity -%]
+[%- WRAPPER "layout.tt" title="${title} - ${label.name}" -%]
+[%- INCLUDE "label/header.tt" -%]
+[%- content -%]
+[%- END -%]

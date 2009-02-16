@@ -1,0 +1,10 @@
+<table class="details">
+    <tr>
+        <th>
+            [% l('Alias:') %]
+        </th>
+        <td>
+            [% new %]
+        </td>
+    </tr>
+</table>

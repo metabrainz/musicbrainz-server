@@ -1,0 +1,46 @@
+[% WRAPPER "components/box.tt" header=l('Browse') %]
+    [% MACRO append_link(char) BLOCK;
+        c.req.uri_with( index => "${c.req.query_params.index}${char}", page => 1 );
+        END %]
+    [% BLOCK characters %]
+        [% FOR char IN chars %]
+            <td>
+                <a href="[% append_link(char) %]">
+                    [% char | upper %]
+                </a>
+            </td>
+        [% END %]
+    [% END %]
+    [%- IF c.req.query_params.index.length > 5 -%]
+        <p>
+            [% l('<strong>Note:</strong> You have request to browse using a query of more than 5 charaters.  We do not index data at this level of granularity.  You may have better luck using the various <a href="{uri}">search pages</a>', {uri => c.uri_for('/search')}) %]
+        </p>
+    [% ELSE %]
+        <table class="browse">
+            <tr>
+                <td>
+                    <a href="[% append_link('_') %]">
+                        symbol
+                    </a>
+                </td>
+                [% chars = [
+                    'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
+                    'j', 'k', 'l', 'm' ]
+                %]
+                [% PROCESS characters %]
+            </tr>
+            <tr>
+                <td>
+                    <a href="[% append_link(' ') %]">
+                        space
+                    </a>
+                </td>
+                [% chars = [
+                    'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
+                    'w', 'x', 'y', 'z' ]
+                %]
+                [% PROCESS characters %]
+            </tr>
+        </table>
+    [% END %]
+[% END %]

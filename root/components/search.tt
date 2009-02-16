@@ -1,0 +1,21 @@
+[%- WRAPPER "forms/form.tt" quiet=1 -%]
+    [%- INCLUDE "forms/generic/row.tt" field=form.field('query') label=search_label -%]
+    [%- INCLUDE "forms/submit.tt" label=l('Search') %]
+[% END %]
+
+[%- IF entities && entities.size -%]
+    [% WRAPPER "forms/form.tt" quiet=1 %]
+        [%- WRAPPER 'forms/fieldset.tt' legend=l('Search Results') -%]
+            <p>
+                [% l('We have found the following results. Please select one of the following, or else you can refine your query and search again.') %]
+            </p>
+            [%- FOREACH entity=entities -%]
+                [%- WRAPPER 'forms/blank_row.tt' right=1 -%]
+                    [%- INCLUDE 'forms/input.tt' type='radio' field='search-id' value=entity.id -%]
+                    [%- INCLUDE 'forms/label.tt' for='search-id' label=entity_link(entity) -%]
+                [%- END -%]
+            [%- END -%]
+        [% END %]
+        [%- INCLUDE "forms/submit.tt" label=l('Select') -%]
+    [%- END -%]
+[%- END -%]

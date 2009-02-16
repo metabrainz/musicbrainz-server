@@ -1,0 +1,26 @@
+<div class="releaseinfo">
+    <div class="tracks">
+        [% release.track_count %]&nbsp;<img src="[% c.uri_for('/static/images/notes.gif') %]" alt=[% l("Tracks") %] />
+        [% IF release.puid_count %]
+            [% release.puid_count %]&nbsp;<img src="[% c.uri_for('/static/images/puid.gif') %]" alt=[% l("PUIDs") %] />
+        [% END %]
+    </div>
+    <div class="right">
+        [% IF no_dq %]
+            &nbsp;
+        [% ELSE %]
+            [ [% l('{dq} data quality', {dq => data_quality(release.quality)}) %] ]
+        [% END %]
+        [% UNLESS no_language %] |
+        <span class="[% release.language_has_mod_pending ? 'mp' : '' %]">
+            [ [% release.language.name || '?' %], [% release.script.name || '?' %] ] |
+        </span>
+        [% END %]
+        [% UNLESS no_type %]
+        <span class="[% release.attributes_have_mod_pending ? 'mp' : '' %]">
+            [ [% release_attribute(release.release_type) || '?' %],
+            [% release_attribute(release.release_status) || '?' %] ]
+        </span>
+        [% END %]
+    </div>
+</div>

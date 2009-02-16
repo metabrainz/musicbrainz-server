@@ -1,0 +1,4 @@
+<div class="releasename">
+    [% entity_link(release, 1) %]
+    [%- INCLUDE 'components/tagger.tt' mbid=release.mbid -%]
+</div>

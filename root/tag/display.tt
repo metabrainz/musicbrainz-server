@@ -1,0 +1,25 @@
+[%- WRAPPER "layout.tt" -%]
+    <h2>
+        [% l('{type} tagged with \"{tag}\"', {type => make_ucfirst(get_plural_type(type)), tag => html_escape(tag)}) %]
+    </h2>
+    [%- IF entities.size -%]
+        [%- WRAPPER 'components/with-pager.tt' -%]
+            <table>
+            [%- FOREACH entity IN entities -%]
+                <tr>
+                <td>
+                    [% entity_link(entity) %]
+                </td>
+                <td>
+                    [% entity.amount %]
+                </td>
+                </tr>
+            [%- END -%]
+            </table>
+        [%- END -%]
+    [%- ELSE -%]
+        <p>
+            [% l('No {type} have been tagged with '\"{tag}\"', {type => get_plural_type(group.type), tag => html_escape(tag)}) %]
+        </p>
+    [%- END -%]
+[%- END -%]

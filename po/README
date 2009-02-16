@@ -1,0 +1,93 @@
+This is a short introduction to i18n inside of MusicBrainz
+
+We want MusicBrainz server to have state of the art localizing. This
+means using gettext on the one hand and Launchpad's translation
+service on the other. Sadly enough, TemplateToolkit's templates are
+currently only localizable properly using perl's own maketext
+framework, which generates non-standard plural forms in gettext's .po
+files which are in turn not translatable using standard gettext tools.
+
+Therefore, we will need to implement some custom solution and give it
+back to the community afterwards.
+
+To accomplish that we'd need a two step solution:
+
+1. Prepare the code base for localization.
+
+This means writing localization routines and bringing our strings into
+shape for translation (i.e. marking them appropriately). No
+translations would be prepared at this step, the system would still
+work in English, but introducing translations would be a matter of
+including some .po files. This is currently implemented as
+Catalyst::Plugin::I18N::Gettext, with code parts form
+Locale::gettext_pp tailored to our needs (reading from .mo files).
+
+2. Implement automatical .pot generation.
+
+This is currently the tricky part: xgettext.pl (from maketext) which
+is capable of doing so, generated non-standard plurals, and xgettext
+(from GNU gettext) doesn't parse TemplateToolkit's syntax
+properly.
+
+There are two possible implementation ways (which both should be
+implemented in the long run):
+
+  * Extend Locale::Maketext::Lexicon so that it can read .po files
+    with plural forms properly and also make xgettext.pl generate
+    proper plural forms. This can be done without breaking existing
+    behaviour, since L::M::L currently uses only one localization
+    function (l()) whereas proper pluralization would require a second
+    one for plural forms (ln()). Therefore everything in a l()
+    function would generate singular forms (backwards-compatible), an
+    ln() function would generate plural forms (proper gettext).
+
+  * Introduce templatetoolkit's format to GNU gettext. This is
+    probably the sanest way of all, since we could use gettext without
+    drifting too far apart from the canonical implementation. The
+    implementation might be pretty straight-forward except that it
+    will have to be implemented in C. One problem might be that
+    gettext might be slow to appear in distributions (compared to
+    CPAN) but it would only take a statically linked binary to
+    generate the .pot file once the templates change and this will
+    probably happen only everysooften.
+
+Preparing the code
+==================
+
+Assuming that the code itself doesn't have any translatable strings
+(which is to re-check), we'd only have to translate TemplateToolkit's
+templates, some blobs in the database and probably some JavaScript.
+
+TemplateToolkit
+---------------
+
+Every string in a template should be marked as localizable, this can
+be done with an l()-function:
+
+[% WRAPPER "layout.tt" title="l('Welcome to MusicBrainz!')" %]
+
+If some interpolation is needed, it should be implemented with a named
+parameter and a parameter hash:
+
+[%- l('{entity} has no aliases.', {entity => entity_link(entity)}) -%]
+
+[% l('You may proceed to <a href=\"{url}\">your user profile</a>,
+      or maybe you want to {edit_link}', url => c.uri_for('/user/profile
+     '), edit_link => doc_link("HowEditingWorks", l("start editing!"))
+%]
+
+Plurals are done with an ln()-function:
+
+[% l('{num} relationship not shown.', '{num} relationships not shown', n, {num => n}) %]
+
+(proper syntax: ln(english_singular, english_plural, number, parameter_hash))
+
+**Warning**: Plural forms only apply to enumerable entities, i.e. "I
+  have X apples" should be localized with ln(), but "I have apples"
+  should use l().
+
+TODO: write proper Makefiles for .po and .pot files generation
+TODO: write a .pot file generator
+TODO: check javascript translation needs
+TODO: check .pm translation needs
+TODO: check database's translation needs

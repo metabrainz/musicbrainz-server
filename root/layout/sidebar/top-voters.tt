@@ -1,0 +1,12 @@
+[%- IF top_voters.size -%]
+    <table class="details">
+        [%- FOR voter=top_voters -%]
+        <tr>
+            <th>[%- voter.name | truncate(10) -%]</th>
+            <td>[%- voter.num -%]</td>
+        </tr>
+        [%- END -%]
+    </table>
+[%- ELSE -%]
+    <p>No one!</p>
+[%- END -%]

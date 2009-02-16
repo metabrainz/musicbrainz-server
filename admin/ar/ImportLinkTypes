@@ -24,7 +24,7 @@
 #____________________________________________________________________________
 
 use FindBin;
-use lib "$FindBin::Bin/../../cgi-bin";
+use lib "$FindBin::Bin/../../lib";
 
 use strict;
 use DBDefs;
@@ -270,7 +270,7 @@ while(defined($line = <>))
 
 my $mb = MusicBrainz->new;
 $mb->Login;
-my $sql = Sql->new($mb->{DBH});
+my $sql = Sql->new($mb->{dbh});
 
 foreach my $x (qw(album artist track url))
 {

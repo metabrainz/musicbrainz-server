@@ -1,0 +1,119 @@
+/*
+ * Stuff common to most entity types
+ */
+
+/*
+ * Header (ie, artist header, label header)
+ */
+.entity_header {
+    border: 1px solid #000;
+    background-color: #F0EFFF;
+    color: #000;
+    width: 100%;
+    margin-bottom: 1em;
+    margin-top: 8px;
+    padding-top: 5px;
+}
+
+.entity_header .title,
+.entity_header .info {
+    padding-left: 45px;
+}
+
+.entity_header .infoline {
+    padding-top: .25em;
+}
+
+.entity_header div.title a {
+    color: #000;
+    font-size: 20pt;
+}
+
+.entity_header .track   { background: url(/static/images/ticon_lg.png) no-repeat 5px top; }
+.entity_header .artist  { background: url(/static/images/aicon_lg.png) no-repeat 5px top; }
+.entity_header .label   { background: url(/static/images/bicon_lg.png) no-repeat 5px top; }
+.entity_header .album   { background: url(/static/images/licon_lg.png) no-repeat 5px top; }
+
+.entity_header div.title {
+    font-size: 15pt;
+    color: #555;
+    min-height: 32px;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    padding-top: 3px;
+}
+
+.entity_header div.info {
+    font-size: 10pt;
+    line-height: 10pt;
+}
+
+.infoLinks,
+.editLinks,
+.TagsBox {
+    padding: 2pt 5pt;
+}
+
+.editLinks {
+    border-top: 1px solid #000;
+    background-color: #FFECD6;
+}
+
+div.TagsBox {
+    background-color: #F0F6FF;
+    color: #000;
+    border: 1px solid #000;
+    margin-bottom: 1em;
+    padding: 1pt 5pt;
+}
+
+div.RelationshipBox {
+    padding: 5px;
+    background-color: #EFE8E2;
+    color: #000;
+    border: 1px solid;
+    margin-bottom: 1em;
+}
+
+div.annotation {
+    border: 1px solid #000;
+    margin-bottom: 1em;
+}
+
+div.annotation div.body,
+div.annotation div.bar {
+    padding: 1pt 5pt;
+}
+
+div.annotation div.bar {
+    border-top: 1px solid #000;
+    background: #F0EFFF;
+    overflow: auto;
+}
+
+.annotation .details {
+    float: left;
+}
+.annotation .options {
+    float: right;
+}
+
+span.artist_icon,
+span.release_icon,
+span.label_icon,
+span.track_icon {
+    padding-left: 16px;
+    background-position: 0px 65%;
+    background-repeat: no-repeat;
+}
+
+span.artist_icon { background-image: url("/static/images/entity/artist_small.gif"); }
+span.release_icon { background-image: url("/static/images/entity/release_small.gif"); }
+span.label_icon { background-image: url("/static/images/entity/label_small.gif"); }
+span.track_icon { background-image: url("/static/images/entity/track_small.gif"); }
+
+.lastupdated {
+    color: grey;
+    font-size: x-small;
+}
+

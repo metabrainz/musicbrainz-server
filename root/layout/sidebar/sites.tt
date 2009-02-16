@@ -1,0 +1,53 @@
+<ul>
+    <li>
+        <a href="http://musicbrainz.org/">
+            [%- l('Master Server') -%]
+        </a>
+    </li>
+    <li>
+        [%- doc_link('MirrorServer', l('Find a Mirror')) -%]
+    </li>
+    <li>
+        <a href="http://metabrainz.org/">
+            [%- l('MetaBrainz') -%]
+        </a>
+    </li>
+    <li>
+        <a href="http://blog.musicbrainz.org/">
+            [%- l('Brainz Blog') -%]
+        </a>
+    </li>
+    <li>
+        <a href="http://musicbrainz.org/doc/MailingList">
+            [%- l('Mailing Lists') -%]
+        </a>
+    </li>
+    <li>
+        <a href="http://forums.musicbrainz.org/">
+            [%- l('Forums') -%]
+        </a>
+    </li>
+    <li>
+        <a href="http://chatlogs.musicbrainz.org/">
+            <acronym title="[%- l('Internet Relay Chat') -%]">
+                [%- l('IRC') -%]
+            </acronym>
+            [%- l('Chat Logs') -%]
+        </a>
+    </li>
+    <li>
+        <a href="http://wiki.musicbrainz.org/">
+            [%- l('Wiki') -%]
+        </a>
+    </li>
+    <li>
+        <a href="http://cafepress.com/musicbrainz">
+            [%- l('Stuff to Buy') -%]
+        </a>
+    </li>
+    <li>
+        <a href="http://musicbrainz.org/bugs">
+            [%- l('Bug Tracker') -%]
+        </a>
+    </li>
+</ul>

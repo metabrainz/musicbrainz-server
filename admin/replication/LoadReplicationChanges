@@ -24,7 +24,7 @@
 #____________________________________________________________________________
 
 use FindBin;
-use lib "$FindBin::Bin/../../cgi-bin";
+use lib "$FindBin::Bin/../../lib";
 
 use strict;
 use DBDefs;
@@ -95,8 +95,8 @@ my $mb = new MusicBrainz;
 $mb->Login(db => "READWRITE");
 
 use Sql;
-my $sql = Sql->new($mb->{DBH});
-my $dbh = $mb->{DBH};
+my $sql = Sql->new($mb->{dbh});
+my $dbh = $mb->{dbh};
 
 # Retrieve current_schema_sequence and current_replication_sequence
  

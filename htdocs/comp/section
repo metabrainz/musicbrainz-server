@@ -1,6 +1,0 @@
-<%args>
-$title
-</%args>
-<h2><% $title %></h2>
-
-%# vi: set ts=4 sw=4 ft=mason :

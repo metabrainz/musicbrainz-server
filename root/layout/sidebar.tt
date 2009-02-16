@@ -1,0 +1,25 @@
+<div id="sidebar">
+    [%- INCLUDE "layout/sidebar/toggle.tt" -%]
+    <span class="toggle">
+        [%- INCLUDE "layout/sidebar/sites.tt"
+            WRAPPER "layout/sidebar/section.tt" title=l("MusicBrainz sites") -%]
+        [% IF c.user_exists %]
+            [%- INCLUDE "layout/sidebar/user.tt"
+                WRAPPER "layout/sidebar/section.tt" title=c.user.name link="${c.uri_for('/user/')}" -%]
+        [% ELSE %]
+            [%- INCLUDE "layout/sidebar/login.tt"
+                WRAPPER "layout/sidebar/section.tt" title=l("Not logged in")
+                    link="${c.uri_for('/user/login')}" -%]
+        [%- END -%]
+        [%- INCLUDE "layout/sidebar/search.tt"
+            WRAPPER "layout/sidebar/section.tt" title=l("Search") -%]
+        [%- INCLUDE "layout/sidebar/top-voters.tt"
+            WRAPPER "layout/sidebar/section.tt" title=l("Top Voters")
+                link=c.uri_for('/statistics/top_editors') -%]
+        [%- INCLUDE "layout/sidebar/stats.tt"
+            WRAPPER "layout/sidebar/section.tt" title=l("Statistics") -%]
+        [%- INCLUDE "layout/sidebar/partners.tt"
+            WRAPPER "layout/sidebar/section.tt" title=l("Partners")
+                link="http://metabrainz.org/about/supporters.html" -%]
+    </span>
+</div>

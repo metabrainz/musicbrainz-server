@@ -1,0 +1,52 @@
+[%- info_links = [
+    { link => c.entity_url(label, 'details'), text => l('Details / Link') },
+    { link => c.entity_url(label, 'aliases'), text => l('Aliases') },
+    { link => c.entity_url(label, 'tags'), text => l('Tags') },
+    { link => c.entity_url(label, 'show'), text => l('Releases') },
+    { link => c.entity_url(label, 'google'), text => l('Search Google') },
+    { link => c.uri_for('/moderation/entity/label', label.mbid), text => l('View Edits') },
+    { link => c.entity_url(label, 'subscriptions'), text => l('View Subscriptions') }
+] -%]
+<div class='entity_header'>
+    <div class='title label'>
+        [% entity_link(label, 1) %]
+    </div>
+    <div class='info'>
+        [%- IF label.has_complete_date_range -%]
+            <div class='infoline'>
+                [% label.begin_date %] - [% label.end_date %]<br/>
+            </div>    
+        [%- ELSIF label.begin_date -%]
+            <div class='infoline'>
+                [% l('Founded:') %] [% label.begin_date -%]<br />
+            </div>    
+        [%- ELSIF label.end_date -%]
+            <div class='infoline'>
+                [% l('Dissolved:') %] [% label.end_date -%]<br />
+            </div>    
+        [%- END -%]
+        <div class='infoline'>
+            [% l('Type:') %] [% label.type_name %]
+        </div>    
+        <div class='infoline'>
+            [% l('Country:') %] [% label.country_name %]
+        </div>    
+    </div>
+    <div class='infoLinks'>
+        [% INCLUDE 'components/piped-list.tt' caption=l('Info:') list=info_links %]
+    </div>
+    <div class='editLinks'>
+        [%- IF c.user_exists -%]
+            [%- edit_links = [
+	        { link => c.entity_url(label, 'add_alias'), text => l("Add Alias") },
+                { link => c.entity_url(label, 'edit'), text => l('Edit Label') },
+                { link => c.entity_url(label, 'subscribe'), text => l('Subscribe'), hide => subscribed },
+                { link => c.entity_url(label, 'unsubscribe'), text => l('Unsubscribe'), hide => !subscribed }
+                { link => c.entity_url(label, 'merge'), text => l('Merge into another Label') },
+            ] -%]
+            [% INCLUDE 'components/piped-list.tt' caption=l('Edit:') list=edit_links %]
+        [%- ELSE -%]
+            [% l('Please <a href={uri}>log in</a> to edit this label.', {uri => c.uri_for('/user/login')}) %]
+        [%- END -%]
+    </div>
+</div>

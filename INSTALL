@@ -1,6 +1,17 @@
 Install instructions for the MusicBrainz Server:
 ------------------------------------------------
 
+New (Jan 2005):
+	If you can dedicate a whole machine to use as a MusicBrainz
+	server, you might find the following helpful:
+
+	http://wiki.musicbrainz.org/DebianServerSetup
+
+	It describes how to take a fresh machine, install Debian on it,
+	and then install the MusicBrainz server on top of that.
+	Even if you don't have a whole machine for MusicBrainz, you
+	might find the above document a useful source of reference.
+
 These instructions are general instructions for setting up MusicBrainz server.
 If you want to set up a "slave" replication server (to use the data feed
 provided by the master server), please read htdocs/docs/Replication.
@@ -53,10 +64,12 @@ The MusicBrainz server requires the following items. Please note the
 inline notes about which type of server you are setting up -- if there are no
 specific notes about a server type, the instructions apply to all server types.
 
-1) PostgreSQL 8.1 or later
+1) PostgreSQL 7.4 or later
 
-   Due to some UNICODE incompatibilities between Postgres 8.1 and earlier
-   versions, Postgres 8.1 is now required since the main server runs 8.1
+   Postgres must have multi-byte support enabled.  In older versions
+   this was doing with "./configure --enable-multibyte=UNICODE" , but
+   since 7.3.0 this has been the default, so you probably don't have to
+   worry about it.
 
    Locales
 
@@ -97,7 +110,7 @@ specific notes about a server type, the instructions apply to all server types.
 	   connect as "postgres" (e.g. the "postgres" OS user):
 
 	   # as "postgres":
-	   ./admin/InitDb.pl --createdb --empty-database
+	   ./admin/InitDb.pl --createdb
 
 	   # as your MusicBrainz OS user:
 	   ./admin/InitDb.pl --import mbdump*.tar.bz2
@@ -138,7 +151,7 @@ specific notes about a server type, the instructions apply to all server types.
        Digest::SHA1
        Digest::MD5 (should be included in Bundle::Apache)
        HTTP::Negotiate
-       JSON (version 2.x)
+       JSON
        Language::Guess (see notes below about seed data for this module)
        MIME::Lite
        Storable
@@ -154,7 +167,6 @@ specific notes about a server type, the instructions apply to all server types.
        XML::RSS -- to display RSS feeds from the blog
        RDFStore -- to accept POST queries of the old RDF based Web
                    Service. (use 0.42 if 0.50 gives you install headaches)
-       Time::Duration -- this will give you pretty "last modified on" strings.
 
    Notes on specific perl modules:
 
@@ -272,17 +284,16 @@ Installation:
      which MUST be changed for you to run a server (SMTP_SECRET_CHECKSUM);
      most of the settings you can probably leave unchanged if you wish.
 
-   admin/apache/startup.pl
+   admin/startup.pl
      NOTE: You can find a default version of startup.pl in startup.pl.default;
            copy this to startup.pl and edit this.
 
      There's only one thing to change here, namely the "use lib" line,
      which is marked with a "TODO" comment.
 
-   admin/apache/vh_mb_backend.conf
-     NOTE: You can find a default version of vh_mb_backend.conf in
-           vh_mb_backend.conf.default; copy this to vh_mb_backend.conf and
-           edit this.
+   admin/vh_httpd.conf
+     NOTE: You can find a default version of vh_httpd.conf in vh_httpd.conf.default;
+           copy this to vh_httpd.conf and edit this.
 
      This contains many things to customize - look for the TODO comments,
      which point out things that you might need to change.
@@ -319,10 +330,10 @@ Installation:
 
 NOTE: Steps 6 - 8 are optional for database only slaves!
 	
-6) Configure Apache to use Mason.  In the admin/apache directory you will find
-   the vh_mb_backend.conf file, which is a VirtualHost fragment for Apache's
+6) Configure Apache to use Mason.  In the admin directory you will find
+   the vh_httpd.conf file, which is a VirtualHost fragment for Apache's
    httpd.conf file.  I suggest you run MusicBrainz as a virtual host.
-   You should only have to import vh_mb_backend.conf into your virtualhosts section
+   You should only have to import vh_httpd.conf into your virtualhosts section
    of your httpd.conf file.  In the admin directory you'll also find
    startup.pl, which is the mod_perl startup file.  You should have already
    customised these two files in step 3.

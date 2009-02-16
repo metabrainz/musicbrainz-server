@@ -1,0 +1,10 @@
+<table class="details">
+    <tr>
+        <th>
+            [% l('New:') %]
+        </th>
+        <td>
+            [%- entity_link(moderation.release) -%]
+        </td>
+    </tr>
+</table>

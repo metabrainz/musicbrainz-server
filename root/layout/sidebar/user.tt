@@ -1,0 +1,34 @@
+<ul>
+    <li>
+        <a href="[% c.uri_for("/user/profile", c.user.name) %]">
+            [% l('My Profile') %]
+        </a>
+    </li>
+    <li>
+        <a href="[% c.uri_for('/user/logout') %]">
+            [% l('Logout') %]
+        </a>
+    </li>
+    <li>
+        <a href="[% c.uri_for('/user/preferences') %]">
+            [% l('Preferences') %]
+        </a>
+    </li>
+    <li>
+        <a href="[% c.uri_for('/moderation/open') %]">
+            [% l('Vote on Edits') %]
+        </a>
+        <ul>
+            <li>
+                <a href="[% c.uri_for('/moderation/subscribed') %]">
+                    [% l('Subscribed') %]
+                </a>
+            </li>
+        </ul>
+    </li>
+    <li>
+        <a href="http://metabrainz.org/donate">
+            [% l('Donate!') %]
+        </a>
+    </li>
+</ul>

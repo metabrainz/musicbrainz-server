@@ -24,7 +24,7 @@
 #____________________________________________________________________________
 
 use FindBin;
-use lib "$FindBin::Bin/../cgi-bin";
+use lib "$FindBin::Bin/../lib";
 
 use strict;
 use DBDefs;
@@ -111,14 +111,14 @@ use Sql;
 # Log in to the main DB
 my $mb = new MusicBrainz;
 $mb->Login(db => 'READWRITE');
-my $sql = Sql->new($mb->{DBH});
-my $dbh = $mb->{DBH};
+my $sql = Sql->new($mb->{dbh});
+my $dbh = $mb->{dbh};
 
 # Log in to the raw DB, or duplicate handles to the main DB
 my $rawmb = new MusicBrainz;
 $rawmb->Login(db => 'RAWDATA');
-my $rawsql = Sql->new($rawmb->{DBH});   
-my $rawdbh = $rawmb->{DBH};
+my $rawsql = Sql->new($rawmb->{dbh});   
+my $rawdbh = $rawmb->{dbh};
 
 # This hash indicates which tables may need to be pulled from a vertical DB
 my %table_db_mapping =

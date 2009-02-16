@@ -1,0 +1,227 @@
+h2.compactreleasetype {
+    color: #000;
+    font-weight: bold;
+    font-size: 12pt;
+    padding: 1pt 5pt;
+    background: url(/static/images/header-bg-orangefade.gif) repeat-y;
+}
+
+h2.releasetype {
+    background: #736DAB;
+    color: #FFF;
+    border: 1px solid #000;
+    font-weight: bold;
+    margin: 1em 0;
+    padding: 2px 4px;
+}
+
+div.release_discids {
+    border-top: 1px solid #000;
+}
+
+div.release_discids table {
+    border-collapse: collapse;
+}
+
+div.release_discids tr {
+    border-top: 1px solid #000;
+    background: #FFECD6;
+}
+
+div.release_discids td {
+    padding: 2pt 3pt;
+}
+
+div.release_discids table td.duration {
+    width: 20pt;
+}
+
+div.release {
+    border: 1px solid #000;
+    margin-bottom: 10px;
+}
+
+div.release .release_top {
+    overflow: auto;
+}
+
+div.release .artwork {
+    background-color: white;
+    border-style: none none none solid;
+    border-color: black;
+    border-width: 0 0 0 1px;
+    float: right;
+    padding: 3pt;
+    text-align: center;
+    font-size: 8pt;
+}
+
+div.release .artwork img {
+    border: 1px solid black;
+    max-width: 200pt;
+}
+
+div.release caption {
+    display: none;
+}
+
+div.release .releasehead {
+    font-size: 95%;
+    background-color:#FFEAFF;
+    padding: 2pt 3pt;
+    vertical-align: top;
+}
+
+div.release table.release_tracks {
+    border-bottom: 1px solid black;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+div.release table.release_tracks tr {
+    border-bottom: 1px solid black;
+}
+
+div.release table .number,
+div.release table .artist,
+div.release table .title {
+    border-right: 1px solid #aaa;
+    text-align: left;
+}
+
+div.release thead {
+    display: none;
+}
+
+div.release thead .length {
+    border-right: 1px solid #aaa;
+}
+
+div.release table.release_tracks td {
+    padding: 2pt 3pt;
+    vertical-align: top;
+}
+
+div.release table .number {
+    width: 15pt;
+    text-align: center;
+}
+
+div.release table .duration {
+    width: 40pt;
+    text-align: center;
+}
+
+div.release table .editinglinks {
+    border-left: 1px solid #aaa;
+    width: 88pt;
+}
+
+div.releaseinfo div {
+    padding: 2pt 3pt;
+}
+
+div.releaseinfo .tracks {
+    float: left;
+}
+div.releaseinfo .right {
+    text-align: right;
+}
+
+div.releasename {
+    background: #FFBA68;
+    border-bottom: 1px solid #000;
+    padding: 1pt 5pt;
+    color: #736DAB;
+    font-weight: bold;
+}
+
+div.releaseinfo {
+    padding: 1px;
+    background: #F0EFFF;
+}
+
+div.releasetags {
+    background: #F0EFFF;
+    padding: 13pt 5pt;
+    border-bottom: 1px solid black;
+}
+
+div.release .editLinks { border-bottom: 1px solid black; }
+
+.release_tracks ul {
+    padding: 0;
+    margin: 0;
+}
+
+.release_tracks ul,
+.release_tracks .more_relationships {
+    margin-left: 15pt;
+    font-size: 8pt;
+}
+
+.release_tracks ul li {
+    list-style-type: none;
+}
+
+/*
+ * Release lists
+ */
+table.releases { width: 100%; }
+
+table.releases td,
+table.releases th {
+    padding-left:  10pt;
+    padding-right: 10pt;
+}
+
+table.releases tr.odd { background: #eee; }
+
+table.releases .tracks,
+table.releases .puids,
+table.releases .discids {
+    text-align: right;
+}
+
+table.releases .discids { width: 30pt; }
+table.releases .puids   { width: 50pt; }
+table.releases .tracks  { width: 30pt; }
+
+table.releases .status,
+table.releases .date {
+    width: 60pt;
+    text-align: center;
+}
+
+table.releases .language {
+    width: 65pt;
+    text-align: center;
+}
+
+table.releases .artist,
+table.releases .title,
+table.releases .catalog {
+    text-align: left;
+}
+
+table.releases .catalog {
+    width: 62pt;
+}
+
+/*
+ * Release events
+ */
+.release_events {
+    border-top: 1px solid #000;
+}
+
+.release_events th,
+.release_events td {
+    text-align: left;
+    padding-left:  8pt;
+    padding-right: 8pt;
+}
+
+.release_events .date {
+    text-align: center;
+}

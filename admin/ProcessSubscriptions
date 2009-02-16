@@ -25,7 +25,7 @@
 use strict;
 
 use FindBin;
-use lib "$FindBin::Bin/../cgi-bin";
+use lib "$FindBin::Bin/../lib";
 
 use DBDefs;
 use MusicBrainz;
@@ -35,7 +35,7 @@ use UserSubscription;
 my $mb = MusicBrainz->new;
 $mb->Login;
 
-my $subs = UserSubscription->new($mb->{DBH});
+my $subs = UserSubscription->new($mb->{dbh});
 $subs->{'verbose'} = 1 if -t;
 
 use Getopt::Long;

@@ -1,0 +1,16 @@
+[%- IF tagcloud.size -%]
+    <ul class="tagcloud">
+        [%- FOREACH tag=tagcloud -%]
+            <li style="font-size: [% tag.size %]px;[% " font-weight: bold;" IF tag.bold %]">
+                <a href="[% c.uri_for("/tags", tag.tag) %]">
+                    [%- tag.tag | html -%]
+                </a>
+            </li>
+        [%- END -%]
+    </ul>
+[%- ELSE -%]
+    <p>
+        [% l('No tags') %]
+    </p>
+[%- END -%]
+

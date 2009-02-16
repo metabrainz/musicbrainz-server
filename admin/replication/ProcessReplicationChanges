@@ -40,7 +40,7 @@
 use strict;
 
 use FindBin;
-use lib "$FindBin::Bin/../../cgi-bin";
+use lib "$FindBin::Bin/../../lib";
 
 use Getopt::Long;
 use DBI;
@@ -83,9 +83,9 @@ my %bytable;
 my $mb = MusicBrainz->new;
 
 $mb->Login(db => "READWRITE");
-my $sql = Sql->new($mb->{DBH});
-my $sql2 = Sql->new($mb->{DBH});
-my $slave = Sql->new($mb->{DBH});
+my $sql = Sql->new($mb->{dbh});
+my $sql2 = Sql->new($mb->{dbh});
+my $slave = Sql->new($mb->{dbh});
 
 $sql->AutoCommit;
 $sql->Do("SET search_path = public");

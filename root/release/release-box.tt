@@ -1,0 +1,4 @@
+<div class="release">
+    [% INCLUDE "release/box-header.tt" %]
+    [% INCLUDE "release/box-summary.tt" %]
+</div>

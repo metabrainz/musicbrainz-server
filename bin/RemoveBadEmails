@@ -24,7 +24,7 @@
 #____________________________________________________________________________
 
 use FindBin;
-use lib "$FindBin::Bin/../cgi-bin";
+use lib "$FindBin::Bin/../lib";
 
 use strict;
 use DBDefs;
@@ -38,7 +38,7 @@ my ($email) = @ARGV;
 
 my $mb = MusicBrainz->new;
 $mb->Login;
-my $sql = Sql->new($mb->{DBH});
+my $sql = Sql->new($mb->{dbh});
 
 eval {
 	$sql->Begin;
@@ -59,7 +59,7 @@ eval {
 			for (@$users)
 			{
 				my ($id, $name) = @$_;
-				my $u = UserStuff->newFromId($mb->{DBH}, $id);
+				my $u = UserStuff->newFromId($mb->{dbh}, $id);
 				$u or die "User #$id not found";
 				$u->GetName eq $name or die "User #$id != $name";
 				print "Blanking email for #$id $name\n";
@@ -76,7 +76,7 @@ eval {
 };
 
 my $err = $@;
-print("Rolling back\n"), $sql->Rollback unless $sql->{DBH}{AutoCommit};
+print("Rolling back\n"), $sql->Rollback unless $sql->{dbh}{AutoCommit};
 die $err if $err;
 
 # eof

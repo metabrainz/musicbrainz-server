@@ -1,0 +1,44 @@
+[%- extra_js = 'search_plugins.js' -%]
+
+[%- WRAPPER 'layout.tt' title='Search Plugins' -%]
+    [%- WRAPPER 'components/box.tt' header='Search Plugins' -%]
+        <p>
+            You can use the links below to install search plugins for compatible
+            web browsers. These plugins will allow you to directly search the
+            MusicBrainz database from your browser.
+        </p>
+
+        [%- BLOCK add -%]
+            [%- FOREACH engine IN engines -%]
+                <a href="javascript: addSearchEngine('musicbrainz[% engine.engine %]', '[% engine.icon %]', 'Arts')">
+                   [% engine.label %]
+                </a> [% UNLESS loop.last; "|"; END %]
+            [%- END -%]
+        [%- END -%]
+        <table class="details">
+            <tr>
+                <th>Indexed Searches:</th>
+                <td>
+                    [%- PROCESS add engines = [
+                        { label = 'Artist',  engine = 'artist',  icon = 'aicon.png' },
+                        { label = 'Label',   engine = 'label',   icon = 'licon.png' },
+                        { label = 'Release', engine = 'release', icon = 'ricon.png' },
+                        { label = 'Track',   engine = 'track',   icon = 'ticon.png' },
+                    ] -%]
+                </td>
+            </tr>
+
+            <tr>
+                <th>Direct Searches</th>
+                <td>
+                    [%- PROCESS add engines = [
+                        { label = 'Artist',  engine = 'artist-old',  icon = 'aicon.png' },
+                        { label = 'Label',   engine = 'label-old',   icon = 'licon.png' },
+                        { label = 'Release', engine = 'release-old', icon = 'ricon.png' },
+                        { label = 'Track',   engine = 'track-old',   icon = 'ticon.png' },
+                    ] -%]
+                </td>
+            </tr>
+        </table>
+    [%- END -%]
+[%- END -%]

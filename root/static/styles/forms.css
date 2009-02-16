@@ -1,0 +1,76 @@
+/*
+ * Messages
+ */
+#content form .required {
+    font-weight: bold;
+}
+
+#content form .error {
+    color: #ff3333;
+}
+
+#content form input.error,
+#content form textarea.error,
+#content form select.error {
+    background: #ffcccc;
+    border: 1px dotted #ff8888;
+}
+
+/*
+ * Generic Forms
+ */
+#content form.generic div.row {
+    clear: both;
+    margin-bottom: 4pt;
+}
+
+#content form.generic label,
+#content form.generic .row div.label {
+    float: left;
+    text-align: right;
+    width: 90pt;
+    margin-right: 10pt;
+}
+
+#content form.generic div.fields,
+#content form.generic div.no_label,
+#content form.generic ul.errors {
+    margin-left: 100pt;
+}
+
+/* Labels that are not the main label for a row (ie, checkbox) */
+#content form.generic .no_label label,
+#content form.generic .fields label {
+    width: auto;
+    float: none;
+    text-align: left;
+    margin: 0;
+}
+
+#content form fieldset
+{
+    padding: 0;
+    border: none;
+    border-top: 1px solid #FFBB55;
+    padding: 10pt;
+    margin-bottom: 5pt;
+}
+#content form fieldset legend
+{
+    font-weight: bold;
+    font-size: 14pt;
+    line-height: 16pt;
+    padding: 0 5pt;
+    border-bottom: 2px solid #FFBB55;
+}
+
+
+/*
+ * Custom fields
+ */
+#content form input.duration { width: 50pt; }
+
+form textarea.edit-note {
+    width: 45em;
+    height: 12em;
+}

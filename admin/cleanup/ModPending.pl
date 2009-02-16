@@ -27,7 +27,7 @@ use 5.008;
 use strict;
 
 use FindBin;
-use lib "$FindBin::Bin/../../cgi-bin";
+use lib "$FindBin::Bin/../../lib";
 
 use Getopt::Long;
 
@@ -79,7 +79,7 @@ use ModDefs qw( STATUS_OPEN );
 
 my $mb = MusicBrainz->new;
 $mb->Login;
-my $sql = Sql->new($mb->{DBH});
+my $sql = Sql->new($mb->{dbh});
 
 $verbose
 	? open(LOG, ">&STDOUT")
@@ -224,7 +224,7 @@ if ($lockmode eq "blank")
 # For each open moderation, construct the handler object and call its
 # "AdjustModPending" method
 
-my $modclass = Moderation->new($mb->{DBH});
+my $modclass = Moderation->new($mb->{dbh});
 my $n = 0;
 
 $eachmod

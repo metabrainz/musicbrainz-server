@@ -1,0 +1,5 @@
+[%- DEFAULT release=entity -%]
+[% WRAPPER "layout.tt" title="${release.name} - ${title}" %]
+    [% INCLUDE "release/header.tt" %]
+    [% content %]
+[% END %]

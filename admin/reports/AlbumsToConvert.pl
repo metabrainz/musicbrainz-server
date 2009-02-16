@@ -24,7 +24,7 @@
 #____________________________________________________________________________
 
 use FindBin;
-use lib "$FindBin::Bin/../../cgi-bin";
+use lib "$FindBin::Bin/../../lib";
 
 use strict;
 use warnings;
@@ -85,7 +85,7 @@ sub GatherData
 
 	for my $album (@album_ids)
 	{
-		my $al = MusicBrainz::Server::Release->new($self->{DBH});
+		my $al = MusicBrainz::Server::Release->new($self->{dbh});
 		$al->SetId($album);
 		$al->LoadFromId or next;
 

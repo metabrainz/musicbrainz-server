@@ -1,0 +1,9 @@
+[%- INCLUDE 'moderation/mods/diff_table.tt' changes=[
+    { label=l('Name'), new=new.LabelName },
+    { label=l('Sort name'), new=new.SortName },
+    { label=l('Comment'), new=new.Resolution },
+    { label=l('Label code'), new=new.LabelCode },
+    { label=l('Country'), new=new.Conutry },
+    { label=l('Founded'), new=new.BeginDate },
+    { label=l('Dissolved'), new=new.EndDate },
+] no_prev=1 -%]

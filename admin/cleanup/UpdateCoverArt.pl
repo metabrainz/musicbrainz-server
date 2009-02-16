@@ -24,7 +24,7 @@
 #____________________________________________________________________________
 
 use FindBin;
-use lib "$FindBin::Bin/../../cgi-bin";
+use lib "$FindBin::Bin/../../lib";
 
 use strict;
 use DBDefs;
@@ -52,7 +52,7 @@ EOF
 
 my $mb = MusicBrainz->new;
 $mb->Login;
-my $sql = Sql->new($mb->{DBH});
+my $sql = Sql->new($mb->{dbh});
 $| = 1;
 
 # Update Amazon Cover Art
@@ -65,7 +65,7 @@ $sql->Select("select album.id, asin, coverarturl, url
                  and (coverarturl = '' OR coverarturl is null)");
 while (my ($id, $asin, $coverarturl, $url) = $sql->NextRow)
 {
-    my $al = MusicBrainz::Server::Release->new($mb->{DBH});
+    my $al = MusicBrainz::Server::Release->new($mb->{dbh});
     $al->SetId($id);
     if ($al->LoadFromId(1))
     {

@@ -1,0 +1,9 @@
+[%- WRAPPER "artist/landing.tt" -%]
+    [%- FOREACH group IN groups -%]
+        <h2 class="releasetype">
+            [%- group.name | html -%]
+        </h2>
+        [%- FOREACH release IN group.releases -%]
+            [%- INCLUDE "releases/release-box.tt" -%]
+        [%- END -%]																										[%- END -%]
+[%- END -%]

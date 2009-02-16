@@ -1,0 +1,5 @@
+[%- DEFAULT track=entity -%]
+[%- WRAPPER 'layout.tt' title=track.name -%]
+    [%- INCLUDE "track/header.tt" -%]
+    [%- content -%]
+[%- END -%]

@@ -1,0 +1,3 @@
+[%- WRAPPER "${entity.entity_type}/layout.tt" -%]
+    [%- INCLUDE "tag/entity-tags.tt" -%]
+[%- END -%]

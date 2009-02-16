@@ -1,0 +1,6 @@
+[% extra_js = 'artistform.js' %] 
+[% WRAPPER 'artist/layout.tt' title=l('Edit Artist') %]
+    [% WRAPPER 'components/box.tt' header=l('Edit {artist}', {artist => ${artist.name}}) %]
+        [% INCLUDE 'artist/edit_form.tt' %]
+    [% END %]
+[% END %]

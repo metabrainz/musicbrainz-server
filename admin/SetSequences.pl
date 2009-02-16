@@ -26,7 +26,7 @@
 use strict;
 
 use FindBin;
-use lib "$FindBin::Bin/../cgi-bin";
+use lib "$FindBin::Bin/../lib";
 
 use DBDefs;
 use MusicBrainz;
@@ -62,7 +62,7 @@ sub SetSequence
 
 my $mb = MusicBrainz->new;
 $mb->Login(db => "READWRITE");
-my $sql = Sql->new($mb->{DBH});
+my $sql = Sql->new($mb->{dbh});
 
 SetSequence($sql, "album");
 SetSequence($sql, "albumjoin");

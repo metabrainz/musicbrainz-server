@@ -1,0 +1,3 @@
+[%- WRAPPER 'layout.tt' -%]
+    [%- INCLUDE 'search/form.tt' -%]
+[%- END %]

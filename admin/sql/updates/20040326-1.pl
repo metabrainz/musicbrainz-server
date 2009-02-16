@@ -28,7 +28,7 @@
 use strict;
 
 use FindBin;
-use lib "$FindBin::Bin/../../../cgi-bin";
+use lib "$FindBin::Bin/../../../lib";
 
 use DBDefs;
 use MusicBrainz;
@@ -40,7 +40,7 @@ use UserStuff;
 $| = 1 if -t STDOUT;
 
 my $mb = MusicBrainz->new; $mb->Login;
-my $sql = Sql->new($mb->{DBH});
+my $sql = Sql->new($mb->{dbh});
 my $rows;
 my ($updated, $failed);
 
@@ -67,20 +67,20 @@ for (@$rows)
 		$sql->Begin;
 
 		require MusicBrainz::Server::Artist;
-		my $ar = MusicBrainz::Server::Artist->new($mb->{DBH});
+		my $ar = MusicBrainz::Server::Artist->new($mb->{dbh});
 		$ar->SetId($id);
 		$ar->LoadFromId or die "No artist #$id";
 
 		unless ($name eq $_->[1])
 		{
 			# Is there already an artist with the new name?
-			my $mergeinto = MusicBrainz::Server::Artist->new($mb->{DBH});
+			my $mergeinto = MusicBrainz::Server::Artist->new($mb->{dbh});
 			if ($mergeinto->LoadFromName($name) and $mergeinto->GetName eq $name)
 			{
 				# Merge $ar into $mergeinto
 				require Moderation;
 				my @mods = Moderation->InsertModeration(
-					DBH	=> $mb->{DBH},
+					DBH	=> $mb->{dbh},
 					uid	=> MODBOT_MODERATOR,
 					privs => &UserStuff::AUTOMOD_FLAG,
 					type => MOD_MERGE_ARTIST,
@@ -94,7 +94,7 @@ for (@$rows)
 				{
 					my $status = $mod->ApprovedAction;
 					$mod->SetStatus($status);
-					my $user = UserStuff->new($mb->{DBH});
+					my $user = UserStuff->new($mb->{dbh});
 					$user->CreditModerator($mod->GetModerator, $status);
 					$mod->CloseModeration($status);
 					$mod->InsertNote(MODBOT_MODERATOR, "Automatically approved");
@@ -142,7 +142,7 @@ for (@$rows)
 		$sql->Begin;
 
 		require MusicBrainz::Server::Release;
-		my $al = MusicBrainz::Server::Release->new($mb->{DBH});
+		my $al = MusicBrainz::Server::Release->new($mb->{dbh});
 		$al->SetId($id);
 		$al->LoadFromId or die "No album #$id";
 
@@ -183,7 +183,7 @@ for (@$rows)
 		$sql->Begin;
 
 		require MusicBrainz::Server::Track;
-		my $tr = MusicBrainz::Server::Track->new($mb->{DBH});
+		my $tr = MusicBrainz::Server::Track->new($mb->{dbh});
 		$tr->SetId($id);
 		$tr->LoadFromId or die "No track #$id";
 
@@ -224,7 +224,7 @@ for (@$rows)
 		$sql->Begin;
 
 		require MusicBrainz::Server::Alias;
-		my $alias = MusicBrainz::Server::Alias->new($mb->{DBH}, "artistalias");
+		my $alias = MusicBrainz::Server::Alias->new($mb->{dbh}, "artistalias");
 		$alias->SetId($id);
 		$alias->LoadFromId or die "No artist alias #$id";
 

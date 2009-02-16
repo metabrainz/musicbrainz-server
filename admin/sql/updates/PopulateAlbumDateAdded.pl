@@ -34,7 +34,7 @@ use Sql;
 
 my $mb = MusicBrainz->new;
 $mb->Login();
-my $sql = Sql->new($mb->{DBH});
+my $sql = Sql->new($mb->{dbh});
 
 $sql->Begin;
 $sql->Do("create temporary table tmp_album_opentime as SELECT rowid as id, min(opentime) as opentime FROM moderation_all WHERE type = 16 and rowid > 0 group by rowid");

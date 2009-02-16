@@ -27,7 +27,7 @@
 # Abstract: Part 2: scan the old tables and load the data into the new tables
 
 use FindBin;
-use lib "$FindBin::Bin/../../../cgi-bin";
+use lib "$FindBin::Bin/../../../lib";
 
 use DBDefs;
 use MusicBrainz;
@@ -39,9 +39,9 @@ $| = 1 if -t STDOUT;
 my $mb1 = MusicBrainz->new; $mb1->Login;
 my $mb2 = MusicBrainz->new; $mb2->Login;
 my $mb3 = MusicBrainz->new; $mb3->Login;
-my $dbh_read = $mb1->{DBH};
-my $dbh_true = $mb2->{DBH};
-my $dbh_false = $mb3->{DBH};
+my $dbh_read = $mb1->{dbh};
+my $dbh_true = $mb2->{dbh};
+my $dbh_false = $mb3->{dbh};
 my $sql_read = Sql->new($dbh_read);
 my $sql_true = Sql->new($dbh_true);
 my $sql_false = Sql->new($dbh_false);

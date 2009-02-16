@@ -36,14 +36,14 @@ use MusicBrainz::Server::CDTOC;
 
 my $rw = MusicBrainz->new;
 $rw->Login();
-my $rwsql = Sql->new($rw->{DBH});
+my $rwsql = Sql->new($rw->{dbh});
 
 my $mb = MusicBrainz->new;
 $mb->Login(db => "RAWDATA");
-my $sql = Sql->new($mb->{DBH});
+my $sql = Sql->new($mb->{dbh});
 
-my $rc = MusicBrainz::Server::CDStub->new($mb->{DBH});
-my $cdtoc = MusicBrainz::Server::CDTOC->new($rw->{DBH});
+my $rc = MusicBrainz::Server::CDStub->new($mb->{dbh});
+my $cdtoc = MusicBrainz::Server::CDTOC->new($rw->{dbh});
 
 my $line;
 my $data = ();

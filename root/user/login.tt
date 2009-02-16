@@ -1,0 +1,26 @@
+[% WRAPPER "layout.tt" title=l("Login") %]
+    [% WRAPPER "components/box.tt" header=l("Login") %]
+        <p>
+            [% l('Please login using the form below. Note that the password field <em>is</em> case sensitive.') %]
+        </p>
+        [% WRAPPER "forms/form.tt" moderation=0 %]
+            [% INCLUDE "forms/generic/row.tt" field=form.field('username') label=l("Username") %]
+            [% INCLUDE "forms/generic/row.tt" field=form.field('password') label=l("Password") %]
+            [% INCLUDE "forms/submit.tt" label="Log In" %]
+            [% INCLUDE "forms/generic/row.tt" field=form.field('remember_me') label=l("Log in permanently") %]
+            [% INCLUDE "forms/generic/row.tt" field=form.field('single_ip') label=l("Only from this IP address") %]
+        [% END %]
+        <ul>
+            <li>
+                <a href="[% c.uri_for('/user/register') %]">
+                    [% l('Create a new account') %]
+                </a>
+            </li>
+            <li>
+                <a href="[% c.uri_for('/user/forgotPassword') %]">
+                    [% l('Forgot your password?') %]
+                </a>
+            </li>
+        </ul>
+    [% END %]
+[% END %]

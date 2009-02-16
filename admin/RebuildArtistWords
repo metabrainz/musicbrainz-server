@@ -24,7 +24,7 @@
 #____________________________________________________________________________
 
 use FindBin;
-use lib "$FindBin::Bin/../cgi-bin";
+use lib "$FindBin::Bin/../lib";
 
 use strict;
 $| = 1;
@@ -90,7 +90,7 @@ use Sql;
 my $mb = MusicBrainz->new;
 $mb->Login;
 
-my $sql = Sql->new($mb->{DBH});
+my $sql = Sql->new($mb->{dbh});
 
 rebuild("artist", "MusicBrainz::Server::Artist", $artist);
 rebuild("album", "MusicBrainz::Server::Release", $album);
@@ -118,7 +118,7 @@ sub rebuild
 	print localtime() . " : Processing rows $start-$end in $table\n"
 		if defined $end;
 
-	my $obj = $class->new($mb->{DBH});
+	my $obj = $class->new($mb->{dbh});
 
 	use Time::HiRes qw( gettimeofday tv_interval );
 	$start ||= 0;

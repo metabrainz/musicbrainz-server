@@ -1,0 +1,120 @@
+=head1 NAME
+
+Programming Style Guidelines
+
+=head1 DESCRIPTION
+
+Best practices for writing code for the MusicBrainz server, that will
+ensure your code is readable by all developers - without making us think!
+
+=head1 PROGRAMMING
+
+=head2 Standard pragmas
+
+Always start Perl modules using the following template:
+
+    package MusicBrainz::Server::Your::Package;
+
+    use strict;
+    use warnings;
+
+    use base '' # If you need to inherit
+
+    # Code here
+
+    1;
+
+This ensures that everything has warnings, and is compiled such that all
+variables must be defined before use (really helps on typos).
+
+=head2 Flow control
+
+When using postfix if/unless stamements, these should B<only> be used if
+the preceeding code would cause the subroutine to terminate.
+
+Examples:
+
+    die "OMG NO" if $foo;        # Good, will cause the subroutine to terminate
+    my $blah = 5 unless $shiney; # Bad, does not affect flow
+
+When choosing to use C<if> or C<unless> statements, use this reasoning:
+if some code should happen in almost all cases, use C<unless>. If some code
+is only going to happen in edge cases, then use C<if>. This matches the way
+we speak, and makes scanning code much easier. So don't just use C<unless> to
+save negating a boolean expression!
+
+=head1 NAMING CONVENTIONS
+
+=head2 Subroutines
+
+All subroutines should be solely lower case, using C<_> as a word separator.
+If a subroutine is to be used only in a single Perl module, you should prefix
+it with a leading C<_>, to indicate that this method is private.
+
+Examples:
+
+    sub take_over_world { ... }
+    sub _format_fancy_string { ... }
+
+=head2 Variables
+
+Follow the same convention as outlined for L</Subroutines>. Make sure to mark
+variables with their scope, using C<my>, C<our>, etc.
+
+=head2 Constants
+
+All constants should be strictly uppercase, and use C<_> for word separators.
+
+At the moment, we use the L<constant> pragma to declare constants, but this
+may change to L<Readonly> in the future.
+
+=head2 Packages
+
+Packages should be named using CamelCase. Most packages will likely lie in the
+C<MusicBrainz::Server> namespace, which is the root namespace for the server.
+You should try and organise packages hierarchically where possible - grouping
+related packages. The C<MusicBrainz::Server::Form> namespace is a good
+example of this.
+
+Base packages should not be called Base, where possible, but simple use the
+namespace name. For example, the base for all forms is
+C<MusicBrainz::Server::Form> - the namespace that specific forms are placed in.
+
+=head2 Files
+
+Perl modules should be match their package name, relative to the C<lib>
+directory. So C<MusicBrainz::Server::Magic> would live in
+C<lib/MusicBrainz/Server/Magic>.
+
+=head1 EDITING SPECIFICS
+
+=head2 Indenting
+
+We use 4 spaces for each indentation level, and do not use tabs anywhere.
+
+=head2 Bracket Placement
+
+We use BSD/Allman style indenting. If you're unfamiliar with this, it
+essentially means that all curly braces are to be placed on the next line
+of keywords.
+
+For parenthesis, you should place them immediatly after method calls, with no
+leading space. If the parenthesis are following a control keyword, lead them
+with one space.
+
+Examples:
+
+    $duck->say("Yo!") # Method call, no leading space
+
+    if ($moose > $ponies) # Control keyword, 1 leading space
+    {
+        print "Yay \o/";
+    }
+    else
+    {
+        print "Wrong. Moose should be better than ponies";
+    }
+
+Never "pad" parenthesis out with spaces.
+
+=cut

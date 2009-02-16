@@ -25,7 +25,7 @@
 use strict;
 
 use FindBin;
-use lib "$FindBin::Bin/../cgi-bin";
+use lib "$FindBin::Bin/../lib";
 
 use Getopt::Long;
 use MusicBrainz;
@@ -92,12 +92,12 @@ $fHelp and usage();
 
 my $mb = MusicBrainz->new;
 $mb->Login(db => "READWRITE");
-my $sql = Sql->new($mb->{DBH});
+my $sql = Sql->new($mb->{dbh});
 
 # Log in to the raw DB
 my $rawmb = new MusicBrainz;
 $rawmb->Login(db => 'RAWDATA');
-my $rawsql = Sql->new($rawmb->{DBH});   
+my $rawsql = Sql->new($rawmb->{dbh});   
 
 # This hash indicates which tables may need to be pushed to a vertical DB
 my %table_db_mapping =
@@ -274,7 +274,7 @@ sub ImportTable
 
 		$sql->Begin;
 		$sql->Do("COPY $table FROM stdin");
-		my $dbh = $sql->{DBH};
+		my $dbh = $sql->{dbh};
 
 		$p->("", "") if $fProgress;
 		my $t;

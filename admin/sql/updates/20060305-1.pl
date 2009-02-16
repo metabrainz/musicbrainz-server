@@ -32,7 +32,7 @@ use 5.008;
 use strict;
 
 use FindBin;
-use lib "$FindBin::Bin/../../../cgi-bin";
+use lib "$FindBin::Bin/../../../lib";
 
 require DBDefs;
 require MusicBrainz;
@@ -45,7 +45,7 @@ my $verbose = 1;
 
 my $mb = MusicBrainz->new;
 $mb->Login;
-my $sql = Sql->new($mb->{DBH});
+my $sql = Sql->new($mb->{dbh});
 
 $verbose
 	? open(LOG, ">&STDOUT")

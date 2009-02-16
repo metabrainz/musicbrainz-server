@@ -1,5 +1,0 @@
-<%args>
-$title
-</%args>
-
-<& /comp/section, title=>$title &>

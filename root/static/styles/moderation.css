@@ -1,0 +1,83 @@
+table.moderation_list {
+    border: 1px solid black;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table.moderation_list tr {
+    border-bottom: 1px solid black;
+}
+
+table.moderation_list td {
+    border-right: 1px solid black;
+    vertical-align: top;
+}
+
+table.moderation_list td td {
+    border: none;
+}
+
+table.moderation_list tr.seperator {
+    height: 5px;
+    background-color: #ffba58;
+}
+
+table.moderation_list td.under_info {
+    background: #ffecd6;
+}
+
+table.moderation_list td.changes {
+    background: #f0efff;
+}
+
+table.moderation_list .vote_choice,
+table.moderation_list .actions {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.edit_notes {
+    width: 100%;
+}
+
+.edit_notes tr {
+    border-top: 1px dotted #aaa;
+}
+
+.edit_notes .note_date {
+    float: right;
+    color: #aaa;
+}
+
+.edit_notes .author {
+    width: 100pt;
+    text-align: right;
+    padding-right: 10pt;
+    vertical-align: top;
+}
+
+.vote_choice {
+    text-align: center;
+    min-width: 150pt;
+}
+
+.vote_choice table {
+    width: 100%;
+}
+.vote_choice td {
+    width: 25%;
+}
+
+.change {
+    line-height: 175%;
+}
+
+.change .new {
+    background: #EEFFEE;
+    border: 1px solid #88FF88;
+}
+
+.change .prev {
+    background: #FFEEEE;
+    border: 1px solid #FF8888;
+}

@@ -1,0 +1,24 @@
+[% WRAPPER "$entity.entity_type/layout.tt" %]
+    <div class="RelationshipBox">
+        <p>
+            [%- entity_link(entity) -%]
+        </p>
+        <ul>
+            [%- FOREACH rel IN relations -%]
+                [%- FOREACH entity IN rel.entities -%]
+                    <li>
+                        [%- rel_url = "$rel.link.link0_type/$rel.link.link1_type/$rel.link.link_id" -%]
+                        [ <a href="[% c.uri_for("/relate/edit/$rel_url") %]">
+                            [%- l('edit') %]
+                        </a> |
+                        <a href="[% c.uri_for("/relate/remove/$rel_url") %]">
+                            [% l('remove') %]
+                        </a> ]
+                        [% rel.connector | html %]
+                        [%- entity_link(entity) -%]
+                    </li>
+                [%- END -%]
+            [%- END -%]
+        </ul>
+    </div>
+[% END %]

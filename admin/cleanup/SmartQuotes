@@ -27,7 +27,7 @@ use 5.008;
 use strict;
 
 use FindBin;
-use lib "$FindBin::Bin/../../cgi-bin";
+use lib "$FindBin::Bin/../../lib";
 
 use Encode qw( encode decode FB_CROAK );
 use Getopt::Long;
@@ -40,11 +40,11 @@ use UserStuff;
 
 my $mb = MusicBrainz->new;
 $mb->Login;
-my $sql = Sql->new($mb->{DBH});
+my $sql = Sql->new($mb->{dbh});
 
 my $mb2 = MusicBrainz->new;
 $mb2->Login;
-my $sqlWrite = Sql->new($mb2->{DBH});
+my $sqlWrite = Sql->new($mb2->{dbh});
 
 my $use_auto_mod = 1;
 my $moderator = &ModDefs::MODBOT_MODERATOR;
@@ -62,7 +62,7 @@ GetOptions(
 	"automod!"		=> \$use_auto_mod,
 	"moderator=s"	=> sub {
 		my $user = $_[1];
-		my $u = UserStuff->new($mb->{DBH});
+		my $u = UserStuff->new($mb->{dbh});
 		(undef, my $uid) = $u->GetUserPasswordAndId($user);
 		$uid or die "No such moderator '$user'";
 		$moderator = $uid;
@@ -185,7 +185,7 @@ for (
 					# open "merge" mods, and not add the mod if it's already
 					# there.
 					require MusicBrainz::Server::Artist;
-					my $ar = MusicBrainz::Server::Artist->new($sqlWrite->{DBH});
+					my $ar = MusicBrainz::Server::Artist->new($sqlWrite->{dbh});
 					$ar->SetId($id);
 					$ar->SetName(encode "utf-8", $oname);
 					$ar->SetSortName(encode "utf-8", $oname);
@@ -194,7 +194,7 @@ for (
 				elsif ($table eq "artistalias")
 				{
 					require MusicBrainz::Server::Alias;
-					my $al = MusicBrainz::Server::Alias->new($sqlWrite->{DBH}, 'artistalias');
+					my $al = MusicBrainz::Server::Alias->new($sqlWrite->{dbh}, 'artistalias');
 					$al->SetId($id);
 					$al->SetRowId($artistid);
 					$al->SetName(encode "utf-8", $oname);
@@ -203,7 +203,7 @@ for (
 				elsif ($table eq "album")
 				{
 					require MusicBrainz::Server::Release;
-					my $al = MusicBrainz::Server::Release->new($sqlWrite->{DBH});
+					my $al = MusicBrainz::Server::Release->new($sqlWrite->{dbh});
 					$al->SetId($id);
 					$al->SetArtist($artistid);
 					$al->SetName(encode "utf-8", $oname);
@@ -212,7 +212,7 @@ for (
 				elsif ($table eq "track")
 				{
 					require MusicBrainz::Server::Track;
-					my $tr = MusicBrainz::Server::Track->new($sqlWrite->{DBH});
+					my $tr = MusicBrainz::Server::Track->new($sqlWrite->{dbh});
 					$tr->SetId($id);
 					$tr->SetArtist($artistid);
 					$tr->SetName(encode "utf-8", $oname);
@@ -223,7 +223,7 @@ for (
 
 				use Moderation;
 				push @mods, Moderation->InsertModeration(
-					DBH	=> $sqlWrite->{DBH},
+					DBH	=> $sqlWrite->{dbh},
 					uid	=> $moderator,
 					privs => $privs,
 					type => $modtype,

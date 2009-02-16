@@ -1,0 +1,19 @@
+<form action="[% action || c.req.uri %]" method="[% method || 'post' %]" [% UNLESS custom %]class="generic"[% END %]>
+    [%- UNLESS quiet -%]
+        <p>[% l('Fields that are <span class="required">bold</span> are required.') %]</p>
+    [%- END -%]
+    [%- IF form.general_errors.size -%]
+        <p>[% l('Sorry, but some errors were present in the data you provided.') %]</p>
+        <ul class="error">
+        [% FOREACH error=form.general_errors %]
+            <li>[% error | html %]</li>
+        [% END %]
+        </ul>
+    [%- END -%]
+    [% content %]
+    [%- IF moderation -%]
+        [%- INCLUDE 'forms/edit-note.tt' -%]
+        [%- INCLUDE 'forms/auto-editor.tt' -%]
+        [%- INCLUDE 'forms/submit.tt' -%]
+    [%- END -%]
+</form>

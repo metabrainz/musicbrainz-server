@@ -1,0 +1,10 @@
+<table class="details">
+    <tr>
+        <th>[% l('Title:') %]</th>
+        <td>[% new.TrackName %]</td>
+    </tr>
+    <tr>
+        <th>[% l('Length:') %]</th>
+        <td>[% track_length(new.TrackLength) %]</td>
+    </tr>
+</table>

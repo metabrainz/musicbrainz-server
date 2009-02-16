@@ -1,0 +1,50 @@
+<table class="details">
+    <tr>
+        <th style="width: 70pt;">
+            [% l('Type:') %]
+        </th>
+        <td>
+            [%- moderation.Name -%]
+        </td>
+    </tr>
+    [%- IF moderation.artist AND moderation.show_artist -%]
+        <tr>
+            <th>
+                [% l('Artist:') %]
+            </th>
+            <td>
+                [%- entity_link(moderation.artist) -%]
+            </td>
+        </tr>
+    [%- END -%]
+    [%- IF moderation.release -%]
+        <tr>
+            <th>
+                [% l('Release:') %]
+            </th>
+            <td>
+                [%- entity_link(moderation.release) -%]
+            </td>
+        </tr>
+    [%- END -%]
+    [%- IF moderation.track -%]
+        <tr>
+            <th>
+                [% l('Track:') %]
+            </th>
+            <td>
+                [%- entity_link(moderation.track) -%]
+            </td>
+        </tr>
+    [%- END -%]
+    [%- IF moderation.label -%]
+        <tr>
+            <th>
+                [% l('Label:') %]
+            </th>
+            <td>
+                [%- entity_link(moderation.label) -%]
+            </td>
+        </tr>
+    [%- END -%]
+</table>

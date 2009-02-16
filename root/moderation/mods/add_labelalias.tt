@@ -1,0 +1,3 @@
+[%- INCLUDE 'moderation/mods/diff_table.tt' changes=[
+    { label = 'Alias', new=new }
+] no_prev=1 -%]

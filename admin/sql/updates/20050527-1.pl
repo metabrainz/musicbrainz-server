@@ -28,7 +28,7 @@
 use strict;
 
 use FindBin;
-use lib "$FindBin::Bin/../../../cgi-bin";
+use lib "$FindBin::Bin/../../../lib";
 
 use DBDefs;
 use MusicBrainz;
@@ -38,7 +38,7 @@ $| = 1 if -t STDOUT;
 $SIG{INT} = sub { die "Interrupt\n" };
 
 my $mb = MusicBrainz->new; $mb->Login(db => "READWRITE");
-my $sql = Sql->new($mb->{DBH});
+my $sql = Sql->new($mb->{dbh});
 
 process("artist");
 process("album");

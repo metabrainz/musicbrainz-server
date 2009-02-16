@@ -24,7 +24,7 @@
 #____________________________________________________________________________
 
 use FindBin;
-use lib "$FindBin::Bin/../../cgi-bin";
+use lib "$FindBin::Bin/../../lib";
 
 use strict;
 use warnings;
@@ -71,8 +71,8 @@ sub GatherData
 		push @{ $artists->{ $_->[0] }{ALBUMS}{ $_->[1] }{TRACKS} }, $_;
 	}
 
-	my $al = MusicBrainz::Server::Release->new($self->{DBH});
-	my $ar = MusicBrainz::Server::Artist->new($self->{DBH});
+	my $al = MusicBrainz::Server::Release->new($self->{dbh});
+	my $ar = MusicBrainz::Server::Artist->new($self->{dbh});
 
 	for my $artistid (keys %$artists)
 	{

@@ -1,0 +1,6 @@
+[% WRAPPER "layout.tt" title=l("Tags") %]
+    <h1>
+        [% l('All Tags:') %]
+    </h1>
+    [% INCLUDE "tag/cloud.tt" %]
+[% END %]

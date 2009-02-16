@@ -1,0 +1,3 @@
+<div class="row no_label">
+    [% content %]
+</div>

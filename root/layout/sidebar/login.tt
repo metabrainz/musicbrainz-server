@@ -1,0 +1,22 @@
+<ul>
+    <li>
+        <a href="[% c.uri_for('/user/login') %]">
+            [% l('Login') %]
+        </a>
+    </li>
+    <li>
+        <a href="[% c.uri_for('/user/register') %]">
+            [% l('Register') %]
+        </a>
+    </li>
+    <li>
+        <a href="[% c.uri_for('/user/forgot_password') %]">
+            [% l('Forgot Password') %]
+        </a>
+    </li>
+    <li>
+        <a href="http://metabrainz.org/donate">
+            [% l('Donate!') %]
+        </a>
+    </li>
+</ul>

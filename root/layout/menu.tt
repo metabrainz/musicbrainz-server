@@ -1,0 +1,317 @@
+<ul id="menu_bar">
+    <li class="first">
+        [%- doc_link('AboutMusicBrainz', l('About')) -%]
+        <ul>
+            <li>
+                [%- doc_link('AboutMusicBrainz', l('About MusicBrainz')) -%]
+            </li>
+            <li>
+                [%- doc_link('MirrorServer', l('Mirrors')) -%]
+            </li>
+            <li>
+                [%- doc_link('MusicBrainzBio', l('People')) -%]
+            </li>
+            <li>
+                [%- doc_link('MusicBrainzPrivacyPolicy', l('Privacy')) -%]
+            </li>
+            <li>
+                [%- doc_link('MusicBrainzHistory', l('History')) -%]
+            </li>
+            <li>
+                [%- doc_link('MusicBrainzLicense', l('Licenses')) -%]
+            </li>
+            <li>
+                [%- doc_link('SocialContract', l('Social Contract')) -%]
+            </li>
+            <li>
+                [%- doc_link('Development', l('Development')) -%]
+            </li>
+            <li>
+                [%- doc_link('Server Statistics', l('Server Statistics')) -%]
+            </li>
+            <li>
+                [%- doc_link('MusicBrainzLogo', l('Logo')) -%]
+            </li>
+            <li>
+                <a href="[% c.uri_for('/user/elections') %]">
+                    [% l('Autoeditor Elections') %]
+                </a>
+            </li>
+        </ul>
+    </li>
+    <li>
+        <a href="http://blog.musicbrainz.org">
+            [% l('News') %]
+        </a>
+        <ul>
+            <li>
+                <a href="http://blog.musicbrainz.org">
+                    [% l('General News') %]
+                </a>
+            </li>
+            <li>
+                <a href="http://blog.musicbrainz.org?cat=3">
+                    [% l('Server') %]
+                </a>
+            </li>
+            <li>
+                <a href="http://blog.musicbrainz.org?cat=9">
+                    [% l('Picard') %]
+                </a>
+            </li>
+            <li>
+                [%- doc_link('MusicBrainzPress', l('In the Press')) -%]
+            </li>
+        </ul>
+    </li>
+
+    <li>
+        [%- doc_link('Products', l('Products')) -%]
+        <ul>
+            <li>
+                [%- doc_link('libmusicbrainz', l('libmusicbrainz')) -%]
+            </li>
+            <li>
+                [%- doc_link('libtunepimp', l('libtunepimp')) -%]
+            </li>
+            <li>
+                [%- doc_link('Server', l('Server')) -%]
+            </li>
+            <li>
+                [%- doc_link('Database', l('Database')) -%]
+            </li>
+            <li>
+                [%- doc_link('LiveDataFeed', l('LiveDataFeed')) -%]
+            </li>
+            <li>
+                [%- doc_link('WebService', l('Web Service')) -%]
+            </li>
+            <li class="seperator">
+                [%- doc_link('FreeDBGateway', l('FreeDB Gateway')) -%]
+            </li>
+            <li>
+                [%- doc_link('MusicBrainzEnabledApplications', l('3<sup>rd</sup> Party')) -%]
+            </li>
+            <li>
+                [%- doc_link('ClassicTagger', l('Classic Tagger')) -%]
+            </li>
+            <li>
+                [%- doc_link('JaikozMP3TagEditor', l('Jaikoz Tag Editor')) -%]
+            </li>
+            <li>
+                [%- doc_link('Magic Tagger', l('Magic Tagger')) -%]
+            </li>
+            <li>
+                [%- doc_link('PicardTagger', l('Picard Tagger')) -%]
+            </li>
+        </ul>
+    </li>
+    <li>
+        <a href="[% c.uri_for('/search') %]">
+            [% l('Search') %]
+        </a>
+        <ul>
+	    <li>
+                <a href="[% c.uri_for('/search/links') %]">
+                    [% l('Links') %]
+                </a>
+            </li>
+	    <li>
+                <a href="[% c.uri_for('/moderation/search') %]">
+                    [% l('Edits') %]
+                </a>
+            </li>
+	    <li>
+                <a href="[% c.uri_for('/browse/artist') %]">
+                    [% l('Browse Artists') %]
+                </a>
+            </li>
+	    <li>
+                <a href="[% c.uri_for('/browse/label') %]">
+                    [% l('Browse Labels') %]
+                </a>
+            </li>
+	    <li>
+                <a href="[% c.uri_for('/browse/release') %]">
+                    [% l('Browse Releases') %]
+                </a>
+            </li>
+	    <li>
+                <a href="[% c.uri_for('/search/plugins') %]">
+                    [% l('Browser Search Plugins') %]
+                </a>
+            </li>
+        </ul>
+    </li>
+    <li>
+        [%- doc_link('HowEditingWorks', l('Editing')) -%]
+        <ul>
+            <li>
+                [%- doc_link('HowEditingWorks', l('About Editing')) -%]
+            </li>
+                [%- IF c.user_exists -%]
+            <li>
+                <a href="[% c.uri_for('/moderation/reports') %]">
+                    [% l('Editing Suggestions') %]
+                </a>
+            </li>
+            <li>
+                <a href="[% c.uri_for('/moderation/open') %]">
+                    [% l('Review / Vote on Edits') %]
+                </a>
+            </li>
+            <li>
+                <a href="[% c.uri_for('/moderation/conditions') %]">
+                    [% l('Edit Conditions') %]
+                </a>
+            </li>
+            <li>
+                <a href="[% c.uri_for('/artist/create') %]">
+                    [% l('Add Artist') %]
+                </a>
+            </li>
+            <li>
+                <a href="[% c.uri_for('/label/create') %]">
+                    [% l('Add Label') %]
+                </a>
+            </li>
+            <li>
+                <a href="[% c.uri_for('/release/freedb_import') %]">
+                    [% l('FreeDB Import') %]
+                </a>
+            </li>
+            [%- ELSE -%]
+                <li>
+                    <a href="[% c.uri_for('/user/login') %]">
+                        [% l('You must be logged-in to edit') %]
+                    </a>
+                </li>
+            [%- END -%]
+        </ul>
+    </li>
+    [%- IF c.user_exists -%]
+        <li>
+            <a href="[% c.uri_for('/user/profile', c.user.name) %]">
+                [% l('Account') %]
+            </a>
+            <ul>
+                <li>
+                    <a href="[% c.uri_for('/user/edit') %]">
+                        [% l('Edit Account') %]
+                    </a>
+                </li>
+                <li>
+                    <a href="[% c.uri_for('/user/change_password') %]">
+                        [% l('Change Password') %]
+                    </a>
+                </li>
+                <li>
+                    <a href="[% c.uri_for('/user/preferences') %]">
+                        [% l('Preferences') %]
+                    </a>
+                </li>
+                <li>
+                    <a href="[% c.uri_for('/user/subscriptions') %]">
+                        [% l('Subscriptions') %]
+                    </a>
+                </li>
+                <li>
+                    <a href="[% c.uri_for('/user/subscribers') %]">
+                        [% l('Subscribers') %]
+                    </a>
+                </li>
+                <li>
+                    <a href="[% c.uri_for('/user/donate') %]">
+                        [% l('Check Donation Status') %]
+                    </a>
+                </li>
+                <li>
+                    <a href="[% c.uri_for('/user/logout') %]">
+                        [% l('Log out') %]
+                    </a>
+                </li>
+            </ul>
+        </li>
+    [%- ELSE -%]
+        <li>
+            <a href="[% c.uri_for('/user/login') %]">
+                [% l('Account') %]
+            </a>
+            <ul>
+	        <li>
+                    <a href="[% c.uri_for('/user/register') %]">
+                        [% l('Create an Account') %]
+                    </a>
+                </li>
+	        <li>
+                    <a href="[% c.uri_for('/user/login') %]">
+                        [% l('Log in') %]
+                    </a>
+                </li>
+	        <li>
+                    <a href="[% c.uri_for('/user/forgot_password') %]">
+                        [% l('Forgot Password') %]
+                    </a>
+                </li>
+            </ul>
+        </li>
+    [%- END -%]
+    <li>
+        [%- doc_link('HowToContribute', l('Contribute')) -%]
+        <ul>
+            <li>
+                [%- doc_link('HowToContribute', l('How to Contribute')) -%]
+            </li>
+            <li>
+                [%- doc_link('CorporateSponsors', l('Sponsors')) -%]
+            </li>
+            <li>
+                [%- doc_link('HelpWanted', l('Help Wanted')) -%]
+            </li>
+            <li>
+                [%- doc_link('Development', l('Development')) -%]
+            </li>
+            <li>
+                [%- doc_link('Subversion', l('Subversion Access')) -%]
+            </li>
+            <li>
+                [%- doc_link('Projects', l('SVN Modules')) -%]
+            </li>
+            <li>
+                <a href="http://bugs.musicbrainz.org/browser">
+                    [% l('SVN Viewer') %]
+                </a>
+            </li>
+        </ul>
+    </li>
+    <li class="last">
+        [%- doc_link('ContactUs', l('Help')) -%]
+        <ul>
+            <li>
+                [%- doc_link('ContactUs', l('ContactUs')) -%]
+            </li>
+            <li>
+                [%- doc_link('FrequentlyAskedQuestions', l('FAQs')) -%]
+            </li>
+            <li>
+                [%- doc_link('OfficialStyleGuideline', l('Style Guidelines')) -%]
+            </li>
+            <li>
+                [%- doc_link('MailingList', l('MailingList')) -%]
+            </li>
+            <li>
+                <a href="http://forums.musicbrainz.org">
+                    [% l('Web Forums') %]
+                </a>
+            </li>
+            <li>
+                <a href="http://bugs.musicbrainz.org">
+                    [% l('Bugs / RFEs') %]
+                </a>
+            </li>
+            <li>
+                [%- doc_link('CopyrightViolationNotice', l('Copyright Issues')) -%]
+            </li>
+        </ul>
+    </li>
+</ul>

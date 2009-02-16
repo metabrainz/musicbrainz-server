@@ -1,0 +1,21 @@
+[% WRAPPER "components/box.tt" header=l("Search") %]
+    <div class="searchform">
+    [% WRAPPER "forms/form.tt" action=c.uri_for('/search/external') method='get' %]
+        [% INCLUDE "forms/generic/row.tt" field=form.field('query') label=l('Search for') type='text' %]
+        [% INCLUDE "forms/generic/row.tt" field=form.field('type')  label=l('Type') type='select' %]
+        [% INCLUDE "forms/generic/row.tt" field=form.field('limit') label=l('Limit to') type='select' %]
+        [% INCLUDE "forms/generic/row.tt" field=form.field('enable_advanced') label=l('Use advanced query syntax') type='checkbox' %]
+        [% INCLUDE "forms/submit.tt" label=l("Search") %]
+    [% END %]
+    </div>
+    <div class="searchinfo">
+    <strong>
+        [% l('Please Note:') %]
+    </strong>
+    [%- WRAPPER 'layout/guidelines.tt' -%]
+        [%- create_guideline('Search indexes are currently updated once a day at 1800 GMT (10am PST).') %]
+        [%- create_guideline('If you require up to the minute correct search, please use the <a href="{uri}">old search</a>.', {uri => c.uri_for('/search/internal')}) %]
+    [% END %]
+    </ul>
+    </div>
+[% END %]

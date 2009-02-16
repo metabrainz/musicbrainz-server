@@ -1,0 +1,34 @@
+[% WRAPPER 'layout.tt' title=l("Browse {type}",  {type => get_plural_type(${type})}) %]
+   [% INCLUDE "browse/page_selector.tt" %]
+    [% IF entities.size %]
+        <h1>
+            [% type | ucfirst %]s starting with &quot;[% index | upper | html %]&quot;
+        </h1>
+        [% WRAPPER 'components/box.tt' header=l('Found {num} {type}', {num => ${num}, type => ${type}}) %]
+            [% WRAPPER 'components/with-pager.tt' %]
+                <ul>
+                    [% FOR entity IN entities %]
+                        <li class="column[%column %]">
+                            <span class="counter">[% loop.index + pager.first %].</span> [% entity_link(entity) %]
+                        </li>
+                    [% END %]
+                </ul>
+            [% END %]
+        [% END %]
+    [% ELSE %]
+        [% WRAPPER "components/box.tt" header=l('Browse {type}', {type = ${type}}) %]
+            [%- IF index.length > 0 -%]
+                </p>
+                    [% l('Sorry, we could not find any {type} starting with {index}', {type => type, index => html_escape(index)}) %]
+                </p>
+                <p>
+                    [% l('To begin browsing, please select a letter above.') %]
+                </p>
+            [% ELSE %]
+                <p>
+                    [% l('To begin browsing, please select a letter above.') %]
+                </p>
+            [% END %]
+        [% END %]
+    [% END %]
+[% END %]

@@ -23,7 +23,7 @@
 #____________________________________________________________________________
 
 use FindBin;
-use lib "$FindBin::Bin/../cgi-bin";
+use lib "$FindBin::Bin/../lib";
 
 use DBDefs;
 use MusicBrainz;
@@ -31,10 +31,10 @@ use Sql;
 
 $mb = MusicBrainz->new;
 $mb->Login;
-$sql = Sql->new($mb->{DBH});
+$sql = Sql->new($mb->{dbh});
 
 use MusicBrainz::Server::Statistic;
-my $s = MusicBrainz::Server::Statistic->new($mb->{DBH});
+my $s = MusicBrainz::Server::Statistic->new($mb->{dbh});
 
 $sql->Begin;
 $s->RecalculateAll;

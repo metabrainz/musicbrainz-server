@@ -23,7 +23,7 @@
 #____________________________________________________________________________
 
 use FindBin;
-use lib "$FindBin::Bin/../cgi-bin";
+use lib "$FindBin::Bin/../lib";
 
 use MusicBrainz;
 use DBDefs;
@@ -91,7 +91,7 @@ sub CreateReplicationFunction
 	# Now connect to that database
 	my $mb = MusicBrainz->new;
 	$mb->Login(db => "SYSMB");
-	my $sql = Sql->new($mb->{DBH});
+	my $sql = Sql->new($mb->{dbh});
 
 	$sql->AutoCommit;
 	$sql->Do(
@@ -109,7 +109,7 @@ sub CreateReplicationFunction
         my ($name) = shift;
         $mb = MusicBrainz->new;
         $mb->Login(db => $name);
-        $sql = Sql->new($mb->{DBH});
+        $sql = Sql->new($mb->{dbh});
     }
 }
 
@@ -250,7 +250,7 @@ sub GrantSelect
 
 	my $mb = MusicBrainz->new;
 	$mb->Login(db => $name);
-	my $dbh = $mb->{DBH};
+	my $dbh = $mb->{dbh};
 	$dbh->{AutoCommit} = 1;
 
 	my $username = $READONLY->username;

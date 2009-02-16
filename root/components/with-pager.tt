@@ -1,0 +1,3 @@
+[% INCLUDE "components/paginator.tt" %]
+[% content %]
+[% INCLUDE "components/paginator.tt" %]

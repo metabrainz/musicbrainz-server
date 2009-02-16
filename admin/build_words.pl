@@ -23,7 +23,7 @@
 #____________________________________________________________________________
 
 use FindBin;
-use lib "$FindBin::Bin/../cgi-bin";
+use lib "$FindBin::Bin/../lib";
 
 use strict;
 use SearchEngine;
@@ -31,7 +31,7 @@ use SearchEngine;
 my $mb = MusicBrainz->new;
 $mb->Login;
 
-my $engine = SearchEngine->new($mb->{DBH});
+my $engine = SearchEngine->new($mb->{dbh});
 $engine->RebuildAllIndices;
 
 $mb->Logout();

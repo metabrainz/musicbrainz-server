@@ -110,7 +110,7 @@
 %			my $j = 0;
 % 			foreach my $row ( @$dupelist )
 %			{
-% 				my $ar = MusicBrainz::Server::Artist->new($mb->{DBH});
+% 				my $ar = MusicBrainz::Server::Artist->new($mb->{dbh});
 % 				$ar->SetId( $row->{artist_id} );
 % 				$ar->LoadFromId();
 

@@ -26,7 +26,7 @@
 use strict;
 
 use FindBin;
-use lib "$FindBin::Bin/../cgi-bin";
+use lib "$FindBin::Bin/../lib";
 
 use MusicBrainz;
 use Sql;
@@ -45,7 +45,7 @@ use constant PRESELECTED_LANGUAGES => qw (
 my $mb = MusicBrainz->new();
 $mb->Login();
 
-my $sql = Sql->new($mb->{DBH});
+my $sql = Sql->new($mb->{dbh});
 
 #
 # Set the frequency attribute of the language table.
@@ -56,7 +56,7 @@ my %languages = ( );
 foreach my $code ( PRESELECTED_LANGUAGES )
 {
 	my $lang = MusicBrainz::Server::Language->newFromISOCode3T(
-		$mb->{DBH}, $code);
+		$mb->{dbh}, $code);
 
 	$languages{ $lang->GetId() } = 1;
 }
