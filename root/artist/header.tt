@@ -1,15 +1,15 @@
 [%- info_links = [
+    { link => c.entity_url(artist, 'show'), text => l('Releases') },
     { link => c.entity_url(artist, 'aliases'), text => l('Aliases') },
     { link => c.entity_url(artist, 'appearances'), text => l('Credits') },
-    { link => c.entity_url(artist, 'details'), text => l('Details') },
-    { link => c.entity_url(artist, 'perma'), text => l('Permanent Link') },
-    { link => c.entity_url(artist, 'show'), text => l('Releases') },
-    { link => c.entity_url(artist, 'nats'), text => l('Non-Album Tracks') },
-    { link => c.entity_url(artist, 'google'), text => l('Search Google') }
+    { link => c.entity_url(artist, 'details'), text => l('Details / Link') },
+    { link => c.entity_url(artist, 'show'), text => l('Non-Album Tracks') },
+    { link => c.entity_url(artist, 'google'), text => l('Google') }
     { link => c.entity_url(artist, 'similar'), text => l('Similar Artists') },
     { link => c.entity_url(artist, 'tags'), text => l('Tags') },
-    { link => c.uri_for('/moderation/entity/artist', artist.mbid), text => l('View Edits') },
-    { link => c.entity_url(artist, 'subscriptions'), text => l('View Subscriptions') }
+    { link => c.uri_for('/moderation/entity/artist', artist.mbid), text => l('Edit History') },
+    { link => c.uri_for('/moderation/entity/artist', artist.mbid), text => l('Open Edits') },
+    { link => c.entity_url(artist, 'subscriptions'), text => l('Subscriptions') }
 ] -%]
 <div class='entity_header'>
     <div class='title artist'>

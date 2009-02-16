@@ -1,6 +1,5 @@
 [%- info_links = [
-    { link => c.entity_url(release, 'perma'), text => l("Permanent Link") },
-    { link => c.entity_url(release, 'details'), text => l("Details") },
+    { link => c.entity_url(release, 'details'), text => l("Details / Link") },
     { link => c.entity_url(release, 'tags'), text => l("Tags"), hide => no_tags },
     {
         link => c.req.uri_with(artist => !show_artists),

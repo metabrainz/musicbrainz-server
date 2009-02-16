@@ -83,4 +83,6 @@
             </tr>
         </table>
     [% END %]
+
+    [%- INCLUDE 'components/perma-link.tt' entity=track -%]
 [% END %]

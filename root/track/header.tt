@@ -1,5 +1,5 @@
 [%- info_links = [
-    { link => c.entity_url(track, 'details'), text => l("Details") },
+    { link => c.entity_url(track, 'details'), text => l("Details / Link") },
     { link => c.entity_url(track, 'relations'), text => l("Relationships") },
     { link => c.entity_url(track, 'tags'), text => l("Tags") },
     { link => c.entity_url(track, 'google'), text => l("Search Google") }

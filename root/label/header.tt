@@ -1,6 +1,5 @@
 [%- info_links = [
-    { link => c.entity_url(label, 'perma'), text => l('Permanent link') },
-    { link => c.entity_url(label, 'details'), text => l('Details') },
+    { link => c.entity_url(label, 'details'), text => l('Details / Link') },
     { link => c.entity_url(label, 'aliases'), text => l('Aliases') },
     { link => c.entity_url(label, 'tags'), text => l('Tags') },
     { link => c.entity_url(label, 'show'), text => l('Releases') },
