@@ -1,366 +1,116 @@
-Install instructions for the MusicBrainz Server:
-------------------------------------------------
+Installing mb_server
+--------------------
 
-New (Jan 2005):
-	If you can dedicate a whole machine to use as a MusicBrainz
-	server, you might find the following helpful:
+mb_server is the web front end to the MusicBrainz data (as displayed at
+http://musicbrainz.org/), and this document explains how you can get everything
+up and running.
 
-	http://wiki.musicbrainz.org/DebianServerSetup
+We've tried to make installation as painless as possible, but first - a few
+prerequisites:
 
-	It describes how to take a fresh machine, install Debian on it,
-	and then install the MusicBrainz server on top of that.
-	Even if you don't have a whole machine for MusicBrainz, you
-	might find the above document a useful source of reference.
+Prequisites
+-----------
 
-These instructions are general instructions for setting up MusicBrainz server.
-If you want to set up a "slave" replication server (to use the data feed
-provided by the master server), please read htdocs/docs/Replication.
+1)	Perl 5.8.0
 
-Install Levels & Type
-=====================
-
-There are three different levels of a MusicBrainz Server:
-
-   - database server only -- run a standalone or replicated MusicBrainz 
-                             database without the web interface.
-   - developer install    -- run a MusicBrainz server with web interface
-                             but without all the bells and whistles like
-                             RSS feeds, TRM submission and WikiDocs
-   - full install         -- Everything needed to run all aspects of
-                             a MusicBrainz server.
-
-Choose your desired install level and then follow the instructions below. If
-you're doing a DB only or developer install there may be quite a few
-steps for you to skip, please keep this in mind!
-
-There are also different types of installations:
-
-   - RT_REPLICATED        -- This is a replicated database install. Once
-                             a data snapshot has been imported, the database
-                             can be kept up to date with running an hourly
-                             data import script.
-   - RT_STANDALONE        -- This install does not updated at all and is
-                             best suited for development installations.
-   - RT_MASTER            -- This install is if you're installing a 
-                             Master MusicBrainz server that will feed
-                             replicated servers. You would normally only
-                             install this if you're working on the replication
-                             code or are installing a new MB master server.
-                             Please read htdocs/docs/Replication for more
-                             details.
-
-The two most common combinations of level and type are:
-
-  - database server only & RT_REPLICATED -- If you want a MusicBrainz install that
-                                            is kept up to date with not web interface.
-  - developer install & RT_STANDALIONE   -- If you want to help develop the MusicBrainz
-                                            server, this is the best starting config.
-
-
-Requirements:
-=============
-
-The MusicBrainz server requires the following items. Please note the
-inline notes about which type of server you are setting up -- if there are no
-specific notes about a server type, the instructions apply to all server types.
-
-1) PostgreSQL 7.4 or later
-
-   Postgres must have multi-byte support enabled.  In older versions
-   this was doing with "./configure --enable-multibyte=UNICODE" , but
-   since 7.3.0 this has been the default, so you probably don't have to
-   worry about it.
-
-   Locales
-
-   If you have trouble importing the data because "create unique index"
-   statements fail, please read the locales section in INSTALL.advanced.
-
-   PostgreSQL authentication and Security
- 
-   (Read the Postgres documentation ("Client Authentication") for details).
-
-   For normal operation, MusicBrainz only needs to connect from one or two OS
-   users (whoever your web server / crontabs run as), to one database (the
-   MusicBrainz database), as one Postgres user.  The Postgres database name
-   and user name are given in DBDefs.pm (look for the "READWRITE" key).
-   For example, if you run your web server and crontabs
-   as "www-user", the following configuration recipe may prove useful:
+	Perl 5.8.0 (minimum) is required. You can use Perl 5.10.0, but be aware that it
+	has some quirks in handling subroutine attributes, which can make debugging
+	difficult in a few cases.
 	
-	# in pg_hba.conf (Note: The order of lines is important!):
-	local musicbrainz_db musicbrainz_user ident mb_map
-
-	# in pg_ident.conf:
-	mb_map www-user musicbrainz_user
-
-   The only time any other connection is required is if the "InitDb.pl"
-   installation script is invoked with "--createdb".  In this case it needs to
-   connect as the "postgres" user, so something else will need to be done to
-   allow that.  You could:
+	You can check your installed version of Perl with:
 	
-	a) configure Postgres to allow your MusicBrainz OS user to connect
-	   as both "postgres" and "musicbrainz_user"; you can then run
-	   everything from one user account, e.g.
-	   
-	   ./admin/InitDb.pl --createdb --import mbdump*.tar.bz2
+	    perl -v
 	
-   or
-   
-        b) Run the "--createdb" step separately, from someone who can
-	   connect as "postgres" (e.g. the "postgres" OS user):
+2)  Postgres 8.2
 
-	   # as "postgres":
-	   ./admin/InitDb.pl --createdb
+    This is to set up the MusicBrainz database
 
-	   # as your MusicBrainz OS user:
-	   ./admin/InitDb.pl --import mbdump*.tar.bz2
+Getting going
+-------------
 
-2) A database dedicated to MusicBrainz.  The import scripts will help you
-   create this.
+1) Make a checkout of the code.
 
-3) Perl 5.8 or later
-
-   The MusicBrainz server now uses Perl 5.8, required for its Unicode
-   capabilities and the "Encode" module.  Strange encoding problems were
-   observed with Perl 5.6.1.
-
-   Perl is assumed to be installed in /usr/bin/perl -- if you plan to use
-   a different perl location, see INSTALL.advanced for tips on how to do that.
-
-4) Required perl modules:
-
-   All install levels require these modules:
-
-       DBD::Pg (version 1.32 recommended - see admin/depend.pl)
-       DBI
-       String::ShellQuote
-       LWP::UserAgent (only if you're going to set up a replicated slave)
-
-   If you're doing a database only install, you can skip the rest of the
-   modules.
-
-       Algorithm::Diff
-       Apache::Session
-       Apache::Session::File
-       Apache::AuthDigest
-       Bundle::Apache
-       HTML::Mason
-       Cache::Memcached
-       Date::Calc
-       Devel::Peek
-       Digest::SHA1
-       Digest::MD5 (should be included in Bundle::Apache)
-       HTTP::Negotiate
-       JSON
-       Language::Guess (see notes below about seed data for this module)
-       MIME::Lite
-       Storable
-       String::Similarity
-       Text::Unaccent 
-       Text::WikiFormat
-       Time::ParseDate
-       OSSP::UUID (see notes)
-
-   For a more full install you will need to install these following
-   modules:
-
-       XML::RSS -- to display RSS feeds from the blog
-       RDFStore -- to accept POST queries of the old RDF based Web
-                   Service. (use 0.42 if 0.50 gives you install headaches)
-
-   Notes on specific perl modules:
-
-       Language::Guess
-
-       Please download
-       ftp://ftp.musicbrainz.org/pub/musicbrainz/data/language-guess.tar.gz
-       and unpack it into your mb_server directory (i.e.
-       mb_server/data/language-guess/...)
-
-       OSSP::UUID
-
-       This module is currently not in CPAN, but is included in Ubuntu Linux.
-       You can download this module here: http://www.ossp.org/pkg/lib/uuid
-       Installing this module is less painful than the often confusing
-       UUID module from the e2fsprogs package.
-
-5) Apache with mod_perl and Mason installed. You can skip this step
-   for a database only slave. See the following sites for more details on 
-	each of these packages:
-
-      Apache:   http://www.apache.org
-      mod_perl: http://perl.apache.org for details.
-      Mason:    http://www.masonhq.com
-
-   NOTE: When configuring Apache, make sure to not include the built-in
-         expat, since that will conflict with the SiRPAC RDF parser's use
-         of the external expat module. Configure Apache with:
-
-         # mod_perl:
-	 perl Makefile.PL \
-		APACHE_SRC=../apache_1.3.37/src \
-		DO_HTTPD=1 \
-		USE_APACI=1 \
-		PREP_HTTPD=1 \
-		EVERYTHING=1
-
-         # apache:
-	 ./configure \
-		--enable-module=rewrite \
-		--disable-rule=expat \
-		--prefix=/usr/apache \
-		--activate-module=src/modules/perl/libperl.a
-
-    Also NOTE: Red Hat is known to ship their Apache packages with the
-               built-in expat support enabled, so you will have to build
-               Apache from scratch on Red Hat systems.
-
-    WARNING!  Don't compile Apache with mod_perl built as a DSO (Dynamic
-              Shared Object).  Mason doesn't get along with a DSO mod_perl
-              (though it's not alone). If you do build mod_perl as a DSO,
-              Apache can (and probably will) segfault or die silently on
-              startup.
-
-5) Expat XML Parser library: http://sourceforge.net/projects/expat
-   Skip this step for a database only install.
-
-6) Memcached: http://www.danga.com/memcached/
-   This is optional, but strongly encourged if you are going to be running
-   a MusicBrainz web site as well.
-   Skip this step for a database only install.
-
-9) Other dependencies
-
-   Run ./admin/depend.pl to check to make sure that all the dependencies
-   have been met.
-
-
-Installation:
-=============
-
-1) If you want to import the current live data into your database, you need
-   exactly the same version of the server codebase that created the database
-   snapshot. Otherwise the schema could be incompatible and the import would
-   fail. The same directory where you downloaded the snapshots also contains
-   a README file giving you the exact subversion command line to check out
-   the code.
-
-   NOTE: All releases of the MusicBrainz server are developed on branches, so
-	 checking out code from the trunk is almost never the correct choice.
-	 Depending on the release date, the URL has the following format:
-	 http://svn.musicbrainz.org/mb_server/branches/RELEASE_yyyymmdd-BRANCH
-
-2) Make sure you have all the prerequisite pieces of software installed.
-   Installing perl modules using CPAN is easier than doing it by hand.
-   To use CPAN, as root type 'perl -MCPAN -e shell'.
-
-3) Decide on a name for your database (e.g. musicbrainz) and a database
-   owner (e.g. musicbrainz).  Decide on a location for the mb_server code.
-   Pick directories for storing Mason and session/lock data.  If you pick
-   these values, you'll have less work to do in the next step:
-
-   Database:
-   - database name "musicbrainz_db"
-   - database user "musicbrainz_user", with no password
-
-   Directories:
-   - mb_server code: /home/httpd/musicbrainz/mb_server
-   - Mason data:     /home/httpd/musicbrainz/mason
-   - session data:   /home/httpd/musicbrainz/sessions
-   - session locks:  /home/httpd/musicbrainz/locks
-
-   Make sure your "session data" and "session locks" directories exist.  (The
-   "Mason data" directory will be created automatically if it doesn't exist).
-
-4) Edit the following files (in mb_server) to match the choices you made in
-   the previous step:
-
-   cgi-bin/DBDefs.pm
-     NOTE: You can find a default version of DBDefs.pm in DBDefs.pm.default;
-           copy this to DBDefs.pm and edit this.
-
-     This just contains lots of configuration settings; read the comments
-     in the file for more information.  There's at least one setting in there
-     which MUST be changed for you to run a server (SMTP_SECRET_CHECKSUM);
-     most of the settings you can probably leave unchanged if you wish.
-
-   admin/startup.pl
-     NOTE: You can find a default version of startup.pl in startup.pl.default;
-           copy this to startup.pl and edit this.
-
-     There's only one thing to change here, namely the "use lib" line,
-     which is marked with a "TODO" comment.
-
-   admin/vh_httpd.conf
-     NOTE: You can find a default version of vh_httpd.conf in vh_httpd.conf.default;
-           copy this to vh_httpd.conf and edit this.
-
-     This contains many things to customize - look for the TODO comments,
-     which point out things that you might need to change.
-
-5) Assuming you want to start off with a fully-populated database, you'll
-   want to download the database dump files from the FTP site:
-
-   ftp://ftp.musicbrainz.org/pub/musicbrainz/data/fullexport/<date>-<timestamp>
-
-   The FTP site contains two snapshots -- pick the latest snapshot and then
-   download the files with:
-
-   wget --mirror ftp://ftp.musicbrainz.org/pub/musicbrainz/data/fullexport/<date>-<timestamp>/*tar*
-
-   If you are setting up a development server you will probably want to
-   import all of the database dumps. However, for a slave server, you will 
-   want to download only the following dumps:
-
-      mbdump-artistrelation.tar.bz2    
-      mbdump.tar.bz2
-      mbdump-derived.tar.bz2
-
-   Download the appropriate dump files, double-check your settings in 
-   DBDefs.pm, make sure Postgres is running, then run the "InitDb.pl"
-   script, passing it the names of the "dump" files you just downloaded:
-
-	./admin/InitDb.pl --createdb --echo --import mbdump*.tar.bz2
-
-   (but see the above notes about Postgres authentication and security).
-
-   When run in this way, the script should do everything, including creating
-   the database for you.  As a rough guide, on my Athlon 2500+ box it takes
-   about 90 minutes to run this step, creating and loading a full database.
-
-NOTE: Steps 6 - 8 are optional for database only slaves!
+    svn co http://svn.musicbrainz.org/mb_server/branches/TemplateToolkit mb_server-tt
 	
-6) Configure Apache to use Mason.  In the admin directory you will find
-   the vh_httpd.conf file, which is a VirtualHost fragment for Apache's
-   httpd.conf file.  I suggest you run MusicBrainz as a virtual host.
-   You should only have to import vh_httpd.conf into your virtualhosts section
-   of your httpd.conf file.  In the admin directory you'll also find
-   startup.pl, which is the mod_perl startup file.  You should have already
-   customised these two files in step 3.
+2) Configure the server
 
-7) Copy all the files/subdirs in the htdocs directory into DocumentRoot
-   directory that you specified in httpd.conf. Then copy all the files/subdirs
-   from the cgi-bin dir into the ScriptAlias directory specified in httpd.conf
+	cd mb_server-tt
+	cp lib/DBDefs.pm.default lib/DBDefs.pm
+	cp lib/MusicBrainz/Server.pm.default lib/MusicBrainz/Server.pm
+	
+	Edit the newly copied DBDefs.pm as need be. For the most part, it should be
+	fine to use as is. Refer to INSTALL for more indepth info about this, and 
+    how it ties in with running a copy of the MusicBrainz database.
+    
+    You can also edit the new Server.pm. This is mostly for server admins,
+    however - who require different stores for sessions, more control
+    over Debug output - etc. Developers will be OK to leave this as is.
+	
+3) Install prerequisite Perl modules
 
-   However, I usually point my apache configuration right into my
-   svn checked out source. If you've done this, you can skip this step.
+    The Module::Install module reads a file called Makefile.PL to create a standard
+    Makefile. This Makefile can then be used to install dependant Perl modules. First,
+    make sure you have inc-Module-Install on your system:
 
-8) Now start Memcached and Apache and you should be set and ready to roll.
-   Go the the selected URL and you should see a MusicBrainz site, complete
-   with data.
+        perl -MCPAN -e 'install Module::Install'
+            
+    Now, build the Makefile, and install dependancies (if necessary)
+    
+        perl ./Makefile.PL
+        sudo make installdeps
 
-9) Cron jobs (mostly optional, except for slaves)
-   The admin/cron directory contains some scripts to run hourly, daily and
-   weekly.  You might want to add these scripts to your server's crontab.
-   These scripts use various settings from ./admin/config.sh, which you'll
-   need to tweak to suit your installation before running them.  "daily.sh" in
-   particular is heavily geared towards the configuration of the main
-   MusicBrainz server; you probably will want to modify it in some way.
+        This will generate a standard Makefile, which you can use to install dependancies:
 
-   For slave servers, you need to add an hourly cron job (that runs 
-   about 10 - 12 minutes after each hour) that runs the admin/cron/slave.sh
-   file to download and apply replication packets from the main server.
+4) Create the databases
 
-   This should be it and now you have your very own MusicBrainz server.
+	You have 2 options when it comes to databases. You can either opt for a clean database,
+	with just the schema (useful for developers with little free diskspace), or you can use
+	a copy of the MusicBrainz data.
+	
+	a) Using Clean Databases
+	
+		To use clean databases, all you need to do is run:
+		
+			./admin/InitDb.pl --createdb --clean
+		
+	b) Using Database Dumps
+	
+		MusicBrainz frequently do full dumps of the database, which you can import to your own
+		local database. This is the best option for long term developers. The database dumps are
+		stored at
+		
+			ftp://ftp.musicbrainz.org/pub/musicbrainz/data/fullexport
+		
+		To get going, all you need is the mbdump.tar.bz2 archive, but you can grab whichever dumps
+		suit your needs. Assuming the dumps have been downloaded to `/tmp/dumps/' you can then
+		import with:
+		
+			./admin/InitDb.pl --createdb --import /tmp/dumps/mbdump*.tar.bz2 --echo
+			
+		--echo just gives us a bit more feedback, in case this goes wrong - you can leave it off.
+		Remember to change the paths to your mbdump*.tar.bz2 files, if they are not in /tmp/dumps/.
 
-Good luck!
+5) Load WikiDocs transclusion file (optional)
+
+	If you would like to have the /doc pages load properly on a RT_STANDALONE installation, follow 
+	these steps:
+
+	       cd <mb_server-tt>/root/static/wikidocs
+	       curl http://musicbrainz.org/generated/wikitrans-index > index.txt
+
+	After this, the documentation index should be loadable.
+
+6) Start the development server
+
+	You should now have everything ready to run the development server! The development server is
+	a lightweight HTTP server, that gives good debug output, and is much more convenient than having
+	to set up a full blown stack. Just run:
+
+		./script/musicbrainz_server.pl -r
+	
+	Visiting http://your.machines.ip.address:3000 should now present you with the mb_server frontend.
+
+If, however, this *doesn't* happen - please contact aCiD2 on IRC, or file a bug at
+http://bugs.musicbrainz.org.
+
+Good luck, and happy hacking!
