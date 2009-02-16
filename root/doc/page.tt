@@ -1,3 +1,4 @@
+[% extra_js = "jquery/jquery-ui.js jquery/jquery.history_remote.pack.js wikidocs.js" %]
 [% WRAPPER "layout.tt" -%]
 [%- page.body -%]
 [%- END %]
