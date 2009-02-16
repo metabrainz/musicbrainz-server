@@ -1,22 +1,58 @@
     [% IF tracks.size %]
-        <table class="release_tracks" [%- IF release.has_artwork; 'style="border-top: 1px solid black;"'; END -%]>
+        <table class="release_tracks" summary="[% l('This table shows information about each track on this release.') %]" [%- IF release.has_artwork; 'style="border-top: 1px solid black;"'; END -%]>
+        <caption class="hidden">
+            [% l('This table shows information about each track on this release.') %]
+        </caption>
+        <colgroup>
+            [% UNLESS no_track_numbers %]
+                <col id="col-num"></col>
+            [% END %]
+            <col id="col-title"></col>
+            [% UNLESS no_track_numbers %]
+                <col id="col-artist"></col>
+            [% END %]
+            <col id="col-dur"></col>
+            [%- IF c.user_exists && !no_edit_tracks-%]
+                <col id="col-edit"></col>
+            [%- END -%]
+        </colgroup>
+        <thead>
+            <tr class="releasehead">
+                [% UNLESS no_track_numbers %]
+                    <th class="number" id="track-num" abbr="[% l('Track Number') %]">#
+                    </th>
+                [% END %]
+                <th class="title" id="track-title">[% l('Track Title') %]
+                </th>
+                [% UNLESS no_track_numbers %]
+                    <th class="artist" style="display: [% show_artists ? 'block' : 'none' %]" id="track-artist">[% l('Track Artist') %]
+                    </th>
+                [% END %]
+                <th class="duration" id="track-dur" abbr="[% l('Track Duration') %]">[% l('Length') %]
+                </th>
+                [%- IF c.user_exists && !no_edit_tracks-%]
+                    <th class="editinglinks" id="track-edit">[% l('Editing Links') %]
+                    </th>
+                [%- END -%]
+            </tr>
+        </thead>
         <tbody>
         [%- FOREACH track=tracks -%]
             <tr>
-                [% UNLESS no_track_numbers %]<td class="number">[% track.sequence %]</td>[% END %]
-                <td class="title">
+                [% UNLESS no_track_numbers %]<td class="number" headers="track-num">[% track.sequence %]</td>[% END %]
+                <td class="title" headers="track-title">
                     [% entity_link(track, 1) %]
                     [% INCLUDE "components/relationships.tt" source=track relations=track.relations justlist=1 nocompact=1
                         IF track.relations.size AND show_relationships %]
                 </td>
-
-                <td class="artist" style="display: [% show_artists ? 'block' : 'none' %]">
-                    [% entity_link(track.artist, 1) %]
-                </td>
-
-                <td class="duration">[% track_length(track.length) %]</td>
+                [% UNLESS no_track_numbers %]
+                    <td class="artist" style="display: [% show_artists ? 'block' : 'none' %]" headers="track-artist">
+                        [% entity_link(track.artist, 1) %]
+                    </td>
+                [% END %]
+                <td class="duration" headers="track-dur">[% track_length(track.length) %]</td>
                 [%- IF c.user_exists && !no_edit_tracks-%]
-                    <td class="editinglinks">
+                    <td class="editinglinks" headers="track-edit">
                         [%- track_edit_links = [
                             { link => c.entity_url(track, 'edit'), text => l("Edit") },
                             { link => c.entity_url(track, 'remove'), text => l("Remove") }

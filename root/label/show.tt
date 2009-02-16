@@ -1,3 +1,5 @@
+[% extra_js = 'labellist.js jquery/jquery.tablesorter.min.js' %]
+[% extra_css = 'jquery/tablesort.css' %]
 [%- WRAPPER "layout.tt" title=label.name -%]
     [%- INCLUDE "label/header.tt" -%]
     [%- INCLUDE "components/relationships.tt" source=label -%]
@@ -6,28 +8,37 @@
         [%- l('Releases') -%]
     </h2>
     [%- IF releases.size -%]
-        <table class="releases">
+        <table class="releases" id="label-release-list">
+        <colspan>
+            <col id="lbl-col-tracks"></col>
+            <col id="lbl-col-status"></col>
+            <col id="lbl-col-language"></col>
+            <col id="lbl-col-date"></col>
+            <col id="lbl-col-catalog"></col>
+            <col id="lbl-col-artist"></col>
+            <col id="lbl-col-title"></col>
+        </colspan>
         <thead>
             <tr>
-                <th class="tracks">
+                <th class="tracks" id="lbl-tr">
                     [%- l('Tracks') -%]
                 </th>
-                <th class="status">
+                <th class="status" id="lbl-s">
                     [%- l('Status') -%]
                 </th>
-                <th class="language">
+                <th class="language" id="lbl-l">
                     [%- l('Language') -%]
                 </th>
-                <th class="date">
+                <th class="date" id="lbl-d">
                     [%- l('Date') -%]
                 </th>
-                <th class="catalog">
+                <th class="catalog" id="lbl-c">
                     [%- l('Catalog #') -%]
                 </th>
-                <th class="artist">
+                <th class="artist" id="lbl-a">
                     [%- l('Artist') -%]
                 </th>
-                <th class="title">
+                <th class="title" id="lbl-ti">
                     [%- l('Title') -%]
                 </th>
             </tr>
@@ -35,27 +46,27 @@
         <tbody>
             [%- FOREACH release=releases -%]
                 <tr[% ' class="odd"' IF loop.count % 2 == 0 %]>
-                    <td class="tracks">
+                    <td class="tracks" headers="lbl-tr">
                         [% release.track_count %]&nbsp;<img src="[% c.uri_for('/static/images/notes.gif') %]" alt=l("Tracks") />
                     </td>
-                    <td class="status">
+                    <td class="status" headers="lbl-s">
                         [% release_attribute(release.release_status) %]
                     </td>
-                    <td class="language">
+                    <td class="language" headers="lbl-l">
                         <abbr title="[% release.language.name %] / [% release.script.name %]">
                             [% release.language.iso_code_3t %]
                         </abbr>
                     </td>
-                    <td class="date">
+                    <td class="date" headers="lbl-d">
                         [% release.first_release_date | release_date %]
                     </td>
-                    <td class="catalog">
+                    <td class="catalog" headers="lbl-c">
                         [% release.catalog_number %]
                     </td>
-                    <td class="artist">
+                    <td class="artist" headers="lbl-a">
                         [% entity_link(release.artist) %]
                     </td>
-                    <td class="name">
+                    <td class="name" headers="lbl-ti">
                         [% entity_link(release) %]
                     </td>
                 </tr>

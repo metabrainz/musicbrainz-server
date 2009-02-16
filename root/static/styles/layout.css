@@ -468,6 +468,7 @@ div.two_column_right {
     overflow: hidden;
     float: left;
     padding: 2pt 0pt;
+    padding-bottom: 1px;
 }
  
 .piped_list ul {

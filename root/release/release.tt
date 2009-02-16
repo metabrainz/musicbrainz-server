@@ -4,7 +4,7 @@
         [%- IF release.coverart_url -%]
             <div class="artwork">
                 [%#- This max height will need to expand to the amount of link rows -%]
-                <img style="max-height: 46pt" src="[% release.coverart_url %]">
+                <img style="max-height: 55pt" src="[% release.coverart_url %]">
 		[%- IF release.asin -%]
                 <div class="partners">
 		    Amazon: <a href="[% c.uri_for('/partners', release.coverart_store, release.asin) %]">Info</a>
@@ -33,8 +33,8 @@
                         [% discid.disc_id %]
                     </a>
                 </td>
-                <td style="width: 20pt;">
-                    [% track_length(discid.duration) %]
+                <td style="width: 105pt;">
+                    [% l('Total length:') %] [% track_length(discid.duration) %]
                 </td>
             </tr>
         [%- END -%]

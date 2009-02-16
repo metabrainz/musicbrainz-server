@@ -1,3 +1,5 @@
+[% extra_js = 'artistreleases.js jquery/jquery.tablesorter.min.js' %]
+[% extra_css = 'jquery/tablesort.css' %]
 [%- WRAPPER "artist/landing.tt" -%]
     [% BLOCK group_head %]
         <h2 class="compactreleasetype">
@@ -6,60 +8,71 @@
             [% plural_release_attribute(item.release_type) %]
         [%- ELSE; l("Uncategorized Releases"); END -%]
         </h2>
-        <table class="releases" summary="[% l('{release_type} releases by {artist}', {release_type => plural_release_attribute(item.release_type), artist => artist.name}) %]">
+        <table class="releases" id="table-[% plural_release_attribute(item.release_type) | replace('\s+', '-') %]" summary="[% l('{release_type} released by {artist}', {release_type => plural_release_attribute(item.release_type), artist => artist.name}) %]">
             <caption>
-                [% l('This table displays {type} releases by {artist}', {type => plural_release_attribute(item.release_type), artist => artist.name}) %]
+                [% l('This table displays {type} released by {artist}', {type => plural_release_attribute(item.release_type), artist => artist.name}) %]
             </caption>
-            <tr>
-                <th id="table_[% plural_release_attribute(item.release_type) %]_title">
-                    [% l('Release Title') %]
-                </th>
-                <th id="table_[% plural_release_attribute(item.release_type) %]_tracks">
-                    [% l('Tracks') %]
-                </th>
-                <th id="table_[% plural_release_attribute(item.release_type) %]_discids">
-                    [% l('DiscIDs') %]
-                </th>
-                <th id="table_[% plural_release_attribute(item.release_type) %]_puids">
-                    [% l('PUIDs') %]
-                </th>
-                <th id="table_[% plural_release_attribute(item.release_type) %]_status">
-                    [% l('Status') %]
-                </th>
-                <th id="table_[% plural_release_attribute(item.release_type) %]_date" abbr="Release Date">
-                    [% l('Date') %]
-                </th>
-                <th id="table_[% plural_release_attribute(item.release_type) %]_language">
-                    [% l('Language') %]
-                </th>
-            </tr>
+            <colgroup>
+                <col id="col-[% plural_release_attribute(item.release_type) | replace('\s+', '-') %]-title"></col>
+                <col id="col-[% plural_release_attribute(item.release_type) | replace('\s+', '-') %]-tracks"></col>
+                <col id="col-[% plural_release_attribute(item.release_type) | replace('\s+', '-') %]-discids"></col>
+                <col id="col-[% plural_release_attribute(item.release_type) | replace('\s+', '-') %]-puids"></col>
+                <col id="col-[% plural_release_attribute(item.release_type) | replace('\s+', '-') %]-status"></col>
+                <col id="col-[% plural_release_attribute(item.release_type) | replace('\s+', '-') %]-date"></col>
+                <col id="col-[% plural_release_attribute(item.release_type) | replace('\s+', '-') %]-language"></col>
+            </colgroup>
+            <thead>
+                <tr>
+                   <th id="table-[% plural_release_attribute(item.release_type) | replace('\s+', '-') %]-title" class="title">
+                        [% l('Release Title') %]
+                    </th>
+                    <th id="table-[% plural_release_attribute(item.release_type) | replace('\s+', '-') %]-tracks" class="tracks">
+                        [% l('Tracks') %]
+                    </th>
+                    <th id="table-[% plural_release_attribute(item.release_type) | replace('\s+', '-') %]-discids" class="discids">
+                        [% l('DiscIDs') %]
+                    </th>
+                    <th id="table-[% plural_release_attribute(item.release_type) | replace('\s+', '-') %]-puids" class="puids">
+                        [% l('PUIDs') %]
+                    </th>
+                    <th id="table-[% plural_release_attribute(item.release_type) | replace('\s+', '-') %]-status" class="status">
+                        [% l('Status') %]
+                    </th>
+                    <th id="table-[% plural_release_attribute(item.release_type) | replace('\s+', '-') %]-date" abbr="[% l('Release Date') %]" class="date">
+                        [% l('Date') %]
+                    </th>
+                    <th id="table-[% plural_release_attribute(item.release_type) | replace('\s+', '-') %]-language" class="language">
+                        [% l('Language') %]
+                    </th>
+                </tr>
+            </thead>
             <tbody>
     [%- END -%]
     [%- BLOCK group_item -%]
         <tr[% ' class="odd"' IF loop.count % 2 == 1 %]>
-            <td headers="table_[% plural_release_attribute(item.release_type) %]_title">
+            <td class="title" headers="table-[% plural_release_attribute(item.release_type) | replace('\s+', '-') %]-title">
                 [% entity_link(item, 1) %]
             </td>
-            <td class="tracks" headers="table_[% plural_release_attribute(item.release_type) %]_tracks">
-                [% item.track_count %]&nbsp;<img src="[% c.uri_for('/static/images/notes.gif') %]" alt=l("Tracks") />
+            <td class="tracks" headers="table-[% plural_release_attribute(item.release_type) | replace('\s+', '-') %]-tracks">
+                [% item.track_count %]&nbsp;<img src="[% c.uri_for('/static/images/notes.gif') %]" alt=[% l("Tracks") %] />
             </td>
-            <td class="discids" headers="table_[% plural_release_attribute(item.release_type) %]_discids">
+            <td class="discids" headers="table-[% plural_release_attribute(item.release_type) | replace('\s+', '-') %]-discids">
                 [% IF item.discid_count %]
-                    [% item.discid_count %]&nbsp;<img src="[% c.uri_for('/static/images/cd.gif') %]" alt=l("Disc IDs") />
+                    [% item.discid_count %]&nbsp;<img src="[% c.uri_for('/static/images/cd.gif') %]" alt=[% l("Disc IDs") %] />
                 [% END %]
             </td>
-            <td class="puids" headers="table_[% plural_release_attribute(item.release_type) %]_puids">
+            <td class="puids" headers="table-[% plural_release_attribute(item.release_type) | replace('\s+', '-') %]-puids">
                 [% IF item.puid_count %]
-                    [% item.puid_count %]&nbsp;<img src="[% c.uri_for('/static/images/puid.gif') %]" alt=l("PUIDs") />
+                    [% item.puid_count %]&nbsp;<img src="[% c.uri_for('/static/images/puid.gif') %]" alt=[% l("PUIDs") %] />
                 [% END %]
             </td>
-            <td class="status" headers="table_[% plural_release_attribute(item.release_type) %]_status">
+            <td class="status" headers="table-[% plural_release_attribute(item.release_type) | replace('\s+', '-') %]-status">
                 [% release_attribute(item.release_status) %]
             </td>
-            <td class="date" headers="table_[% plural_release_attribute(item.release_type) %]_date">
+            <td class="date" headers="table-[% plural_release_attribute(item.release_type) | replace('\s+', '-') %]-date">
                 [% item.first_release_date | release_date %]
             </td>
-            <td class="language" headers="table_[% plural_release_attribute(item.release_type) %]_language">
+            <td class="language" headers="table-[% plural_release_attribute(item.release_type) | replace('\s+', '-') %]-language">
                 <abbr title="[% item.language.name %] / [% item.script.name %]">
                     [% item.language.iso_code_3t %]
                 </abbr>

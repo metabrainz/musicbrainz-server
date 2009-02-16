@@ -1,3 +1,5 @@
+[% extra_js = 'nats.js jquery/jquery.tablesorter.min.js' %]
+[% extra_css = 'jquery/tablesort.css' %]
 [%- WRAPPER 'artist/layout.tt' title=release.name -%]
     [% INCLUDE "annotation/annotation.tt" parent=release %]
     <div class="release">
