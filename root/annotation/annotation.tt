@@ -1,7 +1,7 @@
 <div class="annotation" id="annotation_box">
     [%- IF annotation.text -%]
         <div class="body" id="annotation_box_body">
-            [% annotation.summary_as_html or "Nada"  %]
+            [% annotation.summary_as_html or l("Nada")  %]
         </div>
         [%- IF show_change_log -%]
             <div class="bar">
@@ -40,4 +40,4 @@
         </div>
     </div>
     [%- END -%]  
-</div>
+</div>

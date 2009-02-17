@@ -38,10 +38,10 @@
             </div>    
         [%- END -%]
         <div class='infoline'>
-            [% l('Type:') %] [%- artist_type(artist.type) || 'unknown' -%]
+            [% l('Type:') %]&nbsp;[%- artist_type(artist.type) || 'unknown' -%]
         </div>    
         <div class='infoline'>
-            [% l('Data Quality:') %] [%- data_quality(artist.quality) -%]
+            [% l('Data Quality:') %]&nbsp;[%- data_quality(artist.quality) -%]
         </div>    
     </div>
     <div class='infoLinks'>
