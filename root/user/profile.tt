@@ -15,6 +15,7 @@
         { link => c.uri_for("/review/$user.name/edits/failed"), text => l("Failed Edits") },
         { link => c.uri_for("/review/$user.name/edits/cancelled"), text => l("Cancelled Edits") },
         { link => c.uri_for('/user/subscriptions'), text => l("Subscriptions"), hide => not (viewing_own_profile or user.public_subscriptions) },
+        { link => c.uri_for("/rating/display/$user.id/all"), text => l("Ratings") },
     ] %]
     [% edit_account_options = [
         { link => c.uri_for('/user/edit'), text => l("Edit") },

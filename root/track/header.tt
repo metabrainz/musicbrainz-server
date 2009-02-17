@@ -13,6 +13,13 @@
 <div class="entity_header">
     <div class="title track">
         [% entity_link(track, 1) %]
+        [%- IF show_ratings -%]
+            [%- INCLUDE "rating/stars.tt"  url_base="/$entity.entity_type/$entity.mbid" -%]
+            <span class="average_rating">
+                (Average rating: <span id='COMMUNITY-RATING-track-[%- track.id -%]'>[%- rating.average_score -%]</span>
+                , rated <span id='VOTES-RATING-track-[%- track.id -%]'>[%- rating.count -%] time</span>)
+            </span>
+        [%- END -%]
     </div>
     [%- IF artist -%]
         <div class="info">

@@ -72,6 +72,13 @@ sub details : Chained('track')
     $c->stash->{relations} = $c->model('Relation')->load_relations($track);
     $c->stash->{tags}      = $c->model('Tag')->top_tags($track);
     $c->stash->{release}   = $c->model('Release')->load($track->release);
+    my $id = $c->user_exists ? $c->user->id : 0;
+    $c->stash->{show_ratings} = $id ? $c->user->preferences->get("show_ratings") : 1;
+    $c->stash->{rating}    = $c->model('Rating')->get_rating({
+        entity_type => 'track',
+        entity_id   => $track->id,
+        user_id     => $id
+    });
     $c->stash->{template}  = 'track/details.tt';
 }
 

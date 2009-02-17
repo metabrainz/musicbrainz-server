@@ -244,6 +244,7 @@
                 [%- PROCESS fields fields = [
                     { widget = 'nosidebar', label=l('Do not show the sidebar (can be faster, but may make the website difficult to navigate)') },
                     { widget = 'css_noentityicons', label=l('Do not show icons next to Artists, Releases, Tracks and Labels') },
+                    { widget = 'show_ratings', label=l('Show ratings') },
                     { widget = 'css_nosmallfonts', label=l('Do not use small font sizes') }
                     ] -%]
             </fieldset>
@@ -251,7 +252,8 @@
                 [%- WRAPPER 'forms/fieldset.tt' legend=l('Privacy') -%]
                     [%- PROCESS fields fields = [
                         { widget = 'subscriptions_public', label=l('Allow other users to see my subscriptions') },
-                        { widget = 'tags_public', label=l('Allow other users to see my folksonomy tags') }
+                        { widget = 'tags_public', label=l('Allow other users to see my folksonomy tags') },
+                        { widget = 'ratings_public', label=l('Allow other users to see my ratings') }
                         ] -%]
                 [%- END -%]
             </div>

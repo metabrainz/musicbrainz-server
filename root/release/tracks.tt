@@ -44,6 +44,8 @@
                     [% entity_link(track, 1) %]
                     [% INCLUDE "components/relationships.tt" source=track relations=track.relations justlist=1 nocompact=1
                         IF track.relations.size AND show_relationships %]
+                    [% INCLUDE "rating/stars.tt" track.rating.small=1 rating=track.rating url_base="/$entity.entity_type/$entity.mbid"
+                            IF show_ratings %]
                 </td>
                 [% UNLESS no_track_numbers %]
                     <td class="artist" style="display: [% show_artists ? 'block' : 'none' %]" headers="track-artist">

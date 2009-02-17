@@ -12,6 +12,7 @@ __PACKAGE__->config(
 
 use Data::Page;
 use MusicBrainz::Server::Adapter qw(Google);
+use MusicBrainz::Server::Rating;
 use ModDefs;
 use UserSubscription;
 
@@ -218,6 +219,19 @@ sub show : PathPart('') Chained('artist')
         $c->stash->{relations}  = $c->model('Relation')->load_relations($artist, to_type => [ 'artist', 'url', 'label', 'album' ]);
         $c->stash->{annotation} = $c->model('Annotation')->load_revision($artist);
 
+        my $id = $c->user_exists ? $c->user->id : 0;
+        $c->stash->{show_ratings} = $id ? $c->user->preferences->get("show_ratings") : 1;
+
+        if ($c->stash->{show_ratings})
+        {
+            $c->stash->{artist_rating} = $c->model('Rating')->get_rating({
+                entity_type     => 'artist',
+                entity_id       => $c->stash->{artist}->id,
+                user_id         => $id,
+            });
+            MusicBrainz::Server::Rating::LoadUserRatingForEntities("release", $c->stash->{releases}, $id);
+        }
+
         # Decide how to display the data
         $c->stash->{template} = defined $c->request->query_params->{full} ? 
                                     'artist/full.tt' :
@@ -388,6 +402,22 @@ sub merge_into : Chained('artist') PathPart('merge-into') Args(1)
                       "into the moderation queue";
 
     $c->response->redirect($c->entity_url($new_artist, 'show'));
+}
+
+=head2 rating
+
+Rate an artist
+
+=cut
+
+sub rating : Chained('artist') Args(2)
+{
+    my ($self, $c, $entity, $new_vote) = @_;
+    #Need more validation here
+
+    $c->forward('/user/login');
+    $c->forward('/rating/do_rating', ['artist', $entity, $new_vote] );
+    $c->response->redirect($c->entity_url($self->entity, 'show'));
 }
 
 =head2 subscribe

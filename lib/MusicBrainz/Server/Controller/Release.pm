@@ -127,8 +127,28 @@ sub show : Chained('release') PathPart('')
     $c->stash->{release_events} = $c->model('Release')->load_events($release);
     $c->stash->{annotation}     = $c->model('Annotation')->load_latest($release);
 
+    my $id = $c->user_exists ? $c->user->id : 0;
+    $c->stash->{show_ratings} = $id ? $c->user->preferences->get("show_ratings") : 1;
     # Load the tracks, and relationships for tracks if we need them
     my $tracks = $c->model('Track')->load_from_release($release);
+
+    if ($c->stash->{show_ratings})
+    {
+        $c->stash->{release_rating} = $c->model('Rating')->get_rating({
+            entity_type => 'release', 
+            entity_id   => $release->id, 
+            user_id     => $id
+        });
+
+        $c->stash->{artist_rating} = $c->model('Rating')->get_rating({
+            entity_type => 'artist', 
+            entity_id   => $c->stash->{artist}->id,
+            user_id     => $id
+        });
+
+        MusicBrainz::Server::Rating::LoadUserRatingForEntities("track", $tracks, $id);
+    }
+
     $c->stash->{tracks} = [ map {
         if ($show_rels) { $_->{relations} = $c->model('Relation')->load_relations($_); }
 
@@ -226,6 +246,22 @@ sub move_to : Chained('release') Args(1) Form('Release::Move')
     $form->move($old_artist, $new_artist);
 
     $c->response->redirect($c->entity_url($release, 'show'));
+}
+
+=head2 rating
+
+Rate a release
+
+=cut
+
+sub rating : Chained('release') Args(2)
+{
+    my ($self, $c, $entity, $new_vote) = @_;
+    #Need more validation here
+
+    $c->forward('/user/login');
+    $c->forward('/rating/do_rating', ['artist', $entity, $new_vote]);
+    $c->response->redirect($c->entity_url($self->entity, 'show'));
 }
 
 sub remove : Chained('release') Form

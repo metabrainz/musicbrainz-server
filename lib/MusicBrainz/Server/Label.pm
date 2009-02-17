@@ -808,7 +808,9 @@ sub releases
             tracks,
             discids,
             puids,
-            artist.name as artistname
+            artist.name as artistname,
+            rating,
+            rating_count
         FROM
             release, album, albummeta, artist
         WHERE
@@ -839,6 +841,8 @@ sub releases
             $album->{discidcount} = $row[11];
             $album->{puidcount}   = $row[12] || 0;
             $album->{artistname}  = $row[13];
+            $album->{rating}      = $row[14];
+            $album->{rating_count}= $row[15];
             push @albums, $album;
         }
     }

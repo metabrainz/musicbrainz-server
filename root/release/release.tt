@@ -19,6 +19,12 @@
                 [% INCLUDE "tag/summary.tt" tags=tags source=release %]
             </div>
         [% END %]
+        [% IF show_ratings %]
+            <div class="rating">
+                Rating: [% INCLUDE "rating/stars.tt" release_rating.small=1 rating=release_rating url_base="/$entity.entity_type/$entity.mbid"%] 
+                <span class="average_rating">(Average rating: <span id='COMMUNITY-RATING-release-[%- release.id -%]'>[%- release_rating.average_score -%]</span>, rated <span id='VOTES-RATING-release-[%- release.id -%]'>[%- release_rating.count -%] time</span>)</span>
+            </div>
+        [% END %]
     </div>
     [%- INCLUDE 'release/tracks.tt' -%]
     [% INCLUDE "release/box-summary.tt" %]

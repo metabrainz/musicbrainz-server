@@ -381,6 +381,11 @@ sub Remove
 	my $tag = MusicBrainz::Server::Tag->new($self->dbh);
 	$tag->RemoveArtists($self->id);
 
+ 	# Remove ratings
+	require MusicBrainz::Server::Rating;
+	my $ratings = MusicBrainz::Server::Rating->new($self->dbh);
+	$ratings->RemoveArtists($self->id);
+
     # Remove references from artist words table
     require SearchEngine;
     my $engine = SearchEngine->new($self->dbh, 'artist');
@@ -427,6 +432,10 @@ sub MergeInto
     require MusicBrainz::Server::Tag;
     my $tag = MusicBrainz::Server::Tag->new($old->dbh);
     $tag->MergeArtists($o, $n);
+
+    require MusicBrainz::Server::Rating;
+    my $ratings = MusicBrainz::Server::Rating->new($old->dbh);
+    $ratings->MergeArtists($o, $n);
 
     $sql->Do("DELETE FROM artist WHERE id   = ?", $o);
     $old->_invalidate_cache;
@@ -954,7 +963,8 @@ sub releases
        {
            $query = qq/SELECT album.id, name, modpending, GID, attributes,
                               language, script, quality, modpending_qual, tracks, discids,
-                              firstreleasedate, coverarturl, asin, puids
+                              firstreleasedate, coverarturl, asin, puids,
+                              rating, rating_count
                         FROM Album, Albummeta
                        WHERE artist = ? AND albummeta.id = album.id/;
        }
@@ -990,6 +1000,8 @@ sub releases
                     $album->{coverarturl}      = $row[12] || "";
                     $album->{asin}             = $row[13] || "";
                     $album->{puidcount}        = $row[14] || 0;
+                    $album->{rating}           = $row[15] || 0;
+                    $album->{rating_count}     = $row[16] || 0;
                 }
 
                 push @albums, $album;

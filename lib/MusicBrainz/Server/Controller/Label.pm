@@ -119,6 +119,18 @@ sub show : PathPart('') Chained('label')
     my $label    = $self->entity;
     my $releases = $c->model('Release')->load_for_label($label);
 
+    my $id = $c->user_exists ? $c->user->id : 0;
+    $c->stash->{show_ratings} = $id ? $c->user->preferences->get("show_ratings") : 1;
+    if ($c->stash->{show_ratings})
+    {
+        MusicBrainz::Server::Rating::LoadUserRatingForEntities("release", $releases, $id);
+        $c->stash->{rating} = $c->model('Rating')->get_rating({
+            entity_type => 'label', 
+            entity_id   => $label->id, 
+            user_id     => $id
+        });
+    }
+
     $c->stash->{releases}  = $releases;
     $c->stash->{relations} = $c->model('Relation')->load_relations($label);
 	$c->stash->{annotation} = $c->model('Annotation')->load_revision($label);

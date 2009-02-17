@@ -221,6 +221,11 @@
                     </a>
                 </li>
                 <li>
+                    <a href="[% c.uri_for('/rating') %]">
+                        [% l('Your Ratings') %]
+                    </a>
+                </li>
+                <li>
                     <a href="[% c.uri_for('/user/donate') %]">
                         [% l('Check Donation Status') %]
                     </a>

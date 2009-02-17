@@ -95,11 +95,13 @@ sub profile
             sidebar_panel_user    => 'Checkbox',
             nosidebar             => 'Checkbox',
             css_noentityicons     => 'Checkbox',
+            show_ratings          => 'Checkbox',
             css_nosmallfonts      => 'Checkbox',
 
 	    # Privacy
 	    subscriptions_public => 'Checkbox',
-	    tags_public          => 'Checkbox',
+           tags_public          => 'Checkbox',
+           ratings_public       => 'Checkbox',
         },
     };
 }

@@ -14,6 +14,13 @@
 <div class='entity_header'>
     <div class='title artist'>
         [% entity_link(artist, 1) %]
+        [%- IF show_ratings -%]
+            [% rating = artist_rating %]
+            [%- INCLUDE "rating/stars.tt" url_base="/$entity.entity_type/$entity.mbid" -%]
+            <span class="average_rating">
+                (Average rating: <span id='COMMUNITY-RATING-artist-[%- artist.id -%]'>[%- rating.average_score -%]</span>, rated <span id='VOTES-RATING-artist-[%- artist.id -%]'>[%- rating.count -%] time</span>)
+            </span>
+        [%- END -%]
     </div>
     <div class='info'>
         [%- IF artist.sort_name != artist.name -%]

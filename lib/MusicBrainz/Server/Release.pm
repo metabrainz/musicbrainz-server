@@ -742,13 +742,16 @@ sub LoadTracks
 					AlbumJoin.modpending, 
 					Artist.name, 
 					Track.gid,
-					AlbumJoin.album
+					AlbumJoin.album,
+                    Track_meta.rating,
+                    Track_meta.rating_count
 			from 
-				Track, AlbumJoin, Artist 
+				Track, Track_meta, AlbumJoin, Artist
 			where 
 				AlbumJoin.track = Track.id and 
 				AlbumJoin.album = ? and 
-				Track.Artist = Artist.id
+				Track.Artist = Artist.id and
+                Track_meta.id = Track.id
 			order by /;
 	
 	$query .= $this->IsNonAlbumTracks() ? " Track.name " : " AlbumJoin.sequence ";
@@ -773,6 +776,8 @@ sub LoadTracks
 			$track->SetAlbumJoinModPending($row[6]);
 			$track->mbid($row[8]);
 			$track->release($row[9]);
+			$track->rating($row[10]);
+			$track->rating_count($row[11]);
 			push @info, $track;
 		}
 	}

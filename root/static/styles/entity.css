@@ -43,6 +43,10 @@
     padding-top: 3px;
 }
 
+span.average_rating {
+    font-size: 8pt
+}
+
 .entity_header div.info {
     font-size: 10pt;
     line-height: 10pt;

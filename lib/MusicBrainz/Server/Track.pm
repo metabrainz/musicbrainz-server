@@ -91,6 +91,22 @@ sub length
     return $self->{length};
 }
 
+sub rating
+{
+    my ($self, $new_rating) = @_;
+
+    if (defined $new_rating) { $self->{rating} = $new_rating; }
+    return $self->{rating};
+}
+
+sub rating_count
+{
+    my ($self, $new_rating_count) = @_;
+
+    if (defined $new_rating_count) { $self->{rating_count} = $new_rating_count; }
+    return $self->{rating_count};
+}
+
 sub GetAlbumJoinModPending
 {
    return $_[0]->{albumjoinmodpending};

@@ -1,0 +1,23 @@
+	<span class="inline-rating">
+		<ul class="star-rating [%- rating.small ? 'small-star' : ''-%]">
+            [%- rating.score = rating.score ? rating.score : 0 -%]
+            [%- rating.average = rating.average ? rating.average : 0 -%]
+            <li id="RATING-[%- rating.entity_type -%]-[%- rating.entity_id -%]" class="current[%- rating.score ? "-user" : "" -%]-rating" style="width:[%-rating.score ? rating.score / 5 * 100 : rating.average_score / 5 * 100 -%]%;">[%- rating.score ? rating.score : rating.average_score -%]</li>
+                    [%- IF rating.user_can_rate > 0 -%]
+                        [%- css_classes = { '1' = 'one' '2' = 'two' '3' = 'three' '4' = 'four' '5' = 'five' } -%]
+                        [%- FOREACH rating_count IN ['1', '2', '3', '4', '5'] -%]
+
+<li id="RATE-[%- rating.entity_type -%]-[%- rating.entity_id-%]-[%- rating_count -%]">
+    [% url_base2 %]
+    <a  href="[%- c.uri_for( url_base, rating.entity_type, rating.entity_id, rating.score == rating_count ? 0 : rating_count) -%]"  
+        id="RATE-artist-[%- rating.entity_id -%]-[%- rating_count -%]" 
+        alt="[%- rating.score == rating_count ? "Unrate this $rating.entity_type" : "Rate this $rating.entity_type: $rating_count" -%]" 
+        title="[%- rating.score == rating_count ? "Unrate this $rating.entity_type" : "Rate this $rating.entity_type: $rating_count" -%]"
+        class="[%- css_classes.$rating_count -%]-star[%- rating_count > 1 ? "s" : "" -%]">[%- rating_count -%]</a> 
+			                    </li>
+
+                            [%- END -%]
+                    [%- END -%]
+        </ul>
+    </span>
+

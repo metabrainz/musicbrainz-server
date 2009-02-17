@@ -77,6 +77,11 @@
                     [% item.language.iso_code_3t %]
                 </abbr>
             </td>
+            [%- IF show_ratings -%]
+                <td class="rating" headers="table_[% plural_release_attribute(item.release_type) %]_rating">
+                    [%- INCLUDE "rating/stars.tt" item.rating.small = 1 rating=item.rating url_base = "/artist/$entity.mbid" -%]
+                </td>
+            [%- END -%]
         </tr>
     [%- END -%]
     [% BLOCK group_foot %]

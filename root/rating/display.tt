@@ -1,0 +1,73 @@
+[%- title = can_rate ? l('My Ratings') : l("{user}'s ratings", { user => user.name }) -%]
+[%- extra_js = "ratings.js" -%]
+
+[%- WRAPPER "layout.tt" -%]
+    [%- IF can_view -%]
+        <h2>[% title %]</h2>
+        [ Show ratings for:
+[%- IF requested_entity_type != 'all' -%]
+    <a href="/rating/display/[%- user.id -%]/all/">all</a> |
+[%- END -%]
+
+[%- IF requested_entity_type == 'artist' -%]
+    artists |
+[%- ELSE -%]
+    <a href="/rating/display/[%- user.id -%]/artist">artists</a> |
+[%- END -%]
+
+[%- IF requested_entity_type == 'label' -%]
+    labels |
+[%- ELSE -%]
+    <a href="/rating/display/[%- user.id -%]/label/">labels</a> |
+[%- END -%]
+[%- IF requested_entity_type == 'release' -%]
+    releases |
+[%- ELSE -%]
+    <a href="/rating/display/[%- user.id -%]/release/">releases</a> |
+[%- END -%]
+[%- IF requested_entity_type == 'track' -%]
+    tracks ]
+[%- ELSE -%]
+    <a href="/rating/display/[%- user.id -%]/track/">tracks</a> ]
+[%- END -%]
+	[%- FOREACH entity_type IN entity_types %] 
+		<h2 class="compactreleasetype">[%- entity_type | ucfirst -%]s</h2>
+        [% IF ratings.$entity_type.count %]
+			<table>
+
+            [%- FOREACH entity_rating IN ratings.$entity_type.ratings %]
+		        <tr>
+				    <td>
+                        <a href="/[%- entity_type -%]/[%- entity_rating.gid -%]"> [%- entity_rating.name -%]</a>
+                    </td>
+					<td> 
+                    [%- entity_rating.entity_type = entity_type -%]
+                    [%- entity_rating.user_can_rate = can_rate -%]
+                    [%- INCLUDE "rating/stars.tt" entity_rating.small = 1 rating=entity_rating url_base = "/rating/rate"-%]
+                     </td>
+			    [%- IF can_rate -%]
+					<td style="padding-left: 15px;"><a href="/rating/rate/[%- entity_type -%]/[%- entity_rating.entity_id -%]/0">Cancel</a></td>
+                [%- END -%]
+	
+			    </tr>
+		    [%- END -%]
+
+
+			</table>
+
+		    [%- IF requested_entity_type == 'all' and ratings.$entity_type.count > 10 -%]
+			    <p><a href="/rating/display/[%- user.id -%]/[%- entity_type -%]">More...</a></p>
+			[%- ELSIF ratings.$entity_type.count > 100 -%]
+                [% INCLUDE "components/paginator.tt" %]
+		    [%- END -%]
+
+		[%- END -%]
+	[%- END -%]
+
+
+[%- ELSE -%]
+    <h3>[%- user.name -%]'s ratings are private.</h3>
+[%- END -%]
+
+[%- END -%]
+

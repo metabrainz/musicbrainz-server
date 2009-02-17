@@ -8,6 +8,8 @@
 <div class="entity_header">
     <div class="title album">
         [% entity_link(release, 1) %]
+        [%- INCLUDE "rating/stars.tt" rating=artist_rating url_base="/$entity.entity_type/$entity.mbid"
+                IF show_ratings -%]
     </div>
     [%- IF release_artist -%]
         <div class="info">

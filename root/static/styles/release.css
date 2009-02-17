@@ -147,6 +147,12 @@ div.releasetags {
     border-bottom: 1px solid black;
 }
 
+div.rating {
+    background: #F0EFFF;
+    padding: 1pt 5pt;
+    border-bottom: 1px solid black;
+}
+
 div.release .editLinks { border-bottom: 1px solid black; }
 
 .release_tracks ul {
