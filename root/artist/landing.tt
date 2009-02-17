@@ -9,15 +9,13 @@
     [%- IF c.req.query_params.show_all -%]
         [% l('You are currently viewing all releases by {artist_name}.', {artist_name => artist.name}) %]
         <br />
-        <strong>
-            <a href="[% c.entity_url(artist, 'show', { show_all => 0 }) %]">
-                [%- l(' View only albums, EPs, singles, and compilations</a></strong> by {artist_name}.', {artist_name => artist.name} ) -%]
+        [%- l('<strong><a href="{url}">View only albums, <abbr title="Extended Plays">EPs</abbr>, singles, and compilations</a></strong> by {artist_name}.',
+                {url => c.entity_url(artist, 'show', { show_all => 0 }), artist_name => artist.name} ) -%]
     [%- ELSE -%]
-        [% l('You are currently viewing only albums, EPs, singles, and compilations by {artist_name}.', {artist_name => artist.name}) %]
+        [% l('You are currently viewing only albums, <abbr title="Extended Plays">EPs</abbr>, singles, and compilations by {artist_name}.', {artist_name => artist.name}) %]
         <br />
-        <strong>
-            <a href="[% c.entity_url(artist, 'show', { show_all => 1 }) %]">
-                [%- l(' View all releases</a></strong> by {artist_name}.', {artist_name => artist.name}) -%]
+        [%- l('<strong><a href="{url}">View all releases</a></strong> by {artist_name}.',
+                {url => c.entity_url(artist, 'show', { show_all => 1 }), artist_name => artist.name}) -%]
     [%- END -%]
     </div>
     [%- content -%]

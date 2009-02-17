@@ -46,6 +46,11 @@
         </a>
     </li>
     <li>
+        <a href="http://musicbrainz.uservoice.com">
+            [% l('UserVoice') %]
+        </a>
+    </li>
+    <li>
         <a href="http://musicbrainz.org/bugs">
             [%- l('Bug Tracker') -%]
         </a>

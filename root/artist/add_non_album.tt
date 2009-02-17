@@ -5,7 +5,7 @@
             [%- create_guideline(l('Blank tracks will be ignored.  Leave empty the fields that you do not need.')) -%]
             [%- create_guideline(l('You are <strong>strongly encouraged</strong> to include the length of the track, rather than leaving that field blank.')) -%]
             [%- create_guideline(l('To enter a non-album track you are <strong>required</strong> to provide an {edit_note} which lets the voters know why you think this is a {nonalbum_track}.', {edit_note => doc_link("EditNote", "edit note"), nonalbum_track => doc_link("NonAlbumTrack", l("non-album track"))})) -%]
-            [%- create_guideline(l('You are <strong>strongly encouraged</strong> to include a URL in your edit notes which will allow the voters to evaluate the correctness of this edit.')) -%]
+            [%- create_guideline(l('You are <strong>strongly encouraged</strong> to include a <abbr title="Uniform Resource Locator">URL</abbr> in your edit notes which will allow the voters to evaluate the correctness of this edit.')) -%]
             <strong style="color: red;">
                 [% l('Important:') %]
             </strong>

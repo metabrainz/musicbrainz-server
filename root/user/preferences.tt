@@ -237,7 +237,7 @@
                         { widget = 'sidebar_panel_sites', label=l('MusicBrainz sites') },
                         { widget = 'sidebar_panel_search', label=l('Search') },
                         { widget = 'sidebar_panel_stats', label=l('Statistics') },
-                        { widget = 'sidebar_panel_topmods', label=l('Top Moderators') },
+                        { widget = 'sidebar_panel_topmods', label=l('Top Editors') },
                         { widget = 'sidebar_panel_user', label=l('User Info') }
                         ] -%]
                 </div>

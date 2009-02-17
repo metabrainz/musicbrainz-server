@@ -1,13 +1,13 @@
 [% WRAPPER "${entity.entity_type}/layout.tt" title=l("Add a Creative Commons license") %]
     [% WRAPPER 'components/box.tt' header=l('Add a Creative Commons license') %]
         <p>
-            [% l('Select a <a href="http://creativecommons.org/">Creative Commons</a> <a href="http://creativecommons.org/about/licenses/meet-the-licenses">license</a> and enter the URL where this album can be downloaded. If possible, please link directly to a media file (e.g. mp3). Please note that the URL must be a valid URL, including the <code>http://</code> or <code>ftp://</code> protocol portion of the URL.') %]
+            [% l('Select a <a href="http://creativecommons.org/">Creative Commons</a> <a href="http://creativecommons.org/about/licenses/meet-the-licenses">license</a> and enter the <abbr title="Uniform Resource Locator">URL</abbr> where this release can be downloaded. If possible, please link directly to a media file (e.g. mp3). Please note that the <abbr title="Uniform Resource Locator">URL</abbr> must be a valid <abbr title="Uniform Resource Locator">URL</abbr>, including the <code>http://</code> or <code>ftp://</code> protocol portion of the <abbr title="Uniform Resource Locator">URL</abbr>.') %]
         </p>
         [% WRAPPER 'forms/form.tt' %]
             [% INCLUDE 'forms/generic/row.tt' field=form.field('license') label=l('License') %]
-            [% INCLUDE 'forms/generic/row.tt' field=form.field('url') label=l('URL') %]
+            [% INCLUDE 'forms/generic/row.tt' field=form.field('url') label=l('<abbr title="Uniform Resource Locator">URL</abbr>') %]
             [% INCLUDE "forms/edit-note.tt" %]
-            [% INCLUDE "forms/submit.tt" label=l("Enter edit") %]
+            [% INCLUDE "forms/submit.tt" label=l("Enter Edit") %]
         [% END %]
     [% END %]
 [% END %]

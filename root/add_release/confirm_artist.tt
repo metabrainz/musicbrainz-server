@@ -1,9 +1,9 @@
 [% WRAPPER 'artist/layout.tt' title=l('Confirm Artist') %]
     [% WRAPPER 'components/box.tt' header=l('Confirm Artist') %]
         [% INCLUDE 'add_release/bread_crumbs.tt' %]
-        <p>
-            [% l('Please search and select the correct artist.  If searching yields no useful results, you can <a href="?add=1">add a new artist</a>') %]
-        </p>
+        [%- WRAPPER 'layout/guidelines.tt' -%]
+            [%- create_guideline(l('Please search and select the correct artist.  If searching yields no useful results, you can <a href="?add=1">add a new artist</a>') -%]
+        [%- END -%]
         [% BLOCK create_link; '?id=${entity.id}&for=${key}'; END %]
         [% INCLUDE 'components/search.tt' entities=artists search_label=l('Artist') %]
     [% END %]

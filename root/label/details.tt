@@ -11,7 +11,7 @@
             </tr>
             <tr>
                 <th>
-                    [%- doc_link("MusicBrainzIdentifier", "MBID") -%]:
+                    [%- doc_link("MusicBrainzIdentifier", l("<abbr title="MusicBrainz IDentifier">MBID</abbr>")) -%]:
                 </th>
                 <td>
                     [%- label.mbid -%]

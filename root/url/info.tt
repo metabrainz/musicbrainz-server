@@ -1,9 +1,9 @@
 [%- WRAPPER "layout.tt" title=l("URL Information") -%]
-    [%- WRAPPER "components/box.tt" header=l("URL Information") -%]
+    [%- WRAPPER "components/box.tt" header=l("<abbr title="Uniform Resource Locator">URL</abbr> Information") -%]
         <table class="details">
             <tr>
                 <th>
-                    [%- l('URL:') -%]
+                    [%- l('<abbr title="Uniform Resource Locator">URL</abbr>:') -%]
                 </th>
                 <td>
                     [%- entity_link(url) -%]
@@ -14,12 +14,12 @@
                     [%- l('Description:') -%]
                 </th>
                 <td>
-                    [%- (url.desc || l("This url has no description")) | html -%]
+                    [%- (url.desc || l("This <abbr title="Uniform Resource Locator">URL</abbr> has no description")) | html -%]
                 </td>
             </tr>
             <tr>
                 <th>
-                    [%- doc_link("MusicBrainzIdentifier", l("MBID")) -%]:
+                    [%- doc_link("MusicBrainzIdentifier", l("<abbr title="MusicBrainz IDentifier">MBID</abbr>")) -%]:
                 </th>
                 <td>
                     [%- url.mbid -%]

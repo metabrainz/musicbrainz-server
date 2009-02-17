@@ -2,8 +2,8 @@
     [%- IF c.user_exists -%]
         [%- edit_links = [
         { link => '', text => l('Add Relationship') },
-        { link => '', text => l('Relate to URL') },
-        { link => '', text => l('Add CC License') },
+        { link => '', text => l('Relate to <abbr title="Uniform Resource Locator">URL</abbr>') },
+        { link => '', text => l('Add <abbr title="Creative Commons">CC</abbr> License') },
         { link => c.entity_url(release, 'move'), text => l('Move') },
         { link => c.entity_url(release, 'edit_title'), text => l('Edit Title') },
         { link => c.entity_url(release, 'remove'), text => l('Remove') },

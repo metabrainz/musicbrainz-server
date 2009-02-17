@@ -62,7 +62,7 @@
                     [% l('Label') %]
                 </th>
                 <th>
-                    [% l('Catalog #') %]
+                    [% l('<abbr title="Catalog Number">Catalog #</abbr>') %]
                 </th>
                 <th>
                     [% l('Barcode') %]

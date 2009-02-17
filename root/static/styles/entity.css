@@ -32,7 +32,7 @@
 .entity_header .track   { background: url(/static/images/ticon_lg.png) no-repeat 5px top; }
 .entity_header .artist  { background: url(/static/images/aicon_lg.png) no-repeat 5px top; }
 .entity_header .label   { background: url(/static/images/bicon_lg.png) no-repeat 5px top; }
-.entity_header .album   { background: url(/static/images/licon_lg.png) no-repeat 5px top; }
+.entity_header .release   { background: url(/static/images/licon_lg.png) no-repeat 5px top; }
 
 .entity_header div.title {
     font-size: 15pt;

@@ -26,7 +26,7 @@
     </h2>
     <p>
         When you are linking to various data within MusicBrainz, it is a good idea to make use of the template links, rather than raw HTML. 
-        The rationale behind this is to protect the site from link-rot, as URLs do change over time.
+        The rationale behind this is to protect the site from link-rot, as <abbr title="Uniform Resource Locators">URLs</abbr> do change over time.
     </p>
     <h3>
         Example

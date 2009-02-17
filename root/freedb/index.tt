@@ -1,12 +1,12 @@
 [%- WRAPPER 'layout.tt' title=l('FreeDB Search and Import') -%]
     [%- WRAPPER 'components/box.tt' header=l('FreeDB Search and Import') -%]
         <p>
-            [%- l(You can search {freedb} releases from any indexed {freedb} search table or use the shortcut form below. Alternatively if you already know the {freedb} category or id of the CD you'd like to import, you can also do that below', {freedb => doc_link('FreeDB', 'FreeDB')}) -%]
+            [%- l(You can search {freedb} releases from any indexed {freedb} search table or use the shortcut form below.  Alternatively if you already know the {freedb} category or FreeDB ID of the <abbr title="Compact Disc">CD</abbr> you'd like to import, you can also do that below.', {freedb => doc_link('FreeDB', 'FreeDB')}) -%]
         </p>
         [%- WRAPPER 'forms/form.tt' action=c.uri_for('/search/external') method='get' -%]
-            [%- WRAPPER 'forms/fieldset.tt' legend=l('Search') -%]
+            [%- WRAPPER 'forms/fieldset.tt' legend=l('FreeDB Search') -%]
                 <p>
-                    [%- l('Enter the release title of artist name to search for possible releases:') %]
+                    [%- l('Enter the release's title or artist's name to search for possible releases:') %]
                 </p>
                 [%- INCLUDE 'forms/generic/row.tt' field=search.field('query') label=l('Search query') -%]
                 <input type="hidden" name="type" value="freedb" />
@@ -16,9 +16,9 @@
         [%- WRAPPER 'forms/form.tt' -%]
             [%- WRAPPER 'forms/fieldset.tt' legend=l('Direct Import') -%]
                 <p>
-                    [%- l('Enter the category/id of the CD you want to import (e.g. <code>rock/a10bda0b</code>):') %]
+                    [%- l('Enter the category / ID of the <abbr title="Compact Disc">CD</abbr> you want to import (e.g. <code>rock/a10bda0b</code>):') %]
                 </p>
-                [%- INCLUDE 'forms/generic/row.tt' field=import.field('query') label=l('ID') -%]
+                [%- INCLUDE 'forms/generic/row.tt' field=import.field('query') label=l('FreeDB ID') -%]
                 [%- INCLUDE 'forms/submit.tt' label=l('Import') -%]
             [%- END -%]
         [%- END -%]

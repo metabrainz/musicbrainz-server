@@ -23,7 +23,7 @@
                 [% l('If you are certain that you want to add this artist, then:') %]
             </p>
             [%- WRAPPER 'layout/guidelines.tt' -%]
-                [%- create_guideline(l('You are required to enter a comment which allows users to distinguish this artist from the other artists with the same name, if the final artist name is similar to an existing artist.')) -%]
+                [%- create_guideline(l('You are required to enter a comment which allows users to distinguish this artist from the other artists with the same name, if the final artist name is identical to that of an existing artist.')) -%]
                 [%- create_guideline(l('Confirm by activating the checkbox below that you have read {doc_artistcomment}, understood how we distinguish duplicate artists, and that you know what you are doing.', {doc_artistcomment => doc_link('ArtistComment', l('ArtistComment'))})) -%]
                 [%- INCLUDE "forms/generic/row.tt" field=form.field("confirmed") label=l('Yes, I am sure and I know what I am doing.') -%]
             [%- END -%]

@@ -3,12 +3,12 @@
         [%- l('Page Not Found') -%]
     </h1>
     <h2>
-        [%- l('(HTTP code 404)') -%]
+        [%- l('(<abbr title="HyperText Transfer Protocol">HTTP</abbr> code 404)') -%]
     </h2>
     <p>
         [%- l('The page you requested does not exist.') -%]
     </p>
     <p>
-        [%- l('If you think this is our fault (for example, you found a broken link <i>and the link you found is on our site</i>, then please contact us at <a href="mailto&#x3a;support&#x0040;musicbrainz.org">support&#x0040;musicbrainz.org</a>, or via IRC in <a href="irc://irc.freenode.net/musicbrainz">the #musicbrainz channel</a> on FreeNode.&nbsp; Thank you.') -%]
+        [%- l('If you think this is our fault (for example, you found a broken link <i>and the link you found is on our site</i>, then please contact us at <a href="mailto&#x3a;support&#x0040;musicbrainz.org">support&#x0040;musicbrainz.org</a>, or via <abbr title="Internet Relay Chat">IRC</abbr> in <a href="irc://irc.freenode.net/musicbrainz">the #musicbrainz channel</a> on FreeNode.&nbsp; Thank you.') -%]
     </p>
 [% END %]

@@ -3,7 +3,7 @@
         [%- WRAPPER 'layout/guidelines.tt' -%]
             [%- create_guideline('Please fill out the fields below to create a new MusicBrainz account.') %]
             [%- create_guideline('Before doing so, please read the {coc}', {coc => doc_link('CodeOfConduct', l('MusicBrainz Code of Conduct'))}) -%]
-            [%- create_guideline('If you have any questions, please review the {faq}, or post it to the appropriate {ml}.', {faq => doc_link('FrequentlyAskedQuestions', l('Frequently Asked Questions (FAQ)')), ml => doc_link('MailingList', l('Mailing List'))}) -%]
+            [%- create_guideline('If you have any questions, please review the {faq}, or post it to the appropriate {ml}.', {faq => doc_link('FrequentlyAskedQuestions', l('<abbr "Frequently Asked Questions">FAQ</abbr>')), ml => doc_link('MailingList', l('Mailing List'))}) -%]
         [% END %]
         [% WRAPPER "forms/form.tt" %]
             [% INCLUDE "forms/generic/row.tt" field=form.field('username') label=l("Username") %]
@@ -25,18 +25,18 @@
             [% l('What your email address will <em>not</em> be used for:') %]
         </h3>
         <p>
-            [% l('We won't send you any newsletters, promotional mailings, etc. If you're interested in receiving information from the MusicBrainz staff and communicating with other users, {ml}.', {ml => doc_link('MailingList', l('please subscribe to our mailing lists'))}) %]
+            [% l("We won't send you any newsletters, promotional mailings, etc. If you're interested in receiving information from the MusicBrainz staff and communicating with other users, {ml}.", {ml => doc_link('MailingList', l('please subscribe to our mailing lists'))}) %]
         </p>
         <h3>
             [%- l('What your email address <em>will</em> be used for:') -%]
         </h3>
         <p>
-            [% l('Since some users have unfortunately made lots of questionable edits and could not be contacted to fix their mistakes, we now require a confirmed (i.e. working) email address for all edits made to the database.') %]
+            [% l('Because some users, unfortunately, made lots of questionable edits and could not be contacted to fix their mistakes, we now require a confirmed (i.e. working) email address before a user can make edits to the database.') %]
         </p>
         [%- WRAPPER 'layout/guidelines.tt' -%]
             [%- create_guideline('When you enter your email address, other editors will be able to send messages to you (likewise, you will be able to send messages to them).') %]
             [%- create_guideline('Any notes attached to your edits will be emailed to you. This enables you to remove, correct or clarify edits which will otherwise be rejected.') %]
-            [%- create_guideline('You may choose to "subscribe" (for free) to your favourite artists, in which case MusicBrainz will send you a daily list of edits made to the artists to which you have subscribed.') %]
+            [%- create_guideline('You may choose to "subscribe" (for free) to your favourite Artists, in which case MusicBrainz will send you a daily list of edits made to the Artists to which you have subscribed.') %]
             [%- create_guideline('In all cases your email address will not be revealed to other MusicBrainz users.  They will see only your user name.') %]
         [% END %]
     [% END %]

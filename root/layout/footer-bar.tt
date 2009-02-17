@@ -28,13 +28,14 @@
         </li>
         <li class="right">
             <a href="http://opendefinition.org/">
-                <img alt=l("This material is Open Knowledge") src="[% c.uri_for('/static/images/icon/ok_80x15_grey.png') %]" />
+                <img alt="[% l("This material is Open Knowledge") %]" src="[% c.uri_for('/static/images/icon/ok_80x15_grey.png') %]" />
             </a>
             <a href="http://validator.w3.org/check?uri=referer">
-                <img src="[% c.uri_for('/static/images/icon/valid-xhtml11-wm.png') %]" alt=l("Valid XHTML 1.1") class="textIcon" />
+                <img src="[% c.uri_for('/static/images/icon/valid-xhtml11-wm.png') %]"
+                    alt="[% l("Valid <abbr title="eXtensible HyperText Markup Language">XHTML</abbr> 1.1") %]" class="textIcon" />
             </a>
             <a href="http://jigsaw.w3.org/css-validator/validator">
-                <img src="[% c.uri_for('/static/images/icon/valid-css2-wm.png') %]" alt=l("Valid CSS 2.0") class="textIcon" />
+                <img src="[% c.uri_for('/static/images/icon/valid-css2-wm.png') %]" alt="[% l("Valid <abbr title="Cascading Style Sheets">CSS</abbr> 2.0") %]" class="textIcon" />
             </a>
         </li>
     </ul>
@@ -52,7 +53,7 @@
         <li>
             <img src="[% c.uri_for('/static/images/edit.gif') %]" alt="" />
             <a href="[% c.uri_for('/doc/ContactUs') %]">
-                [% l('Contact details') %]
+                [% l('Contact Details') %]
             </a>
         </li>
     </ul>

@@ -8,7 +8,7 @@
         </p>
         [% IF emailed %]
             <p>
-                [% l('Since you have provided an email address, an email verification mail has been sent to <code>{addr}</code>. Please check your mailbox and click on the link in the email to verify the new email address.', {addr => email_address}) %]
+                [% l('Because you provided an email address, an verification email has been sent to <code>{addr}</code>. Please check your mailbox and click on the link in the email to verify the new email address.', {addr => email_address}) %]
             </p>
         [% END %]
         <p>

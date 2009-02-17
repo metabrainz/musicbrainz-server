@@ -1,5 +1,5 @@
 [%- WRAPPER 'artist/layout.tt' title=l('Remove Artist Alias') -%]
-    [%- WRAPPER 'components/box.tt' header=l('Confirm Alias removal') -%]
+    [%- WRAPPER 'components/box.tt' header=l('Confirm Artist Alias Removal') -%]
         [%- WRAPPER 'layout/guidelines.tt' -%]
             [%- create_guideline(l('Are you sure you want to remove the alias <strong>{alias}</strong>, which points to the artist {artist}?', {alias => alias.name,  artist => entity_link(artist)})) -%]
             [%- create_guideline(l('Please review the documentation about {aliases}, before entering this edit.', {aliases => doc_link('ArtistAlias', l('artist aliases'))})) -%]

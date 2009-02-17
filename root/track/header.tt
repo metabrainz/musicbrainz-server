@@ -8,7 +8,7 @@
 [%- edit_links = [
     { link => c.entity_url(track, 'edit'), text => l("Edit") },
     { link => c.entity_url(track, 'remove'), text => l("Remove") },
-    { link => c.entity_url(track, 'change_artist'), text => l("Change artist") },
+    { link => c.entity_url(track, 'change_artist'), text => l("Change Artist") },
 ] -%]
 <div class="entity_header">
     <div class="title track">

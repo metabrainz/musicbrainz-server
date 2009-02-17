@@ -1,9 +1,9 @@
 [%- WRAPPER 'layout.tt' title=l("CD Table of Contents Information") -%]
-    [% WRAPPER 'components/box.tt' header=l("CD Table of Contents Information") %]
+    [% WRAPPER 'components/box.tt' header=l("<abbr "Compact Disc">CD</abbr> Table of Contents Information") %]
         <table class="details">
             <tr>
                 <th>
-                    [% l('Full TOC:') %]
+                    [% l('Full <abbr "Table of Contents">TOC</abbr>:') %]
                 </th>
                 <td>
                     [% cdtoc.toc %]
@@ -27,7 +27,7 @@
             </tr>
             <tr>
                 <th>
-                    [% l('First track:') %]
+                    [% l('First Track:') %]
                 </th>
                 <td>
                     [% cdtoc.first_track %]
@@ -35,7 +35,7 @@
             </tr>
             <tr>
                 <th>
-                    [% l('Last track:') %]
+                    [% l('Last Track:') %]
                 </th>
                 <td>
                     [% cdtoc.last_track %]
@@ -43,13 +43,13 @@
             </tr>
             <tr>
                 <th>
-                    [% l('Total length:') %]
+                    [% l('Total Length:') %]
                 </th>
                 <td>[% cdtoc.duration %]</td>
             </tr>
             <tr>
                 <th>
-                    [% l('Track details:') %]
+                    [% l('Track Details:') %]
                 </th>
                 <td>
                     <table class="cdtoc_track_details">
@@ -122,7 +122,7 @@
         </table>
     [% END %]
     <h1>
-        [% l('Releases with this TOC:') %]
+        [% l('Releases with this <abbr "Table of Contents">TOC</abbr>:') %]
     </h1>
     [% FOREACH release=releases %]
         [% INCLUDE "releases/release.tt" release=release.release tracks=release.tracks %]

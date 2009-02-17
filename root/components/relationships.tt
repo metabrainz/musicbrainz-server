@@ -79,7 +79,7 @@
                 {
                 link => c.uri_for(c.controller('relate').action_for('url'),
                     [ source.entity_type, source.mbid ]),
-                    text => l('Relate to URL'),
+                    text => l('Relate to <abbr title="Uniform Resource Locator">URL</abbr>'),
                     hide => !c.user_exists
                 },
                 {

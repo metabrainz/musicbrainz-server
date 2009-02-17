@@ -2,7 +2,7 @@
     [% WRAPPER "components/box.tt" header=l("Edit Profile") %]
         [%- WRAPPER 'layout/guidelines.tt' -%]
             [%- create_guideline('See also your <a href=\"{uri}\">user preferences</a>, which includes your privacy settings.', {uri => c.uri_for('/user/preferences')}) %]
-            [%- create_guideline('If you would like to delete your account, please see the FAQ entry: {faq}', {faq => doc_link('AccountFAQ', l('How do I delete my account?'))}) %]
+            [%- create_guideline('If you would like to delete your account, please see the <abbr "Frequently Asked Questions">FAQ</abbr> entry: {faq}', {faq => doc_link('AccountFAQ', l('How do I delete my account?'))}) %]
         [% END %]
         [% WRAPPER "forms/form.tt" %]
             [% INCLUDE "forms/generic/row.tt" field=form.field('email') label=l("Email address") %]

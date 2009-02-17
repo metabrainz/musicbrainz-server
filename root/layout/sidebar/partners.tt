@@ -1,32 +1,31 @@
 <ul>
     <li>
         <a href="http://www.metabrainz.org/donate">
-            <img src="[% c.uri_for('/static/images/sponsors/metabrainz.png') %]" alt=l("Donate to MusicBrainz!") title=l("Donate to MusicBrainz!") />
+            <img src="[% c.uri_for('/static/images/sponsors/metabrainz.png') %]" alt="[%- l('Donate to MusicBrainz!') %]" title="[%- l('Donate to MusicBrainz!') %]" />
         </a>
     </li>
     <li>
         <a href="http://www.google.com">
-            <img src="[% c.uri_for('/static/images/sponsors/googlesponsor.png') %]" alt=l("Google") title=l("Google") />
+            <img src="[% c.uri_for('/static/images/sponsors/googlesponsor.png') %]" alt="[%- l('Google') %]" title="[%- l('Google') %]" />
         </a>
     </li>
     <li>
         <a href="http://musicip.com">
-            <img src="[% c.uri_for('/static/images/sponsors/musicip.png') %]" alt=l("MusicIP") title=l("MusicIP") />
+            <img src="[% c.uri_for('/static/images/sponsors/musicip.png') %]" alt="[%- l('MusicIP') %]" title="[%- l('MusicIP') %]" />
         </a>
     </li>
     <li>
         <a href="http://creativecommons.org/">
-            <img src="[% c.uri_for('/static/images/sponsors/cc.png') %]" alt=l("Creative Commons") title=l("Creative Commons") />
+            <img src="[% c.uri_for('/static/images/sponsors/cc.png') %]" alt="[%- l('Creative Commons') %]" title="[%- l('Creative Commons') %]" />
         </a>
     </li>
     <li>
         <a href="http://digitalwest.net">
-            <img src="[% c.uri_for('/static/images/sponsors/digitalwest.png') %]" alt=l("Digital West Networks Inc.") title=l("Digital West Networks Inc.") />
-        </a>
+            <img src="[% c.uri_for('/static/images/sponsors/digitalwest.png') %]" alt="[%- l('Digital West Networks Inc.') %]" title="[%- l('Digital West Networks Inc.') %]" /></a>
     </li>
     <li>
         <a href="http://osuosl.org/">
-            <img src="[% c.uri_for('/static/images/sponsors/osuosl.png') %]" alt=l("OSU Open Source Lab") title=l("OSU Open Source Lab") />
+            <img src="[% c.uri_for('/static/images/sponsors/osuosl.png') %]" alt="[%- l('Oregon State University Open Source Lab') %]" title="[%- l('Oregon State University Open Source Lab') %]" />
         </a>
     </li>
     <li>

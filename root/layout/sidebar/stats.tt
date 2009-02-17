@@ -5,7 +5,7 @@
     { text => l('Tracks'), number => server_stats.tracks },
     { text => l('Links'), number => server_stats.links },
     { text => l('Disc IDs'), number => server_stats.disc_ids },
-    { text => l('PUIDs'), number => server_stats.puids },
+    { text => l('<abbr title="Portable Unique IDentifiers">PUIDs</abbr>'), number => server_stats.puids },
     { text => l('Edits'), number => server_stats.edits },
     { text => l('Editors'), number => server_stats.editors }
 ] -%]

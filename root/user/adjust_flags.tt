@@ -1,27 +1,27 @@
-[%- WRAPPER 'layout.tt' title='Adjust User Flags' -%]
-    [%- WRAPPER 'components/box.tt' header='Ajdust User Flags' -%]
+[%- WRAPPER 'layout.tt' title=l('Adjust User Account Flags') -%]
+    [%- WRAPPER 'components/box.tt' header=l('Adjust User Account Flags') -%]
         [%- WRAPPER 'forms/form.tt' -%]
             [%- WRAPPER 'forms/row.tt' -%]
-                [%- INCLUDE 'forms/label.tt' label='User Flags' -%]
+                [%- INCLUDE 'forms/label.tt' label=l('User Account Flags') -%]
                 <div class="fields">
                      [%- INCLUDE 'forms/input.tt' field=form.field('auto_editor') -%]
-                     [%- INCLUDE 'forms/label.tt' for=form.field('auto_editor') label='Auto Editor' -%]<br />
+                     [%- INCLUDE 'forms/label.tt' for=form.field('auto_editor') label=l('Auto-Editor') -%]<br />
 
                      [%- INCLUDE 'forms/input.tt' field=form.field('bot') -%]
-                     [%- INCLUDE 'forms/label.tt' for=form.field('bot') label='Bot' -%]<br />
+                     [%- INCLUDE 'forms/label.tt' for=form.field('bot') label=l('Bot') -%]<br />
 
                      [%- INCLUDE 'forms/input.tt' field=form.field('link_editor') -%]
-                     [%- INCLUDE 'forms/label.tt' for=form.field('link_editor') label='Relationship Editor' -%]<br />
+                     [%- INCLUDE 'forms/label.tt' for=form.field('link_editor') label=l('Relationship Editor') -%]<br />
 
                      [%- INCLUDE 'forms/input.tt' field=form.field('wiki_transcluder') -%]
-                     [%- INCLUDE 'forms/label.tt' for=form.field('wiki_transcluder') label='Wiki Transcluder' -%]<br />
+                     [%- INCLUDE 'forms/label.tt' for=form.field('wiki_transcluder') label=l('Wiki Transcluder') -%]<br />
 
                      [%- INCLUDE 'forms/input.tt' field=form.field('mbid_submitter') -%]
-                     [%- INCLUDE 'forms/label.tt' for=form.field('mbid_submitter') label='MBID Submitter' -%]
+                     [%- INCLUDE 'forms/label.tt' for=form.field('mbid_submitter') label=l('<abbr title="MusicBrainz IDentifier">MBID</abbr> Submitter') -%]
                 </div>
 	    [%- END -%]
 
-	    [%- INCLUDE 'forms/submit.tt' label='Update Flags' -%]
+	    [%- INCLUDE 'forms/submit.tt' label=l('Update User Account Flags') -%]
         [%- END -%]
     [%- END -%]
 [%- END -%]

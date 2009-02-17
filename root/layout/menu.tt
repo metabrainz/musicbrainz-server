@@ -280,11 +280,11 @@
                 [%- doc_link('Subversion', l('Subversion Access')) -%]
             </li>
             <li>
-                [%- doc_link('Projects', l('SVN Modules')) -%]
+                [%- doc_link('Projects', l('<abbr title="Subversion">SVN</abbr> Modules')) -%]
             </li>
             <li>
                 <a href="http://bugs.musicbrainz.org/browser">
-                    [% l('SVN Viewer') %]
+                    [% l('<abbr title="Subversion">SVN</abbr> Viewer') %]
                 </a>
             </li>
         </ul>
@@ -296,13 +296,13 @@
                 [%- doc_link('ContactUs', l('ContactUs')) -%]
             </li>
             <li>
-                [%- doc_link('FrequentlyAskedQuestions', l('FAQs')) -%]
+                [%- doc_link('FrequentlyAskedQuestions', l('<abbr title="Frequently Asked Questions">FAQs</abbr>')) -%]
             </li>
             <li>
                 [%- doc_link('OfficialStyleGuideline', l('Style Guidelines')) -%]
             </li>
             <li>
-                [%- doc_link('MailingList', l('MailingList')) -%]
+                [%- doc_link('MailingList', l('Mailing Lists')) -%]
             </li>
             <li>
                 <a href="http://forums.musicbrainz.org">
@@ -310,8 +310,13 @@
                 </a>
             </li>
             <li>
+                <a href="http://musicbrainz.uservoice.com">
+                    [% l('UserVoice Feedback') %]
+                </a>
+            </li>
+            <li>
                 <a href="http://bugs.musicbrainz.org">
-                    [% l('Bugs / RFEs') %]
+                    [% l('Bugs / <abbr title="Requests for Enhancement">RFEs</abbr>') %]
                 </a>
             </li>
             <li>

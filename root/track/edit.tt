@@ -1,10 +1,10 @@
 [% WRAPPER 'track/layout.tt' title="Edit Track" %]
 
-[% WRAPPER 'components/box.tt' header="Edit track number, name and duration" %]
+[% WRAPPER 'components/box.tt' header="Edit Track Number, Title, and Duration" %]
     [% WRAPPER 'forms/form.tt' %]
         [% INCLUDE 'forms/generic/row.tt' field=form.field('track') label="Track:" %]
         [% INCLUDE 'forms/edit-note.tt' %]
-        [% INCLUDE 'forms/submit.tt' label="Save edit" %]
+        [% INCLUDE 'forms/submit.tt' label="Enter Edit" %]
     [% END %]
 [% END %]
 
