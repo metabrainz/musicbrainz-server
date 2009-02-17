@@ -1,7 +1,10 @@
-[%- WRAPPER 'layout.tt' -%]
+[% WRAPPER "layout.tt" title=l("Error 500: Internal Server Error") %]
     <h1>
         [% l('Ooops!') %]
     </h1>
+    <h2>
+        [%- l('(<abbr title="HyperText Transfer Protocol">HTTP</abbr> code 500)') -%]
+    </h2>
     <p>
         [% l('Sorry, it seems like something has gone wrong! Repeating your request may solve this problem, however if it persists, please file a bug report at <a href="http://bugs.musicbrainz.org">our bug tracker</a>.') %]
     </p>

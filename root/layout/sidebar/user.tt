@@ -6,7 +6,7 @@
     </li>
     <li>
         <a href="[% c.uri_for('/user/logout') %]">
-            [% l('Logout') %]
+            [% l('Log Out') %]
         </a>
     </li>
     <li>

@@ -1,4 +1,4 @@
-[% WRAPPER "layout.tt" title=l("404: Page Not Found") %]
+[% WRAPPER "layout.tt" title=l("Error 404: Page Not Found") %]
     <h1>
         [%- l('Page Not Found') -%]
     </h1>

@@ -1,7 +1,7 @@
 <ul>
     <li>
         <a href="[% c.uri_for('/user/login') %]">
-            [% l('Login') %]
+            [% l('Log In') %]
         </a>
     </li>
     <li>

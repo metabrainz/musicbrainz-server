@@ -1,5 +1,5 @@
-[% WRAPPER 'release/layout.tt' title=l('Move Release to another Artist') %]
-    [% WRAPPER 'components/box.tt' header=l('Move Release to another Artist') %]
+[% WRAPPER 'release/layout.tt' title=l('Move Release to Another Artist') %]
+    [% WRAPPER 'components/box.tt' header=l('Move Release to Another Artist') %]
         <ul>
             <li>
                 [% l('Are you sure you want to move the release {release} to the artist {artist}?', {release => entity_link(release), artist => entity_link(new_artist)}) %]

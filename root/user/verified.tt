@@ -1,5 +1,5 @@
-[% WRAPPER 'layout.tt' title=l("Email address verified") %]
-    [% WRAPPER 'components/box.tt' header=l("Email address verified") %]
+[% WRAPPER 'layout.tt' title=l("Email Address Verified") %]
+    [% WRAPPER 'components/box.tt' header=l("Email Address Verified") %]
         <p>
             [% l('Thank you, your email address has now been verified!') %]
         </p>

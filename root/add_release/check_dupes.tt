@@ -1,4 +1,4 @@
-[% WRAPPER 'artist/layout.tt' title=l('Check Duplicates') %]
+[% WRAPPER 'artist/layout.tt' title=l('Check for Duplicates') %]
 [%# i18n NOTE: Plural text %]
     [% WRAPPER 'components/box.tt' header=l('Possible duplicate Release(s) found') %]
         [% INCLUDE 'add_release/bread_crumbs.tt' %]

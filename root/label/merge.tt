@@ -1,11 +1,11 @@
-[% WRAPPER 'label/layout.tt' title="Merge" %]
+[% WRAPPER 'label/layout.tt' title="Merge Labels" %]
     [% WRAPPER 'components/box.tt' header="Merge ${label.name} into ${new_label.name}" %]
         <p>
             [% l('Are you sure you want to merge the label {label1} into {label2}?', {label1 => entity_link(label), label2 => entity_link(new_label)}) %]
         </p>
         [%- WRAPPER "forms/form.tt" -%]
             [% INCLUDE "forms/edit-note.tt" %]
-            [% INCLUDE "forms/submit.tt" label=l('Enter edit') %]
+            [% INCLUDE "forms/submit.tt" label=l('Enter Edit') %]
         [%- END -%]
     [% END %]
 [% END %]

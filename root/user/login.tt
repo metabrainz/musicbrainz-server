@@ -1,7 +1,7 @@
-[% WRAPPER "layout.tt" title=l("Login") %]
-    [% WRAPPER "components/box.tt" header=l("Login") %]
+[% WRAPPER "layout.tt" title=l("Log In") %]
+    [% WRAPPER "components/box.tt" header=l("Log In") %]
         <p>
-            [% l('Please login using the form below. Note that the password field <em>is</em> case sensitive.') %]
+            [% l('Please log in using the form below. Note that the password field <em>is</em> case sensitive.') %]
         </p>
         [% WRAPPER "forms/form.tt" moderation=0 %]
             [% INCLUDE "forms/generic/row.tt" field=form.field('username') label=l("Username") %]

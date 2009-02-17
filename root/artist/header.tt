@@ -25,7 +25,7 @@
     <div class='info'>
         [%- IF artist.sort_name != artist.name -%]
             <div class='infoline'>
-            [% l('Sortname:') %] [% artist.sort_name | html %]
+            [% l('Sort name:') %] [% artist.sort_name | html %]
             </div>    
         [% END %]
         [%- IF artist.has_complete_date_range -%]

@@ -8,7 +8,7 @@
         [%- END -%]
         [% WRAPPER 'forms/form.tt' %]
             [% INCLUDE 'forms/generic/row.tt' field=form.field('track_count') label=l('Track count') %]
-            [% INCLUDE 'forms/submit.tt' label=l('Next') _ ' &raquo;' %]
+            [% INCLUDE 'forms/submit.tt' label=l('Next&raquo;') %]
         [% END %]
     [% END %]
 [% END %]

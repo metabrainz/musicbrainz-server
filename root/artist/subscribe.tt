@@ -1,5 +1,5 @@
-[%- WRAPPER 'artist/layout.tt' title=l('Subscribed editors') -%]
-    [%- WRAPPER 'components/box.tt' header=l('Editors Subscribed to This Artist') -%]
+[%- WRAPPER 'artist/layout.tt' title=l('Subscribed Editors') -%]
+    [%- WRAPPER 'components/box.tt' header=l('Editors Subscribed to this Artist') -%]
         <p>
         [% IF subscribers.size %]
         [%- FOREACH ed IN subscribers -%]

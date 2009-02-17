@@ -1,4 +1,4 @@
-[%- WRAPPER 'label/layout.tt' title=l('Subscribed editors') -%]
+[%- WRAPPER 'label/layout.tt' title=l('Subscribed Editors') -%]
     [%- WRAPPER 'components/box.tt' header=l('Editors subscribed to this Label') -%]
         <p>
             [% IF subscribers.size %]

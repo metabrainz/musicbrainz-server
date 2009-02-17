@@ -1,4 +1,4 @@
-[% WRAPPER 'label/layout.tt' title="Merge" %]
+[% WRAPPER 'label/layout.tt' title="Merge Labels" %]
     [% WRAPPER 'components/box.tt' header="Merge ${label.name} into another label" %]
         [%- WRAPPER 'layout/guidelines.tt' -%]
             [%- create_guideline(l('This wizard allows you to merge the label {label} into another label.', {label => entity_link(label,1)})) -%]

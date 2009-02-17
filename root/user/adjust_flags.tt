@@ -5,7 +5,7 @@
                 [%- INCLUDE 'forms/label.tt' label=l('User Account Flags') -%]
                 <div class="fields">
                      [%- INCLUDE 'forms/input.tt' field=form.field('auto_editor') -%]
-                     [%- INCLUDE 'forms/label.tt' for=form.field('auto_editor') label=l('Auto-Editor') -%]<br />
+                     [%- INCLUDE 'forms/label.tt' for=form.field('auto_editor') label=l('AutoEditor') -%]<br />
 
                      [%- INCLUDE 'forms/input.tt' field=form.field('bot') -%]
                      [%- INCLUDE 'forms/label.tt' for=form.field('bot') label=l('Bot') -%]<br />

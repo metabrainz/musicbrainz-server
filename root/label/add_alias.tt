@@ -3,7 +3,7 @@
         [% WRAPPER 'forms/form.tt' %]
             [% INCLUDE 'forms/generic/row.tt' field=form.field('alias') label=l('Label Alias') %]
             [% INCLUDE 'forms/edit-note.tt' %]
-            [% INCLUDE 'forms/submit.tt' label=l('Enter edit') %]
+            [% INCLUDE 'forms/submit.tt' label=l('Enter Edit') %]
         [% END %]
     [% END %]
 [% END %]

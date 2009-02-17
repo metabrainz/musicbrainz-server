@@ -6,7 +6,7 @@
         [% END %]
         [%- WRAPPER "forms/form.tt" -%]
             [% INCLUDE "forms/edit-note.tt" field=form.field("edit_note") %]
-            [% INCLUDE "forms/submit.tt" label=l("Enter edit") %]
+            [% INCLUDE "forms/submit.tt" label=l("Enter Edit") %]
         [%- END -%]
     [% END %]
 [% END %]

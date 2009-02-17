@@ -1,4 +1,4 @@
-[% WRAPPER "layout.tt" title=l("Search for an editor") %]
+[% WRAPPER "layout.tt" title=l("Search for an Editor") %]
     [% WRAPPER "components/box.tt" header=("Search Results") %]
         [% IF users.size %]
             <p>

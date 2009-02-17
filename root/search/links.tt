@@ -4,7 +4,7 @@
             [%- INCLUDE 'forms/label.tt' for='search-amazon' label="<a href=\"$link\">$name</a>:" -%]
             <div class="fields">
                 [%- INCLUDE 'forms/input.tt' type='text' size=20 -%]
-                [%- INCLUDE 'forms/submit.tt' for=field label='Search' inline=1 -%]
+                [%- INCLUDE 'forms/submit.tt' for=field label=l('Search') inline=1 -%]
             </div>
         [%- END -%]
         [%- FOREACH f IN hidden.keys %]
@@ -13,8 +13,8 @@
      [%- END -%]
 [%- END -%]
 
-[%- WRAPPER 'layout.tt' title='Search Other Sites' -%]
-    [%- WRAPPER 'components/box.tt' header='CD Shopping Sites' -%]
+[%- WRAPPER 'layout.tt' title=l('Search Other Sites') -%]
+    [%- WRAPPER 'components/box.tt' header=l('<abbr title="Compact Disc">CD</abbr> Shopping Sites') -%]
         [%- PROCESS search
             action='http://www.amazon.com/exec/obidos/external-search'
             link='http://www.amazon.com'
@@ -45,7 +45,7 @@
         -%]
     [%- END -%]
 
-    [%- WRAPPER 'components/box.tt' header='Classical Music Sites' -%]
+    [%- WRAPPER 'components/box.tt' header=l('Classical Music Sites') -%]
         [%- PROCESS search
             action='http://www.allmusic.com/cg/amg.dll'
             link='http://www.allmusic.com'
@@ -64,7 +64,7 @@
         -%]
     [%- END -%]
 
-    [%- WRAPPER 'components/box.tt' header='Lyrics Sites' -%]
+    [%- WRAPPER 'components/box.tt' header=l('Lyrics Sites') -%]
         [%- PROCESS search
             action='http://www.lyricfind.com/search.php3'
             link='http://www.lyricfind.com'
@@ -95,7 +95,7 @@
         -%]
     [%- END -%]
 
-    [%- WRAPPER 'components/box.tt' header='Info Sites' -%]
+    [%- WRAPPER 'components/box.tt' header=l('Information Sites') -%]
         [%- PROCESS search
             action='http://www.rollingstone.com/search'
             link='http://www.rollingstone.com'

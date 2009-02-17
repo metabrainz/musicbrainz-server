@@ -22,7 +22,7 @@
                 <th>Voting Period (in days)</th>
                 <th>Votes (unanimous)</th>
                 <th>On expire</th>
-                <th>Is an autoedit?</th>
+                <th>Is an AutoEdit?</th>
             </tr>
         </thead>
         <tbody>
@@ -47,7 +47,7 @@
         <li>The voting period that an edit will remain open for</li>
         <li>The number of unanimous votes required to shortcut the edit period
         <li>What happens if the edit expires but has no votes</li>
-        <li>Whether or not an edit is considered an auto-edit for an auto-editor</li>
+        <li>Whether or not an edit is considered an AutoEdit for an AutoEditor</li>
     </ul>
 
     [%- BLOCK th_cell -%]
@@ -89,7 +89,7 @@
                     [%- WRAPPER th_cell -%]
                         Expire Action<sup><a href="#note.3">3</a></sup>
                     [%- END -%]
-                    [% 'Is Auto Edit?' WRAPPER th_cell -%]
+                    [% 'Is an AutoEdit?' WRAPPER th_cell -%]
                 [%- END -%]
             </tr>
         </thead>
