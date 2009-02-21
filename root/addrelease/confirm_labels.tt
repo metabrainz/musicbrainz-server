@@ -1,6 +1,11 @@
 [% WRAPPER "artist/layout.tt" title=l('Confirm Label') %]
-    [% WRAPPER 'components/box.tt' header=l('Confirm Label') %]
-        [% INCLUDE 'add_release/bread_crumbs.tt' %]
+    [% WRAPPER 'components/box.tt' header=l('Confirm abel') %]
+        [% INCLUDE 'addrelease/bread_crumbs.tt' %]
+        <p>
+            [% l('Please confirm the label <strong>{label}</strong>', { label => entity_link(confirming) }) %]
+        </p>
+    [% END %]
+    [% WRAPPER 'components/box.tt' header=l('Search For An Existing Label') %]
         <p>
             [% l('Please search and select the correct Label.  If searching yields no useful results, you can use the form below to add a new Label.') %]
         </p>

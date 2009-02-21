@@ -5,6 +5,8 @@ use warnings;
 
 use base 'MusicBrainz::Server::Form';
 
+use MusicBrainz::Server::Release;
+
 use Rose::Object::MakeMethods::Generic(
     scalar => [ 'track_count', 'event_count' ]
 );
@@ -23,8 +25,56 @@ sub profile
         },
         optional => {
             more_events => 'Checkbox',
+            release_type => 'Select',
+            release_status => 'Select',
+            language => 'Select',
+            script   => 'Select',
         }
     });
+}
+
+sub options_release_type
+{
+    my $self = shift;
+
+    map {
+        $_ => MusicBrainz::Server::Release::attribute_name($_),
+    } (MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_TYPE_START ..
+       MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_TYPE_END)
+}
+
+sub options_release_status
+{
+    my $self = shift;
+
+    map {
+        $_ => MusicBrainz::Server::Release::attribute_name($_),
+    } (MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_STATUS_START ..
+       MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_STATUS_END)
+}
+
+sub options_language
+{
+    my $self = shift;
+
+    my $mb = new MusicBrainz;
+    $mb->Login;
+
+    my $c = MusicBrainz::Server::Language->new($mb->{dbh});
+
+    return map { $_->id => $_->name } $c->All;
+}
+
+sub options_script
+{
+    my $self = shift;
+
+    my $mb = new MusicBrainz;
+    $mb->Login;
+
+    my $c = MusicBrainz::Server::Script->new($mb->{dbh});
+
+    return map { $_->id => $_->name } $c->All;
 }
 
 sub add_tracks
@@ -47,6 +97,22 @@ sub add_tracks
     }
 }
 
+sub cross_validate {
+    my ($self) = @_;
+
+    my $last_seq = 0;
+    for my $i (1 .. $self->track_count) {
+        my $track = $self->value("track_$i");
+        next if $track->{remove};
+
+        if ($track->{number} != ($last_seq + 1)) {
+            $self->field("track_$i")->sub_form->field('number')->add_error("Track numbers must be a continuous sequence starting from 1");
+        }
+
+        $last_seq++;
+    }
+}
+
 sub add_events
 {
     my ($self, $count) = @_;
@@ -57,48 +123,6 @@ sub add_events
         my $event_field = $self->make_field("event_$i", '+MusicBrainz::Server::Form::Field::ReleaseEvent');
         $self->add_field($event_field);
     }
-}
-
-sub insert
-{
-    my ($self, $artists_id_map, $labels_id_map) = @_;
-    
-    die "Not yet implemented!";
-}
-
-sub mod_type { ModDefs::MOD_ADD_RELEASE }
-
-sub build_options
-{
-    my ($self, $artists_id_map, $labels_id_map) = @_;
-
-    my $opts = {
-        AlbumName => $self->value('title'),
-        artist    => $self->item->id,
-        HasMultipleTrackArtists => 1,
-    };
-
-    for my $i (1 .. $self->track_count)
-    {
-        $opts->{"Track$i"}    = $self->value("track_$i")->{name};
-        $opts->{"ArtistID$i"} = $artists_id_map->{"artist_$i"}->{id};
-        $opts->{"TrackDur$i"} = $self->value("track_$i")->{duration};
-    }
-
-    for my $i (1 .. $self->event_count)
-    {
-        my $event = $self->value("event_$i");
-        $opts->{"Release$i"} = sprintf("%s,%s,%s,%s,%s,%s",
-            $event->{country},
-            $event->{date},
-            $labels_id_map->{"event_$i.label"}->{id},
-            $event->{catalog},
-            $event->{barcode},
-            $event->{format},
-        );
-    }
-
-    return $opts;
 }
 
 1;

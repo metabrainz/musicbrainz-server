@@ -1,5 +1,7 @@
-[%- INCLUDE 'forms/input.tt' type='text' field=field.sub_form.field('number') size='2'
-    IF field.subform.with_track_number -%]
-[%- INCLUDE 'forms/input.tt' type='text' field=field.sub_form.field('name') size='30' -%]
-[%- INCLUDE 'forms/input.tt' type='text' field=field.sub_form.field('duration') size='5' -%]
-[%- INCLUDE 'forms/errors.tt' -%]
+[% value = '' %]
+[%- INCLUDE 'forms/input.tt' type='checkbox' field=field.sub_form.field('remove') class='track_remove'
+    UNLESS no_remove%]
+[%- INCLUDE 'forms/input.tt' type='text' field=field.sub_form.field('number') class='track_number'
+    IF field.with_track_number -%]
+[%- INCLUDE 'forms/input.tt' type='text' field=field.sub_form.field('name') class='track_name' -%]
+[%- INCLUDE 'forms/input.tt' type='text' field=field.sub_form.field('duration') class='track_duration' -%]

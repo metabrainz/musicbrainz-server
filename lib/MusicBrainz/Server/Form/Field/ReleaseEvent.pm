@@ -30,13 +30,14 @@ sub profile
                 order => 4,
             },
             barcode => {
-                type  => 'Text',
+                type  => '+MusicBrainz::Server::Form::Field::Barcode',
                 order => 5,
             },
             format  => {
                 type  => 'Select',
                 order => 6
             },
+            remove => 'Checkbox',
         }
     }
 }
@@ -56,6 +57,21 @@ sub options_country
 sub options_format
 {
     MusicBrainz::Server::ReleaseEvent::release_formats;
+}
+
+sub field_value
+{
+    my ($self, $field_name, $event) = @_;
+
+    use Switch;
+    switch ($field_name)
+    {
+        case ('format') { return $event->format; }
+        case ('barcode') { return $event->barcode; }
+        case ('label') { return $event->label->name || ''; }
+        case ('country') { return $event->country; }
+        case ('catalog') { return $event->cat_no; }
+    }
 }
 
 1;

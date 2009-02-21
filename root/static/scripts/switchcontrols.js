@@ -9,16 +9,10 @@ to be done to know what exactly is hidden, and in need of revealing. */
 
 $(document).ready(function(){
     $("#form-controls").append(' \
-        <div class="row"> \
-            <div style="border: 0px; width:22em; margin:0 auto;"> \
-                <div margin-left: auto; margin-right: auto;"> \
-                    <button type="button" id="form-controls-button-showhide">Show Track Artists</button> \
-                    <button type="button" id="form-controls-button-editall">Edit all Track Artists</button> \
-                </div> \
-            </div> \
+        <div class="row no_label"> \
+            <button type="button" id="form-controls-button-showhide">Show Track Artists</button> \
+            <button type="button" id="form-controls-button-editall">Edit all Track Artists</button> \
         </div> \
-        <br /> \
-        <br /> \
     ');
     $("#form-controls-button-editall").bind("click", function(){
         $(".switchable").each(function(){

@@ -9,9 +9,9 @@
 
 <ol class="wizard_breadcrumbs">
     [% found_current = 0 %]
-    [% FOR step=steps %]
+    [% FOR step=wizard.steps %]
         <li class="[% found_current ? '' : 'complete' %]">[% step.name %]</li>
-        [% IF step.action == current_action %][% found_current = 1%][% END %]
+        [% IF step == wizard.current_step %][% found_current = 1%][% END %]
     [% END %]
 </ol>
 

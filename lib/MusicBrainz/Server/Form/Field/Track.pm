@@ -38,6 +38,7 @@ sub profile
         },
         optional => {
             duration => '+MusicBrainz::Server::Form::Field::Time',
+            remove   => 'Checkbox',
         }
     };
 

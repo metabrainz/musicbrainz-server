@@ -74,3 +74,36 @@ form textarea.edit-note {
     width: 45em;
     height: 12em;
 }
+
+select.release_type,
+select.release_status {
+    width: 100pt;
+}
+
+select.release_language,
+select.release_script {
+    width: 203pt;
+}
+
+select.release_event_country,
+input.release_event_label,
+input.release_event_barcode,
+select.release_event_format,
+input.release_event_catalog {
+    width: 13em;
+    margin-right: 5pt;
+}
+
+input.artist_name { width: 300pt; }
+
+input.track_number {
+    width: 20pt;
+    text-align: center;
+}
+input.track_name {
+    width: 220pt;
+}
+input.track_duration {
+    text-align: center;
+    width: 43pt;
+}

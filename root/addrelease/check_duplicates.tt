@@ -1,7 +1,7 @@
-[% WRAPPER 'artist/layout.tt' title=l('Check for Duplicates') %]
+[% WRAPPER 'artist/layout.tt' title=l('Check Duplicates') %]
 [%# i18n NOTE: Plural text %]
     [% WRAPPER 'components/box.tt' header=l('Possible duplicate Release(s) found') %]
-        [% INCLUDE 'add_release/bread_crumbs.tt' %]
+        [% INCLUDE 'addrelease/bread_crumbs.tt' %]
         <p>
 [%# i18n NOTE: Plural text %]
             [% l('We found the following similar Release(s) already in our database:') %]
@@ -15,14 +15,9 @@
             tracks=release.tracks release_events=release.events
             show_artists=1
             FOR release=similar %]
-        [%- WRAPPER 'forms/row.tt' %]
+        [%- WRAPPER 'forms/form.tt' %]
             [% INCLUDE 'forms/submit.tt'
-                label=l('No, my Release is not one of the above')
-                WRAPPER 'forms/form.tt' %]
-[%# NOTE: this next performs an incorrect action! %]
-            [% INCLUDE 'forms/submit.tt'
-                label=l('Yes, my Release is one of the above')
-                WRAPPER 'forms/form.tt' %]
+                label=l('No, my Release is not one of the above') %]
         [% END %]
     [% END %]
 [% END %]

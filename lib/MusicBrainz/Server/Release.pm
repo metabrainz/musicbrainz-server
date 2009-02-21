@@ -28,9 +28,9 @@
 #___________________________________________________________________________
 
 package MusicBrainz::Server::Release;
+use Moose;
 
-use TableBase;
-{ our @ISA = qw( TableBase ) }
+extends 'TableBase';
 
 use strict;
 use Carp qw( cluck croak );
@@ -522,19 +522,19 @@ sub LoadAlbumMetadata
 
 # Given an album, query the number of tracks present in this album
 # Returns the number of tracks or undef on error
-sub track_count
-{
-   my ($this) = @_;
-   my ($sql);
+has 'track_count' => (
+    isa => 'Int',
+    is  => 'rw',
+    lazy => 1,
+    default => sub {
+        my $self = shift;
 
-   return undef if (!exists $this->{id});
-   if (!exists $this->{trackcount} || !defined $this->{trackcount})
-   {
-       $this->LoadAlbumMetadata();
-   }
+        return unless exists $self->{id};
 
-   return $this->{trackcount};
-}
+        $self->LoadAlbumMetadata();
+        return $self->{trackcount};
+    }
+);
 
 # Given an album, query the number of discids present in this album
 # Returns the number of discids or undef on error
