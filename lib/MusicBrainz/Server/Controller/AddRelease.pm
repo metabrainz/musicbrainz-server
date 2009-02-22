@@ -235,6 +235,8 @@ sub confirm : Chained('wizard') PathPart Form('Confirm')
         );
     }
 
+    $self->form->field('edit_note')->value($data->edit_note);
+
     return unless $self->submit_and_validate($c);
 
     my %opts = (

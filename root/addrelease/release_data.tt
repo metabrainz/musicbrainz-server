@@ -42,6 +42,8 @@
                 [%- INCLUDE 'forms/generic/row.tt' field=form.field('script') label=l('Script') class='release_script' -%]
             [%- END -%]
 
+            [%- INCLUDE 'forms/edit-note.tt' %]
+
             [%- INCLUDE 'forms/submit.tt' label='Continue' %]
         [%- END -%]
     [%- END- %]

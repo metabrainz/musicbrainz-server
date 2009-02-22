@@ -58,6 +58,8 @@ has ['language', 'script'] => (
     is  => 'rw',
 );
 
+has 'edit_note' => ( is => 'rw' );
+
 sub unconfirmed_artists
 {
     my ($self) = @_;
@@ -109,6 +111,7 @@ sub fill_in_form
     $form->field('release_status')->value($self->release_status);
     $form->field('language')->value($self->language);
     $form->field('script')->value($self->script);
+    $form->field('edit_note')->value($self->edit_note);
 }
 
 sub update
@@ -145,6 +148,8 @@ sub update
     $self->script($form->value('script'));
     $self->release_type($form->value('release_type'));
     $self->release_status($form->value('release_status'));
+
+    $self->edit_note($form->value('edit_note'));
 }
 
 sub to_release
