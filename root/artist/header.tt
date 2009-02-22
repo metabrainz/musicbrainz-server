@@ -59,7 +59,7 @@
             [%- edit_links = [
                 { link => c.entity_url(artist, 'edit'), text => l('Edit Artist') },
                 { link => c.entity_url(artist, 'merge'), text => l('Merge Artist') },
-                { link => c.uri_for('/artist', artist.mbid || artist.id, 'add_release'), text => l('Add Release') },
+                { link => c.uri_for('/artist', artist.mbid || artist.id, 'add_release/track_count'), text => l('Add Release') },
                 { link => c.entity_url(artist, 'add_alias'), text => l('Add Alias') },
                 { link => c.entity_url(artist, 'add_non_album'), text => l('Add Non-Album Tracks') },
                 { link => c.entity_url(artist, 'change_quality'), text => l('Change Data Quality') },

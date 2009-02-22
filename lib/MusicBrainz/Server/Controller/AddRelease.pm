@@ -269,10 +269,15 @@ sub confirm : Chained('wizard') PathPart Form('Confirm')
         $i++;
     }
 
-    $c->model('Moderation')->insert(
+    my @mods = $c->model('Moderation')->insert(
         $self->form->value('edit_note'),
         %opts
     );
+
+    delete $c->session->{wizard};
+
+    my @add_mods = grep { $_->type eq ModDefs::MOD_ADD_RELEASE } @mods;
+    $c->response->redirect($c->uri_for('/release', $add_mods[0]->row_id));
 }
 
 =head2 _progress
