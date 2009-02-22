@@ -120,7 +120,7 @@ sub BUILDARGS
                 ? shift @{ $args{steps} }
                 : {};
 
-            $args->{name} = $step;
+            $args->{action_name} = $step;
 
             push @steps, MusicBrainz::Server::Wizard::Step->new($args);
         }

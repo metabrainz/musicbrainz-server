@@ -4,10 +4,15 @@ use MooseX::Storage;
 
 with Storage;
 
-has 'name' => (
+has 'action_name' => (
     isa => 'Str',
     is  => 'ro',
     required => 1
+);
+
+has 'name' => (
+    isa => 'Str',
+    is  => 'rw',
 );
 
 has 'skip' => (

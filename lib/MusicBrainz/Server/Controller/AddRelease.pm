@@ -24,12 +24,12 @@ sub wizard : Chained('/artist/artist') PathPart('add_release') CaptureArgs(0)
     $c->stash->{wizard} = MusicBrainz::Server::Wizard->new(
         store => $self->_data($c),
         steps => [
-            'track_count',
-            'release_data',
-            'check_duplicates' => { skip => sub { shift->has_checked_duplicates } },
-            'confirm_artists'  => { skip => sub { !shift->has_unconfirmed_artists } },
-            'confirm_labels'   => { skip => sub { !shift->has_unconfirmed_labels } },
-            'confirm',
+            'track_count'      => { name => 'Track Count' },
+            'release_data'     => { name => 'Release Data' },
+            'check_duplicates' => { name => 'Check Duplicate Releases', skip => sub { shift->has_checked_duplicates } },
+            'confirm_artists'  => { name => 'Confirm Track Artists', skip => sub { !shift->has_unconfirmed_artists } },
+            'confirm_labels'   => { name => 'Confirm Release Event Labels', skip => sub { !shift->has_unconfirmed_labels } },
+            'confirm'          => { name => 'Confirm/Preview' },
         ]
     );
 }
@@ -300,7 +300,7 @@ sub _progress
     my $next_step = $wizard->progress;
 
     $c->response->redirect(
-        $c->uri_for('/artist', $artist->mbid, 'add_release', $next_step->name));
+        $c->uri_for('/artist', $artist->mbid, 'add_release', $next_step->action_name));
     $c->detach;
 }
 
