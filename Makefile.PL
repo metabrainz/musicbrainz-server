@@ -35,6 +35,8 @@ requires 'Locale::MakeText';
 requires 'Locale::Maketext::Extract::Plugin::TT2';
 requires 'MIME::Lite';
 requires 'Moose';
+requires 'MooseX::AttributeHelpers';
+requires 'MooseX::Storage';
 requires 'OSSP::uuid';
 requires 'parent';
 requires 'String::ShellQuote';
