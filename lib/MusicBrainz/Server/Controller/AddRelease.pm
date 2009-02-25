@@ -21,6 +21,13 @@ sub wizard : Chained('/artist/artist') PathPart('add_release') CaptureArgs(0)
     my ($self, $c) = @_;
     $c->forward('/user/login');
 
+    if ($c->req->params->{cancel})
+    {
+        $self->_delete_wizard($c);
+        $c->response->redirect($c->entity_url($c->stash->{artist}, 'show'));
+        $c->detach;
+    }
+
     $c->stash->{wizard} = MusicBrainz::Server::Wizard->new(
         store => $self->_data($c),
         steps => [
@@ -239,6 +246,14 @@ sub confirm : Chained('wizard') PathPart Form('Confirm')
 
     return unless $self->submit_and_validate($c);
 
+    if ($c->req->params->{keep_editing})
+    {
+        $data->edit_note($self->form->value('edit_note'));
+        $self->_data($c, $data);
+
+        $self->_redirect_to_step($c, 'release_data');
+    }
+
     my %opts = (
         AlbumName => $data->name,
         artist    => $data->artist->id,
@@ -276,10 +291,22 @@ sub confirm : Chained('wizard') PathPart Form('Confirm')
         %opts
     );
 
-    delete $c->session->{wizard};
+    $self->_delete_wizard($c);
 
     my @add_mods = grep { $_->type eq ModDefs::MOD_ADD_RELEASE } @mods;
     $c->response->redirect($c->uri_for('/release', $add_mods[0]->row_id));
+}
+
+=head2 _delete_wizard
+
+Clear the current wizard from the session
+
+=cut
+
+sub _delete_wizard : Private
+{
+    my ($self, $c) = @_;
+    delete $c->session->{wizard};
 }
 
 =head2 _progress
@@ -294,13 +321,24 @@ sub _progress
 {
     my ($self, $c) = @_;
 
-    my $artist = $c->stash->{artist};
     my $wizard = $c->stash->{wizard};
-
     my $next_step = $wizard->progress;
+    $self->_redirect_to_step($c, $next_step->action_name);
+}
+
+=head2 _redirect_to_step $c, $step
+
+Redirect to a specific step
+
+=cut
+
+sub _redirect_to_step
+{
+    my ($self, $c, $step) = @_;
+    my $artist = $c->stash->{artist};
 
     $c->response->redirect(
-        $c->uri_for('/artist', $artist->mbid, 'add_release', $next_step->action_name));
+        $c->uri_for('/artist', $artist->mbid, 'add_release', $step));
     $c->detach;
 }
 

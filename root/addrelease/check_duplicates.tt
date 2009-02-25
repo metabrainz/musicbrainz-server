@@ -16,8 +16,7 @@
             show_artists=1
             FOR release=similar %]
         [%- WRAPPER 'forms/form.tt' %]
-            [% INCLUDE 'forms/submit.tt'
-                label=l('No, my Release is not one of the above') %]
+            [% INCLUDE 'addrelease/submit.tt' %]
         [% END %]
     [% END %]
 [% END %]

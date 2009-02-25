@@ -1,0 +1,4 @@
+[%- WRAPPER 'forms/blank_row.tt' %]
+    [%- INCLUDE 'forms/submit.tt' label=l('Continue') inline=1%]
+    [%- INCLUDE 'forms/submit.tt' label=l('Cancel') name='cancel' inline=1 -%]
+[%- END -%]
