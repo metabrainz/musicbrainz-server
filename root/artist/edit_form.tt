@@ -6,7 +6,7 @@
     [%- END -%]
     [%- create_guideline(l('Please use the Guess Case buttons to fix common style errors. (Available only if you have JavaScript enabled.)')) -%]
 [%- END -%]
-[%- WRAPPER 'forms/form.tt' moderation=1 -%]
+[%- WRAPPER 'forms/form.tt' -%]
     [%- IF form.field('confirmed').required -%]
         [%- WRAPPER 'forms/fieldset.tt' legend=l('Are you sure?') -%]
             <p>
@@ -33,4 +33,7 @@
         [%- INCLUDE "forms/generic/row.tt" field=form.field("start") label=l('Start Date') -%]
         [%- INCLUDE "forms/generic/row.tt" field=form.field("end") label=l('End Date') -%]
     [%- END -%]
+    [% INCLUDE 'forms/edit-note.tt' %]
+    [% INCLUDE 'forms/auto-editor.tt' %]
+    [% INCLUDE 'forms/submit.tt' label=l('Enter Edit') name='do_add_artist' %]
 [%- END -%]

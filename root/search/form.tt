@@ -5,7 +5,7 @@
         [% INCLUDE "forms/generic/row.tt" field=form.field('type')  label=l('Type') type='select' %]
         [% INCLUDE "forms/generic/row.tt" field=form.field('limit') label=l('Limit to') type='select' %]
         [% INCLUDE "forms/generic/row.tt" field=form.field('enable_advanced') label=l('Use advanced query syntax') type='checkbox' %]
-        [% INCLUDE "forms/submit.tt" label=l("Search") %]
+        [% INCLUDE "forms/submit.tt" label=l("Search") name='do_search' %]
     [% END %]
     </div>
     <div class="searchinfo">

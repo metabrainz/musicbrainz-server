@@ -1,6 +1,6 @@
 [%- WRAPPER "forms/form.tt" quiet=1 -%]
     [%- INCLUDE "forms/generic/row.tt" field=form.field('query') label=search_label -%]
-    [%- INCLUDE "forms/submit.tt" label=l('Search') %]
+    [%- INCLUDE "forms/submit.tt" label=l('Search') name='do_search' %]
 [% END %]
 
 [%- IF entities && entities.size -%]
@@ -16,6 +16,6 @@
                 [%- END -%]
             [%- END -%]
         [% END %]
-        [%- INCLUDE "forms/submit.tt" label=l('Select') -%]
+        [%- INCLUDE "forms/submit.tt" label=l('Select') name='do_choose_entity' -%]
     [%- END -%]
 [%- END -%]

@@ -170,7 +170,8 @@ sub confirm_artists : Chained('wizard') PathPart
     $artist = $c->stash->{search_result};
     if (!defined $artist)
     {
-        return unless $self->form->validate($c->req->params);
+        return unless $c->req->params->{do_add_artist} &&
+            $self->form->validate($c->req->params);
         $artist = $self->form->create;
     }
 
@@ -206,7 +207,8 @@ sub confirm_labels : Chained('wizard') PathPart
 
     if (!defined $label)
     {
-        return unless $self->form->validate($c->req->params);
+        return unless exists $c->query->params->{do_add_label} &&
+            $self->form->validate($c->req->params);
         $label = $self->form->create;
     }
 

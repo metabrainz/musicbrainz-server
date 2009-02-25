@@ -233,7 +233,7 @@ sub filter_artist : Form('Search::Query')
         }
         else
         {
-           return unless $form->validate($c->req->params);
+           return unless $c->req->params->{do_search} && $form->validate($c->req->params);
            my $artists = $c->model('Artist')->direct_search($form->value('query'));
            $c->stash->{artists} = $artists;
 
@@ -257,7 +257,7 @@ sub filter_label : Form('Search::Query')
         }
         else
         {
-           return unless $form->validate($c->req->params);
+           return unless $c->req->params->{do_search} && $form->validate($c->req->params);
            my $labels = $c->model('Label')->direct_search($form->value('query'));
            $c->stash->{labels} = $labels;
 

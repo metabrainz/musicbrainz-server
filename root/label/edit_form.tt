@@ -16,6 +16,6 @@
         [% INCLUDE 'forms/generic/row.tt' field=form.field('begin_date') label=l('Begin Date') %]
         [% INCLUDE 'forms/generic/row.tt' field=form.field('end_date') label=l('End Date') %]
         [% INCLUDE 'forms/edit-note.tt' %]
-        [% INCLUDE 'forms/submit.tt' label=l('Enter Edit') %]
+        [% INCLUDE 'forms/submit.tt' label=l('Enter Edit') name='do_add_label' %]
     [% END %]
 [% END %]
