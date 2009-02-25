@@ -1,4 +1,4 @@
-[%- WRAPPER 'components/box.tt' header=l("Aliases for ${entity.name}") -%]
+[%- WRAPPER 'components/box.tt' header=l("Aliases for {entity_name}", {entity_name => entity.name}) -%]
     [%- IF aliases.size > 0 -%]
         <table>
             <thead>

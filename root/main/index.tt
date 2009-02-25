@@ -57,7 +57,7 @@
         [% END %]
         [% WRAPPER "components/box.tt" header=l("Use MusicBrainz") %]
             <p>
-                [% l('You can use MusicBrainz right now to automatically identify and label your music files - all you have to do is download and run a MusicBrainz enabled tagger. {taggers}', { taggers => doc_link('MusicBrainzTagger', l('Read more about our taggers.'))}) %]
+                [% l('You can use MusicBrainz right now to automatically identify and label your music files - all you have to do is download and run a MusicBrainz enabled tagger. {taggers|Read more about our taggers}.', { taggers => doc_link('MusicBrainzTagger')}) %]
             </p>
             <p>
                 <div>
@@ -83,13 +83,13 @@
                 </div>
             </p>
             <p>
-                [% l('Alternatively, you might just want to <a href="{uri}">search</a> or <a href="/browseartists.html">browse</a> the MusicBrainz database. If you spot a mistake, or something that is missing, you can even {edit}', { uri => c.uri_for('/search'), edit => doc_link('HowEditingWorks', l('edit or add more data!'))}) %]
+                [% l('Alternatively, you might just want to <a href="{uri}">search</a> or <a href="/browseartists.html">browse</a> the MusicBrainz database. If you spot a mistake, or something that is missing, you can even {edit|edit or add more data}!', { uri => c.uri_for('/search'), edit => doc_link('HowEditingWorks')}) %]
             </p>
             <p>
-                [% l('If you are new to MusicBrainz, please take a moment to read the {doc_begin} before editing the database.', {doc_begin => doc_link('BeginnersGuide', l('beginners guide'))}) %]
+                [% l('If you are new to MusicBrainz, please take a moment to read the {doc_begin|beginners\' guide} before editing the database.', {doc_begin => doc_link('BeginnersGuide')}) %]
             </p>
             <p>
-                [% l('If you are a software developer you might want to learn about the {doc_client}. You can use the library to enable your programs to access the MusicBrainz database, both for looking up data and also for submitting new data.', {doc_client => doc_link('libmusicbrainz', l('MusicBrainz client library / <abbr title="software development kit">SDK</abbr>'))}) %]
+                [% l('If you are a software developer you might want to learn about the {doc_client|MusicBrainz client library/<abbr title="software development kit">SDK</abbr>}. You can use the library to enable your programs to access the MusicBrainz database, both for looking up data and also for submitting new data.', {doc_client => doc_link('libmusicbrainz')}) %]
             </p>
         [% END %]
         [% WRAPPER "components/box.tt" header=l("Be a Part of MusicBrainz") %]
@@ -104,7 +104,7 @@
                     [% l('<a href="{uri_search}">Search</a> or <a href="{uri_browse}">browse</a> the MusicBrainz data for your favourite Artists, or for your <a href="{uri_fav}">favourite releases</a>.', {uri_search => c.uri_for('/search'), uri_browse => c.uri_for('/browse/artist'), uri_fav => c.uri_for('/browse/release')}) %]
                 </li>
                 <li>
-                    [% l('If you spot something that is wrong, poorly entered or just plain missing, please <a href="{uri_register}">register</a> and {edit}', {uri_register => c.uri_for('/user/register'), edit => doc_link('HowEditingWorks', l('edit the data'))}) %]
+                    [% l('If you spot something that is wrong, poorly entered or just plain missing, please <a href="{uri_register}">register</a> and {edit|edit the data}', {uri_register => c.uri_for('/user/register'), edit => doc_link('HowEditingWorks')}) %]
                 </li>
             </ul>
         [% END %]

@@ -7,21 +7,21 @@
         </li>
         <li>
             <a href="http://www.eff.org/">
-                <acronym title=l("Electronic Frontier Foundation")>
+                <acronym title=[%- l("Electronic Frontier Foundation") -%]>
                     [% l('EFF') %]
                 </acronym>
             </a>
         </li>
         <li>
             <a href="http://www.gnu.org/copyleft/gpl.html">
-                <acronym title=l("General Public License")>
+                <acronym title=[%- l("General Public License") -%]>
                     [% l('GPL') %]
                 </acronym>
             </a>
         </li>
         <li>
             <a href="http://www.gnu.org/copyleft/lesser.html">
-                <acronym title=l("Lesser General Public License")>
+                <acronym title=[%- l("Lesser General Public License") -%]>
                     [% l('LGPL') %]
                 </acronym>
             </a>

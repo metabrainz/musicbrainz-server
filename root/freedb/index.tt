@@ -1,7 +1,7 @@
 [%- WRAPPER 'layout.tt' title=l('FreeDB Search and Import') -%]
     [%- WRAPPER 'components/box.tt' header=l('FreeDB Search and Import') -%]
         <p>
-            [%- l(You can search {freedb} releases from any indexed {freedb} search table or use the shortcut form below.  Alternatively if you already know the {freedb} category or FreeDB ID of the <abbr title="Compact Disc">CD</abbr> you'd like to import, you can also do that below.', {freedb => doc_link('FreeDB', 'FreeDB')}) -%]
+            [%- l(You can search {freedb|FreeDB} releases from any indexed {freedb} search table or use the shortcut form below. Alternatively if you already know the {freedb} category or id of the <abbr title="Compact Disc">CD</abbr> you'd like to import, you can also do that below', {freedb => doc_link('FreeDB')}) -%]
         </p>
         [%- WRAPPER 'forms/form.tt' action=c.uri_for('/search/external') method='get' -%]
             [%- WRAPPER 'forms/fieldset.tt' legend=l('FreeDB Search') -%]

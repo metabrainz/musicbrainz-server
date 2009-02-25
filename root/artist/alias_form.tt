@@ -1,6 +1,6 @@
 [%- WRAPPER 'layout/guidelines.tt' -%]
     [%- create_guideline(l('MusicBrainz uses artist aliases mainly as variant names or search hints.')) -%]
-    [%- create_guideline(l('If you see a misspelled alias here, it most likely is listed on purpose, and should not be renamed or removed.  Please see {doc_alias} for more details.', {doc_alias => doc_link('ArtistAlias', l('artist aliases'))})) -%]
+    [%- create_guideline(l('If you see a misspelled alias here, it most likely is listed on purpose, and should not be renamed or removed.  Please see {doc_alias|artist aliases} for more details.', {doc_alias => doc_link('ArtistAlias')})) -%]
     [%- create_guideline(l('Please note that aliases are currently <strong>required to be unique for all artists</strong>. You can circumvent this limitation by adding a comment to the alias, preferably in parentheses.')) -%]
 [%- END -%]
 [%- INCLUDE 'forms/generic/row.tt' field=form.field('alias') label=l('Alias')

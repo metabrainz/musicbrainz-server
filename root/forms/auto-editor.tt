@@ -1,7 +1,7 @@
 [%- IF c.user.is_auto_editor(c.session.orig_privs) -%]
     [%- WRAPPER 'forms/fieldset.tt' legend=l('AutoEditor') -%]
         <p>
-            [% l('<strong>AutoEditor privileges</strong>: If you untick this checkbox, this edit will be entered as if you would not have {status} status. You can enable them any time again.', {status => doc_link('AutoEditor', l('AutoEditor'))}) %]
+            [% l('<strong>AutoEditor privileges</strong>: If you untick this checkbox, this edit will be entered as if you would not have {status|AutoEditor} status. You can enable them any time again.', {status => doc_link('AutoEditor')}) %]
         </p>
         [%- INCLUDE 'forms/generic/row.tt' field=form.field('as_auto_editor')
             label=l('Enable AutoEditor priviliges') -%]

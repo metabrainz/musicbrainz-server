@@ -3,7 +3,7 @@
         <table class="details">
             <tr>
                 <th>
-                    [%- doc_link("LabelName", l("Name")) -%]:
+                    [%- l('{label|Name}', {label => doc_link("LabelName")}) -%]:
                 </th>
                 <td>
                     [%- entity_link(label) -%]
@@ -11,7 +11,7 @@
             </tr>
             <tr>
                 <th>
-                    [%- doc_link("MusicBrainzIdentifier", l("<abbr title="MusicBrainz IDentifier">MBID</abbr>")) -%]:
+                    [%- l('{mbid|<abbr title="MusicBrainz IDentifier">MBID</abbr>}', {mbid => doc_link("MusicBrainzIdentifier")}) -%]:
                 </th>
                 <td>
                     [%- label.mbid -%]

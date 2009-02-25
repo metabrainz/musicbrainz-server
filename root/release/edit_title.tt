@@ -1,7 +1,7 @@
 [% WRAPPER 'release/layout.tt' title=l("Edit Release Title") %]
     [% WRAPPER 'components/box.tt' header=l("Edit Release Title") %]
         [%- WRAPPER 'layout/guidelines.tt' -%]
-            [%- create_guideline(l('This form allows you to edit the {title}.  Please read the {doc_sg} before entering any edits.', {title => doc_link('ReleaseTitle', l('title of this release')), doc_sg => doc_link('StyleGuidelines', l('style guidelines'))})) %]
+            [%- create_guideline(l('This form allows you to edit the {title|title of this release}.  Please read the {doc_sg|style guidelines} before entering any edits.', {title => doc_link('ReleaseTitle'), doc_sg => doc_link('StyleGuidelines')})) %]
         [% END %]
         [% WRAPPER "forms/form.tt" %]
             [% INCLUDE 'forms/generic/row.tt' field=form.field('title') label=l("Title") %]

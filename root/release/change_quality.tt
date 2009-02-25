@@ -1,10 +1,10 @@
 [%- WRAPPER 'release/layout.tt' title=l("Change Data Quality") -%]
     [%- WRAPPER 'components/box.tt' header=l("Change Data Quality") -%]
         <p>
-            [% l('The {quality} for {release} is currently set to: <strong>{rel_qual}</strong>.', {quality => doc_link("DataQuality", l("Data Quality")), release => entity_link(release), rel_qual => data_quality(release.quality)}) %]
+            [% l('The {quality|Data Quality} for {release} is currently set to: <strong>{rel_qual}</strong>.', {quality => doc_link("DataQuality"), release => entity_link(release), rel_qual => data_quality(release.quality)}) %]
         </p>
         <p>
-            [% l('Please select a new {quality} level, and enter an {note} to justify this edit.', {quality => doc_link("DataQuality", l("Data Quality")), note => doc_link("EditNote", l("edit note"))}) %]
+            [% l('Please select a new {quality|Data Quality} level, and enter an {note|edit note} to justify this edit.', {quality => doc_link("DataQuality"), note => doc_link("EditNote")}) %]
         </p>
         [%- WRAPPER "forms/form.tt" -%]
             [% INCLUDE 'forms/generic/row.tt' field=form.field('quality') label=l("Data Quality") -%]

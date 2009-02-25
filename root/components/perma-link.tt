@@ -27,7 +27,7 @@
     <table id="id-table-icon-link">
         <tr>
             <th>
-                [%- l('Text Link') -%]
+                [%- l('Text Link:') -%]
             </th>
             <td>
                 <textarea cols="60" rows="5" title=l('Select text')>

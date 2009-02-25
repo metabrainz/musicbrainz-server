@@ -6,6 +6,6 @@
         [%- advanced = sidebar_search.field('enable_advanced') -%]
         [% INCLUDE "forms/submit.tt" label=l("Search") %]
         [% INCLUDE "forms/input.tt" field=advanced type='checkbox' %]
-        [% INCLUDE "forms/label.tt" for=advanced label=doc_link('TextSearchSyntax', l('Advanced Query')) %]
+        [% INCLUDE "forms/label.tt" for=advanced label=l('{doc|Advanced Query}', {doc => doc_link('TextSearchSyntax')}) %]
     [% END %]
 </div>

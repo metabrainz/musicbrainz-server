@@ -22,10 +22,10 @@
         [%- FOREACH css IN page.css %]
             <link rel="stylesheet" type="text/css" href="/static/styles/extra/[% css %]" />
         [%- END %]
-        <link rel="search" type="application/opensearchdescription+xml" title=[% l("MusicBrainz: Artist") %] href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_artist.xml') %]" />
-        <link rel="search" type="application/opensearchdescription+xml" title=[% l("MusicBrainz: Label") %] href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_label.xml') %]" />
-        <link rel="search" type="application/opensearchdescription+xml" title=[% l("MusicBrainz: Release") %] href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_release.xml') %]" />
-        <link rel="search" type="application/opensearchdescription+xml" title=[% l("MusicBrainz: Track") %] href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_track.xml') %]" />
+        <link rel="search" type="application/opensearchdescription+xml" title="[%- l("MusicBrainz: Artist") -%]" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_artist.xml') %]" />
+        <link rel="search" type="application/opensearchdescription+xml" title="[%- l("MusicBrainz: Label") -%]" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_label.xml') %]" />
+        <link rel="search" type="application/opensearchdescription+xml" title="[%- l("MusicBrainz: Release") -%]" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_release.xml') %]" />
+        <link rel="search" type="application/opensearchdescription+xml" title="[%- l("MusicBrainz: Track") -%]" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_track.xml') %]" />
     </head>
     <body>
         <iframe name="tagger-iframe" id="tagger-iframe"></iframe>

@@ -12,7 +12,7 @@
             </p>
         [% END %]
         <p>
-            [% l('You may proceed to <a href=\"{uri}\">your user profile</a>, or maybe you want to {edit}', {uri => c.uri_for('/user/profile'), edit => doc_link("HowEditingWorks", l("start editing!")}) %]
+            [% l('You may proceed to <a href=\"{uri}\">your user profile</a>, or maybe you want to {edit|start editing}!', {uri => c.uri_for('/user/profile'), edit => doc_link("HowEditingWorks"}) %]
         </p>
     [% END %]
 [% END %]

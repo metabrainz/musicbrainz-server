@@ -11,7 +11,7 @@
             </tr>
             <tr>
                 <th>
-                    [%- doc_link('DiscID', l('Disc ID')) -%]:
+                    [%- l('{doc|Disc ID}', {doc => doc_link('DiscID')}) -%]:
                 </th>
                 <td>
                     [% cdtoc.disc_id %]

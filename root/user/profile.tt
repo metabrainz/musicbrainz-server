@@ -40,10 +40,10 @@
             [% user.name | html_entity WRAPPER property name=l("Name") %]
             [% WRAPPER property name=l("User type") %]
 		[% types = [] %]
-                [% types.push(doc_link('AutoEditor', l('AutoEditor'))) IF user.is_auto_editor %]
+                [% types.push(l('{doc|AutoEditor}', {doc => doc_link('AutoEditor')})) IF user.is_auto_editor %]
 		[% types.push("Internal/Bot") IF user.is_bot %]
-		[% types.push(doc_link('RelationshipEditor', l('Relationship Editor'))) IF user.is_link_moderator %]
-		[% types.push(doc_link('TransclusionEditor', l('Transclusion Editor'))) IF user.is_wiki_transcluder %]
+		[% types.push(l('{doc|Relationship Editor}', {doc => doc_link('RelationshipEditor')})) IF user.is_link_moderator %]
+		[% types.push(l('{doc|Transclusion Editor}', {doc => doc_link('TransclusionEditor')})) IF user.is_wiki_transcluder %]
 		[% types.push('Normal User') IF types.size == 0 %]
 		[% comma_list(types) %]
             [% END %]
@@ -74,7 +74,7 @@
             [% END %]
             [% WRAPPER property name=l("Bio") %]
                 <div class="bio">
-                    [% html_escape(user.biography or l("[None]")).split("\n").join("<br />") %]
+                    [% user.biography or l("[None]").split("\n").join("<br />") %]
                 </div>
             [% END %]
             [% WRAPPER property name=l("Subscriptions") %]

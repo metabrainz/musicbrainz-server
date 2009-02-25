@@ -1,0 +1,10 @@
+#!/bin/bash
+
+BASEDIR=$(dirname $0)/..
+I18N_DIR=$BASEDIR/po
+
+for i in $I18N_DIR/*.po
+do
+    msgmerge -U $i $I18N_DIR/mb_server.pot
+    msgfmt $i --statistics -o $I18N_DIR/$(basename $i .po).mo
+done

@@ -1,10 +1,10 @@
 [%- WRAPPER 'layout/guidelines.tt' -%]
     [%- IF new -%]
         [%- create_guideline(l('You are about to add an artist to MusicBrainz.')) -%]
+        [%- create_guideline(l('Please read the {doc_styleguide|Style Guidelines}, then provide the necessary information about the new artist below.', {doc_styleguide => doc_link('StyleGuideline')})) -%]
+        [%- create_guideline(l('If one or more artists with the same name already exist in the database, you will be prompted to {doc_addcomment|add a comment to this artist}, which will allow users to distinguish this entry from the other artist(s) with the same name.', {doc_addcomment => doc_link('ArtistComment')})) -%]
     [%- END -%]
-        [%- create_guideline(l('Please read the {doc_styleguide}, then provide the necessary information about the new artist below.', {doc_styleguide => doc_link('StyleGuideline', l('Style Guidelines'))})) -%]
-        [%- create_guideline(l('If one or more artists with the same name already exist in the database, you will be prompted to {doc_addcomment}, which will allow users to distinguish this entry from the other artist(s) with the same name.', {doc_addcomment => doc_link('ArtistComment', l('add a comment to this artist'))})) -%]
-        [%- create_guideline(l('Please use the Guess Case buttons to fix common style errors. (Available only if you have JavaScript enabled.)')) -%]
+    [%- create_guideline(l('Please use the Guess Case buttons to fix common style errors. (Available only if you have JavaScript enabled.)')) -%]
 [%- END -%]
 [%- WRAPPER 'forms/form.tt' moderation=1 -%]
     [%- IF form.field('confirmed').required -%]
@@ -12,19 +12,10 @@
             <p>
                 <strong class='warning'>[% l('Warning:') %]</strong>
                 [% l('You are attempting to add an artist which appears to be very similar, if not exactly the same, as these existing artists:') %]
-            </p>
-            [%- BLOCK show_dupe -%]
-                <li>[%- entity_link(dupe) -%]</li>
-            [%- END -%]
-            <ul>
-                [%- PROCESS show_dupe FOREACH dupe=dupes -%]
-            </ul>
-            <p>
-                [% l('If you are certain that you want to add this artist, then:') %]
-            </p>
+<<<<<<< HEAD:root/artist/edit_form.tt
             [%- WRAPPER 'layout/guidelines.tt' -%]
-                [%- create_guideline(l('You are required to enter a comment which allows users to distinguish this artist from the other artists with the same name, if the final artist name is identical to that of an existing artist.')) -%]
-                [%- create_guideline(l('Confirm by activating the checkbox below that you have read {doc_artistcomment}, understood how we distinguish duplicate artists, and that you know what you are doing.', {doc_artistcomment => doc_link('ArtistComment', l('ArtistComment'))})) -%]
+                [%- create_guideline(l('You are required to enter a comment which allows users to distinguish this artist from the other artists with the same name, if the final artist name is similar to an existing artist.')) -%]
+                [%- create_guideline(l('Confirm by activating the checkbox below that you have read the {doc_artistcomment|artist comment guideline}, understood how we distinguish duplicate artists, and that you know what you are doing.', {doc_artistcomment => doc_link('ArtistComment')})) -%]
                 [%- INCLUDE "forms/generic/row.tt" field=form.field("confirmed") label=l('Yes, I am sure and I know what I am doing.') -%]
             [%- END -%]
         [%- END -%]

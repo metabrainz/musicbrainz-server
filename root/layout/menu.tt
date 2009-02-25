@@ -1,36 +1,36 @@
 <ul id="menu_bar">
     <li class="first">
-        [%- doc_link('AboutMusicBrainz', l('About')) -%]
+        [%- l('{doc|About}', {doc => doc_link('AboutMusicBrainz')}) -%]
         <ul>
             <li>
-                [%- doc_link('AboutMusicBrainz', l('About MusicBrainz')) -%]
+                [%- l('{doc|About MusicBrainz}', {doc => doc_link('AboutMusicBrainz')}) -%]
             </li>
             <li>
-                [%- doc_link('MirrorServer', l('Mirrors')) -%]
+                [%- l('{doc|Mirrors}', {doc => doc_link('MirrorServer')}) -%]
             </li>
             <li>
-                [%- doc_link('MusicBrainzBio', l('People')) -%]
+                [%- l('{doc|People}', {doc => doc_link('MusicBrainzBio')}) -%]
             </li>
             <li>
-                [%- doc_link('MusicBrainzPrivacyPolicy', l('Privacy')) -%]
+                [%- l('{doc|Privacy}', {doc => doc_link('MusicBrainzPrivacyPolicy')}) -%]
             </li>
             <li>
-                [%- doc_link('MusicBrainzHistory', l('History')) -%]
+                [%- l('{doc|History}', {doc => doc_link('MusicBrainzHistory')}) -%]
             </li>
             <li>
-                [%- doc_link('MusicBrainzLicense', l('Licenses')) -%]
+                [%- l('{doc|Licenses}', {doc => doc_link('MusicBrainzLicense')}) -%]
             </li>
             <li>
-                [%- doc_link('SocialContract', l('Social Contract')) -%]
+                [%- l('{doc|Social Contract}', {doc => doc_link('SocialContract')}) -%]
             </li>
             <li>
-                [%- doc_link('Development', l('Development')) -%]
+                [%- l('{doc|Development}', {doc => doc_link('Development')}) -%]
             </li>
             <li>
-                [%- doc_link('Server Statistics', l('Server Statistics')) -%]
+                [%- l('{doc|Server Statistics}', {doc => doc_link('Server Statistics')}) -%]
             </li>
             <li>
-                [%- doc_link('MusicBrainzLogo', l('Logo')) -%]
+                [%- l('{doc|Logo}', {doc => doc_link('MusicBrainzLogo')}) -%]
             </li>
             <li>
                 <a href="[% c.uri_for('/user/elections') %]">
@@ -60,49 +60,49 @@
                 </a>
             </li>
             <li>
-                [%- doc_link('MusicBrainzPress', l('In the Press')) -%]
+                [%- l('{doc|In the Press}', {doc => doc_link('MusicBrainzPress')}) -%]
             </li>
         </ul>
     </li>
 
     <li>
-        [%- doc_link('Products', l('Products')) -%]
+        [%- l('{doc|Products}', {doc => doc_link('Products')}) -%]
         <ul>
             <li>
-                [%- doc_link('libmusicbrainz', l('libmusicbrainz')) -%]
+                [%- l('{doc|libmusicbrainz}', {doc => doc_link('libmusicbrainz')}) -%]
             </li>
             <li>
-                [%- doc_link('libtunepimp', l('libtunepimp')) -%]
+                [%- l('{doc|libtunepimp}', {doc => doc_link('libtunepimp')}) -%]
             </li>
             <li>
-                [%- doc_link('Server', l('Server')) -%]
+                [%- l('{doc|Server}', {doc => doc_link('Server')}) -%]
             </li>
             <li>
-                [%- doc_link('Database', l('Database')) -%]
+                [%- l('{doc|Database}', {doc => doc_link('Database')}) -%]
             </li>
             <li>
-                [%- doc_link('LiveDataFeed', l('LiveDataFeed')) -%]
+                [%- l('{doc|LiveDataFeed}', {doc => doc_link('LiveDataFeed')}) -%]
             </li>
             <li>
-                [%- doc_link('WebService', l('Web Service')) -%]
+                [%- l('{doc|Web Service}', {doc => doc_link('WebService')}) -%]
             </li>
             <li class="seperator">
-                [%- doc_link('FreeDBGateway', l('FreeDB Gateway')) -%]
+                [%- l('{doc|FreeDB Gateway}', {doc => doc_link('FreeDBGateway')}) -%]
             </li>
             <li>
-                [%- doc_link('MusicBrainzEnabledApplications', l('3<sup>rd</sup> Party')) -%]
+                [%- l('{doc|3<sup>rd</sup> Party}', {doc => doc_link('MusicBrainzEnabledApplications')}) -%]
             </li>
             <li>
-                [%- doc_link('ClassicTagger', l('Classic Tagger')) -%]
+                [%- l('{doc|Classic Tagger}', {doc => doc_link('ClassicTagger')}) -%]
             </li>
             <li>
-                [%- doc_link('JaikozMP3TagEditor', l('Jaikoz Tag Editor')) -%]
+                [%- l('{doc|Jaikoz Tag Editor}', {doc => doc_link('JaikozMP3TagEditor')}) -%]
             </li>
             <li>
-                [%- doc_link('Magic Tagger', l('Magic Tagger')) -%]
+                [%- l('{doc|Magic Tagger}', {doc => doc_link('Magic Tagger')}) -%]
             </li>
             <li>
-                [%- doc_link('PicardTagger', l('Picard Tagger')) -%]
+                [%- l('{doc|Picard Tagger}', {doc => doc_link('PicardTagger')}) -%]
             </li>
         </ul>
     </li>
@@ -144,10 +144,10 @@
         </ul>
     </li>
     <li>
-        [%- doc_link('HowEditingWorks', l('Editing')) -%]
+        [%- l('{doc|Editing}', {doc => doc_link('HowEditingWorks')}) -%]
         <ul>
             <li>
-                [%- doc_link('HowEditingWorks', l('About Editing')) -%]
+                [%- l('{doc|About Editing}', {doc => doc_link('HowEditingWorks')}) -%]
             </li>
                 [%- IF c.user_exists -%]
             <li>
@@ -262,25 +262,25 @@
         </li>
     [%- END -%]
     <li>
-        [%- doc_link('HowToContribute', l('Contribute')) -%]
+        [%- l('{doc|Contribute}', {doc => doc_link('HowToContribute')}) -%]
         <ul>
             <li>
-                [%- doc_link('HowToContribute', l('How to Contribute')) -%]
+                [%- l('{doc|How to Contribute}', {doc => doc_link('HowToContribute')}) -%]
             </li>
             <li>
-                [%- doc_link('CorporateSponsors', l('Sponsors')) -%]
+                [%- l('{doc|Sponsors}', {doc => doc_link('CorporateSponsors')}) -%]
             </li>
             <li>
-                [%- doc_link('HelpWanted', l('Help Wanted')) -%]
+                [%- l('{doc|Help Wanted}', {doc => doc_link('HelpWanted')}) -%]
             </li>
             <li>
-                [%- doc_link('Development', l('Development')) -%]
+                [%- l('{doc|Development}', {doc => doc_link('Development')}) -%]
             </li>
             <li>
-                [%- doc_link('Subversion', l('Subversion Access')) -%]
+                [%- l('{doc|Subversion Access}', {doc => doc_link('Subversion')}) -%]
             </li>
             <li>
-                [%- doc_link('Projects', l('<abbr title="Subversion">SVN</abbr> Modules')) -%]
+                [%- l('{doc|<abbr title="Subversion">SVN</abbr> Modules}', {doc => doc_link('Projects')}) -%]
             </li>
             <li>
                 <a href="http://bugs.musicbrainz.org/browser">
@@ -290,19 +290,19 @@
         </ul>
     </li>
     <li class="last">
-        [%- doc_link('ContactUs', l('Help')) -%]
+        [%- l('{doc|Help}', {doc => doc_link('ContactUs')}) -%]
         <ul>
             <li>
-                [%- doc_link('ContactUs', l('ContactUs')) -%]
+                [%- l('{doc|ContactUs}', {doc => doc_link('ContactUs')}) -%]
             </li>
             <li>
-                [%- doc_link('FrequentlyAskedQuestions', l('<abbr title="Frequently Asked Questions">FAQs</abbr>')) -%]
+                [%- l('{doc|<abbr title="Frequently Asked Questions">FAQs</abbr>}', {doc => doc_link('FrequentlyAskedQuestions')}) -%]
             </li>
             <li>
-                [%- doc_link('OfficialStyleGuideline', l('Style Guidelines')) -%]
+                [%- l('{doc|Style Guidelines}', {doc => doc_link('OfficialStyleGuideline')}) -%]
             </li>
             <li>
-                [%- doc_link('MailingList', l('Mailing Lists')) -%]
+                [%- l('{doc|Mailing Lists}', {doc => doc_link('MailingList')}) -%]
             </li>
             <li>
                 <a href="http://forums.musicbrainz.org">
@@ -320,7 +320,7 @@
                 </a>
             </li>
             <li>
-                [%- doc_link('CopyrightViolationNotice', l('Copyright Issues')) -%]
+                [%- l('{doc|Copyright Issues}', {doc => doc_link('CopyrightViolationNotice')}) -%]
             </li>
         </ul>
     </li>

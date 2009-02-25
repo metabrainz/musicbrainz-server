@@ -19,7 +19,7 @@
             </tr>
             <tr>
                 <th>
-                    [%- doc_link("MusicBrainzIdentifier", l("<abbr title="MusicBrainz IDentifier">MBID</abbr>")) -%]:
+                    [%- l('{doc|<abbr title="MusicBrainz IDentifier">MBID</abbr>}', {doc => doc_link('MusicBrainzIdentifier')}) -%]
                 </th>
                 <td>
                     [%- url.mbid -%]

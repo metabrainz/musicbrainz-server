@@ -16,7 +16,7 @@
             [% LAST IF loop.count > 6 %]
             <li[% IF pager.current_page == page; ' class="current"'; END %]>
                 <a href="[% c.req.uri_with( page => page ) %]">
-                    [%- page -%]
+                    &nbsp;[%- page -%]
                 </a>
             </li>
         [% END %]

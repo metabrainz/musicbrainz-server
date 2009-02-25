@@ -21,7 +21,8 @@
     </li>
     <li>
         <a href="http://digitalwest.net">
-            <img src="[% c.uri_for('/static/images/sponsors/digitalwest.png') %]" alt="[%- l('Digital West Networks Inc.') %]" title="[%- l('Digital West Networks Inc.') %]" /></a>
+            <img src="[% c.uri_for('/static/images/sponsors/digitalwest.png') %]" alt="[%- l('Digital West Networks Inc.') %]" title="[%- l('Digital West Networks Inc.') %]" />
+        </a>
     </li>
     <li>
         <a href="http://osuosl.org/">

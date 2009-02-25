@@ -4,7 +4,7 @@
         <table class="details">
             <tr>
                 <th>
-                    [%- doc_link("ArtistName", l("Artist Name")) -%]:
+                    [%- l('{name|Artist Name}', {name => doc_link("ArtistName")}) -%]:
                 </th>
                 <td>
                     [% entity_link(artist) %]
@@ -15,7 +15,7 @@
             </tr>
             <tr>
                 <th>
-                    [%- doc_link("MusicBrainzIdentifier", l("<abbr title="MusicBrainz IDentifier">MBID</abbr>")) -%]:
+                    [%- l('{mbid|<abbr title="MusicBrainz IDentifier">MBID</abbr>}', {mbid => doc_link("MusicBrainzIdentifier")}) -%]:
                 </th>
                 <td>
                     [% artist.mbid %]

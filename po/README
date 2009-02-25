@@ -24,32 +24,30 @@ Locale::gettext_pp tailored to our needs (reading from .mo files).
 
 2. Implement automatical .pot generation.
 
-This is currently the tricky part: xgettext.pl (from maketext) which
+This has been the tricky part so far: xgettext.pl (from maketext) which
 is capable of doing so, generated non-standard plurals, and xgettext
 (from GNU gettext) doesn't parse TemplateToolkit's syntax
 properly.
 
-There are two possible implementation ways (which both should be
-implemented in the long run):
+Currently, an ad-hoc .pot generation method has been implemented which
+requires Babel (http://babel.edgewall.org) and TemplateToolkit's
+Python port (checkout from svn://svn.tt2.org/tt/Template-Python/trunk)
+to work. To update the .pot file, update-messages.py file has to be
+started, everything else should happen automagically.
 
-  * Extend Locale::Maketext::Lexicon so that it can read .po files
-    with plural forms properly and also make xgettext.pl generate
-    proper plural forms. This can be done without breaking existing
-    behaviour, since L::M::L currently uses only one localization
-    function (l()) whereas proper pluralization would require a second
-    one for plural forms (ln()). Therefore everything in a l()
-    function would generate singular forms (backwards-compatible), an
-    ln() function would generate plural forms (proper gettext).
-
-  * Introduce templatetoolkit's format to GNU gettext. This is
-    probably the sanest way of all, since we could use gettext without
-    drifting too far apart from the canonical implementation. The
-    implementation might be pretty straight-forward except that it
-    will have to be implemented in C. One problem might be that
-    gettext might be slow to appear in distributions (compared to
-    CPAN) but it would only take a statically linked binary to
-    generate the .pot file once the templates change and this will
-    probably happen only everysooften.
+However, this is not really a sane implementation. Since
+Locale::Maketext::Lexicon lacks support for proper gettext
+pluralization and changing that might lead to incompatibility problems
+in the Perl community. Therefore, a TemplateToolkit parser should be
+introduced to GNU gettext. This is probably the sanest way of all
+possible, since we could use gettext without drifting too far apart
+from the canonical implementation. The implementation might be pretty
+straight-forward except that it will have to be implemented in C. A
+bison parser could help eventually. One problem might be that gettext
+might be slow to appear in distributions (compared to CPAN) but it
+would only take a statically linked binary to generate the .pot file
+once the templates change and this will probably happen only
+everysooften.
 
 Preparing the code
 ==================

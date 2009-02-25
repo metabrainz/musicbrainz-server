@@ -2,8 +2,8 @@
     [% WRAPPER "components/box.tt" header=l("Create an Account") %]
         [%- WRAPPER 'layout/guidelines.tt' -%]
             [%- create_guideline('Please fill out the fields below to create a new MusicBrainz account.') %]
-            [%- create_guideline('Before doing so, please read the {coc}', {coc => doc_link('CodeOfConduct', l('MusicBrainz Code of Conduct'))}) -%]
-            [%- create_guideline('If you have any questions, please review the {faq}, or post it to the appropriate {ml}.', {faq => doc_link('FrequentlyAskedQuestions', l('<abbr "Frequently Asked Questions">FAQ</abbr>')), ml => doc_link('MailingList', l('Mailing List'))}) -%]
+            [%- create_guideline('Before doing so, please read the {coc|MusicBrainz Code of Conduct}', {coc => doc_link('CodeOfConduct')}) -%]
+            [%- create_guideline('If you have any questions, please review the {faq|<abbr "Frequently Asked Questions">FAQ</abbr>}, or post it to the appropriate {ml|Mailing List}.', {faq => doc_link('FrequentlyAskedQuestions'), ml => doc_link('MailingList')}) -%]
         [% END %]
         [% WRAPPER "forms/form.tt" %]
             [% INCLUDE "forms/generic/row.tt" field=form.field('username') label=l("Username") %]
@@ -19,13 +19,13 @@
             [%- l('Rest assured that we will not pass your email address on to anyone, including other MusicBrainz users, without your most explicit consent. At any time you can fill in your email address if it's currently blank, remove it if it's currently filled in or change from one address to another.') %]
         </p>
         <p>
-            [%- doc_link('MusicBrainzPrivacyPolicy', l('Read on for the full MusicBrainz Privacy Policy')) -%]
+            [%- l('{doc|Read on for the full MusicBrainz Privacy Policy}', {doc => doc_link('MusicBrainzPrivacyPolicy')}) -%]
         </p>
         <h3>
             [% l('What your email address will <em>not</em> be used for:') %]
         </h3>
         <p>
-            [% l("We won't send you any newsletters, promotional mailings, etc. If you're interested in receiving information from the MusicBrainz staff and communicating with other users, {ml}.", {ml => doc_link('MailingList', l('please subscribe to our mailing lists'))}) %]
+            [% l("We won't send you any newsletters, promotional mailings, etc. If you're interested in receiving information from the MusicBrainz staff and communicating with other users, {ml|please subscribe to our mailing lists}.", {ml => doc_link('MailingList')}) %]
         </p>
         <h3>
             [%- l('What your email address <em>will</em> be used for:') -%]

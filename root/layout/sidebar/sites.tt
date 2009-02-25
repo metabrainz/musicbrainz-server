@@ -5,7 +5,7 @@
         </a>
     </li>
     <li>
-        [%- doc_link('MirrorServer', l('Find a Mirror')) -%]
+        [%- l('{doc|Find a Mirror}', {doc => doc_link('MirrorServer')}) -%]
     </li>
     <li>
         <a href="http://metabrainz.org/">

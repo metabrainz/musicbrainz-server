@@ -10,7 +10,7 @@
 <ol class="wizard_breadcrumbs">
     [% found_current = 0 %]
     [% FOR step=wizard.steps %]
-        <li class="[% found_current ? '' : 'complete' %]">[% step.name %]</li>
+        <li[% found_current ? '' : ' class="complete"' %]>[% step.name %]</li>
         [% IF step == wizard.current_step %][% found_current = 1%][% END %]
     [% END %]
 </ol>
