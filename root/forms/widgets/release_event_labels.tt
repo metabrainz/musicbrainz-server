@@ -1,0 +1,15 @@
+<table>
+    <thead>
+        <tr>
+            <th>[% l('Remove?') %]</th>
+            <th>[% l('Date') %]</th>
+            <th>[% l('Country') %]</th>
+            <th>[% l('Label') %]</th>
+            <th>[% l('Catalog Number') %]</th>
+            <th>[% l('Barcode') %]</th>
+            <th>[% l('Format') %]</th>
+        </tr>
+    <tbody>
+        [% content %]
+    </tbody>
+</table>

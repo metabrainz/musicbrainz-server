@@ -7,6 +7,8 @@
         classes.push('label');
         classes.push('required') IF required;
     END;
+
+    classes.push('hidden') IF hidden;
 -%]
 [%- IF for -%]
     <label id="label-[% form_id(for) %]" for="[% form_id(for) %]" [% class_html(classes) %]>

@@ -1,9 +1,33 @@
 [% value = '' %]
-[%- INCLUDE 'forms/input.tt' type='checkbox' field=field.sub_form.field('remove') class='release_event_remove'
-    UNLESS no_remove -%]
-[%- INCLUDE 'forms/input.tt' type='compound' field=field.sub_form.field(field.name _ '.date') class='release_event_date' -%]
-[%- INCLUDE 'forms/input.tt' type='select' field=field.sub_form.field('country') class='release_event_country' -%]
-[%- INCLUDE 'forms/input.tt' type='text' field=field.sub_form.field('label') class='release_event_label' -%]
-[%- INCLUDE 'forms/input.tt' type='text' field=field.sub_form.field('catalog') class='release_event_catalog' -%]
-[%- INCLUDE 'forms/input.tt' type='text' field=field.sub_form.field('barcode') class='release_event_barcode' -%]
-[%- INCLUDE 'forms/input.tt' type='select' field=field.sub_form.field('format') class='release_event_format' -%]
+<tr>
+    [%- UNLESS no_remove -%]
+    <td>
+        [%- INCLUDE 'forms/label.tt' hidden=1 for=field.sub_form.field('remove') label=l('Remove') %]
+        [%- INCLUDE 'forms/input.tt' type='checkbox' field=field.sub_form.field('remove') class='release_event_remove' -%]
+    </td>
+    [%- END -%]
+    <td>
+        [%- INCLUDE 'forms/label.tt' hidden=1 for=field.sub_form.field(field.name _ '.date') label=l('Date') %]
+        [%- INCLUDE 'forms/input.tt' type='compound' field=field.sub_form.field(field.name _ '.date') class='release_event_date' -%]
+    </td>
+    <td>
+        [%- INCLUDE 'forms/label.tt' hidden=1 for=field.sub_form.field('country') label=l('Country') %]
+        [%- INCLUDE 'forms/input.tt' type='select' field=field.sub_form.field('country') class='release_event_country' -%]
+    </td>
+    <td>
+        [%- INCLUDE 'forms/label.tt' hidden=1 for=field.sub_form.field('label') label=l('Label') %]
+        [%- INCLUDE 'forms/input.tt' type='text' field=field.sub_form.field('label') class='release_event_label' -%]
+    </td>
+    <td>
+        [%- INCLUDE 'forms/label.tt' hidden=1 for=field.sub_form.field('catalog') label=l('Catalog Number') %]
+        [%- INCLUDE 'forms/input.tt' type='text' field=field.sub_form.field('catalog') class='release_event_catalog' -%]
+    </td>
+    <td>
+        [%- INCLUDE 'forms/label.tt' hidden=1 for=field.sub_form.field('barcode') label=l('Barcode') %]
+        [%- INCLUDE 'forms/input.tt' type='text' field=field.sub_form.field('barcode') class='release_event_barcode' -%]
+    </td>
+    <td>
+        [%- INCLUDE 'forms/label.tt' hidden=1 for=field.sub_form.field('format') label=l('Format') %]
+        [%- INCLUDE 'forms/input.tt' type='select' field=field.sub_form.field('format') class='release_event_format' -%]
+    </td>
+</tr>
