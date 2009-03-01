@@ -49,7 +49,7 @@ sub PreInsert
 
 	my $link = MusicBrainz::Server::Link->new(
 		$self->{dbh},
-		scalar($linktype->Types),
+		scalar($linktype->types),
 	);
 
 	$link = $link->Insert($linktype, $entities, $begindate, $enddate);
@@ -62,9 +62,10 @@ sub PreInsert
 	my ($linkphrase, $rlinkphrase);
 	my $attr = MusicBrainz::Server::Attribute->new(
 		$self->{dbh},
-		scalar($linktype->Types),
+		scalar($linktype->types),
 		$link->id
 	);
+
 	if ($attr)
 	{
 		if (!defined $attr->Insert([map { $_->{value} } @$attrs]))
@@ -72,7 +73,7 @@ sub PreInsert
 			$self->SuppressInsert;
 			return;
 		}
-		($linkphrase, $rlinkphrase) = $attr->ReplaceAttributes($linktype->{linkphrase}, $linktype->{rlinkphrase});
+		($linkphrase, $rlinkphrase) = $attr->ReplaceAttributes($linktype->link_phrase, $linktype->reverse_link_phrase);
     }
 
 	if (@$entities[0]->{type} eq 'album' || @$entities[0]->{type} eq 'track')
@@ -94,31 +95,31 @@ sub PreInsert
 	    $self->artist(@$entities[0]->{obj}->id);
 	}
 
-	$self->table($link->Table);
+	$self->table($link->table);
 	$self->column("id");
 	$self->row_id($link->id);
 
 	my %new = (
-	    linkid=>$link->id,
-		linktypeid=>$linktype->{id},
-		linktypename=>$linktype->{name},
-		linktypephrase=>$linkphrase,
-		rlinktypephrase=>$rlinkphrase,
-		entity0id=>@$entities[0]->{id},
-		entity0type=>@$entities[0]->{type},
-		entity0name=>@$entities[0]->{name},
-		entity1id=>@$entities[1]->{id},
-		entity1type=>@$entities[1]->{type},
-		entity1name=>@$entities[1]->{name},
-		begindate=>$begindate,
-		enddate=>$enddate,
+	    linkid          => $link->id,
+		linktypeid      => $linktype->id,
+		linktypename    => $linktype->name,
+		linktypephrase  => $linkphrase,
+		rlinktypephrase => $rlinkphrase,
+		entity0id       => @$entities[0]->{id},
+		entity0type     => @$entities[0]->{type},
+		entity0name     => @$entities[0]->{name},
+		entity1id       => @$entities[1]->{id},
+		entity1type     => @$entities[1]->{type},
+		entity1name     => @$entities[1]->{name},
+		begindate       => $begindate,
+		enddate         => $enddate,
 	);
 	$new{url} = $url if ($url);
 
 	$self->new_data($self->ConvertHashToNew(\%new));
 
 	# finally some special ASIN URL handling (update album_amazon_asin table data)
-	if ($linktype->{id} == MusicBrainz::Server::CoverArt->asin_link_type_id($self->{dbh}) &&
+	if ($linktype->id == MusicBrainz::Server::CoverArt->asin_link_type_id($self->{dbh}) &&
 		@$entities[0]->{type} eq 'album' &&
 		@$entities[1]->{type} eq 'url')
 	{
@@ -134,7 +135,7 @@ sub PreInsert
 	}
 
     # now check to see if we need to tinker with generic cover art
-	if ($linktype->{id} == MusicBrainz::Server::CoverArt->GetCoverArtLinkTypeId($self->{dbh}) &&
+	if ($linktype->id == MusicBrainz::Server::CoverArt->GetCoverArtLinkTypeId($self->{dbh}) &&
 		@$entities[0]->{type} eq 'album' &&
 		@$entities[1]->{type} eq 'url')
 	{

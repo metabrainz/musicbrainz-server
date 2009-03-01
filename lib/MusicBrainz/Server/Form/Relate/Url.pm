@@ -54,27 +54,27 @@ sub options_type
     my $mb = new MusicBrainz;
     $mb->Login;
 
-    my $lt = new MusicBrainz::Server::LinkType($mb->{dbh}, [ $type, 'url' ]);
-    my $root = $lt->Root;
+    my $lt = new MusicBrainz::Server::LinkType($mb->dbh, [ $type, 'url' ]);
+    my $root = $lt->root;
 
-    my @options;
+    my @options = ('||', "[ Please select a relationship type ]");
 
-    push @options, ('||', "[Please select a relationship type]");
-
-    my @q = map { [$_,0] } $root;
-    while (my $l = shift @q)
+    # @nodes is a list of [ node, hierarchy level ]
+    my @nodes = ( [ $root, 0] );
+    while (my $n = shift @nodes)
     {
-        unshift @q, map { [$_,$l->[1]+1] } $l->[0]->Children;
-        next if ($l->[0]->name eq "ROOT");
-        next if ($l->[0]->id == 32); # Add CC license -- don't show here, let people go to addcc
+        my $node = $n->[0];
+        unshift @nodes, map { [ $_, $n->[1] + 1 ] } $node->children;
+        next if ($node->name eq "ROOT");
+        next if ($node->id == 32); # Add CC license -- don't show here, let people go to addcc
 
-        my $text = $l->[0]->GetLinkPhrase;
+        my $text = $node->link_phrase;
         $text =~ s/\{(\w+:)/{/;
 
         # add x times indentation like specified in the relationship type hierarchy
-        $text = ("&nbsp;&nbsp;" x $l->[1]) . $text;
+        $text = ("&nbsp;&nbsp;" x $n->[1]) . $text;
 
-        my $value = $l->[0]->id . "|" . $l->[0]->attributes;
+        my $value = $node->id . "|" . ($node->attributes || '');
 
         push @options, ($value, $text);
     }

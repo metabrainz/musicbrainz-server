@@ -1,34 +1,10 @@
-#!/usr/bin/perl -w
-# vi: set ts=4 sw=4 :
-#____________________________________________________________________________
-#
-#   MusicBrainz -- the open internet music database
-#
-#   Copyright (C) 2000 Robert Kaye
-#
-#   This program is free software; you can redistribute it and/or modify
-#   it under the terms of the GNU General Public License as published by
-#   the Free Software Foundation; either version 2 of the License, or
-#   (at your option) any later version.
-#
-#   This program is distributed in the hope that it will be useful,
-#   but WITHOUT ANY WARRANTY; without even the implied warranty of
-#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#   GNU General Public License for more details.
-#
-#   You should have received a copy of the GNU General Public License
-#   along with this program; if not, write to the Free Software
-#   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-#
-#   $Id$
-#____________________________________________________________________________
-
-use strict;
-
 package MusicBrainz::Server::Link;
+use Moose;
+extends 'TableBase';
 
 use Carp qw( croak );
-use base qw( TableBase );
+use MooseX::AttributeHelpers;
+
 require MusicBrainz::Server::LinkEntity;
 require MusicBrainz::Server::Attribute;
 require MusicBrainz::Server::URL;
@@ -36,166 +12,206 @@ require MusicBrainz::Server::Artist;
 require MusicBrainz::Server::Release;
 require MusicBrainz::Server::Track;
 
-################################################################################
-# Bare Constructor
-################################################################################
+=head1 ATTRIBUTES
 
-sub new
-{
-    my ($class, $dbh, $types) = @_;
+=head2 table
 
-    my $self = $class->SUPER::new($dbh);
+The table storing information about this link
 
-	# So far, links are always between two things.  This may change one day.
-    # if anything else other than two types are passed in, this object will
-    # be an on-the-fly object (read: const object)
-	if (defined $types && @$types == 2)
-	{
-		ref($types) eq "ARRAY" or return undef;
+=cut
 
-		MusicBrainz::Server::LinkEntity->ValidateTypes($types)
-			or return undef;
-		my @t = @$types;
-		$self->{_types} = \@t;
-		$self->{_table} = "l_" . join "_", @t;
+has 'table' => (
+    isa => 'Str',
+    is  => 'ro'
+);
+
+has 'links' => (
+    isa => 'ArrayRef',
+    is  => 'rw',
+    trigger => sub {
+        my ($self, $ids) = @_;
+
+        croak "Wrong number of IDs passed to SetIDs"
+    		unless @$ids == $self->number_of_links;
+
+    	@$self{ $self->_get_link_fields } = @$ids;
     }
+);
 
-    $self;
-}
+has 'types' => (
+    isa => 'ArrayRef',
+    is  => 'ro',
+    metaclass => 'Collection::List',
+    provides => {
+        count => 'number_of_links',
+    }
+);
 
-################################################################################
-# Properties
-################################################################################
+has 'link_type' => (
+    isa => 'Int',
+    is  => 'rw',
+);
 
-sub Table			{ $_[0]{_table} }
+has 'begin_date' => (
+    isa => 'Str',
+    is  => 'rw',
+    initarg => 'begindate',
+);
 
-# Get/id implemented by TableBase
-sub Links			{ wantarray ? @{ $_[0]{_links} } : $_[0]{_links} }
-sub Types			{ wantarray ? @{ $_[0]{_types} } : $_[0]{_types} }
-sub GetNumberOfLinks{ scalar @{ $_[0]{_types} } }
-sub _GetLinkFields	{ map { "link$_" } (0 .. $_[0]->GetNumberOfLinks-1) }
-sub GetLinkType		{ $_[0]{link_type} }
-sub SetLinkType		{ $_[0]{link_type} = $_[1] }
-# Get/SetModPending in TableBase
-
-# Set all the link IDs at once
-sub SetLinks
-{
-	my ($self, $ids) = @_;
-	croak "Wrong number of IDs passed to SetIDs"
-		unless @$ids == $self->GetNumberOfLinks;
-	$self->{_links} = [ @$ids ];
-	@$self{ $self->_GetLinkFields } = @$ids;
-}
-
-# Get the MusicBrainz::Server::LinkType object associated with this link
-sub LinkType
-{
-	my $self = shift;
-	my $l = MusicBrainz::Server::LinkType->new($self->dbh, $self->{_types});
-	$l->newFromId($self->GetLinkType);
-}
-
-# Get the linked entities - all of them (as an array or array ref)
-sub Entities
-{
-	my $self = shift;
-	my @e;
-	push @e, $self->Entity(0);
-	push @e, $self->Entity(1);
-	wantarray ? @e : \@e;
-}
-
-# Get the linked entities - one at a time
-sub Entity
-{
-	my ($self, $index) = @_;
-	croak "No index passed" unless defined $index;
-	croak "Bad index passed" unless $index >= 0 and $index < $self->GetNumberOfLinks;
-
-	return MusicBrainz::Server::LinkEntity->newFromTypeAndId(
-		$self->{dbh},
-		$self->{_types}->[$index],
-		$self->{'link' . $index},
-	);
-}
-
-sub begin_date
-{
-    my ($self, $new_date) = @_;
-
-    if (defined $new_date) { $self->{begindate} = $new_date; }
-    return defined $self->{begindate} ? $self->{begindate} : '';
-}
+has 'end_date' => (
+    isa => 'Str',
+    is  => 'rw',
+    initarg => 'enddate',
+);
 
 sub begin_date_ymd
 {
     my $self = shift;
 
-    return ('', '', '') unless $self->begin_date();
+    return ('', '', '') unless $self->begin_date;
     return map { $_ == 0 ? '' : $_ } split(m/-/, $self->begin_date);
-}
-
-sub end_date
-{
-    my ($self, $new_date) = @_;
-
-    if (defined $new_date) { $self->{enddate} = $new_date; }
-    return defined $self->{enddate} ? $self->{enddate} : '';
 }
 
 sub end_date_ymd
 {
     my $self = shift;
-    
-    return ('', '', '') unless $self->end_date();
+
+    return ('', '', '') unless $self->end_date;
     return map { $_ == 0 ? '' : $_ } split(m/-/, $self->end_date);
 }
 
-################################################################################
-# Data Retrieval
-################################################################################
+=head1 METHODS
 
-sub _new_from_row
-{
-	my $this = shift;
-	my $self = $this->SUPER::_new_from_row(@_)
-		or return;
+=head2 newFromId
 
-	while (my ($k, $v) = each %$this)
-	{
-		$self->{$k} = $v
-			if substr($k, 0, 1) eq "_";
-	}
-	$self->{dbh} = $this->dbh;
-
-	my $n = scalar @{ $self->{_types} };
-	$self->{_links} = [ map { $self->{"link$_"} } 0..$n-1 ];
-
-	bless $self, ref($this) || $this;
-}
+=cut
 
 sub newFromId
 {
 	my ($self, $id) = @_;
 	my $sql = Sql->new($self->dbh);
+	my $table = $self->table;
 	my $row = $sql->SelectSingleRowHash(
-		"SELECT * FROM $self->{_table} WHERE id = ?",
+		"SELECT * FROM $table WHERE id = ?",
 		$id,
 	);
 	$self->_new_from_row($row);
 }
 
+=head2 newFromMBId
+
+=cut
+
 sub newFromMBId
 {
 	my ($self, $id) = @_;
 	my $sql = Sql->new($self->dbh);
+	my $table = $self->table;
 	my $row = $sql->SelectSingleRowHash(
-		"SELECT * FROM $self->{_table} WHERE mbid = ?",
+		"SELECT * FROM $table WHERE mbid = ?",
 		$id,
 	);
 	$self->_new_from_row($row);
 }
+
+sub _new_from_row
+{
+    my ($self, $dbh, $row) = @_;
+    my $new = $self->SUPER::_new_from_row($dbh, $row);
+
+    $new->{links} = $self->links;
+    $new->{types} = $self->types;
+    $new->{table} = $self->table;
+
+    return $new;
+}
+
+sub BUILDARGS
+{
+    my $self = shift;
+    my $dbh  = shift;;
+
+    if ((scalar @_ == 1 && ref $_[0] eq 'HASH') || scalar @_ == 0)
+    {
+        # The user has called with a hash reference, so use
+        # a normal Moose constructor
+        my $args = shift || {};
+        return {
+            dbh => $dbh,
+            %$args,
+        };
+    }
+    else
+    {
+        # So far, links are always between two things.  This may change one day.
+        my $types = shift;
+        ref($types) eq "ARRAY" or die "$types must be an array reference";
+	    scalar @$types == 2 or die "$types must have length 2";
+
+        MusicBrainz::Server::LinkEntity->ValidateTypes($types)
+	    	or die "$types contains invalid types";
+
+        return {
+            dbh   => $dbh,
+            types => $types,
+            table => "l_" . join "_", @$types,
+        };
+    }
+}
+
+sub _get_link_fields
+{
+    my $self = shift;
+    map { "link$_" } (0 .. ($self->number_of_links - 1));
+}
+
+=head2 link_type
+
+Get the MusicBrainz::Server::LinkType object associated with this link
+
+=cut
+
+sub link_type
+{
+	my $self = shift;
+	my $l = MusicBrainz::Server::LinkType->new($self->dbh, $self->types);
+	$l->newFromId($self->link_type);
+}
+
+=head2 entities
+
+Get all the linked entities (as an array ref)
+
+=cut
+
+sub entities
+{
+	my $self = shift;
+	return [ map { $self->entity($_) } (0 .. 1) ];
+}
+
+=head2 entity $index
+
+Get a linked entities by index C<$index>
+
+=cut
+
+sub entity
+{
+	my ($self, $index) = @_;
+	croak "No index passed" unless defined $index;
+	croak "Bad index passed" unless $index >= 0 and $index < $self->number_of_links;
+
+	return MusicBrainz::Server::LinkEntity->newFromTypeAndId(
+		$self->dbh,
+		$self->types->[$index],
+		$self->{'link' . $index},
+	);
+}
+
+################################################################################
+# Data Retrieval
+################################################################################
 
 sub FindLinkedEntities
 {
@@ -425,30 +441,32 @@ sub Exists
 
 	my $datewhere = "";
 
-	my @links = $self->Links;
-    my @args = ($self->GetLinkType, @links);
-    if ($self->begin_date() =~ /\S/)
+	my @links = @{ $self->links };
+    my @args = ($self->link_type, @links);
+    if ($self->begin_date =~ /\S/)
 	{
 		$datewhere .= " AND begindate = ?";
-		push @args, $self->begin_date();
+		push @args, $self->begin_date;
 	}
-    if ($self->end_date() =~ /\S/)
+    if ($self->end_date =~ /\S/)
 	{
 		$datewhere .= " AND enddate = ?";
-		push @args, $self->end_date();
+		push @args, $self->end_date;
 	}
 
+    my $table = $self->table;
 	my $row = $sql->SelectSingleRowHash(
-		"SELECT * FROM $self->{_table} WHERE link_type = ? AND link0 = ? AND link1 = ? $datewhere",
+		"SELECT * FROM $table WHERE link_type = ? AND link0 = ? AND link1 = ? $datewhere",
 		@args
 	);
 
     # If both entity types are the same, test the inverse as well.
-	my @types = $self->Types;
+	my @types = $self->types;
 	if (!$row && $types[0] eq $types[1])
 	{
+	    my $table = $self->table;
 		$row = $sql->SelectSingleRowHash(
-			"SELECT * FROM $self->{_table} WHERE link_type = ? AND link1 = ? AND link0 = ? $datewhere",
+			"SELECT * FROM $self->$table WHERE link_type = ? AND link1 = ? AND link0 = ? $datewhere",
 			@args
 		);
 	}
@@ -472,18 +490,18 @@ sub Insert
 	if ($$entities[1]->{type} eq 'url' and not $entities->[1]{'id'})
 	{
 	     my $urlobj = MusicBrainz::Server::URL->new($self->dbh);
-		 
+
 		 $urlobj->Insert($$entities[1]->{url}, $$entities[1]->{desc}) 
 			 or return undef;
-		
+
 		 $$entities[1]->{obj} = $urlobj;
 		 $$entities[1]->{id} = $urlobj->id;
 	}
 
 	# Make a $self which contains all of the desired properties
-	$self = $self->new($self->dbh, scalar($link_type->Types));
-	$self->SetLinkType($link_type->id);
-	$self->SetLinks([ map { $_->{id} } @$entities ]);
+	$self = $self->new($self->dbh, $link_type->types);
+	$self->link_type($link_type->id);
+	$self->links([ map { $_->{id} } @$entities ]);
 	$self->begin_date($begindate);
 	$self->end_date($enddate);
 
@@ -491,19 +509,20 @@ sub Insert
 	    if ($self->Exists);
 
 	my $sql = Sql->new($self->dbh);
+	my $table = $self->table;
 	$sql->Do(
-		"INSERT INTO $self->{_table} (link_type"
-		. (join "", map { ", $_" } $self->_GetLinkFields)
+		"INSERT INTO $table (link_type"
+		. (join "", map { ", $_" } $self->_get_link_fields)
 		. ", begindate, enddate) VALUES (?"
-		. (", ?" x $self->GetNumberOfLinks)
+		. (", ?" x $self->number_of_links)
 		. ", ?, ?)",
-		$self->GetLinkType,
-		$self->Links,
+		$self->link_type,
+		@{ $self->links },
 		$begindate || undef,
 		$enddate || undef,
 	);
 
-	$self->id($sql->GetLastInsertId($self->{_table}));
+	$self->id($sql->GetLastInsertId($self->table));
 	$self->has_mod_pending(0);
 
 	$self;
@@ -514,8 +533,9 @@ sub Update
 	my $self = shift;
 
 	my $sql = Sql->new($self->dbh);
+	my $table = $self->table;
 	$sql->Do(
-		"UPDATE $self->{_table} SET link0 = ?, link1 = ?, begindate = ?, enddate = ?, link_type = ? where id = ?",
+		"UPDATE $table SET link0 = ?, link1 = ?, begindate = ?, enddate = ?, link_type = ? where id = ?",
 		$self->Links,
 		$self->begin_date || undef,
 		$self->end_date || undef,
@@ -531,8 +551,9 @@ sub Delete
 	my $self = shift;
 
 	my $sql = Sql->new($self->dbh);
+	my $table = $self->table;
 	$sql->Do(
-		"DELETE FROM $self->{_table} WHERE id = ?",
+		"DELETE FROM $table WHERE id = ?",
 		$self->id,
 	);
 
@@ -714,8 +735,8 @@ sub _Remove
 	foreach my $row (@tables)
 	{
 		my ($table, $type1, $type2, $link) = @$row;
-		$self->{_table} = $table;
-		$self->{_types} = [$type1, $type2];
+		$self->table($table);
+		$self->types([$type1, $type2]);
 		my $rows = $sql->SelectListOfHashes("SELECT id, link0, link1 FROM $table WHERE $link = ?", $entityid);
 		foreach my $row (@$rows)
 		{
@@ -733,7 +754,7 @@ sub _Remove
 sub _link_type_matches_entities
 {
 	my ($link_type, $entities) = @_;
-	my $a = join ",", $link_type->Types;
+	my $a = join ",", @{ $link_type->types };
 	my $b = join ",", map { $_->{type} } @{$entities};
 	return if $a eq $b;
 	local $Carp::CarpLevel = $Carp::CarpLevel + 1;
