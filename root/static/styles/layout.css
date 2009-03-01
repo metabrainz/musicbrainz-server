@@ -400,6 +400,7 @@ hr {
     display: block;
     background: none;
     color: black;
+    z-index: 9;
 }
 
 #menu_bar li a:hover,
@@ -413,6 +414,7 @@ hr {
     left: -999em;
     background: #F0EFFF;
     border: 1px solid black;
+    z-index: 9;
 }
 
 #menu_bar li ul li {

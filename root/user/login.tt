@@ -8,7 +8,7 @@
             [% INCLUDE "forms/generic/row.tt" field=form.field('password') label=l("Password") %]
             [% INCLUDE "forms/submit.tt" label="Log In" %]
             [% INCLUDE "forms/generic/row.tt" field=form.field('remember_me') label=l("Log in permanently") %]
-            [% INCLUDE "forms/generic/row.tt" field=form.field('single_ip') label=l("Only from this <abbr title="Internet Protocol">IP</abbr> address") %]
+            [% INCLUDE "forms/generic/row.tt" field=form.field('single_ip') label=l('Only from this <abbr title="Internet Protocol">IP</abbr> address') %]
         [% END %]
         <ul>
             <li>
