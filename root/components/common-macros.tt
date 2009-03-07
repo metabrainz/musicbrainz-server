@@ -67,17 +67,16 @@ END; %]
     END -%]
 
 [%# Take type and return pluralized word form, avoids problems with '|% type %|s' #%]
-[%- MACRO get_plural_type(entity) BLOCK %]
-  [% SWITCH entity %]
-    [%   CASE release %]
-           [% l('releases') %]
-    [%   CASE [ artist ] %]
-           [% l('artists') %]
-    [%   CASE [ artist ] %]
-           [% l('labels') %]
-    [%   CASE [ artist ] %]
-           [% l('tracks') %]
-    [% CASE DEFAULT %]
-           [% l('Error: Unknown Type') %]
-    [% END %]
-[% END %]
+[%- MACRO get_plural_type(entity)
+    SWITCH entity;
+        CASE 'release';
+            l('releases');
+        CASE 'artist';
+            l('artists');
+        CASE 'label';
+            l('labels');
+        CASE 'track';
+            l('tracks');
+        CASE DEFAULT;
+            l('Error: Unknown Type');
+    END %]
