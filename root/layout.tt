@@ -28,17 +28,18 @@
         <link rel="search" type="application/opensearchdescription+xml" title="[%- l("MusicBrainz: Track") -%]" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_track.xml') %]" />
     </head>
     <body>
+        [%- no_sidebar = c.user_exists AND c.user.preferences.get('nosidebar') -%]
         <iframe name="tagger-iframe" id="tagger-iframe"></iframe>
         [%- INCLUDE "layout/header.tt" -%]
         <div id="container">
-        <div id="content">
+        <div id="content" [% 'style="margin-left: 0"' IF no_sidebar %]>
             [%- IF c.flash.ok -%]
                 <div class="status_ok">[% c.flash.ok %]</div>
             [%- END -%]
             [%- content -%]
         </div>
         </div>
-        [%- INCLUDE "layout/sidebar.tt" -%]
+        [%- INCLUDE "layout/sidebar.tt" UNLESS no_sidebar -%]
         [%- INCLUDE "layout/footer-bar.tt" -%]
     </body>
 </html>
