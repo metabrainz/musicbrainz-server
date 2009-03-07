@@ -2,7 +2,7 @@
     [% WRAPPER "components/box.tt" header=l("Error") %]
         [% content %]
         <p>
-            [% l('For assistance in writing effective search queries, try reading the {syntax|text search syntax} documentation.', {syntax => doc_link('TextSearchSyntax')} %]
+            [% l('For assistance in writing effective search queries, try reading the {syntax|text search syntax} documentation.', {syntax => doc_link('TextSearchSyntax')}) %]
         </p>
     [% END %]
     [% INCLUDE "search/form.tt" %]
