@@ -1,7 +1,7 @@
 [% WRAPPER 'artist/layout.tt' title=l('Check Duplicates') %]
 [%# i18n NOTE: Plural text %]
     [% WRAPPER 'components/box.tt' header=l('Possible duplicate Release(s) found') %]
-        [% INCLUDE 'addrelease/bread_crumbs.tt' %]
+        [% INCLUDE 'release_editor/bread_crumbs.tt' %]
         <p>
 [%# i18n NOTE: Plural text %]
             [% l('We found the following similar Release(s) already in our database:') %]
@@ -16,7 +16,7 @@
             show_artists=1
             FOR release=similar %]
         [%- WRAPPER 'forms/form.tt' %]
-            [% INCLUDE 'addrelease/submit.tt' %]
+            [% INCLUDE 'release_editor/submit.tt' %]
         [% END %]
     [% END %]
 [% END %]

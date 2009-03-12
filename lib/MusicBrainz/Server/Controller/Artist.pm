@@ -352,6 +352,19 @@ sub edit : Chained('artist') Form
     $c->response->redirect($c->entity_url($self->entity, 'show'));
 }
 
+=head2 add_release
+
+Add a new release to this artist.
+
+=cut
+
+sub add_release : Chained('artist')
+{
+    my ($self, $c) = @_;
+    $c->forward('/user/login');
+    $c->forward('/release_editor/add_release');
+}
+
 =head2 merge
 
 Merge 2 artists into a single artist

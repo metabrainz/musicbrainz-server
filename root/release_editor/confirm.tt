@@ -1,6 +1,6 @@
 [%- WRAPPER 'artist/layout.tt' title=l('Confirm Add Release') -%]
     [%- WRAPPER 'components/box.tt' header=l('Enter edit') -%]
-        [%- INCLUDE 'addrelease/bread_crumbs.tt' -%]
+        [%- INCLUDE 'release_editor/bread_crumbs.tt' -%]
         [%- WRAPPER 'forms/form.tt' quiet=1 -%]
             [%- INCLUDE 'forms/edit-note.tt' -%]
             [%- WRAPPER 'forms/blank_row.tt' %]

@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Controller::AddRelease;
+package MusicBrainz::Server::Controller::ReleaseEditor;
 
 use strict;
 use warnings;
@@ -6,9 +6,11 @@ use warnings;
 use base 'MusicBrainz::Server::Controller';
 
 use MusicBrainz::Server::Wizard;
-use MusicBrainz::Server::Wizards::AddRelease;
-use MusicBrainz::Server::Wizards::AddRelease::ReleaseEvent;
-use MusicBrainz::Server::Wizards::AddRelease::Track;
+use MusicBrainz::Server::Wizards::ReleaseEditor;
+use MusicBrainz::Server::Wizards::ReleaseEditor::ReleaseEvent;
+use MusicBrainz::Server::Wizards::ReleaseEditor::Track;
+
+__PACKAGE__->config->{namespace} = 'release_editor';
 
 =head2 wizard
 
@@ -16,10 +18,11 @@ Start the wizard
 
 =cut
 
-sub wizard : Chained('/artist/artist') PathPart('add_release') CaptureArgs(0)
+sub wizard : Chained('/') PathPart('release_editor') CaptureArgs(1)
 {
-    my ($self, $c) = @_;
+    my ($self, $c, $wizard_index) = @_;
     $c->forward('/user/login');
+    $c->stash->{wizard_index} = $wizard_index;
 
     if ($c->req->params->{cancel})
     {
@@ -39,6 +42,7 @@ sub wizard : Chained('/artist/artist') PathPart('add_release') CaptureArgs(0)
             'confirm'          => { name => 'Confirm/Preview' },
         ]
     );
+    $c->stash->{artist} = $self->_data($c)->artist;
 }
 
 =head2 track_count
@@ -50,8 +54,7 @@ sucessful submission).
 
 =cut
 
-sub track_count : Chained('wizard') PathPart
-                  Form('AddRelease::TrackCount')
+sub track_count : Chained('wizard') Form('AddRelease::TrackCount')
 {
     my ($self, $c) = @_;
     $c->stash->{wizard}->current_step_index(0);
@@ -81,8 +84,7 @@ sub track_count : Chained('wizard') PathPart
     $self->_progress($c);
 }
 
-sub release_data : Chained('wizard') PathPart
-                   Form('AddRelease::Tracks')
+sub release_data : Chained('wizard') Form('AddRelease::Tracks')
 {
     my ($self, $c) = @_;
     $c->stash->{wizard}->current_step_index(1);
@@ -110,7 +112,7 @@ sub release_data : Chained('wizard') PathPart
     $self->_progress($c);
 }
 
-sub check_duplicates : Chained('wizard') PathPart
+sub check_duplicates : Chained('wizard')
 {
     my ($self, $c) = @_;
     $c->stash->{wizard}->current_step_index(2);
@@ -144,8 +146,7 @@ sub check_duplicates : Chained('wizard') PathPart
     $self->_progress($c);
 }
 
-sub confirm_artists : Chained('wizard') PathPart
-                      Form('Artist::Create')
+sub confirm_artists : Chained('wizard') Form('Artist::Create')
 {
     my ($self, $c) = @_;
     $c->stash->{wizard}->current_step_index(3);
@@ -182,8 +183,7 @@ sub confirm_artists : Chained('wizard') PathPart
     $self->_progress($c);
 }
 
-sub confirm_labels : Chained('wizard') PathPart
-                      Form('Label::Create')
+sub confirm_labels : Chained('wizard') Form('Label::Create')
 {
     my ($self, $c) = @_;
     $c->stash->{wizard}->current_step_index(4);
@@ -219,7 +219,7 @@ sub confirm_labels : Chained('wizard') PathPart
     $self->_progress($c);
 }
 
-sub confirm : Chained('wizard') PathPart Form('Confirm')
+sub confirm : Chained('wizard') Form('Confirm')
 {
     my ($self, $c) = @_;
 
@@ -299,6 +299,29 @@ sub confirm : Chained('wizard') PathPart Form('Confirm')
     $c->response->redirect($c->uri_for('/release', $add_mods[0]->row_id));
 }
 
+=head2 add_release
+
+Private method that other controllers can forward to, in order to
+begin adding a new release to an artist.
+
+Requries $c->stash->{artist} to be set to a MusicBrainz::Server::Artist
+instance.
+
+=cut
+
+sub add_release : Private
+{
+    my ($self, $c) = @_;
+
+    $c->stash->{wizard_index} = time;
+
+    my $data = $self->_data($c);
+    $data->artist($c->stash->{artist});
+    $self->_data($c, $data);
+
+    $self->_redirect_to_step($c, 'track_count');
+}
+
 =head2 _delete_wizard
 
 Clear the current wizard from the session
@@ -308,7 +331,9 @@ Clear the current wizard from the session
 sub _delete_wizard : Private
 {
     my ($self, $c) = @_;
-    delete $c->session->{wizard};
+
+    my $index = $c->stash->{wizard_index};
+    delete $c->session->{"release_editor_$index"};
 }
 
 =head2 _progress
@@ -337,10 +362,8 @@ Redirect to a specific step
 sub _redirect_to_step
 {
     my ($self, $c, $step) = @_;
-    my $artist = $c->stash->{artist};
 
-    $c->response->redirect(
-        $c->uri_for('/artist', $artist->mbid, 'add_release', $step));
+    $c->response->redirect($c->uri_for('/release_editor', $c->stash->{wizard_index}, $step));
     $c->detach;
 }
 
@@ -355,18 +378,19 @@ sub _data
     my $self = shift;
     my $c    = shift;
 
-    my $artist  = $c->stash->{artist};
+    my $artist = $c->stash->{artist};
     my $data;
+    my $index  = $c->stash->{wizard_index};
 
     if (@_)
     {
         $data = shift;
         $data->artist->dbh(undef);
-        $c->session->{add_release}->{$artist->id} = $data->pack;
+        $c->session->{"release_editor_$index"} = $data->pack;
     }
     else
     {
-        my $from_session = $c->session->{add_release}->{$artist->id};
+        my $from_session = $c->session->{"release_editor_$index"};
         $data = defined $from_session
             ? MusicBrainz::Server::Wizards::AddRelease->unpack($from_session)
             : MusicBrainz::Server::Wizards::AddRelease->new(

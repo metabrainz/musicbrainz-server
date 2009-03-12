@@ -132,6 +132,7 @@ sub find_similar_releases
 {
     my ($self, $artist, $release_title, $track_count) = @_;
 
+    $artist->dbh($self->dbh);
     my @possible = $artist->has_release($release_title, .8);
     my @similar  = grep {
         $_->LoadFromId;

@@ -1,6 +1,6 @@
 [% WRAPPER 'artist/layout.tt' title=l('Confirm Artist') %]
     [% WRAPPER 'components/box.tt' header=l('Confirm Artist') %]
-        [% INCLUDE 'addrelease/bread_crumbs.tt' %]
+        [% INCLUDE 'release_editor/bread_crumbs.tt' %]
         <p>
             [% l('Please confirm the artist <strong>{artist}</strong>', { artist => entity_link(confirming) }) %]
         </p>
