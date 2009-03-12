@@ -325,6 +325,68 @@ sub add_release : Private
     $self->_redirect_to_step($c, 'track_count');
 }
 
+=head2 duplicate_release
+
+Copy a release from the stash into the release editor, and allow the user
+to create a new release.
+
+Requires $c->stash->{release} to be set to the MusicBrainz::Server::Release
+to duplicate.
+
+=cut
+
+sub duplicate_release : Private
+{
+    my ($self, $c) = @_;
+
+    $c->stash->{wizard_index} = time;
+    my $data = $self->_data($c);
+
+    my $artist  = $c->stash->{artist};
+    my $release = $c->stash->{release};
+    my $events  = $c->stash->{release_events};
+    my $tracks  = $c->stash->{tracks};
+
+    $data->artist($artist);
+
+    # Release
+    $data->name($release->name);
+    $data->release_type($release->release_type);
+    $data->release_status($release->release_status);
+    $data->language($release->language->id);
+    $data->script($release->script->id);
+
+    # Tracks
+    for my $track (@$tracks)
+    {
+        $data->add_track(MusicBrainz::Server::Wizards::ReleaseEditor::Track->new(
+            artist_id => $track->artist->id,
+            artist    => $track->artist->name,
+            sequence  => $track->sequence,
+            duration  => $track->length,
+            name      => $track->name,
+        ));
+    }
+
+    # Release Events
+    for my $event (@$events)
+    {
+        $data->add_release_event(MusicBrainz::Server::Wizards::ReleaseEditor::ReleaseEvent->new(
+            label    => $event->label->name,
+            label_id => $event->label->id,
+            barcode  => $event->barcode,
+            format   => $event->format,
+            catno    => $event->cat_no,
+            country  => $event->country,
+            date     => $event->sort_date,
+        ));
+    }
+
+    $self->_data($c, $data);
+
+    $self->_redirect_to_step($c, 'release_data');
+}
+
 =head2 _delete_wizard
 
 Clear the current wizard from the session

@@ -7,6 +7,7 @@
         { link => c.entity_url(release, 'move'), text => l('Move') },
         { link => c.entity_url(release, 'edit_title'), text => l('Edit Title') },
         { link => c.entity_url(release, 'remove'), text => l('Remove') },
+        { link => c.entity_url(release, 'duplicate'), text => l('Duplicate') },
         ] -%]
         [% INCLUDE "components/piped-list.tt" caption=l('Edit:') list=edit_links %]
     [%- ELSE -%]
