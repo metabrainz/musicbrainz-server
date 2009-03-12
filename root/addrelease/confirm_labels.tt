@@ -11,5 +11,6 @@
         </p>
         [% INCLUDE "components/search.tt" entities=labels search_label=l('Label') %]
     [% END %]
-    [%- INCLUDE 'label/edit_form.tt' form=create_label -%]
+    [%- INCLUDE 'label/edit_form.tt' form=create_label
+        WRAPPER 'components/box.tt' header=l('Add New Label') -%]
 [% END %]
