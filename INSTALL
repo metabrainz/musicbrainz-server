@@ -30,11 +30,11 @@ Getting going
 
 1) Make a checkout of the code.
 
-    svn co http://svn.musicbrainz.org/mb_server/branches/TemplateToolkit mb_server-tt
+    svn co http://svn.musicbrainz.org/mb_server/trunk mb_server
 	
 2) Configure the server
 
-	cd mb_server-tt
+	cd mb_server
 	cp lib/DBDefs.pm.default lib/DBDefs.pm
 	cp lib/MusicBrainz/Server.pm.default lib/MusicBrainz/Server.pm
 	
@@ -95,7 +95,7 @@ Getting going
 	If you would like to have the /doc pages load properly on a RT_STANDALONE installation, follow 
 	these steps:
 
-	       cd <mb_server-tt>/root/static/wikidocs
+	       cd <mb_server>/root/static/wikidocs
 	       curl http://musicbrainz.org/generated/wikitrans-index > index.txt
 
 	After this, the documentation index should be loadable.
