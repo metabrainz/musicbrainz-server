@@ -1,5 +1,7 @@
 package TableBase;
 use Moose;
+use MooseX::Storage;
+with Storage;
 
 use DBDefs;
 use Encode qw( decode );
@@ -52,7 +54,8 @@ The database handle that this object was initialized with.
 =cut
 
 has 'dbh' => (
-	is => 'rw'
+	is => 'rw',
+	traits => [ 'DoNotSerialize' ],
 );
 
 =head2 id

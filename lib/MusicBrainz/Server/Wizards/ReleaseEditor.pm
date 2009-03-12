@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Wizards::AddRelease;
+package MusicBrainz::Server::Wizards::ReleaseEditor;
 use Moose;
 use MooseX::AttributeHelpers;
 use MooseX::Storage;
@@ -16,6 +16,11 @@ has 'name' => (
 has 'artist' => (
     is => 'rw',
     required => 1,
+);
+
+has 'id' => (
+    isa => 'Int',
+    is  => 'rw',
 );
 
 has 'tracks' => (

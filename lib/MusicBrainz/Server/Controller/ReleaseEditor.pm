@@ -66,12 +66,11 @@ sub track_count : Chained('wizard') Form('AddRelease::TrackCount')
     my $artist = $c->stash->{artist};
     my $data   = $self->_data($c);
 
-    $data->artist($artist);
     $data->clear_tracks;
     for (1 .. $self->form->value('track_count'))
     {
         $data->add_track(
-            MusicBrainz::Server::Wizards::AddRelease::Track->new(
+            MusicBrainz::Server::Wizards::ReleaseEditor::Track->new(
                 artist    => $artist->name,
                 artist_id => $artist->id,
                 sequence  => $_,
@@ -80,7 +79,7 @@ sub track_count : Chained('wizard') Form('AddRelease::TrackCount')
     }
 
     $data->clear_release_events;
-    $data->add_release_event(MusicBrainz::Server::Wizards::AddRelease::ReleaseEvent->new);
+    $data->add_release_event(MusicBrainz::Server::Wizards::ReleaseEditor::ReleaseEvent->new);
 
     $self->_data($c, $data);
     $self->_progress($c);
@@ -100,7 +99,7 @@ sub release_data : Chained('wizard') Form('AddRelease::Tracks')
 
     if ($form->value('more_events'))
     {
-        $data->add_release_event(MusicBrainz::Server::Wizards::AddRelease::ReleaseEvent->new);
+        $data->add_release_event(MusicBrainz::Server::Wizards::ReleaseEditor::ReleaseEvent->new);
         $form->add_events(1);
         $self->_data($c, $data);
 
@@ -382,7 +381,6 @@ sub _data
     my $self = shift;
     my $c    = shift;
 
-    my $artist = $c->stash->{artist};
     my $data;
     my $index  = $c->stash->{wizard_index};
 
@@ -396,8 +394,8 @@ sub _data
     {
         my $from_session = $c->session->{"release_editor_$index"};
         $data = defined $from_session
-            ? MusicBrainz::Server::Wizards::AddRelease->unpack($from_session)
-            : MusicBrainz::Server::Wizards::AddRelease->new(
+            ? MusicBrainz::Server::Wizards::ReleaseEditor->unpack($from_session)
+            : MusicBrainz::Server::Wizards::ReleaseEditor->new(
                 artist => $c->stash->{artist},
             );
     }

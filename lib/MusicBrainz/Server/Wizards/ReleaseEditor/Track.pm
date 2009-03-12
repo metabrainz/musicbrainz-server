@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Wizards::AddRelease::Track;
+package MusicBrainz::Server::Wizards::ReleaseEditor::Track;
 use Moose;
 use MooseX::Storage;
 
@@ -6,6 +6,11 @@ with Storage;
 
 has 'name' => (
     isa => 'Str',
+    is  => 'rw',
+);
+
+has 'id' => (
+    isa => 'Int',
     is  => 'rw',
 );
 

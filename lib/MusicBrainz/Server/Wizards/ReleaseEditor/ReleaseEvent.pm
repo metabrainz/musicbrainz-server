@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Wizards::AddRelease::ReleaseEvent;
+package MusicBrainz::Server::Wizards::ReleaseEditor::ReleaseEvent;
 use Moose;
 use MooseX::Storage;
 
