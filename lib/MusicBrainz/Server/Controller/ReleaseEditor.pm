@@ -42,7 +42,9 @@ sub wizard : Chained('/') PathPart('release_editor') CaptureArgs(1)
             'confirm'          => { name => 'Confirm/Preview' },
         ]
     );
+
     $c->stash->{artist} = $self->_data($c)->artist;
+    $c->stash->{artist}->dbh($c->mb->dbh);
 }
 
 =head2 track_count
@@ -207,7 +209,7 @@ sub confirm_labels : Chained('wizard') Form('Label::Create')
 
     if (!defined $label)
     {
-        return unless exists $c->query->params->{do_add_label} &&
+        return unless exists $c->req->params->{do_add_label} &&
             $self->form->validate($c->req->params);
         $label = $self->form->create;
     }
@@ -226,6 +228,8 @@ sub confirm : Chained('wizard') Form('Confirm')
     my $data = $self->_data($c);
 
     $c->stash->{release} = $data->to_release;
+    $c->stash->{release}->dbh($c->mb->dbh);
+
     $c->stash->{tracks}  = [ map { $_->to_track } @{ $data->accepted_tracks } ];
     $c->stash->{release_events}  = [ map { $_->to_event } @{ $data->accepted_release_events } ];
 
