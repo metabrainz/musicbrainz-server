@@ -371,15 +371,21 @@ sub duplicate_release : Private
     # Release Events
     for my $event (@$events)
     {
-        $data->add_release_event(MusicBrainz::Server::Wizards::ReleaseEditor::ReleaseEvent->new(
-            label    => $event->label->name,
-            label_id => $event->label->id,
+        my $re = MusicBrainz::Server::Wizards::ReleaseEditor::ReleaseEvent->new(
             barcode  => $event->barcode,
             format   => $event->format,
             catno    => $event->cat_no,
             country  => $event->country,
             date     => $event->sort_date,
-        ));
+        );
+
+        if($event->label->name)
+        {
+            $re->label($event->label->name);
+            $re->label_id($event->label->id);
+        }
+
+        $data->add_release_event($re);
     }
 
     $self->_data($c, $data);
