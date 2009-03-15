@@ -81,9 +81,9 @@ Getting going
 		
 			ftp://ftp.musicbrainz.org/pub/musicbrainz/data/fullexport
 		
-		To get going, all you need is the mbdump.tar.bz2 archive, but you can grab whichever dumps
-		suit your needs. Assuming the dumps have been downloaded to `/tmp/dumps/' you can then
-		import with:
+		To get going, you need at least the mbdump.tar.bz2 and mbdump-derived.tar.bz2 archives,
+		but you can grab whichever dumps suit your needs. Assuming the dumps have been downloaded
+		to `/tmp/dumps/' you can then import with:
 		
 			./admin/InitDb.pl --createdb --import /tmp/dumps/mbdump*.tar.bz2 --echo
 			
