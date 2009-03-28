@@ -650,4 +650,39 @@ begin
 end;
 ' language 'plpgsql';
 
+
+--'-----------------------------------------------------------------------------------
+-- Extract release type and status for the attributes array
+--'-----------------------------------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION mb_release_type(attrs integer[])
+RETURNS integer AS $$
+DECLARE
+    i integer := 2;
+BEGIN
+    WHILE attrs[i] IS NOT NULL LOOP
+        IF attrs[i] < 100 THEN
+            RETURN attrs[i];
+        END IF;
+       i := i + 1;
+    END LOOP;
+    RETURN NULL;
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION mb_release_status(attrs integer[])
+RETURNS integer AS $$
+DECLARE
+    i integer := 2;
+BEGIN
+    WHILE attrs[i] IS NOT NULL LOOP
+        IF attrs[i] >= 100 THEN
+            RETURN attrs[i];
+        END IF;
+        i := i + 1;
+    END LOOP;
+    RETURN NULL;
+END;
+$$ LANGUAGE 'plpgsql';
+
 --'-- vi: set ts=4 sw=4 et :
