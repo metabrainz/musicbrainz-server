@@ -225,6 +225,7 @@ sub LoadFromId
 	$row or return undef;
 
     my $artist = MusicBrainz::Server::Artist->new($this->dbh);
+    $artist->id($row->[5]);
 
     $this->artist($artist);
     $this->id($row->[0]);
@@ -232,7 +233,6 @@ sub LoadFromId
     $this->mbid($row->[2]);
     $this->sequence($row->[3]);
     $this->length($row->[4]);
-    $artist->id($row->[5]);
     $this->has_mod_pending($row->[6]);
     $this->SetAlbumJoinModPending($row->[7]);
     $this->sequence_id($row->[8]);

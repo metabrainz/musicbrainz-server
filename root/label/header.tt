@@ -18,15 +18,15 @@
     <div class='info'>
         [%- IF label.has_complete_date_range -%]
             <div class='infoline'>
-                [% label.begin_date %] - [% label.end_date %]<br/>
+                [% label.begin_date_ymd.join('-') %] - [% label.end_date_ymd.join('-') %]<br/>
             </div>    
         [%- ELSIF label.begin_date -%]
             <div class='infoline'>
-                [% l('Founded:') %] [% label.begin_date -%]<br />
+                [% l('Founded:') %] [% label.begin_date_ymd.join('-') -%]<br />
             </div>    
         [%- ELSIF label.end_date -%]
             <div class='infoline'>
-                [% l('Dissolved:') %] [% label.end_date -%]<br />
+                [% l('Dissolved:') %] [% label.end_date_ymd.join('-') -%]<br />
             </div>    
         [%- END -%]
         <div class='infoline'>

@@ -66,6 +66,7 @@ sub field_value
     use Switch;
     switch ($field_name)
     {
+        case (/date/) { return $event->sort_date; }
         case ('format') { return $event->format; }
         case ('barcode') { return $event->barcode; }
         case ('label') { return $event->label->name || ''; }

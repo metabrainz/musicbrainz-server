@@ -100,7 +100,7 @@ sub PreInsert
 
 		$obj->country($row->{"country"});
 		$obj->date(@$row{qw( year month day )});
-		$obj->SetLabel($row->{label});
+		$obj->label->id($row->{label});
 		$obj->cat_no($row->{catno});
 		$obj->barcode($row->{barcode});
 		$obj->format($row->{format});

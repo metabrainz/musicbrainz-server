@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Form::AddRelease::Tracks;
+package MusicBrainz::Server::Form::ReleaseEditor::Tracks;
 
 use strict;
 use warnings;
@@ -17,14 +17,13 @@ sub profile
 {
     shift->with_mod_fields({
         required => {
-            title   => {
-                type => 'Text',
-                size => 50,
-            },
+            title   => 'Text',
             event_1 => '+MusicBrainz::Server::Form::Field::ReleaseEvent',
+            release_artist => 'Text',
         },
         optional => {
             more_events => 'Checkbox',
+            more_tracks => 'Checkbox',
             release_type => 'Select',
             release_status => 'Select',
             language => 'Select',
@@ -90,26 +89,10 @@ sub add_tracks
 
         my $artist_field = $self->make_field("artist_$i", { type => 'Text', size => 50 });
         $artist_field->required(1);
-        $artist_field->value($artist->name);
+        $artist_field->value($artist);
 
         $self->add_field($track_field);
         $self->add_field($artist_field);
-    }
-}
-
-sub cross_validate {
-    my ($self) = @_;
-
-    my $last_seq = 0;
-    for my $i (1 .. $self->track_count) {
-        my $track = $self->value("track_$i");
-        next if $track->{remove};
-
-        if ($track->{number} != ($last_seq + 1)) {
-            $self->field("track_$i")->sub_form->field('number')->add_error("Track numbers must be a continuous sequence starting from 1");
-        }
-
-        $last_seq++;
     }
 }
 

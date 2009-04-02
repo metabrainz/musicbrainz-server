@@ -3,24 +3,22 @@ use Moose;
 use MooseX::AttributeHelpers;
 use MooseX::Storage;
 
-with Storage;
-
 use ModDefs;
 use MusicBrainz::Server::Track;
+
+with Storage;
+with 'MusicBrainz::Server::Wizards::ReleaseEditor::ConfirmedArtist';
 
 has 'name' => (
     isa => 'Str',
     is  => 'rw',
 );
 
-has 'artist' => (
-    is => 'rw',
-    required => 1,
-);
-
 has 'id' => (
     isa => 'Int',
     is  => 'rw',
+    clearer => 'clear_id',
+    predicate => 'is_edit',
 );
 
 has 'tracks' => (
@@ -68,7 +66,10 @@ has 'edit_note' => ( is => 'rw' );
 sub unconfirmed_artists
 {
     my ($self) = @_;
-    return [ grep { !$_->confirmed } @{ $self->tracks } ];
+    my @artists = grep { !$_->confirmed_artist } @{ $self->tracks };
+    unshift @artists, $self unless $self->confirmed_artist;
+
+    return \@artists;
 }
 
 sub has_unconfirmed_artists
@@ -92,6 +93,7 @@ sub fill_in_form
     my ($self, $form) = @_;
 
     $form->field('title')->value($self->name);
+    $form->field('release_artist')->value($self->artist);
 
     # Tracks
     $form->add_tracks($self->track_count, $self->artist);
@@ -124,6 +126,7 @@ sub update
     my ($self, $form) = @_;
 
     $self->name($form->value('title'));
+    $self->artist($form->value('release_artist'));
 
     # Update tracks and artists
     for my $i (1 .. $self->track_count)

@@ -281,7 +281,7 @@ sub Update
    	my $sql = Sql->new($self->dbh);
 	$self->country($new{"country"});
 	$self->sort_date($new{"date"});
-	$self->SetLabel($new{"label"});
+	$self->label->id($new{"label"});
 	$self->cat_no($new{"catno"});
 	$self->barcode($new{"barcode"});
 	$self->format($new{"format"});

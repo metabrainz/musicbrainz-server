@@ -5,6 +5,7 @@ use warnings;
 
 use base 'MusicBrainz::Server::Controller';
 
+use MusicBrainz::Server::Form::ReleaseEditor::Tracks;
 use MusicBrainz::Server::Wizard;
 use MusicBrainz::Server::Wizards::ReleaseEditor;
 use MusicBrainz::Server::Wizards::ReleaseEditor::ReleaseEvent;
@@ -36,14 +37,14 @@ sub wizard : Chained('/') PathPart('release_editor') CaptureArgs(1)
         steps => [
             'track_count'      => { name => 'Track Count' },
             'release_data'     => { name => 'Release Data' },
-            'check_duplicates' => { name => 'Check Duplicate Releases', skip => sub { shift->has_checked_duplicates } },
             'confirm_artists'  => { name => 'Confirm Track Artists', skip => sub { !shift->has_unconfirmed_artists } },
+            'check_duplicates' => { name => 'Check Duplicate Releases', skip => sub { shift->has_checked_duplicates } },
             'confirm_labels'   => { name => 'Confirm Release Event Labels', skip => sub { !shift->has_unconfirmed_labels } },
             'confirm'          => { name => 'Confirm/Preview' },
         ]
     );
 
-    $c->stash->{artist} = $self->_data($c)->artist;
+    $c->stash->{artist} = $self->_data($c)->artist_model;
     $c->stash->{artist}->dbh($c->mb->dbh);
 }
 
@@ -56,7 +57,7 @@ sucessful submission).
 
 =cut
 
-sub track_count : Chained('wizard') Form('AddRelease::TrackCount')
+sub track_count : Chained('wizard') Form('ReleaseEditor::TrackCount')
 {
     my ($self, $c) = @_;
     $c->stash->{wizard}->current_step_index(0);
@@ -85,7 +86,7 @@ sub track_count : Chained('wizard') Form('AddRelease::TrackCount')
     $self->_progress($c);
 }
 
-sub release_data : Chained('wizard') Form('AddRelease::Tracks')
+sub release_data : Chained('wizard') Form('ReleaseEditor::Tracks')
 {
     my ($self, $c) = @_;
     $c->stash->{wizard}->current_step_index(1);
@@ -97,6 +98,7 @@ sub release_data : Chained('wizard') Form('AddRelease::Tracks')
 
     my $form = $self->form;
 
+    my $form_changed;
     if ($form->value('more_events'))
     {
         $data->add_release_event(MusicBrainz::Server::Wizards::ReleaseEditor::ReleaseEvent->new);
@@ -104,6 +106,26 @@ sub release_data : Chained('wizard') Form('AddRelease::Tracks')
         $self->_data($c, $data);
 
         $form->field('more_events')->value(undef);
+        $form_changed = 1;
+    }
+
+    if ($form->value('more_tracks'))
+    {
+        $data->add_track(MusicBrainz::Server::Wizards::ReleaseEditor::Track->new(
+            artist    => $data->artist,
+            artist_id => $data->artist_id
+        ));
+        $self->_data($c, $data);
+
+        $form_changed = 1;
+    }
+
+    if ($form_changed)
+    {
+        $form = MusicBrainz::Server::Form::ReleaseEditor::Tracks->new;
+        $data->fill_in_form($form);
+
+        $c->stash->{form} = $form;
         $c->detach;
     }
 
@@ -113,10 +135,47 @@ sub release_data : Chained('wizard') Form('AddRelease::Tracks')
     $self->_progress($c);
 }
 
-sub check_duplicates : Chained('wizard')
+sub confirm_artists : Chained('wizard') Form('Artist::Create')
 {
     my ($self, $c) = @_;
     $c->stash->{wizard}->current_step_index(2);
+
+    my $artist = $c->stash->{artist};
+    my $data   = $self->_data($c);
+
+    my $to_confirm = $data->unconfirmed_artists;
+
+    $self->_progress($c)
+        if scalar @$to_confirm == 0;
+
+    my $confirming = $to_confirm->[0];
+    $c->stash->{confirming} = $confirming->artist_model;
+
+    $c->forward('/search/filter_artist');
+
+    $c->stash->{create_artist} = $self->form;
+
+    return unless $c->form_posted;
+
+    $artist = $c->stash->{search_result};
+    if (!defined $artist)
+    {
+        return unless $c->req->params->{do_add_artist} &&
+            $self->form->validate($c->req->params);
+        $artist = $self->form->create;
+    }
+
+    $confirming->artist($artist->name);
+    $confirming->artist_id($artist->id);
+
+    $self->_data($c, $data);
+    $self->_progress($c);
+}
+
+sub check_duplicates : Chained('wizard')
+{
+    my ($self, $c) = @_;
+    $c->stash->{wizard}->current_step_index(3);
 
     my $artist = $c->stash->{artist};
     my $data   = $self->_data($c);
@@ -142,43 +201,6 @@ sub check_duplicates : Chained('wizard')
     }
 
     $data->has_checked_duplicates(1);
-
-    $self->_data($c, $data);
-    $self->_progress($c);
-}
-
-sub confirm_artists : Chained('wizard') Form('Artist::Create')
-{
-    my ($self, $c) = @_;
-    $c->stash->{wizard}->current_step_index(3);
-
-    my $artist = $c->stash->{artist};
-    my $data   = $self->_data($c);
-
-    my $to_confirm = $data->unconfirmed_artists;
-
-    $self->_progress($c)
-        if scalar @$to_confirm == 0;
-
-    my $confirming = $to_confirm->[0];
-    $c->stash->{confirming} = $confirming->to_track->artist;
-
-    $c->forward('/search/filter_artist');
-
-    $c->stash->{create_artist} = $self->form;
-
-    return unless $c->form_posted;
-
-    $artist = $c->stash->{search_result};
-    if (!defined $artist)
-    {
-        return unless $c->req->params->{do_add_artist} &&
-            $self->form->validate($c->req->params);
-        $artist = $self->form->create;
-    }
-
-    $confirming->artist($artist->name);
-    $confirming->artist_id($artist->id);
 
     $self->_data($c, $data);
     $self->_progress($c);
@@ -259,9 +281,20 @@ sub confirm : Chained('wizard') Form('Confirm')
         $self->_redirect_to_step($c, 'release_data');
     }
 
+    $c->forward($data->is_edit ? '_do_edit' : '_do_add');
+    $self->_delete_wizard($c);
+
+    $c->response->redirect($c->uri_for('/release', $c->stash->{release_id}));
+}
+
+sub _do_add : Private
+{
+    my ($self, $c) = @_;
+    my $data = $self->_data($c);
+
     my %opts = (
         AlbumName => $data->name,
-        artist    => $data->artist->id,
+        artist    => $data->artist_id,
         type      => ModDefs::MOD_ADD_RELEASE,
         HasMultipleTrackArtists => 1,
     );
@@ -296,10 +329,242 @@ sub confirm : Chained('wizard') Form('Confirm')
         %opts
     );
 
-    $self->_delete_wizard($c);
-
     my @add_mods = grep { $_->type eq ModDefs::MOD_ADD_RELEASE } @mods;
-    $c->response->redirect($c->uri_for('/release', $add_mods[0]->row_id));
+    $c->stash->{release_id} = $add_mods[0]->row_id;
+}
+
+sub _do_edit : Private
+{
+    my ($self, $c) = @_;
+
+    my $index = $c->stash->{wizard_index};
+    my $release_id = $c->session->{"release_editor_$index"}->{old_release};
+    my $release = $c->model('Release')->load($release_id);
+
+    my $data = $self->_data($c);
+    my @edits;
+
+    # MOD_MOVE_RELEASE
+    if ($data->artist_id ne $release->artist)
+    {
+        $c->log->info($release->artist);
+        my $artist = $c->model('Artist')->load($data->artist_id);
+        my $old    = $c->model('Artist')->load($release->artist);
+        push @edits, $c->model('Moderation')->insert(undef,
+            type           => ModDefs::MOD_MOVE_RELEASE,
+            album          => $release,
+            oldartist      => $old,
+            artistid       => $artist->id,
+            artistsortname => $artist->sort_name,
+            artistname     => $artist->name,
+        );
+    }
+
+    # MOD_EDIT_RELEASE_NAME
+    if ($data->name ne $release->name)
+    {
+        push @edits, $c->model('Moderation')->insert(undef,
+            type    => ModDefs::MOD_EDIT_RELEASE_NAME,
+            album   => $release,
+            newname => $data->name
+        );
+    }
+
+    # MOD_EDIT_RELEASE_ATTRS
+    my $new = join ",", ($data->release_type, $data->release_status);
+    my $old = join ",", $release->release_type_and_status;
+    if ($new ne $old)
+    {
+        push @edits, $c->model('Moderation')->insert(undef,
+            type        => ModDefs::MOD_EDIT_RELEASE_ATTRS,
+            albums      => [ $release ],
+            attr_type   => $data->release_type,
+            attr_status => $data->release_status
+        );
+    }
+
+    # MOD_EDIT_RELEASE_LANGUAGE
+    $new = join ",", ($data->language, $data->script);
+    $old = join ",", ($release->language, $release->script);
+    if ($new ne $old)
+    {
+        push @edits, $c->model('Moderation')->insert(undef,
+            type        => ModDefs::MOD_EDIT_RELEASE_LANGUAGE,
+            albums      => [ $release ],
+            language    => $data->language,
+            script      => $data->script
+        );
+    }
+
+    # Release Event edits
+    my (@remove_events, @edit_events, @add_events);
+    for my $event (@{ $data->release_events })
+    {
+        my $rev = $event->to_event;
+        $rev->release($release->id);
+        $rev->dbh($c->mb->dbh);
+
+        if ($event->removed)
+        {
+            push @remove_events, $rev;
+        }
+        elsif (!$event->id)
+        {
+            push @add_events, $rev;
+        }
+        else
+        {
+            # Could be an edit
+            my $old = $c->model('Release')->load_event($event->id);
+            if ($rev->cat_no ne $old->cat_no or
+                $rev->format != $old->format or
+                $rev->barcode ne $old->barcode or
+                $rev->sort_date ne $old->sort_date or
+                $rev->label->id != $old->label->id or
+                $rev->country != $old->country)
+            {
+                push @edit_events, {
+                    object  => $old,
+                    country => $rev->country,
+                    year    => $rev->year,
+                    month   => $rev->month,
+                    day     => $rev->day,
+                    catno   => $rev->cat_no,
+                    barcode => $rev->barcode,
+                    format  => $rev->format,
+                    label   => $rev->label,
+                };
+            }
+        }
+    }
+
+    # MOD_ADD_RELEASE_EVENTS
+    push @edits, $c->model('Moderation')->insert(undef,
+        type => ModDefs::MOD_ADD_RELEASE_EVENTS,
+        album => $release,
+        adds => \@add_events,
+    );
+
+    # MOD_REMOVE_RELEASE_EVENTS
+    push @edits, $c->model('Moderation')->insert(undef,
+        type    => ModDefs::MOD_REMOVE_RELEASE_EVENTS,
+        album   => $release,
+        removes => \@remove_events
+    );
+
+    # MOD_EDIT_RELEASE_EVENTS
+    push @edits, $c->model('Moderation')->insert(undef,
+        type  => ModDefs::MOD_EDIT_RELEASE_EVENTS,
+        album => $release,
+        edits => \@edit_events
+    );
+
+    # Track level edits
+    for my $track (@{ $data->tracks })
+    {
+        if ($track->has_id)
+        {
+            my $original = $c->model('Track')->load($track->id);
+
+            # MOD_REMOVE_TRACK
+            if ($track->removed)
+            {
+                push @edits, $c->model('Moderation')->insert(undef,
+                    type  => ModDefs::MOD_REMOVE_TRACK,
+                    track => $original,
+                    album => $release,
+                );
+
+                next;
+            }
+
+            # MOD_EDIT_TRACK_NAME
+            if ($original->name ne $track->name)
+            {
+                push @edits, $c->model('Moderation')->insert(undef,
+                    type   => ModDefs::MOD_EDIT_TRACKNAME,
+                    track  => $original,
+                    newname => $track->name
+                );
+            }
+
+            # MOD_EDIT_TRACKTIME
+            if ($original->length != $track->duration)
+            {
+                push @edits, $c->model('Moderation')->insert(undef,
+                    type      => ModDefs::MOD_EDIT_TRACKTIME,
+                    track     => $original,
+                    newlength => $track->duration
+                )
+            }
+
+            # MOD_EDIT_TRACKNUM
+            if ($original->sequence != $track->sequence)
+            {
+                push @edits, $c->model('Moderation')->insert(undef,
+                    type      => ModDefs::MOD_EDIT_TRACKNUM,
+                    track     => $original,
+                    newseq    => $track->sequence
+                )
+            }
+
+            # MOD_CHANGE_TRACK_ARTIST
+            if ($original->artist->id != $track->artist_id)
+            {
+                my $old_artist = $c->model('Artist')->load($original->artist->id);
+                my $new_artist = $c->model('Artist')->load($track->artist_id);
+
+                push @edits, $c->model('Moderation')->insert(undef,
+                    type           => ModDefs::MOD_CHANGE_TRACK_ARTIST,
+                    track          => $original,
+                    oldartist      => $old_artist,
+                    artistid       => $new_artist->id,
+                    artistname     => $new_artist->name,
+                    artistsortname => $new_artist->sort_name
+                );
+            }
+        }
+        else
+        {
+            # MOD_ADD_TRACK_KV
+            push @edits, $c->model('Moderation')->insert(undef,
+                type        => ModDefs::MOD_ADD_TRACK_KV,
+                album       => $release,
+                trackname   => $track->name,
+                tracknum    => $track->sequence,
+                tracklength => $track->duration,
+                artistid    => $track->artist_id,
+            );
+        }
+    }
+
+    # Attach notes to edits
+    my $number_edits = scalar @edits;
+    for my $i (1 .. $number_edits)
+    {
+        my $edit = $edits[$i];
+        next unless defined $edit;
+
+        if ($number_edits > 1)
+        {
+            # If we have more than 1 edit, we add notes to clarify they are
+            # "related" edits
+            my $note_text = sprintf "The %s%s of a set of %d edits",
+                                $i,
+                                MusicBrainz::Server::Validation::OrdinalNumberSuffix($i),
+                                $number_edits;
+
+            $note_text .= sprintf "(beggining with edit #%d)", $edits[0]->id
+                if $i == 1;
+
+            $edit->InsertNote(ModDefs::MODBOT_MODERATOR, $note_text, nosend => 1);
+        }
+
+        # Copy the users edit note over everything
+        $edit->InsertNote($c->user->id, $data->edit_note);
+    }
+
+    $c->stash->{release_id} = $release->id;
 }
 
 =head2 add_release
@@ -319,10 +584,91 @@ sub add_release : Private
     $c->stash->{wizard_index} = time;
 
     my $data = $self->_data($c);
-    $data->artist($c->stash->{artist});
+    $data->artist($c->stash->{artist}->name);
+    $data->artist_id($c->stash->{artist}->id);
     $self->_data($c, $data);
 
     $self->_redirect_to_step($c, 'track_count');
+}
+
+sub _load_release : Private
+{
+    my ($self, $c) = @_;
+
+    $c->stash->{wizard_index} = time;
+    my $data = $self->_data($c);
+
+    my $artist  = $c->stash->{artist};
+    my $release = $c->stash->{release};
+    my $events  = $c->stash->{release_events};
+    my $tracks  = $c->stash->{tracks};
+
+    $data->artist($artist->name);
+    $data->artist_id($artist->id);
+
+    # Release
+    $data->name($release->name);
+    $data->release_type($release->release_type);
+    $data->release_status($release->release_status);
+    $data->language($release->language->id) if defined $release->language;
+    $data->script($release->script->id) if defined $release->script;
+    $data->id($release->id);
+
+    # Tracks
+    for my $track (@$tracks)
+    {
+        $data->add_track(MusicBrainz::Server::Wizards::ReleaseEditor::Track->new(
+            artist_id => $track->artist->id,
+            artist    => $track->artist->name,
+            sequence  => $track->sequence,
+            duration  => $track->length,
+            name      => $track->name,
+            id        => $track->id,
+        ));
+    }
+
+    # Release Events
+    for my $event (@$events)
+    {
+        my $re = MusicBrainz::Server::Wizards::ReleaseEditor::ReleaseEvent->new(
+            barcode  => $event->barcode,
+            format   => $event->format,
+            catno    => $event->cat_no,
+            country  => $event->country,
+            date     => $event->sort_date,
+            id       => $event->id
+        );
+
+        if($event->label->name)
+        {
+            $re->label($event->label->name);
+            $re->label_id($event->label->id);
+        }
+
+        $data->add_release_event($re);
+    }
+
+    $self->_data($c, $data);
+}
+
+=head2 edit_release
+
+Copy a release from the stash into the release editor, allowing the
+user to edit details.
+
+=cut
+
+sub edit_release : Private
+{
+    my ($self, $c) = @_;
+    $c->forward('_load_release');
+
+    # Store the old release ID so we can look it up when we confim the edit
+    my $index = $c->stash->{wizard_index};
+    my $release = $c->stash->{release};
+    $c->session->{"release_editor_$index"}->{old_release} = $release->id;
+
+    $self->_redirect_to_step($c, 'release_data');
 }
 
 =head2 duplicate_release
@@ -338,57 +684,13 @@ to duplicate.
 sub duplicate_release : Private
 {
     my ($self, $c) = @_;
+    $c->forward('_load_release');
 
-    $c->stash->{wizard_index} = time;
+    # Remove IDs from everything - this will force new entities to be created
     my $data = $self->_data($c);
-
-    my $artist  = $c->stash->{artist};
-    my $release = $c->stash->{release};
-    my $events  = $c->stash->{release_events};
-    my $tracks  = $c->stash->{tracks};
-
-    $data->artist($artist);
-
-    # Release
-    $data->name($release->name);
-    $data->release_type($release->release_type);
-    $data->release_status($release->release_status);
-    $data->language($release->language->id);
-    $data->script($release->script->id);
-
-    # Tracks
-    for my $track (@$tracks)
-    {
-        $data->add_track(MusicBrainz::Server::Wizards::ReleaseEditor::Track->new(
-            artist_id => $track->artist->id,
-            artist    => $track->artist->name,
-            sequence  => $track->sequence,
-            duration  => $track->length,
-            name      => $track->name,
-        ));
-    }
-
-    # Release Events
-    for my $event (@$events)
-    {
-        my $re = MusicBrainz::Server::Wizards::ReleaseEditor::ReleaseEvent->new(
-            barcode  => $event->barcode,
-            format   => $event->format,
-            catno    => $event->cat_no,
-            country  => $event->country,
-            date     => $event->sort_date,
-        );
-
-        if($event->label->name)
-        {
-            $re->label($event->label->name);
-            $re->label_id($event->label->id);
-        }
-
-        $data->add_release_event($re);
-    }
-
-    $self->_data($c, $data);
+    $data->clear_id;
+    $_->clear_id for @{ $data->tracks };
+    $_->clear_id for @{ $data->release_events };
 
     $self->_redirect_to_step($c, 'release_data');
 }
@@ -454,21 +756,30 @@ sub _data
 
     if (@_)
     {
+        # Setting - copy to session
         $data = shift;
-        $data->artist->dbh(undef);
-        $c->session->{"release_editor_$index"} = $data->pack;
+        $c->session->{"release_editor_$index"}->{wizard} = $data->pack;
     }
     else
     {
-        my $from_session = $c->session->{"release_editor_$index"};
-        $data = defined $from_session
-            ? MusicBrainz::Server::Wizards::ReleaseEditor->unpack($from_session)
-            : MusicBrainz::Server::Wizards::ReleaseEditor->new(
-                artist => $c->stash->{artist},
-            );
+        # Getting
+        if (defined $c->stash->{wizard})
+        {
+            # We have a wizard, use the current store
+            return $c->stash->{wizard}->store;
+        }
+        else
+        {
+            # No wizard, restore the store from session (or create a new one)
+            my $from_session = $c->session->{"release_editor_$index"}->{wizard};
+            return defined $from_session
+                ? MusicBrainz::Server::Wizards::ReleaseEditor->unpack($from_session)
+                : MusicBrainz::Server::Wizards::ReleaseEditor->new(
+                    artist    => $c->stash->{artist}->name,
+                    artist_id => $c->stash->{artist}->id,
+                );
+        }
     }
-
-    return $data;
 }
 
 1;

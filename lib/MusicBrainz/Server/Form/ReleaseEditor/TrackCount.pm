@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Form::AddRelease::TrackCount;
+package MusicBrainz::Server::Form::ReleaseEditor::TrackCount;
 
 use strict;
 use warnings;

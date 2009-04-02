@@ -3,6 +3,7 @@ use Moose;
 use MooseX::Storage;
 
 with Storage;
+with 'MusicBrainz::Server::Wizards::ReleaseEditor::ConfirmedArtist';
 
 has 'name' => (
     isa => 'Str',
@@ -12,18 +13,8 @@ has 'name' => (
 has 'id' => (
     isa => 'Int',
     is  => 'rw',
-);
-
-has 'artist' => (
-    isa => 'Str',
-    is  => 'rw',
-);
-
-has 'artist_id' => (
-    isa => 'Int',
-    is  => 'rw',
-    predicate => 'confirmed',
-    clearer => 'clear_artist_id',
+    clearer => 'clear_id',
+    predicate => 'has_id',
 );
 
 has 'sequence' => (
@@ -38,18 +29,6 @@ has 'removed' => (
     is  => 'rw'
 );
 
-before 'artist' => sub
-{
-    my $self = shift;
-
-    if (@_)
-    {
-        my $new_name = shift;
-        $self->clear_artist_id
-            if $new_name ne $self->artist;
-    }
-};
-
 sub to_track
 {
     my $self = shift;
@@ -58,11 +37,8 @@ sub to_track
         undef,
         name => $self->name,
         sequence => $self->sequence,
-        artist => MusicBrainz::Server::Artist->new(
-            undef,
-            name => $self->artist,
-            id   => $self->artist_id,
-        )
+        length => $self->duration,
+        artist => $self->artist_model,
     );
 }
 

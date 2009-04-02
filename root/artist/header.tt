@@ -30,18 +30,18 @@
         [% END %]
         [%- IF artist.has_complete_date_range -%]
             <div class='infoline'>
-                [% artist.begin_date %] -
-                [% artist.end_date %]
+                [% artist.begin_date_ymd.join('-') %] -
+                [% artist.end_date_ymd.join('-') %]
             </div>    
         [%- ELSIF artist.begin_date -%]
             <div class='infoline'>
                 [% begin_date_name(artist.type) %]:
-                [% artist.begin_date -%]
+                [% artist.begin_date_ymd.join('-') -%]
             </div>    
         [%- ELSIF artist.end_date -%]
             <div class='infoline'>
                 [% end_date_name(artist.type) %]:
-                [% artist.end_date -%]
+                [% artist.end_date_ymd.join('-') -%]
             </div>    
         [%- END -%]
         <div class='infoline'>

@@ -144,10 +144,11 @@ sub find_similar_releases
 
 sub load_events
 {
-    my ($self, $release) = @_;
+    my ($self, $release, %opts) = @_;
 
     my @events = $release->ReleaseEvents(1);
-
+    return \@events if $opts{country_id};
+    
     my $country_obj = MusicBrainz::Server::Country->new($self->dbh);
     my %county_names;
 
@@ -162,7 +163,14 @@ sub load_events
 
         $_;
     } @events ];
+}
 
+sub load_event
+{
+    my ($self, $event_id) = @_;
+
+    my $re = MusicBrainz::Server::ReleaseEvent->new($self->dbh);
+    return $re->newFromId($event_id);
 }
 
 sub load

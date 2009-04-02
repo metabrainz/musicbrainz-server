@@ -181,7 +181,7 @@ sub begin_date_ymd
     my $self = shift;
 
     return ('', '', '') unless $self->begin_date();
-    return map { $_ == 0 ? '' : $_ } split(m/-/, $self->begin_date);
+    return grep { $_ > 0 || $_ ne '00' } split(m/-/, $self->begin_date);
 }
 
 sub end_date_ymd
@@ -189,7 +189,7 @@ sub end_date_ymd
     my $self = shift;
     
     return ('', '', '') unless $self->end_date();
-    return map { $_ == 0 ? '' : $_ } split(m/-/, $self->end_date);
+    return grep { $_ > 0 || $_ ne '00' } split(m/-/, $self->end_date);
 }
 
 sub _id_cache_key

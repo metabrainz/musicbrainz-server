@@ -11,6 +11,12 @@ has 'label' => (
     is  => 'rw',
 );
 
+has 'id' => (
+    isa => 'Int',
+    is  => 'rw',
+    clearer => 'clear_id',
+);
+
 has 'label_id' => (
     isa => 'Int',
     is  => 'rw',
@@ -48,6 +54,7 @@ sub to_event
         format => $self->format,
         catno => $self->catno,
         country => $self->country,
+        id => $self->id,
         _label => MusicBrainz::Server::Label->new(
             undef,
             name => $self->label,

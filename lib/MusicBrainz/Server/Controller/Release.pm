@@ -209,6 +209,20 @@ sub edit_title : Chained('release') Form
     $c->response->redirect($c->entity_url($release, 'show'));
 }
 
+=head2 edit
+
+Edit a release in release editor
+
+=cut
+
+sub edit : Chained('release')
+{
+    my ($self, $c) = @_;
+    $c->forward('/user/login');
+    $c->forward('_load_related');
+    $c->forward('/release_editor/edit_release');
+}
+
 =head2 duplicate
 
 Duplicate a release into the add release editor
@@ -219,13 +233,18 @@ sub duplicate : Chained('release')
 {
     my ($self, $c) = @_;
     $c->forward('/user/login');
+    $c->forward('_load_related');
+    $c->forward('/release_editor/duplicate_release');
+}
 
+sub _load_related : Private
+{
+    my ($self, $c) = @_;
+    
     my $release = $self->entity;
     $c->stash->{artist}         = $c->model('Artist')->load($release->artist);
     $c->stash->{tracks}         = $c->model('Track')->load_from_release($release);
-    $c->stash->{release_events} = $c->model('Release')->load_events($release);
-
-    $c->forward('/release_editor/duplicate_release');
+    $c->stash->{release_events} = $c->model('Release')->load_events($release, country_id => 1);
 }
 
 sub move : Chained('release')

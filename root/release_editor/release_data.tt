@@ -10,10 +10,7 @@
         [%- END -%]
         [%- WRAPPER 'forms/form.tt' -%]
             [%- WRAPPER 'forms/fieldset.tt' legend=l('Release Information') -%]
-                [%- WRAPPER 'forms/row.tt' -%]
-                    [%- INCLUDE 'forms/label.tt' label=l('Artist') required=1-%]
-                    [%- entity_link(artist) -%]
-                [%- END -%]
+                [%- INCLUDE 'forms/generic/row.tt' field=form.field('release_artist') label=l('Artist') class='release-artist'-%]
                 [%- INCLUDE 'forms/generic/row.tt' field=form.field('title') label=l('Title') -%]
             [%- END -%]
             [%- WRAPPER 'forms/fieldset.tt' legend=l('Tracks') %]
@@ -22,6 +19,7 @@
                     [%- INCLUDE 'forms/generic/row.tt' field=form.field("artist_$i") label=l('Artist') class='artist_name' %]
                     <br />
                 [%- END -%]
+                [%- INCLUDE 'forms/generic/row.tt' field=form.field("more_tracks") label=l('Add another track') -%]
                 <div id="form-controls"></div>
             [%- END -%]
             [%- WRAPPER 'forms/fieldset.tt' legend=l('Release Events') -%]
@@ -29,7 +27,7 @@
                     [%- INCLUDE 'forms/input.tt' field=form.field("event_${i}") type='release_event'
                             FOR i=[1 .. form.event_count] -%]
                 [%- END -%]
-                [%- INCLUDE 'forms/generic/row.tt' field=form.field("more_events") label=l('Add more release events') -%]
+                [%- INCLUDE 'forms/generic/row.tt' field=form.field("more_events") label=l('Add another release event') -%]
             [%- END -%]
             [%- WRAPPER 'forms/fieldset.tt' legend=l('Release Attributes') -%]
                 [%- WRAPPER 'forms/row.tt' -%]
