@@ -43,6 +43,7 @@
                 [% types.push(l('{doc|AutoEditor}', {doc => doc_link('AutoEditor')})) IF user.is_auto_editor %]
 		[% types.push("Internal/Bot") IF user.is_bot %]
 		[% types.push(l('{doc|Relationship Editor}', {doc => doc_link('RelationshipEditor')})) IF user.is_link_moderator %]
+		[% types.push(l('Untrusted')) IF user.is_untrusted %]
 		[% types.push(l('{doc|Transclusion Editor}', {doc => doc_link('TransclusionEditor')})) IF user.is_wiki_transcluder %]
 		[% types.push('Normal User') IF types.size == 0 %]
 		[% comma_list(types) %]

@@ -631,6 +631,7 @@ sub adjust_flags : Local Form
     $c->user->SetUserInfo(
         privs =>
             ($form->value('auto_editor') && &MusicBrainz::Server::Editor::AUTOMOD_FLAG) |
+            ($form->value('untrusted') && &MusicBrainz::Server::Editor::UNTRUSTED_FLAG) |
             ($form->value('bot') && &MusicBrainz::Server::Editor::BOT_FLAG) |
             ($form->value('link_editor') && &MusicBrainz::Server::Editor::LINK_MODERATOR_FLAG) |
             ($form->value('wiki_transcluder') && &MusicBrainz::Server::Editor::WIKI_TRANSCLUSION_FLAG) |

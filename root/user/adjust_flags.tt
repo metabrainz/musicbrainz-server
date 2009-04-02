@@ -10,6 +10,9 @@
                      [%- INCLUDE 'forms/input.tt' field=form.field('bot') -%]
                      [%- INCLUDE 'forms/label.tt' for=form.field('bot') label=l('Bot') -%]<br />
 
+                     [%- INCLUDE 'forms/input.tt' field=form.field('untrusted') -%]
+                     [%- INCLUDE 'forms/label.tt' for=form.field('untrusted') label=l('Untrusted') -%]<br />
+
                      [%- INCLUDE 'forms/input.tt' field=form.field('link_editor') -%]
                      [%- INCLUDE 'forms/label.tt' for=form.field('link_editor') label=l('Relationship Editor') -%]<br />
 
