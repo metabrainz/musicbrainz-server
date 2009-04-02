@@ -1,17 +1,15 @@
-[% steps = [
-    { action => 'add_release_track_count', name => l('Track Count')},
-    { action => 'add_release_information', name => l('Release Information')},
-    { action => 'add_release_confirm_artists', name => l('Confirm Artists')},
-    { action => 'add_release_confirm_labels', name => l('Confirm Labels')},
-    { action => 'add_release_dupes', name => l('Check For Duplicates')},
-    { action => 'add_release_confirm', name => l('Confirm')},
-] %]
-
 <ol class="wizard_breadcrumbs">
-    [% found_current = 0 %]
-    [% FOR step=wizard.steps %]
-        <li[% found_current ? '' : ' class="complete"' %]>[% step.name %]</li>
-        [% IF step == wizard.current_step %][% found_current = 1%][% END %]
-    [% END %]
+    [%- found_current = 0 -%]
+    [%- FOR step=wizard.steps -%]
+        [%- IF step == wizard.current_step -%]
+            [%- found_current = 1 -%]
+            <li class="current">
+        [%- ELSIF found_current -%]
+            <li class="incomplete">
+        [%- ELSE -%]
+            <li class="complete">
+        [%- END -%]
+        [%- step.name -%]</li>
+    [%- END -%]
 </ol>
 

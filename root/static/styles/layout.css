@@ -343,7 +343,14 @@ hr {
     font-weight: 700;
 }
 
-.wizard_breadcrumbs li.complete {
+.wizard_breadcrumbs li.incomplete {
+    background: white;
+    border: none;
+    color: #aaa;
+    font-style: italic;
+}
+
+.wizard_breadcrumbs li.current {
     background: black;
     color: white;
 }

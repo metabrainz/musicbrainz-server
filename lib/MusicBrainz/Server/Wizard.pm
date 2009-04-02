@@ -132,6 +132,12 @@ sub BUILDARGS
     };
 }
 
+sub BUILD
+{
+    my $self = shift;
+    $self->current_step($self->steps->[0]);
+}
+
 =head2 progress
 
 Progress the wiard onwards, or start the wizard if it has not been run.
