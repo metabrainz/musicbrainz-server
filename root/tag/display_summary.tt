@@ -23,7 +23,7 @@
             </p>
         [%- ELSE -%]
             <p>
-                [% l('No {type} have been tagged with \"{tag}\"', {type => get_plural_type(type), tag => html_escape(tag)}) %]
+                [% l('No {type} have been tagged with "{tag}"', {type => get_plural_type(group.type), tag => html_escape(tag)}) %]
             </p>
         [%- END -%]
     [%- END -%]
