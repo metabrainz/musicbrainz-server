@@ -30,15 +30,15 @@ sub create_action
 sub load : Chained('base') PathPart('') CaptureArgs(1)
 {
     my ($self, $c, $id) = @_;
-    
+
     unless (MusicBrainz::Server::Validation::IsGUID($id) ||
             (MusicBrainz::Server::Validation::IsNonNegInteger($id) && $id > 0))
     {
         $c->detach('/error_404');
     }
-    
+
     my $entity = $c->model($self->{model})->load($id);
-    
+
     if (defined $entity)
     {
        $self->entity($entity);
