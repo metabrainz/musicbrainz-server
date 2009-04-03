@@ -23,6 +23,13 @@ sub wizard : Chained('/') PathPart('release_editor') CaptureArgs(1)
 {
     my ($self, $c, $wizard_index) = @_;
     $c->forward('/user/login');
+
+    unless (exists $c->session->{"release_editor_$wizard_index"})
+    {
+        $c->stash->{message} = "The requested wizard session ($wizard_index) does not exist";
+        $c->detach('/error_500');
+    }
+
     $c->stash->{wizard_index} = $wizard_index;
 
     if ($c->req->params->{cancel})

@@ -67,9 +67,18 @@ sub default : Path
 sub error_404 : Private
 {
     my ($self, $c) = @_;
-    
+
     $c->response->status(404);
     $c->stash->{template} = 'main/404.tt';
+}
+
+sub error_500 : Private
+{
+    my ($self, $c) = @_;
+
+    $c->response->status(500);
+    $c->stash->{template} = 'main/500.tt';
+    $c->detach;
 }
 
 sub begin : Private
