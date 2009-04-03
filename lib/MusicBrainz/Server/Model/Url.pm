@@ -15,7 +15,7 @@ sub load
     my ($self, $id) = @_;
 
     my $url = MusicBrainz::Server::URL->new($self->dbh);
-    LoadEntity($url, $id);
+    $url = LoadEntity($url, $id);
 
     return $url;
 }

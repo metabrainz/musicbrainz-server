@@ -178,7 +178,7 @@ sub load
     my ($self, $id) = @_;
 
     my $release = MusicBrainz::Server::Release->new($self->dbh);
-    LoadEntity($release, $id);
+    $release = LoadEntity($release, $id);
 
     return $release;
 }

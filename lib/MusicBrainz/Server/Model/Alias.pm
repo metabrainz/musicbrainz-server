@@ -30,7 +30,7 @@ sub load
     my $alias = new MusicBrainz::Server::Alias($self->dbh, $table);
     $alias->id($id);
 
-    $alias->LoadFromId;
+    $alias->LoadFromId or return;
 
     return $alias;
 }

@@ -15,7 +15,7 @@ sub load
     my ($self, $id) = @_;
 
     my $label = MusicBrainz::Server::Label->new($self->dbh);
-    LoadEntity($label, $id);
+    $label = LoadEntity($label, $id);
 
     return $label;
 }

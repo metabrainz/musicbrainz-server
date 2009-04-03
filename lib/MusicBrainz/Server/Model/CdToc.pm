@@ -21,8 +21,7 @@ sub load
 {
     my ($self, $id) = @_;
 
-    my $cdtoc = MusicBrainz::Server::CDTOC->newFromId($self->dbh, $id)
-        or croak "Could not load CDTOC with id $id";
+    my $cdtoc = MusicBrainz::Server::CDTOC->newFromId($self->dbh, $id);
 
     return $cdtoc;
 }
