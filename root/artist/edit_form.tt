@@ -12,7 +12,6 @@
             <p>
                 <strong class='warning'>[% l('Warning:') %]</strong>
                 [% l('You are attempting to add an artist which appears to be very similar, if not exactly the same, as these existing artists:') %]
-<<<<<<< HEAD:root/artist/edit_form.tt
             [%- WRAPPER 'layout/guidelines.tt' -%]
                 [%- create_guideline(l('You are required to enter a comment which allows users to distinguish this artist from the other artists with the same name, if the final artist name is similar to an existing artist.')) -%]
                 [%- create_guideline(l('Confirm by activating the checkbox below that you have read the {doc_artistcomment|artist comment guideline}, understood how we distinguish duplicate artists, and that you know what you are doing.', {doc_artistcomment => doc_link('ArtistComment')})) -%]
@@ -21,17 +20,17 @@
         [%- END -%]
     [%- END -%]
     [%- WRAPPER 'forms/fieldset.tt' legend='Artist Details' -%]
-        [%- INCLUDE "forms/generic/row.tt" field=form.field("artist_type") label=l('Type')-%]
-        [%- INCLUDE "forms/generic/row.tt" field=form.field("name") label=l('Name') -%]
-        [%- INCLUDE "forms/generic/row.tt" field=form.field("sortname") label=l('Sort Name') -%]
-        [%- INCLUDE "forms/generic/row.tt" field=form.field("resolution") label=l('Comment') -%]
+        [%- INCLUDE "forms/generic/row.tt" field=form.field("artist_type") label=l('Type') class='artist-type' -%]
+        [%- INCLUDE "forms/generic/row.tt" field=form.field("name") label=l('Name') class='artist-name' -%]
+        [%- INCLUDE "forms/generic/row.tt" field=form.field("sortname") label=l('Sort Name') class='artist-sort-name' -%]
+        [%- INCLUDE "forms/generic/row.tt" field=form.field("resolution") label=l('Comment') class='artist-resolution' -%]
     [%- END -%]
     [%- WRAPPER 'forms/fieldset.tt' legend=l('Date Period') -%]
         <p>
             [%- l('Dates are in the format YYYY-MM-DD. Partial dates such as YYYY-MM or just YYYY are OK, or you can omit the date entirely.') -%]
         </p>
-        [%- INCLUDE "forms/generic/row.tt" field=form.field("start") label=l('Start Date') -%]
-        [%- INCLUDE "forms/generic/row.tt" field=form.field("end") label=l('End Date') -%]
+        [%- INCLUDE "forms/generic/row.tt" field=form.field("start") label=l('Start Date') class='artist-begin' -%]
+        [%- INCLUDE "forms/generic/row.tt" field=form.field("end") label=l('End Date') class='artist-end' -%]
     [%- END -%]
     [% INCLUDE 'forms/edit-note.tt' %]
     [% INCLUDE 'forms/auto-editor.tt' %]
