@@ -245,6 +245,7 @@ sub confirm_labels : Chained('wizard') Form('Label::Create')
 sub confirm : Chained('wizard') Form('Confirm')
 {
     my ($self, $c) = @_;
+    $c->stash->{wizard}->current_step_index(5);
 
     my $data = $self->_data($c);
 
