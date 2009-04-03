@@ -1,6 +1,12 @@
 [%- WRAPPER 'artist/layout.tt' title=l('Confirm Add Release') -%]
-    [%- WRAPPER 'components/box.tt' header=l('Enter edit') -%]
+    [%- WRAPPER 'components/box.tt' header=l('Preview') -%]
         [%- INCLUDE 'release_editor/bread_crumbs.tt' -%]
+        [%- INCLUDE 'release/release.tt'
+            no_info_links=1
+            no_edit_links=1
+            show_artists=1 -%]
+    [%- END -%]
+    [%- WRAPPER 'components/box.tt' header=l('Enter edit') -%]
         [%- WRAPPER 'forms/form.tt' quiet=1 -%]
             [%- INCLUDE 'forms/edit-note.tt' -%]
             [%- WRAPPER 'forms/blank_row.tt' %]
@@ -9,11 +15,5 @@
                 [%- INCLUDE 'forms/submit.tt' inline=1 label=l('Keep Editing') name='keep_editing' -%]
             [%- END -%]
         [%- END -%]
-    [%- END -%]
-    [%- WRAPPER 'components/box.tt' header=l('Preview') -%]
-        [%- INCLUDE 'release/release.tt'
-            no_info_links=1
-            no_edit_links=1
-            show_artists=1 -%]
     [%- END -%]
 [%- END -%]
