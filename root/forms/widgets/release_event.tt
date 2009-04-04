@@ -31,3 +31,22 @@
         [%- INCLUDE 'forms/input.tt' type='select' field=field.sub_form.field('format') class='release_event_format' -%]
     </td>
 </tr>
+[%- IF field.sub_form.field('confirmed').required -%]
+<tr>
+    [%- UNLESS no_remove -%]<td>&nbsp;</td>[%- END -%]
+    <td colspan="6">
+        <p>
+            The catalog number [% field.sub_form.field('catalog').value %] looks
+            like an Amazon ASIN. The correct way to attach an ASIN to a release
+            is via an advanced relationship, specifically the AmazonRelationshipType.
+            If you are sure this is the correct catalog number, please check
+            the box below, to confirm you know what you are doing.
+        </p>
+        <p>
+            [% INCLUDE 'forms/generic/row.tt' type='checkbox'
+                field=field.sub_form.field('confirmed')
+                label=l('I know what I am doing, this is the correct catalog number') -%]
+        </p>
+    </td>
+</tr>
+[%- END -%]

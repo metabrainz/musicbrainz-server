@@ -38,6 +38,7 @@ sub profile
                 order => 6
             },
             remove => 'Checkbox',
+            confirmed => 'Checkbox',
         }
     }
 }
@@ -73,6 +74,28 @@ sub field_value
         case ('country') { return $event->country; }
         case ('catalog') { return $event->cat_no; }
     }
+}
+
+=head2 extra_validation
+
+Check that the given catalog number does not look like an ASIN, and if it does
+that the user has confirmed that they know what they are doing
+
+=cut
+
+sub extra_validation
+{
+    my $self = shift;
+    my $form = $self->sub_form;
+
+    my $cat_no = $form->value('catalog');
+    if ($cat_no =~ /^B00[0-9A-Z]{7}$/)
+    {
+        $form->field('confirmed')->required(1);
+        $form->field('confirmed')->validate_field or return;
+    }
+
+    return 1;
 }
 
 1;

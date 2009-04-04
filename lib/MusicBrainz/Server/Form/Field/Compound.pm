@@ -60,13 +60,19 @@ sub validate
 {
     my $self = shift;
 
-    my $sub_form_validated = $self->sub_form->validate(scalar $self->form->params);
-
-    return
-        unless $sub_form_validated;
+    $self->sub_form->validate(scalar $self->form->params) or return;
+    $self->extra_validation or return;
 
     return 1;
 }
+
+=head2 extra_validation
+
+Perform any extra validation, after field validation is complete
+
+=cut
+
+sub extra_validation { 1 }
 
 =head2 errors
 
