@@ -296,7 +296,7 @@ sub create : Local Form
 
     if ($c->form_posted) {
         $form->validate($c->req->params);
-        
+
         my $dupes = $c->model('Artist')->search_by_name($form->value('name'));
         $c->stash->{dupes} = $dupes;
     }

@@ -83,9 +83,12 @@ Return a list of errors for all sub fields.
 sub errors
 {
     my $self = shift;
-    return map {
+    my @field_errors = map {
         $_->errors
-    } $self->sub_form->fields; 
+    } $self->sub_form->fields;
+
+    my @errors = ($self->SUPER::errors, @field_errors);
+    return @errors;
 }
 
 =head2

@@ -5,6 +5,8 @@ use warnings;
 
 use base 'MusicBrainz::Server::Form';
 
+use MusicBrainz::Server::Validation;
+
 sub name { 'label' }
 
 sub profile
@@ -28,6 +30,9 @@ sub profile
                 required_message => 'A label with this name already exists. '.
                                     'Please enter a comment about this label for disambiguation',
             },
+
+            # We make this required if duplicates are found
+            confirmed => 'Checkbox',
         }
     });
 }
@@ -74,8 +79,34 @@ sub model_validate
 
     if (scalar @dupes)
     {
+        $self->field('confirmed')->required(1);
+        $self->field('confirmed')->validate_field;
+
         $self->field('resolution')->required(1);
         $self->field('resolution')->validate_field;
+    }
+}
+
+=head2 cross_validate
+
+Cross validate all fields to ensure start and end date are in chronological
+order.
+
+=cut
+
+sub cross_validate
+{
+    my $self = shift;
+
+    my ($sy, $sm, $sd) = grep { $_ > 0 } split m/-/, $self->value('begin_date');
+    my ($ey, $em, $ed) = grep { $_ > 0 } split m/-/, $self->value('end_date');
+
+    my @start = ($sy, $sm, $sd);
+    my @end = ($ey, $em, $ed);
+
+    if (MusicBrainz::Server::Validation::IsDateEarlierThan(@end, @start))
+    {
+        $self->field('end_date')->add_error('Label end date must be after the start date');
     }
 }
 

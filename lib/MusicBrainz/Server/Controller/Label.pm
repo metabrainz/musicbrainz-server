@@ -220,6 +220,13 @@ sub create : Local Form
 
     my $form = $self->form;
 
+    if ($c->form_posted) {
+        $form->validate($c->req->params);
+
+        my $dupes = $c->model('Label')->search_by_name($form->value('name'));
+        $c->stash->{dupes} = $dupes;
+    }
+
     return unless $self->submit_and_validate($c);
 
     my $created_label = $form->create;

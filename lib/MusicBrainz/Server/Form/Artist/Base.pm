@@ -9,6 +9,7 @@ use ModDefs;
 use Moderation;
 use MusicBrainz;
 use MusicBrainz::Server::Artist;
+use MusicBrainz::Server::Validation;
 
 =head1 NAME
 
@@ -105,9 +106,33 @@ sub model_validate
     if (scalar @dupes)
     {
         $self->field('confirmed')->required(1);
+        $self->field('confirmed')->validate_field;
 
         $self->field('resolution')->required(1);
         $self->field('resolution')->validate_field;
+    }
+}
+
+=head2 cross_validate
+
+Cross validate all fields to ensure start and end date are in chronological
+order.
+
+=cut
+
+sub cross_validate
+{
+    my $self = shift;
+
+    my ($sy, $sm, $sd) = grep { $_ > 0 } split m/-/, $self->value('start');
+    my ($ey, $em, $ed) = grep { $_ > 0 } split m/-/, $self->value('end');
+
+    my @start = ($sy, $sm, $sd);
+    my @end = ($ey, $em, $ed);
+
+    if (MusicBrainz::Server::Validation::IsDateEarlierThan(@end, @start))
+    {
+        $self->field('end')->add_error('Artist end date must be after the start date');
     }
 }
 

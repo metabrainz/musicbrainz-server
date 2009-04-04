@@ -192,15 +192,14 @@ sub IsDateEarlierThan
 {
     my ($y1, $m1, $d1, $y2, $m2, $d2) = @_;
 
-    return 1 unless IsValidDate($y1, $m1, $d1) and IsValidDate($y2, $m2, $d2);
+    return unless IsValidDate($y1, $m1, $d1) and IsValidDate($y2, $m2, $d2);
 
     ($m1, $m2, $d1, $d2) = (1, 1, 1, 1) if ($m1 eq '' || $m2 eq '');
     ($d1, $d2) = (1, 1) if ($d1 eq '' || $d2 eq '');
 
     my ($days) = Date::Calc::Delta_Days($y1, $m1, $d1, $y2, $m2, $d2);
 
-    return 0 if ($days < 0);
-    return 1;
+    return $days > 0;
 }
 
 sub IsValidLabelCode

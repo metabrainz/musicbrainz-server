@@ -20,6 +20,20 @@ sub load
     return $label;
 }
 
+=head2 search_by_name $name
+
+Search for all labels with the exact name C<$name>.
+
+=cut
+
+sub search_by_name
+{
+    my ($self, $name) = @_;
+
+    my $artist = MusicBrainz::Server::Label->new($self->dbh);
+    return $artist->find_labels_by_name($name);
+}
+
 sub direct_search
 {
     my ($self, $query) = @_;
