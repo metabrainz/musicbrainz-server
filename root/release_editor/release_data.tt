@@ -11,7 +11,7 @@
         [%- WRAPPER 'forms/form.tt' -%]
             [%- WRAPPER 'forms/fieldset.tt' legend=l('Release Information') -%]
                 [%- INCLUDE 'forms/generic/row.tt' field=form.field('release_artist') label=l('Artist') class='release-artist'-%]
-                [%- INCLUDE 'forms/generic/row.tt' field=form.field('title') label=l('Title') -%]
+                [%- INCLUDE 'forms/generic/row.tt' field=form.field('title') label=l('Title') class='release-title' -%]
             [%- END -%]
             [%- WRAPPER 'forms/fieldset.tt' legend=l('Tracks') %]
                 [%- FOR i=[1..form.track_count] -%]
