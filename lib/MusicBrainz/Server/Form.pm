@@ -83,4 +83,15 @@ sub check_volatile_prefs
     }
 }
 
+sub has_required_fields
+{
+    my $self = shift;
+    for my $field ($self->fields)
+    {
+        if $field->required return 1;
+    }
+
+    return;
+}
+
 1;

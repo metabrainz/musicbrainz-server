@@ -1,5 +1,5 @@
 <form action="[% action || c.req.uri %]" method="[% method || 'post' %]" [% UNLESS custom %]class="generic"[% END %]>
-    [%- UNLESS quiet -%]
+    [%- IF !quiet AND form.has_required_fields -%]
         <p>[% l('Fields that are <span class="required">bold</span> are required.') %]</p>
     [%- END -%]
     [%- IF form.general_errors.size -%]
