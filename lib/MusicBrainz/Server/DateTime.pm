@@ -117,7 +117,7 @@ sub format_datetime
 		for (@_)
 		{
 			my @bits = /\A(\d\d\d\d)-(\d\d)-(\d\d) (\d\d):(\d\d):(\d\d)\b/;
-			
+
 			if (@bits)
 			{
 				$bits[0] -= 1900;

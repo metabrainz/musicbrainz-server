@@ -111,7 +111,7 @@
                 [% ELSIF user.charter %]
                     [% l('Charter Member') %]
                 [% ELSE %]
-                    [% user_date(user.member_since) %]
+                    [% UserDate.format(user.member_since) %]
                 [% END %]
             [% END %]
             [% add_commas(user.mods_accepted)      WRAPPER property name=l("Accepted Non-AutoEdits") %]

@@ -42,7 +42,7 @@
                             [% l('Expired:') %]
                         </th>
                         <td>
-                            [% user_date(moderation.expire_time) %]
+                            [% UserDate.format(moderation.expire_time) %]
                         </td>
                     </tr>
                 </table>
