@@ -142,7 +142,13 @@ sub subscribed_artists
     {
         my $row = $sql->NextRowHashRef
             or last;
-        my $artist = MusicBrainz::Server::Artist->new($self->dbh, $row);
+
+        my $artist = MusicBrainz::Server::Artist->new($self->dbh, {
+            id         => $row->{artist},
+            sortname   => $row->{sortname},
+            name       => $row->{name},
+            resolution => $row->{resolution},
+        });
         push @entities, $artist;
     }
 
@@ -301,7 +307,12 @@ sub subscribed_labels
     {
         my $row = $sql->NextRowHashRef
             or last;
-        my $label = MusicBrainz::Server::Label->new($self->dbh, $row);
+        my $label = MusicBrainz::Server::Label->new($self->dbh, {
+            id         => $row->{label},
+            sortname   => $row->{sortname},
+            name       => $row->{name},
+            resolution => $row->{resolution},
+        });
         push @entities, $label;
     }
 

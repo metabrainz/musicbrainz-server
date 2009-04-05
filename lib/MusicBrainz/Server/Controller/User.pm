@@ -491,24 +491,34 @@ View all subscriptions
 
 sub subscriptions : Local
 {
-    my ($self, $c, $type) = @_;
-
+    my ($self, $c, $user, $type) = @_;
     $c->forward('/user/login');
+
+    $user ||= $c->user->name;
+    $c->stash->{user} = $user =
+        $c->model('User')->load({ username => $user })
+        or $c->detach('/error_404');
+
+    my $viewing_own;
+    if ($user->name eq $c->user->name)
+    {
+        $viewing_own = $c->stash->{viewing_own} = 1;
+    }
 
     $type ||= 'artist';
 
     my $page = $c->req->query_params->{page} || 1;
-    my ($entities, $pager) = $c->model('Subscription')->users_subscribed_entities($c->user, $type, $page);
+    my ($entities, $pager) = $c->model('Subscription')->users_subscribed_entities($user, $type, $page);
 
     $c->stash->{type}     = $type;
     $c->stash->{entities} = $entities;
     $c->stash->{pager}    = $pager;
 
-    $c->stash->{artist_count} = $c->model('Subscription')->user_artist_count($c->user);
-    $c->stash->{label_count } = $c->model('Subscription')->user_label_count($c->user);
-    $c->stash->{editor_count} = $c->model('Subscription')->user_editor_count($c->user);
+    $c->stash->{artist_count} = $c->model('Subscription')->user_artist_count($user);
+    $c->stash->{label_count } = $c->model('Subscription')->user_label_count($user);
+    $c->stash->{editor_count} = $c->model('Subscription')->user_editor_count($user);
 
-    return unless $c->form_posted;
+    return unless ($viewing_own && $c->form_posted);
 
     # Make sure we have a list of IDs
     my $ids = $c->req->params->{id};
@@ -529,7 +539,7 @@ sub subscriptions : Local
         case ('artist') {
             $c->model('Subscription')->unsubscribe_from_artists($c->user, [ @entities ]);
         }
-        
+
         case ('label') {
             $c->model('Subscription')->unsubscribe_from_labels($c->user, [ @entities ]);
         }

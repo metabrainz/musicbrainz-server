@@ -1,28 +1,79 @@
 [%- WRAPPER 'layout.tt' title=l('Your Subscriptions') -%]
     [%- WRAPPER 'components/box.tt' header=l('Your Subscriptions') -%]
         <p>
-            [% l('You are currently subscribed to <strong>{num_artist}</strong> artists, <strong>{num_label}</strong> labels and <strong>{num_editor}</strong> editors.', {num_artist => artist_count, num_label => label_count, num_editor => editor_count}) %]
-        </p>
-        <p>
-            [% l('To unsubscribe, activate the checkbox next to the artists, labels or editors you would like to unsubscribe from, then <em>unsubscribe</em> below. To subscribe to an artist, a label or an editor, use the "subscribe" link on the artist\'s, label\'s or editor\'s page.') %]
+            [% vars = {
+                        user => user.name,
+                        num_artist => artist_count,
+                        num_label => label_count,
+                        num_editor => editor_count
+                      } %]
+            [% IF viewing_own %]
+                [% l('You are currently subscribed to <strong>{num_artist}</strong>
+                      artists, <strong>{num_label}</strong> labels and
+                      <strong>{num_editor}</strong> editors.', vars) %]
+            [% ELSE %]
+                [% l('{user} is currently subscribed to <strong>{num_artist}</strong>
+                      artists, <strong>{num_label}</strong> labels and
+                      <strong>{num_editor}</strong> editors.', vars) %]
+            [% END %]
         </p>
         <h3>
             [% make_ucfirst(get_plural_type(type)) %]
         </h3>
-        [%- WRAPPER 'components/with-pager.tt' -%]
-            [%- WRAPPER 'forms/form.tt' custom=1 -%]
+        [%- INCLUDE 'components/piped-list.tt' caption=l('View:') list=[
+                { text = l('Artists'), link=c.uri_for('/user/subscriptions', user.name, 'artist') },
+                { text = l('Labels'), link=c.uri_for('/user/subscriptions', user.name, 'label') },
+                { text = l('Editors'), link=c.uri_for('/user/subscriptions', user.name, 'editor') },
+            ]%]
+        [%- IF viewing_own -%]
+            [% IF entities.size %]
+                <p>
+                    [% l("To unsubscribe, activate the checkbox next to the artists,
+                        labels or editors you would like to unsubscribe from, then
+                        <em>unsubscribe</em> below. To subscribe to an artist, a label
+                        or an editor, use the \"subscribe\" link on the artist's,
+                        label's or editor's page.") %]
+                </p>
+                [%- WRAPPER 'components/with-pager.tt' -%]
+                    [%- WRAPPER 'forms/form.tt' custom=1 -%]
+                        <ul>
+                            [%- FOREACH entity IN entities -%]
+                                <li>
+                                    <input type="checkbox" name="id" value="[% entity.id %]" id="[% type %].[% entity.id %]" />
+                                    <label for="[% type %].[% entity.id %]">
+                                        [%- entity_link(entity) -%]
+                                    </label>
+                                </li>
+                            [%- END -%]
+                        </ul>
+                        [%- INCLUDE 'forms/submit.tt' label="Unsubscribe" -%]
+                    [%- END -%]
+                [%- END -%]
+            [% ELSE %]
+                <p>
+                    [% l('You are not subscribed to any {type}.',
+                        { type => get_plural_type(type) }) %]
+                </p>
+            [% END %]
+        [%- ELSE -%]
+            [% vars = {
+                         user => user.name,
+                         type => get_plural_type(type)
+                      } %]
+            [% IF entities.size %]
+                <p>
+                    [% l('{user} is subscribed to the following {type}:', vars)%]
+                </p>
                 <ul>
                     [%- FOREACH entity IN entities -%]
-                        <li>
-                            <input type="checkbox" name="id" value="[% entity.id %]" id="[% type %].[% entity.id %]" />
-                            <label for="[% type %].[% entity.id %]">
-                                [%- entity_link(entity) -%]
-                            </label>
-                        </li>
+                        <li>[%- entity_link(entity) -%]</li>
                     [%- END -%]
                 </ul>
-                [%- INCLUDE 'forms/submit.tt' label="Unsubscribe" -%]
-            [%- END -%]
+            [% ELSE %]
+                <p>
+                    [% l('{user} is not subscribed to any {type}.', vars) %]
+                </p>
+            [% END %]
         [%- END -%]
     [%- END -%]
 [%- END -%]

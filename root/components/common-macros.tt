@@ -77,6 +77,8 @@ END; %]
             l('labels');
         CASE 'track';
             l('tracks');
+        CASE 'editor';
+            l('editors');
         CASE DEFAULT;
             l('Error: Unknown Type');
     END %]
