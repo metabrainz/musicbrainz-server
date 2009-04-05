@@ -42,6 +42,11 @@
                 [% UNLESS no_track_numbers %]<td class="number" headers="track-num">[% track.sequence %]</td>[% END %]
                 <td class="title" headers="track-title">
                     [% entity_link(track, 1) %]
+                    [% IF track.puid_count > 0 %]
+                        <img src="[% c.uri_for('/static/images/puid.gif') %]"
+                        alt="PUID"
+                        title="[% track.puid_count %] puids" />
+                    [% END %]
                     [% INCLUDE "components/relationships.tt" source=track relations=track.relations justlist=1 nocompact=1
                         IF track.relations.size AND show_relationships %]
                     [% INCLUDE "rating/stars.tt" track.rating.small=1 rating=track.rating url_base="/$entity.entity_type/$entity.mbid"
