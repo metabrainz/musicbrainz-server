@@ -7,6 +7,7 @@ use base 'Catalyst::Controller';
 
 # Import MusicBrainz libraries
 use DBDefs;
+use ModDefs;
 use MusicBrainz::Server::Cache;
 use MusicBrainz::Server::Replication ':replication_type';
 use MusicBrainz::Server::Statistic;
@@ -214,6 +215,8 @@ sub end : ActionClass('RenderView')
     $c->stash->{vote} = \&ModDefs::vote_name;
 
     $c->stash->{release_format} = \&MusicBrainz::Server::ReleaseEvent::release_format_name;
+
+    $c->stash->{various_artist_mbid} = ModDefs::VARTIST_MBID;
 }
 
 =head1 LICENSE

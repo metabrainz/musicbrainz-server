@@ -77,13 +77,18 @@ sub track_count : Chained('wizard') Form('ReleaseEditor::TrackCount')
     $data->clear_tracks;
     for (1 .. $self->form->value('track_count'))
     {
-        $data->add_track(
-            MusicBrainz::Server::Wizards::ReleaseEditor::Track->new(
-                artist    => $artist->name,
-                artist_id => $artist->id,
-                sequence  => $_,
-            )
+        my $track = MusicBrainz::Server::Wizards::ReleaseEditor::Track->new(
+            artist => '',
+            sequence  => $_,
         );
+
+        if ($artist->id != ModDefs::VARTIST_ID)
+        {
+            $track->artist($artist->name);
+            $track->artist_id($artist->id);
+        }
+
+        $data->add_track($track);
     }
 
     $data->clear_release_events;

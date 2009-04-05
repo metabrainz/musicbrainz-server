@@ -176,6 +176,11 @@
                 </a>
             </li>
             <li>
+                <a href="[% c.uri_for('/artist', various_artist_mbid, 'add_release') %]">
+                    [% l('Add Various Artists Release') %]
+                </a>
+            </li>
+            <li>
                 <a href="[% c.uri_for('/release/freedb_import') %]">
                     [% l('FreeDB Import') %]
                 </a>
