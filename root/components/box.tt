@@ -14,7 +14,7 @@
     [%- IF id -%]
         id="[%- id -%]"
     [%- END -%]
-    class="box [% color %]" style="float: left;">
+    class="box [% color %]">
     <h2>
         [% header | html %]
     </h2>

@@ -132,7 +132,7 @@ caption {
  * Sidebar
  */
 .sidebar {
-    width: 10%;
+    width: 130px;
     background: #DDD;
     border-right: 1px solid #000;
     color: #050505;
