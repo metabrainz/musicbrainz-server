@@ -1,5 +1,7 @@
+[% SET guessCase=1 styleGuidelines=1 %]
+[% PROCESS 'editsuite/suitereqs.tt' %]
 [% WRAPPER 'track/layout.tt' title="Edit Track" %]
-
+    [% INCLUDE 'editsuite/suiteloader.tt' %]
 [% WRAPPER 'components/box.tt' header="Edit Track Number, Title, and Duration" %]
     [% WRAPPER 'forms/form.tt' %]
         [% INCLUDE 'forms/generic/row.tt' field=form.field('track') label="Track:" %]

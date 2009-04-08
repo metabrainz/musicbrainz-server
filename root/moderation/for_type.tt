@@ -1,3 +1,4 @@
+[% extra_js = "diff_match_patch_GPL2.js editDiff.js" %]
 [%- WRAPPER "${entity.entity_type}/layout.tt" -%]
     <h1>
         [% l('Edits for {entity}', {entity => html_escape(entity.name)}) %]

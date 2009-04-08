@@ -1,30 +1,34 @@
 [% extra_js = "switch.js switchcontrols.js" %]
+[% SET guessCase=1 undoRevert=1 searchReplace=1 trackParser=1 styleGuidelines=1 guessAll=1 %]
+[% PROCESS 'editsuite/suitereqs.tt' %]
 [% WRAPPER 'layout.tt' title=l('Add Release') %]
-    [% WRAPPER 'components/box.tt' header=l('Add a new Release') %]
+    [% INCLUDE 'editsuite/suiteloader.tt' %]
+    [% WRAPPER 'components/box.tt' header=l('Add a new Release') id="addreleasecontent" %]
         [% INCLUDE 'release_editor/bread_crumbs.tt' %]
         [%- WRAPPER 'layout/guidelines.tt' -%]
             [%- create_guideline(l('The fields below allow you to enter information about the title, track title(s), and artist(s) for this release.')) -%]
             [%- create_guideline(l('Unless the release has attached {discids|Disc IDs}, you can remove tracks by activating the remove button on the left of the track title fields.', {discids => doc_link('DiscID')})) -%]
-            [%- create_guideline(l('If you are editing a {va_release|Various Artists Release}, or if you have chosen to display the track artists, you can activate the change button of the artists you would like to change. (Available only if you have JavaScript enabled.)  If you have JavaScript disabled, or if you need to add new artists, the next page will let you specify the track artists.', {va_release => doc_link('VariousArtistsRelease')})) -%]
-            [%- create_guideline(l('Please use the Guess Case buttons to fix common style errors. (Available only if you have JavaScript enabled.)')) -%]
+            [%- create_guideline(l('If you are editing a {va_release|Various Artists Release}, or if you have chosen to display the track artists, you can click on the change button of the artist(s) you would like to change. <span class="only-if-no-javascript">(Available only if you have JavaScript enabled.)  If you have JavaScript disabled, or if</span><span class="only-if-javascript hidden">If</span> you need to add new artists, the next page will let you specify the track artists.', {va_release => doc_link('VariousArtistsRelease')})) -%]
         [%- END -%]
         [%- WRAPPER 'forms/form.tt' -%]
             [%- WRAPPER 'forms/fieldset.tt' legend=l('Release Information') -%]
                 [%- INCLUDE 'forms/generic/row.tt' field=form.field('release_artist') label=l('Artist') class='release-artist'-%]
                 [%- INCLUDE 'forms/generic/row.tt' field=form.field('title') label=l('Title') class='release-title' -%]
             [%- END -%]
-            [%- WRAPPER 'forms/fieldset.tt' legend=l('Tracks') %]
+            [%- WRAPPER 'forms/fieldset.tt' legend=l('Tracks') es=1 %]
                 [%- FOR i=[1..form.track_count] -%]
-                    [%- INCLUDE 'forms/generic/row.tt' field=form.field("track_$i") label=l('Track') type='track' -%]
-                    [%- INCLUDE 'forms/generic/row.tt' field=form.field("artist_$i") label=l('Artist') class='artist_name' %]
+                    <div id="form-add-release-tracks-track_[%- i -%]" class="releasetracks">
+                        [%- INCLUDE 'forms/generic/row.tt' field=form.field("track_$i") label=l('Track') type='track' -%]
+                        [%- INCLUDE 'forms/generic/row.tt' field=form.field("artist_$i") label=l('Artist') class='artist_name' %]
+                    </div>
                     <br />
                 [%- END -%]
                 [%- INCLUDE 'forms/generic/row.tt' field=form.field("more_tracks") label=l('Add another track') -%]
                 <div id="form-controls"></div>
             [%- END -%]
-            [%- WRAPPER 'forms/fieldset.tt' legend=l('Release Events') -%]
+            [%- WRAPPER 'forms/fieldset.tt' legend=l('Release Events') re=1 -%]
                 [%- WRAPPER 'forms/widgets/release_event_labels.tt' -%]
-                    [%- INCLUDE 'forms/input.tt' field=form.field("event_${i}") type='release_event'
+                    [%- INCLUDE 'forms/input.tt' field=form.field("event-${i}") type='release_event'
                             FOR i=[1 .. form.event_count] -%]
                 [%- END -%]
                 [%- INCLUDE 'forms/generic/row.tt' field=form.field("more_events") label=l('Add another release event') -%]
@@ -37,13 +41,10 @@
                          [%- INCLUDE 'forms/input.tt' field=form.field('release_status') class='release_status' -%]
                     </div>
                 [%- END -%]
-
                 [%- INCLUDE 'forms/generic/row.tt' field=form.field('language') label=l('Language') class='release_language' -%]
                 [%- INCLUDE 'forms/generic/row.tt' field=form.field('script') label=l('Script') class='release_script' -%]
             [%- END -%]
-
             [%- INCLUDE 'forms/edit-note.tt' %]
-
             [%- INCLUDE 'release_editor/submit.tt' -%]
         [%- END -%]
     [%- END- %]

@@ -3,35 +3,27 @@
         [%- text -%]
     </li>
 [%- END -%]
-
-[%# This next could use localization for alternating comma/period use per locale %]
-[% MACRO add_commas(n) GET n.chunk(-3).join(',') %]
-
-[% MACRO url_escape(url) BLOCK; url | url; END %]
-[% MACRO html_escape(url) BLOCK; url | html; END %]
-[% MACRO make_ucfirst(text) BLOCK; text | ucfirst; END %]
-
+[%#- This next could use localization for alternating comma/period use per locale -%]
+[%- MACRO add_commas(n) GET n.chunk(-3).join(',') -%]
+[%- MACRO url_escape(url) BLOCK; url | url; END -%]
+[%- MACRO html_escape(url) BLOCK; url | html; END -%]
+[%- MACRO make_ucfirst(text) BLOCK; text | ucfirst; END -%]
 [%- MACRO make_widget(field, label) INCLUDE 'forms/generic/row.tt' field=form.field(field) label=label -%]
-
-[% USE UserDate(c.user.preferences) %]
-
+[%- USE UserDate(c.user.preferences) -%]
 [%- MACRO doc_link(to) BLOCK -%]
     [%- "/doc/" -%][% to %]
 [%- END -%]
-
-[% MACRO l(text, args) BLOCK;
+[%- MACRO l(text, args) BLOCK;
     c.gettext(text, args);
-END; %]
-
-[%# There is a bug in this implementation fo ngettext that is easier to fix by policy that's why it's not fixed yet.
+END; -%]
+[%#- There is a bug in this implementation fo ngettext that is easier to fix by policy that's why it's not fixed yet.
 The problem surfaces when an unfinished translation file is used, in this case a plural translation would 
 apply language-specific plural construction rules to the untranslated english string. If a translation language has
 more than two plural forms, then the first plural form (germanic plural) is chosen for every form other than the first
-two. %]
-[% MACRO ln(text, plural, num, args) BLOCK;
+two. -%]
+[%- MACRO ln(text, plural, num, args) BLOCK;
     c.ngettext(text, plural, num, args);
-END; %]
-
+END; -%]
 [%- MACRO entity_link(entity, noicon) IF entity -%]
     [%- mpclass = entity.has_mod_pending ? ' class="mp"' : '' -%]
     [%- IF entity.entity_type == "url" -%]
@@ -46,27 +38,23 @@ END; %]
         [%- IF entity.resolution -%] ([%- entity.resolution | html -%])[%- END -%]
     [%- END -%]
 [%- END -%]
-
-[%- MACRO comma_list(items) BLOCK %]
+[%- MACRO comma_list(items) BLOCK -%]
     [%- FOREACH item IN items -%]
         [%- item -%]
         [%- loop.count == (loop.size - 1) ? " and " : !loop.last ? ", " : "" -%]
     [%- END -%]
 [%- END -%]
-
 [%- MACRO form_id(field)
     IF field.form;
         "form-" _ field.form.name _ "-" _ field.name.replace('_', '-');
     ELSE;
         "form-$field";
     END -%]
-
 [%- MACRO class_html(classes)
     IF classes.size; 'class="' _ classes.join(' ') _ '"';
     ELSE; '';
     END -%]
-
-[%# Take type and return pluralized word form, avoids problems with '|% type %|s' #%]
+[%#- Take type and return pluralized word form, avoids problems with '|% type %|s' -#%]
 [%- MACRO get_plural_type(entity)
     SWITCH entity;
         CASE 'release';
@@ -81,4 +69,4 @@ END; %]
             l('editors');
         CASE DEFAULT;
             l('Error: Unknown Type');
-    END %]
+    END -%]

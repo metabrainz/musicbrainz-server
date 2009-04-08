@@ -1,4 +1,7 @@
+[% SET styleGuidelines=1 %]
+[% PROCESS 'editsuite/suitereqs.tt' %]
 [%- WRAPPER 'artist/layout.tt' title=l('Change Data Quality') -%]
+    [% INCLUDE 'editsuite/suiteloader.tt' %]
     [%- WRAPPER 'components/box.tt' header=l('Change Data Quality') -%]
         [%- WRAPPER 'layout/guidelines.tt' -%]
             [%- create_guideline(l('Please select the new {doc_quality|Data Quality} setting.', {doc_quality => doc_link('DataQuality')})) -%]

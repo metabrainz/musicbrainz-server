@@ -10,7 +10,11 @@
 [%- DEFAULT
     color = 'orange'
 -%]
-<div class="box [% color %]">
+<div 
+    [%- IF id -%]
+        id="[%- id -%]"
+    [%- END -%]
+    class="box [% color %]" style="float: left;">
     <h2>
         [% header | html %]
     </h2>

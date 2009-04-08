@@ -3,19 +3,19 @@
  *************************************************/
 // Store selection in cookie, turn on/off the sidebar
 function flipSidebar() {
-        $("span.toggle").toggle();
+        $("#sidebartoggle, #sidebar-hide-toggle, #sidebar-show-toggle").toggle();
         switch($.cookie('sidebar'))
         {
-            default:
-            case 'on':
-                $.cookie('sidebar', 'off');
-                $('#content').css("margin-left","0px");
-                $('#content').css("margin-top","15px");
-                break;
             case 'off':
-                $.cookie('sidebar', 'on');
-                $('#content').css("margin-left","140px");
-                $('#content').css("margin-top","0px");
+                $.cookie('sidebar', 'on', { expires: 15000 });
+                $('#container').css("width","90%");
+                $('#container').css("margin-top","0px");
+                break;
+            case 'on':
+            default:
+                $.cookie('sidebar', 'off', { expires: 15000 });
+                $('#container').css("width","100%");
+                $('#container').css("margin-top","15px");
         }
 }
 
@@ -24,12 +24,12 @@ $(document).ready(function(){
     // preferences).  Does nothing if it is off.
     if ($('#sidebar').length)
         $('#id_toggle_target').append(' \
-            <span id="id_hide_toggle" class="toggle"> \
+            <span id="sidebar-hide-toggle"> \
                 <a href="javascript:flipSidebar()"> \
                     &nbsp;Hide Sidebar \
                 </a> \
             </span> \
-            <span id="id_show_toggle" style="display:none;" class="toggle"> \
+            <span id="sidebar-show-toggle" style="display:none;"> \
                 <a href="javascript:flipSidebar()"> \
                     &nbsp;Show Sidebar \
                 </a> \
@@ -45,11 +45,11 @@ $(document).ready(function(){
         case 'off':
             // Turn on the sidebar, swap toggle text
             $("span.toggle").toggle();
-            $('#content').css("margin-left","0px");
-            $('#content').css("margin-top","15px");
+            $('#container').css("width","100%");
+            $('#container').css("margin-top","15px");
             break;
             // Turn off the sidebar, swap toggle text
         case 'on':
-            $('#content').css("margin-top","0px");
+            $('#container').css("margin-top","0px");
     }
 });

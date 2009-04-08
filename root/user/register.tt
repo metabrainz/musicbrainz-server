@@ -3,7 +3,7 @@
         [%- WRAPPER 'layout/guidelines.tt' -%]
             [%- create_guideline('Please fill out the fields below to create a new MusicBrainz account.') %]
             [%- create_guideline('Before doing so, please read the {coc|MusicBrainz Code of Conduct}', {coc => doc_link('CodeOfConduct')}) -%]
-            [%- create_guideline('If you have any questions, please review the {faq|<abbr "Frequently Asked Questions">FAQ</abbr>}, or post it to the appropriate {ml|Mailing List}.', {faq => doc_link('FrequentlyAskedQuestions'), ml => doc_link('MailingList')}) -%]
+            [%- create_guideline('If you have any questions, please review the {faq|Frequently Asked Questions (FAQ)}, or post it to the appropriate {ml|Mailing List}.', {faq => doc_link('FrequentlyAskedQuestions'), ml => doc_link('MailingList')}) -%]
         [% END %]
         [% WRAPPER "forms/form.tt" %]
             [% INCLUDE "forms/generic/row.tt" field=form.field('username') label=l("Username") %]

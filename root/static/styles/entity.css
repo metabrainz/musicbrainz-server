@@ -117,7 +117,7 @@ span.label_icon { background-image: url("/static/images/entity/label_small.gif")
 span.track_icon { background-image: url("/static/images/entity/track_small.gif"); }
 
 .lastupdated {
-    color: grey;
+    color: gray;
     font-size: x-small;
 }
 

@@ -1,4 +1,7 @@
+[% SET styleGuidelines=1 %]
+[% PROCESS 'editsuite/suitereqs.tt' %]
 [% WRAPPER 'label/layout.tt' title=l('Edit Label Alias') %]
+    [% INCLUDE 'editsuite/suiteloader.tt' %]
     [% WRAPPER 'components/box.tt' header=l('Edit Label Alias') %]
         [% WRAPPER 'forms/form.tt' %]
             [% INCLUDE 'forms/generic/row.tt' field=form.field('alias') label=l('Alias') %]

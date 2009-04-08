@@ -34,7 +34,7 @@
     <p>
         Here is a [%- doc_link('HowEditingWorks', 'a transcluded wiki page') -%]. You can alse link to various MusicBrainz entities:
         such as [% INCLUDE "components/entity-link.tt" type="artist" text="the Beatles" mbid="b10bbbfc-cf9e-42e0-be17-e2c3e1d2600d" %]. 
-        Linking to releases does not require the <code>type</code> to be set to <code>"release"</code>; entity-link.tt specifies the 
+        Linking to Releases does not require the <code>type</code> to be set to <code>"release"</code>; entity-link.tt specifies the 
         default as <code>type="release"</code>.
     </p>
 [% END %]

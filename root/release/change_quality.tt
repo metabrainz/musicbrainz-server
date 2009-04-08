@@ -1,4 +1,7 @@
+[% SET styleGuidelines=1 %]
+[% PROCESS 'editsuite/suitereqs.tt' %]
 [%- WRAPPER 'release/layout.tt' title=l("Change Data Quality") -%]
+    [% INCLUDE 'editsuite/suiteloader.tt' %]
     [%- WRAPPER 'components/box.tt' header=l("Change Data Quality") -%]
         <p>
             [% l('The {quality|Data Quality} for {release} is currently set to: <strong>{rel_qual}</strong>.', {quality => doc_link("DataQuality"), release => entity_link(release), rel_qual => data_quality(release.quality)}) %]

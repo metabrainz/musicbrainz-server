@@ -253,14 +253,27 @@ www.google.vg
 our %prefs = ();
 
 # Alphabetical order please
-addpref('autofix_open', "remember", sub { check_in([qw( remember 1 0 )], @_) });
 addpref('css_noentityicons', 0, \&check_bool);
 addpref('css_nosmallfonts', 0, \&check_bool);
 addpref('datetimeformat', $allowed_datetime_formats[0], \&check_datetimeformat);
 addpref('default_country', 0, sub { check_int(0,undef,@_) });
 addpref('google_domain', "www.google.com", \&check_google_domain);
+addpref('JS_attr_preset1', '1', \&check_text);
+addpref('JS_attr_preset2', '1', \&check_text);
+addpref('JS_attr_preset3', '1', \&check_text);
+addpref('JS_attr_preset4', '1', \&check_text);
+addpref('JS_es', '1', \&check_bool);
+addpref('JS_es_guessCase', '1', \&check_bool);
+addpref('JS_es_Icons', '1', \&check_bool);
+addpref('JS_es_InlineMode', '1', \&check_bool);
+addpref('JS_es_searchReplace', '1', \&check_bool);
+addpref('JS_es_Start', '1', \&check_bool);
+addpref('JS_es_styleGuidelines', '1', \&check_bool);
+addpref('JS_es_Tooltips', '1', \&check_bool);
+addpref('JS_es_trackParser', '1', \&check_bool);
+addpref('JS_es_userPreferences', '0', \&check_bool);
+addpref('JS_es_undoRevert', '1', \&check_bool);
 addpref('JSCollapse', '1', \&check_bool);
-addpref('JSDebug', '0', \&check_bool);
 addpref('JSDiff', '1', \&check_bool);
 addpref('JSMoveFocus', '1', \&check_bool);
 addpref('mail_notes_if_i_noted', 1, \&check_bool);
@@ -381,6 +394,14 @@ sub check_in
 	my ($values, $value) = @_;
 	$_ eq $value and return $value
 		for @$values;
+	undef;
+}
+
+sub check_text
+{
+	my $value = shift;
+
+	return $value;
 	undef;
 }
 

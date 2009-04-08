@@ -1,5 +1,5 @@
 <div id="footer">
-    <ul id="footer-bar">
+    <ul id="footer-bar" style="clear: both;">
         <li>
             <a href="http://www.creativecommons.org/">
                 [% l('Creative Commons') %]

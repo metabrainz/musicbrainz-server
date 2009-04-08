@@ -1,4 +1,7 @@
+[% SET styleGuidelines=1 %]
+[% PROCESS 'editsuite/suitereqs.tt' %]
 [% WRAPPER 'label/layout.tt' title="Merge Labels" %]
+    [% INCLUDE 'editsuite/suiteloader.tt' %]
     [% WRAPPER 'components/box.tt' header="Merge ${label.name} into another label" %]
         [%- WRAPPER 'layout/guidelines.tt' -%]
             [%- create_guideline(l('This wizard allows you to merge the label {label} into another label.', {label => entity_link(label,1)})) -%]

@@ -1,4 +1,9 @@
-<fieldset>
+<fieldset
+    [%- IF es -%]
+        id="es-form"
+    [%- ELSIF re -%]
+        id="es-events"
+    [%- END -%]>
     <legend>[%- legend -%]</legend>
     [%- content -%]
 </fieldset>

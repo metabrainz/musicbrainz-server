@@ -22,7 +22,7 @@
             </a>
         [% ELSE %]
             <a href="[% c.entity_url(label, 'subscribe') %]">
-                [%- l('Subscribe to this label.') %]
+                [%- l('Subscribe to this Label.') %]
             </a>
         [% END %]
     [%- END -%]

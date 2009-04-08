@@ -110,8 +110,8 @@ sub fill_in_form
     for my $i (1 ... $self->release_event_count)
     {
         my $event = $self->get_event($i - 1);
-        $form->field("event_$i")->value($event->to_event);
-        $form->field("event_$i")->sub_form->field('remove')->value($event->removed);
+        $form->field("event-$i")->value($event->to_event);
+        $form->field("event-$i")->sub_form->field('remove')->value($event->removed);
     }
 
     $form->field('release_type')->value($self->release_type);
@@ -143,13 +143,13 @@ sub update
     for my $i (1 .. $self->release_event_count)
     {
         my $event = $self->get_event($i - 1);
-        $event->format($form->value("event_$i")->{format});
-        $event->barcode($form->value("event_$i")->{barcode});
-        $event->label($form->value("event_$i")->{label} || '');
-        $event->country($form->value("event_$i")->{country});
-        $event->catno($form->value("event_$i")->{catalog});
-        $event->removed($form->value("event_$i")->{remove});
-        $event->date($form->value("event_$i")->{date});
+        $event->format($form->value("event-$i")->{format});
+        $event->barcode($form->value("event-$i")->{barcode});
+        $event->label($form->value("event-$i")->{label} || '');
+        $event->country($form->value("event-$i")->{country});
+        $event->catno($form->value("event-$i")->{catalog});
+        $event->removed($form->value("event-$i")->{remove});
+        $event->date($form->value("event-$i")->{date});
     }
 
     $self->language($form->value('language'));
@@ -197,3 +197,4 @@ sub accepted_release_events
 }
 
 1;
+

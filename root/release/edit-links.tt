@@ -5,7 +5,7 @@
         { link => '', text => l('Relate to <abbr title="Uniform Resource Locator">URL</abbr>') },
         { link => '', text => l('Add <abbr title="Creative Commons">CC</abbr> License') },
         { link => c.entity_url(release, 'move'), text => l('Move') },
-        { link => c.entity_url(release, 'edit'), text => l('Edit') },
+        { link => c.entity_url(release, 'edit'), text => l('Edit All') },
         { link => c.entity_url(release, 'remove'), text => l('Remove') },
         { link => c.entity_url(release, 'duplicate'), text => l('Duplicate') },
         ] -%]

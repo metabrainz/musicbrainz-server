@@ -1,4 +1,7 @@
-[% WRAPPER 'artist/layout.tt' title=l("Merge Artists") %]
+[% SET styleGuidelines=1 %]
+[% PROCESS 'editsuite/suitereqs.tt' %]
+[% WRAPPER 'artist/layout.tt' title=l("Merge Artists") RadioClick=1 %]
+    [% INCLUDE 'editsuite/suiteloader.tt' %]
     [% WRAPPER 'components/box.tt' header=l('Merge {artist} into another Artist', {artist => artist.name}) %]
         [%- WRAPPER 'layout/guidelines.tt' -%]
             [%- create_guideline(l('This wizard allows you to merge {artist} into another Artist.', {artist => entity_link(artist, 1)})) -%]

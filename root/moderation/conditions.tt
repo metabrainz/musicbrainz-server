@@ -2,19 +2,17 @@
     <h1>Edit Conditions</h1>
     <p>
         This page shows the available edit types and what the
-        requirements are for getting an edit applied to the
+        requirements are for having an edit applied to the
         database. Each edit type is listed three times below;
-        one for each of the quality levels:
+        once for each of the three Data Quality levels:
 
         [%- comma_list(qualities) -%].
     </p>
-
     <h2>Changing Data Quality</h2>
     <p>
-        When changing the quality of an artist or release, the
+        When changing the quality of an Artist or Release, the
         following edit values apply:
     </p>
-
     <table class="statistics">
         <thead>
             <tr>
@@ -49,7 +47,6 @@
         <li>What happens if the edit expires but has no votes</li>
         <li>Whether or not an edit is considered an AutoEdit for an AutoEditor</li>
     </ul>
-
     [%- BLOCK th_cell -%]
     <th class="[% loop.count % 2 == 0 ? 'even_col' : 'odd_col' %]">
         [%- content -%]
@@ -61,7 +58,6 @@
         [%- content -%]
     </td>
     [%- END -%]
-
     <table class="statistics">
         <thead>
             <tr>
@@ -140,9 +136,9 @@
 
     <h3>Notes</h3>
     <ol>
-        <li id="note.1"> Voting period in days</li>
-        <li id="note.2"> Unanimous votes required to shortcut the edit period</li>
-        <li id="note.3"> Expire action when edit has no votes (abstain votes excluded)</li>
+        <li id="note.1"> Voting period in days.</li>
+        <li id="note.2"> Unanimous votes required to shortcut the edit period.</li>
+        <li id="note.3"> Expire action when edit has no votes (abstain votes excluded).</li>
         <li id="note.4"> [%- doc_link('AutoEdit', 'Auto-edit') -%] for all users</li>
     </ol>
 [% END %]

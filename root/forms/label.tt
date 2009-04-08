@@ -10,7 +10,11 @@
 
     classes.push('hidden') IF hidden;
 -%]
-[%- IF for -%]
+[%- IF class -%]
+    <label id="label-[% form_id(for) %]" for="[% form_id(for) %]" class="[% class %]">
+        [% label %]
+    </label>
+[%- ELSIF for -%]
     <label id="label-[% form_id(for) %]" for="[% form_id(for) %]" [% class_html(classes) %]>
         [% label %]
     </label>

@@ -1,0 +1,87 @@
+<div id="es-tp" class="esdisplay es-lwh es-sv">
+    <div class="es-lw">
+        [%# Do not wrap the closing tag here, it will create whitespace within the textarea form. %]
+        <textarea id="es-tp-textarea" class="es-w" class="es-rw" cols="90" rows="12"></textarea>
+    </div>
+    <div class="es-ry">
+        <div class="es-wml">
+            <fieldset id="es-tp-controls" class="es-l es-rx es-sq">
+                <button id="es-tp-button-titles" class="es-mew">
+                    <span>
+                        [% l('Parse Titles') %]
+                    </span>
+                </button>
+                <button id="es-tp-button-times" class="es-mew">
+                    <span>
+                        [% l('Parse Track Times') %]
+                    </span>
+                </button>
+                <br />
+                <button id="es-tp-button-all" class="es-mew">
+                    <span>
+                        [% l('Parse All') %]
+                    </span>
+                </button>
+                <button id="es-tp-button-artists" class="es-mew">
+                    <span>
+                        [% l('Parse Artists') %]
+                    </span>
+                </button>
+                <br />
+                <button id="es-tp-button-swap" class="es-rz">
+                    [% l('Swap Titles and Artists') %]
+                </button>
+            </fieldset>
+            <fieldset class="es-l es-st es-sq" id="es-tp-presets">
+                <div class="es-l" >
+                    <span id="es-tp-opt1-span" title="[%- l('The first line is handled as the Release\'s title, which is filled into the Release title field.  Tracks are then expected to start on line 2.') %]">
+                        [%- INCLUDE "forms/widgets/checkbox.tt" type="checkbox" id="es-tp-opt1" class="es-gc-options" value=1 -%]
+                        [%- INCLUDE 'forms/label.tt' label=l('Set Release Title from first line') for="es-tp-opt1" -%]
+                    </span>
+                    <br />
+                    <span id="es-tp-opt2-span" title="[%- l('Each line begins with a numeric (0-9) track number.  <br />Note, this is used only to avoid this text being placed into the track title fields.  It does not affect which track fields are actually filled.  (So if the text to parse starts with 2. it will still place that data into the first track, and not into the second.)') %]">
+                        [%- INCLUDE "forms/widgets/checkbox.tt" type="checkbox" id="es-tp-opt2" class="es-gc-options" value=1 -%]
+                        [%- INCLUDE 'forms/label.tt' label=l('Tracknames start with a number') for="es-tp-opt2" -%]
+                    </span>
+                    <br />
+                    <span id="es-tp-opt3-span" title="[%- l('Characters which are used for numbering of the Tracks may include alphanummeric characters (0-9, a-z) (a1, a2, … c, d, etc.).') %]">
+                        [%- INCLUDE "forms/widgets/checkbox.tt" type="checkbox" id="es-tp-opt3" class="es-gc-options" -%]
+                        [%- INCLUDE 'forms/label.tt' label=l('Enable vinyl Track numbers') for="es-tp-opt3" -%]
+                    </span>
+                </div>
+                <div class="es-l es-sb">
+                    <span id="es-tp-opt4-span" title="[%- l('The line is inspected for an occurence of numbers separated by a colon.  If such a value is found, the Track time is read and stripped from the track title.  Parentheses surrounding the time are removed as well.') %]">
+                        [%- INCLUDE "forms/widgets/checkbox.tt" type="checkbox" id="es-tp-opt4" class="es-gc-options" value=1 -%]
+                        [%- INCLUDE 'forms/label.tt' label=l('Detect Track times') for="es-tp-opt4" -%]
+                    </span>
+                    <br />
+                    <span id="es-tp-opt5-span" title="[%- l('Fill in the Track times from the detected values (the above option).  If this box is not activated, the track time fields will not be modified.') %]">
+                        [%- INCLUDE "forms/widgets/checkbox.tt" type="checkbox" id="es-tp-opt5" class="es-gc-options" value=1 -%]
+                        [%- INCLUDE 'forms/label.tt' label=l('Fill in Track times') for="es-tp-opt5" -%]
+                    </span>
+                    <br />
+                    <span id="es-tp-opt6-span" title="[%- l('Text in square brackets (usually links to other pages) is stripped from the titles.') %]">
+                        [%- INCLUDE "forms/widgets/checkbox.tt" type="checkbox" id="es-tp-opt6" class="es-gc-options" -%]
+                        [%- INCLUDE 'forms/label.tt' label=l('Remove text in brackets') for="es-tp-opt6" -%]
+                    </span>
+                </div>
+                <br />
+                <div class="es-l">
+                    <span id="es-tp-opt9-span" title="[%- l('Click this checkbox if the text to parse includes artist names.') %]">
+                        [%- INCLUDE "forms/widgets/checkbox.tt" type="checkbox" id="es-tp-opt9" class="es-gc-options" -%]
+                        [%- INCLUDE 'forms/label.tt' label=l('Data to parse includes artist information.') for="es-tp-opt9" -%]
+                    </span>
+                    <span id="es-tp-opt9b-span" title="[%- l('Separator characters used to indicate where the track title stops and the artist name starts.  (The tab character will be added to this list of split characters.)') %]">
+                        [%- INCLUDE 'forms/label.tt' label=l("Separators: ") for="es-tp-opt9b" -%]
+                        <input type="text" id="es-tp-opt9b" size="3" />
+                    </span>
+                </div>
+            </fieldset>
+            <fieldset class="es-l es-st es-sq" style="padding-top: .7em;" id="es-tp-loadfromfile">
+                <span id="es-tp-parse-span" title="[%- l('Load release information from a text file on your hard drive.<br /><br />Note: This function requires that JavaScript be able to read a file on your hard drive.  This JavaScript capability is only available in Firefox 3+.  This function therefore is not displayed in other browsers.') %]">
+                    [%- l('Load information from file:') -%] <input type="file" id="es-tp-loadfile" width="0" />
+                </span>
+            </fieldset>
+        </div>
+    </div>
+</div>

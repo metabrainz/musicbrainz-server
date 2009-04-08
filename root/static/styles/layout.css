@@ -131,13 +131,15 @@ caption {
 /*
  * Sidebar
  */
-#sidebar {
-    width: 130px;
+.sidebar {
+    width: 10%;
     background: #DDD;
     border-right: 1px solid #000;
     color: #050505;
     font-size: 9pt;
     margin-bottom: 20pt;
+    margin-top:0px;
+    float: left;
 }
 
 #sidebar .sidebar-toggle {
@@ -162,6 +164,7 @@ caption {
 
 #sidebar img {
     margin: auto;
+    display: block;
     margin-bottom: 2pt;
 }
 
@@ -238,26 +241,30 @@ caption {
  * Content
  */
 #container {
-    width: 100%;
+    width: 90%;
     float: right;
     margin-left: -200px;
 }
 
 #content {
-    margin-left: 140px;
     padding: 15px;
 }
 
 /*
  * Boxes
  */
-div.box {
+div.box,
+div.es {
     border: 1px solid #FFBB55;
     margin-bottom: 16pt;
+}
+
+div.box {
     overflow: auto;
 }
 
-div.box h2 {
+div.box h2,
+div.es h2 {
     border-bottom: 1px solid #FFBB55;
     margin: 0;
     padding: 2pt 4pt;
@@ -265,7 +272,9 @@ div.box h2 {
     font-size: 10pt;
 }
 
-div.purple h2 {
+.es,
+div.purple h2,
+div.es div.purple {
     background: url(/static/images/header-bg-lightpurplefade.gif) repeat-y;
     border-bottom: 1px solid #736DAB;
 }
@@ -372,6 +381,7 @@ hr {
 #menu_bar ul {
     margin: 0;
     padding: 0;
+    z-index: 9;
 }
 
 #menu_bar li {
@@ -394,7 +404,7 @@ hr {
 
 #menu_bar a {
     font-weight: bold;
-    font-size: 10pt;
+    font-size: 9pt;
 }
 
 #menu_bar a:hover {
@@ -476,7 +486,6 @@ div.two_column_right {
     overflow: hidden;
     float: left;
     padding: 2pt 0pt;
-    padding-bottom: 1px;
 }
  
 .piped_list ul {
@@ -491,4 +500,22 @@ div.two_column_right {
     float: left;
     margin: 0.1em .5em 0.1em -.5em;
     padding: 0 0.5em;
+}
+
+div.grippie {
+    background: #EEE url(/static/images/grippie.png) no-repeat scroll center 2px;
+    border-color: #DDD;
+    border-style: solid;
+    border-width: 0pt 1px 1px;
+    cursor:s-resize;
+    height: 6px;
+    width: 95.5%;
+    overflow: hidden;
+}
+
+.resizable-textarea textarea {
+    display: block;
+    margin-bottom:0pt;
+    width:95%;
+    height:20%;
 }

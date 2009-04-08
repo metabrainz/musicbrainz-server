@@ -1,5 +1,5 @@
     $(document).ready(function() {
-        //Theres a star-rating class that contains 5 anchor tags for the stars
+        //There is a star-rating class that contains 5 anchor tags for the stars
         $(".star-rating a").bind('click',function() {
             //Extract variables from the URL
             var t = this.href.split('/');

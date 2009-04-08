@@ -1,8 +1,17 @@
-<input type="[% type %]" name="[% name %]" id="[% id %]" 
-       [% IF title %]
-           title="[% title %]"
-       [% END %]
-       [% IF value %]
+<input type="[%- type -%]" id="[%- id -%]" 
+       [%- IF name -%]
+            name="[%- name -%]"
+       [%- END -%]
+       [%- IF title -%]
+           title="[%- title -%]"
+       [%- END -%]
+       [%- IF disabled %]
+           disabled
+       [%- END -%]
+       [%- IF value -%]
            checked="checked"
-       [% END %]
-       [% extra_attributes %] />
+       [%- END -%]
+       [%- IF class -%]
+           class="[%- class -%]"
+       [%- END -%]
+       [%- extra_attributes -%] />

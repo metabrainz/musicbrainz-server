@@ -1,4 +1,7 @@
+[% SET styleGuidelines=1 %]
+[% PROCESS 'editsuite/suitereqs.tt' %]
 [%- WRAPPER 'artist/layout.tt' title=l('Edit Artist Alias') -%]
+    [% INCLUDE 'editsuite/suiteloader.tt' %]
     [%- WRAPPER 'components/box.tt' header=l('Edit Artist Alias') -%]
         [%- INCLUDE 'artist/alias_form.tt' -%]
     [%- END -%]

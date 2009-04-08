@@ -1,4 +1,7 @@
+[% SET styleGuidelines=1 %]
+[% PROCESS 'editsuite/suitereqs.tt' %]
 [% WRAPPER 'label/layout.tt' title=l('Remove Label Alias') %]
+    [% INCLUDE 'editsuite/suiteloader.tt' %]
     [% WRAPPER 'components/box.tt' header=l('Remove Label Alias') %]
         [% WRAPPER 'forms/form.tt' %]
             [% INCLUDE 'forms/edit-note.tt' %]

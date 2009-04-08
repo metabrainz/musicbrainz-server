@@ -1,4 +1,7 @@
+[% SET styleGuidelines=1 %]
+[% PROCESS 'editsuite/suitereqs.tt' %]
 [%- WRAPPER 'artist/layout.tt' title=l('Remove Artist Alias') -%]
+    [% INCLUDE 'editsuite/suiteloader.tt' %]
     [%- WRAPPER 'components/box.tt' header=l('Confirm Artist Alias Removal') -%]
         [%- WRAPPER 'layout/guidelines.tt' -%]
             [%- create_guideline(l('Are you sure you want to remove the alias <strong>{alias}</strong>, which points to the artist {artist}?', {alias => alias.name,  artist => entity_link(artist)})) -%]

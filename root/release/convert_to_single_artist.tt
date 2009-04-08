@@ -1,4 +1,7 @@
+[% SET styleGuidelines=1 %]
+[% PROCESS 'editsuite/suitereqs.tt' %]
 [%- WRAPPER 'release/layout.tt' title=l("Convert to Single Artist") -%]
+    [% INCLUDE 'editsuite/suiteloader.tt' %]
     [%- WRAPPER 'components/box.tt' header=l('Convert to Single Artist') -%]
         [%- WRAPPER 'forms/form.tt' -%]
             [%- INCLUDE 'forms/edit-note.tt' -%]

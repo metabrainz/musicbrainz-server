@@ -1,2 +1,11 @@
-<input type="[% type %]" name="[% name %]" id="[% id %]" value="[% value %]"
-       size="[% size || field.size || 30 %]" [% extra_attributes %] />
+<input type="[% type %]" id="[% id %]" value="[% value %]"
+       size="[% size || field.size || 30 %]" [% extra_attributes %] 
+       [% IF name %]
+           name="[% name %]"
+       [% END %]
+       [% IF class %]
+           class="[% class %]"
+       [% END %]
+       [% IF title %]
+           title="[% title %]"
+       [% END %] />

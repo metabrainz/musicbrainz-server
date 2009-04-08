@@ -18,8 +18,9 @@
         hide => no_disc_ids
     },
     { link => c.entity_url(release, 'google'), text => l("Search Google"), hide => no_google },
-    { link => c.uri_for('/moderation/entity/release', release.mbid), text => l('View edits'), hide => no_edit_history }
+    { link => c.uri_for('/moderation/entity/release', release.mbid), text => l('View Edits'), hide => no_edit_history }
 ] -%]
 <div class="infoLinks">
     [% INCLUDE "components/piped-list.tt" caption=l('Info:') list=info_links %]
 </div>
+

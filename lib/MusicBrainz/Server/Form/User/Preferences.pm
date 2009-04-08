@@ -80,12 +80,29 @@ sub profile
             topmenu_submenu_types    => 'Select',
             topmenu_dropdown_trigger => 'Select',
 
-            # Use of javascript
-            autofix_open => 'Select',
+            # Edit Suite options
+            JS_es   => 'Checkbox',
+            JS_es_Icons   => 'Checkbox',
+            JS_es_InlineMode => 'Checkbox',
+            JS_es_Start   => 'Checkbox',
+            JS_es_Tooltips   => 'Checkbox',
+
+            # Edit Suite modules
+            JS_es_guessCase   => 'Checkbox',
+            JS_es_searchReplace   => 'Checkbox',
+            JS_es_styleGuidelines   => 'Checkbox',
+            JS_es_trackParser   => 'Checkbox',
+            JS_es_userPreferences   => 'Checkbox',
+            JS_es_undoRevert   => 'Checkbox',
+
+            # JavaScript presets
+            JS_attr_preset1  => 'Text',
+            JS_attr_preset2  => 'Text',
+            JS_attr_preset3  => 'Text',
+            JS_attr_preset4  => 'Text',
+
+            # Use of JavaScript
             JSMoveFocus  => 'Checkbox',
-            JSDiff       => 'Checkbox',
-            JSCollapse   => 'Checkbox',
-            JSDebug      => 'Checkbox',
 
             # Display
             sidebar_panel_sites   => 'Checkbox',

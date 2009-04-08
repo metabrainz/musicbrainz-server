@@ -1,4 +1,7 @@
+[% SET styleGuidelines=1 %]
+[% PROCESS 'editsuite/suitereqs.tt' %]
 [% WRAPPER "$entity.entity_type/layout.tt" %]
+    [% INCLUDE 'editsuite/suiteloader.tt' %]
     <div class="RelationshipBox">
         <p>
             [%- entity_link(entity) -%]

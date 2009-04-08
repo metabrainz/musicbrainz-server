@@ -1,5 +1,8 @@
-[% WRAPPER "artist/layout.tt" title=l('Confirm Label') %]
-    [% WRAPPER 'components/box.tt' header=l('Confirm abel') %]
+[% SET guessCase=1 styleGuidelines=1 %]
+[% PROCESS 'editsuite/suitereqs.tt' %]
+[% WRAPPER "artist/layout.tt" title=l('Confirm Label') RadioClick=1 %]
+    [% INCLUDE 'editsuite/suiteloader.tt' %]
+    [% WRAPPER 'components/box.tt' header=l('Confirm Label') %]
         [% INCLUDE 'release_editor/bread_crumbs.tt' %]
         <p>
             [% l('Please confirm the label <strong>{label}</strong>', { label => entity_link(confirming) }) %]

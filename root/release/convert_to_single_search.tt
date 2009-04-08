@@ -1,4 +1,7 @@
-[% WRAPPER 'release/layout.tt' title=l("Convert Release to a Single Artist") %]
+[% SET styleGuidelines=1 %]
+[% PROCESS 'editsuite/suitereqs.tt' %]
+[% WRAPPER 'release/layout.tt' title=l("Convert Release to a Single Artist") RadioClick=1 %]
+    [% INCLUDE 'editsuite/suiteloader.tt' %]
     [% WRAPPER 'components/box.tt' header=l("Convert Release to a Single Artist") %]
         [% BLOCK create_link; c.entity_url(release, 'confirm_convert_to_single_artist', entity.mbid); END %]
         [% INCLUDE "components/search.tt" search_label=l("Artist") entities=artists %]

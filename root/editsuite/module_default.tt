@@ -1,0 +1,183 @@
+<div id="esdefault" class="esdisplay es-l" style="width: 60%; padding-left: 10px;">
+    <br />
+    <span id="es-loader">
+        [%- l('Loading Edit Suite files: ') -%]
+    </span>
+    <br />
+    <br />
+    <div id="es-load-status"></div>
+</div>
+<div id="escredits" class="esdisplay es-l hidden">
+    <br />
+    <strong>
+        Javascript:
+    </strong>
+    <small>
+        <br />
+        <strong>
+            Diff Match and Patch
+        </strong>
+        <em>
+            <span>
+                Neil Fraser
+            </span>
+        </em>
+        <br />
+        <strong>
+            jQuery: 
+        </strong>
+        <em>
+            <span>
+                [%- l('Ariel Flesler, Bradley Sepos, Brandon Aaron, Cody Lindley, David Serduke, John Resig, Jörn Zaefferer, Karl Swedberg, Klaus Hartl, Mike Alsup, Mike Hostetler, Nate Cavanaugh, Rey Bango, Scott Jehl, Skye Giordano, Stefan Petre, Tane Piper, and Yehuda Katz') %]
+            </span>
+        </em>
+        <br />
+        <strong>
+            jQuery UI: 
+        </strong>
+        <em>
+            <span>
+                [%- l("Aaron Eisenberger, Ca-Phun Ung, Chi Cheng, Cody Lindley, Colin Clark, David Bolter, Eduardo Lundgren, Jörn Zaefferer, Keith Wood, Klaus Hartl, Maggie Costello Wachs, Marc Grabanski, Michelle D'Souza, Patty Toland, Paul Bakaus, Rich Caloggero, Richard D. Worth, Scott Gonzalez, Scott Jehl, Thomas Klose, and Todd Parker") %]
+            </span>
+        </em>
+        <br />
+        <strong>
+            jquery.cookie: 
+        </strong>
+        <em>
+            <span>
+                Klaus Hartl
+            </span>
+        </em>
+        <br />
+        <strong>
+            jquery.dimensions: 
+        </strong>
+        <em>
+            <span>
+                [%- l('Brandon Aaron and Paul Bakaus') %]
+            </span>
+        </em>
+        <br />
+        <strong>
+            jquery.impromptu: 
+        </strong>
+        <em>
+            <span>
+                Trent Richardson
+            </span>
+        </em>
+        <br />
+        <strong>
+            jquery.inputHintBox: 
+        </strong>
+        <em>
+            <span>
+                Nicolae Namolovan
+            </span>
+        </em>
+        <br />
+        <strong>
+            jquery.overlabel: 
+        </strong>
+        <em>
+            <span>
+                [%- l('Original concept by Mike Brittain, written by Scott Sauyet, modified by Aristotle Pagaltzis, Brian Schweitzer, Dave Methvin, and Guy Fraser.') %]
+            </span>
+        </em>
+        <br />
+        <strong>
+            jquery.selectboxes: 
+        </strong>
+        <em>
+            <span>
+                Sam Collett
+            </span>
+        </em>
+        <br />
+        <strong>
+            jquery.supersleight: 
+        </strong>
+        <em>
+            <span>
+                Drew McLellan
+            </span>
+        </em>
+        <br />
+        <strong>
+            jquery.swap: 
+        </strong>
+        <em>
+            <span>
+                Brandon Aaron
+            </span>
+        </em>
+        <br />
+        <strong>
+            jquery.tablesorter: 
+        </strong>
+        <em>
+            <span>
+                Christian Bach
+            </span>
+        </em>
+        <br />
+        <strong>
+            jquery.tooltip: 
+        </strong>
+        <em>
+            <span>
+                Jörn Zaefferer
+            </span>
+        </em>
+        <br />
+        <strong>
+            Class() function: 
+        </strong>
+        <em>
+            <span>
+                John Resig
+            </span>
+        </em>
+        <br />
+        <strong>
+            Title Caps: 
+        </strong>
+        <em>
+            <span>
+                [%- l('Guess Case includes a modified version of parts of a function originally released as a perl script named Title Caps, by John Gruber, as ported to jQuery by John Resig.') %]
+            </span>
+        </em>
+        <br />
+        <br />
+        [%- l('Diff Match and Patch is separately available under both the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, version 2.0</a> and the <a href="http://www.gnu.org/licenses/gpl-2.0.html">GNU Lesser General Public License, version 2</a>.') -%]
+        <br />
+        [%- l('jQuery, jQuery UI, jquery.cookie, jquery.dimensions, jquery.impromptu, jquery.inputHintBox, jquery.selectboxes, jquery.tablesorter, and jquery.tooltip are all dual-licensed under the <a href="http://www.gnu.org/licenses/gpl.html">GPL</a> and <a href="http://www.opensource.org/licenses/mit-license.php">MIT</a> licenses.') -%]
+        <br />
+        [%- l('jquery.overlabel is licensed under the <a href="http://creativecommons.org/licenses/publicdomain/">Creative Commons Public Domain Dedication license</a>.') -%]
+        <br />
+        [%- l('Class() function and Title Caps are licensed under the <a href="http://www.opensource.org/licenses/mit-license.php">MIT license</a>.') -%]
+        <br />
+        [%- l('jquery.supersleight is licensed under the <a href="http://creativecommons.org/licenses/by-sa/2.0/uk/">Creative Commons Attribution-ShareAlike 2.0 England & Wales licence</a>.') -%]
+        <br />
+        [%- l('jquery.swap is licensed under the <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 licence</a>.') -%]
+        <br />
+        <br />
+    </small>
+    <strong>
+        Icons:
+    </strong>
+    <small>
+        <br />
+        <em>
+            <span>
+                [% l('Guess Case, Undo / Revert, Search / Replace, and Style Guidelines icons licensed under the <a href="http://en.wikipedia.org/wiki/Creative_Commons">Creative Commons</a> <a href="http://creativecommons.org/licenses/by-sa/2.5/">Attribution ShareAlike 2.5</a> license from the <a href="http://tango.freedesktop.org/Tango_Desktop_Project">Tango! Desktop Project</a>.') %]
+            </span>
+            <br />
+            <span>
+                [% l('Suite Settings, Track Parser, Credits, and Warning icons licensed under the GNU General Public License, version 2 by <a href="http://www.gnome.org/">GNOME</a>.') %]
+            </span>
+        </em>
+        <br />
+    </small>
+</div>

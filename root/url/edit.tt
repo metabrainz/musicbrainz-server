@@ -1,4 +1,7 @@
+[% SET styleGuidelines=1 %]
+[% PROCESS 'editsuite/suitereqs.tt' %]
 [% WRAPPER 'layout.tt' title=l('Edit URL') %]
+    [% INCLUDE 'editsuite/suiteloader.tt' %]
     [% WRAPPER 'components/box.tt' header=l('Edit <abbr title="Uniform Resource Locator">URL</abbr>') %]
         [% WRAPPER 'forms/form.tt' %]
             [% INCLUDE 'forms/generic/row.tt' field=form.field('url') label=l("<abbr title="Uniform Resource Locator">URL</abbr>") %]

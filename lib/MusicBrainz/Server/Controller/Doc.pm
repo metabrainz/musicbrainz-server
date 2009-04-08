@@ -30,3 +30,4 @@ sub bare : Chained('load') PathPart
 }
 
 1;
+

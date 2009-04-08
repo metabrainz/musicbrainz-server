@@ -1,5 +1,8 @@
 [% extra_js = 'artistform.js' %] 
+[% SET guessCase=1 styleGuidelines=1 %]
+[% PROCESS 'editsuite/suitereqs.tt' %]
 [% WRAPPER 'artist/layout.tt' title=l('Edit Artist') %]
+    [% INCLUDE 'editsuite/suiteloader.tt' %]
     [% WRAPPER 'components/box.tt' header=l('Edit {artist}', {artist => ${artist.name}}) %]
         [% INCLUDE 'artist/edit_form.tt' %]
     [% END %]

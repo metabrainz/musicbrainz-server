@@ -1,4 +1,7 @@
+[% SET styleGuidelines=1 %]
+[% PROCESS 'editsuite/suitereqs.tt' %]
 [%- WRAPPER "$source.entity_type/layout.tt" title=l("Remove Relationship") entity=source -%]
+    [% INCLUDE 'editsuite/suiteloader.tt' %]
     [%- WRAPPER 'components/box.tt' header=l("Remove Relationship") -%]
         [%- WRAPPER 'layout/guidelines.tt' -%]
             [%- create_guideline('Are you sure you want to remove the {type1}-to-{type22} relationship from {source} to {dest}?', {type1 => start_type, type2 => end_type, source => entity_link(source), dest => entity_link(dest)}) %]

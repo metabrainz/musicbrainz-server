@@ -10,13 +10,11 @@ use MusicBrainz::Server::ReleaseEvent;
 sub profile
 {
     return {
-        required => {
+        optional => {
             date    => {
                 type  => '+MusicBrainz::Server::Form::Field::Date',
                 order => 1,
-            }
-        },
-        optional => {
+            },
             country => {
                 type  => 'Select',
                 order => 2,

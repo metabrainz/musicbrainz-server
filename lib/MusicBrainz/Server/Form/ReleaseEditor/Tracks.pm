@@ -103,7 +103,7 @@ sub add_events
 
     for my $i (1 .. $count)
     {
-        my $event_field = $self->make_field("event_$i", '+MusicBrainz::Server::Form::Field::ReleaseEvent');
+        my $event_field = $self->make_field("event-$i", '+MusicBrainz::Server::Form::Field::ReleaseEvent');
         $self->add_field($event_field);
     }
 }

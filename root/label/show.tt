@@ -75,7 +75,7 @@
     </table>
     [%- ELSE -%]
     <p>
-        [%- l('This label does not currently have any releases.') %]
+        [%- l('No Releases currently list release events for this Label.') %]
     </p>
     [%- END -%]
 [% END %]

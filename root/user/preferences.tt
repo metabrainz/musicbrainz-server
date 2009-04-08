@@ -1,5 +1,5 @@
-[% extra_js = 'jquery/jquery-ui.js userprefstabs.js' %] 
-[% extra_css = 'jquery-ui/ui.all.css' %] 
+[% extra_js = 'userPreferences.js' %] 
+[% extra_css = 'jquery/jquery.ui.all.css' %] 
 [% BLOCK fields %]
     [% FOREACH pref=fields %]
         [%- field = form.field(pref.widget) -%]
@@ -14,7 +14,7 @@
         </p>
     [% END %]
 [% END %]
-[% WRAPPER "layout.tt" title=l("Preferences") %]
+[% WRAPPER "layout.tt" title=l("Preferences") includeJQueryUI=1 %]
     [% WRAPPER "components/box.tt" header=l("Preferences") %]
         [% WRAPPER "forms/form.tt" custom=1 %]
             [% IF form.has_error %]
@@ -39,73 +39,73 @@
                 [% l('Preferences Sections') %]
             </h3>
         </noscript>
-        <div id="form_preferences_toc">
+        <div id="form-preferences-toc">
             <ul>
                 <li>
-                    <a href="#options_voting_edit_pages">
+                    <a href="#options-voting-edit-pages">
                         <span>
                             [% l('Voting / Editing') %]
                         </span>
                     </a>
                 </li>
                 <li>
-                    <a href="#options_emailing">
+                    <a href="#options-emailing">
                         <span>
                             [% l('Email') %]
                         </span>
                     </a>
                 </li>
                 <li>
-                    <a href="#options_show_artist">
+                    <a href="#options-show-artist">
                         <span>
                             [% l('Artist') %]
                         </span>
                     </a>
                 </li>
                 <li>
-                    <a href="#options_show_release">
+                    <a href="#options-show-release">
                         <span>
                             [% l('Release') %]
                         </span>
                     </a>
                 </li>
                 <li>
-                    <a href="#options_country">
+                    <a href="#options-country">
                         <span>
                             [% l('Country') %]
                         </span>
                     </a>
                 </li>
                 <li>
-                    <a href="#options_datetime">
+                    <a href="#options-datetime">
                         <span>
                             [% l('Date / Time') %]
                         </span>
                     </a>
                 </li>
                 <li>
-                    <a href="#options_topmenu">
+                    <a href="#options-topmenu">
                         <span>
                             [% l('Top Menu') %]
                         </span>
                     </a>
                 </li>
                 <li>
-                    <a href="#options_javascript">
+                    <a href="#options-javascript">
                         <span>
                             [% l('JavaScript') %]
                         </span>
                     </a>
                 </li>
                 <li>
-                    <a href="#options_display">
+                    <a href="#options-display">
                         <span>
                             [% l('Display Options') %]
                         </span>
                     </a>
                 </li>
                 <li>
-                    <a href="#options_privacy">
+                    <a href="#options-privacy">
                         <span>
                             [% l('Privacy') %]
                         </span>
@@ -113,7 +113,7 @@
                 </li>
             </ul>
             <br />
-            <fieldset id="options_voting_edit_pages">
+            <fieldset id="options-voting-edit-pages">
                 <legend>
                     [%- l('Voting / Edit review pages') %]
                 </legend>
@@ -151,10 +151,10 @@
                 </p>
                 [%- PROCESS fields fields = [
                     { widget = 'remove_recent_link_on_add', label=l('After creating a new relationship, remove the linked items from my "recently used" list.') },
-                    { widget = 'auto_subscribe', label=l('Automatically subscribe me to artists or labels I create.') }
+                    { widget = 'auto_subscribe', label=l('Automatically subscribe me to Artists or Labels I create.') }
                     ] %]
             </fieldset>
-            <fieldset id="options_emailing">
+            <fieldset id="options-emailing">
                 <legend>
                     [%- l('Emailing other editors') %]
                 </legend>
@@ -164,7 +164,7 @@
                     ] %]
                 [% PROCESS fields %]
             </fieldset>
-            <fieldset id="options_show_artist">
+            <fieldset id="options-show-artist">
                 <legend>
                     [% l('Show Artist') %]
                 </legend>
@@ -172,7 +172,7 @@
                     [% l('Default to a "compact" listing for how many, or more, releases? (allowed range: 1 - 1000)') %] [% INCLUDE "forms/input.tt" field=form.field('releases_show_compact') type='text' %]
                 </p>
             </fieldset>
-            <fieldset id="options_show_release">
+            <fieldset id="options-show-release">
                 <legend>
                     [% l('Show Release') %]
                 </legend>
@@ -180,11 +180,11 @@
                     { widget = 'release_show_relationshipslinks', label=l('Show the add/edit relationships links in the Release header.') },
                     { widget = 'release_show_annotationlinks', label=l('Show the add/edit annotation links in the Release header.') },
                     { widget = 'show_amazon_coverart', label=l('Show Amazon cover art and buy links.') },
-                    { widget = 'use_amazon_store', label=l('Your preferred Amazon Store') }
+                    { widget = 'use_amazon_store', label=l('Your preferred Amazon store') }
                     ] %]
                 [% PROCESS fields %]
             </fieldset>
-            <fieldset id="options_country">
+            <fieldset id="options-country">
                 <legend>
                     [% l('Country') %]
                 </legend>
@@ -194,7 +194,7 @@
                     ] %]
                 [% PROCESS fields %]
             </fieldset>
-            <fieldset id="options_datetime">
+            <fieldset id="options-datetime">
                 <legend>
                     [% l('Date / Time display') %]
                 </legend>
@@ -204,7 +204,7 @@
                     ] %]
                 [% PROCESS fields %]
             </fieldset>
-            <fieldset id="options_topmenu">
+            <fieldset id="options-topmenu">
                 <legend>
                     [% l('Top menu configuration') %]
                 </legend>
@@ -213,19 +213,106 @@
                     ] %]
                 [% PROCESS fields %]
             </fieldset>
-            <fieldset id="options_javascript">
+            <fieldset id="options-javascript">
                 <legend>
                     [% l('Use of JavaScript') %]
                 </legend>
-                [% fields = [
-                    { widget = 'autofix_open', label=l('On each page which uses it, the "Guess Case" box should initially be') },
-                    { widget = 'JSMoveFocus', label=l('Use JavaScript to move the input focus when the page loads.') },
-                    { widget = 'JSDiff', label=l('Use JavaScript to highlight changes on title edits.') },
-                    { widget = 'JSCollapse', label=l('Collapse Releases per default on pages which show full Releases (except on the Release pages themselves)') }
-                    ] %]
-                [% PROCESS fields %]
+                <div>
+                    <span>[% l('JavaScript adds a good amount of useful functionality to MusicBrainz.  However, your browser must be sufficiently recent enough that it supports the JavaScript used on the site: FireFox 1.5+, Opera 9+, Safari 3+, or Internet Explorer 6+.  Konquerer may normally work, but it is known to have some issues.') %]</span>
+                    <br />
+                    <br />
+                    <span id="browsertest"><span style="color: red;">[% l('Either you have JavaScript disabled, or your browser is not able to handle the Javascript used on the site.') %]</span></span>
+                    <br />
+                    <br />
+                </div>
+                <div id="javascript-preferences-toc" class="hidden">
+                    <ul>
+                        <li>
+                            <a href="#options-javascript_general">
+                                <span>
+                                    [% l('General Options') %]
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#options-javascript_es_general">
+                                <span>
+                                    [% l('Edit Suite') %]
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#options-javascript_es_modules">
+                                <span>
+                                    [% l('Edit Suite Modules') %]
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#options-javascript_attr_presets">
+                                <span>
+                                    [% l('Add / Edit Release Presets') %]
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <fieldset id="options-javascript_general">
+                    [% fields = [
+                        { widget = 'JSMoveFocus', label=l('Use JavaScript to move the input focus when the page loads.') },
+                        ] %]
+                    [% PROCESS fields %]
+                </fieldset>
+                <fieldset id="options-javascript_es_general">
+                    <noscript>
+                        <div>
+                            <strong>
+                                [% l('Edit Suite options:') %]
+                            </strong>
+                            <br />
+                        </div>
+                    </noscript>
+                    [% fields = [
+                        { widget = 'JS_es', label=l('Enable the Edit Suite.') },
+                        { widget = 'JS_es_Start', label=l('Maximize the Edit Suite when it loads.') },
+                        { widget = 'JS_es_Tooltips', label=l('Use fancy tooltips.') },
+                        { widget = 'JS_es_Icons', label=l('Use icon images.') },
+                        { widget = 'JS_es_InlineMode', label=l('Add a Guess Case mode selector next to the Guess All button.') }
+                        ] %]
+                    [% PROCESS fields %]
+                </fieldset>
+                <fieldset id="options-javascript_es_modules">
+                    <noscript>
+                        <div>
+                            <strong>
+                                [% l('Edit Suite modules:') %]
+                            </strong>
+                            <br />
+                        </div>
+                    </noscript>
+                    [% fields = [
+                        { widget = 'JS_es_guessCase', label=l('Enable the Guess Case module. (Caution: Disabling this will also disable the Guess Case buttons!)') },
+                        { widget = 'JS_es_undoRevert', label=l('Enable the Undo / Revert module.') },
+                        { widget = 'JS_es_searchReplace', label=l('Enable the Search / Replace module.') },
+                        { widget = 'JS_es_trackParser', label=l('Enable the Track Parser module.') },
+                        { widget = 'JS_es_styleGuidelines', label=l('Enable the Style Guidelines module.') },
+                        { widget = 'JS_es_userPreferences', label=l('Enable the Edit Suite display preferences module. (Useful for debugging purposes only.)') }
+                        ] %]
+                    [% PROCESS fields %]
+                </fieldset>
+                <fieldset id="options-javascript_attr_presets">
+                    <div style="display: none;">
+                        [% fields = [
+                            { widget = 'JS_attr_preset1', label=l('') },
+                            { widget = 'JS_attr_preset2', label=l('') },
+                            { widget = 'JS_attr_preset3', label=l('') },
+                            { widget = 'JS_attr_preset4', label=l('') },
+                            ] %]
+                        [% PROCESS fields %]
+                    </div>
+                </fieldset>
             </fieldset>
-            <fieldset id="options_display">
+            <fieldset id="options-display">
                 <legend>
                     [% l('Display options') %]
                 </legend>
@@ -245,10 +332,9 @@
                     { widget = 'nosidebar', label=l('Do not show the sidebar (can be faster, but may make the website difficult to navigate)') },
                     { widget = 'css_noentityicons', label=l('Do not show icons next to Artists, Releases, Tracks and Labels') },
                     { widget = 'show_ratings', label=l('Show ratings') },
-                    { widget = 'css_nosmallfonts', label=l('Do not use small font sizes') }
                     ] -%]
             </fieldset>
-            <div id="options_privacy">
+            <div id="options-privacy">
                 [%- WRAPPER 'forms/fieldset.tt' legend=l('Privacy') -%]
                     [%- PROCESS fields fields = [
                         { widget = 'subscriptions_public', label=l('Allow other users to see my subscriptions') },
@@ -259,7 +345,7 @@
             </div>
         </div>
         <br />
-            [% INCLUDE "forms/submit.tt" id="button_update_prefs" label=l("Update Preferences") %]
+            [% INCLUDE "forms/submit.tt" id="button-update-prefs" label=l("Update Preferences") %]
         [% END %]
     [% END %]
 [% END %]

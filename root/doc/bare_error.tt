@@ -1,4 +1,3 @@
-<link rel="stylesheet" type="text/css" href="/static/main.css" />
 [% WRAPPER "components/box.tt" header=l('Page could not be found') %]
     <p>
         [%- l('The wiki page {id} does not exist. (Status: {status} ).', {id => page.id, status => page.status}) -%]

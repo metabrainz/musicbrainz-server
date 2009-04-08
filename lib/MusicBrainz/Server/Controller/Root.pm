@@ -52,6 +52,9 @@ sub index : Path Args(0)
     $c->stash->{template} = 'main/index.tt';
 }
 
+sub es_text : Path('/es_text.tt') { }
+sub js_text : Path('/js_text.tt') { }
+
 =head2 default
 
 Handle any pages not matched by a specific controller path. In our case,

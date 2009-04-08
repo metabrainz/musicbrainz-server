@@ -1,3 +1,6 @@
+[% SET styleGuidelines=1 guessCase=1 %]
+[% PROCESS 'editsuite/suitereqs.tt' %]
 [%- INCLUDE "label/edit_form.tt"
     WRAPPER "components/box.tt" header=l('Create Label')
     WRAPPER 'layout.tt' title=l('Create Label') -%]
+

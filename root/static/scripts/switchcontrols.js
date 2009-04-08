@@ -24,6 +24,7 @@ $(document).ready(function(){
                     title: "Change",
                     alt: "Change"
                 })
+                $(this).nextAll("div").css("display", "inline");
             }
             $("#form-controls-button-editall").unbind("click");
             $("#form-controls-button-editall").attr("disabled", "true");

@@ -1,4 +1,7 @@
+[% SET styleGuidelines=1 %]
+[% PROCESS 'editsuite/suitereqs.tt' %]
 [% WRAPPER 'release/layout.tt' title=l("Move Release to another Artist") %]
+    [% INCLUDE 'editsuite/suiteloader.tt' %]
     [% WRAPPER 'components/box.tt' header=l("Move Release to another Artist") %]
         [% BLOCK create_link; c.entity_url(release, 'move_to', entity.mbid); END %]
         [% INCLUDE "components/search.tt" search_label=l("Artist") entities=artists %]

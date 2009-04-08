@@ -15,10 +15,6 @@ h2.releasetype {
     padding: 2px 4px;
 }
 
-div.release_discids {
-    border-top: 1px solid #000;
-}
-
 div.release_discids table {
     border-collapse: collapse;
 }
@@ -46,10 +42,6 @@ div.release .release_top {
 }
 
 div.release .artwork {
-    background-color: white;
-    border-style: none none none solid;
-    border-color: black;
-    border-width: 0 0 0 1px;
     float: right;
     padding: 3pt;
     text-align: center;
@@ -59,17 +51,6 @@ div.release .artwork {
 div.release .artwork img {
     border: 1px solid black;
     max-width: 200pt;
-}
-
-div.release caption {
-    display: none;
-}
-
-div.release .releasehead {
-    font-size: 95%;
-    background-color:#FFEAFF;
-    padding: 2pt 3pt;
-    vertical-align: top;
 }
 
 div.release table.release_tracks {
@@ -85,15 +66,6 @@ div.release table.release_tracks tr {
 div.release table .number,
 div.release table .artist,
 div.release table .title {
-    border-right: 1px solid #aaa;
-    text-align: left;
-}
-
-div.release thead {
-    display: none;
-}
-
-div.release thead .length {
     border-right: 1px solid #aaa;
 }
 
@@ -114,7 +86,7 @@ div.release table .duration {
 
 div.release table .editinglinks {
     border-left: 1px solid #aaa;
-    width: 88pt;
+    width: 150pt;
 }
 
 div.releaseinfo div {
@@ -142,12 +114,6 @@ div.releaseinfo {
 }
 
 div.releasetags {
-    background: #F0EFFF;
-    padding: 13pt 5pt;
-    border-bottom: 1px solid black;
-}
-
-div.rating {
     background: #F0EFFF;
     padding: 1pt 5pt;
     border-bottom: 1px solid black;
@@ -200,7 +166,7 @@ table.releases .date {
 }
 
 table.releases .language {
-    width: 65pt;
+    width: 20pt;
     text-align: center;
 }
 
@@ -208,10 +174,6 @@ table.releases .artist,
 table.releases .title,
 table.releases .catalog {
     text-align: left;
-}
-
-table.releases .catalog {
-    width: 62pt;
 }
 
 /*
@@ -231,3 +193,4 @@ table.releases .catalog {
 .release_events .date {
     text-align: center;
 }
+
