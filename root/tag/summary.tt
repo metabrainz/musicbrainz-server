@@ -1,4 +1,4 @@
-[% l('Tags:') %]
+[% l('Tags: ') %]
 [%- IF tags.size -%]
     [%- FOREACH tag IN tags -%]
         [%- LAST IF loop.count > 3 -%]
