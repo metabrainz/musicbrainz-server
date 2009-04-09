@@ -2,13 +2,13 @@
     [%- INCLUDE "layout/sidebar/toggle.tt" -%]
     <div id="sidebartoggle">
         [%- INCLUDE "layout/sidebar/sites.tt"
-            WRAPPER "layout/sidebar/section.tt" title=l("MusicBrainz sites") -%]
+            WRAPPER "layout/sidebar/section.tt" title=l("MusicBrainz Sites") -%]
         [% IF c.user_exists %]
             [%- INCLUDE "layout/sidebar/user.tt"
                 WRAPPER "layout/sidebar/section.tt" title=c.user.name link="${c.uri_for('/user/')}" -%]
         [% ELSE %]
             [%- INCLUDE "layout/sidebar/login.tt"
-                WRAPPER "layout/sidebar/section.tt" title=l("Not logged in")
+                WRAPPER "layout/sidebar/section.tt" title=l("Not Logged In")
                     link="${c.uri_for('/user/login')}" -%]
         [%- END -%]
         [%- INCLUDE "layout/sidebar/search.tt"
