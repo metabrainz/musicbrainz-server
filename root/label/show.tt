@@ -20,6 +20,12 @@
         </colspan>
         <thead>
             <tr>
+                <th class="title" id="lbl-ti">
+                    [%- l('Title') -%]
+                </th>
+                <th class="artist" id="lbl-a">
+                    [%- l('Artist') -%]
+                </th>
                 <th class="tracks" id="lbl-tr">
                     [%- l('Tracks') -%]
                 </th>
@@ -35,17 +41,17 @@
                 <th class="catalog" id="lbl-c">
                     [%- l('Catalog #') -%]
                 </th>
-                <th class="artist" id="lbl-a">
-                    [%- l('Artist') -%]
-                </th>
-                <th class="title" id="lbl-ti">
-                    [%- l('Title') -%]
-                </th>
             </tr>
         </thead>
         <tbody>
             [%- FOREACH release=releases -%]
                 <tr[% ' class="odd"' IF loop.count % 2 == 0 %]>
+                    <td class="name" headers="lbl-ti">
+                        [% entity_link(release, 1) %]
+                    </td>
+                    <td class="artist" headers="lbl-a">
+                        [% entity_link(release.artist, 1) %]
+                    </td>
                     <td class="tracks" headers="lbl-tr">
                         [% release.track_count %]&nbsp;<img src="[% c.uri_for('/static/images/notes.gif') %]" alt=l("Tracks") />
                     </td>
@@ -62,12 +68,6 @@
                     </td>
                     <td class="catalog" headers="lbl-c">
                         [% release.catalog_number %]
-                    </td>
-                    <td class="artist" headers="lbl-a">
-                        [% entity_link(release.artist) %]
-                    </td>
-                    <td class="name" headers="lbl-ti">
-                        [% entity_link(release) %]
                     </td>
                 </tr>
             [%- END -%]
