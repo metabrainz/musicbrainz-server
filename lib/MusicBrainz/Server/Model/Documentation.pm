@@ -46,6 +46,7 @@ sub fetch_page
 
     require LWP::UserAgent;
     my $ua = LWP::UserAgent->new(max_redirect => 0);
+    $ua->env_proxy;
     my $response = $ua->get($doc_url);
 
     if (!$response->is_success)
