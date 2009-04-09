@@ -45,7 +45,10 @@ use constant RELEASE_FORMAT_DIGITAL			=> 12;
 use constant RELEASE_FORMAT_OTHER			=> 13;
 use constant RELEASE_FORMAT_WAX_CYLINDER	=> 14;
 use constant RELEASE_FORMAT_PIANO_ROLL  	=> 15;
-use constant LAST_RELEASE_FORMAT			=> 15;
+use constant RELEASE_FORMAT_DVD_AUDIO       => 16;
+use constant RELEASE_FORMAT_BLU_RAY         => 17;
+use constant RELEASE_FORMAT_HD_DVD          => 18;
+use constant LAST_RELEASE_FORMAT			=> 18;
 
 my %ReleaseFormatNames = (
    1 => 'CD',
@@ -63,6 +66,9 @@ my %ReleaseFormatNames = (
    13 => 'Other',
    14 => 'Wax Cylinder',
    15 => 'Piano Roll',
+   16 => 'DVD Audio',
+   17 => 'Blu-Ray',
+   18 => 'HD-DVD',
 );
 
 sub release_formats
