@@ -67,7 +67,7 @@ my %ReleaseFormatNames = (
    14 => 'Wax Cylinder',
    15 => 'Piano Roll',
    16 => 'DVD Audio',
-   17 => 'Blu-Ray',
+   17 => 'Blu-ray',
    18 => 'HD-DVD',
 );
 
