@@ -763,7 +763,7 @@ sub is_link_moderator
 	return ($privs & LINK_MODERATOR_FLAG) > 0;
 }
 
-sub DontNag
+sub dont_nag
 {
 	my ($this, $privs) = @_;
 	$privs ||= $this->privs;
@@ -1352,13 +1352,13 @@ sub NagCheck
 
     my $nag = 1;
     my $privs = $self->privs;
-    $nag = 0 if ($self->DontNag($privs) || $self->is_auto_editor($privs) || $self->is_link_moderator($privs));
+    $nag = 0 if ($self->dont_nag($privs) || $self->is_auto_editor($privs) || $self->is_link_moderator($privs));
 
     my @types;
     push @types, "AutoEditor" if ($self->is_auto_editor($privs));
     push @types, "RelationshipEditor" if $self->is_link_moderator($privs);
     push @types, "Bot" if $self->is_bot($privs);
-    push @types, "NotNaggable" if $self->DontNag($privs);
+    push @types, "NotNaggable" if $self->dont_nag($privs);
 
     my $days = 0.0;
     if ($nag)

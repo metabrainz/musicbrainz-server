@@ -377,7 +377,8 @@ sub GetTagsForEntity
 	my $rows = $sql->SelectListOfHashes("SELECT tag.id, tag.name, count
 		                                   FROM tag, $assoc_table
 		                                  WHERE tag.id = $assoc_table.tag 
-                                            AND $assoc_table.$entity_type = ?", $entity_id);
+                                            AND $assoc_table.$entity_type = ?
+                                       ORDER BY count DESC, tag.name", $entity_id);
 	return $rows;
 }
 

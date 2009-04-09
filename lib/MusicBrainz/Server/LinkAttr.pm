@@ -91,18 +91,19 @@ sub SetChildOrder	{ $_[0]->{childorder} = $_[1] }
 
 sub _new_from_row
 {
-	my $this = shift;
-	my $self = $this->SUPER::_new_from_row(@_)
-		or return;
+    my ($this, $row) = @_;
+    my $self = $this->SUPER::_new_from_row($this->dbh, $row)
+        or return;
 
-	while (my ($k, $v) = each %$this)
-	{
-		$self->{$k} = $v
-			if substr($k, 0, 1) eq "_";
-	}
-	$self->{dbh} = $this->dbh;
+    $self->{childorder} = $row->{childorder};
+    $self->{parent} = $row->{parent};
+    $self->{modpending} = $row->{modpending};
+    $self->{name} = $row->{name};
+    $self->{id} = $row->{id};
+    $self->{description} = $row->{description};
+    $self->{mbid} = $row->{mbid};
 
-	bless $self, ref($this) || $this;
+    bless $self, ref($this) || $this;
 }
 
 sub newFromId

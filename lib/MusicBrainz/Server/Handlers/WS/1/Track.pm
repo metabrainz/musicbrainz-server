@@ -20,129 +20,122 @@
 #   along with this program; if not, write to the Free Software
 #   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
-#   $Id$
+#   $Id: Track.pm 10646 2008-11-06 23:36:26Z robert $
 #____________________________________________________________________________
 
 use strict;
 
 package MusicBrainz::Server::Handlers::WS::1::Track;
 
-use Apache::Constants qw( );
-use Apache::File ();
+use HTTP::Status qw(RC_OK RC_NOT_FOUND RC_BAD_REQUEST RC_INTERNAL_SERVER_ERROR RC_FORBIDDEN RC_SERVICE_UNAVAILABLE);
 use MusicBrainz::Server::Handlers::WS::1::Common qw( :DEFAULT apply_rate_limit );
-use Apache::Constants qw( OK BAD_REQUEST DECLINED SERVER_ERROR NOT_FOUND FORBIDDEN);
 
 sub handler
 {
-	my ($r) = @_;
-	# URLs are of the form:
-	# GET http://server/ws/1/track or
-	# GET http://server/ws/1/track/MBID or
-	# POST http://server/ws/1/puid/?name=<user_name>&client=<client id>&puids=<trackid:puid+trackid:puid>
+    my ($c, $info) = @_;
+    my $r = $c->req;
+
+    # URLs are of the form:
+    # GET http://server/ws/1/track or
+    # GET http://server/ws/1/track/MBID or
+    # POST http://server/ws/1/puid/?name=<user_name>&client=<client id>&puids=<trackid:puid+trackid:puid>
 
     return handler_post($r) if ($r->method eq "POST");
 
-    my $mbid = $1 if ($r->uri =~ /ws\/1\/track\/([a-z0-9-]*)/);
+    my $mbid = $1 if ($r->path =~ /ws\/1\/track\/([a-z0-9-]*)/);
+    my $inc = $info->{inc};
 
-	my %args; { no warnings; %args = $r->args };
-    my ($inc, $bad) = convert_inc($args{inc});
-    if ($bad)
-    {
-		return bad_req($r, "Invalid inc options: '$bad'.");
-	}
-    my $type = $args{type};
+    return bad_req($c, "Cannot include track in inc options for a track query.") if ($inc & INC_TRACKS);
+
+    my $type = $r->params->{type};
     if (!defined($type) || $type ne 'xml')
     {
-		return bad_req($r, "Invalid content type. Must be set to xml.");
-	}
-	if ((!MusicBrainz::Server::Validation::IsGUID($mbid) && $mbid ne '') || $inc eq 'error')
-	{
-		return bad_req($r, "Incorrect URI.");
-	}
+        return bad_req($c, "Invalid content type. Must be set to xml.");
+    }
+    if ((!MusicBrainz::Server::Validation::IsGUID($mbid) && $mbid ne '') || $inc eq 'error')
+    {
+        return bad_req($c, "Incorrect URI.");
+    }
 
-    my $puid = $args{puid};
-	if ($puid && !MusicBrainz::Server::Validation::IsGUID($puid))
-	{
-		return bad_req($r, "Invalid puid.");
-	}
+    my $puid = $r->params->{puid};
+    if ($puid && !MusicBrainz::Server::Validation::IsGUID($puid))
+    {
+        return bad_req($c, "Invalid puid.");
+    }
 
     if (!$mbid && !$puid)
     {
-        return bad_req($r, "Invalid collection URL -- collection URLs must end with /.")
-            if (!($r->uri =~ /\/$/));
+        return bad_req($c, "Invalid collection URL -- collection URLs must end with /.")
+            if (!($r->path =~ /\/$/));
 
-        my $title = $args{title} or "";
-        my $query = $args{query} or "";
-        my $offset = $args{offset} or 0;
-        my $artist = $args{artist} or "";
-        my $release = $args{release} or "";
-        my $count = $args{count} or 0;
-        my $releasetype = $args{releasetype} or -1;
+        my $title = $r->params->{title} || "";
+        my $query = $r->params->{query} || "";
+        my $offset = $r->params->{offset} || 0;
+        my $artist = $r->params->{artist} || "";
+        my $release = $r->params->{release} || "";
+        my $count = $r->params->{count} || 0;
+        my $releasetype = $r->params->{releasetype} || -1;
 
-		return bad_req($r, "Must specify a title OR query argument for track collections. Not both.") if ($title && $query);
-		return bad_req($r, "Must specify a title or query argument for track collections.") if (!$title && !$query);
-
-        my $duration = $args{duration} or 0;
+        my $duration = $r->params->{duration} || 0;
         my $tnum = -1;
-        $tnum = $args{tracknumber} + 1 if ($args{tracknumber} =~ /^\d+$/);
-        my $limit = $args{limit};
-        $limit = 25 if ($limit < 1 || $limit > 100);
+        $tnum = $r->params->{tracknumber} + 1 if (defined $r->params->{tracknumber} && $r->params->{tracknumber} =~ /^\d+$/);
+        my $limit = $r->params->{limit};
 
-        my $artistid = $args{artistid};
+        my $artistid = $r->params->{artistid};
         if ($artistid && !MusicBrainz::Server::Validation::IsGUID($artistid))
         {
-            return bad_req($r, "Invalid artist id.");
+            return bad_req($c, "Invalid artist id.");
         }
         $artist = "" if ($artistid);
 
-        my $releaseid = $args{releaseid};
+        my $releaseid = $r->params->{releaseid};
         if ($releaseid && !MusicBrainz::Server::Validation::IsGUID($releaseid))
         {
-            return bad_req($r, "Invalid release id.");
+            return bad_req($c, "Invalid release id.");
         }
         $release = "" if ($releaseid);
 
-		if (my $st = apply_rate_limit($r)) { return $st }
+        if (my $st = apply_rate_limit($c)) { return $st }
 
-        return xml_search($r, {type=>'track', track=>$title, artist=>$artist, release=>$release, 
+        return xml_search($c, {type=>'track', track=>$title, artist=>$artist, release=>$release, 
                                artistid => $artistid, releaseid=>$releaseid, duration=>$duration,
                                tracknumber => $tnum, limit => $limit, count => $count, releasetype=>$releasetype, 
                                query=>$query, offset=>$offset});
     }
 
-	if (my $st = apply_rate_limit($r)) { return $st }
+    if (my $st = apply_rate_limit($c)) { return $st }
 
-	my $status = eval 
+    my $status = eval 
     {
-		# Try to serve the request from the database
-		{
-			my $status = serve_from_db($r, $mbid, $puid, $inc);
-			return $status if defined $status;
-		}
+        # Try to serve the request from the database
+        {
+            my $status = serve_from_db($c, $mbid, $puid, $inc);
+            return $status if defined $status;
+        }
         undef;
-	};
+    };
 
-	if ($@)
-	{
-		my $error = "$@";
-        print STDERR "WS Error: $error\n";
-		$r->status(Apache::Constants::SERVER_ERROR());
-		$r->send_http_header("text/plain; charset=utf-8");
-		$r->print($error."\015\012") unless $r->header_only;
-		return Apache::Constants::SERVER_ERROR();
-	}
+    if ($@)
+    {
+        my $error = "$@";
+        $c->log->warn("WS Error: $error\n");
+        $c->response->status(RC_INTERNAL_SERVER_ERROR);
+        $c->response->content_type("text/plain; charset=utf-8");
+        $c->response->body($error."\015\012");
+        return RC_INTERNAL_SERVER_ERROR;
+    }
     if (!defined $status)
     {
-        $r->status(Apache::Constants::NOT_FOUND());
-        return Apache::Constants::NOT_FOUND();
+        $c->response->status(RC_NOT_FOUND);
+        return RC_NOT_FOUND;
     }
 
-	return Apache::Constants::OK();
+    return RC_OK;
 }
 
 sub serve_from_db
 {
-	my ($r, $mbid, $puid, $inc) = @_;
+    my ($c, $mbid, $puid, $inc) = @_;
 
     # if this is a puid request, send it
     if ($puid)
@@ -151,58 +144,56 @@ sub serve_from_db
             xml_puid($puid);
         };
 
-        send_response($r, $printer);
-        return Apache::Constants::OK();
+        send_response($c, $printer);
+        return RC_OK;
     }
 
-	my $ar;
-	my $tr;
+    my $ar;
+    my $tr;
 
-	require MusicBrainz;
-	my $mb = MusicBrainz->new;
-	$mb->Login;
-	require MusicBrainz::Server::Track;
+    require MusicBrainz;
+    my $mb = MusicBrainz->new;
+    $mb->Login;
+    require MusicBrainz::Server::Track;
 
-	$tr = MusicBrainz::Server::Track->new($mb->{dbh});
+    $tr = MusicBrainz::Server::Track->new($mb->{dbh});
     $tr->mbid($mbid);
-	return undef unless $tr->LoadFromId(1);
+    return undef unless $tr->LoadFromId(1);
 
     if ($inc & INC_ARTIST || $inc & INC_RELEASES)
     {
-        $ar = MusicBrainz::Server::Artist->new($mb->{dbh});
-        $ar->id($tr->artist->id);
+        $ar = $tr->artist;
         $ar = undef unless $ar->LoadFromId(1);
     }
 
-	my $printer = sub {
-		print_xml($mbid, $inc, $ar, $tr);
-	};
+    my $printer = sub {
+        print_xml($mbid, $inc, $ar, $tr, $c->user);
+    };
 
-	send_response($r, $printer);
-	return Apache::Constants::OK();
+    send_response($c, $printer);
+    return RC_OK;
 }
 
 sub print_xml
 {
-	my ($mbid, $inc, $ar, $tr) = @_;
+    my ($mbid, $inc, $ar, $tr, $user) = @_;
 
-	print '<?xml version="1.0" encoding="UTF-8"?>';
-	print '<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">';
-    print xml_track($ar, $tr, $inc);
-	print '</metadata>';
+    print '<?xml version="1.0" encoding="UTF-8"?>';
+    print '<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">';
+    xml_track($ar, $tr, $inc, $user);
+    print '</metadata>';
 }
 
 sub handler_post
 {
-    my $r = shift;
+    my $c = shift;
 
-	# URLs are of the form:
-	# http://server/ws/1/puid/?name=<user_name>&client=<client id>&puids=<trackid:puid+trackid:puid>
+    # URLs are of the form:
+    # http://server/ws/1/puid/?name=<user_name>&client=<client id>&puids=<trackid:puid+trackid:puid>
 
-    my $apr = Apache::Request->new($r);
-    my $user = $r->user;
-    my @pairs = $apr->param('puid');
-    my $client = $apr->param('client');
+    my $name = $c->req->params->{name};
+    my @pairs = $c->req->params->{puid};
+    my $client = $c->req->params->{client};
     my @puids;
 
     foreach my $pair (@pairs)
@@ -210,8 +201,8 @@ sub handler_post
         my ($trackid, $puid) = split(' ', $pair);
         if (!MusicBrainz::Server::Validation::IsGUID($puid) || !MusicBrainz::Server::Validation::IsGUID($trackid))
         {
-            $r->status(BAD_REQUEST);
-            return BAD_REQUEST;
+            $c->response->status(RC_BAD_REQUEST);
+            return RC_BAD_REQUEST
         }
         push @puids, { puid => $puid, trackmbid => $trackid };
     }
@@ -221,74 +212,70 @@ sub handler_post
     # so this limit won't affect anyone in a hurry.
     if (scalar(@puids) > 5000)
     {
-		$r->status(DECLINED);
-        return DECLINED;
+        $c->response->status(RC_BAD_REQUEST);
+        return RC_BAD_REQUEST;
     }
 
     # Ensure that the login name is the same as the resource requested 
-    if ($r->user ne $user)
+    if ($name ne $c->user->name)
     {
-		$r->status(FORBIDDEN);
-        return FORBIDDEN;
+        $c->response->status(RC_FORBIDDEN);
+        return RC_FORBIDDEN;
     }
     # Ensure that we're not a replicated server and that we were given a client version
     if (&DBDefs::REPLICATION_TYPE == &DBDefs::RT_SLAVE || $client eq '')
     {
-		$r->status(BAD_REQUEST);
-        return BAD_REQUEST;
+        $c->response->status(RC_BAD_REQUEST);
+        return RC_BAD_REQUEST
     }
 
-	my $status = eval 
+    my $status = eval 
     {
-		# Try to serve the request from the database
-		{
-			my $status = serve_from_db_post($r, $user, $client, \@puids);
-			return $status if defined $status;
-		}
+        # Try to serve the request from the database
+        {
+            my $status = serve_from_db_post($c, $client, \@puids);
+            return $status if defined $status;
+        }
         undef;
-	};
+    };
 
-	if ($@)
-	{
-		my $error = "$@";
+    if ($@)
+    {
+        my $error = "$@";
         print STDERR "WS Error: $error\n";
-		$r->status(SERVER_ERROR);
-		$r->content_type("text/plain; charset=utf-8");
-		$r->print($error."\015\012") unless $r->header_only;
-		return SERVER_ERROR;
-	}
+        $c->response->status(RC_INTERNAL_SERVER_ERROR);
+        $c->response->content_type("text/plain; charset=utf-8");
+        $c->response->body($error."\015\012");
+        return RC_INTERNAL_SERVER_ERROR
+    }
     if (!defined $status)
     {
-        $r->status(NOT_FOUND);
-        return NOT_FOUND;
+        $c->response->status(RC_NOT_FOUND);
+        return RC_NOT_FOUND;
     }
 
-	return OK;
+    return RC_OK;
 }
 
 sub serve_from_db_post
 {
-	my ($r, $user, $client, $puids) = @_;
+    my ($c, $client, $puids) = @_;
 
-	my $printer = sub {
-		print_xml_post($user, $client, $puids);
-	};
+    my $printer = sub {
+        print_xml_post($c->user, $client, $puids);
+    };
 
-	send_response($r, $printer);
-	return OK();
+    send_response($c, $printer);
+    return RC_OK;
 }
 
 sub print_xml_post
 {
-	my ($user, $client, $links) = @_;
+    my ($user, $client, $links) = @_;
 
-	require MusicBrainz;
-	my $mb = MusicBrainz->new;
-	$mb->Login(db => 'READWRITE');
-
-    require MusicBrainz::Server::Editor;
-    my $us = MusicBrainz::Server::Editor->new($mb->{dbh});
-    $us = $us->newFromName($user) or die "Cannot load user.\n";
+    require MusicBrainz;
+    my $mb = MusicBrainz->new;
+    $mb->Login(db => 'READWRITE');
 
     require Sql;
     my $sql = Sql->new($mb->{dbh});
@@ -326,8 +313,8 @@ sub print_xml_post
 
                 my @mods = Moderation->InsertModeration(
                     dbh => $mb->{dbh},
-                    uid => $us->id,
-                    privs => 0, # TODO
+                    uid => $user->id,
+                    privs => $user->privs,
                     type => &ModDefs::MOD_ADD_PUIDS,
                     # --
                     client => $client,
@@ -338,24 +325,24 @@ sub print_xml_post
         if ($@)
         {
             print STDERR "Cannot insert PUID: $@\n";
-            die("Cannot write PUIDs to database.\n")
+            die("Cannot write PUIDs to database. Make sure you are submitting a valid list of TRACK ids.\n")
         }
     }
 
-	print '<?xml version="1.0" encoding="UTF-8"?>';
-	print '<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"/>';
+    print '<?xml version="1.0" encoding="UTF-8"?>';
+    print '<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#"/>';
 }
 
 # This code is duplicated since it is THE MOST CALLED CODE IN ALL OF MUSICBRAINZ.
 # Thus this is optimized to move as fast as possible. Thus everything has been flattened out.
 sub xml_puid
 {
-	require MusicBrainz::Server::Track;
-	my ($puid) = @_;
+    require MusicBrainz::Server::Track;
+    my ($puid) = @_;
 
-	require MusicBrainz;
-	my $mb = MusicBrainz->new;
-	$mb->Login;
+    require MusicBrainz;
+    my $mb = MusicBrainz->new;
+    $mb->Login;
 
     require Sql;
     my $sql = Sql->new($mb->{dbh});
@@ -377,7 +364,7 @@ sub xml_puid
         print "</metadata>";
         return;
     }
-    print "<track-list>";
+    printf '<track-list count="%s">', scalar(@$rows);
     for my $row (@$rows)
     {
         printf '<track id="%s"', $row->[0];

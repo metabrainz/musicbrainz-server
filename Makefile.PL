@@ -6,10 +6,14 @@ all_from 'lib/MusicBrainz/Server.pm';
 
 requires 'Algorithm::Diff';
 requires 'Cache::Memcached';
+requires 'Cache::Memcached::libmemcached';
 requires 'Catalyst::Action::RenderView';
 requires 'Catalyst::Component::ACCEPT_CONTEXT';
 requires 'Catalyst::Plugin::Authentication';
+requires 'Catalyst::Authentication::Credential::HTTP';
 requires 'Catalyst::Plugin::ConfigLoader';
+requires 'Catalyst::Plugin::Cache';
+requires 'Catalyst::Plugin::Cache:Memcached';
 requires 'Catalyst::Plugin::Form::Processor';
 requires 'Catalyst::Plugin::I18N';
 requires 'Catalyst::Plugin::Session::State::Cookie';

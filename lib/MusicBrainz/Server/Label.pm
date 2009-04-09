@@ -670,6 +670,7 @@ sub new_from_id
 
     my $sql = Sql->new($this->dbh);
 
+
     $obj = $this->_new_from_row(
         $sql->SelectSingleRowHash(
             "SELECT * FROM label WHERE id = ?",

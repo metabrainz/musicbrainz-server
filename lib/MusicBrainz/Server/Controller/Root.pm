@@ -89,6 +89,8 @@ sub begin : Private
 {
     my ($self, $c) = @_;
 
+    return if exists $c->action->attributes->{Minimal};
+
     # Load current relationship
     my $rel = $c->session->{current_relationship};
     if ($rel)
@@ -129,6 +131,8 @@ and also the current user.
 sub end : ActionClass('RenderView')
 {
     my ($self, $c) = @_;
+
+    return if exists $c->action->attributes->{Minimal};
 
     # Setup the searchs on the sidebar
     use MusicBrainz::Server::Form::Search::Simple;

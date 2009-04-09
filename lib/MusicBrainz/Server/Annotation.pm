@@ -27,6 +27,7 @@ package MusicBrainz::Server::Annotation;
 
 use strict;
 use warnings;
+use MusicBrainz::Server::Editor;
 
 BEGIN
 {
@@ -579,7 +580,7 @@ sub _Merge
 		my @mods = Moderation->InsertModeration(
 			DBH	=> $self->{dbh},
 			uid	=> MODBOT_MODERATOR,
-			privs => UserStuff->AUTOMOD_FLAG,
+			privs => MusicBrainz::Server::Editor->AUTOMOD_FLAG,
 			type => &ModDefs::MOD_ADD_LABEL_ANNOTATION,
 			# --
 			labelid => $new_id,
@@ -612,7 +613,7 @@ sub _Merge
 		my @mods = Moderation->InsertModeration(
 			DBH	=> $self->{dbh},
 			uid	=> MODBOT_MODERATOR,
-			privs => UserStuff->AUTOMOD_FLAG,
+			privs => MusicBrainz::Server::Editor->AUTOMOD_FLAG,
 			type => &ModDefs::MOD_ADD_TRACK_ANNOTATION,
 			# --
 			artistid => $artist_id,

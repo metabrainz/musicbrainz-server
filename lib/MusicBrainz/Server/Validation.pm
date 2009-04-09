@@ -134,15 +134,15 @@ sub MakeDisplayDateStr
 
 	# disable warning when $day, $month or $year are non-numeric
 	no warnings 'numeric';
-	if (0+$day)
+	if (defined $day && 0+$day)
 	{
 		return sprintf('%04d-%02d-%02d', $year, $month, $day);
 	}
-	elsif (0+$month)
+	elsif (defined $month && 0+$month)
 	{
 		return sprintf('%04d-%02d', $year, $month);
 	}
-	elsif (0+$year)
+	elsif (defined $year && 0+$year)
 	{
 		return sprintf('%04d', $year);
 	}
