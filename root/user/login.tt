@@ -17,7 +17,7 @@
                 </a>
             </li>
             <li>
-                <a href="[% c.uri_for('/user/forgotPassword') %]">
+                <a href="[% c.uri_for('/user/forgot_password') %]">
                     [% l('Forgot your password?') %]
                 </a>
             </li>
