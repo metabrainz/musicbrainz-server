@@ -810,14 +810,17 @@ sub releases
             puids,
             artist.name as artistname,
             rating,
-            rating_count
+            rating_count,
+            format,
+            country.name
         FROM
-            release, album, albummeta, artist
+            release, album, albummeta, artist, country
         WHERE
             release.album = album.id
             AND albummeta.id = album.id
             AND artist.id = album.artist
             AND release.label = ?
+            AND country.id = release.country
         /;
     my @albums;
     if ($sql->Select($query, $this->id))
@@ -843,6 +846,8 @@ sub releases
             $album->{artistname}  = $row[13];
             $album->{rating}      = $row[14];
             $album->{rating_count}= $row[15];
+            $album->{re_format}   = $row[16];
+            $album->{re_country}  = $row[17];
             push @albums, $album;
         }
     }

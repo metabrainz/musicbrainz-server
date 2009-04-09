@@ -4,19 +4,16 @@
     [%- INCLUDE "label/header.tt" -%]
     [%- INCLUDE "components/relationships.tt" source=label -%]
     [%- INCLUDE "annotation/annotation.tt" parent=label %]
-    <h2 class="compactreleasetype">
-        [%- l('Releases') -%]
-    </h2>
     [%- IF releases.size -%]
         <table class="releases" id="label-release-list">
         <colspan>
+            <col id="lbl-col-title"></col>
+            <col id="lbl-col-artist"></col>
             <col id="lbl-col-tracks"></col>
             <col id="lbl-col-status"></col>
             <col id="lbl-col-language"></col>
             <col id="lbl-col-date"></col>
             <col id="lbl-col-catalog"></col>
-            <col id="lbl-col-artist"></col>
-            <col id="lbl-col-title"></col>
         </colspan>
         <thead>
             <tr>
@@ -26,11 +23,17 @@
                 <th class="artist" id="lbl-a">
                     [%- l('Artist') -%]
                 </th>
+                <th class="format" id="lbl-format">
+                    [%- l('Format') %]
+                </th>
                 <th class="tracks" id="lbl-tr">
                     [%- l('Tracks') -%]
                 </th>
                 <th class="status" id="lbl-s">
                     [%- l('Status') -%]
+                </th>
+                <th class="country" id="lbl-country">
+                    [%- l('Country') -%]
                 </th>
                 <th class="language" id="lbl-l">
                     [%- l('Language') -%]
@@ -52,11 +55,17 @@
                     <td class="artist" headers="lbl-a">
                         [% entity_link(release.artist, 1) %]
                     </td>
+                    <td class="format" headers="lbl-format">
+                        [% release_format(release.re_format) %]
+                    </td>
                     <td class="tracks" headers="lbl-tr">
                         [% release.track_count %]&nbsp;<img src="[% c.uri_for('/static/images/notes.gif') %]" alt=l("Tracks") />
                     </td>
                     <td class="status" headers="lbl-s">
                         [% release_attribute(release.release_status) %]
+                    </td>
+                    <td class="country" headers="lbl-c">
+                        [% release.re_country %]
                     </td>
                     <td class="language" headers="lbl-l">
                         <abbr title="[% release.language.name %] / [% release.script.name %]">
