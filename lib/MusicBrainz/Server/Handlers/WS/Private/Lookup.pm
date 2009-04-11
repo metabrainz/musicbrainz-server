@@ -28,7 +28,6 @@ use strict;
 package MusicBrainz::Server::Handlers::WS::Private::Lookup;
 
 use HTTP::Status qw(RC_OK RC_NOT_FOUND RC_BAD_REQUEST RC_INTERNAL_SERVER_ERROR RC_FORBIDDEN RC_SERVICE_UNAVAILABLE);
-use Apache::File ();
 use JSON;
 use Encode;
 
