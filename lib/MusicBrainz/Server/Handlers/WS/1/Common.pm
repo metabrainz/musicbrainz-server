@@ -20,7 +20,7 @@
 #   along with this program; if not, write to the Free Software
 #   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
-#   $Id: Common.pm 10857 2008-11-24 16:27:34Z luks $
+#   $Id$
 #____________________________________________________________________________
 
 use strict;
@@ -542,7 +542,7 @@ sub xml_track_list
             return undef;
         }
 
-        printf '<track-list count="%s"/>', scalar(@$tracks);
+        printf '<track-list count="%s">', scalar(@$tracks);
         foreach my $tr (@$tracks)
         {
 
