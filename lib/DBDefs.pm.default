@@ -286,5 +286,10 @@ sub SESSION_STORE_ARGS
 
 sub CATALYST_DEBUG { 1 }
 
+# Please activate the officially approved languages here. Not every .po
+# file is active because we might have fully translated languages which
+# are not yet properly supported, like right-to-left languages
+sub MB_LANGUAGES {qw()}
+
 1;
 # eof DBDefs.pm

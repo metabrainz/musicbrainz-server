@@ -1,0 +1,5047 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-04-14 01:46+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: ../root/annotation/annotation.tt:4
+msgid "Nada"
+msgstr ""
+
+#: ../root/annotation/annotation.tt:8
+msgid "Summary:"
+msgstr ""
+
+#: ../root/annotation/annotation.tt:8
+msgid "(no change log)"
+msgstr ""
+
+#: ../root/annotation/annotation.tt:13
+msgid "Annotation last modified at {last_modified}"
+msgstr ""
+
+#: ../root/annotation/annotation.tt:18
+msgid "History"
+msgstr ""
+
+#: ../root/annotation/annotation.tt:18 ../root/components/aliases.tt:17
+#: ../root/release/tracks.tt:63 ../root/track/header.tt:8
+#: ../root/user/profile.tt:20
+msgid "Edit"
+msgstr ""
+
+#: ../root/annotation/annotation.tt:23
+msgid "Please <a href={uri}>log in</a> to edit this annotation."
+msgstr ""
+
+#: ../root/annotation/annotation.tt:30
+msgid "This {entity} has no annotation."
+msgstr ""
+
+#: ../root/annotation/annotation.tt:35
+msgid "Add an annotation"
+msgstr ""
+
+#: ../root/annotation/annotation.tt:38
+msgid "Please <a href={uri}>log in</a> to add an annotation."
+msgstr ""
+
+#: ../root/annotation/edit.tt:1 ../root/annotation/edit.tt:2
+msgid "Edit Annotation"
+msgstr ""
+
+#: ../root/annotation/edit.tt:4 ../root/annotation/edit.tt:5
+msgid "Annotation"
+msgstr ""
+
+#: ../root/annotation/edit.tt:6
+#: ../root/moderation/mods/add_artist_annotation.tt:1
+#: ../root/moderation/mods/add_label_annotation.tt:1
+#: ../root/moderation/mods/add_release_annotation.tt:1
+#: ../root/moderation/mods/add_track_annotation.tt:1
+msgid "Change Log"
+msgstr ""
+
+#: ../root/annotation/history.tt:1
+msgid "Annotations"
+msgstr ""
+
+#: ../root/annotation/history.tt:2
+msgid "Annotation History"
+msgstr ""
+
+#: ../root/artist/add_alias.tt:3 ../root/artist/add_alias.tt:5
+msgid "Add Artist Alias"
+msgstr ""
+
+#: ../root/artist/add_non_album.tt:3 ../root/artist/add_non_album.tt:4
+msgid "Add Non-Album Track"
+msgstr ""
+
+#: ../root/artist/add_non_album.tt:7
+msgid ""
+"Please enter the titles of the tracks you wish to add as {nonalbum_doc|non-"
+"album tracks}."
+msgstr ""
+
+#: ../root/artist/add_non_album.tt:8
+msgid ""
+"Blank tracks will be ignored.  Leave empty the fields that you do not need."
+msgstr ""
+
+#: ../root/artist/add_non_album.tt:9
+msgid ""
+"You are <strong>strongly encouraged</strong> to include the length of the "
+"track, rather than leaving that field blank."
+msgstr ""
+
+#: ../root/artist/add_non_album.tt:10
+msgid ""
+"To enter a non-album track you are <strong>required</strong> to provide an "
+"{edit_note|edit note} which lets the voters know why you think this is a "
+"{nonalbum_track|non-album track}."
+msgstr ""
+
+#: ../root/artist/add_non_album.tt:11
+msgid ""
+"You are <strong>strongly encouraged</strong> to include a <abbr title="
+"\"Uniform Resource Locator\">URL</abbr> in your edit notes which will allow "
+"the voters to evaluate the correctness of this edit."
+msgstr ""
+
+#: ../root/artist/add_non_album.tt:13
+msgid "Important:"
+msgstr ""
+
+#: ../root/artist/add_non_album.tt:16
+msgid ""
+"Non-album tracks are designed for tracks that have not been released on "
+"<strong>ANY</strong> {doc_release|release}."
+msgstr ""
+
+#: ../root/artist/add_non_album.tt:17
+msgid ""
+"Demo tracks and promotional tracks that have never been released on a "
+"release are good candidates for non-album tracks."
+msgstr ""
+
+#: ../root/artist/add_non_album.tt:18
+msgid ""
+"Most live versions are released on singles. If you want to enter those "
+"tracks into MusicBrainz, please enter them as the single, or import the "
+"single from {freedb|FreeDB}, instead of adding them as {nonalbum_tracks|non-"
+"album tracks}."
+msgstr ""
+
+#: ../root/artist/add_non_album.tt:22 ../root/artist/compact.tt:30
+#: ../root/artist/compact.tt:57 ../root/label/show.tt:30
+#: ../root/layout/sidebar/stats.tt:1 ../root/release/box-summary.tt:3
+#: ../root/release_editor/release_data.tt:18
+msgid "Tracks"
+msgstr ""
+
+#: ../root/artist/add_non_album.tt:24 ../root/artist/appearances.tt:9
+#: ../root/artist/merge_search.tt:17 ../root/label/show.tt:24
+#: ../root/release/convert_to_single_search.tt:7 ../root/release/move.tt:7
+#: ../root/release_editor/confirm_artists.tt:16
+#: ../root/release_editor/release_data.tt:15
+#: ../root/release_editor/release_data.tt:22 ../root/user/preferences.tt:61
+msgid "Artist"
+msgstr ""
+
+#: ../root/artist/add_non_album.tt:27
+#: ../root/release_editor/release_data.tt:21 ../root/toc/details.tt:59
+msgid "Track"
+msgstr ""
+
+#: ../root/artist/alias_form.tt:2
+msgid ""
+"MusicBrainz uses artist aliases mainly as variant names or search hints."
+msgstr ""
+
+#: ../root/artist/alias_form.tt:3
+msgid ""
+"If you see a misspelled alias here, it most likely is listed on purpose, and "
+"should not be renamed or removed.  Please see {doc_alias|artist aliases} for "
+"more details."
+msgstr ""
+
+#: ../root/artist/alias_form.tt:4
+msgid ""
+"Please note that aliases are currently <strong>required to be unique for all "
+"artists</strong>. You can circumvent this limitation by adding a comment to "
+"the alias, preferably in parentheses."
+msgstr ""
+
+#: ../root/artist/alias_form.tt:6 ../root/components/aliases.tt:6
+#: ../root/label/edit_alias.tt:7 ../root/moderation/mods/edit_artistalias.tt:1
+#: ../root/moderation/mods/edit_labelalias.tt:1
+#: ../root/moderation/mods/remove_artistalias.tt:1
+#: ../root/moderation/mods/remove_labelalias.tt:1
+msgid "Alias"
+msgstr ""
+
+#: ../root/artist/aliases.tt:1 ../root/artist/header.tt:1
+#: ../root/label/header.tt:1
+msgid "Aliases"
+msgstr ""
+
+#: ../root/artist/appearances.tt:1
+msgid "Artist Credits"
+msgstr ""
+
+#: ../root/artist/appearances.tt:8
+msgid "Year"
+msgstr ""
+
+#: ../root/artist/appearances.tt:10 ../root/artist/compact.tt:27
+msgid "Release Title"
+msgstr ""
+
+#: ../root/artist/browse_various.tt:3 ../root/artist/header.tt:1
+#: ../root/label/header.tt:1 ../root/layout/sidebar/stats.tt:1
+msgid "Releases"
+msgstr ""
+
+#: ../root/artist/change_quality.tt:3 ../root/artist/change_quality.tt:5
+#: ../root/artist/header.tt:59 ../root/release/change_quality.tt:3
+#: ../root/release/change_quality.tt:5
+msgid "Change Data Quality"
+msgstr ""
+
+#: ../root/artist/change_quality.tt:7
+msgid "Please select the new {doc_quality|Data Quality} setting."
+msgstr ""
+
+#: ../root/artist/change_quality.tt:8
+msgid ""
+"Note that this is <strong>only</strong> to change the {doc_quality|Data "
+"Quality} setting.  {doc_quality|Data Quality} has nothing to do with "
+"<em>popularity</em>."
+msgstr ""
+
+#: ../root/artist/change_quality.tt:10
+msgid "The data quality for {artist} is currently set to:"
+msgstr ""
+
+#: ../root/artist/change_quality.tt:16
+msgid "Data Quality setting"
+msgstr ""
+
+#: ../root/artist/change_quality.tt:18 ../root/release/change_quality.tt:15
+msgid "Update"
+msgstr ""
+
+#: ../root/artist/compact.tt:7 ../root/freedb/choose_artist.tt:15
+msgid "Various Artists"
+msgstr ""
+
+#: ../root/artist/compact.tt:9
+msgid "Uncategorized Releases"
+msgstr ""
+
+#: ../root/artist/compact.tt:11
+msgid "{release_type} released by {artist}"
+msgstr ""
+
+#: ../root/artist/compact.tt:13
+msgid "This table displays {type} released by {artist}"
+msgstr ""
+
+#: ../root/artist/compact.tt:33
+msgid "DiscIDs"
+msgstr ""
+
+#: ../root/artist/compact.tt:36 ../root/artist/compact.tt:66 ../root/release
+#: /box-summary.tt:5
+msgid "PUIDs"
+msgstr ""
+
+#: ../root/artist/compact.tt:39 ../root/label/show.tt:33
+msgid "Status"
+msgstr ""
+
+#: ../root/artist/compact.tt:41
+msgid "Release Date"
+msgstr ""
+
+#: ../root/artist/compact.tt:42 ../root/forms/widgets/release_event.tt:10
+#: ../root/forms/widgets/release_event_labels.tt:5 ../root/label/show.tt:42
+#: ../root/release/release.tt:56
+msgid "Date"
+msgstr ""
+
+#: ../root/artist/compact.tt:45 ../root/label/show.tt:39
+#: ../root/release_editor/release_data.tt:44
+msgid "Language"
+msgstr ""
+
+#: ../root/artist/compact.tt:61 ../root/layout/sidebar/stats.tt:1
+msgid "Disc IDs"
+msgstr ""
+
+#: ../root/artist/create.tt:4 ../root/artist/create.tt:6
+msgid "Add a New Artist"
+msgstr ""
+
+#: ../root/artist/details.tt:1 ../root/release/details.tt:1
+msgid "Details"
+msgstr ""
+
+#: ../root/artist/details.tt:3 ../root/track/details.tt:37
+msgid "Artist Information"
+msgstr ""
+
+#: ../root/artist/details.tt:7
+msgid "{name|Artist Name}"
+msgstr ""
+
+#: ../root/artist/details.tt:18 ../root/label/details.tt:14
+msgid "{mbid|<abbr title=\"MusicBrainz IDentifier\">MBID</abbr>}"
+msgstr ""
+
+#: ../root/artist/details.tt:26 ../root/label/details.tt:22
+#: ../root/release/details.tt:23
+msgid "Permanent link:"
+msgstr ""
+
+#: ../root/artist/details.tt:37
+msgid "Subscriber Count:"
+msgstr ""
+
+#: ../root/artist/edit.tt:4 ../root/artist/header.tt:59
+msgid "Edit Artist"
+msgstr ""
+
+#: ../root/artist/edit.tt:6
+msgid "Edit {artist}"
+msgstr ""
+
+#: ../root/artist/edit_alias.tt:3 ../root/artist/edit_alias.tt:5
+msgid "Edit Artist Alias"
+msgstr ""
+
+#: ../root/artist/edit_form.tt:3
+msgid "You are about to add an artist to MusicBrainz."
+msgstr ""
+
+#: ../root/artist/edit_form.tt:4
+msgid ""
+"Please read the {doc_styleguide|Style Guidelines}, then provide the "
+"necessary information about the new artist below."
+msgstr ""
+
+#: ../root/artist/edit_form.tt:5
+msgid ""
+"If one or more artists with the same name already exist in the database, you "
+"will be prompted to {doc_addcomment|add a comment to this artist}, which "
+"will allow users to distinguish this entry from the other artist(s) with the "
+"same name."
+msgstr ""
+
+#: ../root/artist/edit_form.tt:7
+msgid ""
+"Please use the Guess Case buttons to fix common style errors. (Available "
+"only if you have JavaScript enabled.)"
+msgstr ""
+
+#: ../root/artist/edit_form.tt:11 ../root/label/edit_form.tt:9
+msgid "Are you sure?"
+msgstr ""
+
+#: ../root/artist/edit_form.tt:13 ../root/label/edit_form.tt:11
+msgid "Warning:"
+msgstr ""
+
+#: ../root/artist/edit_form.tt:14
+msgid ""
+"You are attempting to add an artist which appears to be very similar, if not "
+"exactly the same, as these existing artists:"
+msgstr ""
+
+#: ../root/artist/edit_form.tt:22
+msgid ""
+"You are required to enter a comment which allows users to distinguish this "
+"artist from the other artists with the same name, if the final artist name "
+"is similar to an existing artist."
+msgstr ""
+
+#: ../root/artist/edit_form.tt:23
+msgid ""
+"Confirm by activating the checkbox below that you have read the "
+"{doc_artistcomment|artist comment guideline}, understood how we distinguish "
+"duplicate artists, and that you know what you are doing."
+msgstr ""
+
+#: ../root/artist/edit_form.tt:25
+msgid ""
+"Yes, I am sure this artist is not duplicate, and I know what I am doing."
+msgstr ""
+
+#: ../root/artist/edit_form.tt:30 ../root/moderation/mods/edit_artist.tt:1
+#: ../root/moderation/mods/edit_label.tt:1 ../root/relate/create.tt:10
+#: ../root/relate/url.tt:14 ../root/search/form.tt:5
+msgid "Type"
+msgstr ""
+
+#: ../root/artist/edit_form.tt:31 ../root/moderation/mods/add_label.tt:1
+#: ../root/moderation/mods/edit_artist.tt:1
+#: ../root/moderation/mods/edit_label.tt:1
+#: ../root/moderation/mods/edit_release_name.tt:1
+#: ../root/moderation/mods/edit_trackname.tt:1 ../root/user/profile.tt:40
+msgid "Name"
+msgstr ""
+
+#: ../root/artist/edit_form.tt:32 ../root/label/edit_form.tt:30
+msgid "Sort Name"
+msgstr ""
+
+#: ../root/artist/edit_form.tt:33 ../root/label/edit_form.tt:32
+#: ../root/moderation/mods/add_label.tt:1
+msgid "Comment"
+msgstr ""
+
+#: ../root/artist/edit_form.tt:35
+msgid "Date Period"
+msgstr ""
+
+#: ../root/artist/edit_form.tt:37
+msgid ""
+"Dates are in the format YYYY-MM-DD. Partial dates such as YYYY-MM or just "
+"YYYY are OK, or you can omit the date entirely."
+msgstr ""
+
+#: ../root/artist/edit_form.tt:39
+msgid "Start Date"
+msgstr ""
+
+#: ../root/artist/edit_form.tt:40 ../root/label/edit_form.tt:37
+#: ../root/moderation/mods/edit_artist.tt:1
+msgid "End Date"
+msgstr ""
+
+#: ../root/artist/edit_form.tt:44 ../root/artist/merge.tt:8
+#: ../root/label/add_alias.tt:9 ../root/label/edit_form.tt:39
+#: ../root/label/merge.tt:8 ../root/label/remove_alias.tt:8
+#: ../root/relate/cc.tt:13 ../root/release/convert_to_single_artist.tt:8
+#: ../root/release/edit_title.tt:12 ../root/release/remove.tt:8
+#: ../root/track/change_artist.tt:5 ../root/track/remove.tt:12
+#: ../root/url/edit.tt:10
+msgid "Enter Edit"
+msgstr ""
+
+#: ../root/artist/header.tt:1
+msgid "Credits"
+msgstr ""
+
+#: ../root/artist/header.tt:1
+msgid "Non-Album Tracks"
+msgstr ""
+
+#: ../root/artist/header.tt:1
+msgid "Edit History"
+msgstr ""
+
+#: ../root/artist/header.tt:1 ../root/artist/similar.tt:1
+#: ../root/artist/similar.tt:2
+msgid "Similar Artists"
+msgstr ""
+
+#: ../root/artist/header.tt:1 ../root/label/header.tt:1
+#: ../root/release/header.tt:1 ../root/release/info-links.tt:1
+#: ../root/tag/all.tt:1 ../root/track/header.tt:1
+msgid "Tags"
+msgstr ""
+
+#: ../root/artist/header.tt:1 ../root/label/header.tt:1
+#: ../root/release/header.tt:1 ../root/release/info-links.tt:1
+#: ../root/track/header.tt:1
+msgid "Details / Link"
+msgstr ""
+
+#: ../root/artist/header.tt:1 ../root/layout/menu.tt:220
+#: ../root/user/profile.tt:11 ../root/user/profile.tt:81
+msgid "Subscriptions"
+msgstr ""
+
+#: ../root/artist/header.tt:1 ../root/layout/sidebar/partners.tt:9
+msgid "Google"
+msgstr ""
+
+#: ../root/artist/header.tt:1 ../root/moderation/open.tt:1
+#: ../root/statistics/top_editors.tt:13 ../root/user/profile.tt:11
+msgid "Open Edits"
+msgstr ""
+
+#: ../root/artist/header.tt:28
+msgid "Sort name:"
+msgstr ""
+
+#: ../root/artist/header.tt:48 ../root/label/header.tt:33
+#: ../root/moderation/info.tt:4
+msgid "Type:"
+msgstr ""
+
+#: ../root/artist/header.tt:51
+msgid "Data Quality:"
+msgstr ""
+
+#: ../root/artist/header.tt:55 ../root/label/header.tt:40
+#: ../root/release/header.tt:22 ../root/release/info-links.tt:24
+#: ../root/track/header.tt:30
+msgid "Info:"
+msgstr ""
+
+#: ../root/artist/header.tt:59
+msgid "Merge Artist"
+msgstr ""
+
+#: ../root/artist/header.tt:59
+msgid "Import Release"
+msgstr ""
+
+#: ../root/artist/header.tt:59 ../root/artist/no_nats.tt:4
+#: ../root/release/nats.tt:11
+msgid "Add Non-Album Tracks"
+msgstr ""
+
+#: ../root/artist/header.tt:59 ../root/label/header.tt:44
+msgid "Add Alias"
+msgstr ""
+
+#: ../root/artist/header.tt:59 ../root/label/header.tt:44
+msgid "Subscribe"
+msgstr ""
+
+#: ../root/artist/header.tt:59 ../root/label/header.tt:44
+msgid "Unsubscribe"
+msgstr ""
+
+#: ../root/artist/header.tt:59 ../root/release_editor/release_data.tt:4
+#: ../root/release_editor/track_count.tt:1
+msgid "Add Release"
+msgstr ""
+
+#: ../root/artist/header.tt:70 ../root/label/header.tt:51
+#: ../root/moderation/show.tt:67 ../root/release/edit-links.tt:12
+#: ../root/release/nats.tt:11 ../root/track/header.tt:34
+msgid "Edit:"
+msgstr ""
+
+#: ../root/artist/header.tt:72
+msgid "Please <a href={uri}>log in</a> to edit this artist."
+msgstr ""
+
+#: ../root/artist/landing.tt:10
+msgid "You are currently viewing all releases by {artist_name}."
+msgstr ""
+
+#: ../root/artist/landing.tt:12
+msgid ""
+"<strong><a href=\"{url}\">View only albums, <abbr title=\"Extended Plays"
+"\">EPs</abbr>, singles, and compilations</a></strong> by {artist_name}."
+msgstr ""
+
+#: ../root/artist/landing.tt:15
+msgid ""
+"You are currently viewing only albums, <abbr title=\"Extended Plays\">EPs</"
+"abbr>, singles, and compilations by {artist_name}."
+msgstr ""
+
+#: ../root/artist/landing.tt:17
+msgid ""
+"<strong><a href=\"{url}\">View all releases</a></strong> by {artist_name}."
+msgstr ""
+
+#: ../root/artist/merge.tt:1 ../root/artist/merge_search.tt:3
+msgid "Merge Artists"
+msgstr ""
+
+#: ../root/artist/merge.tt:2
+msgid "Merge {artist1} into {artist2}"
+msgstr ""
+
+#: ../root/artist/merge.tt:4
+msgid ""
+"Are you sure that you want to merge the artist {artist1} into the artist "
+"{artist2}?"
+msgstr ""
+
+#: ../root/artist/merge_search.tt:5
+msgid "Merge {artist} into another Artist"
+msgstr ""
+
+#: ../root/artist/merge_search.tt:7
+msgid "This wizard allows you to merge {artist} into another Artist."
+msgstr ""
+
+#: ../root/artist/merge_search.tt:8
+msgid ""
+"Please read the {doc_styleguide|Style Guidelines}, then provide the "
+"necessary information about the new Artist below."
+msgstr ""
+
+#: ../root/artist/merge_search.tt:9
+msgid ""
+"Please read the guideline on {doc_merging|how to merge Artists} before "
+"entering this edit."
+msgstr ""
+
+#: ../root/artist/merge_search.tt:10
+msgid ""
+"Please enter the {name|artist name} of the Artist into which you would like "
+"to merge this Artist, and press <em>search</em> to start the search."
+msgstr ""
+
+#: ../root/artist/merge_search.tt:11
+msgid ""
+"When you have found the Artist that you would like to merge into {artist}, "
+"please follow the link and you will be forwarded to the next step of the "
+"wizard."
+msgstr ""
+
+#: ../root/artist/merge_search.tt:12
+msgid ""
+"If you added recently added this Artist by mistake, please note that the "
+"server automatically removes empty Artists once a day.  There is no need to "
+"remove these manually."
+msgstr ""
+
+#: ../root/artist/no_nats.tt:3
+msgid "{artist} currently has no non-album tracks."
+msgstr ""
+
+#: ../root/artist/relations.tt:1
+msgid "Artist Relationships"
+msgstr ""
+
+#: ../root/artist/remove_alias.tt:3
+msgid "Remove Artist Alias"
+msgstr ""
+
+#: ../root/artist/remove_alias.tt:5
+msgid "Confirm Artist Alias Removal"
+msgstr ""
+
+#: ../root/artist/remove_alias.tt:7
+msgid ""
+"Are you sure you want to remove the alias <strong>{alias}</strong>, which "
+"points to the artist {artist}?"
+msgstr ""
+
+#: ../root/artist/remove_alias.tt:8
+msgid ""
+"Please review the documentation about {aliases|artist aliases}, before "
+"entering this edit."
+msgstr ""
+
+#: ../root/artist/remove_alias.tt:9
+msgid ""
+"If you recently added this alias by mistake, please follow the instructions "
+"about {doc_cancel|how to cancel pending edits}.  Removing pending edits, "
+"rather than entering new edits, helps reduce the number of edits open in the "
+"system."
+msgstr ""
+
+#: ../root/artist/remove_alias.tt:10
+msgid ""
+"Cancelling a pending edit will take effect within an hour, while removing "
+"data already accepted into the databse has to be voted on according to the "
+"voting process."
+msgstr ""
+
+#: ../root/artist/similar.tt:14
+msgid "Sorry, we do not have any data about similar artists for {artist}."
+msgstr ""
+
+#: ../root/artist/subscribe.tt:1 ../root/label/subscriptions.tt:1
+msgid "Subscribed Editors"
+msgstr ""
+
+#: ../root/artist/subscribe.tt:2
+msgid "Editors Subscribed to this Artist"
+msgstr ""
+
+#: ../root/artist/subscribe.tt:11
+msgid "There are no editors currently subscribed to this artist."
+msgstr ""
+
+#: ../root/artist/subscribe.tt:15
+msgid "There is also {num} anonymous subscriber"
+msgid_plural "There are also {num} anonymous subscribers"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../root/artist/subscribe.tt:18
+msgid "Unsubscribe from this artist."
+msgstr ""
+
+#: ../root/artist/subscribe.tt:20
+msgid "Subscribe to this artist."
+msgstr ""
+
+#: ../root/browse/browse.tt:1 ../root/browse/browse.tt:19
+msgid "Browse {type}"
+msgstr ""
+
+#: ../root/browse/browse.tt:7
+msgid "Found {num} {type}"
+msgstr ""
+
+#: ../root/browse/browse.tt:22
+msgid "Sorry, we could not find any {type} starting with {index}"
+msgstr ""
+
+#: ../root/browse/browse.tt:25
+msgid "To try again, please select a letter above."
+msgstr ""
+
+#: ../root/browse/browse.tt:29
+msgid "To begin browsing, please select a letter above."
+msgstr ""
+
+#: ../root/browse/page_selector.tt:1
+msgid "Browse"
+msgstr ""
+
+#: ../root/browse/page_selector.tt:16
+msgid ""
+"<strong>Note:</strong> You have requested to browse listings using a query "
+"longer than 5 charaters.  We do not index data at this level of "
+"granularity.  You may want to use the the various <a href=\"{uri}\">search "
+"pages</a> instead."
+msgstr ""
+
+#: ../root/components/aliases.tt:1
+msgid "Aliases for {entity_name}"
+msgstr ""
+
+#: ../root/components/aliases.tt:30
+msgid "{entity} has no aliases."
+msgstr ""
+
+#: ../root/components/common-macros.tt:31
+msgid "info"
+msgstr ""
+
+#: ../root/components/common-macros.tt:58
+msgid "releases"
+msgstr ""
+
+#: ../root/components/common-macros.tt:58
+msgid "artists"
+msgstr ""
+
+#: ../root/components/common-macros.tt:58
+msgid "labels"
+msgstr ""
+
+#: ../root/components/common-macros.tt:58
+msgid "tracks"
+msgstr ""
+
+#: ../root/components/common-macros.tt:58
+msgid "editors"
+msgstr ""
+
+#: ../root/components/common-macros.tt:58
+msgid "Error: Unknown Type"
+msgstr ""
+
+#: ../root/components/paginator.tt:4
+msgid "Page {cur} of {total}"
+msgstr ""
+
+#: ../root/components/perma-link.tt:4
+msgid ""
+"The permanent link for the MusicBrainz {type} {entity} is <a href=\"{uri}\">"
+"{html_uri}</a>."
+msgstr ""
+
+#: ../root/components/perma-link.tt:5
+msgid ""
+"If you wish to add a permanent link to the MusicBrainz {type} {entity} from "
+"your web page or blog, choose one of the link styles below."
+msgstr ""
+
+#: ../root/components/perma-link.tt:6
+msgid ""
+"Just highlight (Ctrl+a) the content in the textbox, and copy (Ctrl+c) and "
+"paste (Ctrl+v) it into your web page or blog."
+msgstr ""
+
+#: ../root/components/perma-link.tt:9
+msgid ""
+"If you wish to use a text link (e.g. {entity}, you can use the following "
+"markup:"
+msgstr ""
+
+#: ../root/components/perma-link.tt:14 ../root/components/perma-link.tt:30
+msgid "Text Link:"
+msgstr ""
+
+#: ../root/components/perma-link.tt:25
+msgid ""
+"If you wish to use a link with an icon (e.g. {entity}, you can use the "
+"following markup:"
+msgstr ""
+
+#: ../root/components/relationships.tt:31
+msgid "{num} relationship not shown"
+msgid_plural "{num} relationships not shown"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../root/components/relationships.tt:32
+msgid "View all relationships&hellip;"
+msgstr ""
+
+#: ../root/components/relationships.tt:54
+msgid "Create a relationship with:"
+msgstr ""
+
+#: ../root/components/relationships.tt:60
+msgid "Create Relationship"
+msgstr ""
+
+#: ../root/components/relationships.tt:60
+msgid "View Relationships"
+msgstr ""
+
+#: ../root/components/relationships.tt:60 ../root/release/edit-links.tt:3
+msgid "Relate to <abbr title=\"Uniform Resource Locator\">URL</abbr>"
+msgstr ""
+
+#: ../root/components/relationships.tt:60 ../root/release_editor/confirm.tt:14
+#: ../root/release_editor/submit.tt:3
+msgid "Cancel"
+msgstr ""
+
+#: ../root/components/search.tt:3 ../root/freedb/index.tt:13
+#: ../root/layout/menu.tt:111 ../root/layout/sidebar.tt:14
+#: ../root/layout/sidebar/search.tt:7 ../root/search/external.tt:3
+#: ../root/search/form.tt:1 ../root/search/form.tt:8 ../root/search/links.tt:7
+#: ../root/search/error/wrapper.tt:1 ../root/user/preferences.tt:323
+msgid "Search"
+msgstr ""
+
+#: ../root/components/search.tt:8 ../root/search/external.tt:4
+msgid "Search Results"
+msgstr ""
+
+#: ../root/components/search.tt:10
+msgid ""
+"We have found the following results. Please select one of the following, or "
+"else you can refine your query and search again."
+msgstr ""
+
+#: ../root/components/search.tt:19
+msgid "Select"
+msgstr ""
+
+#: ../root/components/tagger.tt:4
+msgid "Open in tagger"
+msgstr ""
+
+#: ../root/components/tagger.tt:5
+msgid "Tagger"
+msgstr ""
+
+#: ../root/doc/bare_error.tt:1 ../root/doc/error.tt:2
+msgid "Page could not be found"
+msgstr ""
+
+#: ../root/doc/bare_error.tt:3 ../root/doc/error.tt:4
+msgid "The wiki page {id} does not exist. (Status: {status} )."
+msgstr ""
+
+#: ../root/doc/bare_error.tt:6 ../root/doc/error.tt:7
+msgid ""
+"It is possible that the page <strong>{id}</strong> does not exist <em>yet</"
+"em>.  You might find a page which has a similar title by using the page "
+"search function in the <a href=\\\"http://wiki.musicbrainz.org\\"
+"\">MusicBrainz Wiki</a>. If this does not help either, and you know how to "
+"edit wiki pages, please help us by completing our documentation."
+msgstr ""
+
+#: ../root/editsuite/module_default.tt:4
+msgid "Loading Edit Suite files: "
+msgstr ""
+
+#: ../root/editsuite/module_default.tt:31
+msgid ""
+"Ariel Flesler, Bradley Sepos, Brandon Aaron, Cody Lindley, David Serduke, "
+"John Resig, Jörn Zaefferer, Karl Swedberg, Klaus Hartl, Mike Alsup, Mike "
+"Hostetler, Nate Cavanaugh, Rey Bango, Scott Jehl, Skye Giordano, Stefan "
+"Petre, Tane Piper, and Yehuda Katz"
+msgstr ""
+
+#: ../root/editsuite/module_default.tt:40
+msgid ""
+"Aaron Eisenberger, Ca-Phun Ung, Chi Cheng, Cody Lindley, Colin Clark, David "
+"Bolter, Eduardo Lundgren, Jörn Zaefferer, Keith Wood, Klaus Hartl, Maggie "
+"Costello Wachs, Marc Grabanski, Michelle D'Souza, Patty Toland, Paul Bakaus, "
+"Rich Caloggero, Richard D. Worth, Scott Gonzalez, Scott Jehl, Thomas Klose, "
+"and Todd Parker"
+msgstr ""
+
+#: ../root/editsuite/module_default.tt:58
+msgid "Brandon Aaron and Paul Bakaus"
+msgstr ""
+
+#: ../root/editsuite/module_default.tt:85
+msgid ""
+"Original concept by Mike Brittain, written by Scott Sauyet, modified by "
+"Aristotle Pagaltzis, Brian Schweitzer, Dave Methvin, and Guy Fraser."
+msgstr ""
+
+#: ../root/editsuite/module_default.tt:148
+msgid ""
+"Guess Case includes a modified version of parts of a function originally "
+"released as a perl script named Title Caps, by John Gruber, as ported to "
+"jQuery by John Resig."
+msgstr ""
+
+#: ../root/editsuite/module_default.tt:153
+msgid ""
+"Diff Match and Patch is separately available under both the <a href=\"http://"
+"www.apache.org/licenses/LICENSE-2.0\">Apache License, version 2.0</a> and "
+"the <a href=\"http://www.gnu.org/licenses/gpl-2.0.html\">GNU Lesser General "
+"Public License, version 2</a>."
+msgstr ""
+
+#: ../root/editsuite/module_default.tt:155
+msgid ""
+"jQuery, jQuery UI, jquery.cookie, jquery.dimensions, jquery.impromptu, "
+"jquery.inputHintBox, jquery.selectboxes, jquery.tablesorter, and jquery."
+"tooltip are all dual-licensed under the <a href=\"http://www.gnu.org/"
+"licenses/gpl.html\">GPL</a> and <a href=\"http://www.opensource.org/licenses/"
+"mit-license.php\">MIT</a> licenses."
+msgstr ""
+
+#: ../root/editsuite/module_default.tt:157
+msgid ""
+"jquery.overlabel is licensed under the <a href=\"http://creativecommons.org/"
+"licenses/publicdomain/\">Creative Commons Public Domain Dedication license</"
+"a>."
+msgstr ""
+
+#: ../root/editsuite/module_default.tt:159
+msgid ""
+"Class() function and Title Caps are licensed under the <a href=\"http://www."
+"opensource.org/licenses/mit-license.php\">MIT license</a>."
+msgstr ""
+
+#: ../root/editsuite/module_default.tt:161
+msgid ""
+"jquery.supersleight is licensed under the <a href=\"http://creativecommons."
+"org/licenses/by-sa/2.0/uk/\">Creative Commons Attribution-ShareAlike 2.0 "
+"England & Wales licence</a>."
+msgstr ""
+
+#: ../root/editsuite/module_default.tt:163
+msgid ""
+"jquery.swap is licensed under the <a href=\"http://creativecommons.org/"
+"licenses/by/3.0/\">Creative Commons Attribution 3.0 licence</a>."
+msgstr ""
+
+#: ../root/editsuite/module_default.tt:174
+msgid ""
+"Guess Case, Undo / Revert, Search / Replace, and Style Guidelines icons "
+"licensed under the <a href=\"http://en.wikipedia.org/wiki/Creative_Commons"
+"\">Creative Commons</a> <a href=\"http://creativecommons.org/licenses/by-"
+"sa/2.5/\">Attribution ShareAlike 2.5</a> license from the <a href=\"http://"
+"tango.freedesktop.org/Tango_Desktop_Project\">Tango! Desktop Project</a>."
+msgstr ""
+
+#: ../root/editsuite/module_default.tt:178
+msgid ""
+"Suite Settings, Track Parser, Credits, and Warning icons licensed under the "
+"GNU General Public License, version 2 by <a href=\"http://www.gnome.org/"
+"\">GNOME</a>."
+msgstr ""
+
+#: ../root/editsuite/module_guesscase.tt:4
+msgid ""
+"The guess case function is automatically applied for all the fields in the "
+"form. You can use Undo All if you want to reverse the changes."
+msgstr ""
+
+#: ../root/editsuite/module_guesscase.tt:6
+msgid "Apply guess case after page loads"
+msgstr ""
+
+#: ../root/editsuite/module_guesscase.tt:9
+msgid "Convert Roman numerals - i, ii, iii, iv, etc. - to uppercase."
+msgstr ""
+
+#: ../root/editsuite/module_guesscase.tt:11
+msgid "Uppercase Roman numerals"
+msgstr ""
+
+#: ../root/editsuite/module_guesscase.tt:14
+msgid ""
+"If a word is all UPPERCASE characters, it is kept that way. (This overrides "
+"normal behaviour.)"
+msgstr ""
+
+#: ../root/editsuite/module_guesscase.tt:16
+msgid "Keep uppercase words uppercased"
+msgstr ""
+
+#: ../root/editsuite/module_guesscase.tt:19
+msgid ""
+"Automatically fix track duration problems: Periods, commas, and other "
+"frequently mis-used punctuation are converted to colons.  Inserting missing "
+"colons: 1 becomes 0:01, 11 becomes 0:11, 111 becomes 1:11, 1111 becomes "
+"11:11, 11111 is not fixed.  Converting invalid times into valid ones (by "
+"number of seconds): 0:60 becomes 1:00, 7:77 becomes 8:17, 777 becomes 8:17, "
+"1:00:00 becomes 60:00."
+msgstr ""
+
+#: ../root/editsuite/module_guesscase.tt:21
+msgid "Automatically fix track duration problems."
+msgstr ""
+
+#: ../root/editsuite/module_guesscase.tt:24
+msgid ""
+"When Guess All is used, fix common typos and track parsing issues in track "
+"length fields.  See the above checkbox for details."
+msgstr ""
+
+#: ../root/editsuite/module_guesscase.tt:26
+msgid "Fix track duration problems when using Guess All."
+msgstr ""
+
+#: ../root/editsuite/module_guesscase.tt:29
+msgid ""
+"Automatically use Guess Case on track titles. CAUTION: The only way to then "
+"avoid having non-standard track titles automatically made standard is to "
+"come back up to the Edit Suite and temporarily disable this option."
+msgstr ""
+
+#: ../root/editsuite/module_guesscase.tt:31
+msgid "Automatically Guess Case track titles."
+msgstr ""
+
+#: ../root/editsuite/module_guesscase.tt:38
+msgid "Select the appropriate casing mode:"
+msgstr ""
+
+#: ../root/editsuite/module_guesscase.tt:43
+msgid "English Mode"
+msgstr ""
+
+#: ../root/editsuite/module_guesscase.tt:46
+msgid "Czech Mode"
+msgstr ""
+
+#: ../root/editsuite/module_guesscase.tt:49
+msgid "French Mode"
+msgstr ""
+
+#: ../root/editsuite/module_guesscase.tt:52
+msgid "Latvian Mode"
+msgstr ""
+
+#: ../root/editsuite/module_guesscase.tt:55
+msgid "Lithuanian Mode"
+msgstr ""
+
+#: ../root/editsuite/module_guesscase.tt:58
+msgid "Norwegian Mode"
+msgstr ""
+
+#: ../root/editsuite/module_guesscase.tt:61
+msgid "Polish Mode"
+msgstr ""
+
+#: ../root/editsuite/module_guesscase.tt:64
+msgid "Russian Mode"
+msgstr ""
+
+#: ../root/editsuite/module_guesscase.tt:67
+msgid "Sentence Mode"
+msgstr ""
+
+#: ../root/editsuite/module_guesscase.tt:70
+msgid "Slovak Mode"
+msgstr ""
+
+#: ../root/editsuite/module_guesscase.tt:73
+msgid "Vietnamese Mode"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:16
+msgid "Abbreviation Style"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:17
+msgid "Artist Name Style"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:18
+msgid "Artist Role Inheritance"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:19
+msgid "Audio Book Style"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:20
+msgid "Box Set Name Style"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:21
+msgid "Classical Style Guidelines"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:22
+msgid "Data Track Style"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:23
+msgid "Disc Number Style"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:24
+msgid "EP Style"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:25
+msgid "Extra Title Information Style"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:26
+msgid "Featuring Artist Style"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:27
+msgid "Game Soundtrack Style"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:28
+msgid "Instrumental Style"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:29
+msgid "Live Bootleg Style"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:30
+msgid "Live Track Style"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:31
+msgid "Medley Style"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:32
+msgid "Member of Band Relationship Style"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:33
+msgid "Miscellaneous Guidelines"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:34
+msgid "Misencoding FAQ"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:35
+msgid "Multiple Title Style"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:36
+msgid "Musical Soundtrack Style"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:37
+msgid "No Artist Style"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:38
+msgid "OCReMix Series Style"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:39
+msgid "Opera Track Style"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:40
+msgid "Part Number Style"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:41
+msgid "Release Artist Style"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:42
+msgid "Release Event Style"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:43
+msgid "Remix Style"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:44
+msgid "Series Number Style"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:45
+msgid "Sort Name Style"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:46
+msgid "Soundtrack Title Style"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:47
+msgid "Split-Release Title Style"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:48
+msgid "Subtitle Style"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:49
+msgid "Unknown Artist Style"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:50
+msgid "Untitled Bootleg Style"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:51
+msgid "Untitled Release Style"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:52
+msgid "Untitled Track Style"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:53
+msgid "Versus Style"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:54
+msgid "Volume Number Style"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:60
+msgid "Capitalization Standards"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:61
+msgid "Catalan Capitalization"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:62
+msgid "Czech Capitalization"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:63
+msgid "Danish Capitalization"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:64
+msgid "Dutch Capitalization"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:65
+msgid "English Capitalization"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:66
+msgid "Estonian Capitalization"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:67
+msgid "Finnish Capitalization"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:68
+msgid "French Capitalization"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:69
+msgid "German Capitalization"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:70
+msgid "Greek Capitalization"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:71
+msgid "Hebrew Capitalization"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:72
+msgid "Hungarian Capitalization"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:73
+msgid "Italian Capitalization"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:74
+msgid "Japanese Releases Clarification"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:75
+msgid "Latin Capitalization"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:76
+msgid "Latvian Capitalization"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:77
+msgid "Lithuanian Capitalization"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:78
+msgid "Norwegian Capitalization"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:79
+msgid "Polish Capitalization"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:80
+msgid "Portuguese Capitalization"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:81
+msgid "Romanian Capitalization"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:82
+msgid "Russian Capitalization"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:83
+msgid "Slovak Capitalization"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:84
+msgid "Spanish Capitalization"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:85
+msgid "Swedish Capitalization"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:86
+msgid "Turkish Capitalization"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:87
+msgid "Yiddish Capitalization"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:88
+msgid "Capitalization for Transliterations"
+msgstr ""
+
+#: ../root/editsuite/module_guideline_list.tt:94
+msgid "Proposed, not Official"
+msgstr ""
+
+#: ../root/editsuite/module_preferences.tt:16
+msgid "Edit Suite Load Status"
+msgstr ""
+
+#: ../root/editsuite/module_preferences.tt:23
+msgid "Edit Suite Settings"
+msgstr ""
+
+#: ../root/editsuite/module_preferences.tt:30 ../root/user/preferences.tt:247
+msgid "Edit Suite Modules"
+msgstr ""
+
+#: ../root/editsuite/module_preferences.tt:38
+msgid "Edit Suite load status:"
+msgstr ""
+
+#: ../root/editsuite/module_preferences.tt:53 ../root/user/preferences.tt:270
+msgid "Edit Suite options:"
+msgstr ""
+
+#: ../root/editsuite/module_preferences.tt:58
+msgid "Add a second Guess Case mode selector inline with Guess All buttons."
+msgstr ""
+
+#: ../root/editsuite/module_preferences.tt:58 ../root/user/preferences.tt:275
+msgid "Enable the Edit Suite."
+msgstr ""
+
+#: ../root/editsuite/module_preferences.tt:58 ../root/user/preferences.tt:275
+msgid "Maximize the Edit Suite when it loads."
+msgstr ""
+
+#: ../root/editsuite/module_preferences.tt:58 ../root/user/preferences.tt:275
+msgid "Use fancy tooltips."
+msgstr ""
+
+#: ../root/editsuite/module_preferences.tt:58 ../root/user/preferences.tt:275
+msgid "Use icon images."
+msgstr ""
+
+#: ../root/editsuite/module_preferences.tt:71 ../root/user/preferences.tt:288
+msgid "Edit Suite modules:"
+msgstr ""
+
+#: ../root/editsuite/module_preferences.tt:76
+msgid "Enable the Edit Suite Preferences module."
+msgstr ""
+
+#: ../root/editsuite/module_preferences.tt:76 ../root/user/preferences.tt:293
+msgid ""
+"Enable the Guess Case module. (Caution: Disabling this will also disable the "
+"Guess Case buttons!)"
+msgstr ""
+
+#: ../root/editsuite/module_preferences.tt:76 ../root/user/preferences.tt:293
+msgid "Enable the Undo / Revert module."
+msgstr ""
+
+#: ../root/editsuite/module_preferences.tt:76 ../root/user/preferences.tt:293
+msgid "Enable the Search / Replace module."
+msgstr ""
+
+#: ../root/editsuite/module_preferences.tt:76 ../root/user/preferences.tt:293
+msgid "Enable the Track Parser module."
+msgstr ""
+
+#: ../root/editsuite/module_preferences.tt:76 ../root/user/preferences.tt:293
+msgid "Enable the Style Guidelines module."
+msgstr ""
+
+#: ../root/editsuite/module_search_replace.tt:8
+msgid "Search for:"
+msgstr ""
+
+#: ../root/editsuite/module_search_replace.tt:13
+msgid "Type the old string or JavaScript regexp pattern in this field."
+msgstr ""
+
+#: ../root/editsuite/module_search_replace.tt:22
+msgid "Replace with:"
+msgstr ""
+
+#: ../root/editsuite/module_search_replace.tt:27
+msgid "Type the new string or JavaScript regexp pattern in this field."
+msgstr ""
+
+#: ../root/editsuite/module_search_replace.tt:33
+msgid "Search and Replace"
+msgstr ""
+
+#: ../root/editsuite/module_search_replace.tt:38
+msgid "Swap fields"
+msgstr ""
+
+#: ../root/editsuite/module_search_replace.tt:43
+msgid "Clear fields"
+msgstr ""
+
+#: ../root/editsuite/module_search_replace.tt:48
+msgid "Undo Search and Replace"
+msgstr ""
+
+#: ../root/editsuite/module_search_replace.tt:56
+msgid "Use regular expression pattern matching."
+msgstr ""
+
+#: ../root/editsuite/module_search_replace.tt:58
+msgid "Use regular expressions"
+msgstr ""
+
+#: ../root/editsuite/module_search_replace.tt:61
+msgid "Match the case of the search string."
+msgstr ""
+
+#: ../root/editsuite/module_search_replace.tt:63
+msgid "Match case"
+msgstr ""
+
+#: ../root/editsuite/module_search_replace.tt:66
+msgid "Search and Replace for Artist input fields."
+msgstr ""
+
+#: ../root/editsuite/module_search_replace.tt:68
+msgid "Artist fields"
+msgstr ""
+
+#: ../root/editsuite/module_search_replace.tt:71
+msgid "Search and Replace for Title input fields."
+msgstr ""
+
+#: ../root/editsuite/module_search_replace.tt:73
+msgid "Title fields"
+msgstr ""
+
+#: ../root/editsuite/module_search_replace.tt:82
+msgid "Presets:"
+msgstr ""
+
+#: ../root/editsuite/module_search_replace.tt:90
+#: ../root/editsuite/module_search_replace.tt:98
+#: ../root/editsuite/module_search_replace.tt:106
+#: ../root/editsuite/module_search_replace.tt:114
+#: ../root/editsuite/module_search_replace.tt:126
+#: ../root/editsuite/module_search_replace.tt:134
+#: ../root/editsuite/module_search_replace.tt:142
+#: ../root/editsuite/module_search_replace.tt:150
+msgid "Set"
+msgstr ""
+
+#: ../root/editsuite/module_search_replace.tt:93
+msgid "Remove all round parentheses ()."
+msgstr ""
+
+#: ../root/editsuite/module_search_replace.tt:101
+msgid "Remove all square brackets []."
+msgstr ""
+
+#: ../root/editsuite/module_search_replace.tt:109
+msgid "Remove all curly braces {}."
+msgstr ""
+
+#: ../root/editsuite/module_search_replace.tt:117
+msgid "Remove all bracketing punctuation ()[]{}."
+msgstr ""
+
+#: ../root/editsuite/module_search_replace.tt:129
+msgid "Replace [] with ()."
+msgstr ""
+
+#: ../root/editsuite/module_search_replace.tt:137
+msgid "Replace () with []."
+msgstr ""
+
+#: ../root/editsuite/module_search_replace.tt:145
+msgid "Replace #1 with No. 1 for any number."
+msgstr ""
+
+#: ../root/editsuite/module_search_replace.tt:153
+msgid "Remove ##. from titles."
+msgstr ""
+
+#: ../root/editsuite/module_track_parser.tt:11
+msgid "Parse Titles"
+msgstr ""
+
+#: ../root/editsuite/module_track_parser.tt:16
+msgid "Parse Track Times"
+msgstr ""
+
+#: ../root/editsuite/module_track_parser.tt:22
+msgid "Parse All"
+msgstr ""
+
+#: ../root/editsuite/module_track_parser.tt:27
+msgid "Parse Artists"
+msgstr ""
+
+#: ../root/editsuite/module_track_parser.tt:32
+msgid "Swap Titles and Artists"
+msgstr ""
+
+#: ../root/editsuite/module_track_parser.tt:37
+msgid ""
+"The first line is handled as the Release's title, which is filled into the "
+"Release title field.  Tracks are then expected to start on line 2."
+msgstr ""
+
+#: ../root/editsuite/module_track_parser.tt:39
+msgid "Set Release Title from first line"
+msgstr ""
+
+#: ../root/editsuite/module_track_parser.tt:42
+msgid ""
+"Each line begins with a numeric (0-9) track number.  <br />Note, this is "
+"used only to avoid this text being placed into the track title fields.  It "
+"does not affect which track fields are actually filled.  (So if the text to "
+"parse starts with 2. it will still place that data into the first track, and "
+"not into the second.)"
+msgstr ""
+
+#: ../root/editsuite/module_track_parser.tt:44
+msgid "Tracknames start with a number"
+msgstr ""
+
+#: ../root/editsuite/module_track_parser.tt:47
+msgid ""
+"Characters which are used for numbering of the Tracks may include "
+"alphanummeric characters (0-9, a-z) (a1, a2, … c, d, etc.)."
+msgstr ""
+
+#: ../root/editsuite/module_track_parser.tt:49
+msgid "Enable vinyl Track numbers"
+msgstr ""
+
+#: ../root/editsuite/module_track_parser.tt:53
+msgid ""
+"The line is inspected for an occurence of numbers separated by a colon.  If "
+"such a value is found, the Track time is read and stripped from the track "
+"title.  Parentheses surrounding the time are removed as well."
+msgstr ""
+
+#: ../root/editsuite/module_track_parser.tt:55
+msgid "Detect Track times"
+msgstr ""
+
+#: ../root/editsuite/module_track_parser.tt:58
+msgid ""
+"Fill in the Track times from the detected values (the above option).  If "
+"this box is not activated, the track time fields will not be modified."
+msgstr ""
+
+#: ../root/editsuite/module_track_parser.tt:60
+msgid "Fill in Track times"
+msgstr ""
+
+#: ../root/editsuite/module_track_parser.tt:63
+msgid ""
+"Text in square brackets (usually links to other pages) is stripped from the "
+"titles."
+msgstr ""
+
+#: ../root/editsuite/module_track_parser.tt:65
+msgid "Remove text in brackets"
+msgstr ""
+
+#: ../root/editsuite/module_track_parser.tt:70
+msgid "Click this checkbox if the text to parse includes artist names."
+msgstr ""
+
+#: ../root/editsuite/module_track_parser.tt:72
+msgid "Data to parse includes artist information."
+msgstr ""
+
+#: ../root/editsuite/module_track_parser.tt:74
+msgid ""
+"Separator characters used to indicate where the track title stops and the "
+"artist name starts.  (The tab character will be added to this list of split "
+"characters.)"
+msgstr ""
+
+#: ../root/editsuite/module_track_parser.tt:75
+msgid "Separators: "
+msgstr ""
+
+#: ../root/editsuite/module_track_parser.tt:81
+msgid ""
+"Load release information from a text file on your hard drive.<br /><br /"
+">Note: This function requires that JavaScript be able to read a file on your "
+"hard drive.  This JavaScript capability is only available in Firefox 3+.  "
+"This function therefore is not displayed in other browsers."
+msgstr ""
+
+#: ../root/editsuite/module_track_parser.tt:82
+msgid "Load information from file:"
+msgstr ""
+
+#: ../root/editsuite/module_undo_revert.tt:4
+#: ../root/editsuite/module_undo_revert.tt:6
+msgid "Warn me when using Undo All."
+msgstr ""
+
+#: ../root/editsuite/module_undo_revert.tt:9
+#: ../root/editsuite/module_undo_revert.tt:11
+msgid "Warn me when using Revert All."
+msgstr ""
+
+#: ../root/editsuite/module_undo_revert.tt:14
+msgid "Don't give me an Undo All option."
+msgstr ""
+
+#: ../root/editsuite/module_undo_revert.tt:16
+msgid "Don't give me an Undo All option"
+msgstr ""
+
+#: ../root/editsuite/module_undo_revert.tt:19
+#: ../root/editsuite/module_undo_revert.tt:21
+msgid "Don't give me a Revert All option."
+msgstr ""
+
+#: ../root/editsuite/suiteloader.tt:25 ../root/user/preferences.tt:240
+msgid "Edit Suite"
+msgstr ""
+
+#: ../root/editsuite/suitemenu.tt:22
+msgid "Undo / Revert"
+msgstr ""
+
+#: ../root/editsuite/suitemenu.tt:22
+msgid "Search / Replace"
+msgstr ""
+
+#: ../root/editsuite/suitemenu.tt:22
+msgid "Track Parser"
+msgstr ""
+
+#: ../root/editsuite/suitemenu.tt:22
+msgid "Style Guidelines"
+msgstr ""
+
+#: ../root/editsuite/suitemenu.tt:22
+msgid "Suite Settings"
+msgstr ""
+
+#: ../root/editsuite/suitemenu.tt:37
+msgid "Suite Credits"
+msgstr ""
+
+#: ../root/email/confirm_address.tt:1
+msgid "This is the a verification email for your MusicBrainz account."
+msgstr ""
+
+#: ../root/email/confirm_address.tt:2
+msgid "Please click on the link below to verify your email address:"
+msgstr ""
+
+#: ../root/email/confirm_address.tt:6
+msgid ""
+"If clicking the link directly does not work, you may need to manually cut "
+"and paste the link into the location bar of your preferred web browser."
+msgstr ""
+
+#: ../root/email/confirm_address.tt:8
+msgid "Thanks for using MusicBrainz!"
+msgstr ""
+
+#: ../root/email/confirm_address.tt:10 ../root/email/forgot_password.tt:12
+msgid "The MusicBrainz Team"
+msgstr ""
+
+#: ../root/email/forgot_password.tt:1
+msgid ""
+"Hello.  Someone, probably you, asked that your MusicBrainz password be sent "
+"to you via email."
+msgstr ""
+
+#: ../root/email/forgot_password.tt:3
+msgid "Your MusicBrainz user name is: {username}"
+msgstr ""
+
+#: ../root/email/forgot_password.tt:4
+msgid "Your MusicBrainz password is: {password}"
+msgstr ""
+
+#: ../root/email/forgot_password.tt:6
+msgid "To log in to MusicBrainz, please use this link:"
+msgstr ""
+
+#: ../root/email/forgot_password.tt:10
+msgid ""
+"If you still have problems logging in, please drop us a line - see {uri} for "
+"details."
+msgstr ""
+
+#: ../root/email/internal_email.tt:1
+msgid "MusicBrainz editor {name} has sent you the following message:"
+msgstr ""
+
+#: ../root/email/internal_email.tt:9 ../root/email/internal_email.tt:11
+msgid ""
+"If you would like to respond, please reply to this message or visit {editor} "
+"to send editor {name} an email."
+msgstr ""
+
+#: ../root/email/internal_email.tt:14
+msgid ""
+"Unfortunately, the editor {name} has not supplied their email address, "
+"therefore you cannot reply to them."
+msgstr ""
+
+#: ../root/email/internal_email.tt:18
+msgid "Please do not respond to this email."
+msgstr ""
+
+#: ../root/es_text.tt:5
+msgid "Add a release event"
+msgstr ""
+
+#: ../root/es_text.tt:6
+msgid ""
+"This would appear to be an Amazon ASIN, and not a catalog number.  Please "
+"note that Amazon ASINs should not be entered here, but should instead be "
+"added as a release - url Advanced Relationship."
+msgstr ""
+
+#: ../root/es_text.tt:7
+msgid "Remove release event"
+msgstr ""
+
+#: ../root/es_text.tt:8
+msgid "Add Track"
+msgstr ""
+
+#: ../root/es_text.tt:9
+msgid "unbalanced angle bracket:"
+msgstr ""
+
+#: ../root/es_text.tt:10
+msgid "unbalanced brace:"
+msgstr ""
+
+#: ../root/es_text.tt:11
+msgid "Guess All"
+msgstr ""
+
+#: ../root/es_text.tt:12 ../root/editsuite/suitemenu.tt:22
+msgid "Guess Case"
+msgstr ""
+
+#: ../root/es_text.tt:13
+msgid "Revert All"
+msgstr ""
+
+#: ../root/es_text.tt:14
+msgid ""
+"Guess correct casing and style guideline application for all text fields "
+"using the current Guess Case settings."
+msgstr ""
+
+#: ../root/es_text.tt:15
+msgid ""
+"Guess correct casing and style guideline application for this text field "
+"using the current Guess Case settings."
+msgstr ""
+
+#: ../root/es_text.tt:16
+msgid "Revert all text fields back to their values when this page was loaded."
+msgstr ""
+
+#: ../root/es_text.tt:17
+msgid "Undo the last change made to this text field."
+msgstr ""
+
+#: ../root/es_text.tt:18
+msgid "Undo the last change made to every text field."
+msgstr ""
+
+#: ../root/es_text.tt:19
+msgid "Undo"
+msgstr ""
+
+#: ../root/es_text.tt:20
+msgid "Undo All"
+msgstr ""
+
+#: ../root/es_text.tt:21 ../root/forms/widgets/release_event.tt:22
+#: ../root/forms/widgets/release_event_labels.tt:8
+msgid "Catalog Number"
+msgstr ""
+
+#: ../root/es_text.tt:22
+msgid "unbalanced chevron:"
+msgstr ""
+
+#: ../root/es_text.tt:23
+msgid "Guess Case corrected a commonly misspelled word:"
+msgstr ""
+
+#: ../root/es_text.tt:24
+msgid "Are you sure that you want to do this?"
+msgstr ""
+
+#: ../root/es_text.tt:25
+msgid ""
+"This will return all text fields in this form to their initial values when "
+"you first loaded this page. Any changes will be lost. This action cannot be "
+"undone."
+msgstr ""
+
+#: ../root/es_text.tt:26
+msgid "Warning!"
+msgstr ""
+
+#: ../root/es_text.tt:27
+msgid ""
+"This will undo the last change made to every single text field, including "
+"changes that you have made manually."
+msgstr ""
+
+#: ../root/es_text.tt:28
+msgid "unbalanced corner bracket:"
+msgstr ""
+
+#: ../root/es_text.tt:29
+msgid ""
+"This title appears to include a reference to this track being a cover of "
+"another track.  Please note that this information should not be in the track "
+"title, but should instead be linked using an Advanced Relationship."
+msgstr ""
+
+#: ../root/es_text.tt:30
+msgid ""
+"This title is to be used only for data tracks.  This includes any non-audio "
+"content.  Please note that data tracks at the end of a release should not be "
+"included when adding the release to MusicBrainz."
+msgstr ""
+
+#: ../root/es_text.tt:31
+msgid "DD"
+msgstr ""
+
+#: ../root/es_text.tt:32
+msgid "unbalanced double angle bracket:"
+msgstr ""
+
+#: ../root/es_text.tt:33
+msgid "Edit Suite Credits"
+msgstr ""
+
+#: ../root/es_text.tt:34 ../root/search/error/wrapper.tt:2
+msgid "Error"
+msgstr ""
+
+#: ../root/es_text.tt:35
+msgid "The Edit Suite has been loaded."
+msgstr ""
+
+#: ../root/es_text.tt:36
+msgid "Click any button on the left to begin."
+msgstr ""
+
+#: ../root/es_text.tt:37
+msgid ""
+"SS was present in the input text here.  Please note that Guess Case has no "
+"way to know if SS should become ss or ß when making it lowercase.  Please "
+"double check the correct lowercased spelling of this word."
+msgstr ""
+
+#: ../root/es_text.tt:38
+msgid "Edit Suite loaded."
+msgstr ""
+
+#: ../root/es_text.tt:39
+msgid ""
+"Guess Case has detected that the current language mode has not been "
+"correctly configured. Please file a bug ticket so that this can be fixed."
+"<br />Problem: "
+msgstr ""
+
+#: ../root/es_text.tt:40
+msgid "Select your preferences for Guess Case"
+msgstr ""
+
+#: ../root/es_text.tt:41
+msgid "unbalanced guillemet:"
+msgstr ""
+
+#: ../root/es_text.tt:42
+msgid "unbalanced hill bracket:"
+msgstr ""
+
+#: ../root/es_text.tt:43
+msgid "unbalanced double hill bracket:"
+msgstr ""
+
+#: ../root/es_text.tt:44
+msgid "unbalanced hook bracket:"
+msgstr ""
+
+#: ../root/es_text.tt:45
+msgid ""
+"This text used w/ to indicate with. Guess Case has guessed that you intended "
+"feat., according to FeaturingArtistStyle.  You may, however, have instead "
+"intended to indicate that another song was included within this song.  If "
+"this was the case, please reference MedleyStyle for the correct way this "
+"track should be titled."
+msgstr ""
+
+#: ../root/es_text.tt:46
+msgid ""
+"This title incorrectly uses incl. to include multiple titles.  Please "
+"reference MedleyStyle for the correct way this track should be titled."
+msgstr ""
+
+#: ../root/es_text.tt:47
+msgid "Insert Track"
+msgstr ""
+
+#: ../root/es_text.tt:48
+msgid "unbalanced kakko bracket:"
+msgstr ""
+
+#: ../root/es_text.tt:49 ../root/label/edit_form.tt:29
+msgid "Label Name"
+msgstr ""
+
+#: ../root/es_text.tt:50
+msgid "unbalanced lenticular bracket:"
+msgstr ""
+
+#: ../root/es_text.tt:51
+msgid ""
+"Based on the release title, this appears to be a Compilation.  However, that "
+"is not the release type that is currently set."
+msgstr ""
+
+#: ../root/es_text.tt:52
+msgid "Loading:"
+msgstr ""
+
+#: ../root/es_text.tt:53
+msgid "Toggle track manipulation controls"
+msgstr ""
+
+#: ../root/es_text.tt:54
+msgid "MM"
+msgstr ""
+
+#: ../root/es_text.tt:55
+msgid "Move track down one in the track order."
+msgstr ""
+
+#: ../root/es_text.tt:56
+msgid "Move track up one in the track order."
+msgstr ""
+
+#: ../root/es_text.tt:57 ../root/moderation/vote_options.tt:8
+msgid "No"
+msgstr ""
+
+#: ../root/es_text.tt:58
+msgid ""
+"This is a SpecialPurposeArtist. This artist should only be used for a track "
+"or release which does not have a credited performer of any discographic "
+"relevance."
+msgstr ""
+
+#: ../root/es_text.tt:59
+msgid ""
+"This is a SpecialPurposeLabel.  It is meant to be used for white label "
+"releases, self-released albums, and other releases that don't have any "
+"identifiable labels."
+msgstr ""
+
+#: ../root/es_text.tt:60
+msgid ""
+"Sorry, but this is not a valid URL for the CoverArt AR.  Please see the wiki "
+"for <a href=\\\"http://wiki.musicbrainz.org/Cover_Art_Sites\\\">Cover Art "
+"Sites</a> for more information."
+msgstr ""
+
+#: ../root/es_text.tt:61
+msgid "Sorry, but this is not a valid URL for the YouTube AR."
+msgstr ""
+
+#: ../root/es_text.tt:62
+msgid "Nothing replaced, as no fields were selected."
+msgstr ""
+
+#: ../root/es_text.tt:63
+msgid "OK"
+msgstr ""
+
+#: ../root/es_text.tt:64
+msgid "unbalanced parenthesis:"
+msgstr ""
+
+#: ../root/es_text.tt:65
+msgid "Please select a Style Guideline from the dropdown:"
+msgstr ""
+
+#: ../root/es_text.tt:66
+msgid "Caution!"
+msgstr ""
+
+#: ../root/es_text.tt:67 ../root/components/aliases.tt:17
+#: ../root/forms/widgets/release_event.tt:5 ../root/release/edit-links.tt:3
+#: ../root/release/tracks.tt:63 ../root/track/header.tt:8
+msgid "Remove"
+msgstr ""
+
+#: ../root/es_text.tt:68
+msgid "Select Format"
+msgstr ""
+
+#: ../root/es_text.tt:69
+msgid "Select Country"
+msgstr ""
+
+#: ../root/es_text.tt:70
+msgid "Select One"
+msgstr ""
+
+#: ../root/es_text.tt:71
+msgid ""
+"This is a SpecialPurposeArtist. This artist should only be used for works "
+"performed or composed by anonymous artists. Please consider whether this "
+"artist, [spiritual], or [traditional], is the best fit for this track."
+msgstr ""
+
+#: ../root/es_text.tt:72 ../root/es_text.tt:76 ../root/es_text.tt:78
+msgid ""
+"This is a SpecialPurposeArtist. This artist should not be used, if at all "
+"possible.  Note that soundtracks should normally be placed under the "
+"composer of the soundtrack or in Various Artists, using the performers as "
+"track artists.  Please reference the SoundtrackStyle wikipage for more "
+"details.  Only use this artist if you truely cannot identify the composer of "
+"a track on a soundtrack release."
+msgstr ""
+
+#: ../root/es_text.tt:73
+msgid ""
+"This is a SpecialPurposeArtist. This artist is used to bring together "
+"anonymous releases of western plainchant.  Depending upon the type of chant, "
+"[islamic chant] or [Sarum chant] may be the more correct artists to use "
+"here.  This artist should only be used if there is no identified performing "
+"artist."
+msgstr ""
+
+#: ../root/es_text.tt:74
+msgid ""
+"This is a SpecialPurposeArtist. This artist should be used only for tracks "
+"which consist entirely of dialog or speach.  These typically are only found "
+"on soundtrack releases."
+msgstr ""
+
+#: ../root/es_text.tt:75
+msgid ""
+"This is a SpecialPurposeArtist. This artist should not be used, if at all "
+"possible.  The artist should be the composer of the song.  Only use this "
+"artist if you truely cannot identify the composer."
+msgstr ""
+
+#: ../root/es_text.tt:77
+msgid ""
+"This is a SpecialPurposeArtist. This artist should normally be the one used "
+"for any nature sound recordings. Note that if this release is either by "
+"Eclipse Music Group or Dan Gibson, then that artist should be used as the "
+"artist, not this one."
+msgstr ""
+
+#: ../root/es_text.tt:79
+msgid ""
+"This is a SpecialPurposeArtist. This artist should be used only for African-"
+"American spiritual songs. Please consider whether this artist, "
+"[traditional], or [anonymous], is the best fit for this track."
+msgstr ""
+
+#: ../root/es_text.tt:80
+msgid ""
+"This is a SpecialPurposeArtist. This artist should only be used for "
+"traditional folk songs with no known composer.  Please consider whether this "
+"artist, [spiritual], or [anonymous], is the best fit for this track."
+msgstr ""
+
+#: ../root/es_text.tt:81
+msgid ""
+"This is a SpecialPurposeArtist. This artist should not be used, if at all "
+"possible.  Please do some research first, before using this artist - this "
+"should not be used to avoid doing at a little research."
+msgstr ""
+
+#: ../root/es_text.tt:82
+msgid ""
+"This is a SpecialPurposeArtist. This artist should not be used, if at all "
+"possible.  Christmas songs should be placed under the composer of the song.  "
+"Only use this artist if you truely cannot identify the composer."
+msgstr ""
+
+#: ../root/es_text.tt:83
+msgid "unbalanced square bracket:"
+msgstr ""
+
+#: ../root/es_text.tt:84
+msgid "unbalenced square bracket with quill:"
+msgstr ""
+
+#: ../root/es_text.tt:85
+msgid "unbalanced white square bracket:"
+msgstr ""
+
+#: ../root/es_text.tt:86
+msgid "Warning: This text contains"
+msgstr ""
+
+#: ../root/es_text.tt:87
+msgid ""
+"Guess Case found what appeared to be a track time at the end of this text, "
+"and removed it.  The track time removed was:"
+msgstr ""
+
+#: ../root/es_text.tt:88
+msgid "unbalanced tortoise shell bracket:"
+msgstr ""
+
+#: ../root/es_text.tt:89
+msgid "unbalanced white tortoise shell bracket:"
+msgstr ""
+
+#: ../root/es_text.tt:90
+msgid ""
+"This is a SpecialPurposeLabel which should NOT be used!  If the release has "
+"no label (white label, auto-release, etc), use [no label]. If you just don't "
+"know what the label is for a release, research it. If you still can't find "
+"information, please just leave the label entry blank."
+msgstr ""
+
+#: ../root/es_text.tt:91
+msgid ""
+"This title is to be used only for tracks with no audio content.  If this is "
+"not a silent track, please change the track title to the correct title."
+msgstr ""
+
+#: ../root/es_text.tt:92
+msgid ""
+"This title is only to be used when you truely do not know the title.  Please "
+"do some research first, before using this title - this should not be used to "
+"avoid doing at a little research."
+msgstr ""
+
+#: ../root/es_text.tt:93
+msgid ""
+"This title is to be used for untitled tracks and releases.  If this is not "
+"untitled, please change the title to the correct title."
+msgstr ""
+
+#: ../root/es_text.tt:94
+msgid "Warning"
+msgstr ""
+
+#: ../root/es_text.tt:95
+msgid ""
+"This text contains an invalid accent.  e' should be either è or é, depending "
+"upon the particular word(s) being used."
+msgstr ""
+
+#: ../root/es_text.tt:96
+msgid "This text included a year at the end."
+msgstr ""
+
+#: ../root/es_text.tt:97
+msgid ""
+"This information should be included using Advanced Relationships, not in the "
+"title itself."
+msgstr ""
+
+#: ../root/es_text.tt:98
+msgid "YYYY"
+msgstr ""
+
+#: ../root/es_text.tt:99 ../root/moderation/vote_options.tt:8
+msgid "Yes"
+msgstr ""
+
+#: ../root/forms/auto-editor.tt:2 ../root/user/adjust_flags.tt:8
+msgid "AutoEditor"
+msgstr ""
+
+#: ../root/forms/auto-editor.tt:4
+msgid ""
+"<strong>AutoEditor privileges</strong>: If you untick this checkbox, this "
+"edit will be entered as if you would not have {status|AutoEditor} status. "
+"You can enable them any time again."
+msgstr ""
+
+#: ../root/forms/auto-editor.tt:6
+msgid "Enable AutoEditor priviliges"
+msgstr ""
+
+#: ../root/forms/edit-note.tt:2 ../root/forms/edit-note.tt:10
+msgid "Edit Note"
+msgstr ""
+
+#: ../root/forms/edit-note.tt:5
+msgid "About edit notes:"
+msgstr ""
+
+#: ../root/forms/edit-note.tt:6
+msgid ""
+"Please note that it is highly recommended to enter a edit note. If you do "
+"so, your edit is more likely to be voted on, and unanimously accepted by the "
+"other MusicBrainz editors. If your edit receives the required number of "
+"unanimous yes votes, it will be applied instantly, even before the voting "
+"period elapses in which edits usually are kept open. For detailed "
+"information on how long edits stay open and how many votes are required for "
+"it to pass unanimously, please see our edit conditions page."
+msgstr ""
+
+#: ../root/forms/form.tt:3
+msgid "Fields that are <span class=\"required\">bold</span> are required."
+msgstr ""
+
+#: ../root/forms/form.tt:6
+msgid "Sorry, but some errors were present in the data you provided."
+msgstr ""
+
+#: ../root/forms/widgets/release_event.tt:14
+#: ../root/forms/widgets/release_event_labels.tt:6
+#: ../root/label/edit_form.tt:35 ../root/label/show.tt:36
+#: ../root/moderation/mods/add_label.tt:1
+#: ../root/moderation/mods/edit_label.tt:1 ../root/release/release.tt:59
+#: ../root/user/preferences.tt:75 ../root/user/preferences.tt:189
+msgid "Country"
+msgstr ""
+
+#: ../root/forms/widgets/release_event.tt:18
+#: ../root/forms/widgets/release_event_labels.tt:7
+#: ../root/release/release.tt:62 ../root/release_editor/confirm_labels.tt:15
+msgid "Label"
+msgstr ""
+
+#: ../root/forms/widgets/release_event.tt:26
+#: ../root/forms/widgets/release_event_labels.tt:9
+#: ../root/release/release.tt:68
+msgid "Barcode"
+msgstr ""
+
+#: ../root/forms/widgets/release_event.tt:30
+#: ../root/forms/widgets/release_event_labels.tt:10 ../root/label/show.tt:27
+#: ../root/release/release.tt:71
+msgid "Format"
+msgstr ""
+
+#: ../root/forms/widgets/release_event.tt:46
+msgid "I know what I am doing, this is the correct catalog number"
+msgstr ""
+
+#: ../root/forms/widgets/release_event_labels.tt:4
+msgid "Remove?"
+msgstr ""
+
+#: ../root/forms/widgets/select.tt:16
+msgid "Please make a selection"
+msgstr ""
+
+#: ../root/forms/widgets/switch.tt:18
+msgid "Tick this box to make this {label} editable."
+msgstr ""
+
+#: ../root/freedb/choose_artist.tt:1
+msgid "Import FreeDB Release"
+msgstr ""
+
+#: ../root/freedb/choose_artist.tt:2
+msgid "Select Artist Type"
+msgstr ""
+
+#: ../root/freedb/choose_artist.tt:4
+msgid "Single Artist or Various Artists?"
+msgstr ""
+
+#: ../root/freedb/choose_artist.tt:5
+msgid ""
+"Are the tracks of this release credited to a single artist, or more than one?"
+msgstr ""
+
+#: ../root/freedb/choose_artist.tt:6
+msgid ""
+"Please read the {relartist} style for instructions on how to select the "
+"proper {relartist}."
+msgstr ""
+
+#: ../root/freedb/choose_artist.tt:9 ../root/freedb/choose_artist.tt:14
+#: ../root/release_editor/confirm.tt:2
+msgid "Preview"
+msgstr ""
+
+#: ../root/freedb/index.tt:1 ../root/freedb/index.tt:2
+msgid "FreeDB Search and Import"
+msgstr ""
+
+#: ../root/freedb/index.tt:7
+msgid "FreeDB Search"
+msgstr ""
+
+#: ../root/freedb/index.tt:9
+msgid "Enter the release"
+msgstr ""
+
+#: ../root/freedb/index.tt:11
+msgid "Search query"
+msgstr ""
+
+#: ../root/freedb/index.tt:17
+msgid "Direct Import"
+msgstr ""
+
+#: ../root/freedb/index.tt:19
+msgid ""
+"Enter the category / ID of the <abbr title=\"Compact Disc\">CD</abbr> you "
+"want to import (e.g. <code>rock/a10bda0b</code>):"
+msgstr ""
+
+#: ../root/freedb/index.tt:21
+msgid "FreeDB ID"
+msgstr ""
+
+#: ../root/freedb/index.tt:22
+msgid "Import"
+msgstr ""
+
+#: ../root/label/add_alias.tt:3 ../root/label/add_alias.tt:5
+msgid "Add Label Alias"
+msgstr ""
+
+#: ../root/label/add_alias.tt:7
+msgid "Label Alias"
+msgstr ""
+
+#: ../root/label/aliases.tt:1
+msgid "Label Aliases"
+msgstr ""
+
+#: ../root/label/create.tt:3
+msgid "Create Label"
+msgstr ""
+
+#: ../root/label/details.tt:1 ../root/label/details.tt:2
+msgid "Label Details"
+msgstr ""
+
+#: ../root/label/details.tt:6
+msgid "{label|Name}"
+msgstr ""
+
+#: ../root/label/details.tt:33
+msgid "Subscribers:"
+msgstr ""
+
+#: ../root/label/edit.tt:3 ../root/label/header.tt:44
+msgid "Edit Label"
+msgstr ""
+
+#: ../root/label/edit_alias.tt:3 ../root/label/edit_alias.tt:5
+msgid "Edit Label Alias"
+msgstr ""
+
+#: ../root/label/edit_form.tt:3
+msgid ""
+"Please read the {doc_styleguide|Style Guidelines} then use the fields below "
+"to update the information of this label."
+msgstr ""
+
+#: ../root/label/edit_form.tt:4
+msgid ""
+"If one or more labels with the same name already exist in the database, you "
+"will be prompted to add a {doc_comment|comment to this label} that will "
+"allow users to distinguish this entry from the other label(s) with the same "
+"name."
+msgstr ""
+
+#: ../root/label/edit_form.tt:5
+msgid ""
+"Please note that casing of the label is taken into account when determining "
+"the need for a comment.  The two labels <em>some name</em> and <em>Some "
+"Name</em> are not the same."
+msgstr ""
+
+#: ../root/label/edit_form.tt:12
+msgid ""
+"You are attempting to add a label which appears to be very similar, if not "
+"exactly the same, as these existing labels:"
+msgstr ""
+
+#: ../root/label/edit_form.tt:20
+msgid ""
+"You are required to enter a comment which allows users to distinguish this "
+"label from the other labels with the same name, if the final label name is "
+"similar to an existing label."
+msgstr ""
+
+#: ../root/label/edit_form.tt:21
+msgid ""
+"Confirm by activating the checkbox below that you have read the "
+"{doc_labelcomment|label comment guideline}, understood how we distinguish "
+"duplicate labels, and that you know what you are doing."
+msgstr ""
+
+#: ../root/label/edit_form.tt:23
+msgid ""
+"Yes, I am sure this label is not a duplicate, and I know what I am doing."
+msgstr ""
+
+#: ../root/label/edit_form.tt:28
+msgid "Label Type"
+msgstr ""
+
+#: ../root/label/edit_form.tt:34
+msgid "Label Code"
+msgstr ""
+
+#: ../root/label/edit_form.tt:36 ../root/moderation/mods/edit_artist.tt:1
+msgid "Begin Date"
+msgstr ""
+
+#: ../root/label/header.tt:1
+msgid "View Subscriptions"
+msgstr ""
+
+#: ../root/label/header.tt:1 ../root/release/header.tt:1 ../root/release/info-
+#: links.tt:1 ../root/track/header.tt:1
+msgid "Search Google"
+msgstr ""
+
+#: ../root/label/header.tt:1 ../root/release/header.tt:1 ../root/release/info-
+#: links.tt:1 ../root/track/header.tt:1
+msgid "View Edits"
+msgstr ""
+
+#: ../root/label/header.tt:25
+msgid "Founded:"
+msgstr ""
+
+#: ../root/label/header.tt:29
+msgid "Dissolved:"
+msgstr ""
+
+#: ../root/label/header.tt:36
+msgid "Country:"
+msgstr ""
+
+#: ../root/label/header.tt:44
+msgid "Merge into another Label"
+msgstr ""
+
+#: ../root/label/header.tt:53
+msgid "Please <a href={uri}>log in</a> to edit this label."
+msgstr ""
+
+#: ../root/label/merge.tt:4
+msgid "Are you sure you want to merge the Label {label1} into {label2}?"
+msgstr ""
+
+#: ../root/label/merge_search.tt:7
+msgid "This wizard allows you to merge the label {label} into another label."
+msgstr ""
+
+#: ../root/label/merge_search.tt:8
+msgid ""
+"Please read the guideline on {doc_merge|how to merge labels} and the general "
+"{doc_styleguide|Style Guidelines} before entering this edit."
+msgstr ""
+
+#: ../root/label/merge_search.tt:9
+msgid ""
+"Please enter the {doc_label|label name} of the label you would like to merge "
+"this label into, and press <em>search</em> to start the search."
+msgstr ""
+
+#: ../root/label/merge_search.tt:10
+msgid ""
+"When you have found the label into which you would like to merge {label}, "
+"please follow the link and you will be forwarded to the next step of the "
+"wizard"
+msgstr ""
+
+#: ../root/label/relations.tt:1 ../root/release/header.tt:1
+#: ../root/release/relations.tt:1 ../root/track/header.tt:1
+msgid "Relationships"
+msgstr ""
+
+#: ../root/label/remove_alias.tt:3 ../root/label/remove_alias.tt:5
+msgid "Remove Label Alias"
+msgstr ""
+
+#: ../root/label/show.tt:21 ../root/release/edit_title.tt:10
+#: ../root/release_editor/release_data.tt:16
+msgid "Title"
+msgstr ""
+
+#: ../root/label/show.tt:45
+msgid "Catalog #"
+msgstr ""
+
+#: ../root/label/show.tt:87
+msgid "No Releases currently list release events for this Label."
+msgstr ""
+
+#: ../root/label/subscriptions.tt:2
+msgid "Editors subscribed to this Label"
+msgstr ""
+
+#: ../root/label/subscriptions.tt:11
+msgid "There are no users currently subscribed to this Label."
+msgstr ""
+
+#: ../root/label/subscriptions.tt:16
+msgid "There is also one anonymous subscriber."
+msgid_plural "There are also {num} anonymous subscribers."
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../root/label/subscriptions.tt:21
+msgid "Unsubscribe from this Label."
+msgstr ""
+
+#: ../root/label/subscriptions.tt:25
+msgid "Subscribe to this Label."
+msgstr ""
+
+#: ../root/layout.tt:23
+msgid "MusicBrainz: Artist"
+msgstr ""
+
+#: ../root/layout.tt:24
+msgid "MusicBrainz: Label"
+msgstr ""
+
+#: ../root/layout.tt:25
+msgid "MusicBrainz: Release"
+msgstr ""
+
+#: ../root/layout.tt:26
+msgid "MusicBrainz: Track"
+msgstr ""
+
+#: ../root/layout/footer-bar.tt:5 ../root/layout/sidebar/partners.tt:19
+msgid "Creative Commons"
+msgstr ""
+
+#: ../root/layout/footer-bar.tt:10
+msgid "Electronic Frontier Foundation"
+msgstr ""
+
+#: ../root/layout/footer-bar.tt:11
+msgid "EFF"
+msgstr ""
+
+#: ../root/layout/footer-bar.tt:17
+msgid "General Public License"
+msgstr ""
+
+#: ../root/layout/footer-bar.tt:18
+msgid "GPL"
+msgstr ""
+
+#: ../root/layout/footer-bar.tt:24
+msgid "Lesser General Public License"
+msgstr ""
+
+#: ../root/layout/footer-bar.tt:25
+msgid "LGPL"
+msgstr ""
+
+#: ../root/layout/footer-bar.tt:31
+msgid "This material is Open Knowledge"
+msgstr ""
+
+#: ../root/layout/footer-bar.tt:35 ../root/layout/footer-bar.tt:38
+msgid "Valid <abbr title="
+msgstr ""
+
+#: ../root/layout/footer-bar.tt:44
+msgid "Original Design"
+msgstr ""
+
+#: ../root/layout/footer-bar.tt:50
+msgid "Server version:"
+msgstr ""
+
+#: ../root/layout/footer-bar.tt:56
+msgid "Contact Details"
+msgstr ""
+
+#: ../root/layout/header.tt:3 ../root/layout/header.tt:7
+msgid "MusicBrainz"
+msgstr ""
+
+#: ../root/layout/menu.tt:3
+msgid "{doc|About}"
+msgstr ""
+
+#: ../root/layout/menu.tt:6
+msgid "{doc|About MusicBrainz}"
+msgstr ""
+
+#: ../root/layout/menu.tt:9
+msgid "{doc|Mirrors}"
+msgstr ""
+
+#: ../root/layout/menu.tt:12
+msgid "{doc|People}"
+msgstr ""
+
+#: ../root/layout/menu.tt:15
+msgid "{doc|Privacy}"
+msgstr ""
+
+#: ../root/layout/menu.tt:18
+msgid "{doc|History}"
+msgstr ""
+
+#: ../root/layout/menu.tt:21
+msgid "{doc|Licenses}"
+msgstr ""
+
+#: ../root/layout/menu.tt:24
+msgid "{doc|Social Contract}"
+msgstr ""
+
+#: ../root/layout/menu.tt:27 ../root/layout/menu.tt:282
+msgid "{doc|Development}"
+msgstr ""
+
+#: ../root/layout/menu.tt:30
+msgid "{doc|Server Statistics}"
+msgstr ""
+
+#: ../root/layout/menu.tt:33
+msgid "{doc|Logo}"
+msgstr ""
+
+#: ../root/layout/menu.tt:37
+msgid "Autoeditor Elections"
+msgstr ""
+
+#: ../root/layout/menu.tt:44 ../root/main/index.tt:5
+msgid "News"
+msgstr ""
+
+#: ../root/layout/menu.tt:49
+msgid "General News"
+msgstr ""
+
+#: ../root/layout/menu.tt:54
+msgid "Server"
+msgstr ""
+
+#: ../root/layout/menu.tt:59
+msgid "Picard"
+msgstr ""
+
+#: ../root/layout/menu.tt:63
+msgid "{doc|In the Press}"
+msgstr ""
+
+#: ../root/layout/menu.tt:69
+msgid "{doc|Products}"
+msgstr ""
+
+#: ../root/layout/menu.tt:72
+msgid "{doc|libmusicbrainz}"
+msgstr ""
+
+#: ../root/layout/menu.tt:75
+msgid "{doc|libtunepimp}"
+msgstr ""
+
+#: ../root/layout/menu.tt:78
+msgid "{doc|Server}"
+msgstr ""
+
+#: ../root/layout/menu.tt:81
+msgid "{doc|Database}"
+msgstr ""
+
+#: ../root/layout/menu.tt:84
+msgid "{doc|LiveDataFeed}"
+msgstr ""
+
+#: ../root/layout/menu.tt:87
+msgid "{doc|Web Service}"
+msgstr ""
+
+#: ../root/layout/menu.tt:90
+msgid "{doc|FreeDB Gateway}"
+msgstr ""
+
+#: ../root/layout/menu.tt:93
+msgid "{doc|3<sup>rd</sup> Party}"
+msgstr ""
+
+#: ../root/layout/menu.tt:96
+msgid "{doc|Classic Tagger}"
+msgstr ""
+
+#: ../root/layout/menu.tt:99
+msgid "{doc|Jaikoz Tag Editor}"
+msgstr ""
+
+#: ../root/layout/menu.tt:102
+msgid "{doc|Magic Tagger}"
+msgstr ""
+
+#: ../root/layout/menu.tt:105
+msgid "{doc|Picard Tagger}"
+msgstr ""
+
+#: ../root/layout/menu.tt:116 ../root/layout/sidebar/stats.tt:1
+msgid "Links"
+msgstr ""
+
+#: ../root/layout/menu.tt:121 ../root/layout/sidebar/stats.tt:1
+#: ../root/statistics/top_editors.tt:10 ../root/user/profile.tt:11
+msgid "Edits"
+msgstr ""
+
+#: ../root/layout/menu.tt:126
+msgid "Browse Artists"
+msgstr ""
+
+#: ../root/layout/menu.tt:131
+msgid "Browse Labels"
+msgstr ""
+
+#: ../root/layout/menu.tt:136
+msgid "Browse Releases"
+msgstr ""
+
+#: ../root/layout/menu.tt:141
+msgid "Browser Search Plugins"
+msgstr ""
+
+#: ../root/layout/menu.tt:147
+msgid "{doc|Editing}"
+msgstr ""
+
+#: ../root/layout/menu.tt:150
+msgid "{doc|About Editing}"
+msgstr ""
+
+#: ../root/layout/menu.tt:155
+msgid "Editing Suggestions"
+msgstr ""
+
+#: ../root/layout/menu.tt:160
+msgid "Review / Vote on Edits"
+msgstr ""
+
+#: ../root/layout/menu.tt:165
+msgid "Edit Conditions"
+msgstr ""
+
+#: ../root/layout/menu.tt:170
+msgid "Add Artist"
+msgstr ""
+
+#: ../root/layout/menu.tt:175
+msgid "Add Label"
+msgstr ""
+
+#: ../root/layout/menu.tt:180
+msgid "Add Various Artists Release"
+msgstr ""
+
+#: ../root/layout/menu.tt:185
+msgid "FreeDB Import"
+msgstr ""
+
+#: ../root/layout/menu.tt:191
+msgid "You must be logged-in to edit"
+msgstr ""
+
+#: ../root/layout/menu.tt:200 ../root/layout/menu.tt:248
+msgid "Account"
+msgstr ""
+
+#: ../root/layout/menu.tt:205
+msgid "Edit Account"
+msgstr ""
+
+#: ../root/layout/menu.tt:210 ../root/user/change_password.tt:1
+#: ../root/user/change_password.tt:2 ../root/user/change_password.tt:10
+#: ../root/user/profile.tt:20
+msgid "Change Password"
+msgstr ""
+
+#: ../root/layout/menu.tt:215 ../root/layout/sidebar/user.tt:14
+#: ../root/user/preferences.tt:17 ../root/user/preferences.tt:18
+#: ../root/user/profile.tt:20
+msgid "Preferences"
+msgstr ""
+
+#: ../root/layout/menu.tt:225
+msgid "Subscribers"
+msgstr ""
+
+#: ../root/layout/menu.tt:230
+msgid "Your Ratings"
+msgstr ""
+
+#: ../root/layout/menu.tt:235 ../root/user/profile.tt:20
+msgid "Check Donation Status"
+msgstr ""
+
+#: ../root/layout/menu.tt:240
+msgid "Log out"
+msgstr ""
+
+#: ../root/layout/menu.tt:253 ../root/user/register.tt:1
+#: ../root/user/register.tt:2
+msgid "Create an Account"
+msgstr ""
+
+#: ../root/layout/menu.tt:258
+msgid "Log in"
+msgstr ""
+
+#: ../root/layout/menu.tt:263 ../root/layout/sidebar/login.tt:14
+#: ../root/user/forgot_password.tt:1 ../root/user/forgot_password.tt:2
+msgid "Forgot Password"
+msgstr ""
+
+#: ../root/layout/menu.tt:270
+msgid "{doc|Contribute}"
+msgstr ""
+
+#: ../root/layout/menu.tt:273
+msgid "{doc|How to Contribute}"
+msgstr ""
+
+#: ../root/layout/menu.tt:276
+msgid "{doc|Sponsors}"
+msgstr ""
+
+#: ../root/layout/menu.tt:279
+msgid "{doc|Help Wanted}"
+msgstr ""
+
+#: ../root/layout/menu.tt:285
+msgid "{doc|Subversion Access}"
+msgstr ""
+
+#: ../root/layout/menu.tt:288
+msgid "{doc|<abbr title=\"Subversion\">SVN</abbr> Modules}"
+msgstr ""
+
+#: ../root/layout/menu.tt:292
+msgid "<abbr title=\"Subversion\">SVN</abbr> Viewer"
+msgstr ""
+
+#: ../root/layout/menu.tt:298
+msgid "{doc|Help}"
+msgstr ""
+
+#: ../root/layout/menu.tt:301
+msgid "{doc|ContactUs}"
+msgstr ""
+
+#: ../root/layout/menu.tt:304
+msgid "{doc|<abbr title=\"Frequently Asked Questions\">FAQs</abbr>}"
+msgstr ""
+
+#: ../root/layout/menu.tt:307
+msgid "{doc|Style Guidelines}"
+msgstr ""
+
+#: ../root/layout/menu.tt:310
+msgid "{doc|Mailing Lists}"
+msgstr ""
+
+#: ../root/layout/menu.tt:314
+msgid "Web Forums"
+msgstr ""
+
+#: ../root/layout/menu.tt:319
+msgid "UserVoice Feedback"
+msgstr ""
+
+#: ../root/layout/menu.tt:324
+msgid "Bugs / <abbr title=\"Requests for Enhancement\">RFEs</abbr>"
+msgstr ""
+
+#: ../root/layout/menu.tt:328
+msgid "{doc|Copyright Issues}"
+msgstr ""
+
+#: ../root/layout/sidebar.tt:4
+msgid "MusicBrainz Sites"
+msgstr ""
+
+#: ../root/layout/sidebar.tt:10
+msgid "Not Logged In"
+msgstr ""
+
+#: ../root/layout/sidebar.tt:16
+msgid "Top Voters"
+msgstr ""
+
+#: ../root/layout/sidebar.tt:19 ../root/user/preferences.tt:323
+msgid "Statistics"
+msgstr ""
+
+#: ../root/layout/sidebar.tt:21
+msgid "Partners"
+msgstr ""
+
+#: ../root/layout/sidebar/login.tt:4 ../root/user/login.tt:1
+#: ../root/user/login.tt:2
+msgid "Log In"
+msgstr ""
+
+#: ../root/layout/sidebar/login.tt:9
+msgid "Register"
+msgstr ""
+
+#: ../root/layout/sidebar/login.tt:19 ../root/layout/sidebar/user.tt:31
+msgid "Donate!"
+msgstr ""
+
+#: ../root/layout/sidebar/partners.tt:4
+msgid "Donate to MusicBrainz!"
+msgstr ""
+
+#: ../root/layout/sidebar/partners.tt:14
+msgid "MusicIP"
+msgstr ""
+
+#: ../root/layout/sidebar/partners.tt:24
+msgid "Digital West Networks Inc."
+msgstr ""
+
+#: ../root/layout/sidebar/partners.tt:29
+msgid "Oregon State University Open Source Lab"
+msgstr ""
+
+#: ../root/layout/sidebar/partners.tt:34
+msgid "More info&hellip;"
+msgstr ""
+
+#: ../root/layout/sidebar/search.tt:9
+msgid "{doc|Advanced Query}"
+msgstr ""
+
+#: ../root/layout/sidebar/sites.tt:4
+msgid "Master Server"
+msgstr ""
+
+#: ../root/layout/sidebar/sites.tt:8
+msgid "{doc|Find a Mirror}"
+msgstr ""
+
+#: ../root/layout/sidebar/sites.tt:12
+msgid "MetaBrainz"
+msgstr ""
+
+#: ../root/layout/sidebar/sites.tt:17
+msgid "Brainz Blog"
+msgstr ""
+
+#: ../root/layout/sidebar/sites.tt:22
+msgid "Mailing Lists"
+msgstr ""
+
+#: ../root/layout/sidebar/sites.tt:27
+msgid "Forums"
+msgstr ""
+
+#: ../root/layout/sidebar/sites.tt:32
+msgid "Internet Relay Chat"
+msgstr ""
+
+#: ../root/layout/sidebar/sites.tt:33
+msgid "IRC"
+msgstr ""
+
+#: ../root/layout/sidebar/sites.tt:35
+msgid "Chat Logs"
+msgstr ""
+
+#: ../root/layout/sidebar/sites.tt:40
+msgid "Wiki"
+msgstr ""
+
+#: ../root/layout/sidebar/sites.tt:45
+msgid "Stuff to Buy"
+msgstr ""
+
+#: ../root/layout/sidebar/sites.tt:50
+msgid "UserVoice"
+msgstr ""
+
+#: ../root/layout/sidebar/sites.tt:55
+msgid "Bug Tracker"
+msgstr ""
+
+#: ../root/layout/sidebar/stats.tt:1
+msgid "<abbr title=\"Portable Unique IDentifiers\">PUIDs</abbr>"
+msgstr ""
+
+#: ../root/layout/sidebar/stats.tt:1 ../root/user/subscriptions.tt:23
+msgid "Artists"
+msgstr ""
+
+#: ../root/layout/sidebar/stats.tt:1 ../root/user/subscriptions.tt:23
+msgid "Labels"
+msgstr ""
+
+#: ../root/layout/sidebar/stats.tt:1 ../root/user/subscriptions.tt:23
+msgid "Editors"
+msgstr ""
+
+#: ../root/layout/sidebar/user.tt:4
+msgid "My Profile"
+msgstr ""
+
+#: ../root/layout/sidebar/user.tt:9
+msgid "Log Out"
+msgstr ""
+
+#: ../root/layout/sidebar/user.tt:19
+msgid "Vote on Edits"
+msgstr ""
+
+#: ../root/layout/sidebar/user.tt:24
+msgid "Subscribed"
+msgstr ""
+
+#: ../root/main/404.tt:1
+msgid "Error 404: Page Not Found"
+msgstr ""
+
+#: ../root/main/404.tt:3
+msgid "Page Not Found"
+msgstr ""
+
+#: ../root/main/404.tt:6
+msgid "(<abbr title=\"HyperText Transfer Protocol\">HTTP</abbr> code 404)"
+msgstr ""
+
+#: ../root/main/404.tt:9
+msgid "The page you requested does not exist."
+msgstr ""
+
+#: ../root/main/404.tt:12
+msgid ""
+"If you think this is our fault (for example, you found a broken link <i>and "
+"the link you found is on our site</i>, then please contact us at <a href="
+"\"mailto&#x3a;support&#x0040;musicbrainz.org\">support&#x0040;musicbrainz."
+"org</a>, or via <abbr title=\"Internet Relay Chat\">IRC</abbr> in <a href="
+"\"irc://irc.freenode.net/musicbrainz\">the #musicbrainz channel</a> on "
+"FreeNode.&nbsp; Thank you."
+msgstr ""
+
+#: ../root/main/500.tt:1
+msgid "Error 500: Internal Server Error"
+msgstr ""
+
+#: ../root/main/500.tt:3
+msgid "Ooops!"
+msgstr ""
+
+#: ../root/main/500.tt:6
+msgid "(<abbr title=\"HyperText Transfer Protocol\">HTTP</abbr> code 500)"
+msgstr ""
+
+#: ../root/main/500.tt:9
+msgid ""
+"Sorry, it seems like something has gone wrong! Repeating your request may "
+"solve this problem, however if it persists, please file a bug report at <a "
+"href=\"http://bugs.musicbrainz.org\">our bug tracker</a>."
+msgstr ""
+
+#: ../root/main/500.tt:12
+msgid "The server returned the following error message:"
+msgstr ""
+
+#: ../root/main/index.tt:2 ../root/main/index.tt:35
+msgid "Welcome to MusicBrainz!"
+msgstr ""
+
+#: ../root/main/index.tt:7
+msgid "MetaBrainz Foundation"
+msgstr ""
+
+#: ../root/main/index.tt:9
+msgid ""
+"The <a href=\"http://metabrainz.org\">MetaBrainz Foundation</a>, a "
+"California 501.(c).3 non-profit corporation, operates the MusicBrainz "
+"project. All <a href=\"http://metabrainz.org/donate\">donations</a> to "
+"MusicBrainz are tax deductible!"
+msgstr ""
+
+#: ../root/main/index.tt:12
+msgid "MusicBrainz Blog"
+msgstr ""
+
+#: ../root/main/index.tt:22
+msgid "Posted:"
+msgstr ""
+
+#: ../root/main/index.tt:25
+msgid "Read more&hellip;"
+msgstr ""
+
+#: ../root/main/index.tt:42
+msgid ""
+"Unless you want to be testing the latest and greatest MusicBrainz features "
+"you probably want to go to the <a href=\"http://musicbrainz.org/\"> <img src="
+"\"{ext_link}\" alt=\"{ext_site}\" /> main MusicBrainz server</a>."
+msgstr ""
+
+#: ../root/main/index.tt:42 ../root/main/index.tt:49
+msgid "External Website"
+msgstr ""
+
+#: ../root/main/index.tt:47
+msgid "You are using a MusicBrainz mirror"
+msgstr ""
+
+#: ../root/main/index.tt:49
+msgid ""
+"If you want to edit the MusicBrainz data, you will need to go to the <a href="
+"\"http://musicbrainz.org/\"> <img src=\"{url}\" alt=\"{ext_site}\" width=\"12"
+"\" /> main MusicBrainz server</a>."
+msgstr ""
+
+#: ../root/main/index.tt:53
+msgid "What is MusicBrainz?"
+msgstr ""
+
+#: ../root/main/index.tt:55
+msgid ""
+"MusicBrainz is a community music meta-database that attempts to create a "
+"comprehensive music information site. You can use the MusicBrainz data "
+"either by browsing this web site, or you can access the data from a client "
+"program - for example, a CD player program can use MusicBrainz to identify "
+"CDs and provide information about the CD, about the Artist or about related "
+"information. You can also use the MusicBrainz Tagger to automatically "
+"identify and clean up the metadata tags in your digital music collections. "
+"Find out more in the <a href=\"{uri}\">introduction</a>."
+msgstr ""
+
+#: ../root/main/index.tt:58
+msgid "Use MusicBrainz"
+msgstr ""
+
+#: ../root/main/index.tt:60
+msgid ""
+"You can use MusicBrainz right now to automatically identify and label your "
+"music files - all you have to do is download and run a MusicBrainz enabled "
+"tagger. {taggers|Read more about our taggers}."
+msgstr ""
+
+#: ../root/main/index.tt:64 ../root/main/index.tt:66
+msgid "Download Picard"
+msgstr ""
+
+#: ../root/main/index.tt:65 ../root/main/index.tt:72 ../root/main/index.tt:79
+msgid "[download]"
+msgstr ""
+
+#: ../root/main/index.tt:68
+msgid "[Windows/Linux]"
+msgstr ""
+
+#: ../root/main/index.tt:71 ../root/main/index.tt:73
+msgid "Download Magic-Tagger"
+msgstr ""
+
+#: ../root/main/index.tt:75
+msgid "[Windows -- <a href=\"http://www.magic-tagger.com\">More info...</a>]"
+msgstr ""
+
+#: ../root/main/index.tt:78 ../root/main/index.tt:80
+msgid "Download Jaikoz Tag Editor"
+msgstr ""
+
+#: ../root/main/index.tt:82
+msgid ""
+"[Windows, Linux, Mac OS X -- <a href=\"http://www.jthink.net/jaikoz\">More "
+"info...</a>]"
+msgstr ""
+
+#: ../root/main/index.tt:86
+msgid ""
+"Alternatively, you might just want to <a href=\"{uri}\">search</a> or <a "
+"href=\"/browseartists.html\">browse</a> the MusicBrainz database. If you "
+"spot a mistake, or something that is missing, you can even {edit|edit or add "
+"more data}!"
+msgstr ""
+
+#: ../root/main/index.tt:89
+msgid ""
+"If you are new to MusicBrainz, please take a moment to read the {doc_begin|"
+"beginners' guide} before editing the database."
+msgstr ""
+
+#: ../root/main/index.tt:92
+msgid ""
+"If you are a software developer you might want to learn about the "
+"{doc_client|MusicBrainz client library/<abbr title=\"software development kit"
+"\">SDK</abbr>}. You can use the library to enable your programs to access "
+"the MusicBrainz database, both for looking up data and also for submitting "
+"new data."
+msgstr ""
+
+#: ../root/main/index.tt:95
+msgid "Be a Part of MusicBrainz"
+msgstr ""
+
+#: ../root/main/index.tt:97
+msgid "Many people are needed to make MusicBrainz work. Come and take part!"
+msgstr ""
+
+#: ../root/main/index.tt:101
+msgid ""
+"Please download and use Picard. By doing so, you will be using and adding to "
+"the MusicBrainz database."
+msgstr ""
+
+#: ../root/main/index.tt:104
+msgid ""
+"<a href=\"{uri_search}\">Search</a> or <a href=\"{uri_browse}\">browse</a> "
+"the MusicBrainz data for your favourite Artists, or for your <a href="
+"\"{uri_fav}\">favourite releases</a>."
+msgstr ""
+
+#: ../root/main/index.tt:107
+msgid ""
+"If you spot something that is wrong, poorly entered or just plain missing, "
+"please <a href=\"{uri_register}\">register</a> and {edit|edit the data}"
+msgstr ""
+
+#: ../root/moderation/add_note.tt:1 ../root/moderation/add_note.tt:2
+#: ../root/moderation/add_note.tt:5
+msgid "Add Edit Note"
+msgstr ""
+
+#: ../root/moderation/for_type.tt:4
+msgid "Edits for {entity}"
+msgstr ""
+
+#: ../root/moderation/info.tt:13 ../root/moderation/mods/mac_to_sac.tt:4
+#: ../root/moderation/mods/merge_artist.tt:4
+#: ../root/track/change_artist_search.tt:7
+msgid "Artist:"
+msgstr ""
+
+#: ../root/moderation/info.tt:23
+msgid "Release:"
+msgstr ""
+
+#: ../root/moderation/info.tt:33
+msgid "Track:"
+msgstr ""
+
+#: ../root/moderation/info.tt:43 ../root/moderation/mods/merge_label.tt:4
+msgid "Label:"
+msgstr ""
+
+#: ../root/moderation/list.tt:12 ../root/moderation/show.tt:6
+msgid "Editor:"
+msgstr ""
+
+#: ../root/moderation/list.tt:22 ../root/moderation/show.tt:14
+msgid "Edit ID:"
+msgstr ""
+
+#: ../root/moderation/list.tt:33 ../root/release/edit_attributes.tt:16
+msgid "Language:"
+msgstr ""
+
+#: ../root/moderation/list.tt:42
+msgid "Expired:"
+msgstr ""
+
+#: ../root/moderation/list.tt:55
+msgid "yes"
+msgstr ""
+
+#: ../root/moderation/list.tt:57
+msgid "no"
+msgstr ""
+
+#: ../root/moderation/list.tt:59
+msgid "Add note"
+msgstr ""
+
+#: ../root/moderation/list.tt:59
+msgid "Approve"
+msgstr ""
+
+#: ../root/moderation/mods/add_artist.tt:3
+msgid "Name:"
+msgstr ""
+
+#: ../root/moderation/mods/add_artistalias.tt:4
+msgid "Alias:"
+msgstr ""
+
+#: ../root/moderation/mods/add_label.tt:1
+#: ../root/moderation/mods/edit_artist.tt:1
+#: ../root/moderation/mods/edit_label.tt:1
+msgid "Sort name"
+msgstr ""
+
+#: ../root/moderation/mods/add_label.tt:1
+#: ../root/moderation/mods/edit_label.tt:1
+msgid "Label code"
+msgstr ""
+
+#: ../root/moderation/mods/add_label.tt:1
+#: ../root/moderation/mods/edit_label.tt:1
+msgid "Founded"
+msgstr ""
+
+#: ../root/moderation/mods/add_label.tt:1
+#: ../root/moderation/mods/edit_label.tt:1
+msgid "Dissolved"
+msgstr ""
+
+#: ../root/moderation/mods/add_release.tt:4
+msgid "New:"
+msgstr ""
+
+#: ../root/moderation/mods/add_track_kv.tt:3
+msgid "Title:"
+msgstr ""
+
+#: ../root/moderation/mods/add_track_kv.tt:7
+msgid "Length:"
+msgstr ""
+
+#: ../root/moderation/mods/edit_artist.tt:1
+msgid "Resolution"
+msgstr ""
+
+#: ../root/moderation/mods/edit_tracknum.tt:1
+msgid "Number"
+msgstr ""
+
+#: ../root/moderation/mods/edit_tracktime.tt:1
+msgid "Duration"
+msgstr ""
+
+#: ../root/moderation/mods/edit_url.tt:1 ../root/relate/cc.tt:11
+#: ../root/relate/url.tt:15
+msgid "<abbr title=\"Uniform Resource Locator\">URL</abbr>"
+msgstr ""
+
+#: ../root/moderation/mods/edit_url.tt:1 ../root/relate/url.tt:16
+#: ../root/url/edit.tt:8
+msgid "Description"
+msgstr ""
+
+#: ../root/moderation/notes.tt:22
+msgid "(None)"
+msgstr ""
+
+#: ../root/moderation/open.tt:3
+msgid "Browse Edits"
+msgstr ""
+
+#: ../root/moderation/open.tt:10
+msgid "Enter votes"
+msgstr ""
+
+#: ../root/moderation/show.tt:1
+msgid "Edit {num}"
+msgstr ""
+
+#: ../root/moderation/show.tt:2
+msgid "Edit {id}"
+msgstr ""
+
+#: ../root/moderation/show.tt:22
+msgid "Status:"
+msgstr ""
+
+#: ../root/moderation/show.tt:30
+msgid "Opened:"
+msgstr ""
+
+#: ../root/moderation/show.tt:38
+msgid "Expires:"
+msgstr ""
+
+#: ../root/moderation/show.tt:46
+msgid "Closed:"
+msgstr ""
+
+#: ../root/moderation/show.tt:54
+msgid "Conditions:"
+msgstr ""
+
+#: ../root/moderation/show.tt:57
+msgid "{x} data quality"
+msgstr ""
+
+#: ../root/moderation/show.tt:58
+msgid "{x} on expiration"
+msgstr ""
+
+#: ../root/moderation/show.tt:59
+msgid "{x} to accept/reject"
+msgstr ""
+
+#: ../root/moderation/show.tt:77
+msgid "Changes:"
+msgstr ""
+
+#: ../root/moderation/show.tt:89
+msgid "My Vote:"
+msgstr ""
+
+#: ../root/moderation/show.tt:101
+msgid "Edit Notes"
+msgstr ""
+
+#: ../root/moderation/show.tt:107
+msgid "Add Note"
+msgstr ""
+
+#: ../root/moderation/vote_options.tt:8
+msgid "Abstain"
+msgstr ""
+
+#: ../root/moderation/vote_options.tt:8
+msgid "No Vote"
+msgstr ""
+
+#: ../root/moderation/vote_options.tt:28
+msgid "Change applied"
+msgstr ""
+
+#: ../root/rating/display.tt:1
+msgid "My Ratings"
+msgstr ""
+
+#: ../root/rating/display.tt:1
+msgid "{user}'s ratings"
+msgstr ""
+
+#: ../root/relate/cc.tt:3
+msgid "Add a Creative Commons License"
+msgstr ""
+
+#: ../root/relate/cc.tt:5
+msgid "Add a Creative Commons license"
+msgstr ""
+
+#: ../root/relate/cc.tt:7
+msgid ""
+"Select a <a href=\"http://creativecommons.org/\">Creative Commons</a> <a "
+"href=\"http://creativecommons.org/about/licenses/meet-the-licenses"
+"\">license</a> and enter the <abbr title=\"Uniform Resource Locator\">URL</"
+"abbr> where this release can be downloaded. If possible, please link "
+"directly to a media file (e.g. mp3). Please note that the <abbr title="
+"\"Uniform Resource Locator\">URL</abbr> must be a valid <abbr title="
+"\"Uniform Resource Locator\">URL</abbr>, including the <code>http://</code> "
+"or <code>ftp://</code> protocol portion of the <abbr title=\"Uniform "
+"Resource Locator\">URL</abbr>."
+msgstr ""
+
+#: ../root/relate/cc.tt:10
+msgid "License"
+msgstr ""
+
+#: ../root/relate/create.tt:3
+msgid "Create Releationship"
+msgstr ""
+
+#: ../root/relate/create.tt:5
+msgid "Create Relationship:"
+msgstr ""
+
+#: ../root/relate/create.tt:7
+msgid "Relationship"
+msgstr ""
+
+#: ../root/relate/create.tt:14 ../root/release_editor/release_data.tt:38
+msgid "Attributes"
+msgstr ""
+
+#: ../root/relate/create.tt:15
+msgid "Additional"
+msgstr ""
+
+#: ../root/relate/create.tt:17
+msgid ""
+"This attribute describes if a particular performance role was considered "
+"normal or additional."
+msgstr ""
+
+#: ../root/relate/create.tt:19
+msgid "Guest"
+msgstr ""
+
+#: ../root/relate/create.tt:21
+msgid "This attribute indicates a "
+msgstr ""
+
+#: ../root/relate/create.tt:23
+msgid "Executive"
+msgstr ""
+
+#: ../root/relate/create.tt:25
+msgid "For executive producers"
+msgstr ""
+
+#: ../root/relate/create.tt:27
+msgid "Co"
+msgstr ""
+
+#: ../root/relate/create.tt:29
+msgid "Co-[role]"
+msgstr ""
+
+#: ../root/relate/create.tt:31
+msgid "Instrument"
+msgstr ""
+
+#: ../root/relate/create.tt:33
+msgid ""
+"This attribute describes the possible instruments that can be captured as "
+"part of a performance."
+msgstr ""
+
+#: ../root/relate/create.tt:35
+msgid "Vocals"
+msgstr ""
+
+#: ../root/relate/create.tt:37
+msgid "This attribute describes a type of vocal performance."
+msgstr ""
+
+#: ../root/relate/create.tt:39
+msgid "Orchestra"
+msgstr ""
+
+#: ../root/relate/create.tt:41
+msgid "This attribute describes a type of orchestra."
+msgstr ""
+
+#: ../root/relate/create.tt:44
+msgid "Relationship Timespan"
+msgstr ""
+
+#: ../root/relate/create.tt:46
+msgid ""
+"If the relationship type you selected indicates a temporal relationship (e."
+"g. <em>was a member of</em>), then enter the begin and/or end dates below.  "
+"These dates are optional, and leaving the end date blank indicates that this "
+"relationship is still active today."
+msgstr ""
+
+#: ../root/relate/create.tt:48
+msgid "Begin date"
+msgstr ""
+
+#: ../root/relate/create.tt:49
+msgid "End date"
+msgstr ""
+
+#: ../root/relate/edit_all.tt:15
+msgid "edit"
+msgstr ""
+
+#: ../root/relate/edit_all.tt:18
+msgid "remove"
+msgstr ""
+
+#: ../root/relate/remove.tt:3 ../root/relate/remove.tt:5
+msgid "Remove Relationship"
+msgstr ""
+
+#: ../root/relate/url.tt:3
+msgid "Create Relationship: Relate to URL"
+msgstr ""
+
+#: ../root/relate/url.tt:5
+msgid "Relate {type} to URL"
+msgstr ""
+
+#: ../root/relate/url.tt:7
+msgid ""
+"Select the <abbr title=\"Uniform Resource Locator\">URL</abbr> relationship "
+"type and enter the <abbr title=\"Uniform Resource Locator\">URL</abbr> "
+"below. Please note that the <abbr title=\"Uniform Resource Locator\">URL</"
+"abbr> must be a valid <abbr title=\"Uniform Resource Locator\">URL</abbr>, "
+"including the http:// or ftp:// protocol portion of the <abbr title="
+"\"Uniform Resource Locator\">URL</abbr>."
+msgstr ""
+
+#: ../root/relate/url.tt:8
+msgid ""
+"You may not link to digital audio files or sites where unauthorized copies "
+"of copyrighted works can be downloaded."
+msgstr ""
+
+#: ../root/relate/url.tt:9
+msgid ""
+"If you would like to link directly to a downloadable music track, please "
+"ensure that the music is licensed under some free license such as one of the "
+"<a href=\"http://creativecommons.org\">Creative Commons licenses</a>, the <a "
+"href=\"http://www.eff.org/IP/Open_licenses/eff_oal.php\"><abbr title="
+"\"Electronic Frontier Foundation\">EFF</abbr>'s Open Audio license</a>, or "
+"is otherwise legally available for free download by the general public."
+msgstr ""
+
+#: ../root/relate/url.tt:13
+msgid "<abbr title=\"Uniform Resource Locator\">URL</abbr> Details"
+msgstr ""
+
+#: ../root/release/box-summary.tt:12
+msgid "{dq} data quality"
+msgstr ""
+
+#: ../root/release/change_quality.tt:7
+msgid ""
+"The {quality|Data Quality} for {release} is currently set to: <strong>"
+"{rel_qual}</strong>."
+msgstr ""
+
+#: ../root/release/change_quality.tt:10
+msgid ""
+"Please select a new {quality|Data Quality} level, and enter an {note|edit "
+"note} to justify this edit."
+msgstr ""
+
+#: ../root/release/change_quality.tt:13
+msgid "Data Quality"
+msgstr ""
+
+#: ../root/release/confirm_move.tt:1 ../root/release/confirm_move.tt:2
+msgid "Move Release to Another Artist"
+msgstr ""
+
+#: ../root/release/confirm_move.tt:5
+msgid ""
+"Are you sure you want to move the release {release} to the artist {artist}?"
+msgstr ""
+
+#: ../root/release/confirm_move.tt:9
+msgid "Also change Track Artists"
+msgstr ""
+
+#: ../root/release/confirm_move.tt:11
+msgid "Move Release"
+msgstr ""
+
+#: ../root/release/convert_to_single_artist.tt:3
+#: ../root/release/convert_to_single_artist.tt:5
+msgid "Convert to Single Artist"
+msgstr ""
+
+#: ../root/release/convert_to_single_search.tt:3
+#: ../root/release/convert_to_single_search.tt:5
+msgid "Convert Release to a Single Artist"
+msgstr ""
+
+#: ../root/release/details.tt:2
+msgid "Release Details"
+msgstr ""
+
+#: ../root/release/details.tt:6 ../root/track/details.tt:10
+#: ../root/track/details.tt:61
+msgid "{doc|Title}"
+msgstr ""
+
+#: ../root/release/details.tt:15 ../root/track/details.tt:18
+#: ../root/url/info.tt:22
+msgid "{doc|<abbr title=\"MusicBrainz IDentifier\">MBID</abbr>}"
+msgstr ""
+
+#: ../root/release/edit-links.tt:3
+msgid "Add Relationship"
+msgstr ""
+
+#: ../root/release/edit-links.tt:3
+msgid "Add <abbr title=\"Creative Commons\">CC</abbr> License"
+msgstr ""
+
+#: ../root/release/edit-links.tt:3
+msgid "Move"
+msgstr ""
+
+#: ../root/release/edit-links.tt:3
+msgid "Edit All"
+msgstr ""
+
+#: ../root/release/edit-links.tt:3
+msgid "Duplicate"
+msgstr ""
+
+#: ../root/release/edit-links.tt:14
+msgid "Please <a href=\"{uri}\">log in</a> to edit this release"
+msgstr ""
+
+#: ../root/release/edit_attributes.tt:3 ../root/release/edit_attributes.tt:5
+msgid "Edit Release Attributes"
+msgstr ""
+
+#: ../root/release/edit_attributes.tt:10
+msgid "Release Type:"
+msgstr ""
+
+#: ../root/release/edit_attributes.tt:11
+msgid "Release Status:"
+msgstr ""
+
+#: ../root/release/edit_attributes.tt:17
+msgid "Script:"
+msgstr ""
+
+#: ../root/release/edit_title.tt:3 ../root/release/edit_title.tt:5
+msgid "Edit Release Title"
+msgstr ""
+
+#: ../root/release/edit_title.tt:7
+msgid ""
+"This form allows you to edit the {title|title of this release}.  Please read "
+"the {doc_sg|style guidelines} before entering any edits."
+msgstr ""
+
+#: ../root/release/header.tt:17 ../root/track/header.tt:26
+msgid "by {artist}"
+msgstr ""
+
+#: ../root/release/info-links.tt:1
+msgid "Hide Artists"
+msgstr ""
+
+#: ../root/release/info-links.tt:1
+msgid "Show Artists"
+msgstr ""
+
+#: ../root/release/info-links.tt:1
+msgid "Hide Relationships"
+msgstr ""
+
+#: ../root/release/info-links.tt:1
+msgid "Show Relationships"
+msgstr ""
+
+#: ../root/release/info-links.tt:1
+msgid "Hide Disc IDs"
+msgstr ""
+
+#: ../root/release/info-links.tt:1
+msgid "Show Disc IDs"
+msgstr ""
+
+#: ../root/release/move.tt:3 ../root/release/move.tt:5
+msgid "Move Release to another Artist"
+msgstr ""
+
+#: ../root/release/nats.tt:15
+msgid "Please <a href=\"{uri}\">log in</a> to edit this list."
+msgstr ""
+
+#: ../root/release/release.tt:37
+msgid "Disc ID:"
+msgstr ""
+
+#: ../root/release/release.tt:43
+msgid "Total length:"
+msgstr ""
+
+#: ../root/release/release.tt:65
+msgid "<abbr title=\"Catalog Number\">Catalog #</abbr>"
+msgstr ""
+
+#: ../root/release/remove.tt:3 ../root/release/remove.tt:5
+msgid "Remove Release"
+msgstr ""
+
+#: ../root/release/tracks.tt:2 ../root/release/tracks.tt:4
+msgid "This table shows information about each track on this release."
+msgstr ""
+
+#: ../root/release/tracks.tt:22
+msgid "Track Number"
+msgstr ""
+
+#: ../root/release/tracks.tt:25
+msgid "Track Title"
+msgstr ""
+
+#: ../root/release/tracks.tt:28
+msgid "Track Artist"
+msgstr ""
+
+#: ../root/release/tracks.tt:31
+msgid "Track Duration"
+msgstr ""
+
+#: ../root/release/tracks.tt:31 ../root/toc/details.tt:65
+msgid "Length"
+msgstr ""
+
+#: ../root/release/tracks.tt:34
+msgid "Editing Links"
+msgstr ""
+
+#: ../root/release_editor/check_duplicates.tt:1
+msgid "Check Duplicates"
+msgstr ""
+
+#: ../root/release_editor/check_duplicates.tt:3
+msgid "Possible duplicate Release(s) found"
+msgstr ""
+
+#: ../root/release_editor/check_duplicates.tt:7
+msgid "We found the following similar Release(s) already in our database:"
+msgstr ""
+
+#: ../root/release_editor/check_duplicates.tt:11
+msgid ""
+"Were you adding one of the following Release(s) which already is in the "
+"database?"
+msgstr ""
+
+#: ../root/release_editor/check_duplicates.tt:12
+msgid ""
+"If you are sure that your Release is different, please confirm by selecting "
+"the button below."
+msgstr ""
+
+#: ../root/release_editor/confirm.tt:1
+msgid "Confirm Add Release"
+msgstr ""
+
+#: ../root/release_editor/confirm.tt:9
+msgid "Enter edit"
+msgstr ""
+
+#: ../root/release_editor/confirm.tt:13 ../root/release_editor/submit.tt:2
+msgid "Continue"
+msgstr ""
+
+#: ../root/release_editor/confirm.tt:15
+msgid "Keep Editing"
+msgstr ""
+
+#: ../root/release_editor/confirm_artists.tt:3
+#: ../root/release_editor/confirm_artists.tt:5
+msgid "Confirm Artist"
+msgstr ""
+
+#: ../root/release_editor/confirm_artists.tt:8
+msgid "Please confirm the artist <strong>{artist}</strong>"
+msgstr ""
+
+#: ../root/release_editor/confirm_artists.tt:11
+msgid "Search For An Existing Artist"
+msgstr ""
+
+#: ../root/release_editor/confirm_artists.tt:13
+msgid ""
+"Please search and select the correct artist.  If searching yields no useful "
+"results, you can <a href=\"?add=1\">add a new artist</a>"
+msgstr ""
+
+#: ../root/release_editor/confirm_artists.tt:18
+msgid "Add New Artist"
+msgstr ""
+
+#: ../root/release_editor/confirm_labels.tt:3
+#: ../root/release_editor/confirm_labels.tt:5
+msgid "Confirm Label"
+msgstr ""
+
+#: ../root/release_editor/confirm_labels.tt:8
+msgid "Please confirm the label <strong>{label}</strong>"
+msgstr ""
+
+#: ../root/release_editor/confirm_labels.tt:11
+msgid "Search For An Existing Label"
+msgstr ""
+
+#: ../root/release_editor/confirm_labels.tt:13
+msgid ""
+"Please search and select the correct Label.  If searching yields no useful "
+"results, you can use the form below to add a new Label."
+msgstr ""
+
+#: ../root/release_editor/confirm_labels.tt:17
+msgid "Add New Label"
+msgstr ""
+
+#: ../root/release_editor/release_data.tt:6
+msgid "Add a new Release"
+msgstr ""
+
+#: ../root/release_editor/release_data.tt:9
+msgid ""
+"The fields below allow you to enter information about the title, track title"
+"(s), and artist(s) for this release."
+msgstr ""
+
+#: ../root/release_editor/release_data.tt:10
+msgid ""
+"Unless the release has attached {discids|Disc IDs}, you can remove tracks by "
+"activating the remove button on the left of the track title fields."
+msgstr ""
+
+#: ../root/release_editor/release_data.tt:11
+msgid ""
+"If you are editing a {va_release|Various Artists Release}, or if you have "
+"chosen to display the track artists, you can click on the change button of "
+"the artist(s) you would like to change. <span class=\"only-if-no-javascript"
+"\">(Available only if you have JavaScript enabled.)  If you have JavaScript "
+"disabled, or if</span><span class=\"only-if-javascript hidden\">If</span> "
+"you need to add new artists, the next page will let you specify the track "
+"artists."
+msgstr ""
+
+#: ../root/release_editor/release_data.tt:14 ../root/track/details.tt:57
+msgid "Release Information"
+msgstr ""
+
+#: ../root/release_editor/release_data.tt:26
+msgid "Add another track"
+msgstr ""
+
+#: ../root/release_editor/release_data.tt:29
+msgid "Release Events"
+msgstr ""
+
+#: ../root/release_editor/release_data.tt:34
+msgid "Add another release event"
+msgstr ""
+
+#: ../root/release_editor/release_data.tt:36
+msgid "Release Attributes"
+msgstr ""
+
+#: ../root/release_editor/release_data.tt:45
+msgid "Script"
+msgstr ""
+
+#: ../root/release_editor/track_count.tt:2
+msgid "Number of Tracks on the Release"
+msgstr ""
+
+#: ../root/release_editor/track_count.tt:5
+msgid "You are about to manually add a {doc_release|Release}."
+msgstr ""
+
+#: ../root/release_editor/track_count.tt:6
+msgid ""
+"Did you know that you can <a href={uri}>import Releases</a> from the "
+"{doc_freedb|FreeDB database}?"
+msgstr ""
+
+#: ../root/release_editor/track_count.tt:7
+msgid ""
+"Please read the {doc_styleguide|Style Guidelines}, then enter the number of "
+"Tracks on this Release to begin the add release wizard."
+msgstr ""
+
+#: ../root/release_editor/track_count.tt:10
+msgid "Track count"
+msgstr ""
+
+#: ../root/search/editor.tt:1
+msgid "Search for an Editor"
+msgstr ""
+
+#: ../root/search/editor.tt:5
+msgid ""
+"We found the following users that matched your query for <code>{query}</"
+"code>."
+msgstr ""
+
+#: ../root/search/editor.tt:18
+msgid ""
+"Sorry, we could not find any users matching the query for <code>{query}</"
+"code>"
+msgstr ""
+
+#: ../root/search/error/general.tt:3
+msgid ""
+"Sorry, but your query (<code>{query}</code>) could not be performed, due to "
+"an error which we are not quite able to identify."
+msgstr ""
+
+#: ../root/search/error/internal-error.tt:3
+msgid ""
+"The search server could not fulfill your request due to an internal error. "
+"This is usually only temporary, so please retry your search again later."
+msgstr ""
+
+#: ../root/search/error/internal-error.tt:6
+msgid ""
+"Below is the error information. If you wish to file a bug report, you may do "
+"so at <a href=\"http://bugs.musicbrainz.org\">our bug tracker</a>. The below "
+"information will help, so please be sure to include it!"
+msgstr ""
+
+#: ../root/search/error/invalid.tt:3
+msgid "Your search query was deemed invalid by our ruthless search server."
+msgstr ""
+
+#: ../root/search/error/no-info.tt:3
+msgid ""
+"Sorry, your query (<code>{query}</code>) does not contain enough information "
+"to carry out a search. If you are attempting to find something that contains "
+"nothing but punctuation characters (e.g. !!!) then you need to use the <a "
+"href=\\\"{uri}\\\">browse page</a>, since this search ignores punctuation "
+"characters."
+msgstr ""
+
+#: ../root/search/error/no-results.tt:3
+msgid ""
+"Sorry, but your query \"(<code>query</code>)\" did not match any {type}. "
+"Please check you used the correct spelling.  Sometimes searching for fewer "
+"or different words may also help."
+msgstr ""
+
+#: ../root/search/error/wrapper.tt:5
+msgid ""
+"For assistance in writing effective search queries, try reading the {syntax|"
+"text search syntax} documentation."
+msgstr ""
+
+#: ../root/search/form.tt:4
+msgid "Search for"
+msgstr ""
+
+#: ../root/search/form.tt:6
+msgid "Limit to"
+msgstr ""
+
+#: ../root/search/form.tt:7
+msgid "Use advanced query syntax"
+msgstr ""
+
+#: ../root/search/form.tt:13
+msgid "Please Note:"
+msgstr ""
+
+#: ../root/search/links.tt:16
+msgid "Search Other Sites"
+msgstr ""
+
+#: ../root/search/links.tt:17
+msgid "<abbr title=\"Compact Disc\">CD</abbr> Shopping Sites"
+msgstr ""
+
+#: ../root/search/links.tt:48
+msgid "Classical Music Sites"
+msgstr ""
+
+#: ../root/search/links.tt:67
+msgid "Lyrics Sites"
+msgstr ""
+
+#: ../root/search/links.tt:98
+msgid "Information Sites"
+msgstr ""
+
+#: ../root/statistics/top_editors.tt:7
+msgid "Editor"
+msgstr ""
+
+#: ../root/statistics/top_editors.tt:28
+msgid "View open edits&hellip;"
+msgstr ""
+
+#: ../root/statistics/top_editors.tt:37
+msgid "Nobody!"
+msgstr ""
+
+#: ../root/statistics/top_editors.tt:43
+msgid "Editor Statistics"
+msgstr ""
+
+#: ../root/statistics/top_editors.tt:46
+msgid "Most active editors in the last week (open and accepted edits)"
+msgstr ""
+
+#: ../root/statistics/top_editors.tt:50
+msgid "Most active editors overall (accepted edits)"
+msgstr ""
+
+#: ../root/statistics/top_editors.tt:54
+msgid "Most active voters in the last week (counting only yes and no votes)"
+msgstr ""
+
+#: ../root/statistics/top_editors.tt:58
+msgid "Most active voters overall (yes and no votes only)"
+msgstr ""
+
+#: ../root/tag/all.tt:3
+msgid "All Tags:"
+msgstr ""
+
+#: ../root/tag/cloud.tt:13
+msgid "No tags"
+msgstr ""
+
+#: ../root/tag/display.tt:3
+msgid "{type} tagged with \"{tag}\""
+msgstr ""
+
+#: ../root/tag/display.tt:22 ../root/tag/display_summary.tt:26
+msgid "No {type} have been tagged with \"{tag}\""
+msgstr ""
+
+#: ../root/tag/display_summary.tt:21
+msgid "View More"
+msgstr ""
+
+#: ../root/tag/summary.tt:1
+msgid "Tags: "
+msgstr ""
+
+#: ../root/tag/summary.tt:9
+msgid "more&hellip;"
+msgstr ""
+
+#: ../root/tag/summary.tt:13
+msgid "(none)"
+msgstr ""
+
+#: ../root/toc/details.tt:1
+msgid "CD Table of Contents Information"
+msgstr ""
+
+#: ../root/toc/details.tt:2
+msgid "<abbr "
+msgstr ""
+
+#: ../root/toc/details.tt:6
+msgid "Full <abbr \"Table of Contents\">TOC</abbr>:"
+msgstr ""
+
+#: ../root/toc/details.tt:14
+msgid "{doc|Disc ID}"
+msgstr ""
+
+#: ../root/toc/details.tt:22
+msgid "FreeDB ID:"
+msgstr ""
+
+#: ../root/toc/details.tt:30
+msgid "First Track:"
+msgstr ""
+
+#: ../root/toc/details.tt:38
+msgid "Last Track:"
+msgstr ""
+
+#: ../root/toc/details.tt:46
+msgid "Total Length:"
+msgstr ""
+
+#: ../root/toc/details.tt:52
+msgid "Track Details:"
+msgstr ""
+
+#: ../root/toc/details.tt:62
+msgid "Start"
+msgstr ""
+
+#: ../root/toc/details.tt:68
+msgid "End"
+msgstr ""
+
+#: ../root/toc/details.tt:73 ../root/toc/details.tt:79
+#: ../root/toc/details.tt:85
+msgid "Time"
+msgstr ""
+
+#: ../root/toc/details.tt:76 ../root/toc/details.tt:82
+#: ../root/toc/details.tt:88
+msgid "Sectors"
+msgstr ""
+
+#: ../root/toc/details.tt:125
+msgid "Releases with this <abbr \"Table of Contents\">TOC</abbr>:"
+msgstr ""
+
+#: ../root/track/change_artist.tt:1 ../root/track/change_artist.tt:2
+#: ../root/track/change_artist_search.tt:3
+#: ../root/track/change_artist_search.tt:5
+msgid "Change Track Artist"
+msgstr ""
+
+#: ../root/track/details.tt:6
+msgid "Track Information"
+msgstr ""
+
+#: ../root/track/details.tt:26
+msgid "Permanent Link:"
+msgstr ""
+
+#: ../root/track/details.tt:41
+msgid "{doc|Name}"
+msgstr ""
+
+#: ../root/track/details.tt:49 ../root/track/details.tt:70
+msgid "{doc|MBID}"
+msgstr ""
+
+#: ../root/track/details.tt:78
+msgid "Track Number:"
+msgstr ""
+
+#: ../root/track/header.tt:8
+msgid "Change Artist"
+msgstr ""
+
+#: ../root/track/header.tt:36
+msgid "Please <a href=\"{uri}\">log in</a> to edit this artist"
+msgstr ""
+
+#: ../root/track/remove.tt:3
+msgid "Merge Tracks"
+msgstr ""
+
+#: ../root/track/remove.tt:5
+msgid "Remove {track}"
+msgstr ""
+
+#: ../root/track/remove.tt:7
+msgid "Are you sure you want to remove the track {track}?"
+msgstr ""
+
+#: ../root/track/remove.tt:8
+msgid "If so, please enter an edit note below."
+msgstr ""
+
+#: ../root/url/edit.tt:3
+msgid "Edit URL"
+msgstr ""
+
+#: ../root/url/edit.tt:5
+msgid "Edit <abbr title=\"Uniform Resource Locator\">URL</abbr>"
+msgstr ""
+
+#: ../root/url/edit.tt:7 ../root/url/info.tt:2
+msgid "<abbr title="
+msgstr ""
+
+#: ../root/url/info.tt:1
+msgid "URL Information"
+msgstr ""
+
+#: ../root/url/info.tt:6
+msgid "<abbr title=\"Uniform Resource Locator\">URL</abbr>:"
+msgstr ""
+
+#: ../root/url/info.tt:14
+msgid "Description:"
+msgstr ""
+
+#: ../root/url/info.tt:17
+msgid "This <abbr title="
+msgstr ""
+
+#: ../root/user/adjust_flags.tt:1 ../root/user/adjust_flags.tt:2
+msgid "Adjust User Account Flags"
+msgstr ""
+
+#: ../root/user/adjust_flags.tt:5
+msgid "User Account Flags"
+msgstr ""
+
+#: ../root/user/adjust_flags.tt:11
+msgid "Bot"
+msgstr ""
+
+#: ../root/user/adjust_flags.tt:14 ../root/user/profile.tt:46
+msgid "Untrusted"
+msgstr ""
+
+#: ../root/user/adjust_flags.tt:17
+msgid "Relationship Editor"
+msgstr ""
+
+#: ../root/user/adjust_flags.tt:20
+msgid "Wiki Transcluder"
+msgstr ""
+
+#: ../root/user/adjust_flags.tt:23
+msgid "<abbr title=\"MusicBrainz IDentifier\">MBID</abbr> Submitter"
+msgstr ""
+
+#: ../root/user/adjust_flags.tt:27
+msgid "Update User Account Flags"
+msgstr ""
+
+#: ../root/user/change_password.tt:4
+msgid "Please enter your old password below, and then your new password."
+msgstr ""
+
+#: ../root/user/change_password.tt:7
+msgid "Old Password"
+msgstr ""
+
+#: ../root/user/change_password.tt:8 ../root/user/change_password.tt:9
+msgid "New Password"
+msgstr ""
+
+#: ../root/user/contact.tt:1
+msgid "Send a message to {user}"
+msgstr ""
+
+#: ../root/user/contact.tt:2
+msgid "Email {user}"
+msgstr ""
+
+#: ../root/user/contact.tt:5
+msgid "Subject"
+msgstr ""
+
+#: ../root/user/contact.tt:6
+msgid "Message"
+msgstr ""
+
+#: ../root/user/contact.tt:7
+msgid "Reveal my email address"
+msgstr ""
+
+#: ../root/user/contact.tt:8
+msgid "Send a copy to my own email address"
+msgstr ""
+
+#: ../root/user/contact.tt:9
+msgid "Send Message"
+msgstr ""
+
+#: ../root/user/donate.tt:1 ../root/user/donate.tt:2
+msgid "Donation Check"
+msgstr ""
+
+#: ../root/user/donate.tt:5
+msgid ""
+"We have not received a donation from you recently. If you have just made a "
+"PayPal donation, then we have not received a notification from PayPal yet. "
+"Please wait a few minutes and reload this page to check again."
+msgstr ""
+
+#: ../root/user/donate.tt:8
+msgid ""
+"If you would like to make a donation, <a href=\"http://metabrainz.org/donate"
+"\">you can do that here</a>. If you have donated, but you are still being "
+"nagged, please {contact|contact us}."
+msgstr ""
+
+#: ../root/user/donate.tt:12
+msgid "Thank you for contributing to MusicBrainz."
+msgstr ""
+
+#: ../root/user/donate.tt:16
+msgid "You will not be nagged for another {days} days."
+msgstr ""
+
+#: ../root/user/donate.tt:20
+msgid "You will never be nagged again!"
+msgstr ""
+
+#: ../root/user/edit.tt:1 ../root/user/edit.tt:2
+msgid "Edit Profile"
+msgstr ""
+
+#: ../root/user/edit.tt:8 ../root/user/forgot_password.tt:10
+msgid "Email address"
+msgstr ""
+
+#: ../root/user/edit.tt:9 ../root/user/profile.tt:67
+msgid "Homepage"
+msgstr ""
+
+#: ../root/user/edit.tt:10
+msgid "Biography"
+msgstr ""
+
+#: ../root/user/edit.tt:11
+msgid "Update Profile"
+msgstr ""
+
+#: ../root/user/email_sent.tt:1 ../root/user/email_sent.tt:2
+msgid "Email Sent"
+msgstr ""
+
+#: ../root/user/email_sent.tt:4
+msgid "Your email has been successfully sent!"
+msgstr ""
+
+#: ../root/user/forgot_password.tt:4
+msgid ""
+"If you know your user name, and you've already entered and confirmed your "
+"email address, then we can send you your password."
+msgstr ""
+
+#: ../root/user/forgot_password.tt:5
+msgid ""
+"If you can't remember your user name, but can remember the email address you "
+"used when you created your MusicBrainz account, please enter the email "
+"address into the field."
+msgstr ""
+
+#: ../root/user/forgot_password.tt:6
+msgid ""
+"If neither of the options work, you may {contact|contact us}, and we will "
+"try to help you."
+msgstr ""
+
+#: ../root/user/forgot_password.tt:9
+msgid "User name"
+msgstr ""
+
+#: ../root/user/forgot_password.tt:11
+msgid "Send Password"
+msgstr ""
+
+#: ../root/user/login.tt:4
+msgid ""
+"Please log in using the form below. Note that the password field <em>is</em> "
+"case sensitive."
+msgstr ""
+
+#: ../root/user/login.tt:7 ../root/user/register.tt:9
+msgid "Username"
+msgstr ""
+
+#: ../root/user/login.tt:8 ../root/user/register.tt:10
+msgid "Password"
+msgstr ""
+
+#: ../root/user/login.tt:10
+msgid "Log in permanently"
+msgstr ""
+
+#: ../root/user/login.tt:11
+msgid "Only from this <abbr title=\"Internet Protocol\">IP</abbr> address"
+msgstr ""
+
+#: ../root/user/login.tt:16
+msgid "Create a new account"
+msgstr ""
+
+#: ../root/user/login.tt:21
+msgid "Forgot your password?"
+msgstr ""
+
+#: ../root/user/preferences.tt:22
+msgid "Some errors were present in the preferences that you attempted to set:"
+msgstr ""
+
+#: ../root/user/preferences.tt:39
+msgid "Preferences Sections"
+msgstr ""
+
+#: ../root/user/preferences.tt:47
+msgid "Voting / Editing"
+msgstr ""
+
+#: ../root/user/preferences.tt:54 ../root/user/profile.tt:51
+msgid "Email"
+msgstr ""
+
+#: ../root/user/preferences.tt:68
+msgid "Release"
+msgstr ""
+
+#: ../root/user/preferences.tt:82
+msgid "Date / Time"
+msgstr ""
+
+#: ../root/user/preferences.tt:89
+msgid "Top Menu"
+msgstr ""
+
+#: ../root/user/preferences.tt:96
+msgid "JavaScript"
+msgstr ""
+
+#: ../root/user/preferences.tt:103
+msgid "Display Options"
+msgstr ""
+
+#: ../root/user/preferences.tt:110 ../root/user/preferences.tt:338
+msgid "Privacy"
+msgstr ""
+
+#: ../root/user/preferences.tt:118
+msgid "Voting / Edit review pages"
+msgstr ""
+
+#: ../root/user/preferences.tt:122
+msgid "For \"Add Release\" edits, show the whole Release"
+msgstr ""
+
+#: ../root/user/preferences.tt:126
+msgid "&hellip;and show editing links."
+msgstr ""
+
+#: ../root/user/preferences.tt:129
+msgid ""
+"Make the \"Vote on Edits\" link in the sidebar go to this page instead of "
+"the \"New edits\" list."
+msgstr ""
+
+#: ../root/user/preferences.tt:134
+msgid "Show up to how many edits per page? (max: 25)"
+msgstr ""
+
+#: ../root/user/preferences.tt:136
+msgid "Abstain by default."
+msgstr ""
+
+#: ../root/user/preferences.tt:136
+msgid "Show the \"No Vote\" option"
+msgstr ""
+
+#: ../root/user/preferences.tt:136
+msgid "When I add a note to an edit , mail me all future notes for that edit."
+msgstr ""
+
+#: ../root/user/preferences.tt:136
+msgid "When I vote on an edit, mail me all future notes for that edit."
+msgstr ""
+
+#: ../root/user/preferences.tt:136
+msgid "Mail me when one of my edits gets a \"no\" vote."
+msgstr ""
+
+#: ../root/user/preferences.tt:145
+msgid "Show inline edits"
+msgstr ""
+
+#: ../root/user/preferences.tt:149
+msgid "Show random inline edits"
+msgstr ""
+
+#: ../root/user/preferences.tt:152
+msgid ""
+"After creating a new relationship, remove the linked items from my "
+"\"recently used\" list."
+msgstr ""
+
+#: ../root/user/preferences.tt:152
+msgid "Automatically subscribe me to Artists or Labels I create."
+msgstr ""
+
+#: ../root/user/preferences.tt:159
+msgid "Emailing other editors"
+msgstr ""
+
+#: ../root/user/preferences.tt:161
+msgid "Reveal my email address checked by default"
+msgstr ""
+
+#: ../root/user/preferences.tt:161
+msgid "Send me a copy to my email address"
+msgstr ""
+
+#: ../root/user/preferences.tt:169
+msgid "Show Artist"
+msgstr ""
+
+#: ../root/user/preferences.tt:172
+msgid ""
+"Default to a \"compact\" listing for how many, or more, releases? (allowed "
+"range: 1 - 1000)"
+msgstr ""
+
+#: ../root/user/preferences.tt:177
+msgid "Show Release"
+msgstr ""
+
+#: ../root/user/preferences.tt:179
+msgid "Show the add/edit relationships links in the Release header."
+msgstr ""
+
+#: ../root/user/preferences.tt:179
+msgid "Show the add/edit annotation links in the Release header."
+msgstr ""
+
+#: ../root/user/preferences.tt:179
+msgid "Show Amazon cover art and buy links."
+msgstr ""
+
+#: ../root/user/preferences.tt:179
+msgid "Your preferred Amazon store"
+msgstr ""
+
+#: ../root/user/preferences.tt:191
+msgid "When adding a new Release, pick this country by default"
+msgstr ""
+
+#: ../root/user/preferences.tt:191
+msgid "Your preferred Google domain"
+msgstr ""
+
+#: ../root/user/preferences.tt:199
+msgid "Date / Time display"
+msgstr ""
+
+#: ../root/user/preferences.tt:201
+msgid "Your preferred date/time format"
+msgstr ""
+
+#: ../root/user/preferences.tt:201
+msgid "Your preferred time zone"
+msgstr ""
+
+#: ../root/user/preferences.tt:209
+msgid "Top menu configuration"
+msgstr ""
+
+#: ../root/user/preferences.tt:211
+msgid ""
+"The menu which is placed on top of the pages features multiple ways of "
+"navigating the site. <br />You can choose which menu(s) you would like to "
+"see if you are logged in"
+msgstr ""
+
+#: ../root/user/preferences.tt:218
+msgid "Use of JavaScript"
+msgstr ""
+
+#: ../root/user/preferences.tt:221
+msgid ""
+"JavaScript adds a good amount of useful functionality to MusicBrainz.  "
+"However, your browser must be sufficiently recent enough that it supports "
+"the JavaScript used on the site: FireFox 1.5+, Opera 9+, Safari 3+, or "
+"Internet Explorer 6+.  Konquerer may normally work, but it is known to have "
+"some issues."
+msgstr ""
+
+#: ../root/user/preferences.tt:224
+msgid ""
+"Either you have JavaScript disabled, or your browser is not able to handle "
+"the Javascript used on the site."
+msgstr ""
+
+#: ../root/user/preferences.tt:233
+msgid "General Options"
+msgstr ""
+
+#: ../root/user/preferences.tt:254
+msgid "Add / Edit Release Presets"
+msgstr ""
+
+#: ../root/user/preferences.tt:261
+msgid "Use JavaScript to move the input focus when the page loads."
+msgstr ""
+
+#: ../root/user/preferences.tt:275
+msgid "Add a Guess Case mode selector next to the Guess All button."
+msgstr ""
+
+#: ../root/user/preferences.tt:293
+msgid ""
+"Enable the Edit Suite display preferences module. (Useful for debugging "
+"purposes only.)"
+msgstr ""
+
+#: ../root/user/preferences.tt:317
+msgid "Display options"
+msgstr ""
+
+#: ../root/user/preferences.tt:320
+msgid "Sidebar panels"
+msgstr ""
+
+#: ../root/user/preferences.tt:323
+msgid "MusicBrainz sites"
+msgstr ""
+
+#: ../root/user/preferences.tt:323
+msgid "Top Editors"
+msgstr ""
+
+#: ../root/user/preferences.tt:323
+msgid "User Info"
+msgstr ""
+
+#: ../root/user/preferences.tt:331
+msgid ""
+"Do not show the sidebar (can be faster, but may make the website difficult "
+"to navigate)"
+msgstr ""
+
+#: ../root/user/preferences.tt:331
+msgid "Do not show icons next to Artists, Releases, Tracks and Labels"
+msgstr ""
+
+#: ../root/user/preferences.tt:331
+msgid "Show ratings"
+msgstr ""
+
+#: ../root/user/preferences.tt:339
+msgid "Allow other users to see my subscriptions"
+msgstr ""
+
+#: ../root/user/preferences.tt:339
+msgid "Allow other users to see my folksonomy tags"
+msgstr ""
+
+#: ../root/user/preferences.tt:339
+msgid "Allow other users to see my ratings"
+msgstr ""
+
+#: ../root/user/preferences.tt:348
+msgid "Update Preferences"
+msgstr ""
+
+#: ../root/user/profile.tt:11
+msgid "Cancelled Edits"
+msgstr ""
+
+#: ../root/user/profile.tt:11
+msgid "Ratings"
+msgstr ""
+
+#: ../root/user/profile.tt:11 ../root/user/profile.tt:120
+msgid "Failed Edits"
+msgstr ""
+
+#: ../root/user/profile.tt:11 ../root/user/profile.tt:123
+msgid "Votes"
+msgstr ""
+
+#: ../root/user/profile.tt:28
+msgid "General Information:"
+msgstr ""
+
+#: ../root/user/profile.tt:31
+msgid "Review"
+msgstr ""
+
+#: ../root/user/profile.tt:32
+msgid "Edit My Account"
+msgstr ""
+
+#: ../root/user/profile.tt:34
+msgid "Contact"
+msgstr ""
+
+#: ../root/user/profile.tt:36
+msgid "Send email"
+msgstr ""
+
+#: ../root/user/profile.tt:41
+msgid "User type"
+msgstr ""
+
+#: ../root/user/profile.tt:43
+msgid "{doc|AutoEditor}"
+msgstr ""
+
+#: ../root/user/profile.tt:45
+msgid "{doc|Relationship Editor}"
+msgstr ""
+
+#: ../root/user/profile.tt:47
+msgid "{doc|Transclusion Editor}"
+msgstr ""
+
+#: ../root/user/profile.tt:53 ../root/user/profile.tt:73
+#: ../root/user/profile.tt:78
+msgid "[None]"
+msgstr ""
+
+#: ../root/user/profile.tt:55
+msgid "[Hidden]"
+msgstr ""
+
+#: ../root/user/profile.tt:59
+msgid "verified at {verified}"
+msgstr ""
+
+#: ../root/user/profile.tt:62
+msgid "unverified!"
+msgstr ""
+
+#: ../root/user/profile.tt:76
+msgid "Bio"
+msgstr ""
+
+#: ../root/user/profile.tt:84
+msgid "Your subscriptions are public."
+msgstr ""
+
+#: ../root/user/profile.tt:86
+msgid "The subscriptions for {user} are public."
+msgstr ""
+
+#: ../root/user/profile.tt:90
+msgid "Your subscriptions are private."
+msgstr ""
+
+#: ../root/user/profile.tt:92
+msgid "The subscriptions for {user} are private."
+msgstr ""
+
+#: ../root/user/profile.tt:98
+msgid "view all"
+msgstr ""
+
+#: ../root/user/profile.tt:103
+msgid "User Statistics"
+msgstr ""
+
+#: ../root/user/profile.tt:106
+msgid "Member Since"
+msgstr ""
+
+#: ../root/user/profile.tt:108
+msgid "The Dawn of the Project"
+msgstr ""
+
+#: ../root/user/profile.tt:110
+msgid "N/A"
+msgstr ""
+
+#: ../root/user/profile.tt:112
+msgid "Charter Member"
+msgstr ""
+
+#: ../root/user/profile.tt:117
+msgid "Accepted Non-AutoEdits"
+msgstr ""
+
+#: ../root/user/profile.tt:118
+msgid "AutoEdits"
+msgstr ""
+
+#: ../root/user/profile.tt:119
+msgid "Edits voted down"
+msgstr ""
+
+#: ../root/user/profile.tt:125 ../root/user/profile.tt:127
+msgid "This table shows a summary of votes cast by this editor."
+msgstr ""
+
+#: ../root/user/profile.tt:132
+msgid "Vote"
+msgstr ""
+
+#: ../root/user/profile.tt:135
+msgid "Last 28 days"
+msgstr ""
+
+#: ../root/user/profile.tt:138
+msgid "Overall"
+msgstr ""
+
+#: ../root/user/register.tt:11
+msgid "Confirm Password"
+msgstr ""
+
+#: ../root/user/register.tt:12
+msgid "Email Address"
+msgstr ""
+
+#: ../root/user/register.tt:13
+msgid "Create Account"
+msgstr ""
+
+#: ../root/user/register.tt:16
+msgid "We respect your privacy"
+msgstr ""
+
+#: ../root/user/register.tt:19
+msgid ""
+"Rest assured that we will not pass your email address on to anyone, "
+"including other MusicBrainz users, without your most explicit consent. At "
+"any time you can fill in your email address if it"
+msgstr ""
+
+#: ../root/user/register.tt:22
+msgid "{doc|Read on for the full MusicBrainz Privacy Policy}"
+msgstr ""
+
+#: ../root/user/register.tt:25
+msgid "What your email address will <em>not</em> be used for:"
+msgstr ""
+
+#: ../root/user/register.tt:28
+msgid ""
+"We won't send you any newsletters, promotional mailings, etc. If you're "
+"interested in receiving information from the MusicBrainz staff and "
+"communicating with other users, {ml|please subscribe to our mailing lists}."
+msgstr ""
+
+#: ../root/user/register.tt:31
+msgid "What your email address <em>will</em> be used for:"
+msgstr ""
+
+#: ../root/user/register.tt:34
+msgid ""
+"Because some users, unfortunately, made lots of questionable edits and could "
+"not be contacted to fix their mistakes, we now require a confirmed (i.e. "
+"working) email address before a user can make edits to the database."
+msgstr ""
+
+#: ../root/user/registered.tt:1 ../root/user/registered.tt:2
+msgid "Account Created"
+msgstr ""
+
+#: ../root/user/registered.tt:4
+msgid ""
+"Congratulations, your new account has been created and you are now logged "
+"into MusicBrainz!"
+msgstr ""
+
+#: ../root/user/registered.tt:7
+msgid ""
+"Please <a href=\\\"{uri}\\\">update your profile</a> when you get time, to "
+"let other editors know a bit more about you."
+msgstr ""
+
+#: ../root/user/registered.tt:11
+msgid ""
+"Because you provided an email address, an verification email has been sent "
+"to <code>{addr}</code>. Please check your mailbox and click on the link in "
+"the email to verify the new email address."
+msgstr ""
+
+#: ../root/user/registered.tt:15
+msgid ""
+"You may proceed to <a href=\\\"{uri}\\\">your user profile</a>, or maybe you "
+"want to {edit|start editing}!"
+msgstr ""
+
+#: ../root/user/subscriptions.tt:1 ../root/user/subscriptions.tt:2
+msgid "Your Subscriptions"
+msgstr ""
+
+#: ../root/user/subscriptions.tt:11
+msgid ""
+"You are currently subscribed to <strong>{num_artist}</strong>\n"
+"                      artists, <strong>{num_label}</strong> labels and\n"
+"                      <strong>{num_editor}</strong> editors."
+msgstr ""
+
+#: ../root/user/subscriptions.tt:15
+msgid ""
+"{user} is currently subscribed to <strong>{num_artist}</strong>\n"
+"                      artists, <strong>{num_label}</strong> labels and\n"
+"                      <strong>{num_editor}</strong> editors."
+msgstr ""
+
+#: ../root/user/subscriptions.tt:23
+msgid "View:"
+msgstr ""
+
+#: ../root/user/subscriptions.tt:54
+msgid "You are not subscribed to any {type}."
+msgstr ""
+
+#: ../root/user/subscriptions.tt:65
+msgid "{user} is subscribed to the following {type}:"
+msgstr ""
+
+#: ../root/user/subscriptions.tt:74
+msgid "{user} is not subscribed to any {type}."
+msgstr ""
+
+#: ../root/user/verified.tt:1 ../root/user/verified.tt:2
+msgid "Email Address Verified"
+msgstr ""
+
+#: ../root/user/verified.tt:4
+msgid "Thank you, your email address has now been verified!"
+msgstr ""

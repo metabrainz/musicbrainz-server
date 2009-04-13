@@ -1,3 +1,17 @@
+Translations in Musicbrainz
+===========================
+
+Quickstart
+----------
+
+1. Install python-babel
+2. Checkout and install svn://svn.tt2.org/tt/Template-Python/trunk
+3. Update .po files as desired
+4. Run make install to install translation files
+
+Full picture
+------------
+
 This is a short introduction to i18n inside of MusicBrainz
 
 We want MusicBrainz server to have state of the art localizing. This
@@ -84,8 +98,12 @@ Plurals are done with an ln()-function:
   have X apples" should be localized with ln(), but "I have apples"
   should use l().
 
+Perl code
+---------
+
+
+
 TODO: write proper Makefiles for .po and .pot files generation
 TODO: write a .pot file generator
 TODO: check javascript translation needs
-TODO: check .pm translation needs
 TODO: check database's translation needs
