@@ -959,7 +959,7 @@ sub xml_cdstub
     print '<release><title>' . xml_escape($cd->{title}) . '</title>';
     print '<artist><name>'. xml_escape($cd->{artist}) . '</name></artist>' if ($cd->{artist});
 
-    printf '<track-list count="%s"/>', scalar(@{$cd->{tracks}});
+    printf '<track-list count="%s">', scalar(@{$cd->{tracks}});
     foreach my $tr (@{$cd->{tracks}})
     {
         print '<track><title>' . xml_escape($tr->{title}) . '</title>';
