@@ -4,15 +4,24 @@
             [% l('Congratulations, your new account has been created and you are now logged into MusicBrainz!') %]
         </p>
         <p>
-            [% l('Please <a href=\"{uri}\">update your profile</a> when you get time, to let other editors know a bit more about you.', {uri => c.uri_for('/user/edit')}) %]
+            [% l('Please <a href="{uri}">update your profile</a> when you get time,
+                  to let other editors know a bit more about you.',
+                  { uri => c.uri_for('/user/edit') }) %]
         </p>
         [% IF emailed %]
             <p>
-                [% l('Because you provided an email address, an verification email has been sent to <code>{addr}</code>. Please check your mailbox and click on the link in the email to verify the new email address.', {addr => email_address}) %]
+                [% l('Because you provided an email address, an verification
+                      email has been sent to <code>{addr}</code>. Please check
+                      your mailbox and click on the link in the email to verify
+                      the new email address.',
+                      { addr => email_address }) %]
             </p>
         [% END %]
         <p>
-            [% l('You may proceed to <a href=\"{uri}\">your user profile</a>, or maybe you want to {edit|start editing}!', {uri => c.uri_for('/user/profile'), edit => doc_link("HowEditingWorks"}) %]
+            [% l('You may proceed to <a href="{uri}">your user profile</a>, or
+                  maybe you want to {edit|start editing}!',
+                  { uri => c.uri_for('/user/profile'),
+                    edit => doc_link("HowEditingWorks") }) %]
         </p>
     [% END %]
 [% END %]

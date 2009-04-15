@@ -561,6 +561,7 @@ sub logout : Local
     if ($c->user_exists)
     {
         $c->user->ClearPermanentCookie($c);
+        $c->user->InvalidateCache;
         $c->logout;
 
         delete $c->session->{orig_privs};
