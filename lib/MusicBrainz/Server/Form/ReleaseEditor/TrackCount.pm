@@ -16,4 +16,12 @@ sub profile
     };
 }
 
+sub validate_track_count
+{
+    my ($self, $field) = @_;
+
+    $field->add_error('Track count must be at least 1')
+        if $field->value < 1;
+}
+
 1;
