@@ -519,3 +519,10 @@ div.grippie {
     width:95%;
     height:20%;
 }
+
+table tr.even {
+    background: #fff;
+}
+table tr.odd {
+    background: #eee;
+}

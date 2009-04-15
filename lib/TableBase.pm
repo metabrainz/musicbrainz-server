@@ -124,9 +124,22 @@ sub BUILD
 
 sub _new_from_row
 {
-	my ($self, $row) = @_;
+	my ($self, $row, %opts) = @_;
 	return unless $row;
-	return $self->new($self->dbh, $row);
+
+    if (exists $opts{strip_prefix})
+    {
+        my $prefix = $opts{strip_prefix};
+        $row = {
+            map {
+                my ($pre, $key) = ($_ =~ /^($prefix)(.*)$/);
+                $key => $row->{$_};
+            } grep { /^$prefix/ } keys %$row
+        };
+    }
+
+    my $dbh = ref $self ? $self->dbh : undef;
+	return $self->new($dbh, $row);
 }
 
 sub GetNewInsert

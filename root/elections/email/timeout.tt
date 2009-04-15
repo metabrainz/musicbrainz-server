@@ -1,0 +1,5 @@
+This election has been cancelled, because two seconders could not be
+found within the allowed time ([% timeout %]).
+
+Details:
+[% election_link %]

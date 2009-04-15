@@ -1,0 +1,138 @@
+[%- WRAPPER 'layout.tt' title=l('Auto-Editor Elections') -%]
+    [%- WRAPPER 'components/box.tt' header=l('Auto-Editor Elections') -%]
+        <table class="details">
+            <tbody>
+                <tr>
+                    <th>[% l('Candidate')%]</th>
+                    <td>
+                        [% election.candidate.name %]
+                        [%- INCLUDE 'forms/submit.tt' label=l('Cancel') inline=1
+                            WRAPPER 'forms/form.tt' action=c.uri_for('/elections/cancel', election.id) quiet=1
+                            IF c.user_exists && election.editor_can_cancel(c.user) -%]
+                    </td>
+                </tr>
+                <tr>
+                    <th>[% l('Proposed At') %]</th>
+                    <td>[% UserDate.format(election.proposed_at) %]</td>
+                </tr>
+                <tr>
+                    <th>[% l('Current Status') %]</th>
+                    <td>
+                        [%- IF election.is_pending;
+                                l(election.status_name);
+                            ELSIF election.is_open;
+                                l('{status} since {time}', {
+                                    status=election.status_name,
+                                    time=UserDate.format(election.opened_at)
+                                });
+                            ELSIF election.is_closed;
+                                l('{status} at {time}', {
+                                        status=election.status_name,
+                                        time=UserDate.format(election.closed_at)
+                                    });
+                            END -%]
+                    </td>
+                </tr>
+                <tr>
+                    <th>[% l('Proposed By') %]</th>
+                    <td>[% election.proposer.name %]</td>
+                </tr>
+                <tr>
+                    <th>[% l('Seconded By') %]</th>
+                    <td>
+                        [%- IF election.seconders.size == 1;
+                                election.seconder1.name;
+                            ELSIF election.seconders.size == 2;
+                                l('{s1} and {s2}', {
+                                    s1=election.seconder1.name,
+                                    s2=election.seconder2.name
+                                });
+                            ELSE;
+                                l('No one has yet seconded this proposal');
+                            END;
+                        -%]
+                        
+                        [%- INCLUDE 'forms/submit.tt' label=l('Second') inline=1
+                            WRAPPER 'forms/form.tt' action=c.uri_for('/elections/second', election.id) quiet=1
+                            IF c.user_exists && election.editor_can_second(c.user) -%]
+                    </td>
+                </tr>
+                [% IF election.closed %]
+                <tr>
+                    <th>[% l('Votes For') %]</th>
+                    <td>[% election.votes_for %]</td>
+                </tr>
+                <tr>
+                    <th>[% l('Votes Against') %]</th>
+                    <td>[% election.votes_against %]</td>
+                </tr>
+                [% ELSE %]
+                <tr>
+                    <th>[% l('Votes') %]</th>
+                    <td>[% l('This information will be shown when the election has closed')%]</td>
+                </tr>
+                [% END %]
+            </tbody>
+        </table>
+    [%- END -%]
+    
+    [%- WRAPPER 'components/box.tt' header=l('Voting') -%]
+        [%- IF c.user_exists -%]
+            [%- IF election.is_pending -%]
+            <p>
+                [% l('Voting is not yet open. If you would like to support this
+                      candidate, you can second their nomination. If you do not
+                      support this candidate, please note that you cannot cast a
+                      "No" vote (or abstain) until two seconders have been found.') %]
+            </p>
+            [%- ELSIF election.is_open -%]
+                [%- IF election.editor_is_supporter(c.user) -%]
+                <p>
+                    [% l('You are already supporting this election, and do not need to vote.') -%]
+                </p>
+                [%- ELSIF c.user.is_auto_editor -%]
+                    [%#- Display the voting form -%]
+                    [%- WRAPPER 'forms/form.tt' action=c.uri_for('/elections/vote', election.id) -%]
+                        [%- INCLUDE 'forms/generic/row.tt' field=form.field('vote') label=l('Vote') -%]
+                        [%- INCLUDE 'forms/submit.tt' label=l('Vote') %]
+                    [%- END -%]
+                [%- END -%]
+            [%- ELSE -%]
+            <p>
+                [% l('Voting on this election is now closed.') -%]
+            </p>
+            [%- END -%]
+        [%- ELSE -%]
+            <p>
+                [%- l('Please <a href="{url}">log in</a> to vote on this election', {
+                        url=c.uri_for('/user/login')
+                    }) -%]
+            </p>
+        [%- END -%]
+    [%- END -%]
+    
+    [%- WRAPPER 'components/box.tt' header=l('Votes Cast') -%]
+        [% IF votes.size %]
+            <table>
+                <thead>
+                    <tr>
+                        <th>[% l('Editor') %]</th>
+                        <th>[% l('Vote') %]</th>
+                        <th>[% l('Voted At') %]</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    [%- FOREACH vote=votes -%]
+                    <tr>
+                        <td>[% vote.voter.name %]</td>
+                        <td>[% l(vote.voter.id == c.user.id ? vote.vote_name : '(Private)') %]</td>
+                        <td>[% UserDate.format(vote.voted_at) %]</td>
+                    </tr>
+                    [%- END -%]
+                </tbody>
+            </table>
+        [% ELSE %]
+            <p>[% l('No one has voted on this election yet') %]</p>
+        [% END %]
+    [%- END -%]
+[%- END -%]

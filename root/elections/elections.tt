@@ -1,0 +1,35 @@
+[%- WRAPPER 'layout.tt' title=l('Auto-Editor Elections') -%]
+    [%- WRAPPER 'components/box.tt' header=l('Auto-Editor Elections') -%]
+        [%- IF elections.size -%]
+            <table style="width: 100%">
+                <thead>
+                    <tr>
+                        <th style="text-align: left">[% l('Candidate') %]</th>
+                        <th style="text-align: left; width: 10em">[% l('Status') %]</th>
+                        <th style="width: 20em">[% l('Start Date') -%]</th>
+                        <th style="width: 20em">[% l('End Date') %]</th>
+                        <th style="width: 15em">[% l('Details') %]</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    [%- FOREACH election=elections -%]
+                    <tr class="[% loop.index MOD 2 == 0 ? 'even' : 'odd' %]">
+                        <td>[% election.candidate.name %]</td>
+                        <td>[% l(election.status_name) %]</td>
+                        <td style="text-align: center">[% UserDate.format(election.opened_at) || '-' %]</td>
+                        <td style="text-align: center">[% UserDate.format(election.closed_at) || '-' %]</td>
+                        <td style="text-align: center">
+                            <a href="[% c.uri_for('/elections', election.id) %]">
+                                View Details</a>
+                        </td>
+                    </tr>
+                    [%- END -%]
+                </tbody>
+            </table>
+        [%- ELSE -%]
+        <p>[% l('No users have been elected to become an auto-editor.') %]</p>
+        [%- END -%]
+    [%- END -%]
+    
+    [%- INCLUDE 'elections/propose_form.tt' -%]
+[%- END -%]

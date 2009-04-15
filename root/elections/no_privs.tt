@@ -1,0 +1,7 @@
+[%- WRAPPER 'layout.tt' title=l('Auto-Editor Elections') -%]
+    [%- WRAPPER 'components/box.tt' header=l('Auto-Editor Elections') -%]
+        <p>
+            [% l('Sorry, but this page is only accesible to auto-editors.') -%]
+        </p>
+    [%- END -%]
+[%- END -%]

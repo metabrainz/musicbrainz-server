@@ -1,0 +1,2 @@
+[%- INCLUDE 'elections/propose_form.tt'
+    WRAPPER 'layout.tt' title=l('Propose a Candidate') -%]

@@ -19,11 +19,11 @@
 /*
  * Generic Forms
  */
-
 #content form.generic div.row {
 	clear:both;
 	margin-bottom:4pt;
 }
+#content td form { display: inline; }
 
 #content form.generic label,
 #content form.generic .row div.label {

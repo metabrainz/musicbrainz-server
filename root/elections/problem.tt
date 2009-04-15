@@ -1,0 +1,6 @@
+[%- WRAPPER 'layout.tt' title=l('Auto-Editor Elections') -%]
+    [%- WRAPPER 'components/box.tt' header=l('Auto-Editor Elections') -%]
+        <p>[% l('Sorry, a problem occured') %]</p>
+        <p>[% l(message) %]</p>
+    [%- END -%]
+[%- END -%]

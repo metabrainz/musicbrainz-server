@@ -33,7 +33,7 @@
                 [%- l('{doc|Logo}', {doc => doc_link('MusicBrainzLogo')}) -%]
             </li>
             <li>
-                <a href="[% c.uri_for('/user/elections') %]">
+                <a href="[% c.uri_for('/elections') %]">
                     [% l('Autoeditor Elections') %]
                 </a>
             </li>

@@ -1,0 +1,11 @@
+[%- IF c.user.is_auto_editor -%]
+    [%- WRAPPER 'components/box.tt' header=l('Propose a Candidate') -%]
+        <p>
+            [% l('As you are are an auto-editor, you may propose a new candidate by elected to become an auto-editor.') %]
+        </p>
+        [%- WRAPPER 'forms/form.tt' action=c.uri_for('/elections/propose') -%]
+            [%- INCLUDE 'forms/generic/row.tt' label=l('Editor Name') field=form.field('editor') -%]
+            [%- INCLUDE 'forms/submit.tt' label=l('Propose') -%]
+        [%- END -%]
+    [%- END -%]
+[%- END -%]

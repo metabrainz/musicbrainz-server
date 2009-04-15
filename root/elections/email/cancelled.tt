@@ -1,0 +1,4 @@
+This election has been cancelled by [% proposer_name %], the proposer.
+
+Details:
+[% election_link %]

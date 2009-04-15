@@ -1,0 +1,13 @@
+A new candidate has been put forward for auto-editor status:
+
+Candidate: [% candidate_name %]
+           [% candidate_link %]
+Proposer:  [% proposer_name %]
+           [% proposer_link %]
+
+* If two seconders are found within [% timeout %], voting will begin
+* Otherwise, the proposal will automatically be rejected
+* Alternatively, [% proposer_name %] may withdraw the proposal
+
+Please participate in this election at:
+[% election_url %]

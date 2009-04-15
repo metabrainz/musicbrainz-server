@@ -1,0 +1,16 @@
+Voting in this election is now open:
+
+Candidate: [% candidate_name %]
+           [% candidate_link %]
+Proposer:  [% proposer_name %]
+           [% proposer_link %]
+Seconder:  [% seconder1_name %]
+           [% seconder1_link %]
+Seconder:  [% seconder2_name %]
+           [% seconder2_link %]
+
+* Voting will now remain open for the next [% timeout %]
+* Alternatively, [% proposer %] may withdraw the proposal
+
+Please participate in this election:
+[% election_link %]

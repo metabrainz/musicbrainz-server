@@ -1,0 +1,10 @@
+[%- WRAPPER 'layout.tt' title=l('Auto-Editor Candidate Proposed') -%]
+    [%- WRAPPER 'components/box.tt' header=l('Auto-Editor Candidate Proposed') -%]
+        <p>[% l('Thanks! {user} has sucessfully proposed, and is now awaiting 2 people to second your proposal.'
+                { user=candidate.name }) -%]
+        </p>
+        <p>[% l('Please remember to follow the election <a href="{url}">online</a> and on the mailing lists.'
+                { url=c.uri_for('/elections', election_id) }) %]
+        </p>
+    [%- END -%]
+[%- END -%]
