@@ -42,8 +42,10 @@ sub load : Chained('base') PathPart('') CaptureArgs(1)
     if (defined $entity)
     {
        $self->entity($entity);
-       $c->stash->{$self->{entity_name}} = $entity;
-       $c->stash->{entity} = $entity;
+       $c->stash(
+           $self->{entity_name} => $entity,
+           entity => $entity
+       );
     }
     else
     {

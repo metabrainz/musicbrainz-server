@@ -29,6 +29,8 @@ package Insert;
 
 use ModDefs qw( VARTIST_ID DARTIST_ID ANON_MODERATOR MODBOT_MODERATOR MOD_ADD_RELEASE );
 
+use MusicBrainz::Server::PUID;
+
 sub new
 {
     my ($type, $dbh) = @_;
@@ -220,7 +222,6 @@ sub _Insert
     my $al = MusicBrainz::Server::Release->new($this->dbh);
 	require MusicBrainz::Server::Track;
     my $tr = MusicBrainz::Server::Track->new($this->dbh);
-	require MusicBrainz::Server::PUID;
     my $puid = MusicBrainz::Server::PUID->new($this->dbh);
 	require MusicBrainz::Server::ReleaseEvent;
 	my $rel = MusicBrainz::Server::ReleaseEvent->new($this->dbh);
@@ -466,10 +467,10 @@ TRACK:
             {
                 my $newpuid;
 
-                $newpuid = $puid->Insert($track->{puid}, $albumtrack->id());
+                $newpuid = $puid->insert($track->{puid}, $albumtrack->id);
                 if (defined $newpuid)
                 {
-                    $track->{puid_insertid} = $newpuid if ($puid->GetNewInsert());
+                    $track->{puid_insertid} = $newpuid if $puid->GetNewInsert;
                 }
 
                 next TRACK;
@@ -566,7 +567,7 @@ TRACK:
         # Now insert the PUID if there is one
         if (exists $track->{puid} && $track->{puid} ne '')
         {
-            my $newpuid = $puid->Insert($track->{puid}, $trackid);
+            my $newpuid = $puid->insert($track->{puid}, $trackid);
             if (defined $newpuid)
             {
                 $track->{puid_insertid} = $newpuid if ($puid->GetNewInsert());

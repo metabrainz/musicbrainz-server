@@ -67,19 +67,21 @@ Show details of a track
 sub details : Chained('track')
 {
     my ($self, $c) = @_;
-    my $track = $self->entity;
 
-    $c->stash->{relations} = $c->model('Relation')->load_relations($track);
-    $c->stash->{tags}      = $c->model('Tag')->top_tags($track);
-    $c->stash->{release}   = $c->model('Release')->load($track->release);
-    my $id = $c->user_exists ? $c->user->id : 0;
-    $c->stash->{show_ratings} = $id ? $c->user->preferences->get("show_ratings") : 1;
-    $c->stash->{rating}    = $c->model('Rating')->get_rating({
-        entity_type => 'track',
-        entity_id   => $track->id,
-        user_id     => $id
-    });
-    $c->stash->{template}  = 'track/details.tt';
+    my $track = $self->entity;
+    $c->stash(
+        relations    => $c->model('Relation')->load_relations($track),
+        tags         => $c->model('Tag')->top_tags($track),
+        release      => $c->model('Release')->load($track->release),
+        show_ratings => $c->user_exists ? $c->user->preferences->get("show_ratings") : 1,
+        puids        => $c->model('PUID')->new_from_track($track),
+        rating       => $c->model('Rating')->get_rating({
+            entity_type => 'track',
+            entity_id   => $track->id,
+            user_id     => $c->user_exists ? $c->user->id : 0,
+        }),
+        template     => 'track/details.tt',
+    );
 }
 
 sub show : Chained('track') PathPart('')

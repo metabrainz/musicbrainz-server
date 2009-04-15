@@ -1,0 +1,12 @@
+[%- WRAPPER 'layout.tt' title=l('PUID {puid}', { puid=puid.puid }) -%]
+    [%- WRAPPER 'components/box.tt' header=l('Tracks assossciated with PUID {puid}', {puid=puid.puid}) -%]
+        <ul>
+            [% FOR track=tracks %]
+            <li>
+                [% entity_link(track.track) %] on [% entity_link(track.release) %]
+                (<a href="[% c.uri_for('/puid', puid.puid, 'remove', {track=track.track.mbid, join=track.track.join_id}) %]">remove</a>)
+            </li>
+            [% END %]
+        </ul>
+    [%- END -%]
+[%- END -%]

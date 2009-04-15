@@ -32,6 +32,24 @@
                     </a>
                 </td>
             </tr>
+            <tr>
+                <th>
+                    [% l('<abbr title="Portable Unique IDentifiers">PUIDs</abbr>') %]
+                </th>
+                <td>
+                    <ul>
+                        [% FOREACH puid=puids %]
+                        <li>
+                            <a href="[% c.uri_for('/puid', puid.puid) %]">
+                                <code>[% puid.puid %]</code></a>
+                            [% l('(<a href="{url}">remove</a>)', {
+                                url=c.uri_for('/puid', puid.puid, 'remove', {track=track.mbid,join=puid.join_id})
+                            })%]
+                        </li>
+                        [% END %]
+                    </ul>
+                </td>
+            </tr>
         </table>
     [% END %]
     [% WRAPPER "components/box.tt" header=l("Artist Information") %]

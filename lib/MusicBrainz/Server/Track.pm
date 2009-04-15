@@ -33,6 +33,7 @@ use strict;
 use Carp qw( carp croak );
 use DBDefs;
 use ModDefs;
+use MusicBrainz::Server::PUID;
 use MusicBrainz::Server::Validation qw( unaccent );
 
 sub LinkEntityName { "track" }
@@ -492,9 +493,8 @@ sub Remove
         return undef
     }
 
-    require MusicBrainz::Server::PUID;
     my $puid = MusicBrainz::Server::PUID->new($this->dbh);
-    $puid->RemoveByTrackId($this->id());
+    $puid->remove_by_track($this);
 
 	# Remove relationships
 	require MusicBrainz::Server::Link;

@@ -1,193 +1,196 @@
-#____________________________________________________________________________
-#
-#   MusicBrainz -- the open internet music database
-#
-#   Copyright (C) 2006 Robert Kaye
-#
-#   This program is free software; you can redistribute it and/or modify
-#   it under the terms of the GNU General Public License as published by
-#   the Free Software Foundation; either version 2 of the License, or
-#   (at your option) any later version.
-#
-#   This program is distributed in the hope that it will be useful,
-#   but WITHOUT ANY WARRANTY; without even the implied warranty of
-#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#   GNU General Public License for more details.
-#
-#   You should have received a copy of the GNU General Public License
-#   along with this program; if not, write to the Free Software
-#   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-#
-#   $Id$
-#____________________________________________________________________________
-
 package MusicBrainz::Server::PUID;
+use Moose;
 
-use TableBase;
-{ our @ISA = qw( TableBase ) }
+extends 'TableBase';
 
-use strict;
+use Carp;
 use DBDefs;
-use Carp qw( carp croak );
+use MusicBrainz::Server::Track;
 
-# Accessor functions to set/get the artist id of this album
-sub GetPUID
+has 'puid' => (
+    is  => 'rw',
+    isa => 'Str',
+);
+
+has 'lookup_count' => (
+    isa => 'Int',
+    is  => 'ro',
+);
+
+has 'use_count' => (
+    isa => 'Int',
+    is  => 'ro'
+);
+
+has 'version' => (
+    isa => 'Int',
+    is  => 'ro'
+);
+
+has 'join_id' => (
+    isa => 'Int',
+    is  => 'ro'
+);
+
+sub tracks
 {
-   return $_[0]->{puid};
+ 	my ($self, %opts) = @_;
+	my $sql = Sql->new($self->dbh);
+
+	my $rows = $sql->SelectListOfHashes(qq|
+	    SELECT puidjoin.track AS id, puidjoin.id AS join_id
+          FROM puid, puidjoin
+         WHERE puid.puid = ? AND puidjoin.puid = puid.id|,
+		lc $self->puid);
+
+    return [
+        map {
+            my $track = MusicBrainz::Server::Track->new($self->dbh, $_);
+            $track->LoadFromId if exists $opts{load_tracks};
+
+            $track;
+        } @$rows
+    ];
 }
 
-sub SetPUID
+sub load
 {
-   $_[0]->{puid} = $_[1];
+    my ($self, $puid) = @_;
+    my $sql = Sql->new($self->dbh);
+
+    my $row = $sql->SelectSingleRowHash(qq|
+        SELECT id, puid, lookupcount AS lookup_count, version
+          FROM puid WHERE puid = ?|, , lc $puid);
+
+    return $self->_new_from_row($row);
 }
 
-sub GetTrackIdsFromPUID
+sub new_from_track
 {
- 	my ($this, $PUID) = @_;
-	my $sql = Sql->new($this->dbh);
+    my ($self, $track) = @_;
+    return unless defined $track;
 
-	$sql->SelectListOfHashes(
-		"SELECT	puidjoin.track as track, puidjoin.id as puidjoin
-		FROM	puid, puidjoin
-		WHERE	puid.puid = ?
-		AND		puidjoin.puid = puid.id",
-		lc $PUID,
-	);
+	my $sql = Sql->new($self->dbh);
+
+	my $rows = $sql->SelectListOfHashes(qq|
+	    SELECT t.puid, j.id,
+	           t.lookupcount AS lookup_count,
+	           j.usecount AS use_count,
+	           j.id AS join_id
+          FROM puid t, puidjoin j
+         WHERE j.track = ? AND j.puid = t.id
+      ORDER BY t.lookupcount desc, j.usecount|,
+	    $track->id);
+
+	return [ map { $self->new($self->dbh, $_) } @$rows ];
 }
 
-sub id_from_puid
+sub insert
 {
-	my ($this, $PUID) = @_;
-	my $sql = Sql->new($this->dbh);
-	$sql->SelectSingleValue("SELECT id FROM puid WHERE puid = ?", lc $PUID);
-}
+    my ($self, $puid, $track_id, $client_ver) = @_;
 
-sub GetPUIDFromTrackId
-{
-    my ($this, $id) = @_;
+    my $sql = Sql->new($self->dbh);
+    my $puid_obj = $self->load($puid);
+    $self->{new_insert} = 0;
 
-	unless ($id)
-	{
-		carp "No track id passed ("
-			. (defined($id) ? "'$id'" : "undef")
-			. ")";
-		return;
-	}
-
-	my $sql = Sql->new($this->dbh);
-
-	my $data = $sql->SelectListOfLists(
-		"SELECT	t.puid, j.id, t.lookupcount, j.usecount
-           FROM puid t, puidjoin j
-          WHERE j.track = ?
-		    AND j.puid = t.id
-       ORDER BY t.lookupcount desc, j.usecount",
-	   $id,
-	);
-
-	map {
-		+{
-			PUID			=> $_->[0],
-			PUIDjoinid	=> $_->[1],
-			lookupcount	=> $_->[2],
-			usecount	=> $_->[3],
-		}
-	} @$data;
-}
-
-sub Insert
-{
-    my ($this, $PUID, $trackid, $clientver) = @_;
-
-    my $sql = Sql->new($this->dbh);
-    my $id = $this->id_from_puid($PUID);
-    $this->{new_insert} = 0;
-
-    if (!defined $id)
+    if (!defined $puid_obj)
     {
-		defined($clientver) or return 0;
+		defined $client_ver or return;
 
-        my $verid = $sql->SelectSingleValue(
+        my $ver_id = $sql->SelectSingleValue(
 			"SELECT id FROM clientversion WHERE version = ?",
-			$clientver,
+			$client_ver,
 		);
-        
-        if (not defined $verid)
+
+        if (not defined $ver_id)
         {
-            $sql->Do("INSERT INTO clientversion (version) VALUES (?)", $clientver)
+            $sql->Do("INSERT INTO clientversion (version) VALUES (?)",
+                $client_ver)
 				or die;
-			$verid = $sql->GetLastInsertId("clientversion")
+			$ver_id = $sql->GetLastInsertId("clientversion")
 				or die;
         }
 
-        $sql->Do("INSERT INTO puid (puid, version) VALUES (?, ?)", $PUID, $verid)
+        $sql->Do("INSERT INTO puid (puid, version) VALUES (?, ?)",
+            $puid, $ver_id)
 			or die;
-		$id = $sql->GetLastInsertId("puid")
+		my $id = $sql->GetLastInsertId("puid")
 			or die;
-		$this->{new_insert} = 1;
+		$self->{new_insert} = 1;
+		return $id;
     }
-
-    if (defined $id && defined $trackid)
+    elsif (defined $puid_obj && defined $track_id)
     {
 		# I have no idea why, but for some reason from time to time this query
 		# says 'failed to find conversion function from "unknown" to integer'.
 		# This workaround (explicit cast to integer) is working at the
 		# moment...
-		$sql->Do(
-			"INSERT INTO puidjoin (puid, track)
+		$sql->Do(qq|
+		    INSERT INTO puidjoin (puid, track)
 				SELECT * FROM (SELECT ?::integer, ?::integer) AS data
-				WHERE NOT EXISTS (SELECT 1 FROM puidjoin WHERE puid = ?::integer AND track = ?::integer)",
-			$id, $trackid,
-			$id, $trackid,
+				WHERE NOT EXISTS (
+				    SELECT 1 FROM puidjoin
+				     WHERE puid = ?::integer AND track = ?::integer)|,
+			$puid_obj->id, $track_id,
+			$puid_obj->id, $track_id,
 		);
-    }
 
-    return $id;
+        return $puid_obj->id;
+    }
 }
 
-sub FindPUIDClientVersion
+sub client_version
 {
 	my ($self, $puid) = @_;
-	$puid = $self->GetPUID if not defined $puid;
+	$puid = $self if not defined $puid;
+
 	my $sql = Sql->new($self->dbh);
-	$sql->SelectSingleValue(
+	return $sql->SelectSingleValue(
 		"SELECT cv.version FROM puid t, clientversion cv
 		WHERE t.puid = ? AND cv.id = t.version",
-		$puid,
+		$puid->puid,
 	);
 }
 
-# Remove a PUID from the database. Set the id via the accessor function.
-sub Remove
+=head2 remove
+
+Remove this PUID from the database
+
+=cut
+
+sub remove
 {
-    my ($this) = @_;
-    my ($sql);
+    my ($self) = @_;
+    return unless defined $self->id;
 
-    return undef if (!defined $this->id());
-  
-    $sql = Sql->new($this->dbh);
-    $sql->Do("DELETE FROM puidjoin WHERE puid = ?", $this->id);
-    $sql->Do("DELETE FROM puid WHERE id = ?", $this->id);
-
-    return 1;
+    my  $sql = Sql->new($self->dbh);
+    $sql->Do("DELETE FROM puidjoin WHERE puid = ?", $self->id);
+    $sql->Do("DELETE FROM puid WHERE id = ?", $self->id);
 }
 
-# Remove all the PUID/PUIDJoins from the database for a given track id. 
-sub RemoveByTrackId
+=head2 remove_by_track
+
+Remove all the PUIDs from the database that are assossciated with a certain
+track.
+
+=cut
+
+sub remove_by_track
 {
-    my ($this, $trackid) = @_;
-    return undef if (!defined $trackid);
-    my $sql = Sql->new($this->dbh);
+    my ($self, $track) = @_;
+    return unless defined $track;
+
+    my $sql = Sql->new($self->dbh);
 
 	my $rows = $sql->SelectListOfLists(
-		"SELECT id, puid FROM puidjoin WHERE track = ?", $trackid,
+		"SELECT id, puid FROM puidjoin WHERE track = ?", $track->id,
 	);
 
-	for (@$rows)
+	for my $row (@$rows)
 	{
-		my ($joinid, $puid) = @$_;
+		my ($join_id, $puid) = @$row;
 
-   		$sql->Do("DELETE FROM puidjoin WHERE id = ?", $joinid);
+   		$sql->Do("DELETE FROM puidjoin WHERE id = ?", $join_id);
 
 		my $refcount = $sql->SelectSingleValue(
 			"SELECT COUNT(*) FROM puidjoin WHERE puid = ?", $puid,
@@ -197,39 +200,47 @@ sub RemoveByTrackId
 			$sql->Do("DELETE FROM puid WHERE id = ?", $puid);
 		}
 	}
-
-    return 1;
 }
 
-# Remove a specific single PUID from a given track
-sub RemovePUIDByPUIDJoin
+=head2 remove_instance
+
+Remove a specific single PUID from a given track.
+
+=cut
+
+sub remove_instance
 {
-    my ($this, $joinid) = @_;
-    return undef if (!defined $joinid);
-	my $sql = Sql->new($this->dbh);
+    my ($self, $join_id) = @_;
+    return unless defined $join_id;
 
-	my $oldpuid = $sql->SelectSingleValue(
-		"SELECT puid FROM puidjoin WHERE id = ?", $joinid,
-	) or return undef;
+	my $sql = Sql->new($self->dbh);
 
-	$sql->Do("DELETE FROM puidjoin WHERE id = ?", $joinid);
+	my $puid = $sql->SelectSingleValue(
+		"SELECT puid FROM puidjoin WHERE id = ?", $join_id,
+	) or return;
+
+	$sql->Do("DELETE FROM puidjoin WHERE id = ?", $join_id);
 
 	my $refcount = $sql->SelectSingleValue(
-		"SELECT COUNT(*) FROM puidjoin WHERE puid = ?", $oldpuid,
+		"SELECT COUNT(*) FROM puidjoin WHERE puid = ?", $puid,
 	);
 
 	if ($refcount == 0)
 	{
-		$sql->Do("DELETE FROM puid WHERE id = ?", $oldpuid);
+		$sql->Do("DELETE FROM puid WHERE id = ?", $puid);
 	}
-
-    return 1;
 }
 
-sub IncrementLookupCount
+=head2 increment_lookup
+
+Increment the lookup count for a puid
+
+=cut
+
+sub increment_lookup
 {
 	my ($class, $puid) = @_;
-	
+
 	use MusicBrainz::Server::DeferredUpdate;
 	MusicBrainz::Server::DeferredUpdate->Write(
 		"PUID::IncrementLookupCount",
@@ -237,90 +248,104 @@ sub IncrementLookupCount
 	);
 }
 
-sub UpdateLookupCount
+=head2 update_lookup_count
+
+Update the lookup count on the database
+
+=cut
+
+sub update_lookup_count
 {
-	my ($self, $puid, $timesused) = @_;
-	$timesused ||= 1;
+	my ($self, $puid, $times_used) = @_;
+	$times_used ||= 1;
     my $sql = Sql->new($self->dbh);
 
 	my $id = $sql->SelectSingleValue(
 		"SELECT id FROM puid WHERE puid = ?", $puid,
 	) or return;
 
-	my @gmtime = gmtime; 
-	my $month_id = 12*$gmtime[5] + $gmtime[4];
+	my @gmtime = gmtime;
+	my $month_id = 12 * $gmtime[5] + $gmtime[4];
 
 	$sql->Do(
-		"UPDATE puid_stat SET lookupcount = lookupcount + ? WHERE puid_id = ? AND month_id = ?",
-		$timesused, $id, $month_id,
+		"UPDATE puid_stat SET lookupcount = lookupcount + ?
+		  WHERE puid_id = ? AND month_id = ?",
+		$times_used, $id, $month_id,
 	) or
 	$sql->Do(
 		"INSERT INTO puid_stat (puid_id, month_id, lookupcount) values (?, ?, ?)",
-		$id, $month_id, $timesused,
+		$id, $month_id, $times_used,
 	);
 }
 
-sub IncrementUsageCount
+sub increment_usage_count
 {
-	my ($class, $puid, $trackid) = @_;
-	
+	my ($class, $puid, $track_id) = @_;
+
 	use MusicBrainz::Server::DeferredUpdate;
 	MusicBrainz::Server::DeferredUpdate->Write(
 		"PUID::IncrementUsageCount",
-		$puid, $trackid,
+		$puid, $track_id,
 	);
 }
 
-sub UpdateUsageCount
+sub update_usage_count
 {
-	my ($self, $puid, $trackid, $timesused) = @_;
-	$timesused ||= 1;
+	my ($self, $puid, $track_id, $times_used) = @_;
+	$times_used ||= 1;
     my $sql = Sql->new($self->dbh);
 
-	my $joinid = $sql->SelectSingleValue(
+	my $join_id = $sql->SelectSingleValue(
 		"select puidjoin.id 
 		   from puid, puidjoin
 		  where puidjoin.track = ?
 		    and puid.puid = ? 
-			and puidjoin.puid = puid.id", $trackid, $puid,
+			and puidjoin.puid = puid.id", $track_id, $puid,
 	) or return;
 
-	my @gmtime = gmtime; 
+	my @gmtime = gmtime;
 	my $month_id = 12*$gmtime[5] + $gmtime[4];
 
 	$sql->Do(
-		"UPDATE puidjoin_stat SET usecount = usecount + ? WHERE puidjoin_id = ? AND month_id = ?",
-		$timesused, $joinid, $month_id,
+		"UPDATE puidjoin_stat SET usecount = usecount + ?
+		  WHERE puidjoin_id = ? AND month_id = ?",
+		$times_used, $join_id, $month_id,
 	) or
 	$sql->Do(
 		"INSERT INTO puidjoin_stat (puidjoin_id, month_id, usecount) values (?, ?, ?)",
-		$joinid, $month_id, $timesused,
+		$join_id, $month_id, $times_used,
 	);
 }
 
-sub MergeTracks
+=head2 merge_tracks
+
+Handle merging PUIDs when tracks are being merged
+
+=cut
+
+sub merge_tracks
 {
-	my ($self, $fromtrack, $totrack) = @_;
+	my ($self, $from, $to) = @_;
     my $sql = Sql->new($self->dbh);
 
-	my $puidjoins = $sql->SelectListOfHashes(
+	my $puid_joins = $sql->SelectListOfHashes(
 		"SELECT * FROM puidjoin WHERE track = ?",
-		$fromtrack,
+		$from->id,
 	);
 
-	for my $oldjoin (@$puidjoins)
+	for my $old_join (@$puid_joins)
 	{
 		# Ensure the new puidjoin exists
 		$sql->Do(
 			"INSERT INTO puidjoin (puid, track)
 				SELECT * FROM (SELECT ?::integer, ?::integer) AS data
 				WHERE NOT EXISTS (SELECT 1 FROM puidjoin WHERE puid = ?::integer AND track = ?::integer)",
-			$oldjoin->{puid}, $totrack,
-			$oldjoin->{puid}, $totrack,
+			$old_join->{puid}, $to->id,
+			$old_join->{puid}, $to->id,
 		);
-		my $newjoinid = $sql->SelectSingleValue(
+		my $new_join_id = $sql->SelectSingleValue(
 			"SELECT id FROM puidjoin WHERE puid = ? AND track = ?",
-			$oldjoin->{puid}, $totrack,
+			$old_join->{puid}, $to->id,
 		);
 
 		# Merge the stats from $oldjoin->{id} to $newjoinid
@@ -330,19 +355,19 @@ sub MergeTracks
 			FROM	puidjoin_stat
 			WHERE	puidjoin_id IN (?, ?)
 			GROUP BY month_id",
-			$oldjoin->{id},
-			$newjoinid,
+			$old_join->{id},
+			$new_join_id,
 		);
 		$sql->Do(
 			"DELETE FROM puidjoin_stat WHERE puidjoin_id IN (?, ?)",
-			$oldjoin->{id},
-			$newjoinid,
+			$old_join->{id},
+			$new_join_id,
 		);
 		$sql->Do(
 			"INSERT INTO puidjoin_stat (puidjoin_id, month_id, usecount)
 			SELECT	?, month_id, usecount
 			FROM	tmp_merge_puidjoin_stat",
-			$newjoinid,
+			$new_join_id,
 		);
 		$sql->Do(
 			"DROP TABLE tmp_merge_puidjoin_stat",
@@ -352,9 +377,10 @@ sub MergeTracks
 	# Delete the old join row
 	$sql->Do(
 		"DELETE FROM puidjoin WHERE track = ?",
-		$fromtrack,
+		$from->id,
 	);
 }
 
+no Moose;
+__PACKAGE__->meta->make_immutable;
 1;
-# vi: set ts=4 sw=4 :

@@ -32,16 +32,17 @@ use Moose;
 
 extends 'TableBase';
 
-use strict;
 use Carp qw( cluck croak );
 use DBDefs;
+use Encode qw( decode );
+use LocaleSaver;
 use ModDefs qw( VARTIST_ID );
 use MusicBrainz::Server::Language;
+use MusicBrainz::Server::PUID;
 use MusicBrainz::Server::Script;
 use MusicBrainz::Server::Validation qw( unaccent );
-use LocaleSaver;
 use POSIX qw(:locale_h);
-use Encode qw( decode );
+
 
 use constant NONALBUMTRACKS_NAME => "[non-album tracks]";
 
@@ -966,9 +967,8 @@ sub MergeReleases
 				my $old = $tr->id;
 				my $new = $merged{$tr->sequence()}->id;
 
-				require MusicBrainz::Server::PUID;
 				my $puid = MusicBrainz::Server::PUID->new($this->dbh);
-				$puid->MergeTracks($old, $new);
+				$puid->merge_tracks($old, $new);
 				
 				# Move relationships
 				$link->MergeTracks($old, $new);

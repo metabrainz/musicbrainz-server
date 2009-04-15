@@ -92,7 +92,7 @@ sub ApprovedAction
 
 	for (@{ $self->{'new_list'} })
 	{
-		$puid->Insert(
+		$puid->insert(
 			$_->{'puid'},
 			$_->{'trackid'},
 			$clientVersion,
