@@ -16,6 +16,7 @@ sub new {
 
 sub format {
     my ($self, $date) = @_;
+    return unless $date;
 
     my %opts;
     if ($self->preferences) {
