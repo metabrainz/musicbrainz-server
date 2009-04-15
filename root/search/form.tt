@@ -13,8 +13,8 @@
         [% l('Please Note:') %]
     </strong>
     [%- WRAPPER 'layout/guidelines.tt' -%]
-        [%- create_guideline('Search indexes are currently updated once a day at 1800 GMT (10am PST).') %]
-        [%- create_guideline('If you require up to the minute correct search, please use the <a href="{uri}">old search</a>.', {uri => c.uri_for('/search/internal')}) %]
+        [%- create_guideline(l('Search indexes are currently updated once a day at 1800 GMT (10am PST).')) %]
+        [%- create_guideline(l('If you require up to the minute correct search, please use the <a href="{uri}">old search</a>.', {uri => c.uri_for('/search/internal')})) %]
     [% END %]
     </ul>
     </div>
