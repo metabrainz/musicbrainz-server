@@ -34,6 +34,7 @@ requires 'Email::Date::Format'                         => '1.002';
 requires 'Email::Valid'                                => '0.179';
 requires 'Exception::Class'                            => '1.26';
 requires 'Form::Processor'                             => '0.190';
+requires 'Gravatar::URL';
 requires 'JSON'                                        => '2.120';
 requires 'Locale::Maketext'                            => '1.090';
 requires 'Locale::Maketext::Extract::Plugin::TT2';

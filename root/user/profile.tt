@@ -24,6 +24,14 @@
         { link => c.uri_for('/user/donate'), text => l("Check Donation Status") },
     ] %]
     [% WRAPPER "components/box.tt" header=l("Editor \"{user}\"", {user => user.name}) %]
+        [% IF user.avatar_url %]
+        <div class="gravatar_profile">
+            <img src="[% user.avatar_url %]">
+        </div>
+        [% END %]
+        <div class="bio">
+            [% html_escape(user.biography or l("[None]")).split("\n").join("<br />") %]
+        </div>
         <h3>
             [% l('General Information:') %]
         </h3>
@@ -72,11 +80,6 @@
                 [% ELSE %]
                     [% l('[None]') %]
                 [% END %]
-            [% END %]
-            [% WRAPPER property name=l("Bio") %]
-                <div class="bio">
-                    [% user.biography or l("[None]").split("\n").join("<br />") %]
-                </div>
             [% END %]
             [% WRAPPER property name=l("Subscriptions") %]
                 [% IF user.public_subscriptions == 'public' %]

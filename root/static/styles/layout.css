@@ -288,9 +288,18 @@ div.box div.content {
 }
 
 div.bio {
-    width: 90%;
-    border: 1px dotted #CCC;
-    padding: 0px 5px 5px 5px;
+    width: 100%;
+    border: none;
+    padding: 0px;
+}
+
+div.gravatar_profile {
+    float: left;
+    margin: 0 10px 10px 2px;
+}
+
+div.gravatar_profile img {
+    border: 1px solid #BBBBBB;
 }
 
 ul.tagcloud li {
@@ -501,7 +510,6 @@ div.two_column_right {
     margin: 0.1em .5em 0.1em -.5em;
     padding: 0 0.5em;
 }
-
 div.grippie {
     background: #EEE url(/static/images/grippie.png) no-repeat scroll center 2px;
     border-color: #DDD;
