@@ -1458,5 +1458,6 @@ sub _GetTrackNumbersHash
 	\%h;
 }
 
+no Moose;
+__PACKAGE__->meta->make_immutable;
 1;
-# eof Album.pm

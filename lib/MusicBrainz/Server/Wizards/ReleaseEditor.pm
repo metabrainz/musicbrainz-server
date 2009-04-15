@@ -196,5 +196,6 @@ sub accepted_release_events
     return [ grep { !$_->removed } @{ $self->release_events } ];
 }
 
+no Moose;
+__PACKAGE__->meta->make_immutable;
 1;
-

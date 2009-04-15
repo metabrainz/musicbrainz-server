@@ -629,5 +629,6 @@ sub get_for_user
 	$value;
 }
 
+no Moose;
+__PACKAGE__->meta->make_immutable;
 1;
-# eof UserPreference.pm

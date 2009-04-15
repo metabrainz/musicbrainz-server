@@ -53,4 +53,5 @@ sub send_email
     die "Could not send email: $return" if !$return;
 }
 
+no Moose::Role;
 1;

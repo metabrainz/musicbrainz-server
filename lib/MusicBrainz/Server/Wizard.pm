@@ -166,5 +166,6 @@ sub progress
     return $self->current_step;
 }
 
+no Moose;
+__PACKAGE__->meta->make_immutable;
 1;
-

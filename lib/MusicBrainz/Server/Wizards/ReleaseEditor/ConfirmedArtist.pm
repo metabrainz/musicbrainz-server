@@ -31,4 +31,5 @@ sub artist_model
     );
 }
 
+no Moose::Role;
 1;

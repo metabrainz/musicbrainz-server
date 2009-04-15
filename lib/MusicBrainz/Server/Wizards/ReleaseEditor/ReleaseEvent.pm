@@ -63,4 +63,6 @@ sub to_event
     );
 }
 
+no Moose;
+__PACKAGE__->meta->make_immutable;
 1;
