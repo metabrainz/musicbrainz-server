@@ -131,7 +131,7 @@ caption {
 /*
  * Sidebar
  */
-.sidebar {
+#sidebar {
     width: 130px;
     background: #DDD;
     border-right: 1px solid #000;
@@ -139,7 +139,6 @@ caption {
     font-size: 9pt;
     margin-bottom: 20pt;
     margin-top:0px;
-    float: left;
 }
 
 #sidebar .sidebar-toggle {
@@ -241,12 +240,13 @@ caption {
  * Content
  */
 #container {
-    width: 90%;
+    width: 100%;
     float: right;
     margin-left: -200px;
 }
 
 #content {
+	margin-left: 140px;
     padding: 15px;
 }
 

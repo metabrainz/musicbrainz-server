@@ -26,3 +26,12 @@ h3 {
     padding-bottom: 2pt;
     padding-left: 4pt;
 }
+
+.statistics thead th { 
+    padding-right: 15pt;
+}
+
+.statistics tbody th { 
+    text-align:right;
+    padding-right: 10pt;
+}

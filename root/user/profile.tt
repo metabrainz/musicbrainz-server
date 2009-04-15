@@ -24,6 +24,9 @@
         { link => c.uri_for('/user/donate'), text => l("Check Donation Status") },
     ] %]
     [% WRAPPER "components/box.tt" header=l("Editor \"{user}\"", {user => user.name}) %]
+        <h3>
+            [% l('Bio:') %]
+        </h3>
         [% IF user.avatar_url %]
         <div class="gravatar_profile">
             <img src="[% user.avatar_url %]">
@@ -36,25 +39,33 @@
             [% l('General Information:') %]
         </h3>
         <dl>
-            [% INCLUDE "components/piped-list.tt" list=review_options WRAPPER property name=l("Review") %]
             [% INCLUDE "components/piped-list.tt" list=edit_account_options WRAPPER property name=l("Edit My Account") IF viewing_own_profile %]
+            [% user.name | html_entity WRAPPER property name=l("Name") %]
+            [% WRAPPER property name=l("User type") %]
+                [% types = [] %]
+                [% types.push(l('{doc|AutoEditor}', {doc => doc_link('AutoEditor')})) IF user.is_auto_editor %]
+                [% types.push("Internal/Bot") IF user.is_bot %]
+                [% types.push(l('{doc|Relationship Editor}', {doc => doc_link('RelationshipEditor')})) IF user.is_link_moderator %]
+                [% types.push(l('Untrusted')) IF user.is_untrusted %]
+                [% types.push(l('{doc|Transclusion Editor}', {doc => doc_link('TransclusionEditor')})) IF user.is_wiki_transcluder %]
+                [% types.push('Normal User') IF types.size == 0 %]
+                [% comma_list(types) %]
+            [% END %]
+            [% WRAPPER property name=l("Homepage") %]
+                [% IF user.web_url %]
+                    <a href="[% user.web_url | url %]">
+                        [% user.web_url | html_entity %]
+                    </a>
+                [% ELSE %]
+                    [% l('[None]') %]
+                [% END %]
+            [% END %]
             [% IF (not viewing_own_profile) %]
                 [% WRAPPER property name=l("Contact") %]
                     <a href="[% c.uri_for('/user/contact', user.name) %]">
                         [% l('Send email') %]
                     </a>
                 [% END %]
-            [% END %]
-            [% user.name | html_entity WRAPPER property name=l("Name") %]
-            [% WRAPPER property name=l("User type") %]
-		[% types = [] %]
-                [% types.push(l('{doc|AutoEditor}', {doc => doc_link('AutoEditor')})) IF user.is_auto_editor %]
-		[% types.push("Internal/Bot") IF user.is_bot %]
-		[% types.push(l('{doc|Relationship Editor}', {doc => doc_link('RelationshipEditor')})) IF user.is_link_moderator %]
-		[% types.push(l('Untrusted')) IF user.is_untrusted %]
-		[% types.push(l('{doc|Transclusion Editor}', {doc => doc_link('TransclusionEditor')})) IF user.is_wiki_transcluder %]
-		[% types.push('Normal User') IF types.size == 0 %]
-		[% comma_list(types) %]
             [% END %]
             [% WRAPPER property name=l("Email") %]
                 [% IF viewing_own_profile %]
@@ -70,15 +81,6 @@
                             (<em>[% l('unverified!') %]</em>)
                         [% END %]
                     [% END %]
-                [% END %]
-            [% END %]
-            [% WRAPPER property name=l("Homepage") %]
-                [% IF user.web_url %]
-                    <a href="[% user.web_url | url %]">
-                        [% user.web_url | html_entity %]
-                    </a>
-                [% ELSE %]
-                    [% l('[None]') %]
                 [% END %]
             [% END %]
             [% WRAPPER property name=l("Subscriptions") %]
@@ -101,77 +103,86 @@
                     [% l('view all') %]
                 </a>)
             [% END %]
+            [% INCLUDE "components/piped-list.tt" list=review_options WRAPPER property name=l("Review") %]
         </dl>
-        <h3>
-            [% l('User Statistics') %]
-        </h3>
-        <dl>
-            [% WRAPPER property name=l("Member Since") %]
-                [% IF user.name == "Rob" %]
-                    [% l('The Dawn of the Project') %]
-                [% ELSIF user.is_special %]
-                    [% l('N/A') %]
-                [% ELSIF user.charter %]
-                    [% l('Charter Member') %]
-                [% ELSE %]
-                    [% UserDate.format(user.member_since) %]
+        <div class="two_column_right">
+            <h3>
+                [% l('User Statistics') %]
+            </h3>
+            <dl>
+                [% WRAPPER property name=l("Member Since") %]
+                    [% IF user.name == "Rob" %]
+                        [% l('The Dawn of the Project') %]
+                    [% ELSIF user.is_special %]
+                        [% l('N/A') %]
+                    [% ELSIF user.charter %]
+                        [% l('Charter Member') %]
+                    [% ELSE %]
+                        [% UserDate.format(user.member_since) %]
+                    [% END %]
                 [% END %]
-            [% END %]
-            [% add_commas(user.mods_accepted)      WRAPPER property name=l("Accepted Non-AutoEdits") %]
-            [% add_commas(user.auto_mods_accepted) WRAPPER property name=l("AutoEdits") %]
-            [% add_commas(user.mods_rejected)      WRAPPER property name=l("Edits voted down") %]
-            [% add_commas(user.mods_failed)        WRAPPER property name=l("Failed Edits") %]
-        </dl>
-        <h3>
-            [% l('Votes') %]
-        </h3>
-        <table class="statistics" summary="[% l('This table shows a summary of votes cast by this editor.') %]">
-            <caption>
-                [% l('This table shows a summary of votes cast by this editor.') %]
-            </caption>
-            <thead>
-                <tr>
-                    <th id="table_vote_summary_vote">
-                        [% l('Vote') %]
-                    </th>
-                    <th id="table_vote_summary_recent">
-                        [% l('Last 28 days') %]
-                    </th>
-                    <th id="table_vote_summary_overall">
-                        [% l('Overall') %]
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                [% FOREACH v IN votes %]
-                    [% NEXT IF loop.last %]
+                [% add_commas(user.mods_accepted)      WRAPPER property name=l("Accepted Non-AutoEdits") %]
+                [% add_commas(user.auto_mods_accepted) WRAPPER property name=l("AutoEdits") %]
+                [% add_commas(user.mods_rejected)      WRAPPER property name=l("Edits voted down") %]
+                [% add_commas(user.mods_failed)        WRAPPER property name=l("Failed Edits") %]
+            </dl>
+        </div>
+        <div class="two_column_left">
+            <h3>
+                [% l('Votes') %]
+            </h3>
+            <table class="statistics" summary="[% l('This table shows a summary of votes cast by this editor.') %]">
+                <caption>
+                    [% l('This table shows a summary of votes cast by this editor.') %]
+                </caption>
+                <thead>
                     <tr>
-                        <td style="background: #eee; font-weight: bold;" headers="table_vote_summary_vote">
-                            [% v.name | ucfirst%]
-                        </td>
-                        <td headers="table_vote_summary_recent">
-                            [% add_commas(v.recent) %]&nbsp;&nbsp;([% v.recent_pc %]%)
-                        </td>
-                        <td headers="table_vote_summary_overall">
-                            [% add_commas(v.overall) %]&nbsp;&nbsp;([% v.overall_pc %]%)
-                        </td>
+                        <th id="table_vote_summary_vote"></th>
+                        <th id="table_vote_summary_recent" colspan="2">
+                            [% l('Last 28 days') %]
+                        </th>
+                        <th id="table_vote_summary_overall" colspan="2">
+                            [% l('Overall') %]
+                        </th>
                     </tr>
-                [% END %]
-            </tbody>
-            <tfoot>
-                [% totals = votes.last %]
-                    <tr>
-                        <td style="background: #eee; font-weight: bold;" headers="table_vote_summary_vote">
-                            [% totals.name | ucfirst%]
-                        </td>
-                        <td style="background: #eee; font-weight: bold; text-align: center;" headers="table_vote_summary_recent">
-                            [% add_commas(totals.recent) %]
-                        </td>
-                        <td style="background: #eee; font-weight: bold; text-align: center;" headers="table_vote_summary_overall">
-                            [% add_commas(totals.overall) %]
-                        </td>
-                    </tr>
-            </tfoot>
-        </table>
+                </thead>
+                <tbody>
+                    [% FOREACH v IN votes %]
+                        [% NEXT IF loop.last %]
+                        <tr>
+                            <th headers="table_vote_summary_vote">
+                                [% v.name | ucfirst%]
+                            </td>
+                            <td headers="table_vote_summary_recent">
+                                [% add_commas(v.recent) %]
+                            </td>
+                            <td headers="table_vote_summary_recent">
+                                ([% v.recent_pc %]%)
+                            </td>
+                            <td headers="table_vote_summary_overall">
+                                [% add_commas(v.overall) %]
+                            </td>
+                            <td headers="table_vote_summary_overall">
+                                [% add_commas(v.recent) %]
+                            </td>
+                        </tr>
+                    [% END %]
+                </tbody>
+                <tfoot>
+                    [% totals = votes.last %]
+                        <tr>
+                            <td style="font-weight: bold;" headers="table_vote_summary_vote">
+                                [% totals.name | ucfirst%]
+                            </td>
+                            <td style="font-weight: bold; text-align: center;" headers="table_vote_summary_recent">
+                                [% add_commas(totals.recent) %]
+                            </td>
+                            <td style="font-weight: bold; text-align: center;" headers="table_vote_summary_overall">
+                                [% add_commas(totals.overall) %]
+                            </td>
+                        </tr>
+                </tfoot>
+            </table>
+        </div>
     [% END %]
 [% END %]

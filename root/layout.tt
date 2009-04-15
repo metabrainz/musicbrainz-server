@@ -30,7 +30,6 @@
             [%- no_sidebar = c.user_exists AND c.user.preferences.get('nosidebar') -%]
             <iframe name="tagger-iframe" id="tagger-iframe"></iframe>
             [%- INCLUDE "layout/header.tt" -%]
-            [%- INCLUDE "layout/sidebar.tt" UNLESS no_sidebar -%]
             <div id="container">
                 <div id="content" [% 'style="margin-left: 0;' IF no_sidebar %]>
                     [%- IF c.flash.ok -%]
@@ -40,6 +39,7 @@
                 </div>
             </div>
         </div>
+        [%- INCLUDE "layout/sidebar.tt" UNLESS no_sidebar -%]
         [%- INCLUDE "layout/footer-bar.tt" -%]
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
         [%- IF includeJQueryUI -%]
