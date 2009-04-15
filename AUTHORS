@@ -93,11 +93,16 @@ The following people have contributed to the MusicBrainz server:
   Oliver 'aCiD2' Charles
   - Refactored the whole of mb_server to use Catalyst and Template Toolkit
   - Patches for other bugs
+  - Employed by MusicBrainz, so loads more stuff
 
   Pavan 'navap'
   - Small CSS patches
 
   Brian 'BrianFreud' Schweitzer
   - Small template and CSS patches
+  - Ported the majority of JavaScript to use JQuery
+
+  Nikolai 'pronik' Prokoschenko
+  - Lead the majority of work on internationalization
 
 (please send change requests to rob@musicbrainz.org or maintainer)
