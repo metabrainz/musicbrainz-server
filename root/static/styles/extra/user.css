@@ -1,4 +1,28 @@
-div.box { overflow: auto; }
+h3 {
+    clear: left;
+    margin: 0;
+    margin-bottom: 10pt;
+    border-bottom: 1px dotted #ccc;
+    padding-bottom: 2pt;
+    padding-left: 4pt;
+}
+
+dl, dd { 
+    line-height: 18pt; 
+}
+
+dl {
+    margin-bottom: 10pt;
+    overflow: auto;
+}
+
+dl .piped_list { 
+    clear: none;
+}
+
+dl dd { 
+    margin-left: 160pt;
+}
 
 dl dt {
     float: left;
@@ -8,23 +32,14 @@ dl dt {
     margin-right: 10pt;
     text-align: right;
 }
-dl dd { margin-left: 160pt; }
-dl, dd {
-    line-height: 18pt;
-}
-dl {
-    margin-bottom: 10pt;
-    overflow: auto;
-}
-dl .piped_list { clear: none; }
 
-h3 {
-    clear: left;
-    margin: 0;
-    margin-bottom: 10pt;
-    border-bottom: 1px dotted #ccc;
-    padding-bottom: 2pt;
-    padding-left: 4pt;
+div.box { 
+    overflow: auto; 
+}
+
+/* This makes sure the <dd>s line up with the <dt>s properly */
+dl.profile_info .piped_list .list{ 
+    padding: 3pt 0; 
 }
 
 .statistics thead th { 

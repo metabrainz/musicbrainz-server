@@ -14,6 +14,7 @@
         { link => c.uri_for("/review/$user.name/edits/open"), text => l("Open Edits") },
         { link => c.uri_for("/review/$user.name/edits/failed"), text => l("Failed Edits") },
         { link => c.uri_for("/review/$user.name/edits/cancelled"), text => l("Cancelled Edits") },
+        { link => c.uri_for("/user/subscriptions/$user.name"), text => l("Subscriptions"), hide => !user.preferences.get('subscriptions_public') },
         { link => c.uri_for("/rating/display/$user.id/all"), text => l("Ratings") },
     ] %]
     [% edit_account_options = [
@@ -89,11 +90,10 @@
             [% END %]
             [% WRAPPER property name=l("Subscriptions") %]
                 [% IF user.preferences.get('subscriptions_public') %]
-                    [%- url=c.uri_for('/user/subscriptions', user.name) -%]
                     [% IF viewing_own_profile %]
-                        [% l('Your {view|subscriptions} are public.', {view=url}) -%]
+                        [% l('Your subscriptions are public.') -%]
                     [% ELSE %]
-                        [% l('The {view|subscriptions} for {user} are public.', {user => html_escape(user.name), view=url}) %]
+                        [% l('The subscriptions for {user} are public.', {user => html_escape(user.name) }) %]
                     [% END %]
                 [% ELSE %]
                     [% IF viewing_own_profile %]

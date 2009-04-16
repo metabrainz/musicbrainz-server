@@ -14,34 +14,34 @@
 [%- END -%]
 
 [%- WRAPPER 'layout.tt' title=l('Search Other Sites') -%]
-    [%- WRAPPER 'components/box.tt' header=l('<abbr title="Compact Disc">CD</abbr> Shopping Sites') -%]
+    [%- WRAPPER 'components/box.tt' header=l('CD Shopping Sites') -%]
         [%- PROCESS search
             action='http://www.amazon.com/exec/obidos/external-search'
             link='http://www.amazon.com'
             name='Amazon'
             field='keyword'
-            hidden={ 'mode' => 'music', 'tag' => 'mp3nl', 'tag-id' => 'mp3nl' }
+            hidden_input={ 'mode' => 'music', 'tag' => 'mp3nl', 'tag-id' => 'mp3nl' }
         -%]
         [%- PROCESS search
             action='http://music.barnesandnoble.com/search/results.asp'
             link='http://www.barnesandnoble.com'
             name='Barnes &amp; Noble'
             field='WRD'
-            hidden={ 'qsrch' => 'A' }
+            hidden_input={ 'qsrch' => 'A' }
         -%]
         [%- PROCESS search
             action='http://www.sonymusicstore.com/store/catalog/SearchAction.do'
             link='http://www.sonymusicstore.com'
             name='Sony Music'
             field='keyword'
-            hidden={ 'searchBy' => 'quick' }
+            hidden_input={ 'searchBy' => 'quick' }
         -%]
         [%- PROCESS search
             action='http://www.letitbe.com/search'
             link='http://www.letitbe.com'
             name='Let It Be'
             field='search_string'
-            hidden={}
+            hidden_input={}
         -%]
     [%- END -%]
 
@@ -51,14 +51,14 @@
             link='http://www.allmusic.com'
             name='allmusic'
             field='SQL'
-            hidden={ 'P' => 'amg', 'OPT1' => '55', 'Submit' => 'Go' }
+            hidden_input={ 'P' => 'amg', 'OPT1' => '55', 'Submit' => 'Go' }
         -%]
         [%- PROCESS search
             action='http://www.aria-database.com/cgi-bin/aria-search.pl'
             link='http://www.aria-database.com'
             name='Aria Database'
             field='keyword'
-            hidden={ 'numbers' => '1|20', 'all-or-results' => 'all', 'aria' => 1, 'language' => 'all', 'detail' => 'yes',
+            hidden_input={ 'numbers' => '1|20', 'all-or-results' => 'all', 'aria' => 1, 'language' => 'all', 'detail' => 'yes',
                      'composer' => 1, 'role' => 1, 'opera' => 1, 'low' => 'A', 'below' => 2, 'high' => 'A', 'above' => 3,
                      'pointless' => 'yes', 'database-select' => 'aria' }
         -%]
@@ -70,28 +70,28 @@
             link='http://www.lyricfind.com'
             name='Lyric Find'
             field='search'
-            hidden={ 'ssongtitle' => 1, 'ssongsearch' => 1 }
+            hidden_input={ 'ssongtitle' => 1, 'ssongsearch' => 1 }
         -%]
         [%- PROCESS search
             action='http://www.lyricspost.com/index.php'
             link='http://www.lyricspost.com'
             name='Lyrics Post'
             field='search'
-            hidden={ 'searchbutton' => 'Search' },
+            hidden_input={ 'searchbutton' => 'Search' },
         -%]
         [%- PROCESS search
             action='http://www.lyricsworld.com/cgi-bin/search'
             link='http://www.lyricsworld.com'
             name='Lyrics World'
             field='q'
-            hidden={ 'm' => 'bool' },
+            hidden_input={ 'm' => 'bool' },
         -%]
         [%- PROCESS search
             action='http://search.lyrics.astraweb.com'
             link='http://lyrics.astraweb.com'
             name='lyrics.astraweb.com',
             field='word'
-            hidden={}
+            hidden_input={}
         -%]
     [%- END -%]
 
@@ -101,21 +101,21 @@
             link='http://www.rollingstone.com'
             name='Rolling Stone'
             field='query'
-            hidden={ 'type' => 'artist', 'search' => 'Search' }
+            hidden_input={ 'type' => 'artist', 'search' => 'Search' }
         -%]
         [%- PROCESS search
             action='http://www.allmusic.com/cg/amg.dll'
             link='http://www.allmusic.com'
             name='allmusic'
             field='SQL'
-            hidden={ 'P' => 'amg', 'OPT1' => '1', 'Submit' => 'Go' }
+            hidden_input={ 'P' => 'amg', 'OPT1' => '1', 'Submit' => 'Go' }
         -%]
         [%- PROCESS search
             action='http://www.juno.co.uk/search.php'
             link='http://www.juno.co.uk'
             name='Juno'
             field='q'
-            hidden={ 'precision' => 'all', 'column' => 'all' }
+            hidden_input={ 'precision' => 'all', 'column' => 'all' }
         -%]
     [%- END -%]
 [%- END -%]
