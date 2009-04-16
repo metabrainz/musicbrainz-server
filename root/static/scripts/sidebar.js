@@ -13,6 +13,7 @@ function showSidebar()
 {
     $.cookie('sidebar', 'on', { expires: 15000 });
     $("#sidebartoggle").show();
+    $("#sidebar-toggle-a").html('Hide Sidebar');
     $('#content').css("margin-left","140px");
     $('#content').css("margin-top","0px");
 }
@@ -21,6 +22,7 @@ function hideSidebar()
 {
     $.cookie('sidebar', 'off', { expires: 15000 });
     $("#sidebartoggle").hide();
+    $("#sidebar-toggle-a").html('Show Sidebar');
     $('#content').css("margin-left","0px");
     $('#content').css("margin-top","15px"); // For "Show Sidebar" text   
 }
@@ -33,16 +35,10 @@ $(document).ready(function(){
 
     $('#id_toggle_target').append(' \
         <span id="sidebar-hide-toggle"> \
-            <a href="javascript:flipSidebar()"> \
+            <a href="javascript:flipSidebar()" id="sidebar-toggle-a"> \
                 &nbsp;Hide Sidebar \
             </a> \
-        </span> \
-        <span id="sidebar-show-toggle" style="display:none;"> \
-            <a href="javascript:flipSidebar()"> \
-                &nbsp;Show Sidebar \
-            </a> \
-        </span> \
-    ');
+        </span>');
     
     // Make show / hide selection persistent
     if ($.cookie('sidebar') == 'off')
