@@ -1,5 +1,5 @@
 [% extra_css = "user.css" %]
-[% WRAPPER "layout.tt" title=l("Editor \"{user}\"", {user => user.name}) %]
+[% WRAPPER "layout.tt" title=l("Editor \"{user}\"", {user => html_escape(user.name)}) %]
     [% BLOCK property %]
         <dt>
             [% name %]:
@@ -23,7 +23,7 @@
         { link => c.uri_for('/user/preferences'), text => l("Preferences") },
         { link => c.uri_for('/user/donate'), text => l("Check Donation Status") },
     ] %]
-    [% WRAPPER "components/box.tt" header=l("Editor \"{user}\"", {user => user.name}) %]
+    [% WRAPPER "components/box.tt" header=l("Editor \"{user}\"", {user => html_escape(user.name)}) %]
         <h3>
             [% l('Bio:') %]
         </h3>
@@ -39,8 +39,11 @@
             [% l('General Information:') %]
         </h3>
         <dl>
-            [% INCLUDE "components/piped-list.tt" list=edit_account_options WRAPPER property name=l("Edit My Account") IF viewing_own_profile %]
-            [% user.name | html_entity WRAPPER property name=l("Name") %]
+            [% INCLUDE "components/piped-list.tt" list=edit_account_options
+                WRAPPER property name=l("Edit My Account")
+                IF viewing_own_profile %]
+
+            [% html_escape(user.name) WRAPPER property name=l("Name") %]
             [% WRAPPER property name=l("User type") %]
                 [% types = [] %]
                 [% types.push(l('{doc|AutoEditor}', {doc => doc_link('AutoEditor')})) IF user.is_auto_editor %]
@@ -60,7 +63,7 @@
                     [% l('[None]') %]
                 [% END %]
             [% END %]
-            [% IF (not viewing_own_profile) %]
+            [% UNLESS viewing_own_profile %]
                 [% WRAPPER property name=l("Contact") %]
                     <a href="[% c.uri_for('/user/contact', user.name) %]">
                         [% l('Send email') %]
@@ -69,32 +72,34 @@
             [% END %]
             [% WRAPPER property name=l("Email") %]
                 [% IF viewing_own_profile %]
-                    [% (user.email or l("[None]")) | html_entity %]
-                [% ELSE %]
-                    [% l('[Hidden]') %]
-                [% END %]
-                [% IF user.email %]
-                    [% IF user.email_confirmation_date %]
-                        ([% l('verified at {verified}', { verified => UserDate.format(user.email_confirmation_date) }) %])
-                    [% ELSE %]
-                        [% IF viewing_own_profile %]
-                            (<em>[% l('unverified!') %]</em>)
+                    [% IF user.email %]
+                        [% IF user.email_confirmation_date %]
+                            [%- l('{email} (verified at {date}', {
+                                    email=html_escape(user.email),
+                                    date=UserFormat.date(user.email_confirmation_date)}) -%]
+                        [% ELSE %]
+                            [%- l('{email} (<strong>unverified!</strong>)', {
+                                    email=html_escape(user.email) } -%]
                         [% END %]
+                    [% ELSE %]
+                        [% l('(None)') %]
                     [% END %]
+                [% ELSE %]
+                    [% l('(none)') %]
                 [% END %]
             [% END %]
             [% WRAPPER property name=l("Subscriptions") %]
-                [% IF user.public_subscriptions == 'public' %]
+                [% IF user.preferences.get('subscriptions_public') %]
                     [% IF viewing_own_profile %]
                         [% l('Your subscriptions are public.') -%]
                     [% ELSE %]
-                        [% l('The subscriptions for {user} are public.', {user => html_encode(user.name)}) %]
+                        [% l('The subscriptions for {user} are public.', {user => html_escape(user.name)}) %]
                     [% END %]
                 [% ELSE %]
                     [% IF viewing_own_profile %]
                         [% l('Your subscriptions are private.') -%]
                     [% ELSE %]
-                        [% l('The subscriptions for {user} are private.', {user = html_encode(user.name)}) %]
+                        [% l('The subscriptions for {user} are private.', {user = html_escape(user.name)}) %]
                     [% END %]
                 [% END %]
             [% END %]
