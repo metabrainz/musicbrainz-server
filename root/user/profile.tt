@@ -14,7 +14,6 @@
         { link => c.uri_for("/review/$user.name/edits/open"), text => l("Open Edits") },
         { link => c.uri_for("/review/$user.name/edits/failed"), text => l("Failed Edits") },
         { link => c.uri_for("/review/$user.name/edits/cancelled"), text => l("Cancelled Edits") },
-        { link => c.uri_for('/user/subscriptions'), text => l("Subscriptions"), hide => not (viewing_own_profile or user.public_subscriptions) },
         { link => c.uri_for("/rating/display/$user.id/all"), text => l("Ratings") },
     ] %]
     [% edit_account_options = [
@@ -90,10 +89,11 @@
             [% END %]
             [% WRAPPER property name=l("Subscriptions") %]
                 [% IF user.preferences.get('subscriptions_public') %]
+                    [%- url=c.uri_for('/user/subscriptions', user.name) -%]
                     [% IF viewing_own_profile %]
-                        [% l('Your subscriptions are public.') -%]
+                        [% l('Your {view|subscriptions} are public.', {view=url}) -%]
                     [% ELSE %]
-                        [% l('The subscriptions for {user} are public.', {user => html_escape(user.name)}) %]
+                        [% l('The {view|subscriptions} for {user} are public.', {user => html_escape(user.name), view=url}) %]
                     [% END %]
                 [% ELSE %]
                     [% IF viewing_own_profile %]
@@ -104,9 +104,11 @@
                 [% END %]
             [% END %]
             [% WRAPPER property name="Subscribers" %]
-                [% user.subscriber_count %] (<a href="[% c.uri_for('/bad_link') %]">
-                    [% l('view all') %]
-                </a>)
+                [% IF user.subscriber_count > 0 %]
+                    [% l('{count} ({url|view})', c.uri_for('/user/subscribers', user.name)) %]
+                [% ELSE %]
+                    [% l('(none)') %]
+                [% END %]
             [% END %]
             [% INCLUDE "components/piped-list.tt" list=review_options WRAPPER property name=l("Review") %]
         </dl>

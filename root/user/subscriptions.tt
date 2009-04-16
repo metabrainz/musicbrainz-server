@@ -1,5 +1,6 @@
-[%- WRAPPER 'layout.tt' title=l('Your Subscriptions') -%]
-    [%- WRAPPER 'components/box.tt' header=l('Your Subscriptions') -%]
+[% title = viewing_own ? l('Your Subscriptions') : l("Subscriptions for {user}", {user=user.name}) -%]
+[%- WRAPPER 'layout.tt' -%]
+    [%- WRAPPER 'components/box.tt' header=title -%]
         <p>
             [% vars = {
                         user => user.name,
