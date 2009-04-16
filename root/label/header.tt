@@ -50,7 +50,7 @@
             ] -%]
             [% INCLUDE 'components/piped-list.tt' caption=l('Edit:') list=edit_links %]
         [%- ELSE -%]
-            [% l('Please <a href={uri}>log in</a> to edit this label.', {uri => c.uri_for('/user/login')}) %]
+            [% l('Please {uri|log in} to edit this label.', {uri => c.uri_for('/user/login')}) %]
         [%- END -%]
     </div>
 </div>

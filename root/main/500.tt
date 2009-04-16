@@ -6,7 +6,7 @@
         [%- l('(<abbr title="HyperText Transfer Protocol">HTTP</abbr> code 500)') -%]
     </h2>
     <p>
-        [% l('Sorry, it seems like something has gone wrong! Repeating your request may solve this problem, however if it persists, please file a bug report at <a href="http://bugs.musicbrainz.org">our bug tracker</a>.') %]
+        [% l('Sorry, it seems like something has gone wrong! Repeating your request may solve this problem, however if it persists, please file a bug report at {uri|our bug tracker}.', {uri="http://bugs.musicbrainz.org"}) %]
     </p>
     <p>
         [% l('The server returned the following error message:') %]

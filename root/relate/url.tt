@@ -6,7 +6,7 @@
         [%- WRAPPER 'layout/guidelines.tt' -%]
             [%- create_guideline(l('Select the <abbr title="Uniform Resource Locator">URL</abbr> relationship type and enter the <abbr title="Uniform Resource Locator">URL</abbr> below. Please note that the <abbr title="Uniform Resource Locator">URL</abbr> must be a valid <abbr title="Uniform Resource Locator">URL</abbr>, including the http:// or ftp:// protocol portion of the <abbr title="Uniform Resource Locator">URL</abbr>.')) %]
             [%- create_guideline('<strong>' _ l('You may not link to digital audio files or sites where unauthorized copies of copyrighted works can be downloaded.') _ '</strong>') %]
-            [%- create_guideline(l('If you would like to link directly to a downloadable music track, please ensure that the music is licensed under some free license such as one of the <a href="http://creativecommons.org">Creative Commons licenses</a>, the <a href="http://www.eff.org/IP/Open_licenses/eff_oal.php"><abbr title="Electronic Frontier Foundation">EFF</abbr>\'s Open Audio license</a>, or is otherwise legally available for free download by the general public.')) %]
+            [%- create_guideline(l('If you would like to link directly to a downloadable music track, please ensure that the music is licensed under some free license such as one of the {ccurl|Creative Commons licenses}, the {eff|<abbr title="Electronic Frontier Foundation">EFF</abbr>\'s Open Audio license}, or is otherwise legally available for free download by the general public.', {ccurl="http://creativecommons.org", eff="http://www.eff.org/IP/Open_licenses/eff_oal.php"})) %]
         [% END %]
     
         [% WRAPPER "forms/form.tt" moderation=1 %]

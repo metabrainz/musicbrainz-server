@@ -4,7 +4,7 @@
     [% INCLUDE 'editsuite/suiteloader.tt' %]
     [% WRAPPER 'components/box.tt' header=l('Add a Creative Commons license') %]
         <p>
-            [% l('Select a <a href="http://creativecommons.org/">Creative Commons</a> <a href="http://creativecommons.org/about/licenses/meet-the-licenses">license</a> and enter the <abbr title="Uniform Resource Locator">URL</abbr> where this release can be downloaded. If possible, please link directly to a media file (e.g. mp3). Please note that the <abbr title="Uniform Resource Locator">URL</abbr> must be a valid <abbr title="Uniform Resource Locator">URL</abbr>, including the <code>http://</code> or <code>ftp://</code> protocol portion of the <abbr title="Uniform Resource Locator">URL</abbr>.') %]
+            [% l('Select a {ccurl|Creative Commons} {licenses|license} and enter the <abbr title="Uniform Resource Locator">URL</abbr> where this release can be downloaded. If possible, please link directly to a media file (e.g. mp3). Please note that the <abbr title="Uniform Resource Locator">URL</abbr> must be a valid <abbr title="Uniform Resource Locator">URL</abbr>, including the <code>http://</code> or <code>ftp://</code> protocol portion of the <abbr title="Uniform Resource Locator">URL</abbr>.', {ccurl="http://creativecommons.org", licenses="http://creativecommons.org/about/licenses/meet-the-licenses"}) %]
         </p>
         [% WRAPPER 'forms/form.tt' %]
             [% INCLUDE 'forms/generic/row.tt' field=form.field('license') label=l('License') %]

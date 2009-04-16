@@ -1,7 +1,7 @@
 [%- url = "http://musicbrainz.org/${entity.entity_type}/${entity.mbid}" -%]
 [%- WRAPPER 'components/box.tt' header="Link to ${entity.name}" -%]
     [%- WRAPPER 'layout/guidelines.tt' -%]
-        [%- create_guideline(l('The permanent link for the MusicBrainz {type} {entity} is <a href="{uri}">{html_uri}</a>.', {type => entity.entity_type, entity => entity_link(entity), uri => url_escape(url), html_uri => html_escape(url)})) -%]
+        [%- create_guideline(l('The permanent link for the MusicBrainz {type} {entity} is {uri|html_uri}.', {type => entity.entity_type, entity => entity_link(entity), uri => url_escape(url), html_uri => html_escape(url)})) -%]
         [%- create_guideline(l('If you wish to add a permanent link to the MusicBrainz {type} {entity} from your web page or blog, choose one of the link styles below.', {type => entity.entity_type, entity => entity_link(entity)})) %]
         [%- create_guideline(l('Just highlight (Ctrl+a) the content in the textbox, and copy (Ctrl+c) and paste (Ctrl+v) it into your web page or blog.')) -%]
     [%- END -%]

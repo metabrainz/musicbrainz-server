@@ -10,7 +10,7 @@
     [% END %]
     [% WRAPPER 'components/box.tt' header=l('Search For An Existing Artist') %]
         <p>
-            [% l('Please search and select the correct artist.  If searching yields no useful results, you can <a href="?add=1">add a new artist</a>') %]
+            [% l('Please search and select the correct artist.  If searching yields no useful results, you may add the artist using the form below.') %]
         </p>
         [% BLOCK create_link; '?id=${entity.id}&for=${key}'; END %]
         [% INCLUDE 'components/search.tt' entities=artists search_label=l('Artist') %]

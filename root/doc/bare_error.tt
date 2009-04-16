@@ -3,6 +3,6 @@
         [%- l('The wiki page {id} does not exist. (Status: {status} ).', {id => page.id, status => page.status}) -%]
     </p>
     <p>
-        [% l('It is possible that the page <strong>{id}</strong> does not exist <em>yet</em>.  You might find a page which has a similar title by using the page search function in the <a href=\"http://wiki.musicbrainz.org\">MusicBrainz Wiki</a>. If this does not help either, and you know how to edit wiki pages, please help us by completing our documentation.', {id => page.id}) %]
+        [% l('It is possible that the page <strong>{id}</strong> does not exist <em>yet</em>.  You might find a page which has a similar title by using the page search function in the {uri|MusicBrainz Wiki}. If this does not help either, and you know how to edit wiki pages, please help us by completing our documentation.', {id => page.id, uri="http://wiki.musicbrainz.org"}) %]
     </p>
 [% END %]

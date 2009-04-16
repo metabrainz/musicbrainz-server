@@ -1,5 +1,5 @@
 [% WRAPPER "search/error/wrapper.tt" %]
     <p>
-        [% l('Sorry, your query (<code>{query}</code>) does not contain enough information to carry out a search. If you are attempting to find something that contains nothing but punctuation characters (e.g. !!!) then you need to use the <a href=\"{uri}\">browse page</a>, since this search ignores punctuation characters.', {query => html_escape(query), uri => c.uri_for("/${type}/browse")}) %]
+        [% l('Sorry, your query (<code>{query}</code>) does not contain enough information to carry out a search. If you are attempting to find something that contains nothing but punctuation characters (e.g. !!!) then you need to use the {uri|browse page}, since this search ignores punctuation characters.', {query => html_escape(query), uri => c.uri_for("/${type}/browse")}) %]
     </p>
 [% END %]

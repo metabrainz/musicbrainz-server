@@ -12,7 +12,7 @@
                         { link => c.entity_url(release_artist, 'add_non_album'), text => l('Add Non-Album Tracks') }
                     ] caption=l('Edit:') -%]
                 [%- ELSE -%]
-                    [% l('Please <a href="{uri}">log in</a> to edit this list.', {uri => c.uri_for("/user/login")}) %]
+                    [% l('Please {uri|log in} to edit this list.', {uri => c.uri_for("/user/login")}) %]
                 [%- END -%]
             </div>
         </div>

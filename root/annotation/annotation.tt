@@ -20,7 +20,7 @@
                         { link => c.uri_for('/annotation', parent.entity_type, parent.mbid, 'history'), text => l('History') }
                         ] -%]
                 [%- ELSE -%]
-                    [% l('Please <a href={uri}>log in</a> to edit this annotation.', {uri => c.uri_for('/user/login')}) %]
+                    [% l('Please {uri|log in} to edit this annotation.', {uri => c.uri_for('/user/login')}) %]
                 [%- END -%]
             </div>
         </div>
@@ -35,7 +35,7 @@
                     [% l('Add an annotation') %]
                 </a>
             [%- ELSE -%]
-                [% l('Please <a href={uri}>log in</a> to add an annotation.', {uri => c.uri_for('/user/login')}) %]
+                [% l('Please {uri|log in} to add an annotation.', {uri => c.uri_for('/user/login')}) %]
             [%- END -%]
         </div>
     </div>
