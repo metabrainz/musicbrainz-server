@@ -152,14 +152,14 @@
                         <tr>
                             <th headers="table_vote_summary_vote">
                                 [% v.name | ucfirst%]
-                            </td>
-                            <td headers="table_vote_summary_recent">
+                            </th>
+                            <td class="votes" headers="table_vote_summary_recent">
                                 [% add_commas(v.recent) %]
                             </td>
                             <td headers="table_vote_summary_recent">
                                 ([% v.recent_pc %]%)
                             </td>
-                            <td headers="table_vote_summary_overall">
+                            <td class="votes" headers="table_vote_summary_overall">
                                 [% add_commas(v.overall) %]
                             </td>
                             <td headers="table_vote_summary_overall">
@@ -171,15 +171,15 @@
                 <tfoot>
                     [% totals = votes.last %]
                         <tr>
-                            <td style="font-weight: bold;" headers="table_vote_summary_vote">
+                            <th headers="table_vote_summary_vote">
                                 [% totals.name | ucfirst%]
-                            </td>
-                            <td style="font-weight: bold; text-align: center;" headers="table_vote_summary_recent">
+                            </th>
+                            <th class="votes" headers="table_vote_summary_recent">
                                 [% add_commas(totals.recent) %]
-                            </td>
-                            <td style="font-weight: bold; text-align: center;" headers="table_vote_summary_overall">
+                            </th>
+                            <th class="votes" headers="table_vote_summary_overall">
                                 [% add_commas(totals.overall) %]
-                            </td>
+                            </th>
                         </tr>
                 </tfoot>
             </table>

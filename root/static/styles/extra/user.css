@@ -32,6 +32,14 @@ h3 {
 }
 
 .statistics tbody th { 
-    text-align:right;
+    text-align: right;
     padding-right: 10pt;
+}
+
+.statistics tbody td.votes { 
+    text-align: right;
+}
+
+.statistics tfoot th.votes { 
+    text-align: center;
 }
