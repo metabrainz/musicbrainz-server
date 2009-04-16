@@ -74,12 +74,12 @@
                 [% IF viewing_own_profile %]
                     [% IF user.email %]
                         [% IF user.email_confirmation_date %]
-                            [%- l('{email} (verified at {date}', {
+                            [%- l('{email} (verified at {date})', {
                                     email=html_escape(user.email),
-                                    date=UserFormat.date(user.email_confirmation_date)}) -%]
+                                    date=UserDate.format(user.email_confirmation_date)}) -%]
                         [% ELSE %]
                             [%- l('{email} (<strong>unverified!</strong>)', {
-                                    email=html_escape(user.email) } -%]
+                                    email=html_escape(user.email)}) -%]
                         [% END %]
                     [% ELSE %]
                         [% l('(None)') %]
