@@ -39,7 +39,7 @@
                  header = l("You are using a MusicBrainz $server_details.staging_server server!")
                  color = "purple" %]
                 <p>
-                    [% l('Unless you want to be testing the latest and greatest MusicBrainz features you probably want to go to the {uri|<img src="{ext_link}" alt="{ext_site}" /> main MusicBrainz server}.', {ext_link => c.uri_for('/static/images/icon/extlink.gif'), ext_site => l("External Website"), uri="http://musicbrainz.org"}) %]
+                    [% l('Unless you want to be testing the latest and greatest MusicBrainz features you probably want to go to the <img src="{ext_link}" alt="{ext_site}" />{uri| main MusicBrainz server}.', {ext_link => c.uri_for('/static/images/icon/extlink.gif'), ext_site => l("External Website"), uri="http://musicbrainz.org"}) %]
                 </p>
             [% END %]
         [% END %]

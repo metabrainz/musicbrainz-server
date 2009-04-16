@@ -113,6 +113,8 @@ sub PostLoad
 	$self->{_new_releases} = \@releases;
 	$self->{_quality} = $new->{Quality};
     $self->{_prev_low} = $l;
+    $self->{changed_releases} = $self->{_new_releases};
+    $self->{new_quality} = $self->{_quality};
 }
 
 sub GetQualityChangeDirection

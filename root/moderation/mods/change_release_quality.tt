@@ -1,0 +1,5 @@
+[% changes = [ ] -%]
+
+[%- INCLUDE 'moderation/mods/diff_table.tt' changes=[
+    { label=l('Quality'), new=data_quality(moderation.new_quality) }
+    ] no_prev=1 -%]
