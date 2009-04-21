@@ -1,8 +1,9 @@
 use strict;
 use warnings;
-use Test::More tests => 10;
+use Test::More tests => 11;
 use_ok 'MusicBrainz::Server::Entity::Artist';
 use_ok 'MusicBrainz::Server::Entity::ArtistType';
+use_ok 'MusicBrainz::Server::Entity::ArtistAlias';
 
 my $artist = MusicBrainz::Server::Entity::Artist->new();
 ok( defined $artist->begin_date );

@@ -1,18 +1,49 @@
-package MusicBrainz::Server::Entity::ArtistAlias;
+package MusicBrainz::Server::Entity::Work;
 
 use Moose;
 use MusicBrainz::Server::Entity::Types;
 
-extends 'MusicBrainz::Server::Entity::Alias';
+extends 'MusicBrainz::Server::Entity::CoreEntity';
 
-has 'artist_id' => (
+has 'type_id' => (
+    is => 'rw',
+    isa => 'Int'
+    );
+
+has 'type' => (
+    is => 'rw',
+    isa => 'WorkType'
+);
+
+sub type_name
+{
+    my ($self) = @_;
+    return $self->type ? $self->type->name : undef;
+}
+
+has 'artist_credit_id' => (
     is => 'rw',
     isa => 'Int'
 );
 
-has 'artist' => (
+has 'artist_credit' => (
     is => 'rw',
-    isa => 'Artist'
+    isa => 'ArtistCredit'
+);
+
+has 'iswc' => (
+    is => 'rw',
+    isa => 'Str'
+);
+
+has 'comment' => (
+    is => 'rw',
+    isa => 'Str'
+);
+
+has 'edits_pending' => (
+    is => 'rw',
+    isa => 'Int'
 );
 
 __PACKAGE__->meta->make_immutable;

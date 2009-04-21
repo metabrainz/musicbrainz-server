@@ -1,18 +1,17 @@
-package MusicBrainz::Server::Entity::ArtistAlias;
+package MusicBrainz::Server::Entity::Alias;
 
 use Moose;
-use MusicBrainz::Server::Entity::Types;
 
-extends 'MusicBrainz::Server::Entity::Alias';
+extends 'MusicBrainz::Server::Entity::Entity';
 
-has 'artist_id' => (
+has 'name' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Str'
 );
 
-has 'artist' => (
+has 'edits_pending' => (
     is => 'rw',
-    isa => 'Artist'
+    isa => 'Int'
 );
 
 __PACKAGE__->meta->make_immutable;

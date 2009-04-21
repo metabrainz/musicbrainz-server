@@ -1,18 +1,12 @@
-package MusicBrainz::Server::Entity::ArtistAlias;
+package MusicBrainz::Server::Entity::WorkType;
 
 use Moose;
-use MusicBrainz::Server::Entity::Types;
 
-extends 'MusicBrainz::Server::Entity::Alias';
+extends 'MusicBrainz::Server::Entity::Entity';
 
-has 'artist_id' => (
+has 'name' => (
     is => 'rw',
-    isa => 'Int'
-);
-
-has 'artist' => (
-    is => 'rw',
-    isa => 'Artist'
+    isa => 'Str'
 );
 
 __PACKAGE__->meta->make_immutable;

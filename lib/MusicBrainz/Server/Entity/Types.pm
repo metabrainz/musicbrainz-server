@@ -26,6 +26,15 @@ subtype 'Gender'
 subtype 'PartialDate'
     => as class_type 'MusicBrainz::Server::Entity::PartialDate';
 
+subtype 'Work'
+    => as class_type 'MusicBrainz::Server::Entity::Work';
+
+subtype 'WorkAlias'
+    => as class_type 'MusicBrainz::Server::Entity::WorkAlias';
+
+subtype 'WorkType'
+    => as class_type 'MusicBrainz::Server::Entity::WorkType';
+
 1;
 
 =head1 COPYRIGHT
