@@ -17,6 +17,15 @@ subtype 'ArtistCreditName'
 subtype 'ArtistType'
     => as class_type 'MusicBrainz::Server::Entity::ArtistType';
 
+subtype 'Label'
+    => as class_type 'MusicBrainz::Server::Entity::Label';
+
+subtype 'LabelAlias'
+    => as class_type 'MusicBrainz::Server::Entity::LabelAlias';
+
+subtype 'LabelType'
+    => as class_type 'MusicBrainz::Server::Entity::LabelType';
+
 subtype 'Country'
     => as class_type 'MusicBrainz::Server::Entity::Country';
 
