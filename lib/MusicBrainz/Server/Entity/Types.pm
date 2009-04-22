@@ -32,8 +32,41 @@ subtype 'Country'
 subtype 'Gender'
     => as class_type 'MusicBrainz::Server::Entity::Gender';
 
+subtype 'Language'
+    => as class_type 'MusicBrainz::Server::Entity::Language';
+
+subtype 'Medium'
+    => as class_type 'MusicBrainz::Server::Entity::Medium';
+
+subtype 'MediumFormat'
+    => as class_type 'MusicBrainz::Server::Entity::MediumFormat';
+
 subtype 'PartialDate'
     => as class_type 'MusicBrainz::Server::Entity::PartialDate';
+
+subtype 'ReleaseGroup'
+    => as class_type 'MusicBrainz::Server::Entity::ReleaseGroup';
+
+subtype 'ReleaseGroupType'
+    => as class_type 'MusicBrainz::Server::Entity::ReleaseGroupType';
+
+subtype 'Release'
+    => as class_type 'MusicBrainz::Server::Entity::Release';
+
+subtype 'ReleaseStatus'
+    => as class_type 'MusicBrainz::Server::Entity::ReleaseStatus';
+
+subtype 'ReleasePackaging'
+    => as class_type 'MusicBrainz::Server::Entity::ReleasePackaging';
+
+subtype 'ReleaseLabel'
+    => as class_type 'MusicBrainz::Server::Entity::ReleaseLabel';
+
+subtype 'Script'
+    => as class_type 'MusicBrainz::Server::Entity::Script';
+
+subtype 'Tracklist'
+    => as class_type 'MusicBrainz::Server::Entity::Tracklist';
 
 subtype 'Work'
     => as class_type 'MusicBrainz::Server::Entity::Work';
