@@ -72,11 +72,6 @@ has 'comment' => (
     isa => 'Str'
 );
 
-has 'edits_pending' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

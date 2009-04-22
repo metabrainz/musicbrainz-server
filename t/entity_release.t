@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 26;
+use Test::More tests => 27;
 use_ok 'MusicBrainz::Server::Entity::Release';
 use_ok 'MusicBrainz::Server::Entity::ReleasePackaging';
 use_ok 'MusicBrainz::Server::Entity::ReleaseStatus';
@@ -11,6 +11,9 @@ use_ok 'MusicBrainz::Server::Entity::Tracklist';
 my $release = MusicBrainz::Server::Entity::Release->new();
 ok( defined $release->date );
 ok( $release->date->is_empty );
+
+$release->edits_pending(2);
+is( $release->edits_pending, 2 );
 
 is( $release->status_name, undef );
 $release->status(MusicBrainz::Server::Entity::ReleaseStatus->new(id => 1, name => 'Official'));

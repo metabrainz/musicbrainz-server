@@ -160,11 +160,6 @@ sub combined_format_name
     return join " + ", @formats;
 }
 
-has 'edits_pending' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

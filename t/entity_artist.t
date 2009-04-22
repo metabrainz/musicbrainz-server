@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 11;
+use Test::More tests => 12;
 use_ok 'MusicBrainz::Server::Entity::Artist';
 use_ok 'MusicBrainz::Server::Entity::ArtistType';
 use_ok 'MusicBrainz::Server::Entity::ArtistAlias';
@@ -16,3 +16,6 @@ $artist->type(MusicBrainz::Server::Entity::ArtistType->new(id => 1, name => 'Per
 is( $artist->type_name, 'Person' );
 is( $artist->type->id, 1 );
 is( $artist->type->name, 'Person' );
+
+$artist->edits_pending(2);
+is( $artist->edits_pending, 2 );

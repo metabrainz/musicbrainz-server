@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 13;
+use Test::More tests => 14;
 use_ok 'MusicBrainz::Server::Entity::Label';
 use_ok 'MusicBrainz::Server::Entity::LabelType';
 use_ok 'MusicBrainz::Server::Entity::LabelAlias';
@@ -20,3 +20,6 @@ is( $label->type->name, 'Production' );
 $label->label_code(123);
 is( $label->label_code, 123 );
 is( $label->format_label_code, 'LC-00123' );
+
+$label->edits_pending(2);
+is( $label->edits_pending, 2 );
