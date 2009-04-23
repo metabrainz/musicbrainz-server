@@ -44,6 +44,7 @@ requires 'Moose'                                       => '0.640';
 requires 'MooseX::AttributeHelpers'                    => '0.140';
 requires 'MooseX::Storage'                             => '0.150';
 requires 'OSSP::uuid'                                  => '1.060200';
+requires 'Readonly';
 requires 'String::ShellQuote'                          => '1.030';
 requires 'String::Similarity'                          => '1.030';
 requires 'Text::Unaccent'                              => '1.080';
