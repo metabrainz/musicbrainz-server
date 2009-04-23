@@ -1,22 +1,12 @@
-package MusicBrainz::Server::Entity::CoreEntity;
+package MusicBrainz::Server::Entity::Editable;
 
-use Moose;
+use Moose::Role;
 
-extends 'MusicBrainz::Server::Entity::Entity';
-with 'MusicBrainz::Server::Entity::Editable';
-
-has 'gid' => (
+has 'edits_pending' => (
     is => 'rw',
-    isa => 'Str'
+    isa => 'Int'
 );
 
-has 'name' => (
-    is => 'rw',
-    isa => 'Str'
-);
-
-__PACKAGE__->meta->make_immutable;
-no Moose;
 1;
 
 =head1 COPYRIGHT

@@ -3,15 +3,11 @@ package MusicBrainz::Server::Entity::Alias;
 use Moose;
 
 extends 'MusicBrainz::Server::Entity::Entity';
+with 'MusicBrainz::Server::Entity::Editable';
 
 has 'name' => (
     is => 'rw',
     isa => 'Str'
-);
-
-has 'edits_pending' => (
-    is => 'rw',
-    isa => 'Int'
 );
 
 __PACKAGE__->meta->make_immutable;

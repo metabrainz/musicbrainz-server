@@ -1,18 +1,49 @@
-package MusicBrainz::Server::Entity::CoreEntity;
+package MusicBrainz::Server::Entity::TracklistTrack;
 
 use Moose;
+use MusicBrainz::Server::Entity::Types;
 
 extends 'MusicBrainz::Server::Entity::Entity';
 with 'MusicBrainz::Server::Entity::Editable';
 
-has 'gid' => (
+has 'track_id' => (
     is => 'rw',
-    isa => 'Str'
+    isa => 'Int'
+);
+
+has 'track' => (
+    is => 'rw',
+    isa => 'Track'
+);
+
+has 'tracklist_id' => (
+    is => 'rw',
+    isa => 'Int'
+);
+
+has 'tracklist' => (
+    is => 'rw',
+    isa => 'Tracklist'
+);
+
+has 'position' => (
+    is => 'rw',
+    isa => 'Int'
 );
 
 has 'name' => (
     is => 'rw',
     isa => 'Str'
+);
+
+has 'artist_credit_id' => (
+    is => 'rw',
+    isa => 'Int'
+);
+
+has 'artist_credit' => (
+    is => 'rw',
+    isa => 'ArtistCredit'
 );
 
 __PACKAGE__->meta->make_immutable;

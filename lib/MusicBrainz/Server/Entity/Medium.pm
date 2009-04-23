@@ -4,6 +4,7 @@ use Moose;
 use MusicBrainz::Server::Entity::Types;
 
 extends 'MusicBrainz::Server::Entity::Entity';
+with 'MusicBrainz::Server::Entity::Editable';
 
 has 'position' => (
     is => 'rw',
@@ -50,11 +51,6 @@ sub format_name
     my ($self) = @_;
     return $self->format ? $self->format->name : undef;
 }
-
-has 'edits_pending' => (
-    is => 'rw',
-    isa => 'Int'
-);
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

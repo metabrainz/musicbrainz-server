@@ -1,16 +1,26 @@
-package MusicBrainz::Server::Entity::CoreEntity;
+package MusicBrainz::Server::Entity::Track;
 
 use Moose;
+use MusicBrainz::Server::Entity::Types;
 
-extends 'MusicBrainz::Server::Entity::Entity';
-with 'MusicBrainz::Server::Entity::Editable';
+extends 'MusicBrainz::Server::Entity::CoreEntity';
 
-has 'gid' => (
+has 'artist_credit_id' => (
     is => 'rw',
-    isa => 'Str'
+    isa => 'Int'
 );
 
-has 'name' => (
+has 'artist_credit' => (
+    is => 'rw',
+    isa => 'ArtistCredit'
+);
+
+has 'length' => (
+    is => 'rw',
+    isa => 'Int'
+);
+
+has 'comment' => (
     is => 'rw',
     isa => 'Str'
 );

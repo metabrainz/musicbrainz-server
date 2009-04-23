@@ -65,8 +65,14 @@ subtype 'ReleaseLabel'
 subtype 'Script'
     => as class_type 'MusicBrainz::Server::Entity::Script';
 
+subtype 'Track'
+    => as class_type 'MusicBrainz::Server::Entity::Track';
+
 subtype 'Tracklist'
     => as class_type 'MusicBrainz::Server::Entity::Tracklist';
+
+subtype 'TracklistTrack'
+    => as class_type 'MusicBrainz::Server::Entity::TracklistTrack';
 
 subtype 'Work'
     => as class_type 'MusicBrainz::Server::Entity::Work';
