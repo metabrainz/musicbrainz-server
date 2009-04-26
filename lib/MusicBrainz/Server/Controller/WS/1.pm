@@ -2,7 +2,7 @@ package MusicBrainz::Server::Controller::WS::1;
 
 use strict;
 use warnings;
-use Catalyst qw(Authentication);
+
 use MusicBrainz::Server::Handlers::WS::1::Artist;
 use MusicBrainz::Server::Handlers::WS::1::Common;
 use MusicBrainz::Server::Handlers::WS::1::Release;

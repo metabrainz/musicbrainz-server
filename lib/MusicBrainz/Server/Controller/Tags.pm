@@ -100,16 +100,6 @@ sub entity : Form('Tag::Tags')
     $c->stash->{template} = 'tag/tags.tt';
 }
 
-=head2 new
-
-Used to add a new tag to an entity
-
-=cut
-
-sub new : Chained('entity') PathPart
-{
-}
-
 =head2 all
 
 Show all the tags in the database in a tag cloud
