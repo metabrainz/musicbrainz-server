@@ -17,6 +17,15 @@ subtype 'ArtistCreditName'
 subtype 'ArtistType'
     => as class_type 'MusicBrainz::Server::Entity::ArtistType';
 
+subtype 'AutoEditorElection'
+    => as class_type 'MusicBrainz::Server::Entity::AutoEditorElection';
+
+subtype 'AutoEditorElectionVote'
+    => as class_type 'MusicBrainz::Server::Entity::AutoEditorElectionVote';
+
+subtype 'Editor'
+    => as class_type 'MusicBrainz::Server::Entity::Editor';
+
 subtype 'Label'
     => as class_type 'MusicBrainz::Server::Entity::Label';
 
