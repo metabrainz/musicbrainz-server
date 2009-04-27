@@ -1,0 +1,16 @@
+The Developer's Guide to the MusicBrainz Server
+===============================================
+
+Testing
+-------
+
+We use standard Perl tools for unit testing. Tests are located in the t/
+directory. The preferred way to run them is to use the `prove` program from
+Test::Harness. For example, to run all tests use:
+
+ $ prove -l t/
+ 
+Or if you want to run only specific tests:
+
+ $ prove -l t/entity_artist.t
+ $ prove -l t/entity*.t
