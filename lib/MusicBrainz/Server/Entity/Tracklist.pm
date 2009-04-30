@@ -14,7 +14,7 @@ has 'track_count' => (
 
 has 'tracks' => (
     is => 'rw',
-    isa => 'ArrayRef[TracklistTrack]',
+    isa => 'ArrayRef[Track]',
     lazy => 1,
     default => sub { [] },
     metaclass => 'Collection::Array',

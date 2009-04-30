@@ -53,6 +53,9 @@ subtype 'MediumFormat'
 subtype 'PartialDate'
     => as class_type 'MusicBrainz::Server::Entity::PartialDate';
 
+subtype 'Recording'
+    => as class_type 'MusicBrainz::Server::Entity::Recording';
+
 subtype 'ReleaseGroup'
     => as class_type 'MusicBrainz::Server::Entity::ReleaseGroup';
 
@@ -74,14 +77,11 @@ subtype 'ReleaseLabel'
 subtype 'Script'
     => as class_type 'MusicBrainz::Server::Entity::Script';
 
-subtype 'Track'
-    => as class_type 'MusicBrainz::Server::Entity::Track';
-
 subtype 'Tracklist'
     => as class_type 'MusicBrainz::Server::Entity::Tracklist';
 
-subtype 'TracklistTrack'
-    => as class_type 'MusicBrainz::Server::Entity::TracklistTrack';
+subtype 'Track'
+    => as class_type 'MusicBrainz::Server::Entity::Track';
 
 subtype 'Work'
     => as class_type 'MusicBrainz::Server::Entity::Work';

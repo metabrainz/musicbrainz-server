@@ -3,7 +3,38 @@ package MusicBrainz::Server::Entity::Track;
 use Moose;
 use MusicBrainz::Server::Entity::Types;
 
-extends 'MusicBrainz::Server::Entity::CoreEntity';
+extends 'MusicBrainz::Server::Entity::Entity';
+with 'MusicBrainz::Server::Entity::Editable';
+
+has 'recording_id' => (
+    is => 'rw',
+    isa => 'Int'
+);
+
+has 'recording' => (
+    is => 'rw',
+    isa => 'Recording'
+);
+
+has 'tracklist_id' => (
+    is => 'rw',
+    isa => 'Int'
+);
+
+has 'tracklist' => (
+    is => 'rw',
+    isa => 'Tracklist'
+);
+
+has 'position' => (
+    is => 'rw',
+    isa => 'Int'
+);
+
+has 'name' => (
+    is => 'rw',
+    isa => 'Str'
+);
 
 has 'artist_credit_id' => (
     is => 'rw',
@@ -13,16 +44,6 @@ has 'artist_credit_id' => (
 has 'artist_credit' => (
     is => 'rw',
     isa => 'ArtistCredit'
-);
-
-has 'length' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-has 'comment' => (
-    is => 'rw',
-    isa => 'Str'
 );
 
 __PACKAGE__->meta->make_immutable;
