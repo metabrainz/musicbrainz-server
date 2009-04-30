@@ -29,7 +29,6 @@ $(document).ready(function() {
         showHideLink.trigger("click");
     });
     /* Make the table sortable. */
-    $("thead").toggle();
     $(".release_tracks").tablesorter({
         textExtraction: "complex",
         headers: { 4: { sorter: false}}
