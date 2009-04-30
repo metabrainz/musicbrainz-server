@@ -32,6 +32,7 @@ package MusicBrainz::Server::Database;
 ################################################################################
 
 our %connections;
+our $_profile;
 
 # Register all at once (hash of hashes)
 sub register_all
@@ -74,6 +75,15 @@ sub register
 sub end_register
 {
 	();
+}
+
+sub profile
+{
+    my ($class, $profile) = @_;
+    if (defined $profile) {
+        $_profile = $profile;
+    }
+    return $_profile;
 }
 
 ################################################################################

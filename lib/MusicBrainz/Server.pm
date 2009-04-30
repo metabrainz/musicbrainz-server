@@ -8,6 +8,7 @@ use Catalyst::Runtime '5.70';
 use Catalyst;
 use DBDefs;
 use MusicBrainz;
+use MusicBrainz::Server::Context;
 
 # Set flags and add plugins for the application
 #
@@ -127,26 +128,15 @@ __PACKAGE__->setup(@args);
 
 sub dispatch {
     my $self = shift;
-    $self->mb_logout;
+    $self->{mb_context} = MusicBrainz::Server::Context->new();
     $self->NEXT::dispatch(@_);
-    $self->mb_logout;
+    $self->{mb_context}->mb_logout;
+    $self->{mb_context} = undef;
 }
 
 sub mb {
     my $self = shift;
-    if (!defined($self->{mb})) {
-        $self->{mb} = MusicBrainz->new;
-        $self->{mb}->Login;
-    }
-    return $self->{mb};
-}
-
-sub mb_logout {
-    my $self = shift;
-    if (defined($self->{mb})) {
-        $self->{mb}->Logout;
-        $self->{mb} = undef;
-    }
+    return $self->{mb_context}->mb;
 }
 
 sub entity_url

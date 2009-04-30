@@ -31,10 +31,28 @@ use lib "$FindBin::Bin/../lib";
 
 use strict;
 use DBDefs;
+use Getopt::Long;
+
+my $profile;
+my $system = 0;
+
+GetOptions(
+    "system"    => \$system,
+    "profile=s" => \$profile
+) or exit 2;
 
 my $key = shift;
 my $db = MusicBrainz::Server::Database->get($key)
 	or die "No such database '$key'\n";
+
+if ($system) {
+    my $sys_db = MusicBrainz::Server::Database->get("SYSTEM");
+    $db = $sys_db->modify(database => $db->database);
+}
+
+if (defined $profile && $profile eq "test") {
+    $ENV{"PGOPTIONS"} = "-c search_path=musicbrainz_test";
+}
 
 exec "psql", $db->shell_args;
 
