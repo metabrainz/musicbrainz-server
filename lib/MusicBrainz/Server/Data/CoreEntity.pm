@@ -1,28 +1,29 @@
-package MusicBrainz::Server::Data::ArtistType;
+package MusicBrainz::Server::Data::CoreEntity;
 
 use Moose;
-use MusicBrainz::Server::Entity::ArtistType;
 
 extends 'MusicBrainz::Server::Data::Entity';
 
-sub _table
+sub get_by_gid
 {
-    return 'artist_type';
-}
-
-sub _columns
-{
-    return 'id, name';
-}
-
-sub _entity_class
-{
-    return 'MusicBrainz::Server::Entity::ArtistType';
+    my ($self, $gid) = @_;
+    my @result = values %{$self->_get_by_keys("gid", $gid)};
+    return $result[0];
 }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
+
+=head1 NAME
+
+MusicBrainz::Server::Data::CoreEntity
+
+=head1 METHODS
+
+=head2 get_by_gid ($gid)
+
+Loads and returns a single CoreEntity instance for the specified $gid.
 
 =head1 COPYRIGHT
 

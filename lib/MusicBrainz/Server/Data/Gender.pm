@@ -15,14 +15,6 @@ sub _columns
     return 'id, name';
 }
 
-sub _column_mapping
-{
-    return {
-        id => 'id',
-        name => 'name'
-    };
-}
-
 sub _entity_class
 {
     return 'MusicBrainz::Server::Entity::Gender';

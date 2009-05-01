@@ -1,27 +1,21 @@
-package MusicBrainz::Server::Data::ArtistType;
+package MusicBrainz::Server::Data::Utils;
 
-use Moose;
-use MusicBrainz::Server::Entity::ArtistType;
+use base 'Exporter';
 
-extends 'MusicBrainz::Server::Data::Entity';
+use MusicBrainz::Server::Entity::PartialDate;
 
-sub _table
+our @EXPORT_OK = qw( partial_date_from_row );
+
+sub partial_date_from_row
 {
-    return 'artist_type';
+    my ($row, $prefix) = @_;
+    my %info;
+    $info{year} = $row->{$prefix . 'year'} if defined $row->{$prefix . 'year'};
+    $info{month} = $row->{$prefix . 'month'} if defined $row->{$prefix . 'month'};
+    $info{day} = $row->{$prefix . 'day'} if defined $row->{$prefix . 'day'};
+    return MusicBrainz::Server::Entity::PartialDate->new(%info);
 }
 
-sub _columns
-{
-    return 'id, name';
-}
-
-sub _entity_class
-{
-    return 'MusicBrainz::Server::Entity::ArtistType';
-}
-
-__PACKAGE__->meta->make_immutable;
-no Moose;
 1;
 
 =head1 COPYRIGHT

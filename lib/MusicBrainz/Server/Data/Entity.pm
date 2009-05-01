@@ -31,10 +31,14 @@ sub _new_from_row
 {
     my ($self, $row) = @_;
     my %info;
-    my $mapping = $self->_column_mapping;
-    foreach my $column (%{$mapping}) {
-        if (exists $row->{$column}) {
-            my $attrib = $mapping->{$column};
+    my %mapping = %{$self->_column_mapping};
+    my @attribs = %mapping ? keys %mapping : keys %{$row};
+    foreach my $attrib (@attribs) {
+        my $column = $mapping{$attrib} || $attrib;
+        if (ref($column) eq 'CODE') {
+            $info{$attrib} = $column->($row);
+        }
+        elsif (defined $row->{$column}) {
             $info{$attrib} = $row->{$column};
         }
     }
@@ -68,10 +72,15 @@ sub get_by_id
     return $result[0];
 }
 
+sub _id_column
+{
+    return 'id';
+}
+
 sub get_by_ids
 {
     my ($self, @ids) = @_;
-    return $self->_get_by_keys("id", @ids);
+    return $self->_get_by_keys($self->_id_column, @ids);
 }
 
 __PACKAGE__->meta->make_immutable;

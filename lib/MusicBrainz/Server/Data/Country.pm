@@ -12,16 +12,7 @@ sub _table
 
 sub _columns
 {
-    return 'id, isocode, name';
-}
-
-sub _column_mapping
-{
-    return {
-        id => 'id',
-        isocode => 'iso_code',
-        name => 'name'
-    };
+    return 'id, isocode AS iso_code, name';
 }
 
 sub _entity_class
