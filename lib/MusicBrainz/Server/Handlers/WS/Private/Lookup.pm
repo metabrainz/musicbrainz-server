@@ -20,7 +20,7 @@
 #   along with this program; if not, write to the Free Software
 #   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
-#   $Id: Lookup.pm 10691 2008-11-13 09:55:31Z robert $
+#   $Id$
 #____________________________________________________________________________
 
 use strict;
@@ -50,6 +50,7 @@ sub handler
 	my $entitytype = $r->params->{"entitytype"};
 	my $query = $r->params->{"query"};
 	my $callid = $r->params->{"callid"} || 0;
+	my $offset = $r->params->{"offset"} || 0;
 
 	# entitytype has to be specified and is either artist|album|label|track
 	$entitytype = (
@@ -69,7 +70,7 @@ sub handler
 	}
 
 	eval {
-		my $status = serve_from_db($c, $entitytype, $query, $callid);
+		my $status = serve_from_db($c, $entitytype, $query, $callid, $offset);
 		return $status if defined $status;
 	};
 
@@ -94,7 +95,7 @@ sub bad_req
 
 sub serve_from_db
 {
-	my ($c, $entitytype, $query, $callid) = @_;
+	my ($c, $entitytype, $query, $callid, $offset) = @_;
 
 	require MusicBrainz;
 	my $mb = MusicBrainz->new;
@@ -124,14 +125,14 @@ sub serve_from_db
 	# loop through the list of results from
 	# the search engine , and create a list of hashes
 	# for the json conversion.
-	my @results;
+	my @allresults;
 	if (@r)
 	{
 		for my $row (@r)
 		{
 			if ($entitytype eq "artist") 
 			{
-				push @results, {
+				push @allresults, {
 					artist => {
 						id => $row->{artistid},
 						name => $row->{'artistname'},
@@ -142,7 +143,7 @@ sub serve_from_db
 			}
 			elsif ($entitytype eq "label") 
 			{
-				push @results, {
+				push @allresults, {
 					label => {
 						id => $row->{labelid},
 						name => $row->{'labelname'},
@@ -153,7 +154,7 @@ sub serve_from_db
 			}
 			elsif ($entitytype eq "album") 
 			{
-				push @results, {
+				push @allresults, {
 					artist => {
 						id => $row->{artistid},
 						name => $row->{'artistname'},
@@ -171,7 +172,7 @@ sub serve_from_db
 			}
 			elsif ($entitytype eq "track") 
 			{
-				push @results, {
+				push @allresults, {
 					artist => {
 						id => $row->{artistid},
 						name => $row->{'artistname'},
@@ -194,8 +195,8 @@ sub serve_from_db
 		}
 	}
 
-	my $hits = scalar(@results);
-	splice(@results, 10) if $hits > 10;
+	my $hits = scalar(@allresults);
+	my @results = @allresults[$offset..$offset+9];
 
 	# create literal object
 	my $obj = {
