@@ -55,7 +55,7 @@ sub cancel : Local Args(1)
             message  => 'You may not cancel elections you did not propose'
         );
     }
-    elsif (my $e = Exception::Class->caught('ElectionClosedException'))
+    elsif ($e = Exception::Class->caught('ElectionClosedException'))
     {
         $c->stash(
             template => 'elections/problem.tt',

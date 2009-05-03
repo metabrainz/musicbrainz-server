@@ -6,6 +6,7 @@ use warnings;
 use Catalyst::Runtime '5.70';
 
 use Catalyst;
+use MRO::Compat;
 use DBDefs;
 use MusicBrainz;
 use MusicBrainz::Server::Context;
@@ -129,7 +130,7 @@ __PACKAGE__->setup(@args);
 sub dispatch {
     my $self = shift;
     $self->{mb_context} = MusicBrainz::Server::Context->new();
-    $self->NEXT::dispatch(@_);
+    $self->maybe::next::method(@_);
     $self->{mb_context}->mb_logout;
     $self->{mb_context} = undef;
 }

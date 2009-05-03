@@ -34,7 +34,7 @@ sub _set_language {
 
     my @avail_lang = grep { my $l = $_ ; grep {$l eq $_ } DBDefs::MB_LANGUAGES } @{$c->{languages}};
 
-    $ENV{LANGUAGE} = $avail_lang[0];
+    $ENV{LANGUAGE} = $avail_lang[0] if @avail_lang;
 }
 
 sub gettext

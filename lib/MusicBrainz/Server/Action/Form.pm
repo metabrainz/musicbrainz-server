@@ -7,6 +7,7 @@ use base qw/Catalyst::Action Class::Accessor/;
 
 use Scalar::Util;
 use UNIVERSAL::require;
+use MRO::Compat;
 
 __PACKAGE__->mk_accessors(qw/_attr_params/);
 
@@ -43,7 +44,7 @@ sub execute
     my $self = shift;
     my ($controller, $c) = @_;
 
-    return $self->NEXT::execute(@_)
+    return $self->next::method(@_)
         unless exists $self->attributes->{ActionClass}
                    && ($self->attributes->{ActionClass}[0]
                        eq 'MusicBrainz::Server::Action::Form');
@@ -54,7 +55,7 @@ sub execute
     $c->stash->{form} = $form;
     $controller->form($form);
 
-    return $self->NEXT::execute(@_);
+    return $self->next::method(@_);
 }
 
 1;

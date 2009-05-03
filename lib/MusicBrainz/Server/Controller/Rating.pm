@@ -41,6 +41,9 @@ Display all of a users ratings, for a specifc entity type
 
 =cut
 
+use constant ENTITIES_PER_PAGE => 100;
+use constant ENTITIES_PER_SMALL_PAGE => 10;
+
 sub display : Path('display') Args(2)
 {
     my ($self, $c, $user_id, $entity_type) = @_;
@@ -64,12 +67,9 @@ sub display : Path('display') Args(2)
         $c->stash->{can_view} = $user->preferences->get("ratings_public");
     }
 
-    use constant ENTITIES_PER_PAGE => '100';
-    use constant ENTITIES_PER_SMALL_PAGE => '10';
-
     my $page_number = $c->req->query_params->{page} || 1;
     my $limit       = $entity_type eq 'all' ? 10 : 100;
-    my $offset      = ($limit, ENTITIES_PER_PAGE * ($page_number - 1));
+    my $offset      = ENTITIES_PER_PAGE * ($page_number - 1);
     foreach my $entity_type (@entity_types) 
     {
         my ($ratings, $rating_count) 

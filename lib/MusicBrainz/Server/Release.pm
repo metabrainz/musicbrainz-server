@@ -94,12 +94,11 @@ my %AlbumAttributeNames = (
 
 sub LinkEntityName { "album" }
 
-sub new
+sub BUILD
 {
-	my $class = shift;
-	my $self = $class->SUPER::new(@_);
-	$self->{attrs} = [ 0 ];
-	$self;
+    my ($self, $params) = @_;
+    $self->{attrs} = [ 0 ];
+    return $self;
 }
 
 # Accessor functions to set/get the artist id of this album
