@@ -6,6 +6,7 @@ use warnings;
 use URI;
 use XML::Feed;
 use LWP::UserAgent;
+use Encode qw( encode );
 
 sub get_cached
 {
@@ -13,46 +14,39 @@ sub get_cached
 
     # Check cache first
     my $feed = MusicBrainz::Server::Cache->get("feed-id-${feed_id}");
-    if ($feed)
+    if (!$feed)
     {
-        # HACK Force XML::Feed::RSS to load.
-        require XML::Feed;
-        my $fake = _fake_feed();
-        XML::Feed->parse(\$fake);
-    }
-    else
-    {
-	# Loading is a bit complicated, but we have to ensure we fetch the
-	# feed using any user defined proxies...
-	my $ua = LWP::UserAgent->new;
-	$ua->env_proxy;
+        # Loading is a bit complicated, but we have to ensure we fetch the
+        # feed using any user defined proxies...
+        my $ua = LWP::UserAgent->new;
+        $ua->env_proxy;
 
-	my $res = $ua->get($uri);
-	if ($res->is_success)
-	{
-	    my $content = $res->content;
-	    $feed = XML::Feed->parse(\$content)
-		or die XML::Feed->errstr;
+        my $res = $ua->get($uri);
+        if ($res->is_success)
+        {
+            my $content = $res->content;
+            my $feed_obj = XML::Feed->parse(\$content)
+                or die XML::Feed->errstr;
 
-	    MusicBrainz::Server::Cache->set("feed-id-${feed_id}", $feed);
-	}
+            my @entries;
+            for my $entry ($feed_obj->entries) {
+                push @entries, {
+                    title => encode("utf-8", $entry->title),
+                    summary => {
+                        body => encode("utf-8", $entry->summary->body),
+                    },
+                    link => encode("utf-8", $entry->link),
+                    issued => encode("utf-8", $entry->issued),
+                };
+            }
+
+            $feed = { entries => \@entries };
+
+            MusicBrainz::Server::Cache->set("feed-id-${feed_id}", $feed);
+        }
     }
 
     return $feed;
-}
-
-sub _fake_feed
-{
-    return <<'END_OF_FEED'
-<?xml version="1.0"?>
-<rss version="2.0">
-  <channel>
-    <description>Fake feed</description>
-    <link>http://example.org</link>
-    <title>Fake feed</title>
-  </channel>
-</rss>
-END_OF_FEED
 }
 
 1;
