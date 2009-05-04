@@ -33,6 +33,19 @@ INSERT INTO artist
 INSERT INTO artist (id, gid, name, sortname, type, gender, country) VALUES
     (2, '745c079d-374e-4436-9448-da92dedef3cf', 2, 3, 1, 1, 1);
 
+INSERT INTO artist_name (id, name, page) VALUES (4, 'Queen', 1234);
+INSERT INTO artist_name (id, name, page) VALUES (5, 'David Bowie', 1234);
+
+TRUNCATE artist_credit_name CASCADE;
+TRUNCATE artist_credit CASCADE;
+
+INSERT INTO artist (id, gid, name, sortname) VALUES
+    (3, '945c079d-374e-4436-9448-da92dedef3cf', 4, 4);
+
+INSERT INTO artist_credit (id, artistcount) VALUES (1, 2);
+INSERT INTO artist_credit_name (artist_credit, position, artist, name, joinphrase) VALUES (1, 0, 3, 4, ' & ');
+INSERT INTO artist_credit_name (artist_credit, position, artist, name, joinphrase) VALUES (1, 1, 3, 5, NULL);
+
 SET client_min_messages TO 'NOTICE';
 
 COMMIT;

@@ -17,6 +17,11 @@ has 'names' => (
     }
 );
 
+has 'artist_count' => (
+    is => 'rw',
+    isa => 'Int'
+);
+
 sub name
 {
     my ($self) = @_;
