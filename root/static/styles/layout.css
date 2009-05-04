@@ -293,15 +293,6 @@ div.bio {
     padding: 0px;
 }
 
-div.gravatar_profile {
-    float: left;
-    margin: 0 10px 10px 2px;
-}
-
-div.gravatar_profile img {
-    border: 1px solid #BBBBBB;
-}
-
 ul.tagcloud li {
     display: inline;
     padding-right: 10pt;
@@ -510,6 +501,7 @@ div.two_column_right {
     margin: 0.1em .5em 0.1em -.5em;
     padding: 0 0.5em;
 }
+
 div.grippie {
     background: #EEE url(/static/images/grippie.png) no-repeat scroll center 2px;
     border-color: #DDD;
@@ -533,4 +525,10 @@ table tr.even {
 }
 table tr.odd {
     background: #eee;
+}
+
+.PUID {
+ list-style-type:none;
+ margin:0;
+ padding:0;
 }

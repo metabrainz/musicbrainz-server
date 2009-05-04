@@ -37,7 +37,6 @@ use Digest::SHA1 qw/sha1_base64/;
 use CGI::Cookie;
 use Carp;
 use String::Similarity;
-use Gravatar::URL;
 use Encode qw( decode );
 
 use constant LOCKED_OUT_PASSWORD => "";
@@ -181,17 +180,6 @@ sub web_url_complete
 	return "mailto:$_" if /\@/;
 	$_ = "http://$_";
 	$_;
-}
-
-sub avatar_url
-{
-    my ($self, %opts) = @_;
-    return unless $self->email;
-    return gravatar_url(
-        email  => $self->email,
-        rating => 'r',
-        size   => $opts{size} || 150,
-    );
 }
 
 sub get

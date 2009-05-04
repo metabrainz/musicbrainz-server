@@ -1,12 +1,11 @@
-[% SET guessCase=1 styleGuidelines=1 %]
-[% PROCESS 'editsuite/suitereqs.tt' %]
+[%- SET styleGuidelines=1 -%]
+[%- PROCESS 'scripts/suitereqs.tt' -%]
 [% WRAPPER "artist/layout.tt" title=l('Confirm Label') RadioClick=1 %]
-    [% INCLUDE 'editsuite/suiteloader.tt' %]
     [% WRAPPER 'components/box.tt' header=l('Confirm Label') %]
         [% INCLUDE 'release_editor/bread_crumbs.tt' %]
-        <p>
-            [% l('Please confirm the label <strong>{label}</strong>', { label => entity_link(confirming) }) %]
-        </p>
+        [%- WRAPPER 'layout/guidelines.tt' -%]
+            [%- create_guideline(l('Please confirm the label <strong>{label}</strong>', { label => entity_link(confirming) })) -%]
+        [%- END -%]
     [% END %]
     [% WRAPPER 'components/box.tt' header=l('Search For An Existing Label') %]
         <p>
@@ -14,6 +13,7 @@
         </p>
         [% INCLUDE "components/search.tt" entities=labels search_label=l('Label') %]
     [% END %]
+    [%- suppressStyleGuidelines=1 -%]
     [%- INCLUDE 'label/edit_form.tt' form=create_label
         WRAPPER 'components/box.tt' header=l('Add New Label') -%]
 [% END %]

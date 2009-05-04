@@ -1,8 +1,10 @@
-[% SET styleGuidelines=1 %]
-[% PROCESS 'editsuite/suitereqs.tt' %]
+[%- SET styleGuidelines=1 -%]
+[%- PROCESS 'scripts/suitereqs.tt' -%]
 [%- WRAPPER 'release/layout.tt' title=l("Convert to Single Artist") -%]
-    [% INCLUDE 'editsuite/suiteloader.tt' %]
     [%- WRAPPER 'components/box.tt' header=l('Convert to Single Artist') -%]
+        [%- INCLUDE 'scripts/module_style_guidelines.tt' -%]
+        [%#- This next is needed only to get the guideline button to clear the Edit Note line, as this form has no non-note content. -#%]
+        <br style="margin-bottom: .8em;" />
         [%- WRAPPER 'forms/form.tt' -%]
             [%- INCLUDE 'forms/edit-note.tt' -%]
             [%- INCLUDE 'forms/submit.tt' label=l('Enter Edit') -%]

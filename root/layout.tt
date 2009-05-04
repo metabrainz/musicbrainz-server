@@ -6,8 +6,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>[% title %][% " - " IF title %]MusicBrainz.org</title>
         <link rel="stylesheet" type="text/css" href="/static/main.css" />
-        [% extra_js = extra_js _ ' ' _ editsuite_js %]
-        [% extra_css = extra_css _ ' ' _ editsuite_css %]
+        [% extra_js = extra_js _ ' ' _ scripts_js %]
+        [% extra_css = extra_css _ ' ' _ scripts_css %]
         [%- page = {
                 css = extra_css.split('\s+'),
                 js  = [
@@ -42,6 +42,7 @@
         [%- INCLUDE "layout/sidebar.tt" UNLESS no_sidebar -%]
         [%- INCLUDE "layout/footer-bar.tt" -%]
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+        <script type="text/javascript" src="/js_text"></script>
         [%- IF includeJQueryUI -%]
             <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
         [%- END %]
@@ -52,7 +53,7 @@
         <script type="text/javascript">
             $(function() {
                 $("input[type='radio']").dblclick(function() {
-                    $("input[type='submit']").click();
+                    $("fieldset:has(div:has(input[type='radio'])) ~ div:has(input[type='submit']) > input[type='submit']").click();
                 });
             });
         </script>

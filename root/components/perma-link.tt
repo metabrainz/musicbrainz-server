@@ -6,7 +6,7 @@
         [%- create_guideline(l('Just highlight (Ctrl+a) the content in the textbox, and copy (Ctrl+c) and paste (Ctrl+v) it into your web page or blog.')) -%]
     [%- END -%]
     <p>
-        [% l('If you wish to use a text link (e.g. {entity}, you can use the following markup:', {entity => entity_link(entity, 1)}) %]
+        [% l('If you wish to use a text link (e.g. {entity}), you can use the following markup:', {entity => entity_link(entity, 1)}) %]
     </p>
     <table id="id-table-link">
         <tr>
@@ -22,7 +22,7 @@
         </tr>
     </table>
     <p>
-        [% l('If you wish to use a link with an icon (e.g. {entity}, you can use the following markup:', {entity => entity_link(entity)}) %]
+        [% l('If you wish to use a link with an icon (e.g. {entity}), you can use the following markup:', {entity => entity_link(entity)}) %]
     </p>
     <table id="id-table-icon-link">
         <tr>
@@ -30,7 +30,7 @@
                 [%- l('Text Link:') -%]
             </th>
             <td>
-                <textarea cols="60" rows="5" title=l('Select text')>
+                <textarea cols="80" rows="5" title=l('Select text')>
                     [%- "<a href=\"$url\"><img src=\"http://musicbrainz.org/static/images/entity/${entity.entity_type}_small.gif\" />$entity.name</a>" | html -%]
                 </textarea>
             </td>

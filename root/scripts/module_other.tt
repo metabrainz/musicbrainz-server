@@ -1,0 +1,12 @@
+[%- IF undoRevert -%]
+    <span id="es-ur">
+    </span>
+[%- END -%]
+[%- IF guessAll -%]
+    <span id="es-guessall">
+    </span>
+[%- END -%]
+[%- IF URLFixer -%]
+    <span id="es-urlfixer">
+    </span>
+[%- END -%]

@@ -9,10 +9,8 @@ to be done to know what exactly is hidden, and in need of revealing. */
 
 $(document).ready(function(){
     $("#form-controls").append(' \
-        <div class="row no_label"> \
-            <button type="button" id="form-controls-button-showhide">Show Track Artists</button> \
-            <button type="button" id="form-controls-button-editall">Edit all Track Artists</button> \
-        </div> \
+        <input type="button" id="form-controls-button-showhide" value="' + text.ShowTrackArtists + '"/> \
+        <input type="button" id="form-controls-button-editall" value="' + text.EditAllTrackArtists + '"/> \
     ');
     $("#form-controls-button-editall").bind("click", function(){
         $(".switchable").each(function(){
@@ -21,8 +19,8 @@ $(document).ready(function(){
                 $(this).nextAll("input").toggle();
                 $(this).attr({ 
                     src: "/static/images/release_editor/edit-on.gif",
-                    title: "Change",
-                    alt: "Change"
+                    title: "' + text.Change + '",
+                    alt: "' + text.Change + '"
                 })
                 $(this).nextAll("div").css("display", "inline");
             }

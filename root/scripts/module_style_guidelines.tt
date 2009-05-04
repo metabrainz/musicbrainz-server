@@ -1,0 +1,15 @@
+[%- INCLUDE "scripts/module_trigger.tt" show=l('Show Style Guideline Lookup') hide=l('Hide Style Guideline Lookup') module="sg" -%]
+<form>
+    [%- WRAPPER 'forms/fieldset.tt' legend=l('Style Guideline Lookup') class="js-fieldset hidden formFieldset" id="js-fieldset-sg" -%]
+        <div class="js-button-row">
+            <strong>
+                <span id="es-sg-explain">
+                    [%- l("Select a guideline to view:") -%]
+                </span>
+            </strong>
+            [%- INCLUDE "scripts/module_guideline_list.tt" -%]
+        </div>
+        <div id="es-sg" class="js-sg-div">
+        </div>
+    [%- END -%]
+</form>

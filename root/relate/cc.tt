@@ -1,7 +1,6 @@
-[% SET styleGuidelines=1 %]
-[% PROCESS 'editsuite/suitereqs.tt' %]
+[%- SET styleGuidelines=1 -%]
+[%- PROCESS 'scripts/suitereqs.tt' -%]
 [% WRAPPER "${entity.entity_type}/layout.tt" title=l("Add a Creative Commons License") %]
-    [% INCLUDE 'editsuite/suiteloader.tt' %]
     [% WRAPPER 'components/box.tt' header=l('Add a Creative Commons license') %]
         <p>
             [% l('Select a {ccurl|Creative Commons} {licenses|license} and enter the <abbr title="Uniform Resource Locator">URL</abbr> where this release can be downloaded. If possible, please link directly to a media file (e.g. mp3). Please note that the <abbr title="Uniform Resource Locator">URL</abbr> must be a valid <abbr title="Uniform Resource Locator">URL</abbr>, including the <code>http://</code> or <code>ftp://</code> protocol portion of the <abbr title="Uniform Resource Locator">URL</abbr>.', {ccurl="http://creativecommons.org", licenses="http://creativecommons.org/about/licenses/meet-the-licenses"}) %]

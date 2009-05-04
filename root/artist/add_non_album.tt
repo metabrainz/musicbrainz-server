@@ -1,8 +1,8 @@
-[% SET guessCase=1 undoRevert=1 searchReplace=1 trackParser=1 styleGuidelines=1 guessAll=1 %]
-[% PROCESS 'editsuite/suitereqs.tt' %]
+[%- SET styleGuidelines=1 guessAll=1 undoRevert=1 -%]
+[%- PROCESS 'scripts/suitereqs.tt' -%]
 [%- WRAPPER 'artist/layout.tt' title=l('Add Non-Album Track') -%]
     [%- WRAPPER 'components/box.tt' header=l('Add Non-Album Track') -%]
-    [% INCLUDE 'editsuite/suiteloader.tt' %]
+        [%- INCLUDE 'scripts/module_load_status.tt' -%]
         [%- WRAPPER 'layout/guidelines.tt' -%]
             [%- create_guideline(l('Please enter the titles of the tracks you wish to add as {nonalbum_doc|non-album tracks}.', {nonalbum_doc => doc_link("NonAlbumTrack")})) -%]
             [%- create_guideline(l('Blank tracks will be ignored.  Leave empty the fields that you do not need.')) -%]
@@ -12,21 +12,25 @@
             <strong style="color: red;">
                 [% l('Important:') %]
             </strong>
-            [%- WRAPPER 'layout/guidelines.tt' -%]
+            <ul>
                 [%- create_guideline(l('Non-album tracks are designed for tracks that have not been released on <strong>ANY</strong> {doc_release|release}.', {doc_release => doc_link("Release")})) -%]
                 [%- create_guideline(l('Demo tracks and promotional tracks that have never been released on a release are good candidates for non-album tracks.')) -%]
                 [%- create_guideline(l('Most live versions are released on singles. If you want to enter those tracks into MusicBrainz, please enter them as the single, or import the single from {freedb|FreeDB}, instead of adding them as {nonalbum_tracks|non-album tracks}.', { freedb => doc_link("FreeDB"), nonalbum_tracks => doc_link("NonAlbumTrack")})) -%]
-            [%- END -%]
+            </ul>
         [%- END -%]
-        [%- WRAPPER 'forms/form.tt' moderation=1 es=1 -%]
-            [%- WRAPPER 'forms/fieldset.tt' legend=l('Tracks') -%]
+        [%- WRAPPER 'forms/form.tt' moderation=1 -%]
+            [%- INCLUDE 'scripts/module_search_replace.tt' -%]
+            [%- INCLUDE 'scripts/module_track_parser.tt' -%]
+            [%- WRAPPER 'forms/fieldset.tt' legend=l('Tracks') es=1 -%]
                 [%- WRAPPER 'forms/row.tt' -%]
                     [%- INCLUDE 'forms/label.tt' label=l('Artist') required=1 -%]
                     <div class="fields">[% entity_link(artist) %]</div>
                 [%- END -%]
                 [%- INCLUDE 'forms/generic/row.tt' field=form.field("track") label=l('Track') -%]
             [%- END -%]
+            [%- INCLUDE 'scripts/module_guess_case.tt' -%]
         [%- END -%]
     [%- END -%]
+    [% INCLUDE 'scripts/module_other.tt' %]
 [%- END -%]
 

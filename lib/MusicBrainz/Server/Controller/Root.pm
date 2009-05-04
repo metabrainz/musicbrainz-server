@@ -52,9 +52,6 @@ sub index : Path Args(0)
     $c->stash->{template} = 'main/index.tt';
 }
 
-sub es_text : Path('/es_text.tt') { }
-sub js_text : Path('/js_text.tt') { }
-
 =head2 default
 
 Handle any pages not matched by a specific controller path. In our case,
@@ -83,6 +80,11 @@ sub error_500 : Private
     $c->response->status(500);
     $c->stash->{template} = 'main/500.tt';
     $c->detach;
+}
+
+sub js_text : Path('/js_text') {
+    my ($self, $c) = @_;
+    $c->stash->{template} = 'scripts/js_text.tt';
 }
 
 sub begin : Private

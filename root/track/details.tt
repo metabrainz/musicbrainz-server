@@ -34,10 +34,10 @@
             </tr>
             <tr>
                 <th>
-                    [% l('<abbr title="Portable Unique IDentifiers">PUIDs</abbr>') %]
+                    [% l('<abbr title="Portable Unique IDentifiers">{doc|PUIDs}</abbr>', {doc => doc_link('PUID')}) %]
                 </th>
                 <td>
-                    <ul>
+                    <ul class="PUID">
                         [% FOREACH puid=puids %]
                         <li>
                             <a href="[% c.uri_for('/puid', puid.puid) %]">

@@ -1,8 +1,10 @@
-[% SET styleGuidelines=1 %]
-[% PROCESS 'editsuite/suitereqs.tt' %]
+[%- SET styleGuidelines=1 -%]
+[%- PROCESS 'scripts/suitereqs.tt' -%]
 [% WRAPPER 'release/layout.tt' title=l("Move Release to another Artist") %]
-    [% INCLUDE 'editsuite/suiteloader.tt' %]
     [% WRAPPER 'components/box.tt' header=l("Move Release to another Artist") %]
+        [%- INCLUDE 'scripts/module_style_guidelines.tt' -%]
+        [%#- This next is needed only to get the guideline button to clear the Edit Note line, as this form has no non-note content. -#%]
+        <br style="margin-bottom: .8em;" />
         [% BLOCK create_link; c.entity_url(release, 'move_to', entity.mbid); END %]
         [% INCLUDE "components/search.tt" search_label=l("Artist") entities=artists %]
     [% END %]

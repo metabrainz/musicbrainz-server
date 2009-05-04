@@ -1,0 +1,4 @@
+<div class="js-button-row" id="js-fieldset-[%- module -%]-row">
+    <input type="button" class="js-fieldset-trigger-show hidden" id="js-fieldset-[%- module -%]-trigger-show" value="[%- show -%]" />
+    <input type="button" class="js-fieldset-trigger-hide hidden" id="js-fieldset-[%- module -%]-trigger-hide" value="[%- hide -%]" />
+</div>

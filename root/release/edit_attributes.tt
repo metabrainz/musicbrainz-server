@@ -1,32 +1,32 @@
-[% SET styleGuidelines=1 %]
-[% PROCESS 'editsuite/suitereqs.tt' %]
+[%- SET styleGuidelines=1 -%]
+[%- PROCESS 'scripts/suitereqs.tt' -%]
 [%- WRAPPER 'release/layout.tt' title=l('Edit Release Attributes') -%]
-    [% INCLUDE 'editsuite/suiteloader.tt' %]
-[%- WRAPPER 'components/box.tt' header=l('Edit Release Attributes') -%]
-
-[%- WRAPPER 'forms/form.tt' -%]
-    <fieldset>
-        <legend>Release Type &amp; Status</legend>
-        [%- INCLUDE 'forms/generic/row.tt' field=form.field('type') label=l('Release Type:') -%]
-        [%- INCLUDE 'forms/generic/row.tt' field=form.field('status') label=l('Release Status:') -%]
-    </fieldset>
-
-    <fieldset>
-        <legend>Release Language</legend>
-        [%- INCLUDE 'forms/generic/row.tt' field=form.field('language') label=l('Language:') -%]
-        [%- INCLUDE 'forms/generic/row.tt' field=form.field('script') label=l('Script:') -%]
-
-        [% UNLESS all %]
-            [% WRAPPER 'label/blank_row.tt' %]
-            Currently only showing the most common languages and scripts.
-            <a href='?all=1'>Show all</a>
-            [% END %]
-        [% END %]
-    </fieldset>
-
-    [% INCLUDE 'forms/edit-note.tt' %]
-    [% INCLUDE 'forms/submit.tt' label='Enter Edit' %]
-[%- END -%]
-
-[%- END -%]
+    [%- WRAPPER 'components/box.tt' header=l('Edit Release Attributes') -%]
+        [%- WRAPPER 'forms/form.tt' -%]
+            <fieldset>
+                <legend>
+                    [%- l("Release Type &amp; Status") || html -%]
+                </legend>
+                [%- INCLUDE 'forms/generic/row.tt' field=form.field('type') label=l('Release Type:') -%]
+                [%- INCLUDE 'forms/generic/row.tt' field=form.field('status') label=l('Release Status:') -%]
+            </fieldset>
+            <fieldset>
+                <legend>
+                    [%- l("Release Language") -%]
+                </legend>
+                [%- INCLUDE 'forms/generic/row.tt' field=form.field('language') label=l('Language:') -%]
+                [%- INCLUDE 'forms/generic/row.tt' field=form.field('script') label=l('Script:') -%]
+                [% UNLESS all %]
+                    [% WRAPPER 'label/blank_row.tt' %]
+                        [%- l("Currently only showing the most common languages and scripts.") -%]
+                        <a href='?all=1'>
+                            [%- l("Show all") -%]
+                        </a>
+                    [% END %]
+                [% END %]
+            </fieldset>
+            [% INCLUDE 'forms/edit-note.tt' %]
+            [% INCLUDE 'forms/submit.tt' label='Enter Edit' %]
+        [%- END -%]
+    [%- END -%]
 [%- END -%]

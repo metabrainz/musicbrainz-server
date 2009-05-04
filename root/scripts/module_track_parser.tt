@@ -1,0 +1,82 @@
+[%- INCLUDE "scripts/module_trigger.tt" show=l('Show Track Parser') hide=l('Hide Track Parser') module="tp" -%]
+[%- WRAPPER 'forms/fieldset.tt' legend='Track Parser' class="js-fieldset hidden" id="js-fieldset-tp" -%]
+    [%- WRAPPER 'forms/row.tt' -%]
+        [%# Do not wrap the closing tag here, it will create whitespace within the textarea form. %]
+        <textarea id="es-tp-textarea" class="js-fullwidth" cols="88" rows="15"></textarea>
+    [%- END -%]
+    [%- BLOCK tpButtons -%]
+        <input type="button" id="es-tp-button-[%- button.id -%]" value="[%- button.text -%]">
+        </input>
+    [% END %]
+    [%- WRAPPER 'forms/row.tt' -%]
+        <div class="js-tp-buttons" style="width:30%;">
+            [%- WRAPPER 'forms/row.tt' -%]
+                [%- buttons = [
+                    { id="titles"   text => l('Parse Titles') },
+                    { id="times"    text => l('Parse Track Times') },
+                ] -%]
+                [% PROCESS tpButtons FOREACH button=buttons %]
+            [%- END -%]
+            [%- WRAPPER 'forms/row.tt' -%]
+                [%- buttons = [
+                    { id="all"      text => l('Parse All') },
+                    { id="artists"  text => l('Parse Artists') },
+                ] -%]
+                [% PROCESS tpButtons FOREACH button=buttons %]
+            [%- END -%]
+            [%- WRAPPER 'forms/row.tt' -%]
+                [%- buttons = [
+                    { id="swap"     text => l('Swap Titles and Artists') },
+                ] -%]
+                [% PROCESS tpButtons FOREACH button=buttons %]
+            [%- END -%]
+        </div>
+        [%- BLOCK checkboxOptions -%]
+            <span title="[%- checkbox.title -%]" id="[%- checkbox.for -%]-span">
+                <label for="[%- checkbox.for -%]" id="label-[%- checkbox.for -%]" >
+                    [%- IF checkbox.value -%]
+                        [%- INCLUDE "forms/widgets/checkbox.tt" type="checkbox" id="${checkbox.for}" value=1 -%]
+                    [%- ELSE -%]
+                        [%- INCLUDE "forms/widgets/checkbox.tt" type="checkbox" id="${checkbox.for}" -%]
+                    [%- END -%]
+                    [%- checkbox.label -%]
+                </label>
+            </span>
+        [%- END -%]
+        <div>
+            <div class="js-tp-options" style="width:30%;">
+                [%- checkboxes = [
+                    { for="es-tp-opt1" label => l('Set Release Title from first line') title => l('The first line is handled as the Release\'s title, which is filled into the Release title field.  Tracks are then expected to start on line 2.') value=1 },
+                    { for="es-tp-opt2" label => l('Tracknames start with a number')    title => l('Each line begins with a numeric (0-9) track number.  <br />Note, this is used only to avoid this text being placed into the track title fields.  It does not affect which track fields are actually filled.  (So if the text to parse starts with 2. it will still place that data into the first track, and not into the second.)') value=1 },
+                    { for="es-tp-opt3" label => l('Enable vinyl Track numbers')        title => l('Characters which are used for numbering of the Tracks may include alphanummeric characters (0-9, a-z) (a1, a2, … c, d, etc.).') },
+                    { for="es-tp-opt9" label => l('Data to parse includes artist information.') title => l('Click this checkbox if the text to parse includes artist names.') },
+                ] -%]
+                [% PROCESS checkboxOptions FOREACH checkbox=checkboxes %]
+            </div>
+            <div class="js-tp-options">
+                [%- checkboxes = [
+                    { for="es-tp-opt4" label => l('Detect Track times')      title => l('The line is inspected for an occurence of numbers separated by a colon.  If such a value is found, the Track time is read and stripped from the track title.  Parentheses surrounding the time are removed as well.') value=1 },
+                    { for="es-tp-opt5" label => l('Fill in Track times')     title => l('Fill in the Track times from the detected values (the above option).  If this box is not activated, the track time fields will not be modified.') value=1 },
+                    { for="es-tp-opt6" label => l('Remove text in brackets') title => l('Text in square brackets (usually links to other pages) is stripped from the titles.') },
+                ] -%]
+                [% PROCESS checkboxOptions FOREACH checkbox=checkboxes %]
+            </div>
+            <div class="js-tp-options">
+                [%- WRAPPER 'forms/row.tt' id="es-tp-opt9b-row" -%]
+                    <span id="es-tp-opt9b-span" title="[%- l('Separator characters used to indicate where the track title stops and the artist name starts.  (The tab character will be added to this list of split characters.)') %]">
+                        <span class="js-tp-separator-text">
+                            [%- l("Separators:") -%]
+                        </span>
+                        <input type="text" id="es-tp-opt9b" size="6" />
+                    </span>
+                [%- END -%]
+                [%- WRAPPER 'forms/row.tt' -%]
+                    <span id="es-tp-parse-span" title="[%- l('Load release information from a text file on your hard drive.<br /><br />Note: This function requires that JavaScript be able to read a file on your hard drive.  This JavaScript capability is only available in Firefox 3+.  This function therefore is not displayed in other browsers.') %]">
+                        [%- l('Load information from file:') -%]
+                        <input type="file" id="es-tp-loadfile" width="0" />
+                    </span>
+                [%- END -%]
+            </div>
+        </div>
+    [% END %]
+[%- END -%]

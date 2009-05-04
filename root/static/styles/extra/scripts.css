@@ -1,0 +1,89 @@
+.floatRight {
+ float: right;
+}
+
+.js-fieldset label {
+ white-space: nowrap;
+ text-align: left!important;
+ clear: both;
+}
+
+.js-progress-text {
+ padding-left: 3em;
+ padding-right: 3em;
+}
+
+.js-progress-text span {
+ float: left;
+ padding-top: 4px;
+ padding-left: 6px;
+ font-weight: bolder;
+}
+
+.js-fullwidth {
+ width: 100%;
+}
+
+.js-sg-div {
+ height: 0px;
+ overflow: auto;
+ border: 1px solid #FFBB55;
+ padding: 5pt;
+}
+
+.js-tp-buttons {
+ float: left;
+ text-align: center;
+ margin-left: 5%;
+ margin-right: 5%;
+}
+
+.js-tp-options {
+ float: left;
+ text-align: center;
+ white-space: nowrap;
+}
+
+.js-tp-separator-text {
+ vertical-align: top;
+}
+
+.js-button-row {
+ text-align: right;
+ padding-bottom: .5em;
+}
+
+.es_error_hint {
+ background: url(/static/images/header-bg-orangefade.gif);
+ border: 2px solid #F40;
+ font-weight: 700;
+ padding: 10px;
+ z-index: 1000;
+}
+.es_field_error {
+ background: #fcc;
+ border: 2px solid red;
+}
+
+.es-gc-button {
+ display: inline;
+ position: absolute;
+ right: 2%;
+ text-align: center;
+}
+
+.quickselectdiv,
+div.overlabel-wrapper {
+ display: inline;
+ position: relative;
+}
+label.overlabel {
+ color: #999;
+}
+label.overlabel-apply {
+ color: #999;
+ left: 3px;
+ padding-top: 1pt;
+ position: absolute;
+ z-index: 1;
+}

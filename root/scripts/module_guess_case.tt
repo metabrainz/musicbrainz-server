@@ -1,0 +1,52 @@
+[%- INCLUDE "scripts/module_trigger.tt" show=l('Show Guess Case Settings') hide=l('Hide Guess Case Settings') module="gc" -%]
+[%- WRAPPER 'forms/fieldset.tt' legend=l('Guess Case Settings') class="js-fieldset hidden" id="js-fieldset-gc" -%]
+    [%- WRAPPER 'forms/row.tt' -%]
+        <label for="es-gc-selection">
+            [%- l('Select the appropriate casing mode:') -%]
+            <select id="es-gc-selection">
+                [%- BLOCK languageOptions -%]
+                    <option value="[%- language.value -%]"
+                        [% IF language.value == "English" %]
+                            selected="selected"
+                        [% END -%]>
+                        [%- language.description -%]
+                    </option>
+                [%- END -%]
+                [%- languages = [
+                    { value="Czech"      description => l('Czech Mode') },
+                    { value="English"    description => l('English Mode') },
+                    { value="French"     description => l('French Mode') },
+                    { value="Latvian"    description => l('Latvian Mode') },
+                    { value="Lithuanian" description => l('Lithuanian Mode') },
+                    { value="Norwegian"  description => l('Norwegian Mode') },
+                    { value="Polish"     description => l('Polish Mode') },
+                    { value="Russian"    description => l('Russian Mode') },
+                    { value="Sentence"   description => l('Sentence Mode') },
+                    { value="Slovak"     description => l('Slovak Mode') },
+                    { value="Vietnamese" description => l('Vietnamese Mode') },
+                ] -%]
+                [%- PROCESS languageOptions FOREACH language=languages -%]
+            </select>
+        </label>
+    [%- END -%]
+    [%- BLOCK gcOptions -%]
+        [%- WRAPPER 'forms/row.tt' -%]
+            <span title="[%- option.title %]">
+                <label for="es-gc-opt[%- option.number %]" id="label-es-gc-opt[%- option.number -%]">
+                    [%- IF option.value -%]
+                        [%- INCLUDE "forms/widgets/checkbox.tt" type="checkbox" id="es-gc-opt${option.number}" value=1 -%]
+                    [%- ELSE -%]
+                        [%- INCLUDE "forms/widgets/checkbox.tt" type="checkbox" id="es-gc-opt${option.number}" -%]
+                    [%- END -%]
+                    [%- option.label -%]
+                </label>
+            </span>
+        [%- END -%]
+    [%- END -%]
+    [%- options = [
+        { number=1 label => l('Keep UPPERCASED words uppercased.')                    title => l('If a word is all UPPERCASE characters, it is kept that way.') value=1 },
+        { number=2 label => l('Automatically use Guess Case on track titles.')        title => l('Automatically use Guess Case on titles after you have typed in any track or release title field.') },
+        { number=3 label => l('Use Turkish capitalization rules for ı, i, I, and İ.') title => l('In the Turkish version of the Latin alphabet, I is not the uppercase form of the letter i.  If this mode is turned on, Guess Case will use the Turkish rules for capitalization, rather than standard Latin alphabet capitalization rules. Note: If there is a language dropdown on the current form, language there is set to any language which uses Turkish capitalization rules, this mode will be used even if this checkbox is turned off.') },
+    ] -%]
+    [%- PROCESS gcOptions FOREACH option=options -%]
+[%- END -%]

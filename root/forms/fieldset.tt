@@ -1,4 +1,10 @@
 <fieldset
+    [%- IF id -%]
+        id="[%- id -%]"
+    [%- END %]
+    [%- IF class -%]
+        class="[%- class -%]"
+    [%- END %]
     [%- IF es -%]
         id="es-form"
     [%- ELSIF re -%]

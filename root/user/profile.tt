@@ -27,11 +27,6 @@
         <h3>
             [% l('Bio:') %]
         </h3>
-        [% IF user.avatar_url %]
-        <div class="gravatar_profile">
-            <img src="[% user.avatar_url %]">
-        </div>
-        [% END %]
         <div class="bio">
             [% html_escape(user.biography or l("[None]")).split("\n").join("<br />") %]
         </div>
@@ -90,10 +85,11 @@
             [% END %]
             [% WRAPPER property name=l("Subscriptions") %]
                 [% IF user.preferences.get('subscriptions_public') %]
+                    [%- url=c.uri_for('/user/subscriptions', user.name) -%]
                     [% IF viewing_own_profile %]
-                        [% l('Your subscriptions are public.') -%]
+                        [% l('Your {view|subscriptions} are public.', {view=url}) -%]
                     [% ELSE %]
-                        [% l('The subscriptions for {user} are public.', {user => html_escape(user.name) }) %]
+                        [% l('The {view|subscriptions} for {user} are public.', {user => html_escape(user.name), view=url}) %]
                     [% END %]
                 [% ELSE %]
                     [% IF viewing_own_profile %]
