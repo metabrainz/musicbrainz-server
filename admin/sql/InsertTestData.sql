@@ -49,6 +49,10 @@ INSERT INTO artist_credit_name (artist_credit, position, artist, name, joinphras
 TRUNCATE recording CASCADE;
 TRUNCATE track_name CASCADE;
 
+TRUNCATE release_group CASCADE;
+TRUNCATE release_group_type CASCADE;
+TRUNCATE release_name CASCADE;
+
 INSERT INTO artist_name (id, name, page) VALUES (6, 'ABBA', 1234);
 
 INSERT INTO artist (id, gid, name, sortname) VALUES (4, 'a45c079d-374e-4436-9448-da92dedef3cf', 6, 6);
@@ -58,6 +62,12 @@ INSERT INTO artist_credit_name (artist_credit, position, artist, name) VALUES (2
 INSERT INTO track_name (id, name, page) VALUES (1, 'Dancing Queen', 1234);
 INSERT INTO recording (id, gid, name, artist_credit, length) VALUES
     (1, '123c079d-374e-4436-9448-da92dedef3ce', 1, 2, 123456);
+
+INSERT INTO release_group_type (id, name) VALUES (1, 'Album');
+INSERT INTO release_group_type (id, name) VALUES (2, 'Single');
+INSERT INTO release_name (id, name, page) VALUES (1, 'Arrival', 1234);
+INSERT INTO release_group (id, gid, name, artist_credit, type) VALUES
+    (1, '234c079d-374e-4436-9448-da92dedef3ce', 1, 2, 1);
 
 SET client_min_messages TO 'NOTICE';
 
