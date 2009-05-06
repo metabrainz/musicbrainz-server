@@ -69,6 +69,16 @@ INSERT INTO release_name (id, name, page) VALUES (1, 'Arrival', 1234);
 INSERT INTO release_group (id, gid, name, artist_credit, type) VALUES
     (1, '234c079d-374e-4436-9448-da92dedef3ce', 1, 2, 1);
 
+TRUNCATE work CASCADE;
+TRUNCATE work_type CASCADE;
+TRUNCATE work_name CASCADE;
+
+INSERT INTO work_type (id, name) VALUES (1, 'Composition');
+INSERT INTO work_type (id, name) VALUES (2, 'Symphony');
+INSERT INTO work_name (id, name, page) VALUES (1, 'Dancing Queen', 1234);
+INSERT INTO work (id, gid, name, artist_credit, type, iswc) VALUES
+    (1, '745c079d-374e-4436-9448-da92dedef3ce', 1, 2, 1, 'T-000.000.001-0');
+
 SET client_min_messages TO 'NOTICE';
 
 COMMIT;
