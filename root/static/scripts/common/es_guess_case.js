@@ -1,4 +1,8 @@
-var TurkishI;
+var TurkishI,
+    NON_BMP_CHAR_CODES = {
+    BOTTOM : 55296,
+    TOP    : 56319
+}
 String.prototype.toMusicBrainzUpperCase = function() { 
     if (this.length === 0) {
         return "";
@@ -9,7 +13,7 @@ String.prototype.toMusicBrainzUpperCase = function() {
     do
     {
         x = this[i];
-        if (x.charCodeAt(0) >= 55296 && x.charCodeAt(0) <= 55299) {  // Deseret characters are in plane 1, thus 2 chars wide.  Also avoids CJK issues and other planes 1 - 16 issues.
+        if (x.charCodeAt(0) >= NON_BMP_CHAR_CODES.BOTTOM && x.charCodeAt(0) <= NON_BMP_CHAR_CODES.TOP) {  // Deseret characters are in plane 1, thus 2 chars wide.  Also avoids CJK issues and other planes 1 - 16 issues.
             x = String.fromCharCode(this.charAt(i).charCodeAt(0)) + String.fromCharCode(this.charAt(++i).charCodeAt(0));
         }
         switch(x) {
@@ -143,7 +147,7 @@ String.prototype.toMusicBrainzLowerCase = function() {
     do
     {
         x = this[i];
-        if (x.charCodeAt(0) >= 55296 && x.charCodeAt(0) <= 55299) {  // Deseret characters are in plane 1, thus 2 chars wide.  Also avoids CJK issues and other planes 1 - 16 issues.
+        if (x.charCodeAt(0) >= NON_BMP_CHAR_CODES.BOTTOM && x.charCodeAt(0) <= NON_BMP_CHAR_CODES.TOP) {  // Deseret characters are in plane 1, thus 2 chars wide.  Also avoids CJK issues and other planes 1 - 16 issues.
             x = String.fromCharCode(this.charAt(i).charCodeAt(0)) + String.fromCharCode(this.charAt(++i).charCodeAt(0));
         }
         switch(x) {
@@ -219,7 +223,7 @@ function titleCaseString(inputstring) {
         return "";
     }
     var x = inputstring.slice(0,1);
-    if (x.charCodeAt(0) >= 55296 && x.charCodeAt(0) <= 55299) {  // Unicode hex scalar values for D800-DBFF, the Unicode surrogate code points.
+    if (x.charCodeAt(0) >= NON_BMP_CHAR_CODES.BOTTOM && x.charCodeAt(0) <= NON_BMP_CHAR_CODES.TOP) {  // Unicode hex scalar values for D800-DBFF, the Unicode surrogate code points.
         if (inputstring.length > 2) {
             inputstring = inputstring.slice(0, 2).toMusicBrainzUpperCase() + inputstring.slice(2).toMusicBrainzLowerCase();
         } else {
@@ -2039,7 +2043,7 @@ function findBasicErrors(ruleSet, type, number, stringBeingFixed, mode, keepUppe
             case "ⅽ"    : return "c";
             case "ⅾ"    : return "d";
             case "ⅿ"    : return "m";
-            case "℉"    : return "℉";
+            case "℉"    : return "°F";
             case "℃"    : return "°C";
             case "µ"    : return "μ";
             default:
@@ -2049,7 +2053,7 @@ function findBasicErrors(ruleSet, type, number, stringBeingFixed, mode, keepUppe
         strLen = stringBeingFixed.length,
         newString = [];
     do {  // While not punctuation, this also is used as a useful place to decompose certain presentational Unicode forms, such as precomposed Roman numerals.
-        newString.push(stringBeingFixed[strLen-1].replace(/[’ʼʻˮ՚′´﴾﴿‘’‛`″‴⁗ʹʺ°Fµ℃ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅪⅫⅬⅭⅮⅯⅰⅱⅲⅳⅴⅵⅶⅷⅸⅹⅺⅻⅼⅽⅿⅾ\u003E\u00A0\u0009\u2000-\u2009\u180E\u200A\u2028\u2029\u202F\u205F\u3000\u1680\u000A-\u000D\u232A\u27E8\u003C․\u02D0\u2236\uFF1A\u05C3：\⁄\u01C3！\uFF1F\u2E2E？；\u00B4\u2018-\u201F\u200C\U200D\u2060\u303F\u005F\］\［\（\）\s\uFEFF\27E9\2329]/g, changePunctuation));
+        newString.push(stringBeingFixed[strLen-1].replace(/[’ʼʻˮ՚′´﴾﴿‘’‛`″‴⁗ʹʺ℉µ℃ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅪⅫⅬⅭⅮⅯⅰⅱⅲⅳⅴⅵⅶⅷⅸⅹⅺⅻⅼⅽⅿⅾ\u003E\u00A0\u0009\u2000-\u2009\u180E\u200A\u2028\u2029\u202F\u205F\u3000\u1680\u000A-\u000D\u232A\u27E8\u003C․\u02D0\u2236\uFF1A\u05C3：\⁄\u01C3！\uFF1F\u2E2E？；\u00B4\u2018-\u201F\u200C\U200D\u2060\u303F\u005F\］\［\（\）\s\uFEFF\27E9\2329]/g, changePunctuation));
     } while (--strLen);
     stringBeingFixed = newString.reverse()
                                 .join("")
@@ -3708,7 +3712,7 @@ function applyGuidelines(ruleSet, type, number, stringBeingFixed, mode) {
                                                   var lenA, bitA, bitB;
                                                   lenA = partA.length;
                                                   if (lenA > 1) {  // Check for 2 byte character input.
-                                                      if (partA.slice(lenA-2,lenA-1).charCodeAt(0) >= 55296 && partA.slice(lenA-2,lenA-1).charCodeAt(0) <= 55299) {
+                                                      if (partA.slice(lenA-2,lenA-1).charCodeAt(0) >= NON_BMP_CHAR_CODES.BOTTOM && partA.slice(lenA-2,lenA-1).charCodeAt(0) <= NON_BMP_CHAR_CODES.TOP) {
                                                           bitA = partA.slice(lenA-2,lenA);
                                                           bitB = partB.slice(lenA-2,lenA);
                                                       } else {
@@ -4041,7 +4045,7 @@ function applyGuidelines(ruleSet, type, number, stringBeingFixed, mode) {
                                   if (partSubtitle.length > 1) {
                                       if (partSubtitle.slice(0,2) == "\uDBC0\uDC01") {
                                           partString += " " + partSubtitle;
-                                      } else if (partString.charCodeAt(0) >= 55296 && partString.charCodeAt(0) <= 55299) { 
+                                      } else if (partString.charCodeAt(0) >= NON_BMP_CHAR_CODES.BOTTOM && partString.charCodeAt(0) <= NON_BMP_CHAR_CODES.TOP) { 
                                           partString += titleCaseString(partSubtitle.slice(0,2)) + partSubtitle.slice(2);
                                       } else {
                                           partString += ": " + titleCaseString(partSubtitle.slice(0,1)) + partSubtitle.slice(1);
