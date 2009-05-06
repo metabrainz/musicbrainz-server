@@ -5,7 +5,7 @@
         [%- WRAPPER 'forms/form.tt' -%]
             <fieldset>
                 <legend>
-                    [%- l("Release Type &amp; Status") || html -%]
+                    [%- l("Release Type &amp; Status") -%]
                 </legend>
                 [%- INCLUDE 'forms/generic/row.tt' field=form.field('type') label=l('Release Type:') -%]
                 [%- INCLUDE 'forms/generic/row.tt' field=form.field('status') label=l('Release Status:') -%]

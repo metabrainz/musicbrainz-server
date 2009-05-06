@@ -16,7 +16,7 @@
     [%- END -%]
     class="box [% color %]">
     <h2>
-        [% header || html %]
+        [% header %]
     </h2>
     <div class="content">
         [% content %]
