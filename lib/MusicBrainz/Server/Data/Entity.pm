@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Data::Entity;
 
 use Moose;
+use MusicBrainz::Server::Data::Utils qw( placeholders );
 
 has 'c' => (
     is => 'rw',
@@ -49,10 +50,9 @@ sub _new_from_row
 sub _get_by_keys
 {
     my ($self, $key, @ids) = @_;
-    my $placeholders = join ",", ("?") x scalar(@ids);
     my $query = "SELECT " . $self->_columns . 
                 " FROM " . $self->_table .
-                " WHERE $key IN ($placeholders)";
+                " WHERE $key IN (" . placeholders(@ids) . ")";
     my $sql = Sql->new($self->c->mb->{dbh});
     $sql->Select($query, @ids);
     my %result;

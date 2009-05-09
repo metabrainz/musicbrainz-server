@@ -3,17 +3,17 @@ package MusicBrainz::Server::Data::ArtistCredit;
 use Moose;
 use MusicBrainz::Server::Entity::ArtistCredit;
 use MusicBrainz::Server::Entity::ArtistCreditName;
+use MusicBrainz::Server::Data::Utils qw( placeholders );
 
 extends 'MusicBrainz::Server::Data::Entity';
 
 sub get_by_ids
 {
     my ($self, @ids) = @_;
-    my $placeholders = join ",", ("?") x scalar(@ids);
     my $query = "SELECT artist, artist_name.name, joinphrase, artist_credit " .
                 "FROM artist_credit_name " .
                 "JOIN artist_name ON artist_name.id=artist_credit_name.name " .
-                "WHERE artist_credit IN ($placeholders) " .
+                "WHERE artist_credit IN (" . placeholders(@ids) . ") " .
                 "ORDER BY artist_credit, position";
     my $sql = Sql->new($self->c->mb->dbh);
     my %result;

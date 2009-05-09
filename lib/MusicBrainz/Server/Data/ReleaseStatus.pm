@@ -1,26 +1,27 @@
-package MusicBrainz::Server::Data::Utils;
+package MusicBrainz::Server::Data::ReleaseStatus;
 
-use base 'Exporter';
+use Moose;
+use MusicBrainz::Server::Entity::ReleaseStatus;
 
-use MusicBrainz::Server::Entity::PartialDate;
+extends 'MusicBrainz::Server::Data::Entity';
 
-our @EXPORT_OK = qw( partial_date_from_row placeholders );
-
-sub partial_date_from_row
+sub _table
 {
-    my ($row, $prefix) = @_;
-    my %info;
-    $info{year} = $row->{$prefix . 'year'} if defined $row->{$prefix . 'year'};
-    $info{month} = $row->{$prefix . 'month'} if defined $row->{$prefix . 'month'};
-    $info{day} = $row->{$prefix . 'day'} if defined $row->{$prefix . 'day'};
-    return MusicBrainz::Server::Entity::PartialDate->new(%info);
+    return 'release_status';
 }
 
-sub placeholders
+sub _columns
 {
-    return join ",", ("?") x scalar(@_);
+    return 'id, name';
 }
 
+sub _entity_class
+{
+    return 'MusicBrainz::Server::Entity::ReleaseStatus';
+}
+
+__PACKAGE__->meta->make_immutable;
+no Moose;
 1;
 
 =head1 COPYRIGHT

@@ -79,6 +79,53 @@ INSERT INTO work_name (id, name, page) VALUES (1, 'Dancing Queen', 1234);
 INSERT INTO work (id, gid, name, artist_credit, type, iswc) VALUES
     (1, '745c079d-374e-4436-9448-da92dedef3ce', 1, 2, 1, 'T-000.000.001-0');
 
+TRUNCATE release_status CASCADE;
+
+INSERT INTO release_status (id, name) VALUES (1, 'Official');
+
+TRUNCATE release_packaging CASCADE;
+
+INSERT INTO release_packaging (id, name) VALUES (1, 'Jewel Case');
+
+TRUNCATE language CASCADE;
+
+INSERT INTO language (id, isocode_3t, isocode_3b, isocode_2, name, frequency)
+    VALUES (1, 'deu', 'ger', 'de', 'German', 2);
+
+TRUNCATE script CASCADE;
+
+INSERT INTO script (id, isocode, isonumber, name, frequency)
+    VALUES (1, 'Ugar', '040', 'Ugaritic', 2);
+
+TRUNCATE label_type CASCADE;
+
+INSERT INTO label_type (id, name) VALUES (1, 'Production');
+
+TRUNCATE label CASCADE;
+TRUNCATE label_name CASCADE;
+
+INSERT INTO label_name (id, name, page) VALUES (1, 'Mute', 1234);
+INSERT INTO label
+    (id, gid, name, sortname, type, country, labelcode,
+     begindate_year, begindate_month, begindate_day,
+     enddate_year, enddate_month, enddate_day)
+    VALUES
+    (1, 'f45c079d-374e-4436-9448-da92dedef3ce', 1, 1, 1, 1, 1234,
+     2008, 01, 02, 2009, 03, 04);
+
+TRUNCATE release CASCADE;
+
+INSERT INTO release (id, gid, name, artist_credit, release_group, status, packaging, date_year,
+                     date_month, date_day, barcode) VALUES
+    (1, 'f34c079d-374e-4436-9448-da92dedef3ce', 1, 2, 1, 1, 1, 2009, 5, 8, '731453398122');
+
+TRUNCATE release_label CASCADE;
+
+INSERT INTO release_label (id, release, position, label, catno)
+    VALUES (1, 1, 0, 1, 'ABC-123');
+INSERT INTO release_label (id, release, position, label, catno)
+    VALUES (2, 1, 1, 1, 'ABC-123-X');
+
 SET client_min_messages TO 'NOTICE';
 
 COMMIT;

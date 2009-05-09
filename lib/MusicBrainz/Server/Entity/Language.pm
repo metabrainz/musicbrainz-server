@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Entity::Script;
+package MusicBrainz::Server::Entity::Language;
 
 use Moose;
 

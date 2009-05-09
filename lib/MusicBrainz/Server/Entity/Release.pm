@@ -44,6 +44,16 @@ has 'artist_credit_id' => (
     isa => 'Int'
 );
 
+has 'release_group' => (
+    is => 'rw',
+    isa => 'ReleaseGroup'
+);
+
+has 'release_group_id' => (
+    is => 'rw',
+    isa => 'Int'
+);
+
 has 'artist_credit' => (
     is => 'rw',
     isa => 'ArtistCredit'
