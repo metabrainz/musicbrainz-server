@@ -126,6 +126,11 @@ INSERT INTO release_label (id, release, position, label, catno)
 INSERT INTO release_label (id, release, position, label, catno)
     VALUES (2, 1, 1, 1, 'ABC-123-X');
 
+TRUNCATE url CASCADE;
+
+INSERT INTO url (id, gid, url, description)
+    VALUES (1, '9201840b-d810-4e0f-bb75-c791205f5b24', 'http://musicbrainz.org/', 'MusicBrainz');
+
 SET client_min_messages TO 'NOTICE';
 
 COMMIT;
