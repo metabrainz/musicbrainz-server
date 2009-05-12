@@ -2,6 +2,7 @@ package MusicBrainz::Server::Data::Gender;
 
 use Moose;
 use MusicBrainz::Server::Entity::Gender;
+use MusicBrainz::Server::Data::Utils qw( load_subobjects );
 
 extends 'MusicBrainz::Server::Data::Entity';
 
@@ -18,6 +19,12 @@ sub _columns
 sub _entity_class
 {
     return 'MusicBrainz::Server::Entity::Gender';
+}
+
+sub load
+{
+    my ($self, @objs) = @_;
+    load_subobjects($self, 'gender', @objs);
 }
 
 __PACKAGE__->meta->make_immutable;

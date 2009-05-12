@@ -2,7 +2,7 @@ package MusicBrainz::Server::Data::WorkType;
 
 use Moose;
 use MusicBrainz::Server::Entity::WorkType;
-use MusicBrainz::Server::Data::Utils qw( placeholders load_subobjects );
+use MusicBrainz::Server::Data::Utils qw( load_subobjects );
 
 extends 'MusicBrainz::Server::Data::Entity';
 

@@ -2,6 +2,7 @@ package MusicBrainz::Server::Data::ReleaseStatus;
 
 use Moose;
 use MusicBrainz::Server::Entity::ReleaseStatus;
+use MusicBrainz::Server::Data::Utils qw( load_subobjects );
 
 extends 'MusicBrainz::Server::Data::Entity';
 
@@ -18,6 +19,12 @@ sub _columns
 sub _entity_class
 {
     return 'MusicBrainz::Server::Entity::ReleaseStatus';
+}
+
+sub load
+{
+    my ($self, @objs) = @_;
+    load_subobjects($self, 'status', @objs);
 }
 
 __PACKAGE__->meta->make_immutable;

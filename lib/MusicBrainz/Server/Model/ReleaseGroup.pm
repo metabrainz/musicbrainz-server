@@ -1,34 +1,9 @@
-package MusicBrainz::Server::Data::Country;
+package MusicBrainz::Server::Model::ReleaseGroup;
 
-use Moose;
-use MusicBrainz::Server::Entity::Country;
-use MusicBrainz::Server::Data::Utils qw( load_subobjects );
+use base 'MusicBrainz::Server::ModelFactory';
 
-extends 'MusicBrainz::Server::Data::Entity';
+__PACKAGE__->config(class => 'MusicBrainz::Server::Data::ReleaseGroup');
 
-sub _table
-{
-    return 'country';
-}
-
-sub _columns
-{
-    return 'id, isocode AS iso_code, name';
-}
-
-sub _entity_class
-{
-    return 'MusicBrainz::Server::Entity::Country';
-}
-
-sub load
-{
-    my ($self, @objs) = @_;
-    load_subobjects($self, 'country', @objs);
-}
-
-__PACKAGE__->meta->make_immutable;
-no Moose;
 1;
 
 =head1 COPYRIGHT
