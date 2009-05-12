@@ -1,25 +1,52 @@
-package MusicBrainz::Server::Data::ReleaseLabel;
+package MusicBrainz::Server::Data::Medium;
 
 use Moose;
-use MusicBrainz::Server::Entity::ReleaseLabel;
+use MusicBrainz::Server::Entity::Medium;
+use MusicBrainz::Server::Entity::Tracklist;
 use MusicBrainz::Server::Data::Utils qw( query_to_list placeholders );
 
 extends 'MusicBrainz::Server::Data::Entity';
 
 sub _table
 {
-    return 'release_label';
+    return 'medium JOIN tracklist ON medium.tracklist=tracklist.id';
 }
 
 sub _columns
 {
-    return 'id, release AS release_id, label AS label_id, ' .
-           'catno AS catalog_number, position';
+    return 'medium.id, tracklist AS tracklist_id, release AS release_id,
+            position, format AS format_id, name, editpending AS edits_pending,
+            trackcount AS track_count';
+}
+
+sub _id_column
+{
+    return 'medium.id';
+}
+
+sub _column_mapping
+{
+    return {
+        id => 'id',
+        tracklist_id => 'tracklist_id',
+        tracklist => sub {
+            my $row = shift;
+            return MusicBrainz::Server::Entity::Tracklist->new(
+                id => $row->{tracklist_id},
+                track_count => $row->{track_count},
+            );
+        },
+        release_id => 'release_id',
+        position => 'position',
+        name => 'name',
+        format_id => 'format_id',
+        edits_pending => 'edits_pending',
+    };
 }
 
 sub _entity_class
 {
-    return 'MusicBrainz::Server::Entity::ReleaseLabel';
+    return 'MusicBrainz::Server::Entity::Medium';
 }
 
 sub load
@@ -31,27 +58,16 @@ sub load
                  FROM " . $self->_table . "
                  WHERE release IN (" . placeholders(@ids) . ")
                  ORDER BY release, position";
-    my @labels = query_to_list($self->c, sub { $self->_new_from_row(@_) },
-                               $query, @ids);
-    foreach my $label (@labels) {
-        $id_to_release{$label->release_id}->add_label($label);
+    my @mediums = query_to_list($self->c, sub { $self->_new_from_row(@_) },
+                                $query, @ids);
+    foreach my $medium (@mediums) {
+        $id_to_release{$medium->release_id}->add_medium($medium);
     }
 }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
-
-=head1 NAME
-
-MusicBrainz::Server::Data::ReleaseLabel
-
-=head1 METHODS
-
-=head2 loads (@releases)
-
-Loads and sets labels for the specified releases. The data can be then
-accessed using $release->labels.
 
 =head1 COPYRIGHT
 

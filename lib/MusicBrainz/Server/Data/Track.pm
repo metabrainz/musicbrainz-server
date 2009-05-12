@@ -1,57 +1,53 @@
-package MusicBrainz::Server::Data::ReleaseLabel;
+package MusicBrainz::Server::Data::Track;
 
 use Moose;
-use MusicBrainz::Server::Entity::ReleaseLabel;
+use MusicBrainz::Server::Entity::Track;
 use MusicBrainz::Server::Data::Utils qw( query_to_list placeholders );
 
-extends 'MusicBrainz::Server::Data::Entity';
+extends 'MusicBrainz::Server::Data::CoreEntity';
 
 sub _table
 {
-    return 'release_label';
+    return 'track JOIN track_name name ON track.name=name.id';
 }
 
 sub _columns
 {
-    return 'id, release AS release_id, label AS label_id, ' .
-           'catno AS catalog_number, position';
+    return 'track.id, name.name, recording AS recording_id,
+            tracklist AS tracklist_id, position, length,
+            artist_credit AS artist_credit_id,
+            editpending AS edits_pending';
+}
+
+sub _id_column
+{
+    return 'track.id';
 }
 
 sub _entity_class
 {
-    return 'MusicBrainz::Server::Entity::ReleaseLabel';
+    return 'MusicBrainz::Server::Entity::Track';
 }
 
 sub load
 {
-    my ($self, @releases) = @_;
-    my %id_to_release = map { $_->id => $_ } @releases;
-    my @ids = keys %id_to_release;
+    my ($self, @tracklists) = @_;
+    my %id_to_tracklist = map { $_->id => $_ } @tracklists;
+    my @ids = keys %id_to_tracklist;
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
-                 WHERE release IN (" . placeholders(@ids) . ")
-                 ORDER BY release, position";
-    my @labels = query_to_list($self->c, sub { $self->_new_from_row(@_) },
+                 WHERE tracklist IN (" . placeholders(@ids) . ")
+                 ORDER BY tracklist, position";
+    my @tracks = query_to_list($self->c, sub { $self->_new_from_row(@_) },
                                $query, @ids);
-    foreach my $label (@labels) {
-        $id_to_release{$label->release_id}->add_label($label);
+    foreach my $track (@tracks) {
+        $id_to_tracklist{$track->tracklist_id}->add_track($track);
     }
 }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
-
-=head1 NAME
-
-MusicBrainz::Server::Data::ReleaseLabel
-
-=head1 METHODS
-
-=head2 loads (@releases)
-
-Loads and sets labels for the specified releases. The data can be then
-accessed using $release->labels.
 
 =head1 COPYRIGHT
 

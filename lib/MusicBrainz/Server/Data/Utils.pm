@@ -2,9 +2,10 @@ package MusicBrainz::Server::Data::Utils;
 
 use base 'Exporter';
 
+use Sql;
 use MusicBrainz::Server::Entity::PartialDate;
 
-our @EXPORT_OK = qw( partial_date_from_row placeholders );
+our @EXPORT_OK = qw( partial_date_from_row placeholders query_to_list );
 
 sub partial_date_from_row
 {
@@ -19,6 +20,37 @@ sub partial_date_from_row
 sub placeholders
 {
     return join ",", ("?") x scalar(@_);
+}
+
+sub query_to_list
+{
+    my ($c, $builder, $query, @args) = @_;
+    my $sql = Sql->new($c->mb->dbh);
+    $sql->Select($query, @args);
+    my @result;
+    while (1) {
+        my $row = $sql->NextRowHashRef or last;
+        my $obj = $builder->($row);
+        push @result, $obj;
+    }
+    $sql->Finish;
+    return @result;
+}
+
+sub query_to_list_limited
+{
+    my ($c, $offset, $limit, $builder, $query, @args) = @_;
+    my $sql = Sql->new($c->mb->dbh);
+    $sql->Select($query, @args);
+    my @result;
+    while ($limit--) {
+        my $row = $sql->NextRowHashRef or last;
+        my $obj = $builder->($row);
+        push @result, $obj;
+    }
+    my $hits = $sql->Rows + $offset;
+    $sql->Finish;
+    return (\@result, $hits);
 }
 
 1;

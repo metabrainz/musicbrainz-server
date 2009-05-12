@@ -131,6 +131,34 @@ TRUNCATE url CASCADE;
 INSERT INTO url (id, gid, url, description)
     VALUES (1, '9201840b-d810-4e0f-bb75-c791205f5b24', 'http://musicbrainz.org/', 'MusicBrainz');
 
+TRUNCATE medium_format CASCADE;
+
+INSERT INTO medium_format (id, name) VALUES (1, 'CD');
+INSERT INTO medium_format (id, name) VALUES (2, 'Vinyl');
+
+TRUNCATE tracklist CASCADE;
+
+INSERT INTO tracklist (id) VALUES (1);
+INSERT INTO tracklist (id) VALUES (2);
+
+TRUNCATE medium CASCADE;
+
+INSERT INTO medium (id, release, position, tracklist, format, name) VALUES (1, 1, 1, 1, 1, 'The First Disc');
+INSERT INTO medium (id, release, position, tracklist, format) VALUES (2, 1, 2, 2, 1);
+
+TRUNCATE track CASCADE;
+
+INSERT INTO track (id, recording, tracklist, position, name, artist_credit)
+    VALUES (1, 1, 1, 1, 1, 2);
+
+INSERT INTO track_name (id, name, page) VALUES (2, 'Track 2', 1234);
+INSERT INTO track (id, recording, tracklist, position, name, artist_credit)
+    VALUES (2, 1, 1, 2, 2, 2);
+
+INSERT INTO track_name (id, name, page) VALUES (3, 'Track 3', 1234);
+INSERT INTO track (id, recording, tracklist, position, name, artist_credit)
+    VALUES (3, 1, 2, 1, 3, 2);
+
 SET client_min_messages TO 'NOTICE';
 
 COMMIT;

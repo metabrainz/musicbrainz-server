@@ -1,29 +1,24 @@
-package MusicBrainz::Server::Entity::Tracklist;
+package MusicBrainz::Server::Data::Tracklist;
 
 use Moose;
-use MooseX::AttributeHelpers;
-use MusicBrainz::Server::Entity::Types;
+use MusicBrainz::Server::Entity::Tracklist;
 
-extends 'MusicBrainz::Server::Entity::Entity';
-with 'MusicBrainz::Server::Entity::Editable';
+extends 'MusicBrainz::Server::Data::Entity';
 
-has 'track_count' => (
-    is => 'rw',
-    isa => 'Int'
-);
+sub _table
+{
+    return 'tracklist';
+}
 
-has 'tracks' => (
-    is => 'rw',
-    isa => 'ArrayRef[Track]',
-    lazy => 1,
-    default => sub { [] },
-    metaclass => 'Collection::Array',
-    provides => {
-        elements => 'all_tracks',
-        push => 'add_track',
-        clear => 'clear_tracks',
-    }
-);
+sub _columns
+{
+    return 'id, trackcount AS track_count';
+}
+
+sub _entity_class
+{
+    return 'MusicBrainz::Server::Entity::Tracklist';
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

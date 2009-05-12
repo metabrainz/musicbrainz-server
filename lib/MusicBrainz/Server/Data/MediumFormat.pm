@@ -1,29 +1,24 @@
-package MusicBrainz::Server::Entity::Tracklist;
+package MusicBrainz::Server::Data::MediumFormat;
 
 use Moose;
-use MooseX::AttributeHelpers;
-use MusicBrainz::Server::Entity::Types;
+use MusicBrainz::Server::Entity::MediumFormat;
 
-extends 'MusicBrainz::Server::Entity::Entity';
-with 'MusicBrainz::Server::Entity::Editable';
+extends 'MusicBrainz::Server::Data::Entity';
 
-has 'track_count' => (
-    is => 'rw',
-    isa => 'Int'
-);
+sub _table
+{
+    return 'medium_format';
+}
 
-has 'tracks' => (
-    is => 'rw',
-    isa => 'ArrayRef[Track]',
-    lazy => 1,
-    default => sub { [] },
-    metaclass => 'Collection::Array',
-    provides => {
-        elements => 'all_tracks',
-        push => 'add_track',
-        clear => 'clear_tracks',
-    }
-);
+sub _columns
+{
+    return 'id, name';
+}
+
+sub _entity_class
+{
+    return 'MusicBrainz::Server::Entity::MediumFormat';
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
