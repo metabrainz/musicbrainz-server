@@ -1,31 +1,35 @@
-package MusicBrainz::Server::Context;
+package MusicBrainz::Server::CacheWrapper;
 
 use Moose;
-use MusicBrainz;
+use Moose::Util::TypeConstraints;
 
-has 'cache_manager' => (
+has '_orig' => (
     is => 'ro',
-    isa => 'MusicBrainz::Server::CacheManager',
-    handles => ['cache']
+    isa => duck_type(['get', 'set']),
+    handles => ['get', 'set']
 );
 
-sub mb {
-    my $self = shift;
-    if (!defined($self->{mb})) {
-        $self->{mb} = MusicBrainz->new;
-        $self->{mb}->Login;
+sub get_multi
+{
+    my ($self, @keys) = @_;
+    my %result;
+    foreach my $key (@keys) {
+        my $data = $self->_orig->get($key);
+        $result{$key} = $data if defined $data;
     }
-    return $self->{mb};
+    return \%result;
 }
 
-sub mb_logout {
-    my $self = shift;
-    if (defined($self->{mb})) {
-        $self->{mb}->Logout;
-        $self->{mb} = undef;
+sub set_multi
+{
+    my ($self, @items) = @_;
+    foreach my $item (@items) {
+        $self->_orig->set($item->[0], $item->[1]);
     }
 }
 
+__PACKAGE__->meta->make_immutable;
+no Moose;
 1;
 
 =head1 COPYRIGHT
