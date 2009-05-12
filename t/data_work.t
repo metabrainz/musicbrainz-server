@@ -1,7 +1,8 @@
 use strict;
 use warnings;
-use Test::More tests => 15;
+use Test::More tests => 17;
 use_ok 'MusicBrainz::Server::Data::Work';
+use MusicBrainz::Server::Data::WorkType;
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
@@ -28,3 +29,7 @@ is ( $work->artist_credit_id, 2 );
 is ( $work->iswc, "T-000.000.001-0" );
 is ( $work->type_id, 1 );
 is ( $work->edits_pending, 0 );
+
+is ( $work->type, undef );
+MusicBrainz::Server::Data::WorkType->new(c => $c)->load($work);
+is ( $work->type->name, "Composition" );

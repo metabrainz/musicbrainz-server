@@ -142,39 +142,6 @@ sub end : ActionClass('RenderView')
     $simpleSearch->field('type')->value($c->session->{last_simple_search} || 'artist');
     $c->stash->{sidebar_search} = $simpleSearch;
 
-    # Voters
-    my $voters = MusicBrainz::Server::Cache->get('sidebar-voters');
-
-    if (!$voters)
-    {
-        $voters = $c->model('Moderation')->top_voters(5);
-        MusicBrainz::Server::Cache->set('sidebar-voters', $voters);
-    }
-
-    $c->stash->{'top_voters'} = $voters;
-
-    # Sidebar stats
-    my $stats = MusicBrainz::Server::Cache->get('sidebar-statistics');
-
-    if (!$stats)
-    {
-        my $stat  = MusicBrainz::Server::Statistic->new($c->mb->{dbh});
-        $stats = $stat->FetchAllAsHashRef;
-        MusicBrainz::Server::Cache->set('sidebar-statistics', $stats);
-    }
-
-    $c->stash->{'server_stats'} = {
-        artists  => $stats->{'count.artist'},
-        releases => $stats->{'count.album'},
-        labels   => $stats->{'count.label'},
-        tracks   => $stats->{'count.track'},
-        links    => $stats->{'count.ar.links'},
-        disc_ids => $stats->{'count.discid'},
-        puids    => $stats->{'count.puid'},
-        edits    => $stats->{'count.moderation'},
-        editors  => $stats->{'count.moderator'},
-    };
-
     # Determine which server version to display. If the DBDefs string is empty
     # attempt to display the current subversion revision
     if (&DBDefs::VERSION)

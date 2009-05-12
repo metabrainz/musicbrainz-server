@@ -1,34 +1,29 @@
-package MusicBrainz::Server::Data::WorkType;
+package MusicBrainz::Server::Controller::Work;
 
-use Moose;
-use MusicBrainz::Server::Entity::WorkType;
-use MusicBrainz::Server::Data::Utils qw( placeholders load_subobjects );
+use strict;
+use warnings;
 
-extends 'MusicBrainz::Server::Data::Entity';
+use base 'MusicBrainz::Server::Controller';
 
-sub _table
+__PACKAGE__->config(
+    model       => 'Work',
+    entity_name => 'work',
+);
+
+sub base : Chained('/') PathPart('work') CaptureArgs(0) { }
+sub work : Chained('load') PathPart('') CaptureArgs(0) { }
+
+sub show : PathPart('') Chained('work')
 {
-    return 'work_type';
+    my ($self, $c) = @_;
+
+    my $work = $c->stash->{work};
+    $c->model('WorkType')->load($work);
+    $c->model('ArtistCredit')->load($work);
+
+    $c->stash->{template} = 'work/index.tt';
 }
 
-sub _columns
-{
-    return 'id, name';
-}
-
-sub _entity_class
-{
-    return 'MusicBrainz::Server::Entity::WorkType';
-}
-
-sub load
-{
-    my ($self, @objs) = @_;
-    load_subobjects($self, 'type', @objs);
-}
-
-__PACKAGE__->meta->make_immutable;
-no Moose;
 1;
 
 =head1 COPYRIGHT

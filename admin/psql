@@ -53,6 +53,9 @@ if ($system) {
 if (defined $profile && $profile eq "test") {
     $ENV{"PGOPTIONS"} = "-c search_path=musicbrainz_test";
 }
+else {
+    $ENV{"PGOPTIONS"} = "-c search_path=musicbrainz";
+}
 
 exec "psql", $db->shell_args;
 

@@ -1,0 +1,21 @@
+[%- MACRO title BLOCK -%]
+[% l('{type} {work} by {artist}', {
+    type => work.type_name or "Work",
+    work => work.name,
+    artist => show_artist_credit_text(work.artist_credit)
+}) %]
+[%- END -%]
+[%- WRAPPER "work/layout.tt" -%]
+
+<table>
+    <tr>
+        <th>[% l("Type:") %]</th>
+        <td>[% work.type_name || "-" %]</td>
+    </tr>
+    <tr>
+        <th>[% l("ISWC:") %]</th>
+        <td>[% work.iswc || "-" %]</td>
+    </tr>
+</table>
+
+[% END %]

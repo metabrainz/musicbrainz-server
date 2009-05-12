@@ -106,9 +106,13 @@ __PACKAGE__->config->{form} = {
     form_name_space => 'MusicBrainz::Server::Forms',
 };
 
-push @args, &DBDefs::SESSION_STORE;
-
-__PACKAGE__->config->{session} = &DBDefs::SESSION_STORE_ARGS;
+if (&DBDefs::_RUNNING_TESTS) {
+    push @args, "Session::Store::Dummy";
+}
+else {
+    push @args, &DBDefs::SESSION_STORE;
+    __PACKAGE__->config->{session} = &DBDefs::SESSION_STORE_ARGS;
+}
 
 if (&DBDefs::CATALYST_DEBUG) {
 	push @args, "-Debug";

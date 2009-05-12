@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Test;
 
+use DBDefs;
 use MusicBrainz;
 use MusicBrainz::Server::Database;
 use Sql;
@@ -18,6 +19,12 @@ sub prepare_test_database
     my $sql = Sql->new($mb->{dbh});
     $sql->AutoCommit(1);
     $sql->Do($test_data_query);
+}
+
+sub prepare_test_server
+{
+    no warnings 'redefine';
+    *DBDefs::_RUNNING_TESTS = sub { 1 };
 }
 
 1;

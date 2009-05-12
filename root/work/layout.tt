@@ -1,0 +1,4 @@
+[%- WRAPPER "layout.tt" -%]
+    <h1>[% l('{work} by {artist}', { work => link_work(work), artist => show_artist_credit(work.artist_credit) }) %]</h1>
+    [%- content -%]
+[%- END -%]

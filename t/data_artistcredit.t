@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 10;
+use Test::More tests => 16;
 use_ok 'MusicBrainz::Server::Data::ArtistCredit';
 
 use MusicBrainz::Server::Context;
@@ -17,7 +17,13 @@ is ( $ac->artist_count, 2 );
 is ( $ac->name, "Queen & David Bowie" );
 is ( $ac->names->[0]->name, "Queen" );
 is ( $ac->names->[0]->artist_id, 3 );
+is ( $ac->names->[0]->artist->id, 3 );
+is ( $ac->names->[0]->artist->gid, "945c079d-374e-4436-9448-da92dedef3cf" );
+is ( $ac->names->[0]->artist->name, "Queen" );
 is ( $ac->names->[0]->join_phrase, " & " );
 is ( $ac->names->[1]->name, "David Bowie" );
 is ( $ac->names->[1]->artist_id, 3 );
+is ( $ac->names->[1]->artist->id, 3 );
+is ( $ac->names->[1]->artist->gid, "945c079d-374e-4436-9448-da92dedef3cf" );
+is ( $ac->names->[1]->artist->name, "Queen" );
 is ( $ac->names->[1]->join_phrase, undef );

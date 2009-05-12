@@ -1,18 +1,21 @@
 package MusicBrainz::Server::Data::ArtistCredit;
 
 use Moose;
+use MusicBrainz::Server::Entity::Artist;
 use MusicBrainz::Server::Entity::ArtistCredit;
 use MusicBrainz::Server::Entity::ArtistCreditName;
-use MusicBrainz::Server::Data::Utils qw( placeholders );
+use MusicBrainz::Server::Data::Utils qw( placeholders load_subobjects );
 
 extends 'MusicBrainz::Server::Data::Entity';
 
 sub get_by_ids
 {
     my ($self, @ids) = @_;
-    my $query = "SELECT artist, artist_name.name, joinphrase, artist_credit " .
+    my $query = "SELECT artist, artist_name.name, joinphrase, artist_credit, artist.id, gid, n2.name AS artist_name " .
                 "FROM artist_credit_name " .
                 "JOIN artist_name ON artist_name.id=artist_credit_name.name " .
+                "JOIN artist ON artist.id=artist_credit_name.artist " .
+                "JOIN artist_name n2 ON n2.id=artist.name " .
                 "WHERE artist_credit IN (" . placeholders(@ids) . ") " .
                 "ORDER BY artist_credit, position";
     my $sql = Sql->new($self->c->mb->dbh);
@@ -32,6 +35,11 @@ sub get_by_ids
         );
         $info{join_phrase} = $row->{joinphrase} if defined $row->{joinphrase};
         my $obj = MusicBrainz::Server::Entity::ArtistCreditName->new(%info);
+        $obj->artist(MusicBrainz::Server::Entity::Artist->new(
+            id => $row->{id},
+            gid => $row->{gid},
+            name => $row->{artist_name},
+        ));
         my $id = $row->{artist_credit};
         $result{$id}->add_name($obj);
         $counts{$id} += 1;
@@ -41,6 +49,12 @@ sub get_by_ids
         $result{$id}->artist_count($counts{$id});
     }
     return \%result;
+}
+
+sub load
+{
+    my ($self, @objs) = @_;
+    load_subobjects($self, 'artist_credit', @objs);
 }
 
 __PACKAGE__->meta->make_immutable;

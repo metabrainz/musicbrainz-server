@@ -1,34 +1,9 @@
-package MusicBrainz::Server::Data::WorkType;
+package MusicBrainz::Server::Model::Work;
 
-use Moose;
-use MusicBrainz::Server::Entity::WorkType;
-use MusicBrainz::Server::Data::Utils qw( placeholders load_subobjects );
+use base 'MusicBrainz::Server::ModelFactory';
 
-extends 'MusicBrainz::Server::Data::Entity';
+__PACKAGE__->config(class => 'MusicBrainz::Server::Data::Work');
 
-sub _table
-{
-    return 'work_type';
-}
-
-sub _columns
-{
-    return 'id, name';
-}
-
-sub _entity_class
-{
-    return 'MusicBrainz::Server::Entity::WorkType';
-}
-
-sub load
-{
-    my ($self, @objs) = @_;
-    load_subobjects($self, 'type', @objs);
-}
-
-__PACKAGE__->meta->make_immutable;
-no Moose;
 1;
 
 =head1 COPYRIGHT
