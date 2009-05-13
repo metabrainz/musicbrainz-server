@@ -17,6 +17,7 @@ our %EXPORT_TAGS = (
 Exporter::export_ok_tags('election_status');
 Exporter::export_ok_tags('vote');
 
+use DateTime::Format::Pg;
 use Readonly;
 use Moose::Util::TypeConstraints;
 
@@ -34,6 +35,10 @@ Readonly our $VOTE_YES     =>  1;
 
 subtype 'DateTime'
     => class_type 'DateTime';
+
+coerce 'DateTime'
+    => from 'Str'
+    => via { DateTime::Format::Pg->parse_datetime($_) };
 
 subtype 'AutoEditorElectionStatus'
     => as 'Int'

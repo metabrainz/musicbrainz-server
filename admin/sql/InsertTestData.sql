@@ -159,6 +159,16 @@ INSERT INTO track_name (id, name, page) VALUES (3, 'Track 3', 1234);
 INSERT INTO track (id, recording, tracklist, position, name, artist_credit)
     VALUES (3, 1, 2, 1, 3, 2);
 
+TRUNCATE editor CASCADE;
+
+-- A full editor
+INSERT INTO
+    editor ( id, name, password, privs, email, website, bio,
+             emailconfirmdate, membersince, lastlogindate, editsaccepted, editsrejected,
+             autoeditsaccepted, editsfailed)
+    VALUES ( 1, 'new_editor', 'password', 1, 'test@editor.org', 'http://musicbrainz.org',
+             'biography', '2005-10-20', '1989-07-23', '2009-01-01', 12, 2, 59, 9 );
+
 SET client_min_messages TO 'NOTICE';
 
 COMMIT;

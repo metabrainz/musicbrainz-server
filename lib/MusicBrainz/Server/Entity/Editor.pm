@@ -95,8 +95,9 @@ has [qw( accepted_edits rejected_edits failed_edits auto_edits )] => (
 );
 
 has [qw( registration_date last_login_date email_confirmation_date )] => (
-    isa => 'DateTime',
-    is  => 'rw',
+    isa    => 'DateTime',
+    is     => 'rw',
+    coerce => 1,
 );
 
 sub is_newbie
