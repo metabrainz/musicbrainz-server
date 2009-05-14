@@ -88,3 +88,10 @@ END; -%]
 [%- MACRO link_work(work) BLOCK -%]
 <a href="/work/[% work.gid %]">[% work.name | html %]</a>
 [%- END -%]
+
+[%- MACRO link_label(label, action, text) BLOCK;
+    action = action || 'show';
+    link = c.uri_for_action("/label/$action", [ label.gid ]);
+    text = text || html_escape(label.name);
+    '<a href="' _ link _ '">' _ text _ '</a>';
+END -%]

@@ -1,0 +1,2 @@
+[%- WRAPPER "label/layout.tt" title=label.name -%]
+[% END %]

@@ -1,40 +1,32 @@
 [%- info_links = [
-    { link => c.entity_url(label, 'details'), text => l('Details / Link') },
-    { link => c.entity_url(label, 'aliases'), text => l('Aliases') },
-    { link => c.entity_url(label, 'tags'), text => l('Tags') },
-    { link => c.entity_url(label, 'show'), text => l('Releases') },
-    { link => c.entity_url(label, 'google'), text => l('Search Google') },
-    { link => c.uri_for('/moderation/entity/label', label.mbid), text => l('View Edits') },
-    { link => c.entity_url(label, 'subscriptions'), text => l('View Subscriptions') }
+    link_label(label, 'details', l('Details / Link')),
+    link_label(label, 'aliases', l('Aliases')),
+    link_label(label, 'tags', l('Tags')),
+    link_label(label, 'show', l('Releases')),
+    link_label(label, 'google', l('Search Google')),
+    link_label(label, 'subscriptions', l('View Subscriptions'))
 ] -%]
 <div class='entity_header'>
     <div class='title label'>
-        [% entity_link(label, 1) %]
-        [%- IF show_ratings -%]
-            [%- INCLUDE "rating/stars.tt" current_rating=current_rating url_base="/$entity.entity_type/$entity.mbid" -%]
-            <span class="average_rating">(Average rating: <span id='COMMUNITY-RATING-[%- entity.entity_type -%]-[%- entity.id -%]'>[%- rating.average_score -%]</span>, rated <span id='VOTES-RATING-label-[%- label.id -%]'>[%- rating.count -%] time</span>)</span>
-        [% END %]
+        [% link_label(label) %]
+        [%- "(${label.comment})" IF label.comment -%]
     </div>
     <div class='info'>
-        [%- IF label.has_complete_date_range -%]
+        [% UNLESS label.begin_date.is_empty AND label.end_date.is_empty %]
+            <div class="infoline">
+                [% label.begin_date.format %] &mdash; [% label.end_date.format %]
+            </div>
+        [% END %]
+        [% IF label.type %]
             <div class='infoline'>
-                [% label.begin_date_ymd.join('-') %] - [% label.end_date_ymd.join('-') %]<br/>
-            </div>    
-        [%- ELSIF label.begin_date -%]
+                [% l('Type:') %] [% label.type_name %]
+            </div>
+        [% END %]
+        [% IF label.country %]
             <div class='infoline'>
-                [% l('Founded:') %] [% label.begin_date_ymd.join('-') -%]<br />
-            </div>    
-        [%- ELSIF label.end_date -%]
-            <div class='infoline'>
-                [% l('Dissolved:') %] [% label.end_date_ymd.join('-') -%]<br />
-            </div>    
-        [%- END -%]
-        <div class='infoline'>
-            [% l('Type:') %] [% label.type_name %]
-        </div>    
-        <div class='infoline'>
-            [% l('Country:') %] [% label.country_name %]
-        </div>    
+                [% l('Country:') %] [% label.country.name %]
+            </div>
+        [% END %]
     </div>
     <div class='infoLinks'>
         [% INCLUDE 'components/piped-list.tt' caption=l('Info:') list=info_links %]

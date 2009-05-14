@@ -1,13 +1,8 @@
 package MusicBrainz::Server::Controller;
-
-use strict;
-use warnings;
-
-use base qw/Catalyst::Controller Class::Accessor/;
+BEGIN { use Moose; extends 'Catalyst::Controller'; }
 
 use MusicBrainz::Server::Validation;
 
-__PACKAGE__->mk_accessors(qw/ entity form /);
 __PACKAGE__->config(
     form_namespace => 'MusicBrainz::Server::Form'
 );

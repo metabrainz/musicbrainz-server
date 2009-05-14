@@ -5,6 +5,8 @@ use warnings;
 
 use base 'MusicBrainz::Server::Controller';
 
+use MusicBrainz::Server::Constants qw( $DLABEL_ID );
+
 __PACKAGE__->config(
     model       => 'Label',
     entity_name => 'label',
@@ -33,7 +35,7 @@ sub label : Chained('load') PathPart('') CaptureArgs(0)
 {
     my ($self, $c) = @_;
     
-    if ($self->entity->id == ModDefs::DLABEL_ID)
+    if ($c->stash->{label}->id == $DLABEL_ID)
     {
         $c->detach('/error_404');
     }
@@ -41,8 +43,10 @@ sub label : Chained('load') PathPart('') CaptureArgs(0)
 	if ($c->user_exists)
 	{
     	$c->stash->{subscribed} = $c->model('Subscription')->
-        	is_user_subscribed_to_entity($c->user, $self->entity);
+        	is_user_subscribed_to_entity($c->user, $c->stash->{label});
 	}
+
+	$c->model('LabelType')->load($c->stash->{label});
 }
 
 =head2 perma
@@ -114,26 +118,9 @@ that have been released through this label
 
 sub show : PathPart('') Chained('label')
 {
-    my ($self, $c) = @_;
-
-    my $label    = $self->entity;
-    my $releases = $c->model('Release')->load_for_label($label);
-
-    my $id = $c->user_exists ? $c->user->id : 0;
-    $c->stash->{show_ratings} = $id ? $c->user->preferences->get("show_ratings") : 1;
-    if ($c->stash->{show_ratings})
-    {
-        MusicBrainz::Server::Rating::LoadUserRatingForEntities("release", $releases, $id);
-        $c->stash->{rating} = $c->model('Rating')->get_rating({
-            entity_type => 'label', 
-            entity_id   => $label->id, 
-            user_id     => $id
-        });
-    }
-
-    $c->stash->{releases}  = $releases;
-    $c->stash->{relations} = $c->model('Relation')->load_relations($label);
-	$c->stash->{annotation} = $c->model('Annotation')->load_revision($label);
+    my  ($self, $c) = @_;
+    $c->model('Country')->load($c->stash->{label});
+    $c->stash(template => 'label/index.tt');
 }
 
 =head2 details

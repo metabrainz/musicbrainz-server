@@ -144,28 +144,6 @@ sub mb {
     return $self->{mb_context}->mb;
 }
 
-sub entity_url
-{
-    my ($self, $entity, $action, @args) = @_;
-
-    # Determine the type of the entity - thus which control to use
-    my $type = $entity->entity_type;
-    $action ||= 'show';
-
-    # Now find the controller
-    my $controller = $self->controller(ucfirst($type))
-        or die "$type is not a valid type";
-
-    # Lookup the action
-    my $catalyst_action = $controller->action_for($action)
-        or die "$action is not a valid action for the controller $type";
-
-    # Parse capture arguments.
-    my $id = $entity->mbid || $entity->id;
-
-    return $self->uri_for($catalyst_action, [ $id ], @args);
-}
-
 =head2 form_posted
 
 This returns true if the request was a post request.
