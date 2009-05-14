@@ -291,5 +291,8 @@ sub CATALYST_DEBUG { 1 }
 # are not yet properly supported, like right-to-left languages
 sub MB_LANGUAGES {qw()}
 
+# Private, please do not change
+sub _RUNNING_TESTS { 0 }
+
 1;
 # eof DBDefs.pm
