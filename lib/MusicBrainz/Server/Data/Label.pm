@@ -2,7 +2,7 @@ package MusicBrainz::Server::Data::Label;
 
 use Moose;
 use MusicBrainz::Server::Entity::Label;
-use MusicBrainz::Server::Data::Utils qw( partial_date_from_row );
+use MusicBrainz::Server::Data::Utils qw( partial_date_from_row load_subobjects );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 
@@ -46,6 +46,12 @@ sub _column_mapping
 sub _entity_class
 {
     return 'MusicBrainz::Server::Entity::Label';
+}
+
+sub load
+{
+    my ($self, @objs) = @_;
+    load_subobjects($self, 'label', @objs);
 }
 
 __PACKAGE__->meta->make_immutable;
