@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Data::EntityCache;
+package MusicBrainz::Server::Data::CoreEntityCache;
 
 use Moose::Role;
 with 'MusicBrainz::Server::Data::EntityCacheBase';
@@ -8,11 +8,35 @@ sub _add_to_cache
     my ($self, $cache, %data) = @_;
     my @tmp;
     foreach my $id (keys %data) {
+        my $obj = $data{$id};
         my $key = $self->_id_cache_prefix . ':' . $id;
-        push @tmp, [$key, $data{$id}];
+        push @tmp, [$key, $obj];
+        $key = $self->_id_cache_prefix . ':' . $obj->gid;
+        push @tmp, [$key, $obj];
     }
     $cache->set_multi(@tmp);
 }
+
+around 'get_by_gid' => sub
+{
+    my ($orig, $self, $gid) = @_;
+    my $key = $self->_id_cache_prefix . ':' . $gid;
+    my $cache = $self->c->cache($self->_id_cache_prefix);
+    my $id = $cache->get($key);
+    my $obj;
+    if (defined($id)) {
+        $obj = $self->get_by_id($id);
+    }
+    else {
+        $obj = $self->$orig($gid);
+        if (defined($obj)) {
+            $cache->set($key, $obj->id);
+            $key = $self->_id_cache_prefix . ':' . $obj->id;
+            $cache->set($key, $obj);
+        }
+    }
+    return $obj;
+};
 
 1;
 
