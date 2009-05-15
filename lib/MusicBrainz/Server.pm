@@ -20,7 +20,6 @@ use MusicBrainz::Server::Context;
 #                 directory
 
 my @args = qw/
-ConfigLoader
 Static::Simple
 
 StackTrace
