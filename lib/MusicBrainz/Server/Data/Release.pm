@@ -2,7 +2,10 @@ package MusicBrainz::Server::Data::Release;
 
 use Moose;
 use MusicBrainz::Server::Entity::Release;
-use MusicBrainz::Server::Data::Utils qw( partial_date_from_row );
+use MusicBrainz::Server::Data::Utils qw(
+    partial_date_from_row
+    query_to_list_limited
+);
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 
@@ -13,9 +16,9 @@ sub _table
 
 sub _columns
 {
-    return 'release.id, gid, name.name, artist_credit, release_group, ' .
-           'status, packaging, date_year, date_month, date_day, ' .
-           'comment, editpending, barcode';
+    return 'release.id, gid, name.name, release.artist_credit, release_group,
+            status, packaging, date_year, date_month, date_day, country,
+            comment, editpending, barcode';
 }
 
 sub _id_column
@@ -33,6 +36,7 @@ sub _column_mapping
         release_group_id => 'release_group',
         status_id => 'status',
         packaging_id => 'packaging',
+        country_id => 'country',
         date => sub { partial_date_from_row(shift, 'date_') },
         edits_pending => 'editpending',
         comment => 'comment',
@@ -43,6 +47,21 @@ sub _column_mapping
 sub _entity_class
 {
     return 'MusicBrainz::Server::Entity::Release';
+}
+
+sub find_by_artist
+{
+    my ($self, $artist_id, $limit, $offset) = @_;
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                     JOIN artist_credit_name acn
+                         ON acn.artist_credit = release.artist_credit
+                 WHERE acn.artist = ?
+                 ORDER BY date_year, date_month, date_day, name.name
+                 OFFSET ?";
+    return query_to_list_limited(
+        $self->c, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $query, $artist_id, $offset || 0);
 }
 
 __PACKAGE__->meta->make_immutable;

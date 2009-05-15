@@ -8,6 +8,7 @@ CREATE TABLE release (
     release_group       INTEGER NOT NULL, -- references release_group.id
     status              INTEGER, -- references release_status.id
     packaging           INTEGER, -- references release_packaging.id
+--    country             INTEGER, -- references country.id
     date_year           SMALLINT,
     date_month          SMALLINT,
     date_day            SMALLINT,
@@ -38,6 +39,9 @@ ALTER TABLE release ADD CONSTRAINT release_fk_status
 
 ALTER TABLE release ADD CONSTRAINT release_fk_packaging
     FOREIGN KEY (packaging) REFERENCES release_packaging(id);
+
+--ALTER TABLE release ADD CONSTRAINT release_fk_country
+--    FOREIGN KEY (country) REFERENCES country(id);
 
 
 

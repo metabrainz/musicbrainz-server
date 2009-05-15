@@ -2,6 +2,7 @@ package MusicBrainz::Server::Data::Work;
 
 use Moose;
 use MusicBrainz::Server::Entity::Work;
+use MusicBrainz::Server::Data::Utils qw( query_to_list_limited );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 
@@ -12,9 +13,9 @@ sub _table
 
 sub _columns
 {
-    return 'work.id, gid, type AS type_id, name.name, ' .
-           'artist_credit AS artist_credit_id, iswc, ' .
-           'comment, editpending AS edits_pending';
+    return 'work.id, gid, type AS type_id, name.name,
+            work.artist_credit AS artist_credit_id, iswc,
+            comment, editpending AS edits_pending';
 }
 
 sub _id_column
@@ -25,6 +26,21 @@ sub _id_column
 sub _entity_class
 {
     return 'MusicBrainz::Server::Entity::Work';
+}
+
+sub find_by_artist
+{
+    my ($self, $artist_id, $limit, $offset) = @_;
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                     JOIN artist_credit_name acn
+                         ON acn.artist_credit = work.artist_credit
+                 WHERE acn.artist = ?
+                 ORDER BY name.name
+                 OFFSET ?";
+    return query_to_list_limited(
+        $self->c, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $query, $artist_id, $offset || 0);
 }
 
 __PACKAGE__->meta->make_immutable;

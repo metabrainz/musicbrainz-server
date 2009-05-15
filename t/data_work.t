@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 17;
+use Test::More tests => 20;
 use_ok 'MusicBrainz::Server::Data::Work';
 use MusicBrainz::Server::Data::WorkType;
 
@@ -33,3 +33,8 @@ is ( $work->edits_pending, 0 );
 is ( $work->type, undef );
 MusicBrainz::Server::Data::WorkType->new(c => $c)->load($work);
 is ( $work->type->name, "Composition" );
+
+my ($works, $hits) = $work_data->find_by_artist(4, 100);
+is( $hits, 1 );
+is( scalar(@$works), 1 );
+is( $works->[0]->name, "Dancing Queen" );

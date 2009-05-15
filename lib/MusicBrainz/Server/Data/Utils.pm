@@ -10,6 +10,7 @@ our @EXPORT_OK = qw(
     placeholders
     load_subobjects
     query_to_list
+    query_to_list_limited
 );
 
 sub load_subobjects

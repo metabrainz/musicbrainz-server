@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 13;
+use Test::More tests => 19;
 use_ok 'MusicBrainz::Server::Data::Recording';
 
 use MusicBrainz::Server::Context;
@@ -11,18 +11,26 @@ MusicBrainz::Server::Test->prepare_test_database($c);
 
 my $rec_data = MusicBrainz::Server::Data::Recording->new(c => $c);
 
-my $work = $rec_data->get_by_id(1);
-is ( $work->id, 1 );
-is ( $work->gid, "123c079d-374e-4436-9448-da92dedef3ce" );
-is ( $work->name, "Dancing Queen" );
-is ( $work->artist_credit_id, 2 );
-is ( $work->length, 123456 );
-is ( $work->edits_pending, 0 );
+my $rec = $rec_data->get_by_id(1);
+is ( $rec->id, 1 );
+is ( $rec->gid, "123c079d-374e-4436-9448-da92dedef3ce" );
+is ( $rec->name, "Dancing Queen" );
+is ( $rec->artist_credit_id, 2 );
+is ( $rec->length, 123456 );
+is ( $rec->edits_pending, 0 );
 
-$work = $rec_data->get_by_gid("123c079d-374e-4436-9448-da92dedef3ce");
-is ( $work->id, 1 );
-is ( $work->gid, "123c079d-374e-4436-9448-da92dedef3ce" );
-is ( $work->name, "Dancing Queen" );
-is ( $work->artist_credit_id, 2 );
-is ( $work->length, 123456 );
-is ( $work->edits_pending, 0 );
+$rec = $rec_data->get_by_gid("123c079d-374e-4436-9448-da92dedef3ce");
+is ( $rec->id, 1 );
+is ( $rec->gid, "123c079d-374e-4436-9448-da92dedef3ce" );
+is ( $rec->name, "Dancing Queen" );
+is ( $rec->artist_credit_id, 2 );
+is ( $rec->length, 123456 );
+is ( $rec->edits_pending, 0 );
+
+my ($recs, $hits) = $rec_data->find_by_artist(5, 100);
+is( $hits, 16 );
+is( scalar(@$recs), 16 );
+is( $recs->[0]->name, "A Coral Room" );
+is( $recs->[1]->name, "Aerial" );
+is( $recs->[14]->name, "The Painter's Link" );
+is( $recs->[15]->name, "π" );
