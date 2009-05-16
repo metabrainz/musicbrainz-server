@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 25;
+use Test::More tests => 31;
 use_ok 'MusicBrainz::Server::Data::Release';
 use MusicBrainz::Server::Data::ReleaseLabel;
 
@@ -36,6 +36,14 @@ is( $release->labels->[1]->label_id, 1 );
 is( $release->labels->[1]->catalog_number, "ABC-123-X" );
 
 my ($releases, $hits) = $release_data->find_by_artist(5, 100);
+is( $hits, 2 );
+is( scalar(@$releases), 2 );
+is( $releases->[0]->gid, "f205627f-b70a-409d-adbe-66289b614e80" );
+is( $releases->[0]->date->day, 7 );
+is( $releases->[1]->gid, "9b3d9383-3d2a-417f-bfbb-56f7c15f075b" );
+is( $releases->[1]->date->day, 8 );
+
+($releases, $hits) = $release_data->find_by_release_group(2, 100);
 is( $hits, 2 );
 is( scalar(@$releases), 2 );
 is( $releases->[0]->gid, "f205627f-b70a-409d-adbe-66289b614e80" );

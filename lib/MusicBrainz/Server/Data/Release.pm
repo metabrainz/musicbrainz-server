@@ -64,9 +64,40 @@ sub find_by_artist
         $query, $artist_id, $offset || 0);
 }
 
+sub find_by_release_group
+{
+    my ($self, $release_group_id, $limit, $offset) = @_;
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                 WHERE release_group = ?
+                 ORDER BY date_year, date_month, date_day, name.name
+                 OFFSET ?";
+    return query_to_list_limited(
+        $self->c, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $query, $release_group_id, $offset || 0);
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
+
+=head1 NAME
+
+MusicBrainz::Server::Data::Release
+
+=head1 METHODS
+
+=head2 find_by_artist ($artist_id, $limit, [$offset])
+
+Finds releases by the specified artist, and returns an array containing
+a reference to the array of releases and the total number of found releases.
+The $limit parameter is used to limit the number of returned releass.
+
+=head2 find_by_release_group ($release_group_id, $limit, [$offset])
+
+Finds releases by the specified release group, and returns an array containing
+a reference to the array of releases and the total number of found releases.
+The $limit parameter is used to limit the number of returned releass.
 
 =head1 COPYRIGHT
 
