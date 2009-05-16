@@ -211,6 +211,12 @@ INSERT INTO release
     (id, gid, name, artist_credit, release_group, status, date_year, date_month, date_day, country, barcode)
     VALUES (3, '9b3d9383-3d2a-417f-bfbb-56f7c15f075b', 2, 3, 2, 1, 2005, 11, 8, 2, '0827969777220');
 
+INSERT INTO release_label (id, release, label, catno, position)
+    VALUES (3, 2, 1, '343 960 2', 0);
+
+INSERT INTO release_label (id, release, label, catno, position)
+    VALUES (4, 3, 1, '82796 97772 2', 0);
+
 INSERT INTO tracklist (id) VALUES (3);
 INSERT INTO tracklist (id) VALUES (4);
 
