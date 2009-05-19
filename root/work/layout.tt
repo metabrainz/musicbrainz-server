@@ -1,4 +1,10 @@
+[%- title=l('{type} {work} by {artist}', {
+        type => work.type_name or "Work",
+        work => work.name,
+        artist => artist_credit(work.artist_credit, plain => 1)
+    }) -%]
+
 [%- WRAPPER "layout.tt" -%]
-    <h1>[% l('{work} by {artist}', { work => link_work(work), artist => show_artist_credit(work.artist_credit) }) %]</h1>
+    [%- INCLUDE 'work/header.tt' %]
     [%- content -%]
 [%- END -%]
