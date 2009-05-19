@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Controller;
 BEGIN { use Moose; extends 'Catalyst::Controller'; }
 
+use Data::Page;
 use MusicBrainz::Server::Validation;
 
 __PACKAGE__->config(
@@ -63,6 +64,25 @@ sub submit_and_validate
     {
         return;
     }
+}
+
+sub _load_paged
+{
+    my ($self, $c, $loader) = @_;
+
+    my $page = $c->request->query_params->{page} || 1;
+    $page = 1 if $page < 1;
+
+    my $LIMIT = 50;
+
+    my ($data, $total) = $loader->($LIMIT, ($page - 1) * $LIMIT);
+    my $pager = Data::Page->new;
+    $pager->entries_per_page($LIMIT);
+    $pager->total_entries($total);
+    $pager->current_page($page);
+
+    $c->stash( pager => $pager );
+    return $data;
 }
 
 1;

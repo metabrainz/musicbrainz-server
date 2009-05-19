@@ -1,2 +1,34 @@
 [%- WRAPPER "label/layout.tt" title=label.name -%]
+    [%- WRAPPER "components/with-pager.tt" %]
+        [%- IF releases.size -%]
+            <table>
+                <thead>
+                    <tr>
+                        <th>[% l('Title') %]</th>
+                        <th>[% l('Artist') %]</th>
+                        <th>[% l('Catalog Number') %]</th>
+                        <th>[% l('Release Date') %]</th>
+                        <th>[% l('Country') %]</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    [%- FOREACH release=releases %]
+                    <tr>
+                        <td>[% link_release(release.release) %]</td>
+                        <td>[% artist_credit(release.release.artist_credit) %]</td>
+                        <td>[% release.catalog_number %]</td>
+                        <td>[% release.release.date.format %]</td>
+                        <td>
+                            <abbr title="[% release.release.country.name %]">
+                                [% release.release.country.iso_code %]
+                            </abbr>
+                        </td>
+                    </tr>
+                    [%- END -%]
+                </tbody>
+            </table>
+        [%- ELSE -%]
+            <p>[% l('No releases found') %]</p>
+        [%- END -%]
+    [%- END -%]
 [% END %]

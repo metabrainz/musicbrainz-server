@@ -6,6 +6,7 @@ use warnings;
 use base 'MusicBrainz::Server::Controller';
 
 use MusicBrainz::Server::Constants qw( $DLABEL_ID );
+use Data::Page;
 
 __PACKAGE__->config(
     model       => 'Label',
@@ -119,8 +120,20 @@ that have been released through this label
 sub show : PathPart('') Chained('label')
 {
     my  ($self, $c) = @_;
-    $c->model('Country')->load($c->stash->{label});
-    $c->stash(template => 'label/index.tt');
+
+    my $release_labels = $self->_load_paged($c, sub {
+            $c->model('ReleaseLabel')->find_by_label($c->stash->{label}->id, shift, shift);
+        });
+
+    my @releases = map { $_->release } @$release_labels;
+
+    $c->model('Country')->load($c->stash->{label}, @releases);
+    $c->model('ArtistCredit')->load(@releases);
+
+    $c->stash(
+        template => 'label/index.tt',
+        releases => $release_labels,
+    );
 }
 
 =head2 details
