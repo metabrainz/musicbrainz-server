@@ -1,0 +1,9 @@
+[%- WRAPPER 'layout.tt' title=l('{rg} by {artist}', {
+        artist => artist_credit(rg.artist_credit, plain => 1),
+        rg => rg.name
+    })-%]
+
+    [%- INCLUDE 'release_group/header.tt' %]
+    [%- content -%]
+
+[%- END -%]

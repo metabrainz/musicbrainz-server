@@ -1,0 +1,2 @@
+[%- WRAPPER 'release_group/layout.tt' %]
+[%- END -%]

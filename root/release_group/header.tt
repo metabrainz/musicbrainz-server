@@ -1,0 +1,19 @@
+<div class='entity_header'>
+    <div class='title rg'>
+        [% link_release_group(rg) %]
+        [% "(${rg.comment})" IF rg.comment %]
+    </div>
+    <div class='info'>
+        [% l('By {artist}', {artist = artist_credit(rg.artist_credit)})%]
+        [%- IF rg.type -%]
+            <div class='infoline'>
+                [% l('Type:') %]&nbsp;[% rg.type_name %]
+            </div>
+        [%- END -%]
+    </div>
+    <div class='editLinks'>
+        [%- IF !c.user_exists -%]
+            [% l('Please {uri|log in} to edit this release group.', {uri = c.uri_for('/user/login')}) %]
+        [%- END -%]
+    </div>
+</div>
