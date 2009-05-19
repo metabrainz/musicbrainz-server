@@ -23,7 +23,7 @@ is ( $artist->end_date->year, 2009 );
 is ( $artist->end_date->month, 3 );
 is ( $artist->end_date->day, 4 );
 is ( $artist->edits_pending, 0 );
-is ( $artist->comment, undef );
+is ( $artist->comment, 'Yet Another Test Artist' );
 
 $artist = $artist_data->get_by_id(2);
 is ( $artist->id, 2 );

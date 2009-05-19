@@ -95,3 +95,11 @@ END; -%]
     text = text || html_escape(label.name);
     '<a href="' _ link _ '">' _ text _ '</a>';
 END -%]
+
+
+[%- MACRO link_artist(artist, action, text) BLOCK;
+    action = action || 'show';
+    link = c.uri_for_action("/artist/$action", [ artist.gid ]);
+    text = text || html_escape(artist.name);
+    '<a href="' _ link _ '">' _ text _ '</a>';
+END -%]

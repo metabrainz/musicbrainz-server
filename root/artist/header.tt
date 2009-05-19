@@ -1,75 +1,52 @@
 [%- info_links = [
-    { link => c.entity_url(artist, 'show'), text => l('Releases') },
-    { link => c.entity_url(artist, 'aliases'), text => l('Aliases') },
-    { link => c.entity_url(artist, 'appearances'), text => l('Credits') },
-    { link => c.entity_url(artist, 'details'), text => l('Details / Link') },
-    { link => c.entity_url(artist, 'show'), text => l('Non-Album Tracks') },
-    { link => c.entity_url(artist, 'google'), text => l('Google') }
-    { link => c.entity_url(artist, 'similar'), text => l('Similar Artists') },
-    { link => c.entity_url(artist, 'tags'), text => l('Tags') },
-    { link => c.uri_for('/moderation/entity/artist', artist.mbid), text => l('Edit History') },
-    { link => c.uri_for('/moderation/entity/artist', artist.mbid), text => l('Open Edits') },
-    { link => c.entity_url(artist, 'subscriptions'), text => l('Subscriptions') }
+    link_artist(artist, 'show', l('Releases')),
+    link_artist(artist, 'aliases', l('Aliases')),
+    link_artist(artist, 'appearances', l('Credits')),
+    link_artist(artist, 'details', l('Details / Link')),
+    link_artist(artist, 'show', l('Non-Album Tracks')),
+    link_artist(artist, 'google', l('Google')),
+    link_artist(artist, 'similar', l('Similar Artists')),
+    link_artist(artist, 'tags', l('Tags')),
+    link_artist(artist, 'subscriptions', l('Subscriptions'))
 ] -%]
 <div class='entity_header'>
     <div class='title artist'>
-        [% entity_link(artist, 1) %]
-        [%- IF show_ratings -%]
-            [% rating = artist_rating %]
-            [%- INCLUDE "rating/stars.tt" url_base="/$entity.entity_type/$entity.mbid" -%]
-            <span class="average_rating">
-                (Average rating: <span id='COMMUNITY-RATING-artist-[%- artist.id -%]'>[%- rating.average_score -%]</span>, rated <span id='VOTES-RATING-artist-[%- artist.id -%]'>[%- rating.count -%] time</span>)
-            </span>
-        [%- END -%]
+        [% link_artist(artist) %]
+        [% html_escape("(${artist.comment})") IF artist.comment %]
     </div>
     <div class='info'>
         [%- IF artist.sort_name != artist.name -%]
             <div class='infoline'>
-            [% l('Sort name:') %] [% artist.sort_name | html %]
+                [% l('Sort name:') %] [% html_escape(artist.sort_name) %]
             </div>    
         [% END %]
-        [%- IF artist.has_complete_date_range -%]
+        [%- UNLESS artist.begin_date.is_empty AND artist.end_date.is_empty -%]
             <div class='infoline'>
-                [% artist.begin_date_ymd.join('-') %] -
-                [% artist.end_date_ymd.join('-') %]
-            </div>    
-        [%- ELSIF artist.begin_date -%]
-            <div class='infoline'>
-                [% begin_date_name(artist.type) %]:
-                [% artist.begin_date_ymd.join('-') -%]
-            </div>    
-        [%- ELSIF artist.end_date -%]
-            <div class='infoline'>
-                [% end_date_name(artist.type) %]:
-                [% artist.end_date_ymd.join('-') -%]
-            </div>    
+                [% artist.begin_date.format %] &mdash;
+                [% artist.end_date.format %]
+            </div>
         [%- END -%]
-        <div class='infoline'>
-            [% l('Type:') %]&nbsp;[%- artist_type(artist.type) || 'unknown' -%]
-        </div>    
-        <div class='infoline'>
-            [% l('Data Quality:') %]&nbsp;[%- data_quality(artist.quality) -%]
-        </div>    
+        [%- IF artist.type -%]
+            <div class='infoline'>
+                [% l('Type:') %] [% html_escape(artist.type_name) %]
+            </div>
+        [%- END -%]
+        [%- IF artist.gender -%]
+            <div class='infoline'>
+                [% l('Gender:') %] [% html_escape(artist.gender.name) %]
+            </div>
+        [%- END -%]
+        [%- IF artist.country -%]
+            <div class='infoline'>
+                [% l('Country:') %] [% html_escape(artist.country.name) %]
+            </div>
+        [%- END -%]
     </div>
     <div class='infoLinks'>
         [% INCLUDE 'components/piped-list.tt' list=info_links caption=l('Info:') %]
     </div>
     <div class='editLinks'>
-        [%- IF c.user_exists -%]
-            [%- edit_links = [
-                { link => c.entity_url(artist, 'edit'), text => l('Edit Artist') },
-                { link => c.entity_url(artist, 'merge'), text => l('Merge Artist') },
-                { link => c.uri_for('/artist', artist.mbid || artist.id, 'add_release/track_count'), text => l('Add Release') },
-                { link => c.entity_url(artist, 'add_alias'), text => l('Add Alias') },
-                { link => c.entity_url(artist, 'add_non_album'), text => l('Add Non-Album Tracks') },
-                { link => c.entity_url(artist, 'change_quality'), text => l('Change Data Quality') },
-                { link => c.entity_url(artist, 'import'), text => l('Import Release') },
-                { link => c.entity_url(artist, 'subscribe'), text => l('Subscribe'), hide => subscribed },
-                { link => c.entity_url(artist, 'unsubscribe'), text => l('Unsubscribe'), hide => !subscribed }
-            ] -%]
-            [% INCLUDE 'components/piped-list.tt' caption=l('Edit:') list=edit_links %]
-        [%- ELSE -%]
-            [% l('Please {uri|log in} to edit this artist.', {uri = c.uri_for('/user/login')}) %]
-        [%- END -%]
+        [%- l('Please {uri|log in} to edit this artist.', {uri = c.uri_for('/user/login')})
+            IF !c.user_exists; -%]
     </div>
 </div>

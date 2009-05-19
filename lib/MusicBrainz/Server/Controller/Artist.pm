@@ -11,6 +11,7 @@ __PACKAGE__->config(
 );
 
 use Data::Page;
+use MusicBrainz::Server::Constants qw( $DARTIST_ID $VARTIST_ID );
 use MusicBrainz::Server::Adapter qw(Google);
 use MusicBrainz::Server::Rating;
 use ModDefs;
@@ -55,7 +56,7 @@ sub artist : Chained('load') PathPart('') CaptureArgs(0)
 {
     my ($self, $c) = @_;
 
-    if ($self->entity->id == ModDefs::DARTIST_ID)
+    if ($c->stash->{artist}->id == $DARTIST_ID)
     {
         $c->detach('/error_404');
     }
@@ -63,8 +64,12 @@ sub artist : Chained('load') PathPart('') CaptureArgs(0)
 	if ($c->user_exists)
 	{
     	$c->stash->{subscribed} = $c->model('Subscription')->
-        	is_user_subscribed_to_entity($c->user, $self->entity);
+        	is_user_subscribed_to_entity($c->user, $c->stash->{artist});
 	}
+	
+	$c->model('ArtistType')->load($c->stash->{artist});
+	$c->model('Gender')->load($c->stash->{artist});
+	$c->model('Country')->load($c->stash->{artist});
 }
 
 =head2 similar
@@ -204,39 +209,7 @@ folksonomy information (tags).
 sub show : PathPart('') Chained('artist')
 {
     my ($self, $c) = @_;
-    my $artist = $self->entity;
-    
-    if ($artist->id == ModDefs::VARTIST_ID)
-    {
-        $c->detach('_show_various');
-    }
-    else
-    {
-        my $show_all = $c->req->query_params->{show_all} || 0;
-
-        $c->stash->{tags}       = $c->model('Tag')->top_tags($artist);
-        $c->stash->{releases}   = $c->model('Release')->load_for_artist($artist, $show_all);
-        $c->stash->{relations}  = $c->model('Relation')->load_relations($artist, to_type => [ 'artist', 'url', 'label', 'album' ]);
-        $c->stash->{annotation} = $c->model('Annotation')->load_revision($artist);
-
-        my $id = $c->user_exists ? $c->user->id : 0;
-        $c->stash->{show_ratings} = $id ? $c->user->preferences->get("show_ratings") : 1;
-
-        if ($c->stash->{show_ratings})
-        {
-            $c->stash->{artist_rating} = $c->model('Rating')->get_rating({
-                entity_type     => 'artist',
-                entity_id       => $c->stash->{artist}->id,
-                user_id         => $id,
-            });
-            MusicBrainz::Server::Rating::LoadUserRatingForEntities("release", $c->stash->{releases}, $id);
-        }
-
-        # Decide how to display the data
-        $c->stash->{template} = defined $c->request->query_params->{full} ? 
-                                    'artist/full.tt' :
-                                    'artist/compact.tt';
-    }
+    $c->stash(template => 'artist/index.tt');
 }
 
 =head2 _show_various

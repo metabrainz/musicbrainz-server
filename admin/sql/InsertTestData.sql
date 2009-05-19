@@ -26,10 +26,10 @@ INSERT INTO artist_name (id, name, page) VALUES (3, '2nd Artist, The', 1234);
 INSERT INTO artist
     (id, gid, name, sortname, type, gender, country,
      begindate_year, begindate_month, begindate_day,
-     enddate_year, enddate_month, enddate_day)
+     enddate_year, enddate_month, enddate_day, comment)
     VALUES
     (1, '745c079d-374e-4436-9448-da92dedef3ce', 1, 1, 1, 1, 1,
-     2008, 01, 02, 2009, 03, 04);
+     2008, 01, 02, 2009, 03, 04, 'Yet Another Test Artist');
 INSERT INTO artist (id, gid, name, sortname, type, gender, country) VALUES
     (2, '745c079d-374e-4436-9448-da92dedef3cf', 2, 3, 1, 1, 1);
 

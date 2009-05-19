@@ -1,0 +1,2 @@
+[%- WRAPPER "artist/layout.tt" -%]
+[% END %]

@@ -5,11 +5,16 @@ use warnings;
 
 use base 'Exporter';
 
-our @EXPORT_OK = qw( $DLABEL_ID );
+our @EXPORT_OK = qw( $DLABEL_ID $DARTIST_ID $VARTIST_ID $VARTIST_GID);
 
 use Readonly;
 
 Readonly our $DLABEL_ID => 1;
+
+Readonly our $VARTIST_GID => '89ad4ac3-39f7-470e-963a-56509c546377';
+Readonly our $VARTIST_ID  => 1;
+
+Readonly our $DARTIST_ID => 2;
 
 =head1 NAME
 
@@ -28,6 +33,14 @@ special entities like "Various Artists" and "Deleted Label"
 =item $DLABEL_ID
 
 Row ID for the Deleted Label entity
+
+=item $VARTIST_ID, $VARTIST_GID
+
+Row ID and GID's for the special artist "Various Artists"
+
+=item $DARTIST_ID
+
+Row ID for the Deleted Artist entity
 
 =back
 
