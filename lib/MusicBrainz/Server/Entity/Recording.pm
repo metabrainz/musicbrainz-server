@@ -4,6 +4,7 @@ use Moose;
 use MusicBrainz::Server::Entity::Types;
 
 extends 'MusicBrainz::Server::Entity::CoreEntity';
+with 'MusicBrainz::Server::Entity::Taggable';
 
 has 'artist_credit_id' => (
     is => 'rw',

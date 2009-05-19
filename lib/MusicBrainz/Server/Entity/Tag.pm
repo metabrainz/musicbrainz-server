@@ -1,43 +1,10 @@
-package MusicBrainz::Server::Entity::Work;
+package MusicBrainz::Server::Entity::Tag;
 
 use Moose;
-use MusicBrainz::Server::Entity::Types;
 
-extends 'MusicBrainz::Server::Entity::CoreEntity';
-with 'MusicBrainz::Server::Entity::Taggable';
+extends 'MusicBrainz::Server::Entity::Entity';
 
-has 'type_id' => (
-    is => 'rw',
-    isa => 'Int'
-    );
-
-has 'type' => (
-    is => 'rw',
-    isa => 'WorkType'
-);
-
-sub type_name
-{
-    my ($self) = @_;
-    return $self->type ? $self->type->name : undef;
-}
-
-has 'artist_credit_id' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-has 'artist_credit' => (
-    is => 'rw',
-    isa => 'ArtistCredit'
-);
-
-has 'iswc' => (
-    is => 'rw',
-    isa => 'Str'
-);
-
-has 'comment' => (
+has 'name' => (
     is => 'rw',
     isa => 'Str'
 );
@@ -45,6 +12,16 @@ has 'comment' => (
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
+
+=head1 NAME
+
+MusicBrainz::Server::Entity::Tag
+
+=head1 ATTRIBUTES
+
+=head2 name
+
+Name of the tag.
 
 =head1 COPYRIGHT
 

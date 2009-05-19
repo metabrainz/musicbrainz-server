@@ -5,6 +5,7 @@ use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Types;
 
 extends 'MusicBrainz::Server::Entity::CoreEntity';
+with 'MusicBrainz::Server::Entity::Taggable';
 
 has 'sort_name' => (
     is => 'rw',

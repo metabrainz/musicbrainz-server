@@ -1,50 +1,44 @@
-package MusicBrainz::Server::Entity::Work;
+package MusicBrainz::Server::Entity::Taggable;
 
-use Moose;
+use Moose::Role;
+use MooseX::AttributeHelpers;
 use MusicBrainz::Server::Entity::Types;
 
-extends 'MusicBrainz::Server::Entity::CoreEntity';
-with 'MusicBrainz::Server::Entity::Taggable';
-
-has 'type_id' => (
+has 'tags' => (
     is => 'rw',
-    isa => 'Int'
-    );
-
-has 'type' => (
-    is => 'rw',
-    isa => 'WorkType'
+    isa => 'ArrayRef[AggregatedTag]',
+    provides => {
+        elements => 'all_tags',
+        push => 'add_tag',
+        clear => 'clear_tags'
+    }
 );
 
-sub type_name
-{
-    my ($self) = @_;
-    return $self->type ? $self->type->name : undef;
-}
-
-has 'artist_credit_id' => (
+has 'user_tags' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'ArrayRef[UserTag]',
+    provides => {
+        elements => 'all_user_tags',
+        push => 'add_user_tag',
+        clear => 'clear_user_tags'
+    }
 );
 
-has 'artist_credit' => (
-    is => 'rw',
-    isa => 'ArtistCredit'
-);
-
-has 'iswc' => (
-    is => 'rw',
-    isa => 'Str'
-);
-
-has 'comment' => (
-    is => 'rw',
-    isa => 'Str'
-);
-
-__PACKAGE__->meta->make_immutable;
-no Moose;
 1;
+
+=head1 NAME
+
+MusicBrainz::Server::Entity::Taggable
+
+=head1 ATTRIBUTES
+
+=head2 tags
+
+Aggregated collection of all user's tags.
+
+=head2 user_tags
+
+User's tags.
 
 =head1 COPYRIGHT
 

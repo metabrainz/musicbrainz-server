@@ -1,50 +1,42 @@
-package MusicBrainz::Server::Entity::Work;
+package MusicBrainz::Server::Entity::AggregatedTag;
 
 use Moose;
 use MusicBrainz::Server::Entity::Types;
 
-extends 'MusicBrainz::Server::Entity::CoreEntity';
-with 'MusicBrainz::Server::Entity::Taggable';
+extends 'MusicBrainz::Server::Entity::Entity';
 
-has 'type_id' => (
-    is => 'rw',
-    isa => 'Int'
-    );
-
-has 'type' => (
-    is => 'rw',
-    isa => 'WorkType'
-);
-
-sub type_name
-{
-    my ($self) = @_;
-    return $self->type ? $self->type->name : undef;
-}
-
-has 'artist_credit_id' => (
+has 'tag_id' => (
     is => 'rw',
     isa => 'Int'
 );
 
-has 'artist_credit' => (
+has 'tag' => (
     is => 'rw',
-    isa => 'ArtistCredit'
+    isa => 'Tag'
 );
 
-has 'iswc' => (
+has 'count' => (
     is => 'rw',
-    isa => 'Str'
-);
-
-has 'comment' => (
-    is => 'rw',
-    isa => 'Str'
+    isa => 'Int'
 );
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
+
+=head1 NAME
+
+MusicBrainz::Server::Entity::AggregatedTag
+
+=head1 ATTRIBUTES
+
+=head2 tag_id, tag
+
+The tag.
+
+=head2 count
+
+How many times was the tag used.
 
 =head1 COPYRIGHT
 

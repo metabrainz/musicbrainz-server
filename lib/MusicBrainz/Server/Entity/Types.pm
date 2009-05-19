@@ -2,6 +2,9 @@ package MusicBrainz::Server::Entity::Types;
 
 use Moose::Util::TypeConstraints;
 
+subtype 'AggregatedTag'
+    => as class_type 'MusicBrainz::Server::Entity::AggregatedTag';
+
 subtype 'Artist'
     => as class_type 'MusicBrainz::Server::Entity::Artist';
 
@@ -77,11 +80,17 @@ subtype 'ReleaseLabel'
 subtype 'Script'
     => as class_type 'MusicBrainz::Server::Entity::Script';
 
+subtype 'Tag'
+    => as class_type 'MusicBrainz::Server::Entity::Tag';
+
 subtype 'Tracklist'
     => as class_type 'MusicBrainz::Server::Entity::Tracklist';
 
 subtype 'Track'
     => as class_type 'MusicBrainz::Server::Entity::Track';
+
+subtype 'UserTag'
+    => as class_type 'MusicBrainz::Server::Entity::UserTag';
 
 subtype 'Work'
     => as class_type 'MusicBrainz::Server::Entity::Work';
