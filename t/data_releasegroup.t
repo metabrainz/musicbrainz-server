@@ -28,7 +28,7 @@ is( $rg->artist_credit_id, 2 );
 is( $rg->type_id, 1 );
 is( $rg->edits_pending, 0 );
 
-my ($rgs, $hits) = $rg_data->find_by_artist(5, 100);
+my ($rgs, $hits) = $rg_data->find_by_artist(7, 100);
 is( $hits, 1 );
 is( scalar(@$rgs), 1 );
 is( $rgs->[0]->name, "Aerial" );

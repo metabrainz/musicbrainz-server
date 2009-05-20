@@ -14,12 +14,12 @@ my $rl_data = MusicBrainz::Server::Data::ReleaseLabel->new(c => $c);
 my $rl = $rl_data->get_by_id(1);
 is( $rl->id, 1 );
 is( $rl->release_id, 1 );
-is( $rl->label_id, 1 );
+is( $rl->label_id, 2 );
 is( $rl->catalog_number, "ABC-123" );
 is( $rl->position, 0 );
 
 
-my ($rls, $hits) = $rl_data->find_by_label(1, 100);
+my ($rls, $hits) = $rl_data->find_by_label(2, 100);
 is( $hits, 4 );
 is( scalar(@$rls), 4 );
 is( $rls->[0]->release->id, 2 );

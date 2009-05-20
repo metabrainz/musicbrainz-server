@@ -6,6 +6,7 @@ TRUNCATE artist_type CASCADE;
 
 INSERT INTO artist_type (id, name) VALUES (1, 'Person');
 INSERT INTO artist_type (id, name) VALUES (2, 'Group');
+INSERT INTO artist_type (id, name) VALUES (3, 'Special MusicBrainz Artist');
 
 TRUNCATE country CASCADE;
 
@@ -20,31 +21,45 @@ INSERT INTO gender (id, name) VALUES (2, 'Female');
 TRUNCATE artist CASCADE;
 TRUNCATE artist_name CASCADE;
 
-INSERT INTO artist_name (id, name, page) VALUES (1, 'Artist 1', 1234);
-INSERT INTO artist_name (id, name, page) VALUES (2, 'The 2nd Artist', 1234);
-INSERT INTO artist_name (id, name, page) VALUES (3, '2nd Artist, The', 1234);
+-- MusicBrainz System Entities
+INSERT INTO artist_name (id, name, page) VALUES (1, 'Various Artists', 1234);
+INSERT INTO artist_name (id, name, page) VALUES (2, 'Deleted Artist', 1234);
+
+INSERT INTO artist (id, gid, name, sortname, type) VALUES
+    (1, '89ad4ac3-39f7-470e-963a-56509c546377', 1, 1, 3);
+
+INSERT INTO artist (id, gid, name, sortname, type) VALUES
+    (2, 'c06aa285-520e-40c0-b776-83d2c9e8a6d1', 2, 2, 3);
+
+-- Test Artist
+INSERT INTO artist_name (id, name, page) VALUES (3, 'Test Artist', 1234);
+INSERT INTO artist_name (id, name, page) VALUES (4, 'Artist, Test', 1234);
 INSERT INTO artist
     (id, gid, name, sortname, type, gender, country,
      begindate_year, begindate_month, begindate_day,
      enddate_year, enddate_month, enddate_day, comment)
     VALUES
-    (1, '745c079d-374e-4436-9448-da92dedef3ce', 1, 1, 1, 1, 1,
+    (3, '745c079d-374e-4436-9448-da92dedef3ce', 3, 4, 1, 1, 1,
      2008, 01, 02, 2009, 03, 04, 'Yet Another Test Artist');
-INSERT INTO artist (id, gid, name, sortname, type, gender, country) VALUES
-    (2, '745c079d-374e-4436-9448-da92dedef3cf', 2, 3, 1, 1, 1);
 
-INSERT INTO artist_name (id, name, page) VALUES (4, 'Queen', 1234);
-INSERT INTO artist_name (id, name, page) VALUES (5, 'David Bowie', 1234);
+INSERT INTO artist_name (id, name, page) VALUES (5, 'Queen', 1234);
+INSERT INTO artist_name (id, name, page) VALUES (6, 'D. Bowie', 1234);
+
+-- duplicated for sql_artistcredit.sql (tests refcount = 0)
+INSERT INTO artist_name (id, name, page) VALUES (11, 'David Bowie', 1234);
 
 TRUNCATE artist_credit_name CASCADE;
 TRUNCATE artist_credit CASCADE;
 
 INSERT INTO artist (id, gid, name, sortname) VALUES
-    (3, '945c079d-374e-4436-9448-da92dedef3cf', 4, 4);
+    (4, '945c079d-374e-4436-9448-da92dedef3cf', 5, 5);
+
+INSERT INTO artist (id, gid, name, sortname) VALUES
+    (5, '5441c29d-3602-4898-b1a1-b77fa23b8e50', 6, 6);
 
 INSERT INTO artist_credit (id, artistcount) VALUES (1, 2);
-INSERT INTO artist_credit_name (artist_credit, position, artist, name, joinphrase) VALUES (1, 0, 3, 4, ' & ');
-INSERT INTO artist_credit_name (artist_credit, position, artist, name, joinphrase) VALUES (1, 1, 3, 5, NULL);
+INSERT INTO artist_credit_name (artist_credit, position, artist, name, joinphrase) VALUES (1, 0, 4, 5, ' & ');
+INSERT INTO artist_credit_name (artist_credit, position, artist, name, joinphrase) VALUES (1, 1, 5, 11, NULL);
 
 TRUNCATE recording CASCADE;
 TRUNCATE track_name CASCADE;
@@ -53,11 +68,11 @@ TRUNCATE release_group CASCADE;
 TRUNCATE release_group_type CASCADE;
 TRUNCATE release_name CASCADE;
 
-INSERT INTO artist_name (id, name, page) VALUES (6, 'ABBA', 1234);
+INSERT INTO artist_name (id, name, page) VALUES (7, 'ABBA', 1234);
 
-INSERT INTO artist (id, gid, name, sortname) VALUES (4, 'a45c079d-374e-4436-9448-da92dedef3cf', 6, 6);
+INSERT INTO artist (id, gid, name, sortname) VALUES (6, 'a45c079d-374e-4436-9448-da92dedef3cf', 7, 7);
 INSERT INTO artist_credit (id, artistcount) VALUES (2, 1);
-INSERT INTO artist_credit_name (artist_credit, position, artist, name) VALUES (2, 0, 4, 6);
+INSERT INTO artist_credit_name (artist_credit, position, artist, name) VALUES (2, 0, 6, 7);
 
 INSERT INTO track_name (id, name, page) VALUES (1, 'Dancing Queen', 1234);
 INSERT INTO recording (id, gid, name, artist_credit, length) VALUES
@@ -100,18 +115,15 @@ INSERT INTO script (id, isocode, isonumber, name, frequency)
 TRUNCATE label_type CASCADE;
 
 INSERT INTO label_type (id, name) VALUES (1, 'Production');
+INSERT INTO label_type (id, name) VALUES (2, 'Special MusicBrainz Label');
 
 TRUNCATE label CASCADE;
 TRUNCATE label_name CASCADE;
 
-INSERT INTO label_name (id, name, page) VALUES (1, 'Mute', 1234);
-INSERT INTO label
-    (id, gid, name, sortname, type, country, labelcode,
-     begindate_year, begindate_month, begindate_day,
-     enddate_year, enddate_month, enddate_day)
-    VALUES
-    (1, 'f45c079d-374e-4436-9448-da92dedef3ce', 1, 1, 1, 1, 1234,
-     2008, 01, 02, 2009, 03, 04);
+-- Special Labels
+INSERT INTO label_name (id, name, page) VALUES (1, 'Deleted Label', 1234);
+INSERT INTO label (id, gid, name, sortname, type) VALUES
+    (1, 'f43e252d-9ebf-4e8e-bba8-36d080756cc1', 1, 1, 2);
 
 INSERT INTO label_name (id, name, page) VALUES (2, 'Warp Records', 1234);
 INSERT INTO label (id, gid, name, sortname, type, country, labelcode,
@@ -129,16 +141,9 @@ INSERT INTO release (id, gid, name, artist_credit, release_group, status, packag
 TRUNCATE release_label CASCADE;
 
 INSERT INTO release_label (id, release, position, label, catno)
-    VALUES (1, 1, 0, 1, 'ABC-123');
+    VALUES (1, 1, 0, 2, 'ABC-123');
 INSERT INTO release_label (id, release, position, label, catno)
-    VALUES (2, 1, 1, 1, 'ABC-123-X');
-
--- I've had to add these to warp (label id = 2) so I can actually view them in the site
--- (label id = 1 is a special label). aCiD2.
-INSERT INTO release_label (id, release, position, label, catno)
-    VALUES (5, 1, 0, 2, 'ABC-123');
-INSERT INTO release_label (id, release, position, label, catno)
-    VALUES (6, 1, 1, 2, 'ABC-123-X');
+    VALUES (2, 1, 1, 2, 'ABC-123-X');
 
 TRUNCATE url CASCADE;
 
@@ -185,25 +190,25 @@ INSERT INTO
 
 TRUNCATE artist_alias CASCADE;
 
-INSERT INTO artist_name (id, name, page) VALUES (7, 'Test Alias', 1234);
+INSERT INTO artist_name (id, name, page) VALUES (8, 'Test Alias', 1234);
 INSERT INTO artist_alias (id, name, artist, editpending)
-    VALUES (1, 7, 1, 2);
+    VALUES (1, 8, 4, 2);
 
 TRUNCATE label_alias CASCADE;
 
 INSERT INTO label_name (id, name, page) VALUES (3, 'Test Label Alias', 1234);
 INSERT INTO label_alias (id, name, label, editpending)
-    VALUES (1, 3, 1, 2);
+    VALUES (1, 3, 2, 2);
 
 
-INSERT INTO artist_name (id, name, page) VALUES (8, 'Kate Bush', 12345);
-INSERT INTO artist_name (id, name, page) VALUES (9, 'Bush, Kate', 12345);
+INSERT INTO artist_name (id, name, page) VALUES (9, 'Kate Bush', 12345);
+INSERT INTO artist_name (id, name, page) VALUES (10, 'Bush, Kate', 12345);
 
 INSERT INTO artist (id, gid, name, sortname, begindate_year, begindate_month, begindate_day, type)
-    VALUES (5, '4b585938-f271-45e2-b19a-91c634b5e396', 8, 9, 1958, 7, 30, 1);
+    VALUES (7, '4b585938-f271-45e2-b19a-91c634b5e396', 9, 10, 1958, 7, 30, 1);
 
 INSERT INTO artist_credit (id, artistcount) VALUES (3, 1);
-INSERT INTO artist_credit_name (artist_credit, position, artist, name) VALUES (3, 0, 5, 7);
+INSERT INTO artist_credit_name (artist_credit, position, artist, name) VALUES (3, 0, 7, 7);
 
 INSERT INTO release_name (id, name, page) VALUES (2, 'Aerial', 12345);
 
@@ -219,10 +224,10 @@ INSERT INTO release
     VALUES (3, '9b3d9383-3d2a-417f-bfbb-56f7c15f075b', 2, 3, 2, 1, 2005, 11, 8, 2, '0827969777220');
 
 INSERT INTO release_label (id, release, label, catno, position)
-    VALUES (3, 2, 1, '343 960 2', 0);
+    VALUES (3, 2, 2, '343 960 2', 0);
 
 INSERT INTO release_label (id, release, label, catno, position)
-    VALUES (4, 3, 1, '82796 97772 2', 0);
+    VALUES (4, 3, 2, '82796 97772 2', 0);
 
 INSERT INTO tracklist (id) VALUES (3);
 INSERT INTO tracklist (id) VALUES (4);
@@ -310,8 +315,8 @@ TRUNCATE release_gid_redirect CASCADE;
 TRUNCATE release_group_gid_redirect CASCADE;
 TRUNCATE work_gid_redirect CASCADE;
 
-INSERT INTO artist_gid_redirect VALUES ('a4ef1d08-962e-4dd6-ae14-e42a6a97fc11', 1);
-INSERT INTO label_gid_redirect VALUES ('efdf3fe9-c293-4acd-b4b2-8d2a7d4f9592', 1);
+INSERT INTO artist_gid_redirect VALUES ('a4ef1d08-962e-4dd6-ae14-e42a6a97fc11', 4);
+INSERT INTO label_gid_redirect VALUES ('efdf3fe9-c293-4acd-b4b2-8d2a7d4f9592', 2);
 INSERT INTO recording_gid_redirect VALUES ('0986e67c-6b7a-40b7-b4ba-c9d7583d6426', 1);
 INSERT INTO release_gid_redirect VALUES ('71dc55d8-0fc6-41c1-94e0-85ff2404997d', 1);
 INSERT INTO release_group_gid_redirect VALUES ('77637e8c-be66-46ea-87b3-73addc722fc9', 1);

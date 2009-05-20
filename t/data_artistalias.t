@@ -18,7 +18,7 @@ my $alias = $alias_data->get_by_id(1);
 ok(defined $alias, 'returns an object');
 isa_ok($alias, 'MusicBrainz::Server::Entity::ArtistAlias', 'not an artist alias');
 is($alias->name, 'Test Alias', 'alias name');
-is($alias->artist_id, 1, 'artist id');
+is($alias->artist_id, 4, 'artist id');
 
 my $artist_data = MusicBrainz::Server::Data::Artist->new(c => $c);
 $artist_data->load($alias);

@@ -11,22 +11,22 @@ MusicBrainz::Server::Test->prepare_test_database($c);
 
 my $label_data = MusicBrainz::Server::Data::Label->new(c => $c);
 
-my $label = $label_data->get_by_id(1);
-is ( $label->id, 1 );
-is ( $label->gid, "f45c079d-374e-4436-9448-da92dedef3ce" );
-is ( $label->name, "Mute" );
-is ( $label->sort_name, "Mute" );
-is ( $label->begin_date->year, 2008 );
-is ( $label->begin_date->month, 1 );
-is ( $label->begin_date->day, 2 );
-is ( $label->end_date->year, 2009 );
-is ( $label->end_date->month, 3 );
-is ( $label->end_date->day, 4 );
+my $label = $label_data->get_by_id(2);
+is ( $label->id, 2 );
+is ( $label->gid, "46f0f4cd-8aab-4b33-b698-f459faf64190" );
+is ( $label->name, "Warp Records" );
+is ( $label->sort_name, "Warp Records" );
+is ( $label->begin_date->year, 1989 );
+is ( $label->begin_date->month, 2 );
+is ( $label->begin_date->day, 3 );
+is ( $label->end_date->year, 2008 );
+is ( $label->end_date->month, 5 );
+is ( $label->end_date->day, 19 );
 is ( $label->edits_pending, 0 );
 is ( $label->type_id, 1 );
-is ( $label->label_code, 1234 );
-is ( $label->format_label_code, 'LC-01234' );
-is ( $label->comment, undef );
+is ( $label->label_code, 2070 );
+is ( $label->format_label_code, 'LC-02070' );
+is ( $label->comment, 'Sheffield based electronica label' );
 
 $label = $label_data->get_by_gid('efdf3fe9-c293-4acd-b4b2-8d2a7d4f9592');
-is ( $label->id, 1 );
+is ( $label->id, 2 );

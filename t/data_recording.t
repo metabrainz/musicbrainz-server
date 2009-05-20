@@ -27,7 +27,7 @@ is ( $rec->artist_credit_id, 2 );
 is ( $rec->length, 123456 );
 is ( $rec->edits_pending, 0 );
 
-my ($recs, $hits) = $rec_data->find_by_artist(5, 100);
+my ($recs, $hits) = $rec_data->find_by_artist(7, 100);
 is( $hits, 16 );
 is( scalar(@$recs), 16 );
 is( $recs->[0]->name, "A Coral Room" );

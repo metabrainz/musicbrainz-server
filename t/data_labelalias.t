@@ -18,7 +18,7 @@ my $alias = $alias_data->get_by_id(1);
 ok(defined $alias, 'returns an object');
 isa_ok($alias, 'MusicBrainz::Server::Entity::LabelAlias', 'not a label alias');
 is($alias->name, 'Test Label Alias', 'alias name');
-is($alias->label_id, 1);
+is($alias->label_id, 2);
 
 my $label_data = MusicBrainz::Server::Data::Label->new(c => $c);
 $label_data->load($alias);
