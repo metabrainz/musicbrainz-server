@@ -1,14 +1,31 @@
 package MusicBrainz::Server::Data::CoreEntity;
 
 use Moose;
+use Sql;
 
 extends 'MusicBrainz::Server::Data::Entity';
+
+sub _gid_redirect_table
+{
+    return undef;
+}
 
 sub get_by_gid
 {
     my ($self, $gid) = @_;
     my @result = values %{$self->_get_by_keys("gid", $gid)};
-    return $result[0];
+    if (scalar(@result)) {
+        return $result[0];
+    }
+    my $table = $self->_gid_redirect_table;
+    if (defined($table)) {
+        my $sql = Sql->new($self->c->mb->dbh);
+        my $id = $sql->SelectSingleValue("SELECT newid FROM $table WHERE gid=?", $gid);
+        if (defined($id)) {
+            return $self->get_by_id($id);
+        }
+    }
+    return undef;
 }
 
 __PACKAGE__->meta->make_immutable;

@@ -26,6 +26,11 @@ sub _id_column
     return 'artist.id';
 }
 
+sub _gid_redirect_table
+{
+    return 'artist_gid_redirect';
+}
+
 sub _column_mapping
 {
     return {

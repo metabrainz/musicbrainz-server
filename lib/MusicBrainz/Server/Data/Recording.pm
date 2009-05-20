@@ -23,6 +23,11 @@ sub _id_column
     return 'recording.id';
 }
 
+sub _gid_redirect_table
+{
+    return 'recording_gid_redirect';
+}
+
 sub _entity_class
 {
     return 'MusicBrainz::Server::Entity::Recording';

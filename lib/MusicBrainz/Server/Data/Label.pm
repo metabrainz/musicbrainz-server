@@ -26,6 +26,11 @@ sub _id_column
     return 'label.id';
 }
 
+sub _gid_redirect_table
+{
+    return 'label_gid_redirect';
+}
+
 sub _column_mapping
 {
     return {

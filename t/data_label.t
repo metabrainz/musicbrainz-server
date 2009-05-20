@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 16;
+use Test::More tests => 17;
 use_ok 'MusicBrainz::Server::Data::Label';
 
 use MusicBrainz::Server::Context;
@@ -27,3 +27,6 @@ is ( $label->type_id, 1 );
 is ( $label->label_code, 1234 );
 is ( $label->format_label_code, 'LC-01234' );
 is ( $label->comment, undef );
+
+$label = $label_data->get_by_gid('efdf3fe9-c293-4acd-b4b2-8d2a7d4f9592');
+is ( $label->id, 1 );

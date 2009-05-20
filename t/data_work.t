@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 20;
+use Test::More tests => 22;
 use_ok 'MusicBrainz::Server::Data::Work';
 use MusicBrainz::Server::Data::WorkType;
 
@@ -38,3 +38,9 @@ my ($works, $hits) = $work_data->find_by_artist(4, 100);
 is( $hits, 1 );
 is( scalar(@$works), 1 );
 is( $works->[0]->name, "Dancing Queen" );
+
+$work = $work_data->get_by_gid('28e73402-5666-4d74-80ab-c3734dc699ea');
+is ( $work->id, 1 );
+
+$work = $work_data->get_by_gid('ffffffff-ffff-ffff-ffff-ffffffffffff');
+is ( $work, undef );

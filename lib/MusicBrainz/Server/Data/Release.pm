@@ -26,6 +26,11 @@ sub _id_column
     return 'release.id';
 }
 
+sub _gid_redirect_table
+{
+    return 'release_gid_redirect';
+}
+
 sub _column_mapping
 {
     return {

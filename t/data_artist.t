@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 25;
+use Test::More tests => 26;
 use_ok 'MusicBrainz::Server::Data::Artist';
 
 use MusicBrainz::Server::Context;
@@ -38,3 +38,6 @@ is ( $artist->end_date->month, undef );
 is ( $artist->end_date->day, undef );
 is ( $artist->edits_pending, 0 );
 is ( $artist->comment, undef );
+
+$artist = $artist_data->get_by_gid('a4ef1d08-962e-4dd6-ae14-e42a6a97fc11');
+is ( $artist->id, 1 );

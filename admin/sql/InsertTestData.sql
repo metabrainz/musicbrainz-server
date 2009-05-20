@@ -303,6 +303,20 @@ INSERT INTO medium (id, release, position, tracklist, format, name) VALUES (4, 2
 INSERT INTO medium (id, release, position, tracklist, format, name) VALUES (5, 3, 1, 3, 1, 'A Sea of Honey');
 INSERT INTO medium (id, release, position, tracklist, format, name) VALUES (6, 3, 2, 4, 1, 'A Sky of Honey');
 
+TRUNCATE artist_gid_redirect CASCADE;
+TRUNCATE label_gid_redirect CASCADE;
+TRUNCATE recording_gid_redirect CASCADE;
+TRUNCATE release_gid_redirect CASCADE;
+TRUNCATE release_group_gid_redirect CASCADE;
+TRUNCATE work_gid_redirect CASCADE;
+
+INSERT INTO artist_gid_redirect VALUES ('a4ef1d08-962e-4dd6-ae14-e42a6a97fc11', 1);
+INSERT INTO label_gid_redirect VALUES ('efdf3fe9-c293-4acd-b4b2-8d2a7d4f9592', 1);
+INSERT INTO recording_gid_redirect VALUES ('0986e67c-6b7a-40b7-b4ba-c9d7583d6426', 1);
+INSERT INTO release_gid_redirect VALUES ('71dc55d8-0fc6-41c1-94e0-85ff2404997d', 1);
+INSERT INTO release_group_gid_redirect VALUES ('77637e8c-be66-46ea-87b3-73addc722fc9', 1);
+INSERT INTO work_gid_redirect VALUES ('28e73402-5666-4d74-80ab-c3734dc699ea', 1);
+
 SET client_min_messages TO 'NOTICE';
 
 COMMIT;

@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 20;
+use Test::More tests => 21;
 use_ok 'MusicBrainz::Server::Data::ReleaseGroup';
 use MusicBrainz::Server::Data::Release;
 
@@ -40,3 +40,6 @@ is( $release->release_group, undef );
 $rg_data->load($release);
 isnt( $release->release_group, undef );
 is( $release->release_group->name, "Aerial" );
+
+$rg = $rg_data->get_by_gid('77637e8c-be66-46ea-87b3-73addc722fc9');
+is ( $rg->id, 1 );
