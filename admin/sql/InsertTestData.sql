@@ -315,6 +315,28 @@ INSERT INTO medium (id, release, position, tracklist, format, name) VALUES (4, 2
 INSERT INTO medium (id, release, position, tracklist, format, name) VALUES (5, 3, 1, 3, 1, 'A Sea of Honey');
 INSERT INTO medium (id, release, position, tracklist, format, name) VALUES (6, 3, 2, 4, 1, 'A Sky of Honey');
 
+TRUNCATE TABLE annotation CASCADE;
+TRUNCATE TABLE artist_annotation CASCADE;
+TRUNCATE TABLE label_annotation CASCADE;
+TRUNCATE TABLE recording_annotation CASCADE;
+TRUNCATE TABLE release_annotation CASCADE;
+TRUNCATE TABLE release_group_annotation CASCADE;
+TRUNCATE TABLE work_annotation CASCADE;
+
+INSERT INTO annotation (id, editor, text) VALUES (1, 1, 'Test annotation 1.');
+INSERT INTO annotation (id, editor, text) VALUES (2, 1, 'Test annotation 2.');
+INSERT INTO annotation (id, editor, text) VALUES (3, 1, 'Test annotation 3.');
+INSERT INTO annotation (id, editor, text) VALUES (4, 1, 'Test annotation 4.');
+INSERT INTO annotation (id, editor, text) VALUES (5, 1, 'Test annotation 5.');
+INSERT INTO annotation (id, editor, text) VALUES (6, 1, 'Test annotation 6.');
+
+INSERT INTO artist_annotation (artist, annotation) VALUES (1, 1);
+INSERT INTO label_annotation (label, annotation) VALUES (1, 2);
+INSERT INTO recording_annotation (recording, annotation) VALUES (1, 3);
+INSERT INTO release_annotation (release, annotation) VALUES (1, 4);
+INSERT INTO release_group_annotation (release_group, annotation) VALUES (1, 5);
+INSERT INTO work_annotation (work, annotation) VALUES (1, 6);
+
 TRUNCATE artist_gid_redirect CASCADE;
 TRUNCATE label_gid_redirect CASCADE;
 TRUNCATE recording_gid_redirect CASCADE;

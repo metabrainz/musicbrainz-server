@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 25;
+use Test::More tests => 26;
 use_ok 'MusicBrainz::Server::Data::ReleaseGroup';
 use MusicBrainz::Server::Data::Release;
 use MusicBrainz::Server::Data::Search;
@@ -41,6 +41,9 @@ is( $release->release_group, undef );
 $rg_data->load($release);
 isnt( $release->release_group, undef );
 is( $release->release_group->name, "Aerial" );
+
+my $annotation = $rg_data->annotation->get_latest(1);
+is ( $annotation->text, "Test annotation 5." );
 
 $rg = $rg_data->get_by_gid('77637e8c-be66-46ea-87b3-73addc722fc9');
 is ( $rg->id, 1 );

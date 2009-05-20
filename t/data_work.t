@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 26;
+use Test::More tests => 27;
 use_ok 'MusicBrainz::Server::Data::Work';
 use MusicBrainz::Server::Data::WorkType;
 use MusicBrainz::Server::Data::Search;
@@ -39,6 +39,9 @@ my ($works, $hits) = $work_data->find_by_artist(6, 100);
 is( $hits, 1 );
 is( scalar(@$works), 1 );
 is( $works->[0]->name, "Dancing Queen" );
+
+my $annotation = $work_data->annotation->get_latest(1);
+is ( $annotation->text, "Test annotation 6." );
 
 $work = $work_data->get_by_gid('28e73402-5666-4d74-80ab-c3734dc699ea');
 is ( $work->id, 1 );

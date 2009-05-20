@@ -5,6 +5,12 @@ use MusicBrainz::Server::Entity::Work;
 use MusicBrainz::Server::Data::Utils qw( query_to_list_limited );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
+with 'MusicBrainz::Server::Data::AnnotationRole';
+
+sub _annotation_type
+{
+    return 'work';
+}
 
 sub _table
 {

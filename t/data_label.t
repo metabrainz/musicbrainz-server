@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 22;
+use Test::More tests => 23;
 use_ok 'MusicBrainz::Server::Data::Label';
 use MusicBrainz::Server::Data::Search;
 
@@ -28,6 +28,9 @@ is ( $label->type_id, 1 );
 is ( $label->label_code, 2070 );
 is ( $label->format_label_code, 'LC-02070' );
 is ( $label->comment, 'Sheffield based electronica label' );
+
+my $annotation = $label_data->annotation->get_latest(1);
+is ( $annotation->text, "Test annotation 2." );
 
 $label = $label_data->get_by_gid('efdf3fe9-c293-4acd-b4b2-8d2a7d4f9592');
 is ( $label->id, 2 );

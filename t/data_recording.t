@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 24;
+use Test::More tests => 25;
 use_ok 'MusicBrainz::Server::Data::Recording';
 use MusicBrainz::Server::Data::Search;
 
@@ -35,6 +35,9 @@ is( $recs->[0]->name, "A Coral Room" );
 is( $recs->[1]->name, "Aerial" );
 is( $recs->[14]->name, "The Painter's Link" );
 is( $recs->[15]->name, "π" );
+
+my $annotation = $rec_data->annotation->get_latest(1);
+is ( $annotation->text, "Test annotation 3." );
 
 $rec = $rec_data->get_by_gid('0986e67c-6b7a-40b7-b4ba-c9d7583d6426');
 is ( $rec->id, 1 );

@@ -8,6 +8,12 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
+with 'MusicBrainz::Server::Data::AnnotationRole';
+
+sub _annotation_type
+{
+    return 'release';
+}
 
 sub _table
 {

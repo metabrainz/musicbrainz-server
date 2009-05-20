@@ -5,6 +5,12 @@ use MusicBrainz::Server::Entity::Artist;
 use MusicBrainz::Server::Data::Utils qw( partial_date_from_row load_subobjects );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
+with 'MusicBrainz::Server::Data::AnnotationRole';
+
+sub _annotation_type
+{
+    return 'artist';
+}
 
 sub _table
 {

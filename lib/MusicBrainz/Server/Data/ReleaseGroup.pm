@@ -5,6 +5,12 @@ use MusicBrainz::Server::Entity::ReleaseGroup;
 use MusicBrainz::Server::Data::Utils qw( load_subobjects query_to_list_limited );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
+with 'MusicBrainz::Server::Data::AnnotationRole';
+
+sub _annotation_type
+{
+    return 'release_group';
+}
 
 sub _table
 {
