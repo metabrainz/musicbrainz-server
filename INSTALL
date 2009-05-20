@@ -63,6 +63,14 @@ Getting going
 
 4) Create the databases
 
+    Before you start, you need to install a C extension on your database server. You will
+    need libunac (https://gna.org/projects/unac/) and PostgreSQL development headers. Then
+    run these commands:
+
+        cd postgresql-unaccent
+        make
+        sudo make install
+
 	You have 2 options when it comes to databases. You can either opt for a clean database,
 	with just the schema (useful for developers with little free diskspace), or you can use
 	a copy of the MusicBrainz data.

@@ -1,7 +1,8 @@
 use strict;
 use warnings;
-use Test::More tests => 17;
+use Test::More tests => 22;
 use_ok 'MusicBrainz::Server::Data::Label';
+use MusicBrainz::Server::Data::Search;
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
@@ -30,3 +31,11 @@ is ( $label->comment, 'Sheffield based electronica label' );
 
 $label = $label_data->get_by_gid('efdf3fe9-c293-4acd-b4b2-8d2a7d4f9592');
 is ( $label->id, 2 );
+
+my $search = MusicBrainz::Server::Data::Search->new(c => $c);
+my ($results, $hits) = $search->search("label", "Warp", 10);
+is( $hits, 1 );
+is( scalar(@$results), 1 );
+is( $results->[0]->position, 1 );
+is( $results->[0]->entity->name, "Warp Records" );
+is( $results->[0]->entity->sort_name, "Warp Records" );

@@ -1,7 +1,8 @@
 use strict;
 use warnings;
-use Test::More tests => 20;
+use Test::More tests => 24;
 use_ok 'MusicBrainz::Server::Data::Recording';
+use MusicBrainz::Server::Data::Search;
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
@@ -37,3 +38,11 @@ is( $recs->[15]->name, "π" );
 
 $rec = $rec_data->get_by_gid('0986e67c-6b7a-40b7-b4ba-c9d7583d6426');
 is ( $rec->id, 1 );
+
+my $search = MusicBrainz::Server::Data::Search->new(c => $c);
+my $results;
+($results, $hits) = $search->search("recording", "coral", 10);
+is( $hits, 1 );
+is( scalar(@$results), 1 );
+is( $results->[0]->position, 1 );
+is( $results->[0]->entity->name, "A Coral Room" );

@@ -1,7 +1,8 @@
 use strict;
 use warnings;
-use Test::More tests => 26;
+use Test::More tests => 31;
 use_ok 'MusicBrainz::Server::Data::Artist';
+use MusicBrainz::Server::Data::Search;
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
@@ -41,3 +42,11 @@ is ( $artist->comment, undef );
 
 $artist = $artist_data->get_by_gid('a4ef1d08-962e-4dd6-ae14-e42a6a97fc11');
 is ( $artist->id, 4 );
+
+my $search = MusicBrainz::Server::Data::Search->new(c => $c);
+my ($results, $hits) = $search->search("artist", "bush", 10);
+is( $hits, 1 );
+is( scalar(@$results), 1 );
+is( $results->[0]->position, 1 );
+is( $results->[0]->entity->name, "Kate Bush" );
+is( $results->[0]->entity->sort_name, "Bush, Kate" );

@@ -1,8 +1,9 @@
 use strict;
 use warnings;
-use Test::More tests => 22;
+use Test::More tests => 26;
 use_ok 'MusicBrainz::Server::Data::Work';
 use MusicBrainz::Server::Data::WorkType;
+use MusicBrainz::Server::Data::Search;
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
@@ -44,3 +45,11 @@ is ( $work->id, 1 );
 
 $work = $work_data->get_by_gid('ffffffff-ffff-ffff-ffff-ffffffffffff');
 is ( $work, undef );
+
+my $search = MusicBrainz::Server::Data::Search->new(c => $c);
+my $results;
+($results, $hits) = $search->search("work", "queen", 10);
+is( $hits, 1 );
+is( scalar(@$results), 1 );
+is( $results->[0]->position, 1 );
+is( $results->[0]->entity->name, "Dancing Queen" );

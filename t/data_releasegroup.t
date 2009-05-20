@@ -1,8 +1,9 @@
 use strict;
 use warnings;
-use Test::More tests => 21;
+use Test::More tests => 25;
 use_ok 'MusicBrainz::Server::Data::ReleaseGroup';
 use MusicBrainz::Server::Data::Release;
+use MusicBrainz::Server::Data::Search;
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
@@ -43,3 +44,11 @@ is( $release->release_group->name, "Aerial" );
 
 $rg = $rg_data->get_by_gid('77637e8c-be66-46ea-87b3-73addc722fc9');
 is ( $rg->id, 1 );
+
+my $search = MusicBrainz::Server::Data::Search->new(c => $c);
+my $results;
+($results, $hits) = $search->search("release_group", "arrival", 10);
+is( $hits, 1 );
+is( scalar(@$results), 1 );
+is( $results->[0]->position, 1 );
+is( $results->[0]->entity->name, "Arrival" );
