@@ -42,14 +42,11 @@ INSERT INTO artist
     (3, '745c079d-374e-4436-9448-da92dedef3ce', 3, 4, 1, 1, 1,
      2008, 01, 02, 2009, 03, 04, 'Yet Another Test Artist');
 
-INSERT INTO artist_name (id, name, page) VALUES (5, 'Queen', 1234);
-INSERT INTO artist_name (id, name, page) VALUES (6, 'D. Bowie', 1234);
-
--- duplicated for sql_artistcredit.sql (tests refcount = 0)
-INSERT INTO artist_name (id, name, page) VALUES (11, 'David Bowie', 1234);
-
 TRUNCATE artist_credit_name CASCADE;
 TRUNCATE artist_credit CASCADE;
+
+INSERT INTO artist_name (id, name, page) VALUES (5, 'Queen', 1234);
+INSERT INTO artist_name (id, name, page) VALUES (6, 'David Bowie', 1234);
 
 INSERT INTO artist (id, gid, name, sortname) VALUES
     (4, '945c079d-374e-4436-9448-da92dedef3cf', 5, 5);
@@ -59,7 +56,17 @@ INSERT INTO artist (id, gid, name, sortname) VALUES
 
 INSERT INTO artist_credit (id, artistcount) VALUES (1, 2);
 INSERT INTO artist_credit_name (artist_credit, position, artist, name, joinphrase) VALUES (1, 0, 4, 5, ' & ');
-INSERT INTO artist_credit_name (artist_credit, position, artist, name, joinphrase) VALUES (1, 1, 5, 11, NULL);
+INSERT INTO artist_credit_name (artist_credit, position, artist, name, joinphrase) VALUES (1, 1, 5, 6, NULL);
+
+-- Test artist name triggers
+INSERT INTO artist_name (id, name, page) VALUES (100, 'Shared Name', 1234);
+INSERT INTO artist_name (id, name, page) VALUES (101, 'Name', 1234);
+INSERT INTO artist_name (id, name, page) VALUES (102, 'Sort Name', 1234);
+INSERT INTO artist_name (id, name, page) VALUES (103, 'Credit Name', 1234);
+INSERT INTO artist (id, gid, name, sortname) VALUES (100, '24c94140-456b-11de-8a39-0800200c9a66', 100, 100);
+INSERT INTO artist (id, gid, name, sortname) VALUES (101, '374d65d0-456b-11de-8a39-0800200c9a66', 101, 102);
+INSERT INTO artist_credit (id, artistcount) VALUES (100, 2);
+INSERT INTO artist_credit_name (artist_credit, position, artist, name, joinphrase) VALUES (100, 0, 100, 103, NULL);
 
 TRUNCATE recording CASCADE;
 TRUNCATE track_name CASCADE;
