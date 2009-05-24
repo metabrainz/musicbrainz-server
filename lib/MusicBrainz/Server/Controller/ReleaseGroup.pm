@@ -24,7 +24,21 @@ sub release_group : Chained('load') PathPart('') CaptureArgs(0)
 sub show : Chained('release_group') PathPart('')
 {
     my ($self, $c) = @_;
-    $c->stash(template => 'release_group/index.tt');
+
+    my $releases = $self->_load_paged($c, sub {
+        $c->model('Release')->find_by_release_group($c->stash->{rg}->id, shift, shift);
+    });
+
+    $c->model('Medium')->load(@$releases);
+    $c->model('MediumFormat')->load(map { @{ $_->mediums } } @$releases);
+    $c->model('Country')->load(@$releases);
+    $c->model('ReleaseLabel')->load(@$releases);
+    $c->model('Label')->load(map { @{ $_->labels } } @$releases);
+
+    $c->stash(
+        template => 'release_group/index.tt',
+        releases => $releases
+    );
 }
 
 1;

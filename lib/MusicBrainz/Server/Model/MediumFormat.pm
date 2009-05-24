@@ -1,39 +1,14 @@
-package MusicBrainz::Server::Data::MediumFormat;
+package MusicBrainz::Server::Model::MediumFormat;
 
-use Moose;
-use MusicBrainz::Server::Entity::MediumFormat;
-use MusicBrainz::Server::Data::Utils qw( load_subobjects );
+use base 'MusicBrainz::Server::ModelFactory';
 
-extends 'MusicBrainz::Server::Data::Entity';
+__PACKAGE__->config(class => 'MusicBrainz::Server::Data::MediumFormat');
 
-sub _table
-{
-    return 'medium_format';
-}
-
-sub _columns
-{
-    return 'id, name';
-}
-
-sub _entity_class
-{
-    return 'MusicBrainz::Server::Entity::MediumFormat';
-}
-
-sub load
-{
-    my ($self, @media) = @_;
-    load_subobjects($self, 'format', @media);
-}
-
-__PACKAGE__->meta->make_immutable;
-no Moose;
 1;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2009 Lukas Lalinsky
+Copyright (C) 2009 Oliver Charles
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

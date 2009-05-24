@@ -228,7 +228,7 @@ INSERT INTO artist (id, gid, name, sortname, begindate_year, begindate_month, be
     VALUES (7, '4b585938-f271-45e2-b19a-91c634b5e396', 9, 10, 1958, 7, 30, 1);
 
 INSERT INTO artist_credit (id, artistcount) VALUES (3, 1);
-INSERT INTO artist_credit_name (artist_credit, position, artist, name) VALUES (3, 0, 7, 7);
+INSERT INTO artist_credit_name (artist_credit, position, artist, name) VALUES (3, 0, 7, 9);
 
 INSERT INTO release_name (id, name, page) VALUES (2, 'Aerial', 12345);
 
