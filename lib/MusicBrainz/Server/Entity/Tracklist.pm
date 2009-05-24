@@ -25,6 +25,12 @@ has 'tracks' => (
     }
 );
 
+# XXX this is a hack, but useful :(
+has 'medium' => (
+    is => 'rw',
+    isa => 'Medium'
+);
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

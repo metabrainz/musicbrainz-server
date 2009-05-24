@@ -54,6 +54,7 @@ __PACKAGE__->config(
         FILTERS => {
             'mb_date' => \&MusicBrainz::Server::Filters::date,
             'release_date' => \&MusicBrainz::Server::Filters::release_date,
+            'format_time' => \&MusicBrainz::Server::Filters::format_time,
         },
         RECURSION => 1,
         TEMPLATE_EXTENSION => '.tt',

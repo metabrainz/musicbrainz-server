@@ -14,9 +14,8 @@ sub _table
 
 sub _columns
 {
-    return 'medium.id, tracklist AS tracklist_id, release AS release_id,
-            position, format AS format_id, name, editpending AS edits_pending,
-            trackcount AS track_count';
+    return 'medium.id, tracklist, release, position, format, name,
+            editpending, trackcount';
 }
 
 sub _id_column
@@ -27,20 +26,20 @@ sub _id_column
 sub _column_mapping
 {
     return {
-        id => 'id',
-        tracklist_id => 'tracklist_id',
-        tracklist => sub {
-            my $row = shift;
+        id            => 'id',
+        tracklist_id  => 'tracklist',
+        tracklist     => sub {
+            my ($row, $prefix) = @_;
             return MusicBrainz::Server::Entity::Tracklist->new(
-                id => $row->{tracklist_id},
-                track_count => $row->{track_count},
+                id          => $row->{$prefix . 'tracklist'},
+                track_count => $row->{$prefix . 'trackcount'},
             );
         },
-        release_id => 'release_id',
-        position => 'position',
-        name => 'name',
-        format_id => 'format_id',
-        edits_pending => 'edits_pending',
+        release_id    => 'release',
+        position      => 'position',
+        name          => 'name',
+        format_id     => 'format',
+        edits_pending => 'editpending',
     };
 }
 

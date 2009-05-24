@@ -4,6 +4,7 @@ use strict;
 use warnings;
 
 use MusicBrainz::Server::DateTime;
+use MusicBrainz::Server::Track;
 
 sub date
 {
@@ -24,6 +25,12 @@ sub release_date
     $str .= "-".$d if ($d && 0 + $d);
 
     return $str;
+}
+
+sub format_time
+{
+    my $ms = shift;
+    return MusicBrainz::Server::Track::FormatTrackLength($ms);
 }
 
 1;

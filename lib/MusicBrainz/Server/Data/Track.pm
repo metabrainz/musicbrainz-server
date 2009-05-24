@@ -2,7 +2,14 @@ package MusicBrainz::Server::Data::Track;
 
 use Moose;
 use MusicBrainz::Server::Entity::Track;
-use MusicBrainz::Server::Data::Utils qw( query_to_list placeholders );
+use MusicBrainz::Server::Entity::Tracklist;
+use MusicBrainz::Server::Data::Medium;
+use MusicBrainz::Server::Data::Release;
+use MusicBrainz::Server::Data::Utils qw(
+    query_to_list
+    query_to_list_limited
+    placeholders
+);
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 
@@ -13,10 +20,22 @@ sub _table
 
 sub _columns
 {
-    return 'track.id, name.name, recording AS recording_id,
-            tracklist AS tracklist_id, position, length,
-            artist_credit AS artist_credit_id,
-            editpending AS edits_pending';
+    return 'track.id, name.name, recording, tracklist, position, length,
+            artist_credit, editpending';
+}
+
+sub _column_mapping
+{
+    return {
+        id               => 'id',
+        name             => 'name',
+        recording_id     => 'recording',
+        tracklist_id     => 'tracklist',
+        position         => 'position',
+        length           => 'length',
+        artist_credit_id => 'artist_credit',
+        edits_pending    => 'editpending',
+    };
 }
 
 sub _id_column
@@ -43,6 +62,49 @@ sub load
     foreach my $track (@tracks) {
         $id_to_tracklist{$track->tracklist_id}->add_track($track);
     }
+}
+
+sub find_by_recording
+{
+    my ($self, $recording_id, $limit, $offset) = @_;
+    my $query = "
+        SELECT
+            track.id, track_name.name, track.tracklist, track.position,
+                track.length, track.artist_credit, track.editpending,
+            medium.id AS m_id, medium.format AS m_format,
+                medium.position AS m_position, medium.name AS m_name,
+                medium.tracklist AS m_tracklist,
+                tracklist.trackcount AS m_trackcount,
+            release.id AS r_id, release.gid AS r_gid, release_name.name AS r_name,
+                release.artist_credit AS r_artist_credit,
+                release.date_year AS r_date_year,
+                release.date_month AS r_date_month,
+                release.date_day AS r_date_day,
+                release.country AS r_country, release.status AS r_status,
+                release.packaging AS r_packaging
+        FROM
+            track
+            JOIN tracklist ON tracklist.id = track.tracklist
+            JOIN medium ON medium.tracklist = tracklist.id
+            JOIN release ON release.id = medium.release
+            JOIN release_name ON release.name = release_name.id
+            JOIN track_name ON track.name = track_name.id
+        WHERE track.recording = ?
+        ORDER BY date_year, date_month, date_day, release_name.name
+        OFFSET ?";
+    return query_to_list_limited(
+        $self->c, $offset, $limit, sub {
+            my $row = shift;
+            my $track = $self->_new_from_row($row);
+            my $medium = MusicBrainz::Server::Data::Medium->_new_from_row($row, 'm_');
+            my $tracklist = $medium->tracklist;
+            my $release = MusicBrainz::Server::Data::Release->_new_from_row($row, 'r_');
+            $medium->release($release);
+            $tracklist->medium($medium);
+            $track->tracklist($tracklist);
+            return $track;
+        },
+        $query, $recording_id, $offset || 0);
 }
 
 __PACKAGE__->meta->make_immutable;

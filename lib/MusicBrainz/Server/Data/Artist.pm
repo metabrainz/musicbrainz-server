@@ -47,8 +47,8 @@ sub _column_mapping
         type_id => 'type',
         country_id => 'country',
         gender_id => 'gender',
-        begin_date => sub { partial_date_from_row(shift, 'begindate_') },
-        end_date => sub { partial_date_from_row(shift, 'enddate_') },
+        begin_date => sub { partial_date_from_row(shift, shift() . 'begindate_') },
+        end_date => sub { partial_date_from_row(shift, shift() . 'enddate_') },
         edits_pending => 'editpending',
         comment => 'comment',
     };

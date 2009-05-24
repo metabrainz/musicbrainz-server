@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Controller::Track;
+package MusicBrainz::Server::Controller::Recording;
 
 use strict;
 use warnings;
@@ -6,20 +6,19 @@ use warnings;
 use base 'MusicBrainz::Server::Controller';
 
 __PACKAGE__->config(
-    entity_name => 'track',
-    model       => 'Track',
+    entity_name => 'recording',
+    model       => 'Recording',
 );
 
 use MusicBrainz::Server::Adapter qw(Google);
-use MusicBrainz::Server::Track;
 
 =head1 NAME
 
-MusicBrainz::Server::Controller::Track
+MusicBrainz::Server::Controller::Recording
 
 =head1 DESCRIPTION
 
-Handles user interaction with C<MusicBrainz::Server::Track> entities.
+Handles user interaction with C<MusicBrainz::Server::Entity::Recording> entities.
 
 =head1 METHODS
 
@@ -27,32 +26,31 @@ Handles user interaction with C<MusicBrainz::Server::Track> entities.
 
 =head2 base
 
-Base action to specify that all actions live in the C<label>
+Base action to specify that all actions live in the C<recording>
 namespace
 
 =cut
 
-sub base : Chained('/') PathPart('track') CaptureArgs(0) { }
+sub base : Chained('/') PathPart('recording') CaptureArgs(0) { }
 
-=head2 track
+=head2 recording
 
-Chained action to load a track and it's artist.
+Chained action to load a recording.
 
 =cut
 
-sub track : Chained('load') PathPart('') CaptureArgs(0)
+sub recording : Chained('load') PathPart('') CaptureArgs(0)
 {
-    my ($self, $c, $mbid) = @_;
-    $c->stash->{artist} = $c->model('Artist')->load($self->entity->artist->id);
+    my ($self, $c) = @_;
 }
 
 =head2 relations
 
-Shows all relations to a given track
+Shows all relations to a given recording
 
 =cut
 
-sub relations : Chained('track')
+sub relations : Chained('recording')
 {
     my ($self, $c, $mbid) = @_;
     $c->stash->{relations} = $c->model('Relation')->load_relations($self->entity);
@@ -60,43 +58,53 @@ sub relations : Chained('track')
 
 =head2 details
 
-Show details of a track
+Show details of a recording
 
 =cut
 
-sub details : Chained('track')
+sub details : Chained('recording')
 {
     my ($self, $c) = @_;
 
-    my $track = $self->entity;
+    my $recording = $self->entity;
     $c->stash(
-        relations    => $c->model('Relation')->load_relations($track),
-        tags         => $c->model('Tag')->top_tags($track),
-        release      => $c->model('Release')->load($track->release),
+        relations    => $c->model('Relation')->load_relations($recording),
+        tags         => $c->model('Tag')->top_tags($recording),
+        release      => $c->model('Release')->load($recording->release),
         show_ratings => $c->user_exists ? $c->user->preferences->get("show_ratings") : 1,
-        puids        => $c->model('PUID')->new_from_track($track),
+        puids        => $c->model('PUID')->new_from_recording($recording),
         rating       => $c->model('Rating')->get_rating({
-            entity_type => 'track',
-            entity_id   => $track->id,
+            entity_type => 'recording',
+            entity_id   => $recording->id,
             user_id     => $c->user_exists ? $c->user->id : 0,
         }),
-        template     => 'track/details.tt',
+        template     => 'recording/details.tt',
     );
 }
 
-sub show : Chained('track') PathPart('')
+sub show : Chained('recording') PathPart('')
 {
     my ($self, $c) = @_;
-    $c->detach('details');
+    my $recording = $c->stash->{recording};
+    my $tracks = $self->_load_paged($c, sub {
+        $c->model('Track')->find_by_recording($recording->id, shift, shift);
+    });
+    my @releases = map { $_->tracklist->medium->release } @$tracks;
+    $c->model('ArtistCredit')->load($recording, @$tracks, @releases);
+    $c->model('Country')->load(@releases);
+    $c->stash(
+        tracks   => $tracks,
+        template => 'recording/index.tt',
+    );
 }
 
-sub tags : Chained('track')
+sub tags : Chained('recording')
 {
     my ($self, $c, $mbid) = @_;
     $c->forward('/tags/entity', [ $self->entity ]);
 }
 
-sub google : Chained('track')
+sub google : Chained('recording')
 {
     my ($self, $c) = @_;
     $c->response->redirect(Google($self->entity->name));
@@ -108,53 +116,53 @@ This methods alter data
 
 =head2 edit
 
-Edit track details (sequence number, track time and title)
+Edit recording details (sequence number, recording time and title)
 
 =cut
 
-sub edit : Chained('track') Form
+sub edit : Chained('recording') Form
 {
     my ($self, $c) = @_;
 
     $c->forward('/user/login');
 
-    my $track = $self->entity;
+    my $recording = $self->entity;
 
     my $form = $self->form;
-    $form->init($track);
+    $form->init($recording);
 
     return unless $self->submit_and_validate($c);
 
     $form->edit;
 
     $c->flash->{ok} = "Thank you, your edits have been added to the queue";
-    $c->response->redirect($c->entity_url($track, 'show'));
+    $c->response->redirect($c->entity_url($recording, 'show'));
 }
 
-sub remove : Chained('track') Form
+sub remove : Chained('recording') Form
 {
     my ($self, $c) = @_;
 
     $c->forward('/user/login');
 
-    my $track = $self->entity;
+    my $recording = $self->entity;
 
     my $form = $self->form;
-    $form->init($track);
+    $form->init($recording);
 
     return unless $self->submit_and_validate($c);
 
-    my $release = $c->model('Release')->load($track->release);
+    my $release = $c->model('Release')->load($recording->release);
 
     $form->remove_from_release($release);
 
-    $c->flash->{ok} = "Thanks, your track edit has been entered " .
+    $c->flash->{ok} = "Thanks, your recording edit has been entered " .
                       "into the moderation queue";
 
     $c->response->redirect($c->entity_url($release, 'show'));
 }
 
-sub change_artist : Chained('track')
+sub change_artist : Chained('recording')
 {
     my ($self, $c) = @_;
 
@@ -164,35 +172,35 @@ sub change_artist : Chained('track')
     my $result = $c->stash->{search_result};
     if (defined $result)
     {
-        my $track = $self->entity;
-        $c->response->redirect($c->entity_url($track, 'confirm_change_artist',
+        my $recording = $self->entity;
+        $c->response->redirect($c->entity_url($recording, 'confirm_change_artist',
 					      $result->id));
     }
     else
     {
-        $c->stash->{template} = 'track/change_artist_search.tt';
+        $c->stash->{template} = 'recording/change_artist_search.tt';
     }
 }
 
-sub confirm_change_artist : Chained('track') Args(1)
-    Form('Track::ChangeArtist')
+sub confirm_change_artist : Chained('recording') Args(1)
+    Form('Recording::ChangeArtist')
 {
     my ($self, $c, $new_artist_id) = @_;
 
     $c->forward('/user/login');
 
-    my $track      = $self->entity;
+    my $recording      = $self->entity;
     my $new_artist = $c->model('Artist')->load($new_artist_id);
     $c->stash->{new_artist} = $new_artist;
 
     my $form = $self->form;
-    $form->init($track);
+    $form->init($recording);
 
-    $c->stash->{template} = 'track/change_artist.tt';
+    $c->stash->{template} = 'recording/change_artist.tt';
 
     return unless $self->submit_and_validate($c);
 
-    my $release = $c->model('Release')->load($track->release);
+    my $release = $c->model('Release')->load($recording->release);
 
     $form->change_artist($new_artist);
 

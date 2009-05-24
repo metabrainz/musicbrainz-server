@@ -30,17 +30,18 @@ sub _column_mapping
 
 sub _new_from_row
 {
-    my ($self, $row) = @_;
+    my ($self, $row, $prefix) = @_;
     my %info;
     my %mapping = %{$self->_column_mapping};
     my @attribs = %mapping ? keys %mapping : keys %{$row};
+    $prefix ||= '';
     foreach my $attrib (@attribs) {
         my $column = $mapping{$attrib} || $attrib;
         if (ref($column) eq 'CODE') {
-            $info{$attrib} = $column->($row);
+            $info{$attrib} = $column->($row, $prefix);
         }
-        elsif (defined $row->{$column}) {
-            $info{$attrib} = $row->{$column};
+        elsif (defined $row->{$prefix.$column}) {
+            $info{$attrib} = $row->{$prefix.$column};
         }
     }
     my $entity_class = $self->_entity_class;

@@ -48,7 +48,7 @@ sub _column_mapping
         status_id => 'status',
         packaging_id => 'packaging',
         country_id => 'country',
-        date => sub { partial_date_from_row(shift, 'date_') },
+        date => sub { partial_date_from_row(shift, shift() . 'date_') },
         edits_pending => 'editpending',
         comment => 'comment',
         barcode => 'barcode',

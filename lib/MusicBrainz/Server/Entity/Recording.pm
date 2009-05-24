@@ -16,6 +16,16 @@ has 'artist_credit' => (
     isa => 'ArtistCredit'
 );
 
+has 'track_id' => (
+    is => 'rw',
+    isa => 'Int'
+);
+
+has 'track' => (
+    is => 'rw',
+    isa => 'Track'
+);
+
 has 'length' => (
     is => 'rw',
     isa => 'Int'

@@ -112,3 +112,10 @@ END -%]
     text = text || html_escape(rg.name);
     '<a href="' _ link _ '">' _ text _ '</a>';
 END -%]
+
+[%- MACRO link_recording(rg, action, text) BLOCK;
+    action = action || 'show';
+    link = c.uri_for_action("/recording/$action", [ rg.gid ]);
+    text = text || html_escape(rg.name);
+    '<a href="' _ link _ '">' _ text _ '</a>';
+END -%]
