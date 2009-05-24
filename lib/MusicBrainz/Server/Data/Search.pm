@@ -25,6 +25,7 @@ Readonly my %TYPE_TO_DATA_CLASS => (
 sub search
 {
     my ($self, $type, $query_str, $limit, $offset) = @_;
+    return ([], 0) unless $query_str && $type;
 
     $offset ||= 0;
 
@@ -112,7 +113,7 @@ sub search
     }
 
     my @result;
-    my $pos = 1;
+    my $pos = $offset + 1;
     while ($limit--) {
         my $row = $sql->NextRowHashRef or last;
         my $res = MusicBrainz::Server::Entity::SearchResult->new(

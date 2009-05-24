@@ -71,12 +71,27 @@ END; -%]
             l('Error: Unknown Type');
     END -%]
 
+[%- MACRO disambiguation(entity) BLOCK;
+    html_escape("(${entity.comment})") IF entity.comment;
+END -%]
+
 [%- MACRO artist_credit(ac, opts) BLOCK -%]
     [%- FOREACH name IN ac.names -%]
         [%- opts.plain ? html_escape(name.name) : link_artist(name.artist) -%]
         [%- name.join_phrase | html -%]
     [%- END -%]
 [%- END -%]
+
+[%- MACRO link_entity(entity, action, text) BLOCK;
+    type = "$entity";
+    IF    type.search('Entity::Artist='); link_artist(entity, action, text);
+    ELSIF type.search('Entity::Work='); link_work(entity, action, text);
+    ELSIF type.search('Entity::Label='); link_label(entity, action, text);
+    ELSIF type.search('Entity::Release='); link_release(entity, action, text);
+    ELSIF type.search('Entity::ReleaseGroup='); link_release_group(entity, action, text);
+    ELSIF type.search('Entity::Recording='); link_recording(entity, action, text);
+    END;
+END -%]
 
 [%- MACRO link_work(work, action, text) BLOCK;
     action = action || 'show';
@@ -119,3 +134,11 @@ END -%]
     text = text || html_escape(rg.name);
     '<a href="' _ link _ '">' _ text _ '</a>';
 END -%]
+
+[%- MACRO link_recording(recording, action, text) BLOCK;
+    action = action || 'show';
+    link = c.uri_for_action("/recording/$action", [ recording.gid ]);
+    text = text || html_escape(recording.name);
+    '<a href="' _ link _ '">' _ text _ '</a>';
+END -%]
+

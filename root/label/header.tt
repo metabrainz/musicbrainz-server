@@ -8,8 +8,7 @@
 ] -%]
 <div class='entity_header'>
     <div class='title label'>
-        [% link_label(label) %]
-        [% "(${label.comment})" IF label.comment %]
+        [% link_label(label) %] [% disambiguation(label) %]
     </div>
     <div class='info'>
         [% UNLESS label.begin_date.is_empty AND label.end_date.is_empty %]

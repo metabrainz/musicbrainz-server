@@ -11,8 +11,7 @@
 ] -%]
 <div class='entity_header'>
     <div class='title artist'>
-        [% link_artist(artist) %]
-        [% html_escape("(${artist.comment})") IF artist.comment %]
+        [% link_artist(artist) %] [% disambiguation(artist) %]
     </div>
     <div class='info'>
         [%- IF artist.sort_name != artist.name -%]
