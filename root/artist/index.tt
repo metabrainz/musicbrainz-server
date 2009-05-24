@@ -1,2 +1,24 @@
 [%- WRAPPER "artist/layout.tt" -%]
+    [%- IF release_groups.size -%]
+        [%- WRAPPER 'components/with-pager.tt' -%]
+            <table>
+                <thead>
+                    <tr>
+                        <th>[% l('Year') %]</th>
+                        <th>[% l('Title') %]</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    [%- FOR rg=release_groups -%]
+                    <tr>
+                        <td>[% rg.first_release_date.year or '&mdash;' %]</td>
+                        <td>[% link_release_group(rg) %]</td>
+                    </tr>
+                    [%- END -%]
+                </tbody>
+            </table>
+        [%- END -%]
+    [%- ELSE -%]
+        <p>[% l('No release groups found') %]</p>
+    [%- END -%]
 [% END %]

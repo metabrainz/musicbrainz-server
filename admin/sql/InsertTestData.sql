@@ -91,6 +91,19 @@ INSERT INTO release_name (id, name, page) VALUES (1, 'Arrival', 1234);
 INSERT INTO release_group (id, gid, name, artist_credit, type) VALUES
     (1, '234c079d-374e-4436-9448-da92dedef3ce', 1, 2, 1);
 
+-- Test multiple release groups on a page
+INSERT INTO artist_credit (id, artistcount) VALUES (4, 1);
+INSERT INTO artist_credit_name (artist_credit, position, artist, name) VALUES (4, 0, 3, 3);
+
+INSERT INTO release_name (id, name, page) VALUES (3, 'Test RG 1', 1234);
+INSERT INTO release_name (id, name, page) VALUES (4, 'Test RG 2', 1234);
+
+INSERT INTO release_group (id, gid, name, artist_credit, type) VALUES
+    (3, 'ecc33260-454c-11de-8a39-0800200c9a66', 3, 4, 1);
+
+INSERT INTO release_group (id, gid, name, artist_credit, type) VALUES
+    (4, '7348f3a0-454e-11de-8a39-0800200c9a66', 4, 4, 1);
+
 TRUNCATE work CASCADE;
 TRUNCATE work_type CASCADE;
 TRUNCATE work_name CASCADE;

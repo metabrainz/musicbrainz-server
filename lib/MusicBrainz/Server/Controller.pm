@@ -5,7 +5,8 @@ use Data::Page;
 use MusicBrainz::Server::Validation;
 
 __PACKAGE__->config(
-    form_namespace => 'MusicBrainz::Server::Form'
+    form_namespace => 'MusicBrainz::Server::Form',
+    paging_limit => 50,
 );
 
 sub create_action
@@ -73,7 +74,7 @@ sub _load_paged
     my $page = $c->request->query_params->{page} || 1;
     $page = 1 if $page < 1;
 
-    my $LIMIT = 50;
+    my $LIMIT = $self->{paging_limit};
 
     my ($data, $total) = $loader->($LIMIT, ($page - 1) * $LIMIT);
     my $pager = Data::Page->new;
