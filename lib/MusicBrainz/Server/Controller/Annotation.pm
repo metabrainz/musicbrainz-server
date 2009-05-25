@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Controller::Annotation;
 use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
 
-requires 'load';
+requires 'load', 'show';
 
 sub latest_annotation : Chained('load') PathPart('annotation')
 {
@@ -14,6 +14,12 @@ sub latest_annotation : Chained('load') PathPart('annotation')
         annotation => $annotation,
     );
 }
+
+after 'show' => sub 
+{
+    my ($self, $c) = @_;
+    $c->model($self->{model})->annotation->load_latest($c->stash->{$self->{entity_name}});
+};
 
 no Moose::Role;
 1;

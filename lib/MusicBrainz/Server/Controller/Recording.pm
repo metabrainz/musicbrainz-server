@@ -81,7 +81,6 @@ sub show : Chained('load') PathPart('')
     my @releases = map { $_->tracklist->medium->release } @$tracks;
     $c->model('ArtistCredit')->load($recording, @$tracks, @releases);
     $c->model('Country')->load(@releases);
-    $c->model('Recording')->annotation->load_latest($recording);
     $c->stash(
         tracks   => $tracks,
         template => 'recording/index.tt',

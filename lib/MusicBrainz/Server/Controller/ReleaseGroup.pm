@@ -34,7 +34,6 @@ sub show : Chained('load') PathPart('')
     $c->model('Country')->load(@$releases);
     $c->model('ReleaseLabel')->load(@$releases);
     $c->model('Label')->load(map { @{ $_->labels } } @$releases);
-    $c->model('ReleaseGroup')->annotation->load_latest($c->stash->{rg});
 
     $c->stash(
         template => 'release_group/index.tt',

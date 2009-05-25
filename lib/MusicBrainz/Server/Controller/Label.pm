@@ -3,6 +3,8 @@ use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
+with 'MusicBrainz::Server::Controller::Annotation';
+
 use MusicBrainz::Server::Constants qw( $DLABEL_ID );
 use Data::Page;
 
@@ -127,7 +129,6 @@ sub show : PathPart('') Chained('load')
 
     $c->model('Country')->load($c->stash->{label}, @releases);
     $c->model('ArtistCredit')->load(@releases);
-    $c->model('Label')->annotation->load_latest($c->stash->{label});
 
     $c->stash(
         template => 'label/index.tt',

@@ -224,7 +224,6 @@ sub show : PathPart('') Chained('load')
         $c->stash( template => 'artist/index.tt' );
     }
 
-    $c->model('Artist')->annotation->load_latest($c->stash->{artist});
     $c->model('ArtistCredit')->load(@$release_groups);
     $c->stash( release_groups => $release_groups );
 }
