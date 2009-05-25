@@ -6,55 +6,54 @@ use warnings;
 use base 'MusicBrainz::Server::Controller';
 
 use LWP::UserAgent;
-use MusicBrainz::Server::Form::Search::Direct;
+use MusicBrainz::Server::Form::Search::Search;
 use URI::Escape qw( uri_escape );
 
-sub editor : Private
+sub search : Path('')
 {
     my ($self, $c) = @_;
 
-    my ($result, $users) = $c->model('User')->search($c->stash->{query});
-    $c->stash->{users} = $users;
-    $c->stash->{template} = 'search/editor.tt';
-}
+    my $form = MusicBrainz::Server::Form::Search::Search->new;
+    $c->stash( form => $form );
 
-sub direct : Local
-{
-    my ($self, $c) = @_;
-
-    my $form = MusicBrainz::Server::Form::Search::Direct->new;
     if ($form->process( params => $c->req->query_params ))
     {
-        my $results = $self->_load_paged($c, sub {
-           $c->model('DirectSearch')->search($form->value('type'), $form->value('query'),
-               shift, shift);
-        });
-
-        if ($form->value('type') =~ /(recording|work|release_group)/)
-        {
-            $c->model('ArtistCredit')->load(map { $_->entity } @$results);
-        }
-
-        $c->stash(
-            template => sprintf ('search/results-%s.tt', $form->value('type')),
-            results  => $results, 
-            type     => $form->value('type'),
-        );
+        $c->forward($form->value('direct') ? 'direct' : 'external');
     }
     else
     {
         $c->stash( template => 'search/index.tt' );
     }
-
-    $c->stash( form => $form );
 }
 
-sub search : Path('') Form('Search::External')
+sub direct : Private
 {
     my ($self, $c) = @_;
 
-    my $form = $self->form;
+    my $form = $c->stash->{form};
+    my $results = $self->_load_paged($c, sub {
+       $c->model('DirectSearch')->search($form->value('type'), $form->value('query'),
+           shift, shift);
+    });
+
+    if ($form->value('type') =~ /(recording|work|release_group)/)
+    {
+        $c->model('ArtistCredit')->load(map { $_->entity } @$results);
+    }
+
+    $c->stash(
+        template => sprintf ('search/results-%s.tt', $form->value('type')),
+        results  => $results, 
+        type     => $form->value('type'),
+    );
+}
+
+sub external : Private
+{
+    my ($self, $c) = @_;
+
     
+    my $form = $c->stash->{form};
     $c->stash->{template} = 'search/search.tt';
 
     return unless keys %{ $c->req->query_params } && $form->validate($c->req->query_params);

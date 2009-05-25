@@ -3,6 +3,8 @@
     [% WRAPPER "forms/form.tt" action=c.uri_for_action('/search/direct') method='get' %]
         [% INCLUDE "forms/generic/row.tt" field=form.field('query') label=l('Search for') type='text' %]
         [% INCLUDE "forms/generic/row.tt" field=form.field('type')  label=l('Type') type='select' %]
+        [% INCLUDE "forms/generic/row.tt" field=form.field('advanced')  label=l('Advanced Query Syntax') type='checkbox' %]
+        [% INCLUDE "forms/generic/row.tt" field=form.field('direct')  label=l('Direct Database Search') type='checkbox' %]
         [% INCLUDE "forms/submit.tt" label=l("Search") name='do_search' %]
     [% END %]
     </div>
@@ -12,7 +14,7 @@
     </strong>
     [%- WRAPPER 'layout/guidelines.tt' -%]
         [%- create_guideline(l('Search indexes are currently updated once a day at 1800 GMT (10am PST).')) %]
-        [%- create_guideline(l('If you require up to the minute correct search, please use the {uri|old search}.', {uri => c.uri_for('/search/internal')})) %]
+        [%- create_guideline(l('If you require up to the minute correct search, please use the direct database search')) %]
     [% END %]
     </ul>
     </div>

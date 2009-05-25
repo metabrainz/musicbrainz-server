@@ -11,11 +11,6 @@ sub index : Local
 
     $c->forward('/user/login');
 
-    use MusicBrainz::Server::Form::Search::Query;
-    use MusicBrainz::Server::Form::Search::External;
-
-    $c->stash->{search} = MusicBrainz::Server::Form::Search::External->new;
-    $c->stash->{import} = MusicBrainz::Server::Form::Search::Query->new;
 
     $c->stash->{search}->field("type")->value('freedb');
 }

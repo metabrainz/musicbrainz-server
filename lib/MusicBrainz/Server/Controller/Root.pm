@@ -137,8 +137,8 @@ sub end : ActionClass('RenderView')
     return if exists $c->action->attributes->{Minimal};
 
     # Setup the searchs on the sidebar
-    use MusicBrainz::Server::Form::Search::Simple;
-    my $simpleSearch = new MusicBrainz::Server::Form::Search::External;
+    use MusicBrainz::Server::Form::Search::Search;
+    my $simpleSearch = MusicBrainz::Server::Form::Search::Search->new;
     $simpleSearch->field('type')->value($c->session->{last_simple_search} || 'artist');
     $c->stash->{sidebar_search} = $simpleSearch;
 
