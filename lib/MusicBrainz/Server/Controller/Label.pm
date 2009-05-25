@@ -4,6 +4,7 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
 with 'MusicBrainz::Server::Controller::Annotation';
+with 'MusicBrainz::Server::Controller::Alias';
 
 use MusicBrainz::Server::Constants qw( $DLABEL_ID );
 use Data::Page;
@@ -57,20 +58,6 @@ Display details about a permanant link to this label.
 =cut
 
 sub perma : Chained('load') { }
-
-=head2 aliases
-
-Display all aliases for a label
-
-=cut
-
-sub aliases : Chained('load')
-{
-    my ($self, $c) = @_;
-    my $label = $self->entity;
-
-    $c->stash->{aliases}  = $c->model('Alias')->load_for_entity($label);
-}
 
 =head2 tags
 

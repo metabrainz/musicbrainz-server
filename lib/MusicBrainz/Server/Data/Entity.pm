@@ -2,6 +2,7 @@ package MusicBrainz::Server::Data::Entity;
 
 use Moose;
 use MusicBrainz::Server::Data::Utils qw( placeholders uniq );
+use UNIVERSAL::require;
 
 has 'c' => (
     is => 'rw',
@@ -47,6 +48,7 @@ sub _new_from_row
         $info{$attrib} = $val if defined $val;
     }
     my $entity_class = $self->_entity_class;
+    $entity_class->require;
     return $entity_class->new(%info);
 }
 

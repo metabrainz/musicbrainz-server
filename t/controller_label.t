@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 use strict;
-use Test::More tests => 15;
+use Test::More tests => 17;
 
 BEGIN {
     use MusicBrainz::Server::Context;
@@ -30,3 +30,7 @@ $mech->content_like(qr/ABC-123-X/, 'has catalog of second release');
 $mech->content_like(qr/2009-05-08/, 'has release date');
 $mech->content_like(qr{GB}, 'has country in release list');
 $mech->content_like(qr{/release/f34c079d-374e-4436-9448-da92dedef3ce}, 'links to correct release');
+
+# Test aliases
+$mech->get_ok('/label/46f0f4cd-8aab-4b33-b698-f459faf64190/aliases', 'get label aliases');
+$mech->content_contains('Test Label Alias', 'has the label alias');

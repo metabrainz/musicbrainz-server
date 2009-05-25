@@ -1,38 +1,59 @@
-package MusicBrainz::Server::Data::ArtistAlias;
+package MusicBrainz::Server::Data::Alias;
 use Moose;
-
-use MusicBrainz::Server::Entity::ArtistAlias;
 
 extends 'MusicBrainz::Server::Data::Entity';
 
+has 'type' => (
+    isa      => 'Str',
+    is       => 'rw',
+    required => 1
+);
+
+has 'entity' => (
+    isa      => 'Str',
+    is       => 'rw',
+    required => 1,
+);
+
 sub _table
 {
-    return 'artist_alias JOIN artist_name name ON artist_alias.name=name.id';
+    my $self = shift;
+    return sprintf '%s_alias JOIN %s_name name ON %s_alias.name=name.id',
+        $self->type, $self->type, $self->type;
 }
 
 sub _columns
 {
-    return 'artist_alias.id, name.name, artist, editpending';
+    my $self = shift;
+    return sprintf '%s_alias.id, name.name, %s, editpending',
+        $self->type, $self->type;
 }
 
 sub _column_mapping
 {
+    my $self = shift;
     return {
-        id            => 'id',
-        name          => 'name',
-        artist_id     => 'artist',
-        edits_pending => 'editpending',
+        id                  => 'id',
+        name                => 'name',
+        $self->type . '_id' => $self->type,
+        edits_pending       => 'editpending',
     };
 }
 
 sub _id_column
 {
-    return 'artist_alias.id';
+    return shift->type . '_alias.id';
 }
 
 sub _entity_class
 {
-    return 'MusicBrainz::Server::Entity::ArtistAlias';
+    return shift->entity;
+}
+
+sub find_by_entity_id
+{
+    my ($self, @ids) = @_;
+    return [ values %{ $self->_get_by_keys($self->type, @ids) } ];
 }
 
 no Moose;

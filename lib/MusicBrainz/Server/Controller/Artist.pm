@@ -4,6 +4,7 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
 with 'MusicBrainz::Server::Controller::Annotation';
+with 'MusicBrainz::Server::Controller::Alias';
 
 __PACKAGE__->config(
     model       => 'Artist',
@@ -158,20 +159,6 @@ Display detailed information about a specific artist.
 
 # Empty because everything we need is in added to the stash with sub artist.
 sub details : Chained('load') { }
-
-=head2 aliases
-
-Display all aliases of an artist, along with usage information.
-
-=cut
-
-sub aliases : Chained('load')
-{
-    my ($self, $c) = @_;
-    my $artist = $self->entity;
-
-    $c->stash->{aliases}  = $c->model('Alias')->load_for_entity($artist);
-}
 
 =head2 nats
 
