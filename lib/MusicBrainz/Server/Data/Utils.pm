@@ -18,13 +18,13 @@ sub load_subobjects
 {
     my ($data_access, $attr_obj, @objs) = @_;
     my $attr_id = $attr_obj . "_id";
-    my %ids = map { $_->$attr_id => 1 } @objs;
+    my %ids = map { ($_->meta->get_attribute($attr_id)->get_value($_) || "") => 1 } @objs;
     my @ids = grep { $_ } keys %ids;
     if (@ids) {
         my $data = $data_access->get_by_ids(@ids);
         foreach my $obj (@objs) {
             my $id = $obj->meta->get_attribute($attr_id)->get_value($obj);
-            if (exists $data->{$id}) {
+            if (defined $id && exists $data->{$id}) {
                 $obj->meta->get_attribute($attr_obj)->set_value($obj, $data->{$id});
             }
         }
