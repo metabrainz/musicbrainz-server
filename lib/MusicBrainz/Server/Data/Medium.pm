@@ -1,9 +1,14 @@
 package MusicBrainz::Server::Data::Medium;
 
 use Moose;
+use MusicBrainz::Server::Data::Release;
 use MusicBrainz::Server::Entity::Medium;
 use MusicBrainz::Server::Entity::Tracklist;
-use MusicBrainz::Server::Data::Utils qw( query_to_list placeholders );
+use MusicBrainz::Server::Data::Utils qw(
+    placeholders
+    query_to_list
+    query_to_list_limited
+);
 
 extends 'MusicBrainz::Server::Data::Entity';
 
@@ -30,9 +35,12 @@ sub _column_mapping
         tracklist_id  => 'tracklist',
         tracklist     => sub {
             my ($row, $prefix) = @_;
+            my $id = $row->{$prefix . 'tracklist'};
+            my $track_count = $row->{$prefix . 'trackcount'};
+            return unless $id && $track_count;
             return MusicBrainz::Server::Entity::Tracklist->new(
-                id          => $row->{$prefix . 'tracklist'},
-                track_count => $row->{$prefix . 'trackcount'},
+                id          => $id,
+                track_count => $track_count,
             );
         },
         release_id    => 'release',
@@ -62,6 +70,39 @@ sub load
     foreach my $medium (@mediums) {
         $id_to_release{$medium->release_id}->add_medium($medium);
     }
+}
+
+sub find_by_tracklist
+{
+    my ($self, $tracklist_id, $limit, $offset) = @_;
+    my $query = "
+        SELECT
+            medium.id AS m_id, medium.format AS m_format,
+                medium.position AS m_position, medium.name AS m_name,
+                medium.tracklist AS m_tracklist,
+            release.id AS r_id, release.gid AS r_gid, release_name.name AS r_name,
+                release.artist_credit AS r_artist_credit,
+                release.date_year AS r_date_year,
+                release.date_month AS r_date_month,
+                release.date_day AS r_date_day,
+                release.country AS r_country, release.status AS r_status,
+                release.packaging AS r_packaging
+        FROM
+            medium
+            JOIN release ON release.id = medium.release
+            JOIN release_name ON release.name = release_name.id
+        WHERE medium.tracklist = ?
+        ORDER BY date_year, date_month, date_day, release_name.name
+        OFFSET ?";
+    return query_to_list_limited(
+        $self->c, $offset, $limit, sub {
+            my $row = shift;
+            my $medium = $self->_new_from_row($row, 'm_');
+            my $release = MusicBrainz::Server::Data::Release->_new_from_row($row, 'r_');
+            $medium->release($release);
+            return $medium;
+        },
+        $query, $tracklist_id, $offset || 0);
 }
 
 __PACKAGE__->meta->make_immutable;

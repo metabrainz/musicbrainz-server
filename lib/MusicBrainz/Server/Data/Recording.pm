@@ -2,7 +2,7 @@ package MusicBrainz::Server::Data::Recording;
 
 use Moose;
 use MusicBrainz::Server::Entity::Recording;
-use MusicBrainz::Server::Data::Utils qw( query_to_list_limited );
+use MusicBrainz::Server::Data::Utils qw( load_subobjects query_to_list_limited );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::AnnotationRole';
@@ -52,6 +52,12 @@ sub find_by_artist
     return query_to_list_limited(
         $self->c, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $artist_id, $offset || 0);
+}
+
+sub load
+{
+    my ($self, @objs) = @_;
+    load_subobjects($self, 'recording', @objs);
 }
 
 __PACKAGE__->meta->make_immutable;

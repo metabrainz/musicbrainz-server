@@ -1,0 +1,15 @@
+[%- WRAPPER 'layout.tt' -%]
+    [%- INCLUDE 'tracklist/tracklist.tt' -%]
+    <p>[% l('Tracklist appears on the following releases:') %]</p>
+    <ul>
+        [% FOR medium=release_media %]
+        <li>
+            [% l('{release} by {artist}', {
+                    release=link_release(medium.release),
+                    artist=artist_credit(medium.release.artist_credit)
+                }) %]
+            [% l('(disc {n})', {n=medium.position}) %]
+        </li>
+        [% END %]
+    </ul>
+[%- END -%]

@@ -37,12 +37,14 @@ sub _new_from_row
     $prefix ||= '';
     foreach my $attrib (@attribs) {
         my $column = $mapping{$attrib} || $attrib;
+        my $val;
         if (ref($column) eq 'CODE') {
-            $info{$attrib} = $column->($row, $prefix);
+            $val = $column->($row, $prefix);
         }
         elsif (defined $row->{$prefix.$column}) {
-            $info{$attrib} = $row->{$prefix.$column};
+            $val = $row->{$prefix.$column};
         }
+        $info{$attrib} = $val if defined $val;
     }
     my $entity_class = $self->_entity_class;
     return $entity_class->new(%info);
