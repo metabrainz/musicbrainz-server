@@ -48,8 +48,8 @@ is ( $artist->id, 4 );
 
 my $search = MusicBrainz::Server::Data::Search->new(c => $c);
 my ($results, $hits) = $search->search("artist", "bush", 10);
-is( $hits, 1 );
-is( scalar(@$results), 1 );
+is( $hits, 3 );
+is( scalar(@$results), 3 );
 is( $results->[0]->position, 1 );
 is( $results->[0]->entity->name, "Kate Bush" );
 is( $results->[0]->entity->sort_name, "Bush, Kate" );
