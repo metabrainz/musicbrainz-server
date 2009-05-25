@@ -1,48 +1,48 @@
-package MusicBrainz::Server::Entity::ReleaseGroup;
+package MusicBrainz::Server::Entity::Relationship;
 
 use Moose;
-use MusicBrainz::Server::Entity::PartialDate;
+use Readonly;
 use MusicBrainz::Server::Entity::Types;
 
-extends 'MusicBrainz::Server::Entity::CoreEntity';
-with 'MusicBrainz::Server::Entity::Taggable';
-with 'MusicBrainz::Server::Entity::Linkable';
-with 'MusicBrainz::Server::Entity::AnnotationRole';
+Readonly our $DIRECTION_FORWARD  => 1;
+Readonly our $DIRECTION_BACKWARD => 2;
 
-has 'type_id' => (
+extends 'MusicBrainz::Server::Entity::Entity';
+with  'MusicBrainz::Server::Entity::Editable';
+
+has 'link_id' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
-has 'type' => (
+has 'link' => (
     is => 'rw',
-    isa => 'ReleaseGroupType'
+    isa => 'Link',
 );
 
-sub type_name
-{
-    my ($self) = @_;
-    return $self->type ? $self->type->name : undef;
-}
-
-has 'artist_credit_id' => (
+has 'direction' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
-has 'artist_credit' => (
+has 'entity0_id' => (
     is => 'rw',
-    isa => 'ArtistCredit'
+    isa => 'Int',
 );
 
-has 'first_release_date' => (
+has 'entity0' => (
     is => 'rw',
-    isa => 'PartialDate',
+    isa => 'Linkable',
 );
 
-has 'comment' => (
+has 'entity1_id' => (
     is => 'rw',
-    isa => 'Str'
+    isa => 'Int',
+);
+
+has 'entity1' => (
+    is => 'rw',
+    isa => 'Linkable',
 );
 
 __PACKAGE__->meta->make_immutable;

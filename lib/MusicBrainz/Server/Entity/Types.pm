@@ -44,6 +44,15 @@ subtype 'LabelAlias'
 subtype 'LabelType'
     => as class_type 'MusicBrainz::Server::Entity::LabelType';
 
+subtype 'Link'
+    => as class_type 'MusicBrainz::Server::Entity::Link';
+
+subtype 'Linkable'
+    => as role_type 'MusicBrainz::Server::Entity::Linkable';
+
+subtype 'LinkType'
+    => as class_type 'MusicBrainz::Server::Entity::LinkType';
+
 subtype 'Country'
     => as class_type 'MusicBrainz::Server::Entity::Country';
 
@@ -64,6 +73,9 @@ subtype 'PartialDate'
 
 subtype 'Recording'
     => as class_type 'MusicBrainz::Server::Entity::Recording';
+
+subtype 'Relationship'
+    => as class_type 'MusicBrainz::Server::Entity::Relationship';
 
 subtype 'ReleaseGroup'
     => as class_type 'MusicBrainz::Server::Entity::ReleaseGroup';

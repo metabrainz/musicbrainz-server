@@ -5,6 +5,7 @@ use MusicBrainz::Server::Entity::Types;
 
 extends 'MusicBrainz::Server::Entity::CoreEntity';
 with 'MusicBrainz::Server::Entity::Taggable';
+with 'MusicBrainz::Server::Entity::Linkable';
 with 'MusicBrainz::Server::Entity::AnnotationRole';
 
 has 'type_id' => (

@@ -1,48 +1,54 @@
-package MusicBrainz::Server::Entity::ReleaseGroup;
+package MusicBrainz::Server::Entity::LinkType;
 
 use Moose;
-use MusicBrainz::Server::Entity::PartialDate;
+use MooseX::AttributeHelpers;
 use MusicBrainz::Server::Entity::Types;
 
-extends 'MusicBrainz::Server::Entity::CoreEntity';
-with 'MusicBrainz::Server::Entity::Taggable';
-with 'MusicBrainz::Server::Entity::Linkable';
-with 'MusicBrainz::Server::Entity::AnnotationRole';
+extends 'MusicBrainz::Server::Entity::Entity';
 
-has 'type_id' => (
+has 'gid' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Str',
 );
 
-has 'type' => (
+has 'parent_id' => (
     is => 'rw',
-    isa => 'ReleaseGroupType'
+    isa => 'Int',
 );
 
-sub type_name
-{
-    my ($self) = @_;
-    return $self->type ? $self->type->name : undef;
-}
-
-has 'artist_credit_id' => (
+has 'parent' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'LinkType',
 );
 
-has 'artist_credit' => (
+has 'entity0_type' => (
     is => 'rw',
-    isa => 'ArtistCredit'
+    isa => 'Str',
 );
 
-has 'first_release_date' => (
+has 'entity1_type' => (
     is => 'rw',
-    isa => 'PartialDate',
+    isa => 'Str',
 );
 
-has 'comment' => (
+has 'name' => (
     is => 'rw',
-    isa => 'Str'
+    isa => 'Str',
+);
+
+has 'link_phrase' => (
+    is => 'rw',
+    isa => 'Str',
+);
+
+has 'reverse_link_phrase' => (
+    is => 'rw',
+    isa => 'Str',
+);
+
+has 'short_link_phrase' => (
+    is => 'rw',
+    isa => 'Str',
 );
 
 __PACKAGE__->meta->make_immutable;

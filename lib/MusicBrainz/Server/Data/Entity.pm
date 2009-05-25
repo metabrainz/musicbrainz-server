@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Data::Entity;
 
 use Moose;
-use MusicBrainz::Server::Data::Utils qw( placeholders );
+use MusicBrainz::Server::Data::Utils qw( placeholders uniq );
 
 has 'c' => (
     is => 'rw',
@@ -81,7 +81,7 @@ sub _id_column
 sub get_by_ids
 {
     my ($self, @ids) = @_;
-    return $self->_get_by_keys($self->_id_column, @ids);
+    return $self->_get_by_keys($self->_id_column, uniq(@ids));
 }
 
 __PACKAGE__->meta->make_immutable;

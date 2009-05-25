@@ -1,49 +1,59 @@
-package MusicBrainz::Server::Entity::ReleaseGroup;
+package MusicBrainz::Server::Entity::Link;
 
 use Moose;
+use MooseX::AttributeHelpers;
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Types;
 
-extends 'MusicBrainz::Server::Entity::CoreEntity';
-with 'MusicBrainz::Server::Entity::Taggable';
-with 'MusicBrainz::Server::Entity::Linkable';
-with 'MusicBrainz::Server::Entity::AnnotationRole';
+extends 'MusicBrainz::Server::Entity::Entity';
 
 has 'type_id' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
 has 'type' => (
     is => 'rw',
-    isa => 'ReleaseGroupType'
+    isa => 'LinkType',
 );
 
-sub type_name
-{
-    my ($self) = @_;
-    return $self->type ? $self->type->name : undef;
-}
-
-has 'artist_credit_id' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-has 'artist_credit' => (
-    is => 'rw',
-    isa => 'ArtistCredit'
-);
-
-has 'first_release_date' => (
+has 'begin_date' => (
     is => 'rw',
     isa => 'PartialDate',
+    lazy => 1,
+    default => sub { MusicBrainz::Server::Entity::PartialDate->new() },
 );
 
-has 'comment' => (
+has 'end_date' => (
     is => 'rw',
-    isa => 'Str'
+    isa => 'PartialDate',
+    lazy => 1,
+    default => sub { MusicBrainz::Server::Entity::PartialDate->new() },
 );
+
+has 'attributes' => (
+    is => 'rw',
+    isa => 'HashRef[ArrayRef]',
+    metaclass => 'Collection::Hash',
+    default => sub { +{} },
+    lazy => 1,
+    provides => {
+        clear => 'clear_attributes',
+        exists => 'has_attribute',
+        get => 'get_attribute'
+    }
+);
+
+sub add_attribute
+{
+    my ($self, $name, $value) = @_;
+    if ($self->has_attribute($name)) {
+        push @{$self->attributes->{$name}}, $value;
+    }
+    else {
+        $self->attributes->{$name} = [$value];
+    }
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

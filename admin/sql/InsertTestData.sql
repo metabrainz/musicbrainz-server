@@ -328,6 +328,55 @@ INSERT INTO medium (id, release, position, tracklist, format, name) VALUES (4, 2
 INSERT INTO medium (id, release, position, tracklist, format, name) VALUES (5, 3, 1, 3, 1, 'A Sea of Honey');
 INSERT INTO medium (id, release, position, tracklist, format, name) VALUES (6, 3, 2, 4, 1, 'A Sky of Honey');
 
+TRUNCATE TABLE link_attribute_type CASCADE;
+
+INSERT INTO link_attribute_type (id, root, gid, name)
+    VALUES (1, 1, '36990974-4f29-4ea1-b562-3838fa9b8832', 'Additional');
+INSERT INTO link_attribute_type (id, root, gid, name)
+    VALUES (2, 2, '108d76bd-95eb-4099-aed6-447e4ec78553', 'Instrument');
+INSERT INTO link_attribute_type (id, parent, root, gid, name)
+    VALUES (3, 2, 2, '4f7bb10f-396c-466a-8221-8e93f5e454f9', 'String Instruments');
+INSERT INTO link_attribute_type (id, parent, root, gid, name)
+    VALUES (4, 3, 2, 'c3273296-91ba-453d-94e4-2fb6e958568e', 'Guitar');
+
+TRUNCATE TABLE link_type CASCADE;
+
+INSERT INTO link_type (id, gid, entitytype0, entitytype1, name, linkphrase, rlinkphrase, shortlinkphrase)
+    VALUES (1, '7610b0e9-40c1-48b3-b06c-2c1d30d9dc3e', 'artist', 'recording', 'instrument',
+            'performed {additional} {instrument} on',
+            'has {additional} {instrument} performed by',
+            'performer');
+
+TRUNCATE TABLE link_type_attribute_type CASCADE;
+
+INSERT INTO link_type_attribute_type (link_type, attribute_type, min, max)
+    VALUES (1, 1, 0, 1);
+INSERT INTO link_type_attribute_type (link_type, attribute_type, min, max)
+    VALUES (1, 2, 1, NULL);
+
+TRUNCATE TABLE link CASCADE;
+
+INSERT INTO link (id, link_type, attributecount) VALUES (1, 1, 1);
+INSERT INTO link (id, link_type, attributecount) VALUES (2, 1, 2);
+
+TRUNCATE TABLE link_attribute CASCADE;
+
+INSERT INTO link_attribute (link, attribute_type) VALUES (1, 4);
+INSERT INTO link_attribute (link, attribute_type) VALUES (2, 1);
+INSERT INTO link_attribute (link, attribute_type) VALUES (2, 3);
+
+TRUNCATE TABLE l_artist_recording CASCADE;
+
+INSERT INTO artist (id, gid, name, sortname)
+    VALUES
+    (8, 'e2a083a9-9942-4d6e-b4d2-8397320b95f7', 8, 9);
+INSERT INTO artist (id, gid, name, sortname) VALUES
+    (9, '2fed031c-0e89-406e-b9f0-3d192637907a', 8, 9);
+
+INSERT INTO l_artist_recording (id, link, entity0, entity1) VALUES (1, 1, 8, 2);
+INSERT INTO l_artist_recording (id, link, entity0, entity1, editpending) VALUES (2, 1, 9, 2, 1);
+INSERT INTO l_artist_recording (id, link, entity0, entity1) VALUES (3, 2, 8, 3);
+
 TRUNCATE TABLE annotation CASCADE;
 TRUNCATE TABLE artist_annotation CASCADE;
 TRUNCATE TABLE label_annotation CASCADE;

@@ -11,6 +11,7 @@ our @EXPORT_OK = qw(
     load_subobjects
     query_to_list
     query_to_list_limited
+    uniq
 );
 
 sub load_subobjects
@@ -74,6 +75,12 @@ sub query_to_list_limited
     my $hits = $sql->Rows + $offset;
     $sql->Finish;
     return (\@result, $hits);
+}
+
+sub uniq
+{
+    my %h = map { $_ => 1 } @_;
+    return keys %h;
 }
 
 1;

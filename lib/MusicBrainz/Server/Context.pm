@@ -26,6 +26,13 @@ sub mb_logout {
     }
 }
 
+sub model
+{
+    my ($self, $name) = @_;
+    my $class_name = "MusicBrainz::Server::Data::$name";
+    return $class_name->new(c => $self);
+}
+
 1;
 
 =head1 COPYRIGHT

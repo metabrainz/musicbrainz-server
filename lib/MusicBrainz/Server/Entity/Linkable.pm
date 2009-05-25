@@ -1,46 +1,33 @@
-package MusicBrainz::Server::Entity::Recording;
+package MusicBrainz::Server::Entity::Linkable;
 
-use Moose;
+use Moose::Role;
+use MooseX::AttributeHelpers;
 use MusicBrainz::Server::Entity::Types;
 
-extends 'MusicBrainz::Server::Entity::CoreEntity';
-with 'MusicBrainz::Server::Entity::Taggable';
-with 'MusicBrainz::Server::Entity::Linkable';
-with 'MusicBrainz::Server::Entity::AnnotationRole';
-
-has 'artist_credit_id' => (
+has 'relationships' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'ArrayRef[Relationship]',
+    default => sub { [] },
+    lazy => 1,
+    metaclass => 'Collection::Array',
+    provides => {
+        elements => 'all_relationships',
+        push => 'add_relationship',
+        clear => 'clear_relationships'
+    }
 );
 
-has 'artist_credit' => (
-    is => 'rw',
-    isa => 'ArtistCredit'
-);
-
-has 'track_id' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-has 'track' => (
-    is => 'rw',
-    isa => 'Track'
-);
-
-has 'length' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-has 'comment' => (
-    is => 'rw',
-    isa => 'Str'
-);
-
-__PACKAGE__->meta->make_immutable;
-no Moose;
 1;
+
+=head1 NAME
+
+MusicBrainz::Server::Entity::Linkable
+
+=head1 ATTRIBUTES
+
+=head2 relationships
+
+List of relationships.
 
 =head1 COPYRIGHT
 

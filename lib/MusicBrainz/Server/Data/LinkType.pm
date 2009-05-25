@@ -1,42 +1,34 @@
-package MusicBrainz::Server::Entity::Recording;
+package MusicBrainz::Server::Data::LinkType;
 
 use Moose;
-use MusicBrainz::Server::Entity::Types;
+use MusicBrainz::Server::Entity::LinkType;
+use MusicBrainz::Server::Data::Utils qw( load_subobjects );
 
-extends 'MusicBrainz::Server::Entity::CoreEntity';
-with 'MusicBrainz::Server::Entity::Taggable';
-with 'MusicBrainz::Server::Entity::Linkable';
-with 'MusicBrainz::Server::Entity::AnnotationRole';
+extends 'MusicBrainz::Server::Data::Entity';
 
-has 'artist_credit_id' => (
-    is => 'rw',
-    isa => 'Int'
-);
+sub _table
+{
+    return 'link_type';
+}
 
-has 'artist_credit' => (
-    is => 'rw',
-    isa => 'ArtistCredit'
-);
+sub _columns
+{
+    return 'id, parent AS parent_id, gid, name, linkphrase AS link_phrase,
+            entitytype0 AS entity0_type, entitytype1 AS entity1_type,
+            rlinkphrase AS reverse_link_phrase,
+            shortlinkphrase AS short_link_phrase';
+}
 
-has 'track_id' => (
-    is => 'rw',
-    isa => 'Int'
-);
+sub _entity_class
+{
+    return 'MusicBrainz::Server::Entity::LinkType';
+}
 
-has 'track' => (
-    is => 'rw',
-    isa => 'Track'
-);
-
-has 'length' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-has 'comment' => (
-    is => 'rw',
-    isa => 'Str'
-);
+sub load
+{
+    my ($self, @objs) = @_;
+    load_subobjects($self, 'type', @objs);
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
