@@ -1,4 +1,5 @@
 [%- WRAPPER 'release_group/layout.tt' %]
+    [%- INCLUDE 'release_group/annotation.tt' summary=1 -%]
     [%- IF releases.size -%]
         [%- WRAPPER 'components/with-pager.tt' %]
             <table>

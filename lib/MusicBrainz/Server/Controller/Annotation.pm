@@ -1,36 +1,20 @@
 package MusicBrainz::Server::Controller::Annotation;
+use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
 
-use strict;
-use warnings;
+requires 'load';
 
-use base 'MusicBrainz::Server::Controller';
-
-sub for_entity : Chained('/') PathPart('annotation') CaptureArgs(2)
-{
-    my ($self, $c, $type, $id) = @_;
-    $c->stash->{entity} = $c->model(ucfirst $type)->load($id);
-}
-
-sub edit : Chained('for_entity') PathPart('edit') Form('Annotation::Edit')
-{
-    my ($self, $c, $revision) = @_;
-
-    my $latest = $c->model('Annotation')->load_revision($c->stash->{entity}, $revision);
-    my $form   = $self->form;
-
-    $form->field('annotation')->value($latest->text)
-        if $latest;
-
-    return unless $self->submit_and_validate($c);
-
-    $c->model('Annotation')->update_annotation($c->stash->{entity}, $form->value('annotation') || '',
-        $form->value('change_log'), $form->value('edit_note'));
-}
-
-sub history : Chained('for_entity') PathPart
+sub latest_annotation : Chained('load') PathPart('annotation')
 {
     my ($self, $c) = @_;
-    $c->stash->{annotations} = $c->model('Annotation')->load_all($c->stash->{entity});
+
+    my $entity = $c->stash->{$self->{entity_name}};
+    my $annotation = $c->model($self->{model})->annotation->get_latest($entity->id);
+
+    $c->stash(
+        annotation => $annotation,
+    );
 }
 
+no Moose::Role;
 1;
+

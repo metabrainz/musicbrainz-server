@@ -1,5 +1,5 @@
 [%- WRAPPER 'recording/layout.tt' %]
-
+    [%- INCLUDE 'recording/annotation.tt' summary=1 -%]
     <h2>Releases</h2>
     [%- WRAPPER "components/with-pager.tt" %]
         [%- IF tracks.size -%]

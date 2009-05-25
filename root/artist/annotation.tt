@@ -1,0 +1,6 @@
+[%- INCLUDE 'annotation/common.tt'
+    annotation = artist.latest_annotation
+    gid = artist.gid
+    type = 'artist'
+    no_annotation = l('This artist does not have an annotation')
+-%]

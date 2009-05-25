@@ -5,6 +5,9 @@ use Moose::Util::TypeConstraints;
 subtype 'AggregatedTag'
     => as class_type 'MusicBrainz::Server::Entity::AggregatedTag';
 
+subtype 'Annotation'
+    => as class_type 'MusicBrainz::Server::Entity::Annotation';
+
 subtype 'Artist'
     => as class_type 'MusicBrainz::Server::Entity::Artist';
 

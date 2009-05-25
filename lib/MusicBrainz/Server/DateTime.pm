@@ -25,6 +25,8 @@
 
 package MusicBrainz::Server::DateTime;
 
+use DateTime::Format::Strptime;
+
 sub parse_datetime
 {
 	# This component accepts a list of date-time strings, and parses each one into
@@ -85,15 +87,6 @@ sub parse_datetime
 
 sub format_datetime
 {
-	# This component accepts a list of absolute times and converts each one to the
-	# user's preferred date/time format, in their preferred time zone.
-
-	# The input times can be in one of two formats: just an integer (seconds since
-	# the epoch), or in Postgres format: "2003-01-25 22:06:54.82141+00" (in which
-	# case, the seconds decimal point and everything following it will be
-	# ignored).  So in this case, make sure that the time values you're passing in
-	# are in UTC.
-
 	my ($fmt, $tz);
 
 	# Allow overrides by passing a hash reference as the first parameter.
@@ -104,48 +97,15 @@ sub format_datetime
 		$tz = $opts->{"tz"} if $opts->{"tz"};
 	}
 
-	require POSIX;
+    # Default format
+    $fmt ||= '%F %H:%M:%S %Z';
 
-	my @r = eval
-	{
-		local $ENV{TZ};
+    my @dates = @_;
+    my %args = ( pattern => $fmt );
+    $args{time_zone} = $tz if $tz;
 
-		# Convert any stringy times into integers
-		$ENV{TZ} = 'UTC';
-		POSIX::tzset();
-
-		for (@_)
-		{
-			my @bits = /\A(\d\d\d\d)-(\d\d)-(\d\d) (\d\d):(\d\d):(\d\d)\b/;
-
-			if (@bits)
-			{
-				$bits[0] -= 1900;
-				--$bits[1];
-				$_ = POSIX::mktime(reverse @bits);
-			}
-		}
-
-		# Now convert the integers to the local formatted time
-		$ENV{TZ} = $tz;
-		POSIX::tzset();
-
-		my @tzn = POSIX::tzname();
-		my @fmt = ($fmt, $fmt);
-		for (0,1) { $fmt[$_] =~ s/%Z/$tzn[$_]/g }
-
-		map {
-			my @l = localtime $_;
-			POSIX::strftime($fmt[$l[8]], localtime($_));
-		} @_;
-	};
-
-	my $err = $@;
-	POSIX::tzset();
-	die $err if $err;
-
-	return $r[-1] unless wantarray;
-	return(@r);
+    my $format = DateTime::Format::Strptime->new(%args);
+    return map { $format->format_datetime($_) } @dates;
 }
 
 sub format_datetime_since

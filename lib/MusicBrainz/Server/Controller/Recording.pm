@@ -1,9 +1,9 @@
 package MusicBrainz::Server::Controller::Recording;
+use Moose;
 
-use strict;
-use warnings;
+BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
-use base 'MusicBrainz::Server::Controller';
+with 'MusicBrainz::Server::Controller::Annotation';
 
 __PACKAGE__->config(
     entity_name => 'recording',
@@ -33,24 +33,13 @@ namespace
 
 sub base : Chained('/') PathPart('recording') CaptureArgs(0) { }
 
-=head2 recording
-
-Chained action to load a recording.
-
-=cut
-
-sub recording : Chained('load') PathPart('') CaptureArgs(0)
-{
-    my ($self, $c) = @_;
-}
-
 =head2 relations
 
 Shows all relations to a given recording
 
 =cut
 
-sub relations : Chained('recording')
+sub relations : Chained('load')
 {
     my ($self, $c, $mbid) = @_;
     $c->stash->{relations} = $c->model('Relation')->load_relations($self->entity);
@@ -62,7 +51,7 @@ Show details of a recording
 
 =cut
 
-sub details : Chained('recording')
+sub details : Chained('load')
 {
     my ($self, $c) = @_;
 
@@ -82,7 +71,7 @@ sub details : Chained('recording')
     );
 }
 
-sub show : Chained('recording') PathPart('')
+sub show : Chained('load') PathPart('')
 {
     my ($self, $c) = @_;
     my $recording = $c->stash->{recording};
@@ -92,19 +81,20 @@ sub show : Chained('recording') PathPart('')
     my @releases = map { $_->tracklist->medium->release } @$tracks;
     $c->model('ArtistCredit')->load($recording, @$tracks, @releases);
     $c->model('Country')->load(@releases);
+    $c->model('Recording')->annotation->load_latest($recording);
     $c->stash(
         tracks   => $tracks,
         template => 'recording/index.tt',
     );
 }
 
-sub tags : Chained('recording')
+sub tags : Chained('load')
 {
     my ($self, $c, $mbid) = @_;
     $c->forward('/tags/entity', [ $self->entity ]);
 }
 
-sub google : Chained('recording')
+sub google : Chained('load')
 {
     my ($self, $c) = @_;
     $c->response->redirect(Google($self->entity->name));
@@ -120,7 +110,7 @@ Edit recording details (sequence number, recording time and title)
 
 =cut
 
-sub edit : Chained('recording') Form
+sub edit : Chained('load') Form
 {
     my ($self, $c) = @_;
 
@@ -139,7 +129,7 @@ sub edit : Chained('recording') Form
     $c->response->redirect($c->entity_url($recording, 'show'));
 }
 
-sub remove : Chained('recording') Form
+sub remove : Chained('load') Form
 {
     my ($self, $c) = @_;
 
@@ -162,7 +152,7 @@ sub remove : Chained('recording') Form
     $c->response->redirect($c->entity_url($release, 'show'));
 }
 
-sub change_artist : Chained('recording')
+sub change_artist : Chained('load')
 {
     my ($self, $c) = @_;
 
@@ -182,7 +172,7 @@ sub change_artist : Chained('recording')
     }
 }
 
-sub confirm_change_artist : Chained('recording') Args(1)
+sub confirm_change_artist : Chained('load') Args(1)
     Form('Recording::ChangeArtist')
 {
     my ($self, $c, $new_artist_id) = @_;

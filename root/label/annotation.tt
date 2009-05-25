@@ -1,0 +1,6 @@
+[%- INCLUDE 'annotation/common.tt'
+    annotation = label.latest_annotation
+    gid = label.gid
+    type = 'label'
+    no_annotation = l('This label does not have an annotation')
+-%]

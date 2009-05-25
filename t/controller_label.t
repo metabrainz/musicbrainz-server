@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 use strict;
-use Test::More tests => 14;
+use Test::More tests => 15;
 
 BEGIN {
     use MusicBrainz::Server::Context;
@@ -21,6 +21,7 @@ $mech->content_like(qr/1989-02-03/, 'has start date');
 $mech->content_like(qr/2008-05-19/, 'has end date');
 $mech->content_like(qr/United Kingdom/, 'has country');
 $mech->content_like(qr/Production/, 'has label type');
+$mech->content_like(qr/Test annotation 2/, 'has annotation');
 
 # Check releases
 $mech->content_like(qr/Arrival/, 'has release title');

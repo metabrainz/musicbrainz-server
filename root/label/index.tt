@@ -1,4 +1,5 @@
 [%- WRAPPER "label/layout.tt" title=label.name -%]
+    [%- INCLUDE 'label/annotation.tt' summary=1 -%]
     [%- WRAPPER "components/with-pager.tt" %]
         [%- IF releases.size -%]
             <table>

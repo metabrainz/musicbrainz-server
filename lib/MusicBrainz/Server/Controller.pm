@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Controller;
-BEGIN { use Moose; extends 'Catalyst::Controller'; }
+use Moose; 
+BEGIN { extends 'Catalyst::Controller'; }
 
 use Data::Page;
 use MusicBrainz::Server::Validation;

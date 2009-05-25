@@ -3,6 +3,7 @@ package MusicBrainz::Server::Entity::Annotation;
 use Moose;
 use MusicBrainz::Server::Types;
 use MusicBrainz::Server::Entity::Types;
+use Text::WikiFormat;
 
 extends 'MusicBrainz::Server::Entity::Entity';
 with 'MusicBrainz::Server::Entity::Editable';
@@ -32,6 +33,31 @@ has 'creation_date' => (
     isa => 'DateTime',
     coerce => 1
 );
+
+sub summary
+{
+    my $self = shift;
+    my ($summary) = split /\n\n/, $self->text;
+    return $summary;
+}
+
+sub format_summary
+{
+    my $self = shift;
+    return Text::WikiFormat::format($self->summary);
+}
+
+sub summary_is_short
+{
+    my $self = shift;
+    return $self->summary ne $self->text;
+}
+
+sub format_text
+{
+    my $self = shift;
+    Text::WikiFormat::format($self->text);
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

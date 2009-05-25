@@ -1,0 +1,6 @@
+[%- INCLUDE 'annotation/common.tt'
+    annotation = rg.latest_annotation
+    gid = rg.gid
+    type = 'release_group'
+    no_annotation = l('This release group does not have an annotation')
+-%]

@@ -1,0 +1,6 @@
+[%- INCLUDE 'annotation/common.tt'
+    annotation = work.latest_annotation
+    gid = work.gid
+    type = 'work'
+    no_annotation = l('This work does not have an annotation')
+-%]

@@ -1,0 +1,31 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+use Test::More tests => 12;
+
+BEGIN { use_ok 'MusicBrainz::Server::Entity::Annotation' };
+
+my $text = <<'TEXT';
+This is a ''test'' annotation
+
+This is more of the test annotation!
+
+And '''even''' ''more''.
+TEXT
+
+my $annotation = MusicBrainz::Server::Entity::Annotation->new( text => $text );
+
+like($annotation->summary, qr/This is a ''test'' annotation/);
+unlike($annotation->summary, qr/This is more of the test annotation!/, 'summary shouldnt have second para');
+unlike($annotation->summary, qr/And '''even''' ''more''./, 'summary shouldnt have third para');
+unlike($annotation->summary, qr/\n/, 'summary shouldnt have line breaks');
+
+like($annotation->format_summary, qr{This is a <em>test</em> annotation});
+unlike($annotation->summary, qr/This is more of the test annotation!/, 'summary shouldnt have second para');
+unlike($annotation->summary, qr{And <strong>even</strong> <em>more</em>.}, 'summary shouldnt have third para');
+unlike($annotation->summary, qr/\n/, 'summary shouldnt have line breaks');
+
+like($annotation->format_text, qr{This is a <em>test</em> annotation});
+like($annotation->format_text, qr/This is more of the test annotation!/);
+like($annotation->format_text, qr{And <strong>even</strong> <em>more</em>.});

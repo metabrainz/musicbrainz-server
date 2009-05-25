@@ -1,9 +1,7 @@
 package MusicBrainz::Server::Controller::Label;
+use Moose;
 
-use strict;
-use warnings;
-
-use base 'MusicBrainz::Server::Controller';
+BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
 use MusicBrainz::Server::Constants qw( $DLABEL_ID );
 use Data::Page;
@@ -32,7 +30,7 @@ namespace
 
 sub base : Chained('/') PathPart('label') CaptureArgs(0) { }
 
-sub label : Chained('load') PathPart('') CaptureArgs(0)
+after 'load' => sub
 {
     my ($self, $c) = @_;
     
@@ -48,7 +46,7 @@ sub label : Chained('load') PathPart('') CaptureArgs(0)
 	}
 
 	$c->model('LabelType')->load($c->stash->{label});
-}
+};
 
 =head2 perma
 
@@ -56,7 +54,7 @@ Display details about a permanant link to this label.
 
 =cut
 
-sub perma : Chained('label') { }
+sub perma : Chained('load') { }
 
 =head2 aliases
 
@@ -64,7 +62,7 @@ Display all aliases for a label
 
 =cut
 
-sub aliases : Chained('label')
+sub aliases : Chained('load')
 {
     my ($self, $c) = @_;
     my $label = $self->entity;
@@ -78,7 +76,7 @@ Display a tag-cloud of tags for a label
 
 =cut
 
-sub tags : Chained('label')
+sub tags : Chained('load')
 {
     my ($self, $c) = @_;
     $c->forward('/tags/entity', [ $self->entity ]);
@@ -90,7 +88,7 @@ Redirect to Google and search for this label (using MusicBrainz colours).
 
 =cut
 
-sub google : Chained('label')
+sub google : Chained('load')
 {
     my ($self, $c) = @_;
     my $label = $self->entity;
@@ -104,7 +102,7 @@ Show all relations to this label
 
 =cut
 
-sub relations : Chained('label')
+sub relations : Chained('load')
 {
     my ($self, $c) = @_;
     $c->stash->{relations} = $c->model('Relation')->load_relations($self->entity);
@@ -117,7 +115,7 @@ that have been released through this label
 
 =cut
 
-sub show : PathPart('') Chained('label')
+sub show : PathPart('') Chained('load')
 {
     my  ($self, $c) = @_;
 
@@ -129,6 +127,7 @@ sub show : PathPart('') Chained('label')
 
     $c->model('Country')->load($c->stash->{label}, @releases);
     $c->model('ArtistCredit')->load(@releases);
+    $c->model('Label')->annotation->load_latest($c->stash->{label});
 
     $c->stash(
         template => 'label/index.tt',
@@ -142,13 +141,13 @@ Display detailed information about a given label
 
 =cut
 
-sub details : Chained('label') { }
+sub details : Chained('load') { }
 
 =head2 WRITE METHODS
 
 =cut
 
-sub merge : Chained('label')
+sub merge : Chained('load')
 {
     my ($self, $c) = @_;
 
@@ -166,7 +165,7 @@ sub merge : Chained('label')
     }
 }
 
-sub merge_into : Chained('label') PathPart('into') Args(1) Form('Label::Merge')
+sub merge_into : Chained('load') PathPart('into') Args(1) Form('Label::Merge')
 {
     my ($self, $c, $new_mbid) = @_;
 
@@ -191,7 +190,7 @@ sub merge_into : Chained('label') PathPart('into') Args(1) Form('Label::Merge')
     $c->response->redirect($c->entity_url($new_label, 'show'));
 }
 
-sub edit : Chained('label') Form
+sub edit : Chained('load') Form
 {
     my ($self, $c) = @_;
 
@@ -243,7 +242,7 @@ Allow a moderator to subscribe to this label
 
 =cut
 
-sub subscribe : Chained('label')
+sub subscribe : Chained('load')
 {
     my ($self, $c) = @_;
     my $label = $self->entity;
@@ -264,7 +263,7 @@ Unsubscribe from a label
 
 =cut
 
-sub unsubscribe : Chained('label')
+sub unsubscribe : Chained('load')
 {
     my ($self, $c) = @_;
     my $label = $self->entity;
@@ -286,7 +285,7 @@ wish their subscriptions to be public
 
 =cut
 
-sub subscriptions : Chained('label')
+sub subscriptions : Chained('load')
 {
     my ($self, $c) = @_;
 
@@ -324,7 +323,7 @@ sub subscriptions : Chained('label')
     $c->stash->{template} = 'label/subscriptions.tt';
 }
 
-sub add_alias : Chained('label') Form
+sub add_alias : Chained('load') Form
 {
     my ($self, $c) = @_;
 
@@ -341,7 +340,7 @@ sub add_alias : Chained('label') Form
     $c->response->redirect($c->entity_url($label, 'aliases'));
 }
 
-sub edit_alias : Chained('label') Args(1) Form
+sub edit_alias : Chained('load') Args(1) Form
 {
     my ($self, $c, $alias_id) = @_;
 
@@ -360,7 +359,7 @@ sub edit_alias : Chained('label') Args(1) Form
     $c->response->redirect($c->entity_url($label, 'aliases'));
 }
 
-sub remove_alias : Chained('label') Args(1) Form
+sub remove_alias : Chained('load') Args(1) Form
 {
     my ($self, $c, $alias_id) = @_;
 

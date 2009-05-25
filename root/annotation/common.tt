@@ -1,7 +1,10 @@
 <div class="annotation" id="annotation_box">
     [%- IF annotation.text -%]
         <div class="body" id="annotation_box_body">
-            [% annotation.summary_as_html or l("Nada")  %]
+            [% annotation.format_summary  %]
+            [% IF annotation.summary_is_short %] 
+                <p><a href="[% c.uri_for_action("/$type/latest_annotation", [ gid ]) %]">Read more&hellip;</a></p>
+            [% END %]
         </div>
         [%- IF show_change_log -%]
             <div class="bar">
@@ -10,14 +13,14 @@
         [%- END -%]
         <div class="bar">
             <div class="details">
-                [% l('Annotation last modified at {last_modified}', { last_modified => UserDate.format(annotation.creation_time) }) %].
+                [% l('Annotation last modified at {last_modified}', { last_modified => UserDate.format(annotation.creation_date) }) %].
             </div>
 
             <div class="options">
                 [%- IF c.user_exists -%]
                     [%- INCLUDE 'components/piped-list.tt' list = [
-                        { link => c.uri_for('/annotation', parent.entity_type, parent.mbid, 'edit', annotation.id), text => l('Edit') },
-                        { link => c.uri_for('/annotation', parent.entity_type, parent.mbid, 'history'), text => l('History') }
+                        { link => c.uri_for_action("/$type/edit_annotation", [ gid ], annotation.id), text => l('Edit') },
+                        { link => c.uri_for_action("/$type/annotation_history", [ gid ]), text => l('History') }
                         ] -%]
                 [%- ELSE -%]
                     [% l('Please {uri|log in} to edit this annotation.', {uri => c.uri_for('/user/login')}) %]
@@ -27,11 +30,11 @@
     [%- ELSE -%]
     <div class="bar" style="border-top: none">
         <div class="details">
-            [% l('This {entity} has no annotation.', {entity => parent.entity_type}) %]
+            [% no_annotation %]
         </div>
         <div class="options">
             [%- IF c.user_exists -%]
-                <a href="[% c.uri_for('/annotation', parent.entity_type, parent.mbid, 'edit') %]">
+                <a href="[% c.uri_for_action("/$type/edit_annotation", [ gid ]) %]">
                     [% l('Add an annotation') %]
                 </a>
             [%- ELSE -%]
@@ -40,5 +43,4 @@
         </div>
     </div>
     [%- END -%]
-  
 </div>

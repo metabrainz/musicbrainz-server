@@ -42,6 +42,16 @@ sub get_latest
     return $self->_new_from_row($row);
 }
 
+sub load_latest
+{
+    my ($self, @objs) = @_;
+    for my $obj (@objs) {
+        next unless $obj->does('MusicBrainz::Server::Entity::AnnotationRole');
+        my $annotation = $self->get_latest($obj->id) or next;
+        $obj->latest_annotation($annotation);
+    }
+}
+
 no Moose;
 __PACKAGE__->meta->make_immutable;
 1;

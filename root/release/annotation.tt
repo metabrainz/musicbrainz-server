@@ -1,0 +1,6 @@
+[%- INCLUDE 'annotation/common.tt'
+    annotation = release.latest_annotation
+    gid = release.gid
+    type = 'release'
+    no_annotation = l('This release does not have an annotation')
+-%]

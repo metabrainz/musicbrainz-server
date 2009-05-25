@@ -1,9 +1,9 @@
 package MusicBrainz::Server::Controller::Artist;
+use Moose;
 
-use strict;
-use warnings;
+BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
-use base 'MusicBrainz::Server::Controller';
+with 'MusicBrainz::Server::Controller::Annotation';
 
 __PACKAGE__->config(
     model       => 'Artist',
@@ -52,7 +52,7 @@ the artist header.
 
 =cut
 
-sub artist : Chained('load') PathPart('') CaptureArgs(0)
+after 'load' => sub
 {
     my ($self, $c) = @_;
 
@@ -70,7 +70,7 @@ sub artist : Chained('load') PathPart('') CaptureArgs(0)
 	$c->model('ArtistType')->load($c->stash->{artist});
 	$c->model('Gender')->load($c->stash->{artist});
 	$c->model('Country')->load($c->stash->{artist});
-}
+};
 
 =head2 similar
 
@@ -78,7 +78,7 @@ Display artists similar to this artist
 
 =cut
 
-sub similar : Chained('artist')
+sub similar : Chained('load')
 {
     my ($self, $c) = @_;
     my $artist = $self->entity;
@@ -92,7 +92,7 @@ Search Google for this artist
 
 =cut
 
-sub google : Chained('artist')
+sub google : Chained('load')
 {
     my ($self, $c) = @_;
     my $artist = $self->entity;
@@ -106,7 +106,7 @@ Show all of this artists tags
 
 =cut
 
-sub tags : Chained('artist')
+sub tags : Chained('load')
 {
     my ($self, $c) = @_;
     $c->forward('/tags/entity', [ $self->entity ]);
@@ -118,7 +118,7 @@ Shows all the entities (except track) that this artist is related to.
 
 =cut
 
-sub relations : Chained('artist')
+sub relations : Chained('load')
 {
     my ($self, $c) = @_;
     my $artist = $self->entity;
@@ -133,7 +133,7 @@ relations.
 
 =cut
 
-sub appearances : Chained('artist')
+sub appearances : Chained('load')
 {
     my ($self, $c) = @_;
     my $artist = $self->entity;
@@ -148,7 +148,7 @@ Display the perma-link for a given artist.
 =cut
 
 # Empty because everything we need is in added to the stash with sub artist.
-sub perma : Chained('artist') { }
+sub perma : Chained('load') { }
 
 =head2 details
 
@@ -157,7 +157,7 @@ Display detailed information about a specific artist.
 =cut
 
 # Empty because everything we need is in added to the stash with sub artist.
-sub details : Chained('artist') { }
+sub details : Chained('load') { }
 
 =head2 aliases
 
@@ -165,7 +165,7 @@ Display all aliases of an artist, along with usage information.
 
 =cut
 
-sub aliases : Chained('artist')
+sub aliases : Chained('load')
 {
     my ($self, $c) = @_;
     my $artist = $self->entity;
@@ -179,7 +179,7 @@ Show all this artists non-album tracks
 
 =cut
 
-sub nats : Chained('artist')
+sub nats : Chained('load')
 {
     my ($self, $c) = @_;
 
@@ -206,7 +206,7 @@ folksonomy information (tags).
 
 =cut
 
-sub show : PathPart('') Chained('artist')
+sub show : PathPart('') Chained('load')
 {
     my ($self, $c) = @_;
 
@@ -224,6 +224,7 @@ sub show : PathPart('') Chained('artist')
         $c->stash( template => 'artist/index.tt' );
     }
 
+    $c->model('Artist')->annotation->load_latest($c->stash->{artist});
     $c->model('ArtistCredit')->load(@$release_groups);
     $c->stash( release_groups => $release_groups );
 }
@@ -284,7 +285,7 @@ into the MusicBrainz database.
 
 =cut
 
-sub edit : Chained('artist') Form
+sub edit : Chained('load') Form
 {
     my ($self, $c, $mbid) = @_;
 
@@ -316,7 +317,7 @@ Add a new release to this artist.
 
 =cut
 
-sub add_release : Chained('artist')
+sub add_release : Chained('load')
 {
     my ($self, $c) = @_;
     $c->forward('/user/login');
@@ -329,7 +330,7 @@ Merge 2 artists into a single artist
 
 =cut
 
-sub merge : Chained('artist')
+sub merge : Chained('load')
 {
     my ($self, $c) = @_;
 
@@ -349,7 +350,7 @@ sub merge : Chained('artist')
     }
 }
 
-sub merge_into : Chained('artist') PathPart('merge-into') Args(1)
+sub merge_into : Chained('load') PathPart('merge-into') Args(1)
                  Form('Artist::Merge')
 {
     my ($self, $c, $new_mbid) = @_;
@@ -381,7 +382,7 @@ Rate an artist
 
 =cut
 
-sub rating : Chained('artist') Args(2)
+sub rating : Chained('load') Args(2)
 {
     my ($self, $c, $entity, $new_vote) = @_;
     #Need more validation here
@@ -397,7 +398,7 @@ Allow a moderator to subscribe to this artist
 
 =cut
 
-sub subscribe : Chained('artist')
+sub subscribe : Chained('load')
 {
     my ($self, $c) = @_;
     my $artist = $c->stash->{artist};
@@ -418,7 +419,7 @@ Unsubscribe from an artist
 
 =cut
 
-sub unsubscribe : Chained('artist')
+sub unsubscribe : Chained('load')
 {
     my ($self, $c) = @_;
     my $artist = $c->stash->{artist};
@@ -440,7 +441,7 @@ wish their subscriptions to be public
 
 =cut
 
-sub subscriptions : Chained('artist')
+sub subscriptions : Chained('load')
 {
     my ($self, $c) = @_;
 
@@ -497,7 +498,7 @@ release if necessary)
 
 =cut
 
-sub add_non_album : Chained('artist') Form
+sub add_non_album : Chained('load') Form
 {
     my ($self, $c) = @_;
 
@@ -523,7 +524,7 @@ Change the data quality of this artist
 
 =cut
 
-sub change_quality : Chained('artist') Form('DataQuality')
+sub change_quality : Chained('load') Form('DataQuality')
 {
     my ($self, $c) = @_;
 
@@ -550,7 +551,7 @@ Allow users to add an alias to this artist
 
 =cut
 
-sub add_alias : Chained('artist') Form
+sub add_alias : Chained('load') Form
 {
     my ($self, $c) = @_;
 
@@ -574,7 +575,7 @@ Allow users to remove an alias from an artist
 
 =cut
 
-sub remove_alias : Chained('artist') Args(1) Form
+sub remove_alias : Chained('load') Args(1) Form
 {
     my ($self, $c, $alias_id) = @_;
 
@@ -602,7 +603,7 @@ Alow users to edit an alias for an artist
 
 =cut
 
-sub edit_alias : Chained('artist') Args(1) Form
+sub edit_alias : Chained('load') Args(1) Form
 {
     my ($self, $c, $alias_id) = @_;
 

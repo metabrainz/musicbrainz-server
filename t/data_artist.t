@@ -40,8 +40,8 @@ is ( $artist->end_date->day, undef );
 is ( $artist->edits_pending, 0 );
 is ( $artist->comment, undef );
 
-my $annotation = $artist_data->annotation->get_latest(1);
-is ( $annotation->text, "Test annotation 1." );
+my $annotation = $artist_data->annotation->get_latest(3);
+like ( $annotation->text, qr/Test annotation 1/ );
 
 $artist = $artist_data->get_by_gid('a4ef1d08-962e-4dd6-ae14-e42a6a97fc11');
 is ( $artist->id, 4 );

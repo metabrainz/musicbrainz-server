@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 use strict;
-use Test::More tests => 14;
+use Test::More tests => 16;
 
 BEGIN {
     use MusicBrainz::Server::Context;
@@ -23,6 +23,8 @@ $mech->content_like(qr/2009-03-04/, 'has end date');
 $mech->content_like(qr/Person/, 'has artist type');
 $mech->content_like(qr/Male/, 'has gender');
 $mech->content_like(qr/United Kingdom/, 'has country');
+$mech->content_like(qr/Test annotation 1/, 'has annotation');
+$mech->content_unlike(qr/More annotation/, 'only display summary');
 
 # Basic test for release groups
 $mech->content_like(qr/Test RG 1/, 'release group 1');

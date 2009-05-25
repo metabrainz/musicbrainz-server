@@ -1,5 +1,6 @@
 [%- WRAPPER "work/layout.tt" -%]
 
+[%- INCLUDE 'work/annotation.tt' summary=1 -%]
 <table class="details">
     <tr>
         <th>[% l("Type:") %]</th>
