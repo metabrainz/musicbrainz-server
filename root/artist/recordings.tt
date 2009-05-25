@@ -1,0 +1,7 @@
+[%- WRAPPER 'artist/layout.tt' title='Recordings' -%]
+    [%- IF recordings.size -%]
+        [%- INCLUDE 'artist/recordings-list.tt' WRAPPER 'components/with-pager.tt' -%]
+    [%- ELSE -%]
+        <p>[%- l('No recordings found') -%]</p>
+    [%- END -%]
+[%- END -%]

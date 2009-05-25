@@ -228,6 +228,78 @@ sub show : PathPart('') Chained('load')
     $c->stash( release_groups => $release_groups );
 }
 
+=head2 works
+
+Shows all works of an artist. For various artists, the results would be
+browsable (not just paginated)
+
+=cut
+
+sub works : Chained('load')
+{
+    my ($self, $c) = @_;
+
+    my $artist = $c->stash->{artist};
+    my $works;
+
+    if ($artist->id == $VARTIST_ID)
+    {
+        # TBD
+    }
+    else
+    {
+        $works = $self->_load_paged($c, sub {
+                $c->model('Work')->find_by_artist($artist->id, shift, shift);
+            });
+
+        $c->stash( template => 'artist/works.tt' );
+    }
+
+    $c->model('ArtistCredit')->load(@$works);
+    $c->stash(
+        works => $works,
+        show_artists => scalar grep {
+            $_->artist_credit->name ne $artist->name
+        } @$works,
+    );
+}
+
+=head2 recordings
+
+Shows all recordings of an artist. For various artists, the results would be
+browsable (not just paginated)
+
+=cut
+
+sub recordings : Chained('load')
+{
+    my ($self, $c) = @_;
+
+    my $artist = $c->stash->{artist};
+    my $recordings;
+
+    if ($artist->id == $VARTIST_ID)
+    {
+        # TBD
+    }
+    else
+    {
+        $recordings = $self->_load_paged($c, sub {
+                $c->model('Recording')->find_by_artist($artist->id, shift, shift);
+            });
+
+        $c->stash( template => 'artist/recordings.tt' );
+    }
+
+    $c->model('ArtistCredit')->load(@$recordings);
+    $c->stash(
+        recordings => $recordings,
+        show_artists => scalar grep {
+            $_->artist_credit->name ne $artist->name
+        } @$recordings,
+    );
+}
+
 =head2 WRITE METHODS
 
 These methods write to the database (create/update/delete)

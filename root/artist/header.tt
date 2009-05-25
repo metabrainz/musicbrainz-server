@@ -1,7 +1,7 @@
 [%- info_links = [
     link_artist(artist, 'show', l('Releases')),
-    link_artist(artist, 'aliases', l('Aliases')),
-    link_artist(artist, 'appearances', l('Credits')),
+    link_artist(artist, 'works', l('Works')),
+    link_artist(artist, 'recordings', l('Recordings')),
     link_artist(artist, 'details', l('Details / Link')),
     link_artist(artist, 'show', l('Non-Album Tracks')),
     link_artist(artist, 'google', l('Google')),
