@@ -26,7 +26,7 @@ is ( $medium->tracklist_id, 2 );
 is ( $medium->tracklist->track_count, 1 );
 is ( $medium->release_id, 1 );
 is ( $medium->position, 2 );
-is ( $medium->name, undef );
+is ( $medium->name, 'The Second Disc' );
 is ( $medium->format_id, 1 );
 
 my ($results, $hits) = $medium_data->find_by_tracklist(1, 10, 0);
