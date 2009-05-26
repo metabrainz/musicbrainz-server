@@ -287,6 +287,46 @@ sub recordings : Chained('load')
     );
 }
 
+=head2 releases
+
+Shows all releases of an artist.
+
+=cut
+
+sub releases : Chained('load')
+{
+    my ($self, $c) = @_;
+
+    my $artist = $c->stash->{artist};
+    my $releases;
+
+    if ($artist->id == $VARTIST_ID)
+    {
+        # TBD
+    }
+    else
+    {
+        $releases = $self->_load_paged($c, sub {
+                $c->model('Release')->find_by_artist($artist->id, shift, shift);
+            });
+
+        $c->stash( template => 'artist/releases.tt' );
+    }
+
+    $c->model('ArtistCredit')->load(@$releases);
+    $c->model('Medium')->load(@$releases);
+    $c->model('MediumFormat')->load(map { $_->all_mediums } @$releases);
+    $c->model('Country')->load(@$releases);
+    $c->model('ReleaseLabel')->load(@$releases);
+    $c->model('Label')->load(map { $_->all_labels } @$releases);
+    $c->stash(
+        releases => $releases,
+        show_artists => scalar grep {
+            $_->artist_credit->name ne $artist->name
+        } @$releases,
+    );
+}
+
 =head2 WRITE METHODS
 
 These methods write to the database (create/update/delete)

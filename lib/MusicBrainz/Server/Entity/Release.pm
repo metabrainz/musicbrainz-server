@@ -115,6 +115,7 @@ has 'labels' => (
     default => sub { [] },
     metaclass => 'Collection::Array',
     provides => {
+        elements => 'all_labels',
         push => 'add_label',
         clear => 'clear_labels',
     }
@@ -127,6 +128,7 @@ has 'mediums' => (
     default => sub { [] },
     metaclass => 'Collection::Array',
     provides => {
+        elements => 'all_mediums',
         push => 'add_medium',
         clear => 'clear_mediums',
     }

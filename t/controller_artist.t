@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 use strict;
-use Test::More tests => 33;
+use Test::More tests => 39;
 
 BEGIN {
     use MusicBrainz::Server::Context;
@@ -51,6 +51,14 @@ $mech->title_like(qr/recordings/i, 'title indicates recordings listing');
 $mech->content_contains('Dancing Queen');
 $mech->content_contains('2:03');
 $mech->content_contains('/recording/123c079d-374e-4436-9448-da92dedef3ce', 'has a link to the recording');
+
+# Test /artist/gid/releases
+$mech->get_ok('/artist/a45c079d-374e-4436-9448-da92dedef3cf/releases', 'get ABBA page');
+$mech->title_like(qr/ABBA/, 'title has ABBA');
+$mech->title_like(qr/releases/i, 'title indicates releases listing');
+$mech->content_contains('Arrival', 'release title');
+$mech->content_contains('2009-05-08', 'release date');
+$mech->content_contains('/release/f34c079d-374e-4436-9448-da92dedef3ce', 'has a link to the release');
 
 # Test aliases
 $mech->get_ok('/artist/945c079d-374e-4436-9448-da92dedef3cf/aliases', 'get artist aliases');

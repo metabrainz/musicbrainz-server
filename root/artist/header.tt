@@ -1,5 +1,6 @@
 [%- info_links = [
-    link_artist(artist, 'show', l('Releases')),
+    link_artist(artist, 'show', l('Release Groups')),
+    link_artist(artist, 'releases', l('Releases')),
     link_artist(artist, 'works', l('Works')),
     link_artist(artist, 'recordings', l('Recordings')),
     link_artist(artist, 'details', l('Details / Link')),

@@ -30,10 +30,10 @@ sub show : Chained('load') PathPart('')
     });
 
     $c->model('Medium')->load(@$releases);
-    $c->model('MediumFormat')->load(map { @{ $_->mediums } } @$releases);
+    $c->model('MediumFormat')->load(map { $_->all_mediums } @$releases);
     $c->model('Country')->load(@$releases);
     $c->model('ReleaseLabel')->load(@$releases);
-    $c->model('Label')->load(map { @{ $_->labels } } @$releases);
+    $c->model('Label')->load(map { $_->all_labels } @$releases);
 
     $c->stash(
         template => 'release_group/index.tt',

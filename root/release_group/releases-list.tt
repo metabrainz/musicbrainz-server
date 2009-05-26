@@ -1,0 +1,30 @@
+<table>
+    <thead>
+        <tr>
+            <th>[% l('Release') %]</th>
+            <th>[% l('Media') %]</th>
+            <th>[% l('Date') %]</th>
+            <th>[% l('Country') %]</th>
+            <th>[% l('Labels') %]</th>
+        </tr>
+    </thead>
+    <tbody>
+        [%- FOR release=releases -%]
+        <tr>
+            <td>[% link_release(release) %]</td>
+            <td>
+                [% release.combined_format_name %] &mdash;
+                [% l('{tracks} tracks', {tracks=release.combined_track_count}) %]
+            </td>
+            <td>[% release.date.format %]</td>
+            <td>[% release.country.name %]</td>
+            <td>[%-
+                labels = [];
+                labels.push(link_label(label.label) _ " (${label.catalog_number})")
+                    FOR label=release.labels;
+                labels.join(', ')
+            -%]</td>
+        </tr>
+        [%- END -%]
+    </tbody>
+</table>
