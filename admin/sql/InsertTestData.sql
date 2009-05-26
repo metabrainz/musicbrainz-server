@@ -183,7 +183,7 @@ INSERT INTO tracklist (id) VALUES (2);
 TRUNCATE medium CASCADE;
 
 INSERT INTO medium (id, release, position, tracklist, format, name) VALUES (1, 1, 1, 1, 1, 'The First Disc');
-INSERT INTO medium (id, release, position, tracklist, format) VALUES (2, 1, 2, 2, 1);
+INSERT INTO medium (id, release, position, tracklist, format, name) VALUES (2, 1, 2, 2, 1, 'The Second Disc');
 
 TRUNCATE track CASCADE;
 

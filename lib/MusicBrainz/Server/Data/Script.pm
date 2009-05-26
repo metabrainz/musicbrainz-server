@@ -3,6 +3,8 @@ package MusicBrainz::Server::Data::Script;
 use Moose;
 use MusicBrainz::Server::Entity::Script;
 
+use MusicBrainz::Server::Data::Utils qw( load_subobjects );
+
 extends 'MusicBrainz::Server::Data::Entity';
 
 sub _table
@@ -18,6 +20,12 @@ sub _columns
 sub _entity_class
 {
     return 'MusicBrainz::Server::Entity::Script';
+}
+
+sub load
+{
+    my ($self, @objs) = @_;
+    load_subobjects($self, 'script', @objs);
 }
 
 __PACKAGE__->meta->make_immutable;

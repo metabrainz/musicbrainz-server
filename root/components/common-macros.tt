@@ -142,3 +142,10 @@ END -%]
     '<a href="' _ link _ '">' _ text _ '</a>';
 END -%]
 
+[%- MACRO link_tracklist(tracklist, action, text) BLOCK;
+    action = action || 'show';
+    link = c.uri_for_action("/tracklist/$action", [ tracklist.id ]);
+    text = text || html_escape(tracklist.medium.name);
+    '<a href="' _ link _ '">' _ text _ '</a>';
+END -%]
+

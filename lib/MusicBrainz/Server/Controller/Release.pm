@@ -1,9 +1,9 @@
 package MusicBrainz::Server::Controller::Release;
+use Moose;
 
-use strict;
-use warnings;
+BEGIN { extends 'MusicBrainz::Server::Controller' }
 
-use base 'MusicBrainz::Server::Controller';
+with 'MusicBrainz::Server::Controller::Annotation';
 
 __PACKAGE__->config(
     entity_name => 'release',
@@ -34,17 +34,12 @@ namespace
 
 sub base : Chained('/') PathPart('release') CaptureArgs(0) { }
 
-=head2 release
-
-Chained action to load the release and artist
-
-=cut
-
-sub release : Chained('load') PathPart('') CaptureArgs(0)
+after 'load' => sub
 {
     my ($self, $c) = @_;
-    $c->stash->{release_artist} = $c->model('Artist')->load($self->entity->artist); 
-}
+    my $release = $c->stash->{release};
+    $c->stash->{release_artist} = $c->model('ArtistCredit')->load($release); 
+};
 
 =head2 perma
 
@@ -52,7 +47,7 @@ Display permalink information for a release
 
 =cut
 
-sub perma : Chained('release') { }
+sub perma : Chained('load') { }
 
 =head2 details
 
@@ -60,7 +55,7 @@ Display detailed information about a release
 
 =cut
 
-sub details : Chained('release') { }
+sub details : Chained('load') { }
 
 =head2 google
 
@@ -68,7 +63,7 @@ Redirect to Google and search for this release's name.
 
 =cut
 
-sub google : Chained('release')
+sub google : Chained('load')
 {
     my ($self, $c) = @_;
     $c->response->redirect(Google($self->entity->name));
@@ -80,7 +75,7 @@ Show all of this release's tags
 
 =cut
 
-sub tags : Chained('release')
+sub tags : Chained('load')
 {
     my ($self, $c) = @_;
     $c->forward('/tags/entity', [ $self->entity ]);
@@ -92,7 +87,7 @@ Show all relationships attached to this release
 
 =cut
 
-sub relations : Chained('release')
+sub relations : Chained('load')
 {
     my ($self, $c) = @_;
     $c->stash->{relations} = $c->model('Relation')->load_relations($self->entity);
@@ -108,55 +103,26 @@ tags, tracklisting, release events, etc.
 
 =cut
 
-sub show : Chained('release') PathPart('')
+sub show : Chained('load') PathPart('')
 {
     my ($self, $c) = @_;
-    my $release = $self->entity || $c->stash->{release};
 
-    my $show_rels  = $c->req->query_params->{rel};
-    my $show_discs = $c->req->query_params->{discids};
+    my $release = $c->stash->{release};
+    $c->model('ReleaseStatus')->load($release);
+    $c->model('ReleasePackaging')->load($release);
+    $c->model('Country')->load($release);
+    $c->model('Language')->load($release);
+    $c->model('Script')->load($release);
+    $c->model('ReleaseLabel')->load($release);
+    $c->model('Label')->load(@{ $release->labels });
+    $c->model('ReleaseGroup')->load($release);
+    $c->model('Medium')->load($release);
+    $c->model('MediumFormat')->load(@{ $release->mediums });
+    $c->model('Track')->load(map { $_->tracklist } @{ $release->mediums });
+    $c->model('Recording')->load(map { @{ $_->tracklist->tracks } } @{ $release->mediums });
+    $c->log->debug($release->dump);
 
-    $c->stash->{show_artists}       = $c->req->query_params->{artist} || $release->has_multiple_track_artists;
-    $c->stash->{show_relationships} = defined $show_rels ? $show_rels : 1;
-    $c->stash->{show_discids}       = defined $show_discs ? $show_discs : 1;
-
-    $c->stash->{artist}         = $c->model('Artist')->load($release->artist); 
-    $c->stash->{relations}      = $c->model('Relation')->load_relations($release);
-    $c->stash->{tags}           = $c->model('Tag')->top_tags($release);
-    $c->stash->{disc_ids}       = $c->model('CdToc')->load_for_release($release);
-    $c->stash->{release_events} = $c->model('Release')->load_events($release);
-    $c->stash->{annotation}     = $c->model('Annotation')->load_latest($release);
-
-    my $id = $c->user_exists ? $c->user->id : 0;
-    $c->stash->{show_ratings} = $id ? $c->user->preferences->get("show_ratings") : 1;
-    # Load the tracks, and relationships for tracks if we need them
-    my $tracks = $c->model('Track')->load_from_release($release);
-
-    if ($c->stash->{show_ratings})
-    {
-        $c->stash->{release_rating} = $c->model('Rating')->get_rating({
-            entity_type => 'release', 
-            entity_id   => $release->id, 
-            user_id     => $id
-        });
-
-        $c->stash->{artist_rating} = $c->model('Rating')->get_rating({
-            entity_type => 'artist', 
-            entity_id   => $c->stash->{artist}->id,
-            user_id     => $id
-        });
-
-        MusicBrainz::Server::Rating::LoadUserRatingForEntities("track", $tracks, $id);
-    }
-
-    $c->stash->{tracks} = [ map {
-        if ($show_rels) { $_->{relations} = $c->model('Relation')->load_relations($_); }
-
-        $_;
-    } @$tracks ];
-
-    $c->stash->{template} = 'release/nats.tt'
-        if ($release->IsNonAlbumTracks);
+    $c->stash( template => 'release/index.tt' );
 }
 
 =head2 WRITE METHODS
@@ -167,7 +133,7 @@ Change the data quality of a release
 
 =cut
 
-sub change_quality : Chained('release') Form('DataQuality')
+sub change_quality : Chained('load') Form('DataQuality')
 {
     my ($self, $c, $mbid) = @_;
 
@@ -188,7 +154,7 @@ sub change_quality : Chained('release') Form('DataQuality')
     $c->response->redirect($c->entity_url($release, 'show'));
 }
 
-sub edit_title : Chained('release') Form
+sub edit_title : Chained('load') Form
 {
     my ($self, $c) = @_;
 
@@ -215,7 +181,7 @@ Edit a release in release editor
 
 =cut
 
-sub edit : Chained('release')
+sub edit : Chained('load')
 {
     my ($self, $c) = @_;
     $c->forward('/user/login');
@@ -229,7 +195,7 @@ Duplicate a release into the add release editor
 
 =cut
 
-sub duplicate : Chained('release')
+sub duplicate : Chained('load')
 {
     my ($self, $c) = @_;
     $c->forward('/user/login');
@@ -247,7 +213,7 @@ sub _load_related : Private
     $c->stash->{release_events} = $c->model('Release')->load_events($release, country_id => 1);
 }
 
-sub move : Chained('release')
+sub move : Chained('load')
 {
     my ($self, $c) = @_;
 
@@ -262,7 +228,7 @@ sub move : Chained('release')
     }
 }
 
-sub move_to : Chained('release') Args(1) Form('Release::Move')
+sub move_to : Chained('load') Args(1) Form('Release::Move')
 {
     my ($self, $c, $new_artist) = @_;
 
@@ -292,7 +258,7 @@ Rate a release
 
 =cut
 
-sub rating : Chained('release') Args(2)
+sub rating : Chained('load') Args(2)
 {
     my ($self, $c, $entity, $new_vote) = @_;
     #Need more validation here
@@ -302,7 +268,7 @@ sub rating : Chained('release') Args(2)
     $c->response->redirect($c->entity_url($self->entity, 'show'));
 }
 
-sub remove : Chained('release') Form
+sub remove : Chained('load') Form
 {
     my ($self, $c) = @_;
 
@@ -320,7 +286,7 @@ sub remove : Chained('release') Form
     $c->response->redirect($c->entity_url($release, 'show'));
 }
 
-sub convert_to_single_artist : Chained('release')
+sub convert_to_single_artist : Chained('load')
 {
     my ($self, $c) = @_;
 
@@ -339,7 +305,7 @@ sub convert_to_single_artist : Chained('release')
     }
 }
 
-sub confirm_convert_to_single_artist : Chained('release') Args(1)
+sub confirm_convert_to_single_artist : Chained('load') Args(1)
     Form('Release::ConvertToSingleArtist')
 {
     my ($self, $c, $new_artist) = @_;
@@ -362,7 +328,7 @@ sub confirm_convert_to_single_artist : Chained('release') Args(1)
     $c->response->redirect($c->entity_url($release, 'show'));
 }
 
-sub edit_attributes : Chained('release') Form
+sub edit_attributes : Chained('load') Form
 {
     my ($self, $c) = @_;
 

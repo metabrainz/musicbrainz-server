@@ -1,0 +1,81 @@
+[%- WRAPPER 'release/layout.tt' -%]
+    <table class="details">
+        [%- IF release.country -%]
+        <tr>
+            <th>[% l('Country') %]</th>
+            <td>[% release.country.name %]</td>
+        </tr>
+        [%- END -%]
+
+        [%- IF release.script -%]
+        <tr>
+            <th>[% l('Script') %]</th>
+            <td>[% release.script.name %]</td>
+        </tr>
+        [%- END -%]
+
+        [%- IF release.language -%]
+        <tr>
+            <th>[% l('Language') %]</th>
+            <td>[% release.language.name %]</td>
+        </tr>
+        [%- END -%]
+
+        [%- IF release.labels.size -%]
+        <tr>
+            <th>[% l('Released on') %]</th>
+            <td>
+                <ul>
+                    [%- FOR label=release.labels -%]
+                    <li>[% link_label(label.label) %] &mdash; [% label.catalog_number %]</li>
+                    [%- END -%]
+                </ul>
+            </td>
+        </tr>
+        [%- END -%]
+
+        [%- IF release.barcode -%]
+        <tr>
+            <th>[% l('Barcode') %]</th>
+            <td>[% release.barcode %]</th>
+        </tr>
+        [%- END -%]
+
+        [%- UNLESS release.date.is_empty -%]
+        <tr>
+            <th>[% l('Date') %]</th>
+            <td>[% release.date.format %]</td>
+        </tr>
+        [%- END -%]
+
+        [%- IF release.status -%]
+        <tr>
+            <th>[% l('Status') %]</th>
+            <td>[% release.status_name %]</td>
+        </tr>
+        [%- END -%]
+
+        <tr>
+            <th>[% l('Release Group') %]</th>
+            <td>[% link_release_group(release.release_group) %]</td>
+        </tr>
+
+        [%- IF release.packaging -%]
+        <tr>
+            <th>[% l('Packaging') %]</th>
+            <td>[% release.packaging_name %]</td>
+        </tr>
+        [%- END -%]
+    </table>
+
+    [%- FOR medium=release.mediums -%]
+    <h1>[% link_tracklist(release.medium.tracklist, 'show', medium.name) %]</h1>
+
+    [%- IF medium.format -%]
+    <p>[% medium.format_name %]</p>
+    [%- END -%]
+
+    [%- INCLUDE 'tracklist/tracklist.tt' tracklist=medium.tracklist -%]
+
+    [%- END -%]
+[%- END -%]
