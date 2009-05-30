@@ -1,40 +1,33 @@
+-- Automatically generated, do not edit.
 \unset ON_ERROR_STOP
 
--- TODO order this
-
-DROP TRIGGER a_upd_album ON album;
-DROP TRIGGER a_ins_album ON album;
-DROP TRIGGER b_del_album ON album;
-DROP TRIGGER a_del_albumjoin ON albumjoin;
-DROP TRIGGER a_upd_albumjoin ON albumjoin;
-DROP TRIGGER a_ins_albumjoin ON albumjoin;
-DROP TRIGGER b_del_albumjoin ON albumjoin;
-DROP TRIGGER a_del_album_cdtoc ON album_cdtoc;
-DROP TRIGGER a_upd_album_cdtoc ON album_cdtoc;
-DROP TRIGGER a_ins_album_cdtoc ON album_cdtoc;
-DROP TRIGGER a_upd_moderation_open ON moderation_open;
-DROP TRIGGER b_iu_release ON release;
+DROP TRIGGER a_ins_artist ON artist;
+DROP TRIGGER a_upd_artist ON artist;
+DROP TRIGGER a_del_artist ON artist;
+DROP TRIGGER a_ins_artist_alias ON artist_alias;
+DROP TRIGGER a_upd_artist_alias ON artist_alias;
+DROP TRIGGER a_del_artist_alias ON artist_alias;
+DROP TRIGGER a_ins_artist_credit_name ON artist_credit_name;
+DROP TRIGGER a_upd_artist_credit_name ON artist_credit_name;
+DROP TRIGGER a_del_artist_credit_name ON artist_credit_name;
+DROP TRIGGER a_ins_label ON label;
+DROP TRIGGER a_upd_label ON label;
+DROP TRIGGER a_del_label ON label;
+DROP TRIGGER a_ins_label_alias ON label_alias;
+DROP TRIGGER a_upd_label_alias ON label_alias;
+DROP TRIGGER a_del_label_alias ON label_alias;
+DROP TRIGGER a_ins_recording ON recording;
+DROP TRIGGER a_upd_recording ON recording;
+DROP TRIGGER a_del_recording ON recording;
 DROP TRIGGER a_ins_release ON release;
 DROP TRIGGER a_upd_release ON release;
 DROP TRIGGER a_del_release ON release;
-DROP TRIGGER b_del_release ON release;
-DROP TRIGGER a_ins_album_amazon_asin ON album_amazon_asin;
-DROP TRIGGER a_upd_album_amazon_asin ON album_amazon_asin;
-DROP TRIGGER a_del_album_amazon_asin ON album_amazon_asin;
-DROP TRIGGER a_del_puidjoin ON puidjoin;
-DROP TRIGGER a_ins_puidjoin ON puidjoin;
-DROP TRIGGER a_idu_puid_stat ON puid_stat;
-DROP TRIGGER a_idu_puidjoin_stat ON puidjoin_stat;
-DROP TRIGGER a_ins_artist_tag ON artist_tag;
-DROP TRIGGER a_del_artist_tag ON artist_tag;
-DROP TRIGGER a_ins_release_tag ON release_tag;
-DROP TRIGGER a_del_release_tag ON release_tag;
-DROP TRIGGER a_ins_track_tag ON track_tag;
-DROP TRIGGER a_del_track_tag ON track_tag;
-DROP TRIGGER a_ins_label_tag ON label_tag;
-DROP TRIGGER a_del_label_tag ON label_tag;
-DROP TRIGGER a_iu_artist ON artist;
-DROP TRIGGER a_iu_track ON track;
-DROP TRIGGER a_iu_label ON label;
-
--- vi: set ts=4 sw=4 et :
+DROP TRIGGER a_ins_release_group ON release_group;
+DROP TRIGGER a_upd_release_group ON release_group;
+DROP TRIGGER a_del_release_group ON release_group;
+DROP TRIGGER a_ins_track ON track;
+DROP TRIGGER a_upd_track ON track;
+DROP TRIGGER a_del_track ON track;
+DROP TRIGGER a_ins_work ON work;
+DROP TRIGGER a_upd_work ON work;
+DROP TRIGGER a_del_work ON work;

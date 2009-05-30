@@ -1,187 +1,145 @@
 \set ON_ERROR_STOP 1
 BEGIN;
 
--- A quick crib sheet: when adding a table to the system, quite a few files
--- will need modification.  This isn't a complete list, but should serve as a
--- handy reminder as to most of the files involved:
---   admin/sql/(Create|Drop)Tables.sql
---   admin/sql/(Create|Drop)PrimaryKeys.sql
---   admin/sql/(Create|Drop)Indexes.sql
---   admin/sql/(Create|Drop)FKConstraints.sql
---   admin/sql/(Create|Drop)ReplicationTriggers.sql
---   admin/SetSequences.pl
---   admin/ExportAllTables
---   admin/MBImport.pl
---   admin/replication/LoadReplicationChanges (if not replicated)
-
--- Add tables in alphabetical order please!
-
-CREATE TABLE album
-(
-    id                  SERIAL,
-    artist              INTEGER NOT NULL, -- references artist
-    name                VARCHAR(255) NOT NULL,
-    gid                 CHAR(36) NOT NULL, 
-    modpending          INTEGER DEFAULT 0,
-    attributes          INTEGER[] DEFAULT '{0}',
-    page                INTEGER NOT NULL,
-    language            INTEGER, -- references language
-    script              INTEGER, -- references script
-    modpending_lang     INTEGER,
-    quality             SMALLINT DEFAULT -1,
-    modpending_qual     INTEGER DEFAULT 0
-);
-
-CREATE TABLE album_amazon_asin
-(
-    album               INTEGER NOT NULL, -- references album
-    asin                CHAR(10),
-    coverarturl         VARCHAR(255),
-    lastupdate          TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-);
-
-CREATE TABLE album_cdtoc
-(
-    id                  SERIAL,
-    album               INTEGER NOT NULL,
-    cdtoc               INTEGER NOT NULL,
-    modpending          INTEGER NOT NULL DEFAULT 0
-);
-
-CREATE TABLE albumjoin
-(
-    id                  SERIAL,
-    album               INTEGER NOT NULL, -- references album
-    track               INTEGER NOT NULL, -- references track
-    sequence            INTEGER NOT NULL,
-    modpending          INTEGER DEFAULT 0
-);
-
-CREATE TABLE albummeta
-(
-    id                  INTEGER NOT NULL,
-    tracks              INTEGER DEFAULT 0,
-    discids             INTEGER DEFAULT 0,
-    puids               INTEGER DEFAULT 0,
-    firstreleasedate    CHAR(10),
-    asin                CHAR(10),
-    coverarturl         VARCHAR(255),
-    lastupdate          TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    rating              REAL,
-    rating_count        INTEGER,
-    dateadded           TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-);
-
-CREATE TABLE albumwords
-(
-    wordid              INTEGER NOT NULL,
-    albumid             INTEGER NOT NULL
-);
-
 CREATE TABLE annotation
 (
     id                  SERIAL,
-    moderator           INTEGER NOT NULL, -- references moderator
-    type                SMALLINT NOT NULL,
-    rowid               INTEGER NOT NULL, -- conditional reference
+    editor              INTEGER NOT NULL, -- references editor.id
     text                TEXT,
     changelog           VARCHAR(255),
-    created             TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    moderation          INTEGER NOT NULL DEFAULT 0,
-    modpending          INTEGER NOT NULL DEFAULT 0
+    created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-CREATE TABLE artist
+CREATE TABLE artist (
+    id                  SERIAL,
+    gid                 UUID NOT NULL,
+    name                INTEGER NOT NULL, -- references artist_name.id
+    sortname            INTEGER NOT NULL, -- references artist_name.id
+    begindate_year      SMALLINT,
+    begindate_month     SMALLINT,
+    begindate_day       SMALLINT,
+    enddate_year        SMALLINT,
+    enddate_month       SMALLINT,
+    enddate_day         SMALLINT,
+    type                INTEGER, -- references artist_type.id
+    country             INTEGER, -- references country.id
+    gender              INTEGER, -- references gender.id
+    comment             VARCHAR(255),
+    editpending         INTEGER DEFAULT 0
+);
+
+CREATE TABLE artist_alias
 (
     id                  SERIAL,
-    name                VARCHAR(255) NOT NULL,
-    gid                 CHAR(36) NOT NULL,
-    modpending          INTEGER DEFAULT 0,
-    sortname            VARCHAR(255) NOT NULL,
-    page                INTEGER NOT NULL,
-    resolution          VARCHAR(64),
-    begindate           CHAR(10),
-    enddate             CHAR(10),
-    type                SMALLINT,
-    quality             SMALLINT DEFAULT -1,
-    modpending_qual     INTEGER DEFAULT 0
+    artist              INTEGER NOT NULL, -- references artist.id
+    name                INTEGER NOT NULL, -- references artist_name.id
+    editpending         INTEGER DEFAULT 0
+);
+
+CREATE TABLE artist_annotation
+(
+    artist              INTEGER NOT NULL, -- PK, references artist.id
+    annotation          INTEGER NOT NULL -- PK, references annotation.id
 );
 
 CREATE TABLE artist_meta
 (
-    id                  INTEGER NOT NULL,
+    id                  INTEGER NOT NULL, -- PK, references artist.id CASCADE
     lastupdate          TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     rating              REAL,
-    rating_count        INTEGER
-);
-
-CREATE TABLE artistalias
-(
-    id                  SERIAL,
-    ref                 INTEGER NOT NULL, -- references artist
-    name                VARCHAR(255) NOT NULL, 
-    timesused           INTEGER DEFAULT 0,
-    modpending          INTEGER DEFAULT 0,
-    lastused            TIMESTAMP WITH TIME ZONE
-);
-
-CREATE TABLE artist_relation
-(
-    id                  SERIAL,
-    artist              INTEGER NOT NULL, -- references artist
-    ref                 INTEGER NOT NULL, -- references artist
-    weight              INTEGER NOT NULL
+    ratingcount         INTEGER
 );
 
 CREATE TABLE artist_tag
 (
-     artist              INTEGER NOT NULL,
-     tag                 INTEGER NOT NULL,
-     count               INTEGER NOT NULL
+    artist              INTEGER NOT NULL, -- PK, references artist.id
+    tag                 INTEGER NOT NULL, -- PK, references tag.id
+    count               INTEGER NOT NULL
 );
 
-CREATE TABLE artistwords
+CREATE TABLE artist_credit (
+    id                  SERIAL,
+    artistcount         SMALLINT NOT NULL,
+    refcount            SMALLINT DEFAULT 0
+);
+
+CREATE TABLE artist_credit_name (
+    artist_credit       INTEGER NOT NULL, -- PK, references artist_credit.id CASCADE
+    position            SMALLINT NOT NULL, -- PK
+    artist              INTEGER NOT NULL, -- references artist.id CASCADE
+    name                INTEGER NOT NULL, -- references artist_name.id
+    joinphrase          VARCHAR(32)
+);
+
+CREATE TABLE artist_gid_redirect
 (
-    wordid              INTEGER NOT NULL,
-    artistid            INTEGER NOT NULL
+    gid                 UUID NOT NULL, -- PK
+    newid               INTEGER NOT NULL -- references artist.id
 );
 
-CREATE TABLE labelwords
-(
-    wordid              INTEGER NOT NULL,
-    labelid            INTEGER NOT NULL
+CREATE TABLE artist_name (
+    id                  SERIAL,
+    name                VARCHAR NOT NULL,
+    refcount            INTEGER DEFAULT 0
 );
 
-CREATE TABLE automod_election
+CREATE TABLE artist_type (
+    id                  SERIAL,
+    name                VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE editor
 (
     id                  SERIAL,
-    candidate           INTEGER NOT NULL,
-    proposer            INTEGER NOT NULL,
-    seconder_1          INTEGER,
-    seconder_2          INTEGER,
-    status              INTEGER NOT NULL DEFAULT 1
-        CONSTRAINT automod_election_chk1 CHECK (status IN (1,2,3,4,5,6)),
-        -- 1 : has proposer
-        -- 2 : has seconder_1
-        -- 3 : has seconder_2 (voting open)
-        -- 4 : accepted!
-        -- 5 : rejected
-        -- 6 : cancelled (by proposer)
-    yesvotes            INTEGER NOT NULL DEFAULT 0,
-    novotes             INTEGER NOT NULL DEFAULT 0,
-    proposetime         TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
-    opentime            TIMESTAMP WITH TIME ZONE,
-    closetime           TIMESTAMP WITH TIME ZONE
+    name                VARCHAR(64) NOT NULL,
+    password            VARCHAR(64) NOT NULL,
+    privs               INTEGER DEFAULT 0,
+    email               VARCHAR(64) DEFAULT NULL,
+    website             VARCHAR(255) DEFAULT NULL,
+    bio                 TEXT DEFAULT NULL,
+    membersince         TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    emailconfirmdate    TIMESTAMP WITH TIME ZONE,
+    lastlogindate       TIMESTAMP WITH TIME ZONE,
+    editsaccepted       INTEGER DEFAULT 0,
+    editsrejected       INTEGER DEFAULT 0,
+    autoeditsaccepted   INTEGER DEFAULT 0,
+    editsfailed         INTEGER DEFAULT 0
 );
 
-CREATE TABLE automod_election_vote
+CREATE TABLE editor_preference
 (
     id                  SERIAL,
-    automod_election    INTEGER NOT NULL,
-    voter               INTEGER NOT NULL,
-    vote                INTEGER NOT NULL,
-        CONSTRAINT automod_election_vote_chk1 CHECK (vote IN (-1,0,1)),
-    votetime            TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
+    editor              INTEGER NOT NULL, -- references editor.id
+    name                VARCHAR(50) NOT NULL,
+    value               VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE editor_subscribe_artist
+(
+    id                  SERIAL,
+    editor              INTEGER NOT NULL, -- references editor.id
+    artist              INTEGER NOT NULL, -- weakly references artist
+    lasteditsent        INTEGER NOT NULL, -- weakly references edit
+    deletedbyedit       INTEGER NOT NULL DEFAULT 0, -- weakly references edit
+    mergedbyedit        INTEGER NOT NULL DEFAULT 0 -- weakly references edit
+);
+
+CREATE TABLE editor_subscribe_label
+(
+    id                  SERIAL,
+    editor              INTEGER NOT NULL, -- references editor.id
+    label               INTEGER NOT NULL, -- weakly references label
+    lasteditsent        INTEGER NOT NULL, -- weakly references edit
+    deletedbyedit       INTEGER NOT NULL DEFAULT 0, -- weakly references edit
+    mergedbyedit        INTEGER NOT NULL DEFAULT 0 -- weakly references edit
+);
+
+CREATE TABLE editor_subscribe_editor
+(
+    id                  SERIAL,
+    editor              INTEGER NOT NULL, -- references editor.id (the one who has subscribed)
+    subscribededitor    INTEGER NOT NULL, -- references editor.id (the one being subscribed)
+    lasteditsent        INTEGER NOT NULL  -- weakly references edit
 );
 
 CREATE TABLE cdtoc
@@ -201,730 +159,599 @@ CREATE TABLE clientversion
     version             VARCHAR(64) NOT NULL
 );
 
-CREATE TABLE country
-(
+CREATE TABLE country (
     id                  SERIAL,
     isocode             VARCHAR(2) NOT NULL,
-    name                VARCHAR(100) NOT NULL
+    name                VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE currentstat
+CREATE TABLE gender (
+    id                  SERIAL,
+    name                VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE isrc
 (
     id                  SERIAL,
-    name                VARCHAR(100) NOT NULL,
-    value               INTEGER NOT NULL,
-    lastupdated         TIMESTAMP WITH TIME ZONE
-);
-
-CREATE TABLE historicalstat
-(
-    id                  SERIAL,
-    name                VARCHAR(100) NOT NULL,
-    value               INTEGER NOT NULL,
-    snapshotdate        DATE NOT NULL
-);
-
-CREATE TABLE label
-(
-    id                  SERIAL,
-    name                VARCHAR(255) NOT NULL,
-    gid                 CHAR(36) NOT NULL,
-    modpending          INTEGER DEFAULT 0,
-    labelcode           INTEGER,
-    sortname            VARCHAR(255) NOT NULL,
-    country             INTEGER, -- references country
-    page                INTEGER NOT NULL,
-    resolution          VARCHAR(64),
-    begindate           CHAR(10),
-    enddate             CHAR(10),
-    type                SMALLINT
-);
-
-CREATE TABLE label_meta
-(
-    id                  INTEGER NOT NULL,
-    lastupdate          TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    rating              REAL,
-    rating_count        INTEGER
-);
-
-CREATE TABLE label_tag
-(
-    label               INTEGER NOT NULL,
-    tag                 INTEGER NOT NULL,
-    count               INTEGER NOT NULL
-);
-
-CREATE TABLE gid_redirect
-(
-    gid                 CHAR(36) NOT NULL,
-    newid               INTEGER NOT NULL,
-    tbl                 SMALLINT NOT NULL
-);
-
-CREATE TABLE l_album_album
-(
-    id                  SERIAL,
-    link0               INTEGER NOT NULL DEFAULT 0, -- references album
-    link1               INTEGER NOT NULL DEFAULT 0, -- references album
-    link_type           INTEGER NOT NULL DEFAULT 0, -- references lt_album_album
-    begindate           CHAR(10) DEFAULT NULL,
-    enddate             CHAR(10) DEFAULT NULL,
-    modpending          INTEGER NOT NULL DEFAULT 0
-);
-
-CREATE TABLE l_album_artist
-(
-    id                  SERIAL,
-    link0               INTEGER NOT NULL DEFAULT 0, -- references album
-    link1               INTEGER NOT NULL DEFAULT 0, -- references artist
-    link_type           INTEGER NOT NULL DEFAULT 0, -- references lt_album_artist
-    begindate           CHAR(10) DEFAULT NULL,
-    enddate             CHAR(10) DEFAULT NULL,
-    modpending          INTEGER NOT NULL DEFAULT 0
-);
-
-CREATE TABLE l_album_label
-(
-    id                  SERIAL,
-    link0               INTEGER NOT NULL DEFAULT 0, -- references album
-    link1               INTEGER NOT NULL DEFAULT 0, -- references label
-    link_type           INTEGER NOT NULL DEFAULT 0, -- references lt_album_label
-    begindate           CHAR(10) DEFAULT NULL,
-    enddate             CHAR(10) DEFAULT NULL,
-    modpending          INTEGER NOT NULL DEFAULT 0
-);
-
-CREATE TABLE l_album_track
-(
-    id                  SERIAL,
-    link0               INTEGER NOT NULL DEFAULT 0, -- references album
-    link1               INTEGER NOT NULL DEFAULT 0, -- references track
-    link_type           INTEGER NOT NULL DEFAULT 0, -- references lt_album_track
-    begindate           CHAR(10) DEFAULT NULL,
-    enddate             CHAR(10) DEFAULT NULL,
-    modpending          INTEGER NOT NULL DEFAULT 0
-);
-
-CREATE TABLE l_album_url
-(
-    id                  SERIAL,
-    link0               INTEGER NOT NULL DEFAULT 0, -- references album
-    link1               INTEGER NOT NULL DEFAULT 0, -- references url
-    link_type           INTEGER NOT NULL DEFAULT 0, -- references lt_album_url
-    begindate           CHAR(10) DEFAULT NULL,
-    enddate             CHAR(10) DEFAULT NULL,
-    modpending          INTEGER NOT NULL DEFAULT 0
+    recording           INTEGER NOT NULL, -- references recording.id
+    isrc                CHAR(12) NOT NULL,
+    source              SMALLINT,
+    editpending         INTEGER DEFAULT 0
 );
 
 CREATE TABLE l_artist_artist
 (
     id                  SERIAL,
-    link0               INTEGER NOT NULL DEFAULT 0, -- references artist
-    link1               INTEGER NOT NULL DEFAULT 0, -- references artist
-    link_type           INTEGER NOT NULL DEFAULT 0, -- references lt_artist_artist
-    begindate           CHAR(10) DEFAULT NULL,
-    enddate             CHAR(10) DEFAULT NULL,
-    modpending          INTEGER NOT NULL DEFAULT 0
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references artist.id
+    entity1             INTEGER NOT NULL, -- references artist.id
+    editpending         INTEGER NOT NULL DEFAULT 0
 );
 
 CREATE TABLE l_artist_label
 (
     id                  SERIAL,
-    link0               INTEGER NOT NULL DEFAULT 0, -- references artist
-    link1               INTEGER NOT NULL DEFAULT 0, -- references label
-    link_type           INTEGER NOT NULL DEFAULT 0, -- references lt_artist_label
-    begindate           CHAR(10) DEFAULT NULL,
-    enddate             CHAR(10) DEFAULT NULL,
-    modpending          INTEGER NOT NULL DEFAULT 0
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references artist.id
+    entity1             INTEGER NOT NULL, -- references label.id
+    editpending         INTEGER NOT NULL DEFAULT 0
 );
 
-CREATE TABLE l_artist_track
+CREATE TABLE l_artist_recording
 (
     id                  SERIAL,
-    link0               INTEGER NOT NULL DEFAULT 0, -- references artist
-    link1               INTEGER NOT NULL DEFAULT 0, -- references track
-    link_type           INTEGER NOT NULL DEFAULT 0, -- references lt_artist_track
-    begindate           CHAR(10) DEFAULT NULL,
-    enddate             CHAR(10) DEFAULT NULL,
-    modpending          INTEGER NOT NULL DEFAULT 0
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references artist.id
+    entity1             INTEGER NOT NULL, -- references recording.id
+    editpending         INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE l_artist_release
+(
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references artist.id
+    entity1             INTEGER NOT NULL, -- references release.id
+    editpending         INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE l_artist_release_group
+(
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references artist.id
+    entity1             INTEGER NOT NULL, -- references release_group.id
+    editpending         INTEGER NOT NULL DEFAULT 0
 );
 
 CREATE TABLE l_artist_url
 (
     id                  SERIAL,
-    link0               INTEGER NOT NULL DEFAULT 0, -- references artist
-    link1               INTEGER NOT NULL DEFAULT 0, -- references url
-    link_type           INTEGER NOT NULL DEFAULT 0, -- references lt_artist_url
-    begindate           CHAR(10) DEFAULT NULL,
-    enddate             CHAR(10) DEFAULT NULL,
-    modpending          INTEGER NOT NULL DEFAULT 0
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references artist.id
+    entity1             INTEGER NOT NULL, -- references url.id
+    editpending         INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE l_artist_work
+(
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references artist.id
+    entity1             INTEGER NOT NULL, -- references work.id
+    editpending         INTEGER NOT NULL DEFAULT 0
 );
 
 CREATE TABLE l_label_label
 (
     id                  SERIAL,
-    link0               INTEGER NOT NULL DEFAULT 0, -- references label
-    link1               INTEGER NOT NULL DEFAULT 0, -- references label
-    link_type           INTEGER NOT NULL DEFAULT 0, -- references lt_label_label
-    begindate           CHAR(10) DEFAULT NULL,
-    enddate             CHAR(10) DEFAULT NULL,
-    modpending          INTEGER NOT NULL DEFAULT 0
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references label.id
+    entity1             INTEGER NOT NULL, -- references label.id
+    editpending         INTEGER NOT NULL DEFAULT 0
 );
 
-CREATE TABLE l_label_track
+CREATE TABLE l_label_recording
 (
     id                  SERIAL,
-    link0               INTEGER NOT NULL DEFAULT 0, -- references label
-    link1               INTEGER NOT NULL DEFAULT 0, -- references track
-    link_type           INTEGER NOT NULL DEFAULT 0, -- references lt_label_track
-    begindate           CHAR(10) DEFAULT NULL,
-    enddate             CHAR(10) DEFAULT NULL,
-    modpending          INTEGER NOT NULL DEFAULT 0
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references label.id
+    entity1             INTEGER NOT NULL, -- references recording.id
+    editpending         INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE l_label_release
+(
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references label.id
+    entity1             INTEGER NOT NULL, -- references release.id
+    editpending         INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE l_label_release_group
+(
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references label.id
+    entity1             INTEGER NOT NULL, -- references release_group.id
+    editpending         INTEGER NOT NULL DEFAULT 0
 );
 
 CREATE TABLE l_label_url
 (
     id                  SERIAL,
-    link0               INTEGER NOT NULL DEFAULT 0, -- references label
-    link1               INTEGER NOT NULL DEFAULT 0, -- references url
-    link_type           INTEGER NOT NULL DEFAULT 0, -- references lt_label_url
-    begindate           CHAR(10) DEFAULT NULL,
-    enddate             CHAR(10) DEFAULT NULL,
-    modpending          INTEGER NOT NULL DEFAULT 0
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references label.id
+    entity1             INTEGER NOT NULL, -- references url.id
+    editpending         INTEGER NOT NULL DEFAULT 0
 );
 
-CREATE TABLE l_track_track
+CREATE TABLE l_label_work
 (
     id                  SERIAL,
-    link0               INTEGER NOT NULL DEFAULT 0, -- references track
-    link1               INTEGER NOT NULL DEFAULT 0, -- references track
-    link_type           INTEGER NOT NULL DEFAULT 0, -- references lt_track_track
-    begindate           CHAR(10) DEFAULT NULL,
-    enddate             CHAR(10) DEFAULT NULL,
-    modpending          INTEGER NOT NULL DEFAULT 0
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references label.id
+    entity1             INTEGER NOT NULL, -- references work.id
+    editpending         INTEGER NOT NULL DEFAULT 0
 );
 
-CREATE TABLE l_track_url
+CREATE TABLE l_recording_recording
 (
     id                  SERIAL,
-    link0               INTEGER NOT NULL DEFAULT 0, -- references track
-    link1               INTEGER NOT NULL DEFAULT 0, -- references url
-    link_type           INTEGER NOT NULL DEFAULT 0, -- references lt_track_url
-    begindate           CHAR(10) DEFAULT NULL,
-    enddate             CHAR(10) DEFAULT NULL,
-    modpending          INTEGER NOT NULL DEFAULT 0
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references recording.id
+    entity1             INTEGER NOT NULL, -- references recording.id
+    editpending         INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE l_recording_release
+(
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references recording.id
+    entity1             INTEGER NOT NULL, -- references release.id
+    editpending         INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE l_recording_release_group
+(
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references recording.id
+    entity1             INTEGER NOT NULL, -- references release_group.id
+    editpending         INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE l_recording_url
+(
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references recording.id
+    entity1             INTEGER NOT NULL, -- references url.id
+    editpending         INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE l_recording_work
+(
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references recording.id
+    entity1             INTEGER NOT NULL, -- references work.id
+    editpending         INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE l_release_release
+(
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references release.id
+    entity1             INTEGER NOT NULL, -- references release.id
+    editpending         INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE l_release_release_group
+(
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references release.id
+    entity1             INTEGER NOT NULL, -- references release_group.id
+    editpending         INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE l_release_url
+(
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references release.id
+    entity1             INTEGER NOT NULL, -- references url.id
+    editpending         INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE l_release_work
+(
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references release.id
+    entity1             INTEGER NOT NULL, -- references work.id
+    editpending         INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE l_release_group_release_group
+(
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references release_group.id
+    entity1             INTEGER NOT NULL, -- references release_group.id
+    editpending         INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE l_release_group_url
+(
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references release_group.id
+    entity1             INTEGER NOT NULL, -- references url.id
+    editpending         INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE l_release_group_work
+(
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references release_group.id
+    entity1             INTEGER NOT NULL, -- references work.id
+    editpending         INTEGER NOT NULL DEFAULT 0
 );
 
 CREATE TABLE l_url_url
 (
     id                  SERIAL,
-    link0               INTEGER NOT NULL DEFAULT 0, -- references track
-    link1               INTEGER NOT NULL DEFAULT 0, -- references url
-    link_type           INTEGER NOT NULL DEFAULT 0, -- references lt_track_url
-    begindate           CHAR(10) DEFAULT NULL,
-    enddate             CHAR(10) DEFAULT NULL,
-    modpending          INTEGER NOT NULL DEFAULT 0
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references url.id
+    entity1             INTEGER NOT NULL, -- references url.id
+    editpending         INTEGER NOT NULL DEFAULT 0
 );
 
-CREATE TABLE labelalias
+CREATE TABLE l_url_work
 (
     id                  SERIAL,
-    ref                 INTEGER NOT NULL, -- references label
-    name                VARCHAR(255) NOT NULL, 
-    timesused           INTEGER DEFAULT 0,
-    modpending          INTEGER DEFAULT 0,
-    lastused            TIMESTAMP WITH TIME ZONE
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references url.id
+    entity1             INTEGER NOT NULL, -- references work.id
+    editpending         INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE l_work_work
+(
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references work.id
+    entity1             INTEGER NOT NULL, -- references work.id
+    editpending         INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE label (
+    id                  SERIAL,
+    gid                 UUID NOT NULL,
+    name                INTEGER NOT NULL, -- references label_name.id
+    sortname            INTEGER NOT NULL, -- references label_name.id
+    begindate_year      SMALLINT,
+    begindate_month     SMALLINT,
+    begindate_day       SMALLINT,
+    enddate_year        SMALLINT,
+    enddate_month       SMALLINT,
+    enddate_day         SMALLINT,
+    labelcode           INTEGER,
+    type                INTEGER, -- references label_type.id
+    country             INTEGER, -- references country.id
+    comment             VARCHAR(255),
+    editpending         INTEGER DEFAULT 0
+);
+
+CREATE TABLE label_alias
+(
+    id                  SERIAL,
+    label               INTEGER NOT NULL, -- references label.id
+    name                INTEGER NOT NULL, -- references label_name.id
+    editpending         INTEGER DEFAULT 0
+);
+
+CREATE TABLE label_annotation
+(
+    label               INTEGER NOT NULL, -- PK, references label.id
+    annotation          INTEGER NOT NULL -- PK, references annotation.id
+);
+
+CREATE TABLE label_meta
+(
+    id                  INTEGER NOT NULL, -- PK, references label.id CASCADE
+    lastupdate          TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    rating              REAL,
+    ratingcount         INTEGER
+);
+
+CREATE TABLE label_gid_redirect
+(
+    gid                 UUID NOT NULL, -- PK
+    newid               INTEGER NOT NULL -- references label.id
+);
+
+CREATE TABLE label_name (
+    id                  SERIAL,
+    name                VARCHAR NOT NULL,
+    refcount            INTEGER DEFAULT 0
+);
+
+CREATE TABLE label_tag
+(
+    label               INTEGER NOT NULL, -- PK, references label.id
+    tag                 INTEGER NOT NULL, -- PK, references tag.id
+    count               INTEGER NOT NULL
+);
+
+CREATE TABLE label_type (
+    id                  SERIAL,
+    name                VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE language
 (
-     id                 SERIAL,
-     isocode_3t         CHAR(3) NOT NULL, -- ISO 639-2 (T)
-     isocode_3b         CHAR(3) NOT NULL, -- ISO 639-2 (B)
-     isocode_2          CHAR(2), -- ISO 639
-     name               VARCHAR(100) NOT NULL,
-     frequency          INTEGER NOT NULL DEFAULT 0
+    id                  SERIAL,
+    isocode_3t          CHAR(3) NOT NULL, -- ISO 639-2 (T)
+    isocode_3b          CHAR(3) NOT NULL, -- ISO 639-2 (B)
+    isocode_2           CHAR(2), -- ISO 639
+    name                VARCHAR(100) NOT NULL,
+    frequency           INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE link
+(
+    id                  SERIAL,
+    link_type           INTEGER NOT NULL, -- references link_type.id
+    begindate_year      SMALLINT,
+    begindate_month     SMALLINT,
+    begindate_day       SMALLINT,
+    enddate_year        SMALLINT,
+    enddate_month       SMALLINT,
+    enddate_day         SMALLINT,
+    attributecount      INTEGER NOT NULL DEFAULT 0
 );
 
 CREATE TABLE link_attribute
 (
-    id                  SERIAL,
-    attribute_type      INTEGER NOT NULL DEFAULT 0, -- references link_attribute_type
-    link                INTEGER NOT NULL DEFAULT 0, -- references l_<ent>_<ent> without FK
-    link_type           VARCHAR(32) NOT NULL DEFAULT '' -- indicates which l_ table to refer to
+    link                INTEGER NOT NULL, -- PK, references link.id
+    attribute_type      INTEGER NOT NULL -- PK, references link_attribute_type.id
 );
 
 CREATE TABLE link_attribute_type
 (
     id                  SERIAL,
-    parent              INTEGER NOT NULL, -- references self
+    parent              INTEGER, -- references link_attribute_type.id
+    root                INTEGER NOT NULL, -- references link_attribute_type.id
     childorder          INTEGER NOT NULL DEFAULT 0,
-    mbid                CHAR(36) NOT NULL,
+    gid                 UUID NOT NULL,
     name                VARCHAR(255) NOT NULL,
-    description         TEXT NOT NULL,
-    modpending          INTEGER NOT NULL DEFAULT 0
+    description         TEXT
 );
 
-CREATE TABLE lt_album_album
+CREATE TABLE link_type
 (
     id                  SERIAL,
-    parent              INTEGER NOT NULL, -- references self
+    parent              INTEGER, -- references link_type.id
     childorder          INTEGER NOT NULL DEFAULT 0,
-    mbid                CHAR(36) NOT NULL,
+    gid                 UUID NOT NULL,
+    entitytype0         VARCHAR(50),
+    entitytype1         VARCHAR(50),
     name                VARCHAR(255) NOT NULL,
-    description         TEXT NOT NULL,
+    description         TEXT,
     linkphrase          VARCHAR(255) NOT NULL,
     rlinkphrase         VARCHAR(255) NOT NULL,
-    attribute           VARCHAR(255) DEFAULT '',
-    modpending          INTEGER NOT NULL DEFAULT 0,
-    shortlinkphrase     VARCHAR(255) NOT NULL DEFAULT '',
+    shortlinkphrase     VARCHAR(255) NOT NULL,
     priority            INTEGER NOT NULL DEFAULT 0
 );
 
-CREATE TABLE lt_album_artist
+CREATE TABLE link_type_attribute_type
+(
+    link_type           INTEGER NOT NULL, -- PK, references link_type.id
+    attribute_type      INTEGER NOT NULL, -- PK, references link_attribute_type.id
+    min                 SMALLINT,
+    max                 SMALLINT
+);
+
+CREATE TABLE medium
 (
     id                  SERIAL,
-    parent              INTEGER NOT NULL, -- references self
-    childorder          INTEGER NOT NULL DEFAULT 0,
-    mbid                CHAR(36) NOT NULL,
-    name                VARCHAR(255) NOT NULL,
-    description         TEXT NOT NULL,
-    linkphrase          VARCHAR(255) NOT NULL,
-    rlinkphrase         VARCHAR(255) NOT NULL,
-    attribute           VARCHAR(255) DEFAULT '',
-    modpending          INTEGER NOT NULL DEFAULT 0,
-    shortlinkphrase     VARCHAR(255) NOT NULL DEFAULT '',
-    priority            INTEGER NOT NULL DEFAULT 0
+    tracklist           INTEGER NOT NULL, -- references tracklist.id
+    release             INTEGER NOT NULL, -- references release.id
+    position            INTEGER NOT NULL,
+    format              INTEGER, -- references medium_format.id
+    name                VARCHAR(255),
+    editpending         INTEGER NOT NULL DEFAULT 0
 );
 
-CREATE TABLE lt_album_label
+CREATE TABLE medium_format
 (
     id                  SERIAL,
-    parent              INTEGER NOT NULL, -- references self
-    childorder          INTEGER NOT NULL DEFAULT 0,
-    mbid                CHAR(36) NOT NULL,
-    name                VARCHAR(255) NOT NULL,
-    description         TEXT NOT NULL,
-    linkphrase          VARCHAR(255) NOT NULL,
-    rlinkphrase         VARCHAR(255) NOT NULL,
-    attribute           VARCHAR(255) DEFAULT '',
-    modpending          INTEGER NOT NULL DEFAULT 0,
-    shortlinkphrase     VARCHAR(255) NOT NULL DEFAULT '',
-    priority            INTEGER NOT NULL DEFAULT 0
-);
-
-CREATE TABLE lt_album_track
-(
-    id                  SERIAL,
-    parent              INTEGER NOT NULL, -- references self
-    childorder          INTEGER NOT NULL DEFAULT 0,
-    mbid                CHAR(36) NOT NULL,
-    name                VARCHAR(255) NOT NULL,
-    description         TEXT NOT NULL,
-    linkphrase          VARCHAR(255) NOT NULL,
-    rlinkphrase         VARCHAR(255) NOT NULL,
-    attribute           VARCHAR(255) DEFAULT '',
-    modpending          INTEGER NOT NULL DEFAULT 0,
-    shortlinkphrase     VARCHAR(255) NOT NULL DEFAULT '',
-    priority            INTEGER NOT NULL DEFAULT 0
-);
-
-CREATE TABLE lt_album_url
-(
-    id                  SERIAL,
-    parent              INTEGER NOT NULL, -- references self
-    childorder          INTEGER NOT NULL DEFAULT 0,
-    mbid                CHAR(36) NOT NULL,
-    name                VARCHAR(255) NOT NULL,
-    description         TEXT NOT NULL,
-    linkphrase          VARCHAR(255) NOT NULL,
-    rlinkphrase         VARCHAR(255) NOT NULL,
-    attribute           VARCHAR(255) DEFAULT '',
-    modpending          INTEGER NOT NULL DEFAULT 0,
-    shortlinkphrase     VARCHAR(255) NOT NULL DEFAULT '',
-    priority            INTEGER NOT NULL DEFAULT 0
-);
-
-CREATE TABLE lt_artist_artist
-(
-    id                  SERIAL,
-    parent              INTEGER NOT NULL, -- references self
-    childorder          INTEGER NOT NULL DEFAULT 0,
-    mbid                CHAR(36) NOT NULL,
-    name                VARCHAR(255) NOT NULL,
-    description         TEXT NOT NULL,
-    linkphrase          VARCHAR(255) NOT NULL,
-    rlinkphrase         VARCHAR(255) NOT NULL,
-    attribute           VARCHAR(255) DEFAULT '',
-    modpending          INTEGER NOT NULL DEFAULT 0,
-    shortlinkphrase     VARCHAR(255) NOT NULL DEFAULT '',
-    priority            INTEGER NOT NULL DEFAULT 0
-);
-
-CREATE TABLE lt_artist_label
-(
-    id                  SERIAL,
-    parent              INTEGER NOT NULL, -- references self
-    childorder          INTEGER NOT NULL DEFAULT 0,
-    mbid                CHAR(36) NOT NULL,
-    name                VARCHAR(255) NOT NULL,
-    description         TEXT NOT NULL,
-    linkphrase          VARCHAR(255) NOT NULL,
-    rlinkphrase         VARCHAR(255) NOT NULL,
-    attribute           VARCHAR(255) DEFAULT '',
-    modpending          INTEGER NOT NULL DEFAULT 0,
-    shortlinkphrase     VARCHAR(255) NOT NULL DEFAULT '',
-    priority            INTEGER NOT NULL DEFAULT 0
-);
-
-CREATE TABLE lt_artist_track
-(
-    id                  SERIAL,
-    parent              INTEGER NOT NULL, -- references self
-    childorder          INTEGER NOT NULL DEFAULT 0,
-    mbid                CHAR(36) NOT NULL,
-    name                VARCHAR(255) NOT NULL,
-    description         TEXT NOT NULL,
-    linkphrase          VARCHAR(255) NOT NULL,
-    rlinkphrase         VARCHAR(255) NOT NULL,
-    attribute           VARCHAR(255) DEFAULT '',
-    modpending          INTEGER NOT NULL DEFAULT 0,
-    shortlinkphrase     VARCHAR(255) NOT NULL DEFAULT '',
-    priority            INTEGER NOT NULL DEFAULT 0
-);
-
-CREATE TABLE lt_artist_url
-(
-    id                  SERIAL,
-    parent              INTEGER NOT NULL, -- references self
-    childorder          INTEGER NOT NULL DEFAULT 0,
-    mbid                CHAR(36) NOT NULL,
-    name                VARCHAR(255) NOT NULL,
-    description         TEXT NOT NULL,
-    linkphrase          VARCHAR(255) NOT NULL,
-    rlinkphrase         VARCHAR(255) NOT NULL,
-    attribute           VARCHAR(255) DEFAULT '',
-    modpending          INTEGER NOT NULL DEFAULT 0,
-    shortlinkphrase     VARCHAR(255) NOT NULL DEFAULT '',
-    priority            INTEGER NOT NULL DEFAULT 0
-);
-
-CREATE TABLE lt_label_label
-(
-    id                  SERIAL,
-    parent              INTEGER NOT NULL, -- references self
-    childorder          INTEGER NOT NULL DEFAULT 0,
-    mbid                CHAR(36) NOT NULL,
-    name                VARCHAR(255) NOT NULL,
-    description         TEXT NOT NULL,
-    linkphrase          VARCHAR(255) NOT NULL,
-    rlinkphrase         VARCHAR(255) NOT NULL,
-    attribute           VARCHAR(255) DEFAULT '',
-    modpending          INTEGER NOT NULL DEFAULT 0,
-    shortlinkphrase     VARCHAR(255) NOT NULL DEFAULT '',
-    priority            INTEGER NOT NULL DEFAULT 0
-);
-
-CREATE TABLE lt_label_track
-(
-    id                  SERIAL,
-    parent              INTEGER NOT NULL, -- references self
-    childorder          INTEGER NOT NULL DEFAULT 0,
-    mbid                CHAR(36) NOT NULL,
-    name                VARCHAR(255) NOT NULL,
-    description         TEXT NOT NULL,
-    linkphrase          VARCHAR(255) NOT NULL,
-    rlinkphrase         VARCHAR(255) NOT NULL,
-    attribute           VARCHAR(255) DEFAULT '',
-    modpending          INTEGER NOT NULL DEFAULT 0,
-    shortlinkphrase     VARCHAR(255) NOT NULL DEFAULT '',
-    priority            INTEGER NOT NULL DEFAULT 0
-);
-
-CREATE TABLE lt_label_url
-(
-    id                  SERIAL,
-    parent              INTEGER NOT NULL, -- references self
-    childorder          INTEGER NOT NULL DEFAULT 0,
-    mbid                CHAR(36) NOT NULL,
-    name                VARCHAR(255) NOT NULL,
-    description         TEXT NOT NULL,
-    linkphrase          VARCHAR(255) NOT NULL,
-    rlinkphrase         VARCHAR(255) NOT NULL,
-    attribute           VARCHAR(255) DEFAULT '',
-    modpending          INTEGER NOT NULL DEFAULT 0,
-    shortlinkphrase     VARCHAR(255) NOT NULL DEFAULT '',
-    priority            INTEGER NOT NULL DEFAULT 0
-);
-
-CREATE TABLE lt_track_track
-(
-    id                  SERIAL,
-    parent              INTEGER NOT NULL, -- references self
-    childorder          INTEGER NOT NULL DEFAULT 0,
-    mbid                CHAR(36) NOT NULL,
-    name                VARCHAR(255) NOT NULL,
-    description         TEXT NOT NULL,
-    linkphrase          VARCHAR(255) NOT NULL,
-    rlinkphrase         VARCHAR(255) NOT NULL,
-    attribute           VARCHAR(255) DEFAULT '',
-    modpending          INTEGER NOT NULL DEFAULT 0,
-    shortlinkphrase     VARCHAR(255) NOT NULL DEFAULT '',
-    priority            INTEGER NOT NULL DEFAULT 0
-);
-
-CREATE TABLE lt_track_url
-(
-    id                  SERIAL,
-    parent              INTEGER NOT NULL, -- references self
-    childorder          INTEGER NOT NULL DEFAULT 0,
-    mbid                CHAR(36) NOT NULL,
-    name                VARCHAR(255) NOT NULL,
-    description         TEXT NOT NULL,
-    linkphrase          VARCHAR(255) NOT NULL,
-    rlinkphrase         VARCHAR(255) NOT NULL,
-    attribute           VARCHAR(255) DEFAULT '',
-    modpending          INTEGER NOT NULL DEFAULT 0,
-    shortlinkphrase     VARCHAR(255) NOT NULL DEFAULT '',
-    priority            INTEGER NOT NULL DEFAULT 0
-);
-
-CREATE TABLE lt_url_url
-(
-    id                  SERIAL,
-    parent              INTEGER NOT NULL, -- references self
-    childorder          INTEGER NOT NULL DEFAULT 0,
-    mbid                CHAR(36) NOT NULL,
-    name                VARCHAR(255) NOT NULL,
-    description         TEXT NOT NULL,
-    linkphrase          VARCHAR(255) NOT NULL,
-    rlinkphrase         VARCHAR(255) NOT NULL,
-    attribute           VARCHAR(255) DEFAULT '',
-    modpending          INTEGER NOT NULL DEFAULT 0,
-    shortlinkphrase     VARCHAR(255) NOT NULL DEFAULT '',
-    priority            INTEGER NOT NULL DEFAULT 0
-);
-
-CREATE TABLE moderation_note_closed
-(
-    id                  INTEGER NOT NULL,
-    moderation          INTEGER NOT NULL, 
-    moderator           INTEGER NOT NULL, 
-    text                TEXT NOT NULL,
-    notetime		TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-);
-
-CREATE TABLE moderation_note_open
-(
-    id                  SERIAL NOT NULL,
-    moderation          INTEGER NOT NULL, 
-    moderator           INTEGER NOT NULL, 
-    text                TEXT NOT NULL,
-    notetime		TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-);
-
-CREATE TABLE moderation_closed
-(
-    id                  INTEGER NOT NULL,
-    artist              INTEGER NOT NULL, -- references artist
-    moderator           INTEGER NOT NULL, -- references moderator
-    tab                 VARCHAR(32) NOT NULL,
-    col                 VARCHAR(64) NOT NULL, 
-    type                SMALLINT NOT NULL, 
-    status              SMALLINT NOT NULL, 
-    rowid               INTEGER NOT NULL, 
-    prevvalue           TEXT NOT NULL, 
-    newvalue            TEXT NOT NULL, 
-    yesvotes            INTEGER DEFAULT 0, 
-    novotes             INTEGER DEFAULT 0,
-    depmod              INTEGER DEFAULT 0,
-    automod             SMALLINT DEFAULT 0,
-    opentime            TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    closetime           TIMESTAMP WITH TIME ZONE,
-    expiretime          TIMESTAMP WITH TIME ZONE NOT NULL,
-    language            INTEGER -- references language
-);
-
-CREATE TABLE moderation_open
-(
-    id                  SERIAL NOT NULL,
-    artist              INTEGER NOT NULL, -- references artist
-    moderator           INTEGER NOT NULL, -- references moderator
-    tab                 VARCHAR(32) NOT NULL,
-    col                 VARCHAR(64) NOT NULL, 
-    type                SMALLINT NOT NULL, 
-    status              SMALLINT NOT NULL, 
-    rowid               INTEGER NOT NULL, 
-    prevvalue           TEXT NOT NULL, 
-    newvalue            TEXT NOT NULL, 
-    yesvotes            INTEGER DEFAULT 0, 
-    novotes             INTEGER DEFAULT 0,
-    depmod              INTEGER DEFAULT 0,
-    automod             SMALLINT DEFAULT 0,
-    opentime            TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    closetime           TIMESTAMP WITH TIME ZONE,
-    expiretime          TIMESTAMP WITH TIME ZONE NOT NULL,
-    language            INTEGER -- references language
-);
-
-CREATE TABLE moderator
-(
-    id                  SERIAL,
-    name                VARCHAR(64) NOT NULL,
-    password            VARCHAR(64) NOT NULL, 
-    privs               INTEGER DEFAULT 0, 
-    modsaccepted        INTEGER DEFAULT 0,
-    modsrejected        INTEGER DEFAULT 0, 
-    email               VARCHAR(64) DEFAULT NULL, 
-    weburl              VARCHAR(255) DEFAULT NULL, 
-    bio                 TEXT DEFAULT NULL,
-    membersince         TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    emailconfirmdate    TIMESTAMP WITH TIME ZONE,
-    lastlogindate       TIMESTAMP WITH TIME ZONE,
-    automodsaccepted    INTEGER DEFAULT 0,
-    modsfailed          INTEGER DEFAULT 0
-);
-
-CREATE TABLE moderator_preference
-(
-    id                  SERIAL,
-    moderator           INTEGER NOT NULL, -- references moderator
-    name                VARCHAR(50) NOT NULL,
-    value               VARCHAR(100) NOT NULL
-);
-
-CREATE TABLE moderator_subscribe_artist
-(
-    id                  SERIAL,
-    moderator           INTEGER NOT NULL, -- references moderator
-    artist              INTEGER NOT NULL, -- weakly references artist
-    lastmodsent         INTEGER NOT NULL, -- weakly references moderation
-    deletedbymod        INTEGER NOT NULL DEFAULT 0, -- weakly references moderation
-    mergedbymod         INTEGER NOT NULL DEFAULT 0 -- weakly references moderation
-);
-
-CREATE TABLE moderator_subscribe_label
-(
-    id                  SERIAL,
-    moderator           INTEGER NOT NULL, -- references moderator
-    label               INTEGER NOT NULL, -- weakly references label
-    lastmodsent         INTEGER NOT NULL, -- weakly references moderation
-    deletedbymod        INTEGER NOT NULL DEFAULT 0, -- weakly references moderation
-    mergedbymod         INTEGER NOT NULL DEFAULT 0 -- weakly references moderation
-);
-
-CREATE TABLE editor_subscribe_editor
-(
-    id                  SERIAL,
-    editor              INTEGER NOT NULL, -- references moderator (the one who has subscribed)
-    subscribededitor    INTEGER NOT NULL, -- references moderator (the one being subscribed)
-    lasteditsent        INTEGER NOT NULL  -- weakly references moderation
-);
-
-CREATE TABLE "Pending"
-(
-    "SeqId"             SERIAL,
-    "TableName"         VARCHAR NOT NULL,
-    "Op"                CHARACTER,
-    "XID"               INT4 NOT NULL
-);
-
-CREATE TABLE "PendingData"
-(
-    "SeqId"             INT4 NOT NULL,
-    "IsKey"             BOOL NOT NULL,
-    "Data"              VARCHAR
+    name                VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE puid
 (
     id                  SERIAL,
     puid                CHAR(36) NOT NULL,
-    lookupcount         INTEGER NOT NULL DEFAULT 0, -- updated via trigger
-    version             INTEGER NOT NULL -- references clientversion
+    version             INTEGER NOT NULL -- references clientversion.id
 );
 
-CREATE TABLE puid_stat
+CREATE TABLE recording (
+    id                  SERIAL,
+    gid                 UUID NOT NULL,
+    name                INTEGER NOT NULL, -- references track_name.id
+    artist_credit       INTEGER, -- references artist_credit.id
+    length              INTEGER,
+    comment             VARCHAR(255),
+    editpending         INTEGER DEFAULT 0
+);
+
+CREATE TABLE recording_annotation
+(
+    recording           INTEGER NOT NULL, -- PK, references recording.id
+    annotation          INTEGER NOT NULL -- PK, references annotation.id
+);
+
+CREATE TABLE recording_meta
+(
+    id                  INTEGER NOT NULL, -- PK, references recording.id CASCADE
+    rating              REAL,
+    ratingcount         INTEGER
+);
+
+CREATE TABLE recording_gid_redirect
+(
+    gid                 UUID NOT NULL, -- PK
+    newid               INTEGER NOT NULL -- references recording.id
+);
+
+CREATE TABLE recording_puid
 (
     id                  SERIAL,
-    puid_id             INTEGER NOT NULL, -- references puid
-    month_id            INTEGER NOT NULL,
-    lookupcount         INTEGER NOT NULL DEFAULT 0
+    puid                INTEGER NOT NULL, -- references puid.id
+    recording           INTEGER NOT NULL, -- references recording.id
+    editpending         INTEGER DEFAULT 0
 );
 
-CREATE TABLE puidjoin
+CREATE TABLE recording_tag
 (
-    id                  SERIAL,
-    puid                INTEGER NOT NULL, -- references puid
-    track               INTEGER NOT NULL, -- references track
-    usecount            INTEGER DEFAULT 0 -- updated via trigger
-);
-
-CREATE TABLE puidjoin_stat
-(
-    id                  SERIAL,
-    puidjoin_id         INTEGER NOT NULL, -- references puidjoin
-    month_id            INTEGER NOT NULL,
-    usecount            INTEGER NOT NULL DEFAULT 0
-);
-
-CREATE TABLE release
-(
-    id                  SERIAL,
-    album               INTEGER NOT NULL, -- references album
-    country             INTEGER NOT NULL, -- references country
-    releasedate         CHAR(10) NOT NULL,
-    modpending          INTEGER DEFAULT 0,
-    label               INTEGER,          -- references label
-    catno               VARCHAR(255),
-    barcode             VARCHAR(255),
-    format              SMALLINT
-);
-
-CREATE TABLE release_tag
-(
-    release             INTEGER NOT NULL,
-    tag                 INTEGER NOT NULL,
+    recording           INTEGER NOT NULL, -- PK, references recording.id
+    tag                 INTEGER NOT NULL, -- PK, references tag.id
     count               INTEGER NOT NULL
 );
 
-CREATE TABLE replication_control
+CREATE TABLE release (
+    id                  SERIAL,
+    gid                 UUID NOT NULL,
+    name                INTEGER NOT NULL, -- references release_name.id
+    artist_credit       INTEGER NOT NULL, -- references artist_credit.id
+    release_group       INTEGER NOT NULL, -- references release_group.id
+    status              INTEGER, -- references release_status.id
+    packaging           INTEGER, -- references release_packaging.id
+    country             INTEGER, -- references country.id
+    language            INTEGER, -- references language.id
+    script              INTEGER, -- references script.id
+    date_year           SMALLINT,
+    date_month          SMALLINT,
+    date_day            SMALLINT,
+    barcode             VARCHAR(255),
+    comment             VARCHAR(255),
+    editpending         INTEGER DEFAULT 0
+);
+
+CREATE TABLE release_annotation
 (
-    id                              SERIAL,
-    current_schema_sequence         INTEGER NOT NULL,
-    current_replication_sequence    INTEGER,
-    last_replication_date           TIMESTAMP WITH TIME ZONE
+    release             INTEGER NOT NULL, -- PK, references release.id
+    annotation          INTEGER NOT NULL -- PK, references annotation.id
+);
+
+CREATE TABLE release_gid_redirect
+(
+    gid                 UUID NOT NULL, -- PK
+    newid               INTEGER NOT NULL -- references release.id
+);
+
+CREATE TABLE release_meta
+(
+    id                  INTEGER NOT NULL, -- PK, references release.id CASCADE
+    lastupdate          TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    dateadded           TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE release_label (
+    id                  SERIAL,
+    release             INTEGER NOT NULL, -- references release.id
+    position            INTEGER NOT NULL,
+    label               INTEGER, -- references label.id
+    catno               VARCHAR(255)
+);
+
+CREATE TABLE release_packaging
+(
+    id                  SERIAL,
+    name                VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE release_status
+(
+    id                  SERIAL,
+    name                VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE release_group (
+    id                  SERIAL,
+    gid                 UUID NOT NULL,
+    name                INTEGER NOT NULL, -- references release_name.id
+    artist_credit       INTEGER, -- references artist_credit.id
+    type                INTEGER, -- references release_group_type.id
+    comment             VARCHAR(255),
+    editpending         INTEGER DEFAULT 0
+);
+
+CREATE TABLE release_group_annotation
+(
+    release_group       INTEGER NOT NULL, -- PK, references release_group.id
+    annotation          INTEGER NOT NULL -- PK, references annotation.id
+);
+
+CREATE TABLE release_group_gid_redirect
+(
+    gid                 UUID NOT NULL, -- PK
+    newid               INTEGER NOT NULL -- references release_group.id
+);
+
+CREATE TABLE release_group_meta
+(
+    id                  INTEGER NOT NULL, -- PK, references release_group.id CASCADE
+    lastupdate          TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    releasecount        INTEGER DEFAULT 0,
+    firstreleasedate_year   SMALLINT,
+    firstreleasedate_month  SMALLINT,
+    firstreleasedate_day    SMALLINT,
+    rating              REAL,
+    ratingcount         INTEGER
+);
+
+CREATE TABLE release_group_tag
+(
+    release_group       INTEGER NOT NULL, -- PK, references release_group.id
+    tag                 INTEGER NOT NULL, -- PK, references tag.id
+    count               INTEGER NOT NULL
+);
+
+CREATE TABLE release_group_type (
+    id                  SERIAL,
+    name                VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE release_name (
+    id                  SERIAL,
+    name                VARCHAR NOT NULL,
+    refcount            INTEGER DEFAULT 0
 );
 
 CREATE TABLE script
 (
-     id                 SERIAL,
-     isocode            CHAR(4) NOT NULL, -- ISO 15924
-     isonumber          CHAR(3) NOT NULL, -- ISO 15924
-     name               VARCHAR(100) NOT NULL,
-     frequency          INTEGER NOT NULL DEFAULT 0
+    id                  SERIAL,
+    isocode             CHAR(4) NOT NULL, -- ISO 15924
+    isonumber           CHAR(3) NOT NULL, -- ISO 15924
+    name                VARCHAR(100) NOT NULL,
+    frequency           INTEGER NOT NULL DEFAULT 0
 );
 
 CREATE TABLE script_language
 (
-     id                 SERIAL,
-     script		        INTEGER,
-     language           INTEGER NOT NULL,
-     frequency          INTEGER NOT NULL DEFAULT 0
-);
-
-CREATE TABLE stats
-(
     id                  SERIAL,
-    artists             INTEGER NOT NULL, 
-    albums              INTEGER NOT NULL, 
-    tracks              INTEGER NOT NULL, 
-    discids             INTEGER NOT NULL, 
-    moderations         INTEGER NOT NULL, 
-    votes               INTEGER NOT NULL, 
-    moderators          INTEGER NOT NULL, 
-    timestamp           DATE NOT NULL
+    script              INTEGER NOT NULL, -- references script.id
+    language            INTEGER NOT NULL, -- references language.id
+    frequency           INTEGER NOT NULL DEFAULT 0
 );
 
 CREATE TABLE tag
@@ -936,8 +763,8 @@ CREATE TABLE tag
 
 CREATE TABLE tag_relation
 (
-    tag1                INTEGER NOT NULL, -- references tag
-    tag2                INTEGER NOT NULL, -- references tag
+    tag1                INTEGER NOT NULL, -- PK, references tag.id
+    tag2                INTEGER NOT NULL, -- PK, references tag.id
     weight              INTEGER NOT NULL,
     CHECK (tag1 < tag2)
 );
@@ -945,72 +772,92 @@ CREATE TABLE tag_relation
 CREATE TABLE track
 (
     id                  SERIAL,
-    artist              INTEGER NOT NULL, -- references artist
-    name                TEXT NOT NULL,
-    gid                 CHAR(36) NOT NULL, 
-    length              INTEGER DEFAULT 0,
-    year                INTEGER DEFAULT 0,
-    modpending          INTEGER DEFAULT 0
+    recording           INTEGER NOT NULL, -- references recording.id
+    tracklist           INTEGER NOT NULL, -- references tracklist.id
+    position            INTEGER NOT NULL,
+    name                INTEGER NOT NULL, -- references track_name.id
+    artist_credit       INTEGER NOT NULL, -- references artist_credit.id
+    length              INTEGER,
+    editpending         INTEGER NOT NULL DEFAULT 0
 );
 
-CREATE TABLE track_meta
-(
-    id                  INTEGER NOT NULL,
-    rating              REAL,
-    rating_count        INTEGER
+CREATE TABLE track_name (
+    id                  SERIAL,
+    name                VARCHAR NOT NULL,
+    refcount            INTEGER DEFAULT 0
 );
 
-CREATE TABLE track_tag
+CREATE TABLE tracklist
 (
-    track               INTEGER NOT NULL,
-    tag                 INTEGER NOT NULL,
-    count               INTEGER NOT NULL
+    id                  SERIAL,
+    trackcount          INTEGER NOT NULL DEFAULT 0
 );
 
-CREATE TABLE trackwords
+CREATE TABLE tracklist_cdtoc
 (
-    wordid              INTEGER NOT NULL,
-    trackid             INTEGER NOT NULL
+    id                  SERIAL,
+    tracklist           INTEGER NOT NULL, -- references tracklist.id
+    cdtoc               INTEGER NOT NULL, -- references cdtoc.id
+    editpending         INTEGER NOT NULL DEFAULT 0
 );
 
 CREATE TABLE url
 (
     id                  SERIAL,
-    gid                 CHAR(36) NOT NULL,
+    gid                 UUID NOT NULL,
     url                 VARCHAR(255) NOT NULL,
-    description         TEXT NOT NULL,
+    description         TEXT,
     refcount            INTEGER NOT NULL DEFAULT 0,
-    modpending          INTEGER NOT NULL DEFAULT 0
+    editpending         INTEGER NOT NULL DEFAULT 0
 );
 
-CREATE TABLE vote_closed
-(
-    id                  INTEGER NOT NULL,
-    moderator           INTEGER NOT NULL, -- references moderator
-    moderation          INTEGER NOT NULL, -- references moderation
-    vote                SMALLINT NOT NULL,
-    votetime            TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    superseded          BOOLEAN NOT NULL DEFAULT FALSE
-);
-
-CREATE TABLE vote_open
-(
-    id                  SERIAL NOT NULL,
-    moderator           INTEGER NOT NULL, -- references moderator
-    moderation          INTEGER NOT NULL, -- references moderation
-    vote                SMALLINT NOT NULL,
-    votetime            TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    superseded          BOOLEAN NOT NULL DEFAULT FALSE
-);
-
-CREATE TABLE wordlist
-(
+CREATE TABLE work (
     id                  SERIAL,
-    word                VARCHAR(255) NOT NULL,
-    artistusecount      SMALLINT NOT NULL DEFAULT 0,
-    albumusecount       SMALLINT NOT NULL DEFAULT 0,
-    trackusecount       SMALLINT NOT NULL DEFAULT 0,
-    labelusecount       SMALLINT NOT NULL DEFAULT 0
+    gid                 UUID NOT NULL,
+    name                INTEGER NOT NULL, -- references work_name.id
+    artist_credit       INTEGER, -- references artist_credit.id
+    type                INTEGER, -- references work_type.id
+    iswc                CHAR(15),
+    comment             VARCHAR(255),
+    editpending         INTEGER DEFAULT 0
+);
+
+CREATE TABLE work_annotation
+(
+    work                INTEGER NOT NULL, -- PK, references work.id
+    annotation          INTEGER NOT NULL -- PK, references annotation.id
+);
+
+CREATE TABLE work_gid_redirect
+(
+    gid                 UUID NOT NULL, -- PK
+    newid               INTEGER NOT NULL -- references work.id
+);
+
+CREATE TABLE work_meta
+(
+    id                  INTEGER NOT NULL, -- PK, references work.id CASCADE
+    lastupdate          TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    rating              REAL,
+    ratingcount         INTEGER
+);
+
+CREATE TABLE work_name (
+    id                  SERIAL,
+    name                VARCHAR NOT NULL,
+    refcount            INTEGER DEFAULT 0
+);
+
+CREATE TABLE work_tag
+(
+    work                INTEGER NOT NULL, -- PK, references work.id
+    tag                 INTEGER NOT NULL, -- PK, references tag.id
+    count               INTEGER NOT NULL
+);
+
+CREATE TABLE work_type (
+    id                  SERIAL,
+    name                VARCHAR(255) NOT NULL
 );
 
 COMMIT;

@@ -1,670 +1,926 @@
+-- Automatically generated, do not edit.
 \set ON_ERROR_STOP 1
 
--- Alphabetical order by table, then constraint
+ALTER TABLE annotation
+   ADD CONSTRAINT annotation_fk_editor
+   FOREIGN KEY (editor)
+   REFERENCES editor(id);
 
--- No BEGIN/COMMIT here.  Each FK is created in its own transaction;
--- this is mainly because if you're setting up a big database, it
--- could get really annoying if it takes a long time to create the FKs,
--- only for the last one to fail and the whole lot gets rolled back.
--- It should also be more efficient, of course.
+ALTER TABLE artist
+   ADD CONSTRAINT artist_fk_name
+   FOREIGN KEY (name)
+   REFERENCES artist_name(id);
 
-ALTER TABLE album
-    ADD CONSTRAINT album_fk_artist
-    FOREIGN KEY (artist)
-    REFERENCES artist(id);
+ALTER TABLE artist
+   ADD CONSTRAINT artist_fk_sortname
+   FOREIGN KEY (sortname)
+   REFERENCES artist_name(id);
 
-ALTER TABLE album_amazon_asin
-    ADD CONSTRAINT album_amazon_asin_fk_album
-    FOREIGN KEY (album)
-    REFERENCES album(id)
-    ON DELETE CASCADE;
+ALTER TABLE artist
+   ADD CONSTRAINT artist_fk_type
+   FOREIGN KEY (type)
+   REFERENCES artist_type(id);
 
-ALTER TABLE album_cdtoc
-    ADD CONSTRAINT album_cdtoc_fk_album
-    FOREIGN KEY (album)
-    REFERENCES album(id);
+ALTER TABLE artist
+   ADD CONSTRAINT artist_fk_country
+   FOREIGN KEY (country)
+   REFERENCES country(id);
 
-ALTER TABLE album_cdtoc
-    ADD CONSTRAINT album_cdtoc_fk_cdtoc
-    FOREIGN KEY (cdtoc)
-    REFERENCES cdtoc(id);
+ALTER TABLE artist
+   ADD CONSTRAINT artist_fk_gender
+   FOREIGN KEY (gender)
+   REFERENCES gender(id);
 
-ALTER TABLE albumjoin
-    ADD CONSTRAINT albumjoin_fk_album
-    FOREIGN KEY (album)
-    REFERENCES album(id);
+ALTER TABLE artist_alias
+   ADD CONSTRAINT artist_alias_fk_artist
+   FOREIGN KEY (artist)
+   REFERENCES artist(id);
 
-ALTER TABLE albumjoin
-    ADD CONSTRAINT albumjoin_fk_track
-    FOREIGN KEY (track)
-    REFERENCES track(id);
+ALTER TABLE artist_alias
+   ADD CONSTRAINT artist_alias_fk_name
+   FOREIGN KEY (name)
+   REFERENCES artist_name(id);
 
-ALTER TABLE albummeta
-    ADD CONSTRAINT albummeta_fk_album
-    FOREIGN KEY (id)
-    REFERENCES album(id)
-    ON DELETE CASCADE;
+ALTER TABLE artist_annotation
+   ADD CONSTRAINT artist_annotation_fk_artist
+   FOREIGN KEY (artist)
+   REFERENCES artist(id);
 
-ALTER TABLE albumwords
-    ADD CONSTRAINT albumwords_fk_albumid
-    FOREIGN KEY (albumid)
-    REFERENCES album (id)
-    ON DELETE CASCADE;
+ALTER TABLE artist_annotation
+   ADD CONSTRAINT artist_annotation_fk_annotation
+   FOREIGN KEY (annotation)
+   REFERENCES annotation(id);
 
-ALTER TABLE artistalias
-    ADD CONSTRAINT artistalias_fk_ref
-    FOREIGN KEY (ref)
-    REFERENCES artist(id);
+ALTER TABLE artist_credit_name
+   ADD CONSTRAINT artist_credit_name_fk_artist_credit
+   FOREIGN KEY (artist_credit)
+   REFERENCES artist_credit(id)
+   ON DELETE CASCADE;
+
+ALTER TABLE artist_credit_name
+   ADD CONSTRAINT artist_credit_name_fk_artist
+   FOREIGN KEY (artist)
+   REFERENCES artist(id)
+   ON DELETE CASCADE;
+
+ALTER TABLE artist_credit_name
+   ADD CONSTRAINT artist_credit_name_fk_name
+   FOREIGN KEY (name)
+   REFERENCES artist_name(id);
+
+ALTER TABLE artist_gid_redirect
+   ADD CONSTRAINT artist_gid_redirect_fk_newid
+   FOREIGN KEY (newid)
+   REFERENCES artist(id);
 
 ALTER TABLE artist_meta
-    ADD CONSTRAINT fk_artist_meta_artist
-    FOREIGN KEY (id)
-    REFERENCES artist(id)
-    ON DELETE CASCADE;
-    	
-ALTER TABLE artist_relation
-    ADD CONSTRAINT artist_relation_fk_artist1
-    FOREIGN KEY (artist)
-    REFERENCES artist(id);
-
-ALTER TABLE artist_relation
-    ADD CONSTRAINT artist_relation_fk_artist2
-    FOREIGN KEY (ref)
-    REFERENCES artist(id);
+   ADD CONSTRAINT artist_meta_fk_id
+   FOREIGN KEY (id)
+   REFERENCES artist(id)
+   ON DELETE CASCADE;
 
 ALTER TABLE artist_tag
-    ADD CONSTRAINT fk_artist_tag_artist
-    FOREIGN KEY (artist)
-    REFERENCES artist(id);
+   ADD CONSTRAINT artist_tag_fk_artist
+   FOREIGN KEY (artist)
+   REFERENCES artist(id);
 
 ALTER TABLE artist_tag
-    ADD CONSTRAINT fk_artist_tag_tag
-    FOREIGN KEY (tag)
-    REFERENCES tag(id);
+   ADD CONSTRAINT artist_tag_fk_tag
+   FOREIGN KEY (tag)
+   REFERENCES tag(id);
 
-ALTER TABLE artistwords
-    ADD CONSTRAINT artistwords_fk_artistid
-    FOREIGN KEY (artistid)
-    REFERENCES artist (id)
-    ON DELETE CASCADE;
+ALTER TABLE editor_preference
+   ADD CONSTRAINT editor_preference_fk_editor
+   FOREIGN KEY (editor)
+   REFERENCES editor(id);
 
-ALTER TABLE automod_election
-    ADD CONSTRAINT automod_election_fk_candidate
-    FOREIGN KEY (candidate)
-    REFERENCES moderator(id);
+ALTER TABLE editor_subscribe_artist
+   ADD CONSTRAINT editor_subscribe_artist_fk_editor
+   FOREIGN KEY (editor)
+   REFERENCES editor(id);
 
-ALTER TABLE automod_election
-    ADD CONSTRAINT automod_election_fk_proposer
-    FOREIGN KEY (proposer)
-    REFERENCES moderator(id);
+ALTER TABLE editor_subscribe_editor
+   ADD CONSTRAINT editor_subscribe_editor_fk_editor
+   FOREIGN KEY (editor)
+   REFERENCES editor(id);
 
-ALTER TABLE automod_election
-    ADD CONSTRAINT automod_election_fk_seconder_1
-    FOREIGN KEY (seconder_1)
-    REFERENCES moderator(id);
+ALTER TABLE editor_subscribe_editor
+   ADD CONSTRAINT editor_subscribe_editor_fk_subscribededitor
+   FOREIGN KEY (subscribededitor)
+   REFERENCES editor(id);
 
-ALTER TABLE automod_election
-    ADD CONSTRAINT automod_election_fk_seconder_2
-    FOREIGN KEY (seconder_2)
-    REFERENCES moderator(id);
+ALTER TABLE editor_subscribe_label
+   ADD CONSTRAINT editor_subscribe_label_fk_editor
+   FOREIGN KEY (editor)
+   REFERENCES editor(id);
 
-ALTER TABLE automod_election_vote
-    ADD CONSTRAINT automod_election_vote_fk_automod_election
-    FOREIGN KEY (automod_election)
-    REFERENCES automod_election(id);
+ALTER TABLE isrc
+   ADD CONSTRAINT isrc_fk_recording
+   FOREIGN KEY (recording)
+   REFERENCES recording(id);
 
-ALTER TABLE automod_election_vote
-    ADD CONSTRAINT automod_election_vote_fk_voter
-    FOREIGN KEY (voter)
-    REFERENCES moderator(id);
+ALTER TABLE l_artist_artist
+   ADD CONSTRAINT l_artist_artist_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_artist_artist
+   ADD CONSTRAINT l_artist_artist_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES artist(id);
+
+ALTER TABLE l_artist_artist
+   ADD CONSTRAINT l_artist_artist_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES artist(id);
+
+ALTER TABLE l_artist_label
+   ADD CONSTRAINT l_artist_label_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_artist_label
+   ADD CONSTRAINT l_artist_label_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES artist(id);
+
+ALTER TABLE l_artist_label
+   ADD CONSTRAINT l_artist_label_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES label(id);
+
+ALTER TABLE l_artist_recording
+   ADD CONSTRAINT l_artist_recording_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_artist_recording
+   ADD CONSTRAINT l_artist_recording_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES artist(id);
+
+ALTER TABLE l_artist_recording
+   ADD CONSTRAINT l_artist_recording_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES recording(id);
+
+ALTER TABLE l_artist_release
+   ADD CONSTRAINT l_artist_release_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_artist_release
+   ADD CONSTRAINT l_artist_release_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES artist(id);
+
+ALTER TABLE l_artist_release
+   ADD CONSTRAINT l_artist_release_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES release(id);
+
+ALTER TABLE l_artist_release_group
+   ADD CONSTRAINT l_artist_release_group_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_artist_release_group
+   ADD CONSTRAINT l_artist_release_group_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES artist(id);
+
+ALTER TABLE l_artist_release_group
+   ADD CONSTRAINT l_artist_release_group_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES release_group(id);
+
+ALTER TABLE l_artist_url
+   ADD CONSTRAINT l_artist_url_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_artist_url
+   ADD CONSTRAINT l_artist_url_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES artist(id);
+
+ALTER TABLE l_artist_url
+   ADD CONSTRAINT l_artist_url_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES url(id);
+
+ALTER TABLE l_artist_work
+   ADD CONSTRAINT l_artist_work_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_artist_work
+   ADD CONSTRAINT l_artist_work_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES artist(id);
+
+ALTER TABLE l_artist_work
+   ADD CONSTRAINT l_artist_work_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES work(id);
+
+ALTER TABLE l_label_label
+   ADD CONSTRAINT l_label_label_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_label_label
+   ADD CONSTRAINT l_label_label_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES label(id);
+
+ALTER TABLE l_label_label
+   ADD CONSTRAINT l_label_label_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES label(id);
+
+ALTER TABLE l_label_recording
+   ADD CONSTRAINT l_label_recording_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_label_recording
+   ADD CONSTRAINT l_label_recording_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES label(id);
+
+ALTER TABLE l_label_recording
+   ADD CONSTRAINT l_label_recording_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES recording(id);
+
+ALTER TABLE l_label_release
+   ADD CONSTRAINT l_label_release_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_label_release
+   ADD CONSTRAINT l_label_release_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES label(id);
+
+ALTER TABLE l_label_release
+   ADD CONSTRAINT l_label_release_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES release(id);
+
+ALTER TABLE l_label_release_group
+   ADD CONSTRAINT l_label_release_group_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_label_release_group
+   ADD CONSTRAINT l_label_release_group_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES label(id);
+
+ALTER TABLE l_label_release_group
+   ADD CONSTRAINT l_label_release_group_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES release_group(id);
+
+ALTER TABLE l_label_url
+   ADD CONSTRAINT l_label_url_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_label_url
+   ADD CONSTRAINT l_label_url_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES label(id);
+
+ALTER TABLE l_label_url
+   ADD CONSTRAINT l_label_url_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES url(id);
+
+ALTER TABLE l_label_work
+   ADD CONSTRAINT l_label_work_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_label_work
+   ADD CONSTRAINT l_label_work_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES label(id);
+
+ALTER TABLE l_label_work
+   ADD CONSTRAINT l_label_work_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES work(id);
+
+ALTER TABLE l_recording_recording
+   ADD CONSTRAINT l_recording_recording_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_recording_recording
+   ADD CONSTRAINT l_recording_recording_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES recording(id);
+
+ALTER TABLE l_recording_recording
+   ADD CONSTRAINT l_recording_recording_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES recording(id);
+
+ALTER TABLE l_recording_release
+   ADD CONSTRAINT l_recording_release_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_recording_release
+   ADD CONSTRAINT l_recording_release_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES recording(id);
+
+ALTER TABLE l_recording_release
+   ADD CONSTRAINT l_recording_release_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES release(id);
+
+ALTER TABLE l_recording_release_group
+   ADD CONSTRAINT l_recording_release_group_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_recording_release_group
+   ADD CONSTRAINT l_recording_release_group_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES recording(id);
+
+ALTER TABLE l_recording_release_group
+   ADD CONSTRAINT l_recording_release_group_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES release_group(id);
+
+ALTER TABLE l_recording_url
+   ADD CONSTRAINT l_recording_url_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_recording_url
+   ADD CONSTRAINT l_recording_url_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES recording(id);
+
+ALTER TABLE l_recording_url
+   ADD CONSTRAINT l_recording_url_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES url(id);
+
+ALTER TABLE l_recording_work
+   ADD CONSTRAINT l_recording_work_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_recording_work
+   ADD CONSTRAINT l_recording_work_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES recording(id);
+
+ALTER TABLE l_recording_work
+   ADD CONSTRAINT l_recording_work_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES work(id);
+
+ALTER TABLE l_release_group_release_group
+   ADD CONSTRAINT l_release_group_release_group_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_release_group_release_group
+   ADD CONSTRAINT l_release_group_release_group_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES release_group(id);
+
+ALTER TABLE l_release_group_release_group
+   ADD CONSTRAINT l_release_group_release_group_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES release_group(id);
+
+ALTER TABLE l_release_group_url
+   ADD CONSTRAINT l_release_group_url_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_release_group_url
+   ADD CONSTRAINT l_release_group_url_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES release_group(id);
+
+ALTER TABLE l_release_group_url
+   ADD CONSTRAINT l_release_group_url_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES url(id);
+
+ALTER TABLE l_release_group_work
+   ADD CONSTRAINT l_release_group_work_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_release_group_work
+   ADD CONSTRAINT l_release_group_work_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES release_group(id);
+
+ALTER TABLE l_release_group_work
+   ADD CONSTRAINT l_release_group_work_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES work(id);
+
+ALTER TABLE l_release_release
+   ADD CONSTRAINT l_release_release_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_release_release
+   ADD CONSTRAINT l_release_release_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES release(id);
+
+ALTER TABLE l_release_release
+   ADD CONSTRAINT l_release_release_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES release(id);
+
+ALTER TABLE l_release_release_group
+   ADD CONSTRAINT l_release_release_group_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_release_release_group
+   ADD CONSTRAINT l_release_release_group_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES release(id);
+
+ALTER TABLE l_release_release_group
+   ADD CONSTRAINT l_release_release_group_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES release_group(id);
+
+ALTER TABLE l_release_url
+   ADD CONSTRAINT l_release_url_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_release_url
+   ADD CONSTRAINT l_release_url_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES release(id);
+
+ALTER TABLE l_release_url
+   ADD CONSTRAINT l_release_url_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES url(id);
+
+ALTER TABLE l_release_work
+   ADD CONSTRAINT l_release_work_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_release_work
+   ADD CONSTRAINT l_release_work_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES release(id);
+
+ALTER TABLE l_release_work
+   ADD CONSTRAINT l_release_work_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES work(id);
+
+ALTER TABLE l_url_url
+   ADD CONSTRAINT l_url_url_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_url_url
+   ADD CONSTRAINT l_url_url_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES url(id);
+
+ALTER TABLE l_url_url
+   ADD CONSTRAINT l_url_url_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES url(id);
+
+ALTER TABLE l_url_work
+   ADD CONSTRAINT l_url_work_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_url_work
+   ADD CONSTRAINT l_url_work_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES url(id);
+
+ALTER TABLE l_url_work
+   ADD CONSTRAINT l_url_work_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES work(id);
+
+ALTER TABLE l_work_work
+   ADD CONSTRAINT l_work_work_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_work_work
+   ADD CONSTRAINT l_work_work_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES work(id);
+
+ALTER TABLE l_work_work
+   ADD CONSTRAINT l_work_work_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES work(id);
 
 ALTER TABLE label
-    ADD CONSTRAINT label_fk_country
-    FOREIGN KEY (country)
-    REFERENCES country(id);
+   ADD CONSTRAINT label_fk_name
+   FOREIGN KEY (name)
+   REFERENCES label_name(id);
+
+ALTER TABLE label
+   ADD CONSTRAINT label_fk_sortname
+   FOREIGN KEY (sortname)
+   REFERENCES label_name(id);
+
+ALTER TABLE label
+   ADD CONSTRAINT label_fk_type
+   FOREIGN KEY (type)
+   REFERENCES label_type(id);
+
+ALTER TABLE label
+   ADD CONSTRAINT label_fk_country
+   FOREIGN KEY (country)
+   REFERENCES country(id);
+
+ALTER TABLE label_alias
+   ADD CONSTRAINT label_alias_fk_label
+   FOREIGN KEY (label)
+   REFERENCES label(id);
+
+ALTER TABLE label_alias
+   ADD CONSTRAINT label_alias_fk_name
+   FOREIGN KEY (name)
+   REFERENCES label_name(id);
+
+ALTER TABLE label_annotation
+   ADD CONSTRAINT label_annotation_fk_label
+   FOREIGN KEY (label)
+   REFERENCES label(id);
+
+ALTER TABLE label_annotation
+   ADD CONSTRAINT label_annotation_fk_annotation
+   FOREIGN KEY (annotation)
+   REFERENCES annotation(id);
+
+ALTER TABLE label_gid_redirect
+   ADD CONSTRAINT label_gid_redirect_fk_newid
+   FOREIGN KEY (newid)
+   REFERENCES label(id);
 
 ALTER TABLE label_meta
-   	ADD CONSTRAINT fk_label_meta_label
-   	FOREIGN KEY (id)
-   	REFERENCES label(id)
-    ON DELETE CASCADE;
-    	
-ALTER TABLE labelalias
-    ADD CONSTRAINT labelalias_fk_ref
-    FOREIGN KEY (ref)
-    REFERENCES label(id);
+   ADD CONSTRAINT label_meta_fk_id
+   FOREIGN KEY (id)
+   REFERENCES label(id)
+   ON DELETE CASCADE;
 
 ALTER TABLE label_tag
-    ADD CONSTRAINT fk_label_tag_track
-    FOREIGN KEY (label)
-    REFERENCES label(id);
+   ADD CONSTRAINT label_tag_fk_label
+   FOREIGN KEY (label)
+   REFERENCES label(id);
 
 ALTER TABLE label_tag
-    ADD CONSTRAINT fk_label_tag_tag
-    FOREIGN KEY (tag)
-    REFERENCES tag(id);
+   ADD CONSTRAINT label_tag_fk_tag
+   FOREIGN KEY (tag)
+   REFERENCES tag(id);
 
-ALTER TABLE labelwords
-    ADD CONSTRAINT labelwords_fk_labelid
-    FOREIGN KEY (labelid)
-    REFERENCES label (id)
-    ON DELETE CASCADE;
-
-ALTER TABLE l_album_album
-    ADD CONSTRAINT fk_l_album_album_link_type
-    FOREIGN KEY (link_type)
-    REFERENCES lt_album_album(id);
-
-ALTER TABLE l_album_album
-    ADD CONSTRAINT fk_l_album_album_link0
-    FOREIGN KEY (link0)
-    REFERENCES album(id);
-
-ALTER TABLE l_album_album
-    ADD CONSTRAINT fk_l_album_album_link1
-    FOREIGN KEY (link1)
-    REFERENCES album(id);
-
-ALTER TABLE l_album_artist
-    ADD CONSTRAINT fk_l_album_artist_link_type
-    FOREIGN KEY (link_type)
-    REFERENCES lt_album_artist(id);
-
-ALTER TABLE l_album_artist
-    ADD CONSTRAINT fk_l_album_artist_link0
-    FOREIGN KEY (link0)
-    REFERENCES album(id);
-
-ALTER TABLE l_album_artist
-    ADD CONSTRAINT fk_l_album_artist_link1
-    FOREIGN KEY (link1)
-    REFERENCES artist(id);
-
-ALTER TABLE l_album_label
-    ADD CONSTRAINT fk_l_album_label_link_type
-    FOREIGN KEY (link_type)
-    REFERENCES lt_album_label(id);
-
-ALTER TABLE l_album_label
-    ADD CONSTRAINT fk_l_album_label_link0
-    FOREIGN KEY (link0)
-    REFERENCES album(id);
-
-ALTER TABLE l_album_label
-    ADD CONSTRAINT fk_l_album_label_link1
-    FOREIGN KEY (link1)
-    REFERENCES label(id);
-
-ALTER TABLE l_album_track
-    ADD CONSTRAINT fk_l_album_track_link_type
-    FOREIGN KEY (link_type)
-    REFERENCES lt_album_track(id);
-
-ALTER TABLE l_album_track
-    ADD CONSTRAINT fk_l_album_track_link0
-    FOREIGN KEY (link0)
-    REFERENCES album(id);
-
-ALTER TABLE l_album_track
-    ADD CONSTRAINT fk_l_album_track_link1
-    FOREIGN KEY (link1)
-    REFERENCES track(id);
-
-ALTER TABLE l_album_url
-    ADD CONSTRAINT fk_l_album_url_link_type
-    FOREIGN KEY (link_type)
-    REFERENCES lt_album_url(id);
-
-ALTER TABLE l_album_url
-    ADD CONSTRAINT fk_l_album_url_link0
-    FOREIGN KEY (link0)
-    REFERENCES album(id);
-
-ALTER TABLE l_album_url
-    ADD CONSTRAINT fk_l_album_url_link1
-    FOREIGN KEY (link1)
-    REFERENCES url(id);
-
-ALTER TABLE l_artist_artist
-    ADD CONSTRAINT fk_l_artist_artist_link_type
-    FOREIGN KEY (link_type)
-    REFERENCES lt_artist_artist(id);
-
-ALTER TABLE l_artist_artist
-    ADD CONSTRAINT fk_l_artist_artist_link0
-    FOREIGN KEY (link0)
-    REFERENCES artist(id);
-
-ALTER TABLE l_artist_artist
-    ADD CONSTRAINT fk_l_artist_artist_link1
-    FOREIGN KEY (link1)
-    REFERENCES artist(id);
-
-ALTER TABLE l_artist_label
-    ADD CONSTRAINT fk_l_artist_label_link_type
-    FOREIGN KEY (link_type)
-    REFERENCES lt_artist_label(id);
-
-ALTER TABLE l_artist_label
-    ADD CONSTRAINT fk_l_artist_label_link0
-    FOREIGN KEY (link0)
-    REFERENCES artist(id);
-
-ALTER TABLE l_artist_label
-    ADD CONSTRAINT fk_l_artist_label_link1
-    FOREIGN KEY (link1)
-    REFERENCES label(id);
-
-ALTER TABLE l_artist_track
-    ADD CONSTRAINT fk_l_artist_track_link_type
-    FOREIGN KEY (link_type)
-    REFERENCES lt_artist_track(id);
-
-ALTER TABLE l_artist_track
-    ADD CONSTRAINT fk_l_artist_track_link0
-    FOREIGN KEY (link0)
-    REFERENCES artist(id);
-
-ALTER TABLE l_artist_track
-    ADD CONSTRAINT fk_l_artist_track_link1
-    FOREIGN KEY (link1)
-    REFERENCES track(id);
-
-ALTER TABLE l_artist_url
-    ADD CONSTRAINT fk_l_artist_url_link_type
-    FOREIGN KEY (link_type)
-    REFERENCES lt_artist_url(id);
-
-ALTER TABLE l_artist_url
-    ADD CONSTRAINT fk_l_artist_url_link0
-    FOREIGN KEY (link0)
-    REFERENCES artist(id);
-
-ALTER TABLE l_artist_url
-    ADD CONSTRAINT fk_l_artist_url_link1
-    FOREIGN KEY (link1)
-    REFERENCES url(id);
-
-ALTER TABLE l_label_label
-    ADD CONSTRAINT fk_l_label_label_link_type
-    FOREIGN KEY (link_type)
-    REFERENCES lt_label_label(id);
-
-ALTER TABLE l_label_label
-    ADD CONSTRAINT fk_l_label_label_link0
-    FOREIGN KEY (link0)
-    REFERENCES label(id);
-
-ALTER TABLE l_label_label
-    ADD CONSTRAINT fk_l_label_label_link1
-    FOREIGN KEY (link1)
-    REFERENCES label(id);
-
-ALTER TABLE l_label_track
-    ADD CONSTRAINT fk_l_label_track_link_type
-    FOREIGN KEY (link_type)
-    REFERENCES lt_label_track(id);
-
-ALTER TABLE l_label_track
-    ADD CONSTRAINT fk_l_label_track_link0
-    FOREIGN KEY (link0)
-    REFERENCES label(id);
-
-ALTER TABLE l_label_track
-    ADD CONSTRAINT fk_l_label_track_link1
-    FOREIGN KEY (link1)
-    REFERENCES track(id);
-
-ALTER TABLE l_label_url
-    ADD CONSTRAINT fk_l_label_url_link_type
-    FOREIGN KEY (link_type)
-    REFERENCES lt_label_url(id);
-
-ALTER TABLE l_label_url
-    ADD CONSTRAINT fk_l_label_url_link0
-    FOREIGN KEY (link0)
-    REFERENCES label(id);
-
-ALTER TABLE l_label_url
-    ADD CONSTRAINT fk_l_label_url_link1
-    FOREIGN KEY (link1)
-    REFERENCES url(id);
-
-ALTER TABLE l_track_track
-    ADD CONSTRAINT fk_l_track_track_link_type
-    FOREIGN KEY (link_type)
-    REFERENCES lt_track_track(id);
-
-ALTER TABLE l_track_track
-    ADD CONSTRAINT fk_l_track_track_link0
-    FOREIGN KEY (link0)
-    REFERENCES track(id);
-
-ALTER TABLE l_track_track
-    ADD CONSTRAINT fk_l_track_track_link1
-    FOREIGN KEY (link1)
-    REFERENCES track(id);
-
-ALTER TABLE l_track_url
-    ADD CONSTRAINT fk_l_track_url_link_type
-    FOREIGN KEY (link_type)
-    REFERENCES lt_track_url(id);
-
-ALTER TABLE l_track_url
-    ADD CONSTRAINT fk_l_track_url_link0
-    FOREIGN KEY (link0)
-    REFERENCES track(id);
-
-ALTER TABLE l_track_url
-    ADD CONSTRAINT fk_l_track_url_link1
-    FOREIGN KEY (link1)
-    REFERENCES url(id);
-
-ALTER TABLE l_url_url
-    ADD CONSTRAINT fk_l_url_url_link_type
-    FOREIGN KEY (link_type)
-    REFERENCES lt_url_url(id);
-
-ALTER TABLE l_url_url
-    ADD CONSTRAINT fk_l_url_url_link0
-    FOREIGN KEY (link0)
-    REFERENCES url(id);
-
-ALTER TABLE l_url_url
-    ADD CONSTRAINT fk_l_url_url_link1
-    FOREIGN KEY (link1)
-    REFERENCES url(id);
+ALTER TABLE link
+   ADD CONSTRAINT link_fk_link_type
+   FOREIGN KEY (link_type)
+   REFERENCES link_type(id);
 
 ALTER TABLE link_attribute
-    ADD CONSTRAINT fk_link_attribute_type
-    FOREIGN KEY (attribute_type)
-    REFERENCES link_attribute_type(id);
+   ADD CONSTRAINT link_attribute_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
 
-ALTER TABLE lt_album_album
-    ADD CONSTRAINT fk_lt_album_album_parent
-    FOREIGN KEY (parent)
-    REFERENCES lt_album_album(id);
+ALTER TABLE link_attribute
+   ADD CONSTRAINT link_attribute_fk_attribute_type
+   FOREIGN KEY (attribute_type)
+   REFERENCES link_attribute_type(id);
 
-ALTER TABLE lt_album_artist
-    ADD CONSTRAINT fk_lt_album_artist_parent
-    FOREIGN KEY (parent)
-    REFERENCES lt_album_artist(id);
+ALTER TABLE link_attribute_type
+   ADD CONSTRAINT link_attribute_type_fk_parent
+   FOREIGN KEY (parent)
+   REFERENCES link_attribute_type(id);
 
-ALTER TABLE lt_album_label
-    ADD CONSTRAINT fk_lt_album_label_parent
-    FOREIGN KEY (parent)
-    REFERENCES lt_album_label(id);
+ALTER TABLE link_attribute_type
+   ADD CONSTRAINT link_attribute_type_fk_root
+   FOREIGN KEY (root)
+   REFERENCES link_attribute_type(id);
 
-ALTER TABLE lt_album_track
-    ADD CONSTRAINT fk_lt_album_track_parent
-    FOREIGN KEY (parent)
-    REFERENCES lt_album_track(id);
+ALTER TABLE link_type
+   ADD CONSTRAINT link_type_fk_parent
+   FOREIGN KEY (parent)
+   REFERENCES link_type(id);
 
-ALTER TABLE lt_album_url
-    ADD CONSTRAINT fk_lt_album_url_parent
-    FOREIGN KEY (parent)
-    REFERENCES lt_album_url(id);
+ALTER TABLE link_type_attribute_type
+   ADD CONSTRAINT link_type_attribute_type_fk_link_type
+   FOREIGN KEY (link_type)
+   REFERENCES link_type(id);
 
-ALTER TABLE lt_artist_artist
-    ADD CONSTRAINT fk_lt_artist_artist_parent
-    FOREIGN KEY (parent)
-    REFERENCES lt_artist_artist(id);
+ALTER TABLE link_type_attribute_type
+   ADD CONSTRAINT link_type_attribute_type_fk_attribute_type
+   FOREIGN KEY (attribute_type)
+   REFERENCES link_attribute_type(id);
 
-ALTER TABLE lt_artist_label
-    ADD CONSTRAINT fk_lt_artist_label_parent
-    FOREIGN KEY (parent)
-    REFERENCES lt_artist_label(id);
+ALTER TABLE medium
+   ADD CONSTRAINT medium_fk_tracklist
+   FOREIGN KEY (tracklist)
+   REFERENCES tracklist(id);
 
-ALTER TABLE lt_artist_track
-    ADD CONSTRAINT fk_lt_artist_track_parent
-    FOREIGN KEY (parent)
-    REFERENCES lt_artist_track(id);
+ALTER TABLE medium
+   ADD CONSTRAINT medium_fk_release
+   FOREIGN KEY (release)
+   REFERENCES release(id);
 
-ALTER TABLE lt_artist_url
-    ADD CONSTRAINT fk_lt_artist_url_parent
-    FOREIGN KEY (parent)
-    REFERENCES lt_artist_url(id);
-
-ALTER TABLE lt_label_label
-    ADD CONSTRAINT fk_lt_label_label_parent
-    FOREIGN KEY (parent)
-    REFERENCES lt_label_label(id);
-
-ALTER TABLE lt_label_track
-    ADD CONSTRAINT fk_lt_label_track_parent
-    FOREIGN KEY (parent)
-    REFERENCES lt_label_track(id);
-
-ALTER TABLE lt_label_url
-    ADD CONSTRAINT fk_lt_label_url_parent
-    FOREIGN KEY (parent)
-    REFERENCES lt_label_url(id);
-
-ALTER TABLE lt_track_track
-    ADD CONSTRAINT fk_lt_track_track_parent
-    FOREIGN KEY (parent)
-    REFERENCES lt_track_track(id);
-
-ALTER TABLE lt_track_url
-    ADD CONSTRAINT fk_lt_track_url_parent
-    FOREIGN KEY (parent)
-    REFERENCES lt_track_url(id);
-
-ALTER TABLE lt_url_url
-    ADD CONSTRAINT fk_lt_url_url_parent
-    FOREIGN KEY (parent)
-    REFERENCES lt_url_url(id);
-
-ALTER TABLE moderation_closed
-    ADD CONSTRAINT moderation_closed_fk_artist
-    FOREIGN KEY (artist)
-    REFERENCES artist(id);
-
-ALTER TABLE moderation_closed
-    ADD CONSTRAINT moderation_closed_fk_moderator
-    FOREIGN KEY (moderator)
-    REFERENCES moderator(id);
-
-ALTER TABLE moderation_closed
-    ADD CONSTRAINT moderation_closed_fk_language
-    FOREIGN KEY (language)
-    REFERENCES language(id);
-
-ALTER TABLE moderation_note_closed
-    ADD CONSTRAINT moderation_note_closed_fk_moderation
-    FOREIGN KEY (moderation)
-    REFERENCES moderation_closed(id);
-
-ALTER TABLE moderation_note_closed
-    ADD CONSTRAINT moderation_note_closed_fk_moderator
-    FOREIGN KEY (moderator)
-    REFERENCES moderator(id);
-
-ALTER TABLE moderation_open
-    ADD CONSTRAINT moderation_open_fk_artist
-    FOREIGN KEY (artist)
-    REFERENCES artist(id);
-
-ALTER TABLE moderation_open
-    ADD CONSTRAINT moderation_open_fk_moderator
-    FOREIGN KEY (moderator)
-    REFERENCES moderator(id);
-
-ALTER TABLE moderation_open
-    ADD CONSTRAINT moderation_open_fk_language
-    FOREIGN KEY (language)
-    REFERENCES language(id);
-
-ALTER TABLE moderation_note_open
-    ADD CONSTRAINT moderation_note_open_fk_moderation
-    FOREIGN KEY (moderation)
-    REFERENCES moderation_open(id);
-
-ALTER TABLE moderation_note_open
-    ADD CONSTRAINT moderation_note_open_fk_moderator
-    FOREIGN KEY (moderator)
-    REFERENCES moderator(id);
-
-ALTER TABLE moderator_preference
-    ADD CONSTRAINT moderator_preference_fk_moderator
-    FOREIGN KEY (moderator)
-    REFERENCES moderator(id);
-
-ALTER TABLE moderator_subscribe_artist
-    ADD CONSTRAINT modsubartist_fk_moderator
-    FOREIGN KEY (moderator)
-    REFERENCES moderator(id);
-
-ALTER TABLE moderator_subscribe_label
-    ADD CONSTRAINT modsublabel_fk_moderator
-    FOREIGN KEY (moderator)
-    REFERENCES moderator(id);
-
-ALTER TABLE editor_subscribe_editor
-    ADD CONSTRAINT editsubeditor_fk_moderator
-    FOREIGN KEY (editor)
-    REFERENCES moderator(id);
-
-ALTER TABLE editor_subscribe_editor
-    ADD CONSTRAINT editsubeditor_fk_moderator2
-    FOREIGN KEY (subscribededitor)
-    REFERENCES moderator(id);
-
-ALTER TABLE "PendingData"
-    ADD CONSTRAINT "PendingData_SeqId"
-    FOREIGN KEY ("SeqId")
-    REFERENCES "Pending" ("SeqId")
-    ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE medium
+   ADD CONSTRAINT medium_fk_format
+   FOREIGN KEY (format)
+   REFERENCES medium_format(id);
 
 ALTER TABLE puid
-    ADD CONSTRAINT puid_fk_clientversion
-    FOREIGN KEY (version)
-    REFERENCES clientversion(id);
+   ADD CONSTRAINT puid_fk_version
+   FOREIGN KEY (version)
+   REFERENCES clientversion(id);
 
-ALTER TABLE puidjoin
-    ADD CONSTRAINT puidjoin_fk_track
-    FOREIGN KEY (track)
-    REFERENCES track(id);
+ALTER TABLE recording
+   ADD CONSTRAINT recording_fk_name
+   FOREIGN KEY (name)
+   REFERENCES track_name(id);
 
-ALTER TABLE puidjoin
-    ADD CONSTRAINT puidjoin_fk_puid
-    FOREIGN KEY (puid)
-    REFERENCES puid(id);
+ALTER TABLE recording
+   ADD CONSTRAINT recording_fk_artist_credit
+   FOREIGN KEY (artist_credit)
+   REFERENCES artist_credit(id);
 
-ALTER TABLE puidjoin_stat
-    ADD CONSTRAINT puidjoin_stat_fk_puidjoin
-    FOREIGN KEY (puidjoin_id)
-    REFERENCES puidjoin(id)
-    ON DELETE CASCADE;
+ALTER TABLE recording_annotation
+   ADD CONSTRAINT recording_annotation_fk_recording
+   FOREIGN KEY (recording)
+   REFERENCES recording(id);
 
-ALTER TABLE puid_stat
-    ADD CONSTRAINT puid_stat_fk_puid
-    FOREIGN KEY (puid_id)
-    REFERENCES puid(id)
-    ON DELETE CASCADE;
+ALTER TABLE recording_annotation
+   ADD CONSTRAINT recording_annotation_fk_annotation
+   FOREIGN KEY (annotation)
+   REFERENCES annotation(id);
+
+ALTER TABLE recording_gid_redirect
+   ADD CONSTRAINT recording_gid_redirect_fk_newid
+   FOREIGN KEY (newid)
+   REFERENCES recording(id);
+
+ALTER TABLE recording_meta
+   ADD CONSTRAINT recording_meta_fk_id
+   FOREIGN KEY (id)
+   REFERENCES recording(id)
+   ON DELETE CASCADE;
+
+ALTER TABLE recording_puid
+   ADD CONSTRAINT recording_puid_fk_puid
+   FOREIGN KEY (puid)
+   REFERENCES puid(id);
+
+ALTER TABLE recording_puid
+   ADD CONSTRAINT recording_puid_fk_recording
+   FOREIGN KEY (recording)
+   REFERENCES recording(id);
+
+ALTER TABLE recording_tag
+   ADD CONSTRAINT recording_tag_fk_recording
+   FOREIGN KEY (recording)
+   REFERENCES recording(id);
+
+ALTER TABLE recording_tag
+   ADD CONSTRAINT recording_tag_fk_tag
+   FOREIGN KEY (tag)
+   REFERENCES tag(id);
 
 ALTER TABLE release
-    ADD CONSTRAINT release_fk_album
-    FOREIGN KEY (album)
-    REFERENCES album(id);
+   ADD CONSTRAINT release_fk_name
+   FOREIGN KEY (name)
+   REFERENCES release_name(id);
 
 ALTER TABLE release
-    ADD CONSTRAINT release_fk_country
-    FOREIGN KEY (country)
-    REFERENCES country(id);
+   ADD CONSTRAINT release_fk_artist_credit
+   FOREIGN KEY (artist_credit)
+   REFERENCES artist_credit(id);
 
 ALTER TABLE release
-    ADD CONSTRAINT release_fk_label
-    FOREIGN KEY (label)
-    REFERENCES label(id);
+   ADD CONSTRAINT release_fk_release_group
+   FOREIGN KEY (release_group)
+   REFERENCES release_group(id);
 
-ALTER TABLE release_tag
-    ADD CONSTRAINT fk_release_tag_release
-    FOREIGN KEY (release)
-    REFERENCES album(id);
+ALTER TABLE release
+   ADD CONSTRAINT release_fk_status
+   FOREIGN KEY (status)
+   REFERENCES release_status(id);
 
-ALTER TABLE release_tag
-    ADD CONSTRAINT fk_release_tag_tag
-    FOREIGN KEY (tag)
-    REFERENCES tag(id);
+ALTER TABLE release
+   ADD CONSTRAINT release_fk_packaging
+   FOREIGN KEY (packaging)
+   REFERENCES release_packaging(id);
+
+ALTER TABLE release
+   ADD CONSTRAINT release_fk_country
+   FOREIGN KEY (country)
+   REFERENCES country(id);
+
+ALTER TABLE release
+   ADD CONSTRAINT release_fk_language
+   FOREIGN KEY (language)
+   REFERENCES language(id);
+
+ALTER TABLE release
+   ADD CONSTRAINT release_fk_script
+   FOREIGN KEY (script)
+   REFERENCES script(id);
+
+ALTER TABLE release_annotation
+   ADD CONSTRAINT release_annotation_fk_release
+   FOREIGN KEY (release)
+   REFERENCES release(id);
+
+ALTER TABLE release_annotation
+   ADD CONSTRAINT release_annotation_fk_annotation
+   FOREIGN KEY (annotation)
+   REFERENCES annotation(id);
+
+ALTER TABLE release_gid_redirect
+   ADD CONSTRAINT release_gid_redirect_fk_newid
+   FOREIGN KEY (newid)
+   REFERENCES release(id);
+
+ALTER TABLE release_group
+   ADD CONSTRAINT release_group_fk_name
+   FOREIGN KEY (name)
+   REFERENCES release_name(id);
+
+ALTER TABLE release_group
+   ADD CONSTRAINT release_group_fk_artist_credit
+   FOREIGN KEY (artist_credit)
+   REFERENCES artist_credit(id);
+
+ALTER TABLE release_group
+   ADD CONSTRAINT release_group_fk_type
+   FOREIGN KEY (type)
+   REFERENCES release_group_type(id);
+
+ALTER TABLE release_group_annotation
+   ADD CONSTRAINT release_group_annotation_fk_release_group
+   FOREIGN KEY (release_group)
+   REFERENCES release_group(id);
+
+ALTER TABLE release_group_annotation
+   ADD CONSTRAINT release_group_annotation_fk_annotation
+   FOREIGN KEY (annotation)
+   REFERENCES annotation(id);
+
+ALTER TABLE release_group_gid_redirect
+   ADD CONSTRAINT release_group_gid_redirect_fk_newid
+   FOREIGN KEY (newid)
+   REFERENCES release_group(id);
+
+ALTER TABLE release_group_meta
+   ADD CONSTRAINT release_group_meta_fk_id
+   FOREIGN KEY (id)
+   REFERENCES release_group(id)
+   ON DELETE CASCADE;
+
+ALTER TABLE release_group_tag
+   ADD CONSTRAINT release_group_tag_fk_release_group
+   FOREIGN KEY (release_group)
+   REFERENCES release_group(id);
+
+ALTER TABLE release_group_tag
+   ADD CONSTRAINT release_group_tag_fk_tag
+   FOREIGN KEY (tag)
+   REFERENCES tag(id);
+
+ALTER TABLE release_label
+   ADD CONSTRAINT release_label_fk_release
+   FOREIGN KEY (release)
+   REFERENCES release(id);
+
+ALTER TABLE release_label
+   ADD CONSTRAINT release_label_fk_label
+   FOREIGN KEY (label)
+   REFERENCES label(id);
+
+ALTER TABLE release_meta
+   ADD CONSTRAINT release_meta_fk_id
+   FOREIGN KEY (id)
+   REFERENCES release(id)
+   ON DELETE CASCADE;
+
+ALTER TABLE script_language
+   ADD CONSTRAINT script_language_fk_script
+   FOREIGN KEY (script)
+   REFERENCES script(id);
+
+ALTER TABLE script_language
+   ADD CONSTRAINT script_language_fk_language
+   FOREIGN KEY (language)
+   REFERENCES language(id);
 
 ALTER TABLE tag_relation
-    ADD CONSTRAINT tag_relation_fk_tag1
-    FOREIGN KEY (tag1)
-    REFERENCES tag(id)
-    ON DELETE CASCADE;
+   ADD CONSTRAINT tag_relation_fk_tag1
+   FOREIGN KEY (tag1)
+   REFERENCES tag(id);
 
 ALTER TABLE tag_relation
-    ADD CONSTRAINT tag_relation_fk_tag2
-    FOREIGN KEY (tag2)
-    REFERENCES tag(id)
-    ON DELETE CASCADE;
+   ADD CONSTRAINT tag_relation_fk_tag2
+   FOREIGN KEY (tag2)
+   REFERENCES tag(id);
 
 ALTER TABLE track
-    ADD CONSTRAINT track_fk_artist
-    FOREIGN KEY (artist)
-    REFERENCES artist(id);
+   ADD CONSTRAINT track_fk_recording
+   FOREIGN KEY (recording)
+   REFERENCES recording(id);
 
-ALTER TABLE track_meta
-   	ADD CONSTRAINT fk_track_meta_track
-   	FOREIGN KEY (id)
-   	REFERENCES track(id) 
-    ON DELETE CASCADE;
-    	
-ALTER TABLE track_tag
-    ADD CONSTRAINT fk_track_tag_track
-    FOREIGN KEY (track)
-    REFERENCES track(id);
+ALTER TABLE track
+   ADD CONSTRAINT track_fk_tracklist
+   FOREIGN KEY (tracklist)
+   REFERENCES tracklist(id);
 
-ALTER TABLE track_tag
-    ADD CONSTRAINT fk_track_tag_tag
-    FOREIGN KEY (tag)
-    REFERENCES tag(id);
+ALTER TABLE track
+   ADD CONSTRAINT track_fk_name
+   FOREIGN KEY (name)
+   REFERENCES track_name(id);
 
-ALTER TABLE trackwords
-    ADD CONSTRAINT trackwords_fk_trackid
-    FOREIGN KEY (trackid)
-    REFERENCES track (id)
-    ON DELETE CASCADE;
+ALTER TABLE track
+   ADD CONSTRAINT track_fk_artist_credit
+   FOREIGN KEY (artist_credit)
+   REFERENCES artist_credit(id);
 
-ALTER TABLE vote_closed
-    ADD CONSTRAINT vote_closed_fk_moderation
-    FOREIGN KEY (moderation)
-    REFERENCES moderation_closed(id);
+ALTER TABLE tracklist_cdtoc
+   ADD CONSTRAINT tracklist_cdtoc_fk_tracklist
+   FOREIGN KEY (tracklist)
+   REFERENCES tracklist(id);
 
-ALTER TABLE vote_closed
-    ADD CONSTRAINT vote_closed_fk_moderator
-    FOREIGN KEY (moderator)
-    REFERENCES moderator(id);
+ALTER TABLE tracklist_cdtoc
+   ADD CONSTRAINT tracklist_cdtoc_fk_cdtoc
+   FOREIGN KEY (cdtoc)
+   REFERENCES cdtoc(id);
 
-ALTER TABLE vote_open
-    ADD CONSTRAINT vote_open_fk_moderation
-    FOREIGN KEY (moderation)
-    REFERENCES moderation_open(id);
+ALTER TABLE work
+   ADD CONSTRAINT work_fk_name
+   FOREIGN KEY (name)
+   REFERENCES work_name(id);
 
-ALTER TABLE vote_open
-    ADD CONSTRAINT vote_open_fk_moderator
-    FOREIGN KEY (moderator)
-    REFERENCES moderator(id);
+ALTER TABLE work
+   ADD CONSTRAINT work_fk_artist_credit
+   FOREIGN KEY (artist_credit)
+   REFERENCES artist_credit(id);
 
-ALTER TABLE album
-    ADD CONSTRAINT album_fk_language
-    FOREIGN KEY (language)
-    REFERENCES language(id);
+ALTER TABLE work
+   ADD CONSTRAINT work_fk_type
+   FOREIGN KEY (type)
+   REFERENCES work_type(id);
 
-ALTER TABLE album
-    ADD CONSTRAINT album_fk_script
-    FOREIGN KEY (script)
-    REFERENCES script(id);
+ALTER TABLE work_annotation
+   ADD CONSTRAINT work_annotation_fk_work
+   FOREIGN KEY (work)
+   REFERENCES work(id);
 
-ALTER TABLE script_language
-    ADD CONSTRAINT script_language_fk_language
-    FOREIGN KEY (language)
-    REFERENCES language(id);
+ALTER TABLE work_annotation
+   ADD CONSTRAINT work_annotation_fk_annotation
+   FOREIGN KEY (annotation)
+   REFERENCES annotation(id);
 
-ALTER TABLE script_language
-    ADD CONSTRAINT script_language_fk_script
-    FOREIGN KEY (script)
-    REFERENCES script(id);
+ALTER TABLE work_gid_redirect
+   ADD CONSTRAINT work_gid_redirect_fk_newid
+   FOREIGN KEY (newid)
+   REFERENCES work(id);
 
--- vi: set ts=4 sw=4 et :
+ALTER TABLE work_meta
+   ADD CONSTRAINT work_meta_fk_id
+   FOREIGN KEY (id)
+   REFERENCES work(id)
+   ON DELETE CASCADE;
+
+ALTER TABLE work_tag
+   ADD CONSTRAINT work_tag_fk_work
+   FOREIGN KEY (work)
+   REFERENCES work(id);
+
+ALTER TABLE work_tag
+   ADD CONSTRAINT work_tag_fk_tag
+   FOREIGN KEY (tag)
+   REFERENCES tag(id);
+

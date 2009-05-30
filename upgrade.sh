@@ -5,101 +5,36 @@ cd `dirname $0`
 
 eval `./admin/ShowDBDefs`
 
-echo `date` : Upgrading to RELEASE-20081123-BRANCH
+echo `date` : Upgrading to N.G.S.!!1!
 
-# Drop the old replication triggers on the master, so that the changes in 20080201-1.sql don't create
-# massive replication packets.
-if [ "$REPLICATION_TYPE" = "$RT_MASTER" ]
-then
-	echo `date` : Drop replication triggers
-	./admin/psql READWRITE < ./admin/sql/DropReplicationTriggers.sql
-fi
+# echo 'DROP SCHEMA musicbrainz CASCADE;' | ./admin/psql READWRITE
+echo 'CREATE SCHEMA musicbrainz;' | ./admin/psql READWRITE
 
-echo `date` : Update script, language and country tables
-./admin/psql READWRITE < ./admin/sql/updates/20081115-1.sql
+echo `date` : Creating schema
+./admin/psql READWRITE <./admin/sql/CreateTables.sql
+./admin/psql READWRITE <./admin/sql/CreateFunctions.sql
+./admin/psql --system READWRITE <./admin/sql/CreateSearchConfiguration.sql
 
-echo `date` : Adding CD Stub support
-./admin/psql RAWDATA < ./admin/sql/updates/20071212-1.sql
+echo `date` : Migrating data
+./admin/psql READWRITE <./admin/sql/updates/ngs.sql
+./admin/sql/updates/ngs-ars.pl
 
-echo `date` : Adding AR improvements
-./admin/psql READWRITE < ./admin/sql/updates/20080201-1.sql
-
-echo `date` : 'Drop TRMs!'
-./admin/psql READWRITE < ./admin/sql/updates/20080529.sql
-
-echo `date` : Add meta tables
-./admin/psql READWRITE < ./admin/sql/updates/20080610-1.sql
-if [ "$REPLICATION_TYPE" != "$RT_SLAVE" ]
-then
-	# constraints
-	./admin/psql READWRITE < ./admin/sql/updates/20080610-2.sql
-fi
-
-echo `date` : Add ratings support to database
-./admin/psql READWRITE < ./admin/sql/updates/20080707-1.sql
-./admin/psql RAWDATA < ./admin/sql/updates/20080707-2.sql
-
-echo `date` : Add collection support to database
-./admin/psql RAWDATA < ./admin/sql/updates/20080711-1.sql
-
-echo `date` : Add dateadded, fix moderation and track fields type
-./admin/psql READWRITE < ./admin/sql/updates/20080729.sql
+echo `date` : Creating primary keys
+./admin/psql READWRITE <./admin/sql/CreatePrimaryKeys.sql
 
 if [ "$REPLICATION_TYPE" != "$RT_SLAVE" ]
 then
-	echo `date` : Populating albummeta.dateadded
-	./admin/sql/updates/PopulateAlbumDateAdded.pl
+    echo `date` : Creating foreign key constraints
+    ./admin/psql READWRITE <./admin/sql/CreateFKConstraints.sql
+    echo `date` : Creating triggers
+    ./admin/psql READWRITE <./admin/sql/CreateTriggers.sql
 fi
 
-echo `date` : Add tags relation support to database
-./admin/psql READWRITE < ./admin/sql/updates/20081017-1.sql
+echo `date` : Creating indexes
+./admin/psql READWRITE <./admin/sql/CreateIndexes.sql
 
-if [ "$REPLICATION_TYPE" != "$RT_SLAVE" ]
-then
-	# constraints
-	./admin/psql READWRITE < ./admin/sql/updates/20081017-2.sql
-fi
-
-if [ "$REPLICATION_TYPE" != "$RT_SLAVE" ]
-then
-	echo `date` : Generate new stats from past moderations and votes
-	./admin/psql READWRITE < ./admin/sql/updates/20081027.sql
-fi
-
-# Drop the functions and triggers in order to fix the one wrong PUID update function
-echo `date` : Re loading functions
-
-if [ "$REPLICATION_TYPE" != "$RT_SLAVE" ]
-then
-	./admin/psql READWRITE < ./admin/sql/DropTriggers.sql
-fi
-
-./admin/psql READWRITE < ./admin/sql/DropFunctions.sql
-./admin/psql READWRITE < ./admin/sql/CreateFunctions.sql
-
-if [ "$REPLICATION_TYPE" != "$RT_SLAVE" ]
-then
-	./admin/psql READWRITE < ./admin/sql/CreateTriggers.sql
-fi
-
-if [ "$REPLICATION_TYPE" = "$RT_MASTER" ]
-then
-	echo `date` : Create replication triggers
-	./admin/psql READWRITE < ./admin/sql/CreateReplicationTriggers.sql
-fi
-
-echo `date` : Going to schema sequence $DB_SCHEMA_SEQUENCE
-echo "UPDATE replication_control SET current_schema_sequence = $DB_SCHEMA_SEQUENCE;" | ./admin/psql READWRITE
-
-# We're now at the new schema, so the next replication packet (if we are
-# the master) will have the new SCHEMA_SEQUENCE number; thus, it can only
-# be applied to a new schema.
-
-if [ "$REPLICATION_TYPE" != "$RT_SLAVE" ]
-then
-	./admin/cleanup/ModPending.pl
-	./admin/cleanup/UpdateCoverArt.pl
-fi
+echo `date` : Creating search indexes
+./admin/psql READWRITE <./admin/sql/CreateSearchIndexes.sql
 
 echo `date` : Done
 

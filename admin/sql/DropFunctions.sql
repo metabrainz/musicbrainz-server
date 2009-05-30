@@ -1,30 +1,37 @@
-DROP AGGREGATE join(VARCHAR);
-DROP FUNCTION join_append(VARCHAR, VARCHAR);
+-- Automatically generated, do not edit.
+\unset ON_ERROR_STOP
 
-DROP FUNCTION fill_album_meta();
-DROP FUNCTION insert_album_meta();
-DROP FUNCTION update_album_meta();
-DROP FUNCTION a_ins_albumjoin();
-DROP FUNCTION a_upd_albumjoin();
-DROP FUNCTION a_del_albumjoin();
-DROP FUNCTION b_del_albumjoin();
-DROP FUNCTION a_ins_album_cdtoc();
-DROP FUNCTION a_upd_album_cdtoc();
-DROP FUNCTION a_del_album_cdtoc();
-DROP FUNCTION after_update_moderation_open();
-DROP FUNCTION before_insertupdate_release();
-DROP FUNCTION set_album_firstreleasedate(INTEGER);
-DROP FUNCTION a_ins_release();
-DROP FUNCTION a_upd_release();
+DROP FUNCTION a_del_artist();
+DROP FUNCTION a_del_artist_alias();
+DROP FUNCTION a_del_artist_credit_name();
+DROP FUNCTION a_del_label();
+DROP FUNCTION a_del_label_alias();
+DROP FUNCTION a_del_recording();
 DROP FUNCTION a_del_release();
-DROP FUNCTION set_album_asin(INTEGER);
-DROP FUNCTION a_ins_album_amazon_asin ();
-DROP FUNCTION a_upd_album_amazon_asin ();
-DROP FUNCTION a_del_album_amazon_asin ();
-DROP FUNCTION a_ins_puidjoin();
-DROP FUNCTION a_upd_puidjoin();
-DROP FUNCTION a_del_puidjoin();
-DROP FUNCTION a_iu_entity();
-DROP FUNCTION b_del_entity();
-
--- vi: set ts=4 sw=4 et :
+DROP FUNCTION a_del_release_group();
+DROP FUNCTION a_del_track();
+DROP FUNCTION a_del_work();
+DROP FUNCTION a_ins_artist();
+DROP FUNCTION a_ins_artist_alias();
+DROP FUNCTION a_ins_artist_credit_name();
+DROP FUNCTION a_ins_label();
+DROP FUNCTION a_ins_label_alias();
+DROP FUNCTION a_ins_recording();
+DROP FUNCTION a_ins_release();
+DROP FUNCTION a_ins_release_group();
+DROP FUNCTION a_ins_track();
+DROP FUNCTION a_ins_work();
+DROP FUNCTION a_upd_artist();
+DROP FUNCTION a_upd_artist_alias();
+DROP FUNCTION a_upd_artist_credit_name();
+DROP FUNCTION a_upd_label();
+DROP FUNCTION a_upd_label_alias();
+DROP FUNCTION a_upd_recording();
+DROP FUNCTION a_upd_release();
+DROP FUNCTION a_upd_release_group();
+DROP FUNCTION a_upd_track();
+DROP FUNCTION a_upd_work();
+DROP FUNCTION dec_name_refcount(tbl varchar, row_id integer, val integer);
+DROP FUNCTION generate_uuid_v4();
+DROP FUNCTION inc_name_refcount(tbl varchar, row_id integer, val integer);
+DROP FUNCTION page_index(txt varchar);
