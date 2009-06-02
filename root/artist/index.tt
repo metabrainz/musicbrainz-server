@@ -1,8 +1,9 @@
-[%- WRAPPER "artist/layout.tt" -%]
+[%- WRAPPER "artist/layout.tt" page='index' -%]
     [%- INCLUDE 'artist/annotation.tt' summary=1 -%]
+
     [%- IF release_groups.size -%]
         [%- WRAPPER 'components/with-pager.tt' -%]
-            <table>
+            <table class="tbl">
                 <thead>
                     <tr>
                         <th>[% l('Year') %]</th>
@@ -11,7 +12,7 @@
                 </thead>
                 <tbody>
                     [%- FOR rg=release_groups -%]
-                    <tr>
+                    <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
                         <td>[% rg.first_release_date.year or '&mdash;' %]</td>
                         <td>[% link_release_group(rg) %]</td>
                     </tr>
@@ -22,4 +23,5 @@
     [%- ELSE -%]
         <p>[% l('No release groups found') %]</p>
     [%- END -%]
+
 [% END %]

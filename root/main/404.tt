@@ -1,7 +1,5 @@
-[% WRAPPER "layout.tt" title=l("Error 404: Page Not Found") %]
-    <h1>
-        [%- l('Page Not Found') -%]
-    </h1>
+[% WRAPPER "layout.tt" title=l("Error 404: Page Not Found") full_width=1 %]
+    <h1>[%- l('Page Not Found') -%]</h1>
     <h2>
         [%- l('(<abbr title="HyperText Transfer Protocol">HTTP</abbr> code 404)') -%]
     </h2>

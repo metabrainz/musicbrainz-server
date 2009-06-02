@@ -1,16 +1,17 @@
-[%- WRAPPER 'recording/layout.tt' %]
+[%- WRAPPER 'recording/layout.tt' page='index' %]
+
     [%- INCLUDE 'recording/annotation.tt' summary=1 -%]
-    <h2>Releases</h2>
+
+    <h2>[%- l('Appears on releases') -%]</h2>
     [%- WRAPPER "components/with-pager.tt" %]
         [%- IF tracks.size -%]
-            <table>
+            <table class="tbl">
                 <thead>
                     <tr>
                         <th>[% l('#') %]</th>
                         <th>[% l('Title') %]</th>
                         <th>[% l('Release Title') %]</th>
                         <th>[% l('Release Artist') %]</th>
-                        <th>[% l('Catalog Number') %]</th>
                         <th>[% l('Release Date') %]</th>
                         <th>[% l('Country') %]</th>
                     </tr>
@@ -18,23 +19,25 @@
                 <tbody>
                     [%- FOREACH track=tracks %]
                     [%- release=track.tracklist.medium.release -%]
-                    <tr>
+                    <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
                         <td>[% track.position %]/[% track.tracklist.track_count %]</td>
                         <td>[% track.name | html %]</td>
                         <td>[% link_release(release) %]</td>
                         <td>[% artist_credit(release.artist_credit) %]</td>
                         <td>[% release.date.format %]</td>
                         <td>
-                            <abbr title="[% release.country.name %]">
-                                [% release.country.iso_code %]
+                            [%- IF release.country -%]
+                            <abbr title="[% release.country.name | html %]">
+                                [% release.country.iso_code | html %]
                             </abbr>
+                            [%- END -%]
                         </td>
                     </tr>
                     [%- END -%]
                 </tbody>
             </table>
         [%- ELSE -%]
-            <p>[% l('No releases found which feature this track') %]</p>
+            <p>[% l('No releases found which feature this recording') %]</p>
         [%- END -%]
     [%- END -%]
 

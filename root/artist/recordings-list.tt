@@ -1,4 +1,4 @@
-<table>
+<table class="tbl">
     <thead>
         <tr>
             <th>[%- l('Name') -%]</th>
@@ -10,7 +10,7 @@
     </thead>
     <tbody>
         [%- FOR recording=recordings -%]
-        <tr>
+        <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
             <td>[% link_recording(recording) %]</td>
             [%- IF show_artists -%]
                 <td>[% artist_credit(recording.artist_credit) %]</td>

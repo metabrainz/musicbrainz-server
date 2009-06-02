@@ -1,47 +1,13 @@
 [%- info_links = [
-    link_label(label, 'details', l('Details / Link')),
-    link_label(label, 'aliases', l('Aliases')),
-    link_label(label, 'tags', l('Tags')),
-    link_label(label, 'show', l('Releases')),
-    link_label(label, 'google', l('Search Google')),
-    link_label(label, 'subscriptions', l('View Subscriptions'))
+    ['index', link_label(label, 'show', l('Releases'))],
+    ['aliases', link_label(label, 'aliases', l('Aliases'))],
+    ['tags', link_label(label, 'tags', l('Tags'))],
+    ['details', link_label(label, 'details', l('Details'))],
 ] -%]
-<div class='entity_header'>
-    <div class='title label'>
-        [% link_label(label) %] [% disambiguation(label) %]
-    </div>
-    <div class='info'>
-        [% UNLESS label.begin_date.is_empty AND label.end_date.is_empty %]
-            <div class="infoline">
-                [% label.begin_date.format %] &mdash; [% label.end_date.format %]
-            </div>
-        [% END %]
-        [% IF label.type %]
-            <div class='infoline'>
-                [% l('Type:') %] [% label.type_name %]
-            </div>
-        [% END %]
-        [% IF label.country %]
-            <div class='infoline'>
-                [% l('Country:') %] [% label.country.name %]
-            </div>
-        [% END %]
-    </div>
-    <div class='infoLinks'>
-        [% INCLUDE 'components/piped-list.tt' caption=l('Info:') list=info_links %]
-    </div>
-    <div class='editLinks'>
-        [%- IF c.user_exists -%]
-            [%- edit_links = [
-	        { link => c.entity_url(label, 'add_alias'), text => l("Add Alias") },
-                { link => c.entity_url(label, 'edit'), text => l('Edit Label') },
-                { link => c.entity_url(label, 'subscribe'), text => l('Subscribe'), hide => subscribed },
-                { link => c.entity_url(label, 'unsubscribe'), text => l('Unsubscribe'), hide => !subscribed }
-                { link => c.entity_url(label, 'merge'), text => l('Merge into another Label') },
-            ] -%]
-            [% INCLUDE 'components/piped-list.tt' caption=l('Edit:') list=edit_links %]
-        [%- ELSE -%]
-            [% l('Please {uri|log in} to edit this label.', {uri => c.uri_for('/user/login')}) %]
-        [%- END -%]
-    </div>
-</div>
+
+<h1>[% link_label(label) %] [% disambiguation(label) %]</h1>
+<p class="subheader">
+    <span>~</span> [% l("Label") %]
+</p>
+
+[% INCLUDE 'components/tabs.tt' list=info_links %]

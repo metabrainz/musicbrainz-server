@@ -1,25 +1,11 @@
-<table>
-    <thead>
-        <tr>
-            <th>[% l('#') %]</th>
-            <th>[% l('Name') %]</th>
-            [%- IF show_artists -%]
-                <th>[% l('Artist') %]</th>
-            [%- END -%]
-            <th>[% l('Length') %]</th>
-        </tr>
-    </thead>
-    <tbody>
-        [%- FOR track=tracklist.tracks;
-            recording = track.recording %]
-        <tr>
-            <td>[% track.position %]</td>
-            <td>[% link_recording(recording, 'show', track.name) %]</td>
-            [%- IF show_artists -%]
-                <td>[% artist_credit(track.artist_credit) %]</td>
-            [%- END -%]
-            <td>[% recording.length | format_time %]</td>
-        </tr>
-        [%- END -%]
-    </tbody>
-</table>
+[%- FOR track=tracklist.tracks;
+    recording = track.recording %]
+<tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+    <td>[% track.position %]</td>
+    <td>[% link_recording(recording, 'show', track.name) %]</td>
+    [%- IF show_artists -%]
+        <td>[% artist_credit(track.artist_credit) %]</td>
+    [%- END -%]
+    <td>[% recording.length | format_time %]</td>
+</tr>
+[%- END -%]

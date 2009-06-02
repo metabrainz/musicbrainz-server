@@ -1,5 +1,56 @@
-[%- DEFAULT release=entity -%]
-[% WRAPPER "layout.tt" title="${release.name} - ${title}" %]
-    [% INCLUDE "release/header.tt" %]
-    [% content %]
+[%- WRAPPER 'layout.tt' title=l('Release “{name}” by {artist}', {
+        artist => artist_credit(release.artist_credit, plain => 1),
+        name => release.name
+    })-%]
+
+<div class="sidebar">
+    <p class="nfo">
+        [%- UNLESS release.date.is_empty -%]
+            <span><strong>[% l('Date:') %]</strong> [% release.date.format %]</span>
+        [%- END -%]
+        [%- IF release.country -%]
+            <span><strong>[% l('Country:') %]</strong> [% html_escape(release.country.name) %]</span>
+        [%- END -%]
+        [%- FOR label=release.labels -%]
+            [%- IF label.label -%]
+                <span><strong>[% l('Label:') %]</strong> [% link_label(label.label) %]</span>
+            [%- END -%]
+            [%- IF label.catalog_number -%]
+                <span><strong>[% l('Catalog number:') %]</strong> [% html_escape(label.catalog_number) %]</span>
+            [%- END -%]
+        [%- END -%]
+        [%- IF release.barcode -%]
+            <span><strong>[% l('Barcode:') %]</strong> [% html_escape(release.barcode) %]</span>
+        [%- END -%]
+        [%- IF release.language -%]
+            <span><strong>[% l('Language:') %]</strong> [% html_escape(release.language.name) %]</span>
+        [%- END -%]
+        [%- IF release.script -%]
+            <span><strong>[% l('Script:') %]</strong> [% html_escape(release.script.name) %]</span>
+        [%- END -%]
+        [%- IF release.combined_format_name -%]
+            <span><strong>[% l('Format:') %]</strong> [% release.combined_format_name %]</span>
+        [%- END -%]
+        [%- IF release.packaging -%]
+            <span><strong>[% l('Packaging:') %]</strong> [% html_escape(release.packaging.name) %]</span>
+        [%- END -%]
+        [%- IF release.release_group.type -%]
+            <span><strong>[% l('Type:') %]</strong> [% html_escape(release.release_group.type.name) %]</span>
+        [%- END -%]
+        [%- IF release.status -%]
+            <span><strong>[% l('Status:') %]</strong> [% html_escape(release.status.name) %]</span>
+        [%- END -%]
+    </p>
+    <p>
+        <a href="[% c.uri_for_action('/release_group/show', [release.release_group.gid]) %]">
+            See other versions of this release
+        </a>
+    </p>
+</div>
+
+<div class="content">
+    [%- INCLUDE "release/header.tt" -%]
+    [%- content -%]
+</div>
+
 [% END %]

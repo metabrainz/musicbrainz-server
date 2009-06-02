@@ -1,5 +1,25 @@
-[%- DEFAULT label=entity -%]
-[%- WRAPPER "layout.tt" title="${title} - ${label.name}" -%]
-[%- INCLUDE "label/header.tt" -%]
-[%- content -%]
+[%- WRAPPER "layout.tt" title="${label.name} - ${title}" -%]
+
+<div class="sidebar">
+    <p class="nfo">
+        [%- IF label.type -%]
+            <span><strong>[% l('Type:') %]</strong> [% html_escape(label.type_name) %]</span>
+        [%- END -%]
+        [%- UNLESS label.begin_date.is_empty AND label.end_date.is_empty -%]
+            <span><strong>[% l('Active:') %]</strong>
+                [% label.begin_date.format or l("present") %] &mdash;
+                [% label.end_date.format or l("present") %]
+            </span>
+        [%- END -%]
+        [%- IF label.country -%]
+            <span><strong>[% l('Country:') %]</strong> [% html_escape(label.country.name) %]</span>
+        [%- END -%]
+    </p>
+</div>
+
+<div class="content">
+    [%- INCLUDE "label/header.tt" -%]
+    [%- content -%]
+</div>
+
 [%- END -%]

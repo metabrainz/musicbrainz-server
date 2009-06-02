@@ -1,5 +1,4 @@
-[% WRAPPER "layout.tt" title="$artist.name - " _ l('Details') %]
-    [% INCLUDE "artist/header.tt" %]
+[% WRAPPER "artist/layout.tt" title=l('Details') page='details' %]
     [% WRAPPER "components/box.tt" header=l('Artist Information') %]
         <table class="details">
             <tr>

@@ -1,17 +1,13 @@
-<div class='entity_header'>
-    <div class='title track'>
-        [% link_recording(recording) %]
-        [% "(${recording.comment})" IF recording.comment %]
-    </div>
-    <div class='info'>
-        [% l('By {artist}', {artist = artist_credit(recording.artist_credit)})%]
-        <div class='infoline'>
-            [% l('Length:') %]&nbsp;[% recording.length | format_time %]
-        </div>
-    </div>
-    <div class='editLinks'>
-        [%- IF !c.user_exists -%]
-            [% l('Please {uri|log in} to edit this recording.', {uri = c.uri_for('/user/login')}) %]
-        [%- END -%]
-    </div>
-</div>
+[%- info_links = [
+    ['index', link_artist(artist, 'show', l('Releases'))],
+    ['tags', link_artist(artist, 'tags', l('Tags'))],
+    ['details', link_artist(artist, 'details', l('Details'))],
+] -%]
+
+<h1>“[% link_recording(recording) %]” [% disambiguation(recording) %]</h1>
+<p class="subheader">
+    <span>~</span>
+        [% l('Recording by {artist}', {artist = artist_credit(recording.artist_credit)})%]
+</p>
+
+[% INCLUDE 'components/tabs.tt' list=info_links %]

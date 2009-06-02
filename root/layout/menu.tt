@@ -1,5 +1,5 @@
-<ul id="menu_bar">
-    <li class="first">
+<ul>
+    <li>
         [%- l('{doc|About}', {doc => doc_link('AboutMusicBrainz')}) -%]
         <ul>
             <li>
@@ -294,7 +294,7 @@
             </li>
         </ul>
     </li>
-    <li class="last">
+    <li>
         [%- l('{doc|Help}', {doc => doc_link('ContactUs')}) -%]
         <ul>
             <li>

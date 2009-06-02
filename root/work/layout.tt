@@ -1,10 +1,24 @@
-[%- title=l('{type} {work} by {artist}', {
-        type => work.type_name or "Work",
+[%- WRAPPER "layout.tt" title=l('{type} {work} by {artist}', {
+        type => work.type_name or l('Work'),
         work => work.name,
         artist => artist_credit(work.artist_credit, plain => 1)
     }) -%]
 
-[%- WRAPPER "layout.tt" -%]
+<div class="sidebar">
+    <p class="nfo">
+        <span><strong>[% l('Artist:') %]</strong> [% artist_credit(work.artist_credit) %]</span>
+        [%- IF work.type -%]
+            <span><strong>[% l('Type:') %]</strong> [% work.type.name | html %]</span>
+        [%- END -%]
+        [%- IF work.iswc -%]
+            <span><strong>[% l('ISWC:') %]</strong> [% work.iswc | html %]</span>
+        [%- END -%]
+    </p>
+</div>
+
+<div class="content">
     [%- INCLUDE 'work/header.tt' %]
     [%- content -%]
+</div>
+
 [%- END -%]

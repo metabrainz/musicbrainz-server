@@ -1,6 +1,6 @@
-[%- WRAPPER 'components/box.tt' header=l("Aliases for {entity_name}", {entity_name => entity.name}) -%]
+<h2>[% l("Aliases for {entity_name}", {entity_name => entity.name}) %]</h2>
     [%- IF aliases.size > 0 -%]
-        <table>
+        <table class="tbl">
             <thead>
                 <tr>
                     <th>[% l('Alias') %]</th>
@@ -8,7 +8,7 @@
             </thead>
             <tbody>
             [%- FOREACH alias IN aliases -%]
-                <tr>
+                <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
                     <td>
                         [% alias.name | html %]
                     </td>
@@ -30,4 +30,3 @@
             [%- l('{entity} has no aliases.', {entity => entity_link(entity)}) -%]
         </p>
     [%- END -%]
-[%- END -%]

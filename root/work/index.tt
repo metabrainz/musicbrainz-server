@@ -1,15 +1,5 @@
-[%- WRAPPER "work/layout.tt" -%]
+[%- WRAPPER "work/layout.tt" page='index' -%]
 
 [%- INCLUDE 'work/annotation.tt' summary=1 -%]
-<table class="details">
-    <tr>
-        <th>[% l("Type:") %]</th>
-        <td>[% work.type_name || "-" %]</td>
-    </tr>
-    <tr>
-        <th>[% l("ISWC:") %]</th>
-        <td>[% work.iswc || "-" %]</td>
-    </tr>
-</table>
 
 [%- END -%]

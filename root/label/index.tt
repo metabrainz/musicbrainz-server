@@ -1,28 +1,32 @@
-[%- WRAPPER "label/layout.tt" title=label.name -%]
+[%- WRAPPER "label/layout.tt" page='index' -%]
     [%- INCLUDE 'label/annotation.tt' summary=1 -%]
+
+    <h2>Releases</h2>
     [%- WRAPPER "components/with-pager.tt" %]
         [%- IF releases.size -%]
-            <table>
+            <table class="tbl">
                 <thead>
                     <tr>
                         <th>[% l('Title') %]</th>
                         <th>[% l('Artist') %]</th>
-                        <th>[% l('Catalog Number') %]</th>
-                        <th>[% l('Release Date') %]</th>
+                        <th>[% l('Catalog #') %]</th>
+                        <th>[% l('Date') %]</th>
                         <th>[% l('Country') %]</th>
                     </tr>
                 </thead>
                 <tbody>
                     [%- FOREACH release=releases %]
-                    <tr>
+                    <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
                         <td>[% link_release(release.release) %]</td>
                         <td>[% artist_credit(release.release.artist_credit) %]</td>
-                        <td>[% release.catalog_number %]</td>
+                        <td>[% release.catalog_number | html %]</td>
                         <td>[% release.release.date.format %]</td>
                         <td>
-                            <abbr title="[% release.release.country.name %]">
-                                [% release.release.country.iso_code %]
+                            [%- IF release.release.country -%]
+                            <abbr title="[% release.release.country.name | html %]">
+                                [% release.release.country.iso_code | html %]
                             </abbr>
+                            [%- END -%]
                         </td>
                     </tr>
                     [%- END -%]
@@ -32,4 +36,5 @@
             <p>[% l('No releases found') %]</p>
         [%- END -%]
     [%- END -%]
+
 [% END %]

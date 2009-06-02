@@ -1,0 +1,7 @@
+<div class="tabs">
+    <ul class="tabs">
+        [%- FOREACH link IN list -%]
+            <li[% IF link.0 == page %] class="sel"[% END %]>[% link.1 %]</li>
+        [%- END -%]
+    </ul>
+</div>

@@ -5,7 +5,7 @@
     [% WRAPPER "components/box.tt" header=l("Search Results") %]
         [% IF results.size %]
             [% WRAPPER 'components/with-pager.tt' total=1 %]
-                <table>
+                <table class="tbl">
                     <thead>
                         <tr>
                             <th>[% l('Score') %]</th>
@@ -15,7 +15,7 @@
                     </thead>
                     <tbody>
                         [%- FOR result=results -%]
-                        <tr>
+                        <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
                             <td>[% result.score %]</td>
                             <td>
                                 [% link_label(result.entity) %]

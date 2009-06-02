@@ -1,15 +1,39 @@
-[%- WRAPPER 'layout.tt' -%]
+[%- WRAPPER 'layout.tt' title=l('Tracklist') -%]
+
+<h1>[%- l('Tracklist') -%]</h1>
+
+<div class="content">
+
+<h2>[%- l('Tracks') -%]</h2>
+<table class="tbl">
+    <thead>
+        <tr>
+            <th class="first" style="width:1em;text-align:right;">#</th>
+            <th>[% l('Title') %]</th>
+            [%- IF show_artists -%]
+                <th>[% l('Artist') %]</th>
+            [%- END -%]
+            <th class="treleases">[% l('Length') %]</th>
+        </tr>
+    </thead>
+    <tbody>
     [%- INCLUDE 'tracklist/tracklist.tt' -%]
-    <p>[% l('Tracklist appears on the following releases:') %]</p>
-    <ul>
-        [% FOR medium=release_media %]
-        <li>
-            [% l('{release} by {artist}', {
-                    release=link_release(medium.release),
-                    artist=artist_credit(medium.release.artist_credit)
-                }) %]
-            [% l('(disc {n})', {n=medium.position}) %]
-        </li>
-        [% END %]
-    </ul>
+    </tbody>
+</table>
+
+<h2>[%- l('Appeads on releases') -%]</h2>
+<ul>
+    [% FOR medium=release_media %]
+    <li>
+        [% l('{release} by {artist}', {
+                release=link_release(medium.release),
+                artist=artist_credit(medium.release.artist_credit)
+            }) %]
+        [% l('(disc {n})', {n=medium.position}) %]
+    </li>
+    [% END %]
+</ul>
+
+</div>
+
 [%- END -%]

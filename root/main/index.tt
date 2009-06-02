@@ -1,5 +1,5 @@
 [% extra_css = "index.css" %]
-[% WRAPPER "layout.tt" title=l("Welcome to MusicBrainz!") %]
+[% WRAPPER "layout.tt" title=l("Welcome to MusicBrainz!") full_width=1 %]
     <div id="rightSide">
         <h1>
             [% l('News') %]

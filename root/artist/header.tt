@@ -1,52 +1,16 @@
 [%- info_links = [
-    link_artist(artist, 'show', l('Release Groups')),
-    link_artist(artist, 'releases', l('Releases')),
-    link_artist(artist, 'works', l('Works')),
-    link_artist(artist, 'recordings', l('Recordings')),
-    link_artist(artist, 'details', l('Details / Link')),
-    link_artist(artist, 'show', l('Non-Album Tracks')),
-    link_artist(artist, 'google', l('Google')),
-    link_artist(artist, 'similar', l('Similar Artists')),
-    link_artist(artist, 'tags', l('Tags')),
-    link_artist(artist, 'subscriptions', l('Subscriptions'))
+    ['index', link_artist(artist, 'show', l('Overview'))],
+    ['releases', link_artist(artist, 'releases', l('Releases'))],
+    ['works', link_artist(artist, 'works', l('Works'))],
+    ['recordings', link_artist(artist, 'recordings', l('Recordings'))],
+    ['aliases', link_artist(artist, 'aliases', l('Aliases'))],
+    ['tags', link_artist(artist, 'tags', l('Tags'))],
+    ['details', link_artist(artist, 'details', l('Details'))],
 ] -%]
-<div class='entity_header'>
-    <div class='title artist'>
-        [% link_artist(artist) %] [% disambiguation(artist) %]
-    </div>
-    <div class='info'>
-        [%- IF artist.sort_name != artist.name -%]
-            <div class='infoline'>
-                [% l('Sort name:') %] [% html_escape(artist.sort_name) %]
-            </div>    
-        [% END %]
-        [%- UNLESS artist.begin_date.is_empty AND artist.end_date.is_empty -%]
-            <div class='infoline'>
-                [% artist.begin_date.format %] &mdash;
-                [% artist.end_date.format %]
-            </div>
-        [%- END -%]
-        [%- IF artist.type -%]
-            <div class='infoline'>
-                [% l('Type:') %] [% html_escape(artist.type_name) %]
-            </div>
-        [%- END -%]
-        [%- IF artist.gender -%]
-            <div class='infoline'>
-                [% l('Gender:') %] [% html_escape(artist.gender.name) %]
-            </div>
-        [%- END -%]
-        [%- IF artist.country -%]
-            <div class='infoline'>
-                [% l('Country:') %] [% html_escape(artist.country.name) %]
-            </div>
-        [%- END -%]
-    </div>
-    <div class='infoLinks'>
-        [% INCLUDE 'components/piped-list.tt' list=info_links caption=l('Info:') %]
-    </div>
-    <div class='editLinks'>
-        [%- l('Please {uri|log in} to edit this artist.', {uri = c.uri_for('/user/login')})
-            IF !c.user_exists; -%]
-    </div>
-</div>
+
+<h1>[% link_artist(artist) %] [% disambiguation(artist) %]</h1>
+<p class="subheader">
+    <span>~</span> [% html_escape(artist.type_name) or l("Artist") %]
+</p>
+
+[% INCLUDE 'components/tabs.tt' list=info_links %]

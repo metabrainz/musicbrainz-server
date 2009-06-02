@@ -1,9 +1,20 @@
-[%- WRAPPER 'layout.tt' title=l('{recording} by {artist}', {
+[%- WRAPPER 'layout.tt' title=l('Recording “{name}” by {artist}', {
         artist => artist_credit(recording.artist_credit, plain => 1),
-        recording => recording.name
+        name => recording.name
     })-%]
 
+<div class="sidebar">
+    <p class="nfo">
+        <span><strong>[% l('Artist:') %]</strong> [% artist_credit(recording.artist_credit) %]</span>
+        [%- IF recording.length -%]
+            <span><strong>[% l('Length:') %]</strong> [% recording.length | format_time %]</span>
+        [%- END -%]
+    </p>
+</div>
+
+<div class="content">
     [%- INCLUDE 'recording/header.tt' %]
     [%- content -%]
+</div>
 
 [%- END -%]

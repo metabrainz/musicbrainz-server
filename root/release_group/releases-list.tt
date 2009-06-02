@@ -1,28 +1,38 @@
-<table>
+<table class="tbl">
     <thead>
         <tr>
             <th>[% l('Release') %]</th>
-            <th>[% l('Media') %]</th>
+            <th>[% l('Format') %]</th>
+            <th>[% l('Tracks') %]</th>
             <th>[% l('Date') %]</th>
             <th>[% l('Country') %]</th>
-            <th>[% l('Labels') %]</th>
+            <th>[% l('Label') %]</th>
+            <th>[% l('Catalog#') %]</th>
         </tr>
     </thead>
     <tbody>
         [%- FOR release=releases -%]
-        <tr>
+        <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
             <td>[% link_release(release) %]</td>
-            <td>
-                [% release.combined_format_name %] &mdash;
-                [% l('{tracks} tracks', {tracks=release.combined_track_count}) %]
-            </td>
+            <td>[% release.combined_format_name or "-" %]</td>
+            <td>[% release.combined_track_count or "-" %]</td>
             <td>[% release.date.format %]</td>
-            <td>[% release.country.name %]</td>
+            <td>
+                [%- IF release.country -%]
+                <abbr title="[% release.country.name | html %]">
+                    [% release.country.iso_code | html %]
+                </abbr>
+                [%- END -%]
+            </td>
             <td>[%-
                 labels = [];
-                labels.push(link_label(label.label) _ " (${label.catalog_number})")
-                    FOR label=release.labels;
+                labels.push(link_label(label.label)) FOR label=release.labels;
                 labels.join(', ')
+            -%]</td>
+            <td>[%-
+                catnos = [];
+                catnos.push(label.catalog_number) FOR label=release.labels;
+                catnos.join(', ')
             -%]</td>
         </tr>
         [%- END -%]

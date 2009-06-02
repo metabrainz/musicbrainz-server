@@ -59,7 +59,10 @@ __PACKAGE__->config(
         RECURSION => 1,
         TEMPLATE_EXTENSION => '.tt',
         PLUGIN_BASE => 'MusicBrainz::Server::Plugin',
-        PRE_PROCESS => 'components/common-macros.tt',
+        PRE_PROCESS => [
+            'components/common-macros.tt',
+            'components/forms.tt',
+        ],
     },
 );
 

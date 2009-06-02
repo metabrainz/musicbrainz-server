@@ -1,5 +1,30 @@
-[%- DEFAULT artist=entity -%]
 [%- WRAPPER "layout.tt" title="${artist.name} - ${title}" -%]
-    [%- INCLUDE "artist/header.tt" -%]
-    [%- content -%]
+    <div class="sidebar">
+
+        <p class="nfo">
+            [%- IF artist.name != artist.sort_name -%]
+                <span><strong>[% l('Sort name:') %]</strong> [% html_escape(artist.sort_name) %]</span>
+            [%- END -%]
+            [%- IF artist.type -%]
+                <span><strong>[% l('Type:') %]</strong> [% html_escape(artist.type_name) %]</span>
+            [%- END -%]
+            [%- IF artist.gender -%]
+                <span><strong>[% l('Gender:') %]</strong> [% html_escape(artist.gender_name) %]</span>
+            [%- END -%]
+            [%- UNLESS artist.begin_date.is_empty AND artist.end_date.is_empty -%]
+                <span><strong>[% l('Active:') %]</strong>
+                    [% artist.begin_date.format or l("present") %] &mdash;
+                    [% artist.end_date.format or l("present") %]
+                </span>
+            [%- END -%]
+            [%- IF artist.country -%]
+                <span><strong>[% l('Country:') %]</strong> [% html_escape(artist.country.name) %]</span>
+            [%- END -%]
+        </p>
+
+    </div>
+    <div class="content">
+        [%- INCLUDE "artist/header.tt" -%]
+        [%- content -%]
+    </div>
 [%- END -%]

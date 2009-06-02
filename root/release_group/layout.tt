@@ -1,9 +1,20 @@
-[%- WRAPPER 'layout.tt' title=l('{rg} by {artist}', {
+[%- WRAPPER 'layout.tt' title=l('Release group “{name}” by {artist}', {
         artist => artist_credit(rg.artist_credit, plain => 1),
-        rg => rg.name
+        name => rg.name
     })-%]
 
-    [%- INCLUDE 'release_group/header.tt' %]
-    [%- content -%]
+    <div class="sidebar">
 
+        <p class="nfo">
+            <span><strong>[% l('Artist:') %]</strong> [% artist_credit(rg.artist_credit) %]</span>
+            [%- IF rg.type -%]
+                <span><strong>[% l('Type:') %]</strong> [% html_escape(rg.type_name) %]</span>
+            [%- END -%]
+        </p>
+
+    </div>
+    <div class="content">
+        [%- INCLUDE "release_group/header.tt" -%]
+        [%- content -%]
+    </div>
 [%- END -%]

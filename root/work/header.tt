@@ -1,13 +1,14 @@
-<div class='entity_header'>
-    <div class='title track'>
-        [% link_work(work) %]
-        [% html_escape("(${artist.comment})") IF artist.comment %]
-    </div>
-    <div class='info'>
-        [% l('By {artist}', {artist=artist_credit(work.artist_credit)}) -%]
-    </div>
-    <div class='editLinks'>
-        [%- l('Please {uri|log in} to edit this artist.', {uri = c.uri_for('/user/login')})
-            IF !c.user_exists; -%]
-    </div>
-</div>
+[%- info_links = [
+    ['index', link_artist(work, 'show', l('Overview'))],
+] -%]
+
+<h1>“[% link_work(work) %]” [% disambiguation(work) %]</h1>
+<p class="subheader">
+    <span>~</span>
+        [% l('{type} by {artist}', {
+            worktype = html_escape(work.type_name) or l('Work'),
+            artist = artist_credit(work.artist_credit)
+        })%]
+</p>
+
+[% INCLUDE 'components/tabs.tt' list=info_links %]

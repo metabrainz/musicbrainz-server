@@ -1,0 +1,17 @@
+[%- MACRO form_field_select(field, opts) BLOCK -%]
+<select name="[% field.full_name ? field.full_name : field %]"[% IF opts.id %] id="[% opts.id %]"[% END %]>
+    [%- UNLESS field.required -%]
+        <option value="">[ [% l('Please make a selection') %] ]</option>
+    [%- END -%]
+    [%- FOREACH option=field.options -%]
+        <option value="[% option.value %]"[% IF field.value == option.value %] selected="selected"[% END %]>
+            [%- option.label | html %]</option>
+    [%- END -%]
+</select>
+[%- END -%]
+
+[%- MACRO form_field_text(field, opts) BLOCK -%]
+<input name="[% field.full_name ? field.full_name : field %]"
+    [%- IF opts.id %] id="[% opts.id %]"[% END %]
+    [%- IF field.value %] value="[% field.value | html %]"[% END %]/>
+[%- END -%]

@@ -26,41 +26,41 @@
         <link rel="search" type="application/opensearchdescription+xml" title="[%- l("MusicBrainz: Track") -%]" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_track.xml') %]" />
     </head>
     <body>
-        <div id="maincontent">
-            [%- no_sidebar = c.user_exists AND c.user.preferences.get('nosidebar') -%]
-            <iframe name="tagger-iframe" id="tagger-iframe"></iframe>
-            [%- INCLUDE "layout/header.tt" -%]
-            <div id="container">
-                <div id="content" [% 'style="margin-left: 0;' IF no_sidebar %]>
-                    [%- IF c.flash.ok -%]
-                        <div class="status_ok">[% c.flash.ok %]</div>
-                    [%- END -%]
-                    [%- content -%]
+        <div id="header"><div id="header-inner">
+            <div id="header-logo"><a href="/" class="logo" title="MusicBrainz"><strong>MusicBrainz</strong></a><div>
+                <form action="[% c.uri_for('/search') %]" method="get"><span>
+                    [% form_field_select(sidebar_search.field('type')) %]
+                    [% form_field_text(sidebar_search.field('query')) %]
+                    <input type="hidden" name="direct" value="on" />
+                    <input type="submit" value="Search" />
+                </span></form>
+            </div></div>
+            <div id="header-menu"><div class="inner">
+                <div>
+                    <ul>
+                        <li><a href="[% c.uri_for('/user/login') %]">Sign in</a></li>
+                        <li><a href="[% c.uri_for('/user/register') %]">Create account</a></li>
+                    <ul>
                 </div>
-            </div>
-        </div>
-        [%- INCLUDE "layout/sidebar.tt" UNLESS no_sidebar -%]
-        [%- INCLUDE "layout/footer-bar.tt" -%]
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-        <script type="text/javascript" src="/js_text"></script>
-        [%- IF includeJQueryUI -%]
-            <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
-        [%- END %]
-        [%- FOREACH js IN page.js %]
-            <script type="text/javascript" src="/static/scripts/[% js %]"></script>
-        [%- END %]
-        [%- IF RadioClick -%]
-        <script type="text/javascript">
-            $(function() {
-                $("input[type='radio']").dblclick(function() {
-                    $("fieldset:has(div:has(input[type='radio'])) ~ div:has(input[type='submit']) > input[type='submit']").click();
-                });
-            });
-        </script>
-        [%- END %]
-[%# The next two scripts make IE lower than IE8 handle css in a much more standards-compliant manner. %]
-[%# As an additional benefit, they also make IE as low as IE5 semi-able to handle alpha-transparency correctly in png files. %]
-    <!--[if lt IE 7]><script src="http://ie7-js.googlecode.com/svn/version/2.0(beta3)/IE7.js" type="text/javascript"></script><![endif]-->
-    <!--[if lt IE 8]><script src="http://ie7-js.googlecode.com/svn/version/2.0(beta3)/IE8.js" type="text/javascript"></script><![endif]-->
+                [%- INCLUDE "layout/menu.tt" -%]
+            </div></div>
+        </div></div>
+
+        <div class="page[% IF full_width %] fullwidth[% END %]"><div class="tl"><div class="bl">[% IF !full_width %]<div class="bg">[%  END %]<div class="tr"><div class="br">
+
+        [%- content -%]
+
+        </div></div></div>[% IF !full_width %]</div>[%  END %]</div></div>
+
+        <p id="footer">
+            <a href="http://metabrainz.org/donate">Donate</a> |
+            <a href="http://cafepress.com/musicbrainz">Stuff to Buy</a> |
+            <a href="http://blog.musicbrainz.org">Blog</a> |
+            <a href="http://wiki.musicbrainz.org/">Wiki</a> |
+            <a href="http://forums.musicbrainz.org/">Forums</a> |
+            <a href="http://musicbrainz.org/bugs">Bug Tracker</a> |
+            <a href="http://musicbrainz.org/doc/License">License</a> |
+            <a href="http://musicbrainz.org/doc/Contact_Us">Contact</a>
+        </p>
     </body>
 </html>

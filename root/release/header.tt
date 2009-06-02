@@ -1,18 +1,13 @@
 [%- info_links = [
-    link_release(release, 'details', l("Details / Link")),
+    ['index', link_artist(release, 'show', l('Release'))],
+    ['tags', link_artist(release, 'tags', l('Tags'))],
+    ['details', link_artist(release, 'details', l('Details'))],
 ] -%]
-<div class="entity_header">
-    <div class="title release">
-        [% entity_link(release, 1) %]
-        [% disambiguation(release) %]
-    </div>
-    <div class="info">
-        <div class='infoline'>
-            [% l('by {artist}', {artist => artist_credit(release.artist_credit)}) %]
-        </div>
-    </div>
-    <div class="infoLinks">
-        [% INCLUDE "components/piped-list.tt" caption=l('Info:') list=info_links %]
-    </div>
-    [% INCLUDE "release/edit-links.tt" %]
-</div>
+
+<h1>“[% link_release(release) %]” [% disambiguation(release) %]</h1>
+<p class="subheader">
+    <span>~</span>
+        [% l('Release by {artist}', {artist = artist_credit(release.artist_credit)})%]
+</p>
+
+[% INCLUDE 'components/tabs.tt' list=info_links %]

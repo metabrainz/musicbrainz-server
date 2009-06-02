@@ -116,11 +116,11 @@ sub show : Chained('load') PathPart('')
     $c->model('ReleaseLabel')->load($release);
     $c->model('Label')->load(@{ $release->labels });
     $c->model('ReleaseGroup')->load($release);
+    $c->model('ReleaseGroupType')->load($release->release_group);
     $c->model('Medium')->load($release);
     $c->model('MediumFormat')->load(@{ $release->mediums });
     $c->model('Track')->load(map { $_->tracklist } @{ $release->mediums });
     $c->model('Recording')->load(map { @{ $_->tracklist->tracks } } @{ $release->mediums });
-    $c->log->debug($release->dump);
 
     $c->stash( template => 'release/index.tt' );
 }

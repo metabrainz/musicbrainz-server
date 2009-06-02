@@ -1,3 +1,3 @@
-[%- WRAPPER "artist/layout.tt" title=l("Aliases") -%]
+[%- WRAPPER "artist/layout.tt" title=l("Aliases") page='aliases' -%]
     [%- INCLUDE "components/aliases.tt" entity=artist -%]
 [%- END -%]
