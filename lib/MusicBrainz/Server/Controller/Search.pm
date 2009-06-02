@@ -18,7 +18,7 @@ sub search : Path('')
 
     if ($form->process( params => $c->req->query_params ))
     {
-        $c->forward($form->value('direct') ? 'direct' : 'external');
+        $c->forward($form->field('direct')->value ? 'direct' : 'external');
     }
     else
     {
@@ -31,20 +31,23 @@ sub direct : Private
     my ($self, $c) = @_;
 
     my $form = $c->stash->{form};
+
+    my $type   = $form->field('type')->value;
+    my $query  = $form->field('query')->value;
+
     my $results = $self->_load_paged($c, sub {
-       $c->model('DirectSearch')->search($form->value('type'), $form->value('query'),
-           shift, shift);
+       $c->model('DirectSearch')->search($type, $query, shift, shift);
     });
 
-    if ($form->value('type') =~ /(recording|work|release_group)/)
+    if ($type =~ /(recording|work|release_group)/)
     {
         $c->model('ArtistCredit')->load(map { $_->entity } @$results);
     }
 
     $c->stash(
-        template => sprintf ('search/results-%s.tt', $form->value('type')),
-        results  => $results, 
-        type     => $form->value('type'),
+        template => sprintf ('search/results-%s.tt', $type),
+        results  => $results,
+        type     => $type,
     );
 }
 
@@ -58,8 +61,8 @@ sub external : Private
 
     return unless keys %{ $c->req->query_params } && $form->validate($c->req->query_params);
 
-    my $type   = $form->value('type');
-    my $query  = $form->value('query');
+    my $type   = $form->field('type')->value;
+    my $query  = $form->field('query')->value;
 
     $c->stash->{query} = $query;
 
