@@ -1,27 +1,25 @@
+-- Automatically generated, do not edit.
 \unset ON_ERROR_STOP
-
--- Alphabetical order by table
 
 ALTER TABLE artist_rating_raw DROP CONSTRAINT artist_rating_raw_pkey;
 ALTER TABLE artist_tag_raw DROP CONSTRAINT artist_tag_raw_pkey;
-
 ALTER TABLE cdtoc_raw DROP CONSTRAINT cdtoc_raw_pkey;
-ALTER TABLE collection_info DROP CONSTRAINT collection_info_pkey;
-ALTER TABLE collection_ignore_time_range DROP CONSTRAINT collection_ignore_time_range_pkey;
-ALTER TABLE collection_watch_artist_join DROP CONSTRAINT collection_watch_artist_join_pkey;
-ALTER TABLE collection_discography_artist_join DROP CONSTRAINT collection_discography_artist_join_pkey;
-ALTER TABLE collection_ignore_release_join DROP CONSTRAINT collection_ignore_release_join_pkey;
-ALTER TABLE collection_has_release_join DROP CONSTRAINT collection_has_release_join_pkey;
-
+ALTER TABLE edit DROP CONSTRAINT edit_pkey;
+ALTER TABLE edit_artist DROP CONSTRAINT edit_artist_pkey;
+ALTER TABLE edit_label DROP CONSTRAINT edit_label_pkey;
+ALTER TABLE edit_note DROP CONSTRAINT edit_note_pkey;
+ALTER TABLE edit_recording DROP CONSTRAINT edit_recording_pkey;
+ALTER TABLE edit_release DROP CONSTRAINT edit_release_pkey;
+ALTER TABLE edit_release_group DROP CONSTRAINT edit_release_group_pkey;
+ALTER TABLE edit_work DROP CONSTRAINT edit_work_pkey;
 ALTER TABLE label_rating_raw DROP CONSTRAINT label_rating_raw_pkey;
 ALTER TABLE label_tag_raw DROP CONSTRAINT label_tag_raw_pkey;
-
+ALTER TABLE recording_rating_raw DROP CONSTRAINT recording_rating_raw_pkey;
+ALTER TABLE recording_tag_raw DROP CONSTRAINT recording_tag_raw_pkey;
+ALTER TABLE release_group_rating_raw DROP CONSTRAINT release_group_rating_raw_pkey;
+ALTER TABLE release_group_tag_raw DROP CONSTRAINT release_group_tag_raw_pkey;
 ALTER TABLE release_raw DROP CONSTRAINT release_raw_pkey;
-ALTER TABLE release_rating_raw DROP CONSTRAINT release_rating_raw_pkey;
-ALTER TABLE release_tag_raw DROP CONSTRAINT release_tag_raw_pkey;
-
 ALTER TABLE track_raw DROP CONSTRAINT track_raw_pkey;
-ALTER TABLE track_rating_raw DROP CONSTRAINT track_rating_raw_pkey;
-ALTER TABLE track_tag_raw DROP CONSTRAINT track_tag_raw_pkey;
-
--- vi: set ts=4 sw=4 et :
+ALTER TABLE vote DROP CONSTRAINT vote_pkey;
+ALTER TABLE work_rating_raw DROP CONSTRAINT work_rating_raw_pkey;
+ALTER TABLE work_tag_raw DROP CONSTRAINT work_tag_raw_pkey;

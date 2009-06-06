@@ -5,143 +5,141 @@ use strict;
 use FindBin;
 use lib "$FindBin::Bin/../lib";
 
-open FILE, "<$FindBin::Bin/../admin/sql/CreateTables.sql";
-my $create_tables_sql = do { local $/; <FILE> };
-close FILE;
+sub process_tables
+{
+    my ($dir) = @_;
 
-my @tables;
-my %foreign_keys;
-my %primary_keys;
-while ($create_tables_sql =~ m/CREATE TABLE\s+([a-z0-9_]+)\s+\(\s*(.*?)\s*\);/gs) {
-    my $name = $1;
-    my @lines = split /\n/, $2;
-    my @fks;
-    foreach my $line (@lines) {
-        if ($line =~ m/([a-z0-9_]+).*?\s*--.*?references ([a-z0-9_]+)\.([a-z0-9_]+)/) {
-            my @fk = ($1, $2, $3);
-            my $cascade = ($line =~ m/CASCADE/) ? 1 : 0;
-            push @fks, [@fk, $cascade];
+    open FILE, "<$FindBin::Bin/../admin/sql$dir/CreateTables.sql";
+    my $create_tables_sql = do { local $/; <FILE> };
+    close FILE;
+
+    my @tables;
+    my %foreign_keys;
+    my %primary_keys;
+    while ($create_tables_sql =~ m/CREATE TABLE\s+([a-z0-9_]+)\s+\(\s*(.*?)\s*\);/gs) {
+        my $name = $1;
+        my @lines = split /\n/, $2;
+        my @fks;
+        foreach my $line (@lines) {
+            if ($line =~ m/([a-z0-9_]+).*?\s*--.*?references ([a-z0-9_]+)\.([a-z0-9_]+)/) {
+                my @fk = ($1, $2, $3);
+                my $cascade = ($line =~ m/CASCADE/) ? 1 : 0;
+                push @fks, [@fk, $cascade];
+            }
+        }
+        if (@fks) {
+            $foreign_keys{$name} = \@fks;
+        }
+        my @pks;
+        foreach my $line (@lines) {
+            if ($line =~ m/([a-z0-9_]+).*?\s*--.*?PK/ || $line =~ m/([a-z0-9_]+).*?SERIAL/) {
+                push @pks, $1;
+            }
+        }
+        if (@pks) {
+            $primary_keys{$name} = \@pks;
+        }
+        push @tables, $name;
+    }
+    @tables = sort(@tables);
+
+    open OUT, ">$FindBin::Bin/../admin/sql$dir/DropTables.sql";
+    print OUT "-- Automatically generated, do not edit.\n";
+    print OUT "\\unset ON_ERROR_STOP\n\n";
+    foreach my $table (@tables) {
+        print OUT "DROP TABLE $table;\n";
+    }
+    close OUT;
+
+    open OUT, ">$FindBin::Bin/../admin/sql$dir/CreateFKConstraints.sql";
+    print OUT "-- Automatically generated, do not edit.\n";
+    print OUT "\\set ON_ERROR_STOP 1\n\n";
+    foreach my $table (@tables) {
+        next unless exists $foreign_keys{$table};
+        my @fks = @{$foreign_keys{$table}};
+        foreach my $fk (@fks) {
+            my $col = $fk->[0];
+            my $ref_table = $fk->[1];
+            my $ref_col = $fk->[2];
+            print OUT "ALTER TABLE $table\n";
+            print OUT "   ADD CONSTRAINT ${table}_fk_${col}\n";
+            print OUT "   FOREIGN KEY ($col)\n";
+            print OUT "   REFERENCES $ref_table($ref_col)";
+            if ($fk->[3]) {
+                print OUT "\n   ON DELETE CASCADE;\n\n";
+            }
+            else {
+                print OUT ";\n\n";
+            }
         }
     }
-    if (@fks) {
-        $foreign_keys{$name} = \@fks;
-    }
-    my @pks;
-    foreach my $line (@lines) {
-        if ($line =~ m/([a-z0-9_]+).*?\s*--.*?PK/ || $line =~ m/([a-z0-9_]+).*?SERIAL/) {
-            push @pks, $1;
+    close OUT;
+
+    open OUT, ">$FindBin::Bin/../admin/sql$dir/DropFKConstraints.sql";
+    print OUT "-- Automatically generated, do not edit.\n";
+    print OUT "\\unset ON_ERROR_STOP\n\n";
+    foreach my $table (@tables) {
+        next unless exists $foreign_keys{$table};
+        my @fks = @{$foreign_keys{$table}};
+        foreach my $fk (@fks) {
+            my $col = $fk->[0];
+            print OUT "ALTER TABLE $table DROP CONSTRAINT ${table}_fk_${col};\n";
         }
     }
-    if (@pks) {
-        $primary_keys{$name} = \@pks;
+    close OUT;
+
+    open OUT, ">$FindBin::Bin/../admin/sql$dir/CreatePrimaryKeys.sql";
+    print OUT "-- Automatically generated, do not edit.\n";
+    print OUT "\\set ON_ERROR_STOP 1\n\n";
+    foreach my $table (@tables) {
+        next unless exists $primary_keys{$table};
+        my @pks = @{$primary_keys{$table}};
+        my $cols = join ", ", @pks;
+        print OUT "ALTER TABLE $table ADD CONSTRAINT ${table}_pkey ";
+        print OUT "PRIMARY KEY ($cols);\n";
     }
-    push @tables, $name;
-}
-@tables = sort(@tables);
+    close OUT;
 
-open OUT, ">$FindBin::Bin/../admin/sql/DropTables.sql";
-print OUT "-- Automatically generated, do not edit.\n";
-print OUT "\\unset ON_ERROR_STOP\n\n";
-foreach my $table (@tables) {
-    print OUT "DROP TABLE $table;\n";
-}
-close OUT;
-
-open OUT, ">$FindBin::Bin/../admin/sql/CreateFKConstraints.sql";
-print OUT "-- Automatically generated, do not edit.\n";
-print OUT "\\set ON_ERROR_STOP 1\n\n";
-foreach my $table (@tables) {
-    next unless exists $foreign_keys{$table};
-    my @fks = @{$foreign_keys{$table}};
-    foreach my $fk (@fks) {
-        my $col = $fk->[0];
-        my $ref_table = $fk->[1];
-        my $ref_col = $fk->[2];
-        print OUT "ALTER TABLE $table\n";
-        print OUT "   ADD CONSTRAINT ${table}_fk_${col}\n";
-        print OUT "   FOREIGN KEY ($col)\n";
-        print OUT "   REFERENCES $ref_table($ref_col)";
-        if ($fk->[3]) {
-            print OUT "\n   ON DELETE CASCADE;\n\n";
-        }
-        else {
-            print OUT ";\n\n";
-        }
+    open OUT, ">$FindBin::Bin/../admin/sql$dir/DropPrimaryKeys.sql";
+    print OUT "-- Automatically generated, do not edit.\n";
+    print OUT "\\unset ON_ERROR_STOP\n\n";
+    foreach my $table (@tables) {
+        next unless exists $primary_keys{$table};
+        print OUT "ALTER TABLE $table DROP CONSTRAINT ${table}_pkey;\n";
     }
+    close OUT;
 }
-close OUT;
 
-open OUT, ">$FindBin::Bin/../admin/sql/DropFKConstraints.sql";
-print OUT "-- Automatically generated, do not edit.\n";
-print OUT "\\unset ON_ERROR_STOP\n\n";
-foreach my $table (@tables) {
-    next unless exists $foreign_keys{$table};
-    my @fks = @{$foreign_keys{$table}};
-    foreach my $fk (@fks) {
-        my $col = $fk->[0];
-        print OUT "ALTER TABLE $table DROP CONSTRAINT ${table}_fk_${col};\n";
+process_tables("");
+process_tables("/vertical/rawdata");
+
+sub process_indexes
+{
+    my ($infile, $outfile) = @_;
+
+    open FILE, "<$FindBin::Bin/../admin/sql/$infile";
+    my $create_indexes_sql = do { local $/; <FILE> };
+    close FILE;
+
+    my @indexes;
+    while ($create_indexes_sql =~ m/CREATE .*?INDEX\s+([a-z0-9_]+)\s+/g) {
+        my $name = $1;
+        push @indexes, $name;
     }
+    @indexes = sort(@indexes);
+
+    open OUT, ">$FindBin::Bin/../admin/sql/$outfile";
+    print OUT "-- Automatically generated, do not edit.\n";
+    print OUT "\\unset ON_ERROR_STOP\n\n";
+    foreach my $index (@indexes) {
+        print OUT "DROP INDEX $index;\n";
+    }
+    close OUT;
 }
-close OUT;
 
-open OUT, ">$FindBin::Bin/../admin/sql/CreatePrimaryKeys.sql";
-print OUT "-- Automatically generated, do not edit.\n";
-print OUT "\\set ON_ERROR_STOP 1\n\n";
-foreach my $table (@tables) {
-    next unless exists $primary_keys{$table};
-    my @pks = @{$primary_keys{$table}};
-    my $cols = join ", ", @pks;
-    print OUT "ALTER TABLE $table ADD CONSTRAINT ${table}_pkey ";
-    print OUT "PRIMARY KEY ($cols);\n";
-}
-close OUT;
-
-open OUT, ">$FindBin::Bin/../admin/sql/DropPrimaryKeys.sql";
-print OUT "-- Automatically generated, do not edit.\n";
-print OUT "\\unset ON_ERROR_STOP\n\n";
-foreach my $table (@tables) {
-    next unless exists $primary_keys{$table};
-    print OUT "ALTER TABLE $table DROP CONSTRAINT ${table}_pkey;\n";
-}
-close OUT;
-
-open FILE, "<$FindBin::Bin/../admin/sql/CreateIndexes.sql";
-my $create_indexes_sql = do { local $/; <FILE> };
-close FILE;
-
-my @indexes;
-while ($create_indexes_sql =~ m/CREATE .*?INDEX\s+([a-z0-9_]+)\s+/g) {
-    my $name = $1;
-    push @indexes, $name;
-}
-@indexes = sort(@indexes);
-
-open OUT, ">$FindBin::Bin/../admin/sql/DropIndexes.sql";
-print OUT "-- Automatically generated, do not edit.\n";
-print OUT "\\unset ON_ERROR_STOP\n\n";
-foreach my $index (@indexes) {
-    print OUT "DROP INDEX $index;\n";
-}
-close OUT;
-
-open FILE, "<$FindBin::Bin/../admin/sql/CreateSearchIndexes.sql";
-my $create_search_indexes_sql = do { local $/; <FILE> };
-close FILE;
-
-my @search_indexes;
-while ($create_search_indexes_sql =~ m/CREATE .*?INDEX\s+([a-z0-9_]+)\s+/g) {
-    my $name = $1;
-    push @search_indexes, $name;
-}
-@search_indexes = sort(@search_indexes);
-
-open OUT, ">$FindBin::Bin/../admin/sql/DropSearchIndexes.sql";
-print OUT "-- Automatically generated, do not edit.\n";
-print OUT "\\unset ON_ERROR_STOP\n\n";
-foreach my $index (@search_indexes) {
-    print OUT "DROP INDEX $index;\n";
-}
-close OUT;
+process_indexes("CreateIndexes.sql", "DropIndexes.sql");
+process_indexes("CreateSearchIndexes.sql", "DropSearchIndexes.sql");
+process_indexes("vertical/rawdata/CreateIndexes.sql", "vertical/rawdata/DropIndexes.sql");
 
 open FILE, "<$FindBin::Bin/../admin/sql/CreateFunctions.sql";
 my $create_functions_sql = do { local $/; <FILE> };

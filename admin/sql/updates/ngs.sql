@@ -82,12 +82,6 @@ INSERT INTO tag_relation SELECT * FROM public.tag_relation;
 
 INSERT INTO artist_tag SELECT * FROM public.artist_tag;
 INSERT INTO label_tag SELECT * FROM public.label_tag;
--- FIXME needs to be done from a perl script using the RAWDATA database
---INSERT INTO release_tag
---    SELECT release_group, tag, SUM(count)
---    FROM public.release_tag
---        JOIN public.album ON release_tag.release = album.id
---    GROUP BY release_group, tag;
 INSERT INTO recording_tag SELECT * FROM public.track_tag;
 
 ------------------------
@@ -120,7 +114,6 @@ INSERT INTO release_group (id, gid, name, type, artist_credit)
         END, artist
     FROM public.release_group a JOIN release_name n ON a.name = n.name;
 
--- FIXME update ratings from a perl script using the RAWDATA database
 INSERT INTO release_group_meta
     (id, lastupdate, releasecount, firstreleasedate_year,
      firstreleasedate_month, firstreleasedate_day)

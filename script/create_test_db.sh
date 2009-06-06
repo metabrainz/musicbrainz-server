@@ -4,7 +4,9 @@ set -o errexit
 cd `dirname $0`/..
 
 echo 'DROP SCHEMA musicbrainz_test CASCADE;' | ./admin/psql --profile=test READWRITE
+echo 'DROP SCHEMA musicbrainz_test CASCADE;' | ./admin/psql --profile=test RAWDATA
 echo 'CREATE SCHEMA musicbrainz_test;' | ./admin/psql --profile=test READWRITE
+echo 'CREATE SCHEMA musicbrainz_test;' | ./admin/psql --profile=test RAWDATA
 
 ./admin/psql --profile=test READWRITE <./admin/sql/CreateTables.sql
 ./admin/psql --profile=test READWRITE <./admin/sql/CreateFunctions.sql
@@ -16,5 +18,10 @@ echo 'CREATE SCHEMA musicbrainz_test;' | ./admin/psql --profile=test READWRITE
 
 ./admin/psql --profile=test READWRITE <./admin/sql/CreateIndexes.sql
 ./admin/psql --profile=test READWRITE <./admin/sql/CreateSearchIndexes.sql
+
+./admin/psql RAWDATA <./admin/sql/vertical/rawdata/CreateTables.sql
+./admin/psql RAWDATA <./admin/sql/vertical/rawdata/CreatePrimaryKeys.sql
+./admin/psql RAWDATA <./admin/sql/vertical/rawdata/CreateFKConstraints.sql
+./admin/psql RAWDATA <./admin/sql/vertical/rawdata/CreateIndexes.sql
 
 # eof

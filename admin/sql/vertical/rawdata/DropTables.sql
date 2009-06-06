@@ -1,24 +1,25 @@
-\set ON_ERROR_STOP 1
-BEGIN;
+-- Automatically generated, do not edit.
+\unset ON_ERROR_STOP
 
 DROP TABLE artist_rating_raw;
 DROP TABLE artist_tag_raw;
 DROP TABLE cdtoc_raw;
-DROP TABLE collection_info;
-DROP TABLE collection_ignore_time_range;
-DROP TABLE collection_watch_artist_join;
-DROP TABLE collection_discography_artist_join;
-DROP TABLE collection_ignore_release_join;
-DROP TABLE collection_has_release_join;
+DROP TABLE edit;
+DROP TABLE edit_artist;
+DROP TABLE edit_label;
+DROP TABLE edit_note;
+DROP TABLE edit_recording;
+DROP TABLE edit_release;
+DROP TABLE edit_release_group;
+DROP TABLE edit_work;
 DROP TABLE label_rating_raw;
 DROP TABLE label_tag_raw;
-DROP TABLE release_rating_raw;
+DROP TABLE recording_rating_raw;
+DROP TABLE recording_tag_raw;
+DROP TABLE release_group_rating_raw;
+DROP TABLE release_group_tag_raw;
 DROP TABLE release_raw;
-DROP TABLE release_tag_raw;
 DROP TABLE track_raw;
-DROP TABLE track_rating_raw;
-DROP TABLE track_tag_raw;
-
-COMMIT;
-
--- vi: set ts=4 sw=4 et :
+DROP TABLE vote;
+DROP TABLE work_rating_raw;
+DROP TABLE work_tag_raw;
