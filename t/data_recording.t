@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 25;
+use Test::More tests => 34;
 use_ok 'MusicBrainz::Server::Data::Recording';
 use MusicBrainz::Server::Data::Search;
 
@@ -49,3 +49,33 @@ is( $hits, 1 );
 is( scalar(@$results), 1 );
 is( $results->[0]->position, 1 );
 is( $results->[0]->entity->name, "A Coral Room" );
+
+my $sql = Sql->new($c->mb->dbh);
+$sql->Begin;
+$rec = $rec_data->insert({
+        name => 'Traits',
+        artist_credit => 3,
+        comment => 'Drum & bass track',
+    });
+isa_ok($rec, 'MusicBrainz::Server::Entity::Recording');
+ok($rec->id > 17);
+
+$rec = $rec_data->get_by_id($rec->id);
+is($rec->name, 'Traits');
+is($rec->artist_credit_id, 3);
+is($rec->comment, 'Drum & bass track');
+ok(defined $rec->gid);
+
+$rec_data->update($rec, {
+        name => 'Traits (remix)',
+        comment => 'New remix',
+    });
+
+$rec = $rec_data->get_by_id($rec->id);
+is($rec->name, 'Traits (remix)');
+is($rec->comment, 'New remix');
+
+$rec_data->delete($rec);
+$rec = $rec_data->get_by_id($rec->id);
+ok(!defined $rec);
+$sql->Commit;

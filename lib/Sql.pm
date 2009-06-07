@@ -193,7 +193,7 @@ sub Do
 
 sub InsertRow
 {
-	my ($this, $tab, $row) = @_;
+	my ($this, $tab, $row, $returning) = @_;
 	(ref($row) eq "HASH" and %$row)
 		or croak "Missing or empty row";
 
@@ -209,16 +209,26 @@ sub InsertRow
 	}
 
 	local $" = ", ";
-	$this->Do("INSERT INTO $tab (@columns) VALUES (@expressions)", @values);
+    my $query = "INSERT INTO $tab (@columns) VALUES (@expressions)";
+    $query .= " RETURNING $returning" if $returning;
+	my $id = $returning
+        ? $this->SelectSingleValue($query, @values)
+        : $this->Do($query, @values);
 
 	return if not defined wantarray;
-	$this->GetLastInsertId($tab);
+    return $id;
 }
 
-sub GetLastInsertId
+sub Update
 {
-	my ($this, $table) = @_;
-	$this->SelectSingleValue("SELECT CURRVAL(?)", $table . "_id_seq");
+    my ($self, $table, $update, $conditions) = @_;
+    my @update_columns = keys %$update;
+    my @condition_columns = keys %$conditions;
+    my $query = "UPDATE $table SET " . join(', ', map { "$_ = ?" } @update_columns) .
+                ' WHERE ' . join(' AND ', map { "$_ = ?" } @condition_columns);
+    $self->Do($query,
+        (map { $update->{$_} } @update_columns),
+        (map { $conditions->{$_} } @condition_columns));
 }
 
 sub Begin

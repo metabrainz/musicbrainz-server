@@ -1,12 +1,21 @@
 package MusicBrainz::Server::Data::Artist;
-
 use Moose;
+
+use Carp;
+use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::Entity::Artist;
-use MusicBrainz::Server::Data::Utils qw( partial_date_from_row load_subobjects );
+use MusicBrainz::Server::Data::Utils qw(
+    defined_hash
+    generate_gid
+    partial_date_from_row
+    placeholders
+    load_subobjects
+);
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::AnnotationRole';
 with 'MusicBrainz::Server::Data::AliasRole';
+with 'MusicBrainz::Server::Data::Role::Name' => { name_table => 'artist_name' };
 
 sub _annotation_type
 {
@@ -69,6 +78,73 @@ sub load
 {
     my ($self, @objs) = @_;
     load_subobjects($self, 'artist', @objs);
+}
+
+sub insert
+{
+    my ($self, @artists) = @_;
+    my $sql = Sql->new($self->c->mb->dbh);
+    my %names = $self->find_or_insert_names(map { $_->{name}, $_->{sort_name} } @artists);
+    my $class = $self->_entity_class;
+    my @created;
+    for my $artist (@artists)
+    {
+        my $row = $self->_hash_to_row($artist, \%names);
+        $row->{gid} = $artist->{gid} || generate_gid();
+
+        push @created, $class->new(
+            id => $sql->InsertRow('artist', $row, 'id'),
+            gid => $row->{gid}
+        );
+    }
+    return @artists > 1 ? @created : $created[0];
+}
+
+sub update
+{
+    my ($self, $artist, $update) = @_;
+    croak '$artist must be defined and have an id'
+        unless defined $artist && $artist->id > 0;
+    my $sql = Sql->new($self->c->mb->dbh);
+    my %names = $self->find_or_insert_names($update->{name}, $update->{sort_name});
+    my $row = $self->_hash_to_row($update, \%names);
+    $sql->Update('artist', $row, { id => $artist->id });
+}
+
+sub delete
+{
+    my ($self, @artists) = @_;
+    my $query = 'DELETE FROM artist WHERE id IN (' . placeholders(@artists) . ')';
+    my $sql = Sql->new($self->c->mb->dbh);
+    $sql->Do($query, map { $_->id } @artists);
+}
+
+sub _hash_to_row
+{
+    my ($self, $artist, $names) = @_;
+
+    my %row = (
+        begindate_year => $artist->{begin_date}->{year},
+        begindate_month => $artist->{begin_date}->{month},
+        begindate_day => $artist->{begin_date}->{day},
+        enddate_year => $artist->{end_date}->{year},
+        enddate_month => $artist->{end_date}->{month},
+        enddate_day => $artist->{end_date}->{day},
+        country => $artist->{country},
+        type => $artist->{type},
+        gender => $artist->{gender},
+        comment => $artist->{comment},
+    );
+
+    if ($artist->{name}) {
+        $row{name} = $names->{ $artist->{name} };
+    }
+
+    if ($artist->{sort_name}) {
+        $row{sortname} = $names->{ $artist->{sort_name} };
+    }
+
+    return { defined_hash(%row) };
 }
 
 __PACKAGE__->meta->make_immutable;

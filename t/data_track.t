@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 33;
+use Test::More tests => 36;
 use_ok 'MusicBrainz::Server::Data::Track';
 
 use MusicBrainz::Server::Context;
@@ -48,3 +48,8 @@ is( $tracks->[1]->tracklist->medium->position, 1 );
 is( $tracks->[1]->tracklist->medium->release->id, 3 );
 is( $tracks->[1]->tracklist->medium->release->date->format, "2005-11-08" );
 is( $tracks->[1]->tracklist->medium->release->name, "Aerial" );
+
+my %names = $track_data->find_or_insert_names('Dancing Queen', 'Traits');
+is(keys %names, 2);
+is($names{'Dancing Queen'}, 1);
+ok($names{'Traits'} > 19);

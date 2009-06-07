@@ -1,11 +1,12 @@
 use strict;
 use warnings;
-use Test::More tests => 33;
+use Test::More tests => 60;
 use_ok 'MusicBrainz::Server::Data::Release';
 use MusicBrainz::Server::Data::ReleaseLabel;
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
+use Sql;
 
 my $c = MusicBrainz::Server::Context->new();
 MusicBrainz::Server::Test->prepare_test_database($c);
@@ -56,3 +57,57 @@ is ( $annotation->text, "Test annotation 4." );
 
 $release = $release_data->get_by_gid('71dc55d8-0fc6-41c1-94e0-85ff2404997d');
 is ( $release->id, 1 );
+
+my %names = $release_data->find_or_insert_names('Arrival', 'Aerial', 'Protection');
+is(keys %names, 3);
+is($names{'Arrival'}, 1);
+is($names{'Aerial'}, 2);
+ok($names{'Protection'} > 4);
+
+my $sql = Sql->new($c->mb->dbh);
+$sql->Begin;
+$release = $release_data->insert({
+        name => 'Protection',
+        artist_credit => 1,
+        release_group => 1,
+        packaging => 1,
+        status => 1,
+        date => { year => 2001, month => 2, day => 15 },
+        barcode => '0123456789',
+        country => 2
+    });
+$release = $release_data->get_by_id($release->id);
+ok(defined $release);
+is($release->name, 'Protection');
+is($release->artist_credit_id, 1);
+is($release->release_group_id, 1);
+is($release->packaging_id, 1);
+is($release->status_id, 1);
+ok(!$release->date->is_empty);
+is($release->date->year, 2001);
+is($release->date->month, 2);
+is($release->date->day, 15);
+is($release->country_id, 2);
+
+$release_data->update($release, {
+        name => 'Blue Lines',
+        country => 1,
+        date => { year => 2002 },
+    });
+$release = $release_data->get_by_id($release->id);
+ok(defined $release);
+is($release->name, 'Blue Lines');
+is($release->artist_credit_id, 1);
+is($release->release_group_id, 1);
+is($release->packaging_id, 1);
+is($release->status_id, 1);
+ok(!$release->date->is_empty);
+is($release->date->year, 2002);
+is($release->date->month, 2);
+is($release->date->day, 15);
+is($release->country_id, 1);
+
+$release_data->delete($release);
+$release = $release_data->get_by_id($release->id);
+ok(!defined $release);
+$sql->Commit;

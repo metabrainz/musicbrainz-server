@@ -1,9 +1,11 @@
 package MusicBrainz::Server::Data::ArtistCredit;
-
 use Moose;
+
+use List::MoreUtils qw( part zip );
 use MusicBrainz::Server::Entity::Artist;
 use MusicBrainz::Server::Entity::ArtistCredit;
 use MusicBrainz::Server::Entity::ArtistCreditName;
+use MusicBrainz::Server::Data::Artist;
 use MusicBrainz::Server::Data::Utils qw( placeholders load_subobjects );
 
 extends 'MusicBrainz::Server::Data::Entity';
@@ -55,6 +57,56 @@ sub load
 {
     my ($self, @objs) = @_;
     load_subobjects($self, 'artist_credit', @objs);
+}
+
+sub find_or_insert
+{
+    my ($self, @artist_joinphrase) = @_;
+
+    my $i = 0;
+    my ($credits, $join_phrases) = part { $i++ % 2 } @artist_joinphrase;
+    my @positions = (0..scalar @$credits - 1);
+    my @artists = map { $_->{artist} } @$credits;
+    my @names = map { $_->{name} } @$credits;
+
+    my (@joins, @conditions);
+    for my $i (@positions) {
+        my $join = "JOIN artist_credit_name acn_$i ON acn_$i.artist_credit = ac.id " .
+                   "JOIN artist_name an_$i ON an_$i.id = acn_$i.name";
+        my $condition = "acn_$i.position = ? AND ".
+                        "acn_$i.artist = ? AND ".
+                        "an_$i.name = ?";
+        $condition .= " AND acn_$i.joinphrase = ?" if defined $join_phrases->[$i];
+        push @joins, $join;
+        push @conditions, $condition;
+    }
+
+    my $sql = Sql->new($self->c->mb->dbh);
+    my $query = "SELECT ac.id FROM artist_credit ac " .
+                join(" ", @joins) .
+                " WHERE " . join(" AND ", @conditions) . " AND ac.artistcount = ?";
+    my @args = zip @positions, @artists, @names, @$join_phrases;
+    pop @args unless defined $join_phrases->[$#names];
+    my $id = $sql->SelectSingleValue($query, @args, scalar @names);
+
+    if(!defined $id)
+    {
+        $id = $sql->InsertRow('artist_credit', { artistcount => scalar @names }, 'id');
+        my $artist_data = MusicBrainz::Server::Data::Artist->new(c => $self->c);
+        my %names_id = $artist_data->find_or_insert_names(@names);
+        for my $i (@positions)
+        {
+            $sql->InsertRow('artist_credit_name', {
+                    artist_credit => $id,
+                    position => $i,
+                    artist => $artists[$i],
+                    name => $names_id{$names[$i]},
+                    joinphrase => $join_phrases->[$i],
+                });
+        }
+    }
+
+    return $id;
 }
 
 __PACKAGE__->meta->make_immutable;

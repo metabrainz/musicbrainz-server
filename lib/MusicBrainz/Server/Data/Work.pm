@@ -2,10 +2,16 @@ package MusicBrainz::Server::Data::Work;
 
 use Moose;
 use MusicBrainz::Server::Entity::Work;
-use MusicBrainz::Server::Data::Utils qw( query_to_list_limited );
+use MusicBrainz::Server::Data::Utils qw(
+    defined_hash
+    generate_gid
+    placeholders
+    query_to_list_limited
+);
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::AnnotationRole';
+with 'MusicBrainz::Server::Data::Role::Name' => { name_table => 'work_name' };
 
 sub _annotation_type
 {
@@ -52,6 +58,60 @@ sub find_by_artist
     return query_to_list_limited(
         $self->c, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $artist_id, $offset || 0);
+}
+
+sub insert
+{
+    my ($self, @works) = @_;
+    my $sql = Sql->new($self->c->mb->dbh);
+    my %names = $self->find_or_insert_names(map { $_->{name} } @works);
+    my $class = $self->_entity_class;
+    my @created;
+    for my $work (@works)
+    {
+        my $row = $self->_hash_to_row($work, \%names);
+        $row->{gid} = $work->{gid} || generate_gid();
+        push @created, $class->new(
+            id => $sql->InsertRow('work', $row, 'id'),
+            gid => $row->{gid}
+        );
+    }
+    return @works > 1 ? @created : $created[0];
+}
+
+sub update
+{
+    my ($self, $work, $update) = @_;
+    my $sql = Sql->new($self->c->mb->dbh);
+    my %names = $self->find_or_insert_names($update->{name});
+    my $row = $self->_hash_to_row($update, \%names);
+    $sql->Update('work', $row, { id => $work->id });
+    return $work;
+}
+
+sub delete
+{
+    my ($self, $work) = @_;
+    my $sql = Sql->new($self->c->mb->dbh);
+    $sql->Do('DELETE FROM work WHERE id = ?', $work->id);
+    return;
+}
+
+sub _hash_to_row
+{
+    my ($self, $work, $names) = @_;
+    my %row = (
+        artist_credit => $work->{artist_credit},
+        type => $work->{type},
+        iswc => $work->{iswc},
+        comment => $work->{comment},
+    );
+
+    if ($work->{name}) {
+        $row{name} = $names->{$work->{name}};
+    }
+
+    return { defined_hash(%row) };
 }
 
 __PACKAGE__->meta->make_immutable;

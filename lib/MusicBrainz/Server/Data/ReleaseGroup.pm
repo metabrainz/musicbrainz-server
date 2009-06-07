@@ -2,7 +2,14 @@ package MusicBrainz::Server::Data::ReleaseGroup;
 
 use Moose;
 use MusicBrainz::Server::Entity::ReleaseGroup;
-use MusicBrainz::Server::Data::Utils qw( load_subobjects query_to_list_limited );
+use MusicBrainz::Server::Data::Release;
+use MusicBrainz::Server::Data::Utils qw(
+    defined_hash
+    generate_gid
+    load_subobjects
+    placeholders
+    query_to_list_limited
+);
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::AnnotationRole';
@@ -58,6 +65,62 @@ sub find_by_artist
     return query_to_list_limited(
         $self->c, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $artist_id, $offset || 0);
+}
+
+sub insert
+{
+    my ($self, @groups) = @_;
+    my $sql = Sql->new($self->c->mb->dbh);
+    my @created;
+    my $release_data = MusicBrainz::Server::Data::Release->new(c => $self->c);
+    my %names = $release_data->find_or_insert_names(map { $_->{name} } @groups);
+    my $class = $self->_entity_class;
+    for my $group (@groups)
+    {
+        my $row = $self->_hash_to_row($group, \%names);
+        $row->{gid} = $group->{gid} || generate_gid();
+        push @created, $class->new(
+            id => $sql->InsertRow('release_group', $row, 'id'),
+            gid => $row->{gid}
+        );
+    }
+    return @groups > 1 ? @created : $created[0];
+}
+
+sub update
+{
+    my ($self, $group, $update) = @_;
+    my $sql = Sql->new($self->c->mb->dbh);
+    my $release_data = MusicBrainz::Server::Data::Release->new(c => $self->c);
+    my %names = $release_data->find_or_insert_names($update->{name});
+    my $row = $self->_hash_to_row($update, \%names);
+    $sql->Update('release_group', $row, { id => $group->id });
+}
+
+sub delete
+{
+    my ($self, @groups) = @_;
+    my $sql = Sql->new($self->c->mb->dbh);
+    $sql->Do('DELETE FROM release_group WHERE id IN (' . placeholders(@groups) . ')',
+        map { $_->id } @groups);
+    return;
+}
+
+sub _hash_to_row
+{
+    my ($self, $group, $names) = @_;
+    my %row = (
+        artist_credit => $group->{artist_credit},
+        comment => $group->{comment},
+        type => $group->{type},
+    );
+
+    if ($group->{name})
+    {
+        $row{name} = $names->{$group->{name}};
+    }
+
+    return { defined_hash(%row) };
 }
 
 __PACKAGE__->meta->make_immutable;

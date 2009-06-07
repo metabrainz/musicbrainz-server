@@ -2,16 +2,22 @@ package MusicBrainz::Server::Data::Utils;
 
 use base 'Exporter';
 
-use Sql;
+use List::MoreUtils qw( zip );
 use MusicBrainz::Server::Entity::PartialDate;
+use OSSP::UUID;
+use Sql;
+use UNIVERSAL::require;
 
 our @EXPORT_OK = qw(
+    defined_hash
+    generate_gid
+    insert_and_create
+    generate_gid
+    load_subobjects
     partial_date_from_row
     placeholders
-    load_subobjects
     query_to_list
     query_to_list_limited
-    uniq
 );
 
 sub load_subobjects
@@ -77,10 +83,35 @@ sub query_to_list_limited
     return (\@result, $hits);
 }
 
-sub uniq
+sub insert_and_create
 {
-    my %h = map { $_ => 1 } @_;
-    return keys %h;
+    my ($data, @objs) = @_;
+    my $class = $data->_entity_class;
+    $class->require;
+    my $sql = Sql->new($data->c->mb->dbh);
+    my %map = $data->_attribute_mapping;
+    my @ret;
+    for my $obj (@objs)
+    {
+        my %row = map { ($map{$_} || $_) => $obj->{$_} } keys %$obj;
+        my $id = $sql->InsertRow($data->_table, \%row, 'id');
+        push @ret, $class->new( id => $id, %$obj);
+    }
+
+    return wantarray ? @ret : $ret[0];
+}
+
+sub generate_gid
+{
+    my $uuid = new OSSP::uuid;
+    $uuid->make("v4");
+    return $uuid->export("str");
+}
+
+sub defined_hash
+{
+    my %hash = @_;
+    return map { $_ => $hash{$_} } grep { defined $hash{$_} } keys %hash;
 }
 
 1;

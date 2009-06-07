@@ -1,11 +1,12 @@
 use strict;
 use warnings;
-use Test::More tests => 32;
+use Test::More tests => 51;
 use_ok 'MusicBrainz::Server::Data::Artist';
 use MusicBrainz::Server::Data::Search;
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
+use Sql;
 
 my $c = MusicBrainz::Server::Context->new();
 MusicBrainz::Server::Test->prepare_test_database($c);
@@ -53,3 +54,46 @@ is( scalar(@$results), 3 );
 is( $results->[0]->position, 1 );
 is( $results->[0]->entity->name, "Kate Bush" );
 is( $results->[0]->entity->sort_name, "Bush, Kate" );
+
+my %names = $artist_data->find_or_insert_names('Kate Bush', 'Bush, Kate', 'Massive Attack');
+is(keys %names, 3);
+is($names{'Kate Bush'}, 9);
+is($names{'Bush, Kate'}, 10);
+ok($names{'Massive Attack'} > 10);
+
+my $sql = Sql->new($c->mb->dbh);
+$sql->Begin;
+$artist = $artist_data->insert({
+        name => 'Queen',
+        sort_name => 'David Bowie',
+        type => 2,
+        begin_date => { year => 2000, month => 1 },
+    });
+isa_ok($artist, 'MusicBrainz::Server::Entity::Artist');
+ok($artist->id > 9);
+
+$artist = $artist_data->get_by_id($artist->id);
+is($artist->name, 'Queen');
+is($artist->sort_name, 'David Bowie');
+ok(!$artist->begin_date->is_empty);
+is($artist->begin_date->year, 2000);
+is($artist->begin_date->month, 1);
+is($artist->begin_date->day, undef);
+ok($artist->end_date->is_empty);
+is($artist->type_id, 2);
+ok(defined $artist->gid);
+
+$artist_data->update($artist, {
+        sort_name => 'Kate Bush',
+        end_date => { year => 2009 }
+    });
+
+$artist = $artist_data->get_by_id($artist->id);
+is($artist->sort_name, 'Kate Bush');
+ok(!$artist->end_date->is_empty);
+is($artist->end_date->year, 2009);
+
+$artist_data->delete($artist);
+$artist = $artist_data->get_by_id($artist->id);
+ok(!defined $artist);
+$sql->Commit;

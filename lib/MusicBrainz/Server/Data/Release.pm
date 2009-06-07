@@ -3,12 +3,16 @@ package MusicBrainz::Server::Data::Release;
 use Moose;
 use MusicBrainz::Server::Entity::Release;
 use MusicBrainz::Server::Data::Utils qw(
+    defined_hash
+    generate_gid
     partial_date_from_row
+    placeholders
     query_to_list_limited
 );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::AnnotationRole';
+with 'MusicBrainz::Server::Data::Role::Name' => { name_table => 'release_name' };
 
 sub _annotation_type
 {
@@ -86,6 +90,67 @@ sub find_by_release_group
     return query_to_list_limited(
         $self->c, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $release_group_id, $offset || 0);
+}
+
+sub insert
+{
+    my ($self, @releases) = @_;
+    my $sql = Sql->new($self->c->mb->dbh);
+    my @created;
+    my %names = $self->find_or_insert_names(map { $_->{name} } @releases);
+    my $class = $self->_entity_class;
+    for my $release (@releases)
+    {
+        my $row = $self->_hash_to_row($release, \%names);
+        $row->{gid} = $release->{gid} || generate_gid();
+        push @created, $class->new(
+            id => $sql->InsertRow('release', $row, 'id'),
+            gid => $row->{gid},
+        );
+    }
+    return @releases > 1 ? @created : $created[0];
+}
+
+sub update
+{
+    my ($self, $release, $update) = @_;
+    my $sql = Sql->new($self->c->mb->dbh);
+    my %names = $self->find_or_insert_names($update->{name});
+    my $row = $self->_hash_to_row($update, \%names);
+    $sql->Update('release', $row, { id => $release->id });
+}
+
+sub delete
+{
+    my ($self, @releases) = @_;
+    my $sql = Sql->new($self->c->mb->dbh);
+    $sql->Do('DELETE FROM release WHERE id IN (' . placeholders(@releases) . ')',
+        map { $_->id } @releases);
+    return;
+}
+
+sub _hash_to_row
+{
+    my ($self, $release, $names) = @_;
+    my %row = (
+        artist_credit => $release->{artist_credit},
+        release_group => $release->{release_group},
+        status => $release->{status},
+        packaging => $release->{packaging},
+        date_year => $release->{date}->{year},
+        date_month => $release->{date}->{month},
+        date_day => $release->{date}->{day},
+        barcode => $release->{barcode},
+        comment => $release->{comment},
+        country => $release->{country},
+    );
+
+    if ($release->{name})
+    {
+        $row{name} = $names->{$release->{name}};
+    }
+
+    return { defined_hash(%row) };
 }
 
 __PACKAGE__->meta->make_immutable;

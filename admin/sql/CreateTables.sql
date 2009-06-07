@@ -603,7 +603,8 @@ CREATE TABLE recording_meta
 (
     id                  INTEGER NOT NULL, -- PK, references recording.id CASCADE
     rating              REAL,
-    ratingcount         INTEGER
+    ratingcount         INTEGER,
+    lastupdate          TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE recording_gid_redirect

@@ -2,11 +2,17 @@ package MusicBrainz::Server::Data::Label;
 
 use Moose;
 use MusicBrainz::Server::Entity::Label;
-use MusicBrainz::Server::Data::Utils qw( partial_date_from_row load_subobjects );
+use MusicBrainz::Server::Data::Utils qw(
+    defined_hash
+    generate_gid
+    partial_date_from_row
+    load_subobjects
+);
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::AnnotationRole';
 with 'MusicBrainz::Server::Data::AliasRole';
+with 'MusicBrainz::Server::Data::Role::Name' => { name_table => 'label_name' };
 
 sub _annotation_type
 {
@@ -69,6 +75,70 @@ sub load
 {
     my ($self, @objs) = @_;
     load_subobjects($self, 'label', @objs);
+}
+
+sub insert
+{
+    my ($self, @labels) = @_;
+    my $sql = Sql->new($self->c->mb->dbh);
+    my %names = $self->find_or_insert_names(map { $_->{name}, $_->{sort_name } } @labels);
+    my $class = $self->_entity_class;
+    my @created;
+    for my $label (@labels)
+    {
+        my $row = $self->_hash_to_row($label, \%names);
+        $row->{gid} = $label->{gid} || generate_gid();
+        push @created, $class->new(
+            id => $sql->InsertRow('label', $row, 'id'),
+            gid => $row->{gid}
+        );
+    }
+    return @labels > 1 ? @created : $created[0];
+}
+
+sub update
+{
+    my ($self, $label, $update) = @_;
+    my $sql = Sql->new($self->c->mb->dbh);
+    my %names = $self->find_or_insert_names($update->{name}, $update->{sort_name});
+    my $row = $self->_hash_to_row($update, \%names);
+    $sql->Update('label', $row, { id => $label->id });
+    return $label;
+}
+
+sub delete
+{
+    my ($self, $label) = @_;
+    my $sql = Sql->new($self->c->mb->dbh);
+    $sql->Do('DELETE FROM label WHERE id = ?', $label->id);
+    return;
+}
+
+sub _hash_to_row
+{
+    my ($self, $label, $names) = @_;
+    my %row = (
+        begindate_year => $label->{begin_date}->{year},
+        begindate_month => $label->{begin_date}->{month},
+        begindate_day => $label->{begin_date}->{day},
+        enddate_year => $label->{end_date}->{year},
+        enddate_month => $label->{end_date}->{month},
+        enddate_day => $label->{end_date}->{day},
+        comment => $label->{comment},
+        country => $label->{country},
+        type => $label->{type},
+        labelcode => $label->{label_code},
+    );
+
+    if ($label->{name}) {
+        $row{name} = $names->{$label->{name}};
+    }
+
+    if ($label->{sort_name}) {
+        $row{sortname} = $names->{$label->{sort_name}};
+    }
+
+    return { defined_hash(%row) };
 }
 
 __PACKAGE__->meta->make_immutable;
