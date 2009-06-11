@@ -10,19 +10,9 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
-with 'MusicBrainz::Server::Data::AnnotationRole';
-with 'MusicBrainz::Server::Data::AliasRole';
+with 'MusicBrainz::Server::Data::AnnotationRole' => { type => 'label' };
+with 'MusicBrainz::Server::Data::AliasRole' => { type => 'label' };
 with 'MusicBrainz::Server::Data::Role::Name' => { name_table => 'label_name' };
-
-sub _annotation_type
-{
-    return 'label';
-}
-
-sub _alias_type
-{
-    return 'label';
-}
 
 sub _table
 {

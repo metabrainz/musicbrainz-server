@@ -5,7 +5,7 @@ use MusicBrainz::Server::Entity::Annotation;
 
 extends 'MusicBrainz::Server::Data::Entity';
 
-has 'type' => (
+has [qw( type table )] => (
     is => 'rw',
     isa => 'Str',
     required => 1
@@ -14,7 +14,7 @@ has 'type' => (
 sub _table
 {
     my $self = shift;
-    return $self->type . '_annotation ea
+    return $self->table . ' ea
             JOIN annotation a ON ea.annotation=a.id';
 }
 

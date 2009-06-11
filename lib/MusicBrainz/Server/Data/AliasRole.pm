@@ -1,26 +1,50 @@
 package MusicBrainz::Server::Data::AliasRole;
-use Moose::Role;
+use MooseX::Role::Parameterized;
 
 use MusicBrainz::Server::Data::Alias;
 
-requires 'c';
-requires '_alias_type';
+parameter 'type' => (
+    isa => 'Str',
+    required => 1,
+);
 
-has 'alias' => (
-    is => 'ro',
-    builder => '_build_alias',
+parameter 'table' => (
+    isa => 'Str',
+    default => sub { shift->type . "_alias" },
     lazy => 1
 );
 
-sub _build_alias
+parameter 'name_table' => (
+    isa => 'Str',
+    default => sub { shift->type . "_name" },
+    lazy => 1
+);
+
+role
 {
-    my $self = shift;
-    return MusicBrainz::Server::Data::Alias->new(
-        c      => $self->c,
-        type   => $self->_alias_type,
-        entity => $self->_entity_class . 'Alias'
+    my $params = shift;
+
+    requires 'c', '_entity_class';
+
+    has 'alias' => (
+        is => 'ro',
+        builder => '_build_alias',
+        lazy => 1
     );
-}
+
+    method '_build_alias' => sub
+    {
+        my $self = shift;
+        return MusicBrainz::Server::Data::Alias->new(
+            c      => $self->c,
+            name_table => $params->name_table,
+            type => $params->type,
+            table => $params->table,
+            entity => $self->_entity_class . 'Alias'
+        );
+    }
+};
+
 
 no Moose::Role;
 1;

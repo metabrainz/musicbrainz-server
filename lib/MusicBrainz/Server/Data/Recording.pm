@@ -12,12 +12,7 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
-with 'MusicBrainz::Server::Data::AnnotationRole';
-
-sub _annotation_type
-{
-    return 'recording';
-}
+with 'MusicBrainz::Server::Data::AnnotationRole' => { type => 'recording' };
 
 sub _table
 {

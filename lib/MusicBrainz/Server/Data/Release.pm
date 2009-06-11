@@ -11,13 +11,8 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
-with 'MusicBrainz::Server::Data::AnnotationRole';
+with 'MusicBrainz::Server::Data::AnnotationRole' => { type => 'release' };
 with 'MusicBrainz::Server::Data::Role::Name' => { name_table => 'release_name' };
-
-sub _annotation_type
-{
-    return 'release';
-}
 
 sub _table
 {

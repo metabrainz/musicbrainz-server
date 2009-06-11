@@ -12,12 +12,7 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
-with 'MusicBrainz::Server::Data::AnnotationRole';
-
-sub _annotation_type
-{
-    return 'release_group';
-}
+with 'MusicBrainz::Server::Data::AnnotationRole' => { type => 'release_group' };
 
 sub _table
 {

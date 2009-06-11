@@ -1,22 +1,41 @@
 package MusicBrainz::Server::Data::AnnotationRole;
+use MooseX::Role::Parameterized;
 
-use Moose::Role;
 use MusicBrainz::Server::Data::Annotation;
 
-requires 'c';
-requires '_annotation_type';
+parameter 'type' => (
+    isa => 'Str',
+    required => 1,
+);
 
-has 'annotation' => (
-    is => 'ro',
-    default => sub {
+parameter 'table' => (
+    isa => 'Str',
+    default => sub { shift->type . "_annotation" },
+    lazy => 1
+);
+
+role
+{
+    my $params = shift;
+
+    requires 'c';
+
+    has 'annotation' => (
+        is => 'ro',
+        lazy => 1,
+        builder => '_build_annotation_data',
+    );
+
+    method '_build_annotation_data' => sub
+    {
         my $self = shift;
         return MusicBrainz::Server::Data::Annotation->new(
             c => $self->c,
-            type => $self->_annotation_type
+            type => $params->type,
+            table => $params->table,
         );
-    },
-    lazy => 1
-);
+    };
+};
 
 1;
 

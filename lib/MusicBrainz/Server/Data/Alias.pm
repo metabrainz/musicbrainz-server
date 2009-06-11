@@ -3,30 +3,24 @@ use Moose;
 
 extends 'MusicBrainz::Server::Data::Entity';
 
-has 'type' => (
+has [qw( name_table table type entity )] => (
     isa      => 'Str',
     is       => 'rw',
     required => 1
 );
 
-has 'entity' => (
-    isa      => 'Str',
-    is       => 'rw',
-    required => 1,
-);
-
 sub _table
 {
     my $self = shift;
-    return sprintf '%s_alias JOIN %s_name name ON %s_alias.name=name.id',
-        $self->type, $self->type, $self->type;
+    return sprintf '%s JOIN %s_name name ON %s.name=name.id',
+        $self->table, $self->name_table, $self->table
 }
 
 sub _columns
 {
     my $self = shift;
-    return sprintf '%s_alias.id, name.name, %s, editpending',
-        $self->type, $self->type;
+    return sprintf '%s.id, name.name, %s, editpending',
+        $self->table, $self->type;
 }
 
 sub _column_mapping
@@ -42,7 +36,7 @@ sub _column_mapping
 
 sub _id_column
 {
-    return shift->type . '_alias.id';
+    return shift->table . '.id';
 }
 
 sub _entity_class

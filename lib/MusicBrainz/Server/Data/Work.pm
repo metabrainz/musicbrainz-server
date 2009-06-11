@@ -10,13 +10,8 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
-with 'MusicBrainz::Server::Data::AnnotationRole';
+with 'MusicBrainz::Server::Data::AnnotationRole' => { type => 'work' };
 with 'MusicBrainz::Server::Data::Role::Name' => { name_table => 'work_name' };
-
-sub _annotation_type
-{
-    return 'work';
-}
 
 sub _table
 {
