@@ -376,8 +376,8 @@ INSERT INTO label_annotation
     WHERE a.moderator=moderator.id AND type = 3;
 
 INSERT INTO recording_annotation
-    SELECT rowid, a.id FROM public.annotation a, public.moderator
-    WHERE a.moderator=moderator.id AND type = 4;
+    SELECT rowid, a.id FROM public.annotation a, public.moderator, public.track as t
+    WHERE a.moderator=moderator.id AND type = 4 AND a.rowid = t.id;
 
 CREATE OR REPLACE FUNCTION tmp_join_append(VARCHAR, VARCHAR)
 RETURNS VARCHAR AS $$
