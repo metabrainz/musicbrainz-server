@@ -5,6 +5,7 @@ name 'musicbrainz';
 all_from 'lib/MusicBrainz/Server.pm';
 
 requires 'Algorithm::Diff'                             => '1.1902';
+requires 'Cache'                                       => '2.04';
 requires 'Cache::Memcached'                            => '1.24';
 requires 'Cache::Memcached::libmemcached'              => '0.02009';
 requires 'Catalyst::Action::RenderView'                => '0.08';
@@ -13,8 +14,6 @@ requires 'Catalyst::Model::Factory';
 requires 'Catalyst::Plugin::Authentication'            => '0.100092';
 requires 'Catalyst::Authentication::Credential::HTTP'  => '1.009';
 requires 'Catalyst::Plugin::ConfigLoader'              => '0.22';
-requires 'Catalyst::Plugin::Cache'                     => '0.08';
-requires 'Catalyst::Plugin::Cache::Memcached'          => '';
 requires 'Catalyst::Plugin::I18N'                      => '0.08';
 requires 'Catalyst::Plugin::Session::State::Cookie'    => '0.09';
 requires 'Catalyst::Plugin::Session::Store::FastMmap' => '0.05';

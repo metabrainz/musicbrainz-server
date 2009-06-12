@@ -147,12 +147,48 @@ sub CACHE_DEFAULT_EXPIRES { 3600 }
 # Default delete time in seconds.  Use 0 means allow re-insert straight away.
 sub CACHE_DEFAULT_DELETE { 4 }
 
+# XXX remove this
 # Cache::Memcached options
 our %CACHE_OPTIONS = (
 	servers => [ '127.0.0.1:11211' ],
 	debug => 0,
 );
 sub CACHE_OPTIONS { \%CACHE_OPTIONS }
+
+# Use memcached and a small in-memory cache, see below if you
+# want to disable caching
+our %CACHE_MANAGER_OPTIONS = (
+    profiles => {
+        memory => {
+            class => 'Cache::Memory',
+            wrapped => 1,
+            keys => [],
+            options => {
+                default_expires => '1 hour',
+            },
+        },
+        external => {
+            class => 'Cache::Memcached::libmemcached',
+            options => {
+                servers => [ '127.0.0.1:11211' ],
+            },
+        },
+    },
+    default_profile => 'external',
+);
+
+# No caching
+#our %CACHE_MANAGER_OPTIONS = (
+#    profiles => {
+#        null => {
+#            class => 'Cache::Null',
+#            wrapped => 1,
+#        },
+#    },
+#    default_profile => 'null',
+#);
+
+sub CACHE_MANAGER_OPTIONS { \%CACHE_MANAGER_OPTIONS }
 
 ################################################################################
 # Rate-Limiting

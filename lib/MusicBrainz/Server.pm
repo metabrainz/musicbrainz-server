@@ -9,6 +9,7 @@ use Catalyst;
 use MRO::Compat;
 use DBDefs;
 use MusicBrainz;
+use MusicBrainz::Server::CacheManager;
 use MusicBrainz::Server::Context;
 
 # Set flags and add plugins for the application
@@ -30,9 +31,6 @@ Session
 Session::State::Cookie
 
 Authentication
-
-Cache
-Cache::Memcached
 /;
 
 our $VERSION = '0.01';
@@ -65,12 +63,6 @@ __PACKAGE__->config(
         ],
     },
 );
-
-__PACKAGE__->config->{'Plugin::Cache'}{backend} = {
-    class   => "Cache::Memcached::libmemcached",
-    servers => &DBDefs::CACHE_OPTIONS->{servers},
-    debug   => &DBDefs::CACHE_OPTIONS->{debug},
-};
 
 __PACKAGE__->config->{'Plugin::Authentication'} = {
     default_realm => 'moderators',
@@ -134,17 +126,38 @@ __PACKAGE__->config->{session}{cookie_expires} = &DBDefs::WEB_SESSION_SECONDS_TO
 # Start the application
 __PACKAGE__->setup(@args);
 
-sub dispatch {
+sub dispatch
+{
     my $self = shift;
-    $self->{mb_context} = MusicBrainz::Server::Context->new();
+
+    unless (defined $self->{_mb_cache_manager}) {
+        $self->{_mb_cache_manager} =
+            MusicBrainz::Server::CacheManager->new(
+                &DBDefs::CACHE_MANAGER_OPTIONS);
+    }
+
+    $self->{_mb_context} = MusicBrainz::Server::Context->new(
+        cache_manager => $self->{_mb_cache_manager});
+
     $self->maybe::next::method(@_);
-    $self->{mb_context}->mb_logout;
-    $self->{mb_context} = undef;
+
+    $self->{_mb_context}->logout;
+    $self->{_mb_context} = undef;
+}
+
+sub cache {
+    my $self = shift;
+    return $self->{_mb_context}->cache(@_);
 }
 
 sub mb {
     my $self = shift;
-    return $self->{mb_context}->mb;
+    return $self->{_mb_context}->mb;
+}
+
+sub raw_mb {
+    my $self = shift;
+    return $self->{_mb_context}->raw_mb;
 }
 
 =head2 form_posted
@@ -160,31 +173,32 @@ sub form_posted
     return $c->req->method eq 'POST';
 }
 
-
 =head1 NAME
 
-musicbrainz - Catalyst based application
+MusicBrainz::Server - Catalyst-based MusicBrainz server
 
 =head1 SYNOPSIS
 
     script/musicbrainz_server.pl
 
-=head1 DESCRIPTION
-
-[enter your description here]
-
-=head1 SEE ALSO
-
-L<musicbrainz::Controller::Root>, L<Catalyst>
-
-=head1 AUTHOR
-
-Catalyst developer
-
 =head1 LICENSE
 
-This library is free software, you can redistribute it and/or modify
-it under the same terms as Perl itself.
+Copyright (C) 2008 Oliver Charles
+Copyright (C) 2009 Lukas Lalinsky
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 =cut
 

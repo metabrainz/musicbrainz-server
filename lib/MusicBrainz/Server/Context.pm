@@ -6,24 +6,51 @@ use MusicBrainz;
 has 'cache_manager' => (
     is => 'ro',
     isa => 'MusicBrainz::Server::CacheManager',
-    handles => ['cache']
+    handles => [ 'cache' ]
 );
 
-sub mb {
-    my $self = shift;
-    if (!defined($self->{mb})) {
-        $self->{mb} = MusicBrainz->new;
-        $self->{mb}->Login;
-    }
-    return $self->{mb};
-}
+has '_logout' => (
+    is => 'rw',
+    isa => 'Int',
+    default => 0
+);
 
-sub mb_logout {
+has 'mb' => (
+    is => 'ro',
+    isa => 'MusicBrainz',
+    lazy => 1,
+    required => 0,
+    default => sub {
+        my $self = shift;
+        my $mb = MusicBrainz->new;
+        $mb->Login;
+        $self->_logout($self->_logout | 1);
+        return $mb;
+    },
+    handles => [ 'dbh' ]
+);
+
+has 'raw_mb' => (
+    is => 'ro',
+    isa => 'MusicBrainz',
+    lazy => 1,
+    required => 0,
+    default => sub {
+        my $self = shift;
+        my $mb = MusicBrainz->new;
+        $mb->Login(db => 'RAWDATA');
+        $self->_logout($self->_logout | 2);
+        return $mb;
+    },
+    handles => { 'raw_dbh' => 'dbh' }
+);
+
+sub logout
+{
     my $self = shift;
-    if (defined($self->{mb})) {
-        $self->{mb}->Logout;
-        $self->{mb} = undef;
-    }
+
+    $self->mb->Logout if $self->_logout & 1;
+    $self->raw_mb->Logout if $self->_logout & 2;
 }
 
 sub model
