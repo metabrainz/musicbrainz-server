@@ -4,7 +4,7 @@ use base 'Exporter';
 
 use List::MoreUtils qw( zip );
 use MusicBrainz::Server::Entity::PartialDate;
-use OSSP::UUID;
+use OSSP::uuid;
 use Sql;
 use UNIVERSAL::require;
 
