@@ -15,9 +15,7 @@ CREATE INDEX artist_tag_idx_tag ON artist_tag (tag);
 
 CREATE UNIQUE INDEX country_idx_isocode ON country (isocode);
 
--- FIXME 
--- CREATE UNIQUE INDEX editor_idx_name ON editor (LOWER(name));
-CREATE INDEX editor_idx_name ON editor (LOWER(name));
+CREATE UNIQUE INDEX editor_idx_name ON editor (LOWER(name));
 
 CREATE UNIQUE INDEX label_idx_gid ON label (gid);
 CREATE INDEX label_idx_name ON label (name);
