@@ -162,7 +162,6 @@ sub SaveIndex
 
     MusicBrainz::Server::Cache->set(WIKIDOCS_INDEX, $index);
 
-    # TODO: flock this -- it wont be used much and the chances or collisions are slim
     # Write it to disk
     if (!open(FH, ">" . &DBDefs::WIKITRANS_INDEX_FILE))
     {

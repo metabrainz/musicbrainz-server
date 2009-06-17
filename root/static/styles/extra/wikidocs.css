@@ -1,0 +1,20 @@
+/*
+ * WikiDocs styles
+ */
+
+/* header section (used for unofficial pages) */
+.wikidocs-header {
+    margin-top: 5px;
+    border-bottom: 2px dotted #ccc;
+    text-align: left;
+    padding-bottom: 5px;
+    font-size: 11px;
+}
+
+/* footer section */
+.wikidocs-footer {
+    border-top: 2px dotted #ccc;
+    margin-top: 5px;
+    padding-top: 5px;
+    font-size: 11px;
+}

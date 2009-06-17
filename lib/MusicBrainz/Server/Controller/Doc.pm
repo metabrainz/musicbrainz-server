@@ -2,32 +2,29 @@ package MusicBrainz::Server::Controller::Doc;
 
 use strict;
 use warnings;
+use DBDefs;
 
 use base 'MusicBrainz::Server::Controller';
 
-sub load : Chained('/') PathPart('doc') CaptureArgs(1)
+sub load :Path('') 
 {
-    my ($self, $c, $page_id) = @_;
-    $c->stash->{page} = $c->model('Documentation')->fetch_page($page_id);
-}
+    my ($self, $c, @args) = @_;
 
-sub show : Chained('load') PathPart('')
-{
-    my ($self, $c) = @_;
+    my $page_id = join '/', @args;  
+    my $bare = $c->req->param('bare') || 0;
+    
+    my $page = $c->model('WikiDoc')->fetch_page($page_id);
+    $c->stash->{page} = $page;
+    $c->stash->{wiki_server} = &DBDefs::WIKITRANS_SERVER;
 
-    my $page = $c->stash->{page};
-    $c->stash->{template} = $page->{success} ? 'doc/page.tt'
-                          : 'doc/error.tt';
-}
-
-sub bare : Chained('load') PathPart
-{
-    my ($self, $c) = @_;
-
-    my $page = $c->stash->{page};
-    $c->stash->{template} = $page->{success} ? 'doc/bare.tt'
-                          : 'doc/bare_error.tt';
+    if ($bare)
+    {
+        $c->stash->{template} = $page->success ? 'doc/bare.tt' : 'doc/bare_error.tt';
+    }
+    else
+    {
+        $c->stash->{template} = $page->success ? 'doc/page.tt' : 'doc/error.tt';
+    }
 }
 
 1;
-
