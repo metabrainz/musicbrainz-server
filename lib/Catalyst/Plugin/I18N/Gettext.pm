@@ -57,7 +57,6 @@ sub ngettext
 
         _set_language($c);
 
-
 	return __expand(__n($msgid, $msgid_plural, $n), %vars);
 }
 
@@ -67,8 +66,8 @@ sub __expand
     my ($translation, %args) = @_;
 
     my $re = join '|', map { quotemeta $_ } keys %args;
-
-    $translation =~ s/\{($re)\|(.*?)\}/defined $args{$1} ? "<a href=\"" . $args{$1} . "\">$2<\/a>" : "{$1}"/ge;
+    
+    $translation =~ s/\{($re)\|(.*?)\}/defined $args{$1} ? "<a href=\"" . $args{$1} . "\">" . (defined $args{$2} ? $args{$2} : $2) . "<\/a>" : "{$0}"/ge;
     $translation =~ s/\{($re)\}/defined $args{$1} ? $args{$1} : "{$1}"/ge;
 
     return $translation;
