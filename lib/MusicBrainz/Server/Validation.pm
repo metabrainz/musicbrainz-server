@@ -103,7 +103,7 @@ sub TrimInPlace
 		# TODO decode, trim, encode?
 		s/\A\s+//;
 		s/\s+\z//;
-		s/\s+/ /;
+		s/\s+/ /g;
 	}
 }
 
