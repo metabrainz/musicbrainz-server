@@ -12,7 +12,7 @@ has [qw( name_table table type entity )] => (
 sub _table
 {
     my $self = shift;
-    return sprintf '%s JOIN %s_name name ON %s.name=name.id',
+    return sprintf '%s JOIN %s name ON %s.name=name.id',
         $self->table, $self->name_table, $self->table
 }
 
