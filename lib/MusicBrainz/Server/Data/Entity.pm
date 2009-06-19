@@ -36,6 +36,11 @@ sub _attribute_mapping
     return {};
 }
 
+sub _dbh
+{
+    shift->c->dbh;
+}
+
 sub _new_from_row
 {
     my ($self, $row, $prefix) = @_;
@@ -65,7 +70,7 @@ sub _get_by_keys
     my $query = "SELECT " . $self->_columns . 
                 " FROM " . $self->_table .
                 " WHERE $key IN (" . placeholders(@ids) . ")";
-    my $sql = Sql->new($self->c->mb->{dbh});
+    my $sql = Sql->new($self->_dbh);
     $sql->Select($query, @ids);
     my %result;
     while (1) {

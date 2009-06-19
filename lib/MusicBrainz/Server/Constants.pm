@@ -5,16 +5,35 @@ use warnings;
 
 use base 'Exporter';
 
-our @EXPORT_OK = qw( $DLABEL_ID $DARTIST_ID $VARTIST_ID $VARTIST_GID);
-
 use Readonly;
 
+sub _get
+{
+    my $re = shift;
+    return [
+        map { "\$$_" }
+        grep { $_ =~ $re }
+        keys %MusicBrainz::Server::Constants::
+    ];
+}
+
+our %EXPORT_TAGS = (
+    edit_type => _get(qr/^EDIT_/),
+);
+
+our @EXPORT_OK = (
+    qw( $DLABEL_ID $DARTIST_ID $VARTIST_ID $VARTIST_GID ),
+    @{ _get(qr/^EDIT_/) }
+);
+
 Readonly our $DLABEL_ID => 1;
+Readonly our $DARTIST_ID => 2;
 
 Readonly our $VARTIST_GID => '89ad4ac3-39f7-470e-963a-56509c546377';
 Readonly our $VARTIST_ID  => 1;
 
-Readonly our $DARTIST_ID => 2;
+Readonly our $EDIT_ARTIST_CREATE => 1;
+Readonly our $EDIT_ARTIST_EDIT => 2;
 
 =head1 NAME
 

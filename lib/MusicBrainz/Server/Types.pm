@@ -11,11 +11,17 @@ our %EXPORT_TAGS = (
             $ELECTION_ACCEPTED   $ELECTION_REJECTED   $ELECTION_CANCELLED )
     ],
     vote => [
-        qw ( $VOTE_NO $VOTE_ABSTAIN $VOTE_NO_VOTE $VOTE_YES )
+        qw( $VOTE_NO $VOTE_ABSTAIN $VOTE_NO_VOTE $VOTE_YES )
+    ],
+    edit_status => [
+        qw( $STATUS_OPEN      $STATUS_APPLIED     $STATUS_FAILEDVOTE
+            $STATUS_FAILEDDEP $STATUS_ERROR       $STATUS_FAILEDPREREQ
+            $STATUS_NOVOTES   $STATUS_TOBEDELETED $STATUS_DELETED )
     ],
 );
 Exporter::export_ok_tags('election_status');
 Exporter::export_ok_tags('vote');
+Exporter::export_ok_tags('edit_status');
 
 use DateTime::Format::Pg;
 use Readonly;
@@ -33,6 +39,16 @@ Readonly our $VOTE_ABSTAIN => -1;
 Readonly our $VOTE_NO      =>  0;
 Readonly our $VOTE_YES     =>  1;
 
+Readonly our $STATUS_OPEN         => 1;
+Readonly our $STATUS_APPLIED      => 2;
+Readonly our $STATUS_FAILEDVOTE   => 3;
+Readonly our $STATUS_FAILEDDEP    => 4;
+Readonly our $STATUS_ERROR        => 5;
+Readonly our $STATUS_FAILEDPREREQ => 6;
+Readonly our $STATUS_NOVOTES      => 7;
+Readonly our $STATUS_TOBEDELETED  => 8;
+Readonly our $STATUS_DELETED      => 9;
+
 subtype 'DateTime'
     => class_type 'DateTime';
 
@@ -47,6 +63,11 @@ subtype 'AutoEditorElectionStatus'
 subtype 'Vote'
     => as 'Int'
     => where { $_ >= $VOTE_NO_VOTE && $_ <= $VOTE_YES };
+
+
+subtype 'EditStatus'
+    => as 'Int'
+    => where { $_ >= $STATUS_OPEN && $_ <= $STATUS_DELETED };
 
 1;
 

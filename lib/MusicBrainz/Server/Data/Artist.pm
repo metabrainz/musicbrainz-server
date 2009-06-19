@@ -92,13 +92,12 @@ sub insert
 
 sub update
 {
-    my ($self, $artist, $update) = @_;
-    croak '$artist must be defined and have an id'
-        unless defined $artist && $artist->id > 0;
+    my ($self, $artist_id, $update) = @_;
+    croak '$artist_id must be present and > 0' unless $artist_id > 0;
     my $sql = Sql->new($self->c->mb->dbh);
     my %names = $self->find_or_insert_names($update->{name}, $update->{sort_name});
     my $row = $self->_hash_to_row($update, \%names);
-    $sql->Update('artist', $row, { id => $artist->id });
+    $sql->Update('artist', $row, { id => $artist_id });
 }
 
 sub delete

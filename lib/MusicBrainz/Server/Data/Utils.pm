@@ -15,6 +15,7 @@ our @EXPORT_OK = qw(
     generate_gid
     load_subobjects
     partial_date_from_row
+    partial_date_to_hash
     placeholders
     query_to_list
     query_to_list_limited
@@ -45,6 +46,18 @@ sub partial_date_from_row
     $info{month} = $row->{$prefix . 'month'} if defined $row->{$prefix . 'month'};
     $info{day} = $row->{$prefix . 'day'} if defined $row->{$prefix . 'day'};
     return MusicBrainz::Server::Entity::PartialDate->new(%info);
+}
+
+sub partial_date_to_hash
+{
+    my ($date) = @_;
+    return {
+        defined_hash(
+                year => $date->year,
+                month => $date->month,
+                day => $date->day
+        )
+    };
 }
 
 sub placeholders

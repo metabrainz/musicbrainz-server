@@ -203,7 +203,7 @@ sub InsertRow
 	{
 		push @columns, $k;
 		push(@expressions, $$v), next
-			if ref $v;
+			if ref $v eq 'SCALAR';
 		push @expressions, "?";
 		push @values, $v;
 	}
