@@ -83,7 +83,7 @@ ok($artist->end_date->is_empty);
 is($artist->type_id, 2);
 ok(defined $artist->gid);
 
-$artist_data->update($artist, {
+$artist_data->update($artist->id, {
         sort_name => 'Kate Bush',
         end_date => { year => 2009 }
     });
