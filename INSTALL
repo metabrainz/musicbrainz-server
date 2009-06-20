@@ -36,16 +36,11 @@ Getting going
 
 	cd mb_server
 	cp lib/DBDefs.pm.default lib/DBDefs.pm
-	cp lib/MusicBrainz/Server.pm.default lib/MusicBrainz/Server.pm
 	
-	Edit the newly copied DBDefs.pm as need be. For the most part, it should be
-	fine to use as is. Refer to INSTALL for more indepth info about this, and 
+    Edit the newly copied DBDefs.pm as need be. For the most part, it should be
+    fine to use as is. Refer to INSTALL for more indepth info about this, and 
     how it ties in with running a copy of the MusicBrainz database.
     
-    You can also edit the new Server.pm. This is mostly for server admins,
-    however - who require different stores for sessions, more control
-    over Debug output - etc. Developers will be OK to leave this as is.
-	
 3) Install prerequisite Perl modules
 
     The Module::Install module reads a file called Makefile.PL to create a standard
@@ -81,8 +76,24 @@ Getting going
 		
 			./admin/InitDb.pl --createdb --clean
 		
-	b) Using Database Dumps
+	b) Using Database Dumps pre NGS
+
+                IMPORTANT NOTE: Until the actual release of the NGS code-base you will need to import
+                data using the 20090524 code-base!! Follow these instructions for a "Database only" install:
+
+                        http://bugs.musicbrainz.org/browser/mb_server/branches/RELEASE_20090524-BRANCH/INSTALL
+
+                To ensure that the data imports cleanly, make sure to use a data dump from 2009-06-19 or later!
+
+                Once you have the database properly loaded, return to the NGS codebase and run:
+
+                        ./upgrade.sh
+
+                This will convert the data to the NGS format. Please note that this process will take some
+                time -- please be patient!
 	
+	c) Using Database Dumps post NGS release (Fall 2009)
+
 		MusicBrainz frequently do full dumps of the database, which you can import to your own
 		local database. This is the best option for long term developers. The database dumps are
 		stored at
