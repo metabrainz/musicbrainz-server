@@ -35,6 +35,8 @@ Readonly our $VARTIST_ID  => 1;
 Readonly our $EDIT_ARTIST_CREATE => 1;
 Readonly our $EDIT_ARTIST_EDIT => 2;
 
+Readonly our $EDIT_LABEL_CREATE => 10;
+
 =head1 NAME
 
 MusicBrainz::Server::Constant - constants used in the database that
