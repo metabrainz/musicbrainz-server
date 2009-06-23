@@ -52,7 +52,7 @@ my @entity_types = (
     ['album', 'album', 'release_group', 'release_group', 0],
     ['album', 'artist', 'artist', 'release_group', 1],
     ['album', 'label', 'label', 'release_group', 1],
-    ['album', 'track', 'recording', 'release_group', , 1],
+    ['album', 'track', 'recording', 'release_group', 1],
     ['album', 'url', 'release_group', 'url', 0],
     ['artist', 'artist', 'artist', 'artist', 0],
     ['artist', 'label', 'artist', 'label', 0],
