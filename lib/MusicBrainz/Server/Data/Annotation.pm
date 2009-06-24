@@ -61,6 +61,7 @@ sub delete
                 " RETURNING annotation";
     my $sql = Sql->new($self->c->dbh);
     my $annotations = $sql->SelectSingleColumnArray($query, @ids);
+    return 1 unless scalar @$annotations;
     $query = "DELETE FROM annotation WHERE id IN (" . placeholders(@$annotations) . ")";
     $sql->Do($query, @$annotations);
     return 1;
