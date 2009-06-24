@@ -1,6 +1,8 @@
 package MusicBrainz::Server::Data::Alias;
 use Moose;
 
+use MusicBrainz::Server::Data::Utils qw( placeholders );
+
 extends 'MusicBrainz::Server::Data::Entity';
 
 has [qw( name_table table type entity )] => (
@@ -48,6 +50,16 @@ sub find_by_entity_id
 {
     my ($self, @ids) = @_;
     return [ values %{ $self->_get_by_keys($self->type, @ids) } ];
+}
+
+sub delete
+{
+    my ($self, @ids) = @_;
+    my $sql = Sql->new($self->c->dbh);
+    my $query = "DELETE FROM " . $self->table .
+                " WHERE " . $self->type . " IN (" . placeholders(@ids) . ")";
+    $sql->Do($query, @ids);
+    return 1;
 }
 
 no Moose;

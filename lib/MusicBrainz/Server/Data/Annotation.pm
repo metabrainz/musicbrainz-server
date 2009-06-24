@@ -2,6 +2,7 @@ package MusicBrainz::Server::Data::Annotation;
 use Moose;
 
 use MusicBrainz::Server::Entity::Annotation;
+use MusicBrainz::Server::Data::Utils qw( placeholders );
 
 extends 'MusicBrainz::Server::Data::Entity';
 
@@ -50,6 +51,19 @@ sub load_latest
         my $annotation = $self->get_latest($obj->id) or next;
         $obj->latest_annotation($annotation);
     }
+}
+
+sub delete
+{
+    my ($self, @ids) = @_;
+    my $query = "DELETE FROM " . $self->table .
+                " WHERE " . $self->type . " IN (" . placeholders(@ids) . ")" .
+                " RETURNING annotation";
+    my $sql = Sql->new($self->c->dbh);
+    my $annotations = $sql->SelectSingleColumnArray($query, @ids);
+    $query = "DELETE FROM annotation WHERE id IN (" . placeholders(@$annotations) . ")";
+    $sql->Do($query, @$annotations);
+    return 1;
 }
 
 no Moose;

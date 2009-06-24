@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 55;
+use Test::More tests => 57;
 use_ok 'MusicBrainz::Server::Data::Artist';
 use MusicBrainz::Server::Data::Search;
 
@@ -10,6 +10,9 @@ use Sql;
 
 my $c = MusicBrainz::Server::Context->new();
 MusicBrainz::Server::Test->prepare_test_database($c);
+
+my $sql = Sql->new($c->mb->dbh);
+$sql->Begin;
 
 my $artist_data = MusicBrainz::Server::Data::Artist->new(c => $c);
 
@@ -44,6 +47,15 @@ is ( $artist->comment, undef );
 my $annotation = $artist_data->annotation->get_latest(3);
 like ( $annotation->text, qr/Test annotation 1/ );
 
+$artist_data->annotation->delete(3);
+$annotation = $artist_data->annotation->get_latest(3);
+ok(!defined $annotation);
+
+$artist = $artist_data->get_by_gid('a4ef1d08-962e-4dd6-ae14-e42a6a97fc11');
+is ( $artist->id, 4 );
+
+$sql->Commit;
+
 my $search = MusicBrainz::Server::Data::Search->new(c => $c);
 my ($results, $hits) = $search->search("artist", "bush", 10);
 is( $hits, 3 );
@@ -52,14 +64,14 @@ is( $results->[0]->position, 1 );
 is( $results->[0]->entity->name, "Kate Bush" );
 is( $results->[0]->entity->sort_name, "Bush, Kate" );
 
+$sql->Begin;
+
 my %names = $artist_data->find_or_insert_names('Kate Bush', 'Bush, Kate', 'Massive Attack');
 is(keys %names, 3);
 is($names{'Kate Bush'}, 9);
 is($names{'Bush, Kate'}, 10);
 ok($names{'Massive Attack'} > 10);
 
-my $sql = Sql->new($c->mb->dbh);
-$sql->Begin;
 $artist = $artist_data->insert({
         name => 'Queen',
         sort_name => 'David Bowie',
