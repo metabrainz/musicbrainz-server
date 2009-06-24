@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 51;
+use Test::More tests => 55;
 use_ok 'MusicBrainz::Server::Data::Artist';
 use MusicBrainz::Server::Data::Search;
 
@@ -43,9 +43,6 @@ is ( $artist->comment, undef );
 
 my $annotation = $artist_data->annotation->get_latest(3);
 like ( $annotation->text, qr/Test annotation 1/ );
-
-$artist = $artist_data->get_by_gid('a4ef1d08-962e-4dd6-ae14-e42a6a97fc11');
-is ( $artist->id, 4 );
 
 my $search = MusicBrainz::Server::Data::Search->new(c => $c);
 my ($results, $hits) = $search->search("artist", "bush", 10);
@@ -96,4 +93,28 @@ is($artist->end_date->year, 2009);
 $artist_data->delete($artist);
 $artist = $artist_data->get_by_id($artist->id);
 ok(!defined $artist);
+
+$artist = $artist_data->get_by_gid('a4ef1d08-962e-4dd6-ae14-e42a6a97fc11');
+is ( $artist->id, 4 );
+
+$artist_data->remove_gid_redirects(4);
+$artist = $artist_data->get_by_gid('a4ef1d08-962e-4dd6-ae14-e42a6a97fc11');
+ok(!defined $artist);
+
+$artist_data->add_gid_redirects(
+    '20bb5c20-5dbf-11de-8a39-0800200c9a66' => 3,
+    '2adff2b0-5dbf-11de-8a39-0800200c9a66' => 5,
+);
+
+$artist = $artist_data->get_by_gid('20bb5c20-5dbf-11de-8a39-0800200c9a66');
+is($artist->id, 3);
+
+$artist = $artist_data->get_by_gid('2adff2b0-5dbf-11de-8a39-0800200c9a66');
+is($artist->id, 5);
+
+$artist_data->update_gid_redirects(5, 3);
+
+$artist = $artist_data->get_by_gid('2adff2b0-5dbf-11de-8a39-0800200c9a66');
+is($artist->id, 3);
+
 $sql->Commit;
