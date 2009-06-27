@@ -155,9 +155,19 @@ sub mb {
     return $self->{_mb_context}->mb;
 }
 
+sub dbh {
+    my $self = shift;
+    return $self->{_mb_context}->mb->dbh;
+}
+
 sub raw_mb {
     my $self = shift;
     return $self->{_mb_context}->raw_mb;
+}
+
+sub raw_dbh {
+    my $self = shift;
+    return $self->{_mb_context}->raw_mb->dbh;
 }
 
 =head2 form_posted
