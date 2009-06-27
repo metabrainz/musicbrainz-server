@@ -15,3 +15,9 @@
     [%- IF opts.id %] id="[% opts.id %]"[% END %]
     [%- IF field.value %] value="[% field.value | html %]"[% END %]/>
 [%- END -%]
+
+[%- MACRO form_field_password(field, opts) BLOCK -%]
+<input name="[% field.full_name %]" type="password"
+    [%- IF opts.id %] id="[% opts.id %]"[% END %]
+    [%- IF field.value %] value="[% field.value | html %]"[% END %]/>
+[%- END -%]

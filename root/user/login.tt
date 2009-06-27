@@ -3,13 +3,20 @@
         <p>
             [% l('Please log in using the form below. Note that the password field <em>is</em> case sensitive.') %]
         </p>
-        [% WRAPPER "forms/form.tt" moderation=0 %]
-            [% INCLUDE "forms/generic/row.tt" field=form.field('username') label=l("Username") %]
-            [% INCLUDE "forms/generic/row.tt" field=form.field('password') label=l("Password") %]
-            [% INCLUDE "forms/submit.tt" label="Log In" %]
-            [% INCLUDE "forms/generic/row.tt" field=form.field('remember_me') label=l("Log in permanently") %]
-            [% INCLUDE "forms/generic/row.tt" field=form.field('single_ip') label=l('Only from this <abbr title="Internet Protocol">IP</abbr> address') %]
-        [% END %]
+        <form action="[% c.req.uri_with({ uri => redirect }) %]" method="post">
+            [% IF login_form.has_errors -%]
+                <p><strong>[% l('Incorrect log in or password') %]</strong></p>
+            [%- END %]
+            <p>
+                <label for="id_username">[% l('Username') %]</label>
+                [% form_field_text(login_form.field('username')) %]
+            </p>
+            <p>
+                <label for="id_password">[% l('Password') %]</label>
+                [% form_field_password(login_form.field('password')) %]
+            </p>
+            <input type="submit" value="[% l('Log in') %]" />
+        </form>
         <ul>
             <li>
                 <a href="[% c.uri_for('/user/register') %]">

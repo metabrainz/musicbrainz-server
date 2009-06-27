@@ -1,14 +1,14 @@
 package MusicBrainz::Server::Controller::User;
+use Moose;
 
-use strict;
-use warnings;
-
-use base 'MusicBrainz::Server::Controller';
+BEGIN { extends 'MusicBrainz::Server::Controller' };
 
 use Digest::SHA1 qw(sha1_base64);
 use MusicBrainz;
 use MusicBrainz::Server::Editor;
 use UserPreference;
+
+use MusicBrainz::Server::Form::User::Login;
 
 =head1 NAME
 
@@ -38,78 +38,53 @@ sub index : Private
     $c->detach('profile', [ $c->user->name ]);
 }
 
-=head2 login
-
-Display a form allowing users to login. If a POST request is received,
-we validate this login data, and attempt to log the user in.
-
-=cut
-
-sub login : Private
+sub do_login : Private
 {
     my ($self, $c) = @_;
+    return 1 if $c->user_exists;
 
-    return 1
-        if MusicBrainz::Server::Editor->TryAutoLogin($c);
+    my $login_form = MusicBrainz::Server::Form::User::Login->new;
+    my $redirect = $c->req->query_params->{uri} // $c->req->path;
 
-    return 1
-        if $c->user_exists;
-
-    use MusicBrainz::Server::Form::User::Login;
-    $self->form(MusicBrainz::Server::Form::User::Login->new);
-
-    $c->stash->{template}         = 'user/login.tt';
-    $c->stash->{form}             = $self->form;
-    $c->session->{__login_dest} ||= $c->req->uri;
-
-    $c->detach unless $self->submit_and_validate($c);
-
-    if( !$c->authenticate({ username => $self->form->value("username"),
-                            password => $self->form->value("password") }) )
+    if ($c->form_posted && $login_form->process(params => $c->req->params))
     {
-        $self->form->add_general_error('Username/password combination invalid');
+        if( !$c->authenticate({ username => $login_form->field("username")->value,
+                                password => $login_form->field("password")->value }) )
+        {
+            # Bad username / password combo
+            $c->log->info('Invalid username/password');
+            $c->stash( bad_login => 1 );
+        }
+        else
+        {
+            # Logged in OK
+            $c->response->redirect($c->uri_for("/$redirect"));
+            $c->detach;
+        }
+    }
+
+    # Form not even posted
+    $c->stash(
+        template => 'user/login.tt',
+        login_form => $login_form,
+        redirect => $redirect,
+    );
+
+    $c->detach;
+}
+
+sub login : Local
+{
+    my ($self, $c) = @_;
+    
+    if ($c->user_exists)
+    {
+        $c->response->redirect($c->uri_for('/'));
         $c->detach;
     }
     else
     {
-        if ($self->form->value('remember_me'))
-        {
-            $c->user->SetPermanentCookie($c,
-                only_this_ip => $self->form->value('single_ip')
-            );
-        }
-    }
-    
-    $c->response->redirect(delete $c->session->{__login_dest});
-    $c->detach;
-}
-
-sub login_form : Local Path('login')
-{
-    my ($self, $c) = @_;
-
-    $c->detach('/user/profile', [ $c->user->name ])
-        if $c->user_exists;
-
-    unless (defined $c->session->{__login_dest})
-    {
-        # Only redirect to referer if it came from $base
-        # (the hostname of this server)
-        my $base    = $c->req->base;
-        my $referer = $c->req->referer;
-
-        $c->session->{__login_dest} = $referer =~ $base
-            ? $referer : $c->uri_for('/')
-    }
-
-    $c->forward('/user/login');
-
-    if ($c->user_exists)
-    {
-        # As strange as this condition appears, it happens
-        # if users clicks login while being on the login page
-        $c->response->redirect($c->uri_for('/'));
-        $c->detach;
+        $c->forward('/user/do_login');
     }
 }
 
@@ -560,12 +535,7 @@ sub logout : Local
 
     if ($c->user_exists)
     {
-        $c->user->ClearPermanentCookie($c);
-        $c->user->InvalidateCache;
         $c->logout;
-
-        delete $c->session->{orig_privs};
-        delete $c->session->{session_privs};
     }
 
     $c->response->redirect($c->uri_for('/'));

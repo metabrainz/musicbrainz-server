@@ -100,21 +100,6 @@ sub begin : Private
 	$c->stash->{current_relationship} = $c->model(ucfirst $rel->{type})->load($rel->{id});
     }
 
-    # Update volatile user preferences
-    if ($c->user_exists)
-    {
-        if (!defined $c->session->{orig_privs})
-        {
-            $c->session->{orig_privs} = $c->user->privs;
-        }
-
-        if ($c->user->is_auto_editor($c->session->{orig_privs}) &&
-                defined $c->session->{session_privs})
-        {
-            $c->user->privs($c->session->{session_privs});
-        }
-    }
-
     # Update the tagger port
     if (exists $c->req->query_params->{tport})
     {

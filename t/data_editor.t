@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 use strict;
-use Test::More tests => 14;
+use Test::More tests => 15;
 
 BEGIN { use_ok 'MusicBrainz::Server::Data::Editor'; }
 
@@ -34,3 +34,6 @@ is_deeply($editor->email_confirmation_date, DateTime->new(year => 2005, month =>
 
 is_deeply($editor->registration_date, DateTime->new(year => 1989, month => 07, day => 23),
     'registration date');
+
+my $editor2 = $editor_data->get_by_name('new_editor');
+is_deeply($editor, $editor2);

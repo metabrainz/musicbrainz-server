@@ -38,9 +38,14 @@
             <div id="header-menu"><div class="inner">
                 <div>
                     <ul>
-                        <li><a href="[% c.uri_for('/user/login') %]">Sign in</a></li>
+                    [%- IF c.user_exists -%]
+                        <li>[% link_editor(c.user) %]</li>
+                        <li><a href="[% c.uri_for('/user/logout') %]">Log out</a></li>
+                    [%- ELSE -%]
+                        <li>[% request_login() %]</li>
                         <li><a href="[% c.uri_for('/user/register') %]">Create account</a></li>
-                    <ul>
+                    [%- END -%]
+                    </ul>
                 </div>
                 [%- INCLUDE "layout/menu.tt" -%]
             </div></div>

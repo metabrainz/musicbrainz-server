@@ -41,6 +41,13 @@ sub _entity_class
     return 'MusicBrainz::Server::Entity::Editor';
 }
 
+sub get_by_name
+{
+    my ($self, $name) = @_;
+    my @result = values %{$self->_get_by_keys('name', $name)};
+    return $result[0];
+}
+
 no Moose;
 __PACKAGE__->meta->make_immutable;
 1;

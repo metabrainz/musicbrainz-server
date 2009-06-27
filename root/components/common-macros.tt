@@ -155,3 +155,13 @@ END -%]
     '<a href="' _ link _ '">' _ text _ '</a>';
 END -%]
 
+[%- MACRO link_editor(editor, action, text) BLOCK;
+    action = action || 'profile';
+    link = c.uri_for_action("/user/$action", editor.name);
+    text = text || html_escape(editor.name);
+    '<a href="' _ link _ '">' _ text _ '</a>';
+END -%]
+
+[%- MACRO request_login(text) BLOCK -%]
+<a href="[% c.uri_for('/user/login', { uri => c.req.path }) %]">[% text || l('Log in') %]</a>
+[%- END -%]

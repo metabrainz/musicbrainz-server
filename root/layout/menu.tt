@@ -184,9 +184,7 @@
             </li>
             [%- ELSE -%]
                 <li>
-                    <a href="[% c.uri_for('/user/login') %]">
-                        [% l('You must be logged-in to edit') %]
-                    </a>
+                    [% request_login(l('You must be logged-in to edit')) %]
                 </li>
             [%- END -%]
         </ul>
@@ -241,8 +239,7 @@
         </li>
     [%- ELSE -%]
         <li>
-            <a href="[% c.uri_for('/user/login') %]">
-                [% l('Account') %]
+            [% request_login(l('Account')) %]
             </a>
             <ul>
 	        <li>
@@ -251,9 +248,7 @@
                     </a>
                 </li>
 	        <li>
-                    <a href="[% c.uri_for('/user/login') %]">
-                        [% l('Log in') %]
-                    </a>
+                    [% request_login(l('Log in')) %]
                 </li>
 	        <li>
                     <a href="[% c.uri_for('/user/forgot_password') %]">

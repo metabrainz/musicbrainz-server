@@ -1,51 +1,30 @@
 package MusicBrainz::Server::Form::User::Login;
+use HTML::FormHandler::Moose;
+extends 'HTML::FormHandler';
 
-use strict;
-use warnings;
+has_field 'username' => (
+    type => 'Text',
+    required => 1,
+);
 
-use base 'MusicBrainz::Server::Form';
+has_field 'password' => (
+    type => 'Password',
+    required => 1,
+    min_length => 1
+);
 
-=head1 NAME 
+has_field 'single_ip' => (
+    type => 'Boolean',
+);
 
-MusicBrainz::Server::Form::User::Login;
+has_field 'remember_me' => (
+    type => 'Boolean'
+);
 
-=head1 DESCRIPTION
+__PACKAGE__->meta->make_immutable;
+no Moose;
 
-Allow users to login to the site
-
-=head1 METHODS
-
-=head2 name
-
-Returns a name for this form
-
-=cut
-
-sub name { 'user-login' }
-
-=head2 profile
-
-Returns a list of optional and required form fields
-
-=cut
-
-sub profile
-{
-    return {
-        required => {
-            username => 'Text',
-            password => {
-                type => 'Text',
-                min_length => 1,
-                widget => 'password'
-            },
-        },
-        optional => {
-            single_ip => 'Checkbox',
-            remember_me => 'Checkbox',
-        }
-    }
-}
+1;
 
 =head1 LICENSE
 
@@ -65,5 +44,3 @@ the original  source or any  software  utilizing a GPL  component, such  as
 this, is also licensed under the GPL license.
 
 =cut
-
-1;
