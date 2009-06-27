@@ -12,6 +12,8 @@ extends 'MusicBrainz::Server::Edit';
 sub edit_name { "Create Label" }
 sub edit_type { $EDIT_LABEL_CREATE }
 sub edit_auto_edit { 1 }
+sub entity_model { 'Label' }
+sub entity_id { shift->label_id }
 
 has '+data' => (
     isa => Dict[

@@ -13,6 +13,8 @@ extends 'MusicBrainz::Server::Edit';
 sub edit_type { $EDIT_ARTIST_CREATE }
 sub edit_name { "Create Artist" }
 sub edit_auto_edit { 1 }
+sub entity_model { 'Artist' }
+sub entity_id { shift->artist_id }
 
 has 'artist_id' => (
     isa => 'Int',
@@ -53,12 +55,6 @@ has '+data' => (
         ]],
     ]
 );
-
-sub create
-{
-    my ($class, $artist_hash, @args) = @_;
-    return $class->new(data => $artist_hash, @args);
-}
 
 override 'accept' => sub
 {

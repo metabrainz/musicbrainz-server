@@ -54,18 +54,31 @@ has 'auto_edit' => (
     default => sub { shift->edit_auto_edit }
 );
 
+sub is_open
+{
+    return shift->status == $STATUS_OPEN;
+}
+
 sub edit_type { die 'Not implemented' }
 sub edit_name { '' }
 sub edit_auto_edit { return }
 sub edit_voting_period { DateTime::Duration->new(days => 7) }
 
 sub entities { return {} }
+sub entity_id { }
+sub entity_model { }
 sub accept { }
 sub reject { }
 sub insert { }
 
 sub to_hash { shift->data }
 sub restore { shift->data(shift) }
+
+sub initialize
+{
+    my ($self, %opts) = @_;
+    $self->data(\%opts);
+}
 
 our %_types;
 

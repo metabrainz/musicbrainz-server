@@ -1,6 +1,7 @@
 use strict;
 use warnings;
-use Test::More tests => 57;
+use Test::More tests => 58;
+use Test::Moose;
 use_ok 'MusicBrainz::Server::Data::Artist';
 use MusicBrainz::Server::Data::Search;
 
@@ -15,6 +16,7 @@ my $sql = Sql->new($c->mb->dbh);
 $sql->Begin;
 
 my $artist_data = MusicBrainz::Server::Data::Artist->new(c => $c);
+does_ok($artist_data, 'MusicBrainz::Server::Data::Editable');
 
 my $artist = $artist_data->get_by_id(3);
 is ( $artist->id, 3 );

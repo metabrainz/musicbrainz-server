@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 use strict;
 use warnings;
-use Test::More tests => 10;
+use Test::More tests => 15;
 
 BEGIN {
     use_ok 'MusicBrainz::Server::Edit::Label::Create';
@@ -9,6 +9,7 @@ BEGIN {
 }
 
 use MusicBrainz::Server::Context;
+use MusicBrainz::Server::Constants qw( $EDIT_LABEL_CREATE );
 use MusicBrainz::Server::Data::Label;
 use MusicBrainz::Server::Test;
 
@@ -20,22 +21,26 @@ MusicBrainz::Server::Test->prepare_test_database($c);
 my $edit_data = MusicBrainz::Server::Data::Edit->new(c => $c);
 my $label_data = MusicBrainz::Server::Data::Label->new(c => $c);
 
-my $sql = Sql->new($c->raw_dbh);
+my $sql_raw = Sql->new($c->raw_dbh);
+my $sql = Sql->new($c->dbh);
+$sql_raw->Begin;
 $sql->Begin;
 
-my $edit = MusicBrainz::Server::Edit::Label::Create->create(
-    {
-        name => '!K7',
-        sort_name => '!K7 Recordings',
-        type => 1,
-        comment => 'Funky record label',
-        label_code => 7306,
-    },
-    c => $c,
+my $edit = $edit_data->create(
+    edit_type => $EDIT_LABEL_CREATE,
+    name => '!K7',
+    sort_name => '!K7 Recordings',
+    type => 1,
+    comment => 'Funky record label',
+    label_code => 7306,
     editor_id => 1
 );
 
-$edit_data->insert($edit);
+isa_ok($edit, 'MusicBrainz::Server::Edit::Label::Create');
+is($edit->entity_model, 'Label');
+is($edit->entity_id, $edit->label_id);
+is_deeply($edit->entities, { label => [ $edit->label_id ] });
+
 ok(defined $edit->label_id);
 ok(defined $edit->id);
 
@@ -46,5 +51,7 @@ is($label->sort_name, '!K7 Recordings');
 is($label->type_id, 1);
 is($label->comment, "Funky record label");
 is($label->label_code, 7306);
+is($label->edits_pending, 0);
 
+$sql_raw->Commit;
 $sql->Commit;

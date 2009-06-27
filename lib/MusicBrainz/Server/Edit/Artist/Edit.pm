@@ -13,7 +13,8 @@ extends 'MusicBrainz::Server::Edit';
 
 sub edit_type { $EDIT_ARTIST_EDIT }
 sub edit_name { "Create Artist" }
-
+sub entity_model { 'Artist' }
+sub entity_id { shift->artist_id }
 sub artist_id { shift->data->{artist} }
 
 has 'artist' => (
@@ -77,22 +78,24 @@ sub _mapping
     );
 }
 
-sub create
+sub initialize
 {
-    my ($class, $artist, $edit, @args) = @_;
+    my ($self, %opts) = @_;
+    my $artist = delete $opts{artist};
     die "You must specify the artist object to edit" unless defined $artist;
 
-    my %mapping = $class->_mapping;
+    my %mapping = $self->_mapping;
     my %old = map {
         my $mapped = exists $mapping{$_} ? $mapping{$_} : $_;
         $_ => ref $mapped eq 'CODE' ? $mapped->($artist) : $artist->$mapped;
-    } keys %$edit;
+    } keys %opts;
 
-    return $class->new(data => {
-            old => \%old,
-            new => $edit,
-            artist => $artist->id
-        }, @args);
+    $self->artist($artist);
+    $self->data({
+        old => \%old,
+        new => { %opts },
+        artist => $artist->id
+    });
 };
 
 override 'accept' => sub
