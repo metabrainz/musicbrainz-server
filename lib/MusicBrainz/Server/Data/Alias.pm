@@ -62,6 +62,15 @@ sub delete
     return 1;
 }
 
+sub merge
+{
+    my ($self, $old_id, $new_id) = @_;
+    my $sql = Sql->new($self->c->dbh);
+    my $table = $self->table;
+    my $type = $self->type;
+    $sql->Do("UPDATE $table SET $type = ? WHERE $type = ?", $new_id, $old_id);
+}
+
 no Moose;
 __PACKAGE__->meta->make_immutable;
 1;

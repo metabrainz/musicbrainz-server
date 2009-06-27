@@ -103,10 +103,18 @@ sub update
 
 sub delete
 {
-    my ($self, @artists) = @_;
-    my $query = 'DELETE FROM artist WHERE id IN (' . placeholders(@artists) . ')';
+    my ($self, @artist_ids) = @_;
+    my $can_delete = 1;
+    # XXX Checks to see if artist is in use (core entities that depend on this artist)
+    return unless $can_delete;
+
+    $self->annotation->delete(@artist_ids);
+    $self->alias->delete(@artist_ids);
+    $self->remove_gid_redirects(@artist_ids);
+    my $query = 'DELETE FROM artist WHERE id IN (' . placeholders(@artist_ids) . ')';
     my $sql = Sql->new($self->c->mb->dbh);
-    $sql->Do($query, map { $_->id } @artists);
+    $sql->Do($query, @artist_ids);
+    return 1;
 }
 
 sub _hash_to_row
