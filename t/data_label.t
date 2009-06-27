@@ -86,7 +86,7 @@ is($label->begin_date->year, 1990);
 is($label->end_date->year, 2000);
 is($label->end_date->month, 5);
 
-$label_data->delete($label);
+$label_data->delete($label->id);
 $label = $label_data->get_by_id($label->id);
 ok(!defined $label);
 $sql->Commit;
