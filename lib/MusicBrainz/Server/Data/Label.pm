@@ -90,12 +90,12 @@ sub insert
 
 sub update
 {
-    my ($self, $label, $update) = @_;
+    my ($self, $label_id, $update) = @_;
     my $sql = Sql->new($self->c->mb->dbh);
     my %names = $self->find_or_insert_names($update->{name}, $update->{sort_name});
     my $row = $self->_hash_to_row($update, \%names);
-    $sql->Update('label', $row, { id => $label->id });
-    return $label;
+    $sql->Update('label', $row, { id => $label_id });
+    return 1;
 }
 
 sub delete
