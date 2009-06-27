@@ -83,7 +83,7 @@ is($rg->type_id, 1);
 is($rg->comment, 'Fake dubstep album');
 is($rg->artist_credit_id, 2);
 
-$rg_data->delete($rg);
+$rg_data->delete($rg->id);
 $rg = $rg_data->get_by_id($rg->id);
 ok(!defined $rg);
 
