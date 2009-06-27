@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 use strict;
-use Test::More tests => 13;
+use Test::More tests => 11;
 
 BEGIN { use_ok 'MusicBrainz::Server::Data::Artist' }
 
@@ -33,15 +33,8 @@ my $alias_set = $artist_data->alias->find_by_entity_id(4);
 is(scalar @$alias_set, 1);
 is($alias_set->[0]->name, 'Test Alias');
 
-$artist_data->alias->merge(4, 3);
+$artist_data->alias->delete(4);
 $alias_set = $artist_data->alias->find_by_entity_id(4);
-is(scalar @$alias_set, 0);
-
-$alias_set = $artist_data->alias->find_by_entity_id(3);
-is(scalar @$alias_set, 1);
-
-$artist_data->alias->delete(3);
-$alias_set = $artist_data->alias->find_by_entity_id(3);
 is(scalar @$alias_set, 0);
 
 $sql->Commit;

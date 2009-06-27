@@ -104,7 +104,7 @@ is($artist->sort_name, 'Kate Bush');
 ok(!$artist->end_date->is_empty);
 is($artist->end_date->year, 2009);
 
-$artist_data->delete($artist->id);
+$artist_data->delete($artist);
 $artist = $artist_data->get_by_id($artist->id);
 ok(!defined $artist);
 
