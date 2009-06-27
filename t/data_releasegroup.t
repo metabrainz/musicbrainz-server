@@ -76,7 +76,7 @@ is($rg->type_id, 1);
 is($rg->comment, 'Dubstep album');
 is($rg->artist_credit_id, 2);
 
-$rg_data->update($rg, { name => 'My Angels', comment => 'Fake dubstep album' });
+$rg_data->update($rg->id, { name => 'My Angels', comment => 'Fake dubstep album' });
 $rg = $rg_data->get_by_id($rg->id);
 is($rg->name, 'My Angels');
 is($rg->type_id, 1);

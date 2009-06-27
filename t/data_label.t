@@ -70,7 +70,7 @@ ok(!$label->end_date->is_empty);
 is($label->end_date->year, 2000);
 is($label->end_date->month, 5);
 
-$label_data->update($label, {
+$label_data->update($label->id, {
         sort_name => 'Records, RAM',
         begin_date => { year => 1990 },
         comment => 'Drum & bass label'
