@@ -41,6 +41,8 @@ Readonly our $EDIT_LABEL_DELETE => 13;
 
 Readonly our $EDIT_RELEASEGROUP_DELETE => 23;
 
+Readonly our $EDIT_RELEASEGROUP_MERGE => 24;
+
 =head1 NAME
 
 MusicBrainz::Server::Constant - constants used in the database that

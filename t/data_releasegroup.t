@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 39;
+use Test::More tests => 41;
 use_ok 'MusicBrainz::Server::Data::ReleaseGroup';
 use MusicBrainz::Server::Data::Release;
 use MusicBrainz::Server::Data::Search;
@@ -86,4 +86,12 @@ is($rg->artist_credit_id, 2);
 $rg_data->delete($rg);
 $rg = $rg_data->get_by_id($rg->id);
 ok(!defined $rg);
+
+$rg_data->merge(2, 1);
+$rg = $rg_data->get_by_id(2);
+ok(!defined $rg);
+
+$rg = $rg_data->get_by_id(1);
+ok(defined $rg);
+
 $sql->Commit;
