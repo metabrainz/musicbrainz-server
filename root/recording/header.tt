@@ -1,7 +1,8 @@
 [%- info_links = [
-    ['index', link_artist(artist, 'show', l('Releases'))],
-    ['tags', link_artist(artist, 'tags', l('Tags'))],
-    ['details', link_artist(artist, 'details', l('Details'))],
+    ['index', link_recording(recording, 'show', l('Releases'))],
+    ['relationships', link_recording(recording, 'relationships', l('Relationships'))],
+    ['tags', link_recording(recording, 'tags', l('Tags'))],
+    ['details', link_recording(recording, 'details', l('Details'))],
 ] -%]
 
 <h1>“[% link_recording(recording) %]” [% disambiguation(recording) %]</h1>

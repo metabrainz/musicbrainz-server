@@ -4,6 +4,7 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
 with 'MusicBrainz::Server::Controller::Annotation';
+with 'MusicBrainz::Server::Controller::RelationshipRole';
 
 __PACKAGE__->config(
     model       => 'ReleaseGroup',
@@ -40,6 +41,12 @@ sub show : Chained('load') PathPart('')
         releases => $releases
     );
 }
+
+# TODO
+sub tags : Chained('load') { }
+
+# TODO
+sub details : Chained('load') { }
 
 1;
 

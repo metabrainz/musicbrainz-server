@@ -44,7 +44,9 @@ sub do_login : Private
     return 1 if $c->user_exists;
 
     my $login_form = MusicBrainz::Server::Form::User::Login->new;
-    my $redirect = $c->req->query_params->{uri} // $c->req->path;
+    my $redirect = defined $c->req->query_params->{uri}
+        ? $c->req->query_params->{uri}
+        : $c->req->path;
 
     if ($c->form_posted && $login_form->process(params => $c->req->params))
     {

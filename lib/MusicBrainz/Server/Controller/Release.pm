@@ -4,6 +4,7 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 with 'MusicBrainz::Server::Controller::Annotation';
+with 'MusicBrainz::Server::Controller::RelationshipRole';
 
 __PACKAGE__->config(
     entity_name => 'release',

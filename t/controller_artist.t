@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 use strict;
-use Test::More tests => 39;
+use Test::More tests => 42;
 
 BEGIN {
     use MusicBrainz::Server::Context;
@@ -66,3 +66,8 @@ $mech->content_contains('Test Alias', 'has the artist alias');
 
 $mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce', 'get artist aliases');
 $mech->content_unlike(qr/Test Alias/, 'other artist pages do not have the alias');
+
+# Test relationships
+$mech->get_ok('/artist/e2a083a9-9942-4d6e-b4d2-8397320b95f7/relationships', 'get artist relationships');
+$mech->content_contains('performed guitar');
+$mech->content_contains('/recording/54b9d183-7dab-42ba-94a3-7388a66604b8');

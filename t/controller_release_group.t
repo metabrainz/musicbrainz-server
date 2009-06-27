@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 use strict;
-use Test::More tests => 24;
+use Test::More tests => 26;
 
 BEGIN {
     use MusicBrainz::Server::Context;
@@ -40,3 +40,10 @@ $mech->content_like(qr{2005-11-08}, 'has us release');
 $mech->content_like(qr{Warp Records}, 'has uk label');
 $mech->content_like(qr{82796 97772 2}, 'has uk label');
 $mech->content_like(qr{/label/46f0f4cd-8aab-4b33-b698-f459faf64190}, 'has uk label');
+
+TODO: {
+    local $TODO = "Not implemented";
+
+    $mech->get_ok('/release-group/7c3218d7-75e0-4e8c-971f-f097b6c308c5/tags');
+    $mech->get_ok('/release-group/7c3218d7-75e0-4e8c-971f-f097b6c308c5/details');
+}

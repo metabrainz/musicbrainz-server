@@ -5,6 +5,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
 with 'MusicBrainz::Server::Controller::Annotation';
 with 'MusicBrainz::Server::Controller::Alias';
+with 'MusicBrainz::Server::Controller::RelationshipRole';
 
 use MusicBrainz::Server::Constants qw( $DLABEL_ID );
 use Data::Page;

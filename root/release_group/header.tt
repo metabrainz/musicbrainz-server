@@ -1,7 +1,8 @@
 [%- info_links = [
-    ['index', link_artist(artist, 'show', l('Overview'))],
-    ['tags', link_artist(artist, 'tags', l('Tags'))],
-    ['details', link_artist(artist, 'details', l('Details'))],
+    ['index', link_release_group(rg, 'show', l('Overview'))],
+    ['relationships', link_release_group(rg, 'relationships', l('Relationships'))],
+    ['tags', link_release_group(rg, 'tags', l('Tags'))],
+    ['details', link_release_group(rg, 'details', l('Details'))],
 ] -%]
 
 <h1>“[% link_release_group(rg) %]” [% disambiguation(rg) %]</h1>

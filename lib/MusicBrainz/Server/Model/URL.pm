@@ -1,29 +1,8 @@
-package MusicBrainz::Server::Controller::Work;
-use Moose;
+package MusicBrainz::Server::Model::URL;
 
-BEGIN { extends 'MusicBrainz::Server::Controller'; }
+use base 'MusicBrainz::Server::ModelFactory';
 
-with 'MusicBrainz::Server::Controller::Annotation';
-with 'MusicBrainz::Server::Controller::RelationshipRole';
-
-__PACKAGE__->config(
-    model       => 'Work',
-    entity_name => 'work',
-);
-
-sub base : Chained('/') PathPart('work') CaptureArgs(0) { }
-sub work : Chained('load') PathPart('') CaptureArgs(0) { }
-
-sub show : PathPart('') Chained('work')
-{
-    my ($self, $c) = @_;
-
-    my $work = $c->stash->{work};
-    $c->model('WorkType')->load($work);
-    $c->model('ArtistCredit')->load($work);
-
-    $c->stash->{template} = 'work/index.tt';
-}
+__PACKAGE__->config(class => 'MusicBrainz::Server::Data::URL');
 
 1;
 

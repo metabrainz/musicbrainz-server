@@ -52,6 +52,36 @@ has 'phrase' => (
     lazy => 1
 );
 
+sub source
+{
+    my ($self) = @_;
+    return ($self->direction == $DIRECTION_FORWARD)
+        ? $self->entity0 : $self->entity1;
+}
+
+sub source_type
+{
+    my ($self) = @_;
+    return ($self->direction == $DIRECTION_FORWARD)
+        ? $self->link->type->entity0_type
+        : $self->link->type->entity1_type;
+}
+
+sub target
+{
+    my ($self) = @_;
+    return ($self->direction == $DIRECTION_FORWARD)
+        ? $self->entity1 : $self->entity0;
+}
+
+sub target_type
+{
+    my ($self) = @_;
+    return ($self->direction == $DIRECTION_FORWARD)
+        ? $self->link->type->entity1_type
+        : $self->link->type->entity0_type;
+}
+
 sub _join_attrs
 {
     my @attrs = map { lc $_ } @{$_[0]};

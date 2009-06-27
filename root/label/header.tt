@@ -1,5 +1,6 @@
 [%- info_links = [
     ['index', link_label(label, 'show', l('Releases'))],
+    ['relationships', link_label(label, 'relationships', l('Relationships'))],
     ['aliases', link_label(label, 'aliases', l('Aliases'))],
     ['tags', link_label(label, 'tags', l('Tags'))],
     ['details', link_label(label, 'details', l('Details'))],

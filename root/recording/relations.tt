@@ -1,3 +1,0 @@
-[%- WRAPPER "track/layout.tt" title=l("Relationships for \"{track}\"", {track => ${track.name}}) -%]
-    [%- INCLUDE "components/relationships.tt" source=track showall=1 -%]
-[%- END -%]

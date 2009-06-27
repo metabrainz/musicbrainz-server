@@ -20,6 +20,8 @@ has 'reference_count' => (
     isa => 'Int'
 );
 
+sub name { shift->url }
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

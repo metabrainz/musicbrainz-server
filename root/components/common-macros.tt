@@ -96,6 +96,7 @@ END -%]
     ELSIF type.search('Entity::Release='); link_release(entity, action, text);
     ELSIF type.search('Entity::ReleaseGroup='); link_release_group(entity, action, text);
     ELSIF type.search('Entity::Recording='); link_recording(entity, action, text);
+    ELSIF type.search('Entity::URL='); link_url(entity, action, text);
     END;
 END -%]
 
@@ -153,6 +154,13 @@ END -%]
     link = c.uri_for_action("/tracklist/$action", [ tracklist.id ]);
     text = text || html_escape(tracklist.medium.name);
     '<a href="' _ link _ '">' _ text _ '</a>';
+END -%]
+
+[%- MACRO link_url(url, action, text) BLOCK;
+    action = action || 'show';
+    link = c.uri_for_action("/url/$action", [ url.gid ]);
+    text = text || html_escape(url.url);
+    '<a href="' _ url.url _ '">' _ text _ '</a> [<a href="' _ link _ '">' _ l('info') _ '</a>]';
 END -%]
 
 [%- MACRO link_editor(editor, action, text) BLOCK;

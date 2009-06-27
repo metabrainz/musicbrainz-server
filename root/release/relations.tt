@@ -1,3 +1,0 @@
-[%- WRAPPER 'release/layout.tt' title=l("Relationships") -%]
-    [%- INCLUDE "components/relationships.tt" source=release showall=1 -%]
-[%- END -%]

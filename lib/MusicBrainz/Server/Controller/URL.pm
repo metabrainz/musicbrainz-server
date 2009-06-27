@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Controller::Url;
+package MusicBrainz::Server::Controller::URL;
 
 use strict;
 use warnings;
@@ -30,6 +30,9 @@ sub url : Chained CaptureArgs(1)
     my ($self, $c, $mbid) = @_;
     $c->stash->{url} = $c->model('Url')->load($mbid);
 }
+
+# TODO
+sub show : Chained('url') PathPart('') { }
 
 =head2 info
 
