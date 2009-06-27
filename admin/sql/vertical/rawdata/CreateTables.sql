@@ -7,9 +7,6 @@ CREATE TABLE edit
     editor              INTEGER NOT NULL, -- weakly references editor
     type                SMALLINT NOT NULL,
     status              SMALLINT NOT NULL,
-    tab                 VARCHAR(32) NOT NULL,
-    col                 VARCHAR(64) NOT NULL,
-    rowid               INTEGER NOT NULL,
     data                XML NOT NULL,
     yesvotes            INTEGER DEFAULT 0,
     novotes             INTEGER DEFAULT 0,
