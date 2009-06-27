@@ -93,6 +93,11 @@ sub begin : Private
 
     return if exists $c->action->attributes->{Minimal};
 
+    if (exists $c->action->attributes->{RequireAuth})
+    {
+        $c->forward('/user/do_login');
+    }
+
     # Load current relationship
     my $rel = $c->session->{current_relationship};
     if ($rel)
