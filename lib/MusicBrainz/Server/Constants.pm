@@ -39,6 +39,8 @@ Readonly our $EDIT_ARTIST_DELETE => 3;
 Readonly our $EDIT_LABEL_CREATE => 10;
 Readonly our $EDIT_LABEL_DELETE => 13;
 
+Readonly our $EDIT_RELEASEGROUP_DELETE => 23;
+
 =head1 NAME
 
 MusicBrainz::Server::Constant - constants used in the database that
