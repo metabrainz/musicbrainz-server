@@ -84,15 +84,9 @@ sub initialize
     my $artist = delete $opts{artist};
     die "You must specify the artist object to edit" unless defined $artist;
 
-    my %mapping = $self->_mapping;
-    my %old = map {
-        my $mapped = exists $mapping{$_} ? $mapping{$_} : $_;
-        $_ => ref $mapped eq 'CODE' ? $mapped->($artist) : $artist->$mapped;
-    } keys %opts;
-
     $self->artist($artist);
     $self->data({
-        old => \%old,
+        old => $self->_change_hash($artist, keys %opts),
         new => { %opts },
         artist => $artist->id
     });
