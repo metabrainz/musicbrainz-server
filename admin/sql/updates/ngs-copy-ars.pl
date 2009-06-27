@@ -8,6 +8,10 @@ use DBDefs;
 use MusicBrainz;
 use MusicBrainz::Server::Validation;
 use Sql;
+use Getopt::Long;
+
+my $move;
+my $result = GetOptions("move", \$move);
 
 my $src_type = shift;     # release_group-url
 my $dest_type = shift;    # release-url
@@ -141,11 +145,46 @@ eval {
         }
         $sql->Finish;
     }
+    print localtime() . " Copied $count ARs.\n";
+
+    if ($move)
+    {
+        print localtime() . " Removing old ARs and AR type\n";
+        # Save a list of rows in the link table will become unused once we delete the rows for a given type
+        my $links_to_check = $sql->SelectSingleColumnArray("SELECT DISTINCT link 
+                                                              FROM l_".$src_entity0."_".$src_entity1 . " t, link
+                                                             WHERE t.link = link.id
+                                                               AND link.link_type = ?", $link_type_id);
+
+        # Delete the rows from the l_<type>_<type> tables
+        $sql->Do("DELETE FROM l_".$src_entity0."_".$src_entity1 . " t WHERE id IN (
+                      SELECT ar.id from l_".$src_entity0."_".$src_entity1 . " ar , link 
+                       WHERE t.link = link.id 
+                         AND link_type = ?)", $link_type_id);
+
+        # Check out row in the link table to see if its still used
+        # RAK: I'm not 100% certain this check is needed, but in case...
+        foreach my $link (@{$links_to_check})
+        {
+            if (!$sql->SelectSingleValue("SELECT count(*) FROM l_".$src_entity0."_".$src_entity1 . " WHERE link = ?", $link))
+            {
+                # No references remain. Lets nuke that link and its dependent rows
+                $sql->Do("DELETE FROM link_attribute WHERE link = ?", $link);
+                $sql->Do("DELETE FROM link WHERE id = ?", $link);
+            }
+        }
+
+        # Now remove the link_type and its dependent rows
+        $sql->Do("DELETE FROM link_type_attribute_type WHERE link_type = ?", $link_type_id);
+        $sql->Do("DELETE FROM link_type WHERE id = ?", $link_type_id);
+
+        print localtime() . " Done.\n";
+    }
     $sql->Commit;
-    print localtime() . " Done. Copied $count ARs.\n";
 };
 if ($@) {
     my $err = $@;
     print localtime() . " Error: $err\n";
     $sql->Rollback;
 }
+
