@@ -47,7 +47,6 @@ DROP INDEX track_idx_artist_credit;
 DROP INDEX track_idx_name;
 DROP INDEX track_idx_recording;
 DROP INDEX track_idx_tracklist;
-DROP INDEX track_idx_tracklist;
 DROP INDEX track_name_idx_name;
 DROP INDEX track_name_idx_page;
 DROP INDEX tracklist_idx_trackcount;
