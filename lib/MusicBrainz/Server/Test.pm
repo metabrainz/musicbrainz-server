@@ -2,10 +2,26 @@ package MusicBrainz::Server::Test;
 
 use DBDefs;
 use MusicBrainz;
+use MusicBrainz::Server::CacheManager;
+use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Database;
 use Sql;
 
 MusicBrainz::Server::Database->profile("test");
+
+sub create_test_context
+{
+    my $cache_manager = MusicBrainz::Server::CacheManager->new(
+        profiles => {
+            null => {
+                class => 'Cache::Null',
+                wrapped => 1,
+            },
+        },
+        default_profile => 'null',
+    );
+    return MusicBrainz::Server::Context->new(cache_manager => $cache_manager);
+}
 
 sub prepare_test_database
 {

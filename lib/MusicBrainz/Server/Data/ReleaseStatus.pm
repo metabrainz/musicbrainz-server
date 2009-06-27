@@ -5,6 +5,7 @@ use MusicBrainz::Server::Entity::ReleaseStatus;
 use MusicBrainz::Server::Data::Utils qw( load_subobjects );
 
 extends 'MusicBrainz::Server::Data::Entity';
+with 'MusicBrainz::Server::Data::EntityCache' => { prefix => 'rs' };
 
 sub _table
 {

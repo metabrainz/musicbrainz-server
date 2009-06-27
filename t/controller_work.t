@@ -5,7 +5,7 @@ use Test::More tests => 11;
 BEGIN {
     use MusicBrainz::Server::Context;
     use MusicBrainz::Server::Test;
-    my $c = MusicBrainz::Server::Context->new();
+    my $c = MusicBrainz::Server::Test->create_test_context();
     MusicBrainz::Server::Test->prepare_test_database($c);
     MusicBrainz::Server::Test->prepare_test_server();
     use_ok 'Catalyst::Test', 'MusicBrainz::Server';

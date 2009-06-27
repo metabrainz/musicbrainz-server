@@ -2,12 +2,21 @@ package MusicBrainz::Server::CacheWrapper;
 
 use Moose;
 use Moose::Util::TypeConstraints;
+use Storable;
 
 has '_orig' => (
     is => 'ro',
     isa => duck_type(['get', 'set']),
-    handles => ['get', 'set']
+    handles => { 'delete' => 'remove' }
 );
+
+sub get
+{
+    my ($self, $key) = @_;
+    my $data = $self->_orig->get($key);
+    return ${Storable::thaw($data)} if defined $data;
+    return undef;
+}
 
 sub get_multi
 {
@@ -15,16 +24,31 @@ sub get_multi
     my %result;
     foreach my $key (@keys) {
         my $data = $self->_orig->get($key);
-        $result{$key} = $data if defined $data;
+        $result{$key} = ${Storable::thaw($data)} if defined $data;
     }
     return \%result;
+}
+
+sub set
+{
+    my ($self, $key, $data) = @_;
+    $self->_orig->set($key, Storable::freeze(\$data));
 }
 
 sub set_multi
 {
     my ($self, @items) = @_;
     foreach my $item (@items) {
-        $self->_orig->set($item->[0], $item->[1]);
+        my $data = $item->[1];
+        $self->_orig->set($item->[0], Storable::freeze(\$data));
+    }
+}
+
+sub delete_multi
+{
+    my ($self, @keys) = @_;
+    foreach my $key (@keys) {
+        $self->_orig->remove($key);
     }
 }
 

@@ -3,9 +3,9 @@ use warnings;
 use Test::More tests => 7;
 use_ok 'MusicBrainz::Server::Entity::WikiDoc';
 
-use MusicBrainz::Server::Context;
+use MusicBrainz::Server::Test;
 
-my $c = MusicBrainz::Server::Context->new();
+my $c = MusicBrainz::Server::Test->create_test_context();
 
 my $wikidoc = MusicBrainz::Server::Entity::WikiDoc->new(result   => 1, 
                                                         status   => 'Index not available',

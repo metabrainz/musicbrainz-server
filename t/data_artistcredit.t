@@ -6,7 +6,7 @@ use_ok 'MusicBrainz::Server::Data::ArtistCredit';
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
 
-my $c = MusicBrainz::Server::Context->new();
+my $c = MusicBrainz::Server::Test->create_test_context();
 MusicBrainz::Server::Test->prepare_test_database($c);
 
 my $artist_credit_data = MusicBrainz::Server::Data::ArtistCredit->new(c => $c);

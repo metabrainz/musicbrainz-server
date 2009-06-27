@@ -8,12 +8,12 @@ use XML::Feed;
 use LWP::UserAgent;
 use Encode qw( encode );
 
-sub get_cached
+sub get
 {
-    my ($self, $feed_id, $uri) = @_;
+    my ($self, $c, $feed_id, $uri) = @_;
 
     # Check cache first
-    my $feed = MusicBrainz::Server::Cache->get("feed-id-${feed_id}");
+    my $feed = $c->cache("feed")->get("feed:${feed_id}");
     if (!$feed)
     {
         # Loading is a bit complicated, but we have to ensure we fetch the
@@ -42,7 +42,7 @@ sub get_cached
 
             $feed = { entries => \@entries };
 
-            MusicBrainz::Server::Cache->set("feed-id-${feed_id}", $feed);
+            $c->cache("feed")->set("feed:${feed_id}", $feed);
         }
     }
 

@@ -1,18 +1,32 @@
 package MusicBrainz::Server::Data::EntityCache;
 
-use Moose::Role;
-with 'MusicBrainz::Server::Data::EntityCacheBase';
+use MooseX::Role::Parameterized;
 
-sub _add_to_cache
-{
-    my ($self, $cache, %data) = @_;
-    my @tmp;
-    foreach my $id (keys %data) {
-        my $key = $self->_id_cache_prefix . ':' . $id;
-        push @tmp, [$key, $data{$id}];
-    }
-    $cache->set_multi(@tmp);
-}
+parameter 'prefix' => (
+    isa => 'Str',
+    required => 1,
+);
+
+role {
+
+    my $params = shift;
+
+    with 'MusicBrainz::Server::Data::EntityCacheBase';
+
+    method '_id_cache_prefix' => sub { $params->{prefix} };
+
+    method '_add_to_cache' => sub
+    {
+        my ($self, $cache, %data) = @_;
+        my @tmp;
+        foreach my $id (keys %data) {
+            my $key = $self->_id_cache_prefix . ':' . $id;
+            push @tmp, [$key, $data{$id}];
+        }
+        $cache->set_multi(@tmp);
+    };
+
+};
 
 1;
 

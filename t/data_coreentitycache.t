@@ -28,8 +28,7 @@ use Test::More tests => 17;
     package MyCachedEntityData;
     use Moose;
     extends 'MyEntityData';
-    with 'MusicBrainz::Server::Data::CoreEntityCache';
-    sub _id_cache_prefix { 'prefix' }
+    with 'MusicBrainz::Server::Data::CoreEntityCache' => { prefix => 'prefix' };
 
     package MockCache;
     use Moose;
@@ -75,8 +74,8 @@ is ( $entity_data->get_by_gid_called, 1 );
 is ( $entity_data->get_by_id_called, 0 );
 is ( $c->cache->_orig->get_called, 1 );
 is ( $c->cache->_orig->set_called, 2 );
-is ( $c->cache->_orig->data->{'prefix:1'}->id, 1 );
-is ( $c->cache->_orig->data->{'prefix:abc'}, '1' );
+ok ( $c->cache->_orig->data->{'prefix:1'} =~ '1' );
+ok ( $c->cache->_orig->data->{'prefix:abc'} =~ '1' );
 
 $entity_data->get_by_gid_called(0);
 $entity_data->get_by_id_called(0);

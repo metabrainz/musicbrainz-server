@@ -2,17 +2,18 @@ use strict;
 use warnings;
 use Test::More tests => 5;
 use MusicBrainz::Server::CacheManager;
+use Storable;
 use_ok 'MusicBrainz::Server::Context';
 
 {
     package TestCache1;
     use Moose;
-    sub get { '1' }
+    sub get { Storable::freeze(\'1') }
     sub set {}
     1;
     package TestCache2;
     use Moose;
-    sub get { '2' }
+    sub get { Storable::freeze(\'2') }
     sub set {}
     1;
 }

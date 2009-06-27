@@ -6,7 +6,7 @@ use_ok 'MusicBrainz::Server::Data::ReleaseGroupType';
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
 
-my $c = MusicBrainz::Server::Context->new();
+my $c = MusicBrainz::Server::Test->create_test_context();
 MusicBrainz::Server::Test->prepare_test_database($c);
 
 my $rgt_data = MusicBrainz::Server::Data::ReleaseGroupType->new(c => $c);

@@ -7,7 +7,7 @@ all_from 'lib/MusicBrainz/Server.pm';
 requires 'Algorithm::Diff'                             => '1.1902';
 requires 'Cache'                                       => '2.04';
 requires 'Cache::Memcached'                            => '1.24';
-requires 'Cache::Memcached::libmemcached'              => '0.02009';
+requires 'Cache::Memcached::Fast'                      => '0.15';
 requires 'Catalyst::Action::RenderView'                => '0.08';
 requires 'Catalyst::Component::ACCEPT_CONTEXT'         => '0.05';
 requires 'Catalyst::Model::Factory';

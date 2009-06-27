@@ -4,6 +4,7 @@ use Moose;
 use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::Data::Utils qw( placeholders );
 use UNIVERSAL::require;
+use Carp qw( confess );
 
 has 'c' => (
     is => 'rw',
@@ -99,6 +100,10 @@ sub get_by_ids
     my ($self, @ids) = @_;
     return $self->_get_by_keys($self->_id_column, uniq(@ids));
 }
+
+sub insert { confess "Not implemented" }
+sub update { confess "Not implemented" }
+sub delete { confess "Not implemented" }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

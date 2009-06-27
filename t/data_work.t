@@ -8,7 +8,7 @@ use MusicBrainz::Server::Data::Search;
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
 
-my $c = MusicBrainz::Server::Context->new();
+my $c = MusicBrainz::Server::Test->create_test_context();
 MusicBrainz::Server::Test->prepare_test_database($c);
 
 my $work_data = MusicBrainz::Server::Data::Work->new(c => $c);

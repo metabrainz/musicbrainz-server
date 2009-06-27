@@ -5,6 +5,7 @@ use MusicBrainz::Server::Entity::Country;
 use MusicBrainz::Server::Data::Utils qw( load_subobjects );
 
 extends 'MusicBrainz::Server::Data::Entity';
+with 'MusicBrainz::Server::Data::EntityCache' => { prefix => 'c' };
 
 sub _table
 {

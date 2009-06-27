@@ -16,9 +16,8 @@ use Test::More tests => 14;
     package MyCachedEntityData;
     use Moose;
     extends 'MyEntityData';
-    with 'MusicBrainz::Server::Data::EntityCache';
+    with 'MusicBrainz::Server::Data::EntityCache' => { prefix => 'prefix' };
     has 'get_called' => ( is => 'rw', isa => 'Bool', default => 0 );
-    sub _id_cache_prefix { 'prefix' }
 
     package MockCache;
     use Moose;
@@ -63,7 +62,7 @@ is ( $entity, 'data' );
 is ( $entity_data->get_called, 1 );
 is ( $c->cache->_orig->get_called, 1 );
 is ( $c->cache->_orig->set_called, 1 );
-is ( $c->cache->_orig->data->{'prefix:1'}, 'data' );
+ok ( $c->cache->_orig->data->{'prefix:1'} =~ 'data' );
 
 $entity_data->get_called(0);
 $c->cache->_orig->get_called(0);
@@ -81,4 +80,4 @@ is ( $entity, 'data' );
 is ( $entity_data->get_called, 1 );
 is ( $c->cache->_orig->get_called, 1 );
 is ( $c->cache->_orig->set_called, 1 );
-is ( $c->cache->_orig->data->{'prefix:1'}, 'data' );
+ok ( $c->cache->_orig->data->{'prefix:1'} =~ 'data' );

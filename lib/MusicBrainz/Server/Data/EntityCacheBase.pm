@@ -1,9 +1,7 @@
 package MusicBrainz::Server::Data::EntityCacheBase;
 
 use Moose::Role;
-
-requires '_id_cache_prefix';
-requires '_add_to_cache';
+use List::MoreUtils qw( uniq );
 
 around 'get_by_ids' => sub
 {
@@ -27,6 +25,22 @@ around 'get_by_ids' => sub
         $self->_add_to_cache($cache, %data);
     }
     return \%result;
+};
+
+after 'update' => sub
+{
+    my ($self, $id) = @_;
+    my $key =  $self->_id_cache_prefix . ':' . $id;
+    my $cache = $self->c->cache($self->_id_cache_prefix);
+    $cache->delete($key);
+};
+
+after 'delete' => sub
+{
+    my ($self, @ids) = @_;
+    my @keys = map { $self->_id_cache_prefix . ':' . $_ } uniq(@ids);
+    my $cache = $self->c->cache($self->_id_cache_prefix);
+    $cache->delete_multi(@keys);
 };
 
 1;
