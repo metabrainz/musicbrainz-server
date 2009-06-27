@@ -85,12 +85,12 @@ sub insert
 
 sub update
 {
-    my ($self, $group, $update) = @_;
+    my ($self, $group_id, $update) = @_;
     my $sql = Sql->new($self->c->mb->dbh);
     my $release_data = MusicBrainz::Server::Data::Release->new(c => $self->c);
     my %names = $release_data->find_or_insert_names($update->{name});
     my $row = $self->_hash_to_row($update, \%names);
-    $sql->Update('release_group', $row, { id => $group->id });
+    $sql->Update('release_group', $row, { id => $group_id });
 }
 
 sub delete

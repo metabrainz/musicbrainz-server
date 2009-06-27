@@ -9,6 +9,7 @@ use Sql;
 use UNIVERSAL::require;
 
 our @EXPORT_OK = qw(
+    artist_credit_to_ref
     defined_hash
     generate_gid
     insert_and_create
@@ -20,6 +21,19 @@ our @EXPORT_OK = qw(
     query_to_list
     query_to_list_limited
 );
+
+sub artist_credit_to_ref
+{
+    my ($artist_credit) = @_;
+    use Data::Dumper;
+    my $ac = [ map {
+        my @credit = ( { name => $_->name, artist => $_->artist_id } );
+        push @credit, $_->join_phrase if $_->join_phrase;
+
+        @credit;
+    } @{ $artist_credit->names } ];
+    return $ac;
+}
 
 sub load_subobjects
 {

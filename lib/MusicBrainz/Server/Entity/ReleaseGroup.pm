@@ -32,7 +32,8 @@ has 'artist_credit_id' => (
 
 has 'artist_credit' => (
     is => 'rw',
-    isa => 'ArtistCredit'
+    isa => 'ArtistCredit',
+    predicate => 'artist_credit_loaded',
 );
 
 has 'first_release_date' => (
