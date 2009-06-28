@@ -19,7 +19,7 @@ has '+data' => (
     isa => Dict[
         name => Str,
         sort_name => Optional[Str],
-        type => Optional[Int],
+        type_id => Optional[Int],
         label_code => Optional[Int],
         begin_date => Optional[Dict[ 
             year => Int,
@@ -31,7 +31,7 @@ has '+data' => (
             month => Optional[Int],
             day => Optional[Int]
         ]],
-        country => Optional[Int],
+        country_id => Optional[Int],
         comment => Optional[Str],
     ]
 );

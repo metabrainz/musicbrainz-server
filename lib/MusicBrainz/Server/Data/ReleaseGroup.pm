@@ -120,7 +120,7 @@ sub _hash_to_row
     my %row = (
         artist_credit => $group->{artist_credit},
         comment => $group->{comment},
-        type => $group->{type},
+        type => $group->{type_id},
     );
 
     if ($group->{name})

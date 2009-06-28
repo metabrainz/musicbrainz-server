@@ -34,9 +34,9 @@ subtype 'LabelHash'
     => as Dict[
         name => Optional[Str],
         sort_name => Optional[Str],
-        type => Optional[Maybe[Int]],
+        type_id => Optional[Maybe[Int]],
         label_code => Optional[Maybe[Int]],
-        country => Optional[Maybe[Int]],
+        country_id => Optional[Maybe[Int]],
         comment => Optional[Maybe[Str]],
         begin_date => Optional[Dict[
             year => Int,
@@ -70,9 +70,6 @@ sub _date_closure
 sub _mapping
 {
     return (
-        type => 'type_id',
-        gender => 'gender_id',
-        country => 'country_id',
         begin_date => _date_closure('begin_date'),
         end_date => _date_closure('end_date'),
     );

@@ -54,8 +54,8 @@ $sql->Begin;
 $label = $label_data->insert({
         name => 'RAM Records',
         sort_name => 'RAM Records',
-        type => 1,
-        country => 1,
+        type_id => 1,
+        country_id => 1,
         end_date => { year => 2000, month => 05 }
     });
 isa_ok($label, 'MusicBrainz::Server::Entity::Label');

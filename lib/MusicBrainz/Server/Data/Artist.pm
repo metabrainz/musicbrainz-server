@@ -129,9 +129,9 @@ sub _hash_to_row
         enddate_year => $artist->{end_date}->{year},
         enddate_month => $artist->{end_date}->{month},
         enddate_day => $artist->{end_date}->{day},
-        country => $artist->{country},
-        type => $artist->{type},
-        gender => $artist->{gender},
+        country => $artist->{country_id},
+        type => $artist->{type_id},
+        gender => $artist->{gender_id},
         comment => $artist->{comment},
     );
 

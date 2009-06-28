@@ -77,7 +77,7 @@ ok($names{'Massive Attack'} > 10);
 $artist = $artist_data->insert({
         name => 'Queen',
         sort_name => 'David Bowie',
-        type => 2,
+        type_id => 2,
         begin_date => { year => 2000, month => 1 },
     });
 isa_ok($artist, 'MusicBrainz::Server::Entity::Artist');

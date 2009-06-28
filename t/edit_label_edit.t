@@ -30,7 +30,7 @@ my $edit = $edit_data->create(
     label => $label,
     name => 'Warped Records',
     comment => 'Weird electronica record label',
-    country => 1,
+    country_id => 1,
 );
 isa_ok($edit, 'MusicBrainz::Server::Edit::Label::Edit');
 is($edit->entity_model, 'Label');

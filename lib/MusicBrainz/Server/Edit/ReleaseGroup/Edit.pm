@@ -37,7 +37,7 @@ sub entities
 subtype 'ReleaseGroupHash'
     => as Dict[
         name => Optional[Str],
-        type => Optional[Maybe[Int]],
+        type_id => Optional[Maybe[Int]],
         artist_credit => ArrayRef,
         comment => Optional[Maybe[Str]],
     ];
@@ -53,8 +53,6 @@ has '+data' => (
 sub _mapping
 {
     return (
-        type => 'type_id',
-        comment => 'comment',
         artist_credit => sub { artist_credit_to_ref(shift->artist_credit) }
     );
 }

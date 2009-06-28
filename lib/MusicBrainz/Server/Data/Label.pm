@@ -125,8 +125,8 @@ sub _hash_to_row
         enddate_month => $label->{end_date}->{month},
         enddate_day => $label->{end_date}->{day},
         comment => $label->{comment},
-        country => $label->{country},
-        type => $label->{type},
+        country => $label->{country_id},
+        type => $label->{type_id},
         labelcode => $label->{label_code},
     );
 

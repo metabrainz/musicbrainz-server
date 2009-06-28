@@ -62,7 +62,7 @@ $sql->Begin;
 $rg = $rg_data->insert({
         name => 'My Demons',
         artist_credit => 2,
-        type => 1,
+        type_id => 1,
         comment => 'Dubstep album',
     });
 ok(defined $rg);

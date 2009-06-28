@@ -28,7 +28,7 @@ $sql_raw->Begin;
 my $edit = $edit_data->create(
     edit_type => $EDIT_ARTIST_CREATE,
     name => 'Junior Boys',
-    gender => 1,
+    gender_id => 1,
     comment => 'Canadian electronica duo',
     editor_id => 1
 );
@@ -42,7 +42,7 @@ ok(defined $edit->artist_id);
 ok(defined $edit->id);
 is_deeply($edit->to_hash, {
         name => 'Junior Boys',
-        gender => 1,
+        gender_id => 1,
         comment => 'Canadian electronica duo',
         artist_id => $edit->artist_id,
     });
