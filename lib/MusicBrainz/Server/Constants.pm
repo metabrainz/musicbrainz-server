@@ -35,6 +35,7 @@ Readonly our $VARTIST_ID  => 1;
 Readonly our $EDIT_ARTIST_CREATE => 1;
 Readonly our $EDIT_ARTIST_EDIT => 2;
 Readonly our $EDIT_ARTIST_DELETE => 3;
+Readonly our $EDIT_ARTIST_MERGE => 4;
 
 Readonly our $EDIT_LABEL_CREATE => 10;
 Readonly our $EDIT_LABEL_EDIT => 11;

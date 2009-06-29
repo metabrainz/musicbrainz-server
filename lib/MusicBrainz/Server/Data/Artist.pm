@@ -4,6 +4,8 @@ use Moose;
 use Carp;
 use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::Entity::Artist;
+use MusicBrainz::Server::Data::ArtistCredit;
+use MusicBrainz::Server::Data::Edit;
 use MusicBrainz::Server::Data::Utils qw(
     defined_hash
     generate_gid
@@ -115,6 +117,25 @@ sub delete
     my $query = 'DELETE FROM artist WHERE id IN (' . placeholders(@artist_ids) . ')';
     my $sql = Sql->new($self->c->mb->dbh);
     $sql->Do($query, @artist_ids);
+    return 1;
+}
+
+sub merge
+{
+    my ($self, $old_id, $new_id) = @_;
+    my $sql = Sql->new($self->c->dbh);
+    my $ac_data = MusicBrainz::Server::Data::ArtistCredit->new(c => $self->c);
+    my $edit_data = MusicBrainz::Server::Data::Edit->new(c => $self->c);
+
+    $self->alias->merge($old_id => $new_id);
+    $self->annotation->merge($old_id => $new_id);
+    $self->update_gid_redirects($old_id => $new_id);
+    $ac_data->merge_artists($old_id => $new_id);
+    $edit_data->merge_entities('artist', $old_id => $new_id);
+    
+    my $old_gid = $sql->SelectSingleValue('DELETE FROM artist WHERE id = ? RETURNING gid', $old_id);
+    $self->add_gid_redirects($old_gid => $new_id);
+
     return 1;
 }
 

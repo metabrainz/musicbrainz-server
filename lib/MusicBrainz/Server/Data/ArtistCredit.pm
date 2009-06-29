@@ -110,6 +110,13 @@ sub find_or_insert
     return $id;
 }
 
+sub merge_artists
+{
+    my ($self, $old_id, $new_id) = @_;
+    my $sql = Sql->new($self->c->dbh);
+    $sql->Do('UPDATE artist_credit_name SET artist = ? WHERE artist = ?', $new_id, $old_id);
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

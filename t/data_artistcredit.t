@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 19;
+use Test::More tests => 21;
 use_ok 'MusicBrainz::Server::Data::ArtistCredit';
 
 use MusicBrainz::Server::Context;
@@ -40,4 +40,10 @@ $ac = $artist_credit_data->find_or_insert(
     { name => 'Portishead', artist => 2 });
 ok(defined $ac);
 ok($ac > 4);
+
+$artist_credit_data->merge_artists(5, 3);
+$ac = $artist_credit_data->get_by_id(1);
+is($ac->names->[0]->artist_id, 4);
+is($ac->names->[1]->artist_id, 3);
+
 $sql->Commit;
