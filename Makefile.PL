@@ -58,6 +58,7 @@ requires 'String::Similarity'                          => '1.030';
 requires 'Text::Unaccent'                              => '1.080';
 requires 'Text::WikiFormat'                            => '0.790';
 requires 'XML::Feed'                                   => '0.410';
+requires 'XML::Simple';
 requires 'YAML'                                        => '0.680';
 
 recommends 'Apache::Session';
