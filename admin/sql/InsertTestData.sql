@@ -214,6 +214,9 @@ INSERT INTO artist_name (id, name) VALUES (8, 'Test Alias');
 INSERT INTO artist_alias (id, name, artist, editpending)
     VALUES (1, 8, 4, 2);
 
+INSERT INTO artist_alias (id, name, artist)
+    VALUES (2, 8, 5);
+
 TRUNCATE label_alias CASCADE;
 
 INSERT INTO label_name (id, name) VALUES (3, 'Test Label Alias');
@@ -391,8 +394,10 @@ INSERT INTO annotation (id, editor, text) VALUES (3, 1, 'Test annotation 3.');
 INSERT INTO annotation (id, editor, text) VALUES (4, 1, 'Test annotation 4.');
 INSERT INTO annotation (id, editor, text) VALUES (5, 1, 'Test annotation 5.');
 INSERT INTO annotation (id, editor, text) VALUES (6, 1, 'Test annotation 6.');
+INSERT INTO annotation (id, editor, text) VALUES (7, 1, 'Test annotation 7.');
 
 INSERT INTO artist_annotation (artist, annotation) VALUES (3, 1);
+INSERT INTO artist_annotation (artist, annotation) VALUES (4, 7);
 INSERT INTO label_annotation (label, annotation) VALUES (2, 2);
 INSERT INTO recording_annotation (recording, annotation) VALUES (1, 3);
 INSERT INTO release_annotation (release, annotation) VALUES (1, 4);

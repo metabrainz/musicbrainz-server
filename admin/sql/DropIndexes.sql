@@ -2,7 +2,7 @@
 \unset ON_ERROR_STOP
 
 DROP INDEX artist_alias_idx_artist;
-DROP INDEX artist_alias_idx_name;
+DROP INDEX artist_alias_idx_name_artist;
 DROP INDEX artist_idx_gid;
 DROP INDEX artist_idx_name;
 DROP INDEX artist_idx_sortname;
@@ -12,7 +12,7 @@ DROP INDEX artist_tag_idx_tag;
 DROP INDEX country_idx_isocode;
 DROP INDEX editor_idx_name;
 DROP INDEX label_alias_idx_label;
-DROP INDEX label_alias_idx_name;
+DROP INDEX label_alias_idx_name_label;
 DROP INDEX label_idx_gid;
 DROP INDEX label_idx_name;
 DROP INDEX label_idx_sortname;
