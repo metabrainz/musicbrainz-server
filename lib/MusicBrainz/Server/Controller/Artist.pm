@@ -63,12 +63,6 @@ after 'load' => sub
         $c->detach('/error_404');
     }
 
-	if ($c->user_exists)
-	{
-    	$c->stash->{subscribed} = $c->model('Subscription')->
-        	is_user_subscribed_to_entity($c->user, $c->stash->{artist});
-	}
-	
 	$c->model('ArtistType')->load($c->stash->{artist});
 	$c->model('Gender')->load($c->stash->{artist});
 	$c->model('Country')->load($c->stash->{artist});

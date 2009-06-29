@@ -21,6 +21,18 @@ after 'show' => sub
     $c->model($self->{model})->annotation->load_latest($c->stash->{$self->{entity_name}});
 };
 
+sub edit_annotation : Chained('load') PathPart
+{
+    my ($self, $c) = @_;
+    $c->detach('/error_404')
+}
+
+sub annotation_history : Chained('load') PathPart
+{
+    my ($self, $c) = @_;
+    $c->detach('/error_404');
+}
+
 no Moose::Role;
 1;
 
