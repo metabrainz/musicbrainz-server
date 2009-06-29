@@ -65,7 +65,7 @@ CREATE UNIQUE INDEX script_idx_isocode ON script (isocode);
 CREATE UNIQUE INDEX tag_idx_name ON tag (name);
 
 CREATE INDEX track_idx_recording ON track (recording);
-CREATE UNIQUE INDEX track_idx_tracklist ON track (tracklist, position);
+CREATE INDEX track_idx_tracklist ON track (tracklist, position);
 CREATE INDEX track_idx_name ON track (name);
 CREATE INDEX track_idx_artist_credit ON track (artist_credit);
 
