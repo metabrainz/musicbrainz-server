@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 44;
+use Test::More tests => 46;
 use_ok 'MusicBrainz::Server::Data::Label';
 use MusicBrainz::Server::Data::Search;
 
@@ -89,4 +89,16 @@ is($label->end_date->month, 5);
 $label_data->delete($label->id);
 $label = $label_data->get_by_id($label->id);
 ok(!defined $label);
+
+my $sql_raw = Sql->new($c->raw_dbh);
+$sql_raw->Begin;
+
+$label_data->merge(2, 1);
+$label = $label_data->get_by_id(2);
+ok(!defined $label);
+
+$label = $label_data->get_by_id(1);
+ok(defined $label);
+
+$sql_raw->Commit;
 $sql->Commit;

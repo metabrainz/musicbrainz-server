@@ -74,6 +74,13 @@ sub find_by_label
         $query, $label_id, $offset || 0);
 }
 
+sub merge_labels
+{
+    my ($self, $old_id, $new_id) = @_;
+    my $sql = Sql->new($self->c->dbh);
+    $sql->Do('UPDATE release_label SET label = ? WHERE label = ?', $new_id, $old_id);
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

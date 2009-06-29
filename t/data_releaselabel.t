@@ -1,10 +1,11 @@
 use strict;
 use warnings;
-use Test::More tests => 16;
+use Test::More tests => 18;
 use_ok 'MusicBrainz::Server::Data::ReleaseLabel';
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
+use Sql;
 
 my $c = MusicBrainz::Server::Test->create_test_context();
 MusicBrainz::Server::Test->prepare_test_database($c);
@@ -30,3 +31,15 @@ is( $rls->[2]->release->id, 1 );
 is( $rls->[2]->catalog_number, "ABC-123" );
 is( $rls->[3]->release->id, 1 );
 is( $rls->[3]->catalog_number, "ABC-123-X" );
+
+my $sql = Sql->new($c->dbh);
+$sql->Begin;
+
+$rl_data->merge_labels(2 => 1);
+($rls, $hits) = $rl_data->find_by_label(1, 100);
+is($hits, 4);
+
+($rls, $hits) = $rl_data->find_by_label(2, 100);
+is($hits, 0);
+
+$sql->Commit;

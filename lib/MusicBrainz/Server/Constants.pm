@@ -40,6 +40,7 @@ Readonly our $EDIT_ARTIST_MERGE => 4;
 Readonly our $EDIT_LABEL_CREATE => 10;
 Readonly our $EDIT_LABEL_EDIT => 11;
 Readonly our $EDIT_LABEL_DELETE => 13;
+Readonly our $EDIT_LABEL_MERGE => 14;
 
 Readonly our $EDIT_RELEASEGROUP_DELETE => 23;
 Readonly our $EDIT_RELEASEGROUP_MERGE => 24;
