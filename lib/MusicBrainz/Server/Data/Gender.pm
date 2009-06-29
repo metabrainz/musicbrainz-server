@@ -10,6 +10,7 @@ use MusicBrainz::Server::Data::Utils qw(
 
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::EntityCache' => { prefix => 'g' };
+with 'MusicBrainz::Server::Data::SelectAll';
 
 sub _table
 {

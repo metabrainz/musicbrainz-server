@@ -1,6 +1,7 @@
 use strict;
 use warnings;
-use Test::More tests => 7;
+use Test::More tests => 10;
+use Test::Moose;
 use_ok 'MusicBrainz::Server::Data::Script';
 
 use MusicBrainz::Server::Context;
@@ -20,3 +21,8 @@ my $scripts = $script_data->get_by_ids(1, 2);
 is ( $scripts->{1}->id, 1 );
 is ( $scripts->{1}->iso_code, "Ugar" );
 is ( $scripts->{1}->name, "Ugaritic" );
+
+does_ok($script_data, 'MusicBrainz::Server::Data::SelectAll');
+my @scripts = $script_data->get_all;
+is(@scripts, 1);
+is($scripts[0]->id, 1);

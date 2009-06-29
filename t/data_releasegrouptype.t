@@ -1,6 +1,7 @@
 use strict;
 use warnings;
-use Test::More tests => 9;
+use Test::More tests => 13;
+use Test::Moose;
 use_ok 'MusicBrainz::Server::Data::ReleaseGroupType';
 
 use MusicBrainz::Server::Context;
@@ -25,3 +26,9 @@ is ( $rgts->{1}->name, "Album" );
 
 is ( $rgts->{2}->id, 2 );
 is ( $rgts->{2}->name, "Single" );
+
+does_ok($rgt_data, 'MusicBrainz::Server::Data::SelectAll');
+my @types = $rgt_data->get_all;
+is(@types, 2);
+is($types[0]->id, 1);
+is($types[1]->id, 2);

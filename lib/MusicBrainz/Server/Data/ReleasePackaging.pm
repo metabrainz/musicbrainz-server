@@ -6,6 +6,7 @@ use MusicBrainz::Server::Data::Utils qw( load_subobjects );
 
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::EntityCache' => { prefix => 'rp' };
+with 'MusicBrainz::Server::Data::SelectAll';
 
 sub _table
 {

@@ -1,6 +1,7 @@
 use strict;
 use warnings;
-use Test::More tests => 16;
+use Test::More tests => 20;
+use Test::Moose;
 use_ok 'MusicBrainz::Server::Data::Gender';
 
 use MusicBrainz::Server::Entity::Gender;
@@ -26,6 +27,12 @@ is ( $genders->{1}->name, "Male" );
 
 is ( $genders->{2}->id, 2 );
 is ( $genders->{2}->name, "Female" );
+
+does_ok($gender_data, 'MusicBrainz::Server::Data::SelectAll');
+my @gs = $gender_data->get_all;
+is(@gs, 2);
+is($gs[0]->id, 1);
+is($gs[1]->id, 2);
 
 my $sql = Sql->new($c->mb->dbh);
 $sql->Begin;

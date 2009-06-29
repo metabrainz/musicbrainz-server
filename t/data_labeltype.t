@@ -1,6 +1,7 @@
 use strict;
 use warnings;
-use Test::More tests => 5;
+use Test::More tests => 9;
+use Test::Moose;
 use_ok 'MusicBrainz::Server::Data::LabelType';
 
 use MusicBrainz::Server::Context;
@@ -18,3 +19,9 @@ is ( $lt->name, "Production" );
 my $lts = $lt_data->get_by_ids(1);
 is ( $lts->{1}->id, 1 );
 is ( $lts->{1}->name, "Production" );
+
+does_ok($lt_data, 'MusicBrainz::Server::Data::SelectAll');
+my @types = $lt_data->get_all;
+is(@types, 2);
+is($types[0]->id, 1);
+is($types[1]->id, 2);

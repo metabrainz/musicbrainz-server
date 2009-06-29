@@ -1,6 +1,7 @@
 use strict;
 use warnings;
-use Test::More tests => 11;
+use Test::More tests => 14;
+use Test::Moose;
 use_ok 'MusicBrainz::Server::Data::Language';
 
 use MusicBrainz::Server::Context;
@@ -24,3 +25,8 @@ is ( $languages->{1}->iso_code_3t, "deu" );
 is ( $languages->{1}->iso_code_3b, "ger" );
 is ( $languages->{1}->iso_code_2, "de" );
 is ( $languages->{1}->name, "German" );
+
+does_ok($language_data, 'MusicBrainz::Server::Data::SelectAll');
+my @languages = $language_data->get_all;
+is(@languages, 1);
+is($languages[0]->id, 1);
