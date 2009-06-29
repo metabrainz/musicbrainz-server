@@ -8,7 +8,7 @@ has_field 'query' => (
 );
 
 has_field 'type' => (
-    type => 'Multiple',
+    type => 'Select',
     required => 1
 );
 
