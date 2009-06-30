@@ -128,7 +128,7 @@ INSERT INTO release_group_meta
 ------------------------
 
 -- Check which release events should get album GIDs (the earliest one from an album)
-SELECT gid::uuid, a.id AS album, (SELECT id FROM public.release r WHERE a.id=r.album ORDER BY releasedate LIMIT 1) AS id
+SELECT gid::uuid, a.id AS album, (SELECT min(id) FROM public.release r WHERE a.id=r.album) AS id
     INTO TEMPORARY tmp_release_gid
     FROM public.album a
     WHERE EXISTS (SELECT id FROM public.release r WHERE r.album=a.id);
