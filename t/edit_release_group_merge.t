@@ -9,15 +9,9 @@ use MusicBrainz::Server::Constants qw( $EDIT_RELEASEGROUP_MERGE );
 use MusicBrainz::Server::Data::ReleaseGroup;
 use MusicBrainz::Server::Data::Edit;
 use MusicBrainz::Server::Test;
-use Sql;
 
 my $c = MusicBrainz::Server::Context->new();
 MusicBrainz::Server::Test->prepare_test_database($c);
-
-my $sql = Sql->new($c->dbh);
-my $sql_raw = Sql->new($c->raw_dbh);
-$sql->Begin;
-$sql_raw->Begin;
 
 my $rg_data = MusicBrainz::Server::Data::ReleaseGroup->new(c => $c);
 my $edit_data = MusicBrainz::Server::Data::Edit->new(c => $c);
@@ -48,6 +42,3 @@ ok(!defined $rg);
 $rg = $rg_data->get_by_id(1);
 ok(defined $rg);
 is($rg->edits_pending, 0);
-
-$sql->Commit;
-$sql_raw->Commit;

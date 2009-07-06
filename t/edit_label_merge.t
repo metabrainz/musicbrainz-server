@@ -12,17 +12,12 @@ use MusicBrainz::Server::Data::Label;
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_LABEL_MERGE );
 use MusicBrainz::Server::Test;
-use Sql;
 
 my $c = MusicBrainz::Server::Test->create_test_context();
 MusicBrainz::Server::Test->prepare_test_database($c);
 
 my $label_data = MusicBrainz::Server::Data::Label->new(c => $c);
 my $edit_data = MusicBrainz::Server::Data::Edit->new(c => $c);
-my $sql = Sql->new($c->dbh);
-my $sql_raw = Sql->new($c->raw_dbh);
-$sql->Begin;
-$sql_raw->Begin;
 
 my $edit = $edit_data->create(
     edit_type => $EDIT_LABEL_MERGE,
@@ -49,6 +44,3 @@ ok(!defined $label);
 $label = $label_data->get_by_id(2);
 ok(defined $label);
 is($label->edits_pending, 0);
-
-$sql->Commit;
-$sql_raw->Commit;

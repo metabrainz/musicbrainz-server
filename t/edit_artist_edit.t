@@ -9,15 +9,9 @@ use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_EDIT );
 use MusicBrainz::Server::Data::Artist;
 use MusicBrainz::Server::Data::Edit;
 use MusicBrainz::Server::Test;
-use Sql;
 
 my $c = MusicBrainz::Server::Test->create_test_context();
 MusicBrainz::Server::Test->prepare_test_database($c);
-
-my $sql = Sql->new($c->dbh);
-my $sql_raw = Sql->new($c->raw_dbh);
-$sql->Begin;
-$sql_raw->Begin;
 
 my $artist_data = MusicBrainz::Server::Data::Artist->new(c => $c);
 my $edit_data = MusicBrainz::Server::Data::Edit->new(c => $c);
@@ -58,6 +52,3 @@ is($artist2->comment, 'Amazing comment');
 is($artist2->country, $artist->country);
 is($artist2->sort_name, $artist->sort_name);
 is($artist2->edits_pending, 0);
-
-$sql->Commit;
-$sql_raw->Commit;

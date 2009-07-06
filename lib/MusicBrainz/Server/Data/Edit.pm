@@ -62,6 +62,7 @@ sub merge_entities
 sub create
 {
     my ($self, %opts) = @_;
+    my $sql = Sql->new($self->c->dbh);
     my $sql_raw = Sql->new($self->c->raw_dbh);
 
     my $type = delete $opts{edit_type} or croak "edit_type required";
@@ -72,28 +73,16 @@ sub create
     $edit->initialize(%opts);
 
     eval {
+        $sql->Begin;
         $sql_raw->Begin;
+
         $edit->insert;
 
         # Automatically accept auto-edits on insert
         if($edit->auto_edit)
         {
-            my $sql = Sql->new($self->c->dbh);
-            my $status = eval {
-                $sql->Begin;
-                $edit->accept;
-                $sql->Commit;
-            };
-            if ($@)
-            {
-                # XXX Exception classes should specificy the status
-                $sql->Rollback;
-                $edit->status($STATUS_ERROR);
-            }
-            else
-            {
-                $edit->status($STATUS_APPLIED);
-            }
+            my $st = $self->_accept_edit($edit);
+            $edit->status($st);
         };
 
         my $now = DateTime->now;
@@ -128,11 +117,13 @@ sub create
             $model->inc_edits_pending(@ids);
         }
 
+        $sql->Commit;
         $sql_raw->Commit;
     };
 
     if ($@)
     {
+        $sql->Rollback;
         $sql_raw->Rollback;
         die $@;
     }
@@ -143,8 +134,35 @@ sub create
 sub accept
 {
     my ($self, $edit) = @_;
+
+    my $sql = Sql->new($self->c->dbh);
+    my $sql_raw = Sql->new($self->c->raw_dbh);
+
+    eval {
+        $sql->Begin;
+        $sql_raw->Begin;
+
+        my $st = $self->_accept_edit($edit);
+        $self->_close($edit => $st);
+
+        $sql->Commit;
+        $sql_raw->Commit;
+    };
+
+    if ($@) {
+        $sql->Rollback;
+        $sql_raw->Rollback;
+        die $@;
+    }
+}
+
+# TODO needs to handle specific exceptions
+sub _accept_edit
+{
+    my ($self, $edit) = @_;
     eval { $edit->accept };
-    $self->_close($edit => $@ ? $STATUS_ERROR : $STATUS_APPLIED);
+
+    return $@ ? $STATUS_ERROR : $STATUS_APPLIED;
 }
 
 sub _close

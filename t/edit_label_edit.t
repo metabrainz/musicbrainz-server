@@ -9,15 +9,9 @@ use MusicBrainz::Server::Constants qw( $EDIT_LABEL_EDIT );
 use MusicBrainz::Server::Data::Label;
 use MusicBrainz::Server::Data::Edit;
 use MusicBrainz::Server::Test;
-use Sql;
 
 my $c = MusicBrainz::Server::Test->create_test_context();
 MusicBrainz::Server::Test->prepare_test_database($c);
-
-my $sql = Sql->new($c->dbh);
-my $sql_raw = Sql->new($c->raw_dbh);
-$sql->Begin;
-$sql_raw->Begin;
 
 my $label_data = MusicBrainz::Server::Data::Label->new(c => $c);
 my $edit_data = MusicBrainz::Server::Data::Edit->new(c => $c);
@@ -46,6 +40,3 @@ is($label2->name, 'Warped Records');
 is($label2->comment, 'Weird electronica record label');
 is($label2->country_id, 1);
 is($label2->edits_pending, 0);
-
-$sql->Commit;
-$sql_raw->Commit;

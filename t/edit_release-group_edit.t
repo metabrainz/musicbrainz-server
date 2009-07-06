@@ -15,11 +15,6 @@ use Sql;
 my $c = MusicBrainz::Server::Test->create_test_context();
 MusicBrainz::Server::Test->prepare_test_database($c);
 
-my $sql = Sql->new($c->dbh);
-my $sql_raw = Sql->new($c->raw_dbh);
-$sql->Begin;
-$sql_raw->Begin;
-
 my $ac_data = MusicBrainz::Server::Data::ArtistCredit->new(c => $c);
 my $rg_data = MusicBrainz::Server::Data::ReleaseGroup->new(c => $c);
 my $edit_data = MusicBrainz::Server::Data::Edit->new(c => $c);
@@ -73,6 +68,3 @@ is($rg->name, 'We Know');
 is($rg->comment, 'EP');
 is($rg->artist_credit->name, 'Break & Silent Witness');
 is($rg->edits_pending, 0);
-
-$sql->Commit;
-$sql_raw->Commit;

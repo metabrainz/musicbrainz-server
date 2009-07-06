@@ -12,17 +12,12 @@ use MusicBrainz::Server::Data::Artist;
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_MERGE );
 use MusicBrainz::Server::Test;
-use Sql;
 
 my $c = MusicBrainz::Server::Test->create_test_context();
 MusicBrainz::Server::Test->prepare_test_database($c);
 
 my $artist_data = MusicBrainz::Server::Data::Artist->new(c => $c);
 my $edit_data = MusicBrainz::Server::Data::Edit->new(c => $c);
-my $sql = Sql->new($c->dbh);
-my $sql_raw = Sql->new($c->raw_dbh);
-$sql->Begin;
-$sql_raw->Begin;
 
 my $edit = $edit_data->create(
     edit_type => $EDIT_ARTIST_MERGE,
@@ -49,6 +44,3 @@ ok(!defined $artist);
 $artist = $artist_data->get_by_id(3);
 ok(defined $artist);
 is($artist->edits_pending, 0);
-
-$sql->Commit;
-$sql_raw->Commit;

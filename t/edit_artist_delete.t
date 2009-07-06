@@ -12,18 +12,12 @@ use MusicBrainz::Server::Data::Artist;
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_DELETE );
 use MusicBrainz::Server::Test;
-use Sql;
 
 my $c = MusicBrainz::Server::Test->create_test_context();
 MusicBrainz::Server::Test->prepare_test_database($c);
 
 my $edit_data = MusicBrainz::Server::Data::Edit->new(c => $c);
 my $artist_data = MusicBrainz::Server::Data::Artist->new(c => $c);
-
-my $sql_raw = Sql->new($c->raw_dbh);
-my $sql = Sql->new($c->dbh);
-$sql->Begin;
-$sql_raw->Begin;
 
 my $edit = $edit_data->create(
     edit_type => $EDIT_ARTIST_DELETE,
@@ -42,5 +36,3 @@ $edit_data->accept($edit);
 $artist = $artist_data->get_by_id(3);
 ok(!defined $artist);
 
-$sql->Commit;
-$sql_raw->Commit;

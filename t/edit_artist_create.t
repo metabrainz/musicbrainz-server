@@ -12,18 +12,12 @@ use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_CREATE );
 use MusicBrainz::Server::Types qw( $STATUS_APPLIED );
 use MusicBrainz::Server::Test;
-use Sql;
 
 my $c = MusicBrainz::Server::Test->create_test_context();
 MusicBrainz::Server::Test->prepare_test_database($c);
 
 my $artist_data = MusicBrainz::Server::Data::Artist->new(c => $c);
 my $edit_data = MusicBrainz::Server::Data::Edit->new(c => $c);
-
-my $sql_raw = Sql->new($c->raw_dbh);
-my $sql = Sql->new($c->dbh);
-$sql->Begin;
-$sql_raw->Begin;
 
 my $edit = $edit_data->create(
     edit_type => $EDIT_ARTIST_CREATE,
@@ -54,6 +48,3 @@ is($artist->name, 'Junior Boys');
 is($artist->gender_id, 1);
 is($artist->comment, 'Canadian electronica duo');
 is($artist->edits_pending, 0);
-
-$sql->Commit;
-$sql_raw->Commit;

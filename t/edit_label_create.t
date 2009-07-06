@@ -13,18 +13,11 @@ use MusicBrainz::Server::Constants qw( $EDIT_LABEL_CREATE );
 use MusicBrainz::Server::Data::Label;
 use MusicBrainz::Server::Test;
 
-use Sql;
-
 my $c = MusicBrainz::Server::Test->create_test_context();
 MusicBrainz::Server::Test->prepare_test_database($c);
 
 my $edit_data = MusicBrainz::Server::Data::Edit->new(c => $c);
 my $label_data = MusicBrainz::Server::Data::Label->new(c => $c);
-
-my $sql_raw = Sql->new($c->raw_dbh);
-my $sql = Sql->new($c->dbh);
-$sql_raw->Begin;
-$sql->Begin;
 
 my $edit = $edit_data->create(
     edit_type => $EDIT_LABEL_CREATE,
@@ -52,6 +45,3 @@ is($label->type_id, 1);
 is($label->comment, "Funky record label");
 is($label->label_code, 7306);
 is($label->edits_pending, 0);
-
-$sql_raw->Commit;
-$sql->Commit;

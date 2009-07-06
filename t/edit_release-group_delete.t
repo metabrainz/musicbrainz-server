@@ -12,18 +12,12 @@ use MusicBrainz::Server::Data::ReleaseGroup;
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASEGROUP_DELETE );
 use MusicBrainz::Server::Test;
-use Sql;
 
 my $c = MusicBrainz::Server::Test->create_test_context();
 MusicBrainz::Server::Test->prepare_test_database($c);
 
 my $edit_data = MusicBrainz::Server::Data::Edit->new(c => $c);
 my $rg_data = MusicBrainz::Server::Data::ReleaseGroup->new(c => $c);
-
-my $sql_raw = Sql->new($c->raw_dbh);
-my $sql = Sql->new($c->dbh);
-$sql->Begin;
-$sql_raw->Begin;
 
 my $edit = $edit_data->create(
     edit_type => $EDIT_RELEASEGROUP_DELETE,
@@ -42,7 +36,3 @@ is($rg->edits_pending, 1);
 $edit_data->accept($edit);
 $rg = $rg_data->get_by_id(3);
 ok(!defined $rg);
-
-$sql->Commit;
-$sql_raw->Commit;
-

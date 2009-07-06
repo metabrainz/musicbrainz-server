@@ -12,18 +12,12 @@ use MusicBrainz::Server::Data::Label;
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_LABEL_DELETE );
 use MusicBrainz::Server::Test;
-use Sql;
 
 my $c = MusicBrainz::Server::Test->create_test_context();
 MusicBrainz::Server::Test->prepare_test_database($c);
 
 my $edit_data = MusicBrainz::Server::Data::Edit->new(c => $c);
 my $label_data = MusicBrainz::Server::Data::Label->new(c => $c);
-
-my $sql_raw = Sql->new($c->raw_dbh);
-my $sql = Sql->new($c->dbh);
-$sql->Begin;
-$sql_raw->Begin;
 
 my $edit = $edit_data->create(
     edit_type => $EDIT_LABEL_DELETE,
@@ -42,7 +36,3 @@ is($label->edits_pending, 1);
 $edit_data->accept($edit);
 $label = $label_data->get_by_id(1);
 ok(!defined $label);
-
-$sql->Commit;
-$sql_raw->Commit;
-
