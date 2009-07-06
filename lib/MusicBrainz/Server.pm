@@ -11,6 +11,7 @@ use DBDefs;
 use MusicBrainz;
 use MusicBrainz::Server::CacheManager;
 use MusicBrainz::Server::Context;
+use UNIVERSAL::require;
 
 # Set flags and add plugins for the application
 #
@@ -181,6 +182,16 @@ sub form_posted
     my $c = shift;
 
     return $c->req->method eq 'POST';
+}
+
+sub form
+{
+    my ($c, $stash, $form_name, %args) = @_;
+    $form_name = "MusicBrainz::Server::Form::$form_name";
+    $form_name->require;
+    my $form = $form_name->new(%args, ctx => $c);
+    $c->stash( $stash => $form );
+    return $form;
 }
 
 =head1 NAME

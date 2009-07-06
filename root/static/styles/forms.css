@@ -1,140 +1,53 @@
-/*
- * Messages
- */
-#content form .required {
-	font-weight:700;
+fieldset {
+    margin-bottom: 2em;
+    border: none;
+    border-top: 1px solid #aaa;
 }
 
-#content form .error {
-	color:#f33;
+fieldset legend {
+    font-size: 12pt;
+    font-weight: bold;
+    padding: 0 0.5em;
 }
 
-#content form input.error,
-#content form textarea.error,
-#content form select.error {
-	background:#fcc;
-	border:1px dotted #f88;
+form div.row,
+form p {
+    clear: left;
 }
 
-/*
- * Generic Forms
- */
-#content form.generic div.row {
-	clear:both;
-	margin-bottom:4pt;
-}
-#content td form { display: inline; }
-
-#content form.generic label,
-#content form.generic .row div.label {
-	float:left;
-	text-align:right;
-	width:90pt;
-	margin-right:10pt;
+form p label,
+form p div.label {
+    float: left;
+    text-align: right;
+    width: 10em;
+    margin-right: 1em;
 }
 
-#content form.generic div.fields,
-#content form.generic div.no_label,
-#content form.generic ul.errors {
-	margin-left:100pt;
+form div.no-label,
+ul.radio-list,
+form p.no-label {
+    margin-left: 11em;
 }
 
-/* Labels that are not the main label for a row (ie: checkbox) */
-
-#content form.generic .no_label label,
-#content form.generic .fields label {
-	width:auto;
-	float:none;
-	text-align:left;
-	margin:0;
+ul.radio-list {
+    list-style-type: none;
+    padding: 0;
 }
 
-#content form fieldset {
-	border:none;
-	border-top:1px solid #FB5;
-	margin-bottom:5pt;
-	padding:10pt;
+textarea {
+    font-family: sans-serif;
+    font-size: 12.5px;
+    padding: 0.5em;
 }
 
-#content form fieldset legend {
-	font-weight:700;
-	font-size:14pt;
-	line-height:16pt;
-	border-bottom:2px solid #FB5;
-	padding:0 5pt;
+textarea.edit-note {
+    width: 45em;
+    height: 6em;
 }
 
-/*
- * Custom fields
- */
-
-#content form input.duration {
-	width:50pt;
+label.inline {
+    float: none !important;
+    width: auto !important;
 }
 
-form textarea.edit-note {
-	width:45em;
-	height:12em;
-}
-
-select.release_type,
-select.release_status {
-	width:100pt;
-}
-
-select.release_language,
-select.release_script {
-	width:203pt;
-}
-
-select.release_event_country {
-	width:13em;
-	margin-right:5pt;
-	margin-left:5pt;
-}
-
-input.release_event_label {
-	width:10em;
-	margin-right:5pt;
-}
-
-select.release_event_format {
-	width:12.8em;
-	margin-right:5pt;
-}
-
-input.release_event_barcode {
-	width:11em;
-	margin-right:5pt;
-}
-
-input.release_event_catalog {
-	width:10em;
-	margin-right:5pt;
-}
-
-input.artist_name {
-	width:300pt;
-}
-
-input.track_number {
-	width:20pt;
-	text-align:center;
-}
-
-input.track_name {
-	width:220pt;
-}
-
-input.track_duration {
-	text-align:center;
-	width:43pt;
-}
-
-input.release_event_label,
-input.release_event_barcode,
-input.release_event_catalog,
-input.track_name,
-input.artist_name {
-	padding-left:3px;
-}
+div.row

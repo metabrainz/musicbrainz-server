@@ -1,4 +1,5 @@
 [% WRAPPER "layout.tt" title=l("Log In") %]
+    [%- USE r = FormRenderer(login_form) -%]
     [% WRAPPER "components/box.tt" header=l("Log In") %]
         <p>
             [% l('Please log in using the form below. Note that the password field <em>is</em> case sensitive.') %]
@@ -8,14 +9,14 @@
                 <p><strong>[% l('Incorrect log in or password') %]</strong></p>
             [%- END %]
             <p>
-                <label for="id_username">[% l('Username') %]</label>
-                [% form_field_text(login_form.field('username')) %]
+                [% r.label('username', l('Username:')) %]
+                [% r.text('username') %]
             </p>
             <p>
-                <label for="id_password">[% l('Password') %]</label>
-                [% form_field_password(login_form.field('password')) %]
+                [% r.label('password', l('Password:')) %]
+                [% r.password('password') %]
             </p>
-            <input type="submit" value="[% l('Log in') %]" />
+            [% form_submit(l('Log in')) %]
         </form>
         <ul>
             <li>

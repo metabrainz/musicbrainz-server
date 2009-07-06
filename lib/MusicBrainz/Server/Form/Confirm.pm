@@ -1,12 +1,8 @@
 package MusicBrainz::Server::Form::Confirm;
+use HTML::FormHandler::Moose;
+extends 'MusicBrainz::Server::Form';
 
-use strict;
-use warnings;
-
-use base 'MusicBrainz::Server::Form';
-
-sub profile {
-    return shift->with_mod_fields({});
-}
+with 'MusicBrainz::Server::Form::Edit';
+has '+name' => ( default => 'confirm' );
 
 1;
