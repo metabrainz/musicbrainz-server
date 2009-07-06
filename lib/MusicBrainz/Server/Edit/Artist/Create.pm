@@ -3,6 +3,7 @@ use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_CREATE );
 use MusicBrainz::Server::Data::Artist;
+use MusicBrainz::Server::Data::Utils qw( defined_hash );
 use MusicBrainz::Server::Types qw( :edit_status );
 use Moose::Util::TypeConstraints;
 use MooseX::Types::Moose qw( Str Int );
@@ -68,6 +69,12 @@ override 'accept' => sub
     $self->artist($artist);
     $self->artist_id($artist->id);
 };
+
+sub initialize
+{
+    my ($self, %args) = @_;
+    $self->data({ defined_hash(%args) });
+}
 
 # artist_id is handled separately, as it should not be copied if the edit is cloned
 # (a new different artist_id would be used)

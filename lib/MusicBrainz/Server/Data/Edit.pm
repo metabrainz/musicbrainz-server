@@ -43,9 +43,9 @@ sub _new_from_row
         editor_id => $row->{editor},
         created_time => $row->{opentime},
         expires_time => $row->{expiretime},
-        language_id => $row->{language},
         auto_edit => $row->{autoedit}
     );
+    $edit->language_id($row->{language}) if $row->{language};
     $edit->restore($data);
     $edit->close_time($row->{closetime}) if defined $row->{closetime};
     return $edit;
@@ -62,7 +62,7 @@ sub merge_entities
 sub create
 {
     my ($self, %opts) = @_;
-    my $sql = Sql->new($self->c->raw_dbh);
+    my $sql_raw = Sql->new($self->c->raw_dbh);
 
     my $type = delete $opts{edit_type} or croak "edit_type required";
     my $editor_id = delete $opts{editor_id} or croak "editor_id required";
@@ -70,53 +70,71 @@ sub create
 
     my $edit = $class->new( editor_id => $editor_id, c => $self->c );
     $edit->initialize(%opts);
-    $edit->insert;
 
-    # Automatically accept auto-edits on insert
-    if($edit->auto_edit)
-    {
-        my $status = eval { $edit->accept };
-        if ($@)
+    eval {
+        $sql_raw->Begin;
+        $edit->insert;
+
+        # Automatically accept auto-edits on insert
+        if($edit->auto_edit)
         {
-            # XXX Exception classes should specificy the status
-            $edit->status($STATUS_ERROR);
-        }
-        else
+            my $sql = Sql->new($self->c->dbh);
+            my $status = eval {
+                $sql->Begin;
+                $edit->accept;
+                $sql->Commit;
+            };
+            if ($@)
+            {
+                # XXX Exception classes should specificy the status
+                $sql->Rollback;
+                $edit->status($STATUS_ERROR);
+            }
+            else
+            {
+                $edit->status($STATUS_APPLIED);
+            }
+        };
+
+        my $now = DateTime->now;
+        my $row = {
+            editor => $edit->editor_id,
+            data => XMLout($edit->to_hash, NoAttr => 1),
+            status => $edit->status,
+            type => $edit->edit_type,
+            opentime => $now,
+            expiretime => $now + $edit->edit_voting_period,
+        };
+
+        my $edit_id = $sql_raw->InsertRow('edit', $row, 'id');
+        $edit->id($edit_id);
+
+        my $ents = $edit->entities;
+        for my $type (keys %$ents)
         {
-            $edit->status($STATUS_APPLIED);
+            my @ids = @{ $ents->{$type} };
+            my $query = "INSERT INTO edit_$type (edit, $type) VALUES ";
+            $query .= join ", ", ("(?, ?)") x @ids;
+            my @all_ids = ($edit_id) x @ids;
+            $sql_raw->Do($query, zip @all_ids, @ids); 
         }
+
+        if (defined $edit->entity_model && $edit->entity_id && $edit->is_open)
+        {
+            my $model = $self->c->model($edit->entity_model);
+            $model->does('MusicBrainz::Server::Data::Editable')
+                or croak "Model must do MusicBrainz::Server::Data::Editable";
+            my @ids = ref $edit->entity_id ? @{ $edit->entity_id } : ($edit->entity_id);
+            $model->inc_edits_pending(@ids);
+        }
+
+        $sql_raw->Commit;
     };
 
-    my $now = DateTime->now;
-    my $row = {
-        editor => $edit->editor_id,
-        data => XMLout($edit->to_hash, NoAttr => 1),
-        status => $edit->status,
-        type => $edit->edit_type,
-        opentime => $now,
-        expiretime => $now + $edit->edit_voting_period,
-    };
-
-    my $edit_id = $sql->InsertRow('edit', $row, 'id');
-    $edit->id($edit_id);
-
-    my $ents = $edit->entities;
-    for my $type (keys %$ents)
+    if ($@)
     {
-        my @ids = @{ $ents->{$type} };
-        my $query = "INSERT INTO edit_$type (edit, $type) VALUES ";
-        $query .= join ", ", ("(?, ?)") x @ids;
-        my @all_ids = ($edit_id) x @ids;
-        $sql->Do($query, zip @all_ids, @ids); 
-    }
-
-    if (defined $edit->entity_model && $edit->entity_id && $edit->is_open)
-    {
-        my $model = $self->c->model($edit->entity_model);
-        $model->does('MusicBrainz::Server::Data::Editable')
-            or croak "Model must do MusicBrainz::Server::Data::Editable";
-        my @ids = ref $edit->entity_id ? @{ $edit->entity_id } : ($edit->entity_id);
-        $model->inc_edits_pending(@ids);
+        $sql_raw->Rollback;
+        die $@;
     }
 
     return $edit;

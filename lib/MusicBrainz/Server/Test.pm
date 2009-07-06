@@ -5,6 +5,7 @@ use MusicBrainz;
 use MusicBrainz::Server::CacheManager;
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Database;
+use MusicBrainz::Server::Data::Edit;
 use Sql;
 
 MusicBrainz::Server::Database->profile("test");
@@ -41,6 +42,15 @@ sub prepare_test_server
 {
     no warnings 'redefine';
     *DBDefs::_RUNNING_TESTS = sub { 1 };
+}
+
+sub get_latest_edit
+{
+    my ($class, $c) = @_;
+    my $ed = MusicBrainz::Server::Data::Edit->new(c => $c);
+    my $sql = Sql->new($c->raw_dbh);
+    my $last_id = $sql->SelectSingleValue("SELECT id FROM edit ORDER BY ID DESC LIMIT 1") or return;
+    return $ed->get_by_id($last_id);
 }
 
 1;

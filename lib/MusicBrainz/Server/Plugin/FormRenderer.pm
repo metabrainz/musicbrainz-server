@@ -77,20 +77,25 @@ sub label
 {
     my ($self, $field_name, $label, $attrs) = @_;
     my $fake_label = delete $attrs->{fake};
+
+    my $field = $self->_lookup_field($field_name) or return;
+    my $class = $field->required ? "required " : "";
+    $class .= delete $attrs->{inline} ? "inline " : "";
+    $class .= delete $attrs->{class};
+
     if ($fake_label)
     {
         return $self->h->div({
-            class => 'label',
+            class => "$class label",
             %$attrs
         }, $label);
     }
     else
     {
-        my $field = $self->_lookup_field($field_name);
         return $self->h->label({
             id => 'label-' . $field->id,
             for => $field->id,
-            class => $field->required ? "required" : undef,
+            class => $class || undef
             %$attrs
         }, $label);
     }
@@ -135,6 +140,7 @@ sub checkbox
     my $field = $self->_lookup_field($field_name) or return;
     return $self->_render_input($field, 'checkbox',
         checked => $field->value ? "checked" : undef,
+        value => $field->checkbox_value,
         %$attrs
     );
 }

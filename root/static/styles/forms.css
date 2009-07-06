@@ -16,7 +16,7 @@ form p {
 }
 
 form p label,
-form p div.label {
+form div.label {
     float: left;
     text-align: right;
     width: 10em;

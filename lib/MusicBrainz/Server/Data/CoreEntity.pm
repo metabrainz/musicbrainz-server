@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Data::CoreEntity;
 
 use Moose;
-use MusicBrainz::Server::Data::Utils qw( placeholders );
+use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list );
 use Sql;
 
 extends 'MusicBrainz::Server::Data::Entity';
@@ -27,6 +27,13 @@ sub get_by_gid
         }
     }
     return undef;
+}
+
+sub find_by_name
+{
+    my ($self, $name) = @_;
+    my $query = "SELECT " . $self->_columns . " FROM " . $self->_table . " WHERE name.name = ?";
+    return query_to_list($self->c, sub { $self->_new_from_row(shift) }, $query, $name);
 }
 
 sub remove_gid_redirects
