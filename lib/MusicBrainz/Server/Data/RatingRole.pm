@@ -1,31 +1,35 @@
-package MusicBrainz::Server::Controller::Work;
-use Moose;
+package MusicBrainz::Server::Data::RatingRole;
+use MooseX::Role::Parameterized;
 
-BEGIN { extends 'MusicBrainz::Server::Controller'; }
+use MusicBrainz::Server::Data::Rating;
 
-with 'MusicBrainz::Server::Controller::Annotation';
-with 'MusicBrainz::Server::Controller::RelationshipRole';
-with 'MusicBrainz::Server::Controller::RatingRole';
-
-__PACKAGE__->config(
-    model       => 'Work',
-    entity_name => 'work',
+parameter 'type' => (
+    isa => 'Str',
+    required => 1,
 );
 
-sub base : Chained('/') PathPart('work') CaptureArgs(0) { }
-sub work : Chained('load') PathPart('') CaptureArgs(0) { }
-
-sub show : PathPart('') Chained('work')
+role
 {
-    my ($self, $c) = @_;
+    my $params = shift;
 
-    my $work = $c->stash->{work};
-    $c->model('WorkType')->load($work);
-    $c->model('ArtistCredit')->load($work);
+    requires 'c', '_entity_class';
 
-    $c->stash->{template} = 'work/index.tt';
-}
+    has 'rating' => (
+        is => 'ro',
+        builder => '_build_rating',
+        lazy => 1
+    );
 
+    method '_build_rating' => sub
+    {
+        my $self = shift;
+        return MusicBrainz::Server::Data::Rating->new(
+            c => $self->c, type => $params->type);
+    }
+};
+
+
+no Moose::Role;
 1;
 
 =head1 COPYRIGHT
@@ -47,3 +51,4 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 =cut
+

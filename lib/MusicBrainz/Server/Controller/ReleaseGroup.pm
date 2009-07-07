@@ -5,6 +5,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
 with 'MusicBrainz::Server::Controller::Annotation';
 with 'MusicBrainz::Server::Controller::RelationshipRole';
+with 'MusicBrainz::Server::Controller::RatingRole';
 
 __PACKAGE__->config(
     model       => 'ReleaseGroup',

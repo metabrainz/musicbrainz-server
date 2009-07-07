@@ -2,6 +2,9 @@ package MusicBrainz::Server::Data::Editor;
 use Moose;
 
 use MusicBrainz::Server::Entity::Editor;
+use MusicBrainz::Server::Data::Utils qw(
+    load_subobjects
+);
 
 extends 'MusicBrainz::Server::Data::Entity';
 
@@ -46,6 +49,12 @@ sub get_by_name
     my ($self, $name) = @_;
     my @result = values %{$self->_get_by_keys('name', $name)};
     return $result[0];
+}
+
+sub load
+{
+    my ($self, @objs) = @_;
+    load_subobjects($self, 'editor', @objs);
 }
 
 no Moose;

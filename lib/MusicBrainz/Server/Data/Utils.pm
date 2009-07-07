@@ -81,8 +81,8 @@ sub placeholders
 
 sub query_to_list
 {
-    my ($c, $builder, $query, @args) = @_;
-    my $sql = Sql->new($c->mb->dbh);
+    my ($dbh, $builder, $query, @args) = @_;
+    my $sql = Sql->new($dbh);
     $sql->Select($query, @args);
     my @result;
     while (1) {

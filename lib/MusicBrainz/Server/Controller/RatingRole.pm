@@ -1,31 +1,22 @@
-package MusicBrainz::Server::Controller::Work;
-use Moose;
+package MusicBrainz::Server::Controller::RatingRole;
+use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
 
-BEGIN { extends 'MusicBrainz::Server::Controller'; }
+requires 'load';
 
-with 'MusicBrainz::Server::Controller::Annotation';
-with 'MusicBrainz::Server::Controller::RelationshipRole';
-with 'MusicBrainz::Server::Controller::RatingRole';
-
-__PACKAGE__->config(
-    model       => 'Work',
-    entity_name => 'work',
-);
-
-sub base : Chained('/') PathPart('work') CaptureArgs(0) { }
-sub work : Chained('load') PathPart('') CaptureArgs(0) { }
-
-sub show : PathPart('') Chained('work')
+sub ratings : Chained('load') PathPart('ratings')
 {
     my ($self, $c) = @_;
 
-    my $work = $c->stash->{work};
-    $c->model('WorkType')->load($work);
-    $c->model('ArtistCredit')->load($work);
+    my $entity = $c->stash->{$self->{entity_name}};
+    my @ratings = $c->model($self->{model})->rating->find_by_entity_id($entity->id);
+    $c->model('Editor')->load(@ratings);
 
-    $c->stash->{template} = 'work/index.tt';
+    $c->stash(
+        ratings => \@ratings,
+    );
 }
 
+no Moose::Role;
 1;
 
 =head1 COPYRIGHT

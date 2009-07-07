@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 use strict;
-use Test::More tests => 15;
+use Test::More tests => 16;
 
 BEGIN {
     use MusicBrainz::Server::Context;
@@ -29,3 +29,6 @@ $mech->content_like(qr/This recording does not have an annotation/, 'has no anno
 $mech->get_ok('/recording/123c079d-374e-4436-9448-da92dedef3ce', 'fetch dancing queen recording');
 $mech->title_like(qr/Dancing Queen/);
 $mech->content_contains('Test annotation 3', 'has annotation');
+
+# Test ratings
+$mech->get_ok('/recording/123c079d-374e-4436-9448-da92dedef3ce/ratings', 'get recording ratings');

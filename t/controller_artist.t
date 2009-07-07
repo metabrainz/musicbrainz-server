@@ -1,10 +1,18 @@
 #!/usr/bin/perl
 use strict;
-use Test::More tests => 48;
+use Test::More tests => 51;
 
 BEGIN {
     use MusicBrainz::Server::Context;
     use MusicBrainz::Server::Test;
+    my $c = MusicBrainz::Server::Test->create_test_context();
+    MusicBrainz::Server::Test->prepare_test_database($c);
+    MusicBrainz::Server::Test->prepare_raw_test_database($c, "
+        TRUNCATE artist_rating_raw CASCADE;
+        INSERT INTO artist_rating_raw (artist, editor, rating)
+            VALUES (8, 1, 4);
+    ");
+    MusicBrainz::Server::Test->prepare_test_server();
 }
 
 my $c = MusicBrainz::Server::Test->create_test_context();
@@ -72,6 +80,11 @@ $mech->content_unlike(qr/Test Alias/, 'other artist pages do not have the alias'
 $mech->get_ok('/artist/e2a083a9-9942-4d6e-b4d2-8397320b95f7/relationships', 'get artist relationships');
 $mech->content_contains('performed guitar');
 $mech->content_contains('/recording/54b9d183-7dab-42ba-94a3-7388a66604b8');
+
+# Test ratings
+$mech->get_ok('/artist/e2a083a9-9942-4d6e-b4d2-8397320b95f7/ratings', 'get artist ratings');
+$mech->content_contains('new_editor');
+$mech->content_contains('4 - ');
 
 # Test creating new artists via the create artist form
 $mech->get_ok('/user/login');

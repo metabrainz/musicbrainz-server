@@ -1,0 +1,11 @@
+<h2>[% l("Ratings") %]</h2>
+
+[%- IF ratings.size -%]
+    <ul>
+    [%- FOREACH rating IN ratings -%]
+        <li>[% rating.rating %] - [% link_editor(rating.editor) %]</li>
+    [%- END -%]
+    </ul>
+[%- ELSE -%]
+    [% l('{link} has no ratings.', { link => entity_link(source) }) -%]
+[%- END -%]

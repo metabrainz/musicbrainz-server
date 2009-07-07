@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 use strict;
-use Test::More tests => 26;
+use Test::More tests => 27;
 
 BEGIN {
     use MusicBrainz::Server::Context;
@@ -47,3 +47,6 @@ TODO: {
     $mech->get_ok('/release-group/7c3218d7-75e0-4e8c-971f-f097b6c308c5/tags');
     $mech->get_ok('/release-group/7c3218d7-75e0-4e8c-971f-f097b6c308c5/details');
 }
+
+# Test ratings
+$mech->get_ok('/release-group/7c3218d7-75e0-4e8c-971f-f097b6c308c5/ratings', 'get rg ratings');

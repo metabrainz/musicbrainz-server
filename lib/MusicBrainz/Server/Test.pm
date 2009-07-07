@@ -26,16 +26,25 @@ sub create_test_context
 
 sub prepare_test_database
 {
-    my ($class, $c) = @_;
+    my ($class, $c, $query) = @_;
 
-    my $mb = $c->mb;
+    unless (defined $query) {
+        open(FILE, "<admin/sql/InsertTestData.sql");
+        $query = do { local $/; <FILE> };
+    }
 
-    open(FILE, "<admin/sql/InsertTestData.sql");
-    my $test_data_query = do { local $/; <FILE> };
-
-    my $sql = Sql->new($mb->{dbh});
+    my $sql = Sql->new($c->dbh);
     $sql->AutoCommit(1);
-    $sql->Do($test_data_query);
+    $sql->Do($query);
+}
+
+sub prepare_raw_test_database
+{
+    my ($class, $c, $query) = @_;
+
+    my $sql = Sql->new($c->raw_dbh);
+    $sql->AutoCommit(1);
+    $sql->Do($query);
 }
 
 sub prepare_test_server

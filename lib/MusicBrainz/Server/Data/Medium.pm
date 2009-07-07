@@ -65,7 +65,7 @@ sub load
                  FROM " . $self->_table . "
                  WHERE release IN (" . placeholders(@ids) . ")
                  ORDER BY release, position";
-    my @mediums = query_to_list($self->c, sub { $self->_new_from_row(@_) },
+    my @mediums = query_to_list($self->c->dbh, sub { $self->_new_from_row(@_) },
                                 $query, @ids);
     foreach my $medium (@mediums) {
         $id_to_release{$medium->release_id}->add_medium($medium);

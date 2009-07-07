@@ -1,0 +1,3 @@
+[%- WRAPPER 'artist/layout.tt' title=l('Ratings') page='ratings' -%]
+    [%- INCLUDE "components/ratings.tt" -%]
+[%- END -%]

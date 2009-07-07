@@ -1,6 +1,7 @@
+#!/usr/bin/perl
 use strict;
 use warnings;
-use Test::More tests => 11;
+use Test::More tests => 12;
 
 BEGIN {
     use MusicBrainz::Server::Context;
@@ -28,3 +29,7 @@ is( $res->code, 404 );
 # Invalid UUID
 $res = request('/work/xxxx079d-374e-4436-9448-da92dedef3ce');
 is( $res->code, 404 );
+
+# Test ratings
+$res = request('/work/745c079d-374e-4436-9448-da92dedef3ce/ratings');
+is( $res->code, 200 );

@@ -47,7 +47,7 @@ sub load
                  FROM " . $self->_table . "
                  WHERE release IN (" . placeholders(@ids) . ")
                  ORDER BY release, position";
-    my @labels = query_to_list($self->c, sub { $self->_new_from_row(@_) },
+    my @labels = query_to_list($self->c->dbh, sub { $self->_new_from_row(@_) },
                                $query, @ids);
     foreach my $label (@labels) {
         $id_to_release{$label->release_id}->add_label($label);

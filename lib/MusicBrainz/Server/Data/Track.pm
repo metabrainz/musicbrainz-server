@@ -58,7 +58,7 @@ sub load
                  FROM " . $self->_table . "
                  WHERE tracklist IN (" . placeholders(@ids) . ")
                  ORDER BY tracklist, position";
-    my @tracks = query_to_list($self->c, sub { $self->_new_from_row(@_) },
+    my @tracks = query_to_list($self->c->dbh, sub { $self->_new_from_row(@_) },
                                $query, @ids);
     foreach my $track (@tracks) {
         $id_to_tracklist{$track->tracklist_id}->add_track($track);

@@ -1,32 +1,30 @@
-package MusicBrainz::Server::Controller::Work;
+package MusicBrainz::Server::Entity::Rating;
+
 use Moose;
+use MusicBrainz::Server::Entity::Types;
 
-BEGIN { extends 'MusicBrainz::Server::Controller'; }
-
-with 'MusicBrainz::Server::Controller::Annotation';
-with 'MusicBrainz::Server::Controller::RelationshipRole';
-with 'MusicBrainz::Server::Controller::RatingRole';
-
-__PACKAGE__->config(
-    model       => 'Work',
-    entity_name => 'work',
+has 'editor_id' => (
+    is => 'rw',
+    isa => 'Int'
 );
 
-sub base : Chained('/') PathPart('work') CaptureArgs(0) { }
-sub work : Chained('load') PathPart('') CaptureArgs(0) { }
+has 'editor' => (
+    is => 'rw',
+    isa => 'Editor'
+);
 
-sub show : PathPart('') Chained('work')
-{
-    my ($self, $c) = @_;
+has 'rating' => (
+    is => 'rw',
+    isa => 'Int'
+);
 
-    my $work = $c->stash->{work};
-    $c->model('WorkType')->load($work);
-    $c->model('ArtistCredit')->load($work);
-
-    $c->stash->{template} = 'work/index.tt';
-}
-
+__PACKAGE__->meta->make_immutable;
+no Moose;
 1;
+
+=head1 NAME
+
+MusicBrainz::Server::Entity::Rating
 
 =head1 COPYRIGHT
 

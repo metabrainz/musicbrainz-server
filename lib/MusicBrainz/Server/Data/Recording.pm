@@ -13,6 +13,7 @@ use MusicBrainz::Server::Data::Utils qw(
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::AnnotationRole' => { type => 'recording' };
+with 'MusicBrainz::Server::Data::RatingRole' => { type => 'recording' };
 
 sub _table
 {

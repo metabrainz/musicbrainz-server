@@ -17,7 +17,7 @@ is ( $date->month, 1 );
 is ( $date->day, 2 );
 
 my @result = MusicBrainz::Server::Data::Utils::query_to_list(
-    $c, sub { $_[0] }, "SELECT * FROM artist_type
+    $c->dbh, sub { $_[0] }, "SELECT * FROM artist_type
                         WHERE id IN (1, 2) ORDER BY id");
 is ( scalar(@result), 2 );
 is ( $result[0]->{id}, 1 );

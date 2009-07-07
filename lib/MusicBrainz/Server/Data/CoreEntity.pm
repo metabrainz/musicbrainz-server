@@ -33,7 +33,7 @@ sub find_by_name
 {
     my ($self, $name) = @_;
     my $query = "SELECT " . $self->_columns . " FROM " . $self->_table . " WHERE name.name = ?";
-    return query_to_list($self->c, sub { $self->_new_from_row(shift) }, $query, $name);
+    return query_to_list($self->c->dbh, sub { $self->_new_from_row(shift) }, $query, $name);
 }
 
 sub remove_gid_redirects
