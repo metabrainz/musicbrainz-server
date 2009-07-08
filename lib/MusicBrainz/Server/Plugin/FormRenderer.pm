@@ -80,7 +80,9 @@ sub label
     my $field = $self->_lookup_field($field_name) or return;
     my $class = $field->required ? "required " : "";
     $class .= delete $attrs->{inline} ? "inline " : "";
-    $class .= delete $attrs->{class};
+    if (exists $attrs->{class}) {
+        $class .= delete $attrs->{class};
+    }
 
     if ($fake_label)
     {
