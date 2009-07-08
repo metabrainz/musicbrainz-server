@@ -28,7 +28,13 @@ sub prepare_test_database
 {
     my ($class, $c, $query) = @_;
 
-    unless (defined $query) {
+    if (defined $query) {
+        if ($query =~ /^\+/) {
+            open(FILE, "<admin/sql/test/" . substr($query, 1) . ".sql");
+            $query = do { local $/; <FILE> };
+        }
+    }
+    else {
         open(FILE, "<admin/sql/InsertTestData.sql");
         $query = do { local $/; <FILE> };
     }
