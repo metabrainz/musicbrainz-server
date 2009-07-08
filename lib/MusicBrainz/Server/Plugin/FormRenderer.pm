@@ -116,7 +116,7 @@ sub select
     my @options = map {
         $self->h->option({
             value => $_->{value},
-            selected => defined $field->value && $field->value == $_->{value} ? "selected" : undef,
+            selected => defined $field->value && $field->value eq $_->{value} ? "selected" : undef,
         }, $_->{label})
     } @{ $field->options };
     
