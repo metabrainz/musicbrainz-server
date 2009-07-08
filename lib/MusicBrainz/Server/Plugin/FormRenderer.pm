@@ -11,7 +11,6 @@ use HTML::Tiny;
 sub new
 {
     my ($class, $context, $form) = @_;
-    warn "Created";
     return bless {
         form => $form,
         h => HTML::Tiny->new
