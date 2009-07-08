@@ -213,6 +213,7 @@ sub show : PathPart('') Chained('load')
     }
 
     $c->model('ArtistCredit')->load(@$release_groups);
+    $c->model('ReleaseGroupType')->load(@$release_groups);
     $c->stash( release_groups => $release_groups );
 }
 

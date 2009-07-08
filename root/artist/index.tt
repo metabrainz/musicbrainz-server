@@ -3,22 +3,35 @@
 
     [%- IF release_groups.size -%]
         [%- WRAPPER 'components/with-pager.tt' -%]
-            <table class="tbl">
-                <thead>
-                    <tr>
-                        <th>[% l('Year') %]</th>
-                        <th>[% l('Title') %]</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    [%- FOR rg=release_groups -%]
-                    <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
-                        <td>[% rg.first_release_date.year or '&mdash;' %]</td>
-                        <td>[% link_release_group(rg) %]</td>
-                    </tr>
-                    [%- END -%]
+            [%- rg_type = 0 -%]
+            [%- FOR rg=release_groups -%]
+                [% IF rg_type != rg.type %]
+                    [% IF rg_type != 0 %]
+                        </tbody>
+                    </table>
+                    [% END %]
+                    <h2>[% rg.type.name %]</h2>
+                    <table class="tbl">
+                        <thead>
+                            <tr>
+                                <th class="year c">[% l('Year') %]</th>
+                                <th>[% l('Title') %]</th>
+                                <th class="count c">[% l('Releases') %]</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                    [% rg_type = rg.type %]
+                [% END %]
+                <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+                    <td class="c">[% rg.first_release_date.year or '&mdash;' %]</td>
+                    <td>[% link_release_group(rg) %]</td>
+                    <td class="c">[% rg.release_count %]</td>
+                </tr>
+            [%- END -%]
+            [% IF rg_type != 0 %]
                 </tbody>
             </table>
+            [% END %]
         [%- END -%]
     [%- ELSE -%]
         <p>[% l('No release groups found') %]</p>

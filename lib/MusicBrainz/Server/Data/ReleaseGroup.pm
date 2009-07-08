@@ -7,6 +7,7 @@ use MusicBrainz::Server::Data::Utils qw(
     defined_hash
     generate_gid
     load_subobjects
+    partial_date_from_row
     placeholders
     query_to_list_limited
 );
@@ -52,15 +53,32 @@ sub load
 sub find_by_artist
 {
     my ($self, $artist_id, $limit, $offset) = @_;
-    my $query = "SELECT " . $self->_columns . "
+    my $query = "SELECT " . $self->_columns . ",
+                    rgm.firstreleasedate_year,
+                    rgm.firstreleasedate_month,
+                    rgm.firstreleasedate_day,
+                    rgm.releasecount
                  FROM " . $self->_table . "
-                     JOIN artist_credit_name acn
-                         ON acn.artist_credit = rg.artist_credit
+                    JOIN release_group_meta rgm
+                        ON rgm.id = rg.id
+                    JOIN artist_credit_name acn
+                        ON acn.artist_credit = rg.artist_credit
                  WHERE acn.artist = ?
-                 ORDER BY rg.type, name.name
+                 ORDER BY
+                    rg.type,
+                    rgm.firstreleasedate_year,
+                    rgm.firstreleasedate_month,
+                    rgm.firstreleasedate_day,
+                    name.name
                  OFFSET ?";
     return query_to_list_limited(
-        $self->c, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $self->c, $offset, $limit, sub {
+            my $row = $_[0];
+            my $rg = $self->_new_from_row($row);
+            $rg->first_release_date(partial_date_from_row($row, 'firstreleasedate_'));
+            $rg->release_count($row->{releasecount} || 0);
+            return $rg;
+        },
         $query, $artist_id, $offset || 0);
 }
 

@@ -41,6 +41,11 @@ has 'first_release_date' => (
     isa => 'PartialDate',
 );
 
+has 'release_count' => (
+    is => 'rw',
+    isa => 'Int'
+);
+
 has 'comment' => (
     is => 'rw',
     isa => 'Str'
