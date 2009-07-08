@@ -61,6 +61,7 @@ sub load
     my ($self, @releases) = @_;
     my %id_to_release = map { $_->id => $_ } @releases;
     my @ids = keys %id_to_release;
+    return unless @ids; # nothing to do
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
                  WHERE release IN (" . placeholders(@ids) . ")

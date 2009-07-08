@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 36;
+use Test::More tests => 37;
 use_ok 'MusicBrainz::Server::Data::Track';
 
 use MusicBrainz::Server::Context;
@@ -24,6 +24,8 @@ is ( $track->name, "Track 2" );
 is ( $track->recording_id, 1 );
 is ( $track->artist_credit_id, 2 );
 is ( $track->position, 2 );
+
+ok( !$track_data->load() );
 
 my ($tracks, $hits) = $track_data->find_by_recording(2, 10);
 is( $hits, 2 );

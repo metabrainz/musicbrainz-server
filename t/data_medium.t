@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 21;
+use Test::More tests => 22;
 use_ok 'MusicBrainz::Server::Data::Medium';
 
 use MusicBrainz::Server::Context;
@@ -36,3 +36,6 @@ is( $results->[0]->id, 1 );
 ok( defined $results->[0]->release );
 is( $results->[0]->release->name, 'Arrival' );
 is( $results->[0]->position, 1 );
+
+# just check that it doesn't die
+ok( !$medium_data->load() );

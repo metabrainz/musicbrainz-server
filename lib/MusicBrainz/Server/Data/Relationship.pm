@@ -157,6 +157,7 @@ sub load
 {
     my ($self, @objs) = @_;
     my %objs_by_type;
+    return unless @objs; # nothing to do
     foreach my $obj (@objs) {
         if (exists $ENTITY_CLASS_TO_TYPE{$obj->meta->name}) {
             my $type = $ENTITY_CLASS_TO_TYPE{$obj->meta->name};

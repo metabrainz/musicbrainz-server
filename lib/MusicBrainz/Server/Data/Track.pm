@@ -54,6 +54,7 @@ sub load
     my ($self, @tracklists) = @_;
     my %id_to_tracklist = map { $_->id => $_ } @tracklists;
     my @ids = keys %id_to_tracklist;
+    return unless @ids; # nothing to do
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
                  WHERE tracklist IN (" . placeholders(@ids) . ")

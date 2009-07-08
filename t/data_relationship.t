@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 23;
+use Test::More tests => 24;
 use_ok 'MusicBrainz::Server::Data::Relationship';
 use MusicBrainz::Server::Entity::Artist;
 
@@ -15,6 +15,8 @@ my $rel_data = MusicBrainz::Server::Data::Relationship->new(c => $c);
 my $artist1 = MusicBrainz::Server::Entity::Artist->new(id => 8);
 my $artist2 = MusicBrainz::Server::Entity::Artist->new(id => 9);
 $rel_data->load($artist1, $artist2);
+
+ok( !$rel_data->load() );
 
 is( scalar($artist1->all_relationships), 2 );
 is( scalar($artist2->all_relationships), 1 );

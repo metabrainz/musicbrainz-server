@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 18;
+use Test::More tests => 19;
 use_ok 'MusicBrainz::Server::Data::ReleaseLabel';
 
 use MusicBrainz::Server::Context;
@@ -19,6 +19,7 @@ is( $rl->label_id, 2 );
 is( $rl->catalog_number, "ABC-123" );
 is( $rl->position, 0 );
 
+ok( !$rl_data->load() );
 
 my ($rls, $hits) = $rl_data->find_by_label(2, 100);
 is( $hits, 4 );
