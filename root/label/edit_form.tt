@@ -3,7 +3,8 @@
     [%- create_guideline(l('If one or more labels with the same name already exist in the database, you will be prompted to add a {doc_comment|comment to this label} that will allow users to distinguish this entry from the other label(s) with the same name.', {doc_comment => doc_link('LabelComment')})) %]
     [%- create_guideline(l('Please note that casing of the label is taken into account when determining the need for a comment.  The two labels <em>some name</em> and <em>Some Name</em> are not the same.')) %]
 [% END %]
-[% WRAPPER 'forms/form.tt' %]
+<form action="[% c.req.uri %]" method="post">
+    [%- USE r = FormRenderer(form) -%]
     [%- IF form.field('confirmed').required -%]
         [%- WRAPPER 'forms/fieldset.tt' legend=l('Are you sure?') -%]
             <p>
@@ -23,24 +24,47 @@
                 label=l('Yes, I am sure this label is not a duplicate, and I know what I am doing.') -%]
         [%- END -%]
     [%- END -%]
-    [%- WRAPPER 'forms/fieldset.tt' legend='Label Details' -%]
-        [% INCLUDE 'forms/generic/row.tt' field=form.field('type') label=l('Label Type') class='label-type' %]
-        [% INCLUDE 'forms/generic/row.tt' field=form.field('name') label=l('Label Name') class='label-name' %]
-        [% INCLUDE 'forms/generic/row.tt' field=form.field('sort_name') label=l('Sort Name') class='label-sort-name' %]
-        [%- IF form.field("resolution").required -%]
-            [%- INCLUDE "forms/generic/row.tt" field=form.field("resolution") label=l('Comment') class='label-resolution' -%]
-        [%- END -%]
-        [% INCLUDE 'forms/generic/row.tt' field=form.field('label_code') label=l('Label Code') class='label-code' %]
-        [% INCLUDE 'forms/generic/row.tt' field=form.field('country') label=l('Country') class='label-country' %]
-    [%- END -%]
-    [%- INCLUDE 'scripts/module_guess_case.tt' -%]
-    [%- WRAPPER 'forms/fieldset.tt' legend=l('Date Period') -%]
+    <fieldset>
+        <legend>[% l('Label Details') %]</legend>
+        <p>
+            [% r.label('name', l('Name:')) %]
+            [% r.text('name') %]
+        </p>
+        <p>
+            [% r.label('sort_name', l('Sort name:')) %]
+            [% r.text('sort_name') %]
+        </p>
+        <p>
+            [% r.label('comment', l('Comment:')) %]
+            [% r.text('comment') %]
+        </p>
+        <p>
+            [% r.label('type_id', l('Type:')) %]
+            [% r.select('type_id') %]
+        </p>
+        <p>
+            [% r.label('country_id', l('Country:')) %]
+            [% r.select('country_id') %]
+        </p>
+        <p>
+            [% r.label('label_code', l('Label code:')) %]
+            LC-[% r.text('label_code', size => 5) %]
+        </p>
+    </fieldset>
+    <fieldset>
+        <legend>[% l('Date Period') %]</legend>
         <p>
             [%- l('Dates are in the format YYYY-MM-DD. Partial dates such as YYYY-MM or just YYYY are OK, or you can omit the date entirely.') -%]
         </p>
-        [% INCLUDE 'forms/generic/row.tt' field=form.field('begin_date') label=l('Begin Date') class='label-begin' %]
-        [% INCLUDE 'forms/generic/row.tt' field=form.field('end_date') label=l('End Date') class='label-end' %]
-    [%- END -%]
+        <p>
+            [% r.label('begin_date', l('Begin date:')) %]
+            [% r.date('begin_date') %]
+        </p>
+        <p>
+            [% r.label('end_date', l('End date:')) %]
+            [% r.date('end_date') %]
+        </p>
+    </fieldset>
     [% INCLUDE 'forms/edit-note.tt' %]
-    [% INCLUDE 'forms/submit.tt' label=l('Enter Edit') name='do_add_label' %]
-[% END %]
+    [% form_submit(l('Create label')) %]
+</form>

@@ -7,8 +7,12 @@ with 'MusicBrainz::Server::Controller::Annotation';
 with 'MusicBrainz::Server::Controller::Alias';
 with 'MusicBrainz::Server::Controller::RelationshipRole';
 
-use MusicBrainz::Server::Constants qw( $DLABEL_ID );
+use MusicBrainz::Server::Constants qw( $DLABEL_ID $EDIT_LABEL_CREATE );
 use Data::Page;
+
+use MusicBrainz::Server::Edit::Label::Create;
+use MusicBrainz::Server::Form::Label;
+use Sql;
 
 __PACKAGE__->config(
     model       => 'Label',
@@ -194,28 +198,27 @@ sub edit : Chained('load') Form
     $c->response->redirect($c->entity_url($label, 'show'));
 }
 
-sub create : Local Form
+sub create : Local RequireAuth
 {
     my ($self, $c) = @_;
 
-    $c->forward('/user/login');
-
-    my $form = $self->form;
-
-    if ($c->form_posted) {
-        $form->validate($c->req->params);
-
-        my $dupes = $c->model('Label')->search_by_name($form->value('name'));
-        $c->stash->{dupes} = $dupes;
-    }
-
-    return unless $self->submit_and_validate($c);
-
-    my $created_label = $form->create;
-
-    if (defined $created_label)
+    my $form = $c->form( form => 'Label' );
+    if ($c->form_posted && $form->submitted_and_valid($c->req->params))
     {
-        $c->response->redirect($c->entity_url($created_label, 'show'));
+        my %edit = map { $_ => $form->field($_)->value }
+            qw( name sort_name type_id label_code country_id begin_date end_date comment );
+
+        my $edit = $c->model('Edit')->create(
+            edit_type => $EDIT_LABEL_CREATE,
+            editor_id => $c->user->id,
+            %edit
+        );
+
+        if ($edit->label)
+        {
+            $c->response->redirect($c->uri_for_action('/label/show', [ $edit->label->gid ]));
+            $c->detach;
+        }
     }
 }
 
