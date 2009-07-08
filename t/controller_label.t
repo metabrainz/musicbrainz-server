@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 use strict;
-use Test::More tests => 24;
+use Test::More tests => 29;
 
 BEGIN {
     use MusicBrainz::Server::Context;
@@ -35,6 +35,7 @@ $mech->content_like(qr{/release/f34c079d-374e-4436-9448-da92dedef3ce}, 'links to
 # Test aliases
 $mech->get_ok('/label/46f0f4cd-8aab-4b33-b698-f459faf64190/aliases', 'get label aliases');
 $mech->content_contains('Test Label Alias', 'has the label alias');
+
 
 # Test ratings
 $mech->get_ok('/label/46f0f4cd-8aab-4b33-b698-f459faf64190/ratings', 'get label ratings');
@@ -83,3 +84,17 @@ is_deeply($edit->data, {
             day => 15
         },
     });
+
+# Test deleting artists via the website
+$mech->get_ok('/label/46f0f4cd-8aab-4b33-b698-f459faf64190/delete');
+my $response = $mech->submit_form(
+    with_fields => {
+        'confirm.edit_note' => ' ',    
+    }
+);
+ok($mech->success);
+ok($mech->uri =~ qr{/label/46f0f4cd-8aab-4b33-b698-f459faf64190}, 'should redirect to label page via gid');
+
+my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
+isa_ok($edit, 'MusicBrainz::Server::Edit::Label::Delete');
+is_deeply($edit->data, { label => 2 });
