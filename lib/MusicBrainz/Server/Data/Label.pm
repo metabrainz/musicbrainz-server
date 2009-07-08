@@ -130,6 +130,7 @@ sub merge
     $rl_data->merge_labels($old_id => $new_id);
     $edit_data->merge_entities('label', $old_id => $new_id);
     $self->update_gid_redirects($old_id => $new_id);
+    $self->c->model('Relationship')->merge('label', $new_id, $old_id);
 
     $sql->Do('DELETE FROM label_meta WHERE id = ?', $old_id);
     my $old_gid = $sql->SelectSingleValue('DELETE FROM label WHERE id = ? RETURNING gid', $old_id);

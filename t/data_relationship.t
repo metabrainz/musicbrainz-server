@@ -1,6 +1,7 @@
 use strict;
 use warnings;
-use Test::More tests => 24;
+use Sql;
+use Test::More tests => 26;
 use_ok 'MusicBrainz::Server::Data::Relationship';
 use MusicBrainz::Server::Entity::Artist;
 
@@ -49,3 +50,18 @@ for $rel ($artist1->all_relationships) {
         is( $rel->edits_pending, 0 );
     }
 }
+
+my $sql = Sql->new($c->dbh);
+$sql->Begin;
+$sql->Do("INSERT INTO l_artist_recording (id, link, entity0, entity1) VALUES (4, 1, 9, 10)");
+# Merge ARs for artist #9 to #8
+$rel_data->merge('artist', 8, 9);
+$sql->Commit;
+
+$artist1->clear_relationships;
+$artist2->clear_relationships;
+$rel_data->load($artist1, $artist2);
+# One duplicate AR was deleted, one was moved
+is( scalar($artist1->all_relationships), 3 );
+# Nothing left here
+is( scalar($artist2->all_relationships), 0 );

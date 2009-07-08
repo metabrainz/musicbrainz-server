@@ -133,7 +133,8 @@ sub merge
     $self->update_gid_redirects($old_id => $new_id);
     $ac_data->merge_artists($old_id => $new_id);
     $edit_data->merge_entities('artist', $old_id => $new_id);
-    
+    $self->c->model('Relationship')->merge('artist', $new_id, $old_id);
+
     my $old_gid = $sql->SelectSingleValue('DELETE FROM artist WHERE id = ? RETURNING gid', $old_id);
     $self->add_gid_redirects($old_gid => $new_id);
 

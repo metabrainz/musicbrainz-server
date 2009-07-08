@@ -174,6 +174,40 @@ sub load
     $self->load_entities(@rels);
 }
 
+sub merge
+{
+    my ($self, $type, $target_id, @source_ids) = @_;
+
+    # Generate a list of all possible type combinations
+    my @types;
+    foreach my $t (@TYPES) {
+        if ($type le $t) {
+            push @types, ["l_${type}_${t}", 'entity0', 'entity1'];
+        }
+        if ($type ge $t) {
+            push @types, ["l_${t}_${type}", 'entity1', 'entity0'];
+        }
+    }
+
+    my $sql = Sql->new($self->c->dbh);
+    foreach my $t (@types) {
+        my ($table, $entity0, $entity1) = @$t;
+        # Delete all relationships from the source entities,
+        # which don't already exist on the target entity
+        $sql->Do("
+            DELETE FROM $table a
+            WHERE $entity0 IN (" . placeholders(@source_ids) . ") AND
+                EXISTS (SELECT 1 FROM $table b WHERE $entity0 = ? AND
+                    a.$entity1 = b.$entity1 AND a.link = b.link)
+        ", @source_ids, $target_id);
+        # Move all remaining relationships
+        $sql->Do("
+            UPDATE $table SET $entity0 = ?
+            WHERE $entity0 IN (" . placeholders(@source_ids) . ")
+        ", $target_id, @source_ids);
+    }
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

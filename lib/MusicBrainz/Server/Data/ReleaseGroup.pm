@@ -128,6 +128,7 @@ sub merge
     my $sql = Sql->new($self->c->dbh);
     $self->annotation->merge($old_id => $new_id);
     $self->update_gid_redirects($old_id => $new_id);
+    $self->c->model('Relationship')->merge('release_group', $new_id, $old_id);
     $sql->Do('UPDATE release SET release_group = ? WHERE release_group = ?', $new_id, $old_id);
     my $old_gid = $sql->SelectSingleValue('DELETE FROM release_group WHERE id = ? RETURNING gid', $old_id);
     $self->add_gid_redirects($old_gid => $new_id);
