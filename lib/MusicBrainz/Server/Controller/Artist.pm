@@ -20,10 +20,12 @@ use MusicBrainz::Server::Rating;
 use ModDefs;
 use UserSubscription;
 
-use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_CREATE $EDIT_ARTIST_EDIT );
+use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_CREATE $EDIT_ARTIST_EDIT $EDIT_ARTIST_DELETE );
 use MusicBrainz::Server::Edit::Artist::Create;
 use MusicBrainz::Server::Edit::Artist::Edit;
+use MusicBrainz::Server::Edit::Artist::Delete;
 use MusicBrainz::Server::Form::Artist;
+use MusicBrainz::Server::Form::Confirm;
 use Sql;
 
 =head1 NAME
@@ -367,6 +369,32 @@ sub create : Local RequireAuth
             $c->response->redirect($c->uri_for_action('/artist/show', [ $edit->artist->gid ]));
             $c->detach;
         }
+    }
+}
+
+sub delete : Chained('load') RequireAuth
+{
+    my ($self, $c) = @_;
+
+    my $artist = $c->stash->{artist};
+    my $can_delete = 1;
+    return unless $can_delete;
+
+    my $form = $c->form( form => 'Confirm' );
+    $c->stash( can_delete => 1 );
+
+    if ($c->form_posted && $form->submitted_and_valid($c->req->params))
+    {
+        my $edit = $c->model('Edit')->create(
+            editor_id => $c->user->id,
+            edit_type => $EDIT_ARTIST_DELETE,
+            artist_id => $artist->id
+        );
+
+        my $url = $edit->is_open ? $c->uri_for_action('/artist/show', [ $artist->gid ])
+                                 : $c->uri_for_action('/search');
+        $c->response->redirect($url);
+        $c->detach;
     }
 }
 

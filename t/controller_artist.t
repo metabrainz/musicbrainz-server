@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 use strict;
-use Test::More tests => 56;
+use Test::More tests => 59;
 
 BEGIN {
     use MusicBrainz::Server::Context;
@@ -189,3 +189,14 @@ is_deeply($edit->data, {
             },
         }
     });
+
+# Test deleting artists via the website
+$mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/delete');
+my $response = $mech->submit_form(
+    with_fields => {
+        'confirm.edit_note' => ' ',
+    });
+
+my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
+isa_ok($edit, 'MusicBrainz::Server::Edit::Artist::Delete');
+is_deeply($edit->data, { artist_id => 3 });
