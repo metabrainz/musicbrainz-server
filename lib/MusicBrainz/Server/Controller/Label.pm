@@ -248,7 +248,9 @@ sub delete : Chained('load') PathPart RequireAuth
             label_id => $label->id
         );
 
-        $c->response->redirect($c->uri_for_action('/label/show', [ $label->gid ]));
+        my $url = $edit->is_open ? $c->uri_for_action('/label/show', [ $label->gid ])
+                                 : $c->uri_for_action('/search');
+        $c->response->redirect($url);
         $c->detach;
     }
 }
