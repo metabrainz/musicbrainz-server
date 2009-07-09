@@ -196,6 +196,16 @@ h1 {
     color: #666;
 }
 
+.artistheader, .releaseheader, .rgheader, .recordingheader, .labelheader {
+    padding-left: 38px;
+    background: url('../images/aicon_lg.png') 0 4px no-repeat;
+}
+
+.releaseheader { background-image: url('../images/licon_lg.png') }
+.rgheader { background-image: url('../images/gicon_lg.png') }
+.recordingheader { background-image: url('../images/ticon_lg.png') }
+.labelheader { background-image: url('../images/bicon_lg.png') }
+
 h2 {
     margin-top: 1em;
     margin-bottom: 0;
@@ -347,14 +357,40 @@ ul.links {
     float: left;
 }
 
-ul.paginator {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    margin-top: 1em;
-    margin-bottom: 1em;
+
+
+.pageselector a, .pageselector span {
+    font-size: 90%;
+    padding: 0.05em 0.4em;
 }
 
-ul.paginator li {
-    display: inline;
+.pageselector a {
+    border: solid 1px #000;
+    text-decoration: none;
+    background-color: #FFF;
+    color: #000;
+}
+
+.pageselector a:hover {
+    background-color: #FFBA58;
+}
+
+.pageselector a.sel {
+    background-color: #FFBA58;
+    font-weight: bold;
+}
+
+.pageselector span {
+    border: solid 1px #999999;
+    background-color: #EEEEEE;
+    color: #999999;
+}
+
+.pageselector em {
+    font-style: normal;
+}
+
+
+.annotation {
+    margin-top: 1em;
 }

@@ -5,10 +5,12 @@
     ['details', link_release_group(rg, 'details', l('Details'))],
 ] -%]
 
+<div class="rgheader">
 <h1>“[% link_release_group(rg) %]” [% disambiguation(rg) %]</h1>
 <p class="subheader">
     <span>~</span>
         [% l('Release group by {artist}', {artist = artist_credit(rg.artist_credit)})%]
 </p>
+</div>
 
 [% INCLUDE 'components/tabs.tt' list=info_links %]

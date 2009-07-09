@@ -5,10 +5,12 @@
     ['details', link_release(release, 'details', l('Details'))],
 ] -%]
 
+<div class="releaseheader">
 <h1>“[% link_release(release) %]” [% disambiguation(release) %]</h1>
 <p class="subheader">
     <span>~</span>
         [% l('Release by {artist}', {artist = artist_credit(release.artist_credit)})%]
 </p>
+</div>
 
 [% INCLUDE 'components/tabs.tt' list=info_links %]

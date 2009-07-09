@@ -6,9 +6,11 @@
     ['details', link_label(label, 'details', l('Details'))],
 ] -%]
 
+<div class="labelheader">
 <h1>[% link_label(label) %] [% disambiguation(label) %]</h1>
 <p class="subheader">
     <span>~</span> [% l("Label") %]
 </p>
+</div>
 
 [% INCLUDE 'components/tabs.tt' list=info_links %]
