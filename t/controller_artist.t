@@ -1,22 +1,18 @@
 #!/usr/bin/perl
 use strict;
-use Test::More tests => 51;
+use Test::More tests => 56;
 
 BEGIN {
     use MusicBrainz::Server::Context;
     use MusicBrainz::Server::Test;
-    my $c = MusicBrainz::Server::Test->create_test_context();
-    MusicBrainz::Server::Test->prepare_test_database($c);
-    MusicBrainz::Server::Test->prepare_raw_test_database($c, "
-        TRUNCATE artist_rating_raw CASCADE;
-        INSERT INTO artist_rating_raw (artist, editor, rating)
-            VALUES (8, 1, 4);
-    ");
-    MusicBrainz::Server::Test->prepare_test_server();
 }
 
 my $c = MusicBrainz::Server::Test->create_test_context();
 MusicBrainz::Server::Test->prepare_test_database($c);
+MusicBrainz::Server::Test->prepare_raw_test_database($c, "
+    TRUNCATE artist_rating_raw CASCADE;
+    INSERT INTO artist_rating_raw (artist, editor, rating)
+        VALUES (8, 1, 4);");
 MusicBrainz::Server::Test->prepare_test_server();
 
 use Test::WWW::Mechanize::Catalyst;
@@ -129,4 +125,67 @@ is_deeply($edit->data, {
             month => 4,
             day => 15
         },
+    });
+
+# Test editing artists
+$mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/edit');
+my $response = $mech->submit_form(
+    with_fields => {
+        'edit-artist.name' => 'edit artist',
+        'edit-artist.sort_name' => 'artist, controller',
+        'edit-artist.type_id' => 2,
+        'edit-artist.country_id' => 2,
+        'edit-artist.gender_id' => 2,
+        'edit-artist.begin_date.year' => 1990,
+        'edit-artist.begin_date.month' => 01,
+        'edit-artist.begin_date.day' => 02,
+        'edit-artist.end_date.year' => 2003,
+        'edit-artist.end_date.month' => 4,
+        'edit-artist.end_date.day' => 15,
+        'edit-artist.comment' => 'artist created in controller_artist.t',
+    }
+);
+ok($mech->success);
+ok($mech->uri =~ qr{/artist/745c079d-374e-4436-9448-da92dedef3ce}, 'should redirect to artist page via gid');
+
+$edit = MusicBrainz::Server::Test->get_latest_edit($c);
+isa_ok($edit, 'MusicBrainz::Server::Edit::Artist::Edit');
+is_deeply($edit->data, {
+        artist => 3,
+        new => {
+            name => 'edit artist',
+            sort_name => 'artist, controller',
+            type_id => 2,
+            country_id => 2,
+            gender_id => 2,
+            comment => 'artist created in controller_artist.t',
+            begin_date => {
+                year => 1990,
+                month => 01,
+                day => 02
+            },
+            end_date => {
+                year => 2003,
+                month => 4,
+                day => 15
+            },
+        },
+        old => {
+            name => 'Test Artist',
+            sort_name => 'Artist, Test',
+            type_id => 1,
+            gender_id => 1,
+            country_id => 1,
+            comment => 'Yet Another Test Artist',
+            begin_date => {
+                year => 2008,
+                month => 1,
+                day => 2
+            },
+            end_date => {
+                year => 2009,
+                month => 03,
+                day => 04
+            },
+        }
     });

@@ -8,7 +8,7 @@
     [%- create_guideline(l('Please use the Guess Case buttons to fix common style errors. <span class="only-if-no-javascript">(Available only if you have JavaScript enabled.)</span>')) -%]
 [%- END -%]
 
-<form action="[% c.uri_for_action('/artist/create') %]" method="post">
+<form action="[% c.req.uri %]" method="post">
     [%- USE r = FormRenderer(form) -%]
 
     [% IF form.has_duplicates %]
@@ -79,5 +79,10 @@
     </fieldset>
     [% INCLUDE 'forms/edit-note.tt' %]
     [% INCLUDE 'forms/auto-editor.tt' %]
-    [% form_submit(l('Create Artist')) %]
+
+    [% IF new %]
+        [% form_submit(l('Create Artist')) %]
+    [% ELSE %]
+        [% form_submit(l('Edit Artist')) %]
+    [% END %]
 </form>

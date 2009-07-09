@@ -20,8 +20,9 @@ use MusicBrainz::Server::Rating;
 use ModDefs;
 use UserSubscription;
 
-use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_CREATE );
+use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_CREATE $EDIT_ARTIST_EDIT );
 use MusicBrainz::Server::Edit::Artist::Create;
+use MusicBrainz::Server::Edit::Artist::Edit;
 use MusicBrainz::Server::Form::Artist;
 use Sql;
 
@@ -380,30 +381,29 @@ into the MusicBrainz database.
 
 =cut
 
-sub edit : Chained('load') Form
+sub edit : Chained('load') RequireAuth
 {
     my ($self, $c, $mbid) = @_;
 
-    $c->forward('/user/login');
+    my $form = $c->form( form => 'Artist', item => $c->stash->{artist});
+    if ($c->form_posted && $form->submitted_and_valid($c->req->params))
+    {
+        my %edit = map { $_ => $form->field($_)->value }
+            qw( name sort_name gender_id type_id country_id begin_date end_date comment);
 
-    my $form = $self->form;
-    $form->init($self->entity);
+        my $edit = $c->model('Edit')->create(
+            edit_type => $EDIT_ARTIST_EDIT,
+            editor_id => $c->user->id,
+            artist => $c->stash->{artist},
+            %edit
+        );
 
-    if ($c->form_posted) {
-        $form->validate($c->req->params);
-        
-        my $dupes = $c->model('Artist')->search_by_name($form->value('name'));
-        $c->stash->{dupes} = [ grep { $_->id != $self->entity->id } @$dupes ];
+        if ($edit->artist)
+        {
+            $c->response->redirect($c->uri_for_action('/artist/show', [ $edit->artist->gid ]));
+            $c->detach;
+        }
     }
-
-    return unless $self->submit_and_validate($c);
-
-    $form->apply_edit;
-
-    $c->flash->{ok} = "Thanks, your artist edit has been entered " .
-                      "into the moderation queue";
-
-    $c->response->redirect($c->entity_url($self->entity, 'show'));
 }
 
 =head2 add_release
