@@ -1,0 +1,20 @@
+[%- WRAPPER 'label/layout.tt' title=l('Delete') -%]
+    <h2>Delete Label</h2>
+    [%- IF can_delete -%]
+        [%- WRAPPER 'layout/guidelines.tt' -%]
+            [%- create_guideline(l('Please review the documentation about the {doc_remove|remove label edit-type}, before entering this edit', {doc_remove => doc_link('RemoveLabelEdit')})) -%]
+        [%- END -%]
+        <p>
+            [%- l('Are you sure you wish to remove the label {label} from MusicBrainz?', { label => link_label(label) }) -%]
+        </p>
+        <form action="[% c.req.uri %]" method="post">
+            [%- USE r = FormRenderer(form) -%]
+            [%- INCLUDE 'forms/edit-note.tt' -%]
+            [%- form_submit(l('Delete Label')) -%]
+        </form>
+    [%- ELSE -%]
+    <p>
+       [% l('This label cannot be deleted, because there are still releases, tracks and/or relationships attributed to it.') -%]
+    </p>
+    [%- END -%]
+[%- END -%]
