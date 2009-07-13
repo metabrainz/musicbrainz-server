@@ -1,7 +1,9 @@
 package MusicBrainz::Server::Entity::Editor;
 use Moose;
 
+use MusicBrainz::Server::Entity::Preferences;
 use MusicBrainz::Server::Types;
+
 use Readonly;
 
 Readonly my $AUTO_EDITOR_FLAG         => 1;
@@ -106,6 +108,11 @@ sub is_newbie
     my $date = (DateTime->now - DateTime::Duration->new(weeks => 2));
     return $self->registration_date > $date;
 }
+
+has 'preferences' => (
+    is => 'rw',
+    default => sub { MusicBrainz::Server::Entity::Preferences->new }
+);
 
 no Moose;
 __PACKAGE__->meta->make_immutable;

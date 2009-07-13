@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 use strict;
-use Test::More tests => 15;
+use Test::More tests => 17;
 
 BEGIN { use_ok 'MusicBrainz::Server::Data::Editor'; }
 
@@ -37,3 +37,8 @@ is_deeply($editor->registration_date, DateTime->new(year => 1989, month => 07, d
 
 my $editor2 = $editor_data->get_by_name('new_editor');
 is_deeply($editor, $editor2);
+
+# Test preferences
+is($editor->preferences->public_ratings, 1, 'use default preference');
+$editor_data->load_preferences($editor);
+is($editor->preferences->public_ratings, 0, 'load preferences');

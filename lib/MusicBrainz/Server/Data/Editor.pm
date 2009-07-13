@@ -51,10 +51,24 @@ sub get_by_name
     return $result[0];
 }
 
+
 sub load
 {
     my ($self, @objs) = @_;
     load_subobjects($self, 'editor', @objs);
+}
+
+sub load_preferences
+{
+    my ($self, $editor) = @_;
+    my $query = "SELECT name, value FROM editor_preference WHERE editor = ?";
+    my $sql = Sql->new($self->c->dbh);
+    my $prefs = $sql->SelectListOfHashes($query, $editor->id);
+    for my $pref (@$prefs) {
+        my ($key, $value) = ($pref->{name}, $pref->{value});
+        next unless $editor->preferences->can($key);
+        $editor->preferences->$key($value);
+    }
 }
 
 no Moose;
