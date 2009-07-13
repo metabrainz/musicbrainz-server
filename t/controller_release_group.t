@@ -1,14 +1,15 @@
 #!/usr/bin/perl
 use strict;
-use Test::More tests => 27;
+use Test::More tests => 33;
 
 BEGIN {
     use MusicBrainz::Server::Context;
     use MusicBrainz::Server::Test;
-    my $c = MusicBrainz::Server::Test->create_test_context();
-    MusicBrainz::Server::Test->prepare_test_database($c);
-    MusicBrainz::Server::Test->prepare_test_server();
 }
+
+my $c = MusicBrainz::Server::Test->create_test_context();
+MusicBrainz::Server::Test->prepare_test_database($c);
+MusicBrainz::Server::Test->prepare_test_server();
 
 use Test::WWW::Mechanize::Catalyst;
 my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
@@ -50,3 +51,20 @@ TODO: {
 
 # Test ratings
 $mech->get_ok('/release-group/7c3218d7-75e0-4e8c-971f-f097b6c308c5/ratings', 'get rg ratings');
+
+# Test removing release groups
+$mech->get_ok('/user/login');
+$mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
+
+$mech->get_ok('/release-group/234c079d-374e-4436-9448-da92dedef3ce/delete');
+my $response = $mech->submit_form(
+    with_fields => {
+        'confirm.edit_note' => ' ',    
+    }
+);
+ok($mech->success);
+ok($mech->uri =~ qr{/release-group/234c079d-374e-4436-9448-da92dedef3ce}, 'should redirect to artist page via gid');
+
+my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
+isa_ok($edit, 'MusicBrainz::Server::Edit::ReleaseGroup::Delete');
+is_deeply($edit->data, { release_group => 1 });

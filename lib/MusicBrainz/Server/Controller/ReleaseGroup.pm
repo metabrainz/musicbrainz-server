@@ -1,7 +1,10 @@
 package MusicBrainz::Server::Controller::ReleaseGroup;
 use Moose;
-
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
+
+use MusicBrainz::Server::Constants qw( $EDIT_RELEASEGROUP_DELETE );
+use MusicBrainz::Server::Edit::ReleaseGroup::Delete;
+use MusicBrainz::Server::Form::Confirm;
 
 with 'MusicBrainz::Server::Controller::Annotation';
 with 'MusicBrainz::Server::Controller::RelationshipRole';
@@ -48,6 +51,29 @@ sub tags : Chained('load') { }
 
 # TODO
 sub details : Chained('load') { }
+
+sub delete : Chained('load') PathPart RequireAuth
+{
+    my ($self, $c) = @_;
+    my $rg = $c->stash->{rg};
+    my $can_delete = 1;
+    
+    return unless $can_delete;
+    my $form = $c->form( form => 'Confirm' );
+    $c->stash( can_delete => $can_delete );
+
+    if ($c->form_posted && $form->submitted_and_valid($c->req->params) )
+    {
+        my $edit = $c->model('Edit')->create(
+            editor_id => $c->user->id,
+            edit_type => $EDIT_RELEASEGROUP_DELETE,
+            release_group_id => $rg->id
+        );
+
+        $c->response->redirect($c->uri_for_action('/release_group/show', [ $rg->gid ]));
+        $c->detach;
+    }
+}
 
 1;
 
