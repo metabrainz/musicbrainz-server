@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 use strict;
-use Test::More tests => 17;
+use Test::More tests => 19;
 
 BEGIN { use_ok 'MusicBrainz::Server::Data::Editor'; }
 
@@ -10,6 +10,11 @@ use MusicBrainz::Server::Test;
 
 my $c = MusicBrainz::Server::Test->create_test_context();
 MusicBrainz::Server::Test->prepare_test_database($c);
+MusicBrainz::Server::Test->prepare_test_database($c, "
+INSERT INTO editor_preference (editor, name, value)
+    VALUES (1, 'datetimeformat', '%m/%d/%Y %H:%M:%S'),
+           (1, 'timezone', 'CEST');
+");
 
 my $editor_data = MusicBrainz::Server::Data::Editor->new(c => $c);
 
@@ -42,3 +47,5 @@ is_deeply($editor, $editor2);
 is($editor->preferences->public_ratings, 1, 'use default preference');
 $editor_data->load_preferences($editor);
 is($editor->preferences->public_ratings, 0, 'load preferences');
+is($editor->preferences->datetime_format, '%m/%d/%Y %H:%M:%S', 'datetime_format loaded');
+is($editor->preferences->timezone, 'CEST', 'timezone loaded');

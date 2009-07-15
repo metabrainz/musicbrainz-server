@@ -20,8 +20,8 @@ sub format {
 
     my %opts;
     if ($self->preferences) {
-        $opts{tz            } = $self->preferences->get('timezone');
-        $opts{datetimeformat} = $self->preferences->get('datetimeformat');
+        $opts{tz            } = $self->preferences->timezone;
+        $opts{datetimeformat} = $self->preferences->datetime_format;
     }
 
     return MusicBrainz::Server::DateTime::format_datetime(\%opts, $date);

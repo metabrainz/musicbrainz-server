@@ -58,14 +58,23 @@ sub load
     load_subobjects($self, 'editor', @objs);
 }
 
+sub _preference_name_mapping
+{
+    return {
+        datetimeformat => 'datetime_format',
+    };
+}
+
 sub load_preferences
 {
     my ($self, $editor) = @_;
     my $query = "SELECT name, value FROM editor_preference WHERE editor = ?";
     my $sql = Sql->new($self->c->dbh);
     my $prefs = $sql->SelectListOfHashes($query, $editor->id);
+    my %mapping = %{ $self->_preference_name_mapping };
     for my $pref (@$prefs) {
         my ($key, $value) = ($pref->{name}, $pref->{value});
+        $key = $mapping{$key} || $key;
         next unless $editor->preferences->can($key);
         $editor->preferences->$key($value);
     }

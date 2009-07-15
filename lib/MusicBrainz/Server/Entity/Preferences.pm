@@ -7,6 +7,18 @@ has 'public_ratings' => (
     is => 'rw',
 );
 
+has 'datetime_format' => (
+    isa => 'Str',
+    default => '%Y-%m-%d %H:%M:%S %Z',
+    is => 'rw',
+);
+
+has 'timezone' => (
+    isa => 'Str',
+    default => 'UTC',
+    is => 'rw',
+);
+
 no Moose;
 __PACKAGE__->meta->make_immutable;
 1;
