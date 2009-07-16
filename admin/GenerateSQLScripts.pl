@@ -16,6 +16,7 @@ sub process_tables
     my @tables;
     my %foreign_keys;
     my %primary_keys;
+    my @sequences;
     while ($create_tables_sql =~ m/CREATE TABLE\s+([a-z0-9_]+)\s+\(\s*(.*?)\s*\);/gs) {
         my $name = $1;
         my @lines = split /\n/, $2;
@@ -35,6 +36,9 @@ sub process_tables
             if ($line =~ m/([a-z0-9_]+).*?\s*--.*?PK/ || $line =~ m/([a-z0-9_]+).*?SERIAL/) {
                 push @pks, $1;
             }
+            if ($line =~ m/([a-z0-9_]+).*?SERIAL/) {
+                push @sequences, [$name, $1];
+            }
         }
         if (@pks) {
             $primary_keys{$name} = \@pks;
@@ -48,6 +52,15 @@ sub process_tables
     print OUT "\\unset ON_ERROR_STOP\n\n";
     foreach my $table (@tables) {
         print OUT "DROP TABLE $table;\n";
+    }
+    close OUT;
+
+    open OUT, ">$FindBin::Bin/../admin/sql$dir/SetSequences.sql";
+    print OUT "-- Automatically generated, do not edit.\n";
+    print OUT "\\unset ON_ERROR_STOP\n\n";
+    foreach my $row (@sequences) {
+        my ($table, $col) = @$row;
+        print OUT "SELECT setval('${table}_${col}_seq', (SELECT MAX(${col}) FROM $table));\n";
     }
     close OUT;
 

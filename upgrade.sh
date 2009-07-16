@@ -46,6 +46,10 @@ echo `date` : Creating indexes
 echo `date` : Creating search indexes
 ./admin/psql READWRITE <./admin/sql/CreateSearchIndexes.sql
 
+echo `date` : Fixing sequences
+./admin/psql READWRITE <./admin/sql/SetSequences.sql
+./admin/psql RAWDATA <./admin/sql/vertical/rawdata/SetSequences.sql
+
 echo `date` : Done
 
 # eof
