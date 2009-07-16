@@ -1,3 +1,4 @@
+#!/usr/bin/perl
 use strict;
 use warnings;
 use Test::More tests => 14;
@@ -8,7 +9,7 @@ use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
 
 my $c = MusicBrainz::Server::Test->create_test_context();
-MusicBrainz::Server::Test->prepare_test_database($c);
+MusicBrainz::Server::Test->prepare_test_database($c, '+artisttype');
 
 my $at_data = MusicBrainz::Server::Data::ArtistType->new(c => $c);
 

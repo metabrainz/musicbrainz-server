@@ -1,3 +1,4 @@
+#!/usr/bin/perl
 use strict;
 use warnings;
 use Test::More tests => 17;
@@ -8,7 +9,7 @@ use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
 
 my $c = MusicBrainz::Server::Test->create_test_context();
-MusicBrainz::Server::Test->prepare_test_database($c);
+MusicBrainz::Server::Test->prepare_test_database($c, '+country');
 
 my $country_data = MusicBrainz::Server::Data::Country->new(c => $c);
 
