@@ -142,7 +142,7 @@ INSERT INTO release
     SELECT
         r.id,
         CASE WHEN g.gid IS NULL THEN
-            generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/release/?id=' || a.id)
+            generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/release/?id=' || r.id)
         ELSE g.gid END,
         a.release_group,
         n.id,
