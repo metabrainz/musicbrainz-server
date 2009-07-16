@@ -23,6 +23,9 @@ echo `date` : Migrating data
 ./admin/sql/updates/ngs-ars.pl
 ./admin/sql/updates/ngs-rawdata.pl
 
+echo `date` : Fixing refcounts
+./admin/psql READWRITE <./admin/sql/updates/ngs-refcount.sql
+
 echo `date` : Creating primary keys
 ./admin/psql READWRITE <./admin/sql/CreatePrimaryKeys.sql
 ./admin/psql RAWDATA <./admin/sql/vertical/rawdata/CreatePrimaryKeys.sql

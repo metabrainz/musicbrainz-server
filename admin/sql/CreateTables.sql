@@ -60,7 +60,7 @@ CREATE TABLE artist_tag
 CREATE TABLE artist_credit (
     id                  SERIAL,
     artistcount         SMALLINT NOT NULL,
-    refcount            SMALLINT DEFAULT 0
+    refcount            INTEGER DEFAULT 0
 );
 
 CREATE TABLE artist_credit_name (
