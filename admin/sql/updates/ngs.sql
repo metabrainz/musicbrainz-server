@@ -141,7 +141,9 @@ INSERT INTO release
      date_year, date_month, date_day, country, language, script)
     SELECT
         r.id,
-        CASE WHEN g.gid IS NULL THEN generate_uuid_v4() ELSE g.gid END,
+        CASE WHEN g.gid IS NULL THEN
+            generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/release/?id=' || a.id)
+        ELSE g.gid END,
         a.release_group,
         n.id,
         a.artist,
