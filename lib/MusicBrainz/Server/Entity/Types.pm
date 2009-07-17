@@ -29,6 +29,9 @@ subtype 'AutoEditorElection'
 subtype 'AutoEditorElectionVote'
     => as class_type 'MusicBrainz::Server::Entity::AutoEditorElectionVote';
 
+subtype 'Edit'
+    => as class_type 'MusicBrainz::Server::Edit';
+
 subtype 'Editor'
     => as class_type 'MusicBrainz::Server::Entity::Editor';
 

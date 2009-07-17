@@ -2,6 +2,7 @@ package MusicBrainz::Server::Edit;
 use Moose;
 
 use DateTime;
+use MooseX::AttributeHelpers;
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Types qw( $STATUS_OPEN );
@@ -52,6 +53,16 @@ has 'auto_edit' => (
     isa => 'Bool',
     is => 'rw',
     default => sub { shift->edit_auto_edit }
+);
+
+has 'edit_notes' => (
+    isa => 'ArrayRef',
+    is => 'rw',
+    default => sub { [] },
+    metaclass => 'Collection::Array',
+    provides => {
+        push => 'add_edit_note',
+    }
 );
 
 sub is_open
