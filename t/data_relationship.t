@@ -9,12 +9,12 @@ use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
 
 my $c = MusicBrainz::Server::Test->create_test_context();
-MusicBrainz::Server::Test->prepare_test_database($c);
+MusicBrainz::Server::Test->prepare_test_database($c, '+relationships');
 
 my $rel_data = MusicBrainz::Server::Data::Relationship->new(c => $c);
 
-my $artist1 = MusicBrainz::Server::Entity::Artist->new(id => 8);
-my $artist2 = MusicBrainz::Server::Entity::Artist->new(id => 9);
+my $artist1 = MusicBrainz::Server::Entity::Artist->new(id => 1);
+my $artist2 = MusicBrainz::Server::Entity::Artist->new(id => 2);
 $rel_data->load($artist1, $artist2);
 
 ok( !$rel_data->load() );
@@ -28,7 +28,7 @@ isnt( $rel->link, undef );
 ok( !$rel->link->has_attribute('additional') );
 ok( $rel->link->has_attribute('instrument') );
 is( $rel->link->get_attribute('instrument')->[0], 'guitar' );
-is( $rel->entity1->name, 'King of the Mountain' );
+is( $rel->entity1->name, 'Track 1' );
 is( $rel->edits_pending, 1 );
 
 for $rel ($artist1->all_relationships) {
@@ -38,7 +38,7 @@ for $rel ($artist1->all_relationships) {
         is( $rel->link->get_attribute('additional')->[0], 'additional' );
         ok( $rel->link->has_attribute('instrument') );
         is( $rel->link->get_attribute('instrument')->[0], 'string instruments' );
-        is( $rel->entity1->name, 'π' );
+        is( $rel->entity1->name, 'Track 2' );
         is( $rel->edits_pending, 0 );
     }
     else {
@@ -46,16 +46,16 @@ for $rel ($artist1->all_relationships) {
         ok( !$rel->link->has_attribute('additional') );
         ok( $rel->link->has_attribute('instrument') );
         is( $rel->link->get_attribute('instrument')->[0], 'guitar' );
-        is( $rel->entity1->name, 'King of the Mountain' );
+        is( $rel->entity1->name, 'Track 1' );
         is( $rel->edits_pending, 0 );
     }
 }
 
 my $sql = Sql->new($c->dbh);
 $sql->Begin;
-$sql->Do("INSERT INTO l_artist_recording (id, link, entity0, entity1) VALUES (4, 1, 9, 10)");
-# Merge ARs for artist #9 to #8
-$rel_data->merge('artist', 8, 9);
+$sql->Do("INSERT INTO l_artist_recording (id, link, entity0, entity1) VALUES (4, 1, 2, 2)");
+# Merge ARs for artist #1 to #2
+$rel_data->merge('artist', 1, 2);
 $sql->Commit;
 
 $artist1->clear_relationships;

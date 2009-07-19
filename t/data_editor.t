@@ -1,20 +1,14 @@
 #!/usr/bin/perl
 use strict;
 use Test::More tests => 19;
-
-BEGIN { use_ok 'MusicBrainz::Server::Data::Editor'; }
-
 use DateTime;
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
 
+BEGIN { use_ok 'MusicBrainz::Server::Data::Editor'; }
+
 my $c = MusicBrainz::Server::Test->create_test_context();
-MusicBrainz::Server::Test->prepare_test_database($c);
-MusicBrainz::Server::Test->prepare_test_database($c, "
-INSERT INTO editor_preference (editor, name, value)
-    VALUES (1, 'datetimeformat', '%m/%d/%Y %H:%M:%S'),
-           (1, 'timezone', 'CEST');
-");
+MusicBrainz::Server::Test->prepare_test_database($c, '+editor');
 
 my $editor_data = MusicBrainz::Server::Data::Editor->new(c => $c);
 

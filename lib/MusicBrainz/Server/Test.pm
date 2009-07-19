@@ -30,7 +30,7 @@ sub prepare_test_database
 
     if (defined $query) {
         if ($query =~ /^\+/) {
-            open(FILE, "<admin/sql/test/" . substr($query, 1) . ".sql");
+            open(FILE, "<t/sql/" . substr($query, 1) . ".sql");
             $query = do { local $/; <FILE> };
         }
     }

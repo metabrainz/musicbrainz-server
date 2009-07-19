@@ -23,7 +23,7 @@ sub _columns
 {
     return 'release.id, gid, name.name, release.artist_credit, release_group,
             status, packaging, date_year, date_month, date_day, country,
-            comment, editpending, barcode';
+            comment, editpending, barcode, script, language';
 }
 
 sub _id_column
@@ -51,6 +51,8 @@ sub _column_mapping
         edits_pending => 'editpending',
         comment => 'comment',
         barcode => 'barcode',
+        script_id => 'script',
+        language_id => 'language',
     };
 }
 
@@ -138,6 +140,8 @@ sub _hash_to_row
         barcode => $release->{barcode},
         comment => $release->{comment},
         country => $release->{country},
+        script => $release->{script},
+        language => $release->{language},
     );
 
     if ($release->{name})

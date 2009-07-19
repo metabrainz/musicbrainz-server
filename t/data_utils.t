@@ -7,7 +7,7 @@ use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
 
 my $c = MusicBrainz::Server::Test->create_test_context();
-MusicBrainz::Server::Test->prepare_test_database($c);
+MusicBrainz::Server::Test->prepare_test_database($c, '+artisttype');
 
 my $date = MusicBrainz::Server::Data::Utils::partial_date_from_row(
     { a_year => 2008, a_month => 1, a_day => 2 }, 'a_');

@@ -8,7 +8,7 @@ use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
 
 my $c = MusicBrainz::Server::Test->create_test_context();
-MusicBrainz::Server::Test->prepare_test_database($c);
+MusicBrainz::Server::Test->prepare_test_database($c, '+releasestatus');
 
 my $lt_data = MusicBrainz::Server::Data::ReleaseStatus->new(c => $c);
 

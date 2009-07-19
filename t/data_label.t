@@ -9,12 +9,12 @@ use MusicBrainz::Server::Test;
 use Sql;
 
 my $c = MusicBrainz::Server::Test->create_test_context();
-MusicBrainz::Server::Test->prepare_test_database($c);
+MusicBrainz::Server::Test->prepare_test_database($c, '+label');
 
 my $label_data = MusicBrainz::Server::Data::Label->new(c => $c);
 
-my $label = $label_data->get_by_id(2);
-is ( $label->id, 2 );
+my $label = $label_data->get_by_id(1);
+is ( $label->id, 1 );
 is ( $label->gid, "46f0f4cd-8aab-4b33-b698-f459faf64190" );
 is ( $label->name, "Warp Records" );
 is ( $label->sort_name, "Warp Records" );
@@ -30,11 +30,11 @@ is ( $label->label_code, 2070 );
 is ( $label->format_label_code, 'LC-02070' );
 is ( $label->comment, 'Sheffield based electronica label' );
 
-my $annotation = $label_data->annotation->get_latest(2);
-is ( $annotation->text, "Test annotation 2." );
+my $annotation = $label_data->annotation->get_latest(1);
+is ( $annotation->text, "Label Annotation" );
 
 $label = $label_data->get_by_gid('efdf3fe9-c293-4acd-b4b2-8d2a7d4f9592');
-is ( $label->id, 2 );
+is ( $label->id, 1 );
 
 my $search = MusicBrainz::Server::Data::Search->new(c => $c);
 my ($results, $hits) = $search->search("label", "Warp", 10);
@@ -46,8 +46,8 @@ is( $results->[0]->entity->sort_name, "Warp Records" );
 
 my %names = $label_data->find_or_insert_names('Warp Records', 'RAM Records');
 is(keys %names, 2);
-is($names{'Warp Records'}, 2);
-ok($names{'RAM Records'} > 2);
+is($names{'Warp Records'}, 1);
+ok($names{'RAM Records'} > 1);
 
 my $sql = Sql->new($c->mb->dbh);
 $sql->Begin;
@@ -59,7 +59,7 @@ $label = $label_data->insert({
         end_date => { year => 2000, month => 05 }
     });
 isa_ok($label, 'MusicBrainz::Server::Entity::Label');
-ok($label->id > 2);
+ok($label->id > 1);
 
 $label = $label_data->get_by_id($label->id);
 is($label->name, 'RAM Records');
