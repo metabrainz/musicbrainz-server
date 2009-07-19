@@ -1,10 +1,11 @@
 use strict;
 use warnings;
-use Test::More tests => 64;
+use Test::More tests => 67;
 use Test::Moose;
 use_ok 'MusicBrainz::Server::Data::Artist';
 use MusicBrainz::Server::Data::Search;
 
+use DateTime;
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
 use Sql;
@@ -31,6 +32,13 @@ is ( $artist->end_date->month, 3 );
 is ( $artist->end_date->day, 4 );
 is ( $artist->edits_pending, 0 );
 is ( $artist->comment, 'Yet Another Test Artist' );
+
+$artist_data->load_meta($artist);
+is ( $artist->rating, 70 );
+is ( $artist->rating_count, 4 );
+is_deeply ( $artist->last_update_date,
+     DateTime->new(year => 2009, month => 7, day => 9,
+                   hour => 20, minute => 40, second => 30) );
 
 $artist = $artist_data->get_by_id(4);
 is ( $artist->id, 4 );

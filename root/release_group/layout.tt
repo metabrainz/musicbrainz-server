@@ -12,6 +12,9 @@
             [%- END -%]
         </p>
 
+    [%- INCLUDE "components/sidebar-rating.tt" entity=rg -%]
+    [%- INCLUDE "components/sidebar-lastupdate.tt" entity=rg -%]
+
     </div>
     <div class="content">
         [%- INCLUDE "release_group/header.tt" -%]

@@ -67,14 +67,16 @@ after 'load' => sub
 {
     my ($self, $c) = @_;
 
-    if ($c->stash->{artist}->id == $DARTIST_ID)
+    my $artist = $c->stash->{artist};
+    if ($artist->id == $DARTIST_ID)
     {
         $c->detach('/error_404');
     }
 
-	$c->model('ArtistType')->load($c->stash->{artist});
-	$c->model('Gender')->load($c->stash->{artist});
-	$c->model('Country')->load($c->stash->{artist});
+    $c->model('Artist')->load_meta($artist);
+    $c->model('ArtistType')->load($artist);
+    $c->model('Gender')->load($artist);
+    $c->model('Country')->load($artist);
 };
 
 =head2 similar

@@ -13,9 +13,16 @@ __PACKAGE__->config(
 );
 
 sub base : Chained('/') PathPart('work') CaptureArgs(0) { }
-sub work : Chained('load') PathPart('') CaptureArgs(0) { }
 
-sub show : PathPart('') Chained('work')
+after 'load' => sub
+{
+    my ($self, $c) = @_;
+
+    my $work = $c->stash->{work};
+    $c->model('Work')->load_meta($work);
+};
+
+sub show : PathPart('') Chained('load')
 {
     my ($self, $c) = @_;
 

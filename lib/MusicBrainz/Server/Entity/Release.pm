@@ -8,6 +8,7 @@ use MusicBrainz::Server::Entity::Types;
 extends 'MusicBrainz::Server::Entity::CoreEntity';
 with 'MusicBrainz::Server::Entity::Linkable';
 with 'MusicBrainz::Server::Entity::AnnotationRole';
+with 'MusicBrainz::Server::Entity::LastUpdateRole';
 
 has 'status_id' => (
     is => 'rw',

@@ -22,6 +22,9 @@
             [%- END -%]
         </p>
 
+    [%- INCLUDE "components/sidebar-rating.tt" entity=artist -%]
+    [%- INCLUDE "components/sidebar-lastupdate.tt" entity=artist -%]
+
     </div>
     <div class="content">
         [%- INCLUDE "artist/header.tt" -%]

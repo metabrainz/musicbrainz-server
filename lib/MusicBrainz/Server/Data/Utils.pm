@@ -14,6 +14,7 @@ our @EXPORT_OK = qw(
     generate_gid
     insert_and_create
     generate_gid
+    load_meta
     load_subobjects
     partial_date_from_row
     partial_date_to_hash
@@ -51,6 +52,23 @@ sub load_subobjects
         }
     }
 }
+
+sub load_meta
+{
+    my ($c, $table, $builder, @objs) = @_;
+    my %id_to_obj = map { $_->id => $_ } @objs;
+    my @ids = keys %id_to_obj;
+    my $sql = Sql->new($c->mb->dbh);
+    $sql->Select("SELECT * FROM $table
+                  WHERE id IN (" . placeholders(@ids) . ")", @ids);
+    while (1) {
+        my $row = $sql->NextRowHashRef or last;
+        my $obj = $id_to_obj{$row->{id}};
+        $builder->($obj, $row);
+    }
+    $sql->Finish;
+}
+
 
 sub partial_date_from_row
 {

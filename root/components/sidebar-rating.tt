@@ -1,0 +1,13 @@
+<p>
+    <strong>[% l('Rating:') %]</strong>
+    <span class="inline-rating">
+        <span class="star-rating small-star">
+            [%- IF entity.rating_count -%]
+            <span class="current-rating" style="width:[% entity.rating %]%;">[% entity.rating / 20 %]</span>
+            [%- END -%]
+        </span>
+    </span>
+    [%- IF entity.rating_count -%]
+    <br />[% link_entity(entity, "ratings", l("Show user ratings")) %]
+    [%- END -%]
+</p>

@@ -1,47 +1,17 @@
-package MusicBrainz::Server::Entity::Recording;
+package MusicBrainz::Server::Entity::RatingRole;
+use Moose::Role;
 
-use Moose;
-use MusicBrainz::Server::Entity::Types;
-
-extends 'MusicBrainz::Server::Entity::CoreEntity';
-with 'MusicBrainz::Server::Entity::Taggable';
-with 'MusicBrainz::Server::Entity::Linkable';
-with 'MusicBrainz::Server::Entity::AnnotationRole';
-with 'MusicBrainz::Server::Entity::LastUpdateRole';
-with 'MusicBrainz::Server::Entity::RatingRole';
-
-has 'artist_credit_id' => (
+has 'rating' => (
     is => 'rw',
     isa => 'Int'
 );
 
-has 'artist_credit' => (
-    is => 'rw',
-    isa => 'ArtistCredit'
-);
-
-has 'track_id' => (
+has 'rating_count' => (
     is => 'rw',
     isa => 'Int'
 );
 
-has 'track' => (
-    is => 'rw',
-    isa => 'Track'
-);
-
-has 'length' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-has 'comment' => (
-    is => 'rw',
-    isa => 'Str'
-);
-
-__PACKAGE__->meta->make_immutable;
-no Moose;
+no Moose::Role;
 1;
 
 =head1 COPYRIGHT
@@ -63,3 +33,4 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 =cut
+

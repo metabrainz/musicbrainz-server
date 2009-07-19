@@ -148,6 +148,15 @@ sub _hash_to_row
     return { defined_hash(%row) };
 }
 
+sub load_meta
+{
+    my $self = shift;
+    MusicBrainz::Server::Data::Utils::load_meta($self->c, "release_meta", sub {
+        my ($obj, $row) = @_;
+        $obj->last_update_date($row->{lastupdate}) if defined $row->{lastupdate};
+    }, @_);
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

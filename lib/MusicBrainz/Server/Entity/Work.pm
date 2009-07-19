@@ -7,6 +7,8 @@ extends 'MusicBrainz::Server::Entity::CoreEntity';
 with 'MusicBrainz::Server::Entity::Taggable';
 with 'MusicBrainz::Server::Entity::Linkable';
 with 'MusicBrainz::Server::Entity::AnnotationRole';
+with 'MusicBrainz::Server::Entity::LastUpdateRole';
+with 'MusicBrainz::Server::Entity::RatingRole';
 
 has 'type_id' => (
     is => 'rw',

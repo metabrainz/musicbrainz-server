@@ -39,6 +39,7 @@ after 'load' => sub
 {
     my ($self, $c) = @_;
     my $release = $c->stash->{release};
+    $c->model('Release')->load_meta($release);
     $c->stash->{release_artist} = $c->model('ArtistCredit')->load($release); 
 };
 

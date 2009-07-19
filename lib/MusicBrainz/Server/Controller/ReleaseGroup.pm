@@ -21,9 +21,11 @@ sub base : Chained('/') PathPart('release-group') CaptureArgs(0) { }
 after 'load' => sub
 {
     my ($self, $c) = @_;
-    
-    $c->model('ReleaseGroupType')->load($c->stash->{rg});
-    $c->model('ArtistCredit')->load($c->stash->{rg});
+
+    my $rg = $c->stash->{rg};
+    $c->model('ReleaseGroup')->load_meta($rg);
+    $c->model('ReleaseGroupType')->load($rg);
+    $c->model('ArtistCredit')->load($rg);
 };
 
 sub show : Chained('load') PathPart('')

@@ -35,6 +35,14 @@ namespace
 
 sub base : Chained('/') PathPart('recording') CaptureArgs(0) { }
 
+after 'load' => sub
+{
+    my ($self, $c) = @_;
+
+    my $recording = $c->stash->{recording};
+    $c->model('Recording')->load_meta($recording);
+};
+
 =head2 relations
 
 Shows all relations to a given recording

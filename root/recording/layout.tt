@@ -10,6 +10,8 @@
             <span><strong>[% l('Length:') %]</strong> [% recording.length | format_time %]</span>
         [%- END -%]
     </p>
+    [%- INCLUDE "components/sidebar-rating.tt" entity=recording -%]
+    [%- INCLUDE "components/sidebar-lastupdate.tt" entity=recording -%]
 </div>
 
 <div class="content">

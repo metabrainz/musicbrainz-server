@@ -41,11 +41,17 @@
             <span><strong>[% l('Status:') %]</strong> [% html_escape(release.status.name) %]</span>
         [%- END -%]
     </p>
+
+    [%- INCLUDE "components/sidebar-rating.tt" entity=release -%]
+
     <p>
         <a href="[% c.uri_for_action('/release_group/show', [release.release_group.gid]) %]">
             See other versions of this release
         </a>
     </p>
+
+    [%- INCLUDE "components/sidebar-lastupdate.tt" entity=release -%]
+
 </div>
 
 <div class="content">

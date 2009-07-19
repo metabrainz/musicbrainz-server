@@ -14,6 +14,8 @@
             <span><strong>[% l('ISWC:') %]</strong> [% work.iswc | html %]</span>
         [%- END -%]
     </p>
+    [%- INCLUDE "components/sidebar-rating.tt" entity=work -%]
+    [%- INCLUDE "components/sidebar-lastupdate.tt" entity=work -%]
 </div>
 
 <div class="content">
