@@ -83,6 +83,7 @@ sub partial_date_from_row
 sub partial_date_to_hash
 {
     my ($date) = @_;
+    return undef if $date->is_empty;
     return {
         defined_hash(
                 year => $date->year,

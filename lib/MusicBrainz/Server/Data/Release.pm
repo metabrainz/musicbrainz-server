@@ -13,6 +13,7 @@ use MusicBrainz::Server::Data::Utils qw(
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::AnnotationRole' => { type => 'release' };
 with 'MusicBrainz::Server::Data::Role::Name' => { name_table => 'release_name' };
+with 'MusicBrainz::Server::Data::Editable' => { table => 'release' };
 
 sub _table
 {
@@ -110,11 +111,11 @@ sub insert
 
 sub update
 {
-    my ($self, $release, $update) = @_;
+    my ($self, $release_id, $update) = @_;
     my $sql = Sql->new($self->c->mb->dbh);
     my %names = $self->find_or_insert_names($update->{name});
     my $row = $self->_hash_to_row($update, \%names);
-    $sql->Update('release', $row, { id => $release->id });
+    $sql->Update('release', $row, { id => $release_id });
 }
 
 sub delete
@@ -131,17 +132,17 @@ sub _hash_to_row
     my ($self, $release, $names) = @_;
     my %row = (
         artist_credit => $release->{artist_credit},
-        release_group => $release->{release_group},
-        status => $release->{status},
-        packaging => $release->{packaging},
+        release_group => $release->{release_group_id},
+        status => $release->{status_id},
+        packaging => $release->{packaging_id},
         date_year => $release->{date}->{year},
         date_month => $release->{date}->{month},
         date_day => $release->{date}->{day},
         barcode => $release->{barcode},
         comment => $release->{comment},
-        country => $release->{country},
-        script => $release->{script},
-        language => $release->{language},
+        country => $release->{country_id},
+        script => $release->{script_id},
+        language => $release->{language_id},
     );
 
     if ($release->{name})

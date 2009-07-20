@@ -68,14 +68,14 @@ $sql->Begin;
 $release = $release_data->insert({
         name => 'Protection',
         artist_credit => 1,
-        release_group => 1,
-        packaging => 1,
-        status => 1,
+        release_group_id => 1,
+        packaging_id => 1,
+        status_id => 1,
         date => { year => 2001, month => 2, day => 15 },
         barcode => '0123456789',
-        country => 1,
-        script => 1,
-        language => 1,
+        country_id => 1,
+        script_id => 1,
+        language_id => 1,
         comment => 'A comment',
     });
 $release = $release_data->get_by_id($release->id);
@@ -94,9 +94,9 @@ is($release->script_id, 1);
 is($release->language_id, 1);
 is($release->comment, 'A comment');
 
-$release_data->update($release, {
+$release_data->update($release->id, {
         name => 'Blue Lines',
-        country => 1,
+        country_id => 1,
         date => { year => 2002 },
     });
 $release = $release_data->get_by_id($release->id);

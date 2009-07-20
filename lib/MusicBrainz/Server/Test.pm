@@ -30,7 +30,8 @@ sub prepare_test_database
 
     if (defined $query) {
         if ($query =~ /^\+/) {
-            open(FILE, "<t/sql/" . substr($query, 1) . ".sql");
+            my $file_name = "<t/sql/" . substr($query, 1) . ".sql";
+            open(FILE, $file_name) or die "Could not open $file_name";
             $query = do { local $/; <FILE> };
         }
     }
