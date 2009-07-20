@@ -16,6 +16,7 @@
                             <tr>
                                 <th class="year c">[% l('Year') %]</th>
                                 <th>[% l('Title') %]</th>
+                                <th class="rating c">[% l('Rating') %]</th>
                                 <th class="count c">[% l('Releases') %]</th>
                             </tr>
                         </thead>
@@ -25,6 +26,7 @@
                 <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
                     <td class="c">[% rg.first_release_date.year or '&mdash;' %]</td>
                     <td>[% link_release_group(rg) %]</td>
+                    <td class="c">[% rating_stars(rg) %]</td>
                     <td class="c">[% rg.release_count %]</td>
                 </tr>
             [%- END -%]

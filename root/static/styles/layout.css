@@ -307,6 +307,7 @@ div.tabs {
     font-size: 95%;
     background: url(../images/table-header-2.gif) repeat-x 0 50%;
     font-weight: bold;
+    border-top: solid 1px #999999;
     border-bottom: solid 1px #999999;
 }
 
@@ -325,6 +326,7 @@ div.tabs {
 
 .page table.tbl th.year { width: 4em; }
 .page table.tbl th.count { width: 2em; }
+.page table.tbl th.rating { width: 50px; }
 .page table.tbl .c { text-align: center; }
 th.treleases { width: 3em; }
 .page table.tbl .t { text-align: right; }

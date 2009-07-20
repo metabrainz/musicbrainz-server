@@ -58,7 +58,9 @@ sub find_by_artist
                     rgm.firstreleasedate_year,
                     rgm.firstreleasedate_month,
                     rgm.firstreleasedate_day,
-                    rgm.releasecount
+                    rgm.releasecount,
+                    rgm.ratingcount,
+                    rgm.rating
                  FROM " . $self->_table . "
                     JOIN release_group_meta rgm
                         ON rgm.id = rg.id
@@ -76,6 +78,8 @@ sub find_by_artist
         $self->c->dbh, $offset, $limit, sub {
             my $row = $_[0];
             my $rg = $self->_new_from_row($row);
+            $rg->rating(int($row->{rating} * 20 + 0.5)) if defined $row->{rating};
+            $rg->rating_count($row->{ratingcount}) if defined $row->{ratingcount};
             $rg->first_release_date(partial_date_from_row($row, 'firstreleasedate_'));
             $rg->release_count($row->{releasecount} || 0);
             return $rg;

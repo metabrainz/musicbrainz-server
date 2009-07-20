@@ -180,3 +180,13 @@ END -%]
 [%- MACRO request_login(text) BLOCK -%]
 <a href="[% c.uri_for('/user/login', { uri => c.req.path }) %]">[% text || l('Log in') %]</a>
 [%- END -%]
+
+[%- MACRO rating_stars(entity) BLOCK -%]
+<span class="inline-rating">
+    <span class="star-rating small-star">
+        [%- IF entity.rating_count -%]
+        <span class="current-rating" style="width:[% entity.rating %]%;">[% entity.rating / 20 %]</span>
+        [%- END -%]
+    </span>
+</span>
+[%- END -%]
