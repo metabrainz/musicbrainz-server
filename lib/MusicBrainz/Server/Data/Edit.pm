@@ -70,10 +70,9 @@ sub find
         }
         else {
             my $placeholders = placeholders(@ids);
-            $subquery = "SELECT edit FROM
-                                (SELECT edit, $type FROM edit_$type)
-                                AS $type WHERE $type IN ($placeholders) GROUP BY edit
-                                HAVING count(*) = ?";
+            $subquery = "SELECT edit FROM edit_$type
+                          WHERE $type IN ($placeholders) 
+                       GROUP BY edit HAVING count(*) = ?";
             push @args, scalar @ids;
         }
 
