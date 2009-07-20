@@ -85,9 +85,9 @@ INSERT INTO release_name (id, name) VALUES (1, 'Aerial');
 
 INSERT INTO release_group (id, gid, name) VALUES (1, '7c3218d7-75e0-4e8c-971f-f097b6c308c5', 1);
 
-INSERT INTO release (id, gid, name, artist_credit, release_group)
-    VALUES (1, 'f205627f-b70a-409d-adbe-66289b614e80', 1, 1, 1),
-           (2, '9b3d9383-3d2a-417f-bfbb-56f7c15f075b', 1, 1, 1);
+INSERT INTO release (id, gid, name, artist_credit, release_group, date_year)
+    VALUES (1, 'f205627f-b70a-409d-adbe-66289b614e80', 1, 1, 1, 2007),
+           (2, '9b3d9383-3d2a-417f-bfbb-56f7c15f075b', 1, 1, 1, 2008);
 
 INSERT INTO medium_format (id, name) VALUES (1, 'Format');
 INSERT INTO medium (id, release, position, tracklist, format, name) VALUES (1, 1, 1, 1, 1, 'A Sea of Honey');
