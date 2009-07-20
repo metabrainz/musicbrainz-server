@@ -23,6 +23,7 @@
         </p>
 
     [%- INCLUDE "components/sidebar-rating.tt" entity=artist -%]
+    [%- INCLUDE "components/sidebar-tags.tt" entity=artist tags=top_tags -%]
     [%- INCLUDE "components/sidebar-lastupdate.tt" entity=artist -%]
 
     </div>

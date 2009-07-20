@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 use strict;
-use Test::More tests => 32;
+use Test::More tests => 34;
 
 BEGIN {
     use MusicBrainz::Server::Context;
@@ -36,6 +36,9 @@ $mech->content_like(qr{/release/f34c079d-374e-4436-9448-da92dedef3ce}, 'links to
 $mech->get_ok('/label/46f0f4cd-8aab-4b33-b698-f459faf64190/aliases', 'get label aliases');
 $mech->content_contains('Test Label Alias', 'has the label alias');
 
+# Test tags
+$mech->get_ok('/label/46f0f4cd-8aab-4b33-b698-f459faf64190/tags');
+$mech->content_like(qr{This label has no tags});
 
 # Test ratings
 $mech->get_ok('/label/46f0f4cd-8aab-4b33-b698-f459faf64190/ratings', 'get label ratings');

@@ -1,43 +1,39 @@
-package MusicBrainz::Server::Controller::Work;
-use Moose;
+package MusicBrainz::Server::Controller::TagRole;
+use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
+use Readonly;
 
-BEGIN { extends 'MusicBrainz::Server::Controller'; }
+requires 'load', '_load_paged';
 
-with 'MusicBrainz::Server::Controller::Annotation';
-with 'MusicBrainz::Server::Controller::RelationshipRole';
-with 'MusicBrainz::Server::Controller::RatingRole';
-with 'MusicBrainz::Server::Controller::TagRole';
-
-__PACKAGE__->config(
-    model       => 'Work',
-    entity_name => 'work',
-);
-
-sub base : Chained('/') PathPart('work') CaptureArgs(0) { }
+Readonly my $TOP_TAGS_COUNT => 5;
 
 after 'load' => sub
 {
     my ($self, $c) = @_;
 
-    my $work = $c->stash->{work};
-    $c->model('Work')->load_meta($work);
+    my $entity = $c->stash->{$self->{entity_name}};
+    my @tags = $c->model($self->{model})->tags->find_top_tags($entity->id, $TOP_TAGS_COUNT);
+
+    $c->stash( top_tags => \@tags );
 };
 
-sub show : PathPart('') Chained('load')
+sub tags : Chained('load') PathPart('tags')
 {
     my ($self, $c) = @_;
 
-    my $work = $c->stash->{work};
-    $c->model('WorkType')->load($work);
-    $c->model('ArtistCredit')->load($work);
+    my $entity = $c->stash->{$self->{entity_name}};
+    my $tags = $self->_load_paged($c, sub {
+        $c->model($self->{model})->tags->find_tags($entity->id, shift, shift);
+    });
 
-    $c->stash->{template} = 'work/index.tt';
+    $c->stash( tags => $tags );
 }
 
+no Moose::Role;
 1;
 
 =head1 COPYRIGHT
 
+Copyright (C) 2009 Oliver Charles
 Copyright (C) 2009 Lukas Lalinsky
 
 This program is free software; you can redistribute it and/or modify

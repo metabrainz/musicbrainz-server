@@ -6,6 +6,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller'; }
 with 'MusicBrainz::Server::Controller::Annotation';
 with 'MusicBrainz::Server::Controller::RelationshipRole';
 with 'MusicBrainz::Server::Controller::RatingRole';
+with 'MusicBrainz::Server::Controller::TagRole';
 
 __PACKAGE__->config(
     entity_name => 'recording',
@@ -95,12 +96,6 @@ sub show : Chained('load') PathPart('')
         tracks   => $tracks,
         template => 'recording/index.tt',
     );
-}
-
-sub tags : Chained('load')
-{
-    my ($self, $c, $mbid) = @_;
-    $c->forward('/tags/entity', [ $self->entity ]);
 }
 
 sub google : Chained('load')

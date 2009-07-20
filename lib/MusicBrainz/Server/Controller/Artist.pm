@@ -7,6 +7,7 @@ with 'MusicBrainz::Server::Controller::Annotation';
 with 'MusicBrainz::Server::Controller::Alias';
 with 'MusicBrainz::Server::Controller::RelationshipRole';
 with 'MusicBrainz::Server::Controller::RatingRole';
+with 'MusicBrainz::Server::Controller::TagRole';
 
 __PACKAGE__->config(
     model       => 'Artist',
@@ -105,18 +106,6 @@ sub google : Chained('load')
     my $artist = $self->entity;
 
     $c->response->redirect(Google($artist->name));
-}
-
-=head2 tags
-
-Show all of this artists tags
-
-=cut
-
-sub tags : Chained('load')
-{
-    my ($self, $c) = @_;
-    $c->forward('/tags/entity', [ $self->entity ]);
 }
 
 =head2 relations

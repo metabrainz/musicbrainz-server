@@ -9,6 +9,7 @@ use MusicBrainz::Server::Form::Confirm;
 with 'MusicBrainz::Server::Controller::Annotation';
 with 'MusicBrainz::Server::Controller::RelationshipRole';
 with 'MusicBrainz::Server::Controller::RatingRole';
+with 'MusicBrainz::Server::Controller::TagRole';
 
 __PACKAGE__->config(
     model       => 'ReleaseGroup',
@@ -47,9 +48,6 @@ sub show : Chained('load') PathPart('')
         releases => $releases
     );
 }
-
-# TODO
-sub tags : Chained('load') { }
 
 # TODO
 sub details : Chained('load') { }

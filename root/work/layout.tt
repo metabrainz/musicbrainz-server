@@ -15,6 +15,7 @@
         [%- END -%]
     </p>
     [%- INCLUDE "components/sidebar-rating.tt" entity=work -%]
+    [%- INCLUDE "components/sidebar-tags.tt" entity=work tags=top_tags -%]
     [%- INCLUDE "components/sidebar-lastupdate.tt" entity=work -%]
 </div>
 

@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 use strict;
-use Test::More tests => 33;
+use Test::More tests => 34;
 
 BEGIN {
     use MusicBrainz::Server::Context;
@@ -45,9 +45,12 @@ $mech->content_like(qr{/label/46f0f4cd-8aab-4b33-b698-f459faf64190}, 'has uk lab
 TODO: {
     local $TODO = "Not implemented";
 
-    $mech->get_ok('/release-group/7c3218d7-75e0-4e8c-971f-f097b6c308c5/tags');
     $mech->get_ok('/release-group/7c3218d7-75e0-4e8c-971f-f097b6c308c5/details');
 }
+
+# Test tags
+$mech->get_ok('/release-group/7c3218d7-75e0-4e8c-971f-f097b6c308c5/tags');
+$mech->content_like(qr{This release group has no tags});
 
 # Test ratings
 $mech->get_ok('/release-group/7c3218d7-75e0-4e8c-971f-f097b6c308c5/ratings', 'get rg ratings');

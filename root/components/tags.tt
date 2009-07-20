@@ -1,0 +1,11 @@
+<h2>[% l("Tags") %]</h2>
+
+[%- IF tags.size -%]
+    [%- WRAPPER 'components/with-pager.tt' -%]
+    <ul>
+    [%- FOREACH tag IN tags -%]
+        <li>[% tag.count %] - [% link_tag(tag.tag) %]</li>
+    [%- END -%]
+    </ul>
+    [%- END -%]
+[%- ELSE -%]<p>[% no_tags_text %]</p>[%- END -%]

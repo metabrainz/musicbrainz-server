@@ -44,6 +44,10 @@ INSERT INTO artist
 
 UPDATE artist_meta SET rating=3.5, ratingcount=4, lastupdate='2009-07-09 20:40:30' WHERE id=3;
 
+TRUNCATE tag CASCADE;
+INSERT INTO tag (id, name) VALUES (1, 'musical');
+INSERT INTO artist_tag (tag, artist, count) VALUES (1, 3, 2);
+
 TRUNCATE artist_credit_name CASCADE;
 TRUNCATE artist_credit CASCADE;
 

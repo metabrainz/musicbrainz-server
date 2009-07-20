@@ -6,6 +6,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller'; }
 with 'MusicBrainz::Server::Controller::Annotation';
 with 'MusicBrainz::Server::Controller::Alias';
 with 'MusicBrainz::Server::Controller::RelationshipRole';
+with 'MusicBrainz::Server::Controller::TagRole';
 
 use MusicBrainz::Server::Constants qw( $DLABEL_ID $EDIT_LABEL_CREATE $EDIT_LABEL_DELETE $EDIT_LABEL_EDIT );
 use Data::Page;
@@ -60,18 +61,6 @@ Display details about a permanant link to this label.
 =cut
 
 sub perma : Chained('load') { }
-
-=head2 tags
-
-Display a tag-cloud of tags for a label
-
-=cut
-
-sub tags : Chained('load')
-{
-    my ($self, $c) = @_;
-    $c->forward('/tags/entity', [ $self->entity ]);
-}
 
 =head2 google
 

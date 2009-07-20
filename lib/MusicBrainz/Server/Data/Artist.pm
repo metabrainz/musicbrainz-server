@@ -21,6 +21,7 @@ with 'MusicBrainz::Server::Data::Role::Name' => { name_table => 'artist_name' };
 with 'MusicBrainz::Server::Data::CoreEntityCache' => { prefix => 'artist' };
 with 'MusicBrainz::Server::Data::Editable' => { table => 'artist' };
 with 'MusicBrainz::Server::Data::RatingRole' => { type => 'artist' };
+with 'MusicBrainz::Server::Data::TagRole' => { type => 'artist' };
 
 sub _table
 {

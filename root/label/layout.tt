@@ -15,6 +15,9 @@
             <span><strong>[% l('Country:') %]</strong> [% html_escape(label.country.name) %]</span>
         [%- END -%]
     </p>
+    [%- INCLUDE "components/sidebar-rating.tt" entity=label -%]
+    [%- INCLUDE "components/sidebar-tags.tt" entity=label tags=top_tags -%]
+    [%- INCLUDE "components/sidebar-lastupdate.tt" entity=label -%]
 </div>
 
 <div class="content">

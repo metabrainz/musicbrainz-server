@@ -1,35 +1,37 @@
 #!/usr/bin/perl
 use strict;
 use warnings;
-use Test::More tests => 12;
+use Test::More tests => 13;
 
-BEGIN {
-    use MusicBrainz::Server::Context;
-    use MusicBrainz::Server::Test;
-    my $c = MusicBrainz::Server::Test->create_test_context();
-    MusicBrainz::Server::Test->prepare_test_database($c);
-    MusicBrainz::Server::Test->prepare_test_server();
-    use_ok 'Catalyst::Test', 'MusicBrainz::Server';
-}
+use MusicBrainz::Server::Context;
+use MusicBrainz::Server::Test;
+my $c = MusicBrainz::Server::Test->create_test_context();
+MusicBrainz::Server::Test->prepare_test_database($c);
+MusicBrainz::Server::Test->prepare_test_server();
 
-my $res = request('/work/745c079d-374e-4436-9448-da92dedef3ce');
-is( $res->code, 200 );
-like( $res->content, qr/Dancing Queen/, 'work title' );
-like( $res->content, qr/ABBA/, 'artist credit' );
-like( $res->content, qr/Composition/, 'work type' );
-like( $res->content, qr{/work/745c079d-374e-4436-9448-da92dedef3ce}, 'link back to work' );
-like( $res->content, qr{/artist/a45c079d-374e-4436-9448-da92dedef3cf}, 'link to ABBA' );
-like( $res->content, qr/T-000.000.001-0/, 'iswc' );
-like( $res->content, qr{Test annotation 6}, 'annotation' );
+use Test::WWW::Mechanize::Catalyst;
+my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'MusicBrainz::Server');
+
+$mech->get_ok("/work/745c079d-374e-4436-9448-da92dedef3ce");
+$mech->content_like(qr/Dancing Queen/, 'work title');
+$mech->content_like(qr/ABBA/, 'artist credit');
+$mech->content_like(qr/Composition/, 'work type');
+$mech->content_like(qr{/work/745c079d-374e-4436-9448-da92dedef3ce}, 'link back to work');
+$mech->content_like(qr{/artist/a45c079d-374e-4436-9448-da92dedef3cf}, 'link to ABBA');
+$mech->content_like(qr/T-000.000.001-0/, 'iswc');
+$mech->content_like(qr{Test annotation 6}, 'annotation');
 
 # Missing
-$res = request('/work/dead079d-374e-4436-9448-da92dedef3ce');
-is( $res->code, 404 );
+$mech->get('/work/dead079d-374e-4436-9448-da92dedef3ce');
+is($mech->status(), 404);
 
 # Invalid UUID
-$res = request('/work/xxxx079d-374e-4436-9448-da92dedef3ce');
-is( $res->code, 404 );
+$mech->get('/work/xxxx079d-374e-4436-9448-da92dedef3ce');
+is($mech->status(), 404);
+
+# Test tags
+$mech->get_ok("/work/745c079d-374e-4436-9448-da92dedef3ce/tags");
+$mech->content_like(qr{This work has no tags});
 
 # Test ratings
-$res = request('/work/745c079d-374e-4436-9448-da92dedef3ce/ratings');
-is( $res->code, 200 );
+$mech->get_ok("/work/745c079d-374e-4436-9448-da92dedef3ce/ratings");

@@ -42,7 +42,8 @@
         [%- END -%]
     </p>
 
-    [%- INCLUDE "components/sidebar-rating.tt" entity=release -%]
+    [%- INCLUDE "components/sidebar-rating.tt" entity=release.release_group -%]
+    [%- INCLUDE "components/sidebar-tags.tt" tags=top_tags entity=release.release_group -%]
 
     <p>
         <a href="[% c.uri_for_action('/release_group/show', [release.release_group.gid]) %]">

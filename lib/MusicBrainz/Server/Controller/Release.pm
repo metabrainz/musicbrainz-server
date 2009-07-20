@@ -12,6 +12,7 @@ __PACKAGE__->config(
 );
 
 use MusicBrainz::Server::Adapter qw(Google);
+use MusicBrainz::Server::Controller::TagRole;
 
 =head1 NAME
 
@@ -40,7 +41,19 @@ after 'load' => sub
     my ($self, $c) = @_;
     my $release = $c->stash->{release};
     $c->model('Release')->load_meta($release);
-    $c->stash->{release_artist} = $c->model('ArtistCredit')->load($release); 
+
+    # Load release group
+    $c->model('ReleaseGroup')->load($release);
+    $c->model('ReleaseGroup')->load_meta($release->release_group);
+
+    # Load release group tags
+    my $entity = $c->stash->{$self->{entity_name}};
+    my @tags = $c->model('ReleaseGroup')->tags->find_top_tags(
+        $release->release_group->id,
+        $MusicBrainz::Server::Controller::TagRoleTOP_TAGS_COUNT);
+    $c->stash->{top_tags} = \@tags;
+
+    $c->stash->{release_artist} = $c->model('ArtistCredit')->load($release);
 };
 
 =head2 perma
@@ -117,7 +130,6 @@ sub show : Chained('load') PathPart('')
     $c->model('Script')->load($release);
     $c->model('ReleaseLabel')->load($release);
     $c->model('Label')->load(@{ $release->labels });
-    $c->model('ReleaseGroup')->load($release);
     $c->model('ReleaseGroupType')->load($release->release_group);
     $c->model('Medium')->load($release);
     $c->model('MediumFormat')->load(@{ $release->mediums });

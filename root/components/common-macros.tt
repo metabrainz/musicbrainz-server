@@ -163,6 +163,13 @@ END -%]
     '<a href="' _ url.url _ '">' _ text _ '</a> [<a href="' _ link _ '">' _ l('info') _ '</a>]';
 END -%]
 
+[%- MACRO link_tag(tag, action, text) BLOCK;
+    action = action || 'show';
+    link = c.uri_for_action("/tag/$action", [ tag.name ]);
+    text = text || html_escape(tag.name);
+    '<a href="' _ link _ '">' _ text _ '</a>';
+END -%]
+
 [%- MACRO link_editor(editor, action, text) BLOCK;
     action = action || 'profile';
     link = c.uri_for_action("/user/$action", editor.name);

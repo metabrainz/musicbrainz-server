@@ -1,0 +1,3 @@
+[%- WRAPPER 'recording/layout.tt' title=l('Tags') page='tags' -%]
+    [%- INCLUDE "components/tags.tt" no_tags_text=l('This recording has no tags.') -%]
+[%- END -%]

@@ -1,0 +1,3 @@
+[%- WRAPPER 'label/layout.tt' title=l('Tags') page='tags' -%]
+    [%- INCLUDE "components/tags.tt" no_tags_text=l('This label has no tags.') -%]
+[%- END -%]

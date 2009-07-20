@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 use strict;
-use Test::More tests => 62;
+use Test::More tests => 65;
 
 BEGIN {
     use MusicBrainz::Server::Context;
@@ -80,6 +80,12 @@ $mech->content_unlike(qr/Test Alias/, 'other artist pages do not have the alias'
 $mech->get_ok('/artist/e2a083a9-9942-4d6e-b4d2-8397320b95f7/relationships', 'get artist relationships');
 $mech->content_contains('performed guitar');
 $mech->content_contains('/recording/54b9d183-7dab-42ba-94a3-7388a66604b8');
+
+# Test tags
+$mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/tags');
+$mech->content_like(qr{musical});
+#$mech->content_like(qr{/tag/musical});
+ok($mech->find_link(url_regex => qr{/tag/musical}), 'link to the "musical" tag');
 
 # Test ratings
 $mech->get_ok('/artist/e2a083a9-9942-4d6e-b4d2-8397320b95f7/ratings', 'get artist ratings');

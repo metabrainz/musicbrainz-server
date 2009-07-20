@@ -1,0 +1,14 @@
+[%- MACRO tag_list(tags, entity) BLOCK;
+    tag_links = [];
+    FOR tag=tags;
+        tag_links.push(link_tag(tag.tag));
+    END;
+    tag_links.push(link_entity(entity, 'tags', l('more&hellip;')));
+    tag_links.join(', ');
+END -%]
+
+[% IF tags.size %]
+<p>
+    <strong>[% l('Tags:') %]</strong> [% tag_list(tags, entity) %]
+</p>
+[% END %]

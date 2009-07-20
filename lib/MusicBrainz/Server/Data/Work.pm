@@ -13,6 +13,7 @@ extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::AnnotationRole' => { type => 'work' };
 with 'MusicBrainz::Server::Data::Role::Name' => { name_table => 'work_name' };
 with 'MusicBrainz::Server::Data::RatingRole' => { type => 'work' };
+with 'MusicBrainz::Server::Data::TagRole' => { type => 'work' };
 
 sub _table
 {
