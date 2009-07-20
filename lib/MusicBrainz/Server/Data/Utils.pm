@@ -115,8 +115,8 @@ sub query_to_list
 
 sub query_to_list_limited
 {
-    my ($c, $offset, $limit, $builder, $query, @args) = @_;
-    my $sql = Sql->new($c->mb->dbh);
+    my ($dbh, $offset, $limit, $builder, $query, @args) = @_;
+    my $sql = Sql->new($dbh);
     $sql->Select($query, @args);
     my @result;
     while ($limit--) {

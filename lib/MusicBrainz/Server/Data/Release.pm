@@ -73,7 +73,7 @@ sub find_by_artist
                  ORDER BY date_year, date_month, date_day, name.name
                  OFFSET ?";
     return query_to_list_limited(
-        $self->c, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $artist_id, $offset || 0);
 }
 
@@ -86,7 +86,7 @@ sub find_by_release_group
                  ORDER BY date_year, date_month, date_day, name.name
                  OFFSET ?";
     return query_to_list_limited(
-        $self->c, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $release_group_id, $offset || 0);
 }
 

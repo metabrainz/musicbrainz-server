@@ -67,7 +67,7 @@ sub find_by_label
                  ORDER BY date_year, date_month, date_day, catno, name.name
                  OFFSET ?";
     return query_to_list_limited(
-        $self->c, $offset, $limit, sub {
+        $self->c->dbh, $offset, $limit, sub {
             my $rl = $self->_new_from_row(@_);
             $rl->release(MusicBrainz::Server::Data::Release->_new_from_row(@_));
             return $rl;

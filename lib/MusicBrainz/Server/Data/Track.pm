@@ -95,7 +95,7 @@ sub find_by_recording
         ORDER BY date_year, date_month, date_day, release_name.name
         OFFSET ?";
     return query_to_list_limited(
-        $self->c, $offset, $limit, sub {
+        $self->c->dbh, $offset, $limit, sub {
             my $row = shift;
             my $track = $self->_new_from_row($row);
             my $medium = MusicBrainz::Server::Data::Medium->_new_from_row($row, 'm_');

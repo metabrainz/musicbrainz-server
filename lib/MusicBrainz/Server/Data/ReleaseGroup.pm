@@ -72,7 +72,7 @@ sub find_by_artist
                     name.name
                  OFFSET ?";
     return query_to_list_limited(
-        $self->c, $offset, $limit, sub {
+        $self->c->dbh, $offset, $limit, sub {
             my $row = $_[0];
             my $rg = $self->_new_from_row($row);
             $rg->first_release_date(partial_date_from_row($row, 'firstreleasedate_'));

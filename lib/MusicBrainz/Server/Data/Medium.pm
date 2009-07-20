@@ -96,7 +96,7 @@ sub find_by_tracklist
         ORDER BY date_year, date_month, date_day, release_name.name
         OFFSET ?";
     return query_to_list_limited(
-        $self->c, $offset, $limit, sub {
+        $self->c->dbh, $offset, $limit, sub {
             my $row = shift;
             my $medium = $self->_new_from_row($row, 'm_');
             my $release = MusicBrainz::Server::Data::Release->_new_from_row($row, 'r_');

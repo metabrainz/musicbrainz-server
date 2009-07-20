@@ -24,7 +24,7 @@ is ( $result[0]->{id}, 1 );
 is ( $result[1]->{id}, 2 );
 
 my ($result, $hits) = MusicBrainz::Server::Data::Utils::query_to_list_limited(
-    $c, 0, 1, sub { $_[0] }, "SELECT * FROM artist_type
+    $c->dbh, 0, 1, sub { $_[0] }, "SELECT * FROM artist_type
                               WHERE id IN (1, 2) ORDER BY id");
 @result = @{$result};
 is ( scalar(@result), 1 );

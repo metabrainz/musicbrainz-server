@@ -53,7 +53,7 @@ sub find_by_artist
                  ORDER BY name.name
                  OFFSET ?";
     return query_to_list_limited(
-        $self->c, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $artist_id, $offset || 0);
 }
 

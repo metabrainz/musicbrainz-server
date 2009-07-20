@@ -7,6 +7,7 @@ use List::MoreUtils qw( zip );
 use MusicBrainz::Server::Edit;
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Types qw( $STATUS_APPLIED $STATUS_ERROR );
+use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list_limited );
 use XML::Simple;
 
 extends 'MusicBrainz::Server::Data::Entity';
@@ -49,6 +50,47 @@ sub _new_from_row
     $edit->restore($data);
     $edit->close_time($row->{closetime}) if defined $row->{closetime};
     return $edit;
+}
+
+sub find
+{
+    my ($self, $p, $offset, $limit) = @_;
+
+    my (@pred, @args);
+    for my $type (qw( artist label release release_group recording work)) {
+        next unless exists $p->{$type};
+        my $ids = delete $p->{$type};
+
+        my @ids = ref $ids ? @$ids : $ids;
+        push @args, @ids;
+
+        my $subquery;
+        if (@ids == 1) {
+            $subquery = "SELECT edit FROM edit_$type WHERE $type = ?";
+        }
+        else {
+            my $placeholders = placeholders(@ids);
+            $subquery = "SELECT edit FROM
+                                (SELECT edit, $type FROM edit_$type)
+                                AS $type WHERE $type IN ($placeholders) GROUP BY edit
+                                HAVING count(*) = ?";
+            push @args, scalar @ids;
+        }
+
+        push @pred, "id IN ($subquery)";
+    }
+
+    my @params = keys %$p;
+    push @pred, "$_ = ?" for @params;
+    push @args, $p->{$_} for @params;
+
+    my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table;
+    $query .= ' WHERE ' . join ' AND ', @pred if @pred;
+    $query .= ' ORDER BY id DESC';
+
+    return query_to_list_limited($self->c->raw_dbh, $offset, $limit, sub {
+            return $self->_new_from_row(shift);
+        }, $query, @args);
 }
 
 sub merge_entities
