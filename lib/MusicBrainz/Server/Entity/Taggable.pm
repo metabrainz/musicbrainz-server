@@ -7,6 +7,7 @@ use MusicBrainz::Server::Entity::Types;
 has 'tags' => (
     is => 'rw',
     isa => 'ArrayRef[AggregatedTag]',
+    metaclass => 'Collection::Array',
     provides => {
         elements => 'all_tags',
         push => 'add_tag',
@@ -17,6 +18,7 @@ has 'tags' => (
 has 'user_tags' => (
     is => 'rw',
     isa => 'ArrayRef[UserTag]',
+    metaclass => 'Collection::Array',
     provides => {
         elements => 'all_user_tags',
         push => 'add_user_tag',

@@ -67,7 +67,7 @@ The ID of the links parent
 has 'parent_id' => (
     isa => 'Int',
     is  => 'rw',
-    initarg => 'parent',
+    init_arg => 'parent',
 );
 
 =head2 types

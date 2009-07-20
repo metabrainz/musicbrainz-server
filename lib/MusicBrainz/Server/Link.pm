@@ -47,21 +47,16 @@ has 'types' => (
     }
 );
 
-has 'link_type' => (
-    isa => 'Int',
-    is  => 'rw',
-);
-
 has 'begin_date' => (
     isa => 'Str',
     is  => 'rw',
-    initarg => 'begindate',
+    init_arg => 'begindate',
 );
 
 has 'end_date' => (
     isa => 'Str',
     is  => 'rw',
-    initarg => 'enddate',
+    init_arg => 'enddate',
 );
 
 sub begin_date_ymd

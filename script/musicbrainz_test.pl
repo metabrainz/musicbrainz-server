@@ -1,4 +1,4 @@
-#!/usr/bin/perl -w
+#!/usr/bin/env perl
 
 use strict;
 use warnings;
@@ -6,7 +6,7 @@ use Getopt::Long;
 use Pod::Usage;
 use FindBin;
 use lib "$FindBin::Bin/../lib";
-use Catalyst::Test 'musicbrainz';
+use Catalyst::Test 'MusicBrainz::Server';
 
 my $help = 0;
 
@@ -20,18 +20,18 @@ print request($ARGV[0])->content . "\n";
 
 =head1 NAME
 
-musicbrainz_test.pl - Catalyst Test
+musicbrainz_server_test.pl - Catalyst Test
 
 =head1 SYNOPSIS
 
-musicbrainz_test.pl [options] uri
+musicbrainz_server_test.pl [options] uri
 
  Options:
    -help    display this help and exits
 
  Examples:
-   musicbrainz_test.pl http://localhost/some_action
-   musicbrainz_test.pl /some_action
+   musicbrainz_server_test.pl http://localhost/some_action
+   musicbrainz_server_test.pl /some_action
 
  See also:
    perldoc Catalyst::Manual
@@ -41,14 +41,13 @@ musicbrainz_test.pl [options] uri
 
 Run a Catalyst action from the command line.
 
-=head1 AUTHOR
+=head1 AUTHORS
 
-Sebastian Riedel, C<sri@oook.de>
-Maintained by the Catalyst Core Team.
+Catalyst Contributors, see Catalyst.pm
 
 =head1 COPYRIGHT
 
-This library is free software, you can redistribute it and/or modify
+This library is free software. You can redistribute it and/or modify
 it under the same terms as Perl itself.
 
 =cut

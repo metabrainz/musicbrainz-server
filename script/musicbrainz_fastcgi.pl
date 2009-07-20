@@ -1,4 +1,4 @@
-#!/usr/bin/perl -w
+#!/usr/bin/env perl
 
 BEGIN { $ENV{CATALYST_ENGINE} ||= 'FastCGI' }
 
@@ -31,7 +31,7 @@ MusicBrainz::Server->run(
         pidfile => $pidfile,
         manager => $manager,
         detach  => $detach,
-	keep_stderr => $keep_stderr,
+        keep_stderr => $keep_stderr,
     }
 );
 
@@ -39,12 +39,12 @@ MusicBrainz::Server->run(
 
 =head1 NAME
 
-musicbrainz_fastcgi.pl - Catalyst FastCGI
+musicbrainz_server_fastcgi.pl - Catalyst FastCGI
 
 =head1 SYNOPSIS
 
-musicbrainz_fastcgi.pl [options]
- 
+musicbrainz_server_fastcgi.pl [options]
+
  Options:
    -? -help      display this help and exits
    -l -listen    Socket path to listen on
@@ -67,14 +67,13 @@ musicbrainz_fastcgi.pl [options]
 
 Run a Catalyst application as fastcgi.
 
-=head1 AUTHOR
+=head1 AUTHORS
 
-Sebastian Riedel, C<sri@oook.de>
-Maintained by the Catalyst Core Team.
+Catalyst Contributors, see Catalyst.pm
 
 =head1 COPYRIGHT
 
-This library is free software, you can redistribute it and/or modify
+This library is free software. You can redistribute it and/or modify
 it under the same terms as Perl itself.
 
 =cut
