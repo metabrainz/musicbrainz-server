@@ -21,7 +21,7 @@
     </tbody>
 </table>
 
-<h2>[%- l('Appeads on releases') -%]</h2>
+<h2>[%- l('Appears on releases') -%]</h2>
 <ul>
     [% FOR medium=release_media %]
     <li>
