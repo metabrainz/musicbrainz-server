@@ -2,7 +2,7 @@
 
 BEGIN {
     $ENV{CATALYST_ENGINE} ||= 'HTTP';
-    $ENV{CATALYST_SCRIPT_GEN} = 38;
+    $ENV{CATALYST_SCRIPT_GEN} = 39;
     require Catalyst::Engine::HTTP;
 }
 
@@ -98,6 +98,7 @@ if ( $restart ) {
     my $restarter = $subclass->new(
         %args,
         start_sub => $runner,
+        argv      => \@argv,
     );
 
     $restarter->run_and_watch;
