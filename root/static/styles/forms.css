@@ -16,12 +16,14 @@ form p {
 }
 
 form p label,
-form div.label {
+form div.row div.label {
     float: left;
     text-align: right;
     width: 10em;
     margin-right: 1em;
 }
+
+form div.row p { float: none; clear: none; }
 
 form div.no-label,
 ul.radio-list,
@@ -50,4 +52,4 @@ label.inline {
     width: auto !important;
 }
 
-div.row
+div.container { margin-left: 11em }

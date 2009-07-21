@@ -1,3 +1,79 @@
+.ajax-lookup { 
+    background: white;
+    border: 1px solid black;
+}
+.ajax-lookup .options {
+    padding: 0.2em;
+    text-align: right;
+    background: #F5F3EB;
+    overflow: auto;
+}
+.ajax-lookup ul {
+    padding: 0;
+    margin: 0;
+}
+.ajax-lookup li {
+    padding: 0.2em 0.5em;
+    list-style-type: none;
+}
+.ajax-lookup li {
+    color: #000;
+    text-decoration: none;
+    border-bottom: 1px dotted #ddd;
+}
+.ajax-lookup li.hover {
+    background: #736DAB;
+    cursor: pointer;
+    color: white;
+    text-decoration: none;
+}
+
+button.image-button img {
+    vertical-align: middle;
+}
+button.image-button {
+    margin: 0;
+    padding: 0;
+    background: none;
+    border: 0;
+}
+
+table.credits {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 0;
+}
+table.credits tr {
+    border-bottom: 1px solid #ddd;
+}
+table.credits th {
+    text-align: left;
+}
+table.credits td,
+table.credits th {
+    padding: 0.2em
+}
+table.credits th.artist,
+table.credits th.name {
+    width: 40%;
+}
+table.credits input.entity-selector {
+    width: 70%;
+}
+table.credits input { width: 90%; }
+table.credits tr.add-new {
+    border-bottom: none;
+}
+table.credits tr.add-new td {
+    padding-top: 1em;
+}
+table.credits tr.add-new input {
+    width: 50%;
+    margin-left: 1em;
+}
+
+/* -------------- */
+
 .floatRight {
  float: right;
 }

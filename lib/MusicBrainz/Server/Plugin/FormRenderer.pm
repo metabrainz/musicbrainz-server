@@ -38,9 +38,10 @@ sub _lookup_field
 sub _render_input
 {
     my ($self, $field, $type, %attrs) = @_;
+    return unless ref $field;
     return $self->h->input({
             type => $type,
-            id => $field->id,
+            id => "id-" . $field->html_name,
             value => $field->fif,
             name => $field->html_name,
             %attrs
@@ -129,7 +130,7 @@ sub select
     }
 
     return $self->h->select({
-        id => $field->id,
+        id => "id-" . $field->html_name,
         name => $field->html_name,
         %{ $attrs || {} }
     }, \@options);
@@ -154,6 +155,47 @@ sub date
         $self->text($field->field('year'), { size => 4 }), ' - ',
         $self->text($field->field('month'), { size => 2 }), ' - ',
         $self->text($field->field('day'), { size => 2 }),
+    ]);
+}
+
+sub artist_credit_editor
+{
+    my ($self, $field_name) = @_;
+    my $field = $self->_lookup_field($field_name) or return;
+
+    # Artist credit editor
+    my $preview = $field->fif;
+    my %gid_id_map = map { $_->artist->id => $_->artist->gid } grep { defined $_->artist } @{ $preview->names };
+
+    my @credits = map { [
+        $self->h->input({
+            type => 'hidden',
+            class => 'gid',
+            value => $gid_id_map{$_->field('artist_id')->value}
+        }),
+        $self->_render_input($_->field('artist_id'), 'hidden', class => 'id'),
+        $self->_render_input($_->field('name'), 'text', class => 'name'),
+        $self->_render_input($_->field('join_phrase'), 'text', class => 'join')
+    ] } $field->field('names')->fields;
+
+    my $editor = $self->h->div({ class => 'credits' }, [
+        map {
+            $self->h->div({ class => 'credit' }, $_)
+        } @credits
+    ]);
+
+    # Preview
+    return $self->h->div({ class => 'container', id => $field->html_name }, [
+        $self->h->p({ class => 'preview' }, [
+            map {
+                my $name = $_->artist
+                    ? $self->h->a({ href => "/artist/" . $_->artist->gid }, [ $_->name ])
+                    : $_->name;
+
+                ($name, $_->join_phrase);
+            } @{ $preview->names }
+        ]),
+        $editor
     ]);
 }
 
