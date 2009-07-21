@@ -17,12 +17,12 @@ sub process_tables
     my %foreign_keys;
     my %primary_keys;
     my @sequences;
-    while ($create_tables_sql =~ m/CREATE TABLE\s+([a-z0-9_]+)\s+\(\s*(.*?)\s*\);/gs) {
+    while ($create_tables_sql =~ m/CREATE TABLE\s+([a-z0-9_]+)\s+\(\s*(.*?)\s*\);/gsi) {
         my $name = $1;
         my @lines = split /\n/, $2;
         my @fks;
         foreach my $line (@lines) {
-            if ($line =~ m/([a-z0-9_]+).*?\s*--.*?references ([a-z0-9_]+)\.([a-z0-9_]+)/) {
+            if ($line =~ m/([a-z0-9_]+).*?\s*--.*?references ([a-z0-9_]+)\.([a-z0-9_]+)/i) {
                 my @fk = ($1, $2, $3);
                 my $cascade = ($line =~ m/CASCADE/) ? 1 : 0;
                 push @fks, [@fk, $cascade];
@@ -33,10 +33,10 @@ sub process_tables
         }
         my @pks;
         foreach my $line (@lines) {
-            if ($line =~ m/([a-z0-9_]+).*?\s*--.*?PK/ || $line =~ m/([a-z0-9_]+).*?SERIAL/) {
+            if ($line =~ m/([a-z0-9_]+).*?\s*--.*?PK/i || $line =~ m/([a-z0-9_]+).*?SERIAL/i) {
                 push @pks, $1;
             }
-            if ($line =~ m/([a-z0-9_]+).*?SERIAL/) {
+            if ($line =~ m/([a-z0-9_]+).*?SERIAL/i) {
                 push @sequences, [$name, $1];
             }
         }
@@ -135,7 +135,7 @@ sub process_indexes
     close FILE;
 
     my @indexes;
-    while ($create_indexes_sql =~ m/CREATE .*?INDEX\s+([a-z0-9_]+)\s+/g) {
+    while ($create_indexes_sql =~ m/CREATE .*?INDEX\s+([a-z0-9_]+)\s+/gi) {
         my $name = $1;
         push @indexes, $name;
     }
@@ -159,7 +159,7 @@ my $create_functions_sql = do { local $/; <FILE> };
 close FILE;
 
 my @functions;
-while ($create_functions_sql =~ m/CREATE .*?FUNCTION\s+(.+?)\s+RETURNS/g) {
+while ($create_functions_sql =~ m/CREATE .*?FUNCTION\s+(.+?)\s+RETURNS/gi) {
     my $name = $1;
     push @functions, $name;
 }
@@ -178,7 +178,7 @@ my $create_triggers_sql = do { local $/; <FILE> };
 close FILE;
 
 my @triggers;
-while ($create_triggers_sql =~ m/CREATE TRIGGER\s+([a-z0-9_]+)\s+.*?\s+ON\s+([a-z0-9_]+)/g) {
+while ($create_triggers_sql =~ m/CREATE TRIGGER\s+([a-z0-9_]+)\s+.*?\s+ON\s+([a-z0-9_]+)/gi) {
     push @triggers, [$1, $2];
 }
 

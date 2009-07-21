@@ -15,7 +15,14 @@ CREATE INDEX artist_tag_idx_tag ON artist_tag (tag);
 
 CREATE UNIQUE INDEX country_idx_isocode ON country (isocode);
 
+CREATE INDEX currentstat_name ON currentstat (name);
+
+CREATE INDEX dbmirror_Pending_XID_Index ON dbmirror_Pending (XID);
+
 CREATE UNIQUE INDEX editor_idx_name ON editor (LOWER(name));
+
+CREATE INDEX historicalstat_date ON historicalstat (snapshotdate);
+CREATE INDEX historicalstat_name_snapshotdate ON historicalstat (name, snapshotdate);
 
 CREATE UNIQUE INDEX label_idx_gid ON label (gid);
 CREATE INDEX label_idx_name ON label (name);

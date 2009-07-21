@@ -125,135 +125,163 @@ my %table_db_mapping =
 (
 	'artist_rating_raw'						=>	{ dbh => $rawdbh, sql => $rawsql },
 	'artist_tag_raw'						=>	{ dbh => $rawdbh, sql => $rawsql },
-	'cdtoc_raw'								=>	{ dbh => $rawdbh, sql => $rawsql },
-	'collection_discography_artist_join'	=>  { dbh => $rawdbh, sql => $rawsql },
-	'collection_has_release_join'			=>  { dbh => $rawdbh, sql => $rawsql },
-	'collection_ignore_release_join'		=>  { dbh => $rawdbh, sql => $rawsql },
-	'collection_ignore_time_range'			=>  { dbh => $rawdbh, sql => $rawsql },
-	'collection_info'						=>  { dbh => $rawdbh, sql => $rawsql },
-	'collection_watch_artist_join'			=>  { dbh => $rawdbh, sql => $rawsql },
-	'release_rating_raw'					=>	{ dbh => $rawdbh, sql => $rawsql },
-	'release_tag_raw'						=>	{ dbh => $rawdbh, sql => $rawsql },
-	'release_raw'							=>	{ dbh => $rawdbh, sql => $rawsql },
-	'track_rating_raw'						=>	{ dbh => $rawdbh, sql => $rawsql },
-	'track_raw'								=>	{ dbh => $rawdbh, sql => $rawsql },
-	'track_tag_raw'							=>	{ dbh => $rawdbh, sql => $rawsql },
+	'release_group_rating_raw'				=>	{ dbh => $rawdbh, sql => $rawsql },
+	'release_group_tag_raw'					=>	{ dbh => $rawdbh, sql => $rawsql },
+	'recording_rating_raw'					=>	{ dbh => $rawdbh, sql => $rawsql },
+	'recording_tag_raw'						=>	{ dbh => $rawdbh, sql => $rawsql },
 	'label_rating_raw'						=>	{ dbh => $rawdbh, sql => $rawsql },
 	'label_tag_raw'							=>	{ dbh => $rawdbh, sql => $rawsql },
+	'work_rating_raw'						=>	{ dbh => $rawdbh, sql => $rawsql },
+	'work_tag_raw'							=>	{ dbh => $rawdbh, sql => $rawsql },
+	'cdtoc_raw'								=>	{ dbh => $rawdbh, sql => $rawsql },
+	'release_raw'							=>	{ dbh => $rawdbh, sql => $rawsql },
+	'track_raw'								=>	{ dbh => $rawdbh, sql => $rawsql },
+	'vote'									=>	{ dbh => $rawdbh, sql => $rawsql },
+	'edit'									=>	{ dbh => $rawdbh, sql => $rawsql },
+	'edit_artist'							=>	{ dbh => $rawdbh, sql => $rawsql },
+	'edit_label'							=>	{ dbh => $rawdbh, sql => $rawsql },
+	'edit_note'								=>	{ dbh => $rawdbh, sql => $rawsql },
+	'edit_recording'						=>	{ dbh => $rawdbh, sql => $rawsql },
+	'edit_release'							=>	{ dbh => $rawdbh, sql => $rawsql },
+	'edit_release_group'					=>	{ dbh => $rawdbh, sql => $rawsql },
+	'edit_work'								=>	{ dbh => $rawdbh, sql => $rawsql },
+	'vote'									=>	{ dbh => $rawdbh, sql => $rawsql },
 	'_default_'								=>	{ dbh => $dbh, sql => $sql } 
 );
 
 my @tables = qw(
-	album
-	album_amazon_asin
-	album_cdtoc
-	albumjoin
-	albummeta
-	albumwords
+	artist_rating_raw
+	artist_tag_raw
+	cdtoc_raw
+	currentstat
+	edit
+	edit_artist
+	edit_label
+	edit_note
+	edit_recording
+	edit_release
+	edit_release_group
+	edit_work
+	historicalstat
+	label_rating_raw
+	label_tag_raw
+	recording_rating_raw
+	recording_tag_raw
+	release_group_rating_raw
+	release_group_tag_raw
+	release_raw
+	track_raw
+	vote
+	work_rating_raw
+	work_tag_raw
 	annotation
 	artist
+	artist_alias
+	artist_annotation
+	artist_credit
+	artist_credit_name
+	artist_gid_redirect
 	artist_meta
-	artist_relation
-	artistalias
-	artist_rating_raw
+	artist_name
 	artist_tag
-	artist_tag_raw
-	artistwords
-	automod_election
-	automod_election_vote
+	artist_type
 	cdtoc
-	cdtoc_raw
 	clientversion
 	country
-	collection_discography_artist_join
-	collection_has_release_join
-	collection_ignore_release_join
-	collection_ignore_time_range
-	collection_info
-	collection_watch_artist_join
-	currentstat
+	editor
+	editor_preference
+	editor_sanitised
+	editor_subscribe_artist
 	editor_subscribe_editor
-	historicalstat
-	gid_redirect
-	l_album_album
-	l_album_artist
-	l_album_label
-	l_album_track
-	l_album_url
+	editor_subscribe_label
+	gender
+	isrc
 	l_artist_artist
 	l_artist_label
-	l_artist_track
+	l_artist_recording
+	l_artist_release
+	l_artist_release_group
 	l_artist_url
+	l_artist_work
 	l_label_label
-	l_label_track
+	l_label_recording
+	l_label_release
+	l_label_release_group
 	l_label_url
-	l_track_track
-	l_track_url
+	l_label_work
+	l_recording_recording
+	l_recording_release
+	l_recording_release_group
+	l_recording_url
+	l_recording_work
+	l_release_group_release_group
+	l_release_group_url
+	l_release_group_work
+	l_release_release
+	l_release_release_group
+	l_release_url
+	l_release_work
 	l_url_url
+	l_url_work
+	l_work_work
 	label
+	label_alias
+	label_annotation
+	label_gid_redirect
 	label_meta
-	label_rating_raw
+	label_name
 	label_tag
-	label_tag_raw
-	labelalias
-	labelwords
+	label_type
 	language
+	link
 	link_attribute
 	link_attribute_type
-	lt_album_album
-	lt_album_artist
-	lt_album_label
-	lt_album_track
-	lt_album_url
-	lt_artist_artist
-	lt_artist_label
-	lt_artist_track
-	lt_artist_url
-	lt_label_label
-	lt_label_track
-	lt_label_url
-	lt_track_track
-	lt_track_url
-	lt_url_url
-	moderation_closed
-	moderation_note_closed
-	moderation_note_open
-	moderation_open
-	moderator
-	moderator_preference
-	moderator_subscribe_artist
-	moderator_subscribe_label
-	moderator_sanitised
+	link_type
+	link_type_attribute_type
+	medium
+	medium_format
 	puid
-	puidjoin
-	puidjoin_stat
-	puid_stat
+	recording
+	recording_annotation
+	recording_gid_redirect
+	recording_meta
+	recording_puid
+	recording_tag
 	release
-	release_rating_raw
-	release_raw
-	release_tag
-	release_tag_raw
+	release_annotation
+	release_gid_redirect
+	release_group
+	release_group_annotation
+	release_group_gid_redirect
+	release_group_meta
+	release_group_tag
+	release_group_type
+	release_label
+	release_meta
+	release_name
+	release_packaging
+	release_status
 	script
 	script_language
-	stats
 	tag
 	tag_relation
 	track
-	track_meta
-	track_rating_raw
-	track_raw
-	track_tag
-	track_tag_raw
-	trackwords
+	track_name
+	tracklist
+	tracklist_cdtoc
 	url
-	vote_closed
-	vote_open
-	wordlist
+	work
+	work_annotation
+	work_gid_redirect
+	work_meta
+	work_name
+	work_tag
+	work_type
 );
 
 my @replication_tables = qw(
-	Pending
-	PendingData
+	dbmirror_Pending
+	dbmirror_PendingData
 );
 
 @tables = @tablelist if @tablelist;
@@ -312,10 +340,10 @@ writefile("SCHEMA_SEQUENCE", "$iSchemaSequence\n");
 
 # Sanitise various things for public consumption
 
-if (grep { $_ eq "moderator_sanitised" } @tables)
+if (grep { $_ eq "editor_sanitised" } @tables)
 {
-	$sql->Do("SELECT * INTO TEMPORARY TABLE moderator_sanitised FROM moderator");
-	$sql->Do("UPDATE moderator_sanitised SET password = 'mb', privs = 0, email = ''");
+	$sql->Do("SELECT * INTO TEMPORARY TABLE editor_sanitised FROM editor");
+	$sql->Do("UPDATE editor_sanitised SET password = 'mb', privs = 0, email = ''");
 }
 
 $| = 1;
@@ -360,7 +388,7 @@ sub dumptable
 
 	my $estrows = table_rowcount($table) || 1;
 
-	$sql->Do("COPY \"$table\" TO stdout");
+	$sql->Do("COPY $table TO stdout");
 	my $buffer;
 	my $rows = 0;
 
@@ -377,20 +405,12 @@ sub dumptable
 
 	$p->("", "") if $fProgress;
 
-	# This has to be at least as large as the longest line given
-	# by "copy table to stdout".
-	# Currently the largest value is moderation #2575726 at approx
-	# 312,851 bytes.
-	my $max = 315_000; my $maxline = __LINE__;
 	my $longest = 0;
 
-	while ($dbh->func($buffer, $max, "getline"))
+	while ($dbh->pg_getcopydata($buffer) >= 0)
 	{
-		die "\nProbable data truncation!  See $0 line $maxline"
-			if length($buffer) >= $max-1;
-
 		$longest = length($buffer) if length($buffer) > $longest;
-		print DUMP $buffer, "\n"
+		print DUMP $buffer
 			or die $!;
 
 		++$rows;
@@ -401,7 +421,6 @@ sub dumptable
 		}
 	}
 
-	$dbh->func("endcopy") or die;
 	close DUMP
 		or die $!;
 
@@ -421,7 +440,7 @@ my $fAnyReplicationData = 0;
 for my $table (@replication_tables)
 {
 	$fAnyReplicationData = 1
-		if $sql->SelectSingleValue("SELECT COUNT(*) FROM \"$table\"") > 0;
+		if $sql->SelectSingleValue("SELECT COUNT(*) FROM $table") > 0;
 }
 
 if ($fDoReplication)
@@ -507,96 +526,128 @@ undef $rawmb;
 close $lockfh;
 
 my @group_core = qw(
-	album
-	albumjoin
-	album_cdtoc
 	artist
-	artistalias
+	artist_alias
+	artist_credit
+	artist_credit_name
+	artist_gid_redirect
+	artist_name
+	artist_type
 	cdtoc
 	clientversion
 	country
-	gid_redirect
-	l_album_album
-	l_album_artist
-	l_album_label
-	l_album_track
-	l_album_url
+	gender
+	isrc
 	l_artist_artist
 	l_artist_label
-	l_artist_track
+	l_artist_recording
+	l_artist_release
+	l_artist_release_group
 	l_artist_url
+	l_artist_work
 	l_label_label
-	l_label_track
+	l_label_recording
+	l_label_release
+	l_label_release_group
 	l_label_url
-	l_track_track
-	l_track_url
+	l_label_work
+	l_recording_recording
+	l_recording_release
+	l_recording_release_group
+	l_recording_url
+	l_recording_work
+	l_release_group_release_group
+	l_release_group_url
+	l_release_group_work
+	l_release_release
+	l_release_release_group
+	l_release_url
+	l_release_work
 	l_url_url
+	l_url_work
+	l_work_work
 	label
-	labelalias
+	label_alias
+	label_gid_redirect
+	label_name
+	label_type
 	language
+	link
 	link_attribute
 	link_attribute_type
-	lt_album_album
-	lt_album_artist
-	lt_album_label
-	lt_album_track
-	lt_album_url
-	lt_artist_artist
-	lt_artist_label
-	lt_artist_track
-	lt_artist_url
-	lt_label_label
-	lt_label_track
-	lt_label_url
-	lt_track_track
-	lt_track_url
-	lt_url_url
+	link_type
+	link_type_attribute_type
+	medium
+	medium_format
 	puid
-	puidjoin
+	recording
+	recording_gid_redirect
+	recording_puid
 	release
-	replication_control
+	release_gid_redirect
+	release_group
+	release_group_annotation
+	release_group_gid_redirect
+	release_group_type
+	release_label
+	release_name
+	release_packaging
+	release_status
 	script
 	script_language
 	track
+	track_name
+	tracklist
+	tracklist_cdtoc
 	url
+	work
+	work_gid_redirect
+	work_name
+	work_type
 	);
 
 my @group_derived = qw(
-	album_amazon_asin
-	albummeta
-	albumwords
 	annotation
+	artist_annotation
 	artist_meta
 	artist_tag
-	artistwords
+	label_annotation
 	label_meta
 	label_tag
-	labelwords
-	release_tag
+	recording_annotation
+	recording_meta
+	recording_tag
+	release_annotation
+	release_group_annotation
+	release_group_meta
+	release_group_tag
+	release_meta
 	tag
 	tag_relation
-	track_meta
-	track_tag
-	trackwords
-	wordlist
+	work_annotation
+	work_meta
+	work_tag
 	);
 
 my @group_stats = qw(
 	currentstat
 	historicalstat
-	stats
-	puidjoin_stat
-	puid_stat
-	puidjoin_stat
-	puid_stat
 );
 
-my @group_moderation = qw(
-	automod_election
-	moderation_note_open
-	moderation_open
-	moderator_sanitised
-	vote_open
+my @group_editor = qw(
+	editor_sanitised
+	);
+
+my @group_edit = qw(
+	edit
+	edit_artist
+	edit_label
+	edit_note
+	edit_recording
+	edit_release
+	edit_release_group
+	edit_work
+	vote
 	);
 
 my @group_closedmoderation = qw(
@@ -605,32 +656,22 @@ my @group_closedmoderation = qw(
 	vote_closed
 	);
 
-my @group_artistrelation = qw(
-	artist_relation
-);
-
 my @group_private = qw(
-	album_amazon_asin
 	artist_rating_raw
 	artist_tag_raw
-	automod_election_vote
+	editor
+	editor_preference
+	editor_subscribe_artist
 	editor_subscribe_editor
-	collection_discography_artist_join
-	collection_has_release_join
-	collection_ignore_release_join
-	collection_ignore_time_range
-	collection_info
-	collection_watch_artist_join
+	editor_subscribe_label
 	label_rating_raw
 	label_tag_raw
-	moderator
-	moderator_preference
-	moderator_subscribe_artist
-	moderator_subscribe_label
-	release_rating_raw
-	release_tag_raw
-	track_rating_raw
-	track_tag_raw
+	recording_rating_raw
+	recording_tag_raw
+	release_group_rating_raw
+	release_group_tag_raw
+	work_rating_raw
+	work_tag_raw
 );
 
 my @group_cdstubs = qw(
@@ -650,10 +691,9 @@ if ($fCompress and $fDoFullExport)
 	copy_readme() or die $!;
 	copy("$FindBin::Bin/COPYING-CCShareAlike", "$dir/COPYING") or die $!;
 	make_tar("mbdump-derived.tar.bz2", @group_derived);
-	make_tar("mbdump-moderation.tar.bz2",  @group_moderation);
+	make_tar("mbdump-editor.tar.bz2",  @group_editor);
+	make_tar("mbdump-edit.tar.bz2",  @group_edit);
 	make_tar("mbdump-stats.tar.bz2",  @group_stats);
-	make_tar("mbdump-closedmoderation.tar.bz2",  @group_closedmoderation);
-	make_tar("mbdump-artistrelation.tar.bz2", @group_artistrelation);
 	make_tar("mbdump-private.tar.bz2", @group_private);
 	make_tar("mbdump-cdstubs.tar.bz2", @group_cdstubs);
 }
@@ -719,8 +759,8 @@ sub writefile
 
 sub empty_replication_tables
 {
-	$sql->Do("DELETE FROM \"PendingData\"");
-	$sql->Do("DELETE FROM \"Pending\"");
+	$sql->Do("DELETE FROM dbmirror_PendingData");
+	$sql->Do("DELETE FROM dbmirror_Pending");
 	# As soon as we commit, the replication data is gone from the DB, so we must
 	# be sure that we have a safe copy.
 	$erase_tmpdir_on_exit = 0;
@@ -730,9 +770,9 @@ sub optimise_replication_tables
 {
 	print localtime() . " : Optimising replication tables\n";
 	$sql->AutoCommit;
-	$sql->Do("VACUUM FULL ANALYZE \"PendingData\"");
+	$sql->Do("VACUUM FULL ANALYZE dbmirror_PendingData");
 	$sql->AutoCommit;
-	$sql->Do("VACUUM FULL ANALYZE \"Pending\"");
+	$sql->Do("VACUUM FULL ANALYZE dbmirror_Pending");
 }
 
 sub copy_readme

@@ -88,6 +88,19 @@ CREATE TABLE artist_type (
     name                VARCHAR(255) NOT NULL
 );
 
+CREATE TABLE dbmirror_Pending (
+    SeqId               SERIAL,
+    TableName           NAME NOT NULL,
+    Op                  CHARACTER,
+    XID                 INTEGER NOT NULL
+);
+
+CREATE TABLE dbmirror_PendingData (
+    SeqId               INTEGER NOT NULL, -- PK
+    IsKey               BOOLEAN NOT NULL, -- PK
+    Data                VARCHAR
+);
+
 CREATE TABLE editor
 (
     id                  SERIAL,
@@ -165,6 +178,14 @@ CREATE TABLE country (
     name                VARCHAR(255) NOT NULL
 );
 
+CREATE TABLE currentstat
+(
+    id                  SERIAL,
+    name                VARCHAR(100) NOT NULL,
+    value               INTEGER NOT NULL,
+    lastupdated         TIMESTAMP WITH TIME ZONE
+);
+
 CREATE TABLE gender (
     id                  SERIAL,
     name                VARCHAR(255) NOT NULL
@@ -177,6 +198,14 @@ CREATE TABLE isrc
     isrc                CHAR(12) NOT NULL,
     source              SMALLINT,
     editpending         INTEGER DEFAULT 0
+);
+
+CREATE TABLE historicalstat
+(
+    id                  SERIAL,
+    name                VARCHAR(100) NOT NULL,
+    value               INTEGER NOT NULL,
+    snapshotdate        DATE NOT NULL
 );
 
 CREATE TABLE l_artist_artist
@@ -581,6 +610,14 @@ CREATE TABLE puid
     id                  SERIAL,
     puid                CHAR(36) NOT NULL,
     version             INTEGER NOT NULL -- references clientversion.id
+);
+
+CREATE TABLE replication_control
+(
+    id                              SERIAL,
+    current_schema_sequence         INTEGER NOT NULL,
+    current_replication_sequence    INTEGER,
+    last_replication_date           TIMESTAMP WITH TIME ZONE
 );
 
 CREATE TABLE recording (

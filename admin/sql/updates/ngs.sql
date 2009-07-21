@@ -73,6 +73,10 @@ INSERT INTO medium_format (id, name) VALUES
 INSERT INTO url (id, gid, url, description, refcount)
     SELECT id, gid::uuid, url, description, refcount FROM public.url;
 
+INSERT INTO replication_control SELECT * FROM public.replication_control;
+INSERT INTO currentstat SELECT * FROM public.currentstat;
+INSERT INTO historicalstat SELECT * FROM public.historicalstat;
+
 ------------------------
 -- Tags
 ------------------------
