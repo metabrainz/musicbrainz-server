@@ -84,6 +84,7 @@ sub insert { }
 
 sub to_hash { shift->data }
 sub restore { shift->data(shift) }
+sub _xml_arguments { }
 
 sub initialize
 {

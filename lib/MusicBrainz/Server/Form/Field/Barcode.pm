@@ -1,20 +1,21 @@
 package MusicBrainz::Server::Form::Field::Barcode;
-
-use strict;
-use warnings;
-
-use base 'Form::Processor::Field::Text';
+use HTML::FormHandler::Moose;
 
 use MusicBrainz::Server::Validation;
 
-sub validate
-{
-    my $self = shift;
+extends 'HTML::FormHandler::Field::Text';
 
-    return unless $self->SUPER::validate;
+=pod
 
-    return $self->add_error("This is not a valid barcode")
-        unless MusicBrainz::Server::Validation::IsValidEAN($self->input);
-}
+This validation routine is currently too strict, so it has been disabled for
+now. FIXME!
+
+apply ([
+   { check => sub { MusicBrainz::Server::Validation::IsValidEAN(shift) },
+     message => 'This is not a valid barcode',
+   }
+]);
+
+=cut
 
 1;

@@ -14,6 +14,9 @@ __PACKAGE__->config(
 use MusicBrainz::Server::Adapter qw(Google);
 use MusicBrainz::Server::Controller::TagRole;
 
+use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_EDIT );
+use MusicBrainz::Server::Edit::Release::Edit;
+
 =head1 NAME
 
 MusicBrainz::Server::Controller::Release - Catalyst Controller for
@@ -195,12 +198,28 @@ Edit a release in release editor
 
 =cut
 
-sub edit : Chained('load')
+sub edit : Chained('load') RequireAuth
 {
     my ($self, $c) = @_;
-    $c->forward('/user/login');
-    $c->forward('_load_related');
-    $c->forward('/release_editor/edit_release');
+
+    my $release = $c->stash->{release};
+    my $form = $c->form(form => 'Release', item => $release);
+
+    if ($form->submitted_and_valid($c->req->params)) {
+        my %args = map { $_ => $form->field($_)->value }
+            qw( name comment packaging_id status_id script_id language_id
+                country_id barcode artist_credit date );
+
+        my $edit = $c->model('Edit')->create(
+            edit_type => $EDIT_RELEASE_EDIT,
+            editor_id => $c->user->id,
+            release => $release,
+            %args
+        );
+
+        $c->response->redirect($c->uri_for_action('/release/show', [ $release->gid ]));
+        $c->detach;
+    }
 }
 
 =head2 duplicate

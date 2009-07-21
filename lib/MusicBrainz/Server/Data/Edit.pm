@@ -35,7 +35,7 @@ sub _new_from_row
     # Readd the class marker
     my $class = MusicBrainz::Server::Edit->class_from_type($row->{type})
         or die "Could not look up class for type";
-    my $data = XMLin($row->{data}, SuppressEmpty => 1);
+    my $data = XMLin($row->{data}, SuppressEmpty => 1, KeyAttr => [], $class->_xml_arguments);
 
     my $edit = $class->new(
         id => $row->{id},

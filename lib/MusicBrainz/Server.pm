@@ -187,6 +187,7 @@ sub form_posted
 sub form
 {
     my ($c, $stash, $form_name, %args) = @_;
+    die '$c->form required $stash => $form_name as arguments' unless $stash && $form_name;
     $form_name = "MusicBrainz::Server::Form::$form_name";
     $form_name->require;
     my $form = $form_name->new(%args, ctx => $c);
