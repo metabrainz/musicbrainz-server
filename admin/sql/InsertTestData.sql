@@ -331,7 +331,7 @@ INSERT INTO track (id, tracklist, position, recording, name, artist_credit, leng
 INSERT INTO track (id, tracklist, position, recording, name, artist_credit, length) VALUES (16, 4, 6, 14, 16, 3, 61333);
 INSERT INTO track (id, tracklist, position, recording, name, artist_credit, length) VALUES (17, 4, 7, 15, 17, 3, 300626);
 INSERT INTO track (id, tracklist, position, recording, name, artist_credit, length) VALUES (18, 4, 8, 16, 18, 3, 514679);
-INSERT INTO track (id, tracklist, position, recording, name, artist_credit, length) VALUES (19, 4, 9, 17, 19, 3, 472880);
+INSERT INTO track (id, tracklist, position, recording, name, artist_credit, length) VALUES (19, 4, 9, 17, 19, 4, 472880);
 
 INSERT INTO medium (id, release, position, tracklist, format, name) VALUES (3, 2, 1, 3, 1, 'A Sea of Honey');
 INSERT INTO medium (id, release, position, tracklist, format, name) VALUES (4, 2, 2, 4, 1, 'A Sky of Honey');

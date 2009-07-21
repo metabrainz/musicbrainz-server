@@ -56,7 +56,10 @@ after 'load' => sub
         $MusicBrainz::Server::Controller::TagRoleTOP_TAGS_COUNT);
     $c->stash->{top_tags} = \@tags;
 
-    $c->stash->{release_artist} = $c->model('ArtistCredit')->load($release);
+    # We need to load more artist credits in 'show'
+    if ($c->action->name ne 'show') {
+        $c->model('ArtistCredit')->load($release);
+    }
 };
 
 =head2 perma
@@ -135,11 +138,21 @@ sub show : Chained('load') PathPart('')
     $c->model('Label')->load(@{ $release->labels });
     $c->model('ReleaseGroupType')->load($release->release_group);
     $c->model('Medium')->load($release);
-    $c->model('MediumFormat')->load(@{ $release->mediums });
-    $c->model('Track')->load(map { $_->tracklist } @{ $release->mediums });
-    $c->model('Recording')->load(map { @{ $_->tracklist->tracks } } @{ $release->mediums });
 
-    $c->stash( template => 'release/index.tt' );
+    my @mediums = $release->all_mediums;
+    $c->model('MediumFormat')->load(@mediums);
+
+    my @tracklists = map { $_->tracklist } @mediums;
+    $c->model('Track')->load(@tracklists);
+
+    my @tracks = map { $_->all_tracks } @tracklists;
+    $c->model('Recording')->load(@tracks);
+    $c->model('ArtistCredit')->load($release, @tracks);
+
+    $c->stash(
+        template     => 'release/index.tt',
+        show_artists => $release->has_multiple_artists,
+    );
 }
 
 =head2 WRITE METHODS

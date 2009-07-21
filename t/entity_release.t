@@ -1,12 +1,14 @@
+#!/usr/bin/perl
 use strict;
 use warnings;
-use Test::More tests => 27;
+use Test::More tests => 30;
 use_ok 'MusicBrainz::Server::Entity::Release';
 use_ok 'MusicBrainz::Server::Entity::ReleasePackaging';
 use_ok 'MusicBrainz::Server::Entity::ReleaseStatus';
 use_ok 'MusicBrainz::Server::Entity::Medium';
 use_ok 'MusicBrainz::Server::Entity::MediumFormat';
 use_ok 'MusicBrainz::Server::Entity::Tracklist';
+use_ok 'MusicBrainz::Server::Entity::Track';
 
 my $release = MusicBrainz::Server::Entity::Release->new();
 ok( defined $release->date );
@@ -50,3 +52,15 @@ is( $release->combined_track_count, '10 + 22' );
 $release->add_medium($medium1);
 is( $release->combined_format_name, '2xCD + DVD' );
 is( $release->combined_track_count, '10 + 22 + 10' );
+
+$release = MusicBrainz::Server::Entity::Release->new(artist_credit_id => 1);
+my $medium = MusicBrainz::Server::Entity::Medium->new();
+$release->add_medium($medium);
+my $tracklist = MusicBrainz::Server::Entity::Tracklist->new();
+$medium->tracklist($tracklist);
+my $track = MusicBrainz::Server::Entity::Track->new(artist_credit_id => 1);
+$tracklist->add_track($track);
+is( $release->has_multiple_artists, 0 );
+$track = MusicBrainz::Server::Entity::Track->new(artist_credit_id => 2);
+$tracklist->add_track($track);
+is( $release->has_multiple_artists, 1 );

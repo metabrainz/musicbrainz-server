@@ -15,7 +15,7 @@
     <tbody>
     [%- FOR medium=release.mediums -%]
         <tr class="subh">
-            <td>&nbsp;</td><td colspan="2">
+            <td>&nbsp;</td><td colspan="[% IF show_artists %]3[% ELSE %]2[% END %]">
                 <a href="[% c.uri_for_action('/tracklist/show', [medium.tracklist.id]) %]">
                     [% medium.format_name or l("Medium") | html %] [% medium.position %][% IF medium.name %]:
                     [% medium.name | html %][% END %]
