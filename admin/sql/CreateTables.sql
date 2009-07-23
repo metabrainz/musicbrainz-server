@@ -624,7 +624,7 @@ CREATE TABLE recording (
     id                  SERIAL,
     gid                 UUID NOT NULL,
     name                INTEGER NOT NULL, -- references track_name.id
-    artist_credit       INTEGER, -- references artist_credit.id
+    artist_credit       INTEGER NOT NULL, -- references artist_credit.id
     length              INTEGER,
     comment             VARCHAR(255),
     editpending         INTEGER DEFAULT 0
@@ -727,7 +727,7 @@ CREATE TABLE release_group (
     id                  SERIAL,
     gid                 UUID NOT NULL,
     name                INTEGER NOT NULL, -- references release_name.id
-    artist_credit       INTEGER, -- references artist_credit.id
+    artist_credit       INTEGER NOT NULL, -- references artist_credit.id
     type                INTEGER, -- references release_group_type.id
     comment             VARCHAR(255),
     editpending         INTEGER DEFAULT 0
@@ -853,7 +853,7 @@ CREATE TABLE work (
     id                  SERIAL,
     gid                 UUID NOT NULL,
     name                INTEGER NOT NULL, -- references work_name.id
-    artist_credit       INTEGER, -- references artist_credit.id
+    artist_credit       INTEGER NOT NULL, -- references artist_credit.id
     type                INTEGER, -- references work_type.id
     iswc                CHAR(15),
     comment             VARCHAR(255),

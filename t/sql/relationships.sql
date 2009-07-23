@@ -36,6 +36,8 @@ INSERT INTO link_attribute (link, attribute_type) VALUES (1, 4),
 TRUNCATE artist_name CASCADE;
 TRUNCATE track_name CASCADE;
 TRUNCATE artist CASCADE;
+TRUNCATE artist_credit CASCADE;
+TRUNCATE artist_credit_name CASCADE;
 TRUNCATE recording CASCADE;
 
 INSERT INTO artist_name (id, name) VALUES (1, 'Artist 1');
@@ -47,9 +49,13 @@ INSERT INTO artist (id, gid, name, sortname)
     VALUES (1, 'e2a083a9-9942-4d6e-b4d2-8397320b95f7', 1, 1),
            (2, '2fed031c-0e89-406e-b9f0-3d192637907a', 2, 2);
 
-INSERT INTO recording (id, gid, name)
-    VALUES (1, '99caac80-72e4-11de-8a39-0800200c9a66', 1),
-           (2, 'a12bb640-72e4-11de-8a39-0800200c9a66', 2);
+INSERT INTO artist_credit (id, artistcount) VALUES (1, 1);
+INSERT INTO artist_credit_name (artist_credit, position, artist, name, joinphrase)
+    VALUES (1, 0, 1, 1, NULL);
+
+INSERT INTO recording (id, gid, name, artist_credit)
+    VALUES (1, '99caac80-72e4-11de-8a39-0800200c9a66', 1, 1),
+           (2, 'a12bb640-72e4-11de-8a39-0800200c9a66', 2, 1);
 
 INSERT INTO l_artist_recording (id, link, entity0, entity1) VALUES (1, 1, 1, 1);
 INSERT INTO l_artist_recording (id, link, entity0, entity1, editpending) VALUES (2, 1, 2, 1, 1);
