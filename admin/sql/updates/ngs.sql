@@ -118,15 +118,6 @@ INSERT INTO release_group (id, gid, name, type, artist_credit)
         END, artist
     FROM public.release_group a JOIN release_name n ON a.name = n.name;
 
-INSERT INTO release_group_meta
-    (id, lastupdate, releasecount, firstreleasedate_year,
-     firstreleasedate_month, firstreleasedate_day)
-    SELECT id, lastupdate, releasecount,
-        NULLIF(substr(firstreleasedate, 1, 4)::int, 0),
-        NULLIF(substr(firstreleasedate, 6, 2)::int, 0),
-        NULLIF(substr(firstreleasedate, 9, 2)::int, 0)
-    FROM public.release_group_meta;
-
 ------------------------
 -- Releases
 ------------------------
@@ -228,6 +219,21 @@ SELECT SETVAL('medium_id_seq', (SELECT MAX(id) FROM medium));
 
 INSERT INTO medium (tracklist, release, position)
     SELECT album, id, 1 FROM tmp_new_release;
+
+------------------------
+-- Release group meta with release counts
+------------------------
+
+INSERT INTO release_group_meta
+    (id, lastupdate, releasecount, firstreleasedate_year,
+     firstreleasedate_month, firstreleasedate_day)
+    SELECT m.id, lastupdate, count(*),
+        NULLIF(substr(firstreleasedate, 1, 4)::int, 0),
+        NULLIF(substr(firstreleasedate, 6, 2)::int, 0),
+        NULLIF(substr(firstreleasedate, 9, 2)::int, 0)
+    FROM public.release_group_meta m
+        LEFT JOIN release r ON r.release_group=m.id
+    GROUP BY m.id, m.lastupdate, m.firstreleasedate;
 
 ------------------------
 -- Artists
