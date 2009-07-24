@@ -78,7 +78,7 @@ sub find_by_artist
         $self->c->dbh, $offset, $limit, sub {
             my $row = $_[0];
             my $rg = $self->_new_from_row($row);
-            $rg->rating(int($row->{rating} * 20 + 0.5)) if defined $row->{rating};
+            $rg->rating($row->{rating}) if defined $row->{rating};
             $rg->rating_count($row->{ratingcount}) if defined $row->{ratingcount};
             $rg->first_release_date(partial_date_from_row($row, 'firstreleasedate_'));
             $rg->release_count($row->{releasecount} || 0);
@@ -161,7 +161,7 @@ sub load_meta
     my $self = shift;
     MusicBrainz::Server::Data::Utils::load_meta($self->c, "release_group_meta", sub {
         my ($obj, $row) = @_;
-        $obj->rating(int($row->{rating} * 20 + 0.5)) if defined $row->{rating};
+        $obj->rating($row->{rating}) if defined $row->{rating};
         $obj->rating_count($row->{ratingcount}) if defined $row->{ratingcount};
         $obj->release_count($row->{releasecount});
         $obj->last_update_date($row->{lastupdate}) if defined $row->{lastupdate};

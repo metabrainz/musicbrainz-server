@@ -30,7 +30,7 @@ INSERT INTO artist
 INSERT INTO artist (id, gid, name, sortname)
        VALUES (2, '945c079d-374e-4436-9448-da92dedef3cf', 3, 3);
 
-UPDATE artist_meta SET rating=3.5, ratingcount=4, lastupdate='2009-07-09 20:40:30' WHERE id=1;
+UPDATE artist_meta SET rating=70, ratingcount=4, lastupdate='2009-07-09 20:40:30' WHERE id=1;
 
 ALTER SEQUENCE artist_name_id_seq RESTART 3;
 

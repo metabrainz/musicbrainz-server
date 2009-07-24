@@ -116,7 +116,7 @@ sub load_meta
     my $self = shift;
     MusicBrainz::Server::Data::Utils::load_meta($self->c, "work_meta", sub {
         my ($obj, $row) = @_;
-        $obj->rating(int($row->{rating} * 20 + 0.5)) if defined $row->{rating};
+        $obj->rating($row->{rating}) if defined $row->{rating};
         $obj->rating_count($row->{ratingcount}) if defined $row->{ratingcount};
         $obj->last_update_date($row->{lastupdate}) if defined $row->{lastupdate};
     }, @_);

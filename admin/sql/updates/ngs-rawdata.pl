@@ -25,7 +25,7 @@ print "Converting artist data\n";
 
 $raw_sql->Do("
     INSERT INTO artist_rating_raw (artist, editor, rating)
-        SELECT artist, editor, rating FROM public.artist_rating_raw
+        SELECT artist, editor, rating * 20 FROM public.artist_rating_raw
     ");
 
 $raw_sql->Do("
@@ -37,7 +37,7 @@ print "Converting label data\n";
 
 $raw_sql->Do("
     INSERT INTO label_rating_raw (label, editor, rating)
-        SELECT label, editor, rating FROM public.label_rating_raw
+        SELECT label, editor, rating * 20 FROM public.label_rating_raw
     ");
 
 $raw_sql->Do("
@@ -49,7 +49,7 @@ print "Converting recording data\n";
 
 $raw_sql->Do("
     INSERT INTO recording_rating_raw (recording, editor, rating)
-        SELECT track, editor, rating FROM public.track_rating_raw
+        SELECT track, editor, rating * 20 FROM public.track_rating_raw
     ");
 
 $raw_sql->Do("
@@ -114,7 +114,7 @@ foreach my $id (keys %aggr) {
 print " * Converting raw ratings\n";
 # Iterate over all raw ratings
 $raw_sql->Select("
-    SELECT rating, editor, release
+    SELECT rating * 20, editor, release
     FROM public.release_rating_raw
     ORDER BY editor");
 my $user_id = 0;

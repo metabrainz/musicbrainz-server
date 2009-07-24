@@ -76,7 +76,7 @@ CREATE TABLE artist_rating_raw
 (
     artist              INTEGER NOT NULL, -- PK
     editor              INTEGER NOT NULL, -- PK
-    rating              INTEGER NOT NULL
+    rating              SMALLINT NOT NULL CHECK (rating >= 0 AND rating <= 100)
 );
 
 CREATE TABLE artist_tag_raw
@@ -100,7 +100,7 @@ CREATE TABLE label_rating_raw
 (
     label               INTEGER NOT NULL, -- PK
     editor              INTEGER NOT NULL, -- PK
-    rating              INTEGER NOT NULL
+    rating              SMALLINT NOT NULL CHECK (rating >= 0 AND rating <= 100)
 );
 
 CREATE TABLE label_tag_raw
@@ -128,7 +128,7 @@ CREATE TABLE release_group_rating_raw
 (
     release_group       INTEGER NOT NULL, -- PK
     editor              INTEGER NOT NULL, -- PK
-    rating              INTEGER NOT NULL
+    rating              SMALLINT NOT NULL CHECK (rating >= 0 AND rating <= 100)
 );
 
 CREATE TABLE release_group_tag_raw
@@ -142,7 +142,7 @@ CREATE TABLE recording_rating_raw
 (
     recording           INTEGER NOT NULL, -- PK
     editor              INTEGER NOT NULL, -- PK
-    rating              INTEGER NOT NULL
+    rating              SMALLINT NOT NULL CHECK (rating >= 0 AND rating <= 100)
 );
 
 CREATE TABLE recording_tag_raw
@@ -156,7 +156,7 @@ CREATE TABLE work_rating_raw
 (
     work                INTEGER NOT NULL, -- PK
     editor              INTEGER NOT NULL, -- PK
-    rating              INTEGER NOT NULL
+    rating              SMALLINT NOT NULL CHECK (rating >= 0 AND rating <= 100)
 );
 
 CREATE TABLE work_tag_raw

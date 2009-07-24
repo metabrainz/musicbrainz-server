@@ -264,7 +264,9 @@ INSERT INTO artist_alias (artist, name)
     SELECT DISTINCT a.ref, n.id
     FROM public.artistalias a JOIN artist_name n ON a.name = n.name;
 
-INSERT INTO artist_meta SELECT * FROM public.artist_meta;
+INSERT INTO artist_meta (id, lastupdate, rating, ratingcount)
+    SELECT id, lastupdate, round(rating * 20), rating_count
+    FROM public.artist_meta;
 
 DROP INDEX tmp_artist_name_name;
 
@@ -299,7 +301,9 @@ INSERT INTO label_alias (label, name)
     SELECT DISTINCT a.ref, n.id
     FROM public.labelalias a JOIN label_name n ON a.name = n.name;
 
-INSERT INTO label_meta SELECT * FROM public.label_meta;
+INSERT INTO label_meta (id, lastupdate, rating, ratingcount)
+    SELECT id, lastupdate, round(rating * 20), rating_count
+    FROM public.label_meta;
 
 DROP INDEX tmp_label_name_name_idx;
 
@@ -323,7 +327,9 @@ INSERT INTO track (id, tracklist, name, recording, artist_credit, length, positi
         JOIN public.albumjoin a ON t.id = a.track
         JOIN track_name n ON n.name = t.name;
 
-INSERT INTO recording_meta SELECT * FROM public.track_meta;
+INSERT INTO recording_meta (id, rating, ratingcount)
+    SELECT id, round(rating * 20), rating_count
+    FROM public.track_meta;
 
 DROP INDEX tmp_track_name_name;
 

@@ -42,7 +42,7 @@ INSERT INTO artist
     (3, '745c079d-374e-4436-9448-da92dedef3ce', 3, 4, 1, 1, 1,
      2008, 01, 02, 2009, 03, 04, 'Yet Another Test Artist');
 
-UPDATE artist_meta SET rating=3.5, ratingcount=4, lastupdate='2009-07-09 20:40:30' WHERE id=3;
+UPDATE artist_meta SET rating=70, ratingcount=4, lastupdate='2009-07-09 20:40:30' WHERE id=3;
 
 TRUNCATE tag CASCADE;
 INSERT INTO tag (id, name) VALUES (1, 'musical');

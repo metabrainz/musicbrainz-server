@@ -46,7 +46,7 @@ CREATE TABLE artist_meta
 (
     id                  INTEGER NOT NULL, -- PK, references artist.id CASCADE
     lastupdate          TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    rating              REAL,
+    rating              SMALLINT CHECK (rating >= 0 AND rating <= 100),
     ratingcount         INTEGER
 );
 
@@ -496,7 +496,7 @@ CREATE TABLE label_meta
 (
     id                  INTEGER NOT NULL, -- PK, references label.id CASCADE
     lastupdate          TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    rating              REAL,
+    rating              SMALLINT CHECK (rating >= 0 AND rating <= 100),
     ratingcount         INTEGER
 );
 
@@ -639,7 +639,7 @@ CREATE TABLE recording_annotation
 CREATE TABLE recording_meta
 (
     id                  INTEGER NOT NULL, -- PK, references recording.id CASCADE
-    rating              REAL,
+    rating              SMALLINT CHECK (rating >= 0 AND rating <= 100),
     ratingcount         INTEGER,
     lastupdate          TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
@@ -753,7 +753,7 @@ CREATE TABLE release_group_meta
     firstreleasedate_year   SMALLINT,
     firstreleasedate_month  SMALLINT,
     firstreleasedate_day    SMALLINT,
-    rating              REAL,
+    rating              SMALLINT CHECK (rating >= 0 AND rating <= 100),
     ratingcount         INTEGER
 );
 
@@ -876,7 +876,7 @@ CREATE TABLE work_meta
 (
     id                  INTEGER NOT NULL, -- PK, references work.id CASCADE
     lastupdate          TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    rating              REAL,
+    rating              SMALLINT CHECK (rating >= 0 AND rating <= 100),
     ratingcount         INTEGER
 );
 
