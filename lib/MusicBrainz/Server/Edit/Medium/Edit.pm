@@ -1,0 +1,67 @@
+package MusicBrainz::Server::Edit::Medium::Edit;
+use Moose;
+
+use MooseX::Types::Moose qw( Str Int );
+use MooseX::Types::Structured qw( Dict Optional );
+use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_EDIT );
+use MusicBrainz::Server::Edit::Types qw( Nullable );
+use Moose::Util::TypeConstraints qw( find_type_constraint subtype as );
+
+extends 'MusicBrainz::Server::Edit';
+
+sub edit_type { $EDIT_MEDIUM_EDIT }
+sub edit_name { 'Edit Medium' }
+sub entity_model { 'Medium' }
+sub entity_id { shift->medium_id }
+
+has 'medium_id' => (
+    isa => 'Int',
+    is => 'rw',
+    lazy => 1,
+    default => sub { shift->data->{medium} }
+);
+
+has 'medium' => (
+    is => 'rw',
+);
+
+subtype 'MediumHash'
+    => as Dict[
+        position => Optional[Int],
+        tracklist_id => Optional[Int],
+        name => Optional[Str],
+        format_id => Nullable[Int],
+    ];
+
+has '+data' => (
+    isa => Dict[
+        medium => Int,
+        old => find_type_constraint('MediumHash'),
+        new => find_type_constraint('MediumHash'),
+    ]
+);
+
+sub initialize
+{
+    my ($self, %opts) = @_;
+    my $medium = delete $opts{medium}
+        or die 'You must specify the medium to edit';
+
+    $self->medium($medium);
+    $self->data({
+        old => $self->_change_hash($medium, keys %opts),
+        new => { %opts },
+        medium => $medium->id,
+    });
+}
+
+override 'accept' => sub
+{
+    my ($self) = @_;
+    my $medium_data = $self->c->model('Medium');
+    $medium_data->update($self->medium_id, $self->data->{new});
+};
+
+__PACKAGE__->register_type;
+__PACKAGE__->meta->make_immutable;
+1;

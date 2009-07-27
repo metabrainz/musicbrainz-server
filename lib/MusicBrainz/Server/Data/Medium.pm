@@ -11,6 +11,7 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 
 extends 'MusicBrainz::Server::Data::Entity';
+with 'MusicBrainz::Server::Data::Editable' => { table => 'medium' };
 
 sub _table
 {
@@ -104,6 +105,28 @@ sub find_by_tracklist
             return $medium;
         },
         $query, $tracklist_id, $offset || 0);
+}
+
+sub update
+{
+    my ($self, $medium_id, $medium_hash) = @_;
+    my $sql = Sql->new($self->c->dbh);
+    my $row = $self->_create_row($medium_hash);
+    $sql->Update('medium', $row, { id => $medium_id });
+}
+
+sub _create_row
+{
+    my ($self, $medium_hash) = @_;
+    my %row;
+    my $mapping = $self->_column_mapping;
+    for my $col (qw( name format_id position tracklist_id release_id ))
+    {
+        next unless exists $medium_hash->{$col};
+        my $mapped = $mapping->{$col} || $col;
+        $row{$mapped} = $medium_hash->{$col};
+    }
+    return \%row;
 }
 
 __PACKAGE__->meta->make_immutable;
