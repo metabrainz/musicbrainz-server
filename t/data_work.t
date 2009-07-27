@@ -1,3 +1,4 @@
+#!/usr/bin/perl
 use strict;
 use warnings;
 use Test::More tests => 41;
@@ -62,8 +63,11 @@ is(keys %names, 2);
 is($names{'Dancing Queen'}, 1);
 ok($names{'Traits'} > 1);
 
-my $sql = Sql->new($c->mb->dbh);
+my $sql = Sql->new($c->dbh);
+my $raw_sql = Sql->new($c->raw_dbh);
 $sql->Begin;
+$raw_sql->Begin;
+
 $work = $work_data->insert({
         name => 'Traits',
         artist_credit => 1,
@@ -94,4 +98,6 @@ is($work->iswc, 'T-100.000.001-0');
 $work_data->delete($work);
 $work = $work_data->get_by_id($work->id);
 ok(!defined $work);
+
+$raw_sql->Commit;
 $sql->Commit;

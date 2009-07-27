@@ -89,6 +89,9 @@ sub update
 sub delete
 {
     my ($self, $work) = @_;
+    $self->annotation->delete($work->id);
+    $self->tags->delete($work->id);
+    $self->remove_gid_redirects($work->id);
     my $sql = Sql->new($self->c->mb->dbh);
     $sql->Do('DELETE FROM work WHERE id = ?', $work->id);
     return;

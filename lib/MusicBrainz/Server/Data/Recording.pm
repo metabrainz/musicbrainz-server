@@ -98,6 +98,9 @@ sub update
 sub delete
 {
     my ($self, $recording) = @_;
+    $self->annotation->delete($recording->id);
+    $self->tags->delete($recording->id);
+    $self->remove_gid_redirects($recording->id);
     my $sql = Sql->new($self->c->mb->dbh);
     $sql->Do('DELETE FROM recording WHERE id = ?', $recording->id);
     return;

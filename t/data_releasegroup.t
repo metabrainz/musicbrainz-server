@@ -1,3 +1,4 @@
+#!/usr/bin/perl
 use strict;
 use warnings;
 use Test::More tests => 42;
@@ -58,8 +59,11 @@ is( scalar(@$results), 1 );
 is( $results->[0]->position, 1 );
 is( $results->[0]->entity->id, 1 );
 
-my $sql = Sql->new($c->mb->dbh);
+my $sql = Sql->new($c->dbh);
+my $raw_sql = Sql->new($c->raw_dbh);
 $sql->Begin;
+$raw_sql->Begin;
+
 $rg = $rg_data->insert({
         name => 'My Demons',
         artist_credit => 1,
@@ -95,4 +99,5 @@ ok(!defined $rg);
 $rg = $rg_data->get_by_id(1);
 ok(defined $rg);
 
+$raw_sql->Commit;
 $sql->Commit;

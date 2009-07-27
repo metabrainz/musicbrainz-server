@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 use strict;
 use warnings;
-use Test::More tests => 10;
+use Test::More tests => 11;
 use_ok 'MusicBrainz::Server::Data::Tag';
 
 use Sql;
@@ -27,3 +27,17 @@ is( $tags[1]->count, 5 );
 
 my ($tags, $hits) = $tag_data->find_tags(4, 100, 0);
 is( scalar(@$tags), 4 );
+
+my $sql = Sql->new($c->dbh);
+my $raw_sql = Sql->new($c->raw_dbh);
+
+$sql->Begin;
+$raw_sql->Begin;
+
+$tag_data->delete(4);
+
+$sql->Commit;
+$raw_sql->Commit;
+
+@tags = $tag_data->find_top_tags(4, 2);
+is( scalar(@tags), 0 );

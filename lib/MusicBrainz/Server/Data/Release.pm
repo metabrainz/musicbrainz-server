@@ -121,9 +121,12 @@ sub update
 sub delete
 {
     my ($self, @releases) = @_;
+    my @release_ids = map { $_->id } @releases;
+    $self->annotation->delete(@release_ids);
+    $self->remove_gid_redirects(@release_ids);
     my $sql = Sql->new($self->c->mb->dbh);
-    $sql->Do('DELETE FROM release WHERE id IN (' . placeholders(@releases) . ')',
-        map { $_->id } @releases);
+    $sql->Do('DELETE FROM release WHERE id IN (' . placeholders(@release_ids) . ')',
+        @release_ids);
     return;
 }
 

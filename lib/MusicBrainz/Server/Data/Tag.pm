@@ -55,8 +55,34 @@ sub _new_from_row
     );
 }
 
+sub delete
+{
+    my ($self, @entity_ids) = @_;
+    my $sql = Sql->new($self->c->dbh);
+    $sql->Do("
+        DELETE FROM " . $self->tag_table . "
+        WHERE " . $self->type . " IN (" . placeholders(@entity_ids) . ")",
+        @entity_ids);
+    my $raw_sql = Sql->new($self->c->raw_dbh);
+    $raw_sql->Do("
+        DELETE FROM " . $self->tag_table . "_raw
+        WHERE " . $self->type . " IN (" . placeholders(@entity_ids) . ")",
+        @entity_ids);
+    return 1;
+}
+
 no Moose;
 1;
+
+=head1 NAME
+
+MusicBrainz::Server::Data::Tag
+
+=head1 METHODS
+
+=head2 delete(@entity_ids)
+
+Delete tags for entities from @entity_ids.
 
 =head1 COPYRIGHT
 

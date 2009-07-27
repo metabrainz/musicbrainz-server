@@ -1,3 +1,4 @@
+#!/usr/bin/perl
 use strict;
 use warnings;
 use Test::More tests => 46;
@@ -49,8 +50,11 @@ is(keys %names, 2);
 is($names{'Warp Records'}, 1);
 ok($names{'RAM Records'} > 1);
 
-my $sql = Sql->new($c->mb->dbh);
+my $sql = Sql->new($c->dbh);
+my $sql_raw = Sql->new($c->raw_dbh);
 $sql->Begin;
+$sql_raw->Begin;
+
 $label = $label_data->insert({
         name => 'RAM Records',
         sort_name => 'RAM Records',
@@ -89,9 +93,6 @@ is($label->end_date->month, 5);
 $label_data->delete($label->id);
 $label = $label_data->get_by_id($label->id);
 ok(!defined $label);
-
-my $sql_raw = Sql->new($c->raw_dbh);
-$sql_raw->Begin;
 
 $label_data->merge(2, 1);
 $label = $label_data->get_by_id(2);
