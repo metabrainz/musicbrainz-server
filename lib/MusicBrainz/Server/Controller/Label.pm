@@ -8,12 +8,13 @@ with 'MusicBrainz::Server::Controller::Alias';
 with 'MusicBrainz::Server::Controller::RelationshipRole';
 with 'MusicBrainz::Server::Controller::TagRole';
 
-use MusicBrainz::Server::Constants qw( $DLABEL_ID $EDIT_LABEL_CREATE $EDIT_LABEL_DELETE $EDIT_LABEL_EDIT );
+use MusicBrainz::Server::Constants qw( $DLABEL_ID $EDIT_LABEL_CREATE $EDIT_LABEL_DELETE $EDIT_LABEL_EDIT $EDIT_LABEL_MERGE );
 use Data::Page;
 
 use MusicBrainz::Server::Edit::Label::Create;
 use MusicBrainz::Server::Edit::Label::Delete;
 use MusicBrainz::Server::Edit::Label::Edit;
+use MusicBrainz::Server::Edit::Label::Merge;
 use MusicBrainz::Server::Form::Confirm;
 use MusicBrainz::Server::Form::Label;
 use Sql;
@@ -126,47 +127,37 @@ sub details : Chained('load') { }
 
 =cut
 
-sub merge : Chained('load')
+sub merge : Chained('load') RequireAuth
 {
     my ($self, $c) = @_;
+    my $old_label = $c->stash->{label};
 
-    $c->forward('/user/login');
-    $c->forward('/search/filter_label');
-
-    $c->stash->{template} = 'label/merge_search.tt';
-
-    my $result = $c->stash->{search_result};
-    if (defined $result)
+    my $new_label;
+    unless($new_label = $c->model('Label')->get_by_gid($c->req->query_params->{gid}))
     {
-        my $label = $self->entity;
-	$c->response->redirect($c->entity_url($label, 'merge_into',
-					      $result->id));
+        $c->stash( template => 'label/merge_search.tt' );
+        $new_label = $c->controller('Search')->filter($c, 'label', 'Label');
     }
-}
 
-sub merge_into : Chained('load') PathPart('into') Args(1) Form('Label::Merge')
-{
-    my ($self, $c, $new_mbid) = @_;
+    my $form = $c->form( form => 'Confirm' );
+    $c->stash(
+        template => 'label/merge_confirm.tt',
+        new_label => $new_label,
+        old_label => $old_label
+    );
 
-    $c->forward('/user/login');
+    if($c->form_posted && $form->submitted_and_valid($c->req->params))
+    {
+        my $edit = $c->model('Edit')->create(
+            editor_id => $c->user->id,
+            edit_type => $EDIT_LABEL_MERGE,
+            old_label_id => $old_label->id,
+            new_label_id => $new_label->id,
+        );
 
-    my $label     = $self->entity;
-    my $new_label = $c->model('Label')->load($new_mbid);
-    $c->stash->{new_label} = $new_label;
-
-    my $form = $self->form;
-    $form->init($label);
-
-    $c->stash->{template} = 'label/merge.tt';
-
-    return unless $self->submit_and_validate($c);
-
-    $form->merge_into($new_label);
-
-    $c->flash->{ok} = "Thanks, your label edit has been entered " .
-                      "into the moderation queue";
-
-    $c->response->redirect($c->entity_url($new_label, 'show'));
+        $c->response->redirect($c->uri_for_action('/label/show', [ $new_label->gid ]));
+        $c->detach;
+    }
 }
 
 sub edit : Chained('load') RequireAuth

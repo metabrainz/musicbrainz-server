@@ -158,6 +158,11 @@ INSERT INTO label (id, gid, name, sortname, type, country, labelcode,
      VALUES (2, '46f0f4cd-8aab-4b33-b698-f459faf64190', 2, 2, 1, 1, 2070,
              1989, 02, 03, 2008, 05, 19, 'Sheffield based electronica label');
 
+
+INSERT INTO label_name (id, name) VALUES (4, 'Another Label');
+INSERT INTO label (id, gid, name, sortname) VALUES
+    (3, '4b4ccf60-658e-11de-8a39-0800200c9a66', 4, 4);
+
 TRUNCATE release CASCADE;
 
 INSERT INTO release (id, gid, name, artist_credit, release_group, status, packaging, date_year,
@@ -430,14 +435,14 @@ INSERT INTO work_gid_redirect VALUES ('28e73402-5666-4d74-80ab-c3734dc699ea', 1)
 ALTER SEQUENCE gender_id_seq RESTART 3;
 ALTER SEQUENCE artist_id_seq RESTART 10;
 ALTER SEQUENCE artist_credit_id_seq RESTART 5;
-ALTER SEQUENCE label_id_seq RESTART 3;
+ALTER SEQUENCE label_id_seq RESTART 4;
 ALTER SEQUENCE recording_id_seq RESTART 18;
 ALTER SEQUENCE release_id_seq RESTART 4;
 ALTER SEQUENCE release_group_id_seq RESTART 5;
 ALTER SEQUENCE work_id_seq RESTART 2;
 
 ALTER SEQUENCE artist_name_id_seq RESTART 11;
-ALTER SEQUENCE label_name_id_seq RESTART 4;
+ALTER SEQUENCE label_name_id_seq RESTART 5;
 ALTER SEQUENCE release_name_id_seq RESTART 5;
 ALTER SEQUENCE track_name_id_seq RESTART 20;
 ALTER SEQUENCE work_name_id_seq RESTART 2;

@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 use strict;
-use Test::More tests => 34;
+use Test::More tests => 38;
 
 BEGIN {
     use MusicBrainz::Server::Context;
@@ -161,4 +161,27 @@ is_deeply($edit->data, {
                 day => 19
             },
         }
+    });
+
+# Test merging labels
+$mech->get_ok('/label/46f0f4cd-8aab-4b33-b698-f459faf64190/merge');
+my $response = $mech->submit_form(
+    with_fields => {
+        'filter.query' => 'Another',
+    }
+);
+$response = $mech->submit_form(
+    with_fields => {
+        'results.selected_id' => 3
+    });
+$response = $mech->submit_form(
+    with_fields => { 'confirm.edit_note' => ' ' }
+);
+ok($mech->uri =~ qr{/label/4b4ccf60-658e-11de-8a39-0800200c9a66});
+
+my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
+isa_ok($edit, 'MusicBrainz::Server::Edit::Label::Merge');
+is_deeply($edit->data, {
+        old_label => 2,
+        new_label => 3,
     });
