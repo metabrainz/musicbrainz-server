@@ -15,7 +15,7 @@ sub _table
 
 sub _columns
 {
-    return 'id, name';
+    return 'id, name, year';
 }
 
 sub _entity_class

@@ -53,22 +53,22 @@ INSERT INTO release_group_type (id, name) VALUES
     (11, 'Remix'),
     (12, 'Other');
 
-INSERT INTO medium_format (id, name) VALUES
-    (1, 'CD'),
-    (2, 'DVD'),
-    (3, 'SACD'),
-    (4, 'DualDisc'),
-    (5, 'LaserDisc'),
-    (6, 'MiniDisc'),
-    (7, 'Vinyl'),
-    (8, 'Cassette'),
-    (9, 'Cartridge'),
-    (10, 'Reel-to-reel'),
-    (11, 'DAT'),
-    (12, 'Digital Media'),
-    (13, 'Other'),
-    (14, 'Wax Cylinder'),
-    (15, 'Piano Roll');
+INSERT INTO medium_format (id, name, year) VALUES
+    (1, 'CD', 1982),
+    (2, 'DVD', 1995),
+    (3, 'SACD', 1999),
+    (4, 'DualDisc', 2004),
+    (5, 'LaserDisc', 1978),
+    (6, 'MiniDisc', 1992),
+    (7, 'Vinyl', 1895),
+    (8, 'Cassette', 1964),
+    (9, 'Cartridge', 1962),
+    (10, 'Reel-to-reel', 1935),
+    (11, 'DAT', 1976),
+    (12, 'Digital Media', NULL),
+    (13, 'Other', NULL),
+    (14, 'Wax Cylinder', 1877),
+    (15, 'Piano Roll', 1883);
 
 INSERT INTO url (id, gid, url, description, refcount)
     SELECT id, gid::uuid, url, description, refcount FROM public.url;

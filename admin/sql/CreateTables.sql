@@ -602,7 +602,8 @@ CREATE TABLE medium
 CREATE TABLE medium_format
 (
     id                  SERIAL,
-    name                VARCHAR(100) NOT NULL
+    name                VARCHAR(100) NOT NULL,
+    year                SMALLINT
 );
 
 CREATE TABLE puid

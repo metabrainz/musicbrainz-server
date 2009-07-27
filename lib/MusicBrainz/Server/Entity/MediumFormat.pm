@@ -9,6 +9,11 @@ has 'name' => (
     isa => 'Str'
 );
 
+has 'year' => (
+    is => 'rw',
+    isa => 'Int'
+);
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
