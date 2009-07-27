@@ -1,34 +1,34 @@
 [% WRAPPER "layout.tt" title=l("Log In") %]
+    <h1>[% l("Log In") %]</h1>
+
     [%- USE r = FormRenderer(login_form) -%]
-    [% WRAPPER "components/box.tt" header=l("Log In") %]
+    <p>
+        [% l('Please log in using the form below. Note that the password field <em>is</em> case sensitive.') %]
+    </p>
+    <form action="[% c.req.uri_with({ uri => redirect }) %]" method="post">
+        [% IF login_form.has_errors || bad_login -%]
+            <p><strong>[% l('Incorrect username or password') %]</strong></p>
+        [%- END %]
         <p>
-            [% l('Please log in using the form below. Note that the password field <em>is</em> case sensitive.') %]
+            [% r.label('username', l('Username:')) %]
+            [% r.text('username') %]
         </p>
-        <form action="[% c.req.uri_with({ uri => redirect }) %]" method="post">
-            [% IF login_form.has_errors -%]
-                <p><strong>[% l('Incorrect log in or password') %]</strong></p>
-            [%- END %]
-            <p>
-                [% r.label('username', l('Username:')) %]
-                [% r.text('username') %]
-            </p>
-            <p>
-                [% r.label('password', l('Password:')) %]
-                [% r.password('password') %]
-            </p>
-            [% form_submit(l('Log in')) %]
-        </form>
-        <ul>
-            <li>
-                <a href="[% c.uri_for('/user/register') %]">
-                    [% l('Create a new account') %]
-                </a>
-            </li>
-            <li>
-                <a href="[% c.uri_for('/user/forgot_password') %]">
-                    [% l('Forgot your password?') %]
-                </a>
-            </li>
-        </ul>
-    [% END %]
+        <p>
+            [% r.label('password', l('Password:')) %]
+            [% r.password('password') %]
+        </p>
+        [% form_submit(l('Log in')) %]
+    </form>
+    <ul>
+        <li>
+            <a href="[% c.uri_for('/user/register') %]">
+                [% l('Create a new account') %]
+            </a>
+        </li>
+        <li>
+            <a href="[% c.uri_for('/user/forgot_password') %]">
+                [% l('Forgot your password?') %]
+            </a>
+        </li>
+    </ul>
 [% END %]

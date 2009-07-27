@@ -17,8 +17,11 @@ sub find_user
 {
     my ($self, $authinfo, $c) = @_;
     my $editor = $c->model('Editor')->get_by_name($authinfo->{username});
-    my $class = Class::MOP::Class->initialize('MusicBrainz::Server::Authentication::User');
-    return $class->rebless_instance($editor);
+    if (defined $editor) {
+        my $class = Class::MOP::Class->initialize('MusicBrainz::Server::Authentication::User');
+        return $class->rebless_instance($editor);
+    }
+    return undef;
 }
 
 sub for_session
@@ -39,15 +42,17 @@ sub from_session
 {
     my ($self, $c, $frozen) = @_;
 
-    my $user = MusicBrainz::Server::Authentication::User->new(
+    my %args = (
         id => $frozen->{id},
         name => $frozen->{name},
-        email => $frozen->{email},
-        email_confirmation_date => $frozen->{emailconf},
         accepted_edits => $frozen->{accepted_edits},
     );
+    $args{email} = $frozen->{email}
+        if defined $frozen->{email};
+    $args{email_confirmation_date} = $frozen->{emailconf}
+        if defined $frozen->{emailconf};
 
-    return $user;
+    return MusicBrainz::Server::Authentication::User->new(%args);
 }
 
 1;
