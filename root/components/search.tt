@@ -1,21 +1,30 @@
-[%- WRAPPER "forms/form.tt" quiet=1 -%]
-    [%- INCLUDE "forms/generic/row.tt" field=form.field('query') label=search_label -%]
-    [%- INCLUDE "forms/submit.tt" label=l('Search') name='do_search' %]
-[% END %]
+[%- USE qr = FormRenderer(query_form);
+    USE rr = FormRenderer(results_form) -%]
 
-[%- IF entities && entities.size -%]
-    [% WRAPPER "forms/form.tt" quiet=1 %]
-        [%- WRAPPER 'forms/fieldset.tt' legend=l('Search Results') -%]
-            <p>
-                [% l('We have found the following results. Please select one of the following, or else you can refine your query and search again.') %]
-            </p>
-            [%- FOREACH entity=entities -%]
-                [%- WRAPPER 'forms/blank_row.tt' right=1 -%]
-                    [%- INCLUDE 'forms/input.tt' type='radio' field='search-id' value=entity.id -%]
-                    [%- INCLUDE 'forms/label.tt' for='search-id' label=entity_link(entity) -%]
-                [%- END -%]
+<form action="[% c.req.uri %]" method="post">
+    <p>
+        [% qr.label('query', l('Query:')) %]
+        [% qr.text('query') %]
+        <input type="submit" name="search" value="[% l('Search') %]" />
+    </p>
+
+[%- IF search_results.size -%]
+    <div class="row">
+        [% rr.label('selected_id', l('Search Results:'), fake => 1) %]
+        <ul class="radio-list">
+            [%- FOREACH entity=search_results -%]
+                <li>
+                    [%- entity = entity.entity;
+                        field = results_form.field('selected_id') -%]
+                    <input type="radio" name="[% field.html_name %]" value="[% entity.id %]" for="[% "${field.id}-${entity.id}" %]" />
+                    <label class="inline" for="[% "${field.id}-${entity.id}" %]">[% link_entity(entity) %]</label>
+                </li>
             [%- END -%]
-        [% END %]
-        [%- INCLUDE "forms/submit.tt" label=l('Select') name='do_choose_entity' -%]
-    [%- END -%]
+        </ul>
+    </div>
+    <p class="no-label">
+        [% form_submit(confirm_label) %]
+    </p>
 [%- END -%]
+
+</form>

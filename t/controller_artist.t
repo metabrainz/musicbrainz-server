@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 use strict;
-use Test::More tests => 65;
+use Test::More tests => 69;
 
 BEGIN {
     use MusicBrainz::Server::Context;
@@ -210,3 +210,26 @@ my $response = $mech->submit_form(
 my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Artist::Delete');
 is_deeply($edit->data, { artist_id => 3 });
+
+# Test merging artists
+$mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/merge');
+$response = $mech->submit_form(
+    with_fields => {
+        'filter.query' => 'David',
+    }
+);
+$response = $mech->submit_form(
+    with_fields => {
+        'results.selected_id' => 5
+    });
+$response = $mech->submit_form(
+    with_fields => { 'confirm.edit_note' => ' ' }
+);
+ok($mech->uri =~ qr{/artist/5441c29d-3602-4898-b1a1-b77fa23b8e50});
+
+my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
+isa_ok($edit, 'MusicBrainz::Server::Edit::Artist::Merge');
+is_deeply($edit->data, {
+        old_artist => 3,
+        new_artist => 5,
+    });

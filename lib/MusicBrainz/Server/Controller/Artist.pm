@@ -15,7 +15,7 @@ __PACKAGE__->config(
 );
 
 use Data::Page;
-use MusicBrainz::Server::Constants qw( $DARTIST_ID $VARTIST_ID );
+use MusicBrainz::Server::Constants qw( $DARTIST_ID $VARTIST_ID $EDIT_ARTIST_MERGE );
 use MusicBrainz::Server::Adapter qw(Google);
 use MusicBrainz::Server::Rating;
 use ModDefs;
@@ -25,6 +25,7 @@ use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_CREATE $EDIT_ARTIST_EDIT $ED
 use MusicBrainz::Server::Edit::Artist::Create;
 use MusicBrainz::Server::Edit::Artist::Edit;
 use MusicBrainz::Server::Edit::Artist::Delete;
+use MusicBrainz::Server::Edit::Artist::Merge;
 use MusicBrainz::Server::Form::Artist;
 use MusicBrainz::Server::Form::Confirm;
 use Sql;
@@ -444,50 +445,36 @@ Merge 2 artists into a single artist
 
 =cut
 
-sub merge : Chained('load')
+sub merge : Chained('load') RequireAuth
 {
     my ($self, $c) = @_;
+    my $old_artist = $c->stash->{artist};
 
-    $c->forward('/user/login');
-    $c->forward('/search/filter_artist');
-
-    my $target = $c->stash->{search_result};
-    if (defined $target)
+    my $new_artist;
+    unless ($new_artist = $c->model('Artist')->get_by_gid($c->req->query_params->{gid}))
     {
-        my $artist = $self->entity;
-        $c->response->redirect($c->entity_url($artist, 'merge_into',
-					      $target->id));
+        $c->stash( template => 'artist/merge_search.tt' );
+        $new_artist = $c->controller('Search')->filter($c, 'artist', 'Artist', $old_artist->id);
     }
-    else
+
+    my $form = $c->form( form => 'Confirm' );
+    $c->stash(
+        template => 'artist/merge_confirm.tt',
+        old_artist => $old_artist,
+        new_artist => $new_artist
+    );
+
+    if ($c->form_posted && $form->submitted_and_valid($c->req->params))
     {
-        $c->stash->{template} = 'artist/merge_search.tt';
+        my $edit = $c->model('Edit')->create(
+            editor_id => $c->user->id,
+            edit_type => $EDIT_ARTIST_MERGE,
+            old_artist_id => $old_artist->id,
+            new_artist_id => $new_artist->id
+        );
+
+        $c->response->redirect($c->uri_for_action('/artist/show', [ $new_artist->gid ]));
     }
-}
-
-sub merge_into : Chained('load') PathPart('merge-into') Args(1)
-                 Form('Artist::Merge')
-{
-    my ($self, $c, $new_mbid) = @_;
-
-    $c->forward('/user/login');
-
-    my $form       = $self->form;
-    my $artist     = $self->entity;
-    my $new_artist = $c->model('Artist')->load($new_mbid);
-
-    $c->stash->{new_artist} = $new_artist;
-    $c->stash->{template  } = 'artist/merge.tt';
-
-    $form->init($artist);
-
-    return unless $self->submit_and_validate($c);
-
-    $form->merge_into($new_artist);
-
-    $c->flash->{ok} = "Thanks, your artist edit has been entered " .
-                      "into the moderation queue";
-
-    $c->response->redirect($c->entity_url($new_artist, 'show'));
 }
 
 =head2 rating
