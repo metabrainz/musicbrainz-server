@@ -110,6 +110,7 @@ sub delete
     # XXX Checks to see if label is in use
     return unless $can_delete;
 
+    $self->c->model('Relationship')->delete('label', @label_ids);
     $self->annotation->delete(@label_ids);
     $self->alias->delete(@label_ids);
     $self->tags->delete(@label_ids);

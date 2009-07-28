@@ -120,6 +120,7 @@ sub update
 sub delete
 {
     my ($self, @group_ids) = @_;
+    $self->c->model('Relationship')->delete('release_group', @group_ids);
     $self->annotation->delete(@group_ids);
     $self->tags->delete(@group_ids);
     $self->remove_gid_redirects(@group_ids);

@@ -1,7 +1,8 @@
+#!/usr/bin/perl
 use strict;
 use warnings;
 use Sql;
-use Test::More tests => 26;
+use Test::More tests => 27;
 use_ok 'MusicBrainz::Server::Data::Relationship';
 use MusicBrainz::Server::Entity::Artist;
 
@@ -54,7 +55,7 @@ for $rel ($artist1->all_relationships) {
 my $sql = Sql->new($c->dbh);
 $sql->Begin;
 $sql->Do("INSERT INTO l_artist_recording (id, link, entity0, entity1) VALUES (4, 1, 2, 2)");
-# Merge ARs for artist #1 to #2
+# Merge ARs for artist #2 to #1
 $rel_data->merge('artist', 1, 2);
 $sql->Commit;
 
@@ -65,3 +66,12 @@ $rel_data->load($artist1, $artist2);
 is( scalar($artist1->all_relationships), 3 );
 # Nothing left here
 is( scalar($artist2->all_relationships), 0 );
+
+$sql->Begin;
+# Delete ARs for artist #2
+$rel_data->delete('artist', 1);
+$sql->Commit;
+
+$artist1->clear_relationships;
+$rel_data->load($artist1);
+is( scalar($artist1->all_relationships), 0, 'Relationship->delete deleted all ARs' );

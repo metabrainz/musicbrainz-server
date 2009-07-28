@@ -98,6 +98,7 @@ sub update
 sub delete
 {
     my ($self, $recording) = @_;
+    $self->c->model('Relationship')->delete('recording', $recording->id);
     $self->annotation->delete($recording->id);
     $self->tags->delete($recording->id);
     $self->remove_gid_redirects($recording->id);

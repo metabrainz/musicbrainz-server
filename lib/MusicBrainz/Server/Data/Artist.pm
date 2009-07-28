@@ -113,6 +113,7 @@ sub delete
     # XXX Checks to see if artist is in use (core entities that depend on this artist)
     return unless $can_delete;
 
+    $self->c->model('Relationship')->delete('artist', @artist_ids);
     $self->annotation->delete(@artist_ids);
     $self->alias->delete(@artist_ids);
     $self->tags->delete(@artist_ids);

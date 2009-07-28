@@ -174,10 +174,9 @@ sub load
     $self->load_entities(@rels);
 }
 
-sub merge
+sub _generate_table_list
 {
-    my ($self, $type, $target_id, @source_ids) = @_;
-
+    my ($type) = @_;
     # Generate a list of all possible type combinations
     my @types;
     foreach my $t (@TYPES) {
@@ -188,9 +187,15 @@ sub merge
             push @types, ["l_${t}_${type}", 'entity1', 'entity0'];
         }
     }
+    return @types;
+}
+
+sub merge
+{
+    my ($self, $type, $target_id, @source_ids) = @_;
 
     my $sql = Sql->new($self->c->dbh);
-    foreach my $t (@types) {
+    foreach my $t (_generate_table_list($type)) {
         my ($table, $entity0, $entity1) = @$t;
         # Delete all relationships from the source entities,
         # which don't already exist on the target entity
@@ -205,6 +210,20 @@ sub merge
             UPDATE $table SET $entity0 = ?
             WHERE $entity0 IN (" . placeholders(@source_ids) . ")
         ", $target_id, @source_ids);
+    }
+}
+
+sub delete
+{
+    my ($self, $type, @ids) = @_;
+
+    my $sql = Sql->new($self->c->dbh);
+    foreach my $t (_generate_table_list($type)) {
+        my ($table, $entity0, $entity1) = @$t;
+        $sql->Do("
+            DELETE FROM $table a
+            WHERE $entity0 IN (" . placeholders(@ids) . ")
+        ", @ids);
     }
 }
 
