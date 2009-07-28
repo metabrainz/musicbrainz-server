@@ -33,6 +33,12 @@ my $READWRITE = MusicBrainz::Server::Database->get("READWRITE");
 my $READONLY = MusicBrainz::Server::Database->get("READONLY");
 my $RAWDATA = MusicBrainz::Server::Database->get("RAWDATA");
 
+# Register a new database connection as the system user, but to the MB
+# database
+my $SYSTEM = MusicBrainz::Server::Database->get("SYSTEM");
+my $SYSMB = $SYSTEM->modify(database => $READWRITE->database);
+MusicBrainz::Server::Database->register("SYSMB", $SYSMB);
+
 # Check to make sure that the main and raw databases are not the same
 die "The READWRITE database and the RAWDATA database cannot be the same. Use a different name for the RAWDATA database." 
    if ($RAWDATA->database eq $READWRITE->database);
@@ -67,6 +73,7 @@ sub RunSQLScript
 	my $echo = ($fEcho ? "-e" : "");
 	my $stdout = ($fQuiet ? ">/dev/null" : "");
 
+	$ENV{"PGOPTIONS"} = "-c search_path=musicbrainz";
 	print "$psql $echo -f $sqldir/$file $opts 2>&1 $stdout |\n";
 	open(PIPE, "$psql $echo -f $sqldir/$file $opts 2>&1 $stdout |")
 		or die "exec '$psql': $!";
@@ -81,13 +88,6 @@ sub RunSQLScript
 
 sub CreateReplicationFunction
 {
-	# Register a new database connection as the system user, but to the MB
-	# database
-	my $sys_db = MusicBrainz::Server::Database->get("SYSTEM");
-	my $wr_db = MusicBrainz::Server::Database->get("READWRITE");
-	my $sysmb_mb = $sys_db->modify(database => $wr_db->database);
-	MusicBrainz::Server::Database->register("SYSMB", $sysmb_mb);
-
 	# Now connect to that database
 	my $mb = MusicBrainz->new;
 	$mb->Login(db => "SYSMB");
@@ -142,18 +142,6 @@ sub Create
     {
         # Check the cluster uses the C locale
         $system_sql = get_sql($sysname);
-        my $locale = $system_sql->SelectSingleValue(
-            "select setting from pg_settings where name = 'lc_collate'",
-        );
-
-        unless ($locale eq "C")
-        {
-			die <<EOF;
-It looks like your Postgres database cluster was created with locale '$locale'.
-MusicBrainz needs the "C" locale instead.  To rectify this, re-run "initdb"
-with the option "--locale=C".
-EOF
-        }
 
         my $username = $db->username;
 
@@ -191,6 +179,14 @@ sub CreateRelations
 {
 	my $import = shift;
 
+    my $opts = $READWRITE->shell_args;
+    system("echo \"CREATE SCHEMA musicbrainz\" | $psql $opts");
+    die "\nFailed to create schema\n" if ($? >> 8);
+
+    $opts = $RAWDATA->shell_args;
+    system("echo \"CREATE SCHEMA musicbrainz\" | $psql $opts");
+    die "\nFailed to create schema\n" if ($? >> 8);
+
 	RunSQLScript($READWRITE, "CreateTables.sql", "Creating tables ...");
 	RunSQLScript($RAWDATA, "vertical/rawdata/CreateTables.sql", "Creating raw tables ...");
 
@@ -207,6 +203,10 @@ sub CreateRelations
 
 	RunSQLScript($READWRITE, "CreatePrimaryKeys.sql", "Creating primary keys ...");
 	RunSQLScript($RAWDATA, "vertical/rawdata/CreatePrimaryKeys.sql", "Creating raw primary keys ...");
+
+	RunSQLScript($SYSMB, "CreateSearchConfiguration.sql", "Creating search configuration ...");
+	RunSQLScript($READWRITE, "CreateFunctions.sql", "Creating functions ...");
+
 	RunSQLScript($READWRITE, "CreateIndexes.sql", "Creating indexes ...");
 	RunSQLScript($RAWDATA, "vertical/rawdata/CreateIndexes.sql", "Creating raw indexes ...");
 	RunSQLScript($READWRITE, "CreateFKConstraints.sql", "Adding foreign key constraints ...")
@@ -214,14 +214,14 @@ sub CreateRelations
 	RunSQLScript($RAWDATA, "vertical/rawdata/CreateFKConstraints.sql", "Adding raw foreign key constraints ...")
 	    unless $REPTYPE == RT_SLAVE;
 
-    print localtime() . " : Setting initial sequence values ...\n";
-    system($^X, "$FindBin::Bin/SetSequences.pl");
-    die "\nFailed to set sequences.\n" if ($? >> 8);
+	RunSQLScript($READWRITE, "SetSequences.sql", "Setting raw initial sequence values ...");
+	RunSQLScript($RAWDATA, "vertical/rawdata/SetSequences.sql", "Setting raw initial sequence values ...");
 
 	RunSQLScript($READWRITE, "CreateViews.sql", "Creating views ...");
-	RunSQLScript($READWRITE, "CreateFunctions.sql", "Creating functions ...");
 	RunSQLScript($READWRITE, "CreateTriggers.sql", "Creating triggers ...")
 	    unless $REPTYPE == RT_SLAVE;
+
+	RunSQLScript($READWRITE, "CreateSearchIndexes.sql", "Creating search indexes ...");
 
 	if ($REPTYPE == RT_MASTER)
 	{
@@ -230,7 +230,7 @@ sub CreateRelations
 	}
 
     print localtime() . " : Optimizing database ...\n";
-    my $opts = $READWRITE->shell_args;
+    $opts = $READWRITE->shell_args;
     system("echo \"vacuum analyze\" | $psql $opts");
     die "\nFailed to optimize database\n" if ($? >> 8);
 

@@ -117,10 +117,12 @@ sub Login
 		$sql->AutoCommit(1);
 		$sql->Do("SET CLIENT_ENCODING = 'UNICODE'");
 
-        my $profile = MusicBrainz::Server::Database->profile || "live";
-        my $schema = $profile eq "test" ? "musicbrainz_test" : "musicbrainz";
-        $sql->AutoCommit(1);
-        $sql->Do("SET search_path TO '$schema'");
+        if ($db->key ne "SYSTEM") {
+            my $profile = MusicBrainz::Server::Database->profile || "live";
+            my $schema = $profile eq "test" ? "musicbrainz_test" : "musicbrainz";
+            $sql->AutoCommit(1);
+            $sql->Do("SET search_path TO '$schema'");
+        }
 
 		$tied->{'_mb_prepared_connection_'} = 1;
 	}

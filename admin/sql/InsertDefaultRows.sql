@@ -2,20 +2,23 @@
 
 BEGIN;
 
-insert into Artist (Name, SortName, GID, ModPending, Page) 
-      values ('Various Artists', 'Various Artists', 
-              '89ad4ac3-39f7-470e-963a-56509c546377', 0, 0); 
+INSERT INTO artist_name (id, name, refcount) VALUES
+    (1, 'Various Artists', 2),
+    (2, 'Deleted Artist', 2);
 
-insert into Artist (Name, SortName, GID, ModPending, Page) 
-      values ('Deleted Artist', 'Deleted Artist', 
-              'c06aa285-520e-40c0-b776-83d2c9e8a6d1', 0, 0); 
+INSERT INTO artist (name, sortname, gid) VALUES
+    (1, 1, '89ad4ac3-39f7-470e-963a-56509c546377'),
+    (2, 2, 'c06aa285-520e-40c0-b776-83d2c9e8a6d1');
 
-insert into Label (Name, SortName, GID, ModPending, Page) 
-      values ('Deleted Label', 'Deleted Label', 'f43e252d-9ebf-4e8e-bba8-36d080756cc1', 0, 0); 
+INSERT INTO label_name (id, name, refcount) VALUES
+    (1, 'Deleted Label', 2);
 
-INSERT INTO moderator (id, name, password) VALUES (1, 'Anonymous', '');
-INSERT INTO moderator (id, name, password) VALUES (2, 'FreeDB', '');
-INSERT INTO moderator (id, name, password) VALUES (4, 'ModBot', '');
+INSERT INTO label (name, sortname, gid) VALUES
+    (1, 1, 'f43e252d-9ebf-4e8e-bba8-36d080756cc1');
+
+INSERT INTO editor (id, name, password) VALUES (1, 'Anonymous', '');
+INSERT INTO editor (id, name, password) VALUES (2, 'FreeDB', '');
+INSERT INTO editor (id, name, password) VALUES (4, 'ModBot', '');
 
 INSERT INTO clientversion (id, version) VALUES (1, 'unknown');
 
