@@ -31,6 +31,17 @@ sub find_by_entity_id
     }, $query, $id);
 }
 
+sub delete
+{
+    my ($self, @entity_ids) = @_;
+    my $raw_sql = Sql->new($self->c->raw_dbh);
+    $raw_sql->Do("
+        DELETE FROM " . $self->type . "_rating_raw
+        WHERE " . $self->type . " IN (" . placeholders(@entity_ids) . ")",
+        @entity_ids);
+    return 1;
+}
+
 no Moose;
 __PACKAGE__->meta->make_immutable;
 1;
@@ -38,6 +49,12 @@ __PACKAGE__->meta->make_immutable;
 =head1 NAME
 
 MusicBrainz::Server::Data::Rating
+
+=head1 METHODS
+
+=head2 delete(@entity_ids)
+
+Delete ratings from the RAWDATA database for entities from @entity_ids.
 
 =head1 COPYRIGHT
 

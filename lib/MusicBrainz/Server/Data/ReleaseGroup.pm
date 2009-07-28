@@ -123,6 +123,7 @@ sub delete
     $self->c->model('Relationship')->delete('release_group', @group_ids);
     $self->annotation->delete(@group_ids);
     $self->tags->delete(@group_ids);
+    $self->rating->delete(@group_ids);
     $self->remove_gid_redirects(@group_ids);
     my $sql = Sql->new($self->c->mb->dbh);
     $sql->Do('DELETE FROM release_group WHERE id IN (' . placeholders(@group_ids) . ')', @group_ids);

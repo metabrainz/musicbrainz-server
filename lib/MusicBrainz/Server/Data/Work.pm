@@ -92,6 +92,7 @@ sub delete
     $self->c->model('Relationship')->delete('work', $work->id);
     $self->annotation->delete($work->id);
     $self->tags->delete($work->id);
+    $self->rating->delete($work->id);
     $self->remove_gid_redirects($work->id);
     my $sql = Sql->new($self->c->mb->dbh);
     $sql->Do('DELETE FROM work WHERE id = ?', $work->id);

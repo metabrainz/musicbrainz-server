@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 use strict;
 use warnings;
-use Test::More tests => 8;
+use Test::More tests => 9;
 use_ok 'MusicBrainz::Server::Data::Rating';
 
 use Sql;
@@ -24,3 +24,17 @@ is( $ratings[1]->editor_id, 3 );
 is( $ratings[1]->rating, 4 );
 is( $ratings[2]->editor_id, 4 );
 is( $ratings[2]->rating, 1 );
+
+my $sql = Sql->new($c->dbh);
+my $raw_sql = Sql->new($c->raw_dbh);
+
+$sql->Begin;
+$raw_sql->Begin;
+
+$rating_data->delete(1);
+
+$sql->Commit;
+$raw_sql->Commit;
+
+@ratings = $rating_data->find_by_entity_id(1);
+is( scalar(@ratings), 0 );
