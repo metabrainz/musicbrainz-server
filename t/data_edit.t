@@ -1,3 +1,4 @@
+#!/usr/bin/perl
 use strict;
 use warnings;
 use Test::More tests => 32;
@@ -39,6 +40,8 @@ INSERT INTO edit (id, editor, type, status, data, expiretime)
 INSERT INTO edit_artist (edit, artist) VALUES (1, 1);
 INSERT INTO edit_artist (edit, artist) VALUES (4, 1);
 INSERT INTO edit_artist (edit, artist) VALUES (4, 2);
+
+SELECT setval('edit_id_seq', (SELECT max(id) FROM edit));
 
 RAWSQL
 
