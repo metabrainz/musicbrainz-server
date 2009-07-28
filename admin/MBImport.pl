@@ -104,22 +104,28 @@ my %table_db_mapping =
 (
 	'artist_rating_raw'						=>	$rawsql,
 	'artist_tag_raw'						=>	$rawsql,
-	'cdtoc_raw'								=>	$rawsql,
-	'collection_discography_artist_join'	=>  $rawsql,
-	'collection_has_release_join'			=>  $rawsql,
-	'collection_ignore_release_join'		=>  $rawsql,
-	'collection_ignore_time_range'			=>  $rawsql,
-	'collection_info'						=>  $rawsql,
-	'collection_watch_artist_join'			=>  $rawsql,
-	'release_rating_raw'					=>	$rawsql,
-	'release_tag_raw'						=>	$rawsql,
-	'release_raw'							=>	$rawsql,
-	'track_rating_raw'						=>	$rawsql,
-	'track_raw'								=>	$rawsql,
-	'track_tag_raw'							=>	$rawsql,
+	'release_group_rating_raw'				=>	$rawsql,
+	'release_group_tag_raw'					=>	$rawsql,
+	'recording_rating_raw'					=>	$rawsql,
+	'recording_tag_raw'						=>	$rawsql,
 	'label_rating_raw'						=>	$rawsql,
 	'label_tag_raw'							=>	$rawsql,
-	'_default_'								=>	$sql 
+	'work_rating_raw'						=>	$rawsql,
+	'work_tag_raw'							=>	$rawsql,
+	'cdtoc_raw'								=>	$rawsql,
+	'release_raw'							=>	$rawsql,
+	'track_raw'								=>	$rawsql,
+	'vote'									=>	$rawsql,
+	'edit'									=>	$rawsql,
+	'edit_artist'							=>	$rawsql,
+	'edit_label'							=>	$rawsql,
+	'edit_note'								=>	$rawsql,
+	'edit_recording'						=>	$rawsql,
+	'edit_release'							=>	$rawsql,
+	'edit_release_group'					=>	$rawsql,
+	'edit_work'								=>	$rawsql,
+	'vote'									=>	$rawsql,
+	'_default_'								=>	$sql
 );
 
 my @tar_to_extract;
@@ -279,22 +285,19 @@ sub ImportTable
 		$p->("", "") if $fProgress;
 		my $t;
 		
+		require Encode;
 		while (<LOAD>)
 		{
-			require Encode;
-			
+			$t = $_;
 			if ($fFixUTF8) {
-				require Encode;
 				# replaces any invalid UTF-8 character with special 0xFFFD codepoint
 				# and warn on any such occurence
-				$t = Encode::decode("UTF-8", $_, Encode::FB_DEFAULT | Encode::WARN_ON_ERR);
-				$dbh->func($t, "putline") or die;
-			} else {
-				if (!$dbh->func($_, "putline"))
-				{
-					print "ERROR while processing: ", $_;
-					die;
-				}
+				$t = Encode::decode("UTF-8", $t, Encode::FB_DEFAULT | Encode::WARN_ON_ERR);
+			}
+			if (!$dbh->pg_putcopydata($t))
+			{
+				print "ERROR while processing: ", $t;
+				die;
 			}
 
 			++$rows;
@@ -304,8 +307,7 @@ sub ImportTable
 				$p->("\r", "") if $fProgress;
 			}
 		}
-		$dbh->func("\\.\n", "putline") or die;
-		$dbh->func("endcopy") or die;
+		$dbh->pg_putcopyend() or die;
 		$interval = tv_interval($t1);
 		$p->(($fProgress ? "\r" : ""), sprintf(" %.2f sec\n", $interval));
 
@@ -347,112 +349,133 @@ sub empty
 sub ImportAllTables
 {
 	for my $table (qw(
-		album
-		album_amazon_asin
-		album_amazon_asin_sanitised
-		album_cdtoc
-		albumjoin
-		albummeta
-		albumwords
+		artist_rating_raw
+		artist_tag_raw
+		cdtoc_raw
+		currentstat
+		edit
+		edit_artist
+		edit_label
+		edit_note
+		edit_recording
+		edit_release
+		edit_release_group
+		edit_work
+		historicalstat
+		label_rating_raw
+		label_tag_raw
+		recording_rating_raw
+		recording_tag_raw
+		release_group_rating_raw
+		release_group_tag_raw
+		release_raw
+		track_raw
+		vote
+		work_rating_raw
+		work_tag_raw
 		annotation
 		artist
+		artist_alias
+		artist_annotation
+		artist_credit
+		artist_credit_name
+		artist_gid_redirect
 		artist_meta
-		artist_relation
-		artistalias
-		artist_rating_raw
+		artist_name
 		artist_tag
-		artist_tag_raw
-		artistwords
-		automod_election
-		automod_election_vote
+		artist_type
 		cdtoc
-		cdtoc_raw
 		clientversion
 		country
-		collection_discography_artist_join
-		collection_has_release_join
-		collection_ignore_release_join
-		collection_ignore_time_range
-		collection_info
-		collection_watch_artist_join
-		currentstat
+		editor
+		editor_preference
+		editor_sanitised
+		editor_subscribe_artist
 		editor_subscribe_editor
-		gid_redirect
-		historicalstat
-		l_album_album
-		l_album_artist
-		l_album_label
-		l_album_track
-		l_album_url
+		editor_subscribe_label
+		gender
+		isrc
 		l_artist_artist
 		l_artist_label
-		l_artist_track
+		l_artist_recording
+		l_artist_release
+		l_artist_release_group
 		l_artist_url
+		l_artist_work
 		l_label_label
-		l_label_track
+		l_label_recording
+		l_label_release
+		l_label_release_group
 		l_label_url
-		l_track_track
-		l_track_url
+		l_label_work
+		l_recording_recording
+		l_recording_release
+		l_recording_release_group
+		l_recording_url
+		l_recording_work
+		l_release_group_release_group
+		l_release_group_url
+		l_release_group_work
+		l_release_release
+		l_release_release_group
+		l_release_url
+		l_release_work
 		l_url_url
+		l_url_work
+		l_work_work
 		label
+		label_alias
+		label_annotation
+		label_gid_redirect
 		label_meta
-		label_rating_raw
+		label_name
 		label_tag
-		label_tag_raw
-		labelalias
-		labelwords
+		label_type
 		language
+		link
 		link_attribute
 		link_attribute_type
-		lt_album_album
-		lt_album_artist
-		lt_album_label
-		lt_album_track
-		lt_album_url
-		lt_artist_artist
-		lt_artist_label
-		lt_artist_track
-		lt_artist_url
-		lt_label_label
-		lt_label_track
-		lt_label_url
-		lt_track_track
-		lt_track_url
-		lt_url_url
-		moderation_closed
-		moderation_note_closed
-		moderation_note_open
-		moderation_open
-		moderator
-		moderator_sanitised
-		moderator_preference
-		moderator_subscribe_artist
-		moderator_subscribe_label
+		link_type
+		link_type_attribute_type
+		medium
+		medium_format
 		puid
-		puidjoin
-		puidjoin_stat
-		puid_stat
+		recording
+		recording_annotation
+		recording_gid_redirect
+		recording_meta
+		recording_puid
+		recording_tag
 		release
-		release_rating_raw
-		release_raw
-		release_tag
-		release_tag_raw
-		replication_control
+		release_annotation
+		release_gid_redirect
+		release_group
+		release_group_annotation
+		release_group_gid_redirect
+		release_group_meta
+		release_group_tag
+		release_group_type
+		release_label
+		release_meta
+		release_name
+		release_packaging
+		release_status
 		script
 		script_language
-		stats
-        tag
+		tag
+		tag_relation
 		track
-		track_meta
-		track_rating_raw
-		track_raw
-		track_tag
-		track_tag_raw
-		trackwords
+		track_name
+		tracklist
+		tracklist_cdtoc
 		url
-		vote_closed
-		vote_open
-		wordlist
+		work
+		work_annotation
+		work_gid_redirect
+		work_meta
+		work_name
+		work_tag
+		work_type
 	)) {
 		my $file = (find_file($table))[0];
 		$file or print("No data file found for '$table', skipping\n"), next;
