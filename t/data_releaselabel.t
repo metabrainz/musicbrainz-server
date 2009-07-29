@@ -36,7 +36,7 @@ is( $rls->[3]->catalog_number, "ABC-123-X" );
 my $sql = Sql->new($c->dbh);
 $sql->Begin;
 
-$rl_data->merge_labels(2 => 1);
+$rl_data->merge_labels(1, 2);
 ($rls, $hits) = $rl_data->find_by_label(1, 100);
 is($hits, 4);
 

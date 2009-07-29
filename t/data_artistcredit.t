@@ -1,3 +1,4 @@
+#!/usr/bin/perl
 use strict;
 use warnings;
 use Test::More tests => 21;
@@ -41,7 +42,7 @@ $ac = $artist_credit_data->find_or_insert(
 ok(defined $ac);
 ok($ac > 1);
 
-$artist_credit_data->merge_artists(2, 3);
+$artist_credit_data->merge_artists(3, 2);
 $ac = $artist_credit_data->get_by_id(1);
 is($ac->names->[0]->artist_id, 1);
 is($ac->names->[1]->artist_id, 3);

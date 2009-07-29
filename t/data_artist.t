@@ -72,7 +72,7 @@ my $annotation = $artist_data->annotation->get_latest(1);
 like ( $annotation->text, qr/Test annotation 1/ );
 
 # Merging annotations
-$artist_data->annotation->merge(1, 2);
+$artist_data->annotation->merge(2, 1);
 $annotation = $artist_data->annotation->get_latest(1);
 ok(!defined $annotation);
 
@@ -195,12 +195,12 @@ is($artist->id, 1);
 $artist = $artist_data->get_by_gid('2adff2b0-5dbf-11de-8a39-0800200c9a66');
 is($artist->id, 2);
 
-$artist_data->update_gid_redirects(2, 1);
+$artist_data->update_gid_redirects(1, 2);
 
 $artist = $artist_data->get_by_gid('2adff2b0-5dbf-11de-8a39-0800200c9a66');
 is($artist->id, 1);
 
-$artist_data->merge(2, 1);
+$artist_data->merge(1, 2);
 $artist = $artist_data->get_by_id(2);
 ok(!defined $artist);
 

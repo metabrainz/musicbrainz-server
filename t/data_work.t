@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 use strict;
 use warnings;
-use Test::More tests => 41;
+use Test::More tests => 45;
 use_ok 'MusicBrainz::Server::Data::Work';
 use MusicBrainz::Server::Data::WorkType;
 use MusicBrainz::Server::Data::Search;
@@ -101,3 +101,23 @@ ok(!defined $work);
 
 $raw_sql->Commit;
 $sql->Commit;
+
+
+# Both #1 and #2 are in the DB
+$work = $work_data->get_by_id(1);
+ok(defined $work);
+$work = $work_data->get_by_id(2);
+ok(defined $work);
+
+# Merge #2 into #1
+$sql->Begin;
+$raw_sql->Begin;
+$work_data->merge(1, 2);
+$sql->Commit;
+$raw_sql->Commit;
+
+# Only #1 is now in the DB
+$work = $work_data->get_by_id(1);
+ok(defined $work);
+$work = $work_data->get_by_id(2);
+ok(!defined $work);

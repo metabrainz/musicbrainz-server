@@ -48,7 +48,7 @@ $alias_set = $artist_data->alias->find_by_entity_id(2);
 is(scalar @$alias_set, 0);
 
 # Test merging aliases together
-$artist_data->alias->merge(2, 1);
+$artist_data->alias->merge(1, 2);
 
 $alias_set = $artist_data->alias->find_by_entity_id(1);
 is(scalar @$alias_set, 2);
@@ -59,7 +59,7 @@ $alias_set = $artist_data->alias->find_by_entity_id(2);
 is(scalar @$alias_set, 0);
 
 # Test merging aliases with identical names
-$artist_data->alias->merge(3, 1);
+$artist_data->alias->merge(1, 3);
 
 $alias_set = $artist_data->alias->find_by_entity_id(1);
 is(scalar @$alias_set, 2);

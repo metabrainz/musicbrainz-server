@@ -49,6 +49,11 @@ sub prepare_raw_test_database
 {
     my ($class, $c, $query) = @_;
 
+    unless (defined $query) {
+        open(FILE, "<t/sql/clean_raw_db.sql");
+        $query = do { local $/; <FILE> };
+    }
+
     my $sql = Sql->new($c->raw_dbh);
     $sql->AutoCommit(1);
     $sql->Do($query);

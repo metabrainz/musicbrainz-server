@@ -99,6 +99,18 @@ sub delete
     return;
 }
 
+sub merge
+{
+    my ($self, $new_id, @old_ids) = @_;
+
+    $self->annotation->merge($new_id, @old_ids);
+    $self->c->model('Edit')->merge_entities('work', $new_id, @old_ids);
+    $self->c->model('Relationship')->merge('work', $new_id, @old_ids);
+
+    $self->_delete_and_redirect_gids('work', $new_id, @old_ids);
+    return 1;
+}
+
 sub _hash_to_row
 {
     my ($self, $work, $names) = @_;

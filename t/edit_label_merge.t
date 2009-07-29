@@ -15,6 +15,7 @@ use MusicBrainz::Server::Test;
 
 my $c = MusicBrainz::Server::Test->create_test_context();
 MusicBrainz::Server::Test->prepare_test_database($c);
+MusicBrainz::Server::Test->prepare_raw_test_database($c);
 
 my $label_data = MusicBrainz::Server::Data::Label->new(c => $c);
 my $edit_data = MusicBrainz::Server::Data::Edit->new(c => $c);

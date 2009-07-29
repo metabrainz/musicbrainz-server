@@ -14,6 +14,7 @@ use Sql;
 
 my $c = MusicBrainz::Server::Test->create_test_context();
 MusicBrainz::Server::Test->prepare_test_database($c);
+MusicBrainz::Server::Test->prepare_raw_test_database($c);
 
 my $ac_data = MusicBrainz::Server::Data::ArtistCredit->new(c => $c);
 my $rg_data = MusicBrainz::Server::Data::ReleaseGroup->new(c => $c);

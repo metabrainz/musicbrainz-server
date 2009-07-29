@@ -1,6 +1,7 @@
+#!/usr/bin/perl
 use strict;
 use warnings;
-use Test::More tests => 62;
+use Test::More tests => 66;
 use_ok 'MusicBrainz::Server::Data::Release';
 use MusicBrainz::Server::Data::ReleaseLabel;
 
@@ -63,7 +64,8 @@ is($names{'Arrival'}, 1);
 is($names{'Release #2'}, 2);
 ok($names{'Protection'} > 2);
 
-my $sql = Sql->new($c->mb->dbh);
+my $sql = Sql->new($c->dbh);
+my $raw_sql = Sql->new($c->raw_dbh);
 $sql->Begin;
 $release = $release_data->insert({
         name => 'Protection',
@@ -116,3 +118,22 @@ $release_data->delete($release);
 $release = $release_data->get_by_id($release->id);
 ok(!defined $release);
 $sql->Commit;
+
+# Both #1 and #2 are in the DB
+$release = $release_data->get_by_id(1);
+ok(defined $release);
+$release = $release_data->get_by_id(2);
+ok(defined $release);
+
+# Merge #2 into #1
+$raw_sql->Begin;
+$sql->Begin;
+$release_data->merge(1, 2);
+$raw_sql->Commit;
+$sql->Commit;
+
+# Only #1 is now in the DB
+$release = $release_data->get_by_id(1);
+ok(defined $release);
+$release = $release_data->get_by_id(2);
+ok(!defined $release);

@@ -12,6 +12,7 @@ use MusicBrainz::Server::Test;
 
 my $c = MusicBrainz::Server::Test->create_test_context();
 MusicBrainz::Server::Test->prepare_test_database($c, '+edit_release');
+MusicBrainz::Server::Test->prepare_raw_test_database($c);
 
 my $edit_data = MusicBrainz::Server::Data::Edit->new(c => $c);
 my $release_data = MusicBrainz::Server::Data::Release->new(c => $c);

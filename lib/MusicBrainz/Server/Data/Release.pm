@@ -130,6 +130,35 @@ sub delete
     return;
 }
 
+sub merge
+{
+    my ($self, $new_id, @old_ids) = @_;
+
+    $self->annotation->merge($new_id, @old_ids);
+    $self->c->model('ReleaseLabel')->merge_releases($new_id, @old_ids);
+    $self->c->model('Edit')->merge_entities('release', $new_id, @old_ids);
+    $self->c->model('Relationship')->merge('release', $new_id, @old_ids);
+
+    # XXX merge release attributes
+
+    # XXX allow actual tracklists/mediums merging
+    my $sql = Sql->new($self->c->dbh);
+    my $pos = $sql->SelectSingleValue('
+        SELECT max(position) FROM medium WHERE release=?', $new_id) || 0;
+    foreach my $old_id (@old_ids) {
+        my $medium_ids = $sql->SelectSingleColumnArray('
+            SELECT id FROM medium WHERE release=?
+            ORDER BY position', $old_id);
+        foreach my $medium_id (@$medium_ids) {
+            $sql->Do('UPDATE medium SET release=?, position=? WHERE id=?',
+                     $new_id, ++$pos, $medium_id);
+        }
+    }
+
+    $self->_delete_and_redirect_gids('release', $new_id, @old_ids);
+    return 1;
+}
+
 sub _hash_to_row
 {
     my ($self, $release, $names) = @_;

@@ -94,7 +94,7 @@ $label_data->delete($label->id);
 $label = $label_data->get_by_id($label->id);
 ok(!defined $label);
 
-$label_data->merge(2, 1);
+$label_data->merge(1, 2);
 $label = $label_data->get_by_id(2);
 ok(!defined $label);
 

@@ -9,6 +9,7 @@ BEGIN { use_ok 'MusicBrainz::Server::Edit::Medium::Edit' }
 
 my $c = MusicBrainz::Server::Test->create_test_context();
 MusicBrainz::Server::Test->prepare_test_database($c, '+edit_medium');
+MusicBrainz::Server::Test->prepare_raw_test_database($c);
 
 my $medium = $c->model('Medium')->get_by_id(1);
 is($medium->tracklist_id, 1);

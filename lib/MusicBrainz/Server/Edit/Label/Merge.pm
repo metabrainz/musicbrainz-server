@@ -57,8 +57,7 @@ sub initialize
 override 'accept' => sub
 {
     my $self = shift;
-    my $label_data = MusicBrainz::Server::Data::Label->new(c => $self->c);
-    my $label = $label_data->merge($self->old_label_id => $self->new_label_id);
+    $self->c->model('Label')->merge($self->new_label_id, $self->old_label_id);
 };
 
 __PACKAGE__->register_type;

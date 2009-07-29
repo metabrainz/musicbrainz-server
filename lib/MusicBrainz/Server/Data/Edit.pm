@@ -94,10 +94,13 @@ sub find
 
 sub merge_entities
 {
-    my ($self, $type, $old_id, $new_id) = @_;
+    my ($self, $type, $new_id, @old_ids) = @_;
     my $sql = Sql->new($self->c->raw_dbh);
-    $sql->Do("DELETE FROM edit_$type WHERE edit IN (SELECT edit FROM edit_$type WHERE $type = ?) AND $type = ?", $new_id, $old_id);
-    $sql->Do("UPDATE edit_$type SET $type = ? WHERE $type = ?", $new_id, $old_id);
+    $sql->Do("DELETE FROM edit_$type
+              WHERE edit IN (SELECT edit FROM edit_$type WHERE $type = ?) AND
+                    $type IN (".placeholders(@old_ids).")", $new_id, @old_ids);
+    $sql->Do("UPDATE edit_$type SET $type = ?
+              WHERE $type IN (".placeholders(@old_ids).")", $new_id, @old_ids);
 }
 
 sub create

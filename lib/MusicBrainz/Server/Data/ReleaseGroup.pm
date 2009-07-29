@@ -132,14 +132,19 @@ sub delete
 
 sub merge
 {
-    my ($self, $old_id, $new_id) = @_;
+    my ($self, $new_id, @old_ids) = @_;
+
+    $self->annotation->merge($new_id, @old_ids);
+    $self->c->model('Edit')->merge_entities('release_group', $new_id, @old_ids);
+    $self->c->model('Relationship')->merge('release_group', $new_id, @old_ids);
+
+    # Move releases to the new release group
     my $sql = Sql->new($self->c->dbh);
-    $self->annotation->merge($old_id => $new_id);
-    $self->update_gid_redirects($old_id => $new_id);
-    $self->c->model('Relationship')->merge('release_group', $new_id, $old_id);
-    $sql->Do('UPDATE release SET release_group = ? WHERE release_group = ?', $new_id, $old_id);
-    my $old_gid = $sql->SelectSingleValue('DELETE FROM release_group WHERE id = ? RETURNING gid', $old_id);
-    $self->add_gid_redirects($old_gid => $new_id);
+    $sql->Do('UPDATE release SET release_group = ?
+              WHERE release_group IN ('.placeholders(@old_ids).')', $new_id, @old_ids);
+
+    $self->_delete_and_redirect_gids('release_group', $new_id, @old_ids);
+    return 1;
 }
 
 sub _hash_to_row

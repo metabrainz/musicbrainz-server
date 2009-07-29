@@ -57,8 +57,7 @@ sub initialize
 override 'accept' => sub
 {
     my $self = shift;
-    my $artist_data = MusicBrainz::Server::Data::Artist->new(c => $self->c);
-    my $artist = $artist_data->merge($self->old_artist_id => $self->new_artist_id);
+    $self->c->model('Artist')->merge($self->new_artist_id, $self->old_artist_id);
 };
 
 __PACKAGE__->register_type;

@@ -56,8 +56,7 @@ sub initialize
 override 'accept' => sub
 {
     my ($self) = @_;
-    my $data = MusicBrainz::Server::Data::ReleaseGroup->new(c => $self->c);
-    $data->merge($self->old_release_group_id, $self->new_release_group_id);
+    $self->c->model('ReleaseGroup')->merge($self->new_release_group_id, $self->old_release_group_id);
 };
 
 __PACKAGE__->register_type;

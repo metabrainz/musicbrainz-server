@@ -69,11 +69,12 @@ sub delete
 
 sub merge
 {
-    my ($self, $old_id, $new_id) = @_;
+    my ($self, $new_id, @old_ids) = @_;
     my $sql = Sql->new($self->c->dbh);
     my $table = $self->table;
     my $type = $self->type;
-    $sql->Do("UPDATE $table SET $type = ? WHERE $type = ?", $new_id, $old_id);
+    $sql->Do("UPDATE $table SET $type = ?
+              WHERE $type IN (".placeholders(@old_ids).")", $new_id, @old_ids);
 }
 
 no Moose;

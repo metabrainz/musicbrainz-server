@@ -123,23 +123,15 @@ sub delete
 
 sub merge
 {
-    my ($self, $old_id, $new_id) = @_;
-    my $new_label = $self->get_by_id($new_id);
-    my $rl_data = MusicBrainz::Server::Data::ReleaseLabel->new(c => $self->c);
-    my $edit_data = MusicBrainz::Server::Data::Edit->new(c => $self->c);
+    my ($self, $new_id, @old_ids) = @_;
 
-    my $sql = Sql->new($self->c->dbh);
-    $self->alias->merge($old_id => $new_id);
-    $self->annotation->merge($old_id => $new_id);
-    $rl_data->merge_labels($old_id => $new_id);
-    $edit_data->merge_entities('label', $old_id => $new_id);
-    $self->update_gid_redirects($old_id => $new_id);
-    $self->c->model('Relationship')->merge('label', $new_id, $old_id);
+    $self->alias->merge($new_id, @old_ids);
+    $self->annotation->merge($new_id, @old_ids);
+    $self->c->model('ReleaseLabel')->merge_labels($new_id, @old_ids);
+    $self->c->model('Edit')->merge_entities('label', $new_id, @old_ids);
+    $self->c->model('Relationship')->merge('label', $new_id, @old_ids);
 
-    $sql->Do('DELETE FROM label_meta WHERE id = ?', $old_id);
-    my $old_gid = $sql->SelectSingleValue('DELETE FROM label WHERE id = ? RETURNING gid', $old_id);
-    $self->add_gid_redirects($old_gid => $new_id);
-
+    $self->_delete_and_redirect_gids('label', $new_id, @old_ids);
     return 1;
 }
 

@@ -135,6 +135,23 @@ sub load_meta
     }, @_);
 }
 
+sub merge
+{
+    my ($self, $new_id, @old_ids) = @_;
+
+    $self->annotation->merge($new_id, @old_ids);
+    $self->c->model('Edit')->merge_entities('recording', $new_id, @old_ids);
+    $self->c->model('Relationship')->merge('recording', $new_id, @old_ids);
+
+    # Move tracks to the new recording
+    my $sql = Sql->new($self->c->dbh);
+    $sql->Do('UPDATE track SET recording = ?
+              WHERE recording IN ('.placeholders(@old_ids).')', $new_id, @old_ids);
+
+    $self->_delete_and_redirect_gids('recording', $new_id, @old_ids);
+    return 1;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

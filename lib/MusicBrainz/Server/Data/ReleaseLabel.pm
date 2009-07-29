@@ -77,9 +77,19 @@ sub find_by_label
 
 sub merge_labels
 {
-    my ($self, $old_id, $new_id) = @_;
+    my ($self, $new_id, @old_ids) = @_;
     my $sql = Sql->new($self->c->dbh);
-    $sql->Do('UPDATE release_label SET label = ? WHERE label = ?', $new_id, $old_id);
+    $sql->Do('UPDATE release_label SET label = ?
+              WHERE label IN ('.placeholders(@old_ids).')', $new_id, @old_ids);
+}
+
+sub merge_releases
+{
+    my ($self, $new_id, @old_ids) = @_;
+    # XXX avoid duplicates
+    my $sql = Sql->new($self->c->dbh);
+    $sql->Do('UPDATE release_label SET release = ?
+              WHERE release IN ('.placeholders(@old_ids).')', $new_id, @old_ids);
 }
 
 __PACKAGE__->meta->make_immutable;

@@ -92,7 +92,7 @@ $rg_data->delete($rg->id);
 $rg = $rg_data->get_by_id($rg->id);
 ok(!defined $rg);
 
-$rg_data->merge(2, 1);
+$rg_data->merge(1, 2);
 $rg = $rg_data->get_by_id(2);
 ok(!defined $rg);
 

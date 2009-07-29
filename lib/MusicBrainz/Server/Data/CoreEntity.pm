@@ -56,10 +56,30 @@ sub add_gid_redirects
 
 sub update_gid_redirects
 {
-    my ($self, $old_id, $new_id) = @_; 
+    my ($self, $new_id, @old_ids) = @_; 
     my $sql = Sql->new($self->c->dbh);
     my $table = $self->_gid_redirect_table;
-    $sql->Do("UPDATE $table SET newid = ? WHERE newid = ?", $new_id, $old_id);
+    $sql->Do("
+        UPDATE $table SET newid = ?
+        WHERE newid IN (".placeholders(@old_ids).")", $new_id, @old_ids);
+}
+
+sub _delete_and_redirect_gids
+{
+    my ($self, $table, $new_id, @old_ids) = @_;
+
+    # Update all GID redirects from @old_ids to $new_id
+    $self->update_gid_redirects($new_id, @old_ids);
+
+    # Delete the recording and select current GIDs
+    my $sql = Sql->new($self->c->dbh);
+    my $old_gids = $sql->SelectSingleColumnArray('
+        DELETE FROM '.$table.'
+        WHERE id IN ('.placeholders(@old_ids).')
+        RETURNING gid', @old_ids);
+
+    # Add redirects from GIDs of the deleted recordings to $new_id
+    $self->add_gid_redirects(map { $_ => $new_id } @$old_gids);
 }
 
 __PACKAGE__->meta->make_immutable;
