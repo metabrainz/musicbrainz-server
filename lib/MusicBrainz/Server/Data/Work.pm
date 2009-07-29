@@ -14,6 +14,7 @@ with 'MusicBrainz::Server::Data::AnnotationRole' => { type => 'work' };
 with 'MusicBrainz::Server::Data::Role::Name' => { name_table => 'work_name' };
 with 'MusicBrainz::Server::Data::RatingRole' => { type => 'work' };
 with 'MusicBrainz::Server::Data::TagRole' => { type => 'work' };
+with 'MusicBrainz::Server::Data::Editable' => { table => 'work' };
 
 sub _table
 {
@@ -78,12 +79,11 @@ sub insert
 
 sub update
 {
-    my ($self, $work, $update) = @_;
+    my ($self, $work_id, $update) = @_;
     my $sql = Sql->new($self->c->mb->dbh);
     my %names = $self->find_or_insert_names($update->{name});
     my $row = $self->_hash_to_row($update, \%names);
-    $sql->Update('work', $row, { id => $work->id });
-    return $work;
+    $sql->Update('work', $row, { id => $work_id });
 }
 
 sub delete
@@ -104,9 +104,9 @@ sub _hash_to_row
     my ($self, $work, $names) = @_;
     my %row = (
         artist_credit => $work->{artist_credit},
-        type => $work->{type},
         iswc => $work->{iswc},
         comment => $work->{comment},
+        type => $work->{type_id},
     );
 
     if ($work->{name}) {

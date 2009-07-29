@@ -71,7 +71,7 @@ $raw_sql->Begin;
 $work = $work_data->insert({
         name => 'Traits',
         artist_credit => 1,
-        type => 1,
+        type_id => 1,
         iswc => 'T-000.000.001-0',
         comment => 'Drum & bass track',
     });
@@ -86,7 +86,7 @@ is($work->iswc, 'T-000.000.001-0');
 is($work->type_id, 1);
 ok(defined $work->gid);
 
-$work_data->update($work, {
+$work_data->update($work->id, {
         name => 'Traits (remix)',
         iswc => 'T-100.000.001-0',
     });

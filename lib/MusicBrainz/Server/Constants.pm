@@ -48,6 +48,8 @@ Readonly our $EDIT_RELEASEGROUP_EDIT => 21;
 
 Readonly our $EDIT_RELEASE_EDIT => 32;
 
+Readonly our $EDIT_WORK_EDIT => 42;
+
 Readonly our $EDIT_MEDIUM_EDIT => 52;
 
 =head1 NAME
