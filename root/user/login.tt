@@ -1,10 +1,19 @@
-[% WRAPPER "layout.tt" title=l("Log In") %]
+[% WRAPPER "layout.tt" title=l("Log In") full_width=1 %]
     <h1>[% l("Log In") %]</h1>
 
     [%- USE r = FormRenderer(login_form) -%]
     <p>
         [% l('Please log in using the form below. Note that the password field <em>is</em> case sensitive.') %]
     </p>
+    [% IF server_details.staging_server %]
+    <p>
+        [% l('If you have trouble logging in, please note that since this
+is a {server} server, the passwords
+may have been reset to "mb". If you still cannot login, try
+to clear the cookies for musicbrainz.org, and/or clearing
+the browser cache.', { server => server_details.staging_server }) %]
+    </p>
+    [% END %]
     <form action="[% c.req.uri_with({ uri => redirect }) %]" method="post">
         [% IF login_form.has_errors || bad_login -%]
             <p><strong>[% l('Incorrect username or password') %]</strong></p>

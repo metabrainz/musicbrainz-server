@@ -40,11 +40,6 @@ sub index : Path Args(0)
 {
     my ($self, $c) = @_;
 
-    $c->stash->{server_details} = {
-        is_slave_db    => &DBDefs::REPLICATION_TYPE == RT_SLAVE,
-        staging_server => &DBDefs::DB_STAGING_SERVER,
-    };
-
     # Load the blog for the sidebar
     #
     $c->stash->{blog} = $c->model('Feeds')->get($c, 'musicbrainz',
@@ -132,6 +127,11 @@ sub end : ActionClass('RenderView')
     my $simpleSearch = MusicBrainz::Server::Form::Search::Search->new;
     $simpleSearch->field('type')->value($c->session->{last_simple_search} || 'artist');
     $c->stash->{sidebar_search} = $simpleSearch;
+
+    $c->stash->{server_details} = {
+        is_slave_db    => &DBDefs::REPLICATION_TYPE == RT_SLAVE,
+        staging_server => &DBDefs::DB_STAGING_SERVER,
+    };
 
     # Determine which server version to display. If the DBDefs string is empty
     # attempt to display the current subversion revision
