@@ -32,7 +32,7 @@ sub _column_mapping
         accepted_edits          => 'editsaccepted',
         rejected_edits          => 'editsrejected',
         failed_edits            => 'editsfailed',
-        auto_edits              => 'autoeditsaccepted',
+        accepted_auto_edits     => 'autoeditsaccepted',
         email_confirmation_date => 'emailconfirmdate',
         registration_date       => 'membersince',
         last_login_date         => 'lastlogindate',

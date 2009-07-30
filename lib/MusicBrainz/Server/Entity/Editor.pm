@@ -91,7 +91,7 @@ has [qw( biography website )] => (
     isa => 'Str',
 );
 
-has [qw( accepted_edits rejected_edits failed_edits auto_edits )] => (
+has [qw( accepted_edits rejected_edits failed_edits accepted_auto_edits )] => (
     is  => 'rw',
     isa => 'Int',
 );

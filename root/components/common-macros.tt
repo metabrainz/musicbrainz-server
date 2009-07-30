@@ -190,3 +190,11 @@ END -%]
     </span>
 </span>
 [%- END -%]
+
+[%- MACRO piped_link_list(list) BLOCK -%]
+[
+[% FOR item IN list %]
+  <a href="[% item.link %]">[% item.text %]</a> [% UNLESS loop.last %] | [% END %]
+[% END %]
+]
+[%- END -%]

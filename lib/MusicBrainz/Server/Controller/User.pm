@@ -354,7 +354,7 @@ sub profile : Local Args(1)
 {
     my ($self, $c, $user_name) = @_;
 
-    my $user = $c->model('User')->load({ username => $user_name });
+    my $user = $c->model('Editor')->get_by_name($user_name);
 
     $c->detach('/error_404')
         if (!defined $user);
@@ -364,41 +364,43 @@ sub profile : Local Args(1)
         $c->stash->{viewing_own_profile} = 1;
     }
 
-    my $vote = MusicBrainz::Server::Vote->new($c->mb->dbh);
-    my $all_votes = $vote->AllVotesForUser_as_hashref($user->id);
-    my $recent_votes = $vote->RecentVotesForUser_as_hashref($user->id);
+#    my $vote = MusicBrainz::Server::Vote->new($c->mb->dbh);
+#    my $all_votes = $vote->AllVotesForUser_as_hashref($user->id);
+#    my $recent_votes = $vote->RecentVotesForUser_as_hashref($user->id);
 
-    for ($all_votes, $recent_votes)
-    {
-        my $t = 0;
-        $t += $_ for values %$_;
-        $_->{"TOTAL"} = $t;
-    }
+#    for ($all_votes, $recent_votes)
+#    {
+#        my $t = 0;
+#        $t += $_ for values %$_;
+#        $_->{"TOTAL"} = $t;
+#    }
 
-    $c->stash->{votes}= [];
-    for my $v (
-        [ "yes", &ModDefs::VOTE_YES ],
-        [ "no", &ModDefs::VOTE_NO ],
-        [ "abstain", &ModDefs::VOTE_ABS ],
-        [ "total", "TOTAL" ] 
-    ) {
-        my $recent = $recent_votes->{$v->[1]};
-        my $all    = $all_votes->{$v->[1]};
+#    $c->stash->{votes}= [];
+#    for my $v (
+#        [ "yes", &ModDefs::VOTE_YES ],
+#        [ "no", &ModDefs::VOTE_NO ],
+#        [ "abstain", &ModDefs::VOTE_ABS ],
+#        [ "total", "TOTAL" ] 
+#    ) {
+#        my $recent = $recent_votes->{$v->[1]};
+#        my $all    = $all_votes->{$v->[1]};
+#
+#        push @{ $c->stash->{votes} }, {
+#            name    => $v->[0],
+#            recent  => $recent || 0,
+#            overall => $all    || 0,
+#
+#            recent_pc  => int(($recent / ($recent_votes->{TOTAL} || 1)) * 100 + 0.5),
+#            overall_pc => int(($all / ($all_votes->{TOTAL} || 1)) * 100 + 0.5),
+#        };
+#    }
 
-        push @{ $c->stash->{votes} }, {
-            name    => $v->[0],
-            recent  => $recent || 0,
-            overall => $all    || 0,
-            
-            recent_pc  => int(($recent / ($recent_votes->{TOTAL} || 1)) * 100 + 0.5),
-            overall_pc => int(($all / ($all_votes->{TOTAL} || 1)) * 100 + 0.5),
-        };
-    }
+#    $c->stash->{preferences} = $c->model('User')->get_preferences_hash($user);
 
-    $c->stash->{preferences} = $c->model('User')->get_preferences_hash($user);
-
-    $c->stash->{user    } = $user;
-    $c->stash->{template} = 'user/profile.tt';
+    $c->stash(
+        user     => $user,
+        template => 'user/profile.tt',
+    );
 }
 
 =head2 contact
