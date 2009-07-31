@@ -169,6 +169,17 @@ SELECT nextval('release_id_seq') AS id, id AS album
     FROM public.album a
     WHERE NOT EXISTS (SELECT id FROM public.release r WHERE r.album=a.id);
 
+CREATE TABLE tmp_release_album
+(
+    album   INTEGER,
+    release INTEGER
+);
+
+INSERT INTO tmp_release_album
+    SELECT album, id FROM public.release;
+INSERT INTO tmp_release_album
+    SELECT album, id FROM tmp_new_release;
+
 INSERT INTO release
     (id, gid, release_group, name, artist_credit, status, language, script)
     SELECT
