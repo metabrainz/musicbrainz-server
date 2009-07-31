@@ -23,7 +23,7 @@ is($editor->privileges, 1, 'privileges');
 is($editor->accepted_edits, 12, 'accepted edits');
 is($editor->rejected_edits, 2, 'rejected edits');
 is($editor->failed_edits, 9, 'failed edits');
-is($editor->auto_edits, 59, 'auto edits');
+is($editor->accepted_auto_edits, 59, 'auto edits');
 
 is_deeply($editor->last_login_date, DateTime->new(year => 2009, month => 01, day => 01),
     'last login date');

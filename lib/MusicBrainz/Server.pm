@@ -127,15 +127,33 @@ __PACKAGE__->config->{session}{cookie_expires} = &DBDefs::WEB_SESSION_SECONDS_TO
 # Start the application
 __PACKAGE__->setup(@args);
 
+sub _setup_cache_manager
+{
+    my $self = shift;
+
+    return if defined $self->{_mb_cache_manager};
+
+    my $opts = &DBDefs::CACHE_MANAGER_OPTIONS;
+    if (&DBDefs::_RUNNING_TESTS) {
+        $opts = {
+            profiles => {
+                null => {
+                    class => 'Cache::Null',
+                    wrapped => 1,
+                },
+            },
+            default_profile => 'null',
+        };
+    }
+
+    $self->{_mb_cache_manager} = MusicBrainz::Server::CacheManager->new($opts);
+}
+
 sub dispatch
 {
     my $self = shift;
 
-    unless (defined $self->{_mb_cache_manager}) {
-        $self->{_mb_cache_manager} =
-            MusicBrainz::Server::CacheManager->new(
-                &DBDefs::CACHE_MANAGER_OPTIONS);
-    }
+    $self->_setup_cache_manager();
 
     $self->{_mb_context} = MusicBrainz::Server::Context->new(
         cache_manager => $self->{_mb_cache_manager});

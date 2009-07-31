@@ -32,6 +32,10 @@ role {
     around 'get_by_gid' => sub
     {
         my ($orig, $self, $gid) = @_;
+
+        return undef
+            unless defined $gid;
+
         my $key = $self->_id_cache_prefix . ':' . $gid;
         my $cache = $self->c->cache($self->_id_cache_prefix);
         my $id = $cache->get($key);
