@@ -458,9 +458,9 @@ foreach my $orig_t0 (@entity_types) {
 
                 }
                 if (@new_links) {
-                    foreach my $r (@new_links) {
-                        printf STDERR "      %d -> %d\n", $r->[0], $r->[1];
-                    }
+                    #foreach my $r (@new_links) {
+                        #printf STDERR "      %d -> %d\n", $r->[0], $r->[1];
+                    #}
                     $m_clean += 1;
                 #        printf STDERR "      CLEAN MATCH\n";
                 }
