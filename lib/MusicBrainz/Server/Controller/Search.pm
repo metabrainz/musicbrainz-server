@@ -40,7 +40,7 @@ sub direct : Private
        $c->model('DirectSearch')->search($type, $query, shift, shift);
     });
 
-    if ($type =~ /(recording|work|release_group)/)
+    if ($type =~ /(recording|work|release|release_group)/)
     {
         $c->model('ArtistCredit')->load(map { $_->entity } @$results);
     }

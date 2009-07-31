@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 use strict;
-use Test::More tests => 31;
+use Test::More tests => 33;
 
 BEGIN {
     use MusicBrainz::Server::Context;
@@ -36,12 +36,14 @@ $mech->get_ok('/search?query=Sunset&type=recording&direct=on', 'perform recordin
 $mech->content_contains('1 result', 'has result count');
 $mech->content_contains('Sunset', 'has correct search result');
 $mech->content_contains('/recording/33137503-0ebf-4b6b-a7ce-cc71df5865df', 'has link to recording');
+$mech->content_contains('/artist/4b585938-f271-45e2-b19a-91c634b5e396', 'has link to artist');
 
 $mech->get_ok('/search?query=Aerial&type=release&direct=on', 'perform release search');
 $mech->content_contains('2 results', 'has result count');
 $mech->content_contains('Aerial', 'has correct search result');
 $mech->content_contains('/release/f205627f-b70a-409d-adbe-66289b614e80', 'has link to release');
 $mech->content_contains('/release/9b3d9383-3d2a-417f-bfbb-56f7c15f075b', 'has link to release');
+$mech->content_contains('/artist/4b585938-f271-45e2-b19a-91c634b5e396', 'has link to artist');
 
 $mech->get_ok('/search?query=Arrival&type=release_group&direct=on', 'perform release group search');
 $mech->content_contains('1 result', 'has result count');

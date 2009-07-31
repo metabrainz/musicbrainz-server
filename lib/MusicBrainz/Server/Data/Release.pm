@@ -22,9 +22,9 @@ sub _table
 
 sub _columns
 {
-    return 'release.id, gid, name.name, release.artist_credit, release_group,
-            status, packaging, date_year, date_month, date_day, country,
-            comment, editpending, barcode, script, language';
+    return 'release.id, gid, name.name, release.artist_credit AS artist_credit_id,
+            release_group, status, packaging, date_year, date_month, date_day,
+            country, comment, editpending, barcode, script, language';
 }
 
 sub _id_column
@@ -43,7 +43,7 @@ sub _column_mapping
         id => 'id',
         gid => 'gid',
         name => 'name',
-        artist_credit_id => 'artist_credit',
+        artist_credit_id => 'artist_credit_id',
         release_group_id => 'release_group',
         status_id => 'status',
         packaging_id => 'packaging',
