@@ -189,6 +189,11 @@ sub has_multiple_artists
     return 0;
 }
 
+has [qw( cover_art_url info_url amazon_asin amazon_store )] => (
+    is => 'rw',
+    isa => 'Str',
+);
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
