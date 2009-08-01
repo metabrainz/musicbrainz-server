@@ -6,6 +6,7 @@
     [%- IF show_artists -%]
         <td>[% artist_credit(track.artist_credit) %]</td>
     [%- END -%]
+    <td class="c">[% rating_stars(recording) %]</td>
     <td>[% recording.length | format_time %]</td>
 </tr>
 [%- END -%]

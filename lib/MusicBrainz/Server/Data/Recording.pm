@@ -61,7 +61,7 @@ sub find_by_artist
 sub load
 {
     my ($self, @objs) = @_;
-    load_subobjects($self, 'recording', @objs);
+    return load_subobjects($self, 'recording', @objs);
 }
 
 sub insert

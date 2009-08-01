@@ -6,6 +6,11 @@ has 'rating' => (
     isa => 'Int'
 );
 
+has 'user_rating' => (
+    is => 'rw',
+    isa => 'Int'
+);
+
 has 'rating_count' => (
     is => 'rw',
     isa => 'Int'

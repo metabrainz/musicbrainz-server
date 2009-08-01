@@ -42,6 +42,9 @@ after 'load' => sub
 
     my $recording = $c->stash->{recording};
     $c->model('Recording')->load_meta($recording);
+    if ($c->user_exists) {
+        $c->model('Recording')->rating->load_user_ratings($c->user->id, $recording);
+    }
 };
 
 =head2 relations

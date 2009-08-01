@@ -12,7 +12,7 @@ use MusicBrainz::Server::Data::Recording;
 use MusicBrainz::Server::Data::ReleaseGroup;
 use MusicBrainz::Server::Data::URL;
 use MusicBrainz::Server::Data::Work;
-use MusicBrainz::Server::Data::Utils qw( placeholders );
+use MusicBrainz::Server::Data::Utils qw( placeholders type_to_model );
 
 extends 'MusicBrainz::Server::Data::Entity';
 
@@ -34,16 +34,6 @@ Readonly my %ENTITY_CLASS_TO_TYPE => (
     'MusicBrainz::Server::Entity::ReleaseGroup' => 'release_group',
     'MusicBrainz::Server::Entity::URL'          => 'url',
     'MusicBrainz::Server::Entity::Work'         => 'work',
-);
-
-Readonly my %TYPE_TO_MODEL => (
-    'artist'        => 'Artist',
-    'label'         => 'Label',
-    'recording'     => 'Recording',
-    'release'       => 'Release',
-    'release_group' => 'ReleaseGroup',
-    'url'           => 'URL',
-    'work'          => 'Work',
 );
 
 sub _new_from_row
@@ -137,7 +127,7 @@ sub load_entities
     foreach my $type (keys %ids_by_type) {
         my @ids = @{$ids_by_type{$type}};
         $data_by_type{$type} =
-            $self->c->model($TYPE_TO_MODEL{$type})->get_by_ids(@ids);
+            $self->c->model(type_to_model($type))->get_by_ids(@ids);
     }
     foreach my $rel (@rels) {
         if ($rel->entity0_id && !defined($rel->entity0)) {

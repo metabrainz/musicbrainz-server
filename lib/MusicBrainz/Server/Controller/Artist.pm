@@ -76,6 +76,9 @@ after 'load' => sub
     }
 
     $c->model('Artist')->load_meta($artist);
+    if ($c->user_exists) {
+        $c->model('Artist')->rating->load_user_ratings($c->user->id, $artist);
+    }
     $c->model('ArtistType')->load($artist);
     $c->model('Gender')->load($artist);
     $c->model('Country')->load($artist);
@@ -203,6 +206,9 @@ sub show : PathPart('') Chained('load')
         $release_groups = $self->_load_paged($c, sub {
                 $c->model('ReleaseGroup')->find_by_artist($c->stash->{artist}->id, shift, shift);
             });
+        if ($c->user_exists) {
+            $c->model('ReleaseGroup')->rating->load_user_ratings($c->user->id, @$release_groups);
+        }
 
         $c->stash( template => 'artist/index.tt' );
     }

@@ -6,6 +6,7 @@ use List::MoreUtils qw( zip );
 use MusicBrainz::Server::Entity::PartialDate;
 use OSSP::uuid;
 use Sql;
+use Readonly;
 use UNIVERSAL::require;
 
 our @EXPORT_OK = qw(
@@ -21,6 +22,17 @@ our @EXPORT_OK = qw(
     placeholders
     query_to_list
     query_to_list_limited
+    type_to_model
+);
+
+Readonly my %TYPE_TO_MODEL => (
+    'artist'        => 'Artist',
+    'label'         => 'Label',
+    'recording'     => 'Recording',
+    'release'       => 'Release',
+    'release_group' => 'ReleaseGroup',
+    'url'           => 'URL',
+    'work'          => 'Work',
 );
 
 sub artist_credit_to_ref
@@ -42,8 +54,9 @@ sub load_subobjects
     my $attr_id = $attr_obj . "_id";
     my %ids = map { ($_->meta->get_attribute($attr_id)->get_value($_) || "") => 1 } @objs;
     my @ids = grep { $_ } keys %ids;
+    my $data;
     if (@ids) {
-        my $data = $data_access->get_by_ids(@ids);
+        $data = $data_access->get_by_ids(@ids);
         foreach my $obj (@objs) {
             my $id = $obj->meta->get_attribute($attr_id)->get_value($obj);
             if (defined $id && exists $data->{$id}) {
@@ -51,6 +64,7 @@ sub load_subobjects
             }
         }
     }
+    return defined $data ? values %{$data} : ();
 }
 
 sub load_meta
@@ -158,6 +172,11 @@ sub defined_hash
 {
     my %hash = @_;
     return map { $_ => $hash{$_} } grep { defined $hash{$_} } keys %hash;
+}
+
+sub type_to_model
+{
+    return $TYPE_TO_MODEL{$_[0]} || undef;
 }
 
 1;

@@ -328,6 +328,72 @@ sub AutoTransaction
 	($w ? @r : $r);
 }
 
+sub _RunInTransaction_one
+{
+    my ($sub, $sql) = @_;
+
+    my ($r, @r);
+    my $w = wantarray;
+
+    $sql->Begin;
+    eval {
+
+        @r = &$sub() if $w;
+        $r = &$sub() if defined $w and not $w;
+        &$sub() if not defined $w;
+
+        $sql->Commit;
+    };
+    if ($@) {
+        my $e = $@;
+        eval { $sql->Rollback };
+        die $e;
+    }
+
+    return ($w ? @r : $r);
+}
+
+sub _RunInTransaction_two
+{
+    my ($sub, $sql_1, $sql_2) = @_;
+
+    my ($r, @r);
+    my $w = wantarray;
+
+    $sql_1->Begin;
+    $sql_2->Begin;
+    eval {
+
+        @r = &$sub() if $w;
+        $r = &$sub() if defined $w and not $w;
+        &$sub() if not defined $w;
+
+        # XXX use two-phase commit
+        $sql_1->Commit;
+        $sql_2->Commit;
+    };
+    if ($@) {
+        my $e = $@;
+        eval { $sql_1->Rollback };
+        eval { $sql_2->Rollback };
+        die $e;
+    }
+
+    return ($w ? @r : $r);
+}
+
+sub RunInTransaction
+{
+    my ($sub, $sql_1, $sql_2) = @_;
+
+    if (!defined $sql_2 || $sql_1 == $sql_2) {
+        return _RunInTransaction_one($sub, $sql_1);
+    }
+    else {
+        return _RunInTransaction_two($sub, $sql_1, $sql_2);
+    }
+}
+
 # Given an error message possibly thrown by DBI, does it represent a query
 # timeout?
 sub is_timeout

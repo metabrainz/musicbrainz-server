@@ -31,6 +31,29 @@ sub find_by_entity_id
     }, $query, $id);
 }
 
+sub load_user_ratings
+{
+    my ($self, $user_id, @objs) = @_;
+
+    my %id_to_obj = map { $_->id => $_ } @objs;
+    my @ids = keys %id_to_obj;
+    return unless @ids;
+
+    my $type = $self->type;
+    my $query = "
+        SELECT $type AS id, rating FROM ${type}_rating_raw
+        WHERE editor = ? AND $type IN (".placeholders(@ids).")";
+
+    my $sql = Sql->new($self->c->raw_dbh);
+    $sql->Select($query, $user_id, @ids);
+    while (1) {
+        my $row = $sql->NextRowHashRef or last;
+        my $obj = $id_to_obj{$row->{id}};
+        $obj->user_rating($row->{rating});
+    }
+    $sql->Finish;
+}
+
 sub delete
 {
     my ($self, @entity_ids) = @_;
@@ -40,6 +63,60 @@ sub delete
         WHERE " . $self->type . " IN (" . placeholders(@entity_ids) . ")",
         @entity_ids);
     return 1;
+}
+
+sub update
+{
+    my ($self, $user_id, $entity_id, $rating) = @_;
+
+    my ($rating_count, $rating_sum, $rating_avg);
+
+    my $sql = Sql->new($self->c->dbh);
+    my $raw_sql = Sql->new($self->c->raw_dbh);
+    Sql::RunInTransaction(sub {
+
+        my $type = $self->type;
+        my $table = $type . '_meta';
+        my $table_raw = $type . '_rating_raw';
+
+        # Check if user has already rated this entity
+        my $whetherrated = $raw_sql->SelectSingleValue("
+            SELECT rating FROM $table_raw
+            WHERE $type = ? AND editor = ?", $entity_id, $user_id);
+        if (defined $whetherrated) {
+            # Already rated - so update
+            if ($rating) {
+                $raw_sql->Do("UPDATE $table_raw SET rating = ?
+                              WHERE $type = ? AND editor = ?",
+                              $rating, $entity_id, $user_id);
+            }
+            else {
+                $raw_sql->Do("DELETE FROM $table_raw
+                              WHERE $type = ? AND editor = ?",
+                              $entity_id, $user_id);
+            }
+        }
+        elsif ($rating) {
+            # Not rated - so insert raw rating value, unless rating = 0
+            $raw_sql->Do("INSERT INTO $table_raw (rating, $type, editor)
+                          VALUES (?, ?, ?)", $rating, $entity_id, $user_id);
+        }
+
+        # Update the aggregate rating
+        my $row = $raw_sql->SelectSingleRowArray("
+            SELECT count(rating), sum(rating)
+            FROM $table_raw WHERE $type = ?
+            GROUP BY $type", $entity_id);
+
+        ($rating_count, $rating_sum) = defined $row ? @$row : (undef, undef);
+
+        $rating_avg = ($rating_count ? int($rating_sum / $rating_count + 0.5) : undef);
+        $sql->Do("UPDATE $table SET ratingcount = ?, rating = ?
+                  WHERE id = ?", $rating_count, $rating_avg, $entity_id);
+
+    }, $sql, $raw_sql);
+
+    return ($rating_avg, $rating_count);
 }
 
 no Moose;
@@ -56,9 +133,17 @@ MusicBrainz::Server::Data::Rating
 
 Delete ratings from the RAWDATA database for entities from @entity_ids.
 
+=head2 update($user_id, $entity_id, $rating)
+
+Update rating for entity $entity_id by editor $user_id to $rating.
+
+Note: this function starts it's own DB transaction.
+
 =head1 COPYRIGHT
 
 Copyright (C) 2009 Lukas Lalinsky
+Copyright (C) 2008 Aurelien Mino
+Copyright (C) 2007 Sharon Myrtle Paradesi
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

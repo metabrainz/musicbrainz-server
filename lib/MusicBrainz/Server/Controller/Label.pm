@@ -46,13 +46,18 @@ sub base : Chained('/') PathPart('label') CaptureArgs(0) { }
 after 'load' => sub
 {
     my ($self, $c) = @_;
-    
-    if ($c->stash->{label}->id == $DLABEL_ID)
+
+    my $label = $c->stash->{label};
+    if ($label->id == $DLABEL_ID)
     {
         $c->detach('/error_404');
     }
 
-	$c->model('LabelType')->load($c->stash->{label});
+    $c->model('Label')->load_meta($label);
+    if ($c->user_exists) {
+        $c->model('Label')->rating->load_user_ratings($c->user->id, $label);
+    }
+    $c->model('LabelType')->load($label);
 };
 
 =head2 perma

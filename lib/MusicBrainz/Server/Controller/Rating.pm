@@ -10,6 +10,7 @@ use MusicBrainz::Server::Label;
 use MusicBrainz::Server::Release;
 use MusicBrainz::Server::Tag;
 use MusicBrainz::Server::Track;
+use MusicBrainz::Server::Data::Utils qw( type_to_model );
 
 =head1 NAME
 
@@ -92,30 +93,29 @@ sub display : Path('display') Args(2)
     $c->stash->{template}              = 'rating/display.tt';
 }
 
-sub rate : Path('rate') Args(3) 
+sub rate : Local RequireAuth
 {
-    my ($self, $c, $entity_type, $entity_id, $new_vote) = @_;
+    my ($self, $c, $type) = @_;
 
-    $c->forward('/user/login');
-    $c->forward('/rating/do_rating');
+    my $entity_type = $c->request->params->{entity_type};
+    my $entity_id = $c->request->params->{entity_id};
+    my $rating = $c->request->params->{rating};
 
-    if (defined $c->request->param('JSON')) 
-    {
+    my $model = $c->model(type_to_model($entity_type));
+    my @result = $model->rating->update($c->user->id, $entity_id, $rating);
+
+    if ($c->request->params->{json}) {
         $c->stash->{json} = {
-            "entitytype"     => $entity_type,
-            "entityid"       => $entity_id,
-            "average_rating" => $c->stash->{average_rating},
-            "rating_count"   => $c->stash->{rating_count},
-            "userid"         => $c->user->id,
-            "user_rating"    => $new_vote,
+            rating         => $rating,
+            rating_average => $result[0],
+            rating_count   => $result[1],
         };
+        $c->detach('View::JSON');
+    }
 
-        $c->detach($c->view('JSON'));
-    }
-    else 
-    {
-        $c->detach('display', [ $c->user->id, 'all' ]);
-    }
+    my $redirect = $c->request->referer || $c->uri_for("/");
+    $c->response->redirect($redirect);
+    $c->detach;
 }
 
 sub do_rating : Private

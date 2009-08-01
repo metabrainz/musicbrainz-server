@@ -21,6 +21,9 @@ after 'load' => sub
 
     my $work = $c->stash->{work};
     $c->model('Work')->load_meta($work);
+    if ($c->user_exists) {
+        $c->model('Work')->rating->load_user_ratings($c->user->id, $work);
+    }
 };
 
 sub show : PathPart('') Chained('load')

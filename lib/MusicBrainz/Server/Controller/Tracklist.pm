@@ -19,7 +19,11 @@ sub show : Chained('tracklist') PathPart('')
 
     my $tracklist = $c->stash->{tracklist};
     $c->model('Track')->load($tracklist);
-    $c->model('Recording')->load(@{ $tracklist->tracks });
+    my @recordings = $c->model('Recording')->load($tracklist->all_tracks);
+    $c->model('Recording')->load_meta(@recordings);
+    if ($c->user_exists) {
+        $c->model('Recording')->rating->load_user_ratings($c->user->id, @recordings);
+    }
 
     my $release_media = $self->_load_paged($c, sub {
             $c->model('Medium')->find_by_tracklist($tracklist->id, shift, shift);

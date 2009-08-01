@@ -13,6 +13,7 @@
             [%- IF show_artists -%]
                 <th>[% l('Artist') %]</th>
             [%- END -%]
+            <th class="rating c">[% l('Rating') %]</th>
             <th class="treleases">[% l('Length') %]</th>
         </tr>
     </thead>

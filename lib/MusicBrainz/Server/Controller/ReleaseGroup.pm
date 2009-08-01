@@ -25,6 +25,9 @@ after 'load' => sub
 
     my $rg = $c->stash->{rg};
     $c->model('ReleaseGroup')->load_meta($rg);
+    if ($c->user_exists) {
+        $c->model('ReleaseGroup')->rating->load_user_ratings($c->user->id, $rg);
+    }
     $c->model('ReleaseGroupType')->load($rg);
     $c->model('ArtistCredit')->load($rg);
 };
