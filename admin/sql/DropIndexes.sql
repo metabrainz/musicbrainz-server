@@ -12,6 +12,7 @@ DROP INDEX artist_tag_idx_tag;
 DROP INDEX country_idx_isocode;
 DROP INDEX currentstat_name;
 DROP INDEX dbmirror_Pending_XID_Index;
+DROP INDEX editor_collection_idx_editor;
 DROP INDEX editor_idx_name;
 DROP INDEX historicalstat_date;
 DROP INDEX historicalstat_name_snapshotdate;

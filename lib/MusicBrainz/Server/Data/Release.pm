@@ -90,6 +90,21 @@ sub find_by_release_group
         $query, $release_group_id, $offset || 0);
 }
 
+sub find_by_collection
+{
+    my ($self, $collection_id, $limit, $offset) = @_;
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                    JOIN editor_collection_release c
+                        ON release.id = c.release
+                 WHERE c.collection = ?
+                 ORDER BY date_year, date_month, date_day, name.name
+                 OFFSET ?";
+    return query_to_list_limited(
+        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $query, $collection_id, $offset || 0);
+}
+
 sub insert
 {
     my ($self, @releases) = @_;

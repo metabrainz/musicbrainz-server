@@ -33,6 +33,7 @@
             { link => c.uri_for("/review/$user.name/edits/cancelled"), text => l("Cancelled Edits") },
             { link => c.uri_for("/user/subscriptions/$user.name"), text => l("Subscriptions"), hide => !user.preferences.get('subscriptions_public') },
             { link => c.uri_for("/rating/display/$user.id/all"), text => l("Ratings") },
+            { link => c.uri_for_action("/user/collection/view", user.name), text => l("Collection") },
         ] %]
         [% piped_link_list(editing_options) WRAPPER property name=l("Editing") %]
 

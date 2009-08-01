@@ -19,6 +19,8 @@ ALTER TABLE currentstat DROP CONSTRAINT currentstat_pkey;
 ALTER TABLE dbmirror_Pending DROP CONSTRAINT dbmirror_Pending_pkey;
 ALTER TABLE dbmirror_PendingData DROP CONSTRAINT dbmirror_PendingData_pkey;
 ALTER TABLE editor DROP CONSTRAINT editor_pkey;
+ALTER TABLE editor_collection DROP CONSTRAINT editor_collection_pkey;
+ALTER TABLE editor_collection_release DROP CONSTRAINT editor_collection_release_pkey;
 ALTER TABLE editor_preference DROP CONSTRAINT editor_preference_pkey;
 ALTER TABLE editor_subscribe_artist DROP CONSTRAINT editor_subscribe_artist_pkey;
 ALTER TABLE editor_subscribe_editor DROP CONSTRAINT editor_subscribe_editor_pkey;

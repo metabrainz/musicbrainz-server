@@ -13,6 +13,7 @@ SELECT setval('editor_preference_id_seq', (SELECT MAX(id) FROM editor_preference
 SELECT setval('editor_subscribe_artist_id_seq', (SELECT MAX(id) FROM editor_subscribe_artist));
 SELECT setval('editor_subscribe_label_id_seq', (SELECT MAX(id) FROM editor_subscribe_label));
 SELECT setval('editor_subscribe_editor_id_seq', (SELECT MAX(id) FROM editor_subscribe_editor));
+SELECT setval('editor_collection_id_seq', (SELECT MAX(id) FROM editor_collection));
 SELECT setval('cdtoc_id_seq', (SELECT MAX(id) FROM cdtoc));
 SELECT setval('clientversion_id_seq', (SELECT MAX(id) FROM clientversion));
 SELECT setval('country_id_seq', (SELECT MAX(id) FROM country));

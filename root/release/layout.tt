@@ -59,6 +59,18 @@
         </a>
     </p>
 
+    [% IF c.user_exists %]
+    <p>
+        [% IF in_collection %]
+        [ <a href="[% c.uri_for_action("/user/collection/remove", { id => release.id }) %]">
+            [%- l('Remove from collection') %]</a> ]
+        [% ELSE %]
+        [ <a href="[% c.uri_for_action("/user/collection/add", { id => release.id }) %]">
+            [%- l('Add to collection') %]</a> ]
+        [% END %]
+    </p>
+    [% END %]
+
     [%- INCLUDE "components/sidebar-lastupdate.tt" entity=release -%]
 
 </div>

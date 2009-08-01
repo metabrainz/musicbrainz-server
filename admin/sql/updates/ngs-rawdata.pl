@@ -148,6 +148,7 @@ while (1) {
     last if !$new_user_id;
     push @user_data, [ @$row ];
 }
+%rg_map = ();
 
 print " * Converting average ratings\n";
 $sql->Do("CREATE UNIQUE INDEX tmp_release_group_meta_idx ON release_group_meta (id)");
@@ -169,6 +170,41 @@ print " * Converting CD stubs\n";
 $raw_sql->Do("INSERT INTO cdtoc_raw SELECT * FROM public.cdtoc_raw");
 $raw_sql->Do("INSERT INTO release_raw SELECT * FROM public.release_raw");
 $raw_sql->Do("INSERT INTO track_raw SELECT * FROM public.track_raw");
+
+print " * Loading album->release map\n";
+
+$sql->Select("
+    SELECT a.id, r.id AS release
+    FROM release r
+        JOIN public.album a ON a.gid::uuid = r.gid
+");
+my %release_map;
+while (1) {
+    my $row = $sql->NextRowRef or last;
+    $release_map{ $row->[0] } = $row->[1];
+}
+$sql->Finish;
+
+print " * Converting collections\n";
+
+$raw_sql->Select("SELECT id, moderator FROM public.collection_info");
+while (1) {
+    my $row = $raw_sql->NextRowRef or last;
+    my ($id, $editor_id) = @$row;
+    $sql->Do("INSERT INTO editor_collection (id, editor) VALUES (?, ?)",
+             $id, $editor_id);
+}
+$raw_sql->Finish;
+
+$raw_sql->Select("SELECT collection_info, album
+                  FROM public.collection_has_release_join");
+while (1) {
+    my $row = $raw_sql->NextRowRef or last;
+    my ($collection_id, $album_id) = @$row;
+    $sql->Do("INSERT INTO editor_collection_release (collection, release)
+              VALUES (?, ?)", $collection_id, $release_map{$album_id});
+}
+$raw_sql->Finish;
 
     $sql->Commit;
     $raw_sql->Commit;

@@ -155,6 +155,18 @@ CREATE TABLE editor_subscribe_editor
     lasteditsent        INTEGER NOT NULL  -- weakly references edit
 );
 
+CREATE TABLE editor_collection
+(
+    id                  SERIAL,
+    editor              INTEGER NOT NULL -- references editor.id
+);
+
+CREATE TABLE editor_collection_release
+(
+    collection          INTEGER NOT NULL, -- PK, references editor_collection.id
+    release             INTEGER NOT NULL -- PK, references release.id
+);
+
 CREATE TABLE cdtoc
 (
     id                  SERIAL,

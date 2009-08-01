@@ -20,6 +20,7 @@ CREATE INDEX currentstat_name ON currentstat (name);
 CREATE INDEX dbmirror_Pending_XID_Index ON dbmirror_Pending (XID);
 
 CREATE UNIQUE INDEX editor_idx_name ON editor (LOWER(name));
+CREATE INDEX editor_collection_idx_editor ON editor_collection (editor);
 
 CREATE INDEX historicalstat_date ON historicalstat (snapshotdate);
 CREATE INDEX historicalstat_name_snapshotdate ON historicalstat (name, snapshotdate);

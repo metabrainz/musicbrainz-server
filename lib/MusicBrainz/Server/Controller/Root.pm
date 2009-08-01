@@ -89,6 +89,17 @@ sub begin : Private
 
     return if exists $c->action->attributes->{Minimal};
 
+    if ($c->user_exists) {
+        if (exists $c->session->{collection}) {
+            $c->stash->{user_collection} = $c->session->{collection};
+        }
+        else {
+            my $id = $c->model('Collection')->find_collection($c->user);
+            $c->stash->{user_collection} = $id;
+            $c->session->{collection} = $id;
+        }
+    }
+
     if (exists $c->action->attributes->{RequireAuth})
     {
         $c->forward('/user/do_login');

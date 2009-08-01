@@ -59,6 +59,16 @@ after 'load' => sub
         $MusicBrainz::Server::Controller::TagRoleTOP_TAGS_COUNT);
     $c->stash->{top_tags} = \@tags;
 
+    # Check user's collection
+    if ($c->user_exists) {
+        my $in_collection = 0;
+        if ($c->stash->{user_collection}) {
+            $in_collection = $c->model('Collection')->check_release(
+                $c->stash->{user_collection}, $release->id);
+        }
+        $c->stash->{in_collection} = $in_collection;
+    }
+
     # We need to load more artist credits in 'show'
     if ($c->action->name ne 'show') {
         $c->model('ArtistCredit')->load($release);

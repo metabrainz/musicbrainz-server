@@ -19,6 +19,8 @@ ALTER TABLE currentstat ADD CONSTRAINT currentstat_pkey PRIMARY KEY (id);
 ALTER TABLE dbmirror_Pending ADD CONSTRAINT dbmirror_Pending_pkey PRIMARY KEY (SeqId);
 ALTER TABLE dbmirror_PendingData ADD CONSTRAINT dbmirror_PendingData_pkey PRIMARY KEY (SeqId, IsKey);
 ALTER TABLE editor ADD CONSTRAINT editor_pkey PRIMARY KEY (id);
+ALTER TABLE editor_collection ADD CONSTRAINT editor_collection_pkey PRIMARY KEY (id);
+ALTER TABLE editor_collection_release ADD CONSTRAINT editor_collection_release_pkey PRIMARY KEY (collection, release);
 ALTER TABLE editor_preference ADD CONSTRAINT editor_preference_pkey PRIMARY KEY (id);
 ALTER TABLE editor_subscribe_artist ADD CONSTRAINT editor_subscribe_artist_pkey PRIMARY KEY (id);
 ALTER TABLE editor_subscribe_editor ADD CONSTRAINT editor_subscribe_editor_pkey PRIMARY KEY (id);
