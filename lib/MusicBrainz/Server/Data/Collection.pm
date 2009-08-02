@@ -2,6 +2,7 @@ package MusicBrainz::Server::Data::Collection;
 
 use Moose;
 use Sql;
+use MusicBrainz::Server::Data::Utils qw( placeholders );
 
 has 'c' => (
     is => 'rw',
@@ -26,7 +27,7 @@ sub find_collection
                                     WHERE editor = ?", $user->id);
 }
 
-sub add_release
+sub add_release_to_collection
 {
     my ($self, $collection_id, $release_id) = @_;
 
@@ -36,7 +37,7 @@ sub add_release
               VALUES (?, ?)", $collection_id, $release_id);
 }
 
-sub remove_release
+sub remove_release_from_collection
 {
     my ($self, $collection_id, $release_id) = @_;
 
@@ -56,6 +57,34 @@ sub check_release
         SELECT 1 FROM editor_collection_release
         WHERE collection = ? AND release = ?",
         $collection_id, $release_id) ? 1 : 0;
+}
+
+sub merge_releases
+{
+    my ($self, $new_id, @old_ids) = @_;
+
+    my $sql = Sql->new($self->c->dbh);
+
+    # Remove duplicate joins (ie, rows with release from @old_ids and pointing to
+    # a collection that already contain $new_id)
+    $sql->Do("DELETE FROM editor_collection_release
+              WHERE release IN (".placeholders(@old_ids).") AND
+                  collection IN (SELECT collection FROM editor_collection_release WHERE release = ?)",
+              @old_ids, $new_id);
+
+    # Move all remaining joins to the new release
+    $sql->Do("UPDATE editor_collection_release SET release = ?
+              WHERE release IN (".placeholders(@old_ids).")",
+              $new_id, @old_ids);
+}
+
+sub delete_releases
+{
+    my ($self, @ids) = @_;
+
+    my $sql = Sql->new($self->c->dbh);
+    $sql->Do("DELETE FROM editor_collection_release
+              WHERE release IN (".placeholders(@ids).")", @ids);
 }
 
 __PACKAGE__->meta->make_immutable;

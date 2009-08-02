@@ -24,9 +24,9 @@ sub create_test_context
     return MusicBrainz::Server::Context->new(cache_manager => $cache_manager);
 }
 
-sub prepare_test_database
+sub _load_query
 {
-    my ($class, $c, $query) = @_;
+    my ($class, $query, $default) = @_;
 
     if (defined $query) {
         if ($query =~ /^\+/) {
@@ -36,9 +36,18 @@ sub prepare_test_database
         }
     }
     else {
-        open(FILE, "<admin/sql/InsertTestData.sql");
+        open(FILE, "<" . $default);
         $query = do { local $/; <FILE> };
     }
+
+    return $query;
+}
+
+sub prepare_test_database
+{
+    my ($class, $c, $query) = @_;
+
+    $query = $class->_load_query($query, "admin/sql/InsertTestData.sql");
 
     my $sql = Sql->new($c->dbh);
     $sql->AutoCommit(1);
@@ -49,10 +58,7 @@ sub prepare_raw_test_database
 {
     my ($class, $c, $query) = @_;
 
-    unless (defined $query) {
-        open(FILE, "<t/sql/clean_raw_db.sql");
-        $query = do { local $/; <FILE> };
-    }
+    $query = $class->_load_query($query, "t/sql/clean_raw_db.sql");
 
     my $sql = Sql->new($c->raw_dbh);
     $sql->AutoCommit(1);

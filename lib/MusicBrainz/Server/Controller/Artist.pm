@@ -17,7 +17,6 @@ __PACKAGE__->config(
 use Data::Page;
 use MusicBrainz::Server::Constants qw( $DARTIST_ID $VARTIST_ID $EDIT_ARTIST_MERGE );
 use MusicBrainz::Server::Adapter qw(Google);
-use MusicBrainz::Server::Rating;
 use ModDefs;
 use UserSubscription;
 

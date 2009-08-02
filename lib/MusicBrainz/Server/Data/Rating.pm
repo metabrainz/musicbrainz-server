@@ -54,6 +54,60 @@ sub load_user_ratings
     $sql->Finish;
 }
 
+sub _update_aggregate_rating
+{
+    my ($self, $entity_id) = @_;
+
+    my $sql = Sql->new($self->c->dbh);
+    my $raw_sql = Sql->new($self->c->raw_dbh);
+
+    my $type = $self->type;
+    my $table = $type . '_meta';
+    my $table_raw = $type . '_rating_raw';
+
+    # Update the aggregate rating
+    my $row = $raw_sql->SelectSingleRowArray("
+        SELECT count(rating), sum(rating)
+        FROM $table_raw WHERE $type = ?
+        GROUP BY $type", $entity_id);
+
+    my ($rating_count, $rating_sum) = defined $row ? @$row : (undef, undef);
+
+    my $rating_avg = ($rating_count ? int($rating_sum / $rating_count + 0.5) : undef);
+    $sql->Do("UPDATE $table SET ratingcount = ?, rating = ?
+              WHERE id = ?", $rating_count, $rating_avg, $entity_id);
+
+    return ($rating_count, $rating_sum);
+}
+
+sub merge
+{
+    my ($self, $new_id, @old_ids) = @_;
+
+    my $raw_sql = Sql->new($self->c->raw_dbh);
+
+    my $type = $self->type;
+    my $table = $type . '_meta';
+    my $table_raw = $type . '_rating_raw';
+
+    # Remove duplicate joins (ie, rows with entities from @old_ids and
+    # tagged by editors that already tagged $new_id)
+    $raw_sql->Do("DELETE FROM $table_raw
+                  WHERE $type IN (".placeholders(@old_ids).") AND
+                      editor IN (SELECT editor FROM $table_raw WHERE $type = ?)",
+                  @old_ids, $new_id);
+
+    # Move all remaining joins to the new entity
+    $raw_sql->Do("UPDATE $table_raw SET $type = ?
+                  WHERE $type IN (".placeholders(@old_ids).")",
+                  $new_id, @old_ids);
+
+    # Update the aggregate rating
+    $self->_update_aggregate_rating($new_id);
+
+    return 1;
+}
+
 sub delete
 {
     my ($self, @entity_ids) = @_;
@@ -103,16 +157,7 @@ sub update
         }
 
         # Update the aggregate rating
-        my $row = $raw_sql->SelectSingleRowArray("
-            SELECT count(rating), sum(rating)
-            FROM $table_raw WHERE $type = ?
-            GROUP BY $type", $entity_id);
-
-        ($rating_count, $rating_sum) = defined $row ? @$row : (undef, undef);
-
-        $rating_avg = ($rating_count ? int($rating_sum / $rating_count + 0.5) : undef);
-        $sql->Do("UPDATE $table SET ratingcount = ?, rating = ?
-                  WHERE id = ?", $rating_count, $rating_avg, $entity_id);
+        ($rating_count, $rating_sum) = $self->_update_aggregate_rating($entity_id);
 
     }, $sql, $raw_sql);
 

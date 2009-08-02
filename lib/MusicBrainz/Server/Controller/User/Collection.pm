@@ -24,7 +24,7 @@ sub add : Local
     my $release_id = $c->request->params->{id};
     my $collection_id = $self->_ensure_collection($c);
 
-    $c->model('Collection')->add_release($collection_id, $release_id);
+    $c->model('Collection')->add_release_to_collection($collection_id, $release_id);
 
     my $redirect = $c->request->referer || $c->uri_for("/");
     $c->response->redirect($redirect);
@@ -38,7 +38,7 @@ sub remove : Local
     my $release_id = $c->request->params->{id};
     my $collection_id = $self->_ensure_collection($c);
 
-    $c->model('Collection')->remove_release($collection_id, $release_id);
+    $c->model('Collection')->remove_release_from_collection($collection_id, $release_id);
 
     my $redirect = $c->request->referer || $c->uri_for("/");
     $c->response->redirect($redirect);

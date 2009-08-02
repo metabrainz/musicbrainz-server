@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 use strict;
 use warnings;
-use Test::More tests => 20;
+use Test::More tests => 25;
 use_ok 'MusicBrainz::Server::Data::Rating';
 
 use Sql;
@@ -97,3 +97,40 @@ $raw_sql->Commit;
 
 @ratings = $rating_data->find_by_entity_id(1);
 is( scalar(@ratings), 0 );
+
+MusicBrainz::Server::Test->prepare_raw_test_database($c, "
+    TRUNCATE artist_rating_raw CASCADE;
+    INSERT INTO artist_rating_raw (artist, editor, rating)
+        VALUES (1, 1, 50), (2, 1, 60), (2, 2, 70), (1, 3, 40), (1, 4, 10);
+");
+
+$sql->Begin;
+$raw_sql->Begin;
+$rating_data->_update_aggregate_rating(1);
+$rating_data->_update_aggregate_rating(2);
+$sql->Commit;
+$raw_sql->Commit;
+
+$artist = MusicBrainz::Server::Entity::Artist->new( id => 1 );
+$artist_data->load_meta($artist);
+is($artist->rating, 33);
+
+$artist = MusicBrainz::Server::Entity::Artist->new( id => 2 );
+$artist_data->load_meta($artist);
+is($artist->rating, 65);
+
+$sql->Begin;
+$raw_sql->Begin;
+$rating_data->merge(1, 2);
+$sql->Commit;
+$raw_sql->Commit;
+
+$artist = MusicBrainz::Server::Entity::Artist->new( id => 1 );
+$artist_data->load_meta($artist);
+is($artist->rating, 43);
+
+$rating_data->load_user_ratings(1, $artist);
+is($artist->user_rating, 50);
+
+$rating_data->load_user_ratings(2, $artist);
+is($artist->user_rating, 70);

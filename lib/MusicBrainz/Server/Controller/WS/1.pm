@@ -8,7 +8,6 @@ use MusicBrainz::Server::Handlers::WS::1::Common;
 use MusicBrainz::Server::Handlers::WS::1::Release;
 use MusicBrainz::Server::Handlers::WS::1::Label;
 use MusicBrainz::Server::Handlers::WS::1::Track;
-use MusicBrainz::Server::Handlers::WS::1::Rating;
 use MusicBrainz::Server::Handlers::WS::1::Collection;
 use MusicBrainz::Server::Handlers::WS::1::Tag;
 use MusicBrainz::Server::Handlers::WS::1::User;

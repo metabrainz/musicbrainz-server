@@ -22,9 +22,10 @@ INSERT INTO tag (id, name) VALUES
 
 INSERT INTO artist_tag (tag, artist, count) VALUES
     (1, 3, 1),
+    (2, 3, 3),
     (1, 4, 5),
     (2, 4, 3),
-    (3, 4, 9),
+    (3, 4, 2),
     (4, 4, 1);
 
 COMMIT;

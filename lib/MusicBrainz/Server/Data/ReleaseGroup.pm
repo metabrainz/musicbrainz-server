@@ -135,6 +135,8 @@ sub merge
     my ($self, $new_id, @old_ids) = @_;
 
     $self->annotation->merge($new_id, @old_ids);
+    $self->tags->merge($new_id, @old_ids);
+    $self->rating->merge($new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('release_group', $new_id, @old_ids);
     $self->c->model('Relationship')->merge('release_group', $new_id, @old_ids);
 

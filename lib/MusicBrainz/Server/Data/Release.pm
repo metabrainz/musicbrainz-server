@@ -137,6 +137,7 @@ sub delete
 {
     my ($self, @releases) = @_;
     my @release_ids = map { $_->id } @releases;
+    $self->c->model('Collection')->delete_releases(@release_ids);
     $self->annotation->delete(@release_ids);
     $self->remove_gid_redirects(@release_ids);
     my $sql = Sql->new($self->c->mb->dbh);
@@ -150,6 +151,7 @@ sub merge
     my ($self, $new_id, @old_ids) = @_;
 
     $self->annotation->merge($new_id, @old_ids);
+    $self->c->model('Collection')->merge_releases($new_id, @old_ids);
     $self->c->model('ReleaseLabel')->merge_releases($new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('release', $new_id, @old_ids);
     $self->c->model('Relationship')->merge('release', $new_id, @old_ids);
