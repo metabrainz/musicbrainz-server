@@ -1,4 +1,5 @@
 [% WRAPPER "layout.tt" title=l("Log In") full_width=1 %]
+
     <h1>[% l("Log In") %]</h1>
 
     [%- USE r = FormRenderer(login_form) -%]
@@ -30,14 +31,13 @@ the browser cache.', { server => server_details.staging_server }) %]
     </form>
     <ul>
         <li>
-            <a href="[% c.uri_for('/user/register') %]">
-                [% l('Create a new account') %]
-            </a>
+            [% l('Forgot your {link1|username} or {link2|password}?', {
+                link1 => c.uri_for_action('/user/lost_username'),
+                link2 => c.uri_for_action('/user/lost_password'),
+            }) %]
         </li>
         <li>
-            <a href="[% c.uri_for('/user/forgot_password') %]">
-                [% l('Forgot your password?') %]
-            </a>
+            <a href="[% c.uri_for_action('/user/register') %]">[% l('Create a new account') %]</a>
         </li>
     </ul>
 [% END %]

@@ -53,3 +53,9 @@ label.inline {
 }
 
 div.container { margin-left: 11em }
+
+span.formerrors {
+    color: #CD0D0D;
+    font-weight: bold;
+    font-size: 90%;
+}

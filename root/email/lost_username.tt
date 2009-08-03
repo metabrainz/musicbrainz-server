@@ -1,0 +1,7 @@
+[% l('Hello. Someone asked to look up the MusicBrainz account associated with the email address.') %]
+
+[% l('Your MusicBrainz username is: {username}', {username => username}) %]
+
+[% l('If you have also forgotten your password, use the username and email address to reset your password here - {uri}.', {uri => c.uri_for_action('/user/lost_password')}) %]
+
+-- [% l('The MusicBrainz Team') %]

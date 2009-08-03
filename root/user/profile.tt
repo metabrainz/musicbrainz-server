@@ -1,7 +1,5 @@
 [% extra_css = "user.css" %]
-[% WRAPPER "layout.tt" title=l("Editor “{user}”", { user => html_escape(user.name) }) full_width=1 %]
-
-    <h1>[% l("Editor “{user}”", { user => html_escape(user.name) }) %]</h1>
+[% WRAPPER "user/profile/layout.tt" page="index" %]
 
     [% BLOCK property %]
         <dt>

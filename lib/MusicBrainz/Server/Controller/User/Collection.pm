@@ -69,6 +69,7 @@ sub view : Local Args(1)
         $c->model('Label')->load(map { $_->all_labels } @$releases);
     }
 
+    $c->stash->{user} = $user;
     $c->stash->{releases} = $releases;
     $c->stash->{template} = 'user/collection.tt';
 }

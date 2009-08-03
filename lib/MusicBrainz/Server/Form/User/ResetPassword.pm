@@ -1,15 +1,10 @@
-package MusicBrainz::Server::Form::User::Register;
+package MusicBrainz::Server::Form::User::ResetPassword;
 
 use HTML::FormHandler::Moose;
 
 extends 'MusicBrainz::Server::Form';
 
-has '+name' => ( default => 'register' );
-
-has_field 'username' => (
-    type => 'Text',
-    required => 1,
-);
+has '+name' => ( default => 'resetpassword' );
 
 has_field 'password' => (
     type => 'Password',
@@ -23,23 +18,6 @@ has_field 'confirm_password' => (
     required => 1,
     min_length => 1,
 );
-
-has_field 'email' => (
-    type => 'Email',
-);
-
-sub validate_username
-{
-    my ($self, $field) = @_;
-
-    my $username = $field->value;
-    if ($username) {
-        my $editor = $self->ctx->model('Editor')->get_by_name($username);
-        if (defined $editor) {
-            $field->add_error($self->ctx->gettext('Please choose another username, this one is already taken'));
-        }
-    }
-}
 
 1;
 

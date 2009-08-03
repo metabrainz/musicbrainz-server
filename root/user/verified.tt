@@ -1,7 +1,6 @@
-[% WRAPPER 'layout.tt' title=l("Email Address Verified") %]
-    [% WRAPPER 'components/box.tt' header=l("Email Address Verified") %]
-        <p>
-            [% l('Thank you, your email address has now been verified!') %]
-        </p>
-    [% END %]
+[% WRAPPER 'layout.tt' title=l("Email Address Verified") full_width=1 %]
+
+    <h1>[% l("Email Address Verified") %]</h1>
+    <p>[% l('Thank you, your email address has now been verified!') %]</p>
+
 [% END %]

@@ -51,6 +51,51 @@ sub get_by_name
     return $result[0];
 }
 
+sub find_by_email
+{
+    my ($self, $email) = @_;
+    return values %{$self->_get_by_keys('email', $email)};
+}
+
+sub insert
+{
+    my ($self, $data) = @_;
+
+    my $sql = Sql->new($self->c->dbh);
+    return Sql::RunInTransaction(sub {
+        return $self->_entity_class->new(
+            id => $sql->InsertRow('editor', $data, 'id'),
+            name => $data->{name},
+            password => $data->{password},
+            accepted_edits => 0,
+            rejected_edits => 0,
+            failed_edits => 0,
+            accepted_auto_edits => 0,
+        );
+    }, $sql);
+}
+
+sub update_email
+{
+    my ($self, $editor, $email) = @_;
+
+    my $sql = Sql->new($self->c->dbh);
+    Sql::RunInTransaction(sub {
+        $sql->Do('UPDATE editor SET email=?, emailconfirmdate=NOW()
+                  WHERE id=?', $email, $editor->id);
+    }, $sql);
+}
+
+sub update_password
+{
+    my ($self, $editor, $password) = @_;
+
+    my $sql = Sql->new($self->c->dbh);
+    Sql::RunInTransaction(sub {
+        $sql->Do('UPDATE editor SET password=? WHERE id=?',
+                 $password, $editor->id);
+    }, $sql);
+}
 
 sub load
 {

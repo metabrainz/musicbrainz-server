@@ -5,6 +5,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller' };
 
 use Digest::SHA1 qw(sha1_base64);
 use MusicBrainz;
+use MusicBrainz::Server::Authentication::User;
 use MusicBrainz::Server::Editor;
 use UserPreference;
 
@@ -43,15 +44,15 @@ sub do_login : Private
     my ($self, $c) = @_;
     return 1 if $c->user_exists;
 
-    my $login_form = MusicBrainz::Server::Form::User::Login->new;
+    my $form = $c->form(form => 'User::Login');
     my $redirect = defined $c->req->query_params->{uri}
         ? $c->req->query_params->{uri}
         : $c->req->path;
 
-    if ($c->form_posted && $login_form->process(params => $c->req->params))
+    if ($c->form_posted && $form->process(params => $c->req->params))
     {
-        if( !$c->authenticate({ username => $login_form->field("username")->value,
-                                password => $login_form->field("password")->value }) )
+        if( !$c->authenticate({ username => $form->field("username")->value,
+                                password => $form->field("password")->value }) )
         {
             # Bad username / password combo
             $c->log->info('Invalid username/password');
@@ -68,26 +69,35 @@ sub do_login : Private
     # Form not even posted
     $c->stash(
         template => 'user/login.tt',
-        login_form => $login_form,
+        login_form => $form,
         redirect => $redirect,
     );
 
     $c->detach;
 }
 
-sub login : Local
+sub login : Path('/login')
 {
     my ($self, $c) = @_;
-    
-    if ($c->user_exists)
-    {
-        $c->response->redirect($c->uri_for('/'));
+
+    if ($c->user_exists) {
+        $c->response->redirect($c->uri_for_action('/user/profile',
+                                                  $c->user->name));
         $c->detach;
     }
-    else
-    {
-        $c->forward('/user/do_login');
+
+    $c->forward('/user/do_login');
+}
+
+sub logout : Path('/logout')
+{
+    my ($self, $c) = @_;
+
+    if ($c->user_exists) {
+        $c->logout;
     }
+
+    $self->redirect_back($c, '/logout', '/');
 }
 
 =head2 register
@@ -98,34 +108,35 @@ new user.
 
 =cut
 
-sub register : Local Form
+sub register : Path('/register')
 {
     my ($self, $c) = @_;
 
-    $c->detach('profile', [ $c->user->name ])
-        if $c->user_exists;
+    my $form = $c->form(register_form => 'User::Register');
 
-    my $form = $self->form;
+    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
 
-    return unless $self->submit_and_validate($c);
+        my $editor = $c->model('Editor')->insert({
+            name => $form->field('username')->value,
+            password => $form->field('password')->value,
+        });
 
-    my $new_user = $c->model('User')->create($form->value('username'),
-                                             $form->value('password'));
+        my $email = $form->field('email')->value;
+        if ($email) {
+            $self->_send_confirmation_email($c, $editor, $email);
+        }
 
-    my $email = $form->value('email');
+        my $user = MusicBrainz::Server::Authentication::User->new_from_editor($editor);
+        $c->set_authenticated($user);
 
-    $c->authenticate({ username => $new_user->name,
-                       password => $new_user->password });
-
-    my $email_sent = undef;
-    if ($email)
-    {
-        $self->_send_confirmation_email($c, $new_user, $email);
-        $email_sent = scalar @{ $c->error } == 0;
+        $c->response->redirect($c->uri_for_action('/user/profile', $user->name));
+        $c->detach;
     }
 
-    $c->stash->{email_sent} = defined $email && scalar @{ $c->error } == 0;
-    $c->stash->{template}   = 'user/registered.tt';
+    $c->stash(
+        register_form => $form,
+        template      => 'user/register.tt',
+    );
 }
 
 =head2 _send_confirmation_email
@@ -136,16 +147,14 @@ Send out an email allowing users to confirm their email address
 
 sub _send_confirmation_email
 {
-    my ($self, $c, $user, $email) = @_;
+    my ($self, $c, $editor, $email) = @_;
 
-    my $time     = time;
-    my $checksum = $self->_checksum($email, $user->id, $time);
-
-    $c->stash->{verification_link} = $c->uri_for('/user/verify', {
-        userid => $user->id,
+    my $time = time();
+    $c->stash->{verification_link} = $c->uri_for_action('/user/verify_email', {
+        userid => $editor->id,
         email  => $email,
         time   => $time,
-        chk    => $checksum,
+        chk    => $self->_checksum($email, $editor->id, $time),
     });
 
     $c->stash->{email} = {
@@ -175,112 +184,260 @@ address" emails)
 
 =cut
 
-sub verify : Local
+sub verify_email : Path('/verify-email')
 {
     my ($self, $c) = @_;
 
-    my $user_id = $c->request->query_params->{userid};
-    my $email   = $c->request->query_params->{email};
-    my $time    = $c->request->query_params->{time};
-    my $key     = $c->request->query_params->{chk};
+    my $user_id = $c->request->params->{userid};
+    my $email   = $c->request->params->{email};
+    my $time    = $c->request->params->{time};
+    my $key     = $c->request->params->{chk};
 
-    die "The user ID is missing or, is in an invalid format"
-        unless MusicBrainz::Server::Validation::IsNonNegInteger($user_id) && $user_id;
-
-    die "The email address is missing"
-        unless $email;
-
-    die "The time is missing, or is in an invalid format"
-        unless MusicBrainz::Server::Validation::IsNonNegInteger($time) && $time;
-
-    die "The key is missing"
-        unless $key;
-
-    die "The checksum is invalid, please double check your email"
-        unless $self->_checksum($email, $user_id, $time) eq $key;
-
-    if (($time + DBDefs::EMAIL_VERIFICATION_TIMEOUT) < time)
-    {
-        die "Sorry, this email verification link has expired";
+    unless (MusicBrainz::Server::Validation::IsNonNegInteger($user_id) && $user_id) {
+        $c->stash(
+            message => $c->gettext('The user ID is missing or, is in an invalid format.'),
+            template => 'user/verify_email_error.tt',
+        );
     }
-    else
-    {
-        my $user = $c->model('User')->load({ id => $user_id });
 
-        die "User with id $user_id could not be found"
-            unless $user;
-
-        $user->SetUserInfo(email => $email)
-            or die "Could not update user information";
-        $user->email($email);
-
-        $c->stash->{template} = 'user/verified.tt';
+    unless ($email) {
+        $c->stash(
+            message => $c->gettext('The email address is missing.'),
+            template => 'user/verify_email_error.tt',
+        );
     }
+
+    unless (MusicBrainz::Server::Validation::IsNonNegInteger($time) && $time) {
+        $c->stash(
+            message => $c->gettext('The time is missing, or is in an invalid format.'),
+            template => 'user/verify_email_error.tt',
+        );
+        $c->detach;
+    }
+
+    unless ($key) {
+        $c->stash(
+            message => $c->gettext('The key is missing.'),
+            template => 'user/verify_email_error.tt',
+        );
+        $c->detach;
+    }
+
+    unless ($self->_checksum($email, $user_id, $time) eq $key) {
+        $c->stash(
+            message => $c->gettext('The checksum is invalid, please double check your email.'),
+            template => 'user/verify_email_error.tt',
+        );
+        $c->detach;
+    }
+
+    if (($time + &DBDefs::EMAIL_VERIFICATION_TIMEOUT) < time()) {
+        $c->stash(
+            message => $c->gettext('Sorry, this email verification link has expired.'),
+            template => 'user/verify_email_error.tt',
+        );
+        $c->detach;
+    }
+
+    my $editor = $c->model('Editor')->get_by_id($user_id);
+    unless (defined $editor) {
+        $c->stash(
+            message => $c->gettext('User with id {user_id} could not be found.',
+                                   { user_id => $user_id }),
+            template => 'user/verify_email_error.tt',
+        );
+        $c->detach;
+    }
+
+    $c->model('Editor')->update_email($editor, $email);
+
+    $c->stash->{template} = 'user/verified.tt';
 }
 
-=head2 forgot_password
 
-Allow users to retrieve their password if they have forgotten it.
+sub _reset_password_checksum
+{
+    my ($self, $id, $time) = @_;
+    return sha1_base64("reset_password $id $time " . DBDefs::SMTP_SECRET_CHECKSUM);
+}
 
-This displays a form allowing the user to enter either their username
-or email address in. With this data we then attempt to email the user
-their password.
+sub _send_password_reset_email
+{
+    my ($self, $c, $editor) = @_;
 
-=cut
+    my $time = time();
+    $c->stash->{reset_password_link} = $c->uri_for_action('/user/reset_password', {
+        id => $editor->id,
+        time => $time,
+        key => $self->_reset_password_checksum($editor->id, $time),
+    });
 
-sub forgot_password : Local Form
+    $c->stash->{email} = {
+        header => [
+            'Reply-To' => 'MusicBrainz Support <support@musicbrainz.org>',
+        ],
+        to           => $editor->email,
+        from         => 'MusicBrainz <webserver@musicbrainz.org>',
+        subject      => 'Password reset request',
+        content_type => 'text/plain',
+        template     => 'email/lost_password.tt',
+    };
+
+    $c->forward($c->view('Email::Template'));
+}
+
+sub lost_password : Path('/lost-password')
 {
     my ($self, $c) = @_;
 
-    my $form = $self->form;
+    if (exists $c->request->params->{send}) {
+        $c->stash(template => 'user/reset_password_send.tt');
+        $c->detach;
+    }
 
-    return unless $self->submit_and_validate($c);
+    my $form = $c->form( form => 'User::LostPassword' );
 
-    my ($email, $username) = ( $form->value('email'),
-                               $form->value('username') );
+    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+        my $username = $form->field('username')->value;
+        my $email = $form->field('email')->value;
 
-    my $user = undef;
-
-    if ($email)
-    {
-        my $usernames = $c->model('User')->find_by_email($email);
-        if(scalar @$usernames)
-        {
-            foreach $username (@$usernames)
-            {
-                $user = $c->model('User')->load({ username => $username });
-                last if defined $user;
+        my $editor = $c->model('Editor')->get_by_name($username);
+        if (!defined $editor) {
+            $form->field('username')->add_error(
+                $c->gettext('There is no user with this username'));
+        }
+        else {
+            if ($editor->email && $editor->email ne $email) {
+                $form->field('email')->add_error(
+                    $c->gettext('There is no user with this username and email'));
+            }
+            else {
+                $self->_send_password_reset_email($c, $editor);
+                $c->response->redirect($c->uri_for_action('/user/lost_password',
+                                                          { sent => 1}));
+                $c->detach;
             }
         }
-        else
-        {
-            $c->field('email')->add_error('We could not find any users registered with this email address');
+    }
+
+    $c->stash->{form} = $form;
+}
+
+sub reset_password : Path('/reset-password')
+{
+    my ($self, $c) = @_;
+
+    if (exists $c->request->params->{ok}) {
+        $c->stash(template => 'user/reset_password_ok.tt');
+        $c->detach;
+    }
+
+    my $editor_id = $c->request->params->{id};
+    my $time = $c->request->params->{time};
+    my $key = $c->request->params->{key};
+
+    if (!$editor_id || !$time || !$key) {
+        $c->stash(
+            message => $c->gettext('Missing required parameter.'),
+            template => 'user/reset_password_error.tt',
+        );
+        $c->detach;
+    }
+
+    if ($time + &DBDefs::EMAIL_VERIFICATION_TIMEOUT < time()) {
+        $c->stash(
+            message => $c->gettext('Sorry, this password reset link has expired.'),
+            template => 'user/reset_password_error.tt',
+        );
+        $c->detach;
+    }
+
+    if ($self->_reset_password_checksum($editor_id, $time) ne $key) {
+        $c->stash(
+            message => $c->gettext('The checksum is invalid, please double check your email.'),
+            template => 'user/reset_password_error.tt',
+        );
+        $c->detach;
+    }
+
+    my $editor = $c->model('Editor')->get_by_id($editor_id);
+    if (!defined $editor) {
+        $c->stash(
+            message => $c->gettext('User with id {user_id} could not be found',
+                                   { user_id => $editor_id }),
+            template => 'user/reset_password_error.tt',
+        );
+        $c->detach;
+    }
+
+    my $form = $c->form( form => 'User::ResetPassword' );
+
+    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+
+        my $password = $form->field('password')->value;
+        $c->model('Editor')->update_password($editor, $password);
+
+        my $user = MusicBrainz::Server::Authentication::User->new_from_editor($editor);
+        $c->set_authenticated($user);
+
+        $c->response->redirect($c->uri_for_action('/user/reset_password', { ok => 1 }));
+        $c->detach;
+    }
+
+    $c->stash->{form} = $form;
+}
+
+
+sub _send_lost_username_email
+{
+    my ($self, $c, $editor) = @_;
+
+    $c->stash->{username} = $editor->name;
+
+    $c->stash->{email} = {
+        header => [
+            'Reply-To' => 'MusicBrainz Support <support@musicbrainz.org>',
+        ],
+        to           => $editor->email,
+        from         => 'MusicBrainz <webserver@musicbrainz.org>',
+        subject      => 'Lost username',
+        content_type => 'text/plain',
+        template     => 'email/lost_username.tt',
+    };
+
+    $c->forward($c->view('Email::Template'));
+}
+
+sub lost_username : Path('/lost-username')
+{
+    my ($self, $c) = @_;
+
+    if (exists $c->request->params->{sent}) {
+        $c->stash(template => 'user/lost_password_sent.tt');
+        $c->detach;
+    }
+
+    my $form = $c->form( form => 'User::LostUsername' );
+
+    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+        my $email = $form->field('email')->value;
+
+        my @editors = $c->model('Editor')->find_by_email($email);
+        if (!@editors) {
+            $form->field('email')->add_error(
+                $c->gettext('There is no user with this email'));
+        }
+        else {
+            foreach my $editor (@editors) {
+                $self->_send_lost_username_email($c, $editor);
+            }
+            $c->response->redirect($c->uri_for_action('/user/lost_username',
+                                                      { sent => 1}));
+            $c->detach;
         }
     }
-    elsif ($username)
-    {
-        $user = $c->model('User')->load({ username => $username });
-    }
 
-    if (defined $user)
-    {
-        $c->stash->{username} = $user->name;
-        $c->stash->{password} = $user->password;
-
-        $c->stash->{email} = {
-            header => [
-                'Reply-To' => 'MusicBrainz Support <support@musicbrainz.org>',
-            ],
-            from     => 'MusicBrainz <webserver@musicbrainz.org>',
-            to       => $user->email,
-            subject  => 'Your MusicBrainz account',
-            content_type => 'text/plain',
-
-            template => 'email/forgot_password.tt',
-        };
-
-        $c->forward($c->view('Email::Template'));
-    }
+    $c->stash->{form} = $form;
 }
 
 =head2 edit
@@ -350,7 +507,7 @@ Display a users profile page.
 
 =cut
 
-sub profile : Local Args(1)
+sub profile : Local Args(1) RequireAuth
 {
     my ($self, $c, $user_name) = @_;
 
@@ -527,24 +684,6 @@ sub subscriptions : Local
     $c->response->redirect($c->req->uri);
 }
 
-=head2 logout
-
-Logout the current user. Has no effect if the user is already logged out.
-
-=cut
-
-sub logout : Local
-{
-    my ($self, $c) = @_;
-
-    if ($c->user_exists)
-    {
-        $c->logout;
-    }
-
-    $c->response->redirect($c->uri_for('/'));
-}
-
 =head2 preferences
 
 Change the users preferences
@@ -624,23 +763,25 @@ sub adjust_flags : Local Form
     );
 }
 
-=head1 LICENSE
+1;
 
-This software is provided "as is", without warranty of any kind, express or
-implied, including  but not limited  to the warranties of  merchantability,
-fitness for a particular purpose and noninfringement. In no event shall the
-authors or  copyright  holders be  liable for any claim,  damages or  other
-liability, whether  in an  action of  contract, tort  or otherwise, arising
-from,  out of  or in  connection with  the software or  the  use  or  other
-dealings in the software.
+=head1 COPYRIGHT
 
-GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
-Permits anyone the right to use and modify the software without limitations
-as long as proper  credits are given  and the original  and modified source
-code are included. Requires  that the final product, software derivate from
-the original  source or any  software  utilizing a GPL  component, such  as
-this, is also licensed under the GPL license.
+Copyright (C) 2009 Oliver Charles
+Copyright (C) 2009 Lukas Lalinsky
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 =cut
-
-1;

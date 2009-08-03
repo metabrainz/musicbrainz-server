@@ -190,7 +190,7 @@ END -%]
 END -%]
 
 [%- MACRO request_login(text) BLOCK -%]
-<a href="[% c.uri_for('/user/login', { uri => c.req.path }) %]">[% text || l('Log in') %]</a>
+<a href="[% c.uri_for_action('/user/login', { uri => c.req.path }) %]">[% text || l('Log in') %]</a>
 [%- END -%]
 
 [%- MACRO rating_rate_url(entity, rating) BLOCK;

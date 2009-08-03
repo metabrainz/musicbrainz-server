@@ -44,7 +44,7 @@ $mech->content_like(qr{This label has no tags});
 $mech->get_ok('/label/46f0f4cd-8aab-4b33-b698-f459faf64190/ratings', 'get label ratings');
 
 # Test creating new artists via the create artist form
-$mech->get_ok('/user/login');
+$mech->get_ok('/login');
 $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
 $mech->get_ok('/label/create');

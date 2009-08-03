@@ -1,0 +1,19 @@
+[% WRAPPER "layout.tt" title=l("Lost Username") full_width=1 %]
+
+    <h1>[% l("Lost Username") %]</h1>
+
+    [%- USE r = FormRenderer(form) -%]
+
+    <p>[% l('Enter your email address below and we will send you an email with your
+MusicBrainz account information.') %]</p>
+
+    <form action="[% c.req.uri %]" method="post">
+        <p>
+            [% r.label('email', l('Email:')) %]
+            [% r.text('email') %]
+            [% form_field_errors(form, 'email') %]
+        </p>
+        [% form_submit(l('Send Email')) %]
+    </form>
+
+[% END %]

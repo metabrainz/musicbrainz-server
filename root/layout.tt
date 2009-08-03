@@ -44,10 +44,10 @@
                     <ul>
                     [%- IF c.user_exists -%]
                         <li>[% link_editor(c.user) %]</li>
-                        <li><a href="[% c.uri_for('/user/logout') %]">Log out</a></li>
+                        <li><a href="[% c.uri_for_action('/user/logout') %]">Log out</a></li>
                     [%- ELSE -%]
                         <li>[% request_login() %]</li>
-                        <li><a href="[% c.uri_for('/user/register') %]">Create account</a></li>
+                        <li><a href="[% c.uri_for_action('/user/register') %]">Create account</a></li>
                     [%- END -%]
                     </ul>
                 </div>

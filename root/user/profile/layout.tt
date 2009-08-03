@@ -1,0 +1,21 @@
+[%- WRAPPER "layout.tt"
+    full_width=1
+    title=title
+        ? l("Editor “{user}”", { user => html_escape(user.name) }) _ " - ${title}"
+        : l("Editor “{user}”", { user => html_escape(user.name) })
+    -%]
+
+    <h1>[% l("Editor “{user}”", { user => html_escape(user.name) }) %]</h1>
+
+[% MACRO generic_link(url, text) BLOCK %]<a href="[% url %]">[% text %]</a>[% END %]
+
+[%- info_links = [
+    ['index', generic_link(c.uri_for_action("/user/profile", user.name), l('Profile'))],
+    ['collection', generic_link(c.uri_for_action("/user/collection/view", user.name), l('Collection'))],
+] -%]
+
+    [% INCLUDE 'components/tabs.tt' list=info_links %]
+
+    [%- content -%]
+
+[%- END -%]

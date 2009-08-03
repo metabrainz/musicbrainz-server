@@ -56,7 +56,7 @@ $mech->content_like(qr{This release group has no tags});
 $mech->get_ok('/release-group/7c3218d7-75e0-4e8c-971f-f097b6c308c5/ratings', 'get rg ratings');
 
 # Test removing release groups
-$mech->get_ok('/user/login');
+$mech->get_ok('/login');
 $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
 $mech->get_ok('/release-group/234c079d-374e-4436-9448-da92dedef3ce/delete');

@@ -1,6 +1,6 @@
-[% WRAPPER "layout.tt" title=l("Collection") full_width=1 %]
+[% WRAPPER "user/profile/layout.tt" title=l("Collection") page="collection" %]
 
-    <h1>[% l("Collection") %]</h1>
+    <h2>[% l("Collection") %]</h2>
 
     [%- IF releases.size -%]
         [%- INCLUDE 'release_group/releases-list.tt' WRAPPER 'components/with-pager.tt' -%]

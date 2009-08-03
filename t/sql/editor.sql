@@ -15,4 +15,6 @@ INSERT INTO editor_preference (editor, name, value)
            (1, 'timezone', 'CEST'),
            (1, 'public_ratings', '0');
 
+ALTER SEQUENCE editor_id_seq RESTART 2;
+
 COMMIT;

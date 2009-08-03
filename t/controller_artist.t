@@ -93,7 +93,7 @@ $mech->content_contains('new_editor');
 $mech->content_contains('4 - ');
 
 # Test creating new artists via the create artist form
-$mech->get_ok('/user/login');
+$mech->get_ok('/login');
 $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
 $mech->get_ok('/artist/create');

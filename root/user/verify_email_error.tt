@@ -1,0 +1,6 @@
+[% WRAPPER 'layout.tt' title=l("Email Address Verification") full_width=1 %]
+
+    <h1>[% l("Email Address Verification") %]</h1>
+    <p>[% message %]</p>
+
+[% END %]
