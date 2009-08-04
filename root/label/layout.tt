@@ -1,4 +1,4 @@
-[%- WRAPPER "layout.tt" title="${label.name} - ${title}" -%]
+[%- WRAPPER "layout.tt" title=title ? label.name _ " - ${title}" : label.name -%]
 
 <div class="sidebar">
     <p class="nfo">

@@ -1,4 +1,4 @@
-[%- WRAPPER "layout.tt" title="${artist.name} - ${title}" -%]
+[%- WRAPPER "layout.tt" title=title ? artist.name _ " - ${title}" : artist.name -%]
     <div class="sidebar">
 
         <p class="nfo">

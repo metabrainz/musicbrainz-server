@@ -1,7 +1,8 @@
-[%- WRAPPER 'layout.tt' title=l('Release group “{name}” by {artist}', {
-        artist => artist_credit(rg.artist_credit, plain => 1),
-        name => rg.name
-    })-%]
+[% main_title = l('Release group “{name}” by {artist}', {
+    artist => artist_credit(rg.artist_credit, plain => 1),
+    name => rg.name
+}) %]
+[%- WRAPPER "layout.tt" title=title ? main_title _ " - ${title}" : main_title -%]
 
     <div class="sidebar">
 
