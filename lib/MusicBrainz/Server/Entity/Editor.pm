@@ -35,42 +35,50 @@ has 'privileges' => (
 
 sub is_auto_editor
 {
-    return (shift->privileges & $AUTO_EDITOR_FLAG) > 0;
+    my $mask = $AUTO_EDITOR_FLAG;
+    return (shift->privileges & $mask) > 0;
 }
 
 sub is_bot
 {
-    return (shift->privileges & $BOT_FLAG) > 0;
+    my $mask = $BOT_FLAG;
+    return (shift->privileges & $mask) > 0;
 }
 
 sub is_untrusted
 {
-    return (shift->privileges & $UNTRUSTED_FLAG) > 0;
+    my $mask = $UNTRUSTED_FLAG;
+    return (shift->privileges & $mask) > 0;
 }
 
 sub is_nag_free
 {
-    return (shift->privileges & $DONT_NAG_FLAG) > 0;
+    my $mask = $DONT_NAG_FLAG;
+    return (shift->privileges & $mask) > 0;
 }
 
 sub is_relationship_editor
 {
-    return (shift->privileges & $RELATIONSHIP_EDITOR_FLAG) > 0;
+    my $mask = $RELATIONSHIP_EDITOR_FLAG;
+    return (shift->privileges & $mask) > 0;
 }
 
 sub is_wiki_transcluder
 {
-    return (shift->privileges & $WIKI_TRANSCLUSION_FLAG) > 0;
+    my $mask = $WIKI_TRANSCLUSION_FLAG;
+    return (shift->privileges & $mask) > 0;
 }
 
 sub is_mbid_submitter
 {
-    return (shift->privileges & $MBID_SUBMITTER_FLAG) > 0;
+    my $mask = $MBID_SUBMITTER_FLAG;
+    return (shift->privileges & $mask) > 0;
 }
 
 sub is_account_admin
 {
-    return (shift->privileges & $ACCOUNT_ADMIN_FLAG) > 0;
+    my $mask = $ACCOUNT_ADMIN_FLAG;
+    return (shift->privileges & $mask) > 0;
 }
 
 has 'email' => (
