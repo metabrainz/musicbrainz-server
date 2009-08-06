@@ -14,7 +14,7 @@
         </p>
 
     [%- INCLUDE "components/sidebar-rating.tt" entity=rg -%]
-    [%- INCLUDE "components/sidebar-tags.tt" entity=rg tags=top_tags -%]
+    [%- INCLUDE "components/sidebar-tags.tt" entity=rg tags=top_tags tag_this_text=l('Tag this release group') -%]
     [%- INCLUDE "components/sidebar-lastupdate.tt" entity=rg -%]
 
     </div>

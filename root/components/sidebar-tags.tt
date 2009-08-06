@@ -7,8 +7,13 @@
     tag_links.join(', ');
 END -%]
 
-[% IF tags.size %]
+[% IF tags.size || c.user_exists %]
 <p>
-    <strong>[% l('Tags:') %]</strong> [% tag_list(tags, entity) %]
+    [% IF tags.size %]
+        <strong>[% l('Tags:') %]</strong> [% tag_list(tags, entity) %]<br />
+    [% END %]
+    [% IF c.user_exists %]
+        [% link_entity(entity, 'tag', tag_this_text) %]
+    [% END %]
 </p>
 [% END %]

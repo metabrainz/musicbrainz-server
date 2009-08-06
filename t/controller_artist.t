@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 use strict;
-use Test::More tests => 69;
+use Test::More tests => 73;
 
 BEGIN {
     use MusicBrainz::Server::Context;
@@ -10,9 +10,12 @@ BEGIN {
 my $c = MusicBrainz::Server::Test->create_test_context();
 MusicBrainz::Server::Test->prepare_test_database($c);
 MusicBrainz::Server::Test->prepare_raw_test_database($c, "
+    TRUNCATE artist_tag_raw CASCADE;
     TRUNCATE artist_rating_raw CASCADE;
+    INSERT INTO artist_tag_raw (artist, editor, tag) VALUES (3, 1, 1), (3, 2, 1);
     INSERT INTO artist_rating_raw (artist, editor, rating)
-        VALUES (8, 1, 4);");
+        VALUES (8, 1, 4);
+");
 MusicBrainz::Server::Test->prepare_test_server();
 
 use Test::WWW::Mechanize::Catalyst;
@@ -233,3 +236,15 @@ is_deeply($edit->data, {
         old_artist => 3,
         new_artist => 5,
     });
+
+
+# Test tagging
+$mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/tag');
+$response = $mech->submit_form(
+    with_fields => {
+        'tag.tags' => 'World Music, Jazz',
+    }
+);
+$mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/tags');
+$mech->content_contains('world music');
+$mech->content_contains('jazz');

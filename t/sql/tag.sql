@@ -28,4 +28,6 @@ INSERT INTO artist_tag (tag, artist, count) VALUES
     (3, 4, 2),
     (4, 4, 1);
 
+ALTER SEQUENCE tag_id_seq RESTART 5;
+
 COMMIT;

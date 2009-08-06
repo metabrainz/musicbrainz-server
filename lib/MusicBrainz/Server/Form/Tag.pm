@@ -1,37 +1,16 @@
-package MusicBrainz::Server::Entity::UserTag;
+package MusicBrainz::Server::Form::Tag;
 
-use Moose;
-use MusicBrainz::Server::Entity::Types;
+use HTML::FormHandler::Moose;
 
-extends 'MusicBrainz::Server::Entity::Entity';
+extends 'MusicBrainz::Server::Form';
 
-has 'tag_id' => (
-    is => 'rw',
-    isa => 'Int'
+has '+name' => ( default => 'tag' );
+
+has_field 'tags' => (
+    type => 'Text',
 );
 
-has 'tag' => (
-    is => 'rw',
-    isa => 'Tag'
-);
-
-has 'editor_id' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-has 'editor' => (
-    is => 'rw',
-    isa => 'Editor'
-);
-
-__PACKAGE__->meta->make_immutable;
-no Moose;
 1;
-
-=head1 NAME
-
-MusicBrainz::Server::Entity::UserTag
 
 =head1 COPYRIGHT
 

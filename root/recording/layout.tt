@@ -12,7 +12,7 @@
         [%- END -%]
     </p>
     [%- INCLUDE "components/sidebar-rating.tt" entity=recording -%]
-    [%- INCLUDE "components/sidebar-tags.tt" entity=recording tags=top_tags -%]
+    [%- INCLUDE "components/sidebar-tags.tt" entity=recording tags=top_tags tag_this_text=l('Tag this recording') -%]
     [%- INCLUDE "components/sidebar-lastupdate.tt" entity=recording -%]
 </div>
 

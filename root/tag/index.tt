@@ -1,0 +1,4 @@
+[%- WRAPPER 'tag/layout.tt' page='index' -%]
+
+
+[%- END -%]

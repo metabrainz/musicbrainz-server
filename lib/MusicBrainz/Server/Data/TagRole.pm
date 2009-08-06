@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Data::TagRole;
 use MooseX::Role::Parameterized;
 
-use MusicBrainz::Server::Data::Tag;
+use MusicBrainz::Server::Data::EntityTag;
 
 parameter 'type' => (
     isa => 'Str',
@@ -29,7 +29,7 @@ role
     method '_build_tags' => sub
     {
         my $self = shift;
-        MusicBrainz::Server::Data::Tag->new(
+        MusicBrainz::Server::Data::EntityTag->new(
             c => $self->c,
             tag_table => $params->tag_table,
             type => $params->type,

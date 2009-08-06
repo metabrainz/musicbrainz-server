@@ -5,13 +5,42 @@ BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 sub load : Chained('/') PathPart('tag') CaptureArgs(1)
 {
-    my ($self, $c, $id) = @_;
+    my ($self, $c, $name) = @_;
 
-    # XXX load the tag
+    my $tag = $c->model('Tag')->get_by_name($name);
+    $c->stash->{tag} = $tag;
 }
 
 sub show : Chained('load') PathPart('')
 {
+    my ($self, $c) = @_;
+
+    $c->stash->{template} = 'tag/index.tt';
+}
+
+sub artist : Chained('load')
+{
+    my ($self, $c) = @_;
+}
+
+sub label : Chained('load')
+{
+    my ($self, $c) = @_;
+}
+
+sub recording : Chained('load')
+{
+    my ($self, $c) = @_;
+}
+
+sub release_group : Chained('load') PathPart('release-group')
+{
+    my ($self, $c) = @_;
+}
+
+sub work : Chained('load')
+{
+    my ($self, $c) = @_;
 }
 
 1;

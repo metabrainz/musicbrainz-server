@@ -70,7 +70,7 @@ sub textarea
             name => $field->html_name,
             id => $field->id,
             %$attrs
-        });
+        }, $field->fif);
 }
 
 sub label

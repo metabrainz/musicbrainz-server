@@ -1,3 +1,3 @@
 [%- WRAPPER 'artist/layout.tt' title=l('Tags') page='tags' -%]
-    [%- INCLUDE "components/tags.tt" no_tags_text=l('This artist has no tags.') -%]
+    [%- INCLUDE "components/tags.tt" entity=artist no_tags_text=l('This artist has no tags.') -%]
 [%- END -%]

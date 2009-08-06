@@ -1,0 +1,7 @@
+<h2>[% l('Update Tags') %]</h2>
+
+[%- USE r = FormRenderer(tag_form) -%]
+<form action="[% c.req.uri %]" method="post">
+    <p>[% r.textarea('tags', { cols => 50, rows => 5 }) %]</p>
+    <input type="submit" value="[% tag_this_text %]" />
+</form>
