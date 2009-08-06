@@ -92,9 +92,9 @@ INSERT INTO recording_tag SELECT * FROM public.track_tag;
 -- Release groups
 ------------------------
 
-INSERT INTO release_name (name)
-    (SELECT DISTINCT name FROM public.album) UNION
-    (SELECT DISTINCT name FROM public.release_group);
+ INSERT INTO release_name (name)
+     (SELECT DISTINCT name FROM public.album) UNION
+     (SELECT DISTINCT name FROM public.release_group);
 
 CREATE UNIQUE INDEX tmp_release_name_name_idx ON release_name (name);
 
@@ -115,8 +115,10 @@ INSERT INTO release_group (id, gid, name, type, artist_credit)
             WHEN 10 = type THEN 11
             WHEN 11 = type THEN 12
             ELSE NULL
-        END, artist
-    FROM public.release_group a JOIN release_name n ON a.name = n.name;
+        END, COALESCE(new_ac, artist)
+    FROM public.release_group a
+        JOIN release_name n ON a.name = n.name
+        LEFT JOIN tmp_artist_credit_repl acr ON artist=old_ac;
 
 ------------------------
 -- Releases
@@ -141,7 +143,7 @@ INSERT INTO release
         ELSE g.gid END,
         a.release_group,
         n.id,
-        a.artist,
+        COALESCE(new_ac, a.artist),
         r.barcode,
         CASE
             WHEN 100 = ANY(a.attributes[2:10]) THEN 1
@@ -159,7 +161,8 @@ INSERT INTO release
     FROM public.release r
         JOIN public.album a ON r.album = a.id
         JOIN release_name n ON a.name = n.name
-        LEFT JOIN tmp_release_gid g ON r.id=g.id;
+        LEFT JOIN tmp_release_gid g ON r.id=g.id
+        LEFT JOIN tmp_artist_credit_repl acr ON a.artist=old_ac;
 
 SELECT SETVAL('release_id_seq', (SELECT MAX(id) FROM release));
 
@@ -187,7 +190,7 @@ INSERT INTO release
         a.gid::uuid,
         a.release_group,
         n.id,
-        a.artist,
+        COALESCE(new_ac, a.artist),
         CASE
             WHEN 100 = ANY(a.attributes[2:10]) THEN 1
             WHEN 101 = ANY(a.attributes[2:10]) THEN 2
@@ -199,7 +202,8 @@ INSERT INTO release
         script
     FROM tmp_new_release r
         JOIN public.album a ON r.album = a.id
-        JOIN release_name n ON a.name = n.name;
+        JOIN release_name n ON a.name = n.name
+        LEFT JOIN tmp_artist_credit_repl acr ON a.artist=old_ac;
 
 DROP INDEX tmp_release_name_name_idx;
 
@@ -245,47 +249,6 @@ INSERT INTO release_group_meta
     FROM public.release_group_meta m
         LEFT JOIN release r ON r.release_group=m.id
     GROUP BY m.id, m.lastupdate, m.firstreleasedate;
-
-------------------------
--- Artists
-------------------------
-
-INSERT INTO artist_name (name)
-    (SELECT DISTINCT name FROM public.artist) UNION
-    (SELECT DISTINCT sortname FROM public.artist) UNION
-    (SELECT DISTINCT name FROM public.artistalias);
-
-CREATE UNIQUE INDEX tmp_artist_name_name ON artist_name (name);
-
-INSERT INTO artist (id, gid, name, sortname, type,
-                    begindate_year, begindate_month, begindate_day,
-                    enddate_year, enddate_month, enddate_day,
-                    comment)
-    SELECT
-        a.id, gid::uuid, n1.id, n2.id,
-        NULLIF(NULLIF(type, 0), 3),
-        NULLIF(substr(begindate, 1, 4)::int, 0),
-        NULLIF(substr(begindate, 6, 2)::int, 0),
-        NULLIF(substr(begindate, 9, 2)::int, 0),
-        NULLIF(substr(enddate, 1, 4)::int, 0),
-        NULLIF(substr(enddate, 6, 2)::int, 0),
-        NULLIF(substr(enddate, 9, 2)::int, 0),
-        resolution
-    FROM public.artist a JOIN artist_name n1 ON a.name = n1.name JOIN artist_name n2 ON a.sortname = n2.name;
-
-INSERT INTO artist_credit (id, artistcount) SELECT id, 1 FROM artist;
-
-INSERT INTO artist_credit_name (artist_credit, artist, name, position) SELECT id, id, name, 0 FROM artist;
-
-INSERT INTO artist_alias (artist, name)
-    SELECT DISTINCT a.ref, n.id
-    FROM public.artistalias a JOIN artist_name n ON a.name = n.name;
-
-INSERT INTO artist_meta (id, lastupdate, rating, ratingcount)
-    SELECT id, lastupdate, round(rating * 20), rating_count
-    FROM public.artist_meta;
-
-DROP INDEX tmp_artist_name_name;
 
 ------------------------
 -- Labels
@@ -334,15 +297,17 @@ INSERT INTO track_name (name)
 CREATE UNIQUE INDEX tmp_track_name_name ON track_name (name);
 
 INSERT INTO recording (id, gid, name, artist_credit, length)
-    SELECT a.id, gid::uuid, n.id, a.artist, a.length
+    SELECT a.id, gid::uuid, n.id, COALESCE(new_ac, a.artist), a.length
     FROM public.track a
-        JOIN track_name n ON n.name = a.name;
+        JOIN track_name n ON n.name = a.name
+        LEFT JOIN tmp_artist_credit_repl acr ON a.artist=old_ac;
 
 INSERT INTO track (id, tracklist, name, recording, artist_credit, length, position)
-    SELECT t.id, a.album, n.id, t.id, t.artist, length, a.sequence
+    SELECT t.id, a.album, n.id, t.id, COALESCE(new_ac, t.artist), length, a.sequence
     FROM public.track t
         JOIN public.albumjoin a ON t.id = a.track
-        JOIN track_name n ON n.name = t.name;
+        JOIN track_name n ON n.name = t.name
+        LEFT JOIN tmp_artist_credit_repl acr ON t.artist=old_ac;
 
 INSERT INTO recording_meta (id, rating, ratingcount)
     SELECT id, round(rating * 20), rating_count

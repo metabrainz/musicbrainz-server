@@ -19,9 +19,12 @@ echo `date` : Creating schema
 ./admin/psql RAWDATA <./admin/sql/vertical/rawdata/CreateTables.sql
 
 echo `date` : Migrating data
+./admin/psql READWRITE <./admin/sql/updates/ngs-artist.sql
+./admin/sql/updates/ngs-artistcredit.pl
 ./admin/psql READWRITE <./admin/sql/updates/ngs.sql
 ./admin/sql/updates/ngs-ars.pl
 ./admin/sql/updates/ngs-rawdata.pl
+./admin/sql/updates/ngs-artistcredit-2.pl
 
 echo `date` : Fixing refcounts
 ./admin/psql READWRITE <./admin/sql/updates/ngs-refcount.sql
@@ -52,6 +55,9 @@ echo `date` : Creating search indexes
 echo `date` : Fixing sequences
 ./admin/psql READWRITE <./admin/sql/SetSequences.sql
 ./admin/psql RAWDATA <./admin/sql/vertical/rawdata/SetSequences.sql
+
+# echo 'VACUUM ANALYZE;' | ./admin/psql READWRITE
+# echo 'VACUUM ANALYZE;' | ./admin/psql RAWDATA
 
 echo `date` : Done
 
