@@ -1,265 +1,42 @@
-[% extra_js = 'userPreferences.js' %] 
-[% extra_css = 'jquery/jquery.ui.all.css' %] 
-[% BLOCK fields %]
-    [% FOREACH pref=fields %]
-        [%- field = form.field(pref.widget) -%]
+[% WRAPPER "layout.tt" title=l("Preferences") full_width=1 %]
+
+<h1>[% l('Preferences') %]</h1>
+
+<form action="[% c.req.uri %]" method="post" style="margin-top:1em">
+
+    [%- USE r = FormRenderer(form) -%]
+
+    <fieldset>
+        <legend>[% l('Regional settings') %]</legend>
         <p>
-            [%- IF field.widget == 'checkbox' -%]
-                [%- INCLUDE "forms/input.tt" -%]
-                [%- INCLUDE 'forms/label.tt' label=pref.label for=field -%]
-            [%- ELSE -%]
-                [%- INCLUDE 'forms/label.tt' for=field label=pref.label -%]
-                [%- INCLUDE "forms/input.tt" -%]
-            [%- END -%]
+            [% r.label('datetime_format', l('Date/time format:')) %]
+            [% r.select('datetime_format') %]
         </p>
-    [% END %]
-[% END %]
-[% WRAPPER "layout.tt" title=l("Preferences") includeJQueryUI=1 %]
-    [% WRAPPER "components/box.tt" header=l("Preferences") %]
-        [% WRAPPER "forms/form.tt" custom=1 %]
-            [% IF form.has_error %]
-                <p>
-                    [% l('Some errors were present in the preferences that you attempted to set:') %]
-                </p>
-                <ul>
-                    [% FOREACH field=form.error_fields %]
-                        <li>
-                            [% field.name %]
-                            <ul>
-                                [% FOREACH error=field.errors %]
-                                    <li class="error">[% error %]</li>
-                                [% END %]
-                            </ul>
-                        </li>
-                    [% END %]
-                </ul>
-            [% END %]
-        <noscript>
-            <h3>
-                [% l('Preferences Sections') %]
-            </h3>
-        </noscript>
-        <div id="form-preferences-toc">
-            <ul>
-                <li>
-                    <a href="#options-voting-edit-pages">
-                        <span>
-                            [% l('Voting / Editing') %]
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#options-emailing">
-                        <span>
-                            [% l('Email') %]
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#options-show-artist">
-                        <span>
-                            [% l('Artist') %]
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#options-show-release">
-                        <span>
-                            [% l('Release') %]
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#options-country">
-                        <span>
-                            [% l('Country') %]
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#options-datetime">
-                        <span>
-                            [% l('Date / Time') %]
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#options-topmenu">
-                        <span>
-                            [% l('Top Menu') %]
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#options-javascript">
-                        <span>
-                            [% l('JavaScript') %]
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#options-display">
-                        <span>
-                            [% l('Display Options') %]
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#options-privacy">
-                        <span>
-                            [% l('Privacy') %]
-                        </span>
-                    </a>
-                </li>
-            </ul>
+        <p>
+            [% r.label('timezone', l('Timezone:')) %]
+            [% r.select('timezone') %]
+        </p>
+    </fieldset>
+
+    <fieldset>
+        <legend>[% l('Privacy') %]</legend>
+        <p>
+            [% r.checkbox('public_subscriptions') %]
+            [% l('Allow other users to see my subscriptions') %]
             <br />
-            <fieldset id="options-voting-edit-pages">
-                <legend>
-                    [%- l('Voting / Edit review pages') %]
-                </legend>
-                <p>
-                    [%- INCLUDE 'forms/input.tt' field=form.field('mod_add_album_inline') -%]
-                    [%- INCLUDE 'forms/label.tt' for=form.field('mod_add_album_inline') label=l('For "Add Release" edits, show the whole Release') -%]
-                    <br />
-                    <span style="margin-left: 30pt;">
-                        [%- INCLUDE 'forms/input.tt' field=form.field('mod_add_album_link') -%]
-                        [%- INCLUDE 'forms/label.tt' for=form.field('mod_add_album_link') label=l('&hellip;and show editing links.') -%]
-                    </span>
-                </p>
-                [% PROCESS fields fields = [
-                { widget = 'navbar_mod_show_select_page' label=l('Make the "Vote on Edits" link in the sidebar go to this page instead of the "New edits" list.') }
-                    ] %]
-                <p>
-                    [% widget = form.field('mods_per_page') %]
-                    [% l('Show up to how many edits per page? (max: 25)') %] [% INCLUDE "forms/input.tt" for=widget type='text' %]
-                </p>
-                [% PROCESS fields fields = [
-                    { widget = 'vote_abs_default' label=l('Abstain by default.') },
-                    { widget = 'vote_show_novote', label=l('Show the "No Vote" option') },
-                    { widget = 'mail_notes_if_i_noted', label=l('When I add a note to an edit , mail me all future notes for that edit.') },
-                    { widget = 'mail_notes_if_i_voted', label=l('When I vote on an edit, mail me all future notes for that edit.') },
-                    { widget = 'mail_on_first_no_vote', label=l('Mail me when one of my edits gets a "no" vote.') }
-                    ] -%]
-                <p>
-                    [%- INCLUDE 'forms/input.tt' field=form.field('show_inline_mods') -%]
-                    [%- INCLUDE 'forms/label.tt' for=form.field('show_inline_mods') label=l('Show inline edits') -%]
-                    <br />
-                    <span style="margin-left: 30pt;">
-                        [%- INCLUDE 'forms/input.tt' field=form.field('show_inline_mods_random') -%]
-                        [%- INCLUDE 'forms/label.tt' for=form.field('show_inline_mods_random') label=l('Show random inline edits') -%]
-                    </span>
-                </p>
-                [%- PROCESS fields fields = [
-                    { widget = 'remove_recent_link_on_add', label=l('After creating a new relationship, remove the linked items from my "recently used" list.') },
-                    { widget = 'auto_subscribe', label=l('Automatically subscribe me to Artists or Labels I create.') }
-                    ] %]
-            </fieldset>
-            <fieldset id="options-emailing">
-                <legend>
-                    [%- l('Emailing other editors') %]
-                </legend>
-                [% fields = [
-                    { widget = 'reveal_address_when_mailing', label=l('Reveal my email address checked by default') },
-                    { widget = 'sendcopy_when_mailing', label=l('Send me a copy to my email address') }
-                    ] %]
-                [% PROCESS fields %]
-            </fieldset>
-            <fieldset id="options-show-artist">
-                <legend>
-                    [% l('Show Artist') %]
-                </legend>
-                <p>
-                    [% l('Default to a "compact" listing for how many, or more, releases? (allowed range: 1 - 1000)') %] [% INCLUDE "forms/input.tt" field=form.field('releases_show_compact') type='text' %]
-                </p>
-            </fieldset>
-            <fieldset id="options-show-release">
-                <legend>
-                    [% l('Show Release') %]
-                </legend>
-                [% fields = [
-                    { widget = 'release_show_relationshipslinks', label=l('Show the add/edit relationships links in the Release header.') },
-                    { widget = 'release_show_annotationlinks', label=l('Show the add/edit annotation links in the Release header.') },
-                    { widget = 'show_amazon_coverart', label=l('Show Amazon cover art and buy links.') },
-                    { widget = 'use_amazon_store', label=l('Your preferred Amazon store') }
-                    ] %]
-                [% PROCESS fields %]
-            </fieldset>
-            <fieldset id="options-country">
-                <legend>
-                    [% l('Country') %]
-                </legend>
-                [% fields = [
-                    { widget = 'default_country', label=l('When adding a new Release, pick this country by default') },
-                    { widget = 'google_domain', label=l('Your preferred Google domain') }
-                    ] %]
-                [% PROCESS fields %]
-            </fieldset>
-            <fieldset id="options-datetime">
-                <legend>
-                    [% l('Date / Time display') %]
-                </legend>
-                [% fields = [
-                    { widget = 'datetimeformat', label=l('Your preferred date/time format') },
-                    { widget = 'timezone', label=l('Your preferred time zone') }
-                    ] %]
-                [% PROCESS fields %]
-            </fieldset>
-            <fieldset id="options-topmenu">
-                <legend>
-                    [% l('Top menu configuration') %]
-                </legend>
-                [% fields = [
-                    { widget = 'topmenu_submenu_types' label=l('The menu which is placed on top of the pages features multiple ways of navigating the site. <br />You can choose which menu(s) you would like to see if you are logged in') },
-                    ] %]
-                [% PROCESS fields %]
-            </fieldset>
-            <fieldset id="options-javascript">
-                <legend>
-                    [% l('Use of JavaScript') %]
-                </legend>
-                <div>
-                    <span>[% l('JavaScript adds a good amount of useful functionality to MusicBrainz.  However, your browser must be sufficiently recent enough that it supports the JavaScript used on the site: FireFox 1.5+, Opera 9+, Safari 3+, or Internet Explorer 6+.  Konquerer may normally work, but it is known to have some issues.') %]</span>
-                    <br />
-                    <br />
-                    <span id="browsertest"><span style="color: red;">[% l('Either you have JavaScript disabled, or your browser is not able to handle the Javascript used on the site.') %]</span></span>
-                    <br />
-                    <br />
-                </div>
-            </fieldset>
-            <fieldset id="options-display">
-                <legend>
-                    [% l('Display options') %]
-                </legend>
-                <h3>
-                    [% l('Sidebar panels') %]
-                </h3>
-                <div style="margin-left: 30pt">
-                    [%- PROCESS fields fields = [
-                        { widget = 'sidebar_panel_sites', label=l('MusicBrainz sites') },
-                        { widget = 'sidebar_panel_search', label=l('Search') },
-                        { widget = 'sidebar_panel_stats', label=l('Statistics') },
-                        { widget = 'sidebar_panel_topmods', label=l('Top Editors') },
-                        { widget = 'sidebar_panel_user', label=l('User Info') }
-                        ] -%]
-                </div>
-                [%- PROCESS fields fields = [
-                    { widget = 'nosidebar', label=l('Do not show the sidebar (can be faster, but may make the website difficult to navigate)') },
-                    { widget = 'css_noentityicons', label=l('Do not show icons next to Artists, Releases, Tracks and Labels') },
-                    { widget = 'show_ratings', label=l('Show ratings') },
-                    ] -%]
-            </fieldset>
-            <div id="options-privacy">
-                [%- WRAPPER 'forms/fieldset.tt' legend=l('Privacy') -%]
-                    [%- PROCESS fields fields = [
-                        { widget = 'subscriptions_public', label=l('Allow other users to see my subscriptions') },
-                        { widget = 'tags_public', label=l('Allow other users to see my folksonomy tags') },
-                        { widget = 'ratings_public', label=l('Allow other users to see my ratings') }
-                        ] -%]
-                [%- END -%]
-            </div>
-        </div>
-        <br />
-            [% INCLUDE "forms/submit.tt" id="button-update-prefs" label=l("Update Preferences") %]
-        [% END %]
-    [% END %]
+            [% r.checkbox('public_tags') %]
+            [% l('Allow other users to see my tags') %]
+            <br />
+            [% r.checkbox('public_ratings') %]
+            [% l('Allow other users to see my ratings') %]
+            <br />
+            [% r.checkbox('public_collection') %]
+            [% l('Allow other users to see my release collection') %]
+        </p>
+    </fieldset>
+
+    [% form_submit(l('Save')) %]
+
+</form>
+
 [% END %]

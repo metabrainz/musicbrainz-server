@@ -25,6 +25,7 @@ requires 'Catalyst::View::JSON'                        => '0.25';
 requires 'Catalyst::View::TT'                          => '0.29';
 requires 'Data::Page'                                  => '2.01';
 requires 'Date::Calc'                                  => '5.4';
+requires 'DateTime::TimeZone';
 requires 'DateTime::Format::Strptime'                  => '1.1000';
 requires 'DateTime::Format::Pg'                        => '0.16004';
 requires 'DBD::Pg'                                     => '2.11.8';

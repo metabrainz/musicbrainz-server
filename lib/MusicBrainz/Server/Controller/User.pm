@@ -690,23 +690,26 @@ Change the users preferences
 
 =cut
 
-sub preferences : Local Form
+sub preferences : Path('/account/preferences') RequireAuth
 {
     my ($self, $c) = @_;
 
-    $c->forward('login');
+    if (exists $c->request->params->{ok}) {
+        $c->stash(template => 'user/preferences_ok.tt');
+        $c->detach;
+    }
 
-    my $prefs = UserPreference->newFromUser($c->mb->dbh, $c->user->id);
-    $prefs->load;
+    my $editor = $c->model('Editor')->get_by_id($c->user->id);
+    $c->model('Editor')->load_preferences($editor);
 
-    my $form = $self->form;
-    $form->init($prefs);
+    my $form = $c->form( form => 'User::Preferences', item => $editor->preferences );
 
-    return unless $self->submit_and_validate($c);
+    if ($c->form_posted && $form->process( params => $c->req->params )) {
+        $c->model('Editor')->save_preferences($editor, $form->values);
 
-    $form->update_from_form($c->req->params);
-    $c->user->preferences($prefs);
-    $c->persist_user;
+        $c->response->redirect($c->uri_for_action('/user/preferences', { ok => 1 }));
+        $c->detach;
+    }
 }
 
 =head2 donate

@@ -191,7 +191,7 @@
     </li>
     [%- IF c.user_exists -%]
         <li>
-            <a href="[% c.uri_for('/user/profile', c.user.name) %]">
+            <a href="[% c.uri_for_action('/user/profile', c.user.name) %]">
                 [% l('Account') %]
             </a>
             <ul>
@@ -201,12 +201,12 @@
                     </a>
                 </li>
                 <li>
-                    <a href="[% c.uri_for('/user/change_password') %]">
+                    <a href="[% c.uri_for_action('/user/change_password') %]">
                         [% l('Change Password') %]
                     </a>
                 </li>
                 <li>
-                    <a href="[% c.uri_for('/user/preferences') %]">
+                    <a href="[% c.uri_for_action('/user/preferences') %]">
                         [% l('Preferences') %]
                     </a>
                 </li>
@@ -231,7 +231,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="[% c.uri_for('/user/logout') %]">
+                    <a href="[% c.uri_for_action('/user/logout') %]">
                         [% l('Log out') %]
                     </a>
                 </li>
@@ -243,7 +243,7 @@
             </a>
             <ul>
 	        <li>
-                    <a href="[% c.uri_for('/user/register') %]">
+                    <a href="[% c.uri_for_action('/user/register') %]">
                         [% l('Create an Account') %]
                     </a>
                 </li>
@@ -251,7 +251,7 @@
                     [% request_login(l('Log in')) %]
                 </li>
 	        <li>
-                    <a href="[% c.uri_for('/user/forgot_password') %]">
+                    <a href="[% c.uri_for_action('/user/lost_password') %]">
                         [% l('Forgot Password') %]
                     </a>
                 </li>

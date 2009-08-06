@@ -382,7 +382,17 @@ INSERT INTO editor (id, name, password, privs, email, website, bio,
         emailconfirmdate, lastlogindate, modsaccepted, modsrejected,
         automodsaccepted, modsfailed FROM public.moderator;
 
-INSERT INTO editor_preference SELECT * FROM public.moderator_preference;
+INSERT INTO editor_preference (id, editor, name, value)
+    SELECT
+        id, moderator,
+        CASE
+            WHEN name = 'subscriptions_public' THEN 'public_subscriptions'
+            WHEN name = 'tags_public' THEN 'public_tags'
+            WHEN name = 'ratings_public' THEN 'public_ratings'
+            WHEN name = 'datetimeformat' THEN 'datetime_format'
+            ELSE name
+        END, value
+        FROM public.moderator_preference;
 INSERT INTO editor_subscribe_artist SELECT * FROM public.moderator_subscribe_artist;
 INSERT INTO editor_subscribe_label SELECT * FROM public.moderator_subscribe_label;
 INSERT INTO editor_subscribe_editor SELECT * FROM public.editor_subscribe_editor;

@@ -7,6 +7,24 @@ has 'public_ratings' => (
     is => 'rw',
 );
 
+has 'public_subscriptions' => (
+    isa => 'Bool',
+    default => 1,
+    is => 'rw',
+);
+
+has 'public_tags' => (
+    isa => 'Bool',
+    default => 1,
+    is => 'rw',
+);
+
+has 'public_collection' => (
+    isa => 'Bool',
+    default => 1,
+    is => 'rw',
+);
+
 has 'datetime_format' => (
     isa => 'Str',
     default => '%Y-%m-%d %H:%M:%S %Z',
