@@ -182,6 +182,13 @@ END -%]
     '<a href="' _ link _ '">' _ text _ '</a>';
 END -%]
 
+[%- MACRO link_puid(puid, action, text) BLOCK;
+    action = action || 'show';
+    link = c.uri_for_action("/puid/$action", [ puid.name ]);
+    text = text || html_escape(puid.name);
+    '<a href="' _ link _ '">' _ text _ '</a>';
+END -%]
+
 [%- MACRO link_editor(editor, action, text) BLOCK;
     action = action || 'profile';
     link = c.uri_for_action("/user/$action", editor.name);

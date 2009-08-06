@@ -1,8 +1,8 @@
-package MusicBrainz::Server::Model::PUID;
+package MusicBrainz::Server::Model::RecordingPUID;
 
 use base 'MusicBrainz::Server::ModelFactory';
 
-__PACKAGE__->config(class => 'MusicBrainz::Server::Data::PUID');
+__PACKAGE__->config(class => 'MusicBrainz::Server::Data::RecordingPUID');
 
 1;
 

@@ -2,6 +2,7 @@
     ['index', link_recording(recording, 'show', l('Releases'))],
     ['relationships', link_recording(recording, 'relationships', l('Relationships'))],
     ['tags', link_recording(recording, 'tags', l('Tags'))],
+    ['puids', link_recording(recording, 'puids', l('PUIDs'))],
     ['details', link_recording(recording, 'details', l('Details'))],
 ] -%]
 

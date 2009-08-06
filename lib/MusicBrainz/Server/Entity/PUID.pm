@@ -1,9 +1,24 @@
-package MusicBrainz::Server::Model::PUID;
+package MusicBrainz::Server::Entity::PUID;
 
-use base 'MusicBrainz::Server::ModelFactory';
+use Moose;
+use MusicBrainz::Server::Entity::Types;
 
-__PACKAGE__->config(class => 'MusicBrainz::Server::Data::PUID');
+extends 'MusicBrainz::Server::Entity::Entity';
 
+has 'puid' => (
+    is => 'rw',
+    isa => 'Str'
+);
+
+has 'client_version' => (
+    is => 'rw',
+    isa => 'Str'
+);
+
+sub name { shift->puid }
+
+__PACKAGE__->meta->make_immutable;
+no Moose;
 1;
 
 =head1 COPYRIGHT

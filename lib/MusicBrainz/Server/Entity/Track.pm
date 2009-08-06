@@ -41,6 +41,11 @@ has 'artist_credit_id' => (
     isa => 'Int'
 );
 
+has 'length' => (
+    is => 'rw',
+    isa => 'Int'
+);
+
 has 'artist_credit' => (
     is => 'rw',
     isa => 'ArtistCredit'

@@ -1,9 +1,47 @@
-package MusicBrainz::Server::Model::PUID;
+package MusicBrainz::Server::Data::PUID;
 
-use base 'MusicBrainz::Server::ModelFactory';
+use Moose;
 
-__PACKAGE__->config(class => 'MusicBrainz::Server::Data::PUID');
+extends 'MusicBrainz::Server::Data::Entity';
 
+sub _table
+{
+    return 'puid JOIN clientversion ON puid.version = clientversion.id';
+}
+
+sub _columns
+{
+    return 'puid.id, puid.puid, clientversion.version';
+}
+
+sub _column_mapping
+{
+    return {
+        id             => 'id',
+        puid           => 'puid',
+        client_version => 'version',
+    };
+}
+
+sub _entity_class
+{
+    return 'MusicBrainz::Server::Entity::PUID';
+}
+
+sub _id_column
+{
+    return 'puid.id';
+}
+
+sub get_by_puid
+{
+    my ($self, $puid) = @_;
+    my @result = values %{$self->_get_by_keys("puid.puid", $puid)};
+    return $result[0];
+}
+
+__PACKAGE__->meta->make_immutable;
+no Moose;
 1;
 
 =head1 COPYRIGHT

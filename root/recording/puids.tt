@@ -1,0 +1,11 @@
+[%- WRAPPER 'recording/layout.tt' page='puids' %]
+
+<h2>[%- l('Associated PUIDs') -%]</h2>
+
+<ul>
+    [% FOR puid IN puids %]
+    <li>[% link_puid(puid.puid) %]</li>
+    [% END %]
+</ul>
+
+[%- END -%]

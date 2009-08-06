@@ -431,6 +431,17 @@ INSERT INTO release_gid_redirect VALUES ('71dc55d8-0fc6-41c1-94e0-85ff2404997d',
 INSERT INTO release_group_gid_redirect VALUES ('77637e8c-be66-46ea-87b3-73addc722fc9', 1);
 INSERT INTO work_gid_redirect VALUES ('28e73402-5666-4d74-80ab-c3734dc699ea', 1);
 
+TRUNCATE clientversion CASCADE;
+TRUNCATE puid CASCADE;
+
+INSERT INTO clientversion (id, version) VALUES (1, 'mb_client/1.0');
+INSERT INTO puid (id, puid, version) VALUES
+    (1, 'b9c8f51f-cc9a-48fa-a415-4c91fcca80f0', 1),
+    (2, '134478d1-306e-41a1-8b37-ff525e53c8be', 1);
+
+INSERT INTO recording_puid (id, recording, puid) VALUES
+    (1, 1, 1), (2, 1, 2);
+
 -- Restart sequences
 ALTER SEQUENCE gender_id_seq RESTART 3;
 ALTER SEQUENCE artist_id_seq RESTART 10;

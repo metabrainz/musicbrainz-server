@@ -44,9 +44,13 @@ CREATE UNIQUE INDEX language_idx_isocode_2 ON language (isocode_2);
 CREATE UNIQUE INDEX medium_idx_release ON medium (release, position);
 CREATE INDEX medium_idx_tracklist ON medium (tracklist);
 
+CREATE UNIQUE INDEX puid_idx_puid ON puid (puid);
+
 CREATE UNIQUE INDEX recording_idx_gid ON recording (gid);
 CREATE INDEX recording_idx_name ON recording (name);
 CREATE INDEX recording_idx_artist_credit ON recording (artist_credit);
+
+CREATE INDEX recording_puid_idx_uniq ON recording_puid (recording, puid);
 
 CREATE INDEX recording_tag_idx_tag ON recording_tag (tag);
 

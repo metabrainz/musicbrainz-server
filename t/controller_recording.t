@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 use strict;
-use Test::More tests => 18;
+use Test::More tests => 21;
 
 BEGIN {
     use MusicBrainz::Server::Context;
@@ -36,3 +36,8 @@ $mech->content_like(qr{This recording has no tags});
 
 # Test ratings
 $mech->get_ok('/recording/123c079d-374e-4436-9448-da92dedef3ce/ratings', 'get recording ratings');
+
+# Test PUIDs
+$mech->get_ok('/recording/123c079d-374e-4436-9448-da92dedef3ce/puids', 'get recording puids');
+$mech->content_contains('puid/b9c8f51f-cc9a-48fa-a415-4c91fcca80f0', 'has puid 1');
+$mech->content_contains('puid/134478d1-306e-41a1-8b37-ff525e53c8be', 'has puid 2');

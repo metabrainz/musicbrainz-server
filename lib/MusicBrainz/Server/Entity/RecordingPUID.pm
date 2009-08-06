@@ -1,9 +1,32 @@
-package MusicBrainz::Server::Model::PUID;
+package MusicBrainz::Server::Entity::RecordingPUID;
 
-use base 'MusicBrainz::Server::ModelFactory';
+use Moose;
 
-__PACKAGE__->config(class => 'MusicBrainz::Server::Data::PUID');
+extends 'MusicBrainz::Server::Entity::Entity';
+with 'MusicBrainz::Server::Entity::Editable';
 
+has 'puid_id' => (
+    is => 'rw',
+    isa => 'Int'
+);
+
+has 'puid' => (
+    is => 'rw',
+    isa => 'PUID'
+);
+
+has 'recording_id' => (
+    is => 'rw',
+    isa => 'Int'
+);
+
+has 'recording' => (
+    is => 'rw',
+    isa => 'Recording'
+);
+
+__PACKAGE__->meta->make_immutable;
+no Moose;
 1;
 
 =head1 COPYRIGHT

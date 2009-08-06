@@ -79,7 +79,7 @@ sub find_by_recording
                 medium.tracklist AS m_tracklist,
                 tracklist.trackcount AS m_trackcount,
             release.id AS r_id, release.gid AS r_gid, release_name.name AS r_name,
-                release.artist_credit AS r_artist_credit,
+                release.artist_credit AS r_artist_credit_id,
                 release.date_year AS r_date_year,
                 release.date_month AS r_date_month,
                 release.date_day AS r_date_day,

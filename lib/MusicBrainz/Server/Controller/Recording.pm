@@ -101,6 +101,19 @@ sub show : Chained('load') PathPart('')
     );
 }
 
+sub puids : Chained('load') PathPart('puids')
+{
+    my ($self, $c) = @_;
+
+    my $recording = $c->stash->{recording};
+    my @puids = $c->model('RecordingPUID')->find_by_recording($recording->id);
+    $c->model('ArtistCredit')->load($recording);
+    $c->stash(
+        puids    => \@puids,
+        template => 'recording/puids.tt',
+    );
+}
+
 sub google : Chained('load')
 {
     my ($self, $c) = @_;

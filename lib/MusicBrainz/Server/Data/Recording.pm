@@ -27,6 +27,18 @@ sub _columns
             recording.artist_credit AS artist_credit_id, length,
             comment, editpending AS edits_pending';
 }
+sub _column_mapping
+{
+    return {
+        id               => 'id',
+        gid              => 'gid',
+        name             => 'name',
+        artist_credit_id => 'artist_credit_id',
+        length           => 'length',
+        comment          => 'comment',
+        edits_pending    => 'edits_pending',
+    };
+}
 
 sub _id_column
 {
@@ -99,6 +111,7 @@ sub delete
 {
     my ($self, $recording) = @_;
     $self->c->model('Relationship')->delete('recording', $recording->id);
+    $self->c->model('RecordingPUID')->delete_recordings($recording->id);
     $self->annotation->delete($recording->id);
     $self->tags->delete($recording->id);
     $self->rating->delete($recording->id);
@@ -142,6 +155,7 @@ sub merge
     $self->annotation->merge($new_id, @old_ids);
     $self->tags->merge($new_id, @old_ids);
     $self->rating->merge($new_id, @old_ids);
+    $self->c->model('RecordingPUID')->merge_recordings($new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('recording', $new_id, @old_ids);
     $self->c->model('Relationship')->merge('recording', $new_id, @old_ids);
 

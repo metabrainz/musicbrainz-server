@@ -1,63 +1,55 @@
 package MusicBrainz::Server::Controller::PUID;
+use Moose;
 
-use strict;
-use warnings;
+BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
-use base 'MusicBrainz::Server::Controller';
-
-use MusicBrainz::Server::Validation;
-
-__PACKAGE__->config(
-    model       => 'PUID',
-    entity_name => 'puid',
-);
-
-sub base : Chained('/') PathPart('puid') CaptureArgs(0) { }
-
-sub show : Chained('load') PathPart('')
+sub load : Chained('/') PathPart('puid') CaptureArgs(1)
 {
-    my ($self, $c) = @_;
+    my ($self, $c, $id) = @_;
 
-    my $tracks = $self->entity->tracks(load_tracks => 1);
-    $c->stash(
-        tracks => [ map { +{
-            track   => $_,
-            release => $c->model('Release')->load($_->release)
-        } } @$tracks ]
-    );
-}
-
-sub remove : Chained('load') PathPart Form('Confirm')
-{
-    my ($self, $c) = @_;
-    $c->forward('/user/login');
-
-    my $track_id = $c->req->params->{track};
-    my $join_id  = $c->req->params->{join};
-
-    if (!MusicBrainz::Server::Validation::IsGUID($track_id) ||
-        !MusicBrainz::Server::Validation::IsNonNegInteger($join_id))
-    {
-        $c->response->redirect(
-            $c->uri_for($c->action, 'show', [ $self->entity->puid ])
-        );
-        $c->detach;
+    unless (MusicBrainz::Server::Validation::IsGUID($id)) {
+        $c->detach('/error_404');
     }
 
-    my $track = $c->model('Track')->load($track_id);
-    $track->artist->LoadFromId;
-    $c->stash( track => $track );
+    my $puid = $c->model('PUID')->get_by_puid($id);
+    unless (defined $puid) {
+        $c->detach('/error_404');
+    }
 
-    return unless $self->submit_and_validate($c);
+    $c->stash( puid => $puid );
+}
 
-    $c->model('Moderation')->insert($self->form->value('edit_note'),
-        type       => ModDefs::MOD_REMOVE_PUID,
-        track      => $track,
-        puid       => $self->entity,
-        puidjoinid => $join_id,
+sub show : PathPart('') Chained('load')
+{
+    my ($self, $c) = @_;
+
+    my $puid = $c->stash->{puid};
+    my @recordings = $c->model('RecordingPUID')->find_by_puid($puid->id);
+    $c->model('ArtistCredit')->load(map { $_->recording } @recordings);
+    $c->stash(
+        recordings => \@recordings,
+        template   => 'puid/index.tt',
     );
-
-    $c->res->redirect($c->entity_url($track, 'show'));
 }
 
 1;
+
+=head1 COPYRIGHT
+
+Copyright (C) 2009 Lukas Lalinsky
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+=cut
