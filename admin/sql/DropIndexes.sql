@@ -3,6 +3,7 @@
 
 DROP INDEX artist_alias_idx_artist;
 DROP INDEX artist_alias_idx_name_artist;
+DROP INDEX artist_credit_name_idx_artist;
 DROP INDEX artist_idx_gid;
 DROP INDEX artist_idx_name;
 DROP INDEX artist_idx_sortname;
