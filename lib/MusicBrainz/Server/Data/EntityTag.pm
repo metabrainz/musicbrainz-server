@@ -30,7 +30,7 @@ sub find_tags
     my $query = "SELECT tag.name, entity_tag.count FROM " . $self->tag_table . " entity_tag " .
                 "JOIN tag ON tag.id = entity_tag.tag " .
                 "WHERE " . $self->type . " = ?" .
-                "ORDER BY entity_tag.count DESC OFFSET ?";
+                "ORDER BY entity_tag.count DESC, tag.name OFFSET ?";
     return query_to_list_limited(
         $self->c->dbh, $offset, $limit, sub { $self->_new_from_row($_[0]) },
         $query, $entity_id, $offset);
@@ -42,7 +42,7 @@ sub find_top_tags
     my $query = "SELECT tag.name, entity_tag.count FROM " . $self->tag_table . " entity_tag " .
                 "JOIN tag ON tag.id = entity_tag.tag " .
                 "WHERE " . $self->type . " = ? " .
-                "ORDER BY entity_tag.count DESC LIMIT ?";
+                "ORDER BY entity_tag.count DESC, tag.name LIMIT ?";
     return query_to_list($self->c->dbh, sub { $self->_new_from_row($_[0]) },
                          $query, $entity_id, $limit);
 }

@@ -11,7 +11,7 @@ INSERT INTO editor (id, name, password, privs, email, website, bio, membersince,
         'biography', '1989-07-23', '2005-10-20', '2009-01-01', 12, 2, 59, 9);
 
 INSERT INTO editor_preference (editor, name, value)
-    VALUES (1, 'datetimeformat', '%m/%d/%Y %H:%M:%S'),
+    VALUES (1, 'datetime_format', '%m/%d/%Y %H:%M:%S'),
            (1, 'timezone', 'CEST'),
            (1, 'public_ratings', '0');
 
