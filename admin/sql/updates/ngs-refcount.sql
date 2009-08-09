@@ -25,8 +25,12 @@ INSERT INTO tmp_artist_credit
 DROP TABLE artist_credit;
 ALTER TABLE tmp_artist_credit RENAME TO artist_credit;
 ALTER TABLE tmp_artist_credit_id_seq RENAME TO artist_credit_id_seq;
-DELETE FROM artist_credit_name WHERE
-    artist_credit NOT IN (SELECT id FROM artist_credit);
+
+SELECT * INTO TEMPORARY tmp_artist_credit_name
+FROM artist_credit_name WHERE
+    artist_credit IN (SELECT id FROM artist_credit);
+TRUNCATE artist_credit_name;
+INSERT INTO artist_credit_name SELECT * FROM tmp_artist_credit_name;
 
 
 CREATE TABLE tmp_label_name (
