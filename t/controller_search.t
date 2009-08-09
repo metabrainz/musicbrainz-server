@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 use strict;
-use Test::More tests => 33;
+use Test::More tests => 37;
 
 BEGIN {
     use MusicBrainz::Server::Context;
@@ -51,3 +51,8 @@ $mech->content_contains('Arrival', 'has correct search result');
 $mech->content_contains('/release-group/234c079d-374e-4436-9448-da92dedef3ce', 'has link to release group');
 $mech->content_contains('/artist/a45c079d-374e-4436-9448-da92dedef3cf', 'has link to artist');
 $mech->content_contains('ABBA', 'has artist');
+
+$mech->get_ok('/search?query=random_editor&type=editor', 'perform editor search');
+$mech->content_contains('There is no editor with this name');
+$mech->get_ok('/search?query=new_editor&type=editor', 'perform editor search');
+is($mech->uri->path, '/user/profile/new_editor');

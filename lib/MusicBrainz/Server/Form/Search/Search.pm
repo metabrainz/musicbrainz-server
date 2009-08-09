@@ -29,6 +29,7 @@ sub options_type
         'release'       => 'Release',
         'release_group' => 'Release Group',
         'work'          => 'Work',
+        'editor'        => 'Editor',
     ];
 }
 

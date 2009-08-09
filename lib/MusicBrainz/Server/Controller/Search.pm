@@ -19,12 +19,33 @@ sub search : Path('')
 
     if ($form->process( params => $c->req->query_params ))
     {
-        $c->forward($form->field('direct')->value ? 'direct' : 'external');
+        if ($form->field('type')->value eq 'editor') {
+            $c->forward('editor');
+        }
+        else {
+            $c->forward($form->field('direct')->value ? 'direct' : 'external');
+        }
     }
     else
     {
         $c->stash( template => 'search/index.tt' );
     }
+}
+
+sub editor : Private
+{
+    my ($self, $c) = @_;
+
+    my $form = $c->stash->{form};
+
+    my $query = $form->field('query')->value;
+    my $editor = $c->model('Editor')->get_by_name($query);
+    if (defined $editor) {
+        $c->res->redirect($c->uri_for_action('/user/profile', $editor->name));
+        $c->detach;
+    }
+
+    $c->stash( template => 'search/editor-not-found.tt' );
 }
 
 sub direct : Private
