@@ -45,6 +45,8 @@ after 'load' => sub
     if ($c->user_exists) {
         $c->model('Recording')->rating->load_user_ratings($c->user->id, $recording);
     }
+    my @isrcs = $c->model('ISRC')->find_by_recording($recording->id);
+    $c->stash( isrcs => \@isrcs );
 };
 
 =head2 relations

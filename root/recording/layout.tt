@@ -10,6 +10,9 @@
         [%- IF recording.length -%]
             <span><strong>[% l('Length:') %]</strong> [% recording.length | format_time %]</span>
         [%- END -%]
+        [%- FOR isrc IN isrcs -%]
+            <span><strong>[% l('ISRC:') %]</strong> [% isrc.isrc %]</span>
+        [%- END -%]
     </p>
     [%- INCLUDE "components/sidebar-rating.tt" entity=recording -%]
     [%- INCLUDE "components/sidebar-tags.tt" entity=recording tags=top_tags tag_this_text=l('Tag this recording') -%]

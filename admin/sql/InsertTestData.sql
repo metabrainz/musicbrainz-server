@@ -344,6 +344,10 @@ INSERT INTO medium (id, release, position, tracklist, format, name) VALUES (4, 2
 INSERT INTO medium (id, release, position, tracklist, format, name) VALUES (5, 3, 1, 3, 1, 'A Sea of Honey');
 INSERT INTO medium (id, release, position, tracklist, format, name) VALUES (6, 3, 2, 4, 1, 'A Sky of Honey');
 
+TRUNCATE TABLE isrc CASCADE;
+
+INSERT INTO isrc (isrc, recording) VALUES ('DEE250800230', 2);
+
 TRUNCATE TABLE link_attribute_type CASCADE;
 
 INSERT INTO link_attribute_type (id, root, gid, name)
