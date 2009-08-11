@@ -156,7 +156,7 @@ sub show : Chained('load') PathPart('')
     $c->model('MediumFormat')->load(@mediums);
 
     my @tracklists = map { $_->tracklist } @mediums;
-    $c->model('Track')->load(@tracklists);
+    $c->model('Track')->load_for_tracklists(@tracklists);
 
     my @tracks = map { $_->all_tracks } @tracklists;
     my @recordings = $c->model('Recording')->load(@tracks);

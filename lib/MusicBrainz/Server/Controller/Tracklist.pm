@@ -18,7 +18,7 @@ sub show : Chained('tracklist') PathPart('')
     my ($self, $c) = @_;
 
     my $tracklist = $c->stash->{tracklist};
-    $c->model('Track')->load($tracklist);
+    $c->model('Track')->load_for_tracklists($tracklist);
     my @recordings = $c->model('Recording')->load($tracklist->all_tracks);
     $c->model('Recording')->load_meta(@recordings);
     if ($c->user_exists) {

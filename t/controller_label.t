@@ -100,7 +100,7 @@ ok($mech->uri =~ qr{/label/46f0f4cd-8aab-4b33-b698-f459faf64190}, 'should redire
 
 my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Label::Delete');
-is_deeply($edit->data, { label => 2 });
+is_deeply($edit->data, { label_id => 2 });
 
 # Test editing labels
 $mech->get_ok('/label/46f0f4cd-8aab-4b33-b698-f459faf64190/edit');

@@ -21,7 +21,7 @@ is ( $tracklist2->id, 2 );
 is ( $tracklist2->track_count, 9 );
 
 my $track_data = MusicBrainz::Server::Data::Track->new(c => $c);
-$track_data->load($tracklist1, $tracklist2);
+$track_data->load_for_tracklists($tracklist1, $tracklist2);
 is ( scalar($tracklist1->all_tracks), 7 );
 is ( $tracklist1->tracks->[0]->name, "King of the Mountain" );
 is ( $tracklist1->tracks->[5]->name, "Joanni" );
