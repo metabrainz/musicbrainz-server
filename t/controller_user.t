@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 use strict;
 use warnings;
-use Test::More tests => 19;
+use Test::More tests => 23;
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
@@ -40,6 +40,7 @@ $mech->get_ok('/reset-password');
 
 $mech->get('/login');
 $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
+
 $mech->get_ok('/account/edit');
 $mech->submit_form( with_fields => {
     'profile.website' => 'foo',
@@ -54,3 +55,21 @@ $mech->content_contains('Your profile has been updated');
 $mech->get('/user/profile/new_editor');
 $mech->content_contains('http://example.com/~new_editor/');
 $mech->content_contains('hello world!');
+
+$mech->get_ok('/account/change-password');
+$mech->submit_form( with_fields => {
+    'changepassword.old_password' => 'wrong password',
+    'changepassword.password' => 'new_password',
+    'changepassword.confirm_password' => 'new_password'
+} );
+$mech->content_contains('The old password is incorrect');
+$mech->submit_form( with_fields => {
+    'changepassword.old_password' => 'password',
+    'changepassword.password' => 'new_password',
+    'changepassword.confirm_password' => 'new_password'
+} );
+$mech->content_contains('Your password has been changed');
+$mech->get('/logout');
+$mech->get('/login');
+$mech->submit_form( with_fields => { username => 'new_editor', password => 'new_password' } );
+is($mech->uri->path, '/user/profile/new_editor');

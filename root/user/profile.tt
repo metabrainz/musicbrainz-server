@@ -15,7 +15,7 @@
 
         [% edit_account_options = [
             { link => c.uri_for_action('/user/edit'), text => l("Edit") },
-            { link => c.uri_for('/user/change_password'), text => l("Change Password") },
+            { link => c.uri_for_action('/user/change_password'), text => l("Change Password") },
             { link => c.uri_for_action('/user/preferences'), text => l("Preferences") },
             { link => c.uri_for('/user/donate'), text => l("Check Donation Status") },
         ] %]

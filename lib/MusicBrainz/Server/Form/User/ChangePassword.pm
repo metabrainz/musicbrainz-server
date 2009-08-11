@@ -1,89 +1,61 @@
 package MusicBrainz::Server::Form::User::ChangePassword;
 
-use strict;
-use warnings;
+use HTML::FormHandler::Moose;
 
-use base 'MusicBrainz::Server::Form';
+extends 'MusicBrainz::Server::Form';
 
-=head1 NAME
+has '+name' => ( default => 'changepassword' );
 
-MusicBrainz::Server::Form::User::ChangePassword - form to allow users
-to change password.
+has_field 'old_password' => (
+    type => 'Password',
+    required => 1,
+    min_length => 1,
+);
 
-=head1 DESCRIPTION
+has_field 'password' => (
+    type => 'Password',
+    required => 1,
+    min_length => 1,
+);
 
-Handles the validation of the change password form. Does not actually
-perform the password changing logic.
+has_field 'confirm_password' => (
+    type => 'PasswordConf',
+    password_field => 'password',
+    required => 1,
+    min_length => 1,
+);
 
-=head1 name
+sub validate_old_password
+{
+    my ($self, $field) = @_;
 
-Returns the name of this form
-
-=cut
-
-sub name { 'change-password' }
-
-=head1 profile
-
-Returns a hash reference of the fields of this form.
-
-=cut
-
-sub profile {
-    return {
-        required => {
-            old_password => {
-                type => 'Text',
-                min_length => 1,
-                widget => 'password'
-            },
-            new_password => {
-                type => 'Text',
-                min_length => 1,
-                widget => 'password'
-            },
-            confirm_new_password => {
-                type => 'Text',
-                min_length => 1,
-                widget => 'password',
-            },
-        },
-    };
+    my $password = $field->value;
+    if ($password) {
+        my $editor = $self->ctx->model('Editor')->get_by_id($self->ctx->user->id);
+        if ($editor->password ne $password) {
+            $field->add_error($self->ctx->gettext('The old password is incorrect'));
+        }
+    }
 }
-
-=head1 cross_validate
-
-Performs cross validation between the "confirm password" fields.
-
-=cut
-
-sub cross_validate {
-    my ($self) = @_;
-
-    my ($new, $confirm) = ( $self->field('new_password'),
-                            $self->field('confirm_new_password') );
-
-    $confirm->add_error("The new password fields must match")
-        if $confirm->value ne $new->value;
-}
-
-=head1 LICENSE 
-
-This software is provided "as is", without warranty of any kind, express or
-implied, including  but not limited  to the warranties of  merchantability,
-fitness for a particular purpose and noninfringement. In no event shall the
-authors or  copyright  holders be  liable for any claim,  damages or  other
-liability, whether  in an  action of  contract, tort  or otherwise, arising
-from,  out of  or in  connection with  the software or  the  use  or  other
-dealings in the software.
-
-GPL - The GNU General Public License    http://www.gnu.org/licenses/gpl.txt
-Permits anyone the right to use and modify the software without limitations
-as long as proper  credits are given  and the original  and modified source
-code are included. Requires  that the final product, software derivate from
-the original  source or any  software  utilizing a GPL  component, such  as
-this, is also licensed under the GPL license.
-
-=cut
 
 1;
+
+=head1 COPYRIGHT
+
+Copyright (C) 2009 Lukas Lalinsky
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+=cut

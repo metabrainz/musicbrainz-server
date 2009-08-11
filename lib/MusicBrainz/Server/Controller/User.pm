@@ -496,28 +496,24 @@ when use to update the database data when we receive a valid POST request.
 
 =cut
 
-sub change_password : Local Form
+sub change_password : Path('/account/change-password') RequireAuth
 {
     my ($self, $c) = @_;
 
-    $c->forward('login');
-
-    my $form = $self->form;
-
-    return unless $self->submit_and_validate($c);
-
-    $c->user->Refresh;
-    if ($form->value('old_password') eq $c->user->password)
-    {
-        $c->user->ChangePassword( $form->value('old_password'),
-                                  $form->value('new_password'),
-                                  $form->value('confirm_new_password') );
-
-        $c->flash->{ok} = "Your password has been successfully changed";
+    if (exists $c->request->params->{ok}) {
+        $c->stash(template => 'user/change_password_ok.tt');
+        $c->detach;
     }
-    else
-    {
-        $form->field('old_password')->add_error("Old password is incorrect.");
+
+    my $form = $c->form( form => 'User::ChangePassword' );
+
+    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+
+        my $password = $form->field('password')->value;
+        $c->model('Editor')->update_password($c->user, $password);
+
+        $c->response->redirect($c->uri_for_action('/user/change_password', { ok => 1 }));
+        $c->detach;
     }
 }
 
