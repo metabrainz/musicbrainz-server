@@ -8,6 +8,8 @@ CREATE INDEX artist_idx_sortname ON artist (sortname);
 CREATE INDEX artist_alias_idx_artist ON artist_alias (artist);
 CREATE UNIQUE INDEX artist_alias_idx_name_artist ON artist_alias (name, artist);
 
+CREATE INDEX artist_credit_name_idx_artist ON artist_credit_name (artist);
+
 CREATE UNIQUE INDEX artist_name_idx_name ON artist_name (name);
 CREATE INDEX artist_name_idx_page ON artist_name (page_index(name));
 

@@ -14,7 +14,7 @@
     <dl>
 
         [% edit_account_options = [
-            { link => c.uri_for('/user/edit'), text => l("Edit") },
+            { link => c.uri_for_action('/user/edit'), text => l("Edit") },
             { link => c.uri_for('/user/change_password'), text => l("Change Password") },
             { link => c.uri_for_action('/user/preferences'), text => l("Preferences") },
             { link => c.uri_for('/user/donate'), text => l("Check Donation Status") },
@@ -70,9 +70,9 @@
         [% END %]
 
         [% WRAPPER property name=l("Homepage") %]
-            [% IF user.web_url %]
-                <a href="[% user.web_url | url %]">
-                    [% user.web_url | html_entity %]
+            [% IF user.website %]
+                <a href="[% user.website | url %]">
+                    [% user.website | html_entity %]
                 </a>
             [% ELSE %]
                 [% l('(none)') %]

@@ -447,25 +447,45 @@ request is received), update the profile data in the database.
 
 =cut
 
-sub edit : Local Form('User::EditProfile')
+sub edit : Path('/account/edit') RequireAuth
 {
     my ($self, $c) = @_;
 
-    $c->forward('login');
+    if (exists $c->request->params->{ok}) {
+        $c->stash(
+            template => 'user/edit_ok.tt',
+            email_sent => $c->request->params->{email} ? 1 : 0,
+            email => $c->request->params->{email},
+        );
+        $c->detach;
+    }
 
-    # We refresh $c->user as this is no longed loaded from the database
-    # on each request
-    my $form = $self->form;
-    $c->user->Refresh;
-    $form->init($c->user);
+    my $editor = $c->model('Editor')->get_by_id($c->user->id);
 
-    return unless $self->submit_and_validate($c);
+    my $form = $c->form( form => 'User::EditProfile', item => $editor );
 
-    $form->update_model;
+    if ($c->form_posted && $form->process( params => $c->req->params )) {
 
-    $c->flash->{ok} = "Your profile has been sucessfully updated";
-    $c->response->redirect('/user/');
-    $c->detach;
+        $c->model('Editor')->update_profile($editor,
+                                            $form->field('website')->value,
+                                            $form->field('biography')->value);
+
+        my %args = ( ok => 1 );
+        my $old_email = $editor->email || '';
+        my $new_email = $form->field('email')->value || '';
+        if ($old_email ne $new_email) {
+            if ($new_email) {
+                $self->_send_confirmation_email($c, $editor, $new_email);
+                $args{email} = $new_email;
+            }
+            else {
+                $c->model('Editor')->update_email($editor, undef);
+            }
+        }
+
+        $c->response->redirect($c->uri_for_action('/user/edit', \%args));
+        $c->detach;
+    }
 }
 
 =head2 change_password

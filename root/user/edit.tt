@@ -1,14 +1,32 @@
-[% WRAPPER "layout.tt" title=l("Edit Profile") %]
-    [% WRAPPER "components/box.tt" header=l("Edit Profile") %]
-        [%- WRAPPER 'layout/guidelines.tt' -%]
-            [%- create_guideline(l('See also your {uri|user preferences}, which includes your privacy settings.', {uri => c.uri_for('/user/preferences')})) %]
-            [%- create_guideline(l('If you would like to delete your account, please see the <abbr title="Frequently Asked Questions">FAQ</abbr> entry: {faq|How do I delete my account?}', {faq => doc_link('AccountFAQ')})) %]
-        [% END %]
-        [% WRAPPER "forms/form.tt" %]
-            [% INCLUDE "forms/generic/row.tt" field=form.field('email') label=l("Email address") %]
-            [% INCLUDE "forms/generic/row.tt" field=form.field('homepage') label=l("Homepage") %]
-            [% INCLUDE "forms/generic/row.tt" field=form.field('biography') label=l("Biography") %]
-            [% INCLUDE "forms/submit.tt" label=l("Update Profile") %]
-        [% END %]
+[% WRAPPER "layout.tt" title=l("Edit Profile") full_width=1 %]
+
+    <h1>[% l("Edit Profile") %]</h1>
+
+    [%- WRAPPER 'layout/guidelines.tt' -%]
+        [%- create_guideline(l('See also your {uri|user preferences}, which includes your privacy settings.', {uri => c.uri_for('/user/preferences')})) %]
+        [%- create_guideline(l('If you change your e-mail address, you will be required to verify it. ')) %]
+        [%- create_guideline(l('If you would like to delete your account, please see the <abbr title="Frequently Asked Questions">FAQ</abbr> entry: {faq|How do I delete my account?}', {faq => doc_link('AccountFAQ')})) %]
     [% END %]
+
+    [%- USE r = FormRenderer(form) -%]
+
+    <form action="[% c.req.uri %]" method="post">
+        <p>
+            [% r.label('email', l('Email:')) %]
+            [% r.text('email') %]
+            [% form_field_errors(form, 'email') %]
+        </p>
+        <p>
+            [% r.label('website', l('Website:')) %]
+            [% r.text('website') %]
+            [% form_field_errors(form, 'website') %]
+        </p>
+        <p>
+            [% r.label('biography', l('Bio:')) %]
+            [% r.textarea('biography', { cols => 50, rows => 4 }) %]
+            [% form_field_errors(form, 'biography') %]
+        </p>
+        [% form_submit(l('Save')) %]
+    </form>
+
 [% END %]

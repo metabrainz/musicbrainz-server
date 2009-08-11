@@ -28,6 +28,7 @@ sub _column_mapping
         email                   => 'email',
         password                => 'password',
         privileges              => 'privs',
+        website                 => 'website',
         biography               => 'bio',
         accepted_edits          => 'editsaccepted',
         rejected_edits          => 'editsrejected',
@@ -81,8 +82,14 @@ sub update_email
 
     my $sql = Sql->new($self->c->dbh);
     Sql::RunInTransaction(sub {
-        $sql->Do('UPDATE editor SET email=?, emailconfirmdate=NOW()
-                  WHERE id=?', $email, $editor->id);
+        if ($email) {
+            $sql->Do('UPDATE editor SET email=?, emailconfirmdate=NOW()
+                      WHERE id=?', $email, $editor->id);
+        }
+        else {
+            $sql->Do('UPDATE editor SET email=NULL, emailconfirmdate=NULL
+                      WHERE id=?', $editor->id);
+        }
     }, $sql);
 }
 
@@ -94,6 +101,17 @@ sub update_password
     Sql::RunInTransaction(sub {
         $sql->Do('UPDATE editor SET password=? WHERE id=?',
                  $password, $editor->id);
+    }, $sql);
+}
+
+sub update_profile
+{
+    my ($self, $editor, $website, $bio) = @_;
+
+    my $sql = Sql->new($self->c->dbh);
+    Sql::RunInTransaction(sub {
+        $sql->Do('UPDATE editor SET website=?, bio=? WHERE id=?',
+                 $website || undef, $bio || undef, $editor->id);
     }, $sql);
 }
 

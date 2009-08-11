@@ -93,6 +93,21 @@ sub IsGUID
 	1;
 }
 
+sub IsValidURL
+{
+    my ($class, $url) = @_;
+
+    return 0 if $url =~ /\s/;
+
+    require URI;
+    my $u = eval { URI->new($url) }
+        or return 0;
+
+    return 0 if $u->scheme eq '';
+    return 0 unless $u->authority =~ /\./;
+    return 1;
+}
+
 sub TrimInPlace
 {
 	carp "Uninitialized value passed to TrimInPlace"
