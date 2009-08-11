@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Controller::Ajax;
 BEGIN { use Moose; extends 'Catalyst::Controller' };
 
-use List::Util qw( max );
+use List::Util qw( min );
 
 sub search : Local
 {
@@ -10,7 +10,7 @@ sub search : Local
     my $query = $c->req->query_params->{query};
     my $type = $c->req->query_params->{type};
     my $offset = $c->req->query_params->{offset} || 0;
-    my $limit = max ($c->req->query_params->{limit} || 10), 25;
+    my $limit = min ($c->req->query_params->{limit} || 10), 100;
 
     my $json = {};
     if ($query && $type)
