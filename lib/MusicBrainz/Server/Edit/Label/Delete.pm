@@ -11,12 +11,14 @@ extends 'MusicBrainz::Server::Edit';
 
 sub edit_type { $EDIT_LABEL_DELETE }
 sub edit_name { "Delete Label" }
-sub entity_model { 'Label' }
-sub entity_id { shift->label_id }
+
+sub alter_edit_pending { { Label => [ shift->label_id ] } }
+sub related_entities { { label => [ shift->label_id ] } }
+sub models { [qw( Label )] }
 
 has '+data' => (
     isa => Dict[
-        label => Int
+        label_id => Int
     ]
 );
 
@@ -25,30 +27,17 @@ has 'label' => (
     is => 'rw'
 );
 
-sub entities
-{
-    my $self = shift;
-    return {
-        label => [ $self->label_id ],
-    }
-}
-
-sub label_id
-{
-    return shift->data->{label};
-}
-
-sub initialize
-{
-    my ($self, %args) = @_;
-    $self->data({ label => $args{label_id} });
-}
+has 'label_id' => (
+    isa => 'Int',
+    is => 'rw',
+    lazy => 1,
+    default => sub { shift->data->{label_id} }
+);
 
 override 'accept' => sub
 {
     my $self = shift;
-    my $label_data = MusicBrainz::Server::Data::Label->new(c => $self->c);
-    $label_data->delete($self->label_id);
+    $self->c->model('Label')->delete($self->label_id);
 };
 
 __PACKAGE__->register_type;

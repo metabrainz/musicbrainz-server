@@ -12,8 +12,9 @@ extends 'MusicBrainz::Server::Edit';
 
 sub edit_type { $EDIT_MEDIUM_CREATE }
 sub edit_name { "Create Medium" }
-sub entity_model { 'Medium' }
-sub entity_id { shift->medium_id }
+
+sub alter_edit_pending { { Medium => [ shift->medium_id ] } }
+sub models { [qw( Medium )] }
 
 has 'medium_id' => (
     isa => 'Int',

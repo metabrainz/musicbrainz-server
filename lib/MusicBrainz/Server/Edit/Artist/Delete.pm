@@ -11,8 +11,10 @@ extends 'MusicBrainz::Server::Edit';
 
 sub edit_type { $EDIT_ARTIST_DELETE }
 sub edit_name { "Delete Artist" }
-sub entity_model { 'Artist' }
-sub entity_id { shift->artist_id }
+
+sub related_entities { { artist => [ shift->artist_id ] } }
+sub alter_edit_pending { { Artist => [ shift->artist_id ] } }
+sub models { [qw( Artist )] }
 
 has '+data' => (
     isa => Dict[
@@ -20,19 +22,17 @@ has '+data' => (
     ]
 );
 
-sub artist_id { return shift->data->{artist_id} }
+has 'artist_id' => (
+    isa => 'Int',
+    is => 'rw',
+    lazy => 1,
+    default => sub { shift->data->{artist_id} }
+);
+
 has 'artist' => (
     isa => 'Artist',
     is => 'rw',
 );
-
-sub entities
-{
-    my $self = shift;
-    return {
-        artist => [ $self->artist_id ],
-    }
-}
 
 override 'accept' => sub
 {

@@ -62,7 +62,7 @@ sub view : Local Args(1)
             $c->model('Release')->find_by_collection($collection_id, shift, shift);
         });
         $c->model('ArtistCredit')->load(@$releases);
-        $c->model('Medium')->load(@$releases);
+        $c->model('Medium')->load_for_releases(@$releases);
         $c->model('MediumFormat')->load(map { $_->all_mediums } @$releases);
         $c->model('Country')->load(@$releases);
         $c->model('ReleaseLabel')->load(@$releases);

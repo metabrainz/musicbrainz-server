@@ -9,9 +9,9 @@ sub Nullable { (Optional[Maybe shift], @_) }
 
 subtype PartialDateHash,
     as Dict[
-        year => Int,
-        month => Optional[Int],
-        day => Optional[Int]
+        year => Nullable[Int],
+        month => Nullable[Int],
+        day => Nullable[Int]
     ];
 
 subtype ArtistCreditDefinition,

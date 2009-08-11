@@ -14,14 +14,9 @@ extends 'MusicBrainz::Server::Edit';
 sub edit_type { $EDIT_WORK_EDIT }
 sub edit_name { 'Edit work' }
 
-sub entity_model { 'Work'}
-sub entity_id { shift->work_id }
-sub entities
-{
-    return {
-        work => [ shift->work_id ]
-    }
-}
+sub related_entities { { work => [ shift->work_id ] } }
+sub alter_edit_pending { { Work => [ shift->work_id ] } }
+sub models { [qw( Work )] }
 
 has 'work_id' => (
     isa => 'Int',

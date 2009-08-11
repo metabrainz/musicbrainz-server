@@ -10,28 +10,38 @@ extends 'MusicBrainz::Server::Edit';
 
 sub edit_type { $EDIT_LABEL_MERGE }
 sub edit_name { "Merge Labels" }
-sub entity_model { 'Label' }
-sub entity_id {
-    my $self = shift;
-    return [ $self->old_label_id, $self->new_label_id ]
-}
 
-sub entities
+sub related_entities
 {
+    my $self = shift;
     return {
-        label => shift->entity_id
+        label => [ $self->old_label_id, $self->new_label_id ],
     }
 }
 
-sub old_label_id
+sub alter_edit_pending
 {
-    return shift->data->{old_label};
+    my $self = shift;
+    return {
+        Label => [ $self->old_label_id, $self->new_label_id ],
+    }
 }
 
-sub new_label_id
-{
-    return shift->data->{new_label};
-}
+sub models { [qw( Label )] }
+
+has 'old_label_id' => (
+    isa => 'Int',
+    is => 'rw',
+    lazy => 1,
+    default => sub { shift->data->{old_label} }
+);
+
+has 'new_label_id' => (
+    isa => 'Int',
+    is => 'rw',
+    lazy => 1,
+    default => sub { shift->data->{new_label} }
+);
 
 has [qw( old_label new_label )] => (
     isa => 'Label',

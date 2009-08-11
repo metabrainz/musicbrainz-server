@@ -40,7 +40,7 @@ sub show : Chained('load') PathPart('')
         $c->model('Release')->find_by_release_group($c->stash->{rg}->id, shift, shift);
     });
 
-    $c->model('Medium')->load(@$releases);
+    $c->model('Medium')->load_for_releases(@$releases);
     $c->model('MediumFormat')->load(map { $_->all_mediums } @$releases);
     $c->model('Country')->load(@$releases);
     $c->model('ReleaseLabel')->load(@$releases);

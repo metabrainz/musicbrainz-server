@@ -3,7 +3,7 @@ use Moose;
 
 use Carp qw( croak );
 use DateTime;
-use List::MoreUtils qw( zip );
+use List::MoreUtils qw( uniq zip );
 use MusicBrainz::Server::Edit;
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Types qw( $STATUS_APPLIED $STATUS_ERROR $STATUS_FAILEDVOTE );
@@ -35,7 +35,7 @@ sub _new_from_row
     # Readd the class marker
     my $class = MusicBrainz::Server::Edit->class_from_type($row->{type})
         or die "Could not look up class for type";
-    my $data = XMLin($row->{data}, SuppressEmpty => 1, KeyAttr => [], $class->_xml_arguments);
+    my $data = XMLin($row->{data}, SuppressEmpty => undef, KeyAttr => [], $class->_xml_arguments);
 
     my $edit = $class->new(
         id => $row->{id},
@@ -115,17 +115,14 @@ sub create
 
     my $edit = $class->new( editor_id => $editor_id, c => $self->c );
     $edit->initialize(%opts);
-
-    eval {
-        $sql->Begin;
-        $sql_raw->Begin;
-
+    
+    Sql::RunInTransaction(sub {
         $edit->insert;
 
         # Automatically accept auto-edits on insert
         if($edit->auto_edit)
         {
-            my $st = $self->_accept_edit($edit);
+            my $st = $self->_do_accept($edit);
             $edit->status($st);
         };
 
@@ -142,55 +139,54 @@ sub create
         my $edit_id = $sql_raw->InsertRow('edit', $row, 'id');
         $edit->id($edit_id);
 
-        my $ents = $edit->entities;
-        for my $type (keys %$ents)
-        {
-            my @ids = @{ $ents->{$type} };
+        my $ents = $edit->related_entities;
+        while (my ($type, $ids) = each %$ents){
             my $query = "INSERT INTO edit_$type (edit, $type) VALUES ";
-            $query .= join ", ", ("(?, ?)") x @ids;
-            my @all_ids = ($edit_id) x @ids;
-            $sql_raw->Do($query, zip @all_ids, @ids); 
+            $query .= join ", ", ("(?, ?)") x @$ids;
+            my @all_ids = ($edit_id) x @$ids;
+            $sql_raw->Do($query, zip @all_ids, @$ids); 
         }
 
-        if (defined $edit->entity_model && $edit->entity_id && $edit->is_open)
+        if ($edit->is_open)
         {
-            my $model = $self->c->model($edit->entity_model);
-            $model->does('MusicBrainz::Server::Data::Editable')
-                or croak "Model must do MusicBrainz::Server::Data::Editable";
-            my @ids = ref $edit->entity_id ? @{ $edit->entity_id } : ($edit->entity_id);
-            $model->inc_edits_pending(@ids);
+            my $to_inc = $edit->alter_edit_pending;
+            while( my ($model_name, $ids) = each %$to_inc) {
+                my $model = $self->c->model($model_name);
+                $model->does('MusicBrainz::Server::Data::Editable')
+                    or croak "Model must do MusicBrainz::Server::Data::Editable";
+                $model->inc_edits_pending(@$ids);
+            }
         }
-
-        $sql->Commit;
-        $sql_raw->Commit;
-    };
-
-    if ($@)
-    {
-        $sql->Rollback;
-        $sql_raw->Rollback;
-        die $@;
-    }
+    }, $sql, $sql_raw);
 
     return $edit;
 }
 
-# TODO needs to handle specific exceptions
+sub load_all
+{
+    my ($self, @edits) = @_;
+    my @models = uniq map { @{ $_->models } } @edits;
+    for my $model (@models) {
+        $self->c->model($model)->load(@edits);
+    }
+}
+
 sub accept
 {
     my ($self, $edit) = @_;
+    $self->_close($edit, sub { $self->_do_accept(shift) });
+}
 
-    $self->_close($edit, sub {
-        my $edit = shift;
-        eval { $edit->accept };
-        return $@ ? $STATUS_ERROR : $STATUS_APPLIED;
-   });
+sub _do_accept
+{
+    my ($self, $edit) = @_;
+    eval { $edit->accept };
+    return $@ ? $STATUS_ERROR : $STATUS_APPLIED;
 }
 
 sub reject
 {
     my ($self, $edit) = @_;
-
     $self->_close($edit, sub {
         my $edit = shift;
         eval { $edit->reject };
@@ -201,23 +197,19 @@ sub reject
 sub _close
 {
     my ($self, $edit, $close_sub) = @_;
-
     my $sql = Sql->new($self->c->dbh);
     my $sql_raw = Sql->new($self->c->raw_dbh);
-
     Sql::RunInTransaction(sub {
         my $status = &$close_sub($edit);
-
         my $query = "UPDATE edit SET status = ? WHERE id = ?";
         $sql_raw->Do($query, $status, $edit->id);
 
-        if (defined $edit->entity_model && $edit->entity_id)
-        {
-            my $model = $self->c->model($edit->entity_model);
+        my $to_dec = $edit->alter_edit_pending;
+        while( my ($model_name, $ids) = each %$to_dec) {
+            my $model = $self->c->model($model_name);
             $model->does('MusicBrainz::Server::Data::Editable')
                 or croak "Model must do MusicBrainz::Server::Data::Editable";
-            my @ids = ref $edit->entity_id ? @{ $edit->entity_id } : ($edit->entity_id);
-            $model->dec_edits_pending(@ids);
+            $model->dec_edits_pending(@$ids);
         }
     }, $sql, $sql_raw);
 }

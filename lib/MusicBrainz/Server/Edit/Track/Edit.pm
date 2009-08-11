@@ -13,12 +13,14 @@ extends 'MusicBrainz::Server::Edit';
 sub edit_name { 'Edit track' }
 sub edit_type { $EDIT_TRACK_EDIT }
 
-sub entity_model { 'Track' }
-sub entity_id { shift->track_id }
+sub alter_edit_pending { { Track => [ shift->track_id ] } }
+sub models { [qw( Track )] }
 
 has 'track_id' => (
     isa => 'Int',
     is => 'rw',
+    lazy => 1,
+    default => sub { shift->data->{track} }
 );
 
 has 'track' => (

@@ -14,15 +14,10 @@ extends 'MusicBrainz::Server::Edit';
 
 sub edit_type { $EDIT_RELEASE_EDIT }
 sub edit_name { 'Edit Release '}
-sub entity_model { 'Release' }
-sub entity_id { shift->release_id }
-sub entities
-{
-    my $self = shift;
-    return {
-        release => [ $self->release_id ]
-    }
-}
+
+sub related_entities { { release => [ shift->release_id ] } }
+sub alter_edit_pending { { Release => [ shift->release_id ] } }
+sub models { [qw( Release )] }
 
 has 'release_id' => (
     isa => 'Int',

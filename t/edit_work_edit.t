@@ -1,51 +1,75 @@
 use strict;
 use warnings;
-use Test::More tests => 12;
+use Test::More;
 
 BEGIN { use_ok 'MusicBrainz::Server::Edit::Work::Edit' };
 
 use MusicBrainz::Server::Constants qw( $EDIT_WORK_EDIT );
-use MusicBrainz::Server::Data::ArtistCredit;
-use MusicBrainz::Server::Data::Edit;
-use MusicBrainz::Server::Data::Work;
 use MusicBrainz::Server::Test;
 
 my $c = MusicBrainz::Server::Test->create_test_context();
 MusicBrainz::Server::Test->prepare_test_database($c, '+edit_work');
+MusicBrainz::Server::Test->prepare_raw_test_database($c);
 
-my $work_data = MusicBrainz::Server::Data::Work->new(c => $c);
-my $edit_data = MusicBrainz::Server::Data::Edit->new(c => $c);
-my $ac_data = MusicBrainz::Server::Data::ArtistCredit->new(c => $c);
+my $work = $c->model('Work')->get_by_id(1);
+is_unchanged($work);
+is($work->edits_pending, 0);
 
-my $work = $work_data->get_by_id(1);
-my $edit = $edit_data->create(
-    edit_type => $EDIT_WORK_EDIT,
-    editor_id => 1,
-    work => $work,
-    name => 'Edited name',
-    comment => 'Edited comment',
-    iswc => '123456789123456',
-    type_id => 1,
-    artist_credit => [
-        { artist => 1, name => 'Foo' },
-    ]
-);
-
+my $edit = create_edit($work);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Work::Edit');
-is($edit->entity_model, 'Work');
-is($edit->entity_id, $work->id);
-is_deeply($edit->entities, { work => [ $work->id ] });
 
-$work = $work_data->get_by_id(1);
-is($work->edits_pending, 1);
+my ($edits) = $c->model('Edit')->find({ work => 1 }, 0, 10);
+is($edits->[0]->id, $edit->id);
 
-$edit_data->accept($edit);
+$edit = $c->model('Edit')->get_by_id($edit->id);
+$c->model('Edit')->load_all($edit);
+is($edit->work_id, 1);
+is($edit->work->id, 1);
+is_unchanged($edit->work);
+is($edit->work->edits_pending, 1);
 
-$work = $work_data->get_by_id(1);
-$ac_data->load($work);
+$c->model('Edit')->reject($edit);
+
+$work = $c->model('Work')->get_by_id(1);
+is_unchanged($work);
+is($work->edits_pending, 0);
+
+$work = $c->model('Work')->get_by_id(1);
+$edit = create_edit($work);
+$c->model('Edit')->accept($edit);
+
+$work = $c->model('Work')->get_by_id(1);
+$c->model('ArtistCredit')->load($work);
 is($work->name, 'Edited name');
 is($work->comment, 'Edited comment');
 is($work->iswc, '123456789123456');
 is($work->type_id, 1);
 is($work->edits_pending, 0);
 is($work->artist_credit->name, 'Foo');
+
+done_testing;
+
+sub create_edit {
+    my $work = shift;
+    return $c->model('Edit')->create(
+        edit_type => $EDIT_WORK_EDIT,
+        editor_id => 1,
+        work => $work,
+        name => 'Edited name',
+        comment => 'Edited comment',
+        iswc => '123456789123456',
+        type_id => 1,
+        artist_credit => [
+            { artist => 1, name => 'Foo' },
+        ]
+    );
+}
+
+sub is_unchanged {
+    my $work = shift;
+    is($work->name, 'Traits (remix)');
+    is($work->comment, undef);
+    is($work->iswc, undef);
+    is($work->type_id, undef);
+    is($work->artist_credit_id, 1);
+}

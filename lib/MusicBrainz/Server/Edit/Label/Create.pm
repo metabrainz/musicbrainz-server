@@ -11,9 +11,10 @@ extends 'MusicBrainz::Server::Edit';
 
 sub edit_name { "Create Label" }
 sub edit_type { $EDIT_LABEL_CREATE }
-sub edit_auto_edit { 1 }
-sub entity_model { 'Label' }
-sub entity_id { shift->label_id }
+
+sub related_entities { { label => [ shift->label_id ] } }
+sub alter_edit_pending { { Label => [ shift->label_id ] } }
+sub models { [qw( Label ) ] }
 
 has '+data' => (
     isa => Dict[
@@ -46,33 +47,23 @@ has 'label' => (
     is => 'rw'
 );
 
-sub create
-{
-    my ($class, $label, @args) = @_;
-    return $class->new(data => $label, @args);
-}
-
-sub entities
-{
-    my $self = shift;
-    return {
-        label => [ $self->label_id ],
-    };
-}
-
-override 'accept' => sub
+sub insert
 {
     my $self = shift;
     my %data = %{ $self->data };
     $data{sort_name} ||= $data{name};
 
-    my $label_data = MusicBrainz::Server::Data::Label->new(c => $self->c);
-    my $label = $label_data->insert(\%data);
+    my $label = $self->c->model('Label')->insert(\%data);
 
     $self->label($label);
     $self->label_id($label->id);
-};
+}
 
+sub reject
+{
+    my $self = shift;
+    $self->c->model('Label')->delete($self->label_id);
+}
 
 # label_id is handled separately, as it should not be copied if the edit is cloned
 # (a new different label_id would be used)

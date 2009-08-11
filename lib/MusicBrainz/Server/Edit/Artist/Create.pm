@@ -14,8 +14,9 @@ extends 'MusicBrainz::Server::Edit';
 sub edit_type { $EDIT_ARTIST_CREATE }
 sub edit_name { "Create Artist" }
 sub edit_auto_edit { 1 }
-sub entity_model { 'Artist' }
-sub entity_id { shift->artist_id }
+
+sub related_entities { return { artist => [ shift->artist_id ] } }
+sub models { [qw( Artist )] }
 
 has 'artist_id' => (
     isa => 'Int',
@@ -26,14 +27,6 @@ has 'artist' => (
     isa => 'Artist',
     is => 'rw'
 );
-
-sub entities
-{
-    my $self = shift;
-    return {
-        artist => [ $self->artist_id ],
-    };
-}
 
 has '+data' => (
     isa => Dict[

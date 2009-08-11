@@ -8,6 +8,7 @@ use MusicBrainz::Server::Data::Utils qw(
     artist_credit_to_ref
     partial_date_to_hash
 );
+use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition Nullable );
 use Moose::Util::TypeConstraints qw( as subtype find_type_constraint );
 use MooseX::Types::Moose qw( ArrayRef Maybe Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
@@ -16,30 +17,29 @@ extends 'MusicBrainz::Server::Edit';
 
 sub edit_type { $EDIT_RELEASEGROUP_EDIT }
 sub edit_name { "Edit ReleaseGroup" }
-sub entity_model { 'ReleaseGroup' }
-sub entity_id { shift->release_group_id }
 
-sub release_group_id { shift->data->{release_group} }
+sub related_entities { { release_group => [ shift->release_group_id ] } }
+sub alter_edit_pending { { ReleaseGroup => [ shift->release_group_id ] } }
+sub models { [qw( ReleaseGroup )] }
+
+has 'release_group_id' => (
+    isa => 'Int',
+    is => 'rw',
+    lazy => 1,
+    default => sub { shift->data->{release_group} }
+);
 
 has 'release_group' => (
     isa => 'ReleaseGroup',
     is => 'rw'
 );
 
-sub entities
-{
-    my $self = shift;
-    return {
-        release_group => [ $self->release_group_id ],
-    };
-}
-
 subtype 'ReleaseGroupHash'
     => as Dict[
         name => Optional[Str],
-        type_id => Optional[Maybe[Int]],
-        artist_credit => ArrayRef,
-        comment => Optional[Maybe[Str]],
+        type_id => Nullable[Int],
+        artist_credit => Optional[ArtistCreditDefinition],
+        comment => Nullable[Str],
     ];
 
 has '+data' => (
@@ -87,6 +87,8 @@ override 'accept' => sub
     $data{artist_credit} = $ac_data->find_or_insert(@{ $data{artist_credit} });
     $release_group_data->update($self->release_group_id, \%data);
 };
+
+sub _xml_arguments { ForceArray => ['artist_credit'] }
 
 __PACKAGE__->meta->make_immutable;
 __PACKAGE__->register_type;

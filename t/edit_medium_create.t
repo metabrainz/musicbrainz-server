@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 use strict;
 use warnings;
-use Test::More tests => 14;
+use Test::More;
 
 BEGIN { use_ok 'MusicBrainz::Server::Edit::Medium::Create'; }
 
@@ -24,23 +24,23 @@ my $edit = $c->model('Edit')->create(
 );
 
 isa_ok($edit, 'MusicBrainz::Server::Edit::Medium::Create');
-is($edit->entity_model, 'Medium');
-is($edit->entity_id, $edit->medium_id);
 
 ok(defined $edit->medium_id);
 ok(defined $edit->id);
 
-my $medium = $c->model('Medium')->get_by_id($edit->medium_id);
-is($medium->name, 'Studio');
-is($medium->format_id, 1);
-is($medium->tracklist_id, 1);
-is($medium->position, 1);
-is($medium->release_id, 1);
-is($medium->edits_pending, 1);
+$c->model('Edit')->load_all($edit);
+ok(defined $edit->medium);
+is($edit->medium->id, $edit->medium_id);
+is($edit->medium->name, 'Studio');
+is($edit->medium->format_id, 1);
+is($edit->medium->tracklist_id, 1);
+is($edit->medium->position, 1);
+is($edit->medium->release_id, 1);
+is($edit->medium->edits_pending, 1);
 
 $c->model('Edit')->accept($edit);
 
-$medium = $c->model('Medium')->get_by_id($edit->medium_id);
+my $medium = $c->model('Medium')->get_by_id($edit->medium_id);
 is($medium->edits_pending, 0);
 
 ## Create a medium to reject
@@ -59,3 +59,5 @@ $c->model('Edit')->reject($edit);
 
 $medium = $c->model('Medium')->get_by_id($medium_id);
 ok(!defined $medium);
+
+done_testing;

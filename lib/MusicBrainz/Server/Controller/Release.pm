@@ -150,7 +150,7 @@ sub show : Chained('load') PathPart('')
     $c->model('ReleaseLabel')->load($release);
     $c->model('Label')->load(@{ $release->labels });
     $c->model('ReleaseGroupType')->load($release->release_group);
-    $c->model('Medium')->load($release);
+    $c->model('Medium')->load_for_releases($release);
 
     my @mediums = $release->all_mediums;
     $c->model('MediumFormat')->load(@mediums);

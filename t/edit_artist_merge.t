@@ -1,47 +1,65 @@
 #!/usr/bin/perl
 use strict;
 use warnings;
-use Test::More tests => 11;
+use Test::More;
 
-BEGIN {
-    use_ok 'MusicBrainz::Server::Edit::Artist::Merge';
-    use_ok 'MusicBrainz::Server::Data::Edit';
-}
+BEGIN { use_ok 'MusicBrainz::Server::Edit::Artist::Merge' }
 
-use MusicBrainz::Server::Data::Artist;
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_MERGE );
 use MusicBrainz::Server::Test;
 
 my $c = MusicBrainz::Server::Test->create_test_context();
-MusicBrainz::Server::Test->prepare_test_database($c);
+MusicBrainz::Server::Test->prepare_test_database($c, '+edit_artist_merge');
 MusicBrainz::Server::Test->prepare_raw_test_database($c);
 
-my $artist_data = MusicBrainz::Server::Data::Artist->new(c => $c);
-my $edit_data = MusicBrainz::Server::Data::Edit->new(c => $c);
-
-my $edit = $edit_data->create(
-    edit_type => $EDIT_ARTIST_MERGE,
-    editor_id => 1,
-    old_artist_id => 4,
-    new_artist_id => 3,
-);
+my $edit = create_edit();
 isa_ok($edit, 'MusicBrainz::Server::Edit::Artist::Merge');
-is_deeply($edit->entities, { artist => [ 4, 3 ]});
-is_deeply($edit->entity_id, [ 4, 3 ]);
-is($edit->entity_model, 'Artist');
 
-my $artist = $artist_data->get_by_id(4);
-is($artist->edits_pending, 1);
+my ($edits, $hits) = $c->model('Edit')->find({ artist => [1, 2] }, 0, 10);
+is($hits, 1);
+is($edits->[0]->id, $edit->id);
 
-$artist = $artist_data->get_by_id(3);
-is($artist->edits_pending, 1);
+my $a1 = $c->model('Artist')->get_by_id(1);
+my $a2 = $c->model('Artist')->get_by_id(2);
+is($a1->edits_pending, 1);
+is($a2->edits_pending, 1);
 
-$edit_data->accept($edit);
+$c->model('Edit')->reject($edit);
 
-$artist = $artist_data->get_by_id(4);
-ok(!defined $artist);
+# Test loading entities
+$edit = $c->model('Edit')->get_by_id($edit->id);
+TODO: {
+    local $TODO = 'Support loading artists with non-conventional attribute names';
+#    $c->model('Edit')->load_all($edit);
+    ok(defined $edit->old_artist);
+    ok(defined $edit->new_artist);
+#    is($edit->old_artist->id, $edit->old_artist_id);
+#    is($edit->new_artist->id, $edit->new_artist_id);
+}
 
-$artist = $artist_data->get_by_id(3);
-ok(defined $artist);
-is($artist->edits_pending, 0);
+$a1 = $c->model('Artist')->get_by_id(1);
+$a2 = $c->model('Artist')->get_by_id(2);
+is($a1->edits_pending, 0);
+is($a2->edits_pending, 0);
+
+$edit = create_edit();
+$c->model('Edit')->accept($edit);
+
+$a1 = $c->model('Artist')->get_by_id(1);
+$a2 = $c->model('Artist')->get_by_id(2);
+ok(!defined $a1);
+ok(defined $a2);
+
+is($a2->edits_pending, 0);
+
+done_testing;
+
+sub create_edit {
+    return $c->model('Edit')->create(
+        edit_type => $EDIT_ARTIST_MERGE,
+        editor_id => 1,
+        old_artist_id => 1,
+        new_artist_id => 2,
+    );
+}

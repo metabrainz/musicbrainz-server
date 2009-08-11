@@ -1,53 +1,45 @@
 package MusicBrainz::Server::Edit::Label::Edit;
 use Moose;
 
-use MusicBrainz::Server::Constants qw( $EDIT_LABEL_EDIT );
-use MusicBrainz::Server::Data::Label;
-use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash );
 use Moose::Util::TypeConstraints qw( as subtype find_type_constraint );
 use MooseX::Types::Moose qw( Maybe Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
+use MusicBrainz::Server::Constants qw( $EDIT_LABEL_EDIT );
+use MusicBrainz::Server::Data::Label;
+use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash );
+use MusicBrainz::Server::Edit::Types qw( PartialDateHash Nullable );
 
 extends 'MusicBrainz::Server::Edit';
 
 sub edit_type { $EDIT_LABEL_EDIT }
 sub edit_name { "Edit Label" }
-sub entity_id { shift->label_id }
-sub entity_model { 'Label' }
 
-sub label_id { shift->data->{label} }
+sub alter_edit_pending { { Label => [ shift->label_id ] } }
+sub related_entities { { label => [ shift->label_id ] } }
+sub models { [qw( Label )] }
+
+has 'label_id' => (
+    isa => 'Int',
+    is => 'rw',
+    lazy => 1,
+    default => sub { shift->data->{label} }
+);
 
 has 'label' => (
     isa => 'Label',
     is => 'rw'
 );
 
-sub entities
-{
-    my $self = shift;
-    return {
-        label => [ $self->label_id ],
-    };
-}
-
 subtype 'LabelHash'
     => as Dict[
         name => Optional[Str],
         sort_name => Optional[Str],
-        type_id => Optional[Maybe[Int]],
-        label_code => Optional[Maybe[Int]],
-        country_id => Optional[Maybe[Int]],
-        comment => Optional[Maybe[Str]],
-        begin_date => Optional[Dict[
-            year => Int,
-            month => Optional[Int],
-            day => Optional[Int],
-        ]],
-        end_date => Optional[Dict[
-            year => Int,
-            month => Optional[Int],
-            day => Optional[Int],
-        ]],
+        type_id => Nullable[Int],
+        label_code => Nullable[Int],
+        country_id => Nullable[Int],
+        comment => Nullable[Str],
+        begin_date => Optional[PartialDateHash],
+        end_date => Optional[PartialDateHash],
     ];
 
 has '+data' => (
@@ -91,8 +83,7 @@ sub initialize
 override 'accept' => sub
 {
     my $self = shift;
-    my $label_data = MusicBrainz::Server::Data::Label->new(c => $self->c);
-    $label_data->update($self->label_id, $self->data->{new});
+    $self->c->model('Label')->update($self->label_id, $self->data->{new});
 };
 
 __PACKAGE__->meta->make_immutable;

@@ -10,28 +10,38 @@ extends 'MusicBrainz::Server::Edit';
 
 sub edit_type { $EDIT_ARTIST_MERGE }
 sub edit_name { "Merge Artists" }
-sub entity_model { 'Artist' }
-sub entity_id {
-    my $self = shift;
-    return [ $self->old_artist_id, $self->new_artist_id ]
-}
 
-sub entities
+sub related_entities
 {
+    my $self = shift;
     return {
-        artist => shift->entity_id
+        artist => [ $self->old_artist_id, $self->new_artist_id ],
     }
 }
 
-sub old_artist_id
+sub alter_edit_pending
 {
-    return shift->data->{old_artist};
+    my $self = shift;
+    return {
+        Artist => [ $self->old_artist_id, $self->new_artist_id ],
+    }
 }
 
-sub new_artist_id
-{
-    return shift->data->{new_artist};
-}
+sub models { [qw( Artist )] }
+
+has 'old_artist_id' => (
+    isa => 'Int',
+    is => 'rw',
+    lazy => 1,
+    default => sub { shift->data->{old_artist} }
+);
+
+has 'new_artist_id' => (
+    isa => 'Int',
+    is => 'rw',
+    lazy => 1,
+    default => sub { shift->data->{new_artist} }
+);
 
 has [qw( old_artist new_artist )] => (
     isa => 'Artist',

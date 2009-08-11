@@ -1,71 +1,73 @@
 #!/usr/bin/perl
 use strict;
 use warnings;
-use Test::More tests => 11;
+use Test::More;
 
 BEGIN { use_ok 'MusicBrainz::Server::Edit::ReleaseGroup::Edit' }
+
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASEGROUP_EDIT );
-use MusicBrainz::Server::Data::ArtistCredit;
-use MusicBrainz::Server::Data::ReleaseGroup;
-use MusicBrainz::Server::Data::Edit;
 use MusicBrainz::Server::Test;
 use Sql;
 
 my $c = MusicBrainz::Server::Test->create_test_context();
-MusicBrainz::Server::Test->prepare_test_database($c);
+MusicBrainz::Server::Test->prepare_test_database($c, '+edit_rg_delete');
 MusicBrainz::Server::Test->prepare_raw_test_database($c);
 
-my $ac_data = MusicBrainz::Server::Data::ArtistCredit->new(c => $c);
-my $rg_data = MusicBrainz::Server::Data::ReleaseGroup->new(c => $c);
-my $edit_data = MusicBrainz::Server::Data::Edit->new(c => $c);
-my $rg = $rg_data->get_by_id(3);
-
-my $edit = $edit_data->create(
-    edit_type => $EDIT_RELEASEGROUP_EDIT,
-    release_group => $rg,
-    artist_credit => [
-        { name => 'Break', artist => 3 },
-        ' & ',
-        { name => 'Silent Witness', artist => 4 },
-    ],
-    name => 'We Know',
-    comment => 'EP',
-    editor_id => 2,
-);
+my $rg = $c->model('ReleaseGroup')->get_by_id(1);
+my $edit = create_edit($rg);
 isa_ok($edit, 'MusicBrainz::Server::Edit::ReleaseGroup::Edit');
-is($edit->entity_model, 'ReleaseGroup');
-is($edit->entity_id, $rg->id);
-is_deeply($edit->entities, { release_group => [ $rg->id ] });
 
-is_deeply($edit->data, {
-        release_group => $rg->id,
-        new => {
-            name => 'We Know',
-            artist_credit => [
-                { name => 'Break', artist => 3 },
-                ' & ',
-                { name => 'Silent Witness', artist => 4 },
-            ],
-            comment => 'EP',
-        },
-        old => {
-            name => $rg->name,
-            comment => $rg->comment,
-            artist_credit => [
-                { name => 'Test Artist', artist => 3 }
-            ],
-        },
-    });
+my ($edits) = $c->model('Edit')->find({ release_group => 1 }, 0, 10);
+is($edits->[0]->id, $edit->id);
 
-$rg = $rg_data->get_by_id(3);
+$rg = $c->model('ReleaseGroup')->get_by_id(1);
 is($rg->edits_pending, 1);
+is_unchanged($rg);
 
-$edit_data->accept($edit);
+$c->model('Edit')->load_all($edit);
+is($edit->release_group_id, 1);
+is($edit->release_group->id, 1);
 
-$rg = $rg_data->get_by_id(3);
-$ac_data->load($rg);
-is($rg->name, 'We Know');
-is($rg->comment, 'EP');
-is($rg->artist_credit->name, 'Break & Silent Witness');
+$c->model('Edit')->reject($edit);
+$rg = $c->model('ReleaseGroup')->get_by_id(1);
+is_unchanged($rg);
 is($rg->edits_pending, 0);
+
+$edit = create_edit($rg);
+$c->model('Edit')->accept($edit);
+$rg = $c->model('ReleaseGroup')->get_by_id(1);
+$c->model('ArtistCredit')->load($rg);
+is($rg->edits_pending, 0);
+is($rg->artist_credit->name, 'Break & Silent Witness');
+is($rg->type_id, 1);
+is($rg->comment, 'EP');
+is($rg->name, 'We Know');
+
+done_testing;
+
+sub create_edit {
+    my $rg = shift;
+    return $c->model('Edit')->create(
+        edit_type => $EDIT_RELEASEGROUP_EDIT,
+        editor_id => 2,
+        release_group => $rg,
+
+        artist_credit => [
+            { name => 'Break', artist => 1 },
+            ' & ',
+            { name => 'Silent Witness', artist => 1 },
+        ],
+        name => 'We Know',
+        comment => 'EP',
+        type_id => 1,
+    );
+}
+
+sub is_unchanged {
+    my $rg = shift;
+    is($rg->name, 'Release Name');
+    is($rg->type_id, undef);
+    is($rg->comment, undef);
+    is($rg->artist_credit_id, 1);
+}

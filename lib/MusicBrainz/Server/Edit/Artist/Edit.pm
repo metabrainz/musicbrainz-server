@@ -5,6 +5,7 @@ use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_EDIT );
 use MusicBrainz::Server::Data::Artist;
 use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash );
 use MusicBrainz::Server::Types qw( :edit_status );
+use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
 use Moose::Util::TypeConstraints qw( as subtype find_type_constraint );
 use MooseX::Types::Moose qw( Maybe Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
@@ -13,41 +14,33 @@ extends 'MusicBrainz::Server::Edit';
 
 sub edit_type { $EDIT_ARTIST_EDIT }
 sub edit_name { "Create Artist" }
-sub entity_model { 'Artist' }
-sub entity_id { shift->artist_id }
-sub artist_id { shift->data->{artist} }
+
+sub related_entities { { artist => [ shift->artist_id ] } }
+sub alter_edit_pending { { Artist => [ shift->artist_id ] } }
+sub models { [qw( Artist )] }
+
+has 'artist_id' => (
+    isa => 'Int',
+    is => 'rw',
+    lazy => 1,
+    default => sub { shift->data->{artist} }
+);
 
 has 'artist' => (
     isa => 'Artist',
     is => 'rw'
 );
 
-sub entities
-{
-    my $self = shift;
-    return {
-        artist => [ $self->artist_id ],
-    };
-}
-
 subtype 'ArtistHash'
     => as Dict[
         name => Optional[Str],
         sort_name => Optional[Str],
-        type_id => Optional[Maybe[Int]],
-        gender_id => Optional[Maybe[Int]],
-        country_id => Optional[Maybe[Int]],
-        comment => Optional[Maybe[Str]],
-        begin_date => Optional[Dict[
-            year => Int,
-            month => Optional[Int],
-            day => Optional[Int],
-        ]],
-        end_date => Optional[Dict[
-            year => Int,
-            month => Optional[Int],
-            day => Optional[Int],
-        ]],
+        type_id => Nullable[Int],
+        gender_id => Nullable[Int],
+        country_id => Nullable[Int],
+        comment => Nullable[Str],
+        begin_date => Optional[PartialDateHash],
+        end_date => Optional[PartialDateHash],
     ];
 
 has '+data' => (

@@ -6,6 +6,7 @@ use MusicBrainz::Server::Entity::Tracklist;
 use MusicBrainz::Server::Data::Medium;
 use MusicBrainz::Server::Data::Release;
 use MusicBrainz::Server::Data::Utils qw(
+    load_subobjects
     query_to_list
     query_to_list_limited
     placeholders
@@ -51,6 +52,12 @@ sub _entity_class
 }
 
 sub load
+{
+    my ($self, @objs) = @_;
+    load_subobjects($self, 'track', @objs);
+}
+
+sub load_for_tracklists
 {
     my ($self, @tracklists) = @_;
     my %id_to_tracklist = map { $_->id => $_ } @tracklists;

@@ -5,6 +5,7 @@ use MusicBrainz::Server::Entity::Work;
 use MusicBrainz::Server::Data::Utils qw(
     defined_hash
     generate_gid
+    load_subobjects
     placeholders
     query_to_list_limited
 );
@@ -56,6 +57,12 @@ sub find_by_artist
     return query_to_list_limited(
         $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $artist_id, $offset || 0);
+}
+
+sub load
+{
+    my ($self, @objs) = @_;
+    load_subobjects($self, 'work', @objs);
 }
 
 sub insert

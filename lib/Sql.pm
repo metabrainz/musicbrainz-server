@@ -224,6 +224,12 @@ sub Update
     my ($self, $table, $update, $conditions) = @_;
     my @update_columns = keys %$update;
     my @condition_columns = keys %$conditions;
+
+    if(@update_columns == 0) {
+        carp "Sql->Update called with no columns to update!";
+        return;
+    }
+
     my $query = "UPDATE $table SET " . join(', ', map { "$_ = ?" } @update_columns) .
                 ' WHERE ' . join(' AND ', map { "$_ = ?" } @condition_columns);
     $self->Do($query,
