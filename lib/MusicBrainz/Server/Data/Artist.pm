@@ -12,6 +12,7 @@ use MusicBrainz::Server::Data::Utils qw(
     partial_date_from_row
     placeholders
     load_subobjects
+    query_to_list_limited
 );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
@@ -22,6 +23,10 @@ with 'MusicBrainz::Server::Data::CoreEntityCache' => { prefix => 'artist' };
 with 'MusicBrainz::Server::Data::Editable' => { table => 'artist' };
 with 'MusicBrainz::Server::Data::RatingRole' => { type => 'artist' };
 with 'MusicBrainz::Server::Data::TagRole' => { type => 'artist' };
+with 'MusicBrainz::Server::Data::SubscriptionRole' => {
+    table => 'editor_subscribe_artist',
+    column => 'artist'
+};
 
 sub _table
 {
@@ -68,6 +73,20 @@ sub _column_mapping
 sub _entity_class
 {
     return 'MusicBrainz::Server::Entity::Artist';
+}
+
+sub find_by_subscribed_editor
+{
+    my ($self, $editor_id, $limit, $offset) = @_;
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                    JOIN editor_subscribe_artist s ON artist.id = s.artist
+                 WHERE s.editor = ?
+                 ORDER BY name.name, artist.id
+                 OFFSET ?";
+    return query_to_list_limited(
+        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $query, $editor_id, $offset || 0);
 }
 
 sub load
@@ -118,6 +137,7 @@ sub delete
     $self->alias->delete(@artist_ids);
     $self->tags->delete(@artist_ids);
     $self->rating->delete(@artist_ids);
+    $self->subscription->delete(@artist_ids);
     $self->remove_gid_redirects(@artist_ids);
     my $query = 'DELETE FROM artist WHERE id IN (' . placeholders(@artist_ids) . ')';
     my $sql = Sql->new($self->c->mb->dbh);
@@ -132,6 +152,7 @@ sub merge
     $self->alias->merge($new_id, @old_ids);
     $self->tags->merge($new_id, @old_ids);
     $self->rating->merge($new_id, @old_ids);
+    $self->subscription->merge($new_id, @old_ids);
     $self->annotation->merge($new_id, @old_ids);
     $self->c->model('ArtistCredit')->merge_artists($new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('artist', $new_id, @old_ids);

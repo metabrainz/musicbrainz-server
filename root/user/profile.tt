@@ -29,7 +29,7 @@
             { link => c.uri_for("/review/$user.name/edits/open"), text => l("Open Edits") },
             { link => c.uri_for("/review/$user.name/edits/failed"), text => l("Failed Edits") },
             { link => c.uri_for("/review/$user.name/edits/cancelled"), text => l("Cancelled Edits") },
-            { link => c.uri_for("/user/subscriptions/$user.name"), text => l("Subscriptions"), hide => !user.preferences.get('subscriptions_public') },
+            { link => c.uri_for_action("/user/subscriptions/artist/view", user.name), text => l("Subscriptions"), hide => !user.preferences.get('subscriptions_public') },
             { link => c.uri_for("/rating/display/$user.id/all"), text => l("Ratings") },
             { link => c.uri_for_action("/user/collection/view", user.name), text => l("Collection") },
         ] %]
@@ -109,11 +109,22 @@
         [% END %]
 
         [% WRAPPER property name="Subscribers" %]
-            [% IF user.subscriber_count %]
-                [% l('{count} ({url|view})', c.uri_for('/user/subscribers', user.name)) %]
+            [% IF subscriber_count %]
+                [% l('{count} ({url|view})', { count => subscriber_count, url => c.uri_for('/user/subscribers', user.name) }) %]
             [% ELSE %]
                 [% l('(none)') %]
             [% END %]
+
+            [% UNLESS viewing_own_profile %]
+                [
+                [% IF subscribed %]
+                    <a href="[% c.uri_for_action('/user/subscriptions/editor/remove', { id => user.id }) %]">[% l('Unsubscribe') %]</a>
+                [% ELSE %]
+                    <a href="[% c.uri_for_action('/user/subscriptions/editor/add', { id => user.id }) %]">[% l('Subscribe') %]</a>
+                [% END %]
+                ]
+            [% END %]
+
         [% END %]
     </dl>
 

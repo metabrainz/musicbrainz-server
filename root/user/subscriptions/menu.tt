@@ -1,0 +1,7 @@
+<p>
+[
+    <a href="[% c.uri_for_action("/user/subscriptions/artist/view", user.name) %]">[% l('Artist Subscriptions') %]</a> |
+    <a href="[% c.uri_for_action("/user/subscriptions/label/view", user.name) %]">[% l('Label Subscriptions') %]</a> |
+    <a href="[% c.uri_for_action("/user/subscriptions/editor/view", user.name) %]">[% l('Editor Subscriptions') %]</a>
+]
+</p>

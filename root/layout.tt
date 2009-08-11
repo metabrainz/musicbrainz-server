@@ -55,7 +55,9 @@
             </div></div>
         </div></div>
 
-        <div class="page[% IF full_width %] fullwidth[% END %]"><div class="tl"><div class="bl">[% IF !full_width %]<div class="bg">[%  END %]<div class="tr"><div class="br">
+        <div class="page[% IF full_width %] fullwidth[% END %]"><div class="tl"><div class="bl">[% IF !full_width %]<div class="bg">[%  END %]<div class="tr">
+        <div class="br">
+
 
         [%- content -%]
 

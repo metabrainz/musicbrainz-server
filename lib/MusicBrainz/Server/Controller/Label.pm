@@ -54,9 +54,13 @@ after 'load' => sub
         $c->detach('/error_404');
     }
 
-    $c->model('Label')->load_meta($label);
+    my $label_model = $c->model('Label');
+    $label_model->load_meta($label);
     if ($c->user_exists) {
-        $c->model('Label')->rating->load_user_ratings($c->user->id, $label);
+        $label_model->rating->load_user_ratings($c->user->id, $label);
+
+        $c->stash->{subscribed} = $label_model->subscription->check_subscription(
+            $c->user->id, $label->id);
     }
     $c->model('LabelType')->load($label);
 };
@@ -239,93 +243,6 @@ sub delete : Chained('load') PathPart RequireAuth
         $c->response->redirect($url);
         $c->detach;
     }
-}
-
-=head2 subscribe
-
-Allow a moderator to subscribe to this label
-
-=cut
-
-sub subscribe : Chained('load')
-{
-    my ($self, $c) = @_;
-    my $label = $self->entity;
-
-    $c->forward('/user/login');
-
-    my $us = UserSubscription->new($c->mb->{dbh});
-    $us->SetUser($c->user->id);
-    $us->SubscribeLabels($label);
-    $c->stash->{subscribed} = 1;
-
-    $c->forward('subscriptions');
-}
-
-=head2 unsubscribe
-
-Unsubscribe from a label
-
-=cut
-
-sub unsubscribe : Chained('load')
-{
-    my ($self, $c) = @_;
-    my $label = $self->entity;
-
-    $c->forward('/user/login');
-
-    my $us = UserSubscription->new($c->mb->{dbh});
-    $us->SetUser($c->user->id);
-    $us->UnsubscribeLabels($label);
-    $c->stash->{subscribed} = undef;
-
-    $c->forward('subscriptions');
-}
-
-=head2 show_subscriptions
-
-Show all users who are subscribed to this label, and have stated they
-wish their subscriptions to be public
-
-=cut
-
-sub subscriptions : Chained('load')
-{
-    my ($self, $c) = @_;
-
-    $c->forward('/user/login');
-
-    my $label = $self->entity;
-
-    my @all_users = $label->subscribers;
-
-    my @public_users;
-    my $anonymous_subscribers;
-
-    for my $uid (@all_users)
-    {
-        my $user = $c->model('User')->load({ id => $uid });
-
-        my $public = UserPreference::get_for_user("subscriptions_public", $user);
-        my $is_me  = $c->user_exists && $c->user->id == $user->id;
-
-        if ($is_me) { $c->stash->{user_subscribed} = $is_me; }
-
-        if ($public || $is_me)
-        {
-            push @public_users, $user;
-        }
-        else
-        {
-            $anonymous_subscribers++;
-        }
-    }
-
-    $c->stash->{subscribers          } = \@public_users;
-    $c->stash->{anonymous_subscribers} = $anonymous_subscribers;
-
-    $c->stash->{template} = 'label/subscriptions.tt';
 }
 
 sub add_alias : Chained('load') Form

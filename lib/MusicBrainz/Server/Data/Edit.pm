@@ -52,6 +52,15 @@ sub _new_from_row
     return $edit;
 }
 
+sub get_max_id
+{
+    my ($self) = @_;
+
+    my $sql = Sql->new($self->c->raw_dbh);
+    return $sql->SelectSingleValue("SELECT id FROM edit ORDER BY id DESC
+                                    LIMIT 1");
+}
+
 sub find
 {
     my ($self, $p, $offset, $limit) = @_;

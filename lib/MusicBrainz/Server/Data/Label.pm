@@ -10,6 +10,7 @@ use MusicBrainz::Server::Data::Utils qw(
     partial_date_from_row
     placeholders
     load_subobjects
+    query_to_list_limited
 );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
@@ -20,6 +21,10 @@ with 'MusicBrainz::Server::Data::CoreEntityCache' => { prefix => 'label' };
 with 'MusicBrainz::Server::Data::Editable' => { table => 'label' };
 with 'MusicBrainz::Server::Data::RatingRole' => { type => 'label' };
 with 'MusicBrainz::Server::Data::TagRole' => { type => 'label' };
+with 'MusicBrainz::Server::Data::SubscriptionRole' => {
+    table => 'editor_subscribe_label',
+    column => 'label'
+};
 
 sub _table
 {
@@ -66,6 +71,20 @@ sub _column_mapping
 sub _entity_class
 {
     return 'MusicBrainz::Server::Entity::Label';
+}
+
+sub find_by_subscribed_editor
+{
+    my ($self, $editor_id, $limit, $offset) = @_;
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                    JOIN editor_subscribe_label s ON label.id = s.label
+                 WHERE s.editor = ?
+                 ORDER BY name.name, label.id
+                 OFFSET ?";
+    return query_to_list_limited(
+        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $query, $editor_id, $offset || 0);
 }
 
 sub load
@@ -115,6 +134,7 @@ sub delete
     $self->alias->delete(@label_ids);
     $self->tags->delete(@label_ids);
     $self->rating->delete(@label_ids);
+    $self->subscription->delete(@label_ids);
     $self->remove_gid_redirects(@label_ids);
     my $sql = Sql->new($self->c->mb->dbh);
     $sql->Do('DELETE FROM label WHERE id IN (' . placeholders(@label_ids) . ')', @label_ids);
@@ -128,6 +148,7 @@ sub merge
     $self->alias->merge($new_id, @old_ids);
     $self->tags->merge($new_id, @old_ids);
     $self->rating->merge($new_id, @old_ids);
+    $self->subscription->merge($new_id, @old_ids);
     $self->annotation->merge($new_id, @old_ids);
     $self->c->model('ReleaseLabel')->merge_labels($new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('label', $new_id, @old_ids);

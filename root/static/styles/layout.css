@@ -176,6 +176,11 @@ a:hover { color:#FC6714; text-decoration: underline; }
     margin-top: 0;
 }
 
+.sidebar ul.links {
+    margin-left: 0em;
+    padding-left: 2em;
+}
+
 p {
     margin: 1em 0;
 }
@@ -335,12 +340,6 @@ p.nfo span {
     display: block;
     padding-top: 0.1em;
     padding-bottom: 0.1em;
-}
-
-ul.links {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
 }
 
 .credits {

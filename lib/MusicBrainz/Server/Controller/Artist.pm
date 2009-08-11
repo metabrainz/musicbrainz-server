@@ -74,9 +74,13 @@ after 'load' => sub
         $c->detach('/error_404');
     }
 
-    $c->model('Artist')->load_meta($artist);
+    my $artist_model = $c->model('Artist');
+    $artist_model->load_meta($artist);
     if ($c->user_exists) {
-        $c->model('Artist')->rating->load_user_ratings($c->user->id, $artist);
+        $artist_model->rating->load_user_ratings($c->user->id, $artist);
+
+        $c->stash->{subscribed} = $artist_model->subscription->check_subscription(
+            $c->user->id, $artist->id);
     }
     $c->model('ArtistType')->load($artist);
     $c->model('Gender')->load($artist);
@@ -496,93 +500,6 @@ sub rating : Chained('load') Args(2)
     $c->forward('/user/login');
     $c->forward('/rating/do_rating', ['artist', $entity, $new_vote] );
     $c->response->redirect($c->entity_url($self->entity, 'show'));
-}
-
-=head2 subscribe
-
-Allow a moderator to subscribe to this artist
-
-=cut
-
-sub subscribe : Chained('load')
-{
-    my ($self, $c) = @_;
-    my $artist = $c->stash->{artist};
-
-    $c->forward('/user/login');
-
-    my $us = UserSubscription->new($c->mb->{dbh});
-    $us->SetUser($c->user->id);
-    $us->SubscribeArtists($artist);
-    $c->stash->{subscribed} = 1;
-
-    $c->forward('subscriptions');
-}
-
-=head2 unsubscribe
-
-Unsubscribe from an artist
-
-=cut
-
-sub unsubscribe : Chained('load')
-{
-    my ($self, $c) = @_;
-    my $artist = $c->stash->{artist};
-
-    $c->forward('/user/login');
-
-    my $us = UserSubscription->new($c->mb->{dbh});
-    $us->SetUser($c->user->id);
-    $us->UnsubscribeArtists($artist);
-    $c->stash->{subscribed} = undef;
-
-    $c->forward('subscriptions');
-}
-
-=head2 subscriptions
-
-Show all users who are subscribed to this artist, and have stated they
-wish their subscriptions to be public
-
-=cut
-
-sub subscriptions : Chained('load')
-{
-    my ($self, $c) = @_;
-
-    $c->forward('/user/login');
-
-    my $artist = $c->stash->{artist};
-
-    my @all_users = $artist->subscribers;
-
-    my @public_users;
-    my $anonymous_subscribers;
-
-    for my $uid (@all_users)
-    {
-        my $user = $c->model('User')->load({ id => $uid });
-
-        my $public = UserPreference::get_for_user("subscriptions_public", $user);
-        my $is_me  = $c->user_exists && $c->user->id == $user->id;
-
-        if ($is_me) { $c->stash->{user_subscribed} = $is_me; }
-
-        if ($public || $is_me)
-        {
-            push @public_users, $user;
-        }
-        else
-        {
-            $anonymous_subscribers++;
-        }
-    }
-
-    $c->stash->{subscribers          } = \@public_users;
-    $c->stash->{anonymous_subscribers} = $anonymous_subscribers;
-
-    $c->stash->{template} = 'artist/subscribe.tt';
 }
 
 =head2 import

@@ -532,9 +532,13 @@ sub profile : Local Args(1) RequireAuth
     $c->detach('/error_404')
         if (!defined $user);
 
-    if ($c->user_exists && $c->user->id eq $user->id)
-    {
+    if ($c->user_exists && $c->user->id eq $user->id) {
         $c->stash->{viewing_own_profile} = 1;
+    }
+    else {
+        my $subscr_model = $c->model('Editor')->subscription;
+        $c->stash->{subscribed} = $subscr_model->check_subscription($c->user->id, $user->id);
+        $c->stash->{subscriber_count} = $subscr_model->get_subscribed_editor_count($user->id);
     }
 
 #    my $vote = MusicBrainz::Server::Vote->new($c->mb->dbh);

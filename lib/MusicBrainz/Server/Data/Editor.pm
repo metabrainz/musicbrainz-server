@@ -4,9 +4,14 @@ use Moose;
 use MusicBrainz::Server::Entity::Editor;
 use MusicBrainz::Server::Data::Utils qw(
     load_subobjects
+    query_to_list_limited
 );
 
 extends 'MusicBrainz::Server::Data::Entity';
+with 'MusicBrainz::Server::Data::SubscriptionRole' => {
+    table => 'editor_subscribe_editor',
+    column => 'subscribededitor'
+};
 
 sub _table
 {
@@ -15,7 +20,7 @@ sub _table
 
 sub _columns
 {
-    return 'id, name, password, privs, email, website, bio,
+    return 'editor.id, name, password, privs, email, website, bio,
             membersince, emailconfirmdate, lastlogindate, editsaccepted,
             editsrejected, autoeditsaccepted, editsfailed';
 }
@@ -56,6 +61,20 @@ sub find_by_email
 {
     my ($self, $email) = @_;
     return values %{$self->_get_by_keys('email', $email)};
+}
+
+sub find_by_subscribed_editor
+{
+    my ($self, $editor_id, $limit, $offset) = @_;
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                    JOIN editor_subscribe_editor s ON editor.id = s.subscribededitor
+                 WHERE s.editor = ?
+                 ORDER BY editor.name, editor.id
+                 OFFSET ?";
+    return query_to_list_limited(
+        $self->c->dbh, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $query, $editor_id, $offset || 0);
 }
 
 sub insert

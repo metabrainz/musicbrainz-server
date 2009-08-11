@@ -17,6 +17,17 @@
     </p>
     [%- INCLUDE "components/sidebar-rating.tt" entity=label -%]
     [%- INCLUDE "components/sidebar-tags.tt" entity=label tags=top_tags tag_this_text=l('Tag this label') -%]
+
+    <ul class="links">
+    [% IF c.user_exists %]
+        [% IF subscribed %]
+            <li><a href="[% c.uri_for_action('/user/subscriptions/artist/remove', { id => artist.id }) %]">[% l('Unsubscribe') %]</a></li>
+        [% ELSE %]
+            <li><a href="[% c.uri_for_action('/user/subscriptions/artist/add', { id => artist.id }) %]">[% l('Subscribe') %]</a></li>
+        [% END %]
+    [% END %]
+    </ul>
+
     [%- INCLUDE "components/sidebar-lastupdate.tt" entity=label -%]
 </div>
 
