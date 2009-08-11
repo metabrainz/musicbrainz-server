@@ -118,21 +118,11 @@
                     [% l('Edits') %]
                 </a>
             </li>
-	    <li>
-                <a href="[% c.uri_for('/browse/artist') %]">
-                    [% l('Browse Artists') %]
-                </a>
-            </li>
-	    <li>
-                <a href="[% c.uri_for('/browse/label') %]">
-                    [% l('Browse Labels') %]
-                </a>
-            </li>
-	    <li>
-                <a href="[% c.uri_for('/browse/release') %]">
-                    [% l('Browse Releases') %]
-                </a>
-            </li>
+        <li><a href="[% c.uri_for('/browse/artist') %]">[% l('Browse Artists') %]</a></li>
+        <li><a href="[% c.uri_for('/browse/label') %]">[% l('Browse Labels') %]</a></li>
+        <li><a href="[% c.uri_for('/browse/release') %]">[% l('Browse Releases') %]</a></li>
+        <li><a href="[% c.uri_for('/browse/release-group') %]">[% l('Browse Release Groups') %]</a></li>
+        <li><a href="[% c.uri_for('/browse/work') %]">[% l('Browse Works') %]</a></li>
 	    <li>
                 <a href="[% c.uri_for('/search/plugins') %]">
                     [% l('Browser Search Plugins') %]

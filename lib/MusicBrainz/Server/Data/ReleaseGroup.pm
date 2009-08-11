@@ -17,6 +17,7 @@ with 'MusicBrainz::Server::Data::AnnotationRole' => { type => 'release_group' };
 with 'MusicBrainz::Server::Data::Editable' => { table => 'release_group' };
 with 'MusicBrainz::Server::Data::RatingRole' => { type => 'release_group' };
 with 'MusicBrainz::Server::Data::TagRole' => { type => 'release_group' };
+with 'MusicBrainz::Server::Data::BrowseRole';
 
 sub _table
 {

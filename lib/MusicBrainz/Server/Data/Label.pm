@@ -25,6 +25,7 @@ with 'MusicBrainz::Server::Data::SubscriptionRole' => {
     table => 'editor_subscribe_label',
     column => 'label'
 };
+with 'MusicBrainz::Server::Data::BrowseRole';
 
 sub _table
 {

@@ -1,36 +1,82 @@
 package MusicBrainz::Server::Controller::Browse;
+use Moose;
 
-use strict;
-use warnings;
+BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
-use base 'MusicBrainz::Server::Controller';
+__PACKAGE__->config( paging_limit => 100 );
 
-use Data::Page;
-
-sub browse : Path('') Args(1)
+sub _browse
 {
-    my ($self, $c, $type) = @_;
-    
-    my $page  = $c->req->query_params->{page} || 1;
+    my ($self, $c, $model_name) = @_;
+
     my $index = $c->req->query_params->{index};
-    
-    # Set up paging
-    my $pager = Data::Page->new;
-    $pager->entries_per_page(50);
-    $pager->current_page($page);
-    
-    # Query for matching entities
-    $index = uc $index;
-    my $offset = ($page - 1) * $pager->entries_per_page;
-    my ($count, $entities) = $c->model(ucfirst $type)->get_browse_selection($index, $offset);
+    my $entities;
+    if ($index) {
+        $entities = $self->_load_paged($c, sub {
+            $c->model($model_name)->find_by_name_prefix($index, shift, shift);
+        });
+    }
 
-    $pager->total_entries($count);
-
-    $c->stash->{count}    = $count;
-    $c->stash->{entities} = $entities;
-    $c->stash->{pager}    = $pager;
-    $c->stash->{index}    = $index;
-    $c->stash->{type}     = $type;
+    $c->stash(
+        entities => $entities,
+        index    => $index,
+    );
 }
 
+sub artist : Local
+{
+    my ($self, $c) = @_;
+
+    $self->_browse($c, 'Artist');
+}
+
+sub label : Local
+{
+    my ($self, $c) = @_;
+
+    $self->_browse($c, 'Label');
+}
+
+sub release : Local
+{
+    my ($self, $c) = @_;
+
+    $self->_browse($c, 'Release');
+}
+
+sub release_group : Path('release-group')
+{
+    my ($self, $c) = @_;
+
+    $self->_browse($c, 'ReleaseGroup');
+}
+
+sub work : Local
+{
+    my ($self, $c) = @_;
+
+    $self->_browse($c, 'Work');
+}
+
+no Moose;
 1;
+
+=head1 COPYRIGHT
+
+Copyright (C) 2009 Lukas Lalinsky
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+=cut

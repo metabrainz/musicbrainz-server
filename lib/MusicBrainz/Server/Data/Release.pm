@@ -15,6 +15,7 @@ extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::AnnotationRole' => { type => 'release' };
 with 'MusicBrainz::Server::Data::Role::Name' => { name_table => 'release_name' };
 with 'MusicBrainz::Server::Data::Editable' => { table => 'release' };
+with 'MusicBrainz::Server::Data::BrowseRole';
 
 sub _table
 {

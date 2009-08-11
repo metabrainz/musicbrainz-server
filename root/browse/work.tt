@@ -1,0 +1,36 @@
+[% WRAPPER 'layout.tt' title=l("Browse Works") full_width=1 %]
+
+    <h1>[% l("Browse Works") %]</h1>
+
+    [% INCLUDE "browse/page_selector.tt" %]
+
+    [% IF entities.size %]
+        <h2>[% l('Works starting with “{index}”', { index => html_escape(index) }) %]</h2>
+        [% WRAPPER 'components/with-pager.tt' %]
+            <div class="browse-entities">
+                [% offset = pager.first %]
+                [% WHILE entities.size %]
+                    <table>
+                    [% FOR entity IN entities %]
+                        [% LAST IF loop.index >= 50 %]
+                        <tr>
+                            <td class="index">[% loop.index + offset %].</td>
+                            <td>[% link_release(entity) %]</td>
+                        </tr>
+                    [% END %]
+                    </table>
+                    [% CALL entities.splice(0, 50) %]
+                    [% offset = offset + 50 %]
+                [% END %]
+            </div>
+        [% END %]
+    [% ELSE %]
+        [%- IF index && index.length > 0 -%]
+            <p>[% l('Sorry, we could not find any work starting with “{index}”', { index => html_escape(index)} ) %]</p>
+            <p>[% l('To try again, please select a letter above.') %]</p>
+        [% ELSE %]
+            <p>[% l('To begin browsing, please select a letter above.') %]</p>
+        [% END %]
+    [% END %]
+
+[% END %]

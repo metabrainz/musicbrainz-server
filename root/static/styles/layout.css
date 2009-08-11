@@ -517,3 +517,33 @@ p.nfo span {
     color: #999;
     font-style: italic;
 }
+
+.browse-entities {
+    overflow: hidden;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.browse-entities table {
+    float: left;
+    width: 50%;
+    border-collapse: collapse;
+}
+
+.browse-entities table td {
+    vertical-align: top;
+}
+
+.browse-entities table td.index {
+    width: 0em;
+    text-align: right;
+    padding-right: 0.4em;
+}
+
+.browse td {
+    text-align: center;
+}
+
+.browse td.char {
+    width: 0.7em;
+}

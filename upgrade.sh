@@ -56,8 +56,8 @@ echo `date` : Fixing sequences
 ./admin/psql READWRITE <./admin/sql/SetSequences.sql
 ./admin/psql RAWDATA <./admin/sql/vertical/rawdata/SetSequences.sql
 
-# echo 'VACUUM ANALYZE;' | ./admin/psql READWRITE
-# echo 'VACUUM ANALYZE;' | ./admin/psql RAWDATA
+echo 'VACUUM ANALYZE;' | ./admin/psql READWRITE
+echo 'VACUUM ANALYZE;' | ./admin/psql RAWDATA
 
 echo `date` : Done
 

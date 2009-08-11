@@ -29,6 +29,31 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql' IMMUTABLE;
 
+CREATE OR REPLACE FUNCTION page_index_max(txt varchar) RETURNS integer AS $$
+DECLARE
+    input varchar;
+    res integer;
+    i integer;
+    x varchar;
+BEGIN
+    input := regexp_replace(upper(substr(unaccent(txt), 1, 6)), '[^A-Z ]', '_', 'g');
+    res := 0;
+    FOR i IN 1..6 LOOP
+        x := substr(input, i, 1);
+        IF x = '' THEN
+            res := (res << 5) | 31;
+        ELSIF x = '_' THEN
+            res := (res << 5);
+        ELSIF x = ' ' THEN
+            res := (res << 5) | 1;
+        ELSE
+            res := (res << 5) | (ascii(x) - 63);
+        END IF;
+    END LOOP;
+    RETURN res;
+END;
+$$ LANGUAGE 'plpgsql' IMMUTABLE;
+
 
 -- Generates UUID version 4 (random-based)
 CREATE OR REPLACE FUNCTION generate_uuid_v4() RETURNS uuid

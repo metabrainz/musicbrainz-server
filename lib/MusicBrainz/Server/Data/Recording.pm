@@ -58,6 +58,7 @@ sub _entity_class
 sub find_by_artist
 {
     my ($self, $artist_id, $limit, $offset) = @_;
+
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
                      JOIN artist_credit_name acn

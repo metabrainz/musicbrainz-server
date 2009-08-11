@@ -27,6 +27,7 @@ with 'MusicBrainz::Server::Data::SubscriptionRole' => {
     table => 'editor_subscribe_artist',
     column => 'artist'
 };
+with 'MusicBrainz::Server::Data::BrowseRole';
 
 sub _table
 {
