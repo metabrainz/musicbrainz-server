@@ -6,7 +6,7 @@ use DateTime;
 use List::MoreUtils qw( zip );
 use MusicBrainz::Server::Edit;
 use MusicBrainz::Server::Edit::Exceptions;
-use MusicBrainz::Server::Types qw( $STATUS_APPLIED $STATUS_ERROR );
+use MusicBrainz::Server::Types qw( $STATUS_APPLIED $STATUS_ERROR $STATUS_FAILEDVOTE );
 use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list_limited );
 use XML::Simple;
 
@@ -175,55 +175,51 @@ sub create
     return $edit;
 }
 
+# TODO needs to handle specific exceptions
 sub accept
 {
     my ($self, $edit) = @_;
 
-    my $sql = Sql->new($self->c->dbh);
-    my $sql_raw = Sql->new($self->c->raw_dbh);
-
-    eval {
-        $sql->Begin;
-        $sql_raw->Begin;
-
-        my $st = $self->_accept_edit($edit);
-        $self->_close($edit => $st);
-
-        $sql->Commit;
-        $sql_raw->Commit;
-    };
-
-    if ($@) {
-        $sql->Rollback;
-        $sql_raw->Rollback;
-        die $@;
-    }
+    $self->_close($edit, sub {
+        my $edit = shift;
+        eval { $edit->accept };
+        return $@ ? $STATUS_ERROR : $STATUS_APPLIED;
+   });
 }
 
-# TODO needs to handle specific exceptions
-sub _accept_edit
+sub reject
 {
     my ($self, $edit) = @_;
-    eval { $edit->accept };
 
-    return $@ ? $STATUS_ERROR : $STATUS_APPLIED;
+    $self->_close($edit, sub {
+        my $edit = shift;
+        eval { $edit->reject };
+        return $@ ? $STATUS_ERROR : $STATUS_FAILEDVOTE;
+   });
 }
 
 sub _close
 {
-    my ($self, $edit, $status) = @_;
-    my $sql = Sql->new($self->c->raw_dbh);
-    my $query = "UPDATE edit SET status = ? WHERE id = ?";
-    $sql->Do($query, $status, $edit->id);
+    my ($self, $edit, $close_sub) = @_;
 
-    if (defined $edit->entity_model && $edit->entity_id)
-    {
-        my $model = $self->c->model($edit->entity_model);
-        $model->does('MusicBrainz::Server::Data::Editable')
-            or croak "Model must do MusicBrainz::Server::Data::Editable";
-        my @ids = ref $edit->entity_id ? @{ $edit->entity_id } : ($edit->entity_id);
-        $model->dec_edits_pending(@ids);
-    }
+    my $sql = Sql->new($self->c->dbh);
+    my $sql_raw = Sql->new($self->c->raw_dbh);
+
+    Sql::RunInTransaction(sub {
+        my $status = &$close_sub($edit);
+
+        my $query = "UPDATE edit SET status = ? WHERE id = ?";
+        $sql_raw->Do($query, $status, $edit->id);
+
+        if (defined $edit->entity_model && $edit->entity_id)
+        {
+            my $model = $self->c->model($edit->entity_model);
+            $model->does('MusicBrainz::Server::Data::Editable')
+                or croak "Model must do MusicBrainz::Server::Data::Editable";
+            my @ids = ref $edit->entity_id ? @{ $edit->entity_id } : ($edit->entity_id);
+            $model->dec_edits_pending(@ids);
+        }
+    }, $sql, $sql_raw);
 }
 
 __PACKAGE__->meta->make_immutable;

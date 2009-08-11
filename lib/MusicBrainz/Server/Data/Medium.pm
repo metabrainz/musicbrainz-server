@@ -115,6 +115,29 @@ sub update
     $sql->Update('medium', $row, { id => $medium_id });
 }
 
+sub insert
+{
+    my ($self, @medium_hashes) = @_;
+    my $sql = Sql->new($self->c->dbh);
+    my $class = $self->_entity_class;
+    my @created;
+    for my $medium_hash (@medium_hashes) {
+        my $row = $self->_create_row($medium_hash);
+
+        push @created, $class->new(
+            id => $sql->InsertRow('medium', $row, 'id')
+        );
+    }
+    return @medium_hashes > 1 ? @created : $created[0];
+}
+
+sub delete
+{
+    my ($self, @ids) = @_;
+    my $sql = Sql->new($self->c->dbh);
+    $sql->Do('DELETE FROM medium WHERE id IN (' . placeholders(@ids) . ')', @ids);
+}
+
 sub _create_row
 {
     my ($self, $medium_hash) = @_;
