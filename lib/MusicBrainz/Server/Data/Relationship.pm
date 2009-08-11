@@ -36,6 +36,11 @@ Readonly my %ENTITY_CLASS_TO_TYPE => (
     'MusicBrainz::Server::Entity::Work'         => 'work',
 );
 
+sub all_link_types
+{
+    return @TYPES;
+}
+
 sub _new_from_row
 {
     my ($self, $row, $obj) = @_;

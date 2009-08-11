@@ -46,6 +46,7 @@ sub from_session
         id => $frozen->{id},
         name => $frozen->{name},
         accepted_edits => $frozen->{accepted_edits},
+        privileges => $frozen->{privs},
     );
     $args{email} = $frozen->{email}
         if defined $frozen->{email};

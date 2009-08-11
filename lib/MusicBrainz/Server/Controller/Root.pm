@@ -103,6 +103,16 @@ sub begin : Private
     if (exists $c->action->attributes->{RequireAuth})
     {
         $c->forward('/user/do_login');
+        my $privs = $c->action->attributes->{RequireAuth};
+        if ($privs && ref($privs) eq "ARRAY") {
+            foreach my $priv (@$privs) {
+                last unless $priv;
+                my $accessor = "is_$priv";
+                if (!$c->user->$accessor) {
+                    $c->detach('/error_404'); # XXX use 403
+                }
+            }
+        }
     }
 
     # Load current relationship

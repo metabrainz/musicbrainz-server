@@ -1,0 +1,13 @@
+[%- WRAPPER 'layout.tt' title=l('Delete Link Type') -%]
+
+<h1>Delete Link Type</h1>
+
+<p>
+    [%- l('Are you sure you wish to delete the <strong>{link_type}</strong> link type?', { link_type => link_type.name }) -%]
+</p>
+
+<form action="[% c.req.uri %]" method="post">
+    <input type="submit" name="confirm.submit" value="[% l('Delete') %]" />
+</form>
+
+[%- END -%]

@@ -1,0 +1,7 @@
+[% WRAPPER "layout.tt" title=l("New Link Type") full_width=1 %]
+
+<h1>[% l("New Link Type") %]</h1>
+
+[% INCLUDE "admin/linktype/form.tt" %]
+
+[% END %]

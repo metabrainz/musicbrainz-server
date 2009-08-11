@@ -51,6 +51,34 @@ has 'short_link_phrase' => (
     isa => 'Str',
 );
 
+has 'description' => (
+    is => 'rw',
+    isa => 'Str',
+);
+
+has 'child_order' => (
+    is => 'rw',
+    isa => 'Int',
+);
+
+has 'priority' => (
+    is => 'rw',
+    isa => 'Int',
+);
+
+has 'children' => (
+    is => 'rw',
+    isa => 'ArrayRef[LinkType]',
+    lazy => 1,
+    default => sub { [] },
+    metaclass => 'Collection::Array',
+    provides => {
+        elements => 'all_children',
+        push => 'add_child',
+        clear => 'clear_children',
+    }
+);
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

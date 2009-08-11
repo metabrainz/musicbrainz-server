@@ -55,6 +55,13 @@ sub text
     return $self->_render_input($field, 'text', %$attrs);
 }
 
+sub hidden
+{
+    my ($self, $field_name, $attrs) = @_;
+    my $field = $self->_lookup_field($field_name) or return;
+    return $self->_render_input($field, 'hidden', %$attrs);
+}
+
 sub password
 {
     my ($self, $field_name, $attrs) = @_;

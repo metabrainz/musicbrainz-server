@@ -12,6 +12,7 @@ use UNIVERSAL::require;
 our @EXPORT_OK = qw(
     artist_credit_to_ref
     defined_hash
+    hash_to_row
     generate_gid
     insert_and_create
     generate_gid
@@ -169,6 +170,20 @@ sub defined_hash
 {
     my %hash = @_;
     return map { $_ => $hash{$_} } grep { defined $hash{$_} } keys %hash;
+}
+
+sub hash_to_row
+{
+    my ($hash, $mapping) = @_;
+
+    my %row;
+    foreach my $db_key (keys %$mapping) {
+        my $key = $mapping->{$db_key};
+        if (exists $hash->{$key}) {
+            $row{$db_key} = $hash->{$key};
+        }
+    }
+    return \%row;
 }
 
 sub type_to_model
