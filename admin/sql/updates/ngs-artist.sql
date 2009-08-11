@@ -8,6 +8,7 @@ INSERT INTO artist_name (name)
     (SELECT DISTINCT name FROM public.artist) UNION
     (SELECT DISTINCT sortname FROM public.artist) UNION
     (SELECT DISTINCT name FROM public.artistalias);
+SELECT setval('artist_name_id_seq', (SELECT MAX(id) FROM artist_name));
 
 CREATE UNIQUE INDEX tmp_artist_name_name ON artist_name (name);
 
@@ -39,7 +40,5 @@ INSERT INTO artist_alias (artist, name)
 INSERT INTO artist_meta (id, lastupdate, rating, ratingcount)
     SELECT id, lastupdate, round(rating * 20), rating_count
     FROM public.artist_meta;
-
-DROP INDEX tmp_artist_name_name;
 
 COMMIT;
