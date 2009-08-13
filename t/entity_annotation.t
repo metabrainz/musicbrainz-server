@@ -21,11 +21,6 @@ unlike($annotation->summary, qr/This is more of the test annotation!/, 'summary 
 unlike($annotation->summary, qr/And '''even''' ''more''./, 'summary shouldnt have third para');
 unlike($annotation->summary, qr/\n/, 'summary shouldnt have line breaks');
 
-like($annotation->format_summary, qr{This is a <em>test</em> annotation});
 unlike($annotation->summary, qr/This is more of the test annotation!/, 'summary shouldnt have second para');
 unlike($annotation->summary, qr{And <strong>even</strong> <em>more</em>.}, 'summary shouldnt have third para');
 unlike($annotation->summary, qr/\n/, 'summary shouldnt have line breaks');
-
-like($annotation->format_text, qr{This is a <em>test</em> annotation});
-like($annotation->format_text, qr/This is more of the test annotation!/);
-like($annotation->format_text, qr{And <strong>even</strong> <em>more</em>.});

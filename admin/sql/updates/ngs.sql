@@ -383,58 +383,22 @@ INSERT INTO recording_annotation
     SELECT rowid, a.id FROM public.annotation a, public.moderator, public.track as t
     WHERE a.moderator=moderator.id AND type = 4 AND a.rowid = t.id;
 
-CREATE OR REPLACE FUNCTION tmp_join_append(VARCHAR, VARCHAR)
-RETURNS VARCHAR AS $$
-DECLARE
-    state ALIAS FOR $1;
-    value ALIAS FOR $2;
-BEGIN
-    IF (value IS NULL) THEN RETURN state; END IF;
-    IF (state IS NULL) THEN
-        RETURN value;
-    ELSE
-        RETURN(state || E'\n----\n' || value);
-    END IF;
-END;
-$$ LANGUAGE 'plpgsql';
-
-CREATE AGGREGATE tmp_join(BASETYPE = VARCHAR, SFUNC=tmp_join_append, STYPE=VARCHAR);
-
 SELECT SETVAL('annotation_id_seq', (SELECT MAX(id) FROM annotation));
 
-SELECT nextval('annotation_id_seq') AS id, release_group,
-    MIN(moderator) AS editor, MIN(text) AS text,
-    MIN(changelog) AS changelog, MIN(created) AS created
-INTO TEMPORARY tmp_release_group_annotation
+SELECT nextval('annotation_id_seq') AS id, r.release,
+    moderator AS editor, text, changelog, created
+INTO TEMPORARY tmp_release_annotation
 FROM
-    public.annotation a
-    JOIN public.moderator ON a.moderator=moderator.id
-    JOIN public.album ON a.rowid=album.id
-WHERE type = 2
-GROUP BY release_group
-HAVING COUNT(*) = 1;
-
-INSERT INTO tmp_release_group_annotation
-    SELECT nextval('annotation_id_seq') AS id, release_group,
-        4 AS editor, tmp_join(text) AS text, 'Merge', NOW() AS created
-    FROM
-        public.annotation a
-        JOIN public.moderator ON a.moderator=moderator.id
-        JOIN public.album ON a.rowid=album.id
-    WHERE type = 2
-    GROUP BY release_group
-    HAVING COUNT(*) != 1;
-
-DROP AGGREGATE tmp_join(VARCHAR);
-DROP FUNCTION tmp_join_append(VARCHAR, VARCHAR);
+    public.annotation a, tmp_release_album r, public.moderator
+WHERE a.moderator = moderator.id AND a.type = 2 AND a.rowid = r.album;
 
 INSERT INTO annotation (id, editor, text, changelog, created)
     SELECT id, editor, text, changelog, created
-    FROM tmp_release_group_annotation;
+    FROM tmp_release_annotation;
 
-INSERT INTO release_group_annotation
-    SELECT release_group, id
-    FROM tmp_release_group_annotation;
+INSERT INTO release_annotation
+    SELECT release, id
+    FROM tmp_release_annotation;
 
 ------------------------
 -- PUIDs

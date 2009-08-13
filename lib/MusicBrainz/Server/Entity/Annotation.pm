@@ -3,7 +3,6 @@ package MusicBrainz::Server::Entity::Annotation;
 use Moose;
 use MusicBrainz::Server::Types;
 use MusicBrainz::Server::Entity::Types;
-use Text::WikiFormat;
 
 extends 'MusicBrainz::Server::Entity::Entity';
 with 'MusicBrainz::Server::Entity::Editable';
@@ -41,22 +40,10 @@ sub summary
     return $summary;
 }
 
-sub format_summary
-{
-    my $self = shift;
-    return Text::WikiFormat::format($self->summary);
-}
-
 sub summary_is_short
 {
     my $self = shift;
     return $self->summary ne $self->text;
-}
-
-sub format_text
-{
-    my $self = shift;
-    Text::WikiFormat::format($self->text);
 }
 
 __PACKAGE__->meta->make_immutable;

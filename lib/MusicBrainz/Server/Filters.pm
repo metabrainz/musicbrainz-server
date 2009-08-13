@@ -5,6 +5,7 @@ use warnings;
 
 use MusicBrainz::Server::DateTime;
 use MusicBrainz::Server::Track;
+use Text::WikiFormat;
 
 sub date
 {
@@ -31,6 +32,22 @@ sub format_time
 {
     my $ms = shift;
     return MusicBrainz::Server::Track::FormatTrackLength($ms);
+}
+
+sub format_wikitext
+{
+    my ($text) = @_;
+
+    return '' unless $text;
+
+    $text =~ s/</&lt;/g;
+    $text =~ s/>/&gt;/g;
+    return Text::WikiFormat::format($text, {}, {
+        prefix => "http://wiki.musicbrainz.org/",
+        extended => 1,
+        absolute_links => 1,
+        implicit_links => 0
+    });
 }
 
 1;
