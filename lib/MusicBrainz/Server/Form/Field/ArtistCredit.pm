@@ -39,7 +39,7 @@ sub validate
     $self->value(\@credits);
 }
 
-sub _build_fif
+sub fif
 {
     my $self = shift;
 
