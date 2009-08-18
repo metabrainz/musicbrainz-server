@@ -320,6 +320,8 @@ sub SESSION_STORE_ARGS
 #	}
 #}
 
+sub USE_ETAGS { 1 }
+
 sub CATALYST_DEBUG { 1 }
 
 # Please activate the officially approved languages here. Not every .po

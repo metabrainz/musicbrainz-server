@@ -13,6 +13,7 @@ requires 'Catalyst::Component::ACCEPT_CONTEXT'         => '0.06';
 requires 'Catalyst::Model::Factory'                    => '0.03';
 requires 'Catalyst::Plugin::Authentication'            => '0.10011';
 requires 'Catalyst::Authentication::Credential::HTTP'  => '1.009';
+requires 'Catalyst::Plugin::Cache::HTTP';
 requires 'Catalyst::Plugin::ConfigLoader'              => '0.24';
 requires 'Catalyst::Plugin::I18N'                      => '0.09';
 requires 'Catalyst::Plugin::Session::State::Cookie'    => '0.11';

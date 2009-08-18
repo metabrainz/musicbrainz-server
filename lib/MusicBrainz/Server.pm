@@ -125,6 +125,10 @@ if (&DBDefs::SESSION_DOMAIN) {
 
 __PACKAGE__->config->{session}{cookie_expires} = &DBDefs::WEB_SESSION_SECONDS_TO_LIVE;
 
+if (&DBDefs::USE_ETAGS) {
+    push @args, "Cache::HTTP";
+}
+
 # Start the application
 __PACKAGE__->setup(@args);
 
