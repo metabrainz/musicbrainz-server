@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 use strict;
 use warnings;
-use Test::More tests => 79;
+use Test::More tests => 80;
 use Test::Moose;
 use_ok 'MusicBrainz::Server::Data::Artist';
 use MusicBrainz::Server::Data::Search;
@@ -170,6 +170,12 @@ is($artist->type_id, 2);
 is($artist->gender_id, 2);
 is($artist->country_id, 2);
 is($artist->comment, 'Updated comment');
+
+$artist_data->update($artist->id, {
+        type_id => undef,
+    });
+$artist = $artist_data->get_by_id($artist->id);
+is($artist->type_id, undef);
 
 $artist_data->delete($artist->id);
 $artist = $artist_data->get_by_id($artist->id);

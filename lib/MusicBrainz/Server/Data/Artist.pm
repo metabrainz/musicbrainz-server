@@ -8,6 +8,8 @@ use MusicBrainz::Server::Data::ArtistCredit;
 use MusicBrainz::Server::Data::Edit;
 use MusicBrainz::Server::Data::Utils qw(
     defined_hash
+    hash_to_row
+    add_partial_date_to_row
     generate_gid
     partial_date_from_row
     placeholders
@@ -165,30 +167,32 @@ sub merge
 
 sub _hash_to_row
 {
-    my ($self, $artist, $names) = @_;
+    my ($self, $values, $names) = @_;
 
-    my %row = (
-        begindate_year => $artist->{begin_date}->{year},
-        begindate_month => $artist->{begin_date}->{month},
-        begindate_day => $artist->{begin_date}->{day},
-        enddate_year => $artist->{end_date}->{year},
-        enddate_month => $artist->{end_date}->{month},
-        enddate_day => $artist->{end_date}->{day},
-        country => $artist->{country_id},
-        type => $artist->{type_id},
-        gender => $artist->{gender_id},
-        comment => $artist->{comment},
-    );
+    my $row = hash_to_row($values, {
+        country => 'country_id',
+        type    => 'type_id',
+        gender  => 'gender_id',
+        comment => 'comment',
+    });
 
-    if ($artist->{name}) {
-        $row{name} = $names->{ $artist->{name} };
+    if (exists $values->{begin_date}) {
+        add_partial_date_to_row($row, $values->{begin_date}, 'begindate');
     }
 
-    if ($artist->{sort_name}) {
-        $row{sortname} = $names->{ $artist->{sort_name} };
+    if (exists $values->{end_date}) {
+        add_partial_date_to_row($row, $values->{end_date}, 'enddate');
     }
 
-    return { defined_hash(%row) };
+    if (exists $values->{name}) {
+        $row->{name} = $names->{ $values->{name} };
+    }
+
+    if (exists $values->{sort_name}) {
+        $row->{sortname} = $names->{ $values->{sort_name} };
+    }
+
+    return $row;
 }
 
 sub load_meta

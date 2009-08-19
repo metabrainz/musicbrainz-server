@@ -13,6 +13,7 @@ our @EXPORT_OK = qw(
     artist_credit_to_ref
     defined_hash
     hash_to_row
+    add_partial_date_to_row
     generate_gid
     insert_and_create
     generate_gid
@@ -184,6 +185,19 @@ sub hash_to_row
         }
     }
     return \%row;
+}
+
+sub add_partial_date_to_row
+{
+    my ($row, $date, $prefix) = @_;
+
+    if (defined $date) {
+        foreach my $key (qw(year month day)) {
+            if (exists $date->{$key}) {
+                $row->{$prefix . '_' . $key} = $date->{$key};
+            }
+        }
+    }
 }
 
 sub type_to_model

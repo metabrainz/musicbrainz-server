@@ -5,6 +5,7 @@ use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_CREATE );
 use MusicBrainz::Server::Data::Artist;
 use MusicBrainz::Server::Data::Utils qw( defined_hash );
 use MusicBrainz::Server::Types qw( :edit_status );
+use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
 use Moose::Util::TypeConstraints;
 use MooseX::Types::Moose qw( Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
@@ -37,16 +38,8 @@ has '+data' => (
         gender_id => Optional[Int],
         country_id => Optional[Int],
         comment => Optional[Str],
-        begin_date => Optional[Dict[
-            year => Int,
-            month => Optional[Int],
-            day => Optional[Int],
-        ]],
-        end_date => Optional[Dict[
-            year => Int,
-            month => Optional[Int],
-            day => Optional[Int],
-        ]],
+        begin_date => Optional[PartialDateHash],
+        end_date => Optional[PartialDateHash],
     ]
 );
 

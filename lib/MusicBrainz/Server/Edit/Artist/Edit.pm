@@ -39,8 +39,8 @@ subtype 'ArtistHash'
         gender_id => Nullable[Int],
         country_id => Nullable[Int],
         comment => Nullable[Str],
-        begin_date => Optional[PartialDateHash],
-        end_date => Optional[PartialDateHash],
+        begin_date => Nullable[PartialDateHash],
+        end_date => Nullable[PartialDateHash],
     ];
 
 has '+data' => (
