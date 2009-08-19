@@ -11,7 +11,7 @@
             <span><strong>[% l('Length:') %]</strong> [% recording.length | format_time %]</span>
         [%- END -%]
         [%- FOR isrc IN isrcs -%]
-            <span><strong>[% l('ISRC:') %]</strong> [% isrc.isrc %]</span>
+            <span><strong>[% l('ISRC:') %]</strong> <a href="[% c.uri_for_action('/isrc/show', [ isrc.isrc ]) %]">[% isrc.isrc %]</a></span>
         [%- END -%]
     </p>
     [%- INCLUDE "components/sidebar-rating.tt" entity=recording -%]

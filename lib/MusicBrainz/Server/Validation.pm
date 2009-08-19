@@ -29,7 +29,14 @@ no warnings qw( portable );
 package MusicBrainz::Server::Validation;
 
 require Exporter;
-{ our @ISA = qw( Exporter ); our @EXPORT_OK = qw( encode_entities unaccent ) }
+{
+    our @ISA = qw( Exporter );
+    our @EXPORT_OK = qw(
+        encode_entities
+        unaccent
+        is_valid_isrc
+    )
+}
 
 use strict;
 use Encode qw( decode encode );
@@ -298,6 +305,12 @@ sub SimpleLog
 	flock($fh, LOCK_EX) or return;
 	print $fh $data or return;
 	close $fh;
+}
+
+sub is_valid_isrc
+{
+    my $isrc = $_[0];
+    return $isrc =~ /[A-Z]{2}[A-Z0-9]{3}[0-9]{7}/;
 }
 
 ################################################################################

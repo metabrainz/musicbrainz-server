@@ -43,6 +43,18 @@ sub find_by_recording
                          $query, $recording_id);
 }
 
+sub find_by_isrc
+{
+    my ($self, $isrc) = @_;
+
+    my $query = "SELECT ".$self->_columns."
+                   FROM ".$self->_table."
+                  WHERE isrc = ?
+               ORDER BY id";
+    return query_to_list($self->c->dbh, sub { $self->_new_from_row($_[0]) },
+                         $query, $isrc);
+}
+
 sub merge_recordings
 {
     my ($self, $new_id, @old_ids) = @_;
