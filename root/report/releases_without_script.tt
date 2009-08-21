@@ -1,0 +1,13 @@
+[%- WRAPPER 'layout.tt' title=l('Releases without script but language') full_width=1 -%]
+
+<h1>[% l('Releases without script but language') %]</h1>
+
+<ul>
+    <li>[% l('This report shows releases that have a language but no script set.') %]</li>
+    <li>[% l('Total releases found: {count}', { count => pager.total_entries }) %]</li>
+    <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
+</ul>
+
+[%- INCLUDE 'report/release_list.tt' -%]
+
+[%- END -%]

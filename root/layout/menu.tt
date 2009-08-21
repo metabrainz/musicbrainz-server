@@ -138,7 +138,7 @@
             </li>
                 [%- IF c.user_exists -%]
             <li>
-                <a href="[% c.uri_for('/moderation/reports') %]">
+                <a href="[% c.uri_for_action('/report/index') %]">
                     [% l('Editing Suggestions') %]
                 </a>
             </li>

@@ -1,0 +1,25 @@
+[%- WRAPPER 'layout.tt' title=l('Reports') full_width=1 -%]
+
+<h1>[% l('Reports') %]</h1>
+
+<p>
+    [% l("The following links show pages that are likely to contain data that
+          does not conform to the style guidelines. If you'd like to participate
+          in the editing process, but do not know where to start, check out these
+          pages.") %]
+</p>
+
+<h2>[% l('Releases') %]</h2>
+
+<ul>
+    <li><a href="[% c.uri_for_action('/report/show', 'NoLanguage') %]">[% l('Releases without language but script') %]</a></li>
+    <li><a href="[% c.uri_for_action('/report/show', 'NoScript') %]">[% l('Releases without script but language') %]</a></li>
+</ul>
+
+<h2>[% l('ISRCs') %]</h2>
+
+<ul>
+    <li><a href="[% c.uri_for_action('/report/show', 'ISRCsWithManyRecordings') %]">[% l('ISRCs with multiple recordings') %]</a></li>
+</ul>
+
+[%- END -%]

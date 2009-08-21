@@ -2,6 +2,7 @@ package MusicBrainz::Server::Context;
 
 use Moose;
 use MusicBrainz;
+use MusicBrainz::Server::CacheManager;
 use UNIVERSAL::require;
 
 has 'cache_manager' => (
@@ -60,6 +61,12 @@ sub model
     my $class_name = "MusicBrainz::Server::Data::$name";
     $class_name->require;
     return $class_name->new(c => $self);
+}
+
+sub create_script_context
+{
+    my $cache_manager = MusicBrainz::Server::CacheManager->new(&DBDefs::CACHE_MANAGER_OPTIONS);
+    return MusicBrainz::Server::Context->new(cache_manager => $cache_manager);
 }
 
 1;
