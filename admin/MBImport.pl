@@ -438,6 +438,7 @@ sub ImportAllTables
 		link_type
 		link_type_attribute_type
 		medium
+		medium_cdtoc
 		medium_format
 		puid
 		recording
@@ -467,7 +468,6 @@ sub ImportAllTables
 		track
 		track_name
 		tracklist
-		tracklist_cdtoc
 		url
 		work
 		work_annotation

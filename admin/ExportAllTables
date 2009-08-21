@@ -239,6 +239,7 @@ my @tables = qw(
 	link_type
 	link_type_attribute_type
 	medium
+	medium_cdtoc
 	medium_format
 	puid
 	recording
@@ -268,7 +269,6 @@ my @tables = qw(
 	track
 	track_name
 	tracklist
-	tracklist_cdtoc
 	url
 	work
 	work_annotation
@@ -578,6 +578,7 @@ my @group_core = qw(
 	link_type
 	link_type_attribute_type
 	medium
+	medium_cdtoc
 	medium_format
 	puid
 	recording
@@ -598,7 +599,6 @@ my @group_core = qw(
 	track
 	track_name
 	tracklist
-	tracklist_cdtoc
 	url
 	work
 	work_gid_redirect

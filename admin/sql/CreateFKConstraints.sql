@@ -670,6 +670,16 @@ ALTER TABLE medium
    FOREIGN KEY (format)
    REFERENCES medium_format(id);
 
+ALTER TABLE medium_cdtoc
+   ADD CONSTRAINT medium_cdtoc_fk_medium
+   FOREIGN KEY (medium)
+   REFERENCES medium(id);
+
+ALTER TABLE medium_cdtoc
+   ADD CONSTRAINT medium_cdtoc_fk_cdtoc
+   FOREIGN KEY (cdtoc)
+   REFERENCES cdtoc(id);
+
 ALTER TABLE puid
    ADD CONSTRAINT puid_fk_version
    FOREIGN KEY (version)
@@ -882,16 +892,6 @@ ALTER TABLE track
    ADD CONSTRAINT track_fk_artist_credit
    FOREIGN KEY (artist_credit)
    REFERENCES artist_credit(id);
-
-ALTER TABLE tracklist_cdtoc
-   ADD CONSTRAINT tracklist_cdtoc_fk_tracklist
-   FOREIGN KEY (tracklist)
-   REFERENCES tracklist(id);
-
-ALTER TABLE tracklist_cdtoc
-   ADD CONSTRAINT tracklist_cdtoc_fk_cdtoc
-   FOREIGN KEY (cdtoc)
-   REFERENCES cdtoc(id);
 
 ALTER TABLE work
    ADD CONSTRAINT work_fk_name

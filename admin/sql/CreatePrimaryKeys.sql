@@ -71,6 +71,7 @@ ALTER TABLE link_attribute_type ADD CONSTRAINT link_attribute_type_pkey PRIMARY 
 ALTER TABLE link_type ADD CONSTRAINT link_type_pkey PRIMARY KEY (id);
 ALTER TABLE link_type_attribute_type ADD CONSTRAINT link_type_attribute_type_pkey PRIMARY KEY (link_type, attribute_type);
 ALTER TABLE medium ADD CONSTRAINT medium_pkey PRIMARY KEY (id);
+ALTER TABLE medium_cdtoc ADD CONSTRAINT medium_cdtoc_pkey PRIMARY KEY (id);
 ALTER TABLE medium_format ADD CONSTRAINT medium_format_pkey PRIMARY KEY (id);
 ALTER TABLE puid ADD CONSTRAINT puid_pkey PRIMARY KEY (id);
 ALTER TABLE recording ADD CONSTRAINT recording_pkey PRIMARY KEY (id);
@@ -101,7 +102,6 @@ ALTER TABLE tag_relation ADD CONSTRAINT tag_relation_pkey PRIMARY KEY (tag1, tag
 ALTER TABLE track ADD CONSTRAINT track_pkey PRIMARY KEY (id);
 ALTER TABLE track_name ADD CONSTRAINT track_name_pkey PRIMARY KEY (id);
 ALTER TABLE tracklist ADD CONSTRAINT tracklist_pkey PRIMARY KEY (id);
-ALTER TABLE tracklist_cdtoc ADD CONSTRAINT tracklist_cdtoc_pkey PRIMARY KEY (id);
 ALTER TABLE url ADD CONSTRAINT url_pkey PRIMARY KEY (id);
 ALTER TABLE work ADD CONSTRAINT work_pkey PRIMARY KEY (id);
 ALTER TABLE work_annotation ADD CONSTRAINT work_annotation_pkey PRIMARY KEY (work, annotation);

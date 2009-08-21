@@ -134,6 +134,8 @@ ALTER TABLE link_type_attribute_type DROP CONSTRAINT link_type_attribute_type_fk
 ALTER TABLE medium DROP CONSTRAINT medium_fk_tracklist;
 ALTER TABLE medium DROP CONSTRAINT medium_fk_release;
 ALTER TABLE medium DROP CONSTRAINT medium_fk_format;
+ALTER TABLE medium_cdtoc DROP CONSTRAINT medium_cdtoc_fk_medium;
+ALTER TABLE medium_cdtoc DROP CONSTRAINT medium_cdtoc_fk_cdtoc;
 ALTER TABLE puid DROP CONSTRAINT puid_fk_version;
 ALTER TABLE recording DROP CONSTRAINT recording_fk_name;
 ALTER TABLE recording DROP CONSTRAINT recording_fk_artist_credit;
@@ -176,8 +178,6 @@ ALTER TABLE track DROP CONSTRAINT track_fk_recording;
 ALTER TABLE track DROP CONSTRAINT track_fk_tracklist;
 ALTER TABLE track DROP CONSTRAINT track_fk_name;
 ALTER TABLE track DROP CONSTRAINT track_fk_artist_credit;
-ALTER TABLE tracklist_cdtoc DROP CONSTRAINT tracklist_cdtoc_fk_tracklist;
-ALTER TABLE tracklist_cdtoc DROP CONSTRAINT tracklist_cdtoc_fk_cdtoc;
 ALTER TABLE work DROP CONSTRAINT work_fk_name;
 ALTER TABLE work DROP CONSTRAINT work_fk_artist_credit;
 ALTER TABLE work DROP CONSTRAINT work_fk_type;

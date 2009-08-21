@@ -611,6 +611,14 @@ CREATE TABLE medium
     editpending         INTEGER NOT NULL DEFAULT 0
 );
 
+CREATE TABLE medium_cdtoc
+(
+    id                  SERIAL,
+    medium              INTEGER NOT NULL, -- references medium.id
+    cdtoc               INTEGER NOT NULL, -- references cdtoc.id
+    editpending         INTEGER NOT NULL DEFAULT 0
+);
+
 CREATE TABLE medium_format
 (
     id                  SERIAL,
@@ -846,14 +854,6 @@ CREATE TABLE tracklist
 (
     id                  SERIAL,
     trackcount          INTEGER NOT NULL DEFAULT 0
-);
-
-CREATE TABLE tracklist_cdtoc
-(
-    id                  SERIAL,
-    tracklist           INTEGER NOT NULL, -- references tracklist.id
-    cdtoc               INTEGER NOT NULL, -- references cdtoc.id
-    editpending         INTEGER NOT NULL DEFAULT 0
 );
 
 CREATE TABLE url

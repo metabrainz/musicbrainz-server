@@ -425,7 +425,11 @@ INSERT INTO isrc (id, recording, isrc, source, editpending)
 
 INSERT INTO cdtoc SELECT * FROM public.cdtoc;
 
-INSERT INTO tracklist_cdtoc (id, tracklist, cdtoc, editpending)
-    SELECT id, album, cdtoc, modpending FROM public.album_cdtoc;
+INSERT INTO medium_cdtoc (medium, cdtoc)
+    SELECT m.id, ac.cdtoc
+    FROM tmp_release_album re
+        JOIN public.album_cdtoc ac ON re.album=ac.album
+        JOIN medium m ON m.release=re.release
+    WHERE m.format IS NULL OR m.format IN (1,4); -- Unknown, CD or DualDisc
 
 COMMIT;
