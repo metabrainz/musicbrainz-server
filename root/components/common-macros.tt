@@ -196,6 +196,13 @@ END -%]
     '<a href="' _ link _ '">' _ text _ '</a>';
 END -%]
 
+[%- MACRO link_edit(edit, action, text) BLOCK;
+    action = action || 'show';
+    link = c.uri_for_action("/edit/$action", edit.id);
+    text = text || html_escape(edit.id);
+    '<a href="' _ link _ '">' _ text _ '</a>';
+END -%]
+
 [%- MACRO request_login(text) BLOCK -%]
 <a href="[% c.uri_for_action('/user/login', { uri => c.req.path }) %]">[% text || l('Log in') %]</a>
 [%- END -%]

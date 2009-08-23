@@ -18,7 +18,7 @@ is($work->edits_pending, 0);
 my $edit = create_edit($work);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Work::Edit');
 
-my ($edits) = $c->model('Edit')->find({ work => 1 }, 0, 10);
+my ($edits) = $c->model('Edit')->find({ work => 1 }, 10, 0);
 is($edits->[0]->id, $edit->id);
 
 $edit = $c->model('Edit')->get_by_id($edit->id);

@@ -30,7 +30,7 @@ is($edit->status, $STATUS_APPLIED, 'edit should automatically be applied');
 
 ok(defined $edit->artist_id, 'edit should store the artist id');
 
-my ($edits, $hits) = $c->model('Edit')->find({ artist => $edit->artist_id }, 0, 10);
+my ($edits, $hits) = $c->model('Edit')->find({ artist => $edit->artist_id }, 10, 0);
 is($edits->[0]->id, $edit->id);
 
 $c->model('Edit')->load_all($edit);

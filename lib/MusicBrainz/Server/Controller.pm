@@ -29,18 +29,20 @@ sub load : Chained('base') PathPart('') CaptureArgs(1)
 {
     my ($self, $c, $gid) = @_;
 
-    unless (MusicBrainz::Server::Validation::IsGUID($gid))
-    {
-        $c->detach('/error_404');
-    }
-
-    my $entity = $c->model($self->{model})->get_by_gid($gid);
-    unless (defined($entity))
-    {
-        $c->detach('/error_404');
-    }
+    my $entity = $self->_load($c, $gid)
+        or $c->detach('/error_404');
 
     $c->stash->{$self->{entity_name}} = $entity;
+}
+
+sub _load
+{
+    my ($self, $c, $gid) = @_;
+
+    $c->detach('/error_404')
+        unless MusicBrainz::Server::Validation::IsGUID($gid);
+
+    return $c->model($self->{model})->get_by_gid($gid);
 }
 
 =head2 submit_and_validate

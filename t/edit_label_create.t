@@ -23,7 +23,7 @@ isa_ok($edit, 'MusicBrainz::Server::Edit::Label::Create');
 
 ok(defined $edit->label_id);
 
-my ($edits, $hits) = $c->model('Edit')->find({ label => $edit->label_id }, 0, 10);
+my ($edits, $hits) = $c->model('Edit')->find({ label => $edit->label_id }, 10, 0);
 is($edits->[0]->id, $edit->id);
 
 $edit = $c->model('Edit')->get_by_id($edit->id);

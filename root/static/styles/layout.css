@@ -547,3 +547,47 @@ p.nfo span {
 .browse td.char {
     width: 0.7em;
 }
+
+table.edit-list {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid black;
+}
+
+table.edit-list tr {
+    border-bottom: 1px solid black;
+}
+
+table.edit-list td {
+    border-right: 1px solid black;
+    vertical-align: top;
+}
+
+table.edit-list td td {
+    border: none;
+}
+
+table.edit-list tr.seperator {
+    height: 5px;
+    background-color: #ffba58;
+}
+
+table.edit-list td.edit-info {
+    width: 25%;
+}
+
+table.edit-list td.vote-actions {
+    text-align: center;
+    vertical-align: middle;
+    width: 10%;
+}
+
+table.edit-list td.edit-info,
+table.edit-list td.edit-details {
+    vertical-align: top;
+}
+
+table.details th {
+    text-align: right;
+    padding-left: 10pt;
+}

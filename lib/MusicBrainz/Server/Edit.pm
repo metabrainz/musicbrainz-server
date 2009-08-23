@@ -5,7 +5,7 @@ use DateTime;
 use MooseX::AttributeHelpers;
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Entity::Types;
-use MusicBrainz::Server::Types qw( $STATUS_OPEN );
+use MusicBrainz::Server::Types qw( :edit_status );
 
 has 'c' => (
     isa => 'Object',
@@ -43,6 +43,23 @@ has 'status' => (
     is => 'rw',
     default => $STATUS_OPEN,
 );
+
+sub status_name
+{
+    my $self = shift;
+    my %names = (
+        $STATUS_OPEN => 'Open',
+        $STATUS_APPLIED => 'Applied',
+        $STATUS_FAILEDVOTE => 'Failed vote',
+        $STATUS_FAILEDDEP => 'Failed dependency',
+        $STATUS_ERROR => 'Error',
+        $STATUS_FAILEDPREREQ => 'Failed prerequisite',
+        $STATUS_NOVOTES => 'No votes',
+        $STATUS_TOBEDELETED => 'Due to be deleted',
+        $STATUS_DELETED => 'Deleted',
+    );
+    return $names{ $self->status };
+}
 
 has 'data' => (
     isa => 'HashRef',

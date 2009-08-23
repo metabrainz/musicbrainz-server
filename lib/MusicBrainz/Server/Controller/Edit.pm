@@ -1,13 +1,15 @@
-package MusicBrainz::Server::Controller::Moderation;
+package MusicBrainz::Server::Controller::Edit;
+use Moose;
 
-use strict;
-use warnings;
-
-use base 'MusicBrainz::Server::Controller';
+BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use Data::Page;
 use DBDefs;
 use MusicBrainz::Server::Vote;
+
+__PACKAGE__->config(
+    entity_name => 'edit',
+);
 
 =head1 NAME
 
@@ -28,31 +30,23 @@ called on its own.
 
 =cut
 
-sub moderation : Chained CaptureArgs(1)
+sub base : Chained('/') PathPart('edit') CaptureArgs(0) { }
+
+sub _load
 {
-    my ($self, $c, $mod_id) = @_;
-    $c->stash->{moderation} = $c->model('Moderation')->load($mod_id);
+    my ($self, $c, $edit_id) = @_;
+    return $c->model('Edit')->get_by_id($edit_id);
 }
 
-=head2 list
-
-Show all open moderations in chronological order.
-
-=cut
-
-sub show : Chained('moderation')
+sub show : Chained('load') PathPart('')
 {
     my ($self, $c) = @_;
+    my $edit = $c->stash->{edit};
 
-    $c->forward('/user/login');
+    $c->model('Editor')->load($edit);
+    $c->model('Edit')->load_all($edit);
 
-    use MusicBrainz::Server::Form::Moderation::AddNote;
-    my $add_note = MusicBrainz::Server::Form::Moderation::AddNote->new;
-
-    $c->stash->{add_note} = $add_note;
-
-    $c->stash->{expire_action} = \&ModDefs::GetExpireActionText;
-    $c->stash->{template     } = 'moderation/show.tt';
+    $c->stash->{template} = 'edit/index.tt';
 }
 
 =head2 add_note

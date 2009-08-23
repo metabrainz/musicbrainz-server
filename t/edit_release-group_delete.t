@@ -16,7 +16,7 @@ MusicBrainz::Server::Test->prepare_raw_test_database($c);
 my $edit = create_edit();
 isa_ok($edit, 'MusicBrainz::Server::Edit::ReleaseGroup::Delete');
 
-my ($edits) = $c->model('Edit')->find({ release_group => 1 }, 0, 10);
+my ($edits) = $c->model('Edit')->find({ release_group => 1 }, 10, 0);
 is($edits->[0]->id, $edit->id);
 
 $edit = $c->model('Edit')->get_by_id($edit->id);

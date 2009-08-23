@@ -23,7 +23,7 @@ is($release->edits_pending, 0);
 my $edit = create_edit($release);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Release::Edit');
 
-my ($edits) = $c->model('Edit')->find({ release => $release->id }, 0, 10);
+my ($edits) = $c->model('Edit')->find({ release => $release->id }, 10, 0);
 is($edits->[0]->id, $edit->id);
 
 $edit = $c->model('Edit')->get_by_id($edit->id);

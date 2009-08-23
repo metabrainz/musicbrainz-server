@@ -63,7 +63,7 @@ sub get_max_id
 
 sub find
 {
-    my ($self, $p, $offset, $limit) = @_;
+    my ($self, $p, $limit, $offset) = @_;
 
     my (@pred, @args);
     for my $type (qw( artist label release release_group recording work)) {

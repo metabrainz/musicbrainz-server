@@ -8,6 +8,7 @@ with 'MusicBrainz::Server::Controller::Alias';
 with 'MusicBrainz::Server::Controller::RelationshipRole';
 with 'MusicBrainz::Server::Controller::RatingRole';
 with 'MusicBrainz::Server::Controller::TagRole';
+with 'MusicBrainz::Server::Controller::EditListingRole';
 
 __PACKAGE__->config(
     model       => 'Artist',

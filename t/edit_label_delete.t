@@ -18,7 +18,7 @@ isa_ok($edit, 'MusicBrainz::Server::Edit::Label::Delete');
 
 is($edit->label_id, 1);
 
-my ($edits, $hits) = $c->model('Edit')->find({ label => $edit->label_id }, 0, 10);
+my ($edits, $hits) = $c->model('Edit')->find({ label => $edit->label_id }, 10, 0);
 is($hits, 1);
 is($edits->[0]->id, $edit->id);
 

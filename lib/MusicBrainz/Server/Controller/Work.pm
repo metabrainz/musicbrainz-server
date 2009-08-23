@@ -7,6 +7,7 @@ with 'MusicBrainz::Server::Controller::Annotation';
 with 'MusicBrainz::Server::Controller::RelationshipRole';
 with 'MusicBrainz::Server::Controller::RatingRole';
 with 'MusicBrainz::Server::Controller::TagRole';
+with 'MusicBrainz::Server::Controller::EditListingRole';
 
 __PACKAGE__->config(
     model       => 'Work',

@@ -16,7 +16,7 @@ MusicBrainz::Server::Test->prepare_raw_test_database($c);
 my $edit = create_edit();
 isa_ok($edit, 'MusicBrainz::Server::Edit::ReleaseGroup::Merge');
 
-my ($edits) = $c->model('Edit')->find({ release_group => [1, 2] }, 0, 10);
+my ($edits) = $c->model('Edit')->find({ release_group => [1, 2] }, 10, 0);
 is($edits->[0]->id, $edit->id);
 
 my $rgs = $c->model('ReleaseGroup')->get_by_ids(1, 2);

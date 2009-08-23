@@ -1,0 +1,10 @@
+<table class="details">
+    <tr>
+        <th>[% l('Name:') %]</th>
+        <td>[% edit.artist.name %]</td>
+    </tr>
+    <tr>
+        <th>[% l('Sort name:') %]</th>
+        <td>[% edit.artist.sort_name %]</td>
+    </tr>
+</table>

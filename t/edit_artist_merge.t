@@ -16,7 +16,7 @@ MusicBrainz::Server::Test->prepare_raw_test_database($c);
 my $edit = create_edit();
 isa_ok($edit, 'MusicBrainz::Server::Edit::Artist::Merge');
 
-my ($edits, $hits) = $c->model('Edit')->find({ artist => [1, 2] }, 0, 10);
+my ($edits, $hits) = $c->model('Edit')->find({ artist => [1, 2] }, 10, 0);
 is($hits, 1);
 is($edits->[0]->id, $edit->id);
 

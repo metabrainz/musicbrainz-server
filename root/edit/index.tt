@@ -1,0 +1,7 @@
+[%- WRAPPER 'layout.tt' -%]
+    <h1>[% l('Edit #{id}', {id = edit.id}) %]</h1>
+
+    [%- INCLUDE "edit/info.tt" -%]
+    [%- edit_template = edit.edit_name.replace('\s+', '_') | lower;
+        INCLUDE "edit/details/${edit_template}.tt" %]
+[%- END -%]

@@ -17,7 +17,7 @@ my $artist = $c->model('Artist')->get_by_id(1);
 my $edit = _create_full_edit($artist);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Artist::Edit');
 
-my ($edits, $hits) = $c->model('Edit')->find({ artist => $artist->id }, 0, 10);
+my ($edits, $hits) = $c->model('Edit')->find({ artist => $artist->id }, 10, 0);
 is($hits, 1);
 is($edits->[0]->id, $edit->id);
 

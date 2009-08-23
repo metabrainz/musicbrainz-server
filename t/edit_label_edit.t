@@ -25,7 +25,7 @@ is($edit->label->id, $label->id);
 is_unchanged($edit->label);
 is($edit->label->edits_pending, 1);
 
-my ($edits, $hits) = $c->model('Edit')->find({ label => $edit->label_id }, 0, 10);
+my ($edits, $hits) = $c->model('Edit')->find({ label => $edit->label_id }, 10, 0);
 is($edits->[0]->id, $edit->id);
 
 $c->model('Edit')->reject($edit);

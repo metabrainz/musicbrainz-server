@@ -1,0 +1,4 @@
+[% WRAPPER 'layout.tt' full_width=1 %]
+    <h1>[% l('Edits for {rg}', {rg=html_escape(rg.name)}) %]</h1>
+    [% INCLUDE 'edit/list.tt' %]
+[% END %]
