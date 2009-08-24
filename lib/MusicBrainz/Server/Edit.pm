@@ -82,9 +82,42 @@ has 'edit_notes' => (
     }
 );
 
+has 'votes' => (
+    isa => 'ArrayRef',
+    is => 'rw',
+    default => sub { [] },
+    metaclass => 'Collection::Array',
+    provides => {
+        push => 'add_vote',
+    },
+    curries => {
+        grep => {
+            votes_for_editor => sub {
+                my ($self, $body, $editor_id) = @_;
+                $body->($self, sub { $_->editor_id == $editor_id });
+            }
+        }
+    }
+);
+
+sub latest_vote_for_editor
+{
+    my ($self, $editor_id) = @_;
+    my @votes = $self->votes_for_editor($editor_id) or return;
+    return $votes[-1];
+}
+
 sub is_open
 {
     return shift->status == $STATUS_OPEN;
+}
+
+sub editor_may_vote
+{
+    my ($self, $editor) = @_;
+    return defined $editor && $editor->id != $self->editor_id &&
+                   $editor->email_confirmation_date &&
+                   $editor->accepted_edits > 10;
 }
 
 sub edit_type { die 'Not implemented' }

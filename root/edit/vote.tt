@@ -1,0 +1,21 @@
+[% IF c.user_exists && edit.editor_may_vote(c.user) %]
+    [% DEFAULT n = 0 %]
+    [% name = "enter-vote.vote.${n}" %]
+
+    [% MACRO vote_checkbox(label, value) BLOCK %]
+        [% checked = c.user_exists && edit.latest_vote_for_editor(c.user.id).vote == value %]
+        <input type="radio" value="[% value %]" name="[% name %].vote"
+            [%- 'checked="checked"' IF checked -%] /><br />
+        <label for="id-[% name %].vote">[% label %]</label>
+    [% END %]
+
+    <input type="hidden" value="[% edit.id %]" name="[% name %].edit_id" />
+    <table>
+        <tr>
+            <td>[% vote_checkbox(l('No vote'), -2) %]</td>
+            <td>[% vote_checkbox(l('Abstain'), -1) %]</td>
+            <td>[% vote_checkbox(l('No'), 0) %]</td>
+            <td>[% vote_checkbox(l('Yes'), 1) %]</td>
+        </tr>
+    </table>
+[% END %]

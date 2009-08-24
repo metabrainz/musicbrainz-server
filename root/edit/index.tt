@@ -4,4 +4,49 @@
     [%- INCLUDE "edit/info.tt" -%]
     [%- edit_template = edit.edit_name.replace('\s+', '_') | lower;
         INCLUDE "edit/details/${edit_template}.tt" %]
+
+    <table>
+        <tr>
+            <th>[% l('Votes tally:') %]</th>
+            <td colspan="2">
+                [% l('{yes} yes : {no} no', { yes => edit.yes_votes, no => edit.no_votes }) %]
+            </td>
+        </tr>
+        [% FOR vote=edit.votes %]
+        <tr>
+            <th>[% link_editor(vote.editor) %]:</th>
+            <td>
+                [% IF vote.superseded %]
+                    <s>[% vote.vote_name %]</s>
+                [% ELSE %]
+                    [% vote.vote_name %]
+                [% END %]
+            </td>
+            <td>[% UserDate.format(vote.vote_time) %]</td>
+        </tr>
+        [% END %]
+    </table>
+
+    [% IF c.user_exists %]
+        [% IF edit.editor_may_vote(c.user) %]
+            <form action="[% c.uri_for_action('/edit/enter_votes') %]" method="post">
+                <input type="hidden" value="[% c.req.uri %]" name="url" />
+                <table>
+                    <tr>
+                        <th>[% l('Vote:') %]</th>
+                        <td>
+                            [% INCLUDE 'edit/vote.tt' %]
+                        </td>
+                    </tr>
+                </table>
+
+                [% form_submit(l('Vote')) %]
+            </form>
+        [% END %]
+    [% ELSE %]
+        <p>
+            [% l('You must be logged in to vote on edits') %]
+            [% request_login() %]
+        </p>
+    [% END %]
 [%- END -%]

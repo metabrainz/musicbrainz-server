@@ -1,38 +1,42 @@
 [% IF edits.size %]
     [% WRAPPER 'components/with-pager.tt' %]
-
-        <table class="edit-list">
-            [%- FOREACH edit=edits -%]
-                <tr class="seperator">
-                    <td colspan="3">
-                    </td>
-                </tr>
-                <tr>
-                    <td class="edit-info">
-                        [% INCLUDE 'edit/info.tt' %]
-                    </td>
-                    <td class="edit-details">
-                        [%- edit_template = edit.edit_name.replace('\s+', '_') | lower;
-                            INCLUDE "edit/details/${edit_template}.tt" %]
-                    </td>
-                    <td class="vote-actions">
-                        [% edit.yes_votes %] 
-                        [% l('yes') %] :
-                        [% edit.no_votes %] 
-                        [% l('no') %]
-                    </td>
-                </tr>
-                [% IF edit.notes.size %]
-                    <tr>
+        <form action="[% c.uri_for('/edit/enter_votes') %]" method="post">
+            <input type="hidden" name="url" value="[% c.req.uri %]">
+            <table class="edit-list">
+                [%- FOREACH edit=edits -%]
+                    <tr class="seperator">
                         <td colspan="3">
-                            [% INCLUDE "edit/notes.tt" %]
                         </td>
                     </tr>
-                [% END %]
-            [%- END -%]
-        </table>
+                    <tr>
+                        <td class="edit-info">
+                            [% INCLUDE 'edit/info.tt' %]
+                        </td>
+                        <td class="edit-details">
+                            [%- edit_template = edit.edit_name.replace('\s+', '_') | lower;
+                                INCLUDE "edit/details/${edit_template}.tt" %]
+                        </td>
+                        <td class="vote-actions">
+                            [% edit.yes_votes %] 
+                            [% l('yes') %] :
+                            [% edit.no_votes %] 
+                            [% l('no') %]
+                            
+                            [% INCLUDE 'edit/vote.tt' n=loop.index %]
+                        </td>
+                    </tr>
+                    [% IF edit.notes.size %]
+                        <tr>
+                            <td colspan="3">
+                                [% INCLUDE "edit/notes.tt" %]
+                            </td>
+                        </tr>
+                    [% END %]
+                [%- END -%]
+            </table>
+            [% form_submit(l('Vote')) %]
+        </form>
     [% END %]
-
 [% ELSE %]
     <p>No edits</p>
 [% END %]

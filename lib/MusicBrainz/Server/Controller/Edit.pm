@@ -43,8 +43,9 @@ sub show : Chained('load') PathPart('')
     my ($self, $c) = @_;
     my $edit = $c->stash->{edit};
 
-    $c->model('Editor')->load($edit);
     $c->model('Edit')->load_all($edit);
+    $c->model('Vote')->load_for_edits($edit);
+    $c->model('Editor')->load($edit, @{ $edit->votes });
 
     $c->stash->{template} = 'edit/index.tt';
 }
@@ -73,53 +74,21 @@ sub add_note : Chained('moderation') Form
     $c->response->redirect($c->entity_url($moderation, 'show'));
 }
 
-=head2 vote
-
-POST only method to enter votes on a moderation
-
-=cut
-
-sub enter_votes : Local
+sub enter_votes : Local RequireAuth
 {
     my ($self, $c) = @_;
 
-    $c->forward('/user/login');
-
-    return unless $c->form_posted;
-
-    my %votes;
-
-    while(my ($field, $vote) = each %{ $c->req->params })
-    {
-        my ($id) = $field =~ m/vote_(\d+)/;
-        if (defined $id)
-        {
-            $votes{$id} = $vote eq 'y' ? ModDefs::VOTE_YES
-                        : $vote eq 'n' ? ModDefs::VOTE_NO
-                        : $vote eq 'a' ? ModDefs::VOTE_ABS
-                        : ModDefs::VOTE_NOTVOTED;
-        }
+    my $form = $c->form(vote_form => 'Vote');
+    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+        my @votes = @{ $form->field('vote')->value };
+        $c->model('Vote')->enter_votes($c->user->id, @votes);
+    } else {
+        die "Invalid form?";
     }
 
-    my $sql  = new Sql($c->mb->{dbh});
-    my $vote = new MusicBrainz::Server::Vote($c->mb->{dbh});
-
-    eval
-    {
-        $sql->Begin;
-        $vote->InsertVotes(\%votes, $c->user->id);
-        $sql->Commit;
-    };
-
-    if ($@)
-    {
-        my $err = $@;
-        $sql->Rollback;
-
-        die "Could not enter vote: $err";
-    }
-
-    $c->forward('/moderation/open');
+    my $redir = $c->req->params->{url} || $c->uri_for_action('/edit/open_edits');
+    $c->response->redirect($redir);
+    $c->detach;
 }
 
 =head2 approve

@@ -18,7 +18,8 @@ sub edits : Chained('load') PathPart
         $c->model('Edit')->find({ $name => $entity->id }, $offset, $limit);
     });
 
-    $c->model('Editor')->load(@$edits);
+    $c->model('Vote')->load_for_edits(@$edits);
+    $c->model('Editor')->load(map { ($_, @{ $_->votes }) } @$edits);
     $c->model('Edit')->load_all(@$edits);
 
     $c->stash(

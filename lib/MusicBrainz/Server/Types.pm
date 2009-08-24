@@ -60,7 +60,7 @@ subtype 'AutoEditorElectionStatus'
     => as 'Int'
     => where { $_ >= $ELECTION_SECONDER_1 && $_ <= $ELECTION_CANCELLED };
 
-subtype 'Vote'
+subtype 'VoteOption'
     => as 'Int'
     => where { $_ >= $VOTE_NO_VOTE && $_ <= $VOTE_YES };
 

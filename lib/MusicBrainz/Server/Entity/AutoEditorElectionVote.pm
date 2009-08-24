@@ -27,7 +27,7 @@ has 'vote_time' => (
 );
 
 has 'vote' => (
-    isa => 'Vote',
+    isa => 'VoteOption',
     is  => 'rw'
 );
 
@@ -66,7 +66,7 @@ The editor who cast the vote
 
 =head2 vote
 
-The vote. See L<MusicBrainz::Server::Types/Vote>.
+The vote. See L<MusicBrainz::Server::Types/VoteOption>.
 
 =head2 vote_time
 

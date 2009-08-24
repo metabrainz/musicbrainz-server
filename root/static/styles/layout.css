@@ -579,7 +579,10 @@ table.edit-list td.edit-info {
 table.edit-list td.vote-actions {
     text-align: center;
     vertical-align: middle;
-    width: 10%;
+    width: 18%;
+}
+table.edit-list td.vote-actions table {
+    width: 100%;
 }
 
 table.edit-list td.edit-info,
