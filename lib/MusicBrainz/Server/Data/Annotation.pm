@@ -53,6 +53,21 @@ sub load_latest
     }
 }
 
+sub edit
+{
+    my ($self, $annotation_hash) = @_;
+    my $sql = Sql->new($self->c->dbh);
+    my $annotation_id = $sql->InsertRow('annotation', {
+        editor => $annotation_hash->{editor_id},
+        text => $annotation_hash->{text},
+        changelog => $annotation_hash->{changelog}
+    }, 'id');
+    $sql->InsertRow($self->table, {
+        $self->type => $annotation_hash->{ $self->type . '_id'},
+        annotation => $annotation_id
+    });
+}
+
 sub delete
 {
     my ($self, @ids) = @_;

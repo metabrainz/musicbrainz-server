@@ -36,24 +36,31 @@ Readonly our $EDIT_ARTIST_CREATE => 1;
 Readonly our $EDIT_ARTIST_EDIT => 2;
 Readonly our $EDIT_ARTIST_DELETE => 3;
 Readonly our $EDIT_ARTIST_MERGE => 4;
+Readonly our $EDIT_ARTIST_ADD_ANNOTATION => 5;
 
 Readonly our $EDIT_LABEL_CREATE => 10;
 Readonly our $EDIT_LABEL_EDIT => 11;
 Readonly our $EDIT_LABEL_DELETE => 13;
 Readonly our $EDIT_LABEL_MERGE => 14;
+Readonly our $EDIT_LABEL_ADD_ANNOTATION => 15;
 
 Readonly our $EDIT_RELEASEGROUP_DELETE => 23;
 Readonly our $EDIT_RELEASEGROUP_MERGE => 24;
 Readonly our $EDIT_RELEASEGROUP_EDIT => 21;
+Readonly our $EDIT_RELEASEGROUP_ADD_ANNOTATION => 25;
 
 Readonly our $EDIT_RELEASE_EDIT => 32;
+Readonly our $EDIT_RELEASE_ADD_ANNOTATION => 35;
 
 Readonly our $EDIT_WORK_EDIT => 42;
+Readonly our $EDIT_WORK_ADD_ANNOTATION => 45;
 
 Readonly our $EDIT_MEDIUM_CREATE => 51;
 Readonly our $EDIT_MEDIUM_EDIT => 52;
 
 Readonly our $EDIT_TRACK_EDIT => 62;
+
+Readonly our $EDIT_RECORDING_ADD_ANNOTATION => 75;
 
 =head1 NAME
 

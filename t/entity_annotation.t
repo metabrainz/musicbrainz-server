@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 12;
+use Test::More;
 
 BEGIN { use_ok 'MusicBrainz::Server::Entity::Annotation' };
 
@@ -24,3 +24,5 @@ unlike($annotation->summary, qr/\n/, 'summary shouldnt have line breaks');
 unlike($annotation->summary, qr/This is more of the test annotation!/, 'summary shouldnt have second para');
 unlike($annotation->summary, qr{And <strong>even</strong> <em>more</em>.}, 'summary shouldnt have third para');
 unlike($annotation->summary, qr/\n/, 'summary shouldnt have line breaks');
+
+done_testing;
