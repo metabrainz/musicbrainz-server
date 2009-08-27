@@ -269,7 +269,15 @@ foreach my $orig_t0 (@entity_types) {
             push @{$attribs{$link}}, $row->{attribute_type};
         }
 
-        $rows = $sql->SelectListOfHashes("SELECT * FROM public.l_${orig_t0}_${orig_t1}");
+        if ($orig_t0 eq "album" && $orig_t1 eq "url") {
+            # Load also the URLs
+            $rows = $sql->SelectListOfHashes("
+                SELECT l.*, url.url FROM public.l_${orig_t0}_${orig_t1} l
+                LEFT JOIN public.url ON l.link1=url.id");
+        }
+        else {
+            $rows = $sql->SelectListOfHashes("SELECT * FROM public.l_${orig_t0}_${orig_t1}");
+        }
         my $i = 0;
         my $cnt = scalar(@$rows);
         foreach my $row (@$rows) {
@@ -305,6 +313,13 @@ foreach my $orig_t0 (@entity_types) {
                 if ($orig_t1 eq "album") {
                     # album-album
                     $new_t1 = $new_t0;
+                }
+            }
+
+            # Move Discogs master URLs the release group
+            if ($orig_t0 eq "album" && $orig_t1 eq "url" && $row->{link_type} == 24) {
+                if ($row->{url} =~ qr{/master/}) {
+                    $new_t0 = "release_group";
                 }
             }
 
