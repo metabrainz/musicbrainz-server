@@ -511,11 +511,21 @@ p.nfo span {
     background-position: 0px -10px;
 }
 
-
 .lastupdate {
     font-size: 90%;
     color: #999;
     font-style: italic;
+}
+
+/* See http://www.longren.org/2006/09/27/wrapping-text-inside-pre-tags/ */
+pre code {
+    overflow-x: auto;
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap !important;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    /* width: 99%; */
+    word-wrap: break-word;
 }
 
 .browse-entities {
