@@ -15,16 +15,21 @@ sub new {
 }
 
 sub format {
-    my ($self, $date) = @_;
-    return unless $date;
+    my ($self, $dt) = @_;
 
-    my %opts;
+    return unless $dt;
+
+    my $format;
     if ($self->preferences) {
-        $opts{tz            } = $self->preferences->timezone;
-        $opts{datetimeformat} = $self->preferences->datetime_format;
+        $dt = $dt->clone();
+        $dt->set_time_zone($self->preferences->timezone);
+        $format = $self->preferences->datetime_format;
+    }
+    else {
+        $format = '%F %H:%M:%S %Z';
     }
 
-    return MusicBrainz::Server::DateTime::format_datetime(\%opts, $date);
+    return $dt->strftime($format);
 }
 
 1;

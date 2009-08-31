@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 use strict;
-use Test::More tests => 30;
+use Test::More tests => 31;
 use DateTime;
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
@@ -63,6 +63,7 @@ $editor_data->update_email($new_editor_2, 'editor@example.com');
 $editor = $editor_data->get_by_id($new_editor_2->id);
 is($editor->email, 'editor@example.com');
 ok($now <= $editor->email_confirmation_date);
+is($new_editor_2->email_confirmation_date, $editor->email_confirmation_date);
 
 $editor_data->update_password($new_editor_2, 'password2');
 $editor = $editor_data->get_by_id($new_editor_2->id);

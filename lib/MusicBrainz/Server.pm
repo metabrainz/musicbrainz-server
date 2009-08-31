@@ -51,7 +51,6 @@ __PACKAGE__->config(
     default_view => 'Default',
     "View::Default" => {
         FILTERS => {
-            'mb_date' => \&MusicBrainz::Server::Filters::date,
             'release_date' => \&MusicBrainz::Server::Filters::release_date,
             'format_time' => \&MusicBrainz::Server::Filters::format_time,
             'format_wikitext' => \&MusicBrainz::Server::Filters::format_wikitext,

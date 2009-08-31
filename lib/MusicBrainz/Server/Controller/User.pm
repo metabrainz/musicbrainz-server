@@ -251,6 +251,12 @@ sub verify_email : Path('/verify-email')
 
     $c->model('Editor')->update_email($editor, $email);
 
+    if ($c->user_exists) {
+        $c->user->email($editor->email);
+        $c->user->email_confirmation_date($editor->email_confirmation_date);
+        $c->persist_user();
+    }
+
     $c->stash->{template} = 'user/verified.tt';
 }
 
@@ -377,6 +383,7 @@ sub reset_password : Path('/reset-password')
         my $password = $form->field('password')->value;
         $c->model('Editor')->update_password($editor, $password);
 
+        $c->model('Editor')->load_preferences($editor);
         my $user = MusicBrainz::Server::Authentication::User->new_from_editor($editor);
         $c->set_authenticated($user);
 
@@ -726,6 +733,9 @@ sub preferences : Path('/account/preferences') RequireAuth
 
     if ($c->form_posted && $form->process( params => $c->req->params )) {
         $c->model('Editor')->save_preferences($editor, $form->values);
+
+        $c->user->preferences($editor->preferences);
+        $c->persist_user();
 
         $c->response->redirect($c->uri_for_action('/user/preferences', { ok => 1 }));
         $c->detach;

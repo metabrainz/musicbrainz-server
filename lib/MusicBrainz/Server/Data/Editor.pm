@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Data::Editor;
 use Moose;
 
+use MusicBrainz::Server::Entity::Preferences;
 use MusicBrainz::Server::Entity::Editor;
 use MusicBrainz::Server::Data::Utils qw(
     load_subobjects
@@ -102,12 +103,17 @@ sub update_email
     my $sql = Sql->new($self->c->dbh);
     Sql::RunInTransaction(sub {
         if ($email) {
-            $sql->Do('UPDATE editor SET email=?, emailconfirmdate=NOW()
-                      WHERE id=?', $email, $editor->id);
+            my $email_confirmation_date = $sql->SelectSingleValue(
+                'UPDATE editor SET email=?, emailconfirmdate=NOW()
+                WHERE id=? RETURNING emailconfirmdate', $email, $editor->id);
+            $editor->email($email);
+            $editor->email_confirmation_date($email_confirmation_date);
         }
         else {
             $sql->Do('UPDATE editor SET email=NULL, emailconfirmdate=NULL
                       WHERE id=?', $editor->id);
+            delete $editor->{email};
+            delete $editor->{email_confirmation_date};
         }
     }, $sql);
 }
@@ -146,6 +152,7 @@ sub load_preferences
     my $query = "SELECT name, value FROM editor_preference WHERE editor = ?";
     my $sql = Sql->new($self->c->dbh);
     my $prefs = $sql->SelectListOfHashes($query, $editor->id);
+    $editor->preferences(MusicBrainz::Server::Entity::Preferences->new());
     for my $pref (@$prefs) {
         my ($key, $value) = ($pref->{name}, $pref->{value});
         next unless $editor->preferences->can($key);
@@ -172,6 +179,7 @@ sub save_preferences
                 });
             }
         }
+        $editor->preferences(MusicBrainz::Server::Entity::Preferences->new(%$values));
 
     }, $sql);
 }

@@ -3,15 +3,8 @@ package MusicBrainz::Server::Filters;
 use strict;
 use warnings;
 
-use MusicBrainz::Server::DateTime;
 use MusicBrainz::Server::Track;
 use Text::WikiFormat;
-
-sub date
-{
-    my $date = shift;
-    return MusicBrainz::Server::DateTime::format_datetime($date);
-}
 
 sub release_date
 {

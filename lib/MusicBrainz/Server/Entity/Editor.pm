@@ -119,6 +119,7 @@ sub is_newbie
 
 has 'preferences' => (
     is => 'rw',
+    lazy => 1,
     default => sub { MusicBrainz::Server::Entity::Preferences->new }
 );
 
