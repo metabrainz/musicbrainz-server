@@ -278,6 +278,15 @@
             </li>
         </ul>
     </li>
+    [% IF c.user_exists && c.user.is_relationship_editor %]
+    <li>
+        <a href="[% c.uri_for_action('/admin/index') %]">[% l('Administration') %]</a>
+        <ul>
+            <li><a href="[% c.uri_for_action('/admin/linktype/index') %]">[% l('Edit Link Types') %]</a></li>
+            <li><a href="[% c.uri_for_action('/admin/linkattributetype/index') %]">[% l('Edit Link Attribute Types') %]</a></li>
+        </ul>
+    </li>
+    [% END %]
     <li>
         [%- l('{doc|Help}', {doc => doc_link('Contact_Us')}) -%]
         <ul>

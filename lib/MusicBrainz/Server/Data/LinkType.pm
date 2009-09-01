@@ -68,11 +68,11 @@ sub get_attribute_type_list
                           FROM link_attribute_type t
                           LEFT JOIN link_type_attribute_type at
                               ON t.id = at.attribute_type AND at.link_type = ?
-                      WHERE t.parent = 0 ORDER BY t.childorder, t.id', $id);
+                      WHERE t.parent IS NULL ORDER BY t.childorder, t.id', $id);
     }
     else {
         $sql->Select('SELECT t.id, t.name FROM link_attribute_type t
-                      WHERE t.parent = 0 ORDER BY t.childorder, t.id');
+                      WHERE t.parent IS NULL ORDER BY t.childorder, t.id');
     }
     my @result;
     while (1) {

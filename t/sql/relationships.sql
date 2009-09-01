@@ -61,6 +61,7 @@ INSERT INTO l_artist_recording (id, link, entity0, entity1) VALUES (1, 1, 1, 1);
 INSERT INTO l_artist_recording (id, link, entity0, entity1, editpending) VALUES (2, 1, 2, 1, 1);
 INSERT INTO l_artist_recording (id, link, entity0, entity1) VALUES (3, 2, 1, 2);
 
+ALTER SEQUENCE link_attribute_type_id_seq RESTART 100;
 ALTER SEQUENCE link_type_id_seq RESTART 100;
 
 COMMIT;

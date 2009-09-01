@@ -1,0 +1,38 @@
+[% WRAPPER "layout.tt" title=l("Link Attribute Types") full_width=1 %]
+
+<h1>[% l("Link Attribute Types") %]</h1>
+
+<p>
+[
+    <a href="[% c.uri_for_action('/admin/linkattributetype/create') %]">[% l('New Link Attribute Type') %]</a>
+]
+</p>
+
+[% BLOCK link_attribute_type %]
+<li style="margin-top:1em;">
+
+    <strong>[% obj.name | html %]</strong>
+    [
+        <a href="[% c.uri_for_action('/admin/linkattributetype/edit', obj.id) %]">Edit</a>
+        [% UNLESS obj.children.size %] | <a href="[% c.uri_for_action('/admin/linkattributetype/delete', obj.id) %]">Delete</a>[% END %]
+    ]
+    <br />
+    [% l('Description:') %] <em>[% obj.description || "-" %]</em><br />
+
+    [% IF obj.children %]
+    <ul>
+        [% FOR child IN obj.children %]
+        [% PROCESS link_attribute_type obj=child %]
+        [% END %]
+    </ul>
+    [% END %]
+</li>
+[% END %]
+
+<ul>
+[% FOR child IN root.children %]
+[% PROCESS link_attribute_type obj=child %]
+[% END %]
+</ul>
+
+[% END %]

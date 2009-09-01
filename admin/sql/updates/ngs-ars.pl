@@ -29,6 +29,7 @@ $sql->Finish;
 $sql->Do("TRUNCATE link_attribute_type");
 print STDERR "Inserting attribute types\n";
 foreach my $attr (values %attr_id_map) {
+    next if $attr->{name} eq 'ROOT';
     my $root = $attr;
     while ($root->{parent} > 0) {
         $root = $attr_id_map{$root->{parent}};
@@ -37,7 +38,7 @@ foreach my $attr (values %attr_id_map) {
         INSERT INTO link_attribute_type
             (id, parent, root, childorder, gid, name, description)
             VALUES (?, ?, ?, ?, ?, ?, ?)",
-        $attr->{id}, $attr->{parent}, $root->{id}, $attr->{childorder},
+        $attr->{id}, $attr->{parent} || undef, $root->{id}, $attr->{childorder},
         $attr->{mbid}, $attr->{name}, $attr->{description});
 }
 

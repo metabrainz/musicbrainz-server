@@ -19,7 +19,7 @@ isa_ok($editor, 'MusicBrainz::Server::Entity::Editor', 'not a editor');
 is($editor->id, 1, 'id');
 is($editor->name, 'new_editor', 'name');
 is($editor->password, 'password', 'password');
-is($editor->privileges, 1, 'privileges');
+is($editor->privileges, 9, 'privileges');
 is($editor->accepted_edits, 12, 'accepted edits');
 is($editor->rejected_edits, 2, 'rejected edits');
 is($editor->failed_edits, 9, 'failed edits');

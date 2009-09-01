@@ -1,0 +1,39 @@
+<form action="[% c.req.uri %]" method="post">
+
+[%- USE r = FormRenderer(form) -%]
+
+<p>
+<table>
+    <tr>
+        <td>[% r.label('parent_id', l('Parent:')) %]</td>
+        <td colspan="2">[% r.select('parent_id') %]
+        [% form_field_errors(form, 'parent_id') %]</td>
+    </tr>
+
+    <tr>
+        <td>[% r.label('child_order', l('Child order:')) %]</td>
+        <td colspan="2">[% r.text('child_order', { size => 5 }) %]
+        [% form_field_errors(form, 'child_order') %]</td>
+    </tr>
+
+    <tr>
+        <td>[% r.label('name', l('Name:')) %]</td>
+        <td colspan="2">[% r.text('name') %]
+        [% form_field_errors(form, 'name') %]</td>
+    </tr>
+
+    <tr>
+        <td>[% r.label('description', l('Description:')) %]</td>
+        <td colspan="2">[% r.textarea('description', { cols => 80, rows => 6 }) %]
+        [% form_field_errors(form, 'description') %]</td>
+    </tr>
+
+    <tr>
+        <td></td>
+        <td colspan="2"><input type="submit" value="[% l('Save') %]"></td>
+    </td>
+
+</table>
+</p>
+
+</form>
