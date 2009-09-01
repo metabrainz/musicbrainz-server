@@ -115,6 +115,9 @@ sub begin : Private
         }
     }
 
+    # Setup the searchs on the sidebar
+    $c->form( sidebar_search => 'Search::Search' );
+
     # Load current relationship
     my $rel = $c->session->{current_relationship};
     if ($rel)
@@ -142,12 +145,6 @@ sub end : ActionClass('RenderView')
     my ($self, $c) = @_;
 
     return if exists $c->action->attributes->{Minimal};
-
-    # Setup the searchs on the sidebar
-    use MusicBrainz::Server::Form::Search::Search;
-    my $simpleSearch = MusicBrainz::Server::Form::Search::Search->new;
-    $simpleSearch->field('type')->value($c->session->{last_simple_search} || 'artist');
-    $c->stash->{sidebar_search} = $simpleSearch;
 
     $c->stash->{server_details} = {
         is_slave_db    => &DBDefs::REPLICATION_TYPE == RT_SLAVE,

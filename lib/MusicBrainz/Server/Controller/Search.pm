@@ -14,7 +14,7 @@ sub search : Path('')
 {
     my ($self, $c) = @_;
 
-    my $form = MusicBrainz::Server::Form::Search::Search->new;
+    my $form = $c->stash->{sidebar_search};
     $c->stash( form => $form );
 
     if ($form->process( params => $c->req->query_params ))
