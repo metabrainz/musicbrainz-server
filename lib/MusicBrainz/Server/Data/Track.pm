@@ -126,6 +126,31 @@ sub update
     $sql->Update('track', $row, { id => $track_id });
 }
 
+sub insert
+{
+    my ($self, @track_hashes) = @_;
+    my $sql = Sql->new($self->c->dbh);
+    my %names = $self->find_or_insert_names(map { $_->{name} } @track_hashes);
+    my $class = $self->_entity_class;
+    my @created;
+    for my $track_hash (@track_hashes) {
+        my $row = $self->_create_row($track_hash, \%names);
+        push @created, $class->new(
+            id => $sql->InsertRow('track', $row, 'id')
+        );
+    }
+    return @created > 1 ? @created : $created[0];
+}
+
+sub delete
+{
+    my ($self, @track_ids) = @_;
+    my $query = 'DELETE FROM track WHERE id IN (' . placeholders(@track_ids) . ')';
+    my $sql = Sql->new($self->c->dbh);
+    $sql->Do($query, @track_ids);
+    return 1;
+}
+
 sub _create_row
 {
     my ($self, $track_hash, $names) = @_;

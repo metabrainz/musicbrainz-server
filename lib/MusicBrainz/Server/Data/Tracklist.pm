@@ -20,6 +20,15 @@ sub _entity_class
     return 'MusicBrainz::Server::Entity::Tracklist';
 }
 
+sub offset_track_positions
+{
+    my ($self, $tracklist_id, $start_position, $offset) = @_;
+    my $sql = Sql->new($self->c->dbh);
+    my $query = 'UPDATE track SET position = position + ?' .
+                ' WHERE position >= ? AND tracklist = ?';
+    $sql->Do($query, $offset, $start_position, $tracklist_id);
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

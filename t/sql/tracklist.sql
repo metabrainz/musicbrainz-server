@@ -97,6 +97,7 @@ INSERT INTO medium (id, release, position, tracklist, format, name) VALUES (3, 2
 INSERT INTO medium (id, release, position, tracklist, format, name) VALUES (4, 2, 2, 2, 1, 'A Sky of Honey');
 
 ALTER SEQUENCE track_name_id_seq RESTART 17;
+ALTER SEQUENCE track_id_seq RESTART 17;
 ALTER SEQUENCE recording_id_seq RESTART 17;
 
 COMMIT;
