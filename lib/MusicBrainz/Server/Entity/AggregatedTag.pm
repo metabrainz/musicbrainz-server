@@ -15,6 +15,16 @@ has 'tag' => (
     isa => 'Tag'
 );
 
+has 'entity_id' => (
+    is => 'rw',
+    isa => 'Int'
+);
+
+has 'entity' => (
+    is => 'rw',
+    isa => 'Object'
+);
+
 has 'count' => (
     is => 'rw',
     isa => 'Int'

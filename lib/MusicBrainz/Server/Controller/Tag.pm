@@ -3,12 +3,15 @@ use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
-sub load : Chained('/') PathPart('tag') CaptureArgs(1)
+__PACKAGE__->config( entity_name => 'tag' );
+
+sub base : Chained('/') PathPart('tag') CaptureArgs(0) { }
+
+sub _load
 {
     my ($self, $c, $name) = @_;
 
-    my $tag = $c->model('Tag')->get_by_name($name);
-    $c->stash->{tag} = $tag;
+    return $c->model('Tag')->get_by_name($name);
 }
 
 sub show : Chained('load') PathPart('')
@@ -21,28 +24,57 @@ sub show : Chained('load') PathPart('')
 sub artist : Chained('load')
 {
     my ($self, $c) = @_;
+
+    my $entity_tags = $self->_load_paged($c, sub {
+        $c->model('Artist')->tags->find_entities($c->stash->{tag}->id, shift, shift);
+    });
+    $c->stash( entity_tags => $entity_tags );
 }
 
 sub label : Chained('load')
 {
     my ($self, $c) = @_;
+
+    my $entity_tags = $self->_load_paged($c, sub {
+        $c->model('Label')->tags->find_entities($c->stash->{tag}->id, shift, shift);
+    });
+    $c->stash( entity_tags => $entity_tags );
 }
 
 sub recording : Chained('load')
 {
     my ($self, $c) = @_;
+
+    my $entity_tags = $self->_load_paged($c, sub {
+        $c->model('Recording')->tags->find_entities($c->stash->{tag}->id, shift, shift);
+    });
+    $c->model('ArtistCredit')->load(map { $_->entity } @$entity_tags);
+    $c->stash( entity_tags => $entity_tags );
 }
 
 sub release_group : Chained('load') PathPart('release-group')
 {
     my ($self, $c) = @_;
+
+    my $entity_tags = $self->_load_paged($c, sub {
+        $c->model('ReleaseGroup')->tags->find_entities($c->stash->{tag}->id, shift, shift);
+    });
+    $c->model('ArtistCredit')->load(map { $_->entity } @$entity_tags);
+    $c->stash( entity_tags => $entity_tags );
 }
 
 sub work : Chained('load')
 {
     my ($self, $c) = @_;
+
+    my $entity_tags = $self->_load_paged($c, sub {
+        $c->model('Work')->tags->find_entities($c->stash->{tag}->id, shift, shift);
+    });
+    $c->model('ArtistCredit')->load(map { $_->entity } @$entity_tags);
+    $c->stash( entity_tags => $entity_tags );
 }
 
+no Moose;
 1;
 
 =head1 COPYRIGHT

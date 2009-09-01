@@ -1,0 +1,2 @@
+[%- INCLUDE 'tag/entity-list.tt' page='label',
+    no_entities_text=l('No labels tagged with this tag were found.') -%]

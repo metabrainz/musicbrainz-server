@@ -33,8 +33,10 @@ role
             c => $self->c,
             tag_table => $params->tag_table,
             type => $params->type,
+            parent => $self,
         );
     };
+
 };
 
 1;

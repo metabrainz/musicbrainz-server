@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 use strict;
 use warnings;
-use Test::More tests => 51;
+use Test::More tests => 59;
 use_ok 'MusicBrainz::Server::Data::EntityTag';
 
 use Sql;
@@ -44,6 +44,17 @@ is( scalar(@tags), 0 );
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+tag');
 MusicBrainz::Server::Test->prepare_raw_test_database($c, '+tag_raw');
+
+# Artists tagged with 'musical'
+($tags, $hits) = $c->model('Artist')->tags->find_entities(1, 10, 0);
+is($hits, 2);
+is(scalar(@$tags), 2);
+is($tags->[0]->count, 5);
+is($tags->[0]->entity->id, 4);
+is($tags->[0]->entity->name, 'Artist 2');
+is($tags->[1]->count, 1);
+is($tags->[1]->entity->id, 3);
+is($tags->[1]->entity->name, 'Artist 1');
 
 #     (1, 3, 1)
 #     (2, 3, 2)

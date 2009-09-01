@@ -44,10 +44,6 @@ INSERT INTO artist
 
 UPDATE artist_meta SET rating=70, ratingcount=4, lastupdate='2009-07-09 20:40:30' WHERE id=3;
 
-TRUNCATE tag CASCADE;
-INSERT INTO tag (id, name) VALUES (1, 'musical');
-INSERT INTO artist_tag (tag, artist, count) VALUES (1, 3, 2);
-
 TRUNCATE artist_credit_name CASCADE;
 TRUNCATE artist_credit CASCADE;
 
@@ -445,6 +441,14 @@ INSERT INTO puid (id, puid, version) VALUES
 
 INSERT INTO recording_puid (id, recording, puid) VALUES
     (1, 1, 1), (2, 1, 2);
+
+TRUNCATE tag CASCADE;
+INSERT INTO tag (id, name) VALUES (1, 'musical'), (2, 'not-used');
+INSERT INTO artist_tag (tag, artist, count) VALUES (1, 3, 2);
+INSERT INTO label_tag (tag, label, count) VALUES (1, 2, 2);
+INSERT INTO recording_tag (tag, recording, count) VALUES (1, 1, 2);
+INSERT INTO release_group_tag (tag, release_group, count) VALUES (1, 1, 2);
+INSERT INTO work_tag (tag, work, count) VALUES (1, 1, 2);
 
 -- Restart sequences
 ALTER SEQUENCE gender_id_seq RESTART 3;

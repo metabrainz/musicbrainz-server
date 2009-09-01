@@ -1,0 +1,24 @@
+[%- WRAPPER 'tag/layout.tt' -%]
+
+    [%- IF entity_tags.size -%]
+        [%- WRAPPER 'components/with-pager.tt' -%]
+            <ul>
+            [%- FOR entity_tag IN entity_tags -%]
+                <li>
+                    [% entity_tag.count %] -
+                    [% IF show_artist_credits %]
+                        [% l('{name} by {artist}', {
+                            name => link_entity(entity_tag.entity),
+                            artist => artist_credit(entity_tag.entity.artist_credit) }) %]
+                    [% ELSE %]
+                        [% link_entity(entity_tag.entity) %]
+                    [% END %]
+                </li>
+            [%- END -%]
+            </ul>
+        [%- END -%]
+    [%- ELSE -%]
+        <p>[% no_entities_text %]</p>
+    [%- END -%]
+
+[%- END -%]

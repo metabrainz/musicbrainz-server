@@ -1,0 +1,2 @@
+[%- INCLUDE 'tag/entity-list.tt' page='work', show_artist_credits=1
+    no_entities_text=l('No works tagged with this tag were found.') -%]
