@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 use strict;
-use Test::More tests => 37;
+use Test::More tests => 41;
 
 BEGIN {
     use MusicBrainz::Server::Context;
@@ -56,3 +56,8 @@ $mech->get_ok('/search?query=random_editor&type=editor', 'perform editor search'
 $mech->content_contains('There is no editor with this name');
 $mech->get_ok('/search?query=new_editor&type=editor', 'perform editor search');
 is($mech->uri->path, '/user/profile/new_editor');
+
+$mech->get_ok('/search?query=musical&type=tag&direct=on', 'perform tag search');
+$mech->content_contains('1 result', 'has result count');
+$mech->content_contains('musical', 'has correct search result');
+$mech->content_contains('/tag/musical', 'has link to the tag');

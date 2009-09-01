@@ -1,0 +1,27 @@
+[% WRAPPER "layout.tt" title=l("Search Results") %]
+    [% WRAPPER "components/box.tt" header=l("Search Results") %]
+        [% IF results.size %]
+            [% WRAPPER 'components/with-pager.tt' total=1 %]
+                <table class="tbl">
+                    <thead>
+                        <tr>
+                            <th>[% l('Score') %]</th>
+                            <th>[% l('Name') %]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        [%- FOR result=results -%]
+                        <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+                            <td>[% result.score %]</td>
+                            <td>[% link_tag(result.entity) %]</td>
+                        </tr>
+                        [%- END -%]
+                    </tbody>
+                </table>
+            [% END %]
+        [% ELSE %]
+            <p>[% l('No results found') %]</p>
+        [%- END -%]
+    [% END %]
+    [% INCLUDE "search/form.tt" %]
+[% END %]

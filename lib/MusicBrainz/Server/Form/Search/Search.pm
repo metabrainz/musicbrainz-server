@@ -30,6 +30,7 @@ sub options_type
         'release_group' => 'Release Group',
         'work'          => 'Work',
         'editor'        => 'Editor',
+        'tag'           => 'Tag',
     ];
 }
 

@@ -20,6 +20,7 @@ Readonly my %TYPE_TO_DATA_CLASS => (
     release       => 'MusicBrainz::Server::Data::Release',
     release_group => 'MusicBrainz::Server::Data::ReleaseGroup',
     work          => 'MusicBrainz::Server::Data::Work',
+    tag           => 'MusicBrainz::Server::Data::Tag',
 );
 
 sub search
@@ -95,6 +96,16 @@ sub search
                 ?
         ";
         $hard_search_limit = int($offset * 1.2);
+    }
+    elsif ($type eq "tag") {
+        $query = "
+            SELECT id, name, ts_rank_cd(to_tsvector('mb_simple', name), query, 16) AS rank
+            FROM tag, plainto_tsquery('mb_simple', ?) AS query
+            WHERE to_tsvector('mb_simple', name) @@ query
+            ORDER BY rank DESC, tag.name
+            OFFSET ?
+        ";
+        $use_hard_search_limit = 0;
     }
 
     if ($use_hard_search_limit) {
