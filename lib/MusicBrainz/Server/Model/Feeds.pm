@@ -4,9 +4,12 @@ use strict;
 use warnings;
 
 use URI;
+use Readonly;
 use XML::Feed;
 use LWP::UserAgent;
 use Encode qw( encode );
+
+Readonly my $DEFAULT_UPDATE_INTERVAL => 10*60;
 
 sub get
 {
@@ -42,7 +45,7 @@ sub get
 
             $feed = { entries => \@entries };
 
-            $c->cache("feed")->set("feed:${feed_id}", $feed);
+            $c->cache("feed")->set("feed:${feed_id}", $feed, $DEFAULT_UPDATE_INTERVAL);
         }
     }
 
