@@ -67,12 +67,17 @@ sub search
         my $type2 = $type;
         $type2 = "track" if $type eq "recording";
         $type2 = "release" if $type eq "release_group";
+        my $extra_columns;
+        if ($type eq "recording") {
+            $extra_columns = "entity.length,";
+        }
         $query = "
             SELECT
                 entity.id,
                 entity.gid,
                 entity.comment,
                 entity.artist_credit AS artist_credit_id,
+                $extra_columns
                 r.name,
                 r.rank
             FROM
