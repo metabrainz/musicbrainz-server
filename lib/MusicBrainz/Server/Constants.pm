@@ -63,6 +63,7 @@ Readonly our $EDIT_TRACK_EDIT => 62;
 Readonly our $EDIT_RECORDING_ADD_ANNOTATION => 75;
 
 Readonly our $EDIT_TRACKLIST_ADDTRACK => 85;
+Readonly our $EDIT_TRACKLIST_DELETETRACK => 86;
 
 =head1 NAME
 
