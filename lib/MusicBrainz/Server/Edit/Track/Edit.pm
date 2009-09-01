@@ -34,6 +34,7 @@ subtype 'TrackHash',
         recording_id => Optional[Int],
         tracklist_id => Optional[Int],
         artist_credit => Optional[ArtistCreditDefinition],
+        position => Optional[Int]
     ];
 
 has '+data' => (
@@ -75,8 +76,16 @@ sub accept
     my ($self) = @_;
     my %data = %{ $self->data->{new} };
 
-    my $ac = $self->c->model('ArtistCredit')->find_or_insert(@{ $data{artist_credit} });
-    $data{artist_credit} = $ac;
+    if (exists $data{position}) {
+        my $track = $self->c->model('Track')->get_by_id($self->track_id);
+        $self->c->model('Tracklist')->offset_track_positions($track->tracklist_id, $track->position +1, -1);
+        $self->c->model('Tracklist')->offset_track_positions($track->tracklist_id, $data{position}, +1);
+    }
+
+    if (exists $data{artist_credit}) {
+        my $ac = $self->c->model('ArtistCredit')->find_or_insert(@{ $data{artist_credit} });
+        $data{artist_credit} = $ac;
+    }
 
     $self->c->model('Track')->update($self->track_id, \%data);
 }
