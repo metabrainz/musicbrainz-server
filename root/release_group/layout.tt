@@ -4,20 +4,20 @@
 }) %]
 [%- WRAPPER "layout.tt" title=title ? main_title _ " - ${title}" : main_title -%]
 
-    <div class="sidebar">
+    [% WRAPPER 'layout/sidebar.tt' %]
+        [% WRAPPER 'layout/sidebar/properties.tt' %]
+            [% INCLUDE 'layout/sidebar/property.tt' label=l('Artist:')
+               content=artist_credit(rg.artist_credit) %]
+            [% INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
+               content=html_escape(rg.type_name)
+                   IF rg.type -%]
+        [%- END -%]
 
-        <p class="nfo">
-            <span><strong>[% l('Artist:') %]</strong> [% artist_credit(rg.artist_credit) %]</span>
-            [%- IF rg.type -%]
-                <span><strong>[% l('Type:') %]</strong> [% html_escape(rg.type_name) %]</span>
-            [%- END -%]
-        </p>
+        [%- INCLUDE "layout/sidebar/sidebar-rating.tt" entity=rg -%]
+        [%- INCLUDE "layout/sidebar/sidebar-tags.tt" entity=rg tags=top_tags tag_this_text=l('Tag this release group') -%]
+        [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=rg -%]
+    [% END %]
 
-    [%- INCLUDE "components/sidebar-rating.tt" entity=rg -%]
-    [%- INCLUDE "components/sidebar-tags.tt" entity=rg tags=top_tags tag_this_text=l('Tag this release group') -%]
-    [%- INCLUDE "components/sidebar-lastupdate.tt" entity=rg -%]
-
-    </div>
     <div class="content">
         [%- INCLUDE "release_group/header.tt" -%]
         [%- content -%]

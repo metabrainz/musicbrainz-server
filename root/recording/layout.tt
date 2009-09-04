@@ -4,20 +4,23 @@
 }) %]
 [%- WRAPPER "layout.tt" title=title ? main_title _ " - ${title}" : main_title -%]
 
-<div class="sidebar">
-    <p class="nfo">
-        <span><strong>[% l('Artist:') %]</strong> [% artist_credit(recording.artist_credit) %]</span>
-        [%- IF recording.length -%]
-            <span><strong>[% l('Length:') %]</strong> [% recording.length | format_time %]</span>
-        [%- END -%]
+[% WRAPPER 'layout/sidebar.tt' %]
+    [% WRAPPER 'layout/sidebar/properties.tt' %]
+        [% INCLUDE 'layout/sidebar/property.tt' label=l('Artist:')
+           content=artist_credit(recording.artist_credit) %]
+        [% INCLUDE 'layout/sidebar/property.tt' label=l('Length:')
+           content=recording.length | format_time
+               IF recording.length -%]
         [%- FOR isrc IN isrcs -%]
-            <span><strong>[% l('ISRC:') %]</strong> <a href="[% c.uri_for_action('/isrc/show', [ isrc.isrc ]) %]">[% isrc.isrc %]</a></span>
+            [% WRAPPER 'layout/sidebar/property.tt' label=l('ISRC:') %]
+            <a href="[% c.uri_for_action('/isrc/show', [ isrc.isrc ]) %]">[% isrc.isrc %]</a>
+            [% END %]
         [%- END -%]
-    </p>
-    [%- INCLUDE "components/sidebar-rating.tt" entity=recording -%]
-    [%- INCLUDE "components/sidebar-tags.tt" entity=recording tags=top_tags tag_this_text=l('Tag this recording') -%]
-    [%- INCLUDE "components/sidebar-lastupdate.tt" entity=recording -%]
-</div>
+    [% END %]
+    [%- INCLUDE "layout/sidebar/sidebar-rating.tt" entity=recording -%]
+    [%- INCLUDE "layout/sidebar/sidebar-tags.tt" entity=recording tags=top_tags tag_this_text=l('Tag this recording') -%]
+    [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=recording -%]
+[% END %]
 
 <div class="content">
     [%- INCLUDE 'recording/header.tt' %]

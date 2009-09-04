@@ -5,20 +5,21 @@
 }) %]
 [%- WRAPPER "layout.tt" title=title ? main_title _ " - ${title}" : main_title -%]
 
-<div class="sidebar">
-    <p class="nfo">
-        <span><strong>[% l('Artist:') %]</strong> [% artist_credit(work.artist_credit) %]</span>
-        [%- IF work.type -%]
-            <span><strong>[% l('Type:') %]</strong> [% work.type.name | html %]</span>
-        [%- END -%]
-        [%- IF work.iswc -%]
-            <span><strong>[% l('ISWC:') %]</strong> [% work.iswc | html %]</span>
-        [%- END -%]
-    </p>
-    [%- INCLUDE "components/sidebar-rating.tt" entity=work -%]
-    [%- INCLUDE "components/sidebar-tags.tt" entity=work tags=top_tags tag_this_text=l('Tag this work') -%]
-    [%- INCLUDE "components/sidebar-lastupdate.tt" entity=work -%]
-</div>
+[% WRAPPER 'layout/sidebar.tt' %]
+    [% WRAPPER 'layout/sidebar/properties.tt' %]
+        [% INCLUDE 'layout/sidebar/property.tt' label=l('Artist:')
+           content=artist_credit(work.artist_credit) %]
+        [% INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
+           content=work.type.name | html
+               IF work.type -%]
+        [% INCLUDE 'layout/sidebar/property.tt' label=l('ISWC:')
+           content=work.iswc | html
+               IF work.iswc -%]
+    [% END %]
+    [%- INCLUDE "layout/sidebar/sidebar-rating.tt" entity=work -%]
+    [%- INCLUDE "layout/sidebar/sidebar-tags.tt" entity=work tags=top_tags tag_this_text=l('Tag this work') -%]
+    [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=work -%]
+[% END %]
 
 <div class="content">
     [%- INCLUDE 'work/header.tt' %]

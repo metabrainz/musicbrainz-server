@@ -1,22 +1,22 @@
 [%- WRAPPER "layout.tt" title=title ? label.name _ " - ${title}" : label.name -%]
 
-<div class="sidebar">
-    <p class="nfo">
-        [%- IF label.type -%]
-            <span><strong>[% l('Type:') %]</strong> [% html_escape(label.type_name) %]</span>
-        [%- END -%]
+[% WRAPPER 'layout/sidebar.tt' %]
+    [% WRAPPER 'layout/sidebar/properties.tt' %]
+        [% INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
+           content=html_escape(label.type_name)
+               IF label.type -%]
         [%- UNLESS label.begin_date.is_empty AND label.end_date.is_empty -%]
-            <span><strong>[% l('Active:') %]</strong>
+            [% WRAPPER 'layout/sidebar/property.tt' label=l('Active:') %]
                 [% label.begin_date.format or l("present") %] &mdash;
                 [% label.end_date.format or l("present") %]
-            </span>
+            [% END %]
         [%- END -%]
-        [%- IF label.country -%]
-            <span><strong>[% l('Country:') %]</strong> [% html_escape(label.country.name) %]</span>
-        [%- END -%]
-    </p>
-    [%- INCLUDE "components/sidebar-rating.tt" entity=label -%]
-    [%- INCLUDE "components/sidebar-tags.tt" entity=label tags=top_tags tag_this_text=l('Tag this label') -%]
+        [% INCLUDE 'layout/sidebar/property.tt' label=l('Country:')
+           content=html_escape(label.country.name)
+               IF label.country -%]
+    [% END %]
+    [%- INCLUDE "layout/sidebar/sidebar-rating.tt" entity=label -%]
+    [%- INCLUDE "layout/sidebar/sidebar-tags.tt" entity=label tags=top_tags tag_this_text=l('Tag this label') -%]
 
     <ul class="links">
     [% IF c.user_exists %]
@@ -28,8 +28,8 @@
     [% END %]
     </ul>
 
-    [%- INCLUDE "components/sidebar-lastupdate.tt" entity=label -%]
-</div>
+    [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=label -%]
+[% END %]
 
 <div class="content">
     [%- INCLUDE "label/header.tt" -%]
