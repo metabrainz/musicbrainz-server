@@ -9,10 +9,130 @@ use MusicBrainz;
 use MusicBrainz::Server::Validation;
 use MusicBrainz::Server::Data::Utils qw( placeholders );
 use Sql;
+use LWP::Simple qw();
 
 my $mb = MusicBrainz->new;
 $mb->Login(db => "READWRITE");
 my $sql = Sql->new($mb->dbh);
+
+my %ReleaseFormatNames = (
+   1 => 'CD',
+   2 => 'DVD',
+   3 => 'SACD',
+   4 => 'DualDisc',
+   5 => 'LaserDisc',
+   6 => 'MiniDisc',
+   7 => 'Vinyl',
+   8 => 'Cassette',
+   9 => 'Cartridge (4/8-tracks)',
+   10 => 'Reel-to-reel',
+   11 => 'DAT',
+   12 => 'Digital Media',
+   13 => 'Other',
+   14 => 'Wax Cylinder',
+   15 => 'Piano Roll',
+   16 => 'DCC',
+);
+
+sub mangle_catno
+{
+    my $catno = lc $_[0] || '';
+    $catno =~ s/\W//g; # remove non-alphanumeric characters
+    $catno =~ s/(^|[^0-9])0+/$1/g; # remove leading zeros from numbers
+    return $catno;
+}
+
+sub match_discogs_catno_1
+{
+    my ($discogs_info, $mb_info, @entity0) = @_;
+
+    # Try to match catalog numbers
+    my @matches;
+    if ($discogs_info->[1]) {
+        my @discogs_catnos = map { mangle_catno($_) } split /;/, $discogs_info->[1];
+        foreach my $entity0 (@entity0) {
+            my $catno = mangle_catno($mb_info->{$entity0}->{catno});
+            my $barcode = $mb_info->{$entity0}->{barcode} || '';
+            $barcode =~ s/^0+//; # remove leading zeros
+            next unless $catno || $barcode;
+            foreach my $discogs_catno (@discogs_catnos) {
+                if ($catno eq $discogs_catno ||
+                    $barcode eq $discogs_catno ||
+                    substr($barcode, 0, -1) eq $discogs_catno) {
+                    push @matches, $entity0;
+                    last;
+                }
+            }
+        }
+    }
+    return @matches;
+}
+
+sub match_discogs_catno_2
+{
+    my ($discogs_info, $mb_info, @entity0) = @_;
+
+    # Try to match parts catalog numbers
+    my @matches;
+    if ($discogs_info->[1]) {
+        my @discogs_catnos = map { mangle_catno($_) } split /;/, $discogs_info->[1];
+        my $discogs_format = $discogs_info->[5];
+        foreach my $entity0 (@entity0) {
+            my $catno = mangle_catno($mb_info->{$entity0}->{catno});
+            my $format = $ReleaseFormatNames{$mb_info->{$entity0}->{format} || ''};
+            next unless $catno && $format;
+            foreach my $discogs_catno (@discogs_catnos) {
+                if ($discogs_format eq $format &&
+                    (index($catno, $discogs_catno) >= 0 ||
+                    index($discogs_catno, $catno) >= 0)) {
+                    push @matches, $entity0;
+                    last;
+                }
+            }
+        }
+    }
+    return @matches;
+}
+
+sub match_discogs_country
+{
+    my ($discogs_info, $mb_info, @entity0) = @_;
+
+    # Try countries and years
+    my @matches;
+    if ($discogs_info->[3] && $discogs_info->[4]) {
+        my $discogs_year = substr($discogs_info->[4], 0, 4);
+        my $discogs_country = $discogs_info->[3];
+        my $discogs_format = $discogs_info->[5];
+        foreach my $entity0 (@entity0) {
+            my $year = substr($mb_info->{$entity0}->{releasedate} || '', 0, 4);
+            my $country = $mb_info->{$entity0}->{country} || '';
+            $country = "UK" if $country eq "United Kingdom";
+            $country = "US" if $country eq "United States";
+            my $format = $ReleaseFormatNames{$mb_info->{$entity0}->{format} || ''} || '';
+            if ($year && $country && $year eq $discogs_year &&
+                $country eq $discogs_country &&
+                ($format eq '' || $format eq $discogs_format)) {
+                push @matches, $entity0;
+                last;
+            }
+        }
+    }
+    return @matches;
+}
+
+sub load_release_info
+{
+    my (@ids) = @_;
+
+    my $data = $sql->SelectListOfHashes('
+        SELECT r.id, releasedate, c.name AS country, barcode, catno, l.name AS label, r.format
+        FROM public.release r
+            LEFT JOIN public.label l ON r.label = l.id
+            LEFT JOIN public.country c ON r.country = c.id
+        WHERE r.id IN ('.placeholders(@ids).')', @ids);
+    return map { $_->{id} => $_ } @$data;
+}
 
 $sql->Begin;
 eval {
@@ -270,11 +390,23 @@ foreach my $orig_t0 (@entity_types) {
             push @{$attribs{$link}}, $row->{attribute_type};
         }
 
+        my %discogs;
+
         if ($orig_t0 eq "album" && $orig_t1 eq "url") {
             # Load also the URLs
             $rows = $sql->SelectListOfHashes("
                 SELECT l.*, url.url FROM public.l_${orig_t0}_${orig_t1} l
                 LEFT JOIN public.url ON l.link1=url.id");
+            # Load Discogs URL data
+            LWP::Simple::mirror("http://users.musicbrainz.org/~luks/ngs/discogs.dat", "discogs.dat");
+            open(DISCOGS, "<discogs.dat");
+            while (<DISCOGS>) {
+                my $line = $_;
+                $line =~ s/\s*$//;
+                my @fields = split /\t/, $line;
+                $discogs{$fields[0]} = \@fields;
+            }
+            close(DISCOGS);
         }
         else {
             $rows = $sql->SelectListOfHashes("SELECT * FROM public.l_${orig_t0}_${orig_t1}");
@@ -369,6 +501,25 @@ foreach my $orig_t0 (@entity_types) {
             #}
 
             my @new_links;
+
+            # Try to disambiguate Discogs release URLs
+            if ($new_t0 eq "release" && $new_t1 eq "url" && $row->{link_type} == 24 && scalar(@entity0) > 1 && scalar(@entity1) == 1) {
+                my $discogs_info = $discogs{$row->{link1}};
+                if (defined $discogs_info) {
+                    my %mb_info = load_release_info(@entity0);
+                    my @matches = match_discogs_catno_1($discogs_info, \%mb_info, @entity0);
+                    unless (@matches) {
+                        @matches = match_discogs_catno_2($discogs_info, \%mb_info, @entity0);
+                        unless (@matches) {
+                            @matches = match_discogs_country($discogs_info, \%mb_info, @entity0);
+                            unless (@matches) {
+                                @matches = @entity0;
+                            }
+                        }
+                    }
+                    @entity0 = @matches;
+                }
+            }
 
             # Try to disambiguate 'part of set' and 'transliteration' ARs
             if ($new_t0 eq "release" && $new_t1 eq "release" &&
