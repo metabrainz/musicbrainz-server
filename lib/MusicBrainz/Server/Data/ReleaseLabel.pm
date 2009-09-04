@@ -19,7 +19,7 @@ sub _table
 sub _columns
 {
     return 'rl.id AS rl_id, rl.release AS rl_release, rl.label AS rl_label,
-            rl.catno AS rl_catno, rl.position AS rl_position';
+            rl.catno AS rl_catno';
 }
 
 sub _column_mapping
@@ -29,7 +29,6 @@ sub _column_mapping
         release_id     => 'rl_release',
         label_id       => 'rl_label',
         catalog_number => 'rl_catno',
-        position       => 'rl_position',
     };
 }
 
@@ -47,7 +46,7 @@ sub load
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
                  WHERE release IN (" . placeholders(@ids) . ")
-                 ORDER BY release, position";
+                 ORDER BY release, rl_catno";
     my @labels = query_to_list($self->c->dbh, sub { $self->_new_from_row(@_) },
                                $query, @ids);
     foreach my $label (@labels) {

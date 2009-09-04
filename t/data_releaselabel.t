@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 19;
+use Test::More;
 use_ok 'MusicBrainz::Server::Data::ReleaseLabel';
 
 use MusicBrainz::Server::Context;
@@ -17,7 +17,6 @@ is( $rl->id, 1 );
 is( $rl->release_id, 1 );
 is( $rl->label_id, 1 );
 is( $rl->catalog_number, "ABC-123" );
-is( $rl->position, 0 );
 
 ok( !$rl_data->load() );
 
@@ -44,3 +43,5 @@ is($hits, 4);
 is($hits, 0);
 
 $sql->Commit;
+
+done_testing;

@@ -41,10 +41,10 @@ INSERT INTO release (id, gid, name, artist_credit, release_group, date_year)
 INSERT INTO label_name (id, name) VALUES (1, 'Label');
 INSERT INTO label (id, gid, name, sortname) VALUES (1, '00a23bd0-72db-11de-8a39-0800200c9a66', 1, 1);
 
-INSERT INTO release_label (id, release, position, label, catno)
-    VALUES (1, 1, 0, 1, 'ABC-123'),
-           (2, 1, 1, 1, 'ABC-123-X'),
-           (3, 3, 0, 1, '343 960 2'),
-           (4, 4, 0, 1, '82796 97772 2');
+INSERT INTO release_label (id, release, label, catno)
+    VALUES (1, 1, 1, 'ABC-123'),
+           (2, 1, 1, 'ABC-123-X'),
+           (3, 3, 1, '343 960 2'),
+           (4, 4, 1, '82796 97772 2');
 
 COMMIT;

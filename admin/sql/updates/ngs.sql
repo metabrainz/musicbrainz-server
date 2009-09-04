@@ -219,8 +219,8 @@ INSERT INTO release_meta (id, lastupdate, dateadded)
         tmp_new_release r JOIN public.albummeta am ON r.album=am.id;
 
 -- convert release events with non-empty label or catno to release_label
-INSERT INTO release_label (release, label, catno, position)
-    SELECT id, label, catno, 0 FROM public.release
+INSERT INTO release_label (release, label, catno)
+    SELECT id, label, catno FROM public.release
     WHERE label IS NOT NULL OR catno IS NOT NULL OR catno != '';
 
 INSERT INTO tracklist (id, trackcount)

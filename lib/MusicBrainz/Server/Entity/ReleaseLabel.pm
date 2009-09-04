@@ -5,11 +5,6 @@ use MusicBrainz::Server::Entity::Types;
 
 extends 'MusicBrainz::Server::Entity::Entity';
 
-has 'position' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
 has 'label_id' => (
     is => 'rw',
     isa => 'Int'

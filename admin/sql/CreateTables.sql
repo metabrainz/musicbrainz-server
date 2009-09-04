@@ -731,7 +731,6 @@ CREATE TABLE release_meta
 CREATE TABLE release_label (
     id                  SERIAL,
     release             INTEGER NOT NULL, -- references release.id
-    position            INTEGER NOT NULL,
     label               INTEGER, -- references label.id
     catno               VARCHAR(255)
 );
