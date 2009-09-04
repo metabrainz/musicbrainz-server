@@ -1,0 +1,64 @@
+[% extra_css = "QUnit.css" %]
+[% WRAPPER "layout.tt" title=l("JavaScript Unit Tests") nojavascript=1 %]
+<div>
+    <h1>
+        MusicBrainz JavaScript Unit Tests
+    </h1>
+    <h2 id="banner">
+    </h2>
+    <h2 id="userAgent">
+    </h2>
+    <ol id="tests">
+    </ol>
+</div>
+<div id="main">
+</div>
+<div id="testElements" class="hidden">
+<div id="1form-field-1" class="testElement"><select id="1select-element" type="select-one"><option id="1option-element-1" value="1" selected="selected">One</option><option id="1option-element-2" value="2">Two</option><option id="1option-element-3" value="3">Three</option></select></div>
+<div id="1form-field-2" class="testElement"><input type="text" id="1text-input-element" value="Test Text"/></div>
+<div id="1form-field-3" class="testElement"><input type="button" id="1button-input-element" value="Test Text"/></div>
+<div id="1form-field-4" class="testElement"><input type="checkbox" id="1checkbox-input-element-1" value="Test Text" checked="checked"/></div>
+<div id="1form-field-5" class="testElement"><input type="checkbox" id="1checkbox-input-element-2" value="Test Text"/></div>
+<div id="1form-field-6" class="testElement"><input type="file" id="1file-input-element" value="Filename.Test"/></div>
+<div id="1form-field-7" class="testElement"><input type="hidden" id="1hidden-input-element" value="Test Text"/></div>
+<div id="1form-field-8" class="testElement"><input type="image" id="1image-input-element" value="Test Text"/></div>
+<div id="1form-field-9" class="testElement"><input type="password" id="1password-input-element" value="Test Text"/></div>
+<div id="1form-field-10" class="testElement"><input type="radio" id="1radio-input-element-1" name="Test1" value="Test Text" checked="checked">1</input></div>
+<div id="1form-field-11" class="testElement"><input type="radio" id="1radio-input-element-2" name="Test1" value="More Text">2</input></div>
+<div id="1form-field-12" class="testElement"><input type="reset" id="1reset-input-element" value="Test Text"/></div>
+<div id="1form-field-13" class="testElement"><input type="submit" id="1submit-input-element" value="Test Text"></input></div>
+<div id="1form-field-14" class="testElement"><button id="1button-element" value="Test Text">Test Text</button></div>
+<div id="1form-field-15" class="testElement"><textarea id="1textarea-element">Test Textarea Contents</textarea></div>
+</div>
+<div id="sidebar" class="hidden">
+<dt>dt</dt><dd id="2form-field-1" class="hidden testElement"><select id="2select-element" type="select-one"><option id="2option-element-1" value="1" selected="selected">One</option><option id="2option-element-2" value="2">Two</option><option id="2option-element-3" value="3">Three</option></select></dd>
+<dt>dt</dt><dd id="2form-field-2" class="hidden testElement"><input type="text" id="2text-input-element" value="Test Text"/></dd>
+<dt>dt</dt><dd id="2form-field-3" class="hidden testElement"><input type="button" id="2button-input-element" value="Test Text"/></dd>
+<dt>dt</dt><dd id="2form-field-4" class="hidden testElement"><input type="checkbox" id="2checkbox-input-element-1" value="Test Text" checked="checked"/></dd>
+<dt>dt</dt><dd id="2form-field-5" class="hidden testElement"><input type="checkbox" id="2checkbox-input-element-2" value="Test Text"/></dd>
+<dt>dt</dt><dd id="2form-field-6" class="hidden testElement"><input type="file" id="2file-input-element" value="Filename.Test"/></dd>
+<dt>dt</dt><dd id="2form-field-7" class="hidden testElement"><input type="hidden" id="2hidden-input-element" value="Test Text"/></dd>
+<dt>dt</dt><dd id="2form-field-8" class="hidden testElement"><input type="image" id="2image-input-element" value="Test Text"/></dd>
+<dt>dt</dt><dd id="2form-field-9" class="hidden testElement"><input type="password" id="2password-input-element" value="Test Text"/></dd>
+<dt>dt</dt><dd id="2form-field-10" class="hidden testElement"><input type="radio" id="2radio-input-element-1" name="Test2" value="Test Text" checked="checked">1</input></dd>
+<dt>dt</dt><dd id="2form-field-11" class="hidden testElement"><input type="radio" id="2radio-input-element-2" name="Test2" value="More Text">2</input></dd>
+<dt>dt</dt><dd id="2form-field-12" class="hidden testElement"><input type="reset" id="2reset-input-element" value="Test Text"/></dd>
+<dt>dt</dt><dd id="2form-field-13" class="hidden testElement"><input type="submit" id="2submit-input-element" value="Test Text"></input></dd>
+<dt>dt</dt><dd id="2form-field-14" class="hidden testElement"><button id="2button-element" value="Test Text">Test Text</button></dd>
+<dt>dt</dt><dd id="2form-field-15" class="hidden testElement"><textarea id="2textarea-element">Test Textarea Contents</textarea></dd>
+</div>
+<script type="text/javascript">
+    var MusicBrainz = {},
+        notLive = true;
+</script>
+<script type="text/javascript" src="/static/scripts/jquery/jquery-1.3.2.min.js"></script>
+<script type="text/javascript" src="/text_strings.js"></script>
+<script type="text/javascript" src="/static/scripts/libraries/html_factory.js"></script>
+<script type="text/javascript" src="/static/scripts/jquery/jquery.outerHTML.js"></script>
+<script type="text/javascript" src="/static/scripts/jquery/jquery.selectboxes.js"></script>
+<script type="text/javascript" src="/static/scripts/jquery/jquery.unwrap.js"></script>
+<script type="text/javascript" src="/static/scripts/libraries/mb_utility.js"></script>
+<script type="text/javascript" src="/static/scripts/editor.js"></script>
+<script type="text/javascript" src="/static/scripts/libraries/QUnit.js"></script>
+<script type="text/javascript" src="/static/scripts/unittests.js"></script>
+[% END %]

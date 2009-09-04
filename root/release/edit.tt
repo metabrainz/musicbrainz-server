@@ -1,55 +1,13 @@
-[% extra_js = 'jquery.lookup.js jquery.artistcredits.js jquery.glow.js jquery.toggle.js jquery.undo.js' %]
-
-[%- WRAPPER 'layout.tt' full_width=1 -%]
-    <script>
-        $(document).ready(function() {
-            new jQuery.artistcredits('.container');
-        });
-    </script>
-    <h2>[% l('Edit Release') %]</h2>
+[% extra_js = 'jquery/jquery.selectboxes.js jquery/jquery.unwrap.js libraries/html_factory.js libraries/mb_utility.js editor.js' %]
+[% extra_css = 'scripts.css' %]
+[%- WRAPPER 'layout.tt' edit=1 -%]
     <form action="[% c.req.uri %]" method="post">
         [% USE r = FormRenderer(form) %]
-        <div class="row">
-            [% r.label('artist_credit', l('Artist:'), fake => 1) %]
-            [% r.artist_credit_editor('artist_credit') %]
+        [% INCLUDE 'release/sidebar.tt' editing=1 %]
+
+        <div class="content">
+            [%- INCLUDE 'forms/edit-note.tt' -%]
+            [% form_submit(l('Edit')) %]
         </div>
-        <p>
-            [% r.label('name', 'Name:') %]
-            [% r.text('name') %]
-        </p>
-        <p>
-            [% r.label('comment', 'Comment:') %]
-            [% r.text('comment') %]
-        </p>
-        <p>
-            [% r.label('status_id', 'Status:') %]
-            [% r.select('status_id') %]
-        </p>
-        <p>
-            [% r.label('packaging_id', 'Packaging:') %]
-            [% r.select('packaging_id') %]
-        </p>
-        <p>
-            [% r.label('language_id', 'Language:') %]
-            [% r.select('language_id') %]
-        </p>
-        <p>
-            [% r.label('script_id', 'Script:') %]
-            [% r.select('script_id') %]
-        </p>
-        <p>
-            [% r.label('country_id', 'Country:') %]
-            [% r.select('country_id') %]
-        </p>
-        <p>
-            [% r.label('date', 'Release Date:') %]
-            [% r.date('date') %]
-        </p>
-        <p>
-            [% r.label('barcode', 'Barcode:') %]
-            [% r.text('barcode') %]
-        </p>
-        [%- INCLUDE 'forms/edit-note.tt' -%]
-        [% form_submit(l('Edit')) %]
     </form>
 [%- END -%]

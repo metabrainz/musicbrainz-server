@@ -166,17 +166,17 @@ a:hover { color:#FC6714; text-decoration: underline; }
     margin-right: 0px;
 }
 
-.sidebar {
+#sidebar {
     float: right;
     width: 218px;
     font-size: 95%;
 }
 
-.sidebar p {
+#sidebar p {
     margin-top: 0;
 }
 
-.sidebar ul.links {
+#sidebar ul.links {
     margin-left: 0em;
     padding-left: 2em;
 }
@@ -357,8 +357,6 @@ p.nfo span {
 .exp {
     float: left;
 }
-
-
 
 .pageselector a, .pageselector span {
     font-size: 90%;
@@ -603,4 +601,20 @@ table.edit-list td.edit-details {
 table.details th {
     text-align: right;
     padding-left: 10pt;
+}
+
+dl.properties {
+    margin-bottom: 12pt;
+}
+
+dl.properties dt {
+    clear: left;
+    float: left;
+    font-weight: bold;
+    padding-right: 2pt;
+}
+
+dl.properties dd,
+dl.properties dt {
+    line-height: 200%;
 }

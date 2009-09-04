@@ -12,17 +12,12 @@
         [%- page = {
                 css = extra_css.split('\s+'),
                 js  = [
-                    'jquery/jquery-1.3.2.min.js',
-                    'jquery/jquery.cookie.js',
                     'global.js',
                 ],
             };
             FOR extra IN extra_js.split('\s+'); page.js.push(extra); END -%]
         [%- FOREACH css IN page.css %]
             <link rel="stylesheet" type="text/css" href="/static/styles/extra/[% css %]" />
-        [%- END %]
-        [%- FOREACH js IN page.js %]
-            <script type="text/javascript" src="/static/scripts/[% js %]"></script>
         [%- END %]
         <link rel="search" type="application/opensearchdescription+xml" title="[%- l("MusicBrainz: Artist") -%]" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_artist.xml') %]" />
         <link rel="search" type="application/opensearchdescription+xml" title="[%- l("MusicBrainz: Label") -%]" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_label.xml') %]" />
@@ -73,5 +68,21 @@
             <a href="http://musicbrainz.org/doc/License">License</a> |
             <a href="http://musicbrainz.org/doc/Contact_Us">Contact</a>
         </p>
+        [%- IF !nojavascript -%]
+            <script type="text/javascript" src="/static/scripts/jquery/jquery-1.3.2.min.js"></script>
+            <script type="text/javascript">
+                var MusicBrainz = {};
+                $(function ($) {
+                    [%#- Hide the edit tab from any browser that doesn't have javascript enabled (or which is broken for jQuery). -%]
+                    $("#editToggle").show();
+                });
+            </script>
+            [%- IF edit -%]
+                <script type="text/javascript" src="/text_strings.js"></script>
+            [%- END -%]
+            [%- FOREACH js IN page.js %]
+                <script type="text/javascript" src="/static/scripts/[% js %]"></script>
+            [%- END %]
+        [%- END -%]
     </body>
 </html>

@@ -78,9 +78,14 @@ sub error_500 : Private
     $c->detach;
 }
 
-sub js_text : Path('/js_text') {
+sub js_text_strings : Path('/text_strings.js') {
     my ($self, $c) = @_;
-    $c->stash->{template} = 'scripts/js_text.tt';
+    $c->stash->{template} = 'scripts/text_strings.tt';
+}
+
+sub js_unit_tests : Path('/unit_tests') {
+    my ($self, $c) = @_;
+    $c->stash->{template} = 'scripts/unit_tests.tt';
 }
 
 sub begin : Private

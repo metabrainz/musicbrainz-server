@@ -4,77 +4,7 @@
 }) %]
 [%- WRAPPER "layout.tt" title=title ? main_title _ " - ${title}" : main_title -%]
 
-<div class="sidebar">
-    <p>
-    [%- IF release.cover_art_url -%]
-        <img src="[% release.cover_art_url %]" alt="[% l('Cover Art') %]" width="150" />
-    [%- ELSE -%]
-        <em>[% l('No cover image available.') %]</em>
-    [%- END -%]
-    </p>
-
-    <p class="nfo">
-        [%- UNLESS release.date.is_empty -%]
-            <span><strong>[% l('Date:') %]</strong> [% release.date.format %]</span>
-        [%- END -%]
-        [%- IF release.country -%]
-            <span><strong>[% l('Country:') %]</strong> [% html_escape(release.country.name) %]</span>
-        [%- END -%]
-        [%- FOR label=release.labels -%]
-            [%- IF label.label -%]
-                <span><strong>[% l('Label:') %]</strong> [% link_label(label.label) %]</span>
-            [%- END -%]
-            [%- IF label.catalog_number -%]
-                <span><strong>[% l('Catalog number:') %]</strong> [% html_escape(label.catalog_number) %]</span>
-            [%- END -%]
-        [%- END -%]
-        [%- IF release.barcode -%]
-            <span><strong>[% l('Barcode:') %]</strong> [% html_escape(release.barcode) %]</span>
-        [%- END -%]
-        [%- IF release.language -%]
-            <span><strong>[% l('Language:') %]</strong> [% html_escape(release.language.name) %]</span>
-        [%- END -%]
-        [%- IF release.script -%]
-            <span><strong>[% l('Script:') %]</strong> [% html_escape(release.script.name) %]</span>
-        [%- END -%]
-        [%- IF release.combined_format_name -%]
-            <span><strong>[% l('Format:') %]</strong> [% release.combined_format_name %]</span>
-        [%- END -%]
-        [%- IF release.packaging -%]
-            <span><strong>[% l('Packaging:') %]</strong> [% html_escape(release.packaging.name) %]</span>
-        [%- END -%]
-        [%- IF release.release_group.type -%]
-            <span><strong>[% l('Type:') %]</strong> [% html_escape(release.release_group.type.name) %]</span>
-        [%- END -%]
-        [%- IF release.status -%]
-            <span><strong>[% l('Status:') %]</strong> [% html_escape(release.status.name) %]</span>
-        [%- END -%]
-    </p>
-
-    [%- INCLUDE "components/sidebar-rating.tt" entity=release.release_group -%]
-    [%- INCLUDE "components/sidebar-tags.tt" tags=top_tags entity=release.release_group tag_this_text=l('Tag this release group') -%]
-
-    <p>
-        <a href="[% c.uri_for_action('/release_group/show', [release.release_group.gid]) %]">
-            See other versions of this release
-        </a>
-    </p>
-
-    [% IF c.user_exists %]
-    <p>
-        [% IF in_collection %]
-        [ <a href="[% c.uri_for_action("/user/collection/remove", { id => release.id }) %]">
-            [%- l('Remove from collection') %]</a> ]
-        [% ELSE %]
-        [ <a href="[% c.uri_for_action("/user/collection/add", { id => release.id }) %]">
-            [%- l('Add to collection') %]</a> ]
-        [% END %]
-    </p>
-    [% END %]
-
-    [%- INCLUDE "components/sidebar-lastupdate.tt" entity=release -%]
-
-</div>
+[% INCLUDE 'release/sidebar.tt' editing=0 %]
 
 <div class="content">
     [%- INCLUDE "release/header.tt" -%]

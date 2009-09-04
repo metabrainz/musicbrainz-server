@@ -32,6 +32,7 @@ sub h
 sub _lookup_field
 {
     my ($self, $field) = @_;
+    return unless $self->form;
     return ref $field ? $field : $self->form->field($field);
 }
 
