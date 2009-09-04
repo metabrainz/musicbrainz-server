@@ -42,7 +42,7 @@ is($editor->preferences->public_ratings, 1, 'use default preference');
 $editor_data->load_preferences($editor);
 is($editor->preferences->public_ratings, 0, 'load preferences');
 is($editor->preferences->datetime_format, '%m/%d/%Y %H:%M:%S', 'datetime_format loaded');
-is($editor->preferences->timezone, 'CEST', 'timezone loaded');
+is($editor->preferences->timezone, 'UTC', 'timezone loaded');
 
 my $new_editor_2 = $editor_data->insert({
     name => 'new_editor_2',

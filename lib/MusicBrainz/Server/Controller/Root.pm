@@ -100,6 +100,9 @@ sub begin : Private
         }
     }
 
+    # Setup the searchs on the sidebar
+    $c->form( sidebar_search => 'Search::Search' );
+
     if (exists $c->action->attributes->{RequireAuth})
     {
         $c->forward('/user/do_login');
@@ -114,9 +117,6 @@ sub begin : Private
             }
         }
     }
-
-    # Setup the searchs on the sidebar
-    $c->form( sidebar_search => 'Search::Search' );
 
     # Load current relationship
     my $rel = $c->session->{current_relationship};

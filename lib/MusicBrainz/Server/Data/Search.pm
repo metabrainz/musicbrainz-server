@@ -68,7 +68,7 @@ sub search
         my $type2 = $type;
         $type2 = "track" if $type eq "recording";
         $type2 = "release" if $type eq "release_group";
-        my $extra_columns;
+        my $extra_columns = "";
         if ($type eq "recording") {
             $extra_columns = "entity.length,";
         }

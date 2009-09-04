@@ -12,7 +12,7 @@ INSERT INTO editor (id, name, password, privs, email, website, bio, membersince,
 
 INSERT INTO editor_preference (editor, name, value)
     VALUES (1, 'datetime_format', '%m/%d/%Y %H:%M:%S'),
-           (1, 'timezone', 'CEST'),
+           (1, 'timezone', 'UTC'),
            (1, 'public_ratings', '0');
 
 ALTER SEQUENCE editor_id_seq RESTART 2;

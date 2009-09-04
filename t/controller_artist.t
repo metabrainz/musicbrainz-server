@@ -87,7 +87,6 @@ $mech->content_contains('/recording/54b9d183-7dab-42ba-94a3-7388a66604b8');
 # Test tags
 $mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce/tags');
 $mech->content_like(qr{musical});
-#$mech->content_like(qr{/tag/musical});
 ok($mech->find_link(url_regex => qr{/tag/musical}), 'link to the "musical" tag');
 
 # Test ratings

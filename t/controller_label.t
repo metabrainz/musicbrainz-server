@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 use strict;
-use Test::More tests => 38;
+use Test::More tests => 39;
 
 BEGIN {
     use MusicBrainz::Server::Context;
@@ -38,7 +38,8 @@ $mech->content_contains('Test Label Alias', 'has the label alias');
 
 # Test tags
 $mech->get_ok('/label/46f0f4cd-8aab-4b33-b698-f459faf64190/tags');
-$mech->content_like(qr{This label has no tags});
+$mech->content_like(qr{musical});
+ok($mech->find_link(url_regex => qr{/tag/musical}), 'link to the "musical" tag');
 
 # Test ratings
 $mech->get_ok('/label/46f0f4cd-8aab-4b33-b698-f459faf64190/ratings', 'get label ratings');

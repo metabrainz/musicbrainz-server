@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 use strict;
 use warnings;
-use Test::More tests => 13;
+use Test::More tests => 14;
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
@@ -31,7 +31,8 @@ is($mech->status(), 404);
 
 # Test tags
 $mech->get_ok("/work/745c079d-374e-4436-9448-da92dedef3ce/tags");
-$mech->content_like(qr{This work has no tags});
+$mech->content_like(qr{musical});
+ok($mech->find_link(url_regex => qr{/tag/musical}), 'link to the "musical" tag');
 
 # Test ratings
 $mech->get_ok("/work/745c079d-374e-4436-9448-da92dedef3ce/ratings");

@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 use strict;
-use Test::More tests => 22;
+use Test::More tests => 23;
 
 BEGIN {
     use MusicBrainz::Server::Context;
@@ -33,7 +33,8 @@ $mech->content_contains('Test annotation 3', 'has annotation');
 
 # Test tags
 $mech->get_ok('/recording/123c079d-374e-4436-9448-da92dedef3ce/tags');
-$mech->content_like(qr{This recording has no tags});
+$mech->content_like(qr{musical});
+ok($mech->find_link(url_regex => qr{/tag/musical}), 'link to the "musical" tag');
 
 # Test ratings
 $mech->get_ok('/recording/123c079d-374e-4436-9448-da92dedef3ce/ratings', 'get recording ratings');
