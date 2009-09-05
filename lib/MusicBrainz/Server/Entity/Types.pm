@@ -29,6 +29,9 @@ subtype 'AutoEditorElection'
 subtype 'AutoEditorElectionVote'
     => as class_type 'MusicBrainz::Server::Entity::AutoEditorElectionVote';
 
+subtype 'CDTOC'
+    => as class_type 'MusicBrainz::Server::Entity::CDTOC';
+
 subtype 'Edit'
     => as class_type 'MusicBrainz::Server::Edit';
 
@@ -70,6 +73,9 @@ subtype 'Language'
 
 subtype 'Medium'
     => as class_type 'MusicBrainz::Server::Entity::Medium';
+
+subtype 'MediumCDTOC'
+    => as class_type 'MusicBrainz::Server::Entity::MediumCDTOC';
 
 subtype 'MediumFormat'
     => as class_type 'MusicBrainz::Server::Entity::MediumFormat';

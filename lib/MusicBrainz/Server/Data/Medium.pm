@@ -61,7 +61,7 @@ sub _entity_class
 sub load
 {
     my ($self, @objs) = @_;
-    load_subobjects($self, 'medium', @objs);
+    return load_subobjects($self, 'medium', @objs);
 }
 
 sub load_for_releases

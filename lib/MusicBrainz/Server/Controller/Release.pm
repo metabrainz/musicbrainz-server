@@ -92,6 +92,17 @@ Display detailed information about a release
 
 sub details : Chained('load') { }
 
+sub discids : Chained('load')
+{
+    my ($self, $c) = @_;
+
+    my $release = $c->stash->{release};
+    $c->model('Medium')->load_for_releases($release);
+    my @medium_cdtocs = $c->model('MediumCDTOC')->load_for_mediums($release->all_mediums);
+    $c->model('CDTOC')->load(@medium_cdtocs);
+    $c->stash( has_cdtocs => scalar(@medium_cdtocs) > 0 );
+}
+
 =head2 google
 
 Redirect to Google and search for this release's name.

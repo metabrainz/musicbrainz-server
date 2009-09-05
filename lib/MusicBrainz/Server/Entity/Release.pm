@@ -133,6 +133,7 @@ has 'mediums' => (
         elements => 'all_mediums',
         push => 'add_medium',
         clear => 'clear_mediums',
+        count => 'medium_count',
     }
 );
 

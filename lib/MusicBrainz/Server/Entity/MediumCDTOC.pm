@@ -1,68 +1,29 @@
-package MusicBrainz::Server::Entity::Medium;
+package MusicBrainz::Server::Entity::MediumCDTOC;
 
 use Moose;
-use MooseX::AttributeHelpers;
 use MusicBrainz::Server::Entity::Types;
 
 extends 'MusicBrainz::Server::Entity::Entity';
 with 'MusicBrainz::Server::Entity::Editable';
 
-has 'position' => (
+has 'cdtoc_id' => (
     is => 'rw',
     isa => 'Int'
 );
 
-has 'tracklist_id' => (
+has 'cdtoc' => (
+    is => 'rw',
+    isa => 'CDTOC'
+);
+
+has 'medium_id' => (
     is => 'rw',
     isa => 'Int'
 );
 
-has 'tracklist' => (
+has 'medium' => (
     is => 'rw',
-    isa => 'Tracklist'
-);
-
-has 'release_id' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-has 'release' => (
-    is => 'rw',
-    isa => 'Release'
-);
-
-has 'name' => (
-    is => 'rw',
-    isa => 'Str'
-);
-
-has 'format_id' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-has 'format' => (
-    is => 'rw',
-    isa => 'MediumFormat',
-);
-
-sub format_name
-{
-    my ($self) = @_;
-    return $self->format ? $self->format->name : undef;
-}
-
-has 'cdtocs' => (
-    is => 'rw',
-    isa => 'ArrayRef[MediumCDTOC]',
-    lazy => 1,
-    default => sub { [] },
-    metaclass => 'Collection::Array',
-    provides => {
-        elements => 'all_cdtocs',
-        push => 'add_cdtoc',
-    }
+    isa => 'Medium'
 );
 
 __PACKAGE__->meta->make_immutable;

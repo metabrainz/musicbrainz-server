@@ -1,0 +1,38 @@
+[%- WRAPPER 'release/layout.tt' page='discids' -%]
+
+    <h2>[% l('DiscIDs') %]</h2>
+    [% IF has_cdtocs %]
+        <table class="tbl">
+            <thead>
+                <tr>
+                    <th>[% l('DiscID') %]</th>
+                    <th>[% l('Tracks') %]</th>
+                    <th>[% l('Length') %]</th>
+                </tr>
+            </thead>
+            <tbody>
+            [% FOR medium IN release.mediums %]
+                <tr class="subh">
+                    <td colspan="3">
+                        <a href="[% c.uri_for_action('/tracklist/show', [medium.tracklist.id]) %]">
+                            [% medium.format_name or l("Medium") | html %] [% medium.position %][% IF medium.name %]:
+                            [% medium.name | html %][% END %]
+                        </a>
+                    </td>
+                </tr>
+                [% FOR medium_cdtoc IN medium.cdtocs %]
+                <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+                    <td>[% link_cdtoc(medium_cdtoc.cdtoc) %]</td>
+                    <td>[% medium_cdtoc.cdtoc.track_count %]</td>
+                    <td>[% medium_cdtoc.cdtoc.length | format_time %]</td>
+                </tr>
+                [% END %]
+            [%- END -%]
+            </tbody>
+        </table>
+    [% ELSE %]
+        <p>[% l('There are no DiscIDs attached to this release.') %]</p>
+    [% END %]
+
+[%- END -%]
+

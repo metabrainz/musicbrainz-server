@@ -67,7 +67,7 @@ sub _entity_class
 sub load
 {
     my ($self, @objs) = @_;
-    load_subobjects($self, 'release', @objs);
+    return load_subobjects($self, 'release', @objs);
 }
 
 sub find_by_artist

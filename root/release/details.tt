@@ -1,4 +1,5 @@
-[%- WRAPPER 'release/layout.tt' title=l('Details') -%]
+[%- WRAPPER 'release/layout.tt' page='details' -%]
+
     [%- WRAPPER 'components/box.tt' header=l('Release Details') -%]
         <table class='details'>
             <tr>
@@ -33,4 +34,6 @@
     [%- END -%]
 
     [%- INCLUDE 'components/perma-link.tt' entity=release -%]
+
 [%- END -%]
+

@@ -1,0 +1,111 @@
+[%- WRAPPER 'layout.tt' title=l('DiscID “{discid}”', { discid => cdtoc.discid }) full_width=1 -%]
+
+    <h1>[% l('DiscID “{discid}”', { discid => link_cdtoc(cdtoc) }) %]</h1>
+
+    <h2>[% l('CD TOC details') %]</h2>
+
+    <table>
+        <tr>
+            <th>[% l('DiscID:') %]</th>
+            <td>[% cdtoc.discid %]</td>
+        </tr>
+        <tr>
+            <th>[% l('FreeDB:') %]</th>
+            <td>[% cdtoc.freedbid %]</td>
+        </tr>
+        <tr>
+            <th>[% l('First track:') %]</th>
+            <td>[% cdtoc.first_track %]</td>
+        </tr>
+        <tr>
+            <th>[% l('Last track:') %]</th>
+            <td>[% cdtoc.last_track %]</td>
+        </tr>
+        <tr>
+            <th>[% l('Total length:') %]</th>
+            <td>[% cdtoc.length | format_time %]</td>
+        </tr>
+        <tr>
+            <th>[% l('Track details:') %]</th>
+            <td>
+                <table>
+                    <tr>
+                        <th rowspan="2">[% l('Track') %]</th>
+                        <th colspan="2">[% l('Start') %]</th>
+                        <th colspan="2">[% l('Length') %]</th>
+                        <th colspan="2">[% l('End') %]</th>
+                    </tr>
+                    <tr>
+                        <th>[% l('Time') %]</th>
+                        <th>[% l('Sectors') %]</th>
+                        <th>[% l('Time') %]</th>
+                        <th>[% l('Sectors') %]</th>
+                        <th>[% l('Time') %]</th>
+                        <th>[% l('Sectors') %]</th>
+                    </tr>
+                    [% track_details = cdtoc.track_details.hash(cdtoc.first_track) %]
+                    [% FOR i IN [ cdtoc.first_track .. cdtoc.last_track ] %]
+                    <tr>
+                        <td>[% i %]</td>
+                        [%- track = track_details.item(i) -%]
+                        <td>[% track.start_time | format_time %]</td>
+                        <td>[% track.start_sectors %]</td>
+                        <td>[% track.length_time | format_time %]</td>
+                        <td>[% track.length_sectors %]</td>
+                        <td>[% track.end_time | format_time %]</td>
+                        <td>[% track.end_sectors %]</td>
+                    </tr>
+                    [% END %]
+                </table>
+            </td>
+        </tr>
+    </table>
+
+    <h2>[% l('Attached to releases') %]</h2>
+
+<table class="tbl">
+    <thead>
+        <tr>
+            <th>[% l('Position') %]</th>
+            <th>[% l('Format') %]</th>
+            <th>[% l('Title') %]</th>
+            <th>[% l('Artist') %]</th>
+            <th>[% l('Date') %]</th>
+            <th>[% l('Country') %]</th>
+            <th>[% l('Label') %]</th>
+            <th>[% l('Catalog#') %]</th>
+        </tr>
+    </thead>
+    <tbody>
+        [%- FOR medium_cdtoc IN medium_cdtocs -%]
+        [%- medium=medium_cdtoc.medium -%]
+        [%- release=medium.release -%]
+        <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+            <td>[% medium.position %]/[% release.medium_count %]</td>
+            <td>[% medium.format_name or "-" %]</td>
+            <td>[% link_release(release) %]</td>
+            <td>[% artist_credit(release.artist_credit) %]</td>
+            <td>[% release.date.format %]</td>
+            <td>
+                [%- IF release.country -%]
+                <abbr title="[% release.country.name | html %]">
+                    [% release.country.iso_code | html %]
+                </abbr>
+                [%- END -%]
+            </td>
+            <td>[%-
+                labels = [];
+                labels.push(link_label(label.label)) FOR label=release.labels;
+                labels.join(', ')
+            -%]</td>
+            <td>[%-
+                catnos = [];
+                catnos.push(label.catalog_number) FOR label=release.labels;
+                catnos.join(', ')
+            -%]</td>
+        </tr>
+        [%- END -%]
+    </tbody>
+</table>
+
+[%- END -%]

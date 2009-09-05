@@ -1,6 +1,7 @@
 [%- info_links = [
     ['index', link_release(release, 'show', l('Release'))],
     ['relationships', link_release(release, 'relationships', l('Relationships'))],
+    ['discids', link_release(release, 'discids', l('DiscIDs'))],
     ['details', link_release(release, 'details', l('Details'))],
 ] -%]
 
