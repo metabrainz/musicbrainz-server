@@ -130,7 +130,7 @@ sub delete
     # XXX Checks to see if label is in use
     return unless $can_delete;
 
-    $self->c->model('Relationship')->delete('label', @label_ids);
+    $self->c->model('Relationship')->delete_entities('label', @label_ids);
     $self->annotation->delete(@label_ids);
     $self->alias->delete(@label_ids);
     $self->tags->delete(@label_ids);
@@ -153,7 +153,7 @@ sub merge
     $self->annotation->merge($new_id, @old_ids);
     $self->c->model('ReleaseLabel')->merge_labels($new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('label', $new_id, @old_ids);
-    $self->c->model('Relationship')->merge('label', $new_id, @old_ids);
+    $self->c->model('Relationship')->merge_entities('label', $new_id, @old_ids);
 
     $self->_delete_and_redirect_gids('label', $new_id, @old_ids);
     return 1;

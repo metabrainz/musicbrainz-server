@@ -5,6 +5,7 @@ use Sql;
 use MusicBrainz::Server::Entity::Link;
 use MusicBrainz::Server::Data::Utils qw(
     partial_date_from_row
+    add_partial_date_to_row
     load_subobjects
     placeholders
 );
@@ -67,6 +68,67 @@ sub load
 {
     my ($self, @objs) = @_;
     load_subobjects($self, 'link', @objs);
+}
+
+sub find_or_insert
+{
+    my ($self, $values) = @_;
+
+    my (@joins, @conditions, @args);
+
+    push @conditions, "link_type = ?";
+    push @args, $values->{link_type_id};
+
+    foreach my $date_key (qw( begin_date end_date )) {
+        my $column_prefix = $date_key;
+        $column_prefix =~ s/_//g;
+        foreach my $key (qw( year month day )) {
+            if (defined $values->{$date_key}->{$key}) {
+                push @conditions, "${column_prefix}_${key} = ?";
+                push @args, $values->{$date_key}->{$key};
+            }
+            else {
+                push @conditions, "${column_prefix}_${key} IS NULL";
+            }
+        }
+    }
+
+    my @attrs = @{ $values->{attributes} };
+
+    push @conditions, "attributecount = ?";
+    push @args, scalar(@attrs);
+
+    my $i = 1;
+    foreach my $attr (@attrs) {
+        push @joins, "JOIN link_attribute a$i ON a$i.link = link.id";
+        push @conditions, "a$i.attribute_type = ?";
+        push @args, $attr;
+        $i += 1;
+    }
+
+    my $query = "SELECT id FROM link " . join(" ", @joins) . " WHERE " . join(" AND ", @conditions);
+
+    my $sql = Sql->new($self->c->dbh);
+    my $id = $sql->SelectSingleValue($query, @args);
+
+    return $id if defined $id;
+
+    my $row = {
+        link_type      => $values->{link_type_id},
+        attributecount => scalar(@attrs),
+    };
+    add_partial_date_to_row($row, $values->{begin_date}, "begindate");
+    add_partial_date_to_row($row, $values->{end_date}, "enddate");
+    $id = $sql->InsertRow("link", $row, "id");
+
+    foreach my $attr (@attrs) {
+        $sql->InsertRow("link_attribute", {
+            link           => $id,
+            attribute_type => $attr,
+        });
+    }
+
+    return $id;
 }
 
 __PACKAGE__->meta->make_immutable;

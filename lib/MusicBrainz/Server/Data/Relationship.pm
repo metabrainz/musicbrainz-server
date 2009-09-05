@@ -3,6 +3,7 @@ package MusicBrainz::Server::Data::Relationship;
 use Moose;
 use Readonly;
 use Sql;
+use Carp qw( croak );
 use MusicBrainz::Server::Entity::Relationship;
 use MusicBrainz::Server::Data::Artist;
 use MusicBrainz::Server::Data::Label;
@@ -26,6 +27,8 @@ Readonly my @TYPES => qw(
     work
 );
 
+my %TYPES = map { $_ => 1} @TYPES;
+
 Readonly my %ENTITY_CLASS_TO_TYPE => (
     'MusicBrainz::Server::Entity::Artist'       => 'artist',
     'MusicBrainz::Server::Entity::Label'        => 'label',
@@ -41,26 +44,55 @@ sub all_link_types
     return @TYPES;
 }
 
+sub _entity_class
+{
+    return 'MusicBrainz::Server::Entity::Relationship';
+}
+
 sub _new_from_row
 {
     my ($self, $row, $obj) = @_;
     my $entity0 = $row->{entity0};
     my $entity1 = $row->{entity1};
     my %info = (
+        id => $row->{id},
         link_id => $row->{link},
         edits_pending => $row->{editpending},
         entity0_id => $entity0,
         entity1_id => $entity1,
     );
-    if ($entity0 == $obj->id) {
-        $info{entity0} = $obj;
-        $info{direction} = $MusicBrainz::Server::Entity::Relationship::DIRECTION_FORWARD;
-    }
-    else {
-        $info{entity1} = $obj;
-        $info{direction} = $MusicBrainz::Server::Entity::Relationship::DIRECTION_BACKWARD;
+    if (defined $obj) {
+        if ($entity0 == $obj->id) {
+            $info{entity0} = $obj;
+            $info{direction} = $MusicBrainz::Server::Entity::Relationship::DIRECTION_FORWARD;
+        }
+        else {
+            $info{entity1} = $obj;
+            $info{direction} = $MusicBrainz::Server::Entity::Relationship::DIRECTION_BACKWARD;
+        }
     }
     return MusicBrainz::Server::Entity::Relationship->new(%info);
+}
+
+sub _check_types
+{
+    my ($self, $type0, $type1) = @_;
+
+    croak 'Invalid types'
+        unless exists $TYPES{$type0} && exists $TYPES{$type1} && $type0 le $type1;
+}
+
+sub get_by_id
+{
+    my ($self, $type0, $type1, $id) = @_;
+    $self->_check_types($type0, $type1);
+
+    my $query = "SELECT * FROM l_${type0}_${type1} WHERE id = ?";
+    my $sql = Sql->new($self->c->dbh);
+    my $row = $sql->SelectSingleRowHash($query, $id)
+        or return undef;
+
+    return $self->_new_from_row($row);
 }
 
 sub _load
@@ -185,7 +217,7 @@ sub _generate_table_list
     return @types;
 }
 
-sub merge
+sub merge_entities
 {
     my ($self, $type, $target_id, @source_ids) = @_;
 
@@ -208,7 +240,7 @@ sub merge
     }
 }
 
-sub delete
+sub delete_entities
 {
     my ($self, $type, @ids) = @_;
 
@@ -220,6 +252,68 @@ sub delete
             WHERE $entity0 IN (" . placeholders(@ids) . ")
         ", @ids);
     }
+}
+
+sub insert
+{
+    my ($self, $type0, $type1, $values) = @_;
+    $self->_check_types($type0, $type1);
+
+    my $sql = Sql->new($self->c->dbh);
+    my $row = {
+        link => $self->c->model('Link')->find_or_insert({
+            link_type_id => $values->{link_type_id},
+            begin_date => $values->{begin_date},
+            end_date => $values->{end_date},
+            attributes => $values->{attributes},
+        }),
+        entity0 => $values->{entity0_id},
+        entity1 => $values->{entity1_id},
+    };
+    my $id = $sql->InsertRow("l_${type0}_${type1}", $row, 'id');
+
+    return $self->_entity_class->new( id => $id );
+}
+
+sub update
+{
+    my ($self, $type0, $type1, $id, $values) = @_;
+    $self->_check_types($type0, $type1);
+
+    my $sql = Sql->new($self->c->dbh);
+    my $row = {
+        link => $self->c->model('Link')->find_or_insert({
+            link_type_id => $values->{link_type_id},
+            begin_date => $values->{begin_date},
+            end_date => $values->{end_date},
+            attributes => $values->{attributes},
+        }),
+        entity0 => $values->{entity0_id},
+        entity1 => $values->{entity1_id},
+    };
+    $sql->Update("l_${type0}_${type1}", $row, { id => $id });
+}
+
+sub delete
+{
+    my ($self, $type0, $type1, @ids) = @_;
+    $self->_check_types($type0, $type1);
+
+    my $sql = Sql->new($self->c->dbh);
+    $sql->Do("DELETE FROM l_${type0}_${type1}
+              WHERE id IN (" . placeholders(@ids) . ")", @ids);
+}
+
+sub adjust_edit_pending
+{
+    my ($self, $type0, $type1, $adjust, @ids) = @_;
+    $self->_check_types($type0, $type1);
+
+    my $sql = Sql->new($self->c->dbh);
+    my $query = "UPDATE l_${type0}_${type1}
+                 SET editpending = editpending + ?
+                 WHERE id IN (" . placeholders(@ids) . ")";
+    $sql->Do($query, $adjust, @ids);
 }
 
 __PACKAGE__->meta->make_immutable;

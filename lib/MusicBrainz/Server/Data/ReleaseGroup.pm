@@ -121,7 +121,7 @@ sub update
 sub delete
 {
     my ($self, @group_ids) = @_;
-    $self->c->model('Relationship')->delete('release_group', @group_ids);
+    $self->c->model('Relationship')->delete_entities('release_group', @group_ids);
     $self->annotation->delete(@group_ids);
     $self->tags->delete(@group_ids);
     $self->rating->delete(@group_ids);
@@ -139,7 +139,7 @@ sub merge
     $self->tags->merge($new_id, @old_ids);
     $self->rating->merge($new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('release_group', $new_id, @old_ids);
-    $self->c->model('Relationship')->merge('release_group', $new_id, @old_ids);
+    $self->c->model('Relationship')->merge_entities('release_group', $new_id, @old_ids);
 
     # Move releases to the new release group
     my $sql = Sql->new($self->c->dbh);

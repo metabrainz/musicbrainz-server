@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Edit;
 use Moose;
 
+use Carp qw( croak );
 use DateTime;
 use MooseX::AttributeHelpers;
 use MusicBrainz::Server::Edit::Exceptions;

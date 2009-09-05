@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 use Sql;
-use Test::More tests => 27;
+use Test::More tests => 44;
 use_ok 'MusicBrainz::Server::Data::Relationship';
 use MusicBrainz::Server::Entity::Artist;
 
@@ -12,7 +12,7 @@ use MusicBrainz::Server::Test;
 my $c = MusicBrainz::Server::Test->create_test_context();
 MusicBrainz::Server::Test->prepare_test_database($c, '+relationships');
 
-my $rel_data = MusicBrainz::Server::Data::Relationship->new(c => $c);
+my $rel_data = $c->model('Relationship');
 
 my $artist1 = MusicBrainz::Server::Entity::Artist->new(id => 1);
 my $artist2 = MusicBrainz::Server::Entity::Artist->new(id => 2);
@@ -56,7 +56,7 @@ my $sql = Sql->new($c->dbh);
 $sql->Begin;
 $sql->Do("INSERT INTO l_artist_recording (id, link, entity0, entity1) VALUES (4, 1, 2, 2)");
 # Merge ARs for artist #2 to #1
-$rel_data->merge('artist', 1, 2);
+$rel_data->merge_entities('artist', 1, 2);
 $sql->Commit;
 
 $artist1->clear_relationships;
@@ -68,10 +68,81 @@ is( scalar($artist1->all_relationships), 3 );
 is( scalar($artist2->all_relationships), 0 );
 
 $sql->Begin;
+# Delete artist-recording AR with ID 4
+$rel_data->delete('artist', 'recording', 4);
+$sql->Commit;
+
+$artist1->clear_relationships;
+$rel_data->load($artist1);
+is( scalar($artist1->all_relationships), 2 );
+
+$sql->Begin;
 # Delete ARs for artist #2
-$rel_data->delete('artist', 1);
+$rel_data->delete_entities('artist', 1);
 $sql->Commit;
 
 $artist1->clear_relationships;
 $rel_data->load($artist1);
 is( scalar($artist1->all_relationships), 0, 'Relationship->delete deleted all ARs' );
+
+$sql->Begin;
+$rel = $rel_data->insert('artist', 'recording', {
+    link_type_id => 1,
+    begin_date => { year => 2008, month => 2, day => 3 },
+    end_date => { year => 2008, month => 2, day => 8 },
+    attributes => [ 1, 3, 4 ],
+    entity0_id => 1,
+    entity1_id => 1
+});
+$sql->Commit;
+is($rel->id, 100);
+
+$artist1->clear_relationships;
+$rel_data->load($artist1);
+is(scalar($artist1->all_relationships), 1);
+
+$rel = $artist1->relationships->[0];
+is($rel->id, 100);
+is($rel->link->id, 100);
+is_deeply($rel->link->begin_date, { year => 2008, month => 2, day => 3 });
+is_deeply($rel->link->end_date, { year => 2008, month => 2, day => 8 });
+is($rel->phrase, 'performed additional guitar and string instruments on');
+
+$sql->Begin;
+$rel_data->update('artist', 'recording', 100, {
+    link_type_id => 1,
+    begin_date => undef,
+    end_date => undef,
+    attributes => [ 3 ],
+    entity0_id => 1,
+    entity1_id => 1
+});
+$sql->Commit;
+
+$artist1->clear_relationships;
+$rel_data->load($artist1);
+is(scalar($artist1->all_relationships), 1);
+
+$rel = $artist1->relationships->[0];
+is($rel->id, 100);
+is($rel->link->id, 101);
+is_deeply($rel->link->begin_date, { });
+is_deeply($rel->link->end_date, { });
+is($rel->phrase, 'performed string instruments on');
+
+$rel = $rel_data->get_by_id('artist', 'recording', 100);
+is($rel->edits_pending, 0);
+
+$sql->Begin;
+$rel_data->adjust_edit_pending('artist', 'recording', +1, 100);
+$sql->Commit;
+
+$rel = $rel_data->get_by_id('artist', 'recording', 100);
+is($rel->edits_pending, 1);
+
+$sql->Begin;
+$rel_data->adjust_edit_pending('artist', 'recording', -1, 100);
+$sql->Commit;
+
+$rel = $rel_data->get_by_id('artist', 'recording', 100);
+is($rel->edits_pending, 0);

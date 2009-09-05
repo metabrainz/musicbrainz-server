@@ -111,7 +111,7 @@ sub update
 sub delete
 {
     my ($self, $recording) = @_;
-    $self->c->model('Relationship')->delete('recording', $recording->id);
+    $self->c->model('Relationship')->delete_entities('recording', $recording->id);
     $self->c->model('RecordingPUID')->delete_recordings($recording->id);
     $self->c->model('ISRC')->delete_recordings($recording->id);
     $self->annotation->delete($recording->id);
@@ -160,7 +160,7 @@ sub merge
     $self->c->model('RecordingPUID')->merge_recordings($new_id, @old_ids);
     $self->c->model('ISRC')->merge_recordings($new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('recording', $new_id, @old_ids);
-    $self->c->model('Relationship')->merge('recording', $new_id, @old_ids);
+    $self->c->model('Relationship')->merge_entities('recording', $new_id, @old_ids);
 
     # Move tracks to the new recording
     my $sql = Sql->new($self->c->dbh);
