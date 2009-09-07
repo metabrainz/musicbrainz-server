@@ -7,7 +7,7 @@
     (<a href="http://[%- wiki_server -%]/WikiDocs">[%- l('more info') -%]</a>)
     </div>
 [%- END -%]
-[%- page.body -%]
+[%- page.content -%]
 [%- IF page.version -%]
     <div class="wikidocs-footer">
         [%- l("This {doclink1|WikiDocs page} is based on revision #{doclink2|version} of {doclink3|title}", 

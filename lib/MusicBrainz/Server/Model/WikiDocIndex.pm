@@ -1,49 +1,14 @@
-package MusicBrainz::Server::Entity::WikiDoc;
+package MusicBrainz::Server::Model::WikiDocIndex;
 
-use Moose;
+use base 'MusicBrainz::Server::ModelFactory';
 
-has 'result' => (
-    is => 'rw',
-    isa => 'Int'
-);
+__PACKAGE__->config(class => 'MusicBrainz::Server::Data::WikiDocIndex');
 
-sub success
-{
-    return $_[0]->result == 200;
-};
-
-has 'status' => (
-    is => 'rw',
-    isa => 'Str'
-);
-
-has 'body' => (
-    is => 'rw',
-    isa => 'Str'
-);
-
-has 'id' => (
-    is => 'rw',
-    isa => 'Str',
-);
-
-has 'title' => (
-    is => 'rw',
-    isa => 'Str',
-);
-
-has 'version' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-__PACKAGE__->meta->make_immutable;
-no Moose;
 1;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2009 Robert Kaye
+Copyright (C) 2009 Lukas Lalinsky
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

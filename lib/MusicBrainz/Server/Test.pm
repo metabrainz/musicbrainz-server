@@ -6,6 +6,7 @@ use MusicBrainz::Server::CacheManager;
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Database;
 use MusicBrainz::Server::Data::Edit;
+use MusicBrainz::Server::Replication ':replication_type';
 use Sql;
 
 MusicBrainz::Server::Database->profile("test");
@@ -69,6 +70,7 @@ sub prepare_test_server
 {
     no warnings 'redefine';
     *DBDefs::_RUNNING_TESTS = sub { 1 };
+    *DBDefs::REPLICATION_TYPE = sub { RT_STANDALONE };
 }
 
 sub get_latest_edit
