@@ -120,6 +120,7 @@ has 'labels' => (
         elements => 'all_labels',
         push => 'add_label',
         clear => 'clear_labels',
+        count => 'label_count',
     }
 );
 

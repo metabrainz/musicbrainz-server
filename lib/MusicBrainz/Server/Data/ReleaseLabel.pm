@@ -103,6 +103,14 @@ sub update
     $sql->Update('release_label', $row, { id => $id });
 }
 
+sub delete
+{
+    my ($self, @release_label_ids) = @_;
+    my $sql = Sql->new($self->c->dbh);
+    my $query = 'DELETE FROM release_label WHERE id IN (' . placeholders(@release_label_ids) . ')';
+    $sql->Do($query, @release_label_ids);
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
