@@ -84,12 +84,12 @@ MusicBrainz.editor = {
 /**
  * @description Initialize initial page-load functionality.
  */
-($(function ($) {
+$(function ($) {
+    var mbEditor = MusicBrainz.editor,
+        sidebar = mbEditor.sidebar;
     if (typeof notLive === 'undefined') { // Prevent self-initiation when loaded for unit-tests.
-        var mbEditor = MusicBrainz.editor,
-            sidebar = mbEditor.sidebar;
         mbEditor.$cache.init($);
         sidebar.init($);
         sidebar.events.showEditFieldsOnClick($);
     }
-}));
+});
