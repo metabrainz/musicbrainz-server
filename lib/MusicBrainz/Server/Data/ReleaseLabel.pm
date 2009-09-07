@@ -4,6 +4,7 @@ use Moose;
 use MusicBrainz::Server::Entity::ReleaseLabel;
 use MusicBrainz::Server::Data::Release;
 use MusicBrainz::Server::Data::Utils qw(
+    hash_to_row
     placeholders
     query_to_list
     query_to_list_limited
@@ -89,6 +90,17 @@ sub merge_releases
     my $sql = Sql->new($self->c->dbh);
     $sql->Do('UPDATE release_label SET release = ?
               WHERE release IN ('.placeholders(@old_ids).')', $new_id, @old_ids);
+}
+
+sub update
+{
+    my ($self, $id, $edit_hash) = @_;
+    my $row = hash_to_row($edit_hash, {
+        catno => 'catalog_number',
+        label => 'label_id',
+    });
+    my $sql = Sql->new($self->c->dbh);
+    $sql->Update('release_label', $row, { id => $id });
 }
 
 __PACKAGE__->meta->make_immutable;
