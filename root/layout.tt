@@ -6,7 +6,6 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>[% title %][% " - " IF title %]MusicBrainz.org</title>
         <link rel="stylesheet" type="text/css" href="/static/main.css" />
-        <link rel="stylesheet" type="text/css" href="/static/styles/extra/scripts.css" />
         [% extra_js = extra_js _ ' ' _ scripts_js %]
         [% extra_css = extra_css _ ' ' _ scripts_css %]
         [%- page = {
