@@ -618,3 +618,7 @@ dl.properties dd,
 dl.properties dt {
     line-height: 200%;
 }
+
+span.mp {
+    background: #FFFFCC;
+}

@@ -1,0 +1,18 @@
+[%- WRAPPER 'layout.tt' title=l('Delete Relationship') full_width=1 -%]
+
+    <h1>[% l('Delete Relationship') %]</h1>
+
+    <p>
+        [%- l('Are you sure you wish to remove the relationship between {entity0} and {entity1} from MusicBrainz?', {
+                entity0 => link_entity(relationship.entity0),
+                entity1 => link_entity(relationship.entity1),
+            }) -%]
+    </p>
+
+    <form action="[% c.req.uri %]" method="post">
+        [%- USE r = FormRenderer(form) -%]
+        [%- INCLUDE 'forms/edit-note.tt' -%]
+        [%- form_submit(l('Delete')) -%]
+    </form>
+
+[%- END -%]

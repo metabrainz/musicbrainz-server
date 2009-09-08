@@ -15,21 +15,14 @@ role {
 
     requires '_dbh';
 
-    method 'inc_edits_pending' => sub
+    method 'adjust_edit_pending' => sub
     {
-        my ($self, @ids) = @_;
+        my ($self, $adjust, @ids) = @_;
         my $sql = Sql->new($self->_dbh);
-        my $query = "UPDATE $table SET editpending = editpending + 1 WHERE id IN (" . placeholders(@ids) . ")";
-        $sql->Do($query, @ids);
+        my $query = "UPDATE $table SET editpending = editpending + ? WHERE id IN (" . placeholders(@ids) . ")";
+        $sql->Do($query, $adjust, @ids);
     };
 
-    method 'dec_edits_pending' => sub
-    {
-        my ($self, @ids) = @_;
-        my $sql = Sql->new($self->_dbh);
-        my $query = "UPDATE $table SET editpending = editpending - 1 WHERE id IN (" . placeholders(@ids) . ")";
-        $sql->Do($query, @ids);
-    };
 };
 
 no Moose::Role;

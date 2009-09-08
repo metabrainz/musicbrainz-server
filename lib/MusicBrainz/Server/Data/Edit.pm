@@ -38,6 +38,7 @@ sub _new_from_row
     my $data = XMLin($row->{data}, SuppressEmpty => undef, KeyAttr => [], $class->_xml_arguments);
 
     my $edit = $class->new(
+        c => $self->c,
         id => $row->{id},
         yes_votes => $row->{yesvotes},
         no_votes => $row->{novotes},
@@ -150,22 +151,15 @@ sub create
         $edit->id($edit_id);
 
         my $ents = $edit->related_entities;
-        while (my ($type, $ids) = each %$ents){
+        while (my ($type, $ids) = each %$ents) {
             my $query = "INSERT INTO edit_$type (edit, $type) VALUES ";
             $query .= join ", ", ("(?, ?)") x @$ids;
             my @all_ids = ($edit_id) x @$ids;
             $sql_raw->Do($query, zip @all_ids, @$ids); 
         }
 
-        if ($edit->is_open)
-        {
-            my $to_inc = $edit->alter_edit_pending;
-            while( my ($model_name, $ids) = each %$to_inc) {
-                my $model = $self->c->model($model_name);
-                $model->does('MusicBrainz::Server::Data::Editable')
-                    or croak "Model must do MusicBrainz::Server::Data::Editable";
-                $model->inc_edits_pending(@$ids);
-            }
+        if ($edit->is_open) {
+            $edit->adjust_edit_pending(+1);
         }
     }, $sql, $sql_raw);
 
@@ -213,14 +207,7 @@ sub _close
         my $status = &$close_sub($edit);
         my $query = "UPDATE edit SET status = ? WHERE id = ?";
         $sql_raw->Do($query, $status, $edit->id);
-
-        my $to_dec = $edit->alter_edit_pending;
-        while( my ($model_name, $ids) = each %$to_dec) {
-            my $model = $self->c->model($model_name);
-            $model->does('MusicBrainz::Server::Data::Editable')
-                or croak "Model must do MusicBrainz::Server::Data::Editable";
-            $model->dec_edits_pending(@$ids);
-        }
+        $edit->adjust_edit_pending(-1);
     }, $sql, $sql_raw);
 }
 

@@ -64,8 +64,13 @@ Readonly our $EDIT_TRACK_EDIT => 62;
 
 Readonly our $EDIT_RECORDING_ADD_ANNOTATION => 75;
 
+
 Readonly our $EDIT_TRACKLIST_ADDTRACK => 85;
 Readonly our $EDIT_TRACKLIST_DELETETRACK => 86;
+
+Readonly our $EDIT_RELATIONSHIP_CREATE => 90;
+Readonly our $EDIT_RELATIONSHIP_EDIT => 91;
+Readonly our $EDIT_RELATIONSHIP_DELETE => 92;
 
 =head1 NAME
 

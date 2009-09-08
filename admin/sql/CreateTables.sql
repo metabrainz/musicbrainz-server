@@ -25,7 +25,7 @@ CREATE TABLE artist (
     country             INTEGER, -- references country.id
     gender              INTEGER, -- references gender.id
     comment             VARCHAR(255),
-    editpending         INTEGER DEFAULT 0
+    editpending         INTEGER NOT NULL DEFAULT 0
 );
 
 CREATE TABLE artist_alias
@@ -33,7 +33,7 @@ CREATE TABLE artist_alias
     id                  SERIAL,
     artist              INTEGER NOT NULL, -- references artist.id
     name                INTEGER NOT NULL, -- references artist_name.id
-    editpending         INTEGER DEFAULT 0
+    editpending         INTEGER NOT NULL DEFAULT 0
 );
 
 CREATE TABLE artist_annotation
@@ -209,7 +209,7 @@ CREATE TABLE isrc
     recording           INTEGER NOT NULL, -- references recording.id
     isrc                CHAR(12) NOT NULL,
     source              SMALLINT,
-    editpending         INTEGER DEFAULT 0
+    editpending         INTEGER NOT NULL DEFAULT 0
 );
 
 CREATE TABLE historicalstat
@@ -487,7 +487,7 @@ CREATE TABLE label (
     type                INTEGER, -- references label_type.id
     country             INTEGER, -- references country.id
     comment             VARCHAR(255),
-    editpending         INTEGER DEFAULT 0
+    editpending         INTEGER NOT NULL DEFAULT 0
 );
 
 CREATE TABLE label_alias
@@ -495,7 +495,7 @@ CREATE TABLE label_alias
     id                  SERIAL,
     label               INTEGER NOT NULL, -- references label.id
     name                INTEGER NOT NULL, -- references label_name.id
-    editpending         INTEGER DEFAULT 0
+    editpending         INTEGER NOT NULL DEFAULT 0
 );
 
 CREATE TABLE label_annotation
@@ -648,7 +648,7 @@ CREATE TABLE recording (
     artist_credit       INTEGER NOT NULL, -- references artist_credit.id
     length              INTEGER,
     comment             VARCHAR(255),
-    editpending         INTEGER DEFAULT 0
+    editpending         INTEGER NOT NULL DEFAULT 0
 );
 
 CREATE TABLE recording_annotation
@@ -676,7 +676,7 @@ CREATE TABLE recording_puid
     id                  SERIAL,
     puid                INTEGER NOT NULL, -- references puid.id
     recording           INTEGER NOT NULL, -- references recording.id
-    editpending         INTEGER DEFAULT 0
+    editpending         INTEGER NOT NULL DEFAULT 0
 );
 
 CREATE TABLE recording_tag
@@ -702,7 +702,7 @@ CREATE TABLE release (
     date_day            SMALLINT,
     barcode             VARCHAR(255),
     comment             VARCHAR(255),
-    editpending         INTEGER DEFAULT 0
+    editpending         INTEGER NOT NULL DEFAULT 0
 );
 
 CREATE TABLE release_annotation
@@ -754,7 +754,7 @@ CREATE TABLE release_group (
     artist_credit       INTEGER NOT NULL, -- references artist_credit.id
     type                INTEGER, -- references release_group_type.id
     comment             VARCHAR(255),
-    editpending         INTEGER DEFAULT 0
+    editpending         INTEGER NOT NULL DEFAULT 0
 );
 
 CREATE TABLE release_group_annotation
@@ -873,7 +873,7 @@ CREATE TABLE work (
     type                INTEGER, -- references work_type.id
     iswc                CHAR(15),
     comment             VARCHAR(255),
-    editpending         INTEGER DEFAULT 0
+    editpending         INTEGER NOT NULL DEFAULT 0
 );
 
 CREATE TABLE work_annotation
