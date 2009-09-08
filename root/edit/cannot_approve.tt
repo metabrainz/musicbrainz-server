@@ -1,0 +1,3 @@
+[% WRAPPER 'layout.tt' full_width=1 %]
+    <p>[% l('Sorry, but do you not have sufficient privileges to approve this edit') %]</p>
+[% END %]

@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 use strict;
 use warnings;
-use Test::More tests => 32;
+use Test::More;
 
 BEGIN { use_ok 'MusicBrainz::Server::Data::Edit' };
 
@@ -17,36 +17,9 @@ use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
 use MusicBrainz::Server::Types qw( :edit_status );
 
-my $raw_sql = <<'RAWSQL';
-SET client_min_messages TO 'warning';
-TRUNCATE edit CASCADE;
-TRUNCATE edit_artist CASCADE;
-
-INSERT INTO edit (id, editor, type, status, data, expiretime)
-    VALUES (1, 1, 123, 1, '<d><key>value</key></d>', NOW());
-
-INSERT INTO edit (id, editor, type, status, data, expiretime)
-    VALUES (2, 1, 123, 2, '<d><key>value</key></d>', NOW());
-
-INSERT INTO edit (id, editor, type, status, data, expiretime)
-    VALUES (3, 2, 123, 1, '<d><key>value</key></d>', NOW());
-
-INSERT INTO edit (id, editor, type, status, data, expiretime)
-    VALUES (4, 2, 123, 2, '<d><key>value</key></d>', NOW());
-
-INSERT INTO edit (id, editor, type, status, data, expiretime)
-    VALUES (5, 3, 123, 1, '<d><key>value</key></d>', NOW());
-
-INSERT INTO edit_artist (edit, artist) VALUES (1, 1);
-INSERT INTO edit_artist (edit, artist) VALUES (4, 1);
-INSERT INTO edit_artist (edit, artist) VALUES (4, 2);
-
-SELECT setval('edit_id_seq', (SELECT max(id) FROM edit));
-
-RAWSQL
-
 my $c = MusicBrainz::Server::Test->create_test_context();
-MusicBrainz::Server::Test->prepare_raw_test_database($c, $raw_sql);
+MusicBrainz::Server::Test->prepare_test_database($c, '+editor');
+MusicBrainz::Server::Test->prepare_raw_test_database($c, '+edit');
 my $edit_data = MusicBrainz::Server::Data::Edit->new(c => $c);
 
 # Find all edits
@@ -69,14 +42,15 @@ is($edits->[2]->id, 1);
 ($edits, $hits) = $edit_data->find({ editor => 1 }, 10, 0);
 is($hits, 2);
 is(scalar @$edits, 2);
-is($edits->[0]->id, 2);
+is($edits->[0]->id, 3);
 is($edits->[1]->id, 1);
 
 # Find edits by a specific editor with a certain status
-($edits, $hits) = $edit_data->find({ editor => 2, status => $STATUS_OPEN }, 10, 0);
-is($hits, 1);
-is(scalar @$edits, 1);
+($edits, $hits) = $edit_data->find({ editor => 1, status => $STATUS_OPEN }, 10, 0);
+is($hits, 2);
+is(scalar @$edits, 2);
 is($edits->[0]->id, 3);
+is($edits->[1]->id, 1);
 
 # Find edits with 0 results
 ($edits, $hits) = $edit_data->find({ editor => 122 }, 10, 0);
@@ -100,3 +74,19 @@ is($edits->[0]->id, 4);
 is($hits, 1);
 is(scalar @$edits, 1);
 is($edits->[0]->id, 4);
+
+# Test accepting edits 
+my $edit = $edit_data->get_by_id(1);
+$edit_data->accept($edit);
+
+my $editor = $c->model('Editor')->get_by_id($edit->editor_id);
+is($editor->accepted_edits, 13);
+
+# Test rejecting edits
+$edit = $edit_data->get_by_id(3);
+$edit_data->reject($edit);
+
+$editor = $c->model('Editor')->get_by_id($edit->editor_id);
+is($editor->rejected_edits, 3);
+
+done_testing;

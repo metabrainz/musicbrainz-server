@@ -1,9 +1,11 @@
 #!/usr/bin/perl
 use strict;
-use Test::More tests => 31;
+use Test::More;
 use DateTime;
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
+use MusicBrainz::Server::Types qw( $STATUS_FAILEDVOTE $STATUS_APPLIED $STATUS_ERROR );
+use Sql;
 
 BEGIN { use_ok 'MusicBrainz::Server::Data::Editor'; }
 
@@ -36,6 +38,20 @@ is_deeply($editor->registration_date, DateTime->new(year => 1989, month => 07, d
 
 my $editor2 = $editor_data->get_by_name('new_editor');
 is_deeply($editor, $editor2);
+
+# Test crediting
+Sql::RunInTransaction(sub {
+        $editor_data->credit($editor->id, $STATUS_APPLIED);
+        $editor_data->credit($editor->id, $STATUS_APPLIED, 1);
+        $editor_data->credit($editor->id, $STATUS_FAILEDVOTE);
+        $editor_data->credit($editor->id, $STATUS_ERROR);
+    }, Sql->new($c->dbh));
+
+$editor = $editor_data->get_by_id($editor->id);
+is($editor->accepted_edits, 13);
+is($editor->rejected_edits, 3);
+is($editor->failed_edits, 10);
+is($editor->accepted_auto_edits, 60);
 
 # Test preferences
 is($editor->preferences->public_ratings, 1, 'use default preference');
@@ -72,3 +88,5 @@ is($editor->password, 'password2');
 my @editors = $editor_data->find_by_email('editor@example.com');
 is(scalar(@editors), 1);
 is($editors[0]->id, $new_editor_2->id);
+
+done_testing;

@@ -1,0 +1,3 @@
+[% WRAPPER 'layout.tt' full_width=1 %]
+    <p>[% l('As some editors have voted against this edit, you must leave an edit note before you can approve the edit') %]</p>
+[% END %]

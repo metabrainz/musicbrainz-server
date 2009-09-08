@@ -17,10 +17,23 @@
                                 INCLUDE "edit/details/${edit_template}.tt" %]
                         </td>
                         <td class="vote-actions">
-                            [% edit.yes_votes %] 
+                            <p>[% edit.yes_votes %] 
                             [% l('yes') %] :
                             [% edit.no_votes %] 
-                            [% l('no') %]
+                            [% l('no') %]</p>
+
+                            [% IF edit.is_open %]
+                            <p>
+                                [% IF edit.can_approve(c.user.privileges) %]
+                                    <a href="[% c.uri_for_action('edit/approve', [ edit.id ], { url=c.req.uri }) %]">
+                                        [% l('Approve') %]</a>
+                                [% END %]
+                                [% IF c.user.id == edit.editor_id %]
+                                    <a href="[% c.uri_for_action('edit/cancel', [ edit.id ], { url=c.req.uri }) %]">
+                                        [% l('Cancel') %]</a>
+                                [% END %]
+                            </p>
+                            [% END %]
                             
                             [% INCLUDE 'edit/vote.tt' n=loop.index %]
                         </td>

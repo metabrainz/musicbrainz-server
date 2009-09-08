@@ -18,10 +18,13 @@ our %EXPORT_TAGS = (
             $STATUS_FAILEDDEP $STATUS_ERROR       $STATUS_FAILEDPREREQ
             $STATUS_NOVOTES   $STATUS_TOBEDELETED $STATUS_DELETED )
     ],
+    privileges => [
+        qw( $AUTO_EDITOR_FLAG         $BOT_FLAG           $UNTRUSTED_FLAG
+            $RELATIONSHIP_EDITOR_FLAG $DONT_NAG_FLAG      $WIKI_TRANSCLUSION_FLAG
+            $MBID_SUBMITTER_FLAG      $ACCOUNT_ADMIN_FLAG )
+      ],
 );
-Exporter::export_ok_tags('election_status');
-Exporter::export_ok_tags('vote');
-Exporter::export_ok_tags('edit_status');
+Exporter::export_ok_tags($_) for qw( election_status vote edit_status privileges );
 
 use DateTime::Format::Pg;
 use Readonly;
@@ -48,6 +51,15 @@ Readonly our $STATUS_FAILEDPREREQ => 6;
 Readonly our $STATUS_NOVOTES      => 7;
 Readonly our $STATUS_TOBEDELETED  => 8;
 Readonly our $STATUS_DELETED      => 9;
+
+Readonly our $AUTO_EDITOR_FLAG         => 1;
+Readonly our $BOT_FLAG                 => 2;
+Readonly our $UNTRUSTED_FLAG           => 4;
+Readonly our $RELATIONSHIP_EDITOR_FLAG => 8;
+Readonly our $DONT_NAG_FLAG            => 16;
+Readonly our $WIKI_TRANSCLUSION_FLAG   => 32;
+Readonly our $MBID_SUBMITTER_FLAG      => 64;
+Readonly our $ACCOUNT_ADMIN_FLAG       => 128;
 
 subtype 'DateTime'
     => class_type 'DateTime';

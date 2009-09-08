@@ -2,18 +2,7 @@ package MusicBrainz::Server::Entity::Editor;
 use Moose;
 
 use MusicBrainz::Server::Entity::Preferences;
-use MusicBrainz::Server::Types;
-
-use Readonly;
-
-Readonly my $AUTO_EDITOR_FLAG         => 1;
-Readonly my $BOT_FLAG                 => 2;
-Readonly my $UNTRUSTED_FLAG           => 4;
-Readonly my $RELATIONSHIP_EDITOR_FLAG => 8;
-Readonly my $DONT_NAG_FLAG            => 16;
-Readonly my $WIKI_TRANSCLUSION_FLAG   => 32;
-Readonly my $MBID_SUBMITTER_FLAG      => 64;
-Readonly my $ACCOUNT_ADMIN_FLAG       => 128;
+use MusicBrainz::Server::Types qw( :privileges );
 
 extends 'MusicBrainz::Server::Entity::Entity';
 

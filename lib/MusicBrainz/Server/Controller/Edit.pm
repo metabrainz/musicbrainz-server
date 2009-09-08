@@ -91,108 +91,44 @@ sub enter_votes : Local RequireAuth
     $c->detach;
 }
 
-=head2 approve
-
-Approve action for staging servers (not available on master servers).
-
-=cut
-
-sub approve : Chained('moderation')
+sub approve : Chained('load') RequireAuth(auto_editor)
 {
     my ($self, $c) = @_;
 
-    $c->forward('/user/login');
+    my $edit = $c->stash->{edit};
+    if (!$edit->can_approve($c->user->privileges)) {
+        $c->stash( template => 'edit/cannot_approve.tt' );
+        $c->detach;
+    }
 
-    die "Approve is only available on test servers"
-        unless DBDefs::REPLICATION_TYPE eq MusicBrainz::Server::Replication::RT_STANDALONE;
+    if($edit->no_votes > 0) {
+        $c->model('EditNote')->load($edit);
+        my $left_note;
+        for my $note (@{ $edit->edit_notes }) {
+            next if $note->editor_id != $c->user->id;
+            $left_note = 1;
+            last;
+        }
 
-    my $moderation = $c->stash->{moderation};
+        unless($left_note) {
+            $c->stash( template => 'edit/require_note.tt' );
+            $c->detach;
+        };
+    }
 
-    my $vertmb = new MusicBrainz;
-    $vertmb->Login(db => 'RAWDATA');
-
-    my $vertsql = Sql->new($vertmb->{dbh});
-    my $sql     = Sql->new($c->mb->{dbh});
-
-    $sql->Begin;
-    $vertsql->Begin;
-
-    $Moderation::DBConnections{READWRITE} = $sql;
-    $Moderation::DBConnections{RAWDATA} = $vertsql;
-
-    my $status = $moderation->ApprovedAction;
-    $moderation->status($status);
-
-    my $user = $moderation->moderator;
-    $user->CreditModerator($user->id, $status);
-
-    $moderation->CloseModeration($status);
-
-    delete $Moderation::DBConnections{READWRITE};
-    delete $Moderation::DBConnections{RAWDATA};
-
-    $vertsql->Commit;
-    $sql->Commit;
-
-    # Reload moderation
-    $moderation = $c->model('Moderation')->load($moderation->id);
-    $c->stash->{moderation} = $moderation;
-
-    $c->flash->{ok} = "Moderation approved";
-
-    $c->forward('show');
+    $c->model('Edit')->accept($edit);
+    $c->response->redirect($c->req->query_params->{url} || $c->uri_for_action('/edit/open_edits'));
 }
 
-=head2 reject
-
-Reject action for staging servers (not available on master servers).
-
-=cut
-
-sub reject : Chained('moderation')
+sub cancel : Chained('load') RequireAuth
 {
     my ($self, $c) = @_;
 
-    $c->forward('/user/login');
+    my $edit = $c->stash->{edit};
+    $c->model('Edit')->cancel($edit) if $edit->editor_id == $c->user->id;
 
-    die "Reject is only available on test servers"
-        unless DBDefs::REPLICATION_TYPE eq MusicBrainz::Server::Replication::RT_STANDALONE;
-
-    my $moderation = $c->stash->{moderation};
-
-    my $vertmb = new MusicBrainz;
-    $vertmb->Login(db => 'RAWDATA');
-
-    my $vertsql = Sql->new($vertmb->{dbh});
-    my $sql     = Sql->new($c->mb->{dbh});
-
-    $sql->Begin;
-    $vertsql->Begin;
-
-    $Moderation::DBConnections{READWRITE} = $sql;
-    $Moderation::DBConnections{RAWDATA} = $vertsql;
-
-    my $status = $moderation->DeniedAction;
-    $moderation->status($status);
-
-    my $user = $c->model('User')->load({ id => $moderation->moderator });
-    $user->CreditModerator($moderation->moderator, $status);
-
-    $moderation->CloseModeration($status);
-
-    delete $Moderation::DBConnections{READWRITE};
-    delete $Moderation::DBConnections{RAWDATA};
-
-    $vertsql->Commit;
-    $sql->Commit;
-
-    # Reload moderation
-    $moderation = $c->model('Moderation')->load($moderation->id);
-    $c->stash->{moderation} = $moderation;
-
-    $c->flash->{ok} = "Moderation approved";
-
-    $c->forward('show');
+    $c->response->redirect($c->req->query_params->{url} || $c->uri_for_action('/edit/open_edits'));
+    $c->detach;
 }
 
 =head2 open

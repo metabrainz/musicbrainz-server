@@ -7,6 +7,7 @@ use MusicBrainz::Server::Data::Utils qw(
     load_subobjects
     query_to_list_limited
 );
+use MusicBrainz::Server::Types qw( $STATUS_FAILEDVOTE $STATUS_APPLIED );
 
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::SubscriptionRole' => {
@@ -182,6 +183,19 @@ sub save_preferences
         $editor->preferences(MusicBrainz::Server::Entity::Preferences->new(%$values));
 
     }, $sql);
+}
+
+sub credit
+{
+    my ($self, $editor_id, $status, $as_autoedit) = @_;
+    my $sql = Sql->new($self->c->dbh);
+    my $column;
+    $column = "editsrejected" if $status == $STATUS_FAILEDVOTE;
+    $column = "editsaccepted" if $status == $STATUS_APPLIED && !$as_autoedit;
+    $column = "autoeditsaccepted" if $status == $STATUS_APPLIED && $as_autoedit;
+    $column ||= "editsfailed";
+    my $query = "UPDATE editor SET $column = $column + 1 WHERE id = ?";
+    $sql->Do($query, $editor_id);
 }
 
 no Moose;

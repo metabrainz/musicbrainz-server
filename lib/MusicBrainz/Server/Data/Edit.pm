@@ -4,9 +4,10 @@ use Moose;
 use Carp qw( croak );
 use DateTime;
 use List::MoreUtils qw( uniq zip );
+use MusicBrainz::Server::Data::Editor;
 use MusicBrainz::Server::Edit;
 use MusicBrainz::Server::Edit::Exceptions;
-use MusicBrainz::Server::Types qw( $STATUS_APPLIED $STATUS_ERROR $STATUS_FAILEDVOTE );
+use MusicBrainz::Server::Types qw( :edit_status $AUTO_EDITOR_FLAG $UNTRUSTED_FLAG );
 use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list_limited );
 use XML::Simple;
 
@@ -20,7 +21,7 @@ sub _table
 sub _columns
 {
     return 'id, editor, opentime, expiretime, closetime, data, language, type,
-            yesvotes, novotes, autoedit';
+            yesvotes, novotes, autoedit, status';
 }
 
 sub _dbh
@@ -45,7 +46,9 @@ sub _new_from_row
         editor_id => $row->{editor},
         created_time => $row->{opentime},
         expires_time => $row->{expiretime},
-        auto_edit => $row->{autoedit}
+        auto_edit => $row->{autoedit},
+        status => $row->{status},
+        c => $self->c,
     );
     $edit->language_id($row->{language}) if $row->{language};
     $edit->restore($data);
@@ -121,11 +124,19 @@ sub create
 
     my $type = delete $opts{edit_type} or croak "edit_type required";
     my $editor_id = delete $opts{editor_id} or croak "editor_id required";
+    my $privs = $opts{privileges} || 0;
     my $class = MusicBrainz::Server::Edit->class_from_type($type)
         or die "Could not lookup edit type for $type";
 
     my $edit = $class->new( editor_id => $editor_id, c => $self->c );
     $edit->initialize(%opts);
+
+    my $level; # XXX Support quality levels
+    my $as_auto_edit = 0;
+    $as_auto_edit = 1 if (!$as_auto_edit && $edit->edit_auto_edit); 
+    $as_auto_edit = 1 if (!$as_auto_edit && ($privs & $AUTO_EDITOR_FLAG));
+    $as_auto_edit = 0 if ($privs & $UNTRUSTED_FLAG);
+    $edit->auto_edit($as_auto_edit);
     
     Sql::RunInTransaction(sub {
         $edit->insert;
@@ -135,6 +146,7 @@ sub create
         {
             my $st = $self->_do_accept($edit);
             $edit->status($st);
+            $self->c->model('Editor')->credit($edit->editor_id, $st, 1);
         };
 
         my $now = DateTime->now;
@@ -145,6 +157,7 @@ sub create
             type => $edit->edit_type,
             opentime => $now,
             expiretime => $now + $edit->edit_voting_period,
+            autoedit => $edit->auto_edit,
         };
 
         my $edit_id = $sql_raw->InsertRow('edit', $row, 'id');
@@ -177,14 +190,19 @@ sub load_all
 
 sub accept
 {
-    my ($self, $edit) = @_;
-    $self->_close($edit, sub { $self->_do_accept(shift) });
+    my ($self, $edit, $editor) = @_;
+    # XXX !defined $editor is a hack for the tests which do not pass an editor at all
+    if (!defined $editor || $edit->can_approve($editor->privileges))
+    {
+        $self->_close($edit, sub { $self->_do_accept(shift) });
+    }
 }
 
 sub _do_accept
 {
     my ($self, $edit) = @_;
     eval { $edit->accept };
+    warn $@ if $@;
     return $@ ? $STATUS_ERROR : $STATUS_APPLIED;
 }
 
@@ -194,20 +212,35 @@ sub reject
     $self->_close($edit, sub {
         my $edit = shift;
         eval { $edit->reject };
+        warn $@ if $@;
         return $@ ? $STATUS_ERROR : $STATUS_FAILEDVOTE;
    });
+}
+
+sub cancel
+{
+    my ($self, $edit) = @_;
+    return unless $edit->is_open;
+    my $sql_raw = Sql->new($self->c->raw_dbh);
+    Sql::RunInTransaction(sub {
+        my $query = "UPDATE edit SET status = ? WHERE id = ?";
+        $sql_raw->Do($query, $STATUS_TOBEDELETED, $edit->id);
+        $edit->adjust_edit_pending(-1);
+   }, $sql_raw);
 }
 
 sub _close
 {
     my ($self, $edit, $close_sub) = @_;
+    return unless $edit->is_open;
     my $sql = Sql->new($self->c->dbh);
     my $sql_raw = Sql->new($self->c->raw_dbh);
     Sql::RunInTransaction(sub {
         my $status = &$close_sub($edit);
-        my $query = "UPDATE edit SET status = ? WHERE id = ?";
+        my $query = "UPDATE edit SET status = ?, closetime = NOW() WHERE id = ?";
         $sql_raw->Do($query, $status, $edit->id);
         $edit->adjust_edit_pending(-1);
+        $self->c->model('Editor')->credit($edit->editor_id, $status);
     }, $sql, $sql_raw);
 }
 
