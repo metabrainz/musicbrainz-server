@@ -1,12 +1,8 @@
 package MusicBrainz::Server;
 
-use strict;
-use warnings;
+use Moose;
+BEGIN { extends 'Catalyst' }
 
-use Catalyst::Runtime '5.70';
-
-use Catalyst;
-use MRO::Compat;
 use DBDefs;
 use MusicBrainz;
 use MusicBrainz::Server::CacheManager;
@@ -131,12 +127,20 @@ if (&DBDefs::USE_ETAGS) {
 # Start the application
 __PACKAGE__->setup(@args);
 
-sub _setup_cache_manager
+has '_mb_cache_manager' => (
+    is => 'rw',
+    lazy => 1,
+    builder => '_build__mb_cache_manager'
+);
+
+has '_mb_context' => (
+    is => 'rw',
+    lazy_build => 1,
+    handles => [ 'mb', 'dbh', 'raw_mb', 'raw_dbh', 'cache' ]
+);
+
+sub _build__mb_cache_manager
 {
-    my $self = shift;
-
-    return if defined $self->{_mb_cache_manager};
-
     my $opts = &DBDefs::CACHE_MANAGER_OPTIONS;
     if (&DBDefs::_RUNNING_TESTS) {
         $opts = {
@@ -149,49 +153,24 @@ sub _setup_cache_manager
             default_profile => 'null',
         };
     }
-
-    $self->{_mb_cache_manager} = MusicBrainz::Server::CacheManager->new($opts);
+    return MusicBrainz::Server::CacheManager->new($opts);
 }
 
-sub dispatch
+sub _build__mb_context
 {
     my $self = shift;
-
-    $self->_setup_cache_manager();
-
-    $self->{_mb_context} = MusicBrainz::Server::Context->new(
-        cache_manager => $self->{_mb_cache_manager});
-
-    $self->maybe::next::method(@_);
-
-    $self->{_mb_context}->logout;
-    $self->{_mb_context} = undef;
+    return MusicBrainz::Server::Context->new(
+        cache_manager => $self->_mb_cache_manager);
 }
 
-sub cache {
+after 'dispatch' => sub
+{
     my $self = shift;
-    return $self->{_mb_context}->cache(@_);
-}
-
-sub mb {
-    my $self = shift;
-    return $self->{_mb_context}->mb;
-}
-
-sub dbh {
-    my $self = shift;
-    return $self->{_mb_context}->mb->dbh;
-}
-
-sub raw_mb {
-    my $self = shift;
-    return $self->{_mb_context}->raw_mb;
-}
-
-sub raw_dbh {
-    my $self = shift;
-    return $self->{_mb_context}->raw_mb->dbh;
-}
+    if ($self->_has_mb_context) {
+        $self->_mb_context->logout;
+        $self->_clear_mb_context;
+    }
+};
 
 =head2 form_posted
 

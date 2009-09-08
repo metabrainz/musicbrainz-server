@@ -14,11 +14,6 @@ use Locale::TextDomain q/mb_server/;
 
 our $VERSION = '0.01';
 
-sub setup {
-    my $self = shift;
-    $self->NEXT::setup(@_);
-}
-
 sub _set_language {
 
     my $c = shift;
