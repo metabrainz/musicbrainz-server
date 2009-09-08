@@ -31,7 +31,7 @@ sub _user_address
 
 sub _create_email
 {
-    my ($headers, $body) = @_;
+    my ($self, $headers, $body) = @_;
 
     return Email::MIME->create(
         header => $headers,
