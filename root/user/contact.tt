@@ -1,12 +1,29 @@
-[%- WRAPPER 'layout.tt' title=l("Send a message to {user}", {user => $user.name}) -%]
-    [%- WRAPPER 'components/box.tt' header=l("Email {user}", {user => $user.name}) -%]
-        [%- WRAPPER 'forms/form.tt' -%]
-            [%- user.name WRAPPER 'forms/row.tt' label='To' -%]
-            [% INCLUDE 'forms/generic/row.tt' field=form.field('subject') label=l('Subject') -%]
-            [% INCLUDE 'forms/generic/row.tt' field=form.field('body') label=l('Message') -%]
-            [% INCLUDE 'forms/generic/row.tt' field=form.field('reveal_address') label=l('Reveal my email address') -%]
-            [% INCLUDE 'forms/generic/row.tt' field=form.field('send_to_self') label=l('Send a copy to my own email address') -%]
-            [% INCLUDE 'forms/submit.tt' label=l('Send Message') -%]
-        [%- END -%]
-    [%- END -%]
+[%- WRAPPER 'layout.tt' title=l("Send Email") full_width=1 -%]
+
+    <h1>[% l('Send Email') %]</h1>
+
+    [%- USE r = FormRenderer(form) -%]
+
+    <form action="[% c.req.uri %]" method="post">
+        <p>
+            [% r.label('subject', l('Subject:')) %]
+            [% r.text('subject') %]
+            [% form_field_errors(form, 'subject') %]
+        </p>
+        <p>
+            [% r.label('body', l('Message:')) %]
+            [% r.textarea('body', { cols => 50, rows => 5 }) %]
+            [% form_field_errors(form, 'body') %]
+        </p>
+        <p class="no-label">
+            [% r.checkbox('reveal_address') %]
+            [% l('Reveal my email address') %]
+        </p>
+        <p class="no-label">
+            [% r.checkbox('send_to_self') %]
+            [% l('Send a copy to my own email address') %]
+        </p>
+        [% form_submit(l('Send')) %]
+    </form>
+
 [%- END -%]

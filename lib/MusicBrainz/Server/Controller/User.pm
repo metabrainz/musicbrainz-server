@@ -524,6 +524,17 @@ sub change_password : Path('/account/change-password') RequireAuth
     }
 }
 
+sub base : Chained PathPart('user') CaptureArgs(1)
+{
+    my ($self, $c, $editor_name) = @_;
+
+    my $editor = $c->model('Editor')->get_by_name($editor_name);
+    $c->detach('/error_404')
+        unless defined $editor;
+
+    $c->stash( user => $editor );
+}
+
 =head2 profile
 
 Display a users profile page.
@@ -593,57 +604,42 @@ Allows users to contact other users via email
 
 =cut
 
-sub contact : Local Args(1) Form
+sub contact : Chained('base') RequireAuth
 {
-    my ($self, $c, $user_name) = @_;
+    my ($self, $c) = @_;
 
-    $c->forward('login');
-
-    my $user = $c->model('User')->load({ username => $user_name });
-
-    if (!defined $user)
-    {
-        $c->response->status(404);
-        $c->error("User with user name $user_name not found");
+    my $editor = $c->stash->{user};
+    unless ($editor->email) {
+        $c->stash(
+            title    => $c->gettext('Send Email'),
+            message  => $c->gettext(
+                'The editor {name} has no email address attached to their account.',
+                { name => $editor->name }),
+            template => 'user/message.tt',
+        );
         $c->detach;
     }
 
-    unless ($user->CheckEMailAddress) {
-        die "User has not got an email address attached to their account";
+    if (exists $c->req->params->{sent}) {
+        $c->stash( template => 'user/email_sent.tt' );
+        $c->detach;
     }
 
-    $c->stash->{user} = $user;
+    my $form = $c->form( form => 'User::Contact' );
+    if ($c->form_posted && $form->process( params => $c->req->params )) {
 
-    return unless $self->submit_and_validate($c);
+        my $result = $c->model('Email')->send_message_to_editor(
+            from           => $c->user,
+            to             => $editor,
+            subject        => $form->value->{subject},
+            message        => $form->value->{body},
+            reveal_address => $form->value->{reveal_address},
+            send_to_self   => $form->value->{send_to_self},
+        );
 
-    my $form = $self->form;
-    my $reveal_address = $form->value('reveal_address');
-
-    $c->stash->{message}        = $form->value('body');
-    $c->stash->{reveal_address} = $reveal_address;
-    
-    $c->stash->{email} = {
-        to      => $user->email,
-        sender  => 'MusicBrainz Server <webserver@musicbrainz.org>',
-        subject => $form->value('subject'),
-        
-        template => 'email/internal_email.tt',
-    };
-
-    if ($reveal_address)
-    {
-        $c->stash->{email}->{from} = sprintf("%s <%s>", $c->user->name, $c->user->email);
+        $c->res->redirect($c->uri_for_action('/user/contact', [ $editor->name ], { sent => $result }));
+        $c->detach;
     }
-    else
-    {
-        $c->stash->{email}->{header} = {
-            'Reply-To' => 'Nobody <noreply@musicbrainz.org>',
-        };
-        $c->stash->{email}->{from} = sprintf('%s <%s@users.musicbrainz.org>', $c->user->name, $c->user->name);
-    }
-    
-    $c->forward($c->view('Email::Template'));
-    $c->stash->{template} = 'user/email_sent.tt';
 }
 
 =head2 subscriptions

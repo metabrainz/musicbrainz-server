@@ -35,6 +35,19 @@
         ] %]
         [% piped_link_list(editing_options) WRAPPER property name=l("Editing") %]
 
+        [% UNLESS viewing_own_profile %]
+            [% contact_link_list = [] %]
+            [% contact_link_list.push({ link => c.uri_for_action('/user/contact', [ user.name ]), text => l("Send email") })
+                IF user.email %]
+            [% contact_link_list.push({ link => c.uri_for_action('/user/contact', [ user.name ]), text => l("Nominate for autoeditor") })
+                IF c.user.is_auto_editor && !user.is_auto_editor %]
+            [% IF contact_link_list.size %]
+                [% WRAPPER property name=l("Contact") %]
+                    [% piped_link_list(contact_link_list) %]
+                [% END %]
+            [% END %]
+        [% END %]
+
         [% html_escape(user.name) WRAPPER property name=l("Name") %]
 
         [% WRAPPER property name=l("Email") %]
@@ -81,14 +94,6 @@
 
         [% WRAPPER property name=l("Bio") %]
             [% html_escape(user.biography or l("(none)")).split("\n").join("<br />") %]
-        [% END %]
-
-        [% UNLESS viewing_own_profile %]
-            [% WRAPPER property name=l("Contact") %]
-                <a href="[% c.uri_for('/user/contact', user.name) %]">
-                    [% l('Send email') %]
-                </a>
-            [% END %]
         [% END %]
 
         [% WRAPPER property name=l("Subscriptions") %]

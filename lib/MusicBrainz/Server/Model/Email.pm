@@ -1,28 +1,8 @@
-package MusicBrainz::Server::Form::User::Contact;
+package MusicBrainz::Server::Model::Email;
 
-use HTML::FormHandler::Moose;
+use base 'MusicBrainz::Server::ModelFactory';
 
-extends 'MusicBrainz::Server::Form';
-
-has '+name' => ( default => 'contact' );
-
-has_field 'subject' => (
-    type => 'Text',
-    required => 1,
-);
-
-has_field 'body' => (
-    type => 'Text',
-    required => 1,
-);
-
-has_field 'reveal_address' => (
-    type => 'Boolean',
-);
-
-has_field 'send_to_self' => (
-    type => 'Boolean',
-);
+__PACKAGE__->config(class => 'MusicBrainz::Server::Email');
 
 1;
 

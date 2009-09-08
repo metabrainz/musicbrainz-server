@@ -1,7 +1,9 @@
-[%- WRAPPER 'layout.tt' title=l('Email Sent') -%]
-    [% WRAPPER 'components/box.tt' header=l('Email Sent') %]
-        <p>
-            [% l('Your email has been successfully sent!') %]
-        </p>
-    [% END %]
+[%- WRAPPER 'layout.tt' title=l('Email Sent') full_width=1 -%]
+
+    <h1>[% l('Email Sent') %]</h1>
+
+    <p>[% l("Your email has been successfully sent! Click {link|here} to continue to {user}'s profile.",
+            { link => c.uri_for_action('/user/profile', user.name),
+              user => user.name }) %]</p>
+
 [%- END -%]
