@@ -21,7 +21,6 @@ requires 'Catalyst::Plugin::Session::Store::FastMmap'  => '0.07';
 requires 'Catalyst::Plugin::StackTrace'                => '0.09';
 requires 'Catalyst::Plugin::Static::Simple'            => '0.21';
 requires 'Catalyst::Runtime'                           => '5.80007';
-requires 'Catalyst::View::Email'                       => '0.13';
 requires 'Catalyst::View::TT'                          => '0.29';
 requires 'Data::Page'                                  => '2.01';
 requires 'Date::Calc'                                  => '5.4';

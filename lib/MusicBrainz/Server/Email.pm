@@ -15,6 +15,9 @@ has 'c' => (
 );
 
 Readonly my $NOREPLY_ADDRESS => 'MusicBrainz Server <noreply@musicbrainz.org>';
+Readonly my $SUPPORT_ADDRESS => 'MusicBrainz <support@musicbrainz.org>';
+
+our $test_transport = undef;
 
 sub _user_address
 {
@@ -100,11 +103,125 @@ EOS
     return $self->_create_email(\@headers, $body);
 }
 
+sub _create_email_verification_email
+{
+    my ($self, %opts) = @_;
+
+    my @headers = (
+        'To'       => $opts{email},
+        'From'     => $NOREPLY_ADDRESS,
+        'Reply-To' => $SUPPORT_ADDRESS,
+        'Subject'  => 'Please verify your email address',
+    );
+
+    my $verification_link = $opts{verification_link};
+
+    my $body = <<EOS;
+This is the a verification email for your MusicBrainz account. Please click
+on the link below to verify your email address:
+
+$verification_link
+
+If clicking the link directly does not work, you may need to manually cut
+and paste the link into the location bar of your preferred web browser.
+
+Thanks for using MusicBrainz!
+
+-- The MusicBrainz Team
+EOS
+
+    return $self->_create_email(\@headers, $body);
+}
+
+sub _create_lost_username_email
+{
+    my ($self, %opts) = @_;
+
+    my @headers = (
+        'To'       => _user_address($opts{user}),
+        'From'     => $NOREPLY_ADDRESS,
+        'Reply-To' => $SUPPORT_ADDRESS,
+        'Subject'  => 'Lost username',
+    );
+
+    my $user_name = $opts{user}->name;
+    my $lost_password_url = sprintf "http://%s/lost-password", &DBDefs::WEB_SERVER;
+
+    my $body = <<EOS;
+Hello. Someone asked to look up the MusicBrainz account associated with the
+email address.
+
+Your MusicBrainz username is: $user_name
+
+If you have also forgotten your password, use the username and email address
+to reset your password here - $lost_password_url
+
+-- The MusicBrainz Team
+EOS
+
+    return $self->_create_email(\@headers, $body);
+}
+
+sub _create_password_reset_request_email
+{
+    my ($self, %opts) = @_;
+
+    my @headers = (
+        'To'       => _user_address($opts{user}),
+        'From'     => $NOREPLY_ADDRESS,
+        'Reply-To' => $SUPPORT_ADDRESS,
+        'Subject'  => 'Password reset request',
+    );
+
+    my $reset_password_link = $opts{reset_password_link};
+    my $contact_url = sprintf "http://%s/doc/Contact_Us", &DBDefs::WEB_SERVER;
+
+    my $body = <<EOS;
+Hello. Someone asked that your MusicBrainz password be reset.
+
+If you did ask to reset the password on your MusicBrainz account, please use
+this link:
+
+$reset_password_link
+
+If you still have problems logging in, please drop us a line - see
+$contact_url for details.
+
+-- The MusicBrainz Team
+EOS
+
+    return $self->_create_email(\@headers, $body);
+}
+
 sub send_message_to_editor
 {
     my ($self, %opts) = @_;
 
     my $email = $self->_create_message_to_editor_email(%opts);
+    return $self->_send_email($email);
+}
+
+sub send_email_verification
+{
+    my ($self, %opts) = @_;
+
+    my $email = $self->_create_email_verification_email(%opts);
+    return $self->_send_email($email);
+}
+
+sub send_lost_username
+{
+    my ($self, %opts) = @_;
+
+    my $email = $self->_create_lost_username_email(%opts);
+    return $self->_send_email($email);
+}
+
+sub send_password_reset_request
+{
+    my ($self, %opts) = @_;
+
+    my $email = $self->_create_password_reset_request_email(%opts);
     return $self->_send_email($email);
 }
 
@@ -114,13 +231,21 @@ has 'transport' => (
     builder => '_build_transport'
 );
 
+sub get_test_transport
+{
+    return $test_transport;
+}
+
 sub _build_transport
 {
     my ($self) = @_;
 
     if (&DBDefs::_RUNNING_TESTS) { # XXX shouldn't be here
-        use Email::Sender::Transport::Test;
-        return Email::Sender::Transport::Test->new();
+        if (!defined $test_transport) {
+            use Email::Sender::Transport::Test;
+            $test_transport = Email::Sender::Transport::Test->new();
+        }
+        return $test_transport;
     }
 
     use Email::Sender::Transport::SMTP;

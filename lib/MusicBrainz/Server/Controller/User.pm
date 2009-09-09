@@ -150,25 +150,17 @@ sub _send_confirmation_email
     my ($self, $c, $editor, $email) = @_;
 
     my $time = time();
-    $c->stash->{verification_link} = $c->uri_for_action('/user/verify_email', {
+    my $verification_link = $c->uri_for_action('/user/verify_email', {
         userid => $editor->id,
         email  => $email,
         time   => $time,
         chk    => $self->_checksum($email, $editor->id, $time),
     });
 
-    $c->stash->{email} = {
-        header => [
-            'Reply-To' => 'MusicBrainz Support <support@musicbrainz.org>',
-        ],
-        to           => $email,
-        from         => 'MusicBrainz <webserver@musicbrainz.org>',
-        subject      => 'Please verify your email address',
-        content_type => 'text/plain',
-        template     => 'email/confirm_address.tt',
-    };
-
-    $c->forward($c->view('Email::Template'));
+    $c->model('Email')->send_email_verification(
+        email             => $email,
+        verification_link => $verification_link,
+    );
 }
 
 sub _checksum
@@ -260,7 +252,6 @@ sub verify_email : Path('/verify-email')
     $c->stash->{template} = 'user/verified.tt';
 }
 
-
 sub _reset_password_checksum
 {
     my ($self, $id, $time) = @_;
@@ -272,32 +263,24 @@ sub _send_password_reset_email
     my ($self, $c, $editor) = @_;
 
     my $time = time();
-    $c->stash->{reset_password_link} = $c->uri_for_action('/user/reset_password', {
+    my $reset_password_link = $c->uri_for_action('/user/reset_password', {
         id => $editor->id,
         time => $time,
         key => $self->_reset_password_checksum($editor->id, $time),
     });
 
-    $c->stash->{email} = {
-        header => [
-            'Reply-To' => 'MusicBrainz Support <support@musicbrainz.org>',
-        ],
-        to           => $editor->email,
-        from         => 'MusicBrainz <webserver@musicbrainz.org>',
-        subject      => 'Password reset request',
-        content_type => 'text/plain',
-        template     => 'email/lost_password.tt',
-    };
-
-    $c->forward($c->view('Email::Template'));
+    $c->model('Email')->send_password_reset_request(
+        user                => $editor,
+        reset_password_link => $reset_password_link,
+    );
 }
 
 sub lost_password : Path('/lost-password')
 {
     my ($self, $c) = @_;
 
-    if (exists $c->request->params->{send}) {
-        $c->stash(template => 'user/reset_password_send.tt');
+    if (exists $c->request->params->{sent}) {
+        $c->stash(template => 'user/lost_password_sent.tt');
         $c->detach;
     }
 
@@ -394,33 +377,12 @@ sub reset_password : Path('/reset-password')
     $c->stash->{form} = $form;
 }
 
-
-sub _send_lost_username_email
-{
-    my ($self, $c, $editor) = @_;
-
-    $c->stash->{username} = $editor->name;
-
-    $c->stash->{email} = {
-        header => [
-            'Reply-To' => 'MusicBrainz Support <support@musicbrainz.org>',
-        ],
-        to           => $editor->email,
-        from         => 'MusicBrainz <webserver@musicbrainz.org>',
-        subject      => 'Lost username',
-        content_type => 'text/plain',
-        template     => 'email/lost_username.tt',
-    };
-
-    $c->forward($c->view('Email::Template'));
-}
-
 sub lost_username : Path('/lost-username')
 {
     my ($self, $c) = @_;
 
     if (exists $c->request->params->{sent}) {
-        $c->stash(template => 'user/lost_password_sent.tt');
+        $c->stash(template => 'user/lost_username_sent.tt');
         $c->detach;
     }
 
@@ -436,7 +398,7 @@ sub lost_username : Path('/lost-username')
         }
         else {
             foreach my $editor (@editors) {
-                $self->_send_lost_username_email($c, $editor);
+                $c->model('Email')->send_lost_username( user => $editor );
             }
             $c->response->redirect($c->uri_for_action('/user/lost_username',
                                                       { sent => 1}));

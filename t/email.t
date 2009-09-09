@@ -76,6 +76,81 @@ http://localhost/user/Editor\%201/contact to send editor
 'Editor 1' an e-mail.
 EOS
 
+$email->send_email_verification(
+    email => 'user@example.com',
+    verification_link => 'http://musicbrainz.org/verify-email',
+);
+
+is(scalar(@{$email->transport->deliveries}), 1);
+is($email->transport->deliveries->[0]->{envelope}->{from}, 'noreply@musicbrainz.org');
+$e = $email->transport->deliveries->[0]->{email};
+$email->transport->clear_deliveries;
+is($e->get_header('From'), 'MusicBrainz Server <noreply@musicbrainz.org>');
+is($e->get_header('To'), 'user@example.com');
+is($e->get_header('Subject'), 'Please verify your email address');
+compare_body($e->get_body, <<EOS);
+This is the a verification email for your MusicBrainz account. Please click
+on the link below to verify your email address:
+
+http://musicbrainz.org/verify-email
+
+If clicking the link directly does not work, you may need to manually cut
+and paste the link into the location bar of your preferred web browser.
+
+Thanks for using MusicBrainz!
+
+-- The MusicBrainz Team
+EOS
+
+$email->send_lost_username(
+    user => $user1,
+);
+
+is(scalar(@{$email->transport->deliveries}), 1);
+is($email->transport->deliveries->[0]->{envelope}->{from}, 'noreply@musicbrainz.org');
+$e = $email->transport->deliveries->[0]->{email};
+$email->transport->clear_deliveries;
+is($e->get_header('From'), 'MusicBrainz Server <noreply@musicbrainz.org>');
+is($e->get_header('To'), '"Editor 1" <foo@example.com>');
+is($e->get_header('Subject'), 'Lost username');
+compare_body($e->get_body, <<EOS);
+Hello. Someone asked to look up the MusicBrainz account associated with the
+email address.
+
+Your MusicBrainz username is: Editor 1
+
+If you have also forgotten your password, use the username and email address
+to reset your password here - http://localhost/lost-password
+
+-- The MusicBrainz Team
+EOS
+
+$email->send_password_reset_request(
+    user => $user1,
+    reset_password_link => 'http://musicbrainz.org/reset-password'
+);
+
+is(scalar(@{$email->transport->deliveries}), 1);
+is($email->transport->deliveries->[0]->{envelope}->{from}, 'noreply@musicbrainz.org');
+$e = $email->transport->deliveries->[0]->{email};
+$email->transport->clear_deliveries;
+is($e->get_header('From'), 'MusicBrainz Server <noreply@musicbrainz.org>');
+is($e->get_header('To'), '"Editor 1" <foo@example.com>');
+is($e->get_header('Subject'), 'Password reset request');
+compare_body($e->get_body, <<EOS);
+Hello. Someone asked that your MusicBrainz password be reset.
+
+If you did ask to reset the password on your MusicBrainz account, please use
+this link:
+
+http://musicbrainz.org/reset-password
+
+If you still have problems logging in, please drop us a line - see
+http://localhost/doc/Contact_Us for details.
+
+-- The MusicBrainz Team
+EOS
+
 done_testing;
 
 sub compare_body
