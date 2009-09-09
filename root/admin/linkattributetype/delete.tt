@@ -1,4 +1,4 @@
-[%- WRAPPER 'layout.tt' title=l('Delete Link Attribute Type') -%]
+[%- WRAPPER 'layout.tt' title=l('Delete Link Attribute Type') full_width=1 -%]
 
 <h1>[% l('Delete Link Attribute Type') %]</h1>
 
