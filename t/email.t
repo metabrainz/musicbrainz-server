@@ -151,6 +151,35 @@ http://localhost/doc/Contact_Us for details.
 -- The MusicBrainz Team
 EOS
 
+$email->send_first_no_vote(
+    editor => $user1,
+    voter => $user2,
+    edit_id => 1234,
+);
+
+is(scalar(@{$email->transport->deliveries}), 1);
+is($email->transport->deliveries->[0]->{envelope}->{from}, 'noreply@musicbrainz.org');
+$e = $email->transport->deliveries->[0]->{email};
+$email->transport->clear_deliveries;
+is($e->get_header('From'), 'MusicBrainz Server <noreply@musicbrainz.org>');
+is($e->get_header('To'), '"Editor 1" <foo@example.com>');
+is($e->get_header('References'), '<edit-1234@musicbrainz.org>');
+is($e->get_header('Subject'), 'Someone has voted against your edit');
+is($e->get_header('Reply-To'), 'MusicBrainz <support@musicbrainz.org>');
+compare_body($e->get_body, <<EOS);
+MusicBrainz editor 'Editor 2' has voted against your edit #1234.
+------------------------------------------------------------------------
+If you would like to respond to this vote, please add your note at:
+
+    http://localhost/edit/1234
+
+Please do not respond to this e-mail.
+
+This e-mail is only sent for the first vote against your edit, not for each
+one. If you would prefer not to receive these e-mails, please adjust your
+preferences accordingly at http://localhost/edit-preferences
+EOS
+
 done_testing;
 
 sub compare_body

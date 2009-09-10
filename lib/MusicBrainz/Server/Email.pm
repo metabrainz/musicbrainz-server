@@ -162,6 +162,42 @@ EOS
     return $self->_create_email(\@headers, $body);
 }
 
+sub _create_no_vote_email
+{
+    my ($self, %opts) = @_;
+
+    my $edit_id = $opts{edit_id} or die "Missing 'edit_id' argument";
+    my $voter = $opts{voter} or die "Missing 'voter' argument";
+    my $editor = $opts{editor} or die "Missing 'editor' argument";
+
+    my @headers = (
+        'To' => _user_address($opts{editor}),
+        'From' => $NOREPLY_ADDRESS,
+        'Reply-To' => $SUPPORT_ADDRESS,
+        'References' => sprintf('<edit-%d@musicbrainz.org>', $edit_id),
+        'Subject' => 'Someone has voted against your edit',
+    );
+
+    my $url = sprintf 'http://%s/edit/%d', &DBDefs::WEB_SERVER, $edit_id;
+    my $prefs_url = sprintf 'http://%s/account/preferences', &DBDefs::WEB_SERVER;
+
+    my $body = <<EOS;
+MusicBrainz editor '${\ $voter->name }' has voted against your edit #$edit_id.
+------------------------------------------------------------------------
+If you would like to respond to this vote, please add your note at:
+
+    $url
+
+Please do not respond to this e-mail.
+
+This e-mail is only sent for the first vote against your edit, not for each
+one. If you would prefer not to receive these e-mails, please adjust your
+preferences accordingly at $prefs_url
+EOS
+
+    return $self->_create_email(\@headers, $body);
+}
+
 sub _create_password_reset_request_email
 {
     my ($self, %opts) = @_;
@@ -191,6 +227,13 @@ $contact_url for details.
 EOS
 
     return $self->_create_email(\@headers, $body);
+}
+
+sub send_first_no_vote
+{
+    my $self = shift;
+    my $email = $self->_create_no_vote_email(@_);
+    return $self->_send_email($email);
 }
 
 sub send_message_to_editor
