@@ -4,11 +4,15 @@ use DBDefs;
 use MusicBrainz::Server::PagedReport;
 
 my @all = qw(
+    ArtistsThatMayBeGroups
+    ArtistsThatMayBePersons
     ISRCsWithManyRecordings
     NoLanguage
     NoScript
 );
 
+use MusicBrainz::Server::Report::ArtistsThatMayBeGroups;
+use MusicBrainz::Server::Report::ArtistsThatMayBePersons;
 use MusicBrainz::Server::Report::ISRCsWithManyRecordings;
 use MusicBrainz::Server::Report::NoLanguage;
 use MusicBrainz::Server::Report::NoScript;

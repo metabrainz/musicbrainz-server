@@ -1,0 +1,15 @@
+[%- WRAPPER 'layout.tt' title=l('Artists that may be persons') full_width=1 -%]
+
+<h1>[% l('Artists that may be persons') %]</h1>
+
+<ul>
+    <li>[% l('This report lists artists that are <em>unknown</em> or <em>group</em>,
+              but may be <em>person</em>, based on all advanced
+              relationships except "collaboration".') %]</li>
+    <li>[% l('Total artists found: {count}', { count => pager.total_entries }) %]</li>
+    <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
+</ul>
+
+[%- INCLUDE 'report/artist_list.tt' -%]
+
+[%- END -%]
