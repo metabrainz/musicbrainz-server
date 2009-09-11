@@ -1,14 +1,8 @@
 BEGIN;
 
 
-CREATE TABLE tmp_artist_credit (
-    id                  SERIAL,
-    artistcount         SMALLINT NOT NULL,
-    refcount            INTEGER DEFAULT 0
-);
-
-INSERT INTO tmp_artist_credit
-    SELECT n.id, n.artistcount, t.refcount
+SELECT n.id, n.artistcount, t.refcount
+    INTO TEMPORARY tmp_artist_credit
     FROM artist_credit n JOIN
         (
             SELECT artist_credit, count(*) AS refcount
@@ -22,9 +16,8 @@ INSERT INTO tmp_artist_credit
             GROUP BY artist_credit
         ) t ON t.artist_credit=n.id;
 
-DROP TABLE artist_credit;
-ALTER TABLE tmp_artist_credit RENAME TO artist_credit;
-ALTER TABLE tmp_artist_credit_id_seq RENAME TO artist_credit_id_seq;
+TRUNCATE artist_credit;
+INSERT INTO artist_credit SELECT * FROM tmp_artist_credit;
 
 SELECT * INTO TEMPORARY tmp_artist_credit_name
 FROM artist_credit_name WHERE
@@ -33,14 +26,8 @@ TRUNCATE artist_credit_name;
 INSERT INTO artist_credit_name SELECT * FROM tmp_artist_credit_name;
 
 
-CREATE TABLE tmp_label_name (
-    id                  SERIAL,
-    name                VARCHAR NOT NULL,
-    refcount            INTEGER DEFAULT 0
-);
-
-INSERT INTO tmp_label_name
-    SELECT n.id, n.name, t.refcount
+SELECT n.id, n.name, t.refcount
+    INTO TEMPORARY tmp_label_name
     FROM label_name n JOIN
         (
             SELECT tbl.name, count(*) AS refcount
@@ -52,19 +39,12 @@ INSERT INTO tmp_label_name
             GROUP BY tbl.name
         ) t ON t.name=n.id;
 
-DROP TABLE label_name;
-ALTER TABLE tmp_label_name RENAME TO label_name;
-ALTER TABLE tmp_label_name_id_seq RENAME TO label_name_id_seq;
+TRUNCATE label_name;
+INSERT INTO label_name SELECT * FROM tmp_label_name;
 
 
-CREATE TABLE tmp_artist_name (
-    id                  SERIAL,
-    name                VARCHAR NOT NULL,
-    refcount            INTEGER DEFAULT 0
-);
-
-INSERT INTO tmp_artist_name
-    SELECT n.id, n.name, t.refcount
+SELECT n.id, n.name, t.refcount
+    INTO TEMPORARY tmp_artist_name
     FROM artist_name n JOIN
         (
             SELECT tbl.name, count(*) AS refcount
@@ -77,19 +57,12 @@ INSERT INTO tmp_artist_name
             GROUP BY tbl.name
         ) t ON t.name=n.id;
 
-DROP TABLE artist_name;
-ALTER TABLE tmp_artist_name RENAME TO artist_name;
-ALTER TABLE tmp_artist_name_id_seq RENAME TO artist_name_id_seq;
+TRUNCATE artist_name;
+INSERT INTO artist_name SELECT * FROM tmp_artist_name;
 
 
-CREATE TABLE tmp_release_name (
-    id                  SERIAL,
-    name                VARCHAR NOT NULL,
-    refcount            INTEGER DEFAULT 0
-);
-
-INSERT INTO tmp_release_name
-    SELECT n.id, n.name, t.refcount
+SELECT n.id, n.name, t.refcount
+    INTO TEMPORARY tmp_release_name
     FROM release_name n JOIN
         (
             SELECT tbl.name, count(*) AS refcount
@@ -100,19 +73,12 @@ INSERT INTO tmp_release_name
             GROUP BY tbl.name
         ) t ON t.name=n.id;
 
-DROP TABLE release_name;
-ALTER TABLE tmp_release_name RENAME TO release_name;
-ALTER TABLE tmp_release_name_id_seq RENAME TO release_name_id_seq;
+TRUNCATE release_name;
+INSERT INTO release_name SELECT * FROM tmp_release_name;
 
 
-CREATE TABLE tmp_track_name (
-    id                  SERIAL,
-    name                VARCHAR NOT NULL,
-    refcount            INTEGER DEFAULT 0
-);
-
-INSERT INTO tmp_track_name
-    SELECT n.id, n.name, t.refcount
+SELECT n.id, n.name, t.refcount
+    INTO TEMPORARY tmp_track_name
     FROM track_name n JOIN
         (
             SELECT tbl.name, count(*) AS refcount
@@ -123,9 +89,7 @@ INSERT INTO tmp_track_name
             GROUP BY tbl.name
         ) t ON t.name=n.id;
 
-DROP TABLE track_name;
-ALTER TABLE tmp_track_name RENAME TO track_name;
-ALTER TABLE tmp_track_name_id_seq RENAME TO track_name_id_seq;
-
+TRUNCATE track_name;
+INSERT INTO track_name SELECT * FROM tmp_track_name;
 
 COMMIT;

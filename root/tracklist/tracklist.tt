@@ -7,6 +7,6 @@
         <td>[% artist_credit(track.artist_credit) %]</td>
     [%- END -%]
     <td class="c">[% rating_stars(recording) %]</td>
-    <td>[% recording.length | format_length %]</td>
+    <td>[% track.length | format_length %]</td>
 </tr>
 [%- END -%]

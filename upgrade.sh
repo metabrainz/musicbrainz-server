@@ -26,6 +26,9 @@ echo `date` : Migrating data
 ./admin/sql/updates/ngs-rawdata.pl
 ./admin/sql/updates/ngs-artistcredit-2.pl
 
+echo `date` : Merging recordings
+./admin/sql/updates/ngs-merge-recordings.pl
+
 echo `date` : Fixing refcounts
 ./admin/psql READWRITE <./admin/sql/updates/ngs-refcount.sql
 
