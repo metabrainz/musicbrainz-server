@@ -177,7 +177,7 @@ Please do not respond to this e-mail.
 
 This e-mail is only sent for the first vote against your edit, not for each
 one. If you would prefer not to receive these e-mails, please adjust your
-preferences accordingly at http://localhost/edit-preferences
+preferences accordingly at http://localhost/account/preferences
 EOS
 
 done_testing;
