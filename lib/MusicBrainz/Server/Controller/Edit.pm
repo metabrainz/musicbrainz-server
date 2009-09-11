@@ -82,8 +82,6 @@ sub enter_votes : Local RequireAuth
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
         my @votes = @{ $form->field('vote')->value };
         $c->model('Vote')->enter_votes($c->user->id, @votes);
-    } else {
-        die "Invalid form?";
     }
 
     my $redir = $c->req->params->{url} || $c->uri_for_action('/edit/open_edits');
@@ -142,7 +140,7 @@ sub open : Local
     my ($self, $c) = @_;
 
     $c->forward('/user/login');
-    
+
     my $page = $c->req->{query_params}->{page} || 1;
 
     my ($edits, $pager)= $c->model('Moderation')->list_open($page);
@@ -162,10 +160,10 @@ sub for_type : Path('entity') Args(2)
     my ($self, $c, $type, $mbid) = @_;
 
     my $page = $c->req->{query_params}->{page} || 1;
-    
+
     my $entity = $c->model(ucfirst $type)->load($mbid);
     my ($edits, $pager) = $c->model('Moderation')->edits_for_entity($entity, $page);
-    
+
     $c->stash->{edits}  = $edits;
     $c->stash->{pager}  = $pager;
     $c->stash->{entity} = $entity;
@@ -181,22 +179,22 @@ for acceptance
 sub conditions : Local
 {
     my ($self, $c) = @_;
-    
+
     my @qualities = (
         ModDefs::QUALITY_LOW,
         ModDefs::QUALITY_NORMAL,
         ModDefs::QUALITY_HIGH,
     );
     $c->stash->{quality_levels} = \@qualities;
-    
+
     $c->stash->{qualities} = [ map {
         ModDefs::GetQualityText($_)
     } @qualities ];
-    
+
     $c->stash->{quality_changes} = [
         map {
             my $level = Moderation::GetQualityChangeDefs($_);
-            
+
             +{
                 name            => $_ == 0 ? 'Lower Quality' : 'Raise Quality',
                 voting_period   => $level->{duration},
@@ -207,14 +205,14 @@ sub conditions : Local
         }
         (0, 1)
     ];
-    
+
     my %categories = ModDefs::GetModCategories();
     my @edits      = Moderation::GetEditTypes();
-    
+
     $c->stash->{categories} = [
         map {
             my $cat = $_;
-            
+
             +{
                 title => ModDefs::GetModCategoryTitle($_),
                 edits => [
@@ -231,14 +229,14 @@ sub conditions : Local
                     }
                     map {
                         my $edit_type = $_;
-                        
+
                         my $hash = +{
                             map { $_ => Moderation::GetEditLevelDefs($_, $edit_type) }
                                 @qualities
                         };
                         $hash->{name}     = Moderation::GetEditLevelDefs(ModDefs::QUALITY_NORMAL, $edit_type)->{name};
                         $hash->{criteria} = $categories{$edit_type}->{criteria};
-                        
+
                         $hash;
                     }
                     grep { $categories{$_}->{category} == $cat } @edits ],

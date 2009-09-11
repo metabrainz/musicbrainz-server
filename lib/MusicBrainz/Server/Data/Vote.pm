@@ -3,6 +3,7 @@ use Moose;
 
 use Moose::Util::TypeConstraints qw( find_type_constraint );
 use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list );
+use MusicBrainz::Server::Email;
 use MusicBrainz::Server::Types qw( $VOTE_YES $VOTE_NO );
 
 extends 'MusicBrainz::Server::Data::Entity';
@@ -48,7 +49,8 @@ sub enter_votes
         $sql->Do('LOCK vote IN SHARE ROW EXCLUSIVE MODE');
 
         # Filter votes on edits that are open and were not created by the voter
-        my $edits = $self->c->model('Edit')->get_by_ids(map { $_->{edit_id} } @votes);
+        my @edit_ids = map { $_->{edit_id} } @votes;
+        my $edits = $self->c->model('Edit')->get_by_ids(@edit_ids);
         @votes = grep {
             my $edit = $edits->{ $_->{edit_id} };
             defined $edit && $edit->is_open && $edit->editor_id != $editor_id
@@ -58,9 +60,9 @@ sub enter_votes
 
         # Supersede any existing votes
         $query = 'UPDATE vote SET superseded = TRUE' .
-                 ' WHERE editor = ? AND superseded = FALSE AND edit IN (' . placeholders(@votes) . ')'.
+                 ' WHERE editor = ? AND superseded = FALSE AND edit IN (' . placeholders(@edit_ids) . ')'.
                  ' RETURNING edit, vote';
-        my $superseded = $sql->SelectListOfHashes($query, $editor_id, map { $_->{edit_id} } @votes);
+        my $superseded = $sql->SelectListOfHashes($query, $editor_id, @edit_ids);
 
         my %delta;
         # Change the vote count delta for any votes that were changed
@@ -70,10 +72,19 @@ sub enter_votes
             --( $delta{ $id }->{yes} ) if $s->{vote} == $VOTE_YES;
         }
 
+        # Select all the edits that have not yet received a no vote
+        $query = 'SELECT edit FROM vote WHERE edit IN (' . placeholders(@edit_ids) . ') AND vote != ?';
+        my $emailed = $sql->SelectSingleColumnArray($query, @edit_ids, $VOTE_NO);
+        my %already_emailed = map { $_ => 1 } @$emailed;
+
+        # Insert our new votes
         $query = 'INSERT INTO vote (editor, edit, vote) VALUES ';
         $query .= join ", ", (('(?, ?, ?)') x @votes);
         $query .= ' RETURNING edit, vote';
         my $voted = $sql->SelectListOfHashes($query, map { $editor_id, $_->{edit_id}, $_->{vote} } @votes);
+        my %edit_to_vote = map { $_->{edit} => $_->{vote} } @$voted;
+        my @email_edit_ids = grep { $edit_to_vote{$_} == $VOTE_NO }
+                             grep { !exists $already_emailed{$_} } @edit_ids;
 
         # Change the vote count delta for any votes that were changed
         for my $s (@$voted) {
@@ -84,6 +95,17 @@ sub enter_votes
             $query = 'UPDATE edit SET yesvotes = yesvotes + ?, novotes = novotes + ?' .
                      ' WHERE id = ?';
             $sql->Do($query, $delta{ $id }->{yes} || 0, $delta{ $id }->{no} || 0, $id);
+        }
+
+        # Send out the emails for no votes
+        my $email = MusicBrainz::Server::Email->new( c => $self->c );
+        my $editors = $self->c->model('Editor')->get_by_ids((map { $edits->{$_}->editor_id } @email_edit_ids),
+                                                            $editor_id);
+        for my $edit_id (@email_edit_ids) {
+            my $edit = $edits->{ $edit_id };
+            my $voter = $editors->{ $editor_id  };
+            my $editor = $editors->{ $edit->editor_id };
+            $email->send_first_no_vote(edit_id => $edit_id, voter => $voter, editor => $editor );
         }
     }, $sql);
 }
