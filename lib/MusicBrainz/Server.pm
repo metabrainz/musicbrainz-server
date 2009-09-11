@@ -48,7 +48,7 @@ __PACKAGE__->config(
     "View::Default" => {
         FILTERS => {
             'release_date' => \&MusicBrainz::Server::Filters::release_date,
-            'format_time' => \&MusicBrainz::Server::Filters::format_time,
+            'format_length' => \&MusicBrainz::Server::Filters::format_length,
             'format_wikitext' => \&MusicBrainz::Server::Filters::format_wikitext,
         },
         RECURSION => 1,

@@ -15,7 +15,7 @@
             [%- IF show_artists -%]
                 <td>[% artist_credit(recording.artist_credit) %]</td>
             [%- END -%]
-            <td>[% recording.length | format_time %]</td>
+            <td>[% recording.length | format_length %]</td>
         </tr>
         [%- END -%]
     </tbody>

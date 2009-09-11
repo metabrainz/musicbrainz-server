@@ -9,7 +9,7 @@
         [% INCLUDE 'layout/sidebar/property.tt' label=l('Artist:')
            content=artist_credit(recording.artist_credit) %]
         [% INCLUDE 'layout/sidebar/property.tt' label=l('Length:')
-           content=recording.length | format_time
+           content=u.filter(recording.length, 'format_length')
                IF recording.length -%]
         [%- FOR isrc IN isrcs -%]
             [% WRAPPER 'layout/sidebar/property.tt' label=l('ISRC:') %]

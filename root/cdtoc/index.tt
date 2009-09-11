@@ -23,7 +23,7 @@
         </tr>
         <tr>
             <th>[% l('Total length:') %]</th>
-            <td>[% cdtoc.length | format_time %]</td>
+            <td>[% cdtoc.length | format_length %]</td>
         </tr>
         <tr>
             <th>[% l('Track details:') %]</th>
@@ -48,11 +48,11 @@
                     <tr>
                         <td>[% i %]</td>
                         [%- track = track_details.item(i) -%]
-                        <td>[% track.start_time | format_time %]</td>
+                        <td>[% track.start_time | format_length %]</td>
                         <td>[% track.start_sectors %]</td>
-                        <td>[% track.length_time | format_time %]</td>
+                        <td>[% track.length_time | format_length %]</td>
                         <td>[% track.length_sectors %]</td>
-                        <td>[% track.end_time | format_time %]</td>
+                        <td>[% track.end_time | format_length %]</td>
                         <td>[% track.end_sectors %]</td>
                     </tr>
                     [% END %]

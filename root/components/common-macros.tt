@@ -1,3 +1,4 @@
+[%- USE u = Utils -%]
 [%- MACRO create_guideline(text) BLOCK -%]
     <li>
         [%- text -%]

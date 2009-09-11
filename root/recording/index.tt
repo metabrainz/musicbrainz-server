@@ -23,7 +23,7 @@
                     <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
                         <td>[% track.position %]/[% track.tracklist.track_count %]</td>
                         <td>[% track.name | html %]</td>
-                        <td>[% track.length | format_time %]</td>
+                        <td>[% track.length | format_length %]</td>
                         <td>[% link_release(release) %]</td>
                         <td>[% artist_credit(release.artist_credit) %]</td>
                         <td>[% release.date.format %]</td>

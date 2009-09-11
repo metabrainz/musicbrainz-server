@@ -20,7 +20,7 @@
                             <td>[% result.score %]</td>
                             <td>[% link_recording(result.entity) %]</td>
                             <td>[% artist_credit(result.entity.artist_credit) %]</td>
-                            <td>[% result.entity.length | format_time %]</td>
+                            <td>[% result.entity.length | format_length %]</td>
                         </tr>
                         [%- END -%]
                     </tbody>

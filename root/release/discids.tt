@@ -24,7 +24,7 @@
                 <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
                     <td>[% link_cdtoc(medium_cdtoc.cdtoc) %]</td>
                     <td>[% medium_cdtoc.cdtoc.track_count %]</td>
-                    <td>[% medium_cdtoc.cdtoc.length | format_time %]</td>
+                    <td>[% medium_cdtoc.cdtoc.length | format_length %]</td>
                 </tr>
                 [% END %]
             [%- END -%]

@@ -21,7 +21,7 @@ sub release_date
     return $str;
 }
 
-sub format_time
+sub format_length
 {
     my $ms = shift;
     return MusicBrainz::Server::Track::FormatTrackLength($ms);
