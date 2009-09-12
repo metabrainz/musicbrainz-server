@@ -194,12 +194,12 @@ INSERT INTO medium (id, release, position, tracklist, format, name) VALUES (2, 1
 
 TRUNCATE track CASCADE;
 
-INSERT INTO track (id, recording, tracklist, position, name, artist_credit)
-    VALUES (1, 1, 1, 1, 1, 2);
+INSERT INTO track (id, recording, tracklist, position, name, artist_credit, length)
+    VALUES (1, 1, 1, 1, 1, 2, 123456);
 
 INSERT INTO track_name (id, name) VALUES (2, 'Track 2');
-INSERT INTO track (id, recording, tracklist, position, name, artist_credit)
-    VALUES (2, 1, 1, 2, 2, 2);
+INSERT INTO track (id, recording, tracklist, position, name, artist_credit, length)
+    VALUES (2, 1, 1, 2, 2, 2, 123456);
 
 INSERT INTO track_name (id, name) VALUES (3, 'Track 3');
 INSERT INTO track (id, recording, tracklist, position, name, artist_credit)
