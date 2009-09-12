@@ -16,7 +16,7 @@ use MusicBrainz::Server::Data::Utils qw(
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::AnnotationRole' => { type => 'label' };
 with 'MusicBrainz::Server::Data::AliasRole' => { type => 'label' };
-with 'MusicBrainz::Server::Data::Role::Name' => { name_table => 'label_name' };
+with 'MusicBrainz::Server::Data::NameRole' => { name_table => 'label_name' };
 with 'MusicBrainz::Server::Data::CoreEntityCache' => { prefix => 'label' };
 with 'MusicBrainz::Server::Data::Editable' => { table => 'label' };
 with 'MusicBrainz::Server::Data::RatingRole' => { type => 'label' };

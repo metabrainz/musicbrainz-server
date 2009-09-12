@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Data::Role::Name;
+package MusicBrainz::Server::Data::NameRole;
 use MooseX::Role::Parameterized;
 
 use List::MoreUtils qw( uniq );

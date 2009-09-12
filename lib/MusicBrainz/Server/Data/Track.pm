@@ -13,7 +13,7 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
-with 'MusicBrainz::Server::Data::Role::Name' => { name_table => 'track_name' };
+with 'MusicBrainz::Server::Data::NameRole' => { name_table => 'track_name' };
 with 'MusicBrainz::Server::Data::Editable' => { table => 'track' };
 
 sub _table
