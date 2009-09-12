@@ -10,14 +10,23 @@
         [% INCLUDE 'layout/sidebar/property.tt' label=l('Artist:')
            content=artist_credit(work.artist_credit) %]
         [% INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
-           content=work.type.name | html
+           content=html_escape(work.type.name)
                IF work.type -%]
         [% INCLUDE 'layout/sidebar/property.tt' label=l('ISWC:')
-           content=work.iswc | html
+           content=html_escape(work.iswc)
                IF work.iswc -%]
     [% END %]
     [%- INCLUDE "layout/sidebar/sidebar-rating.tt" entity=work -%]
     [%- INCLUDE "layout/sidebar/sidebar-tags.tt" entity=work tags=top_tags tag_this_text=l('Tag this work') -%]
+
+    <ul class="links">
+        [% IF c.user_exists %]
+        [% ELSE %]
+           <li>[% request_login(l('Please login to edit this work')) %]</li>
+        [% END %]
+        <li>[% link_work(work, 'edits', l('View editing history')) %]</li>
+    </ul>
+
     [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=work -%]
 [% END %]
 

@@ -15,6 +15,15 @@
 
         [%- INCLUDE "layout/sidebar/sidebar-rating.tt" entity=rg -%]
         [%- INCLUDE "layout/sidebar/sidebar-tags.tt" entity=rg tags=top_tags tag_this_text=l('Tag this release group') -%]
+
+        <ul class="links">
+            [% IF c.user_exists %]
+            [% ELSE %]
+               <li>[% request_login(l('Please login to edit this release group')) %]</li>
+            [% END %]
+            <li>[% link_release_group(rg, 'edits', l('View editing history')) %]</li>
+        </ul>
+
         [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=rg -%]
     [% END %]
 

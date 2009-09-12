@@ -26,6 +26,14 @@
             <li><a href="[% c.uri_for_action('/user/subscriptions/label/add', { id => label.id }) %]">[% l('Subscribe') %]</a></li>
         [% END %]
     [% END %]
+        [% IF c.user_exists %]
+            <li>[% link_label(label, 'edit', l('Edit this label')) %]</li>
+            <li>[% link_label(label, 'delete', l('Delete this label')) %]</li>
+            <li>[% link_label(label, 'merge', l('Merge this label into another')) %]</li>
+        [% ELSE %]
+            <li>[% request_login(l('Please login to edit this label')) %]</li>
+        [% END %]
+            <li>[% link_label(label, 'edits', l('View editing history')) %]</li>
     </ul>
 
     [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=label -%]
