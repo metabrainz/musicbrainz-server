@@ -24,7 +24,7 @@ http://[%- server -%]/[%- id -%]"
     c.gettext(text, args);
 END; -%]
 [%#- There is a bug in this implementation fo ngettext that is easier to fix by policy that's why it's not fixed yet.
-The problem surfaces when an unfinished translation file is used, in this case a plural translation would 
+The problem surfaces when an unfinished translation file is used, in this case a plural translation would
 apply language-specific plural construction rules to the untranslated english string. If a translation language has
 more than two plural forms, then the first plural form (germanic plural) is chosen for every form other than the first
 two. -%]
@@ -211,8 +211,12 @@ END -%]
     '<a href="' _ link _ '">' _ text _ '</a>';
 END -%]
 
+[% MACRO login_url(redirect) BLOCK;
+    c.uri_for_action('/user/login', { uri => redirect || c.req.path });
+END%]
+
 [%- MACRO request_login(text) BLOCK -%]
-<a href="[% c.uri_for_action('/user/login', { uri => c.req.path }) %]">[% text || l('Log in') %]</a>
+<a href="[% login_url() %]">[% text || l('Log in') %]</a>
 [%- END -%]
 
 [%- MACRO rating_rate_url(entity, rating) BLOCK;
