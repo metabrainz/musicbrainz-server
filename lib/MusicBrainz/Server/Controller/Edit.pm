@@ -45,7 +45,9 @@ sub show : Chained('load') PathPart('')
 
     $c->model('Edit')->load_all($edit);
     $c->model('Vote')->load_for_edits($edit);
-    $c->model('Editor')->load($edit, @{ $edit->votes });
+    $c->model('EditNote')->load_for_edits($edit);
+    $c->model('Editor')->load($edit, @{ $edit->votes }, @{ $edit->edit_notes });
+    $c->form(add_edit_note => 'EditNote');
 
     $c->stash->{template} = 'edit/index.tt';
 }
@@ -56,22 +58,20 @@ Add a moderation note to an existing edit
 
 =cut
 
-sub add_note : Chained('moderation') Form
+sub add_note : Chained('load') PathPart('add-note') RequireAuth
 {
     my ($self, $c) = @_;
 
-    $c->forward('/user/login');
+    my $edit = $c->stash->{edit};
+    my $form = $c->form(form => 'EditNote');
+    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+        $c->model('EditNote')->add_note($edit->id, {
+	    editor_id => $c->user->id,
+	    text => $form->field('text')->value
+	});
+    }
 
-    my $moderation = $c->stash->{moderation};
-
-    my $form = $self->form;
-    $form->init($moderation);
-
-    return unless $c->form_posted && $form->validate($c->req->params);
-
-    $form->insert;
-
-    $c->response->redirect($c->entity_url($moderation, 'show'));
+    $c->response->redirect($c->uri_for_action('/edit/show', [ $edit->id ]));
 }
 
 sub enter_votes : Local RequireAuth
@@ -100,7 +100,7 @@ sub approve : Chained('load') RequireAuth(auto_editor)
     }
 
     if($edit->no_votes > 0) {
-        $c->model('EditNote')->load($edit);
+        $c->model('EditNote')->load_for_edits($edit);
         my $left_note;
         for my $note (@{ $edit->edit_notes }) {
             next if $note->editor_id != $c->user->id;

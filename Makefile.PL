@@ -67,6 +67,8 @@ requires 'YAML'                                        => '0.680';
 recommends 'Apache::Session';
 recommends 'Apache::Session::File';
 
+build_requires 'Test::Differences';
+
 catalyst;
 
 install_script glob('script/*.pl');

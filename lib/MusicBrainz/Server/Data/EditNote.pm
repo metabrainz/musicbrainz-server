@@ -2,6 +2,7 @@ package MusicBrainz::Server::Data::EditNote;
 use Moose;
 
 use MusicBrainz::Server::Entity::EditNote;
+use MusicBrainz::Server::Email;
 use MusicBrainz::Server::Data::Utils qw(
     placeholders
     query_to_list
@@ -35,7 +36,7 @@ sub _entity_class
     return 'MusicBrainz::Server::Entity::EditNote';
 }
 
-sub load
+sub load_for_edits
 {
     my ($self, @edits) = @_;
     my %id_to_edit = map { $_->id => $_ } @edits;
@@ -43,7 +44,7 @@ sub load
     my $query = 'SELECT ' . $self->_columns .
                 ' FROM ' . $self->_table .
                 ' WHERE edit IN (' . placeholders(@ids) . ')' .
-                ' ORDER BY notetime ASC';
+                ' ORDER BY notetime, id';
     my @notes = query_to_list($self->c->raw_dbh, sub {
             my $r = shift;
             my $note = $self->_new_from_row($r);
@@ -66,6 +67,34 @@ sub insert
     my $sql = Sql->new($self->c->raw_dbh);
     $sql->AutoCommit(1) if !$sql->IsInTransaction;
     $sql->InsertRow('edit_note', \%r);
+}
+
+sub add_note
+{
+    my ($self, $edit_id, $note_hash) = @_;
+    $self->insert($edit_id, $note_hash);
+
+    my $email_data = MusicBrainz::Server::Email->new( c => $self->c );
+    my $edit = $self->c->model('Edit')->get_by_id($edit_id) or die "Edit $edit_id does not exist!";
+    $self->c->model('EditNote')->load_for_edits($edit);
+    $self->c->model('Vote')->load_for_edits($edit);
+    my $editors = $self->c->model('Editor')->get_by_ids($edit->editor_id,
+        $note_hash->{editor_id},
+        (map { $_->editor_id } @{ $edit->votes }),
+        (map { $_->editor_id } @{ $edit->edit_notes }));
+
+    my @to_email = grep { $_ != $note_hash->{editor_id} } keys %$editors;
+
+    my $from = $editors->{ $note_hash->{editor_id} };
+    for my $editor_id (@to_email) {
+        my $editor = $editors->{ $editor_id };
+        $email_data->send_edit_note(
+            from_editor => $from,
+            editor => $editor,
+            note_text => $note_hash->{text},
+            edit_id => $edit_id,
+            own_edit => $edit->editor_id == $editor->id);
+    }
 }
 
 no Moose;

@@ -77,7 +77,7 @@ sub textarea
     return $self->h->textarea({
             name => $field->html_name,
             id => $field->id,
-            %$attrs
+            %{ $attrs || {} },
         }, $field->fif);
 }
 
@@ -129,7 +129,7 @@ sub select
             selected => defined $field->value && $field->value eq $_->{value} ? "selected" : undef,
         }, $_->{label})
     } @{ $field->options };
-    
+
     if (!$field->required)
     {
         unshift @options, $self->h->option({

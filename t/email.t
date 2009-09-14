@@ -1,6 +1,7 @@
 #!/usr/bin/perl
 use strict;
 use warnings;
+use Test::Differences;
 use Test::More;
 use_ok 'MusicBrainz::Server::Email';
 
@@ -180,6 +181,61 @@ one. If you would prefer not to receive these e-mails, please adjust your
 preferences accordingly at http://localhost/account/preferences
 EOS
 
+$email->send_edit_note(
+    editor => $user1,
+    from_editor => $user2,
+    edit_id => 1234,
+    note_text => 'Please remember to use guess case!',
+);
+
+is(scalar(@{$email->transport->deliveries}), 1);
+is($email->transport->deliveries->[0]->{envelope}->{from}, 'noreply@musicbrainz.org');
+$e = $email->transport->deliveries->[0]->{email};
+$email->transport->clear_deliveries;
+is($e->get_header('From'), '"Editor 2" <Editor 2@users.musicbrainz.org>');
+is($e->get_header('To'), '"Editor 1" <foo@example.com>');
+is($e->get_header('Subject'), 'Note added to edit #1234');
+is($e->get_header('Sender'), 'MusicBrainz Server <noreply@musicbrainz.org>');
+compare_body($e->get_body, <<EOS);
+Editor 'Editor 2' has added the following note to edit #1234:
+------------------------------------------------------------------------
+Please remember to use guess case!
+------------------------------------------------------------------------
+If you would like to reply to this note, please add your note at:
+http://localhost/edit/1234
+Please do not respond to this email.
+
+-- The MusicBrainz Team
+EOS
+
+$email->send_edit_note(
+    editor => $user2,
+    from_editor => $user1,
+    edit_id => 9000,
+    note_text => 'This edit is totally wrong!',
+    own_edit => 1
+);
+
+is(scalar(@{$email->transport->deliveries}), 1);
+is($email->transport->deliveries->[0]->{envelope}->{from}, 'noreply@musicbrainz.org');
+$e = $email->transport->deliveries->[0]->{email};
+$email->transport->clear_deliveries;
+is($e->get_header('From'), '"Editor 1" <Editor 1@users.musicbrainz.org>');
+is($e->get_header('To'), '"Editor 2" <bar@example.com>');
+is($e->get_header('Subject'), 'Note added to your edit #9000');
+is($e->get_header('Sender'), 'MusicBrainz Server <noreply@musicbrainz.org>');
+compare_body($e->get_body, <<EOS);
+Editor 'Editor 1' has added the following note to your edit #9000:
+------------------------------------------------------------------------
+This edit is totally wrong!
+------------------------------------------------------------------------
+If you would like to reply to this note, please add your note at:
+http://localhost/edit/9000
+Please do not respond to this email.
+
+-- The MusicBrainz Team
+EOS
+
 done_testing;
 
 sub compare_body
@@ -188,5 +244,5 @@ sub compare_body
 
     $got =~ s/[\r\n]+/\n/g;
     $expected =~ s/[\r\n]+/\n/g;
-    is($got, $expected);
+    eq_or_diff($got, $expected);
 }

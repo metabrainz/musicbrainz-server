@@ -229,6 +229,60 @@ EOS
     return $self->_create_email(\@headers, $body);
 }
 
+sub _create_edit_note_email
+{
+    my ($self, %opts) = @_;
+
+    my $from_editor = $opts{from_editor} or die "Missing 'from_editor' argument";
+    my $edit_id = $opts{edit_id} or die "Missing 'edit_id' argument";
+    my $editor = $opts{editor} or die "Missing 'editor' argument";
+    my $note_text = $opts{note_text} or die "Missing 'note_text' argument";
+    my $own_edit = $opts{own_edit};
+
+    my @headers = (
+        'To'       => _user_address($editor),
+        'From'     => _user_address($from_editor, 1),
+        'Sender'   => $NOREPLY_ADDRESS,
+    );
+
+    my $from = $from_editor->name;
+    my $respond = sprintf "http://%s/edit/%d", &DBDefs::WEB_SERVER, $edit_id;
+    my $body;
+
+    if ($own_edit) {
+        push @headers, ('Subject'  => "Note added to your edit #$edit_id");
+
+        $body = <<EOS;
+Editor '$from' has added the following note to your edit #$edit_id:
+------------------------------------------------------------------------
+$note_text
+------------------------------------------------------------------------
+If you would like to reply to this note, please add your note at:
+$respond
+Please do not respond to this email.
+
+-- The MusicBrainz Team
+EOS
+    }
+    else {
+        push @headers, ('Subject'  => "Note added to edit #$edit_id");
+
+        $body = <<EOS;
+Editor '$from' has added the following note to edit #$edit_id:
+------------------------------------------------------------------------
+$note_text
+------------------------------------------------------------------------
+If you would like to reply to this note, please add your note at:
+$respond
+Please do not respond to this email.
+
+-- The MusicBrainz Team
+EOS
+    }
+
+    return $self->_create_email(\@headers, $body);
+}
+
 sub send_first_no_vote
 {
     my $self = shift;
@@ -265,6 +319,14 @@ sub send_password_reset_request
     my ($self, %opts) = @_;
 
     my $email = $self->_create_password_reset_request_email(%opts);
+    return $self->_send_email($email);
+}
+
+sub send_edit_note
+{
+    my ($self, %opts) = @_;
+
+    my $email = $self->_create_edit_note_email(%opts);
     return $self->_send_email($email);
 }
 

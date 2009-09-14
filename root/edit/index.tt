@@ -49,4 +49,22 @@
             [% request_login() %]
         </p>
     [% END %]
+
+    <h2>[% l('Edit notes') %]</h2>
+    [% FOR note=edit.edit_notes %]
+    <div class="edit-note">
+      <h3>[% l('{editor} ({date}):', editor=link_editor(note.editor), date=UserDate.format(note.post_time)) %]</h3>
+      [% note.text %]
+    </div>
+    [% END %]
+    [% IF c.user_exists %]
+       <form action="[% c.uri_for_action('/edit/add_note', [ edit.id ]) %]" method="post">
+           [% USE f = FormRenderer(add_edit_note) %]
+	   <p>
+	       [% f.label('text', l('Edit note:')) %]
+	       [% f.textarea('text') %]
+	   </p>
+	   [% form_submit(l('Add edit note')) %]
+       </form>
+    [% END %]
 [%- END -%]
