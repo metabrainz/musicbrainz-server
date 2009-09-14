@@ -10,6 +10,10 @@ use MusicBrainz::Server::Validation;
 use MusicBrainz::Server::Data::Utils qw( placeholders );
 use Sql;
 use LWP::Simple qw();
+use OSSP::uuid;
+
+my $UUID_NS_URL = OSSP::uuid->new;
+$UUID_NS_URL->load("ns:URL");
 
 my $mb = MusicBrainz->new;
 $mb->Login(db => "READWRITE");
@@ -285,8 +289,10 @@ foreach my $orig_t0 (@entity_types) {
             push @new_t, [$new_t0, $new_t1];
         }
         my $rows = $sql->SelectListOfHashes("SELECT * FROM public.lt_${orig_t0}_${orig_t1}");
+        my $i = 0;
         foreach my $t (@new_t) {
             ($new_t0, $new_t1) = @$t;
+            $i++;
             my $reverse = 0;
             if ($new_t0 gt $new_t1) {
                 ($new_t0, $new_t1) = ($new_t1, $new_t0);
@@ -318,13 +324,20 @@ foreach my $orig_t0 (@entity_types) {
                     $key = join("_", $new_t0, $new_t1, $parent_id);
                     $parent_id = $link_type_map{$key} || undef;
                 }
+                my $gid = $row->{mbid};
+                if ($i > 1) {
+                    # Generate a new UUID if we are making a copy
+                    my $uuid = OSSP::uuid->new;
+                    $uuid->make("v3", $UUID_NS_URL, "http://musicbrainz.org/link-type/$new_t0-$new_t1/$id");
+                    $gid = $uuid->export("str");
+                }
                 $sql->Do("
                     INSERT INTO link_type
                         (id, parent, childorder, gid, name, description, linkphrase,
                         rlinkphrase, shortlinkphrase, priority, entitytype0,
                         entitytype1)
                         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-                ", $id, $parent_id, $row->{childorder}, $row->{mbid},
+                ", $id, $parent_id, $row->{childorder}, $gid,
                 $row->{name}, $row->{description}, $linkphrase, $rlinkphrase,
                 $row->{shortlinkphrase}, $row->{priority}, $new_t0, $new_t1);
                 foreach my $attr (split / /, $row->{attribute}) {
