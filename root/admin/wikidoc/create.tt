@@ -1,0 +1,31 @@
+[% WRAPPER "layout.tt" title=l("Add Page") full_width=1 %]
+
+<h1>[% l("Add Page") %]</h1>
+
+[%- USE r = FormRenderer(form) -%]
+
+<form action="[% c.req.uri %]" method="post">
+
+<p>
+<table>
+    <tr>
+        <td>[% r.label('page', l('Page:')) %]</td>
+        <td colspan="2">[% r.text('page') %]
+    </tr>
+
+    <tr>
+        <td>[% r.label('version', l('Version:')) %]</td>
+        <td colspan="2">[% r.text('version', { size => 5 }) %]
+    </tr>
+
+    <tr>
+        <td></td>
+        <td colspan="2"><input type="submit" value="[% l('Save') %]"></td>
+    </td>
+
+</table>
+</p>
+
+</form>
+
+[% END %]

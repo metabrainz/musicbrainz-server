@@ -1,0 +1,13 @@
+[%- WRAPPER 'layout.tt' title=l('Remove Page') full_width=1 -%]
+
+<h1>[% l('Remove Page') %]</h1>
+
+<p>
+    [%- l('Are you sure you wish to remove the <strong>{page}</strong> page from the transclusion index?', { page => page }) -%]
+</p>
+
+<form action="[% c.req.uri %]" method="post">
+    <input type="submit" name="confirm.submit" value="[% l('Delete') %]" />
+</form>
+
+[%- END -%]

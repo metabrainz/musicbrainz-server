@@ -132,8 +132,8 @@ sub create
     $edit->initialize(%opts);
 
     my $level; # XXX Support quality levels
-    my $as_auto_edit = 0;
-    $as_auto_edit = 1 if (!$as_auto_edit && $edit->edit_auto_edit); 
+    my $as_auto_edit = $edit->auto_edit;
+    $as_auto_edit = 1 if (!$as_auto_edit && $edit->edit_auto_edit);
     $as_auto_edit = 1 if (!$as_auto_edit && ($privs & $AUTO_EDITOR_FLAG));
     $as_auto_edit = 0 if ($privs & $UNTRUSTED_FLAG);
     $edit->auto_edit($as_auto_edit);

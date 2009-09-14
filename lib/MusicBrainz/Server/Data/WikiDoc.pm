@@ -153,6 +153,21 @@ sub get_page
     return $page;
 }
 
+sub get_current_page_version
+{
+    my ($self, $id) = @_;
+
+    my $doc_url = sprintf "http://%s/%s?action=history", &DBDefs::WIKITRANS_SERVER, $id;
+    my $ua = LWP::UserAgent->new(max_redirect => 0);
+    $ua->env_proxy;
+    my $response = $ua->get($doc_url);
+
+    if ($response->content =~ /amp;diff=(\d+)\&amp;oldid=/) {
+        return $1;
+    }
+    return undef;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
