@@ -1,0 +1,21 @@
+<form action="[% c.req.uri %]" method="post">
+    [% USE r = FormRenderer(form) %]
+    [% form.errors.join(" ") %]
+    <p>
+        [% r.label('name', l('Name:')) %]
+        [% r.text('name') %]
+    </p>
+    <p>
+        [% r.label('comment', l('Comment:')) %]
+        [% r.text('comment') %]
+    </p>
+    <p>
+        [% r.label('iswc', l('ISWC:')) %]
+        [% r.text('iswc') %]
+    </p>
+    <p>
+        [% r.label('type_id', l('Type:')) %]
+        [% r.select('type_id') %]
+    </p>
+    [% form_submit(l('Enter Edit')) %]
+</form>

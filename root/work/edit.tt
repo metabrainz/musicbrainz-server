@@ -1,0 +1,4 @@
+[% WRAPPER 'layout.tt' full_width=1 %]
+   [% INCLUDE 'work/header.tt' %]
+   [% INCLUDE 'work/edit_form.tt' %]
+[% END %]

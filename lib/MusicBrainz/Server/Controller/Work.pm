@@ -3,6 +3,9 @@ use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
+use MusicBrainz::Server::Constants qw( $EDIT_WORK_EDIT );
+use MusicBrainz::Server::Edit::Work::Edit;
+
 with 'MusicBrainz::Server::Controller::Annotation';
 with 'MusicBrainz::Server::Controller::RelationshipRole';
 with 'MusicBrainz::Server::Controller::RatingRole';
@@ -36,6 +39,29 @@ sub show : PathPart('') Chained('load')
     $c->model('ArtistCredit')->load($work);
 
     $c->stash->{template} = 'work/index.tt';
+}
+
+sub edit : Chained('load') PathPart RequireAuth
+{
+    my ($self, $c) = @_;
+
+    my $work = $c->stash->{work};
+    $c->model('WorkType')->load($work);
+    $c->model('ArtistCredit')->load($work);
+
+    my $form = $c->form(form => 'Work', item => $work);
+    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+        my $edit = $c->model('Edit')->create(
+            editor_id => $c->user->id,
+            edit_type => $EDIT_WORK_EDIT,
+            work => $work,
+
+            (map { $_ => $form->field($_)->value }
+                 qw( type_id name comment iswc ))
+        );
+
+        $c->response->redirect($c->uri_for_action('/work/show', [ $work->gid ]));
+    }
 }
 
 1;

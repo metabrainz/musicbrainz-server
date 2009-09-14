@@ -7,7 +7,7 @@
 <p class="subheader">
     <span>~</span>
         [% l('{type} by {artist}', {
-            worktype = html_escape(work.type_name) or l('Work'),
+            type = html_escape(work.type_name) or l('Work'),
             artist = artist_credit(work.artist_credit)
         })%]
 </p>

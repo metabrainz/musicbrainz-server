@@ -35,6 +35,8 @@ require Exporter;
         encode_entities
         unaccent
         is_valid_isrc
+        is_valid_iswc
+        format_iswc
     )
 }
 
@@ -127,6 +129,19 @@ sub TrimInPlace
 		s/\s+\z//;
 		s/\s+/ /g;
 	}
+}
+
+sub is_valid_iswc
+{
+    my $iswc = shift;
+    return $iswc =~ /^T-\d{3}\.?\d{3}\.?\d{3}-\d/;
+}
+
+sub format_iswc
+{
+    my $iswc = shift;
+    $iswc =~ s/^T-(\d{3})\.?(\d{3})\.?(\d{3})-(\d)/T-$1.$2.$3-$4/;
+    return $iswc;
 }
 
 # Create a date string if the parameters are valid, or return undef.
@@ -258,7 +273,7 @@ sub IsValidEAN
 
 # This wrapper will prevent us from having the stupid patched version of the Text::Unaccent library
 # which in turn will make the mb_server install process simpler.
-sub unaccent($) 
+sub unaccent($)
 {
     my $str = shift;
 
