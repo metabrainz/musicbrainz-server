@@ -29,6 +29,7 @@ Exporter::export_ok_tags($_) for qw( election_status vote edit_status privileges
 use DateTime::Format::Pg;
 use Readonly;
 use Moose::Util::TypeConstraints;
+use MusicBrainz::Server::Constants qw( :quality );
 
 Readonly our $ELECTION_SECONDER_1 => 1;
 Readonly our $ELECTION_SECONDER_2 => 2;
@@ -80,6 +81,10 @@ subtype 'VoteOption'
 subtype 'EditStatus'
     => as 'Int'
     => where { $_ >= $STATUS_OPEN && $_ <= $STATUS_DELETED };
+
+subtype 'Quality'
+    => as 'Int'
+    => where { $_ >= $QUALITY_LOW && $_ <= $QUALITY_HIGH };
 
 1;
 

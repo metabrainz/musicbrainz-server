@@ -8,13 +8,14 @@ CREATE TABLE edit
     type                SMALLINT NOT NULL,
     status              SMALLINT NOT NULL,
     data                XML NOT NULL,
-    yesvotes            INTEGER DEFAULT 0,
-    novotes             INTEGER DEFAULT 0,
-    autoedit            SMALLINT DEFAULT 0,
+    yesvotes            INTEGER NOT NULL DEFAULT 0,
+    novotes             INTEGER NOT NULL DEFAULT 0,
+    autoedit            SMALLINT NOT NULL DEFAULT 0,
     opentime            TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     closetime           TIMESTAMP WITH TIME ZONE,
     expiretime          TIMESTAMP WITH TIME ZONE NOT NULL,
-    language            INTEGER -- references language
+    language            INTEGER, -- references language
+    quality             SMALLINT NOT NULL DEFAULT 1
 );
 
 CREATE TABLE edit_note

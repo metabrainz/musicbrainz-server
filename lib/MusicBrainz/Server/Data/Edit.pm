@@ -21,7 +21,7 @@ sub _table
 sub _columns
 {
     return 'id, editor, opentime, expiretime, closetime, data, language, type,
-            yesvotes, novotes, autoedit, status';
+            yesvotes, novotes, autoedit, status, quality';
 }
 
 sub _dbh
@@ -48,6 +48,7 @@ sub _new_from_row
         expires_time => $row->{expiretime},
         auto_edit => $row->{autoedit},
         status => $row->{status},
+        quality => $row->{quality},
         c => $self->c,
     );
     $edit->language_id($row->{language}) if $row->{language};
@@ -131,33 +132,46 @@ sub create
     my $edit = $class->new( editor_id => $editor_id, c => $self->c );
     $edit->initialize(%opts);
 
-    my $level; # XXX Support quality levels
-    my $as_auto_edit = $edit->auto_edit;
-    $as_auto_edit = 1 if (!$as_auto_edit && $edit->edit_auto_edit);
-    $as_auto_edit = 1 if (!$as_auto_edit && ($privs & $AUTO_EDITOR_FLAG));
-    $as_auto_edit = 0 if ($privs & $UNTRUSTED_FLAG);
-    $edit->auto_edit($as_auto_edit);
-    
+    my $quality = $edit->determine_quality;
+    my $conditions = $edit->edit_conditions->{$quality};
+
+    # Edit conditions allow auto edit and the edit requires no votes
+    $edit->auto_edit(1)
+        if ($conditions->{auto_edit} && $conditions->{votes} == 0);
+
+    # Edit conditions allow auto edit and the user is autoeditor
+    $edit->auto_edit(1)
+        if ($conditions->{auto_edit} && ($privs & $AUTO_EDITOR_FLAG));
+
+    # Unstrusted user, always go through the edit queue
+    $edit->auto_edit(0)
+        if ($privs & $UNTRUSTED_FLAG);
+
+    # Save quality level
+    $edit->quality($quality);
+
     Sql::run_in_transaction(sub {
         $edit->insert;
 
         # Automatically accept auto-edits on insert
-        if($edit->auto_edit)
-        {
+        if ($edit->auto_edit) {
             my $st = $self->_do_accept($edit);
             $edit->status($st);
             $self->c->model('Editor')->credit($edit->editor_id, $st, 1);
         };
 
         my $now = DateTime->now;
+        my $duration = DateTime::Duration->new( days => $conditions->{duration} );
+
         my $row = {
             editor => $edit->editor_id,
             data => XMLout($edit->to_hash, NoAttr => 1),
             status => $edit->status,
             type => $edit->edit_type,
             opentime => $now,
-            expiretime => $now + $edit->edit_voting_period,
+            expiretime => $now + $duration,
             autoedit => $edit->auto_edit,
+            quality => $edit->quality,
         };
 
         my $edit_id = $sql_raw->insert_row('edit', $row, 'id');

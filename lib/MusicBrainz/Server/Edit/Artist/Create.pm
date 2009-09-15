@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Edit::Artist::Create;
 use Moose;
 
-use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_CREATE );
+use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_CREATE :expire_action :quality );
 use MusicBrainz::Server::Data::Artist;
 use MusicBrainz::Server::Data::Utils qw( defined_hash );
 use MusicBrainz::Server::Types qw( :edit_status );
@@ -14,7 +14,21 @@ extends 'MusicBrainz::Server::Edit';
 
 sub edit_type { $EDIT_ARTIST_CREATE }
 sub edit_name { "Create Artist" }
-sub edit_auto_edit { 1 }
+
+sub edit_conditions
+{
+    my $conditions = {
+        duration      => 0,
+        votes         => 0,
+        expire_action => $EXPIRE_ACCEPT,
+        auto_edit     => 1,
+    };
+    return {
+        $QUALITY_LOW    => $conditions,
+        $QUALITY_NORMAL => $conditions,
+        $QUALITY_HIGH   => $conditions,
+    };
+}
 
 sub related_entities { return { artist => [ shift->artist_id ] } }
 sub models { [qw( Artist )] }

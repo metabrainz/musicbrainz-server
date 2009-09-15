@@ -4,10 +4,9 @@ use Moose;
 use Moose::Util::TypeConstraints qw( enum );
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
+use MusicBrainz::Server::Constants qw( :expire_action :quality );
 
 extends 'MusicBrainz::Server::Edit';
-
-sub edit_auto_edit { 1 }
 
 has '+data' => (
     isa => Dict[
@@ -17,6 +16,21 @@ has '+data' => (
         entity_id => Int,
     ],
 );
+
+sub edit_conditions
+{
+    my $conditions = {
+        duration      => 0,
+        votes         => 0,
+        expire_action => $EXPIRE_ACCEPT,
+        auto_edit     => 1,
+    };
+    return {
+        $QUALITY_LOW    => $conditions,
+        $QUALITY_NORMAL => $conditions,
+        $QUALITY_HIGH   => $conditions,
+    };
+}
 
 sub accept
 {

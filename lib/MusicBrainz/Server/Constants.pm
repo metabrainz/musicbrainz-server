@@ -19,11 +19,13 @@ sub _get
 
 our %EXPORT_TAGS = (
     edit_type => _get(qr/^EDIT_/),
+    expire_action => _get(qr/^EXPIRE_/),
+    quality => _get(qr/^QUALITY_/),
 );
 
 our @EXPORT_OK = (
     qw( $DLABEL_ID $DARTIST_ID $VARTIST_ID $VARTIST_GID ),
-    @{ _get(qr/^EDIT_/) }
+    @{ _get(qr/^(EDIT|EXPIRE|QUALITY)_/) },
 );
 
 Readonly our $DLABEL_ID => 1;
@@ -31,6 +33,15 @@ Readonly our $DARTIST_ID => 2;
 
 Readonly our $VARTIST_GID => '89ad4ac3-39f7-470e-963a-56509c546377';
 Readonly our $VARTIST_ID  => 1;
+
+Readonly our $EXPIRE_ACCEPT => 1;
+Readonly our $EXPIRE_REJECT => 2;
+
+Readonly our $QUALITY_UNKNOWN        => -1;
+Readonly our $QUALITY_UNKNOWN_MAPPED => 1;
+Readonly our $QUALITY_LOW            => 0;
+Readonly our $QUALITY_NORMAL         => 1;
+Readonly our $QUALITY_HIGH           => 2;
 
 Readonly our $EDIT_ARTIST_CREATE => 1;
 Readonly our $EDIT_ARTIST_EDIT => 2;

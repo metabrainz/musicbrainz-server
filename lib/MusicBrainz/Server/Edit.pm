@@ -6,6 +6,7 @@ use DateTime;
 use MooseX::AttributeHelpers;
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Entity::Types;
+use MusicBrainz::Server::Constants qw( :expire_action :quality );
 use MusicBrainz::Server::Types qw( :edit_status :vote $AUTO_EDITOR_FLAG );
 
 has 'c' => (
@@ -33,11 +34,24 @@ has 'language' => (
     is => 'rw'
 );
 
+has 'quality' => (
+    isa => 'Quality',
+    is => 'rw'
+);
+
 has [qw( created_time expires_time close_time )] => (
     isa => 'DateTime',
     is => 'rw',
     coerce => 1
 );
+
+sub is_expired
+{
+    my ($self) = @_;
+
+    my $now = DateTime->now( time_zone => $self->expires_time->time_zone );
+    return $self->expires_time < $now;
+}
 
 has 'status' => (
     isa => 'EditStatus',
@@ -121,18 +135,54 @@ sub editor_may_vote
                    $editor->accepted_edits > 10;
 }
 
-sub edit_auto_edit { 0 };
-
 sub edit_type { die 'Not implemented' }
 sub edit_name { '' }
-sub edit_voting_period { DateTime::Duration->new(days => 7) }
+
+# Subclasses should reimplement this, if they want different edit conditions.
+#
+# Fields:
+#  * duration - how many days before the edit expires
+#  * votes - number of votes to consider the edit as unanimously accepted/rejected
+#  * expire_action - what do do with expired edits without votes
+#  * auto_edit - whether the edit can be automatically accepted for an autoeditor
+
+sub edit_conditions
+{
+    return {
+        $QUALITY_LOW => {
+            duration      => 4,
+            votes         => 1,
+            expire_action => $EXPIRE_ACCEPT,
+            auto_edit     => 1,
+        },
+        $QUALITY_NORMAL => {
+            duration      => 14,
+            votes         => 3,
+            expire_action => $EXPIRE_ACCEPT,
+            auto_edit     => 1,
+        },
+        $QUALITY_HIGH => {
+            duration      => 14,
+            votes         => 4,
+            expire_action => $EXPIRE_REJECT,
+            auto_edit     => 0,
+        },
+    };
+}
+
+sub determine_quality
+{
+    return $QUALITY_NORMAL;
+}
 
 sub can_approve
 {
     my ($self, $privs) = @_;
+
+    my $conditions = $self->edit_conditions->{$self->quality};
     return
          $self->is_open
-      && $self->edit_auto_edit
+      && $conditions->{auto_edit}
       && ($privs & $AUTO_EDITOR_FLAG);
 }
 

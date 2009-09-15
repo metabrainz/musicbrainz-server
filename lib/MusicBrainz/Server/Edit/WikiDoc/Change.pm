@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Edit::WikiDoc::Change;
 use Moose;
 
-use MusicBrainz::Server::Constants qw( $EDIT_WIKIDOC_CHANGE );
+use MusicBrainz::Server::Constants qw( $EDIT_WIKIDOC_CHANGE :expire_action :quality );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
@@ -10,6 +10,21 @@ extends 'MusicBrainz::Server::Edit';
 
 sub edit_type { $EDIT_WIKIDOC_CHANGE }
 sub edit_name { "Change WikiDoc" }
+
+sub edit_conditions
+{
+    my $conditions = {
+        duration      => 0,
+        votes         => 0,
+        expire_action => $EXPIRE_ACCEPT,
+        auto_edit     => 1,
+    };
+    return {
+        $QUALITY_LOW    => $conditions,
+        $QUALITY_NORMAL => $conditions,
+        $QUALITY_HIGH   => $conditions,
+    };
+}
 
 has '+data' => (
     isa => Dict[
@@ -23,7 +38,6 @@ sub initialize
 {
     my ($self, %opts) = @_;
 
-    $self->auto_edit(1);
     $self->data({
         page => $opts{page},
         old_version => $opts{old_version},
